@@ -81,7 +81,7 @@
 
 - (void)dealloc
 {
-  v3 = _BookEPUBLog();
+  v3 = _BookEPUBLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
@@ -135,7 +135,7 @@
 
 - (void)be_clearRegisteredFonts
 {
-  v3 = _BookEPUBLog();
+  v3 = _BookEPUBLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     be_identifier = [(BEWKWebView *)self be_identifier];
@@ -201,30 +201,31 @@
   completionCopy = completion;
   if (managerCopy)
   {
-    if ([(BEWKWebView *)self attemptingFontRegistration])
+    attemptingFontRegistration = [(BEWKWebView *)self attemptingFontRegistration];
+    if (attemptingFontRegistration)
     {
-      v8 = _BookEPUBLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _BookEPUBLog(attemptingFontRegistration);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         font = [managerCopy font];
         *buf = 138543362;
-        v17 = font;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Deferring #fontReg of #fontFamily '%{public}@'", buf, 0xCu);
+        v18 = font;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Deferring #fontReg of #fontFamily '%{public}@'", buf, 0xCu);
       }
 
-      v10 = objc_opt_new();
-      [v10 setStyleManager:managerCopy];
-      [v10 setFontRegistrationHandler:completionCopy];
+      v11 = objc_opt_new();
+      [v11 setStyleManager:managerCopy];
+      [v11 setFontRegistrationHandler:completionCopy];
       pendingFontRegistrationHandlers = [(BEWKWebView *)self pendingFontRegistrationHandlers];
-      [pendingFontRegistrationHandlers addObject:v10];
+      [pendingFontRegistrationHandlers addObject:v11];
     }
 
     else
     {
       font2 = [managerCopy font];
-      v13 = [(BEWKWebView *)self be_isFontRegistered:font2];
+      v14 = [(BEWKWebView *)self be_isFontRegistered:font2];
 
-      if (v13)
+      if (v14)
       {
         [(BEWKWebView *)self be_willAttemptFontRegistration];
         [(BEWKWebView *)self be_fontRegistrationCompleted:1];
@@ -235,13 +236,13 @@
       {
         [(BEWKWebView *)self setAttemptingFontRegistration:1];
         [(BEWKWebView *)self be_willAttemptFontRegistration];
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_9B34;
-        v14[3] = &unk_328380;
-        v14[4] = self;
-        v15 = completionCopy;
-        [(BEWKWebView *)self _registerFontFamily:managerCopy completion:v14];
+        v15[0] = _NSConcreteStackBlock;
+        v15[1] = 3221225472;
+        v15[2] = sub_9B34;
+        v15[3] = &unk_328380;
+        v15[4] = self;
+        v16 = completionCopy;
+        [(BEWKWebView *)self _registerFontFamily:managerCopy completion:v15];
       }
     }
   }
@@ -297,32 +298,33 @@ LABEL_6:
 
   if ([font length] == 0) | v10 & 1 || (v12)
   {
-    if (![font length])
+    v14 = [font length];
+    if (!v14)
     {
 LABEL_20:
       completionCopy[2](completionCopy, 1);
       goto LABEL_21;
     }
 
-    v14 = _BookEPUBLog();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
+    v15 = _BookEPUBLog(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
     if (v10)
     {
-      if (v15)
+      if (v16)
       {
         LODWORD(buf) = 138543362;
         *(&buf + 4) = font;
-        v16 = "#FontFamily '%{public}@' already #fontReg";
+        v17 = "#FontFamily '%{public}@' already #fontReg";
 LABEL_18:
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, v16, &buf, 0xCu);
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, v17, &buf, 0xCu);
       }
     }
 
-    else if (v15)
+    else if (v16)
     {
       LODWORD(buf) = 138543362;
       *(&buf + 4) = font;
-      v16 = "#FontFamily '%{public}@' already attempting #fontReg";
+      v17 = "#FontFamily '%{public}@' already attempting #fontReg";
       goto LABEL_18;
     }
 
@@ -338,94 +340,98 @@ LABEL_18:
     completionCopy[2](completionCopy, 1);
   }
 
-  else if ([familyCopy isFontAvailable:font])
+  else
   {
-    _processPluginProxy = [(BEWKWebView *)self _processPluginProxy];
-    if (_processPluginProxy)
+    v18 = [familyCopy isFontAvailable:font];
+    if (v18)
     {
-      fontsAttemptingRegistration2 = [(BEWKWebView *)self fontsAttemptingRegistration];
-      [fontsAttemptingRegistration2 addObject:font];
-
-      v19 = _BookEPUBLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      _processPluginProxy = [(BEWKWebView *)self _processPluginProxy];
+      if (_processPluginProxy)
       {
-        LODWORD(buf) = 138543362;
-        *(&buf + 4) = font;
-        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Attempting #fontReg of #fontFamily '%{public}@'", &buf, 0xCu);
+        fontsAttemptingRegistration2 = [(BEWKWebView *)self fontsAttemptingRegistration];
+        [fontsAttemptingRegistration2 addObject:font];
+
+        v22 = _BookEPUBLog(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        {
+          LODWORD(buf) = 138543362;
+          *(&buf + 4) = font;
+          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Attempting #fontReg of #fontFamily '%{public}@'", &buf, 0xCu);
+        }
+
+        *&buf = 0;
+        *(&buf + 1) = &buf;
+        v43 = 0x2020000000;
+        v44 = 0;
+        inited = objc_initWeak(&location, self);
+        v24 = _BookEPUBLog(inited);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        {
+          *v40 = 138412290;
+          v41 = font;
+          _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Posting font activate notification for font %@", v40, 0xCu);
+        }
+
+        v25 = +[NSNotificationCenter defaultCenter];
+        v38 = @"FontActivateNotificationFontFamilyKey";
+        v39 = font;
+        v26 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        [v25 postNotificationName:@"FontActivateNotification" object:0 userInfo:v26];
+
+        v32[0] = _NSConcreteStackBlock;
+        v32[1] = 3221225472;
+        v32[2] = sub_A220;
+        v32[3] = &unk_3283A8;
+        objc_copyWeak(&v36, &location);
+        v33 = font;
+        p_buf = &buf;
+        v34 = completionCopy;
+        [_processPluginProxy registerFontFamily:v33 completion:v32];
+
+        objc_destroyWeak(&v36);
+        objc_destroyWeak(&location);
+        _Block_object_dispose(&buf, 8);
       }
 
-      *&buf = 0;
-      *(&buf + 1) = &buf;
-      v38 = 0x2020000000;
-      v39 = 0;
-      objc_initWeak(&location, self);
-      v20 = _BookEPUBLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      else
       {
-        *v35 = 138412290;
-        v36 = font;
-        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Posting font activate notification for font %@", v35, 0xCu);
+        v28 = _BookEPUBLog(0);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        {
+          LODWORD(buf) = 138543362;
+          *(&buf + 4) = font;
+          _os_log_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "Failed to get process plugin/proxy! Unable to #fontReg fontFamily:%{public}@", &buf, 0xCu);
+        }
+
+        fontsAttemptingRegistration3 = [(BEWKWebView *)self fontsAttemptingRegistration];
+        [fontsAttemptingRegistration3 addObject:font];
+
+        v31 = _BookEPUBLog(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+        {
+          LODWORD(buf) = 138543362;
+          *(&buf + 4) = font;
+          _os_log_impl(&dword_0, v31, OS_LOG_TYPE_FAULT, "Unable to access process plugin failure #fontReg #fontFamily '%{public}@'", &buf, 0xCu);
+        }
+
+        [(BEWKWebView *)self be_fontFamilyFailedToRegister:font];
+        completionCopy[2](completionCopy, 0);
       }
-
-      v21 = +[NSNotificationCenter defaultCenter];
-      v33 = @"FontActivateNotificationFontFamilyKey";
-      v34 = font;
-      v22 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      [v21 postNotificationName:@"FontActivateNotification" object:0 userInfo:v22];
-
-      v27[0] = _NSConcreteStackBlock;
-      v27[1] = 3221225472;
-      v27[2] = sub_A220;
-      v27[3] = &unk_3283A8;
-      objc_copyWeak(&v31, &location);
-      v28 = font;
-      p_buf = &buf;
-      v29 = completionCopy;
-      [_processPluginProxy registerFontFamily:v28 completion:v27];
-
-      objc_destroyWeak(&v31);
-      objc_destroyWeak(&location);
-      _Block_object_dispose(&buf, 8);
     }
 
     else
     {
-      v24 = _BookEPUBLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = _BookEPUBLog(v18);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138543362;
         *(&buf + 4) = font;
-        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "Failed to get process plugin/proxy! Unable to #fontReg fontFamily:%{public}@", &buf, 0xCu);
-      }
-
-      fontsAttemptingRegistration3 = [(BEWKWebView *)self fontsAttemptingRegistration];
-      [fontsAttemptingRegistration3 addObject:font];
-
-      v26 = _BookEPUBLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
-      {
-        LODWORD(buf) = 138543362;
-        *(&buf + 4) = font;
-        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_FAULT, "Unable to access process plugin failure #fontReg #fontFamily '%{public}@'", &buf, 0xCu);
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Skipping #fontReg of #fontFamily '%{public}@' because it is not yet available", &buf, 0xCu);
       }
 
       [(BEWKWebView *)self be_fontFamilyFailedToRegister:font];
       completionCopy[2](completionCopy, 0);
     }
-  }
-
-  else
-  {
-    v23 = _BookEPUBLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-    {
-      LODWORD(buf) = 138543362;
-      *(&buf + 4) = font;
-      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Skipping #fontReg of #fontFamily '%{public}@' because it is not yet available", &buf, 0xCu);
-    }
-
-    [(BEWKWebView *)self be_fontFamilyFailedToRegister:font];
-    completionCopy[2](completionCopy, 0);
   }
 
 LABEL_21:
@@ -476,13 +482,13 @@ LABEL_21:
     v6 = [_remoteObjectRegistry remoteObjectProxyWithInterface:v5];
     [(BEWKWebView *)self setWebProcessPluginProxy:v6];
 
-    if (!v5 || ([(BEWKWebView *)self webProcessPluginProxy], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
+    if (!v5 || ([(BEWKWebView *)self webProcessPluginProxy], v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
     {
-      v8 = _BookEPUBLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _BookEPUBLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Failed to get process plugin/proxy!", v11, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Failed to get process plugin/proxy!", v12, 2u);
       }
     }
   }
@@ -544,26 +550,26 @@ LABEL_21:
 {
   builderCopy = builder;
   y = CGPointZero.y;
-  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
   be_textInputChild = [(BEWKWebView *)self be_textInputChild];
   interactions = [be_textInputChild interactions];
   reverseObjectEnumerator = [interactions reverseObjectEnumerator];
 
-  v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v36;
     v12 = y;
     x = CGPointZero.x;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
@@ -598,7 +604,7 @@ LABEL_21:
         }
       }
 
-      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v10);
@@ -617,20 +623,20 @@ LABEL_21:
   v25 = v24;
   v27 = v26;
 
-  v28 = _BookEPUBLog();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+  v29 = _BookEPUBLog(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
-    *v33 = x;
-    *&v33[1] = v12;
-    v29 = [NSValue valueWithBytes:v33 objCType:"{CGPoint=dd}"];
-    *v32 = v25;
-    *&v32[1] = v27;
-    v30 = [NSValue valueWithBytes:v32 objCType:"{CGPoint=dd}"];
+    *v34 = x;
+    *&v34[1] = v12;
+    v30 = [NSValue valueWithBytes:v34 objCType:"{CGPoint=dd}"];
+    *v33 = v25;
+    *&v33[1] = v27;
+    v31 = [NSValue valueWithBytes:v33 objCType:"{CGPoint=dd}"];
     *buf = 138412546;
-    v39 = v29;
-    v40 = 2112;
-    v41 = v30;
-    _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "Building context menu at location - viewPoint:%@ contentPoint:%@", buf, 0x16u);
+    v40 = v30;
+    v41 = 2112;
+    v42 = v31;
+    _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "Building context menu at location - viewPoint:%@ contentPoint:%@", buf, 0x16u);
   }
 
   be_uiHandler = [(BEWKWebView *)self be_uiHandler];

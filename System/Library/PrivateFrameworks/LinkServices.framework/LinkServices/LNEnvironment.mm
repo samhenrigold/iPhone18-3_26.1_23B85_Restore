@@ -131,14 +131,14 @@
 
 - (BOOL)locationAuthorizationStatusForBundleIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (![LNEntitlementsValidator validateEntitlement:@"com.apple.locationd.effective_bundle" forCurrentTaskWithValidator:&__block_literal_global_27]|| ![LNEntitlementsValidator validateEntitlement:@"com.apple.security.exception.mach-lookup.global-name" forCurrentTaskWithValidator:&__block_literal_global_32])
   {
     v6 = getLNLogCategorySecurity();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v11) = 0;
       v8 = v6;
       v9 = OS_LOG_TYPE_ERROR;
       goto LABEL_8;
@@ -155,12 +155,12 @@ LABEL_9:
     v6 = getLNLogCategorySecurity();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v11) = 0;
       v7 = "Removing location value because of TCC";
       v8 = v6;
       v9 = OS_LOG_TYPE_DEBUG;
 LABEL_8:
-      _os_log_impl(&dword_19763D000, v8, v9, v7, &v12, 2u);
+      _os_log_impl(&dword_19763D000, v8, v9, v7, &v11, 2u);
       goto LABEL_9;
     }
 
@@ -175,16 +175,15 @@ LABEL_8:
   v6 = getLNLogCategorySecurity();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138543362;
-    v13 = identifierCopy;
-    _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ is authorized to access location", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = identifierCopy;
+    _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ is authorized to access location", &v11, 0xCu);
   }
 
   v3 = 1;
 LABEL_10:
 
 LABEL_11:
-  v10 = *MEMORY[0x1E69E9840];
   return v3 & 1;
 }
 
@@ -218,7 +217,7 @@ uint64_t __64__LNEnvironment_locationAuthorizationStatusForBundleIdentifier___bl
 
 - (id)trimLocation:(id)location atKeyPath:(id)path againstTCCWithBundleIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   pathCopy = path;
   identifierCopy = identifier;
@@ -247,7 +246,7 @@ LABEL_3:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v22 = pathCopy;
+    v21 = pathCopy;
   }
 
   if (identifierCopy)
@@ -288,7 +287,6 @@ LABEL_3:
   }
 
 LABEL_18:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

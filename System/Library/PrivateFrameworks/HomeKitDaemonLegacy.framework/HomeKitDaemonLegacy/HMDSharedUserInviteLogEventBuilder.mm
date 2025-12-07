@@ -138,7 +138,7 @@
 - (void)requestRadarIfNeeded
 {
   selfCopy = self;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (self)
   {
     self = objc_getProperty(self, a2, 40, 1);
@@ -153,7 +153,7 @@
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v27;
+      v29 = v27;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Not requesting radar for a retry", buf, 0xCu);
     }
 
@@ -212,9 +212,9 @@
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v22;
-        v31 = 2112;
-        v32 = v13;
+        v29 = v22;
+        v30 = 2112;
+        v31 = v13;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Requesting radar with title: %@", buf, 0x16u);
       }
 
@@ -223,8 +223,6 @@
       [v23 requestRadarWithDisplayReason:@"shared user invitation failed" radarTitle:v13 componentName:@"HomeKit" componentVersion:@"Users+Invitations" componentID:938670];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitIfReady
@@ -251,16 +249,16 @@
 
 - (void)cancel
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@cancel", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@cancel", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -271,12 +269,11 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markTransientError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -284,11 +281,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@markTransientError %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@markTransientError %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -300,13 +297,11 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -314,11 +309,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2112;
-    v19 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@markError %@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2112;
+    v18 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@markError %@", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -337,11 +332,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2112;
-      v19 = errorCopy;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Shared user invite error occurred. Logging error metric %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = errorCopy;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Shared user invite error occurred. Logging error metric %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -349,8 +344,6 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAddUserEnd
@@ -409,7 +402,7 @@
 
 - (HMDSharedUserInviteLogEventBuilder)initWithLogEvent:(id)event homeManager:(id)manager sessionIdentifier:(id)identifier invitationType:(unint64_t)type invitationAge:(double)age invitationSource:(unint64_t)source logEventSubmitter:(id)submitter wifiManager:(id)self0 currentUpTicksBlock:(id)self1 submissionTimerFactory:(id)self2
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   managerCopy = manager;
   identifierCopy = identifier;
@@ -418,9 +411,9 @@
   v23 = managerCopy;
   blockCopy = block;
   factoryCopy = factory;
-  v41.receiver = self;
-  v41.super_class = HMDSharedUserInviteLogEventBuilder;
-  v26 = [(HMDSharedUserInviteLogEventBuilder *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = HMDSharedUserInviteLogEventBuilder;
+  v26 = [(HMDSharedUserInviteLogEventBuilder *)&v40 init];
   v27 = v26;
   if (v26)
   {
@@ -458,16 +451,15 @@
     HMFGetLogIdentifier();
     v36 = v35 = v23;
     *buf = 138543618;
-    v43 = v36;
-    v44 = 2112;
-    v45 = identifierCopy;
+    v42 = v36;
+    v43 = 2112;
+    v44 = identifierCopy;
     _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Creating with sessionIdentifier %@", buf, 0x16u);
 
     v23 = v35;
   }
 
   objc_autoreleasePoolPop(v32);
-  v37 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -485,12 +477,11 @@
 
 uint64_t __49__HMDSharedUserInviteLogEventBuilder_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v12_164042;
-  logCategory__hmf_once_v12_164042 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12_164042;
+  logCategory__hmf_once_v12_164042 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (unint64_t)_invitationAgeFromSeconds:(double)seconds

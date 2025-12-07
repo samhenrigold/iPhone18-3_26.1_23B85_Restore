@@ -139,61 +139,59 @@
 
 - (id)encryptData:(id)data withError:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__19;
-  v28 = __Block_byref_object_dispose__19;
-  v29 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__19;
-  v22 = __Block_byref_object_dispose__19;
   v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__19;
+  v27 = __Block_byref_object_dispose__19;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__19;
+  v21 = __Block_byref_object_dispose__19;
+  v22 = 0;
   queue = self->_queue;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __51__MRCoreUtilsPairingSession_encryptData_withError___block_invoke;
-  v14[3] = &unk_1E769EE60;
-  v14[4] = self;
-  v16 = &v24;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __51__MRCoreUtilsPairingSession_encryptData_withError___block_invoke;
+  v13[3] = &unk_1E769EE60;
+  v13[4] = self;
+  v15 = &v23;
   v8 = dataCopy;
-  v15 = v8;
-  v17 = &v18;
-  dispatch_sync(queue, v14);
-  if (v19[5])
+  v14 = v8;
+  v16 = &v17;
+  dispatch_sync(queue, v13);
+  if (v18[5])
   {
     v9 = _MRLogForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v19[5];
+      v10 = v18[5];
       *buf = 138543362;
-      v31 = v10;
+      v30 = v10;
       _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Error while encrypting data: %{public}@", buf, 0xCu);
     }
 
     if (error)
     {
-      *error = v19[5];
+      *error = v18[5];
     }
   }
 
-  v11 = v25[5];
+  v11 = v24[5];
 
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v24, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v23, 8);
 
   return v11;
 }
 
 void __51__MRCoreUtilsPairingSession_encryptData_withError___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 136) == 5)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:{objc_msgSend(*(a1 + 40), "length")}];
@@ -202,8 +200,8 @@ void __51__MRCoreUtilsPairingSession_encryptData_withError___block_invoke(uint64
     *(v3 + 40) = v2;
 
     v5 = MSVWeakLinkSymbol();
-    v5([*(*(a1 + 32) + 160) bytes], objc_msgSend(*(*(a1 + 32) + 168), "bytes"), 0, 0, objc_msgSend(*(a1 + 40), "bytes"), objc_msgSend(*(a1 + 40), "length"), objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "mutableBytes"), v16);
-    [*(*(*(a1 + 48) + 8) + 40) appendBytes:v16 length:16];
+    v5([*(*(a1 + 32) + 160) bytes], objc_msgSend(*(*(a1 + 32) + 168), "bytes"), 0, 0, objc_msgSend(*(a1 + 40), "bytes"), objc_msgSend(*(a1 + 40), "length"), objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "mutableBytes"), v14);
+    [*(*(*(a1 + 48) + 8) + 40) appendBytes:v14 length:16];
     v6 = [*(*(a1 + 32) + 168) mutableBytes];
     v7 = [*(*(a1 + 32) + 168) length];
     if (v7)
@@ -226,70 +224,65 @@ void __51__MRCoreUtilsPairingSession_encryptData_withError___block_invoke(uint64
 
       while (!v10);
     }
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v12 = MRCreateCryptoError(@"Session not open");
-    v13 = *(*(a1 + 56) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
-    v15 = *MEMORY[0x1E69E9840];
+    v11 = MRCreateCryptoError(@"Session not open");
+    v12 = *(*(a1 + 56) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
   }
 }
 
 - (id)decryptData:(id)data withError:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__19;
-  v29 = __Block_byref_object_dispose__19;
-  v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__19;
-  v23 = __Block_byref_object_dispose__19;
   v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__19;
+  v28 = __Block_byref_object_dispose__19;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__19;
+  v22 = __Block_byref_object_dispose__19;
+  v23 = 0;
   queue = self->_queue;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __51__MRCoreUtilsPairingSession_decryptData_withError___block_invoke;
-  v14[3] = &unk_1E769EE60;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __51__MRCoreUtilsPairingSession_decryptData_withError___block_invoke;
+  v13[3] = &unk_1E769EE60;
   v8 = dataCopy;
-  v15 = v8;
+  v14 = v8;
   selfCopy = self;
-  v17 = &v19;
-  v18 = &v25;
-  dispatch_sync(queue, v14);
-  if (v20[5])
+  v16 = &v18;
+  v17 = &v24;
+  dispatch_sync(queue, v13);
+  if (v19[5])
   {
     v9 = _MRLogForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v20[5];
+      v10 = v19[5];
       *buf = 138543362;
-      v32 = v10;
+      v31 = v10;
       _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Error while decrypting data: %{public}@", buf, 0xCu);
     }
 
     if (error)
     {
-      *error = v20[5];
+      *error = v19[5];
     }
   }
 
-  v11 = v26[5];
+  v11 = v25[5];
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v25, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 
   return v11;
 }
@@ -393,7 +386,7 @@ LABEL_16:
 
 void __53__MRCoreUtilsPairingSession_deleteIdentityWithError___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (!*(v2 + 40))
   {
@@ -406,21 +399,23 @@ void __53__MRCoreUtilsPairingSession_deleteIdentityWithError___block_invoke(uint
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(*(*(a1 + 40) + 8) + 40);
-      v13 = 138543362;
-      v14 = v4;
+      v12 = 138543362;
+      v13 = v4;
       v5 = "[CryptoPairingSession(CoreUtils)] Error initializing pairing session during identity deletion. %{public}@";
 LABEL_9:
-      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, v5, &v13, 0xCu);
-      goto LABEL_10;
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, v5, &v12, 0xCu);
     }
-
-    goto LABEL_10;
   }
 
-  v6 = MSVWeakLinkSymbol();
-  v7 = v6(*(*(a1 + 32) + 40));
-  if (v7)
+  else
   {
+    v6 = MSVWeakLinkSymbol();
+    v7 = v6(*(*(a1 + 32) + 40));
+    if (!v7)
+    {
+      return;
+    }
+
     v8 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v7 userInfo:0];
     v9 = *(*(a1 + 40) + 8);
     v10 = *(v9 + 40);
@@ -430,45 +425,41 @@ LABEL_9:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(*(*(a1 + 40) + 8) + 40);
-      v13 = 138543362;
-      v14 = v11;
+      v12 = 138543362;
+      v13 = v11;
       v5 = "[CryptoPairingSession(CoreUtils)] Error deleting identity. %{public}@";
       goto LABEL_9;
     }
-
-LABEL_10:
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openInState:(unint64_t)state
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   self->_hasExchangedMessage = 0;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__19;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__19;
   queue = self->_queue;
-  v14 = __Block_byref_object_dispose__19;
-  v15 = 0;
+  v13 = __Block_byref_object_dispose__19;
+  v14 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __41__MRCoreUtilsPairingSession_openInState___block_invoke;
   block[3] = &unk_1E769EE88;
   block[4] = self;
-  block[5] = &v10;
+  block[5] = &v9;
   block[6] = state;
   dispatch_sync(queue, block);
-  if (v11[5])
+  if (v10[5])
   {
     v6 = _MRLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v11[5];
+      v7 = v10[5];
       *buf = 138543362;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Error initializing pairing session. %{public}@", buf, 0xCu);
     }
 
@@ -484,27 +475,23 @@ LABEL_10:
     }
   }
 
-  _Block_object_dispose(&v10, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v9, 8);
 }
 
 void __41__MRCoreUtilsPairingSession_openInState___block_invoke_15(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = _MRLogForCategory(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Failed to begin pairing exchange. %{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Failed to begin pairing exchange. %{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldAutoRetryPairingExchange:(id)exchange
@@ -524,13 +511,13 @@ void __41__MRCoreUtilsPairingSession_openInState___block_invoke_15(uint64_t a1, 
 
 - (id)addPeer
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     device = [(MRCryptoPairingSession *)self device];
     *buf = 138412290;
-    v23 = device;
+    v22 = device;
     _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Pairing device %@...", buf, 0xCu);
   }
 
@@ -548,10 +535,10 @@ void __41__MRCoreUtilsPairingSession_openInState___block_invoke_15(uint64_t a1, 
     goto LABEL_9;
   }
 
-  v21 = 0;
   v20 = 0;
+  v19 = 0;
   v6 = MSVWeakLinkSymbol();
-  v7 = v6(self->_pairingSession, &v21, &v20);
+  v7 = v6(self->_pairingSession, &v20, &v19);
   if (!v7)
   {
     v8 = @"Cannot add peer, No peer Identifier available";
@@ -560,27 +547,27 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v12 = v7;
+  v11 = v7;
   extendedPeerInfo = [(MRCoreUtilsPairingSession *)self extendedPeerInfo];
-  v14 = MSVWeakLinkSymbol();
-  v15 = v14(self->_pairingSession, v12, v21, extendedPeerInfo);
-  v20 = v15;
-  if (!v15)
+  v13 = MSVWeakLinkSymbol();
+  v14 = v13(self->_pairingSession, v11, v20, extendedPeerInfo);
+  v19 = v14;
+  if (!v14)
   {
     goto LABEL_20;
   }
 
-  if (v15 != -25299)
+  if (v14 != -25299)
   {
     goto LABEL_19;
   }
 
-  v16 = _MRLogForCategory(0);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v15 = _MRLogForCategory(0);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = v12;
-    _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Duplicate record found for identifier %s dumping pairing", buf, 0xCu);
+    v22 = v11;
+    _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "Duplicate record found for identifier %s dumping pairing", buf, 0xCu);
   }
 
   removePeer = [(MRCoreUtilsPairingSession *)self removePeer];
@@ -589,13 +576,13 @@ LABEL_9:
     goto LABEL_21;
   }
 
-  v18 = MSVWeakLinkSymbol();
-  v20 = v18(self->_pairingSession, v12, v21, extendedPeerInfo);
-  if (v20)
+  v17 = MSVWeakLinkSymbol();
+  v19 = v17(self->_pairingSession, v11, v20, extendedPeerInfo);
+  if (v19)
   {
 LABEL_19:
-    v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-    removePeer = [v19 initWithDomain:*MEMORY[0x1E696A768] code:v20 userInfo:0];
+    v18 = objc_alloc(MEMORY[0x1E696ABC0]);
+    removePeer = [v18 initWithDomain:*MEMORY[0x1E696A768] code:v19 userInfo:0];
   }
 
   else
@@ -605,25 +592,24 @@ LABEL_20:
   }
 
 LABEL_21:
-  free(v12);
+  free(v11);
   v9 = removePeer;
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)removePeer
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     device = [(MRCryptoPairingSession *)self device];
-    v16 = 138412290;
-    v17 = device;
-    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Unpairing device %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = device;
+    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Unpairing device %@", &v15, 0xCu);
   }
 
   device2 = [(MRCryptoPairingSession *)self device];
@@ -667,21 +653,20 @@ LABEL_10:
 LABEL_14:
 
 LABEL_15:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)updatePeer
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     device = [(MRCryptoPairingSession *)self device];
-    v17 = 138412290;
-    v18 = device;
-    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Updating Peer %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = device;
+    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Updating Peer %@", &v16, 0xCu);
   }
 
   device2 = [(MRCryptoPairingSession *)self device];
@@ -704,21 +689,21 @@ LABEL_10:
   if (peerIdentifier)
   {
     extendedPeerInfo = [(MRCoreUtilsPairingSession *)self extendedPeerInfo];
-    v12 = MSVWeakLinkSymbol();
-    v13 = v12(self->_pairingSession, [peerIdentifier UTF8String], objc_msgSend(peerIdentifier, "length"), extendedPeerInfo);
-    if (v13)
+    v11 = MSVWeakLinkSymbol();
+    v12 = v11(self->_pairingSession, [peerIdentifier UTF8String], objc_msgSend(peerIdentifier, "length"), extendedPeerInfo);
+    if (v12)
     {
-      v14 = v13;
-      v15 = _MRLogForCategory(0);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v13 = v12;
+      v14 = _MRLogForCategory(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 67109120;
-        LODWORD(v18) = v14;
-        _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Error updating peer (OSStatus = %d)", &v17, 8u);
+        v16 = 67109120;
+        LODWORD(v17) = v13;
+        _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Error updating peer (OSStatus = %d)", &v16, 8u);
       }
 
-      v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v7 = [v16 initWithDomain:*MEMORY[0x1E696A768] code:v14 userInfo:0];
+      v15 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v7 = [v15 initWithDomain:*MEMORY[0x1E696A768] code:v13 userInfo:0];
     }
 
     else
@@ -733,7 +718,6 @@ LABEL_10:
   }
 
 LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -794,7 +778,7 @@ void __43__MRCoreUtilsPairingSession_peerIdentifier__block_invoke(uint64_t a1, v
   v11 = [v10 identifier];
   v12 = [v9 identifier];
 
-  LODWORD(v9) = [v11 isEqualToString:v12];
+  LODWORD(v9) = objc_msgSend_isEqualToString_(v11);
   if (v9)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -814,33 +798,33 @@ void __43__MRCoreUtilsPairingSession_peerIdentifier__block_invoke(uint64_t a1, v
 
 - (MRDeviceInfo)pairedPeerDevice
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (self->_pairingSession)
   {
     selfCopy = self;
-    v25 = 0;
+    v24 = 0;
     v3 = MSVWeakLinkSymbol();
-    v4 = v3(selfCopy->_pairingSession, &v25);
+    v4 = v3(selfCopy->_pairingSession, &v24);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     obj = v4;
-    v5 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v5 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v5)
     {
       v6 = v5;
-      v20 = *v22;
+      v19 = *v21;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v22 != v20)
+          if (*v21 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v21 + 1) + 8 * i);
+          v8 = *(*(&v20 + 1) + 8 * i);
           v9 = [MEMORY[0x1E696AEC0] stringWithCString:"info" encoding:4];
           v10 = [v8 objectForKey:v9];
 
@@ -848,9 +832,9 @@ void __43__MRCoreUtilsPairingSession_peerIdentifier__block_invoke(uint64_t a1, v
           v12 = selfCopy;
           device = [(MRCryptoPairingSession *)selfCopy device];
           identifier = [device identifier];
-          v15 = [identifier isEqualToString:v11];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-          if (v15)
+          if (isEqualToString)
           {
             v16 = [(MRCoreUtilsPairingSession *)v12 _createPeerDeviceFromPeer:v8];
 
@@ -860,7 +844,7 @@ void __43__MRCoreUtilsPairingSession_peerIdentifier__block_invoke(uint64_t a1, v
           selfCopy = v12;
         }
 
-        v6 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v6 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
         if (v6)
         {
           continue;
@@ -878,8 +862,6 @@ LABEL_12:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -901,87 +883,85 @@ LABEL_12:
 
 - (NSArray)pairedPeerDevices
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (self->_pairingSession)
   {
-    v18 = 0;
+    v17 = 0;
     v4 = MSVWeakLinkSymbol();
-    v5 = v4(self->_pairingSession, &v18);
+    v5 = v4(self->_pairingSession, &v17);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
           v11 = [(MRCoreUtilsPairingSession *)self _createPeerDeviceFromPeer:?];
-          [v3 addObject:{v11, v14}];
+          [v3 addObject:{v11, v13}];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v8);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (NSMutableDictionary)mediaRemotePairedDevices
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v27 = *MEMORY[0x1E69E9840];
+  v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (self->_pairingSession)
   {
-    v24 = 0;
+    v23 = 0;
     v3 = MSVWeakLinkSymbol();
-    v4 = v3(self->_pairingSession, &v24);
+    v4 = v3(self->_pairingSession, &v23);
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     obj = v4;
-    v5 = [obj countByEnumeratingWithState:&v20 objects:v27 count:16];
+    v5 = [obj countByEnumeratingWithState:&v19 objects:v26 count:16];
     if (!v5)
     {
       goto LABEL_19;
     }
 
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     while (1)
     {
       v8 = 0;
       do
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * v8);
+        v9 = *(*(&v19 + 1) + 8 * v8);
         v10 = [(MRCoreUtilsPairingSession *)self _createDeviceFromPeer:v9];
         if (v10)
         {
           v11 = v10;
           v12 = [v9 objectForKey:@"identifier"];
-          [v19 setObject:v11 forKey:v12];
+          [v18 setObject:v11 forKey:v12];
 LABEL_14:
 
           goto LABEL_15;
@@ -996,14 +976,14 @@ LABEL_14:
 
         v11 = [v9 objectForKey:@"identifier"];
         v14 = MSVWeakLinkSymbol();
-        v24 = v14(self->_pairingSession, [v11 UTF8String], objc_msgSend(v11, "length"));
-        if (v24)
+        v23 = v14(self->_pairingSession, [v11 UTF8String], objc_msgSend(v11, "length"));
+        if (v23)
         {
           v12 = _MRLogForCategory(0);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v26 = v24;
+            v25 = v23;
             _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Could not delete empty entry with status %lu", buf, 0xCu);
           }
 
@@ -1016,7 +996,7 @@ LABEL_15:
       }
 
       while (v6 != v8);
-      v15 = [obj countByEnumeratingWithState:&v20 objects:v27 count:16];
+      v15 = [obj countByEnumeratingWithState:&v19 objects:v26 count:16];
       v6 = v15;
       if (!v15)
       {
@@ -1027,9 +1007,7 @@ LABEL_19:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
 - (MRDeviceInfo)_createDeviceFromPeer:(uint64_t)peer
@@ -1071,7 +1049,7 @@ LABEL_19:
 
 - (uint64_t)_promptForSetupCodeWithDelay:(uint64_t)result
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -1079,7 +1057,7 @@ LABEL_19:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v15 = a2;
+      v14 = a2;
       _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Requesting delegate to prompt for setup code with delay = %f", buf, 0xCu);
     }
 
@@ -1090,157 +1068,152 @@ LABEL_19:
     {
       v7 = objc_initWeak(buf, v3);
       delegate2 = [v3 delegate];
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __58__MRCoreUtilsPairingSession__promptForSetupCodeWithDelay___block_invoke;
-      v11[3] = &unk_1E769EED8;
-      v13 = a2;
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __58__MRCoreUtilsPairingSession__promptForSetupCodeWithDelay___block_invoke;
+      v10[3] = &unk_1E769EED8;
+      v12 = a2;
       v9 = v3;
-      v12 = v9;
-      [delegate2 pairingSession:v9 promptForSetupCodeWithDelay:v11 completion:a2];
+      v11 = v9;
+      [delegate2 pairingSession:v9 promptForSetupCodeWithDelay:v10 completion:a2];
 
       objc_destroyWeak(buf);
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = 4294960582;
+      return 4294960582;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __55__MRCoreUtilsPairingSession__delegateDidEnterPasscode___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = _MRLogForCategory(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Failed to resume pairing process after setting setup code. %{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Failed to resume pairing process after setting setup code. %{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __57__MRCoreUtilsPairingSession__handleSetupExchangeComplete__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 136);
   if (v2 != 3)
   {
     if (v2 != 2)
     {
-      goto LABEL_3;
+      return;
     }
 
-    v4 = _MRLogForCategory(0);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = _MRLogForCategory(0);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Exchange complete. Proceeding to verify step.", buf, 2u);
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Exchange complete. Proceeding to verify step.", buf, 2u);
     }
 
-    v5 = [*(a1 + 32) addPeer];
-    if (v5)
+    v4 = [*(a1 + 32) addPeer];
+    if (v4)
     {
-      v6 = _MRLogForCategory(0);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = _MRLogForCategory(0);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Failed to record successfully paired peer", buf, 2u);
+        _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Failed to record successfully paired peer", buf, 2u);
       }
     }
 
     *(*(a1 + 32) + 136) = 3;
-    v7 = [(MRCoreUtilsPairingSession *)*(a1 + 32) _onQueueInitializePairingSessionWithState:?];
+    v6 = [(MRCoreUtilsPairingSession *)*(a1 + 32) _onQueueInitializePairingSessionWithState:?];
 
-    if (v7)
+    if (v6)
     {
-      v8 = _MRLogForCategory(0);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v7 = _MRLogForCategory(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v18 = v7;
-        _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Error initializing verify session. %{public}@", buf, 0xCu);
+        v17 = v6;
+        _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Error initializing verify session. %{public}@", buf, 0xCu);
       }
 
-LABEL_13:
+LABEL_12:
 
       *(*(a1 + 32) + 136) = 0;
-      v9 = *(a1 + 32);
-      if (v9)
+      v8 = *(a1 + 32);
+      if (v8)
       {
-        [(MRCoreUtilsPairingSession *)v9 _handlePairingCompleteWithError:v7];
+        [(MRCoreUtilsPairingSession *)v8 _handlePairingCompleteWithError:v6];
       }
 
-      goto LABEL_20;
+      goto LABEL_19;
     }
 
     if (![*(a1 + 32) role])
     {
-      v12 = *(a1 + 32);
-      v16 = 0;
-      v8 = [(MRCoreUtilsPairingSession *)v12 _onQueuePerformPairingExchangeWithInputData:&v16 error:?];
-      v13 = v16;
-      if (v13)
+      v11 = *(a1 + 32);
+      v15 = 0;
+      v7 = [(MRCoreUtilsPairingSession *)v11 _onQueuePerformPairingExchangeWithInputData:&v15 error:?];
+      v12 = v15;
+      if (v12)
       {
-        v7 = v13;
-        v14 = _MRLogForCategory(0);
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v6 = v12;
+        v13 = _MRLogForCategory(0);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v18 = v7;
-          _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Failed to prepare data for verify exchange. %@", buf, 0xCu);
+          v17 = v6;
+          _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Failed to prepare data for verify exchange. %@", buf, 0xCu);
         }
 
-        goto LABEL_13;
+        goto LABEL_12;
       }
 
-      if (v8)
+      if (v7)
       {
-        v15 = [*(a1 + 32) delegate];
-        [v15 pairingSession:*(a1 + 32) didPrepareExchangeData:v8];
+        v14 = [*(a1 + 32) delegate];
+        [v14 pairingSession:*(a1 + 32) didPrepareExchangeData:v7];
       }
     }
 
-    v7 = 0;
-LABEL_20:
+    v6 = 0;
+LABEL_19:
 
-    goto LABEL_3;
+    return;
   }
 
-  v10 = _MRLogForCategory(0);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = _MRLogForCategory(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Verify complete. Deriving encryption keys.", buf, 2u);
+    _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Verify complete. Deriving encryption keys.", buf, 2u);
   }
 
   [(MRCoreUtilsPairingSession *)*(a1 + 32) _onQueueDeriveEncryptionKeys];
-  v11 = [*(a1 + 32) updatePeer];
-LABEL_3:
-  v3 = *MEMORY[0x1E69E9840];
+  v10 = [*(a1 + 32) updatePeer];
 }
 
 void __66__MRCoreUtilsPairingSession_handlePairingExchangeData_completion___block_invoke(uint64_t *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = a1[5];
-  v18 = 0;
-  v4 = [(MRCoreUtilsPairingSession *)v2 _onQueuePerformPairingExchangeWithInputData:v3 error:&v18];
-  v5 = v18;
+  v17 = 0;
+  v4 = [(MRCoreUtilsPairingSession *)v2 _onQueuePerformPairingExchangeWithInputData:v3 error:&v17];
+  v5 = v17;
   v6 = [v5 domain];
-  if (![v6 isEqualToString:*MEMORY[0x1E696A768]])
+  if (!objc_msgSend_isEqualToString_(v6))
   {
     goto LABEL_12;
   }
@@ -1263,9 +1236,9 @@ void __66__MRCoreUtilsPairingSession_handlePairingExchangeData_completion___bloc
 
       v12 = a1[4];
       v13 = a1[5];
-      v17 = 0;
-      v14 = [(MRCoreUtilsPairingSession *)v12 _onQueuePerformPairingExchangeWithInputData:v13 error:&v17];
-      v5 = v17;
+      v16 = 0;
+      v14 = [(MRCoreUtilsPairingSession *)v12 _onQueuePerformPairingExchangeWithInputData:v13 error:&v16];
+      v5 = v16;
       v6 = v4;
       v4 = v14;
 LABEL_12:
@@ -1306,7 +1279,7 @@ LABEL_6:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = v9;
+    v19 = v9;
     _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Failed to handle pairing exchange. %{public}@", buf, 0xCu);
   }
 
@@ -1318,8 +1291,6 @@ LABEL_6:
 
 LABEL_16:
   (*(a1[6] + 16))();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_onQueuePerformPairingExchangeWithInputData:(void *)data error:
@@ -1392,7 +1363,7 @@ LABEL_14:
 
 - (id)_onQueueInitializePairingSessionWithState:(uint64_t)state
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (state)
   {
     role = [state role];
@@ -1510,9 +1481,9 @@ LABEL_14:
       v18 = _MRLogForCategory(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = 67109120;
-        LODWORD(v30) = v17;
-        _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Error initializing pairing session (OSStatus = %d)", &v29, 8u);
+        v28 = 67109120;
+        LODWORD(v29) = v17;
+        _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Error initializing pairing session (OSStatus = %d)", &v28, 8u);
       }
 
       v19 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v17 userInfo:0];
@@ -1527,13 +1498,13 @@ LABEL_14:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           v21 = *(state + 132);
-          v29 = 67109120;
-          LODWORD(v30) = v21;
-          _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Pairing flags are: %u", &v29, 8u);
+          v28 = 67109120;
+          LODWORD(v29) = v21;
+          _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Pairing flags are: %u", &v28, 8u);
         }
 
         device = [state device];
-        if (MRPairedDeviceSupportsACL())
+        if (MRPairedDeviceSupportsACL(device))
         {
           v23 = *(state + 132);
 
@@ -1543,9 +1514,9 @@ LABEL_14:
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               device2 = [state device];
-              v29 = 138543362;
-              v30 = device2;
-              _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Enabling ACL for device: %{public}@", &v29, 0xCu);
+              v28 = 138543362;
+              v29 = device2;
+              _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils)] Enabling ACL for device: %{public}@", &v28, 0xCu);
             }
 
             v26 = MSVWeakLinkSymbol();
@@ -1564,8 +1535,6 @@ LABEL_14:
   {
     v19 = 0;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -1824,12 +1793,12 @@ LABEL_9:
   if (self)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:32];
-    v41 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:8];
+    v40 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:8];
     v3 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:32];
     v4 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:8];
     role = [self role];
-    v39 = v4;
-    v40 = v3;
+    v38 = v4;
+    v39 = v3;
     if (role == 1)
     {
       v6 = [MEMORY[0x1E695DEF0] dataWithBytes:"MediaRemote-Write-Encryption-Key" length:32];
@@ -1853,17 +1822,19 @@ LABEL_8:
           v22 = _MRLogForCategory(0);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            OUTLINED_FUNCTION_1_15(&dword_1A2860000, v23, v24, "[CryptoPairingSession(CoreUtils)] Failed to derive input key (OSStatus = %d)", v25, v26, v27, v28, v38, v4, v3, v41, 0);
+            *buf = 67109120;
+            v42 = v21;
+            OUTLINED_FUNCTION_1_15(&dword_1A2860000, v23, v24, "[CryptoPairingSession(CoreUtils)] Failed to derive input key (OSStatus = %d)", v25, v26, v27, v28, v37, v4, v3, v40);
           }
 
-          v17 = v39;
-          v3 = v40;
+          v17 = v38;
+          v3 = v39;
         }
 
         else
         {
-          mutableBytes = [v41 mutableBytes];
-          for (i = [v41 length]; i; --i)
+          mutableBytes = [v40 mutableBytes];
+          for (i = [v40 length]; i; --i)
           {
             *mutableBytes++ = 0;
           }
@@ -1872,9 +1843,9 @@ LABEL_8:
           v16 = v15(self[5], "MediaRemote-Salt", 16, [v10 bytes], objc_msgSend(v10, "length"), objc_msgSend(v3, "length"), objc_msgSend(v3, "mutableBytes"));
           if (!v16)
           {
-            v17 = v39;
-            mutableBytes2 = [v39 mutableBytes];
-            for (j = [v39 length]; j; --j)
+            v17 = v38;
+            mutableBytes2 = [v38 mutableBytes];
+            for (j = [v38 length]; j; --j)
             {
               *mutableBytes2++ = 0;
             }
@@ -1887,9 +1858,9 @@ LABEL_8:
             }
 
             [self setInputKey:v2];
-            [self setInputNonce:v41];
+            [self setInputNonce:v40];
             [self setOutputKey:v3];
-            [self setOutputNonce:v39];
+            [self setOutputNonce:v38];
             self[17] = 5;
             [(MRCoreUtilsPairingSession *)self _handlePairingCompleteWithError:?];
             goto LABEL_21;
@@ -1897,10 +1868,12 @@ LABEL_8:
 
           v21 = v16;
           v22 = _MRLogForCategory(0);
-          v17 = v39;
+          v17 = v38;
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            OUTLINED_FUNCTION_1_15(&dword_1A2860000, v32, v33, "[CryptoPairingSession(CoreUtils)] Failed to derive output key (OSStatus = %d)", v34, v35, v36, v37, v38, v39, v3, v41, 0);
+            *buf = 67109120;
+            v42 = v21;
+            OUTLINED_FUNCTION_1_15(&dword_1A2860000, v31, v32, "[CryptoPairingSession(CoreUtils)] Failed to derive output key (OSStatus = %d)", v33, v34, v35, v36, v37, v38, v3, v40);
           }
         }
 
@@ -1910,7 +1883,7 @@ LABEL_8:
         [(MRCoreUtilsPairingSession *)self _handlePairingCompleteWithError:v30];
 
 LABEL_21:
-        goto LABEL_22;
+        return;
       }
 
       v6 = [MEMORY[0x1E695DEF0] dataWithBytes:"MediaRemote-Read-Encryption-Key" length:31];
@@ -1922,9 +1895,6 @@ LABEL_21:
     v10 = [v7 dataWithBytes:v8 length:v9];
     goto LABEL_8;
   }
-
-LABEL_22:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __53__MRCoreUtilsPairingSession_deleteIdentityWithError___block_invoke_cold_1(uint64_t a1)

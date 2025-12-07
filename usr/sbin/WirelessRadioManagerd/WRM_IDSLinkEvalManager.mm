@@ -2,6 +2,8 @@
 + (id)WRM_IDSLinkEvalManagerSingleton;
 + (id)allocWithZone:(_NSZone *)zone;
 - (BOOL)canBTMeetIDSRequirement:(unint64_t)requirement :(int)a4 :(int)a5;
+- (BOOL)canWiFiMeetIDSRequirement:(unint64_t)requirement :(int)a4 :(int)a5;
+- (BOOL)canWiFiRadioMeetIDSRequirements:(unint64_t)requirements :(int)a4;
 - (BOOL)canWiFiRadioMeetMinRequirements;
 - (BOOL)canWiFiRadioMeetTerminusRequirements:(id)requirements;
 - (BOOL)canWiFiRadioMeetTerminusRequirementsForCompanionLink:(id)link;
@@ -9,17 +11,20 @@
 - (BOOL)doesIRATClientSubscriptionContextExist;
 - (BOOL)isBTLinkQualityGood;
 - (BOOL)isPingPongAvoidanceTimerSatisfied:(id)satisfied;
+- (BOOL)isWiFiArqQualityIndicatorGoodForIDS:(unint64_t)s :(int)a4;
 - (BOOL)isWiFiDataRateIndicatorGoodForIDS:(unint64_t)s :(int)a4;
 - (BOOL)needWiFiLQM;
 - (WRM_IDSLinkEvalManager)init;
 - (id)getiRATClientFromList:(int)list;
 - (id)getiRATProximityClientFromList:(int)list;
+- (int)evaluateLink:(unint64_t)link :(int)a4 :(int)a5;
 - (unint64_t)getWiFiRssi;
 - (void)addProximityiRatClient:(id)client;
 - (void)addiRatClient:(id)client;
 - (void)configureIDSMetricsReporting;
 - (void)dealloc;
 - (void)deleteProximityiRATClient:(int)client;
+- (void)deleteiRATClient:(int)client;
 - (void)evaluateBTWiFiLink;
 - (void)evaluateBTWiFiLinkForTerminus;
 - (void)evaluateBandwidth;
@@ -39,6 +44,7 @@
 - (void)postBluetoothLQMScore:(BOOL)score;
 - (void)removeProximityiRatClient:(id)client;
 - (void)removeiRatClient:(id)client;
+- (void)sendMessage:(int)message withMsg:(id)msg;
 - (void)sendiRATRecommendationToWatch:(int)watch;
 - (void)updateBTLQMScore;
 - (void)updateControllerSession:(id)session ofId:(unint64_t)id;
@@ -336,6 +342,63 @@ LABEL_9:
   return isWiFiConnected;
 }
 
+- (BOOL)canWiFiRadioMeetIDSRequirements:(unint64_t)requirements :(int)a4
+{
+  v4 = *&a4;
+  v7 = [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")];
+  wifiService = [(WCM_WiFiController *)self->mWiFi wifiService];
+  getRSSI = [(WCM_WiFiService *)wifiService getRSSI];
+  getSNR = [(WCM_WiFiService *)wifiService getSNR];
+  v11 = [(WRM_IDSLinkEvalManager *)self isWiFiArqQualityIndicatorGoodForIDS:requirements];
+  v12 = [(WRM_IDSLinkEvalManager *)self isWiFiDataRateIndicatorGoodForIDS:requirements];
+  [WCM_Logging logLevel:27 message:@"RSSI %lld, SNR %lld ARQ Quality Indicator %d, Data Rate Quality Indictor %d", getRSSI, getSNR, v11, v12];
+  if (v4 == 3)
+  {
+    if (getSNR >= [v7 idsMinWiFiSnrTh0] && (v12 && v11) & (getRSSI >= objc_msgSend(v7, "idsMinWiFiRssiTh0")))
+    {
+      return 1;
+    }
+  }
+
+  else if (getSNR >= [v7 idsMinWiFiSnrTh1])
+  {
+    return (v12 && v11) & (getRSSI >= [v7 idsMinWiFiRssiTh1]);
+  }
+
+  return 0;
+}
+
+- (BOOL)isWiFiArqQualityIndicatorGoodForIDS:(unint64_t)s :(int)a4
+{
+  v4 = *&a4;
+  wRM_HandoverManagerSingleton = [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager WRM_HandoverManagerSingleton];
+  wifiService = [(WCM_WiFiController *)self->mWiFi wifiService];
+  [(WCM_WiFiService *)wifiService getMovingAverageTxPer];
+  v9 = (v8 * 100.0);
+  isMovingAverageTxPerValid = [(WCM_WiFiService *)wifiService isMovingAverageTxPerValid];
+  [(WCM_WiFiService *)wifiService getTxPer];
+  v12 = v11 * 100.0;
+  v13 = v12;
+  v14 = "Not BLUETOOTH";
+  if (v4 == 2)
+  {
+    v14 = "BLUETOOTH";
+  }
+
+  [WCM_Logging logLevel:27 message:@"Moving Avg Tx PER %lld, Tx PER %lld, connectedLinkType: %d, Link: %s", v9, v12, v4, v14];
+  if (v4 == 3)
+  {
+    v15 = [wRM_HandoverManagerSingleton idsMinAvgWiFiTxPktLossRateTh0] >= v13;
+  }
+
+  else
+  {
+    v15 = ([wRM_HandoverManagerSingleton idsMinAvgWiFiTxPktLossRateTh1] > v9) | isMovingAverageTxPerValid ^ 1;
+  }
+
+  return v15 & 1;
+}
+
 - (BOOL)isWiFiDataRateIndicatorGoodForIDS:(unint64_t)s :(int)a4
 {
   wRM_HandoverManagerSingleton = [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager WRM_HandoverManagerSingleton];
@@ -468,6 +531,20 @@ LABEL_9:
   }
 
   return result;
+}
+
+- (BOOL)canWiFiMeetIDSRequirement:(unint64_t)requirement :(int)a4 :(int)a5
+{
+  v5 = *&a5;
+  v6 = *&a4;
+  v9 = [WRM_IDSLinkEvalManager canWiFiRadioMeetIDSRequirements:"canWiFiRadioMeetIDSRequirements::"];
+  if (v9)
+  {
+
+    LOBYTE(v9) = [(WRM_IDSLinkEvalManager *)self canWiFiTransportMeetIDSApplicationRequirements:requirement];
+  }
+
+  return v9;
 }
 
 - (BOOL)canBTMeetIDSRequirement:(unint64_t)requirement :(int)a4 :(int)a5
@@ -1156,6 +1233,79 @@ LABEL_45:
   [WCM_Logging logLevel:27 message:v27];
 }
 
+- (int)evaluateLink:(unint64_t)link :(int)a4 :(int)a5
+{
+  v5 = *&a5;
+  v6 = *&a4;
+  if (a4 == 1 && byte_1002B7CA9 == 1)
+  {
+    [WCM_Logging logLevel:27 message:@"iRAT restarted, WiFi not yet initalized"];
+    v9 = 1;
+    v10 = "WIFI";
+    goto LABEL_14;
+  }
+
+  mWiFi = self->mWiFi;
+  if (!mWiFi)
+  {
+    v13 = @"Evaluate link: WiFi not initialized.";
+LABEL_12:
+    [WCM_Logging logLevel:27 message:v13];
+    v9 = 2;
+    v10 = "BLUETOOTH";
+    goto LABEL_14;
+  }
+
+  wifiService = [(WCM_WiFiController *)mWiFi wifiService];
+  if (!wifiService)
+  {
+    v13 = @"Evaluate link: WiFi service not initialized.";
+    goto LABEL_12;
+  }
+
+  v10 = "BLUETOOTH";
+  if ([(WCM_WiFiService *)wifiService isWiFiPrimaryInterface])
+  {
+    if ([(WRM_IDSLinkEvalManager *)self canWiFiMeetIDSRequirement:link])
+    {
+      v10 = "WIFI";
+      v9 = 1;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+  }
+
+  else
+  {
+    v9 = 2;
+  }
+
+LABEL_14:
+  v14 = "CT_DATA";
+  v15 = "CT_VOICE";
+  v16 = "UNKNOWN_APP!!!";
+  if (link == 2)
+  {
+    v16 = "CT_Th_Call";
+  }
+
+  if (link != 1)
+  {
+    v15 = v16;
+  }
+
+  if (link)
+  {
+    v14 = v15;
+  }
+
+  [WCM_Logging logLevel:27 message:@"{%s}iRAT: Evaluate link preferred: %s", v14, v10];
+  return v9;
+}
+
 - (void)evaluateBandwidth
 {
   v2 = [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")];
@@ -1308,6 +1458,24 @@ LABEL_6:
   [(WRM_IDSLinkEvalManager *)self existingContexts];
 
   objc_sync_exit(miRATClientContexts);
+}
+
+- (void)deleteiRATClient:(int)client
+{
+  v3 = *&client;
+  miRATClientContexts = self->miRATClientContexts;
+  objc_sync_enter(miRATClientContexts);
+  v6 = [(WRM_IDSLinkEvalManager *)self getiRATClientFromList:v3];
+  if (v6)
+  {
+    [(WRM_IDSLinkEvalManager *)self removeiRatClient:v6];
+  }
+
+  objc_sync_exit(miRATClientContexts);
+  mWiFi = self->mWiFi;
+  needWiFiLQM = [(WRM_IDSLinkEvalManager *)self needWiFiLQM];
+
+  [(WCM_WiFiController *)mWiFi toggleWiFiLQMIfNeeded:needWiFiLQM];
 }
 
 - (void)handleControllerAvailability:(unint64_t)availability
@@ -1706,6 +1874,13 @@ LABEL_10:
   block[3] = &unk_10023DB28;
   block[4] = self;
   dispatch_async(mQueueTerminus, block);
+}
+
+- (void)sendMessage:(int)message withMsg:(id)msg
+{
+  v5 = [+[WCM_Server singleton](WCM_Server "singleton")];
+
+  [v5 sendMessage:msg];
 }
 
 - (BOOL)isBTLinkQualityGood

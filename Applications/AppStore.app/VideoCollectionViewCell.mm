@@ -16,7 +16,7 @@
   static VideoConfiguration.defaultConfiguration.getter();
   swift_unknownObjectWeakInit();
   v11.receiver = self;
-  v11.super_class = type metadata accessor for VideoCollectionViewCell();
+  v11.super_class = type metadata accessor for VideoCollectionViewCell(0);
   height = [(VideoCollectionViewCell *)&v11 initWithFrame:x, y, width, height];
   contentView = [(VideoCollectionViewCell *)height contentView];
   [contentView setLayoutMargins:{UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right}];
@@ -36,13 +36,13 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1001923C0();
+  sub_1001923C0(v2);
 }
 
 - (void)layoutSubviews
 {
   v13.receiver = self;
-  v13.super_class = type metadata accessor for VideoCollectionViewCell();
+  v13.super_class = type metadata accessor for VideoCollectionViewCell(0);
   v2 = v13.receiver;
   [(VideoCollectionViewCell *)&v13 layoutSubviews];
   contentView = [v2 contentView];

@@ -69,94 +69,96 @@ void __58__ARPositionalTrackingConfiguration_supportedVideoFormats__block_invoke
 
 + (id)_querySupportedVideoFormats
 {
-  v48[2] = *MEMORY[0x1E69E9840];
+  v54[2] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6986950];
-  if (ARDeviceSupportsUltraWideCamera())
+  if (ARDeviceSupportsUltraWideCamera(v3, v4))
   {
-    v4 = *MEMORY[0x1E6986948];
+    v5 = *MEMORY[0x1E6986948];
 
-    v3 = v4;
+    v3 = v5;
   }
 
-  v40 = 0x1E000000280;
-  v5 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.imagesensor.back.wide.videoBinned"];
-  if ([ARKitUserDefaults resolutionForKey:@"com.apple.arkit.imagesensor.back.wide.resolution" resultingDimensions:&v40])
+  v46 = 0x1E000000280;
+  v6 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.imagesensor.back.wide.videoBinned"];
+  v7 = [ARKitUserDefaults resolutionForKey:@"com.apple.arkit.imagesensor.back.wide.resolution" resultingDimensions:&v46];
+  if (v7)
   {
-    v6 = _ARLogSensor_8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = _ARLogSensor_8(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138544130;
-      v44 = v8;
-      v45 = 2048;
+      v50 = v10;
+      v51 = 2048;
       selfCopy7 = self;
-      v47 = 1024;
-      LODWORD(v48[0]) = v40;
-      WORD2(v48[0]) = 1024;
-      *(v48 + 6) = HIDWORD(v40);
-      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: ARVideoFormat resolution set to %i, %i by user defaults", buf, 0x22u);
+      v53 = 1024;
+      LODWORD(v54[0]) = v46;
+      WORD2(v54[0]) = 1024;
+      *(v54 + 6) = HIDWORD(v46);
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: ARVideoFormat resolution set to %i, %i by user defaults", buf, 0x22u);
     }
   }
 
-  v9 = [ARKitUserDefaults numberForKey:@"com.apple.arkit.imagesensor.back.ultrawide.frameRate"];
-  v10 = v9;
-  if (v9)
+  v11 = [ARKitUserDefaults numberForKey:@"com.apple.arkit.imagesensor.back.ultrawide.frameRate"];
+  v12 = v11;
+  if (v11)
   {
-    [v9 doubleValue];
-    v12 = v11;
-    v13 = _ARLogSensor_8();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    doubleValue = [v11 doubleValue];
+    v15 = v14;
+    v16 = _ARLogSensor_8(doubleValue);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138543874;
-      v44 = v15;
-      v45 = 2048;
+      v50 = v18;
+      v51 = 2048;
       selfCopy7 = self;
-      v47 = 2048;
-      *v48 = v12;
-      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: ARPositionalTrackingConfiguration frame rate set to %f by user defaults", buf, 0x20u);
+      v53 = 2048;
+      *v54 = v15;
+      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: ARPositionalTrackingConfiguration frame rate set to %f by user defaults", buf, 0x20u);
     }
   }
 
   else
   {
-    v12 = 10.0;
+    v15 = 10.0;
   }
 
-  v16 = [ARVideoFormat bestVideoFormatForDevicePosition:1 deviceType:v3 resolution:v40 frameRate:v5 videoBinned:v12];
-  v17 = v16;
-  if (v16)
+  v19 = [ARVideoFormat bestVideoFormatForDevicePosition:1 deviceType:v3 resolution:v46 frameRate:v6 videoBinned:v15];
+  v20 = v19;
+  if (v19)
   {
-    [v16 imageResolution];
-    if ([ARWorldTrackingTechnique supportsVideoResolution:v3 forDeviceType:?])
+    [v19 imageResolution];
+    v21 = [ARWorldTrackingTechnique supportsVideoResolution:v3 forDeviceType:?];
+    if (v21)
     {
-      v42 = v17;
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
-      v19 = v17;
+      v48 = v20;
+      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
+      v23 = v20;
       goto LABEL_35;
     }
 
-    v20 = _ARLogGeneral_14();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v24 = _ARLogGeneral_14(v21);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       *buf = 138543874;
-      v44 = v22;
-      v45 = 2048;
+      v50 = v26;
+      v51 = 2048;
       selfCopy7 = self;
-      v47 = 2114;
-      v48[0] = v17;
-      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Not returning video format %{public}@ because world tracking technique does not support its video resolution on current device", buf, 0x20u);
+      v53 = 2114;
+      v54[0] = v20;
+      _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Not returning video format %{public}@ because world tracking technique does not support its video resolution on current device", buf, 0x20u);
     }
   }
 
-  v40 = 0x2D000000500;
-  v19 = [ARVideoFormat bestVideoFormatForDevicePosition:1 deviceType:v3 resolution:0x2D000000500 frameRate:v5 videoBinned:10.0];
+  v46 = 0x2D000000500;
+  v23 = [ARVideoFormat bestVideoFormatForDevicePosition:1 deviceType:v3 resolution:0x2D000000500 frameRate:v6 videoBinned:10.0];
 
-  if (!v19)
+  if (!v23)
   {
 LABEL_26:
     if (ARShouldUseLogTypeError_onceToken_26 != -1)
@@ -164,91 +166,92 @@ LABEL_26:
       +[ARPositionalTrackingConfiguration _querySupportedVideoFormats];
     }
 
-    v30 = ARShouldUseLogTypeError_internalOSVersion_26;
-    v31 = _ARLogGeneral_14();
-    v32 = v31;
-    if (v30 == 1)
+    v36 = ARShouldUseLogTypeError_internalOSVersion_26;
+    v37 = _ARLogGeneral_14(v27);
+    v38 = v37;
+    if (v36 == 1)
     {
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
         *buf = 138543618;
-        v44 = v34;
-        v45 = 2048;
+        v50 = v40;
+        v51 = 2048;
         selfCopy7 = self;
-        v35 = "%{public}@ <%p>: Video format not found for positional tracking configuration";
-        v36 = v32;
-        v37 = OS_LOG_TYPE_ERROR;
+        v41 = "%{public}@ <%p>: Video format not found for positional tracking configuration";
+        v42 = v38;
+        v43 = OS_LOG_TYPE_ERROR;
 LABEL_33:
-        _os_log_impl(&dword_1C241C000, v36, v37, v35, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v42, v43, v41, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
-      v38 = objc_opt_class();
-      v34 = NSStringFromClass(v38);
+      v44 = objc_opt_class();
+      v40 = NSStringFromClass(v44);
       *buf = 138543618;
-      v44 = v34;
-      v45 = 2048;
+      v50 = v40;
+      v51 = 2048;
       selfCopy7 = self;
-      v35 = "Error: %{public}@ <%p>: Video format not found for positional tracking configuration";
-      v36 = v32;
-      v37 = OS_LOG_TYPE_INFO;
+      v41 = "Error: %{public}@ <%p>: Video format not found for positional tracking configuration";
+      v42 = v38;
+      v43 = OS_LOG_TYPE_INFO;
       goto LABEL_33;
     }
 
-    v18 = MEMORY[0x1E695E0F0];
+    v22 = MEMORY[0x1E695E0F0];
     goto LABEL_35;
   }
 
-  [v19 imageResolution];
-  v23 = [ARWorldTrackingTechnique supportsVideoResolution:v3 forDeviceType:?];
-  v24 = _ARLogGeneral_14();
-  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
-  if (!v23)
+  [v23 imageResolution];
+  v28 = [ARWorldTrackingTechnique supportsVideoResolution:v3 forDeviceType:?];
+  v29 = v28;
+  v30 = _ARLogGeneral_14(v28);
+  v31 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
+  if (!v29)
   {
-    if (v25)
+    if (v31)
     {
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
+      v34 = objc_opt_class();
+      v35 = NSStringFromClass(v34);
       *buf = 138543874;
-      v44 = v29;
-      v45 = 2048;
+      v50 = v35;
+      v51 = 2048;
       selfCopy7 = self;
-      v47 = 2114;
-      v48[0] = v19;
-      _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Not returning video format %{public}@ because world tracking technique does not support its video resolution on current device", buf, 0x20u);
+      v53 = 2114;
+      v54[0] = v23;
+      _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Not returning video format %{public}@ because world tracking technique does not support its video resolution on current device", buf, 0x20u);
     }
 
     goto LABEL_26;
   }
 
-  if (v25)
+  if (v31)
   {
-    v26 = objc_opt_class();
-    v27 = NSStringFromClass(v26);
+    v32 = objc_opt_class();
+    v33 = NSStringFromClass(v32);
     *buf = 138543618;
-    v44 = v27;
-    v45 = 2048;
+    v50 = v33;
+    v51 = 2048;
     selfCopy7 = self;
-    _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Falling back to 1280x720 for positional tracking configuration", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Falling back to 1280x720 for positional tracking configuration", buf, 0x16u);
   }
 
-  v41 = v19;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+  v47 = v23;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
 LABEL_35:
 
-  return v18;
+  return v22;
 }
 
 - (id)imageSensorSettings
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = ARPositionalTrackingConfiguration;
-  imageSensorSettings = [(ARConfiguration *)&v17 imageSensorSettings];
+  v23 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = ARPositionalTrackingConfiguration;
+  imageSensorSettings = [(ARConfiguration *)&v18 imageSensorSettings];
   if ([ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldTracking.visionData"])
   {
     v4 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldTracking.simulateHWFeatureDetection"]^ 1;
@@ -265,6 +268,7 @@ LABEL_35:
     worldTrackingOptions = [(ARPositionalTrackingConfiguration *)self worldTrackingOptions];
     [worldTrackingOptions setImageSensorSettings:imageSensorSettings];
     v6 = ARVisionDataParametersForWorldTrackingOptions(worldTrackingOptions);
+    v7 = v6;
     if (v6)
     {
       [imageSensorSettings setVisionDataOutputParameters:v6];
@@ -278,38 +282,38 @@ LABEL_16:
       +[ARPositionalTrackingConfiguration _querySupportedVideoFormats];
     }
 
-    v7 = ARShouldUseLogTypeError_internalOSVersion_26;
-    v8 = _ARLogGeneral_14();
-    v9 = v8;
-    if (v7 == 1)
+    v8 = ARShouldUseLogTypeError_internalOSVersion_26;
+    v9 = _ARLogGeneral_14(v6);
+    v10 = v9;
+    if (v8 == 1)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         *buf = 138543618;
-        v19 = v11;
-        v20 = 2048;
+        v20 = v12;
+        v21 = 2048;
         selfCopy2 = self;
-        v12 = "%{public}@ <%p>: Error reading vision data output parameters.";
-        v13 = v9;
-        v14 = OS_LOG_TYPE_ERROR;
+        v13 = "%{public}@ <%p>: Error reading vision data output parameters.";
+        v14 = v10;
+        v15 = OS_LOG_TYPE_ERROR;
 LABEL_14:
-        _os_log_impl(&dword_1C241C000, v13, v14, v12, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v14, v15, v13, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v15 = objc_opt_class();
-      v11 = NSStringFromClass(v15);
+      v16 = objc_opt_class();
+      v12 = NSStringFromClass(v16);
       *buf = 138543618;
-      v19 = v11;
-      v20 = 2048;
+      v20 = v12;
+      v21 = 2048;
       selfCopy2 = self;
-      v12 = "Error: %{public}@ <%p>: Error reading vision data output parameters.";
-      v13 = v9;
-      v14 = OS_LOG_TYPE_INFO;
+      v13 = "Error: %{public}@ <%p>: Error reading vision data output parameters.";
+      v14 = v10;
+      v15 = OS_LOG_TYPE_INFO;
       goto LABEL_14;
     }
 
@@ -362,7 +366,7 @@ LABEL_17:
 
 - (void)createTechniques:(id)techniques
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   techniquesCopy = techniques;
   worldTrackingOptions = [(ARPositionalTrackingConfiguration *)self worldTrackingOptions];
   imageSensorSettings = [(ARPositionalTrackingConfiguration *)self imageSensorSettings];
@@ -371,56 +375,57 @@ LABEL_17:
   if ([worldTrackingOptions planeDetection])
   {
     v7 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldTracking.accuratePlaneExtentCheck"];
-    v8 = _ARLogGeneral_14();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v8 = v7;
+    v9 = _ARLogGeneral_14(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = @"disabled";
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = @"disabled";
       *buf = 138543874;
-      v22 = v10;
-      if (v7)
+      v23 = v11;
+      if (v8)
       {
-        v11 = @"enabled";
+        v12 = @"enabled";
       }
 
-      v23 = 2048;
+      v24 = 2048;
       selfCopy = self;
-      v25 = 2114;
-      v26 = v11;
-      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Ray-cast accurate extent check: %{public}@", buf, 0x20u);
+      v26 = 2114;
+      v27 = v12;
+      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Ray-cast accurate extent check: %{public}@", buf, 0x20u);
     }
 
-    if (v7)
+    if (v8)
     {
       [worldTrackingOptions setPlaneDetection:{objc_msgSend(worldTrackingOptions, "planeDetection") | 0x200}];
     }
   }
 
-  v12 = [[ARWorldTrackingTechnique alloc] initWithOptions:worldTrackingOptions];
-  if (v12)
+  v13 = [[ARWorldTrackingTechnique alloc] initWithOptions:worldTrackingOptions];
+  if (v13)
   {
-    v13 = [ARParentTechnique alloc];
-    v20 = v12;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
-    v15 = [(ARParentTechnique *)v13 initWithParallelTechniques:v14];
+    v14 = [ARParentTechnique alloc];
+    v21 = v13;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+    v16 = [(ARParentTechnique *)v14 initWithParallelTechniques:v15];
 
-    [techniquesCopy addObject:v15];
-    options = [(ARWorldTrackingTechnique *)v12 options];
+    [techniquesCopy addObject:v16];
+    options = [(ARWorldTrackingTechnique *)v13 options];
     planeDetection = [options planeDetection];
 
     if (planeDetection)
     {
-      v18 = [[ARPlaneEstimationTechnique alloc] initWithTrackingTechnique:v12];
-      [techniquesCopy addObject:v18];
+      v19 = [[ARPlaneEstimationTechnique alloc] initWithTrackingTechnique:v13];
+      [techniquesCopy addObject:v19];
     }
 
-    v19.receiver = self;
-    v19.super_class = ARPositionalTrackingConfiguration;
-    [(ARConfiguration *)&v19 createTechniques:techniquesCopy];
+    v20.receiver = self;
+    v20.super_class = ARPositionalTrackingConfiguration;
+    [(ARConfiguration *)&v20 createTechniques:techniquesCopy];
     if ([(ARPositionalTrackingConfiguration *)self planeDetection])
     {
-      ARAddNonJasperSemanticsToParent(v15, techniquesCopy, [(ARConfiguration *)self maxUltrawideImageForwardingFrameRate], 0);
+      ARAddNonJasperSemanticsToParent(v16, techniquesCopy, [(ARConfiguration *)self maxUltrawideImageForwardingFrameRate], 0);
     }
   }
 }

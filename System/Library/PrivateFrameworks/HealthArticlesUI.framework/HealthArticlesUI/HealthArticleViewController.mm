@@ -5,7 +5,9 @@
 - (unint64_t)supportedInterfaceOrientations;
 - (void)dismissArticleModal;
 - (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
 @end
 
 @implementation HealthArticleViewController
@@ -50,16 +52,61 @@
   navigationItem = [(HealthArticleViewController *)selfCopy navigationItem];
   [navigationItem setRightBarButtonItem_];
 
-  sub_25131C208();
+  sub_25131C208(0);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_251340BD0;
   v8 = sub_25133F6D4();
-  v9 = sub_251328004(&unk_27F42B200, MEMORY[0x277D126D0]);
+  v9 = sub_251328004(&unk_27F42B200, MEMORY[0x277D126D0], MEMORY[0x277D126C8]);
   *(v7 + 32) = v8;
   *(v7 + 40) = v9;
   sub_25133F9D4();
 
   swift_unknownObjectRelease();
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  appearingCopy = appearing;
+  sub_25133F8F4();
+  sub_25133F8E4();
+  sub_25133F894();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v16.receiver = self;
+  v16.super_class = type metadata accessor for HealthArticleViewController();
+  selfCopy = self;
+  [(HealthArticleViewController *)&v16 viewIsAppearing:appearingCopy];
+  v6 = [(HealthArticleViewController *)selfCopy traitCollection:v16.receiver];
+  sub_25133FA14();
+
+  sub_25133FA34();
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v15 = sub_251324AC0();
+  [v15 setDirectionalLayoutMargins_];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  sub_25133F8F4();
+  sub_25133F8E4();
+  sub_25133F894();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for HealthArticleViewController();
+  selfCopy = self;
+  [(HealthArticleViewController *)&v6 viewDidAppear:appearCopy];
+  sub_2513264D8(0);
 }
 
 - (unint64_t)supportedInterfaceOrientations

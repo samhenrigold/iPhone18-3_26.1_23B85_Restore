@@ -210,7 +210,7 @@ LABEL_3:
     }
 
     effectiveIdentifier = [v7 effectiveIdentifier];
-    v13 = [(NSMutableDictionary *)self->_remotePeerInfoByRapportEffectiveIdentifier objectForKey:effectiveIdentifier];
+    v13 = objc_msgSend_objectForKey_(self->_remotePeerInfoByRapportEffectiveIdentifier);
 
     if (v13)
     {
@@ -279,7 +279,7 @@ LABEL_15:
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
-    v5 = [(NSMutableDictionary *)self->_remotePeerInfoByRapportEffectiveIdentifier objectForKey:identifierCopy];
+    v5 = objc_msgSend_objectForKey_(self->_remotePeerInfoByRapportEffectiveIdentifier);
   }
 
   else
@@ -295,7 +295,7 @@ LABEL_15:
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
-    v5 = [(NSMutableDictionary *)self->_rapportEffectiveIdentifiersByHomeKitAccessoryIdentifier objectForKey:identifierCopy];
+    v5 = objc_msgSend_objectForKey_(self->_rapportEffectiveIdentifiersByHomeKitAccessoryIdentifier);
     v6 = [(ADDeviceCircleManager *)self _remotePeerInfoForRapportEffectiveIdentifier:v5];
   }
 
@@ -312,7 +312,7 @@ LABEL_15:
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
-    v5 = [(NSMutableDictionary *)self->_rapportEffectiveIdentifiersByIDSDeviceUniqueIdentifier objectForKey:identifierCopy];
+    v5 = objc_msgSend_objectForKey_(self->_rapportEffectiveIdentifiersByIDSDeviceUniqueIdentifier);
     v6 = [(ADDeviceCircleManager *)self _remotePeerInfoForRapportEffectiveIdentifier:v5];
   }
 
@@ -329,7 +329,7 @@ LABEL_15:
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
-    v5 = [(NSMutableDictionary *)self->_rapportEffectiveIdentifiersByAssistantIdentifier objectForKey:identifierCopy];
+    v5 = objc_msgSend_objectForKey_(self->_rapportEffectiveIdentifiersByAssistantIdentifier);
     v6 = [(ADDeviceCircleManager *)self _remotePeerInfoForRapportEffectiveIdentifier:v5];
   }
 
@@ -348,7 +348,7 @@ LABEL_15:
   v5 = identifierCopy;
   if (v4)
   {
-    v6 = [(NSMutableDictionary *)self->_remotePeerInfoByRapportEffectiveIdentifier objectForKey:identifierCopy];
+    v6 = objc_msgSend_objectForKey_(self->_remotePeerInfoByRapportEffectiveIdentifier);
     v7 = v6;
     if (v6)
     {
@@ -401,7 +401,7 @@ LABEL_15:
       goto LABEL_24;
     }
 
-    v7 = [(NSMutableDictionary *)self->_remotePeerInfoByRapportEffectiveIdentifier objectForKey:rapportEffectiveIdentifier];
+    v7 = objc_msgSend_objectForKey_(self->_remotePeerInfoByRapportEffectiveIdentifier);
     v8 = v7;
     if (v7)
     {
@@ -885,7 +885,7 @@ LABEL_24:
   self->_currentStationaryScore = (((self->_rollingRSSI + v10) - (self->_rapportInstabilityPenalty - v10)) + (2 * v12)) + v13;
   self->_rollingRSSICount = rollingRSSICount + 1;
   v16 = +[ADRapportLink siriInfoToBeBroadcasted];
-  v17 = [v16 objectForKey:@"stationaryScore"];
+  v17 = objc_msgSend_objectForKey_(v16);
 
   if (!v17 || (currentStationaryScore = self->_currentStationaryScore, [v17 floatValue], vabds_f32(currentStationaryScore, v19) >= 25.0))
   {
@@ -1161,7 +1161,7 @@ LABEL_9:
     v26 = v19;
     v20 = [allObjects af_firstObjectPassingTest:v25];
 
-    v21 = [(NSMapTable *)self->_requestHandlers objectForKey:v20];
+    v21 = objc_msgSend_objectForKey_(self->_requestHandlers);
     v22 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
     {
@@ -1422,7 +1422,7 @@ LABEL_46:
 - (id)_handleDeviceCapabilitiesFetch:(id)fetch fromPeer:(id)peer
 {
   peerCopy = peer;
-  v7 = [fetch objectForKey:@"get_capabilities_for_devices"];
+  v7 = objc_msgSend_objectForKey_(fetch);
   v8 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
   {
@@ -1461,7 +1461,7 @@ LABEL_46:
         if ([v7 containsObject:idsDeviceIdentifier])
         {
           siriInfo = [v14 siriInfo];
-          v17 = [siriInfo objectForKey:@"deviceCapabilities"];
+          v17 = objc_msgSend_objectForKey_(siriInfo);
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -1530,7 +1530,7 @@ LABEL_46:
           if (v17)
           {
             siriInfo = [v13 siriInfo];
-            v19 = [siriInfo objectForKey:@"deviceCapabilitiesV2"];
+            v19 = objc_msgSend_objectForKey_(siriInfo);
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -1561,7 +1561,7 @@ LABEL_46:
       localPeerInfo = [(ADDeviceCircleManager *)selfCopy localPeerInfo];
       localDevice2 = [(ADRapportLink *)selfCopy->_clientLink localDevice];
       siriInfo2 = [localDevice2 siriInfo];
-      v27 = [siriInfo2 objectForKey:@"deviceCapabilitiesV2"];
+      v27 = objc_msgSend_objectForKey_(siriInfo2);
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -1601,7 +1601,7 @@ LABEL_46:
 - (id)_handleSVDCapabilitiesFetch:(id)fetch fromPeer:(id)peer
 {
   peerCopy = peer;
-  v7 = [fetch objectForKey:@"get_capabilities_for_assistant_identifiers"];
+  v7 = objc_msgSend_objectForKey_(fetch);
   v8 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
   {
@@ -1643,7 +1643,7 @@ LABEL_46:
         if ([v7 containsObject:assistantIdentifier])
         {
           siriInfo = [v14 siriInfo];
-          v19 = [siriInfo objectForKey:@"deviceCapabilitiesV2"];
+          v19 = objc_msgSend_objectForKey_(siriInfo);
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -2257,7 +2257,7 @@ LABEL_16:
       v27 = v19;
 
       [v27 setObject:idsDeviceIdentifier forKey:@"idsDeviceIdentifier"];
-      v28 = [v16 objectForKey:@"stationaryScore"];
+      v28 = objc_msgSend_objectForKey_(v16);
       if (!v28)
       {
         [(ADDeviceCircleManager *)selfCopy _updateStationaryScore];
@@ -2266,7 +2266,7 @@ LABEL_16:
         [v27 setObject:v30 forKey:@"stationaryScore"];
       }
 
-      v31 = [v27 objectForKey:@"isCollector"];
+      v31 = objc_msgSend_objectForKey_(v27);
       bOOLValue = [v31 BOOLValue];
 
       [v89 addObject:v27];
@@ -2275,7 +2275,7 @@ LABEL_16:
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
       {
         v76 = v33;
-        v77 = [v27 objectForKey:@"stationaryScore"];
+        v77 = objc_msgSend_objectForKey_(v27);
         [v77 floatValue];
         *buf = 136315906;
         v121 = "[ADDeviceCircleManager _reelectCollectorDeviceForReason:completion:]";
@@ -2327,7 +2327,7 @@ LABEL_16:
 
           if (!v42)
           {
-            v43 = [siriInfo objectForKey:@"stationaryScore"];
+            v43 = objc_msgSend_objectForKey_(siriInfo);
 
             if (v43)
             {
@@ -2335,14 +2335,14 @@ LABEL_16:
               v44 = [siriInfo mutableCopy];
               [v44 setObject:idsDeviceIdentifier2 forKey:@"idsDeviceIdentifier"];
               [v89 addObject:v44];
-              v45 = [v44 objectForKey:@"isCollector"];
+              v45 = objc_msgSend_objectForKey_(v44);
               bOOLValue2 = [v45 BOOLValue];
 
               v47 = AFSiriLogContextDaemon;
               if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
               {
                 v48 = v47;
-                v87 = [v44 objectForKey:@"stationaryScore"];
+                v87 = objc_msgSend_objectForKey_(v44);
                 [v87 floatValue];
                 *buf = 136315906;
                 v121 = "[ADDeviceCircleManager _reelectCollectorDeviceForReason:completion:]";
@@ -2412,7 +2412,7 @@ LABEL_55:
           }
 
           v62 = *(*(&v106 + 1) + 8 * v61);
-          v63 = [v62 objectForKey:{@"isCollector", v79}];
+          v63 = objc_msgSend_objectForKey_(v62, v79);
           bOOLValue3 = [v63 BOOLValue];
 
           if (!bOOLValue3)
@@ -2420,8 +2420,8 @@ LABEL_55:
             break;
           }
 
-          v65 = [v62 objectForKey:@"idsDeviceIdentifier"];
-          v66 = [v90 objectForKey:v65];
+          v65 = objc_msgSend_objectForKey_(v62);
+          v66 = objc_msgSend_objectForKey_(v90);
           homeKitIdentifier = [(__CFString *)v66 homeKitIdentifier];
           if (homeKitIdentifier)
           {
@@ -2515,7 +2515,7 @@ LABEL_72:
       }
 
       firstObject2 = [v89 firstObject];
-      v55 = [firstObject2 objectForKey:@"idsDeviceIdentifier"];
+      v55 = objc_msgSend_objectForKey_(firstObject2);
       [v51 addObject:v55];
     }
 
@@ -2607,7 +2607,7 @@ LABEL_12:
 {
   candidateCopy = candidate;
   siriInfo = [candidateCopy siriInfo];
-  v5 = [siriInfo objectForKey:@"collectorElectionVersion"];
+  v5 = objc_msgSend_objectForKey_(siriInfo);
   [v5 floatValue];
   v7 = v6;
 
@@ -2665,7 +2665,7 @@ LABEL_12:
 {
   v3 = objc_alloc_init(NSMutableArray);
   v4 = +[ADRapportLink siriInfoToBeBroadcasted];
-  v5 = [v4 objectForKey:@"isCollector"];
+  v5 = objc_msgSend_objectForKey_(v4);
   bOOLValue = [v5 BOOLValue];
 
   if (bOOLValue)
@@ -2702,7 +2702,7 @@ LABEL_12:
 
         v15 = *(*(&v24 + 1) + 8 * i);
         siriInfo = [v15 siriInfo];
-        v17 = [siriInfo objectForKey:@"isCollector"];
+        v17 = objc_msgSend_objectForKey_(siriInfo);
         bOOLValue2 = [v17 BOOLValue];
 
         if (bOOLValue2)
@@ -3222,7 +3222,7 @@ LABEL_11:
   if ([identifierCopy length])
   {
     os_unfair_lock_lock(&self->_assistantIdMapLock);
-    v5 = [(NSMutableDictionary *)self->_assistantIdsByDeviceIDSID objectForKey:identifierCopy];
+    v5 = objc_msgSend_objectForKey_(self->_assistantIdsByDeviceIDSID);
     os_unfair_lock_unlock(&self->_assistantIdMapLock);
   }
 

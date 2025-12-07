@@ -6,10 +6,13 @@
 - (void)decline:(id)decline;
 - (void)didReceiveMemoryWarning;
 - (void)postPauseResumeCommand:(int)command;
+- (void)postResultNotification:(BOOL)notification;
 - (void)setUserInfo:(id)info;
 - (void)toggleIsAppleSupportRequest;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TermsConditionsViewController
@@ -72,6 +75,71 @@
   return [(TermsConditionsViewController *)&v5 supportedInterfaceOrientations];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v19.receiver = self;
+  v19.super_class = TermsConditionsViewController;
+  [(TermsConditionsViewController *)&v19 viewWillAppear:appear];
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    userInfoSet = [(TermsConditionsViewController *)self userInfoSet];
+    *buf = 67109120;
+    v21 = userInfoSet;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "viewWillAppear  self.userInfoSet %d", buf, 8u);
+  }
+
+  shareSettingsRequest = [(TermsConditionsViewController *)self shareSettingsRequest];
+  v6 = +[NSBundle mainBundle];
+  v7 = v6;
+  if (shareSettingsRequest)
+  {
+    v8 = @"kSSTapGatherSettingsTerms";
+  }
+
+  else
+  {
+    v8 = @"kSSTapShareScreenTerms";
+  }
+
+  v9 = [v6 localizedStringForKey:v8 value:&stru_1000083F8 table:0];
+
+  termsSubHeaderTextView = [(TermsConditionsViewController *)self termsSubHeaderTextView];
+  [termsSubHeaderTextView setText:v9];
+
+  isAppleSupportRequest = [(TermsConditionsViewController *)self isAppleSupportRequest];
+  if (isAppleSupportRequest)
+  {
+    v12 = @"kSSAppleSupportHeader";
+  }
+
+  else
+  {
+    v12 = @"kSSAppleCareHeader";
+  }
+
+  if (isAppleSupportRequest)
+  {
+    v13 = @"AppleSupport64";
+  }
+
+  else
+  {
+    v13 = @"AppleCare64";
+  }
+
+  v14 = +[NSBundle mainBundle];
+  v15 = [v14 localizedStringForKey:v12 value:&stru_1000083F8 table:0];
+
+  v16 = [UIImage imageNamed:v13];
+  termsHeaderTextView = [(TermsConditionsViewController *)self termsHeaderTextView];
+  [termsHeaderTextView setText:v15];
+
+  termsIcon = [(TermsConditionsViewController *)self termsIcon];
+  [termsIcon setImage:v16];
+
+  [(TermsConditionsViewController *)self traitCollectionDidChange:0];
+}
+
 - (void)viewDidLoad
 {
   v9.receiver = self;
@@ -123,6 +191,18 @@
   }
 
   [(TermsConditionsViewController *)self traitCollectionDidChange:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = TermsConditionsViewController;
+  [(TermsConditionsViewController *)&v6 viewDidAppear:appear];
+  termsTextView = [(TermsConditionsViewController *)self termsTextView];
+  [termsTextView setContentOffset:0 animated:{CGPointZero.x, CGPointZero.y}];
+
+  termsTextView2 = [(TermsConditionsViewController *)self termsTextView];
+  [termsTextView2 scrollRangeToVisible:{0, 0}];
 }
 
 - (void)didReceiveMemoryWarning
@@ -328,6 +408,22 @@
 
     [(TermsConditionsViewController *)self setUserInfoSet:1];
   }
+}
+
+- (void)postResultNotification:(BOOL)notification
+{
+  v8 = @"result";
+  v4 = [NSNumber numberWithBool:notification];
+  v9 = v4;
+  v5 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+
+  helperTool = [(TermsConditionsViewController *)self helperTool];
+  sub_100001F9C(helperTool, v5);
+
+  helperToolConnection = [(TermsConditionsViewController *)self helperToolConnection];
+  [helperToolConnection invalidate];
+
+  exit(0);
 }
 
 - (void)postPauseResumeCommand:(int)command

@@ -46,9 +46,7 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
   PBDataWriterWriteInt32Field();
-  objectData = self->_objectData;
   PBDataWriterWriteDataField();
   if (self->_receiver)
   {

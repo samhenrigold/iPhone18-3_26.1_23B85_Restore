@@ -9,7 +9,7 @@
 
 - (_TtC6FindMy32FMDeviceDetailCardViewController)initWithCoder:(id)coder
 {
-  type metadata accessor for FMSelectedSection();
+  type metadata accessor for FMSelectedSection(0);
   swift_storeEnumTagMultiPayload();
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC6FindMy32FMDeviceDetailCardViewController_selectionSubscription) = 0;
   result = _assertionFailure(_:_:file:line:flags:)();

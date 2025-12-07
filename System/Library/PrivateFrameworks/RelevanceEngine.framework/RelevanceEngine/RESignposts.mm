@@ -55,7 +55,7 @@ LABEL_11:
 
 + (void)traceEvent:(unint64_t)event withMetadata:(id)metadata
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (metadata)
   {
     metadataCopy = metadata;
@@ -68,8 +68,8 @@ LABEL_11:
         v7 = RELogForDomain(0);
         if (os_signpost_enabled(v7))
         {
-          v10 = 138543362;
-          v11 = v6;
+          v9 = 138543362;
+          v10 = v6;
           v8 = "RESignpostEventRankingManagerRankingScore";
           goto LABEL_11;
         }
@@ -79,8 +79,8 @@ LABEL_11:
         v7 = RELogForDomain(0);
         if (os_signpost_enabled(v7))
         {
-          v10 = 138543362;
-          v11 = v6;
+          v9 = 138543362;
+          v10 = v6;
           v8 = "RESignpostEventLiveCoordinatorRemoveElement";
           goto LABEL_11;
         }
@@ -90,25 +90,22 @@ LABEL_11:
         v7 = RELogForDomain(0);
         if (os_signpost_enabled(v7))
         {
-          v10 = 138543362;
-          v11 = v6;
+          v9 = 138543362;
+          v10 = v6;
           v8 = "RESignpostEventLiveCoordinatorAddElement";
 LABEL_11:
-          _os_signpost_emit_with_name_impl(&dword_22859F000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v8, "%{public}@", &v10, 0xCu);
+          _os_signpost_emit_with_name_impl(&dword_22859F000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v8, "%{public}@", &v9, 0xCu);
         }
 
         break;
       default:
 LABEL_13:
 
-        goto LABEL_14;
+        return;
     }
 
     goto LABEL_13;
   }
-
-LABEL_14:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)convertMetadataNSDictionaryToNSString:(id)string

@@ -1,8 +1,10 @@
 @interface _INPBHomeUserTask
 - (BOOL)isEqual:(id)equal;
 - (_INPBHomeUserTask)initWithCoder:(id)coder;
+- (id)attributeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)taskTypeAsString:(int)string;
 - (int)StringAsAttribute:(id)attribute;
 - (int)StringAsTaskType:(id)type;
 - (unint64_t)hash;
@@ -185,25 +187,23 @@ LABEL_16:
   toCopy = to;
   if ([(_INPBHomeUserTask *)self hasAttribute])
   {
-    attribute = self->_attribute;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBHomeUserTask *)self hasTaskType])
   {
-    taskType = self->_taskType;
     PBDataWriterWriteInt32Field();
   }
 
   value = [(_INPBHomeUserTask *)self value];
 
-  v7 = toCopy;
+  v5 = toCopy;
   if (value)
   {
     value2 = [(_INPBHomeUserTask *)self value];
     PBDataWriterWriteSubmessage();
 
-    v7 = toCopy;
+    v5 = toCopy;
   }
 }
 
@@ -243,6 +243,21 @@ LABEL_16:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)taskTypeAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7286CB8[string - 1];
   }
 
   return v4;
@@ -614,6 +629,21 @@ LABEL_16:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)attributeAsString:(int)string
+{
+  if (string >= 0x42)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7286AA8[string];
   }
 
   return v4;

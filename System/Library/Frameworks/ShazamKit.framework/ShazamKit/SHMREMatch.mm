@@ -52,27 +52,27 @@
 
 - (id)toMatchedMediaItems
 {
-  v40[5] = *MEMORY[0x277D85DE8];
+  v39[5] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v39[0] = @"sh_matchOffset";
+  v38[0] = @"sh_matchOffset";
   v4 = MEMORY[0x277CCABB0];
   [(SHMREMatch *)self offset];
   v5 = [v4 numberWithDouble:?];
-  v40[0] = v5;
-  v39[1] = @"sh_speedSkew";
+  v39[0] = v5;
+  v38[1] = @"sh_speedSkew";
   timeSkew = [(SHMREMatch *)self timeSkew];
-  v40[1] = timeSkew;
-  v39[2] = @"sh_frequencySkew";
+  v39[1] = timeSkew;
+  v38[2] = @"sh_frequencySkew";
   freqSkew = [(SHMREMatch *)self freqSkew];
-  v40[2] = freqSkew;
-  v39[3] = @"sh_score";
+  v39[2] = freqSkew;
+  v38[3] = @"sh_score";
   score = [(SHMREMatch *)self score];
-  v40[3] = score;
-  v39[4] = @"sh_audioStartDate";
+  v39[3] = score;
+  v38[4] = @"sh_audioStartDate";
   querySignature = [(SHMREMatch *)self querySignature];
   audioStartDate = [querySignature audioStartDate];
-  v40[4] = audioStartDate;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:5];
+  v39[4] = audioStartDate;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:5];
   v12 = [v3 dictionaryWithDictionary:v11];
 
   signatureAlignments = [(SHMREMatch *)self signatureAlignments];
@@ -93,26 +93,26 @@
     mediaItems2 = [(SHMREMatch *)self mediaItems];
     v20 = [v18 arrayWithCapacity:{objc_msgSend(mediaItems2, "count")}];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     mediaItems3 = [(SHMREMatch *)self mediaItems];
-    v22 = [mediaItems3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v22 = [mediaItems3 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v34;
+      v24 = *v33;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v34 != v24)
+          if (*v33 != v24)
           {
             objc_enumerationMutation(mediaItems3);
           }
 
-          properties = [*(*(&v33 + 1) + 8 * i) properties];
+          properties = [*(*(&v32 + 1) + 8 * i) properties];
           v27 = [properties mutableCopy];
 
           [v27 addEntriesFromDictionary:v12];
@@ -120,7 +120,7 @@
           [(SHMatchedMediaItem *)v20 addObject:v28];
         }
 
-        v23 = [mediaItems3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v23 = [mediaItems3 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v23);
@@ -132,13 +132,11 @@
   else
   {
     v20 = [[SHMatchedMediaItem alloc] initWithMatchedMediaItemDictionary:v12];
-    v38 = v20;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+    v37 = v20;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
   }
 
   v30 = v29;
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

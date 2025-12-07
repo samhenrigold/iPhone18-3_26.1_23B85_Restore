@@ -79,9 +79,9 @@ LABEL_14:
         snapshotJournal = [(PLJournal *)v15 snapshotJournal];
         v17 = [snapshotJournal url];
         lastPathComponent2 = [v17 lastPathComponent];
-        v19 = [lastPathComponent isEqualToString:lastPathComponent2];
+        isEqualToString = objc_msgSend_isEqualToString_(lastPathComponent);
 
-        if ((v19 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
 
           goto LABEL_14;
@@ -293,7 +293,7 @@ id __49__PLDirectoryJournal_persistManagedObject_error___block_invoke(uint64_t a
     }
 
     changedValues = [objectCopy changedValues];
-    if ([changedValues count])
+    if (objc_msgSend_count(changedValues))
     {
       v7 = MEMORY[0x1E695DFD8];
       changedValues2 = [objectCopy changedValues];

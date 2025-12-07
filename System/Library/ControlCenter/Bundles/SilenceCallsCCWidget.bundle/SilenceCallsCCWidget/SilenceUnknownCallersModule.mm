@@ -1,6 +1,7 @@
 @interface SilenceUnknownCallersModule
 + (id)defaults;
 - (BOOL)isSelected;
+- (void)setSelected:(BOOL)selected;
 @end
 
 @implementation SilenceUnknownCallersModule
@@ -23,6 +24,15 @@
   v3 = [v2 BOOLForKey:TUCallFilteringPreferencesContactsOnlyKey];
 
   return v3;
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v5 = +[SilenceUnknownCallersModule defaults];
+  [v5 setBool:selectedCopy forKey:TUCallFilteringPreferencesContactsOnlyKey];
+
+  [(SilenceUnknownCallersModule *)self refreshState];
 }
 
 @end

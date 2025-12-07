@@ -40,52 +40,8 @@
   coalescingRules = [(FCCCompletionOffTrackConfiguration *)configuration coalescingRules];
   v10 = FCEventCoalescedWithRules(coalescingRules, delegateCopy);
 
-  if (v10)
+  if ((v10 & 1) != 0 || ((-[FCCCompletionOffTrackConfiguration goalBufferPercentage](self->_configuration, "goalBufferPercentage"), v13 = v12, -[FCCCompletionOffTrackConfiguration allowedGoalTypes](self->_configuration, "allowedGoalTypes"), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 containsObject:&unk_285E86990], v14, !v15) ? (v17 = 0, v18 = 1) : (objc_msgSend(modelCopy, "valueOfTypicalDayMoveEarnedByNow"), v17 = v16 > 0.0, v18 = objc_msgSend(modelCopy, "willCompleteMoveGoalWithBufferPercentage:", v13)), (-[FCCCompletionOffTrackConfiguration allowedGoalTypes](self->_configuration, "allowedGoalTypes"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "containsObject:", &unk_285E869A8), v19, !v20) ? (v22 = 0, v23 = 1) : (objc_msgSend(modelCopy, "valueOfTypicalDayBriskMinutesEarnedByNow"), v22 = v21 > 0.0, v23 = objc_msgSend(modelCopy, "willCompleteExerciseGoalWithBufferPercentage:", v13)), (-[FCCCompletionOffTrackConfiguration allowedGoalTypes](self->_configuration, "allowedGoalTypes"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "containsObject:", &unk_285E869C0), v24, !v25) ? (v26 = 1) : (v26 = objc_msgSend(modelCopy, "willCompleteStandGoalOrItIsTooLateWithBufferPercentage:", v13)), v18 & 1 | !v17 && ((!v22 | v23) & 1) != 0 && v26 & 1 | (!v17 && !v22)))
   {
-    goto LABEL_2;
-  }
-
-  [(FCCCompletionOffTrackConfiguration *)self->_configuration goalBufferPercentage];
-  v13 = v12;
-  allowedGoalTypes = [(FCCCompletionOffTrackConfiguration *)self->_configuration allowedGoalTypes];
-  v15 = [allowedGoalTypes containsObject:&unk_285E86990];
-
-  if (v15)
-  {
-    [modelCopy valueOfTypicalDayMoveEarnedByNow];
-    v17 = v16 > 0.0;
-    v18 = [modelCopy willCompleteMoveGoalWithBufferPercentage:v13];
-  }
-
-  else
-  {
-    v17 = 0;
-    v18 = 1;
-  }
-
-  allowedGoalTypes2 = [(FCCCompletionOffTrackConfiguration *)self->_configuration allowedGoalTypes];
-  v20 = [allowedGoalTypes2 containsObject:&unk_285E869A8];
-
-  if (v20)
-  {
-    [modelCopy valueOfTypicalDayBriskMinutesEarnedByNow];
-    v22 = v21 > 0.0;
-    v23 = [modelCopy willCompleteExerciseGoalWithBufferPercentage:v13];
-  }
-
-  else
-  {
-    v22 = 0;
-    v23 = 1;
-  }
-
-  allowedGoalTypes3 = [(FCCCompletionOffTrackConfiguration *)self->_configuration allowedGoalTypes];
-  v25 = [allowedGoalTypes3 containsObject:&unk_285E869C0];
-
-  v26 = v25 ? [modelCopy willCompleteStandGoalOrItIsTooLateWithBufferPercentage:v13] : 1;
-  if (v18 & 1 | !v17 && ((!v22 | v23) & 1) != 0 && v26 & 1 | (!v17 && !v22))
-  {
-LABEL_2:
     v11 = 0;
   }
 

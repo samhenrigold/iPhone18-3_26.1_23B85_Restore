@@ -33,10 +33,7 @@
 
 - (void)setSpecifiers:(id)specifiers
 {
-  v4 = [specifiers copy];
-  keySearchFilterInternal = self->_keySearchFilterInternal;
-  v6 = keySearchFilterInternal[1];
-  keySearchFilterInternal[1] = v4;
+  *(self->_keySearchFilterInternal + 1) = [specifiers copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -50,10 +47,7 @@
 
 - (void)setDomains:(id)domains
 {
-  v4 = [domains copy];
-  keySearchFilterInternal = self->_keySearchFilterInternal;
-  v6 = keySearchFilterInternal[2];
-  keySearchFilterInternal[2] = v4;
+  *(self->_keySearchFilterInternal + 2) = [domains copy];
 
   MEMORY[0x2821F96F8]();
 }

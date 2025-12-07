@@ -205,7 +205,7 @@
     goto LABEL_6;
   }
 
-  [configuration movieFragmentInterval];
+  objc_msgSend_movieFragmentInterval(configuration, a2);
   if ((v10.flags & 1) == 0 || !VCFeatureFlagManager_RecordingResiliencyEnabled())
   {
     goto LABEL_6;
@@ -563,7 +563,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to set up directoryURL", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to set up directoryURL", v2, v3, v4, v5);
     }
   }
 }
@@ -577,7 +577,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Fsiled to set up movieFragmentInterval", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Fsiled to set up movieFragmentInterval", v2, v3, v4, v5);
     }
   }
 }
@@ -591,7 +591,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid configuration passed", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid configuration passed", v2, v3, v4, v5);
     }
   }
 }
@@ -605,7 +605,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to super init request", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to super init request", v2, v3, v4, v5);
     }
   }
 }

@@ -1052,7 +1052,7 @@ LABEL_12:
   return v14;
 }
 
-uint64_t __47__SBSwitcherWindowingSettings__statusBarHeight__block_invoke()
+void *__47__SBSwitcherWindowingSettings__statusBarHeight__block_invoke()
 {
   result = [MEMORY[0x277D75A78] heightForStyle:0 orientation:1];
   _statusBarHeight___statusBarHeight_82 = v1;

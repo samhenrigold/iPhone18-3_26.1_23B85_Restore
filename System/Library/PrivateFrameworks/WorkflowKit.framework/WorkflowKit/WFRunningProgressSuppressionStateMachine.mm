@@ -12,7 +12,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1CA282EF4();
+  sub_1CA282EF4(delegate);
 }
 
 - (void)startedRunningShortcut:(id)shortcut withDialogAttribution:(id)attribution
@@ -40,9 +40,9 @@
 
 - (void)decideRunningProgressIsAllowed:(BOOL)allowed withReason:(id)reason
 {
-  sub_1CA94C3A8();
+  v6 = sub_1CA94C3A8();
   selfCopy = self;
-  sub_1CA28C7C4(allowed);
+  sub_1CA28C7C4(allowed, v6);
 }
 
 @end

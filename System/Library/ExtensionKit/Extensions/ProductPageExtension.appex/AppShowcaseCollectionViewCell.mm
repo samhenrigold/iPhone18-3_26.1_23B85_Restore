@@ -12,7 +12,7 @@
   v5 = sub_10076341C();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC20ProductPageExtension29AppShowcaseCollectionViewCell_lockupView;
-  *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(type metadata accessor for AppShowcaseLockupView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(type metadata accessor for AppShowcaseLockupView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   swift_unknownObjectWeakInit();
   v7 = OBJC_IVAR____TtC20ProductPageExtension29AppShowcaseCollectionViewCell_showcaseType;
   v8 = enum case for AppShowcaseType.large(_:);

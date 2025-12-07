@@ -3,7 +3,7 @@
 
 @implementation UIDiffableDataSourceApplyInsertUpdate
 
-uint64_t ___UIDiffableDataSourceApplyInsertUpdate_block_invoke_2(uint64_t a1)
+char *___UIDiffableDataSourceApplyInsertUpdate_block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) destinationIdentifier];
   if ([*(a1 + 32) destinationIdentifierIsSectionIdentifier])

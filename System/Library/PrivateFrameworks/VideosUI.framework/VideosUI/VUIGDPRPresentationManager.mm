@@ -19,12 +19,12 @@
 
 + (BOOL)shouldShowWelcomeScreen
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = VUISignpostLogObject();
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = VUISignpostLogObject(self);
   if (os_signpost_enabled(v2))
   {
-    LOWORD(v17) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v2, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launch.ShouldShowWelcomeScreen", "", &v17, 2u);
+    LOWORD(v18) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v2, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launch.ShouldShowWelcomeScreen", "", &v18, 2u);
   }
 
   mEMORY[0x1E69DF6E0] = [MEMORY[0x1E69DF6E0] sharedInstance];
@@ -43,51 +43,51 @@ LABEL_6:
     _sharedInstance = [objc_opt_class() _sharedInstance];
     hasShownWelcome = [_sharedInstance hasShownWelcome];
 
-    v8 = VUIDefaultLogObject();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+    v9 = VUIDefaultLogObject(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
     if (hasShownWelcome)
     {
-      if (v9)
+      if (v10)
       {
-        LOWORD(v17) = 0;
-        v10 = "VUIGDPRPresentationManager - GDPR has already shown because of user defaults override";
+        LOWORD(v18) = 0;
+        v11 = "VUIGDPRPresentationManager - GDPR has already shown because of user defaults override";
 LABEL_11:
-        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, v10, &v17, 2u);
+        _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, v11, &v18, 2u);
       }
     }
 
-    else if (v9)
+    else if (v10)
     {
-      LOWORD(v17) = 0;
-      v10 = "VUIGDPRPresentationManager - GDPR is shown because of user defaults override";
+      LOWORD(v18) = 0;
+      v11 = "VUIGDPRPresentationManager - GDPR is shown because of user defaults override";
       goto LABEL_11;
     }
 
     _sharedInstance2 = [objc_opt_class() _sharedInstance];
-    v12 = [_sharedInstance2 hasShownWelcome] ^ 1;
+    LODWORD(v9) = [_sharedInstance2 hasShownWelcome] ^ 1;
     goto LABEL_18;
   }
 
   _sharedInstance2 = [MEMORY[0x1E69D5920] activeOrLocalAccount];
-  LOBYTE(v12) = [MEMORY[0x1E698C790] acknowledgementNeededForPrivacyIdentifier:@"com.apple.onboarding.tvapp" account:_sharedInstance2];
-  v13 = VUIDefaultLogObject();
+  v9 = [MEMORY[0x1E698C790] acknowledgementNeededForPrivacyIdentifier:@"com.apple.onboarding.tvapp" account:_sharedInstance2];
+  v13 = VUIDefaultLogObject(v9);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = VUIBoolLogString();
-    v17 = 138412290;
-    v18 = v14;
-    _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - GDPR needed? [%@]", &v17, 0xCu);
+    v18 = 138412290;
+    v19 = v14;
+    _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - GDPR needed? [%@]", &v18, 0xCu);
   }
 
-  v15 = VUISignpostLogObject();
-  if (os_signpost_enabled(v15))
+  v16 = VUISignpostLogObject(v15);
+  if (os_signpost_enabled(v16))
   {
-    LOWORD(v17) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launch.ShouldShowWelcomeScreen", "", &v17, 2u);
+    LOWORD(v18) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launch.ShouldShowWelcomeScreen", "", &v18, 2u);
   }
 
 LABEL_18:
-  return v12;
+  return v9;
 }
 
 + (BOOL)showGDPRWelcomeScreen:(id)screen
@@ -101,16 +101,20 @@ LABEL_18:
     [_sharedInstance _showIOSWelcomeControllerWithAppContext:screenCopy offline:!v5];
   }
 
-  else if (([MEMORY[0x1E69E1570] isOptedIn] & 1) == 0)
+  else
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    isOptedIn = [MEMORY[0x1E69E1570] isOptedIn];
+    if ((isOptedIn & 1) == 0)
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - Starting GAC patch-up flow", v9, 2u);
-    }
+      v8 = VUIDefaultLogObject(isOptedIn);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      {
+        *v10 = 0;
+        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - Starting GAC patch-up flow", v10, 2u);
+      }
 
-    [MEMORY[0x1E69E1570] optInUserIfNeededAndRefreshConfig:&__block_literal_global_161];
+      [MEMORY[0x1E69E1570] optInUserIfNeededAndRefreshConfig:&__block_literal_global_161];
+    }
   }
 
   return shouldShowWelcomeScreen;
@@ -120,7 +124,7 @@ void __52__VUIGDPRPresentationManager_showGDPRWelcomeScreen___block_invoke(uint6
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a3;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = VUIBoolLogString();
@@ -180,7 +184,7 @@ void __52__VUIGDPRPresentationManager_showGDPRWelcomeScreen___block_invoke(uint6
 void __59__VUIGDPRPresentationManager_acceptGDPRAndSyncWithServers___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -201,40 +205,41 @@ void __59__VUIGDPRPresentationManager_acceptGDPRAndSyncWithServers___block_invok
   [v1 optInUserIfNeededAndRefreshConfig:v2];
 }
 
-void __59__VUIGDPRPresentationManager_acceptGDPRAndSyncWithServers___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __59__VUIGDPRPresentationManager_acceptGDPRAndSyncWithServers___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = VUIBoolLogString();
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - GDPR flow: Successful OptIn: %@ Err: %@", &v10, 0x16u);
+    v11 = 138412546;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - GDPR flow: Successful OptIn: %@ Err: %@", &v11, 0x16u);
   }
 
-  if (a2)
+  if (v3)
   {
-    v8 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - GDPR flow: failed to opt in: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - GDPR flow: failed to opt in: %@", &v11, 0xCu);
     }
 
-    v8 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
   }
 
-  v8();
+  v9();
 }
 
 + (void)checkGDPRConsentAndPerformRequests:(id)requests
@@ -320,82 +325,83 @@ void __45__VUIGDPRPresentationManager__sharedInstance__block_invoke()
 
 void __78__VUIGDPRPresentationManager__showIOSWelcomeControllerWithAppContext_offline___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v26 = v6;
+    v27 = v6;
     _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - Welcome Controller created. Error:%@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if ([WeakRetained isShowing])
+  v9 = [WeakRetained isShowing];
+  if (v9)
   {
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = VUIDefaultLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - Welcome Controller has already been presented, ignoring this request.", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - Welcome Controller has already been presented, ignoring this request.", buf, 2u);
     }
   }
 
   else
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __78__VUIGDPRPresentationManager__showIOSWelcomeControllerWithAppContext_offline___block_invoke_21;
-    v23[3] = &unk_1E8737480;
-    v24 = *(a1 + 40);
-    v23[4] = WeakRetained;
-    [v5 setPrimaryButtonCallback:v23];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __78__VUIGDPRPresentationManager__showIOSWelcomeControllerWithAppContext_offline___block_invoke_21;
+    v24[3] = &unk_1E8737480;
+    v25 = *(a1 + 40);
+    v24[4] = WeakRetained;
+    [v5 setPrimaryButtonCallback:v24];
     if (+[VUIUtilities isSUIEnabled])
     {
       +[_TtC8VideosUI8VideosUI initializeWelcomeScreenControllerPresenterIfNeeded];
-      v10 = +[VUIInterfaceFactory sharedInstance];
-      [v10 welcomeScreenControllerPresenter];
+      v11 = +[VUIInterfaceFactory sharedInstance];
+      [v11 welcomeScreenControllerPresenter];
     }
 
     else
     {
-      v10 = [MEMORY[0x1E69DD2E8] vui_keyWindow];
-      [v10 rootViewController];
+      v11 = [MEMORY[0x1E69DD2E8] vui_keyWindow];
+      [v11 rootViewController];
     }
-    v11 = ;
+    v12 = ;
 
-    [WeakRetained _dismissAllModalsIfPresent:v11];
-    v9 = v5;
-    v12 = [v9 view];
-    [v12 setAccessibilityIdentifier:@"UIA.TV.Dialog.GDPR"];
+    [WeakRetained _dismissAllModalsIfPresent:v12];
+    v10 = v5;
+    v13 = [v10 view];
+    [v13 setAccessibilityIdentifier:@"UIA.TV.Dialog.GDPR"];
 
-    v13 = [MEMORY[0x1E69DC938] currentDevice];
-    v14 = [v13 userInterfaceIdiom];
+    v14 = [MEMORY[0x1E69DC938] currentDevice];
+    v15 = [v14 userInterfaceIdiom];
 
-    v15 = off_1E87286A0;
-    if (v14)
+    v16 = off_1E87286A0;
+    if (v15)
     {
-      v15 = 0x1E69DCCD8;
+      v16 = 0x1E69DCCD8;
     }
 
-    v16 = [objc_alloc(*v15) initWithRootViewController:v9];
-    [v16 setModalPresentationStyle:2];
-    [v16 setNavigationBarHidden:1];
-    [WeakRetained setNavigationController:v16];
+    v17 = [objc_alloc(*v16) initWithRootViewController:v10];
+    [v17 setModalPresentationStyle:2];
+    [v17 setNavigationBarHidden:1];
+    [WeakRetained setNavigationController:v17];
     objc_initWeak(buf, WeakRetained);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __78__VUIGDPRPresentationManager__showIOSWelcomeControllerWithAppContext_offline___block_invoke_2;
     block[3] = &unk_1E872D9B8;
-    objc_copyWeak(&v22, buf);
-    v20 = v16;
-    v21 = v11;
-    v17 = v11;
-    v18 = v16;
+    objc_copyWeak(&v23, buf);
+    v21 = v17;
+    v22 = v12;
+    v18 = v12;
+    v19 = v17;
     dispatch_async(MEMORY[0x1E69E96A0], block);
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
 }
@@ -553,23 +559,23 @@ uint64_t __52__VUIGDPRPresentationManager__handleContinueButton___block_invoke_4
 
   if ((v4 & 1) == 0)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - GDPR Accept button -- Check if there is any pending offer to present", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUIGDPRPresentationManager - GDPR Accept button -- Check if there is any pending offer to present", v11, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
     [VUIOfferUtilities fetchAndPresentOffer:WeakRetained sourceEvent:@"GDPRJustAccepted" completion:&__block_literal_global_91];
   }
 
-  v7 = dispatch_get_global_queue(0, 0);
-  dispatch_async(v7, &__block_literal_global_94);
+  v8 = dispatch_get_global_queue(0, 0);
+  dispatch_async(v8, &__block_literal_global_94);
 
   +[_TtC8VideosUI8VideosUI handleGDPRDidChangeSignal];
-  v8 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v8 postNotificationName:@"VUIGDPRUserDidConsentNotification" object:0 userInfo:0];
+  v9 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v9 postNotificationName:@"VUIGDPRUserDidConsentNotification" object:0 userInfo:0];
 
   return +[VUIGDPRPresentationManager _performRequestsIfNeeded];
 }
@@ -619,7 +625,7 @@ void __59__VUIGDPRPresentationManager__handleOfflineContinueButton___block_invok
 uint64_t __59__VUIGDPRPresentationManager__handleOfflineContinueButton___block_invoke_2(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 56);

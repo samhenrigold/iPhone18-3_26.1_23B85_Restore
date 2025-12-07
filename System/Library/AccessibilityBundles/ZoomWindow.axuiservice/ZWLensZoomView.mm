@@ -158,27 +158,25 @@
 
 - (void)animationDidStart:(id)start
 {
-  ZOTMainScreenSize();
-  v5 = v4;
-  ZOTMainScreenSize();
-  if (v5 < v6)
+  v4 = ZOTMainScreenSize();
+  v5 = ZOTMainScreenSize();
+  if (v4 < v6)
   {
-    v5 = v6;
+    v4 = v6;
   }
 
   zoomBackdropLayer = [(ZWLensZoomView *)self zoomBackdropLayer];
-  [zoomBackdropLayer setMarginWidth:v5];
+  [zoomBackdropLayer setMarginWidth:v4];
 
-  ZOTMainScreenSize();
-  v9 = v8;
-  ZOTMainScreenSize();
-  if (v9 < v10)
+  v8 = ZOTMainScreenSize();
+  v9 = ZOTMainScreenSize();
+  if (v8 < v10)
   {
-    v9 = v10;
+    v8 = v10;
   }
 
   effectBackdropLayer = [(ZWLensZoomView *)self effectBackdropLayer];
-  [effectBackdropLayer setMarginWidth:v9];
+  [effectBackdropLayer setMarginWidth:v8];
 }
 
 - (void)animationDidStop:(id)stop finished:(BOOL)finished
@@ -415,11 +413,11 @@
 
   else
   {
-    v80 = *(&CACornerRadiiZero + 1);
-    *&v241.m11 = *&CACornerRadiiZero;
+    v80 = CACornerRadiiZero[1];
+    *&v241.m11 = CACornerRadiiZero[0];
     *&v241.m13 = v80;
-    v81 = *(&CACornerRadiiZero + 3);
-    *&v241.m21 = *(&CACornerRadiiZero + 2);
+    v81 = CACornerRadiiZero[3];
+    *&v241.m21 = CACornerRadiiZero[2];
     *&v241.m23 = v81;
     v82 = 1;
   }
@@ -453,7 +451,7 @@
     v95 = zoomReplicatorLayer2;
     if (zoomReplicatorLayer2)
     {
-      [zoomReplicatorLayer2 instanceTransform];
+      objc_msgSend_instanceTransform(zoomReplicatorLayer2);
     }
 
     else

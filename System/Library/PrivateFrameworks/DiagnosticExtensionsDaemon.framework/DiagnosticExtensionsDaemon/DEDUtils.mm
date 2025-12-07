@@ -26,7 +26,7 @@
 
 + (id)deviceClassForProductType:(id)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = typeCopy;
   if (typeCopy)
@@ -58,9 +58,9 @@
               v8 = +[DEDUtils sharedLog];
               if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
               {
-                v11 = 138543362;
-                v12 = v5;
-                _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_INFO, "No deviceClass for product [%{public}@]", &v11, 0xCu);
+                v10 = 138543362;
+                v11 = v5;
+                _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_INFO, "No deviceClass for product [%{public}@]", &v10, 0xCu);
               }
 
               v6 = &stru_285B72378;
@@ -78,14 +78,12 @@
     v7 = &stru_285B72378;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)deriveMacDeviceClassForProductType:(id)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CE1CB8] _typeWithDeviceModelCode:type];
   identifier = [v3 identifier];
   v5 = [identifier stringByReplacingOccurrencesOfString:@"com.apple." withString:&stru_285B72378];
@@ -131,15 +129,14 @@
     v8 = +[DEDUtils sharedLog];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = lowercaseString;
-      _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "No Mac product mapping for [%{public}@]", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = lowercaseString;
+      _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "No Mac product mapping for [%{public}@]", &v10, 0xCu);
     }
 
     v7 = &stru_285B72378;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -346,7 +343,7 @@ LABEL_7:
 
 + (id)unauthenticatedDeviceSpecifierFormResponseID:(int64_t)d device:(id)device
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEA60];
   deviceCopy = device;
   enclosureColor = [deviceCopy enclosureColor];
@@ -363,13 +360,11 @@ LABEL_7:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v14;
+    v19 = v14;
     _os_log_impl(&dword_248AD7000, v15, OS_LOG_TYPE_DEFAULT, "uniquingString un-hashed [%@]", buf, 0xCu);
   }
 
   v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unauthenticated-FR%li-%lu", d, objc_msgSend(v14, "hash")];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -584,7 +579,7 @@ void __29__DEDUtils_isInternalInstall__block_invoke()
 
 + (id)checkDefaultsForOverride:(id)override
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   overrideCopy = override;
   if (!+[DEDUtils isInternalInstall])
   {
@@ -602,27 +597,25 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v8 = +[DEDUtils sharedLog];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = +[DEDUtils sharedLog];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = overrideCopy;
-    _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "DED overriding platform value for %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = overrideCopy;
+    _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "DED overriding platform value for %@", &v8, 0xCu);
   }
 
 LABEL_6:
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (void)modelForProductType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "No model for product [%{public}@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "No model for product [%{public}@]", &v2, 0xCu);
 }
 
 @end

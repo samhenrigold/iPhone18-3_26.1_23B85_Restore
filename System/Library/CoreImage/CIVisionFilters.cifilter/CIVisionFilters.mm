@@ -68,7 +68,7 @@ id sub_1030(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint6
   return result;
 }
 
-uint64_t sub_13F0()
+uint64_t sub_13F0(uint64_t a1, uint64_t a2)
 {
   if (qword_8578 != -1)
   {

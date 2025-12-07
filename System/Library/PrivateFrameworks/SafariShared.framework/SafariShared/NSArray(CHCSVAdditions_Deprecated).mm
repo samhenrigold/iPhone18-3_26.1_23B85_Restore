@@ -18,7 +18,7 @@
 
 + (id)arrayWithContentsOfCSVFile:()CHCSVAdditions_Deprecated delimiter:
 {
-  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
+  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:a3];
   v7 = [self arrayWithContentsOfDelimitedURL:v6 options:0 delimiter:a4 error:0];
 
   return v7;
@@ -26,7 +26,7 @@
 
 + (id)arrayWithContentsOfCSVFile:()CHCSVAdditions_Deprecated options:
 {
-  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
+  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:a3];
   v7 = [self arrayWithContentsOfDelimitedURL:v6 options:a4 delimiter:44 error:0];
 
   return v7;
@@ -34,7 +34,7 @@
 
 + (id)arrayWithContentsOfCSVFile:()CHCSVAdditions_Deprecated options:delimiter:
 {
-  v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
+  v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:a3];
   v9 = [self arrayWithContentsOfDelimitedURL:v8 options:a4 delimiter:a5 error:0];
 
   return v9;
@@ -42,7 +42,7 @@
 
 + (id)arrayWithContentsOfCSVFile:()CHCSVAdditions_Deprecated options:delimiter:error:
 {
-  v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
+  v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:a3];
   v11 = [self arrayWithContentsOfDelimitedURL:v10 options:a4 delimiter:a5 error:a6];
 
   return v11;

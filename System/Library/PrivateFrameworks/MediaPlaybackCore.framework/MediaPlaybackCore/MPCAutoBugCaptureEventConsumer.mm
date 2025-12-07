@@ -2,6 +2,7 @@
 - (BOOL)shouldReportError:(id)error;
 - (void)autoBugCaptureWithSubType:(id)type context:(id)context triggerThresholdValues:(id)values events:(id)events;
 - (void)subscribeToEventStream:(id)stream;
+- (void)unsubscribeFromEventStream:(id)stream;
 @end
 
 @implementation MPCAutoBugCaptureEventConsumer
@@ -70,6 +71,13 @@ LABEL_6:
   code = [v3 code];
 
   return code != 28 && (code & 0xFFFFFFFFFFFFFFDFLL) != 24;
+}
+
+- (void)unsubscribeFromEventStream:(id)stream
+{
+  subscription = self->_subscription;
+  self->_subscription = 0;
+  MEMORY[0x1EEE66BB8](self, subscription);
 }
 
 - (void)subscribeToEventStream:(id)stream
@@ -192,32 +200,32 @@ uint64_t __57__MPCAutoBugCaptureEventConsumer_subscribeToEventStream___block_inv
 
 uint64_t __57__MPCAutoBugCaptureEventConsumer_subscribeToEventStream___block_invoke_18(uint64_t a1, void *a2, void *a3)
 {
-  v23[1] = *MEMORY[0x1E69E9840];
-  v22 = @"remote-control-id";
+  v24[1] = *MEMORY[0x1E69E9840];
+  v23 = @"remote-control-id";
   v5 = a3;
   v6 = a2;
   v7 = [v6 payload];
   v8 = [v7 objectForKeyedSubscript:@"remote-control-id"];
-  v23[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v24[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   v10 = [v5 findPreviousEventWithType:@"remote-control-begin" matchingPayload:v9];
 
   [v6 durationSinceEvent:v10];
   v12 = v11;
   v13 = [v10 payload];
   v14 = [v13 objectForKeyedSubscript:@"remote-control-type"];
-  LODWORD(v7) = [v14 unsignedIntValue];
+  v15 = [v14 unsignedIntValue];
 
-  v15 = MPCRemoteCommandDescriptionCopy(v7);
-  v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%.3f", v12];
-  v17 = _EVSEventToABCEvent(v10);
-  v21[0] = v17;
-  v18 = _EVSEventToABCEvent(v6);
+  v16 = MPCRemoteCommandDescriptionCopy(v15);
+  v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%.3f", v12];
+  v18 = _EVSEventToABCEvent(v10);
+  v22[0] = v18;
+  v19 = _EVSEventToABCEvent(v6);
 
-  v21[1] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v22[1] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
 
-  [*(a1 + 32) autoBugCaptureWithSubType:@"CommandTimeout" context:v15 triggerThresholdValues:v16 events:v19];
+  [*(a1 + 32) autoBugCaptureWithSubType:@"CommandTimeout" context:v16 triggerThresholdValues:v17 events:v20];
   return 1;
 }
 

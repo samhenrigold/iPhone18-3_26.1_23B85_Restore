@@ -8,38 +8,38 @@
 - (id)ntk_listOfProperties
 {
   outCount = 0;
-  v0 = objc_opt_class();
-  v1 = class_copyPropertyList(v0, &outCount);
-  v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v1 = objc_opt_class();
+  v2 = class_copyPropertyList(v1, &outCount);
+  v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (outCount)
   {
     for (i = 0; i < outCount; ++i)
     {
-      v4 = v1[i];
-      Name = property_getName(v4);
+      v5 = v2[i];
+      Name = property_getName(v5);
       if (Name)
       {
-        v6 = Name;
-        v11 = 0;
-        v7 = getObjectType(v4, &v11);
-        v8 = objc_alloc_init(NTKObjectPropertyInfo);
-        v9 = [MEMORY[0x277CCACA8] stringWithCString:v6 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-        [(NTKObjectPropertyInfo *)v8 setName:v9];
+        v7 = Name;
+        v12 = 0;
+        v8 = getObjectType(v5, &v12);
+        v9 = objc_alloc_init(NTKObjectPropertyInfo);
+        v10 = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+        [(NTKObjectPropertyInfo *)v9 setName:v10];
 
-        if (v7)
+        if (v8)
         {
-          [(NTKObjectPropertyInfo *)v8 setTypeString:v7];
+          [(NTKObjectPropertyInfo *)v9 setTypeString:v8];
         }
 
-        [(NTKObjectPropertyInfo *)v8 setIsDynamic:v11];
-        [v2 addObject:v8];
+        [(NTKObjectPropertyInfo *)v9 setIsDynamic:v12];
+        [v3 addObject:v9];
       }
     }
   }
 
-  free(v1);
+  free(v2);
 
-  return v2;
+  return v3;
 }
 
 - (id)ntk_listOfDynamicProperties

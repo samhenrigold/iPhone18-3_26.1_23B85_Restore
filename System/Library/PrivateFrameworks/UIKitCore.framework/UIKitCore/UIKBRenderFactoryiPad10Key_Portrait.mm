@@ -250,14 +250,14 @@
     v6 = MEMORY[0x1E696B098];
     [keyplaneCopy frameForKeylayoutName:@"split-left"];
     v7 = [v6 valueWithCGRect:?];
-    geometry = [v5 geometry];
-    [geometry setSplitLeftRect:v7];
+    v8 = objc_msgSend_geometry(v5);
+    [v8 setSplitLeftRect:v7];
 
     v9 = MEMORY[0x1E696B098];
     [keyplaneCopy frameForKeylayoutName:@"split-right"];
     v10 = [v9 valueWithCGRect:?];
-    geometry2 = [v5 geometry];
-    [geometry2 setSplitRightRect:v10];
+    v11 = objc_msgSend_geometry(v5);
+    [v11 setSplitRightRect:v10];
   }
 
   return v5;
@@ -337,16 +337,16 @@
   {
     [(UIKBRenderFactory *)self translucentGapWidth];
     v10 = v9;
-    geometry = [v8 geometry];
-    [geometry symbolFrame];
+    renderConfig2 = objc_msgSend_geometry(v8);
+    [renderConfig2 symbolFrame];
     v13 = v12;
     v14 = -2.0 - v10;
     v15 = v10 + -2.0;
     v17 = v10 + -2.0 + v16;
     v19 = v18 - (v14 + v15);
     v21 = v20 + 0.0;
-    geometry2 = [v8 geometry];
-    [geometry2 setSymbolFrame:{v17, v21, v19, v13}];
+    v22 = objc_msgSend_geometry(v8);
+    [v22 setSymbolFrame:{v17, v21, v19, v13}];
 LABEL_3:
 
 LABEL_15:
@@ -355,13 +355,13 @@ LABEL_15:
 
   if ([keyCopy displayType] == 1)
   {
-    geometry = [v8 geometry];
-    [geometry frame];
-    [geometry setFrame:{v23 + 0.0, v24 + 0.0, v25 + -0.5}];
-    [geometry paddedFrame];
-    [geometry setPaddedFrame:{v26 + 0.0, v27 + 0.0, v28 + -0.5}];
-    [geometry displayFrame];
-    [geometry setDisplayFrame:{v29 + 0.0, v30 + 0.0, v31 + -0.5}];
+    renderConfig2 = objc_msgSend_geometry(v8);
+    [renderConfig2 frame];
+    [renderConfig2 setFrame:{v23 + 0.0, v24 + 0.0, v25 + -0.5}];
+    [renderConfig2 paddedFrame];
+    [renderConfig2 setPaddedFrame:{v26 + 0.0, v27 + 0.0, v28 + -0.5}];
+    [renderConfig2 displayFrame];
+    [renderConfig2 setDisplayFrame:{v29 + 0.0, v30 + 0.0, v31 + -0.5}];
     goto LABEL_15;
   }
 
@@ -379,16 +379,16 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    geometry = [(UIKBRenderFactory *)self renderConfig];
-    colorAdaptiveBackground = [geometry colorAdaptiveBackground];
+    renderConfig2 = [(UIKBRenderFactory *)self renderConfig];
+    colorAdaptiveBackground = [renderConfig2 colorAdaptiveBackground];
     v36 = UIKBColorWhite_Alpha30;
     if (!colorAdaptiveBackground)
     {
       v36 = UIKBColorClear;
     }
 
-    geometry2 = [UIKBGradient gradientWithFlatColor:*v36];
-    [v8 setBackgroundGradient:geometry2];
+    v22 = [UIKBGradient gradientWithFlatColor:*v36];
+    [v8 setBackgroundGradient:v22];
     goto LABEL_3;
   }
 
@@ -405,8 +405,8 @@ LABEL_15:
     symbolStyle3 = [v8 symbolStyle];
     [symbolStyle3 setKeycapsFallback:lightKeycapsFontFallbackName];
 
-    geometry = [v8 symbolStyle];
-    [geometry setFontSize:20.0];
+    renderConfig2 = [v8 symbolStyle];
+    [renderConfig2 setFontSize:20.0];
     goto LABEL_15;
   }
 

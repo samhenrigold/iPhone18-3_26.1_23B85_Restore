@@ -321,7 +321,7 @@ _DWORD *protocol witness for MutableCollection.subscript.setter in conformance U
   return result;
 }
 
-uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableMIDIEventPacketPointer(uint64_t *a1, unint64_t *a2))()
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableMIDIEventPacketPointer(uint64_t (**a1)(), unint64_t *a2))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -355,7 +355,7 @@ uint64_t (*protocol witness for MutableCollection.subscript.modify in conformanc
   return protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableMIDIEventPacketPointer;
 }
 
-void (*specialized MutableCollection<>.subscript.modify(void (**a1)(uint64_t a1, uint64_t a2), uint64_t a2, uint64_t a3))(uint64_t a1, uint64_t a2)
+uint64_t (*specialized MutableCollection<>.subscript.modify(uint64_t (**a1)(), uint64_t a2, uint64_t a3))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -445,12 +445,12 @@ void MutableCollection<>.subscript.modifyspecialized (uint64_t a1, uint64_t a2, 
   free(v3);
 }
 
-unint64_t protocol witness for MutableCollection.partition(by:) in conformance UnsafeMutableMIDIEventPacketPointer@<X0>(unint64_t a1@<X0>, unint64_t *a2@<X8>)
+uint64_t protocol witness for MutableCollection.partition(by:) in conformance UnsafeMutableMIDIEventPacketPointer@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = specialized MutableCollection<>._partitionImpl(by:)(a1);
+  result = specialized MutableCollection<>._partitionImpl(by:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -642,7 +642,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance UnsafeMutableMIDIEventPacketPointer(uint64_t (*result)(), unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance UnsafeMutableMIDIEventPacketPointer(void (*result)(), unint64_t *a2))()
 {
   v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
@@ -913,10 +913,10 @@ void *protocol witness for Sequence._copyToContiguousArray() in conformance Unsa
   return v3;
 }
 
-size_t MIDIEventPacket.Builder.__allocating_init(maximumNumberMIDIWords:)(uint64_t a1)
+void *MIDIEventPacket.Builder.__allocating_init(maximumNumberMIDIWords:)(unint64_t a1)
 {
   result = swift_allocObject();
-  *(result + 24) = 0;
+  result[3] = 0;
   if (a1 < 1)
   {
     __break(1u);
@@ -931,7 +931,7 @@ LABEL_7:
   }
 
   v3 = result;
-  result = 4 * a1 + 12;
+  result = (4 * a1 + 12);
   if (__OFADD__(4 * a1, 12))
   {
 LABEL_8:
@@ -942,9 +942,9 @@ LABEL_8:
   result = calloc(result, 1uLL);
   if (result)
   {
-    *(v3 + 16) = result;
+    v3[2] = result;
     swift_beginAccess();
-    *(v3 + 24) = a1;
+    v3[3] = a1;
     return v3;
   }
 
@@ -953,7 +953,7 @@ LABEL_9:
   return result;
 }
 
-int64_t MIDIEventPacket.Builder.init(maximumNumberMIDIWords:)(int64_t result)
+size_t MIDIEventPacket.Builder.init(maximumNumberMIDIWords:)(size_t result)
 {
   *(v1 + 24) = 0;
   if (result < 1)
@@ -1146,7 +1146,7 @@ void protocol witness for Sequence.makeIterator() in conformance MIDIEventList.U
 
 double UnsafeMutableMIDIEventListPointer.init(_:wordSize:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  if (a1 && (UnsafeMutableMIDIEventListPointer.init(_:wordSize:)(&v6), (v3 = v8) != 0))
+  if (a1 && (UnsafeMutableMIDIEventListPointer.init(_:wordSize:)(a1, &v6), (v3 = v8) != 0))
   {
     v4 = v7;
     result = *&v6;
@@ -1198,7 +1198,7 @@ void protocol witness for Sequence.makeIterator() in conformance UnsafeMutableMI
   a1[2] = v4;
 }
 
-MIDIEventList *MIDIEventList.Builder.__allocating_init(inProtocol:wordSize:)(MIDIProtocolID a1, uint64_t a2)
+MIDIEventList *MIDIEventList.Builder.__allocating_init(inProtocol:wordSize:)(UInt32 a1, unint64_t a2)
 {
   result = swift_allocObject();
   if (a2 < 69)
@@ -1233,7 +1233,7 @@ LABEL_7:
   return result;
 }
 
-MIDIEventList *MIDIEventList.Builder.init(inProtocol:wordSize:)(MIDIEventList *result, uint64_t a2)
+MIDIEventList *MIDIEventList.Builder.init(inProtocol:wordSize:)(MIDIEventList *result, unint64_t a2)
 {
   if (a2 < 69)
   {
@@ -1593,7 +1593,7 @@ _BYTE *protocol witness for MutableCollection.subscript.setter in conformance Un
   return result;
 }
 
-uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableMIDIPacketPointer(uint64_t *a1, unint64_t *a2))()
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableMIDIPacketPointer(uint64_t (**a1)(), unint64_t *a2))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -1610,7 +1610,7 @@ uint64_t (*protocol witness for MutableCollection.subscript.modify in conformanc
   return protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableMIDIEventPacketPointer;
 }
 
-uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableMIDIPacketPointer(uint64_t *a1, uint64_t *a2))()
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableMIDIPacketPointer(uint64_t (***a1)(), uint64_t *a2))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -1635,18 +1635,18 @@ void protocol witness for MutableCollection.subscript.modify in conformance Unsa
   free(v1);
 }
 
-unint64_t protocol witness for MutableCollection.partition(by:) in conformance UnsafeMutableMIDIPacketPointer@<X0>(unint64_t a1@<X0>, unint64_t *a2@<X8>)
+uint64_t protocol witness for MutableCollection.partition(by:) in conformance UnsafeMutableMIDIPacketPointer@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = specialized MutableCollection<>._partitionImpl(by:)(a1);
+  result = specialized MutableCollection<>._partitionImpl(by:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance UnsafeMutableMIDIPacketPointer(uint64_t (*result)(), unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance UnsafeMutableMIDIPacketPointer(void (*result)(), unint64_t *a2))()
 {
   v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
@@ -1952,10 +1952,10 @@ void *protocol witness for Sequence._copyToContiguousArray() in conformance Unsa
   return v3;
 }
 
-size_t MIDIPacket.Builder.__allocating_init(maximumNumberMIDIBytes:)(uint64_t a1)
+void *MIDIPacket.Builder.__allocating_init(maximumNumberMIDIBytes:)(uint64_t a1)
 {
   result = swift_allocObject();
-  *(result + 24) = 0;
+  result[3] = 0;
   if (a1 < 1)
   {
     __break(1u);
@@ -1963,7 +1963,7 @@ size_t MIDIPacket.Builder.__allocating_init(maximumNumberMIDIBytes:)(uint64_t a1
   }
 
   v3 = result;
-  result = a1 + 10;
+  result = (a1 + 10);
   if (__OFADD__(a1, 10))
   {
 LABEL_6:
@@ -1974,9 +1974,9 @@ LABEL_6:
   result = calloc(result, 1uLL);
   if (result)
   {
-    *(v3 + 16) = result;
+    v3[2] = result;
     swift_beginAccess();
-    *(v3 + 24) = a1;
+    v3[3] = a1;
     return v3;
   }
 
@@ -2197,12 +2197,12 @@ LABEL_10:
   return result;
 }
 
-unint64_t static MIDIPacketList.sizeInBytes(pktList:)(int *a1)
+int64_t static MIDIPacketList.sizeInBytes(pktList:)(int *a1)
 {
-  v1 = (a1 + 1);
+  v1 = a1 + 1;
   for (i = *a1; i; --i)
   {
-    v1 = (v1 + *(v1 + 8) + 13) & 0xFFFFFFFFFFFFFFFCLL;
+    v1 = ((v1 + *(v1 + 4) + 13) & 0xFFFFFFFFFFFFFFFCLL);
   }
 
   return v1 - a1;
@@ -2531,7 +2531,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -2551,7 +2550,7 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -2841,7 +2840,7 @@ unint64_t lazy protocol witness table accessor for type Slice<MIDIPacket.ByteCol
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<UnsafeMutableMIDIEventPacketPointer> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type Slice<UnsafeMutableMIDIEventPacketPointer> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -3213,12 +3212,12 @@ uint64_t storeEnumTagSinglePayload for MIDIEventList(uint64_t result, int a2, in
   return result;
 }
 
-void type metadata accessor for MIDIProtocolID(uint64_t a1, unint64_t *a2)
+void type metadata accessor for MIDIProtocolID(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -3430,7 +3429,7 @@ LABEL_27:
   return result;
 }
 
-unint64_t specialized MutableCollection<>._partitionImpl(by:)(unint64_t result)
+uint64_t specialized MutableCollection<>._partitionImpl(by:)(uint64_t result)
 {
   v4 = (*v1 + 8);
   v3 = *v4;
@@ -3616,14 +3615,14 @@ LABEL_22:
   return result;
 }
 
-uint64_t specialized _copySequenceToContiguousArray<A>(_:)(uint64_t result)
+void *specialized _copySequenceToContiguousArray<A>(_:)(void *result)
 {
-  v1 = *(result + 8);
+  v1 = *(result + 2);
   v2 = MEMORY[0x29EDCA190];
   v3 = 0;
   if (v1)
   {
-    v4 = (result + 12);
+    v4 = result + 3;
     v5 = (MEMORY[0x29EDCA190] + 32);
     while (1)
     {
@@ -3719,7 +3718,7 @@ LABEL_27:
 }
 
 {
-  v1 = *(result + 4);
+  v1 = *(result + 1);
   v2 = MEMORY[0x29EDCA190];
   if (v1)
   {
@@ -3729,7 +3728,7 @@ LABEL_27:
       goto LABEL_42;
     }
 
-    v4 = result + 8;
+    v4 = result + 1;
     v5 = v3 & 0xFFFFFFFFFFFFFFFELL;
     if (v5 <= 1)
     {
@@ -3773,7 +3772,7 @@ LABEL_27:
     {
       for (i = v1 - 1; i; --i)
       {
-        v18 = *(v4 + 8);
+        v18 = *(v4 + 2);
         if (v16)
         {
           ++v13;
@@ -3846,7 +3845,7 @@ LABEL_43:
           }
         }
 
-        v4 += 4 * v18 + 12;
+        v4 = (v4 + 4 * v18 + 12);
         *v13 = v4;
       }
     }
@@ -3876,12 +3875,12 @@ LABEL_43:
 }
 
 {
-  v1 = *(result + 8);
+  v1 = *(result + 4);
   v2 = MEMORY[0x29EDCA190];
   v3 = 0;
-  if (*(result + 8))
+  if (*(result + 4))
   {
-    v4 = (result + 10);
+    v4 = result + 10;
     v5 = (MEMORY[0x29EDCA190] + 32);
     while (1)
     {
@@ -4137,7 +4136,7 @@ unsigned int *specialized _copySequenceToContiguousArray<A>(_:)(unsigned int *re
       goto LABEL_42;
     }
 
-    v4 = (result + 1);
+    v4 = result + 1;
     v5 = v3 & 0xFFFFFFFFFFFFFFFELL;
     if (v5 <= 1)
     {
@@ -4181,7 +4180,7 @@ unsigned int *specialized _copySequenceToContiguousArray<A>(_:)(unsigned int *re
     {
       for (i = v1 - 1; i; --i)
       {
-        v18 = *(v4 + 8);
+        v18 = *(v4 + 4);
         if (v16)
         {
           ++v13;
@@ -4254,7 +4253,7 @@ LABEL_43:
           }
         }
 
-        v4 = (v4 + v18 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+        v4 = ((v4 + v18 + 13) & 0xFFFFFFFFFFFFFFFCLL);
         *v13 = v4;
       }
     }
@@ -4295,7 +4294,7 @@ void specialized _copySequenceToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2,
       goto LABEL_42;
     }
 
-    v6 = (a3 + 1);
+    v6 = a3 + 1;
     v7 = v5 & 0xFFFFFFFFFFFFFFFELL;
     if (v7 <= 1)
     {
@@ -4339,7 +4338,7 @@ void specialized _copySequenceToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2,
     {
       for (i = v3 - 1; i; --i)
       {
-        v20 = *(v6 + 8);
+        v20 = *(v6 + 4);
         if (v18)
         {
           ++v15;
@@ -4412,7 +4411,7 @@ LABEL_43:
           }
         }
 
-        v6 = (v6 + v20 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+        v6 = ((v6 + v20 + 13) & 0xFFFFFFFFFFFFFFFCLL);
         *v15 = v6;
       }
     }
@@ -4515,10 +4514,10 @@ LABEL_13:
   return result;
 }
 
-unint64_t *specialized Sequence._copySequenceContents(initializing:)(unint64_t *result, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6)
+unsigned int **specialized Sequence._copySequenceContents(initializing:)(unsigned int **result, unsigned int **a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6)
 {
   v8 = *a6;
-  v6 = (a6 + 1);
+  v6 = a6 + 1;
   v7 = v8;
   if (!a2)
   {
@@ -4550,12 +4549,12 @@ LABEL_13:
 
       if (v7 != 1)
       {
-        v10 = a2 + 1;
+        v10 = (a2 + 1);
         v11 = 2;
         while (1)
         {
           v12 = v11;
-          v6 = (v6 + *(v6 + 8) + 13) & 0xFFFFFFFFFFFFFFFCLL;
+          v6 = ((v6 + *(v6 + 4) + 13) & 0xFFFFFFFFFFFFFFFCLL);
           *v10 = v6;
           if (a3 == v11)
           {
@@ -4597,7 +4596,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -4964,10 +4962,10 @@ LABEL_13:
   return result;
 }
 
-unint64_t *specialized Sequence._copySequenceContents(initializing:)(unint64_t *result, unint64_t *a2, uint64_t a3, unsigned int *a4)
+unsigned int **specialized Sequence._copySequenceContents(initializing:)(unsigned int **result, unsigned int **a2, uint64_t a3, unsigned int *a4)
 {
   v6 = *a4;
-  v4 = (a4 + 1);
+  v4 = a4 + 1;
   v5 = v6;
   if (!a2)
   {
@@ -4999,12 +4997,12 @@ LABEL_13:
 
       if (v5 != 1)
       {
-        v8 = a2 + 1;
+        v8 = (a2 + 1);
         v9 = 2;
         while (1)
         {
           v10 = v9;
-          v4 = (v4 + *(v4 + 8) + 13) & 0xFFFFFFFFFFFFFFFCLL;
+          v4 = ((v4 + *(v4 + 4) + 13) & 0xFFFFFFFFFFFFFFFCLL);
           *v8 = v4;
           if (a3 == v9)
           {

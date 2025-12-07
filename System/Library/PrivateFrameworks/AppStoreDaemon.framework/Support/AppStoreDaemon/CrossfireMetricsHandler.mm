@@ -19,7 +19,7 @@
   v2 = [(CrossfireMetricsHandler *)&v4 init];
   if (v2)
   {
-    v2->_collectingMetrics = sub_10030B4C0();
+    v2->_collectingMetrics = sub_10030B4C0(Restrictions);
   }
 
   return v2;
@@ -187,7 +187,7 @@ LABEL_23:
 
 - (BOOL)shouldCollectMetrics
 {
-  v2 = sub_1003BBF50();
+  v2 = sub_1003BBF50(Device);
   isHRNMode = [v2 isHRNMode];
 
   return isHRNMode ^ 1;
@@ -231,7 +231,7 @@ LABEL_23:
       v29 = &v28;
       v30 = 0x2020000000;
       v31 = 0;
-      v13 = sub_10036C90C();
+      v13 = sub_10036C90C(AppUsageDatabaseStore);
       v20 = _NSConcreteStackBlock;
       v21 = 3221225472;
       v22 = sub_10025C84C;
@@ -272,7 +272,7 @@ LABEL_23:
 - (void)_removeAppUsageSessionForBundleID:(id)d
 {
   dCopy = d;
-  v5 = sub_10036C90C();
+  v5 = sub_10036C90C(AppUsageDatabaseStore);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10025CC8C;

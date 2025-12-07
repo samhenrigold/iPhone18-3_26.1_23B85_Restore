@@ -4,6 +4,7 @@
 - (NSString)description;
 - (TRMPortManager)initWithMatchingDictionary:(id)dictionary andDelegate:(id)delegate;
 - (TRMPortManagerDelegate)delegate;
+- (void)_handleServiceAdded:(unsigned int)added;
 - (void)_startMatchingNotifications;
 - (void)_stopMatchingNotifications;
 - (void)dealloc;
@@ -158,6 +159,53 @@
   }
 
   [(TRMPortManager *)self setMatchingNotificationsStarted:0];
+}
+
+- (void)_handleServiceAdded:(unsigned int)added
+{
+  v3 = *&added;
+  entryID = 0;
+  RegistryEntryID = IORegistryEntryGetRegistryEntryID(added, &entryID);
+  if (RegistryEntryID)
+  {
+    [(TRMPortManager *)RegistryEntryID _handleServiceAdded:buf];
+LABEL_10:
+    v9 = *buf;
+    goto LABEL_7;
+  }
+
+  portsMutable = [(TRMPortManager *)self portsMutable];
+  v7 = [NSNumber numberWithUnsignedLongLong:entryID];
+  v8 = [portsMutable objectForKeyedSubscript:v7];
+
+  if (v8)
+  {
+    [(TRMPortManager *)&entryID _handleServiceAdded:buf];
+    goto LABEL_10;
+  }
+
+  v9 = [[TRMPort alloc] initWithService:v3 andDelegate:self];
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    *&buf[4] = v9;
+    _os_log_impl(&def_3A0E8, &_os_log_default, OS_LOG_TYPE_DEFAULT, "New port added: %@", buf, 0xCu);
+  }
+
+  portsMutable2 = [(TRMPortManager *)self portsMutable];
+  v11 = [NSNumber numberWithUnsignedLongLong:entryID];
+  [portsMutable2 setObject:v9 forKey:v11];
+
+  delegate = [(TRMPortManager *)self delegate];
+  LOBYTE(v11) = objc_opt_respondsToSelector();
+
+  if (v11)
+  {
+    delegate2 = [(TRMPortManager *)self delegate];
+    [delegate2 portManager:self didAddPort:v9];
+  }
+
+LABEL_7:
 }
 
 - (void)portDidUpdate:(id)update

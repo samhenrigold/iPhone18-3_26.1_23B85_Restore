@@ -107,7 +107,7 @@ uint64_t __33__PDFPageAnalyzer_sharedInstance__block_invoke()
 
     Current = CFAbsoluteTimeGetCurrent();
     v16 = (v14 + 1);
-    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) START", v17, v18, v19, v20, v21, v16);
+    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage: (page #%lu) START", v16);
     LODWORD(document) = [pageCopy didPerformOCR];
     didPerformFormDetection = [pageCopy didPerformFormDetection];
     typesCopy = types & 0xFFFFFFFFFFFFFFFELL;
@@ -118,52 +118,52 @@ uint64_t __33__PDFPageAnalyzer_sharedInstance__block_invoke()
 
     if (didPerformFormDetection)
     {
-      v24 = (typesCopy & 0xFFFFFFFFFFFFFFFDLL);
+      v19 = (typesCopy & 0xFFFFFFFFFFFFFFFDLL);
     }
 
     else
     {
-      v24 = typesCopy;
+      v19 = typesCopy;
     }
 
-    if (v24)
+    if (v19)
     {
-      v39[0] = 0;
-      v39[1] = v39;
-      v39[2] = 0x2020000000;
-      v40 = 0;
+      v30[0] = 0;
+      v30[1] = v30;
+      v30[2] = 0x2020000000;
+      v31 = 0;
       if (([*(self + 5) containsObject:pageCopy] & 1) == 0)
       {
         [*(self + 5) addObject:pageCopy];
         objc_initWeak(&location, self);
-        v25 = *(self + 1);
+        v20 = *(self + 1);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __77__PDFPageAnalyzer_analyzePage_analysisTypes_completionQueue_completionBlock___block_invoke;
         block[3] = &unk_1E8150DE0;
-        objc_copyWeak(v37, &location);
-        v37[1] = v16;
-        v37[2] = *&Current;
-        v26 = pageCopy;
-        v37[3] = v24;
-        v33 = v26;
-        v36 = v39;
-        v35 = blockCopy;
-        v34 = queueCopy;
-        dispatch_async(v25, block);
+        objc_copyWeak(v28, &location);
+        v28[1] = v16;
+        v28[2] = *&Current;
+        v21 = pageCopy;
+        v28[3] = v19;
+        v24 = v21;
+        v27 = v30;
+        v26 = blockCopy;
+        v25 = queueCopy;
+        dispatch_async(v20, block);
 
-        objc_destroyWeak(v37);
+        objc_destroyWeak(v28);
         objc_destroyWeak(&location);
       }
 
-      _Block_object_dispose(v39, 8);
+      _Block_object_dispose(v30, 8);
     }
 
     else
     {
       [(PDFPageAnalyzer *)self _callCompletionBlock:blockCopy onQueue:queueCopy analysis:0 error:0 foundTable:0];
-      CFAbsoluteTimeGetCurrent();
-      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage (page #%lu): (analysisTypes == 0), DONE (+%g secs)", v27, v28, v29, v30, v31, v16);
+      v22 = CFAbsoluteTimeGetCurrent();
+      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePage (page #%lu): (analysisTypes == 0), DONE (+%g secs)", v16, v22 - Current);
     }
 
     std::mutex::unlock((self + 48));
@@ -172,93 +172,93 @@ uint64_t __33__PDFPageAnalyzer_sharedInstance__block_invoke()
 
 void __77__PDFPageAnalyzer_analyzePage_analysisTypes_completionQueue_completionBlock___block_invoke(uint64_t a1)
 {
-  v71[2] = *MEMORY[0x1E69E9840];
+  v57[2] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   WeakRetained[120] = GetDefaultsWriteDrawOCRQuads();
   v3 = *(a1 + 72);
-  CFAbsoluteTimeGetCurrent();
-  _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) generating page image (+%g secs)", v4, v5, v6, v7, v8, v3);
-  v9 = [*(a1 + 32) renderingProperties];
-  v10 = [v9 displayBox];
-  [*(a1 + 32) boundsForBox:v10];
-  v14 = v13;
-  v16 = v15;
-  v17 = v11;
-  v18 = v12;
-  v19 = v12;
-  v20 = v11;
-  if (v11 * v12 > 484704.0)
+  Current = CFAbsoluteTimeGetCurrent();
+  _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) generating page image (+%g secs)", v3, Current - *(a1 + 80));
+  v5 = [*(a1 + 32) renderingProperties];
+  v6 = [v5 displayBox];
+  [*(a1 + 32) boundsForBox:v6];
+  v10 = v9;
+  v12 = v11;
+  v13 = v7;
+  v14 = v8;
+  v15 = v8;
+  v16 = v7;
+  if (v7 * v8 > 484704.0)
   {
-    v21 = sqrt(484704.0 / (v11 * v12));
-    v20 = v11 * v21;
-    v19 = v12 * v21;
+    v17 = sqrt(484704.0 / (v7 * v8));
+    v16 = v7 * v17;
+    v15 = v8 * v17;
   }
 
-  v22 = *(WeakRetained + 14);
-  v70[0] = @"PDFPageImageProperty_ColorSpace";
-  v23 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F128]);
-  v70[1] = @"PDFPageImageProperty_ForOCR";
-  v71[0] = v23;
-  v71[1] = MEMORY[0x1E695E118];
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:2];
+  v18 = *(WeakRetained + 14);
+  v56[0] = @"PDFPageImageProperty_ColorSpace";
+  v19 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F128]);
+  v56[1] = @"PDFPageImageProperty_ForOCR";
+  v57[0] = v19;
+  v57[1] = MEMORY[0x1E695E118];
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:2];
 
-  v25 = [*(a1 + 32) imageOfSize:v10 forBox:v24 withOptions:{floor(v20 * v22), floor(v19 * v22)}];
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x2050000000;
-  v26 = getVKImageAnalyzerRequestClass(void)::softClass;
-  v69 = getVKImageAnalyzerRequestClass(void)::softClass;
+  v21 = [*(a1 + 32) imageOfSize:v6 forBox:v20 withOptions:{floor(v16 * v18), floor(v15 * v18)}];
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2050000000;
+  v22 = getVKImageAnalyzerRequestClass(void)::softClass;
+  v55 = getVKImageAnalyzerRequestClass(void)::softClass;
   if (!getVKImageAnalyzerRequestClass(void)::softClass)
   {
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = ___ZL30getVKImageAnalyzerRequestClassv_block_invoke;
-    v65[3] = &unk_1E8150870;
-    v65[4] = &v66;
-    ___ZL30getVKImageAnalyzerRequestClassv_block_invoke(v65);
-    v26 = v67[3];
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = ___ZL30getVKImageAnalyzerRequestClassv_block_invoke;
+    v51[3] = &unk_1E8150870;
+    v51[4] = &v52;
+    ___ZL30getVKImageAnalyzerRequestClassv_block_invoke(v51);
+    v22 = v53[3];
   }
 
-  v27 = v26;
-  _Block_object_dispose(&v66, 8);
-  v28 = [[v26 alloc] initWithImage:v25 requestType:1];
-  [v28 set_wantsFormFieldDetection:(*(a1 + 88) & 6) != 0];
-  CFAbsoluteTimeGetCurrent();
+  v23 = v22;
+  _Block_object_dispose(&v52, 8);
+  v24 = [[v22 alloc] initWithImage:v21 requestType:1];
+  [v24 set_wantsFormFieldDetection:(*(a1 + 88) & 6) != 0];
+  v25 = CFAbsoluteTimeGetCurrent();
   dispatch_semaphore_wait(*(WeakRetained + 4), 0xFFFFFFFFFFFFFFFFLL);
+  v26 = *(a1 + 72);
+  v27 = CFAbsoluteTimeGetCurrent();
+  v28 = CFAbsoluteTimeGetCurrent();
+  _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) GOT workload semaphore after (%g) sec wait (+%g secs)", v26, v27 - v25, v28 - *(a1 + 80));
   v29 = *(a1 + 72);
-  CFAbsoluteTimeGetCurrent();
-  CFAbsoluteTimeGetCurrent();
-  _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) GOT workload semaphore after (%g) sec wait (+%g secs)", v30, v31, v32, v33, v34, v29);
-  v35 = *(a1 + 72);
-  CFAbsoluteTimeGetCurrent();
-  _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Analyzer request BEGIN (+%g secs)", v36, v37, v38, v39, v40, v35);
-  v41 = *(WeakRetained + 3);
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __77__PDFPageAnalyzer_analyzePage_analysisTypes_completionQueue_completionBlock___block_invoke_2;
-  v52[3] = &unk_1E8150DB8;
-  v42 = *(a1 + 72);
-  v52[4] = WeakRetained;
-  v57 = v42;
-  v58 = *(a1 + 80);
-  v59 = *(a1 + 88);
-  v43 = v25;
-  v53 = v43;
-  v60 = v14;
-  v61 = v16;
-  v62 = v17;
-  v63 = v18;
-  v54 = *(a1 + 32);
-  v64 = v10;
-  v51 = *(a1 + 48);
-  v44 = v51;
-  v56 = v51;
-  v55 = *(a1 + 40);
-  if (![v41 processRequest:v28 progressHandler:0 completionHandler:v52])
+  v30 = CFAbsoluteTimeGetCurrent();
+  _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Analyzer request BEGIN (+%g secs)", v29, v30 - *(a1 + 80));
+  v31 = *(WeakRetained + 3);
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __77__PDFPageAnalyzer_analyzePage_analysisTypes_completionQueue_completionBlock___block_invoke_2;
+  v38[3] = &unk_1E8150DB8;
+  v32 = *(a1 + 72);
+  v38[4] = WeakRetained;
+  v43 = v32;
+  v44 = *(a1 + 80);
+  v45 = *(a1 + 88);
+  v33 = v21;
+  v39 = v33;
+  v46 = v10;
+  v47 = v12;
+  v48 = v13;
+  v49 = v14;
+  v40 = *(a1 + 32);
+  v50 = v6;
+  v37 = *(a1 + 48);
+  v34 = v37;
+  v42 = v37;
+  v41 = *(a1 + 40);
+  if (![v31 processRequest:v24 progressHandler:0 completionHandler:v38])
   {
-    v45 = *(a1 + 72);
-    CFAbsoluteTimeGetCurrent();
-    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu)  [VKImageAnalyzer processRequest:] returned 0(+%g secs)", v46, v47, v48, v49, v50, v45);
+    v35 = *(a1 + 72);
+    v36 = CFAbsoluteTimeGetCurrent();
+    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu)  [VKImageAnalyzer processRequest:] returned 0(+%g secs)", v35, v36 - *(a1 + 80));
     std::mutex::lock((WeakRetained + 48));
     [*(WeakRetained + 5) removeObject:*(a1 + 32)];
     dispatch_semaphore_signal(*(WeakRetained + 4));
@@ -268,72 +268,72 @@ void __77__PDFPageAnalyzer_analyzePage_analysisTypes_completionQueue_completionB
 
 void __77__PDFPageAnalyzer_analyzePage_analysisTypes_completionQueue_completionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v46 = a2;
+  v22 = a2;
   v5 = a3;
   dispatch_semaphore_signal(*(*(a1 + 32) + 32));
   v6 = *(a1 + 80);
-  if (v46)
+  if (v22)
   {
-    CFAbsoluteTimeGetCurrent();
-    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Analyzer request COMPLETED (+%g secs)", v7, v8, v9, v10, v11, v6);
-    v12 = *(a1 + 96);
-    if (v12)
+    Current = CFAbsoluteTimeGetCurrent();
+    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Analyzer request COMPLETED (+%g secs)", v6, Current - *(a1 + 88));
+    v8 = *(a1 + 96);
+    if (v8)
     {
-      [*(a1 + 32) _addTextFromAnalysis:v46 ofImage:*(a1 + 40) bounds:*(a1 + 48) toPage:{*(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128)}];
+      [*(a1 + 32) _addTextFromAnalysis:v22 ofImage:*(a1 + 40) bounds:*(a1 + 48) toPage:{*(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128)}];
       [*(a1 + 48) setDidPerformOCR:1];
-      v13 = *(a1 + 80);
-      CFAbsoluteTimeGetCurrent();
-      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) OCR digestion COMPLETED (+%g secs)", v14, v15, v16, v17, v18, v13);
-      v12 = *(a1 + 96);
+      v9 = *(a1 + 80);
+      v10 = CFAbsoluteTimeGetCurrent();
+      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) OCR digestion COMPLETED (+%g secs)", v9, v10 - *(a1 + 88));
+      v8 = *(a1 + 96);
     }
 
-    if ((v12 & 2) != 0)
+    if ((v8 & 2) != 0)
     {
-      v19 = [*(a1 + 48) annotations];
-      IsVisionKitFormDetectionEnabled = PDFKitIsVisionKitFormDetectionEnabled();
-      v21 = *(a1 + 32);
-      if (IsVisionKitFormDetectionEnabled)
+      v11 = [*(a1 + 48) annotations];
+      v12 = PDFKitIsVisionKitFormDetectionEnabled();
+      v13 = *(a1 + 32);
+      if (v12)
       {
-        [v21 _addFormElementsFromAnalysis:v46 bounds:*(a1 + 48) toPage:{*(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128)}];
-        *(*(*(a1 + 72) + 8) + 24) = [*(a1 + 32) _addTableFromAnalysis:v46 bounds:*(a1 + 48) toPDFPage:{*(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128)}];
+        [v13 _addFormElementsFromAnalysis:v22 bounds:*(a1 + 48) toPage:{*(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128)}];
+        *(*(*(a1 + 72) + 8) + 24) = [*(a1 + 32) _addTableFromAnalysis:v22 bounds:*(a1 + 48) toPDFPage:{*(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128)}];
       }
 
       else
       {
-        [v21 _addFormElementsUsingDetectorToPage:*(a1 + 48) displayBox:*(a1 + 136)];
+        [v13 _addFormElementsUsingDetectorToPage:*(a1 + 48) displayBox:*(a1 + 136)];
       }
 
-      v27 = *(a1 + 80);
-      CFAbsoluteTimeGetCurrent();
-      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Form detection COMPLETED (+%g secs)", v28, v29, v30, v31, v32, v27);
+      v15 = *(a1 + 80);
+      v16 = CFAbsoluteTimeGetCurrent();
+      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Form detection COMPLETED (+%g secs)", v15, v16 - *(a1 + 88));
       [*(a1 + 48) setDidPerformFormDetection:1];
-      v12 = *(a1 + 96);
+      v8 = *(a1 + 96);
     }
 
-    if ((v12 & 4) != 0)
+    if ((v8 & 4) != 0)
     {
-      v33 = *(a1 + 80);
-      CFAbsoluteTimeGetCurrent();
-      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Minimal analysis COMPLETED (+%g secs)", v34, v35, v36, v37, v38, v33);
+      v17 = *(a1 + 80);
+      v18 = CFAbsoluteTimeGetCurrent();
+      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Minimal analysis COMPLETED (+%g secs)", v17, v18 - *(a1 + 88));
     }
 
-    [*(a1 + 32) _callCompletionBlock:*(a1 + 64) onQueue:*(a1 + 56) analysis:v46 error:0 foundTable:*(*(*(a1 + 72) + 8) + 24)];
-    v39 = *(a1 + 80);
-    CFAbsoluteTimeGetCurrent();
-    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Completion block COMPLETED (+%g secs)", v40, v41, v42, v43, v44, v39);
+    [*(a1 + 32) _callCompletionBlock:*(a1 + 64) onQueue:*(a1 + 56) analysis:v22 error:0 foundTable:*(*(*(a1 + 72) + 8) + 24)];
+    v19 = *(a1 + 80);
+    v20 = CFAbsoluteTimeGetCurrent();
+    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Completion block COMPLETED (+%g secs)", v19, v20 - *(a1 + 88));
   }
 
   else
   {
-    CFAbsoluteTimeGetCurrent();
-    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Analyzer request FAILED (+%g secs)", v22, v23, v24, v25, v26, v6);
+    v14 = CFAbsoluteTimeGetCurrent();
+    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "analyzePageBlock: (page #%lu) Analyzer request FAILED (+%g secs)", v6, v14 - *(a1 + 88));
     [*(a1 + 32) _callCompletionBlock:*(a1 + 64) onQueue:*(a1 + 56) analysis:0 error:v5 foundTable:*(*(*(a1 + 72) + 8) + 24)];
   }
 
-  v45 = *(a1 + 32);
-  std::mutex::lock((v45 + 48));
+  v21 = *(a1 + 32);
+  std::mutex::lock((v21 + 48));
   [*(*(a1 + 32) + 40) removeObject:*(a1 + 48)];
-  std::mutex::unlock((v45 + 48));
+  std::mutex::unlock((v21 + 48));
 }
 
 - (void)proposedFormFieldBoundsNearestPoint:(CGPoint)point onPage:(id)page completionBlock:(id)block
@@ -388,53 +388,53 @@ void __78__PDFPageAnalyzer_proposedFormFieldBoundsNearestPoint_onPage_completion
     v13 = v12;
     v15 = v14;
     v17 = v16;
-    memset(&v56, 0, sizeof(v56));
+    memset(&v46, 0, sizeof(v46));
     v18 = objc_opt_class();
     if (v18)
     {
-      [v18 _normalizedToPageTransformForPageWithBounds:{v11, v13, v15, v17}];
+      objc_msgSend__normalizedToPageTransformForPageWithBounds_(v18, v11, v13, v15, v17);
     }
 
     else
     {
-      memset(&v56, 0, sizeof(v56));
+      memset(&v46, 0, sizeof(v46));
     }
 
-    v49 = v17;
-    v50 = v15;
-    v54 = v56;
-    memset(&v55, 0, sizeof(v55));
-    CGAffineTransformInvert(&v55, &v54);
+    v39 = v17;
+    v40 = v15;
+    v44 = v46;
+    memset(&v45, 0, sizeof(v45));
+    CGAffineTransformInvert(&v45, &v44);
     v19 = *(a1 + 64);
     v20 = *(a1 + 72);
-    a = v55.a;
-    b = v55.b;
-    c = v55.c;
-    d = v55.d;
-    tx = v55.tx;
-    ty = v55.ty;
-    v57.x = v19;
-    v57.y = v20;
-    v27 = NSStringFromPoint(v57);
+    a = v45.a;
+    b = v45.b;
+    c = v45.c;
+    d = v45.d;
+    tx = v45.tx;
+    ty = v45.ty;
+    v47.x = v19;
+    v47.y = v20;
+    v27 = NSStringFromPoint(v47);
     v28 = ty + v20 * d + b * v19;
     v29 = tx + v20 * c + a * v19;
-    v58.x = v29;
-    v58.y = v28;
-    v48 = NSStringFromPoint(v58);
-    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "proposedFormField: pagePoint = %@, normalizedPoint = %@", v30, v31, v32, v33, v34, v27);
+    v48.x = v29;
+    v48.y = v28;
+    v30 = NSStringFromPoint(v48);
+    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "proposedFormField: pagePoint = %@, normalizedPoint = %@", v27, v30);
 
-    v35 = PDFPointScale(v50, v49, *(*(a1 + 40) + 112));
-    v37 = [v5 proposedFormRegionForPoint:0 existingFields:v29 formSize:{v28, v35, v36}];
-    v38 = v37;
-    if (v37)
+    v31 = PDFPointScale(v40, v39, *(*(a1 + 40) + 112));
+    v33 = [v5 proposedFormRegionForPoint:0 existingFields:v29 formSize:{v28, v31, v32}];
+    v34 = v33;
+    if (v33)
     {
-      v39 = [v37 quad];
-      [v39 boundingBox];
-      v54 = v56;
-      *(*(*(a1 + 56) + 8) + 48) = CGRectApplyAffineTransform(v59, &v54);
+      v35 = [v33 quad];
+      [v35 boundingBox];
+      v44 = v46;
+      *(*(*(a1 + 56) + 8) + 48) = CGRectApplyAffineTransform(v49, &v44);
 
-      v40 = NSStringFromRect(*(*(*(a1 + 56) + 8) + 48));
-      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "proposedFormField: formRegion bounds: %@", v41, v42, v43, v44, v45, v40);
+      v36 = NSStringFromRect(*(*(*(a1 + 56) + 8) + 48));
+      _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "proposedFormField: formRegion bounds: %@", v36);
     }
   }
 
@@ -442,10 +442,10 @@ void __78__PDFPageAnalyzer_proposedFormFieldBoundsNearestPoint_onPage_completion
   block[1] = 3221225472;
   block[2] = __78__PDFPageAnalyzer_proposedFormFieldBoundsNearestPoint_onPage_completionBlock___block_invoke_2;
   block[3] = &unk_1E8150E08;
-  v46 = *(a1 + 48);
-  v47 = *(a1 + 56);
-  v52 = v46;
-  v53 = v47;
+  v37 = *(a1 + 48);
+  v38 = *(a1 + 56);
+  v42 = v37;
+  v43 = v38;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
@@ -566,42 +566,42 @@ void __78__PDFPageAnalyzer_proposedFormFieldBoundsNearestPoint_onPage_completion
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v75 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   analysisCopy = analysis;
   pageCopy = page;
-  memset(&v72, 0, sizeof(v72));
+  memset(&v69, 0, sizeof(v69));
   v10 = objc_opt_class();
   if (v10)
   {
-    [v10 _normalizedToPageTransformForPageWithBounds:{x, y, width, height}];
+    objc_msgSend__normalizedToPageTransformForPageWithBounds_(v10, x, y, width, height);
   }
 
   else
   {
-    memset(&v72, 0, sizeof(v72));
+    memset(&v69, 0, sizeof(v69));
   }
 
   layoutComponents = [analysisCopy layoutComponents];
-  v57 = objc_opt_new();
-  v70 = 0u;
-  v71 = 0u;
+  v54 = objc_opt_new();
+  v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   obj = layoutComponents;
-  v60 = [obj countByEnumeratingWithState:&v68 objects:v74 count:16];
-  if (v60)
+  v57 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
+  if (v57)
   {
-    v59 = *v69;
+    v56 = *v66;
     do
     {
-      for (i = 0; i != v60; ++i)
+      for (i = 0; i != v57; ++i)
       {
-        if (*v69 != v59)
+        if (*v66 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v68 + 1) + 8 * i);
+        v11 = *(*(&v65 + 1) + 8 * i);
         if ([v11 type] == 64)
         {
           boundingQuad = [v11 boundingQuad];
@@ -611,37 +611,37 @@ void __78__PDFPageAnalyzer_proposedFormFieldBoundsNearestPoint_onPage_completion
           v18 = v17;
           v20 = v19;
 
-          v67 = v72;
-          v76.origin.x = v14;
-          v76.origin.y = v16;
-          v76.size.width = v18;
-          v76.size.height = v20;
-          v77 = CGRectApplyAffineTransform(v76, &v67);
-          v21 = v77.origin.x;
-          v22 = v77.origin.y;
-          v23 = v77.size.width;
-          v24 = v77.size.height;
-          v61 = objc_opt_new();
+          v64 = v69;
+          v73.origin.x = v14;
+          v73.origin.y = v16;
+          v73.size.width = v18;
+          v73.size.height = v20;
+          v74 = CGRectApplyAffineTransform(v73, &v64);
+          v21 = v74.origin.x;
+          v22 = v74.origin.y;
+          v23 = v74.size.width;
+          v24 = v74.size.height;
+          v58 = objc_opt_new();
           v25 = objc_opt_new();
-          v65 = 0u;
-          v66 = 0u;
+          v62 = 0u;
           v63 = 0u;
-          v64 = 0u;
+          v60 = 0u;
+          v61 = 0u;
           children = [v11 children];
-          v27 = [children countByEnumeratingWithState:&v63 objects:v73 count:16];
+          v27 = [children countByEnumeratingWithState:&v60 objects:v70 count:16];
           if (v27)
           {
-            v28 = *v64;
+            v28 = *v61;
             do
             {
               for (j = 0; j != v27; ++j)
               {
-                if (*v64 != v28)
+                if (*v61 != v28)
                 {
                   objc_enumerationMutation(children);
                 }
 
-                v30 = *(*(&v63 + 1) + 8 * j);
+                v30 = *(*(&v60 + 1) + 8 * j);
                 v31 = objc_opt_new();
                 v32 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v30, "rowRange")}];
                 [v31 setValue:v32 forKey:@"Row Index"];
@@ -653,48 +653,48 @@ void __78__PDFPageAnalyzer_proposedFormFieldBoundsNearestPoint_onPage_completion
                 v39 = v38;
                 v41 = v40;
 
-                v67 = v72;
-                v78.origin.x = v35;
-                v78.origin.y = v37;
-                v78.size.width = v39;
-                v78.size.height = v41;
-                v79 = CGRectApplyAffineTransform(v78, &v67);
-                v42 = [MEMORY[0x1E696B098] valueWithRect:{v79.origin.x, v79.origin.y, v79.size.width, v79.size.height}];
+                v64 = v69;
+                v75.origin.x = v35;
+                v75.origin.y = v37;
+                v75.size.width = v39;
+                v75.size.height = v41;
+                v76 = CGRectApplyAffineTransform(v75, &v64);
+                v42 = [MEMORY[0x1E696B098] valueWithRect:{v76.origin.x, v76.origin.y, v76.size.width, v76.size.height}];
                 [v31 setValue:v42 forKey:@"Rect"];
 
                 [v25 addObject:v31];
               }
 
-              v27 = [children countByEnumeratingWithState:&v63 objects:v73 count:16];
+              v27 = [children countByEnumeratingWithState:&v60 objects:v70 count:16];
             }
 
             while (v27);
           }
 
           v43 = [MEMORY[0x1E696B098] valueWithRect:{v21, v22, v23, v24}];
-          [v61 setValue:v43 forKey:@"Rect"];
+          [v58 setValue:v43 forKey:@"Rect"];
 
-          [v61 setValue:v25 forKey:@"Cells"];
-          [v57 addObject:v61];
+          [v58 setValue:v25 forKey:@"Cells"];
+          [v54 addObject:v58];
         }
       }
 
-      v60 = [obj countByEnumeratingWithState:&v68 objects:v74 count:16];
+      v57 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
     }
 
-    while (v60);
+    while (v57);
   }
 
-  if ([v57 count])
+  if ([v54 count])
   {
-    CFAbsoluteTimeGetCurrent();
+    Current = CFAbsoluteTimeGetCurrent();
     [pageCopy pageRef];
-    v44 = v57;
+    v45 = v54;
     inserted = CGPDFPageInsertTableDescriptions();
     document = [pageCopy document];
-    v47 = [document indexForPage:pageCopy];
-    CFAbsoluteTimeGetCurrent();
-    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "table insertion for page: (page #%lu) COMPLETED (+%g secs)", v48, v49, v50, v51, v52, v47 + 1);
+    v48 = [document indexForPage:pageCopy];
+    v49 = CFAbsoluteTimeGetCurrent();
+    _PDFLog(OS_LOG_TYPE_DEBUG, "PageAnalysis", "table insertion for page: (page #%lu) COMPLETED (+%g secs)", v48 + 1, v49 - Current);
   }
 
   else
@@ -725,7 +725,7 @@ void __78__PDFPageAnalyzer_proposedFormFieldBoundsNearestPoint_onPage_completion
   v17 = objc_opt_class();
   if (v17)
   {
-    [v17 _normalizedToPageTransformForPageWithBounds:{x, y, width, height}];
+    objc_msgSend__normalizedToPageTransformForPageWithBounds_(v17, x, y, width, height);
   }
 
   else
@@ -844,7 +844,7 @@ void __78__PDFPageAnalyzer_proposedFormFieldBoundsNearestPoint_onPage_completion
               {
 LABEL_21:
                 cf = CTFontCreateWithName(@"Times-Roman", v99, 0);
-                std::__tree<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::__map_value_compare<double,std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::less<double>,true>,std::allocator<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>>>::__emplace_unique_key_args<double,double &,applesauce::CF::ObjectRef<__CTFont const*>&>(&v108, &v99);
+                std::__tree<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::__map_value_compare<double,std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::less<double>,true>,std::allocator<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>>>::__emplace_unique_key_args<double,double &,applesauce::CF::ObjectRef<__CTFont const*>&>(&v108, &v99, &v99, &cf);
                 v60 = cf;
                 if (cf)
                 {
@@ -873,6 +873,7 @@ LABEL_21:
               v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v112 forKeys:v111 count:2];
               v66 = CFAttributedStringCreate(alloc, v64, v65);
               v67 = CTLineCreateWithAttributedString(v66);
+              cf = v67;
               JustifiedLine = CTLineCreateJustifiedLine(v67, 1.0, v41 - (v54 + v56));
               CGContextSaveGState(context);
               CGContextTranslateCTM(context, v33, v35);
@@ -1070,11 +1071,11 @@ LABEL_30:
 
 - (UIEdgeInsets)_computeEdgeInsetsForQuad:(id)quad inImage:(CGImage *)image background:(unsigned __int8)background glyphCount:(unint64_t)count
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   quadCopy = quad;
-  CGBuf::CGBuf(v60, image);
-  v10 = v63 <= 1u && v62 == 8;
-  if (!v10 || (v61 & 0x1Fu) - 1 <= 3)
+  CGBuf::CGBuf(v61, image);
+  v10 = v64 <= 1u && v63 == 8;
+  if (!v10 || (v62 & 0x1Fu) - 1 <= 3)
   {
     NSLog(&cfstr_SInvalidImageM.isa, "[PDFPageAnalyzer _computeEdgeInsetsForQuad:inImage:background:glyphCount:]");
 LABEL_8:
@@ -1085,7 +1086,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if (!v60[3] || !v60[4])
+  if (!v61[3] || !v61[4])
   {
     NSLog(&cfstr_SInvalidImageM_0.isa, "[PDFPageAnalyzer _computeEdgeInsetsForQuad:inImage:background:glyphCount:]");
     goto LABEL_8;
@@ -1096,99 +1097,99 @@ LABEL_8:
   v21 = *(MEMORY[0x1E69DDCE0] + 8);
   v13 = *(MEMORY[0x1E69DDCE0] + 16);
   v22 = *(MEMORY[0x1E69DDCE0] + 24);
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3321888768;
-  v58[2] = __75__PDFPageAnalyzer__computeEdgeInsetsForQuad_inImage_background_glyphCount___block_invoke;
-  v58[3] = &__block_descriptor_361_ea8_32c10_ZTS5CGBuf_e11_B16__0i8i12l;
-  CGBuf::CGBuf(v59, v60);
-  v59[328] = background;
-  v23 = _Block_copy(v58);
-  v57 = v21;
-  MEMORY[0x1EEE9AC00]();
-  divideQuadSideIntoSegments(quadCopy, 0, &v53);
-  MEMORY[0x1EEE9AC00]();
-  divideQuadSideIntoSegments(quadCopy, 1, &v51);
-  v56 = v22;
-  v24 = Height;
-  v25 = v54;
-  v26 = v52;
-  v27 = 1.79769313e308;
-  v28 = 6;
+  v59[0] = MEMORY[0x1E69E9820];
+  v59[1] = 3321888768;
+  v59[2] = __75__PDFPageAnalyzer__computeEdgeInsetsForQuad_inImage_background_glyphCount___block_invoke;
+  v59[3] = &__block_descriptor_361_ea8_32c10_ZTS5CGBuf_e11_B16__0i8i12l;
+  CGBuf::CGBuf(v60, v61);
+  v60[328] = background;
+  v23 = _Block_copy(v59);
+  v58 = v21;
+  MEMORY[0x1EEE9AC00](v23);
+  divideQuadSideIntoSegments(quadCopy, 0, &v54);
+  MEMORY[0x1EEE9AC00](v24);
+  divideQuadSideIntoSegments(quadCopy, 1, &v52);
+  v57 = v22;
+  v25 = Height;
+  v26 = v55;
+  v27 = v53;
+  v28 = 1.79769313e308;
+  v29 = 6;
   do
   {
-    v29 = *(v25 - 1);
-    v30 = v24 - *v25;
-    v31 = *(v26 - 1);
-    v32 = v24 - *v26;
-    [(PDFPageAnalyzer *)self _testPixelsFromPoint:v23 toPoint:v29 compare:v30, v31, v32];
-    if (v33 != v31 || v34 != v32)
+    v30 = *(v26 - 1);
+    v31 = v25 - *v26;
+    v32 = *(v27 - 1);
+    v33 = v25 - *v27;
+    [(PDFPageAnalyzer *)self _testPixelsFromPoint:v23 toPoint:v30 compare:v31, v32, v33];
+    if (v34 != v32 || v35 != v33)
     {
-      v36 = (v34 - v30) * (v34 - v30) + (v33 - v29) * (v33 - v29);
-      if (v27 >= v36)
+      v37 = (v35 - v31) * (v35 - v31) + (v34 - v30) * (v34 - v30);
+      if (v28 >= v37)
       {
-        v27 = v36;
+        v28 = v37;
       }
     }
 
-    v25 += 2;
     v26 += 2;
-    --v28;
+    v27 += 2;
+    --v29;
   }
 
-  while (v28);
-  v55 = v20;
-  v37 = sqrt(v27);
-  v38 = 1.79769313e308;
-  if (v27 == 1.79769313e308)
+  while (v29);
+  v56 = v20;
+  v38 = sqrt(v28);
+  v39 = 1.79769313e308;
+  if (v28 == 1.79769313e308)
   {
-    v12 = v57;
+    v12 = v58;
   }
 
   else
   {
-    v12 = v37;
+    v12 = v38;
   }
 
-  v39 = v52;
-  v40 = v54;
-  v41 = 6;
+  v40 = v53;
+  v41 = v55;
+  v42 = 6;
   do
   {
-    v42 = *(v39 - 1);
-    v43 = v24 - *v39;
-    v44 = *(v40 - 1);
-    v45 = v24 - *v40;
-    [(PDFPageAnalyzer *)self _testPixelsFromPoint:v23 toPoint:v42 compare:v43, v44, v45];
-    if (v46 != v44 || v47 != v45)
+    v43 = *(v40 - 1);
+    v44 = v25 - *v40;
+    v45 = *(v41 - 1);
+    v46 = v25 - *v41;
+    [(PDFPageAnalyzer *)self _testPixelsFromPoint:v23 toPoint:v43 compare:v44, v45, v46];
+    if (v47 != v45 || v48 != v46)
     {
-      v49 = (v47 - v43) * (v47 - v43) + (v46 - v42) * (v46 - v42);
-      if (v38 >= v49)
+      v50 = (v48 - v44) * (v48 - v44) + (v47 - v43) * (v47 - v43);
+      if (v39 >= v50)
       {
-        v38 = v49;
+        v39 = v50;
       }
     }
 
-    v39 += 2;
     v40 += 2;
-    --v41;
+    v41 += 2;
+    --v42;
   }
 
-  while (v41);
-  v50 = sqrt(v38);
-  if (v38 == 1.79769313e308)
+  while (v42);
+  v51 = sqrt(v39);
+  if (v39 == 1.79769313e308)
   {
-    v14 = v56;
+    v14 = v57;
   }
 
   else
   {
-    v14 = v50;
+    v14 = v51;
   }
 
-  v11 = v55;
-  CGBuf::~CGBuf(v59);
-LABEL_9:
+  v11 = v56;
   CGBuf::~CGBuf(v60);
+LABEL_9:
+  CGBuf::~CGBuf(v61);
 
   v15 = v11;
   v16 = v12;
@@ -1284,7 +1285,7 @@ BOOL __75__PDFPageAnalyzer__computeEdgeInsetsForQuad_inImage_background_glyphCou
         {
           v29 = v21 * v22 / (v18 * v20);
           v37 = &v29;
-          v23 = std::__tree<std::__value_type<double,PDFAnnotation * {__strong}>,std::__map_value_compare<double,std::__value_type<double,PDFAnnotation * {__strong}>,std::less<double>,true>,std::allocator<std::__value_type<double,PDFAnnotation * {__strong}>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v34, &v29);
+          v23 = std::__tree<std::__value_type<double,PDFAnnotation * {__strong}>,std::__map_value_compare<double,std::__value_type<double,PDFAnnotation * {__strong}>,std::less<double>,true>,std::allocator<std::__value_type<double,PDFAnnotation * {__strong}>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(&v34, &v29, &std::piecewise_construct, &v37);
           objc_storeStrong(v23 + 5, v14);
         }
       }
@@ -1428,7 +1429,7 @@ LABEL_16:
   v18 = objc_opt_class();
   if (v18)
   {
-    [v18 _normalizedToPageTransformForPageWithBounds:{x, y, width, height}];
+    objc_msgSend__normalizedToPageTransformForPageWithBounds_(v18, x, y, width, height);
   }
 
   else

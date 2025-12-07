@@ -86,44 +86,44 @@
   v45.receiver = self;
   v45.super_class = VMVoicemailTranscriptionController;
   v5 = [(VMVoicemailTranscriptionController *)&v45 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_10005435C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10005435C(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
+      v8 = objc_opt_class();
       *buf = 138412802;
-      v47 = v7;
+      v47 = v8;
       v48 = 2048;
-      v49 = v5;
+      v49 = v6;
       v50 = 2112;
       v51 = recognizerCopy;
-      v8 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "<%@ %p> Creating with Speech Recognizer %@", buf, 0x20u);
+      v9 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%@ %p> Creating with Speech Recognizer %@", buf, 0x20u);
     }
 
-    *(v5 + 2) = 0;
+    v6->lock._os_unfair_lock_opaque = 0;
     locale = [recognizerCopy locale];
-    v10 = *(v5 + 9);
-    *(v5 + 9) = locale;
+    matchedSystemLocale = v6->_matchedSystemLocale;
+    v6->_matchedSystemLocale = locale;
 
-    v5[14] = [v5 determineGasrAvailability];
-    v5[15] = [v5 determinePersonlizedTranscriptionAvailability];
-    v11 = sub_10005435C();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v6->_gasrModelAvailable = [(VMVoicemailTranscriptionController *)v6 determineGasrAvailability];
+    determinePersonlizedTranscriptionAvailability = [(VMVoicemailTranscriptionController *)v6 determinePersonlizedTranscriptionAvailability];
+    v6->_persTranscriptionAvailable = determinePersonlizedTranscriptionAvailability;
+    v13 = sub_10005435C(determinePersonlizedTranscriptionAvailability);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      localeIdentifier = [*(v5 + 9) localeIdentifier];
-      languageCode = [*(v5 + 9) languageCode];
-      languageIdentifier = [*(v5 + 9) languageIdentifier];
-      v16 = v5[14];
-      v17 = asNSStringBOOL();
-      v18 = v5[15];
+      v14 = objc_opt_class();
+      localeIdentifier = [(NSLocale *)v6->_matchedSystemLocale localeIdentifier];
+      languageCode = [(NSLocale *)v6->_matchedSystemLocale languageCode];
+      languageIdentifier = [(NSLocale *)v6->_matchedSystemLocale languageIdentifier];
+      v18 = asNSStringBOOL();
       v19 = asNSStringBOOL();
       *buf = 138413826;
-      v47 = v12;
+      v47 = v14;
       v48 = 2048;
-      v49 = v5;
+      v49 = v6;
       v50 = 2112;
       v51 = localeIdentifier;
       v52 = 2112;
@@ -131,16 +131,16 @@
       v54 = 2112;
       v55 = languageIdentifier;
       v56 = 2112;
-      v57 = v17;
+      v57 = v18;
       v58 = 2112;
       v59 = v19;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "<%@ %p> Speech locale %@, language %@, language identifier %@, GASR available: %@, pers transcription available: %@", buf, 0x48u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "<%@ %p> Speech locale %@, language %@, language identifier %@, GASR available: %@, pers transcription available: %@", buf, 0x48u);
     }
 
-    v5[16] = 0;
+    v6->_transcribing = 0;
     v20 = objc_opt_new();
-    v21 = *(v5 + 10);
-    *(v5 + 10) = v20;
+    assetModel = v6->_assetModel;
+    v6->_assetModel = v20;
 
     v22 = [NSBundle bundleForClass:objc_opt_class()];
     bundleIdentifier = [v22 bundleIdentifier];
@@ -152,47 +152,47 @@
 
     v29 = v28;
     v30 = dispatch_queue_create([v28 UTF8String], 0);
-    v31 = *(v5 + 12);
-    *(v5 + 12) = v30;
+    serialDispatchQueue = v6->_serialDispatchQueue;
+    v6->_serialDispatchQueue = v30;
 
-    dispatch_queue_set_specific(*(v5 + 12), off_10010D3C0, v5, 0);
+    dispatch_queue_set_specific(v6->_serialDispatchQueue, off_10010D3C0, v6, 0);
     v32 = +[NSMapTable weakToWeakObjectsMapTable];
-    v33 = *(v5 + 13);
-    *(v5 + 13) = v32;
+    delegateToQueue = v6->_delegateToQueue;
+    v6->_delegateToQueue = v32;
 
-    *(v5 + 6) = 1;
+    *&v6->_transcriptionAssetModelObservingNetwork = 1;
     v34 = objc_alloc_init(NSOperationQueue);
-    v35 = *(v5 + 6);
-    *(v5 + 6) = v34;
+    transcriptionOperationQueue = v6->_transcriptionOperationQueue;
+    v6->_transcriptionOperationQueue = v34;
 
-    [*(v5 + 6) setMaxConcurrentOperationCount:1];
+    [(NSOperationQueue *)v6->_transcriptionOperationQueue setMaxConcurrentOperationCount:1];
     v36 = objc_alloc_init(NSOperationQueue);
-    v37 = *(v5 + 8);
-    *(v5 + 8) = v36;
+    speechAnalyzerOperationQueue = v6->_speechAnalyzerOperationQueue;
+    v6->_speechAnalyzerOperationQueue = v36;
 
-    [*(v5 + 8) setMaxConcurrentOperationCount:1];
+    [(NSOperationQueue *)v6->_speechAnalyzerOperationQueue setMaxConcurrentOperationCount:1];
     v38 = [NSProgress progressWithTotalUnitCount:0];
-    v39 = *(v5 + 7);
-    *(v5 + 7) = v38;
+    transcriptionProgress = v6->_transcriptionProgress;
+    v6->_transcriptionProgress = v38;
 
-    [*(v5 + 7) becomeCurrentWithPendingUnitCount:0];
-    [*(v5 + 7) resignCurrent];
-    v40 = *(v5 + 12);
+    [(NSProgress *)v6->_transcriptionProgress becomeCurrentWithPendingUnitCount:0];
+    [(NSProgress *)v6->_transcriptionProgress resignCurrent];
+    v40 = v6->_serialDispatchQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000543A0;
     block[3] = &unk_1000EE260;
-    v43 = v5;
+    v43 = v6;
     v44 = recognizerCopy;
     dispatch_async(v40, block);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)dealloc
 {
-  v3 = sub_10005435C();
+  v3 = sub_10005435C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -279,7 +279,7 @@
   v10 = 0;
   [SFSpeechAssetManager unsubscribeFromAssetWithConfig:configCopy clientIdentifier:@"com.apple.visualvoicemail" error:&v10];
   v4 = v10;
-  v5 = sub_10005435C();
+  v5 = sub_10005435C(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
@@ -307,47 +307,54 @@
 
 - (id)getSpeechAssetSubscriptions
 {
-  v12 = [SFSpeechAssetManager subscriptionsForClientIdentifier:@"com.apple.visualvoicemail"];
+  v13 = [SFSpeechAssetManager subscriptionsForClientIdentifier:@"com.apple.visualvoicemail"];
   v2 = objc_alloc_init(NSMutableArray);
-  v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v3 = v12;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v15 = 0u;
+  v3 = v13;
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v14 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
-        if ([v7 assetType] == 3 || objc_msgSend(v7, "assetType") == 7)
+        v7 = *(*(&v14 + 1) + 8 * i);
+        assetType = [v7 assetType];
+        if (assetType != 3)
         {
-          v8 = sub_10005435C();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          assetType = [v7 assetType];
+          if (assetType != 7)
           {
-            language = [v7 language];
-            [v7 assetType];
-            v10 = SFEntitledAssetTypeToString();
-            *buf = 138412546;
-            v18 = language;
-            v19 = 2112;
-            v20 = v10;
-            _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "getSpeechAssetSubscriptions: language %@ assetType %@", buf, 0x16u);
+            continue;
           }
-
-          [v2 addObject:v7];
         }
+
+        v9 = sub_10005435C(assetType);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          language = [v7 language];
+          [v7 assetType];
+          v11 = SFEntitledAssetTypeToString();
+          *buf = 138412546;
+          v19 = language;
+          v20 = 2112;
+          v21 = v11;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "getSpeechAssetSubscriptions: language %@ assetType %@", buf, 0x16u);
+        }
+
+        [v2 addObject:v7];
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v4);
@@ -418,7 +425,7 @@
   getAssetFreqMap = [assetMgmtController getAssetFreqMap];
 
   getSpeechAssetSubscriptions = [(VMVoicemailTranscriptionController *)self getSpeechAssetSubscriptions];
-  v3 = sub_10005435C();
+  v3 = sub_10005435C(getSpeechAssetSubscriptions);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -657,7 +664,7 @@
 - (void)addTranscriptionOperation:(id)operation duration:(double)duration
 {
   operationCopy = operation;
-  v7 = sub_10005435C();
+  v7 = sub_10005435C(operationCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138413058;
@@ -823,36 +830,36 @@
 
 - (void)setTranscriptionAssetModelProcessed:(BOOL)processed
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100058B70;
-  v7[3] = &unk_1000EEDB0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100058B70;
+  v8[3] = &unk_1000EEDB0;
   processedCopy = processed;
-  v7[4] = self;
-  v7[5] = &v9;
-  [(VMVoicemailTranscriptionController *)self performAtomicAccessorBlock:v7];
-  if (*(v10 + 24) == 1)
+  v8[4] = self;
+  v8[5] = &v10;
+  v4 = [(VMVoicemailTranscriptionController *)self performAtomicAccessorBlock:v8];
+  if (*(v11 + 24) == 1)
   {
-    v4 = sub_10005435C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10005435C(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
-      v6 = asNSStringBOOL();
+      v6 = objc_opt_class();
+      v7 = asNSStringBOOL();
       *buf = 138412802;
-      v14 = v5;
-      v15 = 2048;
+      v15 = v6;
+      v16 = 2048;
       selfCopy = self;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "<%@ %p> transcriptionAssetModelProcessed changed to %@", buf, 0x20u);
+      v18 = 2112;
+      v19 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "<%@ %p> transcriptionAssetModelProcessed changed to %@", buf, 0x20u);
     }
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
 }
 
 - (void)requestTranscriptionAssetModelInstallation
@@ -1080,7 +1087,7 @@ LABEL_7:
 
 - (void)removeAssetModelNetworkObserver
 {
-  v3 = sub_10005435C();
+  v3 = sub_10005435C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412546;
@@ -1096,7 +1103,7 @@ LABEL_7:
 
 - (void)addAssetModelNetworkObserver
 {
-  v3 = sub_10005435C();
+  v3 = sub_10005435C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412546;
@@ -1116,44 +1123,45 @@ LABEL_7:
   serialDispatchQueue = [(VMVoicemailTranscriptionController *)self serialDispatchQueue];
   dispatch_assert_queue_V2(serialDispatchQueue);
 
-  v6 = sub_10005435C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_10005435C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"NO";
+    v8 = @"NO";
     if (syncCopy)
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
-    v13 = 138412290;
-    v14 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Network reachability changed to: %@", &v13, 0xCu);
+    v16 = 138412290;
+    v17 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Network reachability changed to: %@", &v16, 0xCu);
   }
 
   if (syncCopy)
   {
-    v8 = sub_10005435C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10005435C(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       [(VMVoicemailTranscriptionController *)self transcriptionAssetModelObservingNetwork];
-      v9 = asNSStringBOOL();
-      v13 = 138412290;
-      v14 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Network asset model observer available: %@", &v13, 0xCu);
+      v11 = asNSStringBOOL();
+      v16 = 138412290;
+      v17 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Network asset model observer available: %@", &v16, 0xCu);
     }
 
-    if ([(VMVoicemailTranscriptionController *)self transcriptionAssetModelProcessed])
+    transcriptionAssetModelProcessed = [(VMVoicemailTranscriptionController *)self transcriptionAssetModelProcessed];
+    if (transcriptionAssetModelProcessed)
     {
-      v10 = sub_10005435C();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_10005435C(transcriptionAssetModelProcessed);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_opt_class();
-        v13 = 138412546;
-        v14 = v11;
-        v15 = 2048;
+        v14 = objc_opt_class();
+        v16 = 138412546;
+        v17 = v14;
+        v18 = 2048;
         selfCopy = self;
-        v12 = v11;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "<%@ %p> Request to install Transcription model is already completed, execution not required.", &v13, 0x16u);
+        v15 = v14;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "<%@ %p> Request to install Transcription model is already completed, execution not required.", &v16, 0x16u);
       }
     }
 
@@ -1170,11 +1178,11 @@ LABEL_7:
   serialDispatchQueue = [(VMVoicemailTranscriptionController *)self serialDispatchQueue];
   dispatch_assert_queue_V2(serialDispatchQueue);
 
-  v6 = sub_10005435C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_10005435C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Initiating request to install asset model.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Initiating request to install asset model.", buf, 2u);
   }
 
   networkObserver = [(VMVoicemailTranscriptionController *)self networkObserver];
@@ -1186,21 +1194,21 @@ LABEL_7:
     assetModel = [(VMVoicemailTranscriptionController *)self assetModel];
     speechRecognizer = [(VMVoicemailTranscriptionController *)self speechRecognizer];
     serialDispatchQueue2 = [(VMVoicemailTranscriptionController *)self serialDispatchQueue];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10005A674;
-    v13[3] = &unk_1000EEE50;
-    v14 = completionCopy;
-    [assetModel performInstallAssetModel:speechRecognizer isLID:0 queue:serialDispatchQueue2 completion:v13];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10005A674;
+    v15[3] = &unk_1000EEE50;
+    v16 = completionCopy;
+    [assetModel performInstallAssetModel:speechRecognizer isLID:0 queue:serialDispatchQueue2 completion:v15];
   }
 
   else
   {
-    v12 = sub_10005435C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_10005435C(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Suspending request for asset model operation due to network being unreachable.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Suspending request for asset model operation due to network being unreachable.", buf, 2u);
     }
 
     [(VMVoicemailTranscriptionController *)self addAssetModelNetworkObserver];
@@ -1214,11 +1222,11 @@ LABEL_7:
   serialDispatchQueue = [(VMVoicemailTranscriptionController *)self serialDispatchQueue];
   dispatch_assert_queue_V2(serialDispatchQueue);
 
-  v6 = sub_10005435C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_10005435C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Initiating request to install Language ID model.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Initiating request to install Language ID model.", buf, 2u);
   }
 
   networkObserver = [(VMVoicemailTranscriptionController *)self networkObserver];
@@ -1235,11 +1243,11 @@ LABEL_7:
 
   else
   {
-    v12 = sub_10005435C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_10005435C(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Suspending request for transcriptionAssetModel operation due to network being unreachable.", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Suspending request for transcriptionAssetModel operation due to network being unreachable.", v15, 2u);
     }
 
     [(VMVoicemailTranscriptionController *)self addAssetModelNetworkObserver];

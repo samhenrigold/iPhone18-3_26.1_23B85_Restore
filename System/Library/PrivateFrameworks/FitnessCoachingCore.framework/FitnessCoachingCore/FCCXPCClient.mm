@@ -63,23 +63,23 @@
   self->_connection = v3;
 }
 
-void __35__FCCXPCClient__setupXPCConnection__block_invoke()
+void __35__FCCXPCClient__setupXPCConnection__block_invoke(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v0 = *MEMORY[0x277CCC290];
+  v2 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_ERROR))
   {
-    __35__FCCXPCClient__setupXPCConnection__block_invoke_cold_1(v0);
+    __35__FCCXPCClient__setupXPCConnection__block_invoke_cold_1(v2);
   }
 }
 
-void __35__FCCXPCClient__setupXPCConnection__block_invoke_298()
+void __35__FCCXPCClient__setupXPCConnection__block_invoke_298(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v0 = *MEMORY[0x277CCC290];
+  v2 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_ERROR))
   {
-    __35__FCCXPCClient__setupXPCConnection__block_invoke_298_cold_1(v0);
+    __35__FCCXPCClient__setupXPCConnection__block_invoke_298_cold_1(v2);
   }
 }
 
@@ -209,11 +209,10 @@ void __42__FCCXPCClient__remoteProxy_errorHandler___block_invoke_2(uint64_t a1, 
 
 void __42__FCCXPCClient__remoteProxy_errorHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch server proxy with error %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch server proxy with error %{public}@", &v2, 0xCu);
 }
 
 @end

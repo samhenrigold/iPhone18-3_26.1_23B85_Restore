@@ -1,40 +1,13 @@
 @interface MCMCodeSignInfo
 - (MCMCodeSignInfo)initWithAuditToken:(id *)token;
 - (MCMCodeSignInfo)initWithURL:(id)l error:(unint64_t *)error;
-- (NSDictionary)entitlements;
-- (NSString)identifier;
-- (unsigned)platform;
 @end
 
 @implementation MCMCodeSignInfo
 
-- (unsigned)platform
-{
-  result = self->_platform;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSString)identifier
-{
-  result = self->_identifier;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSDictionary)entitlements
-{
-  result = self->_entitlements;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (MCMCodeSignInfo)initWithAuditToken:(id *)token
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
 
   v4 = *&token->var0[4];
   *buf = *token->var0;
@@ -111,9 +84,9 @@ LABEL_16:
   *buf = *token->var0;
   *&buf[16] = v15;
   platform = container_audit_token_get_platform();
-  v25.receiver = 0;
-  v25.super_class = MCMCodeSignInfo;
-  v17 = [(MCMCodeSignInfo *)&v25 init];
+  v24.receiver = 0;
+  v24.super_class = MCMCodeSignInfo;
+  v17 = [(MCMCodeSignInfo *)&v24 init];
   v18 = v17;
   if (v17)
   {
@@ -125,22 +98,20 @@ LABEL_16:
 LABEL_17:
   v22 = v18;
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (MCMCodeSignInfo)initWithURL:(id)l error:(unint64_t *)error
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = MCMCodeSignInfo;
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = MCMCodeSignInfo;
 
   if (error)
   {
     *error = 72;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

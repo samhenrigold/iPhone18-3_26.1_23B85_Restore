@@ -9,7 +9,7 @@
 
 + (void)currencyConversionProviderImageWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0, &qword_1DA275840);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -33,7 +33,7 @@
 
 + (void)currencyConversionProviderNameWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0, &qword_1DA275840);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -57,7 +57,7 @@
 
 + (void)currencyConversionProviderURLWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0, &qword_1DA275840);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);

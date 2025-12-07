@@ -51,7 +51,7 @@
 
 - (void)flushMetricEvents
 {
-  v3 = sub_100140278(&unk_1008F2010);
+  v3 = sub_100140278(&unk_1008F2010, &unk_1006D6780);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v10 - v5;
@@ -77,7 +77,7 @@
 
 - (void)handleWindowScene:(id)scene with:(id)with
 {
-  v7 = sub_100140278(&qword_1008E1760);
+  v7 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v7 - 8);
   v9 = &v15 - v8;
   v10 = type metadata accessor for TaskPriority();
@@ -98,14 +98,14 @@
 {
   activityCopy = activity;
   selfCopy = self;
-  sub_1005CB718(activityCopy);
+  sub_1005CB718(activityCopy, v5);
 }
 
 - (void)openURLContext:(id)context
 {
   contextCopy = context;
   selfCopy = self;
-  sub_1005CBB48(contextCopy);
+  sub_1005CBB48(contextCopy, v5);
 }
 
 - (void)navigateToWorkoutPlanCreation
@@ -118,7 +118,7 @@
 {
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1005CFCFC(v4);
+  sub_1005CFCFC(v4, v6);
 }
 
 - (void)seymourTabSelectedWithSelection:(int64_t)selection

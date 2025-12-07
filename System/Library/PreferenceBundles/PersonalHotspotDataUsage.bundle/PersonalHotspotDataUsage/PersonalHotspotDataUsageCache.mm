@@ -122,10 +122,10 @@
     v5 = WiFiManagerClientCopyProperty();
     [(PersonalHotspotDataUsageCache *)self setHotspotClientsUsage:v5];
 
-    v6 = logger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = logger(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_5AD4(self, v6);
+      sub_5AD4(self, v7);
     }
 
     CFRelease(v4);
@@ -133,10 +133,10 @@
 
   else
   {
-    v7 = logger();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = logger(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_5B6C(v7);
+      sub_5B6C(v8);
     }
   }
 }
@@ -745,7 +745,7 @@ LABEL_52:
 {
   [(PersonalHotspotDataUsageCache *)self _clearCache];
   v2 = [NSNotification notificationWithName:@"PSWirelessDataUsageChangedNotification" object:0];
-  v3 = logger();
+  v3 = logger(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;
@@ -761,7 +761,7 @@ LABEL_52:
 
 - (void)refreshDataUsageUINotification
 {
-  v3 = logger();
+  v3 = logger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -778,7 +778,7 @@ LABEL_52:
 
 - (void)dataRatesChanged
 {
-  v3 = logger();
+  v3 = logger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

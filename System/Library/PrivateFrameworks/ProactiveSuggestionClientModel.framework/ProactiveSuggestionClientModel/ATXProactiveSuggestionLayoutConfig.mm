@@ -269,10 +269,11 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [ATXProactiveSuggestionUISpecification initWithProto:];
     }
@@ -283,66 +284,66 @@ LABEL_8:
   applicableLayoutType = [(ATXPBProactiveSuggestionLayoutConfig *)protoCopy applicableLayoutType];
   if (applicableLayoutType >= 9)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", applicableLayoutType];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", applicableLayoutType];
   }
 
   else
   {
-    v6 = off_1E86A4A60[applicableLayoutType];
+    v7 = off_1E86A4A60[applicableLayoutType];
   }
 
-  v9 = v6;
-  if (([(__CFString *)v9 isEqualToString:@"Unknown"]& 1) != 0)
+  v10 = v7;
+  if (([(__CFString *)v10 isEqualToString:@"Unknown"]& 1) != 0)
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  else if (([(__CFString *)v9 isEqualToString:@"_1Row1Column"]& 1) != 0)
+  else if (([(__CFString *)v10 isEqualToString:@"_1Row1Column"]& 1) != 0)
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  else if (([(__CFString *)v9 isEqualToString:@"_1Row2Columns"]& 1) != 0)
+  else if (([(__CFString *)v10 isEqualToString:@"_1Row2Columns"]& 1) != 0)
   {
-    v10 = 2;
+    v11 = 2;
   }
 
-  else if (([(__CFString *)v9 isEqualToString:@"_2Rows2Columns"]& 1) != 0)
+  else if (([(__CFString *)v10 isEqualToString:@"_2Rows2Columns"]& 1) != 0)
   {
-    v10 = 3;
+    v11 = 3;
   }
 
-  else if (([(__CFString *)v9 isEqualToString:@"_2Rows4Columns"]& 1) != 0)
+  else if (([(__CFString *)v10 isEqualToString:@"_2Rows4Columns"]& 1) != 0)
   {
-    v10 = 4;
+    v11 = 4;
   }
 
-  else if (([(__CFString *)v9 isEqualToString:@"_1Row4Columns"]& 1) != 0)
+  else if (([(__CFString *)v10 isEqualToString:@"_1Row4Columns"]& 1) != 0)
   {
-    v10 = 5;
+    v11 = 5;
   }
 
-  else if (([(__CFString *)v9 isEqualToString:@"_4Rows4Columns"]& 1) != 0)
+  else if (([(__CFString *)v10 isEqualToString:@"_4Rows4Columns"]& 1) != 0)
   {
-    v10 = 6;
+    v11 = 6;
   }
 
-  else if (([(__CFString *)v9 isEqualToString:@"_4Rows8Columns"]& 1) != 0)
+  else if (([(__CFString *)v10 isEqualToString:@"_4Rows8Columns"]& 1) != 0)
   {
-    v10 = 7;
+    v11 = 7;
   }
 
-  else if ([(__CFString *)v9 isEqualToString:@"Max"])
+  else if ([(__CFString *)v10 isEqualToString:@"Max"])
   {
-    v10 = 8;
+    v11 = 8;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  self = [(ATXProactiveSuggestionLayoutConfig *)self initWithApplicableSuggestionLayout:v10];
+  self = [(ATXProactiveSuggestionLayoutConfig *)self initWithApplicableSuggestionLayout:v11];
   selfCopy = self;
 LABEL_30:
 
@@ -351,7 +352,7 @@ LABEL_30:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSInteger:(int64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -368,11 +369,11 @@ LABEL_30:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -383,7 +384,6 @@ LABEL_30:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

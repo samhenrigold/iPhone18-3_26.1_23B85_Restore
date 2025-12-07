@@ -186,7 +186,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKFusedDoubleCellView *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -198,7 +198,7 @@
   v3.super_class = PKFusedDoubleCellView;
   [(PKFusedDoubleCellView *)&v3 layoutSubviews];
   [(PKFusedDoubleCellView *)self bounds];
-  [(PKFusedDoubleCellView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)_layoutWithBounds:(CGRect)bounds isTemplateLayout:(BOOL)layout
@@ -361,10 +361,11 @@
   width_low = LOBYTE(detailSize.width);
   rect = side.size.height;
   height = titleSize.height;
-  width = side.size.width;
+  width = titleSize.width;
+  v121 = side.size.width;
   amount = size.width;
   y = side.origin.y;
-  v56 = side.origin.y;
+  v120 = side.origin.y;
   x = side.origin.x;
   v18 = [(PKFusedDoubleCellView *)self _shouldReverseLayoutDirection:*&detailSize.width];
   if (v18)
@@ -387,98 +388,146 @@
     v20 = CGRectMinXEdge;
   }
 
-  memset(&v72, 0, sizeof(v72));
+  memset(&v137, 0, sizeof(v137));
   remainder.origin.x = x;
   remainder.origin.y = y;
-  remainder.size.width = width;
+  remainder.size.width = v121;
   remainder.size.height = rect;
-  v21 = fmax(height + rightSize.width + rightTitleSize.width, fmax(v73 + v74 + v75, rightDetailSize.width));
+  v21 = fmax(height + rightSize.width + rightTitleSize.width, fmax(v138 + v140 + v142, rightDetailSize.width));
   v22 = PKUIPixelLength();
   memset(&slice, 0, sizeof(slice));
-  v76.origin.x = x;
-  v76.origin.y = v56;
-  v76.size.width = width;
-  v76.size.height = rect;
-  CGRectDivide(v76, &slice, &remainder, amount, v20);
-  CGRectDivide(remainder, &v72, &remainder, 6.5, v20);
-  memset(&v69, 0, sizeof(v69));
-  CGRectDivide(remainder, &v69, &remainder, v22, v20);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v69.origin.x = v23;
-  v69.origin.y = v24;
-  v69.size.width = v25;
-  v69.size.height = v26;
-  CGRectDivide(remainder, &v72, &remainder, 6.5, v20);
-  memset(&v68, 0, sizeof(v68));
-  CGRectDivide(remainder, &v68, &remainder, rightTitleSize.height, v19);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v68.origin.x = v27;
-  v68.origin.y = v28;
-  v68.size.width = v29;
-  v68.size.height = v30;
-  CGRectDivide(remainder, &v72, &remainder, rightDetailSize.height, v19);
-  memset(&v67, 0, sizeof(v67));
-  CGRectDivide(remainder, &v67, &remainder, rightSubDetailSize.width, v19);
-  memset(&v66, 0, sizeof(v66));
-  CGRectDivide(slice, &v66, &slice, height, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v66.origin.x = v31;
-  v66.origin.y = v32;
-  v66.size.width = v33;
-  v66.size.height = v34;
-  memset(&v65, 0, sizeof(v65));
-  CGRectDivide(slice, &v65, &slice, rightSize.width, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v65.origin.x = v35;
-  v65.origin.y = v36;
-  v65.size.width = v37;
-  v65.size.height = v38;
-  memset(&v64, 0, sizeof(v64));
-  CGRectDivide(slice, &v64, &slice, rightTitleSize.width, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v64.origin.x = v39;
-  v64.origin.y = v40;
-  v64.size.width = v41;
-  v64.size.height = v42;
-  memset(&v63, 0, sizeof(v63));
-  CGRectDivide(v67, &v63, &v67, v73, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v63.origin.x = v43;
-  v63.origin.y = v44;
-  v63.size.width = v45;
-  v63.size.height = v46;
-  memset(&v62, 0, sizeof(v62));
-  CGRectDivide(v67, &v62, &v67, v74, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v62.origin.x = v47;
-  v62.origin.y = v48;
-  v62.size.width = v49;
-  v62.size.height = v50;
-  memset(&v61, 0, sizeof(v61));
-  CGRectDivide(v67, &v61, &v67, v75, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v61.origin.x = v51;
-  v61.origin.y = v52;
-  v61.size.width = v53;
-  v61.size.height = v54;
+  v143.origin.x = x;
+  v143.origin.y = v120;
+  v143.size.width = v121;
+  v143.size.height = rect;
+  CGRectDivide(v143, &slice, &remainder, amount, v20);
+  CGRectDivide(remainder, &v137, &remainder, 6.5, v20);
+  memset(&v134, 0, sizeof(v134));
+  CGRectDivide(remainder, &v134, &remainder, v22, v20);
+  v23 = PKContentAlignmentMake();
+  v24.n128_u64[0] = *&v134.origin.x;
+  v25.n128_u64[0] = *&v134.origin.y;
+  v26.n128_u64[0] = *&v134.size.width;
+  v27.n128_u64[0] = *&v134.size.height;
+  v28.n128_f64[0] = v22;
+  v29.n128_f64[0] = v21;
+  PKSizeAlignedInRect(v23, v28, v29, v24, v25, v26, v27, v30);
+  v134.origin.x = v31;
+  v134.origin.y = v32;
+  v134.size.width = v33;
+  v134.size.height = v34;
+  CGRectDivide(remainder, &v137, &remainder, 6.5, v20);
+  memset(&v133, 0, sizeof(v133));
+  CGRectDivide(remainder, &v133, &remainder, rightTitleSize.height, v19);
+  v35 = PKContentAlignmentMake();
+  v36.n128_u64[0] = *&v133.origin.x;
+  v37.n128_u64[0] = *&v133.origin.y;
+  v38.n128_u64[0] = *&v133.size.width;
+  v39.n128_u64[0] = *&v133.size.height;
+  v40.n128_u64[0] = *&rightTitleSize.height;
+  v41.n128_u64[0] = *&rightDetailSize.width;
+  PKSizeAlignedInRect(v35, v40, v41, v36, v37, v38, v39, v42);
+  v133.origin.x = v43;
+  v133.origin.y = v44;
+  v133.size.width = v45;
+  v133.size.height = v46;
+  CGRectDivide(remainder, &v137, &remainder, rightDetailSize.height, v19);
+  memset(&v132, 0, sizeof(v132));
+  CGRectDivide(remainder, &v132, &remainder, rightSubDetailSize.width, v19);
+  memset(&v131, 0, sizeof(v131));
+  CGRectDivide(slice, &v131, &slice, height, CGRectMinYEdge);
+  v47 = PKContentAlignmentMake();
+  v48.n128_u64[0] = *&v131.origin.x;
+  v49.n128_u64[0] = *&v131.origin.y;
+  v50.n128_u64[0] = *&v131.size.width;
+  v51.n128_u64[0] = *&v131.size.height;
+  v52.n128_f64[0] = width;
+  v53.n128_f64[0] = height;
+  PKSizeAlignedInRect(v47, v52, v53, v48, v49, v50, v51, v54);
+  v131.origin.x = v55;
+  v131.origin.y = v56;
+  v131.size.width = v57;
+  v131.size.height = v58;
+  memset(&v130, 0, sizeof(v130));
+  CGRectDivide(slice, &v130, &slice, rightSize.width, CGRectMinYEdge);
+  v59 = PKContentAlignmentMake();
+  v60.n128_u64[0] = *&v130.origin.x;
+  v61.n128_u64[0] = *&v130.origin.y;
+  v62.n128_u64[0] = *&v130.size.width;
+  v63.n128_u64[0] = *&v130.size.height;
+  v64.n128_f64[0] = padding;
+  v65.n128_u64[0] = *&rightSize.width;
+  PKSizeAlignedInRect(v59, v64, v65, v60, v61, v62, v63, v66);
+  v130.origin.x = v67;
+  v130.origin.y = v68;
+  v130.size.width = v69;
+  v130.size.height = v70;
+  memset(&v129, 0, sizeof(v129));
+  CGRectDivide(slice, &v129, &slice, rightTitleSize.width, CGRectMinYEdge);
+  v71 = PKContentAlignmentMake();
+  v72.n128_u64[0] = *&v129.origin.x;
+  v73.n128_u64[0] = *&v129.origin.y;
+  v74.n128_u64[0] = *&v129.size.width;
+  v75.n128_u64[0] = *&v129.size.height;
+  v76.n128_u64[0] = *&rightSize.height;
+  v77.n128_u64[0] = *&rightTitleSize.width;
+  PKSizeAlignedInRect(v71, v76, v77, v72, v73, v74, v75, v78);
+  v129.origin.x = v79;
+  v129.origin.y = v80;
+  v129.size.width = v81;
+  v129.size.height = v82;
+  memset(&v128, 0, sizeof(v128));
+  CGRectDivide(v132, &v128, &v132, v138, CGRectMinYEdge);
+  v83 = PKContentAlignmentMake();
+  v84.n128_u64[0] = *&v128.origin.x;
+  v85.n128_u64[0] = *&v128.origin.y;
+  v86.n128_u64[0] = *&v128.size.width;
+  v87.n128_u64[0] = *&v128.size.height;
+  v88.n128_u64[0] = layout;
+  v89.n128_f64[0] = v138;
+  PKSizeAlignedInRect(v83, v88, v89, v84, v85, v86, v87, v90);
+  v128.origin.x = v91;
+  v128.origin.y = v92;
+  v128.size.width = v93;
+  v128.size.height = v94;
+  memset(&v127, 0, sizeof(v127));
+  CGRectDivide(v132, &v127, &v132, v140, CGRectMinYEdge);
+  v95 = PKContentAlignmentMake();
+  v96.n128_u64[0] = *&v127.origin.x;
+  v97.n128_u64[0] = *&v127.origin.y;
+  v98.n128_u64[0] = *&v127.size.width;
+  v99.n128_u64[0] = *&v127.size.height;
+  v100.n128_u64[0] = v139;
+  v101.n128_f64[0] = v140;
+  PKSizeAlignedInRect(v95, v100, v101, v96, v97, v98, v99, v102);
+  v127.origin.x = v103;
+  v127.origin.y = v104;
+  v127.size.width = v105;
+  v127.size.height = v106;
+  memset(&v126, 0, sizeof(v126));
+  CGRectDivide(v132, &v126, &v132, v142, CGRectMinYEdge);
+  v107 = PKContentAlignmentMake();
+  v108.n128_u64[0] = *&v126.origin.x;
+  v109.n128_u64[0] = *&v126.origin.y;
+  v110.n128_u64[0] = *&v126.size.width;
+  v111.n128_u64[0] = *&v126.size.height;
+  v112.n128_u64[0] = v141;
+  v113.n128_f64[0] = v142;
+  PKSizeAlignedInRect(v107, v112, v113, v108, v109, v110, v111, v114);
+  v126.origin.x = v115;
+  v126.origin.y = v116;
+  v126.size.width = v117;
+  v126.size.height = v118;
   if ((width_low & 1) == 0)
   {
-    [(UILabel *)self->_leftTitleView setFrame:v66.origin.x, v66.origin.y, v66.size.width, v66.size.height];
-    [(UILabel *)self->_leftDetailView setFrame:v65.origin.x, v65.origin.y, v65.size.width, v65.size.height];
-    [(UILabel *)self->_leftSubDetailView setFrame:v64.origin.x, v64.origin.y, v64.size.width, v64.size.height];
-    [(UILabel *)self->_rightTitleView setFrame:v63.origin.x, v63.origin.y, v63.size.width, v63.size.height];
-    [(UILabel *)self->_rightDetailView setFrame:v62.origin.x, v62.origin.y, v62.size.width, v62.size.height];
-    [(UILabel *)self->_rightSubDetailView setFrame:v61.origin.x, v61.origin.y, v61.size.width, v61.size.height];
-    [(UIView *)self->_separatorView setFrame:v69.origin.x, v69.origin.y, v69.size.width, v69.size.height];
-    [(UIImageView *)self->_disclosureView setFrame:v68.origin.x, v68.origin.y, v68.size.width, v68.size.height];
+    [(UILabel *)self->_leftTitleView setFrame:v131.origin.x, v131.origin.y, v131.size.width, v131.size.height];
+    [(UILabel *)self->_leftDetailView setFrame:v130.origin.x, v130.origin.y, v130.size.width, v130.size.height];
+    [(UILabel *)self->_leftSubDetailView setFrame:v129.origin.x, v129.origin.y, v129.size.width, v129.size.height];
+    [(UILabel *)self->_rightTitleView setFrame:v128.origin.x, v128.origin.y, v128.size.width, v128.size.height];
+    [(UILabel *)self->_rightDetailView setFrame:v127.origin.x, v127.origin.y, v127.size.width, v127.size.height];
+    [(UILabel *)self->_rightSubDetailView setFrame:v126.origin.x, v126.origin.y, v126.size.width, v126.size.height];
+    [(UIView *)self->_separatorView setFrame:v134.origin.x, v134.origin.y, v134.size.width, v134.size.height];
+    [(UIImageView *)self->_disclosureView setFrame:v133.origin.x, v133.origin.y, v133.size.width, v133.size.height];
   }
 
   return v21;
@@ -508,167 +557,227 @@
 
   remainder.size.width = v9;
   remainder.size.height = v8;
-  v64 = PKUIPixelLength();
+  v137 = PKUIPixelLength();
   if (self->_leftTitle)
   {
     [(UILabel *)self->_leftTitleView sizeThatFits:v9, v8];
-    v16 = v15;
+    v133 = v15;
+    v17 = v16;
   }
 
   else
   {
-    v16 = *(MEMORY[0x1E695F060] + 8);
+    v17 = *(MEMORY[0x1E695F060] + 8);
+    v133 = *MEMORY[0x1E695F060];
   }
 
   if (self->_leftDetail)
   {
     [(UILabel *)self->_leftDetailView sizeThatFits:v9, v8];
-    v18 = v17;
+    v135 = v18;
+    v20 = v19;
   }
 
   else
   {
-    v18 = *(MEMORY[0x1E695F060] + 8);
+    v20 = *(MEMORY[0x1E695F060] + 8);
+    v135 = *MEMORY[0x1E695F060];
   }
 
-  v67 = width;
-  v19 = v9 - width;
+  v143 = width;
+  v21 = v9 - width;
   if (self->_leftSubDetail)
   {
     [(UILabel *)self->_leftSubDetailView sizeThatFits:v9, v8];
-    v21 = v20;
+    v136 = v22;
+    v24 = v23;
   }
 
   else
   {
-    v21 = *(MEMORY[0x1E695F060] + 8);
+    v24 = *(MEMORY[0x1E695F060] + 8);
+    v136 = *MEMORY[0x1E695F060];
   }
 
-  v22 = v19 + -10.0;
+  v25 = v21 + -10.0;
   if (self->_rightTitle)
   {
-    [(UILabel *)self->_rightTitleView sizeThatFits:v22, v8];
-    v65 = v23;
+    [(UILabel *)self->_rightTitleView sizeThatFits:v25, v8];
+    v138 = v27;
+    v139 = v26;
   }
 
   else
   {
-    v65 = *(MEMORY[0x1E695F060] + 8);
+    v138 = *(MEMORY[0x1E695F060] + 8);
+    v139 = *MEMORY[0x1E695F060];
   }
 
   if (self->_rightDetail)
   {
-    [(UILabel *)self->_rightDetailView sizeThatFits:v22, v8];
-    v66 = v24;
+    [(UILabel *)self->_rightDetailView sizeThatFits:v25, v8];
+    v140 = v29;
+    v141 = v28;
   }
 
   else
   {
-    v66 = *(MEMORY[0x1E695F060] + 8);
+    v140 = *(MEMORY[0x1E695F060] + 8);
+    v141 = *MEMORY[0x1E695F060];
   }
 
   if (self->_rightSubDetail)
   {
-    [(UILabel *)self->_rightSubDetailView sizeThatFits:v22, v8];
-    v26 = v25;
+    [(UILabel *)self->_rightSubDetailView sizeThatFits:v25, v8];
+    v142 = v30;
+    v32 = v31;
   }
 
   else
   {
-    v26 = *(MEMORY[0x1E695F060] + 8);
+    v32 = *(MEMORY[0x1E695F060] + 8);
+    v142 = *MEMORY[0x1E695F060];
   }
 
-  memset(&v80, 0, sizeof(v80));
-  v27 = v16 + v18 + v21;
+  memset(&v156, 0, sizeof(v156));
+  v33 = v17 + v20 + v24;
   memset(&slice, 0, sizeof(slice));
-  v81.origin.x = x;
-  v81.origin.y = rect;
-  v81.size.width = v9;
-  v81.size.height = v8;
-  CGRectDivide(v81, &slice, &remainder, v27, CGRectMinYEdge);
-  memset(&v77, 0, sizeof(v77));
-  CGRectDivide(slice, &v77, &slice, v16, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v77.origin.x = v28;
-  v77.origin.y = v29;
-  v77.size.width = v30;
-  v77.size.height = v31;
-  memset(&v76, 0, sizeof(v76));
-  CGRectDivide(slice, &v76, &slice, v18, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v76.origin.x = v32;
-  v76.origin.y = v33;
-  v76.size.width = v34;
-  v76.size.height = v35;
-  memset(&v75, 0, sizeof(v75));
-  CGRectDivide(slice, &v75, &slice, v21, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v75.origin.x = v36;
-  v75.origin.y = v37;
-  v75.size.width = v38;
-  v75.size.height = v39;
-  CGRectDivide(remainder, &v80, &remainder, 6.5, CGRectMinYEdge);
-  memset(&v74, 0, sizeof(v74));
-  CGRectDivide(remainder, &v74, &remainder, v64, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v74.origin.x = v40;
-  v74.origin.y = v41;
-  v74.size.width = v42;
-  v74.size.height = v43;
-  CGRectDivide(remainder, &v80, &remainder, 6.5, CGRectMinYEdge);
-  v44 = v74.size.height;
-  v45 = fmax(v65 + v66 + v26, height);
-  memset(&v73, 0, sizeof(v73));
-  CGRectDivide(remainder, &v73, &remainder, v45, CGRectMinYEdge);
-  memset(&v72, 0, sizeof(v72));
-  CGRectDivide(v73, &v72, &v73, v67, v14);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v72.origin.x = v46;
-  v72.origin.y = v47;
-  v72.size.width = v48;
-  v72.size.height = v49;
-  memset(&v71, 0, sizeof(v71));
-  CGRectDivide(v73, &v71, &v73, v65, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v71.origin.x = v50;
-  v71.origin.y = v51;
-  v71.size.width = v52;
-  v71.size.height = v53;
-  memset(&v70, 0, sizeof(v70));
-  CGRectDivide(v73, &v70, &v73, v66, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v70.origin.x = v54;
-  v70.origin.y = v55;
-  v70.size.width = v56;
-  v70.size.height = v57;
-  memset(&v69, 0, sizeof(v69));
-  CGRectDivide(v73, &v69, &v73, v26, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v69.origin.x = v58;
-  v69.origin.y = v59;
-  v69.size.width = v60;
-  v69.size.height = v61;
+  v157.origin.x = x;
+  v157.origin.y = rect;
+  v157.size.width = v9;
+  v157.size.height = v8;
+  CGRectDivide(v157, &slice, &remainder, v33, CGRectMinYEdge);
+  memset(&v153, 0, sizeof(v153));
+  CGRectDivide(slice, &v153, &slice, v17, CGRectMinYEdge);
+  v34 = PKContentAlignmentMake();
+  v35.n128_u64[0] = *&v153.origin.x;
+  v36.n128_u64[0] = *&v153.origin.y;
+  v37.n128_u64[0] = *&v153.size.width;
+  v38.n128_u64[0] = *&v153.size.height;
+  v39.n128_u64[0] = v133;
+  v40.n128_f64[0] = v17;
+  PKSizeAlignedInRect(v34, v39, v40, v35, v36, v37, v38, v41);
+  v153.origin.x = v42;
+  v153.origin.y = v43;
+  v153.size.width = v44;
+  v153.size.height = v45;
+  memset(&v152, 0, sizeof(v152));
+  CGRectDivide(slice, &v152, &slice, v20, CGRectMinYEdge);
+  v46 = PKContentAlignmentMake();
+  v47.n128_u64[0] = *&v152.origin.x;
+  v48.n128_u64[0] = *&v152.origin.y;
+  v49.n128_u64[0] = *&v152.size.width;
+  v50.n128_u64[0] = *&v152.size.height;
+  v51.n128_u64[0] = v135;
+  v52.n128_f64[0] = v20;
+  PKSizeAlignedInRect(v46, v51, v52, v47, v48, v49, v50, v53);
+  v152.origin.x = v54;
+  v152.origin.y = v55;
+  v152.size.width = v56;
+  v152.size.height = v57;
+  memset(&v151, 0, sizeof(v151));
+  CGRectDivide(slice, &v151, &slice, v24, CGRectMinYEdge);
+  v58 = PKContentAlignmentMake();
+  v59.n128_u64[0] = *&v151.origin.x;
+  v60.n128_u64[0] = *&v151.origin.y;
+  v61.n128_u64[0] = *&v151.size.width;
+  v62.n128_u64[0] = *&v151.size.height;
+  v63.n128_u64[0] = v136;
+  v64.n128_f64[0] = v24;
+  PKSizeAlignedInRect(v58, v63, v64, v59, v60, v61, v62, v65);
+  v151.origin.x = v66;
+  v151.origin.y = v67;
+  v151.size.width = v68;
+  v151.size.height = v69;
+  CGRectDivide(remainder, &v156, &remainder, 6.5, CGRectMinYEdge);
+  memset(&v150, 0, sizeof(v150));
+  CGRectDivide(remainder, &v150, &remainder, v137, CGRectMinYEdge);
+  v70 = PKContentAlignmentMake();
+  v71.n128_u64[0] = *&v150.origin.x;
+  v72.n128_u64[0] = *&v150.origin.y;
+  v73.n128_u64[0] = *&v150.size.width;
+  v74.n128_u64[0] = *&v150.size.height;
+  v75.n128_f64[0] = v9;
+  v76.n128_f64[0] = v137;
+  PKSizeAlignedInRect(v70, v75, v76, v71, v72, v73, v74, v77);
+  v150.origin.x = v78;
+  v150.origin.y = v79;
+  v150.size.width = v80;
+  v150.size.height = v81;
+  CGRectDivide(remainder, &v156, &remainder, 6.5, CGRectMinYEdge);
+  v82 = v150.size.height;
+  v83 = fmax(v138 + v140 + v32, height);
+  memset(&v149, 0, sizeof(v149));
+  CGRectDivide(remainder, &v149, &remainder, v83, CGRectMinYEdge);
+  memset(&v148, 0, sizeof(v148));
+  CGRectDivide(v149, &v148, &v149, v143, v14);
+  v84 = PKContentAlignmentMake();
+  v85.n128_u64[0] = *&v148.origin.x;
+  v86.n128_u64[0] = *&v148.origin.y;
+  v87.n128_u64[0] = *&v148.size.width;
+  v88.n128_u64[0] = *&v148.size.height;
+  v89.n128_f64[0] = v143;
+  v90.n128_f64[0] = height;
+  PKSizeAlignedInRect(v84, v89, v90, v85, v86, v87, v88, v91);
+  v148.origin.x = v92;
+  v148.origin.y = v93;
+  v148.size.width = v94;
+  v148.size.height = v95;
+  memset(&v147, 0, sizeof(v147));
+  CGRectDivide(v149, &v147, &v149, v138, CGRectMinYEdge);
+  v96 = PKContentAlignmentMake();
+  v97.n128_u64[0] = *&v147.origin.x;
+  v98.n128_u64[0] = *&v147.origin.y;
+  v99.n128_u64[0] = *&v147.size.width;
+  v100.n128_u64[0] = *&v147.size.height;
+  v101.n128_u64[0] = v139;
+  v102.n128_f64[0] = v138;
+  PKSizeAlignedInRect(v96, v101, v102, v97, v98, v99, v100, v103);
+  v147.origin.x = v104;
+  v147.origin.y = v105;
+  v147.size.width = v106;
+  v147.size.height = v107;
+  memset(&v146, 0, sizeof(v146));
+  CGRectDivide(v149, &v146, &v149, v140, CGRectMinYEdge);
+  v108 = PKContentAlignmentMake();
+  v109.n128_u64[0] = *&v146.origin.x;
+  v110.n128_u64[0] = *&v146.origin.y;
+  v111.n128_u64[0] = *&v146.size.width;
+  v112.n128_u64[0] = *&v146.size.height;
+  v113.n128_u64[0] = v141;
+  v114.n128_f64[0] = v140;
+  PKSizeAlignedInRect(v108, v113, v114, v109, v110, v111, v112, v115);
+  v146.origin.x = v116;
+  v146.origin.y = v117;
+  v146.size.width = v118;
+  v146.size.height = v119;
+  memset(&v145, 0, sizeof(v145));
+  CGRectDivide(v149, &v145, &v149, v32, CGRectMinYEdge);
+  v120 = PKContentAlignmentMake();
+  v121.n128_u64[0] = *&v145.origin.x;
+  v122.n128_u64[0] = *&v145.origin.y;
+  v123.n128_u64[0] = *&v145.size.width;
+  v124.n128_u64[0] = *&v145.size.height;
+  v125.n128_u64[0] = v142;
+  v126.n128_f64[0] = v32;
+  PKSizeAlignedInRect(v120, v125, v126, v121, v122, v123, v124, v127);
+  v145.origin.x = v128;
+  v145.origin.y = v129;
+  v145.size.width = v130;
+  v145.size.height = v131;
   if (!layout)
   {
-    [(UILabel *)self->_leftTitleView setFrame:v77.origin.x, v77.origin.y, v77.size.width, v77.size.height];
-    [(UILabel *)self->_leftDetailView setFrame:v76.origin.x, v76.origin.y, v76.size.width, v76.size.height];
-    [(UILabel *)self->_leftSubDetailView setFrame:v75.origin.x, v75.origin.y, v75.size.width, v75.size.height];
-    [(UILabel *)self->_rightTitleView setFrame:v71.origin.x, v71.origin.y, v71.size.width, v71.size.height];
-    [(UILabel *)self->_rightDetailView setFrame:v70.origin.x, v70.origin.y, v70.size.width, v70.size.height];
-    [(UILabel *)self->_rightSubDetailView setFrame:v69.origin.x, v69.origin.y, v69.size.width, v69.size.height];
-    [(UIView *)self->_separatorView setFrame:v74.origin.x, v74.origin.y, v74.size.width, v74.size.height];
-    [(UIImageView *)self->_disclosureView setFrame:v72.origin.x, v72.origin.y, v72.size.width, v72.size.height];
+    [(UILabel *)self->_leftTitleView setFrame:v153.origin.x, v153.origin.y, v153.size.width, v153.size.height];
+    [(UILabel *)self->_leftDetailView setFrame:v152.origin.x, v152.origin.y, v152.size.width, v152.size.height];
+    [(UILabel *)self->_leftSubDetailView setFrame:v151.origin.x, v151.origin.y, v151.size.width, v151.size.height];
+    [(UILabel *)self->_rightTitleView setFrame:v147.origin.x, v147.origin.y, v147.size.width, v147.size.height];
+    [(UILabel *)self->_rightDetailView setFrame:v146.origin.x, v146.origin.y, v146.size.width, v146.size.height];
+    [(UILabel *)self->_rightSubDetailView setFrame:v145.origin.x, v145.origin.y, v145.size.width, v145.size.height];
+    [(UIView *)self->_separatorView setFrame:v150.origin.x, v150.origin.y, v150.size.width, v150.size.height];
+    [(UIImageView *)self->_disclosureView setFrame:v148.origin.x, v148.origin.y, v148.size.width, v148.size.height];
   }
 
-  return v45 + v27 + 0.0 + 13.0 + v44;
+  return v83 + v33 + 0.0 + 13.0 + v82;
 }
 
 - (void)setPass:(id)pass

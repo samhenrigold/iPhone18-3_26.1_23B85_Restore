@@ -27,13 +27,16 @@
 - (void)_disableFocusRing;
 - (void)_disableFocusRingForTimeout;
 - (void)_dismissTextEditingModeInstructionsIfNeeded;
+- (void)_enableFocusRingIfNecessaryCheckingSystemSleepingState:(BOOL)state;
 - (void)_enableFocusRingWithTimeout;
 - (void)_handleNativeFocusItemChange:(id)change;
 - (void)_handleScreenChange;
+- (void)_handleUpdatedElementsForScreenChange:(BOOL)change;
 - (void)_hideTypeaheadSynchronously;
 - (void)_resetFocusRingTimeout;
 - (void)_setupUI;
 - (void)_showActionsForElement:(id)element;
+- (void)_showBannerWithText:(id)text andSecondaryText:(id)secondaryText orCustomView:(id)view isSticky:(BOOL)sticky fromUserAction:(BOOL)action;
 - (void)_showDebugBannerText:(id)text;
 - (void)_showTypeaheadNames;
 - (void)_updateTypeaheadNamesViewControllerItems;
@@ -1118,6 +1121,41 @@ LABEL_19:
   return rootViewController;
 }
 
+- (void)_showBannerWithText:(id)text andSecondaryText:(id)secondaryText orCustomView:(id)view isSticky:(BOOL)sticky fromUserAction:(BOOL)action
+{
+  actionCopy = action;
+  stickyCopy = sticky;
+  textCopy = text;
+  secondaryTextCopy = secondaryText;
+  viewCopy = view;
+  v14 = viewCopy;
+  if (stickyCopy)
+  {
+    v15 = 0.0;
+  }
+
+  else
+  {
+    v15 = 2.0;
+  }
+
+  if (viewCopy)
+  {
+    bannerPresenter = [(FKAApplicationDelegate *)self bannerPresenter];
+    [bannerPresenter presentCustomView:v14 duration:v15];
+  }
+
+  else
+  {
+    v17 = UIAccessibilityAnnouncementNotification;
+    v18 = __UIAXStringForVariables();
+    UIAccessibilityPostNotification(v17, v18);
+
+    bannerPresenter = [(FKAApplicationDelegate *)self bannerPresenter:secondaryTextCopy];
+    [bannerPresenter presentBannerViewWithText:textCopy secondaryText:secondaryTextCopy duration:actionCopy fromUserAction:v15];
+  }
+}
+
 - (void)_showDebugBannerText:(id)text
 {
   textCopy = text;
@@ -1476,6 +1514,24 @@ LABEL_19:
   return v12;
 }
 
+- (void)_handleUpdatedElementsForScreenChange:(BOOL)change
+{
+  changeCopy = change;
+  if (change)
+  {
+    [(FKAApplicationDelegate *)self _hideTypeaheadSynchronously];
+    actionManager = [(FKAApplicationDelegate *)self actionManager];
+    [actionManager didObserveScreenChange];
+  }
+
+  else
+  {
+    [(FKAApplicationDelegate *)self _updateTypeaheadNamesViewControllerItems];
+  }
+
+  [(FKAApplicationDelegate *)self _dismissActionsControllerByForce:changeCopy];
+}
+
 - (void)_handleScreenChange
 {
   if ([(FKAApplicationDelegate *)self shouldIgnoreNextScreenChange])
@@ -1602,6 +1658,21 @@ LABEL_18:
 
   [(FKAApplicationDelegate *)self _disableFocusRing];
 LABEL_22:
+}
+
+- (void)_enableFocusRingIfNecessaryCheckingSystemSleepingState:(BOOL)state
+{
+  if ([(FKAApplicationDelegate *)self _canEnableFocusRingCheckingSystemSleepingState:state])
+  {
+
+    [(FKAApplicationDelegate *)self _enableFocusRingWithTimeout];
+  }
+
+  else
+  {
+
+    [(FKAApplicationDelegate *)self _disableFocusRing];
+  }
 }
 
 - (void)_enableFocusRingWithTimeout

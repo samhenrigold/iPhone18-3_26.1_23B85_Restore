@@ -1,1756 +1,3 @@
-_BYTE *copy_string(const void *a1, size_t a2)
-{
-  v4 = a2 + 1;
-  v5 = malloc_type_malloc(a2 + 1, 0x64BDC953uLL);
-  v6 = v5;
-  if (v5)
-  {
-    memcpy(v5, a1, a2);
-    v6[a2] = 0;
-  }
-
-  else
-  {
-    v7 = *MEMORY[0x277D85DF8];
-    v8 = __error();
-    v9 = strerror(*v8);
-    fprintf(v7, "Could not allocate copy buffer of %ld bytes: %s\n", v4, v9);
-  }
-
-  return v6;
-}
-
-uint64_t BOMCopierSourceEntryNewFromFSObject(const char *a1, uint64_t a2, __int16 a3, void *a4)
-{
-  v59 = *MEMORY[0x277D85DE8];
-  if (!a1)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1023, "BOMCopierSourceEntryNewFromFSObject", "Invalid source_path");
-    goto LABEL_11;
-  }
-
-  if (!a2)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1029, "BOMCopierSourceEntryNewFromFSObject", "Invalid fso");
-    goto LABEL_11;
-  }
-
-  v8 = BOMFSObjectMode(a2);
-  v9 = BOMFSObjectPathName(a2);
-  if (!v9)
-  {
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1047, "BOMCopierSourceEntryNewFromFSObject", "Could not retrieve path from fso\n");
-    goto LABEL_11;
-  }
-
-  v10 = v9;
-  v11 = mode_to_source_entry_type(v8);
-  if (*v10 == 46)
-  {
-    v12 = *(v10 + 1) == 0;
-    if (*(v10 + 1))
-    {
-      v13 = 0;
-    }
-
-    else
-    {
-      v13 = 6;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-    v13 = 0;
-  }
-
-  if (v11)
-  {
-    v17 = v11;
-  }
-
-  else
-  {
-    v17 = v13;
-  }
-
-  v18 = BOMCopierSourceEntryNew(v17, a4);
-  v14 = v18;
-  if (!v18)
-  {
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1063, "BOMCopierSourceEntryNewFromFSObject", "Could not create BOMCopierSourceEntry from %d", v17);
-    goto LABEL_12;
-  }
-
-  *v18 = 4;
-  v19 = strdup(v10);
-  *(v14 + 24) = v19;
-  if (!v19)
-  {
-    v22 = __error();
-    strerror(*v22);
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1076, "BOMCopierSourceEntryNewFromFSObject", "Could not duplicate fso_path %s: %s\n");
-    goto LABEL_65;
-  }
-
-  v57 = 0;
-  if (v12)
-  {
-    v20 = strdup(a1);
-    v57 = v20;
-    if (!v20)
-    {
-      v21 = __error();
-      strerror(*v21);
-      BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1087, "BOMCopierSourceEntryNewFromFSObject", "Could not duplicate %s: %s\n");
-      goto LABEL_65;
-    }
-  }
-
-  else if (asprintf(&v57, "%s/%s", a1, (v10 + 2)) == -1 || (v20 = v57) == 0)
-  {
-    v31 = __error();
-    strerror(*v31);
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1097, "BOMCopierSourceEntryNewFromFSObject", "Could not construct path from %s and %s: %s\n", a1);
-    goto LABEL_65;
-  }
-
-  memset(&v56, 0, sizeof(v56));
-  v23 = lstat(v20, &v56);
-  if (v23)
-  {
-    if (*__error() != 13 && *__error() != 1)
-    {
-      v35 = *__error();
-      v36 = __error();
-      strerror(*v36);
-      BOMCopierErrorCapture(a4, v35, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1121, "BOMCopierSourceEntryNewFromFSObject", "Could not lstat %s: %s\n");
-      goto LABEL_65;
-    }
-
-    if ((a3 & 0x100) == 0)
-    {
-      v24 = *__error();
-      v25 = __error();
-      strerror(*v25);
-      BOMCopierErrorCapture(a4, v24, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1113, "BOMCopierSourceEntryNewFromFSObject", "Could not lstat %s: %s\n");
-      goto LABEL_65;
-    }
-  }
-
-  v55 = 0;
-  v26 = resolve_path(v57, v17 == 9, &v55);
-  *(v14 + 16) = v26;
-  if (!v26)
-  {
-    Code = BOMCopierErrorGetCode(v55);
-    if (Code == 13 || Code == 1)
-    {
-      if ((a3 & 0x100) == 0)
-      {
-        v33 = *__error();
-        v34 = __error();
-        strerror(*v34);
-        BOMCopierErrorCapture(a4, v33, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1137, "BOMCopierSourceEntryNewFromFSObject", "Could not resolve path for %s: %s\n");
-        goto LABEL_65;
-      }
-
-      BOMCopierErrorFree(v55);
-      goto LABEL_49;
-    }
-
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1147, "BOMCopierSourceEntryNewFromFSObject", "Could not resolve %s", v57);
-    BOMCopierSourceEntryFree(v14);
-    free(v57);
-LABEL_11:
-    v14 = 0;
-    goto LABEL_12;
-  }
-
-  if (v23)
-  {
-LABEL_49:
-    v37 = v57;
-    v38 = strdup(v57);
-    *(v14 + 16) = v38;
-    if (v38)
-    {
-      free(v37);
-      if (v17 == 9)
-      {
-        v39 = BOMFSObjectSymlinkTarget(a2);
-        if (!v39)
-        {
-          BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1183, "BOMCopierSourceEntryNewFromFSObject", "Could not get symlink target from fso\n", v53, v54);
-          goto LABEL_65;
-        }
-
-        v40 = strdup(v39);
-        *(v14 + 48) = v40;
-        if (!v40)
-        {
-          v50 = __error();
-          strerror(*v50);
-          BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1191, "BOMCopierSourceEntryNewFromFSObject", "Could not duplicate %s: %s\n");
-          goto LABEL_65;
-        }
-      }
-
-      *(v14 + 92) = BOMFSObjectMode(a2);
-      *(v14 + 84) = BOMFSObjectUserID(a2);
-      *(v14 + 88) = BOMFSObjectGroupID(a2);
-      v41 = BOMFSObjectSize(a2);
-      *(v14 + 104) = 0;
-      *(v14 + 112) = 0;
-      *(v14 + 96) = v41;
-      *(v14 + 120) = BOMFSObjectModTime(a2);
-      *(v14 + 128) = 0;
-      *(v14 + 136) = 0;
-      *(v14 + 144) = 0;
-      *(v14 + 152) = 0;
-      goto LABEL_12;
-    }
-
-    v42 = *__error();
-    v43 = v57;
-    v44 = __error();
-    v45 = strerror(*v44);
-    BOMCopierErrorCapture(a4, v42, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1165, "BOMCopierSourceEntryNewFromFSObject", "Could not duplicate %s: %s", v43, v45);
-    free(v57);
-LABEL_65:
-    BOMCopierSourceEntryFree(v14);
-    goto LABEL_11;
-  }
-
-  free(v57);
-  if (v17 == 9)
-  {
-    bzero(__s1, 0x400uLL);
-    v27 = readlink(*(v14 + 16), __s1, 0x400uLL);
-    if (v27 == -1)
-    {
-      v47 = *__error();
-      v48 = *(v14 + 16);
-      v49 = __error();
-      strerror(*v49);
-      BOMCopierErrorCapture(a4, v47, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1226, "BOMCopierSourceEntryNewFromFSObject", "Could not readlink %s: %s\n");
-      goto LABEL_65;
-    }
-
-    __s1[v27] = 0;
-    v28 = strdup(__s1);
-    *(v14 + 48) = v28;
-    if (!v28)
-    {
-      v51 = *__error();
-      v52 = __error();
-      strerror(*v52);
-      BOMCopierErrorCapture(a4, v51, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1236, "BOMCopierSourceEntryNewFromFSObject", "Could not duplicate %s: %s\n");
-      goto LABEL_65;
-    }
-  }
-
-  *(v14 + 84) = *&v56.st_uid;
-  st_mtimespec = v56.st_mtimespec;
-  *(v14 + 104) = v56.st_atimespec;
-  *(v14 + 64) = v56.st_dev;
-  *(v14 + 72) = v56.st_ino;
-  *(v14 + 80) = v56.st_nlink;
-  *(v14 + 92) = v56.st_mode;
-  *(v14 + 96) = v56.st_size;
-  *(v14 + 120) = st_mtimespec;
-  *(v14 + 136) = v56.st_ctimespec;
-  *(v14 + 152) = v56.st_flags;
-  if ((a3 & 0x80) != 0)
-  {
-    *(v14 + 84) = BOMFSObjectUserID(a2);
-  }
-
-  if ((a3 & 2) != 0 && v17 == 8)
-  {
-    v30 = parse_regular_file(v14, a4);
-    if (v30)
-    {
-      BOMCopierErrorCapture(a4, v30, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1280, "BOMCopierSourceEntryNewFromFSObject", "Could not parse the regular file", v53, v54);
-      goto LABEL_65;
-    }
-  }
-
-  v46 = capture_extended_attributes(v14, a3, a4);
-  if (v46)
-  {
-    BOMCopierErrorCapture(a4, v46, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1294, "BOMCopierSourceEntryNewFromFSObject", "Could not capture extended attributes", v53, v54);
-    goto LABEL_65;
-  }
-
-  if ((a3 & 0x20) != 0 && capture_acl(v14, a4))
-  {
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1308, "BOMCopierSourceEntryNewFromFSObject", "Could not capture access control list", v53, v54);
-    goto LABEL_65;
-  }
-
-LABEL_12:
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
-}
-
-uint64_t BOMCopierSourceEntryNewFromLibarchive(uint64_t a1, uint64_t a2, __int16 a3, void *a4)
-{
-  if (!a1)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1343, "BOMCopierSourceEntryNewFromLibarchive", "Invalid archive");
-    return 0;
-  }
-
-  if (!a2)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1349, "BOMCopierSourceEntryNewFromLibarchive", "Invalid archive_entry");
-    return 0;
-  }
-
-  v8 = archive_entry_mode();
-  v9 = mode_to_source_entry_type(v8);
-  v10 = BOMCopierSourceEntryNew(v9, 0);
-  v11 = v10;
-  if (!v10)
-  {
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1364, "BOMCopierSourceEntryNewFromLibarchive", "Could not create BOMCopierSourceEntry from %d", v9);
-    return v11;
-  }
-
-  *v10 = 5;
-  v12 = archive_entry_pathname();
-  v13 = strlen(v12) - 1;
-  if (v12[v13] == 47)
-  {
-    v14 = strdup(v12);
-    if (!v14)
-    {
-      v36 = *__error();
-      v37 = __error();
-      strerror(*v37);
-      BOMCopierErrorCapture(a4, v36, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1386, "BOMCopierSourceEntryNewFromLibarchive", "Could not duplicate %s: %s");
-      goto LABEL_22;
-    }
-
-    v15 = v14;
-    v14[v13] = 0;
-    v12 = v14;
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  v16 = strdup(v12);
-  *(v11 + 24) = v16;
-  if (!v16)
-  {
-    v32 = *__error();
-    v33 = __error();
-    strerror(*v33);
-    BOMCopierErrorCapture(a4, v32, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1398, "BOMCopierSourceEntryNewFromLibarchive", "Could not duplicate %s: %s");
-LABEL_22:
-    BOMCopierSourceEntryFree(v11);
-    return 0;
-  }
-
-  v17 = strdup(v12);
-  *(v11 + 16) = v17;
-  if (!v17)
-  {
-    v34 = *__error();
-    v35 = __error();
-    strerror(*v35);
-    BOMCopierErrorCapture(a4, v34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1406, "BOMCopierSourceEntryNewFromLibarchive", "Could not duplicate %s: %s");
-    goto LABEL_22;
-  }
-
-  if (v15)
-  {
-    free(v15);
-  }
-
-  *(v11 + 256) = a1;
-  *(v11 + 264) = a2;
-  *(v11 + 64) = archive_entry_dev();
-  v18 = *(v11 + 264);
-  *(v11 + 72) = archive_entry_ino();
-  v19 = *(v11 + 264);
-  *(v11 + 80) = archive_entry_nlink();
-  v20 = *(v11 + 264);
-  *(v11 + 92) = archive_entry_mode();
-  v21 = *(v11 + 264);
-  *(v11 + 84) = archive_entry_uid();
-  v22 = *(v11 + 264);
-  *(v11 + 88) = archive_entry_gid();
-  v23 = *(v11 + 264);
-  *(v11 + 96) = archive_entry_size();
-  v24 = *(v11 + 264);
-  *(v11 + 104) = archive_entry_atime();
-  v25 = *(v11 + 264);
-  *(v11 + 112) = archive_entry_atime_nsec();
-  v26 = *(v11 + 264);
-  *(v11 + 120) = archive_entry_mtime();
-  v27 = *(v11 + 264);
-  *(v11 + 128) = archive_entry_mtime_nsec();
-  v28 = *(v11 + 264);
-  *(v11 + 136) = archive_entry_ctime();
-  v29 = *(v11 + 264);
-  *(v11 + 144) = archive_entry_ctime_nsec();
-  if ((a3 & 0x200) != 0)
-  {
-    v30 = *(v11 + 92);
-    if ((v30 & 0xF000) == 0x4000)
-    {
-      v31 = v30 | 0x1ED;
-    }
-
-    else if ((*(v11 + 92) & 0xE00) != 0)
-    {
-      v31 = -32348;
-    }
-
-    else
-    {
-      v31 = v30 | 0x1A4;
-    }
-
-    *(v11 + 92) = v31;
-  }
-
-  if (v9 != 8)
-  {
-    if (v9 != 9)
-    {
-      return v11;
-    }
-
-    v39 = archive_entry_symlink();
-    if (v39)
-    {
-      v40 = strdup(v39);
-      *(v11 + 48) = v40;
-      if (v40)
-      {
-        *(v11 + 96) = strlen(v40);
-        return v11;
-      }
-
-      v41 = *__error();
-      v42 = __error();
-      strerror(*v42);
-      BOMCopierErrorCapture(a4, v41, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1461, "BOMCopierSourceEntryNewFromLibarchive", "Could not duplicate %s: %s\n");
-    }
-
-    else
-    {
-      BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1453, "BOMCopierSourceEntryNewFromLibarchive", "Could not get symlink target from Libarchive entry\n");
-    }
-
-    goto LABEL_22;
-  }
-
-  if ((a3 & 2) != 0 && parse_regular_file(v11, a4))
-  {
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1480, "BOMCopierSourceEntryNewFromLibarchive", "Could not parse the regular file");
-    goto LABEL_22;
-  }
-
-  return v11;
-}
-
-uint64_t BOMCopierSourceEntryNewFromDataArchive(uint64_t a1, _DWORD *a2, __int16 a3, void *a4)
-{
-  if (!a1)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1500, "BOMCopierSourceEntryNewFromDataArchive", "Invalid data_archive");
-    return 0;
-  }
-
-  if (!a2)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1506, "BOMCopierSourceEntryNewFromDataArchive", "Invalid data_archive_entry");
-    return 0;
-  }
-
-  type = data_archive_entry_get_type(a2);
-  v9 = data_archive_entry_mode(a2);
-  v10 = mode_to_source_entry_type(v9);
-  v11 = v10;
-  if (type == 3)
-  {
-    switch(v10)
-    {
-      case 6:
-        v11 = 14;
-        break;
-      case 9:
-        v11 = 16;
-        break;
-      case 8:
-        v11 = 15;
-        break;
-      default:
-        BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1533, "BOMCopierSourceEntryNewFromDataArchive", "Unexpected post order entry type: %u");
-        return 0;
-    }
-  }
-
-  v12 = BOMCopierSourceEntryNew(v11, a4);
-  v13 = v12;
-  if (!v12)
-  {
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1541, "BOMCopierSourceEntryNewFromDataArchive", "Could not create BOMCopierSourceEntry from %d", v11);
-    return v13;
-  }
-
-  *v12 = 6;
-  v14 = data_archive_entry_path(a2);
-  v15 = strlen(v14) - 1;
-  if (v14[v15] == 47)
-  {
-    v16 = strdup(v14);
-    if (!v16)
-    {
-      v28 = *__error();
-      v29 = __error();
-      strerror(*v29);
-      BOMCopierErrorCapture(a4, v28, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1563, "BOMCopierSourceEntryNewFromDataArchive", "Could not duplicate %s: %s");
-      goto LABEL_41;
-    }
-
-    v17 = v16;
-    v16[v15] = 0;
-    v14 = v16;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v18 = strdup(v14);
-  *(v13 + 24) = v18;
-  if (!v18)
-  {
-    v24 = *__error();
-    v25 = __error();
-    strerror(*v25);
-    BOMCopierErrorCapture(a4, v24, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1575, "BOMCopierSourceEntryNewFromDataArchive", "Could not duplicate %s: %s");
-LABEL_41:
-    BOMCopierSourceEntryFree(v13);
-    return 0;
-  }
-
-  v19 = strdup(v14);
-  *(v13 + 16) = v19;
-  if (!v19)
-  {
-    v26 = *__error();
-    v27 = __error();
-    strerror(*v27);
-    BOMCopierErrorCapture(a4, v26, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1583, "BOMCopierSourceEntryNewFromDataArchive", "Could not duplicate %s: %s");
-    goto LABEL_41;
-  }
-
-  if (v17)
-  {
-    free(v17);
-  }
-
-  *(v13 + 272) = a1;
-  *(v13 + 280) = a2;
-  *(v13 + 64) = data_archive_entry_dev(a2);
-  *(v13 + 72) = data_archive_entry_inode(a2);
-  *(v13 + 80) = data_archive_entry_nlink(a2);
-  *(v13 + 92) = data_archive_entry_mode(a2);
-  *(v13 + 84) = data_archive_entry_uid(a2);
-  *(v13 + 88) = data_archive_entry_gid(a2);
-  v20 = data_archive_entry_size(a2);
-  if ((v11 - 15) >= 2)
-  {
-    v21 = v20;
-  }
-
-  else
-  {
-    v21 = 0;
-  }
-
-  *(v13 + 96) = v21;
-  *(v13 + 104) = data_archive_entry_atime(a2);
-  *(v13 + 112) = data_archive_entry_atime_nsec(a2);
-  *(v13 + 120) = data_archive_entry_mtime(a2);
-  *(v13 + 128) = data_archive_entry_atime_nsec(a2);
-  *(v13 + 136) = data_archive_entry_ctime(a2);
-  *(v13 + 144) = data_archive_entry_atime_nsec(a2);
-  *(v13 + 156) = data_archive_entry_is_streamed(a2);
-  if ((a3 & 0x200) != 0)
-  {
-    v22 = *(v13 + 92);
-    if ((v22 & 0xF000) == 0x4000)
-    {
-      v23 = v22 | 0x1ED;
-    }
-
-    else if ((*(v13 + 92) & 0xE00) != 0)
-    {
-      v23 = -32348;
-    }
-
-    else
-    {
-      v23 = v22 | 0x1A4;
-    }
-
-    *(v13 + 92) = v23;
-  }
-
-  if ((a3 & 2) != 0 && v11 == 8 && parse_regular_file(v13, a4))
-  {
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1649, "BOMCopierSourceEntryNewFromDataArchive", "Could not parse the regular file");
-    goto LABEL_41;
-  }
-
-  return v13;
-}
-
-uint64_t BOMCopierSourceEntryNewFromAppleArchive(uint64_t a1, AAHeader header, unsigned __int8 a3, void *a4)
-{
-  value[128] = *MEMORY[0x277D85DE8];
-  if (!a1)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1669, "BOMCopierSourceEntryNewFromAppleArchive", "Invalid aa_decoder");
-LABEL_26:
-    v15 = 0;
-    goto LABEL_27;
-  }
-
-  if (!header)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1675, "BOMCopierSourceEntryNewFromAppleArchive", "Invalid header");
-    goto LABEL_26;
-  }
-
-  value[0] = 0;
-  v9.ikey = 5265748;
-  KeyIndex = AAHeaderGetKeyIndex(header, v9);
-  if ((KeyIndex & 0x80000000) != 0 || ((FieldUInt = AAHeaderGetFieldUInt(header, KeyIndex, value), FieldUInt <= 1) ? (v12 = 1) : (v12 = FieldUInt), v12 < 1))
-  {
-LABEL_25:
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1686, "BOMCopierSourceEntryNewFromAppleArchive", "Unknown source entry type");
-    goto LABEL_26;
-  }
-
-  if (SLODWORD(value[0]) > 75)
-  {
-    if (SLODWORD(value[0]) > 82)
-    {
-      if (LODWORD(value[0]) == 83)
-      {
-        v13 = 10;
-        goto LABEL_32;
-      }
-
-      if (LODWORD(value[0]) == 87)
-      {
-        v13 = 11;
-        goto LABEL_32;
-      }
-    }
-
-    else
-    {
-      if (LODWORD(value[0]) == 76)
-      {
-        v13 = 9;
-        goto LABEL_32;
-      }
-
-      if (LODWORD(value[0]) == 80)
-      {
-        v13 = 4;
-        goto LABEL_32;
-      }
-    }
-
-    goto LABEL_25;
-  }
-
-  if (SLODWORD(value[0]) > 67)
-  {
-    if (LODWORD(value[0]) == 68)
-    {
-      v13 = 6;
-      goto LABEL_32;
-    }
-
-    if (LODWORD(value[0]) == 70)
-    {
-      v14 = 0;
-      v13 = 8;
-      goto LABEL_33;
-    }
-
-    goto LABEL_25;
-  }
-
-  if (LODWORD(value[0]) == 66)
-  {
-    v13 = 7;
-    goto LABEL_32;
-  }
-
-  if (LODWORD(value[0]) != 67)
-  {
-    goto LABEL_25;
-  }
-
-  v13 = 5;
-LABEL_32:
-  v14 = 1;
-LABEL_33:
-  v18 = BOMCopierSourceEntryNew(v13, 0);
-  v15 = v18;
-  if (!v18)
-  {
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1693, "BOMCopierSourceEntryNewFromAppleArchive", "Could not create BOMCopierSourceEntry from %d", v13);
-    goto LABEL_27;
-  }
-
-  *v18 = 7;
-  *(v18 + 36) = a1;
-  *(v18 + 37) = header;
-  v18[76] = 5521732;
-  FieldCount = AAHeaderGetFieldCount(header);
-  if (FieldCount)
-  {
-    v20 = FieldCount;
-    v21 = 0;
-    while (1)
-    {
-      FieldType = AAHeaderGetFieldType(header, v21);
-      v23 = FieldType;
-      if (FieldType < 0)
-      {
-        BOMCopierErrorCapture(a4, FieldType, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5541, "populate_source_entry_from_apple_archive", "Could not get field type from AppleArchive header index %u: %d");
-        goto LABEL_159;
-      }
-
-      FieldKey = AAHeaderGetFieldKey(header, v21);
-      if (!FieldKey.ikey)
-      {
-        BOMCopierErrorCapture(a4, v23, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5548, "populate_source_entry_from_apple_archive", "Could not get field key from AppleArchive header index %u: %u");
-        goto LABEL_159;
-      }
-
-      if (v23 >= 5)
-      {
-        if (v23 != 5)
-        {
-          BOMCopierErrorCapture(a4, 45, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5633, "populate_source_entry_from_apple_archive", "Unknown AppleArchive field type: %u");
-          goto LABEL_159;
-        }
-
-        v25 = FieldKey;
-        if (FieldKey.ikey != 5521732)
-        {
-          break;
-        }
-      }
-
-LABEL_39:
-      if (v20 == ++v21)
-      {
-        goto LABEL_52;
-      }
-    }
-
-    value[0] = 0;
-    offset.tv_sec = 0;
-    FieldBlob = AAHeaderGetFieldBlob(header, v21, value, &offset);
-    if (FieldBlob < 0)
-    {
-      BOMCopierErrorCapture(a4, FieldBlob, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5593, "populate_source_entry_from_apple_archive", "Could not get AppleArchive blob: %d");
-      goto LABEL_159;
-    }
-
-    v27 = v14;
-    v28 = *(v15 + 308);
-    v29 = v28 + 1;
-    v30 = malloc_type_realloc(*(v15 + 312), 32 * (v28 + 1), 0xEF11D041uLL);
-    if (!v30)
-    {
-      v89 = *__error();
-      v90 = __error();
-      strerror(*v90);
-      BOMCopierErrorCapture(a4, v89, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5604, "populate_source_entry_from_apple_archive", "Could not allocate blob list: %s");
-      goto LABEL_159;
-    }
-
-    v31 = &v30[32 * v28];
-    *v31 = v25;
-    *(v31 + 2) = value[0];
-    *(v31 + 1) = offset.tv_sec;
-    v32 = a3 >> 5;
-    v14 = v27;
-    if (v25.ikey != 4997953)
-    {
-      if (v25.ikey != 5521752)
-      {
-LABEL_50:
-        *(v15 + 308) = v29;
-        *(v15 + 312) = v30;
-        goto LABEL_39;
-      }
-
-      v32 = a3 >> 2;
-    }
-
-    v31[24] = v32 & 1;
-    goto LABEL_50;
-  }
-
-LABEL_52:
-  bzero(value, 0x400uLL);
-  length = 0;
-  v33.ikey = 5521744;
-  v34 = AAHeaderGetKeyIndex(header, v33);
-  if ((v34 & 0x80000000) != 0)
-  {
-    v37 = 0;
-LABEL_140:
-    BOMCopierErrorCapture(a4, v37, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5654, "populate_source_entry_from_apple_archive", "Could not get path from AppleArchive: %d");
-    goto LABEL_159;
-  }
-
-  v35 = value;
-  FieldString = AAHeaderGetFieldString(header, v34, 0x400uLL, value, &length);
-  if (FieldString <= 1)
-  {
-    v37 = 1;
-  }
-
-  else
-  {
-    v37 = FieldString;
-  }
-
-  if (v37 <= 0)
-  {
-    goto LABEL_140;
-  }
-
-  if (!length)
-  {
-    v35 = ".";
-  }
-
-  v38 = strdup(v35);
-  *(v15 + 24) = v38;
-  if (!v38)
-  {
-    v84 = *__error();
-    v85 = __error();
-    strerror(*v85);
-    BOMCopierErrorCapture(a4, v84, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5671, "populate_source_entry_from_apple_archive", "Could not duplicate %s: %s");
-    goto LABEL_159;
-  }
-
-  v39 = strdup(value);
-  *(v15 + 16) = v39;
-  if (!v39)
-  {
-    v86 = *__error();
-    v87 = __error();
-    strerror(*v87);
-    BOMCopierErrorCapture(a4, v86, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5678, "populate_source_entry_from_apple_archive", "Could not duplicate %s: %s");
-    goto LABEL_159;
-  }
-
-  if (*(v15 + 4) == 9)
-  {
-    bzero(&offset, 0x400uLL);
-    v96 = 0;
-    v40.ikey = 4935244;
-    v41 = AAHeaderGetKeyIndex(header, v40);
-    if ((v41 & 0x80000000) != 0 || ((v42 = AAHeaderGetFieldString(header, v41, 0x400uLL, &offset, &v96), v42 <= 1) ? (v43 = 1) : (v43 = v42), v43 <= 0))
-    {
-      v88 = *__error();
-      BOMCopierErrorCapture(a4, v88, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5694, "populate_source_entry_from_apple_archive", "Could not get symlink target path: %d");
-      goto LABEL_159;
-    }
-
-    v44 = strdup(&offset);
-    *(v15 + 48) = v44;
-    if (!v44)
-    {
-      v91 = *__error();
-      v92 = __error();
-      strerror(*v92);
-      BOMCopierErrorCapture(a4, v91, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5701, "populate_source_entry_from_apple_archive", "Could not duplicate %s: %s\n");
-      goto LABEL_159;
-    }
-  }
-
-  v96 = 0;
-  v45.ikey = 5653828;
-  v46 = AAHeaderGetKeyIndex(header, v45);
-  if ((v46 & 0x80000000) == 0)
-  {
-    v47 = AAHeaderGetFieldUInt(header, v46, &v96);
-    if (v47 <= 1)
-    {
-      v48 = 1;
-    }
-
-    else
-    {
-      v48 = v47;
-    }
-
-    if (v48 < 0)
-    {
-      BOMCopierErrorCapture(a4, v48, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5714, "populate_source_entry_from_apple_archive", "Could not get AppleArchive device: %d");
-LABEL_159:
-      BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1706, "BOMCopierSourceEntryNewFromAppleArchive", "Could not populate source entry from AppleArchive");
-      goto LABEL_160;
-    }
-
-    if (v47 <= 1)
-    {
-      *(v15 + 64) = v96;
-    }
-  }
-
-  v49.ikey = 5197385;
-  v50 = AAHeaderGetKeyIndex(header, v49);
-  if ((v50 & 0x80000000) != 0)
-  {
-    goto LABEL_82;
-  }
-
-  v51 = AAHeaderGetFieldUInt(header, v50, &v96);
-  if (v51 <= 1)
-  {
-    v52 = 1;
-  }
-
-  else
-  {
-    v52 = v51;
-  }
-
-  if (v52 < 0)
-  {
-    BOMCopierErrorCapture(a4, v52, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5726, "populate_source_entry_from_apple_archive", "Could not get AppleArchive inode: %d");
-    goto LABEL_159;
-  }
-
-  if (v51 <= 1)
-  {
-    *(v15 + 72) = v96;
-  }
-
-LABEL_82:
-  v53.ikey = 4934734;
-  v54 = AAHeaderGetKeyIndex(header, v53);
-  if ((v54 & 0x80000000) != 0)
-  {
-    goto LABEL_89;
-  }
-
-  v55 = AAHeaderGetFieldUInt(header, v54, &v96);
-  if (v55 <= 1)
-  {
-    v56 = 1;
-  }
-
-  else
-  {
-    v56 = v55;
-  }
-
-  if (v56 < 0)
-  {
-    BOMCopierErrorCapture(a4, v56, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5738, "populate_source_entry_from_apple_archive", "Could not get AppleArchive nlink: %d");
-    goto LABEL_159;
-  }
-
-  if (v55 <= 1)
-  {
-    *(v15 + 80) = v96;
-  }
-
-LABEL_89:
-  v57.ikey = 4476749;
-  v58 = AAHeaderGetKeyIndex(header, v57);
-  if ((v58 & 0x80000000) != 0)
-  {
-    goto LABEL_98;
-  }
-
-  v59 = AAHeaderGetFieldUInt(header, v58, &v96);
-  if (v59 <= 1)
-  {
-    v60 = 1;
-  }
-
-  else
-  {
-    v60 = v59;
-  }
-
-  if (v60 < 0)
-  {
-    BOMCopierErrorCapture(a4, v60, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5750, "populate_source_entry_from_apple_archive", "Could not get AppleArchive mode: %d");
-    goto LABEL_159;
-  }
-
-  if (v59 > 1)
-  {
-    goto LABEL_98;
-  }
-
-  v61 = v96;
-  *(v15 + 92) = v96;
-  v62 = *(v15 + 4) - 4;
-  if (v62 >= 8 || ((0xF7u >> v62) & 1) == 0)
-  {
-    v93 = *(v15 + 4);
-    BOMCopierErrorCapture(a4, 45, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5797, "populate_source_entry_from_apple_archive", "Unsupported entry type: %u");
-    goto LABEL_159;
-  }
-
-  *(v15 + 92) = word_241C78F80[v62] | v61;
-LABEL_98:
-  v63.ikey = 4475221;
-  v64 = AAHeaderGetKeyIndex(header, v63);
-  if ((v64 & 0x80000000) != 0)
-  {
-    goto LABEL_105;
-  }
-
-  v65 = AAHeaderGetFieldUInt(header, v64, &v96);
-  if (v65 <= 1)
-  {
-    v66 = 1;
-  }
-
-  else
-  {
-    v66 = v65;
-  }
-
-  if (v66 < 0)
-  {
-    BOMCopierErrorCapture(a4, v66, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5806, "populate_source_entry_from_apple_archive", "Could not get AppleArchive uid: %d");
-    goto LABEL_159;
-  }
-
-  if (v65 <= 1)
-  {
-    *(v15 + 84) = v96;
-  }
-
-LABEL_105:
-  v67.ikey = 4475207;
-  v68 = AAHeaderGetKeyIndex(header, v67);
-  if ((v68 & 0x80000000) != 0)
-  {
-    goto LABEL_112;
-  }
-
-  v69 = AAHeaderGetFieldUInt(header, v68, &v96);
-  if (v69 <= 1)
-  {
-    v70 = 1;
-  }
-
-  else
-  {
-    v70 = v69;
-  }
-
-  if (v70 < 0)
-  {
-    BOMCopierErrorCapture(a4, v70, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5818, "populate_source_entry_from_apple_archive", "Could not get AppleArchive gid: %d");
-    goto LABEL_159;
-  }
-
-  if (v69 <= 1)
-  {
-    *(v15 + 88) = v96;
-  }
-
-LABEL_112:
-  v94 = 0;
-  size = 0;
-  v71.ikey = 5521732;
-  v72 = AAHeaderGetKeyIndex(header, v71);
-  if ((v72 & 0x80000000) != 0)
-  {
-    goto LABEL_119;
-  }
-
-  v73 = AAHeaderGetFieldBlob(header, v72, &size, &v94);
-  if (v73 <= 1)
-  {
-    v74 = 1;
-  }
-
-  else
-  {
-    v74 = v73;
-  }
-
-  if (v74 < 0)
-  {
-    BOMCopierErrorCapture(a4, v74, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5832, "populate_source_entry_from_apple_archive", "Could not get AppleArchive data size: %d");
-    goto LABEL_159;
-  }
-
-  if (v73 <= 1)
-  {
-    *(v15 + 96) = size;
-  }
-
-LABEL_119:
-  v75.ikey = 5917011;
-  v76 = AAHeaderGetKeyIndex(header, v75);
-  if ((v76 & 0x80000000) != 0)
-  {
-    goto LABEL_126;
-  }
-
-  v77 = AAHeaderGetFieldUInt(header, v76, &v96);
-  if (v77 <= 1)
-  {
-    v78 = 1;
-  }
-
-  else
-  {
-    v78 = v77;
-  }
-
-  if (v78 < 0)
-  {
-    BOMCopierErrorCapture(a4, v78, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5844, "populate_source_entry_from_apple_archive", "Could not get AppleArchive size: %d");
-    goto LABEL_159;
-  }
-
-  if (v77 <= 1)
-  {
-    *(v15 + 96) = v96;
-  }
-
-LABEL_126:
-  offset.tv_sec = 0;
-  offset.tv_nsec = 0;
-  v79.ikey = 5067853;
-  v80 = AAHeaderGetKeyIndex(header, v79);
-  if ((v80 & 0x80000000) != 0)
-  {
-    goto LABEL_133;
-  }
-
-  FieldTimespec = AAHeaderGetFieldTimespec(header, v80, &offset);
-  if (FieldTimespec <= 1)
-  {
-    v82 = 1;
-  }
-
-  else
-  {
-    v82 = FieldTimespec;
-  }
-
-  if (v82 < 0)
-  {
-    BOMCopierErrorCapture(a4, v82, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5857, "populate_source_entry_from_apple_archive", "Could not get AppleArchive modification timespec: %d");
-    goto LABEL_159;
-  }
-
-  if (FieldTimespec <= 1)
-  {
-    *(v15 + 120) = offset;
-  }
-
-LABEL_133:
-  *(v15 + 104) = 0;
-  *(v15 + 112) = 0;
-  *(v15 + 136) = 0;
-  *(v15 + 144) = 0;
-  if ((a3 & 2) != 0)
-  {
-    v83 = v14;
-  }
-
-  else
-  {
-    v83 = 1;
-  }
-
-  if ((v83 & 1) == 0 && parse_regular_file(v15, a4))
-  {
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 1722, "BOMCopierSourceEntryNewFromAppleArchive", "Could not parse the regular file");
-LABEL_160:
-    BOMCopierSourceEntryFree(v15);
-    goto LABEL_26;
-  }
-
-LABEL_27:
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
-}
-
-uint64_t BOMCopierSourceEntryGetActualPath(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 16);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0;
-}
-
-uint64_t BOMCopierSourceEntryGetType(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 4);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0;
-}
-
-uint64_t BOMCopierSourceEntryGetPath(uint64_t a1)
-{
-  if (a1)
-  {
-    result = *(a1 + 24);
-    if (!result)
-    {
-      return *(a1 + 16);
-    }
-  }
-
-  else
-  {
-    fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-    return 0;
-  }
-
-  return result;
-}
-
-char *BOMCopierSourceEntryGetParent(void *a1)
-{
-  if (!a1)
-  {
-    v4 = *MEMORY[0x277D85DF8];
-    v5 = "Invalid source_entry";
-    v6 = 20;
-LABEL_11:
-    fwrite(v5, v6, 1uLL, v4);
-    return 0;
-  }
-
-  v2 = a1[4];
-  if (v2)
-  {
-    return v2;
-  }
-
-  v3 = a1[3];
-  if (!v3)
-  {
-    v3 = a1[2];
-    if (!v3)
-    {
-      v4 = *MEMORY[0x277D85DF8];
-      v5 = "Missing entry_path";
-      v6 = 18;
-      goto LABEL_11;
-    }
-  }
-
-  if (*v3 == 46 && !*(v3 + 1))
-  {
-    v2 = strdup(".");
-    goto LABEL_15;
-  }
-
-  v2 = malloc_type_calloc(1uLL, 0x400uLL, 0x69CFC21EuLL);
-  if (v2)
-  {
-    if (v2 != dirname_r(v3, v2))
-    {
-      free(v2);
-      return 0;
-    }
-
-LABEL_15:
-    a1[4] = v2;
-  }
-
-  return v2;
-}
-
-char *BOMCopierSourceEntryGetName(void *a1)
-{
-  if (!a1)
-  {
-    v4 = *MEMORY[0x277D85DF8];
-    v5 = "Invalid source_entry";
-    v6 = 20;
-LABEL_11:
-    fwrite(v5, v6, 1uLL, v4);
-    return 0;
-  }
-
-  v2 = a1[5];
-  if (v2)
-  {
-    return v2;
-  }
-
-  v3 = a1[3];
-  if (!v3)
-  {
-    v3 = a1[2];
-    if (!v3)
-    {
-      v4 = *MEMORY[0x277D85DF8];
-      v5 = "Missing entry_path";
-      v6 = 18;
-      goto LABEL_11;
-    }
-  }
-
-  if (*v3 == 46 && !*(v3 + 1))
-  {
-    v2 = strdup(".");
-    goto LABEL_15;
-  }
-
-  v2 = malloc_type_calloc(1uLL, 0x400uLL, 0xB9B90B28uLL);
-  if (v2)
-  {
-    if (v2 != basename_r(v3, v2))
-    {
-      free(v2);
-      return 0;
-    }
-
-LABEL_15:
-    a1[5] = v2;
-  }
-
-  return v2;
-}
-
-uint64_t BOMCopierSourceEntryGetDevice(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 64);
-  }
-
-  BOMCopierErrorCapture(a1, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2026, "BOMCopierSourceEntryGetDevice", "Invalid source_entry", v1, v2);
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t BOMCopierSourceEntryGetInode(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 72);
-  }
-
-  BOMCopierErrorCapture(a1, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2040, "BOMCopierSourceEntryGetInode", "Invalid source_entry", v1, v2);
-  return -1;
-}
-
-uint64_t BOMCopierSourceEntryGetHardlinkCount(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 80);
-  }
-
-  BOMCopierErrorCapture(a1, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2054, "BOMCopierSourceEntryGetHardlinkCount", "Invalid source_entry", v1, v2);
-  return 0xFFFFLL;
-}
-
-uint64_t BOMCopierSourceEntryGetSize(uint64_t a1)
-{
-  if (a1)
-  {
-    if (*a1)
-    {
-      return *(a1 + 96);
-    }
-
-    else
-    {
-      return *(a1 + 248);
-    }
-  }
-
-  else
-  {
-    fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-    return 0;
-  }
-}
-
-uint64_t BOMCopierSourceEntryGetMode(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 92);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0;
-}
-
-uint64_t BOMCopierSourceEntryGetUserID(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 84);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t BOMCopierSourceEntryGetGroupID(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 88);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t BOMCopierSourceEntryGetFlags(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 152);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t BOMCopierSourceEntryGetAccessTime(uint64_t a1, _OWORD *a2)
-{
-  if (a1)
-  {
-    if (a2)
-    {
-      v2 = 0;
-      *a2 = *(a1 + 104);
-    }
-
-    else
-    {
-      v2 = 1;
-      fwrite("Invalid access_time", 0x13uLL, 1uLL, *MEMORY[0x277D85DF8]);
-    }
-  }
-
-  else
-  {
-    v2 = 1;
-    fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  }
-
-  return v2;
-}
-
-uint64_t BOMCopierSourceEntryGetModificationTime(uint64_t a1, _OWORD *a2)
-{
-  if (a1)
-  {
-    if (a2)
-    {
-      v2 = 0;
-      *a2 = *(a1 + 120);
-    }
-
-    else
-    {
-      v2 = 1;
-      fwrite("Invalid modification_time", 0x19uLL, 1uLL, *MEMORY[0x277D85DF8]);
-    }
-  }
-
-  else
-  {
-    v2 = 1;
-    fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  }
-
-  return v2;
-}
-
-uint64_t BOMCopierSourceEntryGetStatusTime(uint64_t a1, _OWORD *a2)
-{
-  if (a1)
-  {
-    if (a2)
-    {
-      v2 = 0;
-      *a2 = *(a1 + 136);
-    }
-
-    else
-    {
-      v2 = 1;
-      fwrite("Invalid status_time", 0x13uLL, 1uLL, *MEMORY[0x277D85DF8]);
-    }
-  }
-
-  else
-  {
-    v2 = 1;
-    fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  }
-
-  return v2;
-}
-
-uint64_t BOMCopierSourceEntryGetSymlinkTarget(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 48);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0;
-}
-
-uint64_t BOMCopierSourceEntryGetAppleDoubleTarget(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 56);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0;
-}
-
-BOOL BOMCopierSourceEntryIsCompressed(_BOOL8 result)
-{
-  if (result)
-  {
-    v1 = *(result + 152);
-    return (v1 & 0x20) != 0 && (v1 & 0x40000000) == 0;
-  }
-
-  return result;
-}
-
-uint64_t BOMCopierSourceEntryIsRestricted(uint64_t result)
-{
-  if (result)
-  {
-    return (*(result + 154) >> 3) & 1;
-  }
-
-  return result;
-}
-
-uint64_t BOMCopierSourceEntryGetBinaryType(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 192);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0;
-}
-
-uint64_t BOMCopierSourceEntryGetArchCount(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 196);
-  }
-
-  fwrite("Invalid source_entry", 0x14uLL, 1uLL, *MEMORY[0x277D85DF8]);
-  return 0;
-}
-
-uint64_t BOMCopierSourceEntryGetArchRecord(uint64_t a1, unsigned int a2, _OWORD *a3, void *a4)
-{
-  if (a1)
-  {
-    if (*(a1 + 196) <= a2)
-    {
-      BOMCopierErrorCapture(a4, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2344, "BOMCopierSourceEntryGetArchRecord", "index is out of range");
-    }
-
-    else
-    {
-      if (a3)
-      {
-        result = 0;
-        v6 = (*(a1 + 200) + 32 * a2);
-        v7 = v6[1];
-        *a3 = *v6;
-        a3[1] = v7;
-        return result;
-      }
-
-      BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2350, "BOMCopierSourceEntryGetArchRecord", "Invalid arch_record");
-    }
-  }
-
-  else
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2338, "BOMCopierSourceEntryGetArchRecord", "Invalid source_entry");
-  }
-
-  return 1;
-}
-
-uint64_t BOMCopierSourceEntryGetExtendedAttributeCount(uint64_t a1, void *a2)
-{
-  if (a1)
-  {
-    return *(a1 + 208);
-  }
-
-  BOMCopierErrorCapture(a2, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2370, "BOMCopierSourceEntryGetExtendedAttributeCount", "source_entry is NULL", v2, v3);
-  return 0;
-}
-
-uint64_t BOMCopierSourceEntryGetExtendedAttributeName(uint64_t a1, unsigned int a2, void *a3)
-{
-  if (a1)
-  {
-    if (*(a1 + 208) > a2)
-    {
-      return *(*(a1 + 216) + 24 * a2);
-    }
-
-    BOMCopierErrorCapture(a3, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2395, "BOMCopierSourceEntryGetExtendedAttributeName", "index is out of range");
-  }
-
-  else
-  {
-    BOMCopierErrorCapture(a3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2389, "BOMCopierSourceEntryGetExtendedAttributeName", "source_entry is NULL");
-  }
-
-  return 0;
-}
-
-uint64_t BOMCopierSourceEntryGetExtendedAttributeSize(uint64_t a1, unsigned int a2, void *a3)
-{
-  if (a1)
-  {
-    if (*(a1 + 208) > a2)
-    {
-      return *(*(a1 + 216) + 24 * a2 + 8);
-    }
-
-    BOMCopierErrorCapture(a3, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2420, "BOMCopierSourceEntryGetExtendedAttributeSize", "index is out of range");
-  }
-
-  else
-  {
-    BOMCopierErrorCapture(a3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2414, "BOMCopierSourceEntryGetExtendedAttributeSize", "source_entry is NULL");
-  }
-
-  return 0;
-}
-
-ssize_t BOMCopierSourceEntryCopyExtendedAttribute(uint64_t a1, unsigned int a2, void *__dst, size_t __n, u_int32_t a5, void *a6)
-{
-  if (!a1)
-  {
-    BOMCopierErrorCapture(a6, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2442, "BOMCopierSourceEntryCopyExtendedAttribute", "source_entry is NULL");
-    return -1;
-  }
-
-  if (*(a1 + 208) <= a2)
-  {
-    BOMCopierErrorCapture(a6, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2448, "BOMCopierSourceEntryCopyExtendedAttribute", "index is out of range");
-    return -1;
-  }
-
-  if (!__dst)
-  {
-    BOMCopierErrorCapture(a6, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2454, "BOMCopierSourceEntryCopyExtendedAttribute", "value is NULL");
-    return -1;
-  }
-
-  v8 = __n;
-  if (!__n)
-  {
-    BOMCopierErrorCapture(a6, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2460, "BOMCopierSourceEntryCopyExtendedAttribute", "size is 0");
-    return -1;
-  }
-
-  v10 = *(a1 + 216);
-  v11 = v10 + 24 * a2;
-  if (__n + a5 > *(v11 + 8))
-  {
-    BOMCopierErrorCapture(a6, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2473, "BOMCopierSourceEntryCopyExtendedAttribute", "size + position are out of range");
-    return -1;
-  }
-
-  v13 = *(v10 + 24 * a2 + 16);
-  if (v13)
-  {
-    memcpy(__dst, (v13 + a5), __n);
-    return v8;
-  }
-
-  v14 = *v11;
-  v15 = string_compare(*v11, "com.apple.decmpfs");
-  if (string_compare(v14, "com.apple.ResourceFork"))
-  {
-    v16 = v15 == 0;
-  }
-
-  else
-  {
-    v16 = 1;
-  }
-
-  if (v16)
-  {
-    v17 = 33;
-  }
-
-  else
-  {
-    v17 = 1;
-  }
-
-  v18 = *(a1 + 16);
-
-  return getxattr(v18, v14, __dst, v8, a5, v17);
-}
-
 uint64_t string_compare(const char *a1, const char *a2)
 {
   v4 = strlen(a1);
@@ -1814,42 +61,41 @@ uint64_t BOMCopierSourceEntryCheckAccess(uint64_t a1, void *a2)
     return 0;
   }
 
-  v4 = *(a1 + 4);
-  if (v4 == 6)
+  v3 = *(a1 + 4);
+  if (v3 == 6)
   {
-    v5 = 5;
+    v4 = 5;
   }
 
   else
   {
-    v5 = 4;
+    v4 = 4;
   }
 
-  if (v4 == 9)
+  if (v3 == 9)
   {
-    v6 = 48;
+    v5 = 48;
   }
 
   else
   {
-    v6 = 16;
+    v5 = 16;
   }
 
-  result = faccessat(-2, *(a1 + 16), v5, v6);
+  result = faccessat(-2, *(a1 + 16), v4, v5);
   if (result)
   {
-    v8 = *__error();
-    v9 = *(a1 + 16);
-    v10 = __error();
-    strerror(*v10);
-    BOMCopierErrorCapture(a2, v8, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2603, "BOMCopierSourceEntryCheckAccess", "Could not faccess %s: %s");
+    v7 = *__error();
+    v8 = __error();
+    strerror(*v8);
+    BOMCopierErrorCapture(a2, v7, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2603, "BOMCopierSourceEntryCheckAccess", "Could not faccess %s: %s");
     return 0xFFFFFFFFLL;
   }
 
   return result;
 }
 
-size_t BOMCopierSourceEntryRead(uint64_t a1, char *__dst, size_t a3, void *a4)
+size_t BOMCopierSourceEntryRead(void *a1, char *__dst, size_t a3, void *a4)
 {
   if (!a1)
   {
@@ -1871,35 +117,35 @@ size_t BOMCopierSourceEntryRead(uint64_t a1, char *__dst, size_t a3, void *a4)
     return -1;
   }
 
-  v9 = (a1 + 168);
-  v8 = *(a1 + 168);
+  v9 = a1 + 21;
+  v8 = a1[21];
   if (!v8)
   {
     v11 = 0;
     goto LABEL_16;
   }
 
-  v10 = *(a1 + 184);
-  if (*(a1 + 176) - v10 >= a3)
+  v10 = a1[23];
+  if (a1[22] - v10 >= a3)
   {
     v11 = a3;
   }
 
   else
   {
-    v11 = *(a1 + 176) - v10;
+    v11 = a1[22] - v10;
   }
 
   memcpy(__dst, (v8 + v10), v11);
   v5 += v11;
   v6 -= v11;
-  v12 = *(a1 + 176);
-  v13 = *(a1 + 184) + v11;
-  *(a1 + 184) = v13;
+  v12 = a1[22];
+  v13 = a1[23] + v11;
+  a1[23] = v13;
   if (v13 == v12)
   {
-    *(a1 + 160) = 0;
-    free(*(a1 + 168));
+    a1[20] = 0;
+    free(a1[21]);
     *v9 = 0;
     v9[1] = 0;
     v9[2] = 0;
@@ -1916,15 +162,15 @@ LABEL_16:
 
     else
     {
-      v20 = read_from_origin(a1, v5, v6, a4, v15, v16, v17, v18);
-      if (v20 != -1)
+      v16 = read_from_origin(a1, v5, v6, a4);
+      if (v16 != -1)
       {
-        if (v20 >= 1)
+        if (v16 >= 1)
         {
-          *(a1 + 328) += v20;
+          a1[41] += v16;
         }
 
-        v11 += v20;
+        v11 += v16;
         return v11;
       }
 
@@ -1985,30 +231,30 @@ uint64_t open_origin(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t read_from_origin(uint64_t a1, void *a2, size_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t read_from_origin(uint64_t a1, void *a2, size_t a3, void *a4)
 {
-  v11 = *a1;
-  v12 = -1;
+  v7 = *a1;
+  v8 = -1;
   if (*a1 <= 4)
   {
-    if ((v11 - 1) >= 4)
+    if ((v7 - 1) >= 4)
     {
-      if (!v11)
+      if (!v7)
       {
-        v18 = *(a1 + 240);
-        if (v18 && (v19 = *(a1 + 248), v20 = *(a1 + 328), v21 = v19 > v20, v22 = v19 - v20, v21))
+        v14 = *(a1 + 240);
+        if (v14 && (v15 = *(a1 + 248), v16 = *(a1 + 328), v17 = v15 > v16, v18 = v15 - v16, v17))
         {
-          if (v22 >= a3)
+          if (v18 >= a3)
           {
-            v12 = a3;
+            v8 = a3;
           }
 
           else
           {
-            v12 = v22;
+            v8 = v18;
           }
 
-          memcpy(a2, (v18 + v20), v12);
+          memcpy(a2, (v14 + v16), v8);
         }
 
         else
@@ -2020,38 +266,38 @@ uint64_t read_from_origin(uint64_t a1, void *a2, size_t a3, void *a4, uint64_t a
 
     else
     {
-      v12 = read(*(a1 + 324), a2, a3);
-      if (v12 == -1)
+      v8 = read(*(a1 + 324), a2, a3);
+      if (v8 == -1)
       {
-        v13 = *__error();
-        v14 = __error();
-        v15 = strerror(*v14);
-        BOMCopierErrorCapture(a4, v13, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 4857, "read_from_origin", "Could not read %ld bytes from file descriptor: %s", a3, v15);
+        v9 = *__error();
+        v10 = __error();
+        v11 = strerror(*v10);
+        BOMCopierErrorCapture(a4, v9, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 4857, "read_from_origin", "Could not read %ld bytes from file descriptor: %s", a3, v11);
         return -1;
       }
     }
 
-    return v12;
+    return v8;
   }
 
-  if (v11 != 5)
+  if (v7 != 5)
   {
-    if (v11 == 6)
+    if (v7 == 6)
     {
-      v26 = 0;
-      v12 = data_archive_read_data(*(a1 + 272), a2, a3, &v26, a5, a6, a7, a8);
-      if (v12 == -1)
+      v22 = 0;
+      v8 = data_archive_read_data(*(a1 + 272), a2, a3, &v22);
+      if (v8 == -1)
       {
-        v24 = __error();
-        BOMCopierErrorCapture(a4, *v24, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 4874, "read_from_origin", "Could not read %ld bytes from data_archive: %s", a3, *(v26 + 4));
-        release_error(v26);
+        v20 = __error();
+        BOMCopierErrorCapture(a4, *v20, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 4874, "read_from_origin", "Could not read %ld bytes from data_archive: %s", a3, *(v22 + 4));
+        release_error(v22);
       }
     }
 
-    else if (v11 == 7)
+    else if (v7 == 7)
     {
-      v16 = *(a1 + 304);
-      Blob = AAArchiveStreamReadBlob(*(a1 + 288), v16, a2, a3);
+      v12 = *(a1 + 304);
+      Blob = AAArchiveStreamReadBlob(*(a1 + 288), v12, a2, a3);
       if (Blob)
       {
         BOMCopierErrorCapture(a4, Blob, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 4886, "read_from_origin", "Could not read %lu bytes from data_archive: %u", a3, Blob);
@@ -2063,26 +309,26 @@ uint64_t read_from_origin(uint64_t a1, void *a2, size_t a3, void *a4, uint64_t a
       }
     }
 
-    return v12;
+    return v8;
   }
 
-  v23 = *(a1 + 256);
+  v19 = *(a1 + 256);
 
-  return MEMORY[0x2821F7010](v23, a2, a3);
+  return MEMORY[0x2821F7010](v19, a2, a3);
 }
 
-uint64_t BOMCopierSourceEntrySeek(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, void *a5)
+uint64_t BOMCopierSourceEntrySeek(int *a1, unint64_t a2, void *a3, unint64_t a4, void *a5)
 {
   if (a1)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v11 = (a1 + 168);
-      v10 = *(a1 + 168);
+      v11 = a1 + 42;
+      v10 = *(a1 + 21);
       if (v10)
       {
-        v12 = *(a1 + 176);
-        v13 = *(a1 + 184);
+        v12 = *(a1 + 22);
+        v13 = *(a1 + 23);
         if (v12 - v13 >= a2)
         {
           v14 = a2;
@@ -2094,10 +340,10 @@ uint64_t BOMCopierSourceEntrySeek(uint64_t a1, unint64_t a2, void *a3, unint64_t
         }
 
         v15 = v14 + v13;
-        *(a1 + 184) = v15;
+        *(a1 + 23) = v15;
         if (v15 == v12)
         {
-          *(a1 + 160) = 0;
+          *(a1 + 20) = 0;
           free(v10);
           *v11 = 0;
           v11[1] = 0;
@@ -2124,31 +370,31 @@ uint64_t BOMCopierSourceEntrySeek(uint64_t a1, unint64_t a2, void *a3, unint64_t
         return v16;
       }
 
-      v23 = *(a1 + 328);
-      v24 = v23 + v17;
-      v25 = *a1;
+      v19 = *(a1 + 41);
+      v20 = v19 + v17;
+      v21 = *a1;
       if ((*a1 - 1) < 4)
       {
-        v23 = lseek(*(a1 + 324), v17, 1);
-        if (v23 != -1)
+        v19 = lseek(a1[81], v17, 1);
+        if (v19 != -1)
         {
 LABEL_29:
-          *(a1 + 328) = v23;
+          *(a1 + 41) = v19;
           goto LABEL_39;
         }
 
-        v28 = *__error();
-        v29 = __error();
-        strerror(*v29);
-        BOMCopierErrorCapture(a5, v28, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 4979, "seek_from_origin", "Could not lseek: %s");
+        v24 = *__error();
+        v25 = __error();
+        strerror(*v25);
+        BOMCopierErrorCapture(a5, v24, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 4979, "seek_from_origin", "Could not lseek: %s");
       }
 
-      else if ((v25 - 5) >= 3)
+      else if ((v21 - 5) >= 3)
       {
-        if (v25 || !*(a1 + 240))
+        if (v21 || !*(a1 + 30))
         {
 LABEL_39:
-          if (v24 != v23)
+          if (v20 != v19)
           {
             v16 = 1;
             BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2785, "BOMCopierSourceEntrySeek", "Could not seek forward in the origin");
@@ -2158,11 +404,11 @@ LABEL_39:
           goto LABEL_40;
         }
 
-        if (v24 <= *(a1 + 248))
+        if (v20 <= *(a1 + 31))
         {
 LABEL_40:
           v16 = 0;
-          *(a1 + 328) = v24;
+          *(a1 + 41) = v20;
           return v16;
         }
 
@@ -2171,7 +417,7 @@ LABEL_40:
 
       else
       {
-        if (*(a1 + 4) != 8)
+        if (a1[1] != 8)
         {
           goto LABEL_39;
         }
@@ -2180,25 +426,25 @@ LABEL_40:
         {
           if (a4)
           {
-            v26 = 0;
+            v22 = 0;
             while (1)
             {
-              v27 = v17 - v26 >= a4 ? a4 : v17 - v26;
-              if (read_from_origin(a1, a3, v27, a5, v19, v20, v21, v22) != v27)
+              v23 = v17 - v22 >= a4 ? a4 : v17 - v22;
+              if (read_from_origin(a1, a3, v23, a5) != v23)
               {
                 break;
               }
 
-              v26 += v27;
-              if (v26 == v17)
+              v22 += v23;
+              if (v22 == v17)
               {
-                v23 = *(a1 + 328) + v17;
+                v19 = *(a1 + 41) + v17;
                 goto LABEL_29;
               }
             }
 
-            v30 = *__error();
-            BOMCopierErrorCapture(a5, v30, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5073, "seek_from_origin", "Could not read %lld bytes from archive for seeking");
+            v26 = *__error();
+            BOMCopierErrorCapture(a5, v26, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 5073, "seek_from_origin", "Could not read %lld bytes from archive for seeking");
           }
 
           else
@@ -2213,7 +459,7 @@ LABEL_40:
         }
       }
 
-      v23 = -1;
+      v19 = -1;
       goto LABEL_39;
     }
 
@@ -2395,7 +641,7 @@ uint64_t skip_remaining_file_data(uint64_t a1, char *__dst, size_t a3)
   return v7;
 }
 
-uint64_t BOMCopierSourceEntryClone(unsigned int *a1, char *__s1, _BYTE *a3, void *a4)
+uint64_t BOMCopierSourceEntryClone(uint64_t a1, char *__s1, _BYTE *a3, void *a4)
 {
   if (a1)
   {
@@ -2406,7 +652,7 @@ uint64_t BOMCopierSourceEntryClone(unsigned int *a1, char *__s1, _BYTE *a3, void
         *a3 = 0;
         if ((*a1 | 2) == 3)
         {
-          if (a1[1] == 8)
+          if (*(a1 + 4) == 8)
           {
             v8 = strdup(__s1);
             if (v8)
@@ -2421,8 +667,8 @@ uint64_t BOMCopierSourceEntryClone(unsigned int *a1, char *__s1, _BYTE *a3, void
                 goto LABEL_18;
               }
 
-              memset(&v20, 0, sizeof(v20));
-              if (stat(v9, &v20))
+              memset(&v19, 0, sizeof(v19));
+              if (stat(v9, &v19))
               {
                 v10 = __error();
                 strerror(*v10);
@@ -2434,9 +680,9 @@ LABEL_18:
               }
 
               free(v9);
-              if (a1[16] == v20.st_dev)
+              if (*(a1 + 64) == v19.st_dev)
               {
-                if (!copyfile(*(a1 + 2), __s1, 0, 0x200000Fu))
+                if (!copyfile(*(a1 + 16), __s1, 0, 0x200000Fu))
                 {
                   v11 = 0;
                   *a3 = 1;
@@ -2446,7 +692,7 @@ LABEL_18:
                 if (*__error() != 45)
                 {
                   v15 = *__error();
-                  v16 = *(a1 + 2);
+                  v16 = *(a1 + 16);
                   v17 = __error();
                   v18 = strerror(*v17);
                   BOMCopierErrorCapture(a4, v15, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 3008, "BOMCopierSourceEntryClone", "Could not clone %s to %s: %s", v16, __s1, v18);
@@ -2475,7 +721,6 @@ LABEL_18:
 
         else
         {
-          v19 = *a1;
           v11 = 1;
           BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierSourceEntry.c", 2961, "BOMCopierSourceEntryClone", "Origin %u does not support filesystem cloning");
         }
@@ -3017,7 +1262,7 @@ LABEL_9:
 
 uint64_t BOMCopierSourceEntryCompare(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     v9 = *MEMORY[0x277D85DF8];
@@ -3025,8 +1270,7 @@ uint64_t BOMCopierSourceEntryCompare(uint64_t a1, uint64_t a2, unint64_t a3, uin
     v11 = 20;
 LABEL_9:
     fwrite(v10, v11, 1uLL, v9);
-    v8 = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   if (!a2)
@@ -3057,13 +1301,13 @@ LABEL_9:
     v8 = (*(a4 + 16))(a4, a1, a2, "entry_origin", __str);
   }
 
-  v14 = *(a1 + 4);
-  v15 = *(a2 + 4);
-  if (v14 != v15)
+  v13 = *(a1 + 4);
+  v14 = *(a2 + 4);
+  if (v13 != v14)
   {
+    v15 = BOMCopierSourceEntryTypeString(v13);
     v16 = BOMCopierSourceEntryTypeString(v14);
-    v17 = BOMCopierSourceEntryTypeString(v15);
-    snprintf(__str, 0x400uLL, "entry_type: %s vs %s", v16, v17);
+    snprintf(__str, 0x400uLL, "entry_type: %s vs %s", v15, v16);
     v8 = (*(a4 + 16))(a4, a1, a2, "entry_type", __str) & v8;
   }
 
@@ -3096,33 +1340,33 @@ LABEL_9:
     v8 = (*(a4 + 16))(a4, a1, a2, "entry_symlink_target", __str) & v8;
   }
 
-  v18 = *(a2 + 84);
-  if (*(a1 + 84) != v18)
+  v17 = *(a2 + 84);
+  if (*(a1 + 84) != v17)
   {
-    snprintf(__str, 0x400uLL, "entry_uid: %d vs %d", *(a1 + 84), v18);
+    snprintf(__str, 0x400uLL, "entry_uid: %d vs %d", *(a1 + 84), v17);
     v8 = (*(a4 + 16))(a4, a1, a2, "entry_uid", __str) & v8;
   }
 
-  v19 = *(a2 + 88);
-  if (*(a1 + 88) != v19)
+  v18 = *(a2 + 88);
+  if (*(a1 + 88) != v18)
   {
-    snprintf(__str, 0x400uLL, "entry_gid: %d vs %d", *(a1 + 88), v19);
+    snprintf(__str, 0x400uLL, "entry_gid: %d vs %d", *(a1 + 88), v18);
     v8 = (*(a4 + 16))(a4, a1, a2, "entry_gid", __str) & v8;
   }
 
-  v20 = *(a1 + 92);
-  if (v20 != *(a2 + 92))
+  v19 = *(a1 + 92);
+  if (v19 != *(a2 + 92))
   {
-    strmode(v20, __bp);
-    strmode(*(a2 + 92), v24);
-    snprintf(__str, 0x400uLL, "entry_mode: %s vs %s", __bp, v24);
+    strmode(v19, __bp);
+    strmode(*(a2 + 92), v23);
+    snprintf(__str, 0x400uLL, "entry_mode: %s vs %s", __bp, v23);
     v8 = (*(a4 + 16))(a4, a1, a2, "entry_mode", __str) & v8;
   }
 
-  v21 = *(a2 + 96);
-  if (*(a1 + 96) != v21)
+  v20 = *(a2 + 96);
+  if (*(a1 + 96) != v20)
   {
-    snprintf(__str, 0x400uLL, "entry_size: %lld vs %lld", *(a1 + 96), v21);
+    snprintf(__str, 0x400uLL, "entry_size: %lld vs %lld", *(a1 + 96), v20);
     v8 = (*(a4 + 16))(a4, a1, a2, "entry_size", __str) & v8;
   }
 
@@ -3145,6 +1389,16 @@ LABEL_9:
   {
     if (*(a1 + 157))
     {
+      v21 = "yes";
+    }
+
+    else
+    {
+      v21 = "no";
+    }
+
+    if (*(a2 + 157))
+    {
       v22 = "yes";
     }
 
@@ -3153,22 +1407,10 @@ LABEL_9:
       v22 = "no";
     }
 
-    if (*(a2 + 157))
-    {
-      v23 = "yes";
-    }
-
-    else
-    {
-      v23 = "no";
-    }
-
-    snprintf(__str, 0x400uLL, "is_root: %s vs %s", v22, v23);
-    v8 = (*(a4 + 16))(a4, a1, a2, "is_root", __str) & v8;
+    snprintf(__str, 0x400uLL, "is_root: %s vs %s", v21, v22);
+    return (*(a4 + 16))(a4, a1, a2, "is_root", __str) & v8;
   }
 
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -3623,7 +1865,7 @@ LABEL_14:
 
 uint64_t BOMFSOTypeInfoInitialize(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = BOMFSObjectType(a1);
   if (v4 == 4)
   {
@@ -3655,7 +1897,6 @@ uint64_t BOMFSOTypeInfoInitialize(uint64_t a1, uint64_t a2)
     _BOMExceptionHandlerCall(v5, 0, "/Library/Caches/com.apple.xbs/Sources/Bom/FSObject/BOMFSOTypeInfo.c", 88, *v6);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3698,7 +1939,7 @@ _DWORD *BOMFSOTypeInfoSetSymlinkTarget(_DWORD *result, char *__s, int a3)
       {
         v7 = BOM_malloc(result + 1);
         result = memmove(v7, v5, v6);
-        *(v7 + v6) = 0;
+        *(v6 + v7) = 0;
         v5 = v7;
       }
 
@@ -3719,7 +1960,7 @@ _DWORD *BOMFSOTypeInfoSetSymlinkTarget(_DWORD *result, char *__s, int a3)
 
 uint64_t BOMFSOTypeInfoInitializeDeferred(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v8 = BOMFSObjectType(a1);
   switch(v8)
   {
@@ -3774,7 +2015,6 @@ uint64_t BOMFSOTypeInfoInitializeDeferred(uint64_t a1, uint64_t a2, uint64_t a3,
       break;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3883,7 +2123,7 @@ _DWORD *BOMFSOTypeInfoSetDeviceID(_DWORD *result, int a2)
 
 const char *BOMFSOTypeInfoSummary(uint64_t a1, int a2, int a3, int a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v8 = printBuffer;
   if (!printBuffer)
   {
@@ -3893,142 +2133,105 @@ const char *BOMFSOTypeInfoSummary(uint64_t a1, int a2, int a3, int a4)
 
   if ((B_INFOMASK & *(a1 + 40)) != B_PATHONLY)
   {
-    v13 = *a1;
-    v10 = "";
+    v11 = *a1;
+    v9 = "";
     if (*a1 > 2)
     {
-      if (v13 == 3)
+      if (v11 == 3)
       {
-        v21 = *(a1 + 72);
+        v14 = *(a1 + 72);
         if (a3)
         {
-          v37 = *(a1 + 88);
-          v39 = *(a1 + 96);
-          v31 = *(a1 + 48);
-          v34 = *(a1 + 64);
-          v29 = *(a1 + 44);
-          snprintf(v8, 0x1000uLL, "%s\t%d/%d\t%lld\t%05u\t%s\n", v21);
+          snprintf(v8, 0x1000uLL, "%s\t%d/%d\t%lld\t%05u\t%s\n", v14);
         }
 
         else
         {
-          v40 = *(a1 + 88);
-          v41 = *(a1 + 96);
-          v35 = *(a1 + 48);
-          v38 = *(a1 + 64);
-          v32 = *(a1 + 44);
-          snprintf(v8, 0x1000uLL, "%s\t%o\t%d/%d\t%lld\t%05u\t%s\n", v21, *(a1 + 42));
+          snprintf(v8, 0x1000uLL, "%s\t%o\t%d/%d\t%lld\t%05u\t%s\n", v14, *(a1 + 42));
         }
 
-        goto LABEL_5;
+        return printBuffer;
       }
 
-      if (v13 != 4)
+      if (v11 != 4)
       {
-        goto LABEL_6;
+        return v9;
       }
 
-      v15 = *(a1 + 72);
-      v16 = *(a1 + 42);
-      v17 = *(a1 + 44);
-      v18 = *(a1 + 48);
       if (!a3)
       {
-        v33 = *(a1 + 48);
-        v36 = *(a1 + 88);
         snprintf(v8, 0x1000uLL, "%s\t%o\t%d/%d\t%d\n");
-        goto LABEL_5;
+        return printBuffer;
       }
 
-      goto LABEL_26;
+      goto LABEL_25;
     }
 
-    if (v13 != 1)
+    if (v11 != 1)
     {
-      if (v13 != 2)
+      if (v11 != 2)
       {
-        goto LABEL_6;
+        return v9;
       }
 
-      v14 = *(a1 + 72);
       if (a3)
       {
-        v28 = *(a1 + 44);
-        v30 = *(a1 + 48);
         snprintf(v8, 0x1000uLL, "%s\t%d/%d\n");
-        goto LABEL_5;
+        return printBuffer;
       }
 
-      v22 = *(a1 + 42);
-      v23 = *(a1 + 44);
-      v24 = *(a1 + 48);
-LABEL_26:
+LABEL_25:
       snprintf(v8, 0x1000uLL, "%s\t%o\t%d/%d\n");
-      goto LABEL_5;
+      return printBuffer;
     }
 
-    *v42 = 0u;
-    v43 = 0u;
-    if (a4 == -1)
+    *v15 = 0u;
+    v16 = 0u;
+    if (a4 != -1)
     {
-      v20 = (a1 + 64);
-      v25 = (a1 + 88);
-    }
-
-    else
-    {
-      v19 = *(a1 + 104);
-      if (!v19)
+      v12 = *(a1 + 104);
+      if (!v12)
       {
 LABEL_21:
         if (!a2)
         {
-          goto LABEL_32;
+          goto LABEL_30;
         }
 
-        goto LABEL_31;
+        goto LABEL_29;
       }
 
-      v20 = (*(a1 + 112) + 8);
-      while (*(v20 - 2) != a4)
+      v13 = *(a1 + 112) + 8;
+      while (*(v13 - 8) != a4)
       {
-        v20 += 3;
-        if (!--v19)
+        v13 += 24;
+        if (!--v12)
         {
           goto LABEL_21;
         }
       }
-
-      v25 = (v20 + 1);
     }
 
-    v26 = *v20;
-    v27 = *v25;
     if (!a2)
     {
-      goto LABEL_32;
+      goto LABEL_30;
     }
 
-LABEL_31:
-    ctime_r((a1 + 56), v42);
+LABEL_29:
+    ctime_r((a1 + 56), v15);
     v8 = printBuffer;
-LABEL_32:
+LABEL_30:
     snprintf(v8, 0x1000uLL, "%s\t%o\t%d/%d\t%llu\t%u%s%s%s", *(a1 + 72), *(a1 + 42), *(a1 + 44), *(a1 + 48));
-    goto LABEL_5;
+    return printBuffer;
   }
 
-  v9 = *(a1 + 72);
   snprintf(v8, 0x1000uLL, "%s\n");
-LABEL_5:
-  v10 = printBuffer;
-LABEL_6:
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return printBuffer;
 }
 
 uint64_t BOMFSOTypeInfoSummaryWithFormat(uint64_t a1, unsigned __int8 *a2, int a3)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v6 = printBuffer;
   if (!printBuffer)
   {
@@ -4036,11 +2239,11 @@ uint64_t BOMFSOTypeInfoSummaryWithFormat(uint64_t a1, unsigned __int8 *a2, int a
     printBuffer = v6;
   }
 
-  *&v73[8] = 0;
-  v72 = 0;
+  *&v68[8] = 0;
+  v67 = 0;
   v7 = 0;
-  *v73 = BOMFSObjectType(a1);
-  v8 = *v73 & 0xFFFFFFFD;
+  *v68 = BOMFSObjectType(a1);
+  v8 = *v68 & 0xFFFFFFFD;
   while (1)
   {
     while (1)
@@ -4118,10 +2321,10 @@ LABEL_88:
                     pw_name = "<unknown>";
                   }
 
-                  v42 = CFStringCreateWithCString(0, pw_name, 0x8000100u);
+                  v41 = CFStringCreateWithCString(0, pw_name, 0x8000100u);
                   v6 += snprintf(v6, printBuffer - v6 + 4096, "%s\t", pw_name);
-                  CFDictionarySetValue(BOMFSOTypeInfoSummaryWithFormat_userNameHash, v23, v42);
-                  CFRelease(v42);
+                  CFDictionarySetValue(BOMFSOTypeInfoSummaryWithFormat_userNameHash, v23, v41);
+                  CFRelease(v41);
                 }
               }
             }
@@ -4134,7 +2337,6 @@ LABEL_88:
                 if (a3 == -1)
                 {
                   v40 = printBuffer - v6;
-                  v41 = *(a1 + 88);
                 }
 
                 else
@@ -4145,10 +2347,10 @@ LABEL_88:
                     continue;
                   }
 
-                  v13 = (*(a1 + 112) + 16);
-                  while (*(v13 - 4) != a3)
+                  v13 = *(a1 + 112) + 16;
+                  while (*(v13 - 16) != a3)
                   {
-                    v13 += 6;
+                    v13 += 24;
                     if (!--v12)
                     {
                       goto LABEL_4;
@@ -4156,7 +2358,6 @@ LABEL_88:
                   }
 
                   v40 = printBuffer - v6;
-                  v50 = *v13;
                 }
 
                 v16 = snprintf(v6, v40 + 4096, "%u\t");
@@ -4197,7 +2398,7 @@ LABEL_54:
               }
 
               v7 |= 2u;
-              if (*v73 != B_SymlinkType)
+              if (*v68 != B_SymlinkType)
               {
                 goto LABEL_91;
               }
@@ -4217,13 +2418,12 @@ LABEL_54:
               v7 |= 0x400u;
               if (BOMFSObjectType(a1) == B_DirectoryType)
               {
-                v16 = snprintf(v6, printBuffer - v6 + 4096, "\t", v68, v71);
+                v16 = snprintf(v6, printBuffer - v6 + 4096, "\t", v65, v66);
                 goto LABEL_90;
               }
 
               if (a3 == -1)
               {
-                v69 = *(a1 + 64);
                 v16 = snprintf(v6, printBuffer - v6 + 4096, "%llu\t");
                 goto LABEL_90;
               }
@@ -4234,17 +2434,16 @@ LABEL_54:
                 continue;
               }
 
-              v36 = (*(a1 + 112) + 8);
-              while (*(v36 - 2) != a3)
+              v36 = *(a1 + 112) + 8;
+              while (*(v36 - 8) != a3)
               {
-                v36 += 3;
+                v36 += 24;
                 if (!--v35)
                 {
                   goto LABEL_4;
                 }
               }
 
-              v70 = *v36;
               v34 = printBuffer - v6 + 4096;
 LABEL_84:
               v16 = snprintf(v6, v34, "%lu\t");
@@ -4317,7 +2516,7 @@ LABEL_90:
             if (v29)
             {
               v30 = *(a1 + 112) + 8;
-              v31 = v72;
+              v31 = v67;
               while (*(v30 - 8) != a3)
               {
                 v30 += 24;
@@ -4339,7 +2538,7 @@ LABEL_111:
               {
                 --v31;
                 *v6++ = __str;
-                p_str = v75;
+                p_str = v70;
               }
 
               else
@@ -4347,54 +2546,54 @@ LABEL_111:
                 p_str = &__str;
               }
 
-              v44 = (v31 - 1);
+              v43 = (v31 - 1);
               if (v31 >= 1)
               {
-                v45 = v44 + 1;
-                v46 = v6;
+                v44 = v43 + 1;
+                v45 = v6;
                 while (1)
                 {
-                  v47 = *p_str++;
-                  *v46++ = v47;
-                  v48 = v44 - 1;
-                  if (v44)
+                  v46 = *p_str++;
+                  *v45++ = v46;
+                  v47 = v43 - 1;
+                  if (v43)
                   {
-                    if (!(v44 % 3))
+                    if (!(v43 % 3))
                     {
                       break;
                     }
                   }
 
-                  if (!v44)
+                  if (!v43)
                   {
-                    v49 = 9;
+                    v48 = 9;
                     goto LABEL_121;
                   }
 
 LABEL_122:
-                  LODWORD(v44) = v48;
-                  v6 = v46;
-                  if (!--v45)
+                  LODWORD(v43) = v47;
+                  v6 = v45;
+                  if (!--v44)
                   {
-                    v72 = 0;
-                    v6 = v46;
+                    v67 = 0;
+                    v6 = v45;
                     goto LABEL_4;
                   }
                 }
 
-                v49 = 44;
+                v48 = 44;
 LABEL_121:
-                v46 = v6 + 2;
-                v6[1] = v49;
+                v45 = v6 + 2;
+                v6[1] = v48;
                 goto LABEL_122;
               }
 
-              v72 = v31;
+              v67 = v31;
             }
 
             else
             {
-              v31 = v72;
+              v31 = v67;
 LABEL_110:
               if (v31)
               {
@@ -4402,7 +2601,7 @@ LABEL_110:
               }
 
 LABEL_130:
-              v72 = 0;
+              v67 = 0;
             }
           }
 
@@ -4414,8 +2613,8 @@ LABEL_130:
               goto LABEL_91;
             }
 
-            *&v73[4] = BOMFSObjectModTime(a1);
-            ctime_r(&v73[4], __s);
+            *&v68[4] = BOMFSObjectModTime(a1);
+            ctime_r(&v68[4], __s);
             __s[strlen(__s) - 1] = 0;
             v15 = printBuffer - v6;
 LABEL_44:
@@ -4436,7 +2635,7 @@ LABEL_89:
             }
 
             v7 |= 2u;
-            if (*v73 == B_SymlinkType)
+            if (*v68 == B_SymlinkType)
             {
               v27 = printBuffer - v6;
               v28 = BOMFSObjectSymlinkTarget(a1);
@@ -4500,11 +2699,11 @@ LABEL_89:
         }
 
 LABEL_143:
-        v61 = BOMFSObjectGroupID(a1);
-        v62 = getgrgid(v61);
-        if (v62)
+        v59 = BOMFSObjectGroupID(a1);
+        v60 = getgrgid(v59);
+        if (v60)
         {
-          gr_name = v62->gr_name;
+          gr_name = v60->gr_name;
         }
 
         else
@@ -4512,10 +2711,10 @@ LABEL_143:
           gr_name = "<unknown>";
         }
 
-        v64 = CFStringCreateWithCString(0, gr_name, 0x8000100u);
+        v62 = CFStringCreateWithCString(0, gr_name, 0x8000100u);
         v6 += snprintf(v6, printBuffer - v6 + 4096, "%s\t", gr_name);
-        CFDictionarySetValue(BOMFSOTypeInfoSummaryWithFormat_groupNameHash, v18, v64);
-        CFRelease(v64);
+        CFDictionarySetValue(BOMFSOTypeInfoSummaryWithFormat_groupNameHash, v18, v62);
+        CFRelease(v62);
       }
     }
 
@@ -4549,33 +2748,33 @@ LABEL_143:
       BOMFSOTypeInfoSummaryWithFormat_userNameHash = CFDictionaryCreateMutable(0, 0, 0, MEMORY[0x277CBF150]);
     }
 
-    v51 = BOMFSObjectUserID(a1);
-    if (CFDictionaryContainsKey(BOMFSOTypeInfoSummaryWithFormat_userNameHash, v51))
+    v49 = BOMFSObjectUserID(a1);
+    if (CFDictionaryContainsKey(BOMFSOTypeInfoSummaryWithFormat_userNameHash, v49))
     {
-      v52 = CFDictionaryGetValue(BOMFSOTypeInfoSummaryWithFormat_userNameHash, v51);
-      v53 = BOMCFStringGetUTF8String(v52);
-      v54 = snprintf(v6, printBuffer - v6 + 4096, "%s/", v53);
-      free(v53);
+      v50 = CFDictionaryGetValue(BOMFSOTypeInfoSummaryWithFormat_userNameHash, v49);
+      v51 = BOMCFStringGetUTF8String(v50);
+      v52 = snprintf(v6, printBuffer - v6 + 4096, "%s/", v51);
+      free(v51);
     }
 
     else
     {
-      v55 = BOMFSObjectUserID(a1);
-      v56 = getpwuid(v55);
-      if (v56)
+      v53 = BOMFSObjectUserID(a1);
+      v54 = getpwuid(v53);
+      if (v54)
       {
-        v57 = v56->pw_name;
+        v55 = v54->pw_name;
       }
 
       else
       {
-        v57 = "<unknown>";
+        v55 = "<unknown>";
       }
 
-      v58 = CFStringCreateWithCString(0, v57, 0x8000100u);
-      v54 = snprintf(v6, printBuffer - v6 + 4096, "%s/", v57);
-      CFDictionarySetValue(BOMFSOTypeInfoSummaryWithFormat_userNameHash, v51, v58);
-      CFRelease(v58);
+      v56 = CFStringCreateWithCString(0, v55, 0x8000100u);
+      v52 = snprintf(v6, printBuffer - v6 + 4096, "%s/", v55);
+      CFDictionarySetValue(BOMFSOTypeInfoSummaryWithFormat_userNameHash, v49, v56);
+      CFRelease(v56);
     }
 
     if (!BOMFSOTypeInfoSummaryWithFormat_groupNameHash)
@@ -4584,17 +2783,17 @@ LABEL_143:
     }
 
     v7 |= 0x4000u;
-    v6 += v54;
+    v6 += v52;
     v18 = BOMFSObjectGroupID(a1);
     if (!CFDictionaryContainsKey(BOMFSOTypeInfoSummaryWithFormat_groupNameHash, v18))
     {
       goto LABEL_143;
     }
 
-    v59 = CFDictionaryGetValue(BOMFSOTypeInfoSummaryWithFormat_groupNameHash, v18);
-    v60 = BOMCFStringGetUTF8String(v59);
-    v6 += snprintf(v6, printBuffer - v6 + 4096, "%s\t", v60);
-    free(v60);
+    v57 = CFDictionaryGetValue(BOMFSOTypeInfoSummaryWithFormat_groupNameHash, v18);
+    v58 = BOMCFStringGetUTF8String(v57);
+    v6 += snprintf(v6, printBuffer - v6 + 4096, "%s\t", v58);
+    free(v58);
   }
 
   if (v9)
@@ -4602,32 +2801,30 @@ LABEL_143:
     goto LABEL_4;
   }
 
-  v65 = printBuffer;
+  v63 = printBuffer;
   if (v6 > printBuffer)
   {
     *--v6 = 0;
-    v65 = printBuffer;
+    v63 = printBuffer;
   }
 
-  snprintf(v6, v65 - v6 + 4096, "\n");
-  result = printBuffer;
-  v67 = *MEMORY[0x277D85DE8];
-  return result;
+  snprintf(v6, v63 - v6 + 4096, "\n");
+  return printBuffer;
 }
 
 _DWORD *BOMFSOTypeInfoParseSummaryWithSys(const char *a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   *__str = 0u;
-  *v26 = 0u;
+  *v25 = 0u;
   *__s = 0u;
   v3 = strdup(a1);
   v4 = 0;
   __endptr = 0;
   __stringp = v3;
-  v21 = 0;
+  v20 = 0;
   while (1)
   {
     v5 = strsep(&__stringp, "\t");
@@ -4739,10 +2936,10 @@ LABEL_44:
               BOMFSObjectSetPathName(v14, v7, 1);
               BOMFSObjectSetShortName(v14, v9, 1);
               BOMFSObjectSetMode(v14, v11);
-              if (sscanf(__str[0], "%d/%d", &v21 + 4, &v21) == 2)
+              if (sscanf(__str[0], "%d/%d", &v20 + 4, &v20) == 2)
               {
-                BOMFSObjectSetUserID(v14, SHIDWORD(v21));
-                BOMFSObjectSetGroupID(v14, v21);
+                BOMFSObjectSetUserID(v14, SHIDWORD(v20));
+                BOMFSObjectSetGroupID(v14, v20);
                 switch(v13)
                 {
                   case 1:
@@ -4751,13 +2948,13 @@ LABEL_30:
                     if (!*__endptr)
                     {
                       BOMFSObjectSetSize(v14, v16);
-                      v17 = strtoul(v26[0], &__endptr, 10);
+                      v17 = strtoul(v25[0], &__endptr, 10);
                       if (!*__endptr)
                       {
                         BOMFSObjectSetChecksum(v14, v17);
                         if (v13 == 3)
                         {
-                          BOMFSObjectSetSymlinkTarget(v14, v26[1], 1);
+                          BOMFSObjectSetSymlinkTarget(v14, v25[1], 1);
                         }
 
                         goto LABEL_34;
@@ -4772,7 +2969,7 @@ LABEL_30:
                       BOMFSObjectSetDeviceID(v14, v18);
                       if (!v3)
                       {
-                        goto LABEL_53;
+                        return v14;
                       }
 
                       goto LABEL_42;
@@ -4785,12 +2982,12 @@ LABEL_30:
 LABEL_34:
                     if (!v3)
                     {
-                      goto LABEL_53;
+                      return v14;
                     }
 
 LABEL_42:
                     free(v3);
-                    goto LABEL_53;
+                    return v14;
                 }
               }
             }
@@ -4834,11 +3031,9 @@ LABEL_51:
   if (v14)
   {
     BOMFSObjectFree(v14);
-    v14 = 0;
+    return 0;
   }
 
-LABEL_53:
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -4953,10 +3148,10 @@ uint64_t BOMFSOArchInfoUnarchive(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t BOMStorageNewWithOptionsAndSys(const char *a1, uint64_t a2, uint64_t (**a3)(void, const char *, uint64_t, uint64_t))
+unsigned int *BOMStorageNewWithOptionsAndSys(char *a1, uint64_t a2, uint64_t (**a3)(void, char *, uint64_t, uint64_t))
 {
   v3 = a3;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!a3)
   {
     v3 = BomSys_default();
@@ -4969,25 +3164,22 @@ uint64_t BOMStorageNewWithOptionsAndSys(const char *a1, uint64_t a2, uint64_t (*
     v9 = __error();
     v10 = strerror(*v9);
     fprintf(v8, "can't open %s: %s\n", a1, v10);
-    goto LABEL_7;
   }
 
-  v6 = v5;
-  bzero(v12, 0x460uLL);
-  v13 = v6;
-  v14 = v3;
-  if (_WriteRootPage(v12))
+  else
   {
-LABEL_7:
-    result = 0;
-    goto LABEL_8;
+    v6 = v5;
+    bzero(v11, 0x460uLL);
+    v12 = v6;
+    v13 = v3;
+    if (!_WriteRootPage(v11))
+    {
+      (v3[4])(v3[1], v6);
+      return BOMStorageOpenWithSys(a1, 1, v3);
+    }
   }
 
-  (v3[4])(v3[1], v6);
-  result = BOMStorageOpenWithSys(a1, 1, v3);
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t _WriteRootPage(uint64_t a1)
@@ -5029,7 +3221,7 @@ uint64_t _WriteRootPage(uint64_t a1)
   return v3;
 }
 
-uint64_t BOMStorageOpenWithSys(const char *a1, int a2, void *a3)
+unsigned int *BOMStorageOpenWithSys(char *a1, int a2, void *a3)
 {
   v3 = a3;
   if (!a3)
@@ -5250,7 +3442,7 @@ LABEL_20:
   return 0;
 }
 
-uint64_t BOMStorageNewInRAM()
+_DWORD *BOMStorageNewInRAM()
 {
   v0 = BOM_malloczero(0x468uLL);
   v1 = v0;
@@ -5635,14 +3827,13 @@ uint64_t BOMStorageFree(_DWORD *a1)
     if (*(a1 + 1053))
     {
       v6 = *(a1 + 1052);
-      v7 = a1[262];
-      v8 = (*(*(a1 + 140) + 328))(*(*(a1 + 140) + 8));
+      v7 = (*(*(a1 + 140) + 328))(*(*(a1 + 140) + 8));
       if (v6)
       {
-        if (v8 == -1)
+        if (v7 == -1)
         {
-          v9 = __error();
-          _BOMExceptionHandlerCall("munmap failed", 1u, "/Library/Caches/com.apple.xbs/Sources/Bom/Storage/BOMStorage.c", 1417, *v9);
+          v8 = __error();
+          _BOMExceptionHandlerCall("munmap failed", 1u, "/Library/Caches/com.apple.xbs/Sources/Bom/Storage/BOMStorage.c", 1417, *v8);
         }
       }
     }
@@ -5657,7 +3848,7 @@ uint64_t BOMStorageFree(_DWORD *a1)
   return 0;
 }
 
-uint64_t BOMStorageCommit(uint64_t a1)
+BOOL BOMStorageCommit(uint64_t a1)
 {
   if (!a1)
   {
@@ -5865,170 +4056,179 @@ LABEL_14:
 
 uint64_t BOMStorageNewNamedBlock(uint64_t a1, const char *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 1052))
   {
-    goto LABEL_4;
+    return 0;
   }
 
   if (_tocGet(a1, a2))
   {
     fprintf(*MEMORY[0x277D85DF8], "name %s already exists!\n", a2);
-LABEL_4:
-    v4 = 0;
-    goto LABEL_5;
+    return 0;
   }
 
   v4 = BOMStorageNewBlock(a1);
-  v7 = strlen(a2);
-  if ((v7 & 0xFFFFFF00) != 0)
+  v6 = strlen(a2);
+  if ((v6 & 0xFFFFFF00) != 0)
   {
     fprintf(*MEMORY[0x277D85DF8], "name '%s' is > %d\n", a2, 255);
   }
 
   else
   {
-    v8 = v7;
+    v7 = v6;
     if (*(a1 + 1096))
     {
-      v9 = *(a1 + 1100);
+      v8 = *(a1 + 1100);
     }
 
     else
     {
-      v9 = 4;
+      v8 = 4;
     }
 
-    v10 = v7 + v9;
-    v11 = v10 + 5;
-    if (v10 == -5)
+    v9 = v6 + v8;
+    v10 = v9 + 5;
+    if (v9 == -5)
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v12 = (*(*(a1 + 1088) + 48))();
-      if (!v12)
+      v11 = (*(*(a1 + 1088) + 48))();
+      if (!v11)
       {
-        v12 = *(a1 + 1032);
+        v11 = *(a1 + 1032);
       }
     }
 
-    _ExpandMapAddress(a1, v12 + v11);
-    v13 = *(a1 + 1096);
-    if (v13)
+    _ExpandMapAddress(a1, v11 + v10);
+    v12 = *(a1 + 1096);
+    if (v12)
     {
-      v14 = BOMStreamWithAddress(*(a1 + 1040) + v13, *(a1 + 1100), 0);
-      if (!v14)
+      v13 = BOMStreamWithAddress(*(a1 + 1040) + v12, *(a1 + 1100), 0);
+      if (!v13)
       {
-        goto LABEL_5;
+        return v4;
       }
 
-      v15 = v14;
-      UInt32 = BOMStreamReadUInt32(v14);
+      v14 = v13;
+      UInt32 = BOMStreamReadUInt32(v13);
     }
 
     else
     {
       UInt32 = 0;
-      v15 = 0;
+      v14 = 0;
     }
 
-    v17 = BOMStreamWithAddress(*(a1 + 1040) + v12, v11, 1);
-    if (v17)
+    v16 = BOMStreamWithAddress(*(a1 + 1040) + v11, v10, 1);
+    if (v16)
     {
-      v18 = v17;
-      BOMStreamWriteUInt32(v17, UInt32 + 1);
-      if (v15)
+      v17 = v16;
+      BOMStreamWriteUInt32(v16, UInt32 + 1);
+      if (v14)
       {
-        v23 = v12;
-        for (i = v11; UInt32; --UInt32)
+        v22 = v11;
+        for (i = v10; UInt32; --UInt32)
         {
-          v19 = BOMStreamReadUInt32(v15);
-          UInt8 = BOMStreamReadUInt8(v15);
+          v18 = BOMStreamReadUInt32(v14);
+          UInt8 = BOMStreamReadUInt8(v14);
+          v20 = UInt8;
           v21 = UInt8;
-          v22 = UInt8;
-          BOMStreamReadBuffer(v15, __dst, UInt8);
-          BOMStreamWriteUInt32(v18, v19);
-          BOMStreamWriteUInt8(v18, v21);
-          BOMStreamWriteBuffer(v18, __dst, v22);
+          BOMStreamReadBuffer(v14, __dst, UInt8);
+          BOMStreamWriteUInt32(v17, v18);
+          BOMStreamWriteUInt8(v17, v20);
+          BOMStreamWriteBuffer(v17, __dst, v21);
         }
 
-        BOMStreamFree(v15);
+        BOMStreamFree(v14);
         if (*(a1 + 1096) && *(a1 + 1100))
         {
           (*(*(a1 + 1088) + 40))();
         }
 
-        v11 = i;
-        v12 = v23;
+        v10 = i;
+        v11 = v22;
       }
 
-      BOMStreamWriteUInt32(v18, v4);
-      BOMStreamWriteUInt8(v18, v8);
-      BOMStreamWriteBuffer(v18, a2, v8);
-      BOMStreamFree(v18);
-      *(a1 + 1096) = v12;
-      *(a1 + 1100) = v11;
-      _AdjustFileSize(a1, v12, v11);
+      BOMStreamWriteUInt32(v17, v4);
+      BOMStreamWriteUInt8(v17, v7);
+      BOMStreamWriteBuffer(v17, a2, v7);
+      BOMStreamFree(v17);
+      *(a1 + 1096) = v11;
+      *(a1 + 1100) = v10;
+      _AdjustFileSize(a1, v11, v10);
       if (*(a1 + 1028) != -1)
       {
-        _AddToWriteCache(a1, v12, v11);
+        _AddToWriteCache(a1, v11, v10);
       }
 
       *(a1 + 1116) = 1;
     }
   }
 
-LABEL_5:
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t _tocGet(uint64_t a1, const char *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (a1 && (v2 = *(a1 + 1096), v2) && (v4 = *(a1 + 1100), v4) && (v5 = BOMStreamWithAddress(*(a1 + 1040) + v2, v4, 0)) != 0)
+  v13 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v6 = v5;
-    UInt32 = BOMStreamReadUInt32(v5);
-    if (UInt32)
-    {
-      v8 = UInt32;
-      while (1)
-      {
-        v9 = BOMStreamReadUInt32(v6);
-        UInt8 = BOMStreamReadUInt8(v6);
-        BOMStreamReadBuffer(v6, __s2, UInt8);
-        __s2[UInt8] = 0;
-        if (!strcmp(a2, __s2))
-        {
-          break;
-        }
+    return 0;
+  }
 
-        if (!--v8)
-        {
-          goto LABEL_9;
-        }
+  v2 = *(a1 + 1096);
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v4 = *(a1 + 1100);
+  if (!v4)
+  {
+    return 0;
+  }
+
+  v5 = BOMStreamWithAddress(*(a1 + 1040) + v2, v4, 0);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v5;
+  UInt32 = BOMStreamReadUInt32(v5);
+  if (UInt32)
+  {
+    v8 = UInt32;
+    while (1)
+    {
+      v9 = BOMStreamReadUInt32(v6);
+      UInt8 = BOMStreamReadUInt8(v6);
+      BOMStreamReadBuffer(v6, __s2, UInt8);
+      __s2[UInt8] = 0;
+      if (!strcmp(a2, __s2))
+      {
+        break;
+      }
+
+      if (!--v8)
+      {
+        goto LABEL_9;
       }
     }
-
-    else
-    {
-LABEL_9:
-      v9 = 0;
-    }
-
-    BOMStreamFree(v6);
   }
 
   else
   {
+LABEL_9:
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  BOMStreamFree(v6);
   return v9;
 }
 
@@ -6104,7 +4304,7 @@ double BOMStorageFreeBlock(uint64_t a1, unsigned int a2)
 
 void BOMStorageFreeNamedBlock(uint64_t a1, const char *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (a2)
@@ -6119,58 +4319,57 @@ void BOMStorageFreeNamedBlock(uint64_t a1, const char *a2)
           v6 = *(a1 + 1100);
           if (v6)
           {
-            v7 = *(a1 + 1100);
-            v8 = (*(*(a1 + 1088) + 48))();
-            if (!v8)
+            v7 = (*(*(a1 + 1088) + 48))();
+            if (!v7)
             {
-              v8 = *(a1 + 1032);
+              v7 = *(a1 + 1032);
             }
           }
 
           else
           {
-            v8 = 0;
+            v7 = 0;
           }
 
-          v9 = (v6 - v5 - 5);
-          _ExpandMapAddress(a1, v8 + v9);
-          v10 = BOMStreamWithAddress(*(a1 + 1040) + *(a1 + 1096), *(a1 + 1100), 0);
-          if (v10)
+          v8 = (v6 - v5 - 5);
+          _ExpandMapAddress(a1, v7 + v8);
+          v9 = BOMStreamWithAddress(*(a1 + 1040) + *(a1 + 1096), *(a1 + 1100), 0);
+          if (v9)
           {
-            v11 = v10;
-            v12 = BOMStreamWithAddress(*(a1 + 1040) + v8, v9, 1);
-            if (v12)
+            v10 = v9;
+            v11 = BOMStreamWithAddress(*(a1 + 1040) + v7, v8, 1);
+            if (v11)
             {
-              v13 = v12;
-              UInt32 = BOMStreamReadUInt32(v11);
-              BOMStreamWriteUInt32(v13, UInt32 - 1);
+              v12 = v11;
+              UInt32 = BOMStreamReadUInt32(v10);
+              BOMStreamWriteUInt32(v12, UInt32 - 1);
               for (; UInt32; --UInt32)
               {
-                v15 = BOMStreamReadUInt32(v11);
-                UInt8 = BOMStreamReadUInt8(v11);
-                BOMStreamReadBuffer(v11, __s1, UInt8);
+                v14 = BOMStreamReadUInt32(v10);
+                UInt8 = BOMStreamReadUInt8(v10);
+                BOMStreamReadBuffer(v10, __s1, UInt8);
                 __s1[UInt8] = 0;
                 if (strcmp(__s1, a2))
                 {
-                  BOMStreamWriteUInt32(v13, v15);
-                  BOMStreamWriteUInt8(v13, UInt8);
-                  BOMStreamWriteBuffer(v13, __s1, UInt8);
+                  BOMStreamWriteUInt32(v12, v14);
+                  BOMStreamWriteUInt8(v12, UInt8);
+                  BOMStreamWriteBuffer(v12, __s1, UInt8);
                 }
               }
 
-              BOMStreamFree(v11);
-              BOMStreamFree(v13);
+              BOMStreamFree(v10);
+              BOMStreamFree(v12);
               if (*(a1 + 1096) && *(a1 + 1100))
               {
                 (*(*(a1 + 1088) + 40))();
               }
 
-              *(a1 + 1096) = v8;
-              *(a1 + 1100) = v9;
-              _AdjustFileSize(a1, v8, v9);
+              *(a1 + 1096) = v7;
+              *(a1 + 1100) = v8;
+              _AdjustFileSize(a1, v7, v8);
               if (*(a1 + 1028) != -1)
               {
-                _AddToWriteCache(a1, v8, v9);
+                _AddToWriteCache(a1, v7, v8);
               }
 
               *(a1 + 1116) = 1;
@@ -6180,8 +4379,6 @@ void BOMStorageFreeNamedBlock(uint64_t a1, const char *a2)
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t BOMStorageCount(uint64_t result)
@@ -6466,13 +4663,14 @@ LABEL_20:
   return _BOMExceptionHandlerCall(v12, 1u, "/Library/Caches/com.apple.xbs/Sources/Bom/Storage/BOMStorage.c", v13, v11);
 }
 
-void _AddToWriteCache(uint64_t a1, unsigned int a2, int a3)
+void _AddToWriteCache(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a2 || !a3)
   {
     return;
   }
 
+  v3 = a2;
   v5 = (a1 + 1104);
   v6 = *(a1 + 1104);
   if (!v6)
@@ -6599,7 +4797,7 @@ LABEL_6:
     if (v13)
     {
       *v13 = v6;
-      if (v7 <= a2)
+      if (v7 <= v3)
       {
 LABEL_21:
         *v8 = v13;
@@ -6842,10 +5040,10 @@ void _FlushWriteCache(uint64_t a1)
 
 uint64_t BOMStorageCompact(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!a1 || !*(a1 + 1052) || *(a1 + 1028) == -1)
   {
-    goto LABEL_30;
+    return 1;
   }
 
   v2 = *(a1 + 1120);
@@ -6868,15 +5066,13 @@ uint64_t BOMStorageCompact(uint64_t a1)
   {
     v13 = 1;
     fwrite("can't get temp file.\n", 0x15uLL, 1uLL, *MEMORY[0x277D85DF8]);
-    goto LABEL_31;
+    return v13;
   }
 
   v5 = BOMStorageNewWithOptionsAndSys(__s, v4, v2);
   if (!v5)
   {
-LABEL_30:
-    v13 = 1;
-    goto LABEL_31;
+    return 1;
   }
 
   v6 = v5;
@@ -6906,7 +5102,7 @@ LABEL_30:
     }
 
     fprintf(*MEMORY[0x277D85DF8], "unable to reserve block %d.\n");
-    goto LABEL_30;
+    return 1;
   }
 
 LABEL_16:
@@ -6952,13 +5148,13 @@ LABEL_16:
     v21 = __error();
     strerror(*v21);
     fprintf(v20, "malloc: %s\n");
-    goto LABEL_30;
+    return 1;
   }
 
   v15 = v14;
   memcpy(v14, a1, 0x468uLL);
   BOMStorageFree(v15);
-  if ((*(v2 + 264))(*(v2 + 8), __s, v25))
+  if ((*(v2 + 264))(*(v2 + 8), __s, v24))
   {
     v16 = *MEMORY[0x277D85DF8];
     v17 = __error();
@@ -6966,7 +5162,7 @@ LABEL_16:
     fprintf(v16, "rename: %s\n", v18);
     BOMStorageFree(v6);
     v13 = 1;
-    v19 = BOMStorageOpenWithSys(v25, 1, v2);
+    v19 = BOMStorageOpenWithSys(v24, 1, v2);
     memcpy(a1, v19, 0x468uLL);
     free(v19);
   }
@@ -6975,11 +5171,9 @@ LABEL_16:
   {
     memcpy(a1, v6, 0x468uLL);
     free(v6);
-    v13 = 0;
+    return 0;
   }
 
-LABEL_31:
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -7150,18 +5344,28 @@ uint64_t _BOMStoragePrintDiagnostics(uint64_t result)
 
 uint64_t BOMStorageDump(uint64_t a1, int a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  if (!a1 || (v3 = *(a1 + 1096), !v3) || (v5 = *(a1 + 1100), !v5))
+  v29 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v10 = 1;
-    goto LABEL_9;
+    return 1;
+  }
+
+  v3 = *(a1 + 1096);
+  if (!v3)
+  {
+    return 1;
+  }
+
+  v5 = *(a1 + 1100);
+  if (!v5)
+  {
+    return 1;
   }
 
   v6 = BOMStreamWithAddress(*(a1 + 1040) + v3, v5, 0);
   if (!v6)
   {
-    v10 = 2;
-    goto LABEL_9;
+    return 2;
   }
 
   v7 = v6;
@@ -7184,121 +5388,107 @@ uint64_t BOMStorageDump(uint64_t a1, int a2)
     v9 = "readonly";
   }
 
-  v13 = MEMORY[0x277D85E08];
+  v12 = MEMORY[0x277D85E08];
   fprintf(*MEMORY[0x277D85E08], "Storage: open %s (%u blocks)\n", v9, *(a1 + 1056));
-  fprintf(*v13, "    ToC: %u entries (%u bytes)\n", UInt32, *(a1 + 1100));
+  fprintf(*v12, "    ToC: %u entries (%u bytes)\n", UInt32, *(a1 + 1100));
   if (!UInt32)
   {
     v10 = 0;
-    goto LABEL_71;
+    goto LABEL_66;
   }
 
-  v30 = 0;
+  v26 = 0;
   do
   {
-    v14 = BOMStreamReadUInt32(v7);
+    BOMStreamReadUInt32(v7);
     UInt8 = BOMStreamReadUInt8(v7);
     BOMStreamReadBuffer(v7, &__dst, UInt8);
     *(&__dst + UInt8) = 0;
-    if (v14)
-    {
-      if (*(a1 + 1056) >= v14 && *(a1 + 1068) > v14)
-      {
-        v16 = *(a1 + 1072) + 12 * v14;
-        if (*(v16 + 8) != 1)
-        {
-          v26 = *(v16 + 4);
-        }
-      }
-    }
-
-    v17 = *v13;
+    v14 = *v12;
     if (a2)
     {
-      fprintf(v17, "    Bid: 0x%08x (%u) '%s' (%lu bytes)");
+      fprintf(v14, "    Bid: 0x%08x (%u) '%s' (%lu bytes)");
     }
 
     else
     {
-      fprintf(v17, "    Bid: '%s' (%lu bytes)");
+      fprintf(v14, "    Bid: '%s' (%lu bytes)");
     }
 
-    if (__dst == 0x6F666E496D6F42 || (__dst == 1752457552 ? (v18 = WORD2(__dst) == 115) : (v18 = 0), v18 || __dst == 0x7865646E494C48 || (__dst == 1684949334 ? (v19 = *(&__dst + 3) == 7890276) : (v19 = 0), v19 || (__dst == 1702521171 ? (v20 = *(&__dst + 3) == 3421797) : (v20 = 0), v20))))
+    if (__dst == 0x6F666E496D6F42 || (__dst == 1752457552 ? (v15 = WORD2(__dst) == 115) : (v15 = 0), v15 || __dst == 0x7865646E494C48 || (__dst == 1684949334 ? (v16 = *(&__dst + 3) == 7890276) : (v16 = 0), v16 || (__dst == 1702521171 ? (v17 = *(&__dst + 3) == 3421797) : (v17 = 0), v17))))
     {
-      fwrite(" [BOM]\n", 7uLL, 1uLL, *v13);
+      fwrite(" [BOM]\n", 7uLL, 1uLL, *v12);
     }
 
     else
     {
       if (__dst == 0x547463656A6F7250 && *(&__dst + 1) == 0x656C6261546761)
       {
-        fwrite(" [Metabom]\n", 0xBuLL, 1uLL, *v13);
-        v30 |= 0x10u;
-        v27 = a2 | 0x210000;
-        v28 = a1;
+        fwrite(" [Metabom]\n", 0xBuLL, 1uLL, *v12);
+        v26 |= 0x10u;
+        v23 = a2 | 0x210000;
+        v24 = a1;
         p_dst = "ProjectTagTable";
       }
 
       else if (__dst == 0x546567616B636150 && *(&__dst + 1) == 0x656C6261546761)
       {
-        fwrite(" [Metabom]\n", 0xBuLL, 1uLL, *v13);
-        v30 |= 0x20u;
-        v27 = a2 | 0x210000;
-        v28 = a1;
+        fwrite(" [Metabom]\n", 0xBuLL, 1uLL, *v12);
+        v26 |= 0x20u;
+        v23 = a2 | 0x210000;
+        v24 = a1;
         p_dst = "PackageTagTable";
       }
 
       else if (__dst == 0x5467615468746150 && *(&__dst + 5) == 0x656C6261546761)
       {
-        fwrite(" [Metabom]\n", 0xBuLL, 1uLL, *v13);
-        v30 |= 0x40u;
-        v27 = a2 | 0x210000;
-        v28 = a1;
+        fwrite(" [Metabom]\n", 0xBuLL, 1uLL, *v12);
+        v26 |= 0x40u;
+        v23 = a2 | 0x210000;
+        v24 = a1;
         p_dst = "PathTagTable";
       }
 
-      else if (__dst == 0x547463656A6F7250 && *(&__dst + 1) == 0x657254687461506FLL && v32 == 101)
+      else if (__dst == 0x547463656A6F7250 && *(&__dst + 1) == 0x657254687461506FLL && v28 == 101)
       {
-        fwrite(" [Metabom]\n", 0xBuLL, 1uLL, *v13);
-        v30 |= 0x80u;
-        v27 = a2 | 0x1310000;
-        v28 = a1;
+        fwrite(" [Metabom]\n", 0xBuLL, 1uLL, *v12);
+        v26 |= 0x80u;
+        v23 = a2 | 0x1310000;
+        v24 = a1;
         p_dst = "ProjectToPathTree";
       }
 
       else
       {
-        if ((v30 & 0x20) == 0)
+        if ((v26 & 0x20) == 0)
         {
-          fputc(10, *v13);
-          goto LABEL_59;
+          fputc(10, *v12);
+          goto LABEL_54;
         }
 
-        fwrite(" [Package]\n", 0xBuLL, 1uLL, *v13);
+        fwrite(" [Package]\n", 0xBuLL, 1uLL, *v12);
         p_dst = &__dst;
-        v27 = a2 | 0x230000;
-        v28 = a1;
+        v23 = a2 | 0x230000;
+        v24 = a1;
       }
 
-      BOMStorageDumpTree(v28, p_dst, v27);
+      BOMStorageDumpTree(v24, p_dst, v23);
     }
 
-LABEL_59:
+LABEL_54:
     --UInt32;
   }
 
   while (UInt32);
   v10 = 0;
-  if ((v30 & 0xF0) != 0 && (v30 & 0xF0) != 0xF0)
+  if ((v26 & 0xF0) != 0 && (v26 & 0xF0) != 0xF0)
   {
-    fprintf(*MEMORY[0x277D85DF8], "WARNING: file appears to be a corrupt Metabom! (found %04x expected %04x or %04x)\n", v30 & 0xF0, 240, 0);
+    fprintf(*MEMORY[0x277D85DF8], "WARNING: file appears to be a corrupt Metabom! (found %04x expected %04x or %04x)\n", v26 & 0xF0, 240, 0);
     v10 = 3;
   }
 
-LABEL_71:
+LABEL_66:
   BOMStreamFree(v7);
-LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -7379,18 +5569,18 @@ uint64_t _buildKey(char *a1, char **a2)
 
 uint64_t BOMCKTreeCount(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char *a9)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v22 = 0;
-  v23 = &a9;
+  v25 = *MEMORY[0x277D85DE8];
+  v21 = 0;
+  v22 = &a9;
   if (!_buildKey(__s, &a9))
   {
     LODWORD(v11) = strlen(__s);
     v12 = (v11 + 1);
-    v13 = BOMTreeIteratorNew(a1, __s, v12, &v22);
+    v13 = BOMTreeIteratorNew(a1, __s, v12, &v21);
     if (v13)
     {
       v14 = v13;
-      if (!v22)
+      if (!v21)
       {
         if (!BOMTreeIteratorKey(v13) || (__strlcpy_chk(), strlen(__s1) == v11))
         {
@@ -7416,36 +5606,36 @@ uint64_t BOMCKTreeCount(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
           v11 = 0;
         }
 
-        v17 = strchr(&__s1[v11], 47);
-        if (v17)
+        v16 = strchr(&__s1[v11], 47);
+        if (v16)
         {
-          v17[1] = 0;
+          v16[1] = 0;
         }
 
-        v18 = strlen(__s1);
+        v17 = strlen(__s1);
         BOMTreeIteratorNext(v14);
         if (!BOMTreeIteratorIsAtEnd(v14))
         {
-          v19 = v18;
+          v18 = v17;
           v10 = 1;
           do
           {
-            v20 = BOMTreeIteratorKey(v14);
-            if (strncmp(__s, v20, v11))
+            v19 = BOMTreeIteratorKey(v14);
+            if (strncmp(__s, v19, v11))
             {
               break;
             }
 
-            if (strncmp(__s1, v20, v19))
+            if (strncmp(__s1, v19, v18))
             {
               __strlcpy_chk();
-              v21 = strchr(&__s1[v11], 47);
-              if (v21)
+              v20 = strchr(&__s1[v11], 47);
+              if (v20)
               {
-                v21[1] = 0;
+                v20[1] = 0;
               }
 
-              v19 = strlen(__s1);
+              v18 = strlen(__s1);
               v10 = (v10 + 1);
             }
 
@@ -7460,30 +5650,27 @@ uint64_t BOMCKTreeCount(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
       v10 = 1;
 LABEL_9:
       BOMTreeIteratorFree(v14);
-      goto LABEL_10;
+      return v10;
     }
   }
 
-  v10 = 0;
-LABEL_10:
-  v15 = *MEMORY[0x277D85DE8];
-  return v10;
+  return 0;
 }
 
 char *BOMCKTreeGet(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char *a9)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24 = 0;
-  v25 = &a9;
+  v26 = *MEMORY[0x277D85DE8];
+  v23 = 0;
+  v24 = &a9;
   if (!_buildKey(__s, &a9))
   {
     v12 = strlen(__s);
     v13 = (v12 + 1);
-    v14 = BOMTreeIteratorNew(a1, __s, v13, &v24);
+    v14 = BOMTreeIteratorNew(a1, __s, v13, &v23);
     if (v14)
     {
       v15 = v14;
-      if (v24)
+      if (v23)
       {
         v11 = BOMTreeIteratorValue(v14);
       }
@@ -7558,14 +5745,11 @@ LABEL_21:
 
 LABEL_24:
       BOMTreeIteratorFree(v15);
-      goto LABEL_25;
+      return v11;
     }
   }
 
-  v11 = 0;
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 0;
 }
 
 _DWORD *platform_toolbox_new(uint64_t a1)
@@ -8263,7 +6447,7 @@ LABEL_11:
   return mktime(a2);
 }
 
-void *BOMTreeNew(uint64_t a1, unsigned int a2)
+void *BOMTreeNew(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
@@ -8276,7 +6460,7 @@ void *BOMTreeNew(uint64_t a1, unsigned int a2)
   }
 }
 
-void *_BOMTreeNew(uint64_t a1, const char *a2, unsigned int a3, int a4, char a5)
+void *_BOMTreeNew(uint64_t a1, const char *a2, uint64_t a3, int a4, char a5)
 {
   result = _newBOMTree(a1, a2);
   if (result)
@@ -8300,7 +6484,7 @@ void *_BOMTreeNew(uint64_t a1, const char *a2, unsigned int a3, int a4, char a5)
     *(result + 81) = v13 >> 4;
     *(result + 294) = a5;
     v14 = _NewPage(result, 0);
-    *(v11 + 24) = v14;
+    v11[3] = v14;
     *(v14 + 2) |= 1u;
     *(v11 + 292) = 1;
     BOMTreeFree(v11);
@@ -8332,7 +6516,7 @@ void *BOMTreeNewWithName(uint64_t a1, const char *a2)
   return _BOMTreeNew(a1, a2, v4, 0, 0);
 }
 
-void *BOMTreeNewWithOptions(uint64_t a1, unsigned int a2, const char *a3, unsigned int a4, char a5)
+void *BOMTreeNewWithOptions(uint64_t a1, uint64_t a2, const char *a3, unsigned int a4, char a5)
 {
   if (!a1)
   {
@@ -8380,7 +6564,7 @@ LABEL_10:
   return _BOMTreeNew(a1, a3, v8, v6, a5);
 }
 
-uint64_t BOMTreeOpen(uint64_t a1, unsigned int a2, char a3)
+uint64_t BOMTreeOpen(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 && a2)
   {
@@ -8393,24 +6577,25 @@ uint64_t BOMTreeOpen(uint64_t a1, unsigned int a2, char a3)
   }
 }
 
-uint64_t _BOMTreeOpen(uint64_t a1, const char *a2, unsigned int a3, char a4)
+uint64_t _BOMTreeOpen(uint64_t a1, const char *a2, uint64_t a3, char a4)
 {
+  v5 = a3;
   v7 = a1;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v8 = _newBOMTree(a1, a2);
   v9 = v8;
   if (v8)
   {
     *v8 = v7;
-    *(v8 + 4) = a3;
+    *(v8 + 4) = v5;
     if (!a2)
     {
-      snprintf(__str, 0x100uLL, "<Tree %d>", a3);
+      snprintf(__str, 0x100uLL, "<Tree %d>", v5);
       v7 = *v9;
-      a3 = *(v9 + 16);
+      v5 = *(v9 + 16);
     }
 
-    v10 = BOMStreamWithBlockID(v7, a3, 0, 0);
+    v10 = BOMStreamWithBlockID(v7, v5, 0, 0);
     if (!v10)
     {
       goto LABEL_13;
@@ -8435,13 +6620,12 @@ uint64_t _BOMTreeOpen(uint64_t a1, const char *a2, unsigned int a3, char a4)
         if (v14 && !_ReadPage(v9, v14))
         {
           *(v9 + 293) = a4;
-          goto LABEL_14;
+          return v9;
         }
 
 LABEL_13:
         BOMTreeFree(v9);
-        v9 = 0;
-        goto LABEL_14;
+        return 0;
       }
 
       fprintf(*MEMORY[0x277D85DF8], "Tree '%s' has an unknown version: 0x%X\n");
@@ -8456,8 +6640,6 @@ LABEL_13:
     goto LABEL_13;
   }
 
-LABEL_14:
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -8590,7 +6772,7 @@ void _FreePage(void *a1)
   }
 }
 
-uint64_t BOMTreeRemoveAndFree(uint64_t result)
+uint64_t *BOMTreeRemoveAndFree(uint64_t *result)
 {
   if (result)
   {
@@ -8607,10 +6789,10 @@ uint64_t BOMTreeRemoveAndFree(uint64_t result)
       }
 
       BOMTreeIteratorFree(i);
-      BOMStorageFreeBlock(v2, **(v1 + 24));
-      _FreePage(*(v1 + 24));
-      *(v1 + 24) = 0;
-      v7 = *(v1 + 8);
+      BOMStorageFreeBlock(v2, *v1[3]);
+      _FreePage(v1[3]);
+      v1[3] = 0;
+      v7 = v1[1];
       if (v7)
       {
         BOMStorageFreeNamedBlock(v2, v7);
@@ -8618,17 +6800,17 @@ uint64_t BOMTreeRemoveAndFree(uint64_t result)
 
       else
       {
-        BOMStorageFreeBlock(v2, *(v1 + 16));
+        BOMStorageFreeBlock(v2, *(v1 + 4));
       }
 
-      v8 = *(v1 + 8);
+      v8 = v1[1];
       if (v8)
       {
         free(v8);
-        *(v1 + 8) = 0;
+        v1[1] = 0;
       }
 
-      v9 = *(v1 + 304);
+      v9 = v1[38];
       if (v9)
       {
         CFRelease(v9);
@@ -8792,14 +6974,14 @@ uint64_t BOMTreeIteratorKey(uint64_t result)
   return result;
 }
 
-uint64_t BOMTreeIteratorKeySize(uint64_t a1)
+uint64_t BOMTreeIteratorKeySize(uint64_t **a1)
 {
   if (!a1 || *(a1 + 67))
   {
     return 0;
   }
 
-  if ((*(a1 + 65) || (v5 = *(a1 + 8)) == 0 || *v5 != *(a1 + 16)) && !_revalidateIterator(a1))
+  if ((*(a1 + 65) || (v5 = a1[1]) == 0 || *v5 != *(a1 + 4)) && !_revalidateIterator(a1))
   {
     *(a1 + 67) = 1;
     return 0;
@@ -8811,7 +6993,7 @@ uint64_t BOMTreeIteratorKeySize(uint64_t a1)
   }
 
   v2 = **a1;
-  v3 = *(*(*(a1 + 8) + 24) + 4 * *(a1 + 20));
+  v3 = *(a1[1][3] + 4 * *(a1 + 5));
 
   return BOMStorageSizeOfBlock(v2, v3);
 }
@@ -8963,24 +7145,24 @@ uint64_t _SyncCache(uint64_t result)
   return result;
 }
 
-uint64_t _WritePage(uint64_t a1, uint64_t a2)
+uint64_t _WritePage(uint64_t a1, unsigned int *a2)
 {
   result = BOMStreamWithBlockID(*a1, *a2, *(a1 + 312), 1);
   if (result)
   {
     v4 = result;
-    BOMStreamWriteUInt16(result, *(a2 + 4) & 1);
-    BOMStreamWriteUInt16(v4, *(a2 + 16));
-    BOMStreamWriteUInt32(v4, *(a2 + 8));
-    BOMStreamWriteUInt32(v4, *(a2 + 12));
-    if (*(a2 + 16))
+    BOMStreamWriteUInt16(result, a2[1] & 1);
+    BOMStreamWriteUInt16(v4, *(a2 + 8));
+    BOMStreamWriteUInt32(v4, a2[2]);
+    BOMStreamWriteUInt32(v4, a2[3]);
+    if (*(a2 + 8))
     {
       v5 = 0;
       do
       {
-        BOMStreamWriteUInt32(v4, *(*(a2 + 32) + 4 * v5));
-        BOMStreamWriteUInt32(v4, *(*(a2 + 24) + 4 * v5++));
-        v6 = *(a2 + 16);
+        BOMStreamWriteUInt32(v4, *(*(a2 + 4) + 4 * v5));
+        BOMStreamWriteUInt32(v4, *(*(a2 + 3) + 4 * v5++));
+        v6 = *(a2 + 8);
       }
 
       while (v5 < v6);
@@ -8991,9 +7173,9 @@ uint64_t _WritePage(uint64_t a1, uint64_t a2)
       v6 = 0;
     }
 
-    BOMStreamWriteUInt32(v4, *(*(a2 + 32) + 4 * v6));
+    BOMStreamWriteUInt32(v4, *(*(a2 + 4) + 4 * v6));
     result = BOMStreamFree(v4);
-    *(a2 + 4) &= ~2u;
+    *(a2 + 2) &= ~2u;
   }
 
   return result;
@@ -9029,7 +7211,7 @@ uint64_t BOMTreeCount(uint64_t result)
   return result;
 }
 
-uint64_t BOMTreeSetValue(void *a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5)
+uint64_t BOMTreeSetValue(uint64_t a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5)
 {
   v22 = 0;
   v5 = 1;
@@ -9108,7 +7290,7 @@ LABEL_10:
   {
     if (!v22)
     {
-      ++*(a1 + 5);
+      ++*(a1 + 20);
     }
 
     v5 = 0;
@@ -9402,7 +7584,7 @@ uint64_t _PageSetValue(uint64_t a1, uint64_t *a2, const void *a3, size_t a4, int
           {
             v25 = v24;
             *(v24 + 2) = *(v24 + 2) & 0xFFFC | *(v14 + 4) & 1 | 2;
-            if ((*(v14 + 4) & 1) == 0 || (v26 = *v24, v27 = *v14, *(v24 + 2) = *(v14 + 8), *(v14 + 8) = v26, *(v24 + 3) = v27, (v28 = *(v24 + 2)) == 0))
+            if ((*(v14 + 4) & 1) == 0 || (v26 = *v24, v27 = *v14, *(v24 + 2) = *(v14 + 8), *(v14 + 8) = v26, *(v24 + 3) = v27, v28 = *(v24 + 2), !v28))
             {
 LABEL_22:
               if (*(a1 + 295))
@@ -9419,8 +7601,8 @@ LABEL_22:
 
               if (v30 + 1 >= v31)
               {
-                v34 = *(v25 + 4);
-                v37 = *(v25 + 8);
+                v34 = *(v25 + 32);
+                v37 = *(v25 + 16);
                 v30 = v30;
                 v38 = v31;
                 v32 = *(v14 + 24);
@@ -9431,17 +7613,17 @@ LABEL_22:
               {
                 v32 = *(v14 + 24);
                 v33 = *(v14 + 32);
-                v35 = *(v25 + 3);
-                v34 = *(v25 + 4);
+                v35 = *(v25 + 24);
+                v34 = *(v25 + 32);
                 v30 = v30;
                 v36 = v30 + 1;
-                v37 = *(v25 + 8);
+                v37 = *(v25 + 16);
                 do
                 {
                   *(v35 + 4 * v37) = *(v32 + 4 * v36);
                   *(v34 + 4 * v37++) = *(v33 + 4 * v36);
                   *(v32 + 4 * v36) = 0;
-                  *(v25 + 8) = v37;
+                  *(v25 + 16) = v37;
                   *(v33 + 4 * v36++) = 0;
                   v38 = *(v14 + 16);
                 }
@@ -9491,9 +7673,9 @@ LABEL_22:
             Page = _findPage(a1, v28);
             if (Page)
             {
-              if (*(Page + 3) == *v14)
+              if (Page[3] == *v14)
               {
-                *(Page + 3) = *v25;
+                Page[3] = *v25;
                 *(Page + 2) |= 2u;
                 goto LABEL_22;
               }
@@ -9628,7 +7810,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t _findRemove(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, size_t a8, char *a9)
+uint64_t _findRemove(uint64_t a1, unsigned int **a2, unint64_t a3, uint64_t a4, unsigned int *a5, unsigned int *a6, const void *a7, size_t a8, char *a9)
 {
   v13 = a2;
   v15 = a9;
@@ -9775,7 +7957,7 @@ LABEL_26:
 
   if ((v25 & 8) == 0 && v76)
   {
-    *(v76 + 2) &= ~8u;
+    *(v76 + 4) &= ~8u;
   }
 
   if (!result)
@@ -9856,8 +8038,8 @@ LABEL_44:
       v36 = a6;
       if (a6 && v18 == v35)
       {
-        *(*(a6 + 24) + 4 * *(a6 + 20)) = *(*(v16 + 24) + 4 * (v18 - 1));
-        *(a6 + 4) |= 2u;
+        *(*(a6 + 3) + 4 * a6[5]) = *(*(v16 + 24) + 4 * (v18 - 1));
+        *(a6 + 2) |= 2u;
         v35 = *(v16 + 16);
       }
     }
@@ -9884,7 +8066,7 @@ LABEL_44:
         if (v46)
         {
           v47 = _findPage(a1, v46);
-          v47[2] &= ~8u;
+          *(v47 + 2) &= ~8u;
           _removePageFromCache(a1, v47);
           *(a1 + 24) = v47;
           BOMStorageFreeBlock(*a1, *v38);
@@ -9932,7 +8114,7 @@ LABEL_44:
         {
           if (v44 <= v45)
           {
-            v63 = *(*(v36 + 32) + 4 * *(v36 + 20));
+            v63 = *(*(v36 + 4) + 4 * v36[5]);
             if (*v39 == v63)
             {
               v40 = a4;
@@ -9982,20 +8164,20 @@ LABEL_44:
         v51 = v40;
       }
 
-      if (v39[2])
+      if (v39[1])
       {
         v52 = v36;
         _invalidateIteratorsForPageID(a1, *v40);
         v36 = v52;
       }
 
-      v53 = *(v36 + 20) - (v40 != v49);
-      if ((v51[2] & 1) == 0)
+      v53 = v36[5] - (v40 != v49);
+      if ((*(v51 + 4) & 1) == 0)
       {
-        v54 = v51[8];
-        *(*(v51 + 3) + 4 * v54) = *(*(v36 + 24) + 4 * v53);
-        v51[8] = v54 + 1;
-        v51[2] |= 2u;
+        v54 = *(v51 + 16);
+        *(*(v51 + 24) + 4 * v54) = *(*(v36 + 3) + 4 * v53);
+        *(v51 + 16) = v54 + 1;
+        *(v51 + 4) |= 2u;
       }
 
       if (v37 < v48)
@@ -10003,21 +8185,21 @@ LABEL_44:
         v55 = a1;
         v56 = v36;
         _shiftKeysAndValues(v55, v39, v40, v50);
-        v57 = *(*(v51 + 3) + 4 * v51[8] - 4);
-        v58 = *(v56 + 24);
+        v57 = *(*(v51 + 24) + 4 * *(v51 + 16) - 4);
+        v58 = *(v56 + 3);
         if (*(v58 + 4 * v53) != v57)
         {
           *(v58 + 4 * v53) = v57;
-          *(v56 + 4) |= 2u;
+          *(v56 + 2) |= 2u;
         }
 
         v59 = 0;
-        if ((v51[2] & 1) == 0)
+        if ((*(v51 + 4) & 1) == 0)
         {
-          v60 = v51[8] - 1;
-          v51[8] = v60;
-          *(*(v51 + 3) + 4 * v60) = 0;
-          v51[2] |= 2u;
+          v60 = *(v51 + 16) - 1;
+          *(v51 + 16) = v60;
+          *(*(v51 + 24) + 4 * v60) = 0;
+          *(v51 + 4) |= 2u;
         }
 
         v62 = v67;
@@ -10048,7 +8230,7 @@ LABEL_44:
           if (!v61)
           {
 LABEL_112:
-            v39[2] &= ~8u;
+            *(v39 + 2) &= ~8u;
             _removePageFromCache(a1, v39);
             BOMStorageFreeBlock(*a1, *v39);
             _FreePage(v39);
@@ -10073,4 +8255,2011 @@ LABEL_113:
   }
 
   return result;
+}
+
+uint64_t BOMTreeCopyToTree(uint64_t a1, uint64_t a2)
+{
+  v3 = 1;
+  if (a1 && a2)
+  {
+    if (!*(a2 + 20))
+    {
+      *(a2 + 295) = 1;
+    }
+
+    v4 = BOMTreeIteratorNew(a1, 0, 0, 0);
+    if (!v4)
+    {
+      goto LABEL_13;
+    }
+
+    for (i = v4; ; BOMTreeIteratorNext(i))
+    {
+      if (BOMTreeIteratorIsAtEnd(i))
+      {
+        v3 = 0;
+        goto LABEL_11;
+      }
+
+      v6 = BOMTreeIteratorKey(i);
+      v7 = BOMTreeIteratorKeySize(i);
+      v8 = BOMTreeIteratorValue(i);
+      v9 = BOMTreeIteratorValueSize(i);
+      if (BOMTreeSetValue(a2, v6, v7, v8, v9))
+      {
+        break;
+      }
+    }
+
+    v3 = 1;
+LABEL_11:
+    BOMTreeIteratorFree(i);
+  }
+
+  if (a2)
+  {
+LABEL_13:
+    *(a2 + 295) = 0;
+  }
+
+  return v3;
+}
+
+uint64_t BOMTreeIteratorValue(uint64_t result)
+{
+  if (result)
+  {
+    v1 = result;
+    if (*(result + 67))
+    {
+      return 0;
+    }
+
+    if (!*(result + 65) && (v2 = *(result + 8)) != 0 && *v2 == *(result + 16) || _revalidateIterator(result))
+    {
+      if (!*(v1 + 64))
+      {
+        v3 = BOMStorageSizeOfBlock(**v1, *(*(*(v1 + 8) + 32) + 4 * *(v1 + 20)));
+        v4 = *(v1 + 48);
+        v5 = *(v1 + 56);
+        if (v3 > v5)
+        {
+          v6 = v3;
+          if (v4)
+          {
+            free(*(v1 + 48));
+            *(v1 + 48) = 0;
+            v5 = *(v1 + 56);
+          }
+
+          if (v6 <= 2 * v5)
+          {
+            v7 = 2 * v5;
+          }
+
+          else
+          {
+            v7 = v6;
+          }
+
+          *(v1 + 56) = v7;
+          v4 = BOM_malloc(v7);
+          *(v1 + 48) = v4;
+        }
+
+        if (BOMStorageCopyFromBlock(**v1, *(*(*(v1 + 8) + 32) + 4 * *(v1 + 20)), v4))
+        {
+          return 0;
+        }
+
+        *(v1 + 64) = 1;
+      }
+
+      return *(v1 + 48);
+    }
+
+    else
+    {
+      result = 0;
+      *(v1 + 67) = 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t BOMTreeIteratorValueSize(uint64_t **a1)
+{
+  if (!a1 || *(a1 + 67))
+  {
+    return 0;
+  }
+
+  if (*(a1 + 65) || (v3 = a1[1]) == 0 || *v3 != *(a1 + 4))
+  {
+    if (!_revalidateIterator(a1))
+    {
+      *(a1 + 67) = 1;
+      return 0;
+    }
+
+    v3 = a1[1];
+  }
+
+  v4 = **a1;
+  v5 = *(v3[4] + 4 * *(a1 + 5));
+
+  return BOMStorageSizeOfBlock(v4, v5);
+}
+
+uint64_t BOMTreeSetDensePacking(uint64_t result, char a2)
+{
+  if (result)
+  {
+    *(result + 295) = a2;
+  }
+
+  return result;
+}
+
+_DWORD *BOMTreeIteratorSet(void *a1, const void *a2, size_t a3, BOOL *a4)
+{
+  *(a1 + 65) = 0;
+  *(a1 + 67) = 0;
+  result = _findPagesForKey(*a1, 0, a2, a3);
+  a1[1] = result;
+  if (result)
+  {
+    *(a1 + 4) = *result;
+    result = _findIndexForKey(*a1, result, a2, a3, a4);
+    *(a1 + 5) = result;
+    *(a1 + 66) = 1;
+    v9 = a1[1];
+    if (result >= *(v9 + 16))
+    {
+      *(a1 + 5) = 0;
+      v10 = *(v9 + 8);
+      if (!v10 || (*(a1 + 4) = v10, result = _findPage(*a1, v10), (a1[1] = result) == 0))
+      {
+        *(a1 + 67) = 1;
+      }
+    }
+  }
+
+  else
+  {
+    *(a1 + 33) = 256;
+  }
+
+  return result;
+}
+
+unsigned int *_findPage(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    if (a1)
+    {
+      v4 = 0;
+      while (1)
+      {
+        v5 = *(a1 + 32 + v4);
+        if (v5)
+        {
+          if (*v5 == a2)
+          {
+            break;
+          }
+        }
+
+        v4 += 8;
+        if (v4 == 256)
+        {
+          goto LABEL_7;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_7:
+      v5 = 0;
+    }
+
+    v6 = 0;
+    v7 = a1 + 32;
+    while (1)
+    {
+      if (v5)
+      {
+        return v5;
+      }
+
+      v8 = *(a1 + 288);
+      v5 = *(v7 + 8 * v8);
+      if (!v5)
+      {
+        v5 = _NewPage(a1, v2);
+        if (!v5)
+        {
+          return v5;
+        }
+
+        if (_ReadPage(a1, v5))
+        {
+          return 0;
+        }
+
+        v8 = *(a1 + 288);
+        *(v7 + 8 * v8) = v5;
+        goto LABEL_22;
+      }
+
+      v9 = *(v5 + 2);
+      if ((v9 & 0xC) == 4)
+      {
+        break;
+      }
+
+      if ((v9 & 4) != 0)
+      {
+        v5 = 0;
+LABEL_22:
+        v12 = v6;
+        goto LABEL_23;
+      }
+
+      v12 = 0;
+      *(v5 + 2) = v9 | 4;
+      LODWORD(v8) = *(a1 + 288);
+      v5 = 0;
+LABEL_23:
+      v13 = v8 + 1;
+      v14 = -v13 < 0;
+      v15 = -v13 & 0x1F;
+      v16 = v13 & 0x1F;
+      if (!v14)
+      {
+        v16 = -v15;
+      }
+
+      *(a1 + 288) = v16;
+      v6 = v12 + 1;
+      if (!v5 && v12 >= 32)
+      {
+        v17 = __error();
+        _BOMExceptionHandlerCall("btree cache is deadlocked", 0, "/Library/Caches/com.apple.xbs/Sources/Bom/Storage/BOMTree.c", 2144, *v17);
+        return 0;
+      }
+    }
+
+    if ((v9 & 2) != 0)
+    {
+      _WritePage(a1, *(v7 + 8 * v8));
+    }
+
+    v10 = *(v5 + 3);
+    v11 = *(v5 + 4);
+    *v5 = 0u;
+    *(v5 + 1) = 0u;
+    *(v5 + 4) = 0;
+    bzero(v10, 4 * *(a1 + 316));
+    bzero(v11, 4 * *(a1 + 320));
+    *v5 = v2;
+    *(v5 + 1) = -1;
+    *(v5 + 3) = v10;
+    *(v5 + 4) = v11;
+    if (_ReadPage(a1, v5))
+    {
+      return 0;
+    }
+
+    v8 = *(a1 + 288);
+    *(v7 + 8 * v8) = v5;
+    goto LABEL_22;
+  }
+
+  return 0;
+}
+
+uint64_t _revalidateIterator(void *a1)
+{
+  if (!*(a1 + 65))
+  {
+    Page = a1[1];
+    if (Page)
+    {
+      v5 = *(a1 + 4);
+      if (*Page == v5)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    else
+    {
+      v5 = *(a1 + 4);
+    }
+
+    Page = _findPage(*a1, v5);
+    a1[1] = Page;
+    if (!Page)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_9;
+  }
+
+  PagesForKey = _findPagesForKey(*a1, 0, a1[3], a1[4]);
+  a1[1] = PagesForKey;
+  if (!PagesForKey)
+  {
+    goto LABEL_11;
+  }
+
+  IndexForKey = _findIndexForKey(*a1, PagesForKey, a1[3], a1[4], a1 + 66);
+  Page = a1[1];
+  *(a1 + 4) = *Page;
+  *(a1 + 5) = IndexForKey;
+  *(a1 + 65) = 0;
+LABEL_9:
+  if (*(a1 + 5) < *(Page + 8))
+  {
+    return 1;
+  }
+
+LABEL_11:
+  result = 0;
+  *(a1 + 65) = 1;
+  return result;
+}
+
+uint64_t BOMTreeVerifyLeaves(uint64_t result)
+{
+  if (result)
+  {
+    v1 = result;
+    v2 = *(result + 24);
+    if (!v2)
+    {
+      return 0;
+    }
+
+    _SyncCache(result);
+    if ((v2[1] & 1) == 0)
+    {
+      while (1)
+      {
+        v3 = _NewPage(v1, **(v2 + 4));
+        if (!v3)
+        {
+          v5 = *__error();
+          v6 = "verifier: can't make page";
+          v7 = 2642;
+          goto LABEL_24;
+        }
+
+        v4 = v3;
+        if (_ReadPage(v1, v3))
+        {
+          break;
+        }
+
+        if (v2 != *(v1 + 24))
+        {
+          _FreePage(v2);
+        }
+
+        v2 = v4;
+        if (v4[1])
+        {
+          goto LABEL_11;
+        }
+      }
+
+      v5 = *__error();
+      v6 = "verifier: can't read page";
+      v7 = 2647;
+      goto LABEL_24;
+    }
+
+    v4 = v2;
+LABEL_11:
+    if (v4[3])
+    {
+      v5 = *__error();
+      v6 = "verifier: first leaf has prev value";
+      v7 = 2658;
+LABEL_24:
+      _BOMExceptionHandlerCall(v6, 1u, "/Library/Caches/com.apple.xbs/Sources/Bom/Storage/BOMTree.c", v7, v5);
+      return 0;
+    }
+
+    v9 = v4 + 2;
+    v8 = v4[2];
+    if (v8)
+    {
+      while (1)
+      {
+        v10 = _NewPage(v1, v8);
+        if (!v10)
+        {
+          v5 = *__error();
+          v6 = "verifier: can't make page";
+          v7 = 2666;
+          goto LABEL_24;
+        }
+
+        v11 = v10;
+        if (_ReadPage(v1, v10))
+        {
+          v5 = *__error();
+          v6 = "verifier: can't read page";
+          v7 = 2671;
+          goto LABEL_24;
+        }
+
+        if (*v9 != *v11)
+        {
+          v5 = *__error();
+          v6 = "verifier: page->next != next->bid";
+          v7 = 2678;
+          goto LABEL_24;
+        }
+
+        if (v11[3] != *v4)
+        {
+          break;
+        }
+
+        if (v4 != *(v1 + 24))
+        {
+          _FreePage(v4);
+        }
+
+        v9 = v11 + 2;
+        v8 = v11[2];
+        v4 = v11;
+        if (!v8)
+        {
+          goto LABEL_28;
+        }
+      }
+
+      v5 = *__error();
+      v6 = "verifier: next->prev != page->bid";
+      v7 = 2683;
+      goto LABEL_24;
+    }
+
+    v11 = v4;
+LABEL_28:
+    if (v11 != *(v1 + 24))
+    {
+      _FreePage(v11);
+    }
+
+    return 1;
+  }
+
+  return result;
+}
+
+BOOL _BOMTreeDiagnosticTraverse(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, void *a5, void *a6)
+{
+  if (!a1)
+  {
+    return 1;
+  }
+
+  v10 = a2;
+  if (!a2)
+  {
+    v10 = *(a1 + 24);
+  }
+
+  if (*(v10 + 4))
+  {
+    if (a3)
+    {
+      ++*a3;
+    }
+
+    if (!*(v10 + 16))
+    {
+      v16 = 0;
+LABEL_28:
+      v13 = 0;
+      if (a6)
+      {
+        v19 = *(*(v10 + 32) + 4 * v16);
+        if (v19)
+        {
+          v13 = 0;
+          *a6 += BOMStorageSizeOfBlock(*a1, v19);
+        }
+      }
+
+      return v13 != 0;
+    }
+
+    v16 = 0;
+    while (!a5 || *(a1 + 294))
+    {
+      if (a6)
+      {
+        goto LABEL_19;
+      }
+
+LABEL_20:
+      if (++v16 >= *(v10 + 16))
+      {
+        goto LABEL_28;
+      }
+    }
+
+    *a5 += BOMStorageSizeOfBlock(*a1, *(*(v10 + 24) + 4 * v16));
+    if (!a6)
+    {
+      goto LABEL_20;
+    }
+
+LABEL_19:
+    *a6 += BOMStorageSizeOfBlock(*a1, *(*(v10 + 32) + 4 * v16));
+    goto LABEL_20;
+  }
+
+  if (a4)
+  {
+    ++*a4;
+  }
+
+  if (*(v10 + 16))
+  {
+    v12 = 0;
+    v13 = 0;
+    do
+    {
+      Page = _findPage(a1, *(*(v10 + 32) + 4 * v12));
+      v13 += _BOMTreeDiagnosticTraverse(a1, Page, a3, a4, a5, a6);
+      ++v12;
+    }
+
+    while (v12 < *(v10 + 16));
+  }
+
+  else
+  {
+    v12 = 0;
+    v13 = 0;
+  }
+
+  v17 = *(*(v10 + 32) + 4 * v12);
+  if (v17)
+  {
+    v18 = _findPage(a1, v17);
+    v13 += _BOMTreeDiagnosticTraverse(a1, v18, a3, a4, a5, a6);
+  }
+
+  return v13 != 0;
+}
+
+uint64_t _BOMTreePrintDiagnostics(uint64_t result)
+{
+  v7 = 0;
+  v6 = 0;
+  v4 = 0;
+  v5 = 0;
+  if (result)
+  {
+    v1 = result;
+    result = _BOMTreeDiagnosticTraverse(result, 0, &v7, &v6, &v5, &v4);
+    if (!result)
+    {
+      v2 = v6 + v7;
+      v3 = MEMORY[0x277D85DF8];
+      fprintf(*MEMORY[0x277D85DF8], "   # records: %d\n", *(v1 + 20));
+      fprintf(*v3, "   # pages  : %d (%d)\n", v2, *(v1 + 312) * v2);
+      fprintf(*v3, "     leaf   : %d (%d)\n", v7, *(v1 + 312) * v7);
+      fprintf(*v3, "     branch : %d (%d)\n", v6, *(v1 + 312) * v6);
+      fprintf(*v3, "   key size : %zd\n", v5);
+      return fprintf(*v3, "   data size: %zd\n", v4);
+    }
+  }
+
+  return result;
+}
+
+uint64_t BOMMemoryDump(unsigned __int8 *a1, uint64_t a2, const char *a3)
+{
+  v3 = a2;
+  v29 = *MEMORY[0x277D85DE8];
+  v5 = MEMORY[0x277D85E08];
+  v6 = *MEMORY[0x277D85E08];
+  v27 = a1;
+  if (!a1)
+  {
+    fprintf(v6, "(%lu bytes) (NULL)\n", a2);
+    return 0;
+  }
+
+  fprintf(v6, "(%lu bytes)\n", a2);
+  if (v3 >= 1)
+  {
+    v8 = v27;
+    v9 = &v27[v3];
+    v10 = "";
+    if (a3)
+    {
+      v10 = a3;
+    }
+
+    v25 = v3;
+    v26 = v10;
+    while (1)
+    {
+      v11 = v8;
+      fprintf(*v5, "%s%08x:", v26, v8 - v27);
+      v12 = 0;
+      v13 = v28;
+      do
+      {
+        fprintf(*v5, " %02x", *v8);
+        v14 = *v8;
+        if (v14 < 0)
+        {
+          v15 = __maskrune(*v8, 0x40000uLL);
+        }
+
+        else
+        {
+          v15 = *(MEMORY[0x277D85DE0] + 4 * v14 + 60) & 0x40000;
+        }
+
+        if (v15)
+        {
+          v16 = v14;
+        }
+
+        else
+        {
+          v16 = 46;
+        }
+
+        *v13 = v16;
+        v17 = v13 + 1;
+        v18 = v12 + 1;
+        if (v12 < 15)
+        {
+          v19 = &v11[v18];
+          if (&v11[v18] < v9)
+          {
+            fprintf(*v5, "%02x", *v19);
+            v20 = *v19;
+            if (v20 < 0)
+            {
+              v21 = __maskrune(*v19, 0x40000uLL);
+            }
+
+            else
+            {
+              v21 = *(MEMORY[0x277D85DE0] + 4 * v20 + 60) & 0x40000;
+            }
+
+            if (v21)
+            {
+              v22 = v20;
+            }
+
+            else
+            {
+              v22 = 46;
+            }
+
+            v17 = v13 + 2;
+            v13[1] = v22;
+            v18 = v12 + 2;
+          }
+        }
+
+        v8 = &v11[v18];
+        if (v18 > 15)
+        {
+          break;
+        }
+
+        v13 = v17;
+        v12 = v18;
+      }
+
+      while (v8 < v9);
+      if (v18 > 15)
+      {
+        goto LABEL_29;
+      }
+
+      v23 = 16 - v18;
+      if (((16 - v18) & 1) == 0)
+      {
+        goto LABEL_28;
+      }
+
+      fwrite("  ", 2uLL, 1uLL, *v5);
+      if (v18 != 15)
+      {
+        break;
+      }
+
+LABEL_29:
+      *v17 = 0;
+      fprintf(*v5, "  %s\n", v28);
+      if (v8 >= v9)
+      {
+        return v25;
+      }
+    }
+
+    v23 = 15 - v18;
+    do
+    {
+LABEL_28:
+      fwrite("     ", 5uLL, 1uLL, *v5);
+      v23 -= 2;
+    }
+
+    while (v23);
+    goto LABEL_29;
+  }
+
+  return v3;
+}
+
+uint64_t BOMStorageDumpTree(uint64_t a1, const char *a2, unsigned int a3)
+{
+  v4 = a2;
+  v5 = BOMTreeOpenWithName(a1, a2, 0);
+  if (v5)
+  {
+    v6 = v5;
+    v7 = MEMORY[0x277D85E08];
+    fprintf(*MEMORY[0x277D85E08], "        %s (%u entries)\n", v4, *(v5 + 20));
+    v26 = v6;
+    v8 = BOMTreeIteratorNew(v6, 0, 0, 0);
+    if (!BOMTreeIteratorIsAtEnd(v8))
+    {
+      v9 = HIWORD(a3) & 0xF;
+      v27 = v9;
+      v28 = a3;
+      do
+      {
+        fprintf(*v7, "        %s   Key ", v4);
+        v10 = BOMTreeIteratorKey(v8);
+        v11 = BOMTreeIteratorKeySize(v8);
+        switch(v9)
+        {
+          case 3u:
+            BOMPathKeyDump(v10, v11);
+            break;
+          case 2u:
+            BOMPathIdDump(v10, v11);
+            break;
+          case 1u:
+            BOMPathDump(v10);
+            break;
+          default:
+            BOMMemoryDump(v10, v11, "        ");
+            break;
+        }
+
+        fprintf(*v7, "        %s Value ", v4);
+        v12 = BOMTreeIteratorValue(v8);
+        v13 = BOMTreeIteratorValueSize(v8);
+        v14 = v13;
+        if ((a3 & 0x1000000) != 0)
+        {
+          if (v13 >= 4)
+          {
+            v17 = v4;
+            v18 = a3;
+            v20 = *v12;
+            v12 += 4;
+            v19 = v20;
+            v21 = bswap32(v20);
+            v22 = "ies";
+            if (v20 == 0x1000000)
+            {
+              v22 = "y";
+            }
+
+            fprintf(*v7, "(%lu bytes for %d entr%s)\n", v13, v21, v22);
+            v15 = v19 != 0;
+            v14 -= 4;
+            v16 = v18;
+            v4 = v17;
+            if (!v14)
+            {
+              goto LABEL_32;
+            }
+
+LABEL_20:
+            if (v15)
+            {
+              v23 = (v16 >> 20) & 0xF;
+              do
+              {
+                if ((v16 & 0x1000000) != 0)
+                {
+                  fprintf(*v7, "  %s", "        ");
+                }
+
+                switch(v23)
+                {
+                  case 3:
+                    v24 = BOMPathKeyDump(v12, v14);
+                    break;
+                  case 2:
+                    v24 = BOMPathIdDump(v12, v14);
+                    break;
+                  case 1:
+                    v24 = BOMPathDump(v12);
+                    break;
+                  default:
+                    v24 = BOMMemoryDump(v12, v14, "        ");
+                    break;
+                }
+
+                v12 += v24;
+                v14 -= v24;
+              }
+
+              while (v14);
+            }
+
+            goto LABEL_32;
+          }
+
+          v16 = 0;
+          v15 = 1;
+          if (v13)
+          {
+            goto LABEL_20;
+          }
+        }
+
+        else
+        {
+          v15 = 1;
+          v16 = a3;
+          if (v13)
+          {
+            goto LABEL_20;
+          }
+        }
+
+LABEL_32:
+        BOMTreeIteratorNext(v8);
+        v9 = v27;
+        a3 = v28;
+      }
+
+      while (!BOMTreeIteratorIsAtEnd(v8));
+    }
+
+    fputc(10, *v7);
+    if (v8)
+    {
+      BOMTreeIteratorFree(v8);
+    }
+
+    BOMTreeFree(v26);
+    return 0;
+  }
+
+  else
+  {
+    fputc(10, *MEMORY[0x277D85E08]);
+    return 0xFFFFFFFFLL;
+  }
+}
+
+void *_newBOMTree(uint64_t a1, const char *a2)
+{
+  v4 = BOM_malloczero(0x168uLL);
+  v5 = v4;
+  if (v4)
+  {
+    *v4 = a1;
+    if (a2)
+    {
+      v4[1] = strdup(a2);
+    }
+  }
+
+  else
+  {
+    v6 = *MEMORY[0x277D85DF8];
+    v7 = __error();
+    v8 = strerror(*v7);
+    fprintf(v6, "malloc: %s\n", v8);
+  }
+
+  return v5;
+}
+
+void *_NewPage(uint64_t a1, int a2)
+{
+  v4 = *a1;
+  v5 = BOM_malloczero(4 * (*(a1 + 316) + 1));
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = BOM_malloczero(4 * (*(a1 + 320) + 1));
+  if (!v7)
+  {
+    free(v6);
+    return 0;
+  }
+
+  v8 = v7;
+  v9 = BOM_malloczero(0x28uLL);
+  if (v9)
+  {
+    if (!a2)
+    {
+      a2 = BOMStorageNewBlock(v4);
+    }
+
+    v9[3] = v6;
+    v9[4] = v8;
+    *v9 = a2;
+  }
+
+  else
+  {
+    free(v6);
+    free(v8);
+  }
+
+  return v9;
+}
+
+uint64_t _ReadPage(uint64_t a1, unsigned int *a2)
+{
+  v3 = BOMStreamWithBlockID(*a1, *a2, *(a1 + 312), 0);
+  if (!v3)
+  {
+    return 1;
+  }
+
+  v4 = v3;
+  UInt16 = BOMStreamReadUInt16(v3);
+  v6 = a2[1] & 0xFFFE;
+  if (UInt16)
+  {
+    ++v6;
+  }
+
+  *(a2 + 2) = v6;
+  *(a2 + 8) = BOMStreamReadUInt16(v4);
+  a2[2] = BOMStreamReadUInt32(v4);
+  a2[3] = BOMStreamReadUInt32(v4);
+  if (*(a2 + 8))
+  {
+    v7 = 0;
+    do
+    {
+      *(*(a2 + 4) + 4 * v7) = BOMStreamReadUInt32(v4);
+      *(*(a2 + 3) + 4 * v7++) = BOMStreamReadUInt32(v4);
+    }
+
+    while (v7 < *(a2 + 8));
+  }
+
+  *(*(a2 + 4) + 4 * *(a2 + 8)) = BOMStreamReadUInt32(v4);
+  BOMStreamFree(v4);
+  return 0;
+}
+
+void _invalidateIteratorsForPageID(uint64_t a1, unsigned int a2)
+{
+  v3 = *(a1 + 304);
+  if (v3)
+  {
+    v5 = BOMCFArrayMaxRange(v3);
+    v7 = v6;
+    v8 = *(a1 + 304);
+    v9.location = v5;
+    v9.length = v7;
+
+    CFArrayApplyFunction(v8, v9, _invalidateIterator, a2);
+  }
+}
+
+void _addPageToCache(uint64_t a1, uint64_t a2)
+{
+  v3 = a1 + 32;
+  v4 = *(a1 + 288);
+  v5 = *(a1 + 32 + 8 * v4);
+  if (v5)
+  {
+    while (1)
+    {
+      v7 = *(v5 + 4);
+      if ((v7 & 0xC) == 4)
+      {
+        break;
+      }
+
+      *(v5 + 4) = v7 | 4;
+      v8 = *(a1 + 288) + 1;
+      v9 = -v8 < 0;
+      v10 = -v8 & 0x1F;
+      LODWORD(v4) = v8 & 0x1F;
+      if (!v9)
+      {
+        LODWORD(v4) = -v10;
+      }
+
+      *(a1 + 288) = v4;
+      v5 = *(v3 + 8 * v4);
+      if (!v5)
+      {
+        v4 = v4;
+        goto LABEL_10;
+      }
+    }
+
+    if ((v7 & 2) != 0)
+    {
+      _WritePage(a1, v5);
+    }
+
+    _FreePage(v5);
+    v4 = *(a1 + 288);
+  }
+
+LABEL_10:
+  *(v3 + 8 * v4) = a2;
+}
+
+uint64_t _invalidateIterator(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    v2 = result;
+    if (*(result + 16) == a2 && !*(result + 67) && !*(result + 65))
+    {
+      result = *(result + 8);
+      if (result && *result == a2 || (result = _findPage(*v2, a2), (*(v2 + 8) = result) != 0))
+      {
+        if (*(*v2 + 294))
+        {
+          *(v2 + 24) = *(*(result + 24) + 4 * *(v2 + 20));
+          *(v2 + 32) = 0;
+        }
+
+        else
+        {
+          v3 = BOMStorageSizeOfBlock(**v2, *(*(result + 24) + 4 * *(v2 + 20)));
+          *(v2 + 32) = v3;
+          if (*(v2 + 24))
+          {
+            free(*(v2 + 24));
+            *(v2 + 24) = 0;
+            v3 = *(v2 + 32);
+          }
+
+          v4 = BOM_malloc(v3);
+          *(v2 + 24) = v4;
+          if (!v4)
+          {
+            v5 = __error();
+            _BOMFatalException("BOMTree iterator cannot cache keys. This is a fatal error (!it->key).\n", "/Library/Caches/com.apple.xbs/Sources/Bom/Storage/BOMTree.c", 2550, *v5);
+          }
+
+          result = BOMStorageCopyFromBlock(**v2, *(*(*(v2 + 8) + 24) + 4 * *(v2 + 20)), v4);
+          if (result)
+          {
+            v6 = __error();
+            _BOMFatalException("BOMTree iterator cannot cache keys. This is a fatal error (BOMStorageCopyFromBlock returned an error).\n", "/Library/Caches/com.apple.xbs/Sources/Bom/Storage/BOMTree.c", 2554, *v6);
+          }
+        }
+      }
+
+      *(v2 + 65) = 1;
+    }
+  }
+
+  return result;
+}
+
+void _removePageFromCache(uint64_t a1, _WORD *a2)
+{
+  if ((a2[2] & 8) == 0)
+  {
+    for (i = 32; i != 288; i += 8)
+    {
+      if (*(a1 + i) == a2)
+      {
+        v5 = *(a1 + 304);
+        if (v5)
+        {
+          v6 = BOMCFArrayMaxRange(v5);
+          v8 = v7;
+          v10.location = v6;
+          v10.length = v8;
+          CFArrayApplyFunction(*(a1 + 304), v10, _pageRemovedCallback, a2);
+        }
+
+        *(a1 + i) = 0;
+      }
+    }
+
+    if ((a2[2] & 2) != 0)
+    {
+
+      _WritePage(a1, a2);
+    }
+  }
+}
+
+uint64_t _pageRemovedCallback(uint64_t result, uint64_t a2)
+{
+  if (result && a2 && *(result + 8) == a2)
+  {
+    *(result + 8) = 0;
+  }
+
+  return result;
+}
+
+uint64_t _shiftKeysAndValues(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+{
+  v4 = *(a3 + 16);
+  v5 = *(result + 324);
+  v6 = v4 >= v5;
+  v8 = v4 - v5;
+  v7 = v8 != 0 && v6;
+  v9 = (v8 + 1) >> 1;
+  if (v7)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = *(a3 + 16);
+  }
+
+  v11 = *(a2 + 16);
+  v12 = v10 + v11;
+  v13 = v4 - v10;
+  if (a4)
+  {
+    v14 = 0;
+    if (!v10)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_11;
+  }
+
+  v15 = *(a2 + 32);
+  *(v15 + 4 * v12) = *(v15 + 4 * v11);
+  if (v11)
+  {
+    v16 = *(a2 + 24);
+    v17 = v11 - 1;
+    v18 = v11 - 1 + v10;
+    do
+    {
+      *(v16 + 4 * v18) = *(v16 + 4 * v17);
+      *(v15 + 4 * v18--) = *(v15 + 4 * v17--);
+      --v11;
+    }
+
+    while (v11);
+  }
+
+  v14 = v4 - v10;
+  if (v10)
+  {
+LABEL_11:
+    v19 = *(a3 + 24);
+    v20 = *(a3 + 32);
+    v11 = v11;
+    v21 = v10;
+    v22 = *(a2 + 24);
+    result = *(a2 + 32);
+    do
+    {
+      *(v22 + 4 * v11) = *(v19 + 4 * v14);
+      *(result + 4 * v11) = *(v20 + 4 * v14);
+      if (!a4)
+      {
+        *(v19 + 4 * v14) = 0;
+        *(v20 + 4 * v14) = 0;
+      }
+
+      ++v11;
+      ++v14;
+      --v21;
+    }
+
+    while (v21);
+  }
+
+LABEL_15:
+  if (a4)
+  {
+    if ((*(a2 + 4) & 1) == 0 && v4 == v10)
+    {
+      v23 = *(a3 + 32);
+      *(*(a2 + 32) + 4 * v11) = *(v23 + 4 * v14);
+      *(v23 + 4 * v14) = 0;
+    }
+
+    if (v4 != v10)
+    {
+      if (v4)
+      {
+        v24 = 0;
+        while (1)
+        {
+          if (v24 >= v13)
+          {
+            v28 = *(a3 + 24);
+            if (v13 != v24)
+            {
+              *(v28 + 4 * v24) = 0;
+              v25 = *(a3 + 32);
+              *(v25 + 4 * v24) = 0;
+              goto LABEL_28;
+            }
+
+            *(v28 + 4 * v13) = 0;
+            v25 = *(a3 + 32);
+            v26 = (v25 + 4 * v13);
+            v27 = v26[v10];
+          }
+
+          else
+          {
+            v25 = *(a3 + 32);
+            *(*(a3 + 24) + 4 * v24) = *(*(a3 + 24) + 4 * v24 + 4 * v10);
+            v26 = (v25 + 4 * v24);
+            v27 = v26[v10];
+          }
+
+          *v26 = v27;
+LABEL_28:
+          if (v4 == ++v24)
+          {
+            goto LABEL_31;
+          }
+        }
+      }
+
+      v25 = *(a3 + 32);
+LABEL_31:
+      *(v25 + 4 * v4) = 0;
+    }
+  }
+
+  *(a2 + 16) = v12;
+  *(a2 + 4) |= 2u;
+  *(a3 + 16) = v4 - v10;
+  *(a3 + 4) |= 2u;
+  return result;
+}
+
+uint64_t _findPagesForKey(uint64_t a1, char *a2, const void *a3, size_t a4)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v8 = *(a1 + 24);
+  if (a2)
+  {
+    BOMStackPush(a2, v8);
+  }
+
+  if ((*(v8 + 4) & 1) == 0)
+  {
+    do
+    {
+      IndexForKey = _findIndexForKey(a1, v8, a3, a4, 0);
+      Page = _findPage(a1, *(*(v8 + 32) + 4 * IndexForKey));
+      v8 = Page;
+      if (!Page)
+      {
+        break;
+      }
+
+      if (a2)
+      {
+        BOMStackPush(a2, Page);
+        v11 = *(v8 + 4) | 8;
+      }
+
+      else
+      {
+        v11 = *(Page + 2);
+      }
+
+      *(v8 + 4) = v11 & 0xFFFB;
+    }
+
+    while ((v11 & 1) == 0);
+  }
+
+  return v8;
+}
+
+size_t BOMPathDump(char *__s)
+{
+  if (__s)
+  {
+    v2 = strlen(__s);
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  fprintf(*MEMORY[0x277D85E08], "%s (%lu bytes)\n", __s, v2);
+  return v2;
+}
+
+uint64_t BOMPathIdDump(unsigned __int8 *a1, unint64_t a2)
+{
+  if (a2 < 4)
+  {
+
+    return BOMMemoryDump(a1, a2, "        ");
+  }
+
+  else
+  {
+    if (a1)
+    {
+      fprintf(*MEMORY[0x277D85E08], "0x%02x%02x%02x%02x (%lu bytes)\n", *a1, a1[1], a1[2], a1[3], 4);
+    }
+
+    return 4;
+  }
+}
+
+uint64_t BOMPathKeyDump(uint64_t a1, unint64_t a2)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  if (a2 >= 5)
+  {
+    v2 = strlen((a1 + 4)) + 5;
+    fprintf(*MEMORY[0x277D85E08], "0x%02x%02x%02x%02x %s (%lu bytes)\n");
+    return v2;
+  }
+
+  if (a2 == 4)
+  {
+    v2 = 4;
+    fprintf(*MEMORY[0x277D85E08], "0x%02x%02x%02x%02x (NULL) (%lu bytes)\n");
+    return v2;
+  }
+
+  return BOMMemoryDump(a1, a2, "        ");
+}
+
+void *data_archive_entry_new(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    return 0;
+  }
+
+  result = platform_calloc(a1, 1uLL, 0x80uLL);
+  if (result)
+  {
+    *result = 1684369012;
+    result[1] = a1;
+    *(result + 30) = 1953391972;
+  }
+
+  return result;
+}
+
+void data_archive_entry_free(void *__b)
+{
+  if (__b && *__b == 1684369012 && *(__b + 30) == 1953391972)
+  {
+    v2 = __b[3];
+    if (v2)
+    {
+      platform_free(__b[1], v2);
+    }
+
+    v3 = __b[1];
+    platform_memset(v3, __b, 0, 0x80uLL);
+
+    platform_free(v3, __b);
+  }
+}
+
+_DWORD *data_archive_entry_get_type(_DWORD *result)
+{
+  if (result)
+  {
+    if (*result == 1684369012 && result[30] == 1953391972)
+    {
+      return result[4];
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t data_archive_entry_set_format_entry(uint64_t a1, int a2, int a3, _DWORD *a4, void *a5)
+{
+  if (!a1 || *a1 != 1684369012 || *(a1 + 120) != 1953391972)
+  {
+    capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 214, "data_archive_entry_set_format_entry", "Invalid data archive entry");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (!a2)
+  {
+    capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 220, "data_archive_entry_set_format_entry", "Unknown format type");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (!a4)
+  {
+    capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 226, "data_archive_entry_set_format_entry", "Invalid format entry");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (!darc_format_entry_get_type(a4))
+  {
+    capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 235, "data_archive_entry_set_format_entry", "Unknown data entry type");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (a2 == 9)
+  {
+    type = darc_format_entry_get_type(a4);
+    if (type > 9)
+    {
+      if ((type - 12) < 3)
+      {
+        goto LABEL_68;
+      }
+
+      if (type == 10)
+      {
+        *(a1 + 16) = 0x100000003;
+        attribute = darc_format_entry_get_attribute(a4, "name", 0);
+        if (attribute <= 0)
+        {
+          capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1300, "populate_pkzip_entry_central_directory_header", "PKZip local header format entry is missing %s attribute");
+          return 0xFFFFFFFFLL;
+        }
+
+        v25 = platform_calloc(*(a1 + 8), attribute + 1, 1uLL);
+        if (!v25)
+        {
+          v42 = __error();
+          strerror(*v42);
+          capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1308, "populate_pkzip_entry_central_directory_header", "Could not allocate %ld bytes for name buffer: %s");
+          return 0xFFFFFFFFLL;
+        }
+
+        v26 = v25;
+        if (darc_format_entry_get_attribute(a4, "name", v25) == -1)
+        {
+          capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1315, "populate_pkzip_entry_central_directory_header", "Could not get %s attribute");
+          return 0xFFFFFFFFLL;
+        }
+
+        *(a1 + 24) = v26;
+        v27 = *(a1 + 24) + platform_strlen(*(a1 + 8), v26);
+        v28 = *(v27 - 1);
+        if (v28 == 47)
+        {
+          *(v27 - 1) = 0;
+        }
+
+        if (darc_format_entry_get_attribute(a4, "pkzip central directory header", 0) <= 0)
+        {
+          capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1341, "populate_pkzip_entry_central_directory_header", "PKZip local header format entry is missing %s attribute");
+          return 0xFFFFFFFFLL;
+        }
+
+        memset(v49, 0, sizeof(v49));
+        if (darc_format_entry_get_attribute(a4, "pkzip central directory header", v49) == -1)
+        {
+          capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1350, "populate_pkzip_entry_central_directory_header", "Could not get %s attribute");
+          return 0xFFFFFFFFLL;
+        }
+
+        *(a1 + 80) = DWORD2(v49[1]);
+        v29 = convert_dos_to_unix_time(a1, WORD6(v49[0]), HIWORD(v49[0]));
+        *(a1 + 88) = v29;
+        *(a1 + 72) = v29;
+        v30 = (DWORD2(v49[2]) >> 4) & 1;
+        if (v28 == 47)
+        {
+          v30 = 1;
+        }
+
+        if (v30)
+        {
+          v31 = 16832;
+        }
+
+        else
+        {
+          v31 = -32384;
+        }
+
+        if (DWORD2(v49[2]) >> 28)
+        {
+          v31 = WORD5(v49[2]);
+        }
+
+        *(a1 + 48) = v31;
+        if (darc_format_entry_get_attribute(a4, "pkzip extra field InfoZIP UNIX v1", 0) >= 1)
+        {
+          v52 = 0u;
+          v53 = 0u;
+          if (darc_format_entry_get_attribute(a4, "pkzip extra field InfoZIP UNIX v1", &v52) == -1)
+          {
+            capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1393, "populate_pkzip_entry_central_directory_header", "Could not get %s attribute");
+            return 0xFFFFFFFFLL;
+          }
+
+          v32 = *(&v52 + 1);
+          *(a1 + 88) = v52;
+          *(a1 + 72) = v32;
+          if (v53 == 1)
+          {
+            *(a1 + 52) = DWORD1(v53);
+          }
+
+          if (BYTE8(v53) == 1)
+          {
+            *(a1 + 56) = HIDWORD(v53);
+          }
+        }
+
+        return 0;
+      }
+
+LABEL_71:
+      capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 909, "populate_pkzip_entry", "Unsupported format entry type: %d");
+      return 0xFFFFFFFFLL;
+    }
+
+    if (type == 1)
+    {
+      goto LABEL_69;
+    }
+
+    if (type != 6)
+    {
+      if (type == 7)
+      {
+        goto LABEL_68;
+      }
+
+      goto LABEL_71;
+    }
+
+    v34 = darc_format_entry_get_attribute(a4, "name", 0);
+    if (v34 <= 0)
+    {
+      capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 948, "populate_pkzip_entry_local_header", "PKZip local header format entry is missing %s attribute");
+      return 0xFFFFFFFFLL;
+    }
+
+    v35 = platform_calloc(*(a1 + 8), v34 + 1, 1uLL);
+    if (!v35)
+    {
+      v44 = __error();
+      strerror(*v44);
+      capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 956, "populate_pkzip_entry_local_header", "Could not allocate %ld bytes for name buffer: %s");
+      return 0xFFFFFFFFLL;
+    }
+
+    v36 = v35;
+    if (darc_format_entry_get_attribute(a4, "name", v35) == -1)
+    {
+      capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 963, "populate_pkzip_entry_local_header", "Could not get %s attribute");
+      return 0xFFFFFFFFLL;
+    }
+
+    *(a1 + 24) = v36;
+    if (darc_format_entry_get_attribute(a4, "pkzip local header", 0) <= 0)
+    {
+      capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 978, "populate_pkzip_entry_local_header", "PKZip local header format entry is missing %s attribute");
+      return 0xFFFFFFFFLL;
+    }
+
+    v52 = 0u;
+    v53 = 0u;
+    if (darc_format_entry_get_attribute(a4, "pkzip local header", &v52) == -1)
+    {
+      capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 987, "populate_pkzip_entry_local_header", "Could not get %s attribute");
+      return 0xFFFFFFFFLL;
+    }
+
+    v37 = DWORD1(v53);
+    *(a1 + 80) = DWORD2(v53);
+    *(a1 + 112) = v37;
+    v38 = convert_dos_to_unix_time(a1, WORD5(v52), WORD6(v52));
+    *(a1 + 88) = v38;
+    *(a1 + 72) = v38;
+    v39 = BYTE6(v52);
+    if (BYTE6(v52))
+    {
+      *(a1 + 104) = 1;
+    }
+
+    if ((v39 & 8) != 0)
+    {
+      *(a1 + 105) = 1;
+      v40 = (a1 + 108);
+    }
+
+    else
+    {
+      *(a1 + 108) = v53;
+      v40 = (a1 + 108);
+      if ((*(a1 + 105) & 1) == 0)
+      {
+LABEL_107:
+        if (darc_format_entry_get_attribute(a4, "pkzip extra field extended timestamp", 0) >= 1)
+        {
+          memset(v49, 0, 24);
+          if (darc_format_entry_get_attribute(a4, "pkzip extra field extended timestamp", v49) == -1)
+          {
+            capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1041, "populate_pkzip_entry_local_header", "Could not get %s attribute");
+            return 0xFFFFFFFFLL;
+          }
+
+          *(a1 + 72) = *&v49[0];
+          *(a1 + 88) = *(v49 + 8);
+        }
+
+        if (darc_format_entry_get_attribute(a4, "pkzip extra field InfoZIP UNIX v1", 0) >= 1)
+        {
+          memset(v49, 0, 32);
+          if (darc_format_entry_get_attribute(a4, "pkzip extra field InfoZIP UNIX v1", v49) == -1)
+          {
+            capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1064, "populate_pkzip_entry_local_header", "Could not get %s attribute");
+            return 0xFFFFFFFFLL;
+          }
+
+          v45 = *(&v49[0] + 1);
+          *(a1 + 88) = *&v49[0];
+          *(a1 + 72) = v45;
+          if (LOBYTE(v49[1]) == 1)
+          {
+            *(a1 + 52) = DWORD1(v49[1]);
+          }
+
+          if (BYTE8(v49[1]) == 1)
+          {
+            *(a1 + 56) = HIDWORD(v49[1]);
+          }
+        }
+
+        if (darc_format_entry_get_attribute(a4, "pkzip extra field InfoZIP UNIX v3", 0) >= 1)
+        {
+          DWORD2(v49[0]) = 0;
+          *&v49[0] = 0;
+          if (darc_format_entry_get_attribute(a4, "pkzip extra field InfoZIP UNIX v3", v49) == -1)
+          {
+            capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1096, "populate_pkzip_entry_local_header", "Could not get %s attribute");
+            return 0xFFFFFFFFLL;
+          }
+
+          *(a1 + 52) = *(v49 + 4);
+        }
+
+        if (darc_format_entry_get_attribute(a4, "pkzip extra field ZIP64", 0) >= 1)
+        {
+          memset(v49, 0, 40);
+          if (darc_format_entry_get_attribute(a4, "pkzip extra field ZIP64", v49) == -1)
+          {
+            capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 1118, "populate_pkzip_entry_local_header", "Could not get %s attribute");
+            return 0xFFFFFFFFLL;
+          }
+
+          if (LOBYTE(v49[0]) == 1)
+          {
+            *(a1 + 80) = *(&v49[0] + 1);
+          }
+
+          if (BYTE1(v49[0]) == 1)
+          {
+            *(a1 + 112) = *&v49[1];
+          }
+        }
+
+        v46 = *(a1 + 24) + platform_strlen(*(a1 + 8), *(a1 + 24));
+        v47 = *(a1 + 48);
+        if (*(v46 - 1) == 47)
+        {
+          *(a1 + 48) = v47 | 0x41C0;
+          *(v46 - 1) = 0;
+        }
+
+        else
+        {
+          *(a1 + 48) = v47 | 0x8180;
+        }
+
+        *(a1 + 16) = 2;
+        if (*(a1 + 104) == 1)
+        {
+          v48 = *(a1 + 105);
+          if (v48)
+          {
+            v16 = 7;
+          }
+
+          else
+          {
+            v16 = 4;
+          }
+
+          if (!WORD4(v52))
+          {
+            goto LABEL_141;
+          }
+        }
+
+        else
+        {
+          v48 = *(a1 + 105);
+          if (!WORD4(v52))
+          {
+            if (*(a1 + 105))
+            {
+              v16 = 5;
+            }
+
+            else if (*(a1 + 80))
+            {
+              v16 = 2;
+            }
+
+            else
+            {
+              v16 = 1;
+            }
+
+            goto LABEL_141;
+          }
+        }
+
+        if (v48)
+        {
+          v16 = 6;
+        }
+
+        else
+        {
+          v16 = 3;
+        }
+
+LABEL_141:
+        result = 0;
+LABEL_25:
+        *(a1 + 20) = v16;
+        return result;
+      }
+    }
+
+    *v40 = WORD5(v52);
+    goto LABEL_107;
+  }
+
+  if (a2 != 3)
+  {
+    if (a2 != 2)
+    {
+      capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 258, "data_archive_entry_set_format_entry", "Unsupported format: %d");
+      return 0xFFFFFFFFLL;
+    }
+
+    v10 = darc_format_entry_get_type(a4);
+    if (v10 != 1 && (a3 != 3 || v10 != 3))
+    {
+      if (v10 != 3)
+      {
+        v11 = darc_format_entry_get_attribute(a4, "name", 0);
+        if (v11 < 1)
+        {
+          goto LABEL_18;
+        }
+
+        v12 = platform_calloc(*(a1 + 8), v11 + 1, 1uLL);
+        if (v12)
+        {
+          v13 = v12;
+          if (darc_format_entry_get_attribute(a4, "name", v12) != -1)
+          {
+            *(a1 + 24) = v13;
+LABEL_18:
+            if (darc_format_entry_get_attribute(a4, "POSIX ustar header", 0) <= 0)
+            {
+              capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 670, "populate_posix_ustar_entry", "POSIX ustar format entry is missing %s attribute");
+            }
+
+            else
+            {
+              memset(v49, 0, 40);
+              if (darc_format_entry_get_attribute(a4, "POSIX ustar header", v49) != -1)
+              {
+                *(a1 + 48) = WORD2(v49[0]);
+                *(a1 + 52) = *(&v49[0] + 1);
+                v14 = *&v49[1];
+                *(a1 + 72) = vextq_s8(v49[1], v49[1], 8uLL);
+                if (LODWORD(v49[0]) <= 4)
+                {
+                  *(a1 + 16) = dword_241C78FB0[LODWORD(v49[0])];
+                }
+
+                result = 0;
+                if (v14 <= 0)
+                {
+                  v16 = 1;
+                }
+
+                else
+                {
+                  v16 = 2;
+                }
+
+                goto LABEL_25;
+              }
+
+              capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 679, "populate_posix_ustar_entry", "Could not get %s attribute");
+            }
+
+            return 0xFFFFFFFFLL;
+          }
+
+          capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 654, "populate_posix_ustar_entry", "Could not get %s attribute");
+        }
+
+        else
+        {
+          v43 = __error();
+          strerror(*v43);
+          capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 647, "populate_posix_ustar_entry", "Could not allocate %ld bytes for name buffer: %s");
+        }
+
+        return 0xFFFFFFFFLL;
+      }
+
+      goto LABEL_68;
+    }
+
+LABEL_69:
+    result = 0;
+    v33 = 0x100000001;
+    goto LABEL_70;
+  }
+
+  v17 = darc_format_entry_get_type(a4);
+  if (v17 == 5)
+  {
+LABEL_68:
+    result = 0;
+    v33 = 0x100000004;
+LABEL_70:
+    *(a1 + 16) = v33;
+    return result;
+  }
+
+  if (v17 == 1)
+  {
+    goto LABEL_69;
+  }
+
+  v18 = darc_format_entry_get_attribute(a4, "name", 0);
+  if (v18 <= 0)
+  {
+    capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 768, "populate_cpio_entry", "CPIO format entry is missing %s attribute");
+    return 0xFFFFFFFFLL;
+  }
+
+  v19 = platform_calloc(*(a1 + 8), v18 + 1, 1uLL);
+  if (!v19)
+  {
+    v41 = __error();
+    strerror(*v41);
+    capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 776, "populate_cpio_entry", "Could not allocate %ld bytes for name buffer: %s");
+    return 0xFFFFFFFFLL;
+  }
+
+  v20 = v19;
+  if (darc_format_entry_get_attribute(a4, "name", v19) == -1)
+  {
+    capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 783, "populate_cpio_entry", "Could not get %s attribute");
+    return 0xFFFFFFFFLL;
+  }
+
+  *(a1 + 24) = v20;
+  if (darc_format_entry_get_attribute(a4, "cpio header", 0) <= 0)
+  {
+    capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 798, "populate_cpio_entry", "CPIO format entry is missing %s attribute");
+    return 0xFFFFFFFFLL;
+  }
+
+  v51 = 0;
+  v50 = 0u;
+  memset(v49, 0, sizeof(v49));
+  if (darc_format_entry_get_attribute(a4, "cpio header", v49) == -1)
+  {
+    capture_error(a5, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/data_archive/data_archive_entry.c", 807, "populate_cpio_entry", "Could not get %s attribute");
+    return 0xFFFFFFFFLL;
+  }
+
+  *(a1 + 32) = DWORD2(v49[0]);
+  *(a1 + 40) = *&v49[1];
+  *(a1 + 48) = WORD4(v49[1]);
+  *(a1 + 52) = *(&v49[1] + 12);
+  *(a1 + 60) = WORD2(v49[2]);
+  *(a1 + 64) = DWORD2(v49[2]);
+  v21 = v51;
+  *(a1 + 72) = v50;
+  *(a1 + 80) = v21;
+  if (platform_strlen(*(a1 + 8), *(a1 + 24)) == 10)
+  {
+    result = platform_strncmp(*(a1 + 8), "TRAILER!!!", *(a1 + 24), 0xAuLL);
+    *(a1 + 20) = 1;
+    v22 = (a1 + 20);
+    if (!result)
+    {
+      *(a1 + 16) = 4;
+      return result;
+    }
+  }
+
+  else
+  {
+    *(a1 + 20) = 1;
+    v22 = (a1 + 20);
+  }
+
+  *(a1 + 16) = 2;
+  if (*(a1 + 80) >= 1)
+  {
+    result = 0;
+    *v22 = 2;
+    return result;
+  }
+
+  return 0;
 }

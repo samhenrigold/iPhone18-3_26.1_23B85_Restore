@@ -112,14 +112,16 @@
   OUTLINED_FUNCTION_1_13();
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v4 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       FourccToCStr(v3);
+      LODWORD(v11) = 136315906;
+      *(&v11 + 4) = v4;
       OUTLINED_FUNCTION_6_5();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_14_17(&dword_1DB56E000, v4, v5, " [%s] %s:%d Failed to read the payload configurations for streamGroupID=%s", v6, v7, v8, v9, 2u);
+      OUTLINED_FUNCTION_14_17(&dword_1DB56E000, v5, v6, " [%s] %s:%d Failed to read the payload configurations for streamGroupID=%s", v7, v8, v9, v10, v11, DWORD2(v11));
     }
   }
 
@@ -132,14 +134,16 @@
   OUTLINED_FUNCTION_1_13();
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v4 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       FourccToCStr(v3);
+      LODWORD(v11) = 136315906;
+      *(&v11 + 4) = v4;
       OUTLINED_FUNCTION_6_5();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_14_17(&dword_1DB56E000, v4, v5, " [%s] %s:%d Failed to add streams to stream group (streamGroupID=%s)", v6, v7, v8, v9, 2u);
+      OUTLINED_FUNCTION_14_17(&dword_1DB56E000, v5, v6, " [%s] %s:%d Failed to add streams to stream group (streamGroupID=%s)", v7, v8, v9, v10, v11, DWORD2(v11));
     }
   }
 
@@ -192,7 +196,7 @@
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Invalid argument. defaultPayloadConfigs is nil", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d Invalid argument. defaultPayloadConfigs is nil", v4, v5, v6, v7);
     }
   }
 
@@ -277,7 +281,7 @@
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the stream config", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the stream config", v2, v3, v4, v5);
     }
   }
 
@@ -310,7 +314,7 @@
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the payload config", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the payload config", v2, v3, v4, v5);
     }
   }
 
@@ -326,7 +330,7 @@
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create the payload spec", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create the payload spec", v2, v3, v4, v5);
     }
   }
 

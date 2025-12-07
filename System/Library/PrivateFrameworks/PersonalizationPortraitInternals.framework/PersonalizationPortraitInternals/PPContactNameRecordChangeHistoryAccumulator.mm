@@ -25,24 +25,24 @@
 
 - (PPInternalContactNameRecord)_nameRecordWithContactIdentifier:(unsigned int)identifier changeType:
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v31 = a2;
+  v36 = *MEMORY[0x277D85DE8];
+  v30 = a2;
   if (self)
   {
     if (identifier == 3)
     {
       identifierCopy = 3;
       v5 = 0;
-      v27 = 0;
+      v26 = 0;
     }
 
     else
     {
       v6 = *(self + 8);
       v7 = *(self + 16);
-      v32 = 0;
-      v5 = [v6 unifiedContactWithIdentifier:v31 keysToFetch:v7 error:&v32];
-      v8 = v32;
+      v31 = 0;
+      v5 = [v6 unifiedContactWithIdentifier:v30 keysToFetch:v7 error:&v31];
+      v8 = v31;
       v9 = v8;
       if (!v5)
       {
@@ -50,22 +50,22 @@
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v34 = v31;
-          v35 = 2112;
-          v36 = v9;
+          v33 = v30;
+          v34 = 2112;
+          v35 = v9;
           _os_log_error_impl(&dword_23224A000, v16, OS_LOG_TYPE_ERROR, "unifiedContactWithIdentifier failed for id: %@ error: %@", buf, 0x16u);
         }
 
         v5 = 0;
-        v29 = 0;
+        v28 = 0;
         goto LABEL_7;
       }
 
       identifierCopy = identifier;
-      v27 = v8;
+      v26 = v8;
     }
 
-    v25 = [PPInternalContactNameRecord alloc];
+    v24 = [PPInternalContactNameRecord alloc];
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
     givenName = [v5 givenName];
@@ -80,21 +80,19 @@
     v13 = PPRelatedNamesForContact(v5);
     v14 = PPStreetNamesForContact(v5);
     v15 = PPCityNamesForContact(v5);
-    v29 = [(PPInternalContactNameRecord *)v25 initWithIdentifier:uUIDString score:1 source:v31 sourceIdentifier:identifierCopy changeType:givenName firstName:phoneticGivenName phoneticFirstName:0.0 middleName:middleName phoneticMiddleName:phoneticMiddleName lastName:familyName phoneticLastName:phoneticFamilyName organizationName:organizationName jobTitle:jobTitle nickname:nickname relatedNames:v13 streetNames:v14 cityNames:v15];
+    v28 = [(PPInternalContactNameRecord *)v24 initWithIdentifier:uUIDString score:1 source:v30 sourceIdentifier:identifierCopy changeType:givenName firstName:phoneticGivenName phoneticFirstName:0.0 middleName:middleName phoneticMiddleName:phoneticMiddleName lastName:familyName phoneticLastName:phoneticFamilyName organizationName:organizationName jobTitle:jobTitle nickname:nickname relatedNames:v13 streetNames:v14 cityNames:v15];
 
     v16 = uUID;
-    v9 = v27;
+    v9 = v26;
 LABEL_7:
 
     goto LABEL_8;
   }
 
-  v29 = 0;
+  v28 = 0;
 LABEL_8:
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v29;
+  return v28;
 }
 
 - (void)visitUpdateContactEvent:(id)event

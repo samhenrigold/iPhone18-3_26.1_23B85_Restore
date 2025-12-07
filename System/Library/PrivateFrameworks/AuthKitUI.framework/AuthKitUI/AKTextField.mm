@@ -330,7 +330,6 @@
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(v28, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setFieldBackgroundColor:(id)color

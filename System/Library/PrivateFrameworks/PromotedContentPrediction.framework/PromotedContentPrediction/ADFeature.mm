@@ -30,9 +30,9 @@
   {
     v6 = MEMORY[0x277CBEAD8];
     v7 = *MEMORY[0x277CBE730];
-    v8 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"idx (%tu) is out of range (%tu)", index, count);
-    v10 = objc_msgSend_exceptionWithName_reason_userInfo_(v6, v9, v7, v8, 0);
-    objc_msgSend_raise(v10, v11, v12);
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"idx (%tu) is out of range (%tu)", index, count];
+    v9 = [v6 exceptionWithName:v7 reason:v8 userInfo:0];
+    [v9 raise];
   }
 
   return p_doubleValues->list[index];
@@ -53,52 +53,52 @@
     stringValues = self->_stringValues;
   }
 
-  objc_msgSend_addObject_(stringValues, valueCopy, valueCopy);
+  [(NSMutableArray *)stringValues addObject:valueCopy];
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v11.receiver = self;
-  v11.super_class = ADFeature;
-  v4 = [(ADFeature *)&v11 description];
-  v7 = objc_msgSend_dictionaryRepresentation(self, v5, v6);
-  v9 = objc_msgSend_stringWithFormat_(v3, v8, @"%@ %@", v4, v7);
+  v8.receiver = self;
+  v8.super_class = ADFeature;
+  v4 = [(ADFeature *)&v8 description];
+  dictionaryRepresentation = [(ADFeature *)self dictionaryRepresentation];
+  v6 = [v3 stringWithFormat:@"%@ %@", v4, dictionaryRepresentation];
 
-  return v9;
+  return v6;
 }
 
 - (id)dictionaryRepresentation
 {
-  v4 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
-  v6 = v4;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v4 = dictionary;
   version = self->_version;
   if (version)
   {
-    objc_msgSend_setObject_forKey_(v4, v5, version, @"version");
+    [dictionary setObject:version forKey:@"version"];
   }
 
-  v8 = PBRepeatedDoubleNSArray();
-  objc_msgSend_setObject_forKey_(v6, v9, v8, @"doubleValue");
+  v6 = PBRepeatedDoubleNSArray();
+  [v4 setObject:v6 forKey:@"doubleValue"];
 
   stringValues = self->_stringValues;
   if (stringValues)
   {
-    objc_msgSend_setObject_forKey_(v6, v10, stringValues, @"stringValue");
+    [v4 setObject:stringValues forKey:@"stringValue"];
   }
 
   name = self->_name;
   if (name)
   {
-    objc_msgSend_setObject_forKey_(v6, v10, name, @"name");
+    [v4 setObject:name forKey:@"name"];
   }
 
-  return v6;
+  return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_version)
   {
@@ -110,7 +110,6 @@
     v5 = 0;
     do
     {
-      v6 = self->_doubleValues.list[v5];
       PBDataWriterWriteDoubleField();
       ++v5;
     }
@@ -118,232 +117,221 @@
     while (v5 < self->_doubleValues.count);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v7 = self->_stringValues;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v16, v20, 16);
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_stringValues;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v17;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v10 = 0;
+      do
       {
-        if (*v17 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteStringField();
+        ++v10;
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v14, &v16, v20, 16);
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_name)
   {
     PBDataWriterWriteStringField();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
 {
   toCopy = to;
-  version = self->_version;
-  if (version)
+  if (self->_version)
   {
-    objc_msgSend_setVersion_(toCopy, v4, version);
+    [toCopy setVersion:?];
   }
 
-  if (objc_msgSend_doubleValuesCount(self, v4, version))
+  if ([(ADFeature *)self doubleValuesCount])
   {
-    objc_msgSend_clearDoubleValues(toCopy, v6, v7);
-    v10 = objc_msgSend_doubleValuesCount(self, v8, v9);
-    if (v10)
+    [toCopy clearDoubleValues];
+    doubleValuesCount = [(ADFeature *)self doubleValuesCount];
+    if (doubleValuesCount)
     {
-      v11 = v10;
-      for (i = 0; i != v11; ++i)
+      v5 = doubleValuesCount;
+      for (i = 0; i != v5; ++i)
       {
-        objc_msgSend_doubleValueAtIndex_(self, v6, i);
-        objc_msgSend_addDoubleValue_(toCopy, v13, v14);
+        [(ADFeature *)self doubleValueAtIndex:i];
+        [toCopy addDoubleValue:?];
       }
     }
   }
 
-  if (objc_msgSend_stringValuesCount(self, v6, v7))
+  if ([(ADFeature *)self stringValuesCount])
   {
-    objc_msgSend_clearStringValues(toCopy, v15, v16);
-    v19 = objc_msgSend_stringValuesCount(self, v17, v18);
-    if (v19)
+    [toCopy clearStringValues];
+    stringValuesCount = [(ADFeature *)self stringValuesCount];
+    if (stringValuesCount)
     {
-      v20 = v19;
-      for (j = 0; j != v20; ++j)
+      v8 = stringValuesCount;
+      for (j = 0; j != v8; ++j)
       {
-        v22 = objc_msgSend_stringValueAtIndex_(self, v15, j);
-        objc_msgSend_addStringValue_(toCopy, v23, v22);
+        v10 = [(ADFeature *)self stringValueAtIndex:j];
+        [toCopy addStringValue:v10];
       }
     }
   }
 
-  name = self->_name;
-  if (name)
+  if (self->_name)
   {
-    objc_msgSend_setName_(toCopy, v15, name);
+    [toCopy setName:?];
   }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v5 = objc_opt_class();
-  v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
-  v10 = objc_msgSend_init(v7, v8, v9);
-  v12 = objc_msgSend_copyWithZone_(self->_version, v11, zone);
-  v13 = v10[6];
-  v10[6] = v12;
+  v22 = *MEMORY[0x277D85DE8];
+  v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v6 = [(NSString *)self->_version copyWithZone:zone];
+  v7 = v5[6];
+  v5[6] = v6;
 
   PBRepeatedDoubleCopy();
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v14 = self->_stringValues;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v28, v32, 16);
-  if (v16)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v8 = self->_stringValues;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v9)
   {
-    v18 = v16;
-    v19 = *v29;
+    v10 = v9;
+    v11 = *v18;
     do
     {
-      v20 = 0;
+      v12 = 0;
       do
       {
-        if (*v29 != v19)
+        if (*v18 != v11)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v8);
         }
 
-        v21 = objc_msgSend_copyWithZone_(*(*(&v28 + 1) + 8 * v20), v17, zone, v28);
-        objc_msgSend_addStringValue_(v10, v22, v21);
+        v13 = [*(*(&v17 + 1) + 8 * v12) copyWithZone:{zone, v17}];
+        [v5 addStringValue:v13];
 
-        ++v20;
+        ++v12;
       }
 
-      while (v18 != v20);
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v28, v32, 16);
+      while (v10 != v12);
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v18);
+    while (v10);
   }
 
-  v24 = objc_msgSend_copyWithZone_(self->_name, v23, zone);
-  v25 = v10[4];
-  v10[4] = v24;
+  v14 = [(NSString *)self->_name copyWithZone:zone];
+  v15 = v5[4];
+  v5[4] = v14;
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v5 = objc_opt_class();
-  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5) && ((version = self->_version, v9 = equalCopy[6], !(version | v9)) || objc_msgSend_isEqual_(version, v7, v9)) && PBRepeatedDoubleIsEqual() && ((stringValues = self->_stringValues, v12 = equalCopy[5], !(stringValues | v12)) || objc_msgSend_isEqual_(stringValues, v10, v12)))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((version = self->_version, !(version | equalCopy[6])) || -[NSString isEqual:](version, "isEqual:")) && PBRepeatedDoubleIsEqual() && ((stringValues = self->_stringValues, !(stringValues | equalCopy[5])) || -[NSMutableArray isEqual:](stringValues, "isEqual:")))
   {
     name = self->_name;
-    v14 = equalCopy[4];
-    if (name | v14)
+    if (name | equalCopy[4])
     {
-      isEqual = objc_msgSend_isEqual_(name, v10, v14);
+      v8 = [(NSString *)name isEqual:?];
     }
 
     else
     {
-      isEqual = 1;
+      v8 = 1;
     }
   }
 
   else
   {
-    isEqual = 0;
+    v8 = 0;
   }
 
-  return isEqual;
+  return v8;
 }
 
 - (unint64_t)hash
 {
-  v4 = objc_msgSend_hash(self->_version, a2, v2);
-  v5 = PBRepeatedDoubleHash() ^ v4;
-  v8 = objc_msgSend_hash(self->_stringValues, v6, v7);
-  return v5 ^ v8 ^ objc_msgSend_hash(self->_name, v9, v10);
+  v3 = [(NSString *)self->_version hash];
+  v4 = PBRepeatedDoubleHash() ^ v3;
+  v5 = [(NSMutableArray *)self->_stringValues hash];
+  return v4 ^ v5 ^ [(NSString *)self->_name hash];
 }
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fromCopy = from;
-  v6 = *(fromCopy + 6);
-  if (v6)
+  if (*(fromCopy + 6))
   {
-    objc_msgSend_setVersion_(self, v4, v6);
+    [(ADFeature *)self setVersion:?];
   }
 
-  v7 = objc_msgSend_doubleValuesCount(fromCopy, v4, v6);
-  if (v7)
+  doubleValuesCount = [fromCopy doubleValuesCount];
+  if (doubleValuesCount)
   {
-    v9 = v7;
-    for (i = 0; i != v9; ++i)
+    v6 = doubleValuesCount;
+    for (i = 0; i != v6; ++i)
     {
-      objc_msgSend_doubleValueAtIndex_(fromCopy, v8, i);
-      objc_msgSend_addDoubleValue_(self, v11, v12);
+      [fromCopy doubleValueAtIndex:i];
+      [(ADFeature *)self addDoubleValue:?];
     }
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v13 = *(fromCopy + 5);
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v23, v27, 16);
-  if (v15)
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v8 = *(fromCopy + 5);
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
   {
-    v17 = v15;
-    v18 = *v24;
+    v10 = v9;
+    v11 = *v14;
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v10; ++j)
       {
-        if (*v24 != v18)
+        if (*v14 != v11)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v8);
         }
 
-        objc_msgSend_addStringValue_(self, v16, *(*(&v23 + 1) + 8 * j), v23);
+        [(ADFeature *)self addStringValue:*(*(&v13 + 1) + 8 * j), v13];
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v23, v27, 16);
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v17);
+    while (v10);
   }
 
-  v21 = *(fromCopy + 4);
-  if (v21)
+  if (*(fromCopy + 4))
   {
-    objc_msgSend_setName_(self, v20, v21);
+    [(ADFeature *)self setName:?];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -79,32 +79,32 @@ void sub_1000010AC(uint64_t a1, void *a2)
   [v3 setInvalidationHandler:v6];
 }
 
-void sub_1000011B0(uint64_t a1, int a2)
+void sub_1000011B0(uint64_t result, int a2)
 {
-  if (a1 && (*(a1 + 8) & 1) == 0)
+  if (result && (*(result + 8) & 1) == 0)
   {
-    *(a1 + 8) = 1;
+    *(result + 8) = 1;
     v4 = PKLogFacilityTypeGetObject();
     v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
     if (a2)
     {
-      sub_100005B18(v5, v4, a1);
+      sub_100005B18(v5, v4, result);
 LABEL_15:
-      sub_100005BF0(a1);
+      sub_100005BF0(result);
       return;
     }
 
     if (v5)
     {
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = a1;
+      *(&buf + 4) = result;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PKUISSBannerHandle (%p): locally invalidated.", &buf, 0xCu);
     }
 
-    v6 = *(a1 + 16);
-    *(a1 + 16) = 0;
+    v6 = *(result + 16);
+    *(result + 16) = 0;
 
-    v7 = *(a1 + 24);
+    v7 = *(result + 24);
     if (v7 - 2 >= 3)
     {
       if (v7 >= 2)
@@ -113,14 +113,14 @@ LABEL_15:
       }
     }
 
-    else if ((*(a1 + 25) & 1) == 0)
+    else if ((*(result + 25) & 1) == 0)
     {
-      v8 = sub_1000055F8(a1);
+      v8 = sub_1000055F8(result);
       if (v8)
       {
-        v9 = *(a1 + 32);
-        v10 = *(a1 + 32);
-        *(a1 + 32) = 0;
+        v9 = *(result + 32);
+        v10 = *(result + 32);
+        *(result + 32) = 0;
 
         *&buf = 0;
         *(&buf + 1) = &buf;
@@ -139,14 +139,14 @@ LABEL_15:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *v21 = 134218240;
-          v22 = a1;
+          v22 = result;
           v23 = 2048;
           v24 = v9;
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "PKUISSBannerHandle (%p): starting local invalidation of connection %p.", v21, 0x16u);
         }
 
-        objc_initWeak(v21, a1);
-        v14 = [NSNumber numberWithInt:*(a1 + 24) == 4];
+        objc_initWeak(v21, result);
+        v14 = [NSNumber numberWithInt:*(result + 24) == 4];
         v16[0] = _NSConcreteStackBlock;
         v16[1] = 3221225472;
         v16[2] = sub_1000015F8;
@@ -165,7 +165,7 @@ LABEL_15:
       }
     }
 
-    sub_100005BBC(a1);
+    sub_100005BBC(result);
     goto LABEL_15;
   }
 }
@@ -309,11 +309,12 @@ LABEL_6:
   __break(1u);
 }
 
-void sub_100001994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_100001994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  objc_destroyWeak((v21 + 40));
+  va_start(va, a20);
+  objc_destroyWeak((v20 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -384,19 +385,19 @@ LABEL_7:
 
 void sub_1000023A4(uint64_t a1)
 {
-  v2 = sub_100003FA0();
+  v2 = sub_100003FA0(PKUISSBannerPresentableProvider);
   sub_100005EA0(v2, *(a1 + 32));
 }
 
 void sub_1000023F8(uint64_t a1)
 {
-  v2 = sub_100003FA0();
+  v2 = sub_100003FA0(PKUISSBannerPresentableProvider);
   sub_100005EAC(v2, *(a1 + 32));
 }
 
 void sub_10000244C(uint64_t a1)
 {
-  v2 = sub_100003FA0();
+  v2 = sub_100003FA0(PKUISSBannerPresentableProvider);
   sub_100005FA8(v2, *(a1 + 32));
 }
 
@@ -760,19 +761,21 @@ id sub_100003F00(uint64_t a1, uint64_t a2)
 
 void sub_100003F60(id a1)
 {
-  qword_100011C40 = sub_100005E20([PKUISSBannerPresentableProvider alloc]);
+  v1 = sub_100005E20([PKUISSBannerPresentableProvider alloc]);
+  v2 = qword_100011C40;
+  qword_100011C40 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_100003FA0()
+uint64_t sub_100003FA0(uint64_t a1)
 {
   objc_opt_self();
-  v0 = objc_opt_self();
-  v1 = sub_100003F00(v0, 0);
-  v2 = [v1 provider];
+  v1 = objc_opt_self();
+  v2 = sub_100003F00(v1, 0);
+  v3 = [v2 provider];
 
-  return v2;
+  return v3;
 }
 
 id sub_1000044E0(uint64_t a1)
@@ -1127,17 +1130,17 @@ void sub_100005700(uint64_t a1)
   }
 }
 
-void sub_100005840(uint64_t a1)
+void sub_100005840(uint64_t result)
 {
-  if (a1 && (*(a1 + 8) & 1) == 0)
+  if (result && (*(result + 8) & 1) == 0)
   {
-    if ((*(a1 + 24) & 0xFE) == 2)
+    if ((*(result + 24) & 0xFE) == 2)
     {
-      *(a1 + 24) = 4;
-      v2 = *(a1 + 16);
-      *(a1 + 16) = 0;
+      *(result + 24) = 4;
+      v2 = *(result + 16);
+      *(result + 16) = 0;
 
-      sub_1000011B0(a1, 0);
+      sub_1000011B0(result, 0);
     }
 
     else
@@ -1146,11 +1149,11 @@ void sub_100005840(uint64_t a1)
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v6 = 134217984;
-        v7 = a1;
+        v7 = result;
         sub_100002B50(&_mh_execute_header, v4, v5, "PKUISSBannerHandle (%p): out of order - finish - invalidating.", &v6);
       }
 
-      sub_1000011B0(a1, 0);
+      sub_1000011B0(result, 0);
     }
   }
 }
@@ -1395,11 +1398,11 @@ void sub_100005EAC(uint64_t a1, void *a2)
   }
 }
 
-void sub_100005FA8(uint64_t a1, uint64_t a2)
+void sub_100005FA8(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    sub_100005FB4(a1, a2);
+    sub_100005FB4(result, a2);
   }
 }
 

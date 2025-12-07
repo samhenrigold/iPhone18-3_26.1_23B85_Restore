@@ -31,7 +31,7 @@
 
 - (void)processRequest:(id)request completionHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = [(MDMAbstractTunnelParser *)MDMParser responseWithStatus:@"Acknowledged"];
   currentDevice = [MEMORY[0x277D26208] currentDevice];
@@ -54,10 +54,10 @@
   mEMORY[0x277D24648] = [MEMORY[0x277D24648] sharedConfiguration];
   isUserEnrollment = [mEMORY[0x277D24648] isUserEnrollment];
 
-  v28 = @"IsUserEnrollment";
+  v27 = @"IsUserEnrollment";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:isUserEnrollment];
-  v29[0] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v28[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   [v8 setObject:v15 forKey:@"ManagementStatus"];
 
   v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(mEMORY[0x277D262A0], "currentPasscodeIsCompliantWithGlobalRestrictionsOutError:", 0)}];
@@ -91,8 +91,6 @@
 
   [v5 setObject:v8 forKey:@"SecurityInfo"];
   handlerCopy[2](handlerCopy, v5);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

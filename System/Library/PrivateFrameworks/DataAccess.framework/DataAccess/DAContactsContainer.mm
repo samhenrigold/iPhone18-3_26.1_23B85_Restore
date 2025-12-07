@@ -22,6 +22,8 @@
 - (void)setConstraintsPath:(id)path;
 - (void)setContentReadonly:(BOOL)readonly;
 - (void)setExternalIdentifier:(id)identifier;
+- (void)setGuardianRestricted:(BOOL)restricted;
+- (void)setGuardianStateDirty:(BOOL)dirty;
 - (void)setMeContactIdentifier:(id)identifier;
 - (void)setName:(id)name;
 - (void)setSyncData:(id)data;
@@ -263,12 +265,26 @@
   return isGuardianRestricted;
 }
 
+- (void)setGuardianRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  mutableContainer = [(DAContactsContainer *)self mutableContainer];
+  [mutableContainer setGuardianRestricted:restrictedCopy shouldPushChangeToServer:0];
+}
+
 - (BOOL)isGuardianStateDirty
 {
   mutableContainer = [(DAContactsContainer *)self mutableContainer];
   isGuardianStateDirty = [mutableContainer isGuardianStateDirty];
 
   return isGuardianStateDirty;
+}
+
+- (void)setGuardianStateDirty:(BOOL)dirty
+{
+  dirtyCopy = dirty;
+  mutableContainer = [(DAContactsContainer *)self mutableContainer];
+  [mutableContainer setGuardianStateDirty:dirtyCopy];
 }
 
 - (void)updateSaveRequest:(id)request

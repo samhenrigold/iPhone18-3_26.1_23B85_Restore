@@ -69,29 +69,29 @@
     {
       if (v25)
       {
-        v27 = [(__CFString *)v25 isEqualToString:@"verified"];
+        isEqualToString = objc_msgSend_isEqualToString_(v25);
 
-        if (v27)
+        if (isEqualToString)
         {
           goto LABEL_5;
         }
 
         v29 = v26;
-        if (v29 == @"notVerified" || (v30 = v29, v31 = [(__CFString *)v29 isEqualToString:@"notVerified"], v30, (v31 & 1) != 0))
+        if (v29 == @"notVerified" || (v30 = v29, v31 = objc_msgSend_isEqualToString_(v29), v30, (v31 & 1) != 0))
         {
           v28 = 2;
           goto LABEL_16;
         }
 
         v32 = v30;
-        if (v32 == @"verificationPending" || (v33 = v32, v34 = [(__CFString *)v32 isEqualToString:@"verificationPending"], v33, (v34 & 1) != 0))
+        if (v32 == @"verificationPending" || (v33 = v32, v34 = objc_msgSend_isEqualToString_(v32), v33, (v34 & 1) != 0))
         {
           v28 = 3;
           goto LABEL_16;
         }
 
         v35 = v33;
-        if (v35 == @"notEligible" || (v36 = v35, v37 = [(__CFString *)v35 isEqualToString:@"notEligible"], v36, v37))
+        if (v35 == @"notEligible" || (v36 = v35, v37 = objc_msgSend_isEqualToString_(v35), v36, v37))
         {
           v28 = 4;
           goto LABEL_16;
@@ -163,9 +163,9 @@ PKCreditAccountFeatureDescriptor *__36__PKAccountUser_initWithDictionary___block
       goto LABEL_28;
     }
 
-    v15 = [v12 isEqualToString:v13];
+    isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-    if ((v15 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_29;
     }
@@ -187,7 +187,7 @@ PKCreditAccountFeatureDescriptor *__36__PKAccountUser_initWithDictionary___block
       goto LABEL_28;
     }
 
-    v19 = [v12 isEqualToString:v18];
+    v19 = objc_msgSend_isEqualToString_(v12);
 
     if ((v19 & 1) == 0)
     {
@@ -211,7 +211,7 @@ PKCreditAccountFeatureDescriptor *__36__PKAccountUser_initWithDictionary___block
       goto LABEL_28;
     }
 
-    v23 = [v12 isEqualToString:v22];
+    v23 = objc_msgSend_isEqualToString_(v12);
 
     if ((v23 & 1) == 0)
     {
@@ -228,7 +228,7 @@ PKCreditAccountFeatureDescriptor *__36__PKAccountUser_initWithDictionary___block
   {
     if (v12 && v26)
     {
-      v27 = [v12 isEqualToString:v26];
+      v27 = objc_msgSend_isEqualToString_(v12);
 
       if ((v27 & 1) == 0)
       {
@@ -287,9 +287,9 @@ LABEL_30:
       goto LABEL_13;
     }
 
-    v12 = [v9 isEqualToString:v10];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if ((v12 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_13;
     }
@@ -744,9 +744,9 @@ LABEL_49:
 
         v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
-        v11 = [identifier isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v11)
+        if (isEqualToString)
         {
           v6 = v9;
           goto LABEL_11;

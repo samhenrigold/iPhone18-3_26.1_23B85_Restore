@@ -166,7 +166,7 @@ uint64_t std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned __int12
   return v7;
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unsigned int a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, uint64_t a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -195,7 +195,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,unsigned int,std::back_
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -224,7 +224,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,unsigned long long,std:
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned __int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, unint64_t a3, void *a4)
+void *std::__formatter_integer<char>::format[abi:ne200100]<unsigned __int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, unint64_t a3, uint64_t **a4)
 {
   v8 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a4);
   if ((v8 & 0xFF00) == 0xA00)
@@ -252,7 +252,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,unsigned __int128,std::
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a3, a4, a5, 1);
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, float a4)
+uint64_t *std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, uint64_t a2, unint64_t a3, float a4)
 {
   v43[32] = *MEMORY[0x277D85DE8];
   if ((LODWORD(a4) & 0x7FFFFFFFu) >= 0x7F800000)
@@ -516,7 +516,7 @@ LABEL_8:
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, p_src - &__src + 3, a1, a2 & 0xFFFFFFFFFFFFFF00 | v11, a3, p_src - &__src + 3);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<float,float>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, float a7@<S0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<float,float>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, float a7@<S0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -561,7 +561,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -638,7 +638,7 @@ LABEL_35:
   return std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<float,float>(a1, v17, v9, a6);
 }
 
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x277D826C0]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -945,7 +945,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<float,
   v6 = MEMORY[0x223D8FDE0](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -968,7 +968,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -976,12 +976,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -1157,25 +1157,25 @@ LABEL_8:
   return result;
 }
 
-uint64_t std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t result, char a2)
+uint64_t *std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t *result, char a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (!v2 || (v4 = *v2, v3 = v2[1], v2[1] = v3 + 1, v3 < v4))
   {
     v5 = *result;
-    v6 = *(result + 16);
-    *(result + 16) = v6 + 1;
+    v6 = result[2];
+    result[2] = v6 + 1;
     *(v5 + v6) = a2;
-    if (*(result + 16) == *(result + 8))
+    if (result[2] == result[1])
     {
-      return (*(result + 24))(result, 2);
+      return (result[3])(result, 2);
     }
   }
 
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+uint64_t *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, uint64_t a2, unint64_t a3, double a4)
 {
   v43[128] = *MEMORY[0x277D85DE8];
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
@@ -1372,7 +1372,7 @@ void sub_220987BA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -1417,7 +1417,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -1494,7 +1494,7 @@ LABEL_35:
   return std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<double,double>(a1, v17, v9, a6);
 }
 
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x277D826C0]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -1767,7 +1767,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x223D8FD80](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -1790,7 +1790,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -1798,12 +1798,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -1979,7 +1979,7 @@ LABEL_8:
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+uint64_t *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, uint64_t a2, unint64_t a3, double a4)
 {
   v43[128] = *MEMORY[0x277D85DE8];
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
@@ -2176,7 +2176,7 @@ void sub_220988910(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -2221,7 +2221,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -2305,7 +2305,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x223D8FDB0](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -2328,7 +2328,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -2336,12 +2336,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -2541,7 +2541,7 @@ unsigned __int8 *std::__formatter_pointer<char>::parse[abi:ne200100]<std::basic_
   return result;
 }
 
-void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, void *a3)
+void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t **a3)
 {
   v5 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = 1536;
@@ -2553,14 +2553,14 @@ void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_con
   return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a2, a3, v5 & 0xFFFFFFFFFFFF00FFLL | v7 | 0x20, v6, 0);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
     }
 
     v10 = 2;
@@ -2601,7 +2601,7 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::b
 
   if (BYTE1(a3) != 4)
   {
-    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
   }
 
   if (a1)
@@ -2614,10 +2614,10 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::b
     v5 = 0;
   }
 
-  return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8);
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, signed int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -2833,17 +2833,17 @@ void sub_2209893B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2209894B4(_Unwind_Exception *exception_object)
@@ -2858,7 +2858,7 @@ void sub_2209894B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3044,9 +3044,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::__unordered_map_hasher<E5RT::ComponentDataType,std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::hash<E5RT::ComponentDataType>,std::equal_to<E5RT::ComponentDataType>,true>,std::__unordered_map_equal<E5RT::ComponentDataType,std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::equal_to<E5RT::ComponentDataType>,std::hash<E5RT::ComponentDataType>,true>,std::allocator<std::__hash_value_type<E5RT::ComponentDataType,std::string>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::__unordered_map_hasher<E5RT::ComponentDataType,std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::hash<E5RT::ComponentDataType>,std::equal_to<E5RT::ComponentDataType>,true>,std::__unordered_map_equal<E5RT::ComponentDataType,std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::equal_to<E5RT::ComponentDataType>,std::hash<E5RT::ComponentDataType>,true>,std::allocator<std::__hash_value_type<E5RT::ComponentDataType,std::string>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::__unordered_map_hasher<E5RT::ComponentDataType,std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::hash<E5RT::ComponentDataType>,std::equal_to<E5RT::ComponentDataType>,true>,std::__unordered_map_equal<E5RT::ComponentDataType,std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::equal_to<E5RT::ComponentDataType>,std::hash<E5RT::ComponentDataType>,true>,std::allocator<std::__hash_value_type<E5RT::ComponentDataType,std::string>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::__unordered_map_hasher<E5RT::ComponentDataType,std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::hash<E5RT::ComponentDataType>,std::equal_to<E5RT::ComponentDataType>,true>,std::__unordered_map_equal<E5RT::ComponentDataType,std::__hash_value_type<E5RT::ComponentDataType,std::string>,std::equal_to<E5RT::ComponentDataType>,std::hash<E5RT::ComponentDataType>,true>,std::allocator<std::__hash_value_type<E5RT::ComponentDataType,std::string>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -3151,16 +3151,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -3183,9 +3183,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_220989C5C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_220989C5C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x223D8FC90](&a10);
+  MEMORY[0x223D8FC90](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -3275,152 +3275,152 @@ void sub_220989E90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *cgm::token_generation_inference::ajax::ANEAJAXE5ImageTokenizer::ANEAJAXE5ImageTokenizer(uint64_t *a1, uint64_t a2)
+uint64_t *cgm::token_generation_inference::ajax::ANEAJAXE5ImageTokenizer::ANEAJAXE5ImageTokenizer(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   *(a1 + 1) = 0u;
-  v4 = (a1 + 2);
+  v5 = a1 + 2;
   *(a1 + 3) = 0u;
-  v5 = (a1 + 6);
+  v6 = a1 + 6;
   a1[8] = 0;
   *(a1 + 2) = 0u;
   *a1 = 0u;
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(v31, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(v32, *a2, *(a2 + 8));
   }
 
   else
   {
-    *v31 = *a2;
-    *&v31[16] = *(a2 + 16);
+    *v32 = *a2;
+    *&v32[16] = *(a2 + 16);
   }
 
   E5RT::ProgramLibrary::OpenLibrary();
-  if (v24)
+  if (v25)
   {
     operator new();
   }
 
-  v24 = 0;
-  if ((v31[23] & 0x80000000) != 0)
+  v25 = 0;
+  if ((v32[23] & 0x80000000) != 0)
   {
-    operator delete(*v31);
+    operator delete(*v32);
   }
 
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(v31, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(v32, *a2, *(a2 + 8));
   }
 
   else
   {
-    *v31 = *a2;
-    *&v31[16] = *(a2 + 16);
+    *v32 = *a2;
+    *&v32[16] = *(a2 + 16);
   }
 
   E5RT::PrecompiledComputeOpCreateOptions::Create();
-  if ((v31[23] & 0x80000000) != 0)
+  if ((v32[23] & 0x80000000) != 0)
   {
-    operator delete(*v31);
+    operator delete(*v32);
   }
 
   E5RT::ExecutionStreamOperation::CreatePreCompiledComputeOp();
-  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, v31);
-  v7 = *v31;
-  *v31 = 0;
-  if (v7)
+  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, v32);
+  v8 = *v32;
+  *v32 = 0;
+  if (v8)
   {
-    (*(*v7 + 8))(v7);
+    (*(*v8 + 8))(v8);
   }
 
-  v8 = cgm::token_generation_inference::ajax::utils::allocateAndBindMemoryToPorts(*a1, v6);
-  E5RT::ExecutionStream::CreateExecutionStream(v31, v8);
-  std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>(v4, v31);
-  v9 = *v31;
-  *v31 = 0;
-  if (v9)
-  {
-    (*(*v9 + 8))(v9);
-  }
-
-  v10 = a1[1];
-  v28 = *a1;
-  v29 = v10;
+  v9 = cgm::token_generation_inference::ajax::utils::allocateAndBindMemoryToPorts(*a1, v7);
+  E5RT::ExecutionStream::CreateExecutionStream(v32, v9);
+  std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>(v5, v32);
+  v10 = *v32;
+  *v32 = 0;
   if (v10)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    (*(*v10 + 8))(v10);
+  }
+
+  v11 = a1[1];
+  v29 = *a1;
+  v30 = v11;
+  if (v11)
+  {
+    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   E5RT::ExecutionStream::EncodeOperation();
-  if (v29)
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
   }
 
-  E5RT::ExecutionStream::PreWireInUseAllocations(*v4);
+  E5RT::ExecutionStream::PreWireInUseAllocations(*v5);
   E5RT::TensorDataType::TensorDataType();
-  std::string::basic_string[abi:ne200100]<0>(&v24, "image_embeddings");
+  std::string::basic_string[abi:ne200100]<0>(&v25, "image_embeddings");
   OutputPortRef = E5RT::ExecutionStreamOperation::GetOutputPortRef();
-  MEMORY[0x223D8F770](v23, v27);
-  *v31 = xmmword_220AE5A00;
-  *&v31[16] = unk_220AE5A10;
-  v21 = 0;
+  MEMORY[0x223D8F770](v24, v28);
+  *v32 = xmmword_220AE5A00;
+  *&v32[16] = unk_220AE5A10;
   v22 = 0;
+  v23 = 0;
   __p = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&__p, v31, v32, 4uLL);
-  cgm::token_generation_inference::ajax::utils::checkTensorType(OutputPortRef, v23, &__p);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&__p, v32, v33, 4uLL);
+  cgm::token_generation_inference::ajax::utils::checkTensorType(OutputPortRef, v24, &__p);
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
-  E5RT::TensorDataType::~TensorDataType(v23);
-  if (SHIBYTE(v26) < 0)
+  E5RT::TensorDataType::~TensorDataType(v24);
+  if (SHIBYTE(v27) < 0)
   {
-    operator delete(v24);
+    operator delete(v25);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v31, "image");
+  std::string::basic_string[abi:ne200100]<0>(v32, "image");
   InputPortRef = E5RT::ExecutionStreamOperation::GetInputPortRef();
-  if ((v31[23] & 0x80000000) != 0)
+  if ((v32[23] & 0x80000000) != 0)
   {
-    operator delete(*v31);
+    operator delete(*v32);
   }
 
-  MEMORY[0x223D8F770](v19, v27);
-  *v31 = xmmword_220AE5A20;
-  *&v31[16] = unk_220AE5A30;
-  v25 = 0;
+  MEMORY[0x223D8F770](v20, v28);
+  *v32 = xmmword_220AE5A20;
+  *&v32[16] = unk_220AE5A30;
   v26 = 0;
-  v24 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v24, v31, v32, 4uLL);
-  cgm::token_generation_inference::ajax::utils::checkTensorType(InputPortRef, v19, &v24);
-  if (v24)
+  v27 = 0;
+  v25 = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v25, v32, v33, 4uLL);
+  cgm::token_generation_inference::ajax::utils::checkTensorType(InputPortRef, v20, &v25);
+  if (v25)
   {
-    v25 = v24;
-    operator delete(v24);
+    v26 = v25;
+    operator delete(v25);
   }
 
-  E5RT::TensorDataType::~TensorDataType(v19);
+  E5RT::TensorDataType::~TensorDataType(v20);
   PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(InputPortRef);
-  v14 = E5RT::OperandDescriptor::TensorDescriptor(PortDescriptorRef);
-  TensorShape = E5RT::TensorDescriptor::GetTensorShape(v14);
-  v16 = *TensorShape;
+  v15 = E5RT::OperandDescriptor::TensorDescriptor(PortDescriptorRef);
+  TensorShape = E5RT::TensorDescriptor::GetTensorShape(v15);
+  v17 = *TensorShape;
   a1[5] = *(*TensorShape + 1);
-  a1[4] = *(v16 + 2);
-  if (v5 != TensorShape)
+  a1[4] = *(v17 + 2);
+  if (v6 != TensorShape)
   {
-    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v5, v16, TensorShape[1], (TensorShape[1] - v16) >> 3);
+    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v6, v17, TensorShape[1], (TensorShape[1] - v17) >> 3);
   }
 
-  E5RT::TensorDataType::~TensorDataType(v27);
-  v17 = v30;
-  v30 = 0;
-  if (v17)
+  E5RT::TensorDataType::~TensorDataType(v28);
+  v18 = v31;
+  v31 = 0;
+  if (v18)
   {
-    (*(*v17 + 8))(v17);
+    (*(*v18 + 8))(v18);
   }
 
   return a1;
@@ -3471,7 +3471,7 @@ void *std::shared_ptr<E5RT::ExecutionStream>::operator=[abi:ne200100]<E5RT::Exec
   return a1;
 }
 
-void cgm::token_generation_inference::ajax::ANEAJAXE5ImageTokenizer::encodeImage(uint64_t a1, void *a2, void *a3)
+void cgm::token_generation_inference::ajax::ANEAJAXE5ImageTokenizer::encodeImage(uint64_t *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -3483,7 +3483,7 @@ void cgm::token_generation_inference::ajax::ANEAJAXE5ImageTokenizer::encodeImage
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if ((v5[2](v5, v7, v9, a1 + 48) & 1) == 0)
+  if ((v5[2](v5, v7, v9, a1 + 6) & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&__p, "I/O has invalid dtype");
@@ -3491,15 +3491,16 @@ void cgm::token_generation_inference::ajax::ANEAJAXE5ImageTokenizer::encodeImage
     exception->__vftable = &unk_28344D360;
   }
 
-  E5RT::ExecutionStream::ExecuteStreamSync(*(a1 + 16));
+  E5RT::ExecutionStream::ExecuteStreamSync(a1[2]);
+  v10 = *a1;
   std::string::basic_string[abi:ne200100]<0>(&__p, "image_embeddings");
-  v10 = cgm::token_generation_inference::ajax::utils::outputSpan<unsigned char>();
+  v11 = cgm::token_generation_inference::ajax::utils::outputSpan<unsigned char>(v10, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v6[2](v6, v10);
+  v6[2](v6, v11);
 }
 
 void sub_22098A640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3524,13 +3525,13 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t cgm::token_generation_inference::ajax::utils::outputSpan<unsigned char>()
+uint64_t cgm::token_generation_inference::ajax::utils::outputSpan<unsigned char>(uint64_t a1, uint64_t a2)
 {
   OutputPortRef = E5RT::ExecutionStreamOperation::GetOutputPortRef();
   MemoryObjectRef = E5RT::IOPort::GetMemoryObjectRef(OutputPortRef);
-  v2 = E5RT::MemoryObject::TryAsBuffer(MemoryObjectRef);
-  result = E5RT::BufferObject::GetDataSpan(v2);
-  if (!v4)
+  v4 = E5RT::MemoryObject::TryAsBuffer(MemoryObjectRef);
+  result = E5RT::BufferObject::GetDataSpan(v4);
+  if (!v6)
   {
     return 0;
   }
@@ -3608,7 +3609,7 @@ void sub_22098A818(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3683,18 +3684,18 @@ void *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long
   return result;
 }
 
-uint64_t *std::shared_ptr<E5RT::ExecutionStream>::shared_ptr[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<E5RT::ExecutionStream>::shared_ptr[abi:ne200100]<E5RT::ExecutionStream,std::default_delete<E5RT::ExecutionStream>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<E5RT::ExecutionStream  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -3861,11 +3862,11 @@ LABEL_3:
   }
 }
 
-void sub_22098AD20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_22098AD20(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (__p)
   {
-    (*(*__p + 8))(__p);
+    (*(*__p + 8))(__p, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v26 = *(v24 - 40);
@@ -3877,55 +3878,55 @@ void sub_22098AD20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void cgm::token_generation_inference::ajax::ane::loadOperationFromLibrary(E5RT::ProgramLibrary **a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void cgm::token_generation_inference::ajax::ane::loadOperationFromLibrary(E5RT::ProgramLibrary **a1@<X0>, const void **a2@<X1>, void *a4@<X8>)
 {
   ExportedFunctions = E5RT::ProgramLibrary::GetExportedFunctions(*a1);
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(ExportedFunctions, a2);
-  if (!v6)
+  v7 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(ExportedFunctions, a2);
+  if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v7 = v6[6];
-  if (v7)
+  v8 = v7[6];
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-    v9 = v7;
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    v10 = v8;
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   E5RT::PrecompiledComputeOpCreateOptions::Create();
-  if (v9)
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
   E5RT::PrecompiledComputeOpCreateOptions::SetMutableMILWeightPaths();
   E5RT::ExecutionStreamOperation::CreatePreCompiledComputeOp();
-  *a3 = v8;
-  if (v8)
+  *a4 = v9;
+  if (v9)
   {
     operator new();
   }
 
-  a3[1] = 0;
-  if (v10)
+  a4[1] = 0;
+  if (v11)
   {
-    (*(*v10 + 8))();
+    (*(*v11 + 8))();
   }
 
-  if (v7)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 }
 
-void sub_22098AF2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_22098AF2C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a9)
   {
@@ -3934,7 +3935,7 @@ void sub_22098AF2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v12)
@@ -3995,12 +3996,12 @@ void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::ANEAJAXE5MLModel(c
   operator new();
 }
 
-void sub_22098BEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_22098BEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a72 < 0)
+  if (a66 < 0)
   {
     operator delete(__p);
-    if ((v73 & 1) == 0)
+    if ((v67 & 1) == 0)
     {
 LABEL_6:
       std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::~__hash_table(&STACK[0x200]);
@@ -4011,24 +4012,24 @@ LABEL_6:
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
       STACK[0x200] = &a45;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
-      if (v74)
+      if (v68)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v68);
       }
 
-      v77 = *a11;
+      v71 = *a11;
       if (*a11)
       {
-        *(v72 + 280) = v77;
-        operator delete(v77);
+        *(v66 + 280) = v71;
+        operator delete(v71);
       }
 
       STACK[0x200] = a12;
       std::vector<cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::TokenRecord>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
-      v78 = *(v72 + 240);
-      if (v78)
+      v72 = *(v66 + 240);
+      if (v72)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v78);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v72);
       }
 
       STACK[0x200] = a10;
@@ -4037,26 +4038,26 @@ LABEL_6:
       std::vector<cgm::token_generation_inference::ajax::utils::StreamOpPair>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
       STACK[0x200] = a9;
       std::vector<cgm::token_generation_inference::ajax::utils::StreamOpPair>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
-      if (*(v72 + 79) < 0)
+      if (*(v66 + 79) < 0)
       {
-        operator delete(*(v72 + 56));
+        operator delete(*(v66 + 56));
       }
 
-      cgm::token_generation_inference::ajax::AJAXE5MLModel::~AJAXE5MLModel(v72);
+      cgm::token_generation_inference::ajax::AJAXE5MLModel::~AJAXE5MLModel(v66);
       _Unwind_Resume(a1);
     }
   }
 
-  else if (!v73)
+  else if (!v67)
   {
     goto LABEL_6;
   }
 
-  __cxa_free_exception(v75);
+  __cxa_free_exception(v69);
   goto LABEL_6;
 }
 
-void cgm::token_generation_inference::ajax::ane::filterFunctions(E5RT::ProgramLibrary **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, std::vector<std::string> *a4@<X8>)
+void cgm::token_generation_inference::ajax::ane::filterFunctions(E5RT::ProgramLibrary **a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, std::vector<std::string> *a4@<X8>)
 {
   a4->__begin_ = 0;
   a4->__end_ = 0;
@@ -4077,9 +4078,9 @@ void cgm::token_generation_inference::ajax::ane::filterFunctions(E5RT::ProgramLi
 
   if (a2)
   {
-    if (*(a2 + 64) != *(a2 + 56))
+    if (a2[8] != a2[7])
     {
-      TGIE5ModelConfiguration::e5FunctionNames(a2, v11);
+      TGIE5ModelConfiguration::e5FunctionNames(v11, a2);
       v9.__i_ = std::remove_if[abi:ne200100]<std::__wrap_iter<std::string *>,cgm::token_generation_inference::ajax::ane::filterFunctions(std::shared_ptr<E5RT::ProgramLibrary>,TGIE5ModelConfiguration const*,std::function<BOOL ()(std::string const&,E5RT::ProgramFunction const&)>)::{lambda(std::string const&)#1}>(&a4->__begin_->__r_.__value_.__l.__data_, &a4->__end_->__r_.__value_.__l.__data_, v11);
       v10.__i_ = a4->__end_;
       std::vector<std::string>::erase(a4, v9, v10);
@@ -4139,7 +4140,7 @@ void TGIE5ModelConfiguration::mutableWeightsSymbolToPath(void *a1@<X0>, std::str
   }
 }
 
-void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::prepareDecodingStreamOps(uint64_t *a1, E5RT::ProgramLibrary **a2, uint64_t a3, __int128 **a4, __int128 **a5)
+void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::prepareDecodingStreamOps(void *a1, E5RT::ProgramLibrary **a2, uint64_t a3, std::string **a4, std::string **a5)
 {
   v80 = *MEMORY[0x277D85DE8];
   memset(&v72, 0, sizeof(v72));
@@ -4460,7 +4461,7 @@ void sub_22098CCC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::prepareGatherStreamOps(void *a1, E5RT::ProgramLibrary **a2, const void ***a3)
+void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::prepareGatherStreamOps(uint64_t *a1, E5RT::ProgramLibrary **a2, const void ***a3)
 {
   std::vector<cgm::token_generation_inference::ajax::utils::StreamOpPair>::reserve(a1 + 26, 0xAAAAAAAAAAAAAAABLL * (a3[1] - *a3));
   v6 = *a3;
@@ -4546,21 +4547,21 @@ void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::prepareGatherStrea
   }
 }
 
-void sub_22098D034(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_22098D034(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a11)
   {
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v14)
@@ -4675,7 +4676,7 @@ void sub_22098D2BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::TokenRecord>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::TokenRecord>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
@@ -4690,26 +4691,24 @@ void *std::vector<cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::Token
   return result;
 }
 
-void sub_22098D394(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22098D394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::TokenRecord>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned long>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned long>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, a2);
     }
 
     _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
 void cgm::token_generation_inference::ajax::AJAXE5MLModel::~AJAXE5MLModel(cgm::token_generation_inference::ajax::AJAXE5MLModel *this)
@@ -4730,7 +4729,7 @@ void cgm::token_generation_inference::ajax::AJAXE5MLModel::~AJAXE5MLModel(cgm::t
   std::unique_ptr<ImageEmbeddingsProvider>::reset[abi:ne200100](this + 1, 0);
 }
 
-void *std::vector<std::shared_ptr<E5RT::PrecompiledComputeOpCreateOptions>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::shared_ptr<E5RT::PrecompiledComputeOpCreateOptions>>::reserve(const void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -4822,7 +4821,7 @@ void sub_22098D690(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry(unint64_t *a1, unint64_t a2, uint64_t **a3, uint64_t *a4, uint64_t *a5)
+void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry(unint64_t *a1, unint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   v5 = (a1 + 31);
   if (a2 != (a1[32] - a1[31]) >> 5)
@@ -4835,11 +4834,11 @@ void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry(un
     cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry();
   }
 
-  v11 = (*a3)[3];
+  v11 = *(*a3 + 24);
   cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::fillCacheHolesIfNeeded(a1, v11, 1);
   cgm::token_generation_inference::ajax::AJAXE5MLModelWithModularAttentionSupport::checkKVCacheEntry((a1 + 6), a2, v11, (a1[32] - a1[31]) >> 5, a1[10]);
   v12 = *a3;
-  v13 = (*a3)[3];
+  v13 = *(*a3 + 24);
   v28[0] = a2;
   v28[1] = v13;
   v14 = a1[23];
@@ -4858,7 +4857,7 @@ void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry(un
   v25[2] = v28;
   v25[3] = a3;
   cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry(unsigned long,std::unique_ptr<TGIE5KVCacheEntry> const&,std::vector<int> const&,std::vector<std::vector<signed char>> const&)::$_0::operator()(v25, "state_keys_LHC", v12);
-  cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry(unsigned long,std::unique_ptr<TGIE5KVCacheEntry> const&,std::vector<int> const&,std::vector<std::vector<signed char>> const&)::$_0::operator()(v25, "state_values_LHC", *a3 + 1);
+  cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry(unsigned long,std::unique_ptr<TGIE5KVCacheEntry> const&,std::vector<int> const&,std::vector<std::vector<signed char>> const&)::$_0::operator()(v25, "state_values_LHC", (*a3 + 8));
   v17 = *a4;
   if (a4[1] != *a4)
   {
@@ -4997,10 +4996,10 @@ void sub_22098DB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry(unsigned long,std::unique_ptr<TGIE5KVCacheEntry> const&,std::vector<int> const&,std::vector<std::vector<signed char>> const&)::$_0::operator()(uint64_t a1, char *a2, uint64_t *a3)
+uint64_t cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntry(unsigned long,std::unique_ptr<TGIE5KVCacheEntry> const&,std::vector<int> const&,std::vector<std::vector<signed char>> const&)::$_0::operator()(uint64_t **a1, char *a2, uint64_t *a3)
 {
   v35 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   std::string::basic_string[abi:ne200100]<0>(&__p, a2);
   v6 = E5RT::ExecutionStreamOperation::GetInOutPortRef();
   E5RT::IOPort::GetMemoryObject(&v24, v6);
@@ -5018,19 +5017,19 @@ uint64_t cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::setKVCacheEntr
   }
 
   v18 = *a3;
-  v9 = *(a1 + 16);
+  v9 = a1[2];
   v23[0] = &unk_28344D660;
   v23[1] = &v18;
   v23[3] = v23;
   cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::enumerateCacheSequences(v5, v19, v9, v23);
   result = std::__function::__value_func<void ()(unsigned char *,unsigned long)>::~__value_func[abi:ne200100](v23);
   v11 = (v18 - *a3);
-  if (v11 != *(**(a1 + 24) + 16))
+  if (v11 != *(*a1[3] + 16))
   {
     exception = __cxa_allocate_exception(0x18uLL);
     v13 = a1;
     v14 = exception;
-    v15 = **(v13 + 24);
+    v15 = *v13[3];
     v24 = v11;
     v25 = 0;
     v16 = *(v15 + 16);
@@ -5081,9 +5080,9 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::enumerateCacheSequences(uint64_t result, void *a2, uint64_t *a3, uint64_t a4)
+void *cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::enumerateCacheSequences(void *result, void *a2, uint64_t *a3, uint64_t a4)
 {
-  if (*(result + 112))
+  if (result[14])
   {
     v6 = result;
     v7 = 0;
@@ -5114,25 +5113,25 @@ uint64_t std::function<void ()(unsigned char *,unsigned long)>::operator()(uint6
   return (*(*v3 + 48))(v3, &v6, &v5);
 }
 
-void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::createKVCacheEntry(cgm::token_generation_inference::ajax::ANEAJAXE5MLModel *a1, uint64_t a2)
+void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::createKVCacheEntry(uint64_t **a1, uint64_t a2)
 {
-  v4 = *(a2 + 8);
-  cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::fillCacheHolesIfNeeded(a1, v4, 1);
-  v13 = *(a1 + 14) * v4 * *(a1 + 15) * *(a1 + 13);
-  v5 = *(a1 + 23);
-  v7 = *v5;
-  v6 = v5[1];
-  v12[0] = v7;
-  v12[1] = v6;
-  if (v6)
+  v5 = *(a2 + 8);
+  cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::fillCacheHolesIfNeeded(a1, v5, 1);
+  v14 = a1[14] * v5 * a1[15] * a1[13];
+  v6 = a1[23];
+  v8 = *v6;
+  v7 = v6[1];
+  v13[0] = v8;
+  v13[1] = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v8 = v12;
-  v9 = &v13;
-  v10 = a1;
-  v11 = a2;
+  v9 = v13;
+  v10 = &v14;
+  v11 = a1;
+  v12 = a2;
   operator new();
 }
 
@@ -5149,21 +5148,21 @@ void sub_22098DFFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::createKVCacheEntry(std::pair<unsigned long,unsigned long> const&)::$_0::operator()(uint64_t a1, char *a2)
+void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::createKVCacheEntry(std::pair<unsigned long,unsigned long> const&)::$_0::operator()(uint64_t **a1, char *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(&__p, a2);
-  v2 = E5RT::ExecutionStreamOperation::GetInOutPortRef();
-  E5RT::IOPort::GetMemoryObject(&v7, v2);
-  v3 = E5RT::MemoryObject::Buffer(v7);
-  DataSpan = E5RT::BufferObject::GetDataSpan(v3);
-  v10 = v4;
-  if (v8)
+  v3 = E5RT::ExecutionStreamOperation::GetInOutPortRef();
+  E5RT::IOPort::GetMemoryObject(&v8, v3);
+  v4 = E5RT::MemoryObject::Buffer(v8);
+  DataSpan = E5RT::BufferObject::GetDataSpan(v4);
+  v11 = v5;
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
-  if (v6 < 0)
+  if (v7 < 0)
   {
     operator delete(__p);
   }
@@ -5236,7 +5235,7 @@ void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::fillCacheHolesIfNe
   E5RT::TensorDataType::~TensorDataType(v19);
 }
 
-void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::purgeSteps(cgm::token_generation_inference::ajax::ANEAJAXE5MLModel *a1, uint64_t *a2)
+void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::purgeSteps(cgm::token_generation_inference::ajax::ANEAJAXE5MLModel *a1, const void **a2)
 {
   v49 = *MEMORY[0x277D85DE8];
   __p = 0;
@@ -5447,7 +5446,7 @@ char *std::vector<unsigned long>::insert(void *a1, char *__src, char *a3)
       _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE20__throw_length_errorB8ne200100Ev();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -5517,7 +5516,7 @@ char *std::vector<unsigned long>::insert(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -5590,11 +5589,11 @@ void cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::clearAllState(E5RT
   v7[2](v7);
 }
 
-void ___ZN3cgm26token_generation_inference4ajax16ANEAJAXE5MLModel13clearAllStateEv_block_invoke(cgm::token_generation_inference::common::logging::CGMTGILogger *a1)
+void ___ZN3cgm26token_generation_inference4ajax16ANEAJAXE5MLModel13clearAllStateEv_block_invoke(os_signpost_id_t *a1)
 {
   v2 = cgm::token_generation_inference::common::logging::CGMTGILogger::GENERAL(a1);
   v3 = v2;
-  v4 = *(a1 + 4);
+  v4 = a1[4];
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     *v5 = 0;
@@ -5861,7 +5860,7 @@ uint64_t std::__any_of[abi:ne200100]<std::__wrap_iter<TGIE5Function const*>,std:
     if (v10 == size)
     {
       v12 = v11 >= 0 ? v6 : *v6;
-      v13 = v8 >= 0 ? v7 : v7->__r_.__value_.__r.__words[0];
+      v13 = v8 >= 0 ? v7 : *v7;
       if (!memcmp(v12, v13, size))
       {
         break;
@@ -5997,7 +5996,7 @@ void std::__optional_storage_base<std::string,false>::__construct_from[abi:ne200
   }
 }
 
-uint64_t _ZZNK23TGIE5ModelConfiguration26mutableWeightsSymbolToPathERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEENKUlRKT_E_clI25TGIE5AdapterConfigurationEEDaSB_(void *a1, uint64_t *a2)
+uint64_t _ZZNK23TGIE5ModelConfiguration26mutableWeightsSymbolToPathERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEENKUlRKT_E_clI25TGIE5AdapterConfigurationEEDaSB_(void *a1, uint64_t **a2)
 {
   v2 = a2;
   v4 = *a1;
@@ -6076,8 +6075,8 @@ uint64_t _ZZNK23TGIE5ModelConfiguration26mutableWeightsSymbolToPathERKNSt3__112b
   }
 
   v14 = a1[1];
-  v18 = v2 + 3;
-  v15 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v14, v2 + 3);
+  v19 = v2 + 3;
+  v15 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v14, v2 + 3, &std::piecewise_construct, &v19, &v18);
   v16 = v15;
   if (*(v15 + 63) < 0)
   {
@@ -6098,35 +6097,35 @@ void sub_22098F440(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -6134,49 +6133,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_22098F6C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22098F6C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6211,7 +6210,7 @@ void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
   }
 }
 
-uint64_t std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6396,7 +6395,7 @@ void std::__split_buffer<std::shared_ptr<E5RT::PrecompiledComputeOpCreateOptions
 
 uint64_t cgm::token_generation_inference::ajax::ane::checkIOPorts(const void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(v13, "in_embeddings");
   std::string::basic_string[abi:ne200100]<0>(v14, "in_relative_positions_CT");
   std::string::basic_string[abi:ne200100]<0>(v15, "in_new_token_ids");
@@ -6439,12 +6438,11 @@ uint64_t cgm::token_generation_inference::ajax::ane::checkIOPorts(const void *a1
   return std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v12);
 }
 
-void sub_22098FE1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22098FE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -6458,6 +6456,7 @@ void sub_22098FE1C(_Unwind_Exception *a1, uint64_t a2, ...)
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(va);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va1);
   _Unwind_Resume(a1);
@@ -6608,7 +6607,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *std::__format::__create_packed_storage[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,std::string const,std::string const>(void *result, void *a2, uint64_t *a3, uint64_t *a4)
+void *std::__format::__create_packed_storage[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,std::string const,std::string const>(void *result, uint64_t **a2, uint64_t **a3, uint64_t **a4)
 {
   v4 = *(a3 + 23);
   v5 = v4;
@@ -6665,41 +6664,41 @@ uint64_t std::unordered_map<std::string,std::shared_ptr<E5RT::OperandDescriptor 
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::OperandDescriptor const>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::OperandDescriptor const>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::OperandDescriptor const>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::OperandDescriptor const>> const&>(void *a1, const void **a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::OperandDescriptor const>>>>::__construct_node_hash<std::pair<std::string const,std::shared_ptr<E5RT::OperandDescriptor const>> const&>();
@@ -6707,49 +6706,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_2209906F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2209906F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6828,7 +6827,7 @@ uint64_t *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std
         }
 
         *(16 * v11) = v20;
-        v15 = 16 * v11 + 16;
+        v15 = (16 * v11 + 16);
         v20 = 0uLL;
         memcpy(0, v9, v10);
         v16 = *a4;
@@ -6875,7 +6874,7 @@ void sub_220990984(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*,false>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*,false>(char *a1, char *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
 {
 LABEL_1:
   v9 = a1;
@@ -7763,7 +7762,7 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
     v5 = a1 + 2;
     if (a1 + 2 != a2)
     {
-      v7 = (a1 + 3);
+      v7 = a1 + 3;
       do
       {
         v8 = v4;
@@ -8102,7 +8101,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     while ((v28 & 1) != 0);
   }
 
-  v29 = (i - 2);
+  v29 = i - 2;
   if (i - 2 != a1)
   {
     v30 = *v29;
@@ -8357,7 +8356,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v21 < v22);
   }
 
-  v33 = (v21 - 2);
+  v33 = v21 - 2;
   if (v21 - 2 != a1)
   {
     v34 = *v33;
@@ -8402,7 +8401,7 @@ void sub_220991FD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*>(uint64_t *a1, char *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
 {
   v4 = a2;
   v6 = (a2 - a1) >> 4;
@@ -8624,7 +8623,7 @@ void sub_22099235C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*,std::shared_ptr<E5RT::ExecutionStreamOperation>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (**a4)(uint64_t *, uint64_t *))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*,std::shared_ptr<E5RT::ExecutionStreamOperation>*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t *, uint64_t *))
 {
   if (a1 != a2)
   {
@@ -8634,7 +8633,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*>(a1, a4, v8, v11);
@@ -8652,7 +8651,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
       do
       {
         v13 = *a4;
-        v14 = v12[1];
+        v14 = *(v12 + 1);
         v23 = *v12;
         v24 = v14;
         if (v14)
@@ -8660,7 +8659,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
           atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v15 = a1[1];
+        v15 = *(a1 + 1);
         v21 = *a1;
         v22 = v15;
         if (v15)
@@ -8684,13 +8683,13 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
           v17 = *v12;
           *v12 = *a1;
           *a1 = v17;
-          v18 = v12[1];
-          v12[1] = a1[1];
-          a1[1] = v18;
+          v18 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v18;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        v12 += 16;
       }
 
       while (v12 != a3);
@@ -8746,7 +8745,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
 
   v9 = (a4 - a1) >> 3;
   v10 = v9 + 1;
-  v11 = (a1 + 16 * (v9 + 1));
+  v11 = a1 + 16 * (v9 + 1);
   v12 = v9 + 2;
   if (v9 + 2 < a3)
   {
@@ -8757,8 +8756,8 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
       atomic_fetch_add_explicit((*(&v50 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
-    v14 = *(v11 + 3);
-    v48 = *(v11 + 2);
+    v14 = *(v11 + 24);
+    v48 = *(v11 + 16);
     v49 = v14;
     if (v14)
     {
@@ -8785,14 +8784,14 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
     if (v15)
     {
 LABEL_12:
-      ++v11;
+      v11 += 16;
       v10 = v12;
     }
   }
 
 LABEL_13:
   v16 = *a2;
-  v17 = *(v11 + 1);
+  v17 = *(v11 + 8);
   v46 = *v11;
   v47 = v17;
   if (v17)
@@ -8831,7 +8830,7 @@ LABEL_13:
       v22 = v11;
       v23 = *v11;
       *v11 = 0;
-      *(v11 + 1) = 0;
+      *(v11 + 8) = 0;
       v24 = v5[1];
       *v5 = v23;
       if (v24)
@@ -8855,7 +8854,7 @@ LABEL_48:
 
       v25 = 2 * v10;
       v10 = (2 * v10) | 1;
-      v11 = (v6 + 16 * v10);
+      v11 = v6 + 16 * v10;
       v26 = v25 + 2;
       if (v25 + 2 < a3)
       {
@@ -8867,8 +8866,8 @@ LABEL_48:
           atomic_fetch_add_explicit((*(&v28 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
-        v29 = *(v11 + 3);
-        v41 = *(v11 + 2);
+        v29 = *(v11 + 24);
+        v41 = *(v11 + 16);
         v42 = v29;
         if (v29)
         {
@@ -8889,7 +8888,7 @@ LABEL_48:
           }
 
 LABEL_35:
-          ++v11;
+          v11 += 16;
           v10 = v26;
           goto LABEL_36;
         }
@@ -8903,7 +8902,7 @@ LABEL_35:
 
 LABEL_36:
       v31 = *a2;
-      v32 = *(v11 + 1);
+      v32 = *(v11 + 8);
       v39 = *v11;
       v40 = v32;
       if (v32)
@@ -8954,14 +8953,14 @@ void sub_220992804(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*>(uint64_t *a1, uint64_t a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*>(char *a1, uint64_t a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = a1[1];
+    v7 = *(a1 + 1);
     *a1 = 0;
-    a1[1] = 0;
+    *(a1 + 1) = 0;
     v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<E5RT::ExecutionStreamOperation>,std::shared_ptr<E5RT::ExecutionStreamOperation>),std::shared_ptr<E5RT::ExecutionStreamOperation>*>(a1, a3, a4);
     v10 = v9;
     if (v9 == (a2 - 16))
@@ -9290,14 +9289,14 @@ uint64_t std::vector<cgm::token_generation_inference::ajax::utils::StreamOpPair>
   return v17;
 }
 
-void sub_220992DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_220992DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<cgm::token_generation_inference::ajax::utils::StreamOpPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(cgm::token_generation_inference::ajax::utils::StreamOpPair,cgm::token_generation_inference::ajax::utils::StreamOpPair),cgm::token_generation_inference::ajax::utils::StreamOpPair*,false>(__int128 *a1, __int128 *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(cgm::token_generation_inference::ajax::utils::StreamOpPair,cgm::token_generation_inference::ajax::utils::StreamOpPair),cgm::token_generation_inference::ajax::utils::StreamOpPair*,false>(char *a1, char *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
 {
   v7 = a2;
   v8 = a1;
@@ -9556,7 +9555,7 @@ LABEL_41:
     }
 
     v29 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(cgm::token_generation_inference::ajax::utils::StreamOpPair,cgm::token_generation_inference::ajax::utils::StreamOpPair),cgm::token_generation_inference::ajax::utils::StreamOpPair*>(v8, v27, a3);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(cgm::token_generation_inference::ajax::utils::StreamOpPair,cgm::token_generation_inference::ajax::utils::StreamOpPair),cgm::token_generation_inference::ajax::utils::StreamOpPair*>(v27 + 4, v7, a3))
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(cgm::token_generation_inference::ajax::utils::StreamOpPair,cgm::token_generation_inference::ajax::utils::StreamOpPair),cgm::token_generation_inference::ajax::utils::StreamOpPair*>(v27 + 2, v7, a3))
     {
       if (v29)
       {
@@ -9592,14 +9591,14 @@ LABEL_50:
   }
 }
 
-void sub_2209931F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2209931F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   cgm::token_generation_inference::ajax::utils::AJAXKVCache::~AJAXKVCache(va);
   cgm::token_generation_inference::ajax::utils::AJAXKVCache::~AJAXKVCache(va1);
   _Unwind_Resume(a1);

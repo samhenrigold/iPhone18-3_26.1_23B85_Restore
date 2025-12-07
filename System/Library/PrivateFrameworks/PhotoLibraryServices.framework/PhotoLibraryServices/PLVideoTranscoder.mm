@@ -13,7 +13,7 @@
   v6 = assetCopy;
   if (assetCopy)
   {
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
   }
 
   return 0;
@@ -130,7 +130,7 @@ void __134__PLVideoTranscoder_transcodeVideoWithObjectBuilder_outputURL_startTim
         [*(*(*(a1 + 88) + 8) + 40) setMetadata:?];
       }
 
-      if (([*(a1 + 56) isEqualToString:*MEMORY[0x1E6987340]] & 1) != 0 || objc_msgSend(*(a1 + 56), "isEqualToString:", *MEMORY[0x1E6987348]))
+      if ((objc_msgSend_isEqualToString_(*(a1 + 56)) & 1) != 0 || objc_msgSend_isEqualToString_(*(a1 + 56)))
       {
         v4 = *(*(*(a1 + 88) + 8) + 40);
         v5 = [MEMORY[0x1E6987FE8] metadataItemFilterForSharing];
@@ -148,7 +148,7 @@ void __134__PLVideoTranscoder_transcodeVideoWithObjectBuilder_outputURL_startTim
         v7 = v6;
         if (v6)
         {
-          [v6 duration];
+          objc_msgSend_duration(v6);
         }
 
         else
@@ -261,7 +261,7 @@ LABEL_6:
   v20 = [objc_alloc(MEMORY[0x1E69C08F8]) initWithVideoAsset:videoCopy videoAdjustments:0];
   if (videoCopy)
   {
-    [videoCopy duration];
+    objc_msgSend_duration(videoCopy);
   }
 
   else

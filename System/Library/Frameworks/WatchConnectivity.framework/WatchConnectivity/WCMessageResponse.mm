@@ -42,7 +42,7 @@
   data = [(WCMessage *)self data];
   v8 = [data length];
   error = [(WCMessageResponse *)self error];
-  v10 = NSPrintF();
+  v10 = NSPrintF("%{error}", error);
   v11 = [v3 stringWithFormat:@"<%@: %p, identifier: %@, dataLength: %lu, error: %@>", v5, self, identifier, v8, v10];
 
   return v11;

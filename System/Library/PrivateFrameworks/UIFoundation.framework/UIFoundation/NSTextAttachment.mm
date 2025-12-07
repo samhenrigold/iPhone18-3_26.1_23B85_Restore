@@ -61,7 +61,7 @@
   }
 }
 
-uint64_t __40__NSTextAttachment__setupAPIPreferences__block_invoke(uint64_t a1)
+void *__40__NSTextAttachment__setupAPIPreferences__block_invoke(uint64_t a1)
 {
   _setupAPIPreferences_baseOldAttachmentBoundsAPI = [*(a1 + 32) instanceMethodForSelector:*(a1 + 40)];
   _setupAPIPreferences_baseNewAttachmentBoundsAPI = [*(a1 + 32) instanceMethodForSelector:*(a1 + 48)];
@@ -633,7 +633,7 @@ _UICache *__30__NSTextAttachment_imageCache__block_invoke()
     image = self->_image;
     if (image)
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AC38]) initRegularFileWithContents:softLinkUIImagePNGRepresentation(image)];
+      v8 = [objc_alloc(MEMORY[0x1E696AC38]) initRegularFileWithContents:{softLinkUIImagePNGRepresentation(image, a2)}];
       fileWrapperForContents = v8;
       v9 = @"Attachment.png";
 LABEL_11:
@@ -828,7 +828,7 @@ LABEL_14:
   return v10;
 }
 
-uint64_t __34__NSTextAttachment_initWithCoder___block_invoke()
+void *__34__NSTextAttachment_initWithCoder___block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   result = [v0 initWithObjects:{getUIImageClass_0[0](), 0}];
@@ -883,19 +883,19 @@ uint64_t __34__NSTextAttachment_initWithCoder___block_invoke()
 - (CGRect)attachmentBoundsForTextContainer:(id)container proposedLineFragment:(CGRect)fragment glyphPosition:(CGPoint)position characterIndex:(unint64_t)index
 {
   [(NSTextAttachment *)self bounds];
-  x = v38.origin.x;
-  y = v38.origin.y;
-  width = v38.size.width;
-  height = v38.size.height;
+  x = v37.origin.x;
+  y = v37.origin.y;
+  width = v37.size.width;
+  height = v37.size.height;
   v13 = *MEMORY[0x1E695F058];
   v14 = *(MEMORY[0x1E695F058] + 8);
   v15 = *(MEMORY[0x1E695F058] + 16);
   v16 = *(MEMORY[0x1E695F058] + 24);
-  v41.origin.x = *MEMORY[0x1E695F058];
-  v41.origin.y = v14;
-  v41.size.width = v15;
-  v41.size.height = v16;
-  if (CGRectEqualToRect(v38, v41))
+  v40.origin.x = *MEMORY[0x1E695F058];
+  v40.origin.y = v14;
+  v40.size.width = v15;
+  v40.size.height = v16;
+  if (CGRectEqualToRect(v37, v40))
   {
     if ([(NSTextAttachment *)self usesTextAttachmentView])
     {
@@ -906,14 +906,14 @@ uint64_t __34__NSTextAttachment_initWithCoder___block_invoke()
           layoutManager = [container layoutManager];
           if (layoutManager)
           {
-            v31 = -[NSTextAttachment viewProviderForParentView:characterIndex:layoutManager:](self, "viewProviderForParentView:characterIndex:layoutManager:", [container textView], index, layoutManager);
-            if ([v31 tracksTextAttachmentViewBounds])
+            v30 = -[NSTextAttachment viewProviderForParentView:characterIndex:layoutManager:](self, "viewProviderForParentView:characterIndex:layoutManager:", [container textView], index, layoutManager);
+            if ([v30 tracksTextAttachmentViewBounds])
             {
-              [v31 attachmentBoundsForTextContainer:container proposedLineFragment:index glyphPosition:fragment.origin.x characterIndex:{fragment.origin.y, fragment.size.width, fragment.size.height, position.x, position.y}];
-              x = v32;
-              y = v33;
-              width = v34;
-              height = v35;
+              [v30 attachmentBoundsForTextContainer:container proposedLineFragment:index glyphPosition:fragment.origin.x characterIndex:{fragment.origin.y, fragment.size.width, fragment.size.height, position.x, position.y}];
+              x = v31;
+              y = v32;
+              width = v33;
+              height = v34;
             }
           }
         }
@@ -921,15 +921,15 @@ uint64_t __34__NSTextAttachment_initWithCoder___block_invoke()
     }
   }
 
-  v39.origin.x = x;
-  v39.origin.y = y;
-  v39.size.width = width;
-  v39.size.height = height;
-  v42.origin.x = v13;
-  v42.origin.y = v14;
-  v42.size.width = v15;
-  v42.size.height = v16;
-  if (CGRectEqualToRect(v39, v42))
+  v38.origin.x = x;
+  v38.origin.y = y;
+  v38.size.width = width;
+  v38.size.height = height;
+  v41.origin.x = v13;
+  v41.origin.y = v14;
+  v41.size.width = v15;
+  v41.size.height = v16;
+  if (CGRectEqualToRect(v38, v41))
   {
     _image = [(NSTextAttachment *)self _image];
     if (_image)
@@ -944,35 +944,34 @@ uint64_t __34__NSTextAttachment_initWithCoder___block_invoke()
 
       if (-[NSTextAttachment adjustsImageSizeForAccessibilityContentSizeCategory](self, "adjustsImageSizeForAccessibilityContentSizeCategory") && ([v18 _isSymbolImage] & 1) == 0)
       {
-        softLink_UIAccessibilityContentSizeCategoryImageAdjustingScaleFactorForTraitCollection(0);
-        v22 = v21;
+        v21 = softLink_UIAccessibilityContentSizeCategoryImageAdjustingScaleFactorForTraitCollection(0);
         if (v21 != 1.0 && [(UIImage *)[(NSTextAttachment *)self image] _CGPDFPage])
         {
           [(UIImage *)[(NSTextAttachment *)self image] _CGPDFPageSize];
-          width = v23;
-          height = v24;
+          width = v22;
+          height = v23;
         }
 
-        width = v22 * width;
-        height = v22 * height;
+        width = v21 * width;
+        height = v21 * height;
       }
 
       if (objc_opt_respondsToSelector() & 1) != 0 && [v18 hasBaseline] && (objc_opt_respondsToSelector())
       {
         [v18 baselineOffsetFromBottom];
-        y = y - v25;
+        y = y - v24;
       }
     }
   }
 
-  v26 = x;
-  v27 = y;
-  v28 = width;
-  v29 = height;
-  result.size.height = v29;
-  result.size.width = v28;
-  result.origin.y = v27;
-  result.origin.x = v26;
+  v25 = x;
+  v26 = y;
+  v27 = width;
+  v28 = height;
+  result.size.height = v28;
+  result.size.width = v27;
+  result.origin.y = v26;
+  result.origin.x = v25;
   return result;
 }
 

@@ -96,14 +96,26 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  objc_opt_class();
-  NSAppendPrintF();
-  v4 = 0;
-  self->_serviceType;
-  NSAppendPrintF();
-  v5 = v4;
+  v11 = 0;
+  v4 = objc_opt_class();
+  NSAppendPrintF(&v11, "%@", v4);
+  v5 = v11;
+  v10 = v5;
+  if (self->_serviceType == 1)
+  {
+    v6 = @"Bonjour";
+  }
 
-  return v4;
+  else
+  {
+    v6 = @"Other";
+  }
+
+  NSAppendPrintF(&v10, ", serviceType %@", v6);
+  v7 = v10;
+  v8 = v10;
+
+  return v7;
 }
 
 @end

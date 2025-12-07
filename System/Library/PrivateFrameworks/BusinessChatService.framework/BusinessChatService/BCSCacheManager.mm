@@ -73,7 +73,7 @@ void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCac
 
 void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCache___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (v3)
   {
@@ -81,18 +81,16 @@ void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCac
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v3 description];
-      v7 = 136315138;
-      v8 = [v5 UTF8String];
-      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = [v5 UTF8String];
+      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCache___block_invoke_17(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (v3)
   {
@@ -100,13 +98,11 @@ void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCac
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v3 description];
-      v7 = 136315138;
-      v8 = [v5 UTF8String];
-      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = [v5 UTF8String];
+      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearExpiredCacheItemsForType:(void *)type completion:
@@ -121,7 +117,7 @@ void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCac
 
 void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCache___block_invoke_20(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (v3)
   {
@@ -129,18 +125,16 @@ void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCac
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v3 description];
-      v7 = 136315138;
-      v8 = [v5 UTF8String];
-      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = [v5 UTF8String];
+      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCache___block_invoke_23(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (v3)
   {
@@ -148,18 +142,16 @@ void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCac
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v3 description];
-      v7 = 136315138;
-      v8 = [v5 UTF8String];
-      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = [v5 UTF8String];
+      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCache___block_invoke_26(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (v3)
   {
@@ -167,13 +159,11 @@ void __75__BCSCacheManager_initWithBloomFilterShardCache_domainItemCache_itemCac
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v3 description];
-      v7 = 136315138;
-      v8 = [v5 UTF8String];
-      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = [v5 UTF8String];
+      _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "clearExpiredCacheItemsForType error: %s", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearCachesForType:(int64_t)type completion:(id)completion
@@ -378,7 +368,7 @@ LABEL_18:
 
 - (id)configItemForType:(int64_t)type
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if ((type - 1) > 4)
   {
     v6 = 0;
@@ -404,18 +394,18 @@ LABEL_8:
     {
       v14 = NSClassFromString(&cfstr_Bcsconfigitem.isa);
       v10 = [v8 setWithObjects:{v14, objc_opt_class(), 0}];
-      v28 = 0;
-      v11 = &v28;
-      v12 = &v28;
+      v27 = 0;
+      v11 = &v27;
+      v12 = &v27;
     }
 
     else
     {
       v16 = NSClassFromString(&cfstr_Bcsdomainconfi_4.isa);
       v10 = [v8 setWithObjects:{v16, objc_opt_class(), 0}];
-      v27 = 0;
-      v11 = &v27;
-      v12 = &v27;
+      v26 = 0;
+      v11 = &v26;
+      v12 = &v26;
     }
   }
 
@@ -423,9 +413,9 @@ LABEL_8:
   {
     v15 = NSClassFromString(&cfstr_Bcsconfigitem.isa);
     v10 = [v8 setWithObjects:{v15, objc_opt_class(), 0}];
-    v26 = 0;
-    v11 = &v26;
-    v12 = &v26;
+    v25 = 0;
+    v11 = &v25;
+    v12 = &v25;
   }
 
   else
@@ -434,16 +424,16 @@ LABEL_8:
     v10 = [v8 setWithObjects:{v9, objc_opt_class(), 0}];
     if (type == 4)
     {
-      v25 = 0;
-      v11 = &v25;
-      v12 = &v25;
+      v24 = 0;
+      v11 = &v24;
+      v12 = &v24;
     }
 
     else
     {
-      v24 = 0;
-      v11 = &v24;
-      v12 = &v24;
+      v23 = 0;
+      v11 = &v23;
+      v12 = &v23;
     }
   }
 
@@ -456,13 +446,13 @@ LABEL_8:
   {
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = NSStringFromBCSType(type);
+      v22 = NSStringFromBCSType(type);
       *buf = 136315650;
-      v30 = "[BCSCacheManager configItemForType:]";
-      v31 = 2112;
-      v32 = v23;
-      v33 = 2112;
-      v34 = v17;
+      v29 = "[BCSCacheManager configItemForType:]";
+      v30 = 2112;
+      v31 = v22;
+      v32 = 2112;
+      v33 = v17;
       _os_log_error_impl(&dword_242072000, v19, OS_LOG_TYPE_ERROR, "%s unarchiving cached config item from NSUserDefaults failed - type: %@ (%@)", buf, 0x20u);
     }
 
@@ -474,26 +464,25 @@ LABEL_8:
   {
     v20 = NSStringFromBCSType(type);
     *buf = 136315394;
-    v30 = "[BCSCacheManager configItemForType:]";
-    v31 = 2112;
-    v32 = v20;
+    v29 = "[BCSCacheManager configItemForType:]";
+    v30 = 2112;
+    v31 = v20;
     _os_log_impl(&dword_242072000, v19, OS_LOG_TYPE_DEFAULT, "%s cached config item successfully fetched from NSUserDefaults - type: %@", buf, 0x16u);
   }
 
 LABEL_21:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (void)updateConfigItem:(id)item withType:(int64_t)type
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (item)
   {
-    v12 = 0;
-    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:item requiringSecureCoding:1 error:&v12];
-    v6 = v12;
+    v11 = 0;
+    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:item requiringSecureCoding:1 error:&v11];
+    v6 = v11;
     if (v6)
     {
       v7 = ABSLogCommon();
@@ -501,9 +490,9 @@ LABEL_21:
       {
         v8 = NSStringFromBCSType(type);
         *buf = 136315394;
-        v14 = "[BCSCacheManager updateConfigItem:withType:]";
-        v15 = 2112;
-        v16 = v8;
+        v13 = "[BCSCacheManager updateConfigItem:withType:]";
+        v14 = 2112;
+        v15 = v8;
         _os_log_error_impl(&dword_242072000, v7, OS_LOG_TYPE_ERROR, "%s archiving cached config item to NSUserDefaults failed - type: %@", buf, 0x16u);
       }
 
@@ -555,8 +544,6 @@ LABEL_17:
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteConfigItemForType:(int64_t)type
@@ -585,7 +572,7 @@ LABEL_17:
 
 - (id)shardItemMatching:(id)matching
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   if (self)
   {
@@ -608,10 +595,10 @@ LABEL_17:
     }
 
     v9 = NSStringFromBCSShardType([matchingCopy type]);
-    v13 = 136315394;
-    v14 = "[BCSCacheManager shardItemMatching:]";
-    v15 = 2112;
-    v16 = v9;
+    v12 = 136315394;
+    v13 = "[BCSCacheManager shardItemMatching:]";
+    v14 = 2112;
+    v15 = v9;
     v10 = "%s cached shard item found - type: %@";
   }
 
@@ -623,17 +610,16 @@ LABEL_17:
     }
 
     v9 = NSStringFromBCSShardType([matchingCopy type]);
-    v13 = 136315394;
-    v14 = "[BCSCacheManager shardItemMatching:]";
-    v15 = 2112;
-    v16 = v9;
+    v12 = 136315394;
+    v13 = "[BCSCacheManager shardItemMatching:]";
+    v14 = 2112;
+    v15 = v9;
     v10 = "%s cached shard item not found - type: %@";
   }
 
-  _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, v10, &v13, 0x16u);
+  _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, v10, &v12, 0x16u);
 
 LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

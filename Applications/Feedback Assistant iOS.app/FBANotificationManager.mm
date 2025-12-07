@@ -32,18 +32,16 @@
 {
   if (*(self + OBJC_IVAR____TtC18Feedback_Assistant22FBANotificationManager_apnsToken + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC18Feedback_Assistant22FBANotificationManager_apnsToken);
-    v3 = *(self + OBJC_IVAR____TtC18Feedback_Assistant22FBANotificationManager_apnsToken + 8);
 
-    v4 = String._bridgeToObjectiveC()();
+    v2 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setApnsToken:(id)token
@@ -60,7 +58,6 @@
   }
 
   v6 = (self + OBJC_IVAR____TtC18Feedback_Assistant22FBANotificationManager_apnsToken);
-  v7 = *(self + OBJC_IVAR____TtC18Feedback_Assistant22FBANotificationManager_apnsToken + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -80,7 +77,7 @@
 - (_TtC18Feedback_Assistant22FBANotificationManager)init
 {
   v3 = (self + OBJC_IVAR____TtC18Feedback_Assistant22FBANotificationManager_apnsToken);
-  v4 = type metadata accessor for FBANotificationManager();
+  v4 = type metadata accessor for FBANotificationManager(self, a2);
   *v3 = 0;
   v3[1] = 0;
   v6.receiver = self;

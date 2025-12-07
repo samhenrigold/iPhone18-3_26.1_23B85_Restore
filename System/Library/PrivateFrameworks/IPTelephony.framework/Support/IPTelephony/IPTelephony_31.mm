@@ -247,18 +247,18 @@ void anonymous namespace::RegistrationResultEventImpl::populateLazuliFields(uint
 
 void ims::detail::to_string_impl<int,std::integral_constant<BOOL,false>>::operator()()
 {
-  v1 = 0;
-  memset(v0, 0, sizeof(v0));
-  ImsStringOutStream::ImsStringOutStream(v0);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4E69514(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4E69514(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -479,13 +479,13 @@ uint64_t base64UrlEncode(uint64_t *a1, std::string *a2, int a3)
 
     else
     {
-      v10 = a2 + v9;
+      v10 = (a2 + v9);
       v11 = a2;
     }
 
-    for (; v11 != v10; ++v11)
+    for (; v11 != v10; v11 = (v11 + 1))
     {
-      v12 = *v11;
+      v12 = v11->__r_.__value_.__s.__data_[0];
       if (v12 == 47)
       {
         v13 = 95;
@@ -493,7 +493,7 @@ uint64_t base64UrlEncode(uint64_t *a1, std::string *a2, int a3)
 
       else
       {
-        v13 = *v11;
+        v13 = v11->__r_.__value_.__s.__data_[0];
       }
 
       if (v12 == 43)
@@ -506,7 +506,7 @@ uint64_t base64UrlEncode(uint64_t *a1, std::string *a2, int a3)
         v14 = v13;
       }
 
-      *v11 = v14;
+      v11->__r_.__value_.__s.__data_[0] = v14;
     }
 
     if (a3)
@@ -588,7 +588,7 @@ BOOL base64Decode(uint64_t *a1, char **a2)
   return v9;
 }
 
-uint64_t base64UrlDecode(uint64_t a1, uint64_t a2)
+BOOL base64UrlDecode(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 23) < 0)
   {
@@ -690,32 +690,32 @@ void sub_1E4E6A05C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t SDPParser::parseMediaPacketTimeAttribute(uint64_t a1, const std::string *a2)
 {
-  v9 = 0;
-  memset(v8, 0, 160);
-  v6 = 0u;
+  v10 = 0;
+  memset(v9, 0, 160);
   v7 = 0u;
-  memset(v5, 0, sizeof(v5));
-  std::istringstream::basic_istringstream[abi:ne200100](v5, a2, 8);
-  MEMORY[0x1E69232A0](v5, &v9);
-  if (v9)
+  v8 = 0u;
+  memset(v6, 0, sizeof(v6));
+  std::istringstream::basic_istringstream[abi:ne200100](v6, a2, 8);
+  MEMORY[0x1E69232A0](v6, &v10);
+  if (v10)
   {
-    std::string::basic_string[abi:ne200100]<0>(v3, "ptime");
-    SDPPacketizationTimeAttribute::SDPPacketizationTimeAttribute(&v4, v3, v9, 0);
-    std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPPacketizationTimeAttribute>();
+    std::string::basic_string[abi:ne200100]<0>(v4, "ptime");
+    SDPPacketizationTimeAttribute::SDPPacketizationTimeAttribute(v5, v4, v10, 0);
+    std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPPacketizationTimeAttribute>(a1 + 136, 0, 0, v5);
   }
 
-  *&v5[0] = *MEMORY[0x1E69E54E0];
-  *(v5 + *(*&v5[0] - 24)) = *(MEMORY[0x1E69E54E0] + 24);
-  *&v5[1] = MEMORY[0x1E69E5548] + 16;
-  if (SBYTE7(v7) < 0)
+  *&v6[0] = *MEMORY[0x1E69E54E0];
+  *(v6 + *(*&v6[0] - 24)) = *(MEMORY[0x1E69E54E0] + 24);
+  *&v6[1] = MEMORY[0x1E69E5548] + 16;
+  if (SBYTE7(v8) < 0)
   {
-    operator delete(v6);
+    operator delete(v7);
   }
 
-  *&v5[1] = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v5[1] + 1);
+  *&v6[1] = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v6[1] + 1);
   std::istream::~istream();
-  MEMORY[0x1E6923510](&v8[8]);
+  MEMORY[0x1E6923510](&v9[8]);
   return 1;
 }
 
@@ -756,32 +756,32 @@ void SDPPacketizationTimeAttribute::~SDPPacketizationTimeAttribute(void **this)
 
 uint64_t SDPParser::parseMediaMaxPacketTimeAttribute(uint64_t a1, const std::string *a2)
 {
-  v9 = 0;
-  memset(v8, 0, 160);
-  v6 = 0u;
+  v10 = 0;
+  memset(v9, 0, 160);
   v7 = 0u;
-  memset(v5, 0, sizeof(v5));
-  std::istringstream::basic_istringstream[abi:ne200100](v5, a2, 8);
-  MEMORY[0x1E69232A0](v5, &v9);
-  if (v9)
+  v8 = 0u;
+  memset(v6, 0, sizeof(v6));
+  std::istringstream::basic_istringstream[abi:ne200100](v6, a2, 8);
+  MEMORY[0x1E69232A0](v6, &v10);
+  if (v10)
   {
-    std::string::basic_string[abi:ne200100]<0>(v3, "maxptime");
-    SDPPacketizationTimeAttribute::SDPPacketizationTimeAttribute(&v4, v3, v9, 1);
-    std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPPacketizationTimeAttribute>();
+    std::string::basic_string[abi:ne200100]<0>(v4, "maxptime");
+    SDPPacketizationTimeAttribute::SDPPacketizationTimeAttribute(v5, v4, v10, 1);
+    std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPPacketizationTimeAttribute>(a1 + 136, 0, 0, v5);
   }
 
-  *&v5[0] = *MEMORY[0x1E69E54E0];
-  *(v5 + *(*&v5[0] - 24)) = *(MEMORY[0x1E69E54E0] + 24);
-  *&v5[1] = MEMORY[0x1E69E5548] + 16;
-  if (SBYTE7(v7) < 0)
+  *&v6[0] = *MEMORY[0x1E69E54E0];
+  *(v6 + *(*&v6[0] - 24)) = *(MEMORY[0x1E69E54E0] + 24);
+  *&v6[1] = MEMORY[0x1E69E5548] + 16;
+  if (SBYTE7(v8) < 0)
   {
-    operator delete(v6);
+    operator delete(v7);
   }
 
-  *&v5[1] = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v5[1] + 1);
+  *&v6[1] = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v6[1] + 1);
   std::istream::~istream();
-  MEMORY[0x1E6923510](&v8[8]);
+  MEMORY[0x1E6923510](&v9[8]);
   return 1;
 }
 
@@ -803,64 +803,64 @@ void sub_1E4E6A5D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t SDPParser::parseMediaCandidateAttribute(uint64_t a1, const std::string *a2)
 {
-  memset(v49, 0, sizeof(v49));
-  *v47 = 0u;
-  v48 = 0u;
-  memset(v46, 0, sizeof(v46));
-  std::istringstream::basic_istringstream[abi:ne200100](v46, a2, 8);
-  v45 = 0;
-  v42 = 0;
+  memset(v50, 0, sizeof(v50));
+  *v48 = 0u;
+  v49 = 0u;
+  memset(v47, 0, sizeof(v47));
+  std::istringstream::basic_istringstream[abi:ne200100](v47, a2, 8);
+  v46 = 0;
   v43 = 0;
   v44 = 0;
-  v41 = 0;
-  memset(&v40, 0, sizeof(v40));
-  v39 = 0;
-  MEMORY[0x1E69232A0](v46, &v45 + 2);
-  if (!HIWORD(v45))
+  v45 = 0;
+  v42 = 0;
+  memset(&v41, 0, sizeof(v41));
+  v40 = 0;
+  MEMORY[0x1E69232A0](v47, &v46 + 2);
+  if (!HIWORD(v46))
   {
-    std::string::basic_string[abi:ne200100]<0>(v13, "sdp.parse");
-    v35[0] = 0;
-    v38 = 0;
-    v4 = ims::error(v13, v35);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "SDPMediaCandidate parse error, no foundation", 44);
-    *(v4 + 17) = 0;
-    (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v4 + 17) = 0;
-    if (v38 != 1 || (v37 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v14, "sdp.parse");
+    v36[0] = 0;
+    v39 = 0;
+    v5 = ims::error(v14, v36);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), "SDPMediaCandidate parse error, no foundation", 44);
+    *(v5 + 17) = 0;
+    (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v5 + 17) = 0;
+    if (v39 != 1 || (v38 & 0x80000000) == 0)
     {
       goto LABEL_32;
     }
 
-    v5 = v36;
+    v6 = v37;
 LABEL_31:
-    operator delete(v5);
+    operator delete(v6);
     goto LABEL_32;
   }
 
-  MEMORY[0x1E69232A0](v46, &v45);
-  if (!v45)
+  MEMORY[0x1E69232A0](v47, &v46);
+  if (!v46)
   {
-    std::string::basic_string[abi:ne200100]<0>(v13, "sdp.parse");
-    v31[0] = 0;
-    v34 = 0;
-    v6 = ims::error(v13, v31);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "SDPMediaCandidate parse error, no componentId", 45);
-    *(v6 + 17) = 0;
-    (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v6 + 17) = 0;
-    if (v34 != 1 || (v33 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v14, "sdp.parse");
+    v32[0] = 0;
+    v35 = 0;
+    v7 = ims::error(v14, v32);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "SDPMediaCandidate parse error, no componentId", 45);
+    *(v7 + 17) = 0;
+    (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v7 + 17) = 0;
+    if (v35 != 1 || (v34 & 0x80000000) == 0)
     {
       goto LABEL_32;
     }
 
-    v5 = v32;
+    v6 = v33;
     goto LABEL_31;
   }
 
-  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v46, &v42);
-  if ((SHIBYTE(v44) & 0x80000000) == 0)
+  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v47, &v43);
+  if ((SHIBYTE(v45) & 0x80000000) == 0)
   {
-    if (HIBYTE(v44))
+    if (HIBYTE(v45))
     {
       goto LABEL_5;
     }
@@ -868,51 +868,51 @@ LABEL_31:
     goto LABEL_18;
   }
 
-  if (!v43)
+  if (!v44)
   {
 LABEL_18:
-    std::string::basic_string[abi:ne200100]<0>(v13, "sdp.parse");
-    v27[0] = 0;
-    v30 = 0;
-    v7 = ims::error(v13, v27);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "SDPMediaCandidate parse error, no transportType", 47);
-    *(v7 + 17) = 0;
-    (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v7 + 17) = 0;
-    if (v30 != 1 || (v29 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v14, "sdp.parse");
+    v28[0] = 0;
+    v31 = 0;
+    v8 = ims::error(v14, v28);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "SDPMediaCandidate parse error, no transportType", 47);
+    *(v8 + 17) = 0;
+    (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v8 + 17) = 0;
+    if (v31 != 1 || (v30 & 0x80000000) == 0)
     {
       goto LABEL_32;
     }
 
-    v5 = v28;
+    v6 = v29;
     goto LABEL_31;
   }
 
 LABEL_5:
-  MEMORY[0x1E6923290](v46, &v41);
-  if (!v41)
+  MEMORY[0x1E6923290](v47, &v42);
+  if (!v42)
   {
-    std::string::basic_string[abi:ne200100]<0>(v13, "sdp.parse");
-    v23[0] = 0;
-    v26 = 0;
-    v8 = ims::error(v13, v23);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "SDPMediaCandidate parse error, no priority", 42);
-    *(v8 + 17) = 0;
-    (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v8 + 17) = 0;
-    if (v26 != 1 || (v25 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v14, "sdp.parse");
+    v24[0] = 0;
+    v27 = 0;
+    v9 = ims::error(v14, v24);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "SDPMediaCandidate parse error, no priority", 42);
+    *(v9 + 17) = 0;
+    (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v9 + 17) = 0;
+    if (v27 != 1 || (v26 & 0x80000000) == 0)
     {
       goto LABEL_32;
     }
 
-    v5 = v24;
+    v6 = v25;
     goto LABEL_31;
   }
 
-  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v46, &v40);
-  if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v47, &v41);
+  if ((SHIBYTE(v41.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if (*(&v40.__r_.__value_.__s + 23))
+    if (*(&v41.__r_.__value_.__s + 23))
     {
       goto LABEL_8;
     }
@@ -920,102 +920,102 @@ LABEL_5:
     goto LABEL_25;
   }
 
-  if (!v40.__r_.__value_.__l.__size_)
+  if (!v41.__r_.__value_.__l.__size_)
   {
 LABEL_25:
-    std::string::basic_string[abi:ne200100]<0>(v13, "sdp.parse");
-    v19[0] = 0;
-    v22 = 0;
-    v9 = ims::error(v13, v19);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "SDPMediaCandidate parse error, no ipAddress", 43);
-    *(v9 + 17) = 0;
-    (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v9 + 17) = 0;
-    if (v22 != 1 || (v21 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v14, "sdp.parse");
+    v20[0] = 0;
+    v23 = 0;
+    v10 = ims::error(v14, v20);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "SDPMediaCandidate parse error, no ipAddress", 43);
+    *(v10 + 17) = 0;
+    (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v10 + 17) = 0;
+    if (v23 != 1 || (v22 & 0x80000000) == 0)
     {
       goto LABEL_32;
     }
 
-    v5 = v20;
+    v6 = v21;
     goto LABEL_31;
   }
 
 LABEL_8:
-  MEMORY[0x1E69232A0](v46, &v39);
-  v2 = v39;
-  if (v39)
+  MEMORY[0x1E69232A0](v47, &v40);
+  v3 = v40;
+  if (v40)
   {
-    v3 = v45;
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    v4 = v46;
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v12, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
-      v2 = v39;
+      std::string::__init_copy_ctor_external(&v13, v41.__r_.__value_.__l.__data_, v41.__r_.__value_.__l.__size_);
+      v3 = v40;
     }
 
     else
     {
-      v12 = v40;
+      v13 = v41;
     }
 
-    SDPMediaCandidate::SDPMediaCandidate(v13, v3, &v12, v2);
-    std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaCandidate>();
+    SDPMediaCandidate::SDPMediaCandidate(v14, v4, &v13, v3);
+    std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaCandidate>(a1 + 136, 0, 0, v14);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v13, "sdp.parse");
-  v15[0] = 0;
-  v18 = 0;
-  v10 = ims::error(v13, v15);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "SDPMediaCandidate parse error, no port", 38);
-  *(v10 + 17) = 0;
-  (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v10 + 17) = 0;
-  if (v18 == 1 && v17 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v14, "sdp.parse");
+  v16[0] = 0;
+  v19 = 0;
+  v11 = ims::error(v14, v16);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "SDPMediaCandidate parse error, no port", 38);
+  *(v11 + 17) = 0;
+  (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v11 + 17) = 0;
+  if (v19 == 1 && v18 < 0)
   {
-    v5 = __p;
+    v6 = __p;
     goto LABEL_31;
   }
 
 LABEL_32:
-  if (v14 < 0)
+  if (v15 < 0)
   {
-    operator delete(v13[0]);
+    operator delete(v14[0]);
   }
 
-  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v40.__r_.__value_.__l.__data_);
+    operator delete(v41.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v44) < 0)
+  if (SHIBYTE(v45) < 0)
   {
-    operator delete(v42);
+    operator delete(v43);
   }
 
-  *&v46[0] = *MEMORY[0x1E69E54E0];
-  *(v46 + *(*&v46[0] - 24)) = *(MEMORY[0x1E69E54E0] + 24);
-  *&v46[1] = MEMORY[0x1E69E5548] + 16;
-  if (SBYTE7(v48) < 0)
+  *&v47[0] = *MEMORY[0x1E69E54E0];
+  *(v47 + *(*&v47[0] - 24)) = *(MEMORY[0x1E69E54E0] + 24);
+  *&v47[1] = MEMORY[0x1E69E5548] + 16;
+  if (SBYTE7(v49) < 0)
   {
-    operator delete(v47[0]);
+    operator delete(v48[0]);
   }
 
-  *&v46[1] = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v46[1] + 1);
+  *&v47[1] = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v47[1] + 1);
   std::istream::~istream();
-  MEMORY[0x1E6923510](v49 + 8);
+  MEMORY[0x1E6923510](v50 + 8);
   return 0;
 }
 
 void sub_1E4E6ACAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a70 < 0)
+  if (a66 < 0)
   {
     operator delete(__p);
   }
 
-  if (a73 < 0)
+  if (a68 < 0)
   {
-    operator delete(a72);
+    operator delete(a67);
   }
 
   std::istringstream::~istringstream(&STACK[0x200]);
@@ -1196,7 +1196,7 @@ LABEL_151:
                               if ((*(a1 + 32) | 2) == 6)
                               {
                                 SDPMediaCrypto::SDPMediaCrypto(&v44, v83, &v80, v6, v26 & 1, v43 & 1, v25 & 1);
-                                std::list<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::emplace_back<SDPMediaCrypto>();
+                                std::list<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::emplace_back<SDPMediaCrypto>((a1 + 136), &v44);
                               }
 
                               std::string::basic_string[abi:ne200100]<0>(&v44, "sdp.parse");
@@ -1473,26 +1473,26 @@ void sub_1E4E6B8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a50);
   }
 
-  if (v74 < 0)
+  if (v67 < 0)
   {
     operator delete(a63);
   }
 
-  if (a73 < 0)
+  if (a66 < 0)
   {
-    operator delete(a72);
+    operator delete(a65);
   }
 
   if (SLOBYTE(STACK[0x207]) < 0)
   {
-    operator delete(a74);
+    operator delete(a67);
   }
 
-  v76 = STACK[0x240];
+  v69 = STACK[0x240];
   if (STACK[0x240])
   {
-    STACK[0x248] = v76;
-    operator delete(v76);
+    STACK[0x248] = v69;
+    operator delete(v69);
   }
 
   std::istringstream::~istringstream(&STACK[0x260]);
@@ -1503,16 +1503,16 @@ void SDPParser::parseMediaEndToAccessEdgeProtection(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v2, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v3, *a2, *(a2 + 8));
   }
 
   else
   {
-    v2 = *a2;
+    v3 = *a2;
   }
 
-  SDPMediaEndToAccessEdgeProtection::SDPMediaEndToAccessEdgeProtection(&v3, &v2);
-  std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaEndToAccessEdgeProtection const&>();
+  SDPMediaEndToAccessEdgeProtection::SDPMediaEndToAccessEdgeProtection(v4, &v3);
+  std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaEndToAccessEdgeProtection const&>(a1 + 136, 0, 0, v4);
 }
 
 void sub_1E4E6BC38(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -1551,88 +1551,88 @@ void SDPMediaEndToAccessEdgeProtection::~SDPMediaEndToAccessEdgeProtection(void 
 
 void SDPParser::parseMediaPathAttribute(uint64_t a1, std::string *a2)
 {
-  v3 = &unk_1F5EF8000;
-  v4 = 0u;
+  v4 = &unk_1F5EF8000;
   v5 = 0u;
   v6 = 0u;
-  LazuliRouteSet::fromString(&v3, a2);
-  SDPMediaPath::SDPMediaPath(v2, &v3);
-  std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaPath>();
+  v7 = 0u;
+  LazuliRouteSet::fromString(&v4, a2);
+  SDPMediaPath::SDPMediaPath(v3, &v4);
+  std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaPath>(a1 + 136, 0, 0, v3);
 }
 
-void sub_1E4E6BD88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E6BD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SDPMediaPath::~SDPMediaPath(va);
-  LazuliRouteSet::~LazuliRouteSet((v2 - 72));
+  LazuliRouteSet::~LazuliRouteSet((v3 - 72));
   _Unwind_Resume(a1);
 }
 
 void SDPParser::parseMediaAcceptTypesAttribute(uint64_t a1, const std::string *a2)
 {
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
   *__p = 0u;
-  v13 = 0u;
-  memset(v11, 0, sizeof(v11));
-  std::istringstream::basic_istringstream[abi:ne200100](v11, a2, 8);
-  v8 = 0;
+  v14 = 0u;
+  memset(v12, 0, sizeof(v12));
+  std::istringstream::basic_istringstream[abi:ne200100](v12, a2, 8);
   v9 = 0;
   v10 = 0;
+  v11 = 0;
   __s[0] = 0;
   __s[1] = 0;
-  v7 = 0;
-  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v11, __s);
+  v8 = 0;
+  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12, __s);
   while (1)
   {
-    if (SHIBYTE(v7) < 0)
+    if (SHIBYTE(v8) < 0)
     {
       if (!__s[1])
       {
 LABEL_15:
-        SDPMediaAcceptTypes::SDPMediaAcceptTypes(v5, &v8);
-        std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaAcceptTypes>();
+        SDPMediaAcceptTypes::SDPMediaAcceptTypes(v6, &v9);
+        std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaAcceptTypes>(a1 + 136, 0, 0, v6);
       }
 
-      v2 = v9;
-      if (v9 < v10)
+      v3 = v10;
+      if (v10 < v11)
       {
-        std::string::__init_copy_ctor_external(v9, __s[0], __s[1]);
+        std::string::__init_copy_ctor_external(v10, __s[0], __s[1]);
         goto LABEL_9;
       }
     }
 
     else
     {
-      if (!HIBYTE(v7))
+      if (!HIBYTE(v8))
       {
         goto LABEL_15;
       }
 
-      v2 = v9;
-      if (v9 < v10)
+      v3 = v10;
+      if (v10 < v11)
       {
-        v3 = *__s;
-        v9->__r_.__value_.__r.__words[2] = v7;
-        *&v2->__r_.__value_.__l.__data_ = v3;
+        v4 = *__s;
+        v10->__r_.__value_.__r.__words[2] = v8;
+        *&v3->__r_.__value_.__l.__data_ = v4;
 LABEL_9:
-        v4 = v2 + 1;
+        v5 = v3 + 1;
         goto LABEL_11;
       }
     }
 
-    v4 = std::vector<std::string>::__emplace_back_slow_path<std::string&>(&v8, __s);
+    v5 = std::vector<std::string>::__emplace_back_slow_path<std::string&>(&v9, __s);
 LABEL_11:
-    v9 = v4;
-    if (SHIBYTE(v7) < 0)
+    v10 = v5;
+    if (SHIBYTE(v8) < 0)
     {
       *__s[0] = 0;
       __s[1] = 0;
@@ -1641,10 +1641,10 @@ LABEL_11:
     else
     {
       LOBYTE(__s[0]) = 0;
-      HIBYTE(v7) = 0;
+      HIBYTE(v8) = 0;
     }
 
-    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v11, __s);
+    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12, __s);
   }
 }
 
@@ -1664,69 +1664,69 @@ void sub_1E4E6C02C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void SDPParser::parseMediaAcceptWrappedTypesAttribute(uint64_t a1, const std::string *a2)
 {
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
   *__p = 0u;
-  v13 = 0u;
-  memset(v11, 0, sizeof(v11));
-  std::istringstream::basic_istringstream[abi:ne200100](v11, a2, 8);
-  v8 = 0;
+  v14 = 0u;
+  memset(v12, 0, sizeof(v12));
+  std::istringstream::basic_istringstream[abi:ne200100](v12, a2, 8);
   v9 = 0;
   v10 = 0;
+  v11 = 0;
   __s[0] = 0;
   __s[1] = 0;
-  v7 = 0;
-  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v11, __s);
+  v8 = 0;
+  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12, __s);
   while (1)
   {
-    if (SHIBYTE(v7) < 0)
+    if (SHIBYTE(v8) < 0)
     {
       if (!__s[1])
       {
 LABEL_15:
-        SDPMediaAcceptWrappedTypes::SDPMediaAcceptWrappedTypes(v5, &v8);
-        std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaAcceptWrappedTypes>();
+        SDPMediaAcceptWrappedTypes::SDPMediaAcceptWrappedTypes(v6, &v9);
+        std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaAcceptWrappedTypes>(a1 + 136, 0, 0, v6);
       }
 
-      v2 = v9;
-      if (v9 < v10)
+      v3 = v10;
+      if (v10 < v11)
       {
-        std::string::__init_copy_ctor_external(v9, __s[0], __s[1]);
+        std::string::__init_copy_ctor_external(v10, __s[0], __s[1]);
         goto LABEL_9;
       }
     }
 
     else
     {
-      if (!HIBYTE(v7))
+      if (!HIBYTE(v8))
       {
         goto LABEL_15;
       }
 
-      v2 = v9;
-      if (v9 < v10)
+      v3 = v10;
+      if (v10 < v11)
       {
-        v3 = *__s;
-        v9->__r_.__value_.__r.__words[2] = v7;
-        *&v2->__r_.__value_.__l.__data_ = v3;
+        v4 = *__s;
+        v10->__r_.__value_.__r.__words[2] = v8;
+        *&v3->__r_.__value_.__l.__data_ = v4;
 LABEL_9:
-        v4 = v2 + 1;
+        v5 = v3 + 1;
         goto LABEL_11;
       }
     }
 
-    v4 = std::vector<std::string>::__emplace_back_slow_path<std::string&>(&v8, __s);
+    v5 = std::vector<std::string>::__emplace_back_slow_path<std::string&>(&v9, __s);
 LABEL_11:
-    v9 = v4;
-    if (SHIBYTE(v7) < 0)
+    v10 = v5;
+    if (SHIBYTE(v8) < 0)
     {
       *__s[0] = 0;
       __s[1] = 0;
@@ -1735,10 +1735,10 @@ LABEL_11:
     else
     {
       LOBYTE(__s[0]) = 0;
-      HIBYTE(v7) = 0;
+      HIBYTE(v8) = 0;
     }
 
-    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v11, __s);
+    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12, __s);
   }
 }
 
@@ -1756,29 +1756,36 @@ void sub_1E4E6C300(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void SDPParser::parseMediaSetupAttribute(uint64_t a1, __int128 *a2)
+{
+  v2 = a1 + 136;
+  SDPMediaSetup::SDPMediaSetup(v3, a2);
+  std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaSetup>(v2, 0, 0, v3);
+}
+
 void SDPParser::parseMediaFingerprintAttribute(uint64_t a1, const std::string *a2)
 {
-  v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  *v11 = 0u;
-  v12 = 0u;
-  memset(v10, 0, sizeof(v10));
-  std::istringstream::basic_istringstream[abi:ne200100](v10, a2, 8);
-  memset(&v9, 0, sizeof(v9));
-  std::string::basic_string[abi:ne200100]<0>(&v9, "");
+  v15 = 0u;
+  *v12 = 0u;
+  v13 = 0u;
+  memset(v11, 0, sizeof(v11));
+  std::istringstream::basic_istringstream[abi:ne200100](v11, a2, 8);
+  memset(&v10, 0, sizeof(v10));
+  std::string::basic_string[abi:ne200100]<0>(&v10, "");
   __p = 0uLL;
-  v8 = 0;
+  v9 = 0;
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
   memset(&__str, 0, sizeof(__str));
-  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v10, &__str);
+  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v11, &__str);
   while (1)
   {
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -1794,25 +1801,25 @@ void SDPParser::parseMediaFingerprintAttribute(uint64_t a1, const std::string *a
       goto LABEL_15;
     }
 
-    size = HIBYTE(v9.__r_.__value_.__r.__words[2]);
-    if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    size = HIBYTE(v10.__r_.__value_.__r.__words[2]);
+    if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v9.__r_.__value_.__l.__size_;
+      size = v10.__r_.__value_.__l.__size_;
     }
 
     if (size)
     {
-      v3 = HIBYTE(v8);
-      if (v8 < 0)
+      v4 = HIBYTE(v9);
+      if (v9 < 0)
       {
-        v3 = *(&__p + 1);
+        v4 = *(&__p + 1);
       }
 
-      if (v3)
+      if (v4)
       {
 LABEL_15:
-        SDPMediaFingerprint::SDPMediaFingerprint(&v5, &v9, &__p);
-        std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaFingerprint>();
+        SDPMediaFingerprint::SDPMediaFingerprint(v6, &v10, &__p);
+        std::__list_imp<std::variant<SDPRTCPXR,SDPUnsupportedAttribute,SDPMediaCandidate,SDPMediaCrypto,SDPMediaDirection,SDPMediaEndToAccessEdgeProtection,SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams,SDPMediaRTPMap,SDPPacketizationTimeAttribute,SDPMediaPath,SDPMediaAcceptTypes,SDPMediaAcceptWrappedTypes,SDPMediaSetup,SDPMediaFingerprint>>::__create_node[abi:ne200100]<SDPMediaFingerprint>(a1 + 136, 0, 0, v6);
       }
 
       p_p = &__p;
@@ -1820,11 +1827,11 @@ LABEL_15:
 
     else
     {
-      p_p = &v9;
+      p_p = &v10;
     }
 
     std::string::operator=(p_p, &__str);
-    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v10, &__str);
+    std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v11, &__str);
   }
 }
 
@@ -1850,7 +1857,7 @@ void sub_1E4E6C668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t SDPParser::parseMediaRTPMapAttribute(uint64_t a1, const std::string *a2)
+uint64_t SDPParser::parseMediaRTPMapAttribute(void *a1, const std::string *a2)
 {
   v49 = 255;
   memset(&v48, 0, sizeof(v48));
@@ -2015,8 +2022,8 @@ LABEL_41:
   }
 
 LABEL_42:
-  v16 = *(a1 + 48);
-  if (v16 == a1 + 40)
+  v16 = a1[6];
+  if (v16 == a1 + 5)
   {
 LABEL_46:
     std::string::basic_string[abi:ne200100]<0>(&v35, "sdp.parser");
@@ -2056,7 +2063,7 @@ LABEL_46:
   while (*(v16 + 24) != v49)
   {
     v16 = *(v16 + 8);
-    if (v16 == a1 + 40)
+    if (v16 == a1 + 5)
     {
       goto LABEL_46;
     }
@@ -2195,102 +2202,102 @@ void sub_1E4E6CE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t SDPParser::parseMediaFormatParamsAttribute(uint64_t a1, const std::string *a2)
+uint64_t SDPParser::parseMediaFormatParamsAttribute(void *a1, const std::string *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v33 = 0;
-  memset(&v32, 0, sizeof(v32));
-  memset(v31, 0, sizeof(v31));
-  *v29 = 0u;
-  v30 = 0u;
-  memset(v28, 0, sizeof(v28));
-  std::istringstream::basic_istringstream[abi:ne200100](v28, a2, 8);
-  MEMORY[0x1E69232A0](v28, &v33);
-  std::ios_base::getloc((v28 + *(*&v28[0] - 24)));
-  v3 = std::locale::use_facet(v34, MEMORY[0x1E69E5318]);
+  v35 = *MEMORY[0x1E69E9840];
+  v32 = 0;
+  memset(&v31, 0, sizeof(v31));
+  memset(v30, 0, sizeof(v30));
+  *v28 = 0u;
+  v29 = 0u;
+  memset(v27, 0, sizeof(v27));
+  std::istringstream::basic_istringstream[abi:ne200100](v27, a2, 8);
+  MEMORY[0x1E69232A0](v27, &v32);
+  std::ios_base::getloc((v27 + *(*&v27[0] - 24)));
+  v3 = std::locale::use_facet(v33, MEMORY[0x1E69E5318]);
   v4 = (v3->__vftable[2].~facet_0)(v3, 10);
-  std::locale::~locale(v34);
-  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v28, &v32, v4);
-  v5 = *(a1 + 48);
-  if (v5 == a1 + 40)
+  std::locale::~locale(v33);
+  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &v31, v4);
+  v5 = a1[6];
+  if (v5 == a1 + 5)
   {
 LABEL_4:
-    v6 = std::string::basic_string[abi:ne200100]<0>(v34, "sdp.parser");
-    v18[0] = 0;
-    v21 = 0;
-    v7 = ims::warn(v6, v18);
+    v6 = std::string::basic_string[abi:ne200100]<0>(v33, "sdp.parser");
+    v17[0] = 0;
+    v20 = 0;
+    v7 = ims::warn(v6, v17);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "Format parameters attribute included for unexpected media format.", 65);
     *(v7 + 17) = 0;
     (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v7 + 17) = 0;
-    if (v21 == 1 && v20 < 0)
+    if (v20 == 1 && v19 < 0)
     {
       operator delete(__p);
     }
 
-    if (SHIBYTE(v34[0].__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v33[0].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v34[0].__r_.__value_.__l.__data_);
+      operator delete(v33[0].__r_.__value_.__l.__data_);
     }
 
-    v8 = v33;
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    v8 = v32;
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v17, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v16, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v17 = v32;
+      v16 = v31;
     }
 
-    SDPMediaFormatUnknownParams::SDPMediaFormatUnknownParams(v34, v8, &v17);
+    SDPMediaFormatUnknownParams::SDPMediaFormatUnknownParams(v33, v8, &v16);
     operator new();
   }
 
-  while (*(v5 + 24) != v33)
+  while (*(v5 + 24) != v32)
   {
     v5 = *(v5 + 8);
-    if (v5 == a1 + 40)
+    if (v5 == a1 + 5)
     {
       goto LABEL_4;
     }
   }
 
   *__s = 0u;
-  v27 = 0u;
-  memset(v25, 0, sizeof(v25));
-  SDPMediaRTPMap::SDPMediaRTPMap(v25, (v5 + 32));
-  if ((SBYTE7(v27) & 0x80000000) == 0)
+  v26 = 0u;
+  memset(v24, 0, sizeof(v24));
+  SDPMediaRTPMap::SDPMediaRTPMap(v24, (v5 + 32));
+  if ((SBYTE7(v26) & 0x80000000) == 0)
   {
-    if (BYTE7(v27))
+    if (BYTE7(v26))
     {
-      *&v34[0].__r_.__value_.__l.__data_ = *__s;
-      v34[0].__r_.__value_.__r.__words[2] = v27;
+      *&v33[0].__r_.__value_.__l.__data_ = *__s;
+      v33[0].__r_.__value_.__r.__words[2] = v26;
       goto LABEL_18;
     }
 
 LABEL_21:
-    v10 = v33;
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    v10 = v32;
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v22, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v21, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v22 = v32;
+      v21 = v31;
     }
 
-    SDPMediaFormatUnknownParams::SDPMediaFormatUnknownParams(v23, v10, &v22);
-    SDPMediaFormatUnknownParams::SDPMediaFormatUnknownParams(v34, v23);
-    v35 = 0;
-    SDPMediaFormatInfo::setSDPMediaFormatParams(v5 + 16, v34);
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v34);
-    SDPMediaFormatUnknownParams::~SDPMediaFormatUnknownParams(v23);
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    SDPMediaFormatUnknownParams::SDPMediaFormatUnknownParams(v22, v10, &v21);
+    SDPMediaFormatUnknownParams::SDPMediaFormatUnknownParams(v33, v22);
+    v34 = 0;
+    SDPMediaFormatInfo::setSDPMediaFormatParams(v5 + 16, v33);
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<SDPMediaFormatUnknownParams,SDPMediaFormatAMRParams,SDPMediaFormatEVSParams,SDPMediaFormatDTMFParams,SDPMediaFormatTTYParams,SDPMediaFormatTTYRedParams>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v33);
+    SDPMediaFormatUnknownParams::~SDPMediaFormatUnknownParams(v22);
+    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v22.__r_.__value_.__l.__data_);
+      operator delete(v21.__r_.__value_.__l.__data_);
     }
 
     v11 = 1;
@@ -2302,12 +2309,12 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  std::string::__init_copy_ctor_external(v34, __s[0], __s[1]);
+  std::string::__init_copy_ctor_external(v33, __s[0], __s[1]);
 LABEL_18:
-  v9 = std::__tree<std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>,SDPParser::str_caseless_compare,true>,std::allocator<std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>>>::find<std::string>(v34);
-  if (SHIBYTE(v34[0].__r_.__value_.__r.__words[2]) < 0)
+  v9 = std::__tree<std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>,SDPParser::str_caseless_compare,true>,std::allocator<std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>>>::find<std::string>(v33);
+  if (SHIBYTE(v33[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v34[0].__r_.__value_.__l.__data_);
+    operator delete(v33[0].__r_.__value_.__l.__data_);
   }
 
   if (v9 == &qword_1EE2BD008)
@@ -2315,67 +2322,66 @@ LABEL_18:
     goto LABEL_21;
   }
 
-  if (SBYTE7(v27) < 0)
+  if (SBYTE7(v26) < 0)
   {
-    std::string::__init_copy_ctor_external(v34, __s[0], __s[1]);
+    std::string::__init_copy_ctor_external(v33, __s[0], __s[1]);
   }
 
   else
   {
-    *&v34[0].__r_.__value_.__l.__data_ = *__s;
-    v34[0].__r_.__value_.__r.__words[2] = v27;
+    *&v33[0].__r_.__value_.__l.__data_ = *__s;
+    v33[0].__r_.__value_.__r.__words[2] = v26;
   }
 
-  v23[0] = 0;
-  v12 = *std::__tree<std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>,SDPParser::str_caseless_compare,true>,std::allocator<std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>>>::__find_equal<std::string>(&SDPParser::mediaFormatParameterParsers, v23, v34);
+  v22[0] = 0;
+  v12 = *std::__tree<std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>,SDPParser::str_caseless_compare,true>,std::allocator<std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo &,unsigned short,std::string)>>>::__find_equal<std::string>(&SDPParser::mediaFormatParameterParsers, v22, v33);
   if (!v12)
   {
     operator new();
   }
 
   v13 = *(v12 + 56);
-  v14 = v33;
-  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  v14 = v32;
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v24, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v23, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v24 = v32;
+    v23 = v31;
   }
 
-  v11 = v13(v5 + 16, v14, &v24);
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  v11 = v13(v5 + 16, v14, &v23);
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v24.__r_.__value_.__l.__data_);
+    operator delete(v23.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v34[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v33[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v34[0].__r_.__value_.__l.__data_);
+    operator delete(v33[0].__r_.__value_.__l.__data_);
   }
 
 LABEL_39:
-  SDPMediaRTPMap::~SDPMediaRTPMap(v25);
-  *&v28[0] = *MEMORY[0x1E69E54E0];
-  *(v28 + *(*&v28[0] - 24)) = *(MEMORY[0x1E69E54E0] + 24);
-  *&v28[1] = MEMORY[0x1E69E5548] + 16;
-  if (SBYTE7(v30) < 0)
+  SDPMediaRTPMap::~SDPMediaRTPMap(v24);
+  *&v27[0] = *MEMORY[0x1E69E54E0];
+  *(v27 + *(*&v27[0] - 24)) = *(MEMORY[0x1E69E54E0] + 24);
+  *&v27[1] = MEMORY[0x1E69E5548] + 16;
+  if (SBYTE7(v29) < 0)
   {
-    operator delete(v29[0]);
+    operator delete(v28[0]);
   }
 
-  *&v28[1] = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v28[1] + 1);
+  *&v27[1] = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v27[1] + 1);
   std::istream::~istream();
-  MEMORY[0x1E6923510](v31 + 8);
-  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  MEMORY[0x1E6923510](v30 + 8);
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v32.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -2669,7 +2675,7 @@ void sub_1E4E6DE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t SDPMediaCrypto::SDPMediaCrypto(uint64_t a1, __int16 a2, uint64_t *a3, char a4, char a5, char a6, char a7)
+uint64_t SDPMediaCrypto::SDPMediaCrypto(uint64_t a1, __int16 a2, uint64_t a3, char a4, char a5, char a6, char a7)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "crypto");
   *(a1 + 8) = 1;
@@ -2694,7 +2700,7 @@ uint64_t SDPMediaCrypto::SDPMediaCrypto(uint64_t a1, __int16 a2, uint64_t *a3, c
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 48) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 48, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 48), *a3, *(a3 + 8), *(a3 + 8) - *a3);
   *(a1 + 72) = a4;
   *(a1 + 73) = a5;
   *(a1 + 74) = a6;
@@ -2768,7 +2774,7 @@ void sub_1E4E6E0F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *SDPMediaEndToAccessEdgeProtection::value@<X0>(SDPMediaEndToAccessEdgeProtection *this@<X0>, _BYTE *a2@<X8>)
+void *SDPMediaEndToAccessEdgeProtection::value@<X0>(SDPMediaEndToAccessEdgeProtection *this@<X0>, void *a2@<X8>)
 {
   if (*(this + 40))
   {
@@ -2960,11 +2966,11 @@ uint64_t *std::__tree<std::__value_type<std::string,BOOL (*)(SDPMediaFormatInfo 
   return v4;
 }
 
-void XcapCallBarringManager::_fetchCallBarring()
+void XcapCallBarringManager::_fetchCallBarring(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  v1 = 0;
-  memset(v0, 0, sizeof(v0));
-  XcapNodeSelector::XcapNodeSelector(v0);
+  v4 = 0;
+  memset(v3, 0, sizeof(v3));
+  XcapNodeSelector::XcapNodeSelector(v3);
 }
 
 void sub_1E4E6EBE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24)
@@ -2982,8 +2988,7 @@ void XcapCallBarringManager::CallBarringInfo::fetchRuleIdOrDefaultForProperty(st
 {
   v37 = a3;
   v38 = BYTE2(a3);
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = 0;
   BYTE2(v35[0]) = BYTE2(a3);
   LOWORD(v35[0]) = a3;
@@ -3111,25 +3116,22 @@ void sub_1E4E6EF60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN22XcapCallBarringManager17_fetchCallBarringENSt3__15tupleIJN23XcapDocumentCallBarring9DirectionEN15XcapCBCondition9ConditionENS4_5MediaEEEEU13block_pointerFv9ImsResultPK16XcapDocumentBaseE_block_invoke(uint64_t a1, uint64_t a2)
+void ___ZN22XcapCallBarringManager17_fetchCallBarringENSt3__15tupleIJN23XcapDocumentCallBarring9DirectionEN15XcapCBCondition9ConditionENS4_5MediaEEEEU13block_pointerFv9ImsResultPK16XcapDocumentBaseE_block_invoke(uint64_t a1, uint64_t a2, int a3)
 {
-  v4 = *(a1 + 40);
   if (((*(**(a2 + 8) + 24))(*(a2 + 8), *(a2 + 16)) & 1) == 0)
   {
     v5 = *(a1 + 57) | (*(a1 + 59) << 16);
     if (*(a1 + 56) == 1)
     {
-      *(a1 + 59);
       v8 = *(a1 + 57);
       v9 = BYTE2(v5);
-      *&v10[0].__r_.__value_.__l.__data_ = 0uLL;
-      std::allocate_shared[abi:ne200100]<XcapDocumentCallBarring,std::allocator<XcapDocumentCallBarring>,XcapDocumentCallBarring::Direction &,0>();
+      v10[0] = 0uLL;
+      std::allocate_shared[abi:ne200100]<XcapDocumentCallBarring,std::allocator<XcapDocumentCallBarring>,XcapDocumentCallBarring::Direction &,0>(v10, &v8);
     }
 
-    *(a1 + 59);
     v11 = *(a1 + 57);
     v12 = BYTE2(v5);
-    memset(v10, 0, 112);
+    memset(v10, 0, sizeof(v10));
     XcapCBRule::XcapCBRule(v10);
   }
 
@@ -3150,41 +3152,53 @@ void sub_1E4E6F56C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void XcapCallBarringManager::setCallBarring(uint64_t a1, char a2)
+void XcapCallBarringManager::setCallBarring(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = 408;
+  v6 = a4;
+  v7 = a3;
+  v10 = 408;
   if (a2 == 1)
   {
-    v2 = 376;
+    v10 = 376;
   }
 
-  if (*(a1 + v2 + 24))
+  if (*(a1 + v10 + 24))
   {
 
-    XcapCallBarringManager::_setCallBarring(a1, a2);
+    XcapCallBarringManager::_setCallBarring(a1, a2 & 0xFFFFFF, a3, a4, a5);
   }
 
-  v3 = std::string::basic_string[abi:ne200100]<0>(&v9, kXcapLoggingFacility);
-  v5[0] = 0;
-  v8 = 0;
-  v4 = ims::info(v3, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), ": ", 2);
-  *(v4 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "No Rule-Ids. Perform GET before PUT", 35);
-  *(v4 + 17) = 0;
-  (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v4 + 17) = 0;
-  if (v8 == 1 && v7 < 0)
+  v11 = std::string::basic_string[abi:ne200100]<0>(&v22, kXcapLoggingFacility);
+  v18[0] = 0;
+  v21 = 0;
+  v12 = ims::info(v11, v18);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), ": ", 2);
+  *(v12 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "No Rule-Ids. Perform GET before PUT", 35);
+  *(v12 + 17) = 0;
+  (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v12 + 17) = 0;
+  if (v21 == 1 && v20 < 0)
   {
     operator delete(__p);
   }
 
-  if (v10 < 0)
+  if (v23 < 0)
   {
-    operator delete(v9);
+    operator delete(v22);
   }
 
-  XcapCallBarringManager::_fetchCallBarring();
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 0x40000000;
+  v13[2] = ___ZN22XcapCallBarringManager14setCallBarringENSt3__15tupleIJN23XcapDocumentCallBarring9DirectionEN15XcapCBCondition9ConditionENS4_5MediaEEEEbbU13block_pointerFv9ImsResultPK16XcapDocumentBaseE_block_invoke;
+  v13[3] = &unk_1E876A528;
+  v14 = a2;
+  v15 = a2 >> 8;
+  v16 = v7;
+  v17 = v6;
+  v13[4] = a5;
+  v13[5] = a1;
+  XcapCallBarringManager::_fetchCallBarring(a1, a2 & 0xFFFFFF, v13);
 }
 
 void sub_1E4E6F850(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, char a26)
@@ -3202,38 +3216,29 @@ void sub_1E4E6F850(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN22XcapCallBarringManager14setCallBarringENSt3__15tupleIJN23XcapDocumentCallBarring9DirectionEN15XcapCBCondition9ConditionENS4_5MediaEEEEbbU13block_pointerFv9ImsResultPK16XcapDocumentBaseE_block_invoke(uint64_t a1)
+void XcapCallBarringManager::_setCallBarring(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  *(a1 + 50);
-  v1 = *(a1 + 51);
-  v2 = *(a1 + 52);
-  v3 = *(a1 + 32);
-  XcapCallBarringManager::_setCallBarring(*(a1 + 40), *(a1 + 48));
-}
-
-void XcapCallBarringManager::_setCallBarring(uint64_t a1, char a2)
-{
-  v2 = 408;
+  v5 = 408;
   if (a2 == 1)
   {
-    v2 = 376;
+    v5 = 376;
   }
 
-  if (*(a1 + v2 + 24))
+  if (*(a1 + v5 + 24))
   {
-    v5 = 0u;
-    v6 = 0u;
-    *v4 = 0u;
-    memset(v3, 0, sizeof(v3));
-    XcapCBRule::XcapCBRule(v3);
+    v8 = 0u;
+    v9 = 0u;
+    *v7 = 0u;
+    memset(v6, 0, sizeof(v6));
+    XcapCBRule::XcapCBRule(v6);
   }
 
-  XcapCallBarringManager::_setCallBarringForDoc();
+  XcapCallBarringManager::_setCallBarringForDoc(a1, a2 & 0xFFFFFF, a3, a4, a5);
 }
 
-void sub_1E4E6FBE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, char a39)
+void sub_1E4E6FBE0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, char a39)
 {
-  MEMORY[0x1E69235B0](v39, 0x10B2C409DA9FE99);
+  MEMORY[0x1E69235B0](v39, 0x10B2C409DA9FE99, a3, a4, a5, a6, a7, a8);
   if (a38 < 0)
   {
     operator delete(__p);
@@ -3244,41 +3249,51 @@ void sub_1E4E6FBE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void XcapCallBarringManager::activateCallBarring(uint64_t a1, char a2)
+void XcapCallBarringManager::activateCallBarring(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
-  v2 = 408;
+  v5 = a3;
+  v8 = 408;
   if (a2 == 1)
   {
-    v2 = 376;
+    v8 = 376;
   }
 
-  if (*(a1 + v2 + 24))
+  if (*(a1 + v8 + 24))
   {
 
-    XcapCallBarringManager::_setCallBarringActivationMode(a1, a2);
+    XcapCallBarringManager::_setCallBarringActivationMode(a1, a2 & 0xFFFFFF, a3, a4);
   }
 
-  v3 = std::string::basic_string[abi:ne200100]<0>(&v9, kXcapLoggingFacility);
-  v5[0] = 0;
-  v8 = 0;
-  v4 = ims::info(v3, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), ": ", 2);
-  *(v4 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "No Rule-Ids. Perform GET before PUT", 35);
-  *(v4 + 17) = 0;
-  (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v4 + 17) = 0;
-  if (v8 == 1 && v7 < 0)
+  v9 = std::string::basic_string[abi:ne200100]<0>(&v19, kXcapLoggingFacility);
+  v15[0] = 0;
+  v18 = 0;
+  v10 = ims::info(v9, v15);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), ": ", 2);
+  *(v10 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "No Rule-Ids. Perform GET before PUT", 35);
+  *(v10 + 17) = 0;
+  (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v10 + 17) = 0;
+  if (v18 == 1 && v17 < 0)
   {
     operator delete(__p);
   }
 
-  if (v10 < 0)
+  if (v20 < 0)
   {
-    operator delete(v9);
+    operator delete(v19);
   }
 
-  XcapCallBarringManager::_fetchCallBarring();
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 0x40000000;
+  v11[2] = ___ZN22XcapCallBarringManager19activateCallBarringENSt3__15tupleIJN23XcapDocumentCallBarring9DirectionEN15XcapCBCondition9ConditionENS4_5MediaEEEEbU13block_pointerFv9ImsResultPK16XcapDocumentBaseE_block_invoke;
+  v11[3] = &unk_1E876A550;
+  v12 = a2;
+  v13 = a2 >> 8;
+  v14 = v5;
+  v11[4] = a4;
+  v11[5] = a1;
+  XcapCallBarringManager::_fetchCallBarring(a1, a2 & 0xFFFFFF, v11);
 }
 
 void sub_1E4E6FE50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, char a26)
@@ -3296,35 +3311,27 @@ void sub_1E4E6FE50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN22XcapCallBarringManager19activateCallBarringENSt3__15tupleIJN23XcapDocumentCallBarring9DirectionEN15XcapCBCondition9ConditionENS4_5MediaEEEEbU13block_pointerFv9ImsResultPK16XcapDocumentBaseE_block_invoke(uint64_t a1)
+void XcapCallBarringManager::_setCallBarringActivationMode(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  *(a1 + 50);
-  v1 = *(a1 + 51);
-  v2 = *(a1 + 32);
-  XcapCallBarringManager::_setCallBarringActivationMode(*(a1 + 40), *(a1 + 48));
-}
-
-void XcapCallBarringManager::_setCallBarringActivationMode(uint64_t a1, char a2)
-{
-  v2 = 408;
+  v4 = 408;
   if (a2 == 1)
   {
-    v2 = 376;
+    v4 = 376;
   }
 
-  if (*(a1 + v2 + 24))
+  if (*(a1 + v4 + 24))
   {
-    v4 = 0;
-    memset(v3, 0, sizeof(v3));
-    XcapCallBarringManager::_generateNodeSelectorForCBRule(v3);
+    v6 = 0;
+    memset(v5, 0, sizeof(v5));
+    XcapCallBarringManager::_generateNodeSelectorForCBRule(v5, a1, a2 & 0xFFFFFF);
   }
 
-  XcapCallBarringManager::_setCallBarringForDoc();
+  XcapCallBarringManager::_setCallBarringForDoc(a1, a2 & 0xFFFFFF, 1, a3, a4);
 }
 
-void sub_1E4E700C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+void sub_1E4E700C4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
 {
-  MEMORY[0x1E69235B0](v26, 0x10B2C409DA9FE99);
+  MEMORY[0x1E69235B0](v26, 0x10B2C409DA9FE99, a3, a4, a5, a6, a7, a8);
   if (a26 < 0)
   {
     operator delete(__p);
@@ -3335,9 +3342,9 @@ void sub_1E4E700C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1E4E70474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
+void sub_1E4E70474(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
 {
-  MEMORY[0x1E69235B0](v41, 0x10B2C409DA9FE99);
+  MEMORY[0x1E69235B0](v41, 0x10B2C409DA9FE99, a3, a4, a5, a6, a7, a8);
   if (a35 < 0)
   {
     operator delete(__p);
@@ -3436,14 +3443,14 @@ void ___ZN22XcapCallBarringManager21_setCallBarringForDocENSt3__15tupleIJN23Xcap
   ImsResult::~ImsResult(v3);
 }
 
-void sub_1E4E7076C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E7076C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
 
-void XcapCallBarringManager::_generateNodeSelectorForCBRule(uint64_t a1)
+void XcapCallBarringManager::_generateNodeSelectorForCBRule(uint64_t a1, uint64_t a2, int a3)
 {
   *(a1 + 32) = 0;
   *a1 = 0u;
@@ -3470,9 +3477,9 @@ void ___ZN22XcapCallBarringManager22_setCallBarringForRuleENSt3__15tupleIJN23Xca
   ImsResult::~ImsResult(v3);
 }
 
-void sub_1E4E708E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E708E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
@@ -3485,9 +3492,9 @@ void ___ZN22XcapCallBarringManager36_setCallBarringActivationModeForRuleENSt3__1
   ImsResult::~ImsResult(v3);
 }
 
-void sub_1E4E70948(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E70948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
@@ -3537,11 +3544,11 @@ void std::__tree<std::__value_type<std::tuple<XcapDocumentCallBarring::Direction
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::string>,std::__map_value_compare<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::__value_type<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::string>,std::less<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>>,true>,std::allocator<std::__value_type<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::string>>>::__emplace_unique_key_args<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::piecewise_construct_t const&,std::tuple<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>&&>,std::tuple<>>(uint64_t a1, unsigned __int8 *a2)
+uint64_t *std::__tree<std::__value_type<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::string>,std::__map_value_compare<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::__value_type<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::string>,std::less<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>>,true>,std::allocator<std::__value_type<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::string>>>::__emplace_unique_key_args<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>,std::piecewise_construct_t const&,std::tuple<std::tuple<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media>&&>,std::tuple<>>(uint64_t **a1, unsigned __int8 *a2, _WORD **a3)
 {
-  v3 = (a1 + 8);
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1 + 1;
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_7;
   }
@@ -3550,40 +3557,40 @@ uint64_t std::__tree<std::__value_type<std::tuple<XcapDocumentCallBarring::Direc
   {
     while (1)
     {
-      v5 = v2;
-      if ((std::__tuple_compare_three_way[abi:ne200100]<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,0ul,1ul,2ul>(a2, v2 + 32) & 0x80) == 0)
+      v6 = v3;
+      if ((std::__tuple_compare_three_way[abi:ne200100]<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,0ul,1ul,2ul>(a2, v3 + 32) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v5;
-      v3 = v5;
-      if (!*v5)
+      v3 = *v6;
+      v4 = v6;
+      if (!*v6)
       {
         goto LABEL_7;
       }
     }
 
-    if ((std::__tuple_compare_three_way[abi:ne200100]<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,0ul,1ul,2ul>(v5 + 32, a2) & 0x80) == 0)
+    if ((std::__tuple_compare_three_way[abi:ne200100]<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,0ul,1ul,2ul>(v6 + 32, a2) & 0x80) == 0)
     {
       break;
     }
 
-    v3 = v5 + 8;
-    v2 = *(v5 + 1);
-    if (!v2)
+    v4 = (v6 + 1);
+    v3 = v6[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 
-  if (!*v3)
+  if (!*v4)
   {
 LABEL_7:
     operator new();
   }
 
-  return *v3;
+  return *v4;
 }
 
 uint64_t std::__tuple_compare_three_way[abi:ne200100]<XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,XcapDocumentCallBarring::Direction,XcapCBCondition::Condition,XcapCBCondition::Media,0ul,1ul,2ul>(unsigned __int8 *a1, unsigned __int8 *a2)
@@ -3739,26 +3746,26 @@ LABEL_65:
     while (1)
     {
       v10 = *(v7 + 24);
-      v40 = 0u;
-      v41 = 0u;
       v39 = 0u;
-      memset(v38, 0, sizeof(v38));
-      SDPMediaRTPMap::SDPMediaRTPMap(v38, (v7 + 32));
-      v36 = 0u;
-      v37 = 0u;
+      v40 = 0u;
+      v38 = 0u;
+      memset(v37, 0, sizeof(v37));
+      SDPMediaRTPMap::SDPMediaRTPMap(v37, (v7 + 32));
       v35 = 0u;
-      memset(v34, 0, sizeof(v34));
-      SDPMediaRTPMap::SDPMediaRTPMap(v34, (v9 + 32));
+      v36 = 0u;
+      v34 = 0u;
+      memset(v33, 0, sizeof(v33));
+      SDPMediaRTPMap::SDPMediaRTPMap(v33, (v9 + 32));
       if (v10 <= 0x5F && v10 == *(v9 + 24))
       {
         (*(a5 + 16))(a5, v10);
         goto LABEL_64;
       }
 
-      v11 = BYTE7(v41);
-      if (SBYTE7(v41) < 0)
+      v11 = BYTE7(v40);
+      if (SBYTE7(v40) < 0)
       {
-        v11 = *(&v40 + 1);
+        v11 = *(&v39 + 1);
       }
 
       if (!v11)
@@ -3766,10 +3773,10 @@ LABEL_65:
         goto LABEL_64;
       }
 
-      v12 = BYTE7(v37);
-      if (SBYTE7(v37) < 0)
+      v12 = BYTE7(v36);
+      if (SBYTE7(v36) < 0)
       {
-        v12 = *(&v36 + 1);
+        v12 = *(&v35 + 1);
       }
 
       if (!v12)
@@ -3777,51 +3784,51 @@ LABEL_65:
         goto LABEL_64;
       }
 
-      if (SBYTE7(v41) < 0)
+      if (SBYTE7(v40) < 0)
       {
-        std::string::__init_copy_ctor_external(&v33, v40, *(&v40 + 1));
-        if ((BYTE7(v37) & 0x80) != 0)
+        std::string::__init_copy_ctor_external(&v32, v39, *(&v39 + 1));
+        if ((BYTE7(v36) & 0x80) != 0)
         {
 LABEL_22:
-          std::string::__init_copy_ctor_external(&v32, v36, *(&v36 + 1));
+          std::string::__init_copy_ctor_external(&v31, v35, *(&v35 + 1));
           goto LABEL_23;
         }
       }
 
       else
       {
-        *&v33.__r_.__value_.__l.__data_ = v40;
-        v33.__r_.__value_.__r.__words[2] = v41;
-        if ((BYTE7(v37) & 0x80) != 0)
+        *&v32.__r_.__value_.__l.__data_ = v39;
+        v32.__r_.__value_.__r.__words[2] = v40;
+        if ((BYTE7(v36) & 0x80) != 0)
         {
           goto LABEL_22;
         }
       }
 
-      *&v32.__r_.__value_.__l.__data_ = v36;
-      v32.__r_.__value_.__r.__words[2] = v37;
+      *&v31.__r_.__value_.__l.__data_ = v35;
+      v31.__r_.__value_.__r.__words[2] = v36;
 LABEL_23:
-      v13 = HIBYTE(v33.__r_.__value_.__r.__words[2]);
-      if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v14 = &v33;
-      }
-
-      else
-      {
-        v14 = v33.__r_.__value_.__r.__words[0];
-      }
-
-      v15 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
-      v16 = v32.__r_.__value_.__r.__words[0];
+      v13 = HIBYTE(v32.__r_.__value_.__r.__words[2]);
       if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v17 = &v32;
+        v14 = &v32;
       }
 
       else
       {
-        v17 = v32.__r_.__value_.__r.__words[0];
+        v14 = v32.__r_.__value_.__r.__words[0];
+      }
+
+      v15 = SHIBYTE(v31.__r_.__value_.__r.__words[2]);
+      v16 = v31.__r_.__value_.__r.__words[0];
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v17 = &v31;
+      }
+
+      else
+      {
+        v17 = v31.__r_.__value_.__r.__words[0];
       }
 
       if (strcasecmp(v14, v17))
@@ -3829,21 +3836,21 @@ LABEL_23:
         goto LABEL_39;
       }
 
-      v18 = WORD4(v41);
-      if (!WORD4(v41))
+      v18 = WORD4(v40);
+      if (!WORD4(v40))
       {
         v18 = 8000;
       }
 
-      v19 = WORD4(v37);
-      if (!WORD4(v37))
+      v19 = WORD4(v36);
+      if (!WORD4(v36))
       {
         v19 = 8000;
       }
 
       if (v18 == v19)
       {
-        v20 = WORD5(v41) == WORD5(v37);
+        v20 = WORD5(v40) == WORD5(v36);
         if (v15 < 0)
         {
           goto LABEL_36;
@@ -3858,7 +3865,7 @@ LABEL_39:
         {
 LABEL_36:
           operator delete(v16);
-          if ((*(&v33.__r_.__value_.__s + 23) & 0x80) != 0)
+          if ((*(&v32.__r_.__value_.__s + 23) & 0x80) != 0)
           {
             goto LABEL_37;
           }
@@ -3870,7 +3877,7 @@ LABEL_36:
       if (v13 < 0)
       {
 LABEL_37:
-        operator delete(v33.__r_.__value_.__l.__data_);
+        operator delete(v32.__r_.__value_.__l.__data_);
         if (v20)
         {
           goto LABEL_42;
@@ -3883,33 +3890,33 @@ LABEL_41:
       if (v20)
       {
 LABEL_42:
-        std::string::basic_string[abi:ne200100]<0>(&v33, "sdp.settings");
-        v28[0] = 0;
-        v31 = 0;
-        v21 = ims::debug(&v33, v28);
+        std::string::basic_string[abi:ne200100]<0>(&v32, "sdp.settings");
+        v27[0] = 0;
+        v30 = 0;
+        v21 = ims::debug(&v32, v27);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "Trying dynamic match: ", 22);
         *(v21 + 17) = 0;
-        if (SBYTE7(v37) < 0)
+        if (SBYTE7(v36) < 0)
         {
-          std::string::__init_copy_ctor_external(&v32, v36, *(&v36 + 1));
+          std::string::__init_copy_ctor_external(&v31, v35, *(&v35 + 1));
         }
 
         else
         {
-          *&v32.__r_.__value_.__l.__data_ = v36;
-          v32.__r_.__value_.__r.__words[2] = v37;
+          *&v31.__r_.__value_.__l.__data_ = v35;
+          v31.__r_.__value_.__r.__words[2] = v36;
         }
 
-        (*(*v21 + 32))(v21, &v32);
+        (*(*v21 + 32))(v21, &v31);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "(", 1);
         *(v21 + 17) = 0;
-        MEMORY[0x1E6923390](*(v21 + 8), WORD4(v35));
+        MEMORY[0x1E6923390](*(v21 + 8), WORD4(v34));
         *(v21 + 17) = 0;
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), ":", 1);
         *(v21 + 17) = 0;
-        if (WORD4(v37))
+        if (WORD4(v36))
         {
-          v22 = WORD4(v37);
+          v22 = WORD4(v36);
         }
 
         else
@@ -3921,27 +3928,27 @@ LABEL_42:
         *(v21 + 17) = 0;
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), ")", 1);
         *(v21 + 17) = 0;
-        if (SBYTE7(v41) < 0)
+        if (SBYTE7(v40) < 0)
         {
-          std::string::__init_copy_ctor_external(&v27, v40, *(&v40 + 1));
+          std::string::__init_copy_ctor_external(&v26, v39, *(&v39 + 1));
         }
 
         else
         {
-          *&v27.__r_.__value_.__l.__data_ = v40;
-          v27.__r_.__value_.__r.__words[2] = v41;
+          *&v26.__r_.__value_.__l.__data_ = v39;
+          v26.__r_.__value_.__r.__words[2] = v40;
         }
 
-        (*(*v21 + 32))(v21, &v27);
+        (*(*v21 + 32))(v21, &v26);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "(", 1);
         *(v21 + 17) = 0;
-        MEMORY[0x1E6923390](*(v21 + 8), WORD4(v39));
+        MEMORY[0x1E6923390](*(v21 + 8), WORD4(v38));
         *(v21 + 17) = 0;
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), ":", 1);
         *(v21 + 17) = 0;
-        if (WORD4(v41))
+        if (WORD4(v40))
         {
-          v23 = WORD4(v41);
+          v23 = WORD4(v40);
         }
 
         else
@@ -3955,9 +3962,19 @@ LABEL_42:
         *(v21 + 17) = 0;
         (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
         *(v21 + 17) = 0;
-        if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v27.__r_.__value_.__l.__data_);
+          operator delete(v26.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v31.__r_.__value_.__l.__data_);
+        }
+
+        if (v30 == 1 && v29 < 0)
+        {
+          operator delete(__p);
         }
 
         if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
@@ -3965,24 +3982,12 @@ LABEL_42:
           operator delete(v32.__r_.__value_.__l.__data_);
         }
 
-        if (v31 == 1 && v30 < 0)
-        {
-          operator delete(__p);
-        }
-
-        if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v33.__r_.__value_.__l.__data_);
-        }
-
-        *(a1 + 24);
-        *(a1 + 24);
         (*(a4 + 16))();
       }
 
 LABEL_64:
-      SDPMediaRTPMap::~SDPMediaRTPMap(v34);
-      SDPMediaRTPMap::~SDPMediaRTPMap(v38);
+      SDPMediaRTPMap::~SDPMediaRTPMap(v33);
+      SDPMediaRTPMap::~SDPMediaRTPMap(v37);
       v9 = *(v9 + 8);
       if (v9 == v6)
       {
@@ -4019,7 +4024,7 @@ void SDPSettingsBuilder::connectionForMedia(SDPMedia *this@<X1>, SDPModel **a2@<
   v11 = 0u;
   v12 = 0u;
   memset(v10, 0, sizeof(v10));
-  SDPMedia::validConnection(this, v10);
+  SDPMedia::validConnection(v10, this);
   if (BYTE8(v12) == 1)
   {
     SDPConnection::SDPConnection(a3, v10);
@@ -4028,7 +4033,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  SDPModel::validConnection(*a2, &v5);
+  SDPModel::validConnection(&v5, *a2);
   v10[8] = v6;
   *&v10[12] = *(&v6 + 4);
   std::string::operator=(&v10[24], &v7);
@@ -4164,13 +4169,13 @@ void *SDPSettingsBuilder::copyGeneralMediaSettings(std::string *this, SDPMediaSe
   std::string::operator=(this + 3, &SDPSettingsBuilder::_username);
   LOWORD(this[1].__r_.__value_.__l.__data_) = *(a2 + 2);
   *&this[1].__r_.__value_.__s.__data_[2] = *(a3 + 2);
-  SDPMedia::mediaCryptoList(a2, &v15);
+  SDPMedia::mediaCryptoList(&v15, a2);
   for (i = v16; i != &v15; i = i[1])
   {
     v9 = i[2];
     if (*(v9 + 72))
     {
-      SDPMedia::mediaCryptoList(a3, &v13);
+      SDPMedia::mediaCryptoList(&v13, a3);
       v10 = v14;
       if (v14 != &v13)
       {
@@ -4469,71 +4474,69 @@ void ImsListenSocket::initialize(ImsResult *a1, void *a2, ImsSocket *this, dispa
 
 void ImsListenSocket::socketReadCallback(ImsListenSocket *this)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  memset(&v17[1], 0, 128);
-  v17[0] = 128;
-  v17[1] = -1;
-  v17[1] = accept(**(this + 8), &v17[3], v17);
-  if (v17[1] >= 1)
+  memset(&v16[1], 0, 128);
+  v16[0] = 128;
+  v16[1] = -1;
+  v16[1] = accept(**(this + 8), &v16[3], v16);
+  if (v16[1] >= 1)
   {
+    v14 = 0;
     v15 = 0;
-    v16 = 0;
-    IpAddress::createAddress(&v17[3], &v15);
-    v1 = v15;
-    if (v15)
+    IpAddress::createAddress(&v14, &v16[3]);
+    v1 = v14;
+    if (v14)
     {
-      std::string::basic_string[abi:ne200100]<0>(&v13, "net");
-      v5[0] = 0;
-      v8 = 0;
-      v2 = ims::debug(&v13, v5);
+      std::string::basic_string[abi:ne200100]<0>(&v12, "net");
+      v4[0] = 0;
+      v7 = 0;
+      v2 = ims::debug(&v12, v4);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v2 + 8), "Accepted incoming connection from ", 34);
       *(v2 + 17) = 0;
       (*(*v1 + 40))(v1, v2);
       (*(*v2 + 64))(v2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
       *(v2 + 17) = 0;
-      if (v8 == 1 && v7 < 0)
+      if (v7 == 1 && v6 < 0)
       {
         operator delete(__p);
       }
 
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13);
+        operator delete(v12);
       }
 
       operator new();
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v13, "net");
-    v9[0] = 0;
-    v12 = 0;
-    v3 = ims::error(&v13, v9);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "net");
+    v8[0] = 0;
+    v11 = 0;
+    v3 = ims::error(&v12, v8);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v3 + 8), "No valid remote IP address for ImsListenSocket ", 47);
     *(v3 + 17) = 0;
-    MEMORY[0x1E6923340](*(v3 + 8), v17[1]);
+    MEMORY[0x1E6923340](*(v3 + 8), v16[1]);
     *(v3 + 17) = 0;
     (*(*v3 + 64))(v3, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v3 + 17) = 0;
-    if (v12 == 1 && v11 < 0)
+    if (v11 == 1 && v10 < 0)
     {
-      operator delete(v10);
+      operator delete(v9);
     }
 
-    if (v14 < 0)
+    if (v13 < 0)
     {
-      operator delete(v13);
+      operator delete(v12);
     }
 
-    close(v17[1]);
-    if (v16)
+    close(v16[1]);
+    if (v15)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4E72364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, char a46, void *__p, uint64_t a48, int a49, __int16 a50, char a51, char a52)
@@ -4713,7 +4716,7 @@ void ImsListenSocket::initializeSocket(uint64_t a1@<X0>, uint64_t *a2@<X1>, disp
   ims::CFType::~CFType(v24);
 }
 
-void sub_1E4E729B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, char a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, char a53)
+void sub_1E4E729B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, char a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, char a53)
 {
   ImsResult::~ImsResult(&a42);
   if (v53)
@@ -4908,14 +4911,14 @@ void **ImsPrefsUtil::logPrefValue(ImsPrefsUtil *this, void **a2, ImsOutStream *a
     __p.__r_.__value_.__r.__words[0] = &unk_1F5EF36B0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2[1], "", 1);
     *(a2 + 17) = 0;
-    ims::CFString::asString(__p.__r_.__value_.__l.__size_, 0x8000100, &v27);
-    ((*a2)[4])(a2, &v27);
+    ims::CFString::asString(&v26, __p.__r_.__value_.__l.__size_, 0x8000100);
+    ((*a2)[4])(a2, &v26);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2[1], "", 1);
     *(a2 + 17) = 0;
 LABEL_5:
-    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v27.__r_.__value_.__l.__data_);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
     p_p = &__p;
@@ -4925,12 +4928,12 @@ LABEL_5:
   v8 = CFGetTypeID(this);
   if (v8 == CFNumberGetTypeID())
   {
-    v27.__r_.__value_.__r.__words[0] = &unk_1F5EF3658;
-    v27.__r_.__value_.__l.__size_ = this;
+    v26.__r_.__value_.__r.__words[0] = &unk_1F5EF3658;
+    v26.__r_.__value_.__l.__size_ = this;
     if (this)
     {
       CFRetain(this);
-      size = v27.__r_.__value_.__l.__size_;
+      size = v26.__r_.__value_.__l.__size_;
     }
 
     else
@@ -4938,12 +4941,12 @@ LABEL_5:
       size = 0;
     }
 
-    v27.__r_.__value_.__r.__words[0] = &unk_1F5EF3708;
-    v19 = ims::CFNumber::asUint32(size, v9);
-    MEMORY[0x1E6923350](a2[1], v19);
+    v26.__r_.__value_.__r.__words[0] = &unk_1F5EF3708;
+    v18 = ims::CFNumber::asUint32(size, v9);
+    MEMORY[0x1E6923350](a2[1], v18);
 LABEL_50:
     *(a2 + 17) = 0;
-    p_p = &v27;
+    p_p = &v26;
 LABEL_51:
     ims::CFType::~CFType(p_p);
     return a2;
@@ -4952,14 +4955,14 @@ LABEL_51:
   v11 = CFGetTypeID(this);
   if (v11 == CFBooleanGetTypeID())
   {
-    v27.__r_.__value_.__r.__words[0] = &unk_1F5EF3658;
-    v27.__r_.__value_.__l.__size_ = this;
+    v26.__r_.__value_.__r.__words[0] = &unk_1F5EF3658;
+    v26.__r_.__value_.__l.__size_ = this;
     if (this)
     {
       CFRetain(this);
-      v27.__r_.__value_.__r.__words[0] = &unk_1F5EF38A0;
+      v26.__r_.__value_.__r.__words[0] = &unk_1F5EF38A0;
       v12 = "false";
-      if (CFBooleanGetValue(v27.__r_.__value_.__l.__size_))
+      if (CFBooleanGetValue(v26.__r_.__value_.__l.__size_))
       {
         v12 = "true";
         v13 = 4;
@@ -4973,7 +4976,7 @@ LABEL_51:
 
     else
     {
-      v27.__r_.__value_.__r.__words[0] = &unk_1F5EF38A0;
+      v26.__r_.__value_.__r.__words[0] = &unk_1F5EF38A0;
       v12 = "false";
       v13 = 5;
     }
@@ -4985,14 +4988,14 @@ LABEL_51:
   v14 = CFGetTypeID(this);
   if (v14 == CFArrayGetTypeID())
   {
-    v24 = &unk_1F5EF3658;
+    v23 = &unk_1F5EF3658;
     theArray = this;
     if (this)
     {
       CFRetain(this);
     }
 
-    v24 = &unk_1F5EC8AD0;
+    v23 = &unk_1F5EC8AD0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2[1], "[", 1);
     *(a2 + 17) = 0;
     ((*a2)[8])(a2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
@@ -5008,11 +5011,11 @@ LABEL_51:
           if (ValueAtIndex)
           {
             std::string::basic_string[abi:ne200100](&__p, v3 + 4, 32);
-            LoggableString::LoggableString(&v27, &__p);
-            ((*a2)[5])(a2, &v27);
-            if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+            LoggableString::LoggableString(&v26, &__p);
+            ((*a2)[5])(a2, &v26);
+            if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v27.__r_.__value_.__l.__data_);
+              operator delete(v26.__r_.__value_.__l.__data_);
             }
 
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5020,7 +5023,7 @@ LABEL_51:
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            ImsPrefsUtil::logPrefValue(ValueAtIndex, a2, (v3 + 4), v18);
+            ImsPrefsUtil::logPrefValue(ValueAtIndex, a2, (v3 + 4));
             ((*a2)[8])(a2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
             *(a2 + 17) = 0;
           }
@@ -5029,14 +5032,14 @@ LABEL_51:
     }
 
     std::string::basic_string[abi:ne200100](&__p, v3, 32);
-    LoggableString::LoggableString(&v27, &__p);
-    ((*a2)[5])(a2, &v27);
+    LoggableString::LoggableString(&v26, &__p);
+    ((*a2)[5])(a2, &v26);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2[1], "]", 1);
 LABEL_43:
     *(a2 + 17) = 0;
-    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v27.__r_.__value_.__l.__data_);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5044,12 +5047,12 @@ LABEL_43:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    p_p = &v24;
+    p_p = &v23;
     goto LABEL_51;
   }
 
-  v20 = CFGetTypeID(this);
-  if (v20 == CFDictionaryGetTypeID() && CFDictionaryGetCount(this) == 2 && CFDictionaryContainsKey(this, qword_1EE2BD0F8) && CFDictionaryContainsKey(this, qword_1EE2BD108))
+  v19 = CFGetTypeID(this);
+  if (v19 == CFDictionaryGetTypeID() && CFDictionaryGetCount(this) == 2 && CFDictionaryContainsKey(this, qword_1EE2BD0F8) && CFDictionaryContainsKey(this, qword_1EE2BD108))
   {
     __p.__r_.__value_.__r.__words[0] = &unk_1F5EF3658;
     __p.__r_.__value_.__l.__size_ = this;
@@ -5059,32 +5062,32 @@ LABEL_43:
     }
 
     __p.__r_.__value_.__r.__words[0] = &unk_1F5EC8B28;
-    memset(&v27, 0, sizeof(v27));
-    ims::CFEnum::valueAsString(&__p, &v27, v23);
-    ImsResult::~ImsResult(v23);
-    ((*a2)[4])(a2, &v27);
+    memset(&v26, 0, sizeof(v26));
+    ims::CFEnum::valueAsString(&__p, &v26, v22);
+    ImsResult::~ImsResult(v22);
+    ((*a2)[4])(a2, &v26);
     goto LABEL_5;
   }
 
-  v21 = CFGetTypeID(this);
-  if (v21 == CFDictionaryGetTypeID())
+  v20 = CFGetTypeID(this);
+  if (v20 == CFDictionaryGetTypeID())
   {
-    v24 = &unk_1F5EF3658;
+    v23 = &unk_1F5EF3658;
     theArray = this;
     if (this)
     {
       CFRetain(this);
     }
 
-    v24 = &unk_1F5EF3760;
+    v23 = &unk_1F5EF3760;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2[1], "{", 1);
     *(a2 + 17) = 0;
     ((*a2)[8])(a2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(a2 + 17) = 0;
-    ImsPrefsUtil::logPrefsDict(&v24, a2, (v3 + 4), 0);
+    ImsPrefsUtil::logPrefsDict(&v23, a2, (v3 + 4), 0);
     std::string::basic_string[abi:ne200100](&__p, v3, 32);
-    LoggableString::LoggableString(&v27, &__p);
-    ((*a2)[5])(a2, &v27);
+    LoggableString::LoggableString(&v26, &__p);
+    ((*a2)[5])(a2, &v26);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2[1], "}", 1);
     goto LABEL_43;
   }
@@ -5103,14 +5106,14 @@ void sub_1E4E73500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const ims::CFDictionary *ImsPrefsUtil::logPrefsDict(ImsPrefsUtil *this, const ims::CFDictionary *a2, ImsOutStream *a3, int a4)
+const ims::CFDictionary *ImsPrefsUtil::logPrefsDict(const __CFDictionary **this, const ims::CFDictionary *a2, ImsOutStream *a3, int a4)
 {
+  v22 = 0;
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v26 = 0;
-  ims::CFDictionary::keysAsStrings(this, &v24, 0x8000100);
-  v7 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v25 - v24) >> 3));
-  if (v25 == v24)
+  ims::CFDictionary::keysAsStrings(this, &v22, 0x8000100);
+  v7 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v23 - v22) >> 3));
+  if (v23 == v22)
   {
     v8 = 0;
   }
@@ -5120,49 +5123,49 @@ const ims::CFDictionary *ImsPrefsUtil::logPrefsDict(ImsPrefsUtil *this, const im
     v8 = v7;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,false>(v24, v25, v8, 1);
-  if (v25 != v24)
+  std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,false>(v22, v23, v8, 1);
+  if (v23 != v22)
   {
     v9 = 0;
-    if (0xAAAAAAAAAAAAAAABLL * ((v25 - v24) >> 3) <= 1)
+    if (0xAAAAAAAAAAAAAAABLL * ((v23 - v22) >> 3) <= 1)
     {
       v10 = 1;
     }
 
     else
     {
-      v10 = 0xAAAAAAAAAAAAAAABLL * ((v25 - v24) >> 3);
+      v10 = 0xAAAAAAAAAAAAAAABLL * ((v23 - v22) >> 3);
     }
 
     do
     {
-      memset(&v23, 0, sizeof(v23));
-      v11 = v24 + v9;
-      if (v24[1].n128_i8[v9 + 7] < 0)
+      memset(&v21, 0, sizeof(v21));
+      v11 = v22 + v9;
+      if (*(v22 + v9 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v23, *v11, *(v11 + 1));
+        std::string::__init_copy_ctor_external(&v21, *v11, *(v11 + 1));
       }
 
       else
       {
         v12 = *v11;
-        v23.__r_.__value_.__r.__words[2] = *(v11 + 2);
-        *&v23.__r_.__value_.__l.__data_ = v12;
+        v21.__r_.__value_.__r.__words[2] = *(v11 + 2);
+        *&v21.__r_.__value_.__l.__data_ = v12;
       }
 
-      v13 = *(this + 1);
-      ims::CFString::CFString(&__p, &v23);
+      v13 = this[1];
+      ims::CFString::CFString(&__p, &v21);
       Value = CFDictionaryGetValue(v13, __p.__r_.__value_.__l.__size_);
       ims::CFType::~CFType(&__p);
       if (Value)
       {
         v15 = CFGetTypeID(Value);
-        if (v15 == CFDictionaryGetTypeID() && ImsPrefsManager::isSection(&v23.__r_.__value_.__l.__data_))
+        if (v15 == CFDictionaryGetTypeID() && ImsPrefsManager::isSection(&v21))
         {
-          v22[0] = &unk_1F5EF3658;
-          v22[1] = Value;
+          v20[0] = &unk_1F5EF3658;
+          v20[1] = Value;
           CFRetain(Value);
-          v22[0] = &unk_1F5EF3760;
+          v20[0] = &unk_1F5EF3760;
           std::string::basic_string[abi:ne200100](&__b, a3, 32);
           LoggableString::LoggableString(&__p, &__b);
           (*(*a2 + 40))(a2, &__p);
@@ -5176,12 +5179,12 @@ const ims::CFDictionary *ImsPrefsUtil::logPrefsDict(ImsPrefsUtil *this, const im
             operator delete(__b.__r_.__value_.__l.__data_);
           }
 
-          (*(*a2 + 32))(a2, v24 + v9);
+          (*(*a2 + 32))(a2, v22 + v9);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a2 + 1), ": {", 3);
           *(a2 + 17) = 0;
           (*(*a2 + 64))(a2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
           *(a2 + 17) = 0;
-          ImsPrefsUtil::logPrefsDict(v22, a2, (a3 + 4), a4, v16);
+          ImsPrefsUtil::logPrefsDict(v20, a2, (a3 + 4), a4);
           ImsStringOutStream::ImsStringOutStream(&__p, a2);
         }
 
@@ -5198,22 +5201,22 @@ const ims::CFDictionary *ImsPrefsUtil::logPrefsDict(ImsPrefsUtil *this, const im
           operator delete(__b.__r_.__value_.__l.__data_);
         }
 
-        if (((ImsPrefsManager::isKeyValid(&v23.__r_.__value_.__l.__data_) | a4 ^ 1) & 1) == 0)
+        if (((ImsPrefsManager::isKeyValid(&v21) | a4 ^ 1) & 1) == 0)
         {
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a2 + 1), "[UNKNOWN] ", 10);
           *(a2 + 17) = 0;
         }
 
-        (*(*a2 + 32))(a2, v24 + v9);
+        (*(*a2 + 32))(a2, v22 + v9);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a2 + 1), ": ", 2);
         *(a2 + 17) = 0;
-        ImsPrefsUtil::logPrefValue(Value, a2, a3, v17);
+        ImsPrefsUtil::logPrefValue(Value, a2, a3);
         ImsStringOutStream::ImsStringOutStream(&__p, a2);
       }
 
-      if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v23.__r_.__value_.__l.__data_);
+        operator delete(v21.__r_.__value_.__l.__data_);
       }
 
       v9 += 24;
@@ -5223,7 +5226,7 @@ const ims::CFDictionary *ImsPrefsUtil::logPrefsDict(ImsPrefsUtil *this, const im
     while (v10);
   }
 
-  __p.__r_.__value_.__r.__words[0] = &v24;
+  __p.__r_.__value_.__r.__words[0] = &v22;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
   return a2;
 }
@@ -5492,10 +5495,10 @@ uint64_t ImsPrefsUtil::logMergedPrefsSectionDict(uint64_t a1, void *a2, uint64_t
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v40 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a4, &v57.__r_.__value_.__l.__data_);
+      v40 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a4, &v57);
       if (a4 + 8 == v40)
       {
-        if (std::__tree<std::string>::__count_unique<std::string>(v51, &v57.__r_.__value_.__l.__data_))
+        if (std::__tree<std::string>::__count_unique<std::string>(v51, &v57))
         {
           (*(*a5 + 32))(a5, &v57);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a5 + 8), ": [No default]", 14);
@@ -5538,7 +5541,7 @@ uint64_t ImsPrefsUtil::logMergedPrefsSectionDict(uint64_t a1, void *a2, uint64_t
         }
 
         v53[0] = &unk_1F5EBED08;
-        ImsPrefsManager::getCorrectSectionDictionary(v53, &v57.__r_.__value_.__l.__data_, 0, &v61);
+        ImsPrefsManager::getCorrectSectionDictionary(v53, &v57, 0, &v61);
         v54 = &unk_1F5EF3658;
         v55 = v61.__begin_;
         if (v61.__begin_)
@@ -5603,12 +5606,12 @@ void sub_1E4E74638(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,false>(uint64_t a1, __n128 *a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,false>(unint64_t a1, __int128 *a2, uint64_t a3, char a4)
 {
-  v125[2] = *MEMORY[0x1E69E9840];
+  v124[2] = *MEMORY[0x1E69E9840];
   while (2)
   {
-    v7 = &a2[-2].n128_i8[8];
+    v7 = (a2 - 24);
     v8 = a1;
     while (1)
     {
@@ -5625,14 +5628,14 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFD
             switch(v10)
             {
               case 3:
-                std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, a1 + 24, v7);
-                goto LABEL_238;
+                std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, (a1 + 24), v7);
+                return;
               case 4:
-                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, a1 + 24, a1 + 48, v7);
-                goto LABEL_238;
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, (a1 + 24), (a1 + 48), v7);
+                return;
               case 5:
-                std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, a1 + 24, a1 + 48, a1 + 72, v7);
-                goto LABEL_238;
+                std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), v7);
+                return;
             }
           }
 
@@ -5640,39 +5643,39 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFD
           {
             if (v10 < 2)
             {
-              goto LABEL_238;
+              return;
             }
 
             if (v10 == 2)
             {
-              ims::lowerCase(v7, &v124);
+              ims::lowerCase(v7, &v123);
               ims::lowerCase(a1, &__p);
-              v52 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v52 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               v53 = v52;
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
 
               if (v53 < 0)
               {
                 v54 = *a1;
-                v124.__r_.__value_.__r.__words[2] = *(a1 + 16);
-                *&v124.__r_.__value_.__l.__data_ = v54;
+                v123.__r_.__value_.__r.__words[2] = *(a1 + 16);
+                *&v123.__r_.__value_.__l.__data_ = v54;
                 v55 = *v7;
-                *(a1 + 16) = a2[-1].n128_u64[1];
+                *(a1 + 16) = *(a2 - 1);
                 *a1 = v55;
-                v56 = *&v124.__r_.__value_.__l.__data_;
-                a2[-1].n128_u64[1] = v124.__r_.__value_.__r.__words[2];
+                v56 = *&v123.__r_.__value_.__l.__data_;
+                *(a2 - 1) = *(&v123.__r_.__value_.__l + 2);
                 *v7 = v56;
               }
 
-              goto LABEL_238;
+              return;
             }
           }
 
@@ -5690,24 +5693,24 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFD
                   do
                   {
                     v60 = v57;
-                    ims::lowerCase(v57, &v124);
+                    ims::lowerCase(v57, &v123);
                     ims::lowerCase(v59, &__p);
-                    v61 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v61 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v61 < 0)
                     {
                       v62 = *v60;
-                      v122 = *(v60 + 16);
-                      v121 = v62;
+                      v121 = *(v60 + 16);
+                      v120 = v62;
                       *(v60 + 8) = 0;
                       *(v60 + 16) = 0;
                       *v60 = 0;
@@ -5730,17 +5733,17 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFD
                           goto LABEL_143;
                         }
 
-                        ims::lowerCase(&v121, &v124);
+                        ims::lowerCase(&v120, &v123);
                         ims::lowerCase(a1 + v63 - 24, &__p);
-                        v65 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                        v65 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(__p.__r_.__value_.__l.__data_);
                         }
 
-                        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v124.__r_.__value_.__l.__data_);
+                          operator delete(v123.__r_.__value_.__l.__data_);
                         }
 
                         v63 -= 24;
@@ -5754,8 +5757,8 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFD
                       }
 
 LABEL_143:
-                      v67 = v121;
-                      *(v66 + 16) = v122;
+                      v67 = v120;
+                      *(v66 + 16) = v121;
                       *v66 = v67;
                     }
 
@@ -5778,24 +5781,24 @@ LABEL_143:
                 do
                 {
                   v109 = v107;
-                  ims::lowerCase(v107, &v124);
+                  ims::lowerCase(v107, &v123);
                   ims::lowerCase(a1, &__p);
-                  v110 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                  v110 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(__p.__r_.__value_.__l.__data_);
                   }
 
-                  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v124.__r_.__value_.__l.__data_);
+                    operator delete(v123.__r_.__value_.__l.__data_);
                   }
 
                   if (v110 < 0)
                   {
                     v111 = *v109;
-                    v122 = *(v109 + 16);
-                    v121 = v111;
+                    v121 = *(v109 + 16);
+                    v120 = v111;
                     *(v109 + 8) = 0;
                     *(v109 + 16) = 0;
                     *v109 = 0;
@@ -5811,17 +5814,17 @@ LABEL_143:
                       *(v112 + 64) = *(v112 + 40);
                       *(v112 + 47) = 0;
                       *(v112 + 24) = 0;
-                      ims::lowerCase(&v121, &v124);
+                      ims::lowerCase(&v120, &v123);
                       ims::lowerCase(v112, &__p);
-                      v113 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                      v113 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                       {
                         operator delete(__p.__r_.__value_.__l.__data_);
                       }
 
-                      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                      if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                       {
-                        operator delete(v124.__r_.__value_.__l.__data_);
+                        operator delete(v123.__r_.__value_.__l.__data_);
                       }
 
                       v112 -= 24;
@@ -5833,8 +5836,8 @@ LABEL_143:
                       operator delete(*(v112 + 48));
                     }
 
-                    v114 = v121;
-                    *(v112 + 64) = v122;
+                    v114 = v120;
+                    *(v112 + 64) = v121;
                     *(v112 + 48) = v114;
                   }
 
@@ -5847,7 +5850,7 @@ LABEL_143:
               }
             }
 
-            goto LABEL_238;
+            return;
           }
 
           if (!a3)
@@ -5865,17 +5868,17 @@ LABEL_143:
                   v72 = a1 + 24 * v71;
                   if (2 * v69 + 2 < v10)
                   {
-                    ims::lowerCase(a1 + 24 * v71, &v124);
+                    ims::lowerCase(a1 + 24 * v71, &v123);
                     ims::lowerCase(v72 + 24, &__p);
-                    v73 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v73 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v73 < 0)
@@ -5885,26 +5888,26 @@ LABEL_143:
                     }
                   }
 
-                  ims::lowerCase(v72, &v124);
+                  ims::lowerCase(v72, &v123);
                   v74 = a1 + 24 * v70;
                   ims::lowerCase(v74, &__p);
-                  v75 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                  v75 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(__p.__r_.__value_.__l.__data_);
                   }
 
-                  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v124.__r_.__value_.__l.__data_);
+                    operator delete(v123.__r_.__value_.__l.__data_);
                   }
 
                   if ((v75 & 0x80000000) == 0)
                   {
-                    v118 = v70;
+                    v117 = v70;
                     v76 = *v74;
-                    v122 = *(v74 + 16);
-                    v121 = v76;
+                    v121 = *(v74 + 16);
+                    v120 = v76;
                     *(v74 + 8) = 0;
                     *(v74 + 16) = 0;
                     *v74 = 0;
@@ -5936,17 +5939,17 @@ LABEL_143:
 
                       else
                       {
-                        ims::lowerCase(a1 + 24 * v79, &v124);
+                        ims::lowerCase(a1 + 24 * v79, &v123);
                         ims::lowerCase(v72 + 24, &__p);
-                        v80 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                        v80 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(__p.__r_.__value_.__l.__data_);
                         }
 
-                        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v124.__r_.__value_.__l.__data_);
+                          operator delete(v123.__r_.__value_.__l.__data_);
                         }
 
                         if (v80 >= 0)
@@ -5960,17 +5963,17 @@ LABEL_143:
                         }
                       }
 
-                      ims::lowerCase(v72, &v124);
-                      ims::lowerCase(&v121, &__p);
-                      v81 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                      ims::lowerCase(v72, &v123);
+                      ims::lowerCase(&v120, &__p);
+                      v81 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                       {
                         operator delete(__p.__r_.__value_.__l.__data_);
                       }
 
-                      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                      if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                       {
-                        operator delete(v124.__r_.__value_.__l.__data_);
+                        operator delete(v123.__r_.__value_.__l.__data_);
                       }
 
                       v82 = v81;
@@ -5986,10 +5989,10 @@ LABEL_143:
                       }
                     }
 
-                    v83 = v121;
-                    *(v77 + 16) = v122;
+                    v83 = v120;
+                    *(v77 + 16) = v121;
                     *v77 = v83;
-                    v70 = v118;
+                    v70 = v117;
                   }
                 }
 
@@ -6001,11 +6004,11 @@ LABEL_143:
               do
               {
                 v85 = 0;
-                v116 = a2;
-                v117 = *a1;
-                v125[0] = *(a1 + 8);
-                *(v125 + 7) = *(a1 + 15);
-                v119 = *(a1 + 23);
+                v115 = a2;
+                v116 = *a1;
+                v124[0] = *(a1 + 8);
+                *(v124 + 7) = *(a1 + 15);
+                v118 = *(a1 + 23);
                 *(a1 + 8) = 0;
                 *(a1 + 16) = 0;
                 *a1 = 0;
@@ -6020,18 +6023,18 @@ LABEL_143:
                   v90 = v89 + 2;
                   if (v89 + 2 < v84)
                   {
-                    ims::lowerCase(v88 + 24, &v124);
+                    ims::lowerCase(v88 + 24, &v123);
                     v91 = v88 + 48;
                     ims::lowerCase(v91, &__p);
-                    v92 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v92 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v92 < 0)
@@ -6055,48 +6058,48 @@ LABEL_143:
 
                 while (v85 <= ((v84 - 2) >> 1));
                 a2 = (a2 - 24);
-                if (v86 == &v116[-2].n128_i8[8])
+                if (v86 == (v115 - 24))
                 {
-                  *v86 = v117;
-                  v105 = *(v125 + 7);
-                  *(v86 + 8) = v125[0];
+                  *v86 = v116;
+                  v105 = *(v124 + 7);
+                  *(v86 + 8) = v124[0];
                   *(v86 + 15) = v105;
-                  *(v86 + 23) = v119;
+                  *(v86 + 23) = v118;
                 }
 
                 else
                 {
-                  v94 = *(&v116[-2] + 8);
-                  *(v86 + 16) = v116[-1].n128_u64[1];
+                  v94 = *(v115 - 24);
+                  *(v86 + 16) = *(v115 - 1);
                   *v86 = v94;
-                  v116[-2].n128_u64[1] = v117;
-                  v95 = v125[0];
-                  *(v116[-1].n128_u64 + 7) = *(v125 + 7);
-                  v116[-1].n128_u64[0] = v95;
-                  v116[-1].n128_u8[15] = v119;
+                  *(v115 - 3) = v116;
+                  v95 = v124[0];
+                  *(v115 - 9) = *(v124 + 7);
+                  *(v115 - 2) = v95;
+                  *(v115 - 1) = v118;
                   v96 = v86 - a1 + 24;
                   if (v96 >= 25)
                   {
                     v97 = (-2 - 0x5555555555555555 * (v96 >> 3)) >> 1;
                     v98 = a1 + 24 * v97;
-                    ims::lowerCase(v98, &v124);
+                    ims::lowerCase(v98, &v123);
                     ims::lowerCase(v86, &__p);
-                    v99 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v99 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v99 < 0)
                     {
                       v100 = *v86;
-                      v122 = *(v86 + 16);
-                      v121 = v100;
+                      v121 = *(v86 + 16);
+                      v120 = v100;
                       *(v86 + 8) = 0;
                       *(v86 + 16) = 0;
                       *v86 = 0;
@@ -6120,17 +6123,17 @@ LABEL_143:
 
                         v97 = (v97 - 1) >> 1;
                         v98 = a1 + 24 * v97;
-                        ims::lowerCase(v98, &v124);
-                        ims::lowerCase(&v121, &__p);
-                        v103 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                        ims::lowerCase(v98, &v123);
+                        ims::lowerCase(&v120, &__p);
+                        v103 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(__p.__r_.__value_.__l.__data_);
                         }
 
-                        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v124.__r_.__value_.__l.__data_);
+                          operator delete(v123.__r_.__value_.__l.__data_);
                         }
 
                         v86 = v101;
@@ -6145,8 +6148,8 @@ LABEL_143:
                         }
                       }
 
-                      v104 = v121;
-                      *(v101 + 16) = v122;
+                      v104 = v120;
+                      *(v101 + 16) = v121;
                       *v101 = v104;
                     }
                   }
@@ -6156,11 +6159,11 @@ LABEL_143:
               while (v84-- > 2);
             }
 
-            goto LABEL_238;
+            return;
           }
 
           v12 = v10 >> 1;
-          v13 = a1 + 24 * (v10 >> 1);
+          v13 = (a1 + 24 * (v10 >> 1));
           if (v9 < 0xC01)
           {
             std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(v13, a1, v7);
@@ -6169,19 +6172,19 @@ LABEL_143:
           else
           {
             std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, v13, v7);
-            v14 = a1 + 24 * v12 - 24;
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1 + 24, v14, &a2[-3]);
+            v14 = (a1 + 24 * v12 - 24);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>((a1 + 24), v14, a2 - 3);
             v15 = a1 + 24 * v12;
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1 + 48, v15 + 24, &a2[-5].n128_i64[1]);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(v14, v13, v15 + 24);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>((a1 + 48), (v15 + 24), (a2 - 72));
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(v14, v13, (v15 + 24));
             v16 = *a1;
-            v124.__r_.__value_.__r.__words[2] = *(a1 + 16);
-            *&v124.__r_.__value_.__l.__data_ = v16;
+            v123.__r_.__value_.__r.__words[2] = *(a1 + 16);
+            *&v123.__r_.__value_.__l.__data_ = v16;
             v17 = *v13;
-            *(a1 + 16) = *(v13 + 16);
+            *(a1 + 16) = v13[1].n128_u64[0];
             *a1 = v17;
-            v18 = *&v124.__r_.__value_.__l.__data_;
-            *(v13 + 16) = *(&v124.__r_.__value_.__l + 2);
+            v18 = *&v123.__r_.__value_.__l.__data_;
+            v13[1].n128_u64[0] = v123.__r_.__value_.__r.__words[2];
             *v13 = v18;
           }
 
@@ -6191,17 +6194,17 @@ LABEL_143:
             break;
           }
 
-          ims::lowerCase(a1 - 24, &v124);
+          ims::lowerCase(a1 - 24, &v123);
           ims::lowerCase(a1, &__p);
-          v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+          v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v123.__r_.__value_.__l.__data_);
           }
 
           if (v19 < 0)
@@ -6210,22 +6213,22 @@ LABEL_143:
           }
 
           v37 = *a1;
-          v122 = *(a1 + 16);
-          v121 = v37;
+          v121 = *(a1 + 16);
+          v120 = v37;
           *(a1 + 8) = 0;
           *(a1 + 16) = 0;
           *a1 = 0;
-          ims::lowerCase(&v121, &v124);
+          ims::lowerCase(&v120, &v123);
           ims::lowerCase(v7, &__p);
-          v38 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+          v38 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v123.__r_.__value_.__l.__data_);
           }
 
           if (v38 < 0)
@@ -6233,18 +6236,18 @@ LABEL_143:
             v8 = a1;
             do
             {
-              ims::lowerCase(&v121, &v124);
-              v8 = (v8 + 24);
+              ims::lowerCase(&v120, &v123);
+              v8 += 24;
               ims::lowerCase(v8, &__p);
-              v41 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v41 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -6253,7 +6256,7 @@ LABEL_143:
 
           else
           {
-            v39 = (a1 + 24);
+            v39 = a1 + 24;
             do
             {
               v8 = v39;
@@ -6262,20 +6265,20 @@ LABEL_143:
                 break;
               }
 
-              ims::lowerCase(&v121, &v124);
+              ims::lowerCase(&v120, &v123);
               ims::lowerCase(v8, &__p);
-              v40 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v40 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
 
-              v39 = (v8 + 24);
+              v39 = v8 + 24;
             }
 
             while ((v40 & 0x80000000) == 0);
@@ -6287,18 +6290,18 @@ LABEL_143:
             v42 = a2;
             do
             {
-              ims::lowerCase(&v121, &v124);
-              v42 -= 24;
+              ims::lowerCase(&v120, &v123);
+              v42 = (v42 - 24);
               ims::lowerCase(v42, &__p);
-              v43 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v43 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -6308,56 +6311,56 @@ LABEL_143:
           while (v8 < v42)
           {
             v44 = *v8;
-            v124.__r_.__value_.__r.__words[2] = v8[1].n128_u64[0];
-            *&v124.__r_.__value_.__l.__data_ = v44;
+            v123.__r_.__value_.__r.__words[2] = *(v8 + 16);
+            *&v123.__r_.__value_.__l.__data_ = v44;
             v45 = *v42;
-            v8[1].n128_u64[0] = *(v42 + 16);
+            *(v8 + 16) = *(v42 + 2);
             *v8 = v45;
-            v46 = *&v124.__r_.__value_.__l.__data_;
-            *(v42 + 16) = *(&v124.__r_.__value_.__l + 2);
+            v46 = *&v123.__r_.__value_.__l.__data_;
+            *(v42 + 2) = *(&v123.__r_.__value_.__l + 2);
             *v42 = v46;
             do
             {
-              ims::lowerCase(&v121, &v124);
-              v8 = (v8 + 24);
+              ims::lowerCase(&v120, &v123);
+              v8 += 24;
               ims::lowerCase(v8, &__p);
-              v47 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v47 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
             while ((v47 & 0x80000000) == 0);
             do
             {
-              ims::lowerCase(&v121, &v124);
-              v42 -= 24;
+              ims::lowerCase(&v120, &v123);
+              v42 = (v42 - 24);
               ims::lowerCase(v42, &__p);
-              v48 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v48 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
             while (v48 < 0);
           }
 
-          v49 = &v8[-2].n128_u64[1];
-          if (&v8[-2].n128_i8[8] == a1)
+          v49 = (v8 - 24);
+          if (v8 - 24 == a1)
           {
-            if (v8[-1].n128_i8[15] < 0)
+            if (*(v8 - 1) < 0)
             {
               operator delete(*v49);
             }
@@ -6371,38 +6374,38 @@ LABEL_143:
             }
 
             v50 = *v49;
-            *(a1 + 16) = v8[-1].n128_u64[1];
+            *(a1 + 16) = *(v8 - 8);
             *a1 = v50;
-            v8[-1].n128_u8[15] = 0;
-            v8[-2].n128_u8[8] = 0;
+            *(v8 - 1) = 0;
+            *(v8 - 24) = 0;
           }
 
           a4 = 0;
-          v51 = v121;
-          v8[-1].n128_u64[1] = v122;
+          v51 = v120;
+          *(v8 - 8) = v121;
           *v49 = v51;
         }
 
         v20 = 0;
         v21 = *a1;
-        v122 = *(a1 + 16);
-        v121 = v21;
+        v121 = *(a1 + 16);
+        v120 = v21;
         *(a1 + 8) = 0;
         *(a1 + 16) = 0;
         *a1 = 0;
         do
         {
-          ims::lowerCase(a1 + v20 + 24, &v124);
-          ims::lowerCase(&v121, &__p);
-          v22 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+          ims::lowerCase(a1 + v20 + 24, &v123);
+          ims::lowerCase(&v120, &__p);
+          v22 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v123.__r_.__value_.__l.__data_);
           }
 
           v20 += 24;
@@ -6421,18 +6424,18 @@ LABEL_143:
               break;
             }
 
-            v24 -= 24;
-            ims::lowerCase(v24, &v124);
-            ims::lowerCase(&v121, &__p);
-            v26 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+            v24 = (v24 - 24);
+            ims::lowerCase(v24, &v123);
+            ims::lowerCase(&v120, &__p);
+            v26 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v124.__r_.__value_.__l.__data_);
+              operator delete(v123.__r_.__value_.__l.__data_);
             }
           }
 
@@ -6443,53 +6446,53 @@ LABEL_143:
         {
           do
           {
-            v24 -= 24;
-            ims::lowerCase(v24, &v124);
-            ims::lowerCase(&v121, &__p);
-            v25 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+            v24 = (v24 - 24);
+            ims::lowerCase(v24, &v123);
+            ims::lowerCase(&v120, &__p);
+            v25 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v124.__r_.__value_.__l.__data_);
+              operator delete(v123.__r_.__value_.__l.__data_);
             }
           }
 
           while ((v25 & 0x80000000) == 0);
         }
 
-        v8 = (a1 + v20);
+        v8 = a1 + v20;
         if (v23 < v24)
         {
           v27 = v24;
           do
           {
             v28 = *v8;
-            v124.__r_.__value_.__r.__words[2] = v8[1].n128_u64[0];
-            *&v124.__r_.__value_.__l.__data_ = v28;
+            v123.__r_.__value_.__r.__words[2] = *(v8 + 16);
+            *&v123.__r_.__value_.__l.__data_ = v28;
             v29 = *v27;
-            v8[1].n128_u64[0] = *(v27 + 16);
+            *(v8 + 16) = *(v27 + 16);
             *v8 = v29;
-            v30 = *&v124.__r_.__value_.__l.__data_;
-            *(v27 + 16) = *(&v124.__r_.__value_.__l + 2);
+            v30 = *&v123.__r_.__value_.__l.__data_;
+            *(v27 + 16) = *(&v123.__r_.__value_.__l + 2);
             *v27 = v30;
             do
             {
-              v8 = (v8 + 24);
-              ims::lowerCase(v8, &v124);
-              ims::lowerCase(&v121, &__p);
-              v31 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v8 += 24;
+              ims::lowerCase(v8, &v123);
+              ims::lowerCase(&v120, &__p);
+              v31 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -6497,17 +6500,17 @@ LABEL_143:
             do
             {
               v27 -= 24;
-              ims::lowerCase(v27, &v124);
-              ims::lowerCase(&v121, &__p);
-              v32 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              ims::lowerCase(v27, &v123);
+              ims::lowerCase(&v120, &__p);
+              v32 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -6517,10 +6520,10 @@ LABEL_143:
           while (v8 < v27);
         }
 
-        v33 = &v8[-2].n128_u64[1];
-        if (&v8[-2].n128_i8[8] == a1)
+        v33 = (v8 - 24);
+        if (v8 - 24 == a1)
         {
-          if (v8[-1].n128_i8[15] < 0)
+          if (*(v8 - 1) < 0)
           {
             operator delete(*v33);
           }
@@ -6534,14 +6537,14 @@ LABEL_143:
           }
 
           v34 = *v33;
-          *(a1 + 16) = v8[-1].n128_u64[1];
+          *(a1 + 16) = *(v8 - 8);
           *a1 = v34;
-          v8[-1].n128_u8[15] = 0;
-          v8[-2].n128_u8[8] = 0;
+          *(v8 - 1) = 0;
+          *(v8 - 24) = 0;
         }
 
-        v35 = v121;
-        v8[-1].n128_u64[1] = v122;
+        v35 = v120;
+        *(v8 - 8) = v121;
         *v33 = v35;
         if (v23 >= v24)
         {
@@ -6549,11 +6552,11 @@ LABEL_143:
         }
 
 LABEL_64:
-        std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,false>(a1, &v8[-2].n128_i8[8], a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,false>(a1, (v8 - 24), a3, a4 & 1);
         a4 = 0;
       }
 
-      v36 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *>(a1, (v8 - 24));
+      v36 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *>(a1, v8 - 24);
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *>(v8, a2))
       {
         break;
@@ -6573,9 +6576,6 @@ LABEL_64:
 
     break;
   }
-
-LABEL_238:
-  v115 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4E7583C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -6593,11 +6593,11 @@ void sub_1E4E7583C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+__n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(__n128 *a1, __n128 *a2, __n128 *a3)
 {
   ims::lowerCase(a2, v24);
   ims::lowerCase(a1, &__p);
-  v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+  v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6612,7 +6612,7 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsD
   {
     ims::lowerCase(a3, v24);
     ims::lowerCase(a2, &__p);
-    v9 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+    v9 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -6630,16 +6630,16 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsD
     else if ((v9 & 0x80000000) == 0)
     {
 LABEL_15:
-      v10 = *(a1 + 16);
+      v10 = a1[1].n128_u64[0];
       v11 = *a1;
-      v12 = *(a2 + 16);
+      v12 = a2[1].n128_u64[0];
       *a1 = *a2;
-      *(a1 + 16) = v12;
+      a1[1].n128_u64[0] = v12;
       *a2 = v11;
-      *(a2 + 16) = v10;
+      a2[1].n128_u64[0] = v10;
       ims::lowerCase(a3, v24);
       ims::lowerCase(a2, &__p);
-      v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+      v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -6659,28 +6659,28 @@ LABEL_15:
         return result;
       }
 
-      v18 = *(a2 + 16);
+      v18 = a2[1].n128_u64[0];
       result = *a2;
-      v20 = *(a3 + 16);
+      v20 = a3[1].n128_u64[0];
       *a2 = *a3;
-      *(a2 + 16) = v20;
+      a2[1].n128_u64[0] = v20;
       goto LABEL_30;
     }
 
-    v18 = *(a1 + 16);
+    v18 = a1[1].n128_u64[0];
     result = *a1;
-    v19 = *(a3 + 16);
+    v19 = a3[1].n128_u64[0];
     *a1 = *a3;
-    *(a1 + 16) = v19;
+    a1[1].n128_u64[0] = v19;
 LABEL_30:
     *a3 = result;
-    *(a3 + 16) = v18;
+    a3[1].n128_u64[0] = v18;
     return result;
   }
 
   ims::lowerCase(a3, v24);
   ims::lowerCase(a2, &__p);
-  v7 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+  v7 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6700,16 +6700,16 @@ LABEL_30:
     return result;
   }
 
-  v14 = *(a2 + 16);
+  v14 = a2[1].n128_u64[0];
   v15 = *a2;
-  v16 = *(a3 + 16);
+  v16 = a3[1].n128_u64[0];
   *a2 = *a3;
-  *(a2 + 16) = v16;
+  a2[1].n128_u64[0] = v16;
   *a3 = v15;
-  *(a3 + 16) = v14;
+  a3[1].n128_u64[0] = v14;
   ims::lowerCase(a2, v24);
   ims::lowerCase(a1, &__p);
-  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6729,13 +6729,13 @@ LABEL_30:
     return result;
   }
 
-  v21 = *(a1 + 16);
+  v21 = a1[1].n128_u64[0];
   result = *a1;
-  v22 = *(a2 + 16);
+  v22 = a2[1].n128_u64[0];
   *a1 = *a2;
-  *(a1 + 16) = v22;
+  a1[1].n128_u64[0] = v22;
   *a2 = result;
-  *(a2 + 16) = v21;
+  a2[1].n128_u64[0] = v21;
   return result;
 }
 
@@ -6749,12 +6749,12 @@ void sub_1E4E75BC8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4)
 {
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, a2, a3);
   ims::lowerCase(a4, v21);
   ims::lowerCase(a3, &__p);
-  v8 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p.__r_.__value_.__l.__data_);
+  v8 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6774,16 +6774,16 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsD
     return result;
   }
 
-  v10 = *(a3 + 16);
+  v10 = a3[1].n128_u64[0];
   v11 = *a3;
-  v12 = *(a4 + 16);
+  v12 = a4[1].n128_u64[0];
   *a3 = *a4;
-  *(a3 + 16) = v12;
+  a3[1].n128_u64[0] = v12;
   *a4 = v11;
-  *(a4 + 16) = v10;
+  a4[1].n128_u64[0] = v10;
   ims::lowerCase(a3, v21);
   ims::lowerCase(a2, &__p);
-  v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p.__r_.__value_.__l.__data_);
+  v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6803,16 +6803,16 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsD
     return result;
   }
 
-  v14 = *(a2 + 16);
+  v14 = a2[1].n128_u64[0];
   v15 = *a2;
-  v16 = *(a3 + 16);
+  v16 = a3[1].n128_u64[0];
   *a2 = *a3;
-  *(a2 + 16) = v16;
+  a2[1].n128_u64[0] = v16;
   *a3 = v15;
-  *(a3 + 16) = v14;
+  a3[1].n128_u64[0] = v14;
   ims::lowerCase(a2, v21);
   ims::lowerCase(a1, &__p);
-  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p.__r_.__value_.__l.__data_);
+  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6827,11 +6827,11 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsD
   {
     v18 = a1[1].n128_u64[0];
     result = *a1;
-    v19 = *(a2 + 16);
+    v19 = a2[1].n128_u64[0];
     *a1 = *a2;
     a1[1].n128_u64[0] = v19;
     *a2 = result;
-    *(a2 + 16) = v18;
+    a2[1].n128_u64[0] = v18;
   }
 
   return result;
@@ -6847,12 +6847,12 @@ void sub_1E4E75D9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, a2, a3, a4);
   ims::lowerCase(a5, v27);
   ims::lowerCase(a4, &__p);
-  v10 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v10 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6872,16 +6872,16 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsD
     return result;
   }
 
-  v12 = *(a4 + 16);
+  v12 = a4[1].n128_u64[0];
   v13 = *a4;
-  v14 = *(a5 + 16);
+  v14 = a5[1].n128_u64[0];
   *a4 = *a5;
-  *(a4 + 16) = v14;
+  a4[1].n128_u64[0] = v14;
   *a5 = v13;
-  *(a5 + 16) = v12;
+  a5[1].n128_u64[0] = v12;
   ims::lowerCase(a4, v27);
   ims::lowerCase(a3, &__p);
-  v15 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v15 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6901,16 +6901,16 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsD
     return result;
   }
 
-  v16 = *(a3 + 16);
+  v16 = a3[1].n128_u64[0];
   v17 = *a3;
-  v18 = *(a4 + 16);
+  v18 = a4[1].n128_u64[0];
   *a3 = *a4;
-  *(a3 + 16) = v18;
+  a3[1].n128_u64[0] = v18;
   *a4 = v17;
-  *(a4 + 16) = v16;
+  a4[1].n128_u64[0] = v16;
   ims::lowerCase(a3, v27);
   ims::lowerCase(a2, &__p);
-  v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6930,16 +6930,16 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsD
     return result;
   }
 
-  v20 = *(a2 + 16);
+  v20 = a2[1].n128_u64[0];
   v21 = *a2;
-  v22 = *(a3 + 16);
+  v22 = a3[1].n128_u64[0];
   *a2 = *a3;
-  *(a2 + 16) = v22;
+  a2[1].n128_u64[0] = v22;
   *a3 = v21;
-  *(a3 + 16) = v20;
+  a3[1].n128_u64[0] = v20;
   ims::lowerCase(a2, v27);
   ims::lowerCase(a1, &__p);
-  v23 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v23 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6954,11 +6954,11 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsD
   {
     v24 = a1[1].n128_u64[0];
     result = *a1;
-    v25 = *(a2 + 16);
+    v25 = a2[1].n128_u64[0];
     *a1 = *a2;
     a1[1].n128_u64[0] = v25;
     *a2 = result;
-    *(a2 + 16) = v24;
+    a2[1].n128_u64[0] = v24;
   }
 
   return result;
@@ -6974,7 +6974,7 @@ void sub_1E4E75FE4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *>(__n128 *a1, __n128 *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *>(uint64_t a1, uint64_t a2)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v4 <= 2)
@@ -6983,10 +6983,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPr
     {
       if (v4 == 2)
       {
-        v5 = (a2 - 24);
-        ims::lowerCase(&a2[-2].n128_i64[1], &v23);
+        v5 = a2 - 24;
+        ims::lowerCase(a2 - 24, &v23);
         ims::lowerCase(a1, &__p);
-        v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p.__r_.__value_.__l.__data_);
+        v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6999,13 +6999,13 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPr
 
         if (v6 < 0)
         {
-          v7 = a1[1].n128_u64[0];
+          v7 = *(a1 + 16);
           v8 = *a1;
-          v9 = v5[1].n128_u64[0];
+          v9 = *(v5 + 16);
           *a1 = *v5;
-          a1[1].n128_u64[0] = v9;
+          *(a1 + 16) = v9;
           *v5 = v8;
-          v5[1].n128_u64[0] = v7;
+          *(v5 + 16) = v7;
         }
 
         return 1;
@@ -7020,21 +7020,21 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPr
   switch(v4)
   {
     case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, &a1[1].n128_i64[1], &a2[-2].n128_i64[1]);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, (a1 + 24), (a2 - 24));
       return 1;
     case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, &a1[1].n128_i64[1], &a1[3], &a2[-2].n128_i64[1]);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a2 - 24));
       return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, &a1[1].n128_i64[1], &a1[3], &a1[4].n128_i64[1], &a2[-2].n128_i64[1]);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), (a2 - 24));
       return 1;
   }
 
 LABEL_15:
-  v10 = &a1[3];
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, &a1[1].n128_i64[1], &a1[3]);
-  v11 = &a1[4].n128_i64[1];
-  if (&a1[4].n128_i8[8] == a2)
+  v10 = a1 + 48;
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logPrefsDict(ims::CFDictionary const&,ImsOutStream &,int,BOOL)::$_0 &,std::string *,0>(a1, (a1 + 24), (a1 + 48));
+  v11 = a1 + 72;
+  if (a1 + 72 == a2)
   {
     return 1;
   }
@@ -7045,7 +7045,7 @@ LABEL_15:
   {
     ims::lowerCase(v11, &v23);
     ims::lowerCase(v10, &__p);
-    v14 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p.__r_.__value_.__l.__data_);
+    v14 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -7066,14 +7066,14 @@ LABEL_15:
       v15 = v12;
       do
       {
-        v16 = (a1 + v15);
-        if (a1[5].n128_i8[v15 + 15] < 0)
+        v16 = a1 + v15;
+        if (*(a1 + v15 + 95) < 0)
         {
-          operator delete(v16[9]);
+          operator delete(*(v16 + 72));
         }
 
-        *(v16 + 9) = *(v16 + 3);
-        v16[11] = v16[8];
+        *(v16 + 72) = *(v16 + 48);
+        *(v16 + 88) = *(v16 + 64);
         *(v16 + 71) = 0;
         *(v16 + 48) = 0;
         if (v15 == -48)
@@ -7083,8 +7083,8 @@ LABEL_15:
         }
 
         ims::lowerCase(&v20, &v23);
-        ims::lowerCase(&a1[1].n128_i64[1] + v15, &__p);
-        v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p.__r_.__value_.__l.__data_);
+        ims::lowerCase(a1 + v15 + 24, &__p);
+        v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -7099,8 +7099,8 @@ LABEL_15:
       }
 
       while (v17 < 0);
-      v18 = &a1[4].n128_i64[1] + v15;
-      if (a1[5].n128_i8[v15 + 15] < 0)
+      v18 = a1 + v15 + 72;
+      if (*(a1 + v15 + 95) < 0)
       {
         operator delete(*v18);
       }
@@ -7134,12 +7134,12 @@ void sub_1E4E762D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,false>(uint64_t a1, __n128 *a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,false>(unint64_t a1, __int128 *a2, uint64_t a3, char a4)
 {
-  v125[2] = *MEMORY[0x1E69E9840];
+  v124[2] = *MEMORY[0x1E69E9840];
   while (2)
   {
-    v7 = &a2[-2].n128_i8[8];
+    v7 = (a2 - 24);
     v8 = a1;
     while (1)
     {
@@ -7156,14 +7156,14 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSection
             switch(v10)
             {
               case 3:
-                std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, a1 + 24, v7);
-                goto LABEL_238;
+                std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, (a1 + 24), v7);
+                return;
               case 4:
-                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, a1 + 24, a1 + 48, v7);
-                goto LABEL_238;
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, (a1 + 24), (a1 + 48), v7);
+                return;
               case 5:
-                std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, a1 + 24, a1 + 48, a1 + 72, v7);
-                goto LABEL_238;
+                std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), v7);
+                return;
             }
           }
 
@@ -7171,39 +7171,39 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSection
           {
             if (v10 < 2)
             {
-              goto LABEL_238;
+              return;
             }
 
             if (v10 == 2)
             {
-              ims::lowerCase(v7, &v124);
+              ims::lowerCase(v7, &v123);
               ims::lowerCase(a1, &__p);
-              v52 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v52 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               v53 = v52;
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
 
               if (v53 < 0)
               {
                 v54 = *a1;
-                v124.__r_.__value_.__r.__words[2] = *(a1 + 16);
-                *&v124.__r_.__value_.__l.__data_ = v54;
+                v123.__r_.__value_.__r.__words[2] = *(a1 + 16);
+                *&v123.__r_.__value_.__l.__data_ = v54;
                 v55 = *v7;
-                *(a1 + 16) = a2[-1].n128_u64[1];
+                *(a1 + 16) = *(a2 - 1);
                 *a1 = v55;
-                v56 = *&v124.__r_.__value_.__l.__data_;
-                a2[-1].n128_u64[1] = v124.__r_.__value_.__r.__words[2];
+                v56 = *&v123.__r_.__value_.__l.__data_;
+                *(a2 - 1) = *(&v123.__r_.__value_.__l + 2);
                 *v7 = v56;
               }
 
-              goto LABEL_238;
+              return;
             }
           }
 
@@ -7221,24 +7221,24 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSection
                   do
                   {
                     v60 = v57;
-                    ims::lowerCase(v57, &v124);
+                    ims::lowerCase(v57, &v123);
                     ims::lowerCase(v59, &__p);
-                    v61 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v61 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v61 < 0)
                     {
                       v62 = *v60;
-                      v122 = *(v60 + 16);
-                      v121 = v62;
+                      v121 = *(v60 + 16);
+                      v120 = v62;
                       *(v60 + 8) = 0;
                       *(v60 + 16) = 0;
                       *v60 = 0;
@@ -7261,17 +7261,17 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSection
                           goto LABEL_143;
                         }
 
-                        ims::lowerCase(&v121, &v124);
+                        ims::lowerCase(&v120, &v123);
                         ims::lowerCase(a1 + v63 - 24, &__p);
-                        v65 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                        v65 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(__p.__r_.__value_.__l.__data_);
                         }
 
-                        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v124.__r_.__value_.__l.__data_);
+                          operator delete(v123.__r_.__value_.__l.__data_);
                         }
 
                         v63 -= 24;
@@ -7285,8 +7285,8 @@ void std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSection
                       }
 
 LABEL_143:
-                      v67 = v121;
-                      *(v66 + 16) = v122;
+                      v67 = v120;
+                      *(v66 + 16) = v121;
                       *v66 = v67;
                     }
 
@@ -7309,24 +7309,24 @@ LABEL_143:
                 do
                 {
                   v109 = v107;
-                  ims::lowerCase(v107, &v124);
+                  ims::lowerCase(v107, &v123);
                   ims::lowerCase(a1, &__p);
-                  v110 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                  v110 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(__p.__r_.__value_.__l.__data_);
                   }
 
-                  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v124.__r_.__value_.__l.__data_);
+                    operator delete(v123.__r_.__value_.__l.__data_);
                   }
 
                   if (v110 < 0)
                   {
                     v111 = *v109;
-                    v122 = *(v109 + 16);
-                    v121 = v111;
+                    v121 = *(v109 + 16);
+                    v120 = v111;
                     *(v109 + 8) = 0;
                     *(v109 + 16) = 0;
                     *v109 = 0;
@@ -7342,17 +7342,17 @@ LABEL_143:
                       *(v112 + 64) = *(v112 + 40);
                       *(v112 + 47) = 0;
                       *(v112 + 24) = 0;
-                      ims::lowerCase(&v121, &v124);
+                      ims::lowerCase(&v120, &v123);
                       ims::lowerCase(v112, &__p);
-                      v113 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                      v113 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                       {
                         operator delete(__p.__r_.__value_.__l.__data_);
                       }
 
-                      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                      if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                       {
-                        operator delete(v124.__r_.__value_.__l.__data_);
+                        operator delete(v123.__r_.__value_.__l.__data_);
                       }
 
                       v112 -= 24;
@@ -7364,8 +7364,8 @@ LABEL_143:
                       operator delete(*(v112 + 48));
                     }
 
-                    v114 = v121;
-                    *(v112 + 64) = v122;
+                    v114 = v120;
+                    *(v112 + 64) = v121;
                     *(v112 + 48) = v114;
                   }
 
@@ -7378,7 +7378,7 @@ LABEL_143:
               }
             }
 
-            goto LABEL_238;
+            return;
           }
 
           if (!a3)
@@ -7396,17 +7396,17 @@ LABEL_143:
                   v72 = a1 + 24 * v71;
                   if (2 * v69 + 2 < v10)
                   {
-                    ims::lowerCase(a1 + 24 * v71, &v124);
+                    ims::lowerCase(a1 + 24 * v71, &v123);
                     ims::lowerCase(v72 + 24, &__p);
-                    v73 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v73 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v73 < 0)
@@ -7416,26 +7416,26 @@ LABEL_143:
                     }
                   }
 
-                  ims::lowerCase(v72, &v124);
+                  ims::lowerCase(v72, &v123);
                   v74 = a1 + 24 * v70;
                   ims::lowerCase(v74, &__p);
-                  v75 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                  v75 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(__p.__r_.__value_.__l.__data_);
                   }
 
-                  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v124.__r_.__value_.__l.__data_);
+                    operator delete(v123.__r_.__value_.__l.__data_);
                   }
 
                   if ((v75 & 0x80000000) == 0)
                   {
-                    v118 = v70;
+                    v117 = v70;
                     v76 = *v74;
-                    v122 = *(v74 + 16);
-                    v121 = v76;
+                    v121 = *(v74 + 16);
+                    v120 = v76;
                     *(v74 + 8) = 0;
                     *(v74 + 16) = 0;
                     *v74 = 0;
@@ -7467,17 +7467,17 @@ LABEL_143:
 
                       else
                       {
-                        ims::lowerCase(a1 + 24 * v79, &v124);
+                        ims::lowerCase(a1 + 24 * v79, &v123);
                         ims::lowerCase(v72 + 24, &__p);
-                        v80 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                        v80 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(__p.__r_.__value_.__l.__data_);
                         }
 
-                        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v124.__r_.__value_.__l.__data_);
+                          operator delete(v123.__r_.__value_.__l.__data_);
                         }
 
                         if (v80 >= 0)
@@ -7491,17 +7491,17 @@ LABEL_143:
                         }
                       }
 
-                      ims::lowerCase(v72, &v124);
-                      ims::lowerCase(&v121, &__p);
-                      v81 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                      ims::lowerCase(v72, &v123);
+                      ims::lowerCase(&v120, &__p);
+                      v81 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                       {
                         operator delete(__p.__r_.__value_.__l.__data_);
                       }
 
-                      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                      if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                       {
-                        operator delete(v124.__r_.__value_.__l.__data_);
+                        operator delete(v123.__r_.__value_.__l.__data_);
                       }
 
                       v82 = v81;
@@ -7517,10 +7517,10 @@ LABEL_143:
                       }
                     }
 
-                    v83 = v121;
-                    *(v77 + 16) = v122;
+                    v83 = v120;
+                    *(v77 + 16) = v121;
                     *v77 = v83;
-                    v70 = v118;
+                    v70 = v117;
                   }
                 }
 
@@ -7532,11 +7532,11 @@ LABEL_143:
               do
               {
                 v85 = 0;
-                v116 = a2;
-                v117 = *a1;
-                v125[0] = *(a1 + 8);
-                *(v125 + 7) = *(a1 + 15);
-                v119 = *(a1 + 23);
+                v115 = a2;
+                v116 = *a1;
+                v124[0] = *(a1 + 8);
+                *(v124 + 7) = *(a1 + 15);
+                v118 = *(a1 + 23);
                 *(a1 + 8) = 0;
                 *(a1 + 16) = 0;
                 *a1 = 0;
@@ -7551,18 +7551,18 @@ LABEL_143:
                   v90 = v89 + 2;
                   if (v89 + 2 < v84)
                   {
-                    ims::lowerCase(v88 + 24, &v124);
+                    ims::lowerCase(v88 + 24, &v123);
                     v91 = v88 + 48;
                     ims::lowerCase(v91, &__p);
-                    v92 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v92 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v92 < 0)
@@ -7586,48 +7586,48 @@ LABEL_143:
 
                 while (v85 <= ((v84 - 2) >> 1));
                 a2 = (a2 - 24);
-                if (v86 == &v116[-2].n128_i8[8])
+                if (v86 == (v115 - 24))
                 {
-                  *v86 = v117;
-                  v105 = *(v125 + 7);
-                  *(v86 + 8) = v125[0];
+                  *v86 = v116;
+                  v105 = *(v124 + 7);
+                  *(v86 + 8) = v124[0];
                   *(v86 + 15) = v105;
-                  *(v86 + 23) = v119;
+                  *(v86 + 23) = v118;
                 }
 
                 else
                 {
-                  v94 = *(&v116[-2] + 8);
-                  *(v86 + 16) = v116[-1].n128_u64[1];
+                  v94 = *(v115 - 24);
+                  *(v86 + 16) = *(v115 - 1);
                   *v86 = v94;
-                  v116[-2].n128_u64[1] = v117;
-                  v95 = v125[0];
-                  *(v116[-1].n128_u64 + 7) = *(v125 + 7);
-                  v116[-1].n128_u64[0] = v95;
-                  v116[-1].n128_u8[15] = v119;
+                  *(v115 - 3) = v116;
+                  v95 = v124[0];
+                  *(v115 - 9) = *(v124 + 7);
+                  *(v115 - 2) = v95;
+                  *(v115 - 1) = v118;
                   v96 = v86 - a1 + 24;
                   if (v96 >= 25)
                   {
                     v97 = (-2 - 0x5555555555555555 * (v96 >> 3)) >> 1;
                     v98 = a1 + 24 * v97;
-                    ims::lowerCase(v98, &v124);
+                    ims::lowerCase(v98, &v123);
                     ims::lowerCase(v86, &__p);
-                    v99 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v99 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v99 < 0)
                     {
                       v100 = *v86;
-                      v122 = *(v86 + 16);
-                      v121 = v100;
+                      v121 = *(v86 + 16);
+                      v120 = v100;
                       *(v86 + 8) = 0;
                       *(v86 + 16) = 0;
                       *v86 = 0;
@@ -7651,17 +7651,17 @@ LABEL_143:
 
                         v97 = (v97 - 1) >> 1;
                         v98 = a1 + 24 * v97;
-                        ims::lowerCase(v98, &v124);
-                        ims::lowerCase(&v121, &__p);
-                        v103 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                        ims::lowerCase(v98, &v123);
+                        ims::lowerCase(&v120, &__p);
+                        v103 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(__p.__r_.__value_.__l.__data_);
                         }
 
-                        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v124.__r_.__value_.__l.__data_);
+                          operator delete(v123.__r_.__value_.__l.__data_);
                         }
 
                         v86 = v101;
@@ -7676,8 +7676,8 @@ LABEL_143:
                         }
                       }
 
-                      v104 = v121;
-                      *(v101 + 16) = v122;
+                      v104 = v120;
+                      *(v101 + 16) = v121;
                       *v101 = v104;
                     }
                   }
@@ -7687,11 +7687,11 @@ LABEL_143:
               while (v84-- > 2);
             }
 
-            goto LABEL_238;
+            return;
           }
 
           v12 = v10 >> 1;
-          v13 = a1 + 24 * (v10 >> 1);
+          v13 = (a1 + 24 * (v10 >> 1));
           if (v9 < 0xC01)
           {
             std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(v13, a1, v7);
@@ -7700,19 +7700,19 @@ LABEL_143:
           else
           {
             std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, v13, v7);
-            v14 = a1 + 24 * v12 - 24;
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1 + 24, v14, &a2[-3]);
+            v14 = (a1 + 24 * v12 - 24);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>((a1 + 24), v14, a2 - 3);
             v15 = a1 + 24 * v12;
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1 + 48, v15 + 24, &a2[-5].n128_i64[1]);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(v14, v13, v15 + 24);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>((a1 + 48), (v15 + 24), (a2 - 72));
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(v14, v13, (v15 + 24));
             v16 = *a1;
-            v124.__r_.__value_.__r.__words[2] = *(a1 + 16);
-            *&v124.__r_.__value_.__l.__data_ = v16;
+            v123.__r_.__value_.__r.__words[2] = *(a1 + 16);
+            *&v123.__r_.__value_.__l.__data_ = v16;
             v17 = *v13;
-            *(a1 + 16) = *(v13 + 16);
+            *(a1 + 16) = v13[1].n128_u64[0];
             *a1 = v17;
-            v18 = *&v124.__r_.__value_.__l.__data_;
-            *(v13 + 16) = *(&v124.__r_.__value_.__l + 2);
+            v18 = *&v123.__r_.__value_.__l.__data_;
+            v13[1].n128_u64[0] = v123.__r_.__value_.__r.__words[2];
             *v13 = v18;
           }
 
@@ -7722,17 +7722,17 @@ LABEL_143:
             break;
           }
 
-          ims::lowerCase(a1 - 24, &v124);
+          ims::lowerCase(a1 - 24, &v123);
           ims::lowerCase(a1, &__p);
-          v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+          v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v123.__r_.__value_.__l.__data_);
           }
 
           if (v19 < 0)
@@ -7741,22 +7741,22 @@ LABEL_143:
           }
 
           v37 = *a1;
-          v122 = *(a1 + 16);
-          v121 = v37;
+          v121 = *(a1 + 16);
+          v120 = v37;
           *(a1 + 8) = 0;
           *(a1 + 16) = 0;
           *a1 = 0;
-          ims::lowerCase(&v121, &v124);
+          ims::lowerCase(&v120, &v123);
           ims::lowerCase(v7, &__p);
-          v38 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+          v38 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v123.__r_.__value_.__l.__data_);
           }
 
           if (v38 < 0)
@@ -7764,18 +7764,18 @@ LABEL_143:
             v8 = a1;
             do
             {
-              ims::lowerCase(&v121, &v124);
-              v8 = (v8 + 24);
+              ims::lowerCase(&v120, &v123);
+              v8 += 24;
               ims::lowerCase(v8, &__p);
-              v41 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v41 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -7784,7 +7784,7 @@ LABEL_143:
 
           else
           {
-            v39 = (a1 + 24);
+            v39 = a1 + 24;
             do
             {
               v8 = v39;
@@ -7793,20 +7793,20 @@ LABEL_143:
                 break;
               }
 
-              ims::lowerCase(&v121, &v124);
+              ims::lowerCase(&v120, &v123);
               ims::lowerCase(v8, &__p);
-              v40 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v40 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
 
-              v39 = (v8 + 24);
+              v39 = v8 + 24;
             }
 
             while ((v40 & 0x80000000) == 0);
@@ -7818,18 +7818,18 @@ LABEL_143:
             v42 = a2;
             do
             {
-              ims::lowerCase(&v121, &v124);
-              v42 -= 24;
+              ims::lowerCase(&v120, &v123);
+              v42 = (v42 - 24);
               ims::lowerCase(v42, &__p);
-              v43 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v43 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -7839,56 +7839,56 @@ LABEL_143:
           while (v8 < v42)
           {
             v44 = *v8;
-            v124.__r_.__value_.__r.__words[2] = v8[1].n128_u64[0];
-            *&v124.__r_.__value_.__l.__data_ = v44;
+            v123.__r_.__value_.__r.__words[2] = *(v8 + 16);
+            *&v123.__r_.__value_.__l.__data_ = v44;
             v45 = *v42;
-            v8[1].n128_u64[0] = *(v42 + 16);
+            *(v8 + 16) = *(v42 + 2);
             *v8 = v45;
-            v46 = *&v124.__r_.__value_.__l.__data_;
-            *(v42 + 16) = *(&v124.__r_.__value_.__l + 2);
+            v46 = *&v123.__r_.__value_.__l.__data_;
+            *(v42 + 2) = *(&v123.__r_.__value_.__l + 2);
             *v42 = v46;
             do
             {
-              ims::lowerCase(&v121, &v124);
-              v8 = (v8 + 24);
+              ims::lowerCase(&v120, &v123);
+              v8 += 24;
               ims::lowerCase(v8, &__p);
-              v47 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v47 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
             while ((v47 & 0x80000000) == 0);
             do
             {
-              ims::lowerCase(&v121, &v124);
-              v42 -= 24;
+              ims::lowerCase(&v120, &v123);
+              v42 = (v42 - 24);
               ims::lowerCase(v42, &__p);
-              v48 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v48 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
             while (v48 < 0);
           }
 
-          v49 = &v8[-2].n128_u64[1];
-          if (&v8[-2].n128_i8[8] == a1)
+          v49 = (v8 - 24);
+          if (v8 - 24 == a1)
           {
-            if (v8[-1].n128_i8[15] < 0)
+            if (*(v8 - 1) < 0)
             {
               operator delete(*v49);
             }
@@ -7902,38 +7902,38 @@ LABEL_143:
             }
 
             v50 = *v49;
-            *(a1 + 16) = v8[-1].n128_u64[1];
+            *(a1 + 16) = *(v8 - 8);
             *a1 = v50;
-            v8[-1].n128_u8[15] = 0;
-            v8[-2].n128_u8[8] = 0;
+            *(v8 - 1) = 0;
+            *(v8 - 24) = 0;
           }
 
           a4 = 0;
-          v51 = v121;
-          v8[-1].n128_u64[1] = v122;
+          v51 = v120;
+          *(v8 - 8) = v121;
           *v49 = v51;
         }
 
         v20 = 0;
         v21 = *a1;
-        v122 = *(a1 + 16);
-        v121 = v21;
+        v121 = *(a1 + 16);
+        v120 = v21;
         *(a1 + 8) = 0;
         *(a1 + 16) = 0;
         *a1 = 0;
         do
         {
-          ims::lowerCase(a1 + v20 + 24, &v124);
-          ims::lowerCase(&v121, &__p);
-          v22 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+          ims::lowerCase(a1 + v20 + 24, &v123);
+          ims::lowerCase(&v120, &__p);
+          v22 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v123.__r_.__value_.__l.__data_);
           }
 
           v20 += 24;
@@ -7952,18 +7952,18 @@ LABEL_143:
               break;
             }
 
-            v24 -= 24;
-            ims::lowerCase(v24, &v124);
-            ims::lowerCase(&v121, &__p);
-            v26 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+            v24 = (v24 - 24);
+            ims::lowerCase(v24, &v123);
+            ims::lowerCase(&v120, &__p);
+            v26 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v124.__r_.__value_.__l.__data_);
+              operator delete(v123.__r_.__value_.__l.__data_);
             }
           }
 
@@ -7974,53 +7974,53 @@ LABEL_143:
         {
           do
           {
-            v24 -= 24;
-            ims::lowerCase(v24, &v124);
-            ims::lowerCase(&v121, &__p);
-            v25 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+            v24 = (v24 - 24);
+            ims::lowerCase(v24, &v123);
+            ims::lowerCase(&v120, &__p);
+            v25 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v124.__r_.__value_.__l.__data_);
+              operator delete(v123.__r_.__value_.__l.__data_);
             }
           }
 
           while ((v25 & 0x80000000) == 0);
         }
 
-        v8 = (a1 + v20);
+        v8 = a1 + v20;
         if (v23 < v24)
         {
           v27 = v24;
           do
           {
             v28 = *v8;
-            v124.__r_.__value_.__r.__words[2] = v8[1].n128_u64[0];
-            *&v124.__r_.__value_.__l.__data_ = v28;
+            v123.__r_.__value_.__r.__words[2] = *(v8 + 16);
+            *&v123.__r_.__value_.__l.__data_ = v28;
             v29 = *v27;
-            v8[1].n128_u64[0] = *(v27 + 16);
+            *(v8 + 16) = *(v27 + 16);
             *v8 = v29;
-            v30 = *&v124.__r_.__value_.__l.__data_;
-            *(v27 + 16) = *(&v124.__r_.__value_.__l + 2);
+            v30 = *&v123.__r_.__value_.__l.__data_;
+            *(v27 + 16) = *(&v123.__r_.__value_.__l + 2);
             *v27 = v30;
             do
             {
-              v8 = (v8 + 24);
-              ims::lowerCase(v8, &v124);
-              ims::lowerCase(&v121, &__p);
-              v31 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v8 += 24;
+              ims::lowerCase(v8, &v123);
+              ims::lowerCase(&v120, &__p);
+              v31 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -8028,17 +8028,17 @@ LABEL_143:
             do
             {
               v27 -= 24;
-              ims::lowerCase(v27, &v124);
-              ims::lowerCase(&v121, &__p);
-              v32 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              ims::lowerCase(v27, &v123);
+              ims::lowerCase(&v120, &__p);
+              v32 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -8048,10 +8048,10 @@ LABEL_143:
           while (v8 < v27);
         }
 
-        v33 = &v8[-2].n128_u64[1];
-        if (&v8[-2].n128_i8[8] == a1)
+        v33 = (v8 - 24);
+        if (v8 - 24 == a1)
         {
-          if (v8[-1].n128_i8[15] < 0)
+          if (*(v8 - 1) < 0)
           {
             operator delete(*v33);
           }
@@ -8065,14 +8065,14 @@ LABEL_143:
           }
 
           v34 = *v33;
-          *(a1 + 16) = v8[-1].n128_u64[1];
+          *(a1 + 16) = *(v8 - 8);
           *a1 = v34;
-          v8[-1].n128_u8[15] = 0;
-          v8[-2].n128_u8[8] = 0;
+          *(v8 - 1) = 0;
+          *(v8 - 24) = 0;
         }
 
-        v35 = v121;
-        v8[-1].n128_u64[1] = v122;
+        v35 = v120;
+        *(v8 - 8) = v121;
         *v33 = v35;
         if (v23 >= v24)
         {
@@ -8080,11 +8080,11 @@ LABEL_143:
         }
 
 LABEL_64:
-        std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,false>(a1, &v8[-2].n128_i8[8], a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,false>(a1, (v8 - 24), a3, a4 & 1);
         a4 = 0;
       }
 
-      v36 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*>(a1, (v8 - 24));
+      v36 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*>(a1, v8 - 24);
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*>(v8, a2))
       {
         break;
@@ -8104,9 +8104,6 @@ LABEL_64:
 
     break;
   }
-
-LABEL_238:
-  v115 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4E77348(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -8124,11 +8121,11 @@ void sub_1E4E77348(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+__n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(__n128 *a1, __n128 *a2, __n128 *a3)
 {
   ims::lowerCase(a2, v24);
   ims::lowerCase(a1, &__p);
-  v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+  v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8143,7 +8140,7 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMerged
   {
     ims::lowerCase(a3, v24);
     ims::lowerCase(a2, &__p);
-    v9 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+    v9 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -8161,16 +8158,16 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMerged
     else if ((v9 & 0x80000000) == 0)
     {
 LABEL_15:
-      v10 = *(a1 + 16);
+      v10 = a1[1].n128_u64[0];
       v11 = *a1;
-      v12 = *(a2 + 16);
+      v12 = a2[1].n128_u64[0];
       *a1 = *a2;
-      *(a1 + 16) = v12;
+      a1[1].n128_u64[0] = v12;
       *a2 = v11;
-      *(a2 + 16) = v10;
+      a2[1].n128_u64[0] = v10;
       ims::lowerCase(a3, v24);
       ims::lowerCase(a2, &__p);
-      v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+      v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -8190,28 +8187,28 @@ LABEL_15:
         return result;
       }
 
-      v18 = *(a2 + 16);
+      v18 = a2[1].n128_u64[0];
       result = *a2;
-      v20 = *(a3 + 16);
+      v20 = a3[1].n128_u64[0];
       *a2 = *a3;
-      *(a2 + 16) = v20;
+      a2[1].n128_u64[0] = v20;
       goto LABEL_30;
     }
 
-    v18 = *(a1 + 16);
+    v18 = a1[1].n128_u64[0];
     result = *a1;
-    v19 = *(a3 + 16);
+    v19 = a3[1].n128_u64[0];
     *a1 = *a3;
-    *(a1 + 16) = v19;
+    a1[1].n128_u64[0] = v19;
 LABEL_30:
     *a3 = result;
-    *(a3 + 16) = v18;
+    a3[1].n128_u64[0] = v18;
     return result;
   }
 
   ims::lowerCase(a3, v24);
   ims::lowerCase(a2, &__p);
-  v7 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+  v7 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8231,16 +8228,16 @@ LABEL_30:
     return result;
   }
 
-  v14 = *(a2 + 16);
+  v14 = a2[1].n128_u64[0];
   v15 = *a2;
-  v16 = *(a3 + 16);
+  v16 = a3[1].n128_u64[0];
   *a2 = *a3;
-  *(a2 + 16) = v16;
+  a2[1].n128_u64[0] = v16;
   *a3 = v15;
-  *(a3 + 16) = v14;
+  a3[1].n128_u64[0] = v14;
   ims::lowerCase(a2, v24);
   ims::lowerCase(a1, &__p);
-  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8260,13 +8257,13 @@ LABEL_30:
     return result;
   }
 
-  v21 = *(a1 + 16);
+  v21 = a1[1].n128_u64[0];
   result = *a1;
-  v22 = *(a2 + 16);
+  v22 = a2[1].n128_u64[0];
   *a1 = *a2;
-  *(a1 + 16) = v22;
+  a1[1].n128_u64[0] = v22;
   *a2 = result;
-  *(a2 + 16) = v21;
+  a2[1].n128_u64[0] = v21;
   return result;
 }
 
@@ -8280,12 +8277,12 @@ void sub_1E4E776D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4)
 {
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, a2, a3);
   ims::lowerCase(a4, v21);
   ims::lowerCase(a3, &__p);
-  v8 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p.__r_.__value_.__l.__data_);
+  v8 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8305,16 +8302,16 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMerged
     return result;
   }
 
-  v10 = *(a3 + 16);
+  v10 = a3[1].n128_u64[0];
   v11 = *a3;
-  v12 = *(a4 + 16);
+  v12 = a4[1].n128_u64[0];
   *a3 = *a4;
-  *(a3 + 16) = v12;
+  a3[1].n128_u64[0] = v12;
   *a4 = v11;
-  *(a4 + 16) = v10;
+  a4[1].n128_u64[0] = v10;
   ims::lowerCase(a3, v21);
   ims::lowerCase(a2, &__p);
-  v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p.__r_.__value_.__l.__data_);
+  v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8334,16 +8331,16 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMerged
     return result;
   }
 
-  v14 = *(a2 + 16);
+  v14 = a2[1].n128_u64[0];
   v15 = *a2;
-  v16 = *(a3 + 16);
+  v16 = a3[1].n128_u64[0];
   *a2 = *a3;
-  *(a2 + 16) = v16;
+  a2[1].n128_u64[0] = v16;
   *a3 = v15;
-  *(a3 + 16) = v14;
+  a3[1].n128_u64[0] = v14;
   ims::lowerCase(a2, v21);
   ims::lowerCase(a1, &__p);
-  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p.__r_.__value_.__l.__data_);
+  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8358,11 +8355,11 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMerged
   {
     v18 = a1[1].n128_u64[0];
     result = *a1;
-    v19 = *(a2 + 16);
+    v19 = a2[1].n128_u64[0];
     *a1 = *a2;
     a1[1].n128_u64[0] = v19;
     *a2 = result;
-    *(a2 + 16) = v18;
+    a2[1].n128_u64[0] = v18;
   }
 
   return result;
@@ -8378,12 +8375,12 @@ void sub_1E4E778A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, a2, a3, a4);
   ims::lowerCase(a5, v27);
   ims::lowerCase(a4, &__p);
-  v10 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v10 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8403,16 +8400,16 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMerged
     return result;
   }
 
-  v12 = *(a4 + 16);
+  v12 = a4[1].n128_u64[0];
   v13 = *a4;
-  v14 = *(a5 + 16);
+  v14 = a5[1].n128_u64[0];
   *a4 = *a5;
-  *(a4 + 16) = v14;
+  a4[1].n128_u64[0] = v14;
   *a5 = v13;
-  *(a5 + 16) = v12;
+  a5[1].n128_u64[0] = v12;
   ims::lowerCase(a4, v27);
   ims::lowerCase(a3, &__p);
-  v15 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v15 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8432,16 +8429,16 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMerged
     return result;
   }
 
-  v16 = *(a3 + 16);
+  v16 = a3[1].n128_u64[0];
   v17 = *a3;
-  v18 = *(a4 + 16);
+  v18 = a4[1].n128_u64[0];
   *a3 = *a4;
-  *(a3 + 16) = v18;
+  a3[1].n128_u64[0] = v18;
   *a4 = v17;
-  *(a4 + 16) = v16;
+  a4[1].n128_u64[0] = v16;
   ims::lowerCase(a3, v27);
   ims::lowerCase(a2, &__p);
-  v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8461,16 +8458,16 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMerged
     return result;
   }
 
-  v20 = *(a2 + 16);
+  v20 = a2[1].n128_u64[0];
   v21 = *a2;
-  v22 = *(a3 + 16);
+  v22 = a3[1].n128_u64[0];
   *a2 = *a3;
-  *(a2 + 16) = v22;
+  a2[1].n128_u64[0] = v22;
   *a3 = v21;
-  *(a3 + 16) = v20;
+  a3[1].n128_u64[0] = v20;
   ims::lowerCase(a2, v27);
   ims::lowerCase(a1, &__p);
-  v23 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v23 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8485,11 +8482,11 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMerged
   {
     v24 = a1[1].n128_u64[0];
     result = *a1;
-    v25 = *(a2 + 16);
+    v25 = a2[1].n128_u64[0];
     *a1 = *a2;
     a1[1].n128_u64[0] = v25;
     *a2 = result;
-    *(a2 + 16) = v24;
+    a2[1].n128_u64[0] = v24;
   }
 
   return result;
@@ -8505,7 +8502,7 @@ void sub_1E4E77AF0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*>(__n128 *a1, __n128 *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*>(uint64_t a1, uint64_t a2)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v4 <= 2)
@@ -8514,10 +8511,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPr
     {
       if (v4 == 2)
       {
-        v5 = (a2 - 24);
-        ims::lowerCase(&a2[-2].n128_i64[1], &v23);
+        v5 = a2 - 24;
+        ims::lowerCase(a2 - 24, &v23);
         ims::lowerCase(a1, &__p);
-        v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p.__r_.__value_.__l.__data_);
+        v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -8530,13 +8527,13 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPr
 
         if (v6 < 0)
         {
-          v7 = a1[1].n128_u64[0];
+          v7 = *(a1 + 16);
           v8 = *a1;
-          v9 = v5[1].n128_u64[0];
+          v9 = *(v5 + 16);
           *a1 = *v5;
-          a1[1].n128_u64[0] = v9;
+          *(a1 + 16) = v9;
           *v5 = v8;
-          v5[1].n128_u64[0] = v7;
+          *(v5 + 16) = v7;
         }
 
         return 1;
@@ -8551,21 +8548,21 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ImsPr
   switch(v4)
   {
     case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, &a1[1].n128_i64[1], &a2[-2].n128_i64[1]);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, (a1 + 24), (a2 - 24));
       return 1;
     case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, &a1[1].n128_i64[1], &a1[3], &a2[-2].n128_i64[1]);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, (a1 + 24), (a1 + 48), (a2 - 24));
       return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, &a1[1].n128_i64[1], &a1[3], &a1[4].n128_i64[1], &a2[-2].n128_i64[1]);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), (a2 - 24));
       return 1;
   }
 
 LABEL_15:
-  v10 = &a1[3];
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, &a1[1].n128_i64[1], &a1[3]);
-  v11 = &a1[4].n128_i64[1];
-  if (&a1[4].n128_i8[8] == a2)
+  v10 = a1 + 48;
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ImsPrefsUtil::logMergedPrefsSectionDict(ims::CFDictionary const&,std::set<std::string> const&,ims::CFMutableDictionary &,std::map<std::string,ImsPrefsSource> const&,ImsOutStream &,int)::$_0 &,std::string*,0>(a1, (a1 + 24), (a1 + 48));
+  v11 = a1 + 72;
+  if (a1 + 72 == a2)
   {
     return 1;
   }
@@ -8576,7 +8573,7 @@ LABEL_15:
   {
     ims::lowerCase(v11, &v23);
     ims::lowerCase(v10, &__p);
-    v14 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p.__r_.__value_.__l.__data_);
+    v14 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -8597,14 +8594,14 @@ LABEL_15:
       v15 = v12;
       do
       {
-        v16 = (a1 + v15);
-        if (a1[5].n128_i8[v15 + 15] < 0)
+        v16 = a1 + v15;
+        if (*(a1 + v15 + 95) < 0)
         {
-          operator delete(v16[9]);
+          operator delete(*(v16 + 72));
         }
 
-        *(v16 + 9) = *(v16 + 3);
-        v16[11] = v16[8];
+        *(v16 + 72) = *(v16 + 48);
+        *(v16 + 88) = *(v16 + 64);
         *(v16 + 71) = 0;
         *(v16 + 48) = 0;
         if (v15 == -48)
@@ -8614,8 +8611,8 @@ LABEL_15:
         }
 
         ims::lowerCase(&v20, &v23);
-        ims::lowerCase(&a1[1].n128_i64[1] + v15, &__p);
-        v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p.__r_.__value_.__l.__data_);
+        ims::lowerCase(a1 + v15 + 24, &__p);
+        v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -8630,8 +8627,8 @@ LABEL_15:
       }
 
       while (v17 < 0);
-      v18 = &a1[4].n128_i64[1] + v15;
-      if (a1[5].n128_i8[v15 + 15] < 0)
+      v18 = a1 + v15 + 72;
+      if (*(a1 + v15 + 95) < 0)
       {
         operator delete(*v18);
       }
@@ -8976,7 +8973,7 @@ unint64_t bambi::XmlParserUintItem::setText(unint64_t result, uint64_t a2, uint6
   return result;
 }
 
-uint64_t bambi::XmlParserUriItem::setText(uint64_t a1, uint64_t a2, std::string *a3)
+uint64_t bambi::XmlParserUriItem::setText(uint64_t a1, uint64_t a2, uint64_t ***a3)
 {
   result = *(a1 + 8);
   if (result)
@@ -8987,10 +8984,10 @@ uint64_t bambi::XmlParserUriItem::setText(uint64_t a1, uint64_t a2, std::string 
   return result;
 }
 
-void std::vector<bambi::XmlParserNamespace>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+void std::vector<bambi::XmlParserNamespace>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
+  v4 = a1[1];
+  v5 = a1[2];
   if (v4 >= v5)
   {
     v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 4);
@@ -9037,7 +9034,7 @@ void std::vector<bambi::XmlParserNamespace>::push_back[abi:ne200100](uint64_t a1
     *(a2 + 3) = 0;
     v8 = 48 * v9 + 48;
     v16 = *a1;
-    v17 = *(a1 + 8);
+    v17 = a1[1];
     v18 = v13 + *a1 - v17;
     if (v17 != *a1)
     {
@@ -9072,9 +9069,9 @@ void std::vector<bambi::XmlParserNamespace>::push_back[abi:ne200100](uint64_t a1
     }
 
     *a1 = v18;
-    *(a1 + 8) = v8;
-    v23 = *(a1 + 16);
-    *(a1 + 16) = 0;
+    a1[1] = v8;
+    v23 = a1[2];
+    a1[2] = 0;
     v24.__end_ = v16;
     v24.__end_cap_.__value_ = v23;
     v24.__first_ = v16;
@@ -9087,22 +9084,20 @@ void std::vector<bambi::XmlParserNamespace>::push_back[abi:ne200100](uint64_t a1
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(v4 + 40) = *(a2 + 5);
     *(v4 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v8 = v4 + 48;
   }
 
-  *(a1 + 8) = v8;
+  a1[1] = v8;
 }
 
-uint64_t bambi::XmlParser::parseXml(bambi::XmlParser *this, const char *a2, uint64_t a3, bambi::XmlParserItem *a4)
+uint64_t bambi::XmlParser::parseXml(bambi::XmlParser *this, size_t a2, uint64_t a3, bambi::XmlParserItem *a4)
 {
   if (!a3)
   {
@@ -9251,7 +9246,7 @@ void sub_1E4E78BDC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -9300,7 +9295,7 @@ void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD 
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -9415,7 +9410,7 @@ void sub_1E4E78E70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9437,27 +9432,26 @@ void sub_1E4E78F08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__split_buffer<unsigned int>::emplace_back<unsigned int>(void *result, _DWORD *a2)
+void std::__split_buffer<unsigned int>::emplace_back<unsigned int>(unint64_t *a1, _DWORD *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 1;
+        v11 = &v4[-*a1] >> 1;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<ImpuType>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<ImpuType>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 2) + 1) / -2;
@@ -9466,17 +9460,16 @@ void *std::__split_buffer<unsigned int>::emplace_back<unsigned int>(void *result
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-4 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-4 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[4 * v7];
+    a1[1] = &v5[4 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 4;
-  return result;
+  a1[2] = (v4 + 4);
 }
 
 void SipMaxForwardsHeader::~SipMaxForwardsHeader(void **this)
@@ -9514,21 +9507,21 @@ void SDPMediaDirection::value(void *a1@<X8>)
 
 void ims::analytics::AnalyticsEvent::send(ims::analytics::AnalyticsEvent *this)
 {
-  v22 = 0;
-  (*(*this + 16))(&v22);
   v21 = 0;
-  v19 = 0u;
-  memset(v20, 0, sizeof(v20));
-  *v17 = 0u;
+  (*(*this + 16))(&v21);
+  v20 = 0;
   v18 = 0u;
-  v15 = 0u;
-  *__src = 0u;
-  v13 = 0u;
+  memset(v19, 0, sizeof(v19));
+  *v16 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "com.apple.Telephony.", 20);
+  *__src = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
+  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v12, "com.apple.Telephony.", 20);
   (*(*this + 24))(__p, this);
-  if ((v12 & 0x80u) == 0)
+  if ((v11 & 0x80u) == 0)
   {
     v3 = __p;
   }
@@ -9538,9 +9531,9 @@ void ims::analytics::AnalyticsEvent::send(ims::analytics::AnalyticsEvent *this)
     v3 = __p[0];
   }
 
-  if ((v12 & 0x80u) == 0)
+  if ((v11 & 0x80u) == 0)
   {
-    v4 = v12;
+    v4 = v11;
   }
 
   else
@@ -9549,27 +9542,23 @@ void ims::analytics::AnalyticsEvent::send(ims::analytics::AnalyticsEvent *this)
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, v3, v4);
-  if (v12 < 0)
+  if (v11 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if ((atomic_load_explicit(&_MergedGlobals_12, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(&_MergedGlobals_12, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_12))
   {
-    v9 = __cxa_guard_acquire(&_MergedGlobals_12);
-    if (v9)
-    {
-      ims::analytics::AnalyticsSender::create(v9);
-    }
+    ims::analytics::AnalyticsSender::create();
   }
 
   v5 = qword_1EE2BC5D0;
-  if ((BYTE8(v19) & 0x10) != 0)
+  if ((BYTE8(v18) & 0x10) != 0)
   {
-    v7 = v19;
-    if (v19 < __src[1])
+    v7 = v18;
+    if (v18 < __src[1])
     {
-      *&v19 = __src[1];
+      *&v18 = __src[1];
       v7 = __src[1];
     }
 
@@ -9578,15 +9567,15 @@ void ims::analytics::AnalyticsEvent::send(ims::analytics::AnalyticsEvent *this)
 
   else
   {
-    if ((BYTE8(v19) & 8) == 0)
+    if ((BYTE8(v18) & 8) == 0)
     {
       v6 = 0;
-      v12 = 0;
+      v11 = 0;
       goto LABEL_23;
     }
 
-    v8 = *(&v14 + 1);
-    v7 = *(&v15 + 1);
+    v8 = *(&v13 + 1);
+    v7 = *(&v14 + 1);
   }
 
   v6 = v7 - v8;
@@ -9600,7 +9589,7 @@ void ims::analytics::AnalyticsEvent::send(ims::analytics::AnalyticsEvent *this)
     operator new();
   }
 
-  v12 = v7 - v8;
+  v11 = v7 - v8;
   if (v6)
   {
     memmove(__p, v8, v6);
@@ -9608,10 +9597,10 @@ void ims::analytics::AnalyticsEvent::send(ims::analytics::AnalyticsEvent *this)
 
 LABEL_23:
   *(__p + v6) = 0;
-  object = v22;
-  if (v22)
+  object = v21;
+  if (v21)
   {
-    xpc_retain(v22);
+    xpc_retain(v21);
   }
 
   else
@@ -9622,33 +9611,33 @@ LABEL_23:
   (*(*v5 + 16))(v5, __p, &object);
   xpc_release(object);
   object = 0;
-  if (v12 < 0)
+  if (v11 < 0)
   {
     operator delete(__p[0]);
   }
 
-  *&v13 = *MEMORY[0x1E69E54E8];
-  *(&v13 + *(v13 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  *(&v13 + 1) = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v18) < 0)
+  *&v12 = *MEMORY[0x1E69E54E8];
+  *(&v12 + *(v12 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v12 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v17) < 0)
   {
-    operator delete(v17[1]);
+    operator delete(v16[1]);
   }
 
-  *(&v13 + 1) = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v14);
+  *(&v12 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v13);
   std::ostream::~ostream();
-  MEMORY[0x1E6923510](v20);
-  xpc_release(v22);
+  MEMORY[0x1E6923510](v19);
+  xpc_release(v21);
 }
 
-void sub_1E4E79564(_Unwind_Exception *a1, xpc_object_t object, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+void sub_1E4E79564(_Unwind_Exception *a1, xpc_object_t object, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a22);
+  va_start(va, a26);
   __cxa_guard_abort(&_MergedGlobals_12);
-  std::ostringstream::~ostringstream(&a9, MEMORY[0x1E69E54E8]);
+  std::ostringstream::~ostringstream(&a13, MEMORY[0x1E69E54E8]);
   MEMORY[0x1E6923510](va);
-  xpc_release(*(v22 - 56));
+  xpc_release(*(v26 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -9692,12 +9681,12 @@ uint64_t NetworkInterface::NetworkInterface(uint64_t a1, const std::string *a2)
   return a1;
 }
 
-void sub_1E4E79834(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E79834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 55) < 0)
+  va_start(va, a3);
+  if (*(v3 + 55) < 0)
   {
-    operator delete(*(v2 + 32));
+    operator delete(*(v3 + 32));
   }
 
   std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](va);
@@ -9728,12 +9717,12 @@ void NetworkInterface::NetworkInterface(NetworkInterface *this, const NetworkInt
   }
 }
 
-void sub_1E4E79930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E4E79930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (*(v4 + 55) < 0)
+  va_start(va, a7);
+  if (*(v7 + 55) < 0)
   {
-    operator delete(*(v4 + 32));
+    operator delete(*(v7 + 32));
   }
 
   std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](va);
@@ -9816,4 +9805,33 @@ void sub_1E4E79DDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+BOOL NetworkInterface::allAddresses(void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = a1[1];
+  for (i = a1[2]; v5 != i; v5 += 16)
+  {
+    v9 = *(v5 + 1);
+    v12[0] = *v5;
+    v12[1] = v9;
+    if (v9)
+    {
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    LODWORD(a1) = NetworkInterface::matchAddress(a1, v12, a3, a4);
+    v10 = a1;
+    if (v9)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    }
+
+    if (v10)
+    {
+      a1 = std::vector<std::shared_ptr<LazuliHeader>>::push_back[abi:ne200100](a2, v5);
+    }
+  }
+
+  return *a2 != *(a2 + 8);
 }

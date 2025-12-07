@@ -5,7 +5,7 @@ char *llvm::itanium_demangle::LambdaExpr::printLeft(uint64_t a1, char **a2)
   v6 = a2[2];
   if ((v5 + 2) > v6)
   {
-    v7 = (v5 + 994);
+    v7 = v5 + 994;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -29,7 +29,7 @@ char *llvm::itanium_demangle::LambdaExpr::printLeft(uint64_t a1, char **a2)
   }
 
   *&v5[v4] = 23899;
-  v10 = (a2[1] + 2);
+  v10 = a2[1] + 2;
   a2[1] = v10;
   v11 = *(a1 + 16);
   if (*(v11 + 8) == 52)
@@ -40,7 +40,7 @@ char *llvm::itanium_demangle::LambdaExpr::printLeft(uint64_t a1, char **a2)
 
   v12 = a2[2];
   result = *a2;
-  if (v10 + 5 > v12)
+  if ((v10 + 5) > v12)
   {
     v14 = v10 + 997;
     v15 = 2 * v12;
@@ -68,7 +68,7 @@ LABEL_16:
   }
 
 LABEL_15:
-  v17 = &result[v10];
+  v17 = &v10[result];
   v17[4] = 125;
   *v17 = 774778491;
   a2[1] += 5;
@@ -92,7 +92,7 @@ char *llvm::itanium_demangle::EnumLiteral::printLeft(void *a1, char **a2)
 
     else
     {
-      v9 = 2 * v7;
+      v9 = (2 * v7);
     }
 
     a2[2] = v9;
@@ -131,7 +131,7 @@ char *llvm::itanium_demangle::EnumLiteral::printLeft(void *a1, char **a2)
 
     else
     {
-      v16 = 2 * v14;
+      v16 = (2 * v14);
     }
 
     a2[2] = v16;
@@ -165,12 +165,12 @@ char *llvm::itanium_demangle::EnumLiteral::printLeft(void *a1, char **a2)
     {
       if (2 * v36 <= (v35 + 992))
       {
-        v37 = (v35 + 992);
+        v37 = v35 + 992;
       }
 
       else
       {
-        v37 = 2 * v36;
+        v37 = (2 * v36);
       }
 
       a2[2] = v37;
@@ -203,7 +203,7 @@ char *llvm::itanium_demangle::EnumLiteral::printLeft(void *a1, char **a2)
 
     else
     {
-      v22 = 2 * v20;
+      v22 = (2 * v20);
     }
 
     a2[2] = v22;
@@ -239,12 +239,12 @@ char *llvm::itanium_demangle::EnumLiteral::printLeft(void *a1, char **a2)
 
   if (2 * v29 <= (v28 + 992))
   {
-    v30 = (v28 + 992);
+    v30 = v28 + 992;
   }
 
   else
   {
-    v30 = 2 * v29;
+    v30 = (2 * v29);
   }
 
   a2[2] = v30;
@@ -302,7 +302,7 @@ char *llvm::itanium_demangle::FunctionParam::printLeft(uint64_t a1, char **a2)
   v6 = a2[2];
   if ((v5 + 2) > v6)
   {
-    v7 = (v5 + 994);
+    v7 = v5 + 994;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -326,7 +326,7 @@ char *llvm::itanium_demangle::FunctionParam::printLeft(uint64_t a1, char **a2)
   }
 
   *&v5[result] = 28774;
-  v10 = (a2[1] + 2);
+  v10 = a2[1] + 2;
   a2[1] = v10;
   v11 = *(a1 + 24);
   if (!v11)
@@ -335,19 +335,19 @@ char *llvm::itanium_demangle::FunctionParam::printLeft(uint64_t a1, char **a2)
   }
 
   v12 = *(a1 + 16);
-  v13 = v10 + v11;
+  v13 = &v10[v11];
   v14 = a2[2];
   v15 = *a2;
-  if (v10 + v11 > v14)
+  if (&v10[v11] > v14)
   {
-    if (2 * v14 <= v13 + 992)
+    if (2 * v14 <= (v13 + 992))
     {
       v16 = v13 + 992;
     }
 
     else
     {
-      v16 = 2 * v14;
+      v16 = (2 * v14);
     }
 
     a2[2] = v16;
@@ -364,23 +364,23 @@ LABEL_16:
   }
 
 LABEL_14:
-  result = memcpy(&v15[v10], v12, v11);
+  result = memcpy(&v10[v15], v12, v11);
   a2[1] += v11;
   return result;
 }
 
-char *llvm::itanium_demangle::FoldExpr::printLeft(uint64_t a1, uint64_t a2)
+char *llvm::itanium_demangle::FoldExpr::printLeft(uint64_t a1, char **a2)
 {
   v59[0] = a2;
   v59[1] = a1;
-  ++*(a2 + 32);
+  ++*(a2 + 8);
   v4 = *a2;
-  v5 = *(a2 + 8);
+  v5 = a2[1];
   v6 = v5 + 1;
-  v7 = *(a2 + 16);
-  if (v5 + 1 > v7)
+  v7 = a2[2];
+  if ((v5 + 1) > v7)
   {
-    v8 = v5 + 993;
+    v8 = (v5 + 993);
     if (2 * v7 <= v8)
     {
       v9 = v8;
@@ -391,7 +391,7 @@ char *llvm::itanium_demangle::FoldExpr::printLeft(uint64_t a1, uint64_t a2)
       v9 = 2 * v7;
     }
 
-    *(a2 + 16) = v9;
+    a2[2] = v9;
     v4 = malloc_type_realloc(v4, v9, 0x100004077774924uLL);
     *a2 = v4;
     if (!v4)
@@ -399,19 +399,19 @@ char *llvm::itanium_demangle::FoldExpr::printLeft(uint64_t a1, uint64_t a2)
       goto LABEL_71;
     }
 
-    v5 = *(a2 + 8);
+    v5 = a2[1];
     v6 = v5 + 1;
   }
 
-  *(a2 + 8) = v6;
-  v4[v5] = 40;
+  a2[1] = v6;
+  v5[v4] = 40;
   if (*(a1 + 48) != 1)
   {
     llvm::itanium_demangle::FoldExpr::printLeft(llvm::itanium_demangle::OutputBuffer &)const::{lambda(void)#1}::operator()(v59);
     v11 = *a2;
-    v12 = *(a2 + 8);
-    v13 = *(a2 + 16);
-    if (v12 + 1 <= v13)
+    v12 = a2[1];
+    v13 = a2[2];
+    if ((v12 + 1) <= v13)
     {
       goto LABEL_17;
     }
@@ -422,8 +422,8 @@ char *llvm::itanium_demangle::FoldExpr::printLeft(uint64_t a1, uint64_t a2)
   v10 = *(a1 + 24);
   if (!v10)
   {
-    v30 = *(a2 + 8);
-    v29 = *(a2 + 16);
+    v30 = a2[1];
+    v29 = a2[2];
     v31 = *a2;
     if (v30 + 3 <= v29)
     {
@@ -435,12 +435,12 @@ char *llvm::itanium_demangle::FoldExpr::printLeft(uint64_t a1, uint64_t a2)
 
   llvm::itanium_demangle::Node::printAsOperand(v10, a2, 3, 1);
   v11 = *a2;
-  v12 = *(a2 + 8);
-  v13 = *(a2 + 16);
-  if (v12 + 1 > v13)
+  v12 = a2[1];
+  v13 = a2[2];
+  if ((v12 + 1) > v13)
   {
 LABEL_12:
-    v14 = v12 + 993;
+    v14 = (v12 + 993);
     v15 = 2 * v13;
     if (v15 <= v14)
     {
@@ -452,7 +452,7 @@ LABEL_12:
       v16 = v15;
     }
 
-    *(a2 + 16) = v16;
+    a2[2] = v16;
     v11 = malloc_type_realloc(v11, v16, 0x100004077774924uLL);
     *a2 = v11;
     if (!v11)
@@ -460,19 +460,19 @@ LABEL_12:
       goto LABEL_71;
     }
 
-    v12 = *(a2 + 8);
+    v12 = a2[1];
   }
 
 LABEL_17:
-  v11[v12] = 32;
-  v17 = *(a2 + 8) + 1;
-  *(a2 + 8) = v17;
+  v12[v11] = 32;
+  v17 = (a2[1] + 1);
+  a2[1] = v17;
   v18 = *(a1 + 40);
   if (v18)
   {
     v19 = *(a1 + 32);
     v20 = v17 + v18;
-    v21 = *(a2 + 16);
+    v21 = a2[2];
     v22 = *a2;
     if (v17 + v18 > v21)
     {
@@ -486,7 +486,7 @@ LABEL_17:
         v23 = 2 * v21;
       }
 
-      *(a2 + 16) = v23;
+      a2[2] = v23;
       v22 = malloc_type_realloc(v22, v23, 0x100004077774924uLL);
       *a2 = v22;
       if (!v22)
@@ -494,15 +494,15 @@ LABEL_17:
         goto LABEL_71;
       }
 
-      v17 = *(a2 + 8);
+      v17 = a2[1];
     }
 
     memcpy(&v22[v17], v19, v18);
-    v17 = *(a2 + 8) + v18;
-    *(a2 + 8) = v17;
+    v17 = &a2[1][v18];
+    a2[1] = v17;
   }
 
-  v24 = *(a2 + 16);
+  v24 = a2[2];
   v25 = *a2;
   if (v17 + 1 > v24)
   {
@@ -518,7 +518,7 @@ LABEL_17:
       v28 = v27;
     }
 
-    *(a2 + 16) = v28;
+    a2[2] = v28;
     v25 = malloc_type_realloc(v25, v28, 0x100004077774924uLL);
     *a2 = v25;
     if (!v25)
@@ -526,13 +526,13 @@ LABEL_17:
       goto LABEL_71;
     }
 
-    v17 = *(a2 + 8);
+    v17 = a2[1];
   }
 
   v25[v17] = 32;
-  v29 = *(a2 + 16);
-  v30 = *(a2 + 8) + 1;
-  *(a2 + 8) = v30;
+  v29 = a2[2];
+  v30 = (a2[1] + 1);
+  a2[1] = v30;
   v31 = *a2;
   if (v30 + 3 > v29)
   {
@@ -549,7 +549,7 @@ LABEL_32:
       v34 = v33;
     }
 
-    *(a2 + 16) = v34;
+    a2[2] = v34;
     v31 = malloc_type_realloc(v31, v34, 0x100004077774924uLL);
     *a2 = v31;
     if (!v31)
@@ -557,25 +557,25 @@ LABEL_32:
       goto LABEL_71;
     }
 
-    v30 = *(a2 + 8);
+    v30 = a2[1];
   }
 
 LABEL_37:
   v35 = &v31[v30];
   v35[2] = 46;
   *v35 = 11822;
-  v36 = *(a2 + 8);
+  v36 = a2[1];
   v37 = v36 + 3;
-  *(a2 + 8) = v36 + 3;
+  a2[1] = v36 + 3;
   if ((*(a1 + 48) & 1) != 0 || *(a1 + 24))
   {
-    v38 = *(a2 + 16);
+    v38 = a2[2];
     v39 = *a2;
-    if (v36 + 4 > v38)
+    if ((v36 + 4) > v38)
     {
-      if (2 * v38 <= v36 + 996)
+      if (2 * v38 <= (v36 + 996))
       {
-        v40 = v36 + 996;
+        v40 = (v36 + 996);
       }
 
       else
@@ -583,7 +583,7 @@ LABEL_37:
         v40 = 2 * v38;
       }
 
-      *(a2 + 16) = v40;
+      a2[2] = v40;
       v39 = malloc_type_realloc(v39, v40, 0x100004077774924uLL);
       *a2 = v39;
       if (!v39)
@@ -591,18 +591,18 @@ LABEL_37:
         goto LABEL_71;
       }
 
-      v37 = *(a2 + 8);
+      v37 = a2[1];
     }
 
-    v39[v37] = 32;
-    v41 = *(a2 + 8) + 1;
-    *(a2 + 8) = v41;
+    v37[v39] = 32;
+    v41 = (a2[1] + 1);
+    a2[1] = v41;
     v42 = *(a1 + 40);
     if (v42)
     {
       v43 = *(a1 + 32);
       v44 = v41 + v42;
-      v45 = *(a2 + 16);
+      v45 = a2[2];
       v46 = *a2;
       if (v41 + v42 > v45)
       {
@@ -616,7 +616,7 @@ LABEL_37:
           v47 = 2 * v45;
         }
 
-        *(a2 + 16) = v47;
+        a2[2] = v47;
         v46 = malloc_type_realloc(v46, v47, 0x100004077774924uLL);
         *a2 = v46;
         if (!v46)
@@ -624,15 +624,15 @@ LABEL_37:
           goto LABEL_71;
         }
 
-        v41 = *(a2 + 8);
+        v41 = a2[1];
       }
 
       memcpy(&v46[v41], v43, v42);
-      v41 = *(a2 + 8) + v42;
-      *(a2 + 8) = v41;
+      v41 = &a2[1][v42];
+      a2[1] = v41;
     }
 
-    v48 = *(a2 + 16);
+    v48 = a2[2];
     v49 = *a2;
     if (v41 + 1 > v48)
     {
@@ -648,7 +648,7 @@ LABEL_37:
         v52 = v51;
       }
 
-      *(a2 + 16) = v52;
+      a2[2] = v52;
       v49 = malloc_type_realloc(v49, v52, 0x100004077774924uLL);
       *a2 = v49;
       if (!v49)
@@ -656,11 +656,11 @@ LABEL_37:
         goto LABEL_71;
       }
 
-      v41 = *(a2 + 8);
+      v41 = a2[1];
     }
 
     v49[v41] = 32;
-    ++*(a2 + 8);
+    ++a2[1];
     if (*(a1 + 48) == 1)
     {
       llvm::itanium_demangle::FoldExpr::printLeft(llvm::itanium_demangle::OutputBuffer &)const::{lambda(void)#1}::operator()(v59);
@@ -672,14 +672,14 @@ LABEL_37:
     }
   }
 
-  --*(a2 + 32);
+  --*(a2 + 8);
   result = *a2;
-  v54 = *(a2 + 8);
+  v54 = a2[1];
   v55 = v54 + 1;
-  v56 = *(a2 + 16);
-  if (v54 + 1 > v56)
+  v56 = a2[2];
+  if ((v54 + 1) > v56)
   {
-    v57 = v54 + 993;
+    v57 = (v54 + 993);
     if (2 * v56 <= v57)
     {
       v58 = v57;
@@ -690,12 +690,12 @@ LABEL_37:
       v58 = 2 * v56;
     }
 
-    *(a2 + 16) = v58;
+    a2[2] = v58;
     result = malloc_type_realloc(result, v58, 0x100004077774924uLL);
     *a2 = result;
     if (result)
     {
-      v54 = *(a2 + 8);
+      v54 = a2[1];
       v55 = v54 + 1;
       goto LABEL_68;
     }
@@ -705,23 +705,23 @@ LABEL_71:
   }
 
 LABEL_68:
-  *(a2 + 8) = v55;
-  result[v54] = 41;
+  a2[1] = v55;
+  v54[result] = 41;
   return result;
 }
 
-void *llvm::itanium_demangle::FoldExpr::printLeft(llvm::itanium_demangle::OutputBuffer &)const::{lambda(void)#1}::operator()(char ***a1)
+void *llvm::itanium_demangle::FoldExpr::printLeft(llvm::itanium_demangle::OutputBuffer &)const::{lambda(void)#1}::operator()(void *a1)
 {
   v3 = *a1;
   v2 = a1[1];
-  *(v3 + 8) = *(*a1 + 8) + 1;
+  *(v3 + 32) = *(*a1 + 32) + 1;
   v4 = *v3;
-  v5 = v3[1];
+  v5 = *(v3 + 8);
   v6 = v5 + 1;
-  v7 = v3[2];
-  if ((v5 + 1) > v7)
+  v7 = *(v3 + 16);
+  if (v5 + 1 > v7)
   {
-    v8 = (v5 + 993);
+    v8 = v5 + 993;
     if (2 * v7 <= v8)
     {
       v9 = v8;
@@ -732,7 +732,7 @@ void *llvm::itanium_demangle::FoldExpr::printLeft(llvm::itanium_demangle::Output
       v9 = 2 * v7;
     }
 
-    v3[2] = v9;
+    *(v3 + 16) = v9;
     v4 = malloc_type_realloc(v4, v9, 0x100004077774924uLL);
     *v3 = v4;
     if (!v4)
@@ -740,13 +740,13 @@ void *llvm::itanium_demangle::FoldExpr::printLeft(llvm::itanium_demangle::Output
       goto LABEL_16;
     }
 
-    v5 = v3[1];
+    v5 = *(v3 + 8);
     v6 = v5 + 1;
   }
 
-  v3[1] = v6;
-  v5[v4] = 40;
-  v10 = v2[2];
+  *(v3 + 8) = v6;
+  *(v4 + v5) = 40;
+  v10 = *(v2 + 16);
   v20 = 42;
   v21 = 1344;
   v19 = &unk_2868A5710;
@@ -755,18 +755,18 @@ void *llvm::itanium_demangle::FoldExpr::printLeft(llvm::itanium_demangle::Output
   llvm::itanium_demangle::ParameterPackExpansion::printLeft(&v19, *a1);
   if ((v21 & 0xC0) != 0x40)
   {
-    (v19)[5](&v19, v11);
+    v19[5](&v19, v11);
   }
 
   v12 = *a1;
-  --*(v12 + 8);
+  --*(v12 + 32);
   result = *v12;
-  v14 = v12[1];
+  v14 = *(v12 + 8);
   v15 = v14 + 1;
-  v16 = v12[2];
-  if ((v14 + 1) > v16)
+  v16 = *(v12 + 16);
+  if (v14 + 1 > v16)
   {
-    v17 = (v14 + 993);
+    v17 = v14 + 993;
     if (2 * v16 <= v17)
     {
       v18 = v17;
@@ -777,12 +777,12 @@ void *llvm::itanium_demangle::FoldExpr::printLeft(llvm::itanium_demangle::Output
       v18 = 2 * v16;
     }
 
-    v12[2] = v18;
+    *(v12 + 16) = v18;
     result = malloc_type_realloc(result, v18, 0x100004077774924uLL);
     *v12 = result;
     if (result)
     {
-      v14 = v12[1];
+      v14 = *(v12 + 8);
       v15 = v14 + 1;
       goto LABEL_15;
     }
@@ -792,8 +792,8 @@ LABEL_16:
   }
 
 LABEL_15:
-  v12[1] = v15;
-  v14[result] = 41;
+  *(v12 + 8) = v15;
+  *(result + v14) = 41;
   return result;
 }
 
@@ -817,7 +817,7 @@ uint64_t llvm::itanium_demangle::ParameterPackExpansion::printLeft(uint64_t a1, 
     v18 = a2[2];
     if ((v17 + 3) > v18)
     {
-      v19 = (v17 + 995);
+      v19 = v17 + 995;
       v20 = 2 * v18;
       if (v20 <= v19)
       {
@@ -844,7 +844,7 @@ LABEL_25:
     v22 = &v17[result];
     v22[2] = 46;
     *v22 = 11822;
-    v5 = (a2[1] + 3);
+    v5 = a2[1] + 3;
     goto LABEL_23;
   }
 
@@ -864,7 +864,7 @@ LABEL_23:
       v12 = a2[2];
       if ((v11 + 2) > v12)
       {
-        v13 = (v11 + 994);
+        v13 = v11 + 994;
         v14 = 2 * v12;
         if (v14 <= v13)
         {
@@ -923,7 +923,7 @@ uint64_t llvm::itanium_demangle::BracedExpr::printLeft(uint64_t a1, char **a2)
 
       else
       {
-        v10 = 2 * v8;
+        v10 = (2 * v8);
       }
 
       a2[2] = v10;
@@ -961,7 +961,7 @@ uint64_t llvm::itanium_demangle::BracedExpr::printLeft(uint64_t a1, char **a2)
 
       else
       {
-        v17 = 2 * v15;
+        v17 = (2 * v15);
       }
 
       a2[2] = v17;
@@ -992,7 +992,7 @@ uint64_t llvm::itanium_demangle::BracedExpr::printLeft(uint64_t a1, char **a2)
 
       else
       {
-        v19 = 2 * v8;
+        v19 = (2 * v8);
       }
 
       a2[2] = v19;
@@ -1028,7 +1028,7 @@ uint64_t llvm::itanium_demangle::BracedExpr::printLeft(uint64_t a1, char **a2)
   v24 = a2[2];
   if ((v23 + 3) > v24)
   {
-    v25 = (v23 + 995);
+    v25 = v23 + 995;
     v26 = 2 * v24;
     if (v26 <= v25)
     {
@@ -1087,7 +1087,7 @@ uint64_t llvm::itanium_demangle::BracedRangeExpr::printLeft(void *a1, char **a2)
 
     else
     {
-      v9 = 2 * v7;
+      v9 = (2 * v7);
     }
 
     a2[2] = v9;
@@ -1116,7 +1116,7 @@ uint64_t llvm::itanium_demangle::BracedRangeExpr::printLeft(void *a1, char **a2)
   v13 = a2[2];
   if ((v12 + 5) > v13)
   {
-    v14 = (v12 + 997);
+    v14 = v12 + 997;
     v15 = 2 * v13;
     if (v15 <= v14)
     {
@@ -1164,7 +1164,7 @@ uint64_t llvm::itanium_demangle::BracedRangeExpr::printLeft(void *a1, char **a2)
 
     else
     {
-      v24 = 2 * v22;
+      v24 = (2 * v22);
     }
 
     a2[2] = v24;
@@ -1192,7 +1192,7 @@ uint64_t llvm::itanium_demangle::BracedRangeExpr::printLeft(void *a1, char **a2)
   v28 = a2[2];
   if ((v27 + 3) > v28)
   {
-    v29 = (v27 + 995);
+    v29 = v27 + 995;
     v30 = 2 * v28;
     if (v30 <= v29)
     {
@@ -1235,7 +1235,7 @@ LABEL_31:
   return result;
 }
 
-uint64_t llvm::itanium_demangle::InitListExpr::printLeft(void *a1, uint64_t *a2)
+uint64_t llvm::itanium_demangle::InitListExpr::printLeft(void *a1, void **a2)
 {
   v4 = a1[2];
   if (v4)
@@ -1284,7 +1284,7 @@ uint64_t llvm::itanium_demangle::InitListExpr::printLeft(void *a1, uint64_t *a2)
   }
 
   a2[1] = v9;
-  v7[v8] = 123;
+  *(v7 + v8) = 123;
   v13 = a2[1];
   if (a1[4])
   {
@@ -1546,7 +1546,7 @@ char *llvm::itanium_demangle::ExprRequirement::printLeft(uint64_t a1, char **a2)
   v6 = a2[2];
   if ((v5 + 1) > v6)
   {
-    v7 = (v5 + 993);
+    v7 = v5 + 993;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -1583,12 +1583,12 @@ char *llvm::itanium_demangle::ExprRequirement::printLeft(uint64_t a1, char **a2)
     {
       if (2 * v13 <= (v10 + 994))
       {
-        v15 = (v10 + 994);
+        v15 = v10 + 994;
       }
 
       else
       {
-        v15 = 2 * v13;
+        v15 = (2 * v13);
       }
 
       a2[2] = v15;
@@ -1631,7 +1631,7 @@ char *llvm::itanium_demangle::ExprRequirement::printLeft(uint64_t a1, char **a2)
 
       else
       {
-        v22 = 2 * v20;
+        v22 = (2 * v20);
       }
 
       a2[2] = v22;
@@ -1655,7 +1655,7 @@ char *llvm::itanium_demangle::ExprRequirement::printLeft(uint64_t a1, char **a2)
       v25 = a2[2];
       if ((v24 + 9) > v25)
       {
-        v26 = (v24 + 1001);
+        v26 = v24 + 1001;
         v27 = 2 * v25;
         if (v27 <= v26)
         {
@@ -1692,7 +1692,7 @@ char *llvm::itanium_demangle::ExprRequirement::printLeft(uint64_t a1, char **a2)
     v32 = a2[2];
     if ((v31 + 4) > v32)
     {
-      v33 = (v31 + 996);
+      v33 = v31 + 996;
       v34 = 2 * v32;
       if (v34 <= v33)
       {
@@ -1739,7 +1739,7 @@ char *llvm::itanium_demangle::ExprRequirement::printLeft(uint64_t a1, char **a2)
 
     else
     {
-      v42 = 2 * v40;
+      v42 = (2 * v40);
     }
 
     a2[2] = v42;
@@ -1769,7 +1769,7 @@ char *llvm::itanium_demangle::TypeRequirement::printLeft(uint64_t a1, char **a2)
   v6 = a2[2];
   if ((v5 + 10) > v6)
   {
-    v7 = (v5 + 1002);
+    v7 = v5 + 1002;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -1817,7 +1817,7 @@ char *llvm::itanium_demangle::TypeRequirement::printLeft(uint64_t a1, char **a2)
 
     else
     {
-      v17 = 2 * v15;
+      v17 = (2 * v15);
     }
 
     a2[2] = v17;
@@ -1847,7 +1847,7 @@ char *llvm::itanium_demangle::NestedRequirement::printLeft(uint64_t a1, char **a
   v6 = a2[2];
   if ((v5 + 10) > v6)
   {
-    v7 = (v5 + 1002);
+    v7 = v5 + 1002;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -1895,7 +1895,7 @@ char *llvm::itanium_demangle::NestedRequirement::printLeft(uint64_t a1, char **a
 
     else
     {
-      v17 = 2 * v15;
+      v17 = (2 * v15);
     }
 
     a2[2] = v17;
@@ -1918,14 +1918,14 @@ LABEL_15:
   return result;
 }
 
-char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
+char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, char **a2)
 {
   v4 = *a2;
-  v5 = *(a2 + 8);
-  v6 = *(a2 + 16);
-  if (v5 + 8 > v6)
+  v5 = a2[1];
+  v6 = a2[2];
+  if ((v5 + 8) > v6)
   {
-    v7 = v5 + 1000;
+    v7 = (v5 + 1000);
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -1937,7 +1937,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       v9 = v8;
     }
 
-    *(a2 + 16) = v9;
+    a2[2] = v9;
     v4 = malloc_type_realloc(v4, v9, 0x100004077774924uLL);
     *a2 = v4;
     if (!v4)
@@ -1945,23 +1945,23 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       goto LABEL_71;
     }
 
-    v5 = *(a2 + 8);
+    v5 = a2[1];
   }
 
-  *&v4[v5] = 0x7365726975716572;
-  v10 = *(a2 + 8);
+  *&v5[v4] = 0x7365726975716572;
+  v10 = a2[1];
   v11 = v10 + 8;
-  *(a2 + 8) = v10 + 8;
+  a2[1] = v10 + 8;
   if (a1[3])
   {
     v12 = v10 + 9;
-    v13 = *(a2 + 16);
+    v13 = a2[2];
     v14 = *a2;
-    if (v10 + 9 > v13)
+    if ((v10 + 9) > v13)
     {
-      if (2 * v13 <= v10 + 1001)
+      if (2 * v13 <= (v10 + 1001))
       {
-        v15 = v10 + 1001;
+        v15 = (v10 + 1001);
       }
 
       else
@@ -1969,7 +1969,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
         v15 = 2 * v13;
       }
 
-      *(a2 + 16) = v15;
+      a2[2] = v15;
       v14 = malloc_type_realloc(v14, v15, 0x100004077774924uLL);
       *a2 = v14;
       if (!v14)
@@ -1977,20 +1977,20 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
         goto LABEL_71;
       }
 
-      v11 = *(a2 + 8);
+      v11 = a2[1];
       v12 = v11 + 1;
     }
 
-    *(a2 + 8) = v12;
-    v14[v11] = 32;
-    ++*(a2 + 32);
+    a2[1] = v12;
+    v11[v14] = 32;
+    ++*(a2 + 8);
     v16 = *a2;
-    v17 = *(a2 + 8);
+    v17 = a2[1];
     v18 = v17 + 1;
-    v19 = *(a2 + 16);
-    if (v17 + 1 > v19)
+    v19 = a2[2];
+    if ((v17 + 1) > v19)
     {
-      v20 = v17 + 993;
+      v20 = (v17 + 993);
       if (2 * v19 <= v20)
       {
         v21 = v20;
@@ -2001,7 +2001,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
         v21 = 2 * v19;
       }
 
-      *(a2 + 16) = v21;
+      a2[2] = v21;
       v16 = malloc_type_realloc(v16, v21, 0x100004077774924uLL);
       *a2 = v16;
       if (!v16)
@@ -2009,13 +2009,13 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
         goto LABEL_71;
       }
 
-      v17 = *(a2 + 8);
+      v17 = a2[1];
       v18 = v17 + 1;
     }
 
-    *(a2 + 8) = v18;
-    v16[v17] = 40;
-    v22 = *(a2 + 8);
+    a2[1] = v18;
+    v17[v16] = 40;
+    v22 = a2[1];
     if (a1[3])
     {
       v23 = 0;
@@ -2025,7 +2025,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
         v25 = v22;
         if ((v24 & 1) == 0)
         {
-          v26 = *(a2 + 16);
+          v26 = a2[2];
           v27 = *a2;
           if (v22 + 2 <= v26)
           {
@@ -2045,7 +2045,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
               v29 = v28;
             }
 
-            *(a2 + 16) = v29;
+            a2[2] = v29;
             v27 = malloc_type_realloc(v27, v29, 0x100004077774924uLL);
             *a2 = v27;
             if (!v27)
@@ -2053,18 +2053,18 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
               goto LABEL_71;
             }
 
-            v30 = *(a2 + 8);
+            v30 = a2[1];
           }
 
           *&v27[v30] = 8236;
-          v25 = *(a2 + 8) + 2;
-          *(a2 + 8) = v25;
+          v25 = (a2[1] + 2);
+          a2[1] = v25;
         }
 
         llvm::itanium_demangle::Node::printAsOperand(*(a1[2] + 8 * v23), a2, 18, 0);
-        if (v25 == *(a2 + 8))
+        if (v25 == a2[1])
         {
-          *(a2 + 8) = v22;
+          a2[1] = v22;
           if (++v23 == a1[3])
           {
             break;
@@ -2074,7 +2074,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
         else
         {
           v24 = 0;
-          v22 = *(a2 + 8);
+          v22 = a2[1];
           if (++v23 == a1[3])
           {
             break;
@@ -2083,9 +2083,9 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       }
     }
 
-    --*(a2 + 32);
+    --*(a2 + 8);
     v31 = v22 + 1;
-    v32 = *(a2 + 16);
+    v32 = a2[2];
     v33 = *a2;
     if (v22 + 1 > v32)
     {
@@ -2100,7 +2100,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
         v35 = v34;
       }
 
-      *(a2 + 16) = v35;
+      a2[2] = v35;
       v33 = malloc_type_realloc(v33, v35, 0x100004077774924uLL);
       *a2 = v33;
       if (!v33)
@@ -2108,21 +2108,21 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
         goto LABEL_71;
       }
 
-      v22 = *(a2 + 8);
+      v22 = a2[1];
       v31 = v22 + 1;
     }
 
-    *(a2 + 8) = v31;
+    a2[1] = v31;
     v33[v22] = 41;
-    v11 = *(a2 + 8);
+    v11 = a2[1];
   }
 
   v36 = v11 + 1;
-  v37 = *(a2 + 16);
+  v37 = a2[2];
   v38 = *a2;
-  if (v11 + 1 > v37)
+  if ((v11 + 1) > v37)
   {
-    v39 = v11 + 993;
+    v39 = (v11 + 993);
     if (2 * v37 <= v39)
     {
       v40 = v39;
@@ -2133,7 +2133,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       v40 = 2 * v37;
     }
 
-    *(a2 + 16) = v40;
+    a2[2] = v40;
     v38 = malloc_type_realloc(v38, v40, 0x100004077774924uLL);
     *a2 = v38;
     if (!v38)
@@ -2141,20 +2141,20 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       goto LABEL_71;
     }
 
-    v11 = *(a2 + 8);
+    v11 = a2[1];
     v36 = v11 + 1;
   }
 
-  *(a2 + 8) = v36;
-  v38[v11] = 32;
-  ++*(a2 + 32);
+  a2[1] = v36;
+  v11[v38] = 32;
+  ++*(a2 + 8);
   v41 = *a2;
-  v42 = *(a2 + 8);
+  v42 = a2[1];
   v43 = v42 + 1;
-  v44 = *(a2 + 16);
-  if (v42 + 1 > v44)
+  v44 = a2[2];
+  if ((v42 + 1) > v44)
   {
-    v45 = v42 + 993;
+    v45 = (v42 + 993);
     if (2 * v44 <= v45)
     {
       v46 = v45;
@@ -2165,7 +2165,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       v46 = 2 * v44;
     }
 
-    *(a2 + 16) = v46;
+    a2[2] = v46;
     v41 = malloc_type_realloc(v41, v46, 0x100004077774924uLL);
     *a2 = v41;
     if (!v41)
@@ -2173,12 +2173,12 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       goto LABEL_71;
     }
 
-    v42 = *(a2 + 8);
+    v42 = a2[1];
     v43 = v42 + 1;
   }
 
-  *(a2 + 8) = v43;
-  v41[v42] = 123;
+  a2[1] = v43;
+  v42[v41] = 123;
   v47 = a1[5];
   if (v47)
   {
@@ -2201,12 +2201,12 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
   }
 
   v51 = *a2;
-  v52 = *(a2 + 8);
+  v52 = a2[1];
   v53 = v52 + 1;
-  v54 = *(a2 + 16);
-  if (v52 + 1 > v54)
+  v54 = a2[2];
+  if ((v52 + 1) > v54)
   {
-    v55 = v52 + 993;
+    v55 = (v52 + 993);
     if (2 * v54 <= v55)
     {
       v56 = v55;
@@ -2217,7 +2217,7 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       v56 = 2 * v54;
     }
 
-    *(a2 + 16) = v56;
+    a2[2] = v56;
     v51 = malloc_type_realloc(v51, v56, 0x100004077774924uLL);
     *a2 = v51;
     if (!v51)
@@ -2225,20 +2225,20 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       goto LABEL_71;
     }
 
-    v52 = *(a2 + 8);
+    v52 = a2[1];
     v53 = v52 + 1;
   }
 
-  *(a2 + 8) = v53;
-  v51[v52] = 32;
-  --*(a2 + 32);
+  a2[1] = v53;
+  v52[v51] = 32;
+  --*(a2 + 8);
   result = *a2;
-  v58 = *(a2 + 8);
+  v58 = a2[1];
   v59 = v58 + 1;
-  v60 = *(a2 + 16);
-  if (v58 + 1 > v60)
+  v60 = a2[2];
+  if ((v58 + 1) > v60)
   {
-    v61 = v58 + 993;
+    v61 = (v58 + 993);
     if (2 * v60 <= v61)
     {
       v62 = v61;
@@ -2249,12 +2249,12 @@ char *llvm::itanium_demangle::RequiresExpr::printLeft(void *a1, uint64_t a2)
       v62 = 2 * v60;
     }
 
-    *(a2 + 16) = v62;
+    a2[2] = v62;
     result = malloc_type_realloc(result, v62, 0x100004077774924uLL);
     *a2 = result;
     if (result)
     {
-      v58 = *(a2 + 8);
+      v58 = a2[1];
       v59 = v58 + 1;
       goto LABEL_70;
     }
@@ -2264,8 +2264,8 @@ LABEL_71:
   }
 
 LABEL_70:
-  *(a2 + 8) = v59;
-  result[v58] = 125;
+  a2[1] = v59;
+  v58[result] = 125;
   return result;
 }
 
@@ -2283,7 +2283,7 @@ char *llvm::itanium_demangle::SubobjectExpr::printLeft(void *a1, char **a2)
   v7 = a2[2];
   if ((v6 + 2) > v7)
   {
-    v8 = (v6 + 994);
+    v8 = v6 + 994;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -2320,7 +2320,7 @@ char *llvm::itanium_demangle::SubobjectExpr::printLeft(void *a1, char **a2)
   v14 = a2[2];
   if ((v13 + 11) > v14)
   {
-    v15 = (v13 + 1003);
+    v15 = v13 + 1003;
     v16 = 2 * v14;
     if (v16 <= v15)
     {
@@ -2358,12 +2358,12 @@ char *llvm::itanium_demangle::SubobjectExpr::printLeft(void *a1, char **a2)
     {
       if (2 * v36 <= (v19 + 1004))
       {
-        v38 = (v19 + 1004);
+        v38 = v19 + 1004;
       }
 
       else
       {
-        v38 = 2 * v36;
+        v38 = (2 * v36);
       }
 
       a2[2] = v38;
@@ -2392,12 +2392,12 @@ char *llvm::itanium_demangle::SubobjectExpr::printLeft(void *a1, char **a2)
     {
       if (2 * v23 <= (v39 + 992))
       {
-        v40 = (v39 + 992);
+        v40 = v39 + 992;
       }
 
       else
       {
-        v40 = 2 * v23;
+        v40 = (2 * v23);
       }
 
       a2[2] = v40;
@@ -2420,12 +2420,12 @@ char *llvm::itanium_demangle::SubobjectExpr::printLeft(void *a1, char **a2)
   {
     if (2 * v23 <= (v19 + 1004))
     {
-      v25 = (v19 + 1004);
+      v25 = v19 + 1004;
     }
 
     else
     {
-      v25 = 2 * v23;
+      v25 = (2 * v23);
     }
 
     a2[2] = v25;
@@ -2441,7 +2441,7 @@ char *llvm::itanium_demangle::SubobjectExpr::printLeft(void *a1, char **a2)
 
   v20[v24] = 45;
   v26 = a2[1];
-  v27 = (v26 + 1);
+  v27 = v26 + 1;
   a2[1] = v26 + 1;
   v28 = a1[5];
   v21 = v28 - 1;
@@ -2453,14 +2453,14 @@ char *llvm::itanium_demangle::SubobjectExpr::printLeft(void *a1, char **a2)
     v32 = *a2;
     if (v30 > v31)
     {
-      if (2 * v31 <= v30 + 992)
+      if (2 * v31 <= (v30 + 992))
       {
         v33 = v30 + 992;
       }
 
       else
       {
-        v33 = 2 * v31;
+        v33 = (2 * v31);
       }
 
       a2[2] = v33;
@@ -2474,7 +2474,7 @@ char *llvm::itanium_demangle::SubobjectExpr::printLeft(void *a1, char **a2)
       v27 = a2[1];
     }
 
-    v34 = &v32[v27];
+    v34 = &v27[v32];
     v35 = (v29 + 1);
 LABEL_47:
     memcpy(v34, v35, v21);
@@ -2485,7 +2485,7 @@ LABEL_48:
 
   v41 = a2[2];
   result = *a2;
-  if (v27 + 1 > v41)
+  if ((v27 + 1) > v41)
   {
     v43 = v27 + 993;
     v44 = 2 * v41;
@@ -2513,7 +2513,7 @@ LABEL_56:
   }
 
 LABEL_55:
-  result[v27] = 62;
+  v27[result] = 62;
   ++a2[1];
   return result;
 }
@@ -2645,7 +2645,7 @@ void *llvm::itanium_demangle::NodeArrayNode::printLeft(void *result, char **a2)
         {
           v8 = a2[2];
           v9 = *a2;
-          if (v5 + 2 <= v8)
+          if ((v5 + 2) <= v8)
           {
             v12 = v5;
           }
@@ -2653,7 +2653,7 @@ void *llvm::itanium_demangle::NodeArrayNode::printLeft(void *result, char **a2)
           else
           {
             v10 = 2 * v8;
-            if (v10 <= v5 + 994)
+            if (v10 <= (v5 + 994))
             {
               v11 = v5 + 994;
             }
@@ -2674,8 +2674,8 @@ void *llvm::itanium_demangle::NodeArrayNode::printLeft(void *result, char **a2)
             v12 = a2[1];
           }
 
-          *&v9[v12] = 8236;
-          v7 = (a2[1] + 2);
+          *&v12[v9] = 8236;
+          v7 = a2[1] + 2;
           a2[1] = v7;
         }
 
@@ -2710,7 +2710,7 @@ uint64_t llvm::itanium_demangle::ThrowExpr::printLeft(uint64_t a1, char **a2)
   v6 = a2[2];
   if ((v5 + 6) > v6)
   {
-    v7 = (v5 + 998);
+    v7 = v5 + 998;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -2779,7 +2779,7 @@ LABEL_10:
       v6 = result;
       v7 = v3[37];
       v8 = v5 - v7;
-      if (v7 == (v3 + 40))
+      if (v7 == v3 + 40)
       {
         v9 = malloc_type_malloc(2 * (v5 - v7), 0x2004093837F09uLL);
         if (!v9)
@@ -2817,7 +2817,7 @@ LABEL_20:
       v10[39] = &v9[8 * (v8 >> 2)];
       result = v6;
       *v14 = v6;
-      v10[38] = v14 + 1;
+      v10[38] = (v14 + 1);
       return result;
     }
 
@@ -3033,7 +3033,7 @@ uint64_t llvm::itanium_demangle::QualifiedName::printLeft(uint64_t a1, char **a2
   v7 = a2[2];
   if ((v6 + 2) > v7)
   {
-    v8 = (v6 + 994);
+    v8 = v6 + 994;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -3299,14 +3299,14 @@ LABEL_24:
   return result;
 }
 
-uint64_t llvm::itanium_demangle::DtorName::printLeft(uint64_t a1, void *a2)
+uint64_t llvm::itanium_demangle::DtorName::printLeft(uint64_t a1, void **a2)
 {
   v3 = *a2;
   v4 = a2[1];
   v5 = a2[2];
-  if (v4 + 1 > v5)
+  if ((v4 + 1) > v5)
   {
-    v6 = v4 + 993;
+    v6 = (v4 + 993);
     v7 = 2 * v5;
     if (v7 > v6)
     {
@@ -3326,8 +3326,8 @@ uint64_t llvm::itanium_demangle::DtorName::printLeft(uint64_t a1, void *a2)
     v4 = v8[1];
   }
 
-  *(v3 + v4) = 126;
-  ++a2[1];
+  v4[v3] = 126;
+  a2[1] = a2[1] + 1;
   v9 = *(**(a1 + 16) + 32);
 
   return v9();
@@ -3340,7 +3340,7 @@ uint64_t llvm::itanium_demangle::ConversionOperatorType::printLeft(uint64_t a1, 
   v6 = a2[2];
   if ((v5 + 9) > v6)
   {
-    v7 = (v5 + 1001);
+    v7 = v5 + 1001;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -3386,7 +3386,7 @@ uint64_t llvm::itanium_demangle::LiteralOperator::printLeft(uint64_t a1, char **
   v6 = a2[2];
   if ((v5 + 11) > v6)
   {
-    v7 = (v5 + 1003);
+    v7 = v5 + 1003;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -3432,7 +3432,7 @@ uint64_t llvm::itanium_demangle::GlobalQualifiedName::printLeft(uint64_t a1, cha
   v6 = a2[2];
   if ((v5 + 2) > v6)
   {
-    v7 = (v5 + 994);
+    v7 = v5 + 994;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -3564,7 +3564,7 @@ void *llvm::itanium_demangle::SpecialSubstitution::printLeft(uint64_t a1, char *
   v6 = a2[2];
   if ((v5 + 5) > v6)
   {
-    v7 = (v5 + 997);
+    v7 = v5 + 997;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -3590,7 +3590,7 @@ void *llvm::itanium_demangle::SpecialSubstitution::printLeft(uint64_t a1, char *
   v10 = &v5[v4];
   v10[4] = 58;
   *v10 = 979661939;
-  v11 = (a2[1] + 5);
+  v11 = a2[1] + 5;
   a2[1] = v11;
   v12 = *(a1 + 12);
   if (v12 > 2)
@@ -3633,7 +3633,7 @@ void *llvm::itanium_demangle::SpecialSubstitution::printLeft(uint64_t a1, char *
       v15 = v11 + 9;
       v16 = a2[2];
       v17 = *a2;
-      if (v11 + 9 <= v16)
+      if ((v11 + 9) <= v16)
       {
         goto LABEL_29;
       }
@@ -3648,20 +3648,20 @@ void *llvm::itanium_demangle::SpecialSubstitution::printLeft(uint64_t a1, char *
       v15 = v11 + 12;
       v16 = a2[2];
       v17 = *a2;
-      if (v11 + 12 <= v16)
+      if ((v11 + 12) <= v16)
       {
         goto LABEL_29;
       }
 
 LABEL_24:
-      if (2 * v16 <= v15 + 992)
+      if (2 * v16 <= (v15 + 992))
       {
         v21 = v15 + 992;
       }
 
       else
       {
-        v21 = 2 * v16;
+        v21 = (2 * v16);
       }
 
       a2[2] = v21;
@@ -3682,16 +3682,16 @@ LABEL_30:
   }
 
   v13 = v20 + 6;
-  v15 = v11 + v14;
+  v15 = &v11[v14];
   v16 = a2[2];
   v17 = *a2;
-  if (v11 + v14 > v16)
+  if (&v11[v14] > v16)
   {
     goto LABEL_24;
   }
 
 LABEL_29:
-  result = memcpy(&v17[v11], v13, v14);
+  result = memcpy(&v11[v17], v13, v14);
   a2[1] += v14;
   return result;
 }
@@ -3746,7 +3746,7 @@ char *llvm::itanium_demangle::ExpandedSpecialSubstitution::printLeft(_DWORD *a1,
   v6 = a2[2];
   if ((v5 + 5) > v6)
   {
-    v7 = (v5 + 997);
+    v7 = v5 + 997;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -3786,12 +3786,12 @@ char *llvm::itanium_demangle::ExpandedSpecialSubstitution::printLeft(_DWORD *a1,
     {
       if (2 * v18 <= (v17 + 992))
       {
-        v19 = (v17 + 992);
+        v19 = v17 + 992;
       }
 
       else
       {
-        v19 = 2 * v18;
+        v19 = (2 * v18);
       }
 
       a2[2] = v19;
@@ -3819,7 +3819,7 @@ char *llvm::itanium_demangle::ExpandedSpecialSubstitution::printLeft(_DWORD *a1,
   v22 = a2[2];
   if ((v21 + 29) > v22)
   {
-    v23 = (v21 + 1021);
+    v23 = v21 + 1021;
     v24 = 2 * v22;
     if (v24 <= v23)
     {
@@ -3844,7 +3844,7 @@ char *llvm::itanium_demangle::ExpandedSpecialSubstitution::printLeft(_DWORD *a1,
 
   qmemcpy(&v21[v20], "<char, std::char_traits<char>", 29);
   v26 = a2[1];
-  v27 = (v26 + 29);
+  v27 = v26 + 29;
   a2[1] = v26 + 29;
   if (a1[3] == 2)
   {
@@ -3854,12 +3854,12 @@ char *llvm::itanium_demangle::ExpandedSpecialSubstitution::printLeft(_DWORD *a1,
     {
       if (2 * v28 <= (v26 + 1043))
       {
-        v30 = (v26 + 1043);
+        v30 = v26 + 1043;
       }
 
       else
       {
-        v30 = 2 * v28;
+        v30 = (2 * v28);
       }
 
       a2[2] = v30;
@@ -3873,14 +3873,14 @@ char *llvm::itanium_demangle::ExpandedSpecialSubstitution::printLeft(_DWORD *a1,
       v27 = a2[1];
     }
 
-    qmemcpy(&v29[v27], ", std::allocator<char>", 22);
-    v27 = (a2[1] + 22);
+    qmemcpy(&v27[v29], ", std::allocator<char>", 22);
+    v27 = a2[1] + 22;
     a2[1] = v27;
   }
 
   v31 = a2[2];
   result = *a2;
-  if (v27 + 1 > v31)
+  if ((v27 + 1) > v31)
   {
     v32 = v27 + 993;
     v33 = 2 * v31;
@@ -3908,7 +3908,7 @@ LABEL_38:
   }
 
 LABEL_36:
-  result[v27] = 62;
+  v27[result] = 62;
   ++a2[1];
   return result;
 }
@@ -3921,7 +3921,7 @@ char *llvm::itanium_demangle::AbiTagAttr::printLeft(uint64_t a1, char **a2)
   v6 = a2[2];
   if ((v5 + 5) > v6)
   {
-    v7 = (v5 + 997);
+    v7 = v5 + 997;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -3947,25 +3947,25 @@ char *llvm::itanium_demangle::AbiTagAttr::printLeft(uint64_t a1, char **a2)
   v10 = &v5[v4];
   v10[4] = 58;
   *v10 = 1768055131;
-  v11 = (a2[1] + 5);
+  v11 = a2[1] + 5;
   a2[1] = v11;
   v12 = *(a1 + 32);
   if (v12)
   {
     v13 = *(a1 + 24);
-    v14 = v11 + v12;
+    v14 = &v11[v12];
     v15 = a2[2];
     v16 = *a2;
-    if (v11 + v12 > v15)
+    if (&v11[v12] > v15)
     {
-      if (2 * v15 <= v14 + 992)
+      if (2 * v15 <= (v14 + 992))
       {
         v17 = v14 + 992;
       }
 
       else
       {
-        v17 = 2 * v15;
+        v17 = (2 * v15);
       }
 
       a2[2] = v17;
@@ -3979,14 +3979,14 @@ char *llvm::itanium_demangle::AbiTagAttr::printLeft(uint64_t a1, char **a2)
       v11 = a2[1];
     }
 
-    memcpy(&v16[v11], v13, v12);
+    memcpy(&v11[v16], v13, v12);
     v11 = &a2[1][v12];
     a2[1] = v11;
   }
 
   v18 = a2[2];
   result = *a2;
-  if (v11 + 1 > v18)
+  if ((v11 + 1) > v18)
   {
     v20 = v11 + 993;
     v21 = 2 * v18;
@@ -4014,21 +4014,21 @@ LABEL_22:
   }
 
 LABEL_21:
-  result[v11] = 93;
+  v11[result] = 93;
   ++a2[1];
   return result;
 }
 
-char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, uint64_t a2)
+char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, char **a2)
 {
-  ++*(a2 + 32);
+  ++*(a2 + 8);
   v4 = *a2;
-  v5 = *(a2 + 8);
+  v5 = a2[1];
   v6 = v5 + 1;
-  v7 = *(a2 + 16);
-  if (v5 + 1 > v7)
+  v7 = a2[2];
+  if ((v5 + 1) > v7)
   {
-    v8 = v5 + 993;
+    v8 = (v5 + 993);
     if (2 * v7 <= v8)
     {
       v9 = v8;
@@ -4039,7 +4039,7 @@ char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, uint
       v9 = 2 * v7;
     }
 
-    *(a2 + 16) = v9;
+    a2[2] = v9;
     v4 = malloc_type_realloc(v4, v9, 0x100004077774924uLL);
     *a2 = v4;
     if (!v4)
@@ -4047,13 +4047,13 @@ char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, uint
       goto LABEL_28;
     }
 
-    v5 = *(a2 + 8);
+    v5 = a2[1];
     v6 = v5 + 1;
   }
 
-  *(a2 + 8) = v6;
-  v4[v5] = 91;
-  v10 = *(a2 + 8);
+  a2[1] = v6;
+  v5[v4] = 91;
+  v10 = a2[1];
   if (*(a1 + 24))
   {
     v11 = 0;
@@ -4063,7 +4063,7 @@ char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, uint
       v13 = v10;
       if ((v12 & 1) == 0)
       {
-        v14 = *(a2 + 16);
+        v14 = a2[2];
         v15 = *a2;
         if (v10 + 2 <= v14)
         {
@@ -4083,7 +4083,7 @@ char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, uint
             v17 = v16;
           }
 
-          *(a2 + 16) = v17;
+          a2[2] = v17;
           v15 = malloc_type_realloc(v15, v17, 0x100004077774924uLL);
           *a2 = v15;
           if (!v15)
@@ -4091,18 +4091,18 @@ char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, uint
             goto LABEL_28;
           }
 
-          v18 = *(a2 + 8);
+          v18 = a2[1];
         }
 
         *&v15[v18] = 8236;
-        v13 = *(a2 + 8) + 2;
-        *(a2 + 8) = v13;
+        v13 = (a2[1] + 2);
+        a2[1] = v13;
       }
 
       llvm::itanium_demangle::Node::printAsOperand(*(*(a1 + 16) + 8 * v11), a2, 18, 0);
-      if (v13 == *(a2 + 8))
+      if (v13 == a2[1])
       {
-        *(a2 + 8) = v10;
+        a2[1] = v10;
         if (++v11 == *(a1 + 24))
         {
           break;
@@ -4112,7 +4112,7 @@ char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, uint
       else
       {
         v12 = 0;
-        v10 = *(a2 + 8);
+        v10 = a2[1];
         if (++v11 == *(a1 + 24))
         {
           break;
@@ -4121,9 +4121,9 @@ char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, uint
     }
   }
 
-  --*(a2 + 32);
+  --*(a2 + 8);
   v19 = v10 + 1;
-  v20 = *(a2 + 16);
+  v20 = a2[2];
   result = *a2;
   if (v10 + 1 > v20)
   {
@@ -4138,12 +4138,12 @@ char *llvm::itanium_demangle::StructuredBindingName::printLeft(uint64_t a1, uint
       v23 = v22;
     }
 
-    *(a2 + 16) = v23;
+    a2[2] = v23;
     result = malloc_type_realloc(result, v23, 0x100004077774924uLL);
     *a2 = result;
     if (result)
     {
-      v10 = *(a2 + 8);
+      v10 = a2[1];
       v19 = v10 + 1;
       goto LABEL_27;
     }
@@ -4153,7 +4153,7 @@ LABEL_28:
   }
 
 LABEL_27:
-  *(a2 + 8) = v19;
+  a2[1] = v19;
   result[v10] = 93;
   return result;
 }
@@ -4233,12 +4233,12 @@ void *llvm::itanium_demangle::CtorDtorName::printLeft(uint64_t a1, char **a2)
       v7 = v3;
       if (2 * v6 <= (v5 + 993))
       {
-        v8 = (v5 + 993);
+        v8 = v5 + 993;
       }
 
       else
       {
-        v8 = 2 * v6;
+        v8 = (2 * v6);
       }
 
       a2[2] = v8;
@@ -4273,12 +4273,12 @@ void *llvm::itanium_demangle::CtorDtorName::printLeft(uint64_t a1, char **a2)
   {
     if (2 * v16 <= (v15 + 992))
     {
-      v17 = (v15 + 992);
+      v17 = v15 + 992;
     }
 
     else
     {
-      v17 = 2 * v16;
+      v17 = (2 * v16);
     }
 
     a2[2] = v17;
@@ -4366,7 +4366,7 @@ uint64_t llvm::itanium_demangle::MemberLikeFriendName::printLeft(uint64_t a1, ch
   v7 = a2[2];
   if ((v6 + 9) > v7)
   {
-    v8 = (v6 + 1001);
+    v8 = v6 + 1001;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -4419,7 +4419,7 @@ uint64_t llvm::itanium_demangle::NestedName::printLeft(uint64_t a1, char **a2)
   v7 = a2[2];
   if ((v6 + 2) > v7)
   {
-    v8 = (v6 + 994);
+    v8 = v6 + 994;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -4501,7 +4501,7 @@ uint64_t llvm::itanium_demangle::LocalName::printLeft(uint64_t a1, char **a2)
   v7 = a2[2];
   if ((v6 + 2) > v7)
   {
-    v8 = (v6 + 994);
+    v8 = v6 + 994;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -4721,16 +4721,16 @@ uint64_t llvm::itanium_demangle::ParameterPack::printRight(uint64_t result, uint
   return result;
 }
 
-char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, uint64_t a2)
+char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, char **a2)
 {
-  v4 = *(a2 + 32);
-  *(a2 + 32) = 0;
+  v4 = *(a2 + 8);
+  *(a2 + 8) = 0;
   v5 = *a2;
-  v6 = *(a2 + 8);
-  v7 = *(a2 + 16);
-  if (v6 + 1 > v7)
+  v6 = a2[1];
+  v7 = a2[2];
+  if ((v6 + 1) > v7)
   {
-    v8 = v6 + 993;
+    v8 = (v6 + 993);
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -4742,7 +4742,7 @@ char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, uint64_t a2)
       v10 = v9;
     }
 
-    *(a2 + 16) = v10;
+    a2[2] = v10;
     v5 = malloc_type_realloc(v5, v10, 0x100004077774924uLL);
     *a2 = v5;
     if (!v5)
@@ -4750,12 +4750,12 @@ char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, uint64_t a2)
       goto LABEL_28;
     }
 
-    v6 = *(a2 + 8);
+    v6 = a2[1];
   }
 
-  v5[v6] = 60;
-  v11 = *(a2 + 8) + 1;
-  *(a2 + 8) = v11;
+  v6[v5] = 60;
+  v11 = (a2[1] + 1);
+  a2[1] = v11;
   if (*(a1 + 24))
   {
     v12 = 0;
@@ -4765,7 +4765,7 @@ char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, uint64_t a2)
       v14 = v11;
       if ((v13 & 1) == 0)
       {
-        v15 = *(a2 + 16);
+        v15 = a2[2];
         v16 = *a2;
         if (v11 + 2 <= v15)
         {
@@ -4785,7 +4785,7 @@ char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, uint64_t a2)
             v18 = v17;
           }
 
-          *(a2 + 16) = v18;
+          a2[2] = v18;
           v16 = malloc_type_realloc(v16, v18, 0x100004077774924uLL);
           *a2 = v16;
           if (!v16)
@@ -4793,18 +4793,18 @@ char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, uint64_t a2)
             goto LABEL_28;
           }
 
-          v19 = *(a2 + 8);
+          v19 = a2[1];
         }
 
         *&v16[v19] = 8236;
-        v14 = *(a2 + 8) + 2;
-        *(a2 + 8) = v14;
+        v14 = (a2[1] + 2);
+        a2[1] = v14;
       }
 
       llvm::itanium_demangle::Node::printAsOperand(*(*(a1 + 16) + 8 * v12), a2, 18, 0);
-      if (v14 == *(a2 + 8))
+      if (v14 == a2[1])
       {
-        *(a2 + 8) = v11;
+        a2[1] = v11;
         if (++v12 == *(a1 + 24))
         {
           break;
@@ -4814,7 +4814,7 @@ char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, uint64_t a2)
       else
       {
         v13 = 0;
-        v11 = *(a2 + 8);
+        v11 = a2[1];
         if (++v12 == *(a1 + 24))
         {
           break;
@@ -4823,7 +4823,7 @@ char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, uint64_t a2)
     }
   }
 
-  v20 = *(a2 + 16);
+  v20 = a2[2];
   result = *a2;
   if (v11 + 1 > v20)
   {
@@ -4838,12 +4838,12 @@ char *llvm::itanium_demangle::TemplateArgs::printLeft(uint64_t a1, uint64_t a2)
       v23 = v22;
     }
 
-    *(a2 + 16) = v23;
+    a2[2] = v23;
     result = malloc_type_realloc(result, v23, 0x100004077774924uLL);
     *a2 = result;
     if (result)
     {
-      v11 = *(a2 + 8);
+      v11 = a2[1];
       goto LABEL_27;
     }
 
@@ -4853,8 +4853,8 @@ LABEL_28:
 
 LABEL_27:
   result[v11] = 62;
-  ++*(a2 + 8);
-  *(a2 + 32) = v4;
+  ++a2[1];
+  *(a2 + 8) = v4;
   return result;
 }
 
@@ -4896,7 +4896,7 @@ void *llvm::itanium_demangle::TemplateArgumentPack::printLeft(void *result, char
         {
           v8 = a2[2];
           v9 = *a2;
-          if (v5 + 2 <= v8)
+          if ((v5 + 2) <= v8)
           {
             v12 = v5;
           }
@@ -4904,7 +4904,7 @@ void *llvm::itanium_demangle::TemplateArgumentPack::printLeft(void *result, char
           else
           {
             v10 = 2 * v8;
-            if (v10 <= v5 + 994)
+            if (v10 <= (v5 + 994))
             {
               v11 = v5 + 994;
             }
@@ -4925,8 +4925,8 @@ void *llvm::itanium_demangle::TemplateArgumentPack::printLeft(void *result, char
             v12 = a2[1];
           }
 
-          *&v9[v12] = 8236;
-          v7 = (a2[1] + 2);
+          *&v12[v9] = 8236;
+          v7 = a2[1] + 2;
           a2[1] = v7;
         }
 
@@ -4975,7 +4975,7 @@ void *llvm::itanium_demangle::EnableIfAttr::printLeft(uint64_t a1, void **a2)
   v6 = a2[2];
   if ((v5 + 12) > v6)
   {
-    v7 = (v5 + 1004);
+    v7 = v5 + 1004;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -5014,7 +5014,7 @@ void *llvm::itanium_demangle::EnableIfAttr::printLeft(uint64_t a1, void **a2)
       {
         v15 = a2[2];
         v16 = *a2;
-        if (v11 + 2 <= v15)
+        if ((v11 + 2) <= v15)
         {
           v19 = v11;
         }
@@ -5022,7 +5022,7 @@ void *llvm::itanium_demangle::EnableIfAttr::printLeft(uint64_t a1, void **a2)
         else
         {
           v17 = 2 * v15;
-          if (v17 <= v11 + 994)
+          if (v17 <= (v11 + 994))
           {
             v18 = v11 + 994;
           }
@@ -5043,7 +5043,7 @@ void *llvm::itanium_demangle::EnableIfAttr::printLeft(uint64_t a1, void **a2)
           v19 = a2[1];
         }
 
-        *&v16[v19] = 8236;
+        *&v19[v16] = 8236;
         v14 = a2[1] + 2;
         a2[1] = v14;
       }
@@ -5073,10 +5073,10 @@ void *llvm::itanium_demangle::EnableIfAttr::printLeft(uint64_t a1, void **a2)
   v20 = v11 + 1;
   v21 = a2[2];
   result = *a2;
-  if (v11 + 1 > v21)
+  if ((v11 + 1) > v21)
   {
     v23 = 2 * v21;
-    if (v23 <= v11 + 993)
+    if (v23 <= (v11 + 993))
     {
       v24 = v11 + 993;
     }
@@ -5102,7 +5102,7 @@ LABEL_28:
 
 LABEL_27:
   a2[1] = v20;
-  *(result + v11) = 93;
+  v11[result] = 93;
   return result;
 }
 
@@ -5113,7 +5113,7 @@ uint64_t llvm::itanium_demangle::ExplicitObjectParameter::printLeft(uint64_t a1,
   v6 = a2[2];
   if ((v5 + 5) > v6)
   {
-    v7 = (v5 + 997);
+    v7 = v5 + 997;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -5218,16 +5218,16 @@ LABEL_13:
   return result;
 }
 
-char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t a2)
+uint64_t llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, char **a2)
 {
-  ++*(a2 + 32);
+  ++*(a2 + 8);
   v4 = *a2;
-  v5 = *(a2 + 8);
+  v5 = a2[1];
   v6 = v5 + 1;
-  v7 = *(a2 + 16);
-  if (v5 + 1 > v7)
+  v7 = a2[2];
+  if ((v5 + 1) > v7)
   {
-    v8 = v5 + 993;
+    v8 = (v5 + 993);
     if (2 * v7 <= v8)
     {
       v9 = v8;
@@ -5238,7 +5238,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
       v9 = 2 * v7;
     }
 
-    *(a2 + 16) = v9;
+    a2[2] = v9;
     v4 = malloc_type_realloc(v4, v9, 0x100004077774924uLL);
     *a2 = v4;
     if (!v4)
@@ -5246,13 +5246,13 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
       goto LABEL_85;
     }
 
-    v5 = *(a2 + 8);
+    v5 = a2[1];
     v6 = v5 + 1;
   }
 
-  *(a2 + 8) = v6;
-  v4[v5] = 40;
-  v10 = *(a2 + 8);
+  a2[1] = v6;
+  v5[v4] = 40;
+  v10 = a2[1];
   if (*(a1 + 40))
   {
     v11 = 0;
@@ -5262,7 +5262,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
       v13 = v10;
       if ((v12 & 1) == 0)
       {
-        v14 = *(a2 + 16);
+        v14 = a2[2];
         v15 = *a2;
         if (v10 + 2 <= v14)
         {
@@ -5282,7 +5282,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
             v17 = v16;
           }
 
-          *(a2 + 16) = v17;
+          a2[2] = v17;
           v15 = malloc_type_realloc(v15, v17, 0x100004077774924uLL);
           *a2 = v15;
           if (!v15)
@@ -5290,18 +5290,18 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
             goto LABEL_85;
           }
 
-          v18 = *(a2 + 8);
+          v18 = a2[1];
         }
 
         *&v15[v18] = 8236;
-        v13 = *(a2 + 8) + 2;
-        *(a2 + 8) = v13;
+        v13 = (a2[1] + 2);
+        a2[1] = v13;
       }
 
       llvm::itanium_demangle::Node::printAsOperand(*(*(a1 + 32) + 8 * v11), a2, 18, 0);
-      if (v13 == *(a2 + 8))
+      if (v13 == a2[1])
       {
-        *(a2 + 8) = v10;
+        a2[1] = v10;
         if (++v11 == *(a1 + 40))
         {
           break;
@@ -5311,7 +5311,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
       else
       {
         v12 = 0;
-        v10 = *(a2 + 8);
+        v10 = a2[1];
         if (++v11 == *(a1 + 40))
         {
           break;
@@ -5320,9 +5320,9 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
     }
   }
 
-  --*(a2 + 32);
+  --*(a2 + 8);
   v19 = v10 + 1;
-  v20 = *(a2 + 16);
+  v20 = a2[2];
   v21 = *a2;
   if (v10 + 1 > v20)
   {
@@ -5337,7 +5337,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
       v23 = v22;
     }
 
-    *(a2 + 16) = v23;
+    a2[2] = v23;
     v21 = malloc_type_realloc(v21, v23, 0x100004077774924uLL);
     *a2 = v21;
     if (!v21)
@@ -5345,11 +5345,11 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
       goto LABEL_85;
     }
 
-    v10 = *(a2 + 8);
+    v10 = a2[1];
     v19 = v10 + 1;
   }
 
-  *(a2 + 8) = v19;
+  a2[1] = v19;
   v21[v10] = 41;
   result = *(a1 + 16);
   if (result)
@@ -5361,11 +5361,11 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
   if (v25)
   {
     result = *a2;
-    v26 = *(a2 + 8);
-    v27 = *(a2 + 16);
-    if (v26 + 6 > v27)
+    v26 = a2[1];
+    v27 = a2[2];
+    if ((v26 + 6) > v27)
     {
-      v28 = v26 + 998;
+      v28 = (v26 + 998);
       v29 = 2 * v27;
       if (v29 <= v28)
       {
@@ -5377,7 +5377,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         v30 = v29;
       }
 
-      *(a2 + 16) = v30;
+      a2[2] = v30;
       result = malloc_type_realloc(result, v30, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -5385,24 +5385,24 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         goto LABEL_85;
       }
 
-      v26 = *(a2 + 8);
+      v26 = a2[1];
     }
 
-    v31 = &result[v26];
+    v31 = &v26[result];
     *(v31 + 2) = 29811;
     *v31 = 1852793632;
-    *(a2 + 8) += 6;
+    a2[1] += 6;
     v25 = *(a1 + 64);
   }
 
   if ((v25 & 2) != 0)
   {
     result = *a2;
-    v32 = *(a2 + 8);
-    v33 = *(a2 + 16);
-    if (v32 + 9 > v33)
+    v32 = a2[1];
+    v33 = a2[2];
+    if ((v32 + 9) > v33)
     {
-      v34 = v32 + 1001;
+      v34 = (v32 + 1001);
       v35 = 2 * v33;
       if (v35 <= v34)
       {
@@ -5414,7 +5414,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         v36 = v35;
       }
 
-      *(a2 + 16) = v36;
+      a2[2] = v36;
       result = malloc_type_realloc(result, v36, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -5422,24 +5422,24 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         goto LABEL_85;
       }
 
-      v32 = *(a2 + 8);
+      v32 = a2[1];
     }
 
-    v37 = &result[v32];
+    v37 = &v32[result];
     *v37 = *" volatile";
     v37[8] = 101;
-    *(a2 + 8) += 9;
+    a2[1] += 9;
     v25 = *(a1 + 64);
   }
 
   if ((v25 & 4) != 0)
   {
     result = *a2;
-    v38 = *(a2 + 8);
-    v39 = *(a2 + 16);
-    if (v38 + 9 > v39)
+    v38 = a2[1];
+    v39 = a2[2];
+    if ((v38 + 9) > v39)
     {
-      v40 = v38 + 1001;
+      v40 = (v38 + 1001);
       v41 = 2 * v39;
       if (v41 <= v40)
       {
@@ -5451,7 +5451,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         v42 = v41;
       }
 
-      *(a2 + 16) = v42;
+      a2[2] = v42;
       result = malloc_type_realloc(result, v42, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -5459,24 +5459,24 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         goto LABEL_85;
       }
 
-      v38 = *(a2 + 8);
+      v38 = a2[1];
     }
 
-    v43 = &result[v38];
+    v43 = &v38[result];
     *v43 = *" restrict";
     v43[8] = 116;
-    *(a2 + 8) += 9;
+    a2[1] += 9;
   }
 
   v44 = *(a1 + 68);
   if (v44 == 2)
   {
     result = *a2;
-    v51 = *(a2 + 8);
-    v52 = *(a2 + 16);
-    if (v51 + 3 > v52)
+    v51 = a2[1];
+    v52 = a2[2];
+    if ((v51 + 3) > v52)
     {
-      v53 = v51 + 995;
+      v53 = (v51 + 995);
       v54 = 2 * v52;
       if (v54 <= v53)
       {
@@ -5488,7 +5488,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         v55 = v54;
       }
 
-      *(a2 + 16) = v55;
+      a2[2] = v55;
       result = malloc_type_realloc(result, v55, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -5496,10 +5496,10 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         goto LABEL_85;
       }
 
-      v51 = *(a2 + 8);
+      v51 = a2[1];
     }
 
-    v56 = &result[v51];
+    v56 = &v51[result];
     v56[2] = 38;
     *v56 = 9760;
     v50 = 3;
@@ -5509,11 +5509,11 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
   if (v44 == 1)
   {
     result = *a2;
-    v45 = *(a2 + 8);
-    v46 = *(a2 + 16);
-    if (v45 + 2 > v46)
+    v45 = a2[1];
+    v46 = a2[2];
+    if ((v45 + 2) > v46)
     {
-      v47 = v45 + 994;
+      v47 = (v45 + 994);
       v48 = 2 * v46;
       if (v48 <= v47)
       {
@@ -5525,7 +5525,7 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         v49 = v48;
       }
 
-      *(a2 + 16) = v49;
+      a2[2] = v49;
       result = malloc_type_realloc(result, v49, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -5533,13 +5533,13 @@ char *llvm::itanium_demangle::FunctionEncoding::printRight(uint64_t a1, uint64_t
         goto LABEL_85;
       }
 
-      v45 = *(a2 + 8);
+      v45 = a2[1];
     }
 
-    *&result[v45] = 9760;
+    *&v45[result] = 9760;
     v50 = 2;
 LABEL_69:
-    *(a2 + 8) += v50;
+    a2[1] += v50;
   }
 
   v57 = *(a1 + 48);
@@ -5555,14 +5555,14 @@ LABEL_69:
   if (*(a1 + 56))
   {
     v58 = *a2;
-    v59 = *(a2 + 8);
-    v60 = *(a2 + 16);
-    if (v59 + 10 <= v60)
+    v59 = a2[1];
+    v60 = a2[2];
+    if ((v59 + 10) <= v60)
     {
       goto LABEL_80;
     }
 
-    v61 = v59 + 1002;
+    v61 = (v59 + 1002);
     v62 = 2 * v60;
     if (v62 <= v61)
     {
@@ -5574,17 +5574,17 @@ LABEL_69:
       v63 = v62;
     }
 
-    *(a2 + 16) = v63;
+    a2[2] = v63;
     v58 = malloc_type_realloc(v58, v63, 0x100004077774924uLL);
     *a2 = v58;
     if (v58)
     {
-      v59 = *(a2 + 8);
+      v59 = a2[1];
 LABEL_80:
-      v64 = &v58[v59];
+      v64 = &v59[v58];
       *v64 = *" requires ";
       *(v64 + 4) = 8307;
-      *(a2 + 8) += 10;
+      a2[1] += 10;
       v65 = *(a1 + 56);
       result = (*(*v65 + 32))(v65, a2);
       if ((*(v65 + 9) & 0xC0) != 0x40)
@@ -5618,7 +5618,7 @@ char *llvm::itanium_demangle::DotSuffix::printLeft(void *a1, char **a2)
   v7 = a2[2];
   if ((v6 + 2) > v7)
   {
-    v8 = (v6 + 994);
+    v8 = v6 + 994;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -5642,25 +5642,25 @@ char *llvm::itanium_demangle::DotSuffix::printLeft(void *a1, char **a2)
   }
 
   *&v6[v5] = 10272;
-  v11 = (a2[1] + 2);
+  v11 = a2[1] + 2;
   a2[1] = v11;
   v12 = a1[4];
   if (v12)
   {
     v13 = a1[3];
-    v14 = v11 + v12;
+    v14 = &v11[v12];
     v15 = a2[2];
     v16 = *a2;
-    if (v11 + v12 > v15)
+    if (&v11[v12] > v15)
     {
-      if (2 * v15 <= v14 + 992)
+      if (2 * v15 <= (v14 + 992))
       {
         v17 = v14 + 992;
       }
 
       else
       {
-        v17 = 2 * v15;
+        v17 = (2 * v15);
       }
 
       a2[2] = v17;
@@ -5674,14 +5674,14 @@ char *llvm::itanium_demangle::DotSuffix::printLeft(void *a1, char **a2)
       v11 = a2[1];
     }
 
-    memcpy(&v16[v11], v13, v12);
+    memcpy(&v11[v16], v13, v12);
     v11 = &a2[1][v12];
     a2[1] = v11;
   }
 
   v18 = a2[2];
   result = *a2;
-  if (v11 + 1 > v18)
+  if ((v11 + 1) > v18)
   {
     v20 = v11 + 993;
     v21 = 2 * v18;
@@ -5709,12 +5709,12 @@ LABEL_24:
   }
 
 LABEL_23:
-  result[v11] = 41;
+  v11[result] = 41;
   ++a2[1];
   return result;
 }
 
-void llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::ManglingParser<anonymous namespace::DefaultAllocator>,anonymous namespace::DefaultAllocator>::parseFunctionType(void *a1, size_t a2)
+void llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::ManglingParser<anonymous namespace::DefaultAllocator>,anonymous namespace::DefaultAllocator>::parseFunctionType(unsigned __int8 **a1, unsigned __int8 *a2)
 {
   v4 = *a1;
   v3 = a1[1];
@@ -5760,30 +5760,30 @@ LABEL_12:
   if (*v4 == 28484)
   {
     *a1 = v4 + 2;
-    v19 = a1[613];
-    v20 = v19[1];
-    if ((v20 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
+    v18 = a1[613];
+    v19 = *(v18 + 1);
+    if ((v19 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
     {
-      v19 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-      if (!v19)
+      v18 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+      if (!v18)
       {
         goto LABEL_84;
       }
 
-      v20 = 0;
-      *v19 = a1[613];
-      v19[1] = 0;
-      a1[613] = v19;
+      v19 = 0;
+      *v18 = a1[613];
+      *(v18 + 1) = 0;
+      a1[613] = v18;
     }
 
-    v19[1] = v20 + 32;
-    v21 = v19 + v20;
-    v6 = v21 + 16;
-    v21[24] = 8;
-    *(v21 + 25) = *(v21 + 25) & 0xF000 | 0x540;
-    *(v21 + 2) = &unk_2868A4798;
-    *(v21 + 4) = "noexcept";
-    *(v21 + 5) = 8;
+    *(v18 + 1) = v19 + 32;
+    v20 = &v18[v19];
+    v6 = (v20 + 16);
+    v20[24] = 8;
+    *(v20 + 25) = *(v20 + 25) & 0xF000 | 0x540;
+    *(v20 + 2) = &unk_2868A4798;
+    *(v20 + 4) = "noexcept";
+    *(v20 + 5) = 8;
     goto LABEL_33;
   }
 
@@ -5794,7 +5794,7 @@ LABEL_12:
       v7 = v4 + 2;
       *a1 = v7;
       v8 = (a1[3] - a1[2]) >> 3;
-      v9 = a1 + 5;
+      v9 = (a1 + 5);
       while (v7 == v3 || *v7 != 69)
       {
         if (!v12)
@@ -5817,13 +5817,13 @@ LABEL_83:
               abort();
             }
 
-            v16 = a1[2];
-            v17 = a1[3];
-            if (v17 != v16)
+            a2 = a1[2];
+            v16 = a1[3];
+            if (v16 != a2)
             {
-              v18 = v10;
-              memmove(v10, v16, v17 - v16);
-              v10 = v18;
+              v17 = v10;
+              memmove(v10, a2, v16 - a2);
+              v10 = v17;
             }
 
             a1[2] = v10;
@@ -5845,37 +5845,37 @@ LABEL_83:
         }
 
         *v11 = v12;
-        a1[3] = v11 + 1;
+        a1[3] = v11 + 8;
         v7 = *a1;
         v3 = a1[1];
       }
 
       *a1 = v7 + 1;
-      v54 = v53;
-      v55 = a1[613];
-      v56 = v55[1];
-      if ((v56 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
+      v52 = a2;
+      v53 = a1[613];
+      v54 = *(v53 + 1);
+      if ((v54 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
       {
-        v55 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-        if (!v55)
+        v53 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+        if (!v53)
         {
           goto LABEL_84;
         }
 
-        v56 = 0;
-        *v55 = a1[613];
-        v55[1] = 0;
-        a1[613] = v55;
+        v54 = 0;
+        *v53 = a1[613];
+        *(v53 + 1) = 0;
+        a1[613] = v53;
       }
 
-      v55[1] = v56 + 32;
-      v57 = v55 + v56;
-      v6 = v57 + 16;
-      v57[24] = 18;
-      *(v57 + 25) = *(v57 + 25) & 0xF000 | 0x540;
-      *(v57 + 2) = &unk_2868A6868;
-      *(v57 + 4) = v52;
-      *(v57 + 5) = v54;
+      *(v53 + 1) = v54 + 32;
+      v55 = &v53[v54];
+      v6 = (v55 + 16);
+      v55[24] = 18;
+      *(v55 + 25) = *(v55 + 25) & 0xF000 | 0x540;
+      *(v55 + 2) = &unk_2868A6868;
+      *(v55 + 4) = v51;
+      *(v55 + 5) = v52;
       goto LABEL_33;
     }
 
@@ -5883,74 +5883,74 @@ LABEL_83:
   }
 
   *a1 = v4 + 2;
-  if (!v37)
+  if (!v36)
   {
     return;
   }
 
-  v38 = *a1;
-  if (*a1 == a1[1] || *v38 != 69)
+  v37 = *a1;
+  if (*a1 == a1[1] || *v37 != 69)
   {
     return;
   }
 
-  *a1 = v38 + 1;
-  v39 = a1[613];
-  v40 = v39[1];
-  if ((v40 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
+  *a1 = v37 + 1;
+  v38 = a1[613];
+  v39 = *(v38 + 1);
+  if ((v39 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
   {
-    v41 = v37;
-    v42 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-    if (!v42)
+    v40 = v36;
+    v41 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+    if (!v41)
     {
       goto LABEL_84;
     }
 
-    v39 = v42;
-    v40 = 0;
-    *v42 = a1[613];
-    v42[1] = 0;
-    a1[613] = v42;
-    v37 = v41;
+    v38 = v41;
+    v39 = 0;
+    *v41 = a1[613];
+    *(v41 + 1) = 0;
+    a1[613] = v41;
+    v36 = v40;
   }
 
-  v39[1] = v40 + 32;
-  v43 = v39 + v40;
-  v6 = v43 + 16;
-  v43[24] = 17;
-  *(v43 + 25) = *(v43 + 25) & 0xF000 | 0x540;
-  *(v43 + 2) = &unk_2868A67F0;
-  *(v43 + 4) = v37;
+  *(v38 + 1) = v39 + 32;
+  v42 = &v38[v39];
+  v6 = (v42 + 16);
+  v42[24] = 17;
+  *(v42 + 25) = *(v42 + 25) & 0xF000 | 0x540;
+  *(v42 + 2) = &unk_2868A67F0;
+  *(v42 + 4) = v36;
 LABEL_33:
-  v22 = *a1;
-  v23 = a1[1];
-  if (&v23[-*a1] >= 2 && *v22 == 30788)
+  v21 = *a1;
+  v22 = a1[1];
+  if ((v22 - *a1) >= 2 && *v21 == 30788)
   {
-    v22 += 2;
-    *a1 = v22;
-    if (v22 == v23)
+    v21 += 2;
+    *a1 = v21;
+    if (v21 == v22)
     {
       return;
     }
   }
 
-  else if (v22 == v23)
+  else if (v21 == v22)
   {
     return;
   }
 
-  if (*v22 == 70)
+  if (*v21 == 70)
   {
-    *a1 = v22 + 1;
-    if (v22 + 1 != v23 && v22[1] == 89)
+    *a1 = v21 + 1;
+    if (v21 + 1 != v22 && v21[1] == 89)
     {
-      *a1 = v22 + 2;
+      *a1 = v21 + 2;
     }
 
-    if (v24)
+    if (v23)
     {
-      v58 = v24;
-      v59 = (a1[3] - a1[2]) >> 3;
+      v56 = v23;
+      v57 = (a1[3] - a1[2]) >> 3;
       v25 = *a1;
       v26 = a1[1];
       if (*a1 != v26)
@@ -5969,15 +5969,15 @@ LABEL_46:
             {
               if (*v25 == 17746)
               {
-                v44 = 1;
-                v45 = 2;
+                v43 = 1;
+                v44 = 2;
                 goto LABEL_75;
               }
 
               if (*v25 == 17743)
               {
-                v45 = 2;
                 v44 = 2;
+                v43 = 2;
                 goto LABEL_75;
               }
             }
@@ -5994,7 +5994,7 @@ LABEL_46:
             }
 
             *v29 = v28;
-            a1[3] = v29 + 1;
+            a1[3] = v29 + 8;
             v25 = *a1;
             v26 = a1[1];
             if (*a1 != v26)
@@ -6006,7 +6006,7 @@ LABEL_46:
           v30 = v28;
           v31 = a1[2];
           v32 = v29 - v31;
-          if (v31 == (a1 + 5))
+          if (v31 == a1 + 5)
           {
             v33 = malloc_type_malloc(2 * (v29 - v31), 0x2004093837F09uLL);
             if (!v33)
@@ -6014,13 +6014,13 @@ LABEL_46:
               goto LABEL_83;
             }
 
-            v34 = a1[2];
-            v35 = a1[3];
-            if (v35 != v34)
+            v24 = a1[2];
+            v34 = a1[3];
+            if (v34 != v24)
             {
-              v36 = v33;
-              memmove(v33, v34, v35 - v34);
-              v33 = v36;
+              v35 = v33;
+              memmove(v33, v24, v34 - v24);
+              v33 = v35;
             }
 
             a1[2] = v33;
@@ -6064,37 +6064,37 @@ LABEL_44:
       }
 
       while (v27 != 69);
-      v44 = 0;
-      v45 = 1;
+      v43 = 0;
+      v44 = 1;
 LABEL_75:
-      *a1 = v25 + v45;
-      v48 = v47;
-      v49 = a1[613];
-      v50 = v49[1];
-      if ((v50 - 4016) > 0xFFFFFFFFFFFFF00FLL)
+      *a1 = &v25[v44];
+      v47 = v46;
+      v48 = a1[613];
+      v49 = *(v48 + 1);
+      if ((v49 - 4016) > 0xFFFFFFFFFFFFF00FLL)
       {
         goto LABEL_78;
       }
 
-      v49 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-      if (v49)
+      v48 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+      if (v48)
       {
-        v50 = 0;
-        *v49 = a1[613];
-        v49[1] = 0;
-        a1[613] = v49;
+        v49 = 0;
+        *v48 = a1[613];
+        *(v48 + 1) = 0;
+        a1[613] = v48;
 LABEL_78:
-        v49[1] = v50 + 64;
-        v51 = v49 + v50;
-        v51[24] = 16;
-        *(v51 + 25) = *(v51 + 25) & 0xF000 | 0x100;
-        *(v51 + 2) = &unk_2868A68E0;
-        *(v51 + 4) = v58;
-        *(v51 + 5) = v46;
-        *(v51 + 6) = v48;
-        *(v51 + 14) = v5;
-        v51[60] = v44;
-        *(v51 + 8) = v6;
+        *(v48 + 1) = v49 + 64;
+        v50 = &v48[v49];
+        v50[24] = 16;
+        *(v50 + 25) = *(v50 + 25) & 0xF000 | 0x100;
+        *(v50 + 2) = &unk_2868A68E0;
+        *(v50 + 4) = v56;
+        *(v50 + 5) = v45;
+        *(v50 + 6) = v47;
+        *(v50 + 14) = v5;
+        v50[60] = v43;
+        *(v50 + 8) = v6;
         return;
       }
 
@@ -6104,21 +6104,21 @@ LABEL_84:
   }
 }
 
-void llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::ManglingParser<anonymous namespace::DefaultAllocator>,anonymous namespace::DefaultAllocator>::parseQualifiedType(unsigned __int8 **a1)
+void llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::ManglingParser<anonymous namespace::DefaultAllocator>,anonymous namespace::DefaultAllocator>::parseQualifiedType(unsigned __int8 **a1, size_t a2)
 {
-  v3 = *a1;
-  v2 = a1[1];
-  if (*a1 == v2)
+  v4 = *a1;
+  v3 = a1[1];
+  if (*a1 == v3)
   {
     goto LABEL_7;
   }
 
-  v4 = *v3;
-  if (v4 == 114)
+  v5 = *v4;
+  if (v5 == 114)
   {
-    *a1 = ++v3;
-    v5 = 4;
-    if (v3 == v2)
+    *a1 = ++v4;
+    v6 = 4;
+    if (v4 == v3)
     {
       goto LABEL_12;
     }
@@ -6126,214 +6126,214 @@ void llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::Mang
     goto LABEL_10;
   }
 
-  if (v4 != 85)
+  if (v5 != 85)
   {
 LABEL_7:
-    v5 = 0;
-    if (v3 == v2)
+    v6 = 0;
+    if (v4 == v3)
     {
       goto LABEL_12;
     }
 
 LABEL_10:
-    if (*v3 == 86)
+    if (*v4 == 86)
     {
-      *a1 = ++v3;
-      v5 |= 2u;
+      *a1 = ++v4;
+      v6 |= 2u;
     }
 
 LABEL_12:
-    if (v3 != v2 && *v3 == 75)
+    if (v4 != v3 && *v4 == 75)
     {
-      *a1 = v3 + 1;
-      v5 |= 1u;
+      *a1 = v4 + 1;
+      v6 |= 1u;
     }
 
-    if (v6 && v5)
+    if (v7 && v6)
     {
-      v7 = a1[613];
-      v8 = *(v7 + 1);
-      if ((v8 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
+      v8 = a1[613];
+      v9 = *(v8 + 1);
+      if ((v9 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
       {
-        v9 = v6;
-        v10 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-        if (!v10)
+        v10 = v7;
+        v11 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+        if (!v11)
         {
           goto LABEL_57;
         }
 
+        v8 = v11;
+        v9 = 0;
+        *v11 = a1[613];
+        *(v11 + 1) = 0;
+        a1[613] = v11;
         v7 = v10;
-        v8 = 0;
-        *v10 = a1[613];
-        *(v10 + 1) = 0;
-        a1[613] = v10;
-        v6 = v9;
       }
 
-      *(v7 + 1) = v8 + 32;
-      v11 = &v7[v8];
-      v12 = *(v6 + 9);
-      v11[24] = 3;
-      *(v11 + 25) = *(v11 + 25) & 0xF000 | v12 & 0xFC0;
-      *(v11 + 2) = &unk_2868A6A48;
-      *(v11 + 7) = v5;
-      *(v11 + 4) = v6;
+      *(v8 + 1) = v9 + 32;
+      v12 = &v8[v9];
+      v13 = *(v7 + 9);
+      v12[24] = 3;
+      *(v12 + 25) = *(v12 + 25) & 0xF000 | v13 & 0xFC0;
+      *(v12 + 2) = &unk_2868A6A48;
+      *(v12 + 7) = v6;
+      *(v12 + 4) = v7;
       return;
     }
 
     return;
   }
 
-  *a1 = v3 + 1;
-  if (v2 != v3 + 1 && v3[1] - 58 >= 0xFFFFFFF6)
+  *a1 = v4 + 1;
+  if (v3 != v4 + 1 && v4[1] - 58 >= 0xFFFFFFF6)
   {
-    v13 = 0;
     v14 = 0;
+    v15 = 0;
     do
     {
-      v15 = v14;
-      v16 = v13;
-      v17 = &v3[v13];
-      v18 = &v3[v13 + 2];
-      *a1 = v18;
-      v19 = v3[v13 + 1];
-      v14 = v19 + 10 * v14 - 48;
-      if (v18 == v2)
+      v16 = v15;
+      v17 = v14;
+      v18 = &v4[v14];
+      v19 = &v4[v14 + 2];
+      *a1 = v19;
+      v20 = v4[v14 + 1];
+      v15 = v20 + 10 * v15 - 48;
+      if (v19 == v3)
       {
         break;
       }
 
-      ++v13;
+      ++v14;
     }
 
-    while (*v18 - 48 <= 9);
-    if (v2 - v3 - v16 - 2 >= v14)
+    while (*v19 - 48 <= 9);
+    if (v3 - v4 - v17 - 2 >= v15)
     {
-      v20 = &v3[10 * v15 - 46 + v16 + v19];
-      *a1 = v20;
-      if (v14)
+      v21 = &v4[10 * v16 - 46 + v17 + v20];
+      *a1 = v21;
+      if (v15)
       {
-        if (v14 >= 9 && (*(v17 + 2) == 0x746F7270636A626FLL ? (v21 = v17[10] == 111) : (v21 = 0), v21))
+        if (v15 >= 9 && (*(v18 + 2) == 0x746F7270636A626FLL ? (v22 = v18[10] == 111) : (v22 = 0), v22))
         {
-          v29 = &v3[v16 + 11];
-          v30 = &v3[10 * v15 - 46 + v16 + v19];
-          *a1 = v29;
-          a1[1] = v30;
-          if (v29 == v30 || *v29 - 58 < 0xFFFFFFF6)
+          v30 = &v4[v17 + 11];
+          v31 = &v4[10 * v16 - 46 + v17 + v20];
+          *a1 = v30;
+          a1[1] = v31;
+          if (v30 == v31 || *v30 - 58 < 0xFFFFFFF6)
           {
             goto LABEL_48;
           }
 
-          v31 = 0;
-          v32 = v17 + 12;
-          v33 = 10 * v15;
-          v34 = v33 + v19 - 58;
+          v32 = 0;
+          v33 = v18 + 12;
+          v34 = 10 * v16;
+          v35 = v34 + v20 - 58;
           while (1)
           {
-            *a1 = v32;
-            v31 = *(v32 - 1) + 10 * v31 - 48;
-            if (!v34)
+            *a1 = v33;
+            v32 = *(v33 - 1) + 10 * v32 - 48;
+            if (!v35)
             {
               break;
             }
 
-            v35 = v32 + 1;
-            v36 = *v32 - 48;
-            --v34;
-            ++v32;
-            if (v36 > 9)
+            v36 = v33 + 1;
+            v37 = *v33 - 48;
+            --v35;
+            ++v33;
+            if (v37 > 9)
             {
-              v30 = (v35 - 1);
+              v31 = v36 - 1;
               break;
             }
           }
 
-          if (&v3[v16 - 46 + v33 - v30 + v19] < v31)
+          if (&v4[v17 - 46 + v34 - v31 + v20] < v32)
           {
 LABEL_48:
-            *a1 = v20;
-            a1[1] = v2;
+            *a1 = v21;
+            a1[1] = v3;
             return;
           }
 
-          *a1 = v20;
-          a1[1] = v2;
-          if (v31)
+          *a1 = v21;
+          a1[1] = v3;
+          if (v32)
           {
-            if (v37)
+            if (v38)
             {
-              v38 = v37;
-              v39 = a1[613];
-              v40 = *(v39 + 1);
-              if ((v40 - 4032) <= 0xFFFFFFFFFFFFF00FLL)
+              v39 = v38;
+              v40 = a1[613];
+              v41 = *(v40 + 1);
+              if ((v41 - 4032) <= 0xFFFFFFFFFFFFF00FLL)
               {
-                v39 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-                if (!v39)
+                v40 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+                if (!v40)
                 {
                   goto LABEL_57;
                 }
 
-                v40 = 0;
-                *v39 = a1[613];
-                *(v39 + 1) = 0;
-                a1[613] = v39;
+                v41 = 0;
+                *v40 = a1[613];
+                *(v40 + 1) = 0;
+                a1[613] = v40;
               }
 
-              *(v39 + 1) = v40 + 48;
-              v41 = &v39[v40];
-              v41[24] = 11;
-              *(v41 + 25) = *(v41 + 25) & 0xF000 | 0x540;
-              *(v41 + 2) = &unk_2868A6958;
-              *(v41 + 4) = v38;
-              *(v41 + 5) = v30;
-              *(v41 + 6) = v31;
+              *(v40 + 1) = v41 + 48;
+              v42 = &v40[v41];
+              v42[24] = 11;
+              *(v42 + 25) = *(v42 + 25) & 0xF000 | 0x540;
+              *(v42 + 2) = &unk_2868A6958;
+              *(v42 + 4) = v39;
+              *(v42 + 5) = v31;
+              *(v42 + 6) = v32;
             }
           }
         }
 
         else
         {
-          if (v20 == v2 || *v20 != 73)
+          if (v21 == v3 || *v21 != 73)
           {
-            v23 = 0;
+            v24 = 0;
           }
 
           else
           {
-            v23 = v22;
-            if (!v22)
+            v24 = v23;
+            if (!v23)
             {
               return;
             }
           }
 
-          if (v24)
+          if (v25)
           {
-            v25 = v24;
-            v26 = a1[613];
-            v27 = *(v26 + 1);
-            if ((v27 - 4032) > 0xFFFFFFFFFFFFF00FLL)
+            v26 = v25;
+            v27 = a1[613];
+            v28 = *(v27 + 1);
+            if ((v28 - 4032) > 0xFFFFFFFFFFFFF00FLL)
             {
 LABEL_40:
-              *(v26 + 1) = v27 + 48;
-              v28 = &v26[v27];
-              v28[24] = 2;
-              *(v28 + 25) = *(v28 + 25) & 0xF000 | 0x540;
-              *(v28 + 2) = &unk_2868A69D0;
-              *(v28 + 4) = v25;
-              *(v28 + 5) = v18;
-              *(v28 + 6) = v14;
-              *(v28 + 7) = v23;
+              *(v27 + 1) = v28 + 48;
+              v29 = &v27[v28];
+              v29[24] = 2;
+              *(v29 + 25) = *(v29 + 25) & 0xF000 | 0x540;
+              *(v29 + 2) = &unk_2868A69D0;
+              *(v29 + 4) = v26;
+              *(v29 + 5) = v19;
+              *(v29 + 6) = v15;
+              *(v29 + 7) = v24;
               return;
             }
 
-            v26 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-            if (v26)
+            v27 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+            if (v27)
             {
-              v27 = 0;
-              *v26 = a1[613];
-              *(v26 + 1) = 0;
-              a1[613] = v26;
+              v28 = 0;
+              *v27 = a1[613];
+              *(v27 + 1) = 0;
+              a1[613] = v27;
               goto LABEL_40;
             }
 
@@ -6468,19 +6468,19 @@ __n128 llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::Ma
   return result;
 }
 
-void llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::ManglingParser<anonymous namespace::DefaultAllocator>,anonymous namespace::DefaultAllocator>::parseVectorType(void *a1, size_t a2)
+void llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::ManglingParser<anonymous namespace::DefaultAllocator>,anonymous namespace::DefaultAllocator>::parseVectorType(unsigned __int8 **a1, unsigned __int16 *a2)
 {
   v3 = *a1;
   v2 = a1[1];
-  if (&v2[-*a1] < 2 || *v3 != 30276)
+  if ((v2 - *a1) < 2 || *v3 != 30276)
   {
     return;
   }
 
-  v4 = v3 + 1;
-  *a1 = v3 + 1;
+  v4 = v3 + 2;
+  *a1 = v3 + 2;
   v5 = a1;
-  if (v2 == (v3 + 1) || *v4 < 49)
+  if (v2 == v3 + 2 || *v4 < 49)
   {
     goto LABEL_16;
   }
@@ -6497,7 +6497,7 @@ void llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::Mang
 
       v9 = v8;
       v10 = v5[613];
-      v11 = v10[1];
+      v11 = *(v10 + 1);
       if ((v11 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
       {
         v10 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
@@ -6508,12 +6508,12 @@ void llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::Mang
 
         v11 = 0;
         *v10 = v5[613];
-        v10[1] = 0;
+        *(v10 + 1) = 0;
         v5[613] = v10;
       }
 
-      v10[1] = v11 + 32;
-      v12 = v10 + v11;
+      *(v10 + 1) = v11 + 32;
+      v12 = &v10[v11];
       v12[24] = 29;
       *(v12 + 25) = *(v12 + 25) & 0xF000 | 0x540;
       *(v12 + 2) = &unk_2868A6D18;
@@ -6528,72 +6528,72 @@ LABEL_16:
       return;
     }
 
-    v14 = *v5;
+    v15 = *v5;
     if (*v5 == v5[1])
     {
       return;
     }
 
-    if (*v14 != 95)
+    if (*v15 != 95)
     {
       return;
     }
 
-    v15 = v13;
-    *v5 = v14 + 1;
-    if (!v16)
+    v16 = v13;
+    *v5 = v15 + 1;
+    if (!v17)
     {
       return;
     }
 
-    v17 = v16;
-    v18 = v5[613];
-    v19 = v18[1];
-    if ((v19 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
+    v18 = v17;
+    v19 = v5[613];
+    v20 = *(v19 + 1);
+    if ((v20 - 4048) <= 0xFFFFFFFFFFFFF00FLL)
     {
-      v18 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-      if (!v18)
+      v19 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+      if (!v19)
       {
         goto LABEL_40;
       }
 
-      v19 = 0;
-      *v18 = v5[613];
-      v18[1] = 0;
-      v5[613] = v18;
+      v20 = 0;
+      *v19 = v5[613];
+      *(v19 + 1) = 0;
+      v5[613] = v19;
     }
 
-    v18[1] = v19 + 32;
-    v20 = v18 + v19;
-    v20[24] = 29;
-    *(v20 + 25) = *(v20 + 25) & 0xF000 | 0x540;
-    *(v20 + 2) = &unk_2868A6D18;
-    *(v20 + 4) = v17;
-    *(v20 + 5) = v15;
+    *(v19 + 1) = v20 + 32;
+    v21 = &v19[v20];
+    v21[24] = 29;
+    *(v21 + 25) = *(v21 + 25) & 0xF000 | 0x540;
+    *(v21 + 2) = &unk_2868A6D18;
+    *(v21 + 4) = v18;
+    *(v21 + 5) = v16;
     return;
   }
 
   v6 = MEMORY[0x277D85DE0];
   if ((*(MEMORY[0x277D85DE0] + 4 * *v4 + 60) & 0x400) != 0)
   {
-    v21 = (v3 + 1);
+    v22 = (v3 + 2);
     while (1)
     {
-      v22 = *v21;
-      if (v22 < 0 || (*(v6 + 4 * v22 + 60) & 0x400) == 0)
+      v23 = *v22;
+      if (v23 < 0 || (*(v6 + 4 * v23 + 60) & 0x400) == 0)
       {
         break;
       }
 
-      *a1 = ++v21;
-      if (v21 == v2)
+      *a1 = ++v22;
+      if (v22 == v2)
       {
-        v21 = v2;
+        v22 = v2;
         break;
       }
     }
 
-    v7 = v21 - v4;
+    v7 = v22 - v4;
   }
 
   else
@@ -6602,58 +6602,58 @@ LABEL_16:
     v7 = 0;
   }
 
-  v23 = a1[613];
-  v24 = v23[1];
-  if ((v24 - 4048) > 0xFFFFFFFFFFFFF00FLL)
+  v24 = a1[613];
+  v25 = *(v24 + 1);
+  if ((v25 - 4048) > 0xFFFFFFFFFFFFF00FLL)
   {
     goto LABEL_33;
   }
 
-  v25 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-  if (!v25)
+  v26 = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
+  if (!v26)
   {
 LABEL_40:
     std::terminate();
   }
 
-  v23 = v25;
-  v24 = 0;
+  v24 = v26;
+  v25 = 0;
   a1 = v5;
-  *v23 = v5[613];
-  v23[1] = 0;
-  v5[613] = v23;
+  *v24 = v5[613];
+  *(v24 + 1) = 0;
+  v5[613] = v24;
 LABEL_33:
-  v23[1] = v24 + 32;
-  v26 = v23 + v24;
-  v26[24] = 8;
-  *(v26 + 25) = *(v26 + 25) & 0xF000 | 0x540;
-  *(v26 + 2) = &unk_2868A4798;
-  *(v26 + 4) = v4;
-  *(v26 + 5) = v7;
-  v30 = v26 + 16;
-  v27 = *a1;
-  v28 = a1[1];
-  if (*a1 != v28 && *v27 == 95)
+  *(v24 + 1) = v25 + 32;
+  v27 = &v24[v25];
+  v27[24] = 8;
+  *(v27 + 25) = *(v27 + 25) & 0xF000 | 0x540;
+  *(v27 + 2) = &unk_2868A4798;
+  *(v27 + 4) = v4;
+  *(v27 + 5) = v7;
+  v31 = (v27 + 16);
+  v28 = *a1;
+  v29 = a1[1];
+  if (*a1 != v29 && *v28 == 95)
   {
-    *a1 = v27 + 1;
-    if (v27 + 1 == v28 || v27[1] != 112)
+    *a1 = v28 + 1;
+    if (v28 + 1 == v29 || v28[1] != 112)
     {
-      if (v29)
+      if (v30)
       {
       }
     }
 
     else
     {
-      *a1 = v27 + 2;
+      *a1 = v28 + 2;
     }
   }
 }
 
-char *llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::ManglingParser<anonymous namespace::DefaultAllocator>,anonymous namespace::DefaultAllocator>::parseClassEnumType(void *a1)
+char *llvm::itanium_demangle::AbstractManglingParser<llvm::itanium_demangle::ManglingParser<anonymous namespace::DefaultAllocator>,anonymous namespace::DefaultAllocator>::parseClassEnumType(uint64_t a1)
 {
   v1 = *a1;
-  if (a1[1] - *a1 < 2uLL)
+  if (*(a1 + 8) - *a1 < 2uLL)
   {
 LABEL_2:
   }
@@ -6697,7 +6697,7 @@ LABEL_2:
       goto LABEL_2;
   }
 
-  v7 = v5[613];
+  v7 = *(v5 + 4904);
   v8 = v7[1];
   if ((v8 - 4032) <= 0xFFFFFFFFFFFFF00FLL)
   {
@@ -6710,9 +6710,9 @@ LABEL_2:
 
     v7 = v10;
     v8 = 0;
-    *v10 = v5[613];
+    *v10 = *(v5 + 4904);
     v10[1] = 0;
-    v5[613] = v10;
+    *(v5 + 4904) = v10;
     v6 = v9;
   }
 
@@ -6915,7 +6915,7 @@ char *llvm::itanium_demangle::NoexceptSpec::printLeft(uint64_t a1, uint64_t a2)
   }
 
   *(a2 + 8) = v13;
-  v10[v12] = 40;
+  *(v10 + v12) = 40;
   llvm::itanium_demangle::Node::printAsOperand(*(a1 + 16), a2, 19, 0);
   --*(a2 + 32);
   result = *a2;
@@ -6955,14 +6955,14 @@ LABEL_19:
   return result;
 }
 
-char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint64_t a2)
+char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, char **a2)
 {
   v4 = *a2;
-  v5 = *(a2 + 8);
-  v6 = *(a2 + 16);
-  if (v5 + 5 > v6)
+  v5 = a2[1];
+  v6 = a2[2];
+  if ((v5 + 5) > v6)
   {
-    v7 = v5 + 997;
+    v7 = (v5 + 997);
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -6974,7 +6974,7 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
       v9 = v8;
     }
 
-    *(a2 + 16) = v9;
+    a2[2] = v9;
     v4 = malloc_type_realloc(v4, v9, 0x100004077774924uLL);
     *a2 = v4;
     if (!v4)
@@ -6982,24 +6982,24 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
       goto LABEL_34;
     }
 
-    v5 = *(a2 + 8);
+    v5 = a2[1];
   }
 
-  v10 = &v4[v5];
+  v10 = &v5[v4];
   v10[4] = 119;
   *v10 = 1869768820;
   v11 = *a2;
-  v12 = *(a2 + 8);
+  v12 = a2[1];
   v13 = v12 + 5;
-  *(a2 + 8) = v12 + 5;
-  ++*(a2 + 32);
+  a2[1] = v12 + 5;
+  ++*(a2 + 8);
   v14 = v12 + 6;
-  v15 = *(a2 + 16);
-  if (v12 + 6 > v15)
+  v15 = a2[2];
+  if ((v12 + 6) > v15)
   {
-    if (2 * v15 <= v12 + 998)
+    if (2 * v15 <= (v12 + 998))
     {
-      v16 = v12 + 998;
+      v16 = (v12 + 998);
     }
 
     else
@@ -7007,7 +7007,7 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
       v16 = 2 * v15;
     }
 
-    *(a2 + 16) = v16;
+    a2[2] = v16;
     v11 = malloc_type_realloc(v11, v16, 0x100004077774924uLL);
     *a2 = v11;
     if (!v11)
@@ -7015,13 +7015,13 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
       goto LABEL_34;
     }
 
-    v13 = *(a2 + 8);
+    v13 = a2[1];
     v14 = v13 + 1;
   }
 
-  *(a2 + 8) = v14;
-  v11[v13] = 40;
-  v17 = *(a2 + 8);
+  a2[1] = v14;
+  v13[v11] = 40;
+  v17 = a2[1];
   if (*(a1 + 24))
   {
     v18 = 0;
@@ -7031,7 +7031,7 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
       v20 = v17;
       if ((v19 & 1) == 0)
       {
-        v21 = *(a2 + 16);
+        v21 = a2[2];
         v22 = *a2;
         if (v17 + 2 <= v21)
         {
@@ -7051,7 +7051,7 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
             v24 = v23;
           }
 
-          *(a2 + 16) = v24;
+          a2[2] = v24;
           v22 = malloc_type_realloc(v22, v24, 0x100004077774924uLL);
           *a2 = v22;
           if (!v22)
@@ -7059,18 +7059,18 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
             goto LABEL_34;
           }
 
-          v25 = *(a2 + 8);
+          v25 = a2[1];
         }
 
         *&v22[v25] = 8236;
-        v20 = *(a2 + 8) + 2;
-        *(a2 + 8) = v20;
+        v20 = (a2[1] + 2);
+        a2[1] = v20;
       }
 
       llvm::itanium_demangle::Node::printAsOperand(*(*(a1 + 16) + 8 * v18), a2, 18, 0);
-      if (v20 == *(a2 + 8))
+      if (v20 == a2[1])
       {
-        *(a2 + 8) = v17;
+        a2[1] = v17;
         if (++v18 == *(a1 + 24))
         {
           break;
@@ -7080,7 +7080,7 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
       else
       {
         v19 = 0;
-        v17 = *(a2 + 8);
+        v17 = a2[1];
         if (++v18 == *(a1 + 24))
         {
           break;
@@ -7089,9 +7089,9 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
     }
   }
 
-  --*(a2 + 32);
+  --*(a2 + 8);
   v26 = v17 + 1;
-  v27 = *(a2 + 16);
+  v27 = a2[2];
   result = *a2;
   if (v17 + 1 > v27)
   {
@@ -7106,12 +7106,12 @@ char *llvm::itanium_demangle::DynamicExceptionSpec::printLeft(uint64_t a1, uint6
       v30 = v29;
     }
 
-    *(a2 + 16) = v30;
+    a2[2] = v30;
     result = malloc_type_realloc(result, v30, 0x100004077774924uLL);
     *a2 = result;
     if (result)
     {
-      v17 = *(a2 + 8);
+      v17 = a2[1];
       v26 = v17 + 1;
       goto LABEL_33;
     }
@@ -7121,7 +7121,7 @@ LABEL_34:
   }
 
 LABEL_33:
-  *(a2 + 8) = v26;
+  a2[1] = v26;
   result[v17] = 41;
   return result;
 }
@@ -7162,16 +7162,16 @@ void *llvm::itanium_demangle::FunctionType::printLeft(uint64_t a1, uint64_t a2)
   return result;
 }
 
-char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
+uint64_t llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, char **a2)
 {
-  ++*(a2 + 32);
+  ++*(a2 + 8);
   v4 = *a2;
-  v5 = *(a2 + 8);
+  v5 = a2[1];
   v6 = v5 + 1;
-  v7 = *(a2 + 16);
-  if (v5 + 1 > v7)
+  v7 = a2[2];
+  if ((v5 + 1) > v7)
   {
-    v8 = v5 + 993;
+    v8 = (v5 + 993);
     if (2 * v7 <= v8)
     {
       v9 = v8;
@@ -7182,7 +7182,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
       v9 = 2 * v7;
     }
 
-    *(a2 + 16) = v9;
+    a2[2] = v9;
     v4 = malloc_type_realloc(v4, v9, 0x100004077774924uLL);
     *a2 = v4;
     if (!v4)
@@ -7190,13 +7190,13 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
       goto LABEL_80;
     }
 
-    v5 = *(a2 + 8);
+    v5 = a2[1];
     v6 = v5 + 1;
   }
 
-  *(a2 + 8) = v6;
-  v4[v5] = 40;
-  v10 = *(a2 + 8);
+  a2[1] = v6;
+  v5[v4] = 40;
+  v10 = a2[1];
   if (*(a1 + 32))
   {
     v11 = 0;
@@ -7206,7 +7206,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
       v13 = v10;
       if ((v12 & 1) == 0)
       {
-        v14 = *(a2 + 16);
+        v14 = a2[2];
         v15 = *a2;
         if (v10 + 2 <= v14)
         {
@@ -7226,7 +7226,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
             v17 = v16;
           }
 
-          *(a2 + 16) = v17;
+          a2[2] = v17;
           v15 = malloc_type_realloc(v15, v17, 0x100004077774924uLL);
           *a2 = v15;
           if (!v15)
@@ -7234,18 +7234,18 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
             goto LABEL_80;
           }
 
-          v18 = *(a2 + 8);
+          v18 = a2[1];
         }
 
         *&v15[v18] = 8236;
-        v13 = *(a2 + 8) + 2;
-        *(a2 + 8) = v13;
+        v13 = (a2[1] + 2);
+        a2[1] = v13;
       }
 
       llvm::itanium_demangle::Node::printAsOperand(*(*(a1 + 24) + 8 * v11), a2, 18, 0);
-      if (v13 == *(a2 + 8))
+      if (v13 == a2[1])
       {
-        *(a2 + 8) = v10;
+        a2[1] = v10;
         if (++v11 == *(a1 + 32))
         {
           break;
@@ -7255,7 +7255,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
       else
       {
         v12 = 0;
-        v10 = *(a2 + 8);
+        v10 = a2[1];
         if (++v11 == *(a1 + 32))
         {
           break;
@@ -7264,9 +7264,9 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
     }
   }
 
-  --*(a2 + 32);
+  --*(a2 + 8);
   v19 = v10 + 1;
-  v20 = *(a2 + 16);
+  v20 = a2[2];
   v21 = *a2;
   if (v10 + 1 > v20)
   {
@@ -7281,7 +7281,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
       v23 = v22;
     }
 
-    *(a2 + 16) = v23;
+    a2[2] = v23;
     v21 = malloc_type_realloc(v21, v23, 0x100004077774924uLL);
     *a2 = v21;
     if (!v21)
@@ -7289,22 +7289,22 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
       goto LABEL_80;
     }
 
-    v10 = *(a2 + 8);
+    v10 = a2[1];
     v19 = v10 + 1;
   }
 
-  *(a2 + 8) = v19;
+  a2[1] = v19;
   v21[v10] = 41;
   result = (*(**(a1 + 16) + 40))(*(a1 + 16), a2);
   v25 = *(a1 + 40);
   if (v25)
   {
     result = *a2;
-    v26 = *(a2 + 8);
-    v27 = *(a2 + 16);
-    if (v26 + 6 > v27)
+    v26 = a2[1];
+    v27 = a2[2];
+    if ((v26 + 6) > v27)
     {
-      v28 = v26 + 998;
+      v28 = (v26 + 998);
       v29 = 2 * v27;
       if (v29 <= v28)
       {
@@ -7316,7 +7316,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         v30 = v29;
       }
 
-      *(a2 + 16) = v30;
+      a2[2] = v30;
       result = malloc_type_realloc(result, v30, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -7324,24 +7324,24 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         goto LABEL_80;
       }
 
-      v26 = *(a2 + 8);
+      v26 = a2[1];
     }
 
-    v31 = &result[v26];
+    v31 = &v26[result];
     *(v31 + 2) = 29811;
     *v31 = 1852793632;
-    *(a2 + 8) += 6;
+    a2[1] += 6;
     v25 = *(a1 + 40);
   }
 
   if ((v25 & 2) != 0)
   {
     result = *a2;
-    v32 = *(a2 + 8);
-    v33 = *(a2 + 16);
-    if (v32 + 9 > v33)
+    v32 = a2[1];
+    v33 = a2[2];
+    if ((v32 + 9) > v33)
     {
-      v34 = v32 + 1001;
+      v34 = (v32 + 1001);
       v35 = 2 * v33;
       if (v35 <= v34)
       {
@@ -7353,7 +7353,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         v36 = v35;
       }
 
-      *(a2 + 16) = v36;
+      a2[2] = v36;
       result = malloc_type_realloc(result, v36, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -7361,24 +7361,24 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         goto LABEL_80;
       }
 
-      v32 = *(a2 + 8);
+      v32 = a2[1];
     }
 
-    v37 = &result[v32];
+    v37 = &v32[result];
     *v37 = *" volatile";
     v37[8] = 101;
-    *(a2 + 8) += 9;
+    a2[1] += 9;
     v25 = *(a1 + 40);
   }
 
   if ((v25 & 4) != 0)
   {
     result = *a2;
-    v38 = *(a2 + 8);
-    v39 = *(a2 + 16);
-    if (v38 + 9 > v39)
+    v38 = a2[1];
+    v39 = a2[2];
+    if ((v38 + 9) > v39)
     {
-      v40 = v38 + 1001;
+      v40 = (v38 + 1001);
       v41 = 2 * v39;
       if (v41 <= v40)
       {
@@ -7390,7 +7390,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         v42 = v41;
       }
 
-      *(a2 + 16) = v42;
+      a2[2] = v42;
       result = malloc_type_realloc(result, v42, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -7398,24 +7398,24 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         goto LABEL_80;
       }
 
-      v38 = *(a2 + 8);
+      v38 = a2[1];
     }
 
-    v43 = &result[v38];
+    v43 = &v38[result];
     *v43 = *" restrict";
     v43[8] = 116;
-    *(a2 + 8) += 9;
+    a2[1] += 9;
   }
 
   v44 = *(a1 + 44);
   if (v44 == 2)
   {
     result = *a2;
-    v51 = *(a2 + 8);
-    v52 = *(a2 + 16);
-    if (v51 + 3 > v52)
+    v51 = a2[1];
+    v52 = a2[2];
+    if ((v51 + 3) > v52)
     {
-      v53 = v51 + 995;
+      v53 = (v51 + 995);
       v54 = 2 * v52;
       if (v54 <= v53)
       {
@@ -7427,7 +7427,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         v55 = v54;
       }
 
-      *(a2 + 16) = v55;
+      a2[2] = v55;
       result = malloc_type_realloc(result, v55, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -7435,10 +7435,10 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         goto LABEL_80;
       }
 
-      v51 = *(a2 + 8);
+      v51 = a2[1];
     }
 
-    v56 = &result[v51];
+    v56 = &v51[result];
     v56[2] = 38;
     *v56 = 9760;
     v50 = 3;
@@ -7452,11 +7452,11 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
     }
 
     result = *a2;
-    v45 = *(a2 + 8);
-    v46 = *(a2 + 16);
-    if (v45 + 2 > v46)
+    v45 = a2[1];
+    v46 = a2[2];
+    if ((v45 + 2) > v46)
     {
-      v47 = v45 + 994;
+      v47 = (v45 + 994);
       v48 = 2 * v46;
       if (v48 <= v47)
       {
@@ -7468,7 +7468,7 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         v49 = v48;
       }
 
-      *(a2 + 16) = v49;
+      a2[2] = v49;
       result = malloc_type_realloc(result, v49, 0x100004077774924uLL);
       *a2 = result;
       if (!result)
@@ -7476,14 +7476,14 @@ char *llvm::itanium_demangle::FunctionType::printRight(uint64_t a1, uint64_t a2)
         goto LABEL_80;
       }
 
-      v45 = *(a2 + 8);
+      v45 = a2[1];
     }
 
-    *&result[v45] = 9760;
+    *&v45[result] = 9760;
     v50 = 2;
   }
 
-  *(a2 + 8) += v50;
+  a2[1] += v50;
 LABEL_68:
   if (!*(a1 + 48))
   {
@@ -7491,12 +7491,12 @@ LABEL_68:
   }
 
   v57 = *a2;
-  v58 = *(a2 + 8);
+  v58 = a2[1];
   v59 = v58 + 1;
-  v60 = *(a2 + 16);
-  if (v58 + 1 > v60)
+  v60 = a2[2];
+  if ((v58 + 1) > v60)
   {
-    v61 = v58 + 993;
+    v61 = (v58 + 993);
     if (2 * v60 <= v61)
     {
       v62 = v61;
@@ -7507,12 +7507,12 @@ LABEL_68:
       v62 = 2 * v60;
     }
 
-    *(a2 + 16) = v62;
+    a2[2] = v62;
     v57 = malloc_type_realloc(v57, v62, 0x100004077774924uLL);
     *a2 = v57;
     if (v57)
     {
-      v58 = *(a2 + 8);
+      v58 = a2[1];
       v59 = v58 + 1;
       goto LABEL_75;
     }
@@ -7522,8 +7522,8 @@ LABEL_80:
   }
 
 LABEL_75:
-  *(a2 + 8) = v59;
-  v57[v58] = 32;
+  a2[1] = v59;
+  v58[v57] = 32;
   v63 = *(a1 + 48);
   result = (*(*v63 + 32))(v63, a2);
   if ((*(v63 + 9) & 0xC0) != 0x40)
@@ -7550,7 +7550,7 @@ char *llvm::itanium_demangle::ObjCProtoName::printLeft(void *a1, char **a2)
   v7 = a2[2];
   if ((v6 + 1) > v7)
   {
-    v8 = (v6 + 993);
+    v8 = v6 + 993;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -7574,25 +7574,25 @@ char *llvm::itanium_demangle::ObjCProtoName::printLeft(void *a1, char **a2)
   }
 
   v6[v5] = 60;
-  v11 = (a2[1] + 1);
+  v11 = a2[1] + 1;
   a2[1] = v11;
   v12 = a1[4];
   if (v12)
   {
     v13 = a1[3];
-    v14 = v11 + v12;
+    v14 = &v11[v12];
     v15 = a2[2];
     v16 = *a2;
-    if (v11 + v12 > v15)
+    if (&v11[v12] > v15)
     {
-      if (2 * v15 <= v14 + 992)
+      if (2 * v15 <= (v14 + 992))
       {
         v17 = v14 + 992;
       }
 
       else
       {
-        v17 = 2 * v15;
+        v17 = (2 * v15);
       }
 
       a2[2] = v17;
@@ -7606,14 +7606,14 @@ char *llvm::itanium_demangle::ObjCProtoName::printLeft(void *a1, char **a2)
       v11 = a2[1];
     }
 
-    memcpy(&v16[v11], v13, v12);
+    memcpy(&v11[v16], v13, v12);
     v11 = &a2[1][v12];
     a2[1] = v11;
   }
 
   v18 = a2[2];
   result = *a2;
-  if (v11 + 1 > v18)
+  if ((v11 + 1) > v18)
   {
     v20 = v11 + 993;
     v21 = 2 * v18;
@@ -7641,7 +7641,7 @@ LABEL_24:
   }
 
 LABEL_23:
-  result[v11] = 62;
+  v11[result] = 62;
   ++a2[1];
   return result;
 }
@@ -7660,7 +7660,7 @@ uint64_t llvm::itanium_demangle::VendorExtQualType::printLeft(void *a1, char **a
   v7 = a2[2];
   if ((v6 + 1) > v7)
   {
-    v8 = (v6 + 993);
+    v8 = v6 + 993;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -7684,31 +7684,31 @@ uint64_t llvm::itanium_demangle::VendorExtQualType::printLeft(void *a1, char **a
   }
 
   v6[result] = 32;
-  v11 = (a2[1] + 1);
+  v11 = a2[1] + 1;
   a2[1] = v11;
   v12 = a1[4];
   if (v12)
   {
     v13 = a1[3];
-    v14 = v11 + v12;
+    v14 = &v11[v12];
     v15 = a2[2];
     v16 = *a2;
-    if (v11 + v12 <= v15)
+    if (&v11[v12] <= v15)
     {
 LABEL_16:
-      result = memcpy(&v16[v11], v13, v12);
+      result = memcpy(&v11[v16], v13, v12);
       a2[1] += v12;
       goto LABEL_17;
     }
 
-    if (2 * v15 <= v14 + 992)
+    if (2 * v15 <= (v14 + 992))
     {
       v17 = v14 + 992;
     }
 
     else
     {
-      v17 = 2 * v15;
+      v17 = (2 * v15);
     }
 
     a2[2] = v17;
@@ -7920,19 +7920,19 @@ char *llvm::itanium_demangle::TransformedType::printLeft(void *a1, char **a2)
   if (v4)
   {
     v6 = a1[2];
-    v7 = v5 + v4;
+    v7 = &v5[v4];
     v8 = a2[2];
     v9 = *a2;
-    if (v5 + v4 > v8)
+    if (&v5[v4] > v8)
     {
-      if (2 * v8 <= v7 + 992)
+      if (2 * v8 <= (v7 + 992))
       {
         v10 = v7 + 992;
       }
 
       else
       {
-        v10 = 2 * v8;
+        v10 = (2 * v8);
       }
 
       a2[2] = v10;
@@ -7946,7 +7946,7 @@ char *llvm::itanium_demangle::TransformedType::printLeft(void *a1, char **a2)
       v5 = a2[1];
     }
 
-    memcpy(&v9[v5], v6, v4);
+    memcpy(&v5[v9], v6, v4);
     v5 = &a2[1][v4];
     a2[1] = v5;
   }
@@ -7954,9 +7954,9 @@ char *llvm::itanium_demangle::TransformedType::printLeft(void *a1, char **a2)
   v11 = v5 + 1;
   v12 = a2[2];
   v13 = *a2;
-  if (v5 + 1 > v12)
+  if ((v5 + 1) > v12)
   {
-    v14 = v5 + 993;
+    v14 = (v5 + 993);
     if (2 * v12 <= v14)
     {
       v15 = v14;
@@ -7964,7 +7964,7 @@ char *llvm::itanium_demangle::TransformedType::printLeft(void *a1, char **a2)
 
     else
     {
-      v15 = 2 * v12;
+      v15 = (2 * v12);
     }
 
     a2[2] = v15;
@@ -7980,7 +7980,7 @@ char *llvm::itanium_demangle::TransformedType::printLeft(void *a1, char **a2)
   }
 
   a2[1] = v11;
-  v13[v5] = 40;
+  v5[v13] = 40;
   v16 = a1[4];
   (*(*v16 + 32))(v16, a2);
   if ((*(v16 + 9) & 0xC0) != 0x40)
@@ -8002,7 +8002,7 @@ char *llvm::itanium_demangle::TransformedType::printLeft(void *a1, char **a2)
 
     else
     {
-      v22 = 2 * v20;
+      v22 = (2 * v20);
     }
 
     a2[2] = v22;
@@ -8032,7 +8032,7 @@ uint64_t llvm::itanium_demangle::BinaryFPType::printLeft(uint64_t a1, char **a2)
   v6 = a2[2];
   if ((v5 + 6) > v6)
   {
-    v7 = (v5 + 998);
+    v7 = v5 + 998;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -8071,12 +8071,12 @@ uint64_t llvm::itanium_demangle::BinaryFPType::printLeft(uint64_t a1, char **a2)
   return result;
 }
 
-char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, uint64_t a2)
+char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, char **a2)
 {
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if ((*(a1 + 24) & 1) == 0)
   {
-    v5 = *(a2 + 16);
+    v5 = a2[2];
     v6 = *a2;
     if (v4 + 9 > v5)
     {
@@ -8092,7 +8092,7 @@ char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, uint64_t a2)
         v9 = v8;
       }
 
-      *(a2 + 16) = v9;
+      a2[2] = v9;
       v6 = malloc_type_realloc(v6, v9, 0x100004077774924uLL);
       *a2 = v6;
       if (!v6)
@@ -8100,17 +8100,17 @@ char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, uint64_t a2)
         goto LABEL_28;
       }
 
-      v4 = *(a2 + 8);
+      v4 = a2[1];
     }
 
     v10 = &v6[v4];
     *v10 = *"unsigned ";
     v10[8] = 32;
-    v4 = *(a2 + 8) + 9;
-    *(a2 + 8) = v4;
+    v4 = (a2[1] + 9);
+    a2[1] = v4;
   }
 
-  v11 = *(a2 + 16);
+  v11 = a2[2];
   v12 = *a2;
   if (v4 + 7 > v11)
   {
@@ -8126,7 +8126,7 @@ char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, uint64_t a2)
       v15 = v14;
     }
 
-    *(a2 + 16) = v15;
+    a2[2] = v15;
     v12 = malloc_type_realloc(v12, v15, 0x100004077774924uLL);
     *a2 = v12;
     if (!v12)
@@ -8134,24 +8134,24 @@ char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, uint64_t a2)
       goto LABEL_28;
     }
 
-    v4 = *(a2 + 8);
+    v4 = a2[1];
   }
 
   v16 = &v12[v4];
   *(v16 + 3) = 1953384820;
   *v16 = 1953055327;
   v17 = *a2;
-  v18 = *(a2 + 8);
+  v18 = a2[1];
   v19 = v18 + 7;
-  *(a2 + 8) = v18 + 7;
-  ++*(a2 + 32);
+  a2[1] = v18 + 7;
+  ++*(a2 + 8);
   v20 = v18 + 8;
-  v21 = *(a2 + 16);
-  if (v18 + 8 > v21)
+  v21 = a2[2];
+  if ((v18 + 8) > v21)
   {
-    if (2 * v21 <= v18 + 1000)
+    if (2 * v21 <= (v18 + 1000))
     {
-      v22 = v18 + 1000;
+      v22 = (v18 + 1000);
     }
 
     else
@@ -8159,7 +8159,7 @@ char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, uint64_t a2)
       v22 = 2 * v21;
     }
 
-    *(a2 + 16) = v22;
+    a2[2] = v22;
     v17 = malloc_type_realloc(v17, v22, 0x100004077774924uLL);
     *a2 = v17;
     if (!v17)
@@ -8167,21 +8167,21 @@ char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, uint64_t a2)
       goto LABEL_28;
     }
 
-    v19 = *(a2 + 8);
+    v19 = a2[1];
     v20 = v19 + 1;
   }
 
-  *(a2 + 8) = v20;
-  v17[v19] = 40;
+  a2[1] = v20;
+  v19[v17] = 40;
   llvm::itanium_demangle::Node::printAsOperand(*(a1 + 16), a2, 19, 0);
-  --*(a2 + 32);
+  --*(a2 + 8);
   result = *a2;
-  v24 = *(a2 + 8);
+  v24 = a2[1];
   v25 = v24 + 1;
-  v26 = *(a2 + 16);
-  if (v24 + 1 > v26)
+  v26 = a2[2];
+  if ((v24 + 1) > v26)
   {
-    v27 = v24 + 993;
+    v27 = (v24 + 993);
     if (2 * v26 <= v27)
     {
       v28 = v27;
@@ -8192,12 +8192,12 @@ char *llvm::itanium_demangle::BitIntType::printLeft(uint64_t a1, uint64_t a2)
       v28 = 2 * v26;
     }
 
-    *(a2 + 16) = v28;
+    a2[2] = v28;
     result = malloc_type_realloc(result, v28, 0x100004077774924uLL);
     *a2 = result;
     if (result)
     {
-      v24 = *(a2 + 8);
+      v24 = a2[1];
       v25 = v24 + 1;
       goto LABEL_27;
     }
@@ -8207,8 +8207,8 @@ LABEL_28:
   }
 
 LABEL_27:
-  *(a2 + 8) = v25;
-  result[v24] = 41;
+  a2[1] = v25;
+  v24[result] = 41;
   return result;
 }
 
@@ -8227,12 +8227,12 @@ void *llvm::itanium_demangle::PostfixQualifiedType::printLeft(uint64_t a1, char 
     {
       if (2 * v10 <= (v9 + 992))
       {
-        v11 = (v9 + 992);
+        v11 = v9 + 992;
       }
 
       else
       {
-        v11 = 2 * v10;
+        v11 = (2 * v10);
       }
 
       a2[2] = v11;
@@ -8320,7 +8320,7 @@ char *llvm::itanium_demangle::PixelVectorType::printLeft(uint64_t a1, char **a2)
   v6 = a2[2];
   if ((v5 + 13) > v6)
   {
-    v7 = (v5 + 1005);
+    v7 = v5 + 1005;
     v8 = 2 * v6;
     if (v8 <= v7)
     {
@@ -8357,7 +8357,7 @@ char *llvm::itanium_demangle::PixelVectorType::printLeft(uint64_t a1, char **a2)
   v13 = a2[2];
   if ((v12 + 1) > v13)
   {
-    v14 = (v12 + 993);
+    v14 = v12 + 993;
     v15 = 2 * v13;
     if (v15 <= v14)
     {
@@ -8402,7 +8402,7 @@ char *llvm::itanium_demangle::VectorType::printLeft(uint64_t a1, char **a2)
   v7 = a2[2];
   if ((v6 + 8) > v7)
   {
-    v8 = (v6 + 1000);
+    v8 = v6 + 1000;
     v9 = 2 * v7;
     if (v9 <= v8)
     {
@@ -8442,7 +8442,7 @@ char *llvm::itanium_demangle::VectorType::printLeft(uint64_t a1, char **a2)
   v14 = a2[2];
   if ((v13 + 1) > v14)
   {
-    v15 = (v13 + 993);
+    v15 = v13 + 993;
     v16 = 2 * v14;
     if (v16 <= v15)
     {
@@ -8642,7 +8642,7 @@ uint64_t llvm::itanium_demangle::NodeArray::printAsString(uint64_t **a1, char **
     v7 = 2 * v6;
     if (v7 <= (v5 + 993))
     {
-      v8 = (v5 + 993);
+      v8 = v5 + 993;
     }
 
     else
@@ -8753,7 +8753,7 @@ LABEL_28:
         v23 = a2[2];
         if ((v22 + 2) > v23)
         {
-          v24 = (v22 + 994);
+          v24 = v22 + 994;
           v25 = 2 * v23;
           if (v25 <= v24)
           {
@@ -8794,7 +8794,7 @@ LABEL_104:
             v66 = a2[2];
             if ((v34 + 2) > v66)
             {
-              v67 = (v34 + 994);
+              v67 = v34 + 994;
               v68 = 2 * v66;
               if (v68 <= v67)
               {
@@ -8835,7 +8835,7 @@ LABEL_38:
             v29 = a2[2];
             if ((v28 + 2) > v29)
             {
-              v30 = (v28 + 994);
+              v30 = v28 + 994;
               v31 = 2 * v29;
               if (v31 <= v30)
               {
@@ -8876,7 +8876,7 @@ LABEL_47:
             v50 = a2[2];
             if ((v34 + 2) > v50)
             {
-              v51 = (v34 + 994);
+              v51 = v34 + 994;
               v52 = 2 * v50;
               if (v52 <= v51)
               {
@@ -8910,7 +8910,7 @@ LABEL_47:
             v40 = a2[2];
             if ((v34 + 2) > v40)
             {
-              v41 = (v34 + 994);
+              v41 = v34 + 994;
               v42 = 2 * v40;
               if (v42 <= v41)
               {
@@ -8947,7 +8947,7 @@ LABEL_47:
           v46 = a2[2];
           if ((v45 + 2) > v46)
           {
-            v47 = (v45 + 994);
+            v47 = v45 + 994;
             v48 = 2 * v46;
             if (v48 <= v47)
             {
@@ -8982,7 +8982,7 @@ LABEL_47:
           v35 = a2[2];
           if ((v34 + 2) > v35)
           {
-            v36 = (v34 + 994);
+            v36 = v34 + 994;
             v37 = 2 * v35;
             if (v37 <= v36)
             {
@@ -9028,7 +9028,7 @@ LABEL_80:
           v58 = a2[2];
           if ((v34 + 2) > v58)
           {
-            v59 = (v34 + 994);
+            v59 = v34 + 994;
             v60 = 2 * v58;
             if (v60 <= v59)
             {
@@ -9062,7 +9062,7 @@ LABEL_80:
           v54 = a2[2];
           if ((v34 + 2) > v54)
           {
-            v55 = (v34 + 994);
+            v55 = v34 + 994;
             v56 = 2 * v54;
             if (v56 <= v55)
             {
@@ -9105,7 +9105,7 @@ LABEL_97:
         v62 = a2[2];
         if ((v34 + 2) > v62)
         {
-          v63 = (v34 + 994);
+          v63 = v34 + 994;
           v64 = 2 * v62;
           if (v64 <= v63)
           {
@@ -9154,7 +9154,7 @@ LABEL_115:
 
           else
           {
-            v82 = 2 * v80;
+            v82 = (2 * v80);
           }
 
           a2[2] = v82;
@@ -9187,7 +9187,7 @@ LABEL_115:
 
             else
             {
-              v88 = 2 * v86;
+              v88 = (2 * v86);
             }
 
             a2[2] = v88;
@@ -9221,7 +9221,7 @@ LABEL_115:
 
               else
               {
-                v95 = 2 * v93;
+                v95 = (2 * v93);
               }
 
               a2[2] = v95;
@@ -9256,7 +9256,7 @@ LABEL_115:
 
           else
           {
-            v102 = 2 * v100;
+            v102 = (2 * v100);
           }
 
           a2[2] = v102;
@@ -9284,7 +9284,7 @@ LABEL_115:
         v73 = a2[2];
         if ((v71 + 1) > v73)
         {
-          v74 = (v71 + 993);
+          v74 = v71 + 993;
           v75 = 2 * v73;
           if (v75 <= v74)
           {
@@ -9335,7 +9335,7 @@ LABEL_153:
 
     else
     {
-      v109 = 2 * v107;
+      v109 = (2 * v107);
     }
 
     a2[2] = v109;
@@ -9426,7 +9426,7 @@ LABEL_8:
       v10 = a2[2];
       if ((v9 + 1) > v10)
       {
-        v11 = (v9 + 993);
+        v11 = v9 + 993;
         v12 = 2 * v10;
         if (v12 <= v11)
         {
@@ -9468,7 +9468,7 @@ LABEL_8:
   v15 = a2[2];
   if ((v9 + 1) > v15)
   {
-    v16 = (v9 + 993);
+    v16 = v9 + 993;
     v17 = 2 * v15;
     if (v17 <= v16)
     {
@@ -9507,7 +9507,7 @@ LABEL_22:
   v22 = a2[2];
   if ((v21 + 3) > v22)
   {
-    v23 = (v21 + 995);
+    v23 = v21 + 995;
     v24 = 2 * v22;
     if (v24 <= v23)
     {
@@ -9611,19 +9611,19 @@ uint64_t llvm::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, cha
   if (v4)
   {
     v6 = a1[2];
-    v7 = v5 + v4;
+    v7 = &v5[v4];
     v8 = a2[2];
     v9 = *a2;
-    if (v5 + v4 > v8)
+    if (&v5[v4] > v8)
     {
-      if (2 * v8 <= v7 + 992)
+      if (2 * v8 <= (v7 + 992))
       {
         v10 = v7 + 992;
       }
 
       else
       {
-        v10 = 2 * v8;
+        v10 = (2 * v8);
       }
 
       a2[2] = v10;
@@ -9637,7 +9637,7 @@ uint64_t llvm::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, cha
       v5 = a2[1];
     }
 
-    memcpy(&v9[v5], v6, v4);
+    memcpy(&v5[v9], v6, v4);
     v5 = &a2[1][v4];
     a2[1] = v5;
   }
@@ -9645,12 +9645,12 @@ uint64_t llvm::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, cha
   v11 = v5 + 1;
   v12 = a2[2];
   v13 = *a2;
-  if (v5 + 1 <= v12)
+  if ((v5 + 1) <= v12)
   {
     goto LABEL_15;
   }
 
-  v14 = v5 + 993;
+  v14 = (v5 + 993);
   if (2 * v12 <= v14)
   {
     v15 = v14;
@@ -9658,7 +9658,7 @@ uint64_t llvm::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, cha
 
   else
   {
-    v15 = 2 * v12;
+    v15 = (2 * v12);
   }
 
   a2[2] = v15;
@@ -9674,7 +9674,7 @@ LABEL_19:
   v11 = v5 + 1;
 LABEL_15:
   a2[1] = v11;
-  v13[v5] = 32;
+  v5[v13] = 32;
   v16 = a1[4];
   result = (*(*v16 + 32))(v16, a2);
   if ((*(v16 + 9) & 0xC0) != 0x40)
@@ -9715,11 +9715,11 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
       v8 = *(v6 + 3);
       if (v7 == 0x6A626F5F636A626FLL && v8 == 0x7463656A626F5F63)
       {
-        v28 = (a2 + 1);
+        v28 = a2 + 1;
         v35 = a2[1];
         v36 = a2[2];
         v37 = *a2;
-        if (v35 + 3 > v36)
+        if ((v35 + 3) > v36)
         {
           v38 = v4;
           v39 = v35 + 995;
@@ -9747,10 +9747,10 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
           v4 = v38;
         }
 
-        v43 = &v37[v35];
+        v43 = &v35[v37];
         v43[2] = 60;
         *v43 = 25705;
-        v27 = *v28 + 3;
+        v27 = (*v28 + 3);
         *v28 = v27;
         v44 = *(v4 + 32);
         if (v44)
@@ -9763,12 +9763,12 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
           {
             if (2 * v47 <= v46 + 992)
             {
-              v49 = v46 + 992;
+              v49 = (v46 + 992);
             }
 
             else
             {
-              v49 = 2 * v47;
+              v49 = (2 * v47);
             }
 
             a2[2] = v49;
@@ -9783,7 +9783,7 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
           }
 
           memcpy(&v48[v27], v45, v44);
-          v27 = *v28 + v44;
+          v27 = &(*v28)[v44];
           *v28 = v27;
         }
 
@@ -9791,7 +9791,7 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
         result = *a2;
         if (v27 + 1 > v50)
         {
-          v51 = v27 + 993;
+          v51 = (v27 + 993);
           v52 = 2 * v50;
           if (v52 <= v51)
           {
@@ -9829,7 +9829,7 @@ char *llvm::itanium_demangle::PointerType::printLeft(uint64_t a1, char **a2)
     v13 = a2[2];
     if ((v12 + 1) > v13)
     {
-      v14 = (v12 + 993);
+      v14 = v12 + 993;
       v15 = 2 * v13;
       if (v15 <= v14)
       {
@@ -9887,7 +9887,7 @@ LABEL_25:
   v23 = a2[2];
   if ((v22 + 1) > v23)
   {
-    v24 = (v22 + 993);
+    v24 = v22 + 993;
     v25 = 2 * v23;
     if (v25 <= v24)
     {
@@ -9913,13 +9913,13 @@ LABEL_25:
   v22[v21] = 40;
   ++a2[1];
 LABEL_32:
-  v28 = (a2 + 1);
+  v28 = a2 + 1;
   v27 = a2[1];
   v29 = a2[2];
   result = *a2;
   if (v27 + 1 > v29)
   {
-    v31 = v27 + 993;
+    v31 = (v27 + 993);
     v32 = 2 * v29;
     if (v32 <= v31)
     {

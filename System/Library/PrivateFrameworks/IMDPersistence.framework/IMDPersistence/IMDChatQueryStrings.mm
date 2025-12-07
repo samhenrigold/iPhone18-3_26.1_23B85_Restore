@@ -117,40 +117,39 @@
 + (id)copyChatsWithUnreadMessagesWithLimit:(int64_t)limit beforeDate:(id)date extraCriteria:(id)criteria
 {
   v8 = sub_1B7C107FC(&unk_1EBA51980, &unk_1B7D0A1B0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v18 - v10;
+  v10 = &v17 - v9;
   if (date)
   {
     sub_1B7CFE0F0();
-    v12 = sub_1B7CFE120();
-    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
+    v11 = sub_1B7CFE120();
+    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
   }
 
   else
   {
-    v13 = sub_1B7CFE120();
-    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
+    v12 = sub_1B7CFE120();
+    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
   }
 
   if (criteria)
   {
-    v14 = sub_1B7CFEA60();
-    criteria = v15;
+    v13 = sub_1B7CFEA60();
+    criteria = v14;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   swift_getObjCClassMetadata();
-  sub_1B7C0F114(limit, v11, v14, criteria);
+  sub_1B7C0F114(limit, v10, v13, criteria);
 
-  sub_1B7C10844(v11);
-  v16 = sub_1B7CFEA30();
+  sub_1B7C10844(v10);
+  v15 = sub_1B7CFEA30();
 
-  return v16;
+  return v15;
 }
 
 + (NSString)copyChatsWithIdentifier

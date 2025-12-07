@@ -92,13 +92,13 @@
     [(UIKBScreenTraits *)self->_screenTraits stretchFactor];
     [v5 setStretchFactor:?];
     v6 = [v5 backgroundTraitsForKeyplane:self->_keyplane];
-    geometry = [v6 geometry];
-    splitLeftRect = [geometry splitLeftRect];
+    v7 = objc_msgSend_geometry(v6);
+    splitLeftRect = [v7 splitLeftRect];
     if (splitLeftRect)
     {
       v9 = splitLeftRect;
-      geometry2 = [v6 geometry];
-      splitRightRect = [geometry2 splitRightRect];
+      v10 = objc_msgSend_geometry(v6);
+      splitRightRect = [v10 splitRightRect];
 
       if (!splitRightRect)
       {
@@ -111,30 +111,30 @@ LABEL_8:
 
       if (self->_centerFilled)
       {
-        geometry3 = [v6 geometry];
-        [geometry3 setSplitLeftRect:0];
+        v12 = objc_msgSend_geometry(v6);
+        [v12 setSplitLeftRect:0];
 
-        geometry = [v6 geometry];
-        [geometry setSplitRightRect:0];
+        v7 = objc_msgSend_geometry(v6);
+        [v7 setSplitRightRect:0];
       }
 
       else
       {
         topCorners = self->_topCorners;
-        geometry4 = [v6 geometry];
-        [geometry4 setRoundRectCorners:topCorners];
+        v14 = objc_msgSend_geometry(v6);
+        [v14 setRoundRectCorners:topCorners];
 
         v15 = [MEMORY[0x1E696B098] valueWithCGRect:{self->_splitLeftCacheRect.origin.x, self->_splitLeftCacheRect.origin.y, self->_splitLeftCacheRect.size.width, self->_splitLeftCacheRect.size.height}];
-        geometry5 = [v6 geometry];
-        [geometry5 setSplitLeftRect:v15];
+        v16 = objc_msgSend_geometry(v6);
+        [v16 setSplitLeftRect:v15];
 
         v17 = [MEMORY[0x1E696B098] valueWithCGRect:{self->_splitRightCacheRect.origin.x, self->_splitRightCacheRect.origin.y, self->_splitRightCacheRect.size.width, self->_splitRightCacheRect.size.height}];
-        geometry6 = [v6 geometry];
-        [geometry6 setSplitRightRect:v17];
+        v18 = objc_msgSend_geometry(v6);
+        [v18 setSplitRightRect:v17];
 
         v19 = UIKBCornerRadius();
-        geometry = [v6 geometry];
-        [geometry setRoundRectRadius:v19];
+        v7 = objc_msgSend_geometry(v6);
+        [v7 setRoundRectRadius:v19];
       }
     }
 

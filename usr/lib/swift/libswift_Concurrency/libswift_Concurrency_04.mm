@@ -1,2017 +1,3 @@
-uint64_t swift::AsyncTask::flagAsRunning(swift::AsyncTask *this)
-{
-  _X0 = 0;
-  _X1 = 0;
-  __asm { CASP            X0, X1, X0, X1, [X8] }
-
-  v25[0] = _X0;
-  v25[1] = 0;
-  if ((_X0 & 0x4000) != 0)
-  {
-    v17 = *(this + 20);
-    swift::removeStatusRecord(this, v17, v25, __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::flagAsRunning(void)::{lambda(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)#1}>, &v24);
-    swift::_swift_task_dealloc_specific(this, v17, v18, v19);
-    *(this + 20) = 0;
-    StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-    v21 = *(StatusReg + 832);
-    v22 = *(this + 5);
-    if (*(StatusReg + 224) != v22)
-    {
-      v22 = voucher_adopt();
-    }
-
-    *(this + 5) = -1;
-    if (*(v21 + 48))
-    {
-      if (v22 + 1 >= 2)
-      {
-        os_release(v22);
-      }
-    }
-
-    else
-    {
-      *(v21 + 40) = v22;
-      *(v21 + 48) = 1;
-    }
-
-    return swift_task_enterThreadLocalContext();
-  }
-
-  else
-  {
-    _X4 = _X0 & 0xFFFFA3FF | 0x800;
-    _X3 = 0;
-    __asm { CASP            X2, X3, X4, X5, [X8] }
-
-    if (_X2 != _X0)
-    {
-      do
-      {
-        _X0 = _X2 & 0xFFFFE3FF | 0x800;
-        _X5 = 0;
-        __asm { CASP            X4, X5, X0, X1, [X8] }
-
-        _ZF = _X4 == _X2;
-        LODWORD(_X0) = _X2;
-        _X2 = _X4;
-      }
-
-      while (!_ZF);
-    }
-
-    swift::concurrency::trace::task_status_changed(this, _X0, (_X0 >> 8) & 1, 0, 1, 1, 0);
-    v14 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-    v15 = *(v14 + 832);
-    v16 = *(this + 5);
-    if (*(v14 + 224) != v16)
-    {
-      v16 = voucher_adopt();
-    }
-
-    *(this + 5) = -1;
-    if (*(v15 + 48))
-    {
-      if (v16 + 1 >= 2)
-      {
-        os_release(v16);
-      }
-    }
-
-    else
-    {
-      *(v15 + 40) = v16;
-      *(v15 + 48) = 1;
-    }
-
-    return swift_task_enterThreadLocalContext();
-  }
-}
-
-unint64_t swift::concurrency::trace::job_run_begin(uint64_t a1)
-{
-  v1 = 0;
-  if (a1 && !*(a1 + 32))
-  {
-    if (qword_1ED42EA38 != -1)
-    {
-      v10 = a1;
-      swift::runJobInEstablishedExecutorContext(a1);
-      a1 = v10;
-    }
-
-    if (swift::runtime::trace::tracingReady(void)::{lambda(void)#1}::operator() const(void)::TheLazy == 1)
-    {
-      v2 = a1;
-      inited = _os_trace_lazy_init_completed_4swift();
-      a1 = v2;
-      if (!inited)
-      {
-        return 0;
-      }
-    }
-
-    if (swift::concurrency::trace::LogsToken != -1)
-    {
-      v11 = a1;
-      swift::runJobInEstablishedExecutorContext();
-      a1 = v11;
-    }
-
-    if (swift::concurrency::trace::TracingEnabled == 1)
-    {
-      v4 = a1;
-      v5 = os_signpost_id_generate(swift::concurrency::trace::TaskLog);
-      TaskId = swift::AsyncTask::getTaskId(v4);
-      v1 = TaskId;
-      if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v7 = TaskId;
-        v8 = swift::concurrency::trace::TaskLog;
-        if (os_signpost_enabled(swift::concurrency::trace::TaskLog))
-        {
-          v12 = 134217984;
-          v13 = v7;
-          _os_signpost_emit_with_name_impl(&dword_1815A3000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "job_run", "task=%lld", &v12, 0xCu);
-        }
-
-        return v7;
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return v1;
-}
-
-uint64_t swift::restoreTaskVoucher(swift *this, swift::AsyncTask *a2)
-{
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v4 = *(StatusReg + 832);
-  result = *(v4 + 40);
-  if (*(StatusReg + 224) != result)
-  {
-    result = voucher_adopt();
-  }
-
-  *(this + 5) = result;
-  if (*(v4 + 48) == 1)
-  {
-    *(v4 + 48) = 0;
-  }
-
-  return result;
-}
-
-uint64_t swift::_swift_task_clearCurrent(swift *this)
-{
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  result = *(StatusReg + 824);
-  *(StatusReg + 824) = 0;
-  return result;
-}
-
-uint64_t swift::_swift_task_setCurrent(uint64_t a1)
-{
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v2 = *(StatusReg + 824);
-  *(StatusReg + 824) = a1;
-  return v2;
-}
-
-uint64_t _swift_getActiveExecutor()
-{
-  v0 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 832);
-  if (v0)
-  {
-    if (v0[1])
-    {
-      v1 = 1;
-    }
-
-    else
-    {
-      v1 = *v0 == 0;
-    }
-
-    if (v1)
-    {
-      return *v0;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else if (pthread_main_np())
-  {
-    return swift_getMainExecutor();
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t _swift_getCurrentTaskExecutor()
-{
-  v0 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 832);
-  if (!v0)
-  {
-    return 0;
-  }
-
-  result = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return result;
-}
-
-swift::AsyncTask *_swift_getPreferredTaskExecutor()
-{
-  result = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 824);
-  if (result)
-  {
-    return swift::AsyncTask::getPreferredTaskExecutor(result);
-  }
-
-  return result;
-}
-
-swift::AsyncTask *swift_task_getCurrentTaskName()
-{
-  result = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 824);
-  if (result)
-  {
-    return swift::AsyncTask::getTaskName(result);
-  }
-
-  return result;
-}
-
-uint64_t swift_bincompat_selectDefaultIsCurrentExecutorCheckingMode(void)
-{
-  if (swift_bincompat_useLegacyNonCrashingExecutorChecks())
-  {
-    v0 = 0;
-  }
-
-  else
-  {
-    v0 = 8;
-  }
-
-  IsCurrentExecutorLegacyModeOverride = concurrencyIsCurrentExecutorLegacyModeOverride();
-  if (IsCurrentExecutorLegacyModeOverride)
-  {
-    v2 = IsCurrentExecutorLegacyModeOverride;
-    if (*IsCurrentExecutorLegacyModeOverride)
-    {
-      if (!strcmp(IsCurrentExecutorLegacyModeOverride, "nocrash") || !strcmp(v2, "legacy"))
-      {
-        return 0;
-      }
-
-      else if (!strcmp(v2, "crash") || !strcmp(v2, "swift6"))
-      {
-        return 8;
-      }
-    }
-  }
-
-  return v0;
-}
-
-void swift_task_reportUnexpectedExecutor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v21[0] = a5;
-  v21[1] = a6;
-  if (swift_task_reportUnexpectedExecutor::logLevelToken != -1)
-  {
-    swift_task_reportUnexpectedExecutor_cold_1();
-  }
-
-  if (unexpectedExecutorLogLevel)
-  {
-    v9 = unexpectedExecutorLogLevel != 1;
-    isMainExecutor = swift::SerialExecutorRef::isMainExecutor(v21);
-    v12 = "actor-isolated function";
-    if (isMainExecutor)
-    {
-      v12 = "@MainActor function";
-    }
-
-    v13 = "the same actor";
-    if (isMainExecutor)
-    {
-      v13 = "the main thread";
-    }
-
-    v20 = 0;
-    v14 = "warning";
-    if (v9)
-    {
-      v14 = "error";
-    }
-
-    swift_asprintf(&v20, v11, v14, v12, a2, a1, a4, v13);
-    shouldReportFatalErrorsToDebugger = _swift_shouldReportFatalErrorsToDebugger();
-    v16 = v20;
-    if (shouldReportFatalErrorsToDebugger)
-    {
-      memset(&v18[2], 0, 48);
-      v19 = 0;
-      v18[0] = xmmword_1E6A17FE8;
-      v18[1] = *&off_1E6A17FF8;
-      MEMORY[0x1865D44A0](v9, v20, v18);
-    }
-
-    v17 = MEMORY[0x1E69E9848];
-    fputs(v16, *MEMORY[0x1E69E9848]);
-    fflush(*v17);
-    asl_log(0, 0, 3, "%s", v16);
-    free(v16);
-    if (v9)
-    {
-      abort();
-    }
-  }
-}
-
-unint64_t checkUnexpectedExecutorLogLevel(void *a1)
-{
-  result = getenv("SWIFT_UNEXPECTED_EXECUTOR_LOG_LEVEL");
-  if (result)
-  {
-    result = strtol(result, 0, 0);
-    if (result <= 2)
-    {
-      v2 = result;
-      result = swift_bincompat_selectDefaultIsCurrentExecutorCheckingMode();
-      if ((result & 8) != 0)
-      {
-        v3 = 2;
-      }
-
-      else
-      {
-        v3 = v2;
-      }
-
-      unexpectedExecutorLogLevel = v3;
-    }
-  }
-
-  return result;
-}
-
-void swift_asprintf(char **a1, const char *a2, ...)
-{
-  va_start(va, a2);
-  v3 = vsnprintf(0, 0, "%s: data race detected: %s at %.*s:%d was not called on %s\n", va);
-  *a1 = 0;
-  if ((v3 & 0x80000000) == 0)
-  {
-    v4 = (v3 + 1);
-    v5 = malloc_type_malloc(v4, 0x100004077774924uLL);
-    if (v5)
-    {
-      v6 = v5;
-      if (vsnprintf(v5, v4, "%s: data race detected: %s at %.*s:%d was not called on %s\n", va) < 0)
-      {
-        free(v6);
-      }
-
-      else
-      {
-        *a1 = v6;
-      }
-    }
-  }
-}
-
-{
-  va_start(va, a2);
-  v3 = vsnprintf(0, 0, "error: %sTaskGroup: detected pending task count overflow, in task group %p! Status: %s", va);
-  *a1 = 0;
-  if ((v3 & 0x80000000) == 0)
-  {
-    v4 = (v3 + 1);
-    v5 = malloc_type_malloc(v4, 0x100004077774924uLL);
-    if (v5)
-    {
-      v6 = v5;
-      if (vsnprintf(v5, v4, "error: %sTaskGroup: detected pending task count overflow, in task group %p! Status: %s", va) < 0)
-      {
-        free(v6);
-      }
-
-      else
-      {
-        *a1 = v6;
-      }
-    }
-  }
-}
-
-{
-  va_start(va, a2);
-  v3 = vsnprintf(0, 0, "error: task-local: detected illegal task-local value binding at %.*s:%d.\nTask-local values must only be set in a structured-context, such as: around any (synchronous or asynchronous function invocation), around an 'async let' declaration, or around a 'with(Throwing)TaskGroup(...){ ... }' invocation. Notably, binding a task-local value is illegal *within the body* of a withTaskGroup invocation.\n\nThe following example is illegal:\n\n    await withTaskGroup(...) { group in \n        await <task-local>.withValue(1234) {\n            group.addTask { ... }\n        }\n    }\n\nAnd should be replaced by, either: setting the value for the entire group:\n\n    // bind task-local for all tasks spawned within the group\n    await <task-local>.withValue(1234) {\n        await withTaskGroup(...) { group in\n            group.addTask { ... }\n        }\n    }\n\nor, inside the specific task-group child task:\n\n    // bind-task-local for only specific child-task\n    await withTaskGroup(...) { group in\n        group.addTask {\n            await <task-local>.withValue(1234) {\n                ... \n            }\n        }\n\n        group.addTask { ... }\n    }\n", va);
-  *a1 = 0;
-  if ((v3 & 0x80000000) == 0)
-  {
-    v4 = (v3 + 1);
-    v5 = malloc_type_malloc(v4, 0x100004077774924uLL);
-    if (v5)
-    {
-      v6 = v5;
-      if (vsnprintf(v5, v4, "error: task-local: detected illegal task-local value binding at %.*s:%d.\nTask-local values must only be set in a structured-context, such as: around any (synchronous or asynchronous function invocation), around an 'async let' declaration, or around a 'with(Throwing)TaskGroup(...){ ... }' invocation. Notably, binding a task-local value is illegal *within the body* of a withTaskGroup invocation.\n\nThe following example is illegal:\n\n    await withTaskGroup(...) { group in \n        await <task-local>.withValue(1234) {\n            group.addTask { ... }\n        }\n    }\n\nAnd should be replaced by, either: setting the value for the entire group:\n\n    // bind task-local for all tasks spawned within the group\n    await <task-local>.withValue(1234) {\n        await withTaskGroup(...) { group in\n            group.addTask { ... }\n        }\n    }\n\nor, inside the specific task-group child task:\n\n    // bind-task-local for only specific child-task\n    await withTaskGroup(...) { group in\n        group.addTask {\n            await <task-local>.withValue(1234) {\n                ... \n            }\n        }\n\n        group.addTask { ... }\n    }\n", va) < 0)
-      {
-        free(v6);
-      }
-
-      else
-      {
-        *a1 = v6;
-      }
-    }
-  }
-}
-
-void swift_defaultActor_initialize(const void *a1)
-{
-  _X2 = 0;
-  *(a1 + 16) = 0;
-  v2 = *(a1 + 4);
-  do
-  {
-    _X7 = *(a1 + 5);
-    __asm { CASP            X6, X7, X2, X3, [X8] }
-
-    _ZF = _X6 == v2;
-    v2 = _X6;
-  }
-
-  while (!_ZF);
-  *(a1 + 5) = 0u;
-  *(a1 + 6) = 0u;
-  *(a1 + 4) = 0u;
-  swift::concurrency::trace::actor_create(a1);
-}
-
-uint64_t swift_defaultActor_destroy(unint64_t **a1)
-{
-  v2 = swift_retainCount();
-  if (v2 >= 2)
-  {
-    swift_defaultActor_destroy_cold_1(a1, v2);
-  }
-
-  _X0 = 0;
-  _X1 = 0;
-  __asm { CASPA           X0, X1, X0, X1, [X8] }
-
-  return result;
-}
-
-void swift_defaultActor_enqueue(uint64_t a1, unsigned __int8 *ptr)
-{
-  v38 = *(a1 + 33);
-  swift::concurrency::trace::actor_enqueue(ptr, a1);
-  v4 = ptr;
-  if (*ptr)
-  {
-    v5 = *ptr;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  do
-  {
-    v6 = *(v5 + 64);
-    if (v6)
-    {
-      v7 = *(v5 + 64);
-      if (*(v6 + 3))
-      {
-        break;
-      }
-    }
-
-    v8 = *(v5 + 8);
-    if (!v8)
-    {
-      break;
-    }
-
-    v5 = *(v5 + 8);
-  }
-
-  while ((*(v8 + 32) & 2) != 0);
-  _X22 = 0;
-  _X23 = 0;
-  v11 = 0;
-  v37 = ptr[16];
-  __asm { CASP            X22, X23, X22, X23, [X8] }
-
-  v43 = v38 << 8;
-  LODWORD(_X26) = _X22;
-  v44 = ptr;
-  while (1)
-  {
-    *(a1 + 16) = 0;
-    if ((_X26 & 7) != 0)
-    {
-      if (BYTE1(_X26) >= v38)
-      {
-        v17 = _X26;
-      }
-
-      else
-      {
-        v17 = v43 | _X26 & 0xFFFF00FF | 0x10;
-      }
-
-      if ((_X26 & 7) == 1)
-      {
-        v18 = 0;
-        v19 = 0;
-        goto LABEL_17;
-      }
-    }
-
-    else
-    {
-      v17 = v43 | _X26 & 0xFFFF00E8 | 1;
-    }
-
-    v19 = (v17 & 7) == 1;
-    v18 = 1;
-LABEL_17:
-    v42 = _X26 & 7;
-    v20 = BYTE1(v17);
-    v21 = v17 & 7;
-    _ZF = BYTE1(_X26) != BYTE1(v17) && v21 == 2;
-    v23 = _ZF;
-    if (v19 || v23)
-    {
-      PreferredTaskExecutor = 0;
-      if (a1)
-      {
-        v25 = 0;
-        if (!*(a1 + 32))
-        {
-          v40 = v11;
-          PreferredTaskExecutor = swift::AsyncTask::getPreferredTaskExecutor(a1);
-          v20 = BYTE1(v17);
-          v11 = v40;
-          v4 = v44;
-          v25 = v26 & 0xFFFFFFFFFFFFFFF8;
-        }
-      }
-
-      else
-      {
-        v25 = 0;
-      }
-    }
-
-    else
-    {
-      PreferredTaskExecutor = 0;
-      v25 = 0;
-    }
-
-    v39 = v25;
-    v41 = PreferredTaskExecutor;
-    if (v21 == 1)
-    {
-      v27 = v18;
-    }
-
-    else
-    {
-      v27 = 0;
-    }
-
-    if (BYTE1(_X26) == v20)
-    {
-      v27 = 1;
-    }
-
-    if (((v27 | v11) & 1) == 0)
-    {
-      v28 = v20;
-
-      v20 = v28;
-      v4 = v44;
-      v11 = 1;
-    }
-
-    v29 = _X22 & 0xFFFFFFFF00000000 | _X26;
-    _X20 = v17;
-    _X27 = 0;
-    __asm { CASPL           X26, X27, X20, X21, [X8] }
-
-    if (_X26 == v29)
-    {
-      break;
-    }
-
-    _X22 = _X26;
-  }
-
-  v32 = v11;
-  v33 = a1;
-  v34 = v20;
-  swift::concurrency::trace::actor_state_changed(v4, v33, (0xFFFFFFFF03020100 >> (8 * v21)), v37, (v17 >> 4) & 1, v20);
-  if (v42 == 1 || v21 != 1)
-  {
-LABEL_43:
-    if ((v32 & 1) == 0)
-    {
-      return;
-    }
-
-    goto LABEL_44;
-  }
-
-  v35 = swift_slowAlloc();
-  *v35 = swift::jobHeapMetadataPtr;
-  v35[1] = 3;
-  *(v35 + 8) = (v34 << 8) | 0xC1;
-  *(v35 + 44) = 0;
-  *(v35 + 36) = 0;
-  *(v35 + 13) = 0;
-  v35[5] = voucher_copy();
-  v35[8] = v44;
-  if (v41)
-  {
-    ObjectType = swift_getObjectType();
-    _swift_task_enqueueOnTaskExecutor(v35, v41, ObjectType, v39);
-    goto LABEL_43;
-  }
-
-  swift_task_enqueueGlobal(v35);
-  if (v32)
-  {
-LABEL_44:
-  }
-}
-
-void *swift_defaultActor_deallocate(void *result)
-{
-  _X2 = 0;
-  _X3 = 0;
-  __asm { CASP            X2, X3, X2, X3, [X8] }
-
-  if ((_X2 & 7) == 2)
-  {
-    v8 = HIDWORD(_X2);
-    while (1)
-    {
-      _X4 = _X2 | 3;
-      v10 = _X2 | (v8 << 32);
-      _X3 = 0;
-      __asm { CASP            X2, X3, X4, X5, [X8] }
-
-      if (_X2 == v10)
-      {
-        break;
-      }
-
-      v8 = HIDWORD(_X2);
-      if ((_X2 & 7) != 2)
-      {
-        goto LABEL_5;
-      }
-    }
-  }
-
-  else
-  {
-LABEL_5:
-    v12 = result;
-    swift::concurrency::trace::actor_deallocate(result);
-    v13 = *(*v12 + 48);
-    v14 = *(*v12 + 52);
-
-    return swift_deallocClassInstance();
-  }
-
-  return result;
-}
-
-void *swift_defaultActor_deallocateResilient(void *result)
-{
-  if (*result)
-  {
-    v1 = *result;
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  v2 = v1;
-  while (1)
-  {
-    v3 = *(v2 + 64);
-    if (v3)
-    {
-      v4 = *(v2 + 64);
-      if (*(v3 + 3))
-      {
-        break;
-      }
-    }
-
-    v5 = *(v2 + 8);
-    if (v5)
-    {
-      v2 = *(v2 + 8);
-      if ((*(v5 + 32) & 2) != 0)
-      {
-        continue;
-      }
-    }
-
-    v6 = *(v1 + 48);
-    v7 = *(v1 + 52);
-
-    return MEMORY[0x1EEE6BDD0](result, v6, v7);
-  }
-
-  _X2 = 0;
-  _X3 = 0;
-  __asm { CASP            X2, X3, X2, X3, [X8] }
-
-  if ((_X2 & 7) == 2)
-  {
-    v15 = HIDWORD(_X2);
-    while (1)
-    {
-      _X4 = _X2 | 3;
-      v17 = _X2 | (v15 << 32);
-      _X3 = 0;
-      __asm { CASP            X2, X3, X4, X5, [X8] }
-
-      if (_X2 == v17)
-      {
-        break;
-      }
-
-      v15 = HIDWORD(_X2);
-      if ((_X2 & 7) != 2)
-      {
-        goto LABEL_16;
-      }
-    }
-  }
-
-  else
-  {
-LABEL_16:
-    v19 = result;
-    swift::concurrency::trace::actor_deallocate(result);
-    v20 = *(*v19 + 48);
-    v21 = *(*v19 + 52);
-
-    return swift_deallocClassInstance();
-  }
-
-  return result;
-}
-
-void swift::swift_executor_escalate(unsigned __int8 *ptr, uint64_t a2, swift::AsyncTask *a3, unint64_t a4)
-{
-  if (ptr && !a2)
-  {
-    v5 = *ptr ? *ptr : 0;
-    do
-    {
-      v6 = *(v5 + 64);
-      if (v6)
-      {
-        v7 = *(v5 + 64);
-        if (*(v6 + 3))
-        {
-          break;
-        }
-      }
-
-      v8 = *(v5 + 8);
-      if (!v8)
-      {
-        break;
-      }
-
-      v5 = *(v5 + 8);
-    }
-
-    while ((*(v8 + 32) & 2) != 0);
-    _X26 = 0;
-    v23 = ptr[16];
-    _X27 = 0;
-    __asm { CASP            X26, X27, X26, X27, [X8] }
-
-    if ((_X26 & 7) != 0)
-    {
-      v16 = HIDWORD(_X26);
-      v17 = a4 << 8;
-      while (1)
-      {
-        v18 = BYTE1(_X26) >= a4 ? _X26 : v17 | _X26 & 0xFFFF00FF | 0x10;
-        v19 = BYTE1(_X26) >= a4 ? v16 << 32 : 0;
-        if (_X26 == v18)
-        {
-          break;
-        }
-
-        if ((v18 & 7) == 1 && a3 && !*(a3 + 32))
-        {
-          swift::AsyncTask::getPreferredTaskExecutor(a3);
-        }
-
-        _X2 = v19 | v18;
-        _X1 = 0;
-        __asm { CASP            X0, X1, X2, X3, [X8] }
-
-        if (_X0 == (_X26 | (v16 << 32)))
-        {
-          swift::concurrency::trace::actor_state_changed(ptr, 0, (0xFFFFFFFF03020100 >> (8 * (v18 & 7u))), v23, (v18 >> 4) & 1, BYTE1(v18));
-          if ((_X26 & 7) == 0)
-          {
-            return;
-          }
-        }
-
-        else
-        {
-          v16 = HIDWORD(_X0);
-          LODWORD(_X26) = _X0;
-          if ((_X0 & 7) == 0)
-          {
-            return;
-          }
-        }
-      }
-    }
-  }
-}
-
-void swift_task_enqueue(uint64_t a1, unsigned __int8 *ptr, uint64_t a3)
-{
-  if (swift_task_enqueue::Override == 1)
-  {
-    swift_task_enqueueImpl(a1, ptr, a3);
-  }
-
-  else if (swift_task_enqueue::Override)
-  {
-    swift_task_enqueue::Override(a1, ptr, a3, swift_task_enqueueImpl);
-  }
-
-  else
-  {
-    swift_task_enqueueSlow(a1, ptr, a3);
-  }
-}
-
-void swift_task_enqueueImpl(uint64_t a1, unsigned __int8 *ptr, uint64_t a3)
-{
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  if (*MEMORY[0x1E69E7CF0])
-  {
-    (*MEMORY[0x1E69E7CF0])(a1);
-  }
-
-  if (ptr)
-  {
-    if (a3)
-    {
-      ObjectType = swift_getObjectType();
-
-      _swift_task_enqueueOnExecutor(a1, ptr, ObjectType, a3 & 0xFFFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-
-      swift_defaultActor_enqueue(a1, ptr);
-    }
-  }
-
-  else if (*(a1 + 32) || (PreferredTaskExecutor = swift::AsyncTask::getPreferredTaskExecutor(a1)) == 0)
-  {
-
-    swift_task_enqueueGlobal(a1);
-  }
-
-  else
-  {
-    v9 = v8;
-    v10 = PreferredTaskExecutor;
-    v11 = swift_getObjectType();
-
-    _swift_task_enqueueOnTaskExecutor(a1, v10, v11, v9 & 0xFFFFFFFFFFFFFFF8);
-  }
-}
-
-void swift_task_enqueueSlow(swift *a1, unsigned __int8 *a2, uint64_t a3)
-{
-  Override_task_enqueue = swift::getOverride_task_enqueue(a1);
-  if (Override_task_enqueue)
-  {
-    swift_task_enqueue::Override = Override_task_enqueue;
-
-    (Override_task_enqueue)(a1, a2, a3, swift_task_enqueueImpl);
-  }
-
-  else
-  {
-    swift_task_enqueue::Override = 1;
-
-    swift_task_enqueueImpl(a1, a2, a3);
-  }
-}
-
-void swift_job_run(swift::AsyncTask *a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3)
-{
-  if (swift_job_run::Override == 1)
-  {
-    swift_job_runImpl(a1, a2, a3);
-  }
-
-  else if (swift_job_run::Override)
-  {
-    swift_job_run::Override(a1, a2, a3, swift_job_runImpl);
-  }
-
-  else
-  {
-    swift_job_runSlow(a1, a2, a3);
-  }
-}
-
-void swift_job_runImpl(swift::AsyncTask *a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3)
-{
-  v15 = 1;
-  LOBYTE(v16) = 0;
-  v17 = 0;
-  v3 = 0;
-  if (a2)
-  {
-    v4 = 0;
-    v15 = 0;
-  }
-
-  else if (a1)
-  {
-    v4 = 0;
-    if (!*(a1 + 32))
-    {
-      v5 = a1;
-      v6 = a3;
-      PreferredTaskExecutor = swift::AsyncTask::getPreferredTaskExecutor(a1);
-      a3 = v6;
-      v3 = PreferredTaskExecutor;
-      a1 = v5;
-      v4 = v8;
-      a2 = 0;
-    }
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v11 = a2;
-  v12 = a3;
-  v13 = v3;
-  v14 = v4;
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v18 = *(StatusReg + 832);
-  *(StatusReg + 832) = &v11;
-  swift::runJobInEstablishedExecutorContext(a1);
-  if (v17 == 1)
-  {
-    v10 = v16;
-    if (*(StatusReg + 224) != v16)
-    {
-      v10 = voucher_adopt();
-    }
-
-    if (v10 + 1 >= 2)
-    {
-      os_release(v10);
-    }
-
-    if (v17 == 1)
-    {
-      v17 = 0;
-    }
-  }
-
-  *(StatusReg + 832) = v18;
-  if (v15 == 1 && v11 && !v12)
-  {
-  }
-}
-
-void swift_job_runSlow(swift *a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3)
-{
-  Override_job_run = swift::getOverride_job_run(a1);
-  if (Override_job_run)
-  {
-    swift_job_run::Override = Override_job_run;
-
-    (Override_job_run)(a1, a2, a3, swift_job_runImpl);
-  }
-
-  else
-  {
-    swift_job_run::Override = 1;
-
-    swift_job_runImpl(a1, a2, a3);
-  }
-}
-
-void swift_job_run_on_task_executor(swift *a1, uint64_t a2, uint64_t a3)
-{
-  if (swift_job_run_on_task_executor::Override == 1)
-  {
-    if (swift_job_run_on_serial_and_task_executor::Override == 1)
-    {
-      swift_job_run_on_serial_and_task_executorImpl(a1, 0, 0, a2, a3);
-    }
-
-    else if (swift_job_run_on_serial_and_task_executor::Override)
-    {
-      swift_job_run_on_serial_and_task_executor::Override(a1, 0, 0, a2, a3, swift_job_run_on_serial_and_task_executorImpl);
-    }
-
-    else
-    {
-      swift_job_run_on_serial_and_task_executorSlow(a1, 0, 0, a2, a3);
-    }
-  }
-
-  else if (swift_job_run_on_task_executor::Override)
-  {
-    swift_job_run_on_task_executor::Override(a1, a2, a3, swift_job_run_on_task_executorImpl);
-  }
-
-  else
-  {
-    swift_job_run_on_task_executorSlow(a1, a2, a3);
-  }
-}
-
-void swift_job_run_on_task_executorImpl(swift *a1, uint64_t a2, uint64_t a3)
-{
-  if (swift_job_run_on_serial_and_task_executor::Override == 1)
-  {
-    swift_job_run_on_serial_and_task_executorImpl(a1, 0, 0, a2, a3);
-  }
-
-  else if (swift_job_run_on_serial_and_task_executor::Override)
-  {
-    swift_job_run_on_serial_and_task_executor::Override(a1, 0, 0, a2, a3, swift_job_run_on_serial_and_task_executorImpl);
-  }
-
-  else
-  {
-    swift_job_run_on_serial_and_task_executorSlow(a1, 0, 0, a2, a3);
-  }
-}
-
-void swift_job_run_on_task_executorSlow(swift *a1, uint64_t a2, uint64_t a3)
-{
-  Override_job_run_on_task_executor = swift::getOverride_job_run_on_task_executor(a1);
-  if (Override_job_run_on_task_executor)
-  {
-    swift_job_run_on_task_executor::Override = Override_job_run_on_task_executor;
-
-    (Override_job_run_on_task_executor)(a1, a2, a3, swift_job_run_on_task_executorImpl);
-  }
-
-  else
-  {
-    swift_job_run_on_task_executor::Override = 1;
-    v7 = swift_job_run_on_serial_and_task_executor::Override;
-    if (swift_job_run_on_serial_and_task_executor::Override == 1)
-    {
-
-      swift_job_run_on_serial_and_task_executorImpl(a1, 0, 0, a2, a3);
-    }
-
-    else if (swift_job_run_on_serial_and_task_executor::Override)
-    {
-
-      v7(a1, 0, 0, a2, a3, swift_job_run_on_serial_and_task_executorImpl);
-    }
-
-    else
-    {
-
-      swift_job_run_on_serial_and_task_executorSlow(a1, 0, 0, a2, a3);
-    }
-  }
-}
-
-void swift_job_run_on_serial_and_task_executor(uint64_t a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  if (swift_job_run_on_serial_and_task_executor::Override == 1)
-  {
-    swift_job_run_on_serial_and_task_executorImpl(a1, a2, a3, a4, a5);
-  }
-
-  else if (swift_job_run_on_serial_and_task_executor::Override)
-  {
-    swift_job_run_on_serial_and_task_executor::Override(a1, a2, a3, a4, a5, swift_job_run_on_serial_and_task_executorImpl);
-  }
-
-  else
-  {
-    swift_job_run_on_serial_and_task_executorSlow(a1, a2, a3, a4, a5);
-  }
-}
-
-void swift_job_run_on_serial_and_task_executorImpl(uint64_t a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  LOBYTE(v12) = 0;
-  v13 = 0;
-  v11 = 0;
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  v10 = a5;
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v14 = *(StatusReg + 832);
-  *(StatusReg + 832) = &v7;
-  swift::runJobInEstablishedExecutorContext(a1);
-  if (v13 == 1)
-  {
-    v6 = v12;
-    if (*(StatusReg + 224) != v12)
-    {
-      v6 = voucher_adopt();
-    }
-
-    if (v6 + 1 >= 2)
-    {
-      os_release(v6);
-    }
-
-    if (v13 == 1)
-    {
-      v13 = 0;
-    }
-  }
-
-  *(StatusReg + 832) = v14;
-  if (v11 == 1 && v7 && !v8)
-  {
-  }
-}
-
-void swift_job_run_on_serial_and_task_executorSlow(swift *a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  Override_job_run_on_serial_and_task_executor = swift::getOverride_job_run_on_serial_and_task_executor(a1);
-  if (Override_job_run_on_serial_and_task_executor)
-  {
-    swift_job_run_on_serial_and_task_executor::Override = Override_job_run_on_serial_and_task_executor;
-
-    (Override_job_run_on_serial_and_task_executor)(a1, a2, a3, a4, a5, swift_job_run_on_serial_and_task_executorImpl);
-  }
-
-  else
-  {
-    swift_job_run_on_serial_and_task_executor::Override = 1;
-
-    swift_job_run_on_serial_and_task_executorImpl(a1, a2, a3, a4, a5);
-  }
-}
-
-uint64_t swift_task_getCurrentExecutor(swift *a1)
-{
-  if (swift_task_getCurrentExecutor::Override == 1)
-  {
-    v1 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 832);
-    if (v1)
-    {
-      result = *v1;
-      v3 = v1[1];
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else if (swift_task_getCurrentExecutor::Override)
-  {
-    return swift_task_getCurrentExecutor::Override(swift_task_getCurrentExecutorImpl);
-  }
-
-  else
-  {
-    return swift_task_getCurrentExecutorSlow(a1);
-  }
-
-  return result;
-}
-
-uint64_t swift_task_getCurrentExecutorImpl(void)
-{
-  v0 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 832);
-  if (!v0)
-  {
-    return 0;
-  }
-
-  result = *v0;
-  v2 = v0[1];
-  return result;
-}
-
-uint64_t swift_task_getCurrentExecutorSlow(swift *a1)
-{
-  CurrentExecutor = swift::getOverride_task_getCurrentExecutor(a1);
-  if (CurrentExecutor)
-  {
-    swift_task_getCurrentExecutor::Override = CurrentExecutor;
-
-    return (CurrentExecutor)(swift_task_getCurrentExecutorImpl);
-  }
-
-  else
-  {
-    swift_task_getCurrentExecutor::Override = 1;
-    v3 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 832);
-    if (v3)
-    {
-      result = *v3;
-      v4 = v3[1];
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t swift_task_isCurrentExecutor(swift *a1, uint64_t a2)
-{
-  v3 = swift_task_isCurrentExecutor::Override;
-  if (swift_task_isCurrentExecutor::Override == 1)
-  {
-    if (qword_1ED42EA48 != -1)
-    {
-      v7 = a2;
-      v8 = a1;
-      swift_task_isCurrentExecutor_cold_1(a1);
-      a1 = v8;
-      a2 = v7;
-    }
-
-    v4 = _MergedGlobals;
-    v5 = swift_task_isCurrentExecutorWithFlags::Override;
-    if (swift_task_isCurrentExecutorWithFlags::Override == 1)
-    {
-
-      return swift_task_isCurrentExecutorWithFlagsImpl(a1, a2, v4);
-    }
-
-    else if (swift_task_isCurrentExecutorWithFlags::Override)
-    {
-
-      return v5(a1, a2, v4, swift_task_isCurrentExecutorWithFlagsImpl);
-    }
-
-    else
-    {
-
-      return swift_task_isCurrentExecutorWithFlagsSlow(a1, a2, v4);
-    }
-  }
-
-  else if (swift_task_isCurrentExecutor::Override)
-  {
-
-    return v3(a1, a2, swift_task_isCurrentExecutorImpl);
-  }
-
-  else
-  {
-
-    return swift_task_isCurrentExecutorSlow(a1, a2);
-  }
-}
-
-uint64_t swift_task_isCurrentExecutorImpl(swift *a1, uint64_t a2)
-{
-  if (qword_1ED42EA48 != -1)
-  {
-    v6 = a2;
-    v7 = a1;
-    swift_task_isCurrentExecutor_cold_1(a1);
-    a1 = v7;
-    a2 = v6;
-  }
-
-  v3 = _MergedGlobals;
-  v4 = swift_task_isCurrentExecutorWithFlags::Override;
-  if (swift_task_isCurrentExecutorWithFlags::Override == 1)
-  {
-
-    return swift_task_isCurrentExecutorWithFlagsImpl(a1, a2, v3);
-  }
-
-  else if (swift_task_isCurrentExecutorWithFlags::Override)
-  {
-
-    return v4(a1, a2, v3, swift_task_isCurrentExecutorWithFlagsImpl);
-  }
-
-  else
-  {
-
-    return swift_task_isCurrentExecutorWithFlagsSlow(a1, a2, v3);
-  }
-}
-
-uint64_t swift_task_isCurrentExecutorSlow(swift *a1, uint64_t a2)
-{
-  isCurrentExecutor = swift::getOverride_task_isCurrentExecutor(a1);
-  if (isCurrentExecutor)
-  {
-    swift_task_isCurrentExecutor::Override = isCurrentExecutor;
-
-    return (isCurrentExecutor)(a1, a2, swift_task_isCurrentExecutorImpl);
-  }
-
-  else
-  {
-    swift_task_isCurrentExecutor::Override = 1;
-    if (qword_1ED42EA48 != -1)
-    {
-      dispatch_once_f(&qword_1ED42EA48, &_MergedGlobals, swift_task_setDefaultExecutorCheckingFlags);
-    }
-
-    v6 = _MergedGlobals;
-    v7 = swift_task_isCurrentExecutorWithFlags::Override;
-    if (swift_task_isCurrentExecutorWithFlags::Override == 1)
-    {
-
-      return swift_task_isCurrentExecutorWithFlagsImpl(a1, a2, v6);
-    }
-
-    else if (swift_task_isCurrentExecutorWithFlags::Override)
-    {
-
-      return v7(a1, a2, v6, swift_task_isCurrentExecutorWithFlagsImpl);
-    }
-
-    else
-    {
-
-      return swift_task_isCurrentExecutorWithFlagsSlow(a1, a2, v6);
-    }
-  }
-}
-
-uint64_t swift_task_isCurrentExecutorWithFlags(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (swift_task_isCurrentExecutorWithFlags::Override == 1)
-  {
-    return swift_task_isCurrentExecutorWithFlagsImpl(a1, a2, a3);
-  }
-
-  if (swift_task_isCurrentExecutorWithFlags::Override)
-  {
-    return swift_task_isCurrentExecutorWithFlags::Override(a1, a2, a3, swift_task_isCurrentExecutorWithFlagsImpl);
-  }
-
-  return swift_task_isCurrentExecutorWithFlagsSlow(a1, a2, a3);
-}
-
-uint64_t swift_task_isCurrentExecutorWithFlagsImpl(uint64_t a1, uint64_t a2, char a3)
-{
-  v20 = a1;
-  v21 = a2;
-  v4 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 832);
-  if (!v4)
-  {
-    if (!swift::SerialExecutorRef::isMainExecutor(&v20) || !pthread_main_np())
-    {
-      isIsolatingCurrentContext = swift_task_isIsolatingCurrentContext(v20, v21);
-      result = swift::getIsIsolatingCurrentContextDecisionFromInt(isIsolatingCurrentContext, v16, v17, v18);
-      if (result == 1)
-      {
-        return result;
-      }
-
-      if (!result)
-      {
-        return 0;
-      }
-
-LABEL_24:
-      if ((a3 & 8) == 0)
-      {
-        return 0;
-      }
-
-      swift_task_checkIsolated(v20, v21);
-      return 1;
-    }
-
-    return 1;
-  }
-
-  v19 = *v4;
-  if (v19 == a1 || swift::SerialExecutorRef::isMainExecutor(&v19) && (swift::SerialExecutorRef::isMainExecutor(&v20) & 1) != 0)
-  {
-    return 1;
-  }
-
-  if ((a3 & 8) != 0)
-  {
-LABEL_10:
-    v6 = v20;
-    if ((v21 & 7) != 1 || !v19 || !*(&v19 + 1) || !v20 || (v7 = swift_compareWitnessTables(), v6 = v20, (v7 & 1) == 0))
-    {
-LABEL_17:
-      v11 = swift_task_isIsolatingCurrentContext(v6, v21);
-      result = swift::getIsIsolatingCurrentContextDecisionFromInt(v11, v12, v13, v14);
-      if (result == 1)
-      {
-        return result;
-      }
-
-      if (!result)
-      {
-        return 0;
-      }
-
-      goto LABEL_24;
-    }
-
-    v8 = v19;
-    v9 = v20;
-    ObjectType = swift_getObjectType();
-    if ((_task_serialExecutor_isSameExclusiveExecutionContext(v8, v9, ObjectType, v21 & 0xFFFFFFFFFFFFFFF8) & 1) == 0)
-    {
-      v6 = v20;
-      goto LABEL_17;
-    }
-
-    return 1;
-  }
-
-  if (!swift::SerialExecutorRef::isMainExecutor(&v20) || (result = swift::SerialExecutorRef::isMainExecutor(&v19), result))
-  {
-    if (swift::SerialExecutorRef::isMainExecutor(&v20) & 1) == 0 && (swift::SerialExecutorRef::isMainExecutor(&v19))
-    {
-      return 0;
-    }
-
-    goto LABEL_10;
-  }
-
-  return result;
-}
-
-uint64_t swift_task_isCurrentExecutorWithFlagsSlow(swift *a1, uint64_t a2, uint64_t a3)
-{
-  isCurrentExecutorWithFlags = swift::getOverride_task_isCurrentExecutorWithFlags(a1);
-  if (isCurrentExecutorWithFlags)
-  {
-    swift_task_isCurrentExecutorWithFlags::Override = isCurrentExecutorWithFlags;
-
-    return (isCurrentExecutorWithFlags)(a1, a2, a3, swift_task_isCurrentExecutorWithFlagsImpl);
-  }
-
-  else
-  {
-    swift_task_isCurrentExecutorWithFlags::Override = 1;
-
-    return swift_task_isCurrentExecutorWithFlagsImpl(a1, a2, a3);
-  }
-}
-
-void swift_task_switch(void (*a1)(void), _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3)
-{
-  if (swift_task_switch::Override == 1)
-  {
-    swift_task_switchImpl(a1, a2, a3);
-  }
-
-  else if (swift_task_switch::Override)
-  {
-    swift_task_switch::Override(a1, a2, a3, swift_task_switchImpl);
-  }
-
-  else
-  {
-    swift_task_switchSlow(a1, a2, a3);
-  }
-}
-
-void swift_task_switchImpl(void (*a1)(void), _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3)
-{
-  v32 = v3;
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v7 = StatusReg[103];
-  v8 = StatusReg[104];
-  if (v8)
-  {
-    v9 = *v8;
-    v10 = *(v8 + 8);
-    v11 = *(v8 + 16);
-  }
-
-  else
-  {
-    v9 = 0;
-    v10 = 0;
-    v11 = 0;
-  }
-
-  PreferredTaskExecutor = swift::AsyncTask::getPreferredTaskExecutor(v7);
-  if (v9 == a2 && PreferredTaskExecutor == v11)
-  {
-    v13 = a1;
-
-LABEL_8:
-    v13();
-    return;
-  }
-
-  if (v3)
-  {
-    v14 = v3;
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  v7[8] = v14;
-  v15 = v7 + 7;
-  if (a1)
-  {
-    *v15 = a1;
-    if (v11)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    *v15 = 0;
-    if (v11)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  if (v8 && *(v8 + 32) != 1)
-  {
-    goto LABEL_31;
-  }
-
-  if (v9)
-  {
-    if (v10)
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else if ((v10 & 7) == 2)
-  {
-    goto LABEL_31;
-  }
-
-  if (a2)
-  {
-    {
-      goto LABEL_25;
-    }
-
-LABEL_31:
-    StatusReg[103] = 0;
-
-    swift::AsyncTask::flagAsAndEnqueueOnExecutor(v7, a2, a3);
-    return;
-  }
-
-  if (PreferredTaskExecutor)
-  {
-    goto LABEL_31;
-  }
-
-LABEL_25:
-  if (v9)
-  {
-  }
-
-  if (v8)
-  {
-    *v8 = a2;
-    *(v8 + 8) = a3;
-    *(v8 + 16) = swift::AsyncTask::getPreferredTaskExecutor(v7);
-    *(v8 + 24) = v16;
-    v13 = v7[7];
-    if (v7[8])
-    {
-      v17 = v7[8];
-    }
-
-    goto LABEL_8;
-  }
-
-  v28 = 1;
-  LOBYTE(v29) = 0;
-  v30 = 0;
-  v24 = a2;
-  v25 = a3;
-  v26 = swift::AsyncTask::getPreferredTaskExecutor(v7);
-  v27 = v18;
-  v31 = StatusReg[104];
-  StatusReg[104] = &v24;
-  if (v7[8])
-  {
-    v19 = v7[8];
-  }
-
-  v7[7]();
-  v20 = v24;
-  v21 = v25;
-  if (v30 == 1)
-  {
-    v22 = v29;
-    if (StatusReg[28] != v29)
-    {
-      v22 = voucher_adopt();
-    }
-
-    if (v22 + 1 >= 2)
-    {
-      os_release(v22);
-    }
-
-    if (v30 == 1)
-    {
-      v30 = 0;
-    }
-  }
-
-  StatusReg[104] = v31;
-  if (v20 && !v21)
-  {
-  }
-}
-
-void swift_task_switchSlow(swift *a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3)
-{
-  Override_task_switch = swift::getOverride_task_switch(a1);
-  if (Override_task_switch)
-  {
-    swift_task_switch::Override = Override_task_switch;
-
-    (Override_task_switch)(a1, a2, a3, swift_task_switchImpl);
-  }
-
-  else
-  {
-    swift_task_switch::Override = 1;
-
-    swift_task_switchImpl(a1, a2, a3);
-  }
-}
-
-void swift_task_deinitOnExecutor(swift *a1, void (*a2)(swift *), swift *a3, uint64_t a4, uint64_t a5)
-{
-  if (swift_task_deinitOnExecutor::Override == 1)
-  {
-    swift_task_deinitOnExecutorImpl(a1, a2, a3, a4);
-  }
-
-  else if (swift_task_deinitOnExecutor::Override)
-  {
-    swift_task_deinitOnExecutor::Override(a1, a2, a3, a4, a5, swift_task_deinitOnExecutorImpl);
-  }
-
-  else
-  {
-    swift_task_deinitOnExecutorSlow(a1, a2, a3, a4, a5);
-  }
-}
-
-void swift_task_deinitOnExecutorImpl(swift *a1, void (*a2)(swift *), swift *a3, uint64_t a4)
-{
-  if (swift_task_isCurrentExecutorWithFlags::Override == 1)
-  {
-    if (swift_task_isCurrentExecutorWithFlagsImpl(a3, a4, 0))
-    {
-LABEL_3:
-      swift::TaskLocal::StopLookupScope::StopLookupScope(v22);
-      a2(a1);
-      swift::TaskLocal::StopLookupScope::~StopLookupScope(v22, v9, v10, v11);
-      return;
-    }
-  }
-
-  else if (swift_task_isCurrentExecutorWithFlags::Override)
-  {
-    if (swift_task_isCurrentExecutorWithFlags::Override(a3, a4, 0, swift_task_isCurrentExecutorWithFlagsImpl))
-    {
-      goto LABEL_3;
-    }
-  }
-
-  else if (swift_task_isCurrentExecutorWithFlagsSlow(a3, a4, 0))
-  {
-    goto LABEL_3;
-  }
-
-  {
-    v23 = 1;
-    LOBYTE(v24) = 0;
-    v25 = 0;
-    StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-    v22[0] = a3;
-    memset(&v22[1], 0, 24);
-    v26 = *(StatusReg + 832);
-    *(StatusReg + 832) = v22;
-    swift::TaskLocal::StopLookupScope::StopLookupScope(v21);
-    a2(a1);
-    swift::TaskLocal::StopLookupScope::~StopLookupScope(v21, v13, v14, v15);
-    if (v25 == 1)
-    {
-      v16 = v24;
-      if (*(StatusReg + 224) != v24)
-      {
-        v16 = voucher_adopt();
-      }
-
-      if (v16 + 1 >= 2)
-      {
-        os_release(v16);
-      }
-
-      if (v25 == 1)
-      {
-        v25 = 0;
-      }
-    }
-
-    *(StatusReg + 832) = v26;
-  }
-
-  else
-  {
-    if (*(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 824))
-    {
-      v17 = swift_task_currentPriority();
-    }
-
-    else
-    {
-      v17 = qos_class_self();
-    }
-
-    v18 = swift_slowAlloc();
-    *v18 = swift::jobHeapMetadataPtr;
-    *(v18 + 8) = 3;
-    *(v18 + 32) = (v17 << 8) | 0xC4;
-    *(v18 + 44) = 0;
-    *(v18 + 36) = 0;
-    *(v18 + 52) = 0;
-    *(v18 + 40) = voucher_copy();
-    *(v18 + 64) = a1;
-    if (a2)
-    {
-      v19 = a2;
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    *(v18 + 72) = v19;
-    v20 = swift_task_enqueue::Override;
-    if (swift_task_enqueue::Override == 1)
-    {
-
-      swift_task_enqueueImpl(v18, a3, a4);
-    }
-
-    else if (swift_task_enqueue::Override)
-    {
-
-      v20(v18, a3, a4, swift_task_enqueueImpl);
-    }
-
-    else
-    {
-
-      swift_task_enqueueSlow(v18, a3, a4);
-    }
-  }
-}
-
-void swift_task_deinitOnExecutorSlow(swift *a1, void (*a2)(swift *), swift *a3, uint64_t a4, uint64_t a5)
-{
-  Override_task_deinitOnExecutor = swift::getOverride_task_deinitOnExecutor(a1);
-  if (Override_task_deinitOnExecutor)
-  {
-    swift_task_deinitOnExecutor::Override = Override_task_deinitOnExecutor;
-
-    (Override_task_deinitOnExecutor)(a1, a2, a3, a4, a5, swift_task_deinitOnExecutorImpl);
-  }
-
-  else
-  {
-    swift_task_deinitOnExecutor::Override = 1;
-
-    swift_task_deinitOnExecutorImpl(a1, a2, a3, a4);
-  }
-}
-
-void swift_task_immediate(swift *a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3)
-{
-  if (swift_task_immediate::Override == 1)
-  {
-    swift_task_immediateImpl(a1, a2, a3);
-  }
-
-  else if (swift_task_immediate::Override)
-  {
-    swift_task_immediate::Override(a1, a2, a3, swift_task_immediateImpl);
-  }
-
-  else
-  {
-    swift_task_immediateSlow(a1, a2, a3);
-  }
-}
-
-void swift_task_immediateImpl(swift *a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3)
-{
-
-  v6 = a2;
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v8 = *(StatusReg + 824);
-  if (!v6)
-  {
-    *(StatusReg + 824) = a1;
-    v9 = swift_job_run::Override;
-    if (swift_job_run::Override == 1)
-    {
-      v10 = a1;
-      v6 = 0;
-      v11 = 2;
-      goto LABEL_6;
-    }
-
-    if (!swift_job_run::Override)
-    {
-      swift_job_runSlow(a1, 0, 2);
-      goto LABEL_7;
-    }
-
-    v12 = a1;
-    v6 = 0;
-    v13 = 2;
-LABEL_12:
-    v9(v12, v6, v13, swift_job_runImpl);
-    goto LABEL_7;
-  }
-
-  *(StatusReg + 824) = 0;
-  v9 = swift_job_run::Override;
-  if (swift_job_run::Override != 1)
-  {
-    if (!swift_job_run::Override)
-    {
-      swift_job_runSlow(a1, v6, a3);
-      goto LABEL_7;
-    }
-
-    v12 = a1;
-    v13 = a3;
-    goto LABEL_12;
-  }
-
-  v10 = a1;
-  v11 = a3;
-LABEL_6:
-  swift_job_runImpl(v10, v6, v11);
-LABEL_7:
-  *(StatusReg + 824) = v8;
-}
-
-void swift_task_immediateSlow(swift *a1, _anonymous_namespace_::DefaultActorImpl *a2, uint64_t a3)
-{
-  Override_task_immediate = swift::getOverride_task_immediate(a1);
-  if (Override_task_immediate)
-  {
-    swift_task_immediate::Override = Override_task_immediate;
-
-    (Override_task_immediate)(a1, a2, a3, swift_task_immediateImpl);
-  }
-
-  else
-  {
-    swift_task_immediate::Override = 1;
-
-    swift_task_immediateImpl(a1, a2, a3);
-  }
-}
-
-uint64_t swift_distributedActor_remote_initialize(void *a1)
-{
-  v1 = a1;
-  if ((*a1 - 2048) >= 0xFFFFFFFFFFFFF801)
-  {
-    v1 = a1[1];
-  }
-
-  v2 = *(v1 + 12);
-  v3 = *(v1 + 26);
-  v4 = swift_allocObject();
-  bzero((v4 + 16), *(v1 + 12) - 16);
-  while (1)
-  {
-    v5 = v1[8];
-    if (v5)
-    {
-      v6 = v1[8];
-      if (*(v5 + 3))
-      {
-        break;
-      }
-    }
-
-    v7 = v1[1];
-    if (v7)
-    {
-      v1 = v1[1];
-      if ((*(v7 + 32) & 2) != 0)
-      {
-        continue;
-      }
-    }
-
-    *(v4 + 16) = 1;
-    goto LABEL_9;
-  }
-
-  _X0 = 0;
-  *(v4 + 16) = 1;
-  v10 = *(v4 + 32);
-  do
-  {
-    _X5 = *(v4 + 40);
-    __asm { CASP            X4, X5, X0, X1, [X8] }
-
-    _ZF = _X4 == v10;
-    v10 = _X4;
-  }
-
-  while (!_ZF);
-  *(v4 + 80) = 0u;
-  *(v4 + 96) = 0u;
-  *(v4 + 64) = 0u;
-LABEL_9:
-  swift::concurrency::trace::actor_create(v4);
-  return v4;
-}
-
 uint64_t swift_distributed_actor_is_remote(uint64_t *a1)
 {
   if (*a1)
@@ -2027,17 +13,13 @@ uint64_t swift_distributed_actor_is_remote(uint64_t *a1)
   do
   {
     v2 = *(v1 + 64);
-    if (v2)
+    if (v2 && (*(v2 + 3) & 1) != 0)
     {
-      v3 = *(v1 + 64);
-      if (*(v2 + 3))
-      {
-        break;
-      }
+      break;
     }
 
-    v4 = *(v1 + 8);
-    if (!v4)
+    v3 = *(v1 + 8);
+    if (!v3)
     {
       break;
     }
@@ -2045,7 +27,7 @@ uint64_t swift_distributed_actor_is_remote(uint64_t *a1)
     v1 = *(v1 + 8);
   }
 
-  while ((*(v4 + 32) & 2) != 0);
+  while ((*(v3 + 32) & 2) != 0);
   return *(a1 + 16);
 }
 
@@ -2169,7 +151,7 @@ void swift::concurrency::trace::actor_create(const void *a1)
   }
 }
 
-uint64_t swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(unint64_t *a1)
+unint64_t swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 > 0x7FF)
@@ -2312,20 +294,20 @@ void anonymous namespace::ProcessOutOfLineJob::process(uint64_t a1)
   }
 
   MEMORY[0x1865D4B40](a1, 80, 15);
-  v31 = 1;
-  LOBYTE(v32) = 0;
-  v33 = 0;
+  v29 = 1;
+  LOBYTE(v30) = 0;
+  v31 = 0;
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v27 = v1;
-  v28 = 0;
+  v25 = v1;
+  v26 = 0;
   PreferredTaskExecutor = 0;
-  v30 = 0;
-  v34 = *(StatusReg + 832);
-  *(StatusReg + 832) = &v27;
+  v28 = 0;
+  v32 = *(StatusReg + 832);
+  *(StatusReg + 832) = &v25;
   v4 = MEMORY[0x1E69E7CE8];
   while (1)
   {
-    v5 = *(v1 + 8);
+    v5 = v1[8];
     if (v5)
     {
       break;
@@ -2349,17 +331,13 @@ LABEL_36:
     do
     {
       v15 = *(v14 + 64);
-      if (v15)
+      if (v15 && (*(v15 + 3) & 1) != 0)
       {
-        v16 = *(v14 + 64);
-        if (*(v15 + 3))
-        {
-          break;
-        }
+        break;
       }
 
-      v17 = *(v14 + 8);
-      if (!v17)
+      v16 = *(v14 + 8);
+      if (!v16)
       {
         break;
       }
@@ -2367,9 +345,8 @@ LABEL_36:
       v14 = *(v14 + 8);
     }
 
-    while ((*(v17 + 32) & 2) != 0);
+    while ((*(v16 + 32) & 2) != 0);
     _X22 = 0;
-    v19 = *(v1 + 16);
     _X23 = 0;
     __asm { CASP            X22, X23, X22, X23, [X8] }
 
@@ -2411,7 +388,7 @@ LABEL_36:
   }
 
   v9 = *(v5 + 16);
-  *(v1 + 8) = v9;
+  v1[8] = v9;
   if (!v9)
   {
     goto LABEL_31;
@@ -2426,7 +403,7 @@ LABEL_36:
     }
 
 LABEL_31:
-    *(v1 + v8 + 9) = 0;
+    v1[v8 + 9] = 0;
     goto LABEL_32;
   }
 
@@ -2468,32 +445,32 @@ LABEL_32:
   if (!*(v5 + 32))
   {
     PreferredTaskExecutor = swift::AsyncTask::getPreferredTaskExecutor(v5);
-    v30 = v13;
+    v28 = v13;
   }
 
   swift::runJobInEstablishedExecutorContext(v5);
-  v1 = v27;
-  if (v27 && !v28)
+  v1 = v25;
+  if (v25 && !v26)
   {
     goto LABEL_36;
   }
 
 LABEL_46:
-  if (v33 == 1)
+  if (v31 == 1)
   {
-    v26 = v32;
-    if (*(StatusReg + 224) != v32)
+    v24 = v30;
+    if (*(StatusReg + 224) != v30)
     {
-      v26 = voucher_adopt();
+      v24 = voucher_adopt();
     }
 
-    if (v26 + 1 >= 2)
+    if (v24 + 1 >= 2)
     {
-      os_release(v26);
+      os_release(v24);
     }
   }
 
-  *(StatusReg + 832) = v34;
+  *(StatusReg + 832) = v32;
 }
 
 uint64_t anonymous namespace::DefaultActorImpl::tryLock(_anonymous_namespace_::DefaultActorImpl *this, int a2)
@@ -2511,17 +488,13 @@ uint64_t anonymous namespace::DefaultActorImpl::tryLock(_anonymous_namespace_::D
   do
   {
     v5 = *(v4 + 64);
-    if (v5)
+    if (v5 && (*(v5 + 3) & 1) != 0)
     {
-      v6 = *(v4 + 64);
-      if (*(v5 + 3))
-      {
-        break;
-      }
+      break;
     }
 
-    v7 = *(v4 + 8);
-    if (!v7)
+    v6 = *(v4 + 8);
+    if (!v6)
     {
       break;
     }
@@ -2529,30 +502,30 @@ uint64_t anonymous namespace::DefaultActorImpl::tryLock(_anonymous_namespace_::D
     v4 = *(v4 + 8);
   }
 
-  while ((*(v7 + 32) & 2) != 0);
+  while ((*(v6 + 32) & 2) != 0);
   _X22 = 0;
   _X23 = 0;
-  v10 = *(this + 16);
+  v9 = *(this + 16);
   __asm { CASP            X22, X23, X22, X23, [X8] }
 
   _X0 = _X22;
-  v17 = _X22;
+  v16 = _X22;
   if (a2)
   {
 LABEL_10:
     while (1)
     {
-      _X24 = v17 & 0xFFFFFFE8 | 2;
-      v19 = _X0 & 0xFFFFFFFF00000000 | v17;
+      _X24 = v16 & 0xFFFFFFE8 | 2;
+      v18 = _X0 & 0xFFFFFFFF00000000 | v16;
       _X1 = 0;
       __asm { CASPA           X0, X1, X24, X25, [X9] }
 
-      if (_X0 == v19)
+      if (_X0 == v18)
       {
         break;
       }
 
-      v17 = _X0;
+      v16 = _X0;
       if ((a2 & 1) == 0)
       {
         goto LABEL_9;
@@ -2564,7 +537,7 @@ LABEL_10:
       (*MEMORY[0x1E69E7CE8])(this);
     }
 
-    swift::concurrency::trace::actor_state_changed(this, 0, 2, v10, 0, BYTE1(v17));
+    swift::concurrency::trace::actor_state_changed(this, 0, 2, v9, 0, BYTE1(v16));
     if (a2)
     {
     }
@@ -2575,7 +548,7 @@ LABEL_10:
   else
   {
 LABEL_9:
-    if ((v17 & 7) - 1 >= 2)
+    if ((v16 & 7) - 1 >= 2)
     {
       goto LABEL_10;
     }
@@ -2599,17 +572,13 @@ uint64_t anonymous namespace::DefaultActorImpl::unlock(_anonymous_namespace_::De
   do
   {
     v5 = *(v4 + 64);
-    if (v5)
+    if (v5 && (*(v5 + 3) & 1) != 0)
     {
-      v6 = *(v4 + 64);
-      if (*(v5 + 3))
-      {
-        break;
-      }
+      break;
     }
 
-    v7 = *(v4 + 8);
-    if (!v7)
+    v6 = *(v4 + 8);
+    if (!v6)
     {
       break;
     }
@@ -2617,13 +586,13 @@ uint64_t anonymous namespace::DefaultActorImpl::unlock(_anonymous_namespace_::De
     v4 = *(v4 + 8);
   }
 
-  while ((*(v7 + 32) & 2) != 0);
+  while ((*(v6 + 32) & 2) != 0);
   _X26 = 0;
   _X27 = 0;
-  v10 = *(this + 16);
+  v9 = *(this + 16);
   __asm { CASP            X26, X27, X26, X27, [X8] }
 
-  v16 = MEMORY[0x1E69E7CF0];
+  v15 = MEMORY[0x1E69E7CF0];
   if (*MEMORY[0x1E69E7CF0])
   {
     (*MEMORY[0x1E69E7CF0])(this);
@@ -2633,8 +602,6 @@ uint64_t anonymous namespace::DefaultActorImpl::unlock(_anonymous_namespace_::De
   {
 LABEL_17:
     swift::concurrency::trace::actor_deallocate(this);
-    v21 = *(*this + 48);
-    v22 = *(*this + 52);
     swift_deallocClassInstance();
   }
 
@@ -2649,20 +616,20 @@ LABEL_17:
           return 0;
         }
 
-        v17 = _X26 & 0xFFFFFFE8 | 1;
+        v16 = _X26 & 0xFFFFFFE8 | 1;
       }
 
       else
       {
-        v17 = _X26 & 0xFFFF00E8;
+        v16 = _X26 & 0xFFFF00E8;
       }
 
-      v18 = _X26;
-      _X22 = v17;
+      v17 = _X26;
+      _X22 = v16;
       _X27 = 0;
       __asm { CASPL           X26, X27, X22, X23, [X10] }
 
-      if (_X26 == v18)
+      if (_X26 == v17)
       {
         break;
       }
@@ -2673,62 +640,62 @@ LABEL_17:
       }
     }
 
-    if (*v16)
+    if (*v15)
     {
-      (*v16)(this, 0);
+      (*v15)(this, 0);
     }
 
-    v24 = v17 & 7;
-    v25 = 255;
-    if (v24 > 1)
+    v21 = v16 & 7;
+    v22 = 255;
+    if (v21 > 1)
     {
-      if (v24 == 3)
+      if (v21 == 3)
       {
-        v28 = 3;
+        v25 = 3;
       }
 
       else
       {
-        v28 = 255;
+        v25 = 255;
       }
 
-      if (v24 == 2)
+      if (v21 == 2)
       {
-        v25 = 2;
+        v22 = 2;
       }
 
       else
       {
-        v25 = v28;
+        v22 = v25;
       }
     }
 
-    else if ((v17 & 7) != 0)
+    else if ((v16 & 7) != 0)
     {
-      if (v24 == 1)
+      if (v21 == 1)
       {
-        swift::concurrency::trace::actor_state_changed(this, 0, 1, v10, 0, BYTE1(v17));
-        v26 = swift_slowAlloc();
-        *v26 = swift::jobHeapMetadataPtr;
-        *(v26 + 8) = 3;
-        *(v26 + 32) = v17 & 0xFF00 | 0xC1;
-        *(v26 + 44) = 0;
-        *(v26 + 36) = 0;
-        *(v26 + 52) = 0;
-        v27 = v26;
-        *(v26 + 40) = voucher_copy();
-        v27[8] = this;
-        swift_task_enqueueGlobal(v27);
+        swift::concurrency::trace::actor_state_changed(this, 0, 1, v9, 0, BYTE1(v16));
+        v23 = swift_slowAlloc();
+        *v23 = swift::jobHeapMetadataPtr;
+        *(v23 + 8) = 3;
+        *(v23 + 32) = v16 & 0xFF00 | 0xC1;
+        *(v23 + 44) = 0;
+        *(v23 + 36) = 0;
+        *(v23 + 52) = 0;
+        v24 = v23;
+        *(v23 + 40) = voucher_copy();
+        v24[8] = this;
+        swift_task_enqueueGlobal(v24);
         return 1;
       }
     }
 
     else
     {
-      v25 = 0;
+      v22 = 0;
     }
 
-    swift::concurrency::trace::actor_state_changed(this, 0, v25, v10, 0, BYTE1(v17));
+    swift::concurrency::trace::actor_state_changed(this, 0, v22, v9, 0, BYTE1(v16));
   }
 
   return 1;
@@ -3055,7 +1022,7 @@ uint64_t swift_task_setDefaultExecutorCheckingFlags(void *a1)
   return result;
 }
 
-void swift::AsyncTask::flagAsAndEnqueueOnExecutor(swift *this, unsigned __int8 *a2, uint64_t a3)
+void swift::AsyncTask::flagAsAndEnqueueOnExecutor(swift *this, uint64_t *a2, uint64_t a3)
 {
   _X0 = 0;
   _X1 = 0;
@@ -3236,7 +1203,7 @@ uint64_t swift::asyncLet_addImpl(unint64_t this, swift::AsyncTask *a2, swift::As
   return swift::addStatusRecordToSelf(a2, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::asyncLet_addImpl(swift::AsyncTask *,swift::AsyncLet *,BOOL)::$_0>, &v5);
 }
 
-uint64_t swift_asyncLet_start(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5)
+char *swift_asyncLet_start(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5)
 {
   v6[1] = a2;
   v6[2] = a1;
@@ -3244,7 +1211,7 @@ uint64_t swift_asyncLet_start(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, ui
   return swift_task_create(0x1000uLL, v6, a3, a4, a5);
 }
 
-uint64_t swift_asyncLet_begin(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6)
+char *swift_asyncLet_begin(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6)
 {
   v7[2] = a1;
   v7[3] = a6;
@@ -3253,7 +1220,7 @@ uint64_t swift_asyncLet_begin(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, ui
   return swift_task_create(0x1000uLL, v7, a3, a4, a5);
 }
 
-uint64_t swift_asyncLet_wait(swift *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_asyncLet_wait(swift *a1, uint64_t a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   if (swift_asyncLet_wait::Override == 1)
   {
@@ -3268,14 +1235,14 @@ uint64_t swift_asyncLet_wait(swift *a1, uint64_t a2, uint64_t (*a3)(void), void 
   return swift_asyncLet_waitSlow(a1, a2, a3, a4);
 }
 
-uint64_t swift_asyncLet_waitSlow(swift *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_asyncLet_waitSlow(swift *a1, uint64_t a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   Override_asyncLet_wait = swift::getOverride_asyncLet_wait(a1);
   if (Override_asyncLet_wait)
   {
     swift_asyncLet_wait::Override = Override_asyncLet_wait;
 
-    return (Override_asyncLet_wait)(a1, a2, a3, a4, swift_asyncLet_waitImpl);
+    return Override_asyncLet_wait(a1, a2, a3, a4, swift_asyncLet_waitImpl);
   }
 
   else
@@ -3308,7 +1275,7 @@ uint64_t swift_asyncLet_wait_throwingSlow(swift *a1, uint64_t a2, uint64_t (*a3)
   {
     swift_asyncLet_wait_throwing::Override = Override_asyncLet_wait_throwing;
 
-    return (Override_asyncLet_wait_throwing)(a1, a2, a3, a4, swift_asyncLet_wait_throwingImpl);
+    return Override_asyncLet_wait_throwing(a1, a2, a3, a4, swift_asyncLet_wait_throwingImpl);
   }
 
   else
@@ -3377,7 +1344,7 @@ void swift_asyncLet_endSlow(swift *a1)
   }
 }
 
-uint64_t swift_asyncLet_get(swift *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_asyncLet_get(swift *a1, uint64_t a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   if (swift_asyncLet_get::Override == 1)
   {
@@ -3405,7 +1372,7 @@ uint64_t swift_asyncLet_get(swift *a1, uint64_t a2, uint64_t (*a3)(void), void *
   }
 }
 
-uint64_t swift_asyncLet_getImpl(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_asyncLet_getImpl(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   v4 = *(a1 + 24);
   if ((v4 & 4) != 0)
@@ -3417,14 +1384,14 @@ uint64_t swift_asyncLet_getImpl(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), 
   return swift_task_future_wait(a2, (v4 & 0xFFFFFFFFFFFFFFF0), a3, a4);
 }
 
-uint64_t swift_asyncLet_getSlow(swift *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_asyncLet_getSlow(swift *a1, uint64_t a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   v8 = swift::getOverride_asyncLet_get(a1);
   if (v8)
   {
     swift_asyncLet_get::Override = v8;
 
-    return (v8)(a1, a2, a3, a4, swift_asyncLet_getImpl);
+    return v8(a1, a2, a3, a4, swift_asyncLet_getImpl);
   }
 
   else
@@ -3435,17 +1402,17 @@ uint64_t swift_asyncLet_getSlow(swift *a1, uint64_t a2, uint64_t (*a3)(void), vo
   }
 }
 
-uint64_t swift_asyncLet_get_throwing(swift *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_asyncLet_get_throwing(uint64_t *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
 {
   if (swift_asyncLet_get_throwing::Override == 1)
   {
-    v5 = *(a1 + 3);
+    v5 = a1[3];
     if ((v5 & 4) != 0)
     {
       return a3();
     }
 
-    v6 = (a4 + 1);
+    v6 = a4 + 1;
     if (a3)
     {
       *v6 = a3;
@@ -3492,7 +1459,7 @@ uint64_t swift_asyncLet_get_throwingImpl(uint64_t a1, uint64_t a2, uint64_t (*a3
     return a3();
   }
 
-  v6 = (a4 + 1);
+  v6 = a4 + 1;
   if (!a3)
   {
     *v6 = 0;
@@ -3527,7 +1494,7 @@ uint64_t swift_asyncLet_get_throwingSlow(swift *a1, uint64_t a2, uint64_t (*a3)(
   {
     swift_asyncLet_get_throwing::Override = throwing;
 
-    return (throwing)(a1, a2, a3, a4, swift_asyncLet_get_throwingImpl);
+    return throwing(a1, a2, a3, a4, swift_asyncLet_get_throwingImpl);
   }
 
   else
@@ -3538,11 +1505,11 @@ uint64_t swift_asyncLet_get_throwingSlow(swift *a1, uint64_t a2, uint64_t (*a3)(
   }
 }
 
-uint64_t swift_asyncLet_consume(swift *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_asyncLet_consume(uint64_t *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
 {
   if (swift_asyncLet_consume::Override == 1)
   {
-    v5 = *(a1 + 3);
+    v5 = a1[3];
     if ((v5 & 4) != 0)
     {
       return asyncLet_finish_after_task_completion(a1, a3, a3);
@@ -3629,7 +1596,7 @@ uint64_t swift_asyncLet_consumeSlow(swift *a1, uint64_t a2, uint64_t (*a3)(void)
   {
     swift_asyncLet_consume::Override = Override_asyncLet_consume;
 
-    return (Override_asyncLet_consume)(a1, a2, a3, a4, swift_asyncLet_consumeImpl);
+    return Override_asyncLet_consume(a1, a2, a3, a4, swift_asyncLet_consumeImpl);
   }
 
   else
@@ -3640,11 +1607,11 @@ uint64_t swift_asyncLet_consumeSlow(swift *a1, uint64_t a2, uint64_t (*a3)(void)
   }
 }
 
-uint64_t swift_asyncLet_consume_throwing(swift *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_asyncLet_consume_throwing(uint64_t *a1, uint64_t a2, uint64_t (*a3)(void), void *a4)
 {
   if (swift_asyncLet_consume_throwing::Override == 1)
   {
-    v5 = *(a1 + 3);
+    v5 = a1[3];
     if ((v5 & 4) != 0)
     {
       return asyncLet_finish_after_task_completion(a1, a3, a3);
@@ -3732,7 +1699,7 @@ uint64_t swift_asyncLet_consume_throwingSlow(swift *a1, uint64_t a2, uint64_t (*
   {
     swift_asyncLet_consume_throwing::Override = Override_asyncLet_consume_throwing;
 
-    return (Override_asyncLet_consume_throwing)(a1, a2, a3, a4, swift_asyncLet_consume_throwingImpl);
+    return Override_asyncLet_consume_throwing(a1, a2, a3, a4, swift_asyncLet_consume_throwingImpl);
   }
 
   else
@@ -3816,7 +1783,7 @@ uint64_t swift_asyncLet_finishSlow(swift *a1, uint64_t a2, uint64_t (*a3)(void),
   {
     swift_asyncLet_finish::Override = Override_asyncLet_finish;
 
-    return (Override_asyncLet_finish)(a1, a2, a3, a4, swift_asyncLet_finishImpl);
+    return Override_asyncLet_finish(a1, a2, a3, a4, swift_asyncLet_finishImpl);
   }
 
   else
@@ -3831,12 +1798,12 @@ uint64_t _asyncLet_get_throwing_continuation()
 {
   if (!v0)
   {
-    *(v1[2] + 24) |= 4uLL;
+    *(*(v1 + 16) + 24) |= 4uLL;
   }
 
-  if (v1[1])
+  if (*(v1 + 8))
   {
-    v2 = v1[1];
+    v2 = *(v1 + 8);
   }
 
   else
@@ -3844,7 +1811,6 @@ uint64_t _asyncLet_get_throwing_continuation()
     v2 = 0;
   }
 
-  v3 = *v1;
   return v2();
 }
 
@@ -3865,54 +1831,52 @@ uint64_t _asyncLet_consume_continuation(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*v3)
   {
-    v5 = v3[1];
-    if (v5)
+    v4 = v3[1];
+    if (v4)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    v6 = 0;
-    return asyncLet_finish_after_task_completion(v3[2], v6, a3);
+    v5 = 0;
+    return asyncLet_finish_after_task_completion(v3[2], v5, a3);
   }
 
-  v4 = *v3;
-  v5 = v3[1];
-  if (!v5)
+  v4 = v3[1];
+  if (!v4)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  v6 = v5;
-  return asyncLet_finish_after_task_completion(v3[2], v6, a3);
+  v5 = v4;
+  return asyncLet_finish_after_task_completion(v3[2], v5, a3);
 }
 
 uint64_t _asyncLet_consume_throwing_continuation(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*v3)
   {
-    v5 = v3[1];
-    if (v5)
+    v4 = v3[1];
+    if (v4)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    v6 = 0;
-    return asyncLet_finish_after_task_completion(v3[2], v6, a3);
+    v5 = 0;
+    return asyncLet_finish_after_task_completion(v3[2], v5, a3);
   }
 
-  v4 = *v3;
-  v5 = v3[1];
-  if (!v5)
+  v4 = v3[1];
+  if (!v4)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  v6 = v5;
-  return asyncLet_finish_after_task_completion(v3[2], v6, a3);
+  v5 = v4;
+  return asyncLet_finish_after_task_completion(v3[2], v5, a3);
 }
 
 uint64_t _asyncLet_finish_continuation()
@@ -4098,17 +2062,17 @@ uint64_t swift_task_enqueueGlobal(void *ptr)
   }
 
   swift::concurrency::trace::job_enqueue_global(ptr);
-  v2 = swift_task_enqueueGlobal_hook;
+  v3 = swift_task_enqueueGlobal_hook;
   if (swift_task_enqueueGlobal_hook)
   {
 
-    return v2(ptr, swift_task_enqueueGlobalOrig);
+    return v3(ptr, swift_task_enqueueGlobalOrig);
   }
 
   else
   {
 
-    return swift_task_enqueueGlobalImpl(ptr);
+    return swift_task_enqueueGlobalImpl(ptr, v2);
   }
 }
 
@@ -4147,7 +2111,7 @@ void swift::concurrency::trace::job_enqueue_global(void *ptr)
   }
 }
 
-uint64_t swift_task_enqueueGlobalWithDelay(unint64_t a1, void *a2)
+uint64_t swift_task_enqueueGlobalWithDelay(uint64_t a1, void *a2)
 {
   swift::concurrency::trace::job_enqueue_global_with_delay(a1, a2);
   v4 = swift_task_enqueueGlobalWithDelay_hook;
@@ -4218,7 +2182,7 @@ uint64_t swift_task_checkIsolated(uint64_t a1, uint64_t a2)
 {
   if (swift_task_checkIsolated_hook)
   {
-    return swift_task_checkIsolated_hook(a1, a2, &swift_task_checkIsolatedOrig);
+    return swift_task_checkIsolated_hook(a1, a2, swift_task_checkIsolatedOrig);
   }
 
   else
@@ -4231,7 +2195,7 @@ uint64_t swift_task_isIsolatingCurrentContext(uint64_t a1, uint64_t a2)
 {
   if (swift_task_isIsolatingCurrentContext_hook)
   {
-    return swift_task_isIsolatingCurrentContext_hook(a1, a2, &swift_task_isIsolatingCurrentContextOrig);
+    return swift_task_isIsolatingCurrentContext_hook(a1, a2, swift_task_isIsolatingCurrentContextOrig);
   }
 
   else
@@ -4267,17 +2231,17 @@ uint64_t swift_task_isOnExecutorImpl(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t swift_task_enqueueMainExecutor(void *a1)
 {
   swift::concurrency::trace::job_enqueue_main_executor(a1);
-  v2 = swift_task_enqueueMainExecutor_hook;
+  v3 = swift_task_enqueueMainExecutor_hook;
   if (swift_task_enqueueMainExecutor_hook)
   {
 
-    return v2(a1, swift_task_enqueueMainExecutorOrig);
+    return v3(a1, swift_task_enqueueMainExecutorOrig);
   }
 
   else
   {
 
-    return swift_task_enqueueMainExecutorImpl(a1);
+    return swift_task_enqueueMainExecutorImpl(a1, v2);
   }
 }
 
@@ -4316,7 +2280,7 @@ void swift::concurrency::trace::job_enqueue_main_executor(void *ptr)
   }
 }
 
-uint64_t swift_task_getMainExecutor()
+uint64_t swift_task_getMainExecutor(uint64_t a1)
 {
   if (swift_task_getMainExecutor_hook)
   {
@@ -4325,7 +2289,7 @@ uint64_t swift_task_getMainExecutor()
 
   else
   {
-    return swift_task_getMainExecutorImpl();
+    return swift_task_getMainExecutorImpl(a1, 0);
   }
 }
 
@@ -4333,7 +2297,7 @@ uint64_t swift_task_isMainExecutor(uint64_t a1, uint64_t a2)
 {
   if (swift_task_isMainExecutor_hook)
   {
-    return swift_task_isMainExecutor_hook(a1, a2, &swift_task_isMainExecutorOrig);
+    return swift_task_isMainExecutor_hook(a1, a2, swift_task_isMainExecutorOrig);
   }
 
   else
@@ -4355,7 +2319,7 @@ uint64_t swift_task_donateThreadToGlobalExecutorUntil(uint64_t a1, uint64_t a2)
   }
 }
 
-void swift_createDefaultExecutorsOnce()
+void swift_createDefaultExecutorsOnce(uint64_t result, uint64_t a2)
 {
   if (swift_createDefaultExecutorsOnce::createExecutorsOnce != -1)
   {
@@ -4373,144 +2337,144 @@ uint64_t swift_getDispatchQueueForExecutor(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unint64_t swift::AsyncTask::waitFuture(swift::AsyncTask *a1, swift::AsyncTask *this, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+unint64_t swift::AsyncTask::waitFuture(swift::AsyncTask *a1, swift::AsyncTask *this, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BOOL8 a8)
 {
-  v8 = *(a1 + 8);
-  v9 = 192;
-  if ((v8 & 0x1000000) == 0)
+  v10 = *(a1 + 8);
+  v11 = 192;
+  if ((v10 & 0x1000000) == 0)
   {
-    v9 = 176;
+    v11 = 176;
   }
 
-  v10 = a1 + v9;
-  v11 = (v8 >> 23) & 8;
-  explicit = atomic_load_explicit((a1 + v9 + v11), memory_order_acquire);
-  v13 = explicit & 3;
-  if (v13 - 1 < 2)
+  v12 = a1 + v11;
+  v13 = (v10 >> 23) & 8;
+  explicit = atomic_load_explicit((a1 + v11 + v13), memory_order_acquire);
+  v15 = explicit & 3;
+  if (v15 - 1 < 2)
   {
-    v14 = 0;
+    v16 = 0;
     goto LABEL_23;
   }
 
-  v15 = a3 + 1;
-  v16 = MEMORY[0x1E69E7CF0];
-  if (v13 != 3)
+  v17 = a3 + 1;
+  v18 = MEMORY[0x1E69E7CF0];
+  if (v15 != 3)
   {
-    v17 = a6;
-    v18 = a4;
-    v19 = a5;
-    v20 = a3;
+    v19 = a6;
+    v20 = a4;
+    v21 = a5;
+    v22 = a3;
     if (*MEMORY[0x1E69E7CF0])
     {
       (*MEMORY[0x1E69E7CF0])(this);
     }
 
     swift::concurrency::trace::task_wait(this, a1, 0);
-    a3 = v20;
-    a5 = v19;
-    a4 = v18;
-    a6 = v17;
-    v16 = MEMORY[0x1E69E7CF0];
+    a3 = v22;
+    a5 = v21;
+    a4 = v20;
+    a6 = v19;
+    v18 = MEMORY[0x1E69E7CF0];
   }
 
   a3[2] = 0;
   a3[3] = a6;
   if (a4)
   {
-    *v15 = a4;
+    *v17 = a4;
     if (a5)
     {
 LABEL_11:
-      v21 = a5;
+      v23 = a5;
       goto LABEL_14;
     }
   }
 
   else
   {
-    *v15 = 0;
+    *v17 = 0;
     if (a5)
     {
       goto LABEL_11;
     }
   }
 
-  v21 = 0;
+  v23 = 0;
 LABEL_14:
-  *a3 = v21;
-  v22 = swift::_swift_task_alloc_specific(this, 0x30);
+  *a3 = v23;
+  v24 = swift::_swift_task_alloc_specific(this, 0x30);
   _X2 = 0;
   _X3 = 0;
-  *v22 = 0;
-  *(v22 + 8) = 0;
-  *(v22 + 32) = 1;
-  *(v22 + 40) = this;
-  *(v22 + 16) = a1;
-  *(this + 20) = v22;
-  v37 = v22;
+  *v24 = 0;
+  *(v24 + 8) = 0;
+  *(v24 + 32) = 1;
+  *(v24 + 40) = this;
+  *(v24 + 16) = a1;
+  *(this + 20) = v24;
+  v39 = v24;
   __asm { CASP            X2, X3, X2, X3, [X8] }
 
-  v36[0] = _X2;
-  v36[1] = 0;
-  v35[0] = &v37;
-  v35[1] = v36;
-  swift::addStatusRecord(this, v22, v36, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::flagAsSuspended(swift::TaskDependencyStatusRecord *)::{lambda(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)#1}>, v35);
+  v38[0] = _X2;
+  v38[1] = 0;
+  v37[0] = &v39;
+  v37[1] = v38;
+  swift::addStatusRecord(this, v24, v38, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::flagAsSuspended(swift::TaskDependencyStatusRecord *)::{lambda(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)#1}>, v37);
   swift_task_exitThreadLocalContext();
-  v31 = swift::restoreTaskVoucher(this, v30);
+  v33 = swift::restoreTaskVoucher(this, v32);
   *(this + 2) = explicit & 0xFFFFFFFFFFFFFFFCLL;
-  v32 = explicit;
-  atomic_compare_exchange_strong(&v10[v11], &v32, this);
-  if (v32 == explicit)
+  v34 = explicit;
+  atomic_compare_exchange_strong(&v12[v13], &v34, this);
+  if (v34 == explicit)
   {
 LABEL_15:
-    swift::_swift_task_clearCurrent(v31);
+    swift::_swift_task_clearCurrent(v33);
     return 0;
   }
 
   while (1)
   {
-    v13 = v32 & 3;
-    if ((v32 & 3) == 0)
+    v15 = v34 & 3;
+    if ((v34 & 3) == 0)
     {
-      if (*v16)
+      if (*v18)
       {
-        (*v16)(this);
+        (*v18)(this);
       }
 
       swift::concurrency::trace::task_wait(this, a1, 0);
       goto LABEL_17;
     }
 
-    if (v13 != 3)
+    if (v15 != 3)
     {
       break;
     }
 
 LABEL_17:
-    *(this + 2) = v32 & 0xFFFFFFFFFFFFFFFCLL;
-    v33 = v32;
-    atomic_compare_exchange_strong(&v10[v11], &v33, this);
-    _ZF = v33 == v32;
-    v32 = v33;
+    *(this + 2) = v34 & 0xFFFFFFFFFFFFFFFCLL;
+    v35 = v34;
+    atomic_compare_exchange_strong(&v12[v13], &v35, this);
+    _ZF = v35 == v34;
+    v34 = v35;
     if (_ZF)
     {
       goto LABEL_15;
     }
   }
 
-  v14 = 1;
+  v16 = 1;
 LABEL_23:
   if (*MEMORY[0x1E69E7CE8])
   {
-    (*MEMORY[0x1E69E7CE8])(a1);
+    (*MEMORY[0x1E69E7CE8])(a1, this, a3, a4, a5, a6, a7, a8);
   }
 
-  if (v14)
+  if (v16)
   {
-    swift::AsyncTask::flagAsRunning(this);
+    swift::AsyncTask::flagAsRunning(this, this, a3, a4, a5, a6, a7, a8);
   }
 
-  return v13;
+  return v15;
 }
 
 void swift::concurrency::trace::task_wait(swift::concurrency::trace *this, swift::AsyncTask *a2, swift::AsyncTask *a3)
@@ -4577,20 +2541,20 @@ void swift::NullaryContinuationJob::process(uint64_t a1)
   }
 
   MEMORY[0x1865D4B40](a1, 80, 15);
-  *(*(v1 + 8) + 32) = 0;
+  *(*(v1 + 64) + 32) = 0;
 
   swift_continuation_resume(v1, v3);
 }
 
-void swift_continuation_resume(continuationChecking *this, swift::AsyncTask *a2)
+void swift_continuation_resume(atomic_ullong **this, swift::AsyncTask *a2)
 {
   v3 = swift_continuation_resume::Override;
   if (swift_continuation_resume::Override == 1)
   {
     continuationChecking::willResume(this, a2);
-    if (*(this + 8))
+    if (this[8])
     {
-      v4 = *(this + 8);
+      v4 = this[8];
     }
 
     else
@@ -4627,21 +2591,21 @@ void swift_continuation_resume(continuationChecking *this, swift::AsyncTask *a2)
   }
 }
 
-void swift::AsyncTask::completeFuture(uint64_t a1, uint64_t a2)
+void swift::AsyncTask::completeFuture(uint64_t result, uint64_t a2)
 {
-  v3 = *(a1 + 32);
+  v3 = *(result + 32);
   v4 = 192;
   if ((v3 & 0x1000000) == 0)
   {
     v4 = 176;
   }
 
-  v5 = (a1 + v4 + ((v3 >> 23) & 8));
+  v5 = (result + v4 + ((v3 >> 23) & 8));
   v6 = *(a2 - 8);
   v5[2] = v6;
   if (*MEMORY[0x1E69E7CF0])
   {
-    (*MEMORY[0x1E69E7CF0])(a1);
+    (*MEMORY[0x1E69E7CF0])(result);
   }
 
   v7 = 1;
@@ -4651,7 +2615,7 @@ void swift::AsyncTask::completeFuture(uint64_t a1, uint64_t a2)
   }
 
   v8 = atomic_exchange(v5, v7);
-  v9 = *(a1 + 32);
+  v9 = *(result + 32);
   if ((v9 & 0x4000000) != 0)
   {
     v10 = (v9 & 0x1000000) == 0;
@@ -4661,7 +2625,7 @@ void swift::AsyncTask::completeFuture(uint64_t a1, uint64_t a2)
       v11 = 176;
     }
 
-    swift::TaskGroup::offer(*(a1 + v11));
+    swift::TaskGroup::offer(*(result + v11));
   }
 
   v12 = v8 & 0xFFFFFFFFFFFFFFFCLL;
@@ -4803,9 +2767,9 @@ void swift::concurrency::trace::task_destroy(swift::concurrency::trace *this, sw
   }
 }
 
-void jobInvoke(void *a1, void *a2)
+void jobInvoke(swift::AsyncTask *a1, void *a2)
 {
-  v3 = a1[3];
+  v3 = *(a1 + 3);
   if (v3 == 1)
   {
     v3 = 0;
@@ -4815,7 +2779,7 @@ void jobInvoke(void *a1, void *a2)
   else if (v3 == MEMORY[0x1E69E96A0])
   {
     v5 = a1;
-    MainExecutor = swift_task_getMainExecutor();
+    MainExecutor = swift_task_getMainExecutor(a1);
     a1 = v5;
     v4 = v7;
     v3 = MainExecutor;
@@ -4846,9 +2810,9 @@ void destroyTask(uint64_t a1, uint64_t a2, const char *a3, char *a4)
 
 uint64_t task_wait_throwing_resume_adapter()
 {
-  if (v0[1])
+  if (*(v0 + 8))
   {
-    v1 = v0[1];
+    v1 = *(v0 + 8);
   }
 
   else
@@ -4856,19 +2820,7 @@ uint64_t task_wait_throwing_resume_adapter()
     v1 = 0;
   }
 
-  v2 = v0[2];
-  v3 = *v0;
   return v1();
-}
-
-uint64_t task_future_wait_resume_adapter()
-{
-  if (*v0)
-  {
-    v1 = *v0;
-  }
-
-  return (v0[1])();
 }
 
 uint64_t swift::AsyncTask::getResumeFunctionForLogging(swift::AsyncTask *this, int a2)
@@ -4879,22 +2831,21 @@ uint64_t swift::AsyncTask::getResumeFunctionForLogging(swift::AsyncTask *this, i
     return 0;
   }
 
-  v3 = *(this + 7);
   if (v2 == non_future_adapter || v2 == future_adapter)
   {
-    v4 = *(*(this + 8) - 24);
+    v3 = *(*(this + 8) - 24);
     if (!a2)
     {
-      return v4;
+      return v3;
     }
   }
 
   else
   {
-    v4 = *(this + 7);
+    v3 = *(this + 7);
     if (!a2)
     {
-      return v4;
+      return v3;
     }
   }
 
@@ -4908,7 +2859,7 @@ uint64_t swift::AsyncTask::getResumeFunctionForLogging(swift::AsyncTask *this, i
     return 0;
   }
 
-  return v4;
+  return v3;
 }
 
 uint64_t swift_task_currentPriority()
@@ -4920,7 +2871,7 @@ uint64_t swift_task_currentPriority()
   return _X2;
 }
 
-uint64_t swift_task_create(unint64_t a1, unsigned __int8 *a2, uint64_t a3, int *a4, uint64_t a5)
+char *swift_task_create(unint64_t a1, unsigned __int8 *a2, uint64_t a3, int *a4, uint64_t a5)
 {
   if ((a1 & 0x4000) != 0)
   {
@@ -4955,7 +2906,7 @@ uint64_t swift_task_create(unint64_t a1, unsigned __int8 *a2, uint64_t a3, int *
   }
 }
 
-uint64_t swift_task_create_common(unint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+char *swift_task_create_common(unint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (swift_task_create_common::Override == 1)
   {
@@ -4970,32 +2921,32 @@ uint64_t swift_task_create_common(unint64_t a1, unsigned __int8 *a2, uint64_t a3
   return swift_task_create_commonSlow(a1, a2, a3, a4, a5, a6);
 }
 
-unint64_t swift_task_future_wait_throwingImpl(uint64_t a1, unsigned int *a2, uint64_t (*a3)(void), void *a4)
+unint64_t swift_task_future_wait_throwingImpl(uint64_t a1, swift::AsyncTask *a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   Current = swift_task_getCurrent();
   *(Current + 7) = task_wait_throwing_resume_adapter;
   if (a4)
   {
-    v9 = a4;
+    v11 = a4;
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  *(Current + 8) = v9;
-  result = swift::AsyncTask::waitFuture(a2, Current, a4, a3, v4, a1);
+  *(Current + 8) = v11;
+  result = swift::AsyncTask::waitFuture(a2, Current, a4, a3, v4, a1, v9, v10);
   if (result == 2)
   {
-    v14 = a2[8];
-    v15 = 48;
-    if ((v14 & 0x1000000) == 0)
+    v16 = *(a2 + 8);
+    v17 = 192;
+    if ((v16 & 0x1000000) == 0)
     {
-      v15 = 44;
+      v17 = 176;
     }
 
-    MEMORY[0x1865D4960](*(&a2[v15 + 4] + ((v14 >> 23) & 8)));
+    MEMORY[0x1865D4960](*(a2 + v17 + ((v16 >> 23) & 8) + 16));
   }
 
   else
@@ -5005,21 +2956,21 @@ unint64_t swift_task_future_wait_throwingImpl(uint64_t a1, unsigned int *a2, uin
       return result;
     }
 
-    v11 = a2[8];
-    v12 = 48;
-    if ((v11 & 0x1000000) == 0)
+    v13 = *(a2 + 8);
+    v14 = 192;
+    if ((v13 & 0x1000000) == 0)
     {
-      v12 = 44;
+      v14 = 176;
     }
 
-    v13 = &a2[v12] + ((v11 >> 23) & 8);
-    (*(*(*(v13 + 8) - 8) + 16))(a1, (*(*(*(v13 + 8) - 8) + 80) + v13 + 24) & ~*(*(*(v13 + 8) - 8) + 80));
+    v15 = a2 + v14 + ((v13 >> 23) & 8);
+    (*(*(*(v15 + 1) - 8) + 16))(a1, &v15[*(*(*(v15 + 1) - 8) + 80) + 24] & ~*(*(*(v15 + 1) - 8) + 80));
   }
 
   return a3();
 }
 
-uint64_t swift_task_isCancelled()
+unint64_t swift_task_isCancelled()
 {
   _X2 = 0;
   _X3 = 0;
@@ -5028,7 +2979,7 @@ uint64_t swift_task_isCancelled()
   return (_X2 >> 8) & 1;
 }
 
-uint64_t swift_task_create_commonImpl(unint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+char *swift_task_create_commonImpl(unint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v7 = (a1 << 16) & 0x1000000;
   if (!a2)
@@ -5043,9 +2994,9 @@ uint64_t swift_task_create_commonImpl(unint64_t a1, unsigned __int8 *a2, uint64_
   TaskExecutorRef = 0;
   v12 = 0;
   v13 = 0;
-  v80 = 0;
+  v78 = 0;
   v14 = 0;
-  v79 = 0;
+  v77 = 0;
   v15 = 0;
   while (1)
   {
@@ -5064,13 +3015,13 @@ uint64_t swift_task_create_commonImpl(unint64_t a1, unsigned __int8 *a2, uint64_
         {
           v14 = *(v8 + 2);
           v7 |= 0x11000000u;
-          v79 = 1;
+          v77 = 1;
         }
       }
 
       else if (*v8)
       {
-        v80 = *(v8 + 2);
+        v78 = *(v8 + 2);
         v7 |= 0x4000000u;
       }
 
@@ -5113,7 +3064,6 @@ uint64_t swift_task_create_commonImpl(unint64_t a1, unsigned __int8 *a2, uint64_
       v17 = *(v8 + 2);
       if (v17)
       {
-        v18 = *(v8 + 2);
         ObjectType = swift_getObjectType();
         TaskExecutorRef = _task_taskExecutor_getTaskExecutorRef(v17, ObjectType, *(v8 + 3));
       }
@@ -5145,44 +3095,44 @@ LABEL_4:
   __break(1u);
 LABEL_28:
   v15 = 0;
-  v79 = 0;
+  v77 = 0;
   v14 = 0;
-  v80 = 0;
+  v78 = 0;
   v13 = 0;
   v12 = 0;
   TaskExecutorRef = 0;
   v10 = 0;
   v9 = 0;
 LABEL_29:
-  v77 = v15;
-  v67 = v13;
-  v69 = a2;
-  v70 = TaskExecutorRef;
+  v75 = v15;
+  v65 = v13;
+  v67 = a2;
+  v68 = TaskExecutorRef;
   if (a3)
   {
-    v20 = v7 | 0x2000000;
+    v19 = v7 | 0x2000000;
   }
 
   else
   {
-    v20 = v7;
+    v19 = v7;
   }
 
   Current = swift_task_getCurrent();
-  v22 = Current;
-  if ((v20 & 0x1000000) != 0)
+  v21 = Current;
+  if ((v19 & 0x1000000) != 0)
   {
-    v23 = Current;
+    v22 = Current;
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  if ((a1 & 0x2000) != 0 && v80)
+  if ((a1 & 0x2000) != 0 && v78)
   {
-    swift_taskGroup_addPending(v80, 1);
+    swift_taskGroup_addPending(v78, 1);
   }
 
   if ((a1 & 0x200) != 0)
@@ -5193,28 +3143,28 @@ LABEL_29:
   else
   {
     CurrentThreadPriority = a1;
-    v25 = v20 & 0x14000000;
-    if ((a1 & 0x400) != 0 || v25)
+    v24 = v19 & 0x14000000;
+    if ((a1 & 0x400) != 0 || v24)
     {
-      if (v25)
+      if (v24)
       {
         if (!a1)
         {
-          if (*(v23 + 19) == 33)
+          if (*(v22 + 19) == 33)
           {
             CurrentThreadPriority = 25;
           }
 
           else
           {
-            CurrentThreadPriority = *(v23 + 19);
+            CurrentThreadPriority = *(v22 + 19);
           }
         }
       }
 
       else if (!a1)
       {
-        CurrentThreadPriority = v22 ? *(v22 + 152) : swift_task_getCurrentThreadPriority();
+        CurrentThreadPriority = v21 ? *(v21 + 152) : swift_task_getCurrentThreadPriority();
         if (CurrentThreadPriority == 33)
         {
           CurrentThreadPriority = 25;
@@ -5223,130 +3173,130 @@ LABEL_29:
     }
   }
 
-  v26 = 21;
+  v25 = 21;
   if (CurrentThreadPriority)
   {
-    v26 = CurrentThreadPriority;
+    v25 = CurrentThreadPriority;
   }
 
-  v71 = v26;
-  v27 = 192;
-  if (!v23)
+  v69 = v25;
+  v26 = 192;
+  if (!v22)
   {
-    v27 = 176;
+    v26 = 176;
   }
 
-  if (v80)
+  if (v78)
   {
-    v28 = v27 | 8;
+    v27 = v26 | 8;
   }
 
   else
   {
-    v28 = v27;
+    v27 = v26;
   }
 
-  v68 = v10;
+  v66 = v10;
   if (a3)
   {
-    v29 = *(*(a3 - 8) + 64) + ((*(*(a3 - 8) + 80) + v28 + 24) & ~*(*(a3 - 8) + 80)) + 32;
+    v28 = *(*(a3 - 8) + 64) + ((*(*(a3 - 8) + 80) + v27 + 24) & ~*(*(a3 - 8) + 80)) + 32;
   }
 
   else
   {
-    v29 = v28 + 24;
+    v28 = v27 + 24;
   }
 
-  v30 = (v29 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v31 = v30 + a6;
-  v66 = v30 + a6;
+  v29 = (v28 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v30 = v29 + a6;
+  v64 = v29 + a6;
   if (v14)
   {
-    if (((swift::AsyncLet::getSizeOfPreallocatedSpace(CurrentThreadPriority) >= v31) & v79) != 0)
+    if (((swift::AsyncLet::getSizeOfPreallocatedSpace(CurrentThreadPriority) >= v30) & v77) != 0)
     {
       PreallocatedSpace = swift::AsyncLet::getPreallocatedSpace(v14);
-      v73 = swift::AsyncLet::getSizeOfPreallocatedSpace(PreallocatedSpace) - v31;
-      v79 = 1;
+      v71 = swift::AsyncLet::getSizeOfPreallocatedSpace(PreallocatedSpace) - v30;
+      v77 = 1;
       goto LABEL_67;
     }
 
-    PreallocatedSpace = swift::_swift_task_alloc_specific(v23, (v31 + 512));
-    v79 = 0;
+    PreallocatedSpace = swift::_swift_task_alloc_specific(v22, (v30 + 512));
+    v77 = 0;
 LABEL_65:
-    v33 = 512;
+    v32 = 512;
   }
 
   else
   {
-    if (!v77 || (PreallocatedSpace = *(v77 + 2)) == 0)
+    if (!v75 || (PreallocatedSpace = *(v75 + 2)) == 0)
     {
-      PreallocatedSpace = malloc_type_malloc(v30 + a6, 0x78C967FuLL);
+      PreallocatedSpace = malloc_type_malloc(v29 + a6, 0x78C967FuLL);
       goto LABEL_65;
     }
 
-    v33 = *(v77 + 6) - v31;
+    v32 = *(v75 + 6) - v30;
   }
 
-  v73 = v33;
+  v71 = v32;
 LABEL_67:
-  v34 = (PreallocatedSpace + v30);
-  v35 = (a1 >> 14) & 1;
+  v33 = (PreallocatedSpace + v29);
+  v34 = (a1 >> 14) & 1;
   if (!a3)
   {
-    LODWORD(v35) = 1;
+    LODWORD(v34) = 1;
   }
 
-  if (v35)
+  if (v34)
   {
-    v36 = non_future_adapter;
+    v35 = non_future_adapter;
   }
 
   else
   {
-    v36 = future_adapter;
+    v35 = future_adapter;
   }
 
-  *(v34 - 3) = a4;
-  *(v34 - 2) = a5;
-  if ((v20 & 0x20000000) == 0)
+  *(v33 - 3) = a4;
+  *(v33 - 2) = a5;
+  if ((v19 & 0x20000000) == 0)
   {
-    if (v23)
+    if (v22)
     {
-      PreferredTaskExecutor = swift::AsyncTask::getPreferredTaskExecutor(v23);
+      PreferredTaskExecutor = swift::AsyncTask::getPreferredTaskExecutor(v22);
       if (PreferredTaskExecutor)
       {
-        v20 |= 0x20000000u;
-        v69 = v38;
-        v70 = PreferredTaskExecutor;
+        v19 |= 0x20000000u;
+        v67 = v37;
+        v68 = PreferredTaskExecutor;
       }
     }
   }
 
-  v75 = v12;
-  v39 = (a1 & 0x600) != 0;
-  if ((v20 & 0x14000000) != 0)
+  v73 = v12;
+  v38 = (a1 & 0x600) != 0;
+  if ((v19 & 0x14000000) != 0)
   {
-    v39 = 1;
+    v38 = 1;
   }
 
-  v40 = v9;
+  v39 = v9;
   if (v14)
   {
-    v41 = a1;
+    v40 = a1;
     *PreallocatedSpace = swift::taskHeapMetadataPtr;
     *(PreallocatedSpace + 8) = 0x80000004FFFFFFFFLL;
-    *(PreallocatedSpace + 32) = v20;
+    *(PreallocatedSpace + 32) = v19;
     *(PreallocatedSpace + 36) = 0;
-    v42 = (PreallocatedSpace + 36);
+    v41 = (PreallocatedSpace + 36);
     *(PreallocatedSpace + 44) = 0;
     *(PreallocatedSpace + 52) = 0;
-    *(PreallocatedSpace + 56) = v36;
-    if (v39)
+    *(PreallocatedSpace + 56) = v35;
+    if (v38)
     {
       *(PreallocatedSpace + 40) = voucher_copy();
     }
 
-    *(PreallocatedSpace + 64) = v34;
+    *(PreallocatedSpace + 64) = v33;
     do
     {
       add_explicit = atomic_fetch_add_explicit(&swift::AsyncTask::setTaskId(void)::NextId, 1uLL, memory_order_relaxed);
@@ -5357,21 +3307,21 @@ LABEL_67:
 
   else
   {
-    v41 = a1;
+    v40 = a1;
     *PreallocatedSpace = swift::taskHeapMetadataPtr;
     *(PreallocatedSpace + 8) = 3;
-    *(PreallocatedSpace + 32) = v20;
+    *(PreallocatedSpace + 32) = v19;
     *(PreallocatedSpace + 36) = 0;
-    v42 = (PreallocatedSpace + 36);
+    v41 = (PreallocatedSpace + 36);
     *(PreallocatedSpace + 44) = 0;
     *(PreallocatedSpace + 52) = 0;
-    *(PreallocatedSpace + 56) = v36;
-    if (v39)
+    *(PreallocatedSpace + 56) = v35;
+    if (v38)
     {
       *(PreallocatedSpace + 40) = voucher_copy();
     }
 
-    *(PreallocatedSpace + 64) = v34;
+    *(PreallocatedSpace + 64) = v33;
     do
     {
       add_explicit = atomic_fetch_add_explicit(&swift::AsyncTask::setTaskId(void)::NextId, 1uLL, memory_order_relaxed);
@@ -5380,57 +3330,57 @@ LABEL_67:
     while (!add_explicit);
   }
 
-  *v42 = add_explicit;
+  *v41 = add_explicit;
   *(PreallocatedSpace + 144) = HIDWORD(add_explicit);
-  if (v23)
+  if (v22)
   {
-    *(PreallocatedSpace + 176) = v23;
+    *(PreallocatedSpace + 176) = v22;
     *(PreallocatedSpace + 184) = 0;
   }
 
-  if (v80)
+  if (v78)
   {
-    v44 = 192;
+    v43 = 192;
     if ((*(PreallocatedSpace + 32) & 0x1000000) == 0)
     {
-      v44 = 176;
+      v43 = 176;
     }
 
-    *(PreallocatedSpace + v44) = v80;
+    *(PreallocatedSpace + v43) = v78;
   }
 
   if (a3)
   {
-    v45 = *(PreallocatedSpace + 32);
-    v46 = 192;
-    if ((v45 & 0x1000000) == 0)
+    v44 = *(PreallocatedSpace + 32);
+    v45 = 192;
+    if ((v44 & 0x1000000) == 0)
     {
-      v46 = 176;
+      v45 = 176;
     }
 
-    v47 = (PreallocatedSpace + v46 + ((v45 >> 23) & 8));
-    *v47 = 0;
-    v47[1] = a3;
-    v47[2] = 0;
-    *(v34 - 4) = (v47 + *(*(a3 - 8) + 80) + 24) & ~*(*(a3 - 8) + 80);
+    v46 = (PreallocatedSpace + v45 + ((v44 >> 23) & 8));
+    *v46 = 0;
+    v46[1] = a3;
+    v46[2] = 0;
+    *(v33 - 4) = (v46 + *(*(a3 - 8) + 80) + 24) & ~*(*(a3 - 8) + 80);
   }
 
-  *v34 = 0;
-  if (!v77)
+  *v33 = 0;
+  if (!v75)
   {
     if (!v14)
     {
-      if (v41 < 0 || !a5)
+      if (v40 < 0 || !a5)
       {
-        v50 = completeTaskAndRelease;
+        v49 = completeTaskAndRelease;
       }
 
       else
       {
-        v50 = completeTaskWithClosure;
+        v49 = completeTaskWithClosure;
       }
 
-      v34[1] = v50;
+      v33[1] = v49;
 LABEL_119:
       *(PreallocatedSpace + 112) = 0;
       *(PreallocatedSpace + 120) = 0;
@@ -5441,10 +3391,10 @@ LABEL_119:
       goto LABEL_120;
     }
 
-    v34[1] = completeTask;
+    v33[1] = completeTask;
 LABEL_107:
-    v48 = v73;
-    if (!v73)
+    v47 = v71;
+    if (!v71)
     {
       goto LABEL_119;
     }
@@ -5452,14 +3402,14 @@ LABEL_107:
     goto LABEL_108;
   }
 
-  v34[1] = completeInlineTask;
+  v33[1] = completeInlineTask;
   if (v14)
   {
     goto LABEL_107;
   }
 
-  v48 = v73;
-  if (!*(v77 + 2) || !v73)
+  v47 = v71;
+  if (!*(v75 + 2) || !v71)
   {
     goto LABEL_119;
   }
@@ -5470,38 +3420,37 @@ LABEL_108:
   *(PreallocatedSpace + 128) = 0;
   *(PreallocatedSpace + 80) = 0;
   *(PreallocatedSpace + 88) = 0;
-  if (v48 >= 0x21)
+  if (v47 >= 0x21)
   {
-    v49 = (PreallocatedSpace + v66 + 15) & 0xFFFFFFFFFFFFFFF0;
-    *v49 = &swift::TaskAllocatorSlabMetadata;
-    *(v49 + 8) = 0;
-    *(v49 + 16) = PreallocatedSpace + v66 + v48 - v49 - 32;
-    *(v49 + 20) = 0;
-    *(PreallocatedSpace + 120) = v49;
+    v48 = (PreallocatedSpace + v64 + 15) & 0xFFFFFFFFFFFFFFF0;
+    *v48 = &swift::TaskAllocatorSlabMetadata;
+    *(v48 + 8) = 0;
+    *(v48 + 16) = PreallocatedSpace + v64 + v47 - v48 - 32;
+    *(v48 + 20) = 0;
+    *(PreallocatedSpace + 120) = v48;
     *(PreallocatedSpace + 128) = 1;
   }
 
   *(PreallocatedSpace + 136) = 0;
 LABEL_120:
-  _X0 = v71;
+  _X0 = v69;
   *(PreallocatedSpace + 160) = 0;
   *(PreallocatedSpace + 168) = 0;
-  *(PreallocatedSpace + 152) = v71;
-  v52 = *(PreallocatedSpace + 96);
-  v53 = *(PreallocatedSpace + 104);
+  *(PreallocatedSpace + 152) = v69;
+  v51 = *(PreallocatedSpace + 96);
   do
   {
     _X5 = *(PreallocatedSpace + 104);
     __asm { CASP            X4, X5, X0, X1, [X8] }
 
-    _ZF = _X4 == v52;
-    v52 = _X4;
+    _ZF = _X4 == v51;
+    v51 = _X4;
   }
 
   while (!_ZF);
-  if (v23)
+  if (v22)
   {
-    if (v80 && (swift::TaskGroup::isCancelled(v80) & 1) != 0)
+    if (v78 && (swift::TaskGroup::isCancelled(v78) & 1) != 0)
     {
       goto LABEL_127;
     }
@@ -5516,54 +3465,54 @@ LABEL_127:
       swift_task_cancel(PreallocatedSpace);
     }
 
-    swift::TaskLocal::Storage::initializeLinkParent((PreallocatedSpace + 136), PreallocatedSpace, v23);
+    swift::TaskLocal::Storage::initializeLinkParent((PreallocatedSpace + 136), PreallocatedSpace, v22);
   }
 
-  v63 = *(PreallocatedSpace + 32);
-  swift::concurrency::trace::task_create(PreallocatedSpace, v23, v80, v14, BYTE1(v63), HIBYTE(v63) & 1, (v63 >> 25) & 1, (v63 >> 26) & 1, (v63 & 0x10000000) != 0, (v41 & 0x4000) != 0, (v63 & 0x20000000) != 0, v65, v75);
-  if (v80)
+  v61 = *(PreallocatedSpace + 32);
+  swift::concurrency::trace::task_create(PreallocatedSpace, v22, v78, v14, BYTE1(v61), HIBYTE(v61) & 1, (v61 >> 25) & 1, (v61 >> 26) & 1, (v61 & 0x10000000) != 0, (v40 & 0x4000) != 0, (v61 & 0x20000000) != 0, v63, v73);
+  if (v78)
   {
-    swift_taskGroup_attachChild(v80, PreallocatedSpace);
+    swift_taskGroup_attachChild(v78, PreallocatedSpace);
   }
 
-  if ((v41 & 0x400) != 0)
+  if ((v40 & 0x400) != 0)
   {
     swift_task_localsCopyTo(PreallocatedSpace);
   }
 
   if (v14)
   {
-    swift::asyncLet_addImpl(PreallocatedSpace, v14, ((v79 & 1) == 0));
+    swift::asyncLet_addImpl(PreallocatedSpace, v14, ((v77 & 1) == 0));
   }
 
-  if ((v20 & 0x20000000) == 0)
+  if ((v19 & 0x20000000) == 0)
   {
-    if ((v20 & 0x40000000) == 0)
+    if ((v19 & 0x40000000) == 0)
     {
       goto LABEL_137;
     }
 
 LABEL_141:
-    swift::AsyncTask::pushInitialTaskName(PreallocatedSpace, v75);
-    if ((v41 & 0x1000) == 0)
+    swift::AsyncTask::pushInitialTaskName(PreallocatedSpace, v73);
+    if ((v40 & 0x1000) == 0)
     {
       return PreallocatedSpace;
     }
 
 LABEL_138:
 
-    swift::AsyncTask::flagAsAndEnqueueOnExecutor(PreallocatedSpace, v68, v40);
+    swift::AsyncTask::flagAsAndEnqueueOnExecutor(PreallocatedSpace, v66, v39);
     return PreallocatedSpace;
   }
 
-  swift::AsyncTask::pushInitialTaskExecutorPreference(PreallocatedSpace, v70, v69, v67 & 1);
-  if ((v20 & 0x40000000) != 0)
+  swift::AsyncTask::pushInitialTaskExecutorPreference(PreallocatedSpace, v68, v67, v65 & 1);
+  if ((v19 & 0x40000000) != 0)
   {
     goto LABEL_141;
   }
 
 LABEL_137:
-  if ((v41 & 0x1000) != 0)
+  if ((v40 & 0x1000) != 0)
   {
     goto LABEL_138;
   }
@@ -5571,14 +3520,14 @@ LABEL_137:
   return PreallocatedSpace;
 }
 
-uint64_t swift_task_create_commonSlow(swift *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+char *swift_task_create_commonSlow(swift *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   common = swift::getOverride_task_create_common(a1);
   if (common)
   {
     swift_task_create_common::Override = common;
 
-    return (common)(a1, a2, a3, a4, a5, a6, swift_task_create_commonImpl);
+    return common(a1, a2, a3, a4, a5, a6, swift_task_create_commonImpl);
   }
 
   else
@@ -5589,7 +3538,7 @@ uint64_t swift_task_create_commonSlow(swift *a1, unsigned __int8 *a2, uint64_t a
   }
 }
 
-uint64_t swift_task_future_wait(uint64_t a1, unsigned int *a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_task_future_wait(uint64_t a1, swift::AsyncTask *a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   if (swift_task_future_wait::Override == 1)
   {
@@ -5604,53 +3553,53 @@ uint64_t swift_task_future_wait(uint64_t a1, unsigned int *a2, uint64_t (*a3)(vo
   return swift_task_future_waitSlow(a1, a2, a3, a4);
 }
 
-unint64_t swift_task_future_waitImpl(uint64_t a1, unsigned int *a2, uint64_t (*a3)(void), void *a4)
+unint64_t swift_task_future_waitImpl(uint64_t a1, swift::AsyncTask *a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   Current = swift_task_getCurrent();
   *(Current + 7) = task_future_wait_resume_adapter;
   if (a4)
   {
-    v9 = a4;
+    v11 = a4;
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  *(Current + 8) = v9;
-  result = swift::AsyncTask::waitFuture(a2, Current, a4, a3, v4, a1);
+  *(Current + 8) = v11;
+  result = swift::AsyncTask::waitFuture(a2, Current, a4, a3, v4, a1, v9, v10);
   if (result == 1)
   {
-    v13 = a2[8];
-    v14 = 48;
-    if ((v13 & 0x1000000) == 0)
+    v15 = *(a2 + 8);
+    v16 = 192;
+    if ((v15 & 0x1000000) == 0)
     {
-      v14 = 44;
+      v16 = 176;
     }
 
-    v15 = &a2[v14] + ((v13 >> 23) & 8);
-    (*(*(*(v15 + 8) - 8) + 16))(a1, (*(*(*(v15 + 8) - 8) + 80) + v15 + 24) & ~*(*(*(v15 + 8) - 8) + 80));
+    v17 = a2 + v16 + ((v15 >> 23) & 8);
+    (*(*(*(v17 + 1) - 8) + 16))(a1, &v17[*(*(*(v17 + 1) - 8) + 80) + 24] & ~*(*(*(v17 + 1) - 8) + 80));
 
     return a3();
   }
 
   else if (result == 2)
   {
-    swift::swift_Concurrency_fatalError(0, "future reported an error, but wait cannot throw", v11, v12);
+    swift::swift_Concurrency_fatalError(0, "future reported an error, but wait cannot throw", v13, v14);
   }
 
   return result;
 }
 
-unint64_t swift_task_future_waitSlow(swift *a1, unsigned int *a2, uint64_t (*a3)(void), void *a4)
+unint64_t swift_task_future_waitSlow(swift *a1, swift::AsyncTask *a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   Override_task_future_wait = swift::getOverride_task_future_wait(a1);
   if (Override_task_future_wait)
   {
     swift_task_future_wait::Override = Override_task_future_wait;
 
-    return (Override_task_future_wait)(a1, a2, a3, a4, swift_task_future_waitImpl);
+    return Override_task_future_wait(a1, a2, a3, a4, swift_task_future_waitImpl);
   }
 
   else
@@ -5661,7 +3610,7 @@ unint64_t swift_task_future_waitSlow(swift *a1, unsigned int *a2, uint64_t (*a3)
   }
 }
 
-uint64_t swift_task_future_wait_throwing(uint64_t a1, unsigned int *a2, uint64_t (*a3)(void), void *a4)
+uint64_t swift_task_future_wait_throwing(uint64_t a1, swift::AsyncTask *a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   if (swift_task_future_wait_throwing::Override == 1)
   {
@@ -5676,14 +3625,14 @@ uint64_t swift_task_future_wait_throwing(uint64_t a1, unsigned int *a2, uint64_t
   return swift_task_future_wait_throwingSlow(a1, a2, a3, a4);
 }
 
-unint64_t swift_task_future_wait_throwingSlow(swift *a1, unsigned int *a2, uint64_t (*a3)(void), void *a4)
+unint64_t swift_task_future_wait_throwingSlow(swift *a1, swift::AsyncTask *a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   Override_task_future_wait_throwing = swift::getOverride_task_future_wait_throwing(a1);
   if (Override_task_future_wait_throwing)
   {
     swift_task_future_wait_throwing::Override = Override_task_future_wait_throwing;
 
-    return (Override_task_future_wait_throwing)(a1, a2, a3, a4, swift_task_future_wait_throwingImpl);
+    return Override_task_future_wait_throwing(a1, a2, a3, a4, swift_task_future_wait_throwingImpl);
   }
 
   else
@@ -5694,12 +3643,12 @@ unint64_t swift_task_future_wait_throwingSlow(swift *a1, unsigned int *a2, uint6
   }
 }
 
-void swift_continuation_resumeImpl(swift::AsyncTask *a1, swift::AsyncTask *a2)
+void swift_continuation_resumeImpl(atomic_ullong **a1, swift::AsyncTask *a2)
 {
   continuationChecking::willResume(a1, a2);
-  if (*(a1 + 8))
+  if (a1[8])
   {
-    v3 = *(a1 + 8);
+    v3 = a1[8];
   }
 
   else
@@ -5723,7 +3672,7 @@ void swift_continuation_resumeImpl(swift::AsyncTask *a1, swift::AsyncTask *a2)
   }
 }
 
-void swift_continuation_resumeSlow(swift *a1)
+void swift_continuation_resumeSlow(atomic_ullong **a1)
 {
   Override_continuation_resume = swift::getOverride_continuation_resume(a1);
   if (Override_continuation_resume)
@@ -5737,9 +3686,9 @@ void swift_continuation_resumeSlow(swift *a1)
   {
     swift_continuation_resume::Override = 1;
     continuationChecking::willResume(a1, v3);
-    if (*(a1 + 8))
+    if (a1[8])
     {
-      v4 = *(a1 + 8);
+      v4 = a1[8];
     }
 
     else
@@ -5764,15 +3713,15 @@ void swift_continuation_resumeSlow(swift *a1)
   }
 }
 
-void swift_continuation_throwingResume(continuationChecking *this, swift::AsyncTask *a2)
+void swift_continuation_throwingResume(atomic_ullong **this, swift::AsyncTask *a2)
 {
   v3 = swift_continuation_throwingResume::Override;
   if (swift_continuation_throwingResume::Override == 1)
   {
     continuationChecking::willResume(this, a2);
-    if (*(this + 8))
+    if (this[8])
     {
-      v4 = *(this + 8);
+      v4 = this[8];
     }
 
     else
@@ -5809,12 +3758,12 @@ void swift_continuation_throwingResume(continuationChecking *this, swift::AsyncT
   }
 }
 
-void swift_continuation_throwingResumeImpl(swift::AsyncTask *a1, swift::AsyncTask *a2)
+void swift_continuation_throwingResumeImpl(atomic_ullong **a1, swift::AsyncTask *a2)
 {
   continuationChecking::willResume(a1, a2);
-  if (*(a1 + 8))
+  if (a1[8])
   {
-    v3 = *(a1 + 8);
+    v3 = a1[8];
   }
 
   else
@@ -5838,7 +3787,7 @@ void swift_continuation_throwingResumeImpl(swift::AsyncTask *a1, swift::AsyncTas
   }
 }
 
-void swift_continuation_throwingResumeSlow(swift *a1)
+void swift_continuation_throwingResumeSlow(atomic_ullong **a1)
 {
   Override_continuation_throwingResume = swift::getOverride_continuation_throwingResume(a1);
   if (Override_continuation_throwingResume)
@@ -5852,9 +3801,9 @@ void swift_continuation_throwingResumeSlow(swift *a1)
   {
     swift_continuation_throwingResume::Override = 1;
     continuationChecking::willResume(a1, v3);
-    if (*(a1 + 8))
+    if (a1[8])
     {
-      v4 = *(a1 + 8);
+      v4 = a1[8];
     }
 
     else
@@ -5879,15 +3828,15 @@ void swift_continuation_throwingResumeSlow(swift *a1)
   }
 }
 
-void swift_continuation_throwingResumeWithError(continuationChecking *this, swift::AsyncTask *a2)
+void swift_continuation_throwingResumeWithError(atomic_ullong **this, swift::AsyncTask *a2)
 {
   v4 = swift_continuation_throwingResumeWithError::Override;
   if (swift_continuation_throwingResumeWithError::Override == 1)
   {
     continuationChecking::willResume(this, a2);
-    if (*(this + 8))
+    if (this[8])
     {
-      v5 = *(this + 8);
+      v5 = this[8];
     }
 
     else
@@ -5925,7 +3874,7 @@ void swift_continuation_throwingResumeWithError(continuationChecking *this, swif
   }
 }
 
-void swift_continuation_throwingResumeWithErrorImpl(swift *a1, swift::AsyncTask *a2)
+void swift_continuation_throwingResumeWithErrorImpl(continuationChecking *a1, swift::AsyncTask *a2)
 {
   continuationChecking::willResume(a1, a2);
   if (*(a1 + 8))
@@ -5955,7 +3904,7 @@ void swift_continuation_throwingResumeWithErrorImpl(swift *a1, swift::AsyncTask 
   }
 }
 
-void swift_continuation_throwingResumeWithErrorSlow(swift *a1, atomic_ullong a2)
+void swift_continuation_throwingResumeWithErrorSlow(atomic_ullong **a1, atomic_ullong a2)
 {
   Override_continuation_throwingResumeWithError = swift::getOverride_continuation_throwingResumeWithError(a1);
   if (Override_continuation_throwingResumeWithError)
@@ -5969,9 +3918,9 @@ void swift_continuation_throwingResumeWithErrorSlow(swift *a1, atomic_ullong a2)
   {
     swift_continuation_throwingResumeWithError::Override = 1;
     continuationChecking::willResume(a1, v5);
-    if (*(a1 + 8))
+    if (a1[8])
     {
-      v6 = *(a1 + 8);
+      v6 = a1[8];
     }
 
     else
@@ -6014,12 +3963,11 @@ uint64_t swift_task_addCancellationHandler(swift *a1, uint64_t a2)
 
     v5[2] = v7;
     v5[3] = a2;
-    v12 = 0;
-    v11 = &v12;
-    v8 = swift::addStatusRecordToSelf(v5, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift_task_addCancellationHandlerImpl(void({swiftcall}*)(void * {swift_context}),void *)::$_0>, &v11);
-    if (v12 == 1)
+    v11 = 0;
+    v10 = &v11;
+    v8 = swift::addStatusRecordToSelf(v5, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift_task_addCancellationHandlerImpl(void({swiftcall}*)(void * {swift_context}),void *)::$_0>, &v10);
+    if (v11 == 1)
     {
-      v9 = *(v6 + 24);
       (*(v6 + 16))(v8);
       v6;
       return 0;
@@ -6041,7 +3989,7 @@ uint64_t swift_task_addCancellationHandler(swift *a1, uint64_t a2)
   }
 }
 
-uint64_t swift_task_addCancellationHandlerImpl(uint64_t a1, uint64_t a2)
+void *swift_task_addCancellationHandlerImpl(uint64_t a1, uint64_t a2)
 {
   v4 = swift_task_alloc(32);
   v5 = v4;
@@ -6055,12 +4003,11 @@ uint64_t swift_task_addCancellationHandlerImpl(uint64_t a1, uint64_t a2)
 
   v4[2] = v6;
   v4[3] = a2;
-  v11 = 0;
-  v10 = &v11;
-  v7 = swift::addStatusRecordToSelf(v4, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift_task_addCancellationHandlerImpl(void({swiftcall}*)(void * {swift_context}),void *)::$_0>, &v10);
-  if (v11 == 1)
+  v10 = 0;
+  v9 = &v10;
+  v7 = swift::addStatusRecordToSelf(v4, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift_task_addCancellationHandlerImpl(void({swiftcall}*)(void * {swift_context}),void *)::$_0>, &v9);
+  if (v10 == 1)
   {
-    v8 = *(v5 + 24);
     (*(v5 + 16))(v7);
     v5;
     return 0;
@@ -6094,12 +4041,11 @@ uint64_t swift_task_addCancellationHandlerSlow(swift *a1, uint64_t a2)
 
     v6[2] = v8;
     v6[3] = a2;
-    v12 = 0;
-    v11 = &v12;
-    v9 = swift::addStatusRecordToSelf(v6, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift_task_addCancellationHandlerImpl(void({swiftcall}*)(void * {swift_context}),void *)::$_0>, &v11);
-    if (v12 == 1)
+    v11 = 0;
+    v10 = &v11;
+    v9 = swift::addStatusRecordToSelf(v6, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift_task_addCancellationHandlerImpl(void({swiftcall}*)(void * {swift_context}),void *)::$_0>, &v10);
+    if (v11 == 1)
     {
-      v10 = *(v7 + 24);
       (*(v7 + 16))(v9);
       v7;
       return 0;
@@ -6109,18 +4055,18 @@ uint64_t swift_task_addCancellationHandlerSlow(swift *a1, uint64_t a2)
   }
 }
 
-void swift_task_removeCancellationHandler(swift *a1)
+void swift_task_removeCancellationHandler(swift *result)
 {
   v2 = swift_task_removeCancellationHandler::Override;
   if (swift_task_removeCancellationHandler::Override == 1)
   {
-    if (a1)
+    if (result)
     {
       Current = swift_task_getCurrent();
       if (swift::popStatusRecordOfType<swift::CancellationNotificationStatusRecord>(Current))
       {
 
-        a1;
+        result;
       }
     }
   }
@@ -6128,25 +4074,25 @@ void swift_task_removeCancellationHandler(swift *a1)
   else if (swift_task_removeCancellationHandler::Override)
   {
 
-    v2(a1, swift_task_removeCancellationHandlerImpl);
+    v2(result, swift_task_removeCancellationHandlerImpl);
   }
 
   else
   {
 
-    swift_task_removeCancellationHandlerSlow(a1);
+    swift_task_removeCancellationHandlerSlow(result);
   }
 }
 
-void swift_task_removeCancellationHandlerImpl(uint64_t a1)
+void swift_task_removeCancellationHandlerImpl(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
     Current = swift_task_getCurrent();
     if (swift::popStatusRecordOfType<swift::CancellationNotificationStatusRecord>(Current))
     {
 
-      a1;
+      result;
     }
   }
 }
@@ -6176,7 +4122,7 @@ void swift_task_removeCancellationHandlerSlow(swift *a1)
   }
 }
 
-uint64_t swift_task_addPriorityEscalationHandler(swift *a1, uint64_t a2)
+void *swift_task_addPriorityEscalationHandler(swift *a1, uint64_t a2)
 {
   v4 = swift_task_addPriorityEscalationHandler::Override;
   if (swift_task_addPriorityEscalationHandler::Override == 1)
@@ -6228,7 +4174,7 @@ void *swift_task_addPriorityEscalationHandlerImpl(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-uint64_t swift_task_addPriorityEscalationHandlerSlow(swift *a1, uint64_t a2)
+void *swift_task_addPriorityEscalationHandlerSlow(swift *a1, uint64_t a2)
 {
   Override_task_addPriorityEscalationHandler = swift::getOverride_task_addPriorityEscalationHandler(a1);
   if (Override_task_addPriorityEscalationHandler)
@@ -6392,24 +4338,24 @@ uint64_t swift_task_createNullaryContinuationJobSlow(swift *a1, uint64_t a2)
 
 void swift_task_asyncMainDrainQueue()
 {
-  swift_once();
-  v0 = swift_task_asyncMainDrainQueue_hook;
-  v1 = swift_task_asyncMainDrainQueue::Override;
+  v0 = swift_once();
+  v1 = swift_task_asyncMainDrainQueue_hook;
+  v2 = swift_task_asyncMainDrainQueue::Override;
   if (!swift_task_asyncMainDrainQueue_hook)
   {
     if (swift_task_asyncMainDrainQueue::Override)
     {
-      swift_task_asyncMainDrainQueue::Override(swift_task_asyncMainDrainQueueImpl);
+      v0 = swift_task_asyncMainDrainQueue::Override(swift_task_asyncMainDrainQueueImpl);
     }
 
-    swift_task_asyncMainDrainQueueImpl();
+    swift_task_asyncMainDrainQueueImpl(v0, v2);
   }
 
-  v0(swift_task_asyncMainDrainQueueImpl, v1);
+  v1(swift_task_asyncMainDrainQueueImpl, v2);
   abort();
 }
 
-uint64_t swift_task_suspend(swift *a1)
+swift *swift_task_suspend(swift *a1)
 {
   v3 = swift_task_suspend::Override;
   if (swift_task_suspend::Override == 1)
@@ -6479,7 +4425,7 @@ swift *swift_task_suspendImpl(void)
   return Current;
 }
 
-uint64_t swift_task_suspendSlow(swift *a1)
+swift *swift_task_suspendSlow(swift *a1)
 {
   Override_task_suspend = swift::getOverride_task_suspend(a1);
   if (Override_task_suspend)
@@ -6517,7 +4463,7 @@ uint64_t swift_task_suspendSlow(swift *a1)
   }
 }
 
-void swift_task_enqueueTaskOnExecutor(swift *this, unsigned __int8 *a2, uint64_t a3)
+void swift_task_enqueueTaskOnExecutor(swift *this, uint64_t *a2, uint64_t a3)
 {
   if (swift_task_enqueueTaskOnExecutor::Override == 1)
   {
@@ -6526,7 +4472,7 @@ void swift_task_enqueueTaskOnExecutor(swift *this, unsigned __int8 *a2, uint64_t
 
   else if (swift_task_enqueueTaskOnExecutor::Override)
   {
-    swift_task_enqueueTaskOnExecutor::Override(this, a2, a3, &swift_task_enqueueTaskOnExecutorImpl);
+    swift_task_enqueueTaskOnExecutor::Override(this, a2, a3, swift_task_enqueueTaskOnExecutorImpl);
   }
 
   else
@@ -6535,14 +4481,14 @@ void swift_task_enqueueTaskOnExecutor(swift *this, unsigned __int8 *a2, uint64_t
   }
 }
 
-void swift_task_enqueueTaskOnExecutorSlow(swift *a1, unsigned __int8 *a2, uint64_t a3)
+void swift_task_enqueueTaskOnExecutorSlow(swift *a1, uint64_t *a2, uint64_t a3)
 {
   Override_task_enqueueTaskOnExecutor = swift::getOverride_task_enqueueTaskOnExecutor(a1);
   if (Override_task_enqueueTaskOnExecutor)
   {
     swift_task_enqueueTaskOnExecutor::Override = Override_task_enqueueTaskOnExecutor;
 
-    (Override_task_enqueueTaskOnExecutor)(a1, a2, a3, &swift_task_enqueueTaskOnExecutorImpl);
+    Override_task_enqueueTaskOnExecutor(a1, a2, a3, swift_task_enqueueTaskOnExecutorImpl);
   }
 
   else
@@ -6593,56 +4539,50 @@ swift *swift_continuation_initImpl(void *a1, unint64_t a2)
     *(v6 + 40) = v5;
     *(v6 + 16) = a1;
     *(v5 + 20) = v6;
-    v26 = v6;
+    v24 = v6;
     __asm { CASP            X2, X3, X2, X3, [X8] }
 
-    v25[0] = _X2;
-    v25[1] = 0;
-    v24[0] = &v26;
-    v24[1] = v25;
-    swift::addStatusRecord(v5, v6, v25, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::flagAsSuspended(swift::TaskDependencyStatusRecord *)::{lambda(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)#1}>, v24);
+    v23[0] = _X2;
+    v23[1] = 0;
+    v22[0] = &v24;
+    v22[1] = v23;
+    swift::addStatusRecord(v5, v6, v23, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::flagAsSuspended(swift::TaskDependencyStatusRecord *)::{lambda(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)#1}>, v22);
     swift_task_exitThreadLocalContext();
     v15 = swift::restoreTaskVoucher(v5, v14);
     swift::_swift_task_clearCurrent(v15);
   }
 
   *(v5 + 8) = a1;
-  v16 = a1[1];
-  if (v16)
-  {
-    v17 = a1[1];
-  }
-
-  *(v5 + 7) = v16;
-  v25[0] = v5;
-  v18 = continuationChecking::CurrentState;
+  *(v5 + 7) = a1[1];
+  v23[0] = v5;
+  v16 = continuationChecking::CurrentState;
   if (!continuationChecking::CurrentState)
   {
     if (concurrencyValidateUncheckedContinuations())
     {
-      v18 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v18 = 2;
+      v16 = 2;
     }
 
-    continuationChecking::CurrentState = v18;
+    continuationChecking::CurrentState = v16;
   }
 
-  if (v18 == 1)
+  if (v16 == 1)
   {
     os_unfair_lock_lock(&continuationChecking::ActiveContinuationsLock);
     if (qword_1EA82E900 != -1)
     {
-      swift_continuation_initImpl(v19);
+      swift_continuation_initImpl(v17);
     }
 
-    std::__hash_table<swift::AsyncTask *,std::hash<swift::AsyncTask *>,std::equal_to<swift::AsyncTask *>,std::allocator<swift::AsyncTask *>>::__emplace_unique_key_args<swift::AsyncTask *,swift::AsyncTask * const&>(&continuationChecking::ActiveContinuations, v25);
-    if ((v22 & 1) == 0)
+    std::__hash_table<swift::AsyncTask *,std::hash<swift::AsyncTask *>,std::equal_to<swift::AsyncTask *>,std::allocator<swift::AsyncTask *>>::__emplace_unique_key_args<swift::AsyncTask *,swift::AsyncTask * const&>(&continuationChecking::ActiveContinuations, v23, v23);
+    if ((v20 & 1) == 0)
     {
-      swift::swift_Concurrency_fatalError(0, "Initializing continuation for task %p that was already initialized.\n", v20, v21, v25[0]);
+      swift::swift_Concurrency_fatalError(0, "Initializing continuation for task %p that was already initialized.\n", v18, v19, v23[0]);
     }
 
     os_unfair_lock_unlock(&continuationChecking::ActiveContinuationsLock);
@@ -6659,7 +4599,7 @@ swift *swift_continuation_initSlow(swift *a1, unint64_t a2)
   {
     swift_continuation_init::Override = Override_continuation_init;
 
-    return (Override_continuation_init)(a1, a2, swift_continuation_initImpl);
+    return Override_continuation_init(a1, a2, swift_continuation_initImpl);
   }
 
   else
@@ -6670,11 +4610,11 @@ swift *swift_continuation_initSlow(swift *a1, unint64_t a2)
   }
 }
 
-void swift_continuation_await(uint64_t a1)
+void swift_continuation_await(swift *a1, uint64_t a2)
 {
   if (swift_continuation_await::Override == 1)
   {
-    swift_continuation_awaitImpl(a1);
+    swift_continuation_awaitImpl(a1, a2);
   }
 
   else if (swift_continuation_await::Override)
@@ -6688,29 +4628,29 @@ void swift_continuation_await(uint64_t a1)
   }
 }
 
-void swift_continuation_awaitImpl(uint64_t a1)
+void swift_continuation_awaitImpl(uint64_t a1, uint64_t a2)
 {
-  swift::concurrency::trace::task_continuation_await(a1);
+  swift::concurrency::trace::task_continuation_await(a1, a2);
   explicit = atomic_load_explicit((a1 + 24), memory_order_acquire);
   if (explicit == 2)
   {
-    v3 = *(a1 + 8);
+    v4 = *(a1 + 8);
     if ((*(a1 + 16) & 2) != 0)
     {
-      if (v3)
+      if (v4)
       {
 LABEL_4:
-        v4 = v3;
+        v5 = v4;
 LABEL_13:
-        v17 = *(a1 + 48);
-        v18 = *(a1 + 56);
+        v25 = *(a1 + 48);
+        v26 = *(a1 + 56);
 
-        swift_task_switch(v4, v17, v18);
+        swift_task_switch(v5, v25, v26);
         return;
       }
 
 LABEL_12:
-      v4 = 0;
+      v5 = 0;
       goto LABEL_13;
     }
   }
@@ -6718,38 +4658,38 @@ LABEL_12:
   else
   {
     Current = swift_task_getCurrent();
-    v6 = swift::_swift_task_alloc_specific(Current, 0x30);
+    v7 = swift::_swift_task_alloc_specific(Current, 0x30);
     _X2 = 0;
     _X3 = 0;
-    *v6 = 0;
-    *(v6 + 8) = 0;
-    *(v6 + 32) = 2;
-    *(v6 + 40) = Current;
-    *(v6 + 16) = a1;
-    *(Current + 20) = v6;
-    v21 = v6;
+    *v7 = 0;
+    *(v7 + 8) = 0;
+    *(v7 + 32) = 2;
+    *(v7 + 40) = Current;
+    *(v7 + 16) = a1;
+    *(Current + 20) = v7;
+    v29 = v7;
     __asm { CASP            X2, X3, X2, X3, [X8] }
 
-    v20[0] = _X2;
-    v20[1] = 0;
-    v19[0] = &v21;
-    v19[1] = v20;
-    swift::addStatusRecord(Current, v6, v20, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::flagAsSuspended(swift::TaskDependencyStatusRecord *)::{lambda(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)#1}>, v19);
+    v28[0] = _X2;
+    v28[1] = 0;
+    v27[0] = &v29;
+    v27[1] = v28;
+    swift::addStatusRecord(Current, v7, v28, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::flagAsSuspended(swift::TaskDependencyStatusRecord *)::{lambda(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)#1}>, v27);
     swift_task_exitThreadLocalContext();
-    v15 = swift::restoreTaskVoucher(Current, v14);
-    v16 = explicit;
-    atomic_compare_exchange_strong((a1 + 24), &v16, 1uLL);
-    if (v16 == explicit)
+    v16 = swift::restoreTaskVoucher(Current, v15);
+    v24 = explicit;
+    atomic_compare_exchange_strong((a1 + 24), &v24, 1uLL);
+    if (v24 == explicit)
     {
-      swift::_swift_task_clearCurrent(v15);
+      swift::_swift_task_clearCurrent(v16);
       return;
     }
 
-    swift::AsyncTask::flagAsRunning(Current);
-    v3 = *(a1 + 8);
+    swift::AsyncTask::flagAsRunning(Current, v17, v18, v19, v20, v21, v22, v23);
+    v4 = *(a1 + 8);
     if ((*(a1 + 16) & 2) != 0)
     {
-      if (v3)
+      if (v4)
       {
         goto LABEL_4;
       }
@@ -6758,7 +4698,7 @@ LABEL_12:
     }
   }
 
-  v3();
+  v4();
 }
 
 void swift_continuation_awaitSlow(swift *a1)
@@ -6768,14 +4708,14 @@ void swift_continuation_awaitSlow(swift *a1)
   {
     swift_continuation_await::Override = Override_continuation_await;
 
-    (Override_continuation_await)(a1, swift_continuation_awaitImpl);
+    Override_continuation_await(a1, swift_continuation_awaitImpl);
   }
 
   else
   {
     swift_continuation_await::Override = 1;
 
-    swift_continuation_awaitImpl(a1);
+    swift_continuation_awaitImpl(a1, v3);
   }
 }
 
@@ -6797,7 +4737,7 @@ uint64_t swift_task_startOnMainActor(swift::AsyncTask *a1)
 uint64_t swift_task_startOnMainActorImpl(swift::AsyncTask *a1)
 {
   v2 = swift::_swift_task_clearCurrent(a1);
-  MainExecutor = swift_task_getMainExecutor();
+  MainExecutor = swift_task_getMainExecutor(v2);
   v5 = v4;
   if ((swift_task_isCurrentExecutor(MainExecutor, v4) & 1) == 0)
   {
@@ -6816,7 +4756,7 @@ uint64_t swift_task_startOnMainActorSlow(swift *a1)
   {
     swift_task_startOnMainActor::Override = Override_task_startOnMainActor;
 
-    return (Override_task_startOnMainActor)(a1, swift_task_startOnMainActorImpl);
+    return Override_task_startOnMainActor(a1, swift_task_startOnMainActorImpl);
   }
 
   else
@@ -6970,21 +4910,20 @@ void completeTask(swift *a1)
 
 uint64_t completeTaskWithClosure()
 {
-  v2 = *(v1 - 16);
 
-  v4 = swift::_swift_task_clearCurrent(v3);
-  v5 = v4;
+  v3 = swift::_swift_task_clearCurrent(v2);
+  v4 = v3;
   *(v1 - 8) = v0;
-  v6 = *(v4 + 8);
-  if ((v6 & 0x40000000) != 0)
+  v5 = *(v3 + 8);
+  if ((v5 & 0x40000000) != 0)
   {
-    swift::AsyncTask::dropInitialTaskNameRecord(v4);
-    v6 = *(v5 + 32);
+    swift::AsyncTask::dropInitialTaskNameRecord(v3);
+    v5 = *(v4 + 32);
   }
 
-  if ((v6 & 0x20000000) != 0)
+  if ((v5 & 0x20000000) != 0)
   {
-    swift::AsyncTask::dropInitialTaskExecutorPreferenceRecord(v5);
+    swift::AsyncTask::dropInitialTaskExecutorPreferenceRecord(v4);
   }
 
   _X2 = 0;
@@ -7003,17 +4942,17 @@ uint64_t completeTaskWithClosure()
       _X5 = 0;
       __asm { CASP            X4, X5, X2, X3, [X8] }
 
-      v19 = _X4 ^ _X0;
+      v18 = _X4 ^ _X0;
       _X0 = _X4;
     }
 
-    while (v19);
+    while (v18);
   }
 
-  swift::TaskLocal::Storage::destroy((v5 + 136), v5, _X2, 0);
-  if ((*(v5 + 35) & 2) != 0)
+  swift::TaskLocal::Storage::destroy((v4 + 136), v4, _X2, 0);
+  if ((*(v4 + 35) & 2) != 0)
   {
-    swift::AsyncTask::completeFuture(v5, v1);
+    swift::AsyncTask::completeFuture(v4, v1);
   }
 }
 
@@ -7064,15 +5003,14 @@ void swift::concurrency::trace::task_create(uint64_t (**this)(), swift::AsyncTas
             goto LABEL_21;
           }
 
-          v26 = this[7];
           if (v24 == non_future_adapter || v24 == future_adapter)
           {
-            v27 = *(this[8] - 3);
+            v26 = *(this[8] - 3);
           }
 
           else
           {
-            v27 = this[7];
+            v26 = this[7];
           }
 
           if (v24 != task_wait_throwing_resume_adapter && v24 != task_future_wait_resume_adapter)
@@ -7082,43 +5020,43 @@ void swift::concurrency::trace::task_create(uint64_t (**this)(), swift::AsyncTas
 
           if (*(this[8] + 1))
           {
-            v27 = *(this[8] + 1);
+            v26 = *(this[8] + 1);
           }
 
           else
           {
 LABEL_21:
-            v27 = 0;
+            v26 = 0;
           }
 
 LABEL_22:
-          v28 = 134221058;
-          v29 = v25;
-          v30 = 2048;
-          v31 = v27;
-          v32 = 1024;
-          v33 = v16;
-          v34 = 1024;
-          v35 = a6;
-          v36 = 1024;
-          v37 = a7;
-          v38 = 1024;
-          v39 = a8;
-          v40 = 1024;
-          v41 = a9;
-          v42 = 2048;
-          v43 = a2;
-          v44 = 2048;
-          v45 = a3;
-          v46 = 2048;
-          v47 = a4;
-          v48 = 1024;
-          v49 = a10;
-          v50 = 1024;
-          v51 = a11;
-          v52 = 2082;
-          v53 = a13;
-          _os_signpost_emit_with_name_impl(&dword_1815A3000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v22, "task_lifetime", "task=%lld resumefn=%p jobPriority=%u isChildTask=%{BOOL}d, isFuture=%{BOOL}d isGroupChildTask=%{BOOL}d isAsyncLetTask=%{BOOL}d parent=%lld group=%p asyncLet=%p isDiscardingTask=%{BOOL}d hasInitialTaskExecutorPreference=%{BOOL}d taskName=%{public}s", &v28, 0x68u);
+          v27 = 134221058;
+          v28 = v25;
+          v29 = 2048;
+          v30 = v26;
+          v31 = 1024;
+          v32 = v16;
+          v33 = 1024;
+          v34 = a6;
+          v35 = 1024;
+          v36 = a7;
+          v37 = 1024;
+          v38 = a8;
+          v39 = 1024;
+          v40 = a9;
+          v41 = 2048;
+          v42 = a2;
+          v43 = 2048;
+          v44 = a3;
+          v45 = 2048;
+          v46 = a4;
+          v47 = 1024;
+          v48 = a10;
+          v49 = 1024;
+          v50 = a11;
+          v51 = 2082;
+          v52 = a13;
+          _os_signpost_emit_with_name_impl(&dword_1815A3000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v22, "task_lifetime", "task=%lld resumefn=%p jobPriority=%u isChildTask=%{BOOL}d, isFuture=%{BOOL}d isGroupChildTask=%{BOOL}d isAsyncLetTask=%{BOOL}d parent=%lld group=%p asyncLet=%p isDiscardingTask=%{BOOL}d hasInitialTaskExecutorPreference=%{BOOL}d taskName=%{public}s", &v27, 0x68u);
         }
       }
     }
@@ -7272,8 +5210,9 @@ LABEL_25:
   }
 }
 
-void swift::concurrency::trace::task_continuation_resume(void *ptr, int a2)
+void swift::concurrency::trace::task_continuation_resume(void *ptr, uint64_t a2)
 {
+  v2 = a2;
   if (qword_1ED42EB60 != -1)
   {
     swift::concurrency::trace::task_wait(ptr);
@@ -7298,7 +5237,7 @@ void swift::concurrency::trace::task_continuation_resume(void *ptr, int a2)
           v7 = 134218240;
           v8 = ptr;
           v9 = 1024;
-          v10 = a2;
+          v10 = v2;
           _os_signpost_emit_with_name_impl(&dword_1815A3000, v6, OS_SIGNPOST_INTERVAL_END, v5, "task_continuation", "context=%p error=%{BOOL}d", &v7, 0x12u);
         }
       }
@@ -7435,7 +5374,7 @@ BOOL __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swif
   return (a2 & 0x100) == 0;
 }
 
-void *swift_task_asyncMainDrainQueue::$_0::__invoke(swift_task_asyncMainDrainQueue::$_0 *this, void *a2)
+uint64_t (*swift_task_asyncMainDrainQueue::$_0::__invoke(swift_task_asyncMainDrainQueue::$_0 *this, void *a2))(void)
 {
   result = swift::getOverride_task_asyncMainDrainQueue(this);
   swift_task_asyncMainDrainQueue::Override = result;
@@ -7477,35 +5416,35 @@ void swift::concurrency::trace::task_continuation_init(uint64_t a1, void *ptr)
   }
 }
 
-void *std::__hash_table<swift::AsyncTask *,std::hash<swift::AsyncTask *>,std::equal_to<swift::AsyncTask *>,std::allocator<swift::AsyncTask *>>::__emplace_unique_key_args<swift::AsyncTask *,swift::AsyncTask * const&>(void *a1, void *a2)
+void *std::__hash_table<swift::AsyncTask *,std::hash<swift::AsyncTask *>,std::equal_to<swift::AsyncTask *>,std::allocator<swift::AsyncTask *>>::__emplace_unique_key_args<swift::AsyncTask *,swift::AsyncTask * const&>(float *a1, void *a2, void *a3)
 {
-  v2 = HIDWORD(*a2);
-  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v2 ^ (v3 >> 47) ^ v3)) ^ ((0x9DDFEA08EB382D69 * (v2 ^ (v3 >> 47) ^ v3)) >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = HIDWORD(*a2);
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v2 ^ (v3 >> 47) ^ v3)) ^ ((0x9DDFEA08EB382D69 * (v2 ^ (v3 >> 47) ^ v3)) >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (result = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (result = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -7513,26 +5452,26 @@ LABEL_18:
 
   while (1)
   {
-    v10 = result[1];
-    if (v10 == v4)
+    v11 = result[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
@@ -7575,7 +5514,7 @@ void std::__hash_table<swift::AsyncTask *,std::hash<swift::AsyncTask *>,std::equ
   *(a1 + 8) = 0;
 }
 
-void swift::concurrency::trace::task_continuation_await(void *ptr)
+void swift::concurrency::trace::task_continuation_await(void *ptr, uint64_t a2)
 {
   if (qword_1ED42EB60 != -1)
   {
@@ -7591,16 +5530,16 @@ void swift::concurrency::trace::task_continuation_await(void *ptr)
 
     if (swift::concurrency::trace::TracingEnabled == 1)
     {
-      v2 = os_signpost_id_make_with_pointer(swift::concurrency::trace::TaskLog, ptr);
-      if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      v3 = os_signpost_id_make_with_pointer(swift::concurrency::trace::TaskLog, ptr);
+      if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v3 = v2;
-        v4 = swift::concurrency::trace::TaskLog;
+        v4 = v3;
+        v5 = swift::concurrency::trace::TaskLog;
         if (os_signpost_enabled(swift::concurrency::trace::TaskLog))
         {
-          v5 = 134217984;
-          v6 = ptr;
-          _os_signpost_emit_with_name_impl(&dword_1815A3000, v4, OS_SIGNPOST_EVENT, v3, "task_continuation_await", "context=%p", &v5, 0xCu);
+          v6 = 134217984;
+          v7 = ptr;
+          _os_signpost_emit_with_name_impl(&dword_1815A3000, v5, OS_SIGNPOST_EVENT, v4, "task_continuation_await", "context=%p", &v6, 0xCu);
         }
       }
     }
@@ -7695,7 +5634,7 @@ uint64_t swift_task_alloc(uint64_t a1)
     v3 = (Current + 112);
   }
 
-  else if (atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire))
+  else if (atomic_load_explicit(_MergedGlobals_0, memory_order_acquire))
   {
     v3 = &qword_1ED42EB78;
   }
@@ -7713,7 +5652,7 @@ uint64_t swift_task_alloc(uint64_t a1)
   *(v7 + 4) = *v3;
   *(v7 + 5) = SlabForAllocation;
   *(SlabForAllocation + 5) = v4 + v6 + 16;
-  *v3 = SlabForAllocation + v6 + 32;
+  *v3 = (SlabForAllocation + v6 + 32);
   return SlabForAllocation + v6 + 48;
 }
 
@@ -7724,7 +5663,7 @@ uint64_t swift::_swift_task_alloc_specific(swift *this, swift::AsyncTask *a2)
     v2 = (this + 112);
   }
 
-  else if (atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire))
+  else if (atomic_load_explicit(_MergedGlobals_0, memory_order_acquire))
   {
     v2 = &qword_1ED42EB78;
   }
@@ -7744,7 +5683,7 @@ uint64_t swift::_swift_task_alloc_specific(swift *this, swift::AsyncTask *a2)
   *(v6 + 4) = *v2;
   *(v6 + 5) = SlabForAllocation;
   *(SlabForAllocation + 5) = v3 + v5 + 16;
-  *v2 = SlabForAllocation + v5 + 32;
+  *v2 = (SlabForAllocation + v5 + 32);
   return SlabForAllocation + v5 + 48;
 }
 
@@ -7756,7 +5695,7 @@ void swift_task_dealloc(uint64_t a1)
     v5 = (Current + 112);
   }
 
-  else if (atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire))
+  else if (atomic_load_explicit(_MergedGlobals_0, memory_order_acquire))
   {
     v5 = &qword_1ED42EB78;
   }
@@ -7788,14 +5727,14 @@ void swift_task_dealloc(uint64_t a1)
   *v5 = v8;
 }
 
-void swift::_swift_task_dealloc_specific(swift *this, swift::AsyncTask *a2, const char *a3, char *a4)
+void swift::_swift_task_dealloc_specific(uint64_t this, swift::AsyncTask *a2, const char *a3, char *a4)
 {
   if (this)
   {
     v4 = (this + 112);
   }
 
-  else if (atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire))
+  else if (atomic_load_explicit(_MergedGlobals_0, memory_order_acquire))
   {
     v4 = &qword_1ED42EB78;
   }
@@ -7837,7 +5776,7 @@ void swift_task_dealloc_through(void *a1)
     v5 = (Current + 112);
   }
 
-  else if (atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire))
+  else if (atomic_load_explicit(_MergedGlobals_0, memory_order_acquire))
   {
     v5 = &qword_1ED42EB78;
   }
@@ -7913,7 +5852,7 @@ uint64_t swift_job_deallocate(uint64_t result, uint64_t *a2, const char *a3, cha
   return result;
 }
 
-uint64_t *swift::StackAllocator<984ul,&swift::TaskAllocatorSlabMetadata>::getSlabForAllocation(uint64_t *a1, unint64_t a2)
+uint64_t *swift::StackAllocator<984ul,&swift::TaskAllocatorSlabMetadata>::getSlabForAllocation(uint64_t **a1, unint64_t a2)
 {
   v3 = *a1;
   if (!*a1)
@@ -8329,25 +6268,24 @@ void swift::AsyncTask::dropInitialTaskExecutorPreferenceRecord(swift::AsyncTask 
 {
   _X8 = 0;
   _X9 = 0;
-  v14 = 0;
-  v13[0] = &v14;
-  v13[1] = &v15;
+  v13 = 0;
+  v12[0] = &v13;
+  v12[1] = &v14;
   __asm { CASP            X8, X9, X8, X9, [X10] }
 
-  v20[0] = __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::TaskStatusRecord *)>::callback_fn<swift::TaskExecutorPreferenceStatusRecord * swift::popStatusRecordOfType<swift::TaskExecutorPreferenceStatusRecord>(swift::AsyncTask *)::{lambda(swift::ActiveTaskStatus,swift::TaskStatusRecord *)#1}>;
-  v20[1] = v13;
-  v19 = 0;
+  v19[0] = __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::TaskStatusRecord *)>::callback_fn<swift::TaskExecutorPreferenceStatusRecord * swift::popStatusRecordOfType<swift::TaskExecutorPreferenceStatusRecord>(swift::AsyncTask *)::{lambda(swift::ActiveTaskStatus,swift::TaskStatusRecord *)#1}>;
+  v19[1] = v12;
   v18 = 0;
-  v17[0] = v20;
-  v17[1] = &v18;
-  v15 = 0;
-  v16[0] = &v18;
-  v16[1] = &v19;
-  withStatusRecordLock(this, _X8, 0, __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<swift::removeStatusRecordWhere(swift::AsyncTask *,swift::ActiveTaskStatus&,__swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::TaskStatusRecord *)>,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::$_0>, v17, __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::removeStatusRecordWhere(swift::AsyncTask *,swift::ActiveTaskStatus&,__swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::TaskStatusRecord *)>,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::$_1>, v16);
-  v11 = v15;
-  if (*(v15 + 16))
+  v17 = 0;
+  v16[0] = v19;
+  v16[1] = &v17;
+  v14 = 0;
+  v15[0] = &v17;
+  v15[1] = &v18;
+  withStatusRecordLock(this, _X8, 0, __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<swift::removeStatusRecordWhere(swift::AsyncTask *,swift::ActiveTaskStatus&,__swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::TaskStatusRecord *)>,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::$_0>, v16, __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::removeStatusRecordWhere(swift::AsyncTask *,swift::ActiveTaskStatus&,__swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::TaskStatusRecord *)>,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::$_1>, v15);
+  v11 = v14;
+  if (*(v14 + 16))
   {
-    v12 = *(v15 + 3);
     swift_unknownObjectRelease();
   }
 
@@ -8373,7 +6311,7 @@ uint64_t swift::AsyncTask::pushInitialTaskName(swift::AsyncTask *this, const cha
   return swift::addStatusRecord(this, v4, v17, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::pushInitialTaskName(char const*)::$_0>, &v16);
 }
 
-void swift::AsyncTask::dropInitialTaskNameRecord(swift::AsyncTask *this)
+void swift::AsyncTask::dropInitialTaskNameRecord(swift::concurrency::trace *this)
 {
   if ((*(this + 35) & 0x40) != 0)
   {
@@ -8468,21 +6406,21 @@ uint64_t swift::_swift_taskGroup_detachChild(swift *this, swift::TaskGroup *a2, 
   return withStatusRecordLock(v5, _X6, 0, __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<void withStatusRecordLock<swift::_swift_taskGroup_detachChild(swift::TaskGroup *,swift::AsyncTask *)::$_0>(swift::AsyncTask *,swift::_swift_taskGroup_detachChild(swift::TaskGroup *,swift::AsyncTask *)::$_0 &&,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::{lambda(swift::ActiveTaskStatus)#1}>, &v15, 0, _X6);
 }
 
-void swift_task_cancel(swift::AsyncTask *this)
+void swift_task_cancel(swift::AsyncTask *a1)
 {
   if (swift_task_cancel::Override == 1)
   {
-    swift_task_cancelImpl(this);
+    swift_task_cancelImpl(a1);
   }
 
   else if (swift_task_cancel::Override)
   {
-    swift_task_cancel::Override(this, swift_task_cancelImpl);
+    swift_task_cancel::Override(a1, swift_task_cancelImpl);
   }
 
   else
   {
-    swift_task_cancelSlow(this);
+    swift_task_cancelSlow(a1);
   }
 }
 
@@ -8504,17 +6442,17 @@ uint64_t swift::_swift_taskGroup_cancel_unlocked(swift *this, swift::TaskGroup *
   return result;
 }
 
-void swift::TaskDependencyStatusRecord::performEscalationAction(uint64_t a1, uint64_t a2, unint64_t a3)
+void swift::TaskDependencyStatusRecord::performEscalationAction(unint64_t result, uint64_t a2, unint64_t a3)
 {
-  v3 = *(a1 + 32);
+  v3 = *(result + 32);
   if (v3 == 4)
   {
-    swift::swift_executor_escalate(*(a1 + 16), *(a1 + 24), *(a1 + 40), a3);
+    swift::swift_executor_escalate(*(result + 16), *(result + 24), *(result + 40), a3);
   }
 
   else if (v3 == 1)
   {
-    v4 = *(a1 + 16);
+    v4 = *(result + 16);
     if (swift_task_escalate::Override == 1)
     {
       swift_task_escalateImpl(v4, a3);
@@ -8761,21 +6699,21 @@ void swift_task_cancelImpl(swift::AsyncTask *this)
   }
 }
 
-uint64_t swift_task_cancelSlow(swift *a1)
+void swift_task_cancelSlow(swift *a1)
 {
   Override_task_cancel = swift::getOverride_task_cancel(a1);
   if (Override_task_cancel)
   {
     swift_task_cancel::Override = Override_task_cancel;
 
-    return (Override_task_cancel)(a1, swift_task_cancelImpl);
+    Override_task_cancel(a1, swift_task_cancelImpl);
   }
 
   else
   {
     swift_task_cancel::Override = 1;
 
-    return swift_task_cancelImpl(a1);
+    swift_task_cancelImpl(a1);
   }
 }
 
@@ -8844,14 +6782,14 @@ uint64_t swift_task_escalateImpl(swift::concurrency::trace *a1, unint64_t a2)
   return v9;
 }
 
-uint64_t swift_task_escalateSlow(swift *a1, uint64_t a2)
+uint64_t swift_task_escalateSlow(swift *a1, unint64_t a2)
 {
   Override_task_escalate = swift::getOverride_task_escalate(a1);
   if (Override_task_escalate)
   {
     swift_task_escalate::Override = Override_task_escalate;
 
-    return (Override_task_escalate)(a1, a2, swift_task_escalateImpl);
+    return Override_task_escalate(a1, a2, swift_task_escalateImpl);
   }
 
   else
@@ -9162,7 +7100,7 @@ void swift_task_popTaskExecutorPreferenceSlow(swift *a1)
   {
     swift_task_popTaskExecutorPreference::Override = Override_task_popTaskExecutorPreference;
 
-    (Override_task_popTaskExecutorPreference)(a1, swift_task_popTaskExecutorPreferenceImpl);
+    Override_task_popTaskExecutorPreference(a1, swift_task_popTaskExecutorPreferenceImpl);
   }
 
   else
@@ -9173,7 +7111,7 @@ void swift_task_popTaskExecutorPreferenceSlow(swift *a1)
   }
 }
 
-uint64_t __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<void withStatusRecordLock<swift_taskGroup_attachChildImpl(swift::TaskGroup *,swift::AsyncTask *)::$_0>(swift::AsyncTask *,swift_taskGroup_attachChildImpl(swift::TaskGroup *,swift::AsyncTask *)::$_0 &&,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::{lambda(swift::ActiveTaskStatus)#1}>(uint64_t ***a1, __int16 a2)
+uint64_t __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<void withStatusRecordLock<swift_taskGroup_attachChildImpl(swift::TaskGroup *,swift::AsyncTask *)::$_0>(swift::AsyncTask *,swift_taskGroup_attachChildImpl(swift::TaskGroup *,swift::AsyncTask *)::$_0 &&,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::{lambda(swift::ActiveTaskStatus)#1}>(swift::TaskGroup ****a1, __int16 a2)
 {
   v3 = *a1;
   swift::TaskGroup::addChildTask(***a1, *(*a1)[1]);
@@ -9237,11 +7175,10 @@ void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::c
     v3 = this;
     do
     {
-      v5 = *v3;
-      switch(v5)
+      v4 = *v3;
+      switch(v4)
       {
         case 3:
-          v4 = *(v3 + 3);
           (*(v3 + 2))();
           break;
         case 2:
@@ -9256,7 +7193,7 @@ void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::c
 
             else if (swift_task_cancel::Override)
             {
-              (swift_task_cancel::Override)(i, swift_task_cancelImpl);
+              swift_task_cancel::Override(i, swift_task_cancelImpl);
             }
 
             else
@@ -9276,7 +7213,7 @@ void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::c
 
             else if (swift_task_cancel::Override)
             {
-              (swift_task_cancel::Override)(j, swift_task_cancelImpl);
+              swift_task_cancel::Override(j, swift_task_cancelImpl);
             }
 
             else
@@ -9326,14 +7263,14 @@ void swift::concurrency::trace::priority_inversion_enqueued_task(swift::concurre
   }
 }
 
-void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<swift_task_escalateImpl(swift::AsyncTask *,swift::JobPriority)::$_0>(unsigned __int8 **a1, uint64_t a2, unsigned __int8 *a3)
+void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<swift_task_escalateImpl(swift::AsyncTask *,swift::JobPriority)::$_0>(unsigned __int8 **result, uint64_t a2, unsigned __int8 *a3)
 {
   if (a3)
   {
     v3 = a3;
     do
     {
-      v5 = *a1[1];
+      v5 = *result[1];
       v6 = *v3;
       if (v6 > 1)
       {
@@ -9348,7 +7285,7 @@ void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::c
 
             else if (swift_task_escalate::Override)
             {
-              (swift_task_escalate::Override)(i, v5, swift_task_escalateImpl);
+              swift_task_escalate::Override(i, v5, swift_task_escalateImpl);
             }
 
             else
@@ -9360,8 +7297,7 @@ void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::c
 
         else if (v6 == 4)
         {
-          v8 = *(v3 + 3);
-          (*(v3 + 2))(**a1, *a1[1]);
+          (*(v3 + 2))(**result, *result[1]);
         }
       }
 
@@ -9378,7 +7314,7 @@ void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::c
 
             else if (swift_task_escalate::Override)
             {
-              (swift_task_escalate::Override)(j, v5, swift_task_escalateImpl);
+              swift_task_escalate::Override(j, v5, swift_task_escalateImpl);
             }
 
             else
@@ -9391,28 +7327,28 @@ void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::c
 
       else
       {
-        v9 = *(v3 + 8);
-        if (v9 == 4)
+        v8 = *(v3 + 8);
+        if (v8 == 4)
         {
-          swift::swift_executor_escalate(*(v3 + 2), *(v3 + 3), *(v3 + 5), *a1[1]);
+          swift::swift_executor_escalate(*(v3 + 2), *(v3 + 3), *(v3 + 5), *result[1]);
         }
 
-        else if (v9 == 1)
+        else if (v8 == 1)
         {
-          v10 = *(v3 + 2);
+          v9 = *(v3 + 2);
           if (swift_task_escalate::Override == 1)
           {
-            swift_task_escalateImpl(v10, *a1[1]);
+            swift_task_escalateImpl(v9, *result[1]);
           }
 
           else if (swift_task_escalate::Override)
           {
-            (swift_task_escalate::Override)(v10, *a1[1], swift_task_escalateImpl);
+            swift_task_escalate::Override(v9, *result[1], swift_task_escalateImpl);
           }
 
           else
           {
-            swift_task_escalateSlow(v10, *a1[1]);
+            swift_task_escalateSlow(v9, *result[1]);
           }
         }
       }
@@ -9485,7 +7421,7 @@ uint64_t **__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatu
   return result;
 }
 
-uint64_t __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::removeStatusRecord(swift::AsyncTask *,swift::TaskStatusRecord *,swift::ActiveTaskStatus&,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::$_1>(uint64_t result, uint64_t a2, uint64_t a3, void *a4)
+uint64_t **__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::removeStatusRecord(swift::AsyncTask *,swift::TaskStatusRecord *,swift::ActiveTaskStatus&,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::$_1>(uint64_t **result, uint64_t a2, uint64_t a3, void *a4)
 {
   v4 = **result;
   if (a4[1] == v4)
@@ -9495,16 +7431,16 @@ uint64_t __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,
     a4[1] = v5;
   }
 
-  v6 = *(result + 8);
+  v6 = result[1];
   if (*v6)
   {
-    return (*v6)(*(v6 + 8));
+    return (*v6)(v6[1], a2, a3);
   }
 
   return result;
 }
 
-uint64_t __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<swift::removeStatusRecordWhere(swift::AsyncTask *,swift::ActiveTaskStatus&,__swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::TaskStatusRecord *)>,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::$_0>(uint64_t result, uint64_t a2, uint64_t a3)
+_BYTE **__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<swift::removeStatusRecordWhere(swift::AsyncTask *,swift::ActiveTaskStatus&,__swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::TaskStatusRecord *)>,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::$_0>(_BYTE **result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
@@ -9557,7 +7493,7 @@ uint64_t __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,
   v5 = *(result + 8);
   if (*v5)
   {
-    return (*v5)(*(v5 + 8));
+    return (*v5)(*(v5 + 8), a2, a3);
   }
 
   return result;
@@ -9642,4 +7578,3605 @@ void ***__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>
   }
 
   return result;
+}
+
+void __swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus)>::callback_fn<void withStatusRecordLock<swift::_swift_taskGroup_cancel_unlocked(swift::TaskGroup *,swift::AsyncTask *)::$_0>(swift::AsyncTask *,swift::_swift_taskGroup_cancel_unlocked(swift::TaskGroup *,swift::AsyncTask *)::$_0 &&,__swift::__runtime::llvm::function_ref<void ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>)::{lambda(swift::ActiveTaskStatus)#1}>(atomic_ullong ****a1)
+{
+  v1 = ***a1;
+  swift::TaskGroup::statusCancel(v1);
+  for (i = *(swift::TaskGroup::getTaskRecord(v1) + 16); i; i = *(i + 23))
+  {
+    if (swift_task_cancel::Override == 1)
+    {
+      swift_task_cancelImpl(i);
+    }
+
+    else if (swift_task_cancel::Override)
+    {
+      swift_task_cancel::Override(i, swift_task_cancelImpl);
+    }
+
+    else
+    {
+      swift_task_cancelSlow(i);
+    }
+  }
+}
+
+uint64_t swift::TaskGroup::addChildTask(uint64_t this, swift::AsyncTask *a2)
+{
+  v2 = *(this + 32);
+  *(this + 32) = a2;
+  if (*(this + 24))
+  {
+    *(v2 + 184) = a2;
+  }
+
+  else
+  {
+    *(this + 24) = a2;
+  }
+
+  return this;
+}
+
+uint64_t swift::TaskGroup::removeChildTask(uint64_t this, swift::AsyncTask *a2)
+{
+  v2 = *(this + 24);
+  if (v2 == a2)
+  {
+    v4 = *(a2 + 23);
+    *(this + 24) = v4;
+    if (!v4)
+    {
+      *(this + 32) = 0;
+    }
+  }
+
+  else
+  {
+    while (v2)
+    {
+      v3 = v2;
+      v2 = *(v2 + 23);
+      if (v2 == a2)
+      {
+        *(v3 + 23) = *(a2 + 23);
+        if (*(this + 32) == a2)
+        {
+          *(this + 32) = v3;
+        }
+
+        return this;
+      }
+    }
+  }
+
+  return this;
+}
+
+uint64_t swift_taskGroup_initialize(uint64_t a1, uint64_t a2)
+{
+  v4 = swift_taskGroup_initialize::Override;
+  if (swift_taskGroup_initialize::Override == 1)
+  {
+    v5 = swift_taskGroup_initializeWithFlags::Override;
+    if (swift_taskGroup_initializeWithFlags::Override == 1)
+    {
+      v8[1] = v2;
+      v8[2] = v3;
+      *(a1 + 80) = 0u;
+      *(a1 + 96) = 0u;
+      *(a1 + 48) = 0u;
+      *(a1 + 64) = 0u;
+      *(a1 + 24) = 0;
+      *(a1 + 32) = 0;
+      *(a1 + 16) = 0;
+      *(a1 + 40) = 0;
+      *(a1 + 8) = 2;
+      *(a1 + 112) = a2;
+      *a1 = &unk_1EEF5F960;
+      v7 = v8;
+      v8[0] = a1;
+      return swift::addStatusRecordToSelf(a1 + 8, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>, &v7);
+    }
+
+    else if (swift_taskGroup_initializeWithFlags::Override)
+    {
+
+      return v5(0, a1, a2, swift_taskGroup_initializeWithFlagsImpl);
+    }
+
+    else
+    {
+
+      return swift_taskGroup_initializeWithFlagsSlow(0, a1, a2);
+    }
+  }
+
+  else if (swift_taskGroup_initialize::Override)
+  {
+
+    return v4(a1, a2, swift_taskGroup_initializeImpl);
+  }
+
+  else
+  {
+
+    return swift_taskGroup_initializeSlow(a1, a2);
+  }
+}
+
+uint64_t swift_taskGroup_initializeImpl(uint64_t a1, uint64_t a2)
+{
+  v4 = swift_taskGroup_initializeWithFlags::Override;
+  if (swift_taskGroup_initializeWithFlags::Override == 1)
+  {
+    v7[1] = v2;
+    v7[2] = v3;
+    *(a1 + 80) = 0u;
+    *(a1 + 96) = 0u;
+    *(a1 + 48) = 0u;
+    *(a1 + 64) = 0u;
+    *(a1 + 24) = 0;
+    *(a1 + 32) = 0;
+    *(a1 + 16) = 0;
+    *(a1 + 40) = 0;
+    *(a1 + 8) = 2;
+    *(a1 + 112) = a2;
+    *a1 = &unk_1EEF5F960;
+    v6 = v7;
+    v7[0] = a1;
+    return swift::addStatusRecordToSelf(a1 + 8, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>, &v6);
+  }
+
+  else if (swift_taskGroup_initializeWithFlags::Override)
+  {
+
+    return v4(0, a1, a2, swift_taskGroup_initializeWithFlagsImpl);
+  }
+
+  else
+  {
+
+    return swift_taskGroup_initializeWithFlagsSlow(0, a1, a2);
+  }
+}
+
+uint64_t swift_taskGroup_initializeSlow(uint64_t a1, uint64_t a2)
+{
+  Override_taskGroup_initialize = swift::getOverride_taskGroup_initialize(a1);
+  if (Override_taskGroup_initialize)
+  {
+    swift_taskGroup_initialize::Override = Override_taskGroup_initialize;
+
+    return (Override_taskGroup_initialize)(a1, a2, swift_taskGroup_initializeImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_initialize::Override = 1;
+    v6 = swift_taskGroup_initializeWithFlags::Override;
+    if (swift_taskGroup_initializeWithFlags::Override == 1)
+    {
+      *(a1 + 80) = 0u;
+      *(a1 + 96) = 0u;
+      *(a1 + 48) = 0u;
+      *(a1 + 64) = 0u;
+      *(a1 + 24) = 0;
+      *(a1 + 32) = 0;
+      *(a1 + 16) = 0;
+      *(a1 + 40) = 0;
+      *(a1 + 8) = 2;
+      *(a1 + 112) = a2;
+      *a1 = &unk_1EEF5F960;
+      v7 = &v8;
+      v8 = a1;
+      return swift::addStatusRecordToSelf(a1 + 8, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>, &v7);
+    }
+
+    else if (swift_taskGroup_initializeWithFlags::Override)
+    {
+
+      return v6(0, a1, a2, swift_taskGroup_initializeWithFlagsImpl);
+    }
+
+    else
+    {
+
+      return swift_taskGroup_initializeWithFlagsSlow(0, a1, a2);
+    }
+  }
+}
+
+uint64_t swift_taskGroup_initializeWithFlags(swift *a1, uint64_t a2, uint64_t a3)
+{
+  v5 = swift_taskGroup_initializeWithFlags::Override;
+  if (swift_taskGroup_initializeWithFlags::Override == 1)
+  {
+    *(a2 + 80) = 0u;
+    *(a2 + 96) = 0u;
+    *(a2 + 48) = 0u;
+    *(a2 + 64) = 0u;
+    *(a2 + 24) = 0;
+    *(a2 + 32) = 0;
+    *(a2 + 16) = 0;
+    *(a2 + 40) = 0;
+    if ((a1 & 0x100) != 0)
+    {
+      v6 = &unk_1EEF5F8E0;
+    }
+
+    else
+    {
+      v6 = &unk_1EEF5F960;
+    }
+
+    v9[1] = v3;
+    v9[2] = v4;
+    *(a2 + 8) = 2;
+    *(a2 + 112) = a3;
+    *a2 = v6;
+    v8 = v9;
+    v9[0] = a2;
+    return swift::addStatusRecordToSelf(a2 + 8, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>, &v8);
+  }
+
+  else if (swift_taskGroup_initializeWithFlags::Override)
+  {
+
+    return v5(a1, a2, a3, swift_taskGroup_initializeWithFlagsImpl);
+  }
+
+  else
+  {
+
+    return swift_taskGroup_initializeWithFlagsSlow(a1, a2, a3);
+  }
+}
+
+uint64_t swift_taskGroup_initializeWithFlagsImpl(__int16 a1, uint64_t a2, uint64_t a3)
+{
+  *(a2 + 80) = 0u;
+  *(a2 + 96) = 0u;
+  *(a2 + 48) = 0u;
+  *(a2 + 64) = 0u;
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 40) = 0;
+  if ((a1 & 0x100) != 0)
+  {
+    v5 = &unk_1EEF5F8E0;
+  }
+
+  else
+  {
+    v5 = &unk_1EEF5F960;
+  }
+
+  v8[1] = v3;
+  v8[2] = v4;
+  *(a2 + 8) = 2;
+  *(a2 + 112) = a3;
+  *a2 = v5;
+  v7 = v8;
+  v8[0] = a2;
+  return swift::addStatusRecordToSelf(a2 + 8, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>, &v7);
+}
+
+uint64_t swift_taskGroup_initializeWithFlagsSlow(swift *a1, uint64_t a2, uint64_t a3)
+{
+  Override_taskGroup_initializeWithFlags = swift::getOverride_taskGroup_initializeWithFlags(a1);
+  if (Override_taskGroup_initializeWithFlags)
+  {
+    swift_taskGroup_initializeWithFlags::Override = Override_taskGroup_initializeWithFlags;
+
+    return (Override_taskGroup_initializeWithFlags)(a1, a2, a3, swift_taskGroup_initializeWithFlagsImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_initializeWithFlags::Override = 1;
+    *(a2 + 80) = 0u;
+    *(a2 + 96) = 0u;
+    *(a2 + 48) = 0u;
+    *(a2 + 64) = 0u;
+    *(a2 + 24) = 0;
+    *(a2 + 32) = 0;
+    *(a2 + 16) = 0;
+    *(a2 + 40) = 0;
+    if ((a1 & 0x100) != 0)
+    {
+      v8 = &unk_1EEF5F8E0;
+    }
+
+    else
+    {
+      v8 = &unk_1EEF5F960;
+    }
+
+    *(a2 + 8) = 2;
+    *(a2 + 112) = a3;
+    *a2 = v8;
+    v9 = &v10;
+    v10 = a2;
+    return swift::addStatusRecordToSelf(a2 + 8, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>, &v9);
+  }
+}
+
+void *swift_taskGroup_initializeWithOptions(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = swift_taskGroup_initializeWithOptions::Override;
+  if (swift_taskGroup_initializeWithOptions::Override == 1)
+  {
+    if (!a4)
+    {
+LABEL_5:
+      *(a2 + 80) = 0u;
+      *(a2 + 96) = 0u;
+      *(a2 + 48) = 0u;
+      *(a2 + 64) = 0u;
+      *(a2 + 24) = 0;
+      *(a2 + 32) = 0;
+      *(a2 + 16) = 0;
+      *(a2 + 40) = 0;
+      if ((a1 & 0x100) != 0)
+      {
+        v5 = &unk_1EEF5F8E0;
+      }
+
+      else
+      {
+        v5 = &unk_1EEF5F960;
+      }
+
+      *(a2 + 8) = 2;
+      *(a2 + 112) = a3;
+      *a2 = v5;
+      v7 = &v8;
+      v8 = a2;
+      return swift::addStatusRecordToSelf(a2 + 8, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>, &v7);
+    }
+
+    while (*a4 != 4)
+    {
+      a4 = *(a4 + 8);
+      if (!a4)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  if (!swift_taskGroup_initializeWithOptions::Override)
+  {
+LABEL_14:
+
+    return swift_taskGroup_initializeWithOptionsSlow(a1, a2, a3, a4);
+  }
+
+  return v4(a1, a2, a3, a4, swift_taskGroup_initializeWithOptionsImpl);
+}
+
+uint64_t swift_taskGroup_initializeWithOptionsImpl(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a4)
+  {
+    while (*a4 != 4)
+    {
+      a4 = *(a4 + 8);
+      if (!a4)
+      {
+        goto LABEL_4;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_4:
+    *(a2 + 80) = 0u;
+    *(a2 + 96) = 0u;
+    *(a2 + 48) = 0u;
+    *(a2 + 64) = 0u;
+    *(a2 + 24) = 0;
+    *(a2 + 32) = 0;
+    *(a2 + 16) = 0;
+    *(a2 + 40) = 0;
+    if ((result & 0x100) != 0)
+    {
+      v4 = &unk_1EEF5F8E0;
+    }
+
+    else
+    {
+      v4 = &unk_1EEF5F960;
+    }
+
+    *(a2 + 8) = 2;
+    *(a2 + 112) = a3;
+    *a2 = v4;
+    v5 = &v6;
+    v6 = a2;
+    return swift::addStatusRecordToSelf(a2 + 8, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>, &v5);
+  }
+
+  return result;
+}
+
+void *swift_taskGroup_initializeWithOptionsSlow(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = swift::getOverride_taskGroup_initializeWithOptions(a1);
+  if (result)
+  {
+    swift_taskGroup_initializeWithOptions::Override = result;
+
+    return (result)(a1, a2, a3, a4, swift_taskGroup_initializeWithOptionsImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_initializeWithOptions::Override = 1;
+    if (a4)
+    {
+      while (*a4 != 4)
+      {
+        a4 = *(a4 + 8);
+        if (!a4)
+        {
+          goto LABEL_8;
+        }
+      }
+
+      __break(1u);
+    }
+
+    else
+    {
+LABEL_8:
+      *(a2 + 80) = 0u;
+      *(a2 + 96) = 0u;
+      *(a2 + 48) = 0u;
+      *(a2 + 64) = 0u;
+      *(a2 + 24) = 0;
+      *(a2 + 32) = 0;
+      *(a2 + 16) = 0;
+      *(a2 + 40) = 0;
+      if ((a1 & 0x100) != 0)
+      {
+        v9 = &unk_1EEF5F8E0;
+      }
+
+      else
+      {
+        v9 = &unk_1EEF5F960;
+      }
+
+      *(a2 + 8) = 2;
+      *(a2 + 112) = a3;
+      *a2 = v9;
+      v10 = &v11;
+      v11 = a2;
+      return swift::addStatusRecordToSelf(a2 + 8, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>, &v10);
+    }
+  }
+
+  return result;
+}
+
+uint64_t swift_taskGroup_destroy(swift *a1)
+{
+  if (swift_taskGroup_destroy::Override == 1)
+  {
+    return (*(*a1 + 16))();
+  }
+
+  if (swift_taskGroup_destroy::Override)
+  {
+    return swift_taskGroup_destroy::Override(a1, swift_taskGroup_destroyImpl);
+  }
+
+  return swift_taskGroup_destroySlow(a1);
+}
+
+uint64_t swift_taskGroup_destroySlow(swift *a1)
+{
+  Override_taskGroup_destroy = swift::getOverride_taskGroup_destroy(a1);
+  if (Override_taskGroup_destroy)
+  {
+    swift_taskGroup_destroy::Override = Override_taskGroup_destroy;
+
+    return Override_taskGroup_destroy(a1, swift_taskGroup_destroyImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_destroy::Override = 1;
+    v4 = *(*a1 + 16);
+
+    return v4(a1);
+  }
+}
+
+uint64_t swift_taskGroup_wait_next_throwing(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+{
+  if (swift_taskGroup_wait_next_throwing::Override == 1)
+  {
+    return swift_taskGroup_wait_next_throwingImpl(a1, a2, a3, a4);
+  }
+
+  if (swift_taskGroup_wait_next_throwing::Override)
+  {
+    return swift_taskGroup_wait_next_throwing::Override(a1, a2, a3, a4, swift_taskGroup_wait_next_throwingImpl);
+  }
+
+  return swift_taskGroup_wait_next_throwingSlow(a1, a2, a3, a4);
+}
+
+uint64_t swift_taskGroup_wait_next_throwingImpl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+{
+  v55 = v4;
+  Current = swift_task_getCurrent();
+  Current[7] = task_group_wait_resume_adapter;
+  if (a4)
+  {
+    v10 = a4;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  Current[8] = v10;
+  if (a3)
+  {
+    v11 = a3;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  *(a4 + 1) = v11;
+  v51 = Current + 7;
+  if (v4)
+  {
+    v12 = v4;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  *a4 = v12;
+  *(a4 + 2) = 0;
+  *(a4 + 3) = a1;
+  os_unfair_lock_lock((a2 + 40));
+  v13 = atomic_fetch_or_explicit((a2 + 48), 0x4000000000000000uLL, memory_order_acquire);
+  v14 = (*(*a2 + 24))(a2);
+  v15 = 0x7FFFFFFFLL;
+  if (v14)
+  {
+    v15 = 0x3FFFFFFFFFFFFFFFLL;
+  }
+
+  if ((v15 & v13) != 0)
+  {
+    explicit = atomic_load_explicit((a2 + 56), memory_order_acquire);
+    if ((v13 & 0x3FFFFFFF80000000) == 0)
+    {
+LABEL_20:
+      if (*MEMORY[0x1E69E7CF0])
+      {
+        (*MEMORY[0x1E69E7CF0])(Current);
+      }
+
+      v22 = swift::_swift_task_alloc_specific(Current, 0x30);
+      _X2 = 0;
+      _X3 = 0;
+      *v22 = 0;
+      *(v22 + 8) = 0;
+      *(v22 + 32) = 3;
+      *(v22 + 40) = Current;
+      *(v22 + 16) = a2;
+      Current[20] = v22;
+      __asm { CASP            X2, X3, X2, X3, [X8] }
+
+      v53[1] = 0;
+      v54 = v22;
+      v52[0] = &v54;
+      v52[1] = v53;
+      v53[0] = _X2;
+      swift::addStatusRecord(Current, v22, v53, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::flagAsSuspended(swift::TaskDependencyStatusRecord *)::{lambda(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)#1}>, v52);
+      swift_task_exitThreadLocalContext();
+      swift::restoreTaskVoucher(Current, v30);
+      v31 = explicit;
+      atomic_compare_exchange_strong((a2 + 56), &v31, Current);
+      if (v31 != explicit)
+      {
+        v32 = v31;
+        do
+        {
+          atomic_compare_exchange_strong((a2 + 56), &v32, Current);
+          _ZF = v32 == v31;
+          v31 = v32;
+        }
+
+        while (!_ZF);
+      }
+
+      os_unfair_lock_unlock((a2 + 40));
+      return swift::_swift_task_clearCurrent(v33);
+    }
+
+    v17 = v13 | 0x4000000000000000;
+    v18 = v13 | 0x4000000000000000;
+    while (1)
+    {
+      v21 = (*(*a2 + 24))(a2) ? 0xBFFFFFFFFFFFFFFFLL : 0xBFFFFFFF7FFFFFFFLL;
+      atomic_compare_exchange_strong((a2 + 48), &v18, v21 + v17);
+      if (v18 == v17)
+      {
+        break;
+      }
+
+      v17 = v18;
+      if ((v18 & 0x3FFFFFFF80000000) == 0)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    v37 = *(a2 + 104);
+    if (v37)
+    {
+      v38 = *(a2 + 72);
+      v39 = *(*(v38 + ((*(a2 + 96) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*(a2 + 96) & 0x1FFLL));
+      v40 = *(a2 + 96) + 1;
+      *(a2 + 96) = v40;
+      *(a2 + 104) = v37 - 1;
+      if (v40 >= 0x400)
+      {
+        MEMORY[0x1865D4B40](*v38, 4096, 7);
+        *(a2 + 72) += 8;
+        *(a2 + 96) -= 512;
+      }
+
+      if ((v39 & 3) == 1)
+      {
+        swift::swift_Concurrency_fatalError(0, "accumulating task group should never use raw-errors!", v19, v20);
+      }
+
+      v41 = (v39 & 0xFFFFFFFFFFFFFFFCLL);
+      v42 = *((v39 & 0xFFFFFFFFFFFFFFFCLL) + 32);
+      v43 = 192;
+      if ((v42 & 0x1000000) == 0)
+      {
+        v43 = 176;
+      }
+
+      if ((v39 & 3) != 0)
+      {
+        v44 = v41 + v43 + ((v42 >> 23) & 8);
+        if ((v39 & 3) == 3)
+        {
+          v45 = *(v44 + 16);
+          if (*MEMORY[0x1E69E7CE8])
+          {
+            (*MEMORY[0x1E69E7CE8])(v41);
+          }
+
+          os_unfair_lock_unlock((a2 + 40));
+          *(a4 + 2) = v45;
+          MEMORY[0x1865D4960](v45);
+        }
+
+        else
+        {
+          v47 = *(v44 + 8);
+          v48 = *(*(v47 - 8) + 80);
+          v49 = v48 + v44 + 24;
+          if (*MEMORY[0x1E69E7CE8])
+          {
+            (*MEMORY[0x1E69E7CE8])(v41);
+          }
+
+          os_unfair_lock_unlock((a2 + 40));
+          v50 = *(a4 + 3);
+          (*(*(v47 - 8) + 16))(v50, v49 & ~v48, v47);
+          (*(*(v47 - 8) + 56))(v50, 0, 1, v47);
+        }
+
+        swift::_swift_taskGroup_detachChild(a2, v41, v46);
+
+        goto LABEL_29;
+      }
+    }
+  }
+
+  else
+  {
+    atomic_fetch_and_explicit((a2 + 48), 0xBFFFFFFFFFFFFFFFLL, memory_order_release);
+  }
+
+  v35 = *(a2 + 112);
+  os_unfair_lock_unlock((a2 + 40));
+  (*(*(v35 - 8) + 56))(*(a4 + 3), 1, 1, v35);
+LABEL_29:
+  v36 = *v51;
+
+  return v36();
+}
+
+uint64_t swift_taskGroup_wait_next_throwingSlow(swift *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+{
+  Override_taskGroup_wait_next_throwing = swift::getOverride_taskGroup_wait_next_throwing(a1);
+  if (Override_taskGroup_wait_next_throwing)
+  {
+    swift_taskGroup_wait_next_throwing::Override = Override_taskGroup_wait_next_throwing;
+
+    return Override_taskGroup_wait_next_throwing(a1, a2, a3, a4, swift_taskGroup_wait_next_throwingImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_wait_next_throwing::Override = 1;
+
+    return swift_taskGroup_wait_next_throwingImpl(a1, a2, a3, a4);
+  }
+}
+
+uint64_t swift_taskGroup_isEmpty(swift *a1)
+{
+  v2 = swift_taskGroup_isEmpty::Override;
+  if (swift_taskGroup_isEmpty::Override == 1)
+  {
+    v3 = *(a1 + 6);
+    v4 = (*(*a1 + 24))(a1);
+    v5 = 0x7FFFFFFFLL;
+    if (v4)
+    {
+      v5 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    return (v5 & v3) == 0;
+  }
+
+  else if (swift_taskGroup_isEmpty::Override)
+  {
+
+    return v2(a1, swift_taskGroup_isEmptyImpl);
+  }
+
+  else
+  {
+
+    return swift_taskGroup_isEmptySlow(a1);
+  }
+}
+
+BOOL swift_taskGroup_isEmptyImpl(swift::TaskGroup *a1)
+{
+  v1 = *(a1 + 6);
+  v2 = (*(*a1 + 24))(a1);
+  v3 = 0x7FFFFFFFLL;
+  if (v2)
+  {
+    v3 = 0x3FFFFFFFFFFFFFFFLL;
+  }
+
+  return (v3 & v1) == 0;
+}
+
+uint64_t swift_taskGroup_isEmptySlow(swift *a1)
+{
+  isEmpty = swift::getOverride_taskGroup_isEmpty(a1);
+  if (isEmpty)
+  {
+    swift_taskGroup_isEmpty::Override = isEmpty;
+
+    return (isEmpty)(a1, swift_taskGroup_isEmptyImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_isEmpty::Override = 1;
+    v4 = *(a1 + 6);
+    v5 = (*(*a1 + 24))(a1);
+    v6 = 0x7FFFFFFFLL;
+    if (v5)
+    {
+      v6 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    return (v6 & v4) == 0;
+  }
+}
+
+uint64_t swift_taskGroup_isCancelled(swift *a1)
+{
+  if (swift_taskGroup_isCancelled::Override == 1)
+  {
+    return *(a1 + 6) >> 63;
+  }
+
+  if (swift_taskGroup_isCancelled::Override)
+  {
+    return swift_taskGroup_isCancelled::Override(a1, swift_taskGroup_isCancelledImpl);
+  }
+
+  return swift_taskGroup_isCancelledSlow(a1);
+}
+
+uint64_t swift_taskGroup_isCancelledSlow(swift *a1)
+{
+  isCancelled = swift::getOverride_taskGroup_isCancelled(a1);
+  if (isCancelled)
+  {
+    swift_taskGroup_isCancelled::Override = isCancelled;
+
+    return isCancelled(a1, swift_taskGroup_isCancelledImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_isCancelled::Override = 1;
+    return *(a1 + 6) >> 63;
+  }
+}
+
+swift::TaskGroup *swift_taskGroup_cancelAll(atomic_ullong *a1)
+{
+  v2 = swift_taskGroup_cancelAll::Override;
+  if (swift_taskGroup_cancelAll::Override == 1)
+  {
+    result = swift_task_getCurrent();
+    if ((atomic_fetch_or_explicit(a1 + 6, 0x8000000000000000, memory_order_relaxed) & 0x8000000000000000) == 0)
+    {
+
+      return swift::_swift_taskGroup_cancel_unlocked(a1, result, v4);
+    }
+  }
+
+  else if (swift_taskGroup_cancelAll::Override)
+  {
+
+    return v2(a1, swift_taskGroup_cancelAllImpl);
+  }
+
+  else
+  {
+
+    return swift_taskGroup_cancelAllSlow(a1);
+  }
+
+  return result;
+}
+
+swift::TaskGroup *swift_taskGroup_cancelAllImpl(atomic_ullong *a1)
+{
+  result = swift_task_getCurrent();
+  if ((atomic_fetch_or_explicit(a1 + 6, 0x8000000000000000, memory_order_relaxed) & 0x8000000000000000) == 0)
+  {
+
+    return swift::_swift_taskGroup_cancel_unlocked(a1, result, v3);
+  }
+
+  return result;
+}
+
+swift::TaskGroup *swift_taskGroup_cancelAllSlow(atomic_ullong *a1)
+{
+  Override_taskGroup_cancelAll = swift::getOverride_taskGroup_cancelAll(a1);
+  if (Override_taskGroup_cancelAll)
+  {
+    swift_taskGroup_cancelAll::Override = Override_taskGroup_cancelAll;
+
+    return (Override_taskGroup_cancelAll)(a1, swift_taskGroup_cancelAllImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_cancelAll::Override = 1;
+    result = swift_task_getCurrent();
+    if ((atomic_fetch_or_explicit(a1 + 6, 0x8000000000000000, memory_order_relaxed) & 0x8000000000000000) == 0)
+    {
+
+      return swift::_swift_taskGroup_cancel_unlocked(a1, result, v4);
+    }
+  }
+
+  return result;
+}
+
+uint64_t swift_taskGroup_addPending(atomic_ullong *a1, char a2)
+{
+  if (swift_taskGroup_addPending::Override == 1)
+  {
+    return swift_taskGroup_addPendingImpl(a1, a2 & 1);
+  }
+
+  if (swift_taskGroup_addPending::Override)
+  {
+    return swift_taskGroup_addPending::Override(a1, a2 & 1, swift_taskGroup_addPendingImpl);
+  }
+
+  return swift_taskGroup_addPendingSlow(a1, a2 & 1);
+}
+
+BOOL swift_taskGroup_addPendingImpl(atomic_ullong *a1, char a2)
+{
+  v4 = atomic_fetch_add_explicit(a1 + 6, 1uLL, memory_order_relaxed) + 1;
+  if ((*(*a1 + 24))(a1))
+  {
+    v5 = 0x3FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v5 = 0x7FFFFFFFLL;
+  }
+
+  v6 = v5 & v4;
+  if ((*(*a1 + 24))(a1))
+  {
+    v7 = 0x3FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v7 = 0x7FFFFFFFLL;
+  }
+
+  if (v6 == v7)
+  {
+    (*(*a1 + 24))(a1);
+    memset(&v18, 0, sizeof(v18));
+    std::string::append(&v18, "TaskGroupStatus{ ");
+    std::string::append(&v18, "C:");
+    if (v4 >= 0)
+    {
+      v9 = "n";
+    }
+
+    else
+    {
+      v9 = "y";
+    }
+
+    std::string::append(&v18, v9);
+    std::string::append(&v18, " W:");
+    if ((v4 & 0x4000000000000000) != 0)
+    {
+      v10 = "y";
+    }
+
+    else
+    {
+      v10 = "n";
+    }
+
+    std::string::append(&v18, v10);
+    if (((*(*a1 + 24))(a1) & 1) == 0)
+    {
+      std::string::append(&v18, " R:");
+      std::to_string(v17, (v4 >> 31) & 0x7FFFFFFF);
+      v11 = v17[23] >= 0 ? v17 : *v17;
+      v12 = v17[23] >= 0 ? v17[23] : *&v17[8];
+      std::string::append(&v18, v11, v12);
+      if ((v17[23] & 0x80000000) != 0)
+      {
+        operator delete(*v17);
+      }
+    }
+
+    std::string::append(&v18, " P:");
+    v13 = (*(*a1 + 24))(a1);
+    v14 = 0x3FFFFFFFFFFFFFFFLL;
+    if (!v13)
+    {
+      v14 = 0x7FFFFFFFLL;
+    }
+
+    std::to_string(v17, v14 & v4);
+    if (v17[23] >= 0)
+    {
+      v15 = v17;
+    }
+
+    else
+    {
+      v15 = *v17;
+    }
+
+    if (v17[23] >= 0)
+    {
+      v16 = v17[23];
+    }
+
+    else
+    {
+      v16 = *&v17[8];
+    }
+
+    std::string::append(&v18, v15, v16);
+    if ((v17[23] & 0x80000000) != 0)
+    {
+      operator delete(*v17);
+    }
+
+    operator new();
+  }
+
+  if ((a2 & 1) == 0 && v4 < 0)
+  {
+    v4 = atomic_fetch_add_explicit(a1 + 6, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) - 1;
+  }
+
+  return v4 >= 0;
+}
+
+uint64_t swift_taskGroup_addPendingSlow(swift *a1, char a2)
+{
+  Override_taskGroup_addPending = swift::getOverride_taskGroup_addPending(a1);
+  if (Override_taskGroup_addPending)
+  {
+    swift_taskGroup_addPending::Override = Override_taskGroup_addPending;
+
+    return Override_taskGroup_addPending(a1, a2 & 1, swift_taskGroup_addPendingImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_addPending::Override = 1;
+
+    return swift_taskGroup_addPendingImpl(a1, a2 & 1);
+  }
+}
+
+void swift_taskGroup_waitAll(uint64_t a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4, void (*a5)(void))
+{
+  if (swift_taskGroup_waitAll::Override == 1)
+  {
+    swift_taskGroup_waitAllImpl(a1, a2, a3, a4, a5);
+  }
+
+  else if (swift_taskGroup_waitAll::Override)
+  {
+    swift_taskGroup_waitAll::Override(a1, a2, a3, a4, a5, swift_taskGroup_waitAllImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_waitAllSlow(a1, a2, a3, a4, a5);
+  }
+}
+
+void swift_taskGroup_waitAllImpl(uint64_t a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4, void (*a5)(void))
+{
+  v48 = v5;
+  Current = swift_task_getCurrent();
+  os_unfair_lock_lock(a2 + 10);
+  Current[7] = task_group_wait_resume_adapter;
+  if (a5)
+  {
+    v12 = a5;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  Current[8] = v12;
+  if (a4)
+  {
+    v13 = a4;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  *(a5 + 1) = v13;
+  v44 = Current + 7;
+  if (v5)
+  {
+    v14 = v5;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  *a5 = v14;
+  *(a5 + 2) = 0;
+  *(a5 + 3) = a1;
+  v15 = *&a2[28]._os_unfair_lock_opaque;
+  explicit = atomic_load_explicit(&a2[12], memory_order_acquire);
+  v17 = (*(*&a2->_os_unfair_lock_opaque + 24))(a2);
+  v18 = 0x7FFFFFFFLL;
+  if (v17)
+  {
+    v18 = 0x3FFFFFFFFFFFFFFFLL;
+  }
+
+  if ((v18 & explicit) != 0)
+  {
+    if (a3 && (*(*&a2->_os_unfair_lock_opaque + 24))(a2) && !*&a2[26]._os_unfair_lock_opaque)
+    {
+    }
+
+    v19 = atomic_load_explicit(&a2[14], memory_order_acquire);
+    if (*MEMORY[0x1E69E7CF0])
+    {
+      (*MEMORY[0x1E69E7CF0])(Current);
+    }
+
+    v20 = swift::_swift_task_alloc_specific(Current, 0x30);
+    _X2 = 0;
+    _X3 = 0;
+    *v20 = 0;
+    *(v20 + 8) = 0;
+    *(v20 + 32) = 3;
+    *(v20 + 40) = Current;
+    *(v20 + 16) = a2;
+    Current[20] = v20;
+    __asm { CASP            X2, X3, X2, X3, [X8] }
+
+    v46[1] = 0;
+    v47 = v20;
+    v45[0] = &v47;
+    v45[1] = v46;
+    v46[0] = _X2;
+    swift::addStatusRecord(Current, v20, v46, __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<swift::AsyncTask::flagAsSuspended(swift::TaskDependencyStatusRecord *)::{lambda(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)#1}>, v45);
+    swift_task_exitThreadLocalContext();
+    v29 = swift::restoreTaskVoucher(Current, v28);
+    v30 = v19;
+    atomic_compare_exchange_strong(&a2[14], &v30, Current);
+    if (v30 != v19)
+    {
+      v31 = v30;
+      do
+      {
+        atomic_compare_exchange_strong(&a2[14], &v31, Current);
+        _ZF = v31 == v30;
+        v30 = v31;
+      }
+
+      while (!_ZF);
+    }
+
+    atomic_fetch_or_explicit(&a2[12], 0x4000000000000000uLL, memory_order_release);
+    swift::_swift_task_clearCurrent(v29);
+    os_unfair_lock_unlock(a2 + 10);
+    return;
+  }
+
+  if (!(*(*&a2->_os_unfair_lock_opaque + 24))(a2))
+  {
+    goto LABEL_33;
+  }
+
+  v32 = *&a2[26]._os_unfair_lock_opaque;
+  if (!v32)
+  {
+    goto LABEL_33;
+  }
+
+  v33 = *&a2[18]._os_unfair_lock_opaque;
+  v34 = *(*(v33 + ((*&a2[24]._os_unfair_lock_opaque >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*&a2[24]._os_unfair_lock_opaque & 0x1FFLL));
+  v35 = *&a2[24]._os_unfair_lock_opaque + 1;
+  *&a2[24]._os_unfair_lock_opaque = v35;
+  *&a2[26]._os_unfair_lock_opaque = v32 - 1;
+  if (v35 >= 0x400)
+  {
+    MEMORY[0x1865D4B40](*v33, 4096, 7);
+    *&a2[18]._os_unfair_lock_opaque += 8;
+    *&a2[24]._os_unfair_lock_opaque -= 512;
+  }
+
+  if ((v34 & 3) == 1)
+  {
+    v36 = 0;
+    v40 = v34 & 0xFFFFFFFFFFFFFFFCLL;
+    goto LABEL_37;
+  }
+
+  if ((v34 & 3) != 3)
+  {
+LABEL_33:
+    v40 = 0;
+    v36 = 0;
+    v41 = 0;
+    if (!a3)
+    {
+      goto LABEL_38;
+    }
+
+LABEL_34:
+    *(a5 + 2) = a3;
+    MEMORY[0x1865D4960](a3, v40);
+    if (!v36)
+    {
+      goto LABEL_43;
+    }
+
+    goto LABEL_42;
+  }
+
+  v36 = (v34 & 0xFFFFFFFFFFFFFFFCLL);
+  v37 = *((v34 & 0xFFFFFFFFFFFFFFFCLL) + 32);
+  v38 = 192;
+  if ((v37 & 0x1000000) == 0)
+  {
+    v38 = 176;
+  }
+
+  v39 = v36 + v38 + ((v37 >> 23) & 8);
+  v15 = *(v39 + 8);
+  v40 = *(v39 + 16);
+LABEL_37:
+  v41 = 3;
+  if (a3)
+  {
+    goto LABEL_34;
+  }
+
+LABEL_38:
+  if (v41 > 1)
+  {
+    *(a5 + 2) = v40;
+    MEMORY[0x1865D4960](v40);
+    if (!v36)
+    {
+      goto LABEL_43;
+    }
+  }
+
+  else
+  {
+    (*(*(v15 - 8) + 56))(*(a5 + 3), 1, 1, v15);
+    if (!v36)
+    {
+      goto LABEL_43;
+    }
+  }
+
+LABEL_42:
+  swift::_swift_taskGroup_detachChild(a2, v36, v42);
+
+LABEL_43:
+  os_unfair_lock_unlock(a2 + 10);
+  v43 = *v44;
+
+  v43();
+}
+
+void swift_taskGroup_waitAllSlow(swift *a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4, void (*a5)(void))
+{
+  Override_taskGroup_waitAll = swift::getOverride_taskGroup_waitAll(a1);
+  if (Override_taskGroup_waitAll)
+  {
+    swift_taskGroup_waitAll::Override = Override_taskGroup_waitAll;
+
+    Override_taskGroup_waitAll(a1, a2, a3, a4, a5, swift_taskGroup_waitAllImpl);
+  }
+
+  else
+  {
+    swift_taskGroup_waitAll::Override = 1;
+
+    swift_taskGroup_waitAllImpl(a1, a2, a3, a4, a5);
+  }
+}
+
+uint64_t swift_task_cancel_group_child_tasks(swift *a1)
+{
+  v2 = swift_task_cancel_group_child_tasks::Override;
+  if (swift_task_cancel_group_child_tasks::Override == 1)
+  {
+    Current = swift_task_getCurrent();
+
+    return swift::_swift_taskGroup_cancel_unlocked(a1, Current, v4);
+  }
+
+  else if (swift_task_cancel_group_child_tasks::Override)
+  {
+
+    return v2(a1, swift_task_cancel_group_child_tasksImpl);
+  }
+
+  else
+  {
+
+    return swift_task_cancel_group_child_tasksSlow(a1);
+  }
+}
+
+uint64_t swift_task_cancel_group_child_tasksImpl(swift::TaskGroup *a1)
+{
+  Current = swift_task_getCurrent();
+
+  return swift::_swift_taskGroup_cancel_unlocked(a1, Current, v3);
+}
+
+uint64_t swift_task_cancel_group_child_tasksSlow(swift *a1)
+{
+  Override_task_cancel_group_child_tasks = swift::getOverride_task_cancel_group_child_tasks(a1);
+  if (Override_task_cancel_group_child_tasks)
+  {
+    swift_task_cancel_group_child_tasks::Override = Override_task_cancel_group_child_tasks;
+
+    return (Override_task_cancel_group_child_tasks)(a1, swift_task_cancel_group_child_tasksImpl);
+  }
+
+  else
+  {
+    swift_task_cancel_group_child_tasks::Override = 1;
+    Current = swift_task_getCurrent();
+
+    return swift::_swift_taskGroup_cancel_unlocked(a1, Current, v5);
+  }
+}
+
+void anonymous namespace::DiscardingTaskGroup::~DiscardingTaskGroup(_anonymous_namespace_::DiscardingTaskGroup *this)
+{
+
+  JUMPOUT(0x1865D4B40);
+}
+
+uint64_t anonymous namespace::DiscardingTaskGroup::destroy(uint64_t (***this)(_anonymous_namespace_::DiscardingTaskGroup *), uint64_t a2, uint64_t a3)
+{
+  swift::removeStatusRecordFromSelf((this + 1), 0, a3);
+  v4 = **this;
+
+  return v4(this);
+}
+
+void anonymous namespace::DiscardingTaskGroup::offer(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  os_unfair_lock_lock((a1 + 40));
+  explicit = atomic_load_explicit((a1 + 48), memory_order_acquire);
+  v7 = *(a3 - 8);
+  v8 = atomic_fetch_add_explicit((a1 + 48), 0xFFFFFFFFFFFFFFFFLL, memory_order_release) - 1;
+  if (!v7)
+  {
+    if ((v8 & 0x4000000000000000) == 0)
+    {
+      goto LABEL_14;
+    }
+
+    v13 = (*(*a1 + 24))(a1);
+    v14 = 0x7FFFFFFFLL;
+    if (v13)
+    {
+      v14 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    if ((v14 & v8) != 0)
+    {
+      goto LABEL_14;
+    }
+
+    v15 = atomic_exchange_explicit((a1 + 56), 0, memory_order_acquire);
+    if (v15)
+    {
+      v22 = *(a1 + 104);
+      if (!v22)
+      {
+        os_unfair_lock_unlock((a1 + 40));
+        if (!v34)
+        {
+          return;
+        }
+
+        v33 = v34;
+        goto LABEL_42;
+      }
+
+      v23 = *(a1 + 72);
+      v18 = *(*(v23 + ((*(a1 + 96) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*(a1 + 96) & 0x1FFLL));
+      v24 = *(a1 + 96) + 1;
+      *(a1 + 96) = v24;
+      *(a1 + 104) = v22 - 1;
+      if (v24 >= 0x400)
+      {
+        MEMORY[0x1865D4B40](*v23, 4096, 7);
+        *(a1 + 72) += 8;
+        *(a1 + 96) -= 512;
+      }
+
+      swift::_swift_taskGroup_detachChild(a1, a2, v6);
+      if ((v18 & 3) != 3)
+      {
+        if ((v18 & 3) != 1)
+        {
+          swift::swift_Concurrency_fatalError(0, "only errors can be stored by a discarding task group, yet it wasn't an error! 2", v25, v26);
+        }
+
+        goto LABEL_31;
+      }
+
+LABEL_32:
+      v27 = *((v18 & 0xFFFFFFFFFFFFFFFCLL) + 32);
+      v28 = 192;
+      if ((v27 & 0x1000000) == 0)
+      {
+        v28 = 176;
+      }
+
+      *(*(v15 + 64) + 16) = *((v18 & 0xFFFFFFFFFFFFFFFCLL) + v28 + ((v27 >> 23) & 8) + 16);
+      MEMORY[0x1865D4960]();
+      swift::_swift_taskGroup_detachChild(a1, (v18 & 0xFFFFFFFFFFFFFFFCLL), v29);
+      if ((*(*a1 + 24))(a1))
+      {
+      }
+
+      goto LABEL_39;
+    }
+
+LABEL_48:
+    swift::swift_Concurrency_fatalError(0, "Claimed NULL waitingTask!", v6, v11);
+  }
+
+  v9 = *(a2 + 176);
+  if ((atomic_fetch_or_explicit((a1 + 48), 0x8000000000000000, memory_order_relaxed) & 0x8000000000000000) == 0)
+  {
+    swift::_swift_taskGroup_cancel_unlocked(a1, v9, v6);
+  }
+
+  if ((v8 & 0x4000000000000000) == 0)
+  {
+    goto LABEL_52;
+  }
+
+  v10 = (*(*a1 + 24))(a1, v9);
+  v12 = 0x7FFFFFFFLL;
+  if (v10)
+  {
+    v12 = 0x3FFFFFFFFFFFFFFFLL;
+  }
+
+  if ((v12 & v8) != 0)
+  {
+LABEL_52:
+    if (!*(a1 + 104))
+    {
+      (*(*a1 + 40))(a1, a2, 1);
+LABEL_15:
+
+      os_unfair_lock_unlock((a1 + 40));
+      return;
+    }
+
+LABEL_14:
+    swift::_swift_taskGroup_detachChild(a1, a2, v6);
+    goto LABEL_15;
+  }
+
+  v15 = atomic_exchange_explicit((a1 + 56), 0, memory_order_acquire);
+  if (!v15)
+  {
+    goto LABEL_48;
+  }
+
+  v16 = *(a1 + 104);
+  if (!v16)
+  {
+    swift::_swift_taskGroup_detachChild(a1, a2, v6);
+    v30 = *(a2 + 32);
+    v31 = 192;
+    if ((v30 & 0x1000000) == 0)
+    {
+      v31 = 176;
+    }
+
+    *(*(v15 + 64) + 16) = *(a2 + v31 + ((v30 >> 23) & 8) + 16);
+    MEMORY[0x1865D4960]();
+    swift::_swift_taskGroup_detachChild(a1, a2, v32);
+    (*(*a1 + 24))(a1);
+    goto LABEL_39;
+  }
+
+  v17 = *(a1 + 72);
+  v18 = *(*(v17 + ((*(a1 + 96) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*(a1 + 96) & 0x1FFLL));
+  v19 = *(a1 + 96) + 1;
+  *(a1 + 96) = v19;
+  *(a1 + 104) = v16 - 1;
+  if (v19 >= 0x400)
+  {
+    MEMORY[0x1865D4B40](*v17, 4096, 7);
+    *(a1 + 72) += 8;
+    *(a1 + 96) -= 512;
+  }
+
+  swift::_swift_taskGroup_detachChild(a1, a2, v6);
+  if ((v18 & 3) == 3)
+  {
+    goto LABEL_32;
+  }
+
+  if ((v18 & 3) != 1)
+  {
+    swift::swift_Concurrency_fatalError(0, "only errors can be stored by a discarding task group, yet it wasn't an error! 1", v20, v21);
+  }
+
+LABEL_31:
+  *(*(v15 + 64) + 16) = v18 & 0xFFFFFFFFFFFFFFFCLL;
+  MEMORY[0x1865D4960]();
+LABEL_39:
+  if (*MEMORY[0x1E69E7CE8])
+  {
+    (*MEMORY[0x1E69E7CE8])(v15);
+  }
+
+  os_unfair_lock_unlock((a1 + 40));
+  v33 = v15;
+LABEL_42:
+
+  swift::AsyncTask::flagAsAndEnqueueOnExecutor(v33, 0, 0);
+}
+
+unint64_t *anonymous namespace::DiscardingTaskGroup::enqueueCompletedTask(unint64_t *this, unint64_t a2, int a3)
+{
+  if (a3)
+  {
+    v3 = this;
+  }
+
+  return this;
+}
+
+void anonymous namespace::TaskGroupBase::~TaskGroupBase(_anonymous_namespace_::TaskGroupBase *this)
+{
+  *this = &unk_1EEF5F920;
+  v2 = *(this + 9);
+  v3 = *(this + 10);
+  *(this + 13) = 0;
+  v4 = v3 - v2;
+  if (v4 >= 3)
+  {
+    do
+    {
+      MEMORY[0x1865D4B40](*v2, 4096, 7);
+      v3 = *(this + 10);
+      v2 = (*(this + 9) + 8);
+      *(this + 9) = v2;
+      v4 = v3 - v2;
+    }
+
+    while (v4 > 2);
+  }
+
+  if (v4 == 1)
+  {
+    v5 = 256;
+    goto LABEL_7;
+  }
+
+  if (v4 == 2)
+  {
+    v5 = 512;
+LABEL_7:
+    *(this + 12) = v5;
+  }
+
+  if (v2 != v3)
+  {
+    do
+    {
+      v6 = *v2++;
+      MEMORY[0x1865D4B40](v6, 4096, 7);
+    }
+
+    while (v2 != v3);
+    v8 = *(this + 9);
+    v7 = *(this + 10);
+    if (v7 != v8)
+    {
+      *(this + 10) = v7 + ((v8 - v7 + 7) & 0xFFFFFFFFFFFFFFF8);
+    }
+  }
+
+  v9 = *(this + 8);
+  if (v9)
+  {
+    MEMORY[0x1865D4B40](v9, *(this + 11) - v9, 7);
+  }
+}
+
+uint64_t anonymous namespace::TaskGroupBase::prepareWaitingTaskWithTask(swift *a1, uint64_t a2, swift::TaskGroup *a3, uint64_t *a4, int a5, char a6, int a7)
+{
+  if ((a6 & 1) == 0)
+  {
+    v18 = (a1 + 48);
+    for (i = (*(*a1 + 24))(a1) == 0; ; i = (*(*a1 + 24))(a1) == 0)
+    {
+      v20 = i ? 0xBFFFFFFF7FFFFFFFLL : 0xBFFFFFFFFFFFFFFFLL;
+      v21 = *a4;
+      v22 = v20 + *a4;
+      v23 = *a4;
+      atomic_compare_exchange_strong_explicit(v18, &v23, v22, memory_order_relaxed, memory_order_relaxed);
+      if (v23 == v21)
+      {
+        break;
+      }
+
+      *a4 = v23;
+      v18 = (a1 + 48);
+    }
+  }
+
+  v12 = *(a3 + 8);
+  v13 = 192;
+  if ((v12 & 0x1000000) == 0)
+  {
+    v13 = 176;
+  }
+
+  v14 = a3 + v13 + ((v12 >> 23) & 8);
+  if (a5)
+  {
+    v16 = *(v14 + 1);
+    v15 = *(v14 + 2);
+  }
+
+  else
+  {
+    v16 = *(v14 + 1);
+    v15 = &v14[*(*(v16 - 8) + 80) + 24] & ~*(*(v16 - 8) + 80);
+  }
+
+  v24 = *(a2 + 64);
+  if (a5)
+  {
+    *(v24 + 16) = v15;
+    MEMORY[0x1865D4960](v15);
+  }
+
+  else
+  {
+    v26 = *(v24 + 24);
+    (*(*(v16 - 8) + 16))(v26, v15, v16, a4);
+    (*(*(v16 - 8) + 56))(v26, 0, 1, v16);
+  }
+
+  swift::_swift_taskGroup_detachChild(a1, a3, v25);
+  if ((*(*a1 + 24))(a1))
+  {
+    v27 = a7 == 0;
+  }
+
+  else
+  {
+    v27 = 1;
+  }
+
+  if (!v27 && a5 != 0)
+  {
+  }
+
+  if (*MEMORY[0x1E69E7CE8])
+  {
+    (*MEMORY[0x1E69E7CE8])(a2);
+  }
+
+  return a2;
+}
+
+unint64_t *anonymous namespace::NaiveTaskGroupQueue<anonymous namespace::TaskGroupBase::ReadyQueueItem>::enqueue(unint64_t *result, uint64_t a2)
+{
+  v3 = result;
+  v5 = result[1];
+  v4 = result[2];
+  v6 = v4 - v5;
+  if (v4 == v5)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = ((v4 - v5) << 6) - 1;
+  }
+
+  v8 = result[4];
+  if (v7 != result[5] + v8)
+  {
+    goto LABEL_72;
+  }
+
+  v9 = v8 >= 0x200;
+  v10 = v8 - 512;
+  if (v9)
+  {
+    result[4] = v10;
+    v103 = *v5;
+    result[1] = (v5 + 1);
+LABEL_8:
+    goto LABEL_72;
+  }
+
+  v11 = result[3];
+  v12 = v11 - *result;
+  if (v6 < v12)
+  {
+    result = swift_slowAlloc();
+    v13 = result;
+    if (v11 != v4)
+    {
+      v14 = v3[2];
+      if (v14 != v3[3])
+      {
+LABEL_71:
+        *v14 = v13;
+        v3[2] += 8;
+        goto LABEL_72;
+      }
+
+      v15 = v3[1];
+      v16 = v15 - *v3;
+      if (v15 > *v3)
+      {
+        v17 = ((v16 >> 3) + 1) / 2;
+        v18 = ((v16 >> 3) + 1) / -2;
+        v19 = &v15[-v17];
+        v20 = v14 - v15;
+        if (v14 != v15)
+        {
+          result = memmove(&v15[-v17], v15, v14 - v15);
+          v15 = v3[1];
+        }
+
+        v14 = (v19 + v20);
+        v3[1] = &v15[v18];
+        v3[2] = v19 + v20;
+        goto LABEL_71;
+      }
+
+      v61 = (v14 - *v3) >> 2;
+      if (v14 == *v3)
+      {
+        v61 = 1;
+      }
+
+      v62 = v61 >> 2;
+      v63 = v61;
+      result = swift_slowAlloc();
+      v64 = &result[v62];
+      v65 = v3[1];
+      v14 = v64;
+      v66 = v3[2] - v65;
+      if (v66)
+      {
+        v14 = (v64 + v66);
+        v67 = v66 - 8;
+        if (v66 - 8 < 0x38)
+        {
+          v68 = &result[v62];
+          do
+          {
+LABEL_68:
+            v86 = *v65++;
+            *v68++ = v86;
+          }
+
+          while (v68 != v14);
+          goto LABEL_69;
+        }
+
+        v78 = &result[v62];
+        v68 = v78;
+        if ((v78 - v65) < 0x20)
+        {
+          goto LABEL_68;
+        }
+
+        v79 = (v67 >> 3) + 1;
+        v80 = v79 & 0x3FFFFFFFFFFFFFFCLL;
+        v68 = &v64[v80];
+        v81 = &v65[v80];
+        v82 = (v65 + 2);
+        v83 = v78 + 2;
+        v84 = v79 & 0x3FFFFFFFFFFFFFFCLL;
+        do
+        {
+          v85 = *v82;
+          *(v83 - 1) = *(v82 - 1);
+          *v83 = v85;
+          v82 += 2;
+          v83 += 2;
+          v84 -= 4;
+        }
+
+        while (v84);
+        v65 = v81;
+        if (v79 != (v79 & 0x3FFFFFFFFFFFFFFCLL))
+        {
+          goto LABEL_68;
+        }
+      }
+
+LABEL_69:
+      v87 = *v3;
+      *v3 = result;
+      v3[1] = v64;
+      v88 = v3[3];
+      v3[2] = v14;
+      v3[3] = &result[v63];
+      if (v87)
+      {
+        result = MEMORY[0x1865D4B40](v87, v88 - v87, 7);
+        v14 = v3[2];
+      }
+
+      goto LABEL_71;
+    }
+
+    v27 = v3[1];
+    if (v27 != *v3)
+    {
+      v28 = v3[1];
+LABEL_80:
+      *(v28 - 1) = v13;
+      v101 = v3[1];
+      v3[1] = v101 - 8;
+      v103 = *(v101 - 8);
+      v3[1] = v101;
+      goto LABEL_8;
+    }
+
+    v58 = v3[2];
+    v59 = v3[3];
+    if (v58 < v59)
+    {
+      v60 = (((v59 - v58) >> 3) + 1) / 2;
+      v28 = &v27[8 * v60];
+      if (v58 != v27)
+      {
+        memmove(&v27[8 * v60], v27, v58 - v27);
+        v58 = v3[2];
+      }
+
+      v3[1] = v28;
+      v3[2] = &v58[8 * v60];
+      goto LABEL_80;
+    }
+
+    v69 = (v59 - v27) >> 2;
+    if (v59 == v27)
+    {
+      v69 = 1;
+    }
+
+    v70 = (v69 + 3) >> 2;
+    v71 = 8 * v69;
+    v72 = swift_slowAlloc();
+    v28 = (v72 + 8 * v70);
+    v73 = v3[1];
+    v74 = v28;
+    v75 = v3[2] - v73;
+    if (v75)
+    {
+      v74 = &v28[v75];
+      v76 = v75 - 8;
+      if (v75 - 8 < 0x38)
+      {
+        v77 = (v72 + 8 * v70);
+        do
+        {
+LABEL_77:
+          v98 = *v73++;
+          *v77 = v98;
+          v77 += 8;
+        }
+
+        while (v77 != v74);
+        goto LABEL_78;
+      }
+
+      v90 = 8 * v70 + v72;
+      v77 = v90;
+      if (v90 - v73 < 0x20)
+      {
+        goto LABEL_77;
+      }
+
+      v91 = (v76 >> 3) + 1;
+      v92 = v91 & 0x3FFFFFFFFFFFFFFCLL;
+      v77 = &v28[v92 * 8];
+      v93 = &v73[v92];
+      v94 = (v73 + 2);
+      v95 = (v90 + 16);
+      v96 = v91 & 0x3FFFFFFFFFFFFFFCLL;
+      do
+      {
+        v97 = *v94;
+        *(v95 - 1) = *(v94 - 1);
+        *v95 = v97;
+        v94 += 2;
+        v95 += 2;
+        v96 -= 4;
+      }
+
+      while (v96);
+      v73 = v93;
+      if (v91 != (v91 & 0x3FFFFFFFFFFFFFFCLL))
+      {
+        goto LABEL_77;
+      }
+    }
+
+LABEL_78:
+    v99 = *v3;
+    *v3 = v72;
+    v3[1] = v28;
+    v100 = v3[3];
+    v3[2] = v74;
+    v3[3] = v72 + v71;
+    if (v99)
+    {
+      MEMORY[0x1865D4B40](v99, v100 - v99, 7);
+      v28 = v3[1];
+    }
+
+    goto LABEL_80;
+  }
+
+  v21 = 2 * v12;
+  if (v11 == *result)
+  {
+    v22 = 8;
+  }
+
+  else
+  {
+    v22 = v21;
+  }
+
+  v23 = swift_slowAlloc();
+  v24 = (v23 + v6);
+  v25 = (v23 + v22);
+  v26 = swift_slowAlloc();
+  v102 = a2;
+  if (v6 == v22)
+  {
+    if (v6 < 1)
+    {
+      if (v4 == v5)
+      {
+        v29 = 1;
+      }
+
+      else
+      {
+        v29 = v6 >> 2;
+      }
+
+      v30 = 8 * v29;
+      v31 = v26;
+      v32 = swift_slowAlloc();
+      v24 = (v32 + 8 * (v29 >> 2));
+      v25 = (v32 + v30);
+      MEMORY[0x1865D4B40](v23, v6, 7);
+      v26 = v31;
+      v23 = v32;
+    }
+
+    else
+    {
+      v24 = (v24 - (((v6 >> 1) + 4) & 0xFFFFFFFFFFFFFFF8));
+    }
+  }
+
+  *v24 = v26;
+  v33 = v24 + 1;
+  v34 = v3[2];
+  if (v34 != v3[1])
+  {
+    while (v24 != v23)
+    {
+      v37 = v24;
+LABEL_33:
+      v38 = *(v34 - 8);
+      v34 -= 8;
+      *(v37 - 1) = v38;
+      v35 = v37 - 1;
+      v24 = v35;
+      if (v34 == v3[1])
+      {
+        goto LABEL_30;
+      }
+    }
+
+    if (v33 < v25)
+    {
+      v37 = &v24[(v25 - v33 + 1 + ((v25 - v33 + 1) >> 63)) >> 1];
+      v40 = v33 - v24;
+      v39 = v33 == v24;
+      v33 += (v25 - v33 + 1 + ((v25 - v33 + 1) >> 63)) >> 1;
+      if (!v39)
+      {
+        memmove(v37, v24, v40);
+      }
+
+      goto LABEL_33;
+    }
+
+    v41 = v25 - v24;
+    v42 = (v25 - v24) >> 2;
+    if (v25 == v24)
+    {
+      v42 = 1;
+    }
+
+    v43 = (v42 + 3) >> 2;
+    v44 = 8 * v42;
+    v45 = swift_slowAlloc();
+    v46 = v45;
+    v37 = (v45 + 8 * v43);
+    v47 = v33 - v24;
+    v39 = v33 == v24;
+    v33 = v37;
+    if (!v39)
+    {
+      v33 = (v37 + v47);
+      v48 = v47 - 8;
+      if (v48 >= 0x18 && 8 * v43 + v45 - v24 >= 0x20)
+      {
+        v52 = (v48 >> 3) + 1;
+        v53 = v52 & 0x3FFFFFFFFFFFFFFCLL;
+        v49 = &v37[v53];
+        v50 = &v24[v53];
+        v54 = (v24 + 2);
+        v55 = (v45 + 8 * v43 + 16);
+        v56 = v52 & 0x3FFFFFFFFFFFFFFCLL;
+        do
+        {
+          v57 = *v54;
+          *(v55 - 1) = *(v54 - 1);
+          *v55 = v57;
+          v54 += 2;
+          v55 += 2;
+          v56 -= 4;
+        }
+
+        while (v56);
+        if (v52 == (v52 & 0x3FFFFFFFFFFFFFFCLL))
+        {
+          goto LABEL_45;
+        }
+      }
+
+      else
+      {
+        v49 = (v45 + 8 * v43);
+        v50 = v24;
+      }
+
+      do
+      {
+        v51 = *v50++;
+        *v49++ = v51;
+      }
+
+      while (v49 != v33);
+    }
+
+LABEL_45:
+    v25 = (v45 + v44);
+    MEMORY[0x1865D4B40](v23, v41, 7);
+    v23 = v46;
+    goto LABEL_33;
+  }
+
+  v35 = v24;
+LABEL_30:
+  result = *v3;
+  *v3 = v23;
+  v3[1] = v35;
+  v36 = v3[3];
+  v3[2] = v33;
+  v3[3] = v25;
+  a2 = v102;
+  if (result)
+  {
+    result = MEMORY[0x1865D4B40](result, v36 - result, 7);
+  }
+
+LABEL_72:
+  v89 = v3[5] + v3[4];
+  *(*(v3[1] + ((v89 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v89 & 0x1FF)) = a2;
+  ++v3[5];
+  return result;
+}
+
+unint64_t *std::__split_buffer<anonymous namespace::TaskGroupBase::ReadyQueueItem *,swift::cxx_allocator<anonymous namespace::TaskGroupBase::ReadyQueueItem *>>::emplace_back<anonymous namespace::TaskGroupBase::ReadyQueueItem *&>(unint64_t *result, uint64_t *a2)
+{
+  v3 = result;
+  v4 = result[2];
+  if (v4 != result[3])
+  {
+    goto LABEL_18;
+  }
+
+  v5 = result[1];
+  v6 = v5 - *result;
+  if (v5 > *result)
+  {
+    v7 = ((v6 >> 3) + 1) / 2;
+    v8 = ((v6 >> 3) + 1) / -2;
+    v9 = &v5[-v7];
+    v10 = v4 - v5;
+    if (v4 != v5)
+    {
+      result = memmove(&v5[-v7], v5, v4 - v5);
+      v5 = v3[1];
+    }
+
+    v4 = (v9 + v10);
+    v3[1] = &v5[v8];
+    v3[2] = v9 + v10;
+    goto LABEL_18;
+  }
+
+  v11 = (v4 - *result) >> 2;
+  if (v4 == *result)
+  {
+    v11 = 1;
+  }
+
+  v12 = v11 >> 2;
+  v13 = v11;
+  result = swift_slowAlloc();
+  v14 = &result[v12];
+  v15 = v3[1];
+  v4 = v14;
+  v16 = v3[2] - v15;
+  if (v16)
+  {
+    v4 = (v14 + v16);
+    v17 = v16 - 8;
+    if (v16 - 8 < 0x38)
+    {
+      v18 = &result[v12];
+      do
+      {
+LABEL_15:
+        v27 = *v15++;
+        *v18++ = v27;
+      }
+
+      while (v18 != v4);
+      goto LABEL_16;
+    }
+
+    v19 = &result[v12];
+    v18 = v19;
+    if ((v19 - v15) < 0x20)
+    {
+      goto LABEL_15;
+    }
+
+    v20 = (v17 >> 3) + 1;
+    v21 = v20 & 0x3FFFFFFFFFFFFFFCLL;
+    v18 = &v14[v21];
+    v22 = &v15[v21];
+    v23 = (v15 + 2);
+    v24 = v19 + 2;
+    v25 = v20 & 0x3FFFFFFFFFFFFFFCLL;
+    do
+    {
+      v26 = *v23;
+      *(v24 - 1) = *(v23 - 1);
+      *v24 = v26;
+      v23 += 2;
+      v24 += 2;
+      v25 -= 4;
+    }
+
+    while (v25);
+    v15 = v22;
+    if (v20 != (v20 & 0x3FFFFFFFFFFFFFFCLL))
+    {
+      goto LABEL_15;
+    }
+  }
+
+LABEL_16:
+  v28 = *v3;
+  *v3 = result;
+  v3[1] = v14;
+  v29 = v3[3];
+  v3[2] = v4;
+  v3[3] = &result[v13];
+  if (v28)
+  {
+    result = MEMORY[0x1865D4B40](v28, v29 - v28, 7);
+    v4 = v3[2];
+  }
+
+LABEL_18:
+  *v4 = *a2;
+  v3[2] += 8;
+  return result;
+}
+
+void anonymous namespace::AccumulatingTaskGroup::~AccumulatingTaskGroup(_anonymous_namespace_::AccumulatingTaskGroup *this)
+{
+
+  JUMPOUT(0x1865D4B40);
+}
+
+uint64_t anonymous namespace::AccumulatingTaskGroup::destroy(uint64_t (***this)(_anonymous_namespace_::AccumulatingTaskGroup *), uint64_t a2, uint64_t a3)
+{
+  swift::removeStatusRecordFromSelf((this + 1), 0, a3);
+  v4 = **this;
+
+  return v4(this);
+}
+
+void anonymous namespace::AccumulatingTaskGroup::offer(uint64_t a1, swift::TaskGroup *a2, uint64_t a3)
+{
+  os_unfair_lock_lock((a1 + 40));
+  v11 = atomic_fetch_add_explicit((a1 + 48), 0x80000000uLL, memory_order_acquire) + 0x80000000;
+  v8 = *(a3 - 8);
+  if ((v11 & 0x4000000000000000) != 0)
+  {
+    v9 = atomic_exchange_explicit((a1 + 56), 0, memory_order_acquire);
+    if (!v9)
+    {
+      swift::swift_Concurrency_fatalError(0, "Claimed NULL waitingTask!", v6, v7);
+    }
+
+    os_unfair_lock_unlock((a1 + 40));
+    if (v10)
+    {
+
+      swift::AsyncTask::flagAsAndEnqueueOnExecutor(v10, 0, 0);
+    }
+  }
+
+  else
+  {
+    (*(*a1 + 40))(a1, a2, v8 != 0);
+
+    os_unfair_lock_unlock((a1 + 40));
+  }
+}
+
+unint64_t *anonymous namespace::AccumulatingTaskGroup::enqueueCompletedTask(_anonymous_namespace_::AccumulatingTaskGroup *this, unint64_t a2, int a3)
+{
+
+  v6 = 2;
+  if (a3)
+  {
+    v6 = 3;
+  }
+}
+
+uint64_t __swift::__runtime::llvm::function_ref<BOOL ()(swift::ActiveTaskStatus,swift::ActiveTaskStatus&)>::callback_fn<_swift_taskGroup_initialize(swift::ResultTypeInfo,unsigned long,swift::TaskGroup *)::$_0>(uint64_t a1, __int16 a2)
+{
+  if ((a2 & 0x100) != 0)
+  {
+    atomic_fetch_or_explicit((**a1 + 48), 0x8000000000000000, memory_order_relaxed);
+  }
+
+  return 1;
+}
+
+uint64_t task_group_wait_resume_adapter()
+{
+  if (*(v0 + 8))
+  {
+    v1 = *(v0 + 8);
+  }
+
+  else
+  {
+    v1 = 0;
+  }
+
+  return v1();
+}
+
+void *swift::TaskLocal::Storage::initializeLinkParent(void *this, swift::AsyncTask *a2, swift::AsyncTask *a3)
+{
+  v3 = *(a3 + 17);
+  if (v3)
+  {
+    v5 = this;
+    v6 = swift::_swift_task_alloc_specific(a2, 8);
+    *v6 = 4;
+    *v5 = v6;
+    v18 = 0;
+    v19 = 0;
+    v17 = &v18;
+    while (1)
+    {
+      v9 = *v3;
+      v10 = (*v3 >> 1) & 3;
+      if (v10 != 1)
+      {
+        break;
+      }
+
+      v11 = v18;
+      v12 = &v18;
+      v13 = &v18;
+      if (v18)
+      {
+        v14 = *(v3 + 1);
+        while (1)
+        {
+          while (1)
+          {
+            v13 = v11;
+            v15 = v11[4];
+            if (v14 >= v15)
+            {
+              break;
+            }
+
+            v11 = *v13;
+            v12 = v13;
+            if (!*v13)
+            {
+              goto LABEL_3;
+            }
+          }
+
+          if (v15 >= v14)
+          {
+            break;
+          }
+
+          v11 = v13[1];
+          if (!v11)
+          {
+            v12 = v13 + 1;
+            goto LABEL_3;
+          }
+        }
+      }
+
+      else
+      {
+LABEL_3:
+        v7 = swift_slowAlloc();
+        v7[4] = *(v3 + 1);
+        *v7 = 0;
+        v7[1] = 0;
+        v7[2] = v13;
+        *v12 = v7;
+        if (*v17)
+        {
+          v17 = *v17;
+          v8 = *v12;
+        }
+
+        else
+        {
+          v8 = v7;
+        }
+
+        std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<void *> *>(v18, v8);
+        ++v19;
+        swift::TaskLocal::ValueItem::copyTo(v3, a2);
+        v9 = *v3;
+      }
+
+      v3 = (v9 & 0xFFFFFFFFFFFFFFF8);
+      if ((v9 & 0xFFFFFFFFFFFFFFF8) == 0)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    if (v10 == 2)
+    {
+      v3 = (v9 & 0xFFFFFFFFFFFFFFF8);
+      if ((v9 & 0xFFFFFFFFFFFFFFF8) == 0)
+      {
+LABEL_22:
+        v16 = 0;
+        goto LABEL_23;
+      }
+
+      v9 = *v3;
+    }
+
+    if ((~v9 & 6) != 0)
+    {
+      v16 = v3;
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+LABEL_23:
+    *v6 = *v6 & 7 | v16;
+    return std::__tree<swift::HeapObject const*,std::less<swift::HeapObject const*>,swift::cxx_allocator<swift::HeapObject const*>>::destroy(&v17, v18);
+  }
+
+  return this;
+}
+
+uint64_t swift::TaskLocal::ValueItem::copyTo(swift::TaskLocal::ValueItem *this, swift::AsyncTask *a2)
+{
+  v4 = *(this + 2);
+  if (a2)
+  {
+    v5 = (a2 + 136);
+  }
+
+  else
+  {
+    v5 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 840);
+  }
+
+  v6 = *(this + 1);
+  v7 = *v5;
+  v8 = (*(*(v4 - 8) + 80) + 24) & ~*(*(v4 - 8) + 80);
+  v9 = *(*(v4 - 8) + 64);
+  if (a2)
+  {
+    v10 = swift::_swift_task_alloc_specific(a2, (v8 + v9));
+  }
+
+  else
+  {
+    v10 = malloc_type_malloc(v8 + v9, 0x1F0241C1uLL);
+  }
+
+  v11 = v10;
+  *v10 = v7 & 0xFFFFFFFFFFFFFFF9;
+  v10[1] = v6;
+  v10[2] = v4;
+  result = (*(*(*(this + 2) - 8) + 16))(v10 + ((*(*(v4 - 8) + 80) + 24) & ~*(*(v4 - 8) + 80)), this + ((*(*(*(this + 2) - 8) + 80) + 24) & ~*(*(*(this + 2) - 8) + 80)));
+  *(a2 + 17) = v11;
+  return result;
+}
+
+void swift::TaskLocal::Storage::destroy(uint64_t **this, swift::AsyncTask *a2, const char *a3, char *a4)
+{
+  v5 = *this;
+  *this = 0;
+  while (v5)
+  {
+    v6 = *v5;
+    v7 = (*v5 >> 1) & 3;
+    if (v7 >= 2)
+    {
+      v8 = v7 == 2;
+      if (a2)
+      {
+        goto LABEL_8;
+      }
+
+LABEL_2:
+      free(v5);
+      v5 = (v6 & 0xFFFFFFFFFFFFFFF8);
+      if (v8)
+      {
+        return;
+      }
+    }
+
+    else
+    {
+      (*(*(v5[2] - 8) + 8))(v5 + ((*(*(v5[2] - 8) + 80) + 24) & ~*(*(v5[2] - 8) + 80)));
+      v8 = 0;
+      if (!a2)
+      {
+        goto LABEL_2;
+      }
+
+LABEL_8:
+      swift::_swift_task_dealloc_specific(a2, v5, a3, a4);
+      v5 = (v6 & 0xFFFFFFFFFFFFFFF8);
+      if (v8)
+      {
+        return;
+      }
+    }
+  }
+}
+
+uint64_t swift::TaskLocal::Storage::pushValue(swift *a1, swift *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  hasTaskGroupStatusRecord = swift_task_hasTaskGroupStatusRecord(a1);
+  if (a2)
+  {
+    v11 = (a2 + 136);
+  }
+
+  else
+  {
+    v11 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 840);
+  }
+
+  v12 = *v11;
+  v13 = (*(*(a5 - 8) + 80) + 24) & ~*(*(a5 - 8) + 80);
+  v14 = *(*(a5 - 8) + 64);
+  if (a2)
+  {
+    v15 = swift::_swift_task_alloc_specific(a2, (v13 + v14));
+  }
+
+  else
+  {
+    v15 = malloc_type_malloc(v13 + v14, 0x1F0241C1uLL);
+  }
+
+  v16 = v15;
+  v17 = 2;
+  if ((hasTaskGroupStatusRecord & 1) == 0)
+  {
+    v17 = 0;
+  }
+
+  *v15 = v12 & 0xFFFFFFFFFFFFFFF9 | v17;
+  v15[1] = a3;
+  v15[2] = a5;
+  result = (*(*(a5 - 8) + 32))(v15 + ((*(*(a5 - 8) + 80) + 24) & ~*(*(a5 - 8) + 80)), a4, a5);
+  *a1 = v16;
+  return result;
+}
+
+uint64_t swift::TaskLocal::Storage::copyTo(swift::TaskLocal::ValueItem **this, swift::AsyncTask *a2)
+{
+  v15 = 0;
+  v16 = 0;
+  v14 = &v15;
+  v2 = *this;
+  if (*this)
+  {
+    do
+    {
+      v4 = *v2;
+      if ((*v2 & 4) != 0)
+      {
+        if ((~v4 & 6) == 0)
+        {
+          break;
+        }
+      }
+
+      else
+      {
+        v5 = v15;
+        v6 = &v15;
+        v7 = &v15;
+        if (v15)
+        {
+          v8 = *(v2 + 1);
+          while (1)
+          {
+            while (1)
+            {
+              v7 = v5;
+              v9 = v5[4];
+              if (v8 >= v9)
+              {
+                break;
+              }
+
+              v5 = *v7;
+              v6 = v7;
+              if (!*v7)
+              {
+                goto LABEL_13;
+              }
+            }
+
+            if (v9 >= v8)
+            {
+              break;
+            }
+
+            v5 = v7[1];
+            if (!v5)
+            {
+              v6 = v7 + 1;
+              goto LABEL_13;
+            }
+          }
+        }
+
+        else
+        {
+LABEL_13:
+          v10 = swift_slowAlloc();
+          v10[4] = *(v2 + 1);
+          *v10 = 0;
+          v10[1] = 0;
+          v10[2] = v7;
+          *v6 = v10;
+          if (*v14)
+          {
+            v14 = *v14;
+            v11 = *v6;
+          }
+
+          else
+          {
+            v11 = v10;
+          }
+
+          std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<void *> *>(v15, v11);
+          ++v16;
+          swift::TaskLocal::ValueItem::copyTo(v2, a2);
+          v4 = *v2;
+        }
+      }
+
+      v2 = (v4 & 0xFFFFFFFFFFFFFFF8);
+    }
+
+    while ((v4 & 0xFFFFFFFFFFFFFFF8) != 0);
+    v12 = v15;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return std::__tree<swift::HeapObject const*,std::less<swift::HeapObject const*>,swift::cxx_allocator<swift::HeapObject const*>>::destroy(&v14, v12);
+}
+
+swift::TaskLocal::StopLookupScope *swift::TaskLocal::StopLookupScope::StopLookupScope(swift::TaskLocal::StopLookupScope *this)
+{
+  Current = swift_task_getCurrent();
+  *this = Current;
+  if (Current)
+  {
+    v3 = (Current + 136);
+    *(this + 1) = Current + 136;
+    v4 = (this + 8);
+  }
+
+  else
+  {
+    v3 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 840);
+    *(this + 1) = v3;
+    v4 = (this + 8);
+    if (!v3)
+    {
+      return this;
+    }
+  }
+
+  v5 = *v3;
+  if (*v3)
+  {
+    v6 = swift::_swift_task_alloc_specific(Current, 8);
+    *v6 = v5 | 6;
+    *v3 = v6;
+  }
+
+  else
+  {
+    *v4 = 0;
+  }
+
+  return this;
+}
+
+void swift::TaskLocal::StopLookupScope::~StopLookupScope(swift::TaskLocal::StopLookupScope *this, uint64_t a2, const char *a3, char *a4)
+{
+  v4 = *(this + 1);
+  if (v4)
+  {
+    v5 = *this;
+    v6 = *v4;
+    v7 = **v4;
+    *v4 = v7 & 0xFFFFFFFFFFFFFFF8;
+    if ((v7 & 4) == 0)
+    {
+      (*(*(*(v6 + 2) - 8) + 8))(v6 + ((*(*(*(v6 + 2) - 8) + 80) + 24) & ~*(*(*(v6 + 2) - 8) + 80)));
+    }
+
+    if (v5)
+    {
+      swift::_swift_task_dealloc_specific(v5, v6, a3, a4);
+    }
+
+    else
+    {
+      free(v6);
+    }
+  }
+}
+
+uint64_t swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroup(unsigned __int8 *a1, const char *a2, char a3, uint64_t a4)
+{
+  v5 = swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroup::Override;
+  if (swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroup::Override == 1)
+  {
+    swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroupImpl(a1, a2, 0, a4);
+  }
+
+  if (swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroup::Override)
+  {
+    v6 = a3 & 1;
+
+    return v5(a1, a2, v6, a4, swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroupImpl);
+  }
+
+  else
+  {
+    v8 = a3 & 1;
+
+    return swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroupSlow(a1, a2, v8, a4);
+  }
+}
+
+void swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroupImpl(const unsigned __int8 *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  v9 = 0;
+  swift_asprintf(&v9, a2, a3, a2, a1, a4);
+  shouldReportFatalErrorsToDebugger = _swift_shouldReportFatalErrorsToDebugger();
+  v5 = v9;
+  if (shouldReportFatalErrorsToDebugger)
+  {
+    memset(&v7[2], 0, 48);
+    v8 = 0;
+    v7[0] = xmmword_1E6A180B0;
+    v7[1] = *&off_1E6A180C0;
+    MEMORY[0x1865D44A0](1, v9, v7);
+  }
+
+  v6 = MEMORY[0x1E69E9848];
+  fputs(v5, *MEMORY[0x1E69E9848]);
+  fflush(*v6);
+  asl_log(0, 0, 3, "%s", v5);
+  free(v5);
+  abort();
+}
+
+uint64_t swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroupSlow(swift *a1, const char *a2, char a3, uint64_t a4)
+{
+  Override_task_reportIllegalTaskLocalBindingWithinWithTaskGroup = swift::getOverride_task_reportIllegalTaskLocalBindingWithinWithTaskGroup(a1);
+  if (!Override_task_reportIllegalTaskLocalBindingWithinWithTaskGroup)
+  {
+    swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroup::Override = 1;
+    swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroupImpl(a1, a2, 0, a4);
+  }
+
+  swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroup::Override = Override_task_reportIllegalTaskLocalBindingWithinWithTaskGroup;
+
+  return (Override_task_reportIllegalTaskLocalBindingWithinWithTaskGroup)(a1, a2, a3 & 1, a4, swift_task_reportIllegalTaskLocalBindingWithinWithTaskGroupImpl);
+}
+
+uint64_t swift_task_localValuePush(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (swift_task_localValuePush::Override == 1)
+  {
+    return swift_task_localValuePushImpl(a1, a2, a3);
+  }
+
+  if (swift_task_localValuePush::Override)
+  {
+    return swift_task_localValuePush::Override(a1, a2, a3, swift_task_localValuePushImpl);
+  }
+
+  return swift_task_localValuePushSlow(a1, a2, a3);
+}
+
+uint64_t swift_task_localValuePushImpl(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  Current = swift_task_getCurrent();
+  if (Current)
+  {
+    v7 = Current;
+    v8 = (Current + 136);
+
+    return swift::TaskLocal::Storage::pushValue(v8, v7, a1, a2, a3);
+  }
+
+  else
+  {
+    StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
+    v11 = *(StatusReg + 840);
+    if (!v11)
+    {
+      Current = malloc_type_malloc(8uLL, 0x2004093837F09uLL);
+      v11 = Current;
+      *Current = 0;
+      *(StatusReg + 840) = Current;
+    }
+
+    hasTaskGroupStatusRecord = swift_task_hasTaskGroupStatusRecord(Current);
+    v13 = **(StatusReg + 840);
+    v14 = malloc_type_malloc(((*(*(a3 - 8) + 80) + 24) & ~*(*(a3 - 8) + 80)) + *(*(a3 - 8) + 64), 0x1F0241C1uLL);
+    v15 = v14;
+    v16 = 2;
+    if ((hasTaskGroupStatusRecord & 1) == 0)
+    {
+      v16 = 0;
+    }
+
+    *v14 = v13 & 0xFFFFFFFFFFFFFFF9 | v16;
+    v14[1] = a1;
+    v14[2] = a3;
+    result = (*(*(a3 - 8) + 32))(v14 + ((*(*(a3 - 8) + 80) + 24) & ~*(*(a3 - 8) + 80)), a2, a3);
+    *v11 = v15;
+  }
+
+  return result;
+}
+
+uint64_t swift_task_localValuePushSlow(swift *a1, uint64_t a2, uint64_t a3)
+{
+  Override_task_localValuePush = swift::getOverride_task_localValuePush(a1);
+  if (Override_task_localValuePush)
+  {
+    swift_task_localValuePush::Override = Override_task_localValuePush;
+
+    return Override_task_localValuePush(a1, a2, a3, swift_task_localValuePushImpl);
+  }
+
+  else
+  {
+    swift_task_localValuePush::Override = 1;
+
+    return swift_task_localValuePushImpl(a1, a2, a3);
+  }
+}
+
+char *swift_task_localValueGet(uint64_t a1)
+{
+  if (swift_task_localValueGet::Override == 1)
+  {
+    return swift_task_localValueGetImpl(a1);
+  }
+
+  if (swift_task_localValueGet::Override)
+  {
+    return swift_task_localValueGet::Override(a1, swift_task_localValueGetImpl);
+  }
+
+  return swift_task_localValueGetSlow(a1);
+}
+
+char *swift_task_localValueGetImpl(uint64_t a1)
+{
+  Current = swift_task_getCurrent();
+  if (Current)
+  {
+    v3 = *(Current + 136);
+    if (v3)
+    {
+      do
+      {
+        while (1)
+        {
+          v5 = *v3;
+          if ((*v3 & 4) == 0)
+          {
+            break;
+          }
+
+          v3 = (v5 & 0xFFFFFFFFFFFFFFF8);
+          if ((~v5 & 6) == 0 || v3 == 0)
+          {
+            return 0;
+          }
+        }
+
+        if (v3[1] == a1)
+        {
+          return v3 + ((*(*(v3[2] - 8) + 80) + 24) & ~*(*(v3[2] - 8) + 80));
+        }
+
+        v3 = (v5 & 0xFFFFFFFFFFFFFFF8);
+      }
+
+      while ((v5 & 0xFFFFFFFFFFFFFFF8) != 0);
+    }
+
+    return 0;
+  }
+
+  v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 840);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v3 = *v6;
+  if (!v3)
+  {
+    return 0;
+  }
+
+  while (1)
+  {
+    while (1)
+    {
+      v8 = *v3;
+      if ((*v3 & 4) == 0)
+      {
+        break;
+      }
+
+      v3 = (v8 & 0xFFFFFFFFFFFFFFF8);
+      if ((~v8 & 6) == 0 || v3 == 0)
+      {
+        return 0;
+      }
+    }
+
+    if (v3[1] == a1)
+    {
+      break;
+    }
+
+    v3 = (v8 & 0xFFFFFFFFFFFFFFF8);
+    if ((v8 & 0xFFFFFFFFFFFFFFF8) == 0)
+    {
+      return 0;
+    }
+  }
+
+  return v3 + ((*(*(v3[2] - 8) + 80) + 24) & ~*(*(v3[2] - 8) + 80));
+}
+
+char *swift_task_localValueGetSlow(swift *a1)
+{
+  v2 = swift::getOverride_task_localValueGet(a1);
+  if (v2)
+  {
+    swift_task_localValueGet::Override = v2;
+
+    return v2(a1, swift_task_localValueGetImpl);
+  }
+
+  else
+  {
+    swift_task_localValueGet::Override = 1;
+
+    return swift_task_localValueGetImpl(a1);
+  }
+}
+
+void swift_task_localValuePop(swift *a1)
+{
+  if (swift_task_localValuePop::Override == 1)
+  {
+    swift_task_localValuePopImpl();
+  }
+
+  else if (swift_task_localValuePop::Override)
+  {
+    swift_task_localValuePop::Override(swift_task_localValuePopImpl);
+  }
+
+  else
+  {
+    swift_task_localValuePopSlow(a1);
+  }
+}
+
+void swift_task_localValuePopImpl(void)
+{
+  Current = swift_task_getCurrent();
+  if (Current)
+  {
+    v3 = *(Current + 136);
+    v4 = *v3;
+    *(Current + 136) = *v3 & 0xFFFFFFFFFFFFFFF8;
+    if ((v4 & 4) == 0)
+    {
+      v5 = Current;
+      (*(*(*(v3 + 2) - 8) + 8))(v3 + ((*(*(*(v3 + 2) - 8) + 80) + 24) & ~*(*(*(v3 + 2) - 8) + 80)));
+      Current = v5;
+    }
+
+    swift::_swift_task_dealloc_specific(Current, v3, v1, v2);
+  }
+
+  else
+  {
+    StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
+    v7 = *(StatusReg + 840);
+    if (v7)
+    {
+      v8 = *v7;
+      v9 = **v7;
+      *v7 = v9 & 0xFFFFFFFFFFFFFFF8;
+      if ((v9 & 4) == 0)
+      {
+        (*(*(v8[2] - 8) + 8))(v8 + ((*(*(v8[2] - 8) + 80) + 24) & ~*(*(v8[2] - 8) + 80)));
+      }
+
+      free(v8);
+      if (!*v7)
+      {
+        *(StatusReg + 840) = 0;
+
+        free(v7);
+      }
+    }
+  }
+}
+
+void swift_task_localValuePopSlow(swift *a1)
+{
+  Override_task_localValuePop = swift::getOverride_task_localValuePop(a1);
+  if (Override_task_localValuePop)
+  {
+    swift_task_localValuePop::Override = Override_task_localValuePop;
+
+    Override_task_localValuePop(swift_task_localValuePopImpl);
+  }
+
+  else
+  {
+    swift_task_localValuePop::Override = 1;
+
+    swift_task_localValuePopImpl();
+  }
+}
+
+swift::TaskLocal::ValueItem **swift_task_localsCopyTo(swift::AsyncTask *a1)
+{
+  v2 = swift_task_localsCopyTo::Override;
+  if (swift_task_localsCopyTo::Override == 1)
+  {
+    Current = swift_task_getCurrent();
+    if (Current)
+    {
+      result = (Current + 136);
+    }
+
+    else
+    {
+      result = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 840);
+      if (!result)
+      {
+        return result;
+      }
+    }
+
+    return swift::TaskLocal::Storage::copyTo(result, a1);
+  }
+
+  else if (swift_task_localsCopyTo::Override)
+  {
+
+    return v2(a1, swift_task_localsCopyToImpl);
+  }
+
+  else
+  {
+
+    return swift_task_localsCopyToSlow(a1);
+  }
+}
+
+swift::TaskLocal::ValueItem **swift_task_localsCopyToImpl(swift::AsyncTask *a1)
+{
+  Current = swift_task_getCurrent();
+  if (Current)
+  {
+    result = (Current + 136);
+  }
+
+  else
+  {
+    result = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 840);
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  return swift::TaskLocal::Storage::copyTo(result, a1);
+}
+
+swift::TaskLocal::ValueItem **swift_task_localsCopyToSlow(swift *a1)
+{
+  Override_task_localsCopyTo = swift::getOverride_task_localsCopyTo(a1);
+  if (Override_task_localsCopyTo)
+  {
+    swift_task_localsCopyTo::Override = Override_task_localsCopyTo;
+
+    return (Override_task_localsCopyTo)(a1, swift_task_localsCopyToImpl);
+  }
+
+  else
+  {
+    swift_task_localsCopyTo::Override = 1;
+    Current = swift_task_getCurrent();
+    if (Current)
+    {
+      result = (Current + 136);
+    }
+
+    else
+    {
+      result = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 840);
+      if (!result)
+      {
+        return result;
+      }
+    }
+
+    return swift::TaskLocal::Storage::copyTo(result, a1);
+  }
+}
+
+uint64_t std::__tree<swift::HeapObject const*,std::less<swift::HeapObject const*>,swift::cxx_allocator<swift::HeapObject const*>>::destroy(uint64_t result, void *a2)
+{
+  if (a2)
+  {
+    v2 = result;
+    std::__tree<swift::HeapObject const*,std::less<swift::HeapObject const*>,swift::cxx_allocator<swift::HeapObject const*>>::destroy(result, *a2);
+    std::__tree<swift::HeapObject const*,std::less<swift::HeapObject const*>,swift::cxx_allocator<swift::HeapObject const*>>::destroy(v2, a2[1]);
+
+    JUMPOUT(0x1865D4B40);
+  }
+
+  return result;
+}
+
+uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<void *> *>(uint64_t *result, uint64_t *a2)
+{
+  *(a2 + 24) = a2 == result;
+  if (a2 != result)
+  {
+    do
+    {
+      v2 = a2[2];
+      if (*(v2 + 24))
+      {
+        break;
+      }
+
+      v3 = *(v2 + 16);
+      v4 = *v3;
+      if (*v3 == v2)
+      {
+        v8 = v3[1];
+        if (!v8 || (v9 = *(v8 + 24), v7 = (v8 + 24), v9 == 1))
+        {
+          if (*v2 == a2)
+          {
+            v10 = a2[2];
+          }
+
+          else
+          {
+            v10 = *(v2 + 8);
+            v11 = *v10;
+            *(v2 + 8) = *v10;
+            v12 = v2;
+            if (v11)
+            {
+              *(v11 + 16) = v2;
+              v3 = *(v2 + 16);
+              v12 = *v3;
+            }
+
+            *(v10 + 16) = v3;
+            v3[v12 != v2] = v10;
+            *v10 = v2;
+            *(v2 + 16) = v10;
+            v3 = *(v10 + 16);
+            v4 = *v3;
+          }
+
+          *(v10 + 24) = 1;
+          *(v3 + 24) = 0;
+          v18 = *(v4 + 8);
+          *v3 = v18;
+          if (v18)
+          {
+            *(v18 + 16) = v3;
+          }
+
+          v19 = v3[2];
+          *(v4 + 16) = v19;
+          v19[*v19 != v3] = v4;
+          *(v4 + 8) = v3;
+          v3[2] = v4;
+          return result;
+        }
+      }
+
+      else
+      {
+        if (!v4 || (v6 = *(v4 + 24), v5 = (v4 + 24), v6 == 1))
+        {
+          v13 = *v2;
+          if (*v2 == a2)
+          {
+            v14 = v13[1];
+            *v2 = v14;
+            if (v14)
+            {
+              *(v14 + 16) = v2;
+              v3 = *(v2 + 16);
+            }
+
+            v13[2] = v3;
+            v3[*v3 != v2] = v13;
+            v13[1] = v2;
+            *(v2 + 16) = v13;
+            v3 = v13[2];
+          }
+
+          else
+          {
+            v13 = a2[2];
+          }
+
+          *(v13 + 24) = 1;
+          *(v3 + 24) = 0;
+          v15 = v3[1];
+          v16 = *v15;
+          v3[1] = *v15;
+          if (v16)
+          {
+            *(v16 + 16) = v3;
+          }
+
+          v17 = v3[2];
+          v15[2] = v17;
+          v17[*v17 != v3] = v15;
+          *v15 = v3;
+          v3[2] = v15;
+          return result;
+        }
+
+        v7 = v5;
+      }
+
+      *(v2 + 24) = 1;
+      a2 = v3;
+      *(v3 + 24) = v3 == result;
+      *v7 = 1;
+    }
+
+    while (v3 != result);
+  }
+
+  return result;
+}
+
+os_log_t swift::concurrency::trace::setupLogs(swift::concurrency::trace *this, void *a2)
+{
+  swift::concurrency::trace::TracingEnabled = 1;
+  swift::concurrency::trace::ActorLog = os_log_create("com.apple.swift.concurrency", "Actor");
+  swift::concurrency::trace::TaskLog = os_log_create("com.apple.swift.concurrency", "Task");
+  result = os_log_create("com.apple.swift.concurrency", "PotentialPriorityInversion");
+  swift::concurrency::trace::PotentialPriorityInversionLog = result;
+  return result;
+}
+
+uint64_t swift_dispatchEnqueueGlobal(void *a1, uint64_t a2, const char *a3, char *a4)
+{
+  v4 = *(a1 + 33);
+  if (v4 >= 0x22)
+  {
+    swift::swift_Concurrency_fatalError(0, "invalid job priority %#zx", a3, a4, *(a1 + 33));
+  }
+
+  if (!globalQueueCache[v4])
+  {
+    if (!concurrencyEnableCooperativeQueues() || (global_queue = dispatch_get_global_queue(v4, 4uLL)) == 0)
+    {
+      global_queue = dispatch_get_global_queue(v4, 0);
+    }
+
+    globalQueueCache[v4] = global_queue;
+  }
+
+  a1[3] = 1;
+  v6 = dispatchEnqueueFunc;
+
+  return v6();
+}
+
+void swift_dispatchEnqueueWithDeadline(char a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, void *context)
+{
+  if (a1)
+  {
+    v9 = *(context + 33);
+    if (v9 >= 0x22)
+    {
+      swift::swift_Concurrency_fatalError(0, "invalid job priority %#zx", a3, a4, a5, a6, *(context + 33));
+    }
+
+    global_queue = globalQueueCache[v9];
+    if (global_queue)
+    {
+      context[3] = 1;
+      if ((a2 & 0x8000000000000000) != 0)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    else
+    {
+      v22 = a2;
+      v23 = a3;
+      v24 = a6;
+      v25 = a5;
+      if (!concurrencyEnableCooperativeQueues() || (global_queue = dispatch_get_global_queue(v9, 4uLL)) == 0)
+      {
+        global_queue = dispatch_get_global_queue(v9, 0);
+      }
+
+      globalQueueCache[v9] = global_queue;
+      a5 = v25;
+      LODWORD(a6) = v24;
+      a3 = v23;
+      a2 = v22;
+      context[3] = 1;
+      if ((v22 & 0x8000000000000000) != 0)
+      {
+        goto LABEL_9;
+      }
+    }
+  }
+
+  else
+  {
+    global_queue = MEMORY[0x1E69E96A0];
+    context[3] = MEMORY[0x1E69E96A0];
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+LABEL_9:
+      v11 = 0;
+LABEL_10:
+      if (a6 == 2)
+      {
+        v12 = v11;
+      }
+
+      else
+      {
+        v12 = v11 | 0x8000000000000000;
+      }
+
+      goto LABEL_13;
+    }
+  }
+
+  if (!a2 && a3 < 0)
+  {
+    goto LABEL_9;
+  }
+
+  if (!is_mul_ok(a2, 0x3B9ACA00uLL))
+  {
+    v12 = -1;
+    goto LABEL_13;
+  }
+
+  v11 = a3 + 1000000000 * a2;
+  if (__CFADD__(a3, 1000000000 * a2))
+  {
+    v14 = (a3 >> 63) + 1;
+  }
+
+  else
+  {
+    v14 = a3 >> 63;
+  }
+
+  v15 = v14 << 63 >> 63;
+  v12 = -1;
+  if (v15 == v14 && (v15 & 0x8000000000000000) == 0)
+  {
+    if (v11)
+    {
+      if (v11 > 0x7FFFFFFFFFFFFFFELL)
+      {
+        goto LABEL_13;
+      }
+
+      if (v11 < 0x5555555555555555)
+      {
+        v11 = 3 * v11 / 0x7D;
+      }
+
+      else
+      {
+        v11 = 3 * (v11 / 0x7D);
+      }
+    }
+
+    goto LABEL_10;
+  }
+
+LABEL_13:
+  if (a5 == -1)
+  {
+
+    dispatch_after_f(v12, global_queue, context, __swift_run_job);
+  }
+
+  else
+  {
+    if ((a4 & 0x8000000000000000) != 0 || !a4 && a5 < 0)
+    {
+      v13 = 0;
+    }
+
+    else
+    {
+      if (!is_mul_ok(a4, 0x3B9ACA00uLL))
+      {
+        goto LABEL_24;
+      }
+
+      v16 = 1000000000 * a4;
+      v17 = a5 >> 63;
+      v13 = a5 + 1000000000 * a4;
+      if (__CFADD__(a5, v16))
+      {
+        ++v17;
+      }
+
+      v18 = v17 << 63 >> 63;
+      if (v18 != v17 || v18 < 0)
+      {
+LABEL_24:
+        v13 = -1;
+      }
+    }
+
+    v19 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, global_queue);
+    dispatch_source_set_timer(v19, v12, 0xFFFFFFFFFFFFFFFFLL, v13);
+    v21 = swift_job_alloc(context, 0x10, v20);
+    *v21 = v19;
+    v21[1] = context;
+    dispatch_set_context(v19, v21);
+    dispatch_source_set_event_handler_f(v19, _swift_run_job_leeway);
+
+    dispatch_activate(v19);
+  }
+}
+
+uint64_t _swift_run_job_leeway(uint64_t a1)
+{
+  dispatch_release(*a1);
+  v2 = *(a1 + 8);
+  swift_job_dealloc(v2, a1, v3);
+  v4 = *(*v2 + 48);
+
+  return v4(v2, 0, 0);
+}
+
+uint64_t swift_dispatchEnqueueMain(void *a1)
+{
+  v2 = *(a1 + 33);
+  v3 = MEMORY[0x1E69E96A0];
+  a1[3] = MEMORY[0x1E69E96A0];
+  return dispatchEnqueueFunc(v3, a1, v2);
+}
+
+uint64_t swift_task_enqueueOnDispatchQueue(void *a1, dispatch_queue_s *a2)
+{
+  v2 = *(a1 + 33);
+  a1[3] = a2;
+  return dispatchEnqueueFunc(a2, a1, v2);
+}
+
+uint64_t swift_task_checkIsolatedImpl(uint64_t a1, uint64_t a2)
+{
+  if (!a1 || !a2)
+  {
+    swift_getObjectType();
+    TypeName = swift_getTypeName();
+    swift::swift_Concurrency_fatalError(0, "Incorrect actor executor assumption; expected '%.*s' executor.\n", v8, v9, v7, TypeName);
+  }
+
+  ObjectType = swift_getObjectType();
+
+  return _swift_task_checkIsolatedSwift(a1, ObjectType, a2 & 0xFFFFFFFFFFFFFFF8);
+}
+
+uint64_t swift_task_isIsolatingCurrentContextImpl(uint64_t a1, uint64_t a2)
+{
+  if (!a1 || !a2)
+  {
+    return 255;
+  }
+
+  ObjectType = swift_getObjectType();
+
+  return _swift_task_isIsolatingCurrentContextSwift(a1, ObjectType, a2 & 0xFFFFFFFFFFFFFFF8);
+}
+
+uint64_t swift_task_isMainExecutorImpl(uint64_t a1, uint64_t a2)
+{
+  if (!a1 || !a2)
+  {
+    return 0;
+  }
+
+  ObjectType = swift_getObjectType();
+
+  return _swift_task_isMainExecutorSwift(a1, ObjectType, a2 & 0xFFFFFFFFFFFFFFF8);
+}
+
+void swift_defaultActor_destroy_cold_1(unint64_t **a1, uint64_t a2)
+{
+  if (*a1)
+  {
+    v4 = *a1;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  TypeContextDescriptor = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v4);
+  if (TypeContextDescriptor)
+  {
+    v8 = (TypeContextDescriptor + 8 + *(TypeContextDescriptor + 8));
+  }
+
+  else
+  {
+    v8 = "<unknown>";
+  }
+
+  swift::swift_Concurrency_fatalError(0, "Object %p of class %s deallocated with non-zero retain count %zd. This object's deinit, or something called from it, may have created a strong reference to self which outlived deinit, resulting in a dangling reference.\n", v6, v7, a1, v8, a2);
+}
+
+void swift_task_alloc_cold_1(void *a1)
+{
+  if (__cxa_guard_acquire(_MergedGlobals_0))
+  {
+    OUTLINED_FUNCTION_2_1();
+    OUTLINED_FUNCTION_0_0(v2, v3);
+    OUTLINED_FUNCTION_1_2(v4, v5, &dword_1815A3000);
+    __cxa_guard_release(_MergedGlobals_0);
+  }
+
+  *a1 = &qword_1ED42EB78;
+}
+
+uint64_t _assertionFailure(_:_:file:line:flags:)()
+{
+  return MEMORY[0x1EEE6A998]();
+}
+
+{
+  return MEMORY[0x1EEE6A9A0]();
+}
+
+void operator delete(void *__p)
+{
+    ;
+  }
+}
+
+void operator new()
+{
+    ;
+  }
 }

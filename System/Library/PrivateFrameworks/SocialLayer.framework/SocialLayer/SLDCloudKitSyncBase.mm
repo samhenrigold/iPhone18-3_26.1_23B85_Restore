@@ -68,8 +68,8 @@ void __45__SLDCloudKitSyncBase_checkForAccountChanges__block_invoke(uint64_t a1)
   persistence2 = [(SLDCloudKitSyncBase *)self persistence];
   [persistence2 setObject:v7 forKeyedSubscript:@"batchNumber"];
 
-  v9 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = SLDaemonLogHandle(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [SLDCloudKitSyncBase getIncrementedBatchNumber];
   }
@@ -115,11 +115,11 @@ void __27__SLDCloudKitSyncBase_salt__block_invoke(uint64_t a1)
 
     if (v16)
     {
-      v17 = [v16 compare:&unk_28469BD08];
-      if (v17 == -1)
+      v18 = [v16 compare:&unk_28469BD08];
+      if (v18 == -1)
       {
-        v25 = SLDaemonLogHandle();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v26 = SLDaemonLogHandle(-1);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           name2 = [configurationCopy name];
           *buf = 138412802;
@@ -128,18 +128,18 @@ void __27__SLDCloudKitSyncBase_salt__block_invoke(uint64_t a1)
           v48 = v16;
           v49 = 2112;
           v50 = &unk_28469BD08;
-          _os_log_impl(&dword_231772000, v25, OS_LOG_TYPE_DEFAULT, "#SLDCK %@ previous version = %@, migrating to new version %@", buf, 0x20u);
+          _os_log_impl(&dword_231772000, v26, OS_LOG_TYPE_DEFAULT, "#SLDCK %@ previous version = %@, migrating to new version %@", buf, 0x20u);
         }
 
         if ([v16 compare:&unk_28469BD20] == -1)
         {
-          v27 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v28 = SLDaemonLogHandle(-1);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             name3 = [configurationCopy name];
             *buf = 138412290;
             v46 = name3;
-            _os_log_impl(&dword_231772000, v27, OS_LOG_TYPE_DEFAULT, "#SLDCK %@ updating to production CK environment", buf, 0xCu);
+            _os_log_impl(&dword_231772000, v28, OS_LOG_TYPE_DEFAULT, "#SLDCK %@ updating to production CK environment", buf, 0xCu);
           }
 
           persistence2 = [v6 persistence];
@@ -148,13 +148,13 @@ void __27__SLDCloudKitSyncBase_salt__block_invoke(uint64_t a1)
 
         if ([v16 compare:&unk_28469BD08] == -1)
         {
-          v30 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v31 = SLDaemonLogHandle(-1);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             name4 = [configurationCopy name];
             *buf = 138412290;
             v46 = name4;
-            _os_log_impl(&dword_231772000, v30, OS_LOG_TYPE_DEFAULT, "#SLDCK %@ will sync fresh highlights for kPPSHVariantTVSync adoption", buf, 0xCu);
+            _os_log_impl(&dword_231772000, v31, OS_LOG_TYPE_DEFAULT, "#SLDCK %@ will sync fresh highlights for kPPSHVariantTVSync adoption", buf, 0xCu);
           }
 
           persistence3 = [v6 persistence];
@@ -165,39 +165,39 @@ void __27__SLDCloudKitSyncBase_salt__block_invoke(uint64_t a1)
         [persistence4 setObject:&unk_28469BD08 forKeyedSubscript:@"version"];
 
         persistence5 = [v6 persistence];
-        v18 = persistence5;
-        v23 = MEMORY[0x277CBEC28];
-        v24 = @"incompatibleVersion";
+        v19 = persistence5;
+        v24 = MEMORY[0x277CBEC28];
+        v25 = @"incompatibleVersion";
         goto LABEL_25;
       }
 
-      if (v17 != 1)
+      if (v18 != 1)
       {
-        if (v17)
+        if (v18)
         {
 LABEL_27:
-          v34 = objc_opt_new();
-          v35 = [objc_alloc(MEMORY[0x277CBC220]) initWithContainerIdentifier:@"com.apple.SocialLayer" environment:1];
-          v36 = [objc_alloc(MEMORY[0x277CBC218]) initWithContainerID:v35 options:v34];
-          v37 = *(v6 + 1);
-          *(v6 + 1) = v36;
+          v35 = objc_opt_new();
+          v36 = [objc_alloc(MEMORY[0x277CBC220]) initWithContainerIdentifier:@"com.apple.SocialLayer" environment:1];
+          v37 = [objc_alloc(MEMORY[0x277CBC218]) initWithContainerID:v36 options:v35];
+          v38 = *(v6 + 1);
+          *(v6 + 1) = v37;
 
           defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
           [defaultCenter addObserver:v6 selector:sel_accountChangedNotification_ name:*MEMORY[0x277CBBF00] object:0];
 
-          v39 = *(v6 + 5);
+          v40 = *(v6 + 5);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __45__SLDCloudKitSyncBase_initWithConfiguration___block_invoke;
           block[3] = &unk_278925D90;
           v43 = v6;
-          dispatch_sync(v39, block);
+          dispatch_sync(v40, block);
 
           goto LABEL_28;
         }
 
-        v18 = SLDaemonLogHandle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v19 = SLDaemonLogHandle(0);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           [SLDCloudKitSyncBase initWithConfiguration:];
         }
@@ -207,8 +207,8 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v21 = SLDaemonLogHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v22 = SLDaemonLogHandle(1);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         [SLDCloudKitSyncBase initWithConfiguration:];
       }
@@ -219,7 +219,7 @@ LABEL_26:
 
     else
     {
-      persistence6 = SLDaemonLogHandle();
+      persistence6 = SLDaemonLogHandle(v17);
       if (os_log_type_enabled(persistence6, OS_LOG_TYPE_DEFAULT))
       {
         name5 = [configurationCopy name];
@@ -232,17 +232,16 @@ LABEL_26:
     }
 
     persistence5 = [v6 persistence];
-    v18 = persistence5;
-    v23 = &unk_28469BD08;
-    v24 = @"version";
+    v19 = persistence5;
+    v24 = &unk_28469BD08;
+    v25 = @"version";
 LABEL_25:
-    [persistence5 setObject:v23 forKeyedSubscript:v24];
+    [persistence5 setObject:v24 forKeyedSubscript:v25];
     goto LABEL_26;
   }
 
 LABEL_28:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -284,11 +283,11 @@ void __45__SLDCloudKitSyncBase_checkForAccountChanges__block_invoke_2(uint64_t a
   v1 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v1);
 
-  v2 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = SLDaemonLogHandle(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_231772000, v2, OS_LOG_TYPE_DEFAULT, "#SLDCK Finished checking for account changes.", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_DEFAULT, "#SLDCK Finished checking for account changes.", v4, 2u);
   }
 }
 
@@ -298,30 +297,30 @@ void __45__SLDCloudKitSyncBase_checkForAccountChanges__block_invoke_2(uint64_t a
   queue = [(SLDCloudKitSyncBase *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SLDaemonLogHandle(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_DEFAULT, "#SLDCK Fetching container information", buf, 2u);
+    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "#SLDCK Fetching container information", buf, 2u);
   }
 
-  v7 = self->_container;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_invoke;
-  v10[3] = &unk_278927220;
-  v11 = v7;
-  v12 = completionCopy;
-  v8 = v7;
-  v9 = completionCopy;
-  [(CKContainer *)v8 accountStatusWithCompletionHandler:v10];
+  v8 = self->_container;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_invoke;
+  v11[3] = &unk_278927220;
+  v12 = v8;
+  v13 = completionCopy;
+  v9 = v8;
+  v10 = completionCopy;
+  [(CKContainer *)v9 accountStatusWithCompletionHandler:v11];
 }
 
 void __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = SLDaemonLogHandle();
+  v6 = SLDaemonLogHandle(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
@@ -334,80 +333,75 @@ void __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_i
 
   if (v5)
   {
-    v8 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SLDaemonLogHandle(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_invoke_cold_1();
     }
 
-    v9 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
     goto LABEL_12;
   }
 
   if (a2 != 1)
   {
-    v9 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
 LABEL_12:
-    v9();
+    v10();
     goto LABEL_13;
   }
 
-  v10 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = SLDaemonLogHandle(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_DEFAULT, "#SLDCK Fetching userRecordID", buf, 2u);
+    _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_DEFAULT, "#SLDCK Fetching userRecordID", buf, 2u);
   }
 
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_invoke_220;
   v13[3] = &unk_2789271F8;
-  v11 = *(a1 + 32);
+  v12 = *(a1 + 32);
   v14 = *(a1 + 40);
   v15 = 1;
-  [v11 fetchUserRecordIDWithCompletionHandler:v13];
+  [v12 fetchUserRecordIDWithCompletionHandler:v13];
 
 LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_invoke_220(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = SLDaemonLogHandle();
+  v7 = SLDaemonLogHandle(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "#SLDCK Received userRecordID: %@, error: %@", &v13, 0x16u);
+    v11 = 138412546;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "#SLDCK Received userRecordID: %@, error: %@", &v11, 0x16u);
   }
 
   if (v6)
   {
-    v8 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SLDaemonLogHandle(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_invoke_220_cold_1();
     }
 
-    v9 = *(a1 + 40);
     v10 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v11 = *(a1 + 40);
     v10 = *(*(a1 + 32) + 16);
   }
 
   v10();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkForAccountChangesNowWithCompletion:(id)completion
@@ -416,66 +410,67 @@ void __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_i
   queue = [(SLDCloudKitSyncBase *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SLDaemonLogHandle(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_DEFAULT, "#SLDCK Checking for account changed.", buf, 2u);
+    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "#SLDCK Checking for account changed.", buf, 2u);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_invoke;
-  v8[3] = &unk_278927270;
-  v8[4] = self;
-  v9 = completionCopy;
-  v7 = completionCopy;
-  [(SLDCloudKitSyncBase *)self fetchContainerInformationWithCompletion:v8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_invoke;
+  v9[3] = &unk_278927270;
+  v9[4] = self;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [(SLDCloudKitSyncBase *)self fetchContainerInformationWithCompletion:v9];
 }
 
 void __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
+  v9 = v8;
   if (v8)
   {
-    v9 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SLDaemonLogHandle(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_invoke_cold_1();
     }
 
-    v10 = [*(a1 + 32) queue];
+    v11 = [*(a1 + 32) queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_invoke_223;
     block[3] = &unk_2789261C8;
-    v18 = *(a1 + 40);
-    dispatch_async(v10, block);
+    v19 = *(a1 + 40);
+    dispatch_async(v11, block);
 
-    v11 = v18;
+    v12 = v19;
   }
 
   else
   {
-    v12 = [*(a1 + 32) queue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_invoke_2;
-    v13[3] = &unk_278927248;
-    v13[4] = *(a1 + 32);
-    v16 = a2;
-    v14 = v7;
-    v15 = *(a1 + 40);
-    dispatch_async(v12, v13);
+    v13 = [*(a1 + 32) queue];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_invoke_2;
+    v14[3] = &unk_278927248;
+    v14[4] = *(a1 + 32);
+    v17 = a2;
+    v15 = v7;
+    v16 = *(a1 + 40);
+    dispatch_async(v13, v14);
 
-    v11 = v14;
+    v12 = v15;
   }
 }
 
 void __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) persistence];
   v3 = [v2 objectForKeyedSubscript:@"accountAvailable"];
   v4 = [v3 BOOLValue];
@@ -485,11 +480,11 @@ void __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_i
   v7 = [v6 objectForKeyedSubscript:@"accountLastKnownUserRecordID"];
 
   v8 = [*(a1 + 40) recordName];
-  v9 = SLDaemonLogHandle();
+  v9 = SLDaemonLogHandle(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = @"NO";
-    *v21 = 138413058;
+    *v22 = 138413058;
     if (v4)
     {
       v11 = @"YES";
@@ -500,72 +495,73 @@ void __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_i
       v11 = @"NO";
     }
 
-    *&v21[4] = v11;
-    *&v21[12] = 2112;
+    *&v22[4] = v11;
+    *&v22[12] = 2112;
     if (v5 == 1)
     {
       v10 = @"YES";
     }
 
-    *&v21[14] = v10;
-    v22 = 2112;
-    v23 = v7;
-    v24 = 2112;
-    v25 = v8;
-    _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_DEFAULT, "#SLDCK account status: availability %@ -> %@, user record id %@ -> %@", v21, 0x2Au);
+    *&v22[14] = v10;
+    v23 = 2112;
+    v24 = v7;
+    v25 = 2112;
+    v26 = v8;
+    _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_DEFAULT, "#SLDCK account status: availability %@ -> %@, user record id %@ -> %@", v22, 0x2Au);
   }
 
   if (!v4 || v5 == 1)
   {
-    if ([v7 isEqualToString:{v8, *v21}])
+    v15 = [v7 isEqualToString:{v8, *v22, *&v22[8]}];
+    if (v15)
     {
-      v13 = 0;
+      v14 = 0;
       goto LABEL_19;
     }
 
-    v12 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = SLDaemonLogHandle(v15);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 138412546;
-      *&v21[4] = v7;
-      *&v21[12] = 2112;
-      *&v21[14] = v8;
-      _os_log_impl(&dword_231772000, v12, OS_LOG_TYPE_DEFAULT, "#SLDCK user record id changed (last known user record id: %@, new user record id: %@)", v21, 0x16u);
+      *v22 = 138412546;
+      *&v22[4] = v7;
+      *&v22[12] = 2112;
+      *&v22[14] = v8;
+      _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_DEFAULT, "#SLDCK user record id changed (last known user record id: %@, new user record id: %@)", v22, 0x16u);
     }
 
-    v13 = v4;
+    v14 = v4;
   }
 
   else
   {
-    v12 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = SLDaemonLogHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 138412290;
-      *&v21[4] = v7;
-      _os_log_impl(&dword_231772000, v12, OS_LOG_TYPE_DEFAULT, "#SLDCK account no longer available (last known user record id: %@)", v21, 0xCu);
+      *v22 = 138412290;
+      *&v22[4] = v7;
+      _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_DEFAULT, "#SLDCK account no longer available (last known user record id: %@)", v22, 0xCu);
     }
 
-    v13 = 1;
+    v14 = 1;
   }
 
 LABEL_19:
-  v14 = [*(a1 + 32) persistence];
-  [v14 setObject:v8 forKeyedSubscript:@"accountLastKnownUserRecordID"];
-
-  v15 = [MEMORY[0x277CCABB0] numberWithBool:v5 == 1];
   v16 = [*(a1 + 32) persistence];
-  [v16 setObject:v15 forKeyedSubscript:@"accountAvailable"];
+  [v16 setObject:v8 forKeyedSubscript:@"accountLastKnownUserRecordID"];
 
-  if (v13)
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:v5 == 1];
+  v18 = [*(a1 + 32) persistence];
+  [v18 setObject:v17 forKeyedSubscript:@"accountAvailable"];
+
+  if (v14)
   {
     [*(a1 + 32) reset];
-    v17 = [*(a1 + 32) persistence];
-    [v17 setObject:v8 forKeyedSubscript:@"accountLastKnownUserRecordID"];
-
-    v18 = [MEMORY[0x277CCABB0] numberWithBool:v5 == 1];
     v19 = [*(a1 + 32) persistence];
-    [v19 setObject:v18 forKeyedSubscript:@"accountAvailable"];
+    [v19 setObject:v8 forKeyedSubscript:@"accountLastKnownUserRecordID"];
+
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:v5 == 1];
+    v21 = [*(a1 + 32) persistence];
+    [v21 setObject:v20 forKeyedSubscript:@"accountAvailable"];
   }
 
   else if (((v4 ^ (v5 == 1)) & 1) != 0 || ([v7 isEqualToString:v8] & 1) == 0)
@@ -574,8 +570,6 @@ LABEL_19:
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountChangedNotification:(id)notification
@@ -600,7 +594,7 @@ LABEL_19:
 
   else
   {
-    v6 = SLDaemonLogHandle();
+    v6 = SLDaemonLogHandle(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SLDCloudKitSyncBase recordSupportsOurVersion:];
@@ -726,7 +720,7 @@ LABEL_19:
 
 - (id)idStringForType:(id)type uniqueData:(id)data
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   dataCopy = data;
   dispatch_assert_queue_V2(self->_queue);
@@ -769,13 +763,12 @@ LABEL_19:
   while ([v19 characterAtIndex:v21 - 1] == 61);
   v22 = [v19 substringToIndex:v21];
 
-  v27[0] = typeCopy;
-  v27[1] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[0] = typeCopy;
+  v26[1] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   v24 = [v23 componentsJoinedByString:@"!"];
 
   objc_autoreleasePoolPop(v8);
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -863,8 +856,8 @@ void __52__SLDCloudKitSyncBase_syncEngine_didUpdateMetadata___block_invoke(uint6
     v8 = [*(a1 + 40) persistence];
     [v8 setObject:v7 forKeyedSubscript:@"syncEngineMetadata"];
 
-    v9 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = SLDaemonLogHandle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __52__SLDCloudKitSyncBase_syncEngine_didUpdateMetadata___block_invoke_cold_1();
     }
@@ -938,54 +931,43 @@ void __52__SLDCloudKitSyncBase_syncEngine_didUpdateMetadata___block_invoke(uint6
 - (void)initWithConfiguration:.cold.1()
 {
   OUTLINED_FUNCTION_14();
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [v2 name];
   OUTLINED_FUNCTION_0_11();
-  v7 = v1;
-  v8 = v4;
-  v9 = &unk_28469BD08;
-  _os_log_fault_impl(&dword_231772000, v0, OS_LOG_TYPE_FAULT, "#SLDCK %@ previous version = %@, downgrading to version %@", v6, 0x20u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = v1;
+  v7 = v4;
+  v8 = &unk_28469BD08;
+  _os_log_fault_impl(&dword_231772000, v0, OS_LOG_TYPE_FAULT, "#SLDCK %@ previous version = %@, downgrading to version %@", v5, 0x20u);
 }
 
 - (void)initWithConfiguration:.cold.2()
 {
   OUTLINED_FUNCTION_14();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 name];
   OUTLINED_FUNCTION_0_11();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SLDCloudKitSyncBase_fetchContainerInformationWithCompletion___block_invoke_220_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordSupportsOurVersion:.cold.1()
@@ -997,21 +979,17 @@ void __63__SLDCloudKitSyncBase_checkForAccountChangesNowWithCompletion___block_i
 
 - (void)getIncrementedBatchNumber
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SLDCloudKitSyncBase_syncEngine_didUpdateMetadata___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v0 = *MEMORY[0x277D85DE8];
-  [OUTLINED_FUNCTION_8(v1) length];
+  [OUTLINED_FUNCTION_8(v0) length];
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 @end

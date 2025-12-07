@@ -206,7 +206,7 @@
   v43[3] = v26;
   heightAnchor = [(UIView *)self->_separatorView heightAnchor];
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-  [mainScreen scale];
+  objc_msgSend_scale(mainScreen);
   v23 = [heightAnchor constraintEqualToConstant:1.0 / v3];
   v43[4] = v23;
   leadingAnchor3 = [(UIView *)self->_separatorView leadingAnchor];
@@ -220,7 +220,7 @@
   v43[6] = v16;
   heightAnchor2 = [(UIView *)self->_secondSeparatorView heightAnchor];
   mainScreen2 = [MEMORY[0x1E69DCEB0] mainScreen];
-  [mainScreen2 scale];
+  objc_msgSend_scale(mainScreen2);
   v6 = [heightAnchor2 constraintEqualToConstant:1.0 / v5];
   v43[7] = v6;
   leadingAnchor5 = [(UIView *)self->_secondSeparatorView leadingAnchor];

@@ -23,45 +23,45 @@ uint64_t __56___UIDictionaryManager__downloadDictionaryAssetCatalog___block_invo
 
 uint64_t __59___UIDictionaryManager__allAvailableDefinitionDictionaries__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v5 = a2;
-  v6 = a3;
-  v7 = [v5 definitionLanguage];
-  v8 = [v7 isEqualToString:*(a1 + 32)];
+  v4 = a2;
+  v5 = a3;
+  v6 = [v4 definitionLanguage];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  v9 = [v6 definitionLanguage];
-  v10 = [v9 isEqualToString:*(a1 + 32)];
+  v8 = [v5 definitionLanguage];
+  v9 = objc_msgSend_isEqualToString_(v8);
 
-  if (!v8 || v10)
+  if (!isEqualToString || v9)
   {
-    if (v8 & 1 | ((v10 & 1) == 0))
+    if (isEqualToString & 1 | ((v9 & 1) == 0))
     {
-      v12 = [v6 localizedLanguageName];
-      if (v12)
+      v11 = [v5 localizedLanguageName];
+      if (v11)
       {
-        v13 = v12;
+        v12 = v11;
       }
 
       else
       {
-        v13 = &stru_1EFB14550;
+        v12 = &stru_1EFB14550;
       }
 
-      v14 = [v5 localizedLanguageName];
-      v11 = [v14 localizedStandardCompare:v13];
+      v13 = [v4 localizedLanguageName];
+      v10 = [v13 localizedStandardCompare:v12];
     }
 
     else
     {
-      v11 = 1;
+      v10 = 1;
     }
   }
 
   else
   {
-    v11 = -1;
+    v10 = -1;
   }
 
-  return v11;
+  return v10;
 }
 
 @end

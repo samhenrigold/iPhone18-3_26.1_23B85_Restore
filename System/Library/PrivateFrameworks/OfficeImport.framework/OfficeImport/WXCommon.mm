@@ -25,28 +25,28 @@
   if (objc_opt_class() == self)
   {
     v2 = [TCTaggedMessage alloc];
-    v3 = TCBundle();
+    v3 = TCBundle(v2);
     v4 = [v3 localizedStringForKey:@"The XML document isn\\U2019t in Word format." value:&stru_286EE1130 table:@"TCCompatibility"];
     v5 = [(TCTaggedMessage *)v2 initWithMessageText:v4];
     v6 = WXBadFormat;
     WXBadFormat = v5;
 
     v7 = [TCTaggedMessage alloc];
-    v8 = TCBundle();
+    v8 = TCBundle(v7);
     v9 = [v8 localizedStringForKey:@"Equations authored with Microsoft Office were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
     v10 = [(TCTaggedMessage *)v7 initWithMessageText:v9];
     v11 = WXMathMLNotSupported;
     WXMathMLNotSupported = v10;
 
     v12 = [TCTaggedMessage alloc];
-    v13 = TCBundle();
+    v13 = TCBundle(v12);
     v14 = [v13 localizedStringForKey:@"Form components aren\\U2019t supported and were removed." value:&stru_286EE1130 table:@"TCCompatibility"];
     v15 = [(TCTaggedMessage *)v12 initWithMessageText:v14];
     v16 = WXFormsNotSupported;
     WXFormsNotSupported = v15;
 
     v17 = [TCTaggedMessage alloc];
-    v18 = TCBundle();
+    v18 = TCBundle(v17);
     v19 = [v18 localizedStringForKey:@"Some tracked changes had no associated time stamp. The current date/time was used instead." value:&stru_286EE1130 table:@"TCCompatibility"];
     v20 = [(TCTaggedMessage *)v17 initWithMessageText:v19];
     v21 = WXFoundMissingCTDate;

@@ -61,7 +61,9 @@ void __48__BackboneNetworkMonitor_startNetworkMonitoring__block_invoke(uint64_t 
 
         [*(a1 + 32) setIsConnected:0];
         v11 = [*(a1 + 32) interfaceName];
-        updateInterfaceName([v11 UTF8String], objc_msgSend(*(a1 + 32), "isConnected"), 1);
+        [v11 UTF8String];
+        [*(a1 + 32) isConnected];
+        updateInterfaceName();
 
         if (v3)
         {
@@ -91,7 +93,8 @@ void __48__BackboneNetworkMonitor_startNetworkMonitoring__block_invoke(uint64_t 
       if (([*(a1 + 32) isConnected] & 1) == 0)
       {
         [*(a1 + 32) stopTimeAndCalculateCurrentDuration];
-        updateInterfaceName(v5, [*(a1 + 32) isConnected], 0);
+        [*(a1 + 32) isConnected];
+        updateInterfaceName();
         if (v3)
         {
           v14 = nw_interface_get_type(v3);
@@ -113,7 +116,8 @@ void __48__BackboneNetworkMonitor_startNetworkMonitoring__block_invoke(uint64_t 
       }
 
       [*(a1 + 32) setIsConnected:1];
-      updateInterfaceName(v5, [*(a1 + 32) isConnected], 0);
+      [*(a1 + 32) isConnected];
+      updateInterfaceName();
     }
 
     else
@@ -125,7 +129,8 @@ void __48__BackboneNetworkMonitor_startNetworkMonitoring__block_invoke(uint64_t 
       }
 
       [*(a1 + 32) setIsConnected:0];
-      updateInterfaceName(v5, [*(a1 + 32) isConnected], 0);
+      [*(a1 + 32) isConnected];
+      updateInterfaceName();
       if (v3)
       {
         v15 = nw_interface_get_type(v3);
@@ -149,13 +154,15 @@ void __48__BackboneNetworkMonitor_startNetworkMonitoring__block_invoke(uint64_t 
       NSLog(@"BackboneInterfaceNetworkMonitor:name is NULL, previously connected interface is now disconnected\n");
       [*(a1 + 32) stopTimeAndCalculateCurrentDuration];
       [*(a1 + 32) setIsConnected:0];
-      updateInterfaceName(0, [*(a1 + 32) isConnected], 0);
+      [*(a1 + 32) isConnected];
+      updateInterfaceName();
       [*(a1 + 32) setInterfaceNameEnum:0];
     }
 
     else
     {
-      updateInterfaceName(0, [*(a1 + 32) isConnected], 0);
+      [*(a1 + 32) isConnected];
+      updateInterfaceName();
     }
   }
 }

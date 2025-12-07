@@ -14,7 +14,6 @@
 - (void)_globalAlarmPreferencesChanged;
 - (void)_installTimerWithFireDate:(id)date;
 - (void)_killSyncTimer;
-- (void)_killTimer;
 - (void)_notifyAlarmsFired:(id)fired;
 - (void)_populateFinished;
 - (void)_protectedDataDidBecomeAvailable;
@@ -40,14 +39,12 @@
 
 + (id)requestedDarwinNotifications
 {
-  v6[7] = *MEMORY[0x277D85DE8];
+  v5[7] = *MEMORY[0x277D85DE8];
   stateChangedNotificationName = [MEMORY[0x277CC5A10] stateChangedNotificationName];
-  v6[4] = stateChangedNotificationName;
-  v6[5] = @"com.apple.mobilecal.preference.notification.calendarsExcludedFromNotifications";
-  v6[6] = @"com.apple.calendar.defaultAlarmChangedNotification";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:7];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[4] = stateChangedNotificationName;
+  v5[5] = @"com.apple.mobilecal.preference.notification.calendarsExcludedFromNotifications";
+  v5[6] = @"com.apple.calendar.defaultAlarmChangedNotification";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:7];
 
   return v3;
 }
@@ -199,7 +196,7 @@
 
 - (void)receivedAlarmNamed:(id)named
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   namedCopy = named;
   v6 = [v4 stringWithUTF8String:"com.apple.calaccessd.alarmEngine.alarm.name"];
@@ -207,33 +204,30 @@
 
   if (v7)
   {
-    v8 = *MEMORY[0x277CF7880];
-    v9 = xpc_copy_event();
-    v10 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{(xpc_dictionary_get_date(v9, "com.apple.calaccessd.alarmEngine.alarm.context.date") / 0x3B9ACA00uLL)}];
-    v11 = MEMORY[0x245D1CF80](v9);
-    v12 = +[CALNLogSubsystem alarmEngine];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v8 = xpc_copy_event();
+    v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{(xpc_dictionary_get_date(v8, "com.apple.calaccessd.alarmEngine.alarm.context.date") / 0x3B9ACA00uLL)}];
+    v10 = MEMORY[0x245D1CF80](v8);
+    v11 = +[CALNLogSubsystem alarmEngine];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v10;
-      _os_log_impl(&dword_242909000, v12, OS_LOG_TYPE_DEFAULT, "Received alarm notification. XPC Alarm context: %s. XPC Alarm context date: %@.", buf, 0x16u);
+      v17 = v10;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_DEFAULT, "Received alarm notification. XPC Alarm context: %s. XPC Alarm context date: %@.", buf, 0x16u);
     }
 
-    free(v11);
+    free(v10);
     dispatchQueue = self->_dispatchQueue;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __37___EKAlarmEngine_receivedAlarmNamed___block_invoke;
-    v16[3] = &unk_278D6F278;
-    v16[4] = self;
-    v17 = v10;
-    v14 = v10;
-    dispatch_async(dispatchQueue, v16);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __37___EKAlarmEngine_receivedAlarmNamed___block_invoke;
+    v14[3] = &unk_278D6F278;
+    v14[4] = self;
+    v15 = v9;
+    v13 = v9;
+    dispatch_async(dispatchQueue, v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_protectedDataDidBecomeAvailable
@@ -329,23 +323,23 @@ LABEL_9:
 
 - (BOOL)_haveAlarmsChanged:(id)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   lastDBSequenceToken = self->_lastDBSequenceToken;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __37___EKAlarmEngine__haveAlarmsChanged___block_invoke;
-  v11[3] = &unk_278D6F890;
-  v11[4] = &v12;
-  [changedCopy changesSinceSequenceToken:lastDBSequenceToken completion:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __37___EKAlarmEngine__haveAlarmsChanged___block_invoke;
+  v10[3] = &unk_278D6F890;
+  v10[4] = &v11;
+  [changedCopy changesSinceSequenceToken:lastDBSequenceToken completion:v10];
   v6 = +[CALNLogSubsystem alarmEngine];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    if (*(v13 + 24))
+    if (*(v12 + 24))
     {
       v7 = "YES";
     }
@@ -356,14 +350,13 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v17 = v7;
+    v16 = v7;
     _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Alarms may have changed: %s", buf, 0xCu);
   }
 
-  v8 = *(v13 + 24);
-  _Block_object_dispose(&v12, 8);
+  v8 = *(v12 + 24);
+  _Block_object_dispose(&v11, 8);
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
@@ -425,7 +418,7 @@ LABEL_9:
 
 - (BOOL)_populateAlarmTable:(id)table
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   tableCopy = table;
   populating = self->_populating;
   if (!populating)
@@ -449,10 +442,10 @@ LABEL_9:
     v11 = *MEMORY[0x277CF7A58];
     v12 = [standardUserDefaults2 persistentDomainForName:*MEMORY[0x277CF7A58]];
 
-    v63 = v12;
+    v62 = v12;
     if (v12)
     {
-      v59 = v11;
+      v58 = v11;
       v13 = *MEMORY[0x277CF7920];
       v14 = [v12 objectForKey:*MEMORY[0x277CF7920]];
       if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -462,7 +455,7 @@ LABEL_9:
         {
           v41 = objc_opt_class();
           *buf = 138412290;
-          v70 = v41;
+          v69 = v41;
           v42 = v41;
           _os_log_impl(&dword_242909000, v16, OS_LOG_TYPE_DEFAULT, "Time Zone Support pref is suspect (%@)", buf, 0xCu);
         }
@@ -485,28 +478,28 @@ LABEL_9:
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           v22 = MEMORY[0x245D1C8A0](v19);
-          v61 = tableCopy;
+          v60 = tableCopy;
           v23 = v22;
           v24 = MEMORY[0x245D1C8A0](v20);
           *buf = 138412802;
-          v70 = v22;
-          v71 = 2112;
-          v72 = v24;
-          v73 = 2112;
-          v74 = v17;
+          v69 = v22;
+          v70 = 2112;
+          v71 = v24;
+          v72 = 2112;
+          v73 = v17;
           v25 = v24;
           _os_log_impl(&dword_242909000, v21, OS_LOG_TYPE_DEFAULT, "Calendar TZ = %@; System TZ = %@; Time Zone Support = %@", buf, 0x20u);
 
-          tableCopy = v61;
+          tableCopy = v60;
         }
 
         CFRelease(v19);
         CFRelease(v20);
         populating = v18;
-        v12 = v63;
+        v12 = v62;
       }
 
-      v11 = v59;
+      v11 = v58;
     }
 
     p_lastCheckpoint = &self->_lastCheckpoint;
@@ -532,8 +525,8 @@ LABEL_9:
     v31 = [calSimulatedDateForNow3 dateByAddingTimeInterval:1296000.0];
     if ([*p_lastCheckpoint CalIsBeforeDate:v31])
     {
-      v57 = v30;
-      v58 = calSimulatedDateForNow3;
+      v56 = v30;
+      v57 = calSimulatedDateForNow3;
       v32 = +[CALNLogSubsystem alarmEngine];
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
@@ -543,15 +536,15 @@ LABEL_9:
         v36 = v35 = tableCopy;
         v37 = [v36 stringFromDate:v31];
         *buf = 138412546;
-        v70 = v34;
-        v71 = 2112;
-        v72 = v37;
+        v69 = v34;
+        v70 = 2112;
+        v71 = v37;
         _os_log_impl(&dword_242909000, v32, OS_LOG_TYPE_DEFAULT, "Searching for alarms between [%@] and [%@]", buf, 0x16u);
 
         tableCopy = v35;
       }
 
-      v60 = populating;
+      v59 = populating;
 
       CFPreferencesAppSynchronize(v11);
       v38 = CFPreferencesCopyAppValue(@"CalendarsExcludedFromNotifications", v11);
@@ -566,29 +559,29 @@ LABEL_9:
         v40 = 0;
       }
 
-      v62 = tableCopy;
+      v61 = tableCopy;
       v43 = [tableCopy calendarsForEntityType:{0, v31}];
       v44 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v43, "count")}];
+      v63 = 0u;
       v64 = 0u;
       v65 = 0u;
       v66 = 0u;
-      v67 = 0u;
       v45 = v43;
-      v46 = [v45 countByEnumeratingWithState:&v64 objects:v68 count:16];
+      v46 = [v45 countByEnumeratingWithState:&v63 objects:v67 count:16];
       if (v46)
       {
         v47 = v46;
-        v48 = *v65;
+        v48 = *v64;
         do
         {
           for (i = 0; i != v47; ++i)
           {
-            if (*v65 != v48)
+            if (*v64 != v48)
             {
               objc_enumerationMutation(v45);
             }
 
-            v50 = *(*(&v64 + 1) + 8 * i);
+            v50 = *(*(&v63 + 1) + 8 * i);
             calendarIdentifier = [v50 calendarIdentifier];
             v52 = [v40 containsObject:calendarIdentifier];
 
@@ -598,22 +591,22 @@ LABEL_9:
             }
           }
 
-          v47 = [v45 countByEnumeratingWithState:&v64 objects:v68 count:16];
+          v47 = [v45 countByEnumeratingWithState:&v63 objects:v67 count:16];
         }
 
         while (v47);
       }
 
-      tableCopy = v62;
-      alarmOccurrencesFromAlarmCache = [v62 alarmOccurrencesFromAlarmCache];
-      v31 = v56;
-      [(_EKAlarmEngine *)self _storeAlarms:alarmOccurrencesFromAlarmCache nextScheduleLimit:v56 eventStore:v62];
+      tableCopy = v61;
+      alarmOccurrencesFromAlarmCache = [v61 alarmOccurrencesFromAlarmCache];
+      v31 = v55;
+      [(_EKAlarmEngine *)self _storeAlarms:alarmOccurrencesFromAlarmCache nextScheduleLimit:v55 eventStore:v61];
       [(_EKAlarmEngine *)self _populateFinished];
 
-      populating = v60;
-      v12 = v63;
-      v30 = v57;
-      calSimulatedDateForNow3 = v58;
+      populating = v59;
+      v12 = v62;
+      v30 = v56;
+      calSimulatedDateForNow3 = v57;
     }
 
     else
@@ -622,13 +615,12 @@ LABEL_9:
     }
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return !populating;
 }
 
 - (void)_populateFinished
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   self->_populating = 0;
   v3 = +[CALNLogSubsystem alarmEngine];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -636,7 +628,7 @@ LABEL_9:
     calSimulatedDateForNow = [MEMORY[0x277CBEAA8] CalSimulatedDateForNow];
     [calSimulatedDateForNow timeIntervalSinceDate:self->_populateStart];
     *buf = 134217984;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Alarm Table populated in %f", buf, 0xCu);
   }
 
@@ -660,14 +652,6 @@ LABEL_9:
   block[3] = &unk_278D6F250;
   block[4] = self;
   dispatch_async(dispatchQueue, block);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_killTimer
-{
-  nextFireDate = self->_nextFireDate;
-  self->_nextFireDate = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (id)_dateFormatter
@@ -689,7 +673,7 @@ LABEL_9:
 
 - (void)_rescheduleTimer
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = +[CALNLogSubsystem alarmEngine];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -699,22 +683,22 @@ LABEL_9:
 
   [(_EKAlarmEngine *)self _killTimer];
   *buf = 0;
-  v20 = buf;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__5;
-  v23 = __Block_byref_object_dispose__5;
-  v24 = 0;
+  v19 = buf;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__5;
+  v22 = __Block_byref_object_dispose__5;
+  v23 = 0;
   v4 = +[EKSideTableContext sideTableContext];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __34___EKAlarmEngine__rescheduleTimer__block_invoke;
-  v15[3] = &unk_278D6F2C8;
-  v18 = buf;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __34___EKAlarmEngine__rescheduleTimer__block_invoke;
+  v14[3] = &unk_278D6F2C8;
+  v17 = buf;
   v5 = v4;
-  v16 = v5;
+  v15 = v5;
   selfCopy = self;
-  [v5 performBlockAndWait:v15];
-  v6 = *(v20 + 5);
+  [v5 performBlockAndWait:v14];
+  v6 = *(v19 + 5);
   if (v6)
   {
     v7 = [v6 copy];
@@ -725,21 +709,21 @@ LABEL_9:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = self->_nextFireDate;
-      *v25 = 138412290;
-      v26 = v10;
-      _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Set _nextFireDate to [%@]", v25, 0xCu);
+      *v24 = 138412290;
+      v25 = v10;
+      _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Set _nextFireDate to [%@]", v24, 0xCu);
     }
 
-    dateBySubtractingCalSimulatedOffset = [*(v20 + 5) dateBySubtractingCalSimulatedOffset];
+    dateBySubtractingCalSimulatedOffset = [*(v19 + 5) dateBySubtractingCalSimulatedOffset];
     v12 = +[CALNLogSubsystem alarmEngine];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(v20 + 5);
-      *v25 = 138412546;
-      v26 = v13;
-      v27 = 2112;
-      v28 = dateBySubtractingCalSimulatedOffset;
-      _os_log_impl(&dword_242909000, v12, OS_LOG_TYPE_DEFAULT, "Adjusted fire date from [%@] to [%@]", v25, 0x16u);
+      v13 = *(v19 + 5);
+      *v24 = 138412546;
+      v25 = v13;
+      v26 = 2112;
+      v27 = dateBySubtractingCalSimulatedOffset;
+      _os_log_impl(&dword_242909000, v12, OS_LOG_TYPE_DEFAULT, "Adjusted fire date from [%@] to [%@]", v24, 0x16u);
     }
 
     [(_EKAlarmEngine *)self _installTimerWithFireDate:dateBySubtractingCalSimulatedOffset];
@@ -750,28 +734,27 @@ LABEL_9:
     dateBySubtractingCalSimulatedOffset = +[CALNLogSubsystem alarmEngine];
     if (os_log_type_enabled(dateBySubtractingCalSimulatedOffset, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 136315394;
-      v26 = "[_EKAlarmEngine _rescheduleTimer]";
-      v27 = 2112;
-      v28 = v5;
-      _os_log_impl(&dword_242909000, dateBySubtractingCalSimulatedOffset, OS_LOG_TYPE_DEFAULT, "%s - refire date was nil and a new timer won't be scheduled, context was %@", v25, 0x16u);
+      *v24 = 136315394;
+      v25 = "[_EKAlarmEngine _rescheduleTimer]";
+      v26 = 2112;
+      v27 = v5;
+      _os_log_impl(&dword_242909000, dateBySubtractingCalSimulatedOffset, OS_LOG_TYPE_DEFAULT, "%s - refire date was nil and a new timer won't be scheduled, context was %@", v24, 0x16u);
     }
   }
 
   _Block_object_dispose(buf, 8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_installTimerWithFireDate:(id)date
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v4 = +[CALNLogSubsystem alarmEngine];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = dateCopy;
-    _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "Installing timer with fire date: [%@]", &v15, 0xCu);
+    v13 = 138412290;
+    v14 = dateCopy;
+    _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "Installing timer with fire date: [%@]", &v13, 0xCu);
   }
 
   [dateCopy timeIntervalSinceNow];
@@ -779,34 +762,32 @@ LABEL_9:
   v7 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_date(v7, *MEMORY[0x277CF7888], v6);
   xpc_dictionary_set_date(v7, "com.apple.calaccessd.alarmEngine.alarm.context.date", v6);
-  v8 = *MEMORY[0x277CF7880];
   xpc_set_event();
   if (_installTimerWithFireDate__onceToken != -1)
   {
     [_EKAlarmEngine _installTimerWithFireDate:];
   }
 
-  v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:(v6 / 0x3B9ACA00)];
-  v10 = [_installTimerWithFireDate__dateFormatter stringFromDate:v9];
-  v11 = +[CALNLogSubsystem alarmEngine];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:(v6 / 0x3B9ACA00)];
+  v9 = [_installTimerWithFireDate__dateFormatter stringFromDate:v8];
+  v10 = +[CALNLogSubsystem alarmEngine];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = v10;
-    _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_DEFAULT, "Formatted scheduled alarm trigger date: %@.", &v15, 0xCu);
+    v13 = 138412290;
+    v14 = v9;
+    _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Formatted scheduled alarm trigger date: %@.", &v13, 0xCu);
   }
 
-  v12 = MEMORY[0x245D1CF80](v7);
-  v13 = +[CALNLogSubsystem alarmEngine];
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v11 = MEMORY[0x245D1CF80](v7);
+  v12 = +[CALNLogSubsystem alarmEngine];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = v12;
-    _os_log_impl(&dword_242909000, v13, OS_LOG_TYPE_DEFAULT, "Scheduled XPC alarm event: %s.", &v15, 0xCu);
+    v13 = 136315138;
+    v14 = v11;
+    _os_log_impl(&dword_242909000, v12, OS_LOG_TYPE_DEFAULT, "Scheduled XPC alarm event: %s.", &v13, 0xCu);
   }
 
-  free(v12);
-  v14 = *MEMORY[0x277D85DE8];
+  free(v11);
 }
 
 - (void)_notifyAlarmsFired:(id)fired
@@ -826,7 +807,7 @@ LABEL_9:
 
 - (void)_timerFired
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = os_transaction_create();
   v4 = +[CALNLogSubsystem alarmEngine];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -856,28 +837,27 @@ LABEL_9:
   {
     nextFireDate = self->_nextFireDate;
     *buf = 138412546;
-    v22 = nextFireDate;
-    v23 = 2112;
-    v24 = v6;
+    v21 = nextFireDate;
+    v22 = 2112;
+    v23 = v6;
     _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Looking for alarms between %@ and %@", buf, 0x16u);
   }
 
   v12 = +[EKSideTableContext sideTableContext];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __29___EKAlarmEngine__timerFired__block_invoke;
-  v17[3] = &unk_278D6F318;
-  v18 = v12;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __29___EKAlarmEngine__timerFired__block_invoke;
+  v16[3] = &unk_278D6F318;
+  v17 = v12;
   selfCopy = self;
-  v20 = v6;
+  v19 = v6;
   v13 = v6;
   v14 = v12;
-  [v14 performBlockAndWait:v17];
+  [v14 performBlockAndWait:v16];
   v15 = self->_nextFireDate;
   self->_nextFireDate = 0;
 
   [(_EKAlarmEngine *)self _rescheduleTimer];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_alertInfoAlarmIDFromSideAlarm:(id)alarm
@@ -1070,9 +1050,9 @@ LABEL_9:
 
 - (void)_storeAlarms:(uint64_t)a3 nextScheduleLimit:(uint64_t)a4 eventStore:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_242909000, a1, a3, "%s - EKSideTableContext failed to be created, nothing will be stored", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_EKAlarmEngine _storeAlarms:nextScheduleLimit:eventStore:]";
+  OUTLINED_FUNCTION_0_0(&dword_242909000, a1, a3, "%s - EKSideTableContext failed to be created, nothing will be stored", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -17,19 +17,19 @@ void __42___ICTransientLexicon_addEntity_forEntry___block_invoke(uint64_t a1, vo
   [v5 addObject:v6];
 }
 
-void __49___ICTransientLexicon_TestingSupport__getEntries__block_invoke(uint64_t a1)
+void __49___ICTransientLexicon_TestingSupport__getEntries__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = LXEntryCopyString();
-  [v1 addObject:v2];
+  v2 = *(a1 + 32);
+  v3 = LXEntryCopyString();
+  [v2 addObject:v3];
 }
 
-void __42___ICTransientLexicon_sortKeyEquivalents___block_invoke(uint64_t a1)
+void __42___ICTransientLexicon_sortKeyEquivalents___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v3 = [_ICTransientLexicon _mutableNamedEntitiesForLXEntry:?];
-  v2 = [v3 allObjects];
-  [v1 addObjectsFromArray:v2];
+  v2 = *(a1 + 32);
+  v4 = [(_ICTransientLexicon *)*(a1 + 40) _mutableNamedEntitiesForLXEntry:a2];
+  v3 = [v4 allObjects];
+  [v2 addObjectsFromArray:v3];
 }
 
 @end

@@ -8,10 +8,10 @@
 {
   ObjectType = swift_getObjectType();
   v4 = OBJC_IVAR____TtC9JetEngine24ScenePhaseChangeObserver_multicastDelegate;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB438BC8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB438BC8, &unk_1AB4E0350);
   v5 = swift_allocObject();
   weakObjectsHashTable = [objc_opt_self() weakObjectsHashTable];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB436D10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB436D10, &unk_1AB4D63F0);
   v7 = swift_allocObject();
   *(v7 + 24) = 0;
   *(v7 + 16) = weakObjectsHashTable;

@@ -90,6 +90,7 @@
 - (void)_removeQueryFromPendingActivationQueries:(id)queries;
 - (void)_replaceWorkout:(id)workout withWorkout:(id)withWorkout completion:(id)completion;
 - (void)_saveObjects:(id)objects atomically:(BOOL)atomically skipInsertionFilter:(BOOL)filter completion:(id)completion;
+- (void)_sendNextObjectBatch:(id)batch skipInsertionFilter:(BOOL)filter lastRange:(_NSRange)range server:(id)server transaction:(id)transaction completion:(id)completion;
 - (void)_serverProxyWithHandler:(id)handler errorHandler:(id)errorHandler;
 - (void)_setBackgroundDeliveryFrequencyDataType:(id)type frequency:(int64_t)frequency withCompletion:(id)completion;
 - (void)_setMirroredWorkoutSessionObserverStateToEnabled:(BOOL)enabled handler:(id)handler;
@@ -159,6 +160,7 @@
 - (void)resumeWorkoutSession:(id)session;
 - (void)saveObject:(id)object withCompletion:(id)completion;
 - (void)saveObjects:(id)objects deleteObjects:(id)deleteObjects associations:(id)associations completion:(id)completion;
+- (void)saveObjects:(id)objects skipInsertionFilter:(BOOL)filter completion:(id)completion;
 - (void)saveObjects:(id)objects withCompletion:(id)completion;
 - (void)saveWorkoutZones:(id)zones completion:(id)completion;
 - (void)setAllHealthDataAccessForSiri:(int64_t)siri completion:(id)completion;
@@ -192,12 +194,12 @@
   bundleCopy = bundle;
   endpointCopy = endpoint;
   healthStoreConfiguration = [forCopy healthStoreConfiguration];
-  if (HKIsUnitTesting() && sharedCopy)
+  if (HKIsUnitTesting(healthStoreConfiguration, v15) && sharedCopy)
   {
     daemonLaunchDarwinNotificationName = [healthStoreConfiguration daemonLaunchDarwinNotificationName];
-    v16 = [daemonLaunchDarwinNotificationName hasSuffix:@".daemon.launch"];
+    v17 = [daemonLaunchDarwinNotificationName hasSuffix:@".daemon.launch"];
 
-    if ((v16 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
       goto LABEL_4;
     }
@@ -206,52 +208,52 @@ LABEL_8:
     v32 = createCopy;
     v33 = bundleCopy;
     os_unfair_lock_lock(&_cacheLock);
-    v19 = _gHealthStoreImplCache;
+    v20 = _gHealthStoreImplCache;
     if (!_gHealthStoreImplCache)
     {
       weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-      v21 = _gHealthStoreImplCache;
+      v22 = _gHealthStoreImplCache;
       _gHealthStoreImplCache = weakObjectsHashTable;
 
-      v19 = _gHealthStoreImplCache;
+      v20 = _gHealthStoreImplCache;
     }
 
-    [v19 allObjects];
+    [v20 allObjects];
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v22 = v37 = 0u;
-    v23 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
-    if (v23)
+    v23 = v37 = 0u;
+    v24 = [v23 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    if (v24)
     {
-      v24 = v23;
-      v25 = *v35;
+      v25 = v24;
+      v26 = *v35;
       while (2)
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v35 != v25)
+          if (*v35 != v26)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v23);
           }
 
-          v27 = *(*(&v34 + 1) + 8 * i);
-          healthStoreConfiguration2 = [v27 healthStoreConfiguration];
-          v29 = [healthStoreConfiguration isEqual:healthStoreConfiguration2];
+          v28 = *(*(&v34 + 1) + 8 * i);
+          healthStoreConfiguration2 = [v28 healthStoreConfiguration];
+          v30 = [healthStoreConfiguration isEqual:healthStoreConfiguration2];
 
-          if (v29)
+          if (v30)
           {
-            [v27[65] addObject:forCopy];
+            [v28[65] addObject:forCopy];
             os_unfair_lock_unlock(&_cacheLock);
-            v18 = v27;
+            v19 = v28;
 
             bundleCopy = v33;
             goto LABEL_21;
           }
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
-        if (v24)
+        v25 = [v23 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        if (v25)
         {
           continue;
         }
@@ -261,7 +263,7 @@ LABEL_8:
     }
 
     os_unfair_lock_unlock(&_cacheLock);
-    v17 = 1;
+    v18 = 1;
     bundleCopy = v33;
     if (v32)
     {
@@ -269,7 +271,7 @@ LABEL_8:
     }
 
 LABEL_19:
-    v18 = 0;
+    v19 = 0;
     goto LABEL_21;
   }
 
@@ -279,26 +281,24 @@ LABEL_19:
   }
 
 LABEL_4:
-  v17 = 0;
+  v18 = 0;
   if (!createCopy)
   {
     goto LABEL_19;
   }
 
 LABEL_5:
-  v18 = [[HKHealthStoreImplementation alloc] initWithHealthStore:forCopy sourceBundle:bundleCopy endpoint:endpointCopy];
-  if (v17)
+  v19 = [[HKHealthStoreImplementation alloc] initWithHealthStore:forCopy sourceBundle:bundleCopy endpoint:endpointCopy];
+  if (v18)
   {
     os_unfair_lock_lock(&_cacheLock);
-    [_gHealthStoreImplCache addObject:v18];
+    [_gHealthStoreImplCache addObject:v19];
     os_unfair_lock_unlock(&_cacheLock);
   }
 
 LABEL_21:
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v19;
 }
 
 + (void)unitTest_flushImplementationCache
@@ -390,14 +390,15 @@ void __72__HKHealthStoreImplementation_postNotificationNameToAllStores_userInfo_
   storeCopy = store;
   bundleCopy = bundle;
   endpointCopy = endpoint;
-  if (([objc_opt_class() isHealthDataAvailable] & 1) == 0)
+  isHealthDataAvailable = [objc_opt_class() isHealthDataAvailable];
+  if ((isHealthDataAvailable & 1) == 0)
   {
-    _HKInitializeLogging();
-    v11 = HKLogDefault;
+    _HKInitializeLogging(isHealthDataAvailable, v12);
+    v13 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "Health data is not available on this device", buf, 2u);
+      _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "Health data is not available on this device", buf, 2u);
     }
   }
 
@@ -405,104 +406,102 @@ void __72__HKHealthStoreImplementation_postNotificationNameToAllStores_userInfo_
   v58.receiver = self;
   v58.super_class = HKHealthStoreImplementation;
   initForHKHealthStoreImplementation = [(HKHealthStore *)&v58 initForHKHealthStoreImplementation];
-  v13 = initForHKHealthStoreImplementation;
+  v15 = initForHKHealthStoreImplementation;
   if (initForHKHealthStoreImplementation)
   {
     initForHKHealthStoreImplementation->_lock._os_unfair_lock_opaque = 0;
     initForHKHealthStoreImplementation->_storeKeeperLock._os_unfair_lock_opaque = 0;
     healthStoreConfiguration = [storeCopy healthStoreConfiguration];
-    objc_storeStrong(&v13->_sourceBundle, bundle);
+    objc_storeStrong(&v15->_sourceBundle, bundle);
     sourceBundleIdentifier = [healthStoreConfiguration sourceBundleIdentifier];
-    sourceBundleIdentifier = v13->_sourceBundleIdentifier;
-    v13->_sourceBundleIdentifier = sourceBundleIdentifier;
+    sourceBundleIdentifier = v15->_sourceBundleIdentifier;
+    v15->_sourceBundleIdentifier = sourceBundleIdentifier;
 
     debugIdentifier = [healthStoreConfiguration debugIdentifier];
-    debugIdentifier = v13->_debugIdentifier;
-    v13->_debugIdentifier = debugIdentifier;
+    debugIdentifier = v15->_debugIdentifier;
+    v15->_debugIdentifier = debugIdentifier;
 
     profileIdentifier = [healthStoreConfiguration profileIdentifier];
-    profileIdentifier = v13->_profileIdentifier;
-    v13->_profileIdentifier = profileIdentifier;
+    profileIdentifier = v15->_profileIdentifier;
+    v15->_profileIdentifier = profileIdentifier;
 
-    v21 = +[HKHealthStoreIdentifier primaryStoreIdentifier];
-    identifier = v13->_identifier;
-    v13->_identifier = v21;
+    v23 = +[HKHealthStoreIdentifier primaryStoreIdentifier];
+    identifier = v15->_identifier;
+    v15->_identifier = v23;
 
     applicationSDKVersionToken = [healthStoreConfiguration applicationSDKVersionToken];
-    v24 = 0;
-    v13->_applicationSDKVersionToken = applicationSDKVersionToken;
+    v26 = 0;
+    v15->_applicationSDKVersionToken = applicationSDKVersionToken;
     if (!endpointCopy)
     {
-      v24 = !+[HKHealthStore requireExplicitSystemMachServiceEnablement];
+      v26 = !+[HKHealthStore requireExplicitSystemMachServiceEnablement];
     }
 
-    v13->_canConnectToSystemMachService = v24;
-    v13->_isUsingSystemEndpoint = endpointCopy == 0;
+    v15->_canConnectToSystemMachService = v26;
+    v15->_isUsingSystemEndpoint = endpointCopy == 0;
     daemonLaunchDarwinNotificationName = [healthStoreConfiguration daemonLaunchDarwinNotificationName];
-    daemonLaunchDarwinNotificationName = v13->_daemonLaunchDarwinNotificationName;
-    v13->_daemonLaunchDarwinNotificationName = daemonLaunchDarwinNotificationName;
+    daemonLaunchDarwinNotificationName = v15->_daemonLaunchDarwinNotificationName;
+    v15->_daemonLaunchDarwinNotificationName = daemonLaunchDarwinNotificationName;
 
     writeAuthorizationUsageDescriptionOverride = [healthStoreConfiguration writeAuthorizationUsageDescriptionOverride];
-    writeAuthorizationUsageDescriptionOverride = v13->_writeAuthorizationUsageDescriptionOverride;
-    v13->_writeAuthorizationUsageDescriptionOverride = writeAuthorizationUsageDescriptionOverride;
+    writeAuthorizationUsageDescriptionOverride = v15->_writeAuthorizationUsageDescriptionOverride;
+    v15->_writeAuthorizationUsageDescriptionOverride = writeAuthorizationUsageDescriptionOverride;
 
     readAuthorizationUsageDescriptionOverride = [healthStoreConfiguration readAuthorizationUsageDescriptionOverride];
-    readAuthorizationUsageDescriptionOverride = v13->_readAuthorizationUsageDescriptionOverride;
-    v13->_readAuthorizationUsageDescriptionOverride = readAuthorizationUsageDescriptionOverride;
+    readAuthorizationUsageDescriptionOverride = v15->_readAuthorizationUsageDescriptionOverride;
+    v15->_readAuthorizationUsageDescriptionOverride = readAuthorizationUsageDescriptionOverride;
 
     clinicalReadAuthorizationUsageDescriptionOverride = [healthStoreConfiguration clinicalReadAuthorizationUsageDescriptionOverride];
-    clinicalReadAuthorizationUsageDescriptionOverride = v13->_clinicalReadAuthorizationUsageDescriptionOverride;
-    v13->_clinicalReadAuthorizationUsageDescriptionOverride = clinicalReadAuthorizationUsageDescriptionOverride;
+    clinicalReadAuthorizationUsageDescriptionOverride = v15->_clinicalReadAuthorizationUsageDescriptionOverride;
+    v15->_clinicalReadAuthorizationUsageDescriptionOverride = clinicalReadAuthorizationUsageDescriptionOverride;
 
     researchStudyUsageDescriptionOverride = [healthStoreConfiguration researchStudyUsageDescriptionOverride];
-    researchStudyUsageDescriptionOverride = v13->_researchStudyUsageDescriptionOverride;
-    v13->_researchStudyUsageDescriptionOverride = researchStudyUsageDescriptionOverride;
+    researchStudyUsageDescriptionOverride = v15->_researchStudyUsageDescriptionOverride;
+    v15->_researchStudyUsageDescriptionOverride = researchStudyUsageDescriptionOverride;
 
-    v35 = HKCreateSerialDispatchQueue(v13, @"connection");
-    connectionQueue = v13->_connectionQueue;
-    v13->_connectionQueue = v35;
+    v37 = HKCreateSerialDispatchQueue(v15, @"connection");
+    connectionQueue = v15->_connectionQueue;
+    v15->_connectionQueue = v37;
 
-    v37 = HKCreateSerialDispatchQueue(v13, @"client");
-    clientQueue = v13->_clientQueue;
-    v13->_clientQueue = v37;
+    v39 = HKCreateSerialDispatchQueue(v15, @"client");
+    clientQueue = v15->_clientQueue;
+    v15->_clientQueue = v39;
 
     weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-    weakStoreReferences = v13->_weakStoreReferences;
-    v13->_weakStoreReferences = weakObjectsHashTable;
+    weakStoreReferences = v15->_weakStoreReferences;
+    v15->_weakStoreReferences = weakObjectsHashTable;
 
-    [(NSHashTable *)v13->_weakStoreReferences addObject:storeCopy];
+    [(NSHashTable *)v15->_weakStoreReferences addObject:storeCopy];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    [defaultCenter addObserver:v13 selector:sel__applicationWillResignActive_ name:@"UIApplicationWillResignActiveNotification" object:0];
-    [defaultCenter addObserver:v13 selector:sel__applicationDidBecomeActive_ name:@"UIApplicationDidBecomeActiveNotification" object:0];
+    [defaultCenter addObserver:v15 selector:sel__applicationWillResignActive_ name:@"UIApplicationWillResignActiveNotification" object:0];
+    [defaultCenter addObserver:v15 selector:sel__applicationDidBecomeActive_ name:@"UIApplicationDidBecomeActiveNotification" object:0];
     v54 = storeCopy;
-    v42 = v13->_connectionQueue;
+    v44 = v15->_connectionQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __73__HKHealthStoreImplementation_initWithHealthStore_sourceBundle_endpoint___block_invoke;
     block[3] = &unk_1E7378400;
-    v43 = v13;
-    v56 = v43;
+    v45 = v15;
+    v56 = v45;
     v57 = endpointCopy;
-    dispatch_async(v42, block);
-    v44 = [HKHealthStoreConfiguration alloc];
-    v45 = v13->_sourceBundleIdentifier;
+    dispatch_async(v44, block);
+    v46 = [HKHealthStoreConfiguration alloc];
+    v47 = v15->_sourceBundleIdentifier;
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-    v47 = [mainBundle objectForInfoDictionaryKey:*MEMORY[0x1E695E500]];
-    v48 = v13->_writeAuthorizationUsageDescriptionOverride;
-    v49 = v13->_clinicalReadAuthorizationUsageDescriptionOverride;
-    v50 = v44;
+    v49 = [mainBundle objectForInfoDictionaryKey:*MEMORY[0x1E695E500]];
+    v50 = v46;
     storeCopy = v54;
-    v51 = [(HKHealthStoreConfiguration *)v50 initWithSourceBundleIdentifier:v45 sourceVersion:v47 debugIdentifier:v13->_debugIdentifier profileIdentifier:v13->_profileIdentifier applicationSDKVersionToken:v13->_applicationSDKVersionToken daemonLaunchDarwinNotificationName:v13->_daemonLaunchDarwinNotificationName writeAuthorizationUsageDescriptionOverride:v48 readAuthorizationUsageDescriptionOverride:v13->_readAuthorizationUsageDescriptionOverride clinicalReadAuthorizationUsageDescriptionOverride:v49 researchStudyUsageDescriptionOverride:v13->_researchStudyUsageDescriptionOverride];
-    configuration = v43->_configuration;
-    v43->_configuration = v51;
+    v51 = [(HKHealthStoreConfiguration *)v50 initWithSourceBundleIdentifier:v47 sourceVersion:v49 debugIdentifier:v15->_debugIdentifier profileIdentifier:v15->_profileIdentifier applicationSDKVersionToken:v15->_applicationSDKVersionToken daemonLaunchDarwinNotificationName:v15->_daemonLaunchDarwinNotificationName writeAuthorizationUsageDescriptionOverride:v15->_writeAuthorizationUsageDescriptionOverride readAuthorizationUsageDescriptionOverride:v15->_readAuthorizationUsageDescriptionOverride clinicalReadAuthorizationUsageDescriptionOverride:v15->_clinicalReadAuthorizationUsageDescriptionOverride researchStudyUsageDescriptionOverride:v15->_researchStudyUsageDescriptionOverride];
+    configuration = v45->_configuration;
+    v45->_configuration = v51;
   }
 
-  return v13;
+  return v15;
 }
 
 - (void)_faultIfInappropriateHost
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = +[_HKBehavior sharedBehavior];
   isAppleInternalInstall = [v2 isAppleInternalInstall];
 
@@ -515,52 +514,56 @@ void __72__HKHealthStoreImplementation_postNotificationNameToAllStores_userInfo_
 
     if (_faultIfInappropriateHost_isHealthd_0 == 1)
     {
-      _HKInitializeLogging();
-      v4 = HKLogInfrastructure();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      _HKInitializeLogging(v4, v5);
+      v8 = HKLogInfrastructure(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        [(HKHealthStoreImplementation *)v4 _faultIfInappropriateHost];
+        [(HKHealthStoreImplementation *)v8 _faultIfInappropriateHost];
       }
 
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
-      v14 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-      v6 = [callStackSymbols countByEnumeratingWithState:&v13 objects:v19 count:16];
-      if (v6)
+      v10 = [callStackSymbols countByEnumeratingWithState:&v17 objects:v23 count:16];
+      if (v10)
       {
-        v7 = v6;
-        v8 = *v14;
+        v12 = v10;
+        v13 = *v18;
         do
         {
-          for (i = 0; i != v7; ++i)
+          v14 = 0;
+          do
           {
-            if (*v14 != v8)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(callStackSymbols);
             }
 
-            v10 = *(*(&v13 + 1) + 8 * i);
-            _HKInitializeLogging();
-            v11 = HKLogDefault;
-            if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
+            v15 = *(*(&v17 + 1) + 8 * v14);
+            _HKInitializeLogging(v10, v11);
+            v16 = HKLogDefault;
+            v10 = os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR);
+            if (v10)
             {
               *buf = 138412290;
-              v18 = v10;
-              _os_log_error_impl(&dword_19197B000, v11, OS_LOG_TYPE_ERROR, "    %@", buf, 0xCu);
+              v22 = v15;
+              _os_log_error_impl(&dword_19197B000, v16, OS_LOG_TYPE_ERROR, "    %@", buf, 0xCu);
             }
+
+            ++v14;
           }
 
-          v7 = [callStackSymbols countByEnumeratingWithState:&v13 objects:v19 count:16];
+          while (v12 != v14);
+          v10 = [callStackSymbols countByEnumeratingWithState:&v17 objects:v23 count:16];
+          v12 = v10;
         }
 
-        while (v7);
+        while (v10);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __56__HKHealthStoreImplementation__faultIfInappropriateHost__block_invoke()
@@ -587,10 +590,10 @@ void __56__HKHealthStoreImplementation__faultIfInappropriateHost__block_invoke()
       v6 = [(_HKXPCConnection *)v5 initWithMachServiceName:@"com.apple.healthd.server" options:4096];
     }
 
-    v7 = v6;
+    v8 = v6;
     if (!v6)
     {
-      _HKInitializeLogging();
+      _HKInitializeLogging(0, v7);
       if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
       {
         [HKHealthStore _connectionQueue_setUpWithEndpoint:];
@@ -598,8 +601,8 @@ void __56__HKHealthStoreImplementation__faultIfInappropriateHost__block_invoke()
     }
 
     healthdConnection = self->_healthdConnection;
-    self->_healthdConnection = v7;
-    v9 = v7;
+    self->_healthdConnection = v8;
+    v10 = v8;
 
     [(_HKXPCConnection *)self->_healthdConnection setExportedObject:self];
     [(_HKXPCConnection *)self->_healthdConnection resume];
@@ -1297,30 +1300,28 @@ void __100__HKHealthStoreImplementation_fetchPluginServiceEndpointForIdentifier_
 {
   v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogDefault;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
+    v6 = *(a1 + 32);
     *buf = 138543618;
-    v14 = v5;
+    v14 = v6;
     v15 = 2114;
     v16 = v3;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for plugin service %{public}@: %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for plugin service %{public}@: %{public}@", buf, 0x16u);
   }
 
-  v6 = *(*(a1 + 40) + 304);
+  v7 = *(*(a1 + 40) + 304);
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __100__HKHealthStoreImplementation_fetchPluginServiceEndpointForIdentifier_endpointHandler_errorHandler___block_invoke_388;
   v10[3] = &unk_1E7376AC0;
-  v7 = *(a1 + 48);
+  v8 = *(a1 + 48);
   v11 = v3;
-  v12 = v7;
-  v8 = v3;
-  dispatch_async(v6, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = v8;
+  v9 = v3;
+  dispatch_async(v7, v10);
 }
 
 void __100__HKHealthStoreImplementation_fetchPluginServiceEndpointForIdentifier_endpointHandler_errorHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -1343,57 +1344,56 @@ void __100__HKHealthStoreImplementation_fetchPluginServiceEndpointForIdentifier_
 
 void __100__HKHealthStoreImplementation_fetchPluginServiceEndpointForIdentifier_endpointHandler_errorHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v5)
   {
-    v7 = *(*(a1 + 32) + 304);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __100__HKHealthStoreImplementation_fetchPluginServiceEndpointForIdentifier_endpointHandler_errorHandler___block_invoke_4;
-    v17[3] = &unk_1E7376AC0;
-    v8 = &v19;
-    v19 = *(a1 + 56);
-    v9 = &v18;
-    v18 = v5;
-    v10 = v17;
+    v9 = *(*(a1 + 32) + 304);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __100__HKHealthStoreImplementation_fetchPluginServiceEndpointForIdentifier_endpointHandler_errorHandler___block_invoke_4;
+    v18[3] = &unk_1E7376AC0;
+    v10 = &v20;
+    v20 = *(a1 + 56);
+    v11 = &v19;
+    v19 = v5;
+    v12 = v18;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v11 = HKLogDefault;
+    _HKInitializeLogging(v6, v7);
+    v13 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 40);
+      v14 = *(a1 + 40);
       *buf = 138543618;
-      v21 = v12;
-      v22 = 2114;
-      v23 = v6;
-      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for plugin %{public}@: %{public}@", buf, 0x16u);
+      v22 = v14;
+      v23 = 2114;
+      v24 = v8;
+      _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for plugin %{public}@: %{public}@", buf, 0x16u);
     }
 
-    if ([v6 hk_isXPCConnectionError])
+    if ([v8 hk_isXPCConnectionError])
     {
       [*(a1 + 32) _discardServerProxiesForServer:*(a1 + 48)];
     }
 
-    v7 = *(*(a1 + 32) + 304);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __100__HKHealthStoreImplementation_fetchPluginServiceEndpointForIdentifier_endpointHandler_errorHandler___block_invoke_389;
-    v14[3] = &unk_1E7376AC0;
-    v8 = &v16;
-    v16 = *(a1 + 64);
-    v9 = &v15;
-    v15 = v6;
-    v10 = v14;
+    v9 = *(*(a1 + 32) + 304);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __100__HKHealthStoreImplementation_fetchPluginServiceEndpointForIdentifier_endpointHandler_errorHandler___block_invoke_389;
+    v15[3] = &unk_1E7376AC0;
+    v10 = &v17;
+    v17 = *(a1 + 64);
+    v11 = &v16;
+    v16 = v8;
+    v12 = v15;
   }
 
-  dispatch_async(v7, v10);
-
-  v13 = *MEMORY[0x1E69E9840];
+  dispatch_async(v9, v12);
 }
 
 - (id)pluginServiceEndpointForIdentifier:(id)identifier error:(id *)error
@@ -1464,62 +1464,59 @@ void __72__HKHealthStoreImplementation_pluginServiceEndpointForIdentifier_error_
 {
   v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogDefault;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
+    v6 = *(a1 + 32);
     v9 = 138543618;
-    v10 = v5;
+    v10 = v6;
     v11 = 2114;
     v12 = v3;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for plugin service %{public}@: %{public}@", &v9, 0x16u);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for plugin service %{public}@: %{public}@", &v9, 0x16u);
   }
 
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v3;
 }
 
 void __72__HKHealthStoreImplementation_pluginServiceEndpointForIdentifier_error___block_invoke_392(uint64_t a1, void *a2, void *a3)
 {
   v4 = a2;
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
-    v8 = 56;
+    v10 = 56;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v9 = HKLogDefault;
+    _HKInitializeLogging(v7, v8);
+    v11 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
     {
-      v10 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v7;
-      _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for plugin %{public}@: %{public}@", &v12, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v9;
+      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for plugin %{public}@: %{public}@", &v13, 0x16u);
     }
 
-    if ([v7 hk_isXPCConnectionError])
+    if ([v9 hk_isXPCConnectionError])
     {
       [*(a1 + 40) _discardServerProxiesForServer:*(a1 + 48)];
     }
 
-    v8 = 64;
+    v10 = 64;
     v4 = a3;
   }
 
-  objc_storeStrong((*(*(a1 + v8) + 8) + 40), v4);
-
-  v11 = *MEMORY[0x1E69E9840];
+  objc_storeStrong((*(*(a1 + v10) + 8) + 40), v4);
 }
 
 - (void)fetchTaskServerEndpointForIdentifier:(id)identifier pluginURL:(id)l taskUUID:(id)d instanceUUID:(id)iD configuration:(id)configuration endpointHandler:(id)handler errorHandler:(id)errorHandler
@@ -1609,57 +1606,56 @@ void __143__HKHealthStoreImplementation_fetchTaskServerEndpointForIdentifier_plu
 
 void __143__HKHealthStoreImplementation_fetchTaskServerEndpointForIdentifier_pluginURL_taskUUID_instanceUUID_configuration_endpointHandler_errorHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v5)
   {
-    v7 = *(*(a1 + 32) + 304);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __143__HKHealthStoreImplementation_fetchTaskServerEndpointForIdentifier_pluginURL_taskUUID_instanceUUID_configuration_endpointHandler_errorHandler___block_invoke_3;
-    v17[3] = &unk_1E7376AC0;
-    v8 = &v19;
-    v19 = *(a1 + 56);
-    v9 = &v18;
-    v18 = v5;
-    v10 = v17;
+    v9 = *(*(a1 + 32) + 304);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __143__HKHealthStoreImplementation_fetchTaskServerEndpointForIdentifier_pluginURL_taskUUID_instanceUUID_configuration_endpointHandler_errorHandler___block_invoke_3;
+    v18[3] = &unk_1E7376AC0;
+    v10 = &v20;
+    v20 = *(a1 + 56);
+    v11 = &v19;
+    v19 = v5;
+    v12 = v18;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v11 = HKLogDefault;
+    _HKInitializeLogging(v6, v7);
+    v13 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 40);
+      v14 = *(a1 + 40);
       *buf = 138543618;
-      v21 = v12;
-      v22 = 2114;
-      v23 = v6;
-      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for task server %{public}@: %{public}@", buf, 0x16u);
+      v22 = v14;
+      v23 = 2114;
+      v24 = v8;
+      _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for task server %{public}@: %{public}@", buf, 0x16u);
     }
 
-    if ([v6 hk_isXPCConnectionError])
+    if ([v8 hk_isXPCConnectionError])
     {
       [*(a1 + 32) _discardServerProxiesForServer:*(a1 + 48)];
     }
 
-    v7 = *(*(a1 + 32) + 304);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __143__HKHealthStoreImplementation_fetchTaskServerEndpointForIdentifier_pluginURL_taskUUID_instanceUUID_configuration_endpointHandler_errorHandler___block_invoke_394;
-    v14[3] = &unk_1E7376AC0;
-    v8 = &v16;
-    v16 = *(a1 + 64);
-    v9 = &v15;
-    v15 = v6;
-    v10 = v14;
+    v9 = *(*(a1 + 32) + 304);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __143__HKHealthStoreImplementation_fetchTaskServerEndpointForIdentifier_pluginURL_taskUUID_instanceUUID_configuration_endpointHandler_errorHandler___block_invoke_394;
+    v15[3] = &unk_1E7376AC0;
+    v10 = &v17;
+    v17 = *(a1 + 64);
+    v11 = &v16;
+    v16 = v8;
+    v12 = v15;
   }
 
-  dispatch_async(v7, v10);
-
-  v13 = *MEMORY[0x1E69E9840];
+  dispatch_async(v9, v12);
 }
 
 - (id)taskServerEndpointForIdentifier:(id)identifier pluginURL:(id)l taskUUID:(id)d instanceUUID:(id)iD configuration:(id)configuration error:(id *)error
@@ -1731,40 +1727,39 @@ void __143__HKHealthStoreImplementation_fetchTaskServerEndpointForIdentifier_plu
 void __115__HKHealthStoreImplementation_taskServerEndpointForIdentifier_pluginURL_taskUUID_instanceUUID_configuration_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v4 = a2;
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v6)
   {
-    v8 = 56;
+    v10 = 56;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v9 = HKLogDefault;
+    _HKInitializeLogging(v7, v8);
+    v11 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
     {
-      v10 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v7;
-      _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for task server %{public}@: %{public}@", &v12, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v9;
+      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "Failed to fetch endpoint for task server %{public}@: %{public}@", &v13, 0x16u);
     }
 
-    if ([v7 hk_isXPCConnectionError])
+    if ([v9 hk_isXPCConnectionError])
     {
       [*(a1 + 40) _discardServerProxiesForServer:*(a1 + 48)];
     }
 
-    v8 = 64;
+    v10 = 64;
     v4 = a3;
   }
 
-  objc_storeStrong((*(*(a1 + v8) + 8) + 40), v4);
-
-  v11 = *MEMORY[0x1E69E9840];
+  objc_storeStrong((*(*(a1 + v10) + 8) + 40), v4);
 }
 
 - (void)deleteAllSamplesWithTypes:(id)types sourceBundleIdentifier:(id)identifier options:(unint64_t)options completion:(id)completion
@@ -1854,37 +1849,35 @@ void __115__HKHealthStoreImplementation_taskServerEndpointForIdentifier_pluginUR
   dsCopy = ds;
   dCopy = d;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v11 = HKLogDefault;
+  _HKInitializeLogging(completionCopy, v11);
+  v12 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
   {
-    v12 = v11;
+    v13 = v12;
     *buf = 134218242;
     v25 = [dsCopy count];
     v26 = 2114;
     v27 = dCopy;
-    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_INFO, "Associating %llu samples to sample %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_INFO, "Associating %llu samples to sample %{public}@", buf, 0x16u);
   }
 
-  v13 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
+  v14 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
   v20[2] = __78__HKHealthStoreImplementation_associateSampleUUIDs_withSampleUUID_completion___block_invoke;
   v20[3] = &unk_1E73788D8;
   v21 = dsCopy;
   v22 = dCopy;
-  v23 = v13;
+  v23 = v14;
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
   v18[2] = __78__HKHealthStoreImplementation_associateSampleUUIDs_withSampleUUID_completion___block_invoke_2;
   v18[3] = &unk_1E7376960;
   v19 = v23;
-  v14 = v23;
-  v15 = dCopy;
-  v16 = dsCopy;
+  v15 = v23;
+  v16 = dCopy;
+  v17 = dsCopy;
   [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v20 errorHandler:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveObjects:(id)objects deleteObjects:(id)deleteObjects associations:(id)associations completion:(id)completion
@@ -1983,32 +1976,31 @@ LABEL_3:
 
 void __83__HKHealthStoreImplementation_recalibrateEstimatesForSampleType_atDate_completion___block_invoke(void *a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogAuthorization();
-  v7 = v6;
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogAuthorization(v7, v8);
+  v10 = v9;
   if (a2)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = a1[4];
-      v9 = a1[5];
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "Finished recalibrate estimates request for %@ effective %@", &v11, 0x16u);
+      v11 = a1[4];
+      v12 = a1[5];
+      v13 = 138412546;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "Finished recalibrate estimates request for %@ effective %@", &v13, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __69__HKHealthStore_recalibrateEstimatesForSampleType_atDate_completion___block_invoke_cold_1(a1);
+    __69__HKHealthStore_recalibrateEstimatesForSampleType_atDate_completion___block_invoke_cold_1();
   }
 
   (*(a1[6] + 16))();
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clientRemote_presentRecalibrateEstimatesRequestWithRecord:(id)record completion:(id)completion
@@ -2047,7 +2039,7 @@ void __100__HKHealthStoreImplementation_clientRemote_presentRecalibrateEstimates
     v4 = @"Cannot present recalibrate estimates prompt from an app extension.";
     v5 = 3;
 LABEL_3:
-    v14 = [v3 hk_error:v5 description:v4];
+    WeakRetained = [v3 hk_error:v5 description:v4];
     (*(v2 + 16))(v2, 0);
     goto LABEL_7;
   }
@@ -2075,8 +2067,6 @@ LABEL_3:
 
   v11 = a1[5];
   WeakRetained = objc_loadWeakRetained((v6 + 544));
-  v13 = a1[6];
-  v14 = WeakRetained;
   [v7 presentWithRequestRecord:v11 authorizationViewControllerPresenter:? completion:?];
 LABEL_7:
 }
@@ -2123,6 +2113,7 @@ LABEL_7:
 void __58__HKHealthStoreImplementation_authorizationStatusForType___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
     *(*(*(a1 + 32) + 8) + 24) = [a2 integerValue];
@@ -2131,9 +2122,9 @@ void __58__HKHealthStoreImplementation_authorizationStatusForType___block_invoke
   else
   {
     *(*(*(a1 + 32) + 8) + 24) = 0;
-    _HKInitializeLogging();
-    v6 = HKLogAuthorization();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v5, v6);
+    v10 = HKLogAuthorization(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __44__HKHealthStore_authorizationStatusForType___block_invoke_cold_1();
     }
@@ -2181,101 +2172,97 @@ void __58__HKHealthStoreImplementation_authorizationStatusForType___block_invoke
 
 - (void)requestPerObjectReadAuthorizationForType:(id)type predicate:(id)predicate completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   predicateCopy = predicate;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v11 = HKLogAuthorization();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(completionCopy, v11);
+  v14 = HKLogAuthorization(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = typeCopy;
-    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "Requesting per-object authorization to read %@", buf, 0xCu);
+    v34 = typeCopy;
+    _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "Requesting per-object authorization to read %@", buf, 0xCu);
   }
 
   [(HKHealthStoreImplementation *)self _throwIfPerObjectReadAuthorizationNotSupportedForType:typeCopy];
   [(HKHealthStoreImplementation *)self _validatePurposeStringsForObjectType:typeCopy];
-  v12 = +[_HKBehavior sharedBehavior];
-  isAppleWatch = [v12 isAppleWatch];
+  v15 = +[_HKBehavior sharedBehavior];
+  isAppleWatch = [v15 isAppleWatch];
 
   if (isAppleWatch)
   {
-    v14 = [MEMORY[0x1E696ABC0] hk_error:2 description:@"Per-object authorization presentation is not supported on this device"];
-    completionCopy[2](completionCopy, 0, v14);
+    v17 = [MEMORY[0x1E696ABC0] hk_error:2 description:@"Per-object authorization presentation is not supported on this device"];
+    completionCopy[2](completionCopy, 0, v17);
   }
 
   else
   {
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __93__HKHealthStoreImplementation_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke;
-    v27[3] = &unk_1E7378928;
-    v15 = typeCopy;
-    v28 = v15;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __93__HKHealthStoreImplementation_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke;
+    v29[3] = &unk_1E7378928;
+    v18 = typeCopy;
+    v30 = v18;
     selfCopy = self;
-    v30 = completionCopy;
-    v16 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:v27];
-    v17 = [MEMORY[0x1E695DFD8] setWithObject:v15];
-    v18 = [predicateCopy hk_filterRepresentationForDataTypes:v17];
+    v32 = completionCopy;
+    v19 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:v29];
+    v20 = [MEMORY[0x1E695DFD8] setWithObject:v18];
+    v21 = [predicateCopy hk_filterRepresentationForDataTypes:v20];
 
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __93__HKHealthStoreImplementation_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke_432;
+    v25[3] = &unk_1E73788D8;
+    v26 = v18;
+    v27 = v21;
+    v28 = v19;
     v23[0] = MEMORY[0x1E69E9820];
     v23[1] = 3221225472;
-    v23[2] = __93__HKHealthStoreImplementation_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke_432;
-    v23[3] = &unk_1E73788D8;
-    v24 = v15;
-    v25 = v18;
-    v26 = v16;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __93__HKHealthStoreImplementation_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke_2;
-    v21[3] = &unk_1E7376960;
-    completionCopy = v26;
-    v22 = completionCopy;
-    v19 = v18;
-    [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v23 errorHandler:v21];
+    v23[2] = __93__HKHealthStoreImplementation_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke_2;
+    v23[3] = &unk_1E7376960;
+    completionCopy = v28;
+    v24 = completionCopy;
+    v22 = v21;
+    [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v25 errorHandler:v23];
 
-    v14 = v28;
+    v17 = v30;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __93__HKHealthStoreImplementation_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogAuthorization();
-  v7 = v6;
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogAuthorization(v7, v8);
+  v10 = v9;
   if (a2)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = a1[4];
-      v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "Finished authorization request to read %@", &v13, 0xCu);
+      v11 = a1[4];
+      v15 = 138412290;
+      v16 = v11;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "Finished authorization request to read %@", &v15, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __79__HKHealthStore_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke_cold_1(a1);
+    __79__HKHealthStore_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke_cold_1();
   }
 
   [*(a1[5] + 376) cancelPresentation];
-  v9 = a1[5];
-  v10 = *(v9 + 376);
-  *(v9 + 376) = 0;
+  v12 = a1[5];
+  v13 = *(v12 + 376);
+  *(v12 + 376) = 0;
 
-  v11 = a1[6];
-  if (v11)
+  v14 = a1[6];
+  if (v14)
   {
-    (*(v11 + 16))(v11, a2, v5);
+    (*(v14 + 16))(v14, a2, v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __93__HKHealthStoreImplementation_requestPerObjectReadAuthorizationForType_predicate_completion___block_invoke_432(void *a1, void *a2)
@@ -2326,156 +2313,152 @@ void __93__HKHealthStoreImplementation_requestPerObjectReadAuthorizationForType_
   v7 = [neededCopy containsObject:v5];
   if (v6 == v7)
   {
-    v10 = neededCopy;
+    v13 = neededCopy;
   }
 
   else
   {
-    v8 = v7;
-    _HKInitializeLogging();
-    v9 = HKLogAuthorization();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v9 = v7;
+    _HKInitializeLogging(v7, v8);
+    v12 = HKLogAuthorization(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(HKHealthStore *)v6 _typesWithBothBloodPressureIfNeeded:v8, v9];
+      [(HKHealthStore *)v6 _typesWithBothBloodPressureIfNeeded:v9, v12];
     }
 
-    v10 = [MEMORY[0x1E695DFA8] setWithSet:neededCopy];
-    [v10 addObject:v4];
-    [v10 addObject:v5];
+    v13 = [MEMORY[0x1E695DFA8] setWithSet:neededCopy];
+    [v13 addObject:v4];
+    [v13 addObject:v5];
   }
 
-  return v10;
+  return v13;
 }
 
 - (void)requestAuthorizationToShareTypes:(id)types readTypes:(id)readTypes shouldPrompt:(BOOL)prompt completion:(id)completion
 {
   promptCopy = prompt;
-  v45 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   readTypesCopy = readTypes;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v13 = HKLogAuthorization();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(completionCopy, v13);
+  v16 = HKLogAuthorization(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     if (promptCopy)
     {
-      v14 = "prompting";
+      v17 = "prompting";
     }
 
     else
     {
-      v14 = "silent";
+      v17 = "silent";
     }
 
     allObjects = [typesCopy allObjects];
     allObjects2 = [readTypesCopy allObjects];
     *buf = 136315650;
-    v40 = v14;
-    v41 = 2112;
-    v42 = allObjects;
+    v42 = v17;
     v43 = 2112;
-    v44 = allObjects2;
-    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "Requesting %s authorization to share %@, read %@", buf, 0x20u);
+    v44 = allObjects;
+    v45 = 2112;
+    v46 = allObjects2;
+    _os_log_impl(&dword_19197B000, v16, OS_LOG_TYPE_DEFAULT, "Requesting %s authorization to share %@, read %@", buf, 0x20u);
   }
 
-  v17 = [(HKHealthStoreImplementation *)self _typesWithBothBloodPressureIfNeeded:typesCopy];
+  v20 = [(HKHealthStoreImplementation *)self _typesWithBothBloodPressureIfNeeded:typesCopy];
 
-  v18 = [(HKHealthStoreImplementation *)self _typesWithBothBloodPressureIfNeeded:readTypesCopy];
+  v21 = [(HKHealthStoreImplementation *)self _typesWithBothBloodPressureIfNeeded:readTypesCopy];
 
-  [(HKHealthStoreImplementation *)self _validateAuthorizationRequestWithShareTypes:v17 readTypes:v18];
-  [(HKHealthStoreImplementation *)self _validatePurposeStringsForSharingTypes:v17 readingTypes:v18];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __98__HKHealthStoreImplementation_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke;
-  v33[3] = &unk_1E7378A18;
-  v38 = promptCopy;
-  v19 = v17;
-  v34 = v19;
-  v20 = v18;
-  v35 = v20;
+  [(HKHealthStoreImplementation *)self _validateAuthorizationRequestWithShareTypes:v20 readTypes:v21];
+  [(HKHealthStoreImplementation *)self _validatePurposeStringsForSharingTypes:v20 readingTypes:v21];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __98__HKHealthStoreImplementation_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke;
+  v35[3] = &unk_1E7378A18;
+  v40 = promptCopy;
+  v22 = v20;
+  v36 = v22;
+  v23 = v21;
+  v37 = v23;
   selfCopy = self;
-  v37 = completionCopy;
-  v21 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:v33];
+  v39 = completionCopy;
+  v24 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:v35];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __98__HKHealthStoreImplementation_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_440;
+  v30[3] = &unk_1E7378A40;
+  v31 = v22;
+  v32 = v23;
+  v34 = promptCopy;
+  v33 = v24;
   v28[0] = MEMORY[0x1E69E9820];
   v28[1] = 3221225472;
-  v28[2] = __98__HKHealthStoreImplementation_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_440;
-  v28[3] = &unk_1E7378A40;
-  v29 = v19;
-  v30 = v20;
-  v32 = promptCopy;
-  v31 = v21;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __98__HKHealthStoreImplementation_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_2;
-  v26[3] = &unk_1E7376960;
-  v27 = v31;
-  v22 = v31;
-  v23 = v20;
-  v24 = v19;
-  [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v28 errorHandler:v26];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v28[2] = __98__HKHealthStoreImplementation_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_2;
+  v28[3] = &unk_1E7376960;
+  v29 = v33;
+  v25 = v33;
+  v26 = v23;
+  v27 = v22;
+  [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v30 errorHandler:v28];
 }
 
 void __98__HKHealthStoreImplementation_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogAuthorization();
-  v7 = v6;
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogAuthorization(v7, v8);
+  v10 = v9;
   if (a2)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       if (*(a1 + 64))
       {
-        v8 = "prompting";
+        v11 = "prompting";
       }
 
       else
       {
-        v8 = "silent";
+        v11 = "silent";
       }
 
-      v9 = [*(a1 + 32) allObjects];
-      v10 = [*(a1 + 40) allObjects];
-      v15 = 136315650;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
+      v12 = [*(a1 + 32) allObjects];
+      v13 = [*(a1 + 40) allObjects];
+      v17 = 136315650;
+      v18 = v11;
       v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "Finished %s authorization request to share %@, read %@", &v15, 0x20u);
+      v20 = v12;
+      v21 = 2112;
+      v22 = v13;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "Finished %s authorization request to share %@, read %@", &v17, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __84__HKHealthStore_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_cold_1(a1, v5, v7);
+    __84__HKHealthStore_requestAuthorizationToShareTypes_readTypes_shouldPrompt_completion___block_invoke_cold_1(a1, v5, v10);
   }
 
   if (*(a1 + 64) == 1)
   {
     [*(*(a1 + 48) + 376) cancelPresentation];
-    v11 = *(a1 + 48);
-    v12 = *(v11 + 376);
-    *(v11 + 376) = 0;
+    v14 = *(a1 + 48);
+    v15 = *(v14 + 376);
+    *(v14 + 376) = 0;
   }
 
-  v13 = *(a1 + 56);
-  if (v13)
+  v16 = *(a1 + 56);
+  if (v16)
   {
-    (*(v13 + 16))(v13, a2, v5);
+    (*(v16 + 16))(v16, a2, v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_validateAuthorizationRequiredTypes
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = +[HKClinicalType allTypes];
   v4 = [v3 hk_map:&__block_literal_global_444];
 
@@ -2487,74 +2470,73 @@ void __98__HKHealthStoreImplementation_requestAuthorizationToShareTypes_readType
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"Apps that specify required read authorization types (NSHealthRequiredReadAuthorizationTypeIdentifiers) must specify at least three clinical record types."];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     v11 = *MEMORY[0x1E695D940];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         if (([v4 containsObject:v13] & 1) == 0)
         {
           v14 = MEMORY[0x1E695DF30];
           v15 = [v4 componentsJoinedByString:{@", "}];
-          [v14 raise:v11 format:{@"%@ is not a valid required clinical record type. Must be one of: %@", v13, v15, v17}];
+          [v14 raise:v11 format:{@"%@ is not a valid required clinical record type. Must be one of: %@", v13, v15, v16}];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_validatePurposeStringsForSharingTypes:(id)types readingTypes:(id)readingTypes
 {
   typesCopy = types;
   readingTypesCopy = readingTypes;
-  v18 = 0;
-  v8 = [_HKEntitlements entitlementsForCurrentTaskWithError:&v18];
-  v9 = v18;
+  v22 = 0;
+  v8 = [_HKEntitlements entitlementsForCurrentTaskWithError:&v22];
+  v9 = v22;
+  v11 = v9;
   if (!v8)
   {
-    _HKInitializeLogging();
-    v10 = HKLogAuthorization();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v9, v10);
+    v14 = HKLogAuthorization(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [HKHealthStore _validatePurposeStringsForSharingTypes:readingTypes:];
     }
   }
 
-  v11 = [v8 hasEntitlement:@"com.apple.private.healthkit.authorization_bypass"];
+  v15 = [v8 hasEntitlement:@"com.apple.private.healthkit.authorization_bypass"];
   typesForWriteAuthorizationOverride = [v8 typesForWriteAuthorizationOverride];
-  v13 = [typesForWriteAuthorizationOverride count];
+  v17 = [typesForWriteAuthorizationOverride count];
 
   typesForReadAuthorizationOverride = [v8 typesForReadAuthorizationOverride];
-  v15 = [typesForReadAuthorizationOverride count];
+  v19 = [typesForReadAuthorizationOverride count];
 
-  v16 = [v8 hasEntitlement:@"com.apple.private.healthkit.source.research-study"];
-  if ((v11 & 1) == 0 && !v13 && !v15)
+  v20 = [v8 hasEntitlement:@"com.apple.private.healthkit.source.research-study"];
+  if ((v15 & 1) == 0 && !v17 && !v19)
   {
-    v17 = v16;
+    v21 = v20;
     [(HKHealthStoreImplementation *)self _validateClinicalHealthRecordsPurposeStringsForSharingTypes:typesCopy readingTypes:readingTypesCopy];
-    [(HKHealthStoreImplementation *)self _validateHealthDataPurposeStringsForSharingTypes:typesCopy readingTypes:readingTypesCopy isResearchStudy:v17];
+    [(HKHealthStoreImplementation *)self _validateHealthDataPurposeStringsForSharingTypes:typesCopy readingTypes:readingTypesCopy isResearchStudy:v21];
   }
 }
 
@@ -2742,28 +2724,28 @@ LABEL_27:
 - (void)handleAuthorizationForExtensionWithCompletion:(id)completion
 {
   completionCopy = completion;
-  _HKInitializeLogging();
-  v5 = HKLogDefault;
+  _HKInitializeLogging(completionCopy, v5);
+  v6 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "Handling authorization for extension", buf, 2u);
+    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "Handling authorization for extension", buf, 2u);
   }
 
-  v6 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
+  v7 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __77__HKHealthStoreImplementation_handleAuthorizationForExtensionWithCompletion___block_invoke;
-  v10[3] = &unk_1E73788B0;
-  v11 = v6;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __77__HKHealthStoreImplementation_handleAuthorizationForExtensionWithCompletion___block_invoke_2;
-  v8[3] = &unk_1E7376960;
-  v9 = v11;
-  v7 = v11;
-  [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v10 errorHandler:v8];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __77__HKHealthStoreImplementation_handleAuthorizationForExtensionWithCompletion___block_invoke;
+  v11[3] = &unk_1E73788B0;
+  v12 = v7;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __77__HKHealthStoreImplementation_handleAuthorizationForExtensionWithCompletion___block_invoke_2;
+  v9[3] = &unk_1E7376960;
+  v10 = v12;
+  v8 = v12;
+  [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v11 errorHandler:v9];
 }
 
 - (void)_throwIfAuthorizationDisallowedForSharing:(BOOL)sharing types:(id)types
@@ -2833,17 +2815,17 @@ LABEL_12:
 - (void)_throwIfParentTypeNotRequestedForSharing:(BOOL)sharing types:(id)types
 {
   sharingCopy = sharing;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   typesCopy = types;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v6 = [typesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [typesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     v9 = *MEMORY[0x1E695D940];
     if (sharingCopy)
     {
@@ -2859,12 +2841,12 @@ LABEL_12:
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(typesCopy);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         parentType = [v12 parentType];
         if (parentType)
         {
@@ -2881,13 +2863,11 @@ LABEL_12:
         }
       }
 
-      v7 = [typesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [typesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_throwIfPerObjectReadAuthorizationNotSupportedForType:(id)type
@@ -3069,7 +3049,7 @@ void __94__HKHealthStoreImplementation_endAuthorizationDelegateTransactionWithSe
 void __94__HKHealthStoreImplementation_endAuthorizationDelegateTransactionWithSessionIdentifier_error___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
   {
     __80__HKHealthStore_endAuthorizationDelegateTransactionWithSessionIdentifier_error___block_invoke_3_cold_1();
@@ -3295,53 +3275,50 @@ uint64_t __87__HKHealthStoreImplementation_clientRemote_presentAuthorizationWith
   v2 = *(*(a1 + 32) + 536);
   if (v2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 48);
-    v5 = *(v2 + 16);
+    v3 = *(v2 + 16);
 
-    return v5();
+    return v3();
   }
 
   if (_HKCurrentTaskIsAppExtension())
   {
-    v7 = *(a1 + 32);
-    v8 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 56) format:@"Cannot present document authorization prompt from app extension."];
+    v5 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 56) format:@"Cannot present document authorization prompt from app extension."];
   }
 
   else
   {
-    if (*(*(a1 + 32) + 384) || (_HKCreateObjectPickerPresentationController(), v10 = objc_claimAutoreleasedReturnValue(), v11 = *(a1 + 32), v12 = *(v11 + 384), *(v11 + 384) = v10, v12, *(*(a1 + 32) + 384)))
+    if (*(*(a1 + 32) + 384) || (_HKCreateObjectPickerPresentationController(), v7 = objc_claimAutoreleasedReturnValue(), v8 = *(a1 + 32), v9 = *(v8 + 384), *(v8 + 384) = v7, v9, *(*(a1 + 32) + 384)))
     {
-      v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v14 = [*(a1 + 32) _perObjectAuthorizationPresentationRequestForSession:*(a1 + 40)];
-      if (v14)
+      v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v11 = [*(a1 + 32) _perObjectAuthorizationPresentationRequestForSession:*(a1 + 40)];
+      if (v11)
       {
-        [v13 addObject:v14];
+        [v10 addObject:v11];
       }
 
-      v15 = *(a1 + 32);
-      v16 = *(a1 + 40);
-      v17 = *(v15 + 384);
-      WeakRetained = objc_loadWeakRetained((v15 + 544));
-      [v17 presentWithSession:v16 presentationRequests:v13 authorizationViewControllerPresenter:WeakRetained completion:*(a1 + 48)];
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v14 = *(v12 + 384);
+      WeakRetained = objc_loadWeakRetained((v12 + 544));
+      [v14 presentWithSession:v13 presentationRequests:v10 authorizationViewControllerPresenter:WeakRetained completion:*(a1 + 48)];
 
       goto LABEL_16;
     }
 
-    v8 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"Failed to create document authorization presentation controller"];
+    v5 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"Failed to create document authorization presentation controller"];
   }
 
-  v9 = *(a1 + 48);
-  if (v9)
+  v6 = *(a1 + 48);
+  if (v6)
   {
-    if (v8)
+    if (v5)
     {
-      (*(v9 + 16))(v9, 0);
+      (*(v6 + 16))(v6, 0);
       goto LABEL_17;
     }
 
-    v13 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"Unknown error"];
-    (*(v9 + 16))(v9, 0, v13);
+    v10 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"Unknown error"];
+    (*(v6 + 16))(v6, 0, v10);
 LABEL_16:
   }
 
@@ -3361,15 +3338,14 @@ LABEL_17:
 
 - (void)saveObject:(id)object withCompletion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   v6 = MEMORY[0x1E695DEC8];
   completionCopy = completion;
   objectCopy2 = object;
   v9 = [v6 arrayWithObjects:&objectCopy count:1];
 
-  [(HKHealthStoreImplementation *)self saveObjects:v9 withCompletion:completionCopy, objectCopy, v12];
-  v10 = *MEMORY[0x1E69E9840];
+  [(HKHealthStoreImplementation *)self saveObjects:v9 withCompletion:completionCopy, objectCopy, v11];
 }
 
 - (void)saveObjects:(id)objects withCompletion:(id)completion
@@ -3384,22 +3360,22 @@ LABEL_17:
   v29 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v12 = HKLogDefault;
+  _HKInitializeLogging(completionCopy, v12);
+  v13 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v12;
+    v14 = v13;
     *buf = 134217984;
     v28 = [objectsCopy count];
-    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "Saving %lu objects", buf, 0xCu);
+    _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "Saving %lu objects", buf, 0xCu);
   }
 
-  v14 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
+  v15 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
 
   v26 = 0;
-  v15 = [(HKHealthStoreImplementation *)self _prepareObjectsForSaving:objectsCopy errorOut:&v26];
-  v16 = v26;
-  if (v15)
+  v16 = [(HKHealthStoreImplementation *)self _prepareObjectsForSaving:objectsCopy errorOut:&v26];
+  v17 = v26;
+  if (v16)
   {
     v20[0] = MEMORY[0x1E69E9820];
     v20[1] = 3221225472;
@@ -3409,7 +3385,7 @@ LABEL_17:
     v21 = objectsCopy;
     filterCopy = filter;
     selfCopy = self;
-    v23 = v14;
+    v23 = v15;
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __86__HKHealthStoreImplementation__saveObjects_atomically_skipInsertionFilter_completion___block_invoke_2;
@@ -3420,10 +3396,8 @@ LABEL_17:
 
   else
   {
-    (v14)[2](v14, 0, v16);
+    (v15)[2](v15, 0, v17);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __86__HKHealthStoreImplementation__saveObjects_atomically_skipInsertionFilter_completion___block_invoke(uint64_t a1, void *a2)
@@ -3438,6 +3412,56 @@ uint64_t __86__HKHealthStoreImplementation__saveObjects_atomically_skipInsertion
   v5 = *(a1 + 48);
 
   return [a2 remote_saveDataObjects:v3 skipInsertionFilter:v4 creationDateOverride:0 handler:v5];
+}
+
+- (void)saveObjects:(id)objects skipInsertionFilter:(BOOL)filter completion:(id)completion
+{
+  filterCopy = filter;
+  completionCopy = completion;
+  objectsCopy = objects;
+  -[HKHealthStoreImplementation _saveObjects:atomically:skipInsertionFilter:completion:](self, "_saveObjects:atomically:skipInsertionFilter:completion:", objectsCopy, [objectsCopy count] < 0x5DC, filterCopy, completionCopy);
+}
+
+- (void)_sendNextObjectBatch:(id)batch skipInsertionFilter:(BOOL)filter lastRange:(_NSRange)range server:(id)server transaction:(id)transaction completion:(id)completion
+{
+  length = range.length;
+  location = range.location;
+  filterCopy = filter;
+  batchCopy = batch;
+  serverCopy = server;
+  completionCopy = completion;
+  transactionCopy = transaction;
+  v18 = [batchCopy count];
+  v19 = v18;
+  v20 = location + length;
+  if (v18 - v20 >= 0x5DC)
+  {
+    v21 = 1500;
+  }
+
+  else
+  {
+    v21 = v18 - v20;
+  }
+
+  v22 = [batchCopy subarrayWithRange:{v20, v21}];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __112__HKHealthStoreImplementation__sendNextObjectBatch_skipInsertionFilter_lastRange_server_transaction_completion___block_invoke;
+  v27[3] = &unk_1E7378BC0;
+  v23 = v21 + v20 == v19;
+  v27[4] = self;
+  v28 = batchCopy;
+  v33 = filterCopy;
+  v34 = v23;
+  v31 = v20;
+  v32 = v21;
+  v29 = serverCopy;
+  v30 = completionCopy;
+  v24 = serverCopy;
+  v25 = completionCopy;
+  v26 = batchCopy;
+  [v24 remote_saveDataObjects:v22 skipInsertionFilter:filterCopy transactionIdentifier:transactionCopy final:v23 handler:v27];
 }
 
 void __112__HKHealthStoreImplementation__sendNextObjectBatch_skipInsertionFilter_lastRange_server_transaction_completion___block_invoke(uint64_t a1, void *a2, int a3, void *a4)
@@ -3462,7 +3486,7 @@ void __112__HKHealthStoreImplementation__sendNextObjectBatch_skipInsertionFilter
 
 - (void)deleteObject:(id)object withCompletion:(id)completion
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   completionCopy = completion;
   if (!objectCopy)
@@ -3470,11 +3494,9 @@ void __112__HKHealthStoreImplementation__sendNextObjectBatch_skipInsertionFilter
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%s may not be nil", "dataObject"}];
   }
 
-  v10[0] = objectCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = objectCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   [(HKHealthStoreImplementation *)self _deleteObjects:v8 options:0 completion:completionCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deleteObjects:(id)objects options:(unint64_t)options completion:(id)completion
@@ -3482,19 +3504,19 @@ void __112__HKHealthStoreImplementation__sendNextObjectBatch_skipInsertionFilter
   v26 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v10 = HKLogDefault;
+  _HKInitializeLogging(completionCopy, v10);
+  v11 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v10;
+    v12 = v11;
     *buf = 134218240;
     v23 = [objectsCopy count];
     v24 = 2048;
     optionsCopy = options;
-    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "Deleting %lu objects, options %lu", buf, 0x16u);
+    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "Deleting %lu objects, options %lu", buf, 0x16u);
   }
 
-  v12 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
+  v13 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
 
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
@@ -3502,54 +3524,52 @@ void __112__HKHealthStoreImplementation__sendNextObjectBatch_skipInsertionFilter
   v18[3] = &unk_1E7378888;
   v19 = objectsCopy;
   optionsCopy2 = options;
-  v20 = v12;
+  v20 = v13;
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
   v16[2] = __65__HKHealthStoreImplementation__deleteObjects_options_completion___block_invoke_2;
   v16[3] = &unk_1E7376960;
   v17 = v20;
-  v13 = v20;
-  v14 = objectsCopy;
+  v14 = v20;
+  v15 = objectsCopy;
   [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v18 errorHandler:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteObject:(id)object options:(unint64_t)options withCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   v8 = MEMORY[0x1E695DEC8];
   completionCopy = completion;
   objectCopy2 = object;
   v11 = [v8 arrayWithObjects:&objectCopy count:1];
 
-  [(HKHealthStoreImplementation *)self _deleteObjects:v11 options:options completion:completionCopy, objectCopy, v14];
-  v12 = *MEMORY[0x1E69E9840];
+  [(HKHealthStoreImplementation *)self _deleteObjects:v11 options:options completion:completionCopy, objectCopy, v13];
 }
 
 - (void)deleteObjectsOfType:(id)type predicate:(id)predicate options:(unint64_t)options withCompletion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   predicateCopy = predicate;
   completionCopy = completion;
+  v14 = completionCopy;
   if (!completionCopy)
   {
     [HKHealthStoreImplementation deleteObjectsOfType:predicate:options:withCompletion:];
   }
 
-  _HKInitializeLogging();
-  v13 = HKLogDefault;
+  _HKInitializeLogging(completionCopy, v13);
+  v15 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v28 = typeCopy;
-    v29 = 2048;
+    v29 = typeCopy;
+    v30 = 2048;
     optionsCopy = options;
-    v31 = 2112;
-    v32 = predicateCopy;
-    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "Deleting objects of type %@ with options %lu, predicate %@", buf, 0x20u);
+    v32 = 2112;
+    v33 = predicateCopy;
+    _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, "Deleting objects of type %@ with options %lu, predicate %@", buf, 0x20u);
   }
 
   if (HKProgramSDKAtLeast())
@@ -3575,28 +3595,26 @@ void __112__HKHealthStoreImplementation__sendNextObjectBatch_skipInsertionFilter
   }
 
 LABEL_8:
-  v14 = [MEMORY[0x1E695DFD8] setWithObject:typeCopy];
-  v15 = [predicateCopy hk_filterRepresentationForDataTypes:v14];
+  v16 = [MEMORY[0x1E695DFD8] setWithObject:typeCopy];
+  v17 = [predicateCopy hk_filterRepresentationForDataTypes:v16];
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __84__HKHealthStoreImplementation_deleteObjectsOfType_predicate_options_withCompletion___block_invoke;
-  v22[3] = &unk_1E7378860;
-  v23 = typeCopy;
-  v24 = v15;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __84__HKHealthStoreImplementation_deleteObjectsOfType_predicate_options_withCompletion___block_invoke;
+  v23[3] = &unk_1E7378860;
+  v24 = typeCopy;
+  v25 = v17;
   optionsCopy2 = options;
-  v25 = completionCopy;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __84__HKHealthStoreImplementation_deleteObjectsOfType_predicate_options_withCompletion___block_invoke_3;
-  v20[3] = &unk_1E7376960;
-  v21 = v25;
-  v16 = v25;
-  v17 = v15;
-  v18 = typeCopy;
-  [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v22 errorHandler:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v26 = v14;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __84__HKHealthStoreImplementation_deleteObjectsOfType_predicate_options_withCompletion___block_invoke_3;
+  v21[3] = &unk_1E7376960;
+  v22 = v26;
+  v18 = v26;
+  v19 = v17;
+  v20 = typeCopy;
+  [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v23 errorHandler:v21];
 }
 
 void __84__HKHealthStoreImplementation_deleteObjectsOfType_predicate_options_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -4704,10 +4722,10 @@ void __80__HKHealthStoreImplementation__modificationDateForCharacteristicWithTyp
 void __48__HKHealthStoreImplementation__supportsFeature___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
   {
-    __34__HKHealthStore__supportsFeature___block_invoke_cold_1(a1);
+    __34__HKHealthStore__supportsFeature___block_invoke_cold_1();
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
@@ -4716,6 +4734,7 @@ void __48__HKHealthStoreImplementation__supportsFeature___block_invoke(uint64_t 
 void __48__HKHealthStoreImplementation__supportsFeature___block_invoke_550(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
     *(*(*(a1 + 32) + 8) + 24) = a2 == 1;
@@ -4723,10 +4742,10 @@ void __48__HKHealthStoreImplementation__supportsFeature___block_invoke_550(uint6
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      __34__HKHealthStore__supportsFeature___block_invoke_cold_1(a1);
+      __34__HKHealthStore__supportsFeature___block_invoke_cold_1();
     }
   }
 }
@@ -4737,22 +4756,22 @@ void __48__HKHealthStoreImplementation__supportsFeature___block_invoke_550(uint6
   samplesCopy = samples;
   workoutCopy = workout;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v11 = HKLogWorkouts;
+  _HKInitializeLogging(completionCopy, v11);
+  v12 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
-    v13 = [samplesCopy count];
+    v13 = v12;
+    v14 = [samplesCopy count];
     uUID = [workoutCopy UUID];
     uUIDString = [uUID UUIDString];
     *buf = 134218242;
-    v28 = v13;
+    v28 = v14;
     v29 = 2114;
     v30 = uUIDString;
-    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "Adding %lu samples to workout %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "Adding %lu samples to workout %{public}@", buf, 0x16u);
   }
 
-  v16 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
+  v17 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
 
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = 3221225472;
@@ -4760,18 +4779,16 @@ void __48__HKHealthStoreImplementation__supportsFeature___block_invoke_550(uint6
   v23[3] = &unk_1E73788D8;
   v24 = samplesCopy;
   v25 = workoutCopy;
-  v26 = v16;
+  v26 = v17;
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
   v21[2] = __63__HKHealthStoreImplementation_addSamples_toWorkout_completion___block_invoke_2;
   v21[3] = &unk_1E7376960;
   v22 = v26;
-  v17 = v26;
-  v18 = workoutCopy;
-  v19 = samplesCopy;
+  v18 = v26;
+  v19 = workoutCopy;
+  v20 = samplesCopy;
   [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v23 errorHandler:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_replaceWorkout:(id)workout withWorkout:(id)withWorkout completion:(id)completion
@@ -4808,9 +4825,10 @@ void __48__HKHealthStoreImplementation__supportsFeature___block_invoke_550(uint6
 void __51__HKHealthStoreImplementation_startWorkoutSession___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v4, v5);
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
       __37__HKHealthStore_startWorkoutSession___block_invoke_cold_1();
@@ -4828,9 +4846,10 @@ void __51__HKHealthStoreImplementation_startWorkoutSession___block_invoke(uint64
 void __49__HKHealthStoreImplementation_endWorkoutSession___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v4, v5);
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
       __35__HKHealthStore_endWorkoutSession___block_invoke_cold_1();
@@ -4848,9 +4867,10 @@ void __49__HKHealthStoreImplementation_endWorkoutSession___block_invoke(uint64_t
 void __51__HKHealthStoreImplementation_pauseWorkoutSession___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v4, v5);
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
       __35__HKHealthStore_endWorkoutSession___block_invoke_cold_1();
@@ -4868,9 +4888,10 @@ void __51__HKHealthStoreImplementation_pauseWorkoutSession___block_invoke(uint64
 void __52__HKHealthStoreImplementation_resumeWorkoutSession___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v4, v5);
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
       __35__HKHealthStore_endWorkoutSession___block_invoke_cold_1();
@@ -4882,49 +4903,49 @@ void __52__HKHealthStoreImplementation_resumeWorkoutSession___block_invoke(uint6
 {
   configurationCopy = configuration;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v8 = HKLogWorkouts;
+  _HKInitializeLogging(completionCopy, v8);
+  v9 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "Requesting watch workout app launch with configuration", buf, 2u);
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "Requesting watch workout app launch with configuration", buf, 2u);
   }
 
-  v9 = +[_HKBehavior sharedBehavior];
-  if ([v9 isiPad])
+  v10 = +[_HKBehavior sharedBehavior];
+  if ([v10 isiPad])
   {
   }
 
   else
   {
-    v10 = +[_HKBehavior sharedBehavior];
-    isRealityDevice = [v10 isRealityDevice];
+    v11 = +[_HKBehavior sharedBehavior];
+    isRealityDevice = [v11 isRealityDevice];
 
     if (!isRealityDevice)
     {
-      v13 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
+      v14 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
 
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __80__HKHealthStoreImplementation_startWatchAppWithWorkoutConfiguration_completion___block_invoke;
-      v16[3] = &unk_1E7378AF8;
-      v17 = configurationCopy;
-      v18 = v13;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __80__HKHealthStoreImplementation_startWatchAppWithWorkoutConfiguration_completion___block_invoke_2;
-      v14[3] = &unk_1E7376960;
-      completionCopy = v18;
-      v15 = completionCopy;
-      [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v16 errorHandler:v14];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __80__HKHealthStoreImplementation_startWatchAppWithWorkoutConfiguration_completion___block_invoke;
+      v17[3] = &unk_1E7378AF8;
+      v18 = configurationCopy;
+      v19 = v14;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __80__HKHealthStoreImplementation_startWatchAppWithWorkoutConfiguration_completion___block_invoke_2;
+      v15[3] = &unk_1E7376960;
+      completionCopy = v19;
+      v16 = completionCopy;
+      [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v17 errorHandler:v15];
 
-      v12 = v17;
+      v13 = v18;
       goto LABEL_8;
     }
   }
 
-  v12 = [MEMORY[0x1E696ABC0] hk_error:2 description:@"Starting a workout from this device is not supported."];
-  (*(completionCopy + 2))(completionCopy, 0, v12);
+  v13 = [MEMORY[0x1E696ABC0] hk_error:2 description:@"Starting a workout from this device is not supported."];
+  (*(completionCopy + 2))(completionCopy, 0, v13);
 LABEL_8:
 }
 
@@ -4932,49 +4953,49 @@ LABEL_8:
 {
   dataCopy = data;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v8 = HKLogWorkouts;
+  _HKInitializeLogging(completionCopy, v8);
+  v9 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "Requesting Apple watch workout app launch with workoutPlanData", buf, 2u);
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "Requesting Apple watch workout app launch with workoutPlanData", buf, 2u);
   }
 
-  v9 = +[_HKBehavior sharedBehavior];
-  if ([v9 isiPad])
+  v10 = +[_HKBehavior sharedBehavior];
+  if ([v10 isiPad])
   {
   }
 
   else
   {
-    v10 = +[_HKBehavior sharedBehavior];
-    isRealityDevice = [v10 isRealityDevice];
+    v11 = +[_HKBehavior sharedBehavior];
+    isRealityDevice = [v11 isRealityDevice];
 
     if (!isRealityDevice)
     {
-      v13 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
+      v14 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
 
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __76__HKHealthStoreImplementation__startWatchAppWithWorkoutPlanData_completion___block_invoke;
-      v16[3] = &unk_1E7378AF8;
-      v17 = dataCopy;
-      v18 = v13;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __76__HKHealthStoreImplementation__startWatchAppWithWorkoutPlanData_completion___block_invoke_2;
-      v14[3] = &unk_1E7376960;
-      completionCopy = v18;
-      v15 = completionCopy;
-      [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v16 errorHandler:v14];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __76__HKHealthStoreImplementation__startWatchAppWithWorkoutPlanData_completion___block_invoke;
+      v17[3] = &unk_1E7378AF8;
+      v18 = dataCopy;
+      v19 = v14;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __76__HKHealthStoreImplementation__startWatchAppWithWorkoutPlanData_completion___block_invoke_2;
+      v15[3] = &unk_1E7376960;
+      completionCopy = v19;
+      v16 = completionCopy;
+      [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v17 errorHandler:v15];
 
-      v12 = v17;
+      v13 = v18;
       goto LABEL_8;
     }
   }
 
-  v12 = [MEMORY[0x1E696ABC0] hk_error:2 description:@"Starting a workout from this device is not supported."];
-  (*(completionCopy + 2))(completionCopy, 0, v12);
+  v13 = [MEMORY[0x1E696ABC0] hk_error:2 description:@"Starting a workout from this device is not supported."];
+  (*(completionCopy + 2))(completionCopy, 0, v13);
 LABEL_8:
 }
 
@@ -4982,49 +5003,49 @@ LABEL_8:
 {
   dataCopy = data;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v8 = HKLogWorkouts;
+  _HKInitializeLogging(completionCopy, v8);
+  v9 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "Requesting Apple watch workout app launch with mirroredStartData", buf, 2u);
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "Requesting Apple watch workout app launch with mirroredStartData", buf, 2u);
   }
 
-  v9 = +[_HKBehavior sharedBehavior];
-  if ([v9 isiPad])
+  v10 = +[_HKBehavior sharedBehavior];
+  if ([v10 isiPad])
   {
   }
 
   else
   {
-    v10 = +[_HKBehavior sharedBehavior];
-    isRealityDevice = [v10 isRealityDevice];
+    v11 = +[_HKBehavior sharedBehavior];
+    isRealityDevice = [v11 isRealityDevice];
 
     if (!isRealityDevice)
     {
-      v13 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
+      v14 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
 
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __78__HKHealthStoreImplementation__startWatchAppWithMirroredStartData_completion___block_invoke;
-      v16[3] = &unk_1E7378AF8;
-      v17 = dataCopy;
-      v18 = v13;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __78__HKHealthStoreImplementation__startWatchAppWithMirroredStartData_completion___block_invoke_2;
-      v14[3] = &unk_1E7376960;
-      completionCopy = v18;
-      v15 = completionCopy;
-      [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v16 errorHandler:v14];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __78__HKHealthStoreImplementation__startWatchAppWithMirroredStartData_completion___block_invoke;
+      v17[3] = &unk_1E7378AF8;
+      v18 = dataCopy;
+      v19 = v14;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __78__HKHealthStoreImplementation__startWatchAppWithMirroredStartData_completion___block_invoke_2;
+      v15[3] = &unk_1E7376960;
+      completionCopy = v19;
+      v16 = completionCopy;
+      [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v17 errorHandler:v15];
 
-      v12 = v17;
+      v13 = v18;
       goto LABEL_8;
     }
   }
 
-  v12 = [MEMORY[0x1E696ABC0] hk_error:2 description:@"Starting a workout from this device is not supported."];
-  (*(completionCopy + 2))(completionCopy, 0, v12);
+  v13 = [MEMORY[0x1E696ABC0] hk_error:2 description:@"Starting a workout from this device is not supported."];
+  (*(completionCopy + 2))(completionCopy, 0, v13);
 LABEL_8:
 }
 
@@ -5113,7 +5134,6 @@ LABEL_7:
   v6 = *(a1 + 32);
   if (!v6)
   {
-    v9 = *(a1 + 40);
     v8 = *(*(a1 + 64) + 16);
     goto LABEL_7;
   }
@@ -5122,19 +5142,18 @@ LABEL_7:
   v7 = [[HKLiveWorkoutBuilder alloc] initWithHealthStore:*(a1 + 48) session:*(a1 + 40) builderConfiguration:*(a1 + 32) builderIdentifier:*(a1 + 56)];
   if (v7)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __73__HKHealthStoreImplementation_recoverActiveWorkoutSessionWithCompletion___block_invoke_4;
-    v11[3] = &unk_1E7378928;
-    v12 = *(a1 + 40);
-    v13 = v7;
-    v14 = *(a1 + 64);
-    [(HKWorkoutBuilder *)v13 _recoverWithCompletion:v11];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __73__HKHealthStoreImplementation_recoverActiveWorkoutSessionWithCompletion___block_invoke_4;
+    v9[3] = &unk_1E7378928;
+    v10 = *(a1 + 40);
+    v11 = v7;
+    v12 = *(a1 + 64);
+    [(HKWorkoutBuilder *)v11 _recoverWithCompletion:v9];
   }
 
   else
   {
-    v10 = *(a1 + 40);
     (*(*(a1 + 64) + 16))();
   }
 
@@ -5146,58 +5165,52 @@ uint64_t __73__HKHealthStoreImplementation_recoverActiveWorkoutSessionWithComple
   if (a2)
   {
     [*(a1 + 32) _setAssociatedWorkoutBuilder:*(a1 + 40)];
-    v3 = *(a1 + 32);
   }
 
-  else
-  {
-    v5 = *(a1 + 48);
-  }
+  v3 = *(*(a1 + 48) + 16);
 
-  v4 = *(*(a1 + 48) + 16);
-
-  return v4();
+  return v3();
 }
 
 - (void)setWorkoutSessionMirroringStartHandler:(id)handler
 {
   handlerCopy = handler;
-  _HKInitializeLogging();
-  v5 = HKLogWorkouts;
-  v6 = os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT);
+  _HKInitializeLogging(handlerCopy, v5);
+  v6 = HKLogWorkouts;
+  v7 = os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT);
   if (handlerCopy)
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[mirroring] Client setting mirrored session handler.", buf, 2u);
+      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] Client setting mirrored session handler.", buf, 2u);
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __70__HKHealthStoreImplementation_setWorkoutSessionMirroringStartHandler___block_invoke_569;
     aBlock[3] = &unk_1E7378E60;
-    v12 = handlerCopy;
-    v7 = _Block_copy(aBlock);
+    v13 = handlerCopy;
+    v8 = _Block_copy(aBlock);
     os_unfair_lock_lock(&self->_lock);
-    v8 = _Block_copy(v7);
+    v9 = _Block_copy(v8);
     mirroredSessionHandler = self->_mirroredSessionHandler;
-    self->_mirroredSessionHandler = v8;
+    self->_mirroredSessionHandler = v9;
 
     os_unfair_lock_unlock(&self->_lock);
-    [(HKHealthStoreImplementation *)self _setMirroredWorkoutSessionObserverStateToEnabled:1 handler:v7];
+    [(HKHealthStoreImplementation *)self _setMirroredWorkoutSessionObserverStateToEnabled:1 handler:v8];
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[mirroring] Mirrored session handler set to nil by the client.", buf, 2u);
+      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[mirroring] Mirrored session handler set to nil by the client.", buf, 2u);
     }
 
     os_unfair_lock_lock(&self->_lock);
-    v10 = self->_mirroredSessionHandler;
+    v11 = self->_mirroredSessionHandler;
     self->_mirroredSessionHandler = 0;
 
     os_unfair_lock_unlock(&self->_lock);
@@ -5208,9 +5221,10 @@ uint64_t __73__HKHealthStoreImplementation_recoverActiveWorkoutSessionWithComple
 void __70__HKHealthStoreImplementation_setWorkoutSessionMirroringStartHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v5 = v3;
   if (v3)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v3, v4);
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
       __56__HKHealthStore_setWorkoutSessionMirroringStartHandler___block_invoke_cold_1();
@@ -5222,21 +5236,21 @@ void __70__HKHealthStoreImplementation_setWorkoutSessionMirroringStartHandler___
 {
   v5 = a2;
   v6 = a3;
-  _HKInitializeLogging();
-  v7 = HKLogWorkouts;
+  _HKInitializeLogging(v6, v7);
+  v8 = HKLogWorkouts;
   if (v5)
   {
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[mirroring] Client received remote session", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[mirroring] Client received remote session", v11, 2u);
     }
 
-    v8 = [*(a1 + 32) copy];
-    v9 = v8;
-    if (v8)
+    v9 = [*(a1 + 32) copy];
+    v10 = v9;
+    if (v9)
     {
-      (*(v8 + 16))(v8, v5);
+      (*(v9 + 16))(v9, v5);
     }
   }
 
@@ -5291,9 +5305,10 @@ uint64_t __88__HKHealthStoreImplementation__setMirroredWorkoutSessionObserverSta
   activityCopy = activity;
   completionCopy = completion;
   v11 = [(HKHealthStoreImplementation *)self _objectCompletionOnClientQueue:completionCopy];
-  v32 = 0;
-  v12 = [_HKEntitlements entitlementsForCurrentTaskWithError:&v32];
-  v13 = v32;
+  v36 = 0;
+  v12 = [_HKEntitlements entitlementsForCurrentTaskWithError:&v36];
+  v13 = v36;
+  v15 = v13;
   if (v12)
   {
     if ([v12 hasEntitlement:@"com.apple.private.healthkit"])
@@ -5301,31 +5316,31 @@ uint64_t __88__HKHealthStoreImplementation__setMirroredWorkoutSessionObserverSta
       if (activityCopy)
       {
         workoutActivities = [workoutCopy workoutActivities];
-        v15 = [workoutActivities containsObject:activityCopy];
+        v17 = [workoutActivities containsObject:activityCopy];
 
-        if (v15)
+        if (v17)
         {
           [workoutCopy workoutActivityType];
 LABEL_12:
           uUID = [workoutCopy UUID];
-          v21 = [HKQuery predicateForObjectWithUUID:uUID];
+          v25 = [HKQuery predicateForObjectWithUUID:uUID];
 
-          v22 = [HKWorkoutEffortRelationshipQuery alloc];
-          v25 = MEMORY[0x1E69E9820];
-          v26 = 3221225472;
-          v27 = __93__HKHealthStoreImplementation__ratingOfExertionSamplesForWorkout_workoutActivity_completion___block_invoke;
-          v28 = &unk_1E7378EB0;
+          v26 = [HKWorkoutEffortRelationshipQuery alloc];
+          v29 = MEMORY[0x1E69E9820];
+          v30 = 3221225472;
+          v31 = __93__HKHealthStoreImplementation__ratingOfExertionSamplesForWorkout_workoutActivity_completion___block_invoke;
+          v32 = &unk_1E7378EB0;
           selfCopy = self;
-          v31 = v11;
-          v30 = activityCopy;
-          v23 = [(HKWorkoutEffortRelationshipQuery *)v22 initWithPredicate:v21 anchor:0 options:0 resultsHandler:&v25];
-          [(HKHealthStoreImplementation *)self executeQuery:v23 queue:self->_clientQueue activationHandler:0, v25, v26, v27, v28, selfCopy];
+          v35 = v11;
+          v34 = activityCopy;
+          v27 = [(HKWorkoutEffortRelationshipQuery *)v26 initWithPredicate:v25 anchor:0 options:0 resultsHandler:&v29];
+          [(HKHealthStoreImplementation *)self executeQuery:v27 queue:self->_clientQueue activationHandler:0, v29, v30, v31, v32, selfCopy];
 
           goto LABEL_16;
         }
 
-        v18 = MEMORY[0x1E696ABC0];
-        v19 = @"Activity must be inside workout activities.";
+        v22 = MEMORY[0x1E696ABC0];
+        v23 = @"Activity must be inside workout activities.";
       }
 
       else
@@ -5335,65 +5350,65 @@ LABEL_12:
           goto LABEL_12;
         }
 
-        v18 = MEMORY[0x1E696ABC0];
-        v19 = @"Activity must be set for HKWorkoutActivityTypeSwimBikeRun workouts.";
+        v22 = MEMORY[0x1E696ABC0];
+        v23 = @"Activity must be set for HKWorkoutActivityTypeSwimBikeRun workouts.";
       }
 
-      v17 = [v18 hk_error:3 description:v19];
+      v21 = [v22 hk_error:3 description:v23];
     }
 
     else
     {
-      v17 = [MEMORY[0x1E696ABC0] hk_error:4 format:@"Missing private entitlement."];
+      v21 = [MEMORY[0x1E696ABC0] hk_error:4 format:@"Missing private entitlement."];
     }
 
-    v24 = v17;
-    completionCopy[2](completionCopy, 0, v17);
+    v28 = v21;
+    completionCopy[2](completionCopy, 0, v21);
 
     goto LABEL_16;
   }
 
-  _HKInitializeLogging();
-  v16 = HKLogAuthorization();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v13, v14);
+  v20 = HKLogAuthorization(v18, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [HKHealthStore _ratingOfExertionSamplesForWorkout:workoutActivity:completion:];
   }
 
-  completionCopy[2](completionCopy, 0, v13);
+  completionCopy[2](completionCopy, 0, v15);
 LABEL_16:
 }
 
 void __93__HKHealthStoreImplementation__ratingOfExertionSamplesForWorkout_workoutActivity_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a5;
   [*(a1 + 32) stopQuery:a2];
   if (v8)
   {
-    v24 = v9;
+    v23 = v9;
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * i);
+          v16 = *(*(&v24 + 1) + 8 * i);
           v17 = [v16 samples];
           if (!v17 || (v18 = *(a1 + 40), v17, v18))
           {
@@ -5416,13 +5431,13 @@ void __93__HKHealthStoreImplementation__ratingOfExertionSamplesForWorkout_workou
           [v10 addObjectsFromArray:v22];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v13);
     }
 
-    v9 = v24;
+    v9 = v23;
     (*(*(a1 + 48) + 16))();
   }
 
@@ -5430,8 +5445,6 @@ void __93__HKHealthStoreImplementation__ratingOfExertionSamplesForWorkout_workou
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_relateReplaceRatingOfExertionSample:(id)sample toWorkout:(id)workout forActivity:(id)activity completion:(id)completion
@@ -5520,14 +5533,12 @@ void __101__HKHealthStoreImplementation__relateReplaceRatingOfExertionSample_toW
 
 void __89__HKHealthStoreImplementation_relateWorkoutEffortSample_withWorkout_activity_completion___block_invoke(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = a1[4];
+  v7 = *MEMORY[0x1E69E9840];
+  v6 = a1[4];
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v7 count:1];
-  [v4 remote_relateSamples:v5 withObject:a1[5] subObject:a1[6] type:1 behavior:0 completion:{a1[7], v7, v8}];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = [v3 arrayWithObjects:&v6 count:1];
+  [v4 remote_relateSamples:v5 withObject:a1[5] subObject:a1[6] type:1 behavior:0 completion:{a1[7], v6, v7}];
 }
 
 - (void)unrelateWorkoutEffortSample:(id)sample fromWorkout:(id)workout activity:(id)activity completion:(id)completion
@@ -5565,14 +5576,12 @@ void __89__HKHealthStoreImplementation_relateWorkoutEffortSample_withWorkout_act
 
 void __91__HKHealthStoreImplementation_unrelateWorkoutEffortSample_fromWorkout_activity_completion___block_invoke(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = a1[4];
+  v7 = *MEMORY[0x1E69E9840];
+  v6 = a1[4];
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v7 count:1];
-  [v4 remote_unrelateSamples:v5 withObject:a1[5] subObject:a1[6] type:1 behavior:0 completion:{a1[7], v7, v8}];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = [v3 arrayWithObjects:&v6 count:1];
+  [v4 remote_unrelateSamples:v5 withObject:a1[5] subObject:a1[6] type:1 behavior:0 completion:{a1[7], v6, v7}];
 }
 
 - (void)currentWorkoutZonesForType:(id)type completion:(id)completion
@@ -5726,53 +5735,55 @@ LABEL_12:
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v20 = 0;
-  v8 = [_HKEntitlements entitlementsForCurrentTaskWithError:&v20];
-  v9 = v20;
+  v28 = 0;
+  v8 = [_HKEntitlements entitlementsForCurrentTaskWithError:&v28];
+  v9 = v28;
+  v11 = v9;
   if (v8)
   {
-    if ([v8 hasEntitlement:@"com.apple.private.healthkit.background-workout-start"])
+    v12 = [v8 hasEntitlement:@"com.apple.private.healthkit.background-workout-start"];
+    if (v12)
     {
-      v10 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __102__HKHealthStoreImplementation_takeWorkoutBackgroundStartAssertionForApplicationIdentifier_completion___block_invoke;
-      v17[3] = &unk_1E7378AF8;
-      v18 = identifierCopy;
-      v19 = v10;
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __102__HKHealthStoreImplementation_takeWorkoutBackgroundStartAssertionForApplicationIdentifier_completion___block_invoke_2;
-      v15[3] = &unk_1E7376960;
-      v16 = v19;
-      v11 = v19;
-      [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v17 errorHandler:v15];
+      v14 = [(HKHealthStoreImplementation *)self _actionCompletionOnClientQueue:completionCopy];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __102__HKHealthStoreImplementation_takeWorkoutBackgroundStartAssertionForApplicationIdentifier_completion___block_invoke;
+      v25[3] = &unk_1E7378AF8;
+      v26 = identifierCopy;
+      v27 = v14;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __102__HKHealthStoreImplementation_takeWorkoutBackgroundStartAssertionForApplicationIdentifier_completion___block_invoke_2;
+      v23[3] = &unk_1E7376960;
+      v24 = v27;
+      v15 = v27;
+      [(HKHealthStoreImplementation *)self _serverProxyWithHandler:v25 errorHandler:v23];
     }
 
     else
     {
-      _HKInitializeLogging();
-      v13 = HKLogAuthorization();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v12, v13);
+      v21 = HKLogAuthorization(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [HKHealthStoreImplementation takeWorkoutBackgroundStartAssertionForApplicationIdentifier:v13 completion:?];
+        [HKHealthStoreImplementation takeWorkoutBackgroundStartAssertionForApplicationIdentifier:v21 completion:?];
       }
 
-      v14 = [MEMORY[0x1E696ABC0] hk_error:4 format:@"Missing background workout start entitlement."];
-      completionCopy[2](completionCopy, 0, v14);
+      v22 = [MEMORY[0x1E696ABC0] hk_error:4 format:@"Missing background workout start entitlement."];
+      completionCopy[2](completionCopy, 0, v22);
     }
   }
 
   else
   {
-    _HKInitializeLogging();
-    v12 = HKLogAuthorization();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v9, v10);
+    v18 = HKLogAuthorization(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [HKHealthStore _ratingOfExertionSamplesForWorkout:workoutActivity:completion:];
     }
 
-    completionCopy[2](completionCopy, 0, v9);
+    completionCopy[2](completionCopy, 0, v11);
   }
 }
 
@@ -5818,9 +5829,10 @@ LABEL_12:
 void __73__HKHealthStoreImplementation__closeTransactionWithTypes_anchor_ackTime___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v4, v5);
     if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_ERROR))
     {
       __59__HKHealthStore__closeTransactionWithTypes_anchor_ackTime___block_invoke_2_cold_1();
@@ -5831,7 +5843,7 @@ void __73__HKHealthStoreImplementation__closeTransactionWithTypes_anchor_ackTime
 void __73__HKHealthStoreImplementation__closeTransactionWithTypes_anchor_ackTime___block_invoke_611(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
   {
     __59__HKHealthStore__closeTransactionWithTypes_anchor_ackTime___block_invoke_2_cold_1();
@@ -6011,9 +6023,10 @@ void __81__HKHealthStoreImplementation_splitTotalEnergy_startDate_endDate_result
 void __81__HKHealthStoreImplementation_splitTotalEnergy_startDate_endDate_resultsHandler___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ((HKIsUnitTesting() & 1) == 0)
+  v5 = HKIsUnitTesting(v3, v4);
+  if ((v5 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
       __67__HKHealthStore_splitTotalEnergy_startDate_endDate_resultsHandler___block_invoke_6_cold_1();
@@ -6074,38 +6087,36 @@ void __52__HKHealthStoreImplementation_connectionInterrupted__block_invoke(uint6
 
 void __52__HKHealthStoreImplementation_connectionInterrupted__block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) reactivateWithHealthStore:{*(a1 + 40), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) reactivateWithHealthStore:{*(a1 + 40), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionConfigured
@@ -6118,12 +6129,12 @@ void __52__HKHealthStoreImplementation_connectionInterrupted__block_invoke_2(uin
 
 - (void)_applicationWillResignActive:(id)active
 {
-  _HKInitializeLogging();
-  v4 = HKLogProcessState();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(self, a2);
+  v6 = HKLogProcessState(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "App will resign active", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "App will resign active", v7, 2u);
   }
 
   [(HKHealthStoreImplementation *)self _serverProxyWithHandler:&__block_literal_global_632 errorHandler:&__block_literal_global_636];
@@ -6132,7 +6143,7 @@ void __52__HKHealthStoreImplementation_connectionInterrupted__block_invoke_2(uin
 void __60__HKHealthStoreImplementation__applicationWillResignActive___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
   {
     __67__HKHealthStore_splitTotalEnergy_startDate_endDate_resultsHandler___block_invoke_6_cold_1();
@@ -6141,12 +6152,12 @@ void __60__HKHealthStoreImplementation__applicationWillResignActive___block_invo
 
 - (void)_applicationDidBecomeActive:(id)active
 {
-  _HKInitializeLogging();
-  v4 = HKLogProcessState();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(self, a2);
+  v6 = HKLogProcessState(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "App did become active", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "App did become active", v7, 2u);
   }
 
   [(HKHealthStoreImplementation *)self _serverProxyWithHandler:&__block_literal_global_638 errorHandler:&__block_literal_global_642];
@@ -6155,7 +6166,7 @@ void __60__HKHealthStoreImplementation__applicationWillResignActive___block_invo
 void __59__HKHealthStoreImplementation__applicationDidBecomeActive___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
   {
     __67__HKHealthStore_splitTotalEnergy_startDate_endDate_resultsHandler___block_invoke_6_cold_1();
@@ -6293,34 +6304,34 @@ uint64_t __62__HKHealthStoreImplementation__objectCompletionOnClientQueue___bloc
 
 - (BOOL)_prepareObjectsForSaving:(id)saving errorOut:(id *)out
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   savingCopy = saving;
-  v6 = [savingCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [savingCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(savingCopy);
         }
 
-        if (![*(*(&v13 + 1) + 8 * i) prepareForSaving:{out, v13}])
+        if (![*(*(&v12 + 1) + 8 * i) prepareForSaving:{out, v12}])
         {
           v10 = 0;
           goto LABEL_11;
         }
       }
 
-      v7 = [savingCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [savingCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -6333,7 +6344,6 @@ uint64_t __62__HKHealthStoreImplementation__objectCompletionOnClientQueue___bloc
   v10 = 1;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -6450,14 +6460,12 @@ uint64_t __75__HKHealthStoreImplementation_getAllHealthDataAccessForSiriWithComp
 
 - (void)clientRemote_conceptIndexManagerDidBecomeQuiescentWithSamplesProcessedCount:(int64_t)count
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"processedSampleCount";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"processedSampleCount";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:count];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [(HKHealthStoreImplementation *)self postNotificationNameToAllStores:@"HKConceptIndexManagerDidBecomeQuiescentNotification" userInfo:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clientRemote_didCreateRemoteSessionWithConfiguration:(id)configuration
@@ -6481,30 +6489,30 @@ void __84__HKHealthStoreImplementation_clientRemote_didCreateRemoteSessionWithCo
   os_unfair_lock_unlock((*(a1 + 32) + 288));
   if (v2)
   {
-    v3 = [HKWorkoutSession alloc];
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v13 = 0;
-    v6 = [(HKWorkoutSession *)v3 _initWithHealthStore:v4 taskConfiguration:v5 error:&v13];
-    v7 = v13;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __84__HKHealthStoreImplementation_clientRemote_didCreateRemoteSessionWithConfiguration___block_invoke_645;
-    v10[3] = &unk_1E7378BE8;
-    v11 = v6;
-    v12 = v2;
-    v8 = v6;
-    [v8 _setupMirroredSessionTaskServerWithCompletion:v10];
-    [v8 _runSetupPostClientMirroringStartHandlerWithCompletion:&__block_literal_global_647];
+    v5 = [HKWorkoutSession alloc];
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v15 = 0;
+    v8 = [(HKWorkoutSession *)v5 _initWithHealthStore:v6 taskConfiguration:v7 error:&v15];
+    v9 = v15;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __84__HKHealthStoreImplementation_clientRemote_didCreateRemoteSessionWithConfiguration___block_invoke_645;
+    v12[3] = &unk_1E7378BE8;
+    v13 = v8;
+    v14 = v2;
+    v10 = v8;
+    [v10 _setupMirroredSessionTaskServerWithCompletion:v12];
+    [v10 _runSetupPostClientMirroringStartHandlerWithCompletion:&__block_literal_global_647];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v9 = HKLogWorkouts;
+    _HKInitializeLogging(v3, v4);
+    v11 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      __84__HKHealthStoreImplementation_clientRemote_didCreateRemoteSessionWithConfiguration___block_invoke_cold_1(v9);
+      __84__HKHealthStoreImplementation_clientRemote_didCreateRemoteSessionWithConfiguration___block_invoke_cold_1(v11);
     }
   }
 }
@@ -6525,14 +6533,15 @@ uint64_t __84__HKHealthStoreImplementation_clientRemote_didCreateRemoteSessionWi
   return (*(v3 + 16))(v3, v4);
 }
 
-void __84__HKHealthStoreImplementation_clientRemote_didCreateRemoteSessionWithConfiguration___block_invoke_2(uint64_t a1, char a2, void *a3)
+void __84__HKHealthStoreImplementation_clientRemote_didCreateRemoteSessionWithConfiguration___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v4 = a3;
-  _HKInitializeLogging();
-  v5 = HKLogWorkouts;
+  _HKInitializeLogging(v4, v5);
+  v6 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __70__HKHealthStore_clientRemote_didCreateRemoteSessionWithConfiguration___block_invoke_2_cold_1(v5, a2, v4);
+    __70__HKHealthStore_clientRemote_didCreateRemoteSessionWithConfiguration___block_invoke_2_cold_1(v6, v3, v4);
   }
 }
 
@@ -6674,43 +6683,40 @@ void __84__HKHealthStoreImplementation_clientRemote_didCreateRemoteSessionWithCo
 
 void __47__HKHealthStoreImplementation_dropEntitlement___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogTesting();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogTesting(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "Failed to drop '%{public}@' entitlement: %{public}@", &v7, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "Failed to drop '%{public}@' entitlement: %{public}@", &v9, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __47__HKHealthStoreImplementation_dropEntitlement___block_invoke_651(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v6 = HKLogTesting();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v5, v6);
+    v10 = HKLogTesting(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "Failed to drop '%{public}@' entitlement: %{public}@", &v9, 0x16u);
+      v11 = *(a1 + 32);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "Failed to drop '%{public}@' entitlement: %{public}@", &v12, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)restoreEntitlement:(id)entitlement
@@ -6734,43 +6740,40 @@ void __47__HKHealthStoreImplementation_dropEntitlement___block_invoke_651(uint64
 
 void __50__HKHealthStoreImplementation_restoreEntitlement___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogTesting();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogTesting(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "Failed to restore '%{public}@' entitlement: %{public}@", &v7, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "Failed to restore '%{public}@' entitlement: %{public}@", &v9, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __50__HKHealthStoreImplementation_restoreEntitlement___block_invoke_652(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v6 = HKLogTesting();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v5, v6);
+    v10 = HKLogTesting(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "Failed to restore '%{public}@' entitlement: %{public}@", &v9, 0x16u);
+      v11 = *(a1 + 32);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "Failed to restore '%{public}@' entitlement: %{public}@", &v12, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)impl_hkui_authorizationViewControllerPresenter

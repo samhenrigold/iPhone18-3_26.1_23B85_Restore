@@ -95,7 +95,8 @@
           }
 
           v15 = *(*(&v23 + 1) + 8 * i);
-          v16 = [v9 objectForKeyedSubscript:{objc_msgSend(v15, "cast")}];
+          [v15 cast];
+          v16 = objc_msgSend_objectForKeyedSubscript_(v9);
           cast = [v15 cast];
           if ([cast isEqualToString:AVSmartStyleCastTypeBrightPop[0]])
           {
@@ -276,7 +277,7 @@ uint64_t __43__AVCaptureSystemStylePicker_overlayUpdate__block_invoke(uint64_t a
   os_unfair_lock_unlock(&self->_actionLock);
   if ([path isEqualToString:@"smartStyle"] && -[AVWeakReference referencedObject](self->_sessionReference, "referencedObject") == object)
   {
-    v11 = [change objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+    v11 = objc_msgSend_objectForKeyedSubscript_(change);
     if (observing && v11 != 0)
     {
       v13 = v11;

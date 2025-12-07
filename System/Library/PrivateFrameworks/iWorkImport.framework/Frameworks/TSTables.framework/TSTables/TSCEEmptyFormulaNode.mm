@@ -22,12 +22,12 @@
 
 - (void)appendToNodeArray:(TSCEASTNodeArray *)array hostCellRef:(const TSCECellRef *)ref symbolTable:(void *)table calcEngine:(id)engine
 {
-  TSCEASTTagOnlyElement::appendTagOnlyElement(array, 23, array, ref, table);
-  v16 = objc_msgSend_whitespaceBefore(self, v8, v9, v10, v11);
-  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v16);
+  TSCEASTTagOnlyElement::appendTagOnlyElement(array, 23, array, ref);
+  v14 = objc_msgSend_whitespaceBefore(self, v8, v9, v10);
+  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v14);
 
-  v17 = objc_msgSend_whitespaceAfter(self, v12, v13, v14, v15);
-  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v17);
+  v15 = objc_msgSend_whitespaceAfter(self, v11, v12, v13);
+  TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v15);
 }
 
 @end

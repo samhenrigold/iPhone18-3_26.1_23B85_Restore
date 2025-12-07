@@ -52,7 +52,7 @@
     v7 = [v6 objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     v14[1] = v7;
     v13[2] = @"isSharedIPad";
-    v8 = [NSNumber numberWithBool:sub_10010AE4C()];
+    v8 = [NSNumber numberWithBool:sub_10010AE4C(PDUtil)];
     v14[2] = v8;
     v13[3] = @"baseVersion";
     v9 = [NSNumber numberWithInt:1];
@@ -74,7 +74,7 @@
   {
     v4 = objc_autoreleasePoolPush();
     v5 = [AMSMetrics alloc];
-    v6 = sub_10004116C();
+    v6 = sub_10004116C(PDStoreBag);
     v7 = v6;
     if (v6)
     {
@@ -88,7 +88,7 @@
 
     v9 = v8;
     profile = [v9 profile];
-    v11 = sub_10004116C();
+    v11 = sub_10004116C(PDStoreBag);
     v12 = v11;
     if (v11)
     {

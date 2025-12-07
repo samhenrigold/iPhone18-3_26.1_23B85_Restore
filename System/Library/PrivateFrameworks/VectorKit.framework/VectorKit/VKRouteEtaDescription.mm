@@ -73,14 +73,14 @@
     goto LABEL_14;
   }
 
-  styleAttributes = [compareCopy styleAttributes];
-  if (!styleAttributes)
+  v5 = objc_msgSend_styleAttributes(compareCopy);
+  if (!v5)
   {
     styleAttributes = self->_styleAttributes;
 LABEL_14:
-    styleAttributes2 = [compareCopy styleAttributes];
+    v8 = objc_msgSend_styleAttributes(compareCopy);
 
-    if (styleAttributes != styleAttributes2)
+    if (styleAttributes != v8)
     {
       if (self->_styleAttributes)
       {
@@ -104,9 +104,9 @@ LABEL_18:
     goto LABEL_31;
   }
 
-  styleAttributes3 = [compareCopy styleAttributes];
+  v9 = objc_msgSend_styleAttributes(compareCopy);
 
-  if (!styleAttributes3)
+  if (!v9)
   {
     goto LABEL_31;
   }
@@ -119,8 +119,8 @@ LABEL_18:
     atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  styleAttributes4 = [compareCopy styleAttributes];
-  featureStyleAttributesPtr2 = [styleAttributes4 featureStyleAttributesPtr];
+  v13 = objc_msgSend_styleAttributes(compareCopy);
+  featureStyleAttributesPtr2 = [v13 featureStyleAttributesPtr];
   v15 = *featureStyleAttributesPtr2;
   v16 = featureStyleAttributesPtr2[1];
   if (v16)

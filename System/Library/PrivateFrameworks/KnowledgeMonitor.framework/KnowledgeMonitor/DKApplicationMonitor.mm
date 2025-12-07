@@ -114,21 +114,19 @@ LABEL_14:
 
 void __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(*(a1 + 40) + 8) + 24);
     v6 = [v3 error];
-    v8 = 134218242;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_22595A000, v4, OS_LOG_TYPE_DEFAULT, "BMFrontBoardDisplayElement - Finished initializing currentFrontBoardElements with %lu elements from stream, err: %@", &v8, 0x16u);
+    v7 = 134218242;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_22595A000, v4, OS_LOG_TYPE_DEFAULT, "BMFrontBoardDisplayElement - Finished initializing currentFrontBoardElements with %lu elements from stream, err: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke_6(uint64_t a1, void *a2)
@@ -512,13 +510,11 @@ void __45___DKApplicationMonitor_processUpdateHandler__block_invoke(uint64_t a1,
   }
 }
 
-uint64_t __45___DKApplicationMonitor_processUpdateHandler__block_invoke_2(uint64_t result)
+id *__45___DKApplicationMonitor_processUpdateHandler__block_invoke_2(id *result)
 {
-  if (*(*(result + 32) + 184) == *(result + 40))
+  if (*(result[4] + 23) == result[5])
   {
-    v1 = *(result + 48);
-    v2 = *(result + 56);
-    return [*(result + 32) processMonitor:? didUpdateState:? forProcess:?];
+    return [result[4] processMonitor:? didUpdateState:? forProcess:?];
   }
 
   return result;
@@ -526,45 +522,40 @@ uint64_t __45___DKApplicationMonitor_processUpdateHandler__block_invoke_2(uint64
 
 void __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke_17_cold_1(void *a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [a1 changeType];
   v4 = BMFrontBoardDisplayElementChangeTypeAsString();
   v5 = [a1 identifier];
   v6 = [a1 bundleIdentifier];
-  v8 = 138412802;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v6;
-  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "BMFrontBoardDisplayElement - %@ event for identifier: %@ bundleIdentifier: %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412802;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v6;
+  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "BMFrontBoardDisplayElement - %@ event for identifier: %@ bundleIdentifier: %@", &v7, 0x20u);
 }
 
 void __55___DKApplicationMonitor_displayLayoutTransitionHandler__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "Transition reason: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "Transition reason: %@", &v2, 0xCu);
 }
 
 void __55___DKApplicationMonitor_displayLayoutTransitionHandler__block_invoke_cold_2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 transitionReasons];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "Transition reasons: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "Transition reasons: %@", &v4, 0xCu);
 }
 
 void __55___DKApplicationMonitor_displayLayoutTransitionHandler__block_invoke_2_cold_1(uint64_t *a1, void *a2, NSObject *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = *a1;
   v6 = [a2 applications];
   v7 = [v6 focalApplication];
@@ -574,19 +565,17 @@ void __55___DKApplicationMonitor_displayLayoutTransitionHandler__block_invoke_2_
   v11 = [v10 continuityApplication];
   v12 = [a2 applications];
   v13 = [v12 externalApplication];
-  v15 = 138413314;
-  v16 = v5;
-  v17 = 2112;
-  v18 = v7;
-  v19 = 2112;
-  v20 = v9;
-  v21 = 2112;
-  v22 = v11;
-  v23 = 2112;
-  v24 = v13;
-  _os_log_debug_impl(&dword_22595A000, a3, OS_LOG_TYPE_DEBUG, "DKApplicationMonitor: transitioning due to %@ with App: %@ Others: [%@, %@, %@]", &v15, 0x34u);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14 = 138413314;
+  v15 = v5;
+  v16 = 2112;
+  v17 = v7;
+  v18 = 2112;
+  v19 = v9;
+  v20 = 2112;
+  v21 = v11;
+  v22 = 2112;
+  v23 = v13;
+  _os_log_debug_impl(&dword_22595A000, a3, OS_LOG_TYPE_DEBUG, "DKApplicationMonitor: transitioning due to %@ with App: %@ Others: [%@, %@, %@]", &v14, 0x34u);
 }
 
 @end

@@ -25,9 +25,11 @@
 
 uint64_t __54__ASDStoreKitExternalNotificationSheet_sharedInstance__block_invoke(uint64_t a1)
 {
-  _MergedGlobals_33 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = _MergedGlobals_33;
+  _MergedGlobals_33 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (ASDStoreKitExternalNotificationSheet)init
@@ -47,13 +49,13 @@ uint64_t __54__ASDStoreKitExternalNotificationSheet_sharedInstance__block_invoke
 
 - (void)presentSheetIfNeededForProcessHandle:(id)handle completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   serviceBroker = self->_serviceBroker;
-  v14 = 0;
+  v13 = 0;
   completionCopy = completion;
-  v9 = [(ASDServiceBroker *)serviceBroker getStoreKitExternalNotificationServiceWithError:&v14];
-  v10 = v14;
+  v9 = [(ASDServiceBroker *)serviceBroker getStoreKitExternalNotificationServiceWithError:&v13];
+  v10 = v13;
   if (v9)
   {
     v11 = [v9 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_10];
@@ -68,29 +70,25 @@ uint64_t __54__ASDStoreKitExternalNotificationSheet_sharedInstance__block_invoke
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = v10;
+      v15 = v10;
       _os_log_error_impl(&dword_1B8220000, v12, OS_LOG_TYPE_ERROR, "[ASDStoreKitExternalNotification] Service unavailable: %{public}@", buf, 0xCu);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __88__ASDStoreKitExternalNotificationSheet_presentSheetIfNeededForProcessHandle_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[ASDStoreKitExternalNotification] Remote object proxy error: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[ASDStoreKitExternalNotification] Remote object proxy error: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

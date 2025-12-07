@@ -346,19 +346,19 @@ uint64_t __49__SYDecompressingInputStream_stream_handleEvent___block_invoke(uint
   if (*(result + 40) > 0 && (result = inflate((*(*(result + 32) + 144) + 72), 2), (result & 0x80000000) != 0))
   {
     v3 = result;
-    [*(*(v1 + 32) + 136) close];
-    v4 = *(*(v1 + 32) + 144);
+    [*(v1[4] + 136) close];
+    v4 = *(v1[4] + 144);
 
     return [v4 setZlibError:v3 forStream:?];
   }
 
   else
   {
-    v2 = *(*(v1 + 32) + 144);
+    v2 = *(v1[4] + 144);
     if (!*(v2 + 80))
     {
       *(v2 + 72) = *(v2 + 200);
-      *(*(*(v1 + 32) + 144) + 216) = 0;
+      *(*(v1[4] + 144) + 216) = 0;
     }
   }
 
@@ -378,19 +378,17 @@ uint64_t __49__SYDecompressingInputStream_stream_handleEvent___block_invoke(uint
 
   getCFRunLoop = [loopCopy getCFRunLoop];
   runloopSource = self->_internal->super._runloopSource;
-  v10 = [(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]];
-  v11 = *MEMORY[0x1E695E8E0];
-  if (v10)
+  if ([(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]])
   {
-    v12 = *MEMORY[0x1E695E8E0];
+    v10 = *MEMORY[0x1E695E8E0];
   }
 
   else
   {
-    v12 = modeCopy;
+    v10 = modeCopy;
   }
 
-  CFRunLoopAddSource(getCFRunLoop, runloopSource, v12);
+  CFRunLoopAddSource(getCFRunLoop, runloopSource, v10);
 }
 
 - (void)removeFromRunLoop:(id)loop forMode:(id)mode
@@ -402,19 +400,17 @@ uint64_t __49__SYDecompressingInputStream_stream_handleEvent___block_invoke(uint
   getCFRunLoop = [loopCopy getCFRunLoop];
 
   runloopSource = self->_internal->super._runloopSource;
-  v10 = [(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]];
-  v11 = *MEMORY[0x1E695E8E0];
-  if (v10)
+  if ([(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]])
   {
-    v12 = *MEMORY[0x1E695E8E0];
+    v10 = *MEMORY[0x1E695E8E0];
   }
 
   else
   {
-    v12 = modeCopy;
+    v10 = modeCopy;
   }
 
-  CFRunLoopRemoveSource(getCFRunLoop, runloopSource, v12);
+  CFRunLoopRemoveSource(getCFRunLoop, runloopSource, v10);
 }
 
 - (void)_handlePendingInput
@@ -428,24 +424,24 @@ uint64_t __49__SYDecompressingInputStream_stream_handleEvent___block_invoke(uint
   [(_SYZlibStreamInternal *)internal synchronized:v3];
 }
 
-uint64_t __49__SYDecompressingInputStream__handlePendingInput__block_invoke(uint64_t a1)
+z_stream *__49__SYDecompressingInputStream__handlePendingInput__block_invoke(uint64_t a1)
 {
-  result = *(*(a1 + 32) + 144) + 72;
-  if (*(result + 8))
+  result = (*(*(a1 + 32) + 144) + 72);
+  if (result->avail_in)
   {
     v3 = inflate(result, 2);
     result = *(*(a1 + 32) + 144);
     if (v3 < 0)
     {
-      [result setZlibError:? forStream:?];
+      [z_stream setZlibError:"setZlibError:forStream:" forStream:?];
       v4 = *(*(a1 + 32) + 136);
 
       return [v4 close];
     }
 
-    else if (!*(result + 80))
+    else if (!LODWORD(result->opaque))
     {
-      *(result + 72) = *(result + 200);
+      result->zfree = *&result[1].data_type;
       *(*(*(a1 + 32) + 144) + 216) = 0;
     }
   }

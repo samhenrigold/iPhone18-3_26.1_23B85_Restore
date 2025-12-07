@@ -12,8 +12,10 @@
 - (id)promiseForRecordWithID:(id)d timeout:(double)timeout qualityOfService:(int64_t)service existingOnly:(BOOL)only updateRecordMaybe:(id)maybe;
 - (id)recordWithID:(id)d;
 - (id)recordWithID:(id)d qualityOfService:(int64_t)service updateRecordMaybe:(id)maybe error:(id *)error;
+- (id)referenceRecordForScheme:(id)scheme dsId:(id)id date:(id)date reset:(BOOL)reset timeout:(double)timeout existingOnly:(BOOL)only qualityOfService:(int64_t)service;
 - (id)resetSchemes:(id)schemes options:(id)options;
 - (id)secretForScheme:(id)scheme options:(id)options;
+- (id)spanRecordForScheme:(id)scheme span:(id)span timeout:(double)timeout existingOnly:(BOOL)only qualityOfService:(int64_t)service referenceRecord:(id)record;
 - (id)syncForSchemes:(id)schemes options:(id)options;
 - (void)_generateFutureRecordsForScheme:(id)scheme referenceRecord:(id)record;
 - (void)accountDidChangeWithUserRecordID:(id)d;
@@ -34,9 +36,9 @@
 {
   syncCopy = sync;
   identiferCopy = identifer;
-  v23.receiver = self;
-  v23.super_class = MTIDCloudKitStore;
-  v7 = [(MTIDCloudKitStore *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = MTIDCloudKitStore;
+  v7 = [(MTIDCloudKitStore *)&v24 init];
   v8 = v7;
   if (v7)
   {
@@ -47,16 +49,17 @@
       v10 = [v9 valueForEntitlement:@"com.apple.developer.icloud-container-identifiers"];
 
       -[MTIDCloudKitStore setCanSyncBetweenDevices:](v8, "setCanSyncBetweenDevices:", [v10 containsObject:identiferCopy]);
-      if (![(MTIDCloudKitStore *)v8 canSyncBetweenDevices])
+      canSyncBetweenDevices = [(MTIDCloudKitStore *)v8 canSyncBetweenDevices];
+      if ((canSyncBetweenDevices & 1) == 0)
       {
-        v11 = MTMetricsKitOSLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = MTMetricsKitOSLog(canSyncBetweenDevices);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v25 = identiferCopy;
-          v26 = 2112;
-          v27 = @"com.apple.developer.icloud-container-identifiers";
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "MetricsKit: The application is missing container %@ in %@ entitlement.", buf, 0x16u);
+          v26 = identiferCopy;
+          v27 = 2112;
+          v28 = @"com.apple.developer.icloud-container-identifiers";
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "MetricsKit: The application is missing container %@ in %@ entitlement.", buf, 0x16u);
         }
       }
     }
@@ -66,18 +69,18 @@
       [(MTIDCloudKitStore *)v8 setCanSyncBetweenDevices:0];
     }
 
-    v12 = [identiferCopy stringByAppendingString:@".accessqueue"];
-    v13 = dispatch_queue_create([v12 UTF8String], 0);
-    [(MTIDCloudKitStore *)v8 setAccessQueue:v13];
+    v13 = [identiferCopy stringByAppendingString:@".accessqueue"];
+    v14 = dispatch_queue_create([v13 UTF8String], 0);
+    [(MTIDCloudKitStore *)v8 setAccessQueue:v14];
 
-    v14 = [MTIDCloudKitLocalDB alloc];
-    v15 = +[MTIDCloudKitStore recordZoneID];
-    v16 = [(MTIDCloudKitLocalDB *)v14 initWithContainerIdentifier:identiferCopy recordType:@"MT_IDSecret" recordZoneID:v15];
+    v15 = [MTIDCloudKitLocalDB alloc];
+    v16 = +[MTIDCloudKitStore recordZoneID];
+    v17 = [(MTIDCloudKitLocalDB *)v15 initWithContainerIdentifier:identiferCopy recordType:@"MT_IDSecret" recordZoneID:v16];
 
-    [(MTIDCloudKitLocalDB *)v16 setDelegate:v8];
-    [(MTIDCloudKitStore *)v8 setLocalDB:v16];
-    v17 = +[NSMutableDictionary dictionary];
-    [(MTIDCloudKitStore *)v8 setGeneratedDates:v17];
+    [(MTIDCloudKitLocalDB *)v17 setDelegate:v8];
+    [(MTIDCloudKitStore *)v8 setLocalDB:v17];
+    v18 = +[NSMutableDictionary dictionary];
+    [(MTIDCloudKitStore *)v8 setGeneratedDates:v18];
 
     if ([(MTIDCloudKitStore *)v8 canSyncBetweenDevices])
     {
@@ -85,10 +88,10 @@
       [syncEngine start];
     }
 
-    v19 = [MTIDCloudKitPromiseManager alloc];
+    v20 = [MTIDCloudKitPromiseManager alloc];
     accessQueue = [(MTIDCloudKitStore *)v8 accessQueue];
-    v21 = [(MTIDCloudKitPromiseManager *)v19 initWithCallbackQueue:accessQueue];
-    [(MTIDCloudKitStore *)v8 setPromiseManager:v21];
+    v22 = [(MTIDCloudKitPromiseManager *)v20 initWithCallbackQueue:accessQueue];
+    [(MTIDCloudKitStore *)v8 setPromiseManager:v22];
   }
 
   return v8;
@@ -415,87 +418,133 @@ LABEL_14:
   v16 = [recordCopy objectForKeyedSubscript:@"namespace"];
   v17 = [recordCopy objectForKeyedSubscript:@"secretKey"];
   idNamespace = [schemeCopy idNamespace];
-  v30 = v16;
+  v31 = v16;
   LODWORD(v16) = [v16 isEqualToString:idNamespace];
 
-  v19 = v16 ^ 1;
-  if (spanRecordCopy && (v19 & 1) == 0)
+  v20 = v16 ^ 1;
+  if (spanRecordCopy && (v20 & 1) == 0)
   {
-    if ([v17 isEqualToString:keyCopy] && !resetCopy)
+    v19 = [v17 isEqualToString:keyCopy];
+    if (v19 && !resetCopy)
     {
       goto LABEL_5;
     }
 
 LABEL_14:
-    v24 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v25 = MTMetricsKitOSLog(v19);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       idNamespace2 = [schemeCopy idNamespace];
       *buf = 138412802;
-      v33 = recordCopy;
-      v34 = 2112;
-      v35 = idNamespace2;
-      v36 = 2112;
-      v37 = keyCopy;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "MetricsKit: Updating record %@ for namespace %@ key %@", buf, 0x20u);
+      v34 = recordCopy;
+      v35 = 2112;
+      v36 = idNamespace2;
+      v37 = 2112;
+      v38 = keyCopy;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "MetricsKit: Updating record %@ for namespace %@ key %@", buf, 0x20u);
     }
 
     idNamespace3 = [schemeCopy idNamespace];
     [recordCopy setObject:idNamespace3 forKeyedSubscript:@"namespace"];
 
     [recordCopy setObject:keyCopy forKeyedSubscript:@"secretKey"];
-    v22 = expirationCopy;
+    v23 = expirationCopy;
     [recordCopy setObject:expirationCopy forKeyedSubscript:@"expiration"];
-    v27 = +[NSUUID UUID];
-    uUIDString = [v27 UUIDString];
+    v28 = +[NSUUID UUID];
+    uUIDString = [v28 UUIDString];
     [recordCopy mt_setSecretValue:uUIDString];
 
     [recordCopy mt_setSynchronized:0];
     goto LABEL_17;
   }
 
-  if ((v19 | resetCopy) == 1)
+  if ((v20 | resetCopy) == 1)
   {
     goto LABEL_14;
   }
 
 LABEL_5:
-  v20 = 0;
+  v21 = 0;
   if (v17)
   {
-    v21 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v21 = !spanRecordCopy;
+    v22 = !spanRecordCopy;
   }
 
   if (!keyCopy)
   {
-    v22 = expirationCopy;
+    v23 = expirationCopy;
     goto LABEL_18;
   }
 
-  v22 = expirationCopy;
-  if (v21)
+  v23 = expirationCopy;
+  if (v22)
   {
-    [recordCopy setObject:keyCopy forKeyedSubscript:@"secretKey"];
-    v23 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v24 = MTMetricsKitOSLog([recordCopy setObject:keyCopy forKeyedSubscript:@"secretKey"]);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v33 = recordCopy;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "MetricsKit: Updating reference record %@ with current date", buf, 0xCu);
+      v34 = recordCopy;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "MetricsKit: Updating reference record %@ with current date", buf, 0xCu);
     }
 
 LABEL_17:
-    v20 = 1;
+    v21 = 1;
   }
 
 LABEL_18:
 
-  return v20;
+  return v21;
+}
+
+- (id)referenceRecordForScheme:(id)scheme dsId:(id)id date:(id)date reset:(BOOL)reset timeout:(double)timeout existingOnly:(BOOL)only qualityOfService:(int64_t)service
+{
+  onlyCopy = only;
+  schemeCopy = scheme;
+  dateCopy = date;
+  v18 = [MTIDCloudKitStore referenceRecordIDForScheme:schemeCopy dsId:id];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_10000CFE0;
+  v23[3] = &unk_100020C08;
+  v26 = onlyCopy;
+  v24 = dateCopy;
+  v25 = schemeCopy;
+  resetCopy = reset;
+  v19 = schemeCopy;
+  v20 = dateCopy;
+  v21 = [(MTIDCloudKitStore *)self promiseForRecordWithID:v18 timeout:service qualityOfService:onlyCopy existingOnly:v23 updateRecordMaybe:timeout];
+
+  return v21;
+}
+
+- (id)spanRecordForScheme:(id)scheme span:(id)span timeout:(double)timeout existingOnly:(BOOL)only qualityOfService:(int64_t)service referenceRecord:(id)record
+{
+  onlyCopy = only;
+  schemeCopy = scheme;
+  spanCopy = span;
+  recordCopy = record;
+  recordID = [recordCopy recordID];
+  v18 = +[MTIDCloudKitStore spanRecordIDForScheme:referenceRecordID:serialNumber:](MTIDCloudKitStore, "spanRecordIDForScheme:referenceRecordID:serialNumber:", schemeCopy, recordID, [spanCopy serialNumber]);
+
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10000D1F0;
+  v24[3] = &unk_100020C30;
+  v28 = onlyCopy;
+  v25 = recordCopy;
+  v26 = spanCopy;
+  v27 = schemeCopy;
+  v19 = schemeCopy;
+  v20 = spanCopy;
+  v21 = recordCopy;
+  v22 = [(MTIDCloudKitStore *)self promiseForRecordWithID:v18 timeout:service qualityOfService:onlyCopy existingOnly:v24 updateRecordMaybe:timeout];
+
+  return v22;
 }
 
 - (void)fetchChangesIfNeeded
@@ -588,13 +637,13 @@ LABEL_18:
 
   if (v8)
   {
-    v9 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = MTMetricsKitOSLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       recordName2 = [dCopy recordName];
-      v11 = 138412290;
-      v12 = recordName2;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "MetricsKit: Updated user record with ID %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = recordName2;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "MetricsKit: Updated user record with ID %@", &v12, 0xCu);
     }
 
     [MTInterprocessChangeNotifier notify:@"MTCloudKitAccountDidChangeNotification"];
@@ -615,17 +664,17 @@ LABEL_18:
     localDB = [(MTIDCloudKitStore *)self localDB];
     [localDB setSyncStatusCode:pendingRecordIDs];
 
-    v9 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = MTMetricsKitOSLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = errorCopy;
-      v10 = "MetricsKit: Error starting sync engine: %@";
-      v11 = v9;
-      v12 = OS_LOG_TYPE_ERROR;
-      v13 = 12;
+      v20 = errorCopy;
+      v11 = "MetricsKit: Error starting sync engine: %@";
+      v12 = v10;
+      v13 = OS_LOG_TYPE_ERROR;
+      v14 = 12;
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v11, v12, v10, buf, v13);
+      _os_log_impl(&_mh_execute_header, v12, v13, v11, buf, v14);
     }
   }
 
@@ -643,29 +692,29 @@ LABEL_9:
       syncEngine = [(MTIDCloudKitStore *)self syncEngine];
       [syncEngine saveRecordsWithIDs:pendingRecordIDs qualityOfService:25];
 
-      v9 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = MTMetricsKitOSLog(v18);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109120;
-        LODWORD(v18) = [pendingRecordIDs count];
-        v10 = "MetricsKit: Started sync engine with %d unsynchronized records";
-        v11 = v9;
-        v12 = OS_LOG_TYPE_DEBUG;
-        v13 = 8;
+        LODWORD(v20) = [pendingRecordIDs count];
+        v11 = "MetricsKit: Started sync engine with %d unsynchronized records";
+        v12 = v10;
+        v13 = OS_LOG_TYPE_DEBUG;
+        v14 = 8;
         goto LABEL_9;
       }
     }
 
     else
     {
-      v9 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = MTMetricsKitOSLog(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        v10 = "MetricsKit: Started sync engine with all records synchronized";
-        v11 = v9;
-        v12 = OS_LOG_TYPE_DEBUG;
-        v13 = 2;
+        v11 = "MetricsKit: Started sync engine with all records synchronized";
+        v12 = v10;
+        v13 = OS_LOG_TYPE_DEBUG;
+        v14 = 2;
         goto LABEL_9;
       }
     }
@@ -676,21 +725,21 @@ LABEL_9:
 {
   dCopy = d;
   localDB = [(MTIDCloudKitStore *)self localDB];
-  v11 = 0;
-  v6 = [localDB recordWithID:dCopy error:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [localDB recordWithID:dCopy error:&v12];
+  v7 = v12;
 
   if (!v6)
   {
-    v8 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = MTMetricsKitOSLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       recordName = [dCopy recordName];
       *buf = 138412546;
-      v13 = recordName;
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to read local record data with ID %@ error %@", buf, 0x16u);
+      v14 = recordName;
+      v15 = 2112;
+      v16 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to read local record data with ID %@ error %@", buf, 0x16u);
     }
   }
 
@@ -707,22 +756,22 @@ LABEL_9:
   {
     [savedCopy mt_setSynchronized:1];
     localDB = [(MTIDCloudKitStore *)self localDB];
-    v13 = 0;
-    v8 = [localDB writeRecord:savedCopy error:&v13];
-    v9 = v13;
+    v14 = 0;
+    v8 = [localDB writeRecord:savedCopy error:&v14];
+    v9 = v14;
 
     if ((v8 & 1) == 0)
     {
-      v10 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = MTMetricsKitOSLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         recordID = [savedCopy recordID];
         recordName = [recordID recordName];
         *buf = 138412546;
-        v15 = recordName;
-        v16 = 2112;
-        v17 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to save local record data with ID %@ error %@", buf, 0x16u);
+        v16 = recordName;
+        v17 = 2112;
+        v18 = v9;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to save local record data with ID %@ error %@", buf, 0x16u);
       }
     }
   }
@@ -757,9 +806,9 @@ LABEL_9:
     {
       [fetchedCopy mt_setSynchronized:1];
       localDB = [(MTIDCloudKitStore *)self localDB];
-      v16 = 0;
-      v11 = [localDB writeRecord:fetchedCopy error:&v16];
-      syncEngine = v16;
+      v17 = 0;
+      v11 = [localDB writeRecord:fetchedCopy error:&v17];
+      syncEngine = v17;
 
       if (v11)
       {
@@ -768,7 +817,7 @@ LABEL_9:
         goto LABEL_10;
       }
 
-      recordID3 = MTMetricsKitOSLog();
+      recordID3 = MTMetricsKitOSLog(v13);
       if (!os_log_type_enabled(recordID3, OS_LOG_TYPE_ERROR))
       {
 LABEL_8:
@@ -779,9 +828,9 @@ LABEL_8:
       recordID2 = [fetchedCopy recordID];
       recordName2 = [recordID2 recordName];
       *buf = 138412546;
-      v19 = recordName2;
-      v20 = 2112;
-      v21 = syncEngine;
+      v20 = recordName2;
+      v21 = 2112;
+      v22 = syncEngine;
       _os_log_impl(&_mh_execute_header, recordID3, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to save local record data with ID %@ error %@", buf, 0x16u);
     }
 
@@ -789,8 +838,8 @@ LABEL_8:
     {
       syncEngine = [(MTIDCloudKitStore *)self syncEngine];
       recordID3 = [fetchedCopy recordID];
-      v17 = recordID3;
-      recordID2 = [NSArray arrayWithObjects:&v17 count:1];
+      v18 = recordID3;
+      recordID2 = [NSArray arrayWithObjects:&v18 count:1];
       [syncEngine deleteRecordsWithIDs:recordID2];
     }
 
@@ -804,21 +853,21 @@ LABEL_10:
 {
   deletedCopy = deleted;
   localDB = [(MTIDCloudKitStore *)self localDB];
-  v10 = 0;
-  v6 = [localDB deleteRecordWithID:deletedCopy error:&v10];
-  v7 = v10;
+  v11 = 0;
+  v6 = [localDB deleteRecordWithID:deletedCopy error:&v11];
+  v7 = v11;
 
   if ((v6 & 1) == 0)
   {
-    v8 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = MTMetricsKitOSLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       recordName = [deletedCopy recordName];
       *buf = 138412546;
-      v12 = recordName;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to delete local record data with ID %@ error %@", buf, 0x16u);
+      v13 = recordName;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to delete local record data with ID %@ error %@", buf, 0x16u);
     }
   }
 }
@@ -857,7 +906,7 @@ LABEL_10:
     date = [v13 date];
   }
 
-  v34 = [optionsCopy objectForKeyedSubscript:@"dsId"];
+  v35 = [optionsCopy objectForKeyedSubscript:@"dsId"];
   v14 = [optionsCopy objectForKeyedSubscript:@"reset"];
   bOOLValue = [v14 BOOLValue];
 
@@ -867,34 +916,34 @@ LABEL_10:
 
   if (v16)
   {
-    [v16 doubleValue];
+    doubleValue = [v16 doubleValue];
   }
 
   else
   {
-    +[MTIDSyncEngine transactionTimeout];
+    doubleValue = +[MTIDSyncEngine transactionTimeout];
   }
 
-  v20 = v19;
-  v21 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  v21 = v20;
+  v22 = MTMetricsKitOSLog(doubleValue);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     idNamespace = [schemeCopy idNamespace];
-    v23 = @"NO";
+    v24 = @"NO";
     *buf = 138413058;
     *&buf[4] = idNamespace;
     if (bOOLValue2)
     {
-      v23 = @"YES";
+      v24 = @"YES";
     }
 
     *&buf[12] = 2112;
     *&buf[14] = date;
     *&buf[22] = 2112;
-    v44 = v23;
-    LOWORD(v45) = 2048;
-    *(&v45 + 2) = v20;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "MetricsKit: Secret requested for scheme %@, date: %@, existingOnly: %@, timeout: %f", buf, 0x2Au);
+    v45 = v24;
+    LOWORD(v46) = 2048;
+    *(&v46 + 2) = v21;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "MetricsKit: Secret requested for scheme %@, date: %@, existingOnly: %@, timeout: %f", buf, 0x2Au);
   }
 
   if (!bOOLValue2)
@@ -902,54 +951,54 @@ LABEL_10:
     goto LABEL_14;
   }
 
-  v24 = [MTIDCloudKitStore referenceRecordIDForScheme:schemeCopy dsId:v34];
+  v25 = [MTIDCloudKitStore referenceRecordIDForScheme:schemeCopy dsId:v35];
   localDB = [(MTIDCloudKitStore *)self localDB];
-  v42 = 0;
-  v26 = [localDB recordWithID:v24 error:&v42];
-  v33 = v42;
+  v43 = 0;
+  v27 = [localDB recordWithID:v25 error:&v43];
+  v34 = v43;
 
-  if (v26)
+  if (v27)
   {
 
 LABEL_14:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v44 = sub_10000E75C;
-    *&v45 = sub_10000E76C;
-    *(&v45 + 1) = 0;
-    v27 = [(MTIDCloudKitStore *)self referenceRecordForScheme:schemeCopy dsId:v34 date:date reset:bOOLValue timeout:bOOLValue2 existingOnly:25 qualityOfService:v20];
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_10000E774;
-    v35[3] = &unk_100020CA8;
-    v36 = schemeCopy;
+    v45 = sub_10000E75C;
+    *&v46 = sub_10000E76C;
+    *(&v46 + 1) = 0;
+    v28 = [(MTIDCloudKitStore *)self referenceRecordForScheme:schemeCopy dsId:v35 date:date reset:bOOLValue timeout:bOOLValue2 existingOnly:25 qualityOfService:v21];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_10000E774;
+    v36[3] = &unk_100020CA8;
+    v37 = schemeCopy;
     selfCopy = self;
-    v39 = buf;
-    v37 = date;
-    v40 = v20;
-    v41 = bOOLValue2;
-    v28 = [v27 thenWithBlock:v35];
+    v40 = buf;
+    v38 = date;
+    v41 = v21;
+    v42 = bOOLValue2;
+    v29 = [v28 thenWithBlock:v36];
 
     _Block_object_dispose(buf, 8);
     goto LABEL_15;
   }
 
-  v30 = [[MTIDSecret alloc] initWithValue:&stru_100021530 effectiveDate:0 expirationDate:0 isSynchronize:0];
-  v31 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+  v31 = [[MTIDSecret alloc] initWithValue:&stru_100021530 effectiveDate:0 expirationDate:0 isSynchronize:0];
+  v32 = MTMetricsKitOSLog(v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
     idNamespace2 = [schemeCopy idNamespace];
     *buf = 138412290;
     *&buf[4] = idNamespace2;
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "MetricsKit: Secret doesn't exist, returning empty secret for scheme %@", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "MetricsKit: Secret doesn't exist, returning empty secret for scheme %@", buf, 0xCu);
   }
 
-  v28 = [MTPromise promiseWithResult:v30];
+  v29 = [MTPromise promiseWithResult:v31];
 
 LABEL_15:
 
-  return v28;
+  return v29;
 }
 
 - (id)resetSchemes:(id)schemes options:(id)options
@@ -1005,39 +1054,40 @@ LABEL_15:
   syncEngine = [(MTIDCloudKitStore *)self syncEngine];
   [syncEngine setApplicationBundleIdentifierOverrideForNetworkAttribution:v8];
 
-  if ([(MTIDCloudKitStore *)self canSyncBetweenDevices])
+  canSyncBetweenDevices = [(MTIDCloudKitStore *)self canSyncBetweenDevices];
+  if (canSyncBetweenDevices)
   {
-    v10 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = MTMetricsKitOSLog(canSyncBetweenDevices);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v22 = [schemesCopy count];
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "MetricsKit: Performing maintenance on %d ID schemes", buf, 8u);
+      v23 = [schemesCopy count];
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "MetricsKit: Performing maintenance on %d ID schemes", buf, 8u);
     }
 
-    v11 = objc_alloc_init(MTPromise);
+    v12 = objc_alloc_init(MTPromise);
     accessQueue = [(MTIDCloudKitStore *)self accessQueue];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_10000F210;
-    v17[3] = &unk_100020D60;
-    v17[4] = self;
-    v18 = optionsCopy;
-    v19 = schemesCopy;
-    v13 = v11;
-    v20 = v13;
-    dispatch_async(accessQueue, v17);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10000F210;
+    v18[3] = &unk_100020D60;
+    v18[4] = self;
+    v19 = optionsCopy;
+    v20 = schemesCopy;
+    v14 = v12;
+    v21 = v14;
+    dispatch_async(accessQueue, v18);
 
-    v14 = v20;
-    v15 = v13;
+    v15 = v21;
+    v16 = v14;
   }
 
   else
   {
-    v15 = [MTPromise promiseWithResult:&__kCFBooleanTrue];
+    v16 = [MTPromise promiseWithResult:&__kCFBooleanTrue];
   }
 
-  return v15;
+  return v16;
 }
 
 - (void)clearLocalData

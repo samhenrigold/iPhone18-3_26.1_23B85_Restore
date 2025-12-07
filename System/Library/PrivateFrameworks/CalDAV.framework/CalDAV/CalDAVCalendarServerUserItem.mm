@@ -1,4 +1,5 @@
 @interface CalDAVCalendarServerUserItem
+- (CalDAVCalendarServerUserItem)initWithHREF:(id)f commonName:(id)name inviteStatus:(int)status access:(int)access;
 - (id)copyParseRules;
 - (id)description;
 - (int64_t)compare:(id)compare;
@@ -8,6 +9,44 @@
 @end
 
 @implementation CalDAVCalendarServerUserItem
+
+- (CalDAVCalendarServerUserItem)initWithHREF:(id)f commonName:(id)name inviteStatus:(int)status access:(int)access
+{
+  v6 = *&access;
+  fCopy = f;
+  nameCopy = name;
+  v12 = [(CalDAVCalendarServerUserItem *)self init];
+  if (v12)
+  {
+    v13 = objc_alloc(MEMORY[0x277CFDBD8]);
+    v14 = [v13 initWithNameSpace:*MEMORY[0x277CFDEF8] andName:*MEMORY[0x277CFDF38]];
+    absoluteString = [fCopy absoluteString];
+    [v14 setPayloadAsString:absoluteString];
+
+    [(CalDAVCalendarServerUserItem *)v12 setHref:v14];
+    v16 = objc_alloc(MEMORY[0x277CFDC10]);
+    v17 = *MEMORY[0x277CFDE90];
+    v18 = [v16 initWithNameSpace:*MEMORY[0x277CFDE90] andName:@"common-name"];
+    [v18 setPayloadAsString:nameCopy];
+    [(CalDAVCalendarServerUserItem *)v12 setCommonName:v18];
+    if ((status - 1) > 4)
+    {
+      v20 = 0;
+    }
+
+    else
+    {
+      v19 = status - 1;
+      v20 = [objc_alloc(MEMORY[0x277CFDC08]) initWithNameSpace:v17 andName:*off_278D669E8[v19]];
+    }
+
+    [(CalDAVCalendarServerUserItem *)v12 setInviteStatus:v20];
+    v21 = [[CalDAVCalendarServerAccessItem alloc] initWithAccess:v6];
+    [(CalDAVCalendarServerUserItem *)v12 setAccess:v21];
+  }
+
+  return v12;
+}
 
 - (id)description
 {

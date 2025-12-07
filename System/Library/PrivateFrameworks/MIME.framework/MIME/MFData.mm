@@ -2,6 +2,7 @@
 - (BOOL)writeToFile:(id)file options:(unint64_t)options error:(id *)error;
 - (BOOL)writeToURL:(id)l options:(unint64_t)options error:(id *)error;
 - (MFData)initWithBytes:(const void *)bytes length:(unint64_t)length;
+- (MFData)initWithBytesNoCopy:(void *)copy length:(unint64_t)length freeWhenDone:(BOOL)done;
 - (MFData)initWithContentsOfFile:(id)file;
 - (MFData)initWithContentsOfFile:(id)file options:(unint64_t)options error:(id *)error;
 - (MFData)initWithContentsOfURL:(id)l options:(unint64_t)options error:(id *)error;
@@ -84,6 +85,26 @@
   }
 
   return v6;
+}
+
+- (MFData)initWithBytesNoCopy:(void *)copy length:(unint64_t)length freeWhenDone:(BOOL)done
+{
+  doneCopy = done;
+  v11.receiver = self;
+  v11.super_class = MFData;
+  v8 = [(MFData *)&v11 init];
+  if (v8)
+  {
+    v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:copy length:length freeWhenDone:doneCopy];
+    v8->_internal = v9;
+    if (!v9)
+    {
+
+      return 0;
+    }
+  }
+
+  return v8;
 }
 
 - (MFData)initWithContentsOfURL:(id)l options:(unint64_t)options error:(id *)error
@@ -278,7 +299,7 @@ LABEL_7:
   parentCopy = parent;
   length = range.length;
   location = range.location;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (from)
   {
     if (([from mf_containsRange:{range.location, range.length}] & 1) == 0)
@@ -286,13 +307,13 @@ LABEL_7:
       v10 = MFLogGeneral();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v19 = 134218496;
-        v20 = location;
-        v21 = 2048;
-        v22 = location + length;
-        v23 = 2048;
-        v24 = [(MFData *)self length];
-        _os_log_error_impl(&dword_1D36B2000, v10, OS_LOG_TYPE_ERROR, "requesting out-of-bounds subdata range %lu..<%lu from data of length %lu", &v19, 0x20u);
+        v18 = 134218496;
+        v19 = location;
+        v20 = 2048;
+        v21 = location + length;
+        v22 = 2048;
+        v23 = [(MFData *)self length];
+        _os_log_error_impl(&dword_1D36B2000, v10, OS_LOG_TYPE_ERROR, "requesting out-of-bounds subdata range %lu..<%lu from data of length %lu", &v18, 0x20u);
       }
     }
   }
@@ -303,7 +324,7 @@ LABEL_7:
     v12 = [(MFData *)self initWithBytesNoCopy:bytes + location length:length freeWhenDone:0];
     if (!v12)
     {
-      goto LABEL_18;
+      return v12;
     }
 
     v12->_parent = from;
@@ -314,7 +335,7 @@ LABEL_7:
     v12 = [(MFData *)self initWithBytes:bytes + location length:length];
     if (!v12)
     {
-      goto LABEL_18;
+      return v12;
     }
   }
 
@@ -337,7 +358,7 @@ LABEL_7:
       {
 LABEL_17:
         os_unfair_lock_unlock(&sWaterMarkLock);
-        goto LABEL_18;
+        return v12;
       }
 
       v16 = MFLogGeneral();
@@ -350,8 +371,6 @@ LABEL_17:
     }
   }
 
-LABEL_18:
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

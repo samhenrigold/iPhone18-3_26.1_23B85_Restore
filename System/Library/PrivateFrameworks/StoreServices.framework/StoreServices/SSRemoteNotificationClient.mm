@@ -46,7 +46,7 @@
   return sharedClient_sSharedClient;
 }
 
-id __42__SSRemoteNotificationClient_sharedClient__block_invoke()
+id __42__SSRemoteNotificationClient_sharedClient__block_invoke(uint64_t a1)
 {
   result = objc_alloc_init(objc_opt_class());
   sharedClient_sSharedClient = result;
@@ -56,7 +56,7 @@ id __42__SSRemoteNotificationClient_sharedClient__block_invoke()
 - (id)popQueuedNotifications
 {
   v26 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v2 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v2)
@@ -75,28 +75,27 @@ id __42__SSRemoteNotificationClient_sharedClient__block_invoke()
       v4 = shouldLog;
     }
 
-    if (os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v5 = v4;
+      v6 = v4;
     }
 
     else
     {
-      v5 = v4 & 2;
+      v6 = v4 & 2;
     }
 
-    if (v5)
+    if (v6)
     {
       LODWORD(v21) = 136446210;
       *(&v21 + 4) = "[SSRemoteNotificationClient popQueuedNotifications]";
-      LODWORD(v19) = 12;
-      v6 = _os_log_send_and_compose_impl();
-      if (v6)
+      if (v7)
       {
-        v7 = v6;
-        v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:{4, &v21, v19}];
-        free(v7);
-        SSFileLog(v2, @"%@", v9, v10, v11, v12, v13, v14, v8);
+        v8 = v7;
+        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+        free(v8);
+        SSFileLog(v2, @"%@", v10, v11, v12, v13, v14, v15, v9);
       }
     }
   }
@@ -107,22 +106,22 @@ id __42__SSRemoteNotificationClient_sharedClient__block_invoke()
   v23 = __Block_byref_object_copy__27;
   v24 = __Block_byref_object_dispose__27;
   v25 = 0;
-  v15 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
-  v16 = SSXPCCreateMessageDictionary(79);
+  v16 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+  v17 = SSXPCCreateMessageDictionary(79);
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
   v20[2] = __52__SSRemoteNotificationClient_popQueuedNotifications__block_invoke;
   v20[3] = &unk_1E84AFD68;
   v20[4] = &v21;
-  [(SSXPCConnection *)v15 sendSynchronousMessage:v16 withReply:v20];
-  xpc_release(v16);
+  [(SSXPCConnection *)v16 sendSynchronousMessage:v17 withReply:v20];
+  xpc_release(v17);
 
-  v17 = *(*(&v21 + 1) + 40);
+  v18 = *(*(&v21 + 1) + 40);
   _Block_object_dispose(&v21, 8);
-  return v17;
+  return v18;
 }
 
-void *__52__SSRemoteNotificationClient_popQueuedNotifications__block_invoke(void *result, void *a2)
+id __52__SSRemoteNotificationClient_popQueuedNotifications__block_invoke(id result, void *a2)
 {
   if (a2)
   {
@@ -133,7 +132,7 @@ void *__52__SSRemoteNotificationClient_popQueuedNotifications__block_invoke(void
       value = xpc_dictionary_get_value(a2, "0");
       v5 = objc_opt_class();
       result = SSXPCCreateNSArrayFromXPCEncodedArray(value, v5);
-      *(*(v3[4] + 8) + 40) = result;
+      *(*(*(v3 + 32) + 8) + 40) = result;
     }
   }
 
@@ -143,7 +142,7 @@ void *__52__SSRemoteNotificationClient_popQueuedNotifications__block_invoke(void
 - (void)registerForRemoteNotifications
 {
   v21 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -162,28 +161,27 @@ void *__52__SSRemoteNotificationClient_popQueuedNotifications__block_invoke(void
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
       v19 = 136446210;
       v20 = "[SSRemoteNotificationClient registerForRemoteNotifications]";
-      LODWORD(v17) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v19, v17}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
@@ -234,7 +232,7 @@ void __60__SSRemoteNotificationClient_registerForRemoteNotifications__block_invo
 - (void)unregisterForRemoteNotifications
 {
   v21 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -253,28 +251,27 @@ void __60__SSRemoteNotificationClient_registerForRemoteNotifications__block_invo
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
       v19 = 136446210;
       v20 = "[SSRemoteNotificationClient unregisterForRemoteNotifications]";
-      LODWORD(v17) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v19, v17}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }

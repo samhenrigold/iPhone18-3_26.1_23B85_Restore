@@ -36,19 +36,19 @@
 
   if (identifier)
   {
-    v6 = sub_23875EA80();
-    v8 = v7;
+    v7 = sub_23875EA80();
+    v9 = v8;
   }
 
   else
   {
-    v6 = 0;
-    v8 = 0;
+    v7 = 0;
+    v9 = 0;
   }
 
-  v9 = sub_23863525C(style, v6, v8);
+  v10 = sub_23863525C(style, v7, v9, v6);
 
-  return v9;
+  return v10;
 }
 
 - (_TtC12FinanceKitUI29StartSharingTimeSelectionCell)initWithCoder:(id)coder

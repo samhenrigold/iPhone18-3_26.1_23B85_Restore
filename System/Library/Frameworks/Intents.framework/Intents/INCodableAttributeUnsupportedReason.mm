@@ -110,20 +110,18 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = INCodableAttributeUnsupportedReason;
-  v4 = [(INCodableAttributeDialog *)&v12 dictionaryRepresentationWithLocalizer:localizer];
+  v13[1] = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = INCodableAttributeUnsupportedReason;
+  v4 = [(INCodableAttributeDialog *)&v11 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionCodeKey = [(INCodableAttributeUnsupportedReason *)self __INCodableDescriptionCodeKey];
-  v13 = __INCodableDescriptionCodeKey;
+  v12 = __INCodableDescriptionCodeKey;
   code = [(INCodableAttributeUnsupportedReason *)self code];
-  v14[0] = code;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = code;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v8 = [v4 if_dictionaryByAddingEntriesFromDictionary:v7];
 
   if_dictionaryWithNonEmptyValues = [v8 if_dictionaryWithNonEmptyValues];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }
@@ -183,7 +181,7 @@
 
 - (NSString)predicateFormat
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = +[INSchema _supportedTypesDictionary];
   _codableAttribute = [(INCodableAttributeDialog *)self _codableAttribute];
   _typeString = [_codableAttribute _typeString];
@@ -213,29 +211,29 @@
 
     v10 = v8;
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v12)
     {
       v13 = v12;
-      v26 = v6;
-      v27 = v3;
-      v14 = *v29;
+      v25 = v6;
+      v26 = v3;
+      v14 = *v28;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v28 + 1) + 8 * i);
-          v17 = [v16 objectForKeyedSubscript:{@"Code", v26, v27, v28}];
+          v16 = *(*(&v27 + 1) + 8 * i);
+          v17 = [v16 objectForKeyedSubscript:{@"Code", v25, v26, v27}];
           if (v17)
           {
             objc_opt_class();
@@ -282,15 +280,15 @@
               v23 = 0;
             }
 
-            v6 = v26;
-            v3 = v27;
+            v6 = v25;
+            v3 = v26;
             v9 = v23;
 
             goto LABEL_29;
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v13)
         {
           continue;
@@ -300,8 +298,8 @@
       }
 
       v9 = 0;
-      v6 = v26;
-      v3 = v27;
+      v6 = v25;
+      v3 = v26;
     }
 
     else
@@ -316,8 +314,6 @@ LABEL_29:
   {
     v9 = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

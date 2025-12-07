@@ -26,14 +26,12 @@
 
 + (id)sublibraries
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   inference = [self Inference];
-  v8[0] = inference;
+  v7[0] = inference;
   metrics = [self Metrics];
-  v8[1] = metrics;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[1] = metrics;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
 
   return v5;
 }
@@ -218,30 +216,28 @@ LABEL_14:
 
 + (id)configurationForConversationUserInteraction
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   storeConfigurationForConversationUserInteraction = [self storeConfigurationForConversationUserInteraction];
   syncPolicyForConversationUserInteraction = [self syncPolicyForConversationUserInteraction];
   v5 = objc_alloc(MEMORY[0x1E698F330]);
   v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"$uninstalled == bundleID" argumentArray:0];
   v7 = [v5 initWithIdentifier:@"app-uninstall" predicate:v6];
-  v21[0] = v7;
+  v20[0] = v7;
   v8 = objc_alloc(MEMORY[0x1E698F330]);
   v9 = [MEMORY[0x1E696AE18] predicateWithFormat:@"NOT bundleID IN $installed" argumentArray:0];
   v10 = [v8 initWithIdentifier:@"app-uninstall-nightly" predicate:v9];
-  v21[1] = v10;
+  v20[1] = v10;
   v11 = objc_alloc(MEMORY[0x1E698F330]);
   v12 = [MEMORY[0x1E696AE18] predicateWithFormat:@"bundleID IN $disabledApps" argumentArray:0];
   v13 = [v11 initWithIdentifier:@"learn-from-this-app" predicate:v12];
-  v21[2] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+  v20[2] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
 
   v15 = MEMORY[0x1E698F338];
   v16 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"B68950B3-B5B5-412A-82D6-1D45539F6089"];
-  BYTE2(v20) = 0;
-  LOWORD(v20) = 1;
-  v17 = [v15 _libraryStreamConfigurationWithUUID:v16 streamIdentifier:@"MLSE.ShareSheet.ConversationUserInteraction" eventClass:objc_opt_class() storeConfig:storeConfigurationForConversationUserInteraction syncPolicy:syncPolicyForConversationUserInteraction legacyNames:0 internalMetadata:0 enableSubscriptions:v20 enableSubscriptionSubstream:0 enableTombstoneSubstream:v14 allowedClients:0 pruningTriggers:? spaceAttributionOwner:?];
-
-  v18 = *MEMORY[0x1E69E9840];
+  BYTE2(v19) = 0;
+  LOWORD(v19) = 1;
+  v17 = [v15 _libraryStreamConfigurationWithUUID:v16 streamIdentifier:@"MLSE.ShareSheet.ConversationUserInteraction" eventClass:objc_opt_class() storeConfig:storeConfigurationForConversationUserInteraction syncPolicy:syncPolicyForConversationUserInteraction legacyNames:0 internalMetadata:0 enableSubscriptions:v19 enableSubscriptionSubstream:0 enableTombstoneSubstream:v14 allowedClients:0 pruningTriggers:? spaceAttributionOwner:?];
 
   return v17;
 }
@@ -257,132 +253,120 @@ LABEL_14:
 
 + (id)VirtualFeatureStore
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForVirtualFeatureStore = [self configurationForVirtualFeatureStore];
   v3 = +[BMMLSEVirtualFeatureStore columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"MLSE.ShareSheet.VirtualFeatureStore" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"MLSE.ShareSheet.VirtualFeatureStore" schema:v9 configuration:configurationForVirtualFeatureStore];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)PeopleSuggestionsMetricsStore
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForPeopleSuggestionsMetricsStore = [self configurationForPeopleSuggestionsMetricsStore];
   v3 = +[BMMLSEPeopleSuggestionsMetricsStore columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"MLSE.ShareSheet.PeopleSuggestionsMetricsStore" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"MLSE.ShareSheet.PeopleSuggestionsMetricsStore" schema:v9 configuration:configurationForPeopleSuggestionsMetricsStore];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)LabeledDataStore
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForLabeledDataStore = [self configurationForLabeledDataStore];
   v3 = +[BMMLSELabeledDataStore columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"MLSE.ShareSheet.LabeledDataStore" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"MLSE.ShareSheet.LabeledDataStore" schema:v9 configuration:configurationForLabeledDataStore];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)Feedback
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForFeedback = [self configurationForFeedback];
   v3 = +[BMMLSEShareSheetFeedback columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"MLSE.ShareSheet.Feedback" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"MLSE.ShareSheet.Feedback" schema:v9 configuration:configurationForFeedback];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)DurableFeatureStore
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForDurableFeatureStore = [self configurationForDurableFeatureStore];
   v3 = +[BMMLSEDurableFeatureStore columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"MLSE.ShareSheet.DurableFeatureStore" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"MLSE.ShareSheet.DurableFeatureStore" schema:v9 configuration:configurationForDurableFeatureStore];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)ConversationUserInteraction
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForConversationUserInteraction = [self configurationForConversationUserInteraction];
   v3 = +[BMMLSEConversationUserInteraction columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"MLSE.ShareSheet.ConversationUserInteraction" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"MLSE.ShareSheet.ConversationUserInteraction" schema:v9 configuration:configurationForConversationUserInteraction];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

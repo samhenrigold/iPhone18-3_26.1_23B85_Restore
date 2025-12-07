@@ -24,7 +24,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICellularPlanConvertedController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
   {
@@ -33,10 +33,9 @@
     _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "dealloc : %@", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = PSUICellularPlanConvertedController;
-  [(PSUICellularPlanConvertedController *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = PSUICellularPlanConvertedController;
+  [(PSUICellularPlanConvertedController *)&v4 dealloc];
 }
 
 - (void)viewDidLoad
@@ -293,29 +292,29 @@
 
 - (void)_cellularPlanChanged:(id)changed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = +[PSUICellularPlanManagerCache sharedInstance];
   planItems = [v4 planItems];
 
-  v6 = [planItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [planItems countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(planItems);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         iccid = [v10 iccid];
         iccid2 = [(CTCellularPlanItem *)self->_planItem iccid];
         v13 = [iccid isEqualToString:iccid2];
@@ -328,7 +327,7 @@
         }
       }
 
-      v7 = [planItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [planItems countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -339,8 +338,6 @@
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePlanStatus:(id)status

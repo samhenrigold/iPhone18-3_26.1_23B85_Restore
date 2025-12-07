@@ -447,7 +447,7 @@ uint64_t __57__MFModernAtomBackgroundView_setSelected_animated_style___block_inv
       {
         v11 = objc_alloc(MEMORY[0x1E69DCC10]);
         v10 = [v11 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-        v12 = MFLocalizedAddressSeparator();
+        v12 = MFLocalizedAddressSeparator(v10);
         [v10 setText:v12];
 
         v13 = +[MFModernAtomView defaultFont];

@@ -93,7 +93,7 @@ void __52__CAMViewfinderVideoCaptureTestHarness_startTesting__block_invoke(uint6
   }
 }
 
-uint64_t __53__CAMViewfinderVideoCaptureTestHarness__startCapture__block_invoke(uint64_t a1)
+void *__53__CAMViewfinderVideoCaptureTestHarness__startCapture__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) pressShutterButtonWithTouchUpDelay:0.2];
   if ((result & 1) == 0)

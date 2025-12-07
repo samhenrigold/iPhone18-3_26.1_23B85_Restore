@@ -6,7 +6,7 @@
 void ___ISInvalidateCacheEntries_block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _ISDefaultLog();
+  v3 = _ISDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     ___ISInvalidateCacheEntries_block_invoke_cold_1();
@@ -16,7 +16,7 @@ void ___ISInvalidateCacheEntries_block_invoke(uint64_t a1, void *a2)
 void ___ISInvalidateCacheEntries_block_invoke_7(uint64_t a1, int a2, void *a3)
 {
   v4 = a3;
-  v5 = _ISDefaultLog();
+  v5 = _ISDefaultLog(v4);
   v6 = v5;
   if (a2)
   {
@@ -31,22 +31,6 @@ void ___ISInvalidateCacheEntries_block_invoke_7(uint64_t a1, int a2, void *a3)
   {
     ___ISInvalidateCacheEntries_block_invoke_7_cold_1();
   }
-}
-
-void ___ISInvalidateCacheEntries_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_5(&dword_1A77B8000, v0, v1, "Error fetching remote object while clearing entire icon cache: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void ___ISInvalidateCacheEntries_block_invoke_7_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_5(&dword_1A77B8000, v0, v1, "Error clearing entire icon cache: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -8,6 +8,12 @@
 - (id)_accessibilityHintForPageAtIndex:(unint64_t)index forPageScrollViewController:(id)controller;
 - (id)_accessibilityLabelForPageAtIndex:(unint64_t)index forPageScrollViewController:(id)controller;
 - (id)_accessibilityValueForPageAtIndex:(unint64_t)index forPageScrollViewController:(id)controller;
+- (void)_deactivateAddFaceAnimated:(BOOL)animated withCompletion:(id)completion;
+- (void)_dismissSwitcherAnimated:(BOOL)animated withIndex:(unint64_t)index remainFrozen:(BOOL)frozen completion:(id)completion;
+- (void)_scrollToAndSetupFaceAtIndex:(unint64_t)index updateLibraryFaceCollection:(BOOL)collection;
+- (void)endInteractiveLibraryPresentationLatched:(BOOL)latched;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NTKFaceLibraryViewControllerAccessibility
@@ -43,6 +49,27 @@
   [validationsCopy validateClass:@"NTKPageScrollViewController"];
   [validationsCopy validateClass:@"NTKPageScrollViewController" hasInstanceMethod:@"scrollEnabled" withFullSignature:{"B", 0}];
   [validationsCopy validateClass:@"NTKPageScrollViewController" hasInstanceMethod:@"currentPageIndex" withFullSignature:{"Q", 0}];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = NTKFaceLibraryViewControllerAccessibility;
+  [(NTKFaceLibraryViewControllerAccessibility *)&v3 viewWillAppear:appear];
+  UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, 0);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = [(NTKFaceLibraryViewControllerAccessibility *)self safeBoolForKey:@"_presented"];
+  v6.receiver = self;
+  v6.super_class = NTKFaceLibraryViewControllerAccessibility;
+  [(NTKFaceLibraryViewControllerAccessibility *)&v6 viewDidDisappear:disappearCopy];
+  if (v5)
+  {
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, 0);
+  }
 }
 
 - (BOOL)_accessibilityShouldSwipeBetweenPagesForPageScrollViewController:(id)controller
@@ -102,10 +129,7 @@
 
 uint64_t __107__NTKFaceLibraryViewControllerAccessibility__accessibilityValueForPageAtIndex_forPageScrollViewController___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
 
   return _objc_release_x1();
 }
@@ -119,16 +143,16 @@ uint64_t __107__NTKFaceLibraryViewControllerAccessibility__accessibilityValueFor
   if (v8 != controllerCopy)
   {
     [(NTKFaceLibraryViewControllerAccessibility *)self safeValueForKey:@"_addableFaceCollection"];
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__2;
-    v28 = __Block_byref_object_dispose__2;
-    v9 = v29 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__2;
+    v26 = __Block_byref_object_dispose__2;
+    v9 = v27 = 0;
     AXPerformSafeBlock();
-    v10 = v25[5];
+    v10 = v23[5];
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v22, 8);
     if (v10)
     {
       v11 = [v10 safeStringForKey:@"name"];
@@ -145,42 +169,42 @@ uint64_t __107__NTKFaceLibraryViewControllerAccessibility__accessibilityValueFor
 
   if ([(NTKFaceLibraryViewControllerAccessibility *)self safeUnsignedIntegerForKey:@"_indexOfAddPage"]== index)
   {
-    localizedLowercaseString = accessibilityLocalizedString(@"add.new.face", v13);
+    localizedLowercaseString = accessibilityLocalizedString(@"add.new.face");
 LABEL_8:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_9;
   }
 
-  v30 = 0;
+  v28 = 0;
   objc_opt_class();
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__2;
-  v28 = __Block_byref_object_dispose__2;
-  v29 = 0;
-  v23 = v7;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__2;
+  v26 = __Block_byref_object_dispose__2;
+  v27 = 0;
+  v21 = v7;
   AXPerformSafeBlock();
-  v16 = v25[5];
+  v15 = v23[5];
 
-  _Block_object_dispose(&v24, 8);
-  v14 = __UIAccessibilityCastAsSafeCategory();
+  _Block_object_dispose(&v22, 8);
+  v13 = __UIAccessibilityCastAsSafeCategory();
 
-  if (v30 == 1)
+  if (v28 == 1)
   {
     abort();
   }
 
-  if (v14)
+  if (v13)
   {
-    v17 = [(NTKFaceLibraryViewControllerAccessibility *)self safeValueForKey:@"_libraryOverlayView"];
-    v18 = [v17 safeValueForKey:@"editButton"];
-    v19 = [v14 safeStringForKey:@"name"];
-    localizedLowercaseString2 = [v19 localizedLowercaseString];
+    v16 = [(NTKFaceLibraryViewControllerAccessibility *)self safeValueForKey:@"_libraryOverlayView"];
+    v17 = [v16 safeValueForKey:@"editButton"];
+    v18 = [v13 safeStringForKey:@"name"];
+    localizedLowercaseString2 = [v18 localizedLowercaseString];
 
-    if ([(NTKFaceLibraryViewControllerAccessibility *)self _axCanUseOverlayButton:v18])
+    if ([(NTKFaceLibraryViewControllerAccessibility *)self _axCanUseOverlayButton:v17])
     {
-      v22 = accessibilityLocalizedString(@"face.customizable.hint", v21);
+      v20 = accessibilityLocalizedString(@"face.customizable.hint");
       localizedLowercaseString = __UIAXStringForVariables();
     }
 
@@ -202,20 +226,14 @@ LABEL_9:
 
 uint64_t __107__NTKFaceLibraryViewControllerAccessibility__accessibilityLabelForPageAtIndex_forPageScrollViewController___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
 
   return _objc_release_x1();
 }
 
 uint64_t __107__NTKFaceLibraryViewControllerAccessibility__accessibilityLabelForPageAtIndex_forPageScrollViewController___block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
 
   return _objc_release_x1();
 }
@@ -229,34 +247,34 @@ uint64_t __107__NTKFaceLibraryViewControllerAccessibility__accessibilityLabelFor
   {
     if ([(NTKFaceLibraryViewControllerAccessibility *)self safeUnsignedIntegerForKey:@"_indexOfAddPage"]== index)
     {
-      v8 = accessibilityLocalizedString(@"add.face.hint", v9);
+      v8 = accessibilityLocalizedString(@"add.face.hint");
     }
 
     else
     {
-      v10 = [(NTKFaceLibraryViewControllerAccessibility *)self safeValueForKey:@"_libraryFaceCollection"];
-      v24 = 0;
+      v9 = [(NTKFaceLibraryViewControllerAccessibility *)self safeValueForKey:@"_libraryFaceCollection"];
+      v22 = 0;
       objc_opt_class();
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x3032000000;
-      v21 = __Block_byref_object_copy__2;
-      v22 = __Block_byref_object_dispose__2;
-      v23 = 0;
-      v11 = v10;
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x3032000000;
+      v19 = __Block_byref_object_copy__2;
+      v20 = __Block_byref_object_dispose__2;
+      v21 = 0;
+      v10 = v9;
       AXPerformSafeBlock();
-      v12 = v19[5];
+      v11 = v17[5];
 
-      _Block_object_dispose(&v18, 8);
-      v13 = __UIAccessibilityCastAsSafeCategory();
+      _Block_object_dispose(&v16, 8);
+      v12 = __UIAccessibilityCastAsSafeCategory();
 
-      if (v24 == 1)
+      if (v22 == 1)
       {
         abort();
       }
 
-      _accessibilityFaceStyleDescription = [v13 _accessibilityFaceStyleDescription];
-      v17 = accessibilityLocalizedString(@"face.hint", v15);
+      _accessibilityFaceStyleDescription = [v12 _accessibilityFaceStyleDescription];
+      v15 = accessibilityLocalizedString(@"face.hint");
       v8 = __UIAXStringForVariables();
     }
   }
@@ -271,10 +289,7 @@ uint64_t __107__NTKFaceLibraryViewControllerAccessibility__accessibilityLabelFor
 
 uint64_t __106__NTKFaceLibraryViewControllerAccessibility__accessibilityHintForPageAtIndex_forPageScrollViewController___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
 
   return _objc_release_x1();
 }
@@ -393,6 +408,38 @@ LABEL_13:
   return v10;
 }
 
+- (void)endInteractiveLibraryPresentationLatched:(BOOL)latched
+{
+  v3.receiver = self;
+  v3.super_class = NTKFaceLibraryViewControllerAccessibility;
+  [(NTKFaceLibraryViewControllerAccessibility *)&v3 endInteractiveLibraryPresentationLatched:latched];
+  UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, 0);
+}
+
+- (void)_scrollToAndSetupFaceAtIndex:(unint64_t)index updateLibraryFaceCollection:(BOOL)collection
+{
+  v4.receiver = self;
+  v4.super_class = NTKFaceLibraryViewControllerAccessibility;
+  [(NTKFaceLibraryViewControllerAccessibility *)&v4 _scrollToAndSetupFaceAtIndex:index updateLibraryFaceCollection:collection];
+  UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, 0);
+}
+
+- (void)_deactivateAddFaceAnimated:(BOOL)animated withCompletion:(id)completion
+{
+  animatedCopy = animated;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = __87__NTKFaceLibraryViewControllerAccessibility__deactivateAddFaceAnimated_withCompletion___block_invoke;
+  v9[3] = &unk_206C8;
+  completionCopy = completion;
+  v11 = [(NTKFaceLibraryViewControllerAccessibility *)self safeBoolForKey:@"_presented"];
+  v6 = completionCopy;
+  v7 = objc_retainBlock(v9);
+  v8.receiver = self;
+  v8.super_class = NTKFaceLibraryViewControllerAccessibility;
+  [(NTKFaceLibraryViewControllerAccessibility *)&v8 _deactivateAddFaceAnimated:animatedCopy withCompletion:v7];
+}
+
 void __87__NTKFaceLibraryViewControllerAccessibility__deactivateAddFaceAnimated_withCompletion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
@@ -409,12 +456,28 @@ void __87__NTKFaceLibraryViewControllerAccessibility__deactivateAddFaceAnimated_
   }
 }
 
+- (void)_dismissSwitcherAnimated:(BOOL)animated withIndex:(unint64_t)index remainFrozen:(BOOL)frozen completion:(id)completion
+{
+  frozenCopy = frozen;
+  animatedCopy = animated;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = __104__NTKFaceLibraryViewControllerAccessibility__dismissSwitcherAnimated_withIndex_remainFrozen_completion___block_invoke;
+  v13[3] = &unk_20710;
+  completionCopy = completion;
+  v10 = completionCopy;
+  v11 = objc_retainBlock(v13);
+  v12.receiver = self;
+  v12.super_class = NTKFaceLibraryViewControllerAccessibility;
+  [(NTKFaceLibraryViewControllerAccessibility *)&v12 _dismissSwitcherAnimated:animatedCopy withIndex:index remainFrozen:frozenCopy completion:v11];
+}
+
 uint64_t __104__NTKFaceLibraryViewControllerAccessibility__dismissSwitcherAnimated_withIndex_remainFrozen_completion___block_invoke(uint64_t a1, __n128 a2)
 {
   v3 = *(a1 + 32);
   if (v3)
   {
-    (*(v3 + 16))();
+    (*(v3 + 16))(a2);
     v2 = vars8;
   }
 

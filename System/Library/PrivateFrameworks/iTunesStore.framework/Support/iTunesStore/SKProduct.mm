@@ -474,88 +474,88 @@ LABEL_35:
     }
 
     v9 = v8->_internal;
-    objc_opt_class();
-    v10 = sub_10018E3FC(v5, "0");
-    v11 = *(v9 + 1);
-    *(v9 + 1) = v10;
+    v10 = objc_opt_class();
+    v11 = sub_10018E3FC(v5, "0", v10);
+    v12 = *(v9 + 1);
+    *(v9 + 1) = v11;
 
     *(v9 + 16) = xpc_dictionary_get_BOOL(v5, "2");
-    objc_opt_class();
-    v12 = sub_10018E3FC(v5, "3");
-    v13 = *(v9 + 3);
-    *(v9 + 3) = v12;
+    v13 = objc_opt_class();
+    v14 = sub_10018E3FC(v5, "3", v13);
+    v15 = *(v9 + 3);
+    *(v9 + 3) = v14;
 
-    objc_opt_class();
-    v14 = sub_10018E3FC(v5, "5");
-    v15 = *(v9 + 5);
-    *(v9 + 5) = v14;
+    v16 = objc_opt_class();
+    v17 = sub_10018E3FC(v5, "5", v16);
+    v18 = *(v9 + 5);
+    *(v9 + 5) = v17;
 
-    objc_opt_class();
-    v16 = sub_10018E3FC(v5, "1");
-    v17 = *(v9 + 6);
-    *(v9 + 6) = v16;
+    v19 = objc_opt_class();
+    v20 = sub_10018E3FC(v5, "1", v19);
+    v21 = *(v9 + 6);
+    *(v9 + 6) = v20;
 
-    objc_opt_class();
-    v18 = sub_10018E3FC(v5, "7");
-    v19 = *(v9 + 7);
-    *(v9 + 7) = v18;
+    v22 = objc_opt_class();
+    v23 = sub_10018E3FC(v5, "7", v22);
+    v24 = *(v9 + 7);
+    *(v9 + 7) = v23;
 
-    objc_opt_class();
-    v20 = sub_10018E3FC(v5, "4");
-    v21 = *(v9 + 10);
-    *(v9 + 10) = v20;
+    v25 = objc_opt_class();
+    v26 = sub_10018E3FC(v5, "4", v25);
+    v27 = *(v9 + 10);
+    *(v9 + 10) = v26;
 
-    v22 = [SKProductSubscriptionPeriod alloc];
-    v23 = xpc_dictionary_get_dictionary(v5, "8");
-    v24 = [(SKProductSubscriptionPeriod *)v22 initWithXPCEncoding:v23];
-    v25 = *(v9 + 12);
-    *(v9 + 12) = v24;
+    v28 = [SKProductSubscriptionPeriod alloc];
+    v29 = xpc_dictionary_get_dictionary(v5, "8");
+    v30 = [(SKProductSubscriptionPeriod *)v28 initWithXPCEncoding:v29];
+    v31 = *(v9 + 12);
+    *(v9 + 12) = v30;
 
-    v26 = [SKProductDiscount alloc];
-    v27 = xpc_dictionary_get_dictionary(v5, "9");
-    v28 = [(SKProductDiscount *)v26 initWithXPCEncoding:v27];
-    v29 = *(v9 + 4);
-    *(v9 + 4) = v28;
+    v32 = [SKProductDiscount alloc];
+    v33 = xpc_dictionary_get_dictionary(v5, "9");
+    v34 = [(SKProductDiscount *)v32 initWithXPCEncoding:v33];
+    v35 = *(v9 + 4);
+    *(v9 + 4) = v34;
 
-    objc_opt_class();
-    v30 = sub_10018E3FC(v5, "10");
-    v31 = *(v9 + 11);
-    *(v9 + 11) = v30;
+    v36 = objc_opt_class();
+    v37 = sub_10018E3FC(v5, "10", v36);
+    v38 = *(v9 + 11);
+    *(v9 + 11) = v37;
 
-    v32 = objc_opt_new();
-    v33 = xpc_dictionary_get_array(v5, "11");
+    v39 = objc_opt_new();
+    v40 = xpc_dictionary_get_array(v5, "11");
     applier[0] = _NSConcreteStackBlock;
     applier[1] = 3221225472;
     applier[2] = sub_1000CC3E4;
     applier[3] = &unk_100328088;
-    v34 = v32;
-    v44 = v34;
-    xpc_array_apply(v33, applier);
-    v35 = sub_10018E3C4(v5, "6");
+    v41 = v39;
+    v51 = v41;
+    xpc_array_apply(v40, applier);
+    v42 = sub_10018E3C4(v5, "6");
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v36 = v35;
-      if (!v36)
+      v43 = v42;
+      if (!v43)
       {
         goto LABEL_16;
       }
 
 LABEL_11:
-      v39 = [[NSDecimalNumberHandler alloc] initWithRoundingMode:0 scale:2 raiseOnExactness:0 raiseOnOverflow:0 raiseOnUnderflow:0 raiseOnDivideByZero:0];
-      v40 = [(__CFDictionary *)v36 decimalNumberByRoundingAccordingToBehavior:v39];
-      v41 = v40;
-      if (v40)
+      v46 = [[NSDecimalNumberHandler alloc] initWithRoundingMode:0 scale:2 raiseOnExactness:0 raiseOnOverflow:0 raiseOnUnderflow:0 raiseOnDivideByZero:0];
+      v47 = [(__CFDictionary *)v43 decimalNumberByRoundingAccordingToBehavior:v46];
+      v48 = v47;
+      if (v47)
       {
-        v42 = v40;
+        v49 = v47;
       }
 
       else
       {
-        v42 = v36;
+        v49 = v43;
       }
 
-      objc_storeStrong(v9 + 8, v42);
+      objc_storeStrong(v9 + 8, v49);
 
       goto LABEL_16;
     }
@@ -563,11 +563,11 @@ LABEL_11:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v37 = [NSDecimalNumber alloc];
-      stringValue = [(__CFDictionary *)v35 stringValue];
-      v36 = [v37 initWithString:stringValue];
+      v44 = [NSDecimalNumber alloc];
+      stringValue = [(__CFDictionary *)v42 stringValue];
+      v43 = [v44 initWithString:stringValue];
 
-      if (v36)
+      if (v43)
       {
         goto LABEL_11;
       }
@@ -575,7 +575,7 @@ LABEL_11:
 
     else
     {
-      v36 = 0;
+      v43 = 0;
     }
 
 LABEL_16:

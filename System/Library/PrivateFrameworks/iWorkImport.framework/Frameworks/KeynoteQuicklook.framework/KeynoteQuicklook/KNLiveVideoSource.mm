@@ -33,12 +33,12 @@
   nameCopy = name;
   if (self->_name != nameCopy)
   {
-    v9 = nameCopy;
-    objc_msgSend_willModify(self, nameCopy, v5);
-    v8 = objc_msgSend_copy(v9, v6, v7);
+    v6 = nameCopy;
+    [(KNLiveVideoSource *)self willModify];
+    v5 = [(NSString *)v6 copy];
 
-    objc_storeStrong(&self->_name, v8);
-    nameCopy = v8;
+    objc_storeStrong(&self->_name, v5);
+    nameCopy = v5;
   }
 }
 
@@ -46,57 +46,55 @@
 {
   contextCopy = context;
   nameCopy = name;
-  v29.receiver = self;
-  v29.super_class = KNLiveVideoSource;
-  v12 = [(KNLiveVideoSource *)&v29 initWithContext:contextCopy];
-  if (v12)
+  v17.receiver = self;
+  v17.super_class = KNLiveVideoSource;
+  v10 = [(KNLiveVideoSource *)&v17 initWithContext:contextCopy];
+  if (v10)
   {
-    v13 = objc_msgSend_copy(nameCopy, v10, v11);
-    name = v12->_name;
-    v12->_name = v13;
+    v11 = [nameCopy copy];
+    name = v10->_name;
+    v10->_name = v11;
 
-    v12->_isDefaultSource = source;
-    v15 = objc_opt_class();
-    v18 = objc_msgSend_defaultSymbolImageIdentifier(v15, v16, v17);
-    v12->_symbolImageIdentifier = objc_msgSend_p_archivedSymbolImageIdentifierForSymbolImageIdentifier_(v15, v19, v18);
-    v22 = objc_msgSend_defaultSymbolTintColorIdentifier(v15, v20, v21);
-    v12->_symbolTintColorIdentifier = objc_msgSend_p_archivedSymbolTintColorIdentifierForSymbolTintColorIdentifier_(v15, v23, v22);
-    v26 = objc_msgSend_emptyUsageState(KNLiveVideoSourceCollaborationCommandUsageState, v24, v25);
-    collaborationCommandUsageState = v12->_collaborationCommandUsageState;
-    v12->_collaborationCommandUsageState = v26;
+    v10->_isDefaultSource = source;
+    v13 = objc_opt_class();
+    v10->_symbolImageIdentifier = [v13 p_archivedSymbolImageIdentifierForSymbolImageIdentifier:{objc_msgSend(v13, "defaultSymbolImageIdentifier")}];
+    v10->_symbolTintColorIdentifier = [v13 p_archivedSymbolTintColorIdentifierForSymbolTintColorIdentifier:{objc_msgSend(v13, "defaultSymbolTintColorIdentifier")}];
+    v14 = +[KNLiveVideoSourceCollaborationCommandUsageState emptyUsageState];
+    collaborationCommandUsageState = v10->_collaborationCommandUsageState;
+    v10->_collaborationCommandUsageState = v14;
   }
 
-  return v12;
+  return v10;
 }
 
 - (id)copyWithContext:(id)context
 {
   contextCopy = context;
   v5 = [KNLiveVideoSource alloc];
-  v8 = objc_msgSend_name(self, v6, v7);
-  v10 = objc_msgSend_initWithContext_name_(v5, v9, contextCopy, v8);
+  name = [(KNLiveVideoSource *)self name];
+  v7 = [(KNLiveVideoSource *)v5 initWithContext:contextCopy name:name];
 
-  v13 = objc_msgSend_copy(self->_collaborationCommandUsageState, v11, v12);
-  v14 = *(v10 + 72);
-  *(v10 + 72) = v13;
+  v8 = [(KNLiveVideoSourceCollaborationCommandUsageState *)self->_collaborationCommandUsageState copy];
+  v9 = *(v7 + 72);
+  *(v7 + 72) = v8;
 
-  v17 = objc_msgSend_copy(self->_captureDeviceDescription, v15, v16);
-  v18 = *(v10 + 104);
-  *(v10 + 104) = v17;
+  v10 = [(KNLiveVideoCaptureDeviceDescription *)self->_captureDeviceDescription copy];
+  v11 = *(v7 + 104);
+  *(v7 + 104) = v10;
 
-  *(v10 + 96) = self->_isDefaultSource;
-  objc_msgSend_willRemoveReferenceToData_(v10, v19, *(v10 + 112));
-  objc_storeStrong((v10 + 112), self->_posterImageData);
-  objc_msgSend_didAddReferenceToData_(v10, v20, *(v10 + 112));
-  v23 = objc_msgSend_copy(self->_symbolAbbreviationText, v21, v22);
-  v24 = *(v10 + 120);
-  *(v10 + 120) = v23;
+  *(v7 + 96) = self->_isDefaultSource;
+  [v7 willRemoveReferenceToData:*(v7 + 112)];
+  objc_storeStrong((v7 + 112), self->_posterImageData);
+  [v7 didAddReferenceToData:*(v7 + 112)];
+  v12 = [(NSString *)self->_symbolAbbreviationText copy];
+  v13 = *(v7 + 120);
+  *(v7 + 120) = v12;
 
-  *(v10 + 80) = self->_symbolImageIdentifier;
-  *(v10 + 88) = self->_symbolTintColorIdentifier;
-  *(v10 + 128) = self->_definedCaptureDeviceDescription;
+  *(v7 + 80) = self->_symbolImageIdentifier;
+  *(v7 + 88) = self->_symbolTintColorIdentifier;
+  *(v7 + 128) = self->_definedCaptureDeviceDescription;
 
-  return v10;
+  return v7;
 }
 
 - (KNLiveVideoCaptureDeviceDescription)captureDeviceDescription
@@ -117,21 +115,21 @@
 - (void)setCaptureDeviceDescription:(id)description
 {
   descriptionCopy = description;
-  if (objc_msgSend_canChangeCaptureDeviceDescription(self, v4, v5))
+  if ([(KNLiveVideoSource *)self canChangeCaptureDeviceDescription])
   {
-    v7 = self->_captureDeviceDescription;
-    v8 = descriptionCopy;
-    if (v8 | v7)
+    v4 = self->_captureDeviceDescription;
+    v5 = descriptionCopy;
+    if (v5 | v4)
     {
-      v10 = v8;
-      isEqual = objc_msgSend_isEqual_(v7, v9, v8);
+      v6 = v5;
+      v7 = [v4 isEqual:v5];
 
-      if ((isEqual & 1) == 0)
+      if (!v7)
       {
-        objc_msgSend_willModify(self, v12, v13);
-        v16 = objc_msgSend_copy(v10, v14, v15);
+        [(KNLiveVideoSource *)self willModify];
+        v8 = [v6 copy];
         captureDeviceDescription = self->_captureDeviceDescription;
-        self->_captureDeviceDescription = v16;
+        self->_captureDeviceDescription = v8;
 
         self->_definedCaptureDeviceDescription = self->_captureDeviceDescription != 0;
       }
@@ -140,12 +138,12 @@
 
   else
   {
-    v18 = MEMORY[0x277D81150];
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[KNLiveVideoSource setCaptureDeviceDescription:]");
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v22, v19, v21, 141, 0, "Attempting to change the capture device description of a source whose capture device description can't be changed.");
+    v10 = MEMORY[0x277D81150];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSource setCaptureDeviceDescription:]"];
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm"];
+    [v10 handleFailureInFunction:v11 file:v12 lineNumber:141 isFatal:0 description:"Attempting to change the capture device description of a source whose capture device description can't be changed."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 }
 
@@ -159,12 +157,12 @@
 
   else
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNLiveVideoSource i_updateDefaultSourceCaptureDeviceDescription:]");
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 160, 0, "It is only valid to call this method for a default source");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSource i_updateDefaultSourceCaptureDeviceDescription:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:160 isFatal:0 description:"It is only valid to call this method for a default source"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 }
 
@@ -173,10 +171,10 @@
   dataCopy = data;
   if (self->_posterImageData != dataCopy)
   {
-    objc_msgSend_willModify(self, v5, v6);
-    objc_msgSend_willRemoveReferenceToData_(self, v7, self->_posterImageData);
+    [(KNLiveVideoSource *)self willModify];
+    [(KNLiveVideoSource *)self willRemoveReferenceToData:self->_posterImageData];
     objc_storeStrong(&self->_posterImageData, data);
-    objc_msgSend_didAddReferenceToData_(self, v8, self->_posterImageData);
+    [(KNLiveVideoSource *)self didAddReferenceToData:self->_posterImageData];
     self->_definedPosterImageData = self->_posterImageData != 0;
   }
 }
@@ -186,10 +184,10 @@
   textCopy = text;
   if (self->_symbolAbbreviationText != textCopy)
   {
-    objc_msgSend_willModify(self, v4, v5);
-    v8 = objc_msgSend_copy(textCopy, v6, v7);
+    [(KNLiveVideoSource *)self willModify];
+    v4 = [(NSString *)textCopy copy];
     symbolAbbreviationText = self->_symbolAbbreviationText;
-    self->_symbolAbbreviationText = v8;
+    self->_symbolAbbreviationText = v4;
 
     self->_definedSymbolAbbreviationText = self->_symbolAbbreviationText != 0;
   }
@@ -200,18 +198,17 @@
   symbolImageIdentifier = self->_symbolImageIdentifier;
   if (symbolImageIdentifier >= 0xF)
   {
-    v4 = objc_msgSend_captureDeviceDescription(self, a2, v2);
-    if (v4)
+    captureDeviceDescription = [(KNLiveVideoSource *)self captureDeviceDescription];
+    if (captureDeviceDescription)
     {
-      v5 = objc_opt_class();
-      v8 = objc_msgSend_identifier(v4, v6, v7);
-      symbolImageIdentifier = objc_msgSend_defaultSymbolImageIdentifierForCaptureDeviceIdentifier_(v5, v9, v8);
+      v4 = objc_opt_class();
+      identifier = [captureDeviceDescription identifier];
+      symbolImageIdentifier = [v4 defaultSymbolImageIdentifierForCaptureDeviceIdentifier:identifier];
     }
 
     else
     {
-      v10 = objc_opt_class();
-      symbolImageIdentifier = objc_msgSend_defaultSymbolImageIdentifier(v10, v11, v12);
+      symbolImageIdentifier = [objc_opt_class() defaultSymbolImageIdentifier];
     }
   }
 
@@ -220,13 +217,12 @@
 
 - (void)setSymbolImageIdentifier:(int64_t)identifier
 {
-  v5 = objc_opt_class();
-  v7 = objc_msgSend_p_archivedSymbolImageIdentifierForSymbolImageIdentifier_(v5, v6, identifier);
-  if (self->_symbolImageIdentifier != v7)
+  v4 = [objc_opt_class() p_archivedSymbolImageIdentifierForSymbolImageIdentifier:identifier];
+  if (self->_symbolImageIdentifier != v4)
   {
-    v10 = v7;
-    objc_msgSend_willModify(self, v8, v9);
-    self->_symbolImageIdentifier = v10;
+    v5 = v4;
+    [(KNLiveVideoSource *)self willModify];
+    self->_symbolImageIdentifier = v5;
   }
 }
 
@@ -265,18 +261,17 @@
 
   v4 = objc_opt_class();
 
-  return objc_msgSend_defaultSymbolTintColorIdentifier(v4, v5, v6);
+  return [v4 defaultSymbolTintColorIdentifier];
 }
 
 - (void)setSymbolTintColorIdentifier:(int64_t)identifier
 {
-  v5 = objc_opt_class();
-  v7 = objc_msgSend_p_archivedSymbolTintColorIdentifierForSymbolTintColorIdentifier_(v5, v6, identifier);
-  if (self->_symbolTintColorIdentifier != v7)
+  v4 = [objc_opt_class() p_archivedSymbolTintColorIdentifierForSymbolTintColorIdentifier:identifier];
+  if (self->_symbolTintColorIdentifier != v4)
   {
-    v10 = v7;
-    objc_msgSend_willModify(self, v8, v9);
-    self->_symbolTintColorIdentifier = v10;
+    v5 = v4;
+    [(KNLiveVideoSource *)self willModify];
+    self->_symbolTintColorIdentifier = v5;
   }
 }
 
@@ -295,19 +290,19 @@
 
 + (id)colorForSymbolTintColorIdentifier:(int64_t)identifier
 {
-  v3 = 0;
+  systemYellowColor = 0;
   if (identifier > 2)
   {
     switch(identifier)
     {
       case 3:
-        v3 = objc_msgSend_systemYellowColor(MEMORY[0x277D75348], a2, 3);
+        systemYellowColor = [MEMORY[0x277D75348] systemYellowColor];
         break;
       case 4:
-        v3 = objc_msgSend_systemGreenColor(MEMORY[0x277D75348], a2, 4);
+        systemYellowColor = [MEMORY[0x277D75348] systemGreenColor];
         break;
       case 5:
-        v3 = objc_msgSend_systemBlueColor(MEMORY[0x277D75348], a2, 5);
+        systemYellowColor = [MEMORY[0x277D75348] systemBlueColor];
         break;
     }
   }
@@ -316,90 +311,90 @@
   {
     if (identifier == 1)
     {
-      v3 = objc_msgSend_whiteColor(MEMORY[0x277D75348], a2, 1);
+      systemYellowColor = [MEMORY[0x277D75348] whiteColor];
     }
 
     else if (identifier == 2)
     {
-      v3 = objc_msgSend_systemRedColor(MEMORY[0x277D75348], a2, 2);
+      systemYellowColor = [MEMORY[0x277D75348] systemRedColor];
     }
   }
 
   else
   {
-    v3 = objc_msgSend_blackColor(MEMORY[0x277D75348], a2, 0);
+    systemYellowColor = [MEMORY[0x277D75348] blackColor];
   }
 
-  return v3;
+  return systemYellowColor;
 }
 
 - (void)willBeUsedByCollaborationCommandWithUsageToken:(id)token
 {
   tokenCopy = token;
-  objc_msgSend_willModify(self, v4, v5);
-  v7 = objc_msgSend_usageStateByAddingCollaborationCommandUsageToken_(self->_collaborationCommandUsageState, v6, tokenCopy);
+  [(KNLiveVideoSource *)self willModify];
+  v4 = [(KNLiveVideoSourceCollaborationCommandUsageState *)self->_collaborationCommandUsageState usageStateByAddingCollaborationCommandUsageToken:tokenCopy];
   collaborationCommandUsageState = self->_collaborationCommandUsageState;
-  self->_collaborationCommandUsageState = v7;
+  self->_collaborationCommandUsageState = v4;
 }
 
 - (void)rollbackToCollaborationCommandUsageState:(id)state
 {
   stateCopy = state;
-  objc_msgSend_willModify(self, v4, v5);
-  v8 = objc_msgSend_copy(stateCopy, v6, v7);
+  [(KNLiveVideoSource *)self willModify];
+  v4 = [stateCopy copy];
   collaborationCommandUsageState = self->_collaborationCommandUsageState;
-  self->_collaborationCommandUsageState = v8;
+  self->_collaborationCommandUsageState = v4;
 }
 
 - (BOOL)isEquivalentToLiveVideoSource:(id)source
 {
   sourceCopy = source;
-  v7 = sourceCopy;
+  v5 = sourceCopy;
   if (self->_isDefaultSource)
   {
-    isEqual = sourceCopy[96];
+    v6 = sourceCopy[96];
   }
 
   else
   {
-    v9 = objc_msgSend_name(self, v5, v6);
-    v12 = objc_msgSend_name(v7, v10, v11);
-    if (objc_msgSend_isEqualToString_(v9, v13, v12))
+    name = [(KNLiveVideoSource *)self name];
+    name2 = [v5 name];
+    if ([name isEqualToString:name2])
     {
-      v16 = objc_msgSend_captureDeviceDescription(self, v14, v15);
-      v19 = objc_msgSend_captureDeviceDescription(v7, v17, v18);
-      v20 = v16;
-      v22 = v19;
-      if (v20 | v22)
+      captureDeviceDescription = [(KNLiveVideoSource *)self captureDeviceDescription];
+      captureDeviceDescription2 = [v5 captureDeviceDescription];
+      v11 = captureDeviceDescription;
+      v12 = captureDeviceDescription2;
+      if (v11 | v12)
       {
-        isEqual = objc_msgSend_isEqual_(v20, v21, v22);
+        v6 = [v11 isEqual:v12];
       }
 
       else
       {
-        isEqual = 1;
+        v6 = 1;
       }
     }
 
     else
     {
-      isEqual = 0;
+      v6 = 0;
     }
   }
 
-  return isEqual & 1;
+  return v6 & 1;
 }
 
 - (BOOL)supportsBackgroundKind:(int64_t)kind
 {
   if (kind == 1)
   {
-    v4 = objc_msgSend_captureDeviceDescription(self, a2, 1);
-    v7 = v4;
-    if (v4)
+    captureDeviceDescription = [(KNLiveVideoSource *)self captureDeviceDescription];
+    v5 = captureDeviceDescription;
+    if (captureDeviceDescription)
     {
-      v8 = objc_msgSend_identifier(v4, v5, v6);
-      v3 = objc_msgSend_isIOSScreenRecordingDevice(v8, v9, v10) ^ 1;
+      identifier = [captureDeviceDescription identifier];
+      v3 = [identifier isIOSScreenRecordingDevice] ^ 1;
     }
 
     else
@@ -418,13 +413,12 @@
 
 - (void)didInitFromSOS
 {
-  v5.receiver = self;
-  v5.super_class = KNLiveVideoSource;
-  [(KNLiveVideoSource *)&v5 didInitFromSOS];
-  posterImageData = self->_posterImageData;
-  if (posterImageData)
+  v3.receiver = self;
+  v3.super_class = KNLiveVideoSource;
+  [(KNLiveVideoSource *)&v3 didInitFromSOS];
+  if (self->_posterImageData)
   {
-    objc_msgSend_didAddReferenceToData_(self, v3, posterImageData);
+    [(KNLiveVideoSource *)self didAddReferenceToData:?];
   }
 }
 
@@ -432,151 +426,148 @@
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[106]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[106]];
 
-  if (*(v5 + 16))
+  if (*(v4 + 16))
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v14 = objc_msgSend_tsp_initWithProtobufString_(v15, v16, *(v5 + 24) & 0xFFFFFFFFFFFFFFFELL);
+    0xFFFFFFFFFFFFFFFELL = [objc_alloc(MEMORY[0x277CCACA8]) tsp_initWithProtobufString:*(v4 + 24) & 0xFFFFFFFFFFFFFFFELL];
   }
 
   else
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[KNLiveVideoSource loadFromUnarchiver:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 644, 0, "Missing name in message.");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSource loadFromUnarchiver:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:644 isFatal:0 description:"Missing name in message."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
-    v14 = &stru_2884D8E20;
+    [MEMORY[0x277D81150] logBacktraceThrottled];
+    0xFFFFFFFFFFFFFFFELL = &stru_2884D8E20;
   }
 
   name = self->_name;
-  self->_name = &v14->isa;
+  self->_name = &0xFFFFFFFFFFFFFFFELL->isa;
 
-  v19 = *(v5 + 16);
-  if ((v19 & 4) != 0)
+  v10 = *(v4 + 16);
+  if ((v10 & 4) != 0)
   {
-    v20 = [KNLiveVideoCaptureDeviceDescription alloc];
-    if (*(v5 + 40))
+    v11 = [KNLiveVideoCaptureDeviceDescription alloc];
+    if (*(v4 + 40))
     {
-      v22 = objc_msgSend_initWithMessage_unarchiver_(v20, v21, *(v5 + 40), unarchiverCopy);
+      v12 = *(v4 + 40);
     }
 
     else
     {
-      v22 = objc_msgSend_initWithMessage_unarchiver_(v20, v21, &unk_2812EBD48, unarchiverCopy);
+      v12 = &unk_2812EBD48;
     }
 
+    v13 = [(KNLiveVideoCaptureDeviceDescription *)v11 initWithMessage:v12 unarchiver:unarchiverCopy];
     captureDeviceDescription = self->_captureDeviceDescription;
-    self->_captureDeviceDescription = v22;
+    self->_captureDeviceDescription = v13;
 
     self->_definedCaptureDeviceDescription = 1;
-    v19 = *(v5 + 16);
+    v10 = *(v4 + 16);
   }
 
-  if ((v19 & 0x80) != 0)
+  if ((v10 & 0x80) != 0)
   {
-    self->_isDefaultSource = *(v5 + 72);
+    self->_isDefaultSource = *(v4 + 72);
   }
 
-  if ((v19 & 0x10) != 0)
+  if ((v10 & 0x10) != 0)
   {
-    v24 = objc_msgSend_readDataReferenceMessage_(unarchiverCopy, v18, *(v5 + 56));
+    v15 = [unarchiverCopy readDataReferenceMessage:*(v4 + 56)];
     posterImageData = self->_posterImageData;
-    self->_posterImageData = v24;
+    self->_posterImageData = v15;
 
     self->_definedPosterImageData = 1;
-    v19 = *(v5 + 16);
+    v10 = *(v4 + 16);
   }
 
-  if ((v19 & 2) != 0)
+  if ((v10 & 2) != 0)
   {
-    v26 = objc_alloc(MEMORY[0x277CCACA8]);
-    v28 = objc_msgSend_tsp_initWithProtobufString_(v26, v27, *(v5 + 32) & 0xFFFFFFFFFFFFFFFELL);
+    0xFFFFFFFFFFFFFFFELL2 = [objc_alloc(MEMORY[0x277CCACA8]) tsp_initWithProtobufString:*(v4 + 32) & 0xFFFFFFFFFFFFFFFELL];
     symbolAbbreviationText = self->_symbolAbbreviationText;
-    self->_symbolAbbreviationText = v28;
+    self->_symbolAbbreviationText = 0xFFFFFFFFFFFFFFFELL2;
 
     self->_definedSymbolAbbreviationText = 1;
-    v19 = *(v5 + 16);
+    v10 = *(v4 + 16);
   }
 
-  if ((v19 & 0x20) != 0)
+  if ((v10 & 0x20) != 0)
   {
-    self->_symbolImageIdentifier = *(v5 + 64);
+    self->_symbolImageIdentifier = *(v4 + 64);
   }
 
   else if (self->_captureDeviceDescription)
   {
-    v30 = objc_opt_class();
-    v33 = objc_msgSend_identifier(self->_captureDeviceDescription, v31, v32);
-    v35 = objc_msgSend_defaultSymbolImageIdentifierForCaptureDeviceIdentifier_(v30, v34, v33);
-    self->_symbolImageIdentifier = objc_msgSend_p_archivedSymbolImageIdentifierForSymbolImageIdentifier_(v30, v36, v35);
+    v19 = objc_opt_class();
+    identifier = [(KNLiveVideoCaptureDeviceDescription *)self->_captureDeviceDescription identifier];
+    self->_symbolImageIdentifier = [v19 p_archivedSymbolImageIdentifierForSymbolImageIdentifier:{objc_msgSend(v19, "defaultSymbolImageIdentifierForCaptureDeviceIdentifier:", identifier)}];
   }
 
   else
   {
-    v37 = objc_opt_class();
-    v40 = objc_msgSend_defaultSymbolImageIdentifier(v37, v38, v39);
-    self->_symbolImageIdentifier = objc_msgSend_p_archivedSymbolImageIdentifierForSymbolImageIdentifier_(v37, v41, v40);
+    v21 = objc_opt_class();
+    self->_symbolImageIdentifier = [v21 p_archivedSymbolImageIdentifierForSymbolImageIdentifier:{objc_msgSend(v21, "defaultSymbolImageIdentifier")}];
   }
 
-  v42 = *(v5 + 16);
-  if ((v42 & 0x40) == 0)
+  v22 = *(v4 + 16);
+  if ((v22 & 0x40) != 0)
   {
-    v43 = objc_opt_class();
-    v46 = objc_msgSend_defaultSymbolTintColorIdentifier(v43, v44, v45);
-    self->_symbolTintColorIdentifier = objc_msgSend_p_archivedSymbolTintColorIdentifierForSymbolTintColorIdentifier_(v43, v47, v46);
-    if ((*(v5 + 16) & 8) != 0)
+    self->_symbolTintColorIdentifier = *(v4 + 68);
+    if ((v22 & 8) != 0)
     {
       goto LABEL_22;
     }
-
-LABEL_27:
-    v51 = MEMORY[0x277D81150];
-    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[KNLiveVideoSource loadFromUnarchiver:]");
-    v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v55, v52, v54, 689, 0, "Missing collaborationCommandUsageState in message.");
-
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v57);
-    v50 = objc_msgSend_emptyUsageState(KNLiveVideoSourceCollaborationCommandUsageState, v58, v59);
-    goto LABEL_28;
-  }
-
-  self->_symbolTintColorIdentifier = *(v5 + 68);
-  if ((v42 & 8) == 0)
-  {
-    goto LABEL_27;
-  }
-
-LABEL_22:
-  v48 = [KNLiveVideoSourceCollaborationCommandUsageState alloc];
-  if (*(v5 + 48))
-  {
-    v50 = objc_msgSend_initWithMessage_unarchiver_(v48, v49, *(v5 + 48), unarchiverCopy);
   }
 
   else
   {
-    v50 = objc_msgSend_initWithMessage_unarchiver_(v48, v49, &qword_2812EBD20, unarchiverCopy);
+    v23 = objc_opt_class();
+    self->_symbolTintColorIdentifier = [v23 p_archivedSymbolTintColorIdentifierForSymbolTintColorIdentifier:{objc_msgSend(v23, "defaultSymbolTintColorIdentifier")}];
+    if ((*(v4 + 16) & 8) != 0)
+    {
+LABEL_22:
+      v24 = [KNLiveVideoSourceCollaborationCommandUsageState alloc];
+      if (*(v4 + 48))
+      {
+        v25 = *(v4 + 48);
+      }
+
+      else
+      {
+        v25 = &qword_2812EBD20;
+      }
+
+      v26 = [(KNLiveVideoSourceCollaborationCommandUsageState *)v24 initWithMessage:v25 unarchiver:unarchiverCopy];
+      goto LABEL_28;
+    }
   }
 
+  v27 = MEMORY[0x277D81150];
+  v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSource loadFromUnarchiver:]"];
+  v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm"];
+  [v27 handleFailureInFunction:v28 file:v29 lineNumber:689 isFatal:0 description:"Missing collaborationCommandUsageState in message."];
+
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v26 = +[KNLiveVideoSourceCollaborationCommandUsageState emptyUsageState];
 LABEL_28:
   collaborationCommandUsageState = self->_collaborationCommandUsageState;
-  self->_collaborationCommandUsageState = v50;
+  self->_collaborationCommandUsageState = v26;
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v5, sub_275DCD320, off_2812EA908[106]);
+  v5 = [archiverCopy messageWithNewFunction:sub_275DCD320 descriptor:off_2812EA908[106]];
 
-  v9 = objc_msgSend_tsp_protobufString(self->_name, v7, v8);
-  *(v6 + 16) |= 1u;
-  sub_275D55B98(__p, v9);
+  tsp_protobufString = [(NSString *)self->_name tsp_protobufString];
+  *(v5 + 16) |= 1u;
+  sub_275D55B98(__p, tsp_protobufString);
   google::protobuf::internal::ArenaStringPtr::Set();
-  if (v61 < 0)
+  if (v36 < 0)
   {
     operator delete(__p[0]);
   }
@@ -584,55 +575,55 @@ LABEL_28:
   captureDeviceDescription = self->_captureDeviceDescription;
   if (captureDeviceDescription)
   {
-    *(v6 + 16) |= 4u;
-    v13 = *(v6 + 40);
+    *(v5 + 16) |= 4u;
+    v8 = *(v5 + 40);
+    if (!v8)
+    {
+      v9 = *(v5 + 8);
+      if (v9)
+      {
+        v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      v8 = sub_275E21854(v9);
+      *(v5 + 40) = v8;
+    }
+
+    [(KNLiveVideoCaptureDeviceDescription *)captureDeviceDescription saveToMessage:v8 archiver:archiverCopy];
+  }
+
+  isDefaultSource = self->_isDefaultSource;
+  v11 = *(v5 + 16);
+  *(v5 + 16) = v11 | 0x80;
+  *(v5 + 72) = isDefaultSource;
+  posterImageData = self->_posterImageData;
+  if (posterImageData)
+  {
+    *(v5 + 16) = v11 | 0x90;
+    v13 = *(v5 + 56);
     if (!v13)
     {
-      v14 = *(v6 + 8);
+      v14 = *(v5 + 8);
       if (v14)
       {
         v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v13 = sub_275E21854(v14);
-      *(v6 + 40) = v13;
+      v13 = MEMORY[0x277C8EFD0](v14);
+      *(v5 + 56) = v13;
     }
 
-    objc_msgSend_saveToMessage_archiver_(captureDeviceDescription, v10, v13, archiverCopy);
-  }
-
-  isDefaultSource = self->_isDefaultSource;
-  v16 = *(v6 + 16);
-  *(v6 + 16) = v16 | 0x80;
-  *(v6 + 72) = isDefaultSource;
-  posterImageData = self->_posterImageData;
-  if (posterImageData)
-  {
-    *(v6 + 16) = v16 | 0x90;
-    v18 = *(v6 + 56);
-    if (!v18)
-    {
-      v19 = *(v6 + 8);
-      if (v19)
-      {
-        v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      v18 = MEMORY[0x277C8EFD0](v19);
-      *(v6 + 56) = v18;
-    }
-
-    objc_msgSend_setDataReference_message_(archiverCopy, v10, posterImageData, v18);
+    [archiverCopy setDataReference:posterImageData message:v13];
   }
 
   symbolAbbreviationText = self->_symbolAbbreviationText;
   if (symbolAbbreviationText)
   {
-    v21 = objc_msgSend_tsp_protobufString(symbolAbbreviationText, v10, v11);
-    *(v6 + 16) |= 2u;
-    sub_275D55B98(__p, v21);
+    tsp_protobufString2 = [(NSString *)symbolAbbreviationText tsp_protobufString];
+    *(v5 + 16) |= 2u;
+    sub_275D55B98(__p, tsp_protobufString2);
     google::protobuf::internal::ArenaStringPtr::Set();
-    if (v61 < 0)
+    if (v36 < 0)
     {
       operator delete(__p[0]);
     }
@@ -641,82 +632,80 @@ LABEL_28:
   symbolImageIdentifier = self->_symbolImageIdentifier;
   if (symbolImageIdentifier >= 0x80000000)
   {
-    v32 = MEMORY[0x277D81150];
-    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[KNLiveVideoSource saveToArchiver:]");
-    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v36, v33, v35, 713, 0, "Out-of-bounds type assignment was clamped to max");
+    v23 = MEMORY[0x277D81150];
+    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSource saveToArchiver:]"];
+    v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm"];
+    [v23 handleFailureInFunction:v24 file:v25 lineNumber:713 isFatal:0 description:"Out-of-bounds type assignment was clamped to max"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     LODWORD(symbolImageIdentifier) = 0x7FFFFFFF;
   }
 
   else if (symbolImageIdentifier <= 0xFFFFFFFF7FFFFFFFLL)
   {
-    v46 = MEMORY[0x277D81150];
-    v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[KNLiveVideoSource saveToArchiver:]");
-    v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v50, v47, v49, 713, 0, "Out-of-bounds type assignment was clamped to min");
+    v29 = MEMORY[0x277D81150];
+    v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSource saveToArchiver:]"];
+    v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm"];
+    [v29 handleFailureInFunction:v30 file:v31 lineNumber:713 isFatal:0 description:"Out-of-bounds type assignment was clamped to min"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     LODWORD(symbolImageIdentifier) = 0x80000000;
   }
 
-  *(v6 + 16) |= 0x20u;
-  *(v6 + 64) = symbolImageIdentifier;
+  *(v5 + 16) |= 0x20u;
+  *(v5 + 64) = symbolImageIdentifier;
   symbolTintColorIdentifier = self->_symbolTintColorIdentifier;
   if (symbolTintColorIdentifier >= 0x80000000)
   {
-    v39 = MEMORY[0x277D81150];
-    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[KNLiveVideoSource saveToArchiver:]");
-    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v43, v40, v42, 715, 0, "Out-of-bounds type assignment was clamped to max");
+    v26 = MEMORY[0x277D81150];
+    v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSource saveToArchiver:]"];
+    v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm"];
+    [v26 handleFailureInFunction:v27 file:v28 lineNumber:715 isFatal:0 description:"Out-of-bounds type assignment was clamped to max"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     LODWORD(symbolTintColorIdentifier) = 0x7FFFFFFF;
   }
 
   else if (symbolTintColorIdentifier <= 0xFFFFFFFF7FFFFFFFLL)
   {
-    v53 = MEMORY[0x277D81150];
-    v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[KNLiveVideoSource saveToArchiver:]");
-    v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v53, v57, v54, v56, 715, 0, "Out-of-bounds type assignment was clamped to min");
+    v32 = MEMORY[0x277D81150];
+    v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSource saveToArchiver:]"];
+    v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSource.mm"];
+    [v32 handleFailureInFunction:v33 file:v34 lineNumber:715 isFatal:0 description:"Out-of-bounds type assignment was clamped to min"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     LODWORD(symbolTintColorIdentifier) = 0x80000000;
   }
 
-  v24 = *(v6 + 16);
-  *(v6 + 16) = v24 | 0x40;
-  *(v6 + 68) = symbolTintColorIdentifier;
+  v19 = *(v5 + 16);
+  *(v5 + 16) = v19 | 0x40;
+  *(v5 + 68) = symbolTintColorIdentifier;
   collaborationCommandUsageState = self->_collaborationCommandUsageState;
-  *(v6 + 16) = v24 | 0x48;
-  v26 = *(v6 + 48);
-  if (!v26)
+  *(v5 + 16) = v19 | 0x48;
+  v21 = *(v5 + 48);
+  if (!v21)
   {
-    v27 = *(v6 + 8);
-    if (v27)
+    v22 = *(v5 + 8);
+    if (v22)
     {
-      v27 = *(v27 & 0xFFFFFFFFFFFFFFFELL);
+      v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v26 = sub_275E21784(v27);
-    *(v6 + 48) = v26;
+    v21 = sub_275E21784(v22);
+    *(v5 + 48) = v21;
   }
 
-  objc_msgSend_saveToMessage_archiver_(collaborationCommandUsageState, v10, v26, archiverCopy);
-  v28 = sub_275E53AE0();
-  objc_msgSend_setMessageVersion_(archiverCopy, v29, v28);
-  v30 = sub_275E53AD0();
-  objc_msgSend_requiresDocumentVersion_(archiverCopy, v31, v30);
+  [(KNLiveVideoSourceCollaborationCommandUsageState *)collaborationCommandUsageState saveToMessage:v21 archiver:archiverCopy];
+  [archiverCopy setMessageVersion:sub_275E53AE0()];
+  [archiverCopy requiresDocumentVersion:sub_275E53AD0()];
 }
 
 + (NSString)accessibilityLabelForCameraArrowTriangle2CirclePath
 {
-  v2 = sub_275DC204C();
-  v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"A still camera containing ‘chasing arrows’ where a lens would be", &stru_2884D8E20, @"Keynote");
+  v2 = sub_275DC204C(self);
+  v3 = [v2 localizedStringForKey:@"A still camera containing ‘chasing arrows’ where a lens would be" value:&stru_2884D8E20 table:@"Keynote"];
 
-  return v4;
+  return v3;
 }
 
 + (id)colorSetForSymbolTintColorIdentifier:(int64_t)identifier

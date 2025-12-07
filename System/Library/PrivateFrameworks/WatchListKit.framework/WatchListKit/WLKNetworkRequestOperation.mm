@@ -32,15 +32,15 @@
     _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKNetworkRequestOperation - Request start: %@", &v9, 0xCu);
   }
 
-  v5 = WLKNetworkSignpostLogObject();
+  v6 = WLKNetworkSignpostLogObject(v5);
   signpostIdentifier = [(WLKNetworkRequestOperation *)self signpostIdentifier];
   if (signpostIdentifier - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = signpostIdentifier;
-    if (os_signpost_enabled(v5))
+    v8 = signpostIdentifier;
+    if (os_signpost_enabled(v6))
     {
       LOWORD(v9) = 0;
-      _os_signpost_emit_with_name_impl(&dword_272A0F000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v7, "NetworkRequest.Total", &unk_272A8884E, &v9, 2u);
+      _os_signpost_emit_with_name_impl(&dword_272A0F000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v8, "NetworkRequest.Total", &unk_272A8884E, &v9, 2u);
     }
   }
 
@@ -54,8 +54,6 @@
   {
     [(WLKNetworkRequestOperation *)self prepareAndStartNetworkRequest];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareAndStartNetworkRequest
@@ -74,7 +72,7 @@
 
 - (void)configureSession
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CEE6D8]);
   wlk_defaultBag = [MEMORY[0x277CEE3F8] wlk_defaultBag];
   v5 = [v3 initWithBag:wlk_defaultBag];
@@ -133,19 +131,19 @@ LABEL_7:
           if (v17)
           {
             v18 = self->_DSID;
-            LODWORD(v34) = 138412290;
-            *(&v34 + 4) = v18;
+            LODWORD(v33) = 138412290;
+            *(&v33 + 4) = v18;
             v19 = "WLKNetworkRequestOperation - Found account for DSID override: %@";
 LABEL_19:
-            _os_log_impl(&dword_272A0F000, v16, OS_LOG_TYPE_DEFAULT, v19, &v34, 0xCu);
+            _os_log_impl(&dword_272A0F000, v16, OS_LOG_TYPE_DEFAULT, v19, &v33, 0xCu);
           }
         }
 
         else if (v17)
         {
           v20 = self->_DSID;
-          LODWORD(v34) = 138412290;
-          *(&v34 + 4) = v20;
+          LODWORD(v33) = 138412290;
+          *(&v33 + 4) = v20;
           v19 = "WLKNetworkRequestOperation - No account found for DSID override. Proceeding with non-personalized request %@";
           goto LABEL_19;
         }
@@ -156,7 +154,7 @@ LABEL_19:
     }
 
 LABEL_21:
-    [v5 setAccount:{v8, v34}];
+    [v5 setAccount:{v8, v33}];
   }
 
   [(WLKNetworkRequestOperation *)self setEncoder:v5];
@@ -172,9 +170,9 @@ LABEL_21:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [(WLKNetworkRequestOperation *)self shortDescription];
-    LODWORD(v34) = 138412290;
-    *(&v34 + 4) = shortDescription;
-    _os_log_impl(&dword_272A0F000, v23, OS_LOG_TYPE_DEFAULT, "WLKNetworkRequestOperation - Use shared URLSession for request: %@", &v34, 0xCu);
+    LODWORD(v33) = 138412290;
+    *(&v33 + 4) = shortDescription;
+    _os_log_impl(&dword_272A0F000, v23, OS_LOG_TYPE_DEFAULT, "WLKNetworkRequestOperation - Use shared URLSession for request: %@", &v33, 0xCu);
   }
 
   v25 = +[WLKURLSessionManager sharedInstance];
@@ -192,9 +190,9 @@ LABEL_43:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       shortDescription2 = [(WLKNetworkRequestOperation *)self shortDescription];
-      LODWORD(v34) = 138412290;
-      *(&v34 + 4) = shortDescription2;
-      _os_log_impl(&dword_272A0F000, v27, OS_LOG_TYPE_DEFAULT, "WLKNetworkRequestOperation - Use sharedCacheAMSURLSession for request: %@", &v34, 0xCu);
+      LODWORD(v33) = 138412290;
+      *(&v33 + 4) = shortDescription2;
+      _os_log_impl(&dword_272A0F000, v27, OS_LOG_TYPE_DEFAULT, "WLKNetworkRequestOperation - Use sharedCacheAMSURLSession for request: %@", &v33, 0xCu);
     }
 
     if (configureSession_sharedCacheAMSURLSessionOnceToken != -1)
@@ -210,9 +208,9 @@ LABEL_32:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         shortDescription3 = [(WLKNetworkRequestOperation *)self shortDescription];
-        LODWORD(v34) = 138412290;
-        *(&v34 + 4) = shortDescription3;
-        _os_log_impl(&dword_272A0F000, v30, OS_LOG_TYPE_DEFAULT, "WLKNetworkRequestOperation - Use default AMSURLSession for request: %@", &v34, 0xCu);
+        LODWORD(v33) = 138412290;
+        *(&v33 + 4) = shortDescription3;
+        _os_log_impl(&dword_272A0F000, v30, OS_LOG_TYPE_DEFAULT, "WLKNetworkRequestOperation - Use default AMSURLSession for request: %@", &v33, 0xCu);
       }
 
       if (configureSession_sharedAMSURLSessionOnceToken != -1)
@@ -233,8 +231,6 @@ LABEL_32:
   }
 
   [(WLKNetworkRequestOperation *)self setSession:urlSession];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)authenticationDelegate
@@ -340,7 +336,7 @@ void __59__WLKNetworkRequestOperation_prepareAndStartNetworkRequest__block_invok
 
 - (id)httpHeaderMaxAge
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   httpResponse = [(WLKNetworkRequestOperation *)self httpResponse];
   v3 = [httpResponse valueForHTTPHeaderField:@"Cache-Control"];
 
@@ -348,26 +344,26 @@ void __59__WLKNetworkRequestOperation_prepareAndStartNetworkRequest__block_invok
   if (objc_opt_isKindOfClass())
   {
     [v3 componentsSeparatedByString:{@", "}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v4 = v21 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v4 = v20 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
-          if ([v9 containsString:{@"max-age", v18}])
+          v9 = *(*(&v17 + 1) + 8 * i);
+          if ([v9 containsString:{@"max-age", v17}])
           {
             v10 = [v9 componentsSeparatedByString:@"="];
             if ([v10 count] == 2)
@@ -385,7 +381,7 @@ void __59__WLKNetworkRequestOperation_prepareAndStartNetworkRequest__block_invok
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v6)
         {
           continue;
@@ -403,8 +399,6 @@ LABEL_15:
   {
     v11 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -441,7 +435,7 @@ uint64_t __69__WLKNetworkRequestOperation_ResponseHeaders__httpHeaderResponseDat
 
 - (id)originalExpirationDate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   httpHeaderMaxAge = [(WLKNetworkRequestOperation *)self httpHeaderMaxAge];
   httpHeaderResponseDate = [(WLKNetworkRequestOperation *)self httpHeaderResponseDate];
   v5 = httpHeaderResponseDate;
@@ -454,16 +448,14 @@ uint64_t __69__WLKNetworkRequestOperation_ResponseHeaders__httpHeaderResponseDat
   v7 = WLKNetworkingLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412802;
-    v11 = httpHeaderMaxAge;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "MaxAge: %@, Response Date: %@, Expiration:%@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = httpHeaderMaxAge;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "MaxAge: %@, Response Date: %@, Expiration:%@", &v9, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -478,9 +470,9 @@ uint64_t __69__WLKNetworkRequestOperation_ResponseHeaders__httpHeaderResponseDat
 - (WLKNetworkRequestOperation)initWithURLRequest:(id)request options:(int64_t)options
 {
   requestCopy = request;
-  v16.receiver = self;
-  v16.super_class = WLKNetworkRequestOperation;
-  v7 = [(WLKAsyncOperation *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = WLKNetworkRequestOperation;
+  v7 = [(WLKAsyncOperation *)&v17 init];
   v8 = v7;
   if (v7)
   {
@@ -494,8 +486,8 @@ uint64_t __69__WLKNetworkRequestOperation_ResponseHeaders__httpHeaderResponseDat
     identifier = v8->_identifier;
     v8->_identifier = uUIDString;
 
-    v14 = WLKNetworkSignpostLogObject();
-    v8->_signpostIdentifier = os_signpost_id_make_with_pointer(v14, v8);
+    v15 = WLKNetworkSignpostLogObject(v14);
+    v8->_signpostIdentifier = os_signpost_id_make_with_pointer(v15, v8);
   }
 
   return v8;
@@ -646,14 +638,14 @@ void __45__WLKNetworkRequestOperation__executeRequest__block_invoke(uint64_t a1,
       v12 = [MEMORY[0x277CBEAA8] date];
       [v8 setStartDate:v12];
 
-      v13 = WLKNetworkSignpostLogObject();
-      v14 = [v8 signpostIdentifier];
-      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+      v14 = WLKNetworkSignpostLogObject(v13);
+      v15 = [v8 signpostIdentifier];
+      if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
       {
-        v15 = [*(*(a1 + 32) + 296) URL];
+        v16 = [*(*(a1 + 32) + 296) URL];
         *buf = 138412290;
-        v25 = v15;
-        _os_signpost_emit_with_name_impl(&dword_272A0F000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v14, "NetworkRequest.URLRequest", "%@", buf, 0xCu);
+        v25 = v16;
+        _os_signpost_emit_with_name_impl(&dword_272A0F000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v15, "NetworkRequest.URLRequest", "%@", buf, 0xCu);
       }
 
       objc_destroyWeak(&v20);
@@ -666,8 +658,6 @@ void __45__WLKNetworkRequestOperation__executeRequest__block_invoke(uint64_t a1,
   {
     [WeakRetained _finishExecutionIfPossibleWithError:v6];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __45__WLKNetworkRequestOperation__executeRequest__block_invoke_2(uint64_t a1, void *a2)
@@ -768,23 +758,21 @@ void __45__WLKNetworkRequestOperation__executeRequest__block_invoke_3(id *a1, vo
       a1 = v21;
     }
 
-    v24 = WLKNetworkSignpostLogObject();
-    v25 = [a1[5] signpostIdentifier];
-    if ((v25 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    v25 = WLKNetworkSignpostLogObject(v24);
+    v26 = [a1[5] signpostIdentifier];
+    if ((v26 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v26 = v25;
-      if (os_signpost_enabled(v24))
+      v27 = v26;
+      if (os_signpost_enabled(v25))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_272A0F000, v24, OS_SIGNPOST_INTERVAL_END, v26, "NetworkRequest.URLRequest", &unk_272A8884E, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_272A0F000, v25, OS_SIGNPOST_INTERVAL_END, v27, "NetworkRequest.URLRequest", &unk_272A8884E, buf, 2u);
       }
     }
 
     [WeakRetained setTask:0];
     [WeakRetained handleResult:v5 error:v6];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishExecutionIfPossibleWithError:(id)error
@@ -816,7 +804,7 @@ void __45__WLKNetworkRequestOperation__executeRequest__block_invoke_3(id *a1, vo
 
 - (void)finishExecutionIfPossible
 {
-  v3 = WLKNetworkSignpostLogObject();
+  v3 = WLKNetworkSignpostLogObject(self);
   signpostIdentifier = [(WLKNetworkRequestOperation *)self signpostIdentifier];
   if (signpostIdentifier - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
@@ -835,23 +823,21 @@ void __45__WLKNetworkRequestOperation__executeRequest__block_invoke_3(id *a1, vo
 
 - (void)cancel
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = WLKNetworkingLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(WLKNetworkRequestOperation *)self identifier];
     *buf = 138412290;
-    v9 = identifier;
+    v8 = identifier;
     _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKNetworkRequestOperation - Request cancelled: %@", buf, 0xCu);
   }
 
-  v7.receiver = self;
-  v7.super_class = WLKNetworkRequestOperation;
-  [(WLKAsyncOperation *)&v7 cancel];
+  v6.receiver = self;
+  v6.super_class = WLKNetworkRequestOperation;
+  [(WLKAsyncOperation *)&v6 cancel];
   task = [(WLKNetworkRequestOperation *)self task];
   [task cancel];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

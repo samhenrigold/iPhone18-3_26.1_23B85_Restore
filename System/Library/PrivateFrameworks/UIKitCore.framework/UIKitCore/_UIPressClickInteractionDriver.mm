@@ -139,7 +139,7 @@
   v4 = activeTrigger;
   if (activeTrigger)
   {
-    [activeTrigger _UIPressTriggerValue];
+    objc_msgSend__UIPressTriggerValue(activeTrigger);
     v5 = v7;
   }
 

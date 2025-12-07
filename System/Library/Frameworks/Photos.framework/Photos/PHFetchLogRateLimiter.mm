@@ -78,9 +78,11 @@
 
 uint64_t __42__PHFetchLogRateLimiter_sharedRateLimiter__block_invoke()
 {
-  sharedRateLimiter_pl_once_object_17 = objc_alloc_init(PHFetchLogRateLimiter);
+  v0 = objc_alloc_init(PHFetchLogRateLimiter);
+  v1 = sharedRateLimiter_pl_once_object_17;
+  sharedRateLimiter_pl_once_object_17 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

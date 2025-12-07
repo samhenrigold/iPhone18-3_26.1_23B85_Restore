@@ -73,7 +73,7 @@
 
 - (void)sendAggregatedSignals
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   unreportedSignals = [(DSDaemonProxy *)self unreportedSignals];
   allObjects = [unreportedSignals allObjects];
   v5 = [allObjects copy];
@@ -87,30 +87,28 @@
     if (os_log_type_enabled(DSLog_7, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v14 = v5;
+      v13 = v5;
       _os_log_impl(&dword_248C40000, v7, OS_LOG_TYPE_INFO, "Reporting signals to daemon: %{private}@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     daemonConnection = [(DSDaemonProxy *)self daemonConnection];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __38__DSDaemonProxy_sendAggregatedSignals__block_invoke;
-    v10[3] = &unk_278F72FE0;
-    objc_copyWeak(&v12, buf);
-    v11 = v5;
-    [daemonConnection handleSignals:v11 completion:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __38__DSDaemonProxy_sendAggregatedSignals__block_invoke;
+    v9[3] = &unk_278F72FE0;
+    objc_copyWeak(&v11, buf);
+    v10 = v5;
+    [daemonConnection handleSignals:v10 completion:v9];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __38__DSDaemonProxy_sendAggregatedSignals__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (v5 || (a2 & 1) == 0)
@@ -118,18 +116,18 @@ void __38__DSDaemonProxy_sendAggregatedSignals__block_invoke(uint64_t a1, char a
     v7 = DSLog_7;
     if (os_log_type_enabled(DSLog_7, OS_LOG_TYPE_ERROR))
     {
-      v11 = @"Unknown";
-      v12 = *(a1 + 32);
+      v10 = @"Unknown";
+      v11 = *(a1 + 32);
       if (v5)
       {
-        v11 = v5;
+        v10 = v5;
       }
 
-      v13 = 138412547;
-      v14 = v11;
-      v15 = 2113;
-      v16 = v12;
-      _os_log_error_impl(&dword_248C40000, v7, OS_LOG_TYPE_ERROR, "Error: %@ Proxy failed to handle %{private}@", &v13, 0x16u);
+      v12 = 138412547;
+      v13 = v10;
+      v14 = 2113;
+      v15 = v11;
+      _os_log_error_impl(&dword_248C40000, v7, OS_LOG_TYPE_ERROR, "Error: %@ Proxy failed to handle %{private}@", &v12, 0x16u);
     }
   }
 
@@ -138,8 +136,6 @@ void __38__DSDaemonProxy_sendAggregatedSignals__block_invoke(uint64_t a1, char a
 
   v9 = [WeakRetained unreportedSignals];
   [v9 removeAllObjects];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)signalsToReport

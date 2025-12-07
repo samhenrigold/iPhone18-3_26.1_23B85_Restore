@@ -55,13 +55,11 @@ LABEL_8:
 
   if (tokenString)
   {
-    tokenString = self->_tokenString;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPPerformEntityQueryCommandForFeedback *)self entityType])
   {
-    entityType = self->_entityType;
     PBDataWriterWriteInt32Field();
   }
 }

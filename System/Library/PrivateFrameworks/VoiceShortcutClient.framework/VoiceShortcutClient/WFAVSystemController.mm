@@ -1,4 +1,5 @@
 @interface WFAVSystemController
+- (BOOL)setSilentMode:(BOOL)mode reason:(id)reason client:(int64_t)client;
 - (BOOL)silentModeActive;
 - (BOOL)toggleSilentModeWithReason:(id)reason client:(int64_t)client;
 - (id)avSystemController;
@@ -12,6 +13,37 @@
   LOBYTE(client) = [(WFAVSystemController *)self setSilentMode:[(WFAVSystemController *)self silentModeActive]^ 1 reason:reasonCopy client:client];
 
   return client;
+}
+
+- (BOOL)setSilentMode:(BOOL)mode reason:(id)reason client:(int64_t)client
+{
+  modeCopy = mode;
+  reasonCopy = reason;
+  avSystemController = [(WFAVSystemController *)self avSystemController];
+  v10 = avSystemController;
+  if (client == 3)
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = 6;
+  }
+
+  if (client == 2)
+  {
+    v12 = 3;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  v13 = [avSystemController setSilentMode:modeCopy untilTime:0 reason:reasonCopy clientType:v12];
+
+  return v13;
 }
 
 - (BOOL)silentModeActive

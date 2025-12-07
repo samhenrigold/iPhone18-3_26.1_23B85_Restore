@@ -61,14 +61,14 @@
 
 - (void)sourceInformationChangedNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     delegate = self->_delegate;
     *buf = 138412290;
-    v18 = delegate;
+    v17 = delegate;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Boarding pass has changed, set timer for %@", buf, 0xCu);
   }
 
@@ -100,26 +100,22 @@
   v14 = dispatch_walltime(0, 5000000000);
   dispatch_source_set_timer(waitForFinalChangeTimer, v14, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
   dispatch_activate(self->_waitForFinalChangeTimer);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __67__PowerUIWalletSignalMonitor_sourceInformationChangedNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 16);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 8);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_21B766000, v2, OS_LOG_TYPE_DEFAULT, "Timer ran out, suggest new deadline for %@.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_21B766000, v2, OS_LOG_TYPE_DEFAULT, "Timer ran out, suggest new deadline for %@.", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) requiredFullChargeDate];
   [*(*(a1 + 32) + 8) monitor:*(a1 + 32) maySuggestNewFullChargeDeadline:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoring
@@ -136,7 +132,7 @@ void __67__PowerUIWalletSignalMonitor_sourceInformationChangedNotification___blo
 
 - (id)requiredFullChargeDate
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v3 = os_transaction_create();
   v4 = [PowerUISmartChargeUtilities dateForPreferenceKey:@"WMQDisabledUntil" inDomain:@"com.apple.smartcharging.topoffprotection"];
   v5 = v4;
@@ -199,9 +195,9 @@ void __67__PowerUIWalletSignalMonitor_sourceInformationChangedNotification___blo
 
   if ((unsignedIntValue - unsignedIntValue2) < 5)
   {
-    v57 = v11;
-    v58 = v5;
-    v59 = v3;
+    v56 = v11;
+    v57 = v5;
+    v58 = v3;
     [PowerUISmartChargeUtilities logMemoryUsageInternalForEvent:@"Begining of walletMonitor requiredFullChargeDate"];
     v19 = +[PowerUIWalletSignalMonitor wallet];
     v20 = [v19 passesOfStyles:16];
@@ -213,58 +209,58 @@ void __67__PowerUIWalletSignalMonitor_sourceInformationChangedNotification___blo
       v22 = v21;
       v23 = [v20 count];
       *buf = 134217984;
-      v69 = v23;
+      v68 = v23;
       _os_log_impl(&dword_21B766000, v22, OS_LOG_TYPE_DEFAULT, "Found %lu passes", buf, 0xCu);
     }
 
     date = [MEMORY[0x277CBEAA8] date];
     v25 = [date dateByAddingTimeInterval:-10800.0];
-    v56 = date;
+    v55 = date;
     v26 = [date dateByAddingTimeInterval:86400.0];
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     v27 = v20;
-    v52 = [v27 countByEnumeratingWithState:&v64 objects:v73 count:16];
-    if (v52)
+    v51 = [v27 countByEnumeratingWithState:&v63 objects:v72 count:16];
+    if (v51)
     {
-      v28 = *v65;
-      v54 = v27;
-      v55 = v14;
-      v50 = *v65;
+      v28 = *v64;
+      v53 = v27;
+      v54 = v14;
+      v49 = *v64;
       do
       {
         v29 = 0;
         do
         {
-          if (*v65 != v28)
+          if (*v64 != v28)
           {
             objc_enumerationMutation(v27);
           }
 
-          v30 = *(*(&v64 + 1) + 8 * v29);
+          v30 = *(*(&v63 + 1) + 8 * v29);
+          v59 = 0u;
           v60 = 0u;
           v61 = 0u;
           v62 = 0u;
-          v63 = 0u;
-          v51 = v30;
+          v50 = v30;
           relevantDates = [v30 relevantDates];
-          v32 = [relevantDates countByEnumeratingWithState:&v60 objects:v72 count:16];
+          v32 = [relevantDates countByEnumeratingWithState:&v59 objects:v71 count:16];
           if (v32)
           {
             v33 = v32;
-            v34 = *v61;
+            v34 = *v60;
             while (2)
             {
               for (i = 0; i != v33; ++i)
               {
-                if (*v61 != v34)
+                if (*v60 != v34)
                 {
                   objc_enumerationMutation(relevantDates);
                 }
 
-                v36 = *(*(&v60 + 1) + 8 * i);
+                v36 = *(*(&v59 + 1) + 8 * i);
                 date2 = [v36 date];
                 [date2 timeIntervalSinceDate:v25];
                 if (v38 < 0.0)
@@ -283,25 +279,25 @@ void __67__PowerUIWalletSignalMonitor_sourceInformationChangedNotification___blo
                     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
                     {
                       v45 = v43;
-                      localizedName = [v51 localizedName];
+                      localizedName = [v50 localizedName];
                       date4 = [v36 date];
                       *buf = 138412546;
-                      v69 = localizedName;
-                      v70 = 2112;
-                      v71 = date4;
+                      v68 = localizedName;
+                      v69 = 2112;
+                      v70 = date4;
                       _os_log_impl(&dword_21B766000, v45, OS_LOG_TYPE_DEFAULT, "Found pass, forcing immediate charge: %@, %@", buf, 0x16u);
                     }
 
                     distantFuture = [MEMORY[0x277CBEAA8] distantPast];
 
-                    v27 = v54;
-                    v14 = v55;
+                    v27 = v53;
+                    v14 = v54;
                     goto LABEL_47;
                   }
                 }
               }
 
-              v33 = [relevantDates countByEnumeratingWithState:&v60 objects:v72 count:16];
+              v33 = [relevantDates countByEnumeratingWithState:&v59 objects:v71 count:16];
               if (v33)
               {
                 continue;
@@ -312,16 +308,16 @@ void __67__PowerUIWalletSignalMonitor_sourceInformationChangedNotification___blo
           }
 
           ++v29;
-          v27 = v54;
-          v14 = v55;
-          v28 = v50;
+          v27 = v53;
+          v14 = v54;
+          v28 = v49;
         }
 
-        while (v29 != v52);
-        v52 = [v54 countByEnumeratingWithState:&v64 objects:v73 count:16];
+        while (v29 != v51);
+        v51 = [v53 countByEnumeratingWithState:&v63 objects:v72 count:16];
       }
 
-      while (v52);
+      while (v51);
     }
 
     [PowerUISmartChargeUtilities logMemoryUsageInternalForEvent:@"End of walletMonitor requiredFullChargeDate"];
@@ -341,9 +337,9 @@ void __67__PowerUIWalletSignalMonitor_sourceInformationChangedNotification___blo
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
 LABEL_47:
 
-    v5 = v58;
-    v3 = v59;
-    v11 = v57;
+    v5 = v57;
+    v3 = v58;
+    v11 = v56;
   }
 
   else
@@ -362,7 +358,6 @@ LABEL_47:
   }
 
 LABEL_49:
-  v48 = *MEMORY[0x277D85DE8];
 
   return distantFuture;
 }

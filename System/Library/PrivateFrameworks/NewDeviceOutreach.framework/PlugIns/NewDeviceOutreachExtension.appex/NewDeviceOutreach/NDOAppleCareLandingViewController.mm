@@ -7,6 +7,8 @@
 - (void)outreachFinishedForDeviceWithSerialNumber:(id)number withCompletion:(unint64_t)completion;
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion;
 - (void)processNewStackFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)webviewFinishedWithCompletion:(unint64_t)completion;
 @end
 
@@ -190,6 +192,54 @@
   v9 = completionCopy;
   v10 = numberCopy;
   [manager dismissNotificationForSerialNumber:v10 completion:v11];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = NDOAppleCareLandingViewController;
+  [(NDOAppleCareLandingViewController *)&v7 viewWillAppear:appear];
+  v4 = +[UIDevice currentDevice];
+  userInterfaceIdiom = [v4 userInterfaceIdiom];
+
+  if (userInterfaceIdiom == 6)
+  {
+    vcToPresent = [(NDOAppleCareLandingViewController *)self vcToPresent];
+    [vcToPresent preferredContentSize];
+    [(NDOAppleCareLandingViewController *)self setPreferredContentSize:?];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = NDOAppleCareLandingViewController;
+  [(NDOAppleCareLandingViewController *)&v10 viewDidAppear:appear];
+  v4 = +[UIDevice currentDevice];
+  if ([v4 userInterfaceIdiom] == 1)
+  {
+
+LABEL_4:
+    vcToPresent = [(NDOAppleCareLandingViewController *)self vcToPresent];
+    [vcToPresent setModalPresentationStyle:2];
+
+    goto LABEL_5;
+  }
+
+  v5 = +[UIDevice currentDevice];
+  userInterfaceIdiom = [v5 userInterfaceIdiom];
+
+  if (userInterfaceIdiom == 6)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_5:
+  vcToPresent2 = [(NDOAppleCareLandingViewController *)self vcToPresent];
+  [vcToPresent2 setModalInPresentation:1];
+
+  vcToPresent3 = [(NDOAppleCareLandingViewController *)self vcToPresent];
+  [(NDOAppleCareLandingViewController *)self presentViewController:vcToPresent3 animated:1 completion:&stru_100008338];
 }
 
 - (void)webviewFinishedWithCompletion:(unint64_t)completion

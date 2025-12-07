@@ -73,49 +73,49 @@ uint64_t __36__NPKOneShotLocationFetcher_dealloc__block_invoke(uint64_t a1)
 
 void __57__NPKOneShotLocationFetcher_fetchLocationWithCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (a2)
   {
     if (v5)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_Payment_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Can determine device location.", buf, 2u);
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Can determine device location.", buf, 2u);
       }
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 40);
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 40);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __57__NPKOneShotLocationFetcher_fetchLocationWithCompletion___block_invoke_74;
     block[3] = &unk_279944F98;
-    block[4] = v7;
-    dispatch_async(v8, block);
+    block[4] = v8;
+    dispatch_async(v9, block);
   }
 
   else
   {
     if (v5)
     {
-      v9 = pk_Payment_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_Payment_log(v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Returning provisioning device data without location", buf, 2u);
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Returning provisioning device data without location", buf, 2u);
       }
     }
 
-    v10 = [*(a1 + 32) completionHandler];
+    v11 = [*(a1 + 32) completionHandler];
 
-    if (v10)
+    if (v11)
     {
-      v11 = [*(a1 + 32) completionHandler];
-      v11[2](v11, 0);
+      v12 = [*(a1 + 32) completionHandler];
+      v12[2](v12, 0);
 
       [*(a1 + 32) setCompletionHandler:0];
     }
@@ -135,27 +135,27 @@ void __57__NPKOneShotLocationFetcher_fetchLocationWithCompletion___block_invoke_
   [v4 requestWhenInUseAuthorization];
   v8 = [v4 location];
   v9 = v8;
-  if (v8 && _LocationMeetsAccuracyCriteria(v8))
+  if (v8 && (v8 = _LocationMeetsAccuracyCriteria(v8), (v8 & 1) != 0))
   {
-    v10 = pk_Payment_log();
+    v10 = pk_Payment_log(v8);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
     if (v11)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Immediately retrieved location", buf, 2u);
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Immediately retrieved location", buf, 2u);
       }
     }
 
-    v13 = [*(a1 + 32) completionHandler];
+    v14 = [*(a1 + 32) completionHandler];
 
-    if (v13)
+    if (v14)
     {
-      v14 = [*(a1 + 32) completionHandler];
-      (v14)[2](v14, v9);
+      v15 = [*(a1 + 32) completionHandler];
+      (v15)[2](v15, v9);
 
       [*(a1 + 32) setCompletionHandler:0];
     }
@@ -165,35 +165,35 @@ void __57__NPKOneShotLocationFetcher_fetchLocationWithCompletion___block_invoke_
 
   else
   {
-    v15 = pk_Payment_log();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v16 = pk_Payment_log(v8);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-    if (v16)
+    if (v17)
     {
-      v17 = pk_Payment_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = pk_Payment_log(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Start updating location…", buf, 2u);
+        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Start updating location…", buf, 2u);
       }
     }
 
-    v18 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(*(a1 + 32) + 40));
-    v19 = dispatch_walltime(0, 10000000000);
-    dispatch_source_set_timer(v18, v19, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+    v20 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(*(a1 + 32) + 40));
+    v21 = dispatch_walltime(0, 10000000000);
+    dispatch_source_set_timer(v20, v21, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
     objc_initWeak(buf, *(a1 + 32));
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __57__NPKOneShotLocationFetcher_fetchLocationWithCompletion___block_invoke_79;
     handler[3] = &unk_279945030;
-    objc_copyWeak(&v21, buf);
-    dispatch_source_set_event_handler(v18, handler);
-    dispatch_resume(v18);
+    objc_copyWeak(&v23, buf);
+    dispatch_source_set_event_handler(v20, handler);
+    dispatch_resume(v20);
     [v4 startUpdatingLocation];
-    [*(a1 + 32) setLocationFixTimeout:v18];
+    [*(a1 + 32) setLocationFixTimeout:v20];
     [*(a1 + 32) setLocationManager:v4];
     [*(a1 + 32) setInUseAssertion:v7];
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
 }
@@ -201,27 +201,27 @@ void __57__NPKOneShotLocationFetcher_fetchLocationWithCompletion___block_invoke_
 void __57__NPKOneShotLocationFetcher_fetchLocationWithCompletion___block_invoke_79(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(WeakRetained);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Event handler fired", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Event handler fired", v8, 2u);
     }
   }
 
   if (WeakRetained)
   {
-    v5 = [WeakRetained completionHandler];
+    v6 = [WeakRetained completionHandler];
 
-    if (v5)
+    if (v6)
     {
-      v6 = [WeakRetained completionHandler];
-      v6[2](v6, 0);
+      v7 = [WeakRetained completionHandler];
+      v7[2](v7, 0);
 
       [WeakRetained setCompletionHandler:0];
     }
@@ -230,95 +230,93 @@ void __57__NPKOneShotLocationFetcher_fetchLocationWithCompletion___block_invoke_
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   locationsCopy = locations;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(locationsCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Location did update", buf, 2u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Location did update", buf, 2u);
     }
   }
 
   dispatch_assert_queue_V2(self->_locationManagerQueue);
+  v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v11 = locationsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
-  v13 = v11;
-  if (!v12)
+  v12 = locationsCopy;
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v14 = v12;
+  if (!v13)
   {
     goto LABEL_20;
   }
 
-  v14 = v12;
-  v13 = 0;
-  v15 = *v24;
+  v15 = v13;
+  v14 = 0;
+  v16 = *v26;
   do
   {
-    for (i = 0; i != v14; ++i)
+    for (i = 0; i != v15; ++i)
     {
-      if (*v24 != v15)
+      if (*v26 != v16)
       {
-        objc_enumerationMutation(v11);
+        objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v23 + 1) + 8 * i);
-      if (_LocationMeetsAccuracyCriteria(v17))
+      v18 = *(*(&v25 + 1) + 8 * i);
+      if (_LocationMeetsAccuracyCriteria(v18))
       {
-        v18 = v17;
+        v19 = v18;
 
-        v13 = v18;
+        v14 = v19;
       }
     }
 
-    v14 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v15 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
   }
 
-  while (v14);
+  while (v15);
 
-  if (v13)
+  if (v14)
   {
-    v19 = pk_Payment_log();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v21 = pk_Payment_log(v20);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
-    if (v20)
+    if (v22)
     {
-      v21 = pk_Payment_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = pk_Payment_log(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: Found candidate location", buf, 2u);
+        _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Notice: Found candidate location", buf, 2u);
       }
     }
 
-    [(NPKOneShotLocationFetcher *)self _finishLocationFixWithLocation:v13, v23];
+    [(NPKOneShotLocationFetcher *)self _finishLocationFixWithLocation:v14, v25];
 LABEL_20:
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Location did fail", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Location did fail", v9, 2u);
     }
   }
 

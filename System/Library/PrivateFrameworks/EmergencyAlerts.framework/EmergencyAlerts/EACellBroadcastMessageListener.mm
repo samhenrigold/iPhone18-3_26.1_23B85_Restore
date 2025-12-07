@@ -27,7 +27,7 @@ uint64_t __48__EACellBroadcastMessageListener_sharedInstance__block_invoke()
 
 - (EACellBroadcastMessageListener)init
 {
-  EARegisterUserNotificationsLogging();
+  EARegisterUserNotificationsLogging(self, a2);
   v7.receiver = self;
   v7.super_class = EACellBroadcastMessageListener;
   v3 = [(EACellBroadcastMessageListener *)&v7 init];
@@ -43,11 +43,10 @@ uint64_t __48__EACellBroadcastMessageListener_sharedInstance__block_invoke()
 
 - (void)dealloc
 {
-  v3 = *MEMORY[0x277CC4128];
   TURemoveTelephonyCenterObserver();
-  v4.receiver = self;
-  v4.super_class = EACellBroadcastMessageListener;
-  [(EACellBroadcastMessageListener *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = EACellBroadcastMessageListener;
+  [(EACellBroadcastMessageListener *)&v3 dealloc];
 }
 
 @end

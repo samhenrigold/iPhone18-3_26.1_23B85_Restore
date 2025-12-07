@@ -2,7 +2,6 @@
 - (BOOL)isEqual:(id)equal;
 - (_GCDevicePhysicalInputSwitchElementParameters)init;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)sources;
 - (uint64_t)canWrap;
 - (uint64_t)eventPositionField;
 - (uint64_t)isSequential;
@@ -12,6 +11,7 @@
 - (uint64_t)setPositionRange:(uint64_t)range;
 - (uint64_t)setSequential:(uint64_t)result;
 - (void)setSources:(void *)sources;
+- (void)sources;
 @end
 
 @implementation _GCDevicePhysicalInputSwitchElementParameters
@@ -52,7 +52,7 @@
   return v7;
 }
 
-- (id)sources
+- (void)sources
 {
   selfCopy = self;
   if (self)
@@ -112,9 +112,7 @@
 {
   if (result)
   {
-    v1 = result + 64;
-    result = *(result + 64);
-    v2 = *(v1 + 8);
+    return *(result + 64);
   }
 
   return result;

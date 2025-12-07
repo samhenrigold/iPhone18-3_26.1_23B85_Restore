@@ -58,7 +58,7 @@
 
 - (__SecKey)fullIdentityKey
 {
-  v3 = sub_100706B30(&qword_100CB3250);
+  v3 = sub_100706B30(&qword_100CB3250, &qword_1009B8BE0);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   v6 = *((swift_isaMask & **(&self->super.isa + OBJC_IVAR____TtC17identityservicesd29IDSGroupEncryptionController2_identityController)) + 0x130);
@@ -68,7 +68,7 @@
   v8 = type metadata accessor for IDSGroupEncryptionFullIdentity(0);
   if ((*(*(v8 - 8) + 48))(v5, 1, v8) == 1)
   {
-    sub_100013814(v5, &qword_100CB3250);
+    sub_100013814(v5, &qword_100CB3250, &qword_1009B8BE0);
     v9 = 0;
   }
 
@@ -95,7 +95,7 @@
   v3 = type metadata accessor for IDSGroupEncryptionPublicIdentity(0);
   __chkstk_darwin(v3 - 8);
   v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100706B30(&qword_100CB3250);
+  v6 = sub_100706B30(&qword_100CB3250, &qword_1009B8BE0);
   __chkstk_darwin(v6 - 8);
   v8 = &v18 - v7;
   v9 = *((swift_isaMask & **(&self->super.isa + OBJC_IVAR____TtC17identityservicesd29IDSGroupEncryptionController2_identityController)) + 0x130);
@@ -105,7 +105,7 @@
   if ((*(*(v11 - 8) + 48))(v8, 1, v11) == 1)
   {
 
-    sub_100013814(v8, &qword_100CB3250);
+    sub_100013814(v8, &qword_100CB3250, &qword_1009B8BE0);
     v12 = 0;
   }
 
@@ -179,7 +179,7 @@
   sub_1007D75EC((v2 + 16), &v6);
   os_unfair_lock_unlock((v2 + 24));
 
-  sub_100014170(0, &qword_100CB34A0);
+  sub_100014170(0, &qword_100CB34A0, IDSPushToken_ptr);
   sub_1007D5B6C();
   v4.super.isa = sub_100936A58().super.isa;
 
@@ -292,7 +292,7 @@
 
 - (IDSRealTimeEncryptionIdentity)objcIdentity
 {
-  v3 = sub_100706B30(&qword_100CB3250);
+  v3 = sub_100706B30(&qword_100CB3250, &qword_1009B8BE0);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   v6 = *((swift_isaMask & **(&self->super.isa + OBJC_IVAR____TtC17identityservicesd29IDSGroupEncryptionController2_identityController)) + 0x130);
@@ -302,7 +302,7 @@
   if ((*(*(v8 - 8) + 48))(v5, 1, v8) == 1)
   {
 
-    sub_100013814(v5, &qword_100CB3250);
+    sub_100013814(v5, &qword_100CB3250, &qword_1009B8BE0);
     v9 = 0;
   }
 
@@ -334,12 +334,12 @@
 
 - (id)createP2PNegotiatorProvider
 {
-  type metadata accessor for IDSGlobalLinkP2PKeyNegotiatorController();
+  type metadata accessor for IDSGlobalLinkP2PKeyNegotiatorController(0);
   v3 = *(&self->super.isa + OBJC_IVAR____TtC17identityservicesd29IDSGroupEncryptionController2_identityController);
-  v12[3] = type metadata accessor for IDSGroupEncryptionIdentityController();
+  v12[3] = type metadata accessor for IDSGroupEncryptionIdentityController(0);
   v12[4] = &off_100BE96E8;
   v12[0] = v3;
-  v10 = type metadata accessor for IDSGroupEncryptionController2();
+  v10 = type metadata accessor for IDSGroupEncryptionController2(0);
   v11 = &off_100BE8BB0;
   v8[4] = &off_100BE8BC0;
   selfCopy = self;

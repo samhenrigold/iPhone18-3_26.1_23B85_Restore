@@ -1,6 +1,7 @@
 @interface _TSF_TSDgPTPFDPtPPort
 - (BOOL)_measuringPDelay;
 - (BOOL)_multipleRemotes;
+- (_TSF_TSDgPTPFDPtPPort)initWithService:(id)service pid:(int)pid;
 - (char)_localPDelayLogMeanInterval;
 - (char)_remotePDelayLogMeanInterval;
 - (id)_statistics;
@@ -8,6 +9,27 @@
 @end
 
 @implementation _TSF_TSDgPTPFDPtPPort
+
+- (_TSF_TSDgPTPFDPtPPort)initWithService:(id)service pid:(int)pid
+{
+  v9.receiver = self;
+  v9.super_class = _TSF_TSDgPTPFDPtPPort;
+  v4 = [(_TSF_TSDgPTPNetworkPort *)&v9 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    _statistics = [(_TSF_TSDgPTPFDPtPPort *)v4 _statistics];
+    statistics = v5->_statistics;
+    v5->_statistics = _statistics;
+
+    v5->_localPDelayLogMeanInterval = [(_TSF_TSDgPTPFDPtPPort *)v5 _localPDelayLogMeanInterval];
+    v5->_remotePDelayLogMeanInterval = [(_TSF_TSDgPTPFDPtPPort *)v5 _remotePDelayLogMeanInterval];
+    v5->_multipleRemotes = [(_TSF_TSDgPTPFDPtPPort *)v5 _multipleRemotes];
+    v5->_measuringPDelay = [(_TSF_TSDgPTPFDPtPPort *)v5 _measuringPDelay];
+  }
+
+  return v5;
+}
 
 - (void)updateProperties
 {
@@ -36,7 +58,7 @@
 
 - (id)_statistics
 {
-  v2 = [[_TSF_TSDgPTPPortStatistics alloc] initWithPort:self];
+  v2 = [[_TSF_TSDgPTPPortStatistics alloc] initWithPort:?];
 
   return v2;
 }
@@ -44,7 +66,7 @@
 - (char)_localPDelayLogMeanInterval
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalPDelayLogMeanInterval"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -62,7 +84,7 @@
 - (char)_remotePDelayLogMeanInterval
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemotePDelayLogMeanInterval"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -80,7 +102,7 @@
 - (BOOL)_multipleRemotes
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"MultipleRemotes"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -98,7 +120,7 @@
 - (BOOL)_measuringPDelay
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"MeasuringPDelay"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {

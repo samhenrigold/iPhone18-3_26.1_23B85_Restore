@@ -132,7 +132,7 @@
   v7 = v6;
   if (v6)
   {
-    [v6 px_simpleIndexPathValue];
+    objc_msgSend_px_simpleIndexPathValue(v6);
   }
 
   else
@@ -148,7 +148,7 @@
   v9 = v8;
   if (v8)
   {
-    [v8 px_simpleIndexPathValue];
+    objc_msgSend_px_simpleIndexPathValue(v8);
   }
 
   else

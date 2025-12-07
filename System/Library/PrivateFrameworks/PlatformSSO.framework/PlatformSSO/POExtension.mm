@@ -65,7 +65,7 @@ LABEL_4:
     goto LABEL_8;
   }
 
-  v16 = PO_LOG_POExtension();
+  v16 = PO_LOG_POExtension(0);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     [POExtension initWithExtensionBundleIdentifier:extensionManager:delegate:];
@@ -79,42 +79,40 @@ LABEL_8:
 
 - (void)dealloc
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_25E831000, v0, OS_LOG_TYPE_DEBUG, "%s  on %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25E831000, v0, OS_LOG_TYPE_DEBUG, "%s  on %@", v1, 0x16u);
 }
 
 - (void)unload
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = PO_LOG_POExtension();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = PO_LOG_POExtension(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[POExtension unload]";
-    v7 = 2112;
+    v4 = 136315394;
+    v5 = "[POExtension unload]";
+    v6 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v5, 0x16u);
+    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v4, 0x16u);
   }
 
   [(POExtension *)self close];
   [(POExtension *)self _unload];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unload
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = PO_LOG_POExtension();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = PO_LOG_POExtension(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[POExtension _unload]";
-    v9 = 2112;
+    v6 = 136315394;
+    v7 = "[POExtension _unload]";
+    v8 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v7, 0x16u);
+    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v6, 0x16u);
   }
 
   [(SOExtension *)self->_extension unload];
@@ -124,72 +122,67 @@ LABEL_8:
 
   extensionViewController = self->_extensionViewController;
   self->_extensionViewController = 0;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)close
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = PO_LOG_POExtension();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = PO_LOG_POExtension(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[POExtension close]";
-    v7 = 2112;
+    v4 = 136315394;
+    v5 = "[POExtension close]";
+    v6 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v5, 0x16u);
+    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v4, 0x16u);
   }
 
   dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_11);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginDeviceRegistrationUsingOptions:(int64_t)options extensionData:(id)data completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
-  v10 = PO_LOG_POExtension();
+  v10 = PO_LOG_POExtension(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v20 = "[POExtension beginDeviceRegistrationUsingOptions:extensionData:completion:]";
-    v21 = 2048;
+    v19 = "[POExtension beginDeviceRegistrationUsingOptions:extensionData:completion:]";
+    v20 = 2048;
     optionsCopy = options;
-    v23 = 2112;
+    v22 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_25E831000, v10, OS_LOG_TYPE_DEFAULT, "%s options = %ld on %@", buf, 0x20u);
   }
 
   extension = self->_extension;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke;
-  v15[3] = &unk_279A3ABD8;
-  v17 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke;
+  v14[3] = &unk_279A3ABD8;
+  v16 = completionCopy;
   optionsCopy2 = options;
-  v15[4] = self;
-  v16 = dataCopy;
+  v14[4] = self;
+  v15 = dataCopy;
   v12 = dataCopy;
   v13 = completionCopy;
-  [(SOExtension *)extension requestAuthorizationViewControllerWithCompletion:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(SOExtension *)extension requestAuthorizationViewControllerWithCompletion:v14];
 }
 
 void __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
-  v8 = PO_LOG_POExtension();
+  v8 = PO_LOG_POExtension(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v21 = v6;
-    v22 = 2114;
-    v23 = v7;
+    v20 = v6;
+    v21 = 2114;
+    v22 = v7;
     _os_log_impl(&dword_25E831000, v8, OS_LOG_TYPE_INFO, "requestAuthorizationViewControllerWithCompletion: remoteViewController = %{public}@, error = %{public}@", buf, 0x16u);
   }
 
@@ -199,15 +192,15 @@ void __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_complet
     v9 = *(a1 + 32);
     v10 = *(a1 + 40);
     v11 = *(v9 + 8);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_2;
-    v16[3] = &unk_279A3ABB0;
-    v16[4] = v9;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_2;
+    v15[3] = &unk_279A3ABB0;
+    v15[4] = v9;
     v12 = *(a1 + 56);
-    v17 = *(a1 + 48);
-    [v11 beginDeviceRegistrationUsingOptions:v12 extensionData:v10 completion:v16];
-    v13 = v17;
+    v16 = *(a1 + 48);
+    [v11 beginDeviceRegistrationUsingOptions:v12 extensionData:v10 completion:v15];
+    v13 = v16;
   }
 
   else
@@ -217,13 +210,11 @@ void __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_complet
     block[1] = 3221225472;
     block[2] = __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_4;
     block[3] = &unk_279A3A0F8;
-    v19 = *(a1 + 48);
+    v18 = *(a1 + 48);
     dispatch_async(v14, block);
 
-    v13 = v19;
+    v13 = v18;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_4(uint64_t a1)
@@ -239,7 +230,7 @@ uint64_t __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_com
 
 void __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4 = PO_LOG_POExtension();
+  v4 = PO_LOG_POExtension(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_2_cold_1(a2);
@@ -276,55 +267,53 @@ uint64_t __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_com
 
 - (void)beginUserRegistrationUsingUserName:(id)name authenticationMethod:(int)method options:(int64_t)options extensionData:(id)data completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dataCopy = data;
   completionCopy = completion;
-  v15 = PO_LOG_POExtension();
+  v15 = PO_LOG_POExtension(completionCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v28 = "[POExtension beginUserRegistrationUsingUserName:authenticationMethod:options:extensionData:completion:]";
-    v29 = 1026;
+    v27 = "[POExtension beginUserRegistrationUsingUserName:authenticationMethod:options:extensionData:completion:]";
+    v28 = 1026;
     methodCopy = method;
-    v31 = 2048;
+    v30 = 2048;
     optionsCopy = options;
-    v33 = 2112;
+    v32 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_25E831000, v15, OS_LOG_TYPE_DEFAULT, "%s authenticationMethod = %{public}d, options = %ld on %@", buf, 0x26u);
   }
 
   extension = self->_extension;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke;
-  v21[3] = &unk_279A3AC00;
-  v21[4] = self;
-  v22 = nameCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke;
+  v20[3] = &unk_279A3AC00;
+  v20[4] = self;
+  v21 = nameCopy;
   methodCopy2 = method;
-  v24 = completionCopy;
+  v23 = completionCopy;
   optionsCopy2 = options;
-  v23 = dataCopy;
+  v22 = dataCopy;
   v17 = dataCopy;
   v18 = nameCopy;
   v19 = completionCopy;
-  [(SOExtension *)extension requestAuthorizationViewControllerWithCompletion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(SOExtension *)extension requestAuthorizationViewControllerWithCompletion:v20];
 }
 
 void __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
-  v8 = PO_LOG_POExtension();
+  v8 = PO_LOG_POExtension(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v23 = v6;
-    v24 = 2114;
-    v25 = v7;
+    v22 = v6;
+    v23 = 2114;
+    v24 = v7;
     _os_log_impl(&dword_25E831000, v8, OS_LOG_TYPE_INFO, "requestAuthorizationViewControllerWithCompletion: remoteViewController = %{public}@, error = %{public}@", buf, 0x16u);
   }
 
@@ -336,15 +325,15 @@ void __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_
     v11 = *(v9 + 8);
     v12 = *(a1 + 72);
     v13 = *(a1 + 48);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_2;
-    v18[3] = &unk_279A3ABB0;
-    v18[4] = v9;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_2;
+    v17[3] = &unk_279A3ABB0;
+    v17[4] = v9;
     v14 = *(a1 + 64);
-    v19 = *(a1 + 56);
-    [v11 beginUserRegistrationUsingUserName:v10 authenticationMethod:v12 options:v14 extensionData:v13 completion:v18];
-    v15 = v19;
+    v18 = *(a1 + 56);
+    [v11 beginUserRegistrationUsingUserName:v10 authenticationMethod:v12 options:v14 extensionData:v13 completion:v17];
+    v15 = v18;
   }
 
   else
@@ -354,13 +343,11 @@ void __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_
     block[1] = 3221225472;
     block[2] = __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_12;
     block[3] = &unk_279A3A0F8;
-    v21 = *(a1 + 56);
+    v20 = *(a1 + 56);
     dispatch_async(v16, block);
 
-    v15 = v21;
+    v15 = v20;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_12(uint64_t a1)
@@ -376,7 +363,7 @@ uint64_t __104__POExtension_beginUserRegistrationUsingUserName_authenticationMet
 
 void __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4 = PO_LOG_POExtension();
+  v4 = PO_LOG_POExtension(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_2_cold_1(a2);
@@ -413,43 +400,41 @@ uint64_t __104__POExtension_beginUserRegistrationUsingUserName_authenticationMet
 
 - (void)registrationDidCompleteWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = PO_LOG_POExtension();
+  v5 = PO_LOG_POExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[POExtension registrationDidCompleteWithCompletion:]";
-    v13 = 2112;
+    v11 = "[POExtension registrationDidCompleteWithCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_25E831000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   extension = self->_extension;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __53__POExtension_registrationDidCompleteWithCompletion___block_invoke;
-  v9[3] = &unk_279A3AC28;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __53__POExtension_registrationDidCompleteWithCompletion___block_invoke;
+  v8[3] = &unk_279A3AC28;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [(SOExtension *)extension requestAuthorizationViewControllerWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SOExtension *)extension requestAuthorizationViewControllerWithCompletion:v8];
 }
 
 void __53__POExtension_registrationDidCompleteWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
-  v8 = PO_LOG_POExtension();
+  v8 = PO_LOG_POExtension(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v14 = v6;
-    v15 = 2114;
-    v16 = v7;
+    v13 = v6;
+    v14 = 2114;
+    v15 = v7;
     _os_log_impl(&dword_25E831000, v8, OS_LOG_TYPE_INFO, "requestAuthorizationViewControllerWithCompletion: remoteViewController = %{public}@, error = %{public}@", buf, 0x16u);
   }
 
@@ -457,12 +442,12 @@ void __53__POExtension_registrationDidCompleteWithCompletion___block_invoke(uint
   {
     objc_storeStrong((*(a1 + 32) + 16), a2);
     v9 = *(*(a1 + 32) + 8);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __53__POExtension_registrationDidCompleteWithCompletion___block_invoke_2;
-    v11[3] = &unk_279A3A0F8;
-    v12 = *(a1 + 40);
-    [v9 registrationDidCompleteWithCompletion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __53__POExtension_registrationDidCompleteWithCompletion___block_invoke_2;
+    v10[3] = &unk_279A3A0F8;
+    v11 = *(a1 + 40);
+    [v9 registrationDidCompleteWithCompletion:v10];
   }
 
   else
@@ -470,8 +455,6 @@ void __53__POExtension_registrationDidCompleteWithCompletion___block_invoke(uint
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_19);
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__POExtension_registrationDidCompleteWithCompletion___block_invoke_2(uint64_t a1)
@@ -484,29 +467,27 @@ uint64_t __53__POExtension_registrationDidCompleteWithCompletion___block_invoke_
 
 - (void)registrationDidCancelWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = PO_LOG_POExtension();
+  v5 = PO_LOG_POExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[POExtension registrationDidCancelWithCompletion:]";
-    v13 = 2112;
+    v11 = "[POExtension registrationDidCancelWithCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_25E831000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   v6 = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __51__POExtension_registrationDidCancelWithCompletion___block_invoke;
-  v9[3] = &unk_279A3A0D0;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __51__POExtension_registrationDidCancelWithCompletion___block_invoke;
+  v8[3] = &unk_279A3A0D0;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(v6, v8);
 }
 
 void __51__POExtension_registrationDidCancelWithCompletion___block_invoke(uint64_t a1)
@@ -814,8 +795,8 @@ void __61__POExtension_supportedUserSecureEnclaveKeySigningAlgorithms__block_inv
 
 - (BOOL)canPerformRegistration
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = PO_LOG_POExtension();
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = PO_LOG_POExtension(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -828,28 +809,27 @@ void __61__POExtension_supportedUserSecureEnclaveKeySigningAlgorithms__block_inv
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v14 = __Block_byref_object_copy__4;
-  v15 = __Block_byref_object_dispose__4;
-  v16 = dispatch_semaphore_create(0);
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
+  v13 = __Block_byref_object_copy__4;
+  v14 = __Block_byref_object_dispose__4;
+  v15 = dispatch_semaphore_create(0);
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
   extension = self->_extension;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __37__POExtension_canPerformRegistration__block_invoke;
-  v8[3] = &unk_279A3AC78;
-  v8[4] = self;
-  v8[5] = buf;
-  v8[6] = &v9;
-  [(SOExtension *)extension setupNonUISessionWithCompletion:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __37__POExtension_canPerformRegistration__block_invoke;
+  v7[3] = &unk_279A3AC78;
+  v7[4] = self;
+  v7[5] = buf;
+  v7[6] = &v8;
+  [(SOExtension *)extension setupNonUISessionWithCompletion:v7];
   dispatch_semaphore_wait(*(*&buf[8] + 40), 0xFFFFFFFFFFFFFFFFLL);
-  v5 = *(v10 + 24);
-  _Block_object_dispose(&v9, 8);
+  v5 = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
   _Block_object_dispose(buf, 8);
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
@@ -877,7 +857,7 @@ intptr_t __37__POExtension_canPerformRegistration__block_invoke(uint64_t a1, cha
 - (void)presentRegistrationViewControllerWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtension();
+  v5 = PO_LOG_POExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtension presentRegistrationViewControllerWithCompletion:];
@@ -889,16 +869,16 @@ intptr_t __37__POExtension_canPerformRegistration__block_invoke(uint64_t a1, cha
 
 - (void)presentAuthorizationViewControllerInWindow:(id)window hints:(id)hints completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v7 = PO_LOG_POExtension();
+  v7 = PO_LOG_POExtension(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[POExtension presentAuthorizationViewControllerInWindow:hints:completion:]";
-    v12 = 2112;
+    v9 = 136315394;
+    v10 = "[POExtension presentAuthorizationViewControllerInWindow:hints:completion:]";
+    v11 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_25E831000, v7, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v10, 0x16u);
+    _os_log_impl(&dword_25E831000, v7, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v9, 0x16u);
   }
 
   if (self->_extensionViewController)
@@ -911,36 +891,32 @@ intptr_t __37__POExtension_canPerformRegistration__block_invoke(uint64_t a1, cha
     v8 = [MEMORY[0x277D3D1F0] internalErrorWithMessage:@"No extension registration view controller"];
     (*(completionCopy + 2))(completionCopy, 0, v8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authorization:(id)authorization didCompleteWithCredential:(id)credential error:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v7 = PO_LOG_POExtension();
+  v7 = PO_LOG_POExtension(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "[POExtension authorization:didCompleteWithCredential:error:]";
-    v15 = 2112;
+    v13 = "[POExtension authorization:didCompleteWithCredential:error:]";
+    v14 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_25E831000, v7, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_32);
   v8 = dispatch_get_global_queue(0, 0);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __61__POExtension_authorization_didCompleteWithCredential_error___block_invoke_2;
-  v11[3] = &unk_279A3A7D8;
-  v11[4] = self;
-  v12 = errorCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __61__POExtension_authorization_didCompleteWithCredential_error___block_invoke_2;
+  v10[3] = &unk_279A3A7D8;
+  v10[4] = self;
+  v11 = errorCopy;
   v9 = errorCopy;
-  dispatch_async(v8, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(v8, v10);
 }
 
 void __61__POExtension_authorization_didCompleteWithCredential_error___block_invoke_2(uint64_t a1)
@@ -956,20 +932,19 @@ void __61__POExtension_authorization_didCompleteWithCredential_error___block_inv
 
 - (void)authorizationDidFailWithOtherVersionError:(id)error
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = PO_LOG_POExtension();
+  v5 = PO_LOG_POExtension(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[POExtension authorizationDidFailWithOtherVersionError:]";
-    v9 = 2112;
+    v6 = 136315394;
+    v7 = "[POExtension authorizationDidFailWithOtherVersionError:]";
+    v8 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_25E831000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v7, 0x16u);
+    _os_log_impl(&dword_25E831000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v6, 0x16u);
   }
 
   [(POExtension *)self authorization:errorCopy didCompleteWithCredential:0 error:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)keyWillRotateForKeyType:(int64_t)type newKey:(__SecKey *)key extensionData:(id)data completion:(id)completion
@@ -1029,7 +1004,7 @@ void __71__POExtension_keyWillRotateForKeyType_newKey_extensionData_completion__
 id __71__POExtension_keyWillRotateForKeyType_newKey_extensionData_completion___block_invoke_2(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to call key rotation on extension."];
-  v2 = PO_LOG_POExtension();
+  v2 = PO_LOG_POExtension(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1100,7 +1075,7 @@ void __62__POExtension_displayNamesForGroups_extensionData_completion___block_in
 id __62__POExtension_displayNamesForGroups_extensionData_completion___block_invoke_2(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to call displayNamesForGroups on extension."];
-  v2 = PO_LOG_POExtension();
+  v2 = PO_LOG_POExtension(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1159,7 +1134,7 @@ void __66__POExtension_profilePictureForUserUsingExtensionData_completion___bloc
 id __66__POExtension_profilePictureForUserUsingExtensionData_completion___block_invoke_2(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to call profilePictureForUser on extension."];
-  v2 = PO_LOG_POExtension();
+  v2 = PO_LOG_POExtension(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1175,41 +1150,26 @@ id __66__POExtension_profilePictureForUserUsingExtensionData_completion___block_
   return WeakRetained;
 }
 
-- (void)initWithExtensionBundleIdentifier:extensionManager:delegate:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_25E831000, v0, v1, "PlatformSSO extension not found (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __76__POExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_25E831000, v2, v3, "beginDeviceRegistrationUsingLoginManager completed, result = %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_3(&dword_25E831000, v2, v3, "beginDeviceRegistrationUsingLoginManager completed, result = %{public}@", v4, v5, v6, v7);
 }
 
 void __104__POExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_25E831000, v2, v3, "beginUserRegistrationUsingLoginManager completed, result = %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_3(&dword_25E831000, v2, v3, "beginUserRegistrationUsingLoginManager completed, result = %{public}@", v4, v5, v6, v7);
 }
 
 - (void)presentRegistrationViewControllerWithCompletion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_25E831000, v0, OS_LOG_TYPE_DEBUG, "%s  on %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25E831000, v0, OS_LOG_TYPE_DEBUG, "%s  on %@", v1, 0x16u);
 }
 
 @end

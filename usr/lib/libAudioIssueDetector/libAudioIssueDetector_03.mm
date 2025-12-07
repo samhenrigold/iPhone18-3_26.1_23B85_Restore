@@ -1,28 +1,303 @@
-uint64_t std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[4]>(uint64_t result)
+void sub_296C7169C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+{
+
+  a12 = &a9;
+  std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100](&a12);
+  _Unwind_Resume(a1);
+}
+
+void *___ZN5rtaid14GetClientIDMapEv_block_invoke(__n128 a1)
+{
+  if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) || !*rtaid::GetClientIDMap(void)::gClientIDMap || (v1 = **rtaid::GetClientIDMap(void)::gClientIDMap) == 0)
+  {
+LABEL_14:
+    operator new();
+  }
+
+  v2 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
+  v2.i16[0] = vaddlv_u8(v2);
+  while (1)
+  {
+    v3 = v1[1];
+    if (!v3)
+    {
+      break;
+    }
+
+    if (v2.u32[0] > 1uLL)
+    {
+      if (v3 < *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+      {
+        goto LABEL_14;
+      }
+
+      v4 = v3 % *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
+    }
+
+    else
+    {
+      v4 = v3 & (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1);
+    }
+
+    if (v4)
+    {
+      goto LABEL_14;
+    }
+
+LABEL_13:
+    v1 = *v1;
+    if (!v1)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  if (*(v1 + 4))
+  {
+    goto LABEL_13;
+  }
+
+  v21 = 1;
+  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[4]>(1, &v21, "HAL");
+  v21 = 2;
+  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(2, &v21, "VA");
+  v21 = 3;
+  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(3, &v21, "VP");
+  v21 = 4;
+  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(4, &v21, "AVVC");
+  v21 = 5;
+  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(5, &v21, "AQME");
+  if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+  {
+    goto LABEL_32;
+  }
+
+  v5 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
+  {
+    v6 = 6;
+    if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= 6uLL)
+    {
+      v6 = 6u % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
+    }
+  }
+
+  else
+  {
+    v6 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & 6;
+  }
+
+  v7 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
+  {
+LABEL_32:
+    operator new();
+  }
+
+  while (2)
+  {
+    v9 = v8[1];
+    if (v9 != 6)
+    {
+      if (v5.u32[0] > 1uLL)
+      {
+        if (v9 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+        {
+          v9 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
+        }
+      }
+
+      else
+      {
+        v9 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
+      }
+
+      if (v9 != v6)
+      {
+        goto LABEL_32;
+      }
+
+      goto LABEL_31;
+    }
+
+    if (*(v8 + 4) != 6)
+    {
+LABEL_31:
+      v8 = *v8;
+      if (!v8)
+      {
+        goto LABEL_32;
+      }
+
+      continue;
+    }
+
+    break;
+  }
+
+  if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+  {
+    goto LABEL_50;
+  }
+
+  v10 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
+  {
+    v11 = 7;
+    if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= 7uLL)
+    {
+      v11 = 7u % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
+    }
+  }
+
+  else
+  {
+    v11 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & 7;
+  }
+
+  v12 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_50:
+    operator new();
+  }
+
+  while (2)
+  {
+    v14 = v13[1];
+    if (v14 != 7)
+    {
+      if (v10.u32[0] > 1uLL)
+      {
+        if (v14 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+        {
+          v14 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
+        }
+      }
+
+      else
+      {
+        v14 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
+      }
+
+      if (v14 != v11)
+      {
+        goto LABEL_50;
+      }
+
+      goto LABEL_49;
+    }
+
+    if (*(v13 + 4) != 7)
+    {
+LABEL_49:
+      v13 = *v13;
+      if (!v13)
+      {
+        goto LABEL_50;
+      }
+
+      continue;
+    }
+
+    break;
+  }
+
+  v15 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
+  v15.i16[0] = vaddlv_u8(v15);
+  if (v15.u32[0] > 1uLL)
+  {
+    v16 = 8;
+    if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= 8uLL)
+    {
+      v16 = 8u % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
+    }
+  }
+
+  else
+  {
+    v16 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & 8;
+  }
+
+  v17 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v16);
+  if (!v17 || (v18 = *v17) == 0)
+  {
+LABEL_66:
+    operator new();
+  }
+
+  while (2)
+  {
+    v19 = v18[1];
+    if (v19 != 8)
+    {
+      if (v15.u32[0] > 1uLL)
+      {
+        if (v19 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+        {
+          v19 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
+        }
+      }
+
+      else
+      {
+        v19 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
+      }
+
+      if (v19 != v16)
+      {
+        goto LABEL_66;
+      }
+
+      goto LABEL_65;
+    }
+
+    if (*(v18 + 4) != 8)
+    {
+LABEL_65:
+      v18 = *v18;
+      if (!v18)
+      {
+        goto LABEL_66;
+      }
+
+      continue;
+    }
+
+    break;
+  }
+
+  v21 = 10;
+  return std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[4]>(0xA, &v21, "ADM");
+}
+
+void *std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[4]>(void *result, _DWORD *a2, char *a3)
 {
   if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v3 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
   {
-    v2 = result;
+    v4 = result;
     if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= result)
     {
-      v2 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
+      v4 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
     }
   }
 
   else
   {
-    v2 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
+    v4 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
   }
 
-  v3 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v5 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v4);
+  if (!v5 || (v6 = *v5) == 0)
   {
 LABEL_18:
     operator new();
@@ -30,39 +305,39 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == result)
+    v7 = v6[1];
+    if (v7 == result)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v3.u32[0] > 1uLL)
     {
-      if (v5 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+      if (v7 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
       {
-        v5 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
+        v7 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
       }
     }
 
     else
     {
-      v5 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
+      v7 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v7 != v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v6 = *v6;
+    if (!v6)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 4) != result)
+  if (*(v6 + 4) != result)
   {
     goto LABEL_17;
   }
@@ -70,31 +345,31 @@ LABEL_17:
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(uint64_t result)
+void *std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(void *result, _DWORD *a2, char *a3)
 {
   if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v3 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
   {
-    v2 = result;
+    v4 = result;
     if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= result)
     {
-      v2 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
+      v4 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
     }
   }
 
   else
   {
-    v2 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
+    v4 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
   }
 
-  v3 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v5 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v4);
+  if (!v5 || (v6 = *v5) == 0)
   {
 LABEL_18:
     operator new();
@@ -102,39 +377,39 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == result)
+    v7 = v6[1];
+    if (v7 == result)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v3.u32[0] > 1uLL)
     {
-      if (v5 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+      if (v7 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
       {
-        v5 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
+        v7 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
       }
     }
 
     else
     {
-      v5 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
+      v7 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v7 != v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v6 = *v6;
+    if (!v6)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 4) != result)
+  if (*(v6 + 4) != result)
   {
     goto LABEL_17;
   }
@@ -142,31 +417,31 @@ LABEL_17:
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(uint64_t result)
+void *std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(void *result, _DWORD *a2, char *a3)
 {
   if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v3 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
   {
-    v2 = result;
+    v4 = result;
     if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= result)
     {
-      v2 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
+      v4 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
     }
   }
 
   else
   {
-    v2 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
+    v4 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
   }
 
-  v3 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v5 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v4);
+  if (!v5 || (v6 = *v5) == 0)
   {
 LABEL_18:
     operator new();
@@ -174,39 +449,39 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == result)
+    v7 = v6[1];
+    if (v7 == result)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v3.u32[0] > 1uLL)
     {
-      if (v5 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+      if (v7 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
       {
-        v5 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
+        v7 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
       }
     }
 
     else
     {
-      v5 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
+      v7 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v7 != v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v6 = *v6;
+    if (!v6)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 4) != result)
+  if (*(v6 + 4) != result)
   {
     goto LABEL_17;
   }
@@ -672,6 +947,16 @@ void rtaid::GetReporterTypeInterestedMap(rtaid *this)
   }
 }
 
+void ___ZN5rtaid28GetReporterTypeInterestedMapEv_block_invoke()
+{
+  v5 = *MEMORY[0x29EDCA608];
+  v1 = 0;
+  v2 = 0x400000000;
+  v3 = 6;
+  memset(__p, 0, sizeof(__p));
+  std::vector<rtaid::AnalyzerType>::__init_with_size[abi:ne200100]<rtaid::AnalyzerType const*,rtaid::AnalyzerType const*>(__p, &v2, &v4, 3);
+}
+
 void sub_296C74120(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p)
 {
   if (__p)
@@ -694,31 +979,31 @@ void sub_296C741C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::__unordered_map_hasher<AudioServiceType,std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::hash<AudioServiceType>,std::equal_to<AudioServiceType>,true>,std::__unordered_map_equal<AudioServiceType,std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::equal_to<AudioServiceType>,std::hash<AudioServiceType>,true>,std::allocator<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>>>::__emplace_unique_key_args<AudioServiceType,AudioServiceType,std::vector<rtaid::AnalyzerType>>(uint64_t result)
+void std::__hash_table<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::__unordered_map_hasher<AudioServiceType,std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::hash<AudioServiceType>,std::equal_to<AudioServiceType>,true>,std::__unordered_map_equal<AudioServiceType,std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::equal_to<AudioServiceType>,std::hash<AudioServiceType>,true>,std::allocator<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>>>::__emplace_unique_key_args<AudioServiceType,AudioServiceType,std::vector<rtaid::AnalyzerType>>(unsigned __int16 a1, _WORD *a2, uint64_t a3)
 {
   if (!*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v3 = vcnt_s8(*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 8));
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
   {
-    v2 = result;
-    if (*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1) <= result)
+    v4 = a1;
+    if (*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1) <= a1)
     {
-      v2 = result % WORD4(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap);
+      v4 = a1 % WORD4(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap);
     }
   }
 
   else
   {
-    v2 = (DWORD2(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap) - 1) & result;
+    v4 = (DWORD2(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap) - 1) & a1;
   }
 
-  v3 = *(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v5 = *(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 8 * v4);
+  if (!v5 || (v6 = *v5) == 0)
   {
 LABEL_18:
     operator new();
@@ -726,44 +1011,42 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == result)
+    v7 = v6[1];
+    if (v7 == a1)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v3.u32[0] > 1uLL)
     {
-      if (v5 >= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1))
+      if (v7 >= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1))
       {
-        v5 %= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1);
+        v7 %= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1);
       }
     }
 
     else
     {
-      v5 &= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1) - 1;
+      v7 &= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v7 != v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v6 = *v6;
+    if (!v6)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 8) != result)
+  if (*(v6 + 8) != a1)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,void *>>>::operator()[abi:ne200100](char a1, void *__p)
@@ -786,7 +1069,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t ___ZN5rtaid22GetAnalyzerToStringMapEv_block_invoke()
+void *___ZN5rtaid22GetAnalyzerToStringMapEv_block_invoke()
 {
   if (!*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1) || !*rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap || (v0 = **rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap) == 0)
   {
@@ -880,7 +1163,8 @@ LABEL_29:
   }
 
   while (*(v6 + 4) != 1);
-  std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(2);
+  v25 = 2;
+  std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(2, &v25, "SampleAccurateSilence");
   if (!*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
   {
     goto LABEL_47;
@@ -950,7 +1234,8 @@ LABEL_46:
     break;
   }
 
-  result = std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(4);
+  v24 = 4;
+  result = std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(4, &v24, "AnalyzerRealTimeError");
   if (!*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
   {
     goto LABEL_65;
@@ -1090,31 +1375,31 @@ LABEL_82:
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(uint64_t result)
+void *std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(void *result, _DWORD *a2, char *a3)
 {
   if (!*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v3 = vcnt_s8(*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 8));
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
   {
-    v2 = result;
+    v4 = result;
     if (*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1) <= result)
     {
-      v2 = result % DWORD2(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap);
+      v4 = result % DWORD2(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap);
     }
   }
 
   else
   {
-    v2 = (DWORD2(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap) - 1) & result;
+    v4 = (DWORD2(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap) - 1) & result;
   }
 
-  v3 = *(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v5 = *(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 8 * v4);
+  if (!v5 || (v6 = *v5) == 0)
   {
 LABEL_18:
     operator new();
@@ -1122,39 +1407,39 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == result)
+    v7 = v6[1];
+    if (v7 == result)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v3.u32[0] > 1uLL)
     {
-      if (v5 >= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
+      if (v7 >= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
       {
-        v5 %= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1);
+        v7 %= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1);
       }
     }
 
     else
     {
-      v5 &= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1) - 1;
+      v7 &= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v7 != v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v6 = *v6;
+    if (!v6)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 4) != result)
+  if (*(v6 + 4) != result)
   {
     goto LABEL_17;
   }
@@ -1380,7 +1665,7 @@ uint64_t ADAM::BufferNodeDescriptorSPL::BufferNodeDescriptorSPL(uint64_t a1, uin
   return a1;
 }
 
-void std::vector<ADAM::Metadata>::resize(uint64_t *a1)
+void std::vector<ADAM::Metadata>::resize(char **a1)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -1393,7 +1678,7 @@ void std::vector<ADAM::Metadata>::resize(uint64_t *a1)
       return;
     }
 
-    v11 = v2 + 1280;
+    v11 = (v2 + 1280);
   }
 
   else
@@ -1402,7 +1687,7 @@ void std::vector<ADAM::Metadata>::resize(uint64_t *a1)
     v7 = a1[2];
     if (0xCCCCCCCCCCCCCCCDLL * ((v7 - v3) >> 4) < v6)
     {
-      v8 = 0xCCCCCCCCCCCCCCCDLL * ((v7 - v2) >> 4);
+      v8 = 0xCCCCCCCCCCCCCCCDLL * (&v7[-v2] >> 4);
       v9 = 2 * v8;
       if (2 * v8 <= 0x10)
       {
@@ -1428,7 +1713,7 @@ void std::vector<ADAM::Metadata>::resize(uint64_t *a1)
     }
 
     bzero(a1[1], 80 * ((1200 - v4) / 0x50uLL) + 80);
-    v11 = v3 + 80 * ((1200 - v4) / 0x50uLL) + 80;
+    v11 = &v3[80 * ((1200 - v4) / 0x50uLL) + 80];
   }
 
   a1[1] = v11;
@@ -1557,7 +1842,7 @@ uint64_t ADAM::BufferNodeSPL<ADAM::SPLData,(ADAM::EndPointBitMask)65,16u>::read(
 
 uint64_t ADAM::BufferNodeSPL<ADAM::SPLData,(ADAM::EndPointBitMask)65,16u>::process(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   *buf = *a2;
   *&buf[16] = *(a2 + 16);
   v4 = *(a1 + 112);
@@ -1576,8 +1861,7 @@ LABEL_18:
       }
 
       ADAM::BufferNodeSPL<ADAM::SPLData,(ADAM::EndPointBitMask)65,16u>::process(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt = v7;
-      result = 1718971425;
-      goto LABEL_21;
+      return 1718971425;
     }
 
     if (ADAM::ADAMLogScope(void)::once != -1)
@@ -1606,17 +1890,17 @@ LABEL_17:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       v23 = *(a1 + 16);
-      CAX4CCString::CAX4CCString(v25, 0x66756C21u);
+      CAX4CCString::CAX4CCString(v24, 0x66756C21u);
       *buf = 136316162;
       *&buf[4] = "ADAMBufferNodes.hpp";
       *&buf[12] = 1024;
       *&buf[14] = 155;
       *&buf[18] = 2048;
-      v27 = v23;
-      v28 = 2080;
-      v29 = v25;
-      v30 = 1024;
-      v31 = ADAM::BufferNodeSPL<ADAM::SPLData,(ADAM::EndPointBitMask)65,16u>::process(ADAM::UnionDataPtr,ADAM::Metadata const&)::err_cnt;
+      v26 = v23;
+      v27 = 2080;
+      v28 = v24;
+      v29 = 1024;
+      v30 = ADAM::BufferNodeSPL<ADAM::SPLData,(ADAM::EndPointBitMask)65,16u>::process(ADAM::UnionDataPtr,ADAM::Metadata const&)::err_cnt;
       _os_log_impl(&dword_296C34000, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Session %llx: Failed to process data, err code: %s, failed count: %u", buf, 0x2Cu);
     }
 
@@ -1663,80 +1947,73 @@ LABEL_17:
   caulk::semaphore::signal(&unk_2A18A51C8);
   result = 0;
   *(a1 + 56) = (*(a1 + 56) + 1) % *(a1 + 176);
-LABEL_21:
-  v24 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void ADAM::BufferNodeSPL<ADAM::SPLData,(ADAM::EndPointBitMask)65,16u>::reset(uint64_t a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  if (*(a1 + 120))
-  {
-    v2 = -50500;
-    while (1)
-    {
-      v2 += 500;
-      if (!v2)
-      {
-        break;
-      }
-
-      usleep(0x1F4u);
-      if (!*(a1 + 120))
-      {
-        goto LABEL_5;
-      }
-    }
-
-    if (ADAM::ADAMLogScope(void)::once != -1)
-    {
-      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
-    }
-
-    if (ADAM::ADAMLogScope(void)::scope)
-    {
-      v3 = *ADAM::ADAMLogScope(void)::scope;
-      if (!v3)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    else
-    {
-      v3 = MEMORY[0x29EDCA988];
-      v4 = MEMORY[0x29EDCA988];
-    }
-
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v5 = *(a1 + 16);
-      v7 = 136315650;
-      v8 = "ADAMBufferNodes.hpp";
-      v9 = 1024;
-      v10 = 119;
-      v11 = 2048;
-      v12 = v5;
-      _os_log_impl(&dword_296C34000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Session: %llx Failed to flush ring buffer, Timedout", &v7, 0x1Cu);
-    }
-  }
-
-  else
+  v12 = *MEMORY[0x29EDCA608];
+  if (!*(a1 + 120))
   {
 LABEL_5:
     *(a1 + 112) = 0;
     *(a1 + 116) = 0;
     *(a1 + 120) = 0;
+    return;
   }
 
-LABEL_15:
-  v6 = *MEMORY[0x29EDCA608];
+  v2 = -50500;
+  while (1)
+  {
+    v2 += 500;
+    if (!v2)
+    {
+      break;
+    }
+
+    usleep(0x1F4u);
+    if (!*(a1 + 120))
+    {
+      goto LABEL_5;
+    }
+  }
+
+  if (ADAM::ADAMLogScope(void)::once != -1)
+  {
+    dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+  }
+
+  if (ADAM::ADAMLogScope(void)::scope)
+  {
+    v3 = *ADAM::ADAMLogScope(void)::scope;
+    if (!v3)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v3 = MEMORY[0x29EDCA988];
+    v4 = MEMORY[0x29EDCA988];
+  }
+
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    v5 = *(a1 + 16);
+    v6 = 136315650;
+    v7 = "ADAMBufferNodes.hpp";
+    v8 = 1024;
+    v9 = 119;
+    v10 = 2048;
+    v11 = v5;
+    _os_log_impl(&dword_296C34000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Session: %llx Failed to flush ring buffer, Timedout", &v6, 0x1Cu);
+  }
 }
 
 void ADAM::BufferNodeSPL<ADAM::SPLData,(ADAM::EndPointBitMask)65,16u>::initialize(uint64_t a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 8) & 1) == 0)
   {
     ADAM::AudioDataAnalysisManager::instance(a1);
@@ -1752,7 +2029,7 @@ void ADAM::BufferNodeSPL<ADAM::SPLData,(ADAM::EndPointBitMask)65,16u>::initializ
       v2 = *ADAM::ADAMLogScope(void)::scope;
       if (!v2)
       {
-        goto LABEL_11;
+        return;
       }
     }
 
@@ -1765,18 +2042,15 @@ void ADAM::BufferNodeSPL<ADAM::SPLData,(ADAM::EndPointBitMask)65,16u>::initializ
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       v4 = *(a1 + 16);
-      v6 = 136315650;
-      v7 = "ADAMBufferNodes.hpp";
-      v8 = 1024;
-      v9 = 108;
-      v10 = 2048;
-      v11 = v4;
-      _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session: %llx initialized", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "ADAMBufferNodes.hpp";
+      v7 = 1024;
+      v8 = 108;
+      v9 = 2048;
+      v10 = v4;
+      _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session: %llx initialized", &v5, 0x1Cu);
     }
   }
-
-LABEL_11:
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>::~BufferNodeSPL(uint64_t a1)
@@ -1861,7 +2135,7 @@ uint64_t ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>:
 
 uint64_t ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>::process(uint64_t a1, void *a2, _OWORD *a3)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 112);
   v5 = *(a1 + 176);
   if (*(a1 + 120) == v5)
@@ -1878,8 +2152,7 @@ LABEL_18:
       }
 
       ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>::process(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt = v7;
-      result = 1718971425;
-      goto LABEL_21;
+      return 1718971425;
     }
 
     if (ADAM::ADAMLogScope(void)::once != -1)
@@ -1908,17 +2181,17 @@ LABEL_17:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       v22 = *(a1 + 16);
-      CAX4CCString::CAX4CCString(v24, 0x66756C21u);
+      CAX4CCString::CAX4CCString(v23, 0x66756C21u);
       *buf = 136316162;
-      v26 = "ADAMBufferNodes.hpp";
-      v27 = 1024;
-      v28 = 155;
-      v29 = 2048;
-      v30 = v22;
-      v31 = 2080;
-      v32 = v24;
-      v33 = 1024;
-      v34 = ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>::process(ADAM::UnionDataPtr,ADAM::Metadata const&)::err_cnt;
+      v25 = "ADAMBufferNodes.hpp";
+      v26 = 1024;
+      v27 = 155;
+      v28 = 2048;
+      v29 = v22;
+      v30 = 2080;
+      v31 = v23;
+      v32 = 1024;
+      v33 = ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>::process(ADAM::UnionDataPtr,ADAM::Metadata const&)::err_cnt;
       _os_log_impl(&dword_296C34000, v21, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Session %llx: Failed to process data, err code: %s, failed count: %u", buf, 0x2Cu);
     }
 
@@ -1963,80 +2236,73 @@ LABEL_17:
   caulk::semaphore::signal(&unk_2A18A51C8);
   result = 0;
   *(a1 + 56) = (*(a1 + 56) + 1) % *(a1 + 176);
-LABEL_21:
-  v23 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>::reset(uint64_t a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  if (*(a1 + 120))
-  {
-    v2 = -50500;
-    while (1)
-    {
-      v2 += 500;
-      if (!v2)
-      {
-        break;
-      }
-
-      usleep(0x1F4u);
-      if (!*(a1 + 120))
-      {
-        goto LABEL_5;
-      }
-    }
-
-    if (ADAM::ADAMLogScope(void)::once != -1)
-    {
-      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
-    }
-
-    if (ADAM::ADAMLogScope(void)::scope)
-    {
-      v3 = *ADAM::ADAMLogScope(void)::scope;
-      if (!v3)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    else
-    {
-      v3 = MEMORY[0x29EDCA988];
-      v4 = MEMORY[0x29EDCA988];
-    }
-
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v5 = *(a1 + 16);
-      v7 = 136315650;
-      v8 = "ADAMBufferNodes.hpp";
-      v9 = 1024;
-      v10 = 119;
-      v11 = 2048;
-      v12 = v5;
-      _os_log_impl(&dword_296C34000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Session: %llx Failed to flush ring buffer, Timedout", &v7, 0x1Cu);
-    }
-  }
-
-  else
+  v12 = *MEMORY[0x29EDCA608];
+  if (!*(a1 + 120))
   {
 LABEL_5:
     *(a1 + 112) = 0;
     *(a1 + 116) = 0;
     *(a1 + 120) = 0;
+    return;
   }
 
-LABEL_15:
-  v6 = *MEMORY[0x29EDCA608];
+  v2 = -50500;
+  while (1)
+  {
+    v2 += 500;
+    if (!v2)
+    {
+      break;
+    }
+
+    usleep(0x1F4u);
+    if (!*(a1 + 120))
+    {
+      goto LABEL_5;
+    }
+  }
+
+  if (ADAM::ADAMLogScope(void)::once != -1)
+  {
+    dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+  }
+
+  if (ADAM::ADAMLogScope(void)::scope)
+  {
+    v3 = *ADAM::ADAMLogScope(void)::scope;
+    if (!v3)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v3 = MEMORY[0x29EDCA988];
+    v4 = MEMORY[0x29EDCA988];
+  }
+
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    v5 = *(a1 + 16);
+    v6 = 136315650;
+    v7 = "ADAMBufferNodes.hpp";
+    v8 = 1024;
+    v9 = 119;
+    v10 = 2048;
+    v11 = v5;
+    _os_log_impl(&dword_296C34000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Session: %llx Failed to flush ring buffer, Timedout", &v6, 0x1Cu);
+  }
 }
 
 void ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>::initialize(uint64_t a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 8) & 1) == 0)
   {
     ADAM::AudioDataAnalysisManager::instance(a1);
@@ -2052,7 +2318,7 @@ void ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>::ini
       v2 = *ADAM::ADAMLogScope(void)::scope;
       if (!v2)
       {
-        goto LABEL_11;
+        return;
       }
     }
 
@@ -2065,18 +2331,15 @@ void ADAM::BufferNodeSPL<ADAM::EnergyDBData,(ADAM::EndPointBitMask)256,16u>::ini
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       v4 = *(a1 + 16);
-      v6 = 136315650;
-      v7 = "ADAMBufferNodes.hpp";
-      v8 = 1024;
-      v9 = 108;
-      v10 = 2048;
-      v11 = v4;
-      _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session: %llx initialized", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "ADAMBufferNodes.hpp";
+      v7 = 1024;
+      v8 = 108;
+      v9 = 2048;
+      v10 = v4;
+      _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session: %llx initialized", &v5, 0x1Cu);
     }
   }
-
-LABEL_11:
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 double ADAM::Analyzer::MediaExposureBuffer::reset(ADAM::Analyzer::MediaExposureBuffer *this)
@@ -2096,7 +2359,7 @@ double ADAM::Analyzer::MediaExposureBuffer::reset(ADAM::Analyzer::MediaExposureB
 
 uint64_t ADAM::Analyzer::MediaExposureBuffer::analyze(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4)
 {
-  v61 = *MEMORY[0x29EDCA608];
+  v60 = *MEMORY[0x29EDCA608];
   ADAM::AudioDataAnalysisManager::instance(a1);
   v7 = qword_2A18A5240;
   std::mutex::lock((qword_2A18A5240 + 24));
@@ -2104,28 +2367,28 @@ uint64_t ADAM::Analyzer::MediaExposureBuffer::analyze(uint64_t a1, uint64_t a2, 
   v9 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:1751213428];
   v10 = [v8 objectForKey:v9];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v47 objects:buf count:16];
+  v12 = [v11 countByEnumeratingWithState:&v46 objects:buf count:16];
   if (!v12)
   {
     goto LABEL_9;
   }
 
-  v13 = *v48;
+  v13 = *v47;
   while (2)
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v48 != v13)
+      if (*v47 != v13)
       {
         objc_enumerationMutation(v11);
       }
 
-      if ([*(*(&v47 + 1) + 8 * i) isActive:1751213428])
+      if ([*(*(&v46 + 1) + 8 * i) isActive:1751213428])
       {
 
         std::mutex::unlock((v7 + 24));
@@ -2144,7 +2407,7 @@ uint64_t ADAM::Analyzer::MediaExposureBuffer::analyze(uint64_t a1, uint64_t a2, 
               v19 = *ADAM::ADAMLogScope(void)::scope;
               if (!v19)
               {
-                goto LABEL_58;
+                return v18;
               }
             }
 
@@ -2159,17 +2422,17 @@ uint64_t ADAM::Analyzer::MediaExposureBuffer::analyze(uint64_t a1, uint64_t a2, 
               v24 = *a3;
               v25 = *(a3 + 16);
               *buf = 136315906;
-              v52 = "MediaExposureBuffer.cpp";
-              v53 = 1024;
-              v54 = 108;
-              v55 = 2048;
-              v56 = v24;
-              v57 = 2048;
-              v58 = v25;
+              v51 = "MediaExposureBuffer.cpp";
+              v52 = 1024;
+              v53 = 108;
+              v54 = 2048;
+              v55 = v24;
+              v56 = 2048;
+              v57 = v25;
               _os_log_impl(&dword_296C34000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid HAE data { dBA: %.2f, duration: %.2f }", buf, 0x26u);
             }
 
-            goto LABEL_58;
+            return v18;
           }
 
           v26 = *(a1 + 120);
@@ -2181,18 +2444,17 @@ uint64_t ADAM::Analyzer::MediaExposureBuffer::analyze(uint64_t a1, uint64_t a2, 
           *(a1 + 80) = v29;
           *(a1 + 64) = v28;
           *(a1 + 48) = v27;
-          v45 = *(a3 + 16);
-          v46 = v26;
-          v30.f64[0] = __exp10(*a3 * 0.1) * v45;
-          v30.f64[1] = v45;
-          v31 = vaddq_f64(v30, v46);
+          v44 = *(a3 + 16);
+          v45 = v26;
+          v30.f64[0] = __exp10(*a3 * 0.1) * v44;
+          v30.f64[1] = v44;
+          v31 = vaddq_f64(v30, v45);
           *(a1 + 120) = v31;
           *(a1 + 148) = *(a3 + 12);
           v32 = v31.f64[1];
           if (v31.f64[1] < *(a1 + 160))
           {
-            v18 = 0;
-            goto LABEL_58;
+            return 0;
           }
 
           v34 = log(v31.f64[0] / v31.f64[1]);
@@ -2215,7 +2477,7 @@ LABEL_64:
             }
 
             ADAM::Analyzer::MediaExposureBuffer::analyze(unsigned long long,ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt = v36;
-            goto LABEL_58;
+            return v18;
           }
 
           if (ADAM::ADAMLogScope(void)::once != -1)
@@ -2237,24 +2499,24 @@ LABEL_63:
           else
           {
             v37 = MEMORY[0x29EDCA988];
-            v41 = MEMORY[0x29EDCA988];
+            v40 = MEMORY[0x29EDCA988];
           }
 
           if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
-            v42 = *(a1 + 136);
-            v43 = *(a1 + 152);
-            v44 = *(a1 + 148);
+            v41 = *(a1 + 136);
+            v42 = *(a1 + 152);
+            v43 = *(a1 + 148);
             *buf = 136316162;
-            v52 = "MediaExposureBuffer.cpp";
-            v53 = 1024;
-            v54 = 55;
-            v55 = 2048;
-            v56 = v42;
-            v57 = 2048;
-            v58 = v43;
-            v59 = 2048;
-            v60 = v44;
+            v51 = "MediaExposureBuffer.cpp";
+            v52 = 1024;
+            v53 = 55;
+            v54 = 2048;
+            v55 = v41;
+            v56 = 2048;
+            v57 = v42;
+            v58 = 2048;
+            v59 = v43;
             _os_log_impl(&dword_296C34000, v37, OS_LOG_TYPE_INFO, "%25s:%-5d MediaExposureBuffer: accumulated dose = %.2f (dBA), duration %.2f (sec) volume gain: %.2f", buf, 0x30u);
           }
 
@@ -2273,7 +2535,7 @@ LABEL_55:
           }
 
           ADAM::Analyzer::MediaExposureBuffer::isDataValid(ADAM::UnionDataPtr)const::errCnt = v21;
-          goto LABEL_58;
+          return v18;
         }
 
         if (ADAM::ADAMLogScope(void)::once != -1)
@@ -2301,9 +2563,9 @@ LABEL_54:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v52 = "MediaExposureBuffer.cpp";
-          v53 = 1024;
-          v54 = 98;
+          v51 = "MediaExposureBuffer.cpp";
+          v52 = 1024;
+          v53 = 98;
           _os_log_impl(&dword_296C34000, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d HAE SPL data ptr is null? (sampled every 3k)", buf, 0x12u);
         }
 
@@ -2311,7 +2573,7 @@ LABEL_54:
       }
     }
 
-    v12 = [v11 countByEnumeratingWithState:&v47 objects:buf count:16];
+    v12 = [v11 countByEnumeratingWithState:&v46 objects:buf count:16];
     if (v12)
     {
       continue;
@@ -2350,9 +2612,9 @@ LABEL_9:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v52 = "MediaExposureBuffer.cpp";
-      v53 = 1024;
-      v54 = 34;
+      v51 = "MediaExposureBuffer.cpp";
+      v52 = 1024;
+      v53 = 34;
       _os_log_impl(&dword_296C34000, v17, OS_LOG_TYPE_INFO, "%25s:%-5d MediaExposureBuffer: no delegates for HAE...", buf, 0x12u);
     }
 
@@ -2367,14 +2629,12 @@ LABEL_40:
   }
 
   ADAM::Analyzer::MediaExposureBuffer::analyze(unsigned long long,ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt = v16;
-LABEL_58:
-  v39 = *MEMORY[0x29EDCA608];
   return v18;
 }
 
 void ADAM::Analyzer::MediaExposureBuffer::flush(ADAM::Analyzer::MediaExposureBuffer *this)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v1 = *(this + 16);
   if (v1 > 0.0)
   {
@@ -2397,7 +2657,7 @@ void ADAM::Analyzer::MediaExposureBuffer::flush(ADAM::Analyzer::MediaExposureBuf
       v4 = *ADAM::ADAMLogScope(void)::scope;
       if (!v4)
       {
-        goto LABEL_11;
+        return;
       }
     }
 
@@ -2409,16 +2669,13 @@ void ADAM::Analyzer::MediaExposureBuffer::flush(ADAM::Analyzer::MediaExposureBuf
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315394;
-      v8 = "MediaExposureBuffer.cpp";
-      v9 = 1024;
-      v10 = 78;
-      _os_log_impl(&dword_296C34000, v4, OS_LOG_TYPE_INFO, "%25s:%-5d LoudnessAnalyzer needs to be flushed", &v7, 0x12u);
+      v6 = 136315394;
+      v7 = "MediaExposureBuffer.cpp";
+      v8 = 1024;
+      v9 = 78;
+      _os_log_impl(&dword_296C34000, v4, OS_LOG_TYPE_INFO, "%25s:%-5d LoudnessAnalyzer needs to be flushed", &v6, 0x12u);
     }
   }
-
-LABEL_11:
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t *std::unique_ptr<rtaid::ConfigurationManager>::reset[abi:ne200100](uint64_t *result, uint64_t a2)

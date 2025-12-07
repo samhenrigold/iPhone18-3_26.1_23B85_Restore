@@ -61,10 +61,10 @@
 
 uint64_t __55__PESpatialAudioMixMode_audioMixModeForRenderingStyle___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 renderingStyle];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 renderingStyle];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 + (id)audioMixModes

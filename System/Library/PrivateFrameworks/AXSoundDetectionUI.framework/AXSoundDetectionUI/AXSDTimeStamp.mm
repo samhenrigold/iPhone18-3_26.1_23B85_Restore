@@ -29,7 +29,7 @@
   {
     if (resultCopy)
     {
-      [resultCopy timeRange];
+      objc_msgSend_timeRange(resultCopy);
       v6 = 0 / 0;
       v7 = v6;
     }

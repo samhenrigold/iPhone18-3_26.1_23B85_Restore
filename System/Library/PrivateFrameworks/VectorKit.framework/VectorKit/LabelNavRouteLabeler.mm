@@ -146,28 +146,28 @@
     v2[427] = 0;
     v23 = 0x3FC90FDB00000000;
     v24 = 1;
-    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert(v2 + 74, &v23);
+    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert((v2 + 592), &v23);
     v23 = 0x40490FDB3FC90FDBLL;
     v24 = 1;
-    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert(v2 + 74, &v23);
+    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert((v2 + 592), &v23);
     v23 = 0x4096CBE440490FDBLL;
     v24 = 0;
-    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert(v2 + 74, &v23);
+    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert((v2 + 592), &v23);
     v23 = 0x40C90FDB4096CBE4;
     v24 = 0;
-    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert(v2 + 74, &v23);
+    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert((v2 + 592), &v23);
     v23 = 0x3FC90FDB00000000;
     v24 = 0;
-    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert(v2 + 71, &v23);
+    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert((v2 + 568), &v23);
     v23 = 0x40490FDB3FC90FDBLL;
     v24 = 0;
-    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert(v2 + 71, &v23);
+    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert((v2 + 568), &v23);
     v23 = 0x4096CBE440490FDBLL;
     v24 = 1;
-    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert(v2 + 71, &v23);
+    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert((v2 + 568), &v23);
     v23 = 0x40C90FDB4096CBE4;
     v24 = 1;
-    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert(v2 + 71, &v23);
+    geo::range_map<geo::Unit<geo::RadianUnitDescription,float>,md::OrientationAction,std::less<geo::Unit<geo::RadianUnitDescription,float>>,std::allocator<std::pair<gm::Range<geo::Unit<geo::RadianUnitDescription,float>> const,md::OrientationAction>>>::insert((v2 + 568), &v23);
   }
 
   return v2;
@@ -402,40 +402,40 @@ LABEL_19:
 
 - (void)drawNavOverlayDebugView:(void *)view navContext:(NavContext *)context
 {
-  v171 = *MEMORY[0x1E69E9840];
-  v162 = -16776961;
+  v170 = *MEMORY[0x1E69E9840];
+  v161 = -16776961;
   var3 = context->var3;
   var4 = context->var4;
   v7 = *(var3 + 266);
   v8 = *(var3 + 267);
   v9 = *(var4 + 13);
-  v120 = *(context->var1 + 44);
+  v121 = *(context->var1 + 44);
   if (*(var3 + 8))
   {
-    v122 = *(var4 + 12);
-    v123 = *(var4 + 13);
+    v123 = *(var4 + 12);
+    v124 = *(var4 + 13);
   }
 
   else
   {
     v10 = *(var4 + 14);
-    v167.f64[0] = *(var4 + 12);
-    v167.f64[1] = v9;
-    v168.f64[0] = v10;
-    v157 = 0.0;
+    v166.f64[0] = *(var4 + 12);
+    v166.f64[1] = v9;
+    v167.f64[0] = v10;
     v156 = 0.0;
-    v158[0] = 0;
-    geo::Geocentric<double>::toCoordinate3D<geo::Radians,double>(v167.f64, &v156);
-    v11 = v157;
-    v12 = tan(v156 * 0.5 + 0.785398163);
-    v122 = v11 * 0.159154943 + 0.5;
-    v123 = log(v12) * 0.159154943 + 0.5;
+    v155 = 0.0;
+    v157[0] = 0;
+    geo::Geocentric<double>::toCoordinate3D<geo::Radians,double>(v166.f64, &v155);
+    v11 = v156;
+    v12 = tan(v155 * 0.5 + 0.785398163);
+    v123 = v11 * 0.159154943 + 0.5;
+    v124 = log(v12) * 0.159154943 + 0.5;
   }
 
-  v160.f64[0] = geo::ConvexHull2<double>::boundingBox(*(var3 + 144), *(var3 + 145));
-  v160.f64[1] = v13;
-  v161.f64[0] = v14;
-  v161.f64[1] = v15;
+  v159.f64[0] = geo::ConvexHull2<double>::boundingBox(*(var3 + 144), *(var3 + 145));
+  v159.f64[1] = v13;
+  v160.f64[0] = v14;
+  v160.f64[1] = v15;
   route = self->_route;
   if (route)
   {
@@ -456,14 +456,14 @@ LABEL_19:
         do
         {
           v25 = 0;
-          v26 = &v160;
+          v26 = &v159;
           v27 = 1;
           do
           {
             v28 = v27;
             v26->f64[0] = fmin(*&v22[v25 + 4], v26->f64[0]);
-            v161.f64[v25] = fmax(v161.f64[v25], *&v22[v25 + 6]);
-            v26 = &v160.f64[1];
+            v160.f64[v25] = fmax(v160.f64[v25], *&v22[v25 + 6]);
+            v26 = &v159.f64[1];
             v25 = 1;
             v27 = 0;
           }
@@ -507,14 +507,14 @@ LABEL_19:
     v34 = i[2];
     v35 = v34 + 320;
     v36 = v34 + 336;
-    v37 = &v160;
+    v37 = &v159;
     v38 = 1;
     do
     {
       v39 = v38;
       v37->f64[0] = fmin(*(v35 + 8 * v33), v37->f64[0]);
-      v161.f64[v33] = fmax(v161.f64[v33], *(v36 + 8 * v33));
-      v37 = &v160.f64[1];
+      v160.f64[v33] = fmax(v160.f64[v33], *(v36 + 8 * v33));
+      v37 = &v159.f64[1];
       v33 = 1;
       v38 = 0;
     }
@@ -522,24 +522,24 @@ LABEL_19:
     while ((v39 & 1) != 0);
   }
 
-  v40 = vsubq_f64(v161, v160);
+  v40 = vsubq_f64(v160, v159);
   v41 = fmax(v40.f64[0], v40.f64[1]) * 1.25;
-  v159[0] = 0.0;
-  v159[1] = v8 * 0.25;
-  v159[2] = v7;
-  v159[3] = v8 * 0.75;
-  v42 = exp(v123 * 6.28318531 + -3.14159265);
+  v158[0] = 0.0;
+  v158[1] = v8 * 0.25;
+  v158[2] = v7;
+  v158[3] = v8 * 0.75;
+  v42 = exp(v124 * 6.28318531 + -3.14159265);
   v43 = atan(v42);
   v44 = geo::WGS84::unitsPerMeterAtLatitude<geo::Degrees,double>(v43 * 114.591559 + -90.0);
-  v167.f64[0] = v122;
-  v167.f64[1] = v123;
-  v163.n128_f64[0] = v41 / v44;
-  v150 = v41 / v44;
-  md::DebugConsoleMapRect::DebugConsoleMapRect(&v156, view, v159, &v167, v163.n128_f64, &v150);
+  v166.f64[0] = v123;
+  v166.f64[1] = v124;
+  v162.n128_f64[0] = v41 / v44;
+  v149 = v41 / v44;
+  md::DebugConsoleMapRect::DebugConsoleMapRect(&v155, view, v158, &v166, v162.n128_f64, &v149);
   *(view + 24) = 0x80000000;
-  v45 = *&v157;
-  *(view + 1) = v157;
-  *&v46 = ggl::DebugConsole::drawRectangleWithFill(view, v158, v45);
+  v45 = *&v156;
+  *(view + 1) = v156;
+  *&v46 = ggl::DebugConsole::drawRectangleWithFill(view, v157, v45);
   v47 = self->_route;
   if (v47)
   {
@@ -549,10 +549,10 @@ LABEL_19:
 
     if (!v50)
     {
-      v155 = -16711936;
-      v154 = -16777216;
-      v153 = -1;
-      v152 = -16776961;
+      v154 = -16711936;
+      v153 = -16777216;
+      v152 = -1;
+      v151 = -16776961;
       v51 = context->var3;
       v52 = *(v51 + 144);
       v53 = *v52;
@@ -567,9 +567,9 @@ LABEL_19:
         do
         {
           v55 = vsubq_f64(v52[v54], v53);
-          v167 = v53;
-          v168 = v55;
-          md::DebugConsoleMapRect::drawWorldSegment(&v156, &v167, &v155);
+          v166 = v53;
+          v167 = v55;
+          md::DebugConsoleMapRect::drawWorldSegment(&v155, &v166, &v154);
           v56 = context->var3;
           v52 = *(v56 + 144);
           v53 = v52[v54++];
@@ -579,9 +579,9 @@ LABEL_19:
         v57 = *v52;
       }
 
-      v167 = v53;
-      v168 = vsubq_f64(v57, v53);
-      md::DebugConsoleMapRect::drawWorldSegment(&v156, &v167, &v155);
+      v166 = v53;
+      v167 = vsubq_f64(v57, v53);
+      md::DebugConsoleMapRect::drawWorldSegment(&v155, &v166, &v154);
       routeRibbon4 = [(VKPolylineOverlay *)self->_route routeRibbon];
       renderRegion4 = [routeRibbon4 renderRegion];
       snappingRegion2 = [renderRegion4 snappingRegion];
@@ -593,8 +593,8 @@ LABEL_19:
       {
         do
         {
-          LODWORD(v167.f64[0]) = 1073742079;
-          md::DebugConsoleMapRect::drawWorldRect(&v156, v61 + 2, &v167, 1);
+          LODWORD(v166.f64[0]) = 1073742079;
+          md::DebugConsoleMapRect::drawWorldRect(&v155, v61 + 2, &v166, 1);
           v64 = v61->n128_u64[1];
           if (v64)
           {
@@ -625,63 +625,61 @@ LABEL_19:
         while (v65 != v62);
       }
 
-      v151[1] = 0;
-      v151[0] = 0;
-      v150 = COERCE_DOUBLE(v151);
-      v149[1] = 0;
-      v149[0] = 0;
-      v148 = v149;
-      __p = 0;
-      v146 = 0;
-      v147 = 0;
-      memset(v144, 0, sizeof(v144));
+      v150[1] = 0;
+      v150[0] = 0;
+      v149 = COERCE_DOUBLE(v150);
+      v148[1] = 0;
+      v148[0] = 0;
+      __p[3] = v148;
+      memset(__p, 0, 24);
+      memset(v146, 0, sizeof(v146));
       routeRibbon5 = [(VKPolylineOverlay *)self->_route routeRibbon];
       obj = [routeRibbon5 matchedSegments];
 
-      if ([obj countByEnumeratingWithState:v144 objects:v170 count:16])
+      if ([obj countByEnumeratingWithState:v146 objects:v169 count:16])
       {
-        v67 = **(&v144[0] + 1);
-        [**(&v144[0] + 1) startRouteCoordinate];
+        v67 = **(&v146[0] + 1);
+        [**(&v146[0] + 1) startRouteCoordinate];
         [v67 endRouteCoordinate];
         std::__allocate_at_least[abi:nn200100]<std::allocator<gm::LineSegment<float,2>>>(1uLL);
       }
 
       std::__introsort<std::_ClassicAlgPolicy,[LabelNavRouteLabeler(Debug) drawNavOverlayDebugView:navContext:]::$_0 &,gm::Range<double> *,false>(0, 0, 0, 1, v68);
+      v144 = 0u;
+      v145 = 0u;
       v142 = 0u;
       v143 = 0u;
-      v140 = 0u;
-      v141 = 0u;
       composedRoute = [(VKPolylineOverlay *)self->_route composedRoute];
-      sections = [composedRoute sections];
+      v127 = objc_msgSend_sections(composedRoute);
 
-      v70 = [sections countByEnumeratingWithState:&v140 objects:v169 count:16];
+      v70 = [v127 countByEnumeratingWithState:&v142 objects:v168 count:16];
       if (v70)
       {
-        v71 = *v141;
+        v71 = *v143;
         do
         {
           for (j = 0; j != v70; ++j)
           {
-            if (*v141 != v71)
+            if (*v143 != v71)
             {
-              objc_enumerationMutation(sections);
+              objc_enumerationMutation(v127);
             }
 
-            v73 = *(*(&v140 + 1) + 8 * j);
+            v73 = *(*(&v142 + 1) + 8 * j);
             if ([v73 pointCount] >= 2)
             {
               startPointIndex = [v73 startPointIndex];
               endPointIndex = [v73 endPointIndex];
-              *&v139[3] = startPointIndex;
-              *&v139[4] = endPointIndex;
-              v139[0] = v139;
-              v139[1] = v139;
-              v139[2] = 0;
-              md::MuninLabelingUtils::clipRange(&v167);
+              *&v141 = startPointIndex;
+              *(&v141 + 1) = endPointIndex;
+              v140[0] = v140;
+              v140[1] = v140;
+              v140[2] = 0;
+              md::MuninLabelingUtils::clipRange(&v166, &v141, __p);
             }
           }
 
-          v70 = [sections countByEnumeratingWithState:&v140 objects:v169 count:16];
+          v70 = [v127 countByEnumeratingWithState:&v142 objects:v168 count:16];
         }
 
         while (v70);
@@ -692,11 +690,11 @@ LABEL_19:
         v77 = k[2];
         if (!std::__hash_table<std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>,std::__unordered_map_hasher<gdc::Registry *,std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>,std::hash<gdc::Registry *>,std::equal_to<gdc::Registry *>,true>,std::__unordered_map_equal<gdc::Registry *,std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>,std::equal_to<gdc::Registry *>,std::hash<gdc::Registry *>,true>,std::allocator<std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>>>::find<gdc::Registry *>(&self->_pendingTiles.__table_.__bucket_list_.__ptr_, v77))
         {
-          md::DebugConsoleMapRect::drawWorldRect(&v156, v77 + 20, &v154, 0);
+          md::DebugConsoleMapRect::drawWorldRect(&v155, v77 + 20, &v153, 0);
         }
       }
 
-      for (m = &self->_pendingTiles.__table_.__first_node_; ; md::DebugConsoleMapRect::drawWorldRect(&v156, m[2].__next_ + 20, &v153, 0))
+      for (m = &self->_pendingTiles.__table_.__first_node_; ; md::DebugConsoleMapRect::drawWorldRect(&v155, m[2].__next_ + 20, &v152, 0))
       {
         m = m->__next_;
         if (!m)
@@ -705,28 +703,28 @@ LABEL_19:
         }
       }
 
-      v168.f64[1] = 0.0;
       v167.f64[1] = 0.0;
-      *&v167.f64[0] = &v167.f64[1];
-      v135 = 0u;
+      v166.f64[1] = 0.0;
+      *&v166.f64[0] = &v166.f64[1];
       v136 = 0u;
       v137 = 0u;
       v138 = 0u;
+      v139 = 0u;
       v79 = self->_visibleLabels;
-      v80 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v135 objects:v166 count:16];
+      v80 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v136 objects:v165 count:16];
       if (v80)
       {
-        v81 = *v136;
+        v81 = *v137;
         do
         {
           for (n = 0; n != v80; ++n)
           {
-            if (*v136 != v81)
+            if (*v137 != v81)
             {
               objc_enumerationMutation(v79);
             }
 
-            v83 = *(*(&v135 + 1) + 8 * n);
+            v83 = *(*(&v136 + 1) + 8 * n);
             navFeature = [v83 navFeature];
             routeOffset = [navFeature routeOffset];
             index = self->_routeUserOffset.index;
@@ -735,62 +733,62 @@ LABEL_19:
               if ([v83 isJunctionLabel])
               {
                 v87 = navFeature;
-                v139[0] = v87;
-                std::__tree<VKLabelNavJunction * {__strong},std::less<VKLabelNavJunction * {__strong}>,geo::allocator_adapter<VKLabelNavJunction * {__strong},mdm::zone_mallocator>>::__emplace_unique_key_args<VKLabelNavJunction * {__strong},VKLabelNavJunction * const {__strong}&>(&v167, v87, v139);
+                v140[0] = v87;
+                std::__tree<VKLabelNavJunction * {__strong},std::less<VKLabelNavJunction * {__strong}>,geo::allocator_adapter<VKLabelNavJunction * {__strong},mdm::zone_mallocator>>::__emplace_unique_key_args<VKLabelNavJunction * {__strong},VKLabelNavJunction * const {__strong}&>(&v166, v87, v140);
                 v88 = *[v87 mercatorCoordinate];
                 v89 = *([v87 mercatorCoordinate] + 8);
-                v163.n128_u64[0] = v88;
-                v163.n128_u64[1] = v89;
-                md::DebugConsoleMapRect::drawWorldSymbol(&v156, &v163, 2, &v152);
+                v162.n128_u64[0] = v88;
+                v162.n128_u64[1] = v89;
+                md::DebugConsoleMapRect::drawWorldSymbol(&v155, &v162, 2, &v151);
               }
 
               else if ([v83 isRoadLabel])
               {
                 v90 = navFeature;
                 navJunctionA = [v90 navJunctionA];
-                v139[0] = navJunctionA;
+                v140[0] = navJunctionA;
                 if (navJunctionA)
                 {
-                  std::__tree<VKLabelNavJunction * {__strong},std::less<VKLabelNavJunction * {__strong}>,geo::allocator_adapter<VKLabelNavJunction * {__strong},mdm::zone_mallocator>>::__emplace_unique_key_args<VKLabelNavJunction * {__strong},VKLabelNavJunction * const {__strong}&>(&v167, navJunctionA, v139);
+                  std::__tree<VKLabelNavJunction * {__strong},std::less<VKLabelNavJunction * {__strong}>,geo::allocator_adapter<VKLabelNavJunction * {__strong},mdm::zone_mallocator>>::__emplace_unique_key_args<VKLabelNavJunction * {__strong},VKLabelNavJunction * const {__strong}&>(&v166, navJunctionA, v140);
                   v92 = *[navJunctionA mercatorCoordinate];
                   v93 = *([navJunctionA mercatorCoordinate] + 8);
-                  v163.n128_u64[0] = v92;
-                  v163.n128_u64[1] = v93;
-                  md::DebugConsoleMapRect::drawWorldSymbol(&v156, &v163, 2, &v152);
+                  v162.n128_u64[0] = v92;
+                  v162.n128_u64[1] = v93;
+                  md::DebugConsoleMapRect::drawWorldSymbol(&v155, &v162, 2, &v151);
                 }
               }
             }
           }
 
-          v80 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v135 objects:v166 count:16];
+          v80 = [(NSMutableArray *)v79 countByEnumeratingWithState:&v136 objects:v165 count:16];
         }
 
         while (v80);
       }
 
-      v131 = 0u;
       v132 = 0u;
       v133 = 0u;
       v134 = 0u;
+      v135 = 0u;
       v94 = self->_junctions;
-      v95 = [(NSMutableArray *)v94 countByEnumeratingWithState:&v131 objects:v165 count:16];
+      v95 = [(NSMutableArray *)v94 countByEnumeratingWithState:&v132 objects:v164 count:16];
       if (v95)
       {
-        v96 = *v132;
+        v96 = *v133;
         do
         {
           for (ii = 0; ii != v95; ++ii)
           {
-            if (*v132 != v96)
+            if (*v133 != v96)
             {
               objc_enumerationMutation(v94);
             }
 
-            v98 = *(*(&v131 + 1) + 8 * ii);
+            v98 = *(*(&v132 + 1) + 8 * ii);
             v99 = v98;
-            v139[0] = v98;
-            v100 = v167.f64[1];
-            if (*&v167.f64[1])
+            v140[0] = v98;
+            v100 = v166.f64[1];
+            if (*&v166.f64[1])
             {
               do
               {
@@ -811,29 +809,29 @@ LABEL_19:
               while (v100 != 0.0);
             }
 
-            std::__tree<VKLabelNavJunction * {__strong},std::less<VKLabelNavJunction * {__strong}>,geo::allocator_adapter<VKLabelNavJunction * {__strong},mdm::zone_mallocator>>::__emplace_unique_key_args<VKLabelNavJunction * {__strong},VKLabelNavJunction * const {__strong}&>(&v167, v98, v139);
+            std::__tree<VKLabelNavJunction * {__strong},std::less<VKLabelNavJunction * {__strong}>,geo::allocator_adapter<VKLabelNavJunction * {__strong},mdm::zone_mallocator>>::__emplace_unique_key_args<VKLabelNavJunction * {__strong},VKLabelNavJunction * const {__strong}&>(&v166, v98, v140);
             routeOffset2 = [v99 routeOffset];
             v103 = self->_routeUserOffset.index;
             if (v103 <= routeOffset2 && (v103 != routeOffset2 || self->_routeUserOffset.offset <= *(&routeOffset2 + 1)))
             {
               v104 = *[v99 mercatorCoordinate];
               v105 = *([v99 mercatorCoordinate] + 8);
-              v163.n128_u64[0] = v104;
-              v163.n128_u64[1] = v105;
-              md::DebugConsoleMapRect::drawWorldSymbol(&v156, &v163, 2, &v154);
+              v162.n128_u64[0] = v104;
+              v162.n128_u64[1] = v105;
+              md::DebugConsoleMapRect::drawWorldSymbol(&v155, &v162, 2, &v153);
             }
 
 LABEL_81:
           }
 
-          v95 = [(NSMutableArray *)v94 countByEnumeratingWithState:&v131 objects:v165 count:16];
+          v95 = [(NSMutableArray *)v94 countByEnumeratingWithState:&v132 objects:v164 count:16];
         }
 
         while (v95);
       }
 
       v106 = 0;
-      v107 = v154;
+      v107 = v153;
       while (1)
       {
         if (v106 == 2)
@@ -845,37 +843,37 @@ LABEL_81:
         {
           if (v106 != 1)
           {
-            LODWORD(v139[0]) = v107;
+            LODWORD(v140[0]) = v107;
             goto LABEL_90;
           }
 
           v108 = -16711681;
         }
 
-        LODWORD(v139[0]) = v108;
+        LODWORD(v140[0]) = v108;
 LABEL_90:
         v109 = [(VKLabelNavRoadGraph *)self->_roadGraph junctionListForDepth:v106];
-        v129 = 0u;
         v130 = 0u;
-        v127 = 0u;
+        v131 = 0u;
         v128 = 0u;
+        v129 = 0u;
         v110 = v109;
-        v111 = [v110 countByEnumeratingWithState:&v127 objects:v164 count:16];
+        v111 = [v110 countByEnumeratingWithState:&v128 objects:v163 count:16];
         if (v111)
         {
-          v112 = *v128;
+          v112 = *v129;
           do
           {
             for (jj = 0; jj != v111; ++jj)
             {
-              if (*v128 != v112)
+              if (*v129 != v112)
               {
                 objc_enumerationMutation(v110);
               }
 
-              v114 = *(*(&v127 + 1) + 8 * jj);
-              v115 = v167.f64[1];
-              if (*&v167.f64[1])
+              v114 = *(*(&v128 + 1) + 8 * jj);
+              v115 = v166.f64[1];
+              if (*&v166.f64[1])
               {
                 do
                 {
@@ -896,16 +894,16 @@ LABEL_90:
                 while (v115 != 0.0);
               }
 
-              v117 = *[*(*(&v127 + 1) + 8 * jj) mercatorCoordinate];
+              v117 = *[*(*(&v128 + 1) + 8 * jj) mercatorCoordinate];
               v118 = *([v114 mercatorCoordinate] + 8);
-              v163.n128_u64[0] = v117;
-              v163.n128_u64[1] = v118;
-              md::DebugConsoleMapRect::drawWorldSymbol(&v156, &v163, 0, v139);
+              v162.n128_u64[0] = v117;
+              v162.n128_u64[1] = v118;
+              md::DebugConsoleMapRect::drawWorldSymbol(&v155, &v162, 0, v140);
 LABEL_101:
               ;
             }
 
-            v111 = [v110 countByEnumeratingWithState:&v127 objects:v164 count:16];
+            v111 = [v110 countByEnumeratingWithState:&v128 objects:v163 count:16];
           }
 
           while (v111);
@@ -913,24 +911,24 @@ LABEL_101:
 
         if (++v106 == 3)
         {
-          std::__tree<VKLabelNavJunction * {__strong},std::less<VKLabelNavJunction * {__strong}>,geo::allocator_adapter<VKLabelNavJunction * {__strong},mdm::zone_mallocator>>::destroy(*&v167.f64[1]);
-          if (__p)
+          std::__tree<VKLabelNavJunction * {__strong},std::less<VKLabelNavJunction * {__strong}>,geo::allocator_adapter<VKLabelNavJunction * {__strong},mdm::zone_mallocator>>::destroy(*&v166.f64[1]);
+          if (__p[0])
           {
-            operator delete(__p);
+            operator delete(__p[0]);
           }
 
-          std::__tree<VKPolylineGroupOverlay * {__strong}>::destroy(v149[0]);
-          std::__tree<std::__value_type<GEOComposedRouteSection * {__strong},std::vector<std::pair<int,int>>>,std::__map_value_compare<GEOComposedRouteSection * {__strong},std::__value_type<GEOComposedRouteSection * {__strong},std::vector<std::pair<int,int>>>,std::less<GEOComposedRouteSection * {__strong}>,true>,std::allocator<std::__value_type<GEOComposedRouteSection * {__strong},std::vector<std::pair<int,int>>>>>::destroy(v151[0]);
+          std::__tree<VKPolylineGroupOverlay * {__strong}>::destroy(v148[0], v119);
+          std::__tree<std::__value_type<GEOComposedRouteSection * {__strong},std::vector<std::pair<int,int>>>,std::__map_value_compare<GEOComposedRouteSection * {__strong},std::__value_type<GEOComposedRouteSection * {__strong},std::vector<std::pair<int,int>>>,std::less<GEOComposedRouteSection * {__strong}>,true>,std::allocator<std::__value_type<GEOComposedRouteSection * {__strong},std::vector<std::pair<int,int>>>>>::destroy(v150[0]);
           break;
         }
       }
     }
   }
 
-  v119.n128_f64[0] = v122;
-  v119.n128_f64[1] = v123;
-  v167.f64[0] = *(context->var3 + 105);
-  md::DebugConsoleMapRect::drawWorldArrow(&v156, v167.f64, &v162, v119, v120 * 22.0, v120 * 12.0);
+  v120.n128_f64[0] = v123;
+  v120.n128_f64[1] = v124;
+  v166.f64[0] = *(context->var3 + 105);
+  md::DebugConsoleMapRect::drawWorldArrow(&v155, v166.f64, &v161, v120, v121 * 22.0, v121 * 12.0);
 }
 
 - (void)drawRoadSignOrientationDebugView:(void *)view navContext:(NavContext *)context
@@ -1158,7 +1156,7 @@ LABEL_101:
                 v87 = ggl::DebugConsole::drawLine(view, &v124, v86);
                 *(view + 1) = v85;
                 *&v88 = ggl::DebugConsole::drawLine(view, &v122, v87);
-                [(LabelNavRouteLabeler *)self createRoadSignOrientationResolver:v112 navContext:context, v88];
+                objc_msgSend_createRoadSignOrientationResolver_navContext_(self, v88);
                 v119 = v131.f32[1] + -40.0;
                 v115 = v131.f32[0] + -40.0;
                 v116 = v131.f32[0];
@@ -1339,7 +1337,7 @@ LABEL_101:
   }
 
   v9 = v7[7];
-  v10 = 126 - 2 * __clz((v9 - v8) >> 4);
+  v10 = 126 - 2 * __clz(v9 - v8);
   if (v9 == v8)
   {
     v11 = 0;
@@ -1575,7 +1573,7 @@ void __47__LabelNavRouteLabeler__updateActiveRouteRange__block_invoke(uint64_t a
         }
 
         v7 = *(*(&v26 + 1) + 8 * i);
-        [v7 mapEdge];
+        objc_msgSend_mapEdge(v7);
         v8 = v22[2];
         v24 = v22[1];
         v25 = v8;
@@ -1629,7 +1627,7 @@ void __47__LabelNavRouteLabeler__updateActiveRouteRange__block_invoke(uint64_t a
           }
         }
 
-        [v7 mapEdge];
+        objc_msgSend_mapEdge(v7);
         v15 = v22[4];
         v24 = v22[3];
         v25 = v15;
@@ -2626,7 +2624,7 @@ LABEL_32:
           v23 = containingTile;
           if (containingTile)
           {
-            [containingTile vectorTilePtr];
+            objc_msgSend_vectorTilePtr(containingTile);
           }
 
           else
@@ -2879,7 +2877,7 @@ uint64_t __45__LabelNavRouteLabeler__addJunctionsForTile___block_invoke(uint64_t
     v12 = containingTile;
     if (containingTile)
     {
-      [containingTile vectorTilePtr];
+      objc_msgSend_vectorTilePtr(containingTile);
       v13 = startRouteCoordinate2;
       if (endRouteCoordinate)
       {
@@ -3803,7 +3801,7 @@ LABEL_61:
 
   if (&selfCopy->_avoidanceRects != rects)
   {
-    std::vector<md::AvoidanceRectWithPriority,geo::allocator_adapter<md::AvoidanceRectWithPriority,mdm::zone_mallocator>>::__assign_with_size[abi:nn200100]<md::AvoidanceRectWithPriority*,md::AvoidanceRectWithPriority*>(&selfCopy->_avoidanceRects.__begin_, *rects, *(rects + 1), 0xAAAAAAAAAAAAAAABLL * ((*(rects + 1) - *rects) >> 3));
+    std::vector<md::AvoidanceRectWithPriority,geo::allocator_adapter<md::AvoidanceRectWithPriority,mdm::zone_mallocator>>::__assign_with_size[abi:nn200100]<md::AvoidanceRectWithPriority*,md::AvoidanceRectWithPriority*>(&selfCopy->_avoidanceRects, *rects, *(rects + 1), 0xAAAAAAAAAAAAAAABLL * ((*(rects + 1) - *rects) >> 3));
     selfCopy = v186;
   }
 
@@ -3954,7 +3952,7 @@ LABEL_51:
   v44 = vdupq_n_s64(0x7FF8000000000000uLL);
   v225.std::__shared_count = v44;
   v46 = v223 == v44.__vftable && *(&v223 + 1) == v44.__shared_owners_ && v43 == 0x7FF8000000000000;
-  if (v46 || ((var3 = contextCopy->var3, *v182 = v44, v229 = gm::Matrix<double,4,4>::multiplyHomogeneous<int,void>(var3 + 92, &v223), v230 = v48, v231 = v49, v44.__vftable = v182[0], v225.std::__shared_count = *v182, *&v229 == v182[0]) ? (v50 = v48 == v182[1]) : (v50 = 0), v50 ? (v51 = *&v49 == 0x7FF8000000000000) : (v51 = 0), v51 || (v44.__vftable = 0xBFF0CCCCCCCCCCCDLL, v49 < -1.05) || (v44.__vftable = 0x3FF0CCCCCCCCCCCDLL, v49 > 1.05)))
+  if (v46 || ((var3 = contextCopy->var3, v182 = v44, v229 = gm::Matrix<double,4,4>::multiplyHomogeneous<int,void>(var3 + 92, &v223), v230 = v48, v231 = v49, v44.__vftable = v182.__vftable, v225.std::__shared_count = v182, *&v229 == v182.__vftable) ? (v50 = v48 == v182.__shared_owners_) : (v50 = 0), v50 ? (v51 = *&v49 == 0x7FF8000000000000) : (v51 = 0), v51 || (v44.__vftable = 0xBFF0CCCCCCCCCCCDLL, v49 < -1.05) || (v44.__vftable = 0x3FF0CCCCCCCCCCCDLL, v49 > 1.05)))
   {
     p_regenerateRoadSigns = &selfCopy->_regenerateRoadSigns;
     v60 = !selfCopy->_isStylesheetAnimating && selfCopy->_regenerateRoadSigns;
@@ -4764,7 +4762,7 @@ LABEL_12:
 - (unsigned)resolveOrientation:(NavContext *)orientation road:(id)road currentOrientation:(unsigned __int8)currentOrientation
 {
   roadCopy = road;
-  [(LabelNavRouteLabeler *)self createRoadSignOrientationResolver:roadCopy navContext:orientation];
+  objc_msgSend_createRoadSignOrientationResolver_navContext_(self);
   [roadCopy direction2D];
   v9 = v8;
   v11 = v10;

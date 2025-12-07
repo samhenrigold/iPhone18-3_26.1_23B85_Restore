@@ -133,10 +133,7 @@
 
 uint64_t __83__FTRecentsListViewControllerAccessibility_accessibilityCustomActionsForIndexPath___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) collectionView:*(a1 + 40) contextMenuConfigurationForItemAtIndexPath:*(a1 + 48) point:{*MEMORY[0x29EDB90B8], *(MEMORY[0x29EDB90B8] + 8)}];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) collectionView:*(a1 + 40) contextMenuConfigurationForItemAtIndexPath:*(a1 + 48) point:{*MEMORY[0x29EDB90B8], *(MEMORY[0x29EDB90B8] + 8)}];
 
   return MEMORY[0x2A1C71028]();
 }

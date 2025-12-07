@@ -64,7 +64,7 @@ void __62__CNAutocompleteLocalSearch_executeRequest_completionHandler___block_in
 {
   v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CNALoggingContextDebug();
+  v4 = CNALoggingContextDebug(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -93,16 +93,16 @@ void __62__CNAutocompleteLocalSearch_executeRequest_completionHandler___block_in
       v17 = [v13 peopleForRequest:v14 contactStore:v15 contactFetcherStore:v16];
       [v6 addObjectsFromArray:v17];
 
-      v18 = CNALoggingContextPerformance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v19 = CNALoggingContextPerformance(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
+        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
         [v7 timeIntervalSinceNow];
         *buf = 138412546;
-        v26 = v19;
+        v26 = v20;
         v27 = 2048;
-        v28 = v20 * -1000.0;
-        _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_INFO, "Time to fetch %@ local contacts and groups: %.3fms", buf, 0x16u);
+        v28 = v21 * -1000.0;
+        _os_log_impl(&dword_2155FE000, v19, OS_LOG_TYPE_INFO, "Time to fetch %@ local contacts and groups: %.3fms", buf, 0x16u);
       }
 
       v22[0] = MEMORY[0x277D85DD0];
@@ -114,8 +114,6 @@ void __62__CNAutocompleteLocalSearch_executeRequest_completionHandler___block_in
       [v3 performBlock:v22];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)peopleForRequest:(id)request contactStore:(id)store contactFetcherStore:(id)fetcherStore

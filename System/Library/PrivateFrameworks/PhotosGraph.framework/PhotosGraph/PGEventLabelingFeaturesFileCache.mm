@@ -12,15 +12,14 @@
 {
   v6 = sub_22F73F470();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22F73F430();
   graphCopy = graph;
-  v12 = sub_22F175D2C(v10, graphCopy);
-  (*(v7 + 8))(v10, v6);
+  v11 = sub_22F175D2C(v9, graphCopy);
+  (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v11;
 }
 
 - (BOOL)writeFeaturesForMomentNode:(id)node assetFetchResult:(id)result photoLibrary:(id)library progressReporter:(id)reporter error:(id *)error
@@ -62,20 +61,19 @@
 {
   v4 = sub_22F73F470();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22F73F430();
-  v9 = objc_allocWithZone(MEMORY[0x277CCAA00]);
+  v8 = objc_allocWithZone(MEMORY[0x277CCAA00]);
   selfCopy = self;
-  v11 = [v9 init];
+  v10 = [v8 init];
   sub_22F73F440();
-  v12 = sub_22F740DF0();
+  v11 = sub_22F740DF0();
 
-  LOBYTE(v9) = [v11 fileExistsAtPath_];
+  LOBYTE(v8) = [v10 fileExistsAtPath_];
 
-  (*(v5 + 8))(v8, v4);
-  return v9 ^ 1;
+  (*(v5 + 8))(v7, v4);
+  return v8 ^ 1;
 }
 
 - (PGEventLabelingFeaturesFileCache)init

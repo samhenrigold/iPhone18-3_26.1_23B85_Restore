@@ -118,7 +118,7 @@
       v8 = track;
       if (track)
       {
-        [track timeRange];
+        objc_msgSend_timeRange(track);
       }
 
       else
@@ -130,7 +130,7 @@
       assetReader = self->_assetReader;
       if (assetReader)
       {
-        [(AVAssetReader *)assetReader timeRange];
+        objc_msgSend_timeRange(assetReader);
       }
 
       else

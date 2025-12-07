@@ -33,9 +33,9 @@
       [SKUIIndexBarEntryViewElement initWithDOMElement:parent:elementFactory:];
     }
 
-    v14 = [v13 isEqualToString:@"required"];
+    isEqualToString = objc_msgSend_isEqualToString_(v13);
     v15 = 1000;
-    if (!v14)
+    if (!isEqualToString)
     {
       v15 = 0;
     }

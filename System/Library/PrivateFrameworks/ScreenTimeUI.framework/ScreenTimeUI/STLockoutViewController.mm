@@ -1520,13 +1520,13 @@ void __65__STLockoutViewController__actionUnlockedAskOrApproveActionSheet__block
   return [(STLockoutViewController *)self _performUnlockedActionWithCompletionHandler:v3];
 }
 
-uint64_t __76__STLockoutViewController__actionUnlockedEnterScreenTimePasscodeActionSheet__block_invoke(uint64_t result, int a2, uint64_t a3)
+id *__76__STLockoutViewController__actionUnlockedEnterScreenTimePasscodeActionSheet__block_invoke(id *result, int a2, uint64_t a3)
 {
   if (!a3)
   {
     if (a2)
     {
-      return [*(result + 32) _authenticatedApproveActionSheet];
+      return [result[4] _authenticatedApproveActionSheet];
     }
   }
 

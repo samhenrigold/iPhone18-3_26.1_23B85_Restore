@@ -232,37 +232,47 @@ void __70__CN_CNInternationalSupport__requiredPropertiesForNameScriptDetection__
 
 uint64_t __48__CN_PropertyDescription__nameSuffixDescription__block_invoke()
 {
-  nameSuffixDescription_cn_once_object_29 = objc_alloc_init(CNNameSuffixDescription);
+  v0 = objc_alloc_init(CNNameSuffixDescription);
+  v1 = nameSuffixDescription_cn_once_object_29;
+  nameSuffixDescription_cn_once_object_29 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __47__CN_PropertyDescription__givenNameDescription__block_invoke()
 {
-  givenNameDescription_cn_once_object_26 = objc_alloc_init(CNGivenNameDescription);
+  v0 = objc_alloc_init(CNGivenNameDescription);
+  v1 = givenNameDescription_cn_once_object_26;
+  givenNameDescription_cn_once_object_26 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __48__CN_PropertyDescription__middleNameDescription__block_invoke()
 {
-  middleNameDescription_cn_once_object_27 = objc_alloc_init(CNMiddleNameDescription);
+  v0 = objc_alloc_init(CNMiddleNameDescription);
+  v1 = middleNameDescription_cn_once_object_27;
+  middleNameDescription_cn_once_object_27 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __48__CN_PropertyDescription__familyNameDescription__block_invoke()
 {
-  familyNameDescription_cn_once_object_28 = objc_alloc_init(CNFamilyNameDescription);
+  v0 = objc_alloc_init(CNFamilyNameDescription);
+  v1 = familyNameDescription_cn_once_object_28;
+  familyNameDescription_cn_once_object_28 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __48__CN_PropertyDescription__namePrefixDescription__block_invoke()
 {
-  namePrefixDescription_cn_once_object_25 = objc_alloc_init(CNNamePrefixDescription);
+  v0 = objc_alloc_init(CNNamePrefixDescription);
+  v1 = namePrefixDescription_cn_once_object_25;
+  namePrefixDescription_cn_once_object_25 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)allImageDataPropertyKeys
@@ -420,16 +430,20 @@ void __49__CN_PropertyDescription__allImageDataProperties__block_invoke(uint64_t
 
 uint64_t __52__CN_PropertyDescription__memojiMetadataDescription__block_invoke()
 {
-  memojiMetadataDescription_cn_once_object_87 = objc_alloc_init(CNMemojiMetadataDescription);
+  v0 = objc_alloc_init(CNMemojiMetadataDescription);
+  v1 = memojiMetadataDescription_cn_once_object_87;
+  memojiMetadataDescription_cn_once_object_87 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __54__CN_PropertyDescription__avatarRecipeDataDescription__block_invoke()
 {
-  avatarRecipeDataDescription_cn_once_object_92 = objc_alloc_init(CNAvatarRecipeDataDescription);
+  v0 = objc_alloc_init(CNAvatarRecipeDataDescription);
+  v1 = avatarRecipeDataDescription_cn_once_object_92;
+  avatarRecipeDataDescription_cn_once_object_92 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)identifierDescription
@@ -603,9 +617,11 @@ void __47__CN_PropertyDescription__allContactProperties__block_invoke(uint64_t a
 
 uint64_t __48__CN_PropertyDescription__identifierDescription__block_invoke()
 {
-  identifierDescription_cn_once_object_23 = objc_alloc_init(CNInternalIdentifierDescription);
+  v0 = objc_alloc_init(CNInternalIdentifierDescription);
+  v1 = identifierDescription_cn_once_object_23;
+  identifierDescription_cn_once_object_23 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)iOSLegacyIdentifierDescription
@@ -622,44 +638,56 @@ uint64_t __48__CN_PropertyDescription__identifierDescription__block_invoke()
 
 uint64_t __57__CN_PropertyDescription__fullscreenImageDataDescription__block_invoke()
 {
-  fullscreenImageDataDescription_cn_once_object_52 = objc_alloc_init(CNFullscreenImageDataDescription);
+  v0 = objc_alloc_init(CNFullscreenImageDataDescription);
+  v1 = fullscreenImageDataDescription_cn_once_object_52;
+  fullscreenImageDataDescription_cn_once_object_52 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __51__CN_PropertyDescription__syncImageDataDescription__block_invoke()
 {
-  syncImageDataDescription_cn_once_object_53 = objc_alloc_init(CNSyncImageDataDescription);
+  v0 = objc_alloc_init(CNSyncImageDataDescription);
+  v1 = syncImageDataDescription_cn_once_object_53;
+  syncImageDataDescription_cn_once_object_53 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __46__CN_PropertyDescription__cropRectDescription__block_invoke()
 {
-  cropRectDescription_cn_once_object_50 = objc_alloc_init(CNCropRectDescription);
+  v0 = objc_alloc_init(CNCropRectDescription);
+  v1 = cropRectDescription_cn_once_object_50;
+  cropRectDescription_cn_once_object_50 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __57__CN_PropertyDescription__iOSLegacyIdentifierDescription__block_invoke()
 {
-  iOSLegacyIdentifierDescription_cn_once_object_24 = objc_alloc_init(CNIOSLegacyIdentifierDescription);
+  v0 = objc_alloc_init(CNIOSLegacyIdentifierDescription);
+  v1 = iOSLegacyIdentifierDescription_cn_once_object_24;
+  iOSLegacyIdentifierDescription_cn_once_object_24 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __47__CN_PropertyDescription__imageDataDescription__block_invoke()
 {
-  imageDataDescription_cn_once_object_49 = objc_alloc_init(CNImageDataDescription);
+  v0 = objc_alloc_init(CNImageDataDescription);
+  v1 = imageDataDescription_cn_once_object_49;
+  imageDataDescription_cn_once_object_49 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __56__CN_PropertyDescription__thumbnailImageDataDescription__block_invoke()
 {
-  thumbnailImageDataDescription_cn_once_object_51 = objc_alloc_init(CNThumbnailImageDataDescription);
+  v0 = objc_alloc_init(CNThumbnailImageDataDescription);
+  v1 = thumbnailImageDataDescription_cn_once_object_51;
+  thumbnailImageDataDescription_cn_once_object_51 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)cropRectDescription
@@ -736,9 +764,11 @@ uint64_t __56__CN_PropertyDescription__thumbnailImageDataDescription__block_invo
 
 uint64_t __56__CN_PropertyDescription__previousFamilyNameDescription__block_invoke()
 {
-  previousFamilyNameDescription_cn_once_object_30 = objc_alloc_init(CNPreviousFamilyNameDescription);
+  v0 = objc_alloc_init(CNPreviousFamilyNameDescription);
+  v1 = previousFamilyNameDescription_cn_once_object_30;
+  previousFamilyNameDescription_cn_once_object_30 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)sharedPhotoDisplayPreferenceDescription
@@ -755,9 +785,11 @@ uint64_t __56__CN_PropertyDescription__previousFamilyNameDescription__block_invo
 
 uint64_t __66__CN_PropertyDescription__sharedPhotoDisplayPreferenceDescription__block_invoke()
 {
-  sharedPhotoDisplayPreferenceDescription_cn_once_object_61 = objc_alloc_init(CNSharedPhotoDisplayPreferenceDescription);
+  v0 = objc_alloc_init(CNSharedPhotoDisplayPreferenceDescription);
+  v1 = sharedPhotoDisplayPreferenceDescription_cn_once_object_61;
+  sharedPhotoDisplayPreferenceDescription_cn_once_object_61 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)memojiMetadataDescription
@@ -774,9 +806,11 @@ uint64_t __66__CN_PropertyDescription__sharedPhotoDisplayPreferenceDescription__
 
 uint64_t __54__CN_PropertyDescription__externalImageURIDescription__block_invoke()
 {
-  externalImageURIDescription_cn_once_object_78 = objc_alloc_init(CNExternalImageURIDescription);
+  v0 = objc_alloc_init(CNExternalImageURIDescription);
+  v1 = externalImageURIDescription_cn_once_object_78;
+  externalImageURIDescription_cn_once_object_78 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)imageType
@@ -793,58 +827,74 @@ uint64_t __54__CN_PropertyDescription__externalImageURIDescription__block_invoke
 
 uint64_t __36__CN_PropertyDescription__imageType__block_invoke()
 {
-  imageType_cn_once_object_85 = objc_alloc_init(CNImageTypeDescription);
+  v0 = objc_alloc_init(CNImageTypeDescription);
+  v1 = imageType_cn_once_object_85;
+  imageType_cn_once_object_85 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __36__CN_PropertyDescription__imageHash__block_invoke()
 {
-  imageHash_cn_once_object_86 = objc_alloc_init(CNImageHashDescription);
+  v0 = objc_alloc_init(CNImageHashDescription);
+  v1 = imageHash_cn_once_object_86;
+  imageHash_cn_once_object_86 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __46__CN_PropertyDescription__nicknameDescription__block_invoke()
 {
-  nicknameDescription_cn_once_object_31 = objc_alloc_init(CNNicknameNameDescription);
+  v0 = objc_alloc_init(CNNicknameNameDescription);
+  v1 = nicknameDescription_cn_once_object_31;
+  nicknameDescription_cn_once_object_31 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __55__CN_PropertyDescription__phoneticGivenNameDescription__block_invoke()
 {
-  phoneticGivenNameDescription_cn_once_object_32 = objc_alloc_init(CNPhoneticGivenNameDescription);
+  v0 = objc_alloc_init(CNPhoneticGivenNameDescription);
+  v1 = phoneticGivenNameDescription_cn_once_object_32;
+  phoneticGivenNameDescription_cn_once_object_32 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __56__CN_PropertyDescription__phoneticMiddleNameDescription__block_invoke()
 {
-  phoneticMiddleNameDescription_cn_once_object_33 = objc_alloc_init(CNPhoneticMiddleNameDescription);
+  v0 = objc_alloc_init(CNPhoneticMiddleNameDescription);
+  v1 = phoneticMiddleNameDescription_cn_once_object_33;
+  phoneticMiddleNameDescription_cn_once_object_33 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __56__CN_PropertyDescription__phoneticFamilyNameDescription__block_invoke()
 {
-  phoneticFamilyNameDescription_cn_once_object_34 = objc_alloc_init(CNPhoneticFamilyNameDescription);
+  v0 = objc_alloc_init(CNPhoneticFamilyNameDescription);
+  v1 = phoneticFamilyNameDescription_cn_once_object_34;
+  phoneticFamilyNameDescription_cn_once_object_34 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __62__CN_PropertyDescription__phoneticOrganizationNameDescription__block_invoke()
 {
-  phoneticOrganizationNameDescription_cn_once_object_35 = objc_alloc_init(CNPhoneticOrganizationNameDescription);
+  v0 = objc_alloc_init(CNPhoneticOrganizationNameDescription);
+  v1 = phoneticOrganizationNameDescription_cn_once_object_35;
+  phoneticOrganizationNameDescription_cn_once_object_35 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __60__CN_PropertyDescription__pronunciationGivenNameDescription__block_invoke()
 {
-  pronunciationGivenNameDescription_cn_once_object_36 = objc_alloc_init(CNPronunciationGivenNameDescription);
+  v0 = objc_alloc_init(CNPronunciationGivenNameDescription);
+  v1 = pronunciationGivenNameDescription_cn_once_object_36;
+  pronunciationGivenNameDescription_cn_once_object_36 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)nicknameDescription
@@ -933,16 +983,20 @@ uint64_t __60__CN_PropertyDescription__pronunciationGivenNameDescription__block_
 
 uint64_t __61__CN_PropertyDescription__pronunciationFamilyNameDescription__block_invoke()
 {
-  pronunciationFamilyNameDescription_cn_once_object_37 = objc_alloc_init(CNPronunciationFamilyNameDescription);
+  v0 = objc_alloc_init(CNPronunciationFamilyNameDescription);
+  v1 = pronunciationFamilyNameDescription_cn_once_object_37;
+  pronunciationFamilyNameDescription_cn_once_object_37 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __57__CN_PropertyDescription__explicitDisplayNameDescription__block_invoke()
 {
-  explicitDisplayNameDescription_cn_once_object_38 = objc_alloc_init(CNExplicitDisplayNameDescription);
+  v0 = objc_alloc_init(CNExplicitDisplayNameDescription);
+  v1 = explicitDisplayNameDescription_cn_once_object_38;
+  explicitDisplayNameDescription_cn_once_object_38 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)addressingGrammarsDescription
@@ -959,9 +1013,11 @@ uint64_t __57__CN_PropertyDescription__explicitDisplayNameDescription__block_inv
 
 uint64_t __56__CN_PropertyDescription__addressingGrammarsDescription__block_invoke()
 {
-  addressingGrammarsDescription_cn_once_object_71 = objc_alloc_init(CNAddressingGrammarsDescription);
+  v0 = objc_alloc_init(CNAddressingGrammarsDescription);
+  v1 = addressingGrammarsDescription_cn_once_object_71;
+  addressingGrammarsDescription_cn_once_object_71 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)sectionForSortingByFamilyNameDescription
@@ -978,9 +1034,11 @@ uint64_t __56__CN_PropertyDescription__addressingGrammarsDescription__block_invo
 
 uint64_t __67__CN_PropertyDescription__sectionForSortingByFamilyNameDescription__block_invoke()
 {
-  sectionForSortingByFamilyNameDescription_cn_once_object_39 = objc_alloc_init(CNSectionForSortingByFamilyNameDescription);
+  v0 = objc_alloc_init(CNSectionForSortingByFamilyNameDescription);
+  v1 = sectionForSortingByFamilyNameDescription_cn_once_object_39;
+  sectionForSortingByFamilyNameDescription_cn_once_object_39 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)explicitDisplayNameDescription
@@ -1009,9 +1067,11 @@ uint64_t __67__CN_PropertyDescription__sectionForSortingByFamilyNameDescription_
 
 uint64_t __65__CN_PropertyDescription__addressingGrammarsEncryptedDescription__block_invoke()
 {
-  addressingGrammarsEncryptedDescription_cn_once_object_72 = objc_alloc_init(CNAddressingGrammarsEncryptedDescription);
+  v0 = objc_alloc_init(CNAddressingGrammarsEncryptedDescription);
+  v1 = addressingGrammarsEncryptedDescription_cn_once_object_72;
+  addressingGrammarsEncryptedDescription_cn_once_object_72 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)sectionForSortingByGivenNameDescription
@@ -1028,16 +1088,20 @@ uint64_t __65__CN_PropertyDescription__addressingGrammarsEncryptedDescription__b
 
 uint64_t __66__CN_PropertyDescription__sectionForSortingByGivenNameDescription__block_invoke()
 {
-  sectionForSortingByGivenNameDescription_cn_once_object_40 = objc_alloc_init(CNSectionForSortingByGivenNameDescription);
+  v0 = objc_alloc_init(CNSectionForSortingByGivenNameDescription);
+  v1 = sectionForSortingByGivenNameDescription_cn_once_object_40;
+  sectionForSortingByGivenNameDescription_cn_once_object_40 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __54__CN_PropertyDescription__organizationNameDescription__block_invoke()
 {
-  organizationNameDescription_cn_once_object_41 = objc_alloc_init(CNOrganizationNameDescription);
+  v0 = objc_alloc_init(CNOrganizationNameDescription);
+  v1 = organizationNameDescription_cn_once_object_41;
+  organizationNameDescription_cn_once_object_41 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)organizationNameDescription
@@ -1054,16 +1118,20 @@ uint64_t __54__CN_PropertyDescription__organizationNameDescription__block_invoke
 
 uint64_t __46__CN_PropertyDescription__jobTitleDescription__block_invoke()
 {
-  jobTitleDescription_cn_once_object_43 = objc_alloc_init(CNJobTitleDescription);
+  v0 = objc_alloc_init(CNJobTitleDescription);
+  v1 = jobTitleDescription_cn_once_object_43;
+  jobTitleDescription_cn_once_object_43 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __48__CN_PropertyDescription__departmentDescription__block_invoke()
 {
-  departmentDescription_cn_once_object_42 = objc_alloc_init(CNDepartmentDescription);
+  v0 = objc_alloc_init(CNDepartmentDescription);
+  v1 = departmentDescription_cn_once_object_42;
+  departmentDescription_cn_once_object_42 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)birthdayDescription
@@ -1080,9 +1148,11 @@ uint64_t __48__CN_PropertyDescription__departmentDescription__block_invoke()
 
 uint64_t __46__CN_PropertyDescription__birthdayDescription__block_invoke()
 {
-  birthdayDescription_cn_once_object_44 = objc_alloc_init(CNBirthdayDescription);
+  v0 = objc_alloc_init(CNBirthdayDescription);
+  v1 = birthdayDescription_cn_once_object_44;
+  birthdayDescription_cn_once_object_44 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)nonGregorianBirthdayDescription
@@ -1099,9 +1169,11 @@ uint64_t __46__CN_PropertyDescription__birthdayDescription__block_invoke()
 
 uint64_t __58__CN_PropertyDescription__nonGregorianBirthdayDescription__block_invoke()
 {
-  nonGregorianBirthdayDescription_cn_once_object_45 = objc_alloc_init(CNNonGregorianBirthdayDescription);
+  v0 = objc_alloc_init(CNNonGregorianBirthdayDescription);
+  v1 = nonGregorianBirthdayDescription_cn_once_object_45;
+  nonGregorianBirthdayDescription_cn_once_object_45 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)creationDateDescription
@@ -1118,9 +1190,11 @@ uint64_t __58__CN_PropertyDescription__nonGregorianBirthdayDescription__block_in
 
 uint64_t __50__CN_PropertyDescription__creationDateDescription__block_invoke()
 {
-  creationDateDescription_cn_once_object_46 = objc_alloc_init(CNCreationDateDescription);
+  v0 = objc_alloc_init(CNCreationDateDescription);
+  v1 = creationDateDescription_cn_once_object_46;
+  creationDateDescription_cn_once_object_46 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)modificationDateDescription
@@ -1137,9 +1211,11 @@ uint64_t __50__CN_PropertyDescription__creationDateDescription__block_invoke()
 
 uint64_t __54__CN_PropertyDescription__modificationDateDescription__block_invoke()
 {
-  modificationDateDescription_cn_once_object_47 = objc_alloc_init(CNModificationDateDescription);
+  v0 = objc_alloc_init(CNModificationDateDescription);
+  v1 = modificationDateDescription_cn_once_object_47;
+  modificationDateDescription_cn_once_object_47 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)noteDescription
@@ -1156,9 +1232,11 @@ uint64_t __54__CN_PropertyDescription__modificationDateDescription__block_invoke
 
 uint64_t __42__CN_PropertyDescription__noteDescription__block_invoke()
 {
-  noteDescription_cn_once_object_48 = objc_alloc_init(CNNoteDescription);
+  v0 = objc_alloc_init(CNNoteDescription);
+  v1 = noteDescription_cn_once_object_48;
+  noteDescription_cn_once_object_48 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)imageDataAvailableDescription
@@ -1175,9 +1253,11 @@ uint64_t __42__CN_PropertyDescription__noteDescription__block_invoke()
 
 uint64_t __56__CN_PropertyDescription__imageDataAvailableDescription__block_invoke()
 {
-  imageDataAvailableDescription_cn_once_object_54 = objc_alloc_init(CNImageDataAvailableDescription);
+  v0 = objc_alloc_init(CNImageDataAvailableDescription);
+  v1 = imageDataAvailableDescription_cn_once_object_54;
+  imageDataAvailableDescription_cn_once_object_54 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)linkIdentifierDescription
@@ -1194,9 +1274,11 @@ uint64_t __56__CN_PropertyDescription__imageDataAvailableDescription__block_invo
 
 uint64_t __52__CN_PropertyDescription__linkIdentifierDescription__block_invoke()
 {
-  linkIdentifierDescription_cn_once_object_55 = objc_alloc_init(CNLinkIdentifierDescription);
+  v0 = objc_alloc_init(CNLinkIdentifierDescription);
+  v1 = linkIdentifierDescription_cn_once_object_55;
+  linkIdentifierDescription_cn_once_object_55 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)allWallpaperPropertyKeys

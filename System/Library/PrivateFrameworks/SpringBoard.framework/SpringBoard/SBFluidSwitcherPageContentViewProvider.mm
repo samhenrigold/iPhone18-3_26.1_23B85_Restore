@@ -92,7 +92,7 @@ LABEL_5:
   controllerCopy = controller;
   objectEnumerator = [(NSMapTable *)self->_pageContentViewToTransientOverlayViewController objectEnumerator];
   allObjects = [objectEnumerator allObjects];
-  v8 = [allObjects containsObject:controllerCopy];
+  v8 = objc_msgSend_containsObject_(allObjects);
 
   if ((v8 & 1) == 0)
   {

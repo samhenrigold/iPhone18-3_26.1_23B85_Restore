@@ -23,7 +23,7 @@
 
 - (NSArray)transactions
 {
-  v2 = [(NSMutableArray *)self->_transactions copy];
+  v2 = objc_msgSend_copy(self->_transactions, a2);
 
   return v2;
 }

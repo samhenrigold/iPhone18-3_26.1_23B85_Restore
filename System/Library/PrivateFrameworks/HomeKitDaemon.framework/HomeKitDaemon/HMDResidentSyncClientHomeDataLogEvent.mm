@@ -103,7 +103,7 @@
     [v3 setObject:&unk_283E72C20 forKeyedSubscript:@"transportRapportEncodedDataSizeKB"];
   }
 
-  v13 = [v3 copy];
+  v13 = objc_msgSend_copy(v3);
 
   return v13;
 }

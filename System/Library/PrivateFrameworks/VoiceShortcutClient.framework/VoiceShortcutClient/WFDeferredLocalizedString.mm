@@ -1,4 +1,5 @@
 @interface WFDeferredLocalizedString
+- (WFDeferredLocalizedString)initWithCharactersNoCopy:(unsigned __int16 *)copy length:(unint64_t)length freeWhenDone:(BOOL)done;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)length;
 - (unsigned)characterAtIndex:(unint64_t)index;
@@ -32,6 +33,23 @@
   v3 = [backingStore length];
 
   return v3;
+}
+
+- (WFDeferredLocalizedString)initWithCharactersNoCopy:(unsigned __int16 *)copy length:(unint64_t)length freeWhenDone:(BOOL)done
+{
+  doneCopy = done;
+  v12.receiver = self;
+  v12.super_class = WFDeferredLocalizedString;
+  v8 = [(WFDeferredLocalizedString *)&v12 init];
+  if (v8)
+  {
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCharactersNoCopy:copy length:length freeWhenDone:doneCopy];
+    [(WFDeferredLocalizedString *)v8 setBackingStore:v9];
+
+    v10 = v8;
+  }
+
+  return v8;
 }
 
 @end

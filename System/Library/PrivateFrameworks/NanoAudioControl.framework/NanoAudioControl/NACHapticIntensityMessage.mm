@@ -40,7 +40,6 @@
 {
   if (*&self->_has)
   {
-    intensity = self->_intensity;
     PBDataWriterWriteFloatField();
   }
 }

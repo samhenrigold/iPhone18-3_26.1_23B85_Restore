@@ -129,12 +129,12 @@
         sub_10139381C(v11, v10);
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Write channel semaphore should not be initialized.", v12, v13, v14, v15, v16, v17, v18, "[CRLZipWriter p_writeChannel]");
-      v19 = [NSString stringWithUTF8String:"[CRLZipWriter p_writeChannel]"];
-      v20 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipWriter.m"];
-      [CRLAssertionHandler handleFailureInFunction:v19 file:v20 lineNumber:110 isFatal:1 description:"Write channel semaphore should not be initialized."];
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Write channel semaphore should not be initialized.", "[CRLZipWriter p_writeChannel]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipWriter.m", 110);
+      v12 = [NSString stringWithUTF8String:"[CRLZipWriter p_writeChannel]"];
+      v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipWriter.m"];
+      [CRLAssertionHandler handleFailureInFunction:v12 file:v13 lineNumber:110 isFatal:1 description:"Write channel semaphore should not be initialized."];
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v21, v22);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v14, v15);
       abort();
     }
 
@@ -143,16 +143,16 @@
     self->_writeChannelCompletionSemaphore = v5;
 
     objc_initWeak(&location, self);
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_100563850;
-    v23[3] = &unk_10183AF10;
-    objc_copyWeak(&v24, &location);
-    v7 = [(CRLZipWriter *)self prepareWriteChannelWithCloseCompletionHandler:v23];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100563850;
+    v16[3] = &unk_10183AF10;
+    objc_copyWeak(&v17, &location);
+    v7 = [(CRLZipWriter *)self prepareWriteChannelWithCloseCompletionHandler:v16];
     v8 = self->_writeChannel;
     self->_writeChannel = v7;
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
     writeChannel = self->_writeChannel;
   }
@@ -211,12 +211,12 @@
       sub_10130DA10(v35);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Already closed.", v36, v37, v38, v39, v40, v41, v42, "[CRLZipWriter beginEntryWithNameImpl:force32BitSize:lastModificationDate:size:CRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]");
-    v43 = [NSString stringWithUTF8String:"[CRLZipWriter beginEntryWithNameImpl:force32BitSize:lastModificationDate:size:CRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]"];
-    v44 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipWriter.m"];
-    [CRLAssertionHandler handleFailureInFunction:v43 file:v44 lineNumber:157 isFatal:1 description:"Already closed."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Already closed.", "[CRLZipWriter beginEntryWithNameImpl:force32BitSize:lastModificationDate:size:CRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipWriter.m", 157);
+    v36 = [NSString stringWithUTF8String:"[CRLZipWriter beginEntryWithNameImpl:force32BitSize:lastModificationDate:size:CRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]"];
+    v37 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipWriter.m"];
+    [CRLAssertionHandler handleFailureInFunction:v36 file:v37 lineNumber:157 isFatal:1 description:"Already closed."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v45, v46);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v38, v39);
     abort();
   }
 
@@ -403,12 +403,12 @@
       sub_10130DA10(v17);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Already closed.", v18, v19, v20, v21, v22, v23, v24, "[CRLZipWriter addDataImpl:queue:completion:]");
-    v25 = [NSString stringWithUTF8String:"[CRLZipWriter addDataImpl:queue:completion:]"];
-    v26 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipWriter.m"];
-    [CRLAssertionHandler handleFailureInFunction:v25 file:v26 lineNumber:233 isFatal:1 description:"Already closed."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Already closed.", "[CRLZipWriter addDataImpl:queue:completion:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipWriter.m", 233);
+    v18 = [NSString stringWithUTF8String:"[CRLZipWriter addDataImpl:queue:completion:]"];
+    v19 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipWriter.m"];
+    [CRLAssertionHandler handleFailureInFunction:v18 file:v19 lineNumber:233 isFatal:1 description:"Already closed."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v27, v28);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v20, v21);
     abort();
   }
 
@@ -424,8 +424,8 @@
         block[1] = 3221225472;
         block[2] = sub_1005643F4;
         block[3] = &unk_101839D68;
-        v34 = v11;
-        v33 = v12;
+        v27 = v11;
+        v26 = v12;
         dispatch_async(queueCopy, block);
       }
 
@@ -451,12 +451,12 @@
       {
         if (queueCopy)
         {
-          v30[0] = _NSConcreteStackBlock;
-          v30[1] = 3221225472;
-          v30[2] = sub_100564408;
-          v30[3] = &unk_10183B230;
-          v31 = v11;
-          dispatch_async(queueCopy, v30);
+          v23[0] = _NSConcreteStackBlock;
+          v23[1] = 3221225472;
+          v23[2] = sub_100564408;
+          v23[3] = &unk_10183B230;
+          v24 = v11;
+          dispatch_async(queueCopy, v23);
         }
 
         else

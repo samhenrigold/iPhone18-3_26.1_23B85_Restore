@@ -33,23 +33,21 @@
 
 - (void)performOperation
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = RCSharedLog();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = RCSharedLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     shortOperationDescription = [(RCOperation *)self shortOperationDescription];
     configurationSettings = [(RCEndpointOperation *)self configurationSettings];
-    v8 = 138543618;
-    v9 = shortOperationDescription;
-    v10 = 2114;
-    v11 = configurationSettings;
-    _os_log_impl(&dword_2179FC000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform operation to fetch config with settings %{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = shortOperationDescription;
+    v9 = 2114;
+    v10 = configurationSettings;
+    _os_log_impl(&dword_2179FC000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform operation to fetch config with settings %{public}@", &v7, 0x16u);
   }
 
   configurationSettings2 = [(RCEndpointOperation *)self configurationSettings];
   [(RCEndpointOperation *)self _fetchConfigurationWithSettings:configurationSettings2];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)operationWillFinishWithError:(id)error
@@ -92,7 +90,7 @@ void __52__RCEndpointOperation_operationWillFinishWithError___block_invoke(uint6
 
 - (void)_fetchConfigurationWithSettings:(id)settings
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = objc_alloc_init(RCURLFetchOperation);
   endpointURL = [(RCEndpointOperation *)self endpointURL];
@@ -102,9 +100,9 @@ void __52__RCEndpointOperation_operationWillFinishWithError___block_invoke(uint6
   [(RCURLFetchOperation *)v5 setHTTPBody:v7];
 
   [(RCURLFetchOperation *)v5 setHTTPMethod:@"PUT"];
-  v17 = @"Content-Type";
-  v18[0] = @"application/json";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = @"Content-Type";
+  v17[0] = @"application/json";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   [(RCURLFetchOperation *)v5 setAdditionalRequestHTTPHeaders:v8];
 
   loggingKey = [settingsCopy loggingKey];
@@ -121,29 +119,27 @@ void __52__RCEndpointOperation_operationWillFinishWithError___block_invoke(uint6
   backgroundFetchConfiguration = [settingsCopy backgroundFetchConfiguration];
   [(RCURLFetchOperation *)v5 setBackgroundFetchConfiguration:backgroundFetchConfiguration];
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke;
-  v15[3] = &unk_27822F440;
-  v15[4] = self;
-  v16 = settingsCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke;
+  v14[3] = &unk_27822F440;
+  v14[4] = self;
+  v15 = settingsCopy;
   v13 = settingsCopy;
-  [(RCURLFetchOperation *)v5 setConfigurationDictionaryCompletionHandler:v15];
+  [(RCURLFetchOperation *)v5 setConfigurationDictionaryCompletionHandler:v14];
   [(RCOperation *)self associateChildOperation:v5];
   [(RCOperation *)v5 start];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
   v14 = a5;
   v15 = a6;
-  v16 = RCSharedLog();
+  v16 = RCSharedLog(v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = [*(a1 + 32) shortOperationDescription];
@@ -154,30 +150,30 @@ void __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke(ui
     *&buf[12] = 2048;
     *&buf[14] = v18;
     *&buf[22] = 2114;
-    v29 = v19;
+    v28 = v19;
     _os_log_impl(&dword_2179FC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Endpoint JSON HTTP response status code: %ld (%{public}@)", buf, 0x20u);
   }
 
   if (!v11 || v15)
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_15;
-    v26[3] = &unk_27822F130;
-    v26[4] = *(a1 + 32);
-    v27 = v15;
-    __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_15(v26);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_15;
+    v25[3] = &unk_27822F130;
+    v25[4] = *(a1 + 32);
+    v26 = v15;
+    __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_15(v25);
   }
 
   else if (v12)
   {
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_2;
-    v24[3] = &unk_27822F130;
-    v24[4] = *(a1 + 32);
-    v25 = v12;
-    __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_2(v24);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_2;
+    v23[3] = &unk_27822F130;
+    v23[4] = *(a1 + 32);
+    v24 = v12;
+    __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_2(v23);
   }
 
   else
@@ -185,24 +181,22 @@ void __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke(ui
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v29 = __Block_byref_object_copy__1;
-    v30 = __Block_byref_object_dispose__1;
-    v31 = 0;
+    v28 = __Block_byref_object_copy__1;
+    v29 = __Block_byref_object_dispose__1;
+    v30 = 0;
     v20 = *(a1 + 40);
     v21 = [*(a1 + 32) shortOperationDescription];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_17;
-    v23[3] = &unk_27822F418;
-    v23[4] = *(a1 + 32);
-    v23[5] = buf;
-    [RCEndpointResponseProcessing parseEndpointResponseDict:v11 parsingError:0 configurationSettings:v20 maxAge:v13 loggingPrefix:v21 completion:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_17;
+    v22[3] = &unk_27822F418;
+    v22[4] = *(a1 + 32);
+    v22[5] = buf;
+    [RCEndpointResponseProcessing parseEndpointResponseDict:v11 parsingError:0 configurationSettings:v20 maxAge:v13 loggingPrefix:v21 completion:v22];
 
     [*(a1 + 32) finishedPerformingOperationWithError:*(*&buf[8] + 40)];
     _Block_object_dispose(buf, 8);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_17(uint64_t a1, void *a2, id obj)
@@ -215,37 +209,37 @@ void __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_17
 
 - (id)requestDataForSettings:(id)settings
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   dictionaryRepresentation = [settingsCopy dictionaryRepresentation];
   v6 = [dictionaryRepresentation mutableCopy];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
-  v34 = settingsCopy;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v33 = settingsCopy;
   obj = [settingsCopy requestInfos];
-  v7 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v7 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v45;
+    v9 = *v44;
     selfCopy = self;
-    v37 = v6;
-    v35 = *v45;
+    v36 = v6;
+    v34 = *v44;
     do
     {
       v10 = 0;
-      v38 = v8;
+      v37 = v8;
       do
       {
-        if (*v45 != v9)
+        if (*v44 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v44 + 1) + 8 * v10);
+        v11 = *(*(&v43 + 1) + 8 * v10);
         v12 = MEMORY[0x277CBEB38];
         allAdditionalFields = [v11 allAdditionalFields];
         v14 = [v12 dictionaryWithDictionary:allAdditionalFields];
@@ -268,30 +262,30 @@ void __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_17
             [array addObject:dictionaryRepresentation2];
           }
 
-          v42 = 0u;
-          v43 = 0u;
-          v40 = 0u;
           v41 = 0u;
+          v42 = 0u;
+          v39 = 0u;
+          v40 = 0u;
           additionalChangeTags = [v11 additionalChangeTags];
-          v21 = [additionalChangeTags countByEnumeratingWithState:&v40 objects:v52 count:16];
+          v21 = [additionalChangeTags countByEnumeratingWithState:&v39 objects:v51 count:16];
           if (v21)
           {
             v22 = v21;
-            v23 = *v41;
+            v23 = *v40;
             do
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v41 != v23)
+                if (*v40 != v23)
                 {
                   objc_enumerationMutation(additionalChangeTags);
                 }
 
-                dictionaryRepresentation3 = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
+                dictionaryRepresentation3 = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
                 [array addObject:dictionaryRepresentation3];
               }
 
-              v22 = [additionalChangeTags countByEnumeratingWithState:&v40 objects:v52 count:16];
+              v22 = [additionalChangeTags countByEnumeratingWithState:&v39 objects:v51 count:16];
             }
 
             while (v22);
@@ -299,12 +293,12 @@ void __55__RCEndpointOperation__fetchConfigurationWithSettings___block_invoke_17
 
           [v14 setObject:array forKeyedSubscript:@"changeTagWrappers"];
           requestKey2 = [v11 requestKey];
-          v6 = v37;
-          [v37 setObject:v14 forKeyedSubscript:requestKey2];
+          v6 = v36;
+          [v36 setObject:v14 forKeyedSubscript:requestKey2];
 
-          v9 = v35;
+          v9 = v34;
           self = selfCopy;
-          v8 = v38;
+          v8 = v37;
         }
 
         else
@@ -324,26 +318,24 @@ LABEL_22:
       }
 
       while (v10 != v8);
-      v8 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v8 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
     while (v8);
   }
 
   v28 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v6 options:0 error:0];
-  v29 = RCSharedLog();
+  v29 = RCSharedLog(v28);
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     shortOperationDescription = [(RCOperation *)self shortOperationDescription];
     v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v28 encoding:4];
     *buf = 138543618;
-    v49 = shortOperationDescription;
-    v50 = 2114;
-    v51 = v31;
+    v48 = shortOperationDescription;
+    v49 = 2114;
+    v50 = v31;
     _os_log_impl(&dword_2179FC000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ Endpoint JSON request: %{public}@", buf, 0x16u);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -372,19 +364,17 @@ LABEL_22:
 
 - (void)validateOperation
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"the endpoint operation must have valid configuration settings"];
-  v2 = 136315906;
-  v3 = "[RCEndpointOperation validateOperation]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/RCEndpointOperation.m";
-  v6 = 1024;
-  v7 = 55;
-  v8 = 2114;
-  v9 = v0;
-  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "[RCEndpointOperation validateOperation]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/RCEndpointOperation.m";
+  v5 = 1024;
+  v6 = 55;
+  v7 = 2114;
+  v8 = v0;
+  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 @end

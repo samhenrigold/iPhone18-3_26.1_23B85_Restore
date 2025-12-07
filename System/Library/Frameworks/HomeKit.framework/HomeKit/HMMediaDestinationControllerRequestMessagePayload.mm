@@ -58,26 +58,24 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   destinationIdentifier = [(HMMediaDestinationControllerRequestMessagePayload *)self destinationIdentifier];
   v5 = [v3 initWithName:@"destinationIdentifier" value:destinationIdentifier];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   v7 = HMMediaDestinationControllerUpateOptionsAsString([(HMMediaDestinationControllerRequestMessagePayload *)self updateOptions]);
   v8 = [v6 initWithName:@"updateOptions" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (id)payloadCopy
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"HMMediaDestinationIdentifierPayloadKey";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"HMMediaDestinationIdentifierPayloadKey";
   destinationIdentifier = [(HMMediaDestinationControllerRequestMessagePayload *)self destinationIdentifier];
   if (destinationIdentifier)
   {
@@ -90,24 +88,22 @@
     uUIDString = @"00000000-0000-0000-0000-000000000000";
   }
 
-  v10[1] = @"HMMediaDestinationControllerUpdateOptionsPayloadKey";
-  v11[0] = uUIDString;
+  v9[1] = @"HMMediaDestinationControllerUpdateOptionsPayloadKey";
+  v10[0] = uUIDString;
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMMediaDestinationControllerRequestMessagePayload updateOptions](self, "updateOptions")}];
-  v11[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   if (destinationIdentifier)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (HMMediaDestinationControllerRequestMessagePayload)initWithPayload:(id)payload
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_UUIDForKey:@"HMMediaDestinationIdentifierPayloadKey"];
   v6 = [payloadCopy hmf_numberForKey:@"HMMediaDestinationControllerUpdateOptionsPayloadKey"];
@@ -124,11 +120,11 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = payloadCopy;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@[HMMediaDestinationControllerRequestMessagePayload] Failed to get update options from payload: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2112;
+      v17 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@[HMMediaDestinationControllerRequestMessagePayload] Failed to get update options from payload: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -137,7 +133,6 @@
 
   v12 = [(HMMediaDestinationControllerRequestMessagePayload *)self initWithDestinationIdentifier:v5 updateOptions:unsignedIntegerValue];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -159,7 +154,7 @@
 
 - (HMMediaDestinationControllerRequestMessagePayload)initWithDestination:(id)destination options:(unint64_t)options
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   v7 = destinationCopy;
   if (!destinationCopy)
@@ -188,13 +183,13 @@ LABEL_10:
       {
         v18 = HMFGetLogIdentifier();
         v19 = HMMediaDestinationControllerUpateOptionsAsString(options);
-        v25 = 138543874;
-        v26 = v18;
-        v27 = 2112;
-        v28 = v19;
-        v29 = 2112;
-        v30 = v7;
-        _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@[HMMediaDestinationControllerRequestMessagePayload] Failed to get destination identifier with options: %@ destination: %@", &v25, 0x20u);
+        v24 = 138543874;
+        v25 = v18;
+        v26 = 2112;
+        v27 = v19;
+        v28 = 2112;
+        v29 = v7;
+        _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@[HMMediaDestinationControllerRequestMessagePayload] Failed to get destination identifier with options: %@ destination: %@", &v24, 0x20u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -231,18 +226,17 @@ LABEL_10:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     v22 = HMFGetLogIdentifier();
-    v25 = 138543618;
-    v26 = v22;
-    v27 = 2112;
-    v28 = v10;
-    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@[HMMediaDestinationControllerRequestMessagePayload] Failed to convert to internal destination for destination: %@", &v25, 0x16u);
+    v24 = 138543618;
+    v25 = v22;
+    v26 = 2112;
+    v27 = v10;
+    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@[HMMediaDestinationControllerRequestMessagePayload] Failed to convert to internal destination for destination: %@", &v24, 0x16u);
   }
 
   objc_autoreleasePoolPop(v20);
   selfCopy2 = 0;
 LABEL_19:
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

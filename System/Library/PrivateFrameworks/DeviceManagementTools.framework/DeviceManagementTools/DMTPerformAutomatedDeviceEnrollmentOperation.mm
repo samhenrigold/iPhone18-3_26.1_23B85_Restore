@@ -134,14 +134,12 @@ LABEL_21:
 
 + (void)validateRequest:(void *)a1 error:(objc_class *)a2 .cold.2(void *a1, objc_class *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = NSStringFromClass(a2);
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_24891B000, v3, OS_LOG_TYPE_ERROR, "Both network payloads are missing, failing validation for %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_24891B000, v3, OS_LOG_TYPE_ERROR, "Both network payloads are missing, failing validation for %{public}@", &v5, 0xCu);
 }
 
 @end

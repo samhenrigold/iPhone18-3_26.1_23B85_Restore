@@ -34,12 +34,12 @@
 
 - (BOOL)containsWithId:(id)id
 {
-  v5 = [JavaUtilMap_Entry_class_() isInstance:id];
+  v5 = [JavaUtilMap_Entry_class_(self a2)];
   if (v5)
   {
     Weak = objc_loadWeak(&self->this$0_);
-    v7 = JavaUtilMap_Entry_class_();
-    if (id && ([v7 isInstance:id] & 1) == 0)
+    v8 = JavaUtilMap_Entry_class_(Weak, v7);
+    if (id && ([v8 isInstance:id] & 1) == 0)
     {
       JreThrowClassCastException();
     }
@@ -52,12 +52,12 @@
 
 - (BOOL)removeWithId:(id)id
 {
-  LODWORD(v5) = [JavaUtilMap_Entry_class_() isInstance:id];
+  LODWORD(v5) = [JavaUtilMap_Entry_class_(self a2)];
   if (v5)
   {
     Weak = objc_loadWeak(&self->this$0_);
-    v7 = JavaUtilMap_Entry_class_();
-    if (id && ([v7 isInstance:id] & 1) == 0)
+    v8 = JavaUtilMap_Entry_class_(Weak, v7);
+    if (id && ([v8 isInstance:id] & 1) == 0)
     {
       JreThrowClassCastException();
     }

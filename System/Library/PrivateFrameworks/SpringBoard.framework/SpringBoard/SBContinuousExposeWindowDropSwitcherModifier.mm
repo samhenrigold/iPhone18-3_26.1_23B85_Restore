@@ -488,7 +488,7 @@ LABEL_46:
   v6.super_class = SBContinuousExposeWindowDropSwitcherModifier;
   transitionDidEnd = [(SBTransitionSwitcherModifier *)&v6 transitionDidEnd];
   v3 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionDidEnd);
+  v4 = SBAppendSwitcherModifierResponse();
 
   return v4;
 }
@@ -513,7 +513,7 @@ LABEL_46:
   v7.super_class = SBContinuousExposeWindowDropSwitcherModifier;
   v3 = [(SBSwitcherModifier *)&v7 handleSceneReadyEvent:event];
   v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-  v5 = SBAppendSwitcherModifierResponse(v4, v3);
+  v5 = SBAppendSwitcherModifierResponse();
 
   return v5;
 }

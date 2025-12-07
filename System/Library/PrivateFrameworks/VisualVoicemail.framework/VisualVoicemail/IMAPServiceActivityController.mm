@@ -1,5 +1,6 @@
 @interface IMAPServiceActivityController
 + (unsigned)remainingBodyRetries;
++ (void)setRemainingBodyRetries:(unsigned int)retries;
 - (BOOL)_is_my_activity_sync:(id)_is_my_activity_sync;
 - (BOOL)bodyFetchPendingForRecord:(void *)record;
 - (BOOL)is_my_activity:(id)is_my_activity;
@@ -31,21 +32,21 @@
   if (v7)
   {
     v8 = [MFActivityMonitor voicemailTaskTypeForTaskName:v7];
-    v9 = sub_100030068();
+    v9 = sub_100030068(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       mambaID = self->mambaID;
-      v15 = 136316162;
-      v16 = mambaID;
-      v17 = 2080;
-      v18 = " ";
-      v19 = 2112;
-      v20 = type_syncCopy;
-      v21 = 2080;
-      v22 = sub_10002FDE8(v8);
-      v23 = 2112;
-      v24 = v7;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ voicemailTaskType: task %s, found taskName '%@' in activity map", &v15, 0x34u);
+      v16 = 136316162;
+      v17 = mambaID;
+      v18 = 2080;
+      v19 = " ";
+      v20 = 2112;
+      v21 = type_syncCopy;
+      v22 = 2080;
+      v23 = sub_10002FDE8(v8);
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ voicemailTaskType: task %s, found taskName '%@' in activity map", &v16, 0x34u);
     }
   }
 
@@ -54,22 +55,22 @@
     taskName = [type_syncCopy taskName];
     v8 = [MFActivityMonitor voicemailTaskTypeForTaskName:taskName];
 
-    v9 = sub_100030068();
+    v9 = sub_100030068(v12);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = self->mambaID;
+      v13 = self->mambaID;
       taskName2 = [type_syncCopy taskName];
-      v15 = 136316162;
-      v16 = v12;
-      v17 = 2080;
-      v18 = " ";
-      v19 = 2112;
-      v20 = type_syncCopy;
-      v21 = 2080;
-      v22 = sub_10002FDE8(v8);
-      v23 = 2112;
-      v24 = taskName2;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ voicemailTaskType: task %s, using taskName '%@' from monitor property", &v15, 0x34u);
+      v16 = 136316162;
+      v17 = v13;
+      v18 = 2080;
+      v19 = " ";
+      v20 = 2112;
+      v21 = type_syncCopy;
+      v22 = 2080;
+      v23 = sub_10002FDE8(v8);
+      v24 = 2112;
+      v25 = taskName2;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ voicemailTaskType: task %s, using taskName '%@' from monitor property", &v16, 0x34u);
     }
   }
 
@@ -82,8 +83,7 @@
   v3 = +[MFActivityMonitor currentTracebleMonitor];
   v4 = [(IMAPServiceActivityController *)self voicemailTaskType_sync:v3];
 
-  [(IMAPServiceActivityController *)self mf_unlock];
-  v5 = sub_100030068();
+  v5 = sub_100030068([(IMAPServiceActivityController *)self mf_unlock]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
@@ -99,6 +99,32 @@
   return v4;
 }
 
++ (void)setRemainingBodyRetries:(unsigned int)retries
+{
+  v3 = *&retries;
+  v4 = sub_100030068(self);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = v3;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I [IVM] setRemainingBodyRetries: %u", v8, 8u);
+  }
+
+  v5 = +[NSThread currentThread];
+  threadDictionary = [v5 threadDictionary];
+
+  if (v3)
+  {
+    v7 = [[NSNumber alloc] initWithUnsignedInt:v3];
+    [threadDictionary setObject:v7 forKey:@"_VVIMAPBodyRetries"];
+  }
+
+  else
+  {
+    [threadDictionary removeObjectForKey:@"_VVIMAPBodyRetries"];
+  }
+}
+
 + (unsigned)remainingBodyRetries
 {
   v2 = +[NSThread currentThread];
@@ -106,7 +132,7 @@
 
   v4 = [threadDictionary objectForKey:@"_VVIMAPBodyRetries"];
   unsignedIntValue = [v4 unsignedIntValue];
-  v6 = sub_100030068();
+  v6 = sub_100030068(unsignedIntValue);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
@@ -120,39 +146,40 @@
 - (id)initForService:(id)service
 {
   serviceCopy = service;
-  v12.receiver = self;
-  v12.super_class = IMAPServiceActivityController;
-  v5 = [(IMAPServiceActivityController *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = IMAPServiceActivityController;
+  v5 = [(IMAPServiceActivityController *)&v13 init];
   if (v5)
   {
-    v5->mambaID = [serviceCopy getServiceObjLogPrefix];
-    v6 = sub_100030068();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    getServiceObjLogPrefix = [serviceCopy getServiceObjLogPrefix];
+    v5->mambaID = getServiceObjLogPrefix;
+    v7 = sub_100030068(getServiceObjLogPrefix);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       mambaID = v5->mambaID;
       *buf = 136316162;
-      v14 = mambaID;
-      v15 = 2080;
-      v16 = " ";
-      v17 = 2048;
-      v18 = v5;
-      v19 = 2112;
-      v20 = serviceCopy;
-      v21 = 2112;
-      v22 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %p IMAPServiceActivityController::initForService: %@: -> %@", buf, 0x34u);
+      v15 = mambaID;
+      v16 = 2080;
+      v17 = " ";
+      v18 = 2048;
+      v19 = v5;
+      v20 = 2112;
+      v21 = serviceCopy;
+      v22 = 2112;
+      v23 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %p IMAPServiceActivityController::initForService: %@: -> %@", buf, 0x34u);
     }
 
     objc_storeWeak(&v5->_service, serviceCopy);
-    v8 = objc_alloc_init(NSMutableDictionary);
+    v9 = objc_alloc_init(NSMutableDictionary);
     activityToTaskType = v5->_activityToTaskType;
-    v5->_activityToTaskType = v8;
+    v5->_activityToTaskType = v9;
 
-    v10 = +[NSNotificationCenter defaultCenter];
-    [v10 addObserver:v5 selector:"_activityStarted:" name:MonitoredActivityStarted object:0];
-    [v10 addObserver:v5 selector:"_activityEnded:" name:MonitoredActivityEnded object:0];
-    [v10 addObserver:v5 selector:"_primaryTargetChanged:" name:MonitoredActivityPrimaryTargetChanged object:0];
-    [v10 addObserver:v5 selector:"_targetsAdded:" name:MonitoredActivityDidAddActivityTarget object:0];
+    v11 = +[NSNotificationCenter defaultCenter];
+    [v11 addObserver:v5 selector:"_activityStarted:" name:MonitoredActivityStarted object:0];
+    [v11 addObserver:v5 selector:"_activityEnded:" name:MonitoredActivityEnded object:0];
+    [v11 addObserver:v5 selector:"_primaryTargetChanged:" name:MonitoredActivityPrimaryTargetChanged object:0];
+    [v11 addObserver:v5 selector:"_targetsAdded:" name:MonitoredActivityDidAddActivityTarget object:0];
   }
 
   return v5;
@@ -176,17 +203,17 @@
   v9 = [NSValue valueWithPointer:activityCopy];
   [(NSMutableDictionary *)scheduledActivities setObject:taskName forKey:v9];
 
-  v10 = sub_100030068();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100030068(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
-    v12 = 136315650;
-    v13 = mambaID;
-    v14 = 2080;
-    v15 = " ";
-    v16 = 2112;
-    v17 = activityCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ addScheduledActivity: added to activities", &v12, 0x20u);
+    v13 = 136315650;
+    v14 = mambaID;
+    v15 = 2080;
+    v16 = " ";
+    v17 = 2112;
+    v18 = activityCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ addScheduledActivity: added to activities", &v13, 0x20u);
   }
 
   [(IMAPServiceActivityController *)self mf_unlock];
@@ -225,24 +252,24 @@
     v6 = [NSValue valueWithPointer:activityCopy];
     [(NSMutableDictionary *)scheduledActivities removeObjectForKey:v6];
 
-    v7 = sub_100030068();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100030068(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       mambaID = self->mambaID;
-      v9 = 136315650;
-      v10 = mambaID;
-      v11 = 2080;
-      v12 = " ";
-      v13 = 2112;
-      v14 = activityCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ removeScheduledActivity: removed from activities", &v9, 0x20u);
+      v10 = 136315650;
+      v11 = mambaID;
+      v12 = 2080;
+      v13 = " ";
+      v14 = 2112;
+      v15 = activityCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ removeScheduledActivity: removed from activities", &v10, 0x20u);
     }
   }
 }
 
 - (void)invalidate
 {
-  v3 = sub_100030068();
+  v3 = sub_100030068(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
@@ -261,8 +288,7 @@
 
 - (void)dealloc
 {
-  [(IMAPServiceActivityController *)self mf_lock];
-  v3 = sub_100030068();
+  v3 = sub_100030068([(IMAPServiceActivityController *)self mf_lock]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
@@ -306,8 +332,7 @@
     v7 = 0;
   }
 
-  [(IMAPServiceActivityController *)self mf_unlock];
-  v8 = sub_100030068();
+  v8 = sub_100030068([(IMAPServiceActivityController *)self mf_unlock]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
@@ -398,8 +423,7 @@ LABEL_17:
     v15 = 0;
   }
 
-  [(IMAPServiceActivityController *)self mf_unlock];
-  v16 = sub_100030068();
+  v16 = sub_100030068([(IMAPServiceActivityController *)self mf_unlock]);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
@@ -417,7 +441,7 @@ LABEL_17:
 
 - (BOOL)bodyFetchPendingForRecord:(void *)record
 {
-  v5 = sub_100030068();
+  v5 = sub_100030068(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
@@ -456,24 +480,24 @@ LABEL_17:
   if ([(IMAPServiceActivityController *)self _is_my_activity_sync:object])
   {
     v6 = [(IMAPServiceActivityController *)self voicemailTaskType_sync:object];
-    v7 = sub_100030068();
+    v7 = sub_100030068(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       mambaID = self->mambaID;
       v9 = sub_10002FDE8(v6);
       WeakRetained = objc_loadWeakRetained(&self->_service);
       *buf = 136316418;
-      v28 = mambaID;
-      v29 = 2080;
-      v30 = " ";
-      v31 = 2112;
-      v32 = object;
-      v33 = 2080;
-      v34 = v9;
-      v35 = 2112;
-      v36 = startedCopy;
+      v30 = mambaID;
+      v31 = 2080;
+      v32 = " ";
+      v33 = 2112;
+      v34 = object;
+      v35 = 2080;
+      v36 = v9;
       v37 = 2112;
-      v38 = WeakRetained;
+      v38 = startedCopy;
+      v39 = 2112;
+      v40 = WeakRetained;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ _activityStarted: task %s info %@ service %@", buf, 0x3Eu);
     }
 
@@ -500,60 +524,60 @@ LABEL_17:
       v15 = [NSValue valueWithPointer:object];
       [(NSMutableDictionary *)activityToTaskType setObject:taskName forKey:v15];
 
-      v16 = sub_100030068();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100030068(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = self->mambaID;
-        v18 = sub_10002FDE8(v6);
+        v18 = self->mambaID;
+        v19 = sub_10002FDE8(v6);
         *buf = 136315906;
-        v28 = v17;
-        v29 = 2080;
-        v30 = " ";
-        v31 = 2112;
-        v32 = object;
-        v33 = 2080;
-        v34 = v18;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ added to activity map for task %s", buf, 0x2Au);
+        v30 = v18;
+        v31 = 2080;
+        v32 = " ";
+        v33 = 2112;
+        v34 = object;
+        v35 = 2080;
+        v36 = v19;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ added to activity map for task %s", buf, 0x2Au);
       }
 
       [(IMAPServiceActivityController *)self mf_unlock];
       if (v6 == 2)
       {
         name = [startedCopy name];
-        v20 = [name isEqualToString:MonitoredActivityStarted];
+        v21 = [name isEqualToString:MonitoredActivityStarted];
 
-        if (v20)
+        if (v21)
         {
-          v21 = sub_100030068();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v23 = sub_100030068(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            v22 = self->mambaID;
+            v24 = self->mambaID;
             *buf = 136315650;
-            v28 = v22;
-            v29 = 2080;
-            v30 = " ";
-            v31 = 2112;
-            v32 = object;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ _activityStarted: bail", buf, 0x20u);
+            v30 = v24;
+            v31 = 2080;
+            v32 = " ";
+            v33 = 2112;
+            v34 = object;
+            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ _activityStarted: bail", buf, 0x20u);
           }
 
           goto LABEL_20;
         }
 
         userInfo = [startedCopy userInfo];
-        v23 = [userInfo objectForKey:MonitoredActivityNewPrimaryTarget];
+        v25 = [userInfo objectForKey:MonitoredActivityNewPrimaryTarget];
       }
 
       else
       {
-        v23 = 0;
+        v25 = 0;
       }
 
-      v25 = [NSDictionary alloc];
-      v26 = [NSNumber numberWithInteger:v6];
-      v21 = [v25 initWithObjectsAndKeys:{v26, @"VVTaskType", v23, @"VVRecord", 0}];
+      v27 = [NSDictionary alloc];
+      v28 = [NSNumber numberWithInteger:v6];
+      v23 = [v27 initWithObjectsAndKeys:{v28, @"VVTaskType", v25, @"VVRecord", 0}];
 
-      [(IMAPServiceActivityController *)self _postNotificationName:@"VVServiceTaskStartedNotification" userInfo:v21];
+      [(IMAPServiceActivityController *)self _postNotificationName:@"VVServiceTaskStartedNotification" userInfo:v23];
 LABEL_20:
 
       goto LABEL_21;
@@ -582,24 +606,24 @@ LABEL_21:
   }
 
   v6 = [(IMAPServiceActivityController *)self voicemailTaskType_sync:object];
-  v7 = sub_100030068();
+  v7 = sub_100030068(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
     v9 = sub_10002FDE8(v6);
     WeakRetained = objc_loadWeakRetained(&self->_service);
     *buf = 136316418;
-    v49 = mambaID;
-    v50 = 2080;
-    v51 = " ";
-    v52 = 2112;
-    v53 = object;
-    v54 = 2080;
-    v55 = v9;
-    v56 = 2112;
-    v57 = endedCopy;
+    v51 = mambaID;
+    v52 = 2080;
+    v53 = " ";
+    v54 = 2112;
+    v55 = object;
+    v56 = 2080;
+    v57 = v9;
     v58 = 2112;
-    v59 = WeakRetained;
+    v59 = endedCopy;
+    v60 = 2112;
+    v61 = WeakRetained;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ _activityEnded: task %s info %@ service %@", buf, 0x3Eu);
   }
 
@@ -607,30 +631,30 @@ LABEL_21:
   v11 = objc_loadWeakRetained(&self->_service);
   [v11 imapTransactionEnded];
 
-  [(IMAPServiceActivityController *)self mf_lock];
+  mf_lock = [(IMAPServiceActivityController *)self mf_lock];
   if (v6)
   {
     activeActivities = self->_activeActivities;
-    if (!activeActivities || (v13 = CFDictionaryGetValue(activeActivities, [NSNumber numberWithInteger:v6])) == 0)
+    if (!activeActivities || (mf_lock = CFDictionaryGetValue(activeActivities, [NSNumber numberWithInteger:v6])) == 0)
     {
-      v14 = sub_100030068();
+      v14 = sub_100030068(mf_lock);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v18 = self->mambaID;
         *buf = 136315650;
-        v49 = v18;
-        v50 = 2080;
-        v51 = " ";
-        v52 = 2112;
-        v53 = object;
+        v51 = v18;
+        v52 = 2080;
+        v53 = " ";
+        v54 = 2112;
+        v55 = object;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ _activityEnded: not posting", buf, 0x20u);
       }
 
       goto LABEL_40;
     }
 
-    v14 = v13;
-    [v13 removeObject:object];
+    v14 = mf_lock;
+    [mf_lock removeObject:object];
     if (v6 != 2)
     {
       primaryTarget = 0;
@@ -649,7 +673,7 @@ LABEL_17:
         [(NSMutableSet *)self->_inProcessRecords removeObject:primaryTarget];
 LABEL_18:
         [(IMAPServiceActivityController *)self mf_unlock];
-        v46 = primaryTarget;
+        v48 = primaryTarget;
         if (v6 == 2)
         {
           taskName = [object taskName];
@@ -663,7 +687,7 @@ LABEL_18:
 
         error = [object error];
         v23 = sub_10002FCE0(error);
-        v45 = v23;
+        v47 = v23;
         if (v23)
         {
           v24 = [NSNumber alloc];
@@ -677,17 +701,17 @@ LABEL_18:
             v25 = [v23 shouldPresentErrorForTaskType:v6] ^ 1;
           }
 
-          v47 = [v24 initWithBool:v25];
+          v49 = [v24 initWithBool:v25];
         }
 
         else
         {
-          v47 = 0;
+          v49 = 0;
         }
 
         v26 = [NSMutableDictionary alloc];
         v27 = [NSNumber numberWithInteger:v6];
-        v28 = [v26 initWithObjectsAndKeys:{v27, @"VVTaskType", v23, @"VVError", v47, @"VVSuppressError", 0}];
+        v28 = [v26 initWithObjectsAndKeys:{v27, @"VVTaskType", v23, @"VVError", v49, @"VVSuppressError", 0}];
 
         shouldCancel = [object shouldCancel];
         v30 = &off_1000EEA48;
@@ -697,7 +721,7 @@ LABEL_18:
         }
 
         v31 = *v30;
-        v32 = v46;
+        v32 = v48;
         if (!error)
         {
           goto LABEL_37;
@@ -711,30 +735,30 @@ LABEL_18:
           if (!v34)
           {
 LABEL_34:
-            v35 = sub_100030068();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            v36 = sub_100030068(v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
-              v44 = self->mambaID;
+              v46 = self->mambaID;
               domain2 = [error domain];
               code = [error code];
               localizedDescription = [error localizedDescription];
               *buf = 136316418;
-              v49 = v44;
-              v50 = 2080;
-              v51 = " ";
-              v52 = 2048;
-              v53 = v6;
-              v54 = 2112;
-              v55 = domain2;
-              v56 = 2048;
-              v57 = code;
-              v58 = 2112;
-              v42 = localizedDescription;
-              v59 = localizedDescription;
-              _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "#E %s%s[IVM] Error (%ld) - %@/%ld - %@", buf, 0x3Eu);
+              v51 = v46;
+              v52 = 2080;
+              v53 = " ";
+              v54 = 2048;
+              v55 = v6;
+              v56 = 2112;
+              v57 = domain2;
+              v58 = 2048;
+              v59 = code;
+              v60 = 2112;
+              v44 = localizedDescription;
+              v61 = localizedDescription;
+              _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "#E %s%s[IVM] Error (%ld) - %@/%ld - %@", buf, 0x3Eu);
             }
 
-            v32 = v46;
+            v32 = v48;
 LABEL_37:
             if (v32)
             {
@@ -774,20 +798,20 @@ LABEL_40:
 
 LABEL_41:
   activityToTaskType = self->_activityToTaskType;
-  v37 = [NSValue valueWithPointer:object];
-  [(NSMutableDictionary *)activityToTaskType removeObjectForKey:v37];
+  v38 = [NSValue valueWithPointer:object];
+  [(NSMutableDictionary *)activityToTaskType removeObjectForKey:v38];
 
-  v38 = sub_100030068();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  v40 = sub_100030068(v39);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    v39 = self->mambaID;
+    v41 = self->mambaID;
     *buf = 136315650;
-    v49 = v39;
-    v50 = 2080;
-    v51 = " ";
-    v52 = 2112;
-    v53 = object;
-    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ removed from activity map", buf, 0x20u);
+    v51 = v41;
+    v52 = 2080;
+    v53 = " ";
+    v54 = 2112;
+    v55 = object;
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ removed from activity map", buf, 0x20u);
   }
 
   [(IMAPServiceActivityController *)self __removeScheduledActivity:object];
@@ -798,7 +822,7 @@ LABEL_44:
 - (void)_primaryTargetChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100030068();
+  v5 = sub_100030068(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
@@ -840,17 +864,17 @@ LABEL_44:
 - (void)_targetsAdded:(id)added
 {
   addedCopy = added;
-  v5 = sub_100030068();
+  v5 = sub_100030068(addedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
-    v14 = 136315650;
-    v15 = mambaID;
-    v16 = 2080;
-    v17 = " ";
-    v18 = 2112;
-    v19 = addedCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] _targetsAdded: %@", &v14, 0x20u);
+    v15 = 136315650;
+    v16 = mambaID;
+    v17 = 2080;
+    v18 = " ";
+    v19 = 2112;
+    v20 = addedCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] _targetsAdded: %@", &v15, 0x20u);
   }
 
   object = [addedCopy object];
@@ -870,17 +894,17 @@ LABEL_44:
     activityTargets = [object activityTargets];
     [(NSMutableSet *)inProcessRecords addObjectsFromArray:activityTargets];
 
-    v12 = sub_100030068();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100030068(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = self->mambaID;
-      v14 = 136315650;
-      v15 = v13;
-      v16 = 2080;
-      v17 = " ";
-      v18 = 2112;
-      v19 = object;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ _targetsAdded: adding inProcessRecords from activity targets", &v14, 0x20u);
+      v14 = self->mambaID;
+      v15 = 136315650;
+      v16 = v14;
+      v17 = 2080;
+      v18 = " ";
+      v19 = 2112;
+      v20 = object;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%s[IVM] %@ _targetsAdded: adding inProcessRecords from activity targets", &v15, 0x20u);
     }
   }
 

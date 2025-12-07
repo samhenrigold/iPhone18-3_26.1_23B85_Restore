@@ -10,36 +10,36 @@
 
 - (SKDBaseCSQueryProcessingJob)initWithName:(id)name version:(id)version pipelines:(id)pipelines
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = SKDBaseCSQueryProcessingJob;
-  v5 = [(SKDBaseItemProcessingJob *)&v21 initWithName:name version:version pipelines:pipelines];
+  v22 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = SKDBaseCSQueryProcessingJob;
+  v5 = [(SKDBaseItemProcessingJob *)&v20 initWithName:name version:version pipelines:pipelines];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     pipelines = [(SKDBaseJob *)v5 pipelines];
-    v8 = [pipelines countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v8 = [pipelines countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (!v8)
     {
       goto LABEL_13;
     }
 
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(pipelines);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         descriptor = [v12 descriptor];
         if ([descriptor enabled])
         {
@@ -55,7 +55,7 @@
         }
       }
 
-      v9 = [pipelines countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v9 = [pipelines countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (!v9)
       {
 LABEL_13:
@@ -63,12 +63,11 @@ LABEL_13:
         [(SKDBaseCSQueryProcessingJob *)v5 setPipelineQueries:v6];
         [(SKDBaseCSQueryProcessingJob *)v5 configure];
 
-        break;
+        return v5;
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

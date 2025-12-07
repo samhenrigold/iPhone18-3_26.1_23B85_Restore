@@ -21,10 +21,12 @@
 - (void)_fireIDSAvailableDelegateIfNeededWithIDSDevice:(id)device;
 - (void)_generateNearbyConnectedDelegateCalls;
 - (void)_messageResponseTimeout:(id)timeout;
+- (void)_queueSendCloudMessage:(id)message type:(unsigned __int16)type responseToRequest:(id)request withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)for priority:(int64_t)self0 toDestinations:(id)self1 skipLookup:(BOOL)self2 didSend:(id)self3 andResponse:(id)self4;
 - (void)_queueSendMessage:(id)message type:(unsigned __int16)type requestUUID:(id)d withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)for priority:(int64_t)self0 toIDSBTUUID:(id)self1 didSend:(id)self2 andResponse:(id)self3;
 - (void)_resumeMessageDeliveryQueue;
 - (void)_sendCloudMessage:(id)message type:(unsigned __int16)type responseToRequest:(id)request withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)for priority:(int64_t)self0 toDestinations:(id)self1 skipLookup:(BOOL)self2 didSend:(id)self3 andResponse:(id)self4;
 - (void)_sendMessage:(id)message type:(unsigned __int16)type requestUUID:(id)d withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)for priority:(int64_t)self0 toIDSBTUUID:(id)self1 didSend:(id)self2 andResponse:(id)self3;
+- (void)_storeProtobufAction:(SEL)action messageType:(unsigned __int16)type messageSendType:(int64_t)sendType connectedOnly:(BOOL)only;
 - (void)_suspendMessageDeliveryQueue;
 - (void)_updateIDSDeviceUniqueIdentifiers;
 - (void)_updateTrafficClassesWithClasses:(id)classes;
@@ -39,6 +41,10 @@
 - (void)service:(id)service connectedDevicesChanged:(id)changed;
 - (void)service:(id)service devicesChanged:(id)changed;
 - (void)service:(id)service didSwitchActivePairedDevice:(id)device acknowledgementBlock:(id)block;
+- (void)setAlwaysProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type;
+- (void)setAlwaysProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type;
+- (void)setConnectedProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type;
+- (void)setConnectedProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type;
 - (void)setConnectivityObservers:(id)observers;
 - (void)setDefaultPairedDevice:(id)device;
 - (void)setDelegate:(id)delegate;
@@ -843,21 +849,10 @@
     }
   }
 
-  if (![objc_opt_class() messagesShouldHaveValidSender])
+  if (![objc_opt_class() messagesShouldHaveValidSender] || (service = self->_service, objc_msgSend(messageCopy, "context"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "fromID"), v16 = objc_claimAutoreleasedReturnValue(), -[IDSService linkedDeviceForFromID:withRelationship:](service, "linkedDeviceForFromID:withRelationship:", v16, 3), v17 = objc_claimAutoreleasedReturnValue(), v17, v16, v15, v17))
   {
-    goto LABEL_9;
-  }
-
-  service = self->_service;
-  context = [messageCopy context];
-  fromID = [context fromID];
-  v17 = [(IDSService *)service linkedDeviceForFromID:fromID withRelationship:3];
-
-  if (v17)
-  {
-LABEL_9:
-    context2 = [messageCopy context];
-    incomingResponseIdentifier = [context2 incomingResponseIdentifier];
+    context = [messageCopy context];
+    incomingResponseIdentifier = [context incomingResponseIdentifier];
 
     if (![messageCopy isResponse] || !incomingResponseIdentifier)
     {
@@ -969,8 +964,8 @@ LABEL_21:
             }
 
             v59 = v41;
-            context3 = [messageCopy context];
-            fromID2 = [context3 fromID];
+            context2 = [messageCopy context];
+            fromID = [context2 fromID];
             *buf = 138413570;
             v74 = v39;
             v75 = 2114;
@@ -982,7 +977,7 @@ LABEL_21:
             v81 = 2112;
             v82 = v59;
             v83 = 2114;
-            v84 = fromID2;
+            v84 = fromID;
             _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "(%@): Calling selector %{public}@ for type=%ld length=%ld response=%@ messageSource=%{public}@", buf, 0x3Eu);
           }
         }
@@ -1097,6 +1092,62 @@ LABEL_48:
 LABEL_49:
 
 LABEL_50:
+}
+
+- (void)_storeProtobufAction:(SEL)action messageType:(unsigned __int16)type messageSendType:(int64_t)sendType connectedOnly:(BOOL)only
+{
+  onlyCopy = only;
+  typeCopy = type;
+  v12 = objc_alloc_init(NRPBSelectorItem);
+  [(NRPBSelectorItem *)v12 setSelector:action];
+  if (action)
+  {
+    [(NRPBSelectorItem *)v12 setMethod:[(NRRemoteObject *)self methodForSelector:action]];
+  }
+
+  [(NRPBSelectorItem *)v12 setConnected:onlyCopy];
+  v11 = [NSNumber numberWithInteger:typeCopy | (sendType << 16)];
+  [(NSMutableDictionary *)self->_idsRequestMessageTypeToSelector setObject:v12 forKeyedSubscript:v11];
+}
+
+- (void)setConnectedProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  [(NRRemoteObject *)self _storeProtobufAction:action messageType:type messageSendType:0 connectedOnly:1];
+  service = [(NRRemoteObject *)self service];
+  [service setProtobufAction:"handleIncomingMessage:" forIncomingRequestsOfType:typeCopy];
+}
+
+- (void)setConnectedProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  if (action)
+  {
+    [(NRRemoteObject *)self _storeProtobufAction:action messageType:type messageSendType:1 connectedOnly:1];
+  }
+
+  service = [(NRRemoteObject *)self service];
+  [service setProtobufAction:"handleIncomingMessage:" forIncomingResponsesOfType:typeCopy];
+}
+
+- (void)setAlwaysProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  [(NRRemoteObject *)self _storeProtobufAction:action messageType:type messageSendType:0 connectedOnly:0];
+  service = [(NRRemoteObject *)self service];
+  [service setProtobufAction:"handleIncomingMessage:" forIncomingRequestsOfType:typeCopy];
+}
+
+- (void)setAlwaysProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  if (action)
+  {
+    [(NRRemoteObject *)self _storeProtobufAction:action messageType:type messageSendType:1 connectedOnly:0];
+  }
+
+  service = [(NRRemoteObject *)self service];
+  [service setProtobufAction:"handleIncomingMessage:" forIncomingResponsesOfType:typeCopy];
 }
 
 - (void)sendResponse:(id)response type:(unsigned __int16)type withRequest:(id)request withTimeout:(id)timeout withDescription:(id)description onlyOneFor:(id)for priority:(int64_t)priority didSend:(id)self0
@@ -1534,6 +1585,332 @@ LABEL_47:
     v46 = v101;
 LABEL_58:
   }
+}
+
+- (void)_queueSendCloudMessage:(id)message type:(unsigned __int16)type responseToRequest:(id)request withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)for priority:(int64_t)self0 toDestinations:(id)self1 skipLookup:(BOOL)self2 didSend:(id)self3 andResponse:(id)self4
+{
+  typeCopy = type;
+  messageCopy = message;
+  requestCopy = request;
+  timeoutCopy = timeout;
+  responseTimeoutCopy = responseTimeout;
+  descriptionCopy = description;
+  forCopy = for;
+  destinationsCopy = destinations;
+  sendCopy = send;
+  responseCopy = response;
+  dispatch_assert_queue_V2(self->_idsQueue);
+  v23 = "request";
+  if (requestCopy)
+  {
+    v23 = "response";
+  }
+
+  v83 = v23;
+  if (requestCopy)
+  {
+    protobuf = [requestCopy protobuf];
+    context = [protobuf context];
+    fromID = [context fromID];
+    v27 = [NSSet setWithObject:fromID];
+
+    v91 = v27;
+  }
+
+  else
+  {
+    v91 = destinationsCopy;
+  }
+
+  v28 = +[NSMutableDictionary dictionary];
+  v29 = v28;
+  v30 = timeoutCopy;
+  if (timeoutCopy)
+  {
+    [v28 setObject:timeoutCopy forKeyedSubscript:IDSSendMessageOptionTimeoutKey];
+    [timeoutCopy doubleValue];
+    if (v31 + -10.0 < 0.00000011920929)
+    {
+      [v29 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionFireAndForgetKey];
+      v82 = 1;
+      goto LABEL_11;
+    }
+  }
+
+  else
+  {
+    v32 = [NSNumber numberWithDouble:IDSMaxMessageTimeout];
+    [v29 setObject:v32 forKeyedSubscript:IDSSendMessageOptionTimeoutKey];
+  }
+
+  v82 = 0;
+LABEL_11:
+  [v29 setObject:&__kCFBooleanFalse forKeyedSubscript:IDSSendMessageOptionEnforceRemoteTimeoutsKey];
+  if (forCopy)
+  {
+    [v29 setObject:forCopy forKeyedSubscript:IDSSendMessageOptionQueueOneIdentifierKey];
+  }
+
+  if (requestCopy)
+  {
+    protobuf2 = [requestCopy protobuf];
+    context2 = [protobuf2 context];
+    outgoingResponseIdentifier = [context2 outgoingResponseIdentifier];
+    [v29 setObject:outgoingResponseIdentifier forKeyedSubscript:IDSSendMessageOptionPeerResponseIdentifierKey];
+  }
+
+  v36 = [IDSProtobuf alloc];
+  data = [messageCopy data];
+  v38 = [v36 initWithProtobufData:data type:typeCopy isResponse:requestCopy != 0];
+
+  if (requestCopy || lookup)
+  {
+    v39 = v91;
+  }
+
+  else
+  {
+    v39 = [(NRRemoteObject *)self _lookupDestinations:v91];
+  }
+
+  v40 = v39;
+  v84 = v39;
+  v85 = v29;
+  if (![v39 count])
+  {
+    v55 = nr_daemon_log();
+    v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
+
+    if (v56)
+    {
+      v57 = nr_daemon_log();
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+      {
+        v58 = descriptionCopy;
+        if (!descriptionCopy)
+        {
+          v59 = objc_opt_class();
+          v58 = NSStringFromClass(v59);
+        }
+
+        data2 = [messageCopy data];
+        *buf = 136315906;
+        v108 = v83;
+        v109 = 2114;
+        v110 = v58;
+        v111 = 2048;
+        v112 = [data2 length];
+        v113 = 2114;
+        v114 = v91;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Can't send IDS %s %{public}@ bytes=%ld to %{public}@ destinations not found", buf, 0x2Au);
+
+        if (!descriptionCopy)
+        {
+        }
+      }
+    }
+
+    v61 = v38;
+    v62 = [NSError errorWithDomain:@"com.apple.nanoregistry.ids.fail" code:2 userInfo:0];
+    if (sendCopy)
+    {
+      clientQueue = self->_clientQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1000C7A74;
+      block[3] = &unk_100175688;
+      v97 = sendCopy;
+      v96 = v62;
+      dispatch_async(clientQueue, block);
+    }
+
+    v64 = sendCopy;
+    if (responseCopy)
+    {
+      v65 = self->_clientQueue;
+      v93[0] = _NSConcreteStackBlock;
+      v93[1] = 3221225472;
+      v93[2] = sub_1000C7A88;
+      v93[3] = &unk_100175D58;
+      v94 = responseCopy;
+      dispatch_async(v65, v93);
+    }
+
+    v43 = 0;
+    v44 = 0;
+    v66 = descriptionCopy;
+    goto LABEL_63;
+  }
+
+  service = [(NRRemoteObject *)self service];
+  v105 = 0;
+  v106 = 0;
+  v42 = [service sendProtobuf:v38 toDestinations:v40 priority:priority options:v29 identifier:&v106 error:&v105];
+  v43 = v106;
+  v44 = v105;
+
+  if (!v42 || v44)
+  {
+    if (v44)
+    {
+      v67 = 1;
+    }
+
+    else
+    {
+      v67 = v42;
+    }
+
+    if ((v67 & 1) == 0)
+    {
+      v44 = [NSError errorWithDomain:@"com.apple.nanoregistry.ids.failnoerror" code:1 userInfo:0];
+    }
+
+    v68 = objc_opt_class();
+    v69 = NSStringFromClass(v68);
+    nr_safeDescription = [v44 nr_safeDescription];
+    v48 = [NSString stringWithFormat:@"Error sending %s %@ - %@", v83, v69, nr_safeDescription];
+
+    v71 = nr_daemon_log();
+    LODWORD(v69) = os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT);
+
+    if (v69)
+    {
+      v72 = nr_daemon_log();
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v108 = v48;
+        _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+      }
+    }
+
+    if (sendCopy)
+    {
+      v73 = self->_clientQueue;
+      v102[0] = _NSConcreteStackBlock;
+      v102[1] = 3221225472;
+      v102[2] = sub_1000C7A40;
+      v102[3] = &unk_100175688;
+      v104 = sendCopy;
+      v103 = v44;
+      dispatch_async(v73, v102);
+    }
+
+    v30 = timeoutCopy;
+    if (responseCopy)
+    {
+      v74 = self->_clientQueue;
+      v100[0] = _NSConcreteStackBlock;
+      v100[1] = 3221225472;
+      v100[2] = sub_1000C7A54;
+      v100[3] = &unk_100175D58;
+      v101 = responseCopy;
+      dispatch_async(v74, v100);
+    }
+  }
+
+  else
+  {
+    v30 = timeoutCopy;
+    if (sendCopy)
+    {
+      v45 = objc_retainBlock(sendCopy);
+      [(NSMutableDictionary *)self->_idsSendIDToCompletionHandler setObject:v45 forKeyedSubscript:v43];
+    }
+
+    v44 = responseTimeoutCopy;
+    if (!responseCopy)
+    {
+      v61 = v38;
+      v44 = 0;
+      goto LABEL_55;
+    }
+
+    v46 = objc_retainBlock(responseCopy);
+    [(NSMutableDictionary *)self->_idsSendIDToResponseHandler setObject:v46 forKeyedSubscript:v43];
+
+    if (!responseTimeoutCopy)
+    {
+      v61 = v38;
+      goto LABEL_55;
+    }
+
+    v47 = [NSString stringWithFormat:@"com.apple.%s.%@", v83, v43];
+    v48 = [v47 stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+
+    [responseTimeoutCopy doubleValue];
+    v50 = v49;
+    idsQueue = self->_idsQueue;
+    v98[0] = _NSConcreteStackBlock;
+    v98[1] = 3221225472;
+    v98[2] = sub_1000C7A68;
+    v98[3] = &unk_100175598;
+    v98[4] = self;
+    v52 = v43;
+    v99 = v52;
+    v53 = [TimerFactory timerWithIdentifier:v48 delay:1 gracePeriod:idsQueue waking:v98 handlerQueue:v50 handlerBlock:0.0];
+    v54 = v52;
+    v30 = timeoutCopy;
+    [(NSMutableDictionary *)self->_idsSendIDToTimer setObject:v53 forKeyedSubscript:v54];
+
+    v44 = 0;
+  }
+
+  v61 = v38;
+
+LABEL_55:
+  v64 = sendCopy;
+  v75 = nr_daemon_log();
+  v76 = os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT);
+
+  if (!v76)
+  {
+    v66 = descriptionCopy;
+    goto LABEL_65;
+  }
+
+  v62 = nr_daemon_log();
+  v66 = descriptionCopy;
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+  {
+    v77 = descriptionCopy;
+    if (!descriptionCopy)
+    {
+      v78 = objc_opt_class();
+      v77 = NSStringFromClass(v78);
+    }
+
+    data3 = [messageCopy data];
+    v80 = [data3 length];
+    *buf = 136316418;
+    v81 = "";
+    v108 = v83;
+    v109 = 2114;
+    if (v82)
+    {
+      v81 = "fireAndForget is ON";
+    }
+
+    v110 = v77;
+    v111 = 2048;
+    v112 = v80;
+    v113 = 2114;
+    v114 = v91;
+    v115 = 2114;
+    v116 = v43;
+    v117 = 2080;
+    v118 = v81;
+    _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Sent IDS %s %{public}@ bytes=%ld to %{public}@ got identifier: %{public}@ %s", buf, 0x3Eu);
+
+    if (!descriptionCopy)
+    {
+    }
+  }
+
+LABEL_63:
+
+LABEL_65:
 }
 
 - (id)_lookupDestinations:(id)destinations
@@ -2423,7 +2800,7 @@ LABEL_50:
     v22 = nr_daemon_log();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_100103320(errorCopy);
+      sub_100103320(errorCopy, identifierCopy);
     }
 
 LABEL_17:

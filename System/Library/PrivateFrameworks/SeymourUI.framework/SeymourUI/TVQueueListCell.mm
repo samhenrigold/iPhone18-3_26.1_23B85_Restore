@@ -10,7 +10,7 @@
 - (NSArray)preferredFocusEnvironments
 {
   sub_20B8E0B2C();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v2 = sub_20C13CC54();
 
   return v2;

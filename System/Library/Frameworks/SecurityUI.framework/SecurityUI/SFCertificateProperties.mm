@@ -30,51 +30,51 @@
 
 - (void)_setup:(id)_setup
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   _setupCopy = _setup;
-  v25 = objc_opt_new();
   v24 = objc_opt_new();
+  v23 = objc_opt_new();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = _setupCopy;
-  v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v27)
+  v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v26)
   {
-    v26 = *v34;
+    v25 = *v33;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v34 != v26)
+        if (*v33 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v33 + 1) + 8 * i);
+        v5 = *(*(&v32 + 1) + 8 * i);
         v6 = objc_opt_new();
-        v28 = v5;
+        v27 = v5;
         v7 = [v5 objectForKey:@"cell infos"];
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
-        v8 = [v7 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v30;
+          v10 = *v29;
           do
           {
             for (j = 0; j != v9; ++j)
             {
-              if (*v30 != v10)
+              if (*v29 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v29 + 1) + 8 * j);
+              v12 = *(*(&v28 + 1) + 8 * j);
               v13 = [v12 objectForKey:@"cell title"];
               v14 = [v12 objectForKey:@"cell value"];
               v15 = v14;
@@ -95,7 +95,7 @@
               }
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
           }
 
           while (v9);
@@ -103,8 +103,8 @@
 
         if ([v6 count])
         {
-          [v25 addObject:v6];
-          v17 = [v28 objectForKey:@"header title"];
+          [v24 addObject:v6];
+          v17 = [v27 objectForKey:@"header title"];
           v18 = v17;
           v19 = &stru_284DAEE00;
           if (v17)
@@ -114,51 +114,49 @@
 
           v20 = v19;
 
-          [v24 addObject:v20];
+          [v23 addObject:v20];
         }
       }
 
-      v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
-  if ([v25 count])
+  if ([v24 count])
   {
-    objc_storeStrong(&self->_sections, v25);
-    objc_storeStrong(&self->_sectionTitles, v24);
+    objc_storeStrong(&self->_sections, v24);
+    objc_storeStrong(&self->_sectionTitles, v23);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cellInfosForSection:(id)section
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = sectionCopy;
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       v8 = 0;
       do
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * v8);
+        v9 = *(*(&v20 + 1) + 8 * v8);
         v10 = [v9 objectForKey:@"localized label"];
         v11 = [v9 objectForKey:@"type"];
         v12 = [v9 objectForKey:@"value"];
@@ -189,14 +187,12 @@
       }
 
       while (v6 != v8);
-      v16 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v16 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       v6 = v16;
     }
 
     while (v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -214,30 +210,30 @@
 - (id)_sectionsFromProperties:(id)properties
 {
   selfCopy = self;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   array = [MEMORY[0x277CBEB18] array];
-  v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = propertiesCopy;
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = [v8 objectForKey:{@"localized label", selfCopy}];
         v10 = [v8 objectForKey:@"type"];
         v11 = [v8 objectForKey:@"value"];
@@ -249,23 +245,21 @@
 
         else
         {
-          [v17 addObject:v8];
+          [v16 addObject:v8];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
   }
 
-  if ([v17 count])
+  if ([v16 count])
   {
-    v13 = [(SFCertificateProperties *)selfCopy _sectionInfoForCertSection:v17 title:0];
+    v13 = [(SFCertificateProperties *)selfCopy _sectionInfoForCertSection:v16 title:0];
     [array addObject:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -308,39 +302,37 @@ LABEL_6:
 
 - (id)_sendablePropertiesFromProperties:(id)properties
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(propertiesCopy, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = propertiesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(SFCertificateProperties *)self _sendablePropertyFromProperty:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(SFCertificateProperties *)self _sendablePropertyFromProperty:*(*(&v13 + 1) + 8 * i), v13];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -355,7 +347,7 @@ LABEL_6:
 
   else
   {
-    v4 = SFLogSFCertificateProperties();
+    v4 = SFLogSFCertificateProperties(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [SFCertificateProperties _copyPropertiesFromCertificate:v4];

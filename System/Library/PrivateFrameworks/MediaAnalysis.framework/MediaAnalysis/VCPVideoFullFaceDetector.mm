@@ -195,8 +195,8 @@
 
 - (int)detectFaces:(__CVBuffer *)faces faces:(id)a4 torsos:(id)torsos frameStats:(id)stats
 {
-  v121 = *MEMORY[0x1E69E9840];
-  v91 = a4;
+  v125 = *MEMORY[0x1E69E9840];
+  v95 = a4;
   torsosCopy = torsos;
   statsCopy = stats;
   Width = CVPixelBufferGetWidth(faces);
@@ -204,286 +204,286 @@
   context = objc_autoreleasePoolPush();
   array = [MEMORY[0x1E695DF70] array];
   v10 = objc_alloc(MEMORY[0x1E69845B8]);
-  v93 = [v10 initWithCVPixelBuffer:faces options:MEMORY[0x1E695E0F8]];
+  v97 = [v10 initWithCVPixelBuffer:faces options:MEMORY[0x1E695E0F8]];
   array2 = [MEMORY[0x1E695DF70] array];
-  v11 = VCPSignPostLog();
+  v11 = VCPSignPostLog(array2);
   v12 = os_signpost_id_generate(v11);
 
-  v13 = VCPSignPostLog();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = VCPSignPostLog(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LOWORD(buf.a) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "VCPVideoFullFaceDetectorFaceHumanDetection", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "VCPVideoFullFaceDetectorFaceHumanDetection", "", &buf, 2u);
   }
 
-  v116 = 0;
-  v15 = [VCPFaceUtils configureVNRequest:&v116 withClass:objc_opt_class() andProcessingVersion:15];
-  v16 = v116;
-  v92 = v16;
-  if (v15)
+  v120 = 0;
+  v16 = [VCPFaceUtils configureVNRequest:&v120 withClass:objc_opt_class() andProcessingVersion:15];
+  v17 = v120;
+  v96 = v17;
+  if (v16)
   {
-    v17 = 0;
-    LODWORD(v18) = 4;
+    v18 = 0;
+    LODWORD(v19) = 4;
     goto LABEL_24;
   }
 
-  if (v16)
+  if (v17)
   {
-    [array2 addObject:v16];
+    [array2 addObject:v17];
   }
 
-  v115 = 0;
-  v15 = [VCPFaceUtils configureVNRequest:&v115 withClass:objc_opt_class() andProcessingVersion:15];
-  v19 = v115;
-  v83 = v19;
-  if (v15)
+  v119 = 0;
+  v16 = [VCPFaceUtils configureVNRequest:&v119 withClass:objc_opt_class() andProcessingVersion:15];
+  v20 = v119;
+  v87 = v20;
+  if (v16)
   {
-    v17 = 0;
+    v18 = 0;
   }
 
   else
   {
-    if (v19)
-    {
-      [array2 addObject:v19];
-    }
-
-    v114 = 0;
-    v20 = [v93 performRequests:array2 error:&v114];
-    v17 = v114;
     if (v20)
     {
-      v21 = VCPSignPostLog();
-      v22 = v21;
-      if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+      [array2 addObject:v20];
+    }
+
+    v118 = 0;
+    v21 = [v97 performRequests:array2 error:&v118];
+    v22 = v118;
+    v18 = v22;
+    if (v21)
+    {
+      v23 = VCPSignPostLog(v22);
+      v24 = v23;
+      if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
         LOWORD(buf.a) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v12, "VCPVideoFullFaceDetectorFaceHumanDetection", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v12, "VCPVideoFullFaceDetectorFaceHumanDetection", "", &buf, 2u);
       }
 
-      [array2 removeAllObjects];
-      v23 = VCPSignPostLog();
-      spid = os_signpost_id_generate(v23);
+      v25 = VCPSignPostLog([array2 removeAllObjects]);
+      spid = os_signpost_id_generate(v25);
 
-      v24 = VCPSignPostLog();
-      v25 = v24;
-      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+      v27 = VCPSignPostLog(v26);
+      v28 = v27;
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
       {
         LOWORD(buf.a) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPVideoFullFaceDetectorFaceTorsoprint", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPVideoFullFaceDetectorFaceTorsoprint", "", &buf, 2u);
       }
 
-      v113 = 0;
-      v15 = [VCPFaceUtils configureVNRequest:&v113 withClass:objc_opt_class() andProcessingVersion:15];
-      v82 = v113;
-      if (v15)
+      v117 = 0;
+      v16 = [VCPFaceUtils configureVNRequest:&v117 withClass:objc_opt_class() andProcessingVersion:15];
+      v86 = v117;
+      if (v16)
       {
-        LODWORD(v18) = 4;
+        LODWORD(v19) = 4;
       }
 
       else
       {
-        results = [v92 results];
-        [v82 setInputFaceObservations:results];
+        results = [v96 results];
+        [v86 setInputFaceObservations:results];
 
-        if (v82)
+        if (v86)
         {
-          [array2 addObject:v82];
+          [array2 addObject:v86];
         }
 
-        v112 = 0;
-        v15 = [VCPFaceUtils configureVNRequest:&v112 withClass:objc_opt_class() andProcessingVersion:15];
-        v28 = v112;
-        if (v15)
+        v116 = 0;
+        v16 = [VCPFaceUtils configureVNRequest:&v116 withClass:objc_opt_class() andProcessingVersion:15];
+        v31 = v116;
+        if (v16)
         {
-          LODWORD(v18) = 4;
+          LODWORD(v19) = 4;
         }
 
         else
         {
-          results2 = [v83 results];
-          v81 = v28;
-          [v28 setInputDetectedObjectObservations:results2];
+          results2 = [v87 results];
+          v85 = v31;
+          [v31 setInputDetectedObjectObservations:results2];
 
-          if (v28)
+          if (v31)
           {
-            [array2 addObject:v28];
+            [array2 addObject:v31];
           }
 
-          v111 = v17;
-          v30 = [v93 performRequests:array2 error:&v111];
-          v79 = v111;
+          v115 = v18;
+          v33 = [v97 performRequests:array2 error:&v115];
+          v83 = v115;
 
-          if (v30)
+          if (v33)
           {
-            v31 = VCPSignPostLog();
-            v32 = v31;
-            if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+            v35 = VCPSignPostLog(v34);
+            v36 = v35;
+            if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
             {
               LOWORD(buf.a) = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, spid, "VCPVideoFullFaceDetectorFaceTorsoprint", "", &buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_END, spid, "VCPVideoFullFaceDetectorFaceTorsoprint", "", &buf, 2u);
             }
 
-            results3 = [v82 results];
-            v34 = results3 == 0;
+            results3 = [v86 results];
+            v38 = results3 == 0;
 
-            if (!v34)
+            if (!v38)
             {
-              results4 = [v82 results];
+              results4 = [v86 results];
               [array addObjectsFromArray:results4];
             }
 
             spida = [MEMORY[0x1E695DF90] dictionary];
-            v109 = 0u;
-            v110 = 0u;
-            v107 = 0u;
-            v108 = 0u;
-            results5 = [v28 results];
-            v37 = [results5 countByEnumeratingWithState:&v107 objects:v120 count:16];
-            if (v37)
+            v113 = 0u;
+            v114 = 0u;
+            v111 = 0u;
+            v112 = 0u;
+            results5 = [v31 results];
+            v41 = [results5 countByEnumeratingWithState:&v111 objects:v124 count:16];
+            if (v41)
             {
-              v38 = *v108;
+              v42 = *v112;
               do
               {
-                for (i = 0; i != v37; ++i)
+                for (i = 0; i != v41; ++i)
                 {
-                  if (*v108 != v38)
+                  if (*v112 != v42)
                   {
                     objc_enumerationMutation(results5);
                   }
 
-                  v40 = *(*(&v107 + 1) + 8 * i);
-                  v41 = objc_autoreleasePoolPush();
-                  groupId = [v40 groupId];
-                  v43 = groupId == 0;
+                  v44 = *(*(&v111 + 1) + 8 * i);
+                  v45 = objc_autoreleasePoolPush();
+                  groupId = [v44 groupId];
+                  v47 = groupId == 0;
 
-                  if (!v43)
+                  if (!v47)
                   {
-                    groupId2 = [v40 groupId];
-                    [spida setObject:v40 forKeyedSubscript:groupId2];
+                    groupId2 = [v44 groupId];
+                    [spida setObject:v44 forKeyedSubscript:groupId2];
                   }
 
-                  objc_autoreleasePoolPop(v41);
+                  objc_autoreleasePoolPop(v45);
                 }
 
-                v37 = [results5 countByEnumeratingWithState:&v107 objects:v120 count:16];
+                v41 = [results5 countByEnumeratingWithState:&v111 objects:v124 count:16];
               }
 
-              while (v37);
+              while (v41);
             }
 
-            v106 = 0uLL;
-            v102 = 0u;
-            v103 = 0u;
-            v104 = 0u;
-            v105 = 0u;
-            v45 = array;
-            v15 = 0;
-            v46 = [v45 countByEnumeratingWithState:&v102 objects:v119 count:16];
-            if (v46)
+            v110 = 0uLL;
+            v106 = 0u;
+            v107 = 0u;
+            v108 = 0u;
+            v109 = 0u;
+            v49 = array;
+            v16 = 0;
+            v50 = [v49 countByEnumeratingWithState:&v106 objects:v123 count:16];
+            if (v50)
             {
-              v48 = Width;
-              v49 = -Height;
-              v50 = Height;
-              v85 = *v103;
-              *&v47 = 138412290;
-              v78 = v47;
+              v52 = Width;
+              v53 = -Height;
+              v54 = Height;
+              v89 = *v107;
+              *&v51 = 138412290;
+              v82 = v51;
 LABEL_54:
-              v51 = 0;
+              v55 = 0;
               while (1)
               {
-                if (*v103 != v85)
+                if (*v107 != v89)
                 {
-                  objc_enumerationMutation(v45);
+                  objc_enumerationMutation(v49);
                 }
 
-                v52 = *(*(&v102 + 1) + 8 * v51);
-                v53 = objc_autoreleasePoolPush();
+                v56 = *(*(&v106 + 1) + 8 * v55);
+                v57 = objc_autoreleasePoolPush();
                 if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                 {
-                  LODWORD(buf.a) = v78;
-                  *(&buf.a + 4) = v52;
+                  LODWORD(buf.a) = v82;
+                  *(&buf.a + 4) = v56;
                   _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[VCPVideoFullFaceDetector] Detected face %@", &buf, 0xCu);
                 }
 
-                [v52 boundingBox];
-                *&buf.b = v106;
-                buf.a = v48;
-                buf.d = v49;
+                [v56 boundingBox];
+                *&buf.b = v110;
+                buf.a = v52;
+                buf.d = v53;
                 buf.tx = 0.0;
-                buf.ty = v50;
-                v123 = CGRectApplyAffineTransform(v122, &buf);
-                x = v123.origin.x;
-                y = v123.origin.y;
-                v56 = v123.size.width;
-                v57 = v123.size.height;
-                v101 = 0;
-                v58 = [(VCPCNNSmileDetector *)self->_smileDetector detectSmileForFace:faces inBuffer:&v101 smile:?];
-                if (v58)
+                buf.ty = v54;
+                v127 = CGRectApplyAffineTransform(v126, &buf);
+                x = v127.origin.x;
+                y = v127.origin.y;
+                v60 = v127.size.width;
+                v61 = v127.size.height;
+                v105 = 0;
+                v62 = [(VCPCNNSmileDetector *)self->_smileDetector detectSmileForFace:faces inBuffer:&v105 smile:?];
+                if (v62)
                 {
-                  LODWORD(v18) = 4;
-                  v15 = v58;
+                  LODWORD(v19) = 4;
+                  v16 = v62;
                 }
 
                 else
                 {
                   buf.a = 0.0;
-                  v59 = [(VCPCNNPoseEstimator *)self->_poseEstimator detectPoseForFace:faces inBuffer:&buf yaw:x, y, v56, v57];
-                  if (v59)
+                  v63 = [(VCPCNNPoseEstimator *)self->_poseEstimator detectPoseForFace:faces inBuffer:&buf yaw:x, y, v60, v61];
+                  if (v63)
                   {
-                    v15 = v59;
-                    LODWORD(v18) = 4;
+                    v16 = v63;
+                    LODWORD(v19) = 4;
                   }
 
                   else
                   {
-                    v80 = objc_alloc_init(VCPFace);
-                    [(VCPFace *)v80 setSmile:v101];
-                    [(VCPFace *)v80 setYaw:*&buf.a];
-                    [(VCPFace *)v80 setBounds:x, y, v56, v57];
-                    LODWORD(v60) = 1.0;
-                    [(VCPFace *)v80 setConfidence:v60];
-                    [(VCPFace *)v80 setObservation:v52];
-                    [v91 addObject:v80];
-                    groupId3 = [v52 groupId];
+                    v84 = objc_alloc_init(VCPFace);
+                    [(VCPFace *)v84 setSmile:v105];
+                    [(VCPFace *)v84 setYaw:*&buf.a];
+                    [(VCPFace *)v84 setBounds:x, y, v60, v61];
+                    LODWORD(v64) = 1.0;
+                    [(VCPFace *)v84 setConfidence:v64];
+                    [(VCPFace *)v84 setObservation:v56];
+                    [v95 addObject:v84];
+                    groupId3 = [v56 groupId];
                     if (groupId3)
                     {
-                      groupId4 = [v52 groupId];
-                      v63 = [spida objectForKeyedSubscript:groupId4];
-                      v64 = v63 == 0;
+                      groupId4 = [v56 groupId];
+                      v67 = [spida objectForKeyedSubscript:groupId4];
+                      v68 = v67 == 0;
 
-                      if (!v64)
+                      if (!v68)
                       {
-                        groupId5 = [v52 groupId];
-                        v66 = [spida objectForKeyedSubscript:groupId5];
-                        torsoprint = [v66 torsoprint];
-                        [v52 setTorsoprint:torsoprint];
+                        groupId5 = [v56 groupId];
+                        v70 = [spida objectForKeyedSubscript:groupId5];
+                        torsoprint = [v70 torsoprint];
+                        [v56 setTorsoprint:torsoprint];
 
-                        groupId6 = [v52 groupId];
-                        v69 = [spida objectForKeyedSubscript:groupId6];
-                        [v69 boundingBox];
-                        [(VCPFace *)v80 setTorsoBounds:?];
+                        groupId6 = [v56 groupId];
+                        v73 = [spida objectForKeyedSubscript:groupId6];
+                        [v73 boundingBox];
+                        [(VCPFace *)v84 setTorsoBounds:?];
 
-                        groupId7 = [v52 groupId];
+                        groupId7 = [v56 groupId];
                         [spida removeObjectForKey:groupId7];
                       }
                     }
 
-                    LODWORD(v18) = 0;
+                    LODWORD(v19) = 0;
                   }
                 }
 
-                objc_autoreleasePoolPop(v53);
-                if (v18)
+                objc_autoreleasePoolPop(v57);
+                if (v19)
                 {
                   break;
                 }
 
-                if (v46 == ++v51)
+                if (v50 == ++v55)
                 {
-                  v46 = [v45 countByEnumeratingWithState:&v102 objects:v119 count:16];
-                  if (v46)
+                  v50 = [v49 countByEnumeratingWithState:&v106 objects:v123 count:16];
+                  if (v50)
                   {
                     goto LABEL_54;
                   }
@@ -497,81 +497,81 @@ LABEL_54:
             {
 LABEL_71:
 
-              v99 = 0u;
-              v100 = 0u;
-              v97 = 0u;
-              v98 = 0u;
-              v45 = spida;
-              v18 = [v45 countByEnumeratingWithState:&v97 objects:v117 count:16];
-              if (v18)
+              v103 = 0u;
+              v104 = 0u;
+              v101 = 0u;
+              v102 = 0u;
+              v49 = spida;
+              v19 = [v49 countByEnumeratingWithState:&v101 objects:v121 count:16];
+              if (v19)
               {
-                v71 = *v98;
+                v75 = *v102;
                 do
                 {
-                  for (j = 0; j != v18; ++j)
+                  for (j = 0; j != v19; ++j)
                   {
-                    if (*v98 != v71)
+                    if (*v102 != v75)
                     {
-                      objc_enumerationMutation(v45);
+                      objc_enumerationMutation(v49);
                     }
 
-                    v73 = *(*(&v97 + 1) + 8 * j);
-                    v74 = objc_autoreleasePoolPush();
-                    v75 = [v45 objectForKeyedSubscript:v73];
-                    v76 = objc_alloc_init(VCPHuman);
-                    torsoprint2 = [v75 torsoprint];
-                    [(VCPHuman *)v76 setTorsoprint:torsoprint2];
+                    v77 = *(*(&v101 + 1) + 8 * j);
+                    v78 = objc_autoreleasePoolPush();
+                    v79 = [v49 objectForKeyedSubscript:v77];
+                    v80 = objc_alloc_init(VCPHuman);
+                    torsoprint2 = [v79 torsoprint];
+                    [(VCPHuman *)v80 setTorsoprint:torsoprint2];
 
-                    [v75 boundingBox];
-                    [(VCPHuman *)v76 setBounds:?];
-                    [torsosCopy addObject:v76];
+                    [v79 boundingBox];
+                    [(VCPHuman *)v80 setBounds:?];
+                    [torsosCopy addObject:v80];
 
-                    objc_autoreleasePoolPop(v74);
+                    objc_autoreleasePoolPop(v78);
                   }
 
-                  v18 = [v45 countByEnumeratingWithState:&v97 objects:v117 count:16];
+                  v19 = [v49 countByEnumeratingWithState:&v101 objects:v121 count:16];
                 }
 
-                while (v18);
+                while (v19);
               }
             }
           }
 
           else
           {
-            v15 = -18;
-            LODWORD(v18) = 4;
+            v16 = -18;
+            LODWORD(v19) = 4;
           }
 
-          v17 = v79;
-          v28 = v81;
+          v18 = v83;
+          v31 = v85;
         }
       }
 
       goto LABEL_23;
     }
 
-    v15 = -18;
+    v16 = -18;
   }
 
-  LODWORD(v18) = 4;
+  LODWORD(v19) = 4;
 LABEL_23:
 
 LABEL_24:
   objc_autoreleasePoolPop(context);
-  if (v18 != 4)
+  if (v19 != 4)
   {
     [statsCopy setFrameProcessedByFaceDetector:1];
   }
 
-  if (v15 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  if (v16 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     LODWORD(buf.a) = 138412290;
-    *(&buf.a + 4) = v17;
+    *(&buf.a + 4) = v18;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[VCPVideoFullFaceDetector] Failed to detect faces - %@", &buf, 0xCu);
   }
 
-  return v15;
+  return v16;
 }
 
 - (void)removeSmallestKeyFace
@@ -950,7 +950,7 @@ void __90__VCPVideoFullFaceDetector_detectTrackFacesInFrame_withTimestamp_faces_
 
   if (v6)
   {
-    [v6 start];
+    objc_msgSend_start(v6);
   }
 
   else
@@ -1167,7 +1167,7 @@ uint64_t __90__VCPVideoFullFaceDetector_detectTrackFacesInFrame_withTimestamp_fa
                   goto LABEL_60;
                 }
 
-                [v49 start];
+                objc_msgSend_start(v49);
                 *&lhs.start.value = *&timestampCopy->var0;
                 lhs.start.epoch = timestampCopy->var3;
                 time = v81;
@@ -1178,7 +1178,7 @@ uint64_t __90__VCPVideoFullFaceDetector_detectTrackFacesInFrame_withTimestamp_fa
                 }
               }
 
-              if (v45 && ([v45 last], objc_msgSend(v45, "start"), lhs.start = v81, time = v80, CMTimeSubtract(&v82, &lhs.start, &time), CMTimeGetSeconds(&v82) <= 1.0))
+              if (v45 && (objc_msgSend_last(v45), objc_msgSend_start(v45), lhs.start = v81, time = v80, CMTimeSubtract(&v82, &lhs.start, &time), CMTimeGetSeconds(&v82) <= 1.0))
               {
                 *&lhs.start.value = *&timestampCopy->var0;
                 lhs.start.epoch = timestampCopy->var3;
@@ -2188,10 +2188,10 @@ void __51__VCPVideoFullFaceDetector_updateWithExistingFaces__block_invoke_3(uint
         memset(&otherRange, 0, 24);
         if (v9)
         {
-          [v9 start];
+          objc_msgSend_start(v9);
           v94 = 0uLL;
           v95 = 0;
-          [v9 last];
+          objc_msgSend_last(v9);
         }
 
         else
@@ -2413,7 +2413,7 @@ void __51__VCPVideoFullFaceDetector_updateWithExistingFaces__block_invoke_3(uint
         memset(&time, 0, sizeof(time));
         if (v50)
         {
-          [v50 timerange];
+          objc_msgSend_timerange(v50);
         }
 
         else

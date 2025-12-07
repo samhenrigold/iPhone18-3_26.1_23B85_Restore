@@ -23,24 +23,24 @@
     {
       if (v6)
       {
-        objc_opt_class();
-        if (sub_100027870(v6))
+        v7 = objc_opt_class();
+        if (sub_100027870(v6, v7))
         {
-          v7 = [NSSet setWithArray:v6];
-          v8 = [countryCodes intersectsSet:v7];
+          v8 = [NSSet setWithArray:v6];
+          v9 = [countryCodes intersectsSet:v8];
         }
 
         else
         {
-          v11 = sub_10001F638();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v12 = sub_10001F638();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            v12 = 136315138;
-            v13 = "[InitialSetupLocationInput anyInArray:]";
-            _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%s: Country list contains non-String entries", &v12, 0xCu);
+            v13 = 136315138;
+            v14 = "[InitialSetupLocationInput anyInArray:]";
+            _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%s: Country list contains non-String entries", &v13, 0xCu);
           }
 
-          v8 = 0;
+          v9 = 0;
         }
 
 LABEL_11:
@@ -53,25 +53,25 @@ LABEL_11:
     {
     }
 
-    v9 = sub_10001F638();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_10001F638();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[InitialSetupLocationInput anyInArray:]";
-      v14 = 2112;
-      v15 = v6;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s: Unexpected type passed to selector: %@", &v12, 0x16u);
+      v13 = 136315394;
+      v14 = "[InitialSetupLocationInput anyInArray:]";
+      v15 = 2112;
+      v16 = v6;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s: Unexpected type passed to selector: %@", &v13, 0x16u);
     }
 
-    v8 = 0;
-    v6 = v9;
+    v9 = 0;
+    v6 = v10;
     goto LABEL_11;
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_12:
 
-  return v8;
+  return v9;
 }
 
 - (NSString)description
@@ -199,8 +199,8 @@ LABEL_11:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v21 = "[InitialSetupLocationInput initWithLocations:status:process:]";
-        v22 = 2080;
+        v22 = "[InitialSetupLocationInput initWithLocations:status:process:]";
+        v23 = 2080;
         name = xpc_type_get_name(v11);
         _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%s: Initial setup location input is wrong data type: %s", buf, 0x16u);
       }
@@ -211,23 +211,23 @@ LABEL_14:
     }
 
     v12 = _CFXPCCreateCFObjectFromXPCObject();
-    objc_opt_class();
-    if ((sub_100027870(v12) & 1) == 0)
+    v13 = objc_opt_class();
+    if ((sub_100027870(v12, v13) & 1) == 0)
     {
-      v17 = sub_10001F638();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = sub_10001F638();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v21 = "[InitialSetupLocationInput initWithLocations:status:process:]";
-        _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%s: Initial setup location input contains non-String entries", buf, 0xCu);
+        v22 = "[InitialSetupLocationInput initWithLocations:status:process:]";
+        _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%s: Initial setup location input contains non-String entries", buf, 0xCu);
       }
 
       goto LABEL_14;
     }
 
-    v13 = [NSSet setWithArray:v12];
+    v14 = [NSSet setWithArray:v12];
 
-    v12 = v13;
+    v12 = v14;
   }
 
   else
@@ -235,16 +235,16 @@ LABEL_14:
     v12 = 0;
   }
 
-  v19.receiver = self;
-  v19.super_class = InitialSetupLocationInput;
-  v14 = [(EligibilityInput *)&v19 initWithInputType:14 status:status process:processCopy];
-  v15 = v14;
-  if (v14)
+  v20.receiver = self;
+  v20.super_class = InitialSetupLocationInput;
+  v15 = [(EligibilityInput *)&v20 initWithInputType:14 status:status process:processCopy];
+  v16 = v15;
+  if (v15)
   {
-    objc_storeStrong(&v14->_countryCodes, v12);
+    objc_storeStrong(&v15->_countryCodes, v12);
   }
 
-  self = v15;
+  self = v16;
   selfCopy = self;
 LABEL_15:
 

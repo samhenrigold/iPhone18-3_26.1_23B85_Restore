@@ -114,20 +114,16 @@
 - (void)setOuterDotColor:(id)color
 {
   colorCopy = color;
-  outerDotColor = self->_outerDotColor;
-  v7 = colorCopy;
   if ((CLKEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_outerDotColor, color);
-    [(UIView *)self->_outerDot setBackgroundColor:v7];
+    [(UIView *)self->_outerDot setBackgroundColor:colorCopy];
   }
 }
 
 - (void)setInnerDotColor:(id)color
 {
   colorCopy = color;
-  innerDotColor = self->_innerDotColor;
-  v7 = colorCopy;
   if ((CLKEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_innerDotColor, color);
@@ -159,7 +155,7 @@
 
 - (void)startAnimationWithCompletionBlock:(id)block
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   [(NUNIAstronomyLocationDot *)self stopAnimation];
   self->_animating = 1;
@@ -200,10 +196,10 @@
     [v8 setTimingFunction:v12];
 
     animation = [MEMORY[0x277CD9E00] animation];
-    v18[0] = v5;
-    v18[1] = v7;
-    v18[2] = v8;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+    v17[0] = v5;
+    v17[1] = v7;
+    v17[2] = v8;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
     [animation setAnimations:v14];
 
     [animation setDuration:self->_pulseDuration];
@@ -216,8 +212,6 @@
 
     [MEMORY[0x277CD9FF0] commit];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAnimation
@@ -229,24 +223,23 @@
 
 - (void)layoutSubviews
 {
-  v10.receiver = self;
-  v10.super_class = NUNIAstronomyLocationDot;
-  [(NUNIAstronomyLocationDot *)&v10 layoutSubviews];
-  outerDotDiameter = self->_outerDotDiameter;
+  v9.receiver = self;
+  v9.super_class = NUNIAstronomyLocationDot;
+  [(NUNIAstronomyLocationDot *)&v9 layoutSubviews];
   [(NUNIAstronomyLocationDot *)self bounds];
   [(NUNIAstronomyLocationDotConfiguration *)self->_configuration screenScale];
-  v8 = v4;
+  v7 = v3;
   UIRectCenteredIntegralRectScale();
-  [(UIView *)self->_outerDot setFrame:v8];
+  [(UIView *)self->_outerDot setFrame:v7];
   layer = [(UIView *)self->_outerDot layer];
   [layer setCornerRadius:self->_outerDotDiameter * 0.5];
 
   innerDotImageView = self->_innerDotImageView;
   [(UIImageView *)innerDotImageView bounds];
   [(NUNIAstronomyLocationDotConfiguration *)self->_configuration screenScale];
-  v9 = v7;
+  v8 = v6;
   UIRectCenteredIntegralRectScale();
-  [(UIImageView *)innerDotImageView setFrame:v9];
+  [(UIImageView *)innerDotImageView setFrame:v8];
 }
 
 @end

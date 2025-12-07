@@ -37,7 +37,7 @@ LABEL_5:
   if (v13)
   {
     value2 = [self value];
-    v15 = HDMedicalRecordEntityPredicateForModifiedDate(v11);
+    v15 = HDMedicalRecordEntityPredicateForModifiedDate(v11, value2);
 LABEL_10:
     falsePredicate = v15;
 
@@ -71,7 +71,7 @@ LABEL_10:
       v24 = date;
     }
 
-    falsePredicate = HDMedicalRecordEntityPredicateForSortDate(v11);
+    falsePredicate = HDMedicalRecordEntityPredicateForSortDate(v11, v24);
   }
 
   else

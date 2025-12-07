@@ -49,21 +49,21 @@
 
 void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActivityWithIdentifier_interval_isDiskIntensive_isMemoryIntensive_handler___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 scheduler];
   v4 = (a1 + 40);
   v5 = *(a1 + 40);
   v6 = [*(a1 + 32) queue];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActivityWithIdentifier_interval_isDiskIntensive_isMemoryIntensive_handler___block_invoke_2;
-  v22[3] = &unk_2797E2418;
-  objc_copyWeak(&v25, &location);
-  v23 = *(a1 + 40);
-  v24 = *(a1 + 48);
-  LOBYTE(v5) = [v3 registerForTaskWithIdentifier:v5 usingQueue:v6 launchHandler:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActivityWithIdentifier_interval_isDiskIntensive_isMemoryIntensive_handler___block_invoke_2;
+  v21[3] = &unk_2797E2418;
+  objc_copyWeak(&v24, &location);
+  v22 = *(a1 + 40);
+  v23 = *(a1 + 48);
+  LOBYTE(v5) = [v3 registerForTaskWithIdentifier:v5 usingQueue:v6 launchHandler:v21];
 
   if (v5)
   {
@@ -77,7 +77,7 @@ void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActiv
       {
         v10 = *v4;
         *buf = 138412290;
-        v28 = v10;
+        v27 = v10;
         _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_DEFAULT, "#background-activity-manager, Task %@ already submitted, bailing out", buf, 0xCu);
       }
     }
@@ -111,9 +111,9 @@ void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActiv
       }
 
       v14 = [*(a1 + 32) scheduler];
-      v21 = 0;
-      v15 = [v14 submitTaskRequest:v12 error:&v21];
-      v16 = v21;
+      v20 = 0;
+      v15 = [v14 submitTaskRequest:v12 error:&v20];
+      v16 = v20;
 
       v17 = *MEMORY[0x277D21260];
       v18 = *MEMORY[0x277D21260];
@@ -123,7 +123,7 @@ void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActiv
         {
           v19 = *v4;
           *buf = 138412290;
-          v28 = v19;
+          v27 = v19;
           _os_log_impl(&dword_25543D000, v17, OS_LOG_TYPE_DEFAULT, "#background-activity-manager, Task %@ registered and submitted", buf, 0xCu);
         }
       }
@@ -144,14 +144,13 @@ void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActiv
     }
   }
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActivityWithIdentifier_interval_isDiskIntensive_isMemoryIntensive_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -168,38 +167,34 @@ void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActiv
       v10 = v7;
       v11 = [v9 date];
       *buf = 138412546;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v11;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v11;
       _os_log_impl(&dword_25543D000, v10, OS_LOG_TYPE_DEFAULT, "#background-activity-manager, Task %@ started at %@", buf, 0x16u);
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActivityWithIdentifier_interval_isDiskIntensive_isMemoryIntensive_handler___block_invoke_18;
-    v13[3] = &unk_2797E0BA8;
-    v14 = *(a1 + 32);
-    [v3 setExpirationHandler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActivityWithIdentifier_interval_isDiskIntensive_isMemoryIntensive_handler___block_invoke_18;
+    v12[3] = &unk_2797E0BA8;
+    v13 = *(a1 + 32);
+    [v3 setExpirationHandler:v12];
     [v3 setTaskCompleted];
     (*(*(a1 + 40) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActivityWithIdentifier_interval_isDiskIntensive_isMemoryIntensive_handler___block_invoke_18(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_25543D000, v2, OS_LOG_TYPE_DEFAULT, "#background-activity-manager, Task %@ expired", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_25543D000, v2, OS_LOG_TYPE_DEFAULT, "#background-activity-manager, Task %@ expired", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (IRSessionServer)server
@@ -211,24 +206,22 @@ void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActiv
 
 void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActivityWithIdentifier_interval_isDiskIntensive_isMemoryIntensive_handler___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#background-activity-manager, [ErrorId - Task already registered] Task %@ already registered, something went wrong!", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#background-activity-manager, [ErrorId - Task already registered] Task %@ already registered, something went wrong!", &v3, 0xCu);
 }
 
 void __140__IRBackgroundActivitiesManager_registerForRepeatingBackgroundXPCActivityWithIdentifier_interval_isDiskIntensive_isMemoryIntensive_handler___block_invoke_cold_2(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_25543D000, log, OS_LOG_TYPE_ERROR, "#background-activity-manager, [ErrorId - Task cannot submit] Task %@ could not be submitted with error %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_25543D000, log, OS_LOG_TYPE_ERROR, "#background-activity-manager, [ErrorId - Task cannot submit] Task %@ could not be submitted with error %@", &v4, 0x16u);
 }
 
 @end

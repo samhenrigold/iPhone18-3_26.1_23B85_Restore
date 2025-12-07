@@ -89,16 +89,17 @@
 {
   v2 = *(self + 16);
   v3 = a2;
-  [v2 count];
-  OUTLINED_FUNCTION_0_0(&dword_1C6968000, v4, v5, "Validating %zu scribble element(s)", v6, v7, v8, v9, 0);
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = [v2 count];
+  OUTLINED_FUNCTION_0_0(&dword_1C6968000, v4, v5, "Validating %zu scribble element(s)", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
-void __40__WBSScribbleValidator__startValidation__block_invoke(uint64_t a1)
+void __40__WBSScribbleValidator__startValidation__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXScribble();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXScribble(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __40__WBSScribbleValidator__startValidation__block_invoke_cold_1(a1, v2);
+    __40__WBSScribbleValidator__startValidation__block_invoke_cold_1(a1, v3);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -115,14 +116,14 @@ void __40__WBSScribbleValidator__startValidation__block_invoke(uint64_t a1)
     }
 
     [WeakRetained _removeResultsWithDifferentGeometryAndRevealTargetsIfNeeded];
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = __40__WBSScribbleValidator__startValidation__block_invoke_51;
-    v4[3] = &unk_1E8284F48;
-    objc_copyWeak(v5, (a1 + 40));
-    v5[1] = *(a1 + 48);
-    [WeakRetained _compareRenderedTextWithCompletion:v4];
-    objc_destroyWeak(v5);
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __40__WBSScribbleValidator__startValidation__block_invoke_51;
+    v5[3] = &unk_1E8284F48;
+    objc_copyWeak(v6, (a1 + 40));
+    v6[1] = *(a1 + 48);
+    [WeakRetained _compareRenderedTextWithCompletion:v5];
+    objc_destroyWeak(v6);
   }
 
   else
@@ -138,13 +139,13 @@ void __40__WBSScribbleValidator__startValidation__block_invoke_51(uint64_t a1)
   if (WeakRetained)
   {
     [WeakRetained _removeTargetsToRevealIfNeeded];
-    [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-    v5 = v4;
-    v6 = *(a1 + 40);
-    v7 = WBS_LOG_CHANNEL_PREFIXScribble();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v4 = [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
+    v6 = v5;
+    v7 = *(a1 + 40);
+    v9 = WBS_LOG_CHANNEL_PREFIXScribble(v4, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __40__WBSScribbleValidator__startValidation__block_invoke_51_cold_1(v7, v5, v6);
+      __40__WBSScribbleValidator__startValidation__block_invoke_51_cold_1(v9, v6, v7);
     }
 
     WeakRetained = v3;
@@ -561,10 +562,10 @@ uint64_t __59__WBSScribbleValidator__removeHiddenResultsWithSimilarURLs__block_i
 
   if (v5)
   {
-    v20 = 0;
-    v6 = [v3 computeURLSimilarity:&v20];
-    v7 = v20;
-    v8 = v7;
+    v21 = 0;
+    v6 = [v3 computeURLSimilarity:&v21];
+    v7 = v21;
+    v9 = v7;
     v5 = 0;
     if (v6 > 1)
     {
@@ -579,36 +580,36 @@ LABEL_15:
 
         if ([v7 isBackedByGlobalAction])
         {
-          v9 = 40;
+          v10 = 40;
         }
 
         else
         {
-          v10 = [v3 target];
-          v11 = [v10 safari_isOutOfFlow];
+          v11 = [v3 target];
+          v12 = [v11 safari_isOutOfFlow];
 
-          v9 = 48;
-          if (v11)
+          v10 = 48;
+          if (v12)
           {
-            v9 = 40;
+            v10 = 40;
           }
         }
 
-        v12 = *(*(a1 + 32) + v9);
-        v13 = [v3 target];
-        [v12 addObject:v13];
+        v13 = *(*(a1 + 32) + v10);
+        v14 = [v3 target];
+        [v13 addObject:v14];
 
-        v14 = *(*(a1 + 32) + 64);
-        v15 = [WBSScribbleElementAndTarget alloc];
-        v16 = [v3 target];
-        v17 = [(WBSScribbleElementAndTarget *)v15 initWithElement:v8 target:v16];
-        [v14 addObject:v17];
+        v15 = *(*(a1 + 32) + 64);
+        v16 = [WBSScribbleElementAndTarget alloc];
+        v17 = [v3 target];
+        v18 = [(WBSScribbleElementAndTarget *)v16 initWithElement:v9 target:v17];
+        [v15 addObject:v18];
 
 LABEL_13:
-        v18 = WBS_LOG_CHANNEL_PREFIXScribble();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v19 = WBS_LOG_CHANNEL_PREFIXScribble(v7, v8);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
-          __59__WBSScribbleValidator__removeHiddenResultsWithSimilarURLs__block_invoke_cold_1(v18, v3, v8);
+          __59__WBSScribbleValidator__removeHiddenResultsWithSimilarURLs__block_invoke_cold_1(v19, v3, v9);
         }
 
         goto LABEL_15;
@@ -655,23 +656,24 @@ LABEL_9:
 
   if (([v3 hasSimilarGeometryInView:WeakRetained] & 1) == 0)
   {
-    if ([MEMORY[0x1E69C8880] scribbleRequiresVisualSimilarity])
+    v6 = [MEMORY[0x1E69C8880] scribbleRequiresVisualSimilarity];
+    if (v6)
     {
-      v6 = [v3 target];
-      v7 = [v6 isInVisibilityAdjustmentSubtree];
+      v8 = [v3 target];
+      v9 = [v8 isInVisibilityAdjustmentSubtree];
 
-      if (v7)
+      if (v9)
       {
-        v8 = *(*(a1 + 32) + 56);
-        v9 = [v3 target];
-        [v8 addObject:v9];
+        v10 = *(*(a1 + 32) + 56);
+        v11 = [v3 target];
+        [v10 addObject:v11];
       }
     }
 
-    v10 = WBS_LOG_CHANNEL_PREFIXScribble();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = WBS_LOG_CHANNEL_PREFIXScribble(v6, v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      __83__WBSScribbleValidator__removeResultsWithDifferentGeometryAndRevealTargetsIfNeeded__block_invoke_cold_1(v10, v3);
+      __83__WBSScribbleValidator__removeResultsWithDifferentGeometryAndRevealTargetsIfNeeded__block_invoke_cold_1(v12, v3);
     }
 
     goto LABEL_9;
@@ -722,7 +724,7 @@ void __59__WBSScribbleValidator__compareRenderedTextWithCompletion___block_invok
 
 void __59__WBSScribbleValidator__compareRenderedTextWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -739,33 +741,33 @@ void __59__WBSScribbleValidator__compareRenderedTextWithCompletion___block_invok
     }
 
     v8 = v7;
-    v9 = WBS_LOG_CHANNEL_PREFIXScribble();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXScribble(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v22 = [*(a1 + 40) target];
-      v23 = [v22 debugDescription];
+      v23 = [*(a1 + 40) target];
+      v24 = [v23 debugDescription];
       if (v5)
       {
-        v25 = [v5 isBackedByGlobalAction];
-        v24 = @"per-site";
-        if (v25)
+        v26 = [v5 isBackedByGlobalAction];
+        v25 = @"per-site";
+        if (v26)
         {
-          v24 = @"global";
+          v25 = @"global";
         }
       }
 
       else
       {
-        v24 = @"no";
+        v25 = @"no";
       }
 
       *buf = 138412803;
-      v27 = v8;
-      v28 = 2113;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v24;
-      _os_log_debug_impl(&dword_1C6968000, v9, OS_LOG_TYPE_DEBUG, "- Found %@: %{private}@ (%@ rule)", buf, 0x20u);
+      v28 = v8;
+      v29 = 2113;
+      v30 = v24;
+      v31 = 2112;
+      v32 = v25;
+      _os_log_debug_impl(&dword_1C6968000, v10, OS_LOG_TYPE_DEBUG, "- Found %@: %{private}@ (%@ rule)", buf, 0x20u);
     }
 
     if (a2 == 1)
@@ -775,17 +777,17 @@ void __59__WBSScribbleValidator__compareRenderedTextWithCompletion___block_invok
         goto LABEL_19;
       }
 
-      v13 = [*(a1 + 40) target];
-      v14 = [v13 isInVisibilityAdjustmentSubtree];
+      v14 = [*(a1 + 40) target];
+      v15 = [v14 isInVisibilityAdjustmentSubtree];
 
-      if (!v14)
+      if (!v15)
       {
         goto LABEL_19;
       }
 
-      v15 = WeakRetained[7];
-      v16 = [*(a1 + 40) target];
-      [v15 addObject:v16];
+      v16 = WeakRetained[7];
+      v17 = [*(a1 + 40) target];
+      [v16 addObject:v17];
     }
 
     else
@@ -798,25 +800,25 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      if (([v5 isBackedByGlobalAction] & 1) != 0 || (objc_msgSend(*(a1 + 40), "target"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "safari_isOutOfFlow"), v10, v11))
+      if (([v5 isBackedByGlobalAction] & 1) != 0 || (objc_msgSend(*(a1 + 40), "target"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "safari_isOutOfFlow"), v11, v12))
       {
-        v12 = WeakRetained + 5;
+        v13 = WeakRetained + 5;
       }
 
       else
       {
-        v12 = WeakRetained + 6;
+        v13 = WeakRetained + 6;
       }
 
-      v17 = *v12;
-      v18 = [*(a1 + 40) target];
-      [v17 addObject:v18];
+      v18 = *v13;
+      v19 = [*(a1 + 40) target];
+      [v18 addObject:v19];
 
-      v19 = WeakRetained[8];
-      v20 = [WBSScribbleElementAndTarget alloc];
-      v16 = [*(a1 + 40) target];
-      v21 = [(WBSScribbleElementAndTarget *)v20 initWithElement:v5 target:v16];
-      [v19 addObject:v21];
+      v20 = WeakRetained[8];
+      v21 = [WBSScribbleElementAndTarget alloc];
+      v17 = [*(a1 + 40) target];
+      v22 = [(WBSScribbleElementAndTarget *)v21 initWithElement:v5 target:v17];
+      [v20 addObject:v22];
     }
 
     goto LABEL_19;
@@ -848,30 +850,30 @@ __CFString *__59__WBSScribbleValidator__compareRenderedTextWithCompletion___bloc
 
 - (void)forEachSimilarTargetedElement:(id)element
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   elementCopy = element;
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v5 = self->_similarTargetsAndElements;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         target = [v10 target];
-        if (target && (v12 = target, [v10 element], v13 = objc_claimAutoreleasedReturnValue(), v13, v12, v13))
+        if (target && (v13 = target, [v10 element], v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v14))
         {
           target2 = [v10 target];
           element = [v10 element];
@@ -880,15 +882,15 @@ __CFString *__59__WBSScribbleValidator__compareRenderedTextWithCompletion___bloc
 
         else
         {
-          v16 = WBS_LOG_CHANNEL_PREFIXScribble();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = WBS_LOG_CHANNEL_PREFIXScribble(target, v12);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            [(WBSScribbleValidator *)&v17 forEachSimilarTargetedElement:v18, v16];
+            [(WBSScribbleValidator *)&v18 forEachSimilarTargetedElement:v19, v17];
           }
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
@@ -908,8 +910,9 @@ void __40__WBSScribbleValidator__startValidation__block_invoke_cold_1(uint64_t a
 {
   v2 = *(*(a1 + 32) + 32);
   v3 = a2;
-  [v2 count];
-  OUTLINED_FUNCTION_0_0(&dword_1C6968000, v4, v5, "- Found %zu potentially similar target(s)", v6, v7, v8, v9, 0);
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = [v2 count];
+  OUTLINED_FUNCTION_0_0(&dword_1C6968000, v4, v5, "- Found %zu potentially similar target(s)", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void __40__WBSScribbleValidator__startValidation__block_invoke_51_cold_1(os_log_t log, double a2, double a3)
@@ -925,18 +928,41 @@ void __59__WBSScribbleValidator__removeHiddenResultsWithSimilarURLs__block_invok
   v5 = a1;
   v6 = [a2 target];
   v7 = [v6 debugDescription];
-  [a3 isBackedByGlobalAction];
-  OUTLINED_FUNCTION_1_6(&dword_1C6968000, v8, v9, "- Found similar URLs: %{private}@ (%@)", v10, v11, v12, v13, 3u);
+  v8 = [a3 isBackedByGlobalAction];
+  v15 = @"per-site";
+  if (v8)
+  {
+    v15 = @"global";
+  }
+
+  *v16 = 138478083;
+  *&v16[4] = v7;
+  *&v16[12] = 2112;
+  *&v16[14] = v15;
+  OUTLINED_FUNCTION_1_6(&dword_1C6968000, v9, v10, "- Found similar URLs: %{private}@ (%@)", v11, v12, v13, v14, *v16, *&v16[8], *&v16[16]);
 }
 
 void __83__WBSScribbleValidator__removeResultsWithDifferentGeometryAndRevealTargetsIfNeeded__block_invoke_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 target];
-  [v4 isInVisibilityAdjustmentSubtree];
-  v5 = [a2 target];
-  v12 = [v5 debugDescription];
-  OUTLINED_FUNCTION_1_6(&dword_1C6968000, v6, v7, "- Found different geometry%@: %{private}@", v8, v9, v10, v11, 3u);
+  if ([v4 isInVisibilityAdjustmentSubtree])
+  {
+    v5 = @" (hidden)";
+  }
+
+  else
+  {
+    v5 = &stru_1F4646D10;
+  }
+
+  v6 = [a2 target];
+  v7 = [v6 debugDescription];
+  *v14 = 138412547;
+  *&v14[4] = v5;
+  *&v14[12] = 2113;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_1_6(&dword_1C6968000, v8, v9, "- Found different geometry%@: %{private}@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
 - (void)forEachSimilarTargetedElement:(os_log_t)log .cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

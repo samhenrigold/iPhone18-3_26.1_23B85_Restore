@@ -1,5449 +1,296 @@
-uint64_t __Block_byref_object_copy__5216(uint64_t result, uint64_t a2)
+id WFTriggerIDsToDisableNotificationUserInfoFromTriggers(void *a1, void *a2)
 {
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
+  v3 = a2;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __WFTriggerIDsToDisableNotificationUserInfoFromTriggers_block_invoke;
+  v8[3] = &unk_1E8379C68;
+  v9 = v3;
+  v4 = v3;
+  v5 = [a1 if_compactMap:v8];
+  v6 = WFAllTriggerNotificationUserInfoForDisablingTriggers(v5);
+
+  return v6;
+}
+
+id __WFTriggerIDsToDisableNotificationUserInfoFromTriggers_block_invoke(uint64_t a1, void *a2)
+{
+  v22 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = objc_autoreleasePoolPush();
+  v5 = [v3 workflowID];
+
+  if (v5)
+  {
+    v6 = *(a1 + 32);
+    v7 = [v3 workflowID];
+    v8 = [v6 referenceForWorkflowID:v7];
+
+    v9 = *(a1 + 32);
+    v15 = 0;
+    v10 = [WFWorkflow workflowWithReference:v8 database:v9 error:&v15];
+    v11 = v15;
+    if (v10)
+    {
+      v12 = WFTriggerNotificationUserInfoForDisabling(v3, v10);
+    }
+
+    else
+    {
+      v13 = getWFTriggerNotificationsLogObject();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v17 = "WFTriggerIDsToDisableNotificationUserInfoFromTriggers_block_invoke";
+        v18 = 2112;
+        v19 = v3;
+        v20 = 2114;
+        v21 = v11;
+        _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Failed to get workflow with configuredTrigger: %@ error: %{public}@", buf, 0x20u);
+      }
+
+      v12 = 0;
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  objc_autoreleasePoolPop(v4);
+
+  return v12;
+}
+
+void sub_1CA832850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getCLCircularRegionClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!CoreLocationLibraryCore_frameworkLibrary_41708)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __CoreLocationLibraryCore_block_invoke_41709;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E8379C88;
+    v8 = 0;
+    CoreLocationLibraryCore_frameworkLibrary_41708 = _sl_dlopen();
+  }
+
+  if (!CoreLocationLibraryCore_frameworkLibrary_41708)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFLocationTrigger.m" lineNumber:16 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("CLCircularRegion");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLCircularRegionClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFLocationTrigger.m" lineNumber:17 description:{@"Unable to find class %s", "CLCircularRegion"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getCLCircularRegionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-void sub_1CA6F18E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+uint64_t __CoreLocationLibraryCore_block_invoke_41709(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreLocationLibraryCore_frameworkLibrary_41708 = result;
+  return result;
+}
+
+void sub_1CA834110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void WFConfigureIntentBasedParameterResources(void *a1, void *a2)
+Class __getUIColorClass_block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = a2;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v5 = [v3 resourceObjectsOfClass:{objc_opt_class(), 0}];
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v6)
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!UIKitLibraryCore_frameworkLibrary_41965)
   {
-    v7 = v6;
-    v8 = *v12;
-    do
-    {
-      v9 = 0;
-      do
-      {
-        if (*v12 != v8)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        [*(*(&v11 + 1) + 8 * v9++) setupWithAction:v4];
-      }
-
-      while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v7);
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __UIKitLibraryCore_block_invoke_41966;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E8379CA0;
+    v8 = 0;
+    UIKitLibraryCore_frameworkLibrary_41965 = _sl_dlopen();
   }
 
-  v10 = *MEMORY[0x1E69E9840];
+  if (!UIKitLibraryCore_frameworkLibrary_41965)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *UIKitLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFUserFocusActivityTrigger.m" lineNumber:21 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("UIColor");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getUIColorClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFUserFocusActivityTrigger.m" lineNumber:22 description:{@"Unable to find class %s", "UIColor"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getUIColorClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
 }
 
-uint64_t WFREPBAlertButtonReadFrom(uint64_t a1, void *a2)
+uint64_t __UIKitLibraryCore_block_invoke_41966(uint64_t a1)
 {
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v32 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v32 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v32 & 0x7F) << v5;
-        if ((v32 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) == 1)
-      {
-        v28 = PBReaderReadString();
-        v29 = *(a1 + 16);
-        *(a1 + 16) = v28;
-      }
-
-      else if (v13 == 2)
-      {
-        v21 = 0;
-        v22 = 0;
-        v23 = 0;
-        while (1)
-        {
-          v33 = 0;
-          v24 = [a2 position] + 1;
-          if (v24 >= [a2 position] && (v25 = objc_msgSend(a2, "position") + 1, v25 <= objc_msgSend(a2, "length")))
-          {
-            v26 = [a2 data];
-            [v26 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v23 |= (v33 & 0x7F) << v21;
-          if ((v33 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v21 += 7;
-          v11 = v22++ >= 9;
-          if (v11)
-          {
-            v27 = 0;
-            goto LABEL_44;
-          }
-        }
-
-        v27 = [a2 hasError] ? 0 : v23;
-LABEL_44:
-        *(a1 + 8) = v27;
-      }
-
-      else if (v13 == 3)
-      {
-        v14 = 0;
-        v15 = 0;
-        v16 = 0;
-        while (1)
-        {
-          v34 = 0;
-          v17 = [a2 position] + 1;
-          if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
-          {
-            v19 = [a2 data];
-            [v19 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v16 |= (v34 & 0x7F) << v14;
-          if ((v34 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v14 += 7;
-          v11 = v15++ >= 9;
-          if (v11)
-          {
-            LOBYTE(v20) = 0;
-            goto LABEL_46;
-          }
-        }
-
-        v20 = (v16 != 0) & ~[a2 hasError];
-LABEL_46:
-        *(a1 + 24) = v20;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v31 = [a2 position];
-    }
-
-    while (v31 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
+  result = _sl_dlopen();
+  UIKitLibraryCore_frameworkLibrary_41965 = result;
+  return result;
 }
 
-__CFString *NSStringFromSyncEventType(int a1)
+void sub_1CA836490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  if ((a1 - 1) > 0xC)
-  {
-    return @"RecordFetch";
-  }
-
-  else
-  {
-    return off_1E8374510[a1 - 1];
-  }
-}
-
-id WFEnforceClass_6231(void *a1, uint64_t a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v5 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v9 = 136315906;
-      v10 = "WFEnforceClass";
-      v11 = 2114;
-      v12 = v3;
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = a2;
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s provideInputForParameters should not be called", &v9, 0x2Au);
-    }
-
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-void sub_1CA6FD908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1CA6FE018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__6342(uint64_t result, uint64_t a2)
+uint64_t __Block_byref_object_copy__42343(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-void sub_1CA6FE36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+id WFGetSystemBuildNumber()
 {
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA6FE554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA6FE8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t WFPBContextualActionEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v33 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v33 & 0x7F) << v5;
-        if ((v33 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 2)
-      {
-        if (v13 == 3)
-        {
-          v25 = 0;
-          v26 = 0;
-          v27 = 0;
-          *(a1 + 36) |= 2u;
-          while (1)
-          {
-            v34 = 0;
-            v28 = [a2 position] + 1;
-            if (v28 >= [a2 position] && (v29 = objc_msgSend(a2, "position") + 1, v29 <= objc_msgSend(a2, "length")))
-            {
-              v30 = [a2 data];
-              [v30 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v27 |= (v34 & 0x7F) << v25;
-            if ((v34 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v25 += 7;
-            v11 = v26++ >= 9;
-            if (v11)
-            {
-              LOBYTE(v31) = 0;
-              goto LABEL_50;
-            }
-          }
-
-          v31 = (v27 != 0) & ~[a2 hasError];
-LABEL_50:
-          *(a1 + 32) = v31;
-        }
-
-        else
-        {
-          if (v13 != 4)
-          {
-LABEL_32:
-            result = PBReaderSkipValueWithTag();
-            if (!result)
-            {
-              return result;
-            }
-
-            goto LABEL_51;
-          }
-
-          v16 = 0;
-          v17 = 0;
-          v18 = 0;
-          *(a1 + 36) |= 1u;
-          while (1)
-          {
-            v35 = 0;
-            v19 = [a2 position] + 1;
-            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
-            {
-              v21 = [a2 data];
-              [v21 getBytes:&v35 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v18 |= (v35 & 0x7F) << v16;
-            if ((v35 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v16 += 7;
-            v11 = v17++ >= 9;
-            if (v11)
-            {
-              v22 = 0;
-              goto LABEL_48;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v22 = 0;
-          }
-
-          else
-          {
-            v22 = v18;
-          }
-
-LABEL_48:
-          *(a1 + 8) = v22;
-        }
-      }
-
-      else
-      {
-        if (v13 == 1)
-        {
-          v14 = PBReaderReadString();
-          v15 = 16;
-        }
-
-        else
-        {
-          if (v13 != 2)
-          {
-            goto LABEL_32;
-          }
-
-          v14 = PBReaderReadString();
-          v15 = 24;
-        }
-
-        v24 = *(a1 + v15);
-        *(a1 + v15) = v14;
-      }
-
-LABEL_51:
-      v32 = [a2 position];
-    }
-
-    while (v32 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-id WFLocalizedPluralString(void *a1)
-{
-  v1 = a1;
-  if ([v1 length])
-  {
-    v2 = MEMORY[0x1E696AEC0];
-    v3 = [v1 stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-    v4 = [v2 stringWithFormat:@"%@ (Pluralization)", v3];
-
-    v5 = WFCurrentBundle();
-    v6 = [v5 localizedStringForKey:v4 value:v1 table:0];
-  }
-
-  else
-  {
-    v6 = v1;
-  }
-
-  return v6;
-}
-
-id WFLocalizedContentPropertyNameMarker(void *a1)
-{
-  v1 = MEMORY[0x1E696AEC0];
-  v2 = a1;
-  v3 = [v1 stringWithFormat:@"%@ (Content Property Name)", v2];
-  v4 = WFDeferrableLocalizedStringWithKey(v3, v2);
-
-  return v4;
-}
-
-id WFDeferrableLocalizedStringWithKey(void *a1, void *a2)
-{
-  v3 = MEMORY[0x1E69E0A88];
-  v4 = a2;
-  v5 = a1;
-  v6 = [[v3 alloc] initWithString:v4];
-  v7 = WFCurrentBundle();
-  v8 = [v7 localizedStringForKey:v5 value:v4 table:0];
-  [v6 setLocalizedValue:v8];
-
-  v9 = WFLocalizedStringResourceWithKey(v5, v4);
-
-  [v6 setStringResource:v9];
-
-  return v6;
-}
-
-id WFLocalizedContentPropertyPossibleValueMarker(void *a1)
-{
-  v1 = MEMORY[0x1E696AEC0];
-  v2 = a1;
-  v3 = [v1 stringWithFormat:@"%@ (Content Property Possible Value)", v2];
-  v4 = WFDeferrableLocalizedStringWithKey(v3, v2);
-
-  return v4;
-}
-
-id WFLocalizedContentPropertyPossibleValue(void *a1)
-{
-  v1 = a1;
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v2 = [v1 localizedValue];
-  }
-
-  else
-  {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (Content Property Possible Value)", v1];
-    v2 = WFLocalizedStringWithKey(v3, v1);
-  }
+  v6 = *MEMORY[0x1E69E9840];
+  size = 0;
+  *v5 = 0x4100000001;
+  sysctl(v5, 2u, 0, &size, 0, 0);
+  v0 = malloc_type_malloc(size, 0xA79F044uLL);
+  sysctl(v5, 2u, v0, &size, 0, 0);
+  v1 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v2 = [v1 initWithBytesNoCopy:v0 length:size - 1 encoding:4 freeWhenDone:1];
 
   return v2;
 }
 
-uint64_t WFREPBSingleActionExecutionReadFrom(char *a1, void *a2)
+id WFGetSystemMachine()
 {
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
+  size = 0;
+  sysctlbyname("hw.machine", 0, &size, 0, 0);
+  v0 = malloc_type_malloc(size, 0xBB5C17C2uLL);
+  sysctlbyname("hw.machine", v0, &size, 0, 0);
+  v1 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v2 = [v1 initWithBytesNoCopy:v0 length:size - 1 encoding:4 freeWhenDone:1];
 
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v19) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v19 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v19 & 0x7F) << v5;
-        if ((v19 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) <= 2)
-      {
-        if (v13 == 1)
-        {
-          v15 = PBReaderReadString();
-          v16 = 8;
-LABEL_34:
-          v14 = *&a1[v16];
-          *&a1[v16] = v15;
-LABEL_35:
-
-          goto LABEL_36;
-        }
-
-        if (v13 == 2)
-        {
-          v14 = objc_alloc_init(WFREPBVariable);
-          [a1 addVariables:v14];
-          v19 = 0;
-          v20 = 0;
-          if (!PBReaderPlaceMark() || !WFREPBVariableReadFrom(v14, a2))
-          {
-LABEL_41:
-
-            return 0;
-          }
-
-LABEL_31:
-          PBReaderRecallMark();
-          goto LABEL_35;
-        }
-      }
-
-      else
-      {
-        switch(v13)
-        {
-          case 3:
-            v14 = objc_alloc_init(WFREPBKeyValuePair);
-            [a1 addProcessedParameters:v14];
-            v19 = 0;
-            v20 = 0;
-            if (!PBReaderPlaceMark() || !WFREPBKeyValuePairReadFrom(v14, a2))
-            {
-              goto LABEL_41;
-            }
-
-            goto LABEL_31;
-          case 4:
-            v15 = PBReaderReadData();
-            v16 = 32;
-            goto LABEL_34;
-          case 5:
-            v14 = objc_alloc_init(WFREPBContentItem);
-            [a1 addInput:v14];
-            v19 = 0;
-            v20 = 0;
-            if (!PBReaderPlaceMark() || !WFREPBContentItemReadFrom(v14, a2))
-            {
-              goto LABEL_41;
-            }
-
-            goto LABEL_31;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_36:
-      v17 = [a2 position];
-    }
-
-    while (v17 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
+  return v2;
 }
 
-void sub_1CA707398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+id WFGetBootSessionUUID()
 {
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
+  size = 0;
+  sysctlbyname("kern.bootsessionuuid", 0, &size, 0, 0);
+  v0 = malloc_type_malloc(size, 0xCCA302EFuLL);
+  sysctlbyname("kern.bootsessionuuid", v0, &size, 0, 0);
+  v1 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v2 = [v1 initWithBytesNoCopy:v0 length:size - 1 encoding:4 freeWhenDone:1];
+
+  return v2;
+}
+
+void sub_1CA838700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+{
+  _Block_object_dispose(&a53, 8);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose(&STACK[0x208], 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__7456(uint64_t result, uint64_t a2)
+uint64_t __Block_byref_object_copy__42658(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-id WFInputActionContentItemClassCorrespondingToAskForParameterValue(void *a1)
+id initUIPasteboardOptionLocalOnly()
 {
-  v1 = a1;
-  if ([v1 isEqualToString:@"Files"])
+  if (UIKitLibrary_sOnce_42664 != -1)
   {
-    v2 = 0x1E6996E50;
-LABEL_17:
-    v3 = *v2;
-    v4 = objc_opt_class();
-    goto LABEL_18;
+    dispatch_once(&UIKitLibrary_sOnce_42664, &__block_literal_global_42665);
   }
 
-  if ([v1 isEqualToString:@"Text"])
-  {
-    v2 = 0x1E6996F60;
-    goto LABEL_17;
-  }
-
-  if ([v1 isEqualToString:@"Date"])
-  {
-    v2 = 0x1E6996DB8;
-    goto LABEL_17;
-  }
-
-  if ([v1 isEqualToString:@"Photos"])
-  {
-    v2 = 0x1E6996F10;
-    goto LABEL_17;
-  }
-
-  if ([v1 isEqualToString:@"Contacts"])
-  {
-    v2 = 0x1E6996D08;
-    goto LABEL_17;
-  }
-
-  if ([v1 isEqualToString:@"Email Address"])
-  {
-    v2 = 0x1E6996E08;
-    goto LABEL_17;
-  }
-
-  if ([v1 isEqualToString:@"Music"])
-  {
-    v2 = 0x1E6996EA0;
-    goto LABEL_17;
-  }
-
-  if ([v1 isEqualToString:@"Phone Number"])
-  {
-    v2 = 0x1E6996F08;
-    goto LABEL_17;
-  }
-
-  v4 = 0;
-LABEL_18:
-
-  return v4;
-}
-
-id WFInputActionParameterKeysForSelectingItemOfClass(objc_class *a1)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  if (!a1)
-  {
-    v15 = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSSet<NSString *> * _Nonnull WFInputActionParameterKeysForSelectingItemOfClass(Class  _Nonnull __unsafe_unretained)"];
-    [v15 handleFailureInFunction:v16 file:@"WFInputAction.m" lineNumber:233 description:{@"Invalid parameter not satisfying: %@", @"contentItemClass"}];
-  }
-
-  v17 = objc_opt_new();
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v2 = WFContentSelectionActionParameterDefinitions();
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v19;
-    do
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v19 != v5)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v7 = *(*(&v18 + 1) + 8 * i);
-        v8 = [v7 objectForKey:@"WFInputActionParameterContentSelectionItemClass"];
-        if (v8)
-        {
-          v9 = NSStringFromClass(a1);
-          v10 = [v8 isEqualToString:v9];
-
-          if (v10)
-          {
-            v11 = [v7 objectForKey:@"Key"];
-            [v17 addObject:v11];
-          }
-        }
-      }
-
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    }
-
-    while (v4);
-  }
-
-  v12 = [v17 copy];
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v12;
-}
-
-id WFContentSelectionActionParameterDefinitions()
-{
-  if (WFContentSelectionActionParameterDefinitions_onceToken != -1)
-  {
-    dispatch_once(&WFContentSelectionActionParameterDefinitions_onceToken, &__block_literal_global_294_7948);
-  }
-
-  v1 = WFContentSelectionActionParameterDefinitions_parameterDefinitions;
-
-  return v1;
-}
-
-void __WFContentSelectionActionParameterDefinitions_block_invoke()
-{
-  v23[8] = *MEMORY[0x1E69E9840];
-  v23[0] = @"Files";
-  v23[1] = @"Text";
-  v23[2] = @"Date";
-  v23[3] = @"Photos";
-  v23[4] = @"Contacts";
-  v23[5] = @"Email Address";
-  v23[6] = @"Music";
-  v23[7] = @"Phone Number";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:8];
-  v1 = [v0 if_map:&__block_literal_global_297];
-  v2 = +[WFActionRegistry sharedRegistry];
-  v3 = [v2 createActionsForSelectingContentOfTypes:v1 serializedParameterArray:0];
-
-  if (v3)
-  {
-    v4 = objc_opt_new();
-    v5 = objc_opt_new();
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __WFContentSelectionActionParameterDefinitions_block_invoke_298;
-    v16[3] = &unk_1E8374C98;
-    v6 = v4;
-    v17 = v6;
-    v18 = v1;
-    v7 = v5;
-    v19 = v7;
-    v20 = v3;
-    [v0 enumerateObjectsUsingBlock:v16];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __WFContentSelectionActionParameterDefinitions_block_invoke_2_300;
-    v13[3] = &unk_1E8374D10;
-    v14 = v6;
-    v15 = v7;
-    v8 = v7;
-    v9 = v6;
-    v10 = [v0 if_flatMap:v13];
-    v11 = WFContentSelectionActionParameterDefinitions_parameterDefinitions;
-    WFContentSelectionActionParameterDefinitions_parameterDefinitions = v10;
-  }
-
-  else
-  {
-    v9 = getWFActionsLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 136315138;
-      v22 = "WFContentSelectionActionParameterDefinitions_block_invoke";
-      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Couldn't make content selection actions for all content types", buf, 0xCu);
-    }
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-void __WFContentSelectionActionParameterDefinitions_block_invoke_298(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = *(a1 + 40);
-  v6 = a2;
-  [*(a1 + 32) setObject:objc_msgSend(v5 forKeyedSubscript:{"objectAtIndexedSubscript:", a3), v6}];
-  v7 = [*(a1 + 56) objectAtIndexedSubscript:a3];
-  [*(a1 + 48) setObject:v7 forKeyedSubscript:v6];
-}
-
-id __WFContentSelectionActionParameterDefinitions_block_invoke_2_300(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = [*(a1 + 32) objectForKeyedSubscript:v3];
-  v5 = [*(a1 + 40) objectForKeyedSubscript:v3];
-  v6 = v5;
-  v7 = MEMORY[0x1E695E0F0];
-  if (v5)
-  {
-    v8 = v4 == 0;
-  }
-
-  else
-  {
-    v8 = 1;
-  }
-
-  if (!v8)
-  {
-    v9 = [v5 definition];
-    v10 = [v9 objectForKey:@"Parameters"];
-
-    if (v10)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        v11 = v10;
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    v12 = v11;
-
-    v13 = [v6 inputParameterKey];
-    v14 = objc_opt_new();
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __WFContentSelectionActionParameterDefinitions_block_invoke_3;
-    v23[3] = &unk_1E8374CC0;
-    v24 = v13;
-    v25 = v3;
-    v26 = v4;
-    v15 = v13;
-    v16 = [v12 if_compactMap:v23];
-
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __WFContentSelectionActionParameterDefinitions_block_invoke_4;
-    v21[3] = &unk_1E8375E38;
-    v22 = v14;
-    v17 = v14;
-    v18 = [v16 if_map:v21];
-
-    if (v18)
-    {
-      v19 = v18;
-    }
-
-    else
-    {
-      v19 = v7;
-    }
-
-    v7 = v19;
-  }
-
-  return v7;
-}
-
-id __WFContentSelectionActionParameterDefinitions_block_invoke_3(uint64_t a1, void *a2)
-{
-  v28[1] = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [v3 objectForKey:@"Key"];
-  if (v4)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v5 = v4;
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v6 = v5;
-
-  if (*(a1 + 32) && ([v6 isEqualToString:?] & 1) != 0)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v8 = [WFParameterRelationResource alloc];
-    v28[0] = @"Ask For";
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
-    v10 = [(WFParameterRelationResource *)v8 initWithParameterKey:@"WFNoInputBehavior" parameterValues:v9 relation:0];
-
-    v11 = [WFParameterRelationResource alloc];
-    v27 = *(a1 + 40);
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
-    v13 = [(WFParameterRelationResource *)v11 initWithParameterKey:@"WFAskForType" parameterValues:v12 relation:0];
-
-    v14 = [v3 objectForKey:@"RequiredResources"];
-    if (v14)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        v15 = v14;
-      }
-
-      else
-      {
-        v15 = 0;
-      }
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-
-    v16 = v15;
-
-    if (v16)
-    {
-      v17 = v16;
-    }
-
-    else
-    {
-      v17 = MEMORY[0x1E695E0F0];
-    }
-
-    v18 = [v17 mutableCopy];
-
-    v19 = WFSerializedResource(v10);
-    [v18 addObject:v19];
-
-    v20 = WFSerializedResource(v13);
-    [v18 addObject:v20];
-
-    v25[0] = @"RequiredResources";
-    v25[1] = @"WFInputActionParameterContentSelectionItemClass";
-    v26[0] = v18;
-    v21 = NSStringFromClass(*(a1 + 48));
-    v26[1] = v21;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
-    v7 = [v3 definitionByAddingEntriesInDictionary:v22];
-  }
-
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v7;
-}
-
-id __WFContentSelectionActionParameterDefinitions_block_invoke_4(uint64_t a1, void *a2)
-{
-  v18[1] = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [v3 objectForKey:@"RequiredResources"];
-  if (v4)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v5 = v4;
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v6 = v5;
-
-  v12 = MEMORY[0x1E69E9820];
-  v13 = 3221225472;
-  v14 = __WFContentSelectionActionParameterDefinitions_block_invoke_5;
-  v15 = &unk_1E8374CE8;
-  v16 = *(a1 + 32);
-  v7 = [v6 if_map:&v12];
-
-  v17 = @"RequiredResources";
-  v18[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:{1, v12, v13, v14, v15}];
-  v9 = [v3 definitionByAddingEntriesInDictionary:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v9;
-}
-
-id __WFContentSelectionActionParameterDefinitions_block_invoke_5(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = [v3 mutableCopy];
-  v5 = [v3 objectForKeyedSubscript:@"WFParameterKey"];
-  if (v5)
-  {
-    v6 = [*(a1 + 32) objectForKeyedSubscript:v5];
-    if (v6)
-    {
-      [v4 setObject:v6 forKeyedSubscript:@"WFParameterKey"];
-      v7 = [v4 copy];
-    }
-
-    else
-    {
-      v7 = v3;
-    }
-
-    v8 = v7;
-  }
-
-  else
-  {
-    v8 = v3;
-  }
-
-  return v8;
-}
-
-id WFSerializedResource(void *a1)
-{
-  v12[1] = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  if (!v1)
-  {
-    v9 = [MEMORY[0x1E696AAA8] currentHandler];
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSDictionary * _Nonnull WFSerializedResource(WFResource * _Nonnull __strong)"];
-    [v9 handleFailureInFunction:v10 file:@"WFInputAction.m" lineNumber:117 description:{@"Invalid parameter not satisfying: %@", @"resource"}];
-  }
-
-  v2 = [v1 definition];
-  v11 = @"WFResourceClass";
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v12[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-  v6 = [v2 if_dictionaryByAddingEntriesFromDictionary:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
-}
-
-id __WFContentSelectionActionParameterDefinitions_block_invoke_2(uint64_t a1, void *a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = a2;
-  v3 = WFInputActionContentItemClassCorrespondingToAskForParameterValue(v2);
-  if (!v3)
-  {
-    v4 = getWFActionsLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      v8 = 136315394;
-      v9 = "WFContentSelectionActionParameterDefinitions_block_invoke_2";
-      v10 = 2112;
-      v11 = v2;
-      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s Couldn't map content type to content item class: %@", &v8, 0x16u);
-    }
-  }
-
-  v5 = v3;
-
-  v6 = *MEMORY[0x1E69E9840];
-  return v3;
-}
-
-id WFEnforceClass_8337(void *a1, uint64_t a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v5 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v9 = 136315906;
-      v10 = "WFEnforceClass";
-      v11 = 2114;
-      v12 = v3;
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = a2;
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s %{public}@ is not a known class name.", &v9, 0x2Au);
-    }
-
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-void sub_1CA718D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__8610(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA719514(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location)
-{
-  objc_destroyWeak((v25 + 40));
-  objc_destroyWeak(&a23);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void WFMCIsAppAccountBasedSourceForOpenIn(void *a1)
-{
-  v1 = a1;
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v2 = getMCIsAppAccountBasedSourceForOpenInSymbolLoc_ptr;
-  v9 = getMCIsAppAccountBasedSourceForOpenInSymbolLoc_ptr;
-  if (!getMCIsAppAccountBasedSourceForOpenInSymbolLoc_ptr)
-  {
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __getMCIsAppAccountBasedSourceForOpenInSymbolLoc_block_invoke;
-    v5[3] = &unk_1E837FAC0;
-    v5[4] = &v6;
-    __getMCIsAppAccountBasedSourceForOpenInSymbolLoc_block_invoke(v5);
-    v2 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v2)
-  {
-    v2(v1);
-  }
-
-  else
-  {
-    v3 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"BOOL WFMCIsAppAccountBasedSourceForOpenIn(NSString *__strong)"];
-    [v3 handleFailureInFunction:v4 file:@"WFAction.m" lineNumber:56 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA71A978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void *__getMCIsAppAccountBasedSourceForOpenInSymbolLoc_block_invoke(void *a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  if (!ManagedConfigurationLibraryCore_frameworkLibrary)
-  {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __ManagedConfigurationLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E83753C8;
-    v8 = 0;
-    ManagedConfigurationLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  v2 = ManagedConfigurationLibraryCore_frameworkLibrary;
-  if (!ManagedConfigurationLibraryCore_frameworkLibrary)
-  {
-    a1 = [MEMORY[0x1E696AAA8] currentHandler];
-    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ManagedConfigurationLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"WFAction.m" lineNumber:55 description:{@"%s", v6[0]}];
-
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v3 = v6[0];
-  if (v6[0])
-  {
-LABEL_7:
-    free(v3);
-  }
-
-  result = dlsym(v2, "MCIsAppAccountBasedSourceForOpenIn");
-  *(*(a1[4] + 8) + 24) = result;
-  getMCIsAppAccountBasedSourceForOpenInSymbolLoc_ptr = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t __ManagedConfigurationLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  ManagedConfigurationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-id WFEnforceClass_8714(void *a1, uint64_t a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v5 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v9 = 136315906;
-      v10 = "WFEnforceClass";
-      v11 = 2114;
-      v12 = v3;
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = a2;
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Action: %{public}@ setting parameter state: %{public}@, key:%{public}@, value:%@", &v9, 0x2Au);
-    }
-
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-void __WFActionGreenTeaContentDestinationMayLeaveDevice_block_invoke_2()
-{
-  v6[2] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = *MEMORY[0x1E69E0EB8];
-  v6[0] = *MEMORY[0x1E69E0E68];
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
-  v3 = [v0 setWithArray:v2];
-  v4 = WFActionGreenTeaContentDestinationMayLeaveDevice_exfiltratingAppBundleIdentifier;
-  WFActionGreenTeaContentDestinationMayLeaveDevice_exfiltratingAppBundleIdentifier = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __WFActionGreenTeaContentDestinationMayLeaveDevice_block_invoke()
-{
-  v5[7] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"com.apple.shortcuts.airdropDestination";
-  v5[1] = @"com.apple.shortcuts.appleScriptDestination";
-  v5[2] = @"com.apple.shortcuts.javaScriptForAutomationDestination";
-  v5[3] = @"com.apple.shortcuts.printDestination";
-  v5[4] = @"com.apple.shortcuts.shareExtensionDestination";
-  v5[5] = @"com.apple.shortcuts.shellDestination";
-  v5[6] = @"com.apple.shortcuts.webpagesDestination";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
-  v2 = [v0 setWithArray:v1];
-  v3 = WFActionGreenTeaContentDestinationMayLeaveDevice_dataLeavingContentDestination;
-  WFActionGreenTeaContentDestinationMayLeaveDevice_dataLeavingContentDestination = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1CA725F44(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 144));
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA729E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id WFPreferredVariableNameForVariable(void *a1)
-{
-  v1 = a1;
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v2 = [v1 outputUUID];
-    v3 = [v2 stringByAppendingString:@"-output"];
-  }
-
-  else
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v3 = [v1 name];
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-  }
-
-  return v3;
-}
-
-void sub_1CA72B72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id WFEnforceClass_9058(void *a1, uint64_t a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v5 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v9 = 136315906;
-      v10 = "WFEnforceClass";
-      v11 = 2114;
-      v12 = v3;
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = a2;
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Action %@ is being rate limited because it passed the threshold of %li runs. Delaying execution for %li seconds.", &v9, 0x2Au);
-    }
-
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-id WFEnforceClass_9663(void *a1, uint64_t a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v5 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v9 = 136315906;
-      v10 = "WFEnforceClass";
-      v11 = 2114;
-      v12 = v3;
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = a2;
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Received unexpected interaction response of type %@", &v9, 0x2Au);
-    }
-
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-uint64_t WFPerformCustomModificationsStep(void *a1, void *a2, void *a3, void *a4)
-{
-  v38 = *MEMORY[0x1E69E9840];
-  v23 = a1;
-  v7 = a2;
-  v22 = a4;
-  v8 = [MEMORY[0x1E695D6C8] persistentStoreDescriptionWithURL:v7];
-  v9 = [objc_alloc(MEMORY[0x1E695D6C0]) initWithManagedObjectModel:v23];
-  v10 = [v8 type];
-  v11 = [v8 configuration];
-  v12 = [v8 URL];
-  v33 = 0;
-  v13 = [v9 addPersistentStoreWithType:v10 configuration:v11 URL:v12 options:0 error:&v33];
-  v14 = v33;
-
-  if (v13)
-  {
-    v15 = [objc_alloc(MEMORY[0x1E695D628]) initWithConcurrencyType:1];
-    [v15 setPersistentStoreCoordinator:v9];
-    [v15 setMergePolicy:*MEMORY[0x1E695D388]];
-    [v15 setUndoManager:0];
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
-    v32 = 1;
-    *buf = 0;
-    *&buf[8] = buf;
-    *&buf[16] = 0x3032000000;
-    v35 = __Block_byref_object_copy__9793;
-    v36 = __Block_byref_object_dispose__9794;
-    v37 = 0;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __WFPerformCustomModificationsStep_block_invoke;
-    v24[3] = &unk_1E837A028;
-    v27 = &v29;
-    v26 = v22;
-    v16 = v15;
-    v25 = v16;
-    v28 = buf;
-    [v16 performBlockAndWait:v24];
-    if (a3)
-    {
-      *a3 = *(*&buf[8] + 40);
-    }
-
-    v17 = *(v30 + 24);
-
-    _Block_object_dispose(buf, 8);
-    _Block_object_dispose(&v29, 8);
-  }
-
-  else
-  {
-    v18 = getWFDatabaseLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      *&buf[4] = "WFPerformCustomModificationsStep";
-      *&buf[12] = 2114;
-      *&buf[14] = v14;
-      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_ERROR, "%s Failed to add persistent store during Core Data migration: %{public}@", buf, 0x16u);
-    }
-
-    if (a3)
-    {
-      v19 = v14;
-      v17 = 0;
-      *a3 = v14;
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
-  return v17 & 1;
-}
-
-void sub_1CA731538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  _Block_object_dispose(va1, 8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__9793(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void __WFPerformCustomModificationsStep_block_invoke(void *a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  v4 = a1[4];
-  v3 = a1[5];
-  v8 = 0;
-  v5 = (*(v3 + 16))();
-  v6 = v8;
-  v7 = v8;
-  *(*(a1[6] + 8) + 24) = v5;
-  if ((*(*(a1[6] + 8) + 24) & 1) == 0)
-  {
-    objc_storeStrong((*(a1[7] + 8) + 40), v6);
-  }
-
-  objc_autoreleasePoolPop(v2);
-}
-
-uint64_t __Block_byref_object_copy__9838(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void WFInsertIdentifierForKey(void *a1, void *a2, void *a3)
-{
-  v8 = a1;
-  v5 = a2;
-  v6 = a3;
-  v7 = [v8 objectForKey:v5];
-  if (!v7)
-  {
-    v7 = objc_opt_new();
-    [v8 setObject:v7 forKey:v5];
-  }
-
-  [v7 addObject:v6];
-}
-
-void sub_1CA73209C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-uint64_t WFPBSetupGalleryShortcutEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v26 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v26 & 0x7F) << v5;
-        if ((v26 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) <= 2)
-      {
-        if (v13 == 1)
-        {
-          v21 = PBReaderReadString();
-          v22 = 32;
-          goto LABEL_36;
-        }
-
-        if (v13 == 2)
-        {
-          v21 = PBReaderReadString();
-          v22 = 16;
-LABEL_36:
-          v23 = *(a1 + v22);
-          *(a1 + v22) = v21;
-
-          goto LABEL_37;
-        }
-      }
-
-      else
-      {
-        switch(v13)
-        {
-          case 3:
-            v21 = PBReaderReadString();
-            v22 = 24;
-            goto LABEL_36;
-          case 4:
-            v21 = PBReaderReadString();
-            v22 = 8;
-            goto LABEL_36;
-          case 5:
-            v14 = 0;
-            v15 = 0;
-            v16 = 0;
-            *(a1 + 44) |= 1u;
-            while (1)
-            {
-              v27 = 0;
-              v17 = [a2 position] + 1;
-              if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
-              {
-                v19 = [a2 data];
-                [v19 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
-
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v16 |= (v27 & 0x7F) << v14;
-              if ((v27 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v14 += 7;
-              v11 = v15++ >= 9;
-              if (v11)
-              {
-                LOBYTE(v20) = 0;
-                goto LABEL_42;
-              }
-            }
-
-            v20 = (v16 != 0) & ~[a2 hasError];
-LABEL_42:
-            *(a1 + 40) = v20;
-            goto LABEL_37;
-        }
-      }
-
-      result = PBReaderSkipValueWithTag();
-      if (!result)
-      {
-        return result;
-      }
-
-LABEL_37:
-      v24 = [a2 position];
-    }
-
-    while (v24 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_1CA736158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
-{
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 136), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__10462(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-uint64_t WFPBRemoteExecutionErrorEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v20 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v20 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v20 & 0x7F) << v5;
-        if ((v20 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      v13 = (v12 >> 3) - 1;
-      if (v13 >= 5)
-      {
-        if ((PBReaderSkipValueWithTag() & 1) == 0)
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        v14 = off_1E8375640[v13];
-        v15 = PBReaderReadString();
-        v16 = *v14;
-        v17 = *(a1 + v16);
-        *(a1 + v16) = v15;
-      }
-
-      v18 = [a2 position];
-    }
-
-    while (v18 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-id WFFileLocationClassByType()
-{
-  v4[9] = *MEMORY[0x1E69E9840];
-  v3[0] = @"FileProvider";
-  v4[0] = objc_opt_class();
-  v3[1] = @"Desktop";
-  v4[1] = objc_opt_class();
-  v3[2] = @"Documents";
-  v4[2] = objc_opt_class();
-  v3[3] = @"Downloads";
-  v4[3] = objc_opt_class();
-  v3[4] = @"Shortcuts";
-  v4[4] = objc_opt_class();
-  v3[5] = @"iCloud";
-  v4[5] = objc_opt_class();
-  v3[6] = @"LocalStorage";
-  v4[6] = objc_opt_class();
-  v3[7] = @"Home";
-  v4[7] = objc_opt_class();
-  v3[8] = @"Absolute";
-  v4[8] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:9];
-  v1 = *MEMORY[0x1E69E9840];
-
-  return v0;
-}
-
-void sub_1CA737824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA7382C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__10748(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA7386D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t WFREPBRepeatedKeyValuePairReadFrom(void *a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v17 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v17 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v17 & 0x7F) << v5;
-        if ((v17 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = PBReaderReadString();
-        v14 = a1[1];
-        a1[1] = v13;
-LABEL_22:
-
-        goto LABEL_24;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_24:
-      v15 = [a2 position];
-      if (v15 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v14 = PBReaderReadData();
-    if (v14)
-    {
-      [a1 addValue:v14];
-    }
-
-    goto LABEL_22;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-id getWFWFScreenOnObserverLogObject()
-{
-  if (getWFWFScreenOnObserverLogObject_onceToken != -1)
-  {
-    dispatch_once(&getWFWFScreenOnObserverLogObject_onceToken, &__block_literal_global_11053);
-  }
-
-  v1 = getWFWFScreenOnObserverLogObject_log;
-
-  return v1;
-}
-
-void __getWFWFScreenOnObserverLogObject_block_invoke()
-{
-  v0 = os_log_create(*MEMORY[0x1E69E1140], "WFScreenOnObserver");
-  v1 = getWFWFScreenOnObserverLogObject_log;
-  getWFWFScreenOnObserverLogObject_log = v0;
-}
-
-_BYTE *mtl_copyPropertyAttributes(objc_property *a1)
-{
-  v43[1] = *MEMORY[0x1E69E9840];
-  Attributes = property_getAttributes(a1);
-  if (!Attributes)
-  {
-    v28 = *MEMORY[0x1E69E9848];
-    property_getName(a1);
-    fprintf(v28, "ERROR: Could not get attribute string from property %s\n");
-    goto LABEL_64;
-  }
-
-  v3 = Attributes;
-  if (*Attributes != 84)
-  {
-    v29 = *MEMORY[0x1E69E9848];
-    property_getName(a1);
-    fprintf(v29, "ERROR: Expected attribute string %s for property %s to start with 'T'\n");
-    goto LABEL_64;
-  }
-
-  v4 = Attributes + 1;
-  v5 = NSGetSizeAndAlignment(Attributes + 1, 0, 0);
-  if (!v5)
-  {
-    v30 = *MEMORY[0x1E69E9848];
-    property_getName(a1);
-    fprintf(v30, "ERROR: Could not read past type in attribute string %s for property %s\n");
-    goto LABEL_64;
-  }
-
-  v6 = v5;
-  v7 = v5 - v4;
-  if (v5 == v4)
-  {
-    v31 = *MEMORY[0x1E69E9848];
-    property_getName(a1);
-    fprintf(v31, "ERROR: Invalid type in attribute string %s for property %s\n");
-    goto LABEL_64;
-  }
-
-  v8 = malloc_type_calloc(1uLL, v7 + 49, 0x10D0040A857D93CuLL);
-  if (!v8)
-  {
-    v38 = *MEMORY[0x1E69E9848];
-    property_getName(a1);
-    fprintf(v38, "ERROR: Could not allocate mtl_propertyAttributes structure for attribute string %s for property %s\n");
-    goto LABEL_64;
-  }
-
-  v9 = v8;
-  strncpy(v8 + 48, v3 + 1, v7)[v7] = 0;
-  if (*v4 == 64 && v3[2] == 34)
-  {
-    v10 = (v3 + 3);
-    v11 = strchr(v3 + 3, 34);
-    if (v11)
-    {
-      v6 = v11;
-      if (v10 != v11)
-      {
-        v12 = (v11 - v10);
-        MEMORY[0x1EEE9AC00](v11);
-        v14 = strncpy(v43 - v13, v3 + 3, v6 - v10);
-        v12[v14] = 0;
-        *(v9 + 5) = objc_getClass(v14);
-      }
-
-      goto LABEL_11;
-    }
-
-    v41 = *MEMORY[0x1E69E9848];
-    property_getName(a1);
-    fprintf(v41, "ERROR: Could not read class name in attribute string %s for property %s\n");
-LABEL_68:
-    free(v9);
-LABEL_64:
-    v9 = 0;
-    goto LABEL_65;
-  }
-
-LABEL_11:
-  if (*v6)
-  {
-    v6 = strchr(v6, 44);
-    if (!v6)
-    {
-      goto LABEL_59;
-    }
-  }
-
-  v15 = MEMORY[0x1E69E9848];
-  while (*v6 == 44)
-  {
-    v16 = v6[1];
-    v17 = v16;
-    v6 += 2;
-    if (v16 > 79)
-    {
-      if (v16 > 85)
-      {
-        switch(v16)
-        {
-          case 'V':
-            if (*v6)
-            {
-              *(v9 + 4) = v6;
-              v6 = "";
-            }
-
-            else
-            {
-LABEL_44:
-              *(v9 + 4) = 0;
-            }
-
-            break;
-          case 'W':
-            v9[2] = 1;
-            break;
-          case 't':
-            v18 = *v15;
-            Name = property_getName(a1);
-            fprintf(v18, "ERROR: Old-style type encoding is unsupported in attribute string %s for property %s\n", v3, Name);
-            while (*v6 && *v6 != 44)
-            {
-              ++v6;
-            }
-
-            break;
-          default:
-            goto LABEL_48;
-        }
-      }
-
-      else
-      {
-        switch(v16)
-        {
-          case 'P':
-            v9[3] = 1;
-            break;
-          case 'R':
-            *v9 = 1;
-            break;
-          case 'S':
-            goto LABEL_37;
-          default:
-LABEL_48:
-            v26 = *v15;
-            v27 = property_getName(a1);
-            fprintf(v26, "ERROR: Unrecognized attribute string flag '%c' in attribute string %s for property %s\n", v17, v3, v27);
-            break;
-        }
-      }
-    }
-
-    else if (v16 > 67)
-    {
-      switch(v16)
-      {
-        case 'D':
-          v9[4] = 1;
-          goto LABEL_44;
-        case 'G':
-LABEL_37:
-          v20 = strchr(v6, 44);
-          if (v20)
-          {
-            v21 = v20;
-            v22 = v20 - v6;
-            if (v20 == v6)
-            {
-              v42 = *v15;
-              property_getName(a1);
-              fprintf(v42, "ERROR: Found zero length selector name in attribute string %s for property %s\n");
-              goto LABEL_68;
-            }
-
-            MEMORY[0x1EEE9AC00](v20);
-            v24 = strncpy(v43 - v23, v6, v22);
-            v24[v22] = 0;
-            v25 = sel_registerName(v24);
-            v6 = v21;
-          }
-
-          else
-          {
-            v25 = sel_registerName(v6);
-            v6 = "";
-          }
-
-          if (v17 == 71)
-          {
-            *(v9 + 2) = v25;
-          }
-
-          else
-          {
-            *(v9 + 3) = v25;
-          }
-
-          break;
-        case 'N':
-          v9[1] = 1;
-          break;
-        default:
-          goto LABEL_48;
-      }
-    }
-
-    else if (v16)
-    {
-      if (v16 == 38)
-      {
-        *(v9 + 2) = 1;
-      }
-
-      else
-      {
-        if (v16 != 67)
-        {
-          goto LABEL_48;
-        }
-
-        *(v9 + 2) = 2;
-      }
-    }
-  }
-
-  if (*v6)
-  {
-    v32 = *v15;
-    v33 = property_getName(a1);
-    fprintf(v32, "Warning: Unparsed data %s in attribute string %s for property %s\n", v6, v3, v33);
-  }
-
-LABEL_59:
-  if (!*(v9 + 2))
-  {
-    v34 = property_getName(a1);
-    *(v9 + 2) = sel_registerName(v34);
-  }
-
-  if (!*(v9 + 3))
-  {
-    v35 = property_getName(a1);
-    v36 = strlen(v35);
-    v37 = v43 - ((MEMORY[0x1EEE9AC00](v36) + 20) & 0xFFFFFFFFFFFFFFF0);
-    v37[2] = 116;
-    *v37 = 25971;
-    strncpy(v37 + 3, v35, v36);
-    v37[3] = __toupper(v37[3]);
-    *&v37[v36 + 3] = 58;
-    *(v9 + 3) = sel_registerName(v37);
-  }
-
-LABEL_65:
-  v39 = *MEMORY[0x1E69E9840];
-  return v9;
-}
-
-uint64_t WFPBSuspendShortcutEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v20 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v20 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v20 & 0x7F) << v5;
-        if ((v20 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      v13 = (v12 >> 3) - 1;
-      if (v13 >= 3)
-      {
-        if ((PBReaderSkipValueWithTag() & 1) == 0)
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        v14 = off_1E8375768[v13];
-        v15 = PBReaderReadString();
-        v16 = *v14;
-        v17 = *(a1 + v16);
-        *(a1 + v16) = v15;
-      }
-
-      v18 = [a2 position];
-    }
-
-    while (v18 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_1CA73F968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__11777(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA740204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id getAXSDSettingsClass()
-{
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2050000000;
-  v0 = getAXSDSettingsClass_softClass;
-  v7 = getAXSDSettingsClass_softClass;
-  if (!getAXSDSettingsClass_softClass)
-  {
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = __getAXSDSettingsClass_block_invoke;
-    v3[3] = &unk_1E837FAC0;
-    v3[4] = &v4;
-    __getAXSDSettingsClass_block_invoke(v3);
-    v0 = v5[3];
-  }
-
-  v1 = v0;
-  _Block_object_dispose(&v4, 8);
-
-  return v1;
-}
-
-void sub_1CA7402E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void __getAXSDSettingsClass_block_invoke(uint64_t a1)
-{
-  AXSoundDetectionLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("AXSDSettings");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getAXSDSettingsClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getAXSDSettingsClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"WFAXSDSettings.m" lineNumber:19 description:{@"Unable to find class %s", "AXSDSettings"}];
-
-    __break(1u);
-  }
-}
-
-void *AXSoundDetectionLibrary()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
-  if (!AXSoundDetectionLibraryCore_frameworkLibrary)
-  {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AXSoundDetectionLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E8375880;
-    v7 = 0;
-    AXSoundDetectionLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  v0 = AXSoundDetectionLibraryCore_frameworkLibrary;
-  if (!AXSoundDetectionLibraryCore_frameworkLibrary)
-  {
-    v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AXSoundDetectionLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"WFAXSDSettings.m" lineNumber:18 description:{@"%s", v5[0]}];
-
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v1 = v5[0];
-  if (v5[0])
-  {
-LABEL_7:
-    free(v1);
-  }
-
-  v2 = *MEMORY[0x1E69E9840];
-  return v0;
-}
-
-uint64_t __AXSoundDetectionLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  AXSoundDetectionLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void getAXSDSoundDetectionTypeApplianceBeeps()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getAXSDSoundDetectionTypeApplianceBeepsSymbolLoc_ptr;
-  v9 = getAXSDSoundDetectionTypeApplianceBeepsSymbolLoc_ptr;
-  if (!getAXSDSoundDetectionTypeApplianceBeepsSymbolLoc_ptr)
-  {
-    v1 = AXSoundDetectionLibrary();
-    v7[3] = dlsym(v1, "AXSDSoundDetectionTypeApplianceBeeps");
-    getAXSDSoundDetectionTypeApplianceBeepsSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"AXSDSoundDetectionType getAXSDSoundDetectionTypeApplianceBeeps(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFAXSDSettings.m" lineNumber:21 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA7408C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void soft_bmTypeForSoundDetectionType(void *a1)
-{
-  v1 = a1;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v2 = getbmTypeForSoundDetectionTypeSymbolLoc_ptr;
-  v11 = getbmTypeForSoundDetectionTypeSymbolLoc_ptr;
-  if (!getbmTypeForSoundDetectionTypeSymbolLoc_ptr)
-  {
-    v3 = AXSoundDetectionLibrary();
-    v9[3] = dlsym(v3, "bmTypeForSoundDetectionType");
-    getbmTypeForSoundDetectionTypeSymbolLoc_ptr = v9[3];
-    v2 = v9[3];
-  }
-
-  _Block_object_dispose(&v8, 8);
-  if (v2)
-  {
-    v4 = v2(v1);
-
-    v5 = v4;
-  }
-
-  else
-  {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"BMSoundDetectionType soft_bmTypeForSoundDetectionType(__strong AXSDSoundDetectionType)"];
-    [v6 handleFailureInFunction:v7 file:@"WFAXSDSettings.m" lineNumber:25 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA740A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void getAXSDSoundDetectionTypeApplianceBuzzes()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getAXSDSoundDetectionTypeApplianceBuzzesSymbolLoc_ptr;
-  v9 = getAXSDSoundDetectionTypeApplianceBuzzesSymbolLoc_ptr;
-  if (!getAXSDSoundDetectionTypeApplianceBuzzesSymbolLoc_ptr)
-  {
-    v1 = AXSoundDetectionLibrary();
-    v7[3] = dlsym(v1, "AXSDSoundDetectionTypeApplianceBuzzes");
-    getAXSDSoundDetectionTypeApplianceBuzzesSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"AXSDSoundDetectionType getAXSDSoundDetectionTypeApplianceBuzzes(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFAXSDSettings.m" lineNumber:22 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA740BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void getAXSDSoundDetectionTypeApplianceBellDings()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getAXSDSoundDetectionTypeApplianceBellDingsSymbolLoc_ptr;
-  v9 = getAXSDSoundDetectionTypeApplianceBellDingsSymbolLoc_ptr;
-  if (!getAXSDSoundDetectionTypeApplianceBellDingsSymbolLoc_ptr)
-  {
-    v1 = AXSoundDetectionLibrary();
-    v7[3] = dlsym(v1, "AXSDSoundDetectionTypeApplianceBellDings");
-    getAXSDSoundDetectionTypeApplianceBellDingsSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"AXSDSoundDetectionType getAXSDSoundDetectionTypeApplianceBellDings(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFAXSDSettings.m" lineNumber:23 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA740D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void *__getAXSDSoundDetectionTypeApplianceBellDingsSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = AXSoundDetectionLibrary();
-  result = dlsym(v2, "AXSDSoundDetectionTypeApplianceBellDings");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getAXSDSoundDetectionTypeApplianceBellDingsSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getAXSDSoundDetectionTypeApplianceBuzzesSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = AXSoundDetectionLibrary();
-  result = dlsym(v2, "AXSDSoundDetectionTypeApplianceBuzzes");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getAXSDSoundDetectionTypeApplianceBuzzesSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getbmTypeForSoundDetectionTypeSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = AXSoundDetectionLibrary();
-  result = dlsym(v2, "bmTypeForSoundDetectionType");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getbmTypeForSoundDetectionTypeSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getAXSDSoundDetectionTypeApplianceBeepsSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = AXSoundDetectionLibrary();
-  result = dlsym(v2, "AXSDSoundDetectionTypeApplianceBeeps");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getAXSDSoundDetectionTypeApplianceBeepsSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getHKFeatureIdentifierSleepCoachingSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = HealthKitLibrary();
-  result = dlsym(v2, "HKFeatureIdentifierSleepCoaching");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getHKFeatureIdentifierSleepCoachingSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getHKFeatureIdentifierSleepActionsSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = HealthKitLibrary();
-  result = dlsym(v2, "HKFeatureIdentifierSleepActions");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getHKFeatureIdentifierSleepActionsSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void sub_1CA741A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __SleepLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  SleepLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t __HealthKitLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  HealthKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t WFWorkflowHasActionsWithIdentifier(void *a1, void *a2)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  [a2 objectForKey:@"WFWorkflowActions"];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v4 = v17 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v15;
-    while (2)
-    {
-      v8 = 0;
-      do
-      {
-        if (*v15 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = [*(*(&v14 + 1) + 8 * v8) objectForKeyedSubscript:{@"WFWorkflowActionIdentifier", v14}];
-        v10 = [v9 isEqualToString:v3];
-
-        if (v10)
-        {
-          v11 = 1;
-          goto LABEL_11;
-        }
-
-        ++v8;
-      }
-
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-      if (v6)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  v11 = 0;
-LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
-  return v11;
-}
-
-uint64_t WFWorkflowHasActionsWithBundleIdentifier(void *a1, void *a2)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  [a2 objectForKey:@"WFWorkflowActions"];
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v4 = v21 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v19;
-    while (2)
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v19 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = [*(*(&v18 + 1) + 8 * i) objectForKeyedSubscript:{@"WFWorkflowActionIdentifier", v18}];
-        v10 = [v9 rangeOfString:@"." options:4];
-        if (v10 == 0x7FFFFFFFFFFFFFFFLL)
-        {
-
-          goto LABEL_12;
-        }
-
-        v11 = [v9 substringToIndex:v10];
-        v12 = [v11 lowercaseString];
-        v13 = [v3 lowercaseString];
-        v14 = [v12 isEqualToString:v13];
-
-        if (v14)
-        {
-          v15 = 1;
-          goto LABEL_14;
-        }
-      }
-
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
-      v15 = 0;
-      if (v6)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  else
-  {
-LABEL_12:
-    v15 = 0;
-  }
-
-LABEL_14:
-
-  v16 = *MEMORY[0x1E69E9840];
-  return v15;
-}
-
-id WFCLLocationManagerWithOptions(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  v7 = objc_alloc(getCLLocationManagerClass());
-  v8 = v7;
-  switch(a1)
-  {
-    case 3:
-      v9 = MEMORY[0x1E696AAE8];
-      v10 = @"/System/Library/PrivateFrameworks/AssistantServices.framework";
-      goto LABEL_7;
-    case 2:
-      v11 = MEMORY[0x1E69E0E90];
-      break;
-    case 1:
-      v9 = MEMORY[0x1E696AAE8];
-      v10 = @"/System/Library/PrivateFrameworks/HomeKitDaemon.framework";
-LABEL_7:
-      v12 = [v9 bundleWithPath:v10];
-      v13 = [v12 bundlePath];
-      v14 = [v8 initWithEffectiveBundlePath:v13 delegate:v5 onQueue:v6];
-
-      goto LABEL_10;
-    default:
-      v11 = MEMORY[0x1E69E0FB0];
-      break;
-  }
-
-  v14 = [v7 initWithEffectiveBundleIdentifier:*v11 delegate:v5 onQueue:v6];
-LABEL_10:
-
-  return v14;
-}
-
-id getCLLocationManagerClass()
-{
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2050000000;
-  v0 = getCLLocationManagerClass_softClass;
-  v7 = getCLLocationManagerClass_softClass;
-  if (!getCLLocationManagerClass_softClass)
-  {
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = __getCLLocationManagerClass_block_invoke;
-    v3[3] = &unk_1E837FAC0;
-    v3[4] = &v4;
-    __getCLLocationManagerClass_block_invoke(v3);
-    v0 = v5[3];
-  }
-
-  v1 = v0;
-  _Block_object_dispose(&v4, 8);
-
-  return v1;
-}
-
-void sub_1CA742474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-Class __getCLLocationManagerClass_block_invoke(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
-  if (!CoreLocationLibraryCore_frameworkLibrary)
-  {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __CoreLocationLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E8375928;
-    v9 = 0;
-    CoreLocationLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  if (!CoreLocationLibraryCore_frameworkLibrary)
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"CLLocationManager+Workflow.m" lineNumber:16 description:{@"%s", v7[0]}];
-
-    goto LABEL_10;
-  }
-
-  if (v7[0])
-  {
-    free(v7[0]);
-  }
-
-  result = objc_getClass("CLLocationManager");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLLocationManagerClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"CLLocationManager+Workflow.m" lineNumber:17 description:{@"Unable to find class %s", "CLLocationManager"}];
-
-LABEL_10:
-    __break(1u);
-  }
-
-  getCLLocationManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t __CoreLocationLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  CoreLocationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t WFCLLocationManagerAuthorizationStatusForWorkflowEnvironment(uint64_t a1)
-{
-  CLLocationManagerClass = getCLLocationManagerClass();
-  v3 = CLLocationManagerClass;
-  switch(a1)
-  {
-    case 3:
-      v4 = MEMORY[0x1E696AAE8];
-      v5 = @"/System/Library/PrivateFrameworks/AssistantServices.framework";
-      goto LABEL_7;
-    case 2:
-      v6 = MEMORY[0x1E69E0E90];
-      break;
-    case 1:
-      v4 = MEMORY[0x1E696AAE8];
-      v5 = @"/System/Library/PrivateFrameworks/HomeKitDaemon.framework";
-LABEL_7:
-      v7 = [v4 bundleWithPath:v5];
-      v8 = [v3 authorizationStatusForBundle:v7];
-
-      return v8;
-    default:
-      v6 = MEMORY[0x1E69E0FB0];
-      break;
-  }
-
-  v10 = *v6;
-
-  return [CLLocationManagerClass authorizationStatusForBundleIdentifier:v10];
-}
-
-void WFSetEffectiveBundleForMKLocationManager(void *a1, uint64_t a2)
-{
-  v3 = a1;
-  v8 = v3;
-  switch(a2)
-  {
-    case 3:
-      v4 = MEMORY[0x1E696AAE8];
-      v5 = @"/System/Library/PrivateFrameworks/AssistantServices.framework";
-      goto LABEL_7;
-    case 2:
-      v6 = MEMORY[0x1E69E0E90];
-      break;
-    case 1:
-      v4 = MEMORY[0x1E696AAE8];
-      v5 = @"/System/Library/PrivateFrameworks/HomeKitDaemon.framework";
-LABEL_7:
-      v7 = [v4 bundleWithPath:v5];
-      [v8 setEffectiveBundle:v7];
-
-      goto LABEL_10;
-    default:
-      v6 = MEMORY[0x1E69E0FB0];
-      break;
-  }
-
-  [v3 setEffectiveBundleIdentifier:*v6];
-LABEL_10:
-}
-
-id WFMetricToImperialUnitMapping()
-{
-  v33[13] = *MEMORY[0x1E69E9840];
-  v0 = [MEMORY[0x1E695DF58] currentLocale];
-  v1 = [v0 countryCode];
-  v2 = [v1 isEqualToString:@"US"];
-
-  if (v2)
-  {
-    [MEMORY[0x1E696B088] pints];
-  }
-
-  else
-  {
-    [MEMORY[0x1E696B088] imperialPints];
-  }
-  v18 = ;
-  v31 = [MEMORY[0x1E696B060] kilograms];
-  v32[0] = v31;
-  v30 = [MEMORY[0x1E696B060] poundsMass];
-  v33[0] = v30;
-  v29 = [MEMORY[0x1E696B060] grams];
-  v32[1] = v29;
-  v28 = [MEMORY[0x1E696B060] ounces];
-  v33[1] = v28;
-  v27 = [MEMORY[0x1E696B088] liters];
-  v32[2] = v27;
-  v26 = [MEMORY[0x1E696B088] quarts];
-  v33[2] = v26;
-  v25 = [MEMORY[0x1E696B088] liters];
-  v32[3] = v25;
-  v24 = [MEMORY[0x1E696B088] cups];
-  v33[3] = v24;
-  v23 = [MEMORY[0x1E696B088] liters];
-  v32[4] = v23;
-  v33[4] = v18;
-  v22 = [MEMORY[0x1E696B088] liters];
-  v32[5] = v22;
-  v21 = [MEMORY[0x1E696B088] gallons];
-  v33[5] = v21;
-  v20 = [MEMORY[0x1E696B088] milliliters];
-  v32[6] = v20;
-  v19 = [MEMORY[0x1E696B088] fluidOunces];
-  v33[6] = v19;
-  v17 = [MEMORY[0x1E696B078] kilometersPerHour];
-  v32[7] = v17;
-  v16 = [MEMORY[0x1E696B078] milesPerHour];
-  v33[7] = v16;
-  v3 = [MEMORY[0x1E696B058] kilometers];
-  v32[8] = v3;
-  v4 = [MEMORY[0x1E696B058] miles];
-  v33[8] = v4;
-  v5 = [MEMORY[0x1E696B058] meters];
-  v32[9] = v5;
-  v6 = [MEMORY[0x1E696B058] feet];
-  v33[9] = v6;
-  v7 = [MEMORY[0x1E696B058] meters];
-  v32[10] = v7;
-  v8 = [MEMORY[0x1E696B058] yards];
-  v33[10] = v8;
-  v9 = [MEMORY[0x1E696B058] centimeters];
-  v32[11] = v9;
-  v10 = [MEMORY[0x1E696B058] inches];
-  v33[11] = v10;
-  v11 = [MEMORY[0x1E696B080] celsius];
-  v32[12] = v11;
-  v12 = [MEMORY[0x1E696B080] fahrenheit];
-  v33[12] = v12;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:13];
-
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v15;
-}
-
-id WFImperialToMetricUnitMapping()
-{
-  v32[14] = *MEMORY[0x1E69E9840];
-  v30 = [MEMORY[0x1E696B060] poundsMass];
-  v31[0] = v30;
-  v29 = [MEMORY[0x1E696B060] kilograms];
-  v32[0] = v29;
-  v28 = [MEMORY[0x1E696B060] ounces];
-  v31[1] = v28;
-  v27 = [MEMORY[0x1E696B060] grams];
-  v32[1] = v27;
-  v26 = [MEMORY[0x1E696B088] quarts];
-  v31[2] = v26;
-  v25 = [MEMORY[0x1E696B088] liters];
-  v32[2] = v25;
-  v24 = [MEMORY[0x1E696B088] cups];
-  v31[3] = v24;
-  v23 = [MEMORY[0x1E696B088] liters];
-  v32[3] = v23;
-  v22 = [MEMORY[0x1E696B088] pints];
-  v31[4] = v22;
-  v21 = [MEMORY[0x1E696B088] liters];
-  v32[4] = v21;
-  v20 = [MEMORY[0x1E696B088] imperialPints];
-  v31[5] = v20;
-  v19 = [MEMORY[0x1E696B088] liters];
-  v32[5] = v19;
-  v18 = [MEMORY[0x1E696B088] gallons];
-  v31[6] = v18;
-  v17 = [MEMORY[0x1E696B088] liters];
-  v32[6] = v17;
-  v16 = [MEMORY[0x1E696B088] fluidOunces];
-  v31[7] = v16;
-  v15 = [MEMORY[0x1E696B088] milliliters];
-  v32[7] = v15;
-  v14 = [MEMORY[0x1E696B078] milesPerHour];
-  v31[8] = v14;
-  v13 = [MEMORY[0x1E696B078] kilometersPerHour];
-  v32[8] = v13;
-  v0 = [MEMORY[0x1E696B058] miles];
-  v31[9] = v0;
-  v1 = [MEMORY[0x1E696B058] kilometers];
-  v32[9] = v1;
-  v2 = [MEMORY[0x1E696B058] feet];
-  v31[10] = v2;
-  v3 = [MEMORY[0x1E696B058] meters];
-  v32[10] = v3;
-  v4 = [MEMORY[0x1E696B058] yards];
-  v31[11] = v4;
-  v5 = [MEMORY[0x1E696B058] meters];
-  v32[11] = v5;
-  v6 = [MEMORY[0x1E696B058] inches];
-  v31[12] = v6;
-  v7 = [MEMORY[0x1E696B058] centimeters];
-  v32[12] = v7;
-  v8 = [MEMORY[0x1E696B080] fahrenheit];
-  v31[13] = v8;
-  v9 = [MEMORY[0x1E696B080] celsius];
-  v32[13] = v9;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:14];
-
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v12;
-}
-
-id WFLNMeasurementValueTypeOfUnit(void *a1)
-{
-  v1 = a1;
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v2 = [MEMORY[0x1E69AC8B0] lengthValueType];
-  }
-
-  else
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v2 = [MEMORY[0x1E69AC8B0] massValueType];
-    }
-
-    else
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        v2 = [MEMORY[0x1E69AC8B0] temperatureValueType];
-      }
-
-      else
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v2 = [MEMORY[0x1E69AC8B0] volumeValueType];
-        }
-
-        else
-        {
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v2 = [MEMORY[0x1E69AC8B0] speedValueType];
-          }
-
-          else
-          {
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v2 = [MEMORY[0x1E69AC8B0] energyValueType];
-            }
-
-            else
-            {
-              objc_opt_class();
-              if (objc_opt_isKindOfClass())
-              {
-                [MEMORY[0x1E69AC8B0] durationValueType];
-              }
-
-              else
-              {
-                [MEMORY[0x1E69AC8B0] unsupportedMeasurementValueType];
-              }
-              v2 = ;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v3 = v2;
-
-  return v3;
-}
-
-void sub_1CA7444C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location, char a28)
-{
-  objc_destroyWeak(&a26);
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 192), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__12286(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-id getWFRemoteQuarantineLogObject()
-{
-  if (getWFRemoteQuarantineLogObject_onceToken != -1)
-  {
-    dispatch_once(&getWFRemoteQuarantineLogObject_onceToken, &__block_literal_global_12293);
-  }
-
-  v1 = getWFRemoteQuarantineLogObject_log;
-
-  return v1;
-}
-
-void __getWFRemoteQuarantineLogObject_block_invoke()
-{
-  v0 = os_log_create(*MEMORY[0x1E69E1140], "RemoteQuarantine");
-  v1 = getWFRemoteQuarantineLogObject_log;
-  getWFRemoteQuarantineLogObject_log = v0;
-}
-
-void sub_1CA7450A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA7452DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, id a16)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak((v16 + 32));
-  objc_destroyWeak(&location);
-  objc_destroyWeak(&a16);
-  _Unwind_Resume(a1);
-}
-
-uint64_t WFShouldRequestAccessToFile(void *a1)
-{
-  v1 = a1;
-  v2 = [v1 domain];
-  if ([v2 isEqualToString:*MEMORY[0x1E69E0FD8]])
-  {
-    if ([v1 code] == 10001)
-    {
-
-LABEL_7:
-      v3 = 1;
-      goto LABEL_8;
-    }
-
-    v4 = [v1 code];
-
-    if (v4 == 10003)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-  }
-
-  v3 = 0;
-LABEL_8:
-
-  return v3;
-}
-
-void sub_1CA7478BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va1, a8);
-  va_start(va, a8);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v8 - 144), 8);
-  _Block_object_dispose((v8 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__12631(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA747A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t WFPBCreateFolderEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v33 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v33 & 0x7F) << v5;
-        if ((v33 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 2)
-      {
-        if (v13 == 3)
-        {
-          v25 = 0;
-          v26 = 0;
-          v27 = 0;
-          *(a1 + 36) |= 2u;
-          while (1)
-          {
-            v34 = 0;
-            v28 = [a2 position] + 1;
-            if (v28 >= [a2 position] && (v29 = objc_msgSend(a2, "position") + 1, v29 <= objc_msgSend(a2, "length")))
-            {
-              v30 = [a2 data];
-              [v30 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v27 |= (v34 & 0x7F) << v25;
-            if ((v34 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v25 += 7;
-            v11 = v26++ >= 9;
-            if (v11)
-            {
-              v20 = 0;
-              goto LABEL_52;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v20 = 0;
-          }
-
-          else
-          {
-            v20 = v27;
-          }
-
-LABEL_52:
-          v31 = 32;
-LABEL_53:
-          *(a1 + v31) = v20;
-          goto LABEL_54;
-        }
-
-        if (v13 != 6)
-        {
-LABEL_32:
-          result = PBReaderSkipValueWithTag();
-          if (!result)
-          {
-            return result;
-          }
-
-          goto LABEL_54;
-        }
-
-        v21 = PBReaderReadString();
-        v22 = 8;
-      }
-
-      else
-      {
-        if (v13 != 1)
-        {
-          if (v13 != 2)
-          {
-            goto LABEL_32;
-          }
-
-          v14 = 0;
-          v15 = 0;
-          v16 = 0;
-          *(a1 + 36) |= 1u;
-          while (1)
-          {
-            v35 = 0;
-            v17 = [a2 position] + 1;
-            if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
-            {
-              v19 = [a2 data];
-              [v19 getBytes:&v35 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v16 |= (v35 & 0x7F) << v14;
-            if ((v35 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v14 += 7;
-            v11 = v15++ >= 9;
-            if (v11)
-            {
-              v20 = 0;
-              goto LABEL_48;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v20 = 0;
-          }
-
-          else
-          {
-            v20 = v16;
-          }
-
-LABEL_48:
-          v31 = 16;
-          goto LABEL_53;
-        }
-
-        v21 = PBReaderReadString();
-        v22 = 24;
-      }
-
-      v24 = *(a1 + v22);
-      *(a1 + v22) = v21;
-
-LABEL_54:
-      v32 = [a2 position];
-    }
-
-    while (v32 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t WFPBRunShortcutErrorEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v26 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v26 & 0x7F) << v5;
-        if ((v26 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) <= 4)
-      {
-        break;
-      }
-
-      if (v13 > 6)
-      {
-        if (v13 == 7)
-        {
-          v21 = PBReaderReadString();
-          v22 = 48;
-        }
-
-        else
-        {
-          if (v13 != 8)
-          {
-LABEL_38:
-            result = PBReaderSkipValueWithTag();
-            if (!result)
-            {
-              return result;
-            }
-
-            goto LABEL_44;
-          }
-
-          v21 = PBReaderReadString();
-          v22 = 16;
-        }
-
-        goto LABEL_43;
-      }
-
-      if (v13 == 5)
-      {
-        v21 = PBReaderReadString();
-        v22 = 8;
-LABEL_43:
-        v24 = *(a1 + v22);
-        *(a1 + v22) = v21;
-
-        goto LABEL_44;
-      }
-
-      if (v13 != 6)
-      {
-        goto LABEL_38;
-      }
-
-      v14 = 0;
-      v15 = 0;
-      v16 = 0;
-      *(a1 + 60) |= 1u;
-      while (1)
-      {
-        v27 = 0;
-        v17 = [a2 position] + 1;
-        if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
-        {
-          v19 = [a2 data];
-          [v19 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v16 |= (v27 & 0x7F) << v14;
-        if ((v27 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v14 += 7;
-        v11 = v15++ >= 9;
-        if (v11)
-        {
-          LOBYTE(v20) = 0;
-          goto LABEL_47;
-        }
-      }
-
-      v20 = (v16 != 0) & ~[a2 hasError];
-LABEL_47:
-      *(a1 + 56) = v20;
-LABEL_44:
-      v25 = [a2 position];
-      if (v25 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    switch(v13)
-    {
-      case 1:
-        v21 = PBReaderReadString();
-        v22 = 40;
-        break;
-      case 3:
-        v21 = PBReaderReadString();
-        v22 = 32;
-        break;
-      case 4:
-        v21 = PBReaderReadString();
-        v22 = 24;
-        break;
-      default:
-        goto LABEL_38;
-    }
-
-    goto LABEL_43;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-__CFString *WFStringForDialogPresentationMode(unint64_t a1)
-{
-  if (a1 > 2)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return off_1E8375AE8[a1];
-  }
-}
-
-uint64_t WFPBShowFocusConfigurationEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v20 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v20 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v20 & 0x7F) << v5;
-        if ((v20 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      v13 = (v12 >> 3) - 1;
-      if (v13 >= 4)
-      {
-        if ((PBReaderSkipValueWithTag() & 1) == 0)
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        v14 = off_1E8375B00[v13];
-        v15 = PBReaderReadString();
-        v16 = *v14;
-        v17 = *(a1 + v16);
-        *(a1 + v16) = v15;
-      }
-
-      v18 = [a2 position];
-    }
-
-    while (v18 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t WFREPBRunRequestProgressReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v21 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v21 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v21 & 0x7F) << v5;
-        if ((v21 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        v20 = 0;
-        v15 = [a2 position] + 8;
-        if (v15 >= [a2 position] && (v16 = objc_msgSend(a2, "position") + 8, v16 <= objc_msgSend(a2, "length")))
-        {
-          v18 = [a2 data];
-          [v18 getBytes:&v20 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        *(a1 + 8) = v20;
-      }
-
-      else if ((v12 >> 3) == 1)
-      {
-        v13 = PBReaderReadString();
-        v14 = *(a1 + 16);
-        *(a1 + 16) = v13;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v19 = [a2 position];
-    }
-
-    while (v19 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-Class initUIImageSymbolConfiguration()
-{
-  if (UIKitLibrary_sOnce != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce, &__block_literal_global_13628);
-  }
-
-  result = objc_getClass("UIImageSymbolConfiguration");
-  classUIImageSymbolConfiguration = result;
-  getUIImageSymbolConfigurationClass = UIImageSymbolConfigurationFunction;
-  return result;
-}
-
-void *__UIKitLibrary_block_invoke()
-{
-  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
-  UIKitLibrary_sLib = result;
-  return result;
-}
-
-Class initUIColor()
-{
-  if (UIKitLibrary_sOnce != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce, &__block_literal_global_13628);
-  }
-
-  result = objc_getClass("UIColor");
-  classUIColor = result;
-  getUIColorClass = UIColorFunction;
-  return result;
-}
-
-void sub_1CA74DE84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__13635(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA74E220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA74E45C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA74E9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id getISIconClass()
-{
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2050000000;
-  v0 = getISIconClass_softClass;
-  v7 = getISIconClass_softClass;
-  if (!getISIconClass_softClass)
-  {
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = __getISIconClass_block_invoke;
-    v3[3] = &unk_1E837FAC0;
-    v3[4] = &v4;
-    __getISIconClass_block_invoke(v3);
-    v0 = v5[3];
-  }
-
-  v1 = v0;
-  _Block_object_dispose(&v4, 8);
-
-  return v1;
-}
-
-void sub_1CA74EAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void __getISImageDescriptorClass_block_invoke(uint64_t a1)
-{
-  IconServicesLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("ISImageDescriptor");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getISImageDescriptorClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getISImageDescriptorClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"LNImage+Workflow.m" lineNumber:24 description:{@"Unable to find class %s", "ISImageDescriptor"}];
-
-    __break(1u);
-  }
-}
-
-void *__getkISImageDescriptorTableUINameSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = IconServicesLibrary();
-  result = dlsym(v2, "kISImageDescriptorTableUIName");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getkISImageDescriptorTableUINameSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *IconServicesLibrary()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
-  if (!IconServicesLibraryCore_frameworkLibrary)
-  {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __IconServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E8375B98;
-    v7 = 0;
-    IconServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  v0 = IconServicesLibraryCore_frameworkLibrary;
-  if (!IconServicesLibraryCore_frameworkLibrary)
-  {
-    v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *IconServicesLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"LNImage+Workflow.m" lineNumber:22 description:{@"%s", v5[0]}];
-
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v1 = v5[0];
-  if (v5[0])
-  {
-LABEL_7:
-    free(v1);
-  }
-
-  v2 = *MEMORY[0x1E69E9840];
-  return v0;
-}
-
-uint64_t __IconServicesLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  IconServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void __getISIconClass_block_invoke(uint64_t a1)
-{
-  IconServicesLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("ISIcon");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getISIconClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getISIconClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"LNImage+Workflow.m" lineNumber:23 description:{@"Unable to find class %s", "ISIcon"}];
-
-    __break(1u);
-  }
-}
-
-uint64_t __WFPresentResumeSyncConfirmationAlertWithUserInterfaceIfNeeded_block_invoke_2()
-{
-  [WFCloudKitSyncSession setZoneWasPurged:0];
-  [WFCloudKitSyncSession setIgnoresUserDeletedZoneErrors:1];
-
-  return [WFCloudKitSyncSession setSyncEnabled:0];
-}
-
-uint64_t __WFPresentResumeSyncConfirmationAlertWithUserInterfaceIfNeeded_block_invoke()
-{
-  [WFCloudKitSyncSession setZoneWasPurged:0];
-  [WFCloudKitSyncSession setIgnoresUserDeletedZoneErrors:1];
-  result = +[WFCloudKitSyncSession isSyncEnabled];
-  if (result)
-  {
-
-    return notify_post("com.apple.shortcuts.daemon-wakeup-request");
-  }
-
-  return result;
-}
-
-uint64_t WFRemoteExecuteActionIfApplicable(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
-{
-  v11 = a1;
-  v12 = a2;
-  v13 = a3;
-  v14 = a4;
-  v15 = a5;
-  v16 = a6;
-  if ([v11 requiresRemoteExecution])
-  {
-    v17 = +[WFRemoteExecutionCoordinator sharedCoordinator];
-    v18 = [v17 hasPairedDevice];
-    if (v18)
-    {
-      v19 = [[WFRemoteExecutionRunRequest alloc] initWithAction:v11 workflowControllerState:v12];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __WFRemoteExecuteActionIfApplicable_block_invoke;
-      v21[3] = &unk_1E8375BE8;
-      v22 = v11;
-      v23 = v15;
-      v24 = v17;
-      v25 = v16;
-      [v24 sendRunRequest:v19 userInterface:v13 parameterInputProvider:v14 completionHandler:v21];
-    }
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  return v18;
-}
-
-void __WFRemoteExecuteActionIfApplicable_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v20 = a2;
-  v5 = a3;
-  [*(a1 + 32) setDidRunRemotely:1];
-  v6 = [v20 error];
-  v7 = v6;
-  if (v6)
-  {
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = v5;
-  }
-
-  v9 = v8;
-
-  v10 = objc_opt_new();
-  [v10 setSource:*(a1 + 40)];
-  v11 = [*(a1 + 48) pairedDeviceModelIdentifier];
-  [v10 setDestinationType:v11];
-
-  v12 = [*(a1 + 32) identifier];
-  [v10 setActionIdentifier:v12];
-
-  [v10 setCompleted:v5 != 0];
-  [v10 track];
-  if (v5)
-  {
-    v13 = objc_alloc_init(WFRemoteExecutionErrorEvent);
-    [(WFRemoteExecutionErrorEvent *)v13 setSource:*(a1 + 40)];
-    v14 = [*(a1 + 48) pairedDeviceModelIdentifier];
-    [(WFRemoteExecutionErrorEvent *)v13 setDestinationType:v14];
-
-    v15 = [v9 domain];
-    [(WFRemoteExecutionErrorEvent *)v13 setErrorDomain:v15];
-
-    v16 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v9, "code")}];
-    v17 = [v16 stringValue];
-    [(WFRemoteExecutionErrorEvent *)v13 setErrorCode:v17];
-
-    [(WFEvent *)v13 track];
-  }
-
-  v18 = *(a1 + 56);
-  if (v20)
-  {
-    v19 = [v20 output];
-    (*(v18 + 16))(v18, v19, v9);
-  }
-
-  else
-  {
-    (*(v18 + 16))(v18, 0, v9);
-  }
-}
-
-uint64_t WFPBShowWidgetConfigurationEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v26 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v26 & 0x7F) << v5;
-        if ((v26 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) <= 2)
-      {
-        if (v13 == 1)
-        {
-          v21 = PBReaderReadString();
-          v22 = 24;
-          goto LABEL_36;
-        }
-
-        if (v13 == 2)
-        {
-          v21 = PBReaderReadString();
-          v22 = 8;
-LABEL_36:
-          v23 = *(a1 + v22);
-          *(a1 + v22) = v21;
-
-          goto LABEL_37;
-        }
-      }
-
-      else
-      {
-        switch(v13)
-        {
-          case 3:
-            v21 = PBReaderReadString();
-            v22 = 16;
-            goto LABEL_36;
-          case 4:
-            v21 = PBReaderReadString();
-            v22 = 32;
-            goto LABEL_36;
-          case 5:
-            v14 = 0;
-            v15 = 0;
-            v16 = 0;
-            *(a1 + 44) |= 1u;
-            while (1)
-            {
-              v27 = 0;
-              v17 = [a2 position] + 1;
-              if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
-              {
-                v19 = [a2 data];
-                [v19 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
-
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v16 |= (v27 & 0x7F) << v14;
-              if ((v27 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v14 += 7;
-              v11 = v15++ >= 9;
-              if (v11)
-              {
-                LOBYTE(v20) = 0;
-                goto LABEL_42;
-              }
-            }
-
-            v20 = (v16 != 0) & ~[a2 hasError];
-LABEL_42:
-            *(a1 + 40) = v20;
-            goto LABEL_37;
-        }
-      }
-
-      result = PBReaderSkipValueWithTag();
-      if (!result)
-      {
-        return result;
-      }
-
-LABEL_37:
-      v24 = [a2 position];
-    }
-
-    while (v24 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t WFREPBStopRequestReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v17 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v17 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v17 & 0x7F) << v5;
-        if ((v17 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = PBReaderReadString();
-        v14 = *(a1 + 8);
-        *(a1 + 8) = v13;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v16 = [a2 position];
-    }
-
-    while (v16 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t WFPBBrowseGalleryCategoryEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v19 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v19 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v19 & 0x7F) << v5;
-        if ((v19 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        v13 = &OBJC_IVAR___WFPBBrowseGalleryCategoryEvent__galleryCategoryIdentifier;
-LABEL_21:
-        v14 = PBReaderReadString();
-        v15 = *v13;
-        v16 = *(a1 + v15);
-        *(a1 + v15) = v14;
-
-        goto LABEL_23;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_23:
-      v17 = [a2 position];
-      if (v17 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v13 = &OBJC_IVAR___WFPBBrowseGalleryCategoryEvent__key;
-    goto LABEL_21;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t __Block_byref_object_copy__15279(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA75D834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void WFMigrateContactFieldValueParameterValue(void *a1, unsigned int a2)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = [a1 objectForKey:@"Value"];
-  v3 = [v2 objectForKey:@"WFContactFieldValues"];
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v14 = v3;
-    v15 = v2;
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v5)
-    {
-      v6 = v5;
-      v7 = *v18;
-      do
-      {
-        v8 = 0;
-        do
-        {
-          if (*v18 != v7)
-          {
-            objc_enumerationMutation(v4);
-          }
-
-          v9 = *(*(&v17 + 1) + 8 * v8);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v10 = [v9 objectForKey:@"WFContactProperty"];
-            v11 = [v10 isEqual:&unk_1F4A9A228];
-
-            if (v11)
-            {
-              v12 = [MEMORY[0x1E696AD98] numberWithInt:a2];
-              [v9 setObject:v12 forKey:@"WFContactProperty"];
-
-              [v9 setObject:&unk_1F4A9A240 forKey:@"WFContactMultivalue"];
-            }
-          }
-
-          ++v8;
-        }
-
-        while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      }
-
-      while (v6);
-    }
-
-    v3 = v14;
-    v2 = v15;
-  }
-
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t WFREPBAceCommandRequestResponseReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v19[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v19 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v19[0] & 0x7F) << v5;
-        if ((v19[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) == 3)
-      {
-        break;
-      }
-
-      if (v13 == 2)
-      {
-        v14 = PBReaderReadData();
-        v15 = 8;
-LABEL_22:
-        v16 = *(a1 + v15);
-        *(a1 + v15) = v14;
-LABEL_26:
-
-        goto LABEL_28;
-      }
-
-      if (v13 == 1)
-      {
-        v14 = PBReaderReadString();
-        v15 = 24;
-        goto LABEL_22;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_28:
-      v17 = [a2 position];
-      if (v17 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v16 = objc_alloc_init(WFREPBError);
-    objc_storeStrong((a1 + 16), v16);
-    v19[0] = 0;
-    v19[1] = 0;
-    if (!PBReaderPlaceMark() || !WFREPBErrorReadFrom(v16, a2))
-    {
-
-      return 0;
-    }
-
-    PBReaderRecallMark();
-    goto LABEL_26;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-id WFContactPropertySetFromContactFieldProperties(void *a1)
-{
-  v1 = MEMORY[0x1E695DFD8];
-  v2 = [a1 if_compactMap:&__block_literal_global_15736];
-  v3 = [v1 setWithArray:v2];
-
-  return v3;
-}
-
-void *__WFContactPropertySetFromContactFieldProperties_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = a2;
-  if ([v2 isEqualToString:@"Email"])
-  {
-    v3 = &unk_1F4A9A258;
-  }
-
-  else if ([v2 isEqualToString:@"Phone"])
-  {
-    v3 = &unk_1F4A9A270;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v3;
-}
-
-void WFAddEntriesToDictionary(void *a1, void *a2, void *a3)
-{
-  v11 = a3;
-  v5 = a2;
-  v6 = a1;
-  v7 = [v6 objectForKeyedSubscript:v5];
-  v8 = v7;
-  if (v7)
-  {
-    v9 = [v7 definitionByAddingEntriesInDictionary:v11];
-  }
-
-  else
-  {
-    v9 = [[WFParameterDefinition alloc] initWithDictionary:v11];
-  }
-
-  v10 = v9;
-  [v6 setObject:v9 forKeyedSubscript:v5];
-}
-
-void sub_1CA76BBE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA76BDD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  objc_destroyWeak((v9 + 40));
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__16341(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-id initUIApplicationDidBecomeActiveNotification()
-{
-  if (UIKitLibrary_sOnce_16345 != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce_16345, &__block_literal_global_16346);
-  }
-
-  v0 = dlsym(UIKitLibrary_sLib_16347, "UIApplicationDidBecomeActiveNotification");
+  v0 = dlsym(UIKitLibrary_sLib_42666, "UIPasteboardOptionLocalOnly");
   if (!v0)
   {
-    __assert_rtn("initUIApplicationDidBecomeActiveNotification", "WFInterchangeAppRegistry.m", 25, "constant");
+    __assert_rtn("initUIPasteboardOptionLocalOnly", "WFInterchangeActionDefinition.m", 22, "constant");
   }
 
-  objc_storeStrong(&constantUIApplicationDidBecomeActiveNotification, *v0);
-  getUIApplicationDidBecomeActiveNotification = UIApplicationDidBecomeActiveNotificationFunction;
-  v1 = constantUIApplicationDidBecomeActiveNotification;
+  objc_storeStrong(&constantUIPasteboardOptionLocalOnly, *v0);
+  getUIPasteboardOptionLocalOnly = UIPasteboardOptionLocalOnlyFunction;
+  v1 = constantUIPasteboardOptionLocalOnly;
 
   return v1;
 }
 
-void *__UIKitLibrary_block_invoke_16352()
+void *__UIKitLibrary_block_invoke_42672()
 {
   result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
-  UIKitLibrary_sLib_16347 = result;
+  UIKitLibrary_sLib_42666 = result;
   return result;
 }
 
-id WFEnforceClass_17313(void *a1, uint64_t a2)
+Class initUIPasteboard_42675()
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
+  if (UIKitLibrary_sOnce_42664 != -1)
   {
-    v5 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v9 = 136315906;
-      v10 = "WFEnforceClass";
-      v11 = 2114;
-      v12 = v3;
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = a2;
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Could not create bookmark (%@) for data backed file value falling back to URL backing", &v9, 0x2Au);
-    }
-
-    v4 = 0;
+    dispatch_once(&UIKitLibrary_sOnce_42664, &__block_literal_global_42665);
   }
 
-  else
-  {
-    v4 = v3;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-void sub_1CA7710BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-Class __getFPSandboxingURLWrapperClass_block_invoke(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
-  if (!FileProviderLibraryCore_frameworkLibrary)
-  {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __FileProviderLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E8376080;
-    v9 = 0;
-    FileProviderLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  if (!FileProviderLibraryCore_frameworkLibrary)
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *FileProviderLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFFileValue.m" lineNumber:26 description:{@"%s", v7[0]}];
-
-    goto LABEL_10;
-  }
-
-  if (v7[0])
-  {
-    free(v7[0]);
-  }
-
-  result = objc_getClass("FPSandboxingURLWrapper");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getFPSandboxingURLWrapperClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFFileValue.m" lineNumber:27 description:{@"Unable to find class %s", "FPSandboxingURLWrapper"}];
-
-LABEL_10:
-    __break(1u);
-  }
-
-  getFPSandboxingURLWrapperClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
+  result = objc_getClass("UIPasteboard");
+  classUIPasteboard_42677 = result;
+  getUIPasteboardClass_42662 = UIPasteboardFunction_42679;
   return result;
 }
 
-uint64_t __FileProviderLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  FileProviderLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t WFPBRenameShortcutEventReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v19 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v19 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v19 & 0x7F) << v5;
-        if ((v19 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        v13 = &OBJC_IVAR___WFPBRenameShortcutEvent__source;
-LABEL_21:
-        v14 = PBReaderReadString();
-        v15 = *v13;
-        v16 = *(a1 + v15);
-        *(a1 + v15) = v14;
-
-        goto LABEL_23;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_23:
-      v17 = [a2 position];
-      if (v17 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v13 = &OBJC_IVAR___WFPBRenameShortcutEvent__key;
-    goto LABEL_21;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-id WFDisplayNameForDeviceIdiom(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = v3;
-  v5 = 0;
-  if (a1 <= 2)
-  {
-    if (a1)
-    {
-      if (a1 == 1)
-      {
-        v6 = @"iPad";
-      }
-
-      else
-      {
-        if (a1 != 2)
-        {
-          goto LABEL_23;
-        }
-
-        v6 = @"Mac";
-      }
-
-      goto LABEL_22;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (a1 > 4)
-  {
-    if (a1 == 5)
-    {
-      v6 = @"Apple Vision Pro";
-    }
-
-    else
-    {
-      if (a1 != 6)
-      {
-        goto LABEL_23;
-      }
-
-      v6 = @"HomePod";
-    }
-  }
-
-  else
-  {
-    if (a1 != 3)
-    {
-LABEL_12:
-      v7 = [v3 isEqualToString:@"NotAvailableOnSpecifiedPlatform"];
-      v8 = @"iPod touch";
-      if (a1 != 4)
-      {
-        v8 = @"iPhone or iPod touch";
-      }
-
-      if (!a1)
-      {
-        v8 = @"iPhone";
-      }
-
-      if (v7)
-      {
-        v6 = v8;
-      }
-
-      else
-      {
-        v6 = @"iPhone or iPod touch";
-      }
-
-      goto LABEL_22;
-    }
-
-    v6 = @"Apple Watch";
-  }
-
-LABEL_22:
-  v5 = WFLocalizedString(v6);
-LABEL_23:
-
-  return v5;
-}
-
-void sub_1CA7751D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__18089(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA777478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
-{
-  _Block_object_dispose(&a42, 8);
-  _Block_object_dispose(&a46, 8);
-  _Block_object_dispose(&a52, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__18191(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA777D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-id WFContentLocationByAccessResourceIdentifier()
-{
-  v34[30] = *MEMORY[0x1E69E9840];
-  v33[0] = @"WFAddToReadingListAccessResource";
-  v32 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0F10]];
-  v34[0] = v32;
-  v33[1] = @"WFAppleMusicAccessResource";
-  v31 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0ED0]];
-  v34[1] = v31;
-  v33[2] = @"WFCameraAccessResource";
-  v30 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E50]];
-  v34[2] = v30;
-  v33[3] = @"WFCalendarAccessResource";
-  v29 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E48]];
-  v34[3] = v29;
-  v33[4] = @"WFContactAccessResource";
-  v28 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E58]];
-  v34[4] = v28;
-  v33[5] = @"WFEvernoteAccessResource";
-  v27 = [MEMORY[0x1E6996F90] evernoteLocation];
-  v34[5] = v27;
-  v33[6] = @"WFHealthKitAccessResource";
-  v26 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E88]];
-  v34[6] = v26;
-  v33[7] = @"WFHomeKitAccessResource";
-  v25 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E90]];
-  v34[7] = v25;
-  v33[8] = @"WFiCloudDriveAccessResource";
-  v24 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E68]];
-  v34[8] = v24;
-  v33[9] = @"WFImgurAccessResource";
-  v23 = [MEMORY[0x1E6996F90] imgurLocation];
-  v34[9] = v23;
-  v33[10] = @"WFInstapaperAccessResource";
-  v22 = [MEMORY[0x1E6996F90] instapaperLocation];
-  v34[10] = v22;
-  v33[11] = @"WFLocalNotificationAccessResource";
-  v21 = [MEMORY[0x1E6996D78] notificationLocation];
-  v34[11] = v21;
-  v33[12] = @"WFLocationAccessResource";
-  v20 = [MEMORY[0x1E6996D78] locationLocation];
-  v34[12] = v20;
-  v33[13] = @"WFMessagesAccessResource";
-  v19 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EB8]];
-  v34[13] = v19;
-  v33[14] = @"WFMicrophoneAccessResource";
-  v18 = [MEMORY[0x1E6996D78] microphoneLocation];
-  v34[14] = v18;
-  v33[15] = @"WFPhotoAccessResource";
-  v17 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EF0]];
-  v34[15] = v17;
-  v33[16] = @"WFPinboardAccessResource";
-  v16 = [MEMORY[0x1E6996F90] pinboardLocation];
-  v34[16] = v16;
-  v33[17] = @"WFPocketAccessResource";
-  v15 = [MEMORY[0x1E6996F90] pocketLocation];
-  v34[17] = v15;
-  v33[18] = @"WFPodcastsAccessResource";
-  v14 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EF8]];
-  v34[18] = v14;
-  v33[19] = @"WFReminderAccessResource";
-  v13 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0F08]];
-  v34[19] = v13;
-  v33[20] = @"WFRequestPaymentAccessResource";
-  v0 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0FA0]];
-  v34[20] = v0;
-  v33[21] = @"WFRunShortcutsAccessResource";
-  v1 = [MEMORY[0x1E6996D78] shortcutsAppLocation];
-  v34[21] = v1;
-  v33[22] = @"WFScreenshotAccessResource";
-  v2 = [MEMORY[0x1E6996C90] screenshotLocation];
-  v34[22] = v2;
-  v33[23] = @"WFSendEmailAccessResource";
-  v3 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EA0]];
-  v34[23] = v3;
-  v33[24] = @"WFShortcutsAccessResource";
-  v4 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0FB0] promptingBehaviour:1];
-  v34[24] = v4;
-  v33[25] = @"WFSpeechRecognitionAccessResource";
-  v5 = [MEMORY[0x1E6996D78] speechRecognitionLocation];
-  v34[25] = v5;
-  v33[26] = @"WFStartCallAccessResource";
-  v6 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EC0]];
-  v34[26] = v6;
-  v33[27] = @"WFTrelloAccessResource";
-  v7 = [MEMORY[0x1E6996F90] trelloLocation];
-  v34[27] = v7;
-  v33[28] = @"WFTumblrAccessResource";
-  v8 = [MEMORY[0x1E6996F90] tumblrLocation];
-  v34[28] = v8;
-  v33[29] = @"WFWallpaperModificationAccessResource";
-  v9 = [MEMORY[0x1E6996D78] wallpaperLocation];
-  v34[29] = v9;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:30];
-
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v12;
-}
-
-id WFContentLocationToActionIdentifierMapping()
-{
-  v32[28] = *MEMORY[0x1E69E9840];
-  v30 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E48]];
-  v31[0] = v30;
-  v32[0] = &unk_1F4A9B1E8;
-  v29 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E58]];
-  v31[1] = v29;
-  v32[1] = &unk_1F4A9B200;
-  v28 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E88]];
-  v31[2] = v28;
-  v32[2] = &unk_1F4A9B218;
-  v27 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0E90]];
-  v31[3] = v27;
-  v32[3] = &unk_1F4A9B230;
-  v26 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EA0]];
-  v31[4] = v26;
-  v32[4] = &unk_1F4A9B248;
-  v25 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EB8]];
-  v31[5] = v25;
-  v32[5] = &unk_1F4A9B260;
-  v24 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EC0]];
-  v31[6] = v24;
-  v32[6] = &unk_1F4A9B278;
-  v23 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0ED0]];
-  v31[7] = v23;
-  v32[7] = &unk_1F4A9B290;
-  v22 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EE8]];
-  v31[8] = v22;
-  v32[8] = &unk_1F4A9B2A8;
-  v21 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EF0]];
-  v31[9] = v21;
-  v32[9] = &unk_1F4A9B2C0;
-  v20 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0EF8]];
-  v31[10] = v20;
-  v32[10] = &unk_1F4A9B2D8;
-  v19 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0F08]];
-  v31[11] = v19;
-  v32[11] = &unk_1F4A9B2F0;
-  v18 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0F10]];
-  v31[12] = v18;
-  v32[12] = &unk_1F4A9B308;
-  v17 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0FA0]];
-  v31[13] = v17;
-  v32[13] = &unk_1F4A9B320;
-  v16 = [MEMORY[0x1E6996F90] evernoteLocation];
-  v31[14] = v16;
-  v32[14] = &unk_1F4A9B338;
-  v15 = [MEMORY[0x1E6996F90] imgurLocation];
-  v31[15] = v15;
-  v32[15] = &unk_1F4A9B350;
-  v14 = [MEMORY[0x1E6996F90] instapaperLocation];
-  v31[16] = v14;
-  v32[16] = &unk_1F4A9B368;
-  v13 = [MEMORY[0x1E6996D78] notificationLocation];
-  v31[17] = v13;
-  v32[17] = &unk_1F4A9B380;
-  v0 = [MEMORY[0x1E6996D78] locationLocation];
-  v31[18] = v0;
-  v32[18] = &unk_1F4A9B398;
-  v1 = [MEMORY[0x1E6996D78] microphoneLocation];
-  v31[19] = v1;
-  v32[19] = &unk_1F4A9B3B0;
-  v2 = [MEMORY[0x1E6996F90] pinboardLocation];
-  v31[20] = v2;
-  v32[20] = &unk_1F4A9B3C8;
-  v3 = [MEMORY[0x1E6996F90] pocketLocation];
-  v31[21] = v3;
-  v32[21] = &unk_1F4A9B3E0;
-  v4 = [MEMORY[0x1E6996C90] locationWithSystemAppBundleIdentifier:*MEMORY[0x1E69E0FB0] promptingBehaviour:1];
-  v31[22] = v4;
-  v32[22] = &unk_1F4A9B3F8;
-  v5 = [MEMORY[0x1E6996C90] screenshotLocation];
-  v31[23] = v5;
-  v32[23] = &unk_1F4A9B410;
-  v6 = [MEMORY[0x1E6996D78] speechRecognitionLocation];
-  v31[24] = v6;
-  v32[24] = &unk_1F4A9B428;
-  v7 = [MEMORY[0x1E6996F90] trelloLocation];
-  v31[25] = v7;
-  v32[25] = &unk_1F4A9B440;
-  v8 = [MEMORY[0x1E6996F90] tumblrLocation];
-  v31[26] = v8;
-  v32[26] = &unk_1F4A9B458;
-  v9 = [MEMORY[0x1E6996D78] wallpaperLocation];
-  v31[27] = v9;
-  v32[27] = &unk_1F4A9B470;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:28];
-
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v12;
-}
-
-uint64_t WFPBAddShortcutEventReadFrom(uint64_t a1, void *a2)
+uint64_t WFPBOpenShortcutEventReadFrom(uint64_t a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -5600,123 +447,234 @@ LABEL_37:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1CA77E3E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1CA83F704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a15);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__19437(uint64_t result, uint64_t a2)
+uint64_t __Block_byref_object_copy__43875(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-id getWFWFRecordLogObject()
+void sub_1CA83FCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  if (getWFWFRecordLogObject_onceToken != -1)
+  va_start(va, a30);
+  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8402F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8406B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8409D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8413D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id WFEnforceClass_44012(void *a1, uint64_t a2)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
   {
-    dispatch_once(&getWFWFRecordLogObject_onceToken, &__block_literal_global_19665);
+    v5 = getWFGeneralLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      v8 = 136315906;
+      v9 = "WFEnforceClass";
+      v10 = 2114;
+      v11 = v3;
+      v12 = 2114;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = a2;
+      v6 = v13;
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Model version from persistent store metadata is '%@' and is greater than the current model version '%@'. This likely indicates a schema downgrade, which is not supported", &v8, 0x2Au);
+    }
+
+    v4 = 0;
   }
 
-  v1 = getWFWFRecordLogObject_log;
+  else
+  {
+    v4 = v3;
+  }
 
-  return v1;
+  return v4;
 }
 
-void __getWFWFRecordLogObject_block_invoke()
+__CFString *WFEntityPrimaryKeyForObjectType(unint64_t a1)
 {
-  v0 = os_log_create(*MEMORY[0x1E69E1140], "WFRecord");
-  v1 = getWFWFRecordLogObject_log;
-  getWFWFRecordLogObject_log = v0;
+  if (a1 > 0xB)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return off_1E837A328[a1];
+  }
 }
 
-id WFShortcutPackageFileFailedToSignShortcutFileError()
+void sub_1CA842DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v1 = WFLocalizedString(@"Failed to sign shortcut");
-  v7[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v3 = [v0 errorWithDomain:@"WFWorkflowErrorDomain" code:4 userInfo:v2];
-
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3;
-}
-
-void sub_1CA784378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  (*(a10 + 16))();
-  (*(a12 + 16))();
-  (*(v12 + 16))(v12);
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id WFShortcutPackageFileInvalidShortcutFileError()
+void sub_1CA84309C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v1 = WFLocalizedString(@"Invalid shortcut file");
-  v7[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v3 = [v0 errorWithDomain:@"WFWorkflowErrorDomain" code:3 userInfo:v2];
-
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3;
-}
-
-void sub_1CA784ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
-{
-  (*(a13 + 16))();
-  (*(v13 + 16))(v13);
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id WFShortcutPackageFileFailedToExtractShortcutFileError()
+void sub_1CA843350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v1 = WFLocalizedString(@"Failed to extract the shortcut file data");
-  v7[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v3 = [v0 errorWithDomain:@"WFWorkflowErrorDomain" code:6 userInfo:v2];
-
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3;
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-void sub_1CA7853A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1CA843834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8445F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA84524C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 144), 8);
-  _Block_object_dispose((v11 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__20357(uint64_t result, uint64_t a2)
+SEL MTLSelectorWithKeyPattern(void *a1, const char *a2)
 {
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v10[0] = [v3 maximumLengthOfBytesUsingEncoding:4];
+  v4 = strlen(a2);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = v10 - v5;
+  v7 = [v3 getBytes:v10 - v5 maxLength:v10[0] usedLength:v10 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v3, "length"), 0}];
+
+  result = 0;
+  if (v7)
+  {
+    v9 = &v6[v10[0]];
+    memcpy(&v6[v10[0]], a2, v4);
+    v9[v4] = 0;
+    return sel_registerName(v6);
+  }
+
   return result;
 }
 
-uint64_t WFPBPersonalAutomationSuggestionEventReadFrom(uint64_t a1, void *a2)
+SEL MTLSelectorWithCapitalizedKeyPattern(const char *a1, void *a2, const char *a3)
+{
+  v22[1] = *MEMORY[0x1E69E9840];
+  v6 = strlen(a1);
+  v7 = strlen(a3);
+  v8 = a2;
+  v9 = [v8 substringToIndex:1];
+  v10 = [v9 uppercaseString];
+
+  v11 = [v10 maximumLengthOfBytesUsingEncoding:4];
+  v22[0] = v11;
+  v12 = [v8 substringFromIndex:1];
+
+  v13 = [v12 maximumLengthOfBytesUsingEncoding:4];
+  v21 = v13;
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v20 - v14;
+  memcpy(&v20 - v14, a1, v6);
+  v16 = &v15[v6];
+  if ([v10 getBytes:&v15[v6] maxLength:v11 usedLength:v22 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v10, "length"), 0}] && objc_msgSend(v12, "getBytes:maxLength:usedLength:encoding:options:range:remainingRange:", &v16[v22[0]], v13, &v21, 4, 0, 0, objc_msgSend(v12, "length"), 0))
+  {
+    v17 = &v16[v22[0] + v21];
+    memcpy(v17, a3, v7);
+    v17[v7] = 0;
+    v18 = sel_registerName(v15);
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
+}
+
+uint64_t MTLValidateAndSetValue(void *a1, void *a2, void *a3, char a4, uint64_t a5)
+{
+  v9 = a1;
+  v10 = a2;
+  v11 = a3;
+  v14 = v11;
+  if ([v9 validateValue:&v14 forKey:v10 error:a5])
+  {
+    if ((a4 & 1) != 0 || v14 != v11)
+    {
+      [v9 setValue:v14 forKey:v10];
+    }
+
+    v12 = 1;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+uint64_t WFPBSuggestAutomationEventReadFrom(uint64_t a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -5733,12 +691,12 @@ uint64_t WFPBPersonalAutomationSuggestionEventReadFrom(uint64_t a1, void *a2)
       v7 = 0;
       while (1)
       {
-        v39 = 0;
+        v33 = 0;
         v8 = [a2 position] + 1;
         if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
         {
           v10 = [a2 data];
-          [v10 getBytes:&v39 range:{objc_msgSend(a2, "position"), 1}];
+          [v10 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
 
           [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
         }
@@ -5748,8 +706,8 @@ uint64_t WFPBPersonalAutomationSuggestionEventReadFrom(uint64_t a1, void *a2)
           [a2 _setError];
         }
 
-        v7 |= (v39 & 0x7F) << v5;
-        if ((v39 & 0x80) == 0)
+        v7 |= (v33 & 0x7F) << v5;
+        if ((v33 & 0x80) == 0)
         {
           break;
         }
@@ -5771,76 +729,26 @@ LABEL_15:
       }
 
       v13 = v12 >> 3;
-      if ((v12 >> 3) <= 4)
+      if ((v12 >> 3) <= 2)
       {
-        if (v13 > 2)
-        {
-          if (v13 != 3)
-          {
-            if (v13 != 4)
-            {
-              goto LABEL_63;
-            }
-
-            v16 = 0;
-            v17 = 0;
-            v18 = 0;
-            *(a1 + 60) |= 4u;
-            while (1)
-            {
-              v42 = 0;
-              v19 = [a2 position] + 1;
-              if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
-              {
-                v21 = [a2 data];
-                [v21 getBytes:&v42 range:{objc_msgSend(a2, "position"), 1}];
-
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v18 |= (v42 & 0x7F) << v16;
-              if ((v42 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v16 += 7;
-              v11 = v17++ >= 9;
-              if (v11)
-              {
-                LOBYTE(v22) = 0;
-                goto LABEL_66;
-              }
-            }
-
-            v22 = (v18 != 0) & ~[a2 hasError];
-LABEL_66:
-            v37 = 58;
-LABEL_71:
-            *(a1 + v37) = v22;
-            goto LABEL_72;
-          }
-
-          v14 = PBReaderReadString();
-          v15 = 40;
-        }
-
-        else if (v13 == 1)
+        if (v13 == 1)
         {
           v14 = PBReaderReadString();
-          v15 = 32;
+          v15 = 8;
         }
 
         else
         {
           if (v13 != 2)
           {
-            goto LABEL_63;
+LABEL_45:
+            result = PBReaderSkipValueWithTag();
+            if (!result)
+            {
+              return result;
+            }
+
+            goto LABEL_52;
           }
 
           v14 = PBReaderReadString();
@@ -5850,457 +758,119 @@ LABEL_71:
 
       else
       {
-        if (v13 <= 6)
+        if (v13 == 3)
         {
-          if (v13 == 5)
+          v16 = 0;
+          v17 = 0;
+          v18 = 0;
+          *(a1 + 36) |= 2u;
+          while (1)
           {
-            v29 = 0;
-            v30 = 0;
-            v31 = 0;
-            *(a1 + 60) |= 2u;
-            while (1)
+            v35 = 0;
+            v19 = [a2 position] + 1;
+            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
             {
-              v41 = 0;
-              v32 = [a2 position] + 1;
-              if (v32 >= [a2 position] && (v33 = objc_msgSend(a2, "position") + 1, v33 <= objc_msgSend(a2, "length")))
-              {
-                v34 = [a2 data];
-                [v34 getBytes:&v41 range:{objc_msgSend(a2, "position"), 1}];
+              v21 = [a2 data];
+              [v21 getBytes:&v35 range:{objc_msgSend(a2, "position"), 1}];
 
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v31 |= (v41 & 0x7F) << v29;
-              if ((v41 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v29 += 7;
-              v11 = v30++ >= 9;
-              if (v11)
-              {
-                LOBYTE(v22) = 0;
-                goto LABEL_70;
-              }
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
             }
 
-            v22 = (v31 != 0) & ~[a2 hasError];
-LABEL_70:
-            v37 = 57;
+            else
+            {
+              [a2 _setError];
+            }
+
+            v18 |= (v35 & 0x7F) << v16;
+            if ((v35 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v16 += 7;
+            v11 = v17++ >= 9;
+            if (v11)
+            {
+              LOBYTE(v22) = 0;
+              goto LABEL_48;
+            }
           }
 
-          else
+          v22 = (v18 != 0) & ~[a2 hasError];
+LABEL_48:
+          v31 = 33;
+          goto LABEL_51;
+        }
+
+        if (v13 == 4)
+        {
+          v23 = 0;
+          v24 = 0;
+          v25 = 0;
+          *(a1 + 36) |= 1u;
+          while (1)
           {
-            if (v13 != 6)
+            v34 = 0;
+            v26 = [a2 position] + 1;
+            if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
             {
-LABEL_63:
-              result = PBReaderSkipValueWithTag();
-              if (!result)
-              {
-                return result;
-              }
+              v28 = [a2 data];
+              [v28 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
 
-              goto LABEL_72;
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
             }
 
-            v23 = 0;
-            v24 = 0;
-            v25 = 0;
-            *(a1 + 60) |= 1u;
-            while (1)
+            else
             {
-              v40 = 0;
-              v26 = [a2 position] + 1;
-              if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
-              {
-                v28 = [a2 data];
-                [v28 getBytes:&v40 range:{objc_msgSend(a2, "position"), 1}];
-
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v25 |= (v40 & 0x7F) << v23;
-              if ((v40 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v23 += 7;
-              v11 = v24++ >= 9;
-              if (v11)
-              {
-                LOBYTE(v22) = 0;
-                goto LABEL_68;
-              }
+              [a2 _setError];
             }
 
-            v22 = (v25 != 0) & ~[a2 hasError];
-LABEL_68:
-            v37 = 56;
+            v25 |= (v34 & 0x7F) << v23;
+            if ((v34 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v23 += 7;
+            v11 = v24++ >= 9;
+            if (v11)
+            {
+              LOBYTE(v22) = 0;
+              goto LABEL_50;
+            }
           }
 
-          goto LABEL_71;
+          v22 = (v25 != 0) & ~[a2 hasError];
+LABEL_50:
+          v31 = 32;
+LABEL_51:
+          *(a1 + v31) = v22;
+          goto LABEL_52;
         }
 
-        switch(v13)
+        if (v13 != 5)
         {
-          case 7:
-            v14 = PBReaderReadString();
-            v15 = 16;
-            break;
-          case 8:
-            v14 = PBReaderReadString();
-            v15 = 8;
-            break;
-          case 9:
-            v14 = PBReaderReadString();
-            v15 = 48;
-            break;
-          default:
-            goto LABEL_63;
+          goto LABEL_45;
         }
+
+        v14 = PBReaderReadString();
+        v15 = 16;
       }
 
-      v35 = *(a1 + v15);
+      v29 = *(a1 + v15);
       *(a1 + v15) = v14;
 
-LABEL_72:
-      v38 = [a2 position];
+LABEL_52:
+      v32 = [a2 position];
     }
 
-    while (v38 < [a2 length]);
+    while (v32 < [a2 length]);
   }
 
   return [a2 hasError] ^ 1;
 }
 
-void sub_1CA78928C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
-{
-  _Block_object_dispose(&a33, 8);
-  if (a2 == 1)
-  {
-    v37 = objc_begin_catch(a1);
-    v38 = getWFTestHarnessLogObject();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
-    {
-      *(v34 - 192) = 136315394;
-      v39 = v34 - 192;
-      *(v39 + 4) = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      *(v34 - 180) = 2112;
-      *(v39 + 14) = v37;
-      _os_log_impl(&dword_1CA256000, v38, OS_LOG_TYPE_FAULT, "%s Exception thrown while constructing and calling test invocation method: %@", (v34 - 192), 0x16u);
-    }
-
-    if (v33)
-    {
-      *v33 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    }
-
-    objc_end_catch();
-    JUMPOUT(0x1CA788A7CLL);
-  }
-
-  (*(a14 + 16))();
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__20765(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA78A1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__20844(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-BOOL WFErrorIsRemoteQuarantineDenialError(void *a1)
-{
-  v1 = a1;
-  v2 = [v1 domain];
-  if ([v2 isEqualToString:@"WFRemoteQuarantineErrorDomain"])
-  {
-    v3 = [v1 code] == 0;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v3;
-}
-
-id WFAddRecoveryOptionsToRemoteQuarantineDenialError(void *a1, void *a2)
-{
-  v21[2] = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = a2;
-  if (WFErrorIsRemoteQuarantineDenialError(v3))
-  {
-    v5 = [v3 userInfo];
-    v6 = [v5 mutableCopy];
-
-    v7 = WFLocalizedString(@"Cancel");
-    v21[0] = v7;
-    v8 = WFLocalizedString(@"Delete");
-    v21[1] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
-    [v6 setObject:v9 forKeyedSubscript:*MEMORY[0x1E696A590]];
-
-    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:1];
-    [v6 setObject:v10 forKeyedSubscript:*MEMORY[0x1E6997068]];
-
-    v11 = objc_alloc(MEMORY[0x1E6996CB8]);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __WFAddRecoveryOptionsToRemoteQuarantineDenialError_block_invoke;
-    v18[3] = &unk_1E8376740;
-    v20 = 1;
-    v19 = v4;
-    v12 = [v11 initWithHandlerBlock:v18];
-    [v6 setObject:v12 forKeyedSubscript:*MEMORY[0x1E696A8A8]];
-    [v6 setObject:v12 forKeyedSubscript:*MEMORY[0x1E6997138]];
-    v13 = MEMORY[0x1E696ABC0];
-    v14 = [v3 domain];
-    v15 = [v13 errorWithDomain:v14 code:objc_msgSend(v3 userInfo:{"code"), v6}];
-  }
-
-  else
-  {
-    v15 = v3;
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
-}
-
-void __WFAddRecoveryOptionsToRemoteQuarantineDenialError_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
-{
-  if (*(a1 + 40) == a3)
-  {
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 16);
-    v8 = a5;
-    v7(v6);
-    v8[2](v8, 1, 0);
-  }
-}
-
-void sub_1CA78BF38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__21068(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA78F288(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA7901C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA790928(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v3 + 40));
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v4 - 88));
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA791F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA79401C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void *__getAFIsPersistentSiriAvailableSymbolLoc_block_invoke(void *a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  if (!AssistantServicesLibraryCore_frameworkLibrary)
-  {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __AssistantServicesLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E8376A70;
-    v8 = 0;
-    AssistantServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  v2 = AssistantServicesLibraryCore_frameworkLibrary;
-  if (!AssistantServicesLibraryCore_frameworkLibrary)
-  {
-    a1 = [MEMORY[0x1E696AAA8] currentHandler];
-    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AssistantServicesLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"WFAssistantServicesWrapper.m" lineNumber:13 description:{@"%s", v6[0]}];
-
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v3 = v6[0];
-  if (v6[0])
-  {
-LABEL_7:
-    free(v3);
-  }
-
-  result = dlsym(v2, "AFIsPersistentSiriAvailable");
-  *(*(a1[4] + 8) + 24) = result;
-  getAFIsPersistentSiriAvailableSymbolLoc_ptr = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t __AssistantServicesLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  AssistantServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void sub_1CA794428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA795190(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__22356(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1CA799E94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-id getWFLaunchAngelLogObject()
-{
-  if (getWFLaunchAngelLogObject_onceToken != -1)
-  {
-    dispatch_once(&getWFLaunchAngelLogObject_onceToken, &__block_literal_global_22766);
-  }
-
-  v1 = getWFLaunchAngelLogObject_log;
-
-  return v1;
-}
-
-void __getWFLaunchAngelLogObject_block_invoke()
-{
-  v0 = os_log_create(*MEMORY[0x1E69E1140], "LaunchAngel");
-  v1 = getWFLaunchAngelLogObject_log;
-  getWFLaunchAngelLogObject_log = v0;
-}
-
-uint64_t WFBundleIdentifierIsTerminalApp(void *a1)
-{
-  v1 = WFBundleIdentifierIsTerminalApp_onceToken;
-  v2 = a1;
-  if (v1 != -1)
-  {
-    dispatch_once(&WFBundleIdentifierIsTerminalApp_onceToken, &__block_literal_global_22864);
-  }
-
-  v3 = [WFBundleIdentifierIsTerminalApp_terminals containsObject:v2];
-
-  return v3;
-}
-
-void __WFBundleIdentifierIsTerminalApp_block_invoke()
-{
-  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"com.apple.Terminal", @"com.googlecode.iterm2", @"dev.warp.Warp-Stable", @"dev.commandline.waveterm", @"org.alacritty", @"dev.archipelago", @"org.contourterminal.Contour", @"com.yourcompany.cool-retro-term", @"com.mitchellh.ghostty", @"co.zeit.hyper", @"net.kovidgoyal.kitty", @"com.raphaelamorim.rio", @"org.tabby", @"app.termora", @"com.github.wez.wezterm", 0}];
-  v1 = WFBundleIdentifierIsTerminalApp_terminals;
-  WFBundleIdentifierIsTerminalApp_terminals = v0;
-}
-
-id WFLaunchDeniedErrorForLocalizedTerminalAppName(void *a1)
-{
-  v11[1] = *MEMORY[0x1E69E9840];
-  v1 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A578];
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = a1;
-  v4 = WFLocalizedString(@"The action could not run because it attempted to open a file in “%@”, but “Allow Running Scripts” is disabled in the Shortcuts settings.");
-  v5 = [v2 stringWithFormat:v4, v3, v10];
-
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-  v7 = [v1 errorWithDomain:@"WFActionErrorDomain" code:12 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
-}
-
-uint64_t WFPBRemoteWidgetConfigurationEventReadFrom(uint64_t a1, void *a2)
+uint64_t WFPBGallerySessionAddShortcutEventReadFrom(uint64_t a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -6354,7 +924,7 @@ LABEL_15:
       }
 
       v13 = (v12 >> 3) - 1;
-      if (v13 >= 4)
+      if (v13 >= 3)
       {
         if ((PBReaderSkipValueWithTag() & 1) == 0)
         {
@@ -6364,7 +934,7 @@ LABEL_15:
 
       else
       {
-        v14 = off_1E8376DF8[v13];
+        v14 = off_1E837A4B8[v13];
         v15 = PBReaderReadString();
         v16 = *v14;
         v17 = *(a1 + v16);
@@ -6380,486 +950,5478 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-Class initUIPasteboard()
+id failureReasonForRunnerErrorCode(uint64_t a1)
 {
-  if (UIKitLibrary_sOnce_23061 != -1)
+  if (a1 == 1)
   {
-    dispatch_once(&UIKitLibrary_sOnce_23061, &__block_literal_global_23062);
-  }
-
-  result = objc_getClass("UIPasteboard");
-  classUIPasteboard = result;
-  getUIPasteboardClass = UIPasteboardFunction;
-  return result;
-}
-
-void *__UIKitLibrary_block_invoke_23066()
-{
-  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
-  UIKitLibrary_sLib_23068 = result;
-  return result;
-}
-
-void __getPRSServiceClass_block_invoke(uint64_t a1)
-{
-  PosterBoardServicesLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("PRSService");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getPRSServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+    v2 = WFLocalizedString(@"Couldn’t find shortcut");
   }
 
   else
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getPRSServiceClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"WFPosterService.m" lineNumber:31 description:{@"Unable to find class %s", "PRSService"}];
-
-    __break(1u);
+    v2 = 0;
   }
-}
-
-void PosterBoardServicesLibrary()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  if (!PosterBoardServicesLibraryCore_frameworkLibrary)
-  {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __PosterBoardServicesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E8376E98;
-    v6 = 0;
-    PosterBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  if (!PosterBoardServicesLibraryCore_frameworkLibrary)
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *PosterBoardServicesLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"WFPosterService.m" lineNumber:30 description:{@"%s", v4[0]}];
-
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v0 = v4[0];
-  if (v4[0])
-  {
-LABEL_7:
-    free(v0);
-  }
-
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t __PosterBoardServicesLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  PosterBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void sub_1CA79DF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void __getPRSExternalSystemServiceClass_block_invoke(uint64_t a1)
-{
-  PosterBoardServicesLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("PRSExternalSystemService");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getPRSExternalSystemServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getPRSExternalSystemServiceClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"WFPosterService.m" lineNumber:32 description:{@"Unable to find class %s", "PRSExternalSystemService"}];
-
-    __break(1u);
-  }
-}
-
-id WFSanitizedPostersError(void *a1, void *a2)
-{
-  v28 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = a2;
-  if (!v3)
-  {
-    v6 = 0;
-    goto LABEL_10;
-  }
-
-  v5 = [v3 domain];
-  if ([v5 hasPrefix:@"com.apple.PosterBoard"])
-  {
-  }
-
-  else
-  {
-    v7 = [v3 domain];
-    v8 = [v7 isEqualToString:@"BSServiceConnectionErrorDomain"];
-
-    if (!v8)
-    {
-      v6 = v3;
-      goto LABEL_10;
-    }
-  }
-
-  v9 = getWFActionsLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136315650;
-    v23 = "WFSanitizedPostersError";
-    v24 = 2112;
-    v25 = v4;
-    v26 = 2112;
-    v27 = v3;
-    _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s %@ failed with error: %@, being remapped to user-facing error", buf, 0x20u);
-  }
-
-  v10 = MEMORY[0x1E696AEC0];
-  v11 = WFLocalizedString(@"Unable to %@");
-  v12 = [v10 localizedStringWithFormat:v11, v4];
-
-  v13 = MEMORY[0x1E696ABC0];
-  v14 = *MEMORY[0x1E696A588];
-  v21[0] = v12;
-  v15 = *MEMORY[0x1E696A578];
-  v20[0] = v14;
-  v20[1] = v15;
-  v16 = WFLocalizedString(@"An unknown error occurred while performing the operation.");
-  v21[1] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v6 = [v13 errorWithDomain:@"com.apple.shortcuts.poster-service" code:1 userInfo:v17];
-
-LABEL_10:
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v6;
-}
-
-void sub_1CA79E9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-Class __getALCityManagerClass_block_invoke(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
-  if (!AppSupportLibraryCore_frameworkLibrary)
-  {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __AppSupportLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E8376F10;
-    v9 = 0;
-    AppSupportLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  if (!AppSupportLibraryCore_frameworkLibrary)
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AppSupportLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFTimeZonePickerParameter.m" lineNumber:18 description:{@"%s", v7[0]}];
-
-    goto LABEL_10;
-  }
-
-  if (v7[0])
-  {
-    free(v7[0]);
-  }
-
-  result = objc_getClass("ALCityManager");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getALCityManagerClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFTimeZonePickerParameter.m" lineNumber:19 description:{@"Unable to find class %s", "ALCityManager"}];
-
-LABEL_10:
-    __break(1u);
-  }
-
-  getALCityManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t __AppSupportLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  AppSupportLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-id WFINObjectFromSerializedRepresentation(void *a1, objc_class *a2)
-{
-  v3 = a1;
-  v4 = objc_opt_class();
-  v5 = WFEnforceClass_1501(v3, v4);
-
-  v6 = [v5 objectForKeyedSubscript:@"Identifier"];
-  v7 = objc_opt_class();
-  v8 = WFEnforceClass_1501(v6, v7);
-
-  v9 = [v5 objectForKeyedSubscript:@"DisplayString"];
-  v10 = objc_opt_class();
-  v11 = WFEnforceClass_1501(v9, v10);
-
-  if (v11)
-  {
-    v12 = [a2 alloc];
-    v13 = [v12 wf_initWithIdentifier:v8 displayString:v11];
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  return v13;
-}
-
-id WFSerializedRepresentationFromWFINObject(void *a1)
-{
-  v1 = a1;
-  v2 = objc_opt_new();
-  v3 = [v1 spokenPhrase];
-  [v2 setObject:v3 forKey:@"DisplayString"];
-
-  v4 = [v1 vocabularyIdentifier];
-
-  [v2 setValue:v4 forKey:@"Identifier"];
 
   return v2;
 }
 
-id WFRunnerFailureErrorMessage(void *a1)
+id WFBackgroundShortcutRunnerError(uint64_t a1, void *a2)
 {
-  v14[2] = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  if (v1)
+  v3 = a2;
+  v4 = objc_opt_new();
+  v5 = MEMORY[0x1E696A588];
+  if (v3)
   {
-    v2 = MEMORY[0x1E696AEC0];
-    v3 = WFLocalizedString(@"Couldn’t Run “%@”");
-    v4 = [v2 localizedStringWithFormat:v3, v1];
+    v6 = objc_opt_new();
+    v7 = [v3 localizedDescription];
+
+    if (v7)
+    {
+      v8 = [v3 localizedDescription];
+      [v6 setObject:v8 forKeyedSubscript:*MEMORY[0x1E696A578]];
+    }
+
+    v9 = [v3 localizedFailureReason];
+
+    if (v9)
+    {
+      v10 = [v3 localizedFailureReason];
+      [v6 setObject:v10 forKeyedSubscript:*v5];
+    }
+
+    v11 = [v3 localizedRecoverySuggestion];
+
+    if (v11)
+    {
+      v12 = [v3 localizedRecoverySuggestion];
+      [v6 setObject:v12 forKeyedSubscript:*MEMORY[0x1E696A598]];
+    }
+
+    v13 = [v3 userInfo];
+    v14 = [v13 objectForKey:@"WFActionIndex"];
+
+    if (v14)
+    {
+      v15 = [v3 userInfo];
+      v16 = [v15 objectForKey:@"WFActionIndex"];
+      [v6 setObject:v16 forKeyedSubscript:@"WFActionIndex"];
+    }
+
+    v17 = MEMORY[0x1E696ABC0];
+    v18 = [v3 domain];
+    v19 = [v3 code];
+    v20 = [v6 copy];
+    v21 = [v17 errorWithDomain:v18 code:v19 userInfo:v20];
+    [v4 setObject:v21 forKey:*MEMORY[0x1E696AA08]];
   }
 
-  else
+  v22 = failureReasonForRunnerErrorCode(a1);
+  if (v22)
   {
-    v4 = WFLocalizedString(@"Couldn’t run shortcut");
+    [v4 setObject:v22 forKey:*v5];
   }
 
-  v5 = WFLocalizedString(@"The action couldn’t run because the runner quit unexpectedly.");
-  v6 = MEMORY[0x1E696ABC0];
-  v7 = *MEMORY[0x1E6997158];
-  v8 = *MEMORY[0x1E696A578];
-  v13[0] = *MEMORY[0x1E696A588];
-  v13[1] = v8;
-  v14[0] = v4;
-  v14[1] = v5;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v10 = [v6 errorWithDomain:v7 code:1 userInfo:v9];
+  v23 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFBackgroundShortcutRunnerErrorDomain" code:a1 userInfo:v4];
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v23;
 }
 
-void sub_1CA7AC3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1CA853B88(_Unwind_Exception *a1)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 256), 8);
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v2 - 24));
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__24935(uint64_t result, uint64_t a2)
+void sub_1CA8542EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
 {
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
 }
 
-id getWFActionRegistryLogObject()
+id WFRemoteWidgetFramer()
 {
-  if (getWFActionRegistryLogObject_onceToken != -1)
+  if (WFRemoteWidgetFramer_onceToken != -1)
   {
-    dispatch_once(&getWFActionRegistryLogObject_onceToken, &__block_literal_global_25468);
+    dispatch_once(&WFRemoteWidgetFramer_onceToken, &__block_literal_global_308);
   }
 
-  v1 = getWFActionRegistryLogObject_log;
+  v1 = WFRemoteWidgetFramer_definition;
 
   return v1;
 }
 
-void __getWFActionRegistryLogObject_block_invoke()
+void __WFRemoteWidgetFramer_block_invoke()
 {
-  v0 = os_log_create(*MEMORY[0x1E69E1140], "ActionRegistry");
-  v1 = getWFActionRegistryLogObject_log;
-  getWFActionRegistryLogObject_log = v0;
+  definition = nw_framer_create_definition("WFRemoteWidgetConnection", 0, &__block_literal_global_312);
+  v1 = WFRemoteWidgetFramer_definition;
+  WFRemoteWidgetFramer_definition = definition;
 }
 
-uint64_t __Block_byref_object_copy__25502(uint64_t result, uint64_t a2)
+uint64_t __WFRemoteWidgetFramer_block_invoke_2(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  nw_framer_set_input_handler(v2, &__block_literal_global_315_45922);
+  nw_framer_set_output_handler(v2, &__block_literal_global_319);
+
+  return 1;
+}
+
+void __WFRemoteWidgetFramer_block_invoke_5(uint64_t a1, void *a2, uint64_t a3, size_t a4)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v5 = a2;
+  v6 = v5;
+  if (HIDWORD(a4))
+  {
+    v7 = getWFWidgetConfigurationLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v8 = 136315394;
+      v9 = "WFRemoteWidgetFramer_block_invoke_5";
+      v10 = 2050;
+      v11 = a4;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Message length exceeds UINT32_MAX. Message length %{public}ld", &v8, 0x16u);
+    }
+  }
+
+  else
+  {
+    v8 = bswap32(a4);
+    nw_framer_write_output(v5, &v8, 4uLL);
+    nw_framer_write_output_no_copy(v6, a4);
+  }
+}
+
+uint64_t __WFRemoteWidgetFramer_block_invoke_3(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  v3 = MEMORY[0x1E69E9820];
+  while (1)
+  {
+    *temp_buffer = 0;
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x2020000000;
+    v12 = 0;
+    v8[0] = v3;
+    v8[1] = 3221225472;
+    v8[2] = __WFRemoteWidgetFramer_block_invoke_4;
+    v8[3] = &unk_1E837A880;
+    v8[4] = &v9;
+    if (!nw_framer_parse_input(v2, 4uLL, 4uLL, temp_buffer, v8))
+    {
+      break;
+    }
+
+    v4 = nw_framer_message_create(v2);
+    v5 = nw_framer_deliver_input_no_copy(v2, *(v10 + 6), v4, 1);
+
+    _Block_object_dispose(&v9, 8);
+    if (!v5)
+    {
+      v6 = 0;
+      goto LABEL_6;
+    }
+  }
+
+  _Block_object_dispose(&v9, 8);
+  v6 = 4;
+LABEL_6:
+
+  return v6;
+}
+
+void sub_1CA854748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __WFRemoteWidgetFramer_block_invoke_4(uint64_t a1, unsigned int *a2, unint64_t a3)
+{
+  result = 0;
+  if (a2)
+  {
+    if (a3 >= 4)
+    {
+      *(*(*(a1 + 32) + 8) + 24) = bswap32(*a2);
+      return 4;
+    }
+  }
+
+  return result;
+}
+
+void sub_1CA854D98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+NSObject *WFCreateAdvertiseParametersForConnectionType(uint64_t a1, uint64_t a2)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  if (a1 == 1)
+  {
+    v2 = getWFWidgetConfigurationLogObject();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
+      v11 = "WFCreateAdvertiseParametersForConnectionType";
+      _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEFAULT, "%s creating terminus advertise parameter with ASListener", &v10, 0xCu);
+    }
+
+    application_service_quic = nw_parameters_create_application_service_quic();
+    empty = xpc_array_create_empty();
+    xpc_array_set_string(empty, 0xFFFFFFFFFFFFFFFFLL, "com.apple.networkrelay");
+    v5 = xpc_array_create_empty();
+    xpc_array_set_string(v5, 0xFFFFFFFFFFFFFFFFLL, "ASListener");
+    nw_parameters_set_required_netagent_classes();
+    nw_parameters_set_local_only(application_service_quic, 0);
+    nw_parameters_set_prohibit_expensive(application_service_quic, 1);
+    nw_parameters_set_prohibit_constrained(application_service_quic, 1);
+    nw_parameters_set_include_peer_to_peer(application_service_quic, 1);
+    nw_parameters_set_attach_protocol_listener();
+    nw_parameters_set_traffic_class();
+    nw_parameters_set_multipath_service(application_service_quic, nw_multipath_service_disabled);
+  }
+
+  else
+  {
+    application_service_quic = MEMORY[0x1CCAA3D90](a1, a2);
+    empty = getWFWidgetConfigurationLogObject();
+    if (os_log_type_enabled(empty, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
+      v11 = "WFCreateAdvertiseParametersForConnectionType";
+      _os_log_impl(&dword_1CA256000, empty, OS_LOG_TYPE_DEFAULT, "%s creating standard advertise parameter", &v10, 0xCu);
+    }
+  }
+
+  v6 = nw_parameters_copy_default_protocol_stack(application_service_quic);
+  v7 = WFRemoteWidgetFramer();
+  options = nw_framer_create_options(v7);
+  nw_protocol_stack_prepend_application_protocol(v6, options);
+
+  return application_service_quic;
+}
+
+NSObject *WFCreateBrowseParametersForConnectionType(uint64_t a1)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  if (a1 == 1)
+  {
+    application_service_quic = nw_parameters_create_application_service_quic();
+    v6 = getWFWidgetConfigurationLogObject();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      v11 = 136315138;
+      v12 = "WFCreateBrowseParametersForConnectionType";
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_INFO, "%s creating terminus browse parameter with ASResolver", &v11, 0xCu);
+    }
+
+    empty = xpc_array_create_empty();
+    xpc_array_set_string(empty, 0xFFFFFFFFFFFFFFFFLL, "com.apple.networkrelay");
+    v4 = xpc_array_create_empty();
+    xpc_array_set_string(v4, 0xFFFFFFFFFFFFFFFFLL, "ASResolver");
+    nw_parameters_set_preferred_netagent_classes();
+    nw_parameters_set_prohibit_expensive(application_service_quic, 1);
+    nw_parameters_set_prohibit_constrained(application_service_quic, 1);
+    nw_parameters_set_include_peer_to_peer(application_service_quic, 1);
+    nw_parameters_set_traffic_class();
+    nw_parameters_set_multipath_service(application_service_quic, nw_multipath_service_disabled);
+  }
+
+  else if (a1)
+  {
+    application_service_quic = 0;
+    v4 = 0;
+    empty = 0;
+  }
+
+  else
+  {
+    application_service_quic = MEMORY[0x1CCAA3D90]();
+    v2 = getWFWidgetConfigurationLogObject();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    {
+      v11 = 136315138;
+      v12 = "WFCreateBrowseParametersForConnectionType";
+      _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_INFO, "%s creating standard browse parameter with RapportBrowseAgent", &v11, 0xCu);
+    }
+
+    empty = xpc_array_create(0, 0);
+    xpc_array_set_string(empty, 0xFFFFFFFFFFFFFFFFLL, "com.apple.rapport.browse");
+    v4 = xpc_array_create(0, 0);
+    xpc_array_set_string(v4, 0xFFFFFFFFFFFFFFFFLL, "RapportBrowseAgent");
+    nw_parameters_set_required_netagent_classes();
+    self = nw_application_id_create_self();
+    nw_parameters_set_application_id();
+  }
+
+  v7 = nw_parameters_copy_default_protocol_stack(application_service_quic);
+  v8 = WFRemoteWidgetFramer();
+  options = nw_framer_create_options(v8);
+  nw_protocol_stack_prepend_application_protocol(v7, options);
+
+  return application_service_quic;
+}
+
+void sub_1CA855C90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
+{
+  objc_destroyWeak((v20 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8564A0(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 40));
+  objc_destroyWeak((v2 - 40));
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA856D70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8575BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id WFDisplayableTimeUnitsForContentProperty(void *a1)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = [&unk_1F4A9B620 mutableCopy];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v3 = [v2 copy];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v12;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v12 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v11 + 1) + 8 * i);
+        v9 = [v8 unsignedIntegerValue];
+        if (([v1 timeUnits] & v9) == 0)
+        {
+          [v2 removeObject:v8];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v5);
+  }
+
+  return v2;
+}
+
+id WFComparableTimeUnitsForContentProperty(void *a1)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = [&unk_1F4A9B620 mutableCopy];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v3 = [v2 copy];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v12;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v12 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v11 + 1) + 8 * i);
+        v9 = [v8 unsignedIntegerValue];
+        if (([v1 comparableUnits] & v9) == 0)
+        {
+          [v2 removeObject:v8];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v5);
+  }
+
+  return v2;
+}
+
+id WFLabelForCalendarUnit(uint64_t a1, void *a2, char a3)
+{
+  v5 = a2;
+  v6 = objc_opt_new();
+  if (a3)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v8 = [v5 decimalNumber];
+    [v8 doubleValue];
+    v10 = v9;
+
+    v7 = fmin(v10, 150.0);
+  }
+
+  if (a1 == 0x2000)
+  {
+    v11 = 4096;
+  }
+
+  else
+  {
+    v11 = a1;
+  }
+
+  [v6 setValue:v7 forComponent:v11];
+  v12 = objc_opt_new();
+  [v12 setUnitsStyle:3];
+  [v12 setZeroFormattingBehavior:0];
+  v13 = [v12 stringFromDateComponents:v6];
+  v14 = [MEMORY[0x1E696AB08] decimalDigitCharacterSet];
+  v15 = [v13 componentsSeparatedByCharactersInSet:v14];
+  v16 = [v15 componentsJoinedByString:&stru_1F4A1C408];
+  v17 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
+  v18 = [v16 stringByTrimmingCharactersInSet:v17];
+
+  return v18;
+}
+
+id WFLabelForByteCountUnit(uint64_t a1)
+{
+  v2 = objc_opt_new();
+  [v2 setAllowedUnits:a1];
+  [v2 setAllowsNonnumericFormatting:0];
+  [v2 setIncludesCount:0];
+  v3 = [v2 stringFromByteCount:0];
+
+  return v3;
+}
+
+id WFContentPredicateForRowTemplateValue(void *a1)
+{
+  v155[2] = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = [v1 comparisonOperator];
+  v3 = [v1 contentItemClass];
+  v4 = [v1 contentPropertyName];
+  v5 = [v3 propertyForName:v4];
+
+  v6 = [objc_msgSend(v5 "valueItemClass")];
+  v7 = [MEMORY[0x1E695DF00] date];
+  if (v6 == 4)
+  {
+    v8 = [MEMORY[0x1E695DEE8] currentCalendar];
+    v9 = [v5 comparableUnits];
+    v136 = v9;
+    if (v9)
+    {
+      v10 = v9;
+      aBlock[0] = MEMORY[0x1E69E9820];
+      aBlock[1] = 3221225472;
+      aBlock[2] = __WFContentPredicateForRowTemplateValue_block_invoke;
+      aBlock[3] = &unk_1E837A8F8;
+      v152[1] = v9;
+      v126 = v152;
+      v11 = v8;
+      v152[0] = v11;
+      v12 = _Block_copy(aBlock);
+      v13 = [v11 components:v10 fromDate:v7];
+      v14 = [v11 nextDateAfterDate:v7 matchingComponents:v13 options:1024];
+      v15 = v14 != 0;
+    }
+
+    else
+    {
+      v15 = 0;
+      v12 = &__block_literal_global_46348;
+    }
+
+    v23 = WFComparableTimeUnitsForContentProperty(v5);
+    v24 = [v23 lastObject];
+
+    if (v24)
+    {
+      v25 = v24;
+    }
+
+    else
+    {
+      v25 = &unk_1F4A9A7C8;
+    }
+
+    v26 = [v25 unsignedIntegerValue];
+    if (v2 - 1000 < 2)
+    {
+      goto LABEL_22;
+    }
+
+    if (v2 == 1002)
+    {
+      if (v15)
+      {
+        v39 = MEMORY[0x1E6996D48];
+        v140[0] = MEMORY[0x1E69E9820];
+        v140[1] = 3221225472;
+        v140[2] = __WFContentPredicateForRowTemplateValue_block_invoke_6;
+        v140[3] = &unk_1E837A990;
+        v141 = v8;
+        v142 = v12;
+        v40 = [v39 predicateWithValueBlock:v140 forProperty:v5];
+
+        v41 = v141;
+      }
+
+      else
+      {
+        v98 = [v8 startOfDayForDate:v7];
+        v133 = [v8 dateByAddingUnit:16 value:1 toDate:v98 options:0];
+        v99 = [MEMORY[0x1E6996D48] predicateWithValue:v98 forProperty:v5 comparisonType:3];
+        v154[0] = v99;
+        v100 = [MEMORY[0x1E6996D48] predicateWithValue:v133 forProperty:v5 comparisonType:0];
+        v154[1] = v100;
+        [MEMORY[0x1E695DEC8] arrayWithObjects:v154 count:2];
+        v101 = v8;
+        v102 = v7;
+        v103 = v25;
+        v105 = v104 = v12;
+
+        v41 = v98;
+        v40 = [MEMORY[0x1E6996D50] andPredicateWithSubpredicates:v105];
+
+        v12 = v104;
+        v25 = v103;
+        v7 = v102;
+        v8 = v101;
+      }
+
+      v48 = v136;
+      goto LABEL_107;
+    }
+
+    if (v2 == 1003)
+    {
+LABEL_22:
+      v127 = v8;
+      v130 = v5;
+      v125 = v25;
+      if (v2 == 1003)
+      {
+        v27 = [v1 date];
+        v131 = (*(v12 + 2))(v12, v27);
+
+        v28 = [v1 anotherDate];
+      }
+
+      else
+      {
+        if (v2 == 1001 && (v136 & 0x1C) == 0x1C)
+        {
+          v36 = v12;
+          v37 = v7;
+        }
+
+        else
+        {
+          v36 = v12;
+          v37 = (*(v12 + 2))(v12, v7);
+        }
+
+        v131 = v37;
+        v52 = [v1 number];
+        v53 = [v52 integerValue];
+
+        v54 = [v1 calendarUnit];
+        v55 = [v54 unsignedIntegerValue];
+        if (v2 == 1001)
+        {
+          v56 = -v53;
+        }
+
+        else
+        {
+          v56 = v53;
+        }
+
+        v28 = [v8 dateByAddingUnit:v55 value:v56 toDate:v7 options:0];
+
+        v12 = v36;
+        v25 = v125;
+      }
+
+      v57 = (*(v12 + 2))(v12, v28);
+
+      if (v2 == 1001)
+      {
+        v58 = 1;
+      }
+
+      else
+      {
+        v58 = 3;
+      }
+
+      if (v2 == 1001)
+      {
+        v59 = 3;
+      }
+
+      else
+      {
+        v59 = 1;
+      }
+
+      if (v15)
+      {
+        v123 = v7;
+        v124 = v12;
+        v60 = MEMORY[0x1E696AB18];
+        v61 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+        v62 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v131];
+        v122 = [v60 predicateWithLeftExpression:v61 rightExpression:v62 modifier:0 type:v58 options:0];
+
+        v63 = MEMORY[0x1E696AB18];
+        v64 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+        v65 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v57];
+        v66 = [v63 predicateWithLeftExpression:v64 rightExpression:v65 modifier:0 type:v59 options:0];
+
+        v67 = MEMORY[0x1E696AB18];
+        v68 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+        v69 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v57];
+        v70 = [v67 predicateWithLeftExpression:v68 rightExpression:v69 modifier:0 type:3 options:0];
+
+        if (v2 == 1003 && [v70 evaluateWithObject:v131])
+        {
+          v71 = MEMORY[0x1E6996D48];
+          v147[0] = MEMORY[0x1E69E9820];
+          v147[1] = 3221225472;
+          v147[2] = __WFContentPredicateForRowTemplateValue_block_invoke_2;
+          v147[3] = &unk_1E837A968;
+          v72 = &v150;
+          v149 = v66;
+          v150 = v124;
+          v73 = &v148;
+          v74 = &v149;
+          v75 = v122;
+          v148 = v122;
+          v76 = v66;
+          v77 = v122;
+          v78 = v147;
+        }
+
+        else
+        {
+          v71 = MEMORY[0x1E6996D48];
+          v143[0] = MEMORY[0x1E69E9820];
+          v143[1] = 3221225472;
+          v143[2] = __WFContentPredicateForRowTemplateValue_block_invoke_4;
+          v143[3] = &unk_1E837A968;
+          v72 = &v146;
+          v145 = v66;
+          v146 = v124;
+          v73 = &v144;
+          v74 = &v145;
+          v75 = v122;
+          v144 = v122;
+          v81 = v66;
+          v82 = v122;
+          v78 = v143;
+        }
+
+        v40 = [v71 predicateWithValueBlock:v78 forProperty:v130];
+
+        v7 = v123;
+        v12 = v124;
+        v8 = v127;
+        v41 = v131;
+        v48 = v136;
+        v25 = v125;
+      }
+
+      else
+      {
+        v79 = [MEMORY[0x1E6996D48] predicateWithValue:v131 forProperty:v130 comparisonType:v58];
+        v155[0] = v79;
+        v80 = [MEMORY[0x1E6996D48] predicateWithValue:v57 forProperty:v130 comparisonType:v59];
+        v155[1] = v80;
+        v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:v155 count:2];
+
+        v41 = v131;
+        v40 = [MEMORY[0x1E6996D50] andPredicateWithSubpredicates:v70];
+        v48 = v136;
+      }
+
+      v5 = v130;
+LABEL_107:
+
+      if (v48)
+      {
+      }
+
+      goto LABEL_110;
+    }
+
+    if (v15)
+    {
+      v132 = MEMORY[0x1E696AB18];
+      v42 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+      v43 = MEMORY[0x1E696ABC8];
+      v44 = [v1 date];
+      (*(v12 + 2))(v12, v44);
+      v45 = v128 = v8;
+      v46 = [v43 expressionForConstantValue:v45];
+      v47 = [v132 predicateWithLeftExpression:v42 rightExpression:v46 modifier:0 type:v2 options:0];
+
+      v8 = v128;
+      v48 = v136;
+
+      v49 = MEMORY[0x1E6996D48];
+      v137[0] = MEMORY[0x1E69E9820];
+      v137[1] = 3221225472;
+      v137[2] = __WFContentPredicateForRowTemplateValue_block_invoke_7;
+      v137[3] = &unk_1E837A990;
+      v138 = v47;
+      v139 = v12;
+      v50 = v47;
+      v51 = v49;
+      v41 = v50;
+      v40 = [v51 predicateWithValueBlock:v137 forProperty:v5];
+
+      goto LABEL_107;
+    }
+
+    v48 = v136;
+    if (v2 <= 4 && ((1 << v2) & 0x15) != 0)
+    {
+      v106 = v26;
+      v107 = [v1 date];
+      v134 = (*(v12 + 2))(v12, v107);
+
+      v41 = v134;
+      if (v134)
+      {
+        v108 = [v8 dateByAddingUnit:v106 value:1 toDate:v134 options:0];
+      }
+
+      else
+      {
+        v108 = 0;
+      }
+
+      switch(v2)
+      {
+        case 0uLL:
+          v109 = MEMORY[0x1E6996D48];
+          v110 = v134;
+          v111 = v5;
+          v112 = 0;
+          goto LABEL_103;
+        case 4uLL:
+          v113 = [MEMORY[0x1E6996D48] predicateWithValue:v134 forProperty:v5 comparisonType:3];
+          v153[0] = v113;
+          v114 = [MEMORY[0x1E6996D48] predicateWithValue:v108 forProperty:v5 comparisonType:0];
+          v153[1] = v114;
+          [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:2];
+          v129 = v8;
+          v115 = v7;
+          v116 = v25;
+          v118 = v117 = v12;
+
+          v48 = v136;
+          v41 = v134;
+          v40 = [MEMORY[0x1E6996D50] andPredicateWithSubpredicates:v118];
+
+          v12 = v117;
+          v25 = v116;
+          v7 = v115;
+          v8 = v129;
+LABEL_104:
+
+          goto LABEL_107;
+        case 2uLL:
+          v109 = MEMORY[0x1E6996D48];
+          v110 = v108;
+          v111 = v5;
+          v112 = 2;
+LABEL_103:
+          v40 = [v109 predicateWithValue:v110 forProperty:v111 comparisonType:v112];
+          goto LABEL_104;
+      }
+    }
+
+    v135 = MEMORY[0x1E6996D48];
+    v119 = [v1 date];
+    v120 = (*(v12 + 2))(v12, v119);
+    v40 = [v135 predicateWithValue:v120 forProperty:v5 comparisonType:v2];
+
+    v41 = v119;
+    goto LABEL_107;
+  }
+
+  if ([v5 hasPossibleValues])
+  {
+    v16 = [v1 enumeration];
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  if (([v5 hasPossibleValues] & 1) == 0 && v6 == 2)
+  {
+    v17 = [v1 string];
+    if ([v5 hasPropertyClassSubclassingClass:objc_opt_class()])
+    {
+      v18 = MEMORY[0x1E6996F00];
+      v19 = [v1 phone];
+      v20 = [v18 phoneNumberWithPhoneNumberString:v19];
+      v21 = [v20 normalizedPhoneNumber];
+
+      v17 = v19;
+    }
+
+    else
+    {
+      if (![v5 hasPropertyClassSubclassingClass:objc_opt_class()])
+      {
+LABEL_33:
+        if ([v17 length])
+        {
+          v38 = v17;
+
+          v16 = v38;
+        }
+
+        [v1 comparisonOperator];
+        goto LABEL_78;
+      }
+
+      v21 = [v1 email];
+    }
+
+    v17 = v21;
+    goto LABEL_33;
+  }
+
+  [v1 comparisonOperator];
+  if ((v6 - 5) >= 3 && v6 != 3)
+  {
+    if (v6 == 1)
+    {
+      v22 = [v1 BOOLean];
+
+LABEL_77:
+      v16 = v22;
+      goto LABEL_78;
+    }
+
+    goto LABEL_75;
+  }
+
+  v29 = [v1 number];
+
+  if (v6 == 6)
+  {
+    v83 = [v1 byteCountUnit];
+    v84 = [v83 unsignedIntegerValue];
+
+    v85 = 1000;
+    if (v84 != 2)
+    {
+      v85 = 1;
+    }
+
+    if (v84 == 4)
+    {
+      v85 = 1000000;
+    }
+
+    if (v84 == 8)
+    {
+      v85 = 1000000000;
+    }
+
+    if (v84 == 16)
+    {
+      v85 = 1000000000000;
+    }
+
+    if (v84 == 32)
+    {
+      v85 = 1000000000000000;
+    }
+
+    if (v84 == 64)
+    {
+      v86 = 1000000000000000000;
+    }
+
+    else
+    {
+      v86 = v85;
+    }
+
+    v87 = objc_alloc(MEMORY[0x1E6996E28]);
+    v30 = [v1 number];
+    v16 = [v87 initWithByteCount:{v86 * objc_msgSend(v30, "longLongValue")}];
+
+    goto LABEL_73;
+  }
+
+  if (v6 == 7)
+  {
+    v30 = [MEMORY[0x1E695DEE8] currentCalendar];
+    v31 = [v1 calendarUnit];
+    v32 = [v31 integerValue];
+    v33 = [v1 number];
+    v34 = [v30 dateByAddingUnit:v32 value:objc_msgSend(v33 toDate:"integerValue") options:{v7, 0}];
+
+    v35 = objc_alloc(MEMORY[0x1E6996F70]);
+    [v34 timeIntervalSinceDate:v7];
+    v16 = [v35 initWithTimeInterval:?];
+
+LABEL_73:
+    goto LABEL_78;
+  }
+
+  v16 = v29;
+LABEL_75:
+  if (v6 == 5)
+  {
+    v88 = objc_alloc(MEMORY[0x1E696AD28]);
+    v89 = [v1 number];
+    [v89 doubleValue];
+    v91 = v90;
+    v92 = [v1 measurementUnit];
+    v22 = [v88 initWithDoubleValue:v92 unit:v91];
+
+    goto LABEL_77;
+  }
+
+LABEL_78:
+  v93 = v2 == 999 || v2 == 5;
+  v94 = 4;
+  if (!v93)
+  {
+    v94 = 5;
+  }
+
+  if (v16)
+  {
+    v95 = v2;
+  }
+
+  else
+  {
+    v95 = v94;
+  }
+
+  if (v95 == 999)
+  {
+    v96 = MEMORY[0x1E6996D50];
+    v97 = [MEMORY[0x1E6996D48] predicateWithValue:v16 forProperty:v5 comparisonType:99];
+    v40 = [v96 notPredicateWithSubpredicate:v97];
+  }
+
+  else
+  {
+    v40 = [MEMORY[0x1E6996D48] predicateWithValue:v16 forProperty:v5 comparisonType:?];
+  }
+
+LABEL_110:
+
+  return v40;
+}
+
+id __WFContentPredicateForRowTemplateValue_block_invoke(uint64_t a1, void *a2)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    if (v3)
+    {
+      v4 = *(a1 + 40);
+      if (v4)
+      {
+        v5 = [*(a1 + 32) components:v4 fromDate:v3];
+        if (v5)
+        {
+          v6 = v5;
+          v7 = [*(a1 + 32) dateFromComponents:v5];
+
+          goto LABEL_10;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v8 = getWFActionsLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    {
+      v10 = 136315394;
+      v11 = "WFContentPredicateForRowTemplateValue_block_invoke";
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Parameter to transform is not an NSDate object: %@", &v10, 0x16u);
+    }
+  }
+
+  v7 = 0;
+LABEL_10:
+
+  return v7;
+}
+
+uint64_t __WFContentPredicateForRowTemplateValue_block_invoke_2(id *a1, void *a2)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __WFContentPredicateForRowTemplateValue_block_invoke_3;
+  v16[3] = &unk_1E837A940;
+  v17 = a1[6];
+  [a2 if_map:v16];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v4 = v15 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    while (2)
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v13 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if ([a1[4] evaluateWithObject:{v9, v12}] & 1) != 0 || (objc_msgSend(a1[5], "evaluateWithObject:", v9))
+        {
+          v10 = 1;
+          goto LABEL_13;
+        }
+      }
+
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v10 = 0;
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+LABEL_13:
+
+  return v10;
+}
+
+uint64_t __WFContentPredicateForRowTemplateValue_block_invoke_4(id *a1, void *a2)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __WFContentPredicateForRowTemplateValue_block_invoke_5;
+  v16[3] = &unk_1E837A940;
+  v17 = a1[6];
+  [a2 if_map:v16];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v4 = v15 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    while (2)
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v13 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if ([a1[4] evaluateWithObject:{v9, v12}] && (objc_msgSend(a1[5], "evaluateWithObject:", v9) & 1) != 0)
+        {
+          v10 = 1;
+          goto LABEL_12;
+        }
+      }
+
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v10 = 0;
+LABEL_12:
+
+  return v10;
+}
+
+uint64_t __WFContentPredicateForRowTemplateValue_block_invoke_6(uint64_t a1, void *a2)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v3 = a2;
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v16;
+    while (2)
+    {
+      v7 = 0;
+      do
+      {
+        if (*v16 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(a1 + 32);
+        v9 = (*(*(a1 + 40) + 16))(*(a1 + 40));
+        v10 = *(a1 + 40);
+        v11 = [MEMORY[0x1E695DF00] date];
+        v12 = (*(v10 + 16))(v10, v11);
+        LOBYTE(v8) = [v8 isDate:v9 inSameDayAsDate:v12];
+
+        if (v8)
+        {
+          v13 = 1;
+          goto LABEL_11;
+        }
+
+        ++v7;
+      }
+
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v13 = 0;
+LABEL_11:
+
+  return v13;
+}
+
+uint64_t __WFContentPredicateForRowTemplateValue_block_invoke_7(uint64_t a1, void *a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v3 = a2;
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v13;
+    while (2)
+    {
+      v7 = 0;
+      do
+      {
+        if (*v13 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(a1 + 32);
+        v9 = (*(*(a1 + 40) + 16))(*(a1 + 40));
+        LOBYTE(v8) = [v8 evaluateWithObject:{v9, v12}];
+
+        if (v8)
+        {
+          v10 = 1;
+          goto LABEL_11;
+        }
+
+        ++v7;
+      }
+
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v10 = 0;
+LABEL_11:
+
+  return v10;
+}
+
+uint64_t WFDateComparisonResultForComparisonOperator(unint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, void *a6)
+{
+  v122 = *MEMORY[0x1E69E9840];
+  v11 = a3;
+  v12 = a4;
+  v13 = a6;
+  v14 = v11;
+  v15 = v12;
+  v16 = v13;
+  v17 = MEMORY[0x1E695DF00];
+  v18 = a2;
+  v19 = [v17 date];
+  v20 = [MEMORY[0x1E695DEE8] currentCalendar];
+  v111 = v20;
+  if (a5)
+  {
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __WFPredicateForComparisonOperator_block_invoke;
+    aBlock[3] = &unk_1E837A8F8;
+    v114[1] = a5;
+    v104 = v114;
+    v21 = v20;
+    v114[0] = v21;
+    v112 = _Block_copy(aBlock);
+    v22 = [v21 components:a5 fromDate:v19];
+    v23 = [v21 nextDateAfterDate:v19 matchingComponents:v22 options:1024];
+
+    v24 = v23 != 0;
+    v25 = a5;
+  }
+
+  else
+  {
+    v25 = 0;
+    v24 = 0;
+    v112 = &__block_literal_global_203_46354;
+  }
+
+  v26 = __WFPredicateForComparisonOperator_block_invoke_3(v25);
+  v27 = [v26 lastObject];
+
+  if (!v27)
+  {
+    v27 = &unk_1F4A9A7C8;
+  }
+
+  v28 = [v27 unsignedIntegerValue];
+  v109 = a5;
+  v110 = v19;
+  v108 = v18;
+  if (a1 - 1000 < 2)
+  {
+    goto LABEL_9;
+  }
+
+  if (a1 == 1002)
+  {
+    if (v24)
+    {
+      v56 = MEMORY[0x1E696AE18];
+      v115 = MEMORY[0x1E69E9820];
+      v116 = 3221225472;
+      v117 = __WFPredicateForComparisonOperator_block_invoke_5;
+      v118 = &unk_1E837A9E0;
+      v54 = v111;
+      v119 = v111;
+      v120 = v112;
+      v50 = [v56 predicateWithBlock:&v115];
+
+      v30 = v119;
+    }
+
+    else
+    {
+      v54 = v111;
+      v30 = [v111 startOfDayForDate:v19];
+      v99 = [v111 dateByAddingUnit:16 value:1 toDate:v30 options:0];
+      v66 = MEMORY[0x1E696AB18];
+      v103 = v27;
+      v100 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+      v67 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v30];
+      [v66 predicateWithLeftExpression:v100 rightExpression:v67 modifier:0 type:3 options:0];
+      v68 = v106 = v16;
+      v115 = v68;
+      v69 = MEMORY[0x1E696AB18];
+      v70 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+      v71 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v99];
+      v72 = [v69 predicateWithLeftExpression:v70 rightExpression:v71 modifier:0 type:0 options:0];
+      v116 = v72;
+      v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v115 count:2];
+
+      v16 = v106;
+      v50 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v73];
+
+      v27 = v103;
+    }
+
+    v53 = v108;
+    goto LABEL_53;
+  }
+
+  if (a1 == 1003)
+  {
+LABEL_9:
+    v102 = v27;
+    v105 = v16;
+    if (a1 == 1003)
+    {
+      v29 = v14;
+    }
+
+    else
+    {
+      v29 = v19;
+    }
+
+    v30 = (*(v112 + 2))(v112, v29);
+    v31 = v15;
+    if (a1 != 1003)
+    {
+      v32 = [v16 magnitude];
+      v33 = [v32 integerValue];
+
+      v34 = [v16 unitString];
+      v35 = [WFDurationQuantityFieldParameter calendarUnitFromUnitString:v34];
+
+      if (a1 == 1001)
+      {
+        v36 = -v33;
+      }
+
+      else
+      {
+        v36 = v33;
+      }
+
+      v31 = [v111 dateByAddingUnit:v35 value:v36 toDate:v110 options:0];
+    }
+
+    v37 = (*(v112 + 2))(v112, v31);
+    if (a1 != 1003)
+    {
+    }
+
+    if ([v30 compare:v37] == 1)
+    {
+      v38 = [v111 dateByAddingUnit:v28 value:1 toDate:v30 options:0];
+
+      v30 = v38;
+    }
+
+    if (a1 == 1001)
+    {
+      v39 = 1;
+    }
+
+    else
+    {
+      v39 = 3;
+    }
+
+    if (a1 == 1001)
+    {
+      v40 = 3;
+    }
+
+    else
+    {
+      v40 = 1;
+    }
+
+    v41 = MEMORY[0x1E696AB18];
+    v42 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+    v43 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v30];
+    v44 = [v41 predicateWithLeftExpression:v42 rightExpression:v43 modifier:0 type:v39 options:0];
+
+    v45 = MEMORY[0x1E696AB18];
+    v46 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+    v47 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v37];
+    v48 = [v45 predicateWithLeftExpression:v46 rightExpression:v47 modifier:0 type:v40 options:0];
+
+    if (v24)
+    {
+      v49 = MEMORY[0x1E696AE18];
+      v115 = MEMORY[0x1E69E9820];
+      v116 = 3221225472;
+      v117 = __WFPredicateForComparisonOperator_block_invoke_4;
+      v118 = &unk_1E837A9B8;
+      v121 = v112;
+      v119 = v44;
+      v120 = v48;
+      v50 = [v49 predicateWithBlock:&v115];
+
+      v51 = v121;
+    }
+
+    else
+    {
+      v52 = MEMORY[0x1E696AB28];
+      v115 = v44;
+      v116 = v48;
+      v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v115 count:2];
+      v50 = [v52 andPredicateWithSubpredicates:v51];
+    }
+
+    v16 = v105;
+    goto LABEL_31;
+  }
+
+  if (!v24)
+  {
+    if (a1 > 4 || ((1 << a1) & 0x15) == 0)
+    {
+      goto LABEL_51;
+    }
+
+    v74 = v16;
+    v30 = (*(v112 + 2))(v112, v14);
+    if (v30)
+    {
+      v75 = [v111 dateByAddingUnit:v28 value:1 toDate:v30 options:0];
+      if (a1)
+      {
+LABEL_42:
+        if (a1 == 4)
+        {
+          v102 = v27;
+          v84 = MEMORY[0x1E696AB18];
+          v107 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+          v101 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v30];
+          v85 = [v84 predicateWithLeftExpression:v107 rightExpression:v101 modifier:0 type:3 options:0];
+          v115 = v85;
+          v86 = MEMORY[0x1E696AB18];
+          v87 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+          v88 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v75];
+          v89 = [v86 predicateWithLeftExpression:v87 rightExpression:v88 modifier:0 type:0 options:0];
+          v116 = v89;
+          v77 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v115 count:2];
+
+          v50 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v77];
+          goto LABEL_49;
+        }
+
+        if (a1 == 2)
+        {
+          v102 = v27;
+          v76 = MEMORY[0x1E696AB18];
+          v77 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+          v78 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v75];
+          v79 = v76;
+          v80 = v77;
+          v81 = v78;
+          v82 = 2;
+LABEL_47:
+          v50 = [v79 predicateWithLeftExpression:v80 rightExpression:v81 modifier:0 type:v82 options:0];
+
+LABEL_49:
+          v16 = v74;
+LABEL_31:
+          v53 = v108;
+          v54 = v111;
+          v27 = v102;
+          v55 = v104;
+          goto LABEL_54;
+        }
+
+        v16 = v74;
+LABEL_51:
+        v90 = v18;
+        v91 = MEMORY[0x1E696AB18];
+        v30 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+        v92 = MEMORY[0x1E696ABC8];
+        (*(v112 + 2))(v112, v14);
+        v94 = v93 = v27;
+        v95 = [v92 expressionForConstantValue:v94];
+        v96 = v91;
+        v53 = v90;
+        v50 = [v96 predicateWithLeftExpression:v30 rightExpression:v95 modifier:0 type:a1 options:0];
+
+        v27 = v93;
+        goto LABEL_52;
+      }
+    }
+
+    else
+    {
+      v75 = 0;
+      if (a1)
+      {
+        goto LABEL_42;
+      }
+    }
+
+    v102 = v27;
+    v83 = MEMORY[0x1E696AB18];
+    v77 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+    v78 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v30];
+    v79 = v83;
+    v80 = v77;
+    v81 = v78;
+    v82 = 0;
+    goto LABEL_47;
+  }
+
+  v57 = MEMORY[0x1E696AB18];
+  v58 = v27;
+  v59 = [MEMORY[0x1E696ABC8] expressionForEvaluatedObject];
+  v60 = MEMORY[0x1E696ABC8];
+  v61 = (*(v112 + 2))(v112, v14);
+  v62 = [v60 expressionForConstantValue:v61];
+  v63 = [v57 predicateWithLeftExpression:v59 rightExpression:v62 modifier:0 type:a1 options:0];
+
+  v27 = v58;
+  v64 = MEMORY[0x1E696AE18];
+  v115 = MEMORY[0x1E69E9820];
+  v116 = 3221225472;
+  v117 = __WFPredicateForComparisonOperator_block_invoke_6;
+  v118 = &unk_1E837A9E0;
+  v119 = v63;
+  v120 = v112;
+  v65 = v63;
+  v53 = v108;
+  v30 = v65;
+  v50 = [v64 predicateWithBlock:&v115];
+
+LABEL_52:
+  v54 = v111;
+LABEL_53:
+  v55 = v104;
+LABEL_54:
+
+  if (v109)
+  {
+  }
+
+  v97 = [v50 evaluateWithObject:v53];
+  return v97;
+}
+
+id __WFPredicateForComparisonOperator_block_invoke(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (v3 && (v4 = *(a1 + 40)) != 0 && ([*(a1 + 32) components:v4 fromDate:v3], (v5 = objc_claimAutoreleasedReturnValue()) != 0))
+  {
+    v6 = v5;
+    v7 = [*(a1 + 32) dateFromComponents:v5];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
+id __WFPredicateForComparisonOperator_block_invoke_3(uint64_t a1)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v2 = [&unk_1F4A9B620 mutableCopy];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v3 = [v2 copy];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v10 + 1) + 8 * i);
+        if (([v8 unsignedIntegerValue] & a1) == 0)
+        {
+          [v2 removeObject:v8];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v5);
+  }
+
+  return v2;
+}
+
+uint64_t __WFPredicateForComparisonOperator_block_invoke_4(uint64_t a1)
+{
+  v2 = (*(*(a1 + 48) + 16))();
+  if ([*(a1 + 32) evaluateWithObject:v2])
+  {
+    v3 = [*(a1 + 40) evaluateWithObject:v2];
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
+}
+
+uint64_t __WFPredicateForComparisonOperator_block_invoke_5(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = (*(*(a1 + 40) + 16))();
+  v3 = [v1 isDateInToday:v2];
+
+  return v3;
+}
+
+uint64_t __WFPredicateForComparisonOperator_block_invoke_6(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = (*(*(a1 + 40) + 16))();
+  v3 = [v1 evaluateWithObject:v2];
+
+  return v3;
+}
+
+uint64_t WFPBSetupAutomationEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v33 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v33 & 0x7F) << v5;
+        if ((v33 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 3)
+      {
+        switch(v13)
+        {
+          case 4:
+            v23 = 0;
+            v24 = 0;
+            v25 = 0;
+            *(a1 + 44) |= 2u;
+            while (1)
+            {
+              v34 = 0;
+              v26 = [a2 position] + 1;
+              if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
+              {
+                v28 = [a2 data];
+                [v28 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
+
+                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+              }
+
+              else
+              {
+                [a2 _setError];
+              }
+
+              v25 |= (v34 & 0x7F) << v23;
+              if ((v34 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v23 += 7;
+              v11 = v24++ >= 9;
+              if (v11)
+              {
+                LOBYTE(v20) = 0;
+                goto LABEL_50;
+              }
+            }
+
+            v20 = (v25 != 0) & ~[a2 hasError];
+LABEL_50:
+            v31 = 41;
+LABEL_53:
+            *(a1 + v31) = v20;
+            goto LABEL_54;
+          case 5:
+            v21 = PBReaderReadString();
+            v22 = 8;
+            break;
+          case 6:
+            v21 = PBReaderReadString();
+            v22 = 16;
+            break;
+          default:
+LABEL_44:
+            result = PBReaderSkipValueWithTag();
+            if (!result)
+            {
+              return result;
+            }
+
+            goto LABEL_54;
+        }
+      }
+
+      else
+      {
+        switch(v13)
+        {
+          case 1:
+            v21 = PBReaderReadString();
+            v22 = 24;
+            break;
+          case 2:
+            v21 = PBReaderReadString();
+            v22 = 32;
+            break;
+          case 3:
+            v14 = 0;
+            v15 = 0;
+            v16 = 0;
+            *(a1 + 44) |= 1u;
+            while (1)
+            {
+              v35 = 0;
+              v17 = [a2 position] + 1;
+              if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
+              {
+                v19 = [a2 data];
+                [v19 getBytes:&v35 range:{objc_msgSend(a2, "position"), 1}];
+
+                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+              }
+
+              else
+              {
+                [a2 _setError];
+              }
+
+              v16 |= (v35 & 0x7F) << v14;
+              if ((v35 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v14 += 7;
+              v11 = v15++ >= 9;
+              if (v11)
+              {
+                LOBYTE(v20) = 0;
+                goto LABEL_52;
+              }
+            }
+
+            v20 = (v16 != 0) & ~[a2 hasError];
+LABEL_52:
+            v31 = 40;
+            goto LABEL_53;
+          default:
+            goto LABEL_44;
+        }
+      }
+
+      v30 = *(a1 + v22);
+      *(a1 + v22) = v21;
+
+LABEL_54:
+      v32 = [a2 position];
+    }
+
+    while (v32 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_1CA85E4AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__46885(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-void sub_1CA7B4364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_1CA86034C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  _Block_object_dispose((v51 - 160), 8);
-  _Block_object_dispose(&a51, 8);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t WFErrorIsExpiredCertificateError(void *a1)
+void sub_1CA860674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  v1 = a1;
-  v2 = v1;
-  if (!v1)
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id WFLNComparisonBetweenQueryWithDates(void *a1, uint64_t a2, void *a3, void *a4)
+{
+  v24[2] = *MEMORY[0x1E69E9840];
+  v7 = MEMORY[0x1E69ACA90];
+  v8 = a4;
+  v9 = a3;
+  v10 = a1;
+  v11 = [v7 alloc];
+  v12 = [MEMORY[0x1E69AC938] dateValueType];
+  v13 = [v11 initWithValue:v9 valueType:v12];
+
+  v14 = objc_alloc(MEMORY[0x1E69ACA90]);
+  v15 = [MEMORY[0x1E69AC938] dateValueType];
+  v16 = [v14 initWithValue:v8 valueType:v15];
+
+  v17 = objc_alloc(MEMORY[0x1E69ACA90]);
+  v24[0] = v13;
+  v24[1] = v16;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v19 = [MEMORY[0x1E69AC938] dateValueType];
+  v20 = [v17 initWithValues:v18 memberValueType:v19];
+
+  v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2];
+  v22 = [v10 wf_propertyQueryWithValue:v20 contentOperator:1003 parameterIndex:v21];
+
+  return v22;
+}
+
+id WFLNComparisonIsToday(void *a1, uint64_t a2, void *a3)
+{
+  v5 = MEMORY[0x1E695DEE8];
+  v6 = a3;
+  v7 = a1;
+  v8 = [v5 currentCalendar];
+  v9 = [v8 startOfDayForDate:v6];
+
+  v10 = [v8 dateByAddingUnit:16 value:1 toDate:v9 options:0];
+  v11 = [v8 dateByAddingUnit:0x8000 value:-1 toDate:v10 options:0];
+  v12 = WFLNComparisonBetweenQueryWithDates(v7, a2, v9, v11);
+
+  return v12;
+}
+
+id WFLNComparisonInTheLast(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+{
+  v9 = MEMORY[0x1E695DEE8];
+  v10 = a5;
+  v11 = a1;
+  v12 = [v9 currentCalendar];
+  v13 = [v12 dateByAddingUnit:a4 value:-a3 toDate:v10 options:0];
+  v14 = WFLNComparisonBetweenQueryWithDates(v11, a2, v13, v10);
+
+  return v14;
+}
+
+id WFLNComparisonInTheNext(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+{
+  v9 = MEMORY[0x1E695DEE8];
+  v10 = a5;
+  v11 = a1;
+  v12 = [v9 currentCalendar];
+  v13 = [v12 dateByAddingUnit:a4 value:a3 toDate:v10 options:0];
+  v14 = WFLNComparisonBetweenQueryWithDates(v11, a2, v10, v13);
+
+  return v14;
+}
+
+id WFLNPropertyQueryForRowTemplateValue(void *a1, void *a2, void *a3)
+{
+  v124 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v103 = a2;
+  v102 = a3;
+  v6 = [v5 comparisonOperator];
+  v7 = [v5 contentItemClass];
+  v8 = [v5 contentPropertyName];
+  v9 = [v7 propertyForName:v8];
+
+  v100 = [objc_msgSend(v9 "valueItemClass")];
+  v10 = [v9 userInfo];
+  if (v10)
   {
-    IsExpiredCertificateError = 0;
-    goto LABEL_8;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
   }
 
-  v3 = [v1 domain];
-  if (![v3 isEqualToString:*MEMORY[0x1E696A768]])
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = v11;
+
+  v101 = v12;
+  v13 = [v12 objectForKey:@"WFLinkEntityContentPropertyUserInfoPropertyIdentifier"];
+  if (v13)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v14 = v13;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = v14;
+
+  v114 = 0;
+  v115 = &v114;
+  v116 = 0x3032000000;
+  v117 = __Block_byref_object_copy__47063;
+  v118 = __Block_byref_object_dispose__47064;
+  v119 = 0;
+  v110 = 0;
+  v111 = &v110;
+  v112 = 0x2020000000;
+  v113 = 0;
+  v16 = [v103 parameters];
+  v106[0] = MEMORY[0x1E69E9820];
+  v106[1] = 3221225472;
+  v106[2] = __WFLNPropertyQueryForRowTemplateValue_block_invoke;
+  v106[3] = &unk_1E837AD20;
+  v17 = v15;
+  v107 = v17;
+  v108 = &v114;
+  v109 = &v110;
+  [v16 enumerateObjectsUsingBlock:v106];
+
+  v18 = v115[5];
+  if (!v18)
+  {
+    goto LABEL_90;
+  }
+
+  if (v6 > 1001)
+  {
+    if (v6 == 1002)
+    {
+      if ([v9 hasPropertyClassSubclassingClass:objc_opt_class()])
+      {
+        v37 = v115[5];
+        v38 = v111[3];
+        v20 = [MEMORY[0x1E695DF00] date];
+        v25 = WFLNComparisonIsToday(v37, v38, v20);
+      }
+
+      else
+      {
+        v20 = getWFAppIntentsLogObject();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        {
+          v43 = [v9 propertyClasses];
+          v44 = NSStringFromClass([v43 objectAtIndexedSubscript:0]);
+          *buf = 136315394;
+          v121 = "WFLNPropertyQueryForRowTemplateValue";
+          v122 = 2112;
+          v123 = v44;
+          _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s WFContentOperatorIsToday query has an invalid property class that is %@ instead of NSDate", buf, 0x16u);
+        }
+
+        v25 = 0;
+      }
+
+      goto LABEL_89;
+    }
+
+    if (v6 == 1003 && [v9 hasPropertyClassSubclassingClass:objc_opt_class()])
+    {
+      v26 = v115[5];
+      v27 = v111[3];
+      v20 = [v5 date];
+      v28 = [v5 anotherDate];
+      v25 = WFLNComparisonBetweenQueryWithDates(v26, v27, v20, v28);
+
+      goto LABEL_89;
+    }
+  }
+
+  else
+  {
+    if (v6 == 1000)
+    {
+      v32 = v111[3];
+      v20 = [v5 number];
+      v33 = [v20 integerValue];
+      v34 = [v5 calendarUnit];
+      v35 = [v34 unsignedIntegerValue];
+      v36 = [MEMORY[0x1E695DF00] date];
+      v25 = WFLNComparisonInTheNext(v18, v32, v33, v35, v36);
+
+      goto LABEL_89;
+    }
+
+    if (v6 == 1001)
+    {
+      v19 = v111[3];
+      v20 = [v5 number];
+      v21 = [v20 integerValue];
+      v22 = [v5 calendarUnit];
+      v23 = [v22 unsignedIntegerValue];
+      v24 = [MEMORY[0x1E695DF00] date];
+      v25 = WFLNComparisonInTheLast(v18, v19, v21, v23, v24);
+
+LABEL_89:
+      goto LABEL_91;
+    }
+  }
+
+  v29 = v102;
+  v30 = @"is.workflow.actions.filter.notes";
+  if (v29 == @"is.workflow.actions.filter.notes")
+  {
+    isEqualToString = 1;
+  }
+
+  else
+  {
+    if (!v29)
+    {
+
+      goto LABEL_37;
+    }
+
+    isEqualToString = objc_msgSend_isEqualToString_(v29);
+  }
+
+  if (v6 == 4)
+  {
+    v39 = isEqualToString;
+  }
+
+  else
+  {
+    v39 = 0;
+  }
+
+  if (v39 == 1 && v100 == 4)
+  {
+    v20 = [v5 date];
+    v40 = [MEMORY[0x1E695DEE8] currentCalendar];
+    v41 = [v40 dateByAddingUnit:64 value:1 toDate:v20 options:0];
+    v42 = [v40 dateByAddingUnit:128 value:-1 toDate:v41 options:0];
+    v25 = WFLNComparisonBetweenQueryWithDates(v115[5], v111[3], v20, v42);
+
+    goto LABEL_89;
+  }
+
+LABEL_37:
+  if ([v9 hasPropertyClassSubclassingClass:objc_opt_class()])
+  {
+    v45 = objc_alloc(MEMORY[0x1E69ACA90]);
+    v46 = [v5 date];
+    v47 = [MEMORY[0x1E69AC938] dateValueType];
+    v20 = [v45 initWithValue:v46 valueType:v47];
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v48 = [v5 enumeration];
+
+  if (v48)
+  {
+    v49 = [v5 enumeration];
+    if (!v49 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    {
+
+      v50 = [v5 enumeration];
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+
+      if (isKindOfClass)
+      {
+        v52 = [v9 possibleValues];
+        v53 = WFContentPropertyGetPossibleValuesSynchronouslyWithSemaphore();
+
+        v54 = [v5 enumeration];
+        v104[0] = MEMORY[0x1E69E9820];
+        v104[1] = 3221225472;
+        v104[2] = __WFLNPropertyQueryForRowTemplateValue_block_invoke_177;
+        v104[3] = &unk_1E837AD48;
+        v55 = v54;
+        v105 = v55;
+        v49 = [v53 if_firstObjectPassingTest:v104];
+        if (!v49)
+        {
+          v56 = objc_alloc(MEMORY[0x1E69ACA90]);
+          v57 = [v5 enumeration];
+          v58 = [MEMORY[0x1E69AC938] stringValueType];
+          v49 = [v56 initWithValue:v57 valueType:v58];
+        }
+      }
+
+      else
+      {
+        v49 = 0;
+      }
+    }
+
+    v59 = [v5 enumeration];
+    if (v59)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v60 = v59;
+      }
+
+      else
+      {
+        v60 = 0;
+      }
+    }
+
+    else
+    {
+      v60 = 0;
+    }
+
+    v61 = v60;
+
+    if (!v49 && v61)
+    {
+      v49 = WFNotesFolderLinkValueFromIntentsValue(v61);
+    }
+
+    if ([v9 hasPossibleValues])
+    {
+      v62 = v115[5];
+      if (v62)
+      {
+        if (v49)
+        {
+          v63 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v111[3]];
+          v25 = [v62 wf_propertyQueryWithValue:v49 contentOperator:v6 parameterIndex:v63];
+
+          goto LABEL_89;
+        }
+      }
+    }
+  }
+
+  v64 = [v9 hasPossibleValues];
+  if (v100 == 2)
+  {
+    v65 = v64;
+  }
+
+  else
+  {
+    v65 = 1;
+  }
+
+  if (v65)
+  {
+    goto LABEL_74;
+  }
+
+  v66 = [v5 string];
+  if ([v9 hasPropertyClassSubclassingClass:objc_opt_class()])
+  {
+    v67 = MEMORY[0x1E6996F00];
+    v68 = [v5 phone];
+    v69 = [v67 phoneNumberWithPhoneNumberString:v68];
+    v70 = [v69 normalizedPhoneNumber];
+  }
+
+  else
+  {
+    if (![v9 hasPropertyClassSubclassingClass:objc_opt_class()])
+    {
+      v70 = v66;
+      goto LABEL_71;
+    }
+
+    [v5 email];
+    v70 = v68 = v66;
+  }
+
+LABEL_71:
+  if ([v70 length])
+  {
+    v71 = objc_alloc(MEMORY[0x1E69ACA90]);
+    v72 = [v5 string];
+    v73 = [MEMORY[0x1E69AC938] stringValueType];
+    v74 = [v71 initWithValue:v72 valueType:v73];
+
+    v20 = v74;
+  }
+
+LABEL_74:
+  v75 = [v5 comparisonOperator];
+  if ((v100 - 5) < 3 || v100 == 3 || v100 == 4 && (v75 & 0xFFFFFFFFFFFFFFFELL) == 0x3E8)
+  {
+    v76 = objc_alloc(MEMORY[0x1E69ACA90]);
+    v77 = [v5 number];
+    v78 = [MEMORY[0x1E69AC938] int64ValueType];
+    v79 = [v76 initWithValue:v77 valueType:v78];
+
+    v20 = v79;
+  }
+
+  v80 = [MEMORY[0x1E696AD98] numberWithBool:1];
+  v81 = [v9 hasPropertyClassSubclassingClass:objc_opt_class()];
+
+  if (v81)
+  {
+    v82 = objc_alloc(MEMORY[0x1E69ACA90]);
+    v83 = [v5 BOOLean];
+    v84 = [MEMORY[0x1E69AC938] BOOLValueType];
+    v85 = [v82 initWithValue:v83 valueType:v84];
+
+    v20 = v85;
+  }
+
+  if ([v9 hasPropertyClassSubclassingClass:objc_opt_class()])
+  {
+    v86 = getWFAppIntentsLogObject();
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315138;
+      v121 = "WFLNPropertyQueryForRowTemplateValue";
+      _os_log_impl(&dword_1CA256000, v86, OS_LOG_TYPE_ERROR, "%s Time intervals are not curently supported for link find/filter actions", buf, 0xCu);
+    }
+  }
+
+  if ([v9 hasPropertyClassSubclassingClass:objc_opt_class()])
+  {
+    v87 = objc_alloc(MEMORY[0x1E696AD28]);
+    v88 = [v5 number];
+    [v88 doubleValue];
+    v90 = v89;
+    v91 = [v5 measurementUnit];
+    v92 = [v87 initWithDoubleValue:v91 unit:v90];
+
+    v93 = objc_alloc(MEMORY[0x1E69ACA90]);
+    v94 = [v5 measurementUnit];
+    v95 = WFLNMeasurementValueTypeOfUnit(v94);
+    v96 = [v93 initWithValue:v92 valueType:v95];
+
+    v20 = v96;
+  }
+
+  if (v20)
+  {
+    v97 = v115[5];
+    v98 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v111[3]];
+    v25 = [v97 wf_propertyQueryWithValue:v20 contentOperator:v6 parameterIndex:v98];
+
+    goto LABEL_89;
+  }
+
+LABEL_90:
+  v25 = 0;
+LABEL_91:
+
+  _Block_object_dispose(&v110, 8);
+  _Block_object_dispose(&v114, 8);
+
+  return v25;
+}
+
+void sub_1CA863898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__47063(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void __WFLNPropertyQueryForRowTemplateValue_block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+{
+  v14 = a2;
+  v8 = [v14 propertyIdentifier];
+  v9 = a1[4];
+  v10 = v8;
+  v11 = v9;
+  v12 = v11;
+  if (v10 == v11)
   {
 
     goto LABEL_7;
   }
 
-  v4 = [v2 code];
-
-  if (v4 != -67818)
+  if (!v10 || !v11)
   {
-LABEL_7:
-    v6 = [v2 userInfo];
-    v7 = [v6 objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
-    IsExpiredCertificateError = WFErrorIsExpiredCertificateError();
 
-    goto LABEL_8;
+    goto LABEL_9;
   }
 
-  IsExpiredCertificateError = 1;
-LABEL_8:
+  isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-  return IsExpiredCertificateError;
+  if (isEqualToString)
+  {
+LABEL_7:
+    objc_storeStrong((*(a1[5] + 8) + 40), a2);
+    *(*(a1[6] + 8) + 24) = a3;
+    *a4 = 1;
+  }
+
+LABEL_9:
 }
 
-void sub_1CA7B6B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+uint64_t __WFLNPropertyQueryForRowTemplateValue_block_invoke_177(uint64_t a1, void *a2)
 {
-  va_start(va, a7);
+  v2 = *(a1 + 32);
+  v3 = [a2 displayRepresentation];
+  v4 = [v3 title];
+  v5 = [v4 wf_localizedString];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
+
+  return isEqualToString;
+}
+
+id WFQueryParameterMetadataByPropertyIdentifier(void *a1)
+{
+  v1 = a1;
+  v2 = objc_opt_new();
+  v3 = [v1 parameters];
+
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __WFQueryParameterMetadataByPropertyIdentifier_block_invoke;
+  v6[3] = &unk_1E837AD70;
+  v4 = v2;
+  v7 = v4;
+  [v3 enumerateObjectsUsingBlock:v6];
+
+  return v4;
+}
+
+void __WFQueryParameterMetadataByPropertyIdentifier_block_invoke(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 32);
+  v3 = a2;
+  v4 = [v3 propertyIdentifier];
+  [v2 setObject:v3 forKey:v4];
+}
+
+void WFDestroyDB()
+{
+  v53[1] = *MEMORY[0x1E69E9840];
+  v41 = 0;
+  v42 = 0;
+  WFTerminateDaemon(&v42, &v41);
+  v1 = v0;
+  v34 = v42;
+  v2 = v41;
+  v3 = v2;
+  if ((v1 & 1) == 0 && v2)
+  {
+    v4 = getWFDatabaseLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 136315394;
+      v46 = "WFDestroyDB";
+      v47 = 2114;
+      v48 = v3;
+      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s Failed to terminate siriactionsd before resetting the database: %{public}@", buf, 0x16u);
+    }
+  }
+
+  v5 = WFShortcutsPersistentStoreURL();
+  v6 = objc_alloc(MEMORY[0x1E695D6C0]);
+  v7 = MEMORY[0x1E695D638];
+  v8 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v53[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+  v10 = [v7 mergedModelFromBundles:v9];
+  v11 = [v6 initWithManagedObjectModel:v10];
+
+  v12 = *MEMORY[0x1E695D4A8];
+  v51 = *MEMORY[0x1E695D400];
+  v52 = MEMORY[0x1E695E118];
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  v40 = v3;
+  v32 = v11;
+  LOBYTE(v11) = [v11 destroyPersistentStoreAtURL:v5 withType:v12 options:v13 error:&v40];
+  v14 = v40;
+
+  if ((v11 & 1) == 0)
+  {
+    v15 = getWFDatabaseLogObject();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 136315650;
+      v46 = "WFDestroyDB";
+      v47 = 2114;
+      v48 = v5;
+      v49 = 2114;
+      v50 = v14;
+      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_FAULT, "%s Failed to destroy persistent store at URL: %{public}@. %{public}@", buf, 0x20u);
+    }
+  }
+
+  v44[0] = v5;
+  v16 = [v5 URLByDeletingPathExtension];
+  v17 = [v16 URLByAppendingPathExtension:@"sqlite-shm"];
+  v44[1] = v17;
+  v33 = v5;
+  v18 = [v5 URLByDeletingPathExtension];
+  v19 = [v18 URLByAppendingPathExtension:@"sqlite-wal"];
+  v44[2] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3];
+
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v21 = v20;
+  v22 = [v21 countByEnumeratingWithState:&v36 objects:v43 count:16];
+  if (v22)
+  {
+    v23 = v22;
+    v24 = *v37;
+    do
+    {
+      for (i = 0; i != v23; ++i)
+      {
+        v26 = v14;
+        if (*v37 != v24)
+        {
+          objc_enumerationMutation(v21);
+        }
+
+        v27 = *(*(&v36 + 1) + 8 * i);
+        v28 = [MEMORY[0x1E696AC08] defaultManager];
+        v35 = v14;
+        v29 = [v28 removeItemAtURL:v27 error:&v35];
+        v14 = v35;
+
+        if ((v29 & 1) == 0 && ([v14 vc_isFileNotFound] & 1) == 0)
+        {
+          v30 = getWFDatabaseLogObject();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+          {
+            *buf = 136315650;
+            v46 = "WFDestroyDB";
+            v47 = 2114;
+            v48 = v27;
+            v49 = 2114;
+            v50 = v14;
+            _os_log_impl(&dword_1CA256000, v30, OS_LOG_TYPE_FAULT, "%s Failed to delete database file at %{public}@: %{public}@", buf, 0x20u);
+          }
+        }
+      }
+
+      v23 = [v21 countByEnumeratingWithState:&v36 objects:v43 count:16];
+    }
+
+    while (v23);
+  }
+
+  [v34 invalidate];
+  v31 = +[WFDatabase defaultDatabase];
+  [v31 invalidateAllObjectsAndNotify];
+}
+
+void WFPresentInitializationErrorIfNecessary(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (a1 == 2)
+  {
+    v4 = objc_opt_new();
+    v5 = WFLocalizedString(@"Corrupt Database");
+    [v4 setTitle:v5];
+
+    v6 = WFLocalizedString(@"The Shortcuts database cannot be read because it is corrupt. You can fix this by resetting your shortcuts. Your shortcuts will be lost, but if you use iCloud Sync they will be restored.");
+    [v4 setMessage:v6];
+
+    v7 = MEMORY[0x1E6996C78];
+    v8 = WFLocalizedString(@"Reset Shortcuts");
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __WFPresentInitializationErrorIfNecessary_block_invoke;
+    v14[3] = &unk_1E837FA70;
+    v9 = v3;
+    v15 = v9;
+    v10 = [v7 buttonWithTitle:v8 style:2 handler:v14];
+    [v4 addButton:v10];
+
+    v11 = MEMORY[0x1E6996C78];
+    v12 = WFLocalizedString(@"Exit");
+    v13 = [v11 buttonWithTitle:v12 style:0 handler:&__block_literal_global_47180];
+    [v4 addButton:v13];
+
+    [v9 presentAlert:v4];
+  }
+}
+
+void __WFPresentInitializationErrorIfNecessary_block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  WFDestroyDB();
+  v7 = objc_opt_new();
+  v2 = WFLocalizedString(@"Shortcuts Reset");
+  [v7 setTitle:v2];
+
+  v3 = WFLocalizedString(@"Your shortcuts have been reset. Re-open the Shortcuts app to continue.");
+  [v7 setMessage:v3];
+
+  v4 = MEMORY[0x1E6996C78];
+  v5 = WFLocalizedString(@"Exit");
+  v6 = [v4 buttonWithTitle:v5 style:0 handler:&__block_literal_global_292];
+  [v7 addButton:v6];
+
+  [v1 presentAlert:v7];
+}
+
+void WFSetIntentOnClientBoundCommand(void *a1, void *a2)
+{
+  v3 = MEMORY[0x1E69C7878];
+  v4 = a2;
+  v5 = a1;
+  v10 = objc_alloc_init(v3);
+  v6 = [v4 _intentInstanceDescription];
+  v7 = [v6 type];
+  [v10 setTypeName:v7];
+
+  v8 = [v4 backingStore];
+
+  v9 = [v8 data];
+
+  [v10 setData:v9];
+  [v5 setIntent:v10];
+}
+
+id WFEnforceClass_47426(void *a1, uint64_t a2)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v5 = getWFGeneralLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      v8 = 136315906;
+      v9 = "WFEnforceClass";
+      v10 = 2114;
+      v11 = v3;
+      v12 = 2114;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = a2;
+      v6 = v13;
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Querying CloudKit: %@", &v8, 0x2Au);
+    }
+
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  return v4;
+}
+
+id getWFCloudKitWSLogObject()
+{
+  if (getWFCloudKitWSLogObject_onceToken != -1)
+  {
+    dispatch_once(&getWFCloudKitWSLogObject_onceToken, &__block_literal_global_47479);
+  }
+
+  v1 = getWFCloudKitWSLogObject_log;
+
+  return v1;
+}
+
+void __getWFCloudKitWSLogObject_block_invoke()
+{
+  v0 = os_log_create(*MEMORY[0x1E69E1140], "CloudKitWS");
+  v1 = getWFCloudKitWSLogObject_log;
+  getWFCloudKitWSLogObject_log = v0;
+}
+
+id WFSupportedContentOperatorsForContentType(uint64_t a1, char a2, char a3, char a4)
+{
+  if (!a1)
+  {
+    v9 = &unk_1F4A9B6B0;
+    goto LABEL_19;
+  }
+
+  v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{&unk_1F4A9A930, 0}];
+  v9 = v8;
+  if (a1 == 1)
+  {
+    goto LABEL_19;
+  }
+
+  [v8 addObject:&unk_1F4A9A948];
+  [v9 addObject:&unk_1F4A9A900];
+  [v9 addObject:&unk_1F4A9A918];
+  if (a2)
+  {
+    goto LABEL_19;
+  }
+
+  if (a1 > 4)
+  {
+    if ((a1 - 5) >= 3)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_14;
+  }
+
+  switch(a1)
+  {
+    case 2:
+      [v9 addObject:&unk_1F4A9A960];
+      [v9 addObject:&unk_1F4A9A978];
+      [v9 addObject:&unk_1F4A9A990];
+      v10 = &unk_1F4A9A9A8;
+      goto LABEL_18;
+    case 3:
+LABEL_14:
+      [v9 addObject:&unk_1F4A9A9C0];
+      if (a3)
+      {
+        [v9 addObject:&unk_1F4A9A9F0];
+        [v9 removeObject:&unk_1F4A9A930];
+        [v9 removeObject:&unk_1F4A9A948];
+      }
+
+      else
+      {
+        [v9 addObject:&unk_1F4A9A9D8];
+        [v9 addObject:&unk_1F4A9A9F0];
+        [v9 addObject:&unk_1F4A9AA08];
+      }
+
+      v10 = &unk_1F4A9AA20;
+      goto LABEL_18;
+    case 4:
+      [v9 addObject:&unk_1F4A9A9C0];
+      [v9 addObject:&unk_1F4A9A9F0];
+      [v9 addObject:&unk_1F4A9AA38];
+      [v9 addObject:&unk_1F4A9AA20];
+      if ((a4 & 2) != 0)
+      {
+        [v9 addObject:&unk_1F4A9AA50];
+      }
+
+      if (a4)
+      {
+        v10 = &unk_1F4A9AA68;
+LABEL_18:
+        [v9 addObject:v10];
+      }
+
+      break;
+  }
+
+LABEL_19:
+
+  return v9;
+}
+
+void sub_1CA869F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void __getREMDisplayNameUtilsClass_block_invoke(uint64_t a1)
+Class __getCNPostalAddressFormatterClass_block_invoke(uint64_t a1)
 {
-  ReminderKitLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("REMDisplayNameUtils");
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!ContactsLibraryCore_frameworkLibrary_48119)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __ContactsLibraryCore_block_invoke_48120;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837AF58;
+    v8 = 0;
+    ContactsLibraryCore_frameworkLibrary_48119 = _sl_dlopen();
+  }
+
+  if (!ContactsLibraryCore_frameworkLibrary_48119)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContactsLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFLinkActionPlacemarkParameterDefinition.m" lineNumber:25 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("CNPostalAddressFormatter");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCNPostalAddressFormatterClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFLinkActionPlacemarkParameterDefinition.m" lineNumber:26 description:{@"Unable to find class %s", "CNPostalAddressFormatter"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getCNPostalAddressFormatterClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __ContactsLibraryCore_block_invoke_48120(uint64_t a1)
+{
+  result = _sl_dlopen();
+  ContactsLibraryCore_frameworkLibrary_48119 = result;
+  return result;
+}
+
+void sub_1CA86A744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getCLPlacemarkClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!CoreLocationLibraryCore_frameworkLibrary_48141)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __CoreLocationLibraryCore_block_invoke_48142;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837AF40;
+    v8 = 0;
+    CoreLocationLibraryCore_frameworkLibrary_48141 = _sl_dlopen();
+  }
+
+  if (!CoreLocationLibraryCore_frameworkLibrary_48141)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFLinkActionPlacemarkParameterDefinition.m" lineNumber:28 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("CLPlacemark");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLPlacemarkClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFLinkActionPlacemarkParameterDefinition.m" lineNumber:29 description:{@"Unable to find class %s", "CLPlacemark"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getCLPlacemarkClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __CoreLocationLibraryCore_block_invoke_48142(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreLocationLibraryCore_frameworkLibrary_48141 = result;
+  return result;
+}
+
+void sub_1CA86B390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__48216(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id WFContentOperatorToLNComparisonPropertyMapping()
+{
+  v3[10] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F4A9AA80;
+  v2[1] = &unk_1F4A9AAB0;
+  v3[0] = &unk_1F4A9AA98;
+  v3[1] = &unk_1F4A9AAC8;
+  v2[2] = &unk_1F4A9AAE0;
+  v2[3] = &unk_1F4A9AB10;
+  v3[2] = &unk_1F4A9AAF8;
+  v3[3] = &unk_1F4A9AB28;
+  v2[4] = &unk_1F4A9AB40;
+  v2[5] = &unk_1F4A9AB70;
+  v3[4] = &unk_1F4A9AB58;
+  v3[5] = &unk_1F4A9AB88;
+  v2[6] = &unk_1F4A9ABA0;
+  v2[7] = &unk_1F4A9ABD0;
+  v3[6] = &unk_1F4A9ABB8;
+  v3[7] = &unk_1F4A9ABE8;
+  v2[8] = &unk_1F4A9AC00;
+  v2[9] = &unk_1F4A9AC30;
+  v3[8] = &unk_1F4A9AC18;
+  v3[9] = &unk_1F4A9AC48;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:10];
+
+  return v0;
+}
+
+id WFMakeHomeError(uint64_t a1, void *a2)
+{
+  v9[1] = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = v3;
+  if (v3)
+  {
+    v8 = *MEMORY[0x1E696AA08];
+    v9[0] = v3;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFHomeWorkflowControllerErrorDomain" code:a1 userInfo:v5];
+
+  return v6;
+}
+
+uint64_t WFDefaultComparatorBlock_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v4 = a2;
+  v5 = a3;
+  if (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector())
+  {
+    v6 = [v4 compare:v5];
+  }
+
+  else if (v4 > v5)
+  {
+    v6 = -1;
+  }
+
+  else
+  {
+    v6 = v4 < v5;
+  }
+
+  return v6;
+}
+
+id WFGetClosestCommonElementForObject(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
+{
+  v9 = a1;
+  v10 = a2;
+  v11 = a3;
+  v12 = a4;
+  if (v9)
+  {
+    if (v10)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v20 = [MEMORY[0x1E696AAA8] currentHandler];
+    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"id<NSObject>  _Nullable WFGetClosestCommonElementForObject(id<NSObject>  _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, WFThreeWayMergingSearchDirection)"}];
+    [v20 handleFailureInFunction:v21 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:133 description:{@"Invalid parameter not satisfying: %@", @"object"}];
+
+    if (v10)
+    {
+LABEL_3:
+      if (v11)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_25:
+      v24 = [MEMORY[0x1E696AAA8] currentHandler];
+      v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"id<NSObject>  _Nullable WFGetClosestCommonElementForObject(id<NSObject>  _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, WFThreeWayMergingSearchDirection)"}];
+      [v24 handleFailureInFunction:v25 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:135 description:{@"Invalid parameter not satisfying: %@", @"firstOrderedSet"}];
+
+      if (v12)
+      {
+        goto LABEL_5;
+      }
+
+LABEL_26:
+      v26 = [MEMORY[0x1E696AAA8] currentHandler];
+      v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"id<NSObject>  _Nullable WFGetClosestCommonElementForObject(id<NSObject>  _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, WFThreeWayMergingSearchDirection)"}];
+      [v26 handleFailureInFunction:v27 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:136 description:{@"Invalid parameter not satisfying: %@", @"secondOrderedSet"}];
+
+      goto LABEL_5;
+    }
+  }
+
+  v22 = [MEMORY[0x1E696AAA8] currentHandler];
+  v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"id<NSObject>  _Nullable WFGetClosestCommonElementForObject(id<NSObject>  _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, WFThreeWayMergingSearchDirection)"}];
+  [v22 handleFailureInFunction:v23 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:134 description:{@"Invalid parameter not satisfying: %@", @"baseOrderedSet"}];
+
+  if (!v11)
+  {
+    goto LABEL_25;
+  }
+
+LABEL_4:
+  if (!v12)
+  {
+    goto LABEL_26;
+  }
+
+LABEL_5:
+  v13 = [v11 indexOfObject:v9];
+  v14 = [v12 indexOfObject:v9];
+  v15 = 0;
+  if (v13 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    goto LABEL_19;
+  }
+
+  v16 = v14;
+  if (v14 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    goto LABEL_19;
+  }
+
+  if (!a5)
+  {
+    while (++v13 < [v11 count])
+    {
+      v18 = objc_autoreleasePoolPush();
+      v15 = [v11 objectAtIndexedSubscript:v13];
+      if ((WFIsDeleted(v15, v10, v11, v12) & 1) == 0 && [v12 indexOfObject:v15] > v16)
+      {
+        goto LABEL_22;
+      }
+
+      objc_autoreleasePoolPop(v18);
+    }
+
+    goto LABEL_18;
+  }
+
+  if (v13 < 1)
+  {
+LABEL_18:
+    v15 = 0;
+    goto LABEL_19;
+  }
+
+  v17 = v13 + 1;
+  while (1)
+  {
+    v18 = objc_autoreleasePoolPush();
+    v15 = [v11 objectAtIndexedSubscript:v17 - 2];
+    if ((WFIsDeleted(v15, v10, v11, v12) & 1) == 0 && [v12 indexOfObject:v15] < v16)
+    {
+      break;
+    }
+
+    objc_autoreleasePoolPop(v18);
+    if (--v17 < 2)
+    {
+      goto LABEL_18;
+    }
+  }
+
+LABEL_22:
+  objc_autoreleasePoolPop(v18);
+LABEL_19:
+
+  return v15;
+}
+
+uint64_t WFIsDeleted(void *a1, void *a2, void *a3, void *a4)
+{
+  v7 = a1;
+  v8 = a2;
+  v9 = a3;
+  v10 = a4;
+  if (v7)
+  {
+    if (v8)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v13 = [MEMORY[0x1E696AAA8] currentHandler];
+    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL WFIsDeleted(id<NSObject>  _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong)"}];
+    [v13 handleFailureInFunction:v14 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:120 description:{@"Invalid parameter not satisfying: %@", @"object"}];
+
+    if (v8)
+    {
+LABEL_3:
+      if (v9)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_13:
+      v17 = [MEMORY[0x1E696AAA8] currentHandler];
+      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL WFIsDeleted(id<NSObject>  _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong)"}];
+      [v17 handleFailureInFunction:v18 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:122 description:{@"Invalid parameter not satisfying: %@", @"firstOrderedSet"}];
+
+      if (v10)
+      {
+        goto LABEL_5;
+      }
+
+      goto LABEL_14;
+    }
+  }
+
+  v15 = [MEMORY[0x1E696AAA8] currentHandler];
+  v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL WFIsDeleted(id<NSObject>  _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong)"}];
+  [v15 handleFailureInFunction:v16 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:121 description:{@"Invalid parameter not satisfying: %@", @"baseOrderedSet"}];
+
+  if (!v9)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_4:
+  if (v10)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_14:
+  v19 = [MEMORY[0x1E696AAA8] currentHandler];
+  v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL WFIsDeleted(id<NSObject>  _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong, NSOrderedSet * _Nonnull __strong)"}];
+  [v19 handleFailureInFunction:v20 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:123 description:{@"Invalid parameter not satisfying: %@", @"secondOrderedSet"}];
+
+LABEL_5:
+  if ([v8 containsObject:v7])
+  {
+    if ([v9 containsObject:v7])
+    {
+      v11 = [v10 containsObject:v7] ^ 1;
+    }
+
+    else
+    {
+      v11 = 1;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
+BOOL WFOrderedSetContainsPath(void *a1, void *a2, void *a3, void *a4)
+{
+  v7 = a1;
+  v8 = a2;
+  v9 = a3;
+  v10 = a4;
+  if (v7)
+  {
+    if (v8)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v17 = [MEMORY[0x1E696AAA8] currentHandler];
+    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL WFOrderedSetContainsPath(NSOrderedSet * _Nonnull __strong, id<NSObject>  _Nonnull __strong, id<NSObject>  _Nonnull __strong, BOOL (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
+    [v17 handleFailureInFunction:v18 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:175 description:{@"Invalid parameter not satisfying: %@", @"orderedSet"}];
+
+    if (v8)
+    {
+LABEL_3:
+      if (v9)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_18:
+      v21 = [MEMORY[0x1E696AAA8] currentHandler];
+      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL WFOrderedSetContainsPath(NSOrderedSet * _Nonnull __strong, id<NSObject>  _Nonnull __strong, id<NSObject>  _Nonnull __strong, BOOL (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
+      [v21 handleFailureInFunction:v22 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:177 description:{@"Invalid parameter not satisfying: %@", @"end"}];
+
+      if (v10)
+      {
+        goto LABEL_5;
+      }
+
+LABEL_19:
+      v23 = [MEMORY[0x1E696AAA8] currentHandler];
+      v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL WFOrderedSetContainsPath(NSOrderedSet * _Nonnull __strong, id<NSObject>  _Nonnull __strong, id<NSObject>  _Nonnull __strong, BOOL (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
+      [v23 handleFailureInFunction:v24 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:178 description:{@"Invalid parameter not satisfying: %@", @"shouldConsiderObjectBlock"}];
+
+      goto LABEL_5;
+    }
+  }
+
+  v19 = [MEMORY[0x1E696AAA8] currentHandler];
+  v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL WFOrderedSetContainsPath(NSOrderedSet * _Nonnull __strong, id<NSObject>  _Nonnull __strong, id<NSObject>  _Nonnull __strong, BOOL (^ _Nonnull __strong)(id<NSObject>  _Nonnull __strong))"}];
+  [v19 handleFailureInFunction:v20 file:@"NSOrderedSet+WFThreeWayMerging.m" lineNumber:176 description:{@"Invalid parameter not satisfying: %@", @"start"}];
+
+  if (!v9)
+  {
+    goto LABEL_18;
+  }
+
+LABEL_4:
+  if (!v10)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_5:
+  if (v10[2](v10, v8) && v10[2](v10, v9) && (v11 = [v7 indexOfObject:v8], v11 != 0x7FFFFFFFFFFFFFFFLL))
+  {
+    v14 = v11;
+    v15 = [v7 indexOfObject:v9];
+    v12 = v15 != 0x7FFFFFFFFFFFFFFFLL && v15 > v14;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+id WFVariableDictionaryWithAggrandizements(void *a1)
+{
+  v6[1] = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  if ([v1 count])
+  {
+    v5 = @"Aggrandizements";
+    v2 = [v1 if_map:&__block_literal_global_49487];
+    v6[0] = v2;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  }
+
+  else
+  {
+    v3 = MEMORY[0x1E695E0F8];
+  }
+
+  return v3;
+}
+
+uint64_t __Block_byref_object_copy__49498(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id WFVariableClassesByType(uint64_t a1, uint64_t a2)
+{
+  v5[8] = *MEMORY[0x1E69E9840];
+  v4[0] = @"Variable";
+  v5[0] = objc_opt_class();
+  v4[1] = @"Clipboard";
+  v5[1] = objc_opt_class();
+  v4[2] = @"CurrentApp";
+  v5[2] = objc_opt_class();
+  v4[3] = @"CurrentDate";
+  v5[3] = objc_opt_class();
+  v4[4] = @"DeviceDetails";
+  v5[4] = objc_opt_class();
+  v4[5] = @"ExtensionInput";
+  v5[5] = objc_opt_class();
+  v4[6] = @"ActionOutput";
+  v5[6] = objc_opt_class();
+  v4[7] = @"Ask";
+  v5[7] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:8];
+
+  return v2;
+}
+
+Class initUIPasteboard_49611()
+{
+  if (UIKitLibrary_sOnce_49612 != -1)
+  {
+    dispatch_once(&UIKitLibrary_sOnce_49612, &__block_literal_global_49613);
+  }
+
+  result = objc_getClass("UIPasteboard");
+  classUIPasteboard_49615 = result;
+  getUIPasteboardClass_49609 = UIPasteboardFunction_49617;
+  return result;
+}
+
+void *__UIKitLibrary_block_invoke_49620()
+{
+  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
+  UIKitLibrary_sLib_49622 = result;
+  return result;
+}
+
+id initUIApplicationWillEnterForegroundNotification()
+{
+  if (UIKitLibrary_sOnce_49612 != -1)
+  {
+    dispatch_once(&UIKitLibrary_sOnce_49612, &__block_literal_global_49613);
+  }
+
+  v0 = dlsym(UIKitLibrary_sLib_49622, "UIApplicationWillEnterForegroundNotification");
+  if (!v0)
+  {
+    __assert_rtn("initUIApplicationWillEnterForegroundNotification", "ICPostToInstagramAction.m", 21, "constant");
+  }
+
+  objc_storeStrong(&constantUIApplicationWillEnterForegroundNotification, *v0);
+  getUIApplicationWillEnterForegroundNotification = UIApplicationWillEnterForegroundNotificationFunction;
+  v1 = constantUIApplicationWillEnterForegroundNotification;
+
+  return v1;
+}
+
+void sub_1CA8759D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getDNDAppActionClass_block_invoke(uint64_t a1)
+{
+  DoNotDisturbLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("DNDAppAction");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
-    getREMDisplayNameUtilsClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+    getDNDAppActionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   }
 
   else
   {
     v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getREMDisplayNameUtilsClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"WFRemindersListPickerParameter.m" lineNumber:26 description:{@"Unable to find class %s", "REMDisplayNameUtils"}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getDNDAppActionClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFFocusConfigurationLinkAction.m" lineNumber:28 description:{@"Unable to find class %s", "DNDAppAction"}];
 
     __break(1u);
   }
 }
 
-void ReminderKitLibrary()
+void *DoNotDisturbLibrary()
 {
   v7 = *MEMORY[0x1E69E9840];
   v4[0] = 0;
-  if (!ReminderKitLibraryCore_frameworkLibrary_25830)
+  if (!DoNotDisturbLibraryCore_frameworkLibrary)
   {
     v4[1] = MEMORY[0x1E69E9820];
     v4[2] = 3221225472;
-    v4[3] = __ReminderKitLibraryCore_block_invoke_25831;
+    v4[3] = __DoNotDisturbLibraryCore_block_invoke;
     v4[4] = &__block_descriptor_40_e5_v8__0l;
     v4[5] = v4;
-    v5 = xmmword_1E83777B0;
+    v5 = xmmword_1E837B470;
     v6 = 0;
-    ReminderKitLibraryCore_frameworkLibrary_25830 = _sl_dlopen();
+    DoNotDisturbLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  if (!ReminderKitLibraryCore_frameworkLibrary_25830)
+  v0 = DoNotDisturbLibraryCore_frameworkLibrary;
+  if (!DoNotDisturbLibraryCore_frameworkLibrary)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ReminderKitLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"WFRemindersListPickerParameter.m" lineNumber:24 description:{@"%s", v4[0]}];
+    v0 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *DoNotDisturbLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFFocusConfigurationLinkAction.m" lineNumber:25 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
+  v1 = v4[0];
   if (v4[0])
+  {
+LABEL_7:
+    free(v1);
+  }
+
+  return v0;
+}
+
+uint64_t __DoNotDisturbLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  DoNotDisturbLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+void __getDNDModeConfigurationServiceClass_block_invoke(uint64_t a1)
+{
+  DoNotDisturbLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("DNDModeConfigurationService");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getDNDModeConfigurationServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getDNDModeConfigurationServiceClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFFocusConfigurationLinkAction.m" lineNumber:26 description:{@"Unable to find class %s", "DNDModeConfigurationService"}];
+
+    __break(1u);
+  }
+}
+
+void __getDNDApplicationIdentifierClass_block_invoke(uint64_t a1)
+{
+  DoNotDisturbLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("DNDApplicationIdentifier");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getDNDApplicationIdentifierClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getDNDApplicationIdentifierClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFFocusConfigurationLinkAction.m" lineNumber:27 description:{@"Unable to find class %s", "DNDApplicationIdentifier"}];
+
+    __break(1u);
+  }
+}
+
+void sub_1CA8764BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getDNDDefaultModeIdentifierSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = DoNotDisturbLibrary();
+  result = dlsym(v2, "DNDDefaultModeIdentifier");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getDNDDefaultModeIdentifierSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void sub_1CA877CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__49953(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA877ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t coderRequiresSecureCoding(void *a1)
+{
+  v1 = a1;
+  if ((objc_opt_respondsToSelector() & 1) != 0 && (v2 = [v1 methodForSelector:sel_requiresSecureCoding]) != 0)
+  {
+    v3 = v2(v1, sel_requiresSecureCoding);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
+}
+
+void verifyAllowedClassesByPropertyKey(void *a1)
+{
+  v7 = [a1 allowedSecureCodingClassesByPropertyKey];
+  v2 = objc_alloc(MEMORY[0x1E695DFA8]);
+  v3 = [v7 allKeys];
+  v4 = [v2 initWithArray:v3];
+
+  v5 = [a1 encodingBehaviorsByPropertyKey];
+  v6 = [v5 keysOfEntriesPassingTest:&__block_literal_global_80];
+
+  [v4 minusSet:v6];
+  if ([v4 count])
+  {
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Cannot encode %@ securely, because keys are missing from +allowedSecureCodingClassesByPropertyKey: %@", a1, v4}];
+  }
+}
+
+void sub_1CA87A72C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+{
+  if (a2 == 1)
+  {
+    v11 = objc_begin_catch(exception_object);
+    objc_opt_class();
+    NSLog(&cfstr_CaughtExceptio_0.isa);
+    objc_exception_throw(v11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t WFPBAppSessionCompletedEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v26 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v26 & 0x7F) << v5;
+        if ((v26 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
+        v17 = 0;
+        v18 = 0;
+        v19 = 0;
+        *(a1 + 32) |= 1u;
+        while (1)
+        {
+          v27 = 0;
+          v20 = [a2 position] + 1;
+          if (v20 >= [a2 position] && (v21 = objc_msgSend(a2, "position") + 1, v21 <= objc_msgSend(a2, "length")))
+          {
+            v22 = [a2 data];
+            [v22 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v19 |= (v27 & 0x7F) << v17;
+          if ((v27 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v17 += 7;
+          v11 = v18++ >= 9;
+          if (v11)
+          {
+            v23 = 0;
+            goto LABEL_37;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v23 = 0;
+        }
+
+        else
+        {
+          v23 = v19;
+        }
+
+LABEL_37:
+        *(a1 + 8) = v23;
+      }
+
+      else
+      {
+        if (v13 == 2)
+        {
+          v14 = PBReaderReadString();
+          v15 = 24;
+        }
+
+        else
+        {
+          if (v13 != 1)
+          {
+            result = PBReaderSkipValueWithTag();
+            if (!result)
+            {
+              return result;
+            }
+
+            goto LABEL_38;
+          }
+
+          v14 = PBReaderReadString();
+          v15 = 16;
+        }
+
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v14;
+      }
+
+LABEL_38:
+      v25 = [a2 position];
+    }
+
+    while (v25 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_1CA87E1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+{
+  va_start(va, a21);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *initSCPreferencesGetValue(uint64_t a1, uint64_t a2)
+{
+  if (SystemConfigurationLibrary_sOnce != -1)
+  {
+    dispatch_once(&SystemConfigurationLibrary_sOnce, &__block_literal_global_51117);
+  }
+
+  result = dlsym(SystemConfigurationLibrary_sLib, "SCPreferencesGetValue");
+  softLinkSCPreferencesGetValue = result;
+  if (result)
+  {
+
+    return (result)(a1, a2);
+  }
+
+  return result;
+}
+
+void *__SystemConfigurationLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration", 2);
+  SystemConfigurationLibrary_sLib = result;
+  return result;
+}
+
+void *initSCPreferencesCreate(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (SystemConfigurationLibrary_sOnce != -1)
+  {
+    dispatch_once(&SystemConfigurationLibrary_sOnce, &__block_literal_global_51117);
+  }
+
+  result = dlsym(SystemConfigurationLibrary_sLib, "SCPreferencesCreate");
+  softLinkSCPreferencesCreate = result;
+  if (result)
+  {
+
+    return (result)(a1, a2, a3);
+  }
+
+  return result;
+}
+
+id WFNoInputBehaviorSerializedRepresentation(void *a1, void *a2)
+{
+  v13[2] = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = a2;
+  v5 = v4;
+  if (v3)
+  {
+    if (v4)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v8 = [MEMORY[0x1E696AAA8] currentHandler];
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id<WFPropertyListObject>> * _Nonnull WFNoInputBehaviorSerializedRepresentation(NSString * _Nonnull __strong, NSDictionary<NSString *, id<WFPropertyListObject>> * _Nonnull __strong)"}];
+    [v8 handleFailureInFunction:v9 file:@"WFWorkflowNoInputBehavior.m" lineNumber:39 description:{@"Invalid parameter not satisfying: %@", @"behaviorName"}];
+
+    if (v5)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v10 = [MEMORY[0x1E696AAA8] currentHandler];
+  v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id<WFPropertyListObject>> * _Nonnull WFNoInputBehaviorSerializedRepresentation(NSString * _Nonnull __strong, NSDictionary<NSString *, id<WFPropertyListObject>> * _Nonnull __strong)"}];
+  [v10 handleFailureInFunction:v11 file:@"WFWorkflowNoInputBehavior.m" lineNumber:40 description:{@"Invalid parameter not satisfying: %@", @"parameters"}];
+
+LABEL_3:
+  v12[0] = @"Name";
+  v12[1] = @"Parameters";
+  v13[0] = v3;
+  v13[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+
+  return v6;
+}
+
+id WFNoInputBehaviorParametersIfBehavior(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  v5 = [v4 objectForKeyedSubscript:@"Name"];
+  if (v5)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      if (!objc_msgSend_isEqualToString_(v5))
+      {
+        v8 = 0;
+        goto LABEL_14;
+      }
+
+      v6 = [v4 objectForKeyedSubscript:@"Parameters"];
+      if (v6)
+      {
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v7 = v6;
+        }
+
+        else
+        {
+          v7 = 0;
+        }
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      v8 = v7;
+    }
+
+    else
+    {
+      v8 = 0;
+      v6 = v5;
+      v5 = 0;
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
+  }
+
+LABEL_14:
+
+  return v8;
+}
+
+uint64_t WFSerializedNoInputBehaviorResolvesInput(void *a1)
+{
+  if (!a1)
+  {
+    return 1;
+  }
+
+  v1 = [a1 objectForKeyedSubscript:@"Name"];
+  if (v1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v2 = +[WFWorkflowNoInputBehaviorShowError behaviorName];
+    v3 = objc_msgSend_isEqualToString_(v1) ^ 1;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
+}
+
+id WFPassTypeToLocalizedDescriptionWithTrigger(void *a1, int a2)
+{
+  v3 = a1;
+  v4 = [v3 selectedPassUniqueIDs];
+  v5 = [v4 count];
+
+  if (v5 != 1)
+  {
+    v16 = MEMORY[0x1E696AEC0];
+    if (a2)
+    {
+      v17 = @"Any of %1$lu Wallet passes or payment cards tapped";
+    }
+
+    else
+    {
+      v17 = @"When I tap any of %1$lu Wallet passes or payment cards";
+    }
+
+    v6 = WFLocalizedString(v17);
+    v7 = [v3 selectedPassUniqueIDs];
+    v18 = [v16 localizedStringWithFormat:v6, objc_msgSend(v7, "count")];
+    goto LABEL_41;
+  }
+
+  v6 = [v3 selectedPassUniqueIDs];
+  v7 = [v6 firstObject];
+  v8 = [MEMORY[0x1E69B8A58] sharedInstance];
+  v9 = [v8 passWithUniqueID:v7];
+
+  if (!v9)
+  {
+    if (a2)
+    {
+      v19 = @"Wallet pass or payment card tapped";
+    }
+
+    else
+    {
+      v19 = @"When I tap a Wallet pass or payment card";
+    }
+
+    v18 = WFLocalizedString(v19);
+    goto LABEL_40;
+  }
+
+  v10 = [v9 secureElementPass];
+  v11 = v10;
+  if (!v10)
+  {
+    v13 = MEMORY[0x1E696AEC0];
+    v14 = @"When I tap my %@ pass";
+    v15 = @"%@ pass tapped";
+    goto LABEL_36;
+  }
+
+  if ([v10 isAccessPass])
+  {
+    v12 = [v11 accessType];
+    v13 = MEMORY[0x1E696AEC0];
+    if (v12 <= 2)
+    {
+      if (v12 != 1)
+      {
+        if (v12 == 2)
+        {
+          v14 = @"When I tap my %@ badge";
+          v15 = @"%@ badge tapped";
+          goto LABEL_36;
+        }
+
+        goto LABEL_33;
+      }
+
+      v14 = @"When I tap my %@ room key";
+      v15 = @"%@ room key tapped";
+    }
+
+    else
+    {
+      if (v12 == 3)
+      {
+LABEL_33:
+        v14 = @"When I tap my %@ key";
+        v15 = @"%@ key tapped";
+        goto LABEL_36;
+      }
+
+      if (v12 != 4)
+      {
+        if (v12 == 5)
+        {
+          v14 = @"When I tap my %@ resident key";
+          v15 = @"%@ resident key tapped";
+          goto LABEL_36;
+        }
+
+        goto LABEL_33;
+      }
+
+      v14 = @"When I use my %@ car key";
+      v15 = @"%@ car key tapped";
+    }
+  }
+
+  else
+  {
+    if ([v11 isIdentityPass])
+    {
+      v20 = [v11 identityType];
+      v21 = @"When I tap my %@ State ID";
+      v13 = MEMORY[0x1E696AEC0];
+      v22 = @"When I tap my %@ card";
+      if (a2)
+      {
+        v21 = @"%@ State ID tapped";
+        v22 = @"%@ card tapped";
+      }
+
+      v23 = @"When I tap my %@ Driver’s License";
+      if (a2)
+      {
+        v23 = @"%@ Driver’s License tapped";
+      }
+
+      if (v20 == 1)
+      {
+        v22 = v23;
+      }
+
+      if (v20 == 2)
+      {
+        v24 = v21;
+      }
+
+      else
+      {
+        v24 = v22;
+      }
+
+      goto LABEL_39;
+    }
+
+    v13 = MEMORY[0x1E696AEC0];
+    v14 = @"When I tap my %@ card";
+    v15 = @"%@ card tapped";
+  }
+
+LABEL_36:
+  if (a2)
+  {
+    v24 = v15;
+  }
+
+  else
+  {
+    v24 = v14;
+  }
+
+LABEL_39:
+  v25 = WFLocalizedString(v24);
+  v26 = [v9 localizedDescription];
+  v18 = [v13 stringWithFormat:v25, v26];
+
+LABEL_40:
+LABEL_41:
+
+  return v18;
+}
+
+id WFAppProtectionLocalizedAuthMechanismString()
+{
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2050000000;
+  v0 = getAPFeatureSemioticsManagerClass_softClass;
+  v11 = getAPFeatureSemioticsManagerClass_softClass;
+  if (!getAPFeatureSemioticsManagerClass_softClass)
+  {
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __getAPFeatureSemioticsManagerClass_block_invoke;
+    v7[3] = &unk_1E837FAC0;
+    v7[4] = &v8;
+    __getAPFeatureSemioticsManagerClass_block_invoke(v7);
+    v0 = v9[3];
+  }
+
+  v1 = v0;
+  _Block_object_dispose(&v8, 8);
+  v2 = [v0 sharedManager];
+  v3 = [v2 localizedDescriptionForCurrentBestAuthenticationMechanism];
+
+  if (v3)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = WFLocalizedString(@"authentication");
+  }
+
+  v5 = v4;
+
+  return v5;
+}
+
+void sub_1CA8824AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getAPFeatureSemioticsManagerClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!AppProtectionUILibraryCore_frameworkLibrary)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __AppProtectionUILibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837B820;
+    v8 = 0;
+    AppProtectionUILibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!AppProtectionUILibraryCore_frameworkLibrary)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AppProtectionUILibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFAppProtectionStringUtils.m" lineNumber:16 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("APFeatureSemioticsManager");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getAPFeatureSemioticsManagerClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFAppProtectionStringUtils.m" lineNumber:17 description:{@"Unable to find class %s", "APFeatureSemioticsManager"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getAPFeatureSemioticsManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __AppProtectionUILibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  AppProtectionUILibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+id WFWorkflowUserNotificationCenter()
+{
+  if (WFWorkflowUserNotificationCenter_onceToken != -1)
+  {
+    dispatch_once(&WFWorkflowUserNotificationCenter_onceToken, &__block_literal_global_51757);
+  }
+
+  v1 = WFWorkflowUserNotificationCenter_notificationCenter;
+
+  return v1;
+}
+
+void __WFWorkflowUserNotificationCenter_block_invoke()
+{
+  v0 = objc_alloc(MEMORY[0x1E6983308]);
+  v1 = [v0 initWithBundleIdentifier:*MEMORY[0x1E69E0FB0]];
+  v2 = WFWorkflowUserNotificationCenter_notificationCenter;
+  WFWorkflowUserNotificationCenter_notificationCenter = v1;
+}
+
+void sub_1CA882E38(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 48));
+  objc_destroyWeak((v2 - 40));
+  _Unwind_Resume(a1);
+}
+
+id WFNotesFolderLinkValueFromIntentsValue(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 spokenPhrase];
+  v3 = [v1 vocabularyIdentifier];
+
+  v4 = [objc_alloc(MEMORY[0x1E69AC7D8]) initWithValue:v3 scope:2 typeName:@"FolderEntity"];
+  v5 = [objc_alloc(MEMORY[0x1E69AC7D0]) initWithIdentifier:v4];
+  v6 = [objc_alloc(MEMORY[0x1E69AC818]) initWithTypeName:@"FolderEntity"];
+  v7 = objc_alloc(MEMORY[0x1E69AC7A0]);
+  v8 = [objc_alloc(MEMORY[0x1E69AC9E0]) initWithLocalizedKey:v2 bundleIdentifier:0 bundleURL:0 table:0];
+  v9 = [v7 initWithTitle:v8 subtitle:0 image:0];
+
+  v10 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v5 valueType:v6 displayRepresentation:v9];
+
+  return v10;
+}
+
+id WFNotesFolderIntentsValueFromLinkValue(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 displayRepresentation];
+  v3 = [v2 title];
+  v4 = [v3 wf_localizedString];
+
+  v5 = [v1 value];
+
+  if (v5)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v6 = v5;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = v6;
+
+  v8 = [v7 identifier];
+
+  v9 = [v8 value];
+
+  v10 = 0;
+  if (v4 && v9)
+  {
+    v10 = [objc_alloc(MEMORY[0x1E696EA50]) initWithVocabularyIdentifier:v9 spokenPhrase:v4 pronunciationHint:0];
+  }
+
+  return v10;
+}
+
+void sub_1CA88358C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id WFLocalizedRepeatActionVariableName(void *a1, void *a2, void *a3)
+{
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = [v5 componentsSeparatedByString:@" "];
+  if ([v8 count] == 2)
+  {
+    v9 = v6;
+  }
+
+  else
+  {
+    if ([v8 count] == 3)
+    {
+      v10 = MEMORY[0x1E696AEC0];
+      v11 = [v8 lastObject];
+      v12 = [v10 localizedStringWithFormat:v7, objc_msgSend(v11, "integerValue")];
+
+      goto LABEL_7;
+    }
+
+    v9 = v5;
+  }
+
+  v12 = v9;
+LABEL_7:
+
+  return v12;
+}
+
+void sub_1CA884D7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+uint64_t WFPBGallerySessionBrowseCategoryEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v20 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v20 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v20 & 0x7F) << v5;
+        if ((v20 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      v13 = (v12 >> 3) - 1;
+      if (v13 >= 3)
+      {
+        if ((PBReaderSkipValueWithTag() & 1) == 0)
+        {
+          return 0;
+        }
+      }
+
+      else
+      {
+        v14 = off_1E837B918[v13];
+        v15 = PBReaderReadString();
+        v16 = *v14;
+        v17 = *(a1 + v16);
+        *(a1 + v16) = v15;
+      }
+
+      v18 = [a2 position];
+    }
+
+    while (v18 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void WFActionParameterSummaryValueCommonInit(void *a1, void *a2)
+{
+  v35 = *MEMORY[0x1E69E9840];
+  v29 = a1;
+  v3 = a2;
+  v4 = +[WFActionParameterSummaryValue parenthesisRegularExpression];
+  v28 = v3;
+  v5 = [v3 componentsSeparatedByString:{@", "}];
+  v6 = objc_opt_new();
+  v7 = objc_opt_new();
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v8 = v5;
+  v9 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v31;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v31 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v30 + 1) + 8 * i);
+        v14 = [v4 firstMatchInString:v13 options:0 range:{0, objc_msgSend(v13, "length")}];
+        v15 = v14;
+        if (v14)
+        {
+          v16 = [v14 rangeAtIndex:0];
+          v18 = [v13 stringByReplacingCharactersInRange:v16 withString:{v17, &stru_1F4A1C408}];
+          v19 = [v15 rangeAtIndex:1];
+          v21 = [v13 substringWithRange:{v19, v20}];
+          [v6 addObject:v18];
+          [v7 setObject:v21 forKey:v18];
+        }
+
+        else if ([v13 length])
+        {
+          [v6 addObject:v13];
+        }
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    }
+
+    while (v10);
+  }
+
+  v22 = [v6 copy];
+  v23 = v29[1];
+  v29[1] = v22;
+
+  v24 = [v7 copy];
+  v25 = v29[2];
+  v29[2] = v24;
+
+  v26 = [v28 copy];
+  v27 = v29[3];
+  v29[3] = v26;
+}
+
+uint64_t WFGetVariableInputContentForPreviewing(void *a1, void *a2, void *a3)
+{
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  v8 = [v5 variableString];
+  if (![v8 representsSingleContentVariable] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  {
+
+LABEL_6:
+    v10 = 0;
+    goto LABEL_7;
+  }
+
+  v9 = [v5 variableString];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __WFGetVariableInputContentForPreviewing_block_invoke;
+  v12[3] = &unk_1E837DC20;
+  v13 = v7;
+  [v9 processIntoContentItemsWithContext:v6 completionHandler:v12];
+
+  v10 = 1;
+LABEL_7:
+
+  return v10;
+}
+
+void WFShowResult(void *a1, void *a2, int a3, void *a4)
+{
+  v7 = a1;
+  v8 = a2;
+  v9 = a4;
+  if ([MEMORY[0x1E695E000] universalPreviewsEnabled])
+  {
+    if (![v8 isRunningWithSiriUI])
+    {
+      WFShowPreview(0, v7, v8, v9);
+      goto LABEL_9;
+    }
+
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __WFShowResult_block_invoke;
+    v27[3] = &unk_1E837F020;
+    v29 = v9;
+    v28 = v8;
+    [v7 getStringRepresentations:v27];
+
+    v10 = v29;
+    goto LABEL_7;
+  }
+
+  if (objc_opt_respondsToSelector() & 1) == 0 || ([v8 isRunningWithSiriUI])
+  {
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __WFShowResult_block_invoke_2_192;
+    v16[3] = &unk_1E837F020;
+    v18 = v9;
+    v17 = v8;
+    [v7 getStringRepresentations:v16];
+
+    v10 = v18;
+LABEL_7:
+
+    goto LABEL_9;
+  }
+
+  if (!a3)
+  {
+    v15 = [v7 items];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __WFShowResult_block_invoke_190;
+    v19[3] = &unk_1E837F020;
+    v20 = v8;
+    v21 = v9;
+    [v15 if_mapAsynchronously:&__block_literal_global_186_52613 completionHandler:v19];
+
+    v10 = v20;
+    goto LABEL_7;
+  }
+
+  v26 = 0;
+  v11 = [v7 collectionByFilteringItemsWithBlock:&__block_literal_global_52612 excludedItems:&v26];
+  v12 = v26;
+  v13 = [v12 items];
+  v14 = [v13 count];
+
+  if (v14)
+  {
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __WFShowResult_block_invoke_4;
+    v22[3] = &unk_1E837E9D0;
+    v25 = v9;
+    v23 = v11;
+    v24 = v8;
+    [v7 getStringRepresentations:v22];
+  }
+
+  else
+  {
+    WFShowPreview(0, v11, v8, v9);
+  }
+
+LABEL_9:
+}
+
+void __WFShowResult_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  if (a3)
+  {
+    (*(*(a1 + 40) + 16))();
+  }
+
+  else
+  {
+    v6 = [MEMORY[0x1E6996C70] alertWithPreferredStyle:0];
+    v7 = [v5 componentsJoinedByString:@"\n"];
+    [v6 setMessage:v7];
+
+    v8 = MEMORY[0x1E6996C78];
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __WFShowResult_block_invoke_2;
+    v14 = &unk_1E837E1F8;
+    v9 = *(a1 + 40);
+    v15 = 0;
+    v16 = v9;
+    v10 = [v8 okButtonWithHandler:&v11];
+    [v6 addButton:{v10, v11, v12, v13, v14}];
+
+    [*(a1 + 32) presentAlert:v6];
+  }
+}
+
+void WFShowPreview(void *a1, void *a2, void *a3, void *a4)
+{
+  v7 = a1;
+  v8 = a2;
+  v9 = a3;
+  v10 = a4;
+  v11 = objc_opt_new();
+  v12 = v11;
+  if (v7)
+  {
+    [v11 addObject:v7];
+  }
+
+  v13 = [v8 items];
+  [v12 addItems:v13];
+
+  v14 = [v12 items];
+  v15 = [v14 count];
+
+  if (v15)
+  {
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __WFShowPreview_block_invoke;
+    v16[3] = &unk_1E837BA78;
+    v17 = v10;
+    [v9 showPreviewForContentCollection:v12 completionHandler:v16];
+  }
+
+  else
+  {
+    (*(v10 + 2))(v10, 0);
+  }
+}
+
+void __WFShowResult_block_invoke_4(void **a1, void *a2, uint64_t a3)
+{
+  if (a3)
+  {
+    v4 = *(a1[6] + 2);
+
+    v4();
+  }
+
+  else
+  {
+    v7 = [a2 componentsJoinedByString:@"\n"];
+    v5 = [MEMORY[0x1E69E0D80] parseAnnotatedString:v7];
+    v6 = [v5 displayString];
+
+    WFShowPreview(v6, a1[4], a1[5], a1[6]);
+  }
+}
+
+void __WFShowResult_block_invoke_190(uint64_t a1, uint64_t a2)
+{
+  v3 = [MEMORY[0x1E6996D40] collectionWithItems:a2];
+  WFShowPreview(0, v3, *(a1 + 32), *(a1 + 40));
+}
+
+void __WFShowResult_block_invoke_2_192(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  if (a3)
+  {
+    (*(*(a1 + 40) + 16))();
+  }
+
+  else
+  {
+    v6 = [MEMORY[0x1E6996C70] alertWithPreferredStyle:0];
+    v7 = [v5 componentsJoinedByString:@"\n"];
+    [v6 setMessage:v7];
+
+    v8 = MEMORY[0x1E6996C78];
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __WFShowResult_block_invoke_3_193;
+    v14 = &unk_1E837E1F8;
+    v9 = *(a1 + 40);
+    v15 = 0;
+    v16 = v9;
+    v10 = [v8 okButtonWithHandler:&v11];
+    [v6 addButton:{v10, v11, v12, v13, v14}];
+
+    [*(a1 + 32) presentAlert:v6];
+  }
+}
+
+void __WFShowResult_block_invoke_5(uint64_t a1, void *a2, uint64_t a3, void *a4)
+{
+  v5 = a2;
+  v6 = a4;
+  if (WFContentItemIsAttachment(v5))
+  {
+    v6[2](v6, v5, 0);
+  }
+
+  else
+  {
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __WFShowResult_block_invoke_6;
+    v7[3] = &unk_1E837BA50;
+    v8 = v5;
+    v9 = v6;
+    [v8 getObjectRepresentation:v7 forClass:objc_opt_class()];
+  }
+}
+
+uint64_t WFContentItemIsAttachment(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 preferredDisplayStyle];
+  v3 = [v1 preferredFileType];
+
+  v4 = [v3 conformsToUTType:*MEMORY[0x1E6983020]] ^ 1;
+  if (v2 == 1)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    v5 = v4;
+  }
+
+  return v5;
+}
+
+void __WFShowResult_block_invoke_6(uint64_t a1, uint64_t a2, void *a3, void *a4)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  v7 = a3;
+  v8 = a4;
+  if (a2)
+  {
+    v9 = *(a1 + 40);
+    v10 = MEMORY[0x1E6996D58];
+    v11 = [MEMORY[0x1E69E0D80] parseAnnotatedString:a2];
+    v12 = [v11 displayString];
+
+    v13 = [*(a1 + 32) attributionSet];
+    v14 = [v10 itemWithObject:v12 named:v7 attributionSet:v13];
+    (*(v9 + 16))(v9, v14, 0);
+  }
+
+  else
+  {
+    v15 = getWFActionsLogObject();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v16 = *(a1 + 32);
+      v17 = 136315651;
+      v18 = "WFShowResult_block_invoke_6";
+      v19 = 2113;
+      v20 = v16;
+      v21 = 2113;
+      v22 = v8;
+      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Failed coercing %{private}@ to string: %{private}@. Falling back to treating item as an attachment", &v17, 0x20u);
+    }
+
+    (*(*(a1 + 40) + 16))();
+  }
+}
+
+void __WFShowPreview_block_invoke(uint64_t a1, char a2)
+{
+  v2 = *(a1 + 32);
+  if (a2)
+  {
+    v5 = [MEMORY[0x1E696ABC0] userCancelledError];
+    (*(v2 + 16))(v2, v5);
+  }
+
+  else
+  {
+    v3 = *(v2 + 16);
+    v4 = *(a1 + 32);
+
+    v3(v4, 0);
+  }
+}
+
+uint64_t WFPBAutoShortcutToggleEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v26 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v26 & 0x7F) << v5;
+        if ((v26 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 2)
+      {
+        if (v13 == 1)
+        {
+          v14 = PBReaderReadString();
+          v15 = 16;
+          goto LABEL_36;
+        }
+
+        if (v13 == 2)
+        {
+          v14 = PBReaderReadString();
+          v15 = 8;
+          goto LABEL_36;
+        }
+      }
+
+      else
+      {
+        switch(v13)
+        {
+          case 3:
+            v14 = PBReaderReadString();
+            v15 = 24;
+            goto LABEL_36;
+          case 4:
+            v16 = 0;
+            v17 = 0;
+            v18 = 0;
+            *(a1 + 44) |= 1u;
+            while (1)
+            {
+              v27 = 0;
+              v19 = [a2 position] + 1;
+              if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+              {
+                v21 = [a2 data];
+                [v21 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
+
+                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+              }
+
+              else
+              {
+                [a2 _setError];
+              }
+
+              v18 |= (v27 & 0x7F) << v16;
+              if ((v27 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v16 += 7;
+              v11 = v17++ >= 9;
+              if (v11)
+              {
+                LOBYTE(v22) = 0;
+                goto LABEL_42;
+              }
+            }
+
+            v22 = (v18 != 0) & ~[a2 hasError];
+LABEL_42:
+            *(a1 + 40) = v22;
+            goto LABEL_37;
+          case 5:
+            v14 = PBReaderReadString();
+            v15 = 32;
+LABEL_36:
+            v23 = *(a1 + v15);
+            *(a1 + v15) = v14;
+
+            goto LABEL_37;
+        }
+      }
+
+      result = PBReaderSkipValueWithTag();
+      if (!result)
+      {
+        return result;
+      }
+
+LABEL_37:
+      v24 = [a2 position];
+    }
+
+    while (v24 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void *initNRVersionIsGreaterThanOrEqual(uint64_t a1, uint64_t a2)
+{
+  if (NanoRegistryLibrary_sOnce != -1)
+  {
+    dispatch_once(&NanoRegistryLibrary_sOnce, &__block_literal_global_52949);
+  }
+
+  result = dlsym(NanoRegistryLibrary_sLib, "NRVersionIsGreaterThanOrEqual");
+  softLinkNRVersionIsGreaterThanOrEqual = result;
+  if (result)
+  {
+
+    return (result)(a1, a2);
+  }
+
+  return result;
+}
+
+void *__NanoRegistryLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/PrivateFrameworks/NanoRegistry.framework/NanoRegistry", 2);
+  NanoRegistryLibrary_sLib = result;
+  return result;
+}
+
+uint64_t initNRWatchOSVersionForRemoteDevice(void *a1)
+{
+  v1 = a1;
+  if (NanoRegistryLibrary_sOnce != -1)
+  {
+    dispatch_once(&NanoRegistryLibrary_sOnce, &__block_literal_global_52949);
+  }
+
+  v2 = dlsym(NanoRegistryLibrary_sLib, "NRWatchOSVersionForRemoteDevice");
+  softLinkNRWatchOSVersionForRemoteDevice = v2;
+  if (v2)
+  {
+    v3 = v2(v1);
+  }
+
+  else
+  {
+    v3 = 0xFFFFFFFFLL;
+  }
+
+  return v3;
+}
+
+Class initNRPairedDeviceRegistry()
+{
+  if (NanoRegistryLibrary_sOnce != -1)
+  {
+    dispatch_once(&NanoRegistryLibrary_sOnce, &__block_literal_global_52949);
+  }
+
+  result = objc_getClass("NRPairedDeviceRegistry");
+  classNRPairedDeviceRegistry = result;
+  getNRPairedDeviceRegistryClass = NRPairedDeviceRegistryFunction;
+  return result;
+}
+
+uint64_t WFPBGallerySessionEndEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v26 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v26 & 0x7F) << v5;
+        if ((v26 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
+        v17 = 0;
+        v18 = 0;
+        v19 = 0;
+        *(a1 + 32) |= 1u;
+        while (1)
+        {
+          v27 = 0;
+          v20 = [a2 position] + 1;
+          if (v20 >= [a2 position] && (v21 = objc_msgSend(a2, "position") + 1, v21 <= objc_msgSend(a2, "length")))
+          {
+            v22 = [a2 data];
+            [v22 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v19 |= (v27 & 0x7F) << v17;
+          if ((v27 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v17 += 7;
+          v11 = v18++ >= 9;
+          if (v11)
+          {
+            v23 = 0;
+            goto LABEL_37;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v23 = 0;
+        }
+
+        else
+        {
+          v23 = v19;
+        }
+
+LABEL_37:
+        *(a1 + 8) = v23;
+      }
+
+      else
+      {
+        if (v13 == 2)
+        {
+          v14 = PBReaderReadString();
+          v15 = 24;
+        }
+
+        else
+        {
+          if (v13 != 1)
+          {
+            result = PBReaderSkipValueWithTag();
+            if (!result)
+            {
+              return result;
+            }
+
+            goto LABEL_38;
+          }
+
+          v14 = PBReaderReadString();
+          v15 = 16;
+        }
+
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v14;
+      }
+
+LABEL_38:
+      v25 = [a2 position];
+    }
+
+    while (v25 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t WFREPBAskWhenRunRequestReadFrom(char *a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v19) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v19 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v19 & 0x7F) << v5;
+        if ((v19 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 3)
+      {
+        switch(v13)
+        {
+          case 4:
+            v15 = PBReaderReadString();
+            v16 = 8;
+            goto LABEL_37;
+          case 5:
+            v15 = PBReaderReadData();
+            v16 = 16;
+            goto LABEL_37;
+          case 6:
+            v14 = objc_alloc_init(WFREPBRepeatedKeyValuePair);
+            [a1 addPossibleStates:v14];
+            v19 = 0;
+            v20 = 0;
+            if (!PBReaderPlaceMark() || !WFREPBRepeatedKeyValuePairReadFrom(v14, a2))
+            {
+LABEL_41:
+
+              return 0;
+            }
+
+LABEL_29:
+            PBReaderRecallMark();
+LABEL_38:
+
+            goto LABEL_39;
+        }
+      }
+
+      else
+      {
+        switch(v13)
+        {
+          case 1:
+            v15 = PBReaderReadString();
+            v16 = 24;
+LABEL_37:
+            v14 = *&a1[v16];
+            *&a1[v16] = v15;
+            goto LABEL_38;
+          case 2:
+            v14 = PBReaderReadString();
+            if (v14)
+            {
+              [a1 addParameterKeys:v14];
+            }
+
+            goto LABEL_38;
+          case 3:
+            v14 = objc_alloc_init(WFREPBKeyValuePair);
+            [a1 addParameterKeysAndStates:v14];
+            v19 = 0;
+            v20 = 0;
+            if (!PBReaderPlaceMark() || !WFREPBKeyValuePairReadFrom(v14, a2))
+            {
+              goto LABEL_41;
+            }
+
+            goto LABEL_29;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_39:
+      v17 = [a2 position];
+    }
+
+    while (v17 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_1CA88FB60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getMPMediaPropertyPredicateClass_block_invoke_53773(uint64_t a1)
+{
+  MediaPlayerLibrary_53782();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MPMediaPropertyPredicate");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getMPMediaPropertyPredicateClass_softClass_53772 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getMPMediaPropertyPredicateClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFMediaItemState.m" lineNumber:28 description:{@"Unable to find class %s", "MPMediaPropertyPredicate"}];
+
+    __break(1u);
+  }
+}
+
+void __getMPMediaItemClass_block_invoke_53775(uint64_t a1)
+{
+  MediaPlayerLibrary_53782();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MPMediaItem");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getMPMediaItemClass_softClass_53774 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getMPMediaItemClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFMediaItemState.m" lineNumber:29 description:{@"Unable to find class %s", "MPMediaItem"}];
+
+    __break(1u);
+  }
+}
+
+uint64_t WFGroupingPropertyForMediaType_53776(void *a1)
+{
+  v8[7] = *MEMORY[0x1E69E9840];
+  v7[0] = @"Album";
+  v7[1] = @"Playlist";
+  v8[0] = &unk_1F4A9AC78;
+  v8[1] = &unk_1F4A9AC90;
+  v7[2] = @"Song";
+  v7[3] = @"Artist";
+  v8[2] = &unk_1F4A9ACA8;
+  v8[3] = &unk_1F4A9ACC0;
+  v7[4] = @"Genre";
+  v7[5] = @"Compilation";
+  v8[4] = &unk_1F4A9ACD8;
+  v8[5] = &unk_1F4A9AC78;
+  v7[6] = @"Composer";
+  v8[6] = &unk_1F4A9ACF0;
+  v1 = MEMORY[0x1E695DF20];
+  v2 = a1;
+  v3 = [v1 dictionaryWithObjects:v8 forKeys:v7 count:7];
+  v4 = [v3 objectForKeyedSubscript:v2];
+
+  v5 = [v4 integerValue];
+  return v5;
+}
+
+void __getMPMediaQueryClass_block_invoke_53778(uint64_t a1)
+{
+  MediaPlayerLibrary_53782();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MPMediaQuery");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getMPMediaQueryClass_softClass_53777 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getMPMediaQueryClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFMediaItemState.m" lineNumber:30 description:{@"Unable to find class %s", "MPMediaQuery"}];
+
+    __break(1u);
+  }
+}
+
+void MediaPlayerLibrary_53782()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  if (!MediaPlayerLibraryCore_frameworkLibrary_53788)
+  {
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __MediaPlayerLibraryCore_block_invoke_53789;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E837BB40;
+    v5 = 0;
+    MediaPlayerLibraryCore_frameworkLibrary_53788 = _sl_dlopen();
+  }
+
+  if (!MediaPlayerLibraryCore_frameworkLibrary_53788)
+  {
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *MediaPlayerLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"WFMediaItemState.m" lineNumber:27 description:{@"%s", v3[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __ReminderKitLibraryCore_block_invoke_25831(uint64_t a1)
+uint64_t __MediaPlayerLibraryCore_block_invoke_53789(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
-  ReminderKitLibraryCore_frameworkLibrary_25830 = result;
-  v3 = *MEMORY[0x1E69E9840];
+  MediaPlayerLibraryCore_frameworkLibrary_53788 = result;
   return result;
 }
 
-id getREMStoreClass()
+void sub_1CA892044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id INIntentFromAppBundleIdAndName(void *a1, void *a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = a2;
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@.%@", *MEMORY[0x1E696EAF8], v3, v4];
+  v6 = INIntentCreate();
+  v7 = v6;
+  if (v6)
+  {
+    v8 = v6;
+  }
+
+  else
+  {
+    v9 = getWFActionDonationsLogObject();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315650;
+      v12 = "INIntentFromAppBundleIdAndName";
+      v13 = 2112;
+      v14 = v4;
+      v15 = 2112;
+      v16 = v3;
+      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s Unable to initialize intent with name: '%@' and bundleId: '%@'", buf, 0x20u);
+    }
+  }
+
+  return v7;
+}
+
+id getWFActionDonationsLogObject()
+{
+  if (getWFActionDonationsLogObject_onceToken != -1)
+  {
+    dispatch_once(&getWFActionDonationsLogObject_onceToken, &__block_literal_global_54058);
+  }
+
+  v1 = getWFActionDonationsLogObject_log;
+
+  return v1;
+}
+
+id getCNContactStoreClass()
 {
   v4 = 0;
   v5 = &v4;
   v6 = 0x2050000000;
-  v0 = getREMStoreClass_softClass;
-  v7 = getREMStoreClass_softClass;
-  if (!getREMStoreClass_softClass)
+  v0 = getCNContactStoreClass_softClass;
+  v7 = getCNContactStoreClass_softClass;
+  if (!getCNContactStoreClass_softClass)
   {
     v3[0] = MEMORY[0x1E69E9820];
     v3[1] = 3221225472;
-    v3[2] = __getREMStoreClass_block_invoke;
+    v3[2] = __getCNContactStoreClass_block_invoke;
     v3[3] = &unk_1E837FAC0;
     v3[4] = &v4;
-    __getREMStoreClass_block_invoke(v3);
+    __getCNContactStoreClass_block_invoke(v3);
     v0 = v5[3];
   }
 
@@ -6869,66 +6431,1497 @@ id getREMStoreClass()
   return v1;
 }
 
-void sub_1CA7B7448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1CA8922E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void __getREMStoreClass_block_invoke(uint64_t a1)
+void *__getCNContactPostalAddressesKeySymbolLoc_block_invoke(uint64_t a1)
 {
-  ReminderKitLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("REMStore");
+  v2 = ContactsLibrary_54002();
+  result = dlsym(v2, "CNContactPostalAddressesKey");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getCNContactPostalAddressesKeySymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *ContactsLibrary_54002()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  if (!ContactsLibraryCore_frameworkLibrary_54052)
+  {
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __ContactsLibraryCore_block_invoke_54053;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E837BB88;
+    v6 = 0;
+    ContactsLibraryCore_frameworkLibrary_54052 = _sl_dlopen();
+  }
+
+  v0 = ContactsLibraryCore_frameworkLibrary_54052;
+  if (!ContactsLibraryCore_frameworkLibrary_54052)
+  {
+    v0 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContactsLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFActionDonationDefaultsRecommender.m" lineNumber:25 description:{@"%s", v4[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v1 = v4[0];
+  if (v4[0])
+  {
+LABEL_7:
+    free(v1);
+  }
+
+  return v0;
+}
+
+Class __getGEOMapURLBuilderClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!GeoServicesLibraryCore_frameworkLibrary)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __GeoServicesLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837BBA0;
+    v8 = 0;
+    GeoServicesLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!GeoServicesLibraryCore_frameworkLibrary)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *GeoServicesLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFActionDonationDefaultsRecommender.m" lineNumber:31 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("GEOMapURLBuilder");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getGEOMapURLBuilderClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFActionDonationDefaultsRecommender.m" lineNumber:32 description:{@"Unable to find class %s", "GEOMapURLBuilder"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getGEOMapURLBuilderClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void __getCNFavoritesClass_block_invoke(uint64_t a1)
+{
+  ContactsLibrary_54002();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("CNFavorites");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
-    getREMStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+    getCNFavoritesClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   }
 
   else
   {
     v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getREMStoreClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"WFRemindersListPickerParameter.m" lineNumber:25 description:{@"Unable to find class %s", "REMStore"}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCNFavoritesClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFActionDonationDefaultsRecommender.m" lineNumber:35 description:{@"Unable to find class %s", "CNFavorites"}];
 
     __break(1u);
   }
 }
 
-uint64_t __Block_byref_object_copy__26657(uint64_t result, uint64_t a2)
+void *__getCNActionTypeAudioCallSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = ContactsLibrary_54002();
+  result = dlsym(v2, "CNActionTypeAudioCall");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getCNActionTypeAudioCallSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getCNActionTypeVideoCallSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = ContactsLibrary_54002();
+  result = dlsym(v2, "CNActionTypeVideoCall");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getCNActionTypeVideoCallSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __GeoServicesLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  GeoServicesLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+uint64_t __ContactsLibraryCore_block_invoke_54053(uint64_t a1)
+{
+  result = _sl_dlopen();
+  ContactsLibraryCore_frameworkLibrary_54052 = result;
+  return result;
+}
+
+void __getCNContactStoreClass_block_invoke(uint64_t a1)
+{
+  ContactsLibrary_54002();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("CNContactStore");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getCNContactStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCNContactStoreClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFActionDonationDefaultsRecommender.m" lineNumber:26 description:{@"Unable to find class %s", "CNContactStore"}];
+
+    __break(1u);
+  }
+}
+
+void __getWFActionDonationsLogObject_block_invoke()
+{
+  v0 = os_log_create(*MEMORY[0x1E69E1140], "ActionDonations");
+  v1 = getWFActionDonationsLogObject_log;
+  getWFActionDonationsLogObject_log = v0;
+}
+
+__CFString *WFNSProgressCreateUserInfoKeyPathForKey(void *a1)
+{
+  v5[2] = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = @"userInfo";
+  if ([v1 length])
+  {
+    v5[0] = @"userInfo";
+    v5[1] = v1;
+    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+    v2 = [v3 componentsJoinedByString:@"."];
+  }
+
+  return v2;
+}
+
+id WFNSProgressCreateUserInfoKeyPathForProgressKeyPathAndKey(void *a1, void *a2)
+{
+  v9[2] = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = a2;
+  if ([v3 length])
+  {
+    v9[0] = v3;
+    v5 = WFNSProgressCreateUserInfoKeyPathForKey(v4);
+
+    v9[1] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+    v7 = [v6 componentsJoinedByString:@"."];
+  }
+
+  else
+  {
+    v7 = WFNSProgressCreateUserInfoKeyPathForKey(v4);
+  }
+
+  return v7;
+}
+
+void sub_1CA895CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+{
+  va_start(va, a21);
+  _Block_object_dispose((v21 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__54469(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-void WFMigratePaymentActionCurrencyAmount(void *a1)
+Class __getAFClientLiteClass_block_invoke(uint64_t a1)
 {
-  v10 = a1;
-  v1 = [v10 objectForKeyedSubscript:@"WFVenmoActionAmount"];
-  if (v1)
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!AssistantServicesLibraryCore_frameworkLibrary_54476)
   {
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || ([v1 objectForKey:@"WFSerializationType"], v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "isEqualToString:", @"WFQuantityFieldValue"), v2, (v3 & 1) == 0))
-    {
-      v4 = [(WFVariableSubstitutableParameterState *)[WFNumberStringSubstitutableState alloc] initWithSerializedRepresentation:v1 variableProvider:0 parameter:0];
-      v5 = [WFQuantityParameterState alloc];
-      v6 = [MEMORY[0x1E695DF58] currentLocale];
-      v7 = [v6 currencyCode];
-      v8 = [(WFQuantityParameterState *)v5 initWithMagnitudeState:v4 unitString:v7];
-
-      v9 = [(WFQuantityParameterState *)v8 serializedRepresentation];
-      [v10 setObject:v9 forKeyedSubscript:@"WFVenmoActionAmount"];
-    }
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __AssistantServicesLibraryCore_block_invoke_54477;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837BCF0;
+    v8 = 0;
+    AssistantServicesLibraryCore_frameworkLibrary_54476 = _sl_dlopen();
   }
+
+  if (!AssistantServicesLibraryCore_frameworkLibrary_54476)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AssistantServicesLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFRemoteExtensionProxy.m" lineNumber:23 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("AFClientLite");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getAFClientLiteClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFRemoteExtensionProxy.m" lineNumber:24 description:{@"Unable to find class %s", "AFClientLite"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getAFClientLiteClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
 }
 
-id WFLinkActionSerializedParametersForWFAction(void *a1, void *a2, void *a3)
+uint64_t __AssistantServicesLibraryCore_block_invoke_54477(uint64_t a1)
 {
-  v70 = *MEMORY[0x1E69E9840];
-  v50 = a1;
-  v5 = a2;
-  v6 = a3;
+  result = _sl_dlopen();
+  AssistantServicesLibraryCore_frameworkLibrary_54476 = result;
+  return result;
+}
+
+uint64_t WFNumberIsBoolean(void *a1)
+{
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{objc_msgSend(a1, "objCType")}];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
+
+  return isEqualToString;
+}
+
+uint64_t WFPBAutoShortcutButtonEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v19 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v19 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v19 & 0x7F) << v5;
+        if ((v19 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        v13 = &OBJC_IVAR___WFPBAutoShortcutButtonEvent__bundleIdentifier;
+LABEL_21:
+        v14 = PBReaderReadString();
+        v15 = *v13;
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v14;
+
+        goto LABEL_23;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_23:
+      v17 = [a2 position];
+      if (v17 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v13 = &OBJC_IVAR___WFPBAutoShortcutButtonEvent__key;
+    goto LABEL_21;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+id WFUIPresenterXPCInterface()
+{
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4AAEA00];
+  v54 = MEMORY[0x1E695DFD8];
+  v56 = MEMORY[0x1E695DFA8];
+  v52 = objc_opt_class();
+  v50 = objc_opt_class();
+  v48 = objc_opt_class();
+  v46 = objc_opt_class();
+  v44 = objc_opt_class();
+  v42 = objc_opt_class();
+  v40 = objc_opt_class();
+  v38 = objc_opt_class();
+  v37 = objc_opt_class();
+  v36 = objc_opt_class();
+  v35 = objc_opt_class();
+  v34 = objc_opt_class();
+  v33 = objc_opt_class();
+  v1 = objc_opt_class();
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = objc_opt_class();
+  v6 = objc_opt_class();
+  v7 = objc_opt_class();
+  v8 = objc_opt_class();
+  v9 = objc_opt_class();
+  v10 = [v54 setWithObjects:{v52, v50, v48, v46, v44, v42, v40, v38, v37, v36, v35, v34, v33, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v57 = [v56 setWithSet:v10];
+
+  [v57 addObject:objc_opt_class()];
+  v53 = MEMORY[0x1E695DFD8];
+  v55 = MEMORY[0x1E695DFA8];
+  v51 = objc_opt_class();
+  v49 = objc_opt_class();
+  v47 = objc_opt_class();
+  v45 = objc_opt_class();
+  v43 = objc_opt_class();
+  v41 = objc_opt_class();
+  v39 = objc_opt_class();
+  v11 = objc_opt_class();
+  v12 = objc_opt_class();
+  v13 = objc_opt_class();
+  v14 = objc_opt_class();
+  v15 = objc_opt_class();
+  v16 = objc_opt_class();
+  v17 = objc_opt_class();
+  v18 = objc_opt_class();
+  v19 = objc_opt_class();
+  v20 = [v53 setWithObjects:{v51, v49, v47, v45, v43, v41, v39, v11, v12, v13, v14, v15, v16, v17, v18, v19, objc_opt_class(), 0}];
+  v21 = [v55 setWithSet:v20];
+
+  [v57 addObject:objc_opt_class()];
+  [v0 setClasses:v57 forSelector:sel_showDialogRequest_runningContext_completionHandler_ argumentIndex:0 ofReply:0];
+  [v0 setClasses:v21 forSelector:sel_showDialogRequest_runningContext_completionHandler_ argumentIndex:0 ofReply:1];
+  v22 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v22 forSelector:sel_showDialogRequest_runningContext_completionHandler_ argumentIndex:1 ofReply:0];
+
+  v23 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v23 forSelector:sel_openURL_completionHandler_ argumentIndex:0 ofReply:0];
+
+  v24 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v24 forSelector:sel_beginPersistentModeWithRunningContext_attribution_completionHandler_ argumentIndex:0 ofReply:0];
+
+  v25 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v25 forSelector:sel_beginPersistentModeWithRunningContext_attribution_completionHandler_ argumentIndex:1 ofReply:0];
+
+  v26 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v26 forSelector:sel_completePersistentModeWithSuccess_runningContext_completionHandler_ argumentIndex:0 ofReply:0];
+
+  v27 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v27 forSelector:sel_completePersistentModeWithSuccess_runningContext_completionHandler_ argumentIndex:1 ofReply:0];
+
+  v28 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v28 forSelector:sel_updateAttribution_runningContext_ argumentIndex:0 ofReply:0];
+
+  v29 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v29 forSelector:sel_updateAttribution_runningContext_ argumentIndex:1 ofReply:0];
+
+  v30 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v30 forSelector:sel_applicationWillLaunchInForegroundForRunningContext_isLastAction_ argumentIndex:0 ofReply:0];
+
+  v31 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v0 setClasses:v31 forSelector:sel_applicationWillLaunchInForegroundForRunningContext_isLastAction_ argumentIndex:1 ofReply:0];
+
+  return v0;
+}
+
+id WFUIPresenterServiceInterface()
+{
+  if (WFUIPresenterServiceInterface_onceToken != -1)
+  {
+    dispatch_once(&WFUIPresenterServiceInterface_onceToken, &__block_literal_global_55423);
+  }
+
+  v1 = WFUIPresenterServiceInterface_interface;
+
+  return v1;
+}
+
+void __WFUIPresenterServiceInterface_block_invoke()
+{
+  v4 = [MEMORY[0x1E698F470] interfaceWithIdentifier:@"com.apple.shortcuts.ui-presenter"];
+  v0 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1F4AAEA00 interpreter:&__block_literal_global_251_55425];
+  [v4 setServer:v0];
+  v1 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1F4AAD268 interpreter:&__block_literal_global_260];
+  [v4 setClient:v1];
+  v2 = [v4 copy];
+  v3 = WFUIPresenterServiceInterface_interface;
+  WFUIPresenterServiceInterface_interface = v2;
+}
+
+id __WFUIPresenterServiceInterface_block_invoke_3(uint64_t a1, void *a2)
+{
+  v2 = [a2 copyAsOnewayVoid];
+
+  return v2;
+}
+
+id __WFUIPresenterServiceInterface_block_invoke_2(uint64_t a1, void *a2)
+{
+  v2 = [a2 copyAsOnewayVoid];
+
+  return v2;
+}
+
+uint64_t WFREPBAlertReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v27[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v27 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v27[0] & 0x7F) << v5;
+        if ((v27[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 2)
+      {
+        break;
+      }
+
+      if (v13 != 3)
+      {
+        if (v13 == 4)
+        {
+          v16 = 0;
+          v17 = 0;
+          v18 = 0;
+          *(a1 + 40) |= 1u;
+          while (1)
+          {
+            LOBYTE(v27[0]) = 0;
+            v19 = [a2 position] + 1;
+            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+            {
+              v21 = [a2 data];
+              [v21 getBytes:v27 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v18 |= (v27[0] & 0x7F) << v16;
+            if ((v27[0] & 0x80) == 0)
+            {
+              break;
+            }
+
+            v16 += 7;
+            v11 = v17++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_42;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v18;
+          }
+
+LABEL_42:
+          *(a1 + 24) = v22;
+          goto LABEL_43;
+        }
+
+LABEL_32:
+        if ((PBReaderSkipValueWithTag() & 1) == 0)
+        {
+          return 0;
+        }
+
+        goto LABEL_43;
+      }
+
+      v24 = objc_alloc_init(WFREPBAlertButton);
+      [a1 addButtons:v24];
+      v27[0] = 0;
+      v27[1] = 0;
+      if (!PBReaderPlaceMark() || !WFREPBAlertButtonReadFrom(v24, a2))
+      {
+
+        return 0;
+      }
+
+      PBReaderRecallMark();
+
+LABEL_43:
+      v25 = [a2 position];
+      if (v25 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    if (v13 == 1)
+    {
+      v14 = PBReaderReadString();
+      v15 = 32;
+      goto LABEL_35;
+    }
+
+    if (v13 == 2)
+    {
+      v14 = PBReaderReadString();
+      v15 = 16;
+LABEL_35:
+      v23 = *(a1 + v15);
+      *(a1 + v15) = v14;
+
+      goto LABEL_43;
+    }
+
+    goto LABEL_32;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+id getWFWFRecordPropertyLogObject()
+{
+  if (getWFWFRecordPropertyLogObject_onceToken != -1)
+  {
+    dispatch_once(&getWFWFRecordPropertyLogObject_onceToken, &__block_literal_global_56090);
+  }
+
+  v1 = getWFWFRecordPropertyLogObject_log;
+
+  return v1;
+}
+
+void __getWFWFRecordPropertyLogObject_block_invoke()
+{
+  v0 = os_log_create(*MEMORY[0x1E69E1140], "WFRecordProperty");
+  v1 = getWFWFRecordPropertyLogObject_log;
+  getWFWFRecordPropertyLogObject_log = v0;
+}
+
+void sub_1CA89EABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__56169(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA89ED84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA89F054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(&a22, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA89F3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+{
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v23 - 152), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA89F67C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA89F96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA89FD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A0088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A0368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+{
+  va_start(va, a19);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v19 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A0638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A0910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A0BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A0EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A117C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A1470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A1764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A1A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A1D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A20B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8A2244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void WFDatabaseProxyConfigureXPCInterface(void *a1)
+{
+  v26[2] = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  [v1 setClass:objc_opt_class() forSelector:sel_getReferenceForWorkflowID_completion_ argumentIndex:0 ofReply:1];
+  [v1 setClass:objc_opt_class() forSelector:sel_getUniqueVisibleReferenceForWorkflowName_completion_ argumentIndex:0 ofReply:1];
+  [v1 setClass:objc_opt_class() forSelector:sel_getWorkflowRecordDataForDescriptor_completion_ argumentIndex:0 ofReply:0];
+  v2 = MEMORY[0x1E695DFD8];
+  v26[0] = objc_opt_class();
+  v26[1] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v4 = [v2 setWithArray:v3];
+  [v1 setClasses:v4 forSelector:sel_getSortedVisibleWorkflowsByNameWithCompletion_ argumentIndex:0 ofReply:1];
+
+  v5 = MEMORY[0x1E695DFD8];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+  v7 = [v5 setWithArray:v6];
+  [v1 setClasses:v7 forSelector:sel_getSortedVisibleWorkflowsInCollection_completion_ argumentIndex:0 ofReply:1];
+
+  [v1 setClass:objc_opt_class() forSelector:sel_getSortedVisibleWorkflowsInCollection_completion_ argumentIndex:0 ofReply:0];
+  v8 = MEMORY[0x1E695DFD8];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v10 = [v8 setWithArray:v9];
+  [v1 setClasses:v10 forSelector:sel_getSortedWorkflowsWithQuery_completion_ argumentIndex:0 ofReply:1];
+
+  [v1 setClass:objc_opt_class() forSelector:sel_getSortedWorkflowsWithQuery_completion_ argumentIndex:0 ofReply:0];
+  v11 = MEMORY[0x1E695DFD8];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v13 = [v11 setWithArray:v12];
+  [v1 setClasses:v13 forSelector:sel_getSortedVisibleFoldersWithCompletion_ argumentIndex:0 ofReply:1];
+
+  [v1 setClass:objc_opt_class() forSelector:sel_getCollectionWithIdentifier_completion_ argumentIndex:0 ofReply:1];
+  [v1 setClass:objc_opt_class() forSelector:sel_getFolderForWorkflowReference_completion_ argumentIndex:0 ofReply:1];
+  [v1 setClass:objc_opt_class() forSelector:sel_getFolderForWorkflowReference_completion_ argumentIndex:0 ofReply:0];
+  v14 = MEMORY[0x1E695DFD8];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v16 = [v14 setWithArray:v15];
+  [v1 setClasses:v16 forSelector:sel_getConfiguredTriggersForWorkflowID_completion_ argumentIndex:0 ofReply:1];
+
+  v17 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v1 setClasses:v17 forSelector:sel_getConfiguredTriggersForWorkflowID_completion_ argumentIndex:1 ofReply:1];
+
+  [v1 setClass:objc_opt_class() forSelector:sel_getConfiguredTriggerForTriggerID_completion_ argumentIndex:0 ofReply:1];
+  v18 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v1 setClasses:v18 forSelector:sel_getConfiguredTriggerForTriggerID_completion_ argumentIndex:1 ofReply:1];
+
+  [v1 setClass:objc_opt_class() forSelector:sel_getIsReference_allowedToRunOnDomain_completion_ argumentIndex:0 ofReply:0];
+  [v1 setClass:objc_opt_class() forSelector:sel_setTrustedToRunScripts_forReference_onDomain_completion_ argumentIndex:1 ofReply:0];
+  [v1 setClass:objc_opt_class() forSelector:sel_approvalResultForContentAttributionSet_contentDestination_actionUUID_actionIdentifier_actionIndex_reference_allowedOnceStates_completion_ argumentIndex:0 ofReply:0];
+  [v1 setClass:objc_opt_class() forSelector:sel_approvalResultForContentAttributionSet_contentDestination_actionUUID_actionIdentifier_actionIndex_reference_allowedOnceStates_completion_ argumentIndex:1 ofReply:0];
+  [v1 setClass:objc_opt_class() forSelector:sel_approvalResultForContentAttributionSet_contentDestination_actionUUID_actionIdentifier_actionIndex_reference_allowedOnceStates_completion_ argumentIndex:5 ofReply:0];
+  v19 = MEMORY[0x1E695DFD8];
+  v20 = objc_opt_class();
+  v21 = [v19 setWithObjects:{v20, objc_opt_class(), 0}];
+  [v1 setClasses:v21 forSelector:sel_approvalResultForContentAttributionSet_contentDestination_actionUUID_actionIdentifier_actionIndex_reference_allowedOnceStates_completion_ argumentIndex:6 ofReply:0];
+
+  [v1 setClass:objc_opt_class() forSelector:sel_approvalResultForContentAttributionSet_contentDestination_actionUUID_actionIdentifier_actionIndex_reference_allowedOnceStates_completion_ argumentIndex:0 ofReply:1];
+  [v1 setClass:objc_opt_class() forSelector:sel_currentDeletionAuthorizationStatusWithContentItemClassName_actionUUID_actionIdentifier_actionIndex_count_reference_completion_ argumentIndex:5 ofReply:0];
+  [v1 setClass:objc_opt_class() forSelector:sel_currentDeletionAuthorizationStatusWithContentItemClassName_actionUUID_actionIdentifier_actionIndex_count_reference_completion_ argumentIndex:0 ofReply:1];
+}
+
+Class initHMCharacteristic()
+{
+  if (HomeKitLibrary_sOnce_56545 != -1)
+  {
+    dispatch_once(&HomeKitLibrary_sOnce_56545, &__block_literal_global_56546);
+  }
+
+  result = objc_getClass("HMCharacteristic");
+  classHMCharacteristic = result;
+  getHMCharacteristicClass = HMCharacteristicFunction;
+  return result;
+}
+
+void *__HomeKitLibrary_block_invoke_56550()
+{
+  result = dlopen("/System/Library/Frameworks/HomeKit.framework/HomeKit", 2);
+  HomeKitLibrary_sLib_56552 = result;
+  return result;
+}
+
+void sub_1CA8A5E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__56969(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id WFInjectDisabledPlatformsInActionDefinition(void *a1, void *a2)
+{
+  v33 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = a2;
+  if ([v3 count])
+  {
+    v5 = getWFActionsLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315650;
+      v28 = "WFInjectDisabledPlatformsInActionDefinition";
+      v29 = 2112;
+      v30 = v3;
+      v31 = 2112;
+      v32 = v4;
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Injecting disabled platforms: %@ into action definition: %@", buf, 0x20u);
+    }
+
+    v6 = [v4 objectForKey:@"DisabledOnPlatforms"];
+    v7 = [v6 mutableCopy];
+
+    if (v7)
+    {
+      v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
+      v8 = v3;
+      v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      if (v9)
+      {
+        v10 = v9;
+        v11 = *v19;
+        do
+        {
+          for (i = 0; i != v10; ++i)
+          {
+            if (*v19 != v11)
+            {
+              objc_enumerationMutation(v8);
+            }
+
+            v13 = *(*(&v18 + 1) + 8 * i);
+            if (([v7 containsObject:{v13, v18}] & 1) == 0)
+            {
+              [v7 addObject:v13];
+            }
+          }
+
+          v10 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        }
+
+        while (v10);
+      }
+
+      v24 = @"DisabledOnPlatforms";
+      v14 = [v7 copy];
+      v25 = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v16 = [v4 definitionByAddingEntriesInDictionary:v15];
+    }
+
+    else
+    {
+      v22 = @"DisabledOnPlatforms";
+      v23 = v3;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v16 = [v4 definitionByAddingEntriesInDictionary:v14];
+    }
+  }
+
+  else
+  {
+    v16 = v4;
+  }
+
+  return v16;
+}
+
+uint64_t WFPBEditShortcutEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v57 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v57 & 0x7F) << v5;
+        if ((v57 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 6)
+      {
+        break;
+      }
+
+      if (v13 <= 3)
+      {
+        if (v13 != 1)
+        {
+          if (v13 != 3)
+          {
+            goto LABEL_89;
+          }
+
+          v23 = 0;
+          v24 = 0;
+          v25 = 0;
+          *(a1 + 68) |= 1u;
+          while (1)
+          {
+            v63 = 0;
+            v26 = [a2 position] + 1;
+            if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
+            {
+              v28 = [a2 data];
+              [v28 getBytes:&v63 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v25 |= (v63 & 0x7F) << v23;
+            if ((v63 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v23 += 7;
+            v11 = v24++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_94;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v25;
+          }
+
+LABEL_94:
+          v55 = 8;
+LABEL_115:
+          *(a1 + v55) = v22;
+          goto LABEL_116;
+        }
+
+        v14 = PBReaderReadString();
+        v15 = 32;
+      }
+
+      else
+      {
+        switch(v13)
+        {
+          case 4:
+            v14 = PBReaderReadString();
+            v15 = 16;
+            break;
+          case 5:
+            v14 = PBReaderReadString();
+            v15 = 24;
+            break;
+          case 6:
+            v14 = PBReaderReadString();
+            v15 = 56;
+            break;
+          default:
+            goto LABEL_89;
+        }
+      }
+
+      v47 = *(a1 + v15);
+      *(a1 + v15) = v14;
+
+LABEL_116:
+      v56 = [a2 position];
+      if (v56 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    if (v13 <= 8)
+    {
+      if (v13 == 7)
+      {
+        v35 = 0;
+        v36 = 0;
+        v37 = 0;
+        *(a1 + 68) |= 0x10u;
+        while (1)
+        {
+          v62 = 0;
+          v38 = [a2 position] + 1;
+          if (v38 >= [a2 position] && (v39 = objc_msgSend(a2, "position") + 1, v39 <= objc_msgSend(a2, "length")))
+          {
+            v40 = [a2 data];
+            [v40 getBytes:&v62 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v37 |= (v62 & 0x7F) << v35;
+          if ((v62 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v35 += 7;
+          v11 = v36++ >= 9;
+          if (v11)
+          {
+            v22 = 0;
+            goto LABEL_102;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v37;
+        }
+
+LABEL_102:
+        v55 = 52;
+      }
+
+      else
+      {
+        if (v13 != 8)
+        {
+LABEL_89:
+          result = PBReaderSkipValueWithTag();
+          if (!result)
+          {
+            return result;
+          }
+
+          goto LABEL_116;
+        }
+
+        v29 = 0;
+        v30 = 0;
+        v31 = 0;
+        *(a1 + 68) |= 2u;
+        while (1)
+        {
+          v61 = 0;
+          v32 = [a2 position] + 1;
+          if (v32 >= [a2 position] && (v33 = objc_msgSend(a2, "position") + 1, v33 <= objc_msgSend(a2, "length")))
+          {
+            v34 = [a2 data];
+            [v34 getBytes:&v61 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v31 |= (v61 & 0x7F) << v29;
+          if ((v61 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v29 += 7;
+          v11 = v30++ >= 9;
+          if (v11)
+          {
+            v22 = 0;
+            goto LABEL_98;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v31;
+        }
+
+LABEL_98:
+        v55 = 40;
+      }
+    }
+
+    else
+    {
+      switch(v13)
+      {
+        case 9:
+          v41 = 0;
+          v42 = 0;
+          v43 = 0;
+          *(a1 + 68) |= 8u;
+          while (1)
+          {
+            v60 = 0;
+            v44 = [a2 position] + 1;
+            if (v44 >= [a2 position] && (v45 = objc_msgSend(a2, "position") + 1, v45 <= objc_msgSend(a2, "length")))
+            {
+              v46 = [a2 data];
+              [v46 getBytes:&v60 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v43 |= (v60 & 0x7F) << v41;
+            if ((v60 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v41 += 7;
+            v11 = v42++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_106;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v43;
+          }
+
+LABEL_106:
+          v55 = 48;
+          break;
+        case 0xA:
+          v48 = 0;
+          v49 = 0;
+          v50 = 0;
+          *(a1 + 68) |= 4u;
+          while (1)
+          {
+            v59 = 0;
+            v51 = [a2 position] + 1;
+            if (v51 >= [a2 position] && (v52 = objc_msgSend(a2, "position") + 1, v52 <= objc_msgSend(a2, "length")))
+            {
+              v53 = [a2 data];
+              [v53 getBytes:&v59 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v50 |= (v59 & 0x7F) << v48;
+            if ((v59 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v48 += 7;
+            v11 = v49++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_114;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v50;
+          }
+
+LABEL_114:
+          v55 = 44;
+          break;
+        case 0xB:
+          v16 = 0;
+          v17 = 0;
+          v18 = 0;
+          *(a1 + 68) |= 0x20u;
+          while (1)
+          {
+            v58 = 0;
+            v19 = [a2 position] + 1;
+            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+            {
+              v21 = [a2 data];
+              [v21 getBytes:&v58 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v18 |= (v58 & 0x7F) << v16;
+            if ((v58 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v16 += 7;
+            v11 = v17++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_110;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v18;
+          }
+
+LABEL_110:
+          v55 = 64;
+          break;
+        default:
+          goto LABEL_89;
+      }
+    }
+
+    goto LABEL_115;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t __Block_byref_object_copy__57306(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id WFConvertImage(void *a1, void *a2, void *a3)
+{
+  v5 = a1;
+  v6 = a2;
   v7 = v6;
   if (v5)
   {
@@ -6940,9 +7933,9 @@ id WFLinkActionSerializedParametersForWFAction(void *a1, void *a2, void *a3)
 
   else
   {
-    v44 = [MEMORY[0x1E696AAA8] currentHandler];
-    v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id<WFPropertyListObject>> * _Nonnull WFLinkActionSerializedParametersForWFAction(WFAction * _Nullable __strong, LNAction * _Nonnull __strong, LNActionMetadata * _Nonnull __strong)"}];
-    [v44 handleFailureInFunction:v45 file:@"WFLinkAction.m" lineNumber:34 description:{@"Invalid parameter not satisfying: %@", @"lnAction"}];
+    v21 = [MEMORY[0x1E696AAA8] currentHandler];
+    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"WFFileRepresentation * _Nullable WFConvertImage(WFImageContentItem * _Nonnull __strong, WFFinderImageResizeDescriptor * _Nonnull __strong, NSError *__autoreleasing  _Nullable * _Nullable)"}];
+    [v21 handleFailureInFunction:v22 file:@"WFFinderImageResizer.m" lineNumber:51 description:{@"Invalid parameter not satisfying: %@", @"item"}];
 
     if (v7)
     {
@@ -6950,893 +7943,4276 @@ id WFLinkActionSerializedParametersForWFAction(void *a1, void *a2, void *a3)
     }
   }
 
-  v46 = [MEMORY[0x1E696AAA8] currentHandler];
-  v47 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id<WFPropertyListObject>> * _Nonnull WFLinkActionSerializedParametersForWFAction(WFAction * _Nullable __strong, LNAction * _Nonnull __strong, LNActionMetadata * _Nonnull __strong)"}];
-  [v46 handleFailureInFunction:v47 file:@"WFLinkAction.m" lineNumber:35 description:{@"Invalid parameter not satisfying: %@", @"metadata"}];
+  v23 = [MEMORY[0x1E696AAA8] currentHandler];
+  v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"WFFileRepresentation * _Nullable WFConvertImage(WFImageContentItem * _Nonnull __strong, WFFinderImageResizeDescriptor * _Nonnull __strong, NSError *__autoreleasing  _Nullable * _Nullable)"}];
+  [v23 handleFailureInFunction:v24 file:@"WFFinderImageResizer.m" lineNumber:52 description:{@"Invalid parameter not satisfying: %@", @"descriptor"}];
 
 LABEL_3:
-  v48 = objc_opt_new();
-  v8 = objc_opt_new();
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v9 = [v5 parameters];
-  v10 = [v9 countByEnumeratingWithState:&v63 objects:v69 count:16];
-  if (v10)
+  v8 = [v7 format];
+  if (v8 > 2)
   {
-    v11 = v10;
-    v12 = *v64;
-    do
-    {
-      for (i = 0; i != v11; ++i)
-      {
-        if (*v64 != v12)
-        {
-          objc_enumerationMutation(v9);
-        }
+    v9 = 0;
+  }
 
-        v14 = *(*(&v63 + 1) + 8 * i);
-        v15 = [v14 value];
-        v16 = [v14 identifier];
-        [v8 setObject:v15 forKeyedSubscript:v16];
+  else
+  {
+    v9 = [MEMORY[0x1E69E0AF8] typeWithUTType:**(&unk_1E837C368 + v8)];
+  }
+
+  v10 = [v7 size];
+  v25 = 0;
+  v11 = [v5 generateImageFileForType:v9 includingMetadata:objc_msgSend(v7 compressionQuality:"preserveMetadata") error:{&unk_1F4A9B8E8, &v25}];
+  v12 = v25;
+  v13 = v12;
+  if (v11)
+  {
+    if (v10)
+    {
+      WFImageSizeFromFile();
+      v14 = WFTransformedImageFromImage();
+      v15 = [v14 filename];
+      v16 = 0;
+      if (v10 <= 3)
+      {
+        v16 = WFLocalizedString(off_1E83806F8[v10 - 1]);
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v63 objects:v69 count:16];
+      v17 = [v15 wf_filenameTruncatedToMaximumLengthWithFormat:v16];
+
+      v18 = [v14 copyWithName:v17 addingExtensionIfNecessary:1 zone:0];
     }
 
-    while (v11);
-  }
-
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  obj = [v7 parameters];
-  v54 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
-  if (v54)
-  {
-    v52 = v5;
-    v53 = *v60;
-    do
+    else
     {
-      for (j = 0; j != v54; ++j)
-      {
-        if (*v60 != v53)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v18 = *(*(&v59 + 1) + 8 * j);
-        v19 = [v18 valueType];
-        v20 = [v5 identifier];
-        v21 = [v19 wf_parameterDefinitionWithParameterMetadata:v18 actionIdentifier:v20];
-
-        if (v21)
-        {
-          v22 = [v18 name];
-          v23 = [v50 parameterDefinitions];
-          v55 = 0u;
-          v56 = 0u;
-          v57 = 0u;
-          v58 = 0u;
-          v24 = v23;
-          v25 = [v24 countByEnumeratingWithState:&v55 objects:v67 count:16];
-          v26 = v22;
-          if (v25)
-          {
-            v27 = v25;
-            v51 = v21;
-            v28 = *v56;
-            while (2)
-            {
-              for (k = 0; k != v27; ++k)
-              {
-                if (*v56 != v28)
-                {
-                  objc_enumerationMutation(v24);
-                }
-
-                v30 = *(*(&v55 + 1) + 8 * k);
-                v31 = [v30 objectForKey:@"Key"];
-                if (v31 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-                {
-                  if ([v31 isEqualToString:v22])
-                  {
-                    v32 = [v30 objectForKey:@"KeyForSerialization"];
-                    v33 = v32;
-                    if (v32)
-                    {
-                      objc_opt_class();
-                      if (objc_opt_isKindOfClass())
-                      {
-                        v34 = v33;
-                      }
-
-                      else
-                      {
-                        v34 = 0;
-                      }
-                    }
-
-                    else
-                    {
-                      v34 = 0;
-                    }
-
-                    v5 = v52;
-                    v35 = v34;
-
-                    if (v35)
-                    {
-                      v36 = v35;
-                    }
-
-                    else
-                    {
-                      v36 = v31;
-                    }
-
-                    v26 = v36;
-
-                    goto LABEL_38;
-                  }
-                }
-
-                else
-                {
-
-                  v31 = 0;
-                }
-              }
-
-              v27 = [v24 countByEnumeratingWithState:&v55 objects:v67 count:16];
-              if (v27)
-              {
-                continue;
-              }
-
-              break;
-            }
-
-            v26 = v22;
-            v5 = v52;
-LABEL_38:
-            v21 = v51;
-          }
-
-          v37 = [v8 objectForKeyedSubscript:v22];
-          if (v37)
-          {
-            v38 = v21;
-            v39 = [v21 parameterStateFromLinkValue:v37];
-            v40 = [v39 serializedRepresentation];
-            if (v40)
-            {
-              [v48 setObject:v40 forKeyedSubscript:v26];
-            }
-
-            v21 = v38;
-            v5 = v52;
-          }
-        }
-      }
-
-      v54 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
+      v18 = v11;
     }
-
-    while (v54);
   }
 
-  v41 = [v48 copy];
-  v42 = *MEMORY[0x1E69E9840];
+  else if (a3)
+  {
+    v19 = v12;
+    v18 = 0;
+    *a3 = v13;
+  }
 
-  return v41;
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
 }
 
-void RunningBoardServicesLibrary_27608()
+void sub_1CA8AD3E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  if (!RunningBoardServicesLibraryCore_frameworkLibrary_27611)
-  {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __RunningBoardServicesLibraryCore_block_invoke_27612;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E8377D28;
-    v6 = 0;
-    RunningBoardServicesLibraryCore_frameworkLibrary_27611 = _sl_dlopen();
-  }
-
-  if (!RunningBoardServicesLibraryCore_frameworkLibrary_27611)
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *RunningBoardServicesLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"WFWorkflowController.m" lineNumber:41 description:{@"%s", v4[0]}];
-
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v0 = v4[0];
-  if (v4[0])
-  {
-LABEL_7:
-    free(v0);
-  }
-
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t __RunningBoardServicesLibraryCore_block_invoke_27612(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  RunningBoardServicesLibraryCore_frameworkLibrary_27611 = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void sub_1CA7C6034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__27632(uint64_t result, uint64_t a2)
+Class __getINUIImageLoaderClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!IntentsUILibraryCore_frameworkLibrary)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __IntentsUILibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837C478;
+    v8 = 0;
+    IntentsUILibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!IntentsUILibraryCore_frameworkLibrary)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *IntentsUILibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"INImage+Workflow.m" lineNumber:20 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("INUIImageLoader");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getINUIImageLoaderClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"INImage+Workflow.m" lineNumber:21 description:{@"Unable to find class %s", "INUIImageLoader"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getINUIImageLoaderClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __VoiceShortcutClientLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  VoiceShortcutClientLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+uint64_t __IntentsUILibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  IntentsUILibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+void sub_1CA8ADDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__58148(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-id WFSupportedCharacteristicsForHMService(void *a1)
+uint64_t WFREPBRunRequestResponseReadFrom(char *a1, void *a2)
 {
-  v1 = [a1 characteristicsSupportedForShortcutConditions];
-  v2 = [v1 allObjects];
-  v3 = [v2 sortedArrayUsingComparator:&__block_literal_global_28398];
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v19 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v19 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v19 & 0x7F) << v5;
+        if ((v19 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 2)
+      {
+        if (v13 == 3)
+        {
+          v14 = PBReaderReadData();
+          if (v14)
+          {
+            [a1 addOutputData:v14];
+          }
+
+          goto LABEL_31;
+        }
+
+        if (v13 == 4)
+        {
+          v15 = PBReaderReadData();
+          v16 = 8;
+          goto LABEL_28;
+        }
+      }
+
+      else
+      {
+        if (v13 == 1)
+        {
+          v15 = PBReaderReadString();
+          v16 = 24;
+LABEL_28:
+          v14 = *&a1[v16];
+          *&a1[v16] = v15;
+LABEL_31:
+
+          goto LABEL_32;
+        }
+
+        if (v13 == 2)
+        {
+          v14 = PBReaderReadData();
+          if (v14)
+          {
+            [a1 addVariablesData:v14];
+          }
+
+          goto LABEL_31;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_32:
+      v17 = [a2 position];
+    }
+
+    while (v17 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+id WFDurationQuantityPossibleUnits()
+{
+  v2[7] = *MEMORY[0x1E69E9840];
+  v2[0] = @"sec";
+  v2[1] = @"min";
+  v2[2] = @"hr";
+  v2[3] = @"days";
+  v2[4] = @"weeks";
+  v2[5] = @"months";
+  v2[6] = @"years";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:7];
+
+  return v0;
+}
+
+void *__UIKitLibrary_block_invoke_58914()
+{
+  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
+  UIKitLibrary_sLib_58916 = result;
+  return result;
+}
+
+uint64_t WFUpdateWebClipForShortcutIfNeeded(void *a1, void *a2, void *a3)
+{
+  v69 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = [v7 referenceForWorkflowID:v6];
+  v9 = v8;
+  if (v8)
+  {
+    v10 = [v8 actionCount];
+    v11 = [v5 shortcutIdentifier];
+
+    v12 = [v5 pageURL];
+
+    v13 = getWFHomescreenLogObject();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315906;
+      v57 = "WFUpdateWebClipForShortcutIfNeeded";
+      v58 = 1024;
+      *v59 = v10 == 1;
+      *&v59[4] = 1024;
+      *&v59[6] = v11 != 0;
+      LOWORD(v60) = 1024;
+      *(&v60 + 2) = v12 != 0;
+      _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEFAULT, "%s Considering web clip -- isSingleStepShortcut: %d, webClipHasShortcutIdentifier: %d, webClipOpensShortcutsJr: %d", buf, 0x1Eu);
+    }
+
+    if (v11 && v10 != 1 && v12)
+    {
+      v14 = getWFHomescreenLogObject();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315906;
+        v57 = "WFUpdateWebClipForShortcutIfNeeded";
+        v58 = 1024;
+        *v59 = 0;
+        *&v59[4] = 1024;
+        *&v59[6] = 1;
+        LOWORD(v60) = 1024;
+        *(&v60 + 2) = 1;
+        v15 = "%s Web clip does not meet initial criteria: isSingleStepShortcut: %d, webClipHasShortcutIdentifier: %d, webClipOpensShortcutsJr: %d";
+        v16 = v14;
+        v17 = OS_LOG_TYPE_DEFAULT;
+        v18 = 30;
+LABEL_11:
+        _os_log_impl(&dword_1CA256000, v16, v17, v15, buf, v18);
+        goto LABEL_12;
+      }
+
+      goto LABEL_12;
+    }
+
+    v55 = 0;
+    v20 = [v7 recordWithDescriptor:v9 error:&v55];
+    v21 = v55;
+    if (!v20)
+    {
+      v22 = getWFHomescreenLogObject();
+      if (os_log_type_enabled(&v22->super, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v57 = "WFUpdateWebClipForShortcutIfNeeded";
+        v58 = 2112;
+        *v59 = v9;
+        *&v59[8] = 2112;
+        v60 = v21;
+        _os_log_impl(&dword_1CA256000, &v22->super, OS_LOG_TYPE_ERROR, "%s Error updating web clip for shortcut -- couldn't load record from reference %@: %@", buf, 0x20u);
+      }
+
+      v19 = 0;
+      v14 = v21;
+      goto LABEL_65;
+    }
+
+    v54 = v21;
+    v22 = [[WFWorkflow alloc] initWithRecord:v20 reference:v9 storageProvider:0 error:&v54];
+    v14 = v54;
+
+    if (!v22)
+    {
+      v26 = getWFHomescreenLogObject();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v57 = "WFUpdateWebClipForShortcutIfNeeded";
+        v58 = 2112;
+        *v59 = v6;
+        *&v59[8] = 2112;
+        v60 = v14;
+        _os_log_impl(&dword_1CA256000, v26, OS_LOG_TYPE_ERROR, "%s Error updating web clip for shortcut -- error fetching shortcut with identifier %@: %@", buf, 0x20u);
+      }
+
+      v19 = 0;
+      goto LABEL_64;
+    }
+
+    v23 = WFFastPathBundleIdentifierIfApplicable(v22);
+    v24 = [v5 shortcutIdentifier];
+    v53 = [v5 pageURL];
+    v25 = [v5 applicationBundleIdentifier];
+    v50 = v22;
+    if (v23)
+    {
+      v52 = 0;
+    }
+
+    else
+    {
+      v52 = [v9 externalURLForRunningWithSource:*MEMORY[0x1E69E1398]];
+    }
+
+    v27 = *MEMORY[0x1E69E0F60];
+    v49 = v23;
+    if (v23)
+    {
+      v27 = v23;
+    }
+
+    v28 = v27;
+    v29 = getWFHomescreenLogObject();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136316674;
+      v57 = "WFUpdateWebClipForShortcutIfNeeded";
+      v58 = 2112;
+      *v59 = v6;
+      *&v59[8] = 2112;
+      v60 = v52;
+      v61 = 2112;
+      v62 = v28;
+      v63 = 2112;
+      v64 = v24;
+      v65 = 2112;
+      v66 = v53;
+      v67 = 2112;
+      v68 = v25;
+      _os_log_impl(&dword_1CA256000, v29, OS_LOG_TYPE_DEFAULT, "%s Considering web clip -- intended shortcutIdentifier: %@, pageURL: %@, applicationBundleID: %@ — actual shortcutIdentifier: %@, pageURL: %@, applicationBundleID: %@", buf, 0x48u);
+    }
+
+    v30 = v24;
+    v31 = v6;
+    v32 = v31;
+    v51 = v20;
+    v48 = v30;
+    if (v30 == v31)
+    {
+    }
+
+    else
+    {
+      if (!v31 || !v30)
+      {
+
+LABEL_36:
+        [v5 setShortcutIdentifier:v32];
+        v35 = 1;
+LABEL_37:
+        v36 = v25;
+        v37 = v28;
+        v38 = v37;
+        if (v36 == v37)
+        {
+
+          goto LABEL_45;
+        }
+
+        if (v36 && v37)
+        {
+          isEqualToString = objc_msgSend_isEqualToString_(v36);
+
+          if (isEqualToString)
+          {
+LABEL_45:
+            v40 = v53;
+            v41 = v52;
+            v42 = v41;
+            v47 = v36;
+            if (v40 == v41)
+            {
+
+              goto LABEL_53;
+            }
+
+            if (v40 && v41)
+            {
+              v43 = [v40 isEqual:v41];
+
+              if (v43)
+              {
+LABEL_53:
+                v44 = getWFHomescreenLogObject();
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 136315394;
+                  v57 = "WFUpdateWebClipForShortcutIfNeeded";
+                  v58 = 1024;
+                  *v59 = v35;
+                  _os_log_impl(&dword_1CA256000, v44, OS_LOG_TYPE_DEFAULT, "%s Considering web clip -- did modify web clip: %d", buf, 0x12u);
+                }
+
+                if (v35)
+                {
+                  if (([v5 updateOnDisk] & 1) == 0)
+                  {
+                    v45 = getWFHomescreenLogObject();
+                    v20 = v51;
+                    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+                    {
+                      *buf = 136315138;
+                      v57 = "WFUpdateWebClipForShortcutIfNeeded";
+                      _os_log_impl(&dword_1CA256000, v45, OS_LOG_TYPE_ERROR, "%s Error updating web clip for shortcut -- can't save updated web clip", buf, 0xCu);
+                    }
+
+                    v19 = 0;
+                    goto LABEL_63;
+                  }
+
+                  v19 = 1;
+                }
+
+                else
+                {
+                  v19 = 0;
+                }
+
+                v20 = v51;
+LABEL_63:
+
+                v26 = v49;
+                v22 = v50;
+LABEL_64:
+
+LABEL_65:
+                goto LABEL_66;
+              }
+            }
+
+            else
+            {
+            }
+
+            [v5 setPageURL:v42];
+            v35 = 1;
+            goto LABEL_53;
+          }
+        }
+
+        else
+        {
+        }
+
+        [v5 setApplicationBundleIdentifier:v38];
+        v35 = 1;
+        goto LABEL_45;
+      }
+
+      v33 = v30;
+      v34 = objc_msgSend_isEqualToString_(v30);
+
+      if ((v34 & 1) == 0)
+      {
+        goto LABEL_36;
+      }
+    }
+
+    v35 = 0;
+    goto LABEL_37;
+  }
+
+  v14 = getWFHomescreenLogObject();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    v57 = "WFUpdateWebClipForShortcutIfNeeded";
+    v58 = 2112;
+    *v59 = v6;
+    v15 = "%s Error updating web clip for shortcut -- couldn't find shortcut with identifier %@";
+    v16 = v14;
+    v17 = OS_LOG_TYPE_ERROR;
+    v18 = 22;
+    goto LABEL_11;
+  }
+
+LABEL_12:
+  v19 = 0;
+LABEL_66:
+
+  return v19;
+}
+
+Class initSBSWebClipService()
+{
+  if (SpringBoardServicesLibrary_sOnce != -1)
+  {
+    dispatch_once(&SpringBoardServicesLibrary_sOnce, &__block_literal_global_305_58918);
+  }
+
+  result = objc_getClass("SBSWebClipService");
+  classSBSWebClipService = result;
+  getSBSWebClipServiceClass = SBSWebClipServiceFunction;
+  return result;
+}
+
+void *__SpringBoardServicesLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices", 2);
+  SpringBoardServicesLibrary_sLib = result;
+  return result;
+}
+
+NSObject *WFFastPathBundleIdentifierIfApplicable(void *a1)
+{
+  v35 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = getWFHomescreenLogObject();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v29 = 136315394;
+    v30 = "WFFastPathBundleIdentifierIfApplicable";
+    v31 = 2112;
+    v32 = v1;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEFAULT, "%s Getting fast path bundle identifier for workflow: %@", &v29, 0x16u);
+  }
+
+  v3 = [v1 actions];
+  v4 = [v3 count];
+
+  if (v4 == 1)
+  {
+    v5 = [v1 actions];
+    v6 = [v5 firstObject];
+
+    v7 = [v6 identifier];
+    if (v7 != @"is.workflow.actions.openapp")
+    {
+      v8 = v7;
+      if (!v7 || (isEqualToString = objc_msgSend_isEqualToString_(v7), v8, v8, (isEqualToString & 1) == 0))
+      {
+        v10 = getWFHomescreenLogObject();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        {
+          v22 = [v6 identifier];
+          v29 = 136315650;
+          v30 = "WFFastPathBundleIdentifierIfApplicable";
+          v31 = 2114;
+          v32 = v22;
+          v33 = 2114;
+          v34 = @"is.workflow.actions.openapp";
+          _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Single action identifier (%{public}@) does not match Open App action identifier (%{public}@)", &v29, 0x20u);
+        }
+
+        v21 = 0;
+        goto LABEL_33;
+      }
+    }
+
+    v10 = [v6 parameterStateForKey:@"WFSelectedApp"];
+    v11 = [v10 value];
+    v12 = [v11 bundleIdentifier];
+
+    v13 = getWFHomescreenLogObject();
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (!v12)
+    {
+      if (v14)
+      {
+        v29 = 136315394;
+        v30 = "WFFastPathBundleIdentifierIfApplicable";
+        v31 = 2112;
+        v32 = v10;
+        _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEFAULT, "%s Action state does not have serialized identifier: state == %@", &v29, 0x16u);
+      }
+
+      v21 = 0;
+      goto LABEL_32;
+    }
+
+    if (v14)
+    {
+      v29 = 136315394;
+      v30 = "WFFastPathBundleIdentifierIfApplicable";
+      v31 = 2114;
+      v32 = v12;
+      _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEFAULT, "%s Found serialized application bundle identifier: %{public}@", &v29, 0x16u);
+    }
+
+    v15 = [WFInterchangeAppRegistry bundleIdentifierForLegacyAppIdentifier:v12];
+    v16 = v12;
+    v17 = v15;
+    v13 = v17;
+    if (v16 == v17)
+    {
+    }
+
+    else
+    {
+      if (v17)
+      {
+        v18 = objc_msgSend_isEqualToString_(v16);
+
+        if (v18)
+        {
+          goto LABEL_29;
+        }
+      }
+
+      else
+      {
+      }
+
+      v23 = getWFHomescreenLogObject();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        v29 = 136315650;
+        v30 = "WFFastPathBundleIdentifierIfApplicable";
+        v31 = 2114;
+        v32 = v16;
+        v33 = 2114;
+        v34 = v13;
+        _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_DEFAULT, "%s Application bundle identifier was mapped from %{public}@ to %{public}@ by the legacy app identifier mapping in WFInterchangeAppRegistry", &v29, 0x20u);
+      }
+
+      v16 = v23;
+    }
+
+LABEL_29:
+    v24 = [objc_alloc(MEMORY[0x1E696E720]) initWithBundleIdentifier:v13];
+    v25 = [MEMORY[0x1E696E748] sharedResolver];
+    v26 = [v25 resolvedAppMatchingDescriptor:v24];
+
+    v21 = [v26 bundleIdentifier];
+    v27 = getWFHomescreenLogObject();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = 136315394;
+      v30 = "WFFastPathBundleIdentifierIfApplicable";
+      v31 = 2114;
+      v32 = v21;
+      _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_DEFAULT, "%s Returning fast path bundle identifier: %{public}@", &v29, 0x16u);
+    }
+
+LABEL_32:
+LABEL_33:
+
+    goto LABEL_34;
+  }
+
+  v6 = getWFHomescreenLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = [v1 actions];
+    v20 = [v19 count];
+    v29 = 136315650;
+    v30 = "WFFastPathBundleIdentifierIfApplicable";
+    v31 = 2112;
+    v32 = v1;
+    v33 = 2048;
+    v34 = v20;
+    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s Workflow (%@) contains > 1 action (it has %lu actions), skipping", &v29, 0x20u);
+  }
+
+  v21 = 0;
+LABEL_34:
+
+  return v21;
+}
+
+void *initSBAddWebClipToHomeScreen(uint64_t a1, uint64_t a2)
+{
+  if (SpringBoardServicesLibrary_sOnce != -1)
+  {
+    dispatch_once(&SpringBoardServicesLibrary_sOnce, &__block_literal_global_305_58918);
+  }
+
+  result = dlsym(SpringBoardServicesLibrary_sLib, "SBAddWebClipToHomeScreen");
+  softLinkSBAddWebClipToHomeScreen = result;
+  if (result)
+  {
+
+    return (result)(a1, a2);
+  }
+
+  return result;
+}
+
+uint64_t (*(*initSBSSpringBoardServerPort())())(void)
+{
+  if (SpringBoardServicesLibrary_sOnce != -1)
+  {
+    dispatch_once(&SpringBoardServicesLibrary_sOnce, &__block_literal_global_305_58918);
+  }
+
+  result = dlsym(SpringBoardServicesLibrary_sLib, "SBSSpringBoardServerPort");
+  softLinkSBSSpringBoardServerPort = result;
+  if (result)
+  {
+
+    return result();
+  }
+
+  return result;
+}
+
+id initkISImageDescriptorHomeScreen()
+{
+  if (IconServicesLibrary_sOnce != -1)
+  {
+    dispatch_once(&IconServicesLibrary_sOnce, &__block_literal_global_311_59005);
+  }
+
+  v0 = dlsym(IconServicesLibrary_sLib, "kISImageDescriptorHomeScreen");
+  if (!v0)
+  {
+    __assert_rtn("initkISImageDescriptorHomeScreen", "WFHomeScreenController.m", 51, "constant");
+  }
+
+  objc_storeStrong(&constantkISImageDescriptorHomeScreen, *v0);
+  getkISImageDescriptorHomeScreen = kISImageDescriptorHomeScreenFunction;
+  v1 = constantkISImageDescriptorHomeScreen;
+
+  return v1;
+}
+
+void *__IconServicesLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2);
+  IconServicesLibrary_sLib = result;
+  return result;
+}
+
+Class initISImageDescriptor()
+{
+  if (IconServicesLibrary_sOnce != -1)
+  {
+    dispatch_once(&IconServicesLibrary_sOnce, &__block_literal_global_311_59005);
+  }
+
+  result = objc_getClass("ISImageDescriptor");
+  classISImageDescriptor = result;
+  getISImageDescriptorClass = ISImageDescriptorFunction;
+  return result;
+}
+
+void getkCLErrorDomain()
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v0 = getkCLErrorDomainSymbolLoc_ptr;
+  v9 = getkCLErrorDomainSymbolLoc_ptr;
+  if (!getkCLErrorDomainSymbolLoc_ptr)
+  {
+    v1 = CoreLocationLibrary();
+    v7[3] = dlsym(v1, "kCLErrorDomain");
+    getkCLErrorDomainSymbolLoc_ptr = v7[3];
+    v0 = v7[3];
+  }
+
+  _Block_object_dispose(&v6, 8);
+  if (v0)
+  {
+    v2 = *v0;
+
+    v3 = v2;
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getkCLErrorDomain(void)"];
+    [v4 handleFailureInFunction:v5 file:@"WFLocator.m" lineNumber:23 description:{@"%s", dlerror()}];
+
+    __break(1u);
+  }
+}
+
+void sub_1CA8B54C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id getWFWFLocatorLogObject()
+{
+  if (getWFWFLocatorLogObject_onceToken != -1)
+  {
+    dispatch_once(&getWFWFLocatorLogObject_onceToken, &__block_literal_global_59193);
+  }
+
+  v1 = getWFWFLocatorLogObject_log;
+
+  return v1;
+}
+
+void __getWFWFLocatorLogObject_block_invoke()
+{
+  v0 = os_log_create(*MEMORY[0x1E69E1140], "WFLocator");
+  v1 = getWFWFLocatorLogObject_log;
+  getWFWFLocatorLogObject_log = v0;
+}
+
+void *__getkCLErrorDomainSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = CoreLocationLibrary();
+  result = dlsym(v2, "kCLErrorDomain");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCLErrorDomainSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *CoreLocationLibrary()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  if (!CoreLocationLibraryCore_frameworkLibrary_59203)
+  {
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __CoreLocationLibraryCore_block_invoke_59204;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E837C5D0;
+    v6 = 0;
+    CoreLocationLibraryCore_frameworkLibrary_59203 = _sl_dlopen();
+  }
+
+  v0 = CoreLocationLibraryCore_frameworkLibrary_59203;
+  if (!CoreLocationLibraryCore_frameworkLibrary_59203)
+  {
+    v0 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFLocator.m" lineNumber:21 description:{@"%s", v4[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v1 = v4[0];
+  if (v4[0])
+  {
+LABEL_7:
+    free(v1);
+  }
+
+  return v0;
+}
+
+uint64_t __CoreLocationLibraryCore_block_invoke_59204(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreLocationLibraryCore_frameworkLibrary_59203 = result;
+  return result;
+}
+
+void sub_1CA8B6320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__59251(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void getkCLLocationAccuracyNearestTenMeters()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v0 = getkCLLocationAccuracyNearestTenMetersSymbolLoc_ptr;
+  v7 = getkCLLocationAccuracyNearestTenMetersSymbolLoc_ptr;
+  if (!getkCLLocationAccuracyNearestTenMetersSymbolLoc_ptr)
+  {
+    v1 = CoreLocationLibrary();
+    v5[3] = dlsym(v1, "kCLLocationAccuracyNearestTenMeters");
+    getkCLLocationAccuracyNearestTenMetersSymbolLoc_ptr = v5[3];
+    v0 = v5[3];
+  }
+
+  _Block_object_dispose(&v4, 8);
+  if (!v0)
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CLLocationAccuracy getkCLLocationAccuracyNearestTenMeters(void)"];
+    [v2 handleFailureInFunction:v3 file:@"WFLocator.m" lineNumber:26 description:{@"%s", dlerror()}];
+
+    __break(1u);
+  }
+}
+
+void sub_1CA8B6544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getkCLLocationAccuracyNearestTenMetersSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = CoreLocationLibrary();
+  result = dlsym(v2, "kCLLocationAccuracyNearestTenMeters");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCLLocationAccuracyNearestTenMetersSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void WFCLLocationAccuracyFromWFLocationAccuracy(void *a1)
+{
+  v1 = a1;
+  if (!objc_msgSend_isEqualToString_(v1))
+  {
+    if (objc_msgSend_isEqualToString_(v1))
+    {
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x2020000000;
+      v6 = getkCLLocationAccuracyBestSymbolLoc_ptr;
+      v19 = getkCLLocationAccuracyBestSymbolLoc_ptr;
+      if (!getkCLLocationAccuracyBestSymbolLoc_ptr)
+      {
+        v12 = MEMORY[0x1E69E9820];
+        v13 = 3221225472;
+        v14 = __getkCLLocationAccuracyBestSymbolLoc_block_invoke;
+        v15 = &unk_1E837FAC0;
+        v7 = CoreLocationLibrary();
+        v17[3] = dlsym(v7, "kCLLocationAccuracyBest");
+        getkCLLocationAccuracyBestSymbolLoc_ptr = v17[3];
+        v6 = v17[3];
+      }
+
+      _Block_object_dispose(&v16, 8);
+      if (!v6)
+      {
+        v4 = [MEMORY[0x1E696AAA8] currentHandler];
+        v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CLLocationAccuracy getkCLLocationAccuracyBest(void)"];
+        [v4 handleFailureInFunction:v5 file:@"WFLocator.m" lineNumber:25 description:{@"%s", dlerror(), v12, v13, v14, v15}];
+        goto LABEL_26;
+      }
+
+      goto LABEL_10;
+    }
+
+    if (objc_msgSend_isEqualToString_(v1))
+    {
+LABEL_12:
+      getkCLLocationAccuracyNearestTenMeters();
+      goto LABEL_10;
+    }
+
+    if (objc_msgSend_isEqualToString_(v1))
+    {
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x2020000000;
+      v8 = getkCLLocationAccuracyHundredMetersSymbolLoc_ptr;
+      v19 = getkCLLocationAccuracyHundredMetersSymbolLoc_ptr;
+      if (!getkCLLocationAccuracyHundredMetersSymbolLoc_ptr)
+      {
+        v12 = MEMORY[0x1E69E9820];
+        v13 = 3221225472;
+        v14 = __getkCLLocationAccuracyHundredMetersSymbolLoc_block_invoke;
+        v15 = &unk_1E837FAC0;
+        v9 = CoreLocationLibrary();
+        v17[3] = dlsym(v9, "kCLLocationAccuracyHundredMeters");
+        getkCLLocationAccuracyHundredMetersSymbolLoc_ptr = v17[3];
+        v8 = v17[3];
+      }
+
+      _Block_object_dispose(&v16, 8);
+      if (!v8)
+      {
+        v4 = [MEMORY[0x1E696AAA8] currentHandler];
+        v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CLLocationAccuracy getkCLLocationAccuracyHundredMeters(void)"];
+        [v4 handleFailureInFunction:v5 file:@"WFLocator.m" lineNumber:27 description:{@"%s", dlerror(), v12, v13, v14, v15}];
+        goto LABEL_26;
+      }
+    }
+
+    else
+    {
+      if (!objc_msgSend_isEqualToString_(v1))
+      {
+        if (objc_msgSend_isEqualToString_(v1))
+        {
+          getkCLLocationAccuracyThreeKilometers();
+          goto LABEL_10;
+        }
+
+        goto LABEL_12;
+      }
+
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x2020000000;
+      v10 = getkCLLocationAccuracyKilometerSymbolLoc_ptr;
+      v19 = getkCLLocationAccuracyKilometerSymbolLoc_ptr;
+      if (!getkCLLocationAccuracyKilometerSymbolLoc_ptr)
+      {
+        v12 = MEMORY[0x1E69E9820];
+        v13 = 3221225472;
+        v14 = __getkCLLocationAccuracyKilometerSymbolLoc_block_invoke;
+        v15 = &unk_1E837FAC0;
+        v11 = CoreLocationLibrary();
+        v17[3] = dlsym(v11, "kCLLocationAccuracyKilometer");
+        getkCLLocationAccuracyKilometerSymbolLoc_ptr = v17[3];
+        v10 = v17[3];
+      }
+
+      _Block_object_dispose(&v16, 8);
+      if (!v10)
+      {
+        v4 = [MEMORY[0x1E696AAA8] currentHandler];
+        v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CLLocationAccuracy getkCLLocationAccuracyKilometer(void)"];
+        [v4 handleFailureInFunction:v5 file:@"WFLocator.m" lineNumber:28 description:{@"%s", dlerror(), v12, v13, v14, v15}];
+        goto LABEL_26;
+      }
+    }
+
+LABEL_10:
+
+    return;
+  }
+
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v2 = getkCLLocationAccuracyBestForNavigationSymbolLoc_ptr;
+  v19 = getkCLLocationAccuracyBestForNavigationSymbolLoc_ptr;
+  if (!getkCLLocationAccuracyBestForNavigationSymbolLoc_ptr)
+  {
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __getkCLLocationAccuracyBestForNavigationSymbolLoc_block_invoke;
+    v15 = &unk_1E837FAC0;
+    v3 = CoreLocationLibrary();
+    v17[3] = dlsym(v3, "kCLLocationAccuracyBestForNavigation");
+    getkCLLocationAccuracyBestForNavigationSymbolLoc_ptr = v17[3];
+    v2 = v17[3];
+  }
+
+  _Block_object_dispose(&v16, 8);
+  if (v2)
+  {
+    goto LABEL_10;
+  }
+
+  v4 = [MEMORY[0x1E696AAA8] currentHandler];
+  v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CLLocationAccuracy getkCLLocationAccuracyBestForNavigation(void)"];
+  [v4 handleFailureInFunction:v5 file:@"WFLocator.m" lineNumber:24 description:{@"%s", dlerror(), v12, v13, v14, v15}];
+LABEL_26:
+
+  __break(1u);
+}
+
+void sub_1CA8B6AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getkCLLocationAccuracyBestForNavigationSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = CoreLocationLibrary();
+  result = dlsym(v2, "kCLLocationAccuracyBestForNavigation");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCLLocationAccuracyBestForNavigationSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getkCLLocationAccuracyBestSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = CoreLocationLibrary();
+  result = dlsym(v2, "kCLLocationAccuracyBest");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCLLocationAccuracyBestSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getkCLLocationAccuracyHundredMetersSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = CoreLocationLibrary();
+  result = dlsym(v2, "kCLLocationAccuracyHundredMeters");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCLLocationAccuracyHundredMetersSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getkCLLocationAccuracyKilometerSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = CoreLocationLibrary();
+  result = dlsym(v2, "kCLLocationAccuracyKilometer");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCLLocationAccuracyKilometerSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void getkCLLocationAccuracyThreeKilometers()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v0 = getkCLLocationAccuracyThreeKilometersSymbolLoc_ptr;
+  v7 = getkCLLocationAccuracyThreeKilometersSymbolLoc_ptr;
+  if (!getkCLLocationAccuracyThreeKilometersSymbolLoc_ptr)
+  {
+    v1 = CoreLocationLibrary();
+    v5[3] = dlsym(v1, "kCLLocationAccuracyThreeKilometers");
+    getkCLLocationAccuracyThreeKilometersSymbolLoc_ptr = v5[3];
+    v0 = v5[3];
+  }
+
+  _Block_object_dispose(&v4, 8);
+  if (!v0)
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CLLocationAccuracy getkCLLocationAccuracyThreeKilometers(void)"];
+    [v2 handleFailureInFunction:v3 file:@"WFLocator.m" lineNumber:29 description:{@"%s", dlerror()}];
+
+    __break(1u);
+  }
+}
+
+void sub_1CA8B6D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getkCLLocationAccuracyThreeKilometersSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = CoreLocationLibrary();
+  result = dlsym(v2, "kCLLocationAccuracyThreeKilometers");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCLLocationAccuracyThreeKilometersSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+id WFGetAzulBuiltInCollectionIdentifiers(int a1)
+{
+  v2 = [MEMORY[0x1E695DFA8] setWithObjects:{@"ShareSheet", @"Watch", @"Sleep", 0}];
+  v3 = v2;
+  if (a1)
+  {
+    [v2 addObject:@"Root"];
+  }
 
   return v3;
 }
 
-uint64_t __WFSupportedCharacteristicsForHMService_block_invoke(uint64_t a1, void *a2, void *a3)
+id WFGetBuiltInCollectionIdentifiers(int a1)
 {
-  v4 = a3;
-  v5 = [a2 localizedDescription];
-  v6 = [v4 localizedDescription];
+  v2 = [MEMORY[0x1E695DFA8] setWithObjects:{@"ShareSheet", @"Watch", @"Sleep", @"MenuBar", @"QuickActions", 0}];
+  v3 = v2;
+  if (a1)
+  {
+    [v2 addObject:@"Root"];
+  }
 
-  v7 = [v5 localizedStandardCompare:v6];
-  return v7;
+  return v3;
 }
 
-id WFUnitForHMCharacteristic(void *a1)
+void sub_1CA8B818C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  v1 = [a1 metadata];
-  v2 = [v1 units];
-
-  v3 = getHMCharacteristicMetadataUnitsCelsius();
-  v4 = [v2 isEqualToString:v3];
-
-  if (v4)
-  {
-    v5 = [MEMORY[0x1E696B080] celsius];
-LABEL_15:
-    v18 = v5;
-    goto LABEL_16;
-  }
-
-  v6 = getHMCharacteristicMetadataUnitsFahrenheit();
-  v7 = [v2 isEqualToString:v6];
-
-  if (v7)
-  {
-    v5 = [MEMORY[0x1E696B080] fahrenheit];
-    goto LABEL_15;
-  }
-
-  v8 = getHMCharacteristicMetadataUnitsArcDegree();
-  v9 = [v2 isEqualToString:v8];
-
-  if (v9)
-  {
-    v5 = [MEMORY[0x1E696AFE0] degrees];
-    goto LABEL_15;
-  }
-
-  v10 = getHMCharacteristicMetadataUnitsSeconds();
-  v11 = [v2 isEqualToString:v10];
-
-  if (v11)
-  {
-    v5 = [MEMORY[0x1E696B008] seconds];
-    goto LABEL_15;
-  }
-
-  v12 = getHMCharacteristicMetadataUnitsLux();
-  v13 = [v2 isEqualToString:v12];
-
-  if (v13)
-  {
-    v5 = [MEMORY[0x1E696B048] lux];
-    goto LABEL_15;
-  }
-
-  v14 = getHMCharacteristicMetadataUnitsPartsPerMillion();
-  v15 = [v2 isEqualToString:v14];
-
-  if (v15)
-  {
-    v5 = [MEMORY[0x1E696B000] partsPerMillion];
-    goto LABEL_15;
-  }
-
-  v16 = getHMCharacteristicMetadataUnitsMicrogramsPerCubicMeter();
-  v17 = [v2 isEqualToString:v16];
-
-  if (v17)
-  {
-    v5 = [MEMORY[0x1E696AFF0] wf_microgramsPerCubicMeter];
-    goto LABEL_15;
-  }
-
-  v18 = 0;
-LABEL_16:
-
-  return v18;
+  va_start(va, a27);
+  _Block_object_dispose(&a22, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 176), 8);
+  _Block_object_dispose((v27 - 128), 8);
+  _Unwind_Resume(a1);
 }
 
-id initHMCharacteristicMetadataUnitsMicrogramsPerCubicMeter()
+uint64_t __Block_byref_object_copy__59670(uint64_t result, uint64_t a2)
 {
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataUnitsMicrogramsPerCubicMeter");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicMetadataUnitsMicrogramsPerCubicMeter", "WFHomeUtilities.m", 56, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicMetadataUnitsMicrogramsPerCubicMeter, *v0);
-  getHMCharacteristicMetadataUnitsMicrogramsPerCubicMeter = HMCharacteristicMetadataUnitsMicrogramsPerCubicMeterFunction;
-  v1 = constantHMCharacteristicMetadataUnitsMicrogramsPerCubicMeter;
-
-  return v1;
-}
-
-void *__HomeKitLibrary_block_invoke_28409()
-{
-  result = dlopen("/System/Library/Frameworks/HomeKit.framework/HomeKit", 2);
-  HomeKitLibrary_sLib_28404 = result;
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
   return result;
 }
 
-id initHMCharacteristicMetadataUnitsPartsPerMillion()
+void sub_1CA8B8770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
 {
-  if (HomeKitLibrary_sOnce_28403 != -1)
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id getCLPlacemarkClass()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = getCLPlacemarkClass_softClass_59763;
+  v7 = getCLPlacemarkClass_softClass_59763;
+  if (!getCLPlacemarkClass_softClass_59763)
   {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __getCLPlacemarkClass_block_invoke_59764;
+    v3[3] = &unk_1E837FAC0;
+    v3[4] = &v4;
+    __getCLPlacemarkClass_block_invoke_59764(v3);
+    v0 = v5[3];
   }
 
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataUnitsPartsPerMillion");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicMetadataUnitsPartsPerMillion", "WFHomeUtilities.m", 55, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicMetadataUnitsPartsPerMillion, *v0);
-  getHMCharacteristicMetadataUnitsPartsPerMillion = HMCharacteristicMetadataUnitsPartsPerMillionFunction;
-  v1 = constantHMCharacteristicMetadataUnitsPartsPerMillion;
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
 
   return v1;
 }
 
-id initHMCharacteristicMetadataUnitsLux()
+void sub_1CA8B8AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataUnitsLux");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicMetadataUnitsLux", "WFHomeUtilities.m", 54, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicMetadataUnitsLux, *v0);
-  getHMCharacteristicMetadataUnitsLux = HMCharacteristicMetadataUnitsLuxFunction;
-  v1 = constantHMCharacteristicMetadataUnitsLux;
-
-  return v1;
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-id initHMCharacteristicMetadataUnitsSeconds()
+Class __getCLPlacemarkClass_block_invoke_59764(uint64_t a1)
 {
-  if (HomeKitLibrary_sOnce_28403 != -1)
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!CoreLocationLibraryCore_frameworkLibrary_59765)
   {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __CoreLocationLibraryCore_block_invoke_59766;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837C6D8;
+    v8 = 0;
+    CoreLocationLibraryCore_frameworkLibrary_59765 = _sl_dlopen();
   }
 
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataUnitsSeconds");
-  if (!v0)
+  if (!CoreLocationLibraryCore_frameworkLibrary_59765)
   {
-    __assert_rtn("initHMCharacteristicMetadataUnitsSeconds", "WFHomeUtilities.m", 53, "constant");
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"INCodablePlacemarkAttributeMetadata+Workflow.m" lineNumber:15 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
   }
 
-  objc_storeStrong(&constantHMCharacteristicMetadataUnitsSeconds, *v0);
-  getHMCharacteristicMetadataUnitsSeconds = HMCharacteristicMetadataUnitsSecondsFunction;
-  v1 = constantHMCharacteristicMetadataUnitsSeconds;
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
 
-  return v1;
+  result = objc_getClass("CLPlacemark");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLPlacemarkClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"INCodablePlacemarkAttributeMetadata+Workflow.m" lineNumber:16 description:{@"Unable to find class %s", "CLPlacemark"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getCLPlacemarkClass_softClass_59763 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
 }
 
-id initHMCharacteristicMetadataUnitsArcDegree()
+uint64_t __CoreLocationLibraryCore_block_invoke_59766(uint64_t a1)
 {
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataUnitsArcDegree");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicMetadataUnitsArcDegree", "WFHomeUtilities.m", 52, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicMetadataUnitsArcDegree, *v0);
-  getHMCharacteristicMetadataUnitsArcDegree = HMCharacteristicMetadataUnitsArcDegreeFunction;
-  v1 = constantHMCharacteristicMetadataUnitsArcDegree;
-
-  return v1;
+  result = _sl_dlopen();
+  CoreLocationLibraryCore_frameworkLibrary_59765 = result;
+  return result;
 }
 
-id initHMCharacteristicMetadataUnitsFahrenheit()
+void sub_1CA8B9A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataUnitsFahrenheit");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicMetadataUnitsFahrenheit", "WFHomeUtilities.m", 51, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicMetadataUnitsFahrenheit, *v0);
-  getHMCharacteristicMetadataUnitsFahrenheit = HMCharacteristicMetadataUnitsFahrenheitFunction;
-  v1 = constantHMCharacteristicMetadataUnitsFahrenheit;
-
-  return v1;
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-id initHMCharacteristicMetadataUnitsCelsius()
+void sub_1CA8BCF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataUnitsCelsius");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicMetadataUnitsCelsius", "WFHomeUtilities.m", 50, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicMetadataUnitsCelsius, *v0);
-  getHMCharacteristicMetadataUnitsCelsius = HMCharacteristicMetadataUnitsCelsiusFunction;
-  v1 = constantHMCharacteristicMetadataUnitsCelsius;
-
-  return v1;
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-uint64_t WFHMCharacteristicIsBooleanFormat(void *a1)
+uint64_t WFLinkActionParameterStateNeedingDisplayRepresentation(void *a1)
 {
-  v1 = [a1 metadata];
-  v2 = [v1 format];
-  v3 = getHMCharacteristicMetadataFormatBool_28417();
-  v4 = [v2 isEqualToString:v3];
+  v1 = a1;
+  if (v1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v2 = [v1 valueNeedsDisplayRepresentation];
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return v2;
+}
+
+id WFLinkActionInvalidMetadataError()
+{
+  v8[2] = *MEMORY[0x1E69E9840];
+  v0 = MEMORY[0x1E696ABC0];
+  v1 = *MEMORY[0x1E696A798];
+  v7[0] = *MEMORY[0x1E696A588];
+  v2 = WFLocalizedString(@"Invalid action metadata");
+  v8[0] = v2;
+  v7[1] = *MEMORY[0x1E696A578];
+  v3 = WFLocalizedString(@"Unfortunately, there is nothing Shortcuts can do about this it is due to a bug in the host app. We’d recommend contacting the maker of that app and letting them know of this problem.");;
+  v8[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v5 = [v0 errorWithDomain:v1 code:22 userInfo:v4];
+
+  return v5;
+}
+
+uint64_t WFREPBRunRequestStopReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v17 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v17 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v17 & 0x7F) << v5;
+        if ((v17 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = PBReaderReadString();
+        v14 = *(a1 + 8);
+        *(a1 + 8) = v13;
+      }
+
+      else
+      {
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v16 = [a2 position];
+    }
+
+    while (v16 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t WFREPBKeyValuePairReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v19 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v19 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v19 & 0x7F) << v5;
+        if ((v19 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = PBReaderReadString();
+        v14 = &OBJC_IVAR___WFREPBKeyValuePair__key;
+LABEL_21:
+        v15 = *v14;
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v13;
+
+        goto LABEL_23;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_23:
+      v17 = [a2 position];
+      if (v17 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v13 = PBReaderReadData();
+    v14 = &OBJC_IVAR___WFREPBKeyValuePair__value;
+    goto LABEL_21;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_1CA8C7D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__60781(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA8CA2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class initUIPasteboard_61296()
+{
+  if (UIKitLibrary_sOnce_61297 != -1)
+  {
+    dispatch_once(&UIKitLibrary_sOnce_61297, &__block_literal_global_61298);
+  }
+
+  result = objc_getClass("UIPasteboard");
+  classUIPasteboard_61300 = result;
+  getUIPasteboardClass_61291 = UIPasteboardFunction_61302;
+  return result;
+}
+
+void *__UIKitLibrary_block_invoke_61305()
+{
+  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
+  UIKitLibrary_sLib_61307 = result;
+  return result;
+}
+
+void sub_1CA8CCE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__61453(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA8D0264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getCNInstantMessageServiceSkypeSymbolLoc_block_invoke(void *a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  if (!ContactsLibraryCore_frameworkLibrary_61599)
+  {
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __ContactsLibraryCore_block_invoke_61600;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E837D400;
+    v7 = 0;
+    ContactsLibraryCore_frameworkLibrary_61599 = _sl_dlopen();
+  }
+
+  v2 = ContactsLibraryCore_frameworkLibrary_61599;
+  if (!ContactsLibraryCore_frameworkLibrary_61599)
+  {
+    a1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContactsLibrary(void)"];
+    [a1 handleFailureInFunction:v2 file:@"ICSkypeCallContentMapping.m" lineNumber:13 description:{@"%s", v5[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v3 = v5[0];
+  if (v5[0])
+  {
+LABEL_7:
+    free(v3);
+  }
+
+  result = dlsym(v2, "CNInstantMessageServiceSkype");
+  *(*(a1[4] + 8) + 24) = result;
+  getCNInstantMessageServiceSkypeSymbolLoc_ptr = *(*(a1[4] + 8) + 24);
+  return result;
+}
+
+uint64_t __ContactsLibraryCore_block_invoke_61600(uint64_t a1)
+{
+  result = _sl_dlopen();
+  ContactsLibraryCore_frameworkLibrary_61599 = result;
+  return result;
+}
+
+id WFEnforceClass_61822(void *a1, uint64_t a2)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v5 = getWFGeneralLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      v8 = 136315906;
+      v9 = "WFEnforceClass";
+      v10 = 2114;
+      v11 = v3;
+      v12 = 2114;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = a2;
+      v6 = v13;
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Error unarchiving intent from data: %{public}@", &v8, 0x2Au);
+    }
+
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
 
   return v4;
 }
 
-id initHMCharacteristicMetadataFormatBool_28419()
+id WFExtractDonatedIntentFromSerializedParameters(void *a1)
 {
-  if (HomeKitLibrary_sOnce_28403 != -1)
+  v11 = *MEMORY[0x1E69E9840];
+  v1 = [a1 objectForKey:@"IntentData"];
+  if ([v1 length])
   {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
+    v6 = 0;
+    v2 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v1 error:&v6];
+    v3 = v6;
+    if (v2)
+    {
+      goto LABEL_8;
+    }
   }
 
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataFormatBool");
-  if (!v0)
+  else
   {
-    __assert_rtn("initHMCharacteristicMetadataFormatBool", "WFHomeUtilities.m", 38, "constant");
+    v3 = 0;
   }
 
-  objc_storeStrong(&constantHMCharacteristicMetadataFormatBool_28422, *v0);
-  getHMCharacteristicMetadataFormatBool_28417 = HMCharacteristicMetadataFormatBoolFunction_28424;
-  v1 = constantHMCharacteristicMetadataFormatBool_28422;
+  v4 = getWFGeneralLogObject();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    v8 = "WFExtractDonatedIntentFromSerializedParameters";
+    v9 = 2114;
+    v10 = v3;
+    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Error unarchiving intent from data: %{public}@", buf, 0x16u);
+  }
 
-  return v1;
+  v2 = 0;
+LABEL_8:
+
+  return v2;
 }
 
-id WFBooleanLocalizedDescriptionForHMCharacteristic(void *a1, int a2)
+void sub_1CA8D2F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  v3 = [a1 characteristicType];
-  v4 = getHMCharacteristicTypePowerState();
-  v5 = [v3 isEqualToString:v4];
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
 
-  if (v5)
+uint64_t __Block_byref_object_copy__61954(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA8D3494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getCLPlacemarkClass_block_invoke_61957(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!CoreLocationLibraryCore_frameworkLibrary_61958)
   {
-    v6 = @"Is Off";
-    v7 = @"Is On";
-LABEL_21:
-    if (a2)
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __CoreLocationLibraryCore_block_invoke_61959;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837D4E8;
+    v8 = 0;
+    CoreLocationLibraryCore_frameworkLibrary_61958 = _sl_dlopen();
+  }
+
+  if (!CoreLocationLibraryCore_frameworkLibrary_61958)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"INIntentSlotDescription+Workflow.m" lineNumber:21 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("CLPlacemark");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLPlacemarkClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"INIntentSlotDescription+Workflow.m" lineNumber:22 description:{@"Unable to find class %s", "CLPlacemark"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getCLPlacemarkClass_softClass_61956 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __CoreLocationLibraryCore_block_invoke_61959(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreLocationLibraryCore_frameworkLibrary_61958 = result;
+  return result;
+}
+
+void sub_1CA8D5B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA8D5EE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
+{
+  objc_destroyWeak((v18 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+uint64_t WFEntityQueryTypeForQueryMetadata(void *a1, void *a2, void *a3)
+{
+  v33 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = [v6 identifier];
+
+  if (!v8)
+  {
+    v9 = getWFAppIntentsLogObject();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v26 = v7;
+      v10 = [v6 mangledTypeName];
+      *buf = 136315650;
+      v28 = "WFEntityQueryTypeForQueryMetadata";
+      v29 = 2112;
+      v30 = v7;
+      v31 = 2112;
+      v32 = v10;
+      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s No entity metadata identifier for bundle: %@, mangledTypeName: %@", buf, 0x20u);
+    }
+  }
+
+  v11 = [v6 identifier];
+  if (v11)
+  {
+    v12 = [v6 identifier];
+    v13 = WFShortcutsActionIdentifierFromLinkIdentifiers(v7, v12);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v14 = WFForcedLinkEntityFindActionIdentifiers();
+  if ([v14 containsObject:v13])
+  {
+    v15 = 1;
+  }
+
+  else
+  {
+    v16 = [v5 capabilities];
+
+    if (v16)
+    {
+      v15 = 1;
+      goto LABEL_15;
+    }
+
+    v17 = [v5 parameters];
+    v18 = [v17 count];
+
+    if (v18)
+    {
+      v15 = 2;
+      goto LABEL_15;
+    }
+
+    v20 = [v6 systemProtocolMetadata];
+    v21 = [v20 objectForKeyedSubscript:*MEMORY[0x1E69AC278]];
+
+    v22 = [v6 properties];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __WFEntityQueryTypeForQueryMetadata_block_invoke;
+    v25[3] = &unk_1E837E080;
+    v26 = v13;
+    v23 = [v22 if_firstObjectPassingTest:v25];
+
+    if (v23)
+    {
+      v24 = v21 == 0;
     }
 
     else
     {
-      v26 = v6;
+      v24 = 1;
     }
 
-    v27 = WFLocalizedString(v26);
-    goto LABEL_25;
-  }
-
-  v8 = getHMCharacteristicTypeObstructionDetected();
-  v9 = [v3 isEqualToString:v8];
-
-  if (v9)
-  {
-    v6 = @"Is Not Obstructed";
-    v7 = @"Is Obstructed";
-    goto LABEL_21;
-  }
-
-  v10 = getHMCharacteristicTypeOutletInUse();
-  v11 = [v3 isEqualToString:v10];
-
-  if (v11)
-  {
-    v6 = @"Outlet Is Not In Use";
-    v7 = @"Outlet Is In Use";
-    goto LABEL_21;
-  }
-
-  v12 = getHMCharacteristicTypeAudioFeedback();
-  v13 = [v3 isEqualToString:v12];
-
-  if (v13)
-  {
-    v6 = @"Audio Feedback Is Disabled";
-    v7 = @"Audio Feedback Is Enabled";
-    goto LABEL_21;
-  }
-
-  v14 = getHMCharacteristicTypeAdminOnlyAccess();
-  v15 = [v3 isEqualToString:v14];
-
-  if (v15)
-  {
-    v6 = @"Admin Access Is Not Required";
-    v7 = @"Admin Access Is Required";
-    goto LABEL_21;
-  }
-
-  v16 = getHMCharacteristicTypeMotionDetected();
-  v17 = [v3 isEqualToString:v16];
-
-  if (v17)
-  {
-    v6 = @"Motion Is Not Detected";
-    v7 = @"Motion Is Detected";
-    goto LABEL_21;
-  }
-
-  v18 = getHMCharacteristicTypeStatusActive();
-  v19 = [v3 isEqualToString:v18];
-
-  if (v19)
-  {
-    v6 = @"Is Not Active";
-    v7 = @"Is Active";
-    goto LABEL_21;
-  }
-
-  v20 = getHMCharacteristicTypeMute();
-  v21 = [v3 isEqualToString:v20];
-
-  if (v21)
-  {
-    v6 = @"Is Not Muted";
-    v7 = @"Is Muted";
-    goto LABEL_21;
-  }
-
-  v22 = getHMCharacteristicTypeNightVision();
-  v23 = [v3 isEqualToString:v22];
-
-  if (v23)
-  {
-    v6 = @"Night Vision Is Not Enabled";
-    v7 = @"Night Vision Is Enabled";
-    goto LABEL_21;
-  }
-
-  v24 = getHMCharacteristicTypeImageMirroring();
-  v25 = [v3 isEqualToString:v24];
-
-  if (v25)
-  {
-    v6 = @"Image Is Not Mirrored";
-    v7 = @"Image Is Mirrored";
-    goto LABEL_21;
-  }
-
-  v27 = 0;
-LABEL_25:
-
-  return v27;
-}
-
-id initHMCharacteristicTypeImageMirroring()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypeImageMirroring");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypeImageMirroring", "WFHomeUtilities.m", 48, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypeImageMirroring, *v0);
-  getHMCharacteristicTypeImageMirroring = HMCharacteristicTypeImageMirroringFunction;
-  v1 = constantHMCharacteristicTypeImageMirroring;
-
-  return v1;
-}
-
-id initHMCharacteristicTypeNightVision()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypeNightVision");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypeNightVision", "WFHomeUtilities.m", 47, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypeNightVision, *v0);
-  getHMCharacteristicTypeNightVision = HMCharacteristicTypeNightVisionFunction;
-  v1 = constantHMCharacteristicTypeNightVision;
-
-  return v1;
-}
-
-id initHMCharacteristicTypeMute()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypeMute");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypeMute", "WFHomeUtilities.m", 46, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypeMute, *v0);
-  getHMCharacteristicTypeMute = HMCharacteristicTypeMuteFunction;
-  v1 = constantHMCharacteristicTypeMute;
-
-  return v1;
-}
-
-id initHMCharacteristicTypeStatusActive()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypeStatusActive");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypeStatusActive", "WFHomeUtilities.m", 45, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypeStatusActive, *v0);
-  getHMCharacteristicTypeStatusActive = HMCharacteristicTypeStatusActiveFunction;
-  v1 = constantHMCharacteristicTypeStatusActive;
-
-  return v1;
-}
-
-id initHMCharacteristicTypeMotionDetected()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypeMotionDetected");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypeMotionDetected", "WFHomeUtilities.m", 44, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypeMotionDetected, *v0);
-  getHMCharacteristicTypeMotionDetected = HMCharacteristicTypeMotionDetectedFunction;
-  v1 = constantHMCharacteristicTypeMotionDetected;
-
-  return v1;
-}
-
-id initHMCharacteristicTypeAdminOnlyAccess()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypeAdminOnlyAccess");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypeAdminOnlyAccess", "WFHomeUtilities.m", 43, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypeAdminOnlyAccess, *v0);
-  getHMCharacteristicTypeAdminOnlyAccess = HMCharacteristicTypeAdminOnlyAccessFunction;
-  v1 = constantHMCharacteristicTypeAdminOnlyAccess;
-
-  return v1;
-}
-
-id initHMCharacteristicTypeAudioFeedback()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypeAudioFeedback");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypeAudioFeedback", "WFHomeUtilities.m", 42, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypeAudioFeedback, *v0);
-  getHMCharacteristicTypeAudioFeedback = HMCharacteristicTypeAudioFeedbackFunction;
-  v1 = constantHMCharacteristicTypeAudioFeedback;
-
-  return v1;
-}
-
-id initHMCharacteristicTypeOutletInUse()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypeOutletInUse");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypeOutletInUse", "WFHomeUtilities.m", 41, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypeOutletInUse, *v0);
-  getHMCharacteristicTypeOutletInUse = HMCharacteristicTypeOutletInUseFunction;
-  v1 = constantHMCharacteristicTypeOutletInUse;
-
-  return v1;
-}
-
-id initHMCharacteristicTypeObstructionDetected()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypeObstructionDetected");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypeObstructionDetected", "WFHomeUtilities.m", 40, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypeObstructionDetected, *v0);
-  getHMCharacteristicTypeObstructionDetected = HMCharacteristicTypeObstructionDetectedFunction;
-  v1 = constantHMCharacteristicTypeObstructionDetected;
-
-  return v1;
-}
-
-id initHMCharacteristicTypePowerState()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicTypePowerState");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicTypePowerState", "WFHomeUtilities.m", 39, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicTypePowerState, *v0);
-  getHMCharacteristicTypePowerState = HMCharacteristicTypePowerStateFunction;
-  v1 = constantHMCharacteristicTypePowerState;
-
-  return v1;
-}
-
-BOOL WFHMCharacteristicIsEnumeration(void *a1)
-{
-  v2 = [a1 metadata];
-  v3 = [v2 validValues];
-  v4 = [v3 count];
-
-  if (!v4)
-  {
-    v6 = [v2 format];
-    v7 = getHMCharacteristicMetadataFormatUInt8_28527();
-    v8 = [v6 isEqualToString:v7];
-    if ((v8 & 1) != 0 || (getHMCharacteristicMetadataFormatInt_28528(), v1 = objc_claimAutoreleasedReturnValue(), [v6 isEqualToString:v1]))
+    if (v24)
     {
-      v9 = [v2 minimumValue];
-      if (v9)
+      v15 = 0;
+    }
+
+    else
+    {
+      v15 = 3;
+    }
+
+    v14 = v26;
+  }
+
+LABEL_15:
+  return v15;
+}
+
+BOOL __WFEntityQueryTypeForQueryMetadata_block_invoke(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = WFIndexingKeyForForcedLinkEntityFindAction();
+  v5 = [v4 objectForKey:*(a1 + 32)];
+  v6 = [v3 identifier];
+  v7 = [v5 objectForKey:v6];
+
+  v8 = [v3 spotlightAttributeKey];
+  if ([v8 length])
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v10 = [v3 spotlightCustomAttributeKey];
+    v9 = ([v10 length] | v7) != 0;
+  }
+
+  return v9;
+}
+
+uint64_t WFREPBVariableReadFrom(void *a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
       {
-        v10 = v9;
-        v11 = [v2 maximumValue];
-        if (v11)
-        {
-          v12 = v11;
-          v13 = [v2 stepValue];
-          if (v13)
-          {
-            v14 = v13;
-            v15 = [v2 units];
-            v5 = v15 == 0;
-
-            if (v8)
-            {
-              goto LABEL_15;
-            }
-
-            goto LABEL_14;
-          }
-        }
+        return [a2 hasError] ^ 1;
       }
 
       v5 = 0;
-      if (v8)
+      v6 = 0;
+      v7 = 0;
+      while (1)
       {
-LABEL_15:
+        LOBYTE(v17[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v17 range:{objc_msgSend(a2, "position"), 1}];
 
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v17[0] & 0x7F) << v5;
+        if ((v17[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = PBReaderReadString();
+        v14 = a1[2];
+        a1[2] = v13;
+LABEL_23:
+
+        goto LABEL_25;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_25:
+      v15 = [a2 position];
+      if (v15 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v14 = objc_alloc_init(WFREPBContentItem);
+    [a1 addItems:v14];
+    v17[0] = 0;
+    v17[1] = 0;
+    if (!PBReaderPlaceMark() || !WFREPBContentItemReadFrom(v14, a2))
+    {
+
+      return 0;
+    }
+
+    PBReaderRecallMark();
+    goto LABEL_23;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t WFPBDailyStatusEventReadFrom(uint64_t a1, void *a2)
+{
+  for (i = a2; ; i = a2)
+  {
+    v5 = [i position];
+    if (v5 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
+    {
+      break;
+    }
+
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    while (1)
+    {
+      v208 = 0;
+      v9 = [a2 position] + 1;
+      if (v9 >= [a2 position] && (v10 = objc_msgSend(a2, "position") + 1, v10 <= objc_msgSend(a2, "length")))
+      {
+        v11 = [a2 data];
+        [v11 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v8 |= (v208 & 0x7F) << v6;
+      if ((v208 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v6 += 7;
+      v12 = v7++ >= 9;
+      if (v12)
+      {
+        v13 = 0;
         goto LABEL_16;
       }
     }
 
+    v13 = [a2 hasError] ? 0 : v8;
+LABEL_16:
+    if (([a2 hasError] & 1) != 0 || (v13 & 7) == 4)
+    {
+      break;
+    }
+
+    switch((v13 >> 3))
+    {
+      case 1u:
+        v14 = PBReaderReadString();
+        v15 = 40;
+        goto LABEL_84;
+      case 2u:
+        v91 = 0;
+        v92 = 0;
+        v93 = 0;
+        *(a1 + 132) |= 0x8000000u;
+        while (1)
+        {
+          v208 = 0;
+          v94 = [a2 position] + 1;
+          if (v94 >= [a2 position] && (v95 = objc_msgSend(a2, "position") + 1, v95 <= objc_msgSend(a2, "length")))
+          {
+            v96 = [a2 data];
+            [v96 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v93 |= (v208 & 0x7F) << v91;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v91 += 7;
+          v12 = v92++ >= 9;
+          if (v12)
+          {
+            LOBYTE(v47) = 0;
+            goto LABEL_344;
+          }
+        }
+
+        v47 = (v93 != 0) & ~[a2 hasError];
+LABEL_344:
+        v207 = 126;
+        goto LABEL_417;
+      case 3u:
+        v67 = 0;
+        v68 = 0;
+        v69 = 0;
+        *(a1 + 132) |= 0x20000000u;
+        while (1)
+        {
+          v208 = 0;
+          v70 = [a2 position] + 1;
+          if (v70 >= [a2 position] && (v71 = objc_msgSend(a2, "position") + 1, v71 <= objc_msgSend(a2, "length")))
+          {
+            v72 = [a2 data];
+            [v72 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v69 |= (v208 & 0x7F) << v67;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v67 += 7;
+          v12 = v68++ >= 9;
+          if (v12)
+          {
+            LOBYTE(v47) = 0;
+            goto LABEL_334;
+          }
+        }
+
+        v47 = (v69 != 0) & ~[a2 hasError];
+LABEL_334:
+        v207 = 128;
+        goto LABEL_417;
+      case 4u:
+        v79 = 0;
+        v80 = 0;
+        v81 = 0;
+        *(a1 + 132) |= 0x10000000u;
+        while (1)
+        {
+          v208 = 0;
+          v82 = [a2 position] + 1;
+          if (v82 >= [a2 position] && (v83 = objc_msgSend(a2, "position") + 1, v83 <= objc_msgSend(a2, "length")))
+          {
+            v84 = [a2 data];
+            [v84 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v81 |= (v208 & 0x7F) << v79;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v79 += 7;
+          v12 = v80++ >= 9;
+          if (v12)
+          {
+            LOBYTE(v47) = 0;
+            goto LABEL_340;
+          }
+        }
+
+        v47 = (v81 != 0) & ~[a2 hasError];
+LABEL_340:
+        v207 = 127;
+        goto LABEL_417;
+      case 5u:
+        v41 = 0;
+        v42 = 0;
+        v43 = 0;
+        *(a1 + 132) |= 0x4000000u;
+        while (1)
+        {
+          v208 = 0;
+          v44 = [a2 position] + 1;
+          if (v44 >= [a2 position] && (v45 = objc_msgSend(a2, "position") + 1, v45 <= objc_msgSend(a2, "length")))
+          {
+            v46 = [a2 data];
+            [v46 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v43 |= (v208 & 0x7F) << v41;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v41 += 7;
+          v12 = v42++ >= 9;
+          if (v12)
+          {
+            LOBYTE(v47) = 0;
+            goto LABEL_320;
+          }
+        }
+
+        v47 = (v43 != 0) & ~[a2 hasError];
+LABEL_320:
+        v207 = 125;
+        goto LABEL_417;
+      case 6u:
+        v115 = 0;
+        v116 = 0;
+        v117 = 0;
+        *(a1 + 132) |= 0x80000u;
+        while (1)
+        {
+          v208 = 0;
+          v118 = [a2 position] + 1;
+          if (v118 >= [a2 position] && (v119 = objc_msgSend(a2, "position") + 1, v119 <= objc_msgSend(a2, "length")))
+          {
+            v120 = [a2 data];
+            [v120 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v117 |= (v208 & 0x7F) << v115;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v115 += 7;
+          v12 = v116++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_360;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v117;
+        }
+
+LABEL_360:
+        v206 = 100;
+        goto LABEL_413;
+      case 7u:
+        v133 = 0;
+        v134 = 0;
+        v135 = 0;
+        *(a1 + 132) |= 1u;
+        while (1)
+        {
+          v208 = 0;
+          v136 = [a2 position] + 1;
+          if (v136 >= [a2 position] && (v137 = objc_msgSend(a2, "position") + 1, v137 <= objc_msgSend(a2, "length")))
+          {
+            v138 = [a2 data];
+            [v138 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v135 |= (v208 & 0x7F) << v133;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v133 += 7;
+          v12 = v134++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_372;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v135;
+        }
+
+LABEL_372:
+        v206 = 8;
+        goto LABEL_413;
+      case 8u:
+        v85 = 0;
+        v86 = 0;
+        v87 = 0;
+        *(a1 + 132) |= 0x40000000u;
+        while (1)
+        {
+          v208 = 0;
+          v88 = [a2 position] + 1;
+          if (v88 >= [a2 position] && (v89 = objc_msgSend(a2, "position") + 1, v89 <= objc_msgSend(a2, "length")))
+          {
+            v90 = [a2 data];
+            [v90 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v87 |= (v208 & 0x7F) << v85;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v85 += 7;
+          v12 = v86++ >= 9;
+          if (v12)
+          {
+            LOBYTE(v47) = 0;
+            goto LABEL_342;
+          }
+        }
+
+        v47 = (v87 != 0) & ~[a2 hasError];
+LABEL_342:
+        v207 = 129;
+        goto LABEL_417;
+      case 9u:
+        v151 = 0;
+        v152 = 0;
+        v153 = 0;
+        *(a1 + 132) |= 0x200000u;
+        while (1)
+        {
+          v208 = 0;
+          v154 = [a2 position] + 1;
+          if (v154 >= [a2 position] && (v155 = objc_msgSend(a2, "position") + 1, v155 <= objc_msgSend(a2, "length")))
+          {
+            v156 = [a2 data];
+            [v156 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v153 |= (v208 & 0x7F) << v151;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v151 += 7;
+          v12 = v152++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_384;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v153;
+        }
+
+LABEL_384:
+        v206 = 108;
+        goto LABEL_413;
+      case 0xAu:
+        v54 = 0;
+        v55 = 0;
+        v56 = 0;
+        *(a1 + 132) |= 0x20u;
+        while (1)
+        {
+          v208 = 0;
+          v57 = [a2 position] + 1;
+          if (v57 >= [a2 position] && (v58 = objc_msgSend(a2, "position") + 1, v58 <= objc_msgSend(a2, "length")))
+          {
+            v59 = [a2 data];
+            [v59 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v56 |= (v208 & 0x7F) << v54;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v54 += 7;
+          v12 = v55++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_328;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v56;
+        }
+
+LABEL_328:
+        v206 = 36;
+        goto LABEL_413;
+      case 0xBu:
+        v145 = 0;
+        v146 = 0;
+        v147 = 0;
+        *(a1 + 132) |= 4u;
+        while (1)
+        {
+          v208 = 0;
+          v148 = [a2 position] + 1;
+          if (v148 >= [a2 position] && (v149 = objc_msgSend(a2, "position") + 1, v149 <= objc_msgSend(a2, "length")))
+          {
+            v150 = [a2 data];
+            [v150 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v147 |= (v208 & 0x7F) << v145;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v145 += 7;
+          v12 = v146++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_380;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v147;
+        }
+
+LABEL_380:
+        v206 = 24;
+        goto LABEL_413;
+      case 0xCu:
+        v35 = 0;
+        v36 = 0;
+        v37 = 0;
+        *(a1 + 132) |= 0x800000u;
+        while (1)
+        {
+          v208 = 0;
+          v38 = [a2 position] + 1;
+          if (v38 >= [a2 position] && (v39 = objc_msgSend(a2, "position") + 1, v39 <= objc_msgSend(a2, "length")))
+          {
+            v40 = [a2 data];
+            [v40 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v37 |= (v208 & 0x7F) << v35;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v35 += 7;
+          v12 = v36++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_318;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v37;
+        }
+
+LABEL_318:
+        v206 = 116;
+        goto LABEL_413;
+      case 0xDu:
+        v48 = 0;
+        v49 = 0;
+        v50 = 0;
+        *(a1 + 132) |= 0x100000u;
+        while (1)
+        {
+          v208 = 0;
+          v51 = [a2 position] + 1;
+          if (v51 >= [a2 position] && (v52 = objc_msgSend(a2, "position") + 1, v52 <= objc_msgSend(a2, "length")))
+          {
+            v53 = [a2 data];
+            [v53 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v50 |= (v208 & 0x7F) << v48;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v48 += 7;
+          v12 = v49++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_324;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v50;
+        }
+
+LABEL_324:
+        v206 = 104;
+        goto LABEL_413;
+      case 0xEu:
+        v127 = 0;
+        v128 = 0;
+        v129 = 0;
+        *(a1 + 132) |= 2u;
+        while (1)
+        {
+          v208 = 0;
+          v130 = [a2 position] + 1;
+          if (v130 >= [a2 position] && (v131 = objc_msgSend(a2, "position") + 1, v131 <= objc_msgSend(a2, "length")))
+          {
+            v132 = [a2 data];
+            [v132 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v129 |= (v208 & 0x7F) << v127;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v127 += 7;
+          v12 = v128++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_368;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v129;
+        }
+
+LABEL_368:
+        v206 = 12;
+        goto LABEL_413;
+      case 0xFu:
+        v29 = 0;
+        v30 = 0;
+        v31 = 0;
+        *(a1 + 132) |= 0x1000000u;
+        while (1)
+        {
+          v208 = 0;
+          v32 = [a2 position] + 1;
+          if (v32 >= [a2 position] && (v33 = objc_msgSend(a2, "position") + 1, v33 <= objc_msgSend(a2, "length")))
+          {
+            v34 = [a2 data];
+            [v34 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v31 |= (v208 & 0x7F) << v29;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v29 += 7;
+          v12 = v30++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_314;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v31;
+        }
+
+LABEL_314:
+        v206 = 120;
+        goto LABEL_413;
+      case 0x10u:
+        v73 = 0;
+        v74 = 0;
+        v75 = 0;
+        *(a1 + 132) |= 0x400000u;
+        while (1)
+        {
+          v208 = 0;
+          v76 = [a2 position] + 1;
+          if (v76 >= [a2 position] && (v77 = objc_msgSend(a2, "position") + 1, v77 <= objc_msgSend(a2, "length")))
+          {
+            v78 = [a2 data];
+            [v78 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v75 |= (v208 & 0x7F) << v73;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v73 += 7;
+          v12 = v74++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_338;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v75;
+        }
+
+LABEL_338:
+        v206 = 112;
+        goto LABEL_413;
+      case 0x11u:
+        v23 = 0;
+        v24 = 0;
+        v25 = 0;
+        *(a1 + 132) |= 0x4000u;
+        while (1)
+        {
+          v208 = 0;
+          v26 = [a2 position] + 1;
+          if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
+          {
+            v28 = [a2 data];
+            [v28 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v25 |= (v208 & 0x7F) << v23;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v23 += 7;
+          v12 = v24++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_310;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v25;
+        }
+
+LABEL_310:
+        v206 = 80;
+        goto LABEL_413;
+      case 0x12u:
+        v103 = 0;
+        v104 = 0;
+        v105 = 0;
+        *(a1 + 132) |= 0x200u;
+        while (1)
+        {
+          v208 = 0;
+          v106 = [a2 position] + 1;
+          if (v106 >= [a2 position] && (v107 = objc_msgSend(a2, "position") + 1, v107 <= objc_msgSend(a2, "length")))
+          {
+            v108 = [a2 data];
+            [v108 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v105 |= (v208 & 0x7F) << v103;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v103 += 7;
+          v12 = v104++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_352;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v105;
+        }
+
+LABEL_352:
+        v206 = 60;
+        goto LABEL_413;
+      case 0x13u:
+        v139 = 0;
+        v140 = 0;
+        v141 = 0;
+        *(a1 + 132) |= 0x80u;
+        while (1)
+        {
+          v208 = 0;
+          v142 = [a2 position] + 1;
+          if (v142 >= [a2 position] && (v143 = objc_msgSend(a2, "position") + 1, v143 <= objc_msgSend(a2, "length")))
+          {
+            v144 = [a2 data];
+            [v144 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v141 |= (v208 & 0x7F) << v139;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v139 += 7;
+          v12 = v140++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_376;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v141;
+        }
+
+LABEL_376:
+        v206 = 52;
+        goto LABEL_413;
+      case 0x14u:
+        v175 = 0;
+        v176 = 0;
+        v177 = 0;
+        *(a1 + 132) |= 0x20000u;
+        while (1)
+        {
+          v208 = 0;
+          v178 = [a2 position] + 1;
+          if (v178 >= [a2 position] && (v179 = objc_msgSend(a2, "position") + 1, v179 <= objc_msgSend(a2, "length")))
+          {
+            v180 = [a2 data];
+            [v180 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v177 |= (v208 & 0x7F) << v175;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v175 += 7;
+          v12 = v176++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_400;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v177;
+        }
+
+LABEL_400:
+        v206 = 92;
+        goto LABEL_413;
+      case 0x15u:
+        v109 = 0;
+        v110 = 0;
+        v111 = 0;
+        *(a1 + 132) |= 0x40000u;
+        while (1)
+        {
+          v208 = 0;
+          v112 = [a2 position] + 1;
+          if (v112 >= [a2 position] && (v113 = objc_msgSend(a2, "position") + 1, v113 <= objc_msgSend(a2, "length")))
+          {
+            v114 = [a2 data];
+            [v114 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v111 |= (v208 & 0x7F) << v109;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v109 += 7;
+          v12 = v110++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_356;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v111;
+        }
+
+LABEL_356:
+        v206 = 96;
+        goto LABEL_413;
+      case 0x16u:
+        v121 = 0;
+        v122 = 0;
+        v123 = 0;
+        *(a1 + 132) |= 0x400u;
+        while (1)
+        {
+          v208 = 0;
+          v124 = [a2 position] + 1;
+          if (v124 >= [a2 position] && (v125 = objc_msgSend(a2, "position") + 1, v125 <= objc_msgSend(a2, "length")))
+          {
+            v126 = [a2 data];
+            [v126 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v123 |= (v208 & 0x7F) << v121;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v121 += 7;
+          v12 = v122++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_364;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v123;
+        }
+
+LABEL_364:
+        v206 = 64;
+        goto LABEL_413;
+      case 0x17u:
+        v169 = 0;
+        v170 = 0;
+        v171 = 0;
+        *(a1 + 132) |= 0x800u;
+        while (1)
+        {
+          v208 = 0;
+          v172 = [a2 position] + 1;
+          if (v172 >= [a2 position] && (v173 = objc_msgSend(a2, "position") + 1, v173 <= objc_msgSend(a2, "length")))
+          {
+            v174 = [a2 data];
+            [v174 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v171 |= (v208 & 0x7F) << v169;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v169 += 7;
+          v12 = v170++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_396;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v171;
+        }
+
+LABEL_396:
+        v206 = 68;
+        goto LABEL_413;
+      case 0x18u:
+        v181 = 0;
+        v182 = 0;
+        v183 = 0;
+        *(a1 + 132) |= 0x8000u;
+        while (1)
+        {
+          v208 = 0;
+          v184 = [a2 position] + 1;
+          if (v184 >= [a2 position] && (v185 = objc_msgSend(a2, "position") + 1, v185 <= objc_msgSend(a2, "length")))
+          {
+            v186 = [a2 data];
+            [v186 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v183 |= (v208 & 0x7F) << v181;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v181 += 7;
+          v12 = v182++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_404;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v183;
+        }
+
+LABEL_404:
+        v206 = 84;
+        goto LABEL_413;
+      case 0x19u:
+        v61 = 0;
+        v62 = 0;
+        v63 = 0;
+        *(a1 + 132) |= 0x10000u;
+        while (1)
+        {
+          v208 = 0;
+          v64 = [a2 position] + 1;
+          if (v64 >= [a2 position] && (v65 = objc_msgSend(a2, "position") + 1, v65 <= objc_msgSend(a2, "length")))
+          {
+            v66 = [a2 data];
+            [v66 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v63 |= (v208 & 0x7F) << v61;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v61 += 7;
+          v12 = v62++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_332;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v63;
+        }
+
+LABEL_332:
+        v206 = 88;
+        goto LABEL_413;
+      case 0x1Au:
+        v14 = PBReaderReadString();
+        v15 = 16;
+LABEL_84:
+        v60 = *(a1 + v15);
+        *(a1 + v15) = v14;
+
+        continue;
+      case 0x1Bu:
+        v199 = 0;
+        v200 = 0;
+        v201 = 0;
+        *(a1 + 132) |= 0x2000000u;
+        while (1)
+        {
+          v208 = 0;
+          v202 = [a2 position] + 1;
+          if (v202 >= [a2 position] && (v203 = objc_msgSend(a2, "position") + 1, v203 <= objc_msgSend(a2, "length")))
+          {
+            v204 = [a2 data];
+            [v204 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v201 |= (v208 & 0x7F) << v199;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v199 += 7;
+          v12 = v200++ >= 9;
+          if (v12)
+          {
+            LOBYTE(v47) = 0;
+            goto LABEL_416;
+          }
+        }
+
+        v47 = (v201 != 0) & ~[a2 hasError];
+LABEL_416:
+        v207 = 124;
+LABEL_417:
+        *(a1 + v207) = v47;
+        continue;
+      case 0x1Cu:
+        v16 = 0;
+        v17 = 0;
+        v18 = 0;
+        *(a1 + 132) |= 0x1000u;
+        while (1)
+        {
+          v208 = 0;
+          v19 = [a2 position] + 1;
+          if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+          {
+            v21 = [a2 data];
+            [v21 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v18 |= (v208 & 0x7F) << v16;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v16 += 7;
+          v12 = v17++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_306;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v18;
+        }
+
+LABEL_306:
+        v206 = 72;
+        goto LABEL_413;
+      case 0x1Du:
+        v187 = 0;
+        v188 = 0;
+        v189 = 0;
+        *(a1 + 132) |= 0x100u;
+        while (1)
+        {
+          v208 = 0;
+          v190 = [a2 position] + 1;
+          if (v190 >= [a2 position] && (v191 = objc_msgSend(a2, "position") + 1, v191 <= objc_msgSend(a2, "length")))
+          {
+            v192 = [a2 data];
+            [v192 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v189 |= (v208 & 0x7F) << v187;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v187 += 7;
+          v12 = v188++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_408;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v189;
+        }
+
+LABEL_408:
+        v206 = 56;
+        goto LABEL_413;
+      case 0x1Eu:
+        v193 = 0;
+        v194 = 0;
+        v195 = 0;
+        *(a1 + 132) |= 0x40u;
+        while (1)
+        {
+          v208 = 0;
+          v196 = [a2 position] + 1;
+          if (v196 >= [a2 position] && (v197 = objc_msgSend(a2, "position") + 1, v197 <= objc_msgSend(a2, "length")))
+          {
+            v198 = [a2 data];
+            [v198 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v195 |= (v208 & 0x7F) << v193;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v193 += 7;
+          v12 = v194++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_412;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v195;
+        }
+
+LABEL_412:
+        v206 = 48;
+        goto LABEL_413;
+      case 0x1Fu:
+        v157 = 0;
+        v158 = 0;
+        v159 = 0;
+        *(a1 + 132) |= 0x2000u;
+        while (1)
+        {
+          v208 = 0;
+          v160 = [a2 position] + 1;
+          if (v160 >= [a2 position] && (v161 = objc_msgSend(a2, "position") + 1, v161 <= objc_msgSend(a2, "length")))
+          {
+            v162 = [a2 data];
+            [v162 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v159 |= (v208 & 0x7F) << v157;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v157 += 7;
+          v12 = v158++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_388;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v159;
+        }
+
+LABEL_388:
+        v206 = 76;
+        goto LABEL_413;
+      case 0x20u:
+        v97 = 0;
+        v98 = 0;
+        v99 = 0;
+        *(a1 + 132) |= 0x10u;
+        while (1)
+        {
+          v208 = 0;
+          v100 = [a2 position] + 1;
+          if (v100 >= [a2 position] && (v101 = objc_msgSend(a2, "position") + 1, v101 <= objc_msgSend(a2, "length")))
+          {
+            v102 = [a2 data];
+            [v102 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v99 |= (v208 & 0x7F) << v97;
+          if ((v208 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v97 += 7;
+          v12 = v98++ >= 9;
+          if (v12)
+          {
+            v22 = 0;
+            goto LABEL_348;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = v99;
+        }
+
+LABEL_348:
+        v206 = 32;
+        goto LABEL_413;
+      case 0x21u:
+        v163 = 0;
+        v164 = 0;
+        v165 = 0;
+        *(a1 + 132) |= 8u;
+        break;
+      default:
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+
+        continue;
+    }
+
+    while (1)
+    {
+      v208 = 0;
+      v166 = [a2 position] + 1;
+      if (v166 >= [a2 position] && (v167 = objc_msgSend(a2, "position") + 1, v167 <= objc_msgSend(a2, "length")))
+      {
+        v168 = [a2 data];
+        [v168 getBytes:&v208 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v165 |= (v208 & 0x7F) << v163;
+      if ((v208 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v163 += 7;
+      v12 = v164++ >= 9;
+      if (v12)
+      {
+        v22 = 0;
+        goto LABEL_392;
+      }
+    }
+
+    if ([a2 hasError])
+    {
+      v22 = 0;
+    }
+
     else
     {
+      v22 = v165;
+    }
+
+LABEL_392:
+    v206 = 28;
+LABEL_413:
+    *(a1 + v206) = v22;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+id WFCLInUseAssertionWithOptions(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2050000000;
+  v4 = getCLInUseAssertionClass_softClass;
+  v17 = getCLInUseAssertionClass_softClass;
+  if (!getCLInUseAssertionClass_softClass)
+  {
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __getCLInUseAssertionClass_block_invoke;
+    v13[3] = &unk_1E837FAC0;
+    v13[4] = &v14;
+    __getCLInUseAssertionClass_block_invoke(v13);
+    v4 = v15[3];
+  }
+
+  v5 = v4;
+  _Block_object_dispose(&v14, 8);
+  v6 = v5;
+  switch(a1)
+  {
+    case 3:
+      v7 = MEMORY[0x1E696AAE8];
+      v8 = @"/System/Library/PrivateFrameworks/AssistantServices.framework";
+      goto LABEL_9;
+    case 2:
+      v9 = MEMORY[0x1E69E0E90];
+      break;
+    case 1:
+      v7 = MEMORY[0x1E696AAE8];
+      v8 = @"/System/Library/PrivateFrameworks/HomeKitDaemon.framework";
+LABEL_9:
+      v10 = [v7 bundleWithPath:v8];
+      v11 = [v5 newAssertionForBundle:v10 withReason:v3 level:1];
+
+      goto LABEL_12;
+    default:
+      v9 = MEMORY[0x1E69E0FB0];
+      break;
+  }
+
+  v11 = [v5 newAssertionForBundleIdentifier:*v9 withReason:v3 level:1];
+LABEL_12:
+
+  return v11;
+}
+
+void sub_1CA8E33E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getCLInUseAssertionClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!CoreLocationLibraryCore_frameworkLibrary_63755)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __CoreLocationLibraryCore_block_invoke_63756;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837D970;
+    v8 = 0;
+    CoreLocationLibraryCore_frameworkLibrary_63755 = _sl_dlopen();
+  }
+
+  if (!CoreLocationLibraryCore_frameworkLibrary_63755)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"CLInUseAssertion+Workflow.m" lineNumber:15 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("CLInUseAssertion");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLInUseAssertionClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"CLInUseAssertion+Workflow.m" lineNumber:16 description:{@"Unable to find class %s", "CLInUseAssertion"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getCLInUseAssertionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __CoreLocationLibraryCore_block_invoke_63756(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreLocationLibraryCore_frameworkLibrary_63755 = result;
+  return result;
+}
+
+void WFMigratePropertyListObject(void *a1, void *a2, void *a3, uint64_t a4)
+{
+  v17 = a1;
+  v7 = a2;
+  v8 = a3;
+  v9 = [v17 valueForKey:v7];
+  v10 = v9;
+  if (v9)
+  {
+    v11 = v9;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = v12;
+    v14 = v13;
+    if (v13)
+    {
+      v15 = [v13 array];
+
+      v11 = v15;
+    }
+
+    v16 = [MEMORY[0x1E696AE40] dataWithPropertyList:v11 format:200 options:0 error:a4];
+
+    [v17 setValue:v16 forKey:v8];
+    [v17 setValue:0 forKey:v7];
+  }
+
+  else
+  {
+    [v17 setValue:0 forKey:v8];
+  }
+}
+
+void sub_1CA8E56DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 136), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__64125(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void __WFProcessStringValueVariableContent_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = *(a1 + 32);
+  v7 = a3;
+  v6 = [a2 items];
+  [v5 addObjectsFromArray:v6];
+
+  (*(*(a1 + 40) + 16))();
+}
+
+Class initUIPasteboard_64411()
+{
+  if (UIKitLibrary_sOnce_64412 != -1)
+  {
+    dispatch_once(&UIKitLibrary_sOnce_64412, &__block_literal_global_64413);
+  }
+
+  result = objc_getClass("UIPasteboard");
+  classUIPasteboard_64415 = result;
+  getUIPasteboardClass_64408 = UIPasteboardFunction_64417;
+  return result;
+}
+
+void *__UIKitLibrary_block_invoke_64420()
+{
+  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
+  UIKitLibrary_sLib_64422 = result;
+  return result;
+}
+
+uint64_t WFREPBAlertRequestResponseReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
       v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v19[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v19 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v19[0] & 0x7F) << v5;
+        if ((v19[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
+        break;
+      }
+
+      if (v13 == 2)
+      {
+        v14 = PBReaderReadString();
+        v15 = 24;
+LABEL_22:
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v14;
+LABEL_26:
+
+        goto LABEL_28;
+      }
+
+      if (v13 == 1)
+      {
+        v14 = PBReaderReadString();
+        v15 = 16;
+        goto LABEL_22;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_28:
+      v17 = [a2 position];
+      if (v17 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v16 = objc_alloc_init(WFREPBError);
+    objc_storeStrong((a1 + 8), v16);
+    v19[0] = 0;
+    v19[1] = 0;
+    if (!PBReaderPlaceMark() || !WFREPBErrorReadFrom(v16, a2))
+    {
+
+      return 0;
+    }
+
+    PBReaderRecallMark();
+    goto LABEL_26;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_1CA8EA4D8(_Unwind_Exception *a1)
+{
+  _Block_object_dispose((v1 - 208), 8);
+  _Block_object_dispose((v1 - 160), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__64724(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA8EBA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__65008(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA8EBF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id WFActionSkipList()
+{
+  if (WFActionSkipList_onceToken != -1)
+  {
+    dispatch_once(&WFActionSkipList_onceToken, &__block_literal_global_65331);
+  }
+
+  v1 = WFActionSkipList_skipList;
+
+  return v1;
+}
+
+void __WFActionSkipList_block_invoke()
+{
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"is.workflow.actions.timer.start", @"com.apple.mobiletimer-framework.MobileTimerIntents.MTCreateAlarmIntent", @"com.apple.mobiletimer-framework.MobileTimerIntents.MTToggleAlarmIntent", @"com.apple.mobiletimer-framework.MobileTimerIntents.MTGetAlarmsIntent", @"com.apple.musicrecognition.RecognizeMusicIntent", 0}];
+  v1 = WFActionSkipList_skipList;
+  WFActionSkipList_skipList = v0;
+}
+
+uint64_t WFPBShareShortcutEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v33 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v33 & 0x7F) << v5;
+        if ((v33 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 3)
+      {
+        break;
+      }
+
+      switch(v13)
+      {
+        case 1:
+          v14 = PBReaderReadString();
+          v15 = 32;
+LABEL_42:
+          v24 = *(a1 + v15);
+          *(a1 + v15) = v14;
+
+          goto LABEL_61;
+        case 2:
+          v25 = 0;
+          v26 = 0;
+          v27 = 0;
+          *(a1 + 60) |= 2u;
+          while (1)
+          {
+            v34 = 0;
+            v28 = [a2 position] + 1;
+            if (v28 >= [a2 position] && (v29 = objc_msgSend(a2, "position") + 1, v29 <= objc_msgSend(a2, "length")))
+            {
+              v30 = [a2 data];
+              [v30 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v27 |= (v34 & 0x7F) << v25;
+            if ((v34 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v25 += 7;
+            v11 = v26++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_59;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v27;
+          }
+
+LABEL_59:
+          v31 = 56;
+          break;
+        case 3:
+          v16 = 0;
+          v17 = 0;
+          v18 = 0;
+          *(a1 + 60) |= 1u;
+          while (1)
+          {
+            v35 = 0;
+            v19 = [a2 position] + 1;
+            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+            {
+              v21 = [a2 data];
+              [v21 getBytes:&v35 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v18 |= (v35 & 0x7F) << v16;
+            if ((v35 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v16 += 7;
+            v11 = v17++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_55;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v18;
+          }
+
+LABEL_55:
+          v31 = 8;
+          break;
+        default:
+          goto LABEL_38;
+      }
+
+      *(a1 + v31) = v22;
+LABEL_61:
+      v32 = [a2 position];
+      if (v32 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    if (v13 > 5)
+    {
+      if (v13 == 6)
+      {
+        v14 = PBReaderReadString();
+        v15 = 40;
+      }
+
+      else
+      {
+        if (v13 != 7)
+        {
+LABEL_38:
+          result = PBReaderSkipValueWithTag();
+          if (!result)
+          {
+            return result;
+          }
+
+          goto LABEL_61;
+        }
+
+        v14 = PBReaderReadString();
+        v15 = 48;
+      }
+    }
+
+    else if (v13 == 4)
+    {
+      v14 = PBReaderReadString();
+      v15 = 16;
+    }
+
+    else
+    {
+      if (v13 != 5)
+      {
+        goto LABEL_38;
+      }
+
+      v14 = PBReaderReadString();
+      v15 = 24;
+    }
+
+    goto LABEL_42;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+WFVariableString *WFTitleForParameterValue(void *a1)
+{
+  v1 = [a1 state];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = [v1 variableString];
+  }
+
+  else
+  {
+    v3 = [WFVariableString alloc];
+    v4 = WFLocalizedString(@"Unknown");
+    v2 = [(WFVariableString *)v3 initWithString:v4];
+  }
+
+  return v2;
+}
+
+id WFSerializedIdentifierFromLinkValue(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 value];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    v4 = [v1 value];
+    if ([v4 isTransient])
+    {
+      v5 = 0;
+    }
+
+    else
+    {
+      v12 = [v1 value];
+      v13 = [v12 identifier];
+      v5 = [v13 instanceIdentifier];
     }
 
 LABEL_14:
@@ -7844,1441 +12220,4332 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v5 = 1;
-LABEL_16:
+  v6 = [v1 valueType];
+  objc_opt_class();
+  v7 = objc_opt_isKindOfClass();
+
+  v8 = v1;
+  if (v7)
+  {
+LABEL_7:
+    v4 = [v8 value];
+    if (v4)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v11 = v4;
+      }
+
+      else
+      {
+        v11 = 0;
+      }
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    v5 = v11;
+    goto LABEL_14;
+  }
+
+  v9 = [v1 valueType];
+  objc_opt_class();
+  v10 = objc_opt_isKindOfClass();
+
+  if (v10)
+  {
+    v8 = v1;
+    goto LABEL_7;
+  }
+
+  v5 = 0;
+LABEL_15:
 
   return v5;
 }
 
-id initHMCharacteristicMetadataFormatInt_28530()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataFormatInt");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicMetadataFormatInt", "WFHomeUtilities.m", 58, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicMetadataFormatInt_28533, *v0);
-  getHMCharacteristicMetadataFormatInt_28528 = HMCharacteristicMetadataFormatIntFunction_28535;
-  v1 = constantHMCharacteristicMetadataFormatInt_28533;
-
-  return v1;
-}
-
-id initHMCharacteristicMetadataFormatUInt8_28537()
-{
-  if (HomeKitLibrary_sOnce_28403 != -1)
-  {
-    dispatch_once(&HomeKitLibrary_sOnce_28403, &__block_literal_global_266);
-  }
-
-  v0 = dlsym(HomeKitLibrary_sLib_28404, "HMCharacteristicMetadataFormatUInt8");
-  if (!v0)
-  {
-    __assert_rtn("initHMCharacteristicMetadataFormatUInt8", "WFHomeUtilities.m", 59, "constant");
-  }
-
-  objc_storeStrong(&constantHMCharacteristicMetadataFormatUInt8_28540, *v0);
-  getHMCharacteristicMetadataFormatUInt8_28527 = HMCharacteristicMetadataFormatUInt8Function_28542;
-  v1 = constantHMCharacteristicMetadataFormatUInt8_28540;
-
-  return v1;
-}
-
-id WFFormattedCharacteristicValueForCharacteristic(void *a1)
+id WFSerializedRepresentationFromLinkValue(void *a1)
 {
   v1 = a1;
-  if (WFHMCharacteristicIsEnumeration(v1) && ([v1 value], v2 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v2, (isKindOfClass & 1) != 0))
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
   {
-    if (HomeLibrary_sOnce_28545 != -1)
+    v2 = [v1 if_map:&__block_literal_global_308_65864];
+LABEL_5:
+    v3 = v2;
+    goto LABEL_6;
+  }
+
+  if ([v1 conformsToProtocol:&unk_1F4B24968])
+  {
+    v2 = v1;
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v5 = v1;
+    if (![(WFLocationValue *)v5 isTransient])
     {
-      dispatch_once(&HomeLibrary_sOnce_28545, &__block_literal_global_288);
+      v3 = 0;
+      goto LABEL_16;
     }
 
-    v4 = [MEMORY[0x1E696AC40] hf_valueFormatterForCharacteristic:v1 options:0];
-    v5 = [v1 value];
-    v6 = [v4 stringForObjectValue:v5];
+    v6 = [(WFLocationValue *)v5 wfSerializedRepresentation];
+LABEL_12:
+    v3 = v6;
+LABEL_16:
+
+    goto LABEL_6;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = [v1 absoluteString];
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = [v1 string];
+    goto LABEL_5;
+  }
+
+  getCLPlacemarkClass_65865();
+  if (objc_opt_isKindOfClass())
+  {
+    v5 = [[WFLocationValue alloc] initWithPlacemark:v1];
+    v6 = [(WFLocationValue *)v5 serializedRepresentation];
+    goto LABEL_12;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    goto LABEL_22;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = WFNSDateComponentsSerialization(v1);
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = WFINFileSerialization(v1);
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = WFINPersonSerialization(v1);
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = WFINCurrencyAmountSerialization(v1);
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = WFINPaymentMethodSerialization(v1);
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = WFSerializeNSMeasurement();
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = WFLNStringSearchCriteriaSerialization(v1);
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+LABEL_22:
+    v2 = [v1 serializedRepresentation];
+    goto LABEL_5;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v2 = [v1 wfSerializedRepresentation];
+    goto LABEL_5;
+  }
+
+  v3 = 0;
+LABEL_6:
+
+  return v3;
+}
+
+id getCLPlacemarkClass_65865()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = getCLPlacemarkClass_softClass_65929;
+  v7 = getCLPlacemarkClass_softClass_65929;
+  if (!getCLPlacemarkClass_softClass_65929)
+  {
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __getCLPlacemarkClass_block_invoke_65930;
+    v3[3] = &unk_1E837FAC0;
+    v3[4] = &v4;
+    __getCLPlacemarkClass_block_invoke_65930(v3);
+    v0 = v5[3];
+  }
+
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
+
+  return v1;
+}
+
+void sub_1CA8F1E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id WFNSDateComponentsSerialization(void *a1)
+{
+  v1 = a1;
+  v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  if ([v1 year] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"year"];
   }
 
   else
   {
-    v6 = [v1 value];
+    v3 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "year")}];
+    [v2 if_setObjectIfNonNil:v3 forKey:@"year"];
+  }
+
+  if ([v1 month] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"month"];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "month")}];
+    [v2 if_setObjectIfNonNil:v4 forKey:@"month"];
+  }
+
+  if ([v1 day] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"day"];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "day")}];
+    [v2 if_setObjectIfNonNil:v5 forKey:@"day"];
+  }
+
+  if ([v1 hour] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"hour"];
+  }
+
+  else
+  {
+    v6 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "hour")}];
+    [v2 if_setObjectIfNonNil:v6 forKey:@"hour"];
+  }
+
+  if ([v1 minute] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"minute"];
+  }
+
+  else
+  {
+    v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "minute")}];
+    [v2 if_setObjectIfNonNil:v7 forKey:@"minute"];
+  }
+
+  if ([v1 second] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"second"];
+  }
+
+  else
+  {
+    v8 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "second")}];
+    [v2 if_setObjectIfNonNil:v8 forKey:@"second"];
+  }
+
+  if ([v1 nanosecond] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"nanosecond"];
+  }
+
+  else
+  {
+    v9 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "nanosecond")}];
+    [v2 if_setObjectIfNonNil:v9 forKey:@"nanosecond"];
+  }
+
+  if ([v1 weekday] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"weekday"];
+  }
+
+  else
+  {
+    v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "weekday")}];
+    [v2 if_setObjectIfNonNil:v10 forKey:@"weekday"];
+  }
+
+  if ([v1 weekdayOrdinal] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"weekdayOrdinal"];
+  }
+
+  else
+  {
+    v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "weekdayOrdinal")}];
+    [v2 if_setObjectIfNonNil:v11 forKey:@"weekdayOrdinal"];
+  }
+
+  if ([v1 quarter] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"quarter"];
+  }
+
+  else
+  {
+    v12 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "quarter")}];
+    [v2 if_setObjectIfNonNil:v12 forKey:@"quarter"];
+  }
+
+  if ([v1 weekOfMonth] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"weekOfMonth"];
+  }
+
+  else
+  {
+    v13 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "weekOfMonth")}];
+    [v2 if_setObjectIfNonNil:v13 forKey:@"weekOfMonth"];
+  }
+
+  if ([v1 weekOfYear] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"weekOfYear"];
+  }
+
+  else
+  {
+    v14 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "weekOfYear")}];
+    [v2 if_setObjectIfNonNil:v14 forKey:@"weekOfYear"];
+  }
+
+  if ([v1 yearForWeekOfYear] == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v2 if_setObjectIfNonNil:0 forKey:@"yearForWeekOfYear"];
+  }
+
+  else
+  {
+    v15 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v1, "yearForWeekOfYear")}];
+    [v2 if_setObjectIfNonNil:v15 forKey:@"yearForWeekOfYear"];
+  }
+
+  v16 = [v1 calendar];
+  v17 = [v16 calendarIdentifier];
+  [v2 if_setObjectIfNonNil:v17 forKey:@"calendar"];
+
+  v18 = [v1 timeZone];
+  v19 = [v18 name];
+  [v2 if_setObjectIfNonNil:v19 forKey:@"timeZone"];
+
+  v20 = [v2 copy];
+
+  return v20;
+}
+
+id WFINFileSerialization(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 _bookmarkData];
+
+  if (v2)
+  {
+    v3 = [WFFileValue alloc];
+    v4 = [v1 _bookmarkData];
+    v5 = [v1 filename];
+    v6 = [v1 filename];
+    v7 = [(WFFileValue *)v3 initWithBookmarkData:v4 filename:v5 displayName:v6];
+
+LABEL_5:
+    goto LABEL_6;
+  }
+
+  v8 = [v1 fileURL];
+
+  if (v8)
+  {
+    v9 = [WFFileValue alloc];
+    v4 = [v1 fileURL];
+    v7 = [(WFFileValue *)v9 initWithURL:v4];
+    goto LABEL_5;
+  }
+
+  v7 = 0;
+LABEL_6:
+  v10 = [(WFFileValue *)v7 serializedRepresentation];
+
+  return v10;
+}
+
+id WFINPersonSerialization(uint64_t a1)
+{
+  v1 = [MEMORY[0x1E6996D00] cnContactWithINPerson:a1];
+  v2 = [objc_alloc(MEMORY[0x1E6996D10]) initWithContact:v1];
+  v3 = [v2 serializedRepresentation];
+
+  return v3;
+}
+
+id WFINCurrencyAmountSerialization(void *a1)
+{
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"amount";
+  v1 = a1;
+  v2 = [v1 amount];
+  v6[1] = @"currencyCode";
+  v7[0] = v2;
+  v3 = [v1 currencyCode];
+
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
+
+  return v4;
+}
+
+id WFINPaymentMethodSerialization(void *a1)
+{
+  v1 = MEMORY[0x1E695DF90];
+  v2 = a1;
+  v3 = [v1 dictionaryWithCapacity:4];
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v2, "type")}];
+  [v3 if_setObjectIfNonNil:v4 forKey:@"type"];
+
+  v5 = [v2 name];
+  [v3 if_setObjectIfNonNil:v5 forKey:@"name"];
+
+  v6 = [v2 identificationHint];
+
+  [v3 if_setObjectIfNonNil:v6 forKey:@"identificationHint"];
+
+  return v3;
+}
+
+id WFLNStringSearchCriteriaSerialization(void *a1)
+{
+  v1 = MEMORY[0x1E695DF90];
+  v2 = a1;
+  v3 = [v1 dictionaryWithCapacity:1];
+  v4 = [v2 term];
+
+  [v3 if_setObjectIfNonNil:v4 forKey:@"term"];
+
+  return v3;
+}
+
+Class __getCLPlacemarkClass_block_invoke_65930(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!CoreLocationLibraryCore_frameworkLibrary_65931)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __CoreLocationLibraryCore_block_invoke_65932;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837E0C0;
+    v8 = 0;
+    CoreLocationLibraryCore_frameworkLibrary_65931 = _sl_dlopen();
+  }
+
+  if (!CoreLocationLibraryCore_frameworkLibrary_65931)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"LNValue+Serialization.m" lineNumber:28 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("CLPlacemark");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLPlacemarkClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"LNValue+Serialization.m" lineNumber:29 description:{@"Unable to find class %s", "CLPlacemark"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getCLPlacemarkClass_softClass_65929 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __CoreLocationLibraryCore_block_invoke_65932(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreLocationLibraryCore_frameworkLibrary_65931 = result;
+  return result;
+}
+
+id __WFSerializedRepresentationFromLinkValue_block_invoke(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [v2 wfSerializedRepresentation];
+  }
+
+  else
+  {
+    WFSerializedRepresentationFromLinkValue(v2);
+  }
+  v3 = ;
+
+  return v3;
+}
+
+void sub_1CA8F2EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
+{
+  if (a2 == 1)
+  {
+    v9 = objc_begin_catch(exception_object);
+    v10 = getWFAppIntentsLogObject();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315394;
+      *(&a9 + 4) = "[LNCodableValue(Serialization) wfSerializedRepresentation]";
+      WORD6(a9) = 2114;
+      *(&a9 + 14) = v9;
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Caught exception: %{public}@", &a9, 0x16u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x1CA8F2EACLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+id WFCLPlacemarkFromSerializedIntentPlacemark(void *a1)
+{
+  v1 = a1;
+  if (v1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v2 = WFCLPlacemarkFromSerializedPlacemark();
+    if (v2)
+    {
+      v3 = [v1 objectForKeyedSubscript:@"postalAddress"];
+      if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      {
+        v4 = [v1 objectForKeyedSubscript:@"name"];
+        if (v4)
+        {
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v5 = v4;
+          }
+
+          else
+          {
+            v5 = 0;
+          }
+        }
+
+        else
+        {
+          v5 = 0;
+        }
+
+        v7 = v5;
+
+        v8 = &stru_1F4A1C408;
+        if (v7)
+        {
+          v8 = v7;
+        }
+
+        v9 = v8;
+
+        CLPlacemarkClass_65865 = getCLPlacemarkClass_65865();
+        v11 = [v2 location];
+        v17 = 0;
+        v18 = &v17;
+        v19 = 0x2050000000;
+        v12 = getCNPostalAddressClass_softClass;
+        v20 = getCNPostalAddressClass_softClass;
+        if (!getCNPostalAddressClass_softClass)
+        {
+          v16[0] = MEMORY[0x1E69E9820];
+          v16[1] = 3221225472;
+          v16[2] = __getCNPostalAddressClass_block_invoke;
+          v16[3] = &unk_1E837FAC0;
+          v16[4] = &v17;
+          __getCNPostalAddressClass_block_invoke(v16);
+          v12 = v18[3];
+        }
+
+        v13 = v12;
+        _Block_object_dispose(&v17, 8);
+        v14 = [v12 postalAddressWithDictionaryRepresentation:v3];
+        v6 = [CLPlacemarkClass_65865 placemarkWithLocation:v11 name:v9 postalAddress:v14];
+      }
+
+      else
+      {
+
+        v6 = v2;
+      }
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+  }
+
+  else
+  {
+
+    v6 = 0;
   }
 
   return v6;
 }
 
-void *__HomeLibrary_block_invoke_28547()
+void sub_1CA8F4900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  result = dlopen("/System/Library/PrivateFrameworks/Home.framework/Home", 2);
-  HomeLibrary_sLib_28549 = result;
-  return result;
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-id WFWFWorkflowControllerStateDefaultSerializedURLFromContext(void *a1)
+id WFINCurrencyAmountFromSerialization(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = [MEMORY[0x1E695DFF8] wf_savedShortcutStatesURL];
-  v3 = [MEMORY[0x1E696AC08] defaultManager];
-  v10 = 0;
-  v4 = [v3 createDirectoryAtURL:v2 withIntermediateDirectories:0 attributes:0 error:&v10];
-  v5 = v10;
-
-  if (v4 & 1) != 0 || ([v5 vc_isFileAlreadyExists])
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = v5;
+  if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v6 = [v1 identifier];
-    v7 = [v2 URLByAppendingPathComponent:v6];
-  }
+    v9 = [v8 objectForKeyedSubscript:@"amount"];
 
-  else
-  {
-    v6 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    if (v9)
     {
-      *buf = 136315394;
-      v12 = "WFWFWorkflowControllerStateDefaultSerializedURLFromContext";
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Unable to create folder for workflow controller states: %@", buf, 0x16u);
-    }
-
-    v7 = 0;
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
-}
-
-Class initUIFont()
-{
-  if (UIKitLibrary_sOnce_28810 != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce_28810, &__block_literal_global_28811);
-  }
-
-  result = objc_getClass("UIFont");
-  classUIFont = result;
-  getUIFontClass = UIFontFunction;
-  return result;
-}
-
-void *__UIKitLibrary_block_invoke_28815()
-{
-  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
-  UIKitLibrary_sLib_28817 = result;
-  return result;
-}
-
-Class initUIFontDescriptor()
-{
-  if (UIKitLibrary_sOnce_28810 != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce_28810, &__block_literal_global_28811);
-  }
-
-  result = objc_getClass("UIFontDescriptor");
-  classUIFontDescriptor = result;
-  getUIFontDescriptorClass = UIFontDescriptorFunction;
-  return result;
-}
-
-id initUIFontDescriptorVisibleNameAttribute()
-{
-  if (UIKitLibrary_sOnce_28810 != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce_28810, &__block_literal_global_28811);
-  }
-
-  v0 = dlsym(UIKitLibrary_sLib_28817, "UIFontDescriptorVisibleNameAttribute");
-  if (!v0)
-  {
-    __assert_rtn("initUIFontDescriptorVisibleNameAttribute", "WFFontDescriptor.m", 26, "constant");
-  }
-
-  objc_storeStrong(&constantUIFontDescriptorVisibleNameAttribute, *v0);
-  getUIFontDescriptorVisibleNameAttribute = UIFontDescriptorVisibleNameAttributeFunction;
-  v1 = constantUIFontDescriptorVisibleNameAttribute;
-
-  return v1;
-}
-
-id initUIFontDescriptorFaceAttribute()
-{
-  if (UIKitLibrary_sOnce_28810 != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce_28810, &__block_literal_global_28811);
-  }
-
-  v0 = dlsym(UIKitLibrary_sLib_28817, "UIFontDescriptorFaceAttribute");
-  if (!v0)
-  {
-    __assert_rtn("initUIFontDescriptorFaceAttribute", "WFFontDescriptor.m", 24, "constant");
-  }
-
-  objc_storeStrong(&constantUIFontDescriptorFaceAttribute, *v0);
-  getUIFontDescriptorFaceAttribute = UIFontDescriptorFaceAttributeFunction;
-  v1 = constantUIFontDescriptorFaceAttribute;
-
-  return v1;
-}
-
-id initUIFontDescriptorNameAttribute()
-{
-  if (UIKitLibrary_sOnce_28810 != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce_28810, &__block_literal_global_28811);
-  }
-
-  v0 = dlsym(UIKitLibrary_sLib_28817, "UIFontDescriptorNameAttribute");
-  if (!v0)
-  {
-    __assert_rtn("initUIFontDescriptorNameAttribute", "WFFontDescriptor.m", 23, "constant");
-  }
-
-  objc_storeStrong(&constantUIFontDescriptorNameAttribute, *v0);
-  getUIFontDescriptorNameAttribute = UIFontDescriptorNameAttributeFunction;
-  v1 = constantUIFontDescriptorNameAttribute;
-
-  return v1;
-}
-
-id initUIFontDescriptorFamilyAttribute()
-{
-  if (UIKitLibrary_sOnce_28810 != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce_28810, &__block_literal_global_28811);
-  }
-
-  v0 = dlsym(UIKitLibrary_sLib_28817, "UIFontDescriptorFamilyAttribute");
-  if (!v0)
-  {
-    __assert_rtn("initUIFontDescriptorFamilyAttribute", "WFFontDescriptor.m", 25, "constant");
-  }
-
-  objc_storeStrong(&constantUIFontDescriptorFamilyAttribute, *v0);
-  getUIFontDescriptorFamilyAttribute = UIFontDescriptorFamilyAttributeFunction;
-  v1 = constantUIFontDescriptorFamilyAttribute;
-
-  return v1;
-}
-
-id WFEnforceClass_29244(void *a1, uint64_t a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v5 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v9 = 136315906;
-      v10 = "WFEnforceClass";
-      v11 = 2114;
-      v12 = v3;
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = a2;
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s The current content attribution set has public disclosure level, no approval required.", &v9, 0x2Au);
-    }
-
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-void sub_1CA7D8DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__29403(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-id WFCreateDocumentInteractionController(void *a1, void *a2)
-{
-  v3 = a2;
-  v4 = a1;
-  v5 = [getUIDocumentInteractionControllerSubclass() interactionControllerWithURL:v4];
-
-  UIDocumentInteractionControllerSubclass = getUIDocumentInteractionControllerSubclass();
-  InstanceVariable = class_getInstanceVariable(UIDocumentInteractionControllerSubclass, "_wf_openCompletionHandler");
-  v8 = [v3 copy];
-
-  object_setIvarWithStrongDefault(v5, InstanceVariable, v8);
-
-  return v5;
-}
-
-id getUIDocumentInteractionControllerSubclass()
-{
-  if (getUIDocumentInteractionControllerSubclass_onceToken != -1)
-  {
-    dispatch_once(&getUIDocumentInteractionControllerSubclass_onceToken, &__block_literal_global_29406);
-  }
-
-  v1 = getUIDocumentInteractionControllerSubclass_dynamicSubclass;
-
-  return v1;
-}
-
-void __getUIDocumentInteractionControllerSubclass_block_invoke()
-{
-  UIDocumentInteractionControllerClass = getUIDocumentInteractionControllerClass();
-  getUIDocumentInteractionControllerSubclass_dynamicSubclass = objc_allocateClassPair(UIDocumentInteractionControllerClass, "_WFUIDocumentInteractionController", 0);
-  class_addIvar(getUIDocumentInteractionControllerSubclass_dynamicSubclass, "_wf_openCompletionHandler", 8uLL, 3u, "@");
-  class_addMethod(getUIDocumentInteractionControllerSubclass_dynamicSubclass, sel_openResourceOperationDidComplete_, WFOpenOperationDidComplete, "v@:@");
-  class_addMethod(getUIDocumentInteractionControllerSubclass_dynamicSubclass, sel_openResourceOperation_didFailWithError_, WFOpenOperationDidFailWithError, "v@:@@");
-  v1 = getUIDocumentInteractionControllerSubclass_dynamicSubclass;
-
-  objc_registerClassPair(v1);
-}
-
-void WFOpenOperationDidFailWithError(void *a1)
-{
-  v1 = a1;
-  UIDocumentInteractionControllerSubclass = getUIDocumentInteractionControllerSubclass();
-  InstanceVariable = class_getInstanceVariable(UIDocumentInteractionControllerSubclass, "_wf_openCompletionHandler");
-  v5 = object_getIvar(v1, InstanceVariable);
-  object_setIvar(v1, InstanceVariable, 0);
-
-  v4 = v5;
-  if (v5)
-  {
-    (*(v5 + 16))(v5, 0);
-    v4 = v5;
-  }
-}
-
-void WFOpenOperationDidComplete(void *a1)
-{
-  v1 = a1;
-  UIDocumentInteractionControllerSubclass = getUIDocumentInteractionControllerSubclass();
-  InstanceVariable = class_getInstanceVariable(UIDocumentInteractionControllerSubclass, "_wf_openCompletionHandler");
-  v5 = object_getIvar(v1, InstanceVariable);
-  object_setIvar(v1, InstanceVariable, 0);
-
-  v4 = v5;
-  if (v5)
-  {
-    (*(v5 + 16))(v5, 1);
-    v4 = v5;
-  }
-}
-
-Class initUIDocumentInteractionController()
-{
-  if (UIKitLibrary_sOnce_29414 != -1)
-  {
-    dispatch_once(&UIKitLibrary_sOnce_29414, &__block_literal_global_44);
-  }
-
-  result = objc_getClass("UIDocumentInteractionController");
-  classUIDocumentInteractionController = result;
-  getUIDocumentInteractionControllerClass = UIDocumentInteractionControllerFunction;
-  return result;
-}
-
-void *__UIKitLibrary_block_invoke_29416()
-{
-  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
-  UIKitLibrary_sLib_29417 = result;
-  return result;
-}
-
-void sub_1CA7D93F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA7DA8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id getMPMediaItemCollectionClass()
-{
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2050000000;
-  v0 = getMPMediaItemCollectionClass_softClass;
-  v7 = getMPMediaItemCollectionClass_softClass;
-  if (!getMPMediaItemCollectionClass_softClass)
-  {
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = __getMPMediaItemCollectionClass_block_invoke;
-    v3[3] = &unk_1E837FAC0;
-    v3[4] = &v4;
-    __getMPMediaItemCollectionClass_block_invoke(v3);
-    v0 = v5[3];
-  }
-
-  v1 = v0;
-  _Block_object_dispose(&v4, 8);
-
-  return v1;
-}
-
-void sub_1CA7DA9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void __getMPMediaItemClass_block_invoke(uint64_t a1)
-{
-  MediaPlayerLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MPMediaItem");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getMPMediaItemClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getMPMediaItemClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"WFMediaItemDescriptor+Library.m" lineNumber:16 description:{@"Unable to find class %s", "MPMediaItem"}];
-
-    __break(1u);
-  }
-}
-
-void *MediaPlayerLibrary()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
-  if (!MediaPlayerLibraryCore_frameworkLibrary)
-  {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __MediaPlayerLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E8378168;
-    v7 = 0;
-    MediaPlayerLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  v0 = MediaPlayerLibraryCore_frameworkLibrary;
-  if (!MediaPlayerLibraryCore_frameworkLibrary)
-  {
-    v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *MediaPlayerLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"WFMediaItemDescriptor+Library.m" lineNumber:14 description:{@"%s", v5[0]}];
-
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v1 = v5[0];
-  if (v5[0])
-  {
-LABEL_7:
-    free(v1);
-  }
-
-  v2 = *MEMORY[0x1E69E9840];
-  return v0;
-}
-
-uint64_t __MediaPlayerLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  MediaPlayerLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void __getMPMediaItemCollectionClass_block_invoke(uint64_t a1)
-{
-  MediaPlayerLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MPMediaItemCollection");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getMPMediaItemCollectionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getMPMediaItemCollectionClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"WFMediaItemDescriptor+Library.m" lineNumber:17 description:{@"Unable to find class %s", "MPMediaItemCollection"}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA7DB4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id getMPMediaPropertyPredicateClass()
-{
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2050000000;
-  v0 = getMPMediaPropertyPredicateClass_softClass;
-  v7 = getMPMediaPropertyPredicateClass_softClass;
-  if (!getMPMediaPropertyPredicateClass_softClass)
-  {
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = __getMPMediaPropertyPredicateClass_block_invoke;
-    v3[3] = &unk_1E837FAC0;
-    v3[4] = &v4;
-    __getMPMediaPropertyPredicateClass_block_invoke(v3);
-    v0 = v5[3];
-  }
-
-  v1 = v0;
-  _Block_object_dispose(&v4, 8);
-
-  return v1;
-}
-
-void sub_1CA7DB5A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void *__getMPMediaPlaylistPropertyNameSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaPlaylistPropertyName");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaPlaylistPropertyNameSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-uint64_t WFGroupingPropertyForMediaType(void *a1)
-{
-  v9[7] = *MEMORY[0x1E69E9840];
-  v8[0] = @"Album";
-  v8[1] = @"Playlist";
-  v9[0] = &unk_1F4A9A4E0;
-  v9[1] = &unk_1F4A9A4F8;
-  v8[2] = @"Song";
-  v8[3] = @"Artist";
-  v9[2] = &unk_1F4A9A510;
-  v9[3] = &unk_1F4A9A528;
-  v8[4] = @"Genre";
-  v8[5] = @"Compilation";
-  v9[4] = &unk_1F4A9A540;
-  v9[5] = &unk_1F4A9A4E0;
-  v8[6] = @"Composer";
-  v9[6] = &unk_1F4A9A558;
-  v1 = MEMORY[0x1E695DF20];
-  v2 = a1;
-  v3 = [v1 dictionaryWithObjects:v9 forKeys:v8 count:7];
-  v4 = [v3 objectForKeyedSubscript:v2];
-
-  v5 = [v4 integerValue];
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
-}
-
-void getMPMediaItemPropertyTitle()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getMPMediaItemPropertyTitleSymbolLoc_ptr;
-  v9 = getMPMediaItemPropertyTitleSymbolLoc_ptr;
-  if (!getMPMediaItemPropertyTitleSymbolLoc_ptr)
-  {
-    v1 = MediaPlayerLibrary();
-    v7[3] = dlsym(v1, "MPMediaItemPropertyTitle");
-    getMPMediaItemPropertyTitleSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMPMediaItemPropertyTitle(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFMediaItemDescriptor+Library.m" lineNumber:27 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA7DB890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void *__getMPMediaItemPropertyAlbumTitleSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyAlbumTitle");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyAlbumTitleSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getMPMediaItemPropertyArtistSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyArtist");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyArtistSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getMPMediaItemPropertyAlbumArtistSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyAlbumArtist");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyAlbumArtistSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getMPMediaItemPropertyComposerSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyComposer");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyComposerSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getMPMediaItemPropertyGenreSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyGenre");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyGenreSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-id getMPMediaQueryClass()
-{
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2050000000;
-  v0 = getMPMediaQueryClass_softClass;
-  v7 = getMPMediaQueryClass_softClass;
-  if (!getMPMediaQueryClass_softClass)
-  {
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = __getMPMediaQueryClass_block_invoke;
-    v3[3] = &unk_1E837FAC0;
-    v3[4] = &v4;
-    __getMPMediaQueryClass_block_invoke(v3);
-    v0 = v5[3];
-  }
-
-  v1 = v0;
-  _Block_object_dispose(&v4, 8);
-
-  return v1;
-}
-
-void sub_1CA7DBB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void __getMPMediaQueryClass_block_invoke(uint64_t a1)
-{
-  MediaPlayerLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MPMediaQuery");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getMPMediaQueryClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getMPMediaQueryClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"WFMediaItemDescriptor+Library.m" lineNumber:18 description:{@"Unable to find class %s", "MPMediaQuery"}];
-
-    __break(1u);
-  }
-}
-
-void *__getMPMediaItemPropertyTitleSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyTitle");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyTitleSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void __getMPMediaPropertyPredicateClass_block_invoke(uint64_t a1)
-{
-  MediaPlayerLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MPMediaPropertyPredicate");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getMPMediaPropertyPredicateClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getMPMediaPropertyPredicateClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"WFMediaItemDescriptor+Library.m" lineNumber:15 description:{@"Unable to find class %s", "MPMediaPropertyPredicate"}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA7DC368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void *__getMPMediaPlaylistPropertyPersistentIDSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaPlaylistPropertyPersistentID");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaPlaylistPropertyPersistentIDSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getMPMediaItemPropertyPersistentIDSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyPersistentID");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyPersistentIDSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyAlbumPersistentID");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getMPMediaItemPropertyArtistPersistentIDSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyArtistPersistentID");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyArtistPersistentIDSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void getMPMediaItemPropertyGenrePersistentID()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getMPMediaItemPropertyGenrePersistentIDSymbolLoc_ptr;
-  v9 = getMPMediaItemPropertyGenrePersistentIDSymbolLoc_ptr;
-  if (!getMPMediaItemPropertyGenrePersistentIDSymbolLoc_ptr)
-  {
-    v1 = MediaPlayerLibrary();
-    v7[3] = dlsym(v1, "MPMediaItemPropertyGenrePersistentID");
-    getMPMediaItemPropertyGenrePersistentIDSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMPMediaItemPropertyGenrePersistentID(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFMediaItemDescriptor+Library.m" lineNumber:25 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA7DC618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void getMPMediaItemPropertyComposerPersistentID()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getMPMediaItemPropertyComposerPersistentIDSymbolLoc_ptr;
-  v9 = getMPMediaItemPropertyComposerPersistentIDSymbolLoc_ptr;
-  if (!getMPMediaItemPropertyComposerPersistentIDSymbolLoc_ptr)
-  {
-    v1 = MediaPlayerLibrary();
-    v7[3] = dlsym(v1, "MPMediaItemPropertyComposerPersistentID");
-    getMPMediaItemPropertyComposerPersistentIDSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getMPMediaItemPropertyComposerPersistentID(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFMediaItemDescriptor+Library.m" lineNumber:24 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_1CA7DC77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void *__getMPMediaItemPropertyComposerPersistentIDSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyComposerPersistentID");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyComposerPersistentIDSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void *__getMPMediaItemPropertyGenrePersistentIDSymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = MediaPlayerLibrary();
-  result = dlsym(v2, "MPMediaItemPropertyGenrePersistentID");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getMPMediaItemPropertyGenrePersistentIDSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-id WFEnforceClass_29964(void *a1, uint64_t a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v5 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v9 = 136315906;
-      v10 = "WFEnforceClass";
-      v11 = 2114;
-      v12 = v3;
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = a2;
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Showing internal apps in WFAppPickerParameter because the Show Internal Apps in Open App default is on", &v9, 0x2Au);
-    }
-
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-void sub_1CA7DDC80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1CA7DE0EC(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 40));
-  _Unwind_Resume(a1);
-}
-
-id WFEnforceClass_30212(void *a1, uint64_t a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v5 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v9 = 136315906;
-      v10 = "WFEnforceClass";
-      v11 = 2114;
-      v12 = v3;
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v15 = 2114;
-      v16 = a2;
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "identifier=%{signpost.description:attribute}@", &v9, 0x2Au);
-    }
-
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-id WFSerializedParametersForDonatedIntent(void *a1, int a2, char a3, void *a4, void *a5)
-{
-  v62 = *MEMORY[0x1E69E9840];
-  v7 = a1;
-  v45 = a4;
-  v42 = a5;
-  v8 = [v7 _codableDescription];
-  if (([v8 isConfigurable] & 1) == 0 && (objc_msgSend(v8, "isEligibleForWidgets") & 1) == 0 && !a2)
-  {
-    v29 = 0;
-    goto LABEL_39;
-  }
-
-  v40 = v8;
-  v41 = objc_opt_new();
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v9 = [v8 displayOrderedAttributes];
-  v10 = [v9 countByEnumeratingWithState:&v47 objects:v61 count:16];
-  if (v10)
-  {
-    v11 = v10;
-    v12 = *v48;
-    v43 = v7;
-LABEL_4:
-    v13 = 0;
-    while (1)
-    {
-      if (*v48 != v12)
+      v10 = MEMORY[0x1E696AB90];
+      v11 = [v8 objectForKeyedSubscript:@"amount"];
+      v12 = v11;
+      if (v11)
       {
-        objc_enumerationMutation(v9);
+        objc_msgSend_decimalValue(v11);
       }
 
-      v14 = *(*(&v47 + 1) + 8 * v13);
-      v15 = [v14 propertyName];
-      v16 = [v15 isEqualToString:@"_metadata"];
-
-      if (v16)
+      else
       {
-        goto LABEL_26;
+        v21[0] = 0;
+        v21[1] = 0;
+        v22 = 0;
       }
 
-      v17 = [v14 propertyName];
-      v18 = [v7 valueForKey:v17];
-
-      if (v18)
-      {
-        if (([v14 isConfigurable] & 1) == 0 && (a2 & 1) == 0)
-        {
-          if ((a3 & 1) == 0)
-          {
-            v30 = getWFGeneralLogObject();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
-            {
-              v32 = [v7 launchId];
-              v33 = [v7 _className];
-              v34 = [v14 propertyName];
-              *buf = 136315906;
-              v52 = "WFSerializedParametersForDonatedIntent";
-              v53 = 2114;
-              v54 = v32;
-              v55 = 2114;
-              v56 = v33;
-              v57 = 2114;
-              v58 = v34;
-              _os_log_impl(&dword_1CA256000, v30, OS_LOG_TYPE_DEFAULT, "%s Skipping migration for donated intent: %{public}@ - %{public}@, because the intent has a value for %{public}@, but that parameter isn't configurable, so data loss would occur.", buf, 0x2Au);
-
-              v7 = v43;
-            }
-
-            v29 = 0;
-            v8 = v40;
-            v28 = v41;
-            goto LABEL_38;
-          }
-
-          goto LABEL_25;
-        }
-
-        v19 = [v14 propertyName];
-        v20 = [v45 objectForKey:v19];
-
-        if (v20)
-        {
-          break;
-        }
-      }
-
-LABEL_25:
-
-LABEL_26:
-      if (v11 == ++v13)
-      {
-        v27 = [v9 countByEnumeratingWithState:&v47 objects:v61 count:16];
-        v11 = v27;
-        if (v27)
-        {
-          goto LABEL_4;
-        }
-
-        goto LABEL_31;
-      }
+      v9 = [v10 decimalNumberWithDecimal:v21];
     }
 
-    if ([v14 supportsDynamicEnumeration])
+    v14 = [v8 objectForKeyedSubscript:@"currencyCode"];
+    if (v14)
     {
-      v21 = [[WFCodableAttributeBackedSubstitutableState alloc] initWithValue:v18 codableAttribute:v14 stringLocalizer:v42];
-      v22 = [(WFCodableAttributeBackedSubstitutableState *)v21 serializedRepresentation];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v15 = v14;
+      }
+
+      else
+      {
+        v15 = 0;
+      }
     }
 
     else
     {
-      v23 = [v20 definition];
-      v21 = [v14 wf_parameterStateForIntentValue:v18 parameterDefinition:v23];
-
-      if (!v21)
-      {
-LABEL_23:
-
-        v7 = v43;
-        goto LABEL_24;
-      }
-
-      [v20 stateClass];
-      v24 = objc_opt_class();
-      if (([v24 isSubclassOfClass:objc_opt_class()] & 1) == 0)
-      {
-        v25 = objc_opt_class();
-        [v20 stateClass];
-        if (([v25 isSubclassOfClass:objc_opt_class()] & 1) == 0)
-        {
-          v26 = getWFGeneralLogObject();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
-          {
-            v39 = NSStringFromClass([v20 stateClass]);
-            v37 = [v20 key];
-            v38 = [v14 propertyName];
-            *buf = 136316162;
-            v52 = "WFSerializedParametersForDonatedIntent";
-            v53 = 2114;
-            v54 = v21;
-            v55 = 2114;
-            v56 = v39;
-            v57 = 2114;
-            v58 = v37;
-            v59 = 2114;
-            v60 = v38;
-            _os_log_impl(&dword_1CA256000, v26, OS_LOG_TYPE_FAULT, "%s Incorrect parameter state type found when converting donated intent to custom intent: %{public}@, expected %{public}@. Parameter: %{public}@, Intent slot: %{public}@", buf, 0x34u);
-          }
-
-LABEL_22:
-
-          goto LABEL_23;
-        }
-      }
-
-      v22 = [(WFCodableAttributeBackedSubstitutableState *)v21 serializedRepresentation];
-      v7 = v43;
+      v15 = 0;
     }
 
-    if (!v22)
+    v16 = v15;
+
+    v13 = 0;
+    if (v9 && v16)
     {
-LABEL_24:
+      v17 = objc_alloc(MEMORY[0x1E696E7E8]);
+      v18 = MEMORY[0x1E696AB90];
+      objc_msgSend_decimalValue(v9);
+      v19 = [v18 decimalNumberWithDecimal:v21];
+      v13 = [v17 initWithAmount:v19 currencyCode:v16];
+    }
+  }
 
-      goto LABEL_25;
+  else
+  {
+
+    v13 = 0;
+  }
+
+  return v13;
+}
+
+id WFLNStringSearchCriteriaFromSerialization(void *a1, void *a2, void *a3)
+{
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = v5;
+  if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v9 = [v8 objectForKeyedSubscript:@"term"];
+    if (v9)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v10 = v9;
+      }
+
+      else
+      {
+        v10 = 0;
+      }
     }
 
-    v26 = [v20 key];
-    [v41 setObject:v22 forKey:v26];
-    v21 = v22;
-    goto LABEL_22;
+    else
+    {
+      v10 = 0;
+    }
+
+    v12 = v10;
+
+    v11 = [objc_alloc(MEMORY[0x1E69AC9F8]) initWithTerm:v12];
   }
 
-LABEL_31:
-
-  v28 = v41;
-  v29 = v41;
-  v8 = v40;
-LABEL_38:
-
-LABEL_39:
-  v35 = *MEMORY[0x1E69E9840];
-
-  return v29;
-}
-
-uint64_t __Block_byref_object_copy__30291(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void WFMigrateDropboxAction(void *a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  v6 = a1;
-  [v6 setObject:a2 forKey:@"WFWorkflowActionIdentifier"];
-  v7 = [v6 objectForKey:@"WFWorkflowActionParameters"];
-
-  [v7 setObject:@"Dropbox" forKey:@"WFFileStorageService"];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __WFMigrateDropboxAction_block_invoke;
-  v9[3] = &unk_1E837B748;
-  v10 = v7;
-  v8 = v7;
-  [v5 enumerateKeysAndObjectsUsingBlock:v9];
-}
-
-void __WFMigrateDropboxAction_block_invoke(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = *(a1 + 32);
-  v5 = a3;
-  v6 = [v4 wf_popObjectForKey:a2];
-  [v4 setValue:v6 forKey:v5];
-}
-
-Class __getWTWritingToolsControllerClass_block_invoke(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
-  if (!WritingToolsUILibraryCore_frameworkLibrary)
+  else
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __WritingToolsUILibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E8378348;
-    v9 = 0;
-    WritingToolsUILibraryCore_frameworkLibrary = _sl_dlopen();
+    v11 = 0;
   }
 
-  if (!WritingToolsUILibraryCore_frameworkLibrary)
+  return v11;
+}
+
+Class __getCNPostalAddressClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!ContactsLibraryCore_frameworkLibrary_65972)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *WritingToolsUILibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFWritingToolsAvailabilityResource.m" lineNumber:18 description:{@"%s", v7[0]}];
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __ContactsLibraryCore_block_invoke_65973;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837E0D8;
+    v8 = 0;
+    ContactsLibraryCore_frameworkLibrary_65972 = _sl_dlopen();
+  }
+
+  if (!ContactsLibraryCore_frameworkLibrary_65972)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContactsLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"LNValue+Serialization.m" lineNumber:31 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
-  result = objc_getClass("WTWritingToolsController");
+  result = objc_getClass("CNPostalAddress");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWTWritingToolsControllerClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFWritingToolsAvailabilityResource.m" lineNumber:24 description:{@"Unable to find class %s", "WTWritingToolsController"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCNPostalAddressClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"LNValue+Serialization.m" lineNumber:32 description:{@"Unable to find class %s", "CNPostalAddress"}];
 
 LABEL_10:
     __break(1u);
   }
 
-  getWTWritingToolsControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
+  getCNPostalAddressClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __WritingToolsUILibraryCore_block_invoke(uint64_t a1)
+uint64_t __ContactsLibraryCore_block_invoke_65973(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
-  WritingToolsUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
+  ContactsLibraryCore_frameworkLibrary_65972 = result;
   return result;
 }
 
-id WFGallerySharingURLForIdentifier(void *a1)
+void sub_1CA8F6638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  v1 = a1;
-  v2 = [MEMORY[0x1E695DFF8] URLWithString:@"https://www.icloud.com/shortcuts"];
-  v3 = v2;
-  if (v1)
-  {
-    v4 = WFGallerySharingIdentifierForRecordName(v1);
-    v5 = [v3 URLByAppendingPathComponent:v4];
-  }
-
-  else
-  {
-    v5 = v2;
-  }
-
-  return v5;
-}
-
-id WFGallerySharingIdentifierForRecordName(void *a1)
-{
-  v1 = [a1 stringByReplacingOccurrencesOfString:@"-" withString:&stru_1F4A1C408];
-  v2 = [v1 lowercaseString];
-
-  return v2;
-}
-
-void initTCCAccessRequest(uint64_t a1, uint64_t a2, void *a3)
-{
-  v7 = a3;
-  if (TCCLibrary_sOnce != -1)
-  {
-    dispatch_once(&TCCLibrary_sOnce, &__block_literal_global_31797);
-  }
-
-  v5 = dlsym(TCCLibrary_sLib, "TCCAccessRequest");
-  softLinkTCCAccessRequest = v5;
-  v6 = v7;
-  if (v5)
-  {
-    (v5)(a1, a2, v7);
-    v6 = v7;
-  }
-}
-
-void sub_1CA7ED208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__31932(uint64_t result, uint64_t a2)
+uint64_t __Block_byref_object_copy__66073(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-void getEKEventStoreChangedNotification()
+id WFUnitTypeFromAttributeName(void *a1)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getEKEventStoreChangedNotificationSymbolLoc_ptr;
-  v9 = getEKEventStoreChangedNotificationSymbolLoc_ptr;
-  if (!getEKEventStoreChangedNotificationSymbolLoc_ptr)
+  v1 = a1;
+  if (objc_msgSend_isEqualToString_(v1))
   {
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __getEKEventStoreChangedNotificationSymbolLoc_block_invoke;
-    v5[3] = &unk_1E837FAC0;
-    v5[4] = &v6;
-    __getEKEventStoreChangedNotificationSymbolLoc_block_invoke(v5);
-    v0 = v7[3];
+    v2 = MEMORY[0x1E69E11C0];
+LABEL_15:
+    v3 = *v2;
+    goto LABEL_16;
   }
 
-  _Block_object_dispose(&v6, 8);
-  if (v0)
+  if (objc_msgSend_isEqualToString_(v1))
   {
-    v1 = *v0;
+    v2 = MEMORY[0x1E69E11E8];
+    goto LABEL_15;
+  }
 
-    v2 = v1;
+  if (objc_msgSend_isEqualToString_(v1))
+  {
+    v2 = MEMORY[0x1E69E11C8];
+    goto LABEL_15;
+  }
+
+  if (objc_msgSend_isEqualToString_(v1))
+  {
+    v2 = MEMORY[0x1E69E11F0];
+    goto LABEL_15;
+  }
+
+  if (objc_msgSend_isEqualToString_(v1))
+  {
+    v2 = MEMORY[0x1E69E11E0];
+    goto LABEL_15;
+  }
+
+  if (objc_msgSend_isEqualToString_(v1))
+  {
+    v2 = MEMORY[0x1E69E1198];
+    goto LABEL_15;
+  }
+
+  if (objc_msgSend_isEqualToString_(v1))
+  {
+    v2 = MEMORY[0x1E69E1170];
+    goto LABEL_15;
+  }
+
+  v3 = 0;
+LABEL_16:
+
+  return v3;
+}
+
+void sub_1CA8FB7A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id WFINItemProviderRequestMetadataWithFileRepresentation(void *a1)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = [v1 metadata];
+
+  if (v2)
+  {
+    v3 = MEMORY[0x1E696ACC8];
+    v4 = [v1 metadata];
+    v12 = 0;
+    v5 = [v3 archivedDataWithRootObject:v4 requiringSecureCoding:1 error:&v12];
+    v6 = v12;
+
+    if (v5)
+    {
+      v7 = objc_alloc(MEMORY[0x1E696E8C0]);
+      v8 = [v1 metadata];
+      v9 = [v8 registeredTypeIdentifiers];
+      v10 = [v7 initWithMetadata:v5 supportedContentTypes:v9];
+    }
+
+    else
+    {
+      v8 = getWFGeneralLogObject();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v14 = "WFINItemProviderRequestMetadataWithFileRepresentation";
+        v15 = 2112;
+        v16 = v6;
+        _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Could not get archive metadata with error: %@", buf, 0x16u);
+      }
+
+      v10 = 0;
+    }
   }
 
   else
   {
-    v3 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSNotificationName getEKEventStoreChangedNotification(void)"];
-    [v3 handleFailureInFunction:v4 file:@"WFCalendarPickerParameter.m" lineNumber:22 description:{@"%s", dlerror()}];
+    v10 = 0;
+  }
+
+  return v10;
+}
+
+void sub_1CA8FE804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getCNContactStoreClass_block_invoke_67073(uint64_t a1)
+{
+  ContactsLibrary_67075();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("CNContactStore");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getCNContactStoreClass_softClass_67072 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCNContactStoreClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"INCodablePersonAttributeMetadata+Workflow.m" lineNumber:22 description:{@"Unable to find class %s", "CNContactStore"}];
 
     __break(1u);
   }
 }
 
-void sub_1CA7ED850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1CA8FED00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getEKEventStoreChangedNotificationSymbolLoc_block_invoke(void *a1)
+void __getCNPhoneNumberClass_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  if (!EventKitLibraryCore_frameworkLibrary)
+  ContactsLibrary_67075();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("CNPhoneNumber");
+  if (*(*(*(a1 + 32) + 8) + 24))
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __EventKitLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E83784B8;
-    v8 = 0;
-    EventKitLibraryCore_frameworkLibrary = _sl_dlopen();
+    getCNPhoneNumberClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   }
 
-  v2 = EventKitLibraryCore_frameworkLibrary;
-  if (!EventKitLibraryCore_frameworkLibrary)
+  else
   {
-    a1 = [MEMORY[0x1E696AAA8] currentHandler];
-    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *EventKitLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"WFCalendarPickerParameter.m" lineNumber:21 description:{@"%s", v6[0]}];
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCNPhoneNumberClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"INCodablePersonAttributeMetadata+Workflow.m" lineNumber:23 description:{@"Unable to find class %s", "CNPhoneNumber"}];
+
+    __break(1u);
+  }
+}
+
+void ContactsLibrary_67075()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  if (!ContactsLibraryCore_frameworkLibrary_67083)
+  {
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __ContactsLibraryCore_block_invoke_67084;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E837E500;
+    v5 = 0;
+    ContactsLibraryCore_frameworkLibrary_67083 = _sl_dlopen();
+  }
+
+  if (!ContactsLibraryCore_frameworkLibrary_67083)
+  {
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContactsLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"INCodablePersonAttributeMetadata+Workflow.m" lineNumber:21 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v3 = v6[0];
-  if (v6[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
-    free(v3);
+    free(v0);
   }
-
-  result = dlsym(v2, "EKEventStoreChangedNotification");
-  *(*(a1[4] + 8) + 24) = result;
-  getEKEventStoreChangedNotificationSymbolLoc_ptr = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-uint64_t __EventKitLibraryCore_block_invoke(uint64_t a1)
+uint64_t __ContactsLibraryCore_block_invoke_67084(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
-  EventKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
+  ContactsLibraryCore_frameworkLibrary_67083 = result;
   return result;
 }
 
-void sub_1CA7EFCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1CA907788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a8);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-Class __getCNContactClass_block_invoke(uint64_t a1)
+uint64_t __Block_byref_object_copy__68273(uint64_t result, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
-  if (!ContactsLibraryCore_frameworkLibrary_32362)
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA90BC74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t WFResourceClassIsInArray(void *a1, void *a2)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v4 = a2;
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __ContactsLibraryCore_block_invoke_32363;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E83784F8;
-    v9 = 0;
-    ContactsLibraryCore_frameworkLibrary_32362 = _sl_dlopen();
+    v6 = *v10;
+    while (2)
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v10 != v6)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        if (objc_opt_isKindOfClass())
+        {
+          v5 = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
+    }
   }
 
-  if (!ContactsLibraryCore_frameworkLibrary_32362)
+LABEL_11:
+
+  return v5;
+}
+
+uint64_t WFPBAutomatorWorkflowMigrationEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContactsLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFMessageTrigger.m" lineNumber:16 description:{@"%s", v7[0]}];
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v32 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v32 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v32 & 0x7F) << v5;
+        if ((v32 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
+        v23 = 0;
+        v24 = 0;
+        v25 = 0;
+        *(a1 + 28) |= 2u;
+        while (1)
+        {
+          v34 = 0;
+          v26 = [a2 position] + 1;
+          if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
+          {
+            v28 = [a2 data];
+            [v28 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v25 |= (v34 & 0x7F) << v23;
+          if ((v34 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v23 += 7;
+          v11 = v24++ >= 9;
+          if (v11)
+          {
+            LOBYTE(v29) = 0;
+            goto LABEL_46;
+          }
+        }
+
+        v29 = (v25 != 0) & ~[a2 hasError];
+LABEL_46:
+        *(a1 + 24) = v29;
+      }
+
+      else if (v13 == 2)
+      {
+        v16 = 0;
+        v17 = 0;
+        v18 = 0;
+        *(a1 + 28) |= 1u;
+        while (1)
+        {
+          v33 = 0;
+          v19 = [a2 position] + 1;
+          if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+          {
+            v21 = [a2 data];
+            [v21 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v18 |= (v33 & 0x7F) << v16;
+          if ((v33 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v16 += 7;
+          v11 = v17++ >= 9;
+          if (v11)
+          {
+            v22 = 0;
+            goto LABEL_44;
+          }
+        }
+
+        v22 = [a2 hasError] ? 0 : v18;
+LABEL_44:
+        *(a1 + 8) = v22;
+      }
+
+      else if (v13 == 1)
+      {
+        v14 = PBReaderReadString();
+        v15 = *(a1 + 16);
+        *(a1 + 16) = v14;
+      }
+
+      else
+      {
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v31 = [a2 position];
+    }
+
+    while (v31 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+WFINObjectSubstitutableState *WFAllShortcutsParameterState()
+{
+  v0 = objc_alloc(MEMORY[0x1E696E910]);
+  v1 = WFLocalizedAllShortcutsString();
+  v2 = [v0 initWithIdentifier:@"AllShortcuts" displayString:v1];
+
+  v3 = [(WFVariableSubstitutableParameterState *)[WFINObjectSubstitutableState alloc] initWithValue:v2];
+
+  return v3;
+}
+
+id getFCActivityManagerClass()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = getFCActivityManagerClass_softClass;
+  v7 = getFCActivityManagerClass_softClass;
+  if (!getFCActivityManagerClass_softClass)
+  {
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __getFCActivityManagerClass_block_invoke;
+    v3[3] = &unk_1E837FAC0;
+    v3[4] = &v4;
+    __getFCActivityManagerClass_block_invoke(v3);
+    v0 = v5[3];
+  }
+
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
+
+  return v1;
+}
+
+void sub_1CA914E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getFCActivityManagerClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!FocusLibraryCore_frameworkLibrary)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __FocusLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837EF88;
+    v8 = 0;
+    FocusLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!FocusLibraryCore_frameworkLibrary)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *FocusLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFFocusModesManager.m" lineNumber:18 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
-  result = objc_getClass("CNContact");
+  result = objc_getClass("FCActivityManager");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCNContactClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFMessageTrigger.m" lineNumber:17 description:{@"Unable to find class %s", "CNContact"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getFCActivityManagerClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFFocusModesManager.m" lineNumber:19 description:{@"Unable to find class %s", "FCActivityManager"}];
 
 LABEL_10:
     __break(1u);
   }
 
-  getCNContactClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
+  getFCActivityManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
+}
+
+uint64_t __FocusLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  FocusLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+id WFACEClassFromString(void *a1)
+{
+  v1 = SAObjectsLibrary_sOnce;
+  v2 = a1;
+  if (v1 != -1)
+  {
+    dispatch_once(&SAObjectsLibrary_sOnce, &__block_literal_global_70247);
+  }
+
+  v3 = NSClassFromString(v2);
+
+  return v3;
+}
+
+void *__SAObjectsLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/PrivateFrameworks/SAObjects.framework/SAObjects", 2);
+  SAObjectsLibrary_sLib = result;
+  return result;
+}
+
+void WFPerformACECommand(void *a1, int a2, void *a3)
+{
+  v5 = a1;
+  v6 = a3;
+  getAFClientLiteClass();
+  v7 = objc_opt_new();
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x3032000000;
+  v18[3] = __Block_byref_object_copy__70250;
+  v18[4] = __Block_byref_object_dispose__70251;
+  v19 = 0;
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x3032000000;
+  v16[3] = __Block_byref_object_copy__70250;
+  v16[4] = __Block_byref_object_dispose__70251;
+  v17 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __WFPerformACECommand_block_invoke;
+  v14[3] = &unk_1E837F078;
+  v15 = a2;
+  v14[4] = v16;
+  v14[5] = v18;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __WFPerformACECommand_block_invoke_2;
+  v9[3] = &unk_1E837F0A0;
+  v13 = a2;
+  v8 = v6;
+  v10 = v8;
+  v11 = v18;
+  v12 = v16;
+  [v7 handleCommand:v5 commandHandler:v14 completion:v9];
+  if (a2)
+  {
+    (*(v8 + 2))(v8, 0, 1, 0);
+  }
+
+  _Block_object_dispose(v16, 8);
+  _Block_object_dispose(v18, 8);
+}
+
+void sub_1CA9160FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v24 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__70250(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void __WFPerformACECommand_block_invoke(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if ((*(a1 + 48) & 1) == 0)
+  {
+    v16 = v3;
+    getSAGenericCommandClass();
+    if (objc_opt_isKindOfClass())
+    {
+      AceObjectClass = getAceObjectClass();
+      v5 = [v16 dictionary];
+      v6 = [(objc_class *)AceObjectClass aceObjectWithDictionary:v5];
+
+      getSABaseCommandClass();
+      if (objc_opt_isKindOfClass())
+      {
+        v7 = v6;
+
+        v16 = v7;
+      }
+
+      else
+      {
+        NSLog(&cfstr_Wfperformaceco.isa);
+      }
+    }
+
+    getSACommandFailedClass();
+    if (objc_opt_isKindOfClass())
+    {
+      v8 = v16;
+      v9 = [v8 reason];
+      v10 = [v8 errorCode];
+      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFACEErrorDomain" code:v10 userInfo:MEMORY[0x1E695E0F8]];
+      v12 = *(*(a1 + 32) + 8);
+      v13 = *(v12 + 40);
+      *(v12 + 40) = v11;
+
+      NSLog(&cfstr_Wfperformaceco_0.isa, v9, v10);
+    }
+
+    else
+    {
+      v14 = *(*(a1 + 40) + 8);
+      v15 = v16;
+      v9 = *(v14 + 40);
+      *(v14 + 40) = v15;
+    }
+
+    v3 = v16;
+  }
+}
+
+void __WFPerformACECommand_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+{
+  v5 = a3;
+  if ((*(a1 + 56) & 1) == 0)
+  {
+    if (!v5)
+    {
+      v18 = 0;
+      goto LABEL_14;
+    }
+
+    v20 = v5;
+    v6 = [v5 domain];
+    v7 = getkAFAssistantErrorDomain();
+    if (objc_msgSend_isEqualToString_(v6))
+    {
+      v8 = [v20 userInfo];
+      v9 = *MEMORY[0x1E696A578];
+      v10 = [v8 objectForKeyedSubscript:*MEMORY[0x1E696A578]];
+
+      if (v10)
+      {
+LABEL_12:
+        v18 = v20;
+LABEL_14:
+        v21 = v18;
+        if (*(*(*(a1 + 48) + 8) + 40))
+        {
+          v19 = *(*(*(a1 + 48) + 8) + 40);
+        }
+
+        else
+        {
+          v19 = v18;
+        }
+
+        (*(*(a1 + 32) + 16))(*(a1 + 32), *(*(*(a1 + 40) + 8) + 40), a2, v19);
+        v5 = v21;
+        goto LABEL_18;
+      }
+
+      v11 = [v20 userInfo];
+      v6 = [v11 mutableCopy];
+
+      v12 = [v20 code];
+      v13 = @"An unknown error occurred while performing the request.";
+      if (v12 == 18)
+      {
+        v13 = @"Unable to complete request because Siri is disabled.";
+      }
+
+      if (v12 == 13)
+      {
+        v14 = @"Unable to complete request because it is not supported on this platform.";
+      }
+
+      else
+      {
+        v14 = v13;
+      }
+
+      v15 = WFLocalizedString(v14);
+      [v6 setObject:v15 forKeyedSubscript:v9];
+
+      v16 = MEMORY[0x1E696ABC0];
+      v7 = [v20 domain];
+      v17 = [v16 errorWithDomain:v7 code:objc_msgSend(v20 userInfo:{"code"), v6}];
+
+      v20 = v17;
+    }
+
+    goto LABEL_12;
+  }
+
+LABEL_18:
+}
+
+id initkAFAssistantErrorDomain()
+{
+  if (AssistantServicesLibrary_sOnce != -1)
+  {
+    dispatch_once(&AssistantServicesLibrary_sOnce, &__block_literal_global_17);
+  }
+
+  v0 = dlsym(AssistantServicesLibrary_sLib, "kAFAssistantErrorDomain");
+  if (!v0)
+  {
+    __assert_rtn("initkAFAssistantErrorDomain", "WFACEUtilities.m", 22, "constant");
+  }
+
+  objc_storeStrong(&constantkAFAssistantErrorDomain, *v0);
+  getkAFAssistantErrorDomain = kAFAssistantErrorDomainFunction;
+  v1 = constantkAFAssistantErrorDomain;
+
+  return v1;
+}
+
+void *__AssistantServicesLibrary_block_invoke()
+{
+  result = dlopen("/System/Library/PrivateFrameworks/AssistantServices.framework/AssistantServices", 2);
+  AssistantServicesLibrary_sLib = result;
+  return result;
+}
+
+Class initSACommandFailed()
+{
+  if (SAObjectsLibrary_sOnce != -1)
+  {
+    dispatch_once(&SAObjectsLibrary_sOnce, &__block_literal_global_70247);
+  }
+
+  result = objc_getClass("SACommandFailed");
+  classSACommandFailed = result;
+  getSACommandFailedClass = SACommandFailedFunction;
+  return result;
+}
+
+Class initSABaseCommand()
+{
+  if (SAObjectsLibrary_sOnce != -1)
+  {
+    dispatch_once(&SAObjectsLibrary_sOnce, &__block_literal_global_70247);
+  }
+
+  result = objc_getClass("SABaseCommand");
+  classSABaseCommand = result;
+  getSABaseCommandClass = SABaseCommandFunction;
+  return result;
+}
+
+Class initAceObject()
+{
+  if (SAObjectsLibrary_sOnce != -1)
+  {
+    dispatch_once(&SAObjectsLibrary_sOnce, &__block_literal_global_70247);
+  }
+
+  result = objc_getClass("AceObject");
+  classAceObject = result;
+  getAceObjectClass = AceObjectFunction;
+  return result;
+}
+
+Class initSAGenericCommand()
+{
+  if (SAObjectsLibrary_sOnce != -1)
+  {
+    dispatch_once(&SAObjectsLibrary_sOnce, &__block_literal_global_70247);
+  }
+
+  result = objc_getClass("SAGenericCommand");
+  classSAGenericCommand = result;
+  getSAGenericCommandClass = SAGenericCommandFunction;
+  return result;
+}
+
+Class initAFClientLite()
+{
+  if (AssistantServicesLibrary_sOnce != -1)
+  {
+    dispatch_once(&AssistantServicesLibrary_sOnce, &__block_literal_global_17);
+  }
+
+  result = objc_getClass("AFClientLite");
+  classAFClientLite = result;
+  getAFClientLiteClass = AFClientLiteFunction;
+  return result;
+}
+
+uint64_t WFKernelBootTime(void *a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v7[1] = 0;
+  *v8 = 0x1500000001;
+  v6 = 16;
+  v7[0] = 0;
+  if ((sysctl(v8, 2u, v7, &v6, 0, 0) & 0x80000000) == 0)
+  {
+    return v7[0];
+  }
+
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v3 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v4 = [v3 initWithDomain:*MEMORY[0x1E696A798] code:*__error() userInfo:0];
+  v5 = v4;
+  result = 0;
+  *a1 = v4;
+  return result;
+}
+
+id WFKernalBootDate()
+{
+  v3 = 0;
+  v0 = WFKernelBootTime(&v3);
+  v1 = 0;
+  if (!v3)
+  {
+    v1 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v0];
+  }
+
+  return v1;
+}
+
+uint64_t initSAAlarmDayOfWeekForString(void *a1)
+{
+  v1 = a1;
+  if (SAObjectsLibrary_sOnce_70564 != -1)
+  {
+    dispatch_once(&SAObjectsLibrary_sOnce_70564, &__block_literal_global_70565);
+  }
+
+  v2 = dlsym(SAObjectsLibrary_sLib_70566, "SAAlarmDayOfWeekForString");
+  softLinkSAAlarmDayOfWeekForString = v2;
+  if (v2)
+  {
+    v3 = v2(v1);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
+}
+
+void *__SAObjectsLibrary_block_invoke_70570()
+{
+  result = dlopen("/System/Library/PrivateFrameworks/SAObjects.framework/SAObjects", 2);
+  SAObjectsLibrary_sLib_70566 = result;
+  return result;
+}
+
+BOOL WFImageRenderingModeFromINImageRenderingMode(_BOOL8 result)
+{
+  if (result != 2)
+  {
+    return result;
+  }
+
+  return result;
+}
+
+id WFLoadAllSystemIntentActions(void *a1)
+{
+  v71 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v36 = WFSingletonINExecutionFrameworkMapper();
+  v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v3 = WFInstalledAppsEnumerator();
+  v35 = WFSupportedSystemIntentClasses();
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  obj = v3;
+  v38 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+  if (v38)
+  {
+    v37 = *v64;
+    v42 = *MEMORY[0x1E696E560];
+    do
+    {
+      for (i = 0; i != v38; ++i)
+      {
+        if (*v64 != v37)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v5 = *(*(&v63 + 1) + 8 * i);
+        v6 = [v5 in2_supportedIntents];
+        v7 = [v5 bundleIdentifier];
+        v8 = [v7 length];
+
+        if (v8)
+        {
+          v40 = i;
+          v61[0] = MEMORY[0x1E69E9820];
+          v61[1] = 3221225472;
+          v61[2] = __WFLoadAllSystemIntentActions_block_invoke;
+          v61[3] = &unk_1E837F170;
+          v44 = v35;
+          v62 = v44;
+          v9 = [v6 objectsPassingTest:v61];
+
+          v59 = 0u;
+          v60 = 0u;
+          v57 = 0u;
+          v58 = 0u;
+          v10 = v9;
+          v11 = [v10 countByEnumeratingWithState:&v57 objects:v69 count:16];
+          if (v11)
+          {
+            v12 = v11;
+            v13 = *v58;
+            do
+            {
+              for (j = 0; j != v12; ++j)
+              {
+                if (*v58 != v13)
+                {
+                  objc_enumerationMutation(v10);
+                }
+
+                v15 = _WFCreateSystemIntentActionWithIntentClassName(*(*(&v57 + 1) + 8 * j), v5, 0, v1);
+                if (v15)
+                {
+                  [v2 addObject:v15];
+                }
+              }
+
+              v12 = [v10 countByEnumeratingWithState:&v57 objects:v69 count:16];
+            }
+
+            while (v12);
+          }
+
+          v39 = v10;
+
+          v16 = [v5 bundleIdentifier];
+          v17 = [v36 performSelector:sel_extensionBundleIdentifiersForSystemAppIdentifier_ withObject:v16];
+
+          v55 = 0u;
+          v56 = 0u;
+          v53 = 0u;
+          v54 = 0u;
+          v41 = v17;
+          v45 = [v41 countByEnumeratingWithState:&v53 objects:v68 count:16];
+          if (v45)
+          {
+            v43 = *v54;
+            do
+            {
+              for (k = 0; k != v45; ++k)
+              {
+                if (*v54 != v43)
+                {
+                  objc_enumerationMutation(v41);
+                }
+
+                v19 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:*(*(&v53 + 1) + 8 * k) error:0];
+                v20 = [v19 if_extensionAttributesDictionary];
+                v21 = MEMORY[0x1E695DFD8];
+                v46 = v20;
+                v22 = [v20 objectForKeyedSubscript:v42];
+                if (v22)
+                {
+                  objc_opt_class();
+                  if (objc_opt_isKindOfClass())
+                  {
+                    v23 = v22;
+                  }
+
+                  else
+                  {
+                    v23 = 0;
+                  }
+                }
+
+                else
+                {
+                  v23 = 0;
+                }
+
+                v24 = v23;
+
+                v25 = [v21 setWithArray:v24];
+
+                v51[0] = MEMORY[0x1E69E9820];
+                v51[1] = 3221225472;
+                v51[2] = __WFLoadAllSystemIntentActions_block_invoke_2;
+                v51[3] = &unk_1E837F170;
+                v52 = v44;
+                v26 = [v25 objectsPassingTest:v51];
+
+                v49 = 0u;
+                v50 = 0u;
+                v47 = 0u;
+                v48 = 0u;
+                v27 = v26;
+                v28 = [v27 countByEnumeratingWithState:&v47 objects:v67 count:16];
+                if (v28)
+                {
+                  v29 = v28;
+                  v30 = *v48;
+                  do
+                  {
+                    for (m = 0; m != v29; ++m)
+                    {
+                      if (*v48 != v30)
+                      {
+                        objc_enumerationMutation(v27);
+                      }
+
+                      v32 = _WFCreateSystemIntentActionWithIntentClassName(*(*(&v47 + 1) + 8 * m), v19, v5, v1);
+                      if (v32)
+                      {
+                        [v2 addObject:v32];
+                      }
+                    }
+
+                    v29 = [v27 countByEnumeratingWithState:&v47 objects:v67 count:16];
+                  }
+
+                  while (v29);
+                }
+              }
+
+              v45 = [v41 countByEnumeratingWithState:&v53 objects:v68 count:16];
+            }
+
+            while (v45);
+          }
+
+          v6 = v39;
+          i = v40;
+        }
+      }
+
+      v38 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+    }
+
+    while (v38);
+  }
+
+  return v2;
+}
+
+id WFSingletonINExecutionFrameworkMapper()
+{
+  if (WFSingletonINExecutionFrameworkMapper_onceToken != -1)
+  {
+    dispatch_once(&WFSingletonINExecutionFrameworkMapper_onceToken, &__block_literal_global_70732);
+  }
+
+  v1 = WFSingletonINExecutionFrameworkMapper_frameworkMapper;
+
+  return v1;
+}
+
+WFHandleSystemIntentAction *_WFCreateSystemIntentActionWithIntentClassName(void *a1, void *a2, void *a3, void *a4)
+{
+  v44[2] = *MEMORY[0x1E69E9840];
+  v7 = a1;
+  v8 = a2;
+  v9 = a3;
+  v10 = a4;
+  v11 = 0;
+  if (v7 && v8)
+  {
+    v12 = NSClassFromString(v7);
+    v13 = MEMORY[0x1E696AEC0];
+    if (v9)
+    {
+      v14 = v9;
+    }
+
+    else
+    {
+      v14 = v8;
+    }
+
+    v15 = [v14 bundleIdentifier];
+    v39 = [v13 stringWithFormat:@"%@.%@", v15, v7];
+
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
+    v17 = objc_alloc(MEMORY[0x1E696E890]);
+    v18 = [v8 bundleIdentifier];
+    if (isKindOfClass)
+    {
+      v19 = [v17 initWithIntentClassName:v7 extensionBundleId:v18];
+    }
+
+    else
+    {
+      v19 = [v17 initWithIntentClassName:v7 launchableAppBundleId:v18];
+    }
+
+    v20 = v19;
+
+    v38 = v20;
+    v21 = [WFIntentDescriptorParameterState serializedRepresentationFromValue:v20];
+    v43[0] = @"Discoverable";
+    v43[1] = @"Discontinued";
+    v44[0] = MEMORY[0x1E695E110];
+    v44[1] = MEMORY[0x1E695E118];
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:2];
+    v37 = v9;
+    if (v9)
+    {
+      v23 = v10;
+      v24 = [objc_alloc(MEMORY[0x1E696E720]) initWithBundleRecord:v9];
+      v25 = v12;
+      v26 = [v22 mutableCopy];
+      v27 = [v24 serializedRepresentation];
+      [v26 setObject:v27 forKey:@"DisplayableAppDefinition"];
+
+      v28 = [v26 copy];
+      v12 = v25;
+
+      v10 = v23;
+      v22 = v28;
+    }
+
+    v40 = v10;
+    v29 = [v10 defaultActionDefinition];
+    v30 = [v29 definitionByAddingEntriesInDictionary:v22];
+
+    v31 = [WFHandleSystemIntentAction alloc];
+    v41 = @"IntentAppDefinition";
+    v42 = v21;
+    v32 = v21;
+    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v34 = [(objc_class *)v12 intentDescription];
+    v35 = [MEMORY[0x1E696EA80] localizerForLanguage:0];
+    v11 = [(WFHandleSystemIntentAction *)v31 initWithIdentifier:v39 definition:v30 serializedParameters:v33 intentDescription:v34 stringLocalizer:v35];
+
+    v10 = v40;
+    v9 = v37;
+  }
+
+  return v11;
+}
+
+void __WFSingletonINExecutionFrameworkMapper_block_invoke()
+{
+  v0 = objc_alloc_init(NSClassFromString(&cfstr_Inexecutionfra.isa));
+  v1 = WFSingletonINExecutionFrameworkMapper_frameworkMapper;
+  WFSingletonINExecutionFrameworkMapper_frameworkMapper = v0;
+}
+
+id WFGetSystemIntentActionForBundleIdentifierAndIntentClassName(void *a1, void *a2, void *a3)
+{
+  v38 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v5 allowPlaceholder:0 error:0];
+  if (v8)
+  {
+    v29 = v7;
+    v30 = v6;
+    v31 = v5;
+    v9 = WFSingletonINExecutionFrameworkMapper();
+    v10 = [v8 in2_supportedIntents];
+    v28 = v8;
+    v11 = [v8 bundleIdentifier];
+    v27 = v9;
+    v12 = [v9 performSelector:sel_extensionBundleIdentifiersForSystemAppIdentifier_ withObject:v11];
+
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    obj = v12;
+    v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = *v34;
+      v16 = *MEMORY[0x1E696E560];
+      do
+      {
+        v17 = 0;
+        v18 = v10;
+        do
+        {
+          if (*v34 != v15)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v19 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:*(*(&v33 + 1) + 8 * v17) error:0];
+          v20 = [v19 if_extensionAttributesDictionary];
+          v21 = [v20 objectForKeyedSubscript:v16];
+          if (v21)
+          {
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v22 = v21;
+            }
+
+            else
+            {
+              v22 = 0;
+            }
+          }
+
+          else
+          {
+            v22 = 0;
+          }
+
+          v23 = v22;
+
+          v24 = [v18 mutableCopy];
+          [v24 addObjectsFromArray:v23];
+
+          v10 = [v24 copy];
+          ++v17;
+          v18 = v10;
+        }
+
+        while (v14 != v17);
+        v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      }
+
+      while (v14);
+    }
+
+    v6 = v30;
+    if ([v10 containsObject:v30])
+    {
+      v8 = v28;
+      v7 = v29;
+      v25 = _WFCreateSystemIntentActionWithIntentClassName(v30, v28, 0, v29);
+      v5 = v31;
+    }
+
+    else
+    {
+      v25 = 0;
+      v5 = v31;
+      v8 = v28;
+      v7 = v29;
+    }
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  return v25;
+}
+
+uint64_t WFREPBErrorReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v26 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v26 & 0x7F) << v5;
+        if ((v26 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 2)
+      {
+        break;
+      }
+
+      if (v13 == 1)
+      {
+        v21 = PBReaderReadString();
+        v22 = 16;
+LABEL_36:
+        v24 = *(a1 + v22);
+        *(a1 + v22) = v21;
+
+        goto LABEL_41;
+      }
+
+      if (v13 != 2)
+      {
+        goto LABEL_32;
+      }
+
+      v14 = 0;
+      v15 = 0;
+      v16 = 0;
+      while (1)
+      {
+        v27 = 0;
+        v17 = [a2 position] + 1;
+        if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
+        {
+          v19 = [a2 data];
+          [v19 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v16 |= (v27 & 0x7F) << v14;
+        if ((v27 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v14 += 7;
+        v11 = v15++ >= 9;
+        if (v11)
+        {
+          v20 = 0;
+          goto LABEL_40;
+        }
+      }
+
+      if ([a2 hasError])
+      {
+        v20 = 0;
+      }
+
+      else
+      {
+        v20 = v16;
+      }
+
+LABEL_40:
+      *(a1 + 8) = v20;
+LABEL_41:
+      v25 = [a2 position];
+      if (v25 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    if (v13 == 3)
+    {
+      v21 = PBReaderReadString();
+      v22 = 24;
+    }
+
+    else
+    {
+      if (v13 != 4)
+      {
+LABEL_32:
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+
+        goto LABEL_41;
+      }
+
+      v21 = PBReaderReadString();
+      v22 = 32;
+    }
+
+    goto LABEL_36;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_1CA91B3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__71147(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+uint64_t WFPBAutomatorWorkflowActionMigrationEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v26 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v26 & 0x7F) << v5;
+        if ((v26 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
+        v17 = 0;
+        v18 = 0;
+        v19 = 0;
+        *(a1 + 28) |= 1u;
+        while (1)
+        {
+          v27 = 0;
+          v20 = [a2 position] + 1;
+          if (v20 >= [a2 position] && (v21 = objc_msgSend(a2, "position") + 1, v21 <= objc_msgSend(a2, "length")))
+          {
+            v22 = [a2 data];
+            [v22 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v19 |= (v27 & 0x7F) << v17;
+          if ((v27 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v17 += 7;
+          v11 = v18++ >= 9;
+          if (v11)
+          {
+            LOBYTE(v23) = 0;
+            goto LABEL_35;
+          }
+        }
+
+        v23 = (v19 != 0) & ~[a2 hasError];
+LABEL_35:
+        *(a1 + 24) = v23;
+      }
+
+      else
+      {
+        if (v13 == 2)
+        {
+          v14 = PBReaderReadString();
+          v15 = 8;
+        }
+
+        else
+        {
+          if (v13 != 1)
+          {
+            result = PBReaderSkipValueWithTag();
+            if (!result)
+            {
+              return result;
+            }
+
+            goto LABEL_36;
+          }
+
+          v14 = PBReaderReadString();
+          v15 = 16;
+        }
+
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v14;
+      }
+
+LABEL_36:
+      v25 = [a2 position];
+    }
+
+    while (v25 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t WFPBMoveShortcutEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v19 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v19 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v19 & 0x7F) << v5;
+        if ((v19 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        v13 = &OBJC_IVAR___WFPBMoveShortcutEvent__source;
+LABEL_21:
+        v14 = PBReaderReadString();
+        v15 = *v13;
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v14;
+
+        goto LABEL_23;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_23:
+      v17 = [a2 position];
+      if (v17 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v13 = &OBJC_IVAR___WFPBMoveShortcutEvent__key;
+    goto LABEL_21;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+id WFSerializedVariableObject(void *a1)
+{
+  v14[2] = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = objc_opt_class();
+  v3 = WFSerializationNameMigrations();
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __WFSerializedVariableObject_block_invoke;
+  v12[3] = &__block_descriptor_40_e25_B32__0__NSString_8_16_B24lu32l8;
+  v12[4] = v2;
+  v4 = [v3 keysOfEntriesPassingTest:v12];
+  v5 = [v4 anyObject];
+  v6 = v5;
+  if (v5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = NSStringFromClass(v2);
+  }
+
+  v8 = v7;
+
+  v13[0] = @"WFSerializationType";
+  v13[1] = @"Value";
+  v14[0] = v8;
+  v9 = [v1 serializedRepresentation];
+
+  v14[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+
+  return v10;
+}
+
+id WFSerializationNameMigrations()
+{
+  if (WFSerializationNameMigrations_onceToken != -1)
+  {
+    dispatch_once(&WFSerializationNameMigrations_onceToken, &__block_literal_global_71486);
+  }
+
+  v1 = WFSerializationNameMigrations__serializationNameMigrations;
+
+  return v1;
+}
+
+void __WFSerializationNameMigrations_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v5[5] = *MEMORY[0x1E69E9840];
+  v4[0] = @"WFDictionaryFieldValue";
+  v5[0] = objc_opt_class();
+  v4[1] = @"WFTokenAttachmentParameterState";
+  v5[1] = objc_opt_class();
+  v4[2] = @"WFTokenStringParameterState";
+  v5[2] = objc_opt_class();
+  v4[3] = @"WFTextTokenAttachment";
+  v5[3] = objc_opt_class();
+  v4[4] = @"WFTextTokenString";
+  v5[4] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:5];
+  v3 = WFSerializationNameMigrations__serializationNameMigrations;
+  WFSerializationNameMigrations__serializationNameMigrations = v2;
+}
+
+id WFDeserializedVariableObject(void *a1, void *a2, void *a3)
+{
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = [v5 objectForKey:@"WFSerializationType"];
+  if (!v8)
+  {
+    goto LABEL_6;
+  }
+
+  v9 = WFSerializationNameMigrations();
+  v10 = [v9 objectForKey:v8];
+  if (!v10)
+  {
+    v10 = NSClassFromString(v8);
+  }
+
+  if ([(objc_class *)v10 instancesRespondToSelector:sel_initWithSerializedRepresentation_variableProvider_parameter_])
+  {
+    v11 = [v10 alloc];
+    v12 = [v5 objectForKey:@"Value"];
+    v13 = [v11 initWithSerializedRepresentation:v12 variableProvider:v6 parameter:v7];
+  }
+
+  else
+  {
+LABEL_6:
+    v13 = 0;
+  }
+
+  return v13;
+}
+
+id WFEnforceClass_72101(void *a1, uint64_t a2)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v5 = getWFGeneralLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      v8 = 136315906;
+      v9 = "WFEnforceClass";
+      v10 = 2114;
+      v11 = v3;
+      v12 = 2114;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = a2;
+      v6 = v13;
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s could not map %@ to a content item class.", &v8, 0x2Au);
+    }
+
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  return v4;
+}
+
+void sub_1CA92396C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__72201(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA9240A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose((v34 - 160), 8);
+  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id getWFBiomeReversalArbiterLogObject()
+{
+  if (getWFBiomeReversalArbiterLogObject_onceToken != -1)
+  {
+    dispatch_once(&getWFBiomeReversalArbiterLogObject_onceToken, &__block_literal_global_72232);
+  }
+
+  v1 = getWFBiomeReversalArbiterLogObject_log;
+
+  return v1;
+}
+
+void __getWFBiomeReversalArbiterLogObject_block_invoke()
+{
+  v0 = os_log_create(*MEMORY[0x1E69E1140], "BiomeReversalArbiter");
+  v1 = getWFBiomeReversalArbiterLogObject_log;
+  getWFBiomeReversalArbiterLogObject_log = v0;
+}
+
+void sub_1CA924778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t WFREPBDialogRequestReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v19 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v19 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v19 & 0x7F) << v5;
+        if ((v19 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = PBReaderReadString();
+        v14 = &OBJC_IVAR___WFREPBDialogRequest__runRequestIdentifier;
+LABEL_21:
+        v15 = *v14;
+        v16 = *(a1 + v15);
+        *(a1 + v15) = v13;
+
+        goto LABEL_23;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_23:
+      v17 = [a2 position];
+      if (v17 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v13 = PBReaderReadData();
+    v14 = &OBJC_IVAR___WFREPBDialogRequest__dialogRequestData;
+    goto LABEL_21;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t WFPBDeleteShortcutEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v26 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v26 & 0x7F) << v5;
+        if ((v26 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 3)
+      {
+        if (v13 == 1)
+        {
+          v14 = PBReaderReadString();
+          v15 = 32;
+          goto LABEL_36;
+        }
+
+        if (v13 == 3)
+        {
+          v16 = 0;
+          v17 = 0;
+          v18 = 0;
+          *(a1 + 48) |= 1u;
+          while (1)
+          {
+            v27 = 0;
+            v19 = [a2 position] + 1;
+            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+            {
+              v21 = [a2 data];
+              [v21 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v18 |= (v27 & 0x7F) << v16;
+            if ((v27 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v16 += 7;
+            v11 = v17++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_44;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v18;
+          }
+
+LABEL_44:
+          *(a1 + 8) = v22;
+          goto LABEL_37;
+        }
+      }
+
+      else
+      {
+        switch(v13)
+        {
+          case 4:
+            v14 = PBReaderReadString();
+            v15 = 16;
+            goto LABEL_36;
+          case 5:
+            v14 = PBReaderReadString();
+            v15 = 24;
+            goto LABEL_36;
+          case 6:
+            v14 = PBReaderReadString();
+            v15 = 40;
+LABEL_36:
+            v23 = *(a1 + v15);
+            *(a1 + v15) = v14;
+
+            goto LABEL_37;
+        }
+      }
+
+      result = PBReaderSkipValueWithTag();
+      if (!result)
+      {
+        return result;
+      }
+
+LABEL_37:
+      v24 = [a2 position];
+    }
+
+    while (v24 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t WFPBShowDialogEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v20 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v20 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v20 & 0x7F) << v5;
+        if ((v20 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      v13 = (v12 >> 3) - 1;
+      if (v13 >= 5)
+      {
+        if ((PBReaderSkipValueWithTag() & 1) == 0)
+        {
+          return 0;
+        }
+      }
+
+      else
+      {
+        v14 = off_1E837F780[v13];
+        v15 = PBReaderReadString();
+        v16 = *v14;
+        v17 = *(a1 + v16);
+        *(a1 + v16) = v15;
+      }
+
+      v18 = [a2 position];
+    }
+
+    while (v18 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_1CA9284B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1CA928E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__73010(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+uint64_t WFPBSetupSuggestedAutomationEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v33 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v33 & 0x7F) << v5;
+        if ((v33 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 2)
+      {
+        if (v13 == 3)
+        {
+          v25 = 0;
+          v26 = 0;
+          v27 = 0;
+          *(a1 + 36) |= 1u;
+          while (1)
+          {
+            v34 = 0;
+            v28 = [a2 position] + 1;
+            if (v28 >= [a2 position] && (v29 = objc_msgSend(a2, "position") + 1, v29 <= objc_msgSend(a2, "length")))
+            {
+              v30 = [a2 data];
+              [v30 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v27 |= (v34 & 0x7F) << v25;
+            if ((v34 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v25 += 7;
+            v11 = v26++ >= 9;
+            if (v11)
+            {
+              v31 = 0;
+              goto LABEL_50;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v31 = 0;
+          }
+
+          else
+          {
+            v31 = v27;
+          }
+
+LABEL_50:
+          *(a1 + 8) = v31;
+        }
+
+        else
+        {
+          if (v13 != 4)
+          {
+LABEL_32:
+            result = PBReaderSkipValueWithTag();
+            if (!result)
+            {
+              return result;
+            }
+
+            goto LABEL_51;
+          }
+
+          v16 = 0;
+          v17 = 0;
+          v18 = 0;
+          *(a1 + 36) |= 2u;
+          while (1)
+          {
+            v35 = 0;
+            v19 = [a2 position] + 1;
+            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+            {
+              v21 = [a2 data];
+              [v21 getBytes:&v35 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v18 |= (v35 & 0x7F) << v16;
+            if ((v35 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v16 += 7;
+            v11 = v17++ >= 9;
+            if (v11)
+            {
+              LOBYTE(v22) = 0;
+              goto LABEL_46;
+            }
+          }
+
+          v22 = (v18 != 0) & ~[a2 hasError];
+LABEL_46:
+          *(a1 + 32) = v22;
+        }
+      }
+
+      else
+      {
+        if (v13 == 1)
+        {
+          v14 = PBReaderReadString();
+          v15 = 16;
+        }
+
+        else
+        {
+          if (v13 != 2)
+          {
+            goto LABEL_32;
+          }
+
+          v14 = PBReaderReadString();
+          v15 = 24;
+        }
+
+        v24 = *(a1 + v15);
+        *(a1 + v15) = v14;
+      }
+
+LABEL_51:
+      v32 = [a2 position];
+    }
+
+    while (v32 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+__CFString *WFReadableTriggerNotificationLevel(int a1)
+{
+  if ((a1 - 1) > 2)
+  {
+    return @"Day";
+  }
+
+  else
+  {
+    return off_1E837F8E0[a1 - 1];
+  }
+}
+
+uint64_t WFPBActionButtonConfigurationEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v26 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v26 & 0x7F) << v5;
+        if ((v26 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 2)
+      {
+        if (v13 == 1)
+        {
+          v21 = PBReaderReadString();
+          v22 = 24;
+          goto LABEL_36;
+        }
+
+        if (v13 == 2)
+        {
+          v21 = PBReaderReadString();
+          v22 = 32;
+LABEL_36:
+          v23 = *(a1 + v22);
+          *(a1 + v22) = v21;
+
+          goto LABEL_37;
+        }
+      }
+
+      else
+      {
+        switch(v13)
+        {
+          case 3:
+            v21 = PBReaderReadString();
+            v22 = 8;
+            goto LABEL_36;
+          case 4:
+            v21 = PBReaderReadString();
+            v22 = 16;
+            goto LABEL_36;
+          case 5:
+            v14 = 0;
+            v15 = 0;
+            v16 = 0;
+            *(a1 + 44) |= 1u;
+            while (1)
+            {
+              v27 = 0;
+              v17 = [a2 position] + 1;
+              if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
+              {
+                v19 = [a2 data];
+                [v19 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
+
+                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+              }
+
+              else
+              {
+                [a2 _setError];
+              }
+
+              v16 |= (v27 & 0x7F) << v14;
+              if ((v27 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v14 += 7;
+              v11 = v15++ >= 9;
+              if (v11)
+              {
+                LOBYTE(v20) = 0;
+                goto LABEL_42;
+              }
+            }
+
+            v20 = (v16 != 0) & ~[a2 hasError];
+LABEL_42:
+            *(a1 + 40) = v20;
+            goto LABEL_37;
+        }
+      }
+
+      result = PBReaderSkipValueWithTag();
+      if (!result)
+      {
+        return result;
+      }
+
+LABEL_37:
+      v24 = [a2 position];
+    }
+
+    while (v24 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+id WFEnforceClass_74017(void *a1, uint64_t a2)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v5 = getWFGeneralLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      v8 = 136315906;
+      v9 = "WFEnforceClass";
+      v10 = 2114;
+      v11 = v3;
+      v12 = 2114;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = a2;
+      v6 = v13;
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Import Question unable to find parameter %{public}@ on action %{public}@", &v8, 0x2Au);
+    }
+
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  return v4;
+}
+
+void sub_1CA933674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getAVSpeechSynthesisVoiceClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!AVFoundationLibraryCore_frameworkLibrary)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __AVFoundationLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E837FAE0;
+    v8 = 0;
+    AVFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!AVFoundationLibraryCore_frameworkLibrary)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *AVFoundationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFSpeakTextLanguagePickerParameterMigration.m" lineNumber:18 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("AVSpeechSynthesisVoice");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getAVSpeechSynthesisVoiceClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFSpeakTextLanguagePickerParameterMigration.m" lineNumber:19 description:{@"Unable to find class %s", "AVSpeechSynthesisVoice"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getAVSpeechSynthesisVoiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __AVFoundationLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  AVFoundationLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+void sub_1CA934654(_Unwind_Exception *a1)
+{
+  (*(v2 + 16))(v2);
+  (*(v1 + 16))(v1);
+  _Unwind_Resume(a1);
+}
+
+id WFErrorFromSecurityOSStatus(uint64_t a1)
+{
+  v12[1] = *MEMORY[0x1E69E9840];
+  v2 = SecCopyErrorMessageString(a1, 0);
+  v3 = v2;
+  if (v2)
+  {
+    v4 = v2;
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown error %d", a1];
+  }
+
+  v5 = v4;
+
+  v6 = MEMORY[0x1E696ABC0];
+  v7 = *MEMORY[0x1E696A768];
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = v5;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v9 = [v6 errorWithDomain:v7 code:a1 userInfo:v8];
+
+  return v9;
+}
+
+id WFShortcutSigningContextSigningCertificateChainFailureError(void *a1)
+{
+  v11[1] = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = MEMORY[0x1E695DF90];
+  v10 = *MEMORY[0x1E696A578];
+  v3 = WFLocalizedString(@"Failed to verify this shortcut");
+  v11[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v5 = [v2 dictionaryWithDictionary:v4];
+
+  if (v1)
+  {
+    [v5 setObject:v1 forKeyedSubscript:*MEMORY[0x1E696AA08]];
+  }
+
+  v6 = MEMORY[0x1E696ABC0];
+  v7 = [v5 copy];
+  v8 = [v6 errorWithDomain:@"WFWorkflowErrorDomain" code:5 userInfo:v7];
+
+  return v8;
+}
+
+id WFCombinedHashStringFromArray(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 count];
+  if (v2)
+  {
+    v3 = v2;
+    v4 = 0;
+    v5 = 0;
+    v6 = v2 - 1;
+    do
+    {
+      if (!v4)
+      {
+        v4 = objc_opt_new();
+      }
+
+      v7 = [v1 objectAtIndexedSubscript:v5];
+      v16 = 0;
+      v15 = 0;
+      v8 = [v7 UTF8String];
+      v9 = [v7 length];
+      v10 = [MEMORY[0x1E695DF88] dataWithCapacity:v9 >> 1];
+      if (v9)
+      {
+        for (i = 0; i < v9; i += 2)
+        {
+          *__str = *(v8 + i);
+          v16 = strtoul(__str, 0, 16);
+          [v10 appendBytes:&v16 length:1];
+        }
+      }
+
+      if (v10)
+      {
+        v12 = [v10 base64EncodedStringWithOptions:0];
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      if (v12)
+      {
+        [v4 appendString:v12];
+      }
+
+      if (v5 != v6)
+      {
+        [v4 appendString:{@", "}];
+      }
+
+      ++v5;
+    }
+
+    while (v5 != v3);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
+}
+
+void sub_1CA935914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose((v28 - 144), 8);
+  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__74659(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1CA936C60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
+  (*(v29 + 16))(v29);
+  _Unwind_Resume(a1);
+}
+
+void WFAppleIDParseValidationRecordData(void *a1, void *a2, void *a3)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  cf = 0;
+  v20 = 0;
+  if (v6)
+  {
+    v8 = v6;
+  }
+
+  else
+  {
+    v8 = dispatch_get_global_queue(0, 0);
+  }
+
+  v9 = v8;
+  AppleIDValidationShortcutSigningPolicy = SecPolicyCreateAppleIDValidationShortcutSigningPolicy();
+  if (AppleIDValidationShortcutSigningPolicy)
+  {
+    v11 = SecCMSVerifyCopyDataAndAttributes();
+    if (v11)
+    {
+      v14 = v11;
+      v15 = getWFSecurityLogObject();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v22 = "WFAppleIDParseValidationRecordData";
+        v23 = 1024;
+        v24 = v14;
+        _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Signed Shortcut File Apple Account Parsing Validation Record: SecCMSVerifyCopyDataAndAttributes failed with error %d", buf, 0x12u);
+      }
+
+      v12 = 201211;
+    }
+
+    else
+    {
+      v12 = 201211;
+      v15 = getWFSecurityLogObject();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315138;
+        v22 = "WFAppleIDParseValidationRecordData";
+        _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Signed Shortcut File Apple Account Parsing Validation Record: SecCMSVerifyCopyDataAndAttributes returned NULL attachedRecordContents", buf, 0xCu);
+      }
+    }
+  }
+
+  else
+  {
+    v13 = getWFSecurityLogObject();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315138;
+      v22 = "WFAppleIDParseValidationRecordData";
+      _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Signed Shortcut File Apple Account Parsing Validation Record: SecPolicyCreateAppleIDValidationShortcutSigningPolicy failed", buf, 0xCu);
+    }
+
+    v12 = -6762;
+  }
+
+  if (AppleIDValidationShortcutSigningPolicy)
+  {
+    CFRelease(AppleIDValidationShortcutSigningPolicy);
+  }
+
+  if (v7)
+  {
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __WFAppleIDParseValidationRecordData_block_invoke_2;
+    block[3] = &unk_1E837FC28;
+    v17 = v7;
+    v18 = v12;
+    dispatch_async(v9, block);
+  }
+}
+
+void __WFAppleIDParseValidationRecordData_block_invoke(uint64_t a1, uint64_t a2, int a3)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 40);
+  v5 = *(a1 + 32);
+  v6 = v4;
+  if (a3 == 1 || a3 == 4)
+  {
+    Int64 = CFDictionaryGetInt64();
+    if ((Int64 - 101) > 0xFFFFFFFFFFFFFF9BLL)
+    {
+      if (v6)
+      {
+        v6[2](v6, v5, 0);
+      }
+
+      goto LABEL_12;
+    }
+
+    v10 = Int64;
+    v9 = 201212;
+    v8 = getWFSecurityLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v11 = 136315394;
+      v12 = "handleValidationRecordTrustResult";
+      v13 = 2048;
+      v14 = v10;
+      _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Signed Shortcut File Apple Account Parsing Validation Record: Unsupported version %ld (must be between 1 and 100)", &v11, 0x16u);
+    }
+  }
+
+  else
+  {
+    v8 = getWFSecurityLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v11 = 136315394;
+      v12 = "handleValidationRecordTrustResult";
+      v13 = 1024;
+      LODWORD(v14) = a3;
+      _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Signed Shortcut File Apple Account Parsing Validation Record: Unexpected trust result %d", &v11, 0x12u);
+    }
+
+    v9 = 201214;
+  }
+
+  if (v6)
+  {
+    v6[2](v6, 0, v9);
+  }
+
+LABEL_12:
+}
+
+uint64_t WFREPBAceCommandRequestReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v17 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v17 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v17 & 0x7F) << v5;
+        if ((v17 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = PBReaderReadData();
+        v14 = *(a1 + 8);
+        *(a1 + 8) = v13;
+      }
+
+      else
+      {
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v16 = [a2 position];
+    }
+
+    while (v16 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+id WFEnforceClass_74974(void *a1, uint64_t a2)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v5 = getWFGeneralLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      v8 = 136315906;
+      v9 = "WFEnforceClass";
+      v10 = 2114;
+      v11 = v3;
+      v12 = 2114;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = a2;
+      v6 = v13;
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s [WFContactSubstitutableState] Could not cast parameter state to WFContactFieldEntry: %@", &v8, 0x2Au);
+    }
+
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  return v4;
+}
+
+uint64_t WFREPBContentItemReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v24 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v24 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v24 & 0x7F) << v5;
+        if ((v24 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v20 = PBReaderReadData();
+        v21 = *(a1 + 16);
+        *(a1 + 16) = v20;
+      }
+
+      else if ((v12 >> 3) == 2)
+      {
+        v13 = 0;
+        v14 = 0;
+        v15 = 0;
+        while (1)
+        {
+          v25 = 0;
+          v16 = [a2 position] + 1;
+          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
+          {
+            v18 = [a2 data];
+            [v18 getBytes:&v25 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v15 |= (v25 & 0x7F) << v13;
+          if ((v25 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v13 += 7;
+          v11 = v14++ >= 9;
+          if (v11)
+          {
+            v19 = 0;
+            goto LABEL_34;
+          }
+        }
+
+        v19 = [a2 hasError] ? 0 : v15;
+LABEL_34:
+        *(a1 + 8) = v19;
+      }
+
+      else
+      {
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v23 = [a2 position];
+    }
+
+    while (v23 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t WFLocalizedNumberFormatStyle()
+{
+  v0 = WFLocalizedStringWithKey(@"MONTHLY_REPEAT_NUMBER_FORMAT_STYLE", @"ORDINAL");
+  if (objc_msgSend_isEqualToString_(v0))
+  {
+    v1 = 6;
+  }
+
+  else
+  {
+    v1 = 0;
+  }
+
+  return v1;
+}
+
+id WFShortcutsPersistentStoreURL()
+{
+  v0 = [MEMORY[0x1E695DFF8] wf_shortcutsDirectoryURL];
+  if (([v0 isFileURL] & 1) == 0)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSURL * _Nonnull WFShortcutsPersistentStoreURL(void)"];
+    [v3 handleFailureInFunction:v4 file:@"NSPersistentStoreDescription+Workflow.m" lineNumber:19 description:{@"Invalid parameter not satisfying: %@", @"directoryURL.fileURL"}];
+  }
+
+  v1 = [v0 URLByAppendingPathComponent:@"Shortcuts.sqlite" isDirectory:0];
+
+  return v1;
+}
+
+void sub_1CA93D3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t WFPBAutomatorWorkflowMigrationErrorEventReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v20 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v20 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v20 & 0x7F) << v5;
+        if ((v20 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      v13 = (v12 >> 3) - 1;
+      if (v13 >= 3)
+      {
+        if ((PBReaderSkipValueWithTag() & 1) == 0)
+        {
+          return 0;
+        }
+      }
+
+      else
+      {
+        v14 = off_1E837FEF8[v13];
+        v15 = PBReaderReadString();
+        v16 = *v14;
+        v17 = *(a1 + v16);
+        *(a1 + v16) = v15;
+      }
+
+      v18 = [a2 position];
+    }
+
+    while (v18 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t WFISEligibleForSettingsUpdaterAction(void *a1, void *a2)
+{
+  v3 = a2;
+  v4 = a1;
+  v5 = [v4 properties];
+  v6 = [v5 count];
+
+  v7 = [v4 systemProtocolMetadata];
+  v8 = [v7 objectForKeyedSubscript:*MEMORY[0x1E69AC2D8]];
+
+  v9 = [v4 attributionBundleIdentifier];
+
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
+  v11 = WFBundleWithAppSettingsIdentifiers();
+  v12 = [v11 containsObject:v3];
+
+  if (v8)
+  {
+    v13 = v6 == 1;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v14 = v13;
+  return v14 & (isEqualToString | v12);
+}
+
+void __WFLinkActionBundleIdentifierOverrides_block_invoke()
+{
+  v5[3] = *MEMORY[0x1E69E9840];
+  v0 = *MEMORY[0x1E69E0E50];
+  v4[0] = @"com.apple.springboard.OpenCamera";
+  v4[1] = @"com.apple.AccessibilityUIServer.WFGetAppSettingAction";
+  v1 = *MEMORY[0x1E69E0F00];
+  v5[0] = v0;
+  v5[1] = v1;
+  v4[2] = @"com.apple.AccessibilityUIServer.WFAppSettingEntityUpdaterAction";
+  v5[2] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
+  v3 = WFLinkActionBundleIdentifierOverrides_linkActionBundleIdentifierOverrides;
+  WFLinkActionBundleIdentifierOverrides_linkActionBundleIdentifierOverrides = v2;
+}
+
+id WFBundleWithAppSettingsIdentifiers()
+{
+  v10[13] = *MEMORY[0x1E69E9840];
+  v0 = objc_alloc(MEMORY[0x1E695DFD8]);
+  v1 = *MEMORY[0x1E69E0EA8];
+  v10[0] = *MEMORY[0x1E69E0F80];
+  v10[1] = v1;
+  v2 = *MEMORY[0x1E69E0F78];
+  v10[2] = *MEMORY[0x1E69E0EE0];
+  v10[3] = v2;
+  v3 = *MEMORY[0x1E69E0F00];
+  v10[4] = *MEMORY[0x1E69E0FA8];
+  v10[5] = v3;
+  v4 = *MEMORY[0x1E69E0E40];
+  v10[6] = *MEMORY[0x1E69E0E80];
+  v10[7] = v4;
+  v5 = *MEMORY[0x1E69E0F08];
+  v10[8] = *MEMORY[0x1E69E0E48];
+  v10[9] = v5;
+  v6 = *MEMORY[0x1E69E0F98];
+  v10[10] = *MEMORY[0x1E69E0F10];
+  v10[11] = v6;
+  v10[12] = @"com.apple.AccessibilityUIServer";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:13];
+  v8 = [v0 initWithArray:v7];
+
+  return v8;
+}
+
+id WFUpdatableEntityValueTypeFromEntityUpdaterAction(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 systemProtocols];
+  v3 = [MEMORY[0x1E69ACA50] propertyUpdaterProtocol];
+  v4 = [v2 containsObject:v3];
+
+  if (v4)
+  {
+    v5 = [v1 parameters];
+    v6 = [v5 if_firstObjectPassingTest:&__block_literal_global_76582];
+    v7 = [v6 valueType];
+
+    if (v7)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v8 = v7;
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+uint64_t __WFUpdatableEntityValueTypeFromEntityUpdaterAction_block_invoke(uint64_t a1, void *a2)
+{
+  v2 = [a2 name];
+  v3 = +[_TtC11WorkflowKit22WFEntityUpdatingAction entityParameterName];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
+
+  return isEqualToString;
+}
+
+id WFEffectiveActionIdentifiersForActionMetadata(void *a1, void *a2, void *a3)
+{
+  v23[2] = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = [v5 systemProtocols];
+  v9 = [MEMORY[0x1E69ACA50] propertyUpdaterProtocol];
+  v10 = [v8 containsObject:v9];
+
+  if (!v10)
+  {
+    goto LABEL_7;
+  }
+
+  v11 = WFUpdatableEntityValueTypeFromEntityUpdaterAction(v5);
+  v12 = [v11 identifier];
+  if (![v12 length])
+  {
+
+LABEL_7:
+    v11 = [v5 identifier];
+    v20 = v11;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    goto LABEL_8;
+  }
+
+  v23[0] = v12;
+  v23[1] = @"UpdatableEntity";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v14 = [v13 componentsJoinedByString:@"-"];
+
+  v22 = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+  v16 = [v7 entityWithIdentifier:v12 fromBundleIdentifier:v6];
+  if (WFISEligibleForSettingsUpdaterAction(v16, v6))
+  {
+    v21[0] = @"WFAppSettingEntityUpdaterAction";
+    v21[1] = @"WFGetAppSettingAction";
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+    v18 = [v15 arrayByAddingObjectsFromArray:v17];
+
+    v15 = v18;
+  }
+
+LABEL_8:
+
+  return v15;
 }

@@ -44,6 +44,7 @@
 - (id)simulatorRuntimeBuildVersion;
 - (id)simulatorRuntimeVersion;
 - (id)simulatorSharedResourcesDirectoryURL;
+- (id)systemContentDatabaseStoreFileURLWithUID:(unsigned int)d;
 - (unsigned)currentSchemaVersion;
 - (unsigned)proxyUIDForCurrentEffectiveUID;
 - (unsigned)proxyUIDForUID:(unsigned int)d;
@@ -237,7 +238,7 @@
 
 - (NSData)HMACSecret
 {
-  _LSAssertRunningInServer("[_LSDefaults HMACSecret]");
+  _LSAssertRunningInServer("[_LSDefaults HMACSecret]", a2);
   ivarQueue = self->_ivarQueue;
 
   return _LSLazyLoadObjectOnQueue(&self->_hmacSecret, ivarQueue, &__block_literal_global_274);
@@ -380,6 +381,17 @@ LABEL_11:
 LABEL_12:
 
   return v10;
+}
+
+- (id)systemContentDatabaseStoreFileURLWithUID:(unsigned int)d
+{
+  v3 = [(_LSDefaults *)self databaseStoreFileURLWithUID:*&d];
+  lastPathComponent = [v3 lastPathComponent];
+  v5 = [@"SystemDataOnly-" stringByAppendingString:lastPathComponent];
+  uRLByDeletingLastPathComponent = [v3 URLByDeletingLastPathComponent];
+  v7 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:v5];
+
+  return v7;
 }
 
 - (NSURL)preferencesFileURL

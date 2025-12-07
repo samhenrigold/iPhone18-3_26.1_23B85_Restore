@@ -41,33 +41,31 @@
 
 - (id)_mutableJSONDictRepresentation
 {
-  v18[5] = *MEMORY[0x277D85DE8];
-  v17[0] = @"version";
+  v17[5] = *MEMORY[0x277D85DE8];
+  v16[0] = @"version";
   version = [(DRSTaskingSystemMessage *)self version];
-  v18[0] = version;
-  v17[1] = @"type";
+  v17[0] = version;
+  v16[1] = @"type";
   messageType = [objc_opt_class() messageType];
-  v18[1] = messageType;
-  v17[2] = kDRSTaskingSystemMessage_messageUUIDKey;
+  v17[1] = messageType;
+  v16[2] = kDRSTaskingSystemMessage_messageUUIDKey;
   messageUUID = [(DRSTaskingSystemMessage *)self messageUUID];
   uUIDString = [messageUUID UUIDString];
-  v18[2] = uUIDString;
-  v17[3] = kDRSTaskingSystemMessage_DateReceivedKey;
+  v17[2] = uUIDString;
+  v16[3] = kDRSTaskingSystemMessage_DateReceivedKey;
   v7 = MEMORY[0x277CCABB0];
   dateReceived = [(DRSTaskingSystemMessage *)self dateReceived];
   [dateReceived timeIntervalSince1970];
   v9 = [v7 numberWithDouble:?];
-  v18[3] = v9;
-  v17[4] = kDRSTaskingSystemMessage_DateBroadcastKey;
+  v17[3] = v9;
+  v16[4] = kDRSTaskingSystemMessage_DateBroadcastKey;
   v10 = MEMORY[0x277CCABB0];
   dateBroadcast = [(DRSTaskingSystemMessage *)self dateBroadcast];
   [dateBroadcast timeIntervalSince1970];
   v12 = [v10 numberWithDouble:?];
-  v18[4] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v17[4] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
   v14 = [v13 mutableCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -82,52 +80,54 @@
 
 - (DRSTaskingSystemMessage)initWithVersion:(id)version messageUUID:(id)d dateBroadcast:(id)broadcast dateReceived:(id)received
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   dCopy = d;
   broadcastCopy = broadcast;
   receivedCopy = received;
+  date = receivedCopy;
   if (!dCopy)
   {
-    v18 = DPLogHandle_TaskingMessageError();
-    if (!os_signpost_enabled(v18))
+    v20 = DPLogHandle_TaskingMessageError(receivedCopy);
+    if (!os_signpost_enabled(v20))
     {
       goto LABEL_20;
     }
 
     *buf = 0;
-    v19 = "nil UUID";
+    v21 = "nil UUID";
 LABEL_18:
-    v20 = v18;
-    v21 = 2;
+    v22 = v20;
+    v23 = 2;
     goto LABEL_19;
   }
 
   if (!versionCopy)
   {
-    v18 = DPLogHandle_TaskingMessageError();
-    if (!os_signpost_enabled(v18))
+    v20 = DPLogHandle_TaskingMessageError(receivedCopy);
+    if (!os_signpost_enabled(v20))
     {
       goto LABEL_20;
     }
 
     *buf = 0;
-    v19 = "nil version";
+    v21 = "nil version";
     goto LABEL_18;
   }
 
-  if (![(DRSTaskingSystemMessage *)self _versionIsSupported:versionCopy])
+  v16 = [(DRSTaskingSystemMessage *)self _versionIsSupported:versionCopy];
+  if ((v16 & 1) == 0)
   {
-    v18 = DPLogHandle_TaskingMessageError();
-    if (os_signpost_enabled(v18))
+    v20 = DPLogHandle_TaskingMessageError(v16);
+    if (os_signpost_enabled(v20))
     {
       *buf = 138543362;
-      v26 = versionCopy;
-      v19 = "Unsupported version %{public}@";
-      v20 = v18;
-      v21 = 12;
+      v27 = versionCopy;
+      v21 = "Unsupported version %{public}@";
+      v22 = v20;
+      v23 = 12;
 LABEL_19:
-      _os_signpost_emit_with_name_impl(&dword_232906000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DRSTaskingSystemMessageFailedInit", v19, buf, v21);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DRSTaskingSystemMessageFailedInit", v21, buf, v23);
       goto LABEL_20;
     }
 
@@ -136,11 +136,11 @@ LABEL_19:
 
   if (!broadcastCopy)
   {
-    v18 = DPLogHandle_TaskingMessageError();
-    if (os_signpost_enabled(v18))
+    v20 = DPLogHandle_TaskingMessageError(v16);
+    if (os_signpost_enabled(v20))
     {
       *buf = 0;
-      v19 = "nil dateBroadcast";
+      v21 = "nil dateBroadcast";
       goto LABEL_18;
     }
 
@@ -150,28 +150,27 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  if (!receivedCopy)
+  if (!date)
   {
-    receivedCopy = [MEMORY[0x277CBEAA8] date];
+    date = [MEMORY[0x277CBEAA8] date];
   }
 
-  v24.receiver = self;
-  v24.super_class = DRSTaskingSystemMessage;
-  v15 = [(DRSTaskingSystemMessage *)&v24 init];
-  p_isa = &v15->super.isa;
-  if (v15)
+  v25.receiver = self;
+  v25.super_class = DRSTaskingSystemMessage;
+  v17 = [(DRSTaskingSystemMessage *)&v25 init];
+  p_isa = &v17->super.isa;
+  if (v17)
   {
-    objc_storeStrong(&v15->_version, version);
+    objc_storeStrong(&v17->_version, version);
     objc_storeStrong(p_isa + 2, d);
     objc_storeStrong(p_isa + 4, broadcast);
-    objc_storeStrong(p_isa + 3, receivedCopy);
+    objc_storeStrong(p_isa + 3, date);
   }
 
   self = p_isa;
   selfCopy = self;
 LABEL_21:
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -197,19 +196,7 @@ LABEL_21:
   [dateBroadcast2 timeIntervalSince1970];
   v11 = v10;
 
-  if (v8 != v11)
-  {
-    goto LABEL_5;
-  }
-
-  dateReceived = [(DRSTaskingSystemMessage *)self dateReceived];
-  [dateReceived timeIntervalSince1970];
-  v14 = v13;
-  dateReceived2 = [(DRSTaskingSystemMessage *)v5 dateReceived];
-  [dateReceived2 timeIntervalSince1970];
-  v17 = v16;
-
-  if (v14 == v17)
+  if (v8 == v11 && (-[DRSTaskingSystemMessage dateReceived](self, "dateReceived"), v12 = objc_claimAutoreleasedReturnValue(), [v12 timeIntervalSince1970], v14 = v13, -[DRSTaskingSystemMessage dateReceived](v5, "dateReceived"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "timeIntervalSince1970"), v17 = v16, v15, v12, v14 == v17))
   {
     version = [(DRSTaskingSystemMessage *)self version];
     version2 = [(DRSTaskingSystemMessage *)v5 version];

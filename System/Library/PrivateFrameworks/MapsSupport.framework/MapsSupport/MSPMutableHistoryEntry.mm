@@ -9,6 +9,7 @@
 - (id)transferToImmutableIfValidWithError:(id *)error;
 - (void)ifMutableSearch:(id)search ifMutableRoute:(id)route ifMutablePlaceDisplay:(id)display ifMutableTransitLineItem:(id)item;
 - (void)ifSearch:(id)search ifRoute:(id)route ifPlaceDisplay:(id)display ifTransitLineItem:(id)item;
+- (void)setTracksRAPReportingOnly:(BOOL)only;
 - (void)setUsageDate:(id)date;
 @end
 
@@ -192,31 +193,8 @@ LABEL_7:
   routeCopy = route;
   displayCopy = display;
   itemCopy = item;
-  if (searchCopy)
+  if (searchCopy && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v14 = searchCopy, (isKindOfClass & 1) != 0) || routeCopy && (objc_opt_class(), v15 = objc_opt_isKindOfClass(), v14 = routeCopy, (v15 & 1) != 0) || displayCopy && (objc_opt_class(), v16 = objc_opt_isKindOfClass(), v14 = displayCopy, (v16 & 1) != 0) || itemCopy && (objc_opt_class(), v17 = objc_opt_isKindOfClass(), v14 = itemCopy, (v17 & 1) != 0))
   {
-    objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-    v14 = searchCopy;
-    if (isKindOfClass)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  if (routeCopy)
-  {
-    objc_opt_class();
-    v15 = objc_opt_isKindOfClass();
-    v14 = routeCopy;
-    if (v15)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  if (displayCopy && (objc_opt_class(), v16 = objc_opt_isKindOfClass(), v14 = displayCopy, (v16 & 1) != 0) || itemCopy && (objc_opt_class(), v17 = objc_opt_isKindOfClass(), v14 = itemCopy, (v17 & 1) != 0))
-  {
-LABEL_9:
     v14[2](v14, self);
   }
 }
@@ -291,6 +269,15 @@ LABEL_9:
 LABEL_7:
 
   return v8;
+}
+
+- (void)setTracksRAPReportingOnly:(BOOL)only
+{
+  onlyCopy = only;
+  [(MSPMutableHistoryEntry *)self _noteWillMutate];
+  storage = self->_storage;
+
+  [(MSPHistoryEntryStorage *)storage setTracksRAPRecordingOnly:onlyCopy];
 }
 
 - (id)debugTitle

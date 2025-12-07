@@ -145,18 +145,18 @@
 
 - (uint64_t)hf_hasSeenOnboardingWelcomeView
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(9uLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     _cached_hasSeenOnboardingWelcomeViewNumber = [self _cached_hasSeenOnboardingWelcomeViewNumber];
     applicationData = [self applicationData];
     v5 = [applicationData objectForKey:@"hasSeenOnboardingWelcomeView"];
-    v16 = 138412546;
-    v17 = _cached_hasSeenOnboardingWelcomeViewNumber;
-    v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "*** Cached_hasSeenOnboardingWelcomeViewNumber =  [%@] - applicationData = [%@] ***", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = _cached_hasSeenOnboardingWelcomeViewNumber;
+    v17 = 2112;
+    v18 = v5;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "*** Cached_hasSeenOnboardingWelcomeViewNumber =  [%@] - applicationData = [%@] ***", &v15, 0x16u);
   }
 
   v6 = HFLogForCategory(9uLL);
@@ -164,9 +164,9 @@
   {
     applicationData2 = [self applicationData];
     dictionary = [applicationData2 dictionary];
-    v16 = 138412290;
-    v17 = dictionary;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "*** applicationData = [%@] ***", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = dictionary;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "*** applicationData = [%@] ***", &v15, 0xCu);
   }
 
   _cached_hasSeenOnboardingWelcomeViewNumber2 = [self _cached_hasSeenOnboardingWelcomeViewNumber];
@@ -193,19 +193,18 @@
     bOOLValue = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (id)hf_setHasSeenOnboardingWelcomeView:()HFAdditions
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(9uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x277CCABB0] numberWithBool:a3];
     *buf = 138412290;
-    v18 = v6;
+    v17 = v6;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "*** Setting HasSeenOnboardingWelcomeView =  [%@]  ***", buf, 0xCu);
   }
 
@@ -215,17 +214,15 @@
 
   [self set_cached_hasSeenOnboardingWelcomeViewNumber:v7];
   hf_updateApplicationDataFuture = [self hf_updateApplicationDataFuture];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __65__HMHomeManager_HFAdditions__hf_setHasSeenOnboardingWelcomeView___block_invoke;
-  v14[3] = &unk_277DF7350;
-  v16 = a3;
-  v14[4] = self;
-  v15 = v7;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __65__HMHomeManager_HFAdditions__hf_setHasSeenOnboardingWelcomeView___block_invoke;
+  v13[3] = &unk_277DF7350;
+  v15 = a3;
+  v13[4] = self;
+  v14 = v7;
   v10 = v7;
-  v11 = [hf_updateApplicationDataFuture addCompletionBlock:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [hf_updateApplicationDataFuture addCompletionBlock:v13];
 
   return v11;
 }
@@ -321,16 +318,16 @@
 
 - (uint64_t)hf_canAccessHomeRemotely:()HFAdditions
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([self residentProvisioningStatus])
   {
     v6 = HFLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v4;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "No remote access to %@. Some resident on the account needs 2FA.", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v4;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "No remote access to %@. Some resident on the account needs 2FA.", &v11, 0xCu);
     }
 
     goto LABEL_9;
@@ -343,13 +340,13 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       uniqueIdentifier = [v4 uniqueIdentifier];
-      v12 = 138412546;
-      v13 = v4;
-      v14 = 2114;
-      v15 = uniqueIdentifier;
+      v11 = 138412546;
+      v12 = v4;
+      v13 = 2114;
+      v14 = uniqueIdentifier;
       v8 = "No remote access to %@ (uniqueIdentifier: %{public}@). A resident that cannot be seen requires a key transfer and there are no enabled resident devices on the account.";
 LABEL_6:
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, v8, &v12, 0x16u);
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, v8, &v11, 0x16u);
     }
   }
 
@@ -365,10 +362,10 @@ LABEL_6:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       uniqueIdentifier = [v4 uniqueIdentifier];
-      v12 = 138412546;
-      v13 = v4;
-      v14 = 2114;
-      v15 = uniqueIdentifier;
+      v11 = 138412546;
+      v12 = v4;
+      v13 = 2114;
+      v14 = uniqueIdentifier;
       v8 = "No remote access to %@ (uniqueIdentifier: %{public}@). there are no enabled resident devices on the account and the user is not home.";
       goto LABEL_6;
     }
@@ -379,7 +376,6 @@ LABEL_9:
   v9 = 0;
 LABEL_10:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

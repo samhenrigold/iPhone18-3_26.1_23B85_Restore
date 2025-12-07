@@ -724,37 +724,37 @@
   {
     v1 = result;
     result->_frontEndScalerCompanionFormats = [(FigCaptureSourceVideoFormat *)result _buildFESCompanionFormatsForType:?];
-    v2 = [*(v1 + 8) objectForKeyedSubscript:@"SupportedDepthDataFormats"];
+    v2 = [(NSDictionary *)v1->super._formatDictionary objectForKeyedSubscript:@"SupportedDepthDataFormats"];
     if ([v2 count])
     {
       v43 = v1;
       v3 = objc_alloc(MEMORY[0x1E695DF70]);
       [OUTLINED_FUNCTION_12_26() count];
       v4 = [OUTLINED_FUNCTION_17() initWithCapacity:?];
+      v65 = 0u;
       v66 = 0u;
       v67 = 0u;
       v68 = 0u;
-      v69 = 0u;
-      v47 = [v2 countByEnumeratingWithState:&v66 objects:v65 count:16];
+      v47 = [v2 countByEnumeratingWithState:&v65 objects:v64 count:16];
       if (v47)
       {
-        v46 = *v67;
+        v46 = *v66;
         obj = v2;
         v45 = *MEMORY[0x1E6966130];
         do
         {
           for (i = 0; i != v47; ++i)
           {
-            if (*v67 != v46)
+            if (*v66 != v46)
             {
               objc_enumerationMutation(obj);
             }
 
-            v6 = *(*(&v66 + 1) + 8 * i);
+            v6 = *(*(&v65 + 1) + 8 * i);
             [v6 objectForKeyedSubscript:v45];
             v7 = [OUTLINED_FUNCTION_17() arrayWithObject:?];
             v8 = [v7 addObjectsFromArray:{objc_msgSend(v6, "objectForKeyedSubscript:", @"AdditionalPixelFormats"}];
-            v16 = OUTLINED_FUNCTION_132(v8, v9, v10, v11, v12, v13, v14, v15, v42, v43, obj, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, 0);
+            v16 = OUTLINED_FUNCTION_132(v8, v9, v10, v11, v12, v13, v14, v15, v42, v43, obj, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63);
             if (v16)
             {
               v17 = v16;
@@ -784,14 +784,14 @@
                   [v4 addObject:v21];
                 }
 
-                v17 = OUTLINED_FUNCTION_132(v22, v23, v24, v25, v26, v27, v28, v29, v42, v43, obj, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64);
+                v17 = OUTLINED_FUNCTION_132(v22, v23, v24, v25, v26, v27, v28, v29, v42, v43, obj, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63);
               }
 
               while (v17);
             }
           }
 
-          v47 = [obj countByEnumeratingWithState:&v66 objects:v65 count:16];
+          v47 = [obj countByEnumeratingWithState:&v65 objects:v64 count:16];
         }
 
         while (v47);
@@ -801,94 +801,94 @@
       *(v43 + 144) = v4;
     }
 
-    if ([*(v1 + 8) objectForKeyedSubscript:@"NonSIFRCompanionFormat"])
+    if ([(NSDictionary *)v1->super._formatDictionary objectForKeyedSubscript:@"NonSIFRCompanionFormat"])
     {
       v30 = [FigCaptureSourceCompanionFormat alloc];
       [OUTLINED_FUNCTION_1_59() objectForKeyedSubscript:@"NonSIFRCompanionFormat"];
-      *(v1 + 56) = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
+      v1->_nonSIFRCompanionFormat = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
     }
 
-    if ([*(v1 + 8) objectForKeyedSubscript:@"FullBinSIFRCompanionFormat"])
+    if ([(NSDictionary *)v1->super._formatDictionary objectForKeyedSubscript:@"FullBinSIFRCompanionFormat"])
     {
       v31 = [FigCaptureSourceCompanionFormat alloc];
       [OUTLINED_FUNCTION_1_59() objectForKeyedSubscript:@"FullBinSIFRCompanionFormat"];
-      *(v1 + 64) = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
+      v1->_fullBinSIFRCompanionFormat = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
     }
 
-    if ([*(v1 + 8) objectForKeyedSubscript:@"MidFrameSynchronizationOptimizedCompanionFormat"])
+    if ([(NSDictionary *)v1->super._formatDictionary objectForKeyedSubscript:@"MidFrameSynchronizationOptimizedCompanionFormat"])
     {
       v32 = [FigCaptureSourceCompanionFormat alloc];
       [OUTLINED_FUNCTION_1_59() objectForKeyedSubscript:@"MidFrameSynchronizationOptimizedCompanionFormat"];
-      *(v1 + 72) = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
+      v1->_midFrameSynchronizationOptimizedCompanionFormat = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
     }
 
-    if ([*(v1 + 8) objectForKeyedSubscript:@"ActionCameraCompanionFormat"])
+    if ([(NSDictionary *)v1->super._formatDictionary objectForKeyedSubscript:@"ActionCameraCompanionFormat"])
     {
       v33 = [FigCaptureSourceCompanionFormat alloc];
       [OUTLINED_FUNCTION_1_59() objectForKeyedSubscript:@"ActionCameraCompanionFormat"];
-      *(v1 + 80) = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
+      v1->_actionCameraCompanionFormat = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
     }
 
-    if ([*(v1 + 8) objectForKeyedSubscript:@"DepthCompanionFormat"])
+    if ([(NSDictionary *)v1->super._formatDictionary objectForKeyedSubscript:@"DepthCompanionFormat"])
     {
       v34 = [FigCaptureSourceCompanionFormat alloc];
       [OUTLINED_FUNCTION_1_59() objectForKeyedSubscript:@"DepthCompanionFormat"];
-      *(v1 + 88) = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
+      v1->_depthCompanionFormat = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
     }
 
-    if ([*(v1 + 8) objectForKeyedSubscript:@"UltraHighResCompanionFormat"])
+    if ([(NSDictionary *)v1->super._formatDictionary objectForKeyedSubscript:@"UltraHighResCompanionFormat"])
     {
       v35 = [FigCaptureSourceCompanionFormat alloc];
       [OUTLINED_FUNCTION_1_59() objectForKeyedSubscript:@"UltraHighResCompanionFormat"];
-      *(v1 + 96) = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
+      v1->_ultraHighResCompanionFormat = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
     }
 
-    if ([*(v1 + 8) objectForKeyedSubscript:@"FSDNetCompanionFormat"])
+    if ([(NSDictionary *)v1->super._formatDictionary objectForKeyedSubscript:@"FSDNetCompanionFormat"])
     {
       v36 = [FigCaptureSourceCompanionFormat alloc];
       [OUTLINED_FUNCTION_1_59() objectForKeyedSubscript:@"FSDNetCompanionFormat"];
-      *(v1 + 104) = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
+      v1->_fsdNetCompanionFormat = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
     }
 
-    if ([*(v1 + 8) objectForKeyedSubscript:@"StereoVideoCompanionFormat"])
+    if ([(NSDictionary *)v1->super._formatDictionary objectForKeyedSubscript:@"StereoVideoCompanionFormat"])
     {
       v37 = [FigCaptureSourceCompanionFormat alloc];
       [OUTLINED_FUNCTION_1_59() objectForKeyedSubscript:@"StereoVideoCompanionFormat"];
-      *(v1 + 112) = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
+      v1->_stereoVideoCompanionFormat = [OUTLINED_FUNCTION_17() initWithCompanionFormatDictionary:?];
     }
 
-    if ([objc_msgSend(*(v1 + 8) objectForKeyedSubscript:{@"GeometricDistortionCorrectionSourceFormat", "mutableCopy"}])
+    if ([-[NSDictionary objectForKeyedSubscript:](v1->super._formatDictionary objectForKeyedSubscript:{@"GeometricDistortionCorrectionSourceFormat", "mutableCopy"}])
     {
       OUTLINED_FUNCTION_7_32();
       v38 = [OUTLINED_FUNCTION_17() numberWithUnsignedInt:?];
       OUTLINED_FUNCTION_6_36(v38);
-      *(v1 + 136) = [[FigCaptureSourceVideoFormat alloc] initWithFigCaptureStreamFormatDictionary:BWAdaptiveBracketingFrameParameters.superclass];
+      v1->_geometricDistortionCorrectionFormat = [[FigCaptureSourceVideoFormat alloc] initWithFigCaptureStreamFormatDictionary:BWAdaptiveBracketingFrameParameters.superclass];
     }
 
-    if ([objc_msgSend(*(v1 + 8) objectForKeyedSubscript:{@"CinematicFramingSourceFormat", "mutableCopy"}])
+    if ([-[NSDictionary objectForKeyedSubscript:](v1->super._formatDictionary objectForKeyedSubscript:{@"CinematicFramingSourceFormat", "mutableCopy"}])
     {
       OUTLINED_FUNCTION_7_32();
       v39 = [OUTLINED_FUNCTION_17() numberWithUnsignedInt:?];
       OUTLINED_FUNCTION_6_36(v39);
-      *(v1 + 120) = [[FigCaptureSourceVideoFormat alloc] initWithFigCaptureStreamFormatDictionary:BWAdaptiveBracketingFrameParameters.superclass];
+      v1->_cinematicFramingFormat = [[FigCaptureSourceVideoFormat alloc] initWithFigCaptureStreamFormatDictionary:BWAdaptiveBracketingFrameParameters.superclass];
     }
 
-    if ([objc_msgSend(*(v1 + 8) objectForKeyedSubscript:{@"SmartCropSourceFormat", "mutableCopy"}])
+    if ([-[NSDictionary objectForKeyedSubscript:](v1->super._formatDictionary objectForKeyedSubscript:{@"SmartCropSourceFormat", "mutableCopy"}])
     {
       OUTLINED_FUNCTION_7_32();
       v40 = [OUTLINED_FUNCTION_17() numberWithUnsignedInt:?];
       OUTLINED_FUNCTION_6_36(v40);
-      *(v1 + 128) = [[FigCaptureSourceVideoFormat alloc] initWithFigCaptureStreamFormatDictionary:BWAdaptiveBracketingFrameParameters.superclass];
+      v1->_smartCropFormat = [[FigCaptureSourceVideoFormat alloc] initWithFigCaptureStreamFormatDictionary:BWAdaptiveBracketingFrameParameters.superclass];
     }
 
-    result = [objc_msgSend(*(v1 + 8) objectForKeyedSubscript:{@"FastSwitchingMainCaptureStreamFormat", "mutableCopy"}];
+    result = [-[NSDictionary objectForKeyedSubscript:](v1->super._formatDictionary objectForKeyedSubscript:{@"FastSwitchingMainCaptureStreamFormat", "mutableCopy"}];
     if (result)
     {
       OUTLINED_FUNCTION_7_32();
       v41 = [OUTLINED_FUNCTION_17() numberWithUnsignedInt:?];
       OUTLINED_FUNCTION_6_36(v41);
       result = [[FigCaptureSourceVideoFormat alloc] initWithFigCaptureStreamFormatDictionary:BWAdaptiveBracketingFrameParameters.superclass];
-      *(v1 + 152) = result;
+      v1->_fastSwitchingMainCaptureStreamFormat = result;
     }
   }
 
@@ -942,7 +942,7 @@
   if ([supportedDepthDataFormats count])
   {
     array = [MEMORY[0x1E695DF70] array];
-    v13 = OUTLINED_FUNCTION_1_2(array, v6, v7, v8, v9, v10, v11, v12, v29, v2, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, 0);
+    v13 = OUTLINED_FUNCTION_1_2(array, v6, v7, v8, v9, v10, v11, v12, v29, v2, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62);
     if (v13)
     {
       v14 = v13;
@@ -967,7 +967,7 @@
           }
         }
 
-        v14 = OUTLINED_FUNCTION_1_2(v19, v20, v21, v22, v23, v24, v25, v26, v30, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v64);
+        v14 = OUTLINED_FUNCTION_1_2(v19, v20, v21, v22, v23, v24, v25, v26, v30, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63);
       }
 
       while (v14);
@@ -1149,7 +1149,8 @@
 - (BOOL)isPortraitAutoSuggestSupported
 {
   v3 = [-[NSDictionary objectForKeyedSubscript:](self->super._formatDictionary objectForKeyedSubscript:{@"PortraitAutoSuggestSupported", "BOOLValue"}];
-  if ([(FigCaptureSourceVideoFormat *)self isPhotoFormat]&& BWDeviceModelHasCharleston())
+  isPhotoFormat = [(FigCaptureSourceVideoFormat *)self isPhotoFormat];
+  if (isPhotoFormat && BWDeviceModelHasCharleston(isPhotoFormat, v5))
   {
     [(FigCaptureSourceVideoFormat *)self sensorOrientation];
   }
@@ -1864,14 +1865,14 @@ LABEL_14:
 
 - (float)minISO
 {
-  [-[NSDictionary objectForKeyedSubscript:](self->super._formatDictionary objectForKeyedSubscript:{*off_1E798C940), "floatValue"}];
-  v3 = v2;
-  if (v2 == 0.0 && BWCaptureIsRunningInIOSAppOnMacEnvironment())
+  v2 = [-[NSDictionary objectForKeyedSubscript:](self->super._formatDictionary objectForKeyedSubscript:{*off_1E798C940), "floatValue"}];
+  v5 = v4;
+  if (v4 == 0.0 && BWCaptureIsRunningInIOSAppOnMacEnvironment(v2, v3))
   {
     return 50.0;
   }
 
-  return v3;
+  return v5;
 }
 
 - (float)maxISO
@@ -2210,13 +2211,13 @@ LABEL_14:
 {
   if (encoding)
   {
-    FigXPCMessageCopyCFDictionary();
-    [FigCaptureSourceVideoFormat initWithXPCEncoding:];
+    v4 = FigXPCMessageCopyCFDictionary();
+    [FigCaptureSourceVideoFormat initWithXPCEncoding:v4];
   }
 
   else
   {
-    [FigCaptureSourceVideoFormat initWithXPCEncoding:];
+    [(FigCaptureSourceVideoFormat *)self initWithXPCEncoding:a2];
   }
 
   return 0;
@@ -2881,9 +2882,9 @@ id __46__FigCaptureSourceVideoFormat__avfcAttributes__block_invoke()
   }
 
   uniqueID = [(FigCaptureSourceFormat *)self uniqueID];
-  uniqueID2 = [format uniqueID];
+  [format uniqueID];
 
-  return [(NSString *)uniqueID isEqualToString:uniqueID2];
+  return objc_msgSend_isEqualToString_(uniqueID);
 }
 
 - (float)actionCameraAEMaxGainScaleFactor
@@ -2934,7 +2935,7 @@ id __46__FigCaptureSourceVideoFormat__avfcAttributes__block_invoke()
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16, v17, v18, v19, v20, v21, v22, v23);
     return 0.0;
   }
 
@@ -3186,20 +3187,6 @@ LABEL_11:
 
   [v6 sortUsingComparator:&__block_literal_global_53];
   return v6;
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 - (void)geometricDistortionCorrectedFieldOfView

@@ -5,6 +5,7 @@
 - (double)_ringDiameter;
 - (void)_displayIconsForWheelchairUser:(BOOL)user;
 - (void)_setActivityRingViewBackgroundTransparent:(BOOL)transparent;
+- (void)_setActivitySummary:(id)summary animated:(BOOL)animated completion:(id)completion;
 - (void)_setEmptyRingAlpha:(double)alpha;
 - (void)_setRingDiameter:(double)diameter ringInterspacing:(double)interspacing ringThickness:(double)thickness;
 - (void)_setUpAfterInit;
@@ -55,26 +56,26 @@
 
 - (void)_setUpRingsView
 {
-  v38[3] = *MEMORY[0x277D85DE8];
+  v37[3] = *MEMORY[0x277D85DE8];
   energyColors = [MEMORY[0x277CE8E80] energyColors];
   briskColors = [MEMORY[0x277CE8E80] briskColors];
   sedentaryColors = [MEMORY[0x277CE8E80] sedentaryColors];
   gradientDarkColor = [energyColors gradientDarkColor];
-  v38[0] = gradientDarkColor;
+  v37[0] = gradientDarkColor;
   gradientDarkColor2 = [briskColors gradientDarkColor];
-  v38[1] = gradientDarkColor2;
+  v37[1] = gradientDarkColor2;
   gradientDarkColor3 = [sedentaryColors gradientDarkColor];
-  v38[2] = gradientDarkColor3;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
+  v37[2] = gradientDarkColor3;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
 
-  v36 = energyColors;
+  v35 = energyColors;
   gradientLightColor = [energyColors gradientLightColor];
-  v37[0] = gradientLightColor;
+  v36[0] = gradientLightColor;
   gradientLightColor2 = [briskColors gradientLightColor];
-  v37[1] = gradientLightColor2;
+  v36[1] = gradientLightColor2;
   gradientLightColor3 = [sedentaryColors gradientLightColor];
-  v37[2] = gradientLightColor3;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
+  v36[2] = gradientLightColor3;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
 
   activityRingGroup = [MEMORY[0x277CE8E90] activityRingGroup];
   LODWORD(v15) = 1132134400;
@@ -131,7 +132,6 @@
   self->_maskView = v33;
 
   [(ARUIRingsView *)self->_ringsView setMaskView:self->_maskView];
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutSubviews
@@ -187,11 +187,11 @@
 
 - (void)_updateRingsViewDiameter
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   [(HKActivityRingView *)self bounds];
-  Width = CGRectGetWidth(v28);
+  Width = CGRectGetWidth(v27);
   [(HKActivityRingView *)self bounds];
-  Height = CGRectGetHeight(v29);
+  Height = CGRectGetHeight(v28);
   if (Width >= Height)
   {
     Width = Height;
@@ -199,27 +199,27 @@
 
   v5 = +[_HKActivityRingViewSizingDirective sortedRingRatioDirectives];
   firstObject = [v5 firstObject];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v23;
+    v11 = *v22;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
 
         [v13 width];
         if (Width < v14)
@@ -233,7 +233,7 @@
         firstObject = v10;
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       firstObject = v10;
       if (v9)
       {
@@ -266,8 +266,6 @@ LABEL_14:
   {
     [(HKActivityRingView *)self _updateAndInterpolateRingsViewDiameterForWidth:firstObject lowerDirective:v10 higherDirective:Width];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (HKActivityRingView)initWithFrame:(CGRect)frame
@@ -369,6 +367,39 @@ LABEL_14:
 
   ringGroup2 = [(ARUIRingsView *)self->_ringsView ringGroup];
   [ringGroup2 playSpriteAnimation];
+}
+
+- (void)_setActivitySummary:(id)summary animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  summaryCopy = summary;
+  objc_storeStrong(&self->_activitySummary, summary);
+  completionCopy = completion;
+  [(ARUIRingsView *)self->_ringsView hk_configureWithActivitySummary:summaryCopy animated:animatedCopy completion:completionCopy];
+
+  v10 = summaryCopy;
+  if (!self->_backgroundTransparencyOrColorSPIUsed)
+  {
+    isPaused = [summaryCopy isPaused];
+    ringsView = self->_ringsView;
+    if (isPaused)
+    {
+      [(ARUIRingsView *)ringsView setOpaque:0];
+      v13 = self->_ringsView;
+      [MEMORY[0x277D75348] clearColor];
+    }
+
+    else
+    {
+      [(ARUIRingsView *)ringsView setOpaque:1];
+      v13 = self->_ringsView;
+      [MEMORY[0x277D75348] blackColor];
+    }
+    v14 = ;
+    [(ARUIRingsView *)v13 setBackgroundColor:v14];
+
+    v10 = summaryCopy;
+  }
 }
 
 - (double)_ringDiameter

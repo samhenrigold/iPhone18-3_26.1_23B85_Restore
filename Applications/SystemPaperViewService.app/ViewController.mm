@@ -5,6 +5,8 @@
 - (void)handleButtonActions:(id)actions;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
 - (void)teardown;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation ViewController
@@ -119,6 +121,35 @@
   {
     completionCopy[2](completionCopy);
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = ViewController;
+  [(ViewController *)&v9 viewDidAppear:appear];
+  if (![(ViewController *)self didPresent])
+  {
+    [(ViewController *)self setDidPresent:1];
+    activeInterfaceOrientation = [UIApp activeInterfaceOrientation];
+    view = [(ViewController *)self view];
+    window = [view window];
+    [window _setWindowInterfaceOrientation:activeInterfaceOrientation];
+
+    userActivityData = [(ViewController *)self userActivityData];
+    [ICSystemPaperPresenter presentSystemPaperWithUserActivityData:userActivityData presentingViewController:self completion:0];
+
+    v8 = +[NSNotificationCenter defaultCenter];
+    [v8 addObserver:self selector:"dismissalDidEnd:" name:UIPresentationControllerDismissalTransitionDidEndNotification object:0];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ViewController;
+  [(ViewController *)&v4 viewDidDisappear:disappear];
+  [(ViewController *)self teardown];
 }
 
 - (void)dismissalDidEnd:(id)end

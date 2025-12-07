@@ -23,6 +23,7 @@
 - (NSString)fullName;
 - (NSString)shortName;
 - (id)_dateWithEpochString:(id)string;
+- (id)contactIncludingImage:(BOOL)image;
 - (id)contactWithKeys:(id)keys contactStore:(id)store;
 - (id)contactsIncludingImage:(BOOL)image;
 - (id)contactsWithKeys:(id)keys contactStore:(id)store;
@@ -271,22 +272,22 @@ LABEL_10:
 
   else
   {
-    if (![(FAFamilyMember *)self memberIsPending])
+    memberIsPending = [(FAFamilyMember *)self memberIsPending];
+    if ((memberIsPending & 1) == 0)
     {
-      v5 = _FALogSystem();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = _FALogSystem(memberIsPending);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:@"member-status"];
+        v7 = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:@"member-status"];
         v9 = 138412290;
-        v10 = v6;
-        _os_log_impl(&dword_1B70B0000, v5, OS_LOG_TYPE_DEFAULT, "No valid member type present! %@", &v9, 0xCu);
+        v10 = v7;
+        _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "No valid member type present! %@", &v9, 0xCu);
       }
     }
 
     v4 = -1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -361,16 +362,14 @@ void __44__FAFamilyMember_hasParentalControlsEnabled__block_invoke()
 
   if (hasParentalControlsEnabled_forceParentalControlsAppleIDs)
   {
-    v2 = _FALogSystem();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _FALogSystem(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 138412290;
       v5 = hasParentalControlsEnabled_forceParentalControlsAppleIDs;
-      _os_log_impl(&dword_1B70B0000, v2, OS_LOG_TYPE_DEFAULT, "WARNING: Parent controls is being forced for these Apple Accounts by preference: %@", &v4, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v3, OS_LOG_TYPE_DEFAULT, "WARNING: Parent controls is being forced for these Apple Accounts by preference: %@", &v4, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isParent
@@ -404,16 +403,14 @@ void __26__FAFamilyMember_isParent__block_invoke()
 
   if (isParent_forceParentAppleIDs)
   {
-    v2 = _FALogSystem();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _FALogSystem(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 138412290;
       v5 = isParent_forceParentAppleIDs;
-      _os_log_impl(&dword_1B70B0000, v2, OS_LOG_TYPE_DEFAULT, "WARNING: These Apple Accounts are forced to be parent accounts by preference: %@", &v4, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v3, OS_LOG_TYPE_DEFAULT, "WARNING: These Apple Accounts are forced to be parent accounts by preference: %@", &v4, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isGuardian
@@ -522,40 +519,40 @@ void __26__FAFamilyMember_isParent__block_invoke()
 - (id)contactsIncludingImage:(BOOL)image
 {
   imageCopy = image;
-  v23[17] = *MEMORY[0x1E69E9840];
+  v22[17] = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E695C240];
-  v23[0] = *MEMORY[0x1E695C300];
-  v23[1] = v5;
+  v22[0] = *MEMORY[0x1E695C300];
+  v22[1] = v5;
   v6 = *MEMORY[0x1E695C230];
-  v23[2] = *MEMORY[0x1E695C2F0];
-  v23[3] = v6;
+  v22[2] = *MEMORY[0x1E695C2F0];
+  v22[3] = v6;
   v7 = *MEMORY[0x1E695C308];
-  v23[4] = *MEMORY[0x1E695C390];
-  v23[5] = v7;
+  v22[4] = *MEMORY[0x1E695C390];
+  v22[5] = v7;
   v8 = *MEMORY[0x1E695C328];
-  v23[6] = *MEMORY[0x1E695C310];
-  v23[7] = v8;
+  v22[6] = *MEMORY[0x1E695C310];
+  v22[7] = v8;
   v9 = *MEMORY[0x1E695C2C8];
-  v23[8] = *MEMORY[0x1E695C1F8];
-  v23[9] = v9;
+  v22[8] = *MEMORY[0x1E695C1F8];
+  v22[9] = v9;
   v10 = *MEMORY[0x1E695C350];
-  v23[10] = *MEMORY[0x1E695C348];
-  v23[11] = v10;
+  v22[10] = *MEMORY[0x1E695C348];
+  v22[11] = v10;
   v11 = *MEMORY[0x1E695C358];
-  v23[12] = *MEMORY[0x1E695C340];
-  v23[13] = v11;
+  v22[12] = *MEMORY[0x1E695C340];
+  v22[13] = v11;
   v12 = *MEMORY[0x1E695C330];
-  v23[14] = *MEMORY[0x1E695C410];
-  v23[15] = v12;
-  v23[16] = *MEMORY[0x1E695C208];
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:17];
+  v22[14] = *MEMORY[0x1E695C410];
+  v22[15] = v12;
+  v22[16] = *MEMORY[0x1E695C208];
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:17];
   v14 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
   v15 = [v13 arrayByAddingObject:v14];
 
   if (imageCopy)
   {
-    v22 = *MEMORY[0x1E695C400];
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+    v21 = *MEMORY[0x1E695C400];
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
     v17 = [v15 arrayByAddingObjectsFromArray:v16];
 
     v15 = v17;
@@ -564,14 +561,12 @@ void __26__FAFamilyMember_isParent__block_invoke()
   v18 = objc_alloc_init(MEMORY[0x1E695CE18]);
   v19 = [(FAFamilyMember *)self contactsWithKeys:v15 contactStore:v18];
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (id)contactsWithKeys:(id)keys contactStore:(id)store
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   storeCopy = store;
   v8 = objc_alloc_init(MEMORY[0x1E695DFA0]);
@@ -631,30 +626,30 @@ void __26__FAFamilyMember_isParent__block_invoke()
   if (memberPhoneNumbers)
   {
     v28 = array2;
-    v47 = v25;
+    v46 = v25;
     memberPhoneNumbers2 = [(FAFamilyMember *)self memberPhoneNumbers];
     v30 = [memberPhoneNumbers2 componentsSeparatedByString:{@", "}];
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v31 = v30;
-    v32 = [v31 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v51 objects:v56 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v53;
+      v34 = *v52;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v53 != v34)
+          if (*v52 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v36 = *(*(&v52 + 1) + 8 * i);
+          v36 = *(*(&v51 + 1) + 8 * i);
           if ([v36 length])
           {
             v37 = [MEMORY[0x1E695CF50] phoneNumberWithStringValue:v36];
@@ -666,40 +661,40 @@ void __26__FAFamilyMember_isParent__block_invoke()
           }
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
       while (v33);
     }
 
-    v25 = v47;
+    v25 = v46;
     array2 = v28;
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v39 = array2;
-  v40 = [v39 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v40 = [v39 countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v49;
+    v42 = *v48;
     do
     {
       for (j = 0; j != v41; ++j)
       {
-        if (*v49 != v42)
+        if (*v48 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        v44 = [storeCopy unifiedContactsMatchingPredicate:*(*(&v48 + 1) + 8 * j) keysToFetch:keysCopy error:0];
+        v44 = [storeCopy unifiedContactsMatchingPredicate:*(*(&v47 + 1) + 8 * j) keysToFetch:keysCopy error:0];
         [v8 addObjectsFromArray:v44];
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v41);
@@ -708,9 +703,16 @@ void __26__FAFamilyMember_isParent__block_invoke()
   array = [v8 array];
 
 LABEL_34:
-  v45 = *MEMORY[0x1E69E9840];
 
   return array;
+}
+
+- (id)contactIncludingImage:(BOOL)image
+{
+  v3 = [(FAFamilyMember *)self contactsIncludingImage:image];
+  firstObject = [v3 firstObject];
+
+  return firstObject;
 }
 
 - (unint64_t)hash
@@ -924,39 +926,39 @@ LABEL_34:
 
 - (void)finishWith:(id)with
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   withCopy = with;
   if (_os_feature_enabled_impl())
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v6 = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:@"member-child-dsids"];
     selfCopy = self;
     v7 = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:@"member-guardian-dsids"];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     allKeys = [withCopy allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v20 + 1) + 8 * i);
           v14 = v5;
           if (([v6 containsObject:v13] & 1) == 0)
           {
-            v14 = v20;
+            v14 = v19;
             if (![v7 containsObject:v13])
             {
               continue;
@@ -967,7 +969,7 @@ LABEL_34:
           [v14 addObject:v15];
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -984,9 +986,9 @@ LABEL_34:
     }
 
     objc_storeStrong(&selfCopy->_remoteChildren, v16);
-    if ([v20 count])
+    if ([v19 count])
     {
-      v17 = v20;
+      v17 = v19;
     }
 
     else
@@ -996,8 +998,6 @@ LABEL_34:
 
     objc_storeStrong(&selfCopy->_remoteGuardians, v17);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

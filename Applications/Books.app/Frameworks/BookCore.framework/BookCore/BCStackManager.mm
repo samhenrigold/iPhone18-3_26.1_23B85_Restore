@@ -39,77 +39,77 @@
 {
   sourceCopy = source;
   requestCopy = request;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v26 = sub_4F1C;
-  v27 = &unk_2C7BC0;
-  v30 = &v31;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v27 = sub_4F1C;
+  v28 = &unk_2C7BC0;
+  v31 = &v32;
   selfCopy = self;
   v8 = sourceCopy;
-  v29 = v8;
-  v9 = v25;
+  v30 = v8;
+  v9 = v26;
   os_unfair_lock_lock(&self->_accessLock);
-  v26(v9);
+  v27(v9);
   os_unfair_lock_unlock(&self->_accessLock);
 
-  v10 = *(v32 + 24);
-  if (v10 == 1)
+  v11 = *(v33 + 24);
+  if (v11 == 1)
   {
-    v11 = BCImageCacheLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138412290;
-      v36 = v8;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "BCStackManager: Already Rendering stack for: %@", buf, 0xCu);
-    }
-
-    v10 = *(v32 + 24);
-  }
-
-  if (!v10)
-  {
-    v12 = BCImageCacheLog();
+    v12 = BCImageCacheLog(v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v36 = v8;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "BCStackManager: Rendering stack for: %@", buf, 0xCu);
+      v37 = v8;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "BCStackManager: Already Rendering stack for: %@", buf, 0xCu);
+    }
+
+    v11 = *(v33 + 24);
+  }
+
+  if (!v11)
+  {
+    v13 = BCImageCacheLog(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v37 = v8;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "BCStackManager: Rendering stack for: %@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     [BICCacheStats incrementCounter:kBICCacheStatsCounterStacks[0]];
     [BICCacheStats logOperation:BICCacheStatsOperationStackCreationQueueStart[0] forRequest:requestCopy];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v21 = sub_4F7C;
-    v22 = &unk_2C7BE8;
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v22 = sub_4F7C;
+    v23 = &unk_2C7BE8;
     selfCopy2 = self;
-    v13 = v8;
-    v24 = v13;
-    v14 = v20;
+    v14 = v8;
+    v25 = v14;
+    v15 = v21;
     os_unfair_lock_lock(&self->_accessLock);
-    v21(v14);
+    v22(v15);
     os_unfair_lock_unlock(&self->_accessLock);
 
     workQueue = [(BCStackManager *)self workQueue];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_4FD0;
-    v16[3] = &unk_2C7C88;
-    objc_copyWeak(&v19, buf);
-    v17 = requestCopy;
-    v18 = v13;
-    [workQueue addWorkItemWithPriority:v17 description:@"StackManager render stack" block:v16];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_4FD0;
+    v17[3] = &unk_2C7C88;
+    objc_copyWeak(&v20, buf);
+    v18 = requestCopy;
+    v19 = v14;
+    [workQueue addWorkItemWithPriority:v18 description:@"StackManager render stack" block:v17];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
 }
 
 - (void)_renderCompleteSource:(id)source to:(id)to forRequest:(id)request
@@ -118,8 +118,7 @@
   v9 = BICCacheStatsOperationStackCreationEnd[0];
   requestCopy = request;
   toCopy = to;
-  [BICCacheStats logOperation:v9 forRequest:requestCopy];
-  v12 = BCImageCacheLog();
+  v12 = BCImageCacheLog([BICCacheStats logOperation:v9 forRequest:requestCopy]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v14 = 138412290;

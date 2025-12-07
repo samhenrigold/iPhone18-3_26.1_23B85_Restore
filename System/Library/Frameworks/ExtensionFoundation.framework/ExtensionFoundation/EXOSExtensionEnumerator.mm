@@ -8,38 +8,38 @@
 
 + (void)enumerateExtensionsInDirectoryAtURL:(id)l block:(id)block
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   blockCopy = block;
-  v48[0] = *MEMORY[0x1E695DB78];
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:1];
+  v49[0] = *MEMORY[0x1E695DB78];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:1];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v30 = lCopy;
+  v31 = lCopy;
   v9 = [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:v7 options:1 errorHandler:0];
 
-  v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
+  v42 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
+  v10 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v41;
-    v31 = *v41;
+    v12 = *v42;
+    v32 = *v42;
     do
     {
       v13 = 0;
-      v32 = v11;
+      v33 = v11;
       do
       {
-        if (*v41 != v12)
+        if (*v42 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v40 + 1) + 8 * v13);
+        v14 = *(*(&v41 + 1) + 8 * v13);
         if ([v14 _EX_isDirectory] && (objc_msgSend(v14, "pathExtension"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "caseInsensitiveCompare:", @"appex"), v15, !v16))
         {
           blockCopy[2](blockCopy, v14);
@@ -48,70 +48,71 @@
         else if (([v14 _EX_isDirectory] & 1) == 0)
         {
           [v14 pathExtension];
-          v17 = v35 = v14;
+          v17 = v36 = v14;
           v18 = [v17 caseInsensitiveCompare:@"appexlist"];
 
           if (!v18)
           {
-            v33 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v14];
-            v19 = [v33 _EX_dictionaryForKey:@"AppExtensions"];
+            v34 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v14];
+            v19 = [v34 _EX_dictionaryForKey:@"AppExtensions"];
             allKeys = [v19 allKeys];
 
-            v21 = _EXRegistrationLog();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+            v22 = _EXRegistrationLog(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v46 = allKeys;
-              _os_log_debug_impl(&dword_1847D1000, v21, OS_LOG_TYPE_DEBUG, "Discovered list of App Extension paths '%{public}@'", buf, 0xCu);
+              v47 = allKeys;
+              _os_log_debug_impl(&dword_1847D1000, v22, OS_LOG_TYPE_DEBUG, "Discovered list of App Extension paths '%{public}@'", buf, 0xCu);
             }
 
-            v38 = 0u;
             v39 = 0u;
-            v36 = 0u;
+            v40 = 0u;
             v37 = 0u;
-            v22 = allKeys;
-            v23 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
-            if (v23)
+            v38 = 0u;
+            v23 = allKeys;
+            v24 = [v23 countByEnumeratingWithState:&v37 objects:v45 count:16];
+            if (v24)
             {
-              v24 = v23;
-              v25 = *v37;
+              v25 = v24;
+              v26 = *v38;
               do
               {
-                for (i = 0; i != v24; ++i)
+                for (i = 0; i != v25; ++i)
                 {
-                  if (*v37 != v25)
+                  if (*v38 != v26)
                   {
-                    objc_enumerationMutation(v22);
+                    objc_enumerationMutation(v23);
                   }
 
-                  v27 = *(*(&v36 + 1) + 8 * i);
+                  v28 = *(*(&v37 + 1) + 8 * i);
                   objc_opt_class();
-                  if (objc_opt_isKindOfClass())
+                  isKindOfClass = objc_opt_isKindOfClass();
+                  if (isKindOfClass)
                   {
-                    v28 = [MEMORY[0x1E695DFF8] fileURLWithPath:v27 isDirectory:1];
-                    blockCopy[2](blockCopy, v28);
+                    v30 = [MEMORY[0x1E695DFF8] fileURLWithPath:v28 isDirectory:1];
+                    blockCopy[2](blockCopy, v30);
                   }
 
                   else
                   {
-                    v28 = _EXRegistrationLog();
-                    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                    v30 = _EXRegistrationLog(isKindOfClass);
+                    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138543362;
-                      v46 = v35;
-                      _os_log_error_impl(&dword_1847D1000, v28, OS_LOG_TYPE_ERROR, "unexpected class for entry in %{public}@ extension list.", buf, 0xCu);
+                      v47 = v36;
+                      _os_log_error_impl(&dword_1847D1000, v30, OS_LOG_TYPE_ERROR, "unexpected class for entry in %{public}@ extension list.", buf, 0xCu);
                     }
                   }
                 }
 
-                v24 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
+                v25 = [v23 countByEnumeratingWithState:&v37 objects:v45 count:16];
               }
 
-              while (v24);
+              while (v25);
             }
 
-            v12 = v31;
-            v11 = v32;
+            v12 = v32;
+            v11 = v33;
           }
         }
 
@@ -119,13 +120,11 @@
       }
 
       while (v13 != v11);
-      v11 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
+      v11 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
     }
 
     while (v11);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (EXOSExtensionEnumerator)initWithCacheURLs:(id)ls paths:(id)paths
@@ -140,7 +139,7 @@
   if (v8)
   {
     v30 = v8;
-    v10 = _EXRegistrationLog();
+    v10 = _EXRegistrationLog(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [EXOSExtensionEnumerator initWithCacheURLs:paths:];
@@ -186,18 +185,18 @@
             v19 = [v18 _EX_objectForKey:@"AppExtensions" ofClass:objc_opt_class()];
             allKeys = [v19 allKeys];
 
-            v21 = _EXRegistrationLog();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+            v22 = _EXRegistrationLog(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
               v41 = allKeys;
-              _os_log_debug_impl(&dword_1847D1000, v21, OS_LOG_TYPE_DEBUG, "Discovered cached App Extension paths '%{public}@'", buf, 0xCu);
+              _os_log_debug_impl(&dword_1847D1000, v22, OS_LOG_TYPE_DEBUG, "Discovered cached App Extension paths '%{public}@'", buf, 0xCu);
             }
 
-            v22 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_429];
-            v23 = [allKeys filteredArrayUsingPredicate:v22];
+            v23 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_429];
+            v24 = [allKeys filteredArrayUsingPredicate:v23];
 
-            [v11 addObjectsFromArray:v23];
+            [v11 addObjectsFromArray:v24];
           }
         }
 
@@ -207,10 +206,10 @@
       while (v14);
     }
 
-    v24 = [v11 copy];
+    v25 = [v11 copy];
     v9 = v30;
     extensionPaths = v30->_extensionPaths;
-    v30->_extensionPaths = v24;
+    v30->_extensionPaths = v25;
 
     objectEnumerator = [(NSArray *)v30->_extensionPaths objectEnumerator];
     extensionPathsEnumerator = v30->_extensionPathsEnumerator;
@@ -220,14 +219,13 @@
     lsCopy = v32;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 void __51__EXOSExtensionEnumerator_initWithCacheURLs_paths___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _EXRegistrationLog();
+  v4 = _EXRegistrationLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __51__EXOSExtensionEnumerator_initWithCacheURLs_paths___block_invoke_cold_1();
@@ -242,25 +240,24 @@ uint64_t __51__EXOSExtensionEnumerator_initWithCacheURLs_paths___block_invoke_42
 {
   v9 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  if ([v2 hasPrefix:@"/System/Library/Frameworks"] & 1) != 0 || (objc_msgSend(v2, "hasPrefix:", @"/System/Library/PrivateFrameworks"))
+  if ([v2 hasPrefix:@"/System/Library/Frameworks"] & 1) != 0 || (v3 = objc_msgSend(v2, "hasPrefix:", @"/System/Library/PrivateFrameworks"), (v3))
   {
-    v3 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v4 = _EXRegistrationLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _EXRegistrationLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138543362;
       v8 = v2;
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v4;
 }
 
 - (id)nextObject
@@ -277,22 +274,6 @@ uint64_t __51__EXOSExtensionEnumerator_initWithCacheURLs_paths___block_invoke_42
   }
 
   return v3;
-}
-
-- (void)initWithCacheURLs:paths:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_1(&dword_1847D1000, v0, v1, "Looking for caches at URLs: %{public}@ with know paths: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __51__EXOSExtensionEnumerator_initWithCacheURLs_paths___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1847D1000, v0, v1, "Discovered App Extension at '%{public}@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

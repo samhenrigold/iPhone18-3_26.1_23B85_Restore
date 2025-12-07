@@ -37,66 +37,66 @@
 
 - (void)_axSetDetailLabelsForVisibleCells
 {
-  v40 = *MEMORY[0x29EDCA608];
-  LOBYTE(v22) = 0;
+  v39 = *MEMORY[0x29EDCA608];
+  LOBYTE(v21) = 0;
   objc_opt_class();
-  v21 = __UIAccessibilityCastAsClass();
+  v20 = __UIAccessibilityCastAsClass();
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  tableView = [v21 tableView];
+  tableView = [v20 tableView];
   obj = [tableView indexPathsForVisibleRows];
 
-  v4 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v4 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v4)
   {
-    v20 = *v36;
+    v19 = *v35;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v36 != v20)
+        if (*v35 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v35 + 1) + 8 * i);
-        v22 = 0;
-        v23 = &v22;
-        v24 = 0x2020000000;
-        LOBYTE(v25) = 0;
-        v28 = MEMORY[0x29EDCA5F8];
-        v29 = 3221225472;
-        v30 = __77__MTAAlarmTableViewControllerAccessibility__axSetDetailLabelsForVisibleCells__block_invoke;
-        v31 = &unk_29F2DAB50;
-        v33 = v6;
-        v34 = &v22;
+        v6 = *(*(&v34 + 1) + 8 * i);
+        v21 = 0;
+        v22 = &v21;
+        v23 = 0x2020000000;
+        LOBYTE(v24) = 0;
+        v27 = MEMORY[0x29EDCA5F8];
+        v28 = 3221225472;
+        v29 = __77__MTAAlarmTableViewControllerAccessibility__axSetDetailLabelsForVisibleCells__block_invoke;
+        v30 = &unk_29F2DAB50;
+        v32 = v6;
+        v33 = &v21;
         selfCopy = self;
         AXPerformSafeBlock();
-        v7 = *(v23 + 24);
-        _Block_object_dispose(&v22, 8);
+        v7 = *(v22 + 24);
+        _Block_object_dispose(&v21, 8);
         if (v7 == 1)
         {
           v8 = [(MTAAlarmTableViewControllerAccessibility *)self safeValueForKey:@"dataSource"];
-          v22 = 0;
-          v23 = &v22;
-          v24 = 0x3032000000;
-          v25 = __Block_byref_object_copy_;
-          v26 = __Block_byref_object_dispose_;
-          v27 = 0;
+          v21 = 0;
+          v22 = &v21;
+          v23 = 0x3032000000;
+          v24 = __Block_byref_object_copy_;
+          v25 = __Block_byref_object_dispose_;
+          v26 = 0;
           v9 = v8;
           AXPerformSafeBlock();
-          v10 = v23[5];
+          v10 = v22[5];
 
-          _Block_object_dispose(&v22, 8);
-          tableView2 = [v21 tableView];
+          _Block_object_dispose(&v21, 8);
+          tableView2 = [v20 tableView];
           v12 = [tableView2 cellForRowAtIndexPath:v6];
 
-          LOBYTE(v22) = 0;
+          LOBYTE(v21) = 0;
           objc_opt_class();
           v13 = __UIAccessibilityCastAsSafeCategory();
-          if (v22 == 1)
+          if (v21 == 1)
           {
             abort();
           }
@@ -105,32 +105,30 @@
           [v13 _axSetDetailLabelForAlarm:v10];
         }
 
-        v22 = 0;
-        v23 = &v22;
-        v24 = 0x2020000000;
-        LOBYTE(v25) = 0;
+        v21 = 0;
+        v22 = &v21;
+        v23 = 0x2020000000;
+        LOBYTE(v24) = 0;
         AXPerformSafeBlock();
-        v15 = *(v23 + 24);
-        _Block_object_dispose(&v22, 8);
+        v15 = *(v22 + 24);
+        _Block_object_dispose(&v21, 8);
         if (v15 == 1)
         {
-          tableView3 = [v21 tableView];
+          tableView3 = [v20 tableView];
           v17 = [tableView3 headerViewForSection:{objc_msgSend(v6, "section")}];
 
           [(MTAAlarmTableViewControllerAccessibility *)self _axSetHeaderLabelForSleepSection:v17];
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v4 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v4);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t __77__MTAAlarmTableViewControllerAccessibility__axSetDetailLabelsForVisibleCells__block_invoke(uint64_t a1)
+void *__77__MTAAlarmTableViewControllerAccessibility__axSetDetailLabelsForVisibleCells__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isAlarmsSection:{objc_msgSend(*(a1 + 40), "section")}];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -139,15 +137,12 @@ uint64_t __77__MTAAlarmTableViewControllerAccessibility__axSetDetailLabelsForVis
 
 uint64_t __77__MTAAlarmTableViewControllerAccessibility__axSetDetailLabelsForVisibleCells__block_invoke_309(uint64_t a1)
 {
-  v2 = [*(a1 + 32) alarmAtRow:{objc_msgSend(*(a1 + 40), "row")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) alarmAtRow:{objc_msgSend(*(a1 + 40), "row")}];
 
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __77__MTAAlarmTableViewControllerAccessibility__axSetDetailLabelsForVisibleCells__block_invoke_2(uint64_t a1)
+void *__77__MTAAlarmTableViewControllerAccessibility__axSetDetailLabelsForVisibleCells__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _isWakeAlarmSection:{objc_msgSend(*(a1 + 40), "section")}];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -202,7 +197,7 @@ uint64_t __77__MTAAlarmTableViewControllerAccessibility__axSetDetailLabelsForVis
   return v7;
 }
 
-uint64_t __77__MTAAlarmTableViewControllerAccessibility_tableView_viewForHeaderInSection___block_invoke(uint64_t a1)
+void *__77__MTAAlarmTableViewControllerAccessibility_tableView_viewForHeaderInSection___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isWakeAlarmSection:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

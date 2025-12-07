@@ -16,7 +16,7 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [(SBMutableKeyboardFocusCoalitionPreferences *)policyCopy setPolicy:a2];
+    [(SBMutableKeyboardFocusCoalitionPreferences *)policyCopy setPolicy:a2, self];
   }
 
   v5 = [policyCopy copy];
@@ -32,7 +32,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [(SBMutableKeyboardFocusCoalitionPreferences *)reasonsCopy setLockReasons:a2];
+      [(SBMutableKeyboardFocusCoalitionPreferences *)reasonsCopy setLockReasons:a2, self];
     }
   }
 
@@ -41,35 +41,35 @@
   self->super._lockReasons = v5;
 }
 
-- (void)setPolicy:(void *)a1 .cold.1(void *a1, const char *a2)
+- (void)setPolicy:(uint64_t)a3 .cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x277CCACA8];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"policy", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"policy", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_9_0();
-    v15 = @"SBKeyboardFocusCoalitionMemberPreferences.m";
-    v16 = 1024;
-    v17 = 152;
-    v18 = v12;
-    v19 = v8;
-    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v14);
+    v16 = @"SBKeyboardFocusCoalitionMemberPreferences.m";
+    v17 = 1024;
+    v18 = 152;
+    v19 = v13;
+    v20 = v9;
+    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -106,35 +106,35 @@
   __break(0);
 }
 
-- (void)setLockReasons:(void *)a1 .cold.1(void *a1, const char *a2)
+- (void)setLockReasons:(uint64_t)a3 .cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x277CCACA8];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"lockReasons", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"lockReasons", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_9_0();
-    v15 = @"SBKeyboardFocusCoalitionMemberPreferences.m";
-    v16 = 1024;
-    v17 = 158;
-    v18 = v12;
-    v19 = v8;
-    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v14);
+    v16 = @"SBKeyboardFocusCoalitionMemberPreferences.m";
+    v17 = 1024;
+    v18 = 158;
+    v19 = v13;
+    v20 = v9;
+    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

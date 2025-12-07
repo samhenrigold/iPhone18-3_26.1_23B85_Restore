@@ -15,12 +15,12 @@
   dispatch_assert_queue_V2(queue);
 
   captureSession = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-  v10 = [captureSession canAddInput:inputCopy];
+  v10 = [captureSession canAddInput:?];
 
   if (v10)
   {
     captureSession2 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-    [captureSession2 addInput:inputCopy];
+    [captureSession2 addInput:?];
   }
 
   else
@@ -33,12 +33,12 @@
   }
 
   captureSession3 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-  v13 = [captureSession3 canAddOutput:outputCopy];
+  v13 = [captureSession3 canAddOutput:?];
 
   if (v13)
   {
     captureSession4 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-    [captureSession4 addOutput:outputCopy];
+    [captureSession4 addOutput:?];
   }
 
   else
@@ -134,14 +134,14 @@ LABEL_4:
 {
   v1 = [a1 captureSession];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_2_5(&dword_242545000, v2, v3, "%{public}@ Cannot add AVCaptureDeviceInput (%p) to AVCaptureSession (%p)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_5(&dword_242545000, v2, v3, "%{public}@ Cannot add AVCaptureDeviceInput (%p) to AVCaptureSession (%p)", v4, v5, v6, v7);
 }
 
 - (void)configureSessionWithInput:(void *)a1 andOutput:.cold.2(void *a1)
 {
   v1 = [a1 captureSession];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_2_5(&dword_242545000, v2, v3, "%{public}@ Cannot add AVCaptureAudioDataOutput (%p) to AVCaptureSession (%p)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_5(&dword_242545000, v2, v3, "%{public}@ Cannot add AVCaptureAudioDataOutput (%p) to AVCaptureSession (%p)", v4, v5, v6, v7);
 }
 
 @end

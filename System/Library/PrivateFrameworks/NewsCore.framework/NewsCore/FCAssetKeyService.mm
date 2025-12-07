@@ -108,7 +108,7 @@ void __50__FCAssetKeyService_initWithConfigurationManager___block_invoke_4(uint6
 
 - (void)fetchWrappingKeysWithIDs:(id)ds completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   handlerCopy = handler;
   v8 = objc_alloc_init(MEMORY[0x1E69B7070]);
@@ -125,16 +125,16 @@ void __50__FCAssetKeyService_initWithConfigurationManager___block_invoke_4(uint6
   }
 
   data = [v8 data];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke;
-  v27[3] = &unk_1E7C3EDE0;
-  v28 = dsCopy;
-  v29 = handlerCopy;
-  v26 = handlerCopy;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke;
+  v26[3] = &unk_1E7C3EDE0;
+  v27 = dsCopy;
+  v28 = handlerCopy;
+  v25 = handlerCopy;
   v13 = dsCopy;
   v14 = data;
-  v15 = v27;
+  v15 = v26;
   if (self)
   {
     v16 = dispatch_get_global_queue(17, 0);
@@ -142,48 +142,46 @@ void __50__FCAssetKeyService_initWithConfigurationManager___block_invoke_4(uint6
     v18 = zalgo();
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v34 = __60__FCAssetKeyService__performHTTPRequestWithData_completion___block_invoke;
-    v35 = &unk_1E7C3EE30;
-    v36 = v14;
+    v33 = __60__FCAssetKeyService__performHTTPRequestWithData_completion___block_invoke;
+    v34 = &unk_1E7C3EE30;
+    v35 = v14;
     v19 = v15;
-    v39 = v19;
+    v38 = v19;
     v20 = v16;
-    v37 = v20;
+    v36 = v20;
     selfCopy = self;
     v21 = [(NFPromise *)v17 thenOn:v18 then:&buf];
     v22 = zalgo();
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __60__FCAssetKeyService__performHTTPRequestWithData_completion___block_invoke_31;
-    v30[3] = &unk_1E7C39710;
-    v32 = v19;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __60__FCAssetKeyService__performHTTPRequestWithData_completion___block_invoke_31;
+    v29[3] = &unk_1E7C39710;
+    v31 = v19;
 
-    v31 = v20;
+    v30 = v20;
     v23 = v20;
-    v24 = [v21 errorOn:v22 error:v30];
+    v24 = [v21 errorOn:v22 error:v29];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (v9)
   {
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_2;
-    v40[3] = &unk_1E7C38FF0;
-    v41 = *(a1 + 32);
-    v42 = v9;
-    v43 = *(a1 + 40);
-    __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_2(v40);
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_2;
+    v39[3] = &unk_1E7C38FF0;
+    v40 = *(a1 + 32);
+    v41 = v9;
+    v42 = *(a1 + 40);
+    __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_2(v39);
 
-    v10 = v41;
+    v10 = v40;
   }
 
   else if ([v8 statusCode] == 200)
@@ -200,58 +198,58 @@ void __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_
         v15 = [v14 count];
         v16 = [*(a1 + 32) count];
         *buf = 134218240;
-        v46 = v15;
-        v47 = 2048;
-        v48 = v16;
+        v45 = v15;
+        v46 = 2048;
+        v47 = v16;
         _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "Asset key service successfully fetched %lu of %lu keys", buf, 0x16u);
       }
 
       v17 = [MEMORY[0x1E695DF90] dictionary];
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       v18 = [v10 wrappingKeyMapEntries];
-      v19 = [v18 countByEnumeratingWithState:&v29 objects:v44 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v28 objects:v43 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v30;
+        v21 = *v29;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v30 != v21)
+            if (*v29 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v29 + 1) + 8 * i);
+            v23 = *(*(&v28 + 1) + 8 * i);
             v24 = [v23 wrappingKey];
             v25 = [v23 wrappingKeyId];
             [v17 fc_safelySetObject:v24 forKey:v25];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v29 objects:v44 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v28 objects:v43 count:16];
         }
 
         while (v20);
       }
 
       (*(*(a1 + 40) + 16))();
-      v8 = v27;
-      v7 = v28;
+      v8 = v26;
+      v7 = v27;
     }
 
     else
     {
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_21;
-      v33[3] = &unk_1E7C37778;
-      v35 = *(a1 + 40);
-      v34 = v8;
-      __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_21(v33);
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_21;
+      v32[3] = &unk_1E7C37778;
+      v34 = *(a1 + 40);
+      v33 = v8;
+      __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_21(v32);
 
       v10 = 0;
     }
@@ -259,57 +257,52 @@ void __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_
 
   else
   {
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_17;
-    v36[3] = &unk_1E7C38FF0;
-    v37 = v8;
-    v38 = *(a1 + 32);
-    v39 = *(a1 + 40);
-    __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_17(v36);
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_17;
+    v35[3] = &unk_1E7C38FF0;
+    v36 = v8;
+    v37 = *(a1 + 32);
+    v38 = *(a1 + 40);
+    __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_17(v35);
 
-    v10 = v37;
+    v10 = v36;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_2(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = a1[4];
-    v7 = v2;
-    v8 = [v6 count];
-    v9 = a1[5];
-    v10 = 134218242;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v9;
-    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Asset key service failed to fetch %lu keys with error: %{public}@", &v10, 0x16u);
+    v4 = a1[4];
+    v5 = v2;
+    v6 = [v4 count];
+    v7 = a1[5];
+    v8 = 134218242;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "Asset key service failed to fetch %lu keys with error: %{public}@", &v8, 0x16u);
   }
 
-  v3 = a1[5];
-  result = (*(a1[6] + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 void __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_17(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) statusCode] == 401 || objc_msgSend(*(a1 + 32), "statusCode") == 403)
   {
     v2 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 40);
-      v12 = v2;
-      v17 = 134217984;
-      v18 = [v11 count];
-      _os_log_error_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_ERROR, "Asset key service got unauthorized response for %lu keys", &v17, 0xCu);
+      v10 = *(a1 + 40);
+      v11 = v2;
+      v16 = 134217984;
+      v17 = [v10 count];
+      _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "Asset key service got unauthorized response for %lu keys", &v16, 0xCu);
     }
 
     v3 = MEMORY[0x1E696ABC0];
@@ -323,15 +316,15 @@ void __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_
     v7 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = v7;
-      v15 = [v13 statusCode];
-      v16 = [*(a1 + 40) count];
-      v17 = 134218240;
-      v18 = v15;
-      v19 = 2048;
-      v20 = v16;
-      _os_log_error_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_ERROR, "Asset key service got error status code %ld for %lu keys", &v17, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = v7;
+      v14 = [v12 statusCode];
+      v15 = [*(a1 + 40) count];
+      v16 = 134218240;
+      v17 = v14;
+      v18 = 2048;
+      v19 = v15;
+      _os_log_error_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_ERROR, "Asset key service got error status code %ld for %lu keys", &v16, 0x16u);
     }
 
     v4 = *(a1 + 48);
@@ -342,30 +335,26 @@ void __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_
 
   v9 = v6;
   (*(v4 + 16))(v4, 0, v6);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __64__FCAssetKeyService_fetchWrappingKeysWithIDs_completionHandler___block_invoke_21(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    *v9 = 0;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Asset key service failed to parse response", v9, 2u);
+    *v8 = 0;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Asset key service failed to parse response", v8, 2u);
   }
 
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A998];
+  v9 = *MEMORY[0x1E696A998];
   v4 = *(a1 + 40);
   v5 = [*(a1 + 32) URL];
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"FCEndpointConnectionErrorDomain" code:500 userInfo:v6];
   (*(v4 + 16))(v4, 0, v7);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__FCAssetKeyService__performHTTPRequestWithData_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -545,13 +534,13 @@ void __61__FCAssetKeyService_executeRequest_callbackQueue_completion___block_inv
 
 void __61__FCAssetKeyService_executeRequest_callbackQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
+    v5 = *(a1 + 32);
     *buf = 138543362;
-    v11 = v6;
+    v10 = v5;
     _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Asset key service failed to construct request with error: %{public}@", buf, 0xCu);
   }
 
@@ -559,16 +548,14 @@ void __61__FCAssetKeyService_executeRequest_callbackQueue_completion___block_inv
   if (v3)
   {
     v4 = *(a1 + 40);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __61__FCAssetKeyService_executeRequest_callbackQueue_completion___block_invoke_33;
-    v7[3] = &unk_1E7C37778;
-    v9 = v3;
-    v8 = *(a1 + 32);
-    dispatch_async(v4, v7);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __61__FCAssetKeyService_executeRequest_callbackQueue_completion___block_invoke_33;
+    v6[3] = &unk_1E7C37778;
+    v8 = v3;
+    v7 = *(a1 + 32);
+    dispatch_async(v4, v6);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __61__FCAssetKeyService_executeRequest_callbackQueue_completion___block_invoke_34(uint64_t a1, void *a2, void *a3)

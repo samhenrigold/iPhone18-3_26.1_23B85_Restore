@@ -154,34 +154,34 @@ LABEL_21:
 
 void __33__ASTResponse_stringFromCommand___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) _stringToCommand];
   v2 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v1, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        v9 = [v3 objectForKeyedSubscript:{v8, v13}];
+        v8 = *(*(&v12 + 1) + 8 * i);
+        v9 = [v3 objectForKeyedSubscript:{v8, v12}];
         [v2 setObject:v8 forKeyedSubscript:v9];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -190,8 +190,6 @@ void __33__ASTResponse_stringFromCommand___block_invoke(uint64_t a1)
   v10 = [v2 copy];
   v11 = stringFromCommand___stringFromCommand;
   stringFromCommand___stringFromCommand = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -263,7 +261,7 @@ void __33__ASTResponse_stringFromCommand___block_invoke(uint64_t a1)
 
 - (id)validateData:(id)data command:(int64_t)command
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = dataCopy;
   v8 = MEMORY[0x277CBEC10];
@@ -485,28 +483,28 @@ LABEL_74:
   }
 
   v8 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{v8, @"predicates", v8, @"parameters", v8, @"specifications", 0}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   allKeys = [v8 allKeys];
   v10 = [allKeys copy];
 
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         if ([(ASTResponse *)self validateResponse:v7 key:v15 expectedClass:objc_opt_class()])
         {
           v16 = [v7 objectForKeyedSubscript:v15];
@@ -519,54 +517,21 @@ LABEL_74:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v28 = v15;
+            v27 = v15;
             _os_log_impl(&dword_240F3C000, v16, OS_LOG_TYPE_DEFAULT, "Warning: statusResponse is missing %@ key. Defaulting to empty dictionary.", buf, 0xCu);
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v12);
   }
 
 LABEL_75:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v8;
-}
-
-- (void)initWithDictionary:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

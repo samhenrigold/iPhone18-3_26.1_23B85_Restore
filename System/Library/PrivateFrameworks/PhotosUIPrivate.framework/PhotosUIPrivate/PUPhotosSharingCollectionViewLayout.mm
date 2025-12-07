@@ -104,9 +104,9 @@ LABEL_14:
     for (i = 0; i != v7; ++i)
     {
       v9 = [v5 objectAtIndexedSubscript:i];
-      indexPath = [v9 indexPath];
+      v10 = objc_msgSend_indexPath(v9);
       zoomingCellIndexPath = [(PUPhotosSharingCollectionViewLayout *)self zoomingCellIndexPath];
-      [v9 setHidden:{objc_msgSend(indexPath, "isEqual:", zoomingCellIndexPath)}];
+      [v9 setHidden:{objc_msgSend(v10, "isEqual:", zoomingCellIndexPath)}];
 
       v12 = [(PUPhotosSharingCollectionViewLayout *)self _sublayoutForItemLayoutAttributes:v9];
       selectionBadgeLayoutAttributes = [v12 selectionBadgeLayoutAttributes];
@@ -180,7 +180,7 @@ LABEL_14:
             }
 
             v25 = *(*(&v41 + 1) + 8 * i);
-            indexPath = [v25 indexPath];
+            v26 = objc_msgSend_indexPath(v25, v41);
             v27 = [(PUPhotosSharingCollectionViewLayout *)self _sublayoutForItemLayoutAttributes:v25];
             [v27 badgesContainerFrame];
             v29 = v28;
@@ -198,7 +198,7 @@ LABEL_14:
             v52.size.height = v35;
             if (!CGRectEqualToRect(v52, v55))
             {
-              [v19 addObject:indexPath];
+              [v19 addObject:v26];
             }
           }
 
@@ -243,8 +243,8 @@ LABEL_14:
   v10 = v9;
   v12 = v11;
   v14 = v13;
-  indexPath = [attributesCopy indexPath];
-  v16 = [(NSMutableDictionary *)self->_cachedItemSublayouts objectForKey:indexPath];
+  v15 = objc_msgSend_indexPath(attributesCopy);
+  v16 = [(NSMutableDictionary *)self->_cachedItemSublayouts objectForKey:v15];
   v17 = v16;
   if (v16)
   {
@@ -259,7 +259,7 @@ LABEL_14:
     v67.size.height = v14;
     if (!CGRectEqualToRect(v67, v75))
     {
-      [(NSMutableDictionary *)self->_cachedItemSublayouts removeObjectForKey:indexPath];
+      [(NSMutableDictionary *)self->_cachedItemSublayouts removeObjectForKey:v15];
 
       v17 = 0;
     }
@@ -269,18 +269,18 @@ LABEL_14:
   delegate = [(PUHorizontalTiledCollectionViewLayout *)self delegate];
   if (!v17)
   {
-    v17 = [[PUPhotosSharingCollectionViewItemSublayout alloc] initWithIndexPath:indexPath itemFrame:v8, v10, v12, v14];
-    [delegate layout:self collectionView:collectionView sizeForBadgeViewOfKind:@"PUPhotosSharingSelectionBadgeKind" forItemAtIndexPath:indexPath];
+    v17 = [[PUPhotosSharingCollectionViewItemSublayout alloc] initWithIndexPath:v15 itemFrame:v8, v10, v12, v14];
+    [delegate layout:self collectionView:collectionView sizeForBadgeViewOfKind:@"PUPhotosSharingSelectionBadgeKind" forItemAtIndexPath:v15];
     [(PUPhotosSharingCollectionViewItemSublayout *)v17 setSelectionBadgeSize:?];
-    [delegate layout:self collectionView:collectionView sizeForBadgeViewOfKind:@"PUPhotosSharingOptionBadgeKind" forItemAtIndexPath:indexPath];
+    [delegate layout:self collectionView:collectionView sizeForBadgeViewOfKind:@"PUPhotosSharingOptionBadgeKind" forItemAtIndexPath:v15];
     [(PUPhotosSharingCollectionViewItemSublayout *)v17 setOptionBadgeSize:?];
-    [delegate layout:self collectionView:collectionView bottomBadgeInsetforItemAtIndexPath:indexPath];
+    [delegate layout:self collectionView:collectionView bottomBadgeInsetforItemAtIndexPath:v15];
     [(PUPhotosSharingCollectionViewItemSublayout *)v17 setBottomBadgeInset:?];
     [(PUPhotosSharingCollectionViewItemSublayout *)v17 setBadgesCorner:[(PUPhotosSharingCollectionViewLayout *)self sharingBadgesCorner]];
     [(PUPhotosSharingCollectionViewLayout *)self sharingBadgesOffset];
     [(PUPhotosSharingCollectionViewItemSublayout *)v17 setBadgesOffset:?];
     [(PUPhotosSharingCollectionViewItemSublayout *)v17 prepareSublayout];
-    [(NSMutableDictionary *)self->_cachedItemSublayouts setObject:v17 forKey:indexPath];
+    [(NSMutableDictionary *)self->_cachedItemSublayouts setObject:v17 forKey:v15];
   }
 
   collectionView2 = [(PUPhotosSharingCollectionViewLayout *)self collectionView];
@@ -315,7 +315,7 @@ LABEL_14:
   if (!CGRectEqualToRect(v70, v77))
   {
     [(PUPhotosSharingCollectionViewItemSublayout *)v17 setVisibleItemFrame:x, y, width, height];
-    [delegate layout:self collectionView:collectionView itemAtIndexPath:indexPath didChangeToVisibleFrame:{x, y, width, height}];
+    [delegate layout:self collectionView:collectionView itemAtIndexPath:v15 didChangeToVisibleFrame:{x, y, width, height}];
   }
 
   v71.origin.x = x;
@@ -382,9 +382,9 @@ LABEL_14:
 
   else
   {
-    indexPath2 = [attributesCopy indexPath];
+    v59 = objc_msgSend_indexPath(attributesCopy);
     zoomingCellIndexPath = [(PUPhotosSharingCollectionViewLayout *)self zoomingCellIndexPath];
-    v58 = [indexPath2 isEqual:zoomingCellIndexPath];
+    v58 = [v59 isEqual:zoomingCellIndexPath];
   }
 
   [selectionBadgeLayoutAttributes setHidden:v58];
@@ -454,54 +454,54 @@ LABEL_14:
 
 - (void)_floatingBadgeContainerFrameForBadgeContainerFrame:(CGFloat)frame itemFrame:(CGFloat)itemFrame visibleItemFrame:(CGFloat)visibleItemFrame
 {
-  *&v31[16] = a8;
-  *&v31[24] = a9;
-  *v31 = a6;
-  *&v31[8] = a7;
+  *&v24[16] = a8;
+  *&v24[24] = a9;
+  *v24 = a6;
+  *&v24[8] = a7;
   [self sharingBadgesOffset];
-  v23 = v22;
-  v33.origin.x = a10;
-  v33.origin.y = a11;
-  v33.size.width = a12;
-  v33.size.height = a13;
-  v24 = CGRectGetMinX(v33) + v23;
-  if (a2 >= v24)
+  v16 = v15;
+  v26.origin.x = a10;
+  v26.origin.y = a11;
+  v26.size.width = a12;
+  v26.size.height = a13;
+  v17 = CGRectGetMinX(v26) + v16;
+  if (a2 >= v17)
   {
-    v25 = a2;
+    v18 = a2;
   }
 
   else
   {
-    v25 = v24;
+    v18 = v17;
   }
 
-  v34.origin.x = a10;
-  v34.origin.y = a11;
-  v34.size.width = a12;
-  v34.size.height = a13;
-  MaxX = CGRectGetMaxX(v34);
-  v35.origin.x = a2;
-  v35.origin.y = frame;
-  v35.size.width = itemFrame;
-  v35.size.height = visibleItemFrame;
-  v27 = MaxX - CGRectGetWidth(v35) - v23;
-  if (v25 >= v27)
+  v27.origin.x = a10;
+  v27.origin.y = a11;
+  v27.size.width = a12;
+  v27.size.height = a13;
+  MaxX = CGRectGetMaxX(v27);
+  v28.origin.x = a2;
+  v28.origin.y = frame;
+  v28.size.width = itemFrame;
+  v28.size.height = visibleItemFrame;
+  v20 = MaxX - CGRectGetWidth(v28) - v16;
+  if (v18 >= v20)
   {
-    v28 = v27;
+    v21 = v20;
   }
 
   else
   {
-    v28 = v25;
+    v21 = v18;
   }
 
-  CGRectGetMinX(*v31);
-  CGRectGetMaxX(*v31);
-  v36.origin.x = v28;
-  v36.origin.y = frame;
-  v36.size.width = itemFrame;
-  v36.size.height = visibleItemFrame;
-  CGRectGetWidth(v36);
+  CGRectGetMinX(*v24);
+  CGRectGetMaxX(*v24);
+  v29.origin.x = v21;
+  v29.origin.y = frame;
+  v29.size.width = itemFrame;
+  v29.size.height = visibleItemFrame;
+  CGRectGetWidth(v29);
 }
 
 - (void)setZoomingCellIndexPath:(id)path

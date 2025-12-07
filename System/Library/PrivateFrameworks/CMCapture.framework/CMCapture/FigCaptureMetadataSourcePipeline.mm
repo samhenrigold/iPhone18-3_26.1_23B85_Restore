@@ -1,11 +1,11 @@
 @interface FigCaptureMetadataSourcePipeline
-- (uint64_t)_buildMetadataSourcePipeline:(void *)pipeline graph:;
+- (id)_buildMetadataSourcePipeline:(void *)pipeline graph:;
+- (id)output;
+- (id)setMasterClock:(id *)result;
 - (uint64_t)appendSampleBuffer:(uint64_t)result;
-- (uint64_t)output;
-- (uint64_t)setMasterClock:(uint64_t)result;
 - (uint64_t)sourceFormatDescription;
 - (void)dealloc;
-- (void)initWithConfiguration:(void *)configuration graph:(uint64_t)graph name:(_DWORD *)name errorOut:;
+- (void)initWithConfiguration:(void *)configuration graph:(uint64_t)graph name:(int *)name errorOut:;
 @end
 
 @implementation FigCaptureMetadataSourcePipeline
@@ -17,86 +17,89 @@
   [(FigCaptureSourcePipeline *)&v3 dealloc];
 }
 
-- (void)initWithConfiguration:(void *)configuration graph:(uint64_t)graph name:(_DWORD *)name errorOut:
+- (void)initWithConfiguration:(void *)configuration graph:(uint64_t)graph name:(int *)name errorOut:
 {
   if (!self)
   {
     return 0;
   }
 
-  v13.receiver = self;
-  v13.super_class = FigCaptureMetadataSourcePipeline;
-  v8 = objc_msgSendSuper2(&v13, sel_initWithGraph_name_sourceID_, configuration, graph, [objc_msgSend(a2 "sourceConfiguration")]);
-  v9 = v8;
-  if (v8)
+  v16.receiver = self;
+  v16.super_class = FigCaptureMetadataSourcePipeline;
+  v9 = objc_msgSendSuper2(&v16, sel_initWithGraph_name_sourceID_, configuration, graph, [objc_msgSend(a2 "sourceConfiguration")]);
+  v10 = v9;
+  if (v9)
   {
     if (a2)
     {
-      v10 = [(FigCaptureMetadataSourcePipeline *)v8 _buildMetadataSourcePipeline:a2 graph:configuration];
-      if (!v10)
+      v11 = [(FigCaptureMetadataSourcePipeline *)v9 _buildMetadataSourcePipeline:a2 graph:configuration];
+      if (!v11)
       {
-        return v9;
+        return v10;
       }
 
-      v12 = v10;
+      v13 = v11;
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v13, v5, v16.receiver, v16.super_class, v17, v18, v19, v20);
     }
 
     else
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
-      v12 = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16.receiver, v16.super_class, v17, v18, v19, v20);
+      v13 = 0;
     }
 
     if (name)
     {
-      *name = v12;
+      *name = v13;
     }
 
     return 0;
   }
 
-  return v9;
+  return v10;
 }
 
-- (uint64_t)_buildMetadataSourcePipeline:(void *)pipeline graph:
+- (id)_buildMetadataSourcePipeline:(void *)pipeline graph:
 {
   if (result)
   {
-    v5 = result;
-    v10 = 0;
+    v6 = result;
+    v19 = 0;
     if ([a2 sourceSubType] == 1)
     {
-      v6 = -[BWMetadataSourceNode initWithFormatDescription:clock:]([BWMetadataSourceNode alloc], "initWithFormatDescription:clock:", [a2 formatDescription], objc_msgSend(a2, "clock"));
-      v5[5] = v6;
-      v9.receiver = v5;
-      v9.super_class = FigCaptureMetadataSourcePipeline;
-      if (objc_msgSendSuper2(&v9, sel_addNode_error_, v6, &v10))
+      v7 = -[BWMetadataSourceNode initWithFormatDescription:clock:]([BWMetadataSourceNode alloc], "initWithFormatDescription:clock:", [a2 formatDescription], objc_msgSend(a2, "clock"));
+      v6[5] = v7;
+      v18.receiver = v6;
+      v18.super_class = FigCaptureMetadataSourcePipeline;
+      if (objc_msgSendSuper2(&v18, sel_addNode_error_, v7, &v19))
       {
-        v7 = [[BWSynchronizerNode alloc] initWithMediaType:1835365473];
-        v5[6] = v7;
-        v8.receiver = v5;
-        v8.super_class = FigCaptureMetadataSourcePipeline;
-        if (objc_msgSendSuper2(&v8, sel_addNode_error_, v7, &v10))
+        v8 = [[BWSynchronizerNode alloc] initWithMediaType:1835365473];
+        v6[6] = v8;
+        v17.receiver = v6;
+        v17.super_class = FigCaptureMetadataSourcePipeline;
+        if (objc_msgSendSuper2(&v17, sel_addNode_error_, v8, &v19))
         {
           if ([a2 sourceSubType] == 1)
           {
-            [v5[6] setSourceClock:{objc_msgSend(v5[5], "clock")}];
+            [v6[6] setSourceClock:{objc_msgSend(v6[5], "clock")}];
           }
 
-          if ([pipeline connectOutput:objc_msgSend(v5[5] toInput:"output") pipelineStage:{objc_msgSend(v5[6], "input"), 0}])
+          if ([pipeline connectOutput:objc_msgSend(v6[5] toInput:"output") pipelineStage:{objc_msgSend(v6[6], "input"), 0}])
           {
             goto LABEL_8;
           }
 
           fig_log_get_emitter();
-          FigDebugAssert3();
-          fig_log_get_emitter();
+          v15 = 0;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15, v3, v16, v17.receiver, LODWORD(v17.super_class), v18.receiver, v18.super_class, v19);
+          emitter = fig_log_get_emitter();
+          v13 = 136;
+          v12 = v3;
 LABEL_10:
-          result = FigSignalErrorAtGM();
+          result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< FigCaptureMetadataSourcePipeline >>>>", v13, v12, v10, v11, v14);
           if (result)
           {
             return result;
@@ -107,38 +110,41 @@ LABEL_10:
 
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
 
       else
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
 
-      FigDebugAssert3();
 LABEL_8:
       result = 0;
 LABEL_11:
-      if (v10)
+      if (v19)
       {
-        return [v10 code];
+        return [v19 code];
       }
 
       return result;
     }
 
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v12 = v3;
+    v13 = 121;
     goto LABEL_10;
   }
 
   return result;
 }
 
-- (uint64_t)setMasterClock:(uint64_t)result
+- (id)setMasterClock:(id *)result
 {
   if (result)
   {
-    return [*(result + 48) setMasterClock:a2];
+    return [result[6] setMasterClock:a2];
   }
 
   return result;
@@ -157,16 +163,16 @@ LABEL_11:
     return 0;
   }
 
-  v2 = *(self + 40);
+  v3 = *(self + 40);
 
-  return [v2 formatDescription];
+  return [v3 formatDescription];
 }
 
-- (uint64_t)output
+- (id)output
 {
   if (result)
   {
-    return [*(result + 48) output];
+    return [result[6] output];
   }
 
   return result;

@@ -1,6 +1,7 @@
 @interface PGGraphIngestMeaningfulEventsProcessor
 - (BOOL)shouldRunWithGraphUpdate:(id)update;
 - (PGGraphIngestMeaningfulEventsProcessor)initWithGraphBuilder:(id)builder;
+- (id)_removeInvalidMeaningEdgesWithDomain:(unsigned __int16)domain momentNode:(id)node validMeaningLabels:(id)labels legacyMeaningLabels:(id)meaningLabels;
 - (id)meaningfulEventMatchingResultsForMomentNode:(id)node withRequiredMeaningfulEventCriteriaByIdentifier:(id)identifier andMeaningfulEventProcessorCache:(id)cache;
 - (void)_updateMeaningsOfMomentNode:(id)node graph:(id)graph withValidMeaningLabels:(id)labels legacyLabels:(id)legacyLabels;
 - (void)processMeaningfulEventsWithMomentNodes:(id)nodes graph:(id)graph progressBlock:(id)block;
@@ -10,6 +11,32 @@
 @end
 
 @implementation PGGraphIngestMeaningfulEventsProcessor
+
+- (id)_removeInvalidMeaningEdgesWithDomain:(unsigned __int16)domain momentNode:(id)node validMeaningLabels:(id)labels legacyMeaningLabels:(id)meaningLabels
+{
+  domainCopy = domain;
+  labelsCopy = labels;
+  meaningLabelsCopy = meaningLabels;
+  v11 = MEMORY[0x277CBEB58];
+  nodeCopy = node;
+  v13 = objc_alloc_init(v11);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __129__PGGraphIngestMeaningfulEventsProcessor__removeInvalidMeaningEdgesWithDomain_momentNode_validMeaningLabels_legacyMeaningLabels___block_invoke;
+  v20[3] = &unk_278885008;
+  v21 = labelsCopy;
+  v22 = meaningLabelsCopy;
+  v14 = v13;
+  v23 = v14;
+  v15 = meaningLabelsCopy;
+  v16 = labelsCopy;
+  [nodeCopy enumerateMeaningEdgesAndNodesWithDomain:domainCopy block:v20];
+
+  v17 = v23;
+  v18 = v14;
+
+  return v14;
+}
 
 void __129__PGGraphIngestMeaningfulEventsProcessor__removeInvalidMeaningEdgesWithDomain_momentNode_validMeaningLabels_legacyMeaningLabels___block_invoke(id *a1, void *a2, void *a3)
 {
@@ -23,35 +50,35 @@ void __129__PGGraphIngestMeaningfulEventsProcessor__removeInvalidMeaningEdgesWit
 
 - (void)_updateMeaningsOfMomentNode:(id)node graph:(id)graph withValidMeaningLabels:(id)labels legacyLabels:(id)legacyLabels
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   graphCopy = graph;
   labelsCopy = labels;
   legacyLabelsCopy = legacyLabels;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v14 = [labelsCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [labelsCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       v17 = 0;
       do
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(labelsCopy);
         }
 
-        [(PGGraphBuilder *)self->_graphBuilder addMeaningToMeaningfulEventNode:nodeCopy meaningLabel:*(*(&v23 + 1) + 8 * v17++) meaningIsReliable:1];
+        [(PGGraphBuilder *)self->_graphBuilder addMeaningToMeaningfulEventNode:nodeCopy meaningLabel:*(*(&v22 + 1) + 8 * v17++) meaningIsReliable:1];
       }
 
       while (v15 != v17);
-      v15 = [labelsCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [labelsCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
@@ -65,38 +92,36 @@ void __129__PGGraphIngestMeaningfulEventsProcessor__removeInvalidMeaningEdgesWit
 
   [v19 unionSet:v21];
   [graphCopy legacyRemoveEdges:v19];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMeaningsOfMomentNode:(id)node graph:(id)graph affectedMeaningLabels:(id)labels withMatchedResults:(id)results
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   graphCopy = graph;
   labelsCopy = labels;
   resultsCopy = results;
   v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v13 = resultsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * i);
+        v18 = *(*(&v25 + 1) + 8 * i);
         requiredCriteria = [v18 requiredCriteria];
         meaningNodeLabel = [requiredCriteria meaningNodeLabel];
 
@@ -104,7 +129,7 @@ void __129__PGGraphIngestMeaningfulEventsProcessor__removeInvalidMeaningEdgesWit
         [v12 addObject:meaningNodeLabel];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v15);
@@ -114,8 +139,6 @@ void __129__PGGraphIngestMeaningfulEventsProcessor__removeInvalidMeaningEdgesWit
   v22 = [(PGGraphIngestMeaningfulEventsProcessor *)self _removeInvalidMeaningEdgesWithDomain:702 momentNode:nodeCopy validMeaningLabels:v12 legacyMeaningLabels:labelsCopy];
   [v21 unionSet:v22];
   [graphCopy legacyRemoveEdges:v21];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)meaningfulEventMatchingResultsForMomentNode:(id)node withRequiredMeaningfulEventCriteriaByIdentifier:(id)identifier andMeaningfulEventProcessorCache:(id)cache
@@ -132,27 +155,27 @@ void __129__PGGraphIngestMeaningfulEventsProcessor__removeInvalidMeaningEdgesWit
 
 - (void)processMeaningfulEventsWithMomentNodes:(id)nodes graph:(id)graph requiredMeaningfulEventCriteriaByIdentifier:(id)identifier progressBlock:(id)block
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   graphCopy = graph;
   identifierCopy = identifier;
   blockCopy = block;
   v14 = _Block_copy(blockCopy);
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
   v41 = 0;
-  if (v14 && (v15 = CFAbsoluteTimeGetCurrent(), v15 - v39[3] >= 0.01) && (v39[3] = v15, LOBYTE(v35[0]) = 0, (*(v14 + 2))(v14, v35, 0.0), v16 = *(v43 + 24) | LOBYTE(v35[0]), *(v43 + 24) = v16, (v16 & 1) != 0))
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  if (v14 && (v15 = CFAbsoluteTimeGetCurrent(), v15 - v38[3] >= 0.01) && (v38[3] = v15, LOBYTE(v34[0]) = 0, (*(v14 + 2))(v14, v34, 0.0), v16 = *(v42 + 24) | LOBYTE(v34[0]), *(v42 + 24) = v16, (v16 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       buf = 0x5304000202;
-      LOWORD(v50) = 2080;
-      *(&v50 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMeaningfulEventsProcessor.m";
+      LOWORD(v49) = 2080;
+      *(&v49 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMeaningfulEventsProcessor.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
     }
   }
@@ -160,71 +183,69 @@ void __129__PGGraphIngestMeaningfulEventsProcessor__removeInvalidMeaningEdgesWit
   else
   {
     buf = 0;
-    *&v50 = &buf;
-    *(&v50 + 1) = 0x3032000000;
-    v51 = __Block_byref_object_copy__47819;
-    v52 = __Block_byref_object_dispose__47820;
+    *&v49 = &buf;
+    *(&v49 + 1) = 0x3032000000;
+    v50 = __Block_byref_object_copy__47819;
+    v51 = __Block_byref_object_dispose__47820;
     v17 = objc_alloc(MEMORY[0x277CBEB98]);
     allKeys = [identifierCopy allKeys];
-    v53 = [v17 initWithArray:allKeys];
+    v52 = [v17 initWithArray:allKeys];
 
-    v37[0] = 0;
-    v37[1] = v37;
-    v37[2] = 0x2020000000;
-    v37[3] = 0;
-    v35[0] = 0;
-    v35[1] = v35;
-    v35[2] = 0x3032000000;
-    v35[3] = __Block_byref_object_copy__47819;
-    v35[4] = __Block_byref_object_dispose__47820;
-    v36 = [[PGMeaningfulEventProcessorCache alloc] initWithMomentNodes:nodesCopy];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __145__PGGraphIngestMeaningfulEventsProcessor_processMeaningfulEventsWithMomentNodes_graph_requiredMeaningfulEventCriteriaByIdentifier_progressBlock___block_invoke;
-    v24[3] = &unk_278884FE0;
-    v24[4] = self;
-    v25 = identifierCopy;
-    v29 = v35;
-    v26 = graphCopy;
+    v36[0] = 0;
+    v36[1] = v36;
+    v36[2] = 0x2020000000;
+    v36[3] = 0;
+    v34[0] = 0;
+    v34[1] = v34;
+    v34[2] = 0x3032000000;
+    v34[3] = __Block_byref_object_copy__47819;
+    v34[4] = __Block_byref_object_dispose__47820;
+    v35 = [[PGMeaningfulEventProcessorCache alloc] initWithMomentNodes:nodesCopy];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __145__PGGraphIngestMeaningfulEventsProcessor_processMeaningfulEventsWithMomentNodes_graph_requiredMeaningfulEventCriteriaByIdentifier_progressBlock___block_invoke;
+    v23[3] = &unk_278884FE0;
+    v23[4] = self;
+    v24 = identifierCopy;
+    v28 = v34;
+    v25 = graphCopy;
     p_buf = &buf;
-    v31 = v37;
-    v27 = nodesCopy;
+    v30 = v36;
+    v26 = nodesCopy;
     v19 = v14;
-    v28 = v19;
-    v32 = &v38;
-    v33 = &v42;
-    v34 = 0x3F847AE147AE147BLL;
-    [v27 enumerateNodesUsingBlock:v24];
+    v27 = v19;
+    v31 = &v37;
+    v32 = &v41;
+    v33 = 0x3F847AE147AE147BLL;
+    [v26 enumerateNodesUsingBlock:v23];
     if (v14)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v39[3] >= 0.01)
+      if (Current - v38[3] >= 0.01)
       {
-        v39[3] = Current;
-        v23 = 0;
-        (*(v19 + 2))(v19, &v23, 1.0);
-        v21 = *(v43 + 24) | v23;
-        *(v43 + 24) = v21;
+        v38[3] = Current;
+        v22 = 0;
+        (*(v19 + 2))(v19, &v22, 1.0);
+        v21 = *(v42 + 24) | v22;
+        *(v42 + 24) = v21;
         if ((v21 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          v46[0] = 67109378;
-          v46[1] = 105;
-          v47 = 2080;
-          v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMeaningfulEventsProcessor.m";
-          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v46, 0x12u);
+          v45[0] = 67109378;
+          v45[1] = 105;
+          v46 = 2080;
+          v47 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestMeaningfulEventsProcessor.m";
+          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v45, 0x12u);
         }
       }
     }
 
-    _Block_object_dispose(v35, 8);
-    _Block_object_dispose(v37, 8);
+    _Block_object_dispose(v34, 8);
+    _Block_object_dispose(v36, 8);
     _Block_object_dispose(&buf, 8);
   }
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v42, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v41, 8);
 }
 
 void __145__PGGraphIngestMeaningfulEventsProcessor_processMeaningfulEventsWithMomentNodes_graph_requiredMeaningfulEventCriteriaByIdentifier_progressBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
@@ -251,7 +272,7 @@ void __145__PGGraphIngestMeaningfulEventsProcessor_processMeaningfulEventsWithMo
 
 - (void)processMeaningfulEventsWithMomentNodes:(id)nodes graph:(id)graph progressBlock:(id)block
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   graphBuilder = self->_graphBuilder;
   blockCopy = block;
   graphCopy = graph;
@@ -271,7 +292,7 @@ void __145__PGGraphIngestMeaningfulEventsProcessor_processMeaningfulEventsWithMo
 
   info = 0;
   mach_timebase_info(&info);
-  v27 = mach_absolute_time();
+  v26 = mach_absolute_time();
   v17 = +[PGMeaningfulEventRequiredCriteriaFactory availableMeaningLabels];
   v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v17];
   sceneTaxonomy = [(PGGraphBuilder *)self->_graphBuilder sceneTaxonomy];
@@ -291,13 +312,11 @@ void __145__PGGraphIngestMeaningfulEventsProcessor_processMeaningfulEventsWithMo
   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v30 = "PGGraphIngestMeaningfulEventsProcessor";
-    v31 = 2048;
-    v32 = ((((v21 - v27) * v22.numer) / v22.denom) / 1000000.0);
+    v29 = "PGGraphIngestMeaningfulEventsProcessor";
+    v30 = 2048;
+    v31 = ((((v21 - v26) * v22.numer) / v22.denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block

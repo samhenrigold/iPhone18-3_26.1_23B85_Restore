@@ -84,30 +84,24 @@
 - (void)layoutSubviews
 {
   [(SiriAcousticIdAttributionFooterView *)self setSemanticContentAttribute:SiriLanguageSemanticContentAttribute()];
-  v14.receiver = self;
-  v14.super_class = SiriAcousticIdAttributionFooterView;
-  [(SiriAcousticIdAttributionFooterView *)&v14 layoutSubviews];
+  v12.receiver = self;
+  v12.super_class = SiriAcousticIdAttributionFooterView;
+  [(SiriAcousticIdAttributionFooterView *)&v12 layoutSubviews];
   semanticContentAttribute = [(SiriAcousticIdAttributionFooterView *)self semanticContentAttribute];
   [(UIButton *)self->_attributionButton frame];
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  if (semanticContentAttribute == &dword_4)
+  if (semanticContentAttribute != &dword_4)
   {
-    v11 = SiriUIPlatterStyle[32];
-  }
-
-  else
-  {
-    v12 = v4;
+    v11 = v4;
     [(SiriAcousticIdAttributionFooterView *)self bounds];
-    CGRectGetWidth(v15);
-    v16.origin.x = v12;
-    v16.origin.y = v6;
-    v16.size.width = v8;
-    v16.size.height = v10;
-    CGRectGetWidth(v16);
-    v13 = SiriUIPlatterStyle[34];
+    CGRectGetWidth(v13);
+    v14.origin.x = v11;
+    v14.origin.y = v6;
+    v14.size.width = v8;
+    v14.size.height = v10;
+    CGRectGetWidth(v14);
   }
 
   [(SiriAcousticIdAttributionFooterView *)self bounds];

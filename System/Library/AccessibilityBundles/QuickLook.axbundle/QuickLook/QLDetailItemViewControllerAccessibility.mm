@@ -1,6 +1,7 @@
 @interface QLDetailItemViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)_setActionButtonView:(id)view animated:(BOOL)animated actionButtonLabel:(id)label informationVisible:(BOOL)visible;
 @end
 
 @implementation QLDetailItemViewControllerAccessibility
@@ -22,6 +23,14 @@
   v5 = __UIAccessibilitySafeClass();
 
   [v3 setIsAccessibilityElement:{objc_msgSend(v5, "isEnabled")}];
+}
+
+- (void)_setActionButtonView:(id)view animated:(BOOL)animated actionButtonLabel:(id)label informationVisible:(BOOL)visible
+{
+  v7.receiver = self;
+  v7.super_class = QLDetailItemViewControllerAccessibility;
+  [(QLDetailItemViewControllerAccessibility *)&v7 _setActionButtonView:view animated:animated actionButtonLabel:label informationVisible:visible];
+  [(QLDetailItemViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

@@ -1,13 +1,14 @@
 @interface HMDCloudLegacyZoneChange
 - (BOOL)controllerIdentifierChanged;
 - (BOOL)decryptionFailed;
+- (HMDCloudLegacyZoneChange)initWithZone:(id)zone temporaryCache:(BOOL)cache;
 @end
 
 @implementation HMDCloudLegacyZoneChange
 
 - (BOOL)controllerIdentifierChanged
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   cloudZone = [(HMDCloudZoneChange *)self cloudZone];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -60,22 +61,21 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine cloud zone", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine cloud zone", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
     controllerIdentifierChanged = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return controllerIdentifierChanged;
 }
 
 - (BOOL)decryptionFailed
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   cloudZone = [(HMDCloudZoneChange *)self cloudZone];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -144,17 +144,64 @@ LABEL_14:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     v18 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v18;
-    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine cloud zone", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v18;
+    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine cloud zone", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v15);
   decryptionFailed2 = 0;
 LABEL_17:
 
-  v19 = *MEMORY[0x277D85DE8];
   return decryptionFailed2;
+}
+
+- (HMDCloudLegacyZoneChange)initWithZone:(id)zone temporaryCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  v20 = *MEMORY[0x277D85DE8];
+  zoneCopy = zone;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = zoneCopy;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = v7;
+
+  if (v8)
+  {
+    v15.receiver = self;
+    v15.super_class = HMDCloudLegacyZoneChange;
+    selfCopy = [(HMDCloudZoneChange *)&v15 initWithZone:v8 temporaryCache:cacheCopy];
+    v10 = selfCopy;
+  }
+
+  else
+  {
+    v11 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v13 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v17 = v13;
+      v18 = 2112;
+      v19 = zoneCopy;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Not a legacy zone %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v11);
+    v10 = 0;
+  }
+
+  return v10;
 }
 
 @end

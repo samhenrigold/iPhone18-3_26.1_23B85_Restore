@@ -181,7 +181,7 @@ LABEL_18:
 
 - (SMEstimatedEndTimeUpdateMessage)initWithDictionary:(id)dictionary
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = dictionaryCopy;
   if (!dictionaryCopy)
@@ -213,13 +213,13 @@ LABEL_15:
     v29 = NSStringFromClass(v28);
     v30 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v58 = v29;
-    v59 = 2112;
-    v60 = v30;
-    v61 = 1024;
+    v57 = v29;
+    v58 = 2112;
+    v59 = v30;
+    v60 = 1024;
     messageType = [objc_opt_class() messageType];
-    v63 = 1024;
-    v64 = intValue;
+    v62 = 1024;
+    v63 = intValue;
     v31 = "#SafetyCache,%@,%@,extracted non-matching message type,expected,%d,got,%d";
     v32 = v12;
     v33 = 34;
@@ -240,14 +240,14 @@ LABEL_30:
       goto LABEL_15;
     }
 
-    v38 = objc_opt_class();
-    v29 = NSStringFromClass(v38);
+    v37 = objc_opt_class();
+    v29 = NSStringFromClass(v37);
     v30 = NSStringFromSelector(a2);
     *buf = 138412802;
-    v58 = v29;
-    v59 = 2112;
-    v60 = v30;
-    v61 = 1024;
+    v57 = v29;
+    v58 = 2112;
+    v59 = v30;
+    v60 = 1024;
     messageType = intValue2;
     v31 = "#SafetyCache,%@,%@,unrecognized interface version,%d";
     v32 = v12;
@@ -280,7 +280,7 @@ LABEL_30:
         {
           v23 = MEMORY[0x277CBEAA8];
           [v21 doubleValue];
-          v56 = [v23 dateWithTimeIntervalSince1970:?];
+          v55 = [v23 dateWithTimeIntervalSince1970:?];
           v24 = [v6 valueForKey:@"coarseEstimatedEndTime"];
           v25 = v24;
           if (v24)
@@ -292,44 +292,44 @@ LABEL_30:
 
           else
           {
-            v39 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v38 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
-              v53 = objc_opt_class();
-              v55 = NSStringFromClass(v53);
-              v54 = NSStringFromSelector(a2);
+              v52 = objc_opt_class();
+              v54 = NSStringFromClass(v52);
+              v53 = NSStringFromSelector(a2);
               *buf = 138412546;
-              v58 = v55;
-              v59 = 2112;
-              v60 = v54;
-              _os_log_error_impl(&dword_26455D000, v39, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing coarseEstimatedEndTime", buf, 0x16u);
+              v57 = v54;
+              v58 = 2112;
+              v59 = v53;
+              _os_log_error_impl(&dword_26455D000, v38, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing coarseEstimatedEndTime", buf, 0x16u);
             }
 
             v27 = 0;
           }
 
-          v37 = v56;
-          self = [(SMEstimatedEndTimeUpdateMessage *)self initWithDate:v14 messageID:v17 sessionID:v20 estimatedEndTime:v56 coarseEstimatedEndTime:v27, v55];
+          v36 = v55;
+          self = [(SMEstimatedEndTimeUpdateMessage *)self initWithDate:v14 messageID:v17 sessionID:v20 estimatedEndTime:v55 coarseEstimatedEndTime:v27, v54];
 
           selfCopy = self;
         }
 
         else
         {
-          v37 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v36 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            v49 = objc_opt_class();
-            NSStringFromClass(v49);
-            v51 = v50 = v37;
-            v52 = NSStringFromSelector(a2);
+            v48 = objc_opt_class();
+            NSStringFromClass(v48);
+            v50 = v49 = v36;
+            v51 = NSStringFromSelector(a2);
             *buf = 138412546;
-            v58 = v51;
-            v59 = 2112;
-            v60 = v52;
-            _os_log_error_impl(&dword_26455D000, v50, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing estimatedEndTime", buf, 0x16u);
+            v57 = v50;
+            v58 = 2112;
+            v59 = v51;
+            _os_log_error_impl(&dword_26455D000, v49, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing estimatedEndTime", buf, 0x16u);
 
-            v37 = v50;
+            v36 = v49;
           }
 
           selfCopy = 0;
@@ -341,13 +341,13 @@ LABEL_30:
         v22 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v46 = objc_opt_class();
-          v47 = NSStringFromClass(v46);
-          v48 = NSStringFromSelector(a2);
+          v45 = objc_opt_class();
+          v46 = NSStringFromClass(v45);
+          v47 = NSStringFromSelector(a2);
           *buf = 138412546;
-          v58 = v47;
-          v59 = 2112;
-          v60 = v48;
+          v57 = v46;
+          v58 = 2112;
+          v59 = v47;
           _os_log_error_impl(&dword_26455D000, v22, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionID", buf, 0x16u);
         }
 
@@ -360,13 +360,13 @@ LABEL_30:
       v20 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v43 = objc_opt_class();
-        v44 = NSStringFromClass(v43);
-        v45 = NSStringFromSelector(a2);
+        v42 = objc_opt_class();
+        v43 = NSStringFromClass(v42);
+        v44 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v58 = v44;
-        v59 = 2112;
-        v60 = v45;
+        v57 = v43;
+        v58 = 2112;
+        v59 = v44;
         _os_log_error_impl(&dword_26455D000, v20, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing messageID", buf, 0x16u);
       }
 
@@ -379,13 +379,13 @@ LABEL_30:
     v14 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v40 = objc_opt_class();
-      v41 = NSStringFromClass(v40);
-      v42 = NSStringFromSelector(a2);
+      v39 = objc_opt_class();
+      v40 = NSStringFromClass(v39);
+      v41 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v58 = v41;
-      v59 = 2112;
-      v60 = v42;
+      v57 = v40;
+      v58 = 2112;
+      v59 = v41;
       _os_log_error_impl(&dword_26455D000, v14, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing date", buf, 0x16u);
     }
 
@@ -393,7 +393,6 @@ LABEL_30:
   }
 
 LABEL_16:
-  v35 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -424,7 +423,7 @@ LABEL_16:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if (!coderCopy)
   {
@@ -432,28 +431,26 @@ LABEL_16:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "[SMEstimatedEndTimeUpdateMessage encodeWithCoder:]";
-      v12 = 1024;
-      v13 = 156;
+      v10 = "[SMEstimatedEndTimeUpdateMessage encodeWithCoder:]";
+      v11 = 1024;
+      v12 = 156;
       _os_log_error_impl(&dword_26455D000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: encoder (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v9.receiver = self;
-  v9.super_class = SMEstimatedEndTimeUpdateMessage;
-  [(SMMessage *)&v9 encodeWithCoder:coderCopy];
+  v8.receiver = self;
+  v8.super_class = SMEstimatedEndTimeUpdateMessage;
+  [(SMMessage *)&v8 encodeWithCoder:coderCopy];
   estimatedEndTime = [(SMEstimatedEndTimeUpdateMessage *)self estimatedEndTime];
   [coderCopy encodeObject:estimatedEndTime forKey:@"estimatedEndTime"];
 
   coarseEstimatedEndTime = [(SMEstimatedEndTimeUpdateMessage *)self coarseEstimatedEndTime];
   [coderCopy encodeObject:coarseEstimatedEndTime forKey:@"coarseEstimatedEndTime"];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (SMEstimatedEndTimeUpdateMessage)initWithCoder:(id)coder
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v6 = coderCopy;
   if (!coderCopy)
@@ -461,8 +458,8 @@ LABEL_16:
     v9 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v39) = 0;
-      _os_log_error_impl(&dword_26455D000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: decoder", &v39, 2u);
+      LOWORD(v38) = 0;
+      _os_log_error_impl(&dword_26455D000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: decoder", &v38, 2u);
     }
 
     goto LABEL_14;
@@ -480,19 +477,19 @@ LABEL_16:
     v16 = objc_opt_class();
     v17 = NSStringFromClass(v16);
     v18 = NSStringFromSelector(a2);
-    v39 = 138413058;
-    v40 = v17;
-    v41 = 2112;
-    v42 = v18;
-    v43 = 1024;
+    v38 = 138413058;
+    v39 = v17;
+    v40 = 2112;
+    v41 = v18;
+    v42 = 1024;
     messageType = [objc_opt_class() messageType];
-    v45 = 1024;
-    v46 = v7;
+    v44 = 1024;
+    v45 = v7;
     v19 = "#SafetyCache,%@,%@,extracted non-matching message type,expected,%d,got,%d";
     v20 = v9;
     v21 = 34;
 LABEL_32:
-    _os_log_error_impl(&dword_26455D000, v20, OS_LOG_TYPE_ERROR, v19, &v39, v21);
+    _os_log_error_impl(&dword_26455D000, v20, OS_LOG_TYPE_ERROR, v19, &v38, v21);
 
     goto LABEL_14;
   }
@@ -506,14 +503,14 @@ LABEL_32:
       v10 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
-        v32 = NSStringFromSelector(a2);
-        v39 = 138412546;
-        v40 = v31;
-        v41 = 2112;
-        v42 = v32;
-        _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing date", &v39, 0x16u);
+        v29 = objc_opt_class();
+        v30 = NSStringFromClass(v29);
+        v31 = NSStringFromSelector(a2);
+        v38 = 138412546;
+        v39 = v30;
+        v40 = 2112;
+        v41 = v31;
+        _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing date", &v38, 0x16u);
       }
 
       selfCopy = 0;
@@ -526,14 +523,14 @@ LABEL_32:
       v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
-        v35 = NSStringFromSelector(a2);
-        v39 = 138412546;
-        v40 = v34;
-        v41 = 2112;
-        v42 = v35;
-        _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing messageID", &v39, 0x16u);
+        v32 = objc_opt_class();
+        v33 = NSStringFromClass(v32);
+        v34 = NSStringFromSelector(a2);
+        v38 = 138412546;
+        v39 = v33;
+        v40 = 2112;
+        v41 = v34;
+        _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing messageID", &v38, 0x16u);
       }
 
       selfCopy = 0;
@@ -559,17 +556,17 @@ LABEL_30:
         goto LABEL_15;
       }
 
-      v28 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
-        v38 = NSStringFromSelector(a2);
-        v39 = 138412546;
-        v40 = v37;
-        v41 = 2112;
-        v42 = v38;
-        _os_log_error_impl(&dword_26455D000, v28, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing estimatedEndTime", &v39, 0x16u);
+        v35 = objc_opt_class();
+        v36 = NSStringFromClass(v35);
+        v37 = NSStringFromSelector(a2);
+        v38 = 138412546;
+        v39 = v36;
+        v40 = 2112;
+        v41 = v37;
+        _os_log_error_impl(&dword_26455D000, v27, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing estimatedEndTime", &v38, 0x16u);
       }
 
       v13 = 0;
@@ -580,14 +577,14 @@ LABEL_30:
       v13 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
-        v27 = NSStringFromSelector(a2);
-        v39 = 138412546;
-        v40 = v26;
-        v41 = 2112;
-        v42 = v27;
-        _os_log_error_impl(&dword_26455D000, v13, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionID", &v39, 0x16u);
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
+        v26 = NSStringFromSelector(a2);
+        v38 = 138412546;
+        v39 = v25;
+        v40 = 2112;
+        v41 = v26;
+        _os_log_error_impl(&dword_26455D000, v13, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionID", &v38, 0x16u);
       }
     }
 
@@ -599,14 +596,14 @@ LABEL_30:
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v29 = objc_opt_class();
-    v17 = NSStringFromClass(v29);
+    v28 = objc_opt_class();
+    v17 = NSStringFromClass(v28);
     v18 = NSStringFromSelector(a2);
-    v39 = 138412802;
-    v40 = v17;
-    v41 = 2112;
-    v42 = v18;
-    v43 = 1024;
+    v38 = 138412802;
+    v39 = v17;
+    v40 = 2112;
+    v41 = v18;
+    v42 = 1024;
     messageType = v22;
     v19 = "#SafetyCache,%@,%@,unrecognized interface version,%d";
     v20 = v9;
@@ -618,7 +615,6 @@ LABEL_14:
   selfCopy = 0;
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

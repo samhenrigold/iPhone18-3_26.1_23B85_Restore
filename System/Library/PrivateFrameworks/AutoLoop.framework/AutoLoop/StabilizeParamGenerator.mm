@@ -216,7 +216,7 @@
       stabilizer = self->stabilizer;
       if (stabilizer)
       {
-        [(AutoLoopStabilizer *)stabilizer minimumFrameDuration];
+        objc_msgSend_minimumFrameDuration(stabilizer);
       }
 
       else

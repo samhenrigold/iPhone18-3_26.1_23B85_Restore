@@ -256,14 +256,14 @@ uint64_t __51__CUIKEventLoader_removeOccurrenceAwaitingRefresh___block_invoke_2(
   withLock(&self->_occurrencesLock, v3);
 }
 
-uint64_t __30__CUIKEventLoader_setPadding___block_invoke(uint64_t result)
+void *__30__CUIKEventLoader_setPadding___block_invoke(void *result)
 {
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = *(result + 10);
+  v2 = *(result + 4);
   if (v1 != *(v2 + 72))
   {
     *(v2 + 72) = v1;
-    return [*(result + 32) _loadIfNeeded];
+    return [*(result + 4) _loadIfNeeded];
   }
 
   return result;
@@ -451,7 +451,7 @@ double __45__CUIKEventLoader_isLoadedOrLoading_endDate___block_invoke(void *a1)
   return self;
 }
 
-uint64_t __40__CUIKEventLoader_setSelectedCalendars___block_invoke(uint64_t a1)
+void *__40__CUIKEventLoader_setSelectedCalendars___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEqualToSet:*(*(a1 + 40) + 48)];
   if ((result & 1) == 0)
@@ -715,7 +715,7 @@ LABEL_27:
   return v29;
 }
 
-uint64_t __84__CUIKEventLoader_occurrencesForStartDate_endDate_preSorted_waitForLoad_isComplete___block_invoke(uint64_t a1)
+void *__84__CUIKEventLoader_occurrencesForStartDate_endDate_preSorted_waitForLoad_isComplete___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 104) = *(a1 + 48);
   *(*(a1 + 32) + 112) = *(a1 + 56);
@@ -1328,7 +1328,7 @@ void __57__CUIKEventLoader__setMonitoredRange_end_loadingPadding___block_invoke_
   }
 }
 
-uint64_t __57__CUIKEventLoader__setMonitoredRange_end_loadingPadding___block_invoke_2(uint64_t a1)
+void *__57__CUIKEventLoader__setMonitoredRange_end_loadingPadding___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = +[CUIKLogSubsystem eventLoader];

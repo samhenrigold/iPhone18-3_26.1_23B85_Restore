@@ -71,14 +71,14 @@
 
   stringByDeletingLastPathComponent = [writeCopy stringByDeletingLastPathComponent];
   v8 = +[NSFileManager defaultManager];
-  v16 = 0;
-  v9 = [v8 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v16];
-  v6 = v16;
+  v17 = 0;
+  v9 = [v8 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v17];
+  v6 = v17;
 
   if ((v9 & 1) == 0)
   {
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100063A54(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1000D15EC(stringByDeletingLastPathComponent, v6);
     }
@@ -86,36 +86,36 @@
     goto LABEL_15;
   }
 
-  v10 = +[NSFileManager defaultManager];
-  v11 = [v10 createFileAtPath:writeCopy contents:0 attributes:0];
+  v11 = +[NSFileManager defaultManager];
+  v12 = [v11 createFileAtPath:writeCopy contents:0 attributes:0];
 
-  if ((v11 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    sub_1000D1698(writeCopy, &v17);
-    v15 = v17;
+    sub_1000D1698(writeCopy, &v18);
+    v16 = v18;
 LABEL_15:
 
-    v13 = 0;
+    v14 = 0;
     goto LABEL_8;
   }
 
 LABEL_6:
-  v12 = [NSFileHandle fileHandleForWritingAtPath:writeCopy];
-  v13 = v12;
-  if (v12)
+  v13 = [NSFileHandle fileHandleForWritingAtPath:writeCopy];
+  v14 = v13;
+  if (v13)
   {
-    [v12 seekToEndOfFile];
-    fcntl([v13 fileDescriptor], 48, 1);
+    [v13 seekToEndOfFile];
+    fcntl([v14 fileDescriptor], 48, 1);
   }
 
   else
   {
-    sub_1000D1778();
+    sub_1000D1778(writeCopy);
   }
 
 LABEL_8:
 
-  return v13;
+  return v14;
 }
 
 @end

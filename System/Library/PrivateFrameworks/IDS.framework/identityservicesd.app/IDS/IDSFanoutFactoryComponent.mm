@@ -38,7 +38,7 @@
     v106 = 0u;
     v107 = 0u;
     v108 = 0u;
-    obj = [inputCopy aggregatableMessages];
+    obj = objc_msgSend_aggregatableMessages(inputCopy);
     v12 = [obj countByEnumeratingWithState:&v105 objects:v119 count:16];
     if (v12)
     {
@@ -77,21 +77,21 @@
       while (v13);
     }
 
-    aggregatableMessages = [v11 arrayByAddingObjectsFromArray:v10];
+    v21 = [v11 arrayByAddingObjectsFromArray:v10];
 
     inputCopy = v76;
   }
 
   else
   {
-    aggregatableMessages = [inputCopy aggregatableMessages];
+    v21 = objc_msgSend_aggregatableMessages(inputCopy);
   }
 
   v103 = 0u;
   v104 = 0u;
   v101 = 0u;
   v102 = 0u;
-  v73 = aggregatableMessages;
+  v73 = v21;
   obja = [v73 countByEnumeratingWithState:&v101 objects:v118 count:16];
   if (obja)
   {

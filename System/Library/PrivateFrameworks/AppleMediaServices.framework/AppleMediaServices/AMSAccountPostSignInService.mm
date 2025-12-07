@@ -64,7 +64,7 @@
   }
 }
 
-void __89__AMSAccountPostSignInService_performPostSignInTasksInDaemonForAccount_credentialSource___block_invoke(uint64_t a1, void *a2, void *a3)
+void __89__AMSAccountPostSignInService_performPostSignInTasksInDaemonForAccount_credentialSource___block_invoke(void *a1, void *a2, void *a3)
 {
   v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -93,7 +93,7 @@ void __89__AMSAccountPostSignInService_performPostSignInTasksInDaemonForAccount_
 
   else
   {
-    [a2 performAccountPostSignInTasksForAccountWithID:*(a1 + 32) credentialSource:*(a1 + 48)];
+    [a2 performAccountPostSignInTasksForAccountWithID:a1[4] credentialSource:a1[6]];
   }
 }
 

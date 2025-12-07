@@ -20,7 +20,6 @@
 
 - (double)timeToLive
 {
-  v2 = GeoServicesConfig_TerritoryRegulatoryAssetTTLDays[1];
   result = GEOConfigGetUInteger();
   if (result < 86400.0)
   {
@@ -37,7 +36,6 @@
 
 - (unint64_t)policy
 {
-  v2 = GeoServicesConfig_TerritoryRegulatoryAssetPolicy[1];
   result = GEOConfigGetUInteger();
   if (result - 1 >= 4)
   {

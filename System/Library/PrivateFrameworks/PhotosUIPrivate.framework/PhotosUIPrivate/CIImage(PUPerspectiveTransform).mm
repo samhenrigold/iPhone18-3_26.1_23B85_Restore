@@ -7,7 +7,7 @@
 
 - (uint64_t)pu_imageWithPerspectiveTransform:()PUPerspectiveTransform
 {
-  [self extent];
+  objc_msgSend_extent(self);
 
   return [self pu_imageWithPerspectiveTransform:a2 extent:{a3, a4, v5, v6, v7, v8}];
 }

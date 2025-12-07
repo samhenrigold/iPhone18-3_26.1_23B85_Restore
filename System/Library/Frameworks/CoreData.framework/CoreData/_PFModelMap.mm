@@ -70,7 +70,8 @@
     if ([a2 _modelsReferenceIDOffset])
     {
 
-      objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Illegal attempt to register a client managed object model with a non-zero offset (%ld).\n%@", objc_msgSend(a2, "_modelsReferenceIDOffset"), a2), 0}]);
+      v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{objc_msgSend(a2, "_modelsReferenceIDOffset"), a2), 0}];
+      objc_exception_throw(v16);
     }
 
     v21.receiver = modelCopy;
@@ -128,13 +129,12 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return modelCopy;
 }
 
 - (void)addManagedObjectModel:(uint64_t)model
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (model)
   {
     if (!*(model + 32))
@@ -143,52 +143,50 @@
     }
 
     context = objc_autoreleasePoolPush();
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
     v4 = *(model + 24);
-    v5 = [v4 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (!v5)
     {
       goto LABEL_16;
     }
 
-    v6 = *v38;
+    v6 = *v35;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v38 != v6)
+        if (*v35 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v37 + 1) + 8 * i);
+        v9 = *(*(&v34 + 1) + 8 * i);
         _modelsReferenceIDOffset = [v9 _modelsReferenceIDOffset];
         if (_modelsReferenceIDOffset == [a2 _modelsReferenceIDOffset])
         {
           v11 = [objc_msgSend(v9 "entities")];
           if (v11 != [objc_msgSend(a2 "entities")])
           {
-            v30 = MEMORY[0x1E695DF30];
-            v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attempt to register ancillary model with offset %ld but different entity count.", objc_msgSend(v9, "_modelsReferenceIDOffset")];
-            objc_exception_throw([v30 exceptionWithName:*MEMORY[0x1E695D930] reason:v31 userInfo:0]);
+            v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{objc_msgSend(v9, "_modelsReferenceIDOffset")), 0}];
+            objc_exception_throw(v28);
           }
 
           if (([objc_msgSend(v9 "entityVersionHashesByName")] & 1) == 0)
           {
-            v28 = MEMORY[0x1E695DF30];
-            v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attempt to register ancillary model with different version hashes than the currently registered model: %p has hashes\n%@\n%p has hashes\n%@", v9, objc_msgSend(v9, "entityVersionHashesByName"), a2, objc_msgSend(a2, "entityVersionHashesByName")];
-            objc_exception_throw([v28 exceptionWithName:*MEMORY[0x1E695D930] reason:v29 userInfo:0]);
+            v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{v9, objc_msgSend(v9, "entityVersionHashesByName"), a2, objc_msgSend(a2, "entityVersionHashesByName")), 0}];
+            objc_exception_throw(v27);
           }
 
           v7 = 0;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v5);
@@ -232,24 +230,24 @@ LABEL_16:
 
       v20 = v19;
       [v19 addObject:a2];
-      v35 = 0u;
-      v36 = 0u;
+      v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
-      v21 = [a2 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v30 = 0u;
+      v31 = 0u;
+      v21 = [a2 countByEnumeratingWithState:&v30 objects:v38 count:16];
       if (v21)
       {
-        v22 = *v34;
+        v22 = *v31;
         do
         {
           for (j = 0; j != v21; ++j)
           {
-            if (*v34 != v22)
+            if (*v31 != v22)
             {
               objc_enumerationMutation(a2);
             }
 
-            v24 = *(*(&v33 + 1) + 8 * j);
+            v24 = *(*(&v30 + 1) + 8 * j);
             v25 = _PFModelMapSlotForEntity(model, v24);
             [v17 setObject:v24 forKey:_PFModelMapPathForEntity(v24)];
             v26 = *(*(model + 32) + 8 * v25);
@@ -262,7 +260,7 @@ LABEL_16:
             [v14 addObject:v24];
           }
 
-          v21 = [a2 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v21 = [a2 countByEnumeratingWithState:&v30 objects:v38 count:16];
         }
 
         while (v21);
@@ -276,8 +274,6 @@ LABEL_16:
 
     objc_autoreleasePoolPop(context);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ancillaryEntityWithName:(void *)name
@@ -350,13 +346,10 @@ LABEL_16:
 
 - (id)entitiesForContext:(uint64_t)context configuration:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v13 = 0;
-LABEL_15:
-    v14 = *MEMORY[0x1E69E9840];
-    return v13;
+    return 0;
   }
 
   if ([a2 _allowAncillaryEntities])
@@ -364,26 +357,26 @@ LABEL_15:
     if (context)
     {
       v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v16 = 0u;
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
-      v21 = 0u;
       v6 = *(self + 24);
-      v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v19;
+        v9 = *v17;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v19 != v9)
+            if (*v17 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v18 + 1) + 8 * i);
+            v11 = *(*(&v16 + 1) + 8 * i);
             if (v11 == *(self + 8))
             {
               entities = [v11 entitiesForConfiguration:context];
@@ -397,7 +390,7 @@ LABEL_15:
             [v5 addObjectsFromArray:entities];
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v8);
@@ -405,20 +398,18 @@ LABEL_15:
 
       v13 = [v5 copy];
 
-      goto LABEL_15;
+      return v13;
     }
 
-    v16 = *(self + 16);
+    v15 = *(self + 16);
   }
 
   else
   {
-    v16 = [*(self + 8) entitiesForConfiguration:context];
+    v15 = [*(self + 8) entitiesForConfiguration:context];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v15;
 }
 
 @end

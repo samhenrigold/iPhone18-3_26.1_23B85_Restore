@@ -55,9 +55,9 @@ LABEL_8:
   swift_getObjCClassMetadata();
   controllerCopy = controller;
   static FunCameraUserConsentManager.present(fromViewController:presentedBlock:confirmBlock:cancelBlock:)(controllerCopy, v9, v12, v10, v13, v11, v14);
-  sub_19022123C(v11);
-  sub_19022123C(v10);
-  sub_19022123C(v9);
+  sub_19022123C(v11, v14);
+  sub_19022123C(v10, v13);
+  sub_19022123C(v9, v12);
 }
 
 - (CKFunCameraUserConsentManager)init

@@ -22,15 +22,15 @@
 
 - (void)eventReceived:(const char *)received eventInfo:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = _CDPLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     receivedCopy = received;
-    v19 = 2112;
-    v20 = infoCopy;
+    v18 = 2112;
+    v19 = infoCopy;
     _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Received Auth Notification %s, with userInfo %@", buf, 0x16u);
   }
 
@@ -46,20 +46,20 @@
       {
         *buf = 141558274;
         receivedCopy = 1752392040;
-        v19 = 2112;
-        v20 = v8;
+        v18 = 2112;
+        v19 = v8;
         _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Detected security level change for %{mask.hash}@", buf, 0x16u);
       }
 
       v12 = [MEMORY[0x277CFD4A8] contextForAccountWithAltDSID:v8];
       authListeners = self->_authListeners;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __44__CDPDAuthObserver_eventReceived_eventInfo___block_invoke;
-      v15[3] = &unk_278E25488;
-      v16 = v12;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __44__CDPDAuthObserver_eventReceived_eventInfo___block_invoke;
+      v14[3] = &unk_278E25488;
+      v15 = v12;
       v11 = v12;
-      [(NSMutableArray *)authListeners enumerateObjectsUsingBlock:v15];
+      [(NSMutableArray *)authListeners enumerateObjectsUsingBlock:v14];
     }
 
     else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
@@ -76,28 +76,24 @@
       [CDPDAuthObserver eventReceived:received eventInfo:v8];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eventReceived:(uint64_t)a1 eventInfo:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Auth observer ignoring: %s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Auth observer ignoring: %s", &v2, 0xCu);
 }
 
 - (void)eventReceived:(uint64_t)a1 eventInfo:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = a1;
-  v5 = 2112;
-  v6 = 0;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Auth observer ignoring %s, securityLevel %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = a1;
+  v4 = 2112;
+  v5 = 0;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Auth observer ignoring %s, securityLevel %@", &v2, 0x16u);
 }
 
 @end

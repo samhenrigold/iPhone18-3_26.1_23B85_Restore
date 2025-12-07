@@ -528,7 +528,7 @@ void __64__VKCImageAnalysisInteraction_navOrToolbarVisibilityWillChange___block_
 - (void)setAnalysis:(id)analysis
 {
   analysisCopy = analysis;
-  v6 = _VKSignpostLog();
+  v6 = _VKSignpostLog(analysisCopy);
   if (os_signpost_enabled(v6))
   {
     *buf = 0;
@@ -1621,8 +1621,8 @@ void __51__VKCImageAnalysisInteraction__addAsyncMRCElement___block_invoke_2(uint
 {
   if (self->_actionInfoViewHidden != hidden)
   {
-    v13 = v4;
-    v14 = v5;
+    v15 = v4;
+    v16 = v5;
     animatedCopy = animated;
     self->_actionInfoViewHidden = hidden;
     if (hidden)
@@ -1636,24 +1636,24 @@ void __51__VKCImageAnalysisInteraction__addAsyncMRCElement___block_invoke_2(uint
       baseView = [(VKCImageAnalysisInteraction *)self baseView];
       [baseView updateNormalizedVisibleRectIfNecessary];
 
-      if (vk_imageAnalysisSupportedAndSettingsSwitchEnabled())
+      if (vk_imageAnalysisSupportedAndSettingsSwitchEnabled(v10, v11))
       {
-        v10 = 0;
+        v12 = 0;
 LABEL_10:
-        [actionInfoViewIfExists vk_setHidden:v10 animated:animatedCopy];
+        [actionInfoViewIfExists vk_setHidden:v12 animated:animatedCopy];
 
         return;
       }
 
-      v11 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.interaction");
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_1B4335000, v11, OS_LOG_TYPE_DEFAULT, "Inhibiting unhiding action info view due to no locale VK support", v12, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_1B4335000, v13, OS_LOG_TYPE_DEFAULT, "Inhibiting unhiding action info view due to no locale VK support", v14, 2u);
       }
     }
 
-    v10 = 1;
+    v12 = 1;
     goto LABEL_10;
   }
 }
@@ -3315,7 +3315,7 @@ LABEL_10:
   v15 = baseView;
   if (baseView)
   {
-    [baseView visibleTextAreaInfo];
+    objc_msgSend_visibleTextAreaInfo(baseView);
     v16 = *&v67 * 100.0;
   }
 

@@ -18,39 +18,37 @@
   {
     objc_storeStrong(&v8->_teamID, d);
     v9->_token = token;
-    v10 = DPLogHandle_ServiceEventPublisher();
-    if (os_signpost_enabled(v10))
+    v11 = DPLogHandle_ServiceEventPublisher(v10);
+    if (os_signpost_enabled(v11))
     {
       *buf = 138543618;
       v15 = dCopy;
       v16 = 2048;
       tokenCopy = token;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EventSubscriberInit", "TeamID: %{public}@ token: %#llx", buf, 0x16u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EventSubscriberInit", "TeamID: %{public}@ token: %#llx", buf, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = DPLogHandle_ServiceEventPublisher();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = DPLogHandle_ServiceEventPublisher(self);
   if (os_signpost_enabled(v3))
   {
     teamID = [(DRSTaskingEventSubscriber *)self teamID];
     *buf = 138543618;
-    v8 = teamID;
-    v9 = 2048;
+    v7 = teamID;
+    v8 = 2048;
     token = [(DRSTaskingEventSubscriber *)self token];
     _os_signpost_emit_with_name_impl(&dword_232906000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EventSubscriberDealloc", "TeamID: %{public}@ token: %#llx", buf, 0x16u);
   }
 
-  v6.receiver = self;
-  v6.super_class = DRSTaskingEventSubscriber;
-  [(DRSTaskingEventSubscriber *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = DRSTaskingEventSubscriber;
+  [(DRSTaskingEventSubscriber *)&v5 dealloc];
 }
 
 - (BOOL)isEqual:(id)equal

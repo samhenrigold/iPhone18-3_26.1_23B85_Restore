@@ -19,7 +19,7 @@
 {
   v22 = *MEMORY[0x1E69E9840];
   v2 = *(self->_labelFeatureMarker.__ptr_ + 8);
-  v18.std::__shared_count = *v2;
+  v18 = *v2;
   v3 = *(v2 + 17);
   v4 = *(v2 + 20);
   v5 = *(v2 + 16);
@@ -38,7 +38,7 @@
   v19 = v12;
   v20 = v12;
   v21 = v12 + 72;
-  *v12 = v18.std::__shared_count;
+  *v12 = v18;
   v12[17] = v3;
   *(v12 + 20) = v4;
   v12[16] = v5;
@@ -69,9 +69,9 @@
     }
   }
 
-  v16 = [MEMORY[0x1E695DEC8] arrayWithArray:{v13, v18.__vftable}];
+  v16 = [MEMORY[0x1E695DEC8] arrayWithArray:{v13, v18}];
 
-  v18.__vftable = &v19;
+  *&v18 = &v19;
   std::vector<md::MarkerFeatureHandle,geo::allocator_adapter<md::MarkerFeatureHandle,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v18);
 
   return v16;

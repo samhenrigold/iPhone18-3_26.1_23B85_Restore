@@ -105,54 +105,54 @@
 {
   texturesCopy = textures;
   [(VKPolygonalItemGroup *)self updateCachedStyles];
-  LOWORD(v34.__r_.__value_.__l.__data_) = 0;
-  v7 = [(VKPolygonalItemGroup *)self styleQueries:&v34];
-  v8 = **v7;
-  v9 = (*v7)[1];
-  if (v9)
+  LOWORD(v33.__r_.__value_.__l.__data_) = 0;
+  v6 = [(VKPolygonalItemGroup *)self styleQueries:&v33];
+  v7 = **v6;
+  v8 = (*v6)[1];
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  gss::QueryableLocker<gss::PropertyID>::QueryableLocker(&v35, v8, v9);
-  if (v9)
+  gss::QueryableLocker<gss::PropertyID>::QueryableLocker(&v34, v7, v8);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v8);
   }
 
-  if (v38 == 1)
+  if (v37 == 1)
   {
     if (texturesCopy >= 0x17)
     {
-      v10 = 23;
+      v9 = 23;
     }
 
     else
     {
-      v10 = texturesCopy;
+      v9 = texturesCopy;
     }
 
-    gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&v34, v35[3], 0x88u, v10, 2);
-    size = HIBYTE(v34.__r_.__value_.__r.__words[2]);
-    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&v33, v34[3], 0x88u, v9, 2);
+    size = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v34.__r_.__value_.__l.__size_;
+      size = v33.__r_.__value_.__l.__size_;
     }
 
     if (size)
     {
-      [(VKPolygonGroup *)self _textureForName:&v34 textureManager:manager];
-      v12 = *&__p.__r_.__value_.__l.__data_;
+      objc_msgSend__textureForName_textureManager_(self);
+      v11 = *&__p.__r_.__value_.__l.__data_;
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     *&__p.__r_.__value_.__l.__data_ = 0uLL;
     cntrl = self->_sourceTexture.__cntrl_;
-    self->_sourceTexture = v12;
+    self->_sourceTexture = v11;
     if (cntrl)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](cntrl);
@@ -162,36 +162,36 @@
       }
     }
 
-    v18 = v35[3];
-    if (gss::QueryableLocker<gss::PropertyID>::hasTargetValueForKeyAtZ(v18, 0x88u, texturesCopy))
+    v17 = v34[3];
+    if (gss::QueryableLocker<gss::PropertyID>::hasTargetValueForKeyAtZ(v17, 0x88u, texturesCopy))
     {
-      gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&__p, v18, 0x88u, v10, 1);
-      v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&__p, v17, 0x88u, v9, 1);
+      v18 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v19 = __p.__r_.__value_.__l.__size_;
+        v18 = __p.__r_.__value_.__l.__size_;
       }
 
-      if (v19)
+      if (v18)
       {
-        [(VKPolygonGroup *)self _textureForName:&__p textureManager:manager];
-        v20 = *&v32.__r_.__value_.__l.__data_;
+        objc_msgSend__textureForName_textureManager_(self);
+        v19 = *&v31.__r_.__value_.__l.__data_;
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
-      *&v32.__r_.__value_.__l.__data_ = 0uLL;
-      v22 = self->_targetTexture.__cntrl_;
-      self->_targetTexture = v20;
-      if (v22)
+      *&v31.__r_.__value_.__l.__data_ = 0uLL;
+      v21 = self->_targetTexture.__cntrl_;
+      self->_targetTexture = v19;
+      if (v21)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v22);
-        if (v32.__r_.__value_.__l.__size_)
+        std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+        if (v31.__r_.__value_.__l.__size_)
         {
-          std::__shared_weak_count::__release_shared[abi:nn200100](v32.__r_.__value_.__l.__size_);
+          std::__shared_weak_count::__release_shared[abi:nn200100](v31.__r_.__value_.__l.__size_);
         }
       }
 
@@ -203,87 +203,87 @@
 
     else
     {
-      v21 = self->_targetTexture.__cntrl_;
+      v20 = self->_targetTexture.__cntrl_;
       self->_targetTexture.__ptr_ = 0;
       self->_targetTexture.__cntrl_ = 0;
-      if (v21)
+      if (v20)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v20);
       }
     }
 
-    gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&__p, v35[3], 0x14Du, v10, 2);
-    v23 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&__p, v34[3], 0x14Du, v9, 2);
+    v22 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v23 = __p.__r_.__value_.__l.__size_;
+      v22 = __p.__r_.__value_.__l.__size_;
     }
 
-    if (v23)
+    if (v22)
     {
-      [(VKPolygonGroup *)self _textureForName:&__p textureManager:manager];
-      v24 = *&v32.__r_.__value_.__l.__data_;
+      objc_msgSend__textureForName_textureManager_(self);
+      v23 = *&v31.__r_.__value_.__l.__data_;
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
 
-    *&v32.__r_.__value_.__l.__data_ = 0uLL;
-    v25 = self->_sourceRoofTexture.__cntrl_;
-    self->_sourceRoofTexture = v24;
-    if (v25)
+    *&v31.__r_.__value_.__l.__data_ = 0uLL;
+    v24 = self->_sourceRoofTexture.__cntrl_;
+    self->_sourceRoofTexture = v23;
+    if (v24)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v25);
-      if (v32.__r_.__value_.__l.__size_)
+      std::__shared_weak_count::__release_shared[abi:nn200100](v24);
+      if (v31.__r_.__value_.__l.__size_)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v32.__r_.__value_.__l.__size_);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v31.__r_.__value_.__l.__size_);
       }
     }
 
-    v26 = v35[3];
-    if (gss::QueryableLocker<gss::PropertyID>::hasTargetValueForKeyAtZ(v26, 0x14Du, texturesCopy))
+    v25 = v34[3];
+    if (gss::QueryableLocker<gss::PropertyID>::hasTargetValueForKeyAtZ(v25, 0x14Du, texturesCopy))
     {
-      gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&v32, v26, 0x14Du, v10, 1);
-      v27 = HIBYTE(v32.__r_.__value_.__r.__words[2]);
-      if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&v31, v25, 0x14Du, v9, 1);
+      v26 = HIBYTE(v31.__r_.__value_.__r.__words[2]);
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v27 = v32.__r_.__value_.__l.__size_;
+        v26 = v31.__r_.__value_.__l.__size_;
       }
 
-      if (v27)
+      if (v26)
       {
-        [(VKPolygonGroup *)self _textureForName:&v32 textureManager:manager];
-        v28 = v31;
+        objc_msgSend__textureForName_textureManager_(self);
+        v27 = v30;
       }
 
       else
       {
-        v28 = 0;
+        v27 = 0;
       }
 
-      v30 = self->_targetRoofTexture.__cntrl_;
-      self->_targetRoofTexture = v28;
-      if (v30)
+      v29 = self->_targetRoofTexture.__cntrl_;
+      self->_targetRoofTexture = v27;
+      if (v29)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v30);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v29);
       }
 
-      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v32.__r_.__value_.__l.__data_);
+        operator delete(v31.__r_.__value_.__l.__data_);
       }
     }
 
     else
     {
-      v29 = self->_targetRoofTexture.__cntrl_;
+      v28 = self->_targetRoofTexture.__cntrl_;
       self->_targetRoofTexture.__ptr_ = 0;
       self->_targetRoofTexture.__cntrl_ = 0;
-      if (v29)
+      if (v28)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v29);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v28);
       }
     }
 
@@ -292,61 +292,61 @@
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v34.__r_.__value_.__l.__data_);
+      operator delete(v33.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    v13 = self->_sourceTexture.__cntrl_;
+    v12 = self->_sourceTexture.__cntrl_;
     self->_sourceTexture.__ptr_ = 0;
     self->_sourceTexture.__cntrl_ = 0;
+    if (v12)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+    }
+
+    v13 = self->_targetTexture.__cntrl_;
+    self->_targetTexture.__ptr_ = 0;
+    self->_targetTexture.__cntrl_ = 0;
     if (v13)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v13);
     }
 
-    v14 = self->_targetTexture.__cntrl_;
-    self->_targetTexture.__ptr_ = 0;
-    self->_targetTexture.__cntrl_ = 0;
+    v14 = self->_sourceRoofTexture.__cntrl_;
+    self->_sourceRoofTexture.__ptr_ = 0;
+    self->_sourceRoofTexture.__cntrl_ = 0;
     if (v14)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v14);
     }
 
-    v15 = self->_sourceRoofTexture.__cntrl_;
-    self->_sourceRoofTexture.__ptr_ = 0;
-    self->_sourceRoofTexture.__cntrl_ = 0;
+    v15 = self->_targetRoofTexture.__cntrl_;
+    self->_targetRoofTexture.__ptr_ = 0;
+    self->_targetRoofTexture.__cntrl_ = 0;
     if (v15)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v15);
     }
-
-    v16 = self->_targetRoofTexture.__cntrl_;
-    self->_targetRoofTexture.__ptr_ = 0;
-    self->_targetRoofTexture.__cntrl_ = 0;
-    if (v16)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v16);
-    }
   }
 
   self->_lastResolvedZoom = texturesCopy;
-  if (v38 == 1)
+  if (v37 == 1)
   {
-    (*(*v35 + 56))(v35);
-  }
-
-  if (v37)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v37);
+    (*(*v34 + 56))(v34);
   }
 
   if (v36)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v36);
+  }
+
+  if (v35)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v35);
   }
 }
 
@@ -355,7 +355,7 @@
   v14 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   *buf = &attributesCopy;
-  v10 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long> const&>,std::tuple<>>(&self->super._polygonEdges.__table_.__bucket_list_.__ptr_, attributes.var0, attributes.var1);
+  v10 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long> const&>,std::tuple<>>(&self->super._polygonEdges.__table_.__bucket_list_.__ptr_, attributes.var0, attributes.var1, buf);
   if (v10[5] != v10[4])
   {
     selfCopy = self;
@@ -676,7 +676,8 @@
 
 - (void)prepareToStrokeSection:(const void *)section key:(const void *)key styles:(void *)styles paddedCount:(unsigned int)count
 {
-  v9 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long> const&>,std::tuple<>>(&self->super._polygonEdges.__table_.__bucket_list_.__ptr_, *key, *(key + 1));
+  keyCopy = key;
+  v9 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long> const&>,std::tuple<>>(&self->super._polygonEdges.__table_.__bucket_list_.__ptr_, *key, *(key + 1), &keyCopy);
   std::vector<md::Edge>::reserve(v9 + 4, *(section + 11));
   countCopy = count;
   v11 = *(section + 11);
@@ -1389,7 +1390,7 @@ LABEL_73:
 {
   LODWORD(v4) = 0;
   v5 = 0;
-  std::allocate_shared[abi:nn200100]<ggl::SamplerState,std::allocator<ggl::SamplerState>,ggl::Wrap,ggl::Wrap,0>();
+  std::allocate_shared[abi:nn200100]<ggl::SamplerState,std::allocator<ggl::SamplerState>,ggl::Wrap,ggl::Wrap,0>(&v6, &v4, &v5);
 }
 
 - (VKPolygonGroup)initWithStyleQuery:(void *)query tileZoom:(float)zoom fixedAroundCentroid:(const void *)centroid contentScale:(float)scale storage:(shared_ptr<md::MeshSetStorage>)storage

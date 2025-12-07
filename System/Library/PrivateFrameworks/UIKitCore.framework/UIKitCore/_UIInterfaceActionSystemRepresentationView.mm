@@ -54,7 +54,7 @@
 - (void)setViewsToDisplayWhenContentsVisible:(id)visible
 {
   visibleCopy = visible;
-  if (([(NSSet *)self->_viewsToDisplayWhenContentsVisible isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_viewsToDisplayWhenContentsVisible) & 1) == 0)
   {
     objc_storeStrong(&self->_viewsToDisplayWhenContentsVisible, visible);
     [(_UIInterfaceActionSystemRepresentationView *)self _arrangeDisplayedViews];

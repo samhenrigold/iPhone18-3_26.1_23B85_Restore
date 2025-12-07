@@ -139,7 +139,7 @@ uint64_t __44__SBHApplicationIcon_applicationPlaceholder__block_invoke(uint64_t 
 - (SBHApplicationIcon)initWithApplicationWithBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if (SBHIsRunningInSpringBoard(identifierCopy))
+  if (SBHIsRunningInSpringBoard())
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"SpringBoard should not use this initializer" userInfo:0];
     objc_exception_throw(v8);
@@ -348,12 +348,13 @@ uint64_t __61__SBHApplicationIcon_removeApplicationPlaceholderDataSources__block
 void __49__SBHApplicationIcon_changeEnablement_ofFeature___block_invoke(void *a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = SBLogProtectedApps();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SBLogProtectedApps(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __49__SBHApplicationIcon_changeEnablement_ofFeature___block_invoke_cold_1(a1, v5, v6);
+      __49__SBHApplicationIcon_changeEnablement_ofFeature___block_invoke_cold_1(a1, v6, v7);
     }
   }
 }

@@ -22,7 +22,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10045FA1C();
+  sub_10045FA1C(selfCopy);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

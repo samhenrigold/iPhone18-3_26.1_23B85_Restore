@@ -24,6 +24,7 @@
 - (id)_newProfileManager;
 - (id)_newTaskServerRegistry;
 - (id)createApplicationStateMonitor;
+- (id)createApplicationStateMonitorWithBundleIDs:(id)ds states:(unsigned int)states elevatedPriority:(BOOL)priority;
 - (id)createRBSProcessStateProvider;
 - (id)daemonExtensionsConformingToProtocol:(id)protocol;
 - (id)diagnosticDescription;
@@ -47,6 +48,7 @@
 - (void)registerProtectedResourceStoreProvider:(id)provider;
 - (void)setDaemonTester:(id)tester;
 - (void)start;
+- (void)terminateClean:(BOOL)clean reason:(id)reason;
 - (void)unregisterForLaunchNotification:(const char *)notification;
 - (void)unregisterProtectedResourceStoreProvider:(id)provider;
 @end
@@ -97,7 +99,7 @@
 
 void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   if (Current >= *a2 + 1.0)
   {
@@ -105,15 +107,13 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
     v6 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = a3;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "%s", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = a3;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "%s", &v7, 0xCu);
     }
 
     *a2 = Current;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (HDContentProtectionManager)contentProtectionManager
@@ -139,7 +139,8 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
 
 - (id)taskServerClasses
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
@@ -190,12 +191,9 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
   v54 = objc_opt_class();
   v55 = objc_opt_class();
   v56 = objc_opt_class();
-  v57 = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:51];
-  v3 = [HDQueryServer builtInQueryServerClasses:v7];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:51];
+  v3 = [HDQueryServer builtInQueryServerClasses:v6];
   v4 = [v2 arrayByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -275,11 +273,11 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
     daemonActivatedBlocks = v9->_daemonActivatedBlocks;
     v9->_daemonActivatedBlocks = v16;
 
-    v18 = [pathCopy copy];
+    v18 = objc_msgSend_copy(pathCopy);
     healthDirectoryPath = v9->_healthDirectoryPath;
     v9->_healthDirectoryPath = v18;
 
-    v20 = [directoryPathCopy copy];
+    v20 = objc_msgSend_copy(directoryPathCopy);
     medicalIDDirectoryPath = v9->_medicalIDDirectoryPath;
     v9->_medicalIDDirectoryPath = v20;
 
@@ -299,7 +297,7 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
 
 - (void)start
 {
-  v155[13] = *MEMORY[0x277D85DE8];
+  v151[13] = *MEMORY[0x277D85DE8];
   if (atomic_exchange(&self->_didStart._Value, 1u))
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -310,9 +308,9 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     healthDirectoryPath = self->_healthDirectoryPath;
-    v137 = 0;
-    v5 = [defaultManager createDirectoryAtPath:healthDirectoryPath withIntermediateDirectories:1 attributes:0 error:&v137];
-    v129 = v137;
+    v133 = 0;
+    v5 = [defaultManager createDirectoryAtPath:healthDirectoryPath withIntermediateDirectories:1 attributes:0 error:&v133];
+    v125 = v133;
 
     v6 = MEMORY[0x277CCC2B0];
     if ((v5 & 1) == 0)
@@ -321,11 +319,11 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
       v7 = *v6;
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_ERROR))
       {
-        v125 = self->_healthDirectoryPath;
+        v121 = self->_healthDirectoryPath;
         *buf = 138543618;
-        *&buf[4] = v125;
+        *&buf[4] = v121;
         *&buf[12] = 2114;
-        *&buf[14] = v129;
+        *&buf[14] = v125;
         _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Failed to create %{public}@: %{public}@", buf, 0x16u);
       }
     }
@@ -457,34 +455,34 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
 
       selfCopy = self;
       v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&selfCopy count:1];
-      v128 = [(HDPluginManager *)self->_pluginManager pluginsConformingToProtocol:&unk_283CCAEA0];
-      allValues = [v128 allValues];
+      v124 = [(HDPluginManager *)self->_pluginManager pluginsConformingToProtocol:&unk_283CCAEA0];
+      allValues = [v124 allValues];
       v63 = [v61 arrayByAddingObjectsFromArray:allValues];
 
-      v135 = 0u;
-      v136 = 0u;
-      v133 = 0u;
-      v134 = 0u;
+      v131 = 0u;
+      v132 = 0u;
+      v129 = 0u;
+      v130 = 0u;
       v64 = v63;
-      v65 = [v64 countByEnumeratingWithState:&v133 objects:v146 count:16];
+      v65 = [v64 countByEnumeratingWithState:&v129 objects:v142 count:16];
       if (v65)
       {
-        v66 = *v134;
+        v66 = *v130;
         do
         {
           v67 = 0;
           do
           {
-            if (*v134 != v66)
+            if (*v130 != v66)
             {
               objc_enumerationMutation(v64);
             }
 
-            v68 = *(*(&v133 + 1) + 8 * v67);
+            v68 = *(*(&v129 + 1) + 8 * v67);
             v69 = self->_taskServerRegistry;
-            v132 = 0;
-            v70 = [(HDTaskServerRegistry *)v69 registerTaskServerClassesWithProvider:v68 error:&v132];
-            v71 = v132;
+            v128 = 0;
+            v70 = [(HDTaskServerRegistry *)v69 registerTaskServerClassesWithProvider:v68 error:&v128];
+            v71 = v128;
             if (!v70)
             {
               _HKInitializeLogging();
@@ -503,7 +501,7 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
           }
 
           while (v65 != v67);
-          v65 = [v64 countByEnumeratingWithState:&v133 objects:v146 count:16];
+          v65 = [v64 countByEnumeratingWithState:&v129 objects:v142 count:16];
         }
 
         while (v65);
@@ -518,14 +516,13 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
         from = @"UserAssignedDeviceName";
         v75 = [MEMORY[0x277CBEA60] arrayWithObjects:&from count:1];
         objc_initWeak(location, self);
-        queue = self->_queue;
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __41__HDDaemon__registerForDeviceNameChanges__block_invoke;
-        v154 = &unk_27861B4E0;
-        objc_copyWeak(v155, location);
+        v150 = &unk_27861B4E0;
+        objc_copyWeak(v151, location);
         self->_deviceNameChangesToken = MGRegisterForUpdates();
-        objc_destroyWeak(v155);
+        objc_destroyWeak(v151);
         objc_destroyWeak(location);
       }
     }
@@ -537,35 +534,35 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
       self->_healthdStateHandler = HDAddStateHandler(self->_queue, @"Sensitive Logging Status", &__block_literal_global_60);
     }
 
-    v77 = objc_alloc_init(HDXPCEventManager);
+    v76 = objc_alloc_init(HDXPCEventManager);
     xpcEventManager = self->_xpcEventManager;
-    self->_xpcEventManager = v77;
+    self->_xpcEventManager = v76;
 
     objc_initWeak(location, self);
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __32__HDDaemon__setUpSignalHandlers__block_invoke;
-    v154 = &unk_278616F38;
-    objc_copyWeak(v155, location);
-    v79 = [(HDDaemon *)self _setupSignal:buf handler:?];
-    v80 = _MergedGlobals_198;
-    _MergedGlobals_198 = v79;
+    v150 = &unk_278616F38;
+    objc_copyWeak(v151, location);
+    v78 = [(HDDaemon *)self _setupSignal:buf handler:?];
+    v79 = _MergedGlobals_198;
+    _MergedGlobals_198 = v78;
 
-    v81 = [(HDDaemon *)self _setupSignal:&__block_literal_global_429 handler:?];
-    v82 = qword_280D67B60;
-    qword_280D67B60 = v81;
+    v80 = [(HDDaemon *)self _setupSignal:&__block_literal_global_429 handler:?];
+    v81 = qword_280D67B60;
+    qword_280D67B60 = v80;
 
     from = MEMORY[0x277D85DD0];
-    v149 = 3221225472;
-    v150 = __32__HDDaemon__setUpSignalHandlers__block_invoke_3;
-    v151 = &unk_278616F38;
-    objc_copyWeak(v152, location);
-    v83 = [(HDDaemon *)self _setupSignal:&from handler:?];
-    v84 = qword_280D67B68;
-    qword_280D67B68 = v83;
+    v145 = 3221225472;
+    v146 = __32__HDDaemon__setUpSignalHandlers__block_invoke_3;
+    v147 = &unk_278616F38;
+    objc_copyWeak(v148, location);
+    v82 = [(HDDaemon *)self _setupSignal:&from handler:?];
+    v83 = qword_280D67B68;
+    qword_280D67B68 = v82;
 
-    objc_destroyWeak(v152);
-    objc_destroyWeak(v155);
+    objc_destroyWeak(v148);
+    objc_destroyWeak(v151);
     objc_destroyWeak(location);
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
     [defaultWorkspace addObserver:self];
@@ -576,121 +573,121 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
     os_unfair_lock_lock(&self->_daemonReadyLock);
     self->_daemonReady = 1;
     WeakRetained = objc_loadWeakRetained(&self->_daemonTester);
-    v88 = self->_daemonReadyBlocks;
+    v87 = self->_daemonReadyBlocks;
     daemonReadyBlocks = self->_daemonReadyBlocks;
     self->_daemonReadyBlocks = 0;
 
     os_unfair_lock_unlock(&self->_daemonReadyLock);
     _HKInitializeLogging();
-    v90 = HKLogDaemonInitialization();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+    v89 = HKLogDaemonInitialization();
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
     {
-      v91 = [(NSMutableArray *)v88 count];
+      v90 = [(NSMutableArray *)v87 count];
       *buf = 134217984;
-      *&buf[4] = v91;
-      _os_log_impl(&dword_228986000, v90, OS_LOG_TYPE_DEFAULT, "Notifying %lu Daemon Ready Observers", buf, 0xCu);
+      *&buf[4] = v90;
+      _os_log_impl(&dword_228986000, v89, OS_LOG_TYPE_DEFAULT, "Notifying %lu Daemon Ready Observers", buf, 0xCu);
     }
 
     _HKInitializeLogging();
-    v92 = _HKLogPersistedSignposts();
-    v93 = os_signpost_enabled(v92);
+    v91 = _HKLogPersistedSignposts();
+    v92 = os_signpost_enabled(v91);
 
-    if (v93)
+    if (v92)
     {
-      v94 = _HKLogPersistedSignposts();
-      if (os_signpost_enabled(v94))
+      v93 = _HKLogPersistedSignposts();
+      if (os_signpost_enabled(v93))
       {
-        v95 = [(NSMutableArray *)v88 count];
+        v94 = [(NSMutableArray *)v87 count];
         *buf = 134217984;
-        *&buf[4] = v95;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v94, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Notify Daemon Ready Observers", "count=%lu", buf, 0xCu);
+        *&buf[4] = v94;
+        _os_signpost_emit_with_name_impl(&dword_228986000, v93, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Notify Daemon Ready Observers", "count=%lu", buf, 0xCu);
       }
     }
 
-    v140 = 0u;
-    v141 = 0u;
-    v138 = 0u;
-    v139 = 0u;
-    v96 = v88;
-    v97 = [(NSMutableArray *)v96 countByEnumeratingWithState:&v138 objects:&from count:16];
-    if (v97)
+    v136 = 0u;
+    v137 = 0u;
+    v134 = 0u;
+    v135 = 0u;
+    v95 = v87;
+    v96 = [(NSMutableArray *)v95 countByEnumeratingWithState:&v134 objects:&from count:16];
+    if (v96)
     {
-      v98 = *v139;
+      v97 = *v135;
       do
       {
-        for (i = 0; i != v97; ++i)
+        for (i = 0; i != v96; ++i)
         {
-          if (*v139 != v98)
+          if (*v135 != v97)
           {
-            objc_enumerationMutation(v96);
+            objc_enumerationMutation(v95);
           }
 
-          (*(*(*(&v138 + 1) + 8 * i) + 16))();
+          (*(*(*(&v134 + 1) + 8 * i) + 16))();
         }
 
-        v97 = [(NSMutableArray *)v96 countByEnumeratingWithState:&v138 objects:&from count:16];
+        v96 = [(NSMutableArray *)v95 countByEnumeratingWithState:&v134 objects:&from count:16];
       }
 
-      while (v97);
+      while (v96);
     }
 
     os_unfair_lock_lock(&self->_daemonReadyLock);
-    v100 = self->_daemonActivatedBlocks;
+    v99 = self->_daemonActivatedBlocks;
     daemonActivatedBlocks = self->_daemonActivatedBlocks;
     self->_daemonActivatedBlocks = 0;
 
     os_unfair_lock_unlock(&self->_daemonReadyLock);
     _HKInitializeLogging();
-    v102 = *v6;
+    v101 = *v6;
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      v103 = v102;
-      v104 = [(NSMutableArray *)v100 count];
+      v102 = v101;
+      v103 = [(NSMutableArray *)v99 count];
       *buf = 134217984;
-      *&buf[4] = v104;
-      _os_log_impl(&dword_228986000, v103, OS_LOG_TYPE_DEFAULT, "Notify (%lu) Daemon Activated Observers", buf, 0xCu);
+      *&buf[4] = v103;
+      _os_log_impl(&dword_228986000, v102, OS_LOG_TYPE_DEFAULT, "Notify (%lu) Daemon Activated Observers", buf, 0xCu);
     }
 
-    v144 = 0u;
-    v145 = 0u;
+    v140 = 0u;
+    v141 = 0u;
     *location = 0u;
-    v143 = 0u;
-    v105 = v100;
-    v106 = [(NSMutableArray *)v105 countByEnumeratingWithState:location objects:buf count:16];
-    if (v106)
+    v139 = 0u;
+    v104 = v99;
+    v105 = [(NSMutableArray *)v104 countByEnumeratingWithState:location objects:buf count:16];
+    if (v105)
     {
-      v107 = *v143;
+      v106 = *v139;
       do
       {
-        for (j = 0; j != v106; ++j)
+        for (j = 0; j != v105; ++j)
         {
-          if (*v143 != v107)
+          if (*v139 != v106)
           {
-            objc_enumerationMutation(v105);
+            objc_enumerationMutation(v104);
           }
 
           (*(*(location[1] + j) + 16))();
         }
 
-        v106 = [(NSMutableArray *)v105 countByEnumeratingWithState:location objects:buf count:16];
+        v105 = [(NSMutableArray *)v104 countByEnumeratingWithState:location objects:buf count:16];
       }
 
-      while (v106);
+      while (v105);
     }
 
     _HKInitializeLogging();
-    v109 = _HKLogPersistedSignposts();
-    v110 = os_signpost_enabled(v109);
+    v108 = _HKLogPersistedSignposts();
+    v109 = os_signpost_enabled(v108);
 
-    if (v110)
+    if (v109)
     {
-      v111 = _HKLogPersistedSignposts();
-      if (os_signpost_enabled(v111))
+      v110 = _HKLogPersistedSignposts();
+      if (os_signpost_enabled(v110))
       {
-        v112 = [(NSMutableArray *)v96 count];
+        v111 = [(NSMutableArray *)v95 count];
         *buf = 134217984;
-        *&buf[4] = v112;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v111, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Notify Daemon Ready Observers", "count=%lu", buf, 0xCu);
+        *&buf[4] = v111;
+        _os_signpost_emit_with_name_impl(&dword_228986000, v110, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Notify Daemon Ready Observers", "count=%lu", buf, 0xCu);
       }
     }
 
@@ -698,90 +695,86 @@ void __38__HDDaemon__setupMemoryWarningHandler__block_invoke(uint64_t a1, double
     [WeakRetained daemonReadyComplete:self];
 
     objc_initWeak(&from, self);
-    v113 = self->_queue;
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __48__HDDaemon__setUpDarwinNotificationEventHandler__block_invoke;
-    v154 = &unk_27861B430;
-    objc_copyWeak(v155, &from);
+    v150 = &unk_27861B430;
+    objc_copyWeak(v151, &from);
     hd_xpc_set_event_stream_handler();
-    objc_destroyWeak(v155);
+    objc_destroyWeak(v151);
     objc_destroyWeak(&from);
     objc_initWeak(&from, self);
-    v114 = MEMORY[0x277D85CD0];
+    v112 = MEMORY[0x277D85CD0];
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __53__HDDaemon__setUpDistributedNotificationEventHandler__block_invoke;
-    v154 = &unk_27861B430;
-    objc_copyWeak(v155, &from);
+    v150 = &unk_27861B430;
+    objc_copyWeak(v151, &from);
     hd_xpc_set_event_stream_handler();
 
-    objc_destroyWeak(v155);
+    objc_destroyWeak(v151);
     objc_destroyWeak(&from);
     if (!_HDIsUnitTesting)
     {
-      v115 = dispatch_source_create(MEMORY[0x277D85D18], 0, 1uLL, MEMORY[0x277D85CD0]);
-      v116 = qword_280D67B80;
-      qword_280D67B80 = v115;
+      v113 = dispatch_source_create(MEMORY[0x277D85D18], 0, 1uLL, MEMORY[0x277D85CD0]);
+      v114 = qword_280D67B80;
+      qword_280D67B80 = v113;
 
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __38__HDDaemon__setupMemoryWarningHandler__block_invoke_465;
-      v154 = &unk_278613658;
-      v155[0] = &__block_literal_global_464_0;
+      v150 = &unk_278613658;
+      v151[0] = &__block_literal_global_464_0;
       dispatch_source_set_event_handler(qword_280D67B80, buf);
       dispatch_activate(qword_280D67B80);
-      v117 = dispatch_source_create(MEMORY[0x277D85D18], 0, 2uLL, MEMORY[0x277D85CD0]);
-      v118 = qword_280D67B88;
-      qword_280D67B88 = v117;
+      v115 = dispatch_source_create(MEMORY[0x277D85D18], 0, 2uLL, MEMORY[0x277D85CD0]);
+      v116 = qword_280D67B88;
+      qword_280D67B88 = v115;
 
       from = MEMORY[0x277D85DD0];
-      v149 = 3221225472;
-      v150 = __38__HDDaemon__setupMemoryWarningHandler__block_invoke_2;
-      v151 = &unk_278613658;
-      v152[0] = &__block_literal_global_464_0;
+      v145 = 3221225472;
+      v146 = __38__HDDaemon__setupMemoryWarningHandler__block_invoke_2;
+      v147 = &unk_278613658;
+      v148[0] = &__block_literal_global_464_0;
       dispatch_source_set_event_handler(qword_280D67B88, &from);
       dispatch_activate(qword_280D67B88);
-      v119 = dispatch_source_create(MEMORY[0x277D85D18], 0, 4uLL, MEMORY[0x277D85CD0]);
-      v120 = qword_280D67B90;
-      qword_280D67B90 = v119;
+      v117 = dispatch_source_create(MEMORY[0x277D85D18], 0, 4uLL, MEMORY[0x277D85CD0]);
+      v118 = qword_280D67B90;
+      qword_280D67B90 = v117;
 
       location[0] = MEMORY[0x277D85DD0];
       location[1] = 3221225472;
-      *&v143 = __38__HDDaemon__setupMemoryWarningHandler__block_invoke_3;
-      *(&v143 + 1) = &unk_278613658;
-      *&v144 = &__block_literal_global_464_0;
+      *&v139 = __38__HDDaemon__setupMemoryWarningHandler__block_invoke_3;
+      *(&v139 + 1) = &unk_278613658;
+      *&v140 = &__block_literal_global_464_0;
       dispatch_source_set_event_handler(qword_280D67B90, location);
       dispatch_activate(qword_280D67B90);
     }
 
-    v121 = self->_queue;
     hd_xpc_set_event_stream_handler();
     [(HDPostInstallUpdateManager *)self->_postInstallUpdateManager start];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:self selector:sel__localeOrLanguageChanged_ name:*MEMORY[0x277CBE620] object:0];
 
     objc_initWeak(buf, self);
-    v123 = self->_queue;
+    queue = self->_queue;
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __17__HDDaemon_start__block_invoke_2;
     handler[3] = &unk_278613BF0;
-    objc_copyWeak(&v131, buf);
-    notify_register_dispatch("com.apple.language.changed", &self->_languageChangeNotifyToken, v123, handler);
+    objc_copyWeak(&v127, buf);
+    notify_register_dispatch("com.apple.language.changed", &self->_languageChangeNotifyToken, queue, handler);
     [(HDCacheDeleteCoordinator *)self->_cacheDeleteCoordinator activate];
     [(HDDaemonConnectionManager *)self->_connectionManager resume];
-    objc_destroyWeak(&v131);
+    objc_destroyWeak(&v127);
     objc_destroyWeak(buf);
   }
-
-  v124 = *MEMORY[0x277D85DE8];
 }
 
 id __17__HDDaemon_start__block_invoke()
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"Sensitive Logging";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"Sensitive Logging";
   v0 = HKShowSensitiveLogItems();
   v1 = @"Disabled";
   if (v0)
@@ -789,9 +782,8 @@ id __17__HDDaemon_start__block_invoke()
     v1 = @"Enabled";
   }
 
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -809,7 +801,6 @@ void __17__HDDaemon_start__block_invoke_2(uint64_t a1)
     hd_xpc_remove_event_stream_handlers();
   }
 
-  deviceNameChangesToken = self->_deviceNameChangesToken;
   MGCancelNotifications();
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277CBE620] object:0];
@@ -823,9 +814,9 @@ void __17__HDDaemon_start__block_invoke_2(uint64_t a1)
     os_state_remove_handler();
   }
 
-  v6.receiver = self;
-  v6.super_class = HDDaemon;
-  [(HDDaemon *)&v6 dealloc];
+  v5.receiver = self;
+  v5.super_class = HDDaemon;
+  [(HDDaemon *)&v5 dealloc];
 }
 
 - (id)daemonExtensionsConformingToProtocol:(id)protocol
@@ -845,7 +836,7 @@ void __17__HDDaemon_start__block_invoke_2(uint64_t a1)
 
 - (void)invalidateAndWaitWithReason:(id)reason
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   [(HDCloudSyncCoordinator *)self->_cloudSyncCoordinator invalidate];
   _HKInitializeLogging();
@@ -854,8 +845,8 @@ void __17__HDDaemon_start__block_invoke_2(uint64_t a1)
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = reasonCopy;
+    v19 = 2114;
+    v20 = reasonCopy;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Invalidating (%{public}@).", buf, 0x16u);
   }
 
@@ -863,26 +854,26 @@ void __17__HDDaemon_start__block_invoke_2(uint64_t a1)
   [(HDMaintenanceWorkCoordinator *)self->_maintenanceWorkCoordinator cancelAllOperations];
   [(HDProfileManager *)self->_profileManager invalidateAndWaitWithReason:reasonCopy];
   allValues = [(NSDictionary *)self->_daemonExtensionsByIdentifier allValues];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(*(&v12 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
           [v11 invalidateAndWait];
@@ -892,13 +883,11 @@ void __17__HDDaemon_start__block_invoke_2(uint64_t a1)
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)obliterateAndTerminateWithOptions:(unint64_t)options reason:(id)reason completion:(id)completion
@@ -912,7 +901,7 @@ void __17__HDDaemon_start__block_invoke_2(uint64_t a1)
 
 - (void)obliterateAndTerminateProfiles:(id)profiles options:(unint64_t)options reason:(id)reason completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   reasonCopy = reason;
   completionCopy = completion;
@@ -922,37 +911,35 @@ void __17__HDDaemon_start__block_invoke_2(uint64_t a1)
   v14 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
   {
-    v21 = v14;
-    v22 = [profilesCopy componentsJoinedByString:{@", "}];
+    v20 = v14;
+    v21 = [profilesCopy componentsJoinedByString:{@", "}];
     *buf = 138543874;
-    v27 = v22;
-    v28 = 2114;
-    v29 = reasonCopy;
-    v30 = 2048;
+    v26 = v21;
+    v27 = 2114;
+    v28 = reasonCopy;
+    v29 = 2048;
     optionsCopy = options;
-    _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "*** OBLITERATING HEALTH DATA (%{public}@): %{public}@ (%ld)", buf, 0x20u);
+    _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "*** OBLITERATING HEALTH DATA (%{public}@): %{public}@ (%ld)", buf, 0x20u);
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___block_invoke;
-  v25[3] = &unk_27861B408;
-  v25[4] = self;
-  v15 = [profilesCopy hk_map:v25];
-  v24 = completionCopy;
-  v23 = reasonCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___block_invoke;
+  v24[3] = &unk_27861B408;
+  v24[4] = self;
+  v15 = [profilesCopy hk_map:v24];
+  v23 = completionCopy;
+  v22 = reasonCopy;
   v16 = v13;
   v17 = completionCopy;
   v18 = reasonCopy;
   v19 = v15;
   HKDispatchAsyncOnGlobalConcurrentQueue();
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 id __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(*(a1 + 32) + 104) profileForIdentifier:v3];
   v5 = v4;
@@ -967,46 +954,44 @@ id __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___blo
     v7 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v3;
-      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Failed to find profile %{public}@ during obliteration", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v3;
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Failed to find profile %{public}@ during obliteration", &v9, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___block_invoke_364(uint64_t a1)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = [MEMORY[0x277CBEB58] set];
     v4 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.ActivityMonitorApp", @"com.apple.DeepBreathing", @"com.apple.Fitness", @"com.apple.Health", @"com.apple.HeartRate", *MEMORY[0x277CCE528], @"com.apple.NanoHeartRhythm", @"com.apple.NanoMenstrualCycles", @"com.apple.NanoSleep.watchkitapp", @"com.apple.NanoOxygenSaturation.watchkitapp", @"com.apple.NanoHealthBalance", 0}];
+    v83 = 0u;
     v84 = 0u;
     v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
     v5 = [*(v2 + 328) clientProcesses];
-    v6 = [v5 countByEnumeratingWithState:&v84 objects:buf count:16];
+    v6 = [v5 countByEnumeratingWithState:&v83 objects:buf count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v85;
+      v8 = *v84;
       do
       {
         v9 = 0;
         do
         {
-          if (*v85 != v8)
+          if (*v84 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [*(*(&v84 + 1) + 8 * v9) bundleIdentifier];
+          v10 = [*(*(&v83 + 1) + 8 * v9) bundleIdentifier];
           v11 = v10;
           if (v10 && (![v10 hasPrefix:@"com.apple."] || objc_msgSend(v4, "containsObject:", v11)))
           {
@@ -1017,7 +1002,7 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v84 objects:buf count:16];
+        v7 = [v5 countByEnumeratingWithState:&v83 objects:buf count:16];
       }
 
       while (v7);
@@ -1038,31 +1023,31 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
     _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "*** PREPARING FOR OBLITERATION ***", buf, 2u);
   }
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v14 = *(a1 + 40);
-  v15 = [v14 countByEnumeratingWithState:&v80 objects:v91 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v79 objects:v90 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v81;
+    v17 = *v80;
     do
     {
       v18 = 0;
       do
       {
-        if (*v81 != v17)
+        if (*v80 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [*(*(&v80 + 1) + 8 * v18++) prepareForObliterationWithReason:*(a1 + 48)];
+        [*(*(&v79 + 1) + 8 * v18++) prepareForObliterationWithReason:*(a1 + 48)];
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v80 objects:v91 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v79 objects:v90 count:16];
     }
 
     while (v16);
@@ -1076,31 +1061,31 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
     _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "*** INVALIDATING PROFILES", buf, 2u);
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v20 = *(a1 + 40);
-  v21 = [v20 countByEnumeratingWithState:&v76 objects:v90 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v75 objects:v89 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v77;
+    v23 = *v76;
     do
     {
       v24 = 0;
       do
       {
-        if (*v77 != v23)
+        if (*v76 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [*(*(&v76 + 1) + 8 * v24++) invalidateAndWaitWithReason:@"OBLITERATION"];
+        [*(*(&v75 + 1) + 8 * v24++) invalidateAndWaitWithReason:@"OBLITERATION"];
       }
 
       while (v22 != v24);
-      v22 = [v20 countByEnumeratingWithState:&v76 objects:v90 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v75 objects:v89 count:16];
     }
 
     while (v22);
@@ -1114,27 +1099,27 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
     _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "*** INVALIDATING DAEMON EXTENSIONS", buf, 2u);
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v26 = [*(*(a1 + 32) + 200) allValues];
-  v27 = [v26 countByEnumeratingWithState:&v72 objects:v89 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v71 objects:v88 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v73;
+    v29 = *v72;
     do
     {
       v30 = 0;
       do
       {
-        if (*v73 != v29)
+        if (*v72 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v72 + 1) + 8 * v30);
+        v31 = *(*(&v71 + 1) + 8 * v30);
         if (objc_opt_respondsToSelector())
         {
           [v31 prepareForObliteration];
@@ -1144,7 +1129,7 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
       }
 
       while (v28 != v30);
-      v28 = [v26 countByEnumeratingWithState:&v72 objects:v89 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v71 objects:v88 count:16];
     }
 
     while (v28);
@@ -1158,31 +1143,31 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
     _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "*** OBLITERATING PROFILES", buf, 2u);
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v33 = *(a1 + 40);
-  v34 = [v33 countByEnumeratingWithState:&v68 objects:v88 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v67 objects:v87 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v69;
+    v36 = *v68;
     do
     {
       v37 = 0;
       do
       {
-        if (*v69 != v36)
+        if (*v68 != v36)
         {
           objc_enumerationMutation(v33);
         }
 
-        [*(*(&v68 + 1) + 8 * v37++) obliterateWithOptions:*(a1 + 72) reason:*(a1 + 48)];
+        [*(*(&v67 + 1) + 8 * v37++) obliterateWithOptions:*(a1 + 72) reason:*(a1 + 48)];
       }
 
       while (v35 != v37);
-      v35 = [v33 countByEnumeratingWithState:&v68 objects:v88 count:16];
+      v35 = [v33 countByEnumeratingWithState:&v67 objects:v87 count:16];
     }
 
     while (v35);
@@ -1201,9 +1186,9 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
   {
     v40 = objc_alloc_init(MEMORY[0x277CCAA00]);
     v41 = [v39 localContentURL];
-    *&v84 = 0;
-    v42 = [v40 removeItemAtURL:v41 error:&v84];
-    v43 = v84;
+    *&v83 = 0;
+    v42 = [v40 removeItemAtURL:v41 error:&v83];
+    v43 = v83;
 
     if ((v42 & 1) == 0)
     {
@@ -1245,9 +1230,9 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
     v52 = [MEMORY[0x277D46FA0] predicateMatchingBundleIdentifiers:v48];
     v53 = [objc_alloc(MEMORY[0x277D47010]) initWithExplanation:@"Health database obliterated"];
     v54 = [objc_alloc(MEMORY[0x277D47018]) initWithPredicate:v52 context:v53];
-    *&v84 = 0;
-    v55 = [v54 execute:&v84];
-    v56 = v84;
+    *&v83 = 0;
+    v55 = [v54 execute:&v83];
+    v56 = v83;
     _HKInitializeLogging();
     v57 = *v12;
     v58 = *v12;
@@ -1316,8 +1301,24 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
 
   [*(a1 + 32) terminateClean:0 reason:@"obliterating"];
   [*(a1 + 56) invalidate];
+}
 
-  v67 = *MEMORY[0x277D85DE8];
+- (void)terminateClean:(BOOL)clean reason:(id)reason
+{
+  cleanCopy = clean;
+  self->_isTerminating = 1;
+  reasonCopy = reason;
+  [(HDDaemon *)self _terminationCleanup];
+  v6 = "";
+  if (cleanCopy)
+  {
+    v6 = " clean";
+  }
+
+  reasonCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Terminating%s: %@", v6, reasonCopy];
+  [(HDDaemon *)self invalidateAndWaitWithReason:reasonCopy];
+
+  [(HDDaemon *)self exitClean:cleanCopy reason:reasonCopy];
 }
 
 - (void)_terminationCleanup
@@ -1333,7 +1334,7 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
 - (void)exitClean:(BOOL)clean reason:(id)reason
 {
   cleanCopy = clean;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC2B0];
@@ -1346,9 +1347,9 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
     }
 
     *buf = 136315394;
-    v12 = v8;
-    v13 = 2114;
-    v14 = reasonCopy;
+    v11 = v8;
+    v12 = 2114;
+    v13 = reasonCopy;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "Exiting%s: %{public}@", buf, 0x16u);
   }
 
@@ -1371,8 +1372,6 @@ void __69__HDDaemon_obliterateAndTerminateProfiles_options_reason_completion___b
   {
     exit(0);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __29__HDDaemon_exitClean_reason___block_invoke(uint64_t a1)
@@ -1415,7 +1414,7 @@ void __32__HDDaemon__setUpSignalHandlers__block_invoke(uint64_t a1)
 
 - (NSObject)_setupSignal:(void *)signal handler:
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   signalCopy = signal;
   v6 = dispatch_source_create(MEMORY[0x277D85D30], a2, 0, *(self + 32));
   if (v6)
@@ -1424,7 +1423,7 @@ void __32__HDDaemon__setUpSignalHandlers__block_invoke(uint64_t a1)
     handler[1] = 3221225472;
     handler[2] = __33__HDDaemon__setupSignal_handler___block_invoke;
     handler[3] = &unk_278613658;
-    v11 = signalCopy;
+    v10 = signalCopy;
     dispatch_source_set_event_handler(v6, handler);
     dispatch_resume(v6);
     signal(a2, 1);
@@ -1437,12 +1436,10 @@ void __32__HDDaemon__setUpSignalHandlers__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v13 = a2;
+      v12 = a2;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Could not set up signal handler for %d", buf, 8u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1468,7 +1465,7 @@ void __32__HDDaemon__setUpSignalHandlers__block_invoke_3(uint64_t a1)
 
 void __48__HDDaemon__setUpDarwinNotificationEventHandler__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = v3;
@@ -1485,30 +1482,30 @@ void __48__HDDaemon__setUpDarwinNotificationEventHandler__block_invoke(uint64_t 
         if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v26 = v6;
+          v25 = v6;
           _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "Received notifyd notification %s", buf, 0xCu);
         }
 
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
         v20 = 0u;
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
         v8 = [WeakRetained[25] allValues];
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:buf count:16];
+        v9 = [v8 countByEnumeratingWithState:&v18 objects:buf count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v20;
+          v11 = *v19;
 LABEL_8:
           v12 = 0;
           while (1)
           {
-            if (*v20 != v11)
+            if (*v19 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v19 + 1) + 8 * v12);
+            v13 = *(*(&v18 + 1) + 8 * v12);
             if (objc_opt_respondsToSelector() & 1) != 0 && ([v13 daemonDidReceiveNotification:v6])
             {
               goto LABEL_19;
@@ -1516,7 +1513,7 @@ LABEL_8:
 
             if (v10 == ++v12)
             {
-              v10 = [v8 countByEnumeratingWithState:&v19 objects:buf count:16];
+              v10 = [v8 countByEnumeratingWithState:&v18 objects:buf count:16];
               if (v10)
               {
                 goto LABEL_8;
@@ -1535,10 +1532,10 @@ LABEL_8:
         if (!strcasecmp("com.apple.springboard.homescreenunlocked", v6))
         {
           v14 = xpc_dictionary_get_uint64(v4, "_State") != 0;
-          v23 = @"HDDaemonHomescreenUnlockedAtHomescreenKey";
+          v22 = @"HDDaemonHomescreenUnlockedAtHomescreenKey";
           v15 = [MEMORY[0x277CCABB0] numberWithBool:v14];
-          v24 = v15;
-          v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+          v23 = v15;
+          v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
 
           v16 = [MEMORY[0x277CCAB98] defaultCenter];
           [v16 postNotificationName:@"HDDaemonHomescreenUnlockedNotification" object:WeakRetained userInfo:v8];
@@ -1548,13 +1545,11 @@ LABEL_19:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HDDaemon__setUpDistributedNotificationEventHandler__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = v3;
@@ -1597,14 +1592,14 @@ void __53__HDDaemon__setUpDistributedNotificationEventHandler__block_invoke(uint
             v13 = qword_280D67B70;
             *&buf = MEMORY[0x277D85DD0];
             *(&buf + 1) = 3221225472;
-            v20 = __44__HDDaemon__handleLaunchServicesEvent_name___block_invoke_2;
-            v21 = &unk_278617B08;
+            v19 = __44__HDDaemon__handleLaunchServicesEvent_name___block_invoke_2;
+            v20 = &unk_278617B08;
             v14 = v8;
-            v26 = v10;
-            v22 = v14;
-            v23 = WeakRetained;
-            v24 = v9;
-            v25 = v12;
+            v25 = v10;
+            v21 = v14;
+            v22 = WeakRetained;
+            v23 = v9;
+            v24 = v12;
             v15 = v12;
             dispatch_async(v13, &buf);
           }
@@ -1612,21 +1607,20 @@ void __53__HDDaemon__setUpDistributedNotificationEventHandler__block_invoke(uint
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__HDDaemon__handleLaunchServicesEvent_name___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  qword_280D67B70 = HKCreateSerialDispatchQueueWithQOSClass();
+  v1 = HKCreateSerialDispatchQueueWithQOSClass();
+  v2 = qword_280D67B70;
+  qword_280D67B70 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 void __44__HDDaemon__handleLaunchServicesEvent_name___block_invoke_2(uint64_t a1)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEAC0];
   v3 = xpc_dictionary_get_value(*(a1 + 32), "UserInfo");
   v4 = [v2 hd_dictionaryFromXPCObject:v3];
@@ -1643,8 +1637,8 @@ void __44__HDDaemon__handleLaunchServicesEvent_name___block_invoke_2(uint64_t a1
       v8 = *MEMORY[0x277CCC2B0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring LaunchServices notification for placeholder", &v20, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring LaunchServices notification for placeholder", &v19, 2u);
       }
     }
 
@@ -1671,12 +1665,12 @@ void __44__HDDaemon__handleLaunchServicesEvent_name___block_invoke_2(uint64_t a1
         v13 = &HDHealthDaemonApplicationsUninstalledBundleIdentifiersKey;
       }
 
-      v22 = *v13;
-      v23[0] = v5;
+      v21 = *v13;
+      v22[0] = v5;
       v14 = MEMORY[0x277CBEAC0];
-      v15 = v22;
+      v15 = v21;
       v16 = v12;
-      v17 = [v14 dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v17 = [v14 dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v18 = [MEMORY[0x277CCAB98] defaultCenter];
       [v18 postNotificationName:v16 object:*(a1 + 40) userInfo:v17];
     }
@@ -1689,15 +1683,13 @@ void __44__HDDaemon__handleLaunchServicesEvent_name___block_invoke_2(uint64_t a1
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
       v10 = *(a1 + 48);
-      v20 = 138412290;
-      v21 = v10;
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%@ notification missing bundle identifiers", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = v10;
+      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%@ notification missing bundle identifiers", &v19, 0xCu);
     }
   }
 
   [*(a1 + 56) invalidate];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __37__HDDaemon__setupRapportEventHandler__block_invoke(uint64_t a1, void *a2)
@@ -1761,7 +1753,7 @@ void __37__HDDaemon__setupRapportEventHandler__block_invoke(uint64_t a1, void *a
 
 void __46__HDDaemon_registerDaemonReadyObserver_queue___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogDaemonInitialization();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
@@ -1775,37 +1767,39 @@ void __46__HDDaemon_registerDaemonReadyObserver_queue___block_invoke(uint64_t a1
       v6 = *(a1 + 40);
       label = dispatch_queue_get_label(*(a1 + 48));
       *buf = 138543874;
-      v14 = v5;
-      v15 = 2114;
-      v16 = v6;
-      v17 = 2080;
-      v18 = label;
+      v13 = v5;
+      v14 = 2114;
+      v15 = v6;
+      v16 = 2080;
+      v17 = label;
       _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "%{public}@: notify daemon ready for observer %{public}@ on queue %s", buf, 0x20u);
     }
   }
 
   v8 = *(a1 + 48);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __46__HDDaemon_registerDaemonReadyObserver_queue___block_invoke_476;
-  v10[3] = &unk_278617620;
-  objc_copyWeak(&v12, (a1 + 56));
-  v11 = *(a1 + 40);
-  dispatch_async(v8, v10);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __46__HDDaemon_registerDaemonReadyObserver_queue___block_invoke_476;
+  v9[3] = &unk_278617620;
+  objc_copyWeak(&v11, (a1 + 56));
+  v10 = *(a1 + 40);
+  dispatch_async(v8, v9);
 
-  objc_destroyWeak(&v12);
-  v9 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v11);
 }
 
 uint64_t __46__HDDaemon_registerDaemonReadyObserver_queue___block_invoke_476(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    [*(a1 + 32) daemonReady:WeakRetained];
+    v5 = WeakRetained;
+    WeakRetained = [*(a1 + 32) daemonReady:WeakRetained];
+    v3 = v5;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v3);
 }
 
 - (void)registerDaemonActivatedObserver:(id)observer queue:(id)queue
@@ -1850,7 +1844,7 @@ uint64_t __46__HDDaemon_registerDaemonReadyObserver_queue___block_invoke_476(uin
 
 void __50__HDDaemon_registerDaemonActivatedObserver_queue___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
@@ -1864,25 +1858,23 @@ void __50__HDDaemon_registerDaemonActivatedObserver_queue___block_invoke(uint64_
       v6 = *(a1 + 40);
       label = dispatch_queue_get_label(*(a1 + 48));
       *buf = 138543874;
-      v14 = v5;
-      v15 = 2114;
-      v16 = v6;
-      v17 = 2080;
-      v18 = label;
+      v13 = v5;
+      v14 = 2114;
+      v15 = v6;
+      v16 = 2080;
+      v17 = label;
       _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "%{public}@: notify daemon activated for observer %{public}@ on queue %s", buf, 0x20u);
     }
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __50__HDDaemon_registerDaemonActivatedObserver_queue___block_invoke_477;
-  v10[3] = &unk_278613920;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __50__HDDaemon_registerDaemonActivatedObserver_queue___block_invoke_477;
+  v9[3] = &unk_278613920;
   v8 = *(a1 + 48);
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 56);
-  dispatch_async(v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 56);
+  dispatch_async(v8, v9);
 }
 
 - (void)registerProtectedResourceStoreProvider:(id)provider
@@ -2014,42 +2006,42 @@ LABEL_4:
 
 - (id)healthDirectorySizeInBytes
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   healthDirectoryURL = [(HDDaemon *)self healthDirectoryURL];
   v5 = *MEMORY[0x277CBE908];
-  v35[0] = *MEMORY[0x277CBE908];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+  v34[0] = *MEMORY[0x277CBE908];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
   v7 = [defaultManager enumeratorAtURL:healthDirectoryURL includingPropertiesForKeys:v6 options:0 errorHandler:&__block_literal_global_491];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v9)
   {
     v11 = v9;
     v12 = 0;
-    v13 = *v27;
+    v13 = *v26;
     *&v10 = 138543618;
-    v23 = v10;
+    v22 = v10;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * i);
+        v15 = *(*(&v25 + 1) + 8 * i);
+        v23 = 0;
         v24 = 0;
-        v25 = 0;
-        v16 = [v15 getResourceValue:&v25 forKey:v5 error:{&v24, v23}];
-        v17 = v25;
-        v18 = v24;
+        v16 = [v15 getResourceValue:&v24 forKey:v5 error:{&v23, v22}];
+        v17 = v24;
+        v18 = v23;
         if (v16)
         {
           v12 += [v17 unsignedLongLongValue];
@@ -2061,16 +2053,16 @@ LABEL_4:
           v19 = *MEMORY[0x277CCC2B0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
           {
-            *buf = v23;
-            v31 = v15;
-            v32 = 2114;
-            v33 = v18;
+            *buf = v22;
+            v30 = v15;
+            v31 = 2114;
+            v32 = v18;
             _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "Unable to determine file size for %{public}@: %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v11);
@@ -2083,71 +2075,68 @@ LABEL_4:
 
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v12];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 uint64_t __38__HDDaemon_healthDirectorySizeInBytes__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543618;
-    v10 = v4;
-    v11 = 2114;
-    v12 = v5;
-    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Unable to enumerate %{public}@: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v5;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Unable to enumerate %{public}@: %{public}@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __41__HDDaemon__registerForDeviceNameChanges__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v1 = [WeakRetained profileManager];
     v2 = [v1 allProfileIdentifiers];
 
-    v3 = [v2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v3)
     {
       v5 = v3;
       v6 = 0;
-      v7 = *v21;
+      v7 = *v20;
       *&v4 = 138543618;
-      v17 = v4;
+      v16 = v4;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v21 != v7)
+          if (*v20 != v7)
           {
             objc_enumerationMutation(v2);
           }
 
-          v9 = *(*(&v20 + 1) + 8 * i);
+          v9 = *(*(&v19 + 1) + 8 * i);
           v10 = [WeakRetained profileManager];
           v11 = [v10 profileForIdentifier:v9];
 
           if (v11)
           {
             v12 = [v11 sourceManager];
-            v19 = v6;
-            v13 = [v12 updateCurrentDeviceNameWithError:&v19];
-            v14 = v19;
+            v18 = v6;
+            v13 = [v12 updateCurrentDeviceNameWithError:&v18];
+            v14 = v18;
 
             if ((v13 & 1) == 0)
             {
@@ -2155,10 +2144,10 @@ void __41__HDDaemon__registerForDeviceNameChanges__block_invoke(uint64_t a1)
               v15 = *MEMORY[0x277CCC2B0];
               if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
               {
-                *buf = v17;
-                v25 = v9;
-                v26 = 2114;
-                v27 = v14;
+                *buf = v16;
+                v24 = v9;
+                v25 = 2114;
+                v26 = v14;
                 _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "Current device source name update failed for profile with identifier %{public}@: %{public}@", buf, 0x16u);
               }
             }
@@ -2167,7 +2156,7 @@ void __41__HDDaemon__registerForDeviceNameChanges__block_invoke(uint64_t a1)
           }
         }
 
-        v5 = [v2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v5 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v5);
@@ -2178,13 +2167,11 @@ void __41__HDDaemon__registerForDeviceNameChanges__block_invoke(uint64_t a1)
       v6 = 0;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetPrivacySettings
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKLogAuthorization();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -2202,34 +2189,34 @@ void __41__HDDaemon__registerForDeviceNameChanges__block_invoke(uint64_t a1)
   v8 = [v6 initWithDomain:*MEMORY[0x277CCE500]];
   v9 = MEMORY[0x277CBEB98];
   v10 = *MEMORY[0x277CCE510];
-  v31[0] = *MEMORY[0x277CCE518];
-  v31[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+  v30[0] = *MEMORY[0x277CCE518];
+  v30[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
   v12 = [v9 setWithArray:v11];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [v8 removeObjectForKey:{*(*(&v22 + 1) + 8 * i), v22}];
+        [v8 removeObjectForKey:{*(*(&v21 + 1) + 8 * i), v21}];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v15);
@@ -2243,9 +2230,9 @@ void __41__HDDaemon__registerForDeviceNameChanges__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = v8;
-      v28 = 2114;
-      v29 = synchronize;
+      v26 = v8;
+      v27 = 2114;
+      v28 = synchronize;
       _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "Failed to synchronize %{public}@: %{public}@", buf, 0x16u);
     }
   }
@@ -2255,8 +2242,6 @@ void __41__HDDaemon__registerForDeviceNameChanges__block_invoke(uint64_t a1)
     v20 = objc_alloc_init(MEMORY[0x277D2BA60]);
     [v20 synchronizeNanoDomain:v7 keys:v13];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (NSURL)localContentURL
@@ -2272,6 +2257,17 @@ void __41__HDDaemon__registerForDeviceNameChanges__block_invoke(uint64_t a1)
   v2 = objc_alloc_init(MEMORY[0x277CEEE90]);
 
   return v2;
+}
+
+- (id)createApplicationStateMonitorWithBundleIDs:(id)ds states:(unsigned int)states elevatedPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  v6 = *&states;
+  v7 = MEMORY[0x277CEEE90];
+  dsCopy = ds;
+  v9 = [[v7 alloc] initWithBundleIDs:dsCopy states:v6 elevatedPriority:priorityCopy];
+
+  return v9;
 }
 
 - (id)createRBSProcessStateProvider
@@ -2401,47 +2397,47 @@ void __41__HDDaemon__registerForDeviceNameChanges__block_invoke(uint64_t a1)
 
 - (void)applicationStateDidChange:(id)change
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = MEMORY[0x277CBEB98];
   v6 = *MEMORY[0x277CCE340];
-  v30[0] = @"com.apple.ActivityMonitorApp";
-  v30[1] = v6;
-  v30[2] = *MEMORY[0x277CCE528];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+  v29[0] = @"com.apple.ActivityMonitorApp";
+  v29[1] = v6;
+  v29[2] = *MEMORY[0x277CCE528];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
   v8 = [v5 setWithArray:v7];
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __38__HDDaemon_applicationStateDidChange___block_invoke;
-  v27[3] = &unk_27861B508;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __38__HDDaemon_applicationStateDidChange___block_invoke;
+  v26[3] = &unk_27861B508;
   v9 = v8;
-  v28 = v9;
-  v10 = [changeCopy hk_filter:v27];
+  v27 = v9;
+  v10 = [changeCopy hk_filter:v26];
   if ([v10 count])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
       selfCopy = self;
-      v14 = *v24;
+      v14 = *v23;
       v15 = &HDHealthDaemonFitnessAppsRestrictedNotification;
 LABEL_4:
       v16 = 0;
       while (1)
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        appState = [*(*(&v23 + 1) + 8 * v16) appState];
+        appState = [*(*(&v22 + 1) + 8 * v16) appState];
         isRestricted = [appState isRestricted];
 
         if (isRestricted)
@@ -2451,7 +2447,7 @@ LABEL_4:
 
         if (v13 == ++v16)
         {
-          v13 = [v11 countByEnumeratingWithState:&v23 objects:v29 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v22 objects:v28 count:16];
           if (v13)
           {
             goto LABEL_4;
@@ -2474,8 +2470,6 @@ LABEL_4:
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:v19 object:self];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38__HDDaemon_applicationStateDidChange___block_invoke(uint64_t a1, void *a2)

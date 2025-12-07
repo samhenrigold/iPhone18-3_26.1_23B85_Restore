@@ -71,35 +71,35 @@
 
 - (id)_gzipCompressData:(id)data
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = objc_alloc_init(MEMORY[0x277CBEB28]);
-  memset(&v10, 0, sizeof(v10));
-  if (deflateInit2_(&v10, -1, 8, 31, 8, 0, "1.2.12", 112))
+  memset(&v9, 0, sizeof(v9));
+  if (deflateInit2_(&v9, -1, 8, 31, 8, 0, "1.2.12", 112))
   {
     v5 = 0;
   }
 
   else
   {
-    v10.avail_in = [dataCopy length];
-    v10.next_in = [dataCopy bytes];
+    v9.avail_in = [dataCopy length];
+    v9.next_in = [dataCopy bytes];
     do
     {
-      v10.avail_out = 0x4000;
-      v10.next_out = v11;
-      v6 = deflate(&v10, 4);
+      v9.avail_out = 0x4000;
+      v9.next_out = v10;
+      v6 = deflate(&v9, 4);
       if (v6 == -2)
       {
         [S3Content _gzipCompressData:];
       }
 
       v7 = v6;
-      [v4 appendBytes:v11 length:{0x4000 - v10.avail_out, v10.next_in}];
+      [v4 appendBytes:v10 length:{0x4000 - v9.avail_out, v9.next_in}];
     }
 
-    while (!v10.avail_out);
-    if (v10.avail_in)
+    while (!v9.avail_out);
+    if (v9.avail_in)
     {
       [S3Content _gzipCompressData:];
     }
@@ -109,11 +109,9 @@
       [S3Content _gzipCompressData:];
     }
 
-    deflateEnd(&v10);
+    deflateEnd(&v9);
     v5 = v4;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

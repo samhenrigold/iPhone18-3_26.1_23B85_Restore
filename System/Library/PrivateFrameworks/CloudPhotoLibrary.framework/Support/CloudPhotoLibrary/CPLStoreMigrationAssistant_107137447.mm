@@ -47,8 +47,8 @@
   {
 
 LABEL_17:
-    v23 = 0;
-    v24 = 1;
+    v24 = 0;
+    v25 = 1;
     goto LABEL_18;
   }
 
@@ -60,7 +60,7 @@ LABEL_17:
   [v15 doubleForKey:@"CPLRewindForSparseRecordsInterval"];
   v17 = v16;
 
-  v33 = v14;
+  v34 = v14;
   if (!v13 || !v14)
   {
     goto LABEL_12;
@@ -79,82 +79,82 @@ LABEL_17:
 
   if (v18 >= v17)
   {
-    v23 = 0;
-    v24 = 1;
+    v24 = 0;
+    v25 = 1;
   }
 
   else
   {
 LABEL_12:
-    v32 = v13;
+    v33 = v13;
     v19 = [scopes scopeChangeForScope:primaryScope];
     if (v19 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v31 = platformObject2;
+      v32 = platformObject2;
       rewindAnchorsPerSharingScopes = [v19 rewindAnchorsPerSharingScopes];
       scopeIdentifier = [v9 scopeIdentifier];
       v22 = [rewindAnchorsPerSharingScopes objectForKeyedSubscript:scopeIdentifier];
 
       if (v22)
       {
-        v23 = 0;
-        v24 = 1;
+        v24 = 0;
+        v25 = 1;
       }
 
       else
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v26 = sub_10016B2AC();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v27 = sub_10016B2AC(v23);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "User has a Sharing scope likely present during initial download but Primary Scope does not know when it was created. Triggering an anchor reset sync", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "User has a Sharing scope likely present during initial download but Primary Scope does not know when it was created. Triggering an anchor reset sync", buf, 2u);
           }
         }
 
         [platformObject recordUpgradeEvent:@"Triggering anchor reset sync for shared library user to account for missing rewind anchors"];
-        v35 = 0;
-        v27 = [scopes resetSyncAnchorForScope:primaryScope error:&v35];
-        v28 = v35;
-        v23 = v28;
-        if (v27)
+        v36 = 0;
+        v28 = [scopes resetSyncAnchorForScope:primaryScope error:&v36];
+        v29 = v36;
+        v24 = v29;
+        if (v28)
         {
-          v34 = v28;
-          v24 = [scopes setInitialSyncAnchor:0 forScope:primaryScope error:&v34];
-          v29 = v34;
+          v35 = v29;
+          v25 = [scopes setInitialSyncAnchor:0 forScope:primaryScope error:&v35];
+          v30 = v35;
 
-          v23 = v29;
+          v24 = v30;
         }
 
         else
         {
-          v24 = 0;
+          v25 = 0;
         }
       }
 
-      platformObject2 = v31;
+      platformObject2 = v32;
     }
 
     else
     {
-      v23 = 0;
-      v24 = 1;
+      v24 = 0;
+      v25 = 1;
     }
 
-    v13 = v32;
+    v13 = v33;
   }
 
-  if (error && (v24 & 1) == 0)
+  if (error && (v25 & 1) == 0)
   {
-    v30 = v23;
-    v24 = 0;
-    *error = v23;
+    v31 = v24;
+    v25 = 0;
+    *error = v24;
   }
 
 LABEL_18:
 
-  return v24;
+  return v25;
 }
 
 @end

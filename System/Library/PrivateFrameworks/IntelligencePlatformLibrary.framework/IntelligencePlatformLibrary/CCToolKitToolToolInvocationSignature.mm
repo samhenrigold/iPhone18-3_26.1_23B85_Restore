@@ -13,10 +13,10 @@
 
 - (CCToolKitToolToolInvocationSignature)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v38 = 0;
+  v37 = 0;
   IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
   v8 = 0;
   if (IsInstanceOfExpectedClass)
@@ -28,7 +28,7 @@
     {
       v12 = v11;
       objc_opt_class();
-      v37 = v8;
+      v36 = v8;
       v13 = CCValidateIsInstanceOfExpectedClass();
       v14 = v8;
 
@@ -39,34 +39,34 @@
         goto LABEL_21;
       }
 
-      v29 = v14;
-      v30 = v9;
+      v28 = v14;
+      v29 = v9;
       selfCopy = self;
       v15 = objc_opt_new();
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       v12 = v12;
-      v16 = [v12 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v16 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v34;
+        v18 = *v33;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v34 != v18)
+            if (*v33 != v18)
             {
               objc_enumerationMutation(v12);
             }
 
-            v20 = *(*(&v33 + 1) + 8 * i);
+            v20 = *(*(&v32 + 1) + 8 * i);
             v21 = [CCToolKitToolToolInvocationSignatureValueConstraintsEntry alloc];
-            v32 = 0;
-            v22 = [(CCToolKitToolToolInvocationSignatureValueConstraintsEntry *)v21 initWithJSONDictionary:v20 error:&v32];
-            v23 = v32;
+            v31 = 0;
+            v22 = [(CCToolKitToolToolInvocationSignatureValueConstraintsEntry *)v21 initWithJSONDictionary:v20 error:&v31];
+            v23 = v31;
             if (v22)
             {
               v24 = v23 == 0;
@@ -83,24 +83,24 @@
               CCSetError();
 
               v26 = 0;
-              v9 = v30;
+              v9 = v29;
               self = selfCopy;
-              v14 = v29;
+              v14 = v28;
               goto LABEL_21;
             }
 
             [v15 addObject:v22];
           }
 
-          v17 = [v12 countByEnumeratingWithState:&v33 objects:v39 count:16];
+          v17 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
         }
 
         while (v17);
       }
 
-      v9 = v30;
+      v9 = v29;
       self = selfCopy;
-      v14 = v29;
+      v14 = v28;
     }
 
     else
@@ -121,13 +121,12 @@ LABEL_21:
   v26 = 0;
 LABEL_22:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
 - (id)jsonDictionary
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_visibleParameterKeys)
   {
@@ -144,30 +143,30 @@ LABEL_22:
   if (self->_valueConstraints)
   {
     v6 = objc_opt_new();
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     valueConstraints = [(CCToolKitToolToolInvocationSignature *)self valueConstraints];
-    v8 = [valueConstraints countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [valueConstraints countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(valueConstraints);
           }
 
-          jsonDictionary = [*(*(&v16 + 1) + 8 * i) jsonDictionary];
+          jsonDictionary = [*(*(&v15 + 1) + 8 * i) jsonDictionary];
           [v6 addObject:jsonDictionary];
         }
 
-        v9 = [valueConstraints countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [valueConstraints countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -177,8 +176,6 @@ LABEL_22:
   }
 
   v13 = [v3 copy];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -240,8 +237,8 @@ LABEL_22:
   if (*&v5[*MEMORY[0x1E6993AB8]] < *&v5[*MEMORY[0x1E6993AB0]])
   {
     v8 = 0;
-    v47 = 0;
-    v48 = 0;
+    v44 = 0;
+    v45 = 0;
     v9 = 0;
     v10 = MEMORY[0x1E6993AA8];
     v11 = MEMORY[0x1E6993AA0];
@@ -319,18 +316,18 @@ LABEL_21:
       if ((v21 >> 3) == 3)
       {
         v25 = CCPBReaderReadDataNoCopy();
-        if (!v47)
+        if (!v44)
         {
-          v47 = objc_opt_new();
+          v44 = objc_opt_new();
         }
 
         v27 = [CCToolKitToolToolInvocationSignatureValueConstraintsEntry alloc];
-        v49 = 0;
-        v28 = [(CCItemMessage *)v27 initWithData:v25 error:&v49];
-        v8 = v49;
+        v46 = 0;
+        v28 = [(CCItemMessage *)v27 initWithData:v25 error:&v46];
+        v8 = v46;
         if (!v8 && v28)
         {
-          [v47 addObject:v28];
+          [v44 addObject:v28];
         }
 
         goto LABEL_45;
@@ -348,7 +345,6 @@ LABEL_21:
 
           v29 = objc_opt_class();
           v25 = NSStringFromClass(v29);
-          v30 = *&v5[*v10];
           v8 = CCSkipFieldErrorForMessage();
 LABEL_45:
 
@@ -363,7 +359,7 @@ LABEL_46:
 
         v24 = CCPBReaderReadStringNoCopy();
         v25 = v24;
-        if (v48)
+        if (v45)
         {
           if (!v24)
           {
@@ -373,11 +369,11 @@ LABEL_46:
           goto LABEL_42;
         }
 
-        v48 = objc_opt_new();
+        v45 = objc_opt_new();
         if (v25)
         {
 LABEL_42:
-          v31 = v48;
+          v30 = v45;
           goto LABEL_43;
         }
 
@@ -408,64 +404,62 @@ LABEL_44:
       }
     }
 
-    v31 = v9;
+    v30 = v9;
 LABEL_43:
-    [v31 addObject:v25];
+    [v30 addObject:v25];
     goto LABEL_44;
   }
 
-  v47 = 0;
-  v48 = 0;
+  v44 = 0;
+  v45 = 0;
   v9 = 0;
 LABEL_49:
   v8 = 0;
 LABEL_50:
-  v32 = [v48 copy];
+  v31 = [v45 copy];
   visibleParameterKeys = self->_visibleParameterKeys;
-  self->_visibleParameterKeys = v32;
+  self->_visibleParameterKeys = v31;
 
-  v34 = [v9 copy];
+  v33 = [v9 copy];
   invisibleParameterKeys = self->_invisibleParameterKeys;
-  self->_invisibleParameterKeys = v34;
+  self->_invisibleParameterKeys = v33;
 
-  v36 = [v47 copy];
+  v35 = [v44 copy];
   valueConstraints = self->_valueConstraints;
-  self->_valueConstraints = v36;
+  self->_valueConstraints = v35;
 
   if (v8)
   {
     CCSetError();
-    v38 = 0;
-    v39 = dataCopy;
+    v37 = 0;
+    v38 = dataCopy;
   }
 
   else
   {
-    v40 = MEMORY[0x1E6993AA8];
-    v39 = dataCopy;
+    v38 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
-      v43 = *&v5[*v40];
-      v44 = CCInvalidBufferErrorForMessage();
+      v39 = objc_opt_class();
+      v40 = NSStringFromClass(v39);
+      v41 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v38 = 0;
+      v37 = 0;
     }
 
     else
     {
-      v38 = 1;
+      v37 = 1;
     }
   }
 
-  return v38;
+  return v37;
 }
 
 - (CCToolKitToolToolInvocationSignature)initWithVisibleParameterKeys:(id)keys invisibleParameterKeys:(id)parameterKeys valueConstraints:(id)constraints error:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   parameterKeysCopy = parameterKeys;
   constraintsCopy = constraints;
@@ -473,7 +467,7 @@ LABEL_50:
   if (keysCopy)
   {
     objc_opt_class();
-    v60 = 0;
+    v57 = 0;
     v14 = CCValidateArrayValues();
     v15 = 0;
     if (!v14)
@@ -483,33 +477,32 @@ LABEL_50:
 
     selfCopy4 = self;
     errorCopy = error;
-    v58 = 0u;
-    v59 = 0u;
+    v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v16 = keysCopy;
-    v17 = [v16 countByEnumeratingWithState:&v56 objects:v63 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v53 objects:v60 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v57;
+      v19 = *v54;
       do
       {
         v20 = 0;
         do
         {
-          if (*v57 != v19)
+          if (*v54 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v56 + 1) + 8 * v20);
           CCPBDataWriterWriteStringField();
           ++v20;
         }
 
         while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v56 objects:v63 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v53 objects:v60 count:16];
       }
 
       while (v18);
@@ -520,14 +513,14 @@ LABEL_50:
     if (!parameterKeysCopy)
     {
 LABEL_11:
-      v22 = v15;
+      v21 = v15;
       if (constraintsCopy)
       {
         goto LABEL_12;
       }
 
 LABEL_32:
-      v15 = v22;
+      v15 = v21;
 LABEL_33:
       immutableData = [v13 immutableData];
       self = [(CCItemMessage *)self initWithData:immutableData error:error];
@@ -547,50 +540,49 @@ LABEL_33:
   }
 
   objc_opt_class();
-  v55 = v15;
-  v31 = CCValidateArrayValues();
-  v22 = v15;
+  v52 = v15;
+  v30 = CCValidateArrayValues();
+  v21 = v15;
 
-  if (!v31)
+  if (!v30)
   {
     CCSetError();
     selfCopy2 = 0;
-    v15 = v22;
+    v15 = v21;
     goto LABEL_35;
   }
 
   errorCopy2 = error;
   selfCopy3 = self;
-  v53 = 0u;
-  v54 = 0u;
+  v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v33 = parameterKeysCopy;
-  v34 = [v33 countByEnumeratingWithState:&v51 objects:v62 count:16];
-  if (v34)
+  v48 = 0u;
+  v49 = 0u;
+  v32 = parameterKeysCopy;
+  v33 = [v32 countByEnumeratingWithState:&v48 objects:v59 count:16];
+  if (v33)
   {
-    v35 = v34;
-    v36 = *v52;
+    v34 = v33;
+    v35 = *v49;
     do
     {
-      v37 = 0;
+      v36 = 0;
       do
       {
-        if (*v52 != v36)
+        if (*v49 != v35)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v32);
         }
 
-        v38 = *(*(&v51 + 1) + 8 * v37);
         CCPBDataWriterWriteStringField();
-        ++v37;
+        ++v36;
       }
 
-      while (v35 != v37);
-      v35 = [v33 countByEnumeratingWithState:&v51 objects:v62 count:16];
+      while (v34 != v36);
+      v34 = [v32 countByEnumeratingWithState:&v48 objects:v59 count:16];
     }
 
-    while (v35);
+    while (v34);
   }
 
   self = selfCopy3;
@@ -602,45 +594,45 @@ LABEL_33:
 
 LABEL_12:
   objc_opt_class();
-  v50 = v22;
-  v23 = CCValidateArrayValues();
-  v15 = v22;
+  v47 = v21;
+  v22 = CCValidateArrayValues();
+  v15 = v21;
 
-  if (v23)
+  if (v22)
   {
     selfCopy4 = self;
     errorCopy3 = error;
-    v48 = 0u;
-    v49 = 0u;
+    v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v24 = constraintsCopy;
-    v25 = [v24 countByEnumeratingWithState:&v46 objects:v61 count:16];
-    if (v25)
+    v43 = 0u;
+    v44 = 0u;
+    v23 = constraintsCopy;
+    v24 = [v23 countByEnumeratingWithState:&v43 objects:v58 count:16];
+    if (v24)
     {
-      v26 = v25;
-      v27 = *v47;
+      v25 = v24;
+      v26 = *v44;
       do
       {
-        v28 = 0;
+        v27 = 0;
         do
         {
-          if (*v47 != v27)
+          if (*v44 != v26)
           {
-            objc_enumerationMutation(v24);
+            objc_enumerationMutation(v23);
           }
 
-          data = [*(*(&v46 + 1) + 8 * v28) data];
+          data = [*(*(&v43 + 1) + 8 * v27) data];
           CCPBDataWriterWriteDataField();
 
-          ++v28;
+          ++v27;
         }
 
-        while (v26 != v28);
-        v26 = [v24 countByEnumeratingWithState:&v46 objects:v61 count:16];
+        while (v25 != v27);
+        v25 = [v23 countByEnumeratingWithState:&v43 objects:v58 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
 
     self = selfCopy4;
@@ -653,7 +645,6 @@ LABEL_21:
   selfCopy2 = 0;
 LABEL_35:
 
-  v40 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

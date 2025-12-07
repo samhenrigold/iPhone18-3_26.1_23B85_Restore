@@ -17,29 +17,28 @@
 - (void)answeringMachine:(id)machine didStop:(BOOL)stop messageRecordingURL:(id)l error:(id)error
 {
   v10 = sub_10026D814(&unk_1006A52C0, &unk_10057D930);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8, v12);
-  v14 = &v20 - v13;
+  __chkstk_darwin(v10 - 8);
+  v12 = &v18 - v11;
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v15 = type metadata accessor for URL();
-    v16 = 0;
+    v13 = type metadata accessor for URL();
+    v14 = 0;
   }
 
   else
   {
-    v15 = type metadata accessor for URL();
-    v16 = 1;
+    v13 = type metadata accessor for URL();
+    v14 = 1;
   }
 
-  sub_10000AF74(v14, v16, 1, v15);
+  sub_10000AF74(v12, v14, 1, v13);
   machineCopy = machine;
   errorCopy = error;
   selfCopy = self;
   sub_10042F574();
 
-  sub_100009A04(v14, &unk_1006A52C0, &unk_10057D930);
+  sub_100009A04(v12, &unk_1006A52C0, &unk_10057D930);
 }
 
 - (void)answeringMachine:(id)machine didFinishAnnouncement:(BOOL)announcement error:(id)error

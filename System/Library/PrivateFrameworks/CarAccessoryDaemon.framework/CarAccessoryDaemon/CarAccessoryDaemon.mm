@@ -1,27 +1,26 @@
 uint64_t RawRepresentable<>.displayRepresentation.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationVSgMd, &_s10AppIntents21DisplayRepresentationVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationVSgMd, &_s10AppIntents21DisplayRepresentationVSgMR);
   MEMORY[0x28223BE20]();
-  v9 = &v17 - v8;
-  v10 = *(*(a2 + 16) + 8);
-  v11 = dispatch thunk of static CaseDisplayRepresentable.caseDisplayRepresentations.getter();
-  v12 = type metadata accessor for DisplayRepresentation();
-  MEMORY[0x245D22F40](v3, v11, a1, v12, *(v10 + 24));
+  v8 = &v15 - v7;
+  v9 = *(*(a2 + 16) + 8);
+  v10 = dispatch thunk of static CaseDisplayRepresentable.caseDisplayRepresentations.getter();
+  v11 = type metadata accessor for DisplayRepresentation();
+  MEMORY[0x245D22F40](v3, v10, a1, v11, *(v9 + 24));
 
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 48);
-  if (v14(v9, 1, v12) != 1)
+  v12 = *(v11 - 8);
+  v13 = *(v12 + 48);
+  if (v13(v8, 1, v11) != 1)
   {
-    return (*(v13 + 32))(a3, v9, v12);
+    return (*(v12 + 32))(a3, v8, v11);
   }
 
-  v15 = *(a2 + 24);
   dispatch thunk of RawRepresentable.rawValue.getter();
   DisplayRepresentation.init(stringLiteral:)();
-  result = (v14)(v9, 1, v12);
+  result = (v13)(v8, 1, v11);
   if (result != 1)
   {
-    return outlined destroy of DisplayRepresentation?(v9);
+    return outlined destroy of DisplayRepresentation?(v8);
   }
 
   return result;
@@ -32,7 +31,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -57,11 +55,11 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t one-time initialization function for framework(uint64_t a1, uint64_t *a2)
+uint64_t one-time initialization function for framework(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = type metadata accessor for Logger();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = type metadata accessor for Logger();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   return Logger.init(subsystem:category:)();
 }
 
@@ -190,14 +188,11 @@ _WORD *storeEnumTagSinglePayload for Logger.DaemonFramework(_WORD *result, int a
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -205,36 +200,31 @@ uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 
 uint64_t dispatch thunk of VehicleLayoutKeyProviding.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(a4 + 8);
-  v13 = (v9 + *v9);
-  v10 = v9[1];
-  v11 = swift_task_alloc();
-  *(v4 + 16) = v11;
-  *v11 = v4;
-  v11[1] = dispatch thunk of VehicleLayoutKeyProviding.init(from:);
+  v11 = (*(a4 + 8) + **(a4 + 8));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = dispatch thunk of VehicleLayoutKeyProviding.init(from:);
 
-  return v13(a1, a2, a3, a4);
+  return v11(a1, a2, a3, a4);
 }
 
 uint64_t dispatch thunk of VehicleLayoutKeyProviding.vehicleLayoutKey(strict:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(a4 + 16);
-  v13 = (v9 + *v9);
-  v10 = v9[1];
-  v11 = swift_task_alloc();
-  *(v4 + 16) = v11;
-  *v11 = v4;
-  v11[1] = dispatch thunk of VehicleLayoutKeyProviding.vehicleLayoutKey(strict:);
+  v11 = (*(a4 + 16) + **(a4 + 16));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = dispatch thunk of VehicleLayoutKeyProviding.vehicleLayoutKey(strict:);
 
-  return v13(a1, a2, a3, a4);
+  return v11(a1, a2, a3, a4);
 }
 
 uint64_t dispatch thunk of VehicleLayoutKeyProviding.vehicleLayoutKey(strict:)()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }

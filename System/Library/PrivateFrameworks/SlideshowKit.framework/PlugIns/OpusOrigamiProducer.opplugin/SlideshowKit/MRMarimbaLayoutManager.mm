@@ -60,72 +60,73 @@
 - (CGRect)currentRectForEditedText
 {
   [-[MRMarimbaLayoutManager _renderer](self "_renderer")];
-  v24 = 0u;
-  *v25 = 0u;
-  v22 = 0u;
+  v25 = 0u;
+  *v26 = 0u;
   v23 = 0u;
+  v24 = 0u;
   [-[MRMarimbaLayoutManager _renderer](self "_renderer")];
-  v3 = v22;
-  v4 = v23;
-  v5 = *v25;
-  if (*&v23 >= *&v24)
+  v3 = v23;
+  v4 = v24;
+  v6 = v26[0];
+  v5 = v26[1];
+  if (*&v24 >= *&v25)
   {
-    v6 = *&v23;
+    v7 = *&v24;
   }
 
   else
   {
-    v6 = *&v24;
+    v7 = *&v25;
   }
 
-  if (*&v22 >= v25[0])
+  if (*&v23 >= v26[0])
   {
-    v7 = v25[0];
+    v8 = v26[0];
   }
 
   else
   {
-    v7 = *&v22;
+    v8 = *&v23;
   }
 
-  if (*(&v24 + 1) >= v25[1])
+  if (*(&v25 + 1) >= v26[1])
   {
-    v8 = *(&v24 + 1);
+    v9 = *(&v25 + 1);
   }
 
   else
   {
-    v8 = v25[1];
+    v9 = v26[1];
   }
 
-  if (*(&v22 + 1) >= *(&v23 + 1))
+  if (*(&v23 + 1) >= *(&v24 + 1))
   {
-    v9 = *(&v23 + 1);
+    v10 = *(&v24 + 1);
   }
 
   else
   {
-    v9 = *(&v22 + 1);
+    v10 = *(&v23 + 1);
   }
 
-  [(MRMarimbaLayoutManager *)self shadowOffset:*&v8];
-  if (v10 < 0.0)
+  [(MRMarimbaLayoutManager *)self shadowOffset:*&v9];
+  if (v11 < 0.0)
   {
-    v10 = -v10;
+    v11 = -v11;
   }
 
-  v12 = *&v4 - *&v3;
-  v13 = *(&v4 + 1) - *(&v3 + 1);
-  v14 = sqrt(((v12 * v12) + (v13 * v13)));
-  v15 = *&v5 - *&v3;
-  v16 = *(&v5 + 1) - *(&v3 + 1);
-  v17 = sqrt(((v15 * v15) + (v16 * v16)));
-  v18 = v7 + (v21 - v7 - v14) * 0.5 + v10;
-  v19 = v9 + (v20 - v9 - v17) * 0.5 - v11;
-  result.size.height = v17;
-  result.size.width = v14;
-  result.origin.y = v19;
-  result.origin.x = v18;
+  v13 = *&v4 - *&v3;
+  v14 = *(&v4 + 1) - *(&v3 + 1);
+  v15 = sqrt(((v13 * v13) + (v14 * v14)));
+  v16 = v6 - *&v3;
+  v17 = v5 - *(&v3 + 1);
+  v18 = sqrt(((v16 * v16) + (v17 * v17)));
+  v19 = v8 + (v22 - v8 - v15) * 0.5 + v11;
+  v20 = v10 + (v21 - v10 - v18) * 0.5 - v12;
+  result.size.height = v18;
+  result.size.width = v15;
+  result.origin.y = v20;
+  result.origin.x = v19;
   return result;
 }
 

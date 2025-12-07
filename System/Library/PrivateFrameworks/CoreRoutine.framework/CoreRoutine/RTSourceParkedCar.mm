@@ -28,18 +28,18 @@
 
 - (RTSourceParkedCar)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "[RTSourceParkedCar initWithCoder:]";
-      v13 = 1024;
-      v14 = 36;
-      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aDecoder allowsKeyedCoding] (in %s:%d)", &v11, 0x12u);
+      v10 = 136315394;
+      v11 = "[RTSourceParkedCar initWithCoder:]";
+      v12 = 1024;
+      v13 = 36;
+      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aDecoder allowsKeyedCoding] (in %s:%d)", &v10, 0x12u);
     }
   }
 
@@ -47,24 +47,23 @@
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"parkDate"];
 
   v8 = [(RTSourceParkedCar *)self initWithIdentifier:v6 parkDate:v7];
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "[RTSourceParkedCar encodeWithCoder:]";
-      v11 = 1024;
-      v12 = 48;
-      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aCoder allowsKeyedCoding] (in %s:%d)", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "[RTSourceParkedCar encodeWithCoder:]";
+      v10 = 1024;
+      v11 = 48;
+      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aCoder allowsKeyedCoding] (in %s:%d)", &v8, 0x12u);
     }
   }
 
@@ -73,8 +72,6 @@
 
   parkDate = [(RTSourceParkedCar *)self parkDate];
   [coderCopy encodeObject:parkDate forKey:@"parkDate"];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal

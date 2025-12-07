@@ -44,17 +44,18 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8AppStore29TodayCardChinSingleLockupView_clickActionHandler);
   if (v2)
   {
+    v3 = *&self->lockupView[OBJC_IVAR____TtC8AppStore29TodayCardChinSingleLockupView_clickActionHandler];
     selfCopy = self;
-    v4 = sub_10000827C(v2);
-    v2(v4);
+    v5 = sub_10000827C(v2, v3);
+    v2(v5);
 
-    sub_10001F63C(v2);
+    sub_10001F63C(v2, v3);
   }
 }
 
 - (NSArray)accessibilityElements
 {
-  sub_10002849C(&qword_1009701B0);
+  sub_10002849C(&qword_1009701B0, qword_1007B1800);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1007B10D0;
   v4 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8AppStore29TodayCardChinSingleLockupView_lockupView);

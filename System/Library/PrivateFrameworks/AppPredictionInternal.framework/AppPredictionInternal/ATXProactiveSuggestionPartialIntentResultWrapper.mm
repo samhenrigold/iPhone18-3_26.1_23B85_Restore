@@ -133,7 +133,7 @@
   v5 = [(ATXProactiveSuggestionUIFeedbackResult *)&v41 initWithCoder:coderCopy];
   v6 = MEMORY[0x277D42620];
   v7 = objc_opt_class();
-  v8 = __atxlog_handle_blending_ecosystem();
+  v8 = __atxlog_handle_blending_ecosystem(v7);
   v9 = [v6 robustDecodeObjectOfClass:v7 forKey:@"partialUUID" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionPartialIntentResultWrapper" errorCode:-1 logHandle:v8];
 
   error = [coderCopy error];
@@ -148,7 +148,7 @@
   {
     v13 = MEMORY[0x277D42620];
     v14 = objc_opt_class();
-    v15 = __atxlog_handle_blending_ecosystem();
+    v15 = __atxlog_handle_blending_ecosystem(v14);
     v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"partialAction" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionPartialIntentResultWrapper" errorCode:-1 logHandle:v15];
 
     error2 = [coderCopy error];
@@ -163,7 +163,7 @@
     {
       v18 = MEMORY[0x277D42620];
       v19 = objc_opt_class();
-      v20 = __atxlog_handle_blending_ecosystem();
+      v20 = __atxlog_handle_blending_ecosystem(v19);
       v21 = [v18 robustDecodeObjectOfClass:v19 forKey:@"partialActionDate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionPartialIntentResultWrapper" errorCode:-1 logHandle:v20];
 
       error3 = [coderCopy error];
@@ -178,7 +178,7 @@
       {
         v23 = MEMORY[0x277D42620];
         v24 = objc_opt_class();
-        v25 = __atxlog_handle_blending_ecosystem();
+        v25 = __atxlog_handle_blending_ecosystem(v24);
         v26 = [v23 robustDecodeObjectOfClass:v24 forKey:@"matchingAction" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionPartialIntentResultWrapper" errorCode:-1 logHandle:v25];
 
         error4 = [coderCopy error];
@@ -193,7 +193,7 @@
         {
           v28 = MEMORY[0x277D42620];
           v29 = objc_opt_class();
-          v30 = __atxlog_handle_blending_ecosystem();
+          v30 = __atxlog_handle_blending_ecosystem(v29);
           v31 = [v28 robustDecodeObjectOfClass:v29 forKey:@"matchingActionDate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionPartialIntentResultWrapper" errorCode:-1 logHandle:v30];
 
           error5 = [coderCopy error];
@@ -208,7 +208,7 @@
           {
             v33 = MEMORY[0x277D42620];
             v34 = objc_opt_class();
-            v35 = __atxlog_handle_blending_ecosystem();
+            v35 = __atxlog_handle_blending_ecosystem(v34);
             v36 = [v33 robustDecodeObjectOfClass:v34 forKey:@"partialEngagement" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionPartialIntentResultWrapper" errorCode:-1 logHandle:v35];
 
             error6 = [coderCopy error];

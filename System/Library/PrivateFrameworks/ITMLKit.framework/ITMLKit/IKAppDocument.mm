@@ -193,23 +193,21 @@ void __52__IKAppDocument_dispatchDocumentCallback_eventType___block_invoke(uint6
 
 void __45__IKAppDocument_onNeedsUpdateWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CD4658];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __45__IKAppDocument_onNeedsUpdateWithCompletion___block_invoke_2;
-  v12[3] = &unk_279799A28;
-  v13 = *(a1 + 40);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __45__IKAppDocument_onNeedsUpdateWithCompletion___block_invoke_2;
+  v11[3] = &unk_279799A28;
+  v12 = *(a1 + 40);
   v5 = a2;
-  v6 = MEMORY[0x259C21BA0](v12);
+  v6 = MEMORY[0x259C21BA0](v11);
   v7 = [v4 valueWithObject:v6 inContext:v5];
 
   v8 = [*(a1 + 32) jsDocument];
-  v14[0] = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v10 = [v8 invokeMethod:@"onUpdate" withArguments:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __45__IKAppDocument_onNeedsUpdateWithCompletion___block_invoke_2(uint64_t a1)
@@ -245,73 +243,65 @@ void __25__IKAppDocument_onUpdate__block_invoke(uint64_t a1)
 
 - (void)onImpressionsChange:(id)change
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  changeCopy = change;
-  if ([changeCopy count])
-  {
-    v12 = @"impressions";
-    v13[0] = changeCopy;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-    appContext = [(IKAppDocument *)self appContext];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __37__IKAppDocument_onImpressionsChange___block_invoke;
-    v10[3] = &unk_279799A00;
-    v10[4] = self;
-    v11 = v5;
-    v7 = v5;
-    [appContext evaluate:v10 completionBlock:0];
-
-    templateElement = [(IKAppDocument *)self templateElement];
-    [templateElement dispatchEvent:@"onImpressionsChange" eventAttribute:0 canBubble:1 isCancelable:0 extraInfo:v7 completionBlock:0];
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __37__IKAppDocument_onImpressionsChange___block_invoke(uint64_t a1)
-{
-  v6[1] = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 32) jsDocument];
-  v6[0] = *(a1 + 40);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-  v4 = [v2 invokeMethod:@"onImpressionsChange" withArguments:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)onPerformanceMetricsChange:(id)change
-{
   v12[1] = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if ([changeCopy count])
   {
-    v11 = @"metrics";
+    v11 = @"impressions";
     v12[0] = changeCopy;
     v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     appContext = [(IKAppDocument *)self appContext];
     v9[0] = MEMORY[0x277D85DD0];
     v9[1] = 3221225472;
-    v9[2] = __44__IKAppDocument_onPerformanceMetricsChange___block_invoke;
+    v9[2] = __37__IKAppDocument_onImpressionsChange___block_invoke;
     v9[3] = &unk_279799A00;
     v9[4] = self;
     v10 = v5;
     v7 = v5;
     [appContext evaluate:v9 completionBlock:0];
-  }
 
-  v8 = *MEMORY[0x277D85DE8];
+    templateElement = [(IKAppDocument *)self templateElement];
+    [templateElement dispatchEvent:@"onImpressionsChange" eventAttribute:0 canBubble:1 isCancelable:0 extraInfo:v7 completionBlock:0];
+  }
+}
+
+void __37__IKAppDocument_onImpressionsChange___block_invoke(uint64_t a1)
+{
+  v5[1] = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) jsDocument];
+  v5[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4 = [v2 invokeMethod:@"onImpressionsChange" withArguments:v3];
+}
+
+- (void)onPerformanceMetricsChange:(id)change
+{
+  v11[1] = *MEMORY[0x277D85DE8];
+  changeCopy = change;
+  if ([changeCopy count])
+  {
+    v10 = @"metrics";
+    v11[0] = changeCopy;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    appContext = [(IKAppDocument *)self appContext];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __44__IKAppDocument_onPerformanceMetricsChange___block_invoke;
+    v8[3] = &unk_279799A00;
+    v8[4] = self;
+    v9 = v5;
+    v7 = v5;
+    [appContext evaluate:v8 completionBlock:0];
+  }
 }
 
 void __44__IKAppDocument_onPerformanceMetricsChange___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) jsDocument];
-  v6[0] = *(a1 + 40);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v4 = [v2 invokeMethod:@"onPerformanceMetricsChange" withArguments:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onViewAttributesChangeWithArguments:(id)arguments completion:(id)completion
@@ -392,13 +382,35 @@ void __64__IKAppDocument_onViewAttributesChangeWithArguments_completion___block_
   jsDocument = [(IKAppDocument *)self jsDocument];
   v7 = MEMORY[0x277CCACA8];
   itmlID = [elementCopy itmlID];
+    v7 = ;
+    if (!v14)
+    {
+      itmlID = [v7 stringByReplacingMatchesInString:jsDocument options:0 range:0 withTemplate:{objc_msgSend(jsDocument, "length"), @" "}];
+
+      jsDocument = itmlID;
+    }
+
+    v9 = [[self alloc] initWithMarkup:jsDocument parseSubGroups:1 mediaQueryList:0 filterBlockedStyles:v4];
+    orderedStylesOrGroups = [v9 orderedStylesOrGroups];
+    if ([orderedStylesOrGroups count])
+    {
+      v11 = v9;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    v12 = v11;
   }
 
-LABEL_7:
-  [(IKCSSToken *)v7 setStringValue:itmlID];
-  *context = v9;
+  else
+  {
+    v12 = 0;
+  }
 
-  return v7;
+  return v12;
 }
 
 @end

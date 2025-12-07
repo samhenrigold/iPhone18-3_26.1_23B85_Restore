@@ -36,16 +36,14 @@
 
 + (id)entryAggregateDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"ApMetrics";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"ApMetrics";
   entryAggregateDefinitionAwdAp = [self entryAggregateDefinitionAwdAp];
-  v8[1] = @"CpuMetrics";
-  v9[0] = entryAggregateDefinitionAwdAp;
+  v7[1] = @"CpuMetrics";
+  v8[0] = entryAggregateDefinitionAwdAp;
   entryAggregateDefinitionAwdCpu = [self entryAggregateDefinitionAwdCpu];
-  v9[1] = entryAggregateDefinitionAwdCpu;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = entryAggregateDefinitionAwdCpu;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -130,14 +128,14 @@ LABEL_15:
   }
 }
 
-uint64_t __36__PLAWDCpuAP_startMetricCollection___block_invoke(uint64_t a1)
+void *__36__PLAWDCpuAP_startMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __36__PLAWDCpuAP_startMetricCollection___block_invoke_54(uint64_t a1)
+void *__36__PLAWDCpuAP_startMetricCollection___block_invoke_54(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled_53 = result;
@@ -234,14 +232,14 @@ LABEL_15:
   }
 }
 
-uint64_t __35__PLAWDCpuAP_stopMetricCollection___block_invoke(uint64_t a1)
+void *__35__PLAWDCpuAP_stopMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopMetricCollection__classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __35__PLAWDCpuAP_stopMetricCollection___block_invoke_63(uint64_t a1)
+void *__35__PLAWDCpuAP_stopMetricCollection___block_invoke_63(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopMetricCollection__classDebugEnabled_62 = result;
@@ -277,41 +275,39 @@ LABEL_7:
 
 + (id)entryAggregateDefinitionAwdAp
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_2870FEE10;
-  v23[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25[0] = v3;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"ApSource";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_2870FEE10;
+  v22[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v24[0] = v3;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"ApSource";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v20[1] = @"ApValue";
-  v21[0] = commonTypeDict_StringFormat;
+  v19[1] = @"ApValue";
+  v20[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat_aggregateFunction_sum];
-  v21[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v25[1] = v8;
-  v24[2] = *MEMORY[0x277D3F478];
-  v18 = &unk_2870FEE20;
-  v16 = *MEMORY[0x277D3F470];
+  v20[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v24[1] = v8;
+  v23[2] = *MEMORY[0x277D3F478];
   v17 = &unk_2870FEE20;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v25[2] = v10;
-  v24[3] = *MEMORY[0x277D3F488];
-  v15 = @"ApValue";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v25[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D3F470];
+  v16 = &unk_2870FEE20;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v24[2] = v10;
+  v23[3] = *MEMORY[0x277D3F488];
+  v14 = @"ApValue";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v24[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
   return v12;
 }
@@ -351,21 +347,21 @@ LABEL_7:
   [(PLAWDCpuAP *)self setWakeEventCallback:v13];
 }
 
-uint64_t __38__PLAWDCpuAP_startApMetricCollection___block_invoke(uint64_t result, uint64_t a2)
+id *__38__PLAWDCpuAP_startApMetricCollection___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleIOReportEnergyCallback:a2];
+    return [result[4] handleIOReportEnergyCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __38__PLAWDCpuAP_startApMetricCollection___block_invoke_2(uint64_t result, uint64_t a2)
+id *__38__PLAWDCpuAP_startApMetricCollection___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleWakeCallback:a2];
+    return [result[4] handleWakeCallback:a2];
   }
 
   return result;
@@ -556,21 +552,21 @@ LABEL_32:
 LABEL_33:
 }
 
-uint64_t __43__PLAWDCpuAP_handleIOReportEnergyCallback___block_invoke(uint64_t a1)
+void *__43__PLAWDCpuAP_handleIOReportEnergyCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleIOReportEnergyCallback__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __43__PLAWDCpuAP_handleIOReportEnergyCallback___block_invoke_87(uint64_t a1)
+void *__43__PLAWDCpuAP_handleIOReportEnergyCallback___block_invoke_87(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleIOReportEnergyCallback__classDebugEnabled_86 = result;
   return result;
 }
 
-uint64_t __43__PLAWDCpuAP_handleIOReportEnergyCallback___block_invoke_107(uint64_t a1)
+void *__43__PLAWDCpuAP_handleIOReportEnergyCallback___block_invoke_107(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleIOReportEnergyCallback__classDebugEnabled_106 = result;
@@ -651,7 +647,7 @@ LABEL_7:
   }
 }
 
-uint64_t __33__PLAWDCpuAP_handleWakeCallback___block_invoke(uint64_t a1)
+void *__33__PLAWDCpuAP_handleWakeCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWakeCallback__classDebugEnabled = result;
@@ -668,7 +664,7 @@ uint64_t __33__PLAWDCpuAP_handleWakeCallback___block_invoke(uint64_t a1)
 
 - (BOOL)submitApDataToAWDServer:(id)server withAwdConn:(id)conn
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   connCopy = conn;
   v7 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(server, "unsignedIntValue")}];
   if (v7)
@@ -689,7 +685,7 @@ uint64_t __33__PLAWDCpuAP_handleWakeCallback___block_invoke(uint64_t a1)
     v19 = objc_opt_new();
     v20 = 0x277D3F000uLL;
     v21 = &off_25EE41000;
-    v66 = v18;
+    v65 = v18;
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v22 = objc_opt_class();
@@ -705,7 +701,7 @@ uint64_t __33__PLAWDCpuAP_handleWakeCallback___block_invoke(uint64_t a1)
 
       if (submitApDataToAWDServer_withAwdConn__classDebugEnabled == 1)
       {
-        v63 = v19;
+        v62 = v19;
         v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : %@", @"*******PLAWDMetricsService*******", v18];
         v24 = MEMORY[0x277D3F178];
         v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDCpuAP.m"];
@@ -719,8 +715,8 @@ uint64_t __33__PLAWDCpuAP_handleWakeCallback___block_invoke(uint64_t a1)
           [PLAWDDisplay startMetricCollection:];
         }
 
-        v19 = v63;
-        v18 = v66;
+        v19 = v62;
+        v18 = v65;
         v21 = &off_25EE41000;
         v20 = 0x277D3F000;
       }
@@ -728,10 +724,10 @@ uint64_t __33__PLAWDCpuAP_handleWakeCallback___block_invoke(uint64_t a1)
 
     if (v19)
     {
-      v60 = v14;
-      v61 = v7;
+      v59 = v14;
+      v60 = v7;
       selfCopy = self;
-      v64 = connCopy;
+      v63 = connCopy;
       [v19 setTimestamp:{objc_msgSend(connCopy, "getAWDTimestamp")}];
       [v19 setSocPowerMicroWatt:0];
       [v19 setCpuPowerMicroWatt:0];
@@ -739,29 +735,29 @@ uint64_t __33__PLAWDCpuAP_handleWakeCallback___block_invoke(uint64_t a1)
       [v19 setDramPowerMicroWatt:0];
       v29 = v19;
       [v19 setApAwakeDuration:0];
-      v71 = 0u;
-      v72 = 0u;
-      v69 = 0u;
       v70 = 0u;
+      v71 = 0u;
+      v68 = 0u;
+      v69 = 0u;
       v30 = v18;
-      v31 = [v30 countByEnumeratingWithState:&v69 objects:v74 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v68 objects:v73 count:16];
       if (!v31)
       {
         goto LABEL_28;
       }
 
       v32 = v31;
-      v33 = *v70;
+      v33 = *v69;
       while (1)
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v70 != v33)
+          if (*v69 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v35 = *(*(&v69 + 1) + 8 * i);
+          v35 = *(*(&v68 + 1) + 8 * i);
           v36 = objc_alloc(MEMORY[0x277CCACA8]);
           v37 = [v35 objectForKeyedSubscript:@"ApSource"];
           v38 = [v36 initWithFormat:@"%@", v37];
@@ -809,18 +805,18 @@ uint64_t __33__PLAWDCpuAP_handleWakeCallback___block_invoke(uint64_t a1)
 LABEL_26:
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v69 objects:v74 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v68 objects:v73 count:16];
         if (!v32)
         {
 LABEL_28:
 
-          v7 = v61;
+          v7 = v60;
           v19 = v29;
-          [v61 setMetric:v29];
+          [v60 setMetric:v29];
           self = selfCopy;
-          connCopy = v64;
-          v14 = v60;
-          v18 = v66;
+          connCopy = v63;
+          v14 = v59;
+          v18 = v65;
           v21 = &off_25EE41000;
           v20 = 0x277D3F000uLL;
           break;
@@ -832,19 +828,19 @@ LABEL_28:
     if ([*(v20 + 384) debugEnabled])
     {
       v45 = objc_opt_class();
-      v68[0] = MEMORY[0x277D85DD0];
-      v68[1] = *(v21 + 120);
-      v68[2] = __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_128;
-      v68[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v68[4] = v45;
+      v67[0] = MEMORY[0x277D85DD0];
+      v67[1] = *(v21 + 120);
+      v67[2] = __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_128;
+      v67[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v67[4] = v45;
       if (submitApDataToAWDServer_withAwdConn__defaultOnce_126 != -1)
       {
-        dispatch_once(&submitApDataToAWDServer_withAwdConn__defaultOnce_126, v68);
+        dispatch_once(&submitApDataToAWDServer_withAwdConn__defaultOnce_126, v67);
       }
 
       if (submitApDataToAWDServer_withAwdConn__classDebugEnabled_127 == 1)
       {
-        v65 = v19;
+        v64 = v19;
         v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : Submit ApData stats: submit cnt=%ld", @"*******PLAWDMetricsService*******", -[PLAWDCpuAP apSubmitCnt](self, "apSubmitCnt")];
         v47 = MEMORY[0x277D3F178];
         v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDCpuAP.m"];
@@ -858,8 +854,8 @@ LABEL_28:
           [PLAWDDisplay startMetricCollection:];
         }
 
-        v19 = v65;
-        v18 = v66;
+        v19 = v64;
+        v18 = v65;
       }
     }
 
@@ -869,14 +865,14 @@ LABEL_28:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v52 = objc_opt_class();
-    v67[0] = MEMORY[0x277D85DD0];
-    v67[1] = 3221225472;
-    v67[2] = __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134;
-    v67[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v67[4] = v52;
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134;
+    v66[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v66[4] = v52;
     if (submitApDataToAWDServer_withAwdConn__defaultOnce_132 != -1)
     {
-      dispatch_once(&submitApDataToAWDServer_withAwdConn__defaultOnce_132, v67);
+      dispatch_once(&submitApDataToAWDServer_withAwdConn__defaultOnce_132, v66);
     }
 
     if (submitApDataToAWDServer_withAwdConn__classDebugEnabled_133 == 1)
@@ -901,25 +897,24 @@ LABEL_37:
   [(PLAWDCpuAP *)self resetApTable];
   v57 = [connCopy submitMetric:v7];
 
-  v58 = *MEMORY[0x277D85DE8];
   return v57;
 }
 
-uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
+void *__50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitApDataToAWDServer_withAwdConn__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_128(uint64_t a1)
+void *__50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_128(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitApDataToAWDServer_withAwdConn__classDebugEnabled_127 = result;
   return result;
 }
 
-uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134(uint64_t a1)
+void *__50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitApDataToAWDServer_withAwdConn__classDebugEnabled_133 = result;
@@ -928,50 +923,48 @@ uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134
 
 + (id)entryAggregateDefinitionAwdCpu
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_2870FEE10;
-  v23[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25[0] = v3;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"ProcessName";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_2870FEE10;
+  v22[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v24[0] = v3;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"ProcessName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v20[1] = @"ProcessTime";
-  v21[0] = commonTypeDict_StringFormat;
+  v19[1] = @"ProcessTime";
+  v20[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat_aggregateFunction_sum];
-  v21[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v25[1] = v8;
-  v24[2] = *MEMORY[0x277D3F478];
-  v18 = &unk_2870FEE20;
-  v16 = *MEMORY[0x277D3F470];
+  v20[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v24[1] = v8;
+  v23[2] = *MEMORY[0x277D3F478];
   v17 = &unk_2870FEE20;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v25[2] = v10;
-  v24[3] = *MEMORY[0x277D3F488];
-  v15 = @"ApValue";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v25[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D3F470];
+  v16 = &unk_2870FEE20;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v24[2] = v10;
+  v23[3] = *MEMORY[0x277D3F488];
+  v14 = @"ApValue";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v24[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
   return v12;
 }
 
 - (BOOL)submitCpuDataToAWDServer:(id)server withAwdConn:(id)conn
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   connCopy = conn;
-  v46 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(server, "unsignedIntValue")}];
+  v45 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(server, "unsignedIntValue")}];
   v7 = [MEMORY[0x277CBEAA8] monotonicDateWithTimeIntervalSinceNow:-86400.0];
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
   [v7 timeIntervalSince1970];
@@ -982,35 +975,35 @@ uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134
   v13 = [(PLOperator *)PLAWDMetricsService entryKeyForType:*MEMORY[0x277D3F5B8] andName:@"ApMetrics"];
   operator = [(PLAWDAuxMetrics *)self operator];
   storage = [operator storage];
-  v43 = v13;
+  v42 = v13;
   v16 = [storage aggregateEntriesForKey:v13 withBucketLength:86400.0 inTimeIntervalRange:{v10, v12}];
 
-  v42 = v16;
+  v41 = v16;
   v17 = [MEMORY[0x277D3F190] summarizeAggregateEntries:v16];
-  v44 = connCopy;
-  v45 = objc_alloc_init(MEMORY[0x277D81920]);
-  [v45 setTimestamp:{objc_msgSend(connCopy, "getAWDTimestamp")}];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
+  v43 = connCopy;
+  v44 = objc_alloc_init(MEMORY[0x277D81920]);
+  [v44 setTimestamp:{objc_msgSend(connCopy, "getAWDTimestamp")}];
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v49 objects:v55 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v48 objects:v54 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v50;
+    v21 = *v49;
     do
     {
       v22 = 0;
       do
       {
-        if (*v50 != v21)
+        if (*v49 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v49 + 1) + 8 * v22);
+        v23 = *(*(&v48 + 1) + 8 * v22);
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v24 = objc_opt_class();
@@ -1028,7 +1021,7 @@ uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134
           {
             v25 = v18;
             selfCopy = self;
-            v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"dbEntry = %@ metric = %@ metricContainer = %@", v23, v45, v46];
+            v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"dbEntry = %@ metric = %@ metricContainer = %@", v23, v44, v45];
             v28 = MEMORY[0x277D3F178];
             v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDCpuAP.m"];
             lastPathComponent = [v29 lastPathComponent];
@@ -1039,7 +1032,7 @@ uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134
             if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v54 = v27;
+              v53 = v27;
               _os_log_debug_impl(&dword_25EE16000, v32, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
@@ -1052,7 +1045,7 @@ uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134
       }
 
       while (v20 != v22);
-      v20 = [v18 countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v48 objects:v54 count:16];
     }
 
     while (v20);
@@ -1062,14 +1055,14 @@ uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v33 = objc_opt_class();
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __51__PLAWDCpuAP_submitCpuDataToAWDServer_withAwdConn___block_invoke_144;
-    v47[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v47[4] = v33;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __51__PLAWDCpuAP_submitCpuDataToAWDServer_withAwdConn___block_invoke_144;
+    v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v46[4] = v33;
     if (submitCpuDataToAWDServer_withAwdConn__defaultOnce_142 != -1)
     {
-      dispatch_once(&submitCpuDataToAWDServer_withAwdConn__defaultOnce_142, v47);
+      dispatch_once(&submitCpuDataToAWDServer_withAwdConn__defaultOnce_142, v46);
     }
 
     if (submitCpuDataToAWDServer_withAwdConn__classDebugEnabled_143 == 1)
@@ -1089,18 +1082,17 @@ uint64_t __50__PLAWDCpuAP_submitApDataToAWDServer_withAwdConn___block_invoke_134
     }
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t __51__PLAWDCpuAP_submitCpuDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
+void *__51__PLAWDCpuAP_submitCpuDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitCpuDataToAWDServer_withAwdConn__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __51__PLAWDCpuAP_submitCpuDataToAWDServer_withAwdConn___block_invoke_144(uint64_t a1)
+void *__51__PLAWDCpuAP_submitCpuDataToAWDServer_withAwdConn___block_invoke_144(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitCpuDataToAWDServer_withAwdConn__classDebugEnabled_143 = result;

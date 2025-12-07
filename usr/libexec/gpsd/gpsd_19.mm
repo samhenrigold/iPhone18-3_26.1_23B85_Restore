@@ -1,383 +1,3 @@
-double proto::gnss::TimeTransferData::TimeTransferData(proto::gnss::TimeTransferData *this)
-{
-  *(this + 16) = 0;
-  *this = off_100179730;
-  *(this + 1) = 0;
-  result = 0.0;
-  *(this + 20) = 0u;
-  *(this + 36) = 0u;
-  return result;
-}
-
-{
-  *(this + 16) = 0;
-  *this = off_100179730;
-  *(this + 1) = 0;
-  result = 0.0;
-  *(this + 20) = 0u;
-  *(this + 36) = 0u;
-  return result;
-}
-
-double proto::gnss::TimeTransferDataExtend::TimeTransferDataExtend(proto::gnss::TimeTransferDataExtend *this)
-{
-  *this = off_1001797A8;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  return result;
-}
-
-{
-  *this = off_1001797A8;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  return result;
-}
-
-uint64_t proto::gnss::RawPressureSample::RawPressureSample(uint64_t this)
-{
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *this = off_100179820;
-  *(this + 24) = 0;
-  return this;
-}
-
-{
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *this = off_100179820;
-  *(this + 24) = 0;
-  return this;
-}
-
-uint64_t proto::gnss::SensorSample3Axis::SensorSample3Axis(uint64_t this)
-{
-  *this = off_100179898;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  return this;
-}
-
-{
-  *this = off_100179898;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  return this;
-}
-
-uint64_t proto::gnss::SvId::SvId(uint64_t this)
-{
-  *this = off_100179910;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  return this;
-}
-
-{
-  *this = off_100179910;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  return this;
-}
-
-double proto::gnss::PwrMeasurement::PwrMeasurement(proto::gnss::PwrMeasurement *this)
-{
-  *this = off_100179988;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 36) = 0u;
-  return result;
-}
-
-{
-  *this = off_100179988;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 36) = 0u;
-  return result;
-}
-
-uint64_t proto::gnss::DecodedRti::DecodedRti(uint64_t this)
-{
-  *(this + 20) = 0;
-  *this = off_100179A00;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  return this;
-}
-
-{
-  *(this + 20) = 0;
-  *this = off_100179A00;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  return this;
-}
-
-uint64_t proto::gnss::DecodedExtendedEphemeris::DecodedExtendedEphemeris(uint64_t this)
-{
-  *(this + 32) = 0;
-  *(this + 28) = 0;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *this = off_100179A78;
-  *(this + 24) = 0;
-  return this;
-}
-
-{
-  *(this + 32) = 0;
-  *(this + 28) = 0;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *this = off_100179A78;
-  *(this + 24) = 0;
-  return this;
-}
-
-void proto::gnss::Fix::InitAsDefaultInstance(proto::gnss::Fix *this, uint64_t a2, uint64_t a3, const char *a4)
-{
-  v5 = proto::gnss::Time::default_instance_;
-  if (!proto::gnss::Time::default_instance_)
-  {
-    proto::gnss::protobuf_AddDesc_GnssTypes_2eproto(this, a2, a3, a4);
-    v5 = proto::gnss::Time::default_instance_;
-  }
-
-  *(this + 1) = v5;
-  v6 = proto::gnss::Position::default_instance_;
-  if (!proto::gnss::Position::default_instance_)
-  {
-    proto::gnss::protobuf_AddDesc_GnssTypes_2eproto(this, a2, a3, a4);
-    v6 = proto::gnss::Position::default_instance_;
-  }
-
-  *(this + 2) = v6;
-  v7 = proto::gnss::Velocity::default_instance_;
-  if (!proto::gnss::Velocity::default_instance_)
-  {
-    proto::gnss::protobuf_AddDesc_GnssTypes_2eproto(this, a2, a3, a4);
-    v7 = proto::gnss::Velocity::default_instance_;
-  }
-
-  *(this + 3) = v7;
-}
-
-void proto::gnss::TimeTransferData::InitAsDefaultInstance(proto::gnss::TimeTransferData *this, uint64_t a2, uint64_t a3, const char *a4)
-{
-  v5 = proto::gnss::Time::default_instance_;
-  if (!proto::gnss::Time::default_instance_)
-  {
-    proto::gnss::protobuf_AddDesc_GnssTypes_2eproto(this, a2, a3, a4);
-    v5 = proto::gnss::Time::default_instance_;
-  }
-
-  *(this + 1) = v5;
-}
-
-void proto::gnss::TimeTransferDataExtend::InitAsDefaultInstance(proto::gnss::TimeTransferDataExtend *this, uint64_t a2, uint64_t a3, const char *a4)
-{
-  v5 = proto::gnss::TimeTransferData::default_instance_;
-  if (!proto::gnss::TimeTransferData::default_instance_)
-  {
-    proto::gnss::protobuf_AddDesc_GnssTypes_2eproto(this, a2, a3, a4);
-    v5 = proto::gnss::TimeTransferData::default_instance_;
-  }
-
-  *(this + 1) = v5;
-}
-
-double proto::gnss::Position::SharedCtor(proto::gnss::Position *this)
-{
-  result = 0.0;
-  *(this + 84) = 0u;
-  *(this + 72) = 0u;
-  *(this + 56) = 0u;
-  *(this + 40) = 0u;
-  *(this + 24) = 0u;
-  *(this + 8) = 0u;
-  return result;
-}
-
-proto::gnss::Position *proto::gnss::Position::Position(proto::gnss::Position *this, const proto::gnss::Position *a2)
-{
-  *this = off_100179550;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  *(this + 56) = 0u;
-  *(this + 72) = 0u;
-  *(this + 84) = 0u;
-  proto::gnss::Position::MergeFrom(this, a2);
-  return this;
-}
-
-uint64_t proto::gnss::Position::default_instance(proto::gnss::Position *this, uint64_t a2, uint64_t a3, const char *a4)
-{
-  result = proto::gnss::Position::default_instance_;
-  if (!proto::gnss::Position::default_instance_)
-  {
-    proto::gnss::protobuf_AddDesc_GnssTypes_2eproto(0, a2, a3, a4);
-    return proto::gnss::Position::default_instance_;
-  }
-
-  return result;
-}
-
-uint64_t proto::gnss::Position::Clear(uint64_t this)
-{
-  v1 = *(this + 96);
-  if (v1)
-  {
-    *(this + 56) = 0u;
-    *(this + 40) = 0u;
-    *(this + 24) = 0u;
-    *(this + 8) = 0u;
-  }
-
-  if ((v1 & 0xFF00) != 0)
-  {
-    *(this + 72) = 0;
-    *(this + 80) = 0;
-    *(this + 88) = 0;
-  }
-
-  *(this + 96) = 0;
-  return this;
-}
-
-void proto::gnss::Position::CheckTypeAndMergeFrom(proto::gnss::Position *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
-{
-  v4 = **lpsrc;
-  {
-    __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
-  }
-
-  proto::gnss::Position::MergeFrom(this, lpsrc);
-}
-
-void proto::gnss::Position::CopyFrom(proto::gnss::Position *this, const proto::gnss::Position *a2)
-{
-  if (a2 != this)
-  {
-    (*(*this + 32))(this);
-
-    proto::gnss::Position::MergeFrom(this, a2);
-  }
-}
-
-double proto::gnss::Position::Swap(proto::gnss::Position *this, proto::gnss::Position *a2)
-{
-  if (a2 != this)
-  {
-    v2 = *(this + 1);
-    *(this + 1) = *(a2 + 1);
-    *(a2 + 1) = v2;
-    v3 = *(this + 2);
-    *(this + 2) = *(a2 + 2);
-    *(a2 + 2) = v3;
-    v4 = *(this + 3);
-    *(this + 3) = *(a2 + 3);
-    *(a2 + 3) = v4;
-    v5 = *(this + 4);
-    *(this + 4) = *(a2 + 4);
-    *(a2 + 4) = v5;
-    v6 = *(this + 5);
-    *(this + 5) = *(a2 + 5);
-    *(a2 + 5) = v6;
-    v7 = *(this + 6);
-    *(this + 6) = *(a2 + 6);
-    *(a2 + 6) = v7;
-    v8 = *(this + 7);
-    *(this + 7) = *(a2 + 7);
-    *(a2 + 7) = v8;
-    result = *(this + 8);
-    *(this + 8) = *(a2 + 8);
-    *(a2 + 8) = result;
-    v10 = *(this + 18);
-    *(this + 18) = *(a2 + 18);
-    *(a2 + 18) = v10;
-    v11 = *(this + 19);
-    *(this + 19) = *(a2 + 19);
-    *(a2 + 19) = v11;
-    v12 = *(this + 10);
-    *(this + 10) = *(a2 + 10);
-    *(a2 + 10) = v12;
-    LODWORD(v12) = *(this + 22);
-    *(this + 22) = *(a2 + 22);
-    *(a2 + 22) = v12;
-    LODWORD(v12) = *(this + 24);
-    *(this + 24) = *(a2 + 24);
-    *(a2 + 24) = v12;
-    LODWORD(v12) = *(this + 23);
-    *(this + 23) = *(a2 + 23);
-    *(a2 + 23) = v12;
-  }
-
-  return result;
-}
-
-double proto::gnss::Velocity::SharedCtor(proto::gnss::Velocity *this)
-{
-  *(this + 7) = 0;
-  result = 0.0;
-  *(this + 40) = 0u;
-  *(this + 24) = 0u;
-  *(this + 8) = 0u;
-  return result;
-}
-
-proto::gnss::Velocity *proto::gnss::Velocity::Velocity(proto::gnss::Velocity *this, const proto::gnss::Velocity *a2)
-{
-  *this = off_1001795C8;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  *(this + 7) = 0;
-  proto::gnss::Velocity::MergeFrom(this, a2);
-  return this;
-}
-
-uint64_t proto::gnss::Velocity::default_instance(proto::gnss::Velocity *this, uint64_t a2, uint64_t a3, const char *a4)
-{
-  result = proto::gnss::Velocity::default_instance_;
-  if (!proto::gnss::Velocity::default_instance_)
-  {
-    proto::gnss::protobuf_AddDesc_GnssTypes_2eproto(0, a2, a3, a4);
-    return proto::gnss::Velocity::default_instance_;
-  }
-
-  return result;
-}
-
-uint64_t proto::gnss::Velocity::Clear(uint64_t this)
-{
-  if (*(this + 60))
-  {
-    *(this + 40) = 0u;
-    *(this + 24) = 0u;
-    *(this + 8) = 0u;
-  }
-
-  *(this + 60) = 0;
-  return this;
-}
-
 uint64_t proto::gnss::Velocity::MergePartialFromCodedStream(proto::gnss::Velocity *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   do
@@ -572,7 +192,6 @@ LABEL_38:
 
 double proto::gnss::Velocity::CheckTypeAndMergeFrom(proto::gnss::Velocity *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -1045,7 +664,6 @@ LABEL_37:
 
 void proto::gnss::Time::CheckTypeAndMergeFrom(proto::gnss::Time *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -1531,7 +1149,6 @@ LABEL_21:
 
 void proto::gnss::Fix::CheckTypeAndMergeFrom(proto::gnss::Fix *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -1972,7 +1589,6 @@ LABEL_75:
 
 void proto::gnss::TimeTransferData::CheckTypeAndMergeFrom(proto::gnss::TimeTransferData *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -2351,7 +1967,6 @@ LABEL_46:
 
 void proto::gnss::TimeTransferDataExtend::CheckTypeAndMergeFrom(proto::gnss::TimeTransferDataExtend *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -2450,9 +2065,9 @@ float proto::gnss::RawPressureSample::MergeFrom(proto::gnss::RawPressureSample *
   return result;
 }
 
-void sub_1000E8178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000E8178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2656,7 +2271,6 @@ uint64_t proto::gnss::RawPressureSample::ByteSize(proto::gnss::RawPressureSample
 
 float proto::gnss::RawPressureSample::CheckTypeAndMergeFrom(proto::gnss::RawPressureSample *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -2786,9 +2400,9 @@ LABEL_8:
   return result;
 }
 
-void sub_1000E8800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000E8800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2918,7 +2532,6 @@ uint64_t proto::gnss::SensorSample3Axis::ByteSize(proto::gnss::SensorSample3Axis
 
 float proto::gnss::SensorSample3Axis::CheckTypeAndMergeFrom(proto::gnss::SensorSample3Axis *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -3068,9 +2681,9 @@ LABEL_9:
   }
 }
 
-void sub_1000E8D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000E8D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3551,7 +3164,6 @@ LABEL_32:
 
 void proto::gnss::SvId::CheckTypeAndMergeFrom(proto::gnss::SvId *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -3827,7 +3439,6 @@ LABEL_21:
 
 void proto::gnss::PwrMeasurement::CheckTypeAndMergeFrom(proto::gnss::PwrMeasurement *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -3923,9 +3534,9 @@ void proto::gnss::DecodedRti::MergeFrom(proto::gnss::DecodedRti *this, const pro
   }
 }
 
-void sub_1000E9C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000E9C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4139,7 +3750,6 @@ uint64_t proto::gnss::DecodedRti::ByteSize(proto::gnss::DecodedRti *this, unint6
 
 void proto::gnss::DecodedRti::CheckTypeAndMergeFrom(proto::gnss::DecodedRti *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -4422,7 +4032,6 @@ LABEL_20:
 
 void proto::gnss::DecodedExtendedEphemeris::CheckTypeAndMergeFrom(proto::gnss::DecodedExtendedEphemeris *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -5560,231 +5169,230 @@ uint64_t proto::gpsd::StartContext::StartContext(uint64_t this)
 
 void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v4 = this;
   v5 = proto::gpsd::InjectAssistancePosition::default_instance_;
   if (!proto::gpsd::InjectAssistancePosition::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v5 = proto::gpsd::InjectAssistancePosition::default_instance_;
   }
 
-  *(v4 + 3) = v5;
+  *(this + 3) = v5;
   v6 = proto::gpsd::InjectAssistanceTime::default_instance_;
   if (!proto::gpsd::InjectAssistanceTime::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v6 = proto::gpsd::InjectAssistanceTime::default_instance_;
   }
 
-  *(v4 + 4) = v6;
+  *(this + 4) = v6;
   v7 = proto::gpsd::SetAssistancePressure::default_instance_;
   if (!proto::gpsd::SetAssistancePressure::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v7 = proto::gpsd::SetAssistancePressure::default_instance_;
   }
 
-  *(v4 + 5) = v7;
+  *(this + 5) = v7;
   v8 = proto::gpsd::SetAssistanceAccel::default_instance_;
   if (!proto::gpsd::SetAssistanceAccel::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v8 = proto::gpsd::SetAssistanceAccel::default_instance_;
   }
 
-  *(v4 + 6) = v8;
+  *(this + 6) = v8;
   v9 = proto::gpsd::SetAssistanceGyro::default_instance_;
   if (!proto::gpsd::SetAssistanceGyro::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v9 = proto::gpsd::SetAssistanceGyro::default_instance_;
   }
 
-  *(v4 + 7) = v9;
+  *(this + 7) = v9;
   v10 = proto::gpsd::SetAssistanceDem::default_instance_;
   if (!proto::gpsd::SetAssistanceDem::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v10 = proto::gpsd::SetAssistanceDem::default_instance_;
   }
 
-  *(v4 + 8) = v10;
+  *(this + 8) = v10;
   v11 = proto::gpsd::SetAssistanceMapVector::default_instance_;
   if (!proto::gpsd::SetAssistanceMapVector::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v11 = proto::gpsd::SetAssistanceMapVector::default_instance_;
   }
 
-  *(v4 + 9) = v11;
+  *(this + 9) = v11;
   v12 = proto::gpsd::SetAssistanceMotionActivityContext::default_instance_;
   if (!proto::gpsd::SetAssistanceMotionActivityContext::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v12 = proto::gpsd::SetAssistanceMotionActivityContext::default_instance_;
   }
 
-  *(v4 + 10) = v12;
+  *(this + 10) = v12;
   v13 = proto::gpsd::SetAssistanceMountState::default_instance_;
   if (!proto::gpsd::SetAssistanceMountState::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v13 = proto::gpsd::SetAssistanceMountState::default_instance_;
   }
 
-  *(v4 + 11) = v13;
+  *(this + 11) = v13;
   v14 = proto::gpsd::SetAssistanceSignalEnvironment::default_instance_;
   if (!proto::gpsd::SetAssistanceSignalEnvironment::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v14 = proto::gpsd::SetAssistanceSignalEnvironment::default_instance_;
   }
 
-  *(v4 + 12) = v14;
+  *(this + 12) = v14;
   v15 = proto::gpsd::SetAssistanceSpeedConstraint::default_instance_;
   if (!proto::gpsd::SetAssistanceSpeedConstraint::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v15 = proto::gpsd::SetAssistanceSpeedConstraint::default_instance_;
   }
 
-  *(v4 + 13) = v15;
+  *(this + 13) = v15;
   v16 = proto::gpsd::SetAssistanceAlongTrackVelocity::default_instance_;
   if (!proto::gpsd::SetAssistanceAlongTrackVelocity::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v16 = proto::gpsd::SetAssistanceAlongTrackVelocity::default_instance_;
   }
 
-  *(v4 + 14) = v16;
+  *(this + 14) = v16;
   v17 = proto::gpsd::InjectAssistanceFile::default_instance_;
   if (!proto::gpsd::InjectAssistanceFile::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v17 = proto::gpsd::InjectAssistanceFile::default_instance_;
   }
 
-  *(v4 + 15) = v17;
+  *(this + 15) = v17;
   v18 = proto::gpsd::InjectRtiFile::default_instance_;
   if (!proto::gpsd::InjectRtiFile::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v18 = proto::gpsd::InjectRtiFile::default_instance_;
   }
 
-  *(v4 + 16) = v18;
+  *(this + 16) = v18;
   v19 = proto::gpsd::InjectSvidBlocklist::default_instance_;
   if (!proto::gpsd::InjectSvidBlocklist::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v19 = proto::gpsd::InjectSvidBlocklist::default_instance_;
   }
 
-  *(v4 + 17) = v19;
+  *(this + 17) = v19;
   v20 = proto::gpsd::DeleteGnssData::default_instance_;
   if (!proto::gpsd::DeleteGnssData::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v20 = proto::gpsd::DeleteGnssData::default_instance_;
   }
 
-  *(v4 + 18) = v20;
+  *(this + 18) = v20;
   v21 = proto::gpsd::SetPvtmReport::default_instance_;
   if (!proto::gpsd::SetPvtmReport::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v21 = proto::gpsd::SetPvtmReport::default_instance_;
   }
 
-  *(v4 + 19) = v21;
+  *(this + 19) = v21;
   v22 = proto::gpsd::SetNmeaHandler::default_instance_;
   if (!proto::gpsd::SetNmeaHandler::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v22 = proto::gpsd::SetNmeaHandler::default_instance_;
   }
 
-  *(v4 + 20) = v22;
+  *(this + 20) = v22;
   v23 = proto::gpsd::SetConfigSimulatorMode::default_instance_;
   if (!proto::gpsd::SetConfigSimulatorMode::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v23 = proto::gpsd::SetConfigSimulatorMode::default_instance_;
   }
 
-  *(v4 + 21) = v23;
+  *(this + 21) = v23;
   v24 = proto::gpsd::SetConfigEnableGnssConstellations::default_instance_;
   if (!proto::gpsd::SetConfigEnableGnssConstellations::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v24 = proto::gpsd::SetConfigEnableGnssConstellations::default_instance_;
   }
 
-  *(v4 + 22) = v24;
+  *(this + 22) = v24;
   v25 = proto::gpsd::SetConfigDutyCycling::default_instance_;
   if (!proto::gpsd::SetConfigDutyCycling::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v25 = proto::gpsd::SetConfigDutyCycling::default_instance_;
   }
 
-  *(v4 + 23) = v25;
+  *(this + 23) = v25;
   v26 = proto::gpsd::TerminationImminent::default_instance_;
   if (!proto::gpsd::TerminationImminent::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v26 = proto::gpsd::TerminationImminent::default_instance_;
   }
 
-  *(v4 + 24) = v26;
+  *(this + 24) = v26;
   v27 = proto::gpsd::ExitMessage::default_instance_;
   if (!proto::gpsd::ExitMessage::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v27 = proto::gpsd::ExitMessage::default_instance_;
   }
 
-  *(v4 + 25) = v27;
+  *(this + 25) = v27;
   v28 = proto::gpsd::LtlInfo::default_instance_;
   if (!proto::gpsd::LtlInfo::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v28 = proto::gpsd::LtlInfo::default_instance_;
   }
 
-  *(v4 + 26) = v28;
+  *(this + 26) = v28;
   v29 = proto::gpsd::StartContext::default_instance_;
   if (!proto::gpsd::StartContext::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v29 = proto::gpsd::StartContext::default_instance_;
   }
 
-  *(v4 + 27) = v29;
+  *(this + 27) = v29;
   v30 = proto::gpsd::SetThermalRiskState::default_instance_;
   if (!proto::gpsd::SetThermalRiskState::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v30 = proto::gpsd::SetThermalRiskState::default_instance_;
   }
 
-  *(v4 + 28) = v30;
+  *(this + 28) = v30;
   v31 = proto::gpsd::SetConfigRfBandEnable::default_instance_;
   if (!proto::gpsd::SetConfigRfBandEnable::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v31 = proto::gpsd::SetConfigRfBandEnable::default_instance_;
   }
 
-  *(v4 + 29) = v31;
+  *(this + 29) = v31;
   v32 = proto::gpsd::InjectRavenOrbitFile::default_instance_;
   if (!proto::gpsd::InjectRavenOrbitFile::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v32 = proto::gpsd::InjectRavenOrbitFile::default_instance_;
   }
 
-  *(v4 + 30) = v32;
+  *(this + 30) = v32;
   v33 = proto::gnss::Emergency::EmergConfig::default_instance_;
   if (!proto::gnss::Emergency::EmergConfig::default_instance_)
   {
@@ -5792,7 +5400,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v33 = proto::gnss::Emergency::EmergConfig::default_instance_;
   }
 
-  *(v4 + 31) = v33;
+  *(this + 31) = v33;
   v34 = proto::gnss::Emergency::PositionRequest::default_instance_;
   if (!proto::gnss::Emergency::PositionRequest::default_instance_)
   {
@@ -5800,7 +5408,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v34 = proto::gnss::Emergency::PositionRequest::default_instance_;
   }
 
-  *(v4 + 33) = v34;
+  *(this + 33) = v34;
   v35 = proto::gnss::Emergency::GpsReferenceTime::default_instance_;
   if (!proto::gnss::Emergency::GpsReferenceTime::default_instance_)
   {
@@ -5808,7 +5416,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v35 = proto::gnss::Emergency::GpsReferenceTime::default_instance_;
   }
 
-  *(v4 + 34) = v35;
+  *(this + 34) = v35;
   v36 = proto::gnss::Emergency::ReferenceLocation::default_instance_;
   if (!proto::gnss::Emergency::ReferenceLocation::default_instance_)
   {
@@ -5816,7 +5424,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v36 = proto::gnss::Emergency::ReferenceLocation::default_instance_;
   }
 
-  *(v4 + 35) = v36;
+  *(this + 35) = v36;
   v37 = proto::gnss::Emergency::GpsNavigationModel::default_instance_;
   if (!proto::gnss::Emergency::GpsNavigationModel::default_instance_)
   {
@@ -5824,7 +5432,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v37 = proto::gnss::Emergency::GpsNavigationModel::default_instance_;
   }
 
-  *(v4 + 36) = v37;
+  *(this + 36) = v37;
   v38 = proto::gnss::Emergency::GpsAcqAssistance::default_instance_;
   if (!proto::gnss::Emergency::GpsAcqAssistance::default_instance_)
   {
@@ -5832,7 +5440,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v38 = proto::gnss::Emergency::GpsAcqAssistance::default_instance_;
   }
 
-  *(v4 + 37) = v38;
+  *(this + 37) = v38;
   v39 = proto::gnss::Emergency::CellFTAssistance::default_instance_;
   if (!proto::gnss::Emergency::CellFTAssistance::default_instance_)
   {
@@ -5840,7 +5448,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v39 = proto::gnss::Emergency::CellFTAssistance::default_instance_;
   }
 
-  *(v4 + 39) = v39;
+  *(this + 39) = v39;
   v40 = proto::gnss::Emergency::CplaneContext::default_instance_;
   if (!proto::gnss::Emergency::CplaneContext::default_instance_)
   {
@@ -5848,7 +5456,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v40 = proto::gnss::Emergency::CplaneContext::default_instance_;
   }
 
-  *(v4 + 40) = v40;
+  *(this + 40) = v40;
   v41 = proto::gnss::Emergency::LocationId::default_instance_;
   if (!proto::gnss::Emergency::LocationId::default_instance_)
   {
@@ -5856,7 +5464,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v41 = proto::gnss::Emergency::LocationId::default_instance_;
   }
 
-  *(v4 + 43) = v41;
+  *(this + 43) = v41;
   v42 = proto::gnss::Emergency::SuplContext::default_instance_;
   if (!proto::gnss::Emergency::SuplContext::default_instance_)
   {
@@ -5864,7 +5472,7 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v42 = proto::gnss::Emergency::SuplContext::default_instance_;
   }
 
-  *(v4 + 47) = v42;
+  *(this + 47) = v42;
   v43 = proto::gnss::Emergency::WlanMeasurementList::default_instance_;
   if (!proto::gnss::Emergency::WlanMeasurementList::default_instance_)
   {
@@ -5872,12 +5480,11 @@ void proto::gpsd::Request::InitAsDefaultInstance(proto::gpsd::Request *this, uin
     v43 = proto::gnss::Emergency::WlanMeasurementList::default_instance_;
   }
 
-  *(v4 + 48) = v43;
+  *(this + 48) = v43;
 }
 
 void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *this, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v4 = this;
   v5 = proto::gnss::Fix::default_instance_;
   if (!proto::gnss::Fix::default_instance_)
   {
@@ -5885,7 +5492,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v5 = proto::gnss::Fix::default_instance_;
   }
 
-  *(v4 + 3) = v5;
+  *(this + 3) = v5;
   v6 = CLP::LogEntry::PrivateData::MeasurementReportCallbackContents::default_instance_;
   if (!CLP::LogEntry::PrivateData::MeasurementReportCallbackContents::default_instance_)
   {
@@ -5893,7 +5500,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v6 = CLP::LogEntry::PrivateData::MeasurementReportCallbackContents::default_instance_;
   }
 
-  *(v4 + 4) = v6;
+  *(this + 4) = v6;
   v7 = proto::gnss::PwrMeasurement::default_instance_;
   if (!proto::gnss::PwrMeasurement::default_instance_)
   {
@@ -5901,15 +5508,15 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v7 = proto::gnss::PwrMeasurement::default_instance_;
   }
 
-  *(v4 + 5) = v7;
+  *(this + 5) = v7;
   v8 = proto::gpsd::Status::default_instance_;
   if (!proto::gpsd::Status::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v8 = proto::gpsd::Status::default_instance_;
   }
 
-  *(v4 + 6) = v8;
+  *(this + 6) = v8;
   v9 = proto::gnss::TimeTransferDataExtend::default_instance_;
   if (!proto::gnss::TimeTransferDataExtend::default_instance_)
   {
@@ -5917,23 +5524,23 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v9 = proto::gnss::TimeTransferDataExtend::default_instance_;
   }
 
-  *(v4 + 7) = v9;
+  *(this + 7) = v9;
   v10 = proto::gpsd::RecoveryStatistics::default_instance_;
   if (!proto::gpsd::RecoveryStatistics::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v10 = proto::gpsd::RecoveryStatistics::default_instance_;
   }
 
-  *(v4 + 8) = v10;
+  *(this + 8) = v10;
   v11 = proto::gpsd::LtlInfoRequest::default_instance_;
   if (!proto::gpsd::LtlInfoRequest::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v11 = proto::gpsd::LtlInfoRequest::default_instance_;
   }
 
-  *(v4 + 9) = v11;
+  *(this + 9) = v11;
   v12 = proto::gnss::DecodedExtendedEphemeris::default_instance_;
   if (!proto::gnss::DecodedExtendedEphemeris::default_instance_)
   {
@@ -5941,7 +5548,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v12 = proto::gnss::DecodedExtendedEphemeris::default_instance_;
   }
 
-  *(v4 + 10) = v12;
+  *(this + 10) = v12;
   v13 = proto::gnss::DecodedRti::default_instance_;
   if (!proto::gnss::DecodedRti::default_instance_)
   {
@@ -5949,23 +5556,23 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v13 = proto::gnss::DecodedRti::default_instance_;
   }
 
-  *(v4 + 11) = v13;
+  *(this + 11) = v13;
   v14 = proto::gpsd::Exception::default_instance_;
   if (!proto::gpsd::Exception::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v14 = proto::gpsd::Exception::default_instance_;
   }
 
-  *(v4 + 13) = v14;
+  *(this + 13) = v14;
   v15 = proto::gpsd::AskBasebandReset::default_instance_;
   if (!proto::gpsd::AskBasebandReset::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
     v15 = proto::gpsd::AskBasebandReset::default_instance_;
   }
 
-  *(v4 + 14) = v15;
+  *(this + 14) = v15;
   v16 = proto::gnss::Emergency::SummaryReport::default_instance_;
   if (!proto::gnss::Emergency::SummaryReport::default_instance_)
   {
@@ -5973,7 +5580,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v16 = proto::gnss::Emergency::SummaryReport::default_instance_;
   }
 
-  *(v4 + 15) = v16;
+  *(this + 15) = v16;
   v17 = proto::gnss::Emergency::PositionReport::default_instance_;
   if (!proto::gnss::Emergency::PositionReport::default_instance_)
   {
@@ -5981,7 +5588,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v17 = proto::gnss::Emergency::PositionReport::default_instance_;
   }
 
-  *(v4 + 17) = v17;
+  *(this + 17) = v17;
   v18 = proto::gnss::Emergency::MeasurementReport::default_instance_;
   if (!proto::gnss::Emergency::MeasurementReport::default_instance_)
   {
@@ -5989,7 +5596,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v18 = proto::gnss::Emergency::MeasurementReport::default_instance_;
   }
 
-  *(v4 + 18) = v18;
+  *(this + 18) = v18;
   v19 = proto::gnss::Emergency::AssistanceNeededReport::default_instance_;
   if (!proto::gnss::Emergency::AssistanceNeededReport::default_instance_)
   {
@@ -5997,7 +5604,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v19 = proto::gnss::Emergency::AssistanceNeededReport::default_instance_;
   }
 
-  *(v4 + 19) = v19;
+  *(this + 19) = v19;
   v20 = proto::gnss::Emergency::CellFTAssistanceRequest::default_instance_;
   if (!proto::gnss::Emergency::CellFTAssistanceRequest::default_instance_)
   {
@@ -6005,7 +5612,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v20 = proto::gnss::Emergency::CellFTAssistanceRequest::default_instance_;
   }
 
-  *(v4 + 20) = v20;
+  *(this + 20) = v20;
   v21 = proto::gnss::Emergency::MeasurementReportWithEstimate::default_instance_;
   if (!proto::gnss::Emergency::MeasurementReportWithEstimate::default_instance_)
   {
@@ -6013,7 +5620,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v21 = proto::gnss::Emergency::MeasurementReportWithEstimate::default_instance_;
   }
 
-  *(v4 + 21) = v21;
+  *(this + 21) = v21;
   v22 = proto::gnss::Emergency::SessionStatus::default_instance_;
   if (!proto::gnss::Emergency::SessionStatus::default_instance_)
   {
@@ -6021,7 +5628,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v22 = proto::gnss::Emergency::SessionStatus::default_instance_;
   }
 
-  *(v4 + 22) = v22;
+  *(this + 22) = v22;
   v23 = proto::gnss::Emergency::Init::default_instance_;
   if (!proto::gnss::Emergency::Init::default_instance_)
   {
@@ -6029,7 +5636,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v23 = proto::gnss::Emergency::Init::default_instance_;
   }
 
-  *(v4 + 23) = v23;
+  *(this + 23) = v23;
   v24 = proto::gnss::Emergency::WlanMeasurementRequest::default_instance_;
   if (!proto::gnss::Emergency::WlanMeasurementRequest::default_instance_)
   {
@@ -6037,7 +5644,7 @@ void proto::gpsd::Indication::InitAsDefaultInstance(proto::gpsd::Indication *thi
     v24 = proto::gnss::Emergency::WlanMeasurementRequest::default_instance_;
   }
 
-  *(v4 + 25) = v24;
+  *(this + 25) = v24;
 }
 
 void proto::gpsd::InjectAssistancePosition::InitAsDefaultInstance(proto::gpsd::InjectAssistancePosition *this, uint64_t a2, uint64_t a3, const char *a4)
@@ -6064,42 +5671,40 @@ void proto::gpsd::RecoveryStatistics::InitAsDefaultInstance(proto::gpsd::Recover
   *(this + 4) = v5;
 }
 
-proto::gpsd *proto::gpsd::LtlInfo::InitAsDefaultInstance(proto::gpsd *this)
+void proto::gpsd::LtlInfo::InitAsDefaultInstance(proto::gpsd::LtlInfo *this, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v1 = this;
-  v2 = proto::gpsd::LtlInfo_LtlInitialParams::default_instance_;
+  v5 = proto::gpsd::LtlInfo_LtlInitialParams::default_instance_;
   if (!proto::gpsd::LtlInfo_LtlInitialParams::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
-    v2 = proto::gpsd::LtlInfo_LtlInitialParams::default_instance_;
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
+    v5 = proto::gpsd::LtlInfo_LtlInitialParams::default_instance_;
   }
 
-  *(v1 + 2) = v2;
-  v3 = proto::gpsd::LtlInfo_LtlLutParams::default_instance_;
+  *(this + 2) = v5;
+  v6 = proto::gpsd::LtlInfo_LtlLutParams::default_instance_;
   if (!proto::gpsd::LtlInfo_LtlLutParams::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
-    v3 = proto::gpsd::LtlInfo_LtlLutParams::default_instance_;
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
+    v6 = proto::gpsd::LtlInfo_LtlLutParams::default_instance_;
   }
 
-  *(v1 + 3) = v3;
-  v4 = proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::default_instance_;
+  *(this + 3) = v6;
+  v7 = proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::default_instance_;
   if (!proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
-    v4 = proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::default_instance_;
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
+    v7 = proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::default_instance_;
   }
 
-  *(v1 + 4) = v4;
-  v5 = proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData::default_instance_;
+  *(this + 4) = v7;
+  v8 = proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData::default_instance_;
   if (!proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData::default_instance_)
   {
-    this = proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this);
-    v5 = proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData::default_instance_;
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(this, a2, a3, a4);
+    v8 = proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData::default_instance_;
   }
 
-  *(v1 + 5) = v5;
-  return this;
+  *(this + 5) = v8;
 }
 
 void proto::gpsd::LogEntry::InitAsDefaultInstance(proto::gpsd::LogEntry *this, uint64_t a2, uint64_t a3, const char *a4)
@@ -6568,7 +6173,7 @@ void proto::gpsd::Request::MergeFrom(proto::gpsd::Request *this, const proto::gp
   v4 = *(a2 + 84);
   if (v4)
   {
-    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 41, *(this + 84) + v4);
+    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 82, *(this + 84) + v4);
     memcpy((*(this + 41) + 4 * *(this + 84)), *(a2 + 41), 4 * *(a2 + 84));
     *(this + 84) += *(a2 + 84);
   }
@@ -6576,7 +6181,7 @@ void proto::gpsd::Request::MergeFrom(proto::gpsd::Request *this, const proto::gp
   v5 = *(a2 + 90);
   if (v5)
   {
-    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 44, *(this + 90) + v5);
+    wireless_diagnostics::google::protobuf::RepeatedField<float>::Reserve(this + 88, *(this + 90) + v5);
     memcpy((*(this + 44) + 4 * *(this + 90)), *(a2 + 44), 4 * *(a2 + 90));
     *(this + 90) += *(a2 + 90);
   }
@@ -7735,9 +7340,9 @@ LABEL_267:
   }
 }
 
-void sub_1000EEAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EEAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8250,7 +7855,6 @@ uint64_t proto::gpsd::InjectRavenOrbitFile::Clear(uint64_t this)
 
 void proto::gpsd::Request::CheckTypeAndMergeFrom(proto::gpsd::Request *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -8320,9 +7924,9 @@ void proto::gpsd::InjectAssistancePosition::MergeFrom(proto::gpsd::InjectAssista
   }
 }
 
-void sub_1000EF320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EF320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8378,9 +7982,9 @@ LABEL_7:
   }
 }
 
-void sub_1000EF40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EF40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8436,9 +8040,9 @@ void proto::gpsd::SetAssistancePressure::MergeFrom(proto::gpsd::SetAssistancePre
   }
 }
 
-void sub_1000EF5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EF5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8456,9 +8060,9 @@ void proto::gpsd::SetAssistanceAccel::MergeFrom(proto::gpsd::SetAssistanceAccel 
   wireless_diagnostics::google::protobuf::RepeatedPtrField<proto::gnss::SensorSample3Axis>::MergeFrom((this + 8), a2 + 8);
 }
 
-void sub_1000EF674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EF674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8476,9 +8080,9 @@ void proto::gpsd::SetAssistanceGyro::MergeFrom(proto::gpsd::SetAssistanceGyro *t
   wireless_diagnostics::google::protobuf::RepeatedPtrField<proto::gnss::SensorSample3Axis>::MergeFrom((this + 8), a2 + 8);
 }
 
-void sub_1000EF708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EF708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8536,9 +8140,9 @@ LABEL_7:
   return result;
 }
 
-void sub_1000EF7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EF7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8750,9 +8354,9 @@ LABEL_19:
   *(this + 69) = v6;
 }
 
-void sub_1000EFA2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EFA2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8818,9 +8422,9 @@ void proto::gpsd::SetAssistanceMotionActivityContext::MergeFrom(proto::gpsd::Set
   }
 }
 
-void sub_1000EFBA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EFBA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8860,9 +8464,9 @@ void proto::gpsd::SetAssistanceMountState::MergeFrom(proto::gpsd::SetAssistanceM
   }
 }
 
-void sub_1000EFC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EFC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8890,9 +8494,9 @@ void proto::gpsd::SetAssistanceSignalEnvironment::MergeFrom(proto::gpsd::SetAssi
   }
 }
 
-void sub_1000EFD68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EFD68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -8966,9 +8570,9 @@ LABEL_8:
   return result;
 }
 
-void sub_1000EFE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EFE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9026,9 +8630,9 @@ LABEL_7:
   return result;
 }
 
-void sub_1000EFF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000EFF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9087,9 +8691,9 @@ void proto::gpsd::InjectAssistanceFile::MergeFrom(proto::gpsd::InjectAssistanceF
   }
 }
 
-void sub_1000F00D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F00D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9118,9 +8722,9 @@ void proto::gpsd::InjectRtiFile::MergeFrom(proto::gpsd::InjectRtiFile *this, con
   }
 }
 
-void sub_1000F01B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F01B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9176,9 +8780,9 @@ void proto::gpsd::InjectSvidBlocklist::MergeFrom(proto::gpsd::InjectSvidBlocklis
   }
 }
 
-void sub_1000F0380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F0380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9201,9 +8805,9 @@ void proto::gpsd::DeleteGnssData::MergeFrom(proto::gpsd::DeleteGnssData *this, c
   }
 }
 
-void sub_1000F042C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F042C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9307,9 +8911,9 @@ LABEL_10:
   }
 }
 
-void sub_1000F0578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F0578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9332,9 +8936,9 @@ void proto::gpsd::SetNmeaHandler::MergeFrom(proto::gpsd::SetNmeaHandler *this, c
   }
 }
 
-void sub_1000F061C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F061C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9369,9 +8973,9 @@ void proto::gpsd::SetConfigSimulatorMode::MergeFrom(proto::gpsd::SetConfigSimula
   }
 }
 
-void sub_1000F06E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F06E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9406,9 +9010,9 @@ void proto::gpsd::SetConfigEnableGnssConstellations::MergeFrom(proto::gpsd::SetC
   }
 }
 
-void sub_1000F07A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F07A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9431,9 +9035,9 @@ void proto::gpsd::SetConfigDutyCycling::MergeFrom(proto::gpsd::SetConfigDutyCycl
   }
 }
 
-void sub_1000F0848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F0848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9462,9 +9066,9 @@ void proto::gpsd::TerminationImminent::MergeFrom(proto::gpsd::TerminationImminen
   }
 }
 
-void sub_1000F0928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F0928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9493,9 +9097,9 @@ void proto::gpsd::ExitMessage::MergeFrom(proto::gpsd::ExitMessage *this, const p
   }
 }
 
-void sub_1000F0A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F0A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9664,9 +9268,9 @@ LABEL_31:
   }
 }
 
-void sub_1000F0D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F0D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9754,9 +9358,9 @@ LABEL_9:
   }
 }
 
-void sub_1000F0E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F0E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9791,9 +9395,9 @@ void proto::gpsd::SetThermalRiskState::MergeFrom(proto::gpsd::SetThermalRiskStat
   }
 }
 
-void sub_1000F0F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000F0F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9824,6 +9428,502 @@ void proto::gpsd::SetConfigRfBandEnable::MergeFrom(proto::gpsd::SetConfigRfBandE
       v6 = *(a2 + 9);
       *(this + 4) |= 2u;
       *(this + 9) = v6;
+    }
+  }
+}
+
+void sub_1000F0FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void proto::gpsd::InjectRavenOrbitFile::MergeFrom(proto::gpsd::InjectRavenOrbitFile *this, const proto::gpsd::InjectRavenOrbitFile *a2)
+{
+  if (a2 == this)
+  {
+    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
+    wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
+    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v6);
+  }
+
+  if (*(a2 + 20))
+  {
+    v4 = *(a2 + 1);
+    *(this + 5) |= 1u;
+    v5 = *(this + 1);
+    if (v5 == &wireless_diagnostics::google::protobuf::internal::kEmptyString)
+    {
+      operator new();
+    }
+
+    std::string::operator=(v5, v4);
+  }
+}
+
+void sub_1000F10A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void proto::gpsd::Request::CopyFrom(proto::gpsd::Request *this, const proto::gpsd::Request *a2)
+{
+  if (a2 != this)
+  {
+    (*(*this + 32))(this);
+
+    proto::gpsd::Request::MergeFrom(this, a2);
+  }
+}
+
+double proto::gpsd::Request::Swap(proto::gpsd::Request *this, proto::gpsd::Request *a2)
+{
+  if (a2 != this)
+  {
+    v2 = *(this + 1);
+    *(this + 1) = *(a2 + 1);
+    *(a2 + 1) = v2;
+    LODWORD(v2) = *(this + 4);
+    *(this + 4) = *(a2 + 4);
+    *(a2 + 4) = v2;
+    LODWORD(v2) = *(this + 5);
+    *(this + 5) = *(a2 + 5);
+    *(a2 + 5) = v2;
+    v3 = *(this + 3);
+    *(this + 3) = *(a2 + 3);
+    *(a2 + 3) = v3;
+    v4 = *(this + 4);
+    *(this + 4) = *(a2 + 4);
+    *(a2 + 4) = v4;
+    v5 = *(this + 5);
+    *(this + 5) = *(a2 + 5);
+    *(a2 + 5) = v5;
+    v6 = *(this + 6);
+    *(this + 6) = *(a2 + 6);
+    *(a2 + 6) = v6;
+    v7 = *(this + 7);
+    *(this + 7) = *(a2 + 7);
+    *(a2 + 7) = v7;
+    v8 = *(this + 8);
+    *(this + 8) = *(a2 + 8);
+    *(a2 + 8) = v8;
+    v9 = *(this + 9);
+    *(this + 9) = *(a2 + 9);
+    *(a2 + 9) = v9;
+    v10 = *(this + 10);
+    *(this + 10) = *(a2 + 10);
+    *(a2 + 10) = v10;
+    v11 = *(this + 11);
+    *(this + 11) = *(a2 + 11);
+    *(a2 + 11) = v11;
+    v12 = *(this + 12);
+    *(this + 12) = *(a2 + 12);
+    *(a2 + 12) = v12;
+    v13 = *(this + 13);
+    *(this + 13) = *(a2 + 13);
+    *(a2 + 13) = v13;
+    v14 = *(this + 14);
+    *(this + 14) = *(a2 + 14);
+    *(a2 + 14) = v14;
+    v15 = *(this + 15);
+    *(this + 15) = *(a2 + 15);
+    *(a2 + 15) = v15;
+    v16 = *(this + 16);
+    *(this + 16) = *(a2 + 16);
+    *(a2 + 16) = v16;
+    v17 = *(this + 17);
+    *(this + 17) = *(a2 + 17);
+    *(a2 + 17) = v17;
+    v18 = *(this + 18);
+    *(this + 18) = *(a2 + 18);
+    *(a2 + 18) = v18;
+    v19 = *(this + 19);
+    *(this + 19) = *(a2 + 19);
+    *(a2 + 19) = v19;
+    v20 = *(this + 20);
+    *(this + 20) = *(a2 + 20);
+    *(a2 + 20) = v20;
+    v21 = *(this + 21);
+    *(this + 21) = *(a2 + 21);
+    *(a2 + 21) = v21;
+    v22 = *(this + 22);
+    *(this + 22) = *(a2 + 22);
+    *(a2 + 22) = v22;
+    v23 = *(this + 23);
+    *(this + 23) = *(a2 + 23);
+    *(a2 + 23) = v23;
+    v24 = *(this + 24);
+    *(this + 24) = *(a2 + 24);
+    *(a2 + 24) = v24;
+    v25 = *(this + 25);
+    *(this + 25) = *(a2 + 25);
+    *(a2 + 25) = v25;
+    v26 = *(this + 26);
+    *(this + 26) = *(a2 + 26);
+    *(a2 + 26) = v26;
+    v27 = *(this + 27);
+    *(this + 27) = *(a2 + 27);
+    *(a2 + 27) = v27;
+    v28 = *(this + 28);
+    *(this + 28) = *(a2 + 28);
+    *(a2 + 28) = v28;
+    v29 = *(this + 29);
+    *(this + 29) = *(a2 + 29);
+    *(a2 + 29) = v29;
+    v30 = *(this + 30);
+    *(this + 30) = *(a2 + 30);
+    *(a2 + 30) = v30;
+    v31 = *(this + 31);
+    *(this + 31) = *(a2 + 31);
+    *(a2 + 31) = v31;
+    v32 = *(this + 32);
+    *(this + 32) = *(a2 + 32);
+    *(a2 + 32) = v32;
+    v33 = *(this + 33);
+    *(this + 33) = *(a2 + 33);
+    *(a2 + 33) = v33;
+    LODWORD(v33) = *(this + 76);
+    *(this + 76) = *(a2 + 76);
+    *(a2 + 76) = v33;
+    v34 = *(this + 34);
+    *(this + 34) = *(a2 + 34);
+    *(a2 + 34) = v34;
+    v35 = *(this + 35);
+    *(this + 35) = *(a2 + 35);
+    *(a2 + 35) = v35;
+    v36 = *(this + 36);
+    *(this + 36) = *(a2 + 36);
+    *(a2 + 36) = v36;
+    v37 = *(this + 37);
+    *(this + 37) = *(a2 + 37);
+    *(a2 + 37) = v37;
+    v38 = *(this + 39);
+    *(this + 39) = *(a2 + 39);
+    *(a2 + 39) = v38;
+    v39 = *(this + 40);
+    *(this + 40) = *(a2 + 40);
+    *(a2 + 40) = v39;
+    v40 = *(this + 41);
+    *(this + 41) = *(a2 + 41);
+    v41 = *(a2 + 42);
+    *(a2 + 41) = v40;
+    v42 = *(this + 42);
+    *(this + 42) = v41;
+    *(a2 + 42) = v42;
+    v43 = *(this + 43);
+    *(this + 43) = *(a2 + 43);
+    *(a2 + 43) = v43;
+    LODWORD(v43) = *(this + 77);
+    *(this + 77) = *(a2 + 77);
+    *(a2 + 77) = v43;
+    v44 = *(this + 44);
+    *(this + 44) = *(a2 + 44);
+    result = *(a2 + 45);
+    *(a2 + 44) = v44;
+    v46 = *(this + 45);
+    *(this + 45) = result;
+    *(a2 + 45) = v46;
+    LOBYTE(v44) = *(this + 368);
+    *(this + 368) = *(a2 + 368);
+    *(a2 + 368) = v44;
+    LODWORD(v44) = *(this + 93);
+    *(this + 93) = *(a2 + 93);
+    *(a2 + 93) = v44;
+    v47 = *(this + 47);
+    *(this + 47) = *(a2 + 47);
+    *(a2 + 47) = v47;
+    v48 = *(this + 48);
+    *(this + 48) = *(a2 + 48);
+    *(a2 + 48) = v48;
+    LODWORD(v48) = *(this + 99);
+    *(this + 99) = *(a2 + 99);
+    *(a2 + 99) = v48;
+    LODWORD(v48) = *(this + 100);
+    *(this + 100) = *(a2 + 100);
+    *(a2 + 100) = v48;
+    LODWORD(v48) = *(this + 98);
+    *(this + 98) = *(a2 + 98);
+    *(a2 + 98) = v48;
+  }
+
+  return result;
+}
+
+void *proto::gpsd::Response::SharedCtor(void *this)
+{
+  this[1] = 0;
+  this[2] = 0;
+  this[3] = 0;
+  return this;
+}
+
+proto::gpsd::Response *proto::gpsd::Response::Response(proto::gpsd::Response *this, const proto::gpsd::Response *a2)
+{
+  *this = off_100179C88;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  proto::gpsd::Response::MergeFrom(this, a2);
+  return this;
+}
+
+void proto::gpsd::Response::MergeFrom(proto::gpsd::Response *this, const proto::gpsd::Response *a2)
+{
+  if (a2 == this)
+  {
+    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
+    wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
+    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v8);
+  }
+
+  LOBYTE(v4) = *(a2 + 28);
+  if (v4)
+  {
+    if (*(a2 + 28))
+    {
+      v5 = *(a2 + 4);
+      if (!proto::gpsd::Request_Type_IsValid(v5))
+      {
+        __assert_rtn("set_request_type", "GpsdProtocol.pb.h", 7674, "::proto::gpsd::Request_Type_IsValid(value)");
+      }
+
+      *(this + 7) |= 1u;
+      *(this + 4) = v5;
+      v4 = *(a2 + 7);
+    }
+
+    if ((v4 & 2) != 0)
+    {
+      v6 = *(a2 + 1);
+      *(this + 7) |= 2u;
+      *(this + 1) = v6;
+      v4 = *(a2 + 7);
+    }
+
+    if ((v4 & 4) != 0)
+    {
+      v7 = *(a2 + 5);
+      if (v7 >= 0xA)
+      {
+        __assert_rtn("set_result_code", "GpsdProtocol.pb.h", 7719, "::proto::gnss::Result_IsValid(value)");
+      }
+
+      *(this + 7) |= 4u;
+      *(this + 5) = v7;
+    }
+  }
+}
+
+void sub_1000F1654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void proto::gpsd::Response::~Response(proto::gpsd::Response *this)
+{
+  *this = off_100179C88;
+  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
+}
+
+{
+  *this = off_100179C88;
+  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
+}
+
+{
+  *this = off_100179C88;
+  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
+
+  operator delete();
+}
+
+uint64_t proto::gpsd::Response::default_instance(proto::gpsd::Response *this, uint64_t a2, uint64_t a3, const char *a4)
+{
+  result = proto::gpsd::Response::default_instance_;
+  if (!proto::gpsd::Response::default_instance_)
+  {
+    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(0, a2, a3, a4);
+    return proto::gpsd::Response::default_instance_;
+  }
+
+  return result;
+}
+
+uint64_t proto::gpsd::Response::Clear(uint64_t this)
+{
+  if (*(this + 28))
+  {
+    *(this + 8) = 0;
+    *(this + 16) = 0;
+  }
+
+  *(this + 28) = 0;
+  return this;
+}
+
+uint64_t proto::gpsd::Response::MergePartialFromCodedStream(proto::gpsd::Response *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
+{
+  while (1)
+  {
+    while (1)
+    {
+      v5 = *(a2 + 1);
+      if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
+      {
+        TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
+        *(a2 + 8) = TagFallback;
+        if (!TagFallback)
+        {
+          return 1;
+        }
+      }
+
+      else
+      {
+        *(a2 + 8) = TagFallback;
+        *(a2 + 1) = v5 + 1;
+        if (!TagFallback)
+        {
+          return 1;
+        }
+      }
+
+      v7 = TagFallback >> 3;
+      if (TagFallback >> 3 == 3)
+      {
+        if ((TagFallback & 7) == 0)
+        {
+          v12 = *(a2 + 1);
+          v10 = *(a2 + 2);
+          goto LABEL_35;
+        }
+
+        goto LABEL_16;
+      }
+
+      if (v7 == 2)
+      {
+        break;
+      }
+
+      if (v7 != 1 || (TagFallback & 7) != 0)
+      {
+        goto LABEL_16;
+      }
+
+      v19 = 0;
+      v8 = *(a2 + 1);
+      if (v8 >= *(a2 + 2) || (v9 = *v8, (v9 & 0x80000000) != 0))
+      {
+        result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v19);
+        if (!result)
+        {
+          return result;
+        }
+
+        v9 = v19;
+      }
+
+      else
+      {
+        *(a2 + 1) = v8 + 1;
+      }
+
+      if (proto::gpsd::Request_Type_IsValid(v9))
+      {
+        *(this + 7) |= 1u;
+        *(this + 4) = v9;
+      }
+
+      v13 = *(a2 + 1);
+      v10 = *(a2 + 2);
+      if (v13 < v10 && *v13 == 16)
+      {
+        v11 = v13 + 1;
+        *(a2 + 1) = v11;
+LABEL_27:
+        if (v11 >= v10 || (v14 = *v11, v14 < 0))
+        {
+          result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint64Fallback(a2, this + 1);
+          if (!result)
+          {
+            return result;
+          }
+
+          v15 = *(a2 + 1);
+          v10 = *(a2 + 2);
+        }
+
+        else
+        {
+          *(this + 1) = v14;
+          v15 = v11 + 1;
+          *(a2 + 1) = v15;
+        }
+
+        *(this + 7) |= 2u;
+        if (v15 < v10 && *v15 == 24)
+        {
+          v12 = v15 + 1;
+          *(a2 + 1) = v12;
+LABEL_35:
+          v18 = 0;
+          if (v12 >= v10 || (v16 = *v12, (v16 & 0x80000000) != 0))
+          {
+            result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v18);
+            if (!result)
+            {
+              return result;
+            }
+
+            v16 = v18;
+          }
+
+          else
+          {
+            *(a2 + 1) = v12 + 1;
+          }
+
+          if (v16 <= 9)
+          {
+            *(this + 7) |= 4u;
+            *(this + 5) = v16;
+          }
+
+          if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
+          {
+            *(a2 + 8) = 0;
+            result = 1;
+            *(a2 + 36) = 1;
+            return result;
+          }
+        }
+      }
+    }
+
+    if ((TagFallback & 7) == 0)
+    {
+      v11 = *(a2 + 1);
+      v10 = *(a2 + 2);
+      goto LABEL_27;
+    }
+
+LABEL_16:
+    if ((TagFallback & 7) == 4)
+    {
+      return 1;
+    }
+
+    if ((wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(a2, TagFallback, a3) & 1) == 0)
+    {
+      return 0;
     }
   }
 }

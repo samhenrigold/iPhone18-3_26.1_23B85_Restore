@@ -47,14 +47,13 @@
 
 - (NSString)unparsedVolumeUUID
 {
-  v9 = *MEMORY[0x1E69E9840];
-  *v7 = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  *v6 = 0;
   v2 = [(QLThumbnailAdditionEntry *)self vol_uuid:0];
   [v2 getBytes:uu length:16];
 
-  uuid_unparse_upper(uu, v6);
-  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
-  v4 = *MEMORY[0x1E69E9840];
+  uuid_unparse_upper(uu, v5);
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v5];
 
   return v3;
 }

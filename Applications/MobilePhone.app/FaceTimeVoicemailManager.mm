@@ -33,7 +33,7 @@
 
 - (void)voicemailWithIdentifier:(MPMessageID *)identifier completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -63,13 +63,13 @@
   if (notifications)
   {
     selfCopy = self;
-    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(0, 3u);
+    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(0, 3);
   }
 }
 
 - (void)deleteVoicemails:(NSArray *)voicemails completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -96,7 +96,7 @@
 
 - (void)markVoicemailsAsRead:(NSArray *)read completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -123,7 +123,7 @@
 
 - (void)trashVoicemails:(NSArray *)voicemails completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -150,7 +150,7 @@
 
 - (void)removeVoicemailsFromTrash:(NSArray *)trash completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -178,7 +178,7 @@
 - (void)messagesPassingTest:(id)test completion:
 {
   v4 = v3;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(test);
@@ -207,14 +207,14 @@
 {
   voicemailCopy = voicemail;
   selfCopy = self;
-  specialized FaceTimeVoicemailManager.reportTranscription(isAccurate:for:)();
+  specialized FaceTimeVoicemailManager.reportTranscription(isAccurate:for:)(v6);
 }
 
 - (void)reportTranscriptionProblemForVoicemail:(id)voicemail
 {
   voicemailCopy = voicemail;
   selfCopy = self;
-  specialized FaceTimeVoicemailManager.reportTranscription(isAccurate:for:)();
+  specialized FaceTimeVoicemailManager.reportTranscription(isAccurate:for:)(v5);
 }
 
 @end

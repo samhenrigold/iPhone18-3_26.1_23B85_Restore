@@ -25,29 +25,29 @@
 
 - (void)_loadOutputDevices
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = [-[AVOutputDeviceDiscoverySessionAvailableOutputDevices impl](self "impl")];
   self->_availableOutputDevices->_recentlyUsedDevices = objc_alloc_init(MEMORY[0x1E695DF70]);
   self->_availableOutputDevices->_otherDevices = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         [v8 frecencyScore];
         if (v9 <= 0.0)
         {
@@ -62,7 +62,7 @@
         [*(&self->_availableOutputDevices->super.isa + v10) addObject:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -74,7 +74,6 @@
   }
 
   [(NSMutableArray *)self->_availableOutputDevices->_otherDevices sortUsingComparator:&__block_literal_global_137];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)otherDevices

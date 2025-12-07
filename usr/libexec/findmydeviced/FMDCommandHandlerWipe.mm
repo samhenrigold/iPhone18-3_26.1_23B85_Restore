@@ -7,38 +7,38 @@
 
 - (void)handleCommand
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID = [(FMDCommandHandler *)self fm_logID];
     *buf = 138412290;
-    v44 = fm_logID;
+    v46 = fm_logID;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@: Handling a Remote Wipe command from server...", buf, 0xCu);
   }
 
   v5 = +[NSMutableDictionary dictionary];
   v6 = +[NSMutableDictionary dictionary];
-  v37 = 0u;
-  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   commandParams = [(FMDCommandHandler *)self commandParams];
-  v8 = [commandParams countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v8 = [commandParams countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v38;
+    v10 = *v40;
     do
     {
       v11 = 0;
       do
       {
-        if (*v38 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(commandParams);
         }
 
-        v12 = *(*(&v37 + 1) + 8 * v11);
+        v12 = *(*(&v39 + 1) + 8 * v11);
         commandParams2 = [(FMDCommandHandler *)self commandParams];
         v14 = [commandParams2 objectForKeyedSubscript:v12];
 
@@ -51,7 +51,7 @@
       }
 
       while (v9 != v11);
-      v9 = [commandParams countByEnumeratingWithState:&v37 objects:v47 count:16];
+      v9 = [commandParams countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
     while (v9);
@@ -82,62 +82,63 @@
   commandParams6 = [(FMDCommandHandler *)self commandParams];
   v27 = [commandParams6 objectForKeyedSubscript:@"ownerNbr"];
 
-  v28 = sub_100002880();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v29 = sub_100002880(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v44 = v25;
-    v45 = 2112;
-    v46 = v27;
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Lock screen message : %@, phone number : %@", buf, 0x16u);
+    v46 = v25;
+    v47 = 2112;
+    v48 = v27;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Lock screen message : %@, phone number : %@", buf, 0x16u);
   }
 
-  if ([(__CFString *)v25 length]|| [(__CFString *)v27 length])
+  v30 = [(__CFString *)v25 length];
+  if (v30 || (v30 = [(__CFString *)v27 length]) != 0)
   {
-    v29 = sub_100002880();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = sub_100002880(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Saving lock screen info to be preserved across wipe", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Saving lock screen info to be preserved across wipe", buf, 2u);
     }
 
-    v41[0] = @"lostModeEnabled";
-    v41[1] = @"lostModeMessage";
-    v30 = &stru_1002DCE08;
+    v43[0] = @"lostModeEnabled";
+    v43[1] = @"lostModeMessage";
+    v32 = &stru_1002DCE08;
     if (v25)
     {
-      v31 = v25;
+      v33 = v25;
     }
 
     else
     {
-      v31 = &stru_1002DCE08;
+      v33 = &stru_1002DCE08;
     }
 
-    v42[0] = &__kCFBooleanTrue;
-    v42[1] = v31;
-    v41[2] = @"lostModeOwnerNumber";
+    v44[0] = &__kCFBooleanTrue;
+    v44[1] = v33;
+    v43[2] = @"lostModeOwnerNumber";
     if (v27)
     {
-      v30 = v27;
+      v32 = v27;
     }
 
-    v42[2] = v30;
-    v32 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:3];
-    [FMDPreferencesMgr setFMIPWipeLostModeInfo:v32];
+    v44[2] = v32;
+    v34 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:3];
+    [FMDPreferencesMgr setFMIPWipeLostModeInfo:v34];
   }
 
   [FMDPreferencesMgr setWipeInfo:v5];
   [FMDPreferencesMgr setWipeState:1];
   [(FMDCommandHandler *)self provider];
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = sub_10013EA8C;
-  v34[3] = &unk_1002CDE08;
-  v35 = v34[4] = self;
-  v36 = v23;
-  v33 = v35;
-  [FMDDispatchTransaction dispatchTransactionAsync:&_dispatch_main_q transactionName:@"FMDCommandHandlerWipeDispatchAction" block:v34];
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = sub_10013EA8C;
+  v36[3] = &unk_1002CDE08;
+  v37 = v36[4] = self;
+  v38 = v23;
+  v35 = v37;
+  [FMDDispatchTransaction dispatchTransactionAsync:&_dispatch_main_q transactionName:@"FMDCommandHandlerWipeDispatchAction" block:v36];
 }
 
 - (void)sendAckWithCompletion:(id)completion

@@ -8,19 +8,15 @@
 
 + (id)MSSafeUnarchiveObjectWithFile:()MSUtilities outError:
 {
-  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v5];
   v7 = [objc_opt_class() MSSafeUnarchiveObjectWithData:v6 outError:a4];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)MSSafeUnarchiveObjectWithData:()MSUtilities outError:
 {
-  v12 = *MEMORY[0x277D85DE8];
   v6 = a3;
   if (v6)
   {
@@ -39,8 +35,6 @@
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

@@ -13,27 +13,25 @@
 
 - (NSArray)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   simpleLabel = [(HMAccessCodeUserInformationValue *)self simpleLabel];
   defaultFormatter = [MEMORY[0x1E69A2A48] defaultFormatter];
   v6 = [v3 initWithName:@"simpleLabel" value:simpleLabel options:2 formatter:defaultFormatter];
-  v19[0] = v6;
+  v18[0] = v6;
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
   labelIdentifier = [(HMAccessCodeUserInformationValue *)self labelIdentifier];
   v9 = [v7 initWithName:@"labelIdentifier" value:labelIdentifier];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = objc_alloc(MEMORY[0x1E69A29C8]);
   userUUID = [(HMAccessCodeUserInformationValue *)self userUUID];
   v12 = [v10 initWithName:@"userUUID" value:userUUID];
-  v19[2] = v12;
+  v18[2] = v12;
   v13 = objc_alloc(MEMORY[0x1E69A29C8]);
   removedUserInfo = [(HMAccessCodeUserInformationValue *)self removedUserInfo];
   v15 = [v13 initWithName:@"removedUserInfo" value:removedUserInfo];
-  v19[3] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v18[3] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
 
   return v16;
 }
@@ -102,34 +100,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  simpleLabel = [(HMAccessCodeUserInformationValue *)self simpleLabel];
-  simpleLabel2 = [v6 simpleLabel];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_9;
-  }
-
-  labelIdentifier = [(HMAccessCodeUserInformationValue *)self labelIdentifier];
-  labelIdentifier2 = [v6 labelIdentifier];
-  v12 = HMFEqualObjects();
-
-  if (!v12)
-  {
-    goto LABEL_9;
-  }
-
-  userUUID = [(HMAccessCodeUserInformationValue *)self userUUID];
-  userUUID2 = [v6 userUUID];
-  v15 = HMFEqualObjects();
-
-  if (v15)
+  if (v6 && (-[HMAccessCodeUserInformationValue simpleLabel](self, "simpleLabel"), v7 = objc_claimAutoreleasedReturnValue(), [v6 simpleLabel], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (-[HMAccessCodeUserInformationValue labelIdentifier](self, "labelIdentifier"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "labelIdentifier"), v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && (-[HMAccessCodeUserInformationValue userUUID](self, "userUUID"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "userUUID"), v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15))
   {
     removedUserInfo = [(HMAccessCodeUserInformationValue *)self removedUserInfo];
     removedUserInfo2 = [v6 removedUserInfo];
@@ -138,7 +109,6 @@
 
   else
   {
-LABEL_9:
     v18 = 0;
   }
 

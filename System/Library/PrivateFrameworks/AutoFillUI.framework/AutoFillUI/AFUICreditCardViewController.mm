@@ -16,6 +16,7 @@
 - (void)setModalPresentationStyleForDevice;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayHeaderView:(id)headerView forSection:(int64_t)section;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -146,10 +147,10 @@ LABEL_9:
 
 - (void)viewDidLoad
 {
-  v84[4] = *MEMORY[0x1E69E9840];
-  v82.receiver = self;
-  v82.super_class = AFUICreditCardViewController;
-  [(AFUICreditCardViewController *)&v82 viewDidLoad];
+  v83[4] = *MEMORY[0x1E69E9840];
+  v81.receiver = self;
+  v81.super_class = AFUICreditCardViewController;
+  [(AFUICreditCardViewController *)&v81 viewDidLoad];
   [(AFUICreditCardViewController *)self setModalPresentationStyleForDevice];
   v3 = objc_initWeak(&location, self);
   v4 = [(AFUICreditCardViewController *)self processSuggestions:self->_suggestions];
@@ -166,7 +167,7 @@ LABEL_9:
 
   v9 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:1 target:self action:sel_cancelButtonTapped_];
   [navigationItem setLeftBarButtonItem:v9];
-  v52 = v9;
+  v51 = v9;
   v10 = objc_alloc(MEMORY[0x1E69DD020]);
   v11 = [v10 initWithFrame:2 style:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
   [(AFUICreditCardViewController *)self setTableView:v11];
@@ -213,29 +214,29 @@ LABEL_9:
   systemGroupedBackgroundColor = [MEMORY[0x1E69DC888] systemGroupedBackgroundColor];
   [v26 setBackgroundColor:systemGroupedBackgroundColor];
 
-  v60 = MEMORY[0x1E696ACD8];
+  v59 = MEMORY[0x1E696ACD8];
   topAnchor = [v26 topAnchor];
   view4 = [(AFUICreditCardViewController *)self view];
   topAnchor2 = [view4 topAnchor];
-  v72 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v84[0] = v72;
+  v71 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v83[0] = v71;
   leadingAnchor = [v26 leadingAnchor];
   view5 = [(AFUICreditCardViewController *)self view];
   leadingAnchor2 = [view5 leadingAnchor];
-  v64 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v84[1] = v64;
+  v63 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v83[1] = v63;
   trailingAnchor = [v26 trailingAnchor];
   view6 = [(AFUICreditCardViewController *)self view];
   trailingAnchor2 = [view6 trailingAnchor];
   v31 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v84[2] = v31;
+  v83[2] = v31;
   bottomAnchor = [v26 bottomAnchor];
   view7 = [(AFUICreditCardViewController *)self view];
   bottomAnchor2 = [view7 bottomAnchor];
   v35 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v84[3] = v35;
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:4];
-  [v60 activateConstraints:v36];
+  v83[3] = v35;
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:4];
+  [v59 activateConstraints:v36];
 
   layer = [v26 layer];
   [layer setCornerRadius:10.0];
@@ -249,43 +250,51 @@ LABEL_9:
   selectedCellLabel6 = [(AFUICreditCardViewController *)self selectedCellLabel];
   [v26 addSubview:selectedCellLabel6];
 
-  v51 = MEMORY[0x1E696ACD8];
+  v50 = MEMORY[0x1E696ACD8];
   tableView6 = [(AFUICreditCardViewController *)self tableView];
   topAnchor3 = [tableView6 topAnchor];
   topAnchor4 = [v26 topAnchor];
-  v73 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v83[0] = v73;
+  v72 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+  v82[0] = v72;
   tableView7 = [(AFUICreditCardViewController *)self tableView];
   leadingAnchor3 = [tableView7 leadingAnchor];
   leadingAnchor4 = [v26 leadingAnchor];
-  v65 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v83[1] = v65;
+  v64 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v82[1] = v64;
   tableView8 = [(AFUICreditCardViewController *)self tableView];
   trailingAnchor3 = [tableView8 trailingAnchor];
   trailingAnchor4 = [v26 trailingAnchor];
-  v58 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v83[2] = v58;
+  v57 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  v82[2] = v57;
   tableView9 = [(AFUICreditCardViewController *)self tableView];
   bottomAnchor3 = [tableView9 bottomAnchor];
   bottomAnchor4 = [v26 bottomAnchor];
-  v54 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v83[3] = v54;
+  v53 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+  v82[3] = v53;
   selectedCellLabel7 = [(AFUICreditCardViewController *)self selectedCellLabel];
   topAnchor5 = [selectedCellLabel7 topAnchor];
   tableView10 = [(AFUICreditCardViewController *)self tableView];
   bottomAnchor5 = [tableView10 bottomAnchor];
   v44 = [topAnchor5 constraintEqualToAnchor:bottomAnchor5 constant:10.0];
-  v83[4] = v44;
+  v82[4] = v44;
   selectedCellLabel8 = [(AFUICreditCardViewController *)self selectedCellLabel];
   centerXAnchor = [selectedCellLabel8 centerXAnchor];
   centerXAnchor2 = [v26 centerXAnchor];
   v48 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v83[5] = v48;
-  v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:6];
-  [v51 activateConstraints:v49];
+  v82[5] = v48;
+  v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:6];
+  [v50 activateConstraints:v49];
 
   objc_destroyWeak(&location);
-  v50 = *MEMORY[0x1E69E9840];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = AFUICreditCardViewController;
+  [(AFUICreditCardViewController *)&v5 viewDidDisappear:disappear];
+  modalUIDelegate = [(AFUICreditCardViewController *)self modalUIDelegate];
+  [modalUIDelegate creditCardsUIDidEndForSessionUUID:0 completion:0];
 }
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section
@@ -311,7 +320,7 @@ LABEL_9:
 
 - (id)createSectionHeaderViewWithTitle:(id)title icon:(CGImage *)icon
 {
-  v46[7] = *MEMORY[0x1E69E9840];
+  v45[7] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69DD250];
   titleCopy = title;
   v8 = [v6 alloc];
@@ -345,31 +354,31 @@ LABEL_9:
   [v10 addSubview:v14];
   Width = CGImageGetWidth(icon);
   Height = CGImageGetHeight(icon);
-  v37 = MEMORY[0x1E696ACD8];
+  v36 = MEMORY[0x1E696ACD8];
   leadingAnchor = [v11 leadingAnchor];
   leadingAnchor2 = [v10 leadingAnchor];
-  v43 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
-  v46[0] = v43;
+  v42 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
+  v45[0] = v42;
   trailingAnchor = [v11 trailingAnchor];
   leadingAnchor3 = [v14 leadingAnchor];
-  v40 = [trailingAnchor constraintEqualToAnchor:leadingAnchor3];
-  v46[1] = v40;
+  v39 = [trailingAnchor constraintEqualToAnchor:leadingAnchor3];
+  v45[1] = v39;
   heightAnchor = [v11 heightAnchor];
   heightAnchor2 = [v10 heightAnchor];
-  v36 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-  v46[2] = v36;
+  v35 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
+  v45[2] = v35;
   trailingAnchor2 = [v14 trailingAnchor];
   trailingAnchor3 = [v10 trailingAnchor];
-  v33 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
-  v46[3] = v33;
+  v32 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
+  v45[3] = v32;
   topAnchor = [v14 topAnchor];
-  v32 = v10;
+  v31 = v10;
   topAnchor2 = [v10 topAnchor];
   v22 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:6.0];
-  v46[4] = v22;
+  v45[4] = v22;
   heightAnchor3 = [v14 heightAnchor];
   v24 = [heightAnchor3 constraintEqualToConstant:30.0];
-  v46[5] = v24;
+  v45[5] = v24;
   widthAnchor = [v14 widthAnchor];
   v26 = widthAnchor;
   v27 = 36.0;
@@ -379,13 +388,11 @@ LABEL_9:
   }
 
   v28 = [widthAnchor constraintEqualToConstant:v27];
-  v46[6] = v28;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:7];
-  [v37 activateConstraints:v29];
+  v45[6] = v28;
+  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:7];
+  [v36 activateConstraints:v29];
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v32;
+  return v31;
 }
 
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section

@@ -40,7 +40,7 @@
   v6 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained cameraState];
+    objc_msgSend_cameraState(WeakRetained);
   }
 
   else
@@ -196,7 +196,7 @@
   v9 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained groundPointFromScreenPoint:{x, y}];
+    objc_msgSend_groundPointFromScreenPoint_(WeakRetained, x, y);
   }
 
   else
@@ -250,16 +250,16 @@
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    position = [WeakRetained position];
+    v4 = objc_msgSend_position(WeakRetained);
   }
 
   {
-    position = &[VKForwardMovableCamera position]::zero;
+    v4 = &[VKForwardMovableCamera position]::zero;
   }
 
   else
   {
-    position = &[VKForwardMovableCamera position]::zero;
+    v4 = &[VKForwardMovableCamera position]::zero;
     {
       [VKForwardMovableCamera position]::zero = 0;
       unk_1EB8435E0 = 0;
@@ -267,7 +267,7 @@
     }
   }
 
-  return position;
+  return v4;
 }
 
 - (void)setPosition:(const void *)position

@@ -7,10 +7,10 @@
 
 - (id)urlComponentsWithStoreURLBag:(id)bag error:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = NMAPISearchGroupRequest;
-  v5 = [(NMAPIURLRequest *)&v24 urlComponentsWithStoreURLBag:bag error:error];
+  v24[1] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = NMAPISearchGroupRequest;
+  v5 = [(NMAPIURLRequest *)&v23 urlComponentsWithStoreURLBag:bag error:error];
   v6 = v5;
   if (self->_resultsPerSection)
   {
@@ -33,12 +33,10 @@
   v17 = MEMORY[0x277CCAD18];
   v18 = [&unk_286C7E450 componentsJoinedByString:{@", "}];
   v19 = [v17 queryItemWithName:@"with" value:v18];
-  v25[0] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[0] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   v21 = [queryItems3 arrayByAddingObjectsFromArray:v20];
   [v6 setQueryItems:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

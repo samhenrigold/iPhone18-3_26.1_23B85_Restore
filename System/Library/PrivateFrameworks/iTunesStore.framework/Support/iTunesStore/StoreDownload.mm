@@ -822,160 +822,175 @@
       shouldLog = [v9 shouldLog];
       if ([v9 shouldLogToDisk])
       {
-        v11 = shouldLog | 2;
+        LODWORD(v11) = shouldLog | 2;
       }
 
       else
       {
-        v11 = shouldLog;
+        LODWORD(v11) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject = [v9 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v11 = v11;
+      }
+
+      else
       {
         v11 &= 2u;
       }
 
       if (v11)
       {
-        v46 = 138412546;
-        v47 = objc_opt_class();
-        v48 = 2112;
+        v49 = 138412546;
+        v50 = objc_opt_class();
+        v51 = 2112;
         bundleIdentifier = [(StoreDownload *)self bundleIdentifier];
-        LODWORD(v40) = 22;
-        v38 = &v46;
-        v12 = _os_log_send_and_compose_impl();
-        if (v12)
+        v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@]: Enumerating delta packages for: %@", &v49, 22);
+        if (v13)
         {
-          v13 = v12;
-          v14 = [NSString stringWithCString:v12 encoding:4, &v46, v40];
-          free(v13);
-          v38 = v14;
+          v14 = v13;
+          v15 = [NSString stringWithCString:v13 encoding:4];
+          free(v14);
+          v41 = v15;
           SSFileLog();
         }
       }
 
-      v43 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       v44 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v15 = [v6 countByEnumeratingWithState:&v41 objects:v45 count:{16, v38}];
-      if (v15)
+      v45 = 0u;
+      v16 = [v6 countByEnumeratingWithState:&v44 objects:v48 count:{16, v41}];
+      if (v16)
       {
-        v16 = v15;
-        v17 = *v42;
+        v17 = v16;
+        v18 = *v45;
         while (2)
         {
-          for (i = 0; i != v16; i = i + 1)
+          for (i = 0; i != v17; i = i + 1)
           {
-            if (*v42 != v17)
+            if (*v45 != v18)
             {
               objc_enumerationMutation(v6);
             }
 
-            v19 = *(*(&v41 + 1) + 8 * i);
+            v20 = *(*(&v44 + 1) + 8 * i);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [(StoreDownload *)self _patchPackageDictionary:v19 matchesInstallApplication:v8])
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [(StoreDownload *)self _patchPackageDictionary:v20 matchesInstallApplication:v8])
             {
-              v20 = +[SSLogConfig sharedDaemonConfig];
-              if (!v20)
+              v21 = +[SSLogConfig sharedDaemonConfig];
+              if (!v21)
               {
-                v20 = +[SSLogConfig sharedConfig];
+                v21 = +[SSLogConfig sharedConfig];
               }
 
-              shouldLog2 = [v20 shouldLog];
-              if ([v20 shouldLogToDisk])
+              shouldLog2 = [v21 shouldLog];
+              if ([v21 shouldLogToDisk])
               {
-                v22 = shouldLog2 | 2;
+                LODWORD(v23) = shouldLog2 | 2;
               }
 
               else
               {
-                v22 = shouldLog2;
+                LODWORD(v23) = shouldLog2;
               }
 
-              if (!os_log_type_enabled([v20 OSLogObject], OS_LOG_TYPE_INFO))
+              oSLogObject2 = [v21 OSLogObject];
+              if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
               {
-                v22 &= 2u;
+                v23 = v23;
               }
 
-              if (v22)
+              else
               {
-                v23 = objc_opt_class();
+                v23 &= 2u;
+              }
+
+              if (v23)
+              {
+                v25 = objc_opt_class();
                 bundleIdentifier2 = [(StoreDownload *)self bundleIdentifier];
-                v46 = 138412546;
-                v47 = v23;
-                v48 = 2112;
+                v49 = 138412546;
+                v50 = v25;
+                v51 = 2112;
                 bundleIdentifier = bundleIdentifier2;
-                LODWORD(v40) = 22;
-                v39 = &v46;
-                v25 = _os_log_send_and_compose_impl();
-                if (v25)
+                LODWORD(v43) = 22;
+                v27 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "[%@]: Found delta package for: %@", &v49, v43);
+                if (v27)
                 {
-                  v26 = v25;
-                  v27 = [NSString stringWithCString:v25 encoding:4, &v46, v40];
-                  free(v26);
-                  v39 = v27;
+                  v28 = v27;
+                  v29 = [NSString stringWithCString:v27 encoding:4];
+                  free(v28);
+                  v42 = v29;
                   SSFileLog();
                 }
               }
 
-              v28 = [(StoreDownload *)self _newPrimaryAssetsWithAssetDictionary:v19 assetType:SSDownloadAssetTypeDeltaPackage, v39];
-              if (v28)
+              v30 = [(StoreDownload *)self _newPrimaryAssetsWithAssetDictionary:v20 assetType:SSDownloadAssetTypeDeltaPackage, v42];
+              if (v30)
               {
-                v29 = v28;
-                [v5 addObjectsFromArray:v28];
+                v31 = v30;
+                [v5 addObjectsFromArray:v30];
               }
 
               else
               {
-                v31 = +[SSLogConfig sharedDaemonConfig];
-                if (!v31)
+                v33 = +[SSLogConfig sharedDaemonConfig];
+                if (!v33)
                 {
-                  v31 = +[SSLogConfig sharedConfig];
+                  v33 = +[SSLogConfig sharedConfig];
                 }
 
-                shouldLog3 = [v31 shouldLog];
-                if ([v31 shouldLogToDisk])
+                shouldLog3 = [v33 shouldLog];
+                if ([v33 shouldLogToDisk])
                 {
-                  v33 = shouldLog3 | 2;
+                  LODWORD(v35) = shouldLog3 | 2;
                 }
 
                 else
                 {
-                  v33 = shouldLog3;
+                  LODWORD(v35) = shouldLog3;
                 }
 
-                if (!os_log_type_enabled([v31 OSLogObject], OS_LOG_TYPE_DEFAULT))
+                oSLogObject3 = [v33 OSLogObject];
+                if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
                 {
-                  v33 &= 2u;
+                  v35 = v35;
                 }
 
-                if (v33)
+                else
                 {
-                  v34 = objc_opt_class();
+                  v35 &= 2u;
+                }
+
+                if (v35)
+                {
+                  v37 = objc_opt_class();
                   bundleIdentifier3 = [(StoreDownload *)self bundleIdentifier];
-                  v46 = 138412546;
-                  v47 = v34;
-                  v48 = 2112;
+                  v49 = 138412546;
+                  v50 = v37;
+                  v51 = 2112;
                   bundleIdentifier = bundleIdentifier3;
-                  LODWORD(v40) = 22;
-                  v36 = _os_log_send_and_compose_impl();
-                  if (v36)
+                  LODWORD(v43) = 22;
+                  v39 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "[%@]: Delta had no assets for: %@", &v49, v43);
+                  if (v39)
                   {
-                    v37 = v36;
-                    [NSString stringWithCString:v36 encoding:4, &v46, v40];
-                    free(v37);
+                    v40 = v39;
+                    [NSString stringWithCString:v39 encoding:4];
+                    free(v40);
                     SSFileLog();
                   }
                 }
               }
 
-              goto LABEL_35;
+              goto LABEL_37;
             }
           }
 
-          v16 = [v6 countByEnumeratingWithState:&v41 objects:v45 count:16];
-          if (v16)
+          v17 = [v6 countByEnumeratingWithState:&v44 objects:v48 count:16];
+          if (v17)
           {
             continue;
           }
@@ -985,7 +1000,7 @@
       }
     }
 
-LABEL_35:
+LABEL_37:
     objc_autoreleasePoolPop(v7);
   }
 
@@ -1039,87 +1054,97 @@ LABEL_35:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      v27 = 138413058;
-      v28 = objc_opt_class();
-      v29 = 2112;
-      bundleIdentifier = [application bundleIdentifier];
+      v29 = 138413058;
+      v30 = objc_opt_class();
       v31 = 2112;
-      v32 = externalVersionIdentifier;
+      bundleIdentifier = [application bundleIdentifier];
       v33 = 2112;
-      v34 = v7;
-      LODWORD(v26) = 42;
-      v25 = &v27;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v34 = externalVersionIdentifier;
+      v35 = 2112;
+      v36 = v7;
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%@]: Found version match for %@: %@ -> %@", &v29, 42);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v27, v26];
-        free(v13);
-        v25 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v27 = v15;
         SSFileLog();
       }
     }
 
     applicationVariant = [application applicationVariant];
-    v16 = [dictionary objectForKey:SSDownloadMetadataKeyVariantIdentifier];
-    if (applicationVariant == v16 || (v8 = [applicationVariant isEqual:v16]) != 0)
+    v17 = [dictionary objectForKey:SSDownloadMetadataKeyVariantIdentifier];
+    if (applicationVariant == v17 || (v8 = [applicationVariant isEqual:v17]) != 0)
     {
-      v17 = +[SSLogConfig sharedDaemonConfig];
-      if (!v17)
+      v18 = +[SSLogConfig sharedDaemonConfig];
+      if (!v18)
       {
-        v17 = +[SSLogConfig sharedConfig];
+        v18 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v17 shouldLog];
-      if ([v17 shouldLogToDisk])
+      shouldLog2 = [v18 shouldLog];
+      if ([v18 shouldLogToDisk])
       {
-        v19 = shouldLog2 | 2;
+        LODWORD(v20) = shouldLog2 | 2;
       }
 
       else
       {
-        v19 = shouldLog2;
+        LODWORD(v20) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject2 = [v18 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
       {
-        v19 &= 2u;
+        v20 = v20;
       }
 
-      if (v19)
+      else
       {
-        v20 = objc_opt_class();
+        v20 &= 2u;
+      }
+
+      if (v20)
+      {
+        v22 = objc_opt_class();
         bundleIdentifier2 = [application bundleIdentifier];
-        v27 = 138413058;
-        v28 = v20;
-        v29 = 2112;
-        bundleIdentifier = bundleIdentifier2;
+        v29 = 138413058;
+        v30 = v22;
         v31 = 2112;
-        v32 = applicationVariant;
+        bundleIdentifier = bundleIdentifier2;
         v33 = 2112;
-        v34 = v16;
-        LODWORD(v26) = 42;
-        v22 = _os_log_send_and_compose_impl();
-        if (v22)
+        v34 = applicationVariant;
+        v35 = 2112;
+        v36 = v17;
+        LODWORD(v28) = 42;
+        v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "[%@]: Found variant match for %@: %@ -> %@", &v29, v28);
+        if (v24)
         {
-          v23 = v22;
-          [NSString stringWithCString:v22 encoding:4, &v27, v26];
-          free(v23);
+          v25 = v24;
+          [NSString stringWithCString:v24 encoding:4];
+          free(v25);
           SSFileLog();
         }
       }

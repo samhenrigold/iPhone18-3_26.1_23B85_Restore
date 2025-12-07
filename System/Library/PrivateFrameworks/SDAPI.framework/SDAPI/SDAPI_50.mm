@@ -1,26 +1,3 @@
-BOOL LinkSegment::operator==(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 20) == *(a2 + 20) && *(a1 + 16) == *(a2 + 16) && *(a1 + 18) == *(a2 + 18) && *(a1 + 24) == *(a2 + 24) && *(a1 + 12) == *(a2 + 12))
-  {
-    v2 = 0;
-    while (*(a1 + v2) == *(a2 + v2))
-    {
-      v2 += 2;
-      if (v2 == 10)
-      {
-        if (*(a1 + 10) != *(a2 + 10))
-        {
-          return 0;
-        }
-
-        return *(a1 + 11) == *(a2 + 11);
-      }
-    }
-  }
-
-  return 0;
-}
-
 uint64_t sizeObject<LatticeLink<WordLatticeLC>>(uint64_t a1, int a2)
 {
   memset(v12, 0, sizeof(v12));
@@ -73,11 +50,11 @@ uint64_t sizeObject<LatticeLink<WordLatticeLC>>(uint64_t a1, int a2)
   return v6;
 }
 
-unint64_t DgnArray<LinkSegment>::copyArraySlice(unint64_t result, void *a2, unsigned int a3, unsigned int a4)
+uint64_t *DgnArray<LinkSegment>::copyArraySlice(uint64_t *result, void *a2, unsigned int a3, unsigned int a4)
 {
   v7 = result;
-  *(result + 8) = 0;
-  v8 = *(result + 12);
+  *(result + 2) = 0;
+  v8 = *(result + 3);
   if (a4 <= v8)
   {
     v9 = 0;
@@ -91,7 +68,7 @@ unint64_t DgnArray<LinkSegment>::copyArraySlice(unint64_t result, void *a2, unsi
   else
   {
     result = DgnArray<FstSearchLatticeHashBackoffActiveToken>::reallocElts(result, a4 - v8, 0);
-    v9 = *(v7 + 8);
+    v9 = *(v7 + 2);
   }
 
   v11 = a4;
@@ -108,8 +85,8 @@ unint64_t DgnArray<LinkSegment>::copyArraySlice(unint64_t result, void *a2, unsi
     *(v13 + 12) = *(v12 + 12);
     *(v13 + 16) = *(v12 + 16);
     *(v13 + 20) = *(v12 + 20);
-    v10 = *(v7 + 8) + 1;
-    *(v7 + 8) = v10;
+    v10 = *(v7 + 2) + 1;
+    *(v7 + 2) = v10;
     ++a3;
     --v11;
   }
@@ -133,11 +110,11 @@ LABEL_6:
     while (v15);
   }
 
-  *(v7 + 8) = a4;
+  *(v7 + 2) = a4;
   return result;
 }
 
-uint64_t DgnIOwnArray<DgnPriorityQueue<LatticePath> *>::destructAt(uint64_t result, int a2, int a3)
+void *DgnIOwnArray<DgnPriorityQueue<LatticePath> *>::destructAt(void *result, int a2, int a3)
 {
   if (a3 + a2 > a2)
   {
@@ -223,7 +200,7 @@ void DgnPriorityQueue<LatticePath>::~DgnPriorityQueue(uint64_t a1)
 {
   for (; *(a1 + 64); *(a1 + 8) = Min)
   {
-    Min = DgnHeap<LatticePath>::extractMin(a1 + 56);
+    Min = DgnHeap<LatticePath>::extractMin((a1 + 56));
     *Min = *(a1 + 8);
   }
 
@@ -232,19 +209,19 @@ void DgnPriorityQueue<LatticePath>::~DgnPriorityQueue(uint64_t a1)
   DgnPool::~DgnPool(a1);
 }
 
-uint64_t DgnHeap<LatticePath>::extractMin(uint64_t a1)
+uint64_t DgnHeap<LatticePath>::extractMin(uint64_t **a1)
 {
-  v1 = *(a1 + 8) - 1;
+  v1 = *(a1 + 2) - 1;
   v2 = **a1;
   if (v1 < 1)
   {
-    *(a1 + 8) = 0;
+    *(a1 + 2) = 0;
   }
 
   else
   {
-    **a1 = *(*a1 + 8 * v1);
-    *(a1 + 8) = v1;
+    **a1 = (*a1)[v1];
+    *(a1 + 2) = v1;
     DgnHeap<LatticePath>::heapifyDown(a1, 0);
   }
 
@@ -449,7 +426,6 @@ void Hash<StateIdPair,StateIdPair,StateIdPair,ParseTokenRange>::~Hash(uint64_t a
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t Hash<StateIdPair,StateIdPair,StateIdPair,ParseTokenRange>::~Hash(uint64_t a1)
 {
   *a1 = &unk_2875241A8;
   if (*(a1 + 8))
@@ -460,54 +436,52 @@ uint64_t Hash<StateIdPair,StateIdPair,StateIdPair,ParseTokenRange>::~Hash(uint64
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
-uint64_t Hash<StateIdPair,StateIdPair,StateIdPair,ParseTokenRange>::removeAll(uint64_t result)
+void Hash<StateIdPair,StateIdPair,StateIdPair,ParseTokenRange>::removeAll(uint64_t a1)
 {
-  v1 = result;
-  v2 = *(result + 88);
+  v2 = *(a1 + 88);
   if (v2)
   {
     for (i = 0; i < v2; ++i)
     {
-      v4 = *(v1 + 80);
+      v4 = *(a1 + 80);
       v5 = *(v4 + 8 * i);
       if (v5)
       {
         do
         {
           v6 = *v5;
-          v7 = *(v1 + 96);
+          v7 = *(a1 + 96);
           if (v7)
           {
             v7(v5 + 12);
           }
 
-          v8 = *(v1 + 104);
+          v8 = *(a1 + 104);
           if (v8)
           {
             v8(v5 + 20);
           }
 
           MrecInitModule_sdpres_sdapi();
-          result = MrecInitModule_sdpres_sdapi();
-          *v5 = *(v1 + 32);
-          *(v1 + 32) = v5;
+          MrecInitModule_sdpres_sdapi();
+          *v5 = *(a1 + 32);
+          *(a1 + 32) = v5;
           v5 = v6;
         }
 
         while (v6);
-        v4 = *(v1 + 80);
-        v2 = *(v1 + 88);
+        v4 = *(a1 + 80);
+        v2 = *(a1 + 88);
       }
 
       *(v4 + 8 * i) = 0;
     }
   }
 
-  *(v1 + 8) = 0;
-  return result;
+  *(a1 + 8) = 0;
 }
 
 __n128 HmmNet::HmmNet(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
@@ -633,7 +607,7 @@ uint64_t HmmNet::unpackNonAcoustic(HmmNet *this)
 
   else
   {
-    PredStruct::addPred(*v3 + 16, v5);
+    PredStruct::addPred((*v3 + 16), v5);
   }
 
   return v2;
@@ -655,7 +629,7 @@ uint64_t HmmNet::unpackEmbeddedFst(HmmNet *this)
 
   else
   {
-    PredStruct::addPred(*v3 + 16, v5);
+    PredStruct::addPred((*v3 + 16), v5);
   }
 
   return v2;
@@ -679,7 +653,7 @@ uint64_t HmmNet::unpackSilence(HmmNet *this)
 
   else
   {
-    PredStruct::addPred(*v3 + 16, v5);
+    PredStruct::addPred((*v3 + 16), v5);
   }
 
   return v2;
@@ -703,7 +677,7 @@ uint64_t HmmNet::unpackNoCoart(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    PredStruct::addPred(*(v8 + 8) + 16, v10);
+    PredStruct::addPred((*(v8 + 8) + 16), v10);
   }
 
   return v7;
@@ -880,7 +854,7 @@ LABEL_11:
   return memset(v5, 255, v3);
 }
 
-void *HmmNet::configureOutPortsInternal(HmmNet *this, unsigned int a2)
+void *HmmNet::configureOutPortsInternal(HmmNet *this, int a2)
 {
   result = HmmNet::initEndIndices(this);
   *(this + 13) = 1;
@@ -908,7 +882,7 @@ void *HmmNet::configureOutPortsInternal(HmmNet *this, unsigned int a2)
   return result;
 }
 
-uint64_t *HmmNet::configureOutPortsExternal(HmmNet *this, unsigned int a2)
+uint64_t *HmmNet::configureOutPortsExternal(HmmNet *this, int a2)
 {
   HmmNet::initEndIndices(this);
   *(this + 13) = 0;
@@ -926,12 +900,12 @@ uint64_t *HmmNet::configureOutPortsExternal(HmmNet *this, unsigned int a2)
     do
     {
       *v6 = 0x100000001;
-      *(v6 + 8) = 1310740000;
-      *(v6 + 16) = 0;
+      *(v6 + 2) = 1310740000;
+      v6[2] = 0;
       *(*(this + 9) + 8 * v5) = v6;
-      *(v6 + 24) = 0;
+      *(v6 + 12) = 0;
       v7 = v5-- + 1;
-      v6 -= 32;
+      v6 -= 4;
     }
 
     while (v7 > 1);
@@ -945,85 +919,85 @@ uint64_t VocGroupInfo::loadVocGroupInfo(VocGroupInfo *this, char **a2)
   v4 = DFile::subFileExists(a2, 0x69u);
   if (v4)
   {
-    v25 = 0;
-    v7 = OpenAndReadMrecHeader(a2, 0x69u, 0, "MRVGI!? ", &v25 + 1, &v25);
-    v24 = 0;
-    if (HIDWORD(v25) == 19 && v25 == 8)
+    v19 = 0;
+    v5 = OpenAndReadMrecHeader(a2, 0x69u, 0, "MRVGI!? ", &v19 + 1, &v19);
+    v18 = 0;
+    if (HIDWORD(v19) == 19 && v19 == 8)
     {
-      MrecHeaderCheckLatestVersionIfShared(a2, "MRVGI!? ", 19, 8, 24, 9, v5, v6);
-      v22 = 0;
-      v23 = 0;
-      v20 = 0;
-      v21 = 0;
-      v18 = 0;
-      v19 = 0;
+      MrecHeaderCheckLatestVersionIfShared(a2, "MRVGI!? ", 19, 8, 24, 9);
       v16 = 0;
       v17 = 0;
-      readObject<unsigned short>(v7, &v22, &v24);
-      readObject<DgnString>(v7, &v20, &v24);
-      readObject<unsigned short>(v7, &v18, &v24);
-      readObject<DFileChecksums>(v7, &v16, &v24);
-      DgnString::DgnString(v15);
-      readObject(v7, v15, &v24);
-      if (v23 >= 2)
+      v14 = 0;
+      v15 = 0;
+      v12 = 0;
+      v13 = 0;
+      v10 = 0;
+      v11 = 0;
+      readObject<unsigned short>(v5, &v16, &v18);
+      readObject<DgnString>(v5, &v14, &v18);
+      readObject<unsigned short>(v5, &v12, &v18);
+      readObject<DFileChecksums>(v5, &v10, &v18);
+      DgnString::DgnString(v9);
+      readObject(v5, v9, &v18);
+      if (v17 >= 2)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/vgroupi.cpp", 106, "voc/vgroupi", 1, "%u %u", v10, v11, v23);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/vgroupi.cpp", 106, "voc/vgroupi", 1, "%u %u", v17, 1);
       }
 
-      DFileChecksums::operator=(this, v16 + 24 * *v22);
-      DgnString::~DgnString(v15);
+      DFileChecksums::operator=(this, v10 + 24 * *v16);
+      DgnString::~DgnString(v9);
     }
 
     else
     {
       if (*(a2 + 6))
       {
-        v9 = a2[2];
+        v7 = a2[2];
       }
 
       else
       {
-        v9 = &byte_262899963;
+        v7 = &byte_262899963;
       }
 
-      MrecHeaderCheckVersions(v9, "MRVGI!? ", HIDWORD(v25), v25, 0x18u, 9u);
-      MrecHeaderCheckLatestVersionIfShared(a2, "MRVGI!? ", SHIDWORD(v25), v25, 24, 9, v12, v13);
-      v22 = 0;
-      v23 = 0;
-      v20 = 0;
-      v21 = 0;
-      v18 = 0;
-      v19 = 0;
+      MrecHeaderCheckVersions(v7, "MRVGI!? ", HIDWORD(v19), v19, 0x18u, 9u);
+      MrecHeaderCheckLatestVersionIfShared(a2, "MRVGI!? ", SHIDWORD(v19), v19, 24, 9);
       v16 = 0;
       v17 = 0;
-      readObject(v7, this, &v24);
+      v14 = 0;
+      v15 = 0;
+      v12 = 0;
+      v13 = 0;
+      v10 = 0;
+      v11 = 0;
+      readObject(v5, this, &v18);
     }
 
-    readObjectChecksumAndVerify(v7, v24);
-    DgnDelete<DgnStream>(v7);
-    DgnArray<DFileChecksums>::releaseAll(&v16);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v18);
-    DgnArray<DgnString>::releaseAll(&v20);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v22);
+    readObjectChecksumAndVerify(v5, v18);
+    DgnDelete<DgnStream>(v5);
+    DgnArray<DFileChecksums>::releaseAll(&v10);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v12);
+    DgnArray<DgnString>::releaseAll(&v14);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v16);
   }
 
   return v4;
 }
 
-void sub_26282FC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26282FC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   va_copy(va3, va2);
-  v12 = va_arg(va3, void);
-  v14 = va_arg(va3, void);
+  v16 = va_arg(va3, void);
+  v18 = va_arg(va3, void);
   DgnArray<DFileChecksums>::releaseAll(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnArray<DgnString>::releaseAll(va2);
@@ -1125,7 +1099,7 @@ void *DgnArray<DFileChecksums>::releaseAll(uint64_t a1)
   return result;
 }
 
-uint64_t MrecInitLibrary_voc(void)
+void MrecInitLibrary_voc(void)
 {
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_sdpres_sdapi();
@@ -1139,14 +1113,14 @@ uint64_t MrecInitLibrary_voc(void)
   MrecInitModule_voc_voc();
   MrecInitModule_sdpres_sdapi();
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
-uint64_t MrecInitLibrarySet_throughVoc(void)
+void MrecInitLibrarySet_throughVoc(void)
 {
   MrecInitLibrarySet_throughLm();
 
-  return MrecInitLibrary_voc();
+  MrecInitLibrary_voc();
 }
 
 void NodeNet::~NodeNet(NodeNet *this)
@@ -1317,18 +1291,18 @@ uint64_t NodeNet::addNodesIndirect(NodeNet *this, int a2)
   return v2;
 }
 
-uint64_t NodeNet::preallocEndSequences(uint64_t this, unsigned int a2, int a3)
+uint64_t *NodeNet::preallocEndSequences(uint64_t *this, unsigned int a2, int a3)
 {
   v3 = this;
-  v4 = *(*(*(*(this + 8) + 16) + 16) + a2) * a3;
-  v5 = *(this + 172);
-  v6 = v4 + *(this + 168);
+  v4 = *(*(*(this[1] + 16) + 16) + a2) * a3;
+  v5 = *(this + 43);
+  v6 = v4 + *(this + 42);
   if (v6 > v5)
   {
-    this = DgnPrimArray<unsigned long long>::reallocElts(this + 160, v6 - v5, 0);
+    this = DgnPrimArray<unsigned long long>::reallocElts((this + 20), v6 - v5, 0);
   }
 
-  if (v3[12])
+  if (*(v3 + 12))
   {
     v7 = v4;
   }
@@ -1338,12 +1312,12 @@ uint64_t NodeNet::preallocEndSequences(uint64_t this, unsigned int a2, int a3)
     v7 = 0;
   }
 
-  v8 = v3[47];
-  v9 = v3[46] + v7 + 1;
+  v8 = *(v3 + 47);
+  v9 = *(v3 + 46) + v7 + 1;
   if (v9 > v8)
   {
 
-    return DgnPrimArray<unsigned long long>::reallocElts((v3 + 44), v9 - v8, 0);
+    return DgnPrimArray<unsigned long long>::reallocElts((v3 + 22), v9 - v8, 0);
   }
 
   return this;
@@ -1516,7 +1490,7 @@ uint64_t NodeNet::unpackEpsilonNodes(NodeNet *this, unsigned int a2, int a3)
   return result;
 }
 
-uint64_t NodeNet::fillTraceNodes(uint64_t result, int a2, int a3, uint64_t a4, int a5, __int16 a6)
+uint64_t NodeNet::fillTraceNodes(uint64_t result, int a2, int a3, uint64_t a4, unsigned int a5, __int16 a6)
 {
   if (a5 >= 1)
   {
@@ -1562,7 +1536,7 @@ uint64_t NodeNet::fillTraceNodes(uint64_t result, int a2, int a3, uint64_t a4, i
   return result;
 }
 
-uint64_t NodeNet::unpackSequence(NodeNet *this, uint64_t a2, int a3, void *a4, void *a5, __int16 a6)
+uint64_t NodeNet::unpackSequence(NodeNet *this, unsigned __int16 *a2, unsigned int a3, void *a4, void *a5, __int16 a6)
 {
   v9 = *(this + 1);
   v10 = *(v9 + 16);
@@ -1570,7 +1544,7 @@ uint64_t NodeNet::unpackSequence(NodeNet *this, uint64_t a2, int a3, void *a4, v
   v12 = 0;
   if (a3 >= 1)
   {
-    v13 = (a2 + 4);
+    v13 = a2 + 2;
     v14 = a3;
     do
     {
@@ -1707,7 +1681,7 @@ uint64_t NodeNet::unpackEndSilence(uint64_t **this)
   *(v2 + 28) = 0;
   if (((*this)[5])(this))
   {
-    NodeNet::fillTraceNodes(this, *(this + 42) - 1, 1, (this[1] + 37848), 1, 0);
+    NodeNet::fillTraceNodes(this, *(this + 42) - 1, 1, (this[1] + 37848), 1u, 0);
   }
 
   v3 = (*(this + 42) - 1);
@@ -1730,7 +1704,7 @@ uint64_t NodeNet::unpackEndSilence(uint64_t **this)
 
   else
   {
-    PredStruct::addPred(*v6 + 16, v5);
+    PredStruct::addPred((*v6 + 16), v5);
     v3 = (*(this + 42) - 1);
   }
 
@@ -1759,15 +1733,15 @@ uint64_t NodeNet::unpackEndSilence(uint64_t **this)
   }
 }
 
-uint64_t NodeNet::unpackOne(uint64_t a1, unsigned __int16 *a2, void *a3, void *a4, __int16 a5)
+uint64_t NodeNet::unpackOne(uint64_t *a1, unsigned __int16 *a2, void *a3, void *a4, __int16 a5)
 {
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = *(v9 + 16);
   v11 = *(v9 + 4);
   v12 = *(*(v10 + 16) + a2[2]);
   NodeNet::addNodesIndirect(a1, v12);
-  v13 = *(a1 + 168);
-  v14 = *(a1 + 8);
+  v13 = *(a1 + 42);
+  v14 = a1[1];
   v15 = v14 + 299008;
   v16 = *(v14 + 302836);
   if (v12 > v16)
@@ -1793,7 +1767,7 @@ uint64_t NodeNet::unpackOne(uint64_t a1, unsigned __int16 *a2, void *a3, void *a
     v20 = ~v19 + v13;
     do
     {
-      *(*(*(a1 + 8) + 302824) + v18) = *(*(a1 + 160) + 8 * v20) + 20;
+      *(*(a1[1] + 302824) + v18) = *(a1[20] + 8 * v20) + 20;
       v18 += 8;
       v20 -= v11;
     }
@@ -1802,27 +1776,27 @@ uint64_t NodeNet::unpackOne(uint64_t a1, unsigned __int16 *a2, void *a3, void *a
   }
 
   v30 = 0;
-  PicMgr::getNodeDataPtrs(v10, *(*(a1 + 8) + 302824), *(*(a1 + 8) + 32), a2, &v30 + 1, &v30);
+  PicMgr::getNodeDataPtrs(v10, *(a1[1] + 302824), *(a1[1] + 32), a2, &v30 + 1, &v30);
   v21 = *a1;
-  v22 = *(a1 + 8) + 299008;
-  *(v22 + 3660) = *(*(a1 + 8) + 302668) + HIDWORD(v30);
+  v22 = a1[1] + 299008;
+  *(v22 + 3660) = *(a1[1] + 302668) + HIDWORD(v30);
   *(v22 + 3664) += v30;
   result = (*(v21 + 40))(a1);
   if (result)
   {
-    result = NodeNet::fillTraceNodes(a1, v13 - 1, v12, a2, 1, a5);
+    result = NodeNet::fillTraceNodes(a1, v13 - 1, v12, a2, 1u, a5);
   }
 
-  if (v12 >= 2 && *(a1 + 48))
+  if (v12 >= 2 && *(a1 + 12))
   {
     result = NodeNet::unpackEpsilonNodes(a1, v13 - 1, v12);
-    v24 = (a1 + 176);
-    v17 = *(a1 + 184) - 1;
+    v24 = a1 + 22;
+    v17 = *(a1 + 46) - 1;
   }
 
   else
   {
-    v24 = (a1 + 160);
+    v24 = a1 + 20;
   }
 
   v25 = *(*v24 + 8 * v17);
@@ -1837,7 +1811,7 @@ uint64_t NodeNet::unpackOne(uint64_t a1, unsigned __int16 *a2, void *a3, void *a
   }
 
   *a3 = v26;
-  v27 = *(*(a1 + 160) + 8 * (v13 - v12));
+  v27 = *(a1[20] + 8 * (v13 - v12));
   if (v27)
   {
     v28 = v27 + 8;
@@ -1902,7 +1876,7 @@ LABEL_9:
   result = (*(*a1 + 40))(a1);
   if (result)
   {
-    result = NodeNet::fillTraceNodes(a1, v15 - 1, a3, a4, 1, a7);
+    result = NodeNet::fillTraceNodes(a1, v15 - 1, a3, a4, 1u, a7);
   }
 
   if (a3 >= 2 && *(a1 + 48))
@@ -1944,7 +1918,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t NodeNet::addArc(NodeNet *this, const Node *a2, Node *a3)
+_WORD *NodeNet::addArc(NodeNet *this, const Node *a2, Node *a3)
 {
   v3 = a3 - 8;
   if (!a3)
@@ -1969,7 +1943,7 @@ uint64_t NodeNet::addArc(NodeNet *this, const Node *a2, Node *a3)
     v6 = 0;
   }
 
-  return PredStruct::addPred((v3 + 32), v6);
+  return PredStruct::addPred(v3 + 16, v6);
 }
 
 uint64_t NodeNet::addEpsilonNode(NodeNet *this)
@@ -1995,7 +1969,7 @@ uint64_t NodeNet::addEpsilonNode(NodeNet *this)
   }
 }
 
-uint64_t NodeNet::attachInPort(NodeNet *this, unsigned int a2, Node *a3)
+_WORD *NodeNet::attachInPort(NodeNet *this, unsigned int a2, Node *a3)
 {
   v3 = a3 - 8;
   if (!a3)
@@ -2003,10 +1977,10 @@ uint64_t NodeNet::attachInPort(NodeNet *this, unsigned int a2, Node *a3)
     v3 = 0;
   }
 
-  return PredStruct::addPred((v3 + 32), *(*(this + 7) + 8 * a2));
+  return PredStruct::addPred(v3 + 16, *(*(this + 7) + 8 * a2));
 }
 
-uint64_t TraceNodeNet::attachInPort(TraceNodeNet *this, unsigned int a2, Node *a3)
+_WORD *TraceNodeNet::attachInPort(TraceNodeNet *this, unsigned int a2, Node *a3)
 {
   v3 = a3 - 8;
   *(a3 + 74) = 1;
@@ -2015,7 +1989,7 @@ uint64_t TraceNodeNet::attachInPort(TraceNodeNet *this, unsigned int a2, Node *a
     v3 = 0;
   }
 
-  return PredStruct::addPred((v3 + 32), *(*(this + 7) + 8 * a2));
+  return PredStruct::addPred(v3 + 16, *(*(this + 7) + 8 * a2));
 }
 
 uint64_t NodeNet::seedEpsilonNodes(uint64_t this)
@@ -2305,9 +2279,9 @@ void TraceNodeNet::thresholdNetInternal(TraceNodeNet *this, uint64_t a2, int a3)
   TraceNodeNet::passScoresToOutPorts2(this, a3, v4);
 }
 
-void TraceNodeNet::passScoresToOutPorts2(TraceNodeNet *this, int a2, int a3)
+void TraceNodeNet::passScoresToOutPorts2(_DWORD *this, int a2, int a3)
 {
-  v3 = *(this + 20);
+  v3 = this[20];
   if (v3 >= 1)
   {
     v7 = v3 - 1;
@@ -2321,9 +2295,9 @@ void TraceNodeNet::passScoresToOutPorts2(TraceNodeNet *this, int a2, int a3)
   }
 }
 
-unint64_t TraceNodeNet::seedEpsilonNodes(unint64_t this, int a2)
+uint64_t *TraceNodeNet::seedEpsilonNodes(uint64_t *this, int a2)
 {
-  v2 = *(this + 184);
+  v2 = *(this + 46);
   if (v2 >= 1)
   {
     v4 = this;
@@ -2365,7 +2339,7 @@ unint64_t TraceNodeNet::seedEpsilonNodes(unint64_t this, int a2)
 
       else
       {
-        this = SeederStruct::updateSeederList(v5 + 64, a2, v7);
+        this = SeederStruct::updateSeederList((v5 + 64), a2, v7);
         if (*(v5 + 30) != -1 && *(v5 + 42))
         {
           v14 = *(v5 + 24);
@@ -2511,7 +2485,7 @@ void TraceNodeNet::newNode(TraceNodeNet *this, char a2)
   TraceNode::TraceNode(v3, a2);
 }
 
-void TraceNodeNet::configureOutPorts(TraceNodeNet *this, int a2)
+void TraceNodeNet::configureOutPorts(TraceNodeNet *this, unsigned int a2)
 {
   HmmNet::initEndIndices(this);
   if (a2 && !*(this + 20))
@@ -2801,7 +2775,7 @@ void (***DgnDelete<NodeNetNode>(void (***result)(void)))(void)
   return result;
 }
 
-uint64_t MrecInitLibrary_user(void)
+void MrecInitLibrary_user(void)
 {
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_sdpres_sdapi();
@@ -2810,18 +2784,18 @@ uint64_t MrecInitLibrary_user(void)
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_user_user();
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
-uint64_t MrecInitLibrarySet_throughUser(void)
+void MrecInitLibrarySet_throughUser(void)
 {
   MrecInitLibrarySet_throughPel();
   MrecInitLibrarySet_throughPhoneme();
 
-  return MrecInitLibrary_user();
+  MrecInitLibrary_user();
 }
 
-uint64_t MrecInitLibrary_sigproc(void)
+void MrecInitLibrary_sigproc(void)
 {
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_sdpres_sdapi();
@@ -2853,14 +2827,14 @@ uint64_t MrecInitLibrary_sigproc(void)
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_wavepac_sigproc();
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
-uint64_t MrecInitLibrarySet_throughSigproc(void)
+void MrecInitLibrarySet_throughSigproc(void)
 {
   MrecInitLibrarySet_throughFrame();
 
-  return MrecInitLibrary_sigproc();
+  MrecInitLibrary_sigproc();
 }
 
 void MrecInitModule_pelsc_pel(void)
@@ -3032,13 +3006,15 @@ LABEL_6:
   if (a5)
   {
     v28 = MemChunkAlloc(0x298uLL, 0);
-    *(this + 11) = OnDemandPelScorer::OnDemandPelScorer(v28, *(*(this + 7) + 112), 0, 0, 0, a6, 0, 0, *(this + 17), *(this + 131), a10);
+    OnDemandPelScorer::OnDemandPelScorer(v28, *(*(this + 7) + 112), 0, 0, 0, a6, 0, 0, *(this + 17), a10, *(this + 131));
+    *(this + 11) = v29;
   }
 
   if (a8)
   {
-    v29 = MemChunkAlloc(0x298uLL, 0);
-    *(this + 12) = OnDemandPelScorer::OnDemandPelScorer(v29, a2, 0, 0, 0, a6, a7, 0, *(this + 17), *(this + 131), a10);
+    v30 = MemChunkAlloc(0x298uLL, 0);
+    OnDemandPelScorer::OnDemandPelScorer(v30, a2, 0, 0, 0, a6, a7, 0, *(this + 17), a10, *(this + 131));
+    *(this + 12) = v31;
   }
 }
 
@@ -3109,38 +3085,38 @@ void OnDemandPelScorer::OnDemandPelScorer(OnDemandPelScorer *this, const PelMgr 
   }
 }
 
-void PelScorer::~PelScorer(PelScorer *this)
+void PelScorer::~PelScorer(PelScoreCache **this)
 {
   *this = &unk_287522F00;
-  DgnDelete<PelScoreCache>(*(this + 15));
-  *(this + 15) = 0;
-  DgnDelete<PelScorer>(*(this + 11));
-  *(this + 11) = 0;
-  DgnDelete<PelScorer>(*(this + 12));
-  *(this + 12) = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 624);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 584);
-  DgnIArray<Utterance *>::~DgnIArray(this + 568);
-  DgnIArray<Utterance *>::~DgnIArray(this + 552);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 536);
-  DgnIArray<Utterance *>::~DgnIArray(this + 504);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 488);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 448);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 432);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 416);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 400);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 384);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(this + 368);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(this + 352);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 328);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 312);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 296);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 248);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 232);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 216);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 200);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 176);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 160);
+  DgnDelete<PelScoreCache>(this[15]);
+  this[15] = 0;
+  DgnDelete<PelScorer>(this[11]);
+  this[11] = 0;
+  DgnDelete<PelScorer>(this[12]);
+  this[12] = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 78));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 73));
+  DgnIArray<Utterance *>::~DgnIArray((this + 71));
+  DgnIArray<Utterance *>::~DgnIArray((this + 69));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 67));
+  DgnIArray<Utterance *>::~DgnIArray((this + 63));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 61));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 56));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 54));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 52));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 50));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 48));
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll((this + 46));
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll((this + 44));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 41));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 39));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 37));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 31));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 29));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 27));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 25));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 22));
+  DgnPrimArray<unsigned int>::~DgnPrimArray((this + 20));
 }
 
 PelScoreCache *DgnDelete<PelScoreCache>(PelScoreCache *result)
@@ -3160,41 +3136,116 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 448, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 448);
+  if (v288)
   {
-    v16 = v492;
+    v13 = v287;
   }
 
   else
   {
-    v16 = &byte_262899963;
+    v13 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v492);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v287);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v21 = 4;
+    v15 = 4;
   }
 
   else
   {
-    v21 = 8;
+    v15 = 8;
   }
 
-  v22 = (a3 + 1);
-  v23 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 449, &v492);
-  if (v493)
+  v16 = (a3 + 1);
+  v17 = (34 - a3);
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 449);
+  if (v288)
   {
-    v28 = v492;
+    v19 = v287;
+  }
+
+  else
+  {
+    v19 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v19, v15, v15, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v15;
+  *a5 += v15;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v20 = 4;
+  }
+
+  else
+  {
+    v20 = 8;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 450);
+  if (v288)
+  {
+    v22 = v287;
+  }
+
+  else
+  {
+    v22 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v22, v20, v20, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v20;
+  *a5 += v20;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v23 = 4;
+  }
+
+  else
+  {
+    v23 = 8;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 451);
+  if (v288)
+  {
+    v25 = v287;
+  }
+
+  else
+  {
+    v25 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v25, v23, v23, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v23;
+  *a5 += v23;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v26 = 4;
+  }
+
+  else
+  {
+    v26 = 8;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 452);
+  if (v288)
+  {
+    v28 = v287;
   }
 
   else
@@ -3202,10 +3253,10 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v28 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v25, v26, v27, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v28, v21, v21, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v21;
-  *a5 += v21;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v28, v26, v26, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v26;
+  *a5 += v26;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v29 = 4;
@@ -3216,10 +3267,35 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v29 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 450, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 453);
+  if (v288)
   {
-    v34 = v492;
+    v31 = v287;
+  }
+
+  else
+  {
+    v31 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v31, v29, v29, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v29;
+  *a5 += v29;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v32 = 4;
+  }
+
+  else
+  {
+    v32 = 8;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 454);
+  if (v288)
+  {
+    v34 = v287;
   }
 
   else
@@ -3227,10 +3303,10 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v34 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, v31, v32, v33, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v34, v29, v29, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v29;
-  *a5 += v29;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v34, v32, v32, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v32;
+  *a5 += v32;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v35 = 4;
@@ -3241,10 +3317,35 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v35 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 451, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 455);
+  if (v288)
   {
-    v40 = v492;
+    v37 = v287;
+  }
+
+  else
+  {
+    v37 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v36, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v37, v35, v35, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v35;
+  *a5 += v35;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v38 = 4;
+  }
+
+  else
+  {
+    v38 = 8;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 456);
+  if (v288)
+  {
+    v40 = v287;
   }
 
   else
@@ -3252,10 +3353,10 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v40 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v36, v37, v38, v39, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v40, v35, v35, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v35;
-  *a5 += v35;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v39, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v40, v38, v38, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v38;
+  *a5 += v38;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v41 = 4;
@@ -3266,10 +3367,35 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v41 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 452, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 457);
+  if (v288)
   {
-    v46 = v492;
+    v43 = v287;
+  }
+
+  else
+  {
+    v43 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v43, v41, v41, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v41;
+  *a5 += v41;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v44 = 4;
+  }
+
+  else
+  {
+    v44 = 8;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 458);
+  if (v288)
+  {
+    v46 = v287;
   }
 
   else
@@ -3277,10 +3403,10 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v46 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v43, v44, v45, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v46, v41, v41, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v41;
-  *a5 += v41;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v45, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v46, v44, v44, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v44;
+  *a5 += v44;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v47 = 4;
@@ -3291,10 +3417,35 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v47 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 453, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 459);
+  if (v288)
   {
-    v52 = v492;
+    v49 = v287;
+  }
+
+  else
+  {
+    v49 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v48, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v49, v47, v47, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v47;
+  *a5 += v47;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v50 = 4;
+  }
+
+  else
+  {
+    v50 = 8;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 460);
+  if (v288)
+  {
+    v52 = v287;
   }
 
   else
@@ -3302,24 +3453,44 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v52 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v48, v49, v50, v51, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v52, v47, v47, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v47;
-  *a5 += v47;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v52, v50, v50, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v50;
+  *a5 += v50;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 461);
+  if (v288)
   {
-    v53 = 4;
+    v54 = v287;
   }
 
   else
   {
-    v53 = 8;
+    v54 = &byte_262899963;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 454, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v54, 8, 8, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 8;
+  *a5 += 8;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 462);
+  if (v288)
   {
-    v58 = v492;
+    v56 = v287;
+  }
+
+  else
+  {
+    v56 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v56, 4, 4, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 464);
+  if (v288)
+  {
+    v58 = v287;
   }
 
   else
@@ -3327,24 +3498,51 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v58 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v54, v55, v56, v57, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v58, v53, v53, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v53;
-  *a5 += v53;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v57, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v58, 4, 4, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 4;
+  *a5 += 4;
+  v59 = *(this + 15);
+  if (v59)
+  {
+    v286 = 0;
+    v287 = 0;
+    v285 = 0;
+    PelScoreCache::printSize(v59, 0xFFFFFFFFLL, (a3 + 1), &v287, &v286, &v285);
+    *a4 += v287;
+    *a5 += v286;
+    *a6 += v285;
+  }
+
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v59 = 4;
+    v60 = 4;
   }
 
   else
   {
-    v59 = 8;
+    v60 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 455, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 466);
+  if (v288)
   {
-    v64 = v492;
+    v62 = v287;
+  }
+
+  else
+  {
+    v62 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v61, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v62, v60, v60, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v60;
+  *a5 += v60;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 477);
+  if (v288)
+  {
+    v64 = v287;
   }
 
   else
@@ -3352,24 +3550,44 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v64 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v60, v61, v62, v63, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v64, v59, v59, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v59;
-  *a5 += v59;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v63, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v64, 1, 1, 0);
+  DgnString::~DgnString(&v287);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 479);
+  if (v288)
   {
-    v65 = 4;
+    v66 = v287;
   }
 
   else
   {
-    v65 = 8;
+    v66 = &byte_262899963;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 456, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v65, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v66, 1, 1, 0);
+  DgnString::~DgnString(&v287);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 481);
+  if (v288)
   {
-    v70 = v492;
+    v68 = v287;
+  }
+
+  else
+  {
+    v68 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v67, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v68, 1, 1, 0);
+  DgnString::~DgnString(&v287);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 483);
+  if (v288)
+  {
+    v70 = v287;
   }
 
   else
@@ -3377,24 +3595,44 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v70 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v66, v67, v68, v69, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v70, v65, v65, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v65;
-  *a5 += v65;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v69, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v70, 1, 1, 0);
+  DgnString::~DgnString(&v287);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 485);
+  if (v288)
   {
-    v71 = 4;
+    v72 = v287;
   }
 
   else
   {
-    v71 = 8;
+    v72 = &byte_262899963;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 457, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v71, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v72, 8, 8, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 8;
+  *a5 += 8;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 487);
+  if (v288)
   {
-    v76 = v492;
+    v74 = v287;
+  }
+
+  else
+  {
+    v74 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v73, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v74, 8, 8, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 8;
+  *a5 += 8;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 488);
+  if (v288)
+  {
+    v76 = v287;
   }
 
   else
@@ -3402,104 +3640,180 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v76 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v72, v73, v74, v75, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v76, v71, v71, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v71;
-  *a5 += v71;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v75, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v76, 4, 4, 0);
+  v284 = a3;
+  DgnString::~DgnString(&v287);
+  *a4 += 4;
+  *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v77 = 4;
+    v77 = 12;
   }
 
   else
   {
-    v77 = 8;
+    v77 = 16;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 458, &v492);
-  if (v493)
+  v78 = *(this + 42);
+  v79 = *(this + 43);
+  v80 = v79 >= v78;
+  v81 = v79 - v78;
+  if (v80)
   {
-    v82 = v492;
+    if (v78 > 0)
+    {
+      v82 = (v78 - 1) + v77 + 1;
+    }
+
+    else
+    {
+      v82 = v77;
+    }
+
+    v77 = v82 + v81;
+    v78 = 0;
   }
 
   else
   {
-    v82 = &byte_262899963;
+    v82 = v77;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v79, v80, v81, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v82, v77, v77, 0);
-  DgnString::~DgnString(&v492);
+  v83 = v78;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 489);
+  if (v288)
+  {
+    v85 = v287;
+  }
+
+  else
+  {
+    v85 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v84, v16, &byte_262899963, v17, v17, v85, v77, v82, v83);
+  DgnString::~DgnString(&v287);
   *a4 += v77;
-  *a5 += v77;
+  *a5 += v82;
+  *a6 += v83;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v83 = 4;
+    v86 = 12;
   }
 
   else
   {
-    v83 = 8;
+    v86 = 16;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 459, &v492);
-  if (v493)
+  v87 = *(this + 46);
+  v88 = *(this + 47);
+  v80 = v88 >= v87;
+  v89 = v88 - v87;
+  if (v80)
   {
-    v88 = v492;
+    if (v87 > 0)
+    {
+      v90 = (v87 - 1) + v86 + 1;
+    }
+
+    else
+    {
+      v90 = v86;
+    }
+
+    v86 = v90 + v89;
+    v87 = 0;
   }
 
   else
   {
-    v88 = &byte_262899963;
+    v90 = v86;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v84, v85, v86, v87, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v88, v83, v83, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v83;
-  *a5 += v83;
+  v91 = v87;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 491);
+  if (v288)
+  {
+    v93 = v287;
+  }
+
+  else
+  {
+    v93 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v92, v16, &byte_262899963, v17, v17, v93, v86, v90, v91);
+  DgnString::~DgnString(&v287);
+  *a4 += v86;
+  *a5 += v90;
+  *a6 += v91;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v89 = 4;
+    v94 = 4;
   }
 
   else
   {
-    v89 = 8;
+    v94 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 460, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 493);
+  if (v288)
   {
-    v94 = v492;
-  }
-
-  else
-  {
-    v94 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v90, v91, v92, v93, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v94, v89, v89, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v89;
-  *a5 += v89;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 461, &v492);
-  if (v493)
-  {
-    v99 = v492;
+    v96 = v287;
   }
 
   else
   {
-    v99 = &byte_262899963;
+    v96 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v95, v96, v97, v98, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v99, 8, 8, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 8;
-  *a5 += 8;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 462, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v95, v16, &byte_262899963, v17, v17, v96, v94, v94, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v94;
+  *a5 += v94;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v104 = v492;
+    v97 = 12;
+  }
+
+  else
+  {
+    v97 = 16;
+  }
+
+  v98 = *(this + 52);
+  v99 = *(this + 53);
+  v80 = v99 >= v98;
+  v100 = v99 - v98;
+  if (v80)
+  {
+    if (v98 > 0)
+    {
+      v101 = (v98 - 1) + v97 + 1;
+    }
+
+    else
+    {
+      v101 = v97;
+    }
+
+    v97 = v101 + v100;
+    v98 = 0;
+  }
+
+  else
+  {
+    v101 = v97;
+  }
+
+  v102 = v98;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 495);
+  if (v288)
+  {
+    v104 = v287;
   }
 
   else
@@ -3507,81 +3821,141 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v104 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v100, v101, v102, v103, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v104, 4, 4, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 464, &v492);
-  if (v493)
-  {
-    v109 = v492;
-  }
-
-  else
-  {
-    v109 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v105, v106, v107, v108, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v109, 4, 4, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 4;
-  *a5 += 4;
-  v110 = *(this + 15);
-  if (v110)
-  {
-    v491 = 0;
-    v492 = 0;
-    v490 = 0;
-    PelScoreCache::printSize(v110, 0xFFFFFFFFLL, (a3 + 1), &v492, &v491, &v490);
-    *a4 += v492;
-    *a5 += v491;
-    *a6 += v490;
-  }
-
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v103, v16, &byte_262899963, v17, v17, v104, v97, v101, v102);
+  DgnString::~DgnString(&v287);
+  *a4 += v97;
+  *a5 += v101;
+  *a6 += v102;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v111 = 4;
+    v105 = 12;
   }
 
   else
   {
-    v111 = 8;
+    v105 = 16;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 466, &v492);
-  if (v493)
+  v106 = *(this + 56);
+  v107 = *(this + 57);
+  v80 = v107 >= v106;
+  v108 = v107 - v106;
+  if (v80)
   {
-    v116 = v492;
+    if (v106 > 0)
+    {
+      v109 = (v106 - 1) + v105 + 1;
+    }
+
+    else
+    {
+      v109 = v105;
+    }
+
+    v105 = v109 + v108;
+    v106 = 0;
   }
 
   else
   {
-    v116 = &byte_262899963;
+    v109 = v105;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v112, v113, v114, v115, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v116, v111, v111, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v111;
-  *a5 += v111;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 477, &v492);
-  if (v493)
+  v110 = v106;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 497);
+  if (v288)
   {
-    v121 = v492;
+    v112 = v287;
   }
 
   else
   {
-    v121 = &byte_262899963;
+    v112 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v117, v118, v119, v120, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v121, 1, 1, 0);
-  DgnString::~DgnString(&v492);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 479, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v111, v16, &byte_262899963, v17, v17, v112, v105, v109, v110);
+  DgnString::~DgnString(&v287);
+  *a4 += v105;
+  *a5 += v109;
+  *a6 += v110;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v126 = v492;
+    v113 = 12;
+  }
+
+  else
+  {
+    v113 = 16;
+  }
+
+  v114 = *(this + 60);
+  v115 = *(this + 61);
+  if (v115 >= v114)
+  {
+    v116 = 0;
+    if (v114 > 0)
+    {
+      v113 += 2 * (v114 - 1) + 2;
+    }
+
+    v117 = v113 + 2 * (v115 - v114);
+  }
+
+  else
+  {
+    v116 = 2 * v114;
+    v117 = v113;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 498);
+  if (v288)
+  {
+    v119 = v287;
+  }
+
+  else
+  {
+    v119 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v118, v16, &byte_262899963, v17, v17, v119, v117, v113, v116);
+  DgnString::~DgnString(&v287);
+  *a4 += v117;
+  *a5 += v113;
+  *a6 += v116;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v120 = 12;
+  }
+
+  else
+  {
+    v120 = 16;
+  }
+
+  v121 = *(this + 64);
+  v122 = *(this + 65);
+  if (v122 >= v121)
+  {
+    v123 = 0;
+    if (v121 > 0)
+    {
+      v120 += 2 * (v121 - 1) + 2;
+    }
+
+    v124 = v120 + 2 * (v122 - v121);
+  }
+
+  else
+  {
+    v123 = 2 * v121;
+    v124 = v120;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 500);
+  if (v288)
+  {
+    v126 = v287;
   }
 
   else
@@ -3589,29 +3963,75 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v126 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v122, v123, v124, v125, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v126, 1, 1, 0);
-  DgnString::~DgnString(&v492);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 481, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v125, v16, &byte_262899963, v17, v17, v126, v124, v120, v123);
+  DgnString::~DgnString(&v287);
+  *a4 += v124;
+  *a5 += v120;
+  *a6 += v123;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 502);
+  if (v288)
   {
-    v131 = v492;
+    v128 = v287;
   }
 
   else
   {
-    v131 = &byte_262899963;
+    v128 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v127, v128, v129, v130, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v131, 1, 1, 0);
-  DgnString::~DgnString(&v492);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 483, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v127, v16, &byte_262899963, v17, v17, v128, 4, 4, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 504);
+  if (v288)
   {
-    v136 = v492;
+    v130 = v287;
+  }
+
+  else
+  {
+    v130 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v129, v16, &byte_262899963, v17, v17, v130, 4, 4, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 505);
+  if (v288)
+  {
+    v132 = v287;
+  }
+
+  else
+  {
+    v132 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v131, v16, &byte_262899963, v17, v17, v132, 4, 4, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 506);
+  if (v288)
+  {
+    v134 = v287;
+  }
+
+  else
+  {
+    v134 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v133, v16, &byte_262899963, v17, v17, v134, 4, 4, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 507);
+  if (v288)
+  {
+    v136 = v287;
   }
 
   else
@@ -3619,96 +4039,161 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v136 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v132, v133, v134, v135, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v136, 1, 1, 0);
-  DgnString::~DgnString(&v492);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 485, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v135, v16, &byte_262899963, v17, v17, v136, 4, 4, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 509);
+  if (v288)
   {
-    v141 = v492;
+    v138 = v287;
   }
 
   else
   {
-    v141 = &byte_262899963;
+    v138 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v137, v138, v139, v140, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v141, 8, 8, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 8;
-  *a5 += 8;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 487, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v137, v16, &byte_262899963, v17, v17, v138, 4, 4, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 511);
+  if (v288)
   {
-    v146 = v492;
+    v140 = v287;
   }
 
   else
   {
-    v146 = &byte_262899963;
+    v140 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v142, v143, v144, v145, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v146, 8, 8, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 8;
-  *a5 += 8;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 488, &v492);
-  if (v493)
-  {
-    v151 = v492;
-  }
-
-  else
-  {
-    v151 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v147, v148, v149, v150, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v151, 4, 4, 0);
-  v489 = a3;
-  DgnString::~DgnString(&v492);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v139, v16, &byte_262899963, v17, v17, v140, 4, 4, 0);
+  DgnString::~DgnString(&v287);
   *a4 += 4;
   *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v152 = 12;
+    v141 = 12;
   }
 
   else
   {
-    v152 = 16;
+    v141 = 16;
   }
 
-  v153 = *(this + 42);
-  v154 = *(this + 43);
-  v155 = v154 >= v153;
-  v156 = v154 - v153;
-  if (v155)
+  v142 = *(this + 76);
+  v143 = *(this + 77);
+  if (v143 >= v142)
   {
-    if (v153 > 0)
+    v144 = 0;
+    if (v142 > 0)
     {
-      v157 = (v153 - 1) + v152 + 1;
+      v141 += 4 * (v142 - 1) + 4;
     }
 
-    else
-    {
-      v157 = v152;
-    }
-
-    v152 = v157 + v156;
-    v153 = 0;
+    v145 = v141 + 4 * (v143 - v142);
   }
 
   else
   {
-    v157 = v152;
+    v144 = 4 * v142;
+    v145 = v141;
   }
 
-  v158 = v153;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 489, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 513);
+  if (v288)
   {
-    v163 = v492;
+    v147 = v287;
+  }
+
+  else
+  {
+    v147 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v146, v16, &byte_262899963, v17, v17, v147, v145, v141, v144);
+  DgnString::~DgnString(&v287);
+  *a4 += v145;
+  *a5 += v141;
+  *a6 += v144;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v148 = 12;
+  }
+
+  else
+  {
+    v148 = 16;
+  }
+
+  v149 = *(this + 80);
+  v150 = *(this + 81);
+  if (v150 >= v149)
+  {
+    v151 = 0;
+    if (v149 > 0)
+    {
+      v148 += 4 * (v149 - 1) + 4;
+    }
+
+    v152 = v148 + 4 * (v150 - v149);
+  }
+
+  else
+  {
+    v151 = 4 * v149;
+    v152 = v148;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 515);
+  if (v288)
+  {
+    v154 = v287;
+  }
+
+  else
+  {
+    v154 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v153, v16, &byte_262899963, v17, v17, v154, v152, v148, v151);
+  DgnString::~DgnString(&v287);
+  *a4 += v152;
+  *a5 += v148;
+  *a6 += v151;
+  v155 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v155 = 12;
+  }
+
+  v156 = *(this + 84);
+  v157 = *(this + 85);
+  if (v157 >= v156)
+  {
+    v158 = 0;
+    if (v156 > 0)
+    {
+      v155 += 2 * (v156 - 1) + 2;
+    }
+
+    v159 = v155 + 2 * (v157 - v156);
+  }
+
+  else
+  {
+    v158 = 2 * v156;
+    v159 = v155;
+  }
+
+  v160 = v159 + 4;
+  v161 = v155 + 4;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 517);
+  if (v288)
+  {
+    v163 = v287;
   }
 
   else
@@ -3716,376 +4201,585 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v163 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v159, v160, v161, v162, v22, &byte_262899963, v23, v23, v163, v152, v157, v158);
-  DgnString::~DgnString(&v492);
-  *a4 += v152;
-  *a5 += v157;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v162, v16, &byte_262899963, v17, v17, v163, v160, v161, v158);
+  DgnString::~DgnString(&v287);
+  *a4 += v160;
+  *a5 += v161;
   *a6 += v158;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  v164 = sizeObject<DgnPrimArray<unsigned char>>(this + 352, 0);
+  v165 = sizeObject<DgnPrimArray<unsigned char>>(this + 352, 1);
+  v287 = 0;
+  v288 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v287);
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 519);
+  if (v288)
   {
-    v164 = 12;
+    v167 = v287;
   }
 
   else
   {
-    v164 = 16;
+    v167 = &byte_262899963;
   }
 
-  v165 = *(this + 46);
-  v166 = *(this + 47);
-  v155 = v166 >= v165;
-  v167 = v166 - v165;
-  if (v155)
-  {
-    if (v165 > 0)
-    {
-      v168 = (v165 - 1) + v164 + 1;
-    }
-
-    else
-    {
-      v168 = v164;
-    }
-
-    v164 = v168 + v167;
-    v165 = 0;
-  }
-
-  else
-  {
-    v168 = v164;
-  }
-
-  v169 = v165;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 491, &v492);
-  if (v493)
-  {
-    v174 = v492;
-  }
-
-  else
-  {
-    v174 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v170, v171, v172, v173, v22, &byte_262899963, v23, v23, v174, v164, v168, v169);
-  DgnString::~DgnString(&v492);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v166, v16, &byte_262899963, v17, v17, v167, v164, v165, 0);
+  DgnString::~DgnString(&v287);
   *a4 += v164;
-  *a5 += v168;
-  *a6 += v169;
+  *a5 += v165;
+  v168 = sizeObject<DgnPrimArray<unsigned char>>(this + 368, 0);
+  v169 = sizeObject<DgnPrimArray<unsigned char>>(this + 368, 1);
+  v287 = 0;
+  v288 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v287);
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 521);
+  if (v288)
+  {
+    v171 = v287;
+  }
+
+  else
+  {
+    v171 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v170, v16, &byte_262899963, v17, v17, v171, v168, v169, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v168;
+  *a5 += v169;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v175 = 4;
+    v172 = 12;
   }
 
   else
   {
-    v175 = 8;
+    v172 = 16;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 493, &v492);
-  if (v493)
+  v173 = *(this + 98);
+  v174 = *(this + 99);
+  if (v174 >= v173)
   {
-    v180 = v492;
-  }
-
-  else
-  {
-    v180 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v176, v177, v178, v179, v22, &byte_262899963, v23, v23, v180, v175, v175, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v175;
-  *a5 += v175;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v181 = 12;
-  }
-
-  else
-  {
-    v181 = 16;
-  }
-
-  v182 = *(this + 52);
-  v183 = *(this + 53);
-  v155 = v183 >= v182;
-  v184 = v183 - v182;
-  if (v155)
-  {
-    if (v182 > 0)
+    v175 = 0;
+    if (v173 > 0)
     {
-      v185 = (v182 - 1) + v181 + 1;
+      v172 += 4 * (v173 - 1) + 4;
+    }
+
+    v176 = v172 + 4 * (v174 - v173);
+  }
+
+  else
+  {
+    v175 = 4 * v173;
+    v176 = v172;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 523);
+  if (v288)
+  {
+    v178 = v287;
+  }
+
+  else
+  {
+    v178 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v177, v16, &byte_262899963, v17, v17, v178, v176, v172, v175);
+  DgnString::~DgnString(&v287);
+  *a4 += v176;
+  *a5 += v172;
+  *a6 += v175;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v179 = 12;
+  }
+
+  else
+  {
+    v179 = 16;
+  }
+
+  v180 = *(this + 102);
+  v181 = *(this + 103);
+  v80 = v181 >= v180;
+  v182 = v181 - v180;
+  if (v80)
+  {
+    if (v180 > 0)
+    {
+      v183 = (v180 - 1) + v179 + 1;
     }
 
     else
     {
-      v185 = v181;
+      v183 = v179;
     }
 
-    v181 = v185 + v184;
-    v182 = 0;
+    v179 = v183 + v182;
+    v180 = 0;
   }
 
   else
   {
-    v185 = v181;
+    v183 = v179;
   }
 
-  v186 = v182;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 495, &v492);
-  if (v493)
+  v184 = v180;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 525);
+  if (v288)
   {
-    v191 = v492;
+    v186 = v287;
   }
 
   else
   {
-    v191 = &byte_262899963;
+    v186 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v187, v188, v189, v190, v22, &byte_262899963, v23, v23, v191, v181, v185, v186);
-  DgnString::~DgnString(&v492);
-  *a4 += v181;
-  *a5 += v185;
-  *a6 += v186;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v185, v16, &byte_262899963, v17, v17, v186, v179, v183, v184);
+  DgnString::~DgnString(&v287);
+  *a4 += v179;
+  *a5 += v183;
+  *a6 += v184;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v192 = 12;
+    v187 = 12;
   }
 
   else
   {
-    v192 = 16;
+    v187 = 16;
   }
 
-  v193 = *(this + 56);
-  v194 = *(this + 57);
-  v155 = v194 >= v193;
-  v195 = v194 - v193;
-  if (v155)
+  v188 = *(this + 106);
+  v189 = *(this + 107);
+  if (v189 >= v188)
   {
-    if (v193 > 0)
+    v190 = 0;
+    if (v188 > 0)
     {
-      v196 = (v193 - 1) + v192 + 1;
+      v187 += 8 * (v188 - 1) + 8;
     }
 
-    else
+    v191 = v187 + 8 * (v189 - v188);
+  }
+
+  else
+  {
+    v190 = 8 * v188;
+    v191 = v187;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 527);
+  if (v288)
+  {
+    v193 = v287;
+  }
+
+  else
+  {
+    v193 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v192, v16, &byte_262899963, v17, v17, v193, v191, v187, v190);
+  DgnString::~DgnString(&v287);
+  *a4 += v191;
+  *a5 += v187;
+  *a6 += v190;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v194 = 12;
+  }
+
+  else
+  {
+    v194 = 16;
+  }
+
+  v195 = *(this + 110);
+  v196 = *(this + 111);
+  if (v196 >= v195)
+  {
+    v197 = 0;
+    if (v195 > 0)
     {
-      v196 = v192;
+      v194 += 8 * (v195 - 1) + 8;
     }
 
-    v192 = v196 + v195;
-    v193 = 0;
+    v198 = v194 + 8 * (v196 - v195);
   }
 
   else
   {
-    v196 = v192;
+    v197 = 8 * v195;
+    v198 = v194;
   }
 
-  v197 = v193;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 497, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 529);
+  if (v288)
   {
-    v202 = v492;
+    v200 = v287;
   }
 
   else
   {
-    v202 = &byte_262899963;
+    v200 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v198, v199, v200, v201, v22, &byte_262899963, v23, v23, v202, v192, v196, v197);
-  DgnString::~DgnString(&v492);
-  *a4 += v192;
-  *a5 += v196;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v199, v16, &byte_262899963, v17, v17, v200, v198, v194, v197);
+  DgnString::~DgnString(&v287);
+  *a4 += v198;
+  *a5 += v194;
   *a6 += v197;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v203 = 12;
+    v201 = 12;
   }
 
   else
   {
-    v203 = 16;
+    v201 = 16;
   }
 
-  v204 = *(this + 60);
-  v205 = *(this + 61);
-  if (v205 >= v204)
+  v202 = *(this + 114);
+  v203 = *(this + 115);
+  if (v203 >= v202)
   {
-    v206 = 0;
-    if (v204 > 0)
+    v204 = 0;
+    if (v202 > 0)
     {
-      v203 += 2 * (v204 - 1) + 2;
+      v201 += 8 * (v202 - 1) + 8;
     }
 
-    v207 = v203 + 2 * (v205 - v204);
+    v205 = v201 + 8 * (v203 - v202);
   }
 
   else
   {
-    v206 = 2 * v204;
-    v207 = v203;
+    v204 = 8 * v202;
+    v205 = v201;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 498, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 531);
+  if (v288)
   {
-    v212 = v492;
+    v207 = v287;
   }
 
   else
   {
-    v212 = &byte_262899963;
+    v207 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v208, v209, v210, v211, v22, &byte_262899963, v23, v23, v212, v207, v203, v206);
-  DgnString::~DgnString(&v492);
-  *a4 += v207;
-  *a5 += v203;
-  *a6 += v206;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v206, v16, &byte_262899963, v17, v17, v207, v205, v201, v204);
+  DgnString::~DgnString(&v287);
+  *a4 += v205;
+  *a5 += v201;
+  *a6 += v204;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 533);
+  if (v288)
+  {
+    v209 = v287;
+  }
+
+  else
+  {
+    v209 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v208, v16, &byte_262899963, v17, v17, v209, 8, 8, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 8;
+  *a5 += 8;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 535);
+  if (v288)
+  {
+    v211 = v287;
+  }
+
+  else
+  {
+    v211 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v210, v16, &byte_262899963, v17, v17, v211, 8, 8, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += 8;
+  *a5 += 8;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v213 = 12;
+    v212 = 4;
   }
 
   else
   {
-    v213 = 16;
+    v212 = 8;
   }
 
-  v214 = *(this + 64);
-  v215 = *(this + 65);
-  if (v215 >= v214)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 536);
+  if (v288)
   {
-    v216 = 0;
-    if (v214 > 0)
+    v214 = v287;
+  }
+
+  else
+  {
+    v214 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v213, v16, &byte_262899963, v17, v17, v214, v212, v212, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v212;
+  *a5 += v212;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v215 = 12;
+  }
+
+  else
+  {
+    v215 = 16;
+  }
+
+  v216 = *(this + 124);
+  v217 = *(this + 125);
+  if (v217 >= v216)
+  {
+    v218 = 0;
+    if (v216 > 0)
     {
-      v213 += 2 * (v214 - 1) + 2;
+      v215 += 4 * (v216 - 1) + 4;
     }
 
-    v217 = v213 + 2 * (v215 - v214);
+    v219 = v215 + 4 * (v217 - v216);
   }
 
   else
   {
-    v216 = 2 * v214;
-    v217 = v213;
+    v218 = 4 * v216;
+    v219 = v215;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 500, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 538);
+  if (v288)
   {
-    v222 = v492;
+    v221 = v287;
   }
 
   else
   {
-    v222 = &byte_262899963;
+    v221 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v218, v219, v220, v221, v22, &byte_262899963, v23, v23, v222, v217, v213, v216);
-  DgnString::~DgnString(&v492);
-  *a4 += v217;
-  *a5 += v213;
-  *a6 += v216;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 502, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v220, v16, &byte_262899963, v17, v17, v221, v219, v215, v218);
+  DgnString::~DgnString(&v287);
+  *a4 += v219;
+  *a5 += v215;
+  *a6 += v218;
+  v222 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v227 = v492;
+    v222 = 12;
+  }
+
+  v223 = *(this + 128);
+  v224 = 2;
+  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
+  {
+    v224 = 3;
+  }
+
+  v225 = (((*(this + 129) - v223) + v223) << v224) + v222;
+  v226 = (v223 << v224) + v222;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 540);
+  if (v288)
+  {
+    v228 = v287;
   }
 
   else
   {
-    v227 = &byte_262899963;
+    v228 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v223, v224, v225, v226, v22, &byte_262899963, v23, v23, v227, 4, 4, 0);
-  DgnString::~DgnString(&v492);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v227, v16, &byte_262899963, v17, v17, v228, v225, v226, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v225;
+  *a5 += v226;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 542);
+  if (v288)
+  {
+    v230 = v287;
+  }
+
+  else
+  {
+    v230 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v229, v16, &byte_262899963, v17, v17, v230, 4, 4, 0);
+  DgnString::~DgnString(&v287);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 504, &v492);
-  if (v493)
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v232 = v492;
+    v231 = 4;
   }
 
   else
   {
-    v232 = &byte_262899963;
+    v231 = 8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v228, v229, v230, v231, v22, &byte_262899963, v23, v23, v232, 4, 4, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 505, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 544);
+  if (v288)
   {
-    v237 = v492;
+    v233 = v287;
   }
 
   else
   {
-    v237 = &byte_262899963;
+    v233 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v233, v234, v235, v236, v22, &byte_262899963, v23, v23, v237, 4, 4, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 506, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v232, v16, &byte_262899963, v17, v17, v233, v231, v231, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v231;
+  *a5 += v231;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v242 = v492;
-  }
-
-  else
-  {
-    v242 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v238, v239, v240, v241, v22, &byte_262899963, v23, v23, v242, 4, 4, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 507, &v492);
-  if (v493)
-  {
-    v247 = v492;
+    v234 = 12;
   }
 
   else
   {
-    v247 = &byte_262899963;
+    v234 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v243, v244, v245, v246, v22, &byte_262899963, v23, v23, v247, 4, 4, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 509, &v492);
-  if (v493)
+  v235 = *(this + 136);
+  v236 = *(this + 137);
+  if (v236 >= v235)
   {
-    v252 = v492;
+    v237 = 0;
+    if (v235 > 0)
+    {
+      v234 += 4 * (v235 - 1) + 4;
+    }
+
+    v238 = v234 + 4 * (v236 - v235);
   }
 
   else
   {
-    v252 = &byte_262899963;
+    v237 = 4 * v235;
+    v238 = v234;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v248, v249, v250, v251, v22, &byte_262899963, v23, v23, v252, 4, 4, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 511, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 546);
+  if (v288)
   {
-    v257 = v492;
+    v240 = v287;
+  }
+
+  else
+  {
+    v240 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v239, v16, &byte_262899963, v17, v17, v240, v238, v234, v237);
+  DgnString::~DgnString(&v287);
+  *a4 += v238;
+  *a5 += v234;
+  *a6 += v237;
+  v241 = sizeObject<BinaryIntScale>(this + 552, 0);
+  v242 = sizeObject<BinaryIntScale>(this + 552, 1);
+  LODWORD(v287) = 0;
+  sizeObject(&v287, 2);
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 548);
+  if (v288)
+  {
+    v244 = v287;
+  }
+
+  else
+  {
+    v244 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v243, v16, &byte_262899963, v17, v17, v244, v241, v242, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v241;
+  *a5 += v242;
+  v245 = sizeObject<BinaryIntScale>(this + 568, 0);
+  v246 = sizeObject<BinaryIntScale>(this + 568, 1);
+  LODWORD(v287) = 0;
+  sizeObject(&v287, 2);
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 550);
+  if (v288)
+  {
+    v248 = v287;
+  }
+
+  else
+  {
+    v248 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v247, v16, &byte_262899963, v17, v17, v248, v245, v246, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v245;
+  *a5 += v246;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v249 = 12;
+  }
+
+  else
+  {
+    v249 = 16;
+  }
+
+  v250 = *(this + 148);
+  v251 = *(this + 149);
+  if (v251 >= v250)
+  {
+    v252 = 0;
+    if (v250 > 0)
+    {
+      v249 += 2 * (v250 - 1) + 2;
+    }
+
+    v253 = v249 + 2 * (v251 - v250);
+  }
+
+  else
+  {
+    v252 = 2 * v250;
+    v253 = v249;
+  }
+
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 552);
+  if (v288)
+  {
+    v255 = v287;
+  }
+
+  else
+  {
+    v255 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v254, v16, &byte_262899963, v17, v17, v255, v253, v249, v252);
+  DgnString::~DgnString(&v287);
+  *a4 += v253;
+  *a5 += v249;
+  *a6 += v252;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 554);
+  if (v288)
+  {
+    v257 = v287;
   }
 
   else
@@ -4093,894 +4787,175 @@ void PelScorer::printSize(PelScorer *this, uint64_t a2, uint64_t a3, unint64_t *
     v257 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v253, v254, v255, v256, v22, &byte_262899963, v23, v23, v257, 4, 4, 0);
-  DgnString::~DgnString(&v492);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v256, v16, &byte_262899963, v17, v17, v257, 4, 4, 0);
+  DgnString::~DgnString(&v287);
   *a4 += 4;
   *a5 += 4;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 556);
+  if (v288)
   {
-    v258 = 12;
+    v259 = v287;
   }
 
   else
   {
-    v258 = 16;
+    v259 = &byte_262899963;
   }
 
-  v259 = *(this + 76);
-  v260 = *(this + 77);
-  if (v260 >= v259)
-  {
-    v261 = 0;
-    if (v259 > 0)
-    {
-      v258 += 4 * (v259 - 1) + 4;
-    }
-
-    v262 = v258 + 4 * (v260 - v259);
-  }
-
-  else
-  {
-    v261 = 4 * v259;
-    v262 = v258;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 513, &v492);
-  if (v493)
-  {
-    v267 = v492;
-  }
-
-  else
-  {
-    v267 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v263, v264, v265, v266, v22, &byte_262899963, v23, v23, v267, v262, v258, v261);
-  DgnString::~DgnString(&v492);
-  *a4 += v262;
-  *a5 += v258;
-  *a6 += v261;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v268 = 12;
-  }
-
-  else
-  {
-    v268 = 16;
-  }
-
-  v269 = *(this + 80);
-  v270 = *(this + 81);
-  if (v270 >= v269)
-  {
-    v271 = 0;
-    if (v269 > 0)
-    {
-      v268 += 4 * (v269 - 1) + 4;
-    }
-
-    v272 = v268 + 4 * (v270 - v269);
-  }
-
-  else
-  {
-    v271 = 4 * v269;
-    v272 = v268;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 515, &v492);
-  if (v493)
-  {
-    v277 = v492;
-  }
-
-  else
-  {
-    v277 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v273, v274, v275, v276, v22, &byte_262899963, v23, v23, v277, v272, v268, v271);
-  DgnString::~DgnString(&v492);
-  *a4 += v272;
-  *a5 += v268;
-  *a6 += v271;
-  v278 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v278 = 12;
-  }
-
-  v279 = *(this + 84);
-  v280 = *(this + 85);
-  if (v280 >= v279)
-  {
-    v281 = 0;
-    if (v279 > 0)
-    {
-      v278 += 2 * (v279 - 1) + 2;
-    }
-
-    v282 = v278 + 2 * (v280 - v279);
-  }
-
-  else
-  {
-    v281 = 2 * v279;
-    v282 = v278;
-  }
-
-  v283 = v282 + 4;
-  v284 = v278 + 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 517, &v492);
-  if (v493)
-  {
-    v289 = v492;
-  }
-
-  else
-  {
-    v289 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v285, v286, v287, v288, v22, &byte_262899963, v23, v23, v289, v283, v284, v281);
-  DgnString::~DgnString(&v492);
-  *a4 += v283;
-  *a5 += v284;
-  *a6 += v281;
-  v290 = sizeObject<DgnPrimArray<unsigned char>>(this + 352, 0);
-  v291 = sizeObject<DgnPrimArray<unsigned char>>(this + 352, 1);
-  v492 = 0;
-  v493 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v492);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 519, &v492);
-  if (v493)
-  {
-    v296 = v492;
-  }
-
-  else
-  {
-    v296 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v292, v293, v294, v295, v22, &byte_262899963, v23, v23, v296, v290, v291, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v290;
-  *a5 += v291;
-  v297 = sizeObject<DgnPrimArray<unsigned char>>(this + 368, 0);
-  v298 = sizeObject<DgnPrimArray<unsigned char>>(this + 368, 1);
-  v492 = 0;
-  v493 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v492);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 521, &v492);
-  if (v493)
-  {
-    v303 = v492;
-  }
-
-  else
-  {
-    v303 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v299, v300, v301, v302, v22, &byte_262899963, v23, v23, v303, v297, v298, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v297;
-  *a5 += v298;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v304 = 12;
-  }
-
-  else
-  {
-    v304 = 16;
-  }
-
-  v305 = *(this + 98);
-  v306 = *(this + 99);
-  if (v306 >= v305)
-  {
-    v307 = 0;
-    if (v305 > 0)
-    {
-      v304 += 4 * (v305 - 1) + 4;
-    }
-
-    v308 = v304 + 4 * (v306 - v305);
-  }
-
-  else
-  {
-    v307 = 4 * v305;
-    v308 = v304;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 523, &v492);
-  if (v493)
-  {
-    v313 = v492;
-  }
-
-  else
-  {
-    v313 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v309, v310, v311, v312, v22, &byte_262899963, v23, v23, v313, v308, v304, v307);
-  DgnString::~DgnString(&v492);
-  *a4 += v308;
-  *a5 += v304;
-  *a6 += v307;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v314 = 12;
-  }
-
-  else
-  {
-    v314 = 16;
-  }
-
-  v315 = *(this + 102);
-  v316 = *(this + 103);
-  v155 = v316 >= v315;
-  v317 = v316 - v315;
-  if (v155)
-  {
-    if (v315 > 0)
-    {
-      v318 = (v315 - 1) + v314 + 1;
-    }
-
-    else
-    {
-      v318 = v314;
-    }
-
-    v314 = v318 + v317;
-    v315 = 0;
-  }
-
-  else
-  {
-    v318 = v314;
-  }
-
-  v319 = v315;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 525, &v492);
-  if (v493)
-  {
-    v324 = v492;
-  }
-
-  else
-  {
-    v324 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v320, v321, v322, v323, v22, &byte_262899963, v23, v23, v324, v314, v318, v319);
-  DgnString::~DgnString(&v492);
-  *a4 += v314;
-  *a5 += v318;
-  *a6 += v319;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v325 = 12;
-  }
-
-  else
-  {
-    v325 = 16;
-  }
-
-  v326 = *(this + 106);
-  v327 = *(this + 107);
-  if (v327 >= v326)
-  {
-    v328 = 0;
-    if (v326 > 0)
-    {
-      v325 += 8 * (v326 - 1) + 8;
-    }
-
-    v329 = v325 + 8 * (v327 - v326);
-  }
-
-  else
-  {
-    v328 = 8 * v326;
-    v329 = v325;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 527, &v492);
-  if (v493)
-  {
-    v334 = v492;
-  }
-
-  else
-  {
-    v334 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v330, v331, v332, v333, v22, &byte_262899963, v23, v23, v334, v329, v325, v328);
-  DgnString::~DgnString(&v492);
-  *a4 += v329;
-  *a5 += v325;
-  *a6 += v328;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v335 = 12;
-  }
-
-  else
-  {
-    v335 = 16;
-  }
-
-  v336 = *(this + 110);
-  v337 = *(this + 111);
-  if (v337 >= v336)
-  {
-    v338 = 0;
-    if (v336 > 0)
-    {
-      v335 += 8 * (v336 - 1) + 8;
-    }
-
-    v339 = v335 + 8 * (v337 - v336);
-  }
-
-  else
-  {
-    v338 = 8 * v336;
-    v339 = v335;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 529, &v492);
-  if (v493)
-  {
-    v344 = v492;
-  }
-
-  else
-  {
-    v344 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v340, v341, v342, v343, v22, &byte_262899963, v23, v23, v344, v339, v335, v338);
-  DgnString::~DgnString(&v492);
-  *a4 += v339;
-  *a5 += v335;
-  *a6 += v338;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v345 = 12;
-  }
-
-  else
-  {
-    v345 = 16;
-  }
-
-  v346 = *(this + 114);
-  v347 = *(this + 115);
-  if (v347 >= v346)
-  {
-    v348 = 0;
-    if (v346 > 0)
-    {
-      v345 += 8 * (v346 - 1) + 8;
-    }
-
-    v349 = v345 + 8 * (v347 - v346);
-  }
-
-  else
-  {
-    v348 = 8 * v346;
-    v349 = v345;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 531, &v492);
-  if (v493)
-  {
-    v354 = v492;
-  }
-
-  else
-  {
-    v354 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v350, v351, v352, v353, v22, &byte_262899963, v23, v23, v354, v349, v345, v348);
-  DgnString::~DgnString(&v492);
-  *a4 += v349;
-  *a5 += v345;
-  *a6 += v348;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 533, &v492);
-  if (v493)
-  {
-    v359 = v492;
-  }
-
-  else
-  {
-    v359 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v355, v356, v357, v358, v22, &byte_262899963, v23, v23, v359, 8, 8, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 8;
-  *a5 += 8;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 535, &v492);
-  if (v493)
-  {
-    v364 = v492;
-  }
-
-  else
-  {
-    v364 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v360, v361, v362, v363, v22, &byte_262899963, v23, v23, v364, 8, 8, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 8;
-  *a5 += 8;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v365 = 4;
-  }
-
-  else
-  {
-    v365 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 536, &v492);
-  if (v493)
-  {
-    v370 = v492;
-  }
-
-  else
-  {
-    v370 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v366, v367, v368, v369, v22, &byte_262899963, v23, v23, v370, v365, v365, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v365;
-  *a5 += v365;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v371 = 12;
-  }
-
-  else
-  {
-    v371 = 16;
-  }
-
-  v372 = *(this + 124);
-  v373 = *(this + 125);
-  if (v373 >= v372)
-  {
-    v374 = 0;
-    if (v372 > 0)
-    {
-      v371 += 4 * (v372 - 1) + 4;
-    }
-
-    v375 = v371 + 4 * (v373 - v372);
-  }
-
-  else
-  {
-    v374 = 4 * v372;
-    v375 = v371;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 538, &v492);
-  if (v493)
-  {
-    v380 = v492;
-  }
-
-  else
-  {
-    v380 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v376, v377, v378, v379, v22, &byte_262899963, v23, v23, v380, v375, v371, v374);
-  DgnString::~DgnString(&v492);
-  *a4 += v375;
-  *a5 += v371;
-  *a6 += v374;
-  v381 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v381 = 12;
-  }
-
-  v382 = *(this + 128);
-  v383 = 2;
-  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
-  {
-    v383 = 3;
-  }
-
-  v384 = (((*(this + 129) - v382) + v382) << v383) + v381;
-  v385 = (v382 << v383) + v381;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 540, &v492);
-  if (v493)
-  {
-    v390 = v492;
-  }
-
-  else
-  {
-    v390 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v386, v387, v388, v389, v22, &byte_262899963, v23, v23, v390, v384, v385, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v384;
-  *a5 += v385;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 542, &v492);
-  if (v493)
-  {
-    v395 = v492;
-  }
-
-  else
-  {
-    v395 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v391, v392, v393, v394, v22, &byte_262899963, v23, v23, v395, 4, 4, 0);
-  DgnString::~DgnString(&v492);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v258, v16, &byte_262899963, v17, v17, v259, 4, 4, 0);
+  DgnString::~DgnString(&v287);
   *a4 += 4;
   *a5 += 4;
+  v260 = sizeObject(this + 608, 0);
+  v261 = sizeObject(this + 608, 1);
+  v262 = sizeObject(this + 608, 3);
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 558);
+  if (v288)
+  {
+    v264 = v287;
+  }
+
+  else
+  {
+    v264 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v263, v16, &byte_262899963, v17, v17, v264, v260, v261, v262);
+  DgnString::~DgnString(&v287);
+  *a4 += v260;
+  *a5 += v261;
+  *a6 += v262;
+  v265 = sizeObject(this + 612, 0);
+  v266 = sizeObject(this + 612, 1);
+  v267 = sizeObject(this + 612, 3);
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 560);
+  if (v288)
+  {
+    v269 = v287;
+  }
+
+  else
+  {
+    v269 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v268, v16, &byte_262899963, v17, v17, v269, v265, v266, v267);
+  DgnString::~DgnString(&v287);
+  *a4 += v265;
+  *a5 += v266;
+  *a6 += v267;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v396 = 4;
+    v270 = 4;
   }
 
   else
   {
-    v396 = 8;
+    v270 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 544, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 562);
+  if (v288)
   {
-    v401 = v492;
+    v272 = v287;
   }
 
   else
   {
-    v401 = &byte_262899963;
+    v272 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v397, v398, v399, v400, v22, &byte_262899963, v23, v23, v401, v396, v396, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v396;
-  *a5 += v396;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v271, v16, &byte_262899963, v17, v17, v272, v270, v270, 0);
+  DgnString::~DgnString(&v287);
+  *a4 += v270;
+  *a5 += v270;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v402 = 12;
+    v273 = 12;
   }
 
   else
   {
-    v402 = 16;
+    v273 = 16;
   }
 
-  v403 = *(this + 136);
-  v404 = *(this + 137);
-  if (v404 >= v403)
+  v274 = *(this + 158);
+  v275 = *(this + 159);
+  if (v275 >= v274)
   {
-    v405 = 0;
-    if (v403 > 0)
+    v276 = 0;
+    if (v274 > 0)
     {
-      v402 += 4 * (v403 - 1) + 4;
+      v273 += 2 * (v274 - 1) + 2;
     }
 
-    v406 = v402 + 4 * (v404 - v403);
+    v277 = v273 + 2 * (v275 - v274);
   }
 
   else
   {
-    v405 = 4 * v403;
-    v406 = v402;
+    v276 = 2 * v274;
+    v277 = v273;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 546, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 564);
+  if (v288)
   {
-    v411 = v492;
+    v279 = v287;
   }
 
   else
   {
-    v411 = &byte_262899963;
+    v279 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v407, v408, v409, v410, v22, &byte_262899963, v23, v23, v411, v406, v402, v405);
-  DgnString::~DgnString(&v492);
-  *a4 += v406;
-  *a5 += v402;
-  *a6 += v405;
-  v412 = sizeObject<BinaryIntScale>(this + 552, 0);
-  v413 = sizeObject<BinaryIntScale>(this + 552, 1);
-  LODWORD(v492) = 0;
-  sizeObject(&v492, 2);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 548, &v492);
-  if (v493)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v278, v16, &byte_262899963, v17, v17, v279, v277, v273, v276);
+  DgnString::~DgnString(&v287);
+  *a4 += v277;
+  *a5 += v273;
+  *a6 += v276;
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 566);
+  if (v288)
   {
-    v418 = v492;
+    v281 = v287;
   }
 
   else
   {
-    v418 = &byte_262899963;
+    v281 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v414, v415, v416, v417, v22, &byte_262899963, v23, v23, v418, v412, v413, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v412;
-  *a5 += v413;
-  v419 = sizeObject<BinaryIntScale>(this + 568, 0);
-  v420 = sizeObject<BinaryIntScale>(this + 568, 1);
-  LODWORD(v492) = 0;
-  sizeObject(&v492, 2);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 550, &v492);
-  if (v493)
-  {
-    v425 = v492;
-  }
-
-  else
-  {
-    v425 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v421, v422, v423, v424, v22, &byte_262899963, v23, v23, v425, v419, v420, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v419;
-  *a5 += v420;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v426 = 12;
-  }
-
-  else
-  {
-    v426 = 16;
-  }
-
-  v427 = *(this + 148);
-  v428 = *(this + 149);
-  if (v428 >= v427)
-  {
-    v429 = 0;
-    if (v427 > 0)
-    {
-      v426 += 2 * (v427 - 1) + 2;
-    }
-
-    v430 = v426 + 2 * (v428 - v427);
-  }
-
-  else
-  {
-    v429 = 2 * v427;
-    v430 = v426;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 552, &v492);
-  if (v493)
-  {
-    v435 = v492;
-  }
-
-  else
-  {
-    v435 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v431, v432, v433, v434, v22, &byte_262899963, v23, v23, v435, v430, v426, v429);
-  DgnString::~DgnString(&v492);
-  *a4 += v430;
-  *a5 += v426;
-  *a6 += v429;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 554, &v492);
-  if (v493)
-  {
-    v440 = v492;
-  }
-
-  else
-  {
-    v440 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v436, v437, v438, v439, v22, &byte_262899963, v23, v23, v440, 4, 4, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 556, &v492);
-  if (v493)
-  {
-    v445 = v492;
-  }
-
-  else
-  {
-    v445 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v441, v442, v443, v444, v22, &byte_262899963, v23, v23, v445, 4, 4, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += 4;
-  *a5 += 4;
-  v446 = sizeObject(this + 608, 0);
-  v447 = sizeObject(this + 608, 1);
-  v448 = sizeObject(this + 608, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 558, &v492);
-  if (v493)
-  {
-    v453 = v492;
-  }
-
-  else
-  {
-    v453 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v449, v450, v451, v452, v22, &byte_262899963, v23, v23, v453, v446, v447, v448);
-  DgnString::~DgnString(&v492);
-  *a4 += v446;
-  *a5 += v447;
-  *a6 += v448;
-  v454 = sizeObject(this + 612, 0);
-  v455 = sizeObject(this + 612, 1);
-  v456 = sizeObject(this + 612, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 560, &v492);
-  if (v493)
-  {
-    v461 = v492;
-  }
-
-  else
-  {
-    v461 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v457, v458, v459, v460, v22, &byte_262899963, v23, v23, v461, v454, v455, v456);
-  DgnString::~DgnString(&v492);
-  *a4 += v454;
-  *a5 += v455;
-  *a6 += v456;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v462 = 4;
-  }
-
-  else
-  {
-    v462 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 562, &v492);
-  if (v493)
-  {
-    v467 = v492;
-  }
-
-  else
-  {
-    v467 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v463, v464, v465, v466, v22, &byte_262899963, v23, v23, v467, v462, v462, 0);
-  DgnString::~DgnString(&v492);
-  *a4 += v462;
-  *a5 += v462;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v468 = 12;
-  }
-
-  else
-  {
-    v468 = 16;
-  }
-
-  v469 = *(this + 158);
-  v470 = *(this + 159);
-  if (v470 >= v469)
-  {
-    v471 = 0;
-    if (v469 > 0)
-    {
-      v468 += 2 * (v469 - 1) + 2;
-    }
-
-    v472 = v468 + 2 * (v470 - v469);
-  }
-
-  else
-  {
-    v471 = 2 * v469;
-    v472 = v468;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 564, &v492);
-  if (v493)
-  {
-    v477 = v492;
-  }
-
-  else
-  {
-    v477 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v473, v474, v475, v476, v22, &byte_262899963, v23, v23, v477, v472, v468, v471);
-  DgnString::~DgnString(&v492);
-  *a4 += v472;
-  *a5 += v468;
-  *a6 += v471;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 566, &v492);
-  if (v493)
-  {
-    v482 = v492;
-  }
-
-  else
-  {
-    v482 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v478, v479, v480, v481, v22, &byte_262899963, v23, v23, v482, 2, 2, 0);
-  DgnString::~DgnString(&v492);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v280, v16, &byte_262899963, v17, v17, v281, 2, 2, 0);
+  DgnString::~DgnString(&v287);
   *a4 += 2;
   *a5 += 2;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 567, &v492);
-  if (v493)
+  getShipObjectSizeDescription(&v287, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/pelsc.cpp", 567);
+  if (v288)
   {
-    v487 = v492;
+    v283 = v287;
   }
 
   else
   {
-    v487 = &byte_262899963;
+    v283 = &byte_262899963;
   }
 
-  v488 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v483, v484, v485, v486, v489, &byte_262899963, (35 - v489), (35 - v489), v487, *a4, *a5, *a6);
-  DgnString::~DgnString(&v492);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v282, v284, &byte_262899963, (35 - v284), (35 - v284), v283, *a4, *a5, *a6);
+  DgnString::~DgnString(&v287);
 }
 
-void sub_262834D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_262834D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-void OnDemandPelScorer::beginPelSyncRecog(OnDemandPelScorer *this, uint64_t a2, const AdaptConfig *a3, const CTFTMgr *a4, int a5, char a6, char a7, double a8, double a9)
+void OnDemandPelScorer::beginPelSyncRecog(OnDemandPelScorer *this, int a2, const AdaptConfig *a3, const CTFTMgr *a4, _BOOL4 a5, char a6, char a7, double a8, double a9)
 {
   v9 = a8;
   v12 = a5;
-  if (*(this + 131) != 1 || ((v17 = *(this + 2), LODWORD(a9) = *(v17 + 140), LODWORD(a8) = *(v17 + 144), *&a8 / *&a9 >= *(this + 17)) ? (v18 = a5 == 0) : (v18 = 1), v18))
+  if (*(this + 131) != 1 || ((v17 = *(this + 2), LODWORD(a9) = *(v17 + 140), LODWORD(a8) = *(v17 + 144), *&a8 / *&a9 >= *(this + 17)) ? (v18 = !a5) : (v18 = 1), v18))
   {
     *(this + 128) = 0;
   }
@@ -5005,7 +4980,7 @@ LABEL_9:
   PelScorer::beginPelSyncRecogBase(this, a2, a3, a4, v12, a6, a7, v9, v20, v21, v19);
 }
 
-void PelScorer::beginPelSyncRecogBase(PelScorer *this, uint64_t a2, const AdaptConfig *a3, const CTFTMgr *a4, char a5, char a6, char a7, double a8, void (*a9)(const PelScorer *, unsigned __int16, unsigned int, unsigned __int16 *, unsigned int *), int (*a10)(const PelScorer *, unsigned __int16, const unsigned __int16 *, unsigned int *), int (*a11)(const PelScorer *, unsigned __int16, unsigned int *))
+void PelScorer::beginPelSyncRecogBase(PelScorer *this, int a2, const AdaptConfig *a3, const CTFTMgr *a4, char a5, char a6, char a7, double a8, void (*a9)(const PelScorer *, unsigned __int16, unsigned int, unsigned __int16 *, unsigned int *), int (*a10)(const PelScorer *, unsigned __int16, const unsigned __int16 *, unsigned int *), int (*a11)(const PelScorer *, unsigned __int16, unsigned int *))
 {
   *(this + 130) = a7;
   if (*(this + 7))
@@ -5035,9 +5010,9 @@ void PelScorer::beginPelSyncRecogBase(PelScorer *this, uint64_t a2, const AdaptC
   *(this + 28) = *(*(this + 2) + 132);
   PelScorer::initFeatureCache(this);
   *(this + 129) = a5;
-  v23 = *(this + 15);
+  v21 = *(this + 15);
 
-  PelScoreCache::beginPelScoreCacheSyncRecog(v23, a6, a5, a9, a10, a11, a8, v21, v22);
+  PelScoreCache::beginPelScoreCacheSyncRecog(v21, a6, a5, a9, a10, a11, a8);
 }
 
 void PelScorer::beginFmpePelSyncRecog(PelScorer *this)
@@ -5064,9 +5039,9 @@ void PelScorer::beginOnlineCTPelSyncRecog(PelScorer *this, const CTFTMgr *a2, do
   *(this + 284) = 0x100000001;
   PelScorer::initFeatureCacheForSlots(this);
   *(this + 129) = 0;
-  v7 = *(this + 15);
+  v5 = *(this + 15);
 
-  PelScoreCache::beginPelScoreCacheSyncRecog(v7, 0, 0, 0, 0, 0, a3, v5, v6);
+  PelScoreCache::beginPelScoreCacheSyncRecog(v5, 0, 0, 0, 0, 0, a3);
 }
 
 uint64_t PelScorer::initFeatureCache(PelScorer *this)
@@ -5296,12 +5271,12 @@ uint64_t PelScorer::initFeatureCache(PelScorer *this)
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v50);
 }
 
-void sub_262835528(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262835528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   _Unwind_Resume(a1);
@@ -5751,7 +5726,7 @@ LABEL_63:
   }
 }
 
-uint64_t PelScorer::setupForUttAccumulate(unint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t PelScorer::setupForUttAccumulate(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (*(*(a1 + 16) + 16) == 1)
   {
@@ -5768,7 +5743,7 @@ uint64_t PelScorer::setupForUttAccumulate(unint64_t a1, uint64_t *a2, uint64_t a
   }
 }
 
-unint64_t PelScorer::getMICFeatures(unint64_t result, uint64_t *a2, _DWORD *a3)
+uint64_t PelScorer::getMICFeatures(uint64_t result, uint64_t *a2, _DWORD *a3)
 {
   v5 = result;
   v6 = *(result + 112);
@@ -5924,12 +5899,12 @@ unint64_t PelScorer::getMICFeatures(unint64_t result, uint64_t *a2, _DWORD *a3)
   return result;
 }
 
-void sub_262836020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_262836020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   _Unwind_Resume(a1);
@@ -5943,165 +5918,164 @@ uint64_t PelScorer::setFrameStaticsMic(uint64_t result, unsigned int a2, unsigne
     v13 = *(result + 16);
     if (*(v13 + 536))
     {
-      v14 = *(result + 152);
       result = FrameDecisionTree::classifyFrame((v13 + 528), a3);
       *(*(v12 + 624) + 2 * a2) = result;
       *(v12 + 640) = result;
     }
   }
 
-  v15 = *(v12 + 116) + 1;
-  v16 = v15 & 0xFFFFFFFE;
-  v17 = *(*(v12 + 16) + 12);
-  if (v17 == 1)
+  v14 = *(v12 + 116) + 1;
+  v15 = v14 & 0xFFFFFFFE;
+  v16 = *(*(v12 + 16) + 12);
+  if (v16 == 1)
   {
-    v33 = *(v12 + 112);
-    v34 = (v33 + 7) & 0xFFFFFFF8;
-    v35 = (v16 + 7) & 0xFFFFFFF8;
-    v36 = *(v12 + 600);
-    v37 = (v34 + v35) * a2;
-    if (v33)
+    v32 = *(v12 + 112);
+    v33 = (v32 + 7) & 0xFFFFFFF8;
+    v34 = (v15 + 7) & 0xFFFFFFF8;
+    v35 = *(v12 + 600);
+    v36 = (v33 + v34) * a2;
+    if (v32)
     {
-      v38 = *a3;
-      v39 = *(v12 + 584);
-      v40 = v36 + v37;
+      v37 = *a3;
+      v38 = *(v12 + 584);
+      v39 = v35 + v36;
       result = *(v12 + 112);
       do
       {
-        v41 = *v38++;
-        *(v39 + 2 * v40++) = v41;
+        v40 = *v37++;
+        *(v38 + 2 * v39++) = v40;
         --result;
       }
 
       while (result);
     }
 
-    if (v33 < v34)
+    if (v32 < v33)
     {
-      v42 = *(v12 + 584);
-      v43 = v33 + v36 + v37;
-      v44 = v33 - v34;
+      v41 = *(v12 + 584);
+      v42 = v32 + v35 + v36;
+      v43 = v32 - v33;
       do
       {
-        *(v42 + 2 * v43++) = 0;
+        *(v41 + 2 * v42++) = 0;
       }
 
-      while (!__CFADD__(v44++, 1));
+      while (!__CFADD__(v43++, 1));
     }
 
-    if (v16)
+    if (v15)
     {
-      v46 = *a4;
-      v47 = *(v12 + 584);
-      v48 = v36 + v37 + v34;
-      v49 = v15 & 0xFFFFFFFE;
+      v45 = *a4;
+      v46 = *(v12 + 584);
+      v47 = v35 + v36 + v33;
+      v48 = v14 & 0xFFFFFFFE;
       do
       {
-        v50 = *v46++;
-        result = v50;
-        *(v47 + 2 * v48++) = v50;
-        --v49;
+        v49 = *v45++;
+        result = v49;
+        *(v46 + 2 * v47++) = v49;
+        --v48;
       }
 
-      while (v49);
+      while (v48);
     }
 
-    if (v16 < v35)
+    if (v15 < v34)
     {
-      v51 = *(v12 + 584);
-      v52 = v36 + v37 + v34 + (v15 & 0xFFFFFFFE);
-      v53 = v35 - v16;
+      v50 = *(v12 + 584);
+      v51 = v35 + v36 + v33 + (v14 & 0xFFFFFFFE);
+      v52 = v34 - v15;
       do
       {
-        *(v51 + 2 * v52++) = 0;
-        --v53;
+        *(v50 + 2 * v51++) = 0;
+        --v52;
       }
 
-      while (v53);
+      while (v52);
     }
 
-    v54 = v37 + v36;
-    v55 = *(v12 + 536);
-    v30 = a2;
-    *(v55 + 4 * a2) = a6;
-    v56 = *(v12 + 552);
+    v53 = v36 + v35;
+    v54 = *(v12 + 536);
+    v29 = a2;
+    *(v54 + 4 * a2) = a6;
+    v55 = *(v12 + 552);
     if ((a5 & 0x80000000) != 0)
     {
-      *(v56 + 4 * a2) = 0;
-      v57 = *(v12 + 568);
-      *(v57 + 4 * a2) = -a5;
+      *(v55 + 4 * a2) = 0;
+      v56 = *(v12 + 568);
+      *(v56 + 4 * a2) = -a5;
     }
 
     else
     {
-      *(v56 + 4 * a2) = a5;
-      v57 = *(v12 + 568);
-      *(v57 + 4 * a2) = 0;
+      *(v55 + 4 * a2) = a5;
+      v56 = *(v12 + 568);
+      *(v56 + 4 * a2) = 0;
     }
 
-    *(v12 + 616) = *(v12 + 584) + 2 * v54;
-    *(v12 + 604) = *(v55 + 4 * a2);
-    *(v12 + 608) = *(v56 + 4 * a2);
-    *(v12 + 612) = *(v57 + 4 * a2);
+    *(v12 + 616) = *(v12 + 584) + 2 * v53;
+    *(v12 + 604) = *(v54 + 4 * a2);
+    *(v12 + 608) = *(v55 + 4 * a2);
+    *(v12 + 612) = *(v56 + 4 * a2);
   }
 
-  else if (v17 == 2)
+  else if (v16 == 2)
   {
-    v18 = *(v12 + 112);
-    v19 = (v18 + v16) * a2;
-    if (v18)
+    v17 = *(v12 + 112);
+    v18 = (v17 + v15) * a2;
+    if (v17)
     {
-      v20 = *a3;
-      v21 = *(v12 + 448);
-      v22 = *(v12 + 112);
-      v23 = (v18 + v16) * a2;
+      v19 = *a3;
+      v20 = *(v12 + 448);
+      v21 = *(v12 + 112);
+      v22 = (v17 + v15) * a2;
       do
       {
-        v24 = *v20++;
-        *(v21 + 8 * v23++) = v24;
-        --v22;
+        v23 = *v19++;
+        *(v20 + 8 * v22++) = v23;
+        --v21;
       }
 
-      while (v22);
+      while (v21);
     }
 
-    if (v16)
+    if (v15)
     {
-      v25 = *a4;
-      v26 = *(v12 + 448);
-      v27 = v18 + v19;
+      v24 = *a4;
+      v25 = *(v12 + 448);
+      v26 = v17 + v18;
       do
       {
-        v28 = *v25++;
-        *(v26 + 8 * v27++) = v28;
-        --v16;
+        v27 = *v24++;
+        *(v25 + 8 * v26++) = v27;
+        --v15;
       }
 
-      while (v16);
+      while (v15);
     }
 
-    v29 = *(v12 + 416);
-    *(v29 + 8 * a2) = a6;
-    v30 = a2;
-    v31 = *(v12 + 432);
-    *&v32 = 0x3FF0000000000000 - (a5 << 52);
+    v28 = *(v12 + 416);
+    *(v28 + 8 * a2) = a6;
+    v29 = a2;
+    v30 = *(v12 + 432);
+    *&v31 = 0x3FF0000000000000 - (a5 << 52);
     if (a5 < 0)
     {
-      v32 = (1 << -a5);
+      v31 = (1 << -a5);
     }
 
-    *(v31 + 8 * a2) = v32;
-    *(v12 + 480) = *(v12 + 448) + 8 * v19;
-    *(v12 + 464) = *(v29 + 8 * a2);
-    *(v12 + 472) = *(v31 + 8 * a2);
+    *(v30 + 8 * a2) = v31;
+    *(v12 + 480) = *(v12 + 448) + 8 * v18;
+    *(v12 + 464) = *(v28 + 8 * a2);
+    *(v12 + 472) = *(v30 + 8 * a2);
   }
 
   else
   {
-    v30 = a2;
+    v29 = a2;
   }
 
-  *(*(v12 + 400) + v30) = 1;
+  *(*(v12 + 400) + v29) = 1;
   return result;
 }
 
@@ -6113,48 +6087,47 @@ uint64_t PelScorer::setFrameStaticsNoMic(uint64_t result, unsigned int a2, unsig
     v9 = *(result + 16);
     if (*(v9 + 536))
     {
-      v10 = *(result + 152);
       result = FrameDecisionTree::classifyFrame((v9 + 528), a3);
       *(*(v8 + 624) + 2 * a2) = result;
       *(v8 + 640) = result;
     }
   }
 
-  v11 = *(*(v8 + 16) + 12);
-  if (v11 > 1)
+  v10 = *(*(v8 + 16) + 12);
+  if (v10 > 1)
   {
-    if (v11 == 2)
+    if (v10 == 2)
     {
-      v31 = *(v8 + 112);
-      v32 = v31 * a2;
-      if (v31)
+      v30 = *(v8 + 112);
+      v31 = v30 * a2;
+      if (v30)
       {
-        v33 = *a3;
-        v34 = *(v8 + 448);
-        v35 = v31 * a2;
+        v32 = *a3;
+        v33 = *(v8 + 448);
+        v34 = v30 * a2;
         do
         {
-          v36 = *v33++;
-          *(v34 + 8 * v35++) = v36;
-          --v31;
+          v35 = *v32++;
+          *(v33 + 8 * v34++) = v35;
+          --v30;
         }
 
-        while (v31);
+        while (v30);
       }
 
       else
       {
-        v34 = *(v8 + 448);
+        v33 = *(v8 + 448);
       }
 
-      v12 = a2;
+      v11 = a2;
       *(*(v8 + 416) + 8 * a2) = a4;
-      *(v8 + 480) = v34 + 8 * v32;
+      *(v8 + 480) = v33 + 8 * v31;
       *(v8 + 464) = a4;
       goto LABEL_28;
     }
 
-    if (v11 != 3)
+    if (v10 != 3)
     {
       goto LABEL_7;
     }
@@ -6162,90 +6135,90 @@ uint64_t PelScorer::setFrameStaticsNoMic(uint64_t result, unsigned int a2, unsig
     goto LABEL_10;
   }
 
-  if (v11)
+  if (v10)
   {
-    if (v11 != 1)
+    if (v10 != 1)
     {
 LABEL_7:
-      v12 = a2;
+      v11 = a2;
       goto LABEL_28;
     }
 
 LABEL_10:
-    v13 = *(v8 + 112);
-    v14 = (v13 + 7) & 0xFFFFFFF8;
-    v15 = *(v8 + 600);
-    v16 = v14 * a2;
-    if (v13)
+    v12 = *(v8 + 112);
+    v13 = (v12 + 7) & 0xFFFFFFF8;
+    v14 = *(v8 + 600);
+    v15 = v13 * a2;
+    if (v12)
     {
-      v17 = *a3;
-      v18 = *(v8 + 584);
-      v19 = v15 + v16;
-      v20 = *(v8 + 112);
+      v16 = *a3;
+      v17 = *(v8 + 584);
+      v18 = v14 + v15;
+      v19 = *(v8 + 112);
       do
       {
-        v21 = *v17++;
-        *(v18 + 2 * v19++) = v21;
-        --v20;
+        v20 = *v16++;
+        *(v17 + 2 * v18++) = v20;
+        --v19;
       }
 
-      while (v20);
+      while (v19);
     }
 
-    v22 = v16 + v15;
-    v23 = *(v8 + 584);
-    if (v13 < v14)
+    v21 = v15 + v14;
+    v22 = *(v8 + 584);
+    if (v12 < v13)
     {
-      v24 = v13 + v15 + v16;
-      v25 = v13 - v14;
+      v23 = v12 + v14 + v15;
+      v24 = v12 - v13;
       do
       {
-        *(v23 + 2 * v24++) = 0;
+        *(v22 + 2 * v23++) = 0;
       }
 
-      while (!__CFADD__(v25++, 1));
+      while (!__CFADD__(v24++, 1));
     }
 
-    v12 = a2;
+    v11 = a2;
     *(*(v8 + 536) + 4 * a2) = a4;
-    *(v8 + 616) = v23 + 2 * v22;
+    *(v8 + 616) = v22 + 2 * v21;
     *(v8 + 604) = a4;
     goto LABEL_28;
   }
 
-  v27 = *(v8 + 112);
-  if (v27)
+  v26 = *(v8 + 112);
+  if (v26)
   {
-    v28 = 0;
-    v29 = *(*(v8 + 80) + 56);
-    v30 = v27 * a2;
+    v27 = 0;
+    v28 = *(*(v8 + 80) + 56);
+    v29 = v26 * a2;
     do
     {
-      *(*(v8 + 504) + 8 * v30++) = v29 + 2 * (*a3)[v28++];
+      *(*(v8 + 504) + 8 * v29++) = v28 + 2 * (*a3)[v27++];
     }
 
-    while (v27 != v28);
+    while (v26 != v27);
   }
 
-  v12 = a2;
+  v11 = a2;
   *(*(v8 + 488) + 4 * a2) = a4;
-  *(v8 + 528) = *(v8 + 504) + 8 * v27 * a2;
+  *(v8 + 528) = *(v8 + 504) + 8 * v26 * a2;
   *(v8 + 520) = a4;
 LABEL_28:
-  *(*(v8 + 400) + v12) = 1;
+  *(*(v8 + 400) + v11) = 1;
   return result;
 }
 
-unint64_t PelScorer::beginPelFrameBase(uint64_t a1, int a2, int a3, uint64_t a4, PelStats *a5, char a6)
+uint64_t *PelScorer::beginPelFrameBase(uint64_t a1, int a2, BOOL a3, uint64_t a4, PelStats *a5, char a6)
 {
   PelScorer::resetFeatureCache(a1);
   *(a1 + 152) = a2;
-  DgnPrimArray<unsigned char>::copyArraySlice(a1 + 160, a4, 0, *(a4 + 8));
+  DgnPrimArray<unsigned char>::copyArraySlice((a1 + 160), a4, 0, *(a4 + 8));
   if (*(a1 + 284) <= 1u)
   {
     if (*(a1 + 24))
     {
-      PelScorer::setFrameStaticsForGenoneAdapt(a1, 0, a3, a5, v12, v13, v14, v15);
+      PelScorer::setFrameStaticsForGenoneAdapt(a1, 0, a3, a5);
     }
 
     else
@@ -6254,10 +6227,10 @@ unint64_t PelScorer::beginPelFrameBase(uint64_t a1, int a2, int a3, uint64_t a4,
     }
   }
 
-  v16 = *(a1 + 120);
-  v17 = *(a1 + 152);
+  v12 = *(a1 + 120);
+  v13 = *(a1 + 152);
 
-  return PelScoreCache::beginPelScoreCacheFrame(v16, v17, a6);
+  return PelScoreCache::beginPelScoreCacheFrame(v12, v13, a6);
 }
 
 uint64_t PelScorer::resetFeatureCache(uint64_t this)
@@ -6319,82 +6292,81 @@ uint64_t PelScorer::resetFeatureCache(uint64_t this)
   return this;
 }
 
-uint64_t PelScorer::setFrameStaticsForGenoneAdapt(PelScorer *this, unsigned int a2, int a3, PelStats *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PelScorer::setFrameStaticsForGenoneAdapt(PelScorer *this, unsigned int a2, BOOL a3, PelStats *a4)
 {
-  v9 = *(*(this + 37) + 4 * a2);
-  if (*(*(this + 50) + v9) != 1)
+  v5 = *(*(this + 37) + 4 * a2);
+  if (*(*(this + 50) + v5) != 1)
   {
-    PelScorer::getTransformedFeatures_Adapt_Cache(this, a2, a3, *(this + 44) + 16 * v9, a4, a6, a7, a8);
-    v13 = *(this + 44) + 16 * v9;
+    PelScorer::getTransformedFeatures_Adapt_Cache(this, a2, a3, *(this + 44) + 16 * v5, a4);
     if (*(*(this + 2) + 16) == 1)
     {
-      PelScorer::getMICFeatures(this, (*(this + 44) + 16 * v9), a4 + 4);
-      PelScorer::setFrameStaticsMic(this, v9, (*(this + 44) + 16 * v9), this + 31, *(this + 66), 0, 0);
+      PelScorer::getMICFeatures(this, (*(this + 44) + 16 * v5), a4 + 4);
+      PelScorer::setFrameStaticsMic(this, v5, (*(this + 44) + 16 * v5), this + 31, *(this + 66), 0, 0);
     }
 
     else
     {
-      PelScorer::setFrameStaticsNoMic(this, v9, (*(this + 44) + 16 * v9), 0, 0);
+      PelScorer::setFrameStaticsNoMic(this, v5, (*(this + 44) + 16 * v5), 0, 0);
     }
 
-    return *(this + 44) + 16 * v9;
+    return *(this + 44) + 16 * v5;
   }
 
-  v10 = *(*(this + 2) + 12);
+  v6 = *(*(this + 2) + 12);
   if (*(*(this + 2) + 16) == 1)
   {
-    if (v10 == 1)
+    if (v6 == 1)
     {
-      *(this + 77) = *(this + 73) + 2 * (*(this + 150) + (((*(this + 29) + 7) & 0xFFFFFFF8) + ((*(this + 28) + 7) & 0xFFFFFFF8)) * v9);
-      v14 = *(*(this + 69) + 4 * v9);
-      *(this + 151) = *(*(this + 67) + 4 * v9);
-      *(this + 152) = v14;
-      *(this + 153) = *(*(this + 71) + 4 * v9);
+      *(this + 77) = *(this + 73) + 2 * (*(this + 150) + (((*(this + 29) + 7) & 0xFFFFFFF8) + ((*(this + 28) + 7) & 0xFFFFFFF8)) * v5);
+      v9 = *(*(this + 69) + 4 * v5);
+      *(this + 151) = *(*(this + 67) + 4 * v5);
+      *(this + 152) = v9;
+      *(this + 153) = *(*(this + 71) + 4 * v5);
     }
 
-    else if (v10 == 2)
+    else if (v6 == 2)
     {
-      v11 = *(*(this + 52) + 8 * v9);
-      *(this + 60) = *(this + 56) + 8 * ((*(this + 29) + *(this + 28)) * v9);
-      *(this + 58) = v11;
-      *(this + 59) = *(*(this + 54) + 8 * v9);
+      v7 = *(*(this + 52) + 8 * v5);
+      *(this + 60) = *(this + 56) + 8 * ((*(this + 29) + *(this + 28)) * v5);
+      *(this + 58) = v7;
+      *(this + 59) = *(*(this + 54) + 8 * v5);
     }
 
-    return *(this + 44) + 16 * v9;
+    return *(this + 44) + 16 * v5;
   }
 
-  if (v10 <= 1)
+  if (v6 <= 1)
   {
-    if (!v10)
+    if (!v6)
     {
-      *(this + 66) = *(this + 63) + 8 * (*(this + 28) * v9);
-      *(this + 130) = *(*(this + 61) + 4 * v9);
-      return *(this + 44) + 16 * v9;
+      *(this + 66) = *(this + 63) + 8 * (*(this + 28) * v5);
+      *(this + 130) = *(*(this + 61) + 4 * v5);
+      return *(this + 44) + 16 * v5;
     }
 
-    if (v10 != 1)
+    if (v6 != 1)
     {
-      return *(this + 44) + 16 * v9;
+      return *(this + 44) + 16 * v5;
     }
 
     goto LABEL_16;
   }
 
-  if (v10 == 3)
+  if (v6 == 3)
   {
 LABEL_16:
-    *(this + 77) = *(this + 73) + 2 * (*(this + 150) + ((*(this + 28) + 7) & 0xFFFFFFF8) * v9);
-    *(this + 151) = *(*(this + 67) + 4 * v9);
-    return *(this + 44) + 16 * v9;
+    *(this + 77) = *(this + 73) + 2 * (*(this + 150) + ((*(this + 28) + 7) & 0xFFFFFFF8) * v5);
+    *(this + 151) = *(*(this + 67) + 4 * v5);
+    return *(this + 44) + 16 * v5;
   }
 
-  if (v10 == 2)
+  if (v6 == 2)
   {
-    *(this + 60) = *(this + 56) + 8 * (*(this + 28) * v9);
-    *(this + 58) = *(*(this + 52) + 8 * v9);
+    *(this + 60) = *(this + 56) + 8 * (*(this + 28) * v5);
+    *(this + 58) = *(*(this + 52) + 8 * v5);
   }
 
-  return *(this + 44) + 16 * v9;
+  return *(this + 44) + 16 * v5;
 }
 
 float *(*OnDemandPelScorer::getGenoneScoringFunction(OnDemandPelScorer *this))(float *result, unsigned int a2, unsigned int a3, unsigned __int16 *a4, unsigned int *a5)
@@ -8242,9 +8214,9 @@ uint64_t MulTableShortListPelScoringFunction(const PelScorer *a1, unsigned int a
   return v13;
 }
 
-void sub_262838548(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262838548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -8275,9 +8247,9 @@ uint64_t MulTablePelScoringFunction(const PelScorer *a1, unsigned int a2, unsign
   return v13;
 }
 
-void sub_262838634(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262838634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -9277,16 +9249,16 @@ LABEL_75:
   return v22;
 }
 
-void sub_262839630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_262839630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t PelScorer::getPackedIntMICComponentScore(PelScorer *this, unsigned int a2, int a3)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = *(this + 2);
   v4 = *(v3 + 132);
   v5 = (v4 + 1) & 0xFFFFFFFE;
@@ -9294,8 +9266,8 @@ uint64_t PelScorer::getPackedIntMICComponentScore(PelScorer *this, unsigned int 
   v7 = *(this + 77);
   v8 = (*(v3 + 232) + *(v3 + 248) + *(*(v3 + 256) + 4 * a2) + v5 + (*(v3 + 148) * a3));
   v9 = *v8;
+  v53 = 0;
   v54 = 0;
-  v55 = 0;
   v10 = (v6 + 7) & 0xFFFFFFF8;
   v11 = (v8 + ((v5 + 17) & 0xFFFFFFF0) - v5);
   if (v4)
@@ -9317,7 +9289,7 @@ uint64_t PelScorer::getPackedIntMICComponentScore(PelScorer *this, unsigned int 
           v14 = v14;
         }
 
-        v15 = &v54;
+        v15 = &v53;
         v16 = v13;
         do
         {
@@ -9337,10 +9309,10 @@ uint64_t PelScorer::getPackedIntMICComponentScore(PelScorer *this, unsigned int 
     }
 
     while (v12 < v4);
-    v20 = v54;
-    v21 = HIDWORD(v54);
-    v23 = v55;
-    v22 = HIDWORD(v55);
+    v20 = v53;
+    v21 = HIDWORD(v53);
+    v23 = v54;
+    v22 = HIDWORD(v54);
   }
 
   else
@@ -9369,8 +9341,8 @@ uint64_t PelScorer::getPackedIntMICComponentScore(PelScorer *this, unsigned int 
     v32 = &v11[v26 + 1];
     do
     {
+      v51 = 0;
       v52 = 0;
-      v53 = 0;
       v33 = v28 & 0x7FFFFFFC;
       v34 = v28;
       v35 = 8 * v28;
@@ -9387,7 +9359,7 @@ uint64_t PelScorer::getPackedIntMICComponentScore(PelScorer *this, unsigned int 
             break;
           }
 
-          *(&v52 + (v37 & 3)) += v7[v36 + v37] * *(v39 + 2 * v37);
+          *(&v51 + (v37 & 3)) += v7[v36 + v37] * *(v39 + 2 * v37);
           ++v37;
         }
 
@@ -9398,8 +9370,8 @@ uint64_t PelScorer::getPackedIntMICComponentScore(PelScorer *this, unsigned int 
 
       while (v33 < v34--);
       v28 = v33 - 1;
-      v30 += v53 + v52;
-      v29 += SHIDWORD(v53) + SHIDWORD(v52);
+      v30 += v52 + v51;
+      v29 += SHIDWORD(v52) + SHIDWORD(v51);
     }
 
     while (v33);
@@ -9431,105 +9403,101 @@ uint64_t PelScorer::getPackedIntMICComponentScore(PelScorer *this, unsigned int 
   v49 = (v48 + v43 + ((v47 + v46) >> v25)) & ~((v48 + v43 + ((v47 + v46) >> v25)) >> 31);
   if (v49 >= 0xFFFF)
   {
-    result = 0xFFFFLL;
+    return 0xFFFFLL;
   }
 
   else
   {
-    result = v49;
+    return v49;
   }
-
-  v51 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t OnDemandPelScorer::setFrameStaticsForGenone(uint64_t this, unsigned int a2, PelStats *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t OnDemandPelScorer::setFrameStaticsForGenone(uint64_t this, unsigned int a2, PelStats *a3)
 {
-  v8 = this;
-  v9 = *(*(this + 296) + 4 * a2);
-  if (*(*(this + 400) + v9) != 1)
+  v3 = this;
+  v4 = *(*(this + 296) + 4 * a2);
+  if (*(*(this + 400) + v4) != 1)
   {
-    PelScorer::getTransformedFeatures_NoAdapt_Cache(this, a2, 0, this + 200, a3, a6, a7, a8);
-    if (*(*(v8 + 16) + 16) == 1)
+    PelScorer::getTransformedFeatures_NoAdapt_Cache(this, a2, 0, this + 200, a3);
+    if (*(*(v3 + 16) + 16) == 1)
     {
-      PelScorer::getMICFeatures(v8, (v8 + 200), a3 + 4);
-      v15 = *(v8 + 264);
-      v16 = *(v8 + 268);
+      PelScorer::getMICFeatures(v3, (v3 + 200), a3 + 4);
+      v9 = *(v3 + 264);
+      v10 = *(v3 + 268);
 
-      return PelScorer::setFrameStaticsMic(v8, v9, (v8 + 200), (v8 + 248), v15, v16, 1);
+      return PelScorer::setFrameStaticsMic(v3, v4, (v3 + 200), (v3 + 248), v9, v10, 1);
     }
 
     else
     {
-      v18 = *(v8 + 268);
+      v12 = *(v3 + 268);
 
-      return PelScorer::setFrameStaticsNoMic(v8, v9, (v8 + 200), v18, 1);
+      return PelScorer::setFrameStaticsNoMic(v3, v4, (v3 + 200), v12, 1);
     }
   }
 
-  v10 = *(this + 16);
-  v11 = *(v10 + 536);
-  if (*(v10 + 16) == 1)
+  v5 = *(this + 16);
+  if (*(v5 + 16) == 1)
   {
-    if (*(v10 + 536))
+    if (*(v5 + 536))
     {
-      *(this + 640) = *(*(this + 624) + 2 * v9);
+      *(this + 640) = *(*(this + 624) + 2 * v4);
     }
 
-    v12 = *(v10 + 12);
-    if (v12 == 1)
+    v6 = *(v5 + 12);
+    if (v6 == 1)
     {
-      *(this + 616) = *(this + 584) + 2 * (*(this + 600) + (((*(this + 116) + 7) & 0xFFFFFFF8) + ((*(this + 112) + 7) & 0xFFFFFFF8)) * v9);
-      v19 = *(*(this + 552) + 4 * v9);
-      *(this + 604) = *(*(this + 536) + 4 * v9);
-      *(this + 608) = v19;
-      *(this + 612) = *(*(this + 568) + 4 * v9);
+      *(this + 616) = *(this + 584) + 2 * (*(this + 600) + (((*(this + 116) + 7) & 0xFFFFFFF8) + ((*(this + 112) + 7) & 0xFFFFFFF8)) * v4);
+      v13 = *(*(this + 552) + 4 * v4);
+      *(this + 604) = *(*(this + 536) + 4 * v4);
+      *(this + 608) = v13;
+      *(this + 612) = *(*(this + 568) + 4 * v4);
     }
 
-    else if (v12 == 2)
+    else if (v6 == 2)
     {
-      v13 = *(*(this + 416) + 8 * v9);
-      *(this + 480) = *(this + 448) + 8 * ((*(this + 116) + *(this + 112)) * v9);
-      *(this + 464) = v13;
-      *(this + 472) = *(*(this + 432) + 8 * v9);
+      v7 = *(*(this + 416) + 8 * v4);
+      *(this + 480) = *(this + 448) + 8 * ((*(this + 116) + *(this + 112)) * v4);
+      *(this + 464) = v7;
+      *(this + 472) = *(*(this + 432) + 8 * v4);
     }
 
     return this;
   }
 
-  if (*(v10 + 536))
+  if (*(v5 + 536))
   {
-    *(this + 640) = *(*(this + 624) + 2 * v9);
+    *(this + 640) = *(*(this + 624) + 2 * v4);
   }
 
-  v17 = *(v10 + 12);
-  if (v17 > 1)
+  v11 = *(v5 + 12);
+  if (v11 > 1)
   {
-    if (v17 != 3)
+    if (v11 != 3)
     {
-      if (v17 == 2)
+      if (v11 == 2)
       {
-        *(this + 480) = *(this + 448) + 8 * (*(this + 112) * v9);
-        *(this + 464) = *(*(this + 416) + 8 * v9);
+        *(this + 480) = *(this + 448) + 8 * (*(this + 112) * v4);
+        *(this + 464) = *(*(this + 416) + 8 * v4);
       }
 
       return this;
     }
 
 LABEL_24:
-    *(this + 616) = *(this + 584) + 2 * (*(this + 600) + ((*(this + 112) + 7) & 0xFFFFFFF8) * v9);
-    *(this + 604) = *(*(this + 536) + 4 * v9);
+    *(this + 616) = *(this + 584) + 2 * (*(this + 600) + ((*(this + 112) + 7) & 0xFFFFFFF8) * v4);
+    *(this + 604) = *(*(this + 536) + 4 * v4);
     return this;
   }
 
-  if (!v17)
+  if (!v11)
   {
-    *(this + 528) = *(this + 504) + 8 * (*(this + 112) * v9);
-    *(this + 520) = *(*(this + 488) + 4 * v9);
+    *(this + 528) = *(this + 504) + 8 * (*(this + 112) * v4);
+    *(this + 520) = *(*(this + 488) + 4 * v4);
     return this;
   }
 
-  if (v17 == 1)
+  if (v11 == 1)
   {
     goto LABEL_24;
   }
@@ -9537,277 +9505,61 @@ LABEL_24:
   return this;
 }
 
-double PelScorer::getTransformedFeatures_NoAdapt_Cache(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, _DWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PelScorer::getTransformedFeatures_NoAdapt_Cache(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
   *(a1 + 268) = 0;
-  v12 = *(*(a1 + 312) + 4 * a2);
-  v13 = *(a1 + 368) + 16 * v12;
-  if (*(v13 + 8))
+  v9 = *(*(a1 + 312) + 4 * a2);
+  v10 = *(a1 + 368) + 16 * v9;
+  if (*(v10 + 8))
   {
-    *(a1 + 268) = *(*(a1 + 384) + 4 * v12);
-    v14 = a1 + 216;
-    v15 = a4;
+    *(a1 + 268) = *(*(a1 + 384) + 4 * v9);
+    v11 = a1 + 216;
+    v12 = a4;
   }
 
   else
   {
-    v13 = a1 + 160;
-    v16 = a1 + 216;
-    v17 = *(a1 + 112);
-    if (*(a1 + 168) != v17)
+    v10 = a1 + 160;
+    v13 = a1 + 216;
+    v14 = *(a1 + 112);
+    if (*(a1 + 168) != v14)
     {
-      DgnPrimArray<unsigned char>::copyArraySlice(a4, (a1 + 160), 0, v17);
-      v13 = 0;
+      DgnPrimArray<unsigned char>::copyArraySlice(a4, (a1 + 160), 0, v14);
+      v10 = 0;
     }
 
-    v18 = *(a1 + 96);
-    if (v18 && *(*(v18 + 32) + 16) == **(v18 + 32))
+    v15 = *(a1 + 96);
+    if (v15 && *(*(v15 + 32) + 16) == **(v15 + 32))
     {
-      if (v13)
+      if (v10)
       {
-        v19 = v13;
+        v16 = v10;
       }
 
       else
       {
-        v19 = a4;
+        v16 = a4;
       }
 
-      LinearTransform::doTransform(*(*(a1 + 32) + 224), v19, a1 + 216, v17, a5, a6, a7, a8);
-      v13 = 0;
-      v20 = *(a1 + 32);
-      v21 = *(v20 + 4);
-      v22 = 1 << (v21 - 1);
-      v23 = **(v20 + 240);
-      if (!v21)
+      LinearTransform::doTransform(*(*(a1 + 32) + 224), v16, a1 + 216);
+      v10 = 0;
+      v17 = *(a1 + 32);
+      v18 = *(v17 + 4);
+      v19 = 1 << (v18 - 1);
+      v20 = **(v17 + 240);
+      if (!v18)
       {
-        LODWORD(v22) = 0;
+        LODWORD(v19) = 0;
       }
 
-      *(a1 + 268) += (v22 + v23) >> v21;
-      v24 = a4;
-    }
-
-    else
-    {
-      v24 = a1 + 216;
-      v16 = a4;
-    }
-
-    v25 = *(a1 + 48);
-    if (v25)
-    {
-      if (a5)
-      {
-        ++a5[7];
-      }
-
-      v26 = *(*(v25 + 48) + 2 * a2);
-      if (v13)
-      {
-        v27 = v13;
-      }
-
-      else
-      {
-        v27 = v16;
-      }
-
-      LinearTransform::doTransform(*(v25 + 16) + 72 * *(*(v25 + 48) + 2 * a2), v27, v24, v17, a5, a6, a7, a8);
-      v13 = 0;
-      v28 = *(a1 + 48);
-      v29 = *(*(v28 + 32) + 4 * v26);
-      v30 = *(v28 + 12);
-      v31 = 1 << (v30 - 1);
-      if (!v30)
-      {
-        LODWORD(v31) = 0;
-      }
-
-      *(a1 + 268) += (v31 + v29) >> v30;
-      v15 = v16;
-    }
-
-    else
-    {
-      v15 = v24;
-      v24 = v16;
-    }
-
-    v32 = *(a1 + 32);
-    if (*(v32 + 8) == *v32)
-    {
-      if (a5)
-      {
-        ++a5[8];
-      }
-
-      if (*(v32 + 56))
-      {
-        v33 = *(*(v32 + 24) + 4 * *(*(*(a1 + 40) + 136) + 4 * a2));
-      }
-
-      else
-      {
-        v33 = 0xFFFFFFFFLL;
-      }
-
-      if (v13)
-      {
-        v34 = v13;
-      }
-
-      else
-      {
-        v34 = v24;
-      }
-
-      LinearTransform::doTransform(*(v32 + 64) + 72 * v33, v34, v15, v17, a5, a6, a7, a8);
-      v13 = 0;
-      v35 = *(a1 + 32);
-      v36 = *(*(v35 + 80) + 4 * v33);
-      v37 = *(v35 + 4);
-      v38 = 1 << (v37 - 1);
-      if (!v37)
-      {
-        LODWORD(v38) = 0;
-      }
-
-      *(a1 + 268) += (v38 + v36) >> v37;
-      v14 = v24;
-    }
-
-    else
-    {
-      v14 = v15;
-      v15 = v24;
-    }
-
-    if (v13)
-    {
-      v39 = v13;
-    }
-
-    else
-    {
-      v39 = v15;
-    }
-
-    DgnPrimArray<unsigned char>::copyArraySlice(*(a1 + 368) + 16 * v12, v39, 0, *(v39 + 8));
-    *(*(a1 + 384) + 4 * v12) = *(a1 + 268);
-  }
-
-  v41 = *(a1 + 32);
-  if (*(v41 + 12) == *v41)
-  {
-    if (a5)
-    {
-      ++a5[9];
-    }
-
-    if (*(v41 + 136))
-    {
-      v42 = *(*(v41 + 40) + 4 * *(*(*(a1 + 40) + 168) + 4 * a2));
-    }
-
-    else
-    {
-      v42 = 0xFFFFFFFFLL;
-    }
-
-    if (v13)
-    {
-      v44 = v13;
-    }
-
-    else
-    {
-      v44 = v15;
-    }
-
-    LinearTransform::doTransform(*(v41 + 144) + 72 * v42, v44, v14, a4, a5, a6, a7, a8);
-    v45 = *(a1 + 32);
-    v46 = *(*(v45 + 160) + 4 * v42);
-    v47 = *(v45 + 4);
-    v48 = 1 << (v47 - 1);
-    if (!v47)
-    {
-      LODWORD(v48) = 0;
-    }
-
-    *(a1 + 268) += (v48 + v46) >> v47;
-    goto LABEL_57;
-  }
-
-  v14 = v15;
-  if (!v13)
-  {
-LABEL_57:
-    if (v14 != a4)
-    {
-      *(a4 + 8) = 0;
-      v49 = *a4;
-      *a4 = *v14;
-      *v14 = v49;
-      LODWORD(v49) = *(a4 + 12);
-      result = *(v14 + 8);
-      *(a4 + 8) = result;
-      *(v14 + 8) = 0;
-      *(v14 + 12) = v49;
-    }
-
-    return result;
-  }
-
-  v43 = *(v13 + 8);
-
-  DgnPrimArray<unsigned char>::copyArraySlice(a4, v13, 0, v43);
-  return result;
-}
-
-double PelScorer::getTransformedFeatures_Adapt_Cache(uint64_t a1, unsigned int a2, int a3, unint64_t a4, _DWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v13 = *(*(a1 + 312) + 4 * a2);
-  v14 = *(a1 + 368) + 16 * v13;
-  if (*(v14 + 8))
-  {
-    v15 = a1 + 216;
-    v16 = a4;
-  }
-
-  else
-  {
-    v14 = a1 + 160;
-    v17 = a1 + 216;
-    v18 = *(a1 + 112);
-    if (*(a1 + 168) != v18)
-    {
-      DgnPrimArray<unsigned char>::copyArraySlice(a4, (a1 + 160), 0, v18);
-      v14 = 0;
-    }
-
-    v19 = *(a1 + 96);
-    if (v19 && *(*(v19 + 32) + 16) == **(v19 + 32))
-    {
-      if (v14)
-      {
-        v20 = v14;
-      }
-
-      else
-      {
-        v20 = a4;
-      }
-
-      LinearTransform::doTransform(*(*(a1 + 32) + 224), v20, a1 + 216, v18, a5, a6, a7, a8);
-      v14 = 0;
+      *(a1 + 268) += (v19 + v20) >> v18;
       v21 = a4;
     }
 
     else
     {
       v21 = a1 + 216;
-      v17 = a4;
+      v13 = a4;
     }
 
     v22 = *(a1 + 48);
@@ -9818,31 +9570,247 @@ double PelScorer::getTransformedFeatures_Adapt_Cache(uint64_t a1, unsigned int a
         ++a5[7];
       }
 
-      if (v14)
+      v23 = *(*(v22 + 48) + 2 * a2);
+      if (v10)
       {
-        v23 = v14;
+        v24 = v10;
       }
 
       else
       {
-        v23 = v17;
+        v24 = v13;
       }
 
-      LinearTransform::doTransform(*(v22 + 16) + 72 * *(*(v22 + 48) + 2 * a2), v23, v21, v18, a5, a6, a7, a8);
-      v14 = 0;
-      v16 = v17;
+      LinearTransform::doTransform(*(v22 + 16) + 72 * *(*(v22 + 48) + 2 * a2), v24, v21);
+      v10 = 0;
+      v25 = *(a1 + 48);
+      v26 = *(*(v25 + 32) + 4 * v23);
+      v27 = *(v25 + 12);
+      v28 = 1 << (v27 - 1);
+      if (!v27)
+      {
+        LODWORD(v28) = 0;
+      }
+
+      *(a1 + 268) += (v28 + v26) >> v27;
+      v12 = v13;
     }
 
     else
     {
-      v16 = v21;
-      v21 = v17;
+      v12 = v21;
+      v21 = v13;
     }
 
-    if ((*(*(a1 + 24) + 12) & 1) != 0 || (v24 = *(a1 + 32), *(v24 + 8) != *v24))
+    v29 = *(a1 + 32);
+    if (*(v29 + 8) == *v29)
     {
-      v15 = v16;
-      v16 = v21;
+      if (a5)
+      {
+        ++a5[8];
+      }
+
+      if (*(v29 + 56))
+      {
+        v30 = *(*(v29 + 24) + 4 * *(*(*(a1 + 40) + 136) + 4 * a2));
+      }
+
+      else
+      {
+        v30 = 0xFFFFFFFFLL;
+      }
+
+      if (v10)
+      {
+        v31 = v10;
+      }
+
+      else
+      {
+        v31 = v21;
+      }
+
+      LinearTransform::doTransform(*(v29 + 64) + 72 * v30, v31, v12);
+      v10 = 0;
+      v32 = *(a1 + 32);
+      v33 = *(*(v32 + 80) + 4 * v30);
+      v34 = *(v32 + 4);
+      v35 = 1 << (v34 - 1);
+      if (!v34)
+      {
+        LODWORD(v35) = 0;
+      }
+
+      *(a1 + 268) += (v35 + v33) >> v34;
+      v11 = v21;
+    }
+
+    else
+    {
+      v11 = v12;
+      v12 = v21;
+    }
+
+    if (v10)
+    {
+      v36 = v10;
+    }
+
+    else
+    {
+      v36 = v12;
+    }
+
+    DgnPrimArray<unsigned char>::copyArraySlice((*(a1 + 368) + 16 * v9), v36, 0, *(v36 + 8));
+    *(*(a1 + 384) + 4 * v9) = *(a1 + 268);
+  }
+
+  v38 = *(a1 + 32);
+  if (*(v38 + 12) == *v38)
+  {
+    if (a5)
+    {
+      ++a5[9];
+    }
+
+    if (*(v38 + 136))
+    {
+      v39 = *(*(v38 + 40) + 4 * *(*(*(a1 + 40) + 168) + 4 * a2));
+    }
+
+    else
+    {
+      v39 = 0xFFFFFFFFLL;
+    }
+
+    if (v10)
+    {
+      v41 = v10;
+    }
+
+    else
+    {
+      v41 = v12;
+    }
+
+    LinearTransform::doTransform(*(v38 + 144) + 72 * v39, v41, v11);
+    v42 = *(a1 + 32);
+    v43 = *(*(v42 + 160) + 4 * v39);
+    v44 = *(v42 + 4);
+    v45 = 1 << (v44 - 1);
+    if (!v44)
+    {
+      LODWORD(v45) = 0;
+    }
+
+    *(a1 + 268) += (v45 + v43) >> v44;
+    goto LABEL_57;
+  }
+
+  v11 = v12;
+  if (!v10)
+  {
+LABEL_57:
+    if (v11 != a4)
+    {
+      *(a4 + 8) = 0;
+      v46 = *a4;
+      *a4 = *v11;
+      *v11 = v46;
+      LODWORD(v46) = *(a4 + 12);
+      result = *(v11 + 8);
+      *(a4 + 8) = result;
+      *(v11 + 8) = 0;
+      *(v11 + 12) = v46;
+    }
+
+    return result;
+  }
+
+  v40 = *(v10 + 8);
+
+  DgnPrimArray<unsigned char>::copyArraySlice(a4, v10, 0, v40);
+  return result;
+}
+
+double PelScorer::getTransformedFeatures_Adapt_Cache(uint64_t a1, unsigned int a2, int a3, uint64_t a4, _DWORD *a5)
+{
+  v10 = *(*(a1 + 312) + 4 * a2);
+  v11 = *(a1 + 368) + 16 * v10;
+  if (*(v11 + 8))
+  {
+    v12 = a1 + 216;
+    v13 = a4;
+  }
+
+  else
+  {
+    v11 = a1 + 160;
+    v14 = a1 + 216;
+    v15 = *(a1 + 112);
+    if (*(a1 + 168) != v15)
+    {
+      DgnPrimArray<unsigned char>::copyArraySlice(a4, (a1 + 160), 0, v15);
+      v11 = 0;
+    }
+
+    v16 = *(a1 + 96);
+    if (v16 && *(*(v16 + 32) + 16) == **(v16 + 32))
+    {
+      if (v11)
+      {
+        v17 = v11;
+      }
+
+      else
+      {
+        v17 = a4;
+      }
+
+      LinearTransform::doTransform(*(*(a1 + 32) + 224), v17, a1 + 216);
+      v11 = 0;
+      v18 = a4;
+    }
+
+    else
+    {
+      v18 = a1 + 216;
+      v14 = a4;
+    }
+
+    v19 = *(a1 + 48);
+    if (v19)
+    {
+      if (a5)
+      {
+        ++a5[7];
+      }
+
+      if (v11)
+      {
+        v20 = v11;
+      }
+
+      else
+      {
+        v20 = v14;
+      }
+
+      LinearTransform::doTransform(*(v19 + 16) + 72 * *(*(v19 + 48) + 2 * a2), v20, v18);
+      v11 = 0;
+      v13 = v14;
+    }
+
+    else
+    {
+      v13 = v18;
+      v18 = v14;
+    }
+
+    if ((*(*(a1 + 24) + 12) & 1) != 0 || (v21 = *(a1 + 32), *(v21 + 8) != *v21))
+    {
+      v12 = v13;
+      v13 = v18;
     }
 
     else
@@ -9852,102 +9820,102 @@ double PelScorer::getTransformedFeatures_Adapt_Cache(uint64_t a1, unsigned int a
         ++a5[8];
       }
 
-      if (*(v24 + 56))
+      if (*(v21 + 56))
       {
-        v25 = *(*(v24 + 24) + 4 * *(*(*(a1 + 40) + 136) + 4 * a2));
+        v22 = *(*(v21 + 24) + 4 * *(*(*(a1 + 40) + 136) + 4 * a2));
       }
 
       else
       {
-        v25 = -1;
+        v22 = -1;
       }
 
-      if (v14)
+      if (v11)
       {
-        v26 = v14;
+        v23 = v11;
       }
 
       else
       {
-        v26 = v21;
+        v23 = v18;
       }
 
-      LinearTransform::doTransform(*(v24 + 64) + 72 * v25, v26, v16, v18, a5, a6, a7, a8);
-      v14 = 0;
-      v15 = v21;
+      LinearTransform::doTransform(*(v21 + 64) + 72 * v22, v23, v13);
+      v11 = 0;
+      v12 = v18;
     }
 
-    if (v14)
+    if (v11)
     {
-      v27 = v14;
+      v24 = v11;
     }
 
     else
     {
-      v27 = v16;
+      v24 = v13;
     }
 
-    DgnPrimArray<unsigned char>::copyArraySlice(*(a1 + 368) + 16 * v13, v27, 0, *(v27 + 8));
+    DgnPrimArray<unsigned char>::copyArraySlice((*(a1 + 368) + 16 * v10), v24, 0, *(v24 + 8));
   }
 
-  v29 = *(a1 + 24);
-  if ((*(v29 + 12) & 1) == 0 && ((*(v29 + 13) ^ 1) & 1) != 0 || a3)
+  v26 = *(a1 + 24);
+  if ((*(v26 + 12) & 1) == 0 && ((*(v26 + 13) ^ 1) & 1) != 0 || a3)
   {
-    v30 = *(a1 + 32);
-    if (*(v30 + 12) == *v30)
+    v27 = *(a1 + 32);
+    if (*(v27 + 12) == *v27)
     {
       if (a5)
       {
         ++a5[9];
       }
 
-      if (*(v30 + 136))
+      if (*(v27 + 136))
       {
-        v31 = *(*(v30 + 40) + 4 * *(*(*(a1 + 40) + 168) + 4 * a2));
+        v28 = *(*(v27 + 40) + 4 * *(*(*(a1 + 40) + 168) + 4 * a2));
       }
 
       else
       {
-        v31 = -1;
+        v28 = -1;
       }
 
-      if (v14)
+      if (v11)
       {
-        v33 = v14;
+        v30 = v11;
       }
 
       else
       {
-        v33 = v16;
+        v30 = v13;
       }
 
-      LinearTransform::doTransform(*(v30 + 144) + 72 * v31, v33, v15, a4, a5, a6, a7, a8);
-      v16 = v15;
+      LinearTransform::doTransform(*(v27 + 144) + 72 * v28, v30, v12);
+      v13 = v12;
       goto LABEL_53;
     }
   }
 
-  if (!v14)
+  if (!v11)
   {
 LABEL_53:
-    if (v16 != a4)
+    if (v13 != a4)
     {
       *(a4 + 8) = 0;
-      v34 = *a4;
-      *a4 = *v16;
-      *v16 = v34;
-      LODWORD(v34) = *(a4 + 12);
-      result = *(v16 + 8);
+      v31 = *a4;
+      *a4 = *v13;
+      *v13 = v31;
+      LODWORD(v31) = *(a4 + 12);
+      result = *(v13 + 8);
       *(a4 + 8) = result;
-      *(v16 + 8) = 0;
-      *(v16 + 12) = v34;
+      *(v13 + 8) = 0;
+      *(v13 + 12) = v31;
     }
 
     return result;
   }
 
-  v32 = *(v14 + 8);
+  v29 = *(v11 + 8);
 
-  DgnPrimArray<unsigned char>::copyArraySlice(a4, v14, 0, v32);
+  DgnPrimArray<unsigned char>::copyArraySlice(a4, v11, 0, v29);
   return result;
 }

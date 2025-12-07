@@ -24,6 +24,7 @@
 - (void)planItemsWithCompletion:(id)completion;
 - (void)provideUserResponse:(int64_t)response confirmationCode:(id)code;
 - (void)resetDelegate:(id)delegate;
+- (void)resumePlanProvisioning:(BOOL)provisioning userConsent:(int64_t)consent;
 - (void)selectPlanForData:(id)data;
 - (void)selectPlanForVoice:(id)voice;
 - (void)selectPlansForIMessage:(id)message;
@@ -89,7 +90,7 @@ uint64_t __44__TSCellularPlanManagerCache_sharedInstance__block_invoke()
 
   else
   {
-    v6 = _TSLogDomain();
+    v6 = _TSLogDomain(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [TSCellularPlanManagerCache planItemsWithCompletion:];
@@ -122,29 +123,30 @@ void __54__TSCellularPlanManagerCache_planItemsWithCompletion___block_invoke(uin
 void __54__TSCellularPlanManagerCache_planItemsWithCompletion___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 64));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
     if (!*(a1 + 32))
     {
       [*(a1 + 40) setCachedPlanItems:*(a1 + 48)];
-      v5 = *(a1 + 56);
-      v6 = [*(a1 + 40) cachedPlanItems];
-      (*(v5 + 16))(v5, v6);
+      v6 = *(a1 + 56);
+      v7 = [*(a1 + 40) cachedPlanItems];
+      (*(v6 + 16))(v6, v7);
 
       goto LABEL_11;
     }
 
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __54__TSCellularPlanManagerCache_planItemsWithCompletion___block_invoke_2_cold_1((a1 + 32));
+      __54__TSCellularPlanManagerCache_planItemsWithCompletion___block_invoke_2_cold_1();
     }
   }
 
   else
   {
-    v4 = _TSLogDomain();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TSLogDomain(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __54__TSCellularPlanManagerCache_planItemsWithCompletion___block_invoke_2_cold_2();
     }
@@ -171,7 +173,7 @@ LABEL_11:
 
   else
   {
-    v6 = _TSLogDomain();
+    v6 = _TSLogDomain(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [TSCellularPlanManagerCache hasInstallingPlanOrUserPlan:];
@@ -200,37 +202,36 @@ uint64_t __58__TSCellularPlanManagerCache_hasInstallingPlanOrUserPlan___block_in
 
 - (void)setDelegate:(id)delegate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = delegateCopy;
-    v9 = 2080;
-    v10 = "[TSCellularPlanManagerCache setDelegate:]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "set delegate : %@ @%s", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = delegateCopy;
+    v8 = 2080;
+    v9 = "[TSCellularPlanManagerCache setDelegate:]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "set delegate : %@ @%s", &v6, 0x16u);
   }
 
   objc_storeWeak(&self->delegate, delegateCopy);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetDelegate:(id)delegate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained(&self->delegate);
-    v9 = 138412802;
-    v10 = WeakRetained;
-    v11 = 2112;
-    v12 = delegateCopy;
-    v13 = 2080;
-    v14 = "[TSCellularPlanManagerCache resetDelegate:]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "reset delegate : %@ <> removedDelegate: %@ @%s", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = WeakRetained;
+    v10 = 2112;
+    v11 = delegateCopy;
+    v12 = 2080;
+    v13 = "[TSCellularPlanManagerCache resetDelegate:]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "reset delegate : %@ <> removedDelegate: %@ @%s", &v8, 0x20u);
   }
 
   v7 = objc_loadWeakRetained(&self->delegate);
@@ -238,8 +239,6 @@ uint64_t __58__TSCellularPlanManagerCache_hasInstallingPlanOrUserPlan___block_in
   {
     objc_storeWeak(&self->delegate, 0);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)planItems
@@ -284,7 +283,7 @@ uint64_t __58__TSCellularPlanManagerCache_hasInstallingPlanOrUserPlan___block_in
 
   else
   {
-    mEMORY[0x277CF96D8] = _TSLogDomain();
+    mEMORY[0x277CF96D8] = _TSLogDomain(0);
     if (os_log_type_enabled(mEMORY[0x277CF96D8], OS_LOG_TYPE_ERROR))
     {
       [TSCellularPlanManagerCache selectPlanForData:];
@@ -295,10 +294,11 @@ uint64_t __58__TSCellularPlanManagerCache_hasInstallingPlanOrUserPlan___block_in
 void __48__TSCellularPlanManagerCache_selectPlanForData___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __48__TSCellularPlanManagerCache_selectPlanForData___block_invoke_cold_1();
     }
@@ -316,7 +316,7 @@ void __48__TSCellularPlanManagerCache_selectPlanForData___block_invoke(uint64_t 
 
   else
   {
-    mEMORY[0x277CF96D8] = _TSLogDomain();
+    mEMORY[0x277CF96D8] = _TSLogDomain(0);
     if (os_log_type_enabled(mEMORY[0x277CF96D8], OS_LOG_TYPE_ERROR))
     {
       [TSCellularPlanManagerCache selectPlanForVoice:];
@@ -327,10 +327,11 @@ void __48__TSCellularPlanManagerCache_selectPlanForData___block_invoke(uint64_t 
 void __49__TSCellularPlanManagerCache_selectPlanForVoice___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __49__TSCellularPlanManagerCache_selectPlanForVoice___block_invoke_cold_1();
     }
@@ -341,7 +342,7 @@ void __49__TSCellularPlanManagerCache_selectPlanForVoice___block_invoke(uint64_t
 {
   v25 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(messageCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [TSCellularPlanManagerCache selectPlansForIMessage:];
@@ -376,7 +377,7 @@ void __49__TSCellularPlanManagerCache_selectPlanForVoice___block_invoke(uint64_t
 
         else
         {
-          v14 = _TSLogDomain();
+          v14 = _TSLogDomain(0);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             [(TSCellularPlanManagerCache *)buf selectPlansForIMessage:v14];
@@ -390,28 +391,28 @@ void __49__TSCellularPlanManagerCache_selectPlanForVoice___block_invoke(uint64_t
     while (v9);
   }
 
-  if ([v6 count])
+  v15 = [v6 count];
+  if (v15)
   {
-    v15 = _TSLogDomain();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = _TSLogDomain(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      [(TSCellularPlanManagerCache *)v6 selectPlansForIMessage:v15];
+      [(TSCellularPlanManagerCache *)v6 selectPlansForIMessage:v16];
     }
 
     mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
     [mEMORY[0x277CF96D8] didSelectPlansForIMessage:v6 completion:&__block_literal_global_42];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TSCellularPlanManagerCache_selectPlansForIMessage___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __53__TSCellularPlanManagerCache_selectPlansForIMessage___block_invoke_cold_1();
     }
@@ -437,8 +438,8 @@ void __53__TSCellularPlanManagerCache_selectPlansForIMessage___block_invoke(uint
 
     if (v9)
     {
-      v10 = _TSLogDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _TSLogDomain(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [TSCellularPlanManagerCache setLabelForPlan:label:];
       }
@@ -449,8 +450,8 @@ void __53__TSCellularPlanManagerCache_selectPlansForIMessage___block_invoke(uint
 
   else
   {
-    v11 = _TSLogDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _TSLogDomain(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [TSCellularPlanManagerCache setLabelForPlan:label:];
     }
@@ -484,7 +485,7 @@ void __53__TSCellularPlanManagerCache_selectPlansForIMessage___block_invoke(uint
   dataCopy = data;
   codeCopy = code;
   completionCopy = completion;
-  v13 = _TSLogDomain();
+  v13 = _TSLogDomain(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [TSCellularPlanManagerCache addNewPlanWithCardData:confirmationCode:userConsentResponse:completion:];
@@ -542,24 +543,24 @@ LABEL_9:
 
 - (void)addNewPlanWithAddress:(id)address matchingId:(id)id confirmationCode:(id)code userConsent:(int64_t)consent completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   idCopy = id;
   codeCopy = code;
   completionCopy = completion;
-  v16 = _TSLogDomain();
+  v16 = _TSLogDomain(completionCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413314;
-    v24 = addressCopy;
-    v25 = 2112;
-    v26 = idCopy;
-    v27 = 2112;
-    v28 = codeCopy;
-    v29 = 2048;
+    v23 = addressCopy;
+    v24 = 2112;
+    v25 = idCopy;
+    v26 = 2112;
+    v27 = codeCopy;
+    v28 = 2048;
     consentCopy = consent;
-    v31 = 2080;
-    v32 = "[TSCellularPlanManagerCache addNewPlanWithAddress:matchingId:confirmationCode:userConsent:completion:]";
+    v30 = 2080;
+    v31 = "[TSCellularPlanManagerCache addNewPlanWithAddress:matchingId:confirmationCode:userConsent:completion:]";
     _os_log_debug_impl(&dword_262AA8000, v16, OS_LOG_TYPE_DEBUG, "[Db] SMDP: %@, matchingid: %@ cc: %@ signup consent %lu @%s", buf, 0x34u);
   }
 
@@ -574,17 +575,16 @@ LABEL_9:
   }
 
   mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __103__TSCellularPlanManagerCache_addNewPlanWithAddress_matchingId_confirmationCode_userConsent_completion___block_invoke;
-  v21[3] = &unk_279B45538;
-  v21[4] = self;
-  v22 = completionCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __103__TSCellularPlanManagerCache_addNewPlanWithAddress_matchingId_confirmationCode_userConsent_completion___block_invoke;
+  v20[3] = &unk_279B45538;
+  v20[4] = self;
+  v21 = completionCopy;
   v19 = completionCopy;
-  [mEMORY[0x277CF96D8] addNewPlanWithAddress:addressCopy matchingId:idCopy oid:0 confirmationCode:codeCopy triggerType:v17 userConsent:consent completion:v21];
+  [mEMORY[0x277CF96D8] addNewPlanWithAddress:addressCopy matchingId:idCopy oid:0 confirmationCode:codeCopy triggerType:v17 userConsent:consent completion:v20];
 
   [(TSCellularPlanManagerCache *)self _updateCachedPlanItems];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __103__TSCellularPlanManagerCache_addNewPlanWithAddress_matchingId_confirmationCode_userConsent_completion___block_invoke(uint64_t a1, void *a2)
@@ -599,13 +599,29 @@ void __103__TSCellularPlanManagerCache_addNewPlanWithAddress_matchingId_confirma
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)resumePlanProvisioning:(BOOL)provisioning userConsent:(int64_t)consent
+{
+  provisioningCopy = provisioning;
+  v7 = _TSLogDomain(self);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    [(TSCellularPlanManagerCache *)provisioningCopy resumePlanProvisioning:consent userConsent:v7];
+  }
+
+  mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
+  [mEMORY[0x277CF96D8] resumePlanProvisioning:provisioningCopy userConsent:consent completion:&__block_literal_global_46];
+
+  [(TSCellularPlanManagerCache *)self _updateCachedPlanItems];
+}
+
 void __65__TSCellularPlanManagerCache_resumePlanProvisioning_userConsent___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __65__TSCellularPlanManagerCache_resumePlanProvisioning_userConsent___block_invoke_cold_1();
     }
@@ -622,8 +638,8 @@ void __65__TSCellularPlanManagerCache_resumePlanProvisioning_userConsent___block
 
   if (v9)
   {
-    v10 = _TSLogDomain();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _TSLogDomain(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [TSCellularPlanManagerCache remapSimLabel:to:];
     }
@@ -634,27 +650,27 @@ void __65__TSCellularPlanManagerCache_resumePlanProvisioning_userConsent___block
 
 - (void)provideUserResponse:(int64_t)response confirmationCode:(id)code
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   codeCopy = code;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   planItems = [(TSCellularPlanManagerCache *)self planItems];
-  v8 = [planItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [planItems countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(planItems);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if ([v11 isInstalling])
         {
           v8 = v11;
@@ -662,7 +678,7 @@ void __65__TSCellularPlanManagerCache_resumePlanProvisioning_userConsent___block
         }
       }
 
-      v8 = [planItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [planItems countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -678,16 +694,16 @@ LABEL_11:
   [mEMORY[0x277CF96D8] userDidProvideResponse:response confirmationCode:codeCopy forPlan:v8 isRemote:0 completion:&__block_literal_global_48];
 
   [(TSCellularPlanManagerCache *)self _updateCachedPlanItems];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __67__TSCellularPlanManagerCache_provideUserResponse_confirmationCode___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __67__TSCellularPlanManagerCache_provideUserResponse_confirmationCode___block_invoke_cold_1();
     }
@@ -735,25 +751,25 @@ LABEL_3:
       }
     }
 
-    v13 = v12;
+    v14 = v12;
 
-    if (!v13)
+    if (!v14)
     {
       goto LABEL_15;
     }
 
     if (response)
     {
-      v14 = response == 2;
+      v15 = response == 2;
     }
 
     else
     {
-      v14 = 2;
+      v15 = 2;
     }
 
     mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
-    [mEMORY[0x277CF96D8] userDidProvideResponse:v14 confirmationCode:codeCopy forPlan:v13 isRemote:0 completion:&__block_literal_global_50];
+    [mEMORY[0x277CF96D8] userDidProvideResponse:v15 confirmationCode:codeCopy forPlan:v14 isRemote:0 completion:&__block_literal_global_50];
 
     [(TSCellularPlanManagerCache *)self _updateCachedPlanItems];
   }
@@ -763,23 +779,22 @@ LABEL_3:
 LABEL_9:
 
 LABEL_15:
-    v13 = _TSLogDomain();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _TSLogDomain(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [TSCellularPlanManagerCache sendUserResponse:confirmationCode:];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_invoke_cold_1();
     }
@@ -860,8 +875,8 @@ void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_
 
   if (v6)
   {
-    v7 = _TSLogDomain();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _TSLogDomain(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412802;
       v10 = itemsCopy;
@@ -869,13 +884,11 @@ void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_
       v12 = v6;
       v13 = 2080;
       v14 = "[TSCellularPlanManagerCache didEnablePlanItems:]";
-      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "Enabling plans: %@, error: %@ @%s", &v9, 0x20u);
+      _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "Enabling plans: %@, error: %@ @%s", &v9, 0x20u);
     }
   }
 
   [(TSCellularPlanManagerCache *)self _updateCachedPlanItems];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initializePlanItems
@@ -893,16 +906,16 @@ void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_
 
 - (void)_updateCachedPlanItems
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = _TSLogDomain();
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = _TSLogDomain(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     lastError = self->_lastError;
-    v11 = 138412546;
-    v12 = lastError;
-    v13 = 2080;
-    v14 = "[TSCellularPlanManagerCache _updateCachedPlanItems]";
-    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Updated plan list _lastError: %@ @%s", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = lastError;
+    v12 = 2080;
+    v13 = "[TSCellularPlanManagerCache _updateCachedPlanItems]";
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Updated plan list _lastError: %@ @%s", &v10, 0x16u);
   }
 
   mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
@@ -915,8 +928,6 @@ void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_
 
   v9 = self->_lastError;
   self->_lastError = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLocalCachedPlanItems:(id)items
@@ -926,8 +937,8 @@ void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_
 
   if (v5)
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _TSLogDomain(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [TSCellularPlanManagerCache _updateLocalCachedPlanItems:];
     }
@@ -943,27 +954,27 @@ void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_
 
 - (id)_getValidatedPlanItemFor:(id)for
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   forCopy = for;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   planItems = [(TSCellularPlanManagerCache *)self planItems];
-  v6 = [planItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [planItems countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(planItems);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         iccid = [v9 iccid];
         iccid2 = [forCopy iccid];
         v12 = [iccid isEqualToString:iccid2];
@@ -975,7 +986,7 @@ void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_
         }
       }
 
-      v6 = [planItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [planItems countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -987,8 +998,6 @@ void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
@@ -999,80 +1008,26 @@ LABEL_11:
   return WeakRetained;
 }
 
-- (void)planItemsWithCompletion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __54__TSCellularPlanManagerCache_planItemsWithCompletion___block_invoke_2_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54__TSCellularPlanManagerCache_planItemsWithCompletion___block_invoke_2_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)hasInstallingPlanOrUserPlan:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)selectPlanForData:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __48__TSCellularPlanManagerCache_selectPlanForData___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)selectPlanForVoice:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __49__TSCellularPlanManagerCache_selectPlanForVoice___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)selectPlansForIMessage:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSCellularPlanManagerCache selectPlansForIMessage:]";
-  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[TSCellularPlanManagerCache selectPlansForIMessage:]";
+  _os_log_debug_impl(&dword_262AA8000, v0, OS_LOG_TYPE_DEBUG, "[Db] %@ @%s", v1, 0x16u);
 }
 
 - (void)selectPlansForIMessage:(os_log_t)log .cold.2(uint8_t *buf, void *a2, os_log_t log)
@@ -1084,117 +1039,84 @@ void __49__TSCellularPlanManagerCache_selectPlanForVoice___block_invoke_cold_1()
 
 - (void)selectPlansForIMessage:(void *)a1 .cold.3(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2_1();
-  v6 = a1;
-  v7 = 2080;
-  v8 = "[TSCellularPlanManagerCache selectPlansForIMessage:]";
-  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db]  Going to send %lu plans to select iMessage %@ @%s", v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = 2080;
+  v7 = "[TSCellularPlanManagerCache selectPlansForIMessage:]";
+  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db]  Going to send %lu plans to select iMessage %@ @%s", v4, 0x20u);
 }
 
 void __53__TSCellularPlanManagerCache_selectPlansForIMessage___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLabelForPlan:label:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setLabelForPlan:label:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addNewPlanWithCardData:confirmationCode:userConsentResponse:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
-  v4 = v0;
-  v5 = 2080;
-  v6 = "[TSCellularPlanManagerCache addNewPlanWithCardData:confirmationCode:userConsentResponse:completion:]";
-  _os_log_debug_impl(&dword_262AA8000, v1, OS_LOG_TYPE_DEBUG, "[Db] adding new plan with card data %@ and confirmation code %@ @%s", v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  v4 = 2080;
+  v5 = "[TSCellularPlanManagerCache addNewPlanWithCardData:confirmationCode:userConsentResponse:completion:]";
+  _os_log_debug_impl(&dword_262AA8000, v1, OS_LOG_TYPE_DEBUG, "[Db] adding new plan with card data %@ and confirmation code %@ @%s", v2, 0x20u);
 }
 
 - (void)resumePlanProvisioning:(os_log_t)log userConsent:.cold.1(char a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109634;
-  v4[1] = a1 & 1;
-  v5 = 2048;
-  v6 = a2;
-  v7 = 2080;
-  v8 = "[TSCellularPlanManagerCache resumePlanProvisioning:userConsent:]";
-  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] Resume: [%d] signupConsent: %lu @%s", v4, 0x1Cu);
-  v3 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109634;
+  v3[1] = a1 & 1;
+  v4 = 2048;
+  v5 = a2;
+  v6 = 2080;
+  v7 = "[TSCellularPlanManagerCache resumePlanProvisioning:userConsent:]";
+  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] Resume: [%d] signupConsent: %lu @%s", v3, 0x1Cu);
 }
 
 void __65__TSCellularPlanManagerCache_resumePlanProvisioning_userConsent___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remapSimLabel:to:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __67__TSCellularPlanManagerCache_provideUserResponse_confirmationCode___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendUserResponse:confirmationCode:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__TSCellularPlanManagerCache_sendUserResponse_confirmationCode___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLocalCachedPlanItems:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

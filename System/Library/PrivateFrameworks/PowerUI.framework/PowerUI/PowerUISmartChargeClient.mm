@@ -10,6 +10,7 @@
 - (BOOL)isOBCSupported;
 - (BOOL)setCECState:(unint64_t)state error:(id *)error;
 - (BOOL)setDEoCState:(unint64_t)state error:(id *)error;
+- (BOOL)setMCLLimit:(unsigned __int8)limit error:(id *)error;
 - (BOOL)setMCMState:(unint64_t)state error:(id *)error;
 - (BOOL)setState:(unint64_t)state error:(id *)error;
 - (BOOL)shouldMCMBeDisplayed:(id *)displayed;
@@ -21,6 +22,7 @@
 - (id)getDEoCPredictions:(id *)predictions;
 - (id)lastUsedLeewayWithError:(id *)error;
 - (id)powerLogStatus;
+- (id)simulateCurrentOutputAsOfDate:(id)date overrideAllSignals:(BOOL)signals withError:(id *)error;
 - (id)status;
 - (unint64_t)currentChargeLimit:(id *)limit;
 - (unint64_t)currentRecommendedChargeLimitWithError:(id *)error;
@@ -43,6 +45,7 @@
 - (void)enableMCLWithHandler:(id)handler;
 - (void)enableMCMWithHandler:(id)handler;
 - (void)enableSmartChargingWithHandler:(id)handler;
+- (void)engageFrom:(id)from until:(id)until repeatUntil:(id)repeatUntil overrideAllSignals:(BOOL)signals;
 - (void)enterDevelopmentMode;
 - (void)fullChargeDeadlineWithHandler:(id)handler;
 - (void)getMCLLimitWithHandler:(id)handler;
@@ -61,6 +64,7 @@
 - (void)listMonitorSignals;
 - (void)resetDevelopmentMode;
 - (void)resetEngagementOverride;
+- (void)setMCLLimit:(unsigned __int8)limit withHandler:(id)handler;
 - (void)shouldMCMBeDisplayedWithHandler:(id)handler;
 - (void)temporarilyDisableCECWithHandler:(id)handler;
 - (void)temporarilyDisableMCLWithHandler:(id)handler;
@@ -378,23 +382,21 @@ void __43__PowerUISmartChargeClient_setState_error___block_invoke_2(void *a1, ch
 
 void __34__PowerUISmartChargeClient_status__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) clientName];
     v6 = NSStringFromSelector(*(a1 + 40));
-    v8 = 138412802;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Client '%@' received error (%@): %@", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)powerLogStatus
@@ -428,23 +430,21 @@ void __34__PowerUISmartChargeClient_status__block_invoke(uint64_t a1, void *a2)
 
 void __42__PowerUISmartChargeClient_powerLogStatus__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) clientName];
     v6 = NSStringFromSelector(*(a1 + 40));
-    v8 = 138412802;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Client %@ received error (%@): %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_21B766000, v4, OS_LOG_TYPE_DEFAULT, "Client %@ received error (%@): %@", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fullChargeDeadline:(id *)deadline
@@ -651,80 +651,80 @@ void __95__PowerUISmartChargeClient_smartChargingUIState_chargeLimit_chargingOve
 
 - (BOOL)isOBCEngaged:(BOOL *)engaged isMaxChargeLimited:(BOOL *)limited chargingOverrideAllowed:(BOOL *)allowed withError:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__3;
-  v37 = __Block_byref_object_dispose__3;
+  v50 = *MEMORY[0x277D85DE8];
   v38 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   v32 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__3;
+  v36 = __Block_byref_object_dispose__3;
+  v37 = 0;
   v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   connection = self->_connection;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __94__PowerUISmartChargeClient_isOBCEngaged_isMaxChargeLimited_chargingOverrideAllowed_withError___block_invoke;
-  v24[3] = &unk_2782D4560;
-  v24[4] = self;
-  v24[5] = &v33;
-  v24[6] = a2;
-  v12 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v24];
   v23[0] = MEMORY[0x277D85DD0];
   v23[1] = 3221225472;
-  v23[2] = __94__PowerUISmartChargeClient_isOBCEngaged_isMaxChargeLimited_chargingOverrideAllowed_withError___block_invoke_147;
-  v23[3] = &unk_2782D4600;
-  v23[6] = &v29;
-  v23[7] = &v25;
+  v23[2] = __94__PowerUISmartChargeClient_isOBCEngaged_isMaxChargeLimited_chargingOverrideAllowed_withError___block_invoke;
+  v23[3] = &unk_2782D4560;
   v23[4] = self;
-  v23[5] = &v39;
-  v23[8] = &v33;
-  v23[9] = a2;
-  [v12 legacy_isOBCEngagedWithHandler:v23];
+  v23[5] = &v32;
+  v23[6] = a2;
+  v12 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __94__PowerUISmartChargeClient_isOBCEngaged_isMaxChargeLimited_chargingOverrideAllowed_withError___block_invoke_147;
+  v22[3] = &unk_2782D4600;
+  v22[6] = &v28;
+  v22[7] = &v24;
+  v22[4] = self;
+  v22[5] = &v38;
+  v22[8] = &v32;
+  v22[9] = a2;
+  [v12 legacy_isOBCEngagedWithHandler:v22];
 
   v13 = [(PowerUISmartChargeClient *)self log];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     clientName = [(PowerUISmartChargeClient *)self clientName];
-    v15 = *(v40 + 24);
-    v16 = *(v30 + 24);
-    v17 = *(v26 + 24);
+    v15 = *(v39 + 24);
+    v16 = *(v29 + 24);
+    v17 = *(v25 + 24);
     *buf = 138413058;
-    v44 = clientName;
-    v45 = 1024;
-    v46 = v15;
-    v47 = 1024;
-    v48 = v16;
-    v49 = 1024;
-    v50 = v17;
+    v43 = clientName;
+    v44 = 1024;
+    v45 = v15;
+    v46 = 1024;
+    v47 = v16;
+    v48 = 1024;
+    v49 = v17;
     _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_INFO, "Client %@ requested engagement state: %d - %d - %d", buf, 0x1Eu);
   }
 
   if (engaged)
   {
-    *engaged = *(v40 + 24);
+    *engaged = *(v39 + 24);
   }
 
   if (limited)
   {
-    *limited = *(v30 + 24);
+    *limited = *(v29 + 24);
   }
 
   if (allowed)
   {
-    *allowed = *(v26 + 24);
+    *allowed = *(v25 + 24);
   }
 
-  v18 = v34[5];
+  v18 = v33[5];
   if (error && v18)
   {
     v18 = v18;
@@ -732,12 +732,11 @@ void __95__PowerUISmartChargeClient_smartChargingUIState_chargeLimit_chargingOve
   }
 
   v19 = v18 == 0;
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
 
-  _Block_object_dispose(&v39, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
   return v19;
 }
 
@@ -848,6 +847,48 @@ void __66__PowerUISmartChargeClient_legacy_client_isOBCEngagedWithHandler___bloc
   (*(*(a1 + 40) + 16))();
 }
 
+- (BOOL)setMCLLimit:(unsigned __int8)limit error:(id *)error
+{
+  limitCopy = limit;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__3;
+  v22 = __Block_byref_object_dispose__3;
+  v23 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  connection = self->_connection;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __46__PowerUISmartChargeClient_setMCLLimit_error___block_invoke;
+  v13[3] = &unk_2782D4678;
+  v13[4] = &v18;
+  v13[5] = &v14;
+  v8 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v13];
+  clientName = self->_clientName;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __46__PowerUISmartChargeClient_setMCLLimit_error___block_invoke_2;
+  v12[3] = &unk_2782D46A0;
+  v12[4] = &v18;
+  v12[5] = &v14;
+  [v8 client:clientName setMCLLimit:limitCopy withHandler:v12];
+
+  if (error)
+  {
+    *error = v19[5];
+  }
+
+  v10 = *(v15 + 24);
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v18, 8);
+
+  return v10;
+}
+
 void __46__PowerUISmartChargeClient_setMCLLimit_error___block_invoke(uint64_t a1, void *a2)
 {
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -860,6 +901,15 @@ void __46__PowerUISmartChargeClient_setMCLLimit_error___block_invoke_2(uint64_t 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), obj);
   v6 = obj;
   *(*(*(a1 + 40) + 8) + 24) = a2;
+}
+
+- (void)setMCLLimit:(unsigned __int8)limit withHandler:(id)handler
+{
+  limitCopy = limit;
+  connection = self->_connection;
+  handlerCopy = handler;
+  remoteObjectProxy = [(NSXPCConnection *)connection remoteObjectProxy];
+  [remoteObjectProxy client:self->_clientName setMCLLimit:limitCopy withHandler:handlerCopy];
 }
 
 - (unsigned)getMCLLimitWithError:(id *)error
@@ -1365,7 +1415,7 @@ void __51__PowerUISmartChargeClient_isDEoCCurrentlyEnabled___block_invoke_2(uint
 
 void __47__PowerUISmartChargeClient_currentChargeLimit___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = a3;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   v7 = [*(a1 + 32) log];
@@ -1383,17 +1433,15 @@ void __47__PowerUISmartChargeClient_currentChargeLimit___block_invoke_2(uint64_t
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = [*(a1 + 32) clientName];
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2048;
-      v14 = a2;
-      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_INFO, "Client %@ requested DEoC limit: %lu", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2048;
+      v13 = a2;
+      _os_log_impl(&dword_21B766000, v8, OS_LOG_TYPE_INFO, "Client %@ requested DEoC limit: %lu", &v10, 0x16u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = a2;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getDEoCPredictions:(id *)predictions
@@ -1572,53 +1620,52 @@ void __87__PowerUISmartChargeClient_isOBCEngaged_chargeLimit_chargingOverrideAll
 
 - (BOOL)setCECState:(unint64_t)state error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__3;
-  v25 = __Block_byref_object_dispose__3;
-  v26 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
+  v28 = *MEMORY[0x277D85DE8];
   v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__3;
+  v24 = __Block_byref_object_dispose__3;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
   connection = self->_connection;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __46__PowerUISmartChargeClient_setCECState_error___block_invoke;
-  v16[3] = &unk_2782D4678;
-  v16[4] = &v21;
-  v16[5] = &v17;
-  v8 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v16];
-  clientName = self->_clientName;
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
-  v15[2] = __46__PowerUISmartChargeClient_setCECState_error___block_invoke_2;
-  v15[3] = &unk_2782D46A0;
-  v15[4] = &v21;
-  v15[5] = &v17;
-  [v8 client:clientName setCECState:state withHandler:v15];
+  v15[2] = __46__PowerUISmartChargeClient_setCECState_error___block_invoke;
+  v15[3] = &unk_2782D4678;
+  v15[4] = &v20;
+  v15[5] = &v16;
+  v8 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v15];
+  clientName = self->_clientName;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __46__PowerUISmartChargeClient_setCECState_error___block_invoke_2;
+  v14[3] = &unk_2782D46A0;
+  v14[4] = &v20;
+  v14[5] = &v16;
+  [v8 client:clientName setCECState:state withHandler:v14];
 
   if (error)
   {
-    *error = v22[5];
+    *error = v21[5];
   }
 
   v10 = [(PowerUISmartChargeClient *)self log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(v18 + 24);
+    v11 = *(v17 + 24);
     *buf = 67109120;
-    v28 = v11;
+    v27 = v11;
     _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "Returning %d", buf, 8u);
   }
 
-  v12 = *(v18 + 24);
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
+  v12 = *(v17 + 24);
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v20, 8);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 
@@ -2057,6 +2104,28 @@ void __50__PowerUISmartChargeClient_isMCMCurrentlyEnabled___block_invoke_2(uint6
   [remoteObjectProxy client:self->_clientName setMCMState:1 withHandler:handlerCopy];
 }
 
+- (void)engageFrom:(id)from until:(id)until repeatUntil:(id)repeatUntil overrideAllSignals:(BOOL)signals
+{
+  signalsCopy = signals;
+  connection = self->_connection;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __76__PowerUISmartChargeClient_engageFrom_until_repeatUntil_overrideAllSignals___block_invoke;
+  v16[3] = &unk_2782D4510;
+  v16[4] = self;
+  v16[5] = a2;
+  repeatUntilCopy = repeatUntil;
+  untilCopy = until;
+  fromCopy = from;
+  v14 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __76__PowerUISmartChargeClient_engageFrom_until_repeatUntil_overrideAllSignals___block_invoke_163;
+  v15[3] = &unk_2782D4790;
+  v15[4] = self;
+  [v14 engageFrom:fromCopy until:untilCopy repeatUntil:repeatUntilCopy overrideAllSignals:signalsCopy withHandler:v15];
+}
+
 void __76__PowerUISmartChargeClient_engageFrom_until_repeatUntil_overrideAllSignals___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -2067,11 +2136,11 @@ void __76__PowerUISmartChargeClient_engageFrom_until_repeatUntil_overrideAllSign
   }
 }
 
-void __76__PowerUISmartChargeClient_engageFrom_until_repeatUntil_overrideAllSignals___block_invoke_163(uint64_t a1, char a2)
+void __76__PowerUISmartChargeClient_engageFrom_until_repeatUntil_overrideAllSignals___block_invoke_163(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    v2 = *(*(a1 + 32) + 24);
+    v2 = *(*(result + 32) + 24);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __76__PowerUISmartChargeClient_engageFrom_until_repeatUntil_overrideAllSignals___block_invoke_163_cold_1(v2);
@@ -2099,7 +2168,7 @@ void __76__PowerUISmartChargeClient_engageFrom_until_repeatUntil_overrideAllSign
 
 void __51__PowerUISmartChargeClient_resetEngagementOverride__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2107,14 +2176,12 @@ void __51__PowerUISmartChargeClient_resetEngagementOverride__block_invoke(uint64
     v5 = *(a1 + 40);
     v6 = v4;
     v7 = NSStringFromSelector(v5);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "%@ Error: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "%@ Error: %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PowerUISmartChargeClient_resetEngagementOverride__block_invoke_165(uint64_t a1, char a2)
@@ -2128,6 +2195,53 @@ void __51__PowerUISmartChargeClient_resetEngagementOverride__block_invoke_165(ui
       _os_log_impl(&dword_21B766000, v2, OS_LOG_TYPE_DEFAULT, "Unable to reset override", v3, 2u);
     }
   }
+}
+
+- (id)simulateCurrentOutputAsOfDate:(id)date overrideAllSignals:(BOOL)signals withError:(id *)error
+{
+  signalsCopy = signals;
+  dateCopy = date;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__3;
+  v26 = __Block_byref_object_dispose__3;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__3;
+  v20 = __Block_byref_object_dispose__3;
+  v21 = 0;
+  connection = self->_connection;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __87__PowerUISmartChargeClient_simulateCurrentOutputAsOfDate_overrideAllSignals_withError___block_invoke;
+  v15[3] = &unk_2782D4510;
+  v15[4] = self;
+  v15[5] = a2;
+  v11 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __87__PowerUISmartChargeClient_simulateCurrentOutputAsOfDate_overrideAllSignals_withError___block_invoke_166;
+  v14[3] = &unk_2782D47B8;
+  v14[4] = self;
+  v14[5] = &v22;
+  v14[6] = &v16;
+  v14[7] = a2;
+  [v11 simulateCurrentOutputAsOfDate:dateCopy overrideAllSignals:signalsCopy withHandler:v14];
+
+  if (error)
+  {
+    *error = v17[5];
+  }
+
+  v12 = v23[5];
+  _Block_object_dispose(&v16, 8);
+
+  _Block_object_dispose(&v22, 8);
+
+  return v12;
 }
 
 void __87__PowerUISmartChargeClient_simulateCurrentOutputAsOfDate_overrideAllSignals_withError___block_invoke(uint64_t a1, void *a2)
@@ -2296,114 +2410,50 @@ void __46__PowerUISmartChargeClient_listMonitorSignals__block_invoke(uint64_t a1
   }
 }
 
-void __42__PowerUISmartChargeClient_isOBCSupported__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_21B766000, v0, v1, "Error obtaining status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __47__PowerUISmartChargeClient_fullChargeDeadline___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_1();
-  v5 = NSStringFromSelector(v4);
+  v3 = OUTLINED_FUNCTION_3_1();
+  v4 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_3(&dword_21B766000, v6, v7, "%@ Error: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_21B766000, v5, v6, "%@ Error: %@", v7, v8, v9, v10);
 }
 
 void __95__PowerUISmartChargeClient_smartChargingUIState_chargeLimit_chargingOverrideAllowed_withError___block_invoke_145_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 72);
-  v4 = a2;
-  v5 = OUTLINED_FUNCTION_3_1();
-  v6 = NSStringFromSelector(v5);
+  v3 = a2;
+  v4 = OUTLINED_FUNCTION_3_1();
+  v5 = NSStringFromSelector(v4);
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_3(&dword_21B766000, v7, v8, "%@ Error: %@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
-}
-
-void __42__PowerUISmartChargeClient_isMCLSupported__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_21B766000, v0, v1, "Error obtaining MCL status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __67__PowerUISmartChargeClient_currentRecommendedChargeLimitWithError___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_21B766000, v0, v1, "Error obtaining recommended limit: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __43__PowerUISmartChargeClient_isDEoCSupported__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_21B766000, v0, v1, "Error obtaining DEoC status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__PowerUISmartChargeClient_currentChargeLimit___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_21B766000, v0, v1, "Error obtaining DEoC limit: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__PowerUISmartChargeClient_getDEoCPredictions___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_21B766000, v0, v1, "Error obtaining predictions: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_21B766000, v6, v7, "%@ Error: %@", v8, v9, v10, v11);
 }
 
 - (void)setMCMState:(void *)a1 error:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:a2];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_21B766000, v4, OS_LOG_TYPE_ERROR, "trying to set MCM state: %@", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21B766000, v4, OS_LOG_TYPE_ERROR, "trying to set MCM state: %@", v6, 0xCu);
 }
 
 void __76__PowerUISmartChargeClient_engageFrom_until_repeatUntil_overrideAllSignals___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_1();
-  v5 = NSStringFromSelector(v4);
+  v3 = OUTLINED_FUNCTION_3_1();
+  v4 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_3(&dword_21B766000, v6, v7, "%@ Error: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_21B766000, v5, v6, "%@ Error: %@", v7, v8, v9, v10);
 }
 
 void __87__PowerUISmartChargeClient_simulateCurrentOutputAsOfDate_overrideAllSignals_withError___block_invoke_166_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 56);
-  v4 = a2;
-  v5 = OUTLINED_FUNCTION_3_1();
-  v6 = NSStringFromSelector(v5);
+  v3 = a2;
+  v4 = OUTLINED_FUNCTION_3_1();
+  v5 = NSStringFromSelector(v4);
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_3(&dword_21B766000, v7, v8, "%@ Error: %@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_21B766000, v6, v7, "%@ Error: %@", v8, v9, v10, v11);
 }
 
 @end

@@ -103,20 +103,18 @@ void __58__HKConceptSynthesizer_prioritizedCodingSystemsForDisplay__block_invoke
 
 void __64__HKConceptSynthesizer_privateCodeCreationCodingSortDescriptors__block_invoke()
 {
-  v7[4] = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"codingSystem.identifier" ascending:1];
-  v7[0] = v0;
+  v6[0] = v0;
   v1 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"codingVersion" ascending:1];
-  v7[1] = v1;
+  v6[1] = v1;
   v2 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"code" ascending:1];
-  v7[2] = v2;
+  v6[2] = v2;
   v3 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"displayString" ascending:1];
-  v7[3] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:4];
+  v6[3] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
   v5 = privateCodeCreationCodingSortDescriptors_result;
   privateCodeCreationCodingSortDescriptors_result = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_synthesizeConceptWithIdentifier:(id)identifier forCodingCollection:(id)collection additionalAttributes:(id)attributes
@@ -282,30 +280,30 @@ id __95__HKConceptSynthesizer_bestCodingSystemForDisplayForCodingCollection_prio
 
 + (id)enumerateCodingsBySystem:(id)system prioritizingCodingSystems:(id)systems handler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   systemCopy = system;
   systemsCopy = systems;
   handlerCopy = handler;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v10 = systemsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v35;
+    v13 = *v34;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v35 != v13)
+        if (*v34 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v34 + 1) + 8 * i);
+        v15 = *(*(&v33 + 1) + 8 * i);
         v16 = [systemCopy objectForKeyedSubscript:v15];
         if (v16)
         {
@@ -320,7 +318,7 @@ id __95__HKConceptSynthesizer_bestCodingSystemForDisplayForCodingCollection_prio
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (v12)
       {
         continue;
@@ -333,27 +331,27 @@ id __95__HKConceptSynthesizer_bestCodingSystemForDisplayForCodingCollection_prio
   allKeys = [systemCopy allKeys];
   v20 = [allKeys sortedArrayUsingComparator:&__block_literal_global_176];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v21 = v20;
-  v22 = [v21 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v31;
+    v24 = *v30;
 LABEL_12:
     v25 = 0;
     while (1)
     {
-      if (*v31 != v24)
+      if (*v30 != v24)
       {
         objc_enumerationMutation(v21);
       }
 
-      v26 = *(*(&v30 + 1) + 8 * v25);
-      if (([v10 containsObject:{v26, v30}] & 1) == 0)
+      v26 = *(*(&v29 + 1) + 8 * v25);
+      if (([v10 containsObject:{v26, v29}] & 1) == 0)
       {
         v27 = [systemCopy objectForKeyedSubscript:v26];
         v18 = handlerCopy[2](handlerCopy, v26, v27);
@@ -366,7 +364,7 @@ LABEL_12:
 
       if (v23 == ++v25)
       {
-        v23 = [v21 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v23)
         {
           goto LABEL_12;
@@ -384,7 +382,6 @@ LABEL_19:
   }
 
 LABEL_22:
-  v28 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -401,7 +398,7 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
 
 + (id)_synthesizeConceptWithIdentifier:(id)identifier forCodingCollection:(id)collection prioritizedCodingSystems:(id)systems addtionalAttributes:(id)attributes
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   systemsCopy = systems;
   attributesCopy = attributes;
@@ -410,10 +407,10 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
   v15 = [self adHocCodingForCodingCollection:collectionCopy];
   code = [v15 code];
   v17 = [(HKConceptAttribute *)v14 initWithType:2 stringValue:code];
-  v28[0] = v17;
+  v27[0] = v17;
   v18 = [[HKConceptAttribute alloc] initWithType:959 stringValue:@"CA, GB, US"];
-  v28[1] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v27[1] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
 
   if (attributesCopy)
   {
@@ -434,42 +431,40 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
   v24 = [HKConcept alloc];
   v25 = [(HKConcept *)v24 initWithIdentifier:identifierCopy attributes:v19 relationships:MEMORY[0x1E695E0F0] version:0 deleted:0 options:0];
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 + (id)adHocCodingForCodingCollection:(id)collection
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   privateCodeCreationCodingSortDescriptors = [self privateCodeCreationCodingSortDescriptors];
-  v32 = collectionCopy;
+  v31 = collectionCopy;
   codings = [collectionCopy codings];
-  v31 = privateCodeCreationCodingSortDescriptors;
+  v30 = privateCodeCreationCodingSortDescriptors;
   v7 = [codings sortedArrayUsingDescriptors:privateCodeCreationCodingSortDescriptors];
 
   v8 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = v7;
-  v9 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v9 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * i);
+        v13 = *(*(&v33 + 1) + 8 * i);
         [v8 appendString:@"system="];
         codingSystem = [v13 codingSystem];
         identifier = [codingSystem identifier];
@@ -532,7 +527,7 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
         [v8 appendString:v26];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v10 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v10);
@@ -541,54 +536,52 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
   v27 = +[HKMedicalCodingSystem adHocConceptSystem];
   v28 = [HKMedicalCoding medicalCodingWithSystem:v27 codingVersion:0 code:v8 displayString:0];
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 + (id)codingCollectionFromAdHocCode:(id)code error:(id *)error
 {
-  v37[4] = *MEMORY[0x1E69E9840];
+  v36[4] = *MEMORY[0x1E69E9840];
   codeCopy = code;
-  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if ([codeCopy length])
   {
-    v23 = codeCopy;
+    v22 = codeCopy;
     v6 = [codeCopy copy];
-    v36 = 0;
+    v35 = 0;
     v7 = @"none";
     errorCopy = error;
     while (1)
     {
       v8 = v7;
       v9 = v6;
-      v37[0] = @"system=";
-      v37[1] = @"version=";
-      v37[2] = @"code=";
-      v37[3] = @"display=";
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:4];
-      v35 = v6;
-      v11 = [self _substringsInBetweenSequentialDelimiters:v10 poppableString:v6 outReachedEndOfString:&v36 outStringRemainder:&v35 error:error];
-      v6 = v35;
+      v36[0] = @"system=";
+      v36[1] = @"version=";
+      v36[2] = @"code=";
+      v36[3] = @"display=";
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:4];
+      v34 = v6;
+      v11 = [self _substringsInBetweenSequentialDelimiters:v10 poppableString:v6 outReachedEndOfString:&v35 outStringRemainder:&v34 error:error];
+      v6 = v34;
 
       if (!v11)
       {
         break;
       }
 
-      v33 = [v11 objectAtIndexedSubscript:0];
+      v32 = [v11 objectAtIndexedSubscript:0];
       v7 = v8;
       v12 = 0;
-      v32 = [v33 isEqualToString:v8];
-      if ((v32 & 1) == 0)
+      v31 = [v32 isEqualToString:v8];
+      if ((v31 & 1) == 0)
       {
-        v25 = [v11 objectAtIndexedSubscript:0];
+        v24 = [v11 objectAtIndexedSubscript:0];
         v12 = [HKMedicalCodingSystem codeSystemWithIdentifier:?];
-        v24 = v12;
+        v23 = v12;
       }
 
-      v31 = [v11 objectAtIndexedSubscript:1];
-      v13 = [v31 isEqualToString:v8];
+      v30 = [v11 objectAtIndexedSubscript:1];
+      v13 = [v30 isEqualToString:v8];
       if (v13)
       {
         v14 = 0;
@@ -597,10 +590,10 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
       else
       {
         v14 = [v11 objectAtIndexedSubscript:1];
-        v26 = v14;
+        v25 = v14;
       }
 
-      v34 = v6;
+      v33 = v6;
       v15 = [v11 objectAtIndexedSubscript:2];
       v16 = [v15 isEqualToString:v8];
       if (v16)
@@ -611,7 +604,7 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
       else
       {
         v17 = [v11 objectAtIndexedSubscript:2];
-        v27 = v17;
+        v26 = v17;
       }
 
       v18 = [v11 objectAtIndexedSubscript:3];
@@ -628,7 +621,7 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
         v7 = v8;
       }
 
-      v6 = v34;
+      v6 = v33;
       if ((v16 & 1) == 0)
       {
       }
@@ -638,19 +631,19 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
       {
       }
 
-      if ((v32 & 1) == 0)
+      if ((v31 & 1) == 0)
       {
       }
 
-      [v30 addObject:v19];
-      if (v36 == 1)
+      [v29 addObject:v19];
+      if (v35 == 1)
       {
-        v11 = [HKMedicalCodingCollection collectionWithCodings:v30];
+        v11 = [HKMedicalCodingCollection collectionWithCodings:v29];
         break;
       }
     }
 
-    codeCopy = v23;
+    codeCopy = v22;
   }
 
   else
@@ -658,8 +651,6 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
     [MEMORY[0x1E696ABC0] hk_assignError:error code:3 description:@"Must supply a non-empty string for adhoc code decoding"];
     v11 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -736,7 +727,7 @@ uint64_t __83__HKConceptSynthesizer_enumerateCodingsBySystem_prioritizingCodingS
   return v16;
 }
 
-void __127__HKConceptSynthesizer__substringsInBetweenSequentialDelimiters_poppableString_outReachedEndOfString_outStringRemainder_error___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
+void __127__HKConceptSynthesizer__substringsInBetweenSequentialDelimiters_poppableString_outReachedEndOfString_outStringRemainder_error___block_invoke(uint64_t a1, void *a2, char *a3, _BYTE *a4)
 {
   v7 = a2;
   v8 = [*(a1 + 32) objectAtIndexedSubscript:0];
@@ -748,18 +739,17 @@ void __127__HKConceptSynthesizer__substringsInBetweenSequentialDelimiters_poppab
   }
 
   v10 = *(*(a1 + 48) + 8);
-  v11 = *(*(a1 + 56) + 8);
-  v12 = *(*(a1 + 64) + 8);
+  v11 = *(*(a1 + 64) + 8);
   obj = *(v10 + 40);
-  v13 = [*(a1 + 80) _popValueForString:*(v12 + 40) startingFromSubstring:? untilSubstring:? outRemainderString:? outEndOfString:? error:?];
+  v12 = [*(a1 + 80) _popValueForString:*(v11 + 40) startingFromSubstring:? untilSubstring:? outRemainderString:? outEndOfString:? error:?];
   objc_storeStrong((v10 + 40), obj);
-  objc_storeStrong((v12 + 40), v17);
+  objc_storeStrong((v11 + 40), v16);
   if ([*(a1 + 32) count] - 1 > a3 && *(*(*(a1 + 56) + 8) + 24) == 1)
   {
-    v14 = [MEMORY[0x1E696ABC0] hk_error:3 description:@"Invalid order of delimiters. Reached end of string before full sequence was parsed."];
-    v15 = *(*(a1 + 64) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v13 = [MEMORY[0x1E696ABC0] hk_error:3 description:@"Invalid order of delimiters. Reached end of string before full sequence was parsed."];
+    v14 = *(*(a1 + 64) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
 
 LABEL_8:
     *(*(*(a1 + 72) + 8) + 24) = 0;
@@ -767,12 +757,12 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if (!v13)
+  if (!v12)
   {
     goto LABEL_8;
   }
 
-  [*(a1 + 40) addObject:v13];
+  [*(a1 + 40) addObject:v12];
 LABEL_9:
 }
 

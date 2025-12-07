@@ -1,6 +1,6 @@
 @interface UIView(EKUIViewHierarchy)
-- (double)ekui_height;
-- (double)ekui_width;
+- (CGFloat)ekui_height;
+- (CGFloat)ekui_width;
 - (uint64_t)ekui_horizontalSizeClass;
 - (uint64_t)ekui_interfaceOrientation;
 - (uint64_t)ekui_verticalSizeClass;
@@ -9,14 +9,14 @@
 
 @implementation UIView(EKUIViewHierarchy)
 
-- (double)ekui_width
+- (CGFloat)ekui_width
 {
   [self bounds];
 
   return CGRectGetWidth(*&v1);
 }
 
-- (double)ekui_height
+- (CGFloat)ekui_height
 {
   [self bounds];
 

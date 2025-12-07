@@ -17,19 +17,17 @@
 
 - (id)dictionaryRepresentation
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"mi";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"mi";
   modelID = [(_MKFYearDayScheduleRule *)self modelID];
-  v10[0] = modelID;
-  v9[1] = @"st";
+  v9[0] = modelID;
+  v8[1] = @"st";
   startDate = [(_MKFYearDayScheduleRule *)self startDate];
-  v10[1] = startDate;
-  v9[2] = @"et";
+  v9[1] = startDate;
+  v8[2] = @"et";
   endDate = [(_MKFYearDayScheduleRule *)self endDate];
-  v10[2] = endDate;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = endDate;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -74,7 +72,7 @@
 
 + (id)populateYearDayScheduleRuleFromDictionary:(id)dictionary existingLocalModels:(id)models context:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   modelsCopy = models;
   contextCopy = context;
@@ -156,18 +154,16 @@
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       v28 = HMFGetLogIdentifier();
-      v31 = 138543618;
-      v32 = v28;
-      v33 = 2112;
-      v34 = dictionaryCopy;
-      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Cannot create year day schedule rule from dictionary : %@", &v31, 0x16u);
+      v30 = 138543618;
+      v31 = v28;
+      v32 = 2112;
+      v33 = dictionaryCopy;
+      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Cannot create year day schedule rule from dictionary : %@", &v30, 0x16u);
     }
 
     objc_autoreleasePoolPop(v25);
     v20 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

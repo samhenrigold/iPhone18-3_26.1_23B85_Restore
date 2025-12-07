@@ -99,27 +99,27 @@ LABEL_5:
 - (id)getWithId:(id)id
 {
   objc_sync_enter(self);
-  v6 = JavaUtilCollections_secondaryHashWithId_(id);
+  v7 = JavaUtilCollections_secondaryHashWithId_(id, v5);
   table = self->table_;
   if (!table)
   {
     JreThrowNullPointerException();
   }
 
-  v8 = v6;
+  v9 = v7;
   size = table->super.size_;
-  v10 = (size - 1) & v8;
-  if (v10 < 0 != v5 || v10 >= size)
+  v11 = (size - 1) & v9;
+  if (v11 < 0 != v6 || v11 >= size)
   {
-    IOSArray_throwOutOfBoundsWithMsg(size, v10);
+    IOSArray_throwOutOfBoundsWithMsg(size, v11);
   }
 
-  isa = (&table->elementType_)[v10];
+  isa = (&table->elementType_)[v11];
   if (isa)
   {
     while (isa[1].super.isa != id)
     {
-      if (LODWORD(isa[3].super.isa) == v8)
+      if (LODWORD(isa[3].super.isa) == v9)
       {
         if (!id)
         {
@@ -139,43 +139,43 @@ LABEL_5:
       }
     }
 
-    v13 = isa[2].super.isa;
+    v14 = isa[2].super.isa;
   }
 
   else
   {
 LABEL_13:
-    v13 = 0;
+    v14 = 0;
   }
 
   objc_sync_exit(self);
-  return v13;
+  return v14;
 }
 
 - (BOOL)containsKeyWithId:(id)id
 {
   objc_sync_enter(self);
-  v6 = JavaUtilCollections_secondaryHashWithId_(id);
+  v7 = JavaUtilCollections_secondaryHashWithId_(id, v5);
   table = self->table_;
   if (!table)
   {
     JreThrowNullPointerException();
   }
 
-  v8 = v6;
+  v9 = v7;
   size = table->super.size_;
-  v10 = (size - 1) & v8;
-  if (v10 < 0 != v5 || v10 >= size)
+  v11 = (size - 1) & v9;
+  if (v11 < 0 != v6 || v11 >= size)
   {
-    IOSArray_throwOutOfBoundsWithMsg(size, v10);
+    IOSArray_throwOutOfBoundsWithMsg(size, v11);
   }
 
-  isa = (&table->elementType_)[v10];
+  isa = (&table->elementType_)[v11];
   if (isa)
   {
     while (isa[1].super.isa != id)
     {
-      if (LODWORD(isa[3].super.isa) == v8)
+      if (LODWORD(isa[3].super.isa) == v9)
       {
         if (!id)
         {
@@ -195,17 +195,17 @@ LABEL_13:
       }
     }
 
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
 LABEL_13:
-    v13 = 0;
+    v14 = 0;
   }
 
   objc_sync_exit(self);
-  return v13;
+  return v14;
 }
 
 - (BOOL)containsValueWithId:(id)id
@@ -275,38 +275,38 @@ LABEL_9:
   objc_sync_enter(self);
   if (!id)
   {
-    v24 = @"key == null";
+    v25 = @"key == null";
     goto LABEL_29;
   }
 
   if (!withId)
   {
-    v24 = @"value == null";
+    v25 = @"value == null";
 LABEL_29:
-    v25 = new_JavaLangNullPointerException_initWithNSString_(v24);
-    objc_exception_throw(v25);
+    v26 = new_JavaLangNullPointerException_initWithNSString_(v25);
+    objc_exception_throw(v26);
   }
 
-  v8 = JavaUtilCollections_secondaryHashWithId_(id);
+  v9 = JavaUtilCollections_secondaryHashWithId_(id, v7);
   table = self->table_;
   if (!table)
   {
     JreThrowNullPointerException();
   }
 
-  v10 = v8;
+  v11 = v9;
   size = table->super.size_;
-  v12 = (size - 1) & v10;
-  if (v12 < 0 != v7 || v12 >= size)
+  v13 = (size - 1) & v11;
+  if (v13 < 0 != v8 || v13 >= size)
   {
-    IOSArray_throwOutOfBoundsWithMsg(size, (size - 1) & v10);
+    IOSArray_throwOutOfBoundsWithMsg(size, (size - 1) & v11);
   }
 
-  v14 = (&table->elementType_)[v12];
-  if (v14)
+  v15 = (&table->elementType_)[v13];
+  if (v15)
   {
-    isa = (&table->elementType_)[v12];
-    while (LODWORD(isa[3].super.isa) != v10 || ![id isEqual:isa[1].super.isa])
+    isa = (&table->elementType_)[v13];
+    while (LODWORD(isa[3].super.isa) != v11 || ![id isEqual:isa[1].super.isa])
     {
       isa = isa[4].super.isa;
       if (!isa)
@@ -315,7 +315,7 @@ LABEL_29:
       }
     }
 
-    v22 = isa[2].super.isa;
+    v23 = isa[2].super.isa;
     JreStrongAssign(&isa[2].super.isa, withId);
   }
 
@@ -323,35 +323,35 @@ LABEL_29:
   {
 LABEL_14:
     ++self->modCount_;
-    v16 = self->size_;
-    self->size_ = v16 + 1;
-    if (v16 > self->threshold_)
+    v17 = self->size_;
+    self->size_ = v17 + 1;
+    if (v17 > self->threshold_)
     {
       [(JavaUtilHashtable *)self rehash];
-      v18 = [JavaUtilHashtable doubleCapacity]_0(self);
-      table = v18;
-      if (!v18)
+      v19 = [JavaUtilHashtable doubleCapacity]_0(self);
+      table = v19;
+      if (!v19)
       {
         JreThrowNullPointerException();
       }
 
-      v19 = v18->super.size_;
-      v12 = (v19 - 1) & v10;
-      if (v12 < 0 != v17 || v12 >= v19)
+      v20 = v19->super.size_;
+      v13 = (v20 - 1) & v11;
+      if (v13 < 0 != v18 || v13 >= v20)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v19, (v19 - 1) & v10);
+        IOSArray_throwOutOfBoundsWithMsg(v20, (v20 - 1) & v11);
       }
 
-      v14 = (&table->elementType_)[v12];
+      v15 = (&table->elementType_)[v13];
     }
 
-    v21 = sub_1001F6F54(id, withId, v10, v14);
-    IOSObjectArray_SetAndConsume(table, v12, v21);
-    v22 = 0;
+    v22 = sub_1001F6F54(id, withId, v11, v15);
+    IOSObjectArray_SetAndConsume(table, v13, v22);
+    v23 = 0;
   }
 
   objc_sync_exit(self);
-  return v22;
+  return v23;
 }
 
 - (IOSObjectArray)doubleCapacity
@@ -506,30 +506,30 @@ LABEL_12:
 - (id)removeWithId:(id)id
 {
   objc_sync_enter(self);
-  v6 = JavaUtilCollections_secondaryHashWithId_(id);
+  v7 = JavaUtilCollections_secondaryHashWithId_(id, v5);
   table = self->table_;
   if (!table)
   {
     JreThrowNullPointerException();
   }
 
-  v8 = v6;
+  v9 = v7;
   size = table->super.size_;
-  v10 = (size - 1) & v8;
-  v11 = v10;
-  if (v10 < 0 != v5 || v10 >= size)
+  v11 = (size - 1) & v9;
+  v12 = v11;
+  if (v11 < 0 != v6 || v11 >= size)
   {
-    IOSArray_throwOutOfBoundsWithMsg(size, v10);
+    IOSArray_throwOutOfBoundsWithMsg(size, v11);
   }
 
-  isa = (&table->elementType_)[v10];
+  isa = (&table->elementType_)[v11];
   if (isa)
   {
-    v14 = 0;
+    v15 = 0;
     while (1)
     {
-      v15 = isa;
-      if (LODWORD(isa[3].super.isa) == v8)
+      v16 = isa;
+      if (LODWORD(isa[3].super.isa) == v9)
       {
         if (!id)
         {
@@ -542,37 +542,37 @@ LABEL_12:
         }
       }
 
-      isa = v15[4].super.isa;
-      v14 = v15;
+      isa = v16[4].super.isa;
+      v15 = v16;
       if (!isa)
       {
         goto LABEL_13;
       }
     }
 
-    if (v14)
+    if (v15)
     {
-      JreStrongAssign(&v14[4].super.isa, v15[4].super.isa);
+      JreStrongAssign(&v15[4].super.isa, v16[4].super.isa);
     }
 
     else
     {
-      IOSObjectArray_Set(table, v11, v15[4].super.isa);
+      IOSObjectArray_Set(table, v12, v16[4].super.isa);
     }
 
     ++self->modCount_;
     --self->size_;
-    v16 = v15[2].super.isa;
+    v17 = v16[2].super.isa;
   }
 
   else
   {
 LABEL_13:
-    v16 = 0;
+    v17 = 0;
   }
 
   objc_sync_exit(self);
-  return v16;
+  return v17;
 }
 
 - (void)clear
@@ -612,7 +612,7 @@ LABEL_13:
   {
     v4 = [JavaUtilHashtable_Values alloc];
     objc_storeWeak(&v4->this$0_, self);
-    JavaUtilAbstractCollection_init(v4, v5);
+    JavaUtilAbstractCollection_init();
     values = JreStrongAssignAndConsume(&self->values_, v4);
   }
 
@@ -658,30 +658,31 @@ LABEL_13:
 
 - (BOOL)isEqual:(id)equal
 {
-  objc_sync_enter(self);
-  if ([JavaUtilMap_class_() isInstance:equal])
+  v5 = objc_sync_enter(self);
+  if ([JavaUtilMap_class_(v5 v6)])
   {
     entrySet = [(JavaUtilHashtable *)self entrySet];
-    if (!entrySet || (v6 = JavaUtilMap_class_(), !equal))
+    v9 = entrySet;
+    if (!entrySet || (v10 = JavaUtilMap_class_(entrySet, v8), !equal))
     {
       JreThrowNullPointerException();
     }
 
-    if (([v6 isInstance:equal] & 1) == 0)
+    if (([v10 isInstance:equal] & 1) == 0)
     {
       JreThrowClassCastException();
     }
 
-    v7 = [entrySet isEqual:{objc_msgSend(equal, "entrySet")}];
+    v11 = [v9 isEqual:{objc_msgSend(equal, "entrySet")}];
   }
 
   else
   {
-    v7 = 0;
+    v11 = 0;
   }
 
   objc_sync_exit(self);
-  return v7;
+  return v11;
 }
 
 - (unint64_t)hash
@@ -761,7 +762,7 @@ LABEL_13:
 - (NSString)description
 {
   objc_sync_enter(self);
-  v3 = new_JavaLangStringBuilder_initWithInt_(15 * self->size_);
+  v3 = new_JavaLangStringBuilder_initWithInt_((15 * self->size_));
   [(JavaLangStringBuilder *)v3 appendWithChar:123];
   entrySet = [(JavaUtilHashtable *)self entrySet];
   if (!entrySet)
@@ -938,7 +939,7 @@ LABEL_20:
     v13 = 0x40000000;
     if (readInt <= 0x40000000)
     {
-      v13 = JavaUtilCollections_roundUpToPowerOfTwoWithInt_(readInt);
+      v13 = JavaUtilCollections_roundUpToPowerOfTwoWithInt_(readInt, 0x40000000);
     }
   }
 
@@ -995,10 +996,10 @@ LABEL_14:
     }
 
     JreStrongAssignAndConsume(&qword_100554FC0, [IOSObjectArray newArrayWithLength:2 type:qword_100554FD0]);
-    v3[0] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"threshold", +[IOSClass intClass]);
-    v3[1] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"loadFactor", +[IOSClass floatClass]);
-    v2 = [IOSObjectArray newArrayWithObjects:v3 count:2 type:JavaIoObjectStreamField_class_()];
-    JreStrongAssignAndConsume(&qword_100554FC8, v2);
+    v4 = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"threshold", +[IOSClass intClass]);
+    v5 = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"loadFactor", +[IOSClass floatClass]);
+    v3 = [IOSObjectArray newArrayWithObjects:&v4 count:2 type:JavaIoObjectStreamField_class_(v5, v2)];
+    JreStrongAssignAndConsume(&qword_100554FC8, v3);
     atomic_store(1u, JavaUtilHashtable__initialized);
   }
 }

@@ -5,13 +5,12 @@
 
 uint64_t __50___HDDeferredFeaturePropertiesWriting_synchronize__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   objc_opt_class();
-  v2 = HKCreateSerialUtilityDispatchQueue();
-  v3 = _MergedGlobals_212;
-  _MergedGlobals_212 = v2;
+  v1 = HKCreateSerialUtilityDispatchQueue();
+  v2 = _MergedGlobals_212;
+  _MergedGlobals_212 = v1;
 
-  return MEMORY[0x2821F96F8](v2, v3);
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 id __50___HDDeferredFeaturePropertiesWriting_synchronize__block_invoke_2(uint64_t a1)

@@ -118,160 +118,160 @@
 
 - (void)log:(id)log withPrefix:(id)prefix
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   logCopy = log;
   prefixCopy = prefix;
   if (os_log_type_enabled(logCopy, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v57 = prefixCopy;
+    v56 = prefixCopy;
     _os_log_impl(&dword_24912E000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Begin secure configuration", buf, 0xCu);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v7 = self->_allowedApplications;
-  v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v49 objects:v62 count:16];
+  v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v48 objects:v61 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v50;
+    v11 = *v49;
     *&v9 = 138543875;
-    v35 = v9;
+    v34 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v50 != v11)
+        if (*v49 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v49 + 1) + 8 * i);
-        v14 = [(NSDictionary *)self->_allowedApplications objectForKeyedSubscript:v13, v35];
+        v13 = *(*(&v48 + 1) + 8 * i);
+        v14 = [(NSDictionary *)self->_allowedApplications objectForKeyedSubscript:v13, v34];
         if (os_log_type_enabled(logCopy, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v35;
-          v57 = prefixCopy;
-          v58 = 2113;
-          v59 = v13;
-          v60 = 2113;
-          v61 = v14;
+          *buf = v34;
+          v56 = prefixCopy;
+          v57 = 2113;
+          v58 = v13;
+          v59 = 2113;
+          v60 = v14;
           _os_log_impl(&dword_24912E000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Allowed app: %{private}@; %{private}@", buf, 0x20u);
         }
       }
 
-      v10 = [(NSDictionary *)v7 countByEnumeratingWithState:&v49 objects:v62 count:16];
+      v10 = [(NSDictionary *)v7 countByEnumeratingWithState:&v48 objects:v61 count:16];
     }
 
     while (v10);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v15 = self->_deniedApplications;
-  v16 = [(NSSet *)v15 countByEnumeratingWithState:&v45 objects:v55 count:16];
+  v16 = [(NSSet *)v15 countByEnumeratingWithState:&v44 objects:v54 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v46;
+    v18 = *v45;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v46 != v18)
+        if (*v45 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
         if (os_log_type_enabled(logCopy, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = *(*(&v45 + 1) + 8 * j);
+          v20 = *(*(&v44 + 1) + 8 * j);
           *buf = 138543619;
-          v57 = prefixCopy;
-          v58 = 2113;
-          v59 = v20;
+          v56 = prefixCopy;
+          v57 = 2113;
+          v58 = v20;
           _os_log_impl(&dword_24912E000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Denied app: %{private}@", buf, 0x16u);
         }
       }
 
-      v17 = [(NSSet *)v15 countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v17 = [(NSSet *)v15 countByEnumeratingWithState:&v44 objects:v54 count:16];
     }
 
     while (v17);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v21 = self->_allowedWebApplications;
-  v22 = [(NSSet *)v21 countByEnumeratingWithState:&v41 objects:v54 count:16];
+  v22 = [(NSSet *)v21 countByEnumeratingWithState:&v40 objects:v53 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v42;
+    v24 = *v41;
     do
     {
       for (k = 0; k != v23; ++k)
       {
-        if (*v42 != v24)
+        if (*v41 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
         if (os_log_type_enabled(logCopy, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = *(*(&v41 + 1) + 8 * k);
+          v26 = *(*(&v40 + 1) + 8 * k);
           *buf = 138543619;
-          v57 = prefixCopy;
-          v58 = 2113;
-          v59 = v26;
+          v56 = prefixCopy;
+          v57 = 2113;
+          v58 = v26;
           _os_log_impl(&dword_24912E000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Allowed web app: %{private}@", buf, 0x16u);
         }
       }
 
-      v23 = [(NSSet *)v21 countByEnumeratingWithState:&v41 objects:v54 count:16];
+      v23 = [(NSSet *)v21 countByEnumeratingWithState:&v40 objects:v53 count:16];
     }
 
     while (v23);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v27 = self->_deniedWebApplications;
-  v28 = [(NSSet *)v27 countByEnumeratingWithState:&v37 objects:v53 count:16];
+  v28 = [(NSSet *)v27 countByEnumeratingWithState:&v36 objects:v52 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v38;
+    v30 = *v37;
     do
     {
       for (m = 0; m != v29; ++m)
       {
-        if (*v38 != v30)
+        if (*v37 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
         if (os_log_type_enabled(logCopy, OS_LOG_TYPE_DEFAULT))
         {
-          v32 = *(*(&v37 + 1) + 8 * m);
+          v32 = *(*(&v36 + 1) + 8 * m);
           *buf = 138543619;
-          v57 = prefixCopy;
-          v58 = 2113;
-          v59 = v32;
+          v56 = prefixCopy;
+          v57 = 2113;
+          v58 = v32;
           _os_log_impl(&dword_24912E000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Denied web app: %{private}@", buf, 0x16u);
         }
       }
 
-      v29 = [(NSSet *)v27 countByEnumeratingWithState:&v37 objects:v53 count:16];
+      v29 = [(NSSet *)v27 countByEnumeratingWithState:&v36 objects:v52 count:16];
     }
 
     while (v29);
@@ -281,20 +281,18 @@
   {
     senderConfiguration = self->_senderConfiguration;
     *buf = 138543619;
-    v57 = prefixCopy;
-    v58 = 2113;
-    v59 = senderConfiguration;
+    v56 = prefixCopy;
+    v57 = 2113;
+    v58 = senderConfiguration;
     _os_log_impl(&dword_24912E000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] senderConfiguration: %{private}@", buf, 0x16u);
   }
 
   if (os_log_type_enabled(logCopy, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v57 = prefixCopy;
+    v56 = prefixCopy;
     _os_log_impl(&dword_24912E000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] End secure configuration", buf, 0xCu);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -585,37 +583,37 @@ LABEL_57:
 
 + (id)newWithDictionaryRepresentation:(id)representation context:(id)context
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   contextCopy = context;
   v7 = [representationCopy bs_safeDictionaryForKey:@"senderConfiguration"];
-  v54 = [DNDSSenderConfigurationRecord newWithDictionaryRepresentation:v7 context:contextCopy];
+  v53 = [DNDSSenderConfigurationRecord newWithDictionaryRepresentation:v7 context:contextCopy];
 
-  v60 = [representationCopy bs_safeDictionaryForKey:@"platforms"];
-  v55 = representationCopy;
+  v59 = [representationCopy bs_safeDictionaryForKey:@"platforms"];
+  v54 = representationCopy;
   v8 = [representationCopy bs_safeDictionaryForKey:@"allowedApplications"];
-  v59 = objc_opt_new();
+  v58 = objc_opt_new();
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v80 objects:v87 count:16];
+  v9 = [obj countByEnumeratingWithState:&v79 objects:v86 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v81;
+    v11 = *v80;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v81 != v11)
+        if (*v80 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v80 + 1) + 8 * i);
-        v14 = [v60 objectForKeyedSubscript:v13];
+        v13 = *(*(&v79 + 1) + 8 * i);
+        v14 = [v59 objectForKeyedSubscript:v13];
         unsignedIntegerValue = [v14 unsignedIntegerValue];
 
         v16 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:v13 platform:unsignedIntegerValue];
@@ -626,39 +624,39 @@ LABEL_57:
         v20 = [obj objectForKey:bundleID];
         v21 = [DNDSApplicationConfigurationRecord newWithDictionaryRepresentation:v20 context:contextCopy];
 
-        [v59 setObject:v21 forKey:v18];
+        [v58 setObject:v21 forKey:v18];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v80 objects:v87 count:16];
+      v10 = [obj countByEnumeratingWithState:&v79 objects:v86 count:16];
     }
 
     while (v10);
   }
 
-  v22 = [v55 bs_safeArrayForKey:@"silencedApplications"];
+  v22 = [v54 bs_safeArrayForKey:@"silencedApplications"];
   v23 = [MEMORY[0x277CBEB58] set];
+  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
   v24 = v22;
-  v25 = [v24 countByEnumeratingWithState:&v76 objects:v86 count:16];
-  v56 = v24;
-  v57 = v23;
+  v25 = [v24 countByEnumeratingWithState:&v75 objects:v85 count:16];
+  v55 = v24;
+  v56 = v23;
   if (v25)
   {
     v26 = v25;
-    v27 = *v77;
+    v27 = *v76;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v77 != v27)
+        if (*v76 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v76 + 1) + 8 * j);
+        v29 = *(*(&v75 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -676,86 +674,86 @@ LABEL_17:
           applicationIdentifierMapper2 = [contextCopy applicationIdentifierMapper];
           v30 = [applicationIdentifierMapper2 applicationIdentifierForFileWithSourceApplicationIdentifier:v31];
 
-          v24 = v56;
-          v23 = v57;
+          v24 = v55;
+          v23 = v56;
           goto LABEL_17;
         }
 
         if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_ERROR))
         {
-          [DNDSConfigurationSecureRecord newWithDictionaryRepresentation:v75 context:?];
+          [DNDSConfigurationSecureRecord newWithDictionaryRepresentation:v74 context:?];
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v76 objects:v86 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v75 objects:v85 count:16];
     }
 
     while (v26);
   }
 
-  v33 = [v55 bs_safeArrayForKey:@"allowedWebApplications"];
-  v58 = [MEMORY[0x277CBEB58] set];
+  v33 = [v54 bs_safeArrayForKey:@"allowedWebApplications"];
+  v57 = [MEMORY[0x277CBEB58] set];
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   v34 = v33;
-  v35 = [v34 countByEnumeratingWithState:&v70 objects:v85 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v69 objects:v84 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v71;
+    v37 = *v70;
     do
     {
       for (k = 0; k != v36; ++k)
       {
-        if (*v71 != v37)
+        if (*v70 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = *(*(&v70 + 1) + 8 * k);
+        v39 = *(*(&v69 + 1) + 8 * k);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v40 = [MEMORY[0x277D05AC8] newWithDictionaryRepresentation:v39 context:contextCopy];
-          [v58 addObject:v40];
+          [v57 addObject:v40];
         }
 
         else if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_ERROR))
         {
-          [DNDSConfigurationSecureRecord newWithDictionaryRepresentation:v69 context:?];
+          [DNDSConfigurationSecureRecord newWithDictionaryRepresentation:v68 context:?];
         }
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v70 objects:v85 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v69 objects:v84 count:16];
     }
 
     while (v36);
   }
 
-  v41 = [v55 bs_safeArrayForKey:@"silencedWebApplications"];
+  v41 = [v54 bs_safeArrayForKey:@"silencedWebApplications"];
   v42 = [MEMORY[0x277CBEB58] set];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   v43 = v41;
-  v44 = [v43 countByEnumeratingWithState:&v64 objects:v84 count:16];
+  v44 = [v43 countByEnumeratingWithState:&v63 objects:v83 count:16];
   if (v44)
   {
     v45 = v44;
-    v46 = *v65;
+    v46 = *v64;
     do
     {
       for (m = 0; m != v45; ++m)
       {
-        if (*v65 != v46)
+        if (*v64 != v46)
         {
           objc_enumerationMutation(v43);
         }
 
-        v48 = *(*(&v64 + 1) + 8 * m);
+        v48 = *(*(&v63 + 1) + 8 * m);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -765,24 +763,23 @@ LABEL_17:
 
         else if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_ERROR))
         {
-          [DNDSConfigurationSecureRecord newWithDictionaryRepresentation:v63 context:?];
+          [DNDSConfigurationSecureRecord newWithDictionaryRepresentation:v62 context:?];
         }
       }
 
-      v45 = [v43 countByEnumeratingWithState:&v64 objects:v84 count:16];
+      v45 = [v43 countByEnumeratingWithState:&v63 objects:v83 count:16];
     }
 
     while (v45);
   }
 
-  v50 = [[self alloc] _initWithSenderConfiguration:v54 allowedApplications:v59 deniedApplications:v57 allowedWebApplications:v58 deniedWebApplications:v42];
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = [[self alloc] _initWithSenderConfiguration:v53 allowedApplications:v58 deniedApplications:v56 allowedWebApplications:v57 deniedWebApplications:v42];
   return v50;
 }
 
 - (id)dictionaryRepresentationWithContext:(id)context
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   healingSource = [contextCopy healingSource];
   v5 = [healingSource mutableCopy];
@@ -800,31 +797,31 @@ LABEL_17:
   v8 = dictionary;
 
   senderConfiguration = [(DNDSConfigurationSecureRecord *)self senderConfiguration];
-  v63 = v8;
+  v62 = v8;
   [v8 setDictionaryRepresentationOfRecord:senderConfiguration forKey:@"senderConfiguration" context:contextCopy];
 
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   dictionary3 = [MEMORY[0x277CBEB38] dictionary];
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   allowedApplications = [(DNDSConfigurationSecureRecord *)self allowedApplications];
-  v11 = [allowedApplications countByEnumeratingWithState:&v80 objects:v87 count:16];
+  v11 = [allowedApplications countByEnumeratingWithState:&v79 objects:v86 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v81;
+    v13 = *v80;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v81 != v13)
+        if (*v80 != v13)
         {
           objc_enumerationMutation(allowedApplications);
         }
 
-        v15 = *(*(&v80 + 1) + 8 * i);
+        v15 = *(*(&v79 + 1) + 8 * i);
         allowedApplications2 = [(DNDSConfigurationSecureRecord *)self allowedApplications];
         v17 = [allowedApplications2 objectForKeyedSubscript:v15];
 
@@ -856,7 +853,7 @@ LABEL_15:
         [dictionary2 setDictionaryRepresentationOfRecord:v17 forKey:bundleID2 context:contextCopy];
       }
 
-      v12 = [allowedApplications countByEnumeratingWithState:&v80 objects:v87 count:16];
+      v12 = [allowedApplications countByEnumeratingWithState:&v79 objects:v86 count:16];
     }
 
     while (v12);
@@ -866,32 +863,32 @@ LABEL_15:
   v26 = [contextCopy mutableCopy];
   healingSource2 = [contextCopy healingSource];
   v28 = [healingSource2 objectForKeyedSubscript:@"silencedApplications"];
-  v64 = v26;
+  v63 = v26;
   [v26 setArrayHealingSource:v28];
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   deniedApplications = [(DNDSConfigurationSecureRecord *)self deniedApplications];
-  v30 = [deniedApplications countByEnumeratingWithState:&v76 objects:v86 count:16];
+  v30 = [deniedApplications countByEnumeratingWithState:&v75 objects:v85 count:16];
   if (!v30)
   {
     goto LABEL_30;
   }
 
   v31 = v30;
-  v32 = *v77;
+  v32 = *v76;
   do
   {
     for (j = 0; j != v31; ++j)
     {
-      if (*v77 != v32)
+      if (*v76 != v32)
       {
         objc_enumerationMutation(deniedApplications);
       }
 
-      v34 = *(*(&v76 + 1) + 8 * j);
+      v34 = *(*(&v75 + 1) + 8 * j);
       destination2 = [contextCopy destination];
       if (!destination2)
       {
@@ -912,95 +909,94 @@ LABEL_26:
 
       v38 = 0;
 LABEL_28:
-      v39 = [v38 dictionaryRepresentationWithContext:v64];
+      v39 = [v38 dictionaryRepresentationWithContext:v63];
       [array addObject:v39];
     }
 
-    v31 = [deniedApplications countByEnumeratingWithState:&v76 objects:v86 count:16];
+    v31 = [deniedApplications countByEnumeratingWithState:&v75 objects:v85 count:16];
   }
 
   while (v31);
 LABEL_30:
 
-  [v63 bs_setSafeObject:dictionary2 forKey:@"allowedApplications"];
-  [v63 bs_setSafeObject:dictionary3 forKey:@"platforms"];
-  v62 = array;
-  [v63 bs_setSafeObject:array forKey:@"silencedApplications"];
+  [v62 bs_setSafeObject:dictionary2 forKey:@"allowedApplications"];
+  [v62 bs_setSafeObject:dictionary3 forKey:@"platforms"];
+  v61 = array;
+  [v62 bs_setSafeObject:array forKey:@"silencedApplications"];
   array2 = [MEMORY[0x277CBEB18] array];
   v41 = [contextCopy mutableCopy];
   healingSource3 = [contextCopy healingSource];
   v43 = [healingSource3 objectForKeyedSubscript:@"allowedWebApplications"];
   [v41 setArrayHealingSource:v43];
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   allowedWebApplications = [(DNDSConfigurationSecureRecord *)self allowedWebApplications];
-  v45 = [allowedWebApplications countByEnumeratingWithState:&v72 objects:v85 count:16];
+  v45 = [allowedWebApplications countByEnumeratingWithState:&v71 objects:v84 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v73;
+    v47 = *v72;
     do
     {
       for (k = 0; k != v46; ++k)
       {
-        if (*v73 != v47)
+        if (*v72 != v47)
         {
           objc_enumerationMutation(allowedWebApplications);
         }
 
-        v49 = [*(*(&v72 + 1) + 8 * k) dictionaryRepresentationWithContext:v41];
+        v49 = [*(*(&v71 + 1) + 8 * k) dictionaryRepresentationWithContext:v41];
         [array2 addObject:v49];
       }
 
-      v46 = [allowedWebApplications countByEnumeratingWithState:&v72 objects:v85 count:16];
+      v46 = [allowedWebApplications countByEnumeratingWithState:&v71 objects:v84 count:16];
     }
 
     while (v46);
   }
 
-  [v63 bs_setSafeObject:array2 forKey:@"allowedWebApplications"];
+  [v62 bs_setSafeObject:array2 forKey:@"allowedWebApplications"];
   array3 = [MEMORY[0x277CBEB18] array];
   v51 = [contextCopy mutableCopy];
   healingSource4 = [contextCopy healingSource];
   v53 = [healingSource4 objectForKeyedSubscript:@"silencedWebApplications"];
   [v51 setArrayHealingSource:v53];
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   deniedWebApplications = [(DNDSConfigurationSecureRecord *)self deniedWebApplications];
-  v55 = [deniedWebApplications countByEnumeratingWithState:&v68 objects:v84 count:16];
+  v55 = [deniedWebApplications countByEnumeratingWithState:&v67 objects:v83 count:16];
   if (v55)
   {
     v56 = v55;
-    v57 = *v69;
+    v57 = *v68;
     do
     {
       for (m = 0; m != v56; ++m)
       {
-        if (*v69 != v57)
+        if (*v68 != v57)
         {
           objc_enumerationMutation(deniedWebApplications);
         }
 
-        v59 = [*(*(&v68 + 1) + 8 * m) dictionaryRepresentationWithContext:v51];
+        v59 = [*(*(&v67 + 1) + 8 * m) dictionaryRepresentationWithContext:v51];
         [array3 addObject:v59];
       }
 
-      v56 = [deniedWebApplications countByEnumeratingWithState:&v68 objects:v84 count:16];
+      v56 = [deniedWebApplications countByEnumeratingWithState:&v67 objects:v83 count:16];
     }
 
     while (v56);
   }
 
-  [v63 bs_setSafeObject:array3 forKey:@"silencedWebApplications"];
-  v60 = *MEMORY[0x277D85DE8];
+  [v62 bs_setSafeObject:array3 forKey:@"silencedWebApplications"];
 
-  return v63;
+  return v62;
 }
 
 @end

@@ -147,9 +147,9 @@
 
 - (void)viewWillLayoutSubviews
 {
-  v58.receiver = self;
-  v58.super_class = PKPaymentSetupTableViewController;
-  [(PKPaymentSetupTableViewController *)&v58 viewWillLayoutSubviews];
+  v82.receiver = self;
+  v82.super_class = PKPaymentSetupTableViewController;
+  [(PKPaymentSetupTableViewController *)&v82 viewWillLayoutSubviews];
   view = [(PKPaymentSetupTableViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -157,7 +157,7 @@
   v9 = v8;
   v11 = v10;
   [view safeAreaInsets];
-  v53 = v12;
+  v77 = v12;
   [view layoutMargins];
   v14 = v13;
   v16 = v15;
@@ -174,30 +174,36 @@
       v17 = v9 - (v14 + v16);
       if (_UISolariumFeatureFlagEnabled())
       {
-        v19 = v9 - PKSetupListViewConstantsViewMargin();
+        v26 = v9 - PKSetupListViewConstantsViewMargin();
       }
 
       else
       {
         readableContentGuide = [view readableContentGuide];
         [readableContentGuide layoutFrame];
-        v19 = fmin(v21, 536.0);
+        v26 = fmin(v28, 536.0);
       }
 
       v18 = v5 + v14;
       v7 = v7 + 0.0;
-      if (v19 >= v17)
+      if (v26 >= v17)
       {
         v11 = rect_24;
       }
 
       else
       {
-        PKSizeAlignedInRect();
-        v18 = v22;
-        v7 = v23;
-        v17 = v24;
-        v11 = v25;
+        v19.n128_f64[0] = v26;
+        v20.n128_f64[0] = rect_24;
+        v21.n128_f64[0] = v5 + v14;
+        v22.n128_f64[0] = rect_16 + 0.0;
+        v23.n128_f64[0] = v9 - (v14 + v16);
+        v24.n128_f64[0] = rect_24;
+        PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v19, v20, v21, v22, v23, v24, v25);
+        v18 = v29;
+        v7 = v30;
+        v17 = v31;
+        v11 = v32;
       }
     }
   }
@@ -205,46 +211,47 @@
   rect = v5;
   [(UITableView *)self->_tableView setFrame:v18, v7, v17, v11];
   [(UITableView *)self->_tableView contentInset];
-  v27 = v26;
-  rect_8 = v28;
-  v30 = v29;
+  v34 = v33;
+  rect_8 = v35;
+  v37 = v36;
   dockView = self->_dockView;
   if (!dockView)
   {
-    v61.origin.x = v18;
-    v61.origin.y = v7;
-    v61.size.width = v17;
-    v61.size.height = v11;
-    CGRectGetMaxY(v61);
-    v34 = 0.0;
+    v85.origin.x = v18;
+    v85.origin.y = v7;
+    v85.size.width = v17;
+    v85.size.height = v11;
+    CGRectGetMaxY(v85);
+    v42 = 0.0;
     goto LABEL_26;
   }
 
-  v52 = v26;
+  v76 = v33;
   [(PKPaymentSetupDockView *)dockView sizeThatFits:v9, 1.79769313e308];
-  v33 = v32;
-  v34 = v32;
+  v75 = v40;
+  v41 = v39;
+  v42 = v39;
   if (self->_keyboardVisible)
   {
-    v34 = v32;
+    v42 = v39;
     if (!CGRectIsNull(self->_keyboardFrame))
     {
       window = [view window];
-      v36 = window;
-      v34 = v33;
+      v44 = window;
+      v42 = v41;
       if (window)
       {
         [window convertRect:0 fromWindow:{self->_keyboardFrame.origin.x, self->_keyboardFrame.origin.y, self->_keyboardFrame.size.width, self->_keyboardFrame.size.height}];
         [view convertRect:0 fromView:?];
-        v38 = fmax(v33 - fmax(rect_16 + rect_24 - v37, 0.0), 0.0);
-        if (v38 <= v53)
+        v46 = fmax(v41 - fmax(rect_16 + rect_24 - v45, 0.0), 0.0);
+        if (v46 <= v77)
         {
-          v34 = v53;
+          v42 = v77;
         }
 
         else
         {
-          v34 = v38;
+          v42 = v46;
         }
       }
     }
@@ -252,65 +259,76 @@
 
   if (!self->_blurringView)
   {
-    v62.origin.x = rect;
-    v62.origin.y = rect_16;
-    v62.size.height = rect_24;
-    v62.size.width = v9;
-    [(PKPaymentSetupDockView *)self->_dockView setFrame:0.0, CGRectGetMaxY(v62) - v33, v9, v33];
+    v86.origin.x = rect;
+    v86.origin.y = rect_16;
+    v86.size.height = rect_24;
+    v86.size.width = v9;
+    [(PKPaymentSetupDockView *)self->_dockView setFrame:0.0, CGRectGetMaxY(v86) - v41, v9, v41];
     goto LABEL_22;
   }
 
-  v51 = v30;
-  v59.origin.x = v18;
-  v59.origin.y = v7;
-  v59.size.width = v17;
-  v59.size.height = v11;
-  v39 = CGRectGetMaxY(v59) - (v53 + v33);
-  v60.origin.x = rect;
-  v60.origin.y = rect_16;
-  v60.size.height = rect_24;
-  v60.size.width = v9;
-  [(_PKVisibilityBackdropView *)self->_blurringView setFrame:rect, v39, v9, CGRectGetMaxY(v60) - v39];
+  v74 = v37;
+  v83.origin.x = v18;
+  v83.origin.y = v7;
+  v83.size.width = v17;
+  v83.size.height = v11;
+  v47 = CGRectGetMaxY(v83) - (v77 + v41);
+  v84.origin.x = rect;
+  v84.origin.y = rect_16;
+  v84.size.height = rect_24;
+  v84.size.width = v9;
+  [(_PKVisibilityBackdropView *)self->_blurringView setFrame:rect, v47, v9, CGRectGetMaxY(v84) - v47];
   contentView = [(_UIBackdropView *)self->_blurringView contentView];
   [contentView bounds];
+  v50 = v49;
+  v52 = v51;
+  v54 = v53;
+  v56 = v55;
 
-  PKSizeAlignedInRect();
+  v57.n128_u64[0] = v75;
+  v58.n128_f64[0] = v41;
+  v59.n128_u64[0] = v50;
+  v60.n128_u64[0] = v52;
+  v61.n128_u64[0] = v54;
+  v62.n128_u64[0] = v56;
+  PKSizeAlignedInRect(1, v57, v58, v59, v60, v61, v62, v63);
   [(PKPaymentSetupDockView *)self->_dockView setFrame:?];
   if (self->_hideFooterBlurView)
   {
     [(_PKVisibilityBackdropView *)self->_blurringView pkui_setVisibility:0 animated:0.0];
+    v37 = v74;
 LABEL_22:
-    v27 = v52;
+    v34 = v76;
     goto LABEL_26;
   }
 
   tableView = self->_tableView;
   [(_PKVisibilityBackdropView *)self->_blurringView bounds];
   [(UITableView *)tableView convertRect:self->_blurringView fromView:?];
-  v43 = v42;
+  v66 = v65;
   [(UITableView *)self->_tableView contentSize];
-  v45 = v44;
+  v68 = v67;
   [(UITableView *)self->_tableView bounds];
-  v63.size.height = fmin(v46, v45 - v63.origin.y);
-  v47 = fmin(fmax(CGRectGetMaxY(v63) - v43, 0.0), 30.0) / 30.0;
-  v27 = v52;
-  if (self->_backdropWeight != v47)
+  v87.size.height = fmin(v69, v68 - v87.origin.y);
+  v70 = fmin(fmax(CGRectGetMaxY(v87) - v66, 0.0), 30.0) / 30.0;
+  v34 = v76;
+  if (self->_backdropWeight != v70)
   {
-    self->_backdropWeight = v47;
+    self->_backdropWeight = v70;
     [(_PKVisibilityBackdropView *)self->_blurringView pkui_setVisibility:0 animated:?];
   }
 
-  v30 = v51;
+  v37 = v74;
 LABEL_26:
-  [(UITableView *)self->_tableView setContentInset:v27, rect_8, v34, v30, *&v51];
-  [(UITableView *)self->_tableView setScrollIndicatorInsets:v27, rect_8, v34, v30];
-  v48 = PKSetupListViewConstantsViewMargin();
-  [(UITableView *)self->_tableView setLayoutMargins:0.0, v48, 0.0, v48];
+  [(UITableView *)self->_tableView setContentInset:v34, rect_8, v42, v37, *&v74];
+  [(UITableView *)self->_tableView setScrollIndicatorInsets:v34, rect_8, v42, v37];
+  v71 = PKSetupListViewConstantsViewMargin();
+  [(UITableView *)self->_tableView setLayoutMargins:0.0, v71, 0.0, v71];
   if ((_UISolariumEnabled() & 1) == 0)
   {
-    v49 = self->_tableView;
+    v72 = self->_tableView;
     navigationItem = [(PKPaymentSetupTableViewController *)self navigationItem];
-    [(UITableView *)v49 pkui_adjustManualScrollEdgeAppearanceProgressForNavigationItem:navigationItem];
+    [(UITableView *)v72 pkui_adjustManualScrollEdgeAppearanceProgressForNavigationItem:navigationItem];
   }
 }
 

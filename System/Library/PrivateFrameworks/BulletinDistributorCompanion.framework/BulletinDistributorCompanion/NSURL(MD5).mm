@@ -6,9 +6,9 @@
 
 - (BOOL)MD5:()MD5
 {
-  v15 = 0;
-  v4 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:self error:&v15];
-  v5 = v15;
+  v16 = 0;
+  v4 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:self error:&v16];
+  v5 = v16;
   if (v4)
   {
     memset(&c, 0, sizeof(c));
@@ -17,11 +17,11 @@
     while (1)
     {
       v7 = objc_autoreleasePoolPush();
-      v13 = 0;
-      v8 = [v4 readDataUpToLength:0x10000 error:&v13];
-      v9 = v13;
+      v14 = 0;
+      v8 = [v4 readDataUpToLength:0x10000 error:&v14];
+      v9 = v14;
 
-      v10 = v9 == 0;
+      v11 = v9 == 0;
       if (v9)
       {
         break;
@@ -37,10 +37,10 @@
       }
     }
 
-    v11 = blt_general_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = blt_general_log(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(NSURL(MD5) *)v4 MD5:v9, v11];
+      [(NSURL(MD5) *)v4 MD5:v9, v12];
     }
 
     objc_autoreleasePoolPop(v7);
@@ -49,21 +49,20 @@ LABEL_10:
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)MD5:()MD5 .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_241FB3000, log, OS_LOG_TYPE_FAULT, "[NSData MD5:] call to readDataUpToLength: %@ failed with: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_241FB3000, log, OS_LOG_TYPE_FAULT, "[NSData MD5:] call to readDataUpToLength: %@ failed with: %@", &v3, 0x16u);
 }
 
 @end

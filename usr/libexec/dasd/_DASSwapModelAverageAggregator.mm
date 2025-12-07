@@ -10,7 +10,7 @@
   dateCopy = date;
   v4 = objc_autoreleasePoolPush();
   algorithms = [(_DASSwapModelAbstractAggregator *)self algorithms];
-  v6 = [algorithms count];
+  v6 = objc_msgSend_count(algorithms);
 
   if (!v6)
   {
@@ -123,7 +123,7 @@ LABEL_23:
   applicationCopy = application;
   dateCopy = date;
   algorithms = [(_DASSwapModelAbstractAggregator *)self algorithms];
-  v9 = [algorithms count];
+  v9 = objc_msgSend_count(algorithms);
 
   if (v9)
   {

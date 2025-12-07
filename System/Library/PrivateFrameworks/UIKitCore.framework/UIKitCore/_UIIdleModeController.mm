@@ -238,7 +238,7 @@
   v17 = v16;
   [(UIScreen *)self->_screen scale];
   _UIGraphicsBeginImageContextWithOptions(0, 0, v15, v17, v18);
-  v19 = +[UIColor blackColor];
+  v19 = objc_msgSend_blackColor(UIColor);
   [v19 setFill];
 
   UIRectFillUsingOperation(1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v15, v17);
@@ -257,12 +257,12 @@
   memset(&v21, 0, sizeof(v21));
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   if (attributesCopy)
   {
-    [attributesCopy transform];
+    objc_msgSend_transform(attributesCopy);
   }
 
   else
@@ -315,7 +315,7 @@
   v5 = objc_alloc_init(_UIIdleModeLayoutAttributes);
   if (attributesCopy)
   {
-    [attributesCopy transform];
+    objc_msgSend_transform(attributesCopy);
   }
 
   else

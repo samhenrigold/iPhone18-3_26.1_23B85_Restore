@@ -69,27 +69,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_toGuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    isImage = self->_isImage;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    isName = self->_isName;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -176,7 +174,6 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v8 = *(equalCopy + 16);
   if (self->_isImage)
   {
     if ((*(equalCopy + 16) & 1) == 0)

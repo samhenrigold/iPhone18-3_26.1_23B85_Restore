@@ -22,31 +22,29 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(handler);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(handler);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
   selfCopy = self;
-  sub_1005C442C(v10, sub_1005C6CE0, v12, &unk_1008E8EC8, sub_1005C6CFC, &unk_1008E8EE0);
+  sub_1005C442C(v9, sub_1005C6CE0, v11, &unk_1008E8EC8, sub_1005C6CFC, &unk_1008E8EE0);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)stopScanningWithIdentifier:(id)identifier
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1005C1F94(v8, &unk_1008E8E50, sub_1005C56E0, &unk_1008E8E68);
+  sub_1005C1F94(v7, &unk_1008E8E50, sub_1005C56E0, &unk_1008E8E68);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 @end

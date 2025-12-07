@@ -26,15 +26,14 @@
 
 - (void)loadMicaFile
 {
-  v3 = [AKUIMicaPlayer alloc];
+  v2 = [AKUIMicaPlayer alloc];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
-  v4 = [(AKUIMicaPlayer *)v3 initWithFileName:@"SignInProgress" retinaScale:?];
+  v3 = [(AKUIMicaPlayer *)v2 initWithFileName:@"SignInProgress" retinaScale:?];
   [(AKAppleLogoMicaView *)self setMicaPlayer:?];
-  MEMORY[0x277D82BD8](v4);
+  MEMORY[0x277D82BD8](v3);
   micaPlayer = [(AKAppleLogoMicaView *)self micaPlayer];
   layer = [(AKAppleLogoMicaView *)self layer];
-  v2 = *MEMORY[0x277CDA710];
   [AKUIMicaPlayer addToLayer:micaPlayer onTop:"addToLayer:onTop:gravity:" gravity:?];
   MEMORY[0x277D82BD8](layer);
   micaPlayer2 = [(AKAppleLogoMicaView *)self micaPlayer];
@@ -45,13 +44,12 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  v6 = a2;
-  v5.receiver = self;
-  v5.super_class = AKAppleLogoMicaView;
-  [(AKAppleLogoMicaView *)&v5 layoutSubviews];
+  v5 = a2;
+  v4.receiver = self;
+  v4.super_class = AKAppleLogoMicaView;
+  [(AKAppleLogoMicaView *)&v4 layoutSubviews];
   micaPlayer = selfCopy->_micaPlayer;
   layer = [(AKAppleLogoMicaView *)selfCopy layer];
-  v2 = *MEMORY[0x277CDA710];
   [AKUIMicaPlayer moveAndResizeWithinParentLayer:"moveAndResizeWithinParentLayer:usingGravity:animate:" usingGravity:? animate:?];
   MEMORY[0x277D82BD8](layer);
 }

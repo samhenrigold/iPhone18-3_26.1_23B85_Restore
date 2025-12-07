@@ -198,13 +198,11 @@ void __84__GKCustomClassUnarchiver_unarchiver_cannotDecodeObjectOfClassName_orig
 
 - (void)unarchiver:(objc_class *)a1 cannotDecodeObjectOfClassName:originalClasses:.cold.2(objc_class *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(a1);
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_fault_impl(&dword_238992000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Class not decoded '%@'", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_fault_impl(&dword_238992000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Class not decoded '%@'", &v2, 0xCu);
 }
 
 @end

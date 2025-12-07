@@ -13,6 +13,7 @@
 - (void)_audioSessionEnsureStarted;
 - (void)_audioSessionEnsureStopped;
 - (void)_audioSessionReset;
+- (void)_calibrateDuckingLevelForVolumeLevel:(float)level;
 - (void)_cdMsgNotificationReceivedHandler:(id)handler;
 - (void)_cdSessionEnsureActivated:(BOOL)activated;
 - (void)_cdSessionEnsureDeactivated:(unsigned __int8)deactivated;
@@ -43,6 +44,7 @@
 - (void)_stopPedestrianFenceSession;
 - (void)_updateAccessoriesWithMotionState:(unsigned int)state;
 - (void)_updateAccessoriesWithPauseState;
+- (void)_updateAccessoriesWithResetState:(unsigned __int8)state;
 - (void)_updateConversationDetectSignal:(int)signal;
 - (void)_updatePauseState;
 - (void)activate;
@@ -103,7 +105,7 @@
     *(v2 + 11) = v9;
 
     *(v2 + 57) = -1;
-    +[AAConversationDetectSessionManager defaultAudioTunings];
+    objc_msgSend_defaultAudioTunings(AAConversationDetectSessionManager);
     v12 = v18;
     v11 = v19;
     v13 = v17;
@@ -120,85 +122,89 @@
 
 - (void)activate
 {
-  if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F61A0 <= 30)
   {
-    sub_1001D3AB8();
+    if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D3AB8(self, a2, v2);
+    }
   }
 
-  if (self->_prefsChangedNotifyToken == -1)
+  if (selfCopy->_prefsChangedNotifyToken == -1)
   {
-    dispatchQueue = self->_dispatchQueue;
+    dispatchQueue = selfCopy->_dispatchQueue;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100014E60;
     handler[3] = &unk_1002B6DF0;
-    handler[4] = self;
-    notify_register_dispatch("com.apple.AudioAccessory.prefsChanged", &self->_prefsChangedNotifyToken, dispatchQueue, handler);
+    handler[4] = selfCopy;
+    notify_register_dispatch("com.apple.AudioAccessory.prefsChanged", &selfCopy->_prefsChangedNotifyToken, dispatchQueue, handler);
   }
 
-  [(AAConversationDetectSessionManager *)self _prefsChanged];
-  v4 = self->_connectedDeviceDiscovery;
-  if (!v4)
+  [(AAConversationDetectSessionManager *)selfCopy _prefsChanged];
+  v5 = selfCopy->_connectedDeviceDiscovery;
+  if (!v5)
   {
-    v5 = objc_alloc_init(CBDiscovery);
-    [v5 setDispatchQueue:self->_dispatchQueue];
-    objc_storeStrong(&self->_connectedDeviceDiscovery, v5);
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_100014EC8;
-    v25[3] = &unk_1002B6DA8;
-    v6 = v5;
-    v26 = v6;
-    selfCopy = self;
-    [v6 setDeviceFoundHandler:v25];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100014EE4;
-    v22[3] = &unk_1002B6DA8;
+    v6 = objc_alloc_init(CBDiscovery);
+    [v6 setDispatchQueue:selfCopy->_dispatchQueue];
+    objc_storeStrong(&selfCopy->_connectedDeviceDiscovery, v6);
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_100014EC8;
+    v26[3] = &unk_1002B6DA8;
     v7 = v6;
-    v23 = v7;
-    selfCopy2 = self;
-    [v7 setDeviceLostHandler:v22];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100014F00;
-    v19[3] = &unk_1002B6D18;
+    v27 = v7;
+    v28 = selfCopy;
+    [v7 setDeviceFoundHandler:v26];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100014EE4;
+    v23[3] = &unk_1002B6DA8;
     v8 = v7;
-    v20 = v8;
-    selfCopy3 = self;
-    [v8 setInterruptionHandler:v19];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100014F94;
-    v17[3] = &unk_1002B6880;
+    v24 = v8;
+    v25 = selfCopy;
+    [v8 setDeviceLostHandler:v23];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100014F00;
+    v20[3] = &unk_1002B6D18;
     v9 = v8;
-    v18 = v9;
-    [v9 setInvalidationHandler:v17];
-    [v9 setDiscoveryFlags:{objc_msgSend(v9, "discoveryFlags") | 0x80000200000}];
-    v11 = _NSConcreteStackBlock;
-    v12 = 3221225472;
-    v13 = sub_100014FF0;
-    v14 = &unk_1002B68A8;
-    v4 = v9;
-    v15 = v4;
-    selfCopy4 = self;
-    [(CBDiscovery *)v4 activateWithCompletion:&v11];
+    v21 = v9;
+    v22 = selfCopy;
+    [v9 setInterruptionHandler:v20];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100014F94;
+    v18[3] = &unk_1002B6880;
+    v10 = v9;
+    v19 = v10;
+    [v10 setInvalidationHandler:v18];
+    [v10 setDiscoveryFlags:{objc_msgSend(v10, "discoveryFlags") | 0x80000200000}];
+    v12 = _NSConcreteStackBlock;
+    v13 = 3221225472;
+    v14 = sub_100014FF0;
+    v15 = &unk_1002B68A8;
+    v5 = v10;
+    v16 = v5;
+    v17 = selfCopy;
+    [(CBDiscovery *)v5 activateWithCompletion:&v12];
   }
 
-  [(AAConversationDetectSessionManager *)self _aaControllerEnsureStarted:v11];
-  if (!self->_cdMsgReceivedObserving && IsAppleInternalBuild())
+  [(AAConversationDetectSessionManager *)selfCopy _aaControllerEnsureStarted:v12];
+  if (!selfCopy->_cdMsgReceivedObserving && IsAppleInternalBuild())
   {
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
       sub_1001D3AD4();
     }
 
-    v10 = +[NSDistributedNotificationCenter defaultCenter];
-    [v10 addObserver:self selector:"_cdMsgNotificationReceivedHandler:" name:@"com.apple.AudioAccessory.cdMsgNotification" object:0];
-    self->_cdMsgReceivedObserving = 1;
+    v11 = +[NSDistributedNotificationCenter defaultCenter];
+    [v11 addObserver:selfCopy selector:"_cdMsgNotificationReceivedHandler:" name:@"com.apple.AudioAccessory.cdMsgNotification" object:0];
+    selfCopy->_cdMsgReceivedObserving = 1;
   }
 
-  [(AAConversationDetectSessionManager *)self _registerForWirelessSplitterStateChanges];
+  [(AAConversationDetectSessionManager *)selfCopy _registerForWirelessSplitterStateChanges];
 }
 
 - (void)_aaControllerEnsureStarted
@@ -221,7 +227,7 @@
     [(AAController *)v6 setConversationDetectMessageHandler:v10];
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D3B68();
+      sub_1001D3B68(v6);
     }
 
     v7[0] = _NSConcreteStackBlock;
@@ -261,16 +267,20 @@
 {
   if (!self->_activateCDSessionCalled)
   {
-    v7 = v2;
+    v8 = v3;
+    selfCopy = self;
     self->_activateCDSessionCalled = 1;
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D3C20();
+      if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D3C20(self, a2, v2);
+      }
     }
 
-    [(AAConversationDetectSessionManager *)self _registerForAudioSessionResetNotifications:v3];
+    [(AAConversationDetectSessionManager *)selfCopy _registerForAudioSessionResetNotifications:v4];
 
-    [(AAConversationDetectSessionManager *)self _registerForAVAudioSessionSpeechDetectionStyleChanges];
+    [(AAConversationDetectSessionManager *)selfCopy _registerForAVAudioSessionSpeechDetectionStyleChanges];
   }
 }
 
@@ -278,87 +288,93 @@
 {
   receivedCopy = received;
   identifierCopy = identifier;
+  v10 = identifierCopy;
   if (identifierCopy)
   {
-    v8 = [(NSMutableDictionary *)self->_cdSupportedAccessories objectForKeyedSubscript:identifierCopy];
+    v11 = [(NSMutableDictionary *)self->_cdSupportedAccessories objectForKeyedSubscript:identifierCopy];
 
-    if (v8)
+    if (v11)
     {
-      v24 = 0;
+      v28 = 0;
+      v26 = 0u;
+      memset(v27, 0, sizeof(v27));
+      v24 = 0u;
+      v25 = 0u;
       v22 = 0u;
-      memset(v23, 0, sizeof(v23));
+      v23 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v15 = 0u;
-      v9 = [(NSMutableDictionary *)self->_cdSupportedAccessories objectForKeyedSubscript:identifierCopy];
-      btAddressData = [v9 btAddressData];
-      v11 = CUPrintNSDataAddress();
-      [(AAConversationDetectSessionManager *)self setCurrentCDDeviceIdentifier:v11];
+      v12 = [(NSMutableDictionary *)self->_cdSupportedAccessories objectForKeyedSubscript:v10];
+      btAddressData = [v12 btAddressData];
+      v14 = CUPrintNSDataAddress();
+      [(AAConversationDetectSessionManager *)self setCurrentCDDeviceIdentifier:v14];
 
       if (!receivedCopy)
       {
-        LOBYTE(v12) = 0;
+        v16 = 0;
+        LOBYTE(v15) = 0;
 LABEL_19:
         if (dword_1002F61A0 <= 90 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001D3CD8(v12);
+          sub_1001D3CD8(v15, v16);
         }
 
         goto LABEL_28;
       }
 
-      v12 = *[receivedCopy bytes];
+      v15 = *[receivedCopy bytes];
       if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001D3C3C(v12);
+        sub_1001D3C3C(v15);
       }
 
-      if (v12 != 2)
+      if (v15 != 2)
       {
-        if (v12 == 1)
+        v16 = v15;
+        if (v15 == 1)
         {
-          [(AAConversationDetectSessionManager *)self _getSignalTypeFromData:receivedCopy signal:&v24];
-          [(AAConversationDetectSessionManager *)self _updateConversationDetectSignal:v24];
+          [(AAConversationDetectSessionManager *)self _getSignalTypeFromData:receivedCopy signal:&v28];
+          [(AAConversationDetectSessionManager *)self _updateConversationDetectSignal:v28];
           goto LABEL_28;
         }
 
         goto LABEL_19;
       }
 
-      if ([(AAConversationDetectSessionManager *)self _getCDTunings:&v15 FromData:receivedCopy])
+      if ([(AAConversationDetectSessionManager *)self _getCDTunings:&v19 FromData:receivedCopy])
       {
         if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
         {
           sub_1001D3CA4();
         }
 
-        v13[6] = v21;
-        v13[7] = v22;
-        v14[0] = *v23;
-        *(v14 + 15) = *&v23[15];
-        v13[2] = v17;
-        v13[3] = v18;
-        v13[4] = v19;
-        v13[5] = v20;
-        v13[0] = v15;
-        v13[1] = v16;
-        [(AAConversationDetectSessionManager *)self setCDTunings:v13];
+        v17[6] = v25;
+        v17[7] = v26;
+        v18[0] = *v27;
+        *(v18 + 15) = *&v27[15];
+        v17[2] = v21;
+        v17[3] = v22;
+        v17[4] = v23;
+        v17[5] = v24;
+        v17[0] = v19;
+        v17[1] = v20;
+        [(AAConversationDetectSessionManager *)self setCDTunings:v17];
       }
     }
 
     else if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D3D40();
+      sub_1001D3D40(v10);
     }
   }
 
-  else if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F61A0 <= 30)
   {
-    sub_1001D3D80();
+    if (dword_1002F61A0 != -1 || (identifierCopy = _LogCategory_Initialize(), identifierCopy))
+    {
+      sub_1001D3D80(identifierCopy, v8, v9);
+    }
   }
 
 LABEL_28:
@@ -367,40 +383,54 @@ LABEL_28:
 - (void)_cdMsgNotificationReceivedHandler:(id)handler
 {
   handlerCopy = handler;
-  if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+  v7 = handlerCopy;
+  if (dword_1002F61A0 <= 30)
   {
-    sub_1001D3D9C();
+    if (dword_1002F61A0 != -1 || (handlerCopy = _LogCategory_Initialize(), handlerCopy))
+    {
+      sub_1001D3D9C(handlerCopy, v5, v6);
+    }
   }
 
   dispatchQueue = self->_dispatchQueue;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_1000158A8;
-  v7[3] = &unk_1002B6D18;
-  v8 = handlerCopy;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000158A8;
+  v10[3] = &unk_1002B6D18;
+  v11 = v7;
   selfCopy = self;
-  v6 = handlerCopy;
-  dispatch_async(dispatchQueue, v7);
+  v9 = v7;
+  dispatch_async(dispatchQueue, v10);
 }
 
 - (id)descriptionWithLevel:(int)level
 {
+  v11 = 0;
   cdSignal = self->_cdSignal;
-  if (cdSignal <= 0xB)
+  if (cdSignal > 0xB)
+  {
+    v4 = "?";
+  }
+
+  else
   {
     v4 = (&off_1002B7018)[cdSignal];
   }
 
-  self->_audioSessionActivated;
-  unduckLevel = self->_unduckLevel;
-  rampDuration = self->_rampDuration;
-  duckLevel = self->_duckLevel;
-  NSAppendPrintF_safe();
-  v10 = 0;
-  NSAppendPrintF();
-  v5 = v10;
+  v5 = "no";
+  if (self->_audioSessionActivated)
+  {
+    v5 = "yes";
+  }
 
-  return v10;
+  NSAppendPrintF_safe(&v11, "-- AAConversationDetectSessionManager: CDSignal %s, CDActivated: %s, duckLevel: %@, unduckLevel: %@, ramp duration: %@ --\n", *&level, v4, v5, self->_duckLevel, self->_unduckLevel, self->_rampDuration);
+  v6 = v11;
+  v10 = v6;
+  NSAppendPrintF(&v10, "\n");
+  v7 = v10;
+  v8 = v10;
+
+  return v7;
 }
 
 - (void)invalidateCDSession
@@ -416,40 +446,47 @@ LABEL_28:
 
 - (void)_invalidateCDSession
 {
-  if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
-  {
-    sub_1001D3DD8();
-  }
-
-  self->_cdSignal = 0;
-  [(AAConversationDetectSessionManager *)self _cdSessionEnsureDeactivated:0];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  selfCopy->_audioSessionActivated = 0;
-  objc_sync_exit(selfCopy);
-
-  [(AAConversationDetectSessionManager *)selfCopy setCdSignalAudioInterrupted:0];
-  if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F61A0 <= 30)
   {
-    sub_1001D3DF4();
+    if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D3DD8(self, a2, v2);
+    }
   }
 
-  v4 = +[NSNotificationCenter defaultCenter];
-  [v4 postNotificationName:@"CdSignalAudioInterruptedChanged" object:selfCopy];
+  selfCopy->_cdSignal = 0;
+  [(AAConversationDetectSessionManager *)selfCopy _cdSessionEnsureDeactivated:0];
+  v4 = selfCopy;
+  objc_sync_enter(v4);
+  v4->_audioSessionActivated = 0;
+  objc_sync_exit(v4);
 
-  if ([(NSMutableDictionary *)selfCopy->_cdSupportedAccessories count])
+  v5 = [(AAConversationDetectSessionManager *)v4 setCdSignalAudioInterrupted:0];
+  if (dword_1002F61A0 <= 30)
+  {
+    if (dword_1002F61A0 != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      sub_1001D3DF4(v5, v6, v7);
+    }
+  }
+
+  v8 = +[NSNotificationCenter defaultCenter];
+  [v8 postNotificationName:@"CdSignalAudioInterruptedChanged" object:v4];
+
+  if ([(NSMutableDictionary *)v4->_cdSupportedAccessories count])
   {
     if (dword_1002F61A0 <= 90 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D3E10(&selfCopy->_cdSupportedAccessories);
+      sub_1001D3E10(&v4->_cdSupportedAccessories);
     }
   }
 
   else
   {
-    [(AAConversationDetectSessionManager *)selfCopy _deregisterFromAudioSessionResetNotifications];
-    [(AAConversationDetectSessionManager *)selfCopy _deregisterFromAVAudioSessionSpeechDetectionStyleChanges];
-    selfCopy->_activateCDSessionCalled = 0;
+    [(AAConversationDetectSessionManager *)v4 _deregisterFromAudioSessionResetNotifications];
+    [(AAConversationDetectSessionManager *)v4 _deregisterFromAVAudioSessionSpeechDetectionStyleChanges];
+    v4->_activateCDSessionCalled = 0;
   }
 }
 
@@ -466,38 +503,42 @@ LABEL_28:
 
 - (void)_invalidate
 {
-  if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F61A0 <= 30)
   {
-    sub_1001D3E58();
+    if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D3E58(self, a2, v2);
+    }
   }
 
-  [(AAConversationDetectSessionManager *)self _invalidateCDSession];
-  [(AAConversationDetectSessionManager *)self _aaControllerEnsureStopped];
-  [(CBDiscovery *)self->_connectedDeviceDiscovery invalidate];
-  connectedDeviceDiscovery = self->_connectedDeviceDiscovery;
-  self->_connectedDeviceDiscovery = 0;
+  [(AAConversationDetectSessionManager *)selfCopy _invalidateCDSession];
+  [(AAConversationDetectSessionManager *)selfCopy _aaControllerEnsureStopped];
+  [(CBDiscovery *)selfCopy->_connectedDeviceDiscovery invalidate];
+  connectedDeviceDiscovery = selfCopy->_connectedDeviceDiscovery;
+  selfCopy->_connectedDeviceDiscovery = 0;
 
-  [(NSMutableDictionary *)self->_cdSupportedAccessories removeAllObjects];
-  cdSupportedAccessories = self->_cdSupportedAccessories;
-  self->_cdSupportedAccessories = 0;
+  [(NSMutableDictionary *)selfCopy->_cdSupportedAccessories removeAllObjects];
+  cdSupportedAccessories = selfCopy->_cdSupportedAccessories;
+  selfCopy->_cdSupportedAccessories = 0;
 
-  if (self->_cdMsgReceivedObserving)
+  if (selfCopy->_cdMsgReceivedObserving)
   {
-    v5 = +[NSDistributedNotificationCenter defaultCenter];
-    [v5 removeObserver:self name:@"com.apple.AudioAccessory.cdMsgNotification" object:0];
-    self->_cdMsgReceivedObserving = 0;
+    v6 = +[NSDistributedNotificationCenter defaultCenter];
+    [v6 removeObserver:selfCopy name:@"com.apple.AudioAccessory.cdMsgNotification" object:0];
+    selfCopy->_cdMsgReceivedObserving = 0;
   }
 
-  prefsChangedNotifyToken = self->_prefsChangedNotifyToken;
+  prefsChangedNotifyToken = selfCopy->_prefsChangedNotifyToken;
   if (prefsChangedNotifyToken != -1)
   {
     notify_cancel(prefsChangedNotifyToken);
-    self->_prefsChangedNotifyToken = -1;
+    selfCopy->_prefsChangedNotifyToken = -1;
   }
 
-  notify_cancel(self->_conversationAwarenessNotificationDispatchToken);
+  notify_cancel(selfCopy->_conversationAwarenessNotificationDispatchToken);
 
-  [(AAConversationDetectSessionManager *)self _deregisterFromWirelessSplitterStateChanges];
+  [(AAConversationDetectSessionManager *)selfCopy _deregisterFromWirelessSplitterStateChanges];
 }
 
 - (void)_getSignalTypeFromData:(id)data signal:(int *)signal
@@ -506,54 +547,60 @@ LABEL_28:
   v6 = dataCopy;
   if (dataCopy)
   {
-    v11 = dataCopy;
+    v12 = dataCopy;
     v7 = dataCopy;
-    bytes = [v11 bytes];
-    dataCopy = [v11 length];
+    bytes = [v12 bytes];
+    dataCopy = [v12 length];
     if (dataCopy > 1)
     {
       v9 = bytes[1];
       *signal = v9;
-      v6 = v11;
+      v6 = v12;
       if (dword_1002F61A0 > 30)
       {
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
       if (dword_1002F61A0 == -1)
       {
         dataCopy = _LogCategory_Initialize();
-        v6 = v11;
+        v6 = v12;
         if (!dataCopy)
         {
-          goto LABEL_15;
+          goto LABEL_16;
         }
 
         v9 = *signal;
       }
 
-      if (v9 <= 0xB)
+      if (v9 > 0xB)
+      {
+        v10 = "?";
+      }
+
+      else
       {
         v10 = (&off_1002B7018)[v9];
       }
 
-      dataCopy = LogPrintF();
-      goto LABEL_14;
+      dataCopy = LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _getSignalTypeFromData:signal:]", 30, "_getSignalFromData returning signal - %s", v10);
+      goto LABEL_15;
     }
 
-    v6 = v11;
+    v6 = v12;
     if (dword_1002F61A0 <= 30)
     {
-      if (dword_1002F61A0 != -1 || (dataCopy = _LogCategory_Initialize(), v6 = v11, dataCopy))
+      v11 = dataCopy;
+      if (dword_1002F61A0 != -1 || (dataCopy = _LogCategory_Initialize(), v6 = v12, dataCopy))
       {
-        dataCopy = sub_1001D3E74();
-LABEL_14:
-        v6 = v11;
+        dataCopy = sub_1001D3E74(v11);
+LABEL_15:
+        v6 = v12;
       }
     }
   }
 
-LABEL_15:
+LABEL_16:
 
   _objc_release_x1(dataCopy, v6);
 }
@@ -565,16 +612,21 @@ LABEL_15:
   if (!dataCopy)
   {
 LABEL_12:
-    v15 = 0;
+    v19 = 0;
     goto LABEL_13;
   }
 
   bytes = [dataCopy bytes];
-  if ([v6 length] <= 0x93)
+  v8 = [v6 length];
+  if (v8 <= 0x93)
   {
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D3ED0();
+      v11 = v8;
+      if (dword_1002F61A0 != -1 || _LogCategory_Initialize())
+      {
+        sub_1001D3ED0(v11);
+      }
     }
 
     goto LABEL_12;
@@ -582,35 +634,38 @@ LABEL_12:
 
   if (!tunings)
   {
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D3EB4();
+      if (dword_1002F61A0 != -1 || (v8 = _LogCategory_Initialize(), v8))
+      {
+        sub_1001D3EB4(v8, v9, v10);
+      }
     }
 
     goto LABEL_12;
   }
 
-  v8 = *(bytes + 17);
+  v12 = *(bytes + 17);
   *&tunings->var0.var0 = *(bytes + 1);
-  *&tunings->var0.var4 = v8;
-  v9 = *(bytes + 33);
-  v10 = *(bytes + 49);
-  v11 = *(bytes + 81);
+  *&tunings->var0.var4 = v12;
+  v13 = *(bytes + 33);
+  v14 = *(bytes + 49);
+  v15 = *(bytes + 81);
   *&tunings->var0.var16 = *(bytes + 65);
-  *&tunings->var0.var21 = v11;
-  *&tunings->var0.var8 = v9;
-  *&tunings->var0.var12 = v10;
-  v12 = *(bytes + 97);
-  v13 = *(bytes + 113);
-  v14 = *(bytes + 129);
+  *&tunings->var0.var21 = v15;
+  *&tunings->var0.var8 = v13;
+  *&tunings->var0.var12 = v14;
+  v16 = *(bytes + 97);
+  v17 = *(bytes + 113);
+  v18 = *(bytes + 129);
   *(&tunings->var2.var6.var0 + 3) = *(bytes + 36);
-  *&tunings->var2.var2.var1 = v13;
-  *&tunings->var2.var4.var1 = v14;
-  *&tunings->var2.var0.var1 = v12;
-  v15 = 1;
+  *&tunings->var2.var2.var1 = v17;
+  *&tunings->var2.var4.var1 = v18;
+  *&tunings->var2.var0.var1 = v16;
+  v19 = 1;
 LABEL_13:
 
-  return v15;
+  return v19;
 }
 
 - (BOOL)getCdSignalAudioInterrupted
@@ -646,7 +701,8 @@ LABEL_13:
     v4 = 3.0;
   }
 
-  if (v4 == self->_cdSignalAudioTunings.unlatchSignalTunables.signalRampDurationSecs)
+  signalRampDurationSecs = self->_cdSignalAudioTunings.unlatchSignalTunables.signalRampDurationSecs;
+  if (v4 == signalRampDurationSecs)
   {
     goto LABEL_10;
   }
@@ -663,25 +719,26 @@ LABEL_13:
       signalRampDurationSecs = self->_cdSignalAudioTunings.unlatchSignalTunables.signalRampDurationSecs;
     }
 
-    LogPrintF();
+    LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _prefsChanged]", 30, "Unlatch signal ramp duration: %0.2f --> %0.2f", signalRampDurationSecs, v4);
   }
 
 LABEL_9:
-  v5 = v4;
-  self->_cdSignalAudioTunings.unlatchSignalTunables.signalRampDurationSecs = v5;
+  v6 = v4;
+  self->_cdSignalAudioTunings.unlatchSignalTunables.signalRampDurationSecs = v6;
 LABEL_10:
   CFPrefs_GetDouble();
-  if (v6 >= 0.0)
+  if (v7 >= 0.0)
   {
-    v7 = v6;
+    v8 = v7;
   }
 
   else
   {
-    v7 = 0.1;
+    v8 = 0.1;
   }
 
-  if (v7 != self->_prefCDRampChunkDuration)
+  prefCDRampChunkDuration = self->_prefCDRampChunkDuration;
+  if (v8 != prefCDRampChunkDuration)
   {
     if (dword_1002F61A0 <= 30)
     {
@@ -695,33 +752,33 @@ LABEL_10:
         prefCDRampChunkDuration = self->_prefCDRampChunkDuration;
       }
 
-      LogPrintF();
+      LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _prefsChanged]", 30, "Ramp chunk duration: %0.2f --> %0.2f", prefCDRampChunkDuration, v8);
     }
 
 LABEL_18:
-    self->_prefCDRampChunkDuration = v7;
+    self->_prefCDRampChunkDuration = v8;
   }
 
-  v8 = CFPrefs_GetInt64() != 0;
-  if (self->_prefCDShouldDisableCustomDuckingCurve != v8)
+  v10 = CFPrefs_GetInt64() != 0;
+  if (self->_prefCDShouldDisableCustomDuckingCurve != v10)
   {
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D3F10();
+      sub_1001D3F10(v10);
     }
 
-    self->_prefCDShouldDisableCustomDuckingCurve = v8;
+    self->_prefCDShouldDisableCustomDuckingCurve = v10;
   }
 
-  v9 = CFPrefs_GetInt64() != 0;
-  if (self->_prefCDSiriDidAnnounce != v9)
+  v11 = CFPrefs_GetInt64() != 0;
+  if (self->_prefCDSiriDidAnnounce != v11)
   {
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D3F6C();
+      sub_1001D3F6C(v11);
     }
 
-    self->_prefCDSiriDidAnnounce = v9;
+    self->_prefCDSiriDidAnnounce = v11;
   }
 }
 
@@ -813,8 +870,7 @@ LABEL_18:
 
       else if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
       {
-LABEL_9:
-        LogPrintF();
+        LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _setCDSignalAudioTunings:]", 30, "Invalid audio tunings %f, Audio tunings %f set at index %d", v8, v9, v4);
       }
     }
 
@@ -823,7 +879,7 @@ LABEL_9:
       v9 = 0.0;
       if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_9;
+        LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _setCDSignalAudioTunings:]", 30, "Invalid audio tunings %f, Audio tunings %f set at index %d", v8, 0.0, v4);
       }
     }
 
@@ -850,77 +906,77 @@ LABEL_9:
     v42 = self->_cdSignalAudioTunings.pauseSignalTunables.signalDuckingLevel;
     v43 = self->_cdSignalAudioTunings.pauseSignalTunables.signalRampDurationSecs;
     v62 = 0;
-    NSAppendPrintF();
+    NSAppendPrintF(&v62, "\n-- CD Audio Tunings Begin --\n");
     v18 = v62;
     v61 = v18;
-    NSAppendPrintF();
+    NSAppendPrintF(&v61, "    Start signal duck level: %0.2f\n", signalDuckingLevel);
     v19 = v61;
 
     v60 = v19;
-    NSAppendPrintF();
+    NSAppendPrintF(&v60, "    Start signal ramp duration: %0.2f s\n", signalRampDurationSecs);
     v20 = v60;
 
     v59 = v20;
-    NSAppendPrintF();
+    NSAppendPrintF(&v59, "    Latch1 signal duck level: %0.2f\n", v13);
     v21 = v59;
 
     v58 = v21;
-    NSAppendPrintF();
+    NSAppendPrintF(&v58, "    Latch1 signal ramp duration: %0.2f s\n", v12);
     v22 = v58;
 
     v57 = v22;
-    NSAppendPrintF();
+    NSAppendPrintF(&v57, "    Latch2 signal duck level: %0.2f\n", v15);
     v23 = v57;
 
     v56 = v23;
-    NSAppendPrintF();
+    NSAppendPrintF(&v56, "    Latch2 signal ramp duration: %0.2f s\n", v14);
     v24 = v56;
 
     v55 = v24;
-    NSAppendPrintF();
+    NSAppendPrintF(&v55, "    Unlatch signal duck level: %0.2f\n", v17);
     v25 = v55;
 
     v54 = v25;
-    NSAppendPrintF();
+    NSAppendPrintF(&v54, "    Unlatch signal ramp duration: %0.2f s\n", v16);
     v26 = v54;
 
     v53 = v26;
-    NSAppendPrintF();
+    NSAppendPrintF(&v53, "    End1 signal duck level: %0.2f\n", v36);
     v27 = v53;
 
     v52 = v27;
-    NSAppendPrintF();
+    NSAppendPrintF(&v52, "    End1 signal ramp duration: %0.2f s\n", v37);
     v28 = v52;
 
     v51 = v28;
-    NSAppendPrintF();
+    NSAppendPrintF(&v51, "    End2 signal duck level: %0.2f\n", v38);
     v29 = v51;
 
     v50 = v29;
-    NSAppendPrintF();
+    NSAppendPrintF(&v50, "    End2 signal ramp duration: %0.2f s\n", v39);
     v30 = v50;
 
     v49 = v30;
-    NSAppendPrintF();
+    NSAppendPrintF(&v49, "    Reset signal duck level: %0.2f\n", v40);
     v31 = v49;
 
     v48 = v31;
-    NSAppendPrintF();
+    NSAppendPrintF(&v48, "    Reset signal ramp duration: %0.2f s\n", v41);
     v32 = v48;
 
     v47 = v32;
-    NSAppendPrintF();
+    NSAppendPrintF(&v47, "    Pause signal duck level: %0.2f\n", v42);
     v33 = v47;
 
     v46 = v33;
-    NSAppendPrintF();
+    NSAppendPrintF(&v46, "    Pause signal ramp duration: %0.2f s\n", v43);
     v34 = v46;
 
     v45 = v34;
-    NSAppendPrintF();
+    NSAppendPrintF(&v45, "-- CD Audio Tunings End --\n");
     v35 = v45;
 
-    LogPrintF();
+    LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _setCDSignalAudioTunings:]", 30, "%@", v35);
   }
 }
 
@@ -937,50 +993,86 @@ LABEL_9:
 
 - (void)_updateAccessoriesWithMotionState:(unsigned int)state
 {
-  if ([(NSMutableDictionary *)self->_cdSupportedAccessories count])
+  v5 = [(NSMutableDictionary *)self->_cdSupportedAccessories count];
+  if (v5)
   {
-    v10 = 4;
+    v13 = 4;
     stateCopy = state;
-    v5 = [NSData dataWithBytes:&v10 length:5];
+    v8 = [NSData dataWithBytes:&v13 length:5];
     cdSupportedAccessories = self->_cdSupportedAccessories;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100017280;
-    v8[3] = &unk_1002B6EB0;
-    v8[4] = self;
-    v9 = v5;
-    v7 = v5;
-    [(NSMutableDictionary *)cdSupportedAccessories enumerateKeysAndObjectsUsingBlock:v8];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100017280;
+    v11[3] = &unk_1002B6EB0;
+    v11[4] = self;
+    v12 = v8;
+    v10 = v8;
+    [(NSMutableDictionary *)cdSupportedAccessories enumerateKeysAndObjectsUsingBlock:v11];
   }
 
-  else if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F61A0 <= 30)
   {
-    sub_1001D400C();
+    if (dword_1002F61A0 != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      sub_1001D400C(v5, v6, v7);
+    }
   }
 }
 
 - (void)_updateAccessoriesWithPauseState
 {
-  if ([(NSMutableDictionary *)self->_cdSupportedAccessories count])
+  v3 = [(NSMutableDictionary *)self->_cdSupportedAccessories count];
+  if (v3)
   {
     _getPauseMessage = [(AAConversationDetectSessionManager *)self _getPauseMessage];
-    v9 = _getPauseMessage;
-    v10 = BYTE2(_getPauseMessage);
-    v4 = [NSData dataWithBytes:&v9 length:3];
+    v12 = _getPauseMessage;
+    v13 = BYTE2(_getPauseMessage);
+    v7 = [NSData dataWithBytes:&v12 length:3];
     cdSupportedAccessories = self->_cdSupportedAccessories;
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_1000173E4;
-    v7[3] = &unk_1002B6EB0;
-    v7[4] = self;
-    v8 = v4;
-    v6 = v4;
-    [(NSMutableDictionary *)cdSupportedAccessories enumerateKeysAndObjectsUsingBlock:v7];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_1000173E4;
+    v10[3] = &unk_1002B6EB0;
+    v10[4] = self;
+    v11 = v7;
+    v9 = v7;
+    [(NSMutableDictionary *)cdSupportedAccessories enumerateKeysAndObjectsUsingBlock:v10];
   }
 
-  else if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F61A0 <= 30)
   {
-    sub_1001D4028();
+    if (dword_1002F61A0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1001D4028(v3, v4, v5);
+    }
+  }
+}
+
+- (void)_updateAccessoriesWithResetState:(unsigned __int8)state
+{
+  stateCopy = state;
+  v5 = [(NSMutableDictionary *)self->_cdSupportedAccessories count];
+  if (v5)
+  {
+    v13 = [(AAConversationDetectSessionManager *)self _getResetMessage:stateCopy];
+    v8 = [NSData dataWithBytes:&v13 length:2];
+    cdSupportedAccessories = self->_cdSupportedAccessories;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100017548;
+    v11[3] = &unk_1002B6EB0;
+    v11[4] = self;
+    v12 = v8;
+    v10 = v8;
+    [(NSMutableDictionary *)cdSupportedAccessories enumerateKeysAndObjectsUsingBlock:v11];
+  }
+
+  else if (dword_1002F61A0 <= 30)
+  {
+    if (dword_1002F61A0 != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      sub_1001D4044(v5, v6, v7);
+    }
   }
 }
 
@@ -997,18 +1089,28 @@ LABEL_9:
     if (dword_1002F61A0 != -1)
     {
 LABEL_4:
-      if (cdSignal <= 0xB)
+      if (cdSignal > 0xB)
+      {
+        v7 = "?";
+      }
+
+      else
       {
         v7 = (&off_1002B7018)[cdSignal];
       }
 
-      if (signal <= 0xB)
+      if (signal > 0xB)
+      {
+        v8 = "?";
+      }
+
+      else
       {
         v8 = (&off_1002B7018)[signal];
       }
 
-      LogPrintF();
-      goto LABEL_11;
+      LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _updateConversationDetectSignal:]", 30, "Conversation detect signal updated %s -> %s", v7, v8);
+      goto LABEL_13;
     }
 
     if (_LogCategory_Initialize())
@@ -1018,7 +1120,7 @@ LABEL_4:
     }
   }
 
-LABEL_11:
+LABEL_13:
   self->_cdSignal = signal;
 
   [(AAConversationDetectSessionManager *)self _cdSessionSignalUpdate];
@@ -1070,10 +1172,7 @@ LABEL_11:
       v6 = "yes";
     }
 
-    v11 = v8;
-    v12 = v6;
-    v10 = v7;
-    LogPrintF();
+    LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _updatePauseState]", 30, "Updated pause conversation state to: %s, isWirelessSplitterOn: %s, isSpeechDetectionStyleDisallowed: %s", v7, v8, v6);
     pauseConversationDetect = self->_pauseConversationDetect;
   }
 
@@ -1083,7 +1182,7 @@ LABEL_16:
     self->_currentPauseReason = 0;
   }
 
-  [(AAConversationDetectSessionManager *)self _updateAccessoriesWithPauseState:v10];
+  [(AAConversationDetectSessionManager *)self _updateAccessoriesWithPauseState];
   if (self->_pauseConversationDetect)
   {
 
@@ -1116,7 +1215,7 @@ LABEL_16:
     {
       if (dword_1002F61A0 <= 90 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001D4094();
+        sub_1001D4094(v8);
       }
     }
 
@@ -1138,7 +1237,7 @@ LABEL_16:
   {
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _audioSessionEnsureStopped]", 30, "Deactivating AVAudioSession");
     }
 
     v2 = +[AVAudioSession sharedInstance];
@@ -1148,7 +1247,7 @@ LABEL_16:
 
     if (v3 && dword_1002F61A0 <= 90 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _audioSessionEnsureStopped]", 90, "Failed to reset AVAudioSession ramp duration");
     }
 
     v4 = +[AVAudioSession sharedInstance];
@@ -1158,7 +1257,7 @@ LABEL_16:
 
     if (v5 && dword_1002F61A0 <= 90 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _audioSessionEnsureStopped]", 90, "Failed to invalidate AVAudioSession");
     }
 
     obj->_audioSessionActivated = 0;
@@ -1178,6 +1277,37 @@ LABEL_16:
   {
     objc_sync_exit(obj);
   }
+}
+
+- (void)_calibrateDuckingLevelForVolumeLevel:(float)level
+{
+  LODWORD(v8) = 0.5;
+  LODWORD(v3) = -1.0;
+  LODWORD(v4) = 0.75;
+  *&v5 = level;
+  [(AAConversationDetectSessionManager *)self _duckingLevelForCoefficients:v8 volume:v3, v4, v5];
+  v10 = v9;
+  LODWORD(v11) = 1052069016;
+  LODWORD(v12) = -1088373234;
+  LODWORD(v13) = 1049629609;
+  *&v14 = level;
+  [(AAConversationDetectSessionManager *)self _duckingLevelForCoefficients:v11 volume:v12, v13, v14];
+  v16 = v15;
+  LODWORD(v17) = 1054847323;
+  LODWORD(v18) = -1085663714;
+  LODWORD(v19) = 1058727893;
+  *&v20 = level;
+  [(AAConversationDetectSessionManager *)self _duckingLevelForCoefficients:v17 volume:v18, v19, v20];
+  v22 = v21;
+  if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _calibrateDuckingLevelForVolumeLevel:]", 30, "Calibrated levels for custom ducking curve, start: %0.2f, latch: %0.2f, unlatch: %0.2f", v10, v16, v22);
+  }
+
+  self->_cdSignalAudioTunings.startSignalTunables.signalDuckingLevel = v10;
+  self->_cdSignalAudioTunings.latch1SignalTunables.signalDuckingLevel = v16;
+  self->_cdSignalAudioTunings.latch2SignalTunables.signalDuckingLevel = v16;
+  self->_cdSignalAudioTunings.unlatchSignalTunables.signalDuckingLevel = v22;
 }
 
 - (void)_cdSessionSignalUpdate
@@ -1206,32 +1336,32 @@ LABEL_16:
     {
       if (cdSignal == 6)
       {
-        *&v10 = selfCopy->_cdSignalAudioTunings.end2SignalTunables.signalRampDurationSecs;
-        v40 = [NSNumber numberWithFloat:v10];
-        v41 = *p_rampDuration;
-        *p_rampDuration = v40;
+        *&v13 = selfCopy->_cdSignalAudioTunings.end2SignalTunables.signalRampDurationSecs;
+        v46 = [NSNumber numberWithFloat:v13];
+        v47 = *p_rampDuration;
+        *p_rampDuration = v46;
 
-        *&v14 = selfCopy->_cdSignalAudioTunings.end2SignalTunables.signalDuckingLevel;
+        *&v17 = selfCopy->_cdSignalAudioTunings.end2SignalTunables.signalDuckingLevel;
       }
 
       else if (cdSignal == 7)
       {
-        *&v10 = selfCopy->_cdSignalAudioTunings.resetSignalTunables.signalRampDurationSecs;
-        v32 = [NSNumber numberWithFloat:v10];
-        v33 = *p_rampDuration;
-        *p_rampDuration = v32;
+        *&v13 = selfCopy->_cdSignalAudioTunings.resetSignalTunables.signalRampDurationSecs;
+        v38 = [NSNumber numberWithFloat:v13];
+        v39 = *p_rampDuration;
+        *p_rampDuration = v38;
 
-        *&v14 = selfCopy->_cdSignalAudioTunings.resetSignalTunables.signalDuckingLevel;
+        *&v17 = selfCopy->_cdSignalAudioTunings.resetSignalTunables.signalDuckingLevel;
       }
 
       else
       {
-        *&v10 = selfCopy->_cdSignalAudioTunings.pauseSignalTunables.signalRampDurationSecs;
-        v12 = [NSNumber numberWithFloat:v10];
-        v13 = *p_rampDuration;
-        *p_rampDuration = v12;
+        *&v13 = selfCopy->_cdSignalAudioTunings.pauseSignalTunables.signalRampDurationSecs;
+        v15 = [NSNumber numberWithFloat:v13];
+        v16 = *p_rampDuration;
+        *p_rampDuration = v15;
 
-        *&v14 = selfCopy->_cdSignalAudioTunings.pauseSignalTunables.signalDuckingLevel;
+        *&v17 = selfCopy->_cdSignalAudioTunings.pauseSignalTunables.signalDuckingLevel;
       }
 
       goto LABEL_33;
@@ -1240,29 +1370,35 @@ LABEL_16:
     switch(cdSignal)
     {
       case 9:
-        v43 = *p_rampDuration;
+        v49 = *p_rampDuration;
         *p_rampDuration = &off_1002CB608;
         goto LABEL_34;
       case 10:
-        if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+        if (dword_1002F61A0 <= 30)
         {
-          sub_1001D4108();
+          if (dword_1002F61A0 != -1 || (v10 = _LogCategory_Initialize(), v10))
+          {
+            sub_1001D4108(v10, v11, v12);
+          }
         }
 
         goto LABEL_69;
       case 11:
         [(AAConversationDetectSessionManager *)selfCopy _audioSessionEnsureStopped];
 LABEL_31:
-        v15 = 0;
-        v23 = 0;
-        v24 = 1;
+        v18 = 0;
+        v26 = 0;
+        v27 = 1;
         goto LABEL_45;
     }
 
 LABEL_36:
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D4270();
+      if (dword_1002F61A0 != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        sub_1001D4270(v10, v11, v12);
+      }
     }
 
     goto LABEL_69;
@@ -1274,120 +1410,123 @@ LABEL_36:
     {
       if (cdSignal == 2)
       {
-        *&v10 = selfCopy->_cdSignalAudioTunings.latch1SignalTunables.signalRampDurationSecs;
-        v18 = [NSNumber numberWithFloat:v10];
-        v19 = *p_rampDuration;
-        *p_rampDuration = v18;
+        *&v13 = selfCopy->_cdSignalAudioTunings.latch1SignalTunables.signalRampDurationSecs;
+        v21 = [NSNumber numberWithFloat:v13];
+        v22 = *p_rampDuration;
+        *p_rampDuration = v21;
 
-        *&v20 = selfCopy->_cdSignalAudioTunings.latch1SignalTunables.signalDuckingLevel;
-        v21 = [NSNumber numberWithFloat:v20];
-        v22 = *p_duckLevel;
-        *p_duckLevel = v21;
+        *&v23 = selfCopy->_cdSignalAudioTunings.latch1SignalTunables.signalDuckingLevel;
+        v24 = [NSNumber numberWithFloat:v23];
+        v25 = *p_duckLevel;
+        *p_duckLevel = v24;
 
-        v23 = 0;
-        v24 = 1;
-        v15 = 1;
+        v26 = 0;
+        v27 = 1;
+        v18 = 1;
         goto LABEL_45;
       }
 
       goto LABEL_36;
     }
 
-    v15 = 0;
-    v16 = 28;
-    v17 = 24;
+    v18 = 0;
+    v19 = 28;
+    v20 = 24;
   }
 
   else
   {
     if (cdSignal == 3)
     {
-      *&v10 = selfCopy->_cdSignalAudioTunings.unlatchSignalTunables.signalRampDurationSecs;
-      v34 = [NSNumber numberWithFloat:v10];
-      v35 = *p_rampDuration;
-      *p_rampDuration = v34;
+      *&v13 = selfCopy->_cdSignalAudioTunings.unlatchSignalTunables.signalRampDurationSecs;
+      v40 = [NSNumber numberWithFloat:v13];
+      v41 = *p_rampDuration;
+      *p_rampDuration = v40;
 
-      *&v36 = selfCopy->_cdSignalAudioTunings.unlatchSignalTunables.signalDuckingLevel;
-      v37 = [NSNumber numberWithFloat:v36];
-      v38 = selfCopy->_unduckLevel;
-      selfCopy->_unduckLevel = v37;
+      *&v42 = selfCopy->_cdSignalAudioTunings.unlatchSignalTunables.signalDuckingLevel;
+      v43 = [NSNumber numberWithFloat:v42];
+      v44 = selfCopy->_unduckLevel;
+      selfCopy->_unduckLevel = v43;
 
-      v39 = selfCopy;
-      objc_sync_enter(v39);
+      v45 = selfCopy;
+      objc_sync_enter(v45);
       selfCopy->_shouldQueueRamp = _os_feature_enabled_impl() ^ 1;
-      objc_sync_exit(v39);
+      objc_sync_exit(v45);
 
       goto LABEL_31;
     }
 
     if (cdSignal == 4)
     {
-      *&v10 = selfCopy->_cdSignalAudioTunings.end1SignalTunables.signalRampDurationSecs;
-      v30 = [NSNumber numberWithFloat:v10];
-      v31 = *p_rampDuration;
-      *p_rampDuration = v30;
+      *&v13 = selfCopy->_cdSignalAudioTunings.end1SignalTunables.signalRampDurationSecs;
+      v36 = [NSNumber numberWithFloat:v13];
+      v37 = *p_rampDuration;
+      *p_rampDuration = v36;
 
-      *&v14 = selfCopy->_cdSignalAudioTunings.end1SignalTunables.signalDuckingLevel;
+      *&v17 = selfCopy->_cdSignalAudioTunings.end1SignalTunables.signalDuckingLevel;
 LABEL_33:
-      v42 = [NSNumber numberWithFloat:v14];
-      v43 = selfCopy->_unduckLevel;
-      selfCopy->_unduckLevel = v42;
+      v48 = [NSNumber numberWithFloat:v17];
+      v49 = selfCopy->_unduckLevel;
+      selfCopy->_unduckLevel = v48;
 LABEL_34:
 
-      v24 = 0;
-      v15 = 0;
-      v23 = 0;
+      v27 = 0;
+      v18 = 0;
+      v26 = 0;
       goto LABEL_45;
     }
 
-    v15 = 1;
-    v16 = 44;
-    v17 = 40;
+    v18 = 1;
+    v19 = 44;
+    v20 = 40;
   }
 
-  LODWORD(v10) = *(&selfCopy->super.isa + v16);
-  v25 = [NSNumber numberWithFloat:v10];
-  v26 = *p_rampDuration;
-  *p_rampDuration = v25;
+  LODWORD(v13) = *(&selfCopy->super.isa + v19);
+  v28 = [NSNumber numberWithFloat:v13];
+  v29 = *p_rampDuration;
+  *p_rampDuration = v28;
 
-  LODWORD(v27) = *(&selfCopy->super.isa + v17);
-  v28 = [NSNumber numberWithFloat:v27];
-  v29 = *p_duckLevel;
-  *p_duckLevel = v28;
+  LODWORD(v30) = *(&selfCopy->super.isa + v20);
+  v31 = [NSNumber numberWithFloat:v30];
+  v32 = *p_duckLevel;
+  *p_duckLevel = v31;
 
   if (!selfCopy->_audioSessionActivated)
   {
     if (selfCopy->_prefCDShouldDisableCustomDuckingCurve)
     {
-      if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F61A0 <= 30)
       {
-        sub_1001D416C();
+        if (dword_1002F61A0 != -1 || (v33 = _LogCategory_Initialize(), v33))
+        {
+          sub_1001D416C(v33, v34, v35);
+        }
       }
     }
 
     else
     {
-      v44 = +[AVSystemController sharedInstance];
-      [v44 getActiveCategoryVolume:&selfCopy->_currentVolume andName:0];
+      v50 = +[AVSystemController sharedInstance];
+      [v50 getActiveCategoryVolume:&selfCopy->_currentVolume andName:0];
 
       if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
       {
         sub_1001D4124(&selfCopy->_currentVolume);
       }
 
-      *&v45 = selfCopy->_currentVolume;
-      [(AAConversationDetectSessionManager *)selfCopy _calibrateDuckingLevelForVolumeLevel:v45];
+      *&v51 = selfCopy->_currentVolume;
+      [(AAConversationDetectSessionManager *)selfCopy _calibrateDuckingLevelForVolumeLevel:v51];
     }
   }
 
-  v24 = 1;
-  v23 = 1;
+  v27 = 1;
+  v26 = 1;
 LABEL_45:
-  v46 = 0;
+  v52 = 0;
   currentSpeechDetectionStyle = selfCopy->_currentSpeechDetectionStyle;
   if (currentSpeechDetectionStyle < 2)
   {
-    v48 = 0;
+    v54 = 0;
     goto LABEL_61;
   }
 
@@ -1409,42 +1548,41 @@ LABEL_45:
 
         if (currentSpeechDetectionStyle > 6)
         {
-          v49 = "?";
+          v55 = "?";
         }
 
         else
         {
-          v49 = (&off_1002B70A0)[currentSpeechDetectionStyle];
+          v55 = (&off_1002B70A0)[currentSpeechDetectionStyle];
         }
 
-        v60 = v49;
-        LogPrintF();
+        LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _cdSessionSignalUpdate]", 30, "AVAudioSessionSpeechDetectionStyle: %s, stop CD session", v55);
       }
 
 LABEL_83:
-      v53 = 0;
+      v59 = 0;
       goto LABEL_84;
     }
 
-    if (v15)
+    if (v18)
     {
-      v48 = selfCopy->_cdSignal == 5;
-      v46 = 1;
+      v54 = selfCopy->_cdSignal == 5;
+      v52 = 1;
       goto LABEL_57;
     }
 
-    v46 = 0;
+    v52 = 0;
   }
 
-  v48 = 1;
+  v54 = 1;
 LABEL_57:
-  if (v24 & v48)
+  if (v27 & v54)
   {
     if (selfCopy->_shouldQueueRamp)
     {
       [(AAConversationDetectSessionManager *)selfCopy _startQueuedRampForDuration:*p_rampDuration startLevel:v4 endLevel:selfCopy->_unduckLevel];
 LABEL_60:
-      v48 = 1;
+      v54 = 1;
       goto LABEL_62;
     }
 
@@ -1453,22 +1591,22 @@ LABEL_60:
       sub_1001D4188(&selfCopy->_cdSignal, p_duckLevel, &selfCopy->_unduckLevel, p_rampDuration);
     }
 
-    v55 = +[AVAudioSession sharedInstance];
-    v56 = *p_rampDuration;
-    v63 = 0;
-    [v55 setDuckingFadeOutDuration:v56 fadeInDuration:v56 error:&v63];
-    v53 = v63;
+    v61 = +[AVAudioSession sharedInstance];
+    v62 = *p_rampDuration;
+    v68 = 0;
+    [v61 setDuckingFadeOutDuration:v62 fadeInDuration:v62 error:&v68];
+    v59 = v68;
 
-    if (!v53)
+    if (!v59)
     {
-      v57 = +[AVAudioSession sharedInstance];
-      v58 = *p_duckLevel;
-      v59 = selfCopy->_unduckLevel;
-      v62 = 0;
-      [v57 setDuckToLevelScalar:v58 unduckToLevelScalar:v59 error:&v62];
-      v53 = v62;
+      v63 = +[AVAudioSession sharedInstance];
+      v64 = *p_duckLevel;
+      v65 = selfCopy->_unduckLevel;
+      v67 = 0;
+      [v63 setDuckToLevelScalar:v64 unduckToLevelScalar:v65 error:&v67];
+      v59 = v67;
 
-      if (!v53)
+      if (!v59)
       {
         goto LABEL_60;
       }
@@ -1476,39 +1614,39 @@ LABEL_60:
 
     if (dword_1002F61A0 <= 90 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D41FC();
+      sub_1001D41FC(v59);
     }
 
 LABEL_84:
-    [(AAConversationDetectSessionManager *)selfCopy _cdSessionEnsureDeactivated:0, v60];
+    [(AAConversationDetectSessionManager *)selfCopy _cdSessionEnsureDeactivated:0];
     goto LABEL_85;
   }
 
 LABEL_61:
-  if ((v24 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
     goto LABEL_83;
   }
 
 LABEL_62:
-  if (v23)
+  if (v26)
   {
-    [(AAConversationDetectSessionManager *)selfCopy _cdSessionEnsureActivated:v48];
+    [(AAConversationDetectSessionManager *)selfCopy _cdSessionEnsureActivated:v54];
   }
 
-  if (!v46)
+  if (!v52)
   {
 LABEL_69:
-    v53 = 0;
+    v59 = 0;
     goto LABEL_85;
   }
 
-  v50 = +[AVAudioSession sharedInstance];
-  v51 = kMXSessionProperty_InterruptionStyle;
-  v52 = [NSNumber numberWithInt:4];
-  v61 = 0;
-  [v50 setMXSessionProperty:v51 value:v52 error:&v61];
-  v53 = v61;
+  v56 = +[AVAudioSession sharedInstance];
+  v57 = kMXSessionProperty_InterruptionStyle;
+  v58 = [NSNumber numberWithInt:4];
+  v66 = 0;
+  [v56 setMXSessionProperty:v57 value:v58 error:&v66];
+  v59 = v66;
 
   [(AAConversationDetectSessionManager *)selfCopy setCdSignalAudioInterrupted:1];
   if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
@@ -1516,8 +1654,8 @@ LABEL_69:
     sub_1001D423C();
   }
 
-  v54 = +[NSNotificationCenter defaultCenter];
-  [v54 postNotificationName:@"CdSignalAudioInterruptedChanged" object:selfCopy];
+  v60 = +[NSNotificationCenter defaultCenter];
+  [v60 postNotificationName:@"CdSignalAudioInterruptedChanged" object:selfCopy];
 
 LABEL_85:
 }
@@ -1526,50 +1664,83 @@ LABEL_85:
 {
   if (self->_pauseConversationDetect)
   {
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D428C();
+      if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D428C(self, a2, activated);
+      }
     }
   }
 
   else
   {
+    selfCopy = self;
     if (activated)
     {
       [(AAConversationDetectSessionManager *)self _audioSessionEnsureStarted];
     }
 
-    [(AAConversationDetectSessionManager *)self _startPedestrianFenceSession];
+    [(AAConversationDetectSessionManager *)selfCopy _startPedestrianFenceSession];
 
-    [(AAConversationDetectSessionManager *)self _startHeadGestureManager];
+    [(AAConversationDetectSessionManager *)selfCopy _startHeadGestureManager];
   }
 }
 
 - (void)_cdSessionEnsureDeactivated:(unsigned __int8)deactivated
 {
   deactivatedCopy = deactivated;
-  if (GestaltGetDeviceClass() == 1)
+  DeviceClass = GestaltGetDeviceClass();
+  if (DeviceClass == 1)
   {
     if (self->_audioSessionActivated && (self->_cdSignal | 2) == 6 && !self->_prefCDSiriDidAnnounce && !self->_isSiriAnnouncePending)
     {
       if (dword_1002F61A0 <= 30)
       {
+        v8 = "no";
         if (dword_1002F61A0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_23;
+            goto LABEL_24;
           }
 
-          self->_audioSessionActivated;
-          self->_prefCDSiriDidAnnounce;
-          self->_isSiriAnnouncePending;
+          if (self->_audioSessionActivated)
+          {
+            v10 = "yes";
+          }
+
+          else
+          {
+            v10 = "no";
+          }
+
+          if (self->_prefCDSiriDidAnnounce)
+          {
+            v9 = "yes";
+          }
+
+          else
+          {
+            v9 = "no";
+          }
+
+          if (self->_isSiriAnnouncePending)
+          {
+            v8 = "yes";
+          }
         }
 
-        LogPrintF();
+        else
+        {
+          v9 = "no";
+          v10 = "yes";
+        }
+
+        LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _cdSessionEnsureDeactivated:]", 30, "Attempting Siri announce: isAudioSessionActive: %s, didCASessionComplete: %s, prefCDSiriDidAnnounce: %s, isSiriAnnouncePending: %s", v10, "yes", v9, v8);
       }
 
-LABEL_23:
+LABEL_24:
       self->_isSiriAnnouncePending = 1;
 
       [(AAConversationDetectSessionManager *)self _requestSiriAnnounce];
@@ -1577,9 +1748,12 @@ LABEL_23:
     }
   }
 
-  else if (dword_1002F61A0 <= 10 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F61A0 <= 10)
   {
-    sub_1001D42A8();
+    if (dword_1002F61A0 != -1 || (DeviceClass = _LogCategory_Initialize(), DeviceClass))
+    {
+      sub_1001D42A8(DeviceClass, v6, v7);
+    }
   }
 
   [(AAConversationDetectSessionManager *)self _audioSessionEnsureStopped];
@@ -1589,7 +1763,7 @@ LABEL_23:
   {
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D42C4();
+      sub_1001D42C4(deactivatedCopy);
     }
 
     [(AAConversationDetectSessionManager *)self _updateAccessoriesWithResetState:?];
@@ -1598,19 +1772,19 @@ LABEL_23:
 
 - (void)_requestSiriAnnounce
 {
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = sub_1000038E8;
-  v38 = sub_100003820;
-  v39 = 0;
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_100018BCC;
-  v33[3] = &unk_1002B6ED8;
-  v33[4] = self;
-  v33[5] = &v34;
-  v3 = objc_retainBlock(v33);
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_1000038E8;
+  v37 = sub_100003820;
+  v38 = 0;
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_100018BCC;
+  v32[3] = &unk_1002B6ED8;
+  v32[4] = self;
+  v32[5] = &v33;
+  v3 = objc_retainBlock(v32);
   v4 = [NSString stringWithFormat:@"/System/Library/UserNotifications/Bundles/%@.bundle", @"com.apple.BTUserNotifications"];
   v5 = [NSBundle bundleWithPath:v4];
   v6 = +[AFPreferences sharedPreferences];
@@ -1624,8 +1798,7 @@ LABEL_23:
 
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      v30 = languageCode;
-      LogPrintF();
+      LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _requestSiriAnnounce]", 30, "using Siri Preferred language: %@", languageCode);
     }
 
     if (languageCode)
@@ -1633,8 +1806,8 @@ LABEL_23:
       v12 = objc_alloc_init(UNMutableNotificationContent);
       [v12 setCategoryIdentifier:@"BTUserNotifications"];
       localizations = [v5 localizations];
-      v40 = languageCode;
-      v14 = [NSArray arrayWithObjects:&v40 count:1];
+      v39 = languageCode;
+      v14 = [NSArray arrayWithObjects:&v39 count:1];
       v15 = [NSBundle preferredLocalizationsFromArray:localizations forPreferences:v14];
 
       if ([v15 count])
@@ -1651,9 +1824,9 @@ LABEL_23:
       title = [v12 title];
       if (!title || ([v12 subtitle], v21 = objc_claimAutoreleasedReturnValue(), v22 = v21 == 0, v21, title, v22))
       {
-        v28 = NSErrorF();
-        uUIDString = v35[5];
-        v35[5] = v28;
+        v28 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "announce notification content invalid");
+        uUIDString = v34[5];
+        v34[5] = v28;
       }
 
       else
@@ -1661,37 +1834,37 @@ LABEL_23:
         v23 = +[NSUUID UUID];
         uUIDString = [v23 UUIDString];
 
-        v31 = [UNNotificationRequest requestWithIdentifier:uUIDString content:v12 trigger:0];
+        v30 = [UNNotificationRequest requestWithIdentifier:uUIDString content:v12 trigger:0];
         v25 = +[NSDate date];
-        v26 = [UNNotification notificationWithRequest:v31 date:v25 sourceIdentifier:@"com.apple.BTUserNotifications" intentIdentifiers:&__NSArray0__struct];
+        v26 = [UNNotification notificationWithRequest:v30 date:v25 sourceIdentifier:@"com.apple.BTUserNotifications" intentIdentifiers:&__NSArray0__struct];
 
         v27 = [[AFSiriUserNotificationRequest alloc] initWithUserNotification:v26 sourceAppId:@"com.apple.BTUserNotifications" platform:1];
-        v32[0] = _NSConcreteStackBlock;
-        v32[1] = 3221225472;
-        v32[2] = sub_100018C94;
-        v32[3] = &unk_1002B6F00;
-        v32[4] = self;
-        [v27 performRequestWithCompletion:v32];
+        v31[0] = _NSConcreteStackBlock;
+        v31[1] = 3221225472;
+        v31[2] = sub_100018C94;
+        v31[3] = &unk_1002B6F00;
+        v31[4] = self;
+        [v27 performRequestWithCompletion:v31];
       }
     }
 
     else
     {
-      v29 = NSErrorF();
-      v12 = v35[5];
-      v35[5] = v29;
+      v29 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "siri returned invalid language code");
+      v12 = v34[5];
+      v34[5] = v29;
     }
   }
 
   else
   {
-    v11 = NSErrorF();
-    languageCode = v35[5];
-    v35[5] = v11;
+    v11 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "Assistant not enabled");
+    languageCode = v34[5];
+    v34[5] = v11;
   }
 
   (v3[2])(v3);
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v33, 8);
 }
 
 - (void)_asyncAudioSessionDuckWithLevel:(id)level completion:(id)completion
@@ -1726,16 +1899,20 @@ LABEL_23:
 {
   if (self->_avAudioSessionResetNotificationRegistered)
   {
-    v8 = v2;
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    v9 = v3;
+    selfCopy = self;
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D43F4();
+      if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D43F4(self, a2, v2);
+      }
     }
 
-    v7 = [NSNotificationCenter defaultCenter:v3];
-    [v7 removeObserver:self name:AVAudioSessionMediaServicesWereResetNotification object:0];
+    v8 = [NSNotificationCenter defaultCenter:v4];
+    [v8 removeObserver:selfCopy name:AVAudioSessionMediaServicesWereResetNotification object:0];
 
-    self->_avAudioSessionResetNotificationRegistered = 0;
+    selfCopy->_avAudioSessionResetNotificationRegistered = 0;
   }
 }
 
@@ -1743,16 +1920,20 @@ LABEL_23:
 {
   if (self->_cdStyleChangeNotificationRegistered)
   {
-    v8 = v2;
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    v9 = v3;
+    selfCopy = self;
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D4410();
+      if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D4410(self, a2, v2);
+      }
     }
 
-    v7 = [AVAudioSession sharedInstance:v3];
-    [v7 removeObserver:self forKeyPath:@"speechDetectionStyle"];
+    v8 = [AVAudioSession sharedInstance:v4];
+    [v8 removeObserver:selfCopy forKeyPath:@"speechDetectionStyle"];
 
-    self->_cdStyleChangeNotificationRegistered = 0;
+    selfCopy->_cdStyleChangeNotificationRegistered = 0;
   }
 }
 
@@ -1766,71 +1947,67 @@ LABEL_23:
   {
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      v29 = v11;
-      v31 = durationCopy;
-      v28 = levelCopy;
-      LogPrintF();
+      LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _startQueuedRampForDuration:startLevel:endLevel:]", 30, "Queued Ramp: startLevel: %@, endLevel: %@, rampDuration: %@", levelCopy, v11, durationCopy);
     }
 
     [durationCopy floatValue];
     v16 = (v15 / self->_prefCDRampChunkDuration);
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
-    [v11 floatValue];
-    v18 = v17;
-    [levelCopy floatValue];
-    v51 = (v18 - v19) / v16;
     v44 = 0;
     v45 = &v44;
     v46 = 0x2020000000;
+    [v11 floatValue];
+    v18 = v17;
     [levelCopy floatValue];
-    v47 = v20 + v49[6];
-    v21 = v45[6];
+    v47 = (v18 - v19) / v16;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    [levelCopy floatValue];
+    v43 = v20 + v45[6];
+    v21 = v41[6];
     [v11 floatValue];
     if (v21 > v22)
     {
       [v11 floatValue];
-      *(v45 + 6) = v23;
+      *(v41 + 6) = v23;
     }
 
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
-      v30 = v49[6];
-      LogPrintF();
+      LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _startQueuedRampForDuration:startLevel:endLevel:]", 30, "Queued Ramp: number of ramps: %d, Delta duck Level: %f", v16, v45[6]);
     }
 
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = sub_100019654;
-    v42 = sub_100019680;
-    v43 = 0;
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_100019688;
-    v32[3] = &unk_1002B6F28;
-    v35 = &v44;
-    v33 = v11;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x3032000000;
+    v37 = sub_100019654;
+    v38 = sub_100019680;
+    v39 = 0;
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_100019688;
+    v28[3] = &unk_1002B6F28;
+    v31 = &v40;
+    v29 = v11;
     selfCopy = self;
-    v36 = &v48;
-    v37 = &v38;
-    v24 = objc_retainBlock(v32);
-    v25 = v39[5];
-    v39[5] = v24;
+    v32 = &v44;
+    v33 = &v34;
+    v24 = objc_retainBlock(v28);
+    v25 = v35[5];
+    v35[5] = v24;
 
-    *&v26 = v45[6];
+    *&v26 = v41[6];
     v27 = [NSNumber numberWithFloat:v26];
-    [(AAConversationDetectSessionManager *)self _asyncAudioSessionDuckWithLevel:v27 completion:v39[5]];
+    [(AAConversationDetectSessionManager *)self _asyncAudioSessionDuckWithLevel:v27 completion:v35[5]];
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v40, 8);
     _Block_object_dispose(&v44, 8);
-    _Block_object_dispose(&v48, 8);
   }
 
   else if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _startQueuedRampForDuration:startLevel:endLevel:]", 30, "Queued Ramp: only supported during an unduck, startLevel: %@, endLevel: %@", levelCopy, v11);
   }
 }
 
@@ -1855,16 +2032,20 @@ LABEL_23:
 {
   if (!self->_avAudioSessionResetNotificationRegistered)
   {
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D4480();
+      if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D4480(self, a2, v2);
+      }
     }
 
-    v3 = +[NSNotificationCenter defaultCenter];
-    v4 = +[AVAudioSession sharedInstance];
-    [v3 addObserver:self selector:"_audioSessionReset" name:AVAudioSessionMediaServicesWereResetNotification object:v4];
+    v4 = +[NSNotificationCenter defaultCenter];
+    v5 = +[AVAudioSession sharedInstance];
+    [v4 addObserver:selfCopy selector:"_audioSessionReset" name:AVAudioSessionMediaServicesWereResetNotification object:v5];
 
-    self->_avAudioSessionResetNotificationRegistered = 1;
+    selfCopy->_avAudioSessionResetNotificationRegistered = 1;
   }
 }
 
@@ -1877,7 +2058,7 @@ LABEL_23:
 
   if (v4 && dword_1002F61A0 <= 90 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001D449C();
+    sub_1001D449C(v4);
   }
 
   if (!self->_cdStyleChangeNotificationRegistered)
@@ -1957,53 +2138,60 @@ LABEL_23:
       v8 = (&off_1002B7078)[changed];
     }
 
-    v13 = v7;
-    v14 = v8;
-    LogPrintF();
+    LogPrintF(&dword_1002F61A0, "[AAConversationDetectSessionManager _speechDetectionStyleChanged:]", 30, "AVAudioSessionSpeechDetectionStyle changed from %s -> %s", v7, v8);
   }
 
 LABEL_18:
   self->_currentSpeechDetectionStyle = changed;
-  v9 = [(AAConversationDetectSessionManager *)self cdSignalAudioInterrupted:v13];
-  v10 = self->_currentSpeechDetectionStyle;
-  if (v9 && v10 == 1)
+  cdSignalAudioInterrupted = [(AAConversationDetectSessionManager *)self cdSignalAudioInterrupted];
+  v12 = self->_currentSpeechDetectionStyle;
+  if (cdSignalAudioInterrupted && v12 == 1)
   {
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D45AC();
+      if (dword_1002F61A0 != -1 || (cdSignalAudioInterrupted = _LogCategory_Initialize(), cdSignalAudioInterrupted))
+      {
+        sub_1001D45AC(cdSignalAudioInterrupted, v10, v11);
+      }
     }
 
     return;
   }
 
-  if (currentSpeechDetectionStyle == 1 && (v10 & 0xFFFFFFFFFFFFFFFELL) == 2)
+  if (currentSpeechDetectionStyle == 1 && (v12 & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
     if (self->_cdSignal == 11)
     {
-      if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F61A0 <= 30)
       {
-        sub_1001D4590();
+        if (dword_1002F61A0 != -1 || (cdSignalAudioInterrupted = _LogCategory_Initialize(), cdSignalAudioInterrupted))
+        {
+          sub_1001D4590(cdSignalAudioInterrupted, v10, v11);
+        }
       }
 
       goto LABEL_37;
     }
 
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D4574();
+      if (dword_1002F61A0 != -1 || (cdSignalAudioInterrupted = _LogCategory_Initialize(), cdSignalAudioInterrupted))
+      {
+        sub_1001D4574(cdSignalAudioInterrupted, v10, v11);
+      }
     }
 
     selfCopy2 = self;
-    v12 = 1;
+    v14 = 1;
   }
 
   else
   {
     selfCopy2 = self;
-    v12 = 0;
+    v14 = 0;
   }
 
-  [(AAConversationDetectSessionManager *)selfCopy2 _cdSessionEnsureDeactivated:v12];
+  [(AAConversationDetectSessionManager *)selfCopy2 _cdSessionEnsureDeactivated:v14];
 LABEL_37:
   if (self->_currentSpeechDetectionStyle == 4)
   {
@@ -2056,7 +2244,7 @@ LABEL_37:
       {
         if (dword_1002F61A0 <= 10 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001D46A4();
+          sub_1001D46A4(foundCopy);
         }
       }
 
@@ -2064,7 +2252,7 @@ LABEL_37:
       {
         if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001D46E4();
+          sub_1001D46E4(foundCopy);
         }
 
         [(AAConversationDetectSessionManager *)self _updatePauseState];
@@ -2073,13 +2261,13 @@ LABEL_37:
 
     else
     {
-      sub_1001D4628();
+      sub_1001D4628(foundCopy);
     }
   }
 
   else
   {
-    sub_1001D4724();
+    sub_1001D4724(foundCopy);
   }
 }
 
@@ -2095,7 +2283,7 @@ LABEL_37:
       [(NSMutableDictionary *)self->_cdSupportedAccessories setObject:0 forKeyedSubscript:identifier];
       if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001D47A0();
+        sub_1001D47A0(lostCopy);
       }
 
       if (![(NSMutableDictionary *)self->_cdSupportedAccessories count])
@@ -2107,7 +2295,7 @@ LABEL_37:
 
   else
   {
-    sub_1001D47E0();
+    sub_1001D47E0(lostCopy);
   }
 }
 
@@ -2133,23 +2321,43 @@ LABEL_37:
 
 - (void)_startPedestrianFenceSession
 {
-  if ((+[CMPedestrianFenceManager isAvailable]& 1) == 0)
+  DeviceClass = +[CMPedestrianFenceManager isAvailable];
+  if ((DeviceClass & 1) == 0)
   {
-    if (dword_1002F61A0 > 10 || dword_1002F61A0 == -1 && !_LogCategory_Initialize())
+    if (dword_1002F61A0 > 10)
     {
       return;
     }
 
+    if (dword_1002F61A0 == -1)
+    {
+      DeviceClass = _LogCategory_Initialize();
+      if (!DeviceClass)
+      {
+        return;
+      }
+    }
+
 LABEL_11:
-    sub_1001D48A0();
+    sub_1001D48A0(DeviceClass, v4, v5);
     return;
   }
 
-  if (GestaltGetDeviceClass() != 1)
+  DeviceClass = GestaltGetDeviceClass();
+  if (DeviceClass != 1)
   {
-    if (dword_1002F61A0 > 10 || dword_1002F61A0 == -1 && !_LogCategory_Initialize())
+    if (dword_1002F61A0 > 10)
     {
       return;
+    }
+
+    if (dword_1002F61A0 == -1)
+    {
+      DeviceClass = _LogCategory_Initialize();
+      if (!DeviceClass)
+      {
+        return;
+      }
     }
 
     goto LABEL_11;
@@ -2157,31 +2365,34 @@ LABEL_11:
 
   if (self->_pedestrianFenceManager)
   {
-    if (dword_1002F61A0 <= 10 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F61A0 <= 10)
     {
-      sub_1001D48BC();
+      if (dword_1002F61A0 != -1 || (DeviceClass = _LogCategory_Initialize(), DeviceClass))
+      {
+        sub_1001D48BC(DeviceClass, v4, v5);
+      }
     }
   }
 
   else
   {
-    v3 = objc_alloc_init(CMPedestrianFenceManager);
+    v6 = objc_alloc_init(CMPedestrianFenceManager);
     pedestrianFenceManager = self->_pedestrianFenceManager;
-    self->_pedestrianFenceManager = v3;
+    self->_pedestrianFenceManager = v6;
 
     [(CMPedestrianFenceManager *)self->_pedestrianFenceManager startSession];
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_10001A3B8;
-    v6[3] = &unk_1002B6F78;
-    v6[4] = self;
-    v5 = objc_retainBlock(v6);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10001A3B8;
+    v9[3] = &unk_1002B6F78;
+    v9[4] = self;
+    v8 = objc_retainBlock(v9);
     if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
     {
       sub_1001D48D8();
     }
 
-    [(AAConversationDetectSessionManager *)self _setPedestrianFenceWithHandler:v5];
+    [(AAConversationDetectSessionManager *)self _setPedestrianFenceWithHandler:v8];
   }
 }
 
@@ -2189,48 +2400,59 @@ LABEL_11:
 {
   if (self->_pedestrianFenceManager)
   {
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D49A8();
+      if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D49A8(self, a2, v2);
+      }
     }
 
-    [(CMPedestrianFenceManager *)self->_pedestrianFenceManager clearFence:@"com.apple.audioaccessoryd.cdFence"];
-    [(CMPedestrianFenceManager *)self->_pedestrianFenceManager endSession];
-    pedestrianFenceManager = self->_pedestrianFenceManager;
-    self->_pedestrianFenceManager = 0;
+    [(CMPedestrianFenceManager *)selfCopy->_pedestrianFenceManager clearFence:@"com.apple.audioaccessoryd.cdFence"];
+    [(CMPedestrianFenceManager *)selfCopy->_pedestrianFenceManager endSession];
+    pedestrianFenceManager = selfCopy->_pedestrianFenceManager;
+    selfCopy->_pedestrianFenceManager = 0;
   }
 }
 
 - (void)_startHeadGestureManager
 {
-  if (_os_feature_enabled_impl())
+  v3 = _os_feature_enabled_impl();
+  if (v3)
   {
     if (self->_headGestureManager)
     {
-      if (dword_1002F61A0 <= 10 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F61A0 <= 10)
       {
-        sub_1001D49C4();
+        if (dword_1002F61A0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+        {
+          sub_1001D49C4(v3, v4, v5);
+        }
       }
     }
 
     else
     {
-      v9 = objc_alloc_init(HGConfiguration);
-      v3 = objc_alloc_init(HGAudioFeedbackConfiguration);
-      [v9 setAudioFeedbackConfig:v3];
+      v15 = objc_alloc_init(HGConfiguration);
+      v6 = objc_alloc_init(HGAudioFeedbackConfiguration);
+      [v15 setAudioFeedbackConfig:v6];
 
-      v4 = +[AVAudioSession sharedInstance];
-      opaqueSessionID = [v4 opaqueSessionID];
-      audioFeedbackConfig = [v9 audioFeedbackConfig];
+      v7 = +[AVAudioSession sharedInstance];
+      opaqueSessionID = [v7 opaqueSessionID];
+      audioFeedbackConfig = [v15 audioFeedbackConfig];
       [audioFeedbackConfig setAudioSessionID:opaqueSessionID];
 
-      v7 = [[HGManager alloc] initWithDelegate:self config:v9];
+      v10 = [[HGManager alloc] initWithDelegate:self config:v15];
       headGestureManager = self->_headGestureManager;
-      self->_headGestureManager = v7;
+      self->_headGestureManager = v10;
 
-      if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F61A0 <= 30)
       {
-        sub_1001D49E0();
+        if (dword_1002F61A0 != -1 || (v12 = _LogCategory_Initialize(), v12))
+        {
+          sub_1001D49E0(v12, v13, v14);
+        }
       }
 
       [(HGManager *)self->_headGestureManager start];
@@ -2242,14 +2464,18 @@ LABEL_11:
 {
   if (self->_headGestureManager)
   {
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D49FC();
+      if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D49FC(self, a2, v2);
+      }
     }
 
-    [(HGManager *)self->_headGestureManager stop];
-    headGestureManager = self->_headGestureManager;
-    self->_headGestureManager = 0;
+    [(HGManager *)selfCopy->_headGestureManager stop];
+    headGestureManager = selfCopy->_headGestureManager;
+    selfCopy->_headGestureManager = 0;
   }
 }
 
@@ -2283,17 +2509,21 @@ LABEL_11:
   p_splitterStateOnToken = &self->_splitterStateOnToken;
   if (self->_splitterStateOnToken == -1)
   {
-    if (dword_1002F61A0 <= 30 && (dword_1002F61A0 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F61A0 <= 30)
     {
-      sub_1001D4B0C();
+      if (dword_1002F61A0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D4B0C(self, a2, v2);
+      }
     }
 
-    dispatchQueue = self->_dispatchQueue;
+    dispatchQueue = selfCopy->_dispatchQueue;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_10001A9D4;
     handler[3] = &unk_1002B6DF0;
-    handler[4] = self;
+    handler[4] = selfCopy;
     notify_register_dispatch("com.apple.bluetooth.WirelessSplitterOn", p_splitterStateOnToken, dispatchQueue, handler);
   }
 }
@@ -2308,12 +2538,12 @@ LABEL_11:
       goto LABEL_6;
     }
 
-    if (dword_1002F61A0 != -1 || _LogCategory_Initialize())
+    if (dword_1002F61A0 != -1 || (splitterStateOnToken = _LogCategory_Initialize(), splitterStateOnToken))
     {
-      sub_1001D4B84();
+      sub_1001D4B84(splitterStateOnToken, a2, v2);
     }
 
-    splitterStateOnToken = self->_splitterStateOnToken;
+    LODWORD(splitterStateOnToken) = self->_splitterStateOnToken;
     if (splitterStateOnToken != -1)
     {
 LABEL_6:

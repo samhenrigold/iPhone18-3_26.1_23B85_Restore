@@ -77,7 +77,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [FBLocalSynchronousSceneClientProvider _initWithWorkspaceCoupler:v12 currentProcess:sel__initWithWorkspaceCoupler_currentProcess_eventDispatcher_ eventDispatcher:?];
+      [FBLocalSynchronousSceneClientProvider _initWithWorkspaceCoupler:v12 currentProcess:sel__initWithWorkspaceCoupler_currentProcess_eventDispatcher_ eventDispatcher:self];
     }
 
     if (!couplerCopy)
@@ -95,7 +95,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [FBLocalSynchronousSceneClientProvider _initWithWorkspaceCoupler:v14 currentProcess:sel__initWithWorkspaceCoupler_currentProcess_eventDispatcher_ eventDispatcher:?];
+      [FBLocalSynchronousSceneClientProvider _initWithWorkspaceCoupler:v14 currentProcess:sel__initWithWorkspaceCoupler_currentProcess_eventDispatcher_ eventDispatcher:self];
     }
 
     v28.receiver = self;
@@ -149,83 +149,84 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_currentProcess_eventDispatcher___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) callOutQueue];
   [v2 assertBarrierOnQueue];
 
-  v3 = *(*(a1 + 32) + 88);
   if (*(a1 + 40))
   {
-    if ((*(*(a1 + 32) + 88) & 1) == 0)
+    if (*(*(a1 + 32) + 88))
     {
-      v4 = FBLogCommon();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_1A89DD000, v4, OS_LOG_TYPE_DEFAULT, "LocalSynchronousSceneClientProvider received workspace creation.", buf, 2u);
-      }
-
-      objc_storeStrong((*(a1 + 32) + 56), *(a1 + 40));
-      [*(*(a1 + 32) + 56) _registerSource:?];
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      v5 = [*(*(a1 + 32) + 8) copy];
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
-      if (v6)
-      {
-        v7 = v6;
-        v8 = *v16;
-        do
-        {
-          v9 = 0;
-          do
-          {
-            if (*v16 != v8)
-            {
-              objc_enumerationMutation(v5);
-            }
-
-            v10 = *(*(&v15 + 1) + 8 * v9);
-            v11 = FBLogCommon();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-            {
-              __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_currentProcess_eventDispatcher___block_invoke_2_cold_1(buf, v10, &v20, v11);
-            }
-
-            [(FBLocalSynchronousSceneClientProvider *)*(a1 + 32) _sendSceneCreateFBSWorkspaceDelegateForSceneInfo:v10];
-            ++v9;
-          }
-
-          while (v7 != v9);
-          v7 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
-        }
-
-        while (v7);
-      }
-
-      [*(*(a1 + 32) + 8) removeAllObjects];
-      v12 = *(a1 + 32);
-      v13 = *(v12 + 8);
-      *(v12 + 8) = 0;
-LABEL_18:
+      return;
     }
-  }
 
-  else if ((*(*(a1 + 32) + 88) & 1) == 0)
-  {
-    v13 = FBLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v3 = FBLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A89DD000, v13, OS_LOG_TYPE_DEFAULT, "LocalSynchronousSceneClientProvider failed to receive workspace creation.", buf, 2u);
+      _os_log_impl(&dword_1A89DD000, v3, OS_LOG_TYPE_DEFAULT, "LocalSynchronousSceneClientProvider received workspace creation.", buf, 2u);
     }
 
-    goto LABEL_18;
+    objc_storeStrong((*(a1 + 32) + 56), *(a1 + 40));
+    [*(*(a1 + 32) + 56) _registerSource:?];
+    v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v4 = [*(*(a1 + 32) + 8) copy];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v14;
+      do
+      {
+        v8 = 0;
+        do
+        {
+          if (*v14 != v7)
+          {
+            objc_enumerationMutation(v4);
+          }
+
+          v9 = *(*(&v13 + 1) + 8 * v8);
+          v10 = FBLogCommon();
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          {
+            __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_currentProcess_eventDispatcher___block_invoke_2_cold_1(buf, v9, &v18, v10);
+          }
+
+          [(FBLocalSynchronousSceneClientProvider *)*(a1 + 32) _sendSceneCreateFBSWorkspaceDelegateForSceneInfo:v9];
+          ++v8;
+        }
+
+        while (v6 != v8);
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      }
+
+      while (v6);
+    }
+
+    [*(*(a1 + 32) + 8) removeAllObjects];
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 8);
+    *(v11 + 8) = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
+  else
+  {
+    if (*(*(a1 + 32) + 88))
+    {
+      return;
+    }
+
+    v12 = FBLogCommon();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1A89DD000, v12, OS_LOG_TYPE_DEFAULT, "LocalSynchronousSceneClientProvider failed to receive workspace creation.", buf, 2u);
+    }
+  }
 }
 
 - (void)_sendSceneCreateFBSWorkspaceDelegateForSceneInfo:(void *)info
@@ -284,7 +285,7 @@ LABEL_4:
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -303,7 +304,7 @@ LABEL_4:
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -321,28 +322,28 @@ LABEL_4:
 
 - (id)fbsSceneWithIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   allKeys = [(NSMutableDictionary *)self->_localSceneInfoByIdentity allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         identifier = [v10 identifier];
         v12 = [identifier isEqualToString:identifierCopy];
 
@@ -366,7 +367,7 @@ LABEL_4:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v7)
       {
         continue;
@@ -378,8 +379,6 @@ LABEL_4:
 
   v13 = 0;
 LABEL_13:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -713,7 +712,7 @@ LABEL_49:
 
 - (void)_sendToSceneWithInfo:(void *)info updatedSettings:(void *)settings withDiff:(void *)diff transitionContext:(void *)context completion:
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v11 = a2;
   infoCopy = info;
   settingsCopy = settings;
@@ -734,12 +733,12 @@ LABEL_49:
       v17 = v11[2];
       if (v11[1])
       {
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __116__FBLocalSynchronousSceneClientProvider__sendToSceneWithInfo_updatedSettings_withDiff_transitionContext_completion___block_invoke_225;
-        v27[3] = &unk_1E783CD58;
-        v28 = contextCopy;
-        [v17 updater:self didUpdateSettings:infoCopy withDiff:settingsCopy transitionContext:diffCopy completion:v27];
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __116__FBLocalSynchronousSceneClientProvider__sendToSceneWithInfo_updatedSettings_withDiff_transitionContext_completion___block_invoke_225;
+        v25[3] = &unk_1E783CD58;
+        v26 = contextCopy;
+        [v17 updater:self didUpdateSettings:infoCopy withDiff:settingsCopy transitionContext:diffCopy completion:v25];
 
 LABEL_10:
         goto LABEL_11;
@@ -753,51 +752,51 @@ LABEL_10:
       v17 = 0;
     }
 
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2020000000;
-    v37 = 0;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __116__FBLocalSynchronousSceneClientProvider__sendToSceneWithInfo_updatedSettings_withDiff_transitionContext_completion___block_invoke;
-    v29[3] = &unk_1E783BF98;
-    v33 = &v34;
-    v30 = v11;
-    v31 = diffCopy;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __116__FBLocalSynchronousSceneClientProvider__sendToSceneWithInfo_updatedSettings_withDiff_transitionContext_completion___block_invoke;
+    v27[3] = &unk_1E783BF98;
+    v31 = &v32;
+    v28 = v11;
+    v29 = diffCopy;
     selfCopy = self;
-    [v17 _callOutQueue_didCreateWithTransitionContext:v31 alternativeCreationCallout:v29 completion:0];
-    if ((v35[3] & 1) == 0)
+    [v17 _callOutQueue_didCreateWithTransitionContext:v29 alternativeCreationCallout:v27 completion:0];
+    if ((v33[3] & 1) == 0)
     {
-      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"creation callback was not made in scene's didCreate"];
+      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"creation callback was not made in scene's didCreate"];
+      v19 = MEMORY[0x1E69E9C10];
       v20 = MEMORY[0x1E69E9C10];
-      v21 = MEMORY[0x1E69E9C10];
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v22 = NSStringFromSelector(sel__sendToSceneWithInfo_updatedSettings_withDiff_transitionContext_completion_);
-        v23 = objc_opt_class();
-        v24 = NSStringFromClass(v23);
+        v21 = NSStringFromSelector(sel__sendToSceneWithInfo_updatedSettings_withDiff_transitionContext_completion_);
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
         *buf = 138544642;
-        v39 = v22;
-        v40 = 2114;
-        v41 = v24;
-        v42 = 2048;
+        v37 = v21;
+        v38 = 2114;
+        v39 = v23;
+        v40 = 2048;
         selfCopy2 = self;
-        v44 = 2114;
-        v45 = @"FBLocalSynchronousSceneClientProvider.m";
-        v46 = 1024;
-        v47 = 550;
-        v48 = 2114;
-        v49 = v19;
+        v42 = 2114;
+        v43 = @"FBLocalSynchronousSceneClientProvider.m";
+        v44 = 1024;
+        v45 = 550;
+        v46 = 2114;
+        v47 = v18;
         _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v25 = v19;
-      [v19 UTF8String];
-      v26 = _bs_set_crash_log_message();
-      [FBWorkspaceEventDispatcher registerTarget:v26];
+      v24 = v18;
+      [v18 UTF8String];
+      _bs_set_crash_log_message();
+      [FBWorkspaceEventDispatcher registerTarget:];
     }
 
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v32, 8);
     if (contextCopy)
     {
       (*(contextCopy + 2))(contextCopy, 1, 0);
@@ -807,8 +806,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterHost:(id)host
@@ -1384,10 +1381,9 @@ void __76__FBLocalSynchronousSceneClientProvider_requestSceneWithOptions_complet
 {
   v5 = a2;
   v6 = a3;
-  v11 = *(a1 + 32);
   v10 = *(a1 + 40);
   v7 = v10;
-  v12 = v6;
+  v11 = v6;
   v8 = v6;
   v9 = v5;
   BSDispatchMain();
@@ -1410,7 +1406,7 @@ void __76__FBLocalSynchronousSceneClientProvider_requestSceneWithOptions_complet
       goto LABEL_8;
     }
 
-    v7 = v3;
+    v6 = v3;
     (*(v4 + 16))(v4);
   }
 
@@ -1422,12 +1418,11 @@ void __76__FBLocalSynchronousSceneClientProvider_requestSceneWithOptions_complet
       return;
     }
 
-    v6 = *(a1 + 48);
-    v7 = FBSWorkspaceErrorCreate();
+    v6 = FBSWorkspaceErrorCreate();
     (*(v5 + 16))(v5);
   }
 
-  v3 = v7;
+  v3 = v6;
 LABEL_8:
 }
 
@@ -1572,68 +1567,68 @@ void __116__FBLocalSynchronousSceneClientProvider__sendToSceneWithInfo_updatedSe
   }
 }
 
-- (void)_initWithWorkspaceCoupler:(void *)a1 currentProcess:(const char *)a2 eventDispatcher:.cold.1(void *a1, const char *a2)
+- (void)_initWithWorkspaceCoupler:(void *)a1 currentProcess:(const char *)a2 eventDispatcher:(uint64_t)a3 .cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"workspaceCoupler", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"workspaceCoupler", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_1_0();
-    v14 = @"FBLocalSynchronousSceneClientProvider.m";
-    v15 = 1024;
-    v16 = 80;
-    v17 = v12;
-    v18 = v8;
+    v15 = @"FBLocalSynchronousSceneClientProvider.m";
+    v16 = 1024;
+    v17 = 80;
+    v18 = v13;
+    v19 = v9;
     _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_initWithWorkspaceCoupler:(void *)a1 currentProcess:(const char *)a2 eventDispatcher:.cold.2(void *a1, const char *a2)
+- (void)_initWithWorkspaceCoupler:(void *)a1 currentProcess:(const char *)a2 eventDispatcher:(uint64_t)a3 .cold.2(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"eventDispatcher", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"eventDispatcher", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_1_0();
-    v14 = @"FBLocalSynchronousSceneClientProvider.m";
-    v15 = 1024;
-    v16 = 82;
-    v17 = v12;
-    v18 = v8;
+    v15 = @"FBLocalSynchronousSceneClientProvider.m";
+    v16 = 1024;
+    v17 = 82;
+    v18 = v13;
+    v19 = v9;
     _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1642,27 +1637,27 @@ void __116__FBLocalSynchronousSceneClientProvider__sendToSceneWithInfo_updatedSe
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"eventDispatcher", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"eventDispatcher", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_initWithWorkspaceCoupler:(char *)a1 currentProcess:eventDispatcher:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"currentProcess"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1670,7 +1665,7 @@ void __116__FBLocalSynchronousSceneClientProvider__sendToSceneWithInfo_updatedSe
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"currentProcess", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1682,20 +1677,20 @@ void __116__FBLocalSynchronousSceneClientProvider__sendToSceneWithInfo_updatedSe
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"workspaceCoupler", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"workspaceCoupler", v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1723,20 +1718,20 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 {
   OUTLINED_FUNCTION_8_0();
   v1 = MEMORY[0x1E696AEC0];
-  v11 = [v2 identityToken];
-  v3 = [v1 stringWithFormat:@"cannot note creation of %@ without a reference to the workspace"];
+  v3 = [v2 identityToken];
+  v4 = [v1 stringWithFormat:@"cannot note creation of %@ without a reference to the workspace", v3];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(v0);
     objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_9();
-    v5 = NSStringFromClass(v4);
+    v5 = OUTLINED_FUNCTION_9();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v3 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1752,7 +1747,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -1762,7 +1757,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneIdentityTokenClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1770,7 +1765,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneIdentityTokenClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1780,7 +1775,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneIdentityClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1788,7 +1783,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneIdentityClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1798,7 +1793,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1806,7 +1801,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1816,7 +1811,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneSettingsClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1824,7 +1819,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneSettingsClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1843,7 +1838,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -1853,7 +1848,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.7(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneClientSettingsClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1861,7 +1856,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneClientSettingsClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1880,7 +1875,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -1891,7 +1886,6 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 - (void)registerHost:settings:initialClientSettings:fromRemnant:error:.cold.9()
 {
   OUTLINED_FUNCTION_8_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_9_0();
@@ -1899,15 +1893,12 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)registerHost:settings:initialClientSettings:fromRemnant:error:.cold.10()
 {
   OUTLINED_FUNCTION_8_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_9_0();
@@ -1915,14 +1906,12 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)registerHost:(uint64_t)a1 settings:(char *)a2 initialClientSettings:fromRemnant:error:.cold.11(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"must have already sent the scene create: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"must have already sent the scene create: %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -1930,7 +1919,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -1941,7 +1930,6 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 - (void)registerHost:settings:initialClientSettings:fromRemnant:error:.cold.12()
 {
   OUTLINED_FUNCTION_8_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_9_0();
@@ -1949,15 +1937,12 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)registerHost:settings:initialClientSettings:fromRemnant:error:.cold.13()
 {
   OUTLINED_FUNCTION_8_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_9_0();
@@ -1965,31 +1950,12 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)registerHost:settings:initialClientSettings:fromRemnant:error:.cold.14()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8_3();
-  OUTLINED_FUNCTION_11_1(&dword_1A89DD000, v0, v1, "Local scene future %{public}@ has out-of-date clientSettings : %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)registerHost:settings:initialClientSettings:fromRemnant:error:.cold.15()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8_3();
-  OUTLINED_FUNCTION_11_1(&dword_1A89DD000, v0, v1, "Local scene future %{public}@ was activated with modified settings : %@");
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)registerHost:settings:initialClientSettings:fromRemnant:error:.cold.16()
 {
   OUTLINED_FUNCTION_8_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_9_0();
@@ -1997,15 +1963,12 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)registerHost:settings:initialClientSettings:fromRemnant:error:.cold.17()
 {
   OUTLINED_FUNCTION_8_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_9_0();
@@ -2013,9 +1976,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.18(char *a1)
@@ -2029,7 +1990,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2039,7 +2000,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.19(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2047,7 +2008,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2057,7 +2018,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.20(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2065,7 +2026,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2075,7 +2036,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.21(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2083,7 +2044,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2093,7 +2054,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.22(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2101,7 +2062,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2111,7 +2072,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)registerHost:(char *)a1 settings:initialClientSettings:fromRemnant:error:.cold.23(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2119,7 +2080,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2138,7 +2099,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2148,7 +2109,6 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)_sendToSceneWithInfo:(char *)a1 updatedSettings:withDiff:transitionContext:completion:.cold.2(char *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"illegal operation after invalidation"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -2158,7 +2118,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   v10 = v2;
@@ -2169,7 +2129,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)unregisterHost:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"trying to unregister a local host for a mismatched identifier : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"trying to unregister a local host for a mismatched identifier : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2177,7 +2137,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2187,7 +2147,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)unregisterHost:(uint64_t)a1 .cold.2(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"trying to unregister a local host during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"trying to unregister a local host during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2195,7 +2155,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2205,7 +2165,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)unregisterHost:(uint64_t)a1 .cold.3(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"trying to unregister a local scene for an unknown identifier : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"trying to unregister a local scene for an unknown identifier : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2213,7 +2173,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2232,7 +2192,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2242,7 +2202,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)host:(uint64_t)a1 didUpdateSettings:(char *)a2 withDiff:transitionContext:completion:.cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support updating from a local host during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support updating from a local host during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2250,7 +2210,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2260,7 +2220,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)host:(uint64_t)a1 didUpdateSettings:(char *)a2 withDiff:transitionContext:completion:.cold.2(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot update from a local host while the scene is still pending : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot update from a local host while the scene is still pending : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2268,7 +2228,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2278,7 +2238,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)host:(uint64_t)a1 didUpdateSettings:(char *)a2 withDiff:transitionContext:completion:.cold.3(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Scene info for %@ was expected, but not found."];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Scene info for %@ was expected, but not found.", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2286,7 +2246,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2305,7 +2265,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2315,7 +2275,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)host:(uint64_t)a1 didInvalidateWithTransitionContext:(char *)a2 completion:.cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support invalidating from a local host during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support invalidating from a local host during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2323,7 +2283,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2342,7 +2302,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2361,7 +2321,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2371,7 +2331,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)host:(uint64_t)a1 didReceiveActions:(char *)a2 forExtension:.cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support actions from a local host during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support actions from a local host during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2379,7 +2339,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2398,7 +2358,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2408,7 +2368,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)host:(uint64_t)a1 sendInvocation:(char *)a2 withReply:.cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support actions from a local host during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support actions from a local host during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2416,7 +2376,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2435,7 +2395,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2445,7 +2405,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)scene:(uint64_t)a1 didUpdateClientSettings:(char *)a2 withDiff:transitionContext:.cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support updates from a local scene during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support updates from a local scene during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2453,7 +2413,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2472,7 +2432,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2482,7 +2442,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)scene:(uint64_t)a1 didReceiveActions:(char *)a2 forExtension:.cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support actions from a local scene during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support actions from a local scene during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2490,7 +2450,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2509,7 +2469,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2519,7 +2479,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)scene:(uint64_t)a1 sendMessage:(char *)a2 withResponse:.cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support messages from a local scene during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support messages from a local scene during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2527,7 +2487,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2537,7 +2497,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)scene:(uint64_t)a1 invalidateWithTransitionContext:(char *)a2 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support invalidations from a local scene during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support invalidations from a local scene during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2545,7 +2505,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2564,7 +2524,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2574,7 +2534,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)scene:(uint64_t)a1 sendInvocation:(char *)a2 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support invocations from a local scene during the sync phase of connection : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot currently support invocations from a local scene during the sync phase of connection : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2582,7 +2542,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2601,7 +2561,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2620,7 +2580,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2630,7 +2590,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)createSceneFutureWithDefinition:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"already tracking a scene with identity %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"already tracking a scene with identity %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2638,7 +2598,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2648,18 +2608,16 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)createSceneFutureWithDefinition:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 workspaceIdentifier];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "Cannot create a local scene future for workspace %@.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "Cannot create a local scene future for workspace %@.", &v4, 0xCu);
 }
 
 - (void)createSceneFutureWithDefinition:(uint64_t)a1 .cold.3(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot create a local scene future with identity=%@ as no default workspace is defined."];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot create a local scene future with identity=%@ as no default workspace is defined.", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2667,7 +2625,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2686,7 +2644,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2696,7 +2654,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)activateSceneFuture:(char *)a1 completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_pendingScenes containsObject:scene]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2704,7 +2662,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_pendingScenes containsObject:scene]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2714,7 +2672,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
 
 - (void)activateSceneFuture:(char *)a1 completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"info != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2722,7 +2680,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"info != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2741,7 +2699,7 @@ void __98__FBLocalSynchronousSceneClientProvider__initWithWorkspaceCoupler_curre
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2766,20 +2724,20 @@ uint64_t __72__FBLocalSynchronousSceneClientProvider_activateSceneFuture_complet
 {
   OUTLINED_FUNCTION_8_0();
   v1 = MEMORY[0x1E696AEC0];
-  v11 = [v2 identifier];
-  v3 = [v1 stringWithFormat:@"Cannot request a local scene with identifier=%@ as no default workspace is defined."];
+  v3 = [v2 identifier];
+  v4 = [v1 stringWithFormat:@"Cannot request a local scene with identifier=%@ as no default workspace is defined.", v3];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(v0);
     objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_9();
-    v5 = NSStringFromClass(v4);
+    v5 = OUTLINED_FUNCTION_9();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v3 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -2795,7 +2753,7 @@ uint64_t __72__FBLocalSynchronousSceneClientProvider_activateSceneFuture_complet
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -2803,17 +2761,26 @@ uint64_t __72__FBLocalSynchronousSceneClientProvider_activateSceneFuture_complet
   __break(0);
 }
 
-void __76__FBLocalSynchronousSceneClientProvider_requestSceneWithOptions_completion___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
+void __76__FBLocalSynchronousSceneClientProvider_requestSceneWithOptions_completion___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no FBSScene for active FBScene"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(*(a1 + 64));
-    v6 = *a2;
-    v7 = objc_opt_class();
-    v13 = NSStringFromClass(v7);
-    v14 = *a2;
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, 2u);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    *v13 = 138544642;
+    *&v13[4] = v5;
+    *&v13[12] = 2114;
+    *&v13[14] = v7;
+    *&v13[22] = 2048;
+    LOWORD(v14) = 2114;
+    *(&v14 + 2) = @"FBLocalSynchronousSceneClientProvider.m";
+    WORD5(v14) = 1024;
+    HIDWORD(v14) = 503;
+    LOWORD(v15) = 2114;
+    *(&v15 + 2) = v4;
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], *a2, v14, v15, HIWORD(v4));
   }
 
   [v4 UTF8String];

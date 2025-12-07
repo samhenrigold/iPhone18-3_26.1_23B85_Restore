@@ -37,7 +37,7 @@
 {
   dCopy = d;
   selfCopy = self;
-  sub_18850545C(d);
+  sub_18850545C(d, selfCopy);
 }
 
 - (void)encodeWithCoder:(id)coder

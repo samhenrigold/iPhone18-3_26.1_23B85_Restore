@@ -82,9 +82,11 @@
 - (id)_itemsWithDependenciesPassingTest:(id)test forItems:(id)items;
 - (id)_legacy_buildSectionsWithDisplayedItems:(id)items;
 - (id)_performUpdateForChildItemsOfItem:(id)item withContext:(id)context isInternal:(BOOL)internal;
+- (id)_performUpdateForItem:(id)item withContext:(id)context isInternal:(BOOL)internal isChild:(BOOL)child;
 - (id)_processBatchUpdateForFutureWrappers:(id)wrappers removedItems:(id)items logger:(id)logger;
 - (id)_reloadAllItemProvidersFromSenderSelector:(SEL)selector;
 - (id)_reloadAndUpdateItemsForProviders:(id)providers updateItems:(id)items senderSelector:(SEL)selector;
+- (id)_reloadItemProviders:(id)providers updateItems:(id)items shouldUpdateExistingItems:(BOOL)existingItems senderSelector:(SEL)selector readPolicy:(id)policy;
 - (id)_reloadItemProviders:(id)providers updateItems:(id)items shouldUpdateExistingItems:(BOOL)existingItems senderSelector:(SEL)selector readPolicy:(id)policy fastInitialUpdatePromise:(id)promise;
 - (id)_serviceGroupItemForServiceGroup:(id)group inItems:(id)items;
 - (id)_serviceItemsToHideInSet:(id)set allServiceGroupItems:(id)items;
@@ -272,6 +274,7 @@
 - (void)homeKitDispatcher:(id)dispatcher manager:(id)manager didChangeHome:(id)home;
 - (void)homeManager:(id)manager didAddHome:(id)home;
 - (void)homeManager:(id)manager didRemoveHome:(id)home;
+- (void)homeManager:(id)manager didUpdateAccessAllowedWhenLocked:(BOOL)locked;
 - (void)homeManager:(id)manager didUpdateHH2State:(BOOL)state;
 - (void)homeManager:(id)manager didUpdateStateForIncomingInvitations:(id)invitations;
 - (void)homeManager:(id)manager residentProvisioningStatusChanged:(unint64_t)changed;
@@ -305,7 +308,11 @@
 - (void)profileDidUpdateWiFiCredentialType:(id)type;
 - (void)profileDidUpdateWiFiReconfigurationSupport:(id)support;
 - (void)recalculateVisibilityAndSortAllItems;
+- (void)reconfigureUIRepresentationForItems:(id)items withAnimation:(BOOL)animation;
 - (void)registerMatterDelegates;
+- (void)reloadUIRepresentationForItems:(id)items withAnimation:(BOOL)animation;
+- (void)reloadUIRepresentationForSections:(id)sections withAnimation:(BOOL)animation;
+- (void)reloadUIRepresentationWithAnimation:(BOOL)animation;
 - (void)resetItemProvidersAndModules;
 - (void)residentDevice:(id)device didUpdateCapabilities:(unint64_t)capabilities;
 - (void)residentDevice:(id)device didUpdateEnabled:(BOOL)enabled;
@@ -325,10 +332,13 @@
 - (void)settingsInvalidatedForNotificationCenter:(id)center;
 - (void)siriEndpointProfile:(id)profile didUpdateAssistants:(id)assistants;
 - (void)siriEndpointProfile:(id)profile didUpdateCurrentAssistant:(id)assistant;
+- (void)siriEndpointProfile:(id)profile didUpdateManuallyDisabled:(BOOL)disabled;
 - (void)siriEndpointProfile:(id)profile didUpdateMultifunctionButton:(int64_t)button;
+- (void)siriEndpointProfile:(id)profile didUpdateNeedsOnboarding:(BOOL)onboarding;
 - (void)siriEndpointProfile:(id)profile didUpdateSessionHubIdentifier:(id)identifier;
 - (void)siriEndpointProfile:(id)profile didUpdateSessionState:(int64_t)state;
 - (void)siriEndpointProfile:(id)profile didUpdateSiriEngineVersion:(id)version;
+- (void)siriEndpointProfile:(id)profile didUpdateSupportsOnboarding:(BOOL)onboarding;
 - (void)softwareUpdate:(id)update didUpdateDocumentation:(id)documentation;
 - (void)softwareUpdate:(id)update didUpdateDocumentationAvailable:(BOOL)available;
 - (void)softwareUpdate:(id)update didUpdateNeedsAttentionReasons:(unint64_t)reasons;
@@ -337,6 +347,7 @@
 - (void)softwareUpdateV2DidUpdateForAccessory:(id)accessory;
 - (void)softwareUpdateV2DidUpdateProgressForAccessory:(id)accessory;
 - (void)symptomsHandler:(id)handler didUpdateSymptoms:(id)symptoms;
+- (void)temperatureUnitObserver:(id)observer didChangeTemperatureUnit:(BOOL)unit;
 - (void)updateSettingValue:(id)value forKeyPath:(id)path accessoryIdentifier:(id)identifier;
 - (void)user:(id)user didUpdateAssistantAccessControl:(id)control forHome:(id)home;
 - (void)user:(id)user didUpdateMediaContentProfileAccessControl:(id)control forHome:(id)home;
@@ -467,12 +478,12 @@ void __53__HFItemManager_HFDebugging___debug_itemDescriptions__block_invoke(uint
 
 - (void)executionEnvironmentWillEnterForeground:(id)foreground
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "executionEnvironmentWillEnterForeground", &v13, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "executionEnvironmentWillEnterForeground", &v12, 2u);
   }
 
   firstFullUpdateWithTimeoutFuture = [(HFItemManager *)self firstFullUpdateWithTimeoutFuture];
@@ -491,15 +502,13 @@ void __53__HFItemManager_HFDebugging___debug_itemDescriptions__block_invoke(uint
     {
       v10 = objc_opt_class();
       identifier = [(HFItemManager *)self identifier];
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = identifier;
-      _os_log_impl(&dword_20D9BF000, allItems, OS_LOG_TYPE_DEFAULT, "%@-%@ ignoring executionEnvironmentWillEnterForeground because first full update isn't done", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 2112;
+      v15 = identifier;
+      _os_log_impl(&dword_20D9BF000, allItems, OS_LOG_TYPE_DEFAULT, "%@-%@ ignoring executionEnvironmentWillEnterForeground because first full update isn't done", &v12, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executionEnvironmentDidEnterBackground:(id)background
@@ -514,20 +523,20 @@ void __53__HFItemManager_HFDebugging___debug_itemDescriptions__block_invoke(uint
   firstFullUpdateWithTimeoutFuture = [(HFItemManager *)self firstFullUpdateWithTimeoutFuture];
   [firstFullUpdateWithTimeoutFuture finishWithNoResult];
 
-  home = [(HFItemManager *)self home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v6 = objc_msgSend_home(self);
+  hf_characteristicValueManager = [v6 hf_characteristicValueManager];
   [hf_characteristicValueManager invalidateAllCachedErrors];
 }
 
 - (void)executionEnvironmentDidBecomeActive:(id)active
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
+    v12 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@) executionEnvironmentDidBecomeActive", &v13, 0xCu);
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@) executionEnvironmentDidBecomeActive", &v12, 0xCu);
   }
 
   firstFullUpdateWithTimeoutFuture = [(HFItemManager *)self firstFullUpdateWithTimeoutFuture];
@@ -546,82 +555,78 @@ void __53__HFItemManager_HFDebugging___debug_itemDescriptions__block_invoke(uint
     {
       v10 = objc_opt_class();
       identifier = [(HFItemManager *)self identifier];
-      v13 = 138412546;
+      v12 = 138412546;
       selfCopy = v10;
-      v15 = 2112;
-      v16 = identifier;
-      _os_log_impl(&dword_20D9BF000, _itemsToUpdateWhenApplicationDidBecomeActive, OS_LOG_TYPE_DEFAULT, "%@-%@ ignoring executionEnvironmentDidBecomeActive because first full update isn't done", &v13, 0x16u);
+      v14 = 2112;
+      v15 = identifier;
+      _os_log_impl(&dword_20D9BF000, _itemsToUpdateWhenApplicationDidBecomeActive, OS_LOG_TYPE_DEFAULT, "%@-%@ ignoring executionEnvironmentDidBecomeActive because first full update isn't done", &v12, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executionEnvironmentWillResignActive:(id)active
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
+    v8 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@) executionEnvironmentWillResignActive", &v9, 0xCu);
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@) executionEnvironmentWillResignActive", &v8, 0xCu);
   }
 
   _itemsToUpdateForApplicationResignActive = [(HFItemManager *)self _itemsToUpdateForApplicationResignActive];
   v7 = [(HFItemManager *)self updateResultsForItems:_itemsToUpdateForApplicationResignActive senderSelector:a2];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cameraForCameraControl:(id)control
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   controlCopy = control;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  home = [(HFItemManager *)self home];
-  accessories = [home accessories];
+  v5 = objc_msgSend_home(self);
+  accessories = [v5 accessories];
 
-  v7 = [accessories countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v7 = [accessories countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
-    v24 = *v31;
+    v9 = *v30;
+    v23 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         cameraProfiles = [v11 cameraProfiles];
-        v13 = [cameraProfiles countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v13 = [cameraProfiles countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v27;
-          v25 = v8;
+          v15 = *v26;
+          v24 = v8;
           while (2)
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v27 != v15)
+              if (*v26 != v15)
               {
                 objc_enumerationMutation(cameraProfiles);
               }
 
-              v17 = *(*(&v26 + 1) + 8 * j);
+              v17 = *(*(&v25 + 1) + 8 * j);
               streamControl = [v17 streamControl];
               v19 = streamControl;
               if (streamControl == controlCopy)
@@ -641,9 +646,9 @@ LABEL_20:
               }
             }
 
-            v14 = [cameraProfiles countByEnumeratingWithState:&v26 objects:v34 count:16];
-            v9 = v24;
-            v8 = v25;
+            v14 = [cameraProfiles countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v9 = v23;
+            v8 = v24;
             if (v14)
             {
               continue;
@@ -654,7 +659,7 @@ LABEL_20:
         }
       }
 
-      v8 = [accessories countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v8 = [accessories countByEnumeratingWithState:&v29 objects:v34 count:16];
       v21 = 0;
     }
 
@@ -668,57 +673,55 @@ LABEL_20:
 
 LABEL_21:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (id)_cameraForCameraStream:(id)stream
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  home = [(HFItemManager *)self home];
-  accessories = [home accessories];
+  v5 = objc_msgSend_home(self);
+  accessories = [v5 accessories];
 
-  v22 = [accessories countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v22)
+  v21 = [accessories countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v21)
   {
-    v7 = *v28;
-    v21 = *v28;
+    v7 = *v27;
+    v20 = *v27;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         cameraProfiles = [v9 cameraProfiles];
-        v11 = [cameraProfiles countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v11 = [cameraProfiles countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v24;
+          v13 = *v23;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v24 != v13)
+              if (*v23 != v13)
               {
                 objc_enumerationMutation(cameraProfiles);
               }
 
-              v15 = *(*(&v23 + 1) + 8 * j);
+              v15 = *(*(&v22 + 1) + 8 * j);
               streamControl = [v15 streamControl];
               cameraStream = [streamControl cameraStream];
 
@@ -730,7 +733,7 @@ LABEL_21:
               }
             }
 
-            v12 = [cameraProfiles countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v12 = [cameraProfiles countByEnumeratingWithState:&v22 objects:v30 count:16];
             if (v12)
             {
               continue;
@@ -740,14 +743,14 @@ LABEL_21:
           }
         }
 
-        v7 = v21;
+        v7 = v20;
       }
 
       v18 = 0;
-      v22 = [accessories countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v21 = [accessories countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   else
@@ -757,58 +760,56 @@ LABEL_21:
 
 LABEL_19:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)_cameraForUserSettings:(id)settings
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  home = [(HFItemManager *)self home];
-  accessories = [home accessories];
+  v5 = objc_msgSend_home(self);
+  accessories = [v5 accessories];
 
-  v7 = [accessories countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v7 = [accessories countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
-    v22 = *v28;
+    v9 = *v27;
+    v21 = *v27;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         cameraProfiles = [v11 cameraProfiles];
-        v13 = [cameraProfiles countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v13 = [cameraProfiles countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v24;
+          v15 = *v23;
           while (2)
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v24 != v15)
+              if (*v23 != v15)
               {
                 objc_enumerationMutation(cameraProfiles);
               }
 
-              v17 = *(*(&v23 + 1) + 8 * j);
+              v17 = *(*(&v22 + 1) + 8 * j);
               userSettings = [v17 userSettings];
 
               if (userSettings == settingsCopy)
@@ -819,7 +820,7 @@ LABEL_19:
               }
             }
 
-            v14 = [cameraProfiles countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v14 = [cameraProfiles countByEnumeratingWithState:&v22 objects:v30 count:16];
             if (v14)
             {
               continue;
@@ -829,10 +830,10 @@ LABEL_19:
           }
         }
 
-        v9 = v22;
+        v9 = v21;
       }
 
-      v8 = [accessories countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [accessories countByEnumeratingWithState:&v26 objects:v31 count:16];
       v19 = 0;
     }
 
@@ -845,8 +846,6 @@ LABEL_19:
   }
 
 LABEL_19:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -891,8 +890,8 @@ LABEL_19:
 - (void)homeManagerDidFinishInitialDatabaseLoad:(id)load
 {
   v5 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v5 home];
-  [(HFItemManager *)self setHome:home];
+  v4 = objc_msgSend_home(v5);
+  [(HFItemManager *)self setHome:v4];
 }
 
 - (void)homeManagerDidFinishUnknownChange:(id)change
@@ -916,22 +915,20 @@ LABEL_19:
 
 - (void)homeManager:(id)manager didAddHome:(id)home
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] setWithObject:homeCopy];
 
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v8];
-  v13[0] = @"home";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"home";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:0 senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeManager:(id)manager didRemoveHome:(id)home
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   homeCopy = home;
   if (+[HFUtilities isInternalTest](HFUtilities, "isInternalTest") && ([managerCopy homes], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "count"), v9, !v10))
@@ -939,8 +936,8 @@ LABEL_19:
     batchedDelegateAdapterDisallowingReads = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(batchedDelegateAdapterDisallowingReads, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_20D9BF000, batchedDelegateAdapterDisallowingReads, OS_LOG_TYPE_DEFAULT, "Skipping reload (for -homeManager:didRemoveHome:) as this is an internal unit test -tearDown", v17, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_20D9BF000, batchedDelegateAdapterDisallowingReads, OS_LOG_TYPE_DEFAULT, "Skipping reload (for -homeManager:didRemoveHome:) as this is an internal unit test -tearDown", v16, 2u);
     }
   }
 
@@ -949,12 +946,10 @@ LABEL_19:
     batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
     v12 = [MEMORY[0x277CBEB98] setWithObject:homeCopy];
     v13 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v12];
-    v18[0] = @"home";
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = @"home";
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     v15 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v13 itemProviderInvalidationReasons:v14 modifiedHome:0 senderSelector:a2];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeManagerDidUpdateCurrentHome:(id)home
@@ -985,14 +980,21 @@ LABEL_19:
   v7 = [v8 requestUpdateForItems:_itemsToUpdateForRemoteAccessChange itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:0 senderSelector:a2];
 }
 
+- (void)homeManager:(id)manager didUpdateAccessAllowedWhenLocked:(BOOL)locked
+{
+  v8 = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads:manager];
+  _itemsToUpdateForAllowAccessWhileLockedSettingChange = [(HFItemManager *)self _itemsToUpdateForAllowAccessWhileLockedSettingChange];
+  v7 = [v8 requestUpdateForItems:_itemsToUpdateForAllowAccessWhileLockedSettingChange itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:0 senderSelector:a2];
+}
+
 - (void)homeManagerDidUpdateDataSyncState:(id)state
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ([stateCopy dataSyncState] == 1)
   {
-    home = [(HFItemManager *)self home];
-    hf_characteristicValueManager = [home hf_characteristicValueManager];
+    v6 = objc_msgSend_home(self);
+    hf_characteristicValueManager = [v6 hf_characteristicValueManager];
     [hf_characteristicValueManager invalidateAllCachedErrors];
 
     batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
@@ -1000,28 +1002,26 @@ LABEL_19:
     homes = [stateCopy homes];
     v11 = [v9 setWithArray:homes];
     v12 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v11];
-    v16[0] = @"home";
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = @"home";
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     v14 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v12 itemProviderInvalidationReasons:v13 modifiedHome:0 senderSelector:a2];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeManager:(id)manager didUpdateHH2State:(BOOL)state
 {
   stateCopy = state;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   v8 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "[HFItemManager(HomeKitDelegates) homeManager:didUpdateHH2State:]";
-    v20 = 2112;
-    v21 = managerCopy;
-    v22 = 1024;
-    v23 = stateCopy;
+    v18 = "[HFItemManager(HomeKitDelegates) homeManager:didUpdateHH2State:]";
+    v19 = 2112;
+    v20 = managerCopy;
+    v21 = 1024;
+    v22 = stateCopy;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "(%s) homeManager = %@ | didUpdateHH2State = %{BOOL}d", buf, 0x1Cu);
   }
 
@@ -1030,25 +1030,21 @@ LABEL_19:
   homes = [managerCopy homes];
   v12 = [v10 setWithArray:homes];
   v13 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v12];
-  v17 = @"home";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v16 = @"home";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
   v15 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v13 itemProviderInvalidationReasons:v14 modifiedHome:0 senderSelector:a2];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeDidUpdateName:(id)name
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:nameCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v7];
-  v12[0] = @"home";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = @"home";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:nameCopy senderSelector:a2];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didAddAccessory:(id)accessory
@@ -1080,54 +1076,48 @@ LABEL_19:
 
 - (void)home:(id)home didAddUser:(id)user
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   userCopy = user;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:userCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedUsers:v10];
-  v15[0] = @"user";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"user";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveUser:(id)user
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   userCopy = user;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:userCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedUsers:v10];
-  v15[0] = @"user";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"user";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeDidUpdateHomeLocationStatus:(id)status
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   statusCopy = status;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] setWithObject:statusCopy];
 
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v7];
-  v12[0] = @"home";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = @"home";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:0 senderSelector:a2];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeDidUpdateAccessControlForCurrentUser:(id)user
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   userCopy = user;
   v6 = [MEMORY[0x277CBEB98] na_setWithSafeObject:userCopy];
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v6];
@@ -1140,17 +1130,15 @@ LABEL_19:
   [v8 unionSet:v12];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v17[0] = @"home";
-  v17[1] = @"user";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = @"home";
+  v16[1] = @"user";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   v15 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v14 modifiedHome:userCopy senderSelector:a2];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateRoom:(id)room forAccessory:(id)accessory
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v10 = MEMORY[0x277CBEB98];
   accessoryCopy = accessory;
@@ -1164,113 +1152,99 @@ LABEL_19:
   [v14 unionSet:v16];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v21[0] = @"room";
-  v21[1] = @"accessory";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = @"room";
+  v20[1] = @"accessory";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v19 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v14 itemProviderInvalidationReasons:v18 modifiedHome:homeCopy senderSelector:a2];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didAddRoom:(id)room
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   roomCopy = room;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:roomCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedRooms:v10];
-  v15[0] = @"room";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"room";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveRoom:(id)room
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   roomCopy = room;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:roomCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedRooms:v10];
-  v15[0] = @"room";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"room";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateNameForRoom:(id)room
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   roomCopy = room;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:roomCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedRooms:v10];
-  v15[0] = @"room";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"room";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didAddZone:(id)zone
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   zoneCopy = zone;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:zoneCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedZones:v10];
-  v15[0] = @"zone";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"zone";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveZone:(id)zone
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   zoneCopy = zone;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:zoneCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedZones:v10];
-  v15[0] = @"zone";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"zone";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateNameForZone:(id)zone
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   zoneCopy = zone;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:zoneCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedZones:v10];
-  v15[0] = @"zone";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"zone";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didAddRoom:(id)room toZone:(id)zone
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v10 = MEMORY[0x277CBEB98];
   zoneCopy = zone;
@@ -1284,17 +1258,15 @@ LABEL_19:
   [v14 unionSet:v16];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v21[0] = @"room";
-  v21[1] = @"zone";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = @"room";
+  v20[1] = @"zone";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v19 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v14 itemProviderInvalidationReasons:v18 modifiedHome:homeCopy senderSelector:a2];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveRoom:(id)room fromZone:(id)zone
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v10 = MEMORY[0x277CBEB98];
   zoneCopy = zone;
@@ -1308,65 +1280,57 @@ LABEL_19:
   [v14 unionSet:v16];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v21[0] = @"room";
-  v21[1] = @"zone";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = @"room";
+  v20[1] = @"zone";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v19 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v14 itemProviderInvalidationReasons:v18 modifiedHome:homeCopy senderSelector:a2];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didAddServiceGroup:(id)group
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   groupCopy = group;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:groupCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServiceGroups:v10];
-  v15[0] = @"serviceGroup";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"serviceGroup";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveServiceGroup:(id)group
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   groupCopy = group;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:groupCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServiceGroups:v10];
-  v15[0] = @"serviceGroup";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"serviceGroup";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateNameForServiceGroup:(id)group
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   groupCopy = group;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:groupCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServiceGroups:v10];
-  v15[0] = @"serviceGroup";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"serviceGroup";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didAddService:(id)service toServiceGroup:(id)group
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v10 = MEMORY[0x277CBEB98];
   groupCopy = group;
@@ -1380,17 +1344,15 @@ LABEL_19:
   [v14 unionSet:v16];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v21[0] = @"service";
-  v21[1] = @"serviceGroup";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = @"service";
+  v20[1] = @"serviceGroup";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v19 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v14 itemProviderInvalidationReasons:v18 modifiedHome:homeCopy senderSelector:a2];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveService:(id)service fromServiceGroup:(id)group
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v10 = MEMORY[0x277CBEB98];
   groupCopy = group;
@@ -1404,17 +1366,15 @@ LABEL_19:
   [v14 unionSet:v16];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v21[0] = @"service";
-  v21[1] = @"serviceGroup";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = @"service";
+  v20[1] = @"serviceGroup";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v19 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v14 itemProviderInvalidationReasons:v18 modifiedHome:homeCopy senderSelector:a2];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUnblockAccessory:(id)accessory
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   accessoryCopy = accessory;
   hf_characteristicValueManager = [homeCopy hf_characteristicValueManager];
@@ -1424,20 +1384,18 @@ LABEL_19:
   v11 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
 
   v12 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v11];
-  v16[0] = @"accessory";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = @"accessory";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v14 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v12 itemProviderInvalidationReasons:v13 modifiedHome:homeCopy senderSelector:a2];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didEncounterError:(id)error forAccessory:(id)accessory
 {
   homeCopy = home;
   accessoryCopy = accessory;
-  home = [(HFItemManager *)self home];
+  v9 = objc_msgSend_home(self);
 
-  if (home == homeCopy)
+  if (v9 == homeCopy)
   {
     batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
     v11 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
@@ -1448,252 +1406,222 @@ LABEL_19:
 
 - (void)home:(id)home didAddActionSet:(id)set
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   setCopy = set;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:setCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedActionSets:v10];
-  v15[0] = @"actionSet";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"actionSet";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveActionSet:(id)set
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   setCopy = set;
-  home = [(HFItemManager *)self home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v9 = objc_msgSend_home(self);
+  hf_characteristicValueManager = [v9 hf_characteristicValueManager];
   [hf_characteristicValueManager invalidateCachedErrorForExecutionOfActionSet:setCopy];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v12 = [MEMORY[0x277CBEB98] na_setWithSafeObject:setCopy];
 
   v13 = [(HFItemManager *)self _itemsToUpdateForModifiedActionSets:v12];
-  v17[0] = @"actionSet";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = @"actionSet";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v15 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v13 itemProviderInvalidationReasons:v14 modifiedHome:homeCopy senderSelector:a2];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateNameForActionSet:(id)set
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   setCopy = set;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:setCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedActionSets:v10];
-  v15[0] = @"actionSet";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"actionSet";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateActionsForActionSet:(id)set
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   setCopy = set;
-  home = [(HFItemManager *)self home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v9 = objc_msgSend_home(self);
+  hf_characteristicValueManager = [v9 hf_characteristicValueManager];
   [hf_characteristicValueManager invalidateCachedErrorForExecutionOfActionSet:setCopy];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v12 = [MEMORY[0x277CBEB98] na_setWithSafeObject:setCopy];
 
   v13 = [(HFItemManager *)self _itemsToUpdateForModifiedActionSets:v12];
-  v17[0] = @"actionSet";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = @"actionSet";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v15 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v13 itemProviderInvalidationReasons:v14 modifiedHome:homeCopy senderSelector:a2];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didAddTrigger:(id)trigger
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   triggerCopy = trigger;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:triggerCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedTriggers:v10];
-  v15[0] = @"trigger";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"trigger";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveTrigger:(id)trigger
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   triggerCopy = trigger;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:triggerCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedTriggers:v10];
-  v15[0] = @"trigger";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"trigger";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateNameForTrigger:(id)trigger
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   triggerCopy = trigger;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:triggerCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedTriggers:v10];
-  v15[0] = @"trigger";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"trigger";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateTrigger:(id)trigger
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   triggerCopy = trigger;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:triggerCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedTriggers:v10];
-  v15[0] = @"trigger";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"trigger";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeDidUpdateApplicationData:(id)data
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:dataCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v7];
-  v12[0] = @"home";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = @"home";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:dataCopy senderSelector:a2];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateApplicationDataForRoom:(id)room
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   roomCopy = room;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:roomCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedRooms:v10];
-  v15[0] = @"room";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"room";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateApplicationDataForActionSet:(id)set
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   setCopy = set;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:setCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedActionSets:v10];
-  v15[0] = @"actionSet";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"actionSet";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateApplicationDataForServiceGroup:(id)group
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   groupCopy = group;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:groupCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServiceGroups:v10];
-  v15[0] = @"serviceGroup";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"serviceGroup";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateStateForOutgoingInvitations:(id)invitations
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   invitationsCopy = invitations;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] setWithArray:invitationsCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForOutgoingInvitation:v10];
-  v15[0] = @"outgoinginvitations";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"outgoinginvitations";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateAccesoryInvitationsForUser:(id)user
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   userCopy = user;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:userCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedUsers:v10];
-  v15[0] = @"pendingAccessories";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = @"pendingAccessories";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:homeCopy senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeManager:(id)manager didUpdateStateForIncomingInvitations:(id)invitations
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   invitationsCopy = invitations;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] setWithArray:invitationsCopy];
 
   v9 = [(HFItemManager *)self _itemsToUpdateForIncomingInvitation:v8];
-  v13[0] = @"incominginvitations";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"incominginvitations";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:0 senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateAccessControlForUser:(id)user
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   userCopy = user;
   v9 = [MEMORY[0x277CBEB98] setWithObject:userCopy];
@@ -1714,8 +1642,8 @@ LABEL_19:
   currentUser2 = [homeCopy currentUser];
   if (currentUser2 == userCopy)
   {
-    v21 = [homeCopy homeAccessControlForUser:userCopy];
-    isRemoteAccessAllowed = [v21 isRemoteAccessAllowed];
+    v20 = [homeCopy homeAccessControlForUser:userCopy];
+    isRemoteAccessAllowed = [v20 isRemoteAccessAllowed];
 
     if (isRemoteAccessAllowed)
     {
@@ -1725,81 +1653,73 @@ LABEL_19:
     currentUser2 = [userCopy announceUserSettings];
     if ([currentUser2 deviceNotificationMode] == 3)
     {
-      v23 = HFLogForCategory(0x27uLL);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v22 = HFLogForCategory(0x27uLL);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:3];
-        v25 = MEMORY[0x277CCABB0];
-        v26 = [homeCopy homeAccessControlForUser:userCopy];
-        v27 = [v25 numberWithBool:{objc_msgSend(v26, "isRemoteAccessAllowed")}];
+        v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:3];
+        v24 = MEMORY[0x277CCABB0];
+        v25 = [homeCopy homeAccessControlForUser:userCopy];
+        v26 = [v24 numberWithBool:{objc_msgSend(v25, "isRemoteAccessAllowed")}];
         *buf = 138412546;
-        v32 = v24;
-        v33 = 2112;
-        v34 = v27;
-        _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "Now Updating Announce notification setting to HMAnnounceDeviceNotificationModeAtHome -  currentNotificationMode = [%@] isRemoteAccessAllowed = [%@]", buf, 0x16u);
+        v31 = v23;
+        v32 = 2112;
+        v33 = v26;
+        _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "Now Updating Announce notification setting to HMAnnounceDeviceNotificationModeAtHome -  currentNotificationMode = [%@] isRemoteAccessAllowed = [%@]", buf, 0x16u);
       }
 
-      v28 = [objc_alloc(MEMORY[0x277CD1810]) initWithDeviceNotificationMode:2];
+      v27 = [objc_alloc(MEMORY[0x277CD1810]) initWithDeviceNotificationMode:2];
       currentUser3 = [homeCopy currentUser];
-      [currentUser3 updateAnnounceUserSettings:v28 forHome:homeCopy completionHandler:&__block_literal_global_59];
+      [currentUser3 updateAnnounceUserSettings:v27 forHome:homeCopy completionHandler:&__block_literal_global_59];
     }
   }
 
 LABEL_5:
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v30 = @"user";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+  v29 = @"user";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
   v19 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v10 itemProviderInvalidationReasons:v18 modifiedHome:homeCopy senderSelector:a2];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HFItemManager_HomeKitDelegates__home_didUpdateAccessControlForUser___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Error updating Announce notification setting - [%@]", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Error updating Announce notification setting - [%@]", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didAddResidentDevice:(id)device
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:device];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedResidentDevices:v8];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v14[0] = @"residentDevice";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = @"residentDevice";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v11 modifiedHome:homeCopy senderSelector:a2];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveResidentDevice:(id)device
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:device];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedResidentDevices:v8];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v14[0] = @"residentDevice";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = @"residentDevice";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v11 modifiedHome:homeCopy senderSelector:a2];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home remoteAccessStateDidChange:(unint64_t)change
@@ -1830,30 +1750,26 @@ void __70__HFItemManager_HomeKitDelegates__home_didUpdateAccessControlForUser___
 
 - (void)home:(id)home didAddAccessoryNetworkProtectionGroup:(id)group
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
   v8 = [MEMORY[0x277CBEB98] setWithObject:homeCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v8];
-  v13[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:homeCopy senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didRemoveAccessoryNetworkProtectionGroup:(id)group
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
   v8 = [MEMORY[0x277CBEB98] setWithObject:homeCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v8];
-  v13[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:homeCopy senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateAccessoryNetworkProtectionGroup:(id)group
@@ -1878,46 +1794,40 @@ void __70__HFItemManager_HomeKitDelegates__home_didUpdateAccessControlForUser___
 
 - (void)homeDidAddWalletKey:(id)key
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   hf_fetchWalletKeyDeviceStateForCurrentDevice = [keyCopy hf_fetchWalletKeyDeviceStateForCurrentDevice];
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:keyCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v8];
-  v13[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:keyCopy senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeDidRemoveWalletKey:(id)key
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   hf_fetchWalletKeyDeviceStateForCurrentDevice = [keyCopy hf_fetchWalletKeyDeviceStateForCurrentDevice];
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
   v8 = [MEMORY[0x277CBEB98] setWithObject:keyCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v8];
-  v13[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:keyCopy senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeDidUpdateToROAR:(id)r
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   rCopy = r;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:rCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v7];
-  v12[0] = @"home";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = @"home";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:rCopy senderSelector:a2];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeDidUpdateSoundCheck:(id)check
@@ -1958,16 +1868,14 @@ void __70__HFItemManager_HomeKitDelegates__home_didUpdateAccessControlForUser___
 
 - (void)home:(id)home didUpdateSiriTriggerPhraseOptions:(unint64_t)options
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
   v8 = [MEMORY[0x277CBEB98] setWithObject:homeCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v8];
-  v13[0] = @"home";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"home";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:homeCopy senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)home:(id)home didUpdateSiriPhraseOptions:(unint64_t)options
@@ -1981,7 +1889,7 @@ void __70__HFItemManager_HomeKitDelegates__home_didUpdateAccessControlForUser___
 
 - (void)homeDidUpdateHomeEnergyManagerEnabled:(id)enabled
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   v6 = HFLogForCategory(0x24uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1989,159 +1897,151 @@ void __70__HFItemManager_HomeKitDelegates__home_didUpdateAccessControlForUser___
     name = [enabledCopy name];
     *buf = 138412802;
     selfCopy = self;
-    v17 = 2080;
-    v18 = "[HFItemManager(HomeKitDelegates) homeDidUpdateHomeEnergyManagerEnabled:]";
-    v19 = 2112;
-    v20 = name;
+    v16 = 2080;
+    v17 = "[HFItemManager(HomeKitDelegates) homeDidUpdateHomeEnergyManagerEnabled:]";
+    v18 = 2112;
+    v19 = name;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%@ %s) HFItemManager Delegates ~~> Dispatching onto onto main. home name: %@", buf, 0x20u);
   }
 
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
   v9 = [MEMORY[0x277CBEB98] na_setWithSafeObject:enabledCopy];
   v10 = [(HFItemManager *)self _itemsToUpdateForModifiedMetadataForHomes:v9];
-  v14 = @"homeEnergy";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = @"homeEnergy";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   v12 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v10 itemProviderInvalidationReasons:v11 modifiedHome:enabledCopy senderSelector:a2];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryDidUpdateName:(id)name
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:nameCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  v13[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  home = [nameCopy home];
+  v12[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10 = objc_msgSend_home(nameCopy);
 
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:home senderSelector:a2];
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateNameForService:(id)service
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:serviceCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServices:v10];
-  v16[0] = @"service";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  home = [accessoryCopy home];
+  v15[0] = @"service";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v13 = objc_msgSend_home(accessoryCopy);
 
-  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:home senderSelector:a2];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:v13 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateAssociatedServiceTypeForService:(id)service
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:serviceCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServices:v10];
-  v16[0] = @"service";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  home = [accessoryCopy home];
+  v15[0] = @"service";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v13 = objc_msgSend_home(accessoryCopy);
 
-  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:home senderSelector:a2];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:v13 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateHH1EOLEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   v8 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = [accessoryCopy uniqueIdentifier];
     *buf = 136315906;
-    v19 = "[HFItemManager(HomeKitDelegates) accessory:didUpdateHH1EOLEnabled:]";
-    v20 = 2112;
-    v21 = accessoryCopy;
-    v22 = 2114;
-    v23 = uniqueIdentifier;
-    v24 = 1024;
-    v25 = enabledCopy;
+    v18 = "[HFItemManager(HomeKitDelegates) accessory:didUpdateHH1EOLEnabled:]";
+    v19 = 2112;
+    v20 = accessoryCopy;
+    v21 = 2114;
+    v22 = uniqueIdentifier;
+    v23 = 1024;
+    v24 = enabledCopy;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "(%s) accessory %@ (uniqueIdentifier: %{public}@) | hh1EOLEnabled = %{BOOL}d", buf, 0x26u);
   }
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v11 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v12 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v11];
-  v17 = @"accessory";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-  home = [accessoryCopy home];
-  v15 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v12 itemProviderInvalidationReasons:v13 modifiedHome:home senderSelector:a2];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v16 = @"accessory";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v14 = objc_msgSend_home(accessoryCopy);
+  v15 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v12 itemProviderInvalidationReasons:v13 modifiedHome:v14 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdateServices:(id)services
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   servicesCopy = services;
-  home = [servicesCopy home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v6 = objc_msgSend_home(servicesCopy);
+  hf_characteristicValueManager = [v6 hf_characteristicValueManager];
   [hf_characteristicValueManager invalidateCachedValuesForAccessory:servicesCopy];
 
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
   v9 = [MEMORY[0x277CBEB98] na_setWithSafeObject:servicesCopy];
   v10 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v9];
-  v15[0] = @"service";
-  v15[1] = @"accessory";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-  home2 = [servicesCopy home];
+  v14[0] = @"service";
+  v14[1] = @"accessory";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v12 = objc_msgSend_home(servicesCopy);
 
-  v13 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v10 itemProviderInvalidationReasons:v11 modifiedHome:home2 senderSelector:a2];
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v10 itemProviderInvalidationReasons:v11 modifiedHome:v12 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdateReachability:(id)reachability
 {
   reachabilityCopy = reachability;
-  home = [reachabilityCopy home];
-  home2 = [(HFItemManager *)self home];
+  v5 = objc_msgSend_home(reachabilityCopy);
+  v6 = objc_msgSend_home(self);
 
-  if (home == home2)
+  if (v5 == v6)
   {
     if (![reachabilityCopy hf_supportsSuspendedState] || (objc_msgSend(reachabilityCopy, "isReachable") & 1) == 0)
     {
-      home3 = [reachabilityCopy home];
-      hf_characteristicValueManager = [home3 hf_characteristicValueManager];
+      v7 = objc_msgSend_home(reachabilityCopy);
+      hf_characteristicValueManager = [v7 hf_characteristicValueManager];
       [hf_characteristicValueManager invalidateCachedValuesForAccessory:reachabilityCopy];
     }
 
     batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
     v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:reachabilityCopy];
     v11 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v10];
-    home4 = [reachabilityCopy home];
-    v13 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home4 senderSelector:a2];
+    v12 = objc_msgSend_home(reachabilityCopy);
+    v13 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v12 senderSelector:a2];
   }
 }
 
 - (void)accessoryDidUpdateReachableTransports:(id)transports
 {
   transportsCopy = transports;
-  home = [transportsCopy home];
-  home2 = [(HFItemManager *)self home];
+  v5 = objc_msgSend_home(transportsCopy);
+  v6 = objc_msgSend_home(self);
 
-  if (home == home2)
+  if (v5 == v6)
   {
     batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
     v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:transportsCopy];
     v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-    home3 = [transportsCopy home];
-    v11 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home3 senderSelector:a2];
+    v10 = objc_msgSend_home(transportsCopy);
+    v11 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v10 senderSelector:a2];
   }
 }
 
@@ -2162,8 +2062,8 @@ void __70__HFItemManager_HomeKitDelegates__home_didUpdateAccessControlForUser___
 
   if (value)
   {
-    home = [accessoryCopy home];
-    hf_characteristicValueManager = [home hf_characteristicValueManager];
+    v14 = objc_msgSend_home(accessoryCopy);
+    hf_characteristicValueManager = [v14 hf_characteristicValueManager];
     [hf_characteristicValueManager invalidateCachedErrorForCharacteristic:characteristicCopy];
   }
 
@@ -2182,8 +2082,8 @@ void __70__HFItemManager_HomeKitDelegates__home_didUpdateAccessControlForUser___
     batchCoordinator = [batchedDelegateAdapterDisallowingReads2 batchCoordinator];
 
     v20 = [MEMORY[0x277CBEB98] na_setWithSafeObject:characteristicCopy];
-    home2 = [accessoryCopy home];
-    [batchCoordinator batchedValuesDidUpdateForCharacteristics:v20 inHome:home2 sender:a2];
+    v21 = objc_msgSend_home(accessoryCopy);
+    [batchCoordinator batchedValuesDidUpdateForCharacteristics:v20 inHome:v21 sender:a2];
   }
 
   objc_destroyWeak(v23);
@@ -2192,7 +2092,7 @@ void __70__HFItemManager_HomeKitDelegates__home_didUpdateAccessControlForUser___
 
 void __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForCharacteristic___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained _itemsToUpdateForModifiedCharacteristics:v3];
@@ -2211,193 +2111,181 @@ void __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForCh
     {
       v10 = [v8 hf_prettyDescription];
       *buf = 138413058;
-      v15 = WeakRetained;
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v3;
-      v20 = 2112;
-      v21 = v10;
+      v14 = WeakRetained;
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v3;
+      v19 = 2112;
+      v20 = v10;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Requesting %@ to update items %@ for characteristic updates %@ for home: %@", buf, 0x2Au);
     }
   }
 
   v11 = [WeakRetained batchedDelegateAdapterDisallowingReads];
   v12 = [v11 requestUpdateForItems:v5 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v8 senderSelector:*(a1 + 40)];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForCharacteristic___block_invoke_2(uint64_t a1, void *a2)
 {
-  v2 = [a2 service];
-  v3 = [v2 home];
+  v2 = objc_msgSend_service(a2);
+  v3 = objc_msgSend_home(v2);
 
   return v3;
 }
 
 - (void)accessoryDidUpdateApplicationData:(id)data
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:dataCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  v13[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  home = [dataCopy home];
+  v12[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10 = objc_msgSend_home(dataCopy);
 
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:home senderSelector:a2];
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdateCalibrationStatus:(id)status
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   statusCopy = status;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:statusCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  v13[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  home = [statusCopy home];
+  v12[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10 = objc_msgSend_home(statusCopy);
 
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:home senderSelector:a2];
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateApplicationDataForService:(id)service
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:serviceCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServices:v10];
-  v16[0] = @"service";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  home = [accessoryCopy home];
+  v15[0] = @"service";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v13 = objc_msgSend_home(accessoryCopy);
 
-  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:home senderSelector:a2];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:v13 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdateAdditionalSetupRequired:(id)required
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   requiredCopy = required;
-  home = [requiredCopy home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v6 = objc_msgSend_home(requiredCopy);
+  hf_characteristicValueManager = [v6 hf_characteristicValueManager];
   [hf_characteristicValueManager invalidateCachedValuesForAccessory:requiredCopy];
 
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
   v9 = [MEMORY[0x277CBEB98] na_setWithSafeObject:requiredCopy];
   v10 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v9];
-  v15[0] = @"accessory";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-  home2 = [requiredCopy home];
+  v14[0] = @"accessory";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v12 = objc_msgSend_home(requiredCopy);
 
-  v13 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v10 itemProviderInvalidationReasons:v11 modifiedHome:home2 senderSelector:a2];
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v10 itemProviderInvalidationReasons:v11 modifiedHome:v12 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateHasAuthorizationDataForCharacteristic:(id)characteristic
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   accessoryCopy = accessory;
-  home = [accessoryCopy home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v9 = objc_msgSend_home(accessoryCopy);
+  hf_characteristicValueManager = [v9 hf_characteristicValueManager];
   [hf_characteristicValueManager invalidateCachedValuesForAccessory:accessoryCopy];
 
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
   v12 = [MEMORY[0x277CBEB98] na_setWithSafeObject:characteristicCopy];
 
   v13 = [(HFItemManager *)self _itemsToUpdateForModifiedCharacteristics:v12];
-  v18[0] = @"accessory";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-  home2 = [accessoryCopy home];
+  v17[0] = @"accessory";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v15 = objc_msgSend_home(accessoryCopy);
 
-  v16 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v13 itemProviderInvalidationReasons:v14 modifiedHome:home2 senderSelector:a2];
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v13 itemProviderInvalidationReasons:v14 modifiedHome:v15 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateBundleID:(id)d
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateStoreID:(id)d
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateFirmwareUpdateAvailable:(BOOL)available
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v15 = @"firmwareUpdate";
+  v15 = *MEMORY[0x277D85DE8];
+  v14 = @"firmwareUpdate";
   v6 = MEMORY[0x277CBEA60];
   accessoryCopy = accessory;
-  v8 = [v6 arrayWithObjects:&v15 count:1];
-  v9 = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads:v15];
+  v8 = [v6 arrayWithObjects:&v14 count:1];
+  v9 = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads:v14];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v10];
-  home = [accessoryCopy home];
+  v12 = objc_msgSend_home(accessoryCopy);
 
-  v13 = [v9 requestUpdateForItems:v11 itemProviderInvalidationReasons:v8 modifiedHome:home senderSelector:a2];
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [v9 requestUpdateForItems:v11 itemProviderInvalidationReasons:v8 modifiedHome:v12 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateFirmwareVersion:(id)version
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v15 = @"firmwareUpdate";
+  v15 = *MEMORY[0x277D85DE8];
+  v14 = @"firmwareUpdate";
   v6 = MEMORY[0x277CBEA60];
   accessoryCopy = accessory;
-  v8 = [v6 arrayWithObjects:&v15 count:1];
-  v9 = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads:v15];
+  v8 = [v6 arrayWithObjects:&v14 count:1];
+  v9 = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads:v14];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v10];
-  home = [accessoryCopy home];
+  v12 = objc_msgSend_home(accessoryCopy);
 
-  v13 = [v9 requestUpdateForItems:v11 itemProviderInvalidationReasons:v8 modifiedHome:home senderSelector:a2];
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [v9 requestUpdateForItems:v11 itemProviderInvalidationReasons:v8 modifiedHome:v12 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateSoftwareVersion:(id)version
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateLoggedInAccount:(id)account
@@ -2407,38 +2295,36 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   batchCoordinator = [batchedDelegateAdapterDisallowingReads batchCoordinator];
 
-  home = [accessoryCopy home];
-  [batchCoordinator batchedAccessory:accessoryCopy didUpdateLoggedInAccount:accountCopy inHome:home sender:a2];
+  v10 = objc_msgSend_home(accessoryCopy);
+  [batchCoordinator batchedAccessory:accessoryCopy didUpdateLoggedInAccount:accountCopy inHome:v10 sender:a2];
 }
 
 - (void)accessory:(id)accessory didAddProfile:(id)profile
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didRemoveProfile:(id)profile
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdateControllable:(id)controllable
@@ -2447,265 +2333,248 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   batchCoordinator = [batchedDelegateAdapterDisallowingReads batchCoordinator];
 
-  home = [controllableCopy home];
-  [batchCoordinator batchedDidUpdateControllableAccessory:controllableCopy inHome:home sender:a2];
+  v7 = objc_msgSend_home(controllableCopy);
+  [batchCoordinator batchedDidUpdateControllableAccessory:controllableCopy inHome:v7 sender:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateConfiguredNameForService:(id)service
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:serviceCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServices:v10];
-  v16[0] = @"service";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  home = [accessoryCopy home];
+  v15[0] = @"service";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v13 = objc_msgSend_home(accessoryCopy);
 
-  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:home senderSelector:a2];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:v13 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateDefaultNameForService:(id)service
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:serviceCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServices:v10];
-  v16[0] = @"service";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  home = [accessoryCopy home];
+  v15[0] = @"service";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v13 = objc_msgSend_home(accessoryCopy);
 
-  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:home senderSelector:a2];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:v13 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateServiceSubtypeForService:(id)service
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:serviceCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServices:v10];
-  v16[0] = @"service";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  home = [accessoryCopy home];
+  v15[0] = @"service";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v13 = objc_msgSend_home(accessoryCopy);
 
-  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:home senderSelector:a2];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:v13 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateConfigurationStateForService:(id)service
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:serviceCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServices:v10];
-  v16[0] = @"service";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  home = [accessoryCopy home];
+  v15[0] = @"service";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v13 = objc_msgSend_home(accessoryCopy);
 
-  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:home senderSelector:a2];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:v13 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didAddSymptomsHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)accessoryDidRemoveSymptomsHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:handlerCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  v13[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  home = [handlerCopy home];
+  v12[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10 = objc_msgSend_home(handlerCopy);
 
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:home senderSelector:a2];
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdateTargetControlSupport:(id)support
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   supportCopy = support;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:supportCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  v13[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  home = [supportCopy home];
+  v12[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10 = objc_msgSend_home(supportCopy);
 
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:home senderSelector:a2];
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didAddControlTarget:(id)target
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didRemoveControlTarget:(id)target
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)home:(id)home didUpdateReprovisionStateForAccessory:(id)accessory
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
-  home = [accessoryCopy home];
-  home2 = [(HFItemManager *)self home];
-  v9 = [home isEqual:home2];
+  v7 = objc_msgSend_home(accessoryCopy);
+  v8 = objc_msgSend_home(self);
+  v9 = [v7 isEqual:v8];
 
   if (v9)
   {
     batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
     v11 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
     v12 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v11];
-    v17[0] = @"accessory";
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-    home3 = [accessoryCopy home];
-    v15 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v12 itemProviderInvalidationReasons:v13 modifiedHome:home3 senderSelector:a2];
+    v16[0] = @"accessory";
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v14 = objc_msgSend_home(accessoryCopy);
+    v15 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v12 itemProviderInvalidationReasons:v13 modifiedHome:v14 senderSelector:a2];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessory:(id)accessory didUpdateLastKnownSleepDiscoveryModeForService:(id)service
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:serviceCopy];
 
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedServices:v10];
-  v16[0] = @"service";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-  home = [accessoryCopy home];
+  v15[0] = @"service";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v13 = objc_msgSend_home(accessoryCopy);
 
-  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:home senderSelector:a2];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:v13 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdateAudioDestinationController:(id)controller
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:controllerCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  v13[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  home = [controllerCopy home];
+  v12[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10 = objc_msgSend_home(controllerCopy);
 
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:home senderSelector:a2];
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdateAudioDestination:(id)destination
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:destinationCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  v13[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  home = [destinationCopy home];
+  v12[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10 = objc_msgSend_home(destinationCopy);
 
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:home senderSelector:a2];
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateLastKnownOperatingStateResponseForService:(id)service
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdatePreferredMediaUser:(id)user
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   userCopy = user;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:userCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  v13[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  home = [userCopy home];
+  v12[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10 = objc_msgSend_home(userCopy);
 
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:home senderSelector:a2];
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateUserNotifiedOfSoftwareUpdate:(BOOL)update
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v8];
-  v14[0] = @"accessory";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [accessoryCopy home];
+  v13[0] = @"accessory";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(accessoryCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)accessory:(id)accessory didUpdateSupportsWalletKey:(BOOL)key
@@ -2714,24 +2583,23 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessoryCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  home = [accessoryCopy home];
+  v9 = objc_msgSend_home(accessoryCopy);
 
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdatePendingConfigurationIdentifier:(id)identifier
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:identifierCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
-  v13[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  home = [identifierCopy home];
+  v12[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10 = objc_msgSend_home(identifierCopy);
 
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:home senderSelector:a2];
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:v9 modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)accessoryDidUpdateDiagnosticsTransferSupport:(id)support
@@ -2740,69 +2608,65 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v6 = [MEMORY[0x277CBEB98] na_setWithSafeObject:supportCopy];
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v6];
-  home = [supportCopy home];
+  v8 = objc_msgSend_home(supportCopy);
 
-  v9 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v8 senderSelector:a2];
 }
 
 - (void)residentDevice:(id)device didUpdateName:(id)name
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:deviceCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedResidentDevices:v8];
-  v14[0] = @"residentDevice";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [deviceCopy home];
+  v13[0] = @"residentDevice";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(deviceCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)residentDevice:(id)device didUpdateCapabilities:(unint64_t)capabilities
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:deviceCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedResidentDevices:v8];
-  v14[0] = @"residentDevice";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [deviceCopy home];
+  v13[0] = @"residentDevice";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(deviceCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)residentDevice:(id)device didUpdateEnabled:(BOOL)enabled
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:deviceCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedResidentDevices:v8];
-  v14[0] = @"residentDevice";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [deviceCopy home];
+  v13[0] = @"residentDevice";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(deviceCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)residentDevice:(id)device didUpdateStatus:(unint64_t)status
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:deviceCopy];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedResidentDevices:v8];
-  v14[0] = @"residentDevice";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  home = [deviceCopy home];
+  v13[0] = @"residentDevice";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = objc_msgSend_home(deviceCopy);
 
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:home senderSelector:a2];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)cameraSnapshotControl:(id)control didTakeSnapshot:(id)snapshot error:(id)error
@@ -2812,8 +2676,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:error];
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedCameras:v8];
   accessory = [error accessory];
-  home = [accessory home];
-  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v11 = objc_msgSend_home(accessory);
+  v12 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v11 senderSelector:a2];
 }
 
 - (void)cameraSnapshotControlDidUpdateMostRecentSnapshot:(id)snapshot
@@ -2823,8 +2687,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v6 = [MEMORY[0x277CBEB98] na_setWithSafeObject:v11];
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedCameras:v6];
   accessory = [v11 accessory];
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)cameraStreamControlDidStartStream:(id)stream
@@ -2834,8 +2698,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v6 = [MEMORY[0x277CBEB98] na_setWithSafeObject:v11];
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedCameras:v6];
   accessory = [v11 accessory];
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)cameraStreamControl:(id)control didStopStreamWithError:(id)error
@@ -2845,8 +2709,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:error];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedCameras:v7];
   accessory = [error accessory];
-  home = [accessory home];
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v10 = objc_msgSend_home(accessory);
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)cameraStreamControlDidUpdateStreamState:(id)state
@@ -2856,8 +2720,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v6 = [MEMORY[0x277CBEB98] na_setWithSafeObject:v11];
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedCameras:v6];
   accessory = [v11 accessory];
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)cameraStreamControlDidUpdateManagerState:(id)state
@@ -2867,8 +2731,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v6 = [MEMORY[0x277CBEB98] na_setWithSafeObject:v11];
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedCameras:v6];
   accessory = [v11 accessory];
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)cameraStream:(id)stream didUpdateAudioStreamSettingWithError:(id)error
@@ -2878,8 +2742,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v7 = [MEMORY[0x277CBEB98] na_setWithSafeObject:error];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedCameras:v7];
   accessory = [error accessory];
-  home = [accessory home];
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v10 = objc_msgSend_home(accessory);
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)cameraUserSettingsDidUpdate:(id)update
@@ -2889,8 +2753,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v6 = [MEMORY[0x277CBEB98] na_setWithSafeObject:v11];
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedCameras:v6];
   accessory = [v11 accessory];
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)clipManager:(id)manager didUpdateSignificantEvents:(id)events
@@ -2911,7 +2775,7 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
 
 - (void)softwareUpdateController:(id)controller didUpdateAvailableUpdate:(id)update
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CBEB98];
   updateCopy = update;
   v9 = [v7 na_setWithSafeObject:controller];
@@ -2924,71 +2788,61 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   [v11 unionSet:v13];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v18[0] = @"softwareUpdate";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = @"softwareUpdate";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v16 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v15 modifiedHome:0 senderSelector:a2];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)softwareUpdate:(id)update didUpdateState:(int64_t)state
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   updateCopy = update;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:updateCopy];
 
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedSoftwareUpdates:v8];
-  v13[0] = @"softwareUpdate";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"softwareUpdate";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:0 senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)softwareUpdate:(id)update didUpdateDocumentation:(id)documentation
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   updateCopy = update;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:updateCopy];
 
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedSoftwareUpdates:v8];
-  v13[0] = @"softwareUpdate";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"softwareUpdate";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:0 senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)softwareUpdate:(id)update didUpdateDocumentationAvailable:(BOOL)available
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   updateCopy = update;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:updateCopy];
 
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedSoftwareUpdates:v8];
-  v13[0] = @"softwareUpdate";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"softwareUpdate";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:0 senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)softwareUpdate:(id)update didUpdateNeedsAttentionReasons:(unint64_t)reasons
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   updateCopy = update;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v8 = [MEMORY[0x277CBEB98] na_setWithSafeObject:updateCopy];
 
   v9 = [(HFItemManager *)self _itemsToUpdateForModifiedSoftwareUpdates:v8];
-  v13[0] = @"softwareUpdate";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"softwareUpdate";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v9 itemProviderInvalidationReasons:v10 modifiedHome:0 senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)softwareUpdateV2DidUpdateForAccessory:(id)accessory
@@ -3002,65 +2856,57 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
 
 - (void)softwareUpdateV2DidUpdateProgressForAccessory:(id)accessory
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v5 = [(HFItemManager *)self _itemsToUpdateForSoftwareUpdateV2ProgressChangeToAccessory:accessory];
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v10[0] = @"softwareUpdate";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = @"softwareUpdate";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v8 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v5 itemProviderInvalidationReasons:v7 modifiedHome:0 senderSelector:a2];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)user:(id)user didUpdateAssistantAccessControl:(id)control forHome:(id)home
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   userCopy = user;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v11 = [MEMORY[0x277CBEB98] na_setWithSafeObject:userCopy];
 
   v12 = [(HFItemManager *)self _itemsToUpdateForModifiedUsers:v11];
-  v16[0] = @"user";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = @"user";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v12 itemProviderInvalidationReasons:v13 modifiedHome:homeCopy senderSelector:a2];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)user:(id)user didUpdateMediaContentProfileAccessControl:(id)control forHome:(id)home
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   userCopy = user;
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v11 = [MEMORY[0x277CBEB98] na_setWithSafeObject:userCopy];
 
   v12 = [(HFItemManager *)self _itemsToUpdateForModifiedUsers:v11];
-  v16[0] = @"user";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = @"user";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v12 itemProviderInvalidationReasons:v13 modifiedHome:homeCopy senderSelector:a2];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)user:(id)user didUpdatePhotosPersonManagerSettings:(id)settings
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CBEB98] setWithObject:{user, settings}];
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedUsers:v6];
 
   batchedDelegateAdapterAllowingReads = [(HFItemManager *)self batchedDelegateAdapterAllowingReads];
-  v12[0] = @"user";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = @"user";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v10 = [batchedDelegateAdapterAllowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:v9 modifiedHome:0 senderSelector:a2];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restrictedGuestAllowedPeriodStarted:(id)started
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   v6 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -3069,26 +2915,24 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
     hf_prettyDescription = [startedCopy hf_prettyDescription];
     *buf = 138412802;
     selfCopy = self;
-    v18 = 2112;
-    v19 = v7;
-    v20 = 2112;
-    v21 = hf_prettyDescription;
+    v17 = 2112;
+    v18 = v7;
+    v19 = 2112;
+    v20 = hf_prettyDescription;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%@: %@ Restricted Guest allowed period started for user: %@.", buf, 0x20u);
   }
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:startedCopy];
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedUsers:v10];
-  v15 = @"user";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v14 = @"user";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:0 senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restrictedGuestAllowedPeriodEnded:(id)ended
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   endedCopy = ended;
   v6 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -3097,21 +2941,19 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
     hf_prettyDescription = [endedCopy hf_prettyDescription];
     *buf = 138412802;
     selfCopy = self;
-    v18 = 2112;
-    v19 = v7;
-    v20 = 2112;
-    v21 = hf_prettyDescription;
+    v17 = 2112;
+    v18 = v7;
+    v19 = 2112;
+    v20 = hf_prettyDescription;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%@: %@ Restricted Guest allowed period ended for user: %@.", buf, 0x20u);
   }
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:endedCopy];
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedUsers:v10];
-  v15 = @"user";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v14 = @"user";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   v13 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:0 senderSelector:a2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settings:(id)settings willWriteValueForSettings:(id)forSettings
@@ -3144,43 +2986,39 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
 
 - (void)symptomsHandler:(id)handler didUpdateSymptoms:(id)symptoms
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  home = [(HFItemManager *)self home];
-  v8 = [home hf_accessoryForSymptomsHandler:handlerCopy];
+  v7 = objc_msgSend_home(self);
+  v8 = [v7 hf_accessoryForSymptomsHandler:handlerCopy];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
   v10 = [MEMORY[0x277CBEB98] na_setWithSafeObject:v8];
   v11 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v10];
-  v16[0] = @"mediaSystem";
-  v16[1] = @"accessory";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
-  home2 = [v8 home];
-  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:home2 senderSelector:a2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v15[0] = @"mediaSystem";
+  v15[1] = @"accessory";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v13 = objc_msgSend_home(v8);
+  v14 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v11 itemProviderInvalidationReasons:v12 modifiedHome:v13 senderSelector:a2];
 }
 
 - (void)fixSessionDidChangeForAccessory:(id)accessory
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   v6 = HFLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = accessoryCopy;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "HFItemManager accessory: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = accessoryCopy;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "HFItemManager accessory: %@", &v12, 0xCu);
   }
 
   v7 = [MEMORY[0x277CBEB98] setWithObject:accessoryCopy];
   v8 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v7];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  home = [accessoryCopy home];
-  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = objc_msgSend_home(accessoryCopy);
+  v11 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v8 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v10 senderSelector:a2];
 }
 
 - (void)profileDidUpdateNetworkProtectionMode:(id)mode
@@ -3191,8 +3029,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedNetworkConfigurationProfiles:v6];
   accessory = [modeCopy accessory];
 
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)profileDidUpdateAllowedHosts:(id)hosts
@@ -3203,8 +3041,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedNetworkConfigurationProfiles:v6];
   accessory = [hostsCopy accessory];
 
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)profileDidUpdateAccessViolation:(id)violation
@@ -3215,8 +3053,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedNetworkConfigurationProfiles:v6];
   accessory = [violationCopy accessory];
 
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)profileDidUpdateWiFiReconfigurationSupport:(id)support
@@ -3227,8 +3065,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedNetworkConfigurationProfiles:v6];
   accessory = [supportCopy accessory];
 
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)profileDidUpdateWiFiCredentialType:(id)type
@@ -3239,8 +3077,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v7 = [(HFItemManager *)self _itemsToUpdateForModifiedNetworkConfigurationProfiles:v6];
   accessory = [typeCopy accessory];
 
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)profileDidUpdateMediaSourceDisplayOrder:(id)order
@@ -3251,8 +3089,8 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
   v7 = [(HFItemManager *)self _itemsToUpdateForTelevisionProfiles:v6];
   accessory = [orderCopy accessory];
 
-  home = [accessory home];
-  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:home senderSelector:a2];
+  v9 = objc_msgSend_home(accessory);
+  v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:v9 senderSelector:a2];
 }
 
 - (void)mediaDestinationController:(id)controller didUpdateDestination:(id)destination
@@ -3461,27 +3299,27 @@ id __85__HFItemManager_HomeKitDelegates__accessory_service_didUpdateValueForChar
 
 void __96__HFItemManager_HomeKitDelegates__didReceiveSettingsUpdatesForAccessoryWithIdentifier_settings___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v8 = [*(a1 + 32) na_map:&__block_literal_global_20_2];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   v9 = [WeakRetained itemProviders];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __96__HFItemManager_HomeKitDelegates__didReceiveSettingsUpdatesForAccessoryWithIdentifier_settings___block_invoke_3;
-  v22[3] = &unk_277DF77B8;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __96__HFItemManager_HomeKitDelegates__didReceiveSettingsUpdatesForAccessoryWithIdentifier_settings___block_invoke_3;
+  v21[3] = &unk_277DF77B8;
   v10 = v8;
-  v23 = v10;
-  v25 = &v26;
-  v24 = *(a1 + 32);
-  [v9 na_each:v22];
+  v22 = v10;
+  v24 = &v25;
+  v23 = *(a1 + 32);
+  [v9 na_each:v21];
 
-  if (*(v27 + 24) == 1)
+  if (*(v26 + 24) == 1)
   {
     v11 = [MEMORY[0x277CBEB98] setWithArray:v10];
     v12 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
@@ -3493,13 +3331,13 @@ void __96__HFItemManager_HomeKitDelegates__didReceiveSettingsUpdatesForAccessory
       v16 = *(a1 + 32);
       v15 = *(a1 + 40);
       *buf = 138413058;
-      v31 = v15;
-      v32 = 2112;
-      v33 = v16;
-      v34 = 2112;
-      v35 = v10;
-      v36 = 2112;
-      v37 = v13;
+      v30 = v15;
+      v31 = 2112;
+      v32 = v16;
+      v33 = 2112;
+      v34 = v10;
+      v35 = 2112;
+      v36 = v13;
       _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "didReceiveSettingsUpdatesForAccessoryWithIdentifier = [%@] settings = [%@] keyPaths = [%@]. Now reloading items: %@", buf, 0x2Au);
     }
 
@@ -3518,22 +3356,21 @@ void __96__HFItemManager_HomeKitDelegates__didReceiveSettingsUpdatesForAccessory
       v20 = *(a1 + 32);
       v19 = *(a1 + 40);
       *buf = 138412802;
-      v31 = v19;
-      v32 = 2112;
-      v33 = v20;
-      v34 = 2112;
-      v35 = v10;
+      v30 = v19;
+      v31 = 2112;
+      v32 = v20;
+      v33 = 2112;
+      v34 = v10;
       _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "didReceiveSettingsUpdatesForAccessoryWithIdentifier = [%@] settings = [%@] keyPaths = [%@]. Not reloading items since no new data", buf, 0x20u);
     }
   }
 
-  _Block_object_dispose(&v26, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
 }
 
 void __96__HFItemManager_HomeKitDelegates__didReceiveSettingsUpdatesForAccessoryWithIdentifier_settings___block_invoke_3(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 conformsToProtocol:&unk_2825307D0])
   {
@@ -3553,15 +3390,13 @@ void __96__HFItemManager_HomeKitDelegates__didReceiveSettingsUpdatesForAccessory
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Calling HFHomeKitSettingItemProviderProtocol to check if a update is needed for [%@]", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Calling HFHomeKitSettingItemProviderProtocol to check if a update is needed for [%@]", &v9, 0xCu);
     }
 
     *(*(a1[6] + 8) + 24) = [v3 updateSettings:a1[5]];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSettingValue:(id)value forKeyPath:(id)path accessoryIdentifier:(id)identifier
@@ -3720,6 +3555,26 @@ void __85__HFItemManager_HomeKitDelegates__updateSettingValue_forKeyPath_accesso
   v7 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:version itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:0 senderSelector:a2];
 }
 
+- (void)siriEndpointProfile:(id)profile didUpdateNeedsOnboarding:(BOOL)onboarding
+{
+  onboarding = [(HFItemManager *)self _itemsToUpdateForSiriEndpointProfileObjectChange:profile, onboarding];
+  batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
+  v7 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:onboarding itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:0 senderSelector:a2];
+}
+
+- (void)siriEndpointProfile:(id)profile didUpdateSupportsOnboarding:(BOOL)onboarding
+{
+  v6 = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads:profile];
+  v5 = [v6 requestUpdateForItems:0 itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:0 senderSelector:a2];
+}
+
+- (void)siriEndpointProfile:(id)profile didUpdateManuallyDisabled:(BOOL)disabled
+{
+  disabled = [(HFItemManager *)self _itemsToUpdateForSiriEndpointProfileObjectChange:profile, disabled];
+  batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
+  v7 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:disabled itemProviderInvalidationReasons:MEMORY[0x277CBEBF8] modifiedHome:0 senderSelector:a2];
+}
+
 - (void)siriEndpointProfile:(id)profile didUpdateMultifunctionButton:(int64_t)button
 {
   button = [(HFItemManager *)self _itemsToUpdateForSiriEndpointProfileObjectChange:profile, button];
@@ -3743,26 +3598,22 @@ void __85__HFItemManager_HomeKitDelegates__updateSettingValue_forKeyPath_accesso
 
 - (void)personManager:(id)manager didUpdatePersons:(id)persons
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v6 = [(HFItemManager *)self _itemsToUpdateForModifiedPersons:persons];
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v11[0] = @"person";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = @"person";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v9 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v6 itemProviderInvalidationReasons:v8 modifiedHome:0 senderSelector:a2];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)personManager:(id)manager didRemovePersonsWithUUIDs:(id)ds
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v6 = [(HFItemManager *)self _itemsToUpdateForModifiedUUIDs:ds];
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v11[0] = @"person";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = @"person";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v9 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v6 itemProviderInvalidationReasons:v8 modifiedHome:0 senderSelector:a2];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)personManager:(id)manager didUpdatePersonFaceCrops:(id)crops
@@ -3786,31 +3637,27 @@ void __85__HFItemManager_HomeKitDelegates__updateSettingValue_forKeyPath_accesso
 
 - (void)didUpdateDemoModeStateForAccessory:(id)accessory
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CBEB98] na_setWithSafeObject:accessory];
   v6 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessories:v5];
   v7 = [v6 mutableCopy];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v12[0] = @"accessory";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = @"accessory";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:v9 modifiedHome:0 senderSelector:a2];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pinCodeManagerDidUpdate:(id)update pinCodes:(id)codes
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v6 = [(HFItemManager *)self _itemsToUpdateForModifiedAccessCodes:codes];
   v7 = [v6 mutableCopy];
 
   batchedDelegateAdapterDisallowingReads = [(HFItemManager *)self batchedDelegateAdapterDisallowingReads];
-  v12[0] = @"user";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = @"user";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v10 = [batchedDelegateAdapterDisallowingReads requestUpdateForItems:v7 itemProviderInvalidationReasons:v9 modifiedHome:0 senderSelector:a2];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HFItemManager)init
@@ -3978,10 +3825,10 @@ void __45__HFItemManager_initWithDelegate_sourceItem___block_invoke_2(uint64_t a
 
 - (NSSet)allItems
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
-  home = [(HFItemManager *)self home];
-  if (home)
+  v4 = objc_msgSend_home(self);
+  if (v4)
   {
   }
 
@@ -3990,37 +3837,36 @@ void __45__HFItemManager_initWithDelegate_sourceItem___block_invoke_2(uint64_t a
     goto LABEL_12;
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   itemProviders = [(HFItemManager *)self itemProviders];
-  v6 = [itemProviders countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [itemProviders countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(itemProviders);
         }
 
-        items = [*(*(&v13 + 1) + 8 * i) items];
+        items = [*(*(&v12 + 1) + 8 * i) items];
         [v3 unionSet:items];
       }
 
-      v7 = [itemProviders countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [itemProviders countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
 LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -4174,22 +4020,22 @@ uint64_t __46__HFItemManager_matchingItemForHomeKitObject___block_invoke(uint64_
 
 - (BOOL)disableExternalUpdatesWithReason:(id)reason
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     disableUpdateReasons = [(HFItemManager *)self disableUpdateReasons];
     disableUpdateReasons2 = [(HFItemManager *)self disableUpdateReasons];
-    v19 = 138413058;
+    v18 = 138413058;
     selfCopy3 = self;
-    v21 = 2112;
-    v22 = reasonCopy;
-    v23 = 2048;
-    v24 = disableUpdateReasons;
-    v25 = 2112;
-    v26 = disableUpdateReasons2;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@:(DU-D1) Adding reason (%@) to disable updates - all reasons BEFORE (%p): %@", &v19, 0x2Au);
+    v20 = 2112;
+    v21 = reasonCopy;
+    v22 = 2048;
+    v23 = disableUpdateReasons;
+    v24 = 2112;
+    v25 = disableUpdateReasons2;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@:(DU-D1) Adding reason (%@) to disable updates - all reasons BEFORE (%p): %@", &v18, 0x2Au);
   }
 
   disableUpdateReasons3 = [(HFItemManager *)self disableUpdateReasons];
@@ -4200,11 +4046,11 @@ uint64_t __46__HFItemManager_matchingItemForHomeKitObject___block_invoke(uint64_
     v10 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412546;
+      v18 = 138412546;
       selfCopy3 = self;
-      v21 = 2112;
-      v22 = reasonCopy;
-      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "%@:(DU-D1.1) Duplicate request to disable updates for reason %@", &v19, 0x16u);
+      v20 = 2112;
+      v21 = reasonCopy;
+      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "%@:(DU-D1.1) Duplicate request to disable updates for reason %@", &v18, 0x16u);
     }
 
     v11 = 0;
@@ -4229,38 +4075,37 @@ uint64_t __46__HFItemManager_matchingItemForHomeKitObject___block_invoke(uint64_
     {
       disableUpdateReasons6 = [(HFItemManager *)self disableUpdateReasons];
       disableUpdateReasons7 = [(HFItemManager *)self disableUpdateReasons];
-      v19 = 138412802;
+      v18 = 138412802;
       selfCopy3 = self;
-      v21 = 2048;
-      v22 = disableUpdateReasons6;
-      v23 = 2112;
-      v24 = disableUpdateReasons7;
-      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "%@:(DU-D2) Added reason to disable updates - all reasons AFTER (%p): %@", &v19, 0x20u);
+      v20 = 2048;
+      v21 = disableUpdateReasons6;
+      v22 = 2112;
+      v23 = disableUpdateReasons7;
+      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "%@:(DU-D2) Added reason to disable updates - all reasons AFTER (%p): %@", &v18, 0x20u);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)endDisableExternalUpdatesWithReason:(id)reason
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     disableUpdateReasons = [(HFItemManager *)self disableUpdateReasons];
     disableUpdateReasons2 = [(HFItemManager *)self disableUpdateReasons];
-    v22 = 138413058;
+    v21 = 138413058;
     selfCopy3 = self;
-    v24 = 2112;
-    v25 = reasonCopy;
-    v26 = 2048;
-    v27 = disableUpdateReasons;
-    v28 = 2112;
-    v29 = disableUpdateReasons2;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@:(DU-R1) Removing reason (%@) to disable updates - all reasons BEFORE (%p): %@", &v22, 0x2Au);
+    v23 = 2112;
+    v24 = reasonCopy;
+    v25 = 2048;
+    v26 = disableUpdateReasons;
+    v27 = 2112;
+    v28 = disableUpdateReasons2;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@:(DU-R1) Removing reason (%@) to disable updates - all reasons BEFORE (%p): %@", &v21, 0x2Au);
   }
 
   disableUpdateReasons3 = [(HFItemManager *)self disableUpdateReasons];
@@ -4273,15 +4118,15 @@ uint64_t __46__HFItemManager_matchingItemForHomeKitObject___block_invoke(uint64_
     {
       disableUpdateReasons4 = [(HFItemManager *)self disableUpdateReasons];
       disableUpdateReasons5 = [(HFItemManager *)self disableUpdateReasons];
-      v22 = 138413058;
+      v21 = 138413058;
       selfCopy3 = self;
-      v24 = 2112;
-      v25 = reasonCopy;
-      v26 = 2048;
-      v27 = disableUpdateReasons4;
-      v28 = 2112;
-      v29 = disableUpdateReasons5;
-      _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "%@:(DU-R1.1) Removing reason (%@) to disable updates NOT FOUND in all reasons BEFORE (%p): %@. Are multiple items being removed? Is a bridge being removed?", &v22, 0x2Au);
+      v23 = 2112;
+      v24 = reasonCopy;
+      v25 = 2048;
+      v26 = disableUpdateReasons4;
+      v27 = 2112;
+      v28 = disableUpdateReasons5;
+      _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "%@:(DU-R1.1) Removing reason (%@) to disable updates NOT FOUND in all reasons BEFORE (%p): %@. Are multiple items being removed? Is a bridge being removed?", &v21, 0x2Au);
     }
 
     goto LABEL_11;
@@ -4295,13 +4140,13 @@ uint64_t __46__HFItemManager_matchingItemForHomeKitObject___block_invoke(uint64_
   {
     disableUpdateReasons7 = [(HFItemManager *)self disableUpdateReasons];
     disableUpdateReasons8 = [(HFItemManager *)self disableUpdateReasons];
-    v22 = 138412802;
+    v21 = 138412802;
     selfCopy3 = self;
-    v24 = 2048;
-    v25 = disableUpdateReasons7;
-    v26 = 2112;
-    v27 = disableUpdateReasons8;
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@:(DU-R2) Removed reason to disable updates - all reasons AFTER (%p): %@", &v22, 0x20u);
+    v23 = 2048;
+    v24 = disableUpdateReasons7;
+    v25 = 2112;
+    v26 = disableUpdateReasons8;
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@:(DU-R2) Removed reason to disable updates - all reasons AFTER (%p): %@", &v21, 0x20u);
   }
 
   disableUpdateReasons9 = [(HFItemManager *)self disableUpdateReasons];
@@ -4318,38 +4163,36 @@ LABEL_11:
   [(HFItemManager *)self _updateExternalUpdatesEnabled:1 reloadItems:1];
 LABEL_12:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)beginSuppressingUpdatesForCharacteristics:(id)characteristics withReason:(id)reason
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   reasonCopy = reason;
   v8 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412802;
+    v11 = 138412802;
     selfCopy = self;
-    v14 = 2112;
-    v15 = characteristicsCopy;
-    v16 = 2112;
-    v17 = reasonCopy;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Suppressing updates in %@ for characteristics %@ with reason %@", &v12, 0x20u);
+    v13 = 2112;
+    v14 = characteristicsCopy;
+    v15 = 2112;
+    v16 = reasonCopy;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Suppressing updates in %@ for characteristics %@ with reason %@", &v11, 0x20u);
   }
 
   suppressedCharacteristicUpdatesByReason = [(HFItemManager *)self suppressedCharacteristicUpdatesByReason];
   v10 = [suppressedCharacteristicUpdatesByReason na_objectForKey:reasonCopy withDefaultValue:&__block_literal_global_193];
 
   [v10 unionSet:characteristicsCopy];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endSuppressingUpdatesForCharacteristicsWithReason:(id)reason updateAffectedItems:(BOOL)items
 {
   itemsCopy = items;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   suppressedCharacteristicUpdatesByReason = [(HFItemManager *)self suppressedCharacteristicUpdatesByReason];
   v9 = [suppressedCharacteristicUpdatesByReason objectForKeyedSubscript:reasonCopy];
@@ -4366,8 +4209,8 @@ LABEL_12:
   {
     *buf = 138412546;
     selfCopy = self;
-    v25 = 2112;
-    v26 = reasonCopy;
+    v24 = 2112;
+    v25 = reasonCopy;
     _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "End suppressing updates in %@ for characteristics with reason %@", buf, 0x16u);
   }
 
@@ -4394,8 +4237,6 @@ LABEL_12:
       v21 = [(HFItemManager *)self _updateResultsForItems:v20 context:v18];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHome:(id)home
@@ -4527,38 +4368,28 @@ LABEL_12:
 
 - (BOOL)_requiresNotificationsForCharacteristic:(id)characteristic
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   characteristicType = [characteristicCopy characteristicType];
   v5 = [characteristicType isEqualToString:*MEMORY[0x277CCF930]];
 
-  if (v5)
+  if (v5 & 1) != 0 || ([characteristicCopy characteristicType], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", *MEMORY[0x277CCF928]), v6, (v7) || (objc_msgSend_service(characteristicCopy), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "serviceType"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", *MEMORY[0x277CD0DD0]), v9, v8, (v10))
   {
-    goto LABEL_4;
-  }
-
-  characteristicType2 = [characteristicCopy characteristicType];
-  v7 = [characteristicType2 isEqualToString:*MEMORY[0x277CCF928]];
-
-  if (v7 & 1) != 0 || ([characteristicCopy service], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "serviceType"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", *MEMORY[0x277CD0DD0]), v9, v8, (v10))
-  {
-LABEL_4:
     v11 = 0;
   }
 
   else
   {
-    v14 = *MEMORY[0x277CCF7D0];
-    v18[0] = *MEMORY[0x277CCF780];
-    v18[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-    characteristicType3 = [characteristicCopy characteristicType];
-    v17 = [v15 containsObject:characteristicType3];
+    v13 = *MEMORY[0x277CCF7D0];
+    v17[0] = *MEMORY[0x277CCF780];
+    v17[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    characteristicType2 = [characteristicCopy characteristicType];
+    v16 = [v14 containsObject:characteristicType2];
 
-    v11 = v17 ^ 1;
+    v11 = v16 ^ 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -4676,26 +4507,24 @@ LABEL_4:
   {
     objc_initWeak(location, self);
     _homeFuture = [(HFItemManager *)self _homeFuture];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __59__HFItemManager_reloadAndUpdateAllItemsFromSenderSelector___block_invoke;
-    v15[3] = &unk_277DFB868;
-    objc_copyWeak(v16, location);
-    v16[1] = selector;
-    v8 = [_homeFuture flatMap:v15];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __59__HFItemManager_reloadAndUpdateAllItemsFromSenderSelector___block_invoke_2;
-    v13[3] = &unk_277DF5330;
-    objc_copyWeak(&v14, location);
-    firstFullUpdateFuture = [v8 recover:v13];
-    objc_destroyWeak(&v14);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __59__HFItemManager_reloadAndUpdateAllItemsFromSenderSelector___block_invoke;
+    v14[3] = &unk_277DFB868;
+    objc_copyWeak(v15, location);
+    v15[1] = selector;
+    v8 = [_homeFuture flatMap:v14];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __59__HFItemManager_reloadAndUpdateAllItemsFromSenderSelector___block_invoke_2;
+    v12[3] = &unk_277DF5330;
+    objc_copyWeak(&v13, location);
+    firstFullUpdateFuture = [v8 recover:v12];
+    objc_destroyWeak(&v13);
 
-    objc_destroyWeak(v16);
+    objc_destroyWeak(v15);
     objc_destroyWeak(location);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return firstFullUpdateFuture;
 }
@@ -4709,7 +4538,7 @@ id __59__HFItemManager_reloadAndUpdateAllItemsFromSenderSelector___block_invoke(
 
   if (v6)
   {
-    v7 = [WeakRetained home];
+    v7 = objc_msgSend_home(WeakRetained);
     v8 = [v3 isEqual:v7];
 
     if ((v8 & 1) == 0)
@@ -4757,75 +4586,75 @@ id __59__HFItemManager_reloadAndUpdateAllItemsFromSenderSelector___block_invoke_
 
 - (id)_reloadAllItemProvidersFromSenderSelector:(SEL)selector
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __59__HFItemManager__reloadAllItemProvidersFromSenderSelector___block_invoke;
   aBlock[3] = &unk_277DF3D38;
   aBlock[4] = self;
-  v34 = _Block_copy(aBlock);
+  v33 = _Block_copy(aBlock);
   itemProviders = [(HFItemManager *)self itemProviders];
-  v37 = [itemProviders na_filter:&__block_literal_global_226];
+  v36 = [itemProviders na_filter:&__block_literal_global_226];
 
   v4 = objc_alloc_init(MEMORY[0x277D2C918]);
   future = [v4 future];
   firstFastUpdateFuture = [(HFItemManager *)self firstFastUpdateFuture];
   completionHandlerAdapter = [firstFastUpdateFuture completionHandlerAdapter];
   v8 = [future addCompletionBlock:completionHandlerAdapter];
-  v35 = v4;
+  v34 = v4;
 
   _internalItems = [(HFItemManager *)self _internalItems];
   readPolicy = [(HFItemManager *)self readPolicy];
-  v36 = [(HFItemManager *)self _reloadItemProviders:v37 updateItems:_internalItems shouldUpdateExistingItems:1 senderSelector:selector readPolicy:readPolicy fastInitialUpdatePromise:v4];
+  v35 = [(HFItemManager *)self _reloadItemProviders:v36 updateItems:_internalItems shouldUpdateExistingItems:1 senderSelector:selector readPolicy:readPolicy fastInitialUpdatePromise:v4];
 
   firstFullUpdateFuture = [(HFItemManager *)self firstFullUpdateFuture];
   completionHandlerAdapter2 = [firstFullUpdateFuture completionHandlerAdapter];
-  v13 = [v36 addCompletionBlock:completionHandlerAdapter2];
+  v13 = [v35 addCompletionBlock:completionHandlerAdapter2];
 
   [(HFItemManager *)self beginFirstFullUpdateWithTimeoutFutureIfNeeded];
-  v14 = [v37 count];
+  v14 = [v36 count];
   itemProviders2 = [(HFItemManager *)self itemProviders];
   LODWORD(v14) = v14 == [itemProviders2 count];
 
   if (v14)
   {
-    v16 = v36;
-    v17 = v36;
+    v16 = v35;
+    v17 = v35;
   }
 
   else
   {
-    v18 = [MEMORY[0x277CBEB18] arrayWithObject:v36];
+    v18 = [MEMORY[0x277CBEB18] arrayWithObject:v35];
     itemProviders3 = [(HFItemManager *)self itemProviders];
     v20 = [itemProviders3 mutableCopy];
 
-    [v20 removeObjectsInArray:v37];
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
+    [v20 removeObjectsInArray:v36];
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v21 = v20;
-    v22 = [v21 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v22)
     {
-      v23 = *v41;
+      v23 = *v40;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v41 != v23)
+          if (*v40 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          v45 = *(*(&v40 + 1) + 8 * i);
-          v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+          v44 = *(*(&v39 + 1) + 8 * i);
+          v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
           v26 = [MEMORY[0x277CBEB98] set];
           v27 = [(HFItemManager *)self _reloadAndUpdateItemsForProviders:v25 updateItems:v26 senderSelector:selector];
           [v18 addObject:v27];
         }
 
-        v22 = [v21 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v39 objects:v45 count:16];
       }
 
       while (v22);
@@ -4836,62 +4665,58 @@ id __59__HFItemManager_reloadAndUpdateAllItemsFromSenderSelector___block_invoke_
     v30 = [v28 combineAllFutures:v18 ignoringErrors:1 scheduler:mainThreadScheduler];
     v17 = [v30 flatMap:&__block_literal_global_231_1];
 
-    v16 = v36;
+    v16 = v35;
   }
 
-  v31 = v34;
-  if (v34)
+  v31 = v33;
+  if (v33)
   {
-    (*(v34 + 2))();
-    v31 = v34;
+    (*(v33 + 2))();
+    v31 = v33;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 id __59__HFItemManager__reloadAllItemProvidersFromSenderSelector___block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v3 unionSet:{v9, v13}];
+          [v3 unionSet:{v9, v12}];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [MEMORY[0x277D2C900] futureWithResult:v3];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -4916,15 +4741,27 @@ id __59__HFItemManager__reloadAllItemProvidersFromSenderSelector___block_invoke_
   return v11;
 }
 
+- (id)_reloadItemProviders:(id)providers updateItems:(id)items shouldUpdateExistingItems:(BOOL)existingItems senderSelector:(SEL)selector readPolicy:(id)policy
+{
+  existingItemsCopy = existingItems;
+  policyCopy = policy;
+  itemsCopy = items;
+  providersCopy = providers;
+  v15 = objc_opt_new();
+  v16 = [(HFItemManager *)self _reloadItemProviders:providersCopy updateItems:itemsCopy shouldUpdateExistingItems:existingItemsCopy senderSelector:selector readPolicy:policyCopy fastInitialUpdatePromise:v15];
+
+  return v16;
+}
+
 - (id)_reloadItemProviders:(id)providers updateItems:(id)items shouldUpdateExistingItems:(BOOL)existingItems senderSelector:(SEL)selector readPolicy:(id)policy fastInitialUpdatePromise:(id)promise
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   providersCopy = providers;
   itemsCopy = items;
   policyCopy = policy;
   promiseCopy = promise;
-  home = [(HFItemManager *)self home];
-  if (home)
+  v12 = objc_msgSend_home(self);
+  if (v12)
   {
   }
 
@@ -4933,8 +4770,8 @@ id __59__HFItemManager__reloadAllItemProvidersFromSenderSelector___block_invoke_
     NSLog(&cfstr_RequestToReloa.isa);
   }
 
-  home2 = [(HFItemManager *)self home];
-  if (!home2 && ![(HFItemManager *)self _shouldBuildItemProvidersAndModulesForNilHome])
+  v13 = objc_msgSend_home(self);
+  if (!v13 && ![(HFItemManager *)self _shouldBuildItemProvidersAndModulesForNilHome])
   {
     goto LABEL_28;
   }
@@ -4968,9 +4805,9 @@ LABEL_10:
   {
     v15 = MEMORY[0x277CCACA8];
     v16 = NSStringFromSelector(selector);
-    v44 = [v15 stringWithFormat:@"[%@ %@]", self, v16];
+    v43 = [v15 stringWithFormat:@"[%@ %@]", self, v16];
 
-    v17 = [[HFUpdateLogger alloc] initWithTimeout:v44 description:15.0];
+    v17 = [[HFUpdateLogger alloc] initWithTimeout:v43 description:15.0];
     v18 = v17;
     if (v17)
     {
@@ -4985,10 +4822,10 @@ LABEL_10:
         v21 = NSStringFromSelector(selector);
         *buf = 138412802;
         selfCopy2 = self;
-        v65 = 2112;
-        v66 = v21;
-        v67 = 2112;
-        v68 = providersCopy;
+        v64 = 2112;
+        v65 = v21;
+        v66 = 2112;
+        v67 = providersCopy;
         _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "%@: Starting reload for sender: %@. Item providers: %@", buf, 0x20u);
       }
 
@@ -4997,40 +4834,40 @@ LABEL_10:
 
     else
     {
-      v41 = HFLogForCategory(0x2CuLL);
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v40 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        v42 = NSStringFromSelector(selector);
+        v41 = NSStringFromSelector(selector);
         *buf = 138412802;
         selfCopy2 = self;
-        v65 = 2112;
-        v66 = v42;
-        v67 = 2112;
-        v68 = providersCopy;
-        _os_log_impl(&dword_20D9BF000, v41, OS_LOG_TYPE_DEFAULT, "%@: Starting reload for sender: %@. Item providers: %@", buf, 0x20u);
+        v64 = 2112;
+        v65 = v41;
+        v66 = 2112;
+        v67 = providersCopy;
+        _os_log_impl(&dword_20D9BF000, v40, OS_LOG_TYPE_DEFAULT, "%@: Starting reload for sender: %@. Item providers: %@", buf, 0x20u);
       }
     }
 
     array = [MEMORY[0x277CBEB18] array];
-    v60 = 0u;
-    v58 = 0u;
     v59 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v56 = 0u;
     v23 = providersCopy;
-    v24 = [v23 countByEnumeratingWithState:&v57 objects:v62 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v56 objects:v61 count:16];
     if (v24)
     {
-      v25 = *v58;
+      v25 = *v57;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v58 != v25)
+          if (*v57 != v25)
           {
             objc_enumerationMutation(v23);
           }
 
-          reloadItems = [*(*(&v57 + 1) + 8 * i) reloadItems];
+          reloadItems = [*(*(&v56 + 1) + 8 * i) reloadItems];
           v28 = [reloadItems recover:&__block_literal_global_242_0];
 
           if (v28)
@@ -5039,7 +4876,7 @@ LABEL_10:
           }
         }
 
-        v24 = [v23 countByEnumeratingWithState:&v57 objects:v62 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v56 objects:v61 count:16];
       }
 
       while (v24);
@@ -5056,27 +4893,25 @@ LABEL_10:
     }
 
     objc_initWeak(buf, self);
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_2;
-    v50[3] = &unk_277DFB950;
-    objc_copyWeak(v55, buf);
-    v51 = itemsCopy;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_2;
+    v49[3] = &unk_277DFB950;
+    objc_copyWeak(v54, buf);
+    v50 = itemsCopy;
     existingItemsCopy = existingItems;
     v33 = v18;
-    v52 = v33;
-    v55[1] = selector;
-    v53 = promiseCopy;
-    v54 = policyCopy;
-    v34 = [v29 flatMap:v50];
+    v51 = v33;
+    v54[1] = selector;
+    v52 = promiseCopy;
+    v53 = policyCopy;
+    v34 = [v29 flatMap:v49];
 
-    objc_destroyWeak(v55);
+    objc_destroyWeak(v54);
     objc_destroyWeak(buf);
   }
 
 LABEL_30:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v34;
 }
@@ -5092,32 +4927,32 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
 
 id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_2(uint64_t a1, void *a2)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v4 = [MEMORY[0x277CBEB58] set];
   v5 = [MEMORY[0x277CBEB58] set];
   v6 = [MEMORY[0x277CBEB58] set];
   [v6 unionSet:*(a1 + 32)];
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   obj = v3;
-  v7 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
+  v7 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
   if (v7)
   {
-    v8 = *v80;
+    v8 = *v79;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v80 != v8)
+        if (*v79 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v79 + 1) + 8 * i);
+        v10 = *(*(&v78 + 1) + 8 * i);
         v11 = [v10 addedItems];
         v12 = [v11 count];
 
@@ -5149,23 +4984,23 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
+      v7 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
     }
 
     while (v7);
   }
 
-  v61 = [v4 mutableCopy];
+  v60 = [v4 mutableCopy];
   v21 = [*(a1 + 32) na_filter:&__block_literal_global_245_0];
-  [v61 unionSet:v21];
+  [v60 unionSet:v21];
 
   v22 = MEMORY[0x277D2C900];
   v23 = [MEMORY[0x277CBEB98] set];
-  v60 = [v22 futureWithResult:v23];
+  v59 = [v22 futureWithResult:v23];
 
   v24 = [v4 mutableCopy];
   [v24 unionSet:v6];
-  if ([WeakRetained _shouldPerformFastInitialUpdates] && objc_msgSend(v61, "count"))
+  if ([WeakRetained _shouldPerformFastInitialUpdates] && objc_msgSend(v60, "count"))
   {
     v25 = *(a1 + 40);
     if (v25)
@@ -5179,7 +5014,7 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v86 = v61;
+        v85 = v60;
         _os_log_impl(&dword_20D9BF000, v27, OS_LOG_TYPE_DEFAULT, "Starting a fast initial update for items: %@", buf, 0xCu);
       }
 
@@ -5188,12 +5023,12 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
 
     else
     {
-      v58 = HFLogForCategory(0x2CuLL);
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      v57 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(state.opaque[0]) = 138412290;
-        *(state.opaque + 4) = v61;
-        _os_log_impl(&dword_20D9BF000, v58, OS_LOG_TYPE_DEFAULT, "Starting a fast initial update for items: %@", &state, 0xCu);
+        *(state.opaque + 4) = v60;
+        _os_log_impl(&dword_20D9BF000, v57, OS_LOG_TYPE_DEFAULT, "Starting a fast initial update for items: %@", &state, 0xCu);
       }
     }
 
@@ -5211,7 +5046,7 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v86 = v5;
+          v85 = v5;
           _os_log_impl(&dword_20D9BF000, v30, OS_LOG_TYPE_DEFAULT, "Processing removed items in this fast update: %@", buf, 0xCu);
         }
 
@@ -5220,12 +5055,12 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
 
       else
       {
-        v59 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        v58 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(state.opaque[0]) = 138412290;
           *(state.opaque + 4) = v5;
-          _os_log_impl(&dword_20D9BF000, v59, OS_LOG_TYPE_DEFAULT, "Processing removed items in this fast update: %@", &state, 0xCu);
+          _os_log_impl(&dword_20D9BF000, v58, OS_LOG_TYPE_DEFAULT, "Processing removed items in this fast update: %@", &state, 0xCu);
         }
       }
     }
@@ -5233,21 +5068,21 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
     v31 = objc_opt_new();
     [v31 setSenderSelector:*(a1 + 72)];
     [v31 setLogger:*(a1 + 40)];
-    v83[0] = HFItemUpdateOptionFastInitialUpdate;
-    v83[1] = HFItemUpdateOptionDisableOptionalData;
-    v84[0] = MEMORY[0x277CBEC38];
+    v82[0] = HFItemUpdateOptionFastInitialUpdate;
+    v82[1] = HFItemUpdateOptionDisableOptionalData;
+    v83[0] = MEMORY[0x277CBEC38];
     v32 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(WeakRetained, "_shouldDisableOptionalDataDuringFastInitialUpdate")}];
-    v84[1] = v32;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:2];
+    v83[1] = v32;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:2];
     [v31 setUpdateOptions:v33];
 
     v34 = [HFStaticReadPolicy policyWithDecision:0];
     [v31 setReadPolicy:v34];
 
-    v35 = [WeakRetained _updateResultsForItems:v61 removedItems:v5 context:v31 allowDelaying:1];
+    v35 = [WeakRetained _updateResultsForItems:v60 removedItems:v5 context:v31 allowDelaying:1];
 
     v36 = 1;
-    v60 = v35;
+    v59 = v35;
   }
 
   else
@@ -5266,7 +5101,7 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v86 = v4;
+          v85 = v4;
           _os_log_impl(&dword_20D9BF000, v39, OS_LOG_TYPE_DEFAULT, "Item providers asked to add items: %@", buf, 0xCu);
         }
 
@@ -5275,12 +5110,12 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
 
       else
       {
-        v56 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+        v55 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(state.opaque[0]) = 138412290;
           *(state.opaque + 4) = v4;
-          _os_log_impl(&dword_20D9BF000, v56, OS_LOG_TYPE_DEFAULT, "Item providers asked to add items: %@", &state, 0xCu);
+          _os_log_impl(&dword_20D9BF000, v55, OS_LOG_TYPE_DEFAULT, "Item providers asked to add items: %@", &state, 0xCu);
         }
       }
     }
@@ -5299,7 +5134,7 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
         if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v86 = v5;
+          v85 = v5;
           _os_log_impl(&dword_20D9BF000, v42, OS_LOG_TYPE_DEFAULT, "Item providers asked to remove items: %@", buf, 0xCu);
         }
 
@@ -5308,12 +5143,12 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
 
       else
       {
-        v57 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v56 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(state.opaque[0]) = 138412290;
           *(state.opaque + 4) = v5;
-          _os_log_impl(&dword_20D9BF000, v57, OS_LOG_TYPE_DEFAULT, "Item providers asked to remove items: %@", &state, 0xCu);
+          _os_log_impl(&dword_20D9BF000, v56, OS_LOG_TYPE_DEFAULT, "Item providers asked to remove items: %@", &state, 0xCu);
         }
       }
     }
@@ -5324,47 +5159,46 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
     v36 = 0;
   }
 
-  v77[0] = MEMORY[0x277D85DD0];
-  v77[1] = 3221225472;
-  v77[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_248;
-  v77[3] = &unk_277DFB8B0;
-  objc_copyWeak(&v78, (a1 + 64));
-  v44 = [v60 flatMap:v77];
+  v76[0] = MEMORY[0x277D85DD0];
+  v76[1] = 3221225472;
+  v76[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_248;
+  v76[3] = &unk_277DFB8B0;
+  objc_copyWeak(&v77, (a1 + 64));
+  v44 = [v59 flatMap:v76];
   v45 = objc_alloc_init(MEMORY[0x277D2C900]);
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_3_252;
-  v67[3] = &unk_277DFB928;
-  objc_copyWeak(v74, (a1 + 64));
-  v68 = *(a1 + 48);
-  v75 = v36;
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_3_252;
+  v66[3] = &unk_277DFB928;
+  objc_copyWeak(v73, (a1 + 64));
+  v67 = *(a1 + 48);
+  v74 = v36;
   v46 = v5;
-  v76 = v36;
+  v75 = v36;
   v47 = *(a1 + 72);
-  v69 = v46;
-  v74[1] = v47;
-  v70 = *(a1 + 40);
-  v71 = *(a1 + 56);
-  v72 = *(a1 + 32);
+  v68 = v46;
+  v73[1] = v47;
+  v69 = *(a1 + 40);
+  v70 = *(a1 + 56);
+  v71 = *(a1 + 32);
   v48 = v24;
-  v73 = v48;
-  v49 = [v44 flatMap:v67];
-  v64[0] = MEMORY[0x277D85DD0];
-  v64[1] = 3221225472;
-  v64[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_9;
-  v64[3] = &unk_277DF3180;
-  v64[4] = WeakRetained;
-  v65 = *(a1 + 40);
+  v72 = v48;
+  v49 = [v44 flatMap:v66];
+  v63[0] = MEMORY[0x277D85DD0];
+  v63[1] = 3221225472;
+  v63[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_9;
+  v63[3] = &unk_277DF3180;
+  v63[4] = WeakRetained;
+  v64 = *(a1 + 40);
   v50 = v45;
-  v66 = v50;
-  v51 = [v49 addCompletionBlock:v64];
-  v52 = v66;
+  v65 = v50;
+  v51 = [v49 addCompletionBlock:v63];
+  v52 = v65;
   v53 = v50;
 
-  objc_destroyWeak(v74);
-  objc_destroyWeak(&v78);
+  objc_destroyWeak(v73);
+  objc_destroyWeak(&v77);
 
-  v54 = *MEMORY[0x277D85DE8];
   return v50;
 }
 
@@ -5467,7 +5301,7 @@ id __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingIte
 
 void __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_4(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
   [v4 setSenderSelector:*(a1 + 80)];
@@ -5475,22 +5309,20 @@ void __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingI
   [v4 setReadPolicy:*(a1 + 40)];
   if ([*(a1 + 48) count])
   {
-    v12 = HFItemUpdateOptionFullUpdateIndicated;
-    v13[0] = MEMORY[0x277CBEC38];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = HFItemUpdateOptionFullUpdateIndicated;
+    v12[0] = MEMORY[0x277CBEC38];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     [v4 setUpdateOptions:v5];
   }
 
   v6 = [*(a1 + 56) _updateResultsForItems:*(a1 + 64) removedItems:*(a1 + 72) context:v4 allowDelaying:1];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_5;
-  v10[3] = &unk_277DF4FE8;
-  v11 = v3;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_5;
+  v9[3] = &unk_277DF4FE8;
+  v10 = v3;
   v7 = v3;
-  v8 = [v6 addCompletionBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = [v6 addCompletionBlock:v9];
 }
 
 void __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingItems_senderSelector_readPolicy_fastInitialUpdatePromise___block_invoke_7(uint64_t a1, void *a2)
@@ -5523,15 +5355,15 @@ void __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingI
 - (void)_updateLoadingStateAndNotifyDelegateForItems:(id)items canFinishTransaction:(BOOL)transaction
 {
   transactionCopy = transaction;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   allDisplayedItems = [(HFItemManager *)self allDisplayedItems];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v7 = itemsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (!v8)
   {
 
@@ -5539,19 +5371,19 @@ void __127__HFItemManager__reloadItemProviders_updateItems_shouldUpdateExistingI
   }
 
   v9 = v8;
-  v22 = transactionCopy;
+  v21 = transactionCopy;
   v10 = 0;
-  v11 = *v25;
+  v11 = *v24;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v25 != v11)
+      if (*v24 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v24 + 1) + 8 * i);
+      v13 = *(*(&v23 + 1) + 8 * i);
       v14 = [v13 _effectiveLoadingStateForSuggestedLoadingState:{-[HFItemManager _loadingStateForItem:](self, "_loadingStateForItem:", v13)}];
       if ([v13 loadingState] != v14)
       {
@@ -5599,7 +5431,7 @@ LABEL_14:
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
   }
 
   while (v9);
@@ -5607,15 +5439,13 @@ LABEL_14:
   if (v10)
   {
     [(HFItemManager *)self _updateOverallLoadingStateAndNotifyDelegate];
-    if (v22)
+    if (v21)
     {
       [(HFItemManager *)self _didFinishUpdateTransactionWithAffectedItems:v7];
     }
   }
 
 LABEL_22:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_loadingStateForItem:(id)item
@@ -5626,8 +5456,8 @@ LABEL_22:
 
   v7 = [(HFItemManager *)self _dependentHomeKitObjectsOfClass:objc_opt_class() inHomeKitObjects:v6];
   v8 = [(HFItemManager *)self _dependentHomeKitObjectsOfClass:objc_opt_class() inHomeKitObjects:v6];
-  home = [(HFItemManager *)self home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v9 = objc_msgSend_home(self);
+  hf_characteristicValueManager = [v9 hf_characteristicValueManager];
 
   v11 = [hf_characteristicValueManager loadingStateForCharacteristics:v7 actionSets:v8];
   if ([itemCopy conformsToProtocol:&unk_282534210])
@@ -5697,32 +5527,32 @@ uint64_t __38__HFItemManager__loadingStateForItem___block_invoke(uint64_t a1, vo
 
 - (void)_updateOverallLoadingStateAndNotifyDelegate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   overallLoadingState = [(HFItemManager *)self overallLoadingState];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   _allDisplayedItemsIncludingInternalItems = [(HFItemManager *)self _allDisplayedItemsIncludingInternalItems];
-  v5 = [_allDisplayedItemsIncludingInternalItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [_allDisplayedItemsIncludingInternalItems countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(_allDisplayedItemsIncludingInternalItems);
         }
 
-        v7 |= [*(*(&v14 + 1) + 8 * i) loadingState];
+        v7 |= [*(*(&v13 + 1) + 8 * i) loadingState];
       }
 
-      v6 = [_allDisplayedItemsIncludingInternalItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [_allDisplayedItemsIncludingInternalItems countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -5745,35 +5575,31 @@ uint64_t __38__HFItemManager__loadingStateForItem___block_invoke(uint64_t a1, vo
       [delegate2 itemManager:self didChangeOverallLoadingState:v7];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateResultsForItems:(id)items senderSelector:(SEL)selector
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v7 = objc_opt_new();
   [v7 setSenderSelector:selector];
   readPolicy = [(HFItemManager *)self readPolicy];
   [v7 setReadPolicy:readPolicy];
 
-  v13 = HFItemUpdateOptionFullUpdateIndicated;
-  v14[0] = MEMORY[0x277CBEC38];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = HFItemUpdateOptionFullUpdateIndicated;
+  v13[0] = MEMORY[0x277CBEC38];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [v7 setUpdateOptions:v9];
 
   v10 = [(HFItemManager *)self _updateResultsForItems:itemsCopy context:v7];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (void)resetItemProvidersAndModules
 {
-  home = [(HFItemManager *)self home];
-  if (home)
+  v3 = objc_msgSend_home(self, a2);
+  if (v3)
   {
 
     goto LABEL_4;
@@ -5782,8 +5608,8 @@ uint64_t __38__HFItemManager__loadingStateForItem___block_invoke(uint64_t a1, vo
   if ([(HFItemManager *)self _shouldBuildItemProvidersAndModulesForNilHome])
   {
 LABEL_4:
-    home2 = [(HFItemManager *)self home];
-    v5 = [(HFItemManager *)self _buildItemModulesForHome:home2];
+    v4 = objc_msgSend_home(self);
+    v5 = [(HFItemManager *)self _buildItemModulesForHome:v4];
     [(HFItemManager *)self setItemModules:v5];
 
     disableUpdateReasons = [(HFItemManager *)self disableUpdateReasons];
@@ -5801,12 +5627,12 @@ LABEL_4:
     v12 = [v11 na_flatMap:&__block_literal_global_283];
     [(HFItemManager *)self setModuleItemProviderSet:v12];
 
-    home3 = [(HFItemManager *)self home];
+    v13 = objc_msgSend_home(self);
 
-    if (home3)
+    if (v13)
     {
-      home4 = [(HFItemManager *)self home];
-      v30 = [(HFItemManager *)self _buildItemProvidersForHome:home4];
+      v14 = objc_msgSend_home(self);
+      v30 = [(HFItemManager *)self _buildItemProvidersForHome:v14];
 
       _buildItemProvidersWithoutHome = v30;
       if (v30)
@@ -5880,12 +5706,12 @@ LABEL_9:
 - (id)_updateResultsForItems:(id)items removedItems:(id)removedItems context:(id)context allowDelaying:(BOOL)delaying
 {
   delayingCopy = delaying;
-  v154 = *MEMORY[0x277D85DE8];
+  v153 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   removedItemsCopy = removedItems;
   contextCopy = context;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v115 = contextCopy;
+  v114 = contextCopy;
   readPolicy = [contextCopy readPolicy];
 
   if (!readPolicy)
@@ -5894,39 +5720,39 @@ LABEL_9:
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFItemManager.m" lineNumber:1238 description:{@"Invalid parameter not satisfying: %@", @"context.readPolicy != nil"}];
   }
 
-  v143 = 0u;
-  v144 = 0u;
-  v141 = 0u;
   v142 = 0u;
+  v143 = 0u;
+  v140 = 0u;
+  v141 = 0u;
   v14 = itemsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v141 objects:v153 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v140 objects:v152 count:16];
   if (v15)
   {
-    v16 = *v142;
+    v16 = *v141;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v142 != v16)
+        if (*v141 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v141 + 1) + 8 * i);
+        v18 = *(*(&v140 + 1) + 8 * i);
         if ([v18 _debug_isChildItem])
         {
           NSLog(&cfstr_AttemptingToEx.isa, v18);
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v141 objects:v153 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v140 objects:v152 count:16];
     }
 
     while (v15);
   }
 
-  home = [(HFItemManager *)self home];
-  if (home)
+  v19 = objc_msgSend_home(self);
+  if (v19)
   {
   }
 
@@ -5941,9 +5767,9 @@ LABEL_9:
 
   if (![v14 count] && !objc_msgSend(removedItemsCopy, "count"))
   {
-    v103 = MEMORY[0x277D2C900];
-    v104 = [MEMORY[0x277CBEB98] set];
-    firstFullUpdateFuture = [v103 futureWithResult:v104];
+    v102 = MEMORY[0x277D2C900];
+    v103 = [MEMORY[0x277CBEB98] set];
+    firstFullUpdateFuture = [v102 futureWithResult:v103];
 
     goto LABEL_45;
   }
@@ -5967,7 +5793,7 @@ LABEL_22:
       v32 = v31;
       if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
       {
-        updateOptions = [v115 updateOptions];
+        updateOptions = [v114 updateOptions];
         v34 = [updateOptions objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
         if ([v34 BOOLValue])
         {
@@ -5981,83 +5807,83 @@ LABEL_22:
 
         identifier = [(HFItemManager *)self identifier];
         v37 = objc_opt_class();
-        v111 = v37;
-        v38 = NSStringFromSelector([v115 senderSelector]);
+        v110 = v37;
+        v38 = NSStringFromSelector([v114 senderSelector]);
         *buf = 138544130;
         selfCopy3 = v35;
-        v147 = 2114;
-        v148 = identifier;
-        v149 = 2114;
-        v150 = v37;
-        v151 = 2114;
-        v152 = v38;
+        v146 = 2114;
+        v147 = identifier;
+        v148 = 2114;
+        v149 = v37;
+        v150 = 2114;
+        v151 = v38;
         _os_signpost_emit_with_name_impl(&dword_20D9BF000, v32, OS_SIGNPOST_INTERVAL_BEGIN, v30, "HFFutureToUpdateItems", "%{public}@ Item Update Delayed %{public}@:%{public}@ for sender: %{public}@", buf, 0x2Au);
       }
 
       delegate = [(HFItemManager *)self delegate];
-      updateOptions2 = [v115 updateOptions];
+      updateOptions2 = [v114 updateOptions];
       v41 = [delegate itemManager:self futureToUpdateItems:v14 itemUpdateOptions:updateOptions2];
 
       v42 = objc_alloc_init(MEMORY[0x277D2C900]);
-      v135[0] = MEMORY[0x277D85DD0];
-      v135[1] = 3221225472;
-      v135[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke;
-      v135[3] = &unk_277DFB998;
-      v135[4] = self;
-      v43 = v115;
-      v136 = v43;
+      v134[0] = MEMORY[0x277D85DD0];
+      v134[1] = 3221225472;
+      v134[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke;
+      v134[3] = &unk_277DFB998;
+      v134[4] = self;
+      v43 = v114;
+      v135 = v43;
       v44 = v14;
-      v137 = v44;
-      v140 = v30;
+      v136 = v44;
+      v139 = v30;
       v45 = removedItemsCopy;
-      v138 = v45;
+      v137 = v45;
       v46 = v42;
-      v139 = v46;
-      v47 = [v41 addFailureBlock:v135];
-      v129[0] = MEMORY[0x277D85DD0];
-      v129[1] = 3221225472;
-      v129[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_2;
-      v129[3] = &unk_277DFB9C0;
-      v134 = v30;
-      v129[4] = self;
-      v130 = v44;
-      v131 = v45;
-      v132 = v43;
+      v138 = v46;
+      v47 = [v41 addFailureBlock:v134];
+      v128[0] = MEMORY[0x277D85DD0];
+      v128[1] = 3221225472;
+      v128[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_2;
+      v128[3] = &unk_277DFB9C0;
+      v133 = v30;
+      v128[4] = self;
+      v129 = v44;
+      v130 = v45;
+      v131 = v43;
       v48 = v46;
-      v133 = v48;
-      v49 = [v41 addSuccessBlock:v129];
-      v50 = v133;
+      v132 = v48;
+      v49 = [v41 addSuccessBlock:v128];
+      v50 = v132;
       firstFullUpdateFuture = v48;
     }
 
     else
     {
-      logger = [v115 logger];
+      logger = [v114 logger];
 
       if (!logger)
       {
         v52 = [HFUpdateLogger alloc];
         v53 = MEMORY[0x277CCACA8];
-        v54 = NSStringFromSelector([v115 senderSelector]);
+        v54 = NSStringFromSelector([v114 senderSelector]);
         v55 = [v53 stringWithFormat:@"[%@ %@]", self, v54];
         v56 = [(HFUpdateLogger *)v52 initWithTimeout:v55 description:15.0];
-        [v115 setLogger:v56];
+        [v114 setLogger:v56];
       }
 
-      logger2 = [v115 logger];
+      logger2 = [v114 logger];
       v58 = logger2 == 0;
 
       if (v58)
       {
-        v107 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+        v106 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
         {
-          v108 = NSStringFromSelector([v115 senderSelector]);
+          v107 = NSStringFromSelector([v114 senderSelector]);
           *buf = 138543618;
           selfCopy3 = self;
-          v147 = 2114;
-          v148 = v108;
-          _os_log_impl(&dword_20D9BF000, v107, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting update for sender: %{public}@", buf, 0x16u);
+          v146 = 2114;
+          v147 = v107;
+          _os_log_impl(&dword_20D9BF000, v106, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting update for sender: %{public}@", buf, 0x16u);
         }
       }
 
@@ -6065,18 +5891,18 @@ LABEL_22:
       {
         state.opaque[0] = 0;
         state.opaque[1] = 0;
-        logger3 = [v115 logger];
+        logger3 = [v114 logger];
         loggerActivity = [logger3 loggerActivity];
         os_activity_scope_enter(loggerActivity, &state);
 
         v61 = HFLogForCategory(0x2CuLL);
         if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
         {
-          v62 = NSStringFromSelector([v115 senderSelector]);
+          v62 = NSStringFromSelector([v114 senderSelector]);
           *buf = 138543618;
           selfCopy3 = self;
-          v147 = 2114;
-          v148 = v62;
+          v146 = 2114;
+          v147 = v62;
           _os_log_impl(&dword_20D9BF000, v61, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting update for sender: %{public}@", buf, 0x16u);
         }
 
@@ -6090,7 +5916,7 @@ LABEL_22:
       v65 = v64;
       if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
       {
-        updateOptions3 = [v115 updateOptions];
+        updateOptions3 = [v114 updateOptions];
         v67 = [updateOptions3 objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
         if ([v67 BOOLValue])
         {
@@ -6104,30 +5930,30 @@ LABEL_22:
 
         identifier2 = [(HFItemManager *)self identifier];
         v70 = objc_opt_class();
-        v112 = v70;
-        v71 = NSStringFromSelector([v115 senderSelector]);
+        v111 = v70;
+        v71 = NSStringFromSelector([v114 senderSelector]);
         *buf = 138544130;
         selfCopy3 = v68;
-        v147 = 2114;
-        v148 = identifier2;
-        v149 = 2114;
-        v150 = v70;
-        v151 = 2114;
-        v152 = v71;
+        v146 = 2114;
+        v147 = identifier2;
+        v148 = 2114;
+        v149 = v70;
+        v150 = 2114;
+        v151 = v71;
         _os_signpost_emit_with_name_impl(&dword_20D9BF000, v65, OS_SIGNPOST_INTERVAL_BEGIN, spid, "HFItemManagerUpdate", "%{public}@ Item Update Started %{public}@:%{public}@ for sender: %{public}@", buf, 0x2Au);
       }
 
-      v109 = logger == 0;
+      v108 = logger == 0;
 
       v72 = MEMORY[0x277CCACA8];
-      v73 = NSStringFromSelector([v115 senderSelector]);
-      v113 = [v72 stringWithFormat:@"%@_%@", @"itemManagerUpdate", v73];
+      v73 = NSStringFromSelector([v114 senderSelector]);
+      v112 = [v72 stringWithFormat:@"%@_%@", @"itemManagerUpdate", v73];
 
-      home2 = [(HFItemManager *)self home];
-      hf_characteristicValueManager = [home2 hf_characteristicValueManager];
-      readPolicy2 = [v115 readPolicy];
-      logger4 = [v115 logger];
-      [hf_characteristicValueManager beginTransactionWithReason:v113 readPolicy:readPolicy2 logger:logger4];
+      v74 = objc_msgSend_home(self);
+      hf_characteristicValueManager = [v74 hf_characteristicValueManager];
+      readPolicy2 = [v114 readPolicy];
+      logger4 = [v114 logger];
+      [hf_characteristicValueManager beginTransactionWithReason:v112 readPolicy:readPolicy2 logger:logger4];
 
       _internalItems = [(HFItemManager *)self _internalItems];
       v79 = [_internalItems na_setByIntersectingWithSet:v14];
@@ -6135,31 +5961,31 @@ LABEL_22:
       v80 = [v14 na_setByRemovingObjectsFromSet:v79];
       array = [MEMORY[0x277CBEB18] array];
       allObjects = [v80 allObjects];
-      v126[0] = MEMORY[0x277D85DD0];
-      v126[1] = 3221225472;
-      v126[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_317;
-      v126[3] = &unk_277DFB9E8;
-      v126[4] = self;
-      v83 = v115;
-      v127 = v83;
-      v84 = [allObjects na_map:v126];
+      v125[0] = MEMORY[0x277D85DD0];
+      v125[1] = 3221225472;
+      v125[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_317;
+      v125[3] = &unk_277DFB9E8;
+      v125[4] = self;
+      v83 = v114;
+      v126 = v83;
+      v84 = [allObjects na_map:v125];
       [array addObjectsFromArray:v84];
 
       allObjects2 = [v79 allObjects];
-      v124[0] = MEMORY[0x277D85DD0];
-      v124[1] = 3221225472;
-      v124[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_2_320;
-      v124[3] = &unk_277DFB9E8;
-      v124[4] = self;
+      v123[0] = MEMORY[0x277D85DD0];
+      v123[1] = 3221225472;
+      v123[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_2_320;
+      v123[3] = &unk_277DFB9E8;
+      v123[4] = self;
       v86 = v83;
-      v125 = v86;
-      v87 = [allObjects2 na_map:v124];
+      v124 = v86;
+      v87 = [allObjects2 na_map:v123];
       [array addObjectsFromArray:v87];
 
       v88 = objc_alloc_init(MEMORY[0x277D2C900]);
-      home3 = [(HFItemManager *)self home];
-      hf_characteristicValueManager2 = [home3 hf_characteristicValueManager];
-      [hf_characteristicValueManager2 commitTransactionWithReason:v113];
+      v89 = objc_msgSend_home(self);
+      hf_characteristicValueManager2 = [v89 hf_characteristicValueManager];
+      [hf_characteristicValueManager2 commitTransactionWithReason:v112];
 
       logger5 = [v86 logger];
       [(HFItemManager *)self _batchItemUpdateFutureWrappers:array removedItems:removedItemsCopy batchingIntervals:&unk_2825257F8 logger:logger5];
@@ -6170,33 +5996,33 @@ LABEL_22:
       v95 = [v92 combineAllFutures:v93 ignoringErrors:1 scheduler:mainThreadScheduler];
 
       objc_initWeak(buf, self);
-      v116[0] = MEMORY[0x277D85DD0];
-      v116[1] = 3221225472;
-      v116[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_329;
-      v116[3] = &unk_277DFBA10;
-      objc_copyWeak(v122, buf);
+      v115[0] = MEMORY[0x277D85DD0];
+      v115[1] = 3221225472;
+      v115[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_329;
+      v115[3] = &unk_277DFBA10;
+      objc_copyWeak(v121, buf);
       v96 = v79;
-      v117 = v96;
+      v116 = v96;
       v97 = v80;
-      v118 = v97;
-      v119 = removedItemsCopy;
-      v122[1] = spid;
-      v120 = v86;
-      v123 = v109;
+      v117 = v97;
+      v118 = removedItemsCopy;
+      v121[1] = spid;
+      v119 = v86;
+      v122 = v108;
       v98 = v88;
-      v121 = v98;
-      v99 = [v95 addCompletionBlock:v116];
-      v100 = v121;
+      v120 = v98;
+      v99 = [v95 addCompletionBlock:v115];
+      v100 = v120;
       firstFullUpdateFuture = v98;
 
-      objc_destroyWeak(v122);
+      objc_destroyWeak(v121);
       objc_destroyWeak(buf);
     }
 
     goto LABEL_45;
   }
 
-  updateOptions4 = [v115 updateOptions];
+  updateOptions4 = [v114 updateOptions];
   v25 = [updateOptions4 objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
   bOOLValue = [v25 BOOLValue];
 
@@ -6205,27 +6031,25 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v105 = HFLogForCategory(0x2CuLL);
-  if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+  v104 = HFLogForCategory(0x2CuLL);
+  if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy3 = self;
-    v147 = 2112;
-    v148 = v14;
-    _os_log_impl(&dword_20D9BF000, v105, OS_LOG_TYPE_DEFAULT, "Request to updateResultsForItems for %@, but we're still performing the fast initial update. Once that is done, we'll reload all items anyway, so ignoring this duplicate request. itemsToUpdate: %@", buf, 0x16u);
+    v146 = 2112;
+    v147 = v14;
+    _os_log_impl(&dword_20D9BF000, v104, OS_LOG_TYPE_DEFAULT, "Request to updateResultsForItems for %@, but we're still performing the fast initial update. Once that is done, we'll reload all items anyway, so ignoring this duplicate request. itemsToUpdate: %@", buf, 0x16u);
   }
 
   firstFullUpdateFuture = [(HFItemManager *)self firstFullUpdateFuture];
 LABEL_45:
-
-  v101 = *MEMORY[0x277D85DE8];
 
   return firstFullUpdateFuture;
 }
 
 void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -6234,11 +6058,11 @@ void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelayi
     v6 = [*(a1 + 40) updateOptions];
     v7 = *(a1 + 48);
     *buf = 138412802;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
-    v22 = 2112;
-    v23 = v7;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
+    v21 = 2112;
+    v22 = v7;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Delegate for %@ has failed its future to update with options: %@ for items: %@; canceling update", buf, 0x20u);
   }
 
@@ -6248,21 +6072,19 @@ void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelayi
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 138412290;
-    v19 = v3;
+    v18 = v3;
     _os_signpost_emit_with_name_impl(&dword_20D9BF000, v9, OS_SIGNPOST_INTERVAL_END, v10, "HFFutureToUpdateItems", "Failed with error %@, canceling", buf, 0xCu);
   }
 
   v11 = *(a1 + 32);
   v12 = [MEMORY[0x277CBEB98] set];
   v13 = [v11 _updateResultsForItems:v12 removedItems:*(a1 + 56) context:*(a1 + 40) allowDelaying:0];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_310;
-  v16[3] = &unk_277DF4FE8;
-  v17 = *(a1 + 64);
-  v14 = [v13 addCompletionBlock:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_310;
+  v15[3] = &unk_277DF4FE8;
+  v16 = *(a1 + 64);
+  v14 = [v13 addCompletionBlock:v15];
 }
 
 void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_2(uint64_t a1)
@@ -6309,7 +6131,7 @@ id __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying
 
 void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelaying___block_invoke_329(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = [MEMORY[0x277CBEB58] set];
   [v3 unionSet:*(a1 + 32)];
@@ -6320,8 +6142,8 @@ void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelayi
   v6 = *(a1 + 80);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    v24 = [*(a1 + 56) updateOptions];
-    v7 = [v24 objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
+    v23 = [*(a1 + 56) updateOptions];
+    v7 = [v23 objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
     if ([v7 BOOLValue])
     {
       v8 = @"Initial";
@@ -6335,16 +6157,16 @@ void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelayi
     v9 = [WeakRetained identifier];
     v10 = objc_opt_class();
     v11 = *(a1 + 56);
-    v23 = v10;
+    v22 = v10;
     v12 = NSStringFromSelector([v11 senderSelector]);
     *buf = 138544130;
     *&buf[4] = v8;
     *&buf[12] = 2114;
     *&buf[14] = v9;
-    v27 = 2114;
-    v28 = v10;
-    v29 = 2114;
-    v30 = v12;
+    v26 = 2114;
+    v27 = v10;
+    v28 = 2114;
+    v29 = v12;
     _os_signpost_emit_with_name_impl(&dword_20D9BF000, v5, OS_SIGNPOST_INTERVAL_END, v6, "HFItemManagerUpdate", "%{public}@ Item Update Finished %{public}@:%{public}@ for sender: %{public}@", buf, 0x2Au);
   }
 
@@ -6361,8 +6183,8 @@ void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelayi
     v16 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 0;
-      _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "All batch item updates complete.", v25, 2u);
+      *v24 = 0;
+      _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "All batch item updates complete.", v24, 2u);
     }
 
     os_activity_scope_leave(buf);
@@ -6370,11 +6192,11 @@ void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelayi
 
   else
   {
-    v22 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "All batch item updates complete.", buf, 2u);
+      _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "All batch item updates complete.", buf, 2u);
     }
   }
 
@@ -6395,8 +6217,109 @@ void __75__HFItemManager__updateResultsForItems_removedItems_context_allowDelayi
   }
 
   [*(a1 + 64) finishWithResult:v3];
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (id)_performUpdateForItem:(id)item withContext:(id)context isInternal:(BOOL)internal isChild:(BOOL)child
+{
+  childCopy = child;
+  v53 = *MEMORY[0x277D85DE8];
+  itemCopy = item;
+  contextCopy = context;
+  latestResults = [itemCopy latestResults];
+  _debug_owningItemManager = [itemCopy _debug_owningItemManager];
+
+  _debug_owningItemManager2 = [itemCopy _debug_owningItemManager];
+  if (_debug_owningItemManager2)
+  {
+    v15 = _debug_owningItemManager2;
+    _debug_owningItemManager3 = [itemCopy _debug_owningItemManager];
+
+    if (_debug_owningItemManager3 != self)
+    {
+      _debug_owningItemManager4 = [itemCopy _debug_owningItemManager];
+      NSLog(&cfstr_RequestToUpdat.isa, self, _debug_owningItemManager4, itemCopy);
+    }
+  }
+
+  [itemCopy set_debug_owningItemManager:self];
+  [itemCopy set_debug_isChildItem:childCopy];
+  updateOptions = [contextCopy updateOptions];
+  v19 = [updateOptions mutableCopy];
+
+  [v19 setObject:latestResults forKeyedSubscript:HFItemUpdateOptionPreviousResults];
+  logger = [contextCopy logger];
+  [v19 setObject:logger forKeyedSubscript:HFItemUpdateOptionLogger];
+
+  v21 = [itemCopy updateWithOptions:v19];
+  if (!v21)
+  {
+    NSLog(&cfstr_ProgrammerErro.isa, itemCopy);
+    logger2 = [contextCopy logger];
+
+    if (logger2)
+    {
+      state.opaque[0] = 0;
+      state.opaque[1] = 0;
+      logger3 = [contextCopy logger];
+      loggerActivity = [logger3 loggerActivity];
+      os_activity_scope_enter(loggerActivity, &state);
+
+      v25 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v51 = itemCopy;
+        _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_ERROR, "Programmer error: Items must always return a valid future from -updateWithOptions, but this item returned nil: %@", buf, 0xCu);
+      }
+
+      os_activity_scope_leave(&state);
+    }
+
+    else
+    {
+      v38 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      {
+        LODWORD(state.opaque[0]) = 138412290;
+        *(state.opaque + 4) = itemCopy;
+        _os_log_impl(&dword_20D9BF000, v38, OS_LOG_TYPE_ERROR, "Programmer error: Items must always return a valid future from -updateWithOptions, but this item returned nil: %@", &state, 0xCu);
+      }
+    }
+
+    v26 = MEMORY[0x277D2C900];
+    v27 = [HFItemUpdateOutcome outcomeWithResults:MEMORY[0x277CBEC10]];
+    v21 = [v26 futureWithResult:v27];
+  }
+
+  v28 = _debug_owningItemManager == self;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___block_invoke;
+  v43[3] = &unk_277DFBA60;
+  v43[4] = self;
+  v29 = itemCopy;
+  v44 = v29;
+  v30 = contextCopy;
+  v45 = v30;
+  internalCopy = internal;
+  v31 = latestResults;
+  v46 = v31;
+  v48 = v28;
+  v49 = childCopy;
+  v32 = [v21 flatMap:v43];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___block_invoke_353;
+  v39[3] = &unk_277DF6380;
+  v40 = v30;
+  v41 = v29;
+  v42 = v31;
+  v33 = v31;
+  v34 = v29;
+  v35 = v30;
+  v36 = [v32 recover:v39];
+
+  return v36;
 }
 
 id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___block_invoke(uint64_t a1, void *a2)
@@ -6423,7 +6346,7 @@ id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___bl
 
 id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___block_invoke_2(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) loadingState];
   v5 = [*(a1 + 32) _effectiveLoadingStateForSuggestedLoadingState:{objc_msgSend(*(a1 + 40), "_loadingStateForItem:", *(a1 + 32))}];
@@ -6480,7 +6403,7 @@ id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___bl
     {
       v14 = [*(a1 + 64) logger];
       v15 = [v14 loggerActivity];
-      os_activity_scope_enter(v15, &v45);
+      os_activity_scope_enter(v15, &v44);
 
       v16 = HFLogForCategory(0x2CuLL);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
@@ -6488,27 +6411,27 @@ id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___bl
         v17 = *(a1 + 32);
         v18 = *(a1 + 40);
         *buf = 138412546;
-        v47 = v17;
-        v48 = 2112;
-        v49 = v18;
+        v46 = v17;
+        v47 = 2112;
+        v48 = v18;
         _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEBUG, "Results for item %@ have been transformed by item manager %@", buf, 0x16u);
       }
 
-      os_activity_scope_leave(&v45);
+      os_activity_scope_leave(&v44);
     }
 
     else
     {
-      v38 = HFLogForCategory(0x2CuLL);
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+      v37 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
-        v39 = *(a1 + 32);
-        v40 = *(a1 + 40);
+        v38 = *(a1 + 32);
+        v39 = *(a1 + 40);
         *buf = 138412546;
-        v47 = v39;
-        v48 = 2112;
-        v49 = v40;
-        _os_log_impl(&dword_20D9BF000, v38, OS_LOG_TYPE_DEBUG, "Results for item %@ have been transformed by item manager %@", buf, 0x16u);
+        v46 = v38;
+        v47 = 2112;
+        v48 = v39;
+        _os_log_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_DEBUG, "Results for item %@ have been transformed by item manager %@", buf, 0x16u);
       }
     }
   }
@@ -6544,41 +6467,41 @@ id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___bl
 
     if (v24)
     {
-      v45.opaque[0] = 0;
-      v45.opaque[1] = 0;
+      v44.opaque[0] = 0;
+      v44.opaque[1] = 0;
       v25 = [*(a1 + 64) logger];
       v26 = [v25 loggerActivity];
-      os_activity_scope_enter(v26, &v45);
+      os_activity_scope_enter(v26, &v44);
 
       v27 = HFLogForCategory(0x2CuLL);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         v28 = *(a1 + 32);
         *buf = 138412802;
-        v47 = v21;
-        v48 = 2112;
-        v49 = v23;
-        v50 = 2112;
-        v51 = v28;
+        v46 = v21;
+        v47 = 2112;
+        v48 = v23;
+        v49 = 2112;
+        v50 = v28;
         _os_log_impl(&dword_20D9BF000, v27, OS_LOG_TYPE_DEFAULT, "%@ %@: %@", buf, 0x20u);
       }
 
-      os_activity_scope_leave(&v45);
+      os_activity_scope_leave(&v44);
     }
 
     else
     {
-      v41 = HFLogForCategory(0x2CuLL);
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v40 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        v42 = *(a1 + 32);
+        v41 = *(a1 + 32);
         *buf = 138412802;
-        v47 = v21;
-        v48 = 2112;
-        v49 = v23;
-        v50 = 2112;
-        v51 = v42;
-        _os_log_impl(&dword_20D9BF000, v41, OS_LOG_TYPE_DEFAULT, "%@ %@: %@", buf, 0x20u);
+        v46 = v21;
+        v47 = 2112;
+        v48 = v23;
+        v49 = 2112;
+        v50 = v41;
+        _os_log_impl(&dword_20D9BF000, v40, OS_LOG_TYPE_DEFAULT, "%@ %@: %@", buf, 0x20u);
       }
     }
 
@@ -6593,32 +6516,32 @@ LABEL_30:
     v21 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = *(a1 + 32);
+      v42 = *(a1 + 32);
       if (*(a1 + 73))
       {
-        v44 = @"child item";
+        v43 = @"child item";
       }
 
       else
       {
-        v44 = @"item";
+        v43 = @"item";
       }
 
       *buf = 138412546;
-      v47 = v44;
-      v48 = 2112;
-      v49 = v43;
+      v46 = v43;
+      v47 = 2112;
+      v48 = v42;
       _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "Updated %@, but results did not change: %@", buf, 0x16u);
     }
 
     goto LABEL_30;
   }
 
-  v45.opaque[0] = 0;
-  v45.opaque[1] = 0;
+  v44.opaque[0] = 0;
+  v44.opaque[1] = 0;
   v30 = [*(a1 + 64) logger];
   v31 = [v30 loggerActivity];
-  os_activity_scope_enter(v31, &v45);
+  os_activity_scope_enter(v31, &v44);
 
   v32 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
@@ -6635,24 +6558,22 @@ LABEL_30:
     }
 
     *buf = 138412546;
-    v47 = v34;
-    v48 = 2112;
-    v49 = v33;
+    v46 = v34;
+    v47 = 2112;
+    v48 = v33;
     _os_log_impl(&dword_20D9BF000, v32, OS_LOG_TYPE_DEFAULT, "Updated %@, but results did not change: %@", buf, 0x16u);
   }
 
-  os_activity_scope_leave(&v45);
+  os_activity_scope_leave(&v44);
 LABEL_38:
   v35 = [MEMORY[0x277D2C900] futureWithResult:v12];
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
 
 id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___block_invoke_353(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 na_isCancelledError] & 1) == 0)
   {
@@ -6671,9 +6592,9 @@ id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___bl
       {
         v8 = *(a1 + 40);
         *buf = 138412546;
-        v23 = v8;
-        v24 = 2112;
-        v25 = v3;
+        v22 = v8;
+        v23 = 2112;
+        v24 = v3;
         _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Update for item %@ failed with error %@. This is a programmer error, as item updates should never fail.", buf, 0x16u);
       }
 
@@ -6682,15 +6603,15 @@ id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___bl
 
     else
     {
-      v19 = HFLogForCategory(0x2CuLL);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v20 = *(a1 + 40);
+        v19 = *(a1 + 40);
         *buf = 138412546;
-        v23 = v20;
-        v24 = 2112;
-        v25 = v3;
-        _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_ERROR, "Update for item %@ failed with error %@. This is a programmer error, as item updates should never fail.", buf, 0x16u);
+        v22 = v19;
+        v23 = 2112;
+        v24 = v3;
+        _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "Update for item %@ failed with error %@. This is a programmer error, as item updates should never fail.", buf, 0x16u);
       }
     }
 
@@ -6714,8 +6635,6 @@ id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___bl
   }
 
   v16 = [MEMORY[0x277D2C900] futureWithError:v3];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -6766,8 +6685,8 @@ id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___bl
     v22 = v38 = internal;
     itemCopy = [@"itemManagerUpdate" stringByAppendingFormat:@"-%@-ChildItems-%p", v22, itemCopy];
 
-    home = [(HFItemManager *)self home];
-    [home hf_characteristicValueManager];
+    v23 = objc_msgSend_home(self);
+    [v23 hf_characteristicValueManager];
     v24 = v41 = v16;
     [HFStaticReadPolicy policyWithDecision:0];
     v26 = v25 = contextCopy;
@@ -6794,8 +6713,8 @@ id __70__HFItemManager__performUpdateForItem_withContext_isInternal_isChild___bl
     v43 = v39;
     v33 = [v32 flatMap:v42];
 
-    home2 = [(HFItemManager *)self home];
-    hf_characteristicValueManager = [home2 hf_characteristicValueManager];
+    v34 = objc_msgSend_home(self);
+    hf_characteristicValueManager = [v34 hf_characteristicValueManager];
     [hf_characteristicValueManager commitTransactionWithReason:itemCopy];
 
     contextCopy = v25;
@@ -6980,7 +6899,7 @@ uint64_t __50__HFItemManager__buildSectionsWithDisplayedItems___block_invoke_3(u
 
 - (id)_legacy_buildSectionsWithDisplayedItems:(id)items
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   [(HFItemManager *)self _willUpdateSections];
   currentSectionIdentifiersSnapshot = [(HFItemManager *)self currentSectionIdentifiersSnapshot];
@@ -7016,50 +6935,49 @@ uint64_t __50__HFItemManager__buildSectionsWithDisplayedItems___block_invoke_3(u
     }
   }
 
-  v27 = currentSectionIdentifiersSnapshot;
+  v26 = currentSectionIdentifiersSnapshot;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v14 = itemsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v32;
+    v17 = *v31;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v32 != v17)
+        if (*v31 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v31 + 1) + 8 * j);
+        v19 = *(*(&v30 + 1) + 8 * j);
         v20 = [(HFItemManager *)self _sectionIdentifierForItem:v19];
         v21 = [dictionary na_objectForKey:v20 withDefaultValue:&__block_literal_global_385];
         [v21 addObject:v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v16);
   }
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __57__HFItemManager__legacy_buildSectionsWithDisplayedItems___block_invoke_2;
-  v28[3] = &unk_277DFBB88;
-  v22 = v26;
-  v29 = v22;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __57__HFItemManager__legacy_buildSectionsWithDisplayedItems___block_invoke_2;
+  v27[3] = &unk_277DFBB88;
+  v22 = v25;
+  v28 = v22;
   selfCopy = self;
-  [dictionary enumerateKeysAndObjectsUsingBlock:v28];
+  [dictionary enumerateKeysAndObjectsUsingBlock:v27];
   v23 = v22;
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -7112,31 +7030,31 @@ uint64_t __57__HFItemManager__legacy_buildSectionsWithDisplayedItems___block_inv
 
 - (void)_notifyDelegateOfSectionOperations:(id)operations logger:(id)logger
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
   loggerCopy = logger;
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v8 = [operationsCopy countByEnumeratingWithState:&v44 objects:v51 count:16];
+  v8 = [operationsCopy countByEnumeratingWithState:&v43 objects:v50 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v45;
+    v10 = *v44;
     v11 = &dword_20D9BF000;
-    v43 = loggerCopy;
+    v42 = loggerCopy;
     do
     {
       v12 = 0;
       do
       {
-        if (*v45 != v10)
+        if (*v44 != v10)
         {
           objc_enumerationMutation(operationsCopy);
         }
 
-        v13 = *(*(&v44 + 1) + 8 * v12);
+        v13 = *(*(&v43 + 1) + 8 * v12);
         if (loggerCopy)
         {
           state.opaque[0] = 0;
@@ -7149,7 +7067,7 @@ uint64_t __57__HFItemManager__legacy_buildSectionsWithDisplayedItems___block_inv
           {
             operationDescription = [v13 operationDescription];
             *buf = 138412290;
-            v49 = operationDescription;
+            v48 = operationDescription;
             _os_log_impl(v11, v15, OS_LOG_TYPE_DEFAULT, "Issuing section update: %@", buf, 0xCu);
           }
 
@@ -7195,7 +7113,7 @@ uint64_t __57__HFItemManager__legacy_buildSectionsWithDisplayedItems___block_inv
             operationsCopy = v33;
             v10 = v32;
             v9 = v31;
-            loggerCopy = v43;
+            loggerCopy = v42;
             [delegate2 itemManager:self didMoveSection:v38 toSection:integerValue2];
 
             goto LABEL_23;
@@ -7252,42 +7170,40 @@ LABEL_24:
       }
 
       while (v9 != v12);
-      v41 = [operationsCopy countByEnumeratingWithState:&v44 objects:v51 count:16];
+      v41 = [operationsCopy countByEnumeratingWithState:&v43 objects:v50 count:16];
       v9 = v41;
     }
 
     while (v41);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyDelegateOfItemOperations:(id)operations logger:(id)logger
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
   loggerCopy = logger;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v8 = [operationsCopy countByEnumeratingWithState:&v34 objects:v41 count:16];
+  v8 = [operationsCopy countByEnumeratingWithState:&v33 objects:v40 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     do
     {
       v11 = 0;
-      v33 = sel_itemManager_didRemoveItem_atIndexPath_;
+      v32 = sel_itemManager_didRemoveItem_atIndexPath_;
       do
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(operationsCopy);
         }
 
-        v12 = *(*(&v34 + 1) + 8 * v11);
+        v12 = *(*(&v33 + 1) + 8 * v11);
         if (loggerCopy)
         {
           state.opaque[0] = 0;
@@ -7300,7 +7216,7 @@ LABEL_24:
           {
             operationDescription = [v12 operationDescription];
             *buf = 138412290;
-            v39 = operationDescription;
+            v38 = operationDescription;
             _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Issuing item update: %@", buf, 0xCu);
           }
 
@@ -7397,14 +7313,12 @@ LABEL_24:
       }
 
       while (v9 != v11);
-      v31 = [operationsCopy countByEnumeratingWithState:&v34 objects:v41 count:16];
+      v31 = [operationsCopy countByEnumeratingWithState:&v33 objects:v40 count:16];
       v9 = v31;
     }
 
     while (v31);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_itemsToHideInSet:(id)set
@@ -7438,8 +7352,8 @@ LABEL_24:
     }
   }
 
-  home = [(HFItemManager *)self home];
-  hf_currentUserIsAdministrator = [home hf_currentUserIsAdministrator];
+  v16 = objc_msgSend_home(self);
+  hf_currentUserIsAdministrator = [v16 hf_currentUserIsAdministrator];
 
   if ((hf_currentUserIsAdministrator & 1) == 0)
   {
@@ -7447,8 +7361,8 @@ LABEL_24:
     [v5 unionSet:v18];
   }
 
-  home2 = [(HFItemManager *)self home];
-  hf_currentUserIsOwner = [home2 hf_currentUserIsOwner];
+  v19 = objc_msgSend_home(self);
+  hf_currentUserIsOwner = [v19 hf_currentUserIsOwner];
 
   if ((hf_currentUserIsOwner & 1) == 0)
   {
@@ -7538,29 +7452,29 @@ void __35__HFItemManager__itemsToHideInSet___block_invoke_4(uint64_t a1, void *a
 
 - (id)_serviceItemsToHideInSet:(id)set allServiceGroupItems:(id)items
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   setCopy = set;
   itemsCopy = items;
-  v24 = [MEMORY[0x277CBEB58] set];
+  v23 = [MEMORY[0x277CBEB58] set];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = setCopy;
-  v26 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  if (v25)
   {
-    v25 = *v32;
+    v24 = *v31;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v32 != v25)
+        if (*v31 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * i);
+        v9 = *(*(&v30 + 1) + 8 * i);
         objc_opt_class();
         homeKitObject = [v9 homeKitObject];
         if (objc_opt_isKindOfClass())
@@ -7575,38 +7489,38 @@ void __35__HFItemManager__itemsToHideInSet___block_invoke_4(uint64_t a1, void *a
 
         v12 = v11;
 
-        home = [(HFItemManager *)self home];
-        v14 = [home hf_serviceGroupsForService:v12];
+        v13 = objc_msgSend_home(self);
+        v14 = [v13 hf_serviceGroupsForService:v12];
 
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         v15 = v14;
-        v16 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v28;
+          v18 = *v27;
           while (2)
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v28 != v18)
+              if (*v27 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = [(HFItemManager *)self _serviceGroupItemForServiceGroup:*(*(&v27 + 1) + 8 * j) inItems:itemsCopy];
+              v20 = [(HFItemManager *)self _serviceGroupItemForServiceGroup:*(*(&v26 + 1) + 8 * j) inItems:itemsCopy];
               if (v20 && [(HFItemManager *)self _shouldHideServiceItem:v9 containedInServiceGroupItem:v20])
               {
 
-                [v24 addObject:v9];
+                [v23 addObject:v9];
                 goto LABEL_20;
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
             if (v17)
             {
               continue;
@@ -7619,15 +7533,13 @@ void __35__HFItemManager__itemsToHideInSet___block_invoke_4(uint64_t a1, void *a
 LABEL_20:
       }
 
-      v26 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v25 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 - (BOOL)_shouldHideServiceItem:(id)item containedInServiceGroupItem:(id)groupItem
@@ -7649,39 +7561,37 @@ LABEL_20:
 
 - (id)_allSuppressedCharacteristics
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   suppressedCharacteristicUpdatesByReason = [(HFItemManager *)self suppressedCharacteristicUpdatesByReason];
   allValues = [suppressedCharacteristicUpdatesByReason allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [v3 unionSet:*(*(&v12 + 1) + 8 * i)];
+        [v3 unionSet:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -7702,26 +7612,26 @@ LABEL_20:
 
 - (void)beginFirstFullUpdateWithTimeoutFutureIfNeeded
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (![(HFItemManager *)self hasBegunFirstFullUpdateFutureTimeout])
   {
     [(HFItemManager *)self setHasBegunFirstFullUpdateFutureTimeout:1];
     objc_initWeak(&location, self);
     firstFullUpdateFuture = [(HFItemManager *)self firstFullUpdateFuture];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_invoke;
-    v19[3] = &unk_277DFBBF8;
-    objc_copyWeak(&v20, &location);
-    v4 = [firstFullUpdateFuture addCompletionBlock:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_invoke;
+    v18[3] = &unk_277DFBBF8;
+    objc_copyWeak(&v19, &location);
+    v4 = [firstFullUpdateFuture addCompletionBlock:v18];
 
     mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_invoke_2;
-    v17[3] = &unk_277DF4460;
-    objc_copyWeak(&v18, &location);
-    v6 = [mainThreadScheduler afterDelay:v17 performBlock:15.0];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_invoke_2;
+    v16[3] = &unk_277DF4460;
+    objc_copyWeak(&v17, &location);
+    v6 = [mainThreadScheduler afterDelay:v16 performBlock:15.0];
 
     v7 = HFLogForCategory(0x35uLL);
     v8 = os_signpost_id_generate(v7);
@@ -7733,26 +7643,24 @@ LABEL_20:
       v11 = objc_opt_class();
       identifier = [(HFItemManager *)self identifier];
       *buf = 138412546;
-      v23 = v11;
-      v24 = 2112;
-      v25 = identifier;
+      v22 = v11;
+      v23 = 2112;
+      v24 = identifier;
       _os_signpost_emit_with_name_impl(&dword_20D9BF000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "HFItemManagerFutures", "%@-%@: firstFullUpdateWithTimeoutFuture", buf, 0x16u);
     }
 
     firstFullUpdateWithTimeoutFuture = [(HFItemManager *)self firstFullUpdateWithTimeoutFuture];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_invoke_420;
-    v16[3] = &__block_descriptor_40_e28_v24__0__NSNull_8__NSError_16l;
-    v16[4] = v8;
-    v14 = [firstFullUpdateWithTimeoutFuture addCompletionBlock:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_invoke_420;
+    v15[3] = &__block_descriptor_40_e28_v24__0__NSNull_8__NSError_16l;
+    v15[4] = v8;
+    v14 = [firstFullUpdateWithTimeoutFuture addCompletionBlock:v15];
 
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_invoke(uint64_t a1)
@@ -7783,7 +7691,7 @@ void __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_in
 
 void __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_invoke_420(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = HFLogForCategory(0x35uLL);
   v6 = v5;
@@ -7796,14 +7704,12 @@ void __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_in
       v8 = "success";
     }
 
-    v10 = 138412546;
-    v11 = v4;
-    v12 = 2082;
-    v13 = v8;
-    _os_signpost_emit_with_name_impl(&dword_20D9BF000, v6, OS_SIGNPOST_INTERVAL_END, v7, "HFItemManagerFutures", "Finished with error: %@ (%{public}s)", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2082;
+    v12 = v8;
+    _os_signpost_emit_with_name_impl(&dword_20D9BF000, v6, OS_SIGNPOST_INTERVAL_END, v7, "HFItemManagerFutures", "Finished with error: %@ (%{public}s)", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isUsingOnlyItemModules
@@ -7825,29 +7731,29 @@ void __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_in
 
 - (id)_itemsOfClass:(Class)class inItems:(id)items allowTransformedItems:(BOOL)transformedItems
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v6 = [MEMORY[0x277CBEB58] set];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = itemsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           objc_opt_class();
@@ -7865,44 +7771,42 @@ void __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_in
           }
         }
 
-        [v6 addObject:{v12, v17}];
+        [v6 addObject:{v12, v16}];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)_serviceGroupItemForServiceGroup:(id)group inItems:(id)items
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   uniqueIdentifier = [group uniqueIdentifier];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = [(HFItemManager *)self _itemsOfClass:objc_opt_class() inItems:itemsCopy allowTransformedItems:1, 0];
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         homeKitObject = [v12 homeKitObject];
         uniqueIdentifier2 = [homeKitObject uniqueIdentifier];
         v15 = [uniqueIdentifier2 isEqual:uniqueIdentifier];
@@ -7914,7 +7818,7 @@ void __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_in
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -7925,8 +7829,6 @@ void __62__HFItemManager_beginFirstFullUpdateWithTimeoutFutureIfNeeded__block_in
   }
 
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -8030,7 +7932,7 @@ BOOL __60__HFItemManager__itemsWithDependenciesPassingTest_forItems___block_invo
 
 uint64_t __64__HFItemManager__directItemDependenciesForHomeKitObjects_class___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 latestResults];
   v5 = [v4 objectForKeyedSubscript:@"dependentHomeKitObjects"];
@@ -8043,29 +7945,29 @@ uint64_t __64__HFItemManager__directItemDependenciesForHomeKitObjects_class___bl
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = [v3 latestResults];
     v9 = [v8 objectForKeyedSubscript:@"dependentHomeKitClasses"];
 
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       while (2)
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          if ([*(a1 + 40) isSubclassOfClass:*(*(&v16 + 1) + 8 * v13)])
+          if ([*(a1 + 40) isSubclassOfClass:*(*(&v15 + 1) + 8 * v13)])
           {
             v7 = 1;
             goto LABEL_13;
@@ -8075,7 +7977,7 @@ uint64_t __64__HFItemManager__directItemDependenciesForHomeKitObjects_class___bl
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v11)
         {
           continue;
@@ -8089,7 +7991,6 @@ uint64_t __64__HFItemManager__directItemDependenciesForHomeKitObjects_class___bl
 LABEL_13:
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -8342,48 +8243,46 @@ id __51__HFItemManager__itemsToUpdateForModifiedServices___block_invoke(uint64_t
 
 - (id)_itemsToUpdateForModifiedServiceTypes:(id)types
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   typesCopy = types;
-  v16 = [MEMORY[0x277CBEB58] set];
+  v15 = [MEMORY[0x277CBEB58] set];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   _allItemsIncludingInternalItems = [(HFItemManager *)self _allItemsIncludingInternalItems];
-  v6 = [_allItemsIncludingInternalItems countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [_allItemsIncludingInternalItems countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(_allItemsIncludingInternalItems);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         latestResults = [v10 latestResults];
         v12 = [latestResults objectForKeyedSubscript:@"dependentServiceTypes"];
         v13 = [v12 intersectsSet:typesCopy];
 
         if (v13)
         {
-          [v16 addObject:v10];
+          [v15 addObject:v10];
         }
       }
 
-      v7 = [_allItemsIncludingInternalItems countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [_allItemsIncludingInternalItems countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
 - (id)_itemsToUpdateForModifiedCharacteristics:(id)characteristics includeSuppressedCharacteristics:(BOOL)suppressedCharacteristics
@@ -8486,34 +8385,34 @@ uint64_t __69__HFItemManager__itemsToUpdateForAllowAccessWhileLockedSettingChang
 
 - (id)_itemsToUpdateForMediaSessionChange:(id)change
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = [MEMORY[0x277CBEB98] na_setWithSafeObject:changeCopy];
   v6 = [(HFItemManager *)self _directItemDependenciesForHomeKitObjects:v5 class:objc_opt_class()];
   v7 = [v6 mutableCopy];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  home = [(HFItemManager *)self home];
-  hf_mediaAccessories = [home hf_mediaAccessories];
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v8 = objc_msgSend_home(self);
+  hf_mediaAccessories = [v8 hf_mediaAccessories];
 
-  v10 = [hf_mediaAccessories countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v10 = [hf_mediaAccessories countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v35;
+    v12 = *v34;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v35 != v12)
+        if (*v34 != v12)
         {
           objc_enumerationMutation(hf_mediaAccessories);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * i);
+        v14 = *(*(&v33 + 1) + 8 * i);
         mediaProfile = [v14 mediaProfile];
         mediaSession = [mediaProfile mediaSession];
 
@@ -8525,34 +8424,34 @@ uint64_t __69__HFItemManager__itemsToUpdateForAllowAccessWhileLockedSettingChang
         }
       }
 
-      v11 = [hf_mediaAccessories countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v11 = [hf_mediaAccessories countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v11);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
-  home2 = [(HFItemManager *)self home];
-  mediaSystems = [home2 mediaSystems];
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v19 = objc_msgSend_home(self, 0);
+  mediaSystems = [v19 mediaSystems];
 
-  v21 = [mediaSystems countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v21 = [mediaSystems countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v31;
+    v23 = *v30;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v31 != v23)
+        if (*v30 != v23)
         {
           objc_enumerationMutation(mediaSystems);
         }
 
-        v25 = *(*(&v30 + 1) + 8 * j);
+        v25 = *(*(&v29 + 1) + 8 * j);
         mediaSession2 = [v25 mediaSession];
 
         if (mediaSession2 == changeCopy)
@@ -8562,13 +8461,11 @@ uint64_t __69__HFItemManager__itemsToUpdateForAllowAccessWhileLockedSettingChang
         }
       }
 
-      v22 = [mediaSystems countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v22 = [mediaSystems countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v22);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -8878,15 +8775,15 @@ id __48__HFItemManager__itemsToUpdateForModifiedUUIDs___block_invoke_2(uint64_t 
 
 - (id)_invalidationReasonsForAddedOrRemovedAccessory:(id)accessory
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v14 = @"accessory";
+  v14 = *MEMORY[0x277D85DE8];
+  v13 = @"accessory";
   v4 = MEMORY[0x277CBEA60];
   accessoryCopy = accessory;
-  v6 = [v4 arrayWithObjects:&v14 count:1];
+  v6 = [v4 arrayWithObjects:&v13 count:1];
   room = [accessoryCopy room];
 
-  home = [(HFItemManager *)self home];
-  roomForEntireHome = [home roomForEntireHome];
+  v8 = objc_msgSend_home(self);
+  roomForEntireHome = [v8 roomForEntireHome];
   v10 = [room isEqual:roomForEntireHome];
 
   if (v10)
@@ -8896,22 +8793,20 @@ id __48__HFItemManager__itemsToUpdateForModifiedUUIDs___block_invoke_2(uint64_t 
     v6 = v11;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_invalidationReasonsForAddedOrRemovedMediaSystem:(id)system
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v14 = @"mediaSystem";
+  v14 = *MEMORY[0x277D85DE8];
+  v13 = @"mediaSystem";
   v4 = MEMORY[0x277CBEA60];
   systemCopy = system;
-  v6 = [v4 arrayWithObjects:&v14 count:1];
+  v6 = [v4 arrayWithObjects:&v13 count:1];
   hf_parentRoom = [systemCopy hf_parentRoom];
 
-  home = [(HFItemManager *)self home];
-  roomForEntireHome = [home roomForEntireHome];
+  v8 = objc_msgSend_home(self);
+  roomForEntireHome = [v8 roomForEntireHome];
   v10 = [hf_parentRoom isEqual:roomForEntireHome];
 
   if (v10)
@@ -8920,8 +8815,6 @@ id __48__HFItemManager__itemsToUpdateForModifiedUUIDs___block_invoke_2(uint64_t 
 
     v6 = v11;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -9046,6 +8939,14 @@ uint64_t __78__HFItemManager__itemsToUpdateForHomeKitKeyPaths_forHomeKitObjectId
   return v10;
 }
 
+- (void)temperatureUnitObserver:(id)observer didChangeTemperatureUnit:(BOOL)unit
+{
+  v6 = [(HFItemManager *)self _allItemsIncludingInternalItems:observer];
+  v8 = [(HFItemManager *)self _itemsWithDependenciesPassingTest:&__block_literal_global_530 forItems:v6];
+
+  v7 = [(HFItemManager *)self updateResultsForItems:v8 senderSelector:a2];
+}
+
 uint64_t __66__HFItemManager_temperatureUnitObserver_didChangeTemperatureUnit___block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 latestResults];
@@ -9081,8 +8982,8 @@ uint64_t __58__HFItemManager_settingsInvalidatedForNotificationCenter___block_in
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
   delegate2 = [(HFItemManager *)self delegate];
-  home = [(HFItemManager *)self home];
-  hf_prettyDescription = [home hf_prettyDescription];
+  v10 = objc_msgSend_home(self);
+  hf_prettyDescription = [v10 hf_prettyDescription];
   disableUpdateReasons = [(HFItemManager *)self disableUpdateReasons];
   v13 = [v3 stringWithFormat:@"<%@:%p> delegate: <%@:%p> home: %@ disableUpdateReasons: {%@}", v5, self, v8, delegate2, hf_prettyDescription, disableUpdateReasons];
 
@@ -9211,7 +9112,7 @@ uint64_t __59__HFItemManager_sectionIndexForDisplayedSectionIdentifier___block_i
 
 - (id)displayedSectionIdentifierForSectionIndex:(unint64_t)index
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   diffableDataSource = [(HFItemManager *)self diffableDataSource];
   snapshot = [diffableDataSource snapshot];
   sectionIdentifiers = [snapshot sectionIdentifiers];
@@ -9224,13 +9125,13 @@ uint64_t __59__HFItemManager_sectionIndexForDisplayedSectionIdentifier___block_i
     {
       diffableDataSource2 = [(HFItemManager *)self diffableDataSource];
       snapshot2 = [diffableDataSource2 snapshot];
-      v19 = 136315650;
-      v20 = "[HFItemManager displayedSectionIdentifierForSectionIndex:]";
-      v21 = 2112;
-      v22 = snapshot2;
-      v23 = 2048;
+      v18 = 136315650;
+      v19 = "[HFItemManager displayedSectionIdentifierForSectionIndex:]";
+      v20 = 2112;
+      v21 = snapshot2;
+      v22 = 2048;
       indexCopy = index;
-      _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "(%s) self.diffableDataSource.snapshot = %@. sectionIndex = %lu", &v19, 0x20u);
+      _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "(%s) self.diffableDataSource.snapshot = %@. sectionIndex = %lu", &v18, 0x20u);
     }
 
     identifier = 0;
@@ -9244,8 +9145,6 @@ uint64_t __59__HFItemManager_sectionIndexForDisplayedSectionIdentifier___block_i
     v12 = [sectionIdentifiers2 objectAtIndexedSubscript:index];
     identifier = [v12 identifier];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return identifier;
 }
@@ -9343,7 +9242,7 @@ LABEL_8:
 
 - (void)_batchItemUpdateFutureWrappers:(id)wrappers removedItems:(id)items batchingIntervals:(id)intervals logger:(id)logger
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   wrappersCopy = wrappers;
   itemsCopy = items;
   intervalsCopy = intervals;
@@ -9371,10 +9270,10 @@ LABEL_8:
         [firstObject floatValue];
         *buf = 67109632;
         *&buf[4] = v16;
-        LOWORD(v55) = 1024;
-        *(&v55 + 2) = v17;
-        HIWORD(v55) = 2048;
-        *&v56 = v19;
+        LOWORD(v54) = 1024;
+        *(&v54 + 2) = v17;
+        HIWORD(v54) = 2048;
+        *&v55 = v19;
         _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Requested batched update for %d items (+%d removed). Processing in: %.2f sec...", buf, 0x18u);
       }
 
@@ -9383,20 +9282,20 @@ LABEL_8:
 
     else
     {
-      v35 = HFLogForCategory(0x2CuLL);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v34 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = [wrappersCopy count];
-        v37 = [itemsCopy count];
+        v35 = [wrappersCopy count];
+        v36 = [itemsCopy count];
         firstObject2 = [intervalsCopy firstObject];
         [firstObject2 floatValue];
         *buf = 67109632;
-        *&buf[4] = v36;
-        LOWORD(v55) = 1024;
-        *(&v55 + 2) = v37;
-        HIWORD(v55) = 2048;
-        *&v56 = v39;
-        _os_log_impl(&dword_20D9BF000, v35, OS_LOG_TYPE_DEFAULT, "Requested batched update for %d items (+%d removed). Processing in: %.2f sec...", buf, 0x18u);
+        *&buf[4] = v35;
+        LOWORD(v54) = 1024;
+        *(&v54 + 2) = v36;
+        HIWORD(v54) = 2048;
+        *&v55 = v38;
+        _os_log_impl(&dword_20D9BF000, v34, OS_LOG_TYPE_DEFAULT, "Requested batched update for %d items (+%d removed). Processing in: %.2f sec...", buf, 0x18u);
       }
     }
 
@@ -9405,38 +9304,38 @@ LABEL_8:
     aBlock[1] = 3221225472;
     aBlock[2] = __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchingIntervals_logger___block_invoke;
     aBlock[3] = &unk_277DFBDF0;
-    objc_copyWeak(&v52, &state);
+    objc_copyWeak(&v51, &state);
     v20 = wrappersCopy;
-    v48 = v20;
-    v49 = itemsCopy;
-    v50 = loggerCopy;
+    v47 = v20;
+    v48 = itemsCopy;
+    v49 = loggerCopy;
     v21 = intervalsCopy;
-    v51 = v21;
+    v50 = v21;
     v22 = _Block_copy(aBlock);
     [(HFItemManager *)self setUpCustomDiffableDataSource];
     mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
     *buf = 0;
-    v55 = buf;
-    v56 = 0x2020000000;
-    v57 = 0;
+    v54 = buf;
+    v55 = 0x2020000000;
+    v56 = 0;
     firstObject3 = [v21 firstObject];
     [firstObject3 doubleValue];
     v26 = v25;
 
     if (v26 >= 0.00000011920929)
     {
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchingIntervals_logger___block_invoke_2;
-      v44[3] = &unk_277DFBE18;
-      v46 = buf;
-      v45 = v22;
-      v27 = [mainThreadScheduler afterDelay:v44 performBlock:v26];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchingIntervals_logger___block_invoke_2;
+      v43[3] = &unk_277DFBE18;
+      v45 = buf;
+      v44 = v22;
+      v27 = [mainThreadScheduler afterDelay:v43 performBlock:v26];
     }
 
     else
     {
-      v55[24] = 1;
+      v54[24] = 1;
       v22[2](v22);
       v27 = 0;
     }
@@ -9445,23 +9344,21 @@ LABEL_8:
     v29 = [_HFItemUpdateFutureWrapper futuresFromWrappers:v20];
     v30 = [v28 combineAllFutures:v29 ignoringErrors:1 scheduler:mainThreadScheduler];
 
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchingIntervals_logger___block_invoke_3;
-    v40[3] = &unk_277DFBE40;
-    v43 = buf;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchingIntervals_logger___block_invoke_3;
+    v39[3] = &unk_277DFBE40;
+    v42 = buf;
     v31 = v27;
-    v41 = v31;
+    v40 = v31;
     v32 = v22;
-    v42 = v32;
-    v33 = [v30 addCompletionBlock:v40];
+    v41 = v32;
+    v33 = [v30 addCompletionBlock:v39];
 
     _Block_object_dispose(buf, 8);
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v51);
     objc_destroyWeak(&state);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchingIntervals_logger___block_invoke(uint64_t a1)
@@ -9508,35 +9405,35 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
 
 - (id)_processBatchUpdateForFutureWrappers:(id)wrappers removedItems:(id)items logger:(id)logger
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   wrappersCopy = wrappers;
   itemsCopy = items;
   loggerCopy = logger;
   v8 = [wrappersCopy mutableCopy];
   v9 = [MEMORY[0x277CBEB58] set];
   v10 = [MEMORY[0x277CBEB58] set];
-  v38 = [MEMORY[0x277CBEB58] set];
   v37 = [MEMORY[0x277CBEB58] set];
+  v36 = [MEMORY[0x277CBEB58] set];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v11 = wrappersCopy;
-  v12 = [v11 countByEnumeratingWithState:&v39 objects:v46 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v38 objects:v45 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v40;
+    v14 = *v39;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v40 != v14)
+        if (*v39 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v39 + 1) + 8 * i);
+        v16 = *(*(&v38 + 1) + 8 * i);
         future = [v16 future];
         isFinished = [future isFinished];
 
@@ -9554,12 +9451,12 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
           {
             if ([v16 isInternal])
             {
-              v23 = v37;
+              v23 = v36;
             }
 
             else
             {
-              v23 = v38;
+              v23 = v37;
             }
 
             item2 = [v16 item];
@@ -9568,7 +9465,7 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v39 objects:v46 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v38 objects:v45 count:16];
     }
 
     while (v13);
@@ -9576,12 +9473,12 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
 
   if ([v9 count])
   {
-    [(HFItemManager *)self _updateRepresentationForInternalItemsWithUpdatedItems:v37];
+    [(HFItemManager *)self _updateRepresentationForInternalItemsWithUpdatedItems:v36];
   }
 
   if ([v10 count] || objc_msgSend(itemsCopy, "count"))
   {
-    [(HFItemManager *)self _updateRepresentationForExternalItemsWithUpdatedOrAddedItems:v38 removedItems:itemsCopy logger:loggerCopy];
+    [(HFItemManager *)self _updateRepresentationForExternalItemsWithUpdatedOrAddedItems:v37 removedItems:itemsCopy logger:loggerCopy];
   }
 
   if (loggerCopy)
@@ -9597,7 +9494,7 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
       v27 = [v9 count];
       v28 = [v10 count];
       *buf = 67109120;
-      v44 = v28 + v27;
+      v43 = v28 + v27;
       _os_log_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_DEFAULT, "Processed batch with %d finished items", buf, 8u);
     }
 
@@ -9606,18 +9503,16 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
 
   else
   {
-    v31 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v30 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = [v9 count];
-      v33 = [v10 count];
+      v31 = [v9 count];
+      v32 = [v10 count];
       LODWORD(state.opaque[0]) = 67109120;
-      HIDWORD(state.opaque[0]) = v33 + v32;
-      _os_log_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_DEFAULT, "Processed batch with %d finished items", &state, 8u);
+      HIDWORD(state.opaque[0]) = v32 + v31;
+      _os_log_impl(&dword_20D9BF000, v30, OS_LOG_TYPE_DEFAULT, "Processed batch with %d finished items", &state, 8u);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -9626,7 +9521,7 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
 {
   itemsCopy = items;
   enabledCopy = enabled;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (enabled && items)
   {
     uIDiffableDataInitializationFuture = [(HFItemManager *)self UIDiffableDataInitializationFuture];
@@ -9636,14 +9531,14 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
     {
       objc_initWeak(location, self);
       uIDiffableDataInitializationFuture2 = [(HFItemManager *)self UIDiffableDataInitializationFuture];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invoke;
-      v16[3] = &unk_277DFBE68;
-      objc_copyWeak(&v17, location);
-      v11 = [uIDiffableDataInitializationFuture2 addCompletionBlock:v16];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invoke;
+      v15[3] = &unk_277DFBE68;
+      objc_copyWeak(&v16, location);
+      v11 = [uIDiffableDataInitializationFuture2 addCompletionBlock:v15];
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(location);
     }
   }
@@ -9659,8 +9554,8 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
 
     *location = 138412546;
     *&location[4] = self;
-    v19 = 2080;
-    v20 = v13;
+    v18 = 2080;
+    v19 = v13;
     _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "%@: %s updates", location, 0x16u);
   }
 
@@ -9677,8 +9572,6 @@ uint64_t __86__HFItemManager__batchItemUpdateFutureWrappers_removedItems_batchin
   {
     [(HFItemManager *)self _unregisterForExternalUpdates];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invoke(uint64_t a1)
@@ -9723,7 +9616,7 @@ void __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invok
 
 - (void)_updateRepresentationWithCustomDiffableDataSourceForExternalItemsWithUpdatedOrAddedItems:(id)items removedItems:(id)removedItems logger:(id)logger
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   loggerCopy = logger;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
@@ -9753,32 +9646,32 @@ void __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invok
   }
 
   v18 = [(HFItemManager *)self _buildSectionsWithDisplayedItems:allItems];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __126__HFItemManager__updateRepresentationWithCustomDiffableDataSourceForExternalItemsWithUpdatedOrAddedItems_removedItems_logger___block_invoke;
-  v47[3] = &unk_277DFBE90;
-  v39 = itemsCopy;
-  v40 = v16;
-  v48 = v39;
-  v19 = [HFGroupedItemDiff diffFromGroups:v16 toGroups:v18 changeTest:v47];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __126__HFItemManager__updateRepresentationWithCustomDiffableDataSourceForExternalItemsWithUpdatedOrAddedItems_removedItems_logger___block_invoke;
+  v46[3] = &unk_277DFBE90;
+  v38 = itemsCopy;
+  v39 = v16;
+  v47 = v38;
+  v19 = [HFGroupedItemDiff diffFromGroups:v16 toGroups:v18 changeTest:v46];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __126__HFItemManager__updateRepresentationWithCustomDiffableDataSourceForExternalItemsWithUpdatedOrAddedItems_removedItems_logger___block_invoke_2;
   aBlock[3] = &unk_277DF3370;
   aBlock[4] = self;
   v20 = v18;
-  v46 = v20;
+  v45 = v20;
   v21 = _Block_copy(aBlock);
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __126__HFItemManager__updateRepresentationWithCustomDiffableDataSourceForExternalItemsWithUpdatedOrAddedItems_removedItems_logger___block_invoke_3;
-  v42[3] = &unk_277DF32A8;
-  v42[4] = self;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __126__HFItemManager__updateRepresentationWithCustomDiffableDataSourceForExternalItemsWithUpdatedOrAddedItems_removedItems_logger___block_invoke_3;
+  v41[3] = &unk_277DF32A8;
+  v41[4] = self;
   v22 = v19;
-  v43 = v22;
+  v42 = v22;
   v23 = loggerCopy;
-  v44 = v23;
-  v24 = _Block_copy(v42);
+  v43 = v23;
+  v24 = _Block_copy(v41);
   allOperations = [v22 allOperations];
   v26 = [allOperations count];
 
@@ -9796,10 +9689,10 @@ void __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invok
       {
         *buf = 138412802;
         selfCopy4 = self;
-        v51 = 2112;
-        v52 = v22;
-        v53 = 1024;
-        v54 = sections == 0;
+        v50 = 2112;
+        v51 = v22;
+        v52 = 1024;
+        v53 = sections == 0;
         _os_log_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_DEFAULT, "%@ processing item diff %@ (initial update: %d)", buf, 0x1Cu);
       }
 
@@ -9808,16 +9701,16 @@ void __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invok
 
     else
     {
-      v37 = HFLogForCategory(0x2CuLL);
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v36 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
         selfCopy4 = self;
-        v51 = 2112;
-        v52 = v22;
-        v53 = 1024;
-        v54 = sections == 0;
-        _os_log_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_DEFAULT, "%@ processing item diff %@ (initial update: %d)", buf, 0x1Cu);
+        v50 = 2112;
+        v51 = v22;
+        v52 = 1024;
+        v53 = sections == 0;
+        _os_log_impl(&dword_20D9BF000, v36, OS_LOG_TYPE_DEFAULT, "%@ processing item diff %@ (initial update: %d)", buf, 0x1Cu);
       }
     }
 
@@ -9857,8 +9750,8 @@ void __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invok
       {
         *buf = 138412546;
         selfCopy4 = self;
-        v51 = 1024;
-        LODWORD(v52) = sections == 0;
+        v50 = 1024;
+        LODWORD(v51) = sections == 0;
         _os_log_impl(&dword_20D9BF000, v35, OS_LOG_TYPE_DEFAULT, "%@ processed item diff, but there are no changes (initial update: %d)", buf, 0x12u);
       }
 
@@ -9867,14 +9760,14 @@ void __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invok
 
     else
     {
-      v38 = HFLogForCategory(0x2CuLL);
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v37 = HFLogForCategory(0x2CuLL);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         selfCopy4 = self;
-        v51 = 1024;
-        LODWORD(v52) = sections == 0;
-        _os_log_impl(&dword_20D9BF000, v38, OS_LOG_TYPE_DEFAULT, "%@ processed item diff, but there are no changes (initial update: %d)", buf, 0x12u);
+        v50 = 1024;
+        LODWORD(v51) = sections == 0;
+        _os_log_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_DEFAULT, "%@ processed item diff, but there are no changes (initial update: %d)", buf, 0x12u);
       }
     }
 
@@ -9882,8 +9775,6 @@ void __59__HFItemManager__updateExternalUpdatesEnabled_reloadItems___block_invok
   }
 
   [(HFItemManager *)self _updateOverallLoadingStateAndNotifyDelegate];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __126__HFItemManager__updateRepresentationWithCustomDiffableDataSourceForExternalItemsWithUpdatedOrAddedItems_removedItems_logger___block_invoke_2(uint64_t a1)
@@ -9904,6 +9795,48 @@ void __126__HFItemManager__updateRepresentationWithCustomDiffableDataSourceForEx
   v4 = v3;
 
   [v4 setSections:*(a1 + 40)];
+}
+
+- (void)reloadUIRepresentationForItems:(id)items withAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  itemsCopy = items;
+  diffableDataSource = [(HFItemManager *)self diffableDataSource];
+  snapshot = [diffableDataSource snapshot];
+
+  [snapshot reloadItemsWithIdentifiers:itemsCopy];
+  [(HFItemManager *)self _applyReloadSnapshot:snapshot withAnimation:animationCopy];
+}
+
+- (void)reconfigureUIRepresentationForItems:(id)items withAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  itemsCopy = items;
+  diffableDataSource = [(HFItemManager *)self diffableDataSource];
+  snapshot = [diffableDataSource snapshot];
+
+  [snapshot reconfigureItemsWithIdentifiers:itemsCopy];
+  [(HFItemManager *)self _applyReloadSnapshot:snapshot withAnimation:animationCopy];
+}
+
+- (void)reloadUIRepresentationForSections:(id)sections withAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  sectionsCopy = sections;
+  diffableDataSource = [(HFItemManager *)self diffableDataSource];
+  snapshot = [diffableDataSource snapshot];
+
+  [snapshot reloadSectionsWithIdentifiers:sectionsCopy];
+  [(HFItemManager *)self _applyReloadSnapshot:snapshot withAnimation:animationCopy];
+}
+
+- (void)reloadUIRepresentationWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  diffableDataSource = [(HFItemManager *)self diffableDataSource];
+  snapshot = [diffableDataSource snapshot];
+
+  [(HFItemManager *)self _applyReloadSnapshot:snapshot withAnimation:animationCopy];
 }
 
 - (HFItemManagerDelegate)delegate
@@ -10051,7 +9984,7 @@ id __72__HFItemManager_DiffableDataSource___applyReloadSnapshot_withAnimation___
 
 - (id)applySnapshotForUpdatedExternalItems:(id)items removedItems:(id)removedItems logger:(id)logger
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   removedItemsCopy = removedItems;
   loggerCopy = logger;
@@ -10071,11 +10004,11 @@ id __72__HFItemManager_DiffableDataSource___applyReloadSnapshot_withAnimation___
       v21 = v20;
       clientDescription = [loggerCopy clientDescription];
       *buf = 138543874;
-      v44 = identifier;
-      v45 = 2114;
-      v46 = v20;
-      v47 = 2114;
-      v48 = clientDescription;
+      v43 = identifier;
+      v44 = 2114;
+      v45 = v20;
+      v46 = 2114;
+      v47 = clientDescription;
       _os_signpost_emit_with_name_impl(&dword_20D9BF000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "HFItemManagerSnapshotApply", "%{public}@:%{public}@ | %{public}@", buf, 0x20u);
     }
 
@@ -10084,28 +10017,28 @@ id __72__HFItemManager_DiffableDataSource___applyReloadSnapshot_withAnimation___
     generateSnapshotInfo = [(HFItemManager *)self generateSnapshotInfo];
     baseSnapshot = [generateSnapshotInfo baseSnapshot];
     objc_initWeak(buf, self);
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __94__HFItemManager_DiffableDataSource__applySnapshotForUpdatedExternalItems_removedItems_logger___block_invoke;
-    v34[3] = &unk_277E00C48;
-    objc_copyWeak(v42, buf);
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __94__HFItemManager_DiffableDataSource__applySnapshotForUpdatedExternalItems_removedItems_logger___block_invoke;
+    v33[3] = &unk_277E00C48;
+    objc_copyWeak(v41, buf);
     v27 = baseSnapshot;
-    v35 = v27;
-    v36 = itemsCopy;
+    v34 = v27;
+    v35 = itemsCopy;
     v28 = generateSnapshotInfo;
-    v37 = v28;
-    v38 = removedItemsCopy;
-    v42[1] = v16;
-    v39 = loggerCopy;
+    v36 = v28;
+    v37 = removedItemsCopy;
+    v41[1] = v16;
+    v38 = loggerCopy;
     v29 = v23;
-    v40 = v29;
+    v39 = v29;
     v30 = v24;
-    v41 = v30;
-    [(HFItemManager *)self applyWithBlock:v34];
-    v31 = v41;
+    v40 = v30;
+    [(HFItemManager *)self applyWithBlock:v33];
+    v31 = v40;
     v14 = v29;
 
-    objc_destroyWeak(v42);
+    objc_destroyWeak(v41);
     objc_destroyWeak(buf);
   }
 
@@ -10115,8 +10048,6 @@ id __72__HFItemManager_DiffableDataSource___applyReloadSnapshot_withAnimation___
     v13 = objc_alloc_init(MEMORY[0x277CFB890]);
     v14 = [v12 futureWithResult:v13];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -10318,7 +10249,7 @@ void __94__HFItemManager_DiffableDataSource__applySnapshotForUpdatedExternalItem
 
 void __94__HFItemManager_DiffableDataSource__applySnapshotForUpdatedExternalItems_removedItems_logger___block_invoke_8(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 88));
   v3 = HFLogForCategory(0x35uLL);
   v4 = v3;
@@ -10330,13 +10261,13 @@ void __94__HFItemManager_DiffableDataSource__applySnapshotForUpdatedExternalItem
     v8 = *(a1 + 32);
     v9 = v7;
     v10 = [v8 clientDescription];
-    v13 = 138543874;
-    v14 = v6;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2114;
-    v18 = v10;
-    _os_signpost_emit_with_name_impl(&dword_20D9BF000, v4, OS_SIGNPOST_INTERVAL_END, v5, "HFItemManagerSnapshotApply", "%{public}@:%{public}@ | %{public}@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v6;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2114;
+    v17 = v10;
+    _os_signpost_emit_with_name_impl(&dword_20D9BF000, v4, OS_SIGNPOST_INTERVAL_END, v5, "HFItemManagerSnapshotApply", "%{public}@:%{public}@ | %{public}@", &v12, 0x20u);
   }
 
   [*(a1 + 40) finishWithResult:*(a1 + 48)];
@@ -10345,54 +10276,52 @@ void __94__HFItemManager_DiffableDataSource__applySnapshotForUpdatedExternalItem
 
   [WeakRetained _updateOverallLoadingStateAndNotifyDelegate];
   [*(a1 + 80) finishWithNoResult];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateSnapshotInfo
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   allItems = [(HFItemManager *)self allItems];
-  v28 = [(HFItemManager *)self _itemsToHideInSet:allItems];
+  v27 = [(HFItemManager *)self _itemsToHideInSet:allItems];
   v4 = [allItems hmf_removedObjectsFromSet:?];
 
-  v27 = v4;
+  v26 = v4;
   v5 = [(HFItemManager *)self _buildSectionsWithDisplayedItems:v4];
   v6 = objc_alloc_init(MEMORY[0x277CFB890]);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __57__HFItemManager_DiffableDataSource__generateSnapshotInfo__block_invoke;
-  v33[3] = &unk_277E00C70;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __57__HFItemManager_DiffableDataSource__generateSnapshotInfo__block_invoke;
+  v32[3] = &unk_277E00C70;
   v7 = v6;
-  v34 = v7;
-  [v5 na_each:v33];
-  v25 = v7;
+  v33 = v7;
+  [v5 na_each:v32];
+  v24 = v7;
   v8 = [[HFSnapshotInfo alloc] initWithSnapshot:v7];
-  v26 = v5;
+  v25 = v5;
   v9 = [(HFItemManager *)self _generateParentChildMappingForSections:v5];
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [(HFSnapshotInfo *)v8 setSectionSnapshots:v10];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v29 objects:v36 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v28 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v30;
+    v14 = *v29;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v30 != v14)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * i);
+        v16 = *(*(&v28 + 1) + 8 * i);
         v17 = [v11 objectForKeyedSubscript:v16];
         if ([v17 count])
         {
@@ -10402,8 +10331,8 @@ void __94__HFItemManager_DiffableDataSource__applySnapshotForUpdatedExternalItem
           if (firstObject)
           {
             v20 = objc_alloc_init(MEMORY[0x277D75070]);
-            v35 = firstObject;
-            v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+            v34 = firstObject;
+            v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
             [v20 appendItems:v21];
 
             [v20 appendItems:v17 intoParentItem:firstObject];
@@ -10413,32 +10342,28 @@ void __94__HFItemManager_DiffableDataSource__applySnapshotForUpdatedExternalItem
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v29 objects:v36 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v28 objects:v35 count:16];
     }
 
     while (v13);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 void __57__HFItemManager_DiffableDataSource__generateSnapshotInfo__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v10 = a2;
+  v9 = a2;
   v4 = MEMORY[0x277CBEA60];
   v5 = a2;
-  v6 = [v4 arrayWithObjects:&v10 count:1];
-  [v3 appendSectionsWithIdentifiers:{v6, v10, v11}];
+  v6 = [v4 arrayWithObjects:&v9 count:1];
+  [v3 appendSectionsWithIdentifiers:{v6, v9, v10}];
 
   v7 = *(a1 + 32);
   v8 = [v5 items];
   [v7 appendItemsWithIdentifiers:v8 intoSectionWithIdentifier:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prefetchResourcesIfNeededForItems:(id)items

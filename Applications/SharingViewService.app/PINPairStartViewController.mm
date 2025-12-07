@@ -14,7 +14,7 @@
   viewCopy = view;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairStartViewController handleTapOutsideView:]", 30, "Dismissing on tap outside view\n");
   }
 
   [self->super._mainController dismiss:1];
@@ -27,7 +27,7 @@
   {
     if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEAD8, "[PINPairStartViewController handlePairButton:]", 30, "Pair button\n");
     }
 
     BYTE1(self->_progressLabel) = 1;
@@ -66,7 +66,7 @@
   buttonCopy = button;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairStartViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -92,7 +92,7 @@
   disappearCopy = disappear;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairStartViewController viewDidDisappear:]", 30, "Start ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -105,7 +105,7 @@
   appearCopy = appear;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairStartViewController viewWillAppear:]", 30, "Start ViewWillAppear\n");
   }
 
   v14.receiver = self;

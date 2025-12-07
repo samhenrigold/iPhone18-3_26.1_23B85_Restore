@@ -10,23 +10,23 @@
 
 - (void)processNotificationParameters:(id)parameters
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v5 = [parametersCopy objectForKey:@"state"];
   integerValue = [v5 integerValue];
 
   v7 = [parametersCopy objectForKey:@"atr"];
-  v8 = TK_LOG_smartcard();
+  v8 = TK_LOG_smartcard(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     WeakRetained = objc_loadWeakRetained(&self->_slot);
-    v42 = 138543874;
-    v43 = WeakRetained;
-    v44 = 2048;
-    v45 = integerValue;
-    v46 = 2114;
-    v47 = v7;
-    _os_log_debug_impl(&dword_1DF413000, v8, OS_LOG_TYPE_DEBUG, "%{public}@: stateChangedTo:%ld atr:%{public}@", &v42, 0x20u);
+    v41 = 138543874;
+    v42 = WeakRetained;
+    v43 = 2048;
+    v44 = integerValue;
+    v45 = 2114;
+    v46 = v7;
+    _os_log_debug_impl(&dword_1DF413000, v8, OS_LOG_TYPE_DEBUG, "%{public}@: stateChangedTo:%ld atr:%{public}@", &v41, 0x20u);
   }
 
   if (v7)
@@ -138,8 +138,6 @@ LABEL_16:
 
     objc_sync_exit(v38);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyWithParameters:(id)parameters reply:(id)reply
@@ -167,38 +165,36 @@ LABEL_16:
 
 - (void)cardSessionRequested
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   cards = [(TKSmartCardSlotProxy *)self cards];
-  v3 = [cards countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [cards countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(cards);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) sessionRequested];
+        [*(*(&v7 + 1) + 8 * v6++) sessionRequested];
       }
 
       while (v4 != v6);
-      v4 = [cards countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [cards countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (TKSmartCardSlotProxy)initWithSlot:(id)slot
@@ -230,21 +226,22 @@ LABEL_16:
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    if (![(NSMutableArray *)self->_queuedParameters count])
+    v4 = [(NSMutableArray *)self->_queuedParameters count];
+    if (!v4)
     {
       break;
     }
 
-    v4 = TK_LOG_smartcard();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = TK_LOG_smartcard(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       WeakRetained = objc_loadWeakRetained(&self->_slot);
-      v7 = [(NSMutableArray *)self->_queuedParameters count];
+      v8 = [(NSMutableArray *)self->_queuedParameters count];
       *buf = 138412546;
       v11 = WeakRetained;
       v12 = 1024;
-      v13 = v7;
-      _os_log_debug_impl(&dword_1DF413000, v4, OS_LOG_TYPE_DEBUG, "%@: processing accumulated state changes, %d remain", buf, 0x12u);
+      v13 = v8;
+      _os_log_debug_impl(&dword_1DF413000, v5, OS_LOG_TYPE_DEBUG, "%@: processing accumulated state changes, %d remain", buf, 0x12u);
     }
 
     firstObject = [(NSMutableArray *)self->_queuedParameters firstObject];
@@ -258,7 +255,6 @@ LABEL_16:
   self->_queuedParameters = 0;
 
   objc_sync_exit(selfCopy);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

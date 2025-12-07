@@ -12,14 +12,14 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SyncedLyricsLineView();
+  v3.super_class = type metadata accessor for SyncedLyricsLineView(0);
   return [(SyncedLyricsLineView *)&v3 isHighlighted];
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v5 = type metadata accessor for SyncedLyricsLineView();
+  v5 = type metadata accessor for SyncedLyricsLineView(0);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -33,7 +33,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SyncedLyricsLineView();
+  v4.super_class = type metadata accessor for SyncedLyricsLineView(0);
   v2 = v4.receiver;
   [(SyncedLyricsLineView *)&v4 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_containerView];

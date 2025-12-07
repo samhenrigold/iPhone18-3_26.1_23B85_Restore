@@ -5,12 +5,12 @@
 
 void __GTMTLReplayClient_streamShaderProfilingData_block_invoke(GTUSCSamplingStreamingManagerHelper *a1)
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v1 = *(*(a1 + 4) + 8);
   GTUSCSamplingStreamingManagerHelper::Instance(a1);
-  v52 = v1;
+  v51 = v1;
   v2 = [*(v1 + 64) objectForKeyedSubscript:@"useOverlap"];
-  v53 = v2;
+  v52 = v2;
   if (v2)
   {
     v4 = [v2 BOOLValue];
@@ -22,43 +22,43 @@ void __GTMTLReplayClient_streamShaderProfilingData_block_invoke(GTUSCSamplingStr
   }
 
   HIBYTE(word_27F09C590) = v4;
-  v51 = v1 + 48;
+  v50 = v1 + 48;
   GTUSCSamplingStreamingManagerHelper::InitQueryShaderInfo((v1 + 48), v3);
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = ___ZN35GTUSCSamplingStreamingManagerHelper21StartSampleCollectionEv_block_invoke;
-  v61[3] = &__block_descriptor_40_e5_v8__0l;
-  v61[4] = &GTUSCSamplingStreamingManagerHelper::Instance(void)::instance;
-  v54 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v61];
-  [**(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance + 8) addOperation:v54];
-  v5 = [v54 waitUntilFinished];
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = ___ZN35GTUSCSamplingStreamingManagerHelper21StartSampleCollectionEv_block_invoke;
+  v60[3] = &__block_descriptor_40_e5_v8__0l;
+  v60[4] = GTUSCSamplingStreamingManagerHelper::Instance(void)::instance;
+  v53 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v60];
+  [**(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 8) addOperation:v53];
+  v5 = [v53 waitUntilFinished];
   v6 = atomic_load(byte_27F09C804);
   if ((v6 & 1) == 0)
   {
     v7 = objc_opt_new();
-    [v7 setObject:*(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance + 56) forKeyedSubscript:@"MetalPluginName"];
+    [v7 setObject:*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 56) forKeyedSubscript:@"MetalPluginName"];
     v8 = MEMORY[0x277CCA8C8];
-    v74 = MEMORY[0x277D85DD0];
-    v75 = 3221225472;
-    v76 = ___ZN35GTUSCSamplingStreamingManagerHelper23StreamHarvestedBinariesEv_block_invoke;
-    v77 = &unk_279658AD8;
-    v79 = &GTUSCSamplingStreamingManagerHelper::Instance(void)::instance;
+    v73 = MEMORY[0x277D85DD0];
+    v74 = 3221225472;
+    v75 = ___ZN35GTUSCSamplingStreamingManagerHelper23StreamHarvestedBinariesEv_block_invoke;
+    v76 = &unk_279658AD8;
+    v78 = GTUSCSamplingStreamingManagerHelper::Instance(void)::instance;
     v9 = v7;
-    v78 = v9;
-    v10 = [v8 blockOperationWithBlock:&v74];
-    [**(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance + 8) addOperation:v10];
+    v77 = v9;
+    v10 = [v8 blockOperationWithBlock:&v73];
+    [**(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 8) addOperation:v10];
     [v10 waitUntilFinished];
-    (*(*(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance + 32) + 16))();
+    (*(*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 32) + 16))();
   }
 
   v11 = atomic_load(byte_27F09C804);
   if ((v11 & 1) == 0)
   {
-    v49 = *(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance + 16);
-    v12 = [v49 objectForKeyedSubscript:@"perEncoderDrawCallCount"];
+    v48 = *(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 16);
+    v12 = [v48 objectForKeyedSubscript:@"perEncoderDrawCallCount"];
     [v12 count];
 
-    v13 = [v49 objectForKeyedSubscript:@"perCommandBufferEncoderCount"];
+    v13 = [v48 objectForKeyedSubscript:@"perCommandBufferEncoderCount"];
     [v13 count];
 
     v14 = objc_opt_new();
@@ -66,15 +66,15 @@ void __GTMTLReplayClient_streamShaderProfilingData_block_invoke(GTUSCSamplingStr
     if (v15)
     {
       GTUSCSamplingStreamingManagerHelper::SetupMTLCounterAPIBuffer(v15);
-      v74 = 0;
-      v75 = &v74;
-      v76 = 0x4812000000;
-      v77 = __Block_byref_object_copy__486;
-      v78 = __Block_byref_object_dispose__487;
-      v79 = &unk_24DB95716;
-      v81 = 0;
-      v82 = 0;
+      v73 = 0;
+      v74 = &v73;
+      v75 = 0x4812000000;
+      v76 = __Block_byref_object_copy__486;
+      v77 = __Block_byref_object_dispose__487;
+      v78 = &unk_24DB95716;
       v80 = 0;
+      v81 = 0;
+      v79 = 0;
       operator new();
     }
   }
@@ -82,63 +82,63 @@ void __GTMTLReplayClient_streamShaderProfilingData_block_invoke(GTUSCSamplingStr
   v16 = atomic_load(byte_27F09C804);
   if ((v16 & 1) == 0)
   {
-    v68 = 0u;
+    v67 = 0u;
     *__n = 0u;
-    LODWORD(v70) = 1065353216;
-    v65 = 0u;
-    *v66 = 0u;
-    LODWORD(v67) = 1065353216;
+    LODWORD(v69) = 1065353216;
+    v64 = 0u;
+    *v65 = 0u;
+    LODWORD(v66) = 1065353216;
+    v56 = objc_opt_new();
     v57 = objc_opt_new();
     v58 = objc_opt_new();
     v59 = objc_opt_new();
-    v60 = objc_opt_new();
-    v46 = GTUSCSamplingStreamingManagerHelper::GatherFrameMiscEncoderPostProcessedData(0, v57, v59, &v68, 0);
-    v47 = GTUSCSamplingStreamingManagerHelper::GatherFrameMiscEncoderPostProcessedData(1, v58, v60, &v65, v46);
-    [v47 waitUntilFinished];
+    v45 = GTUSCSamplingStreamingManagerHelper::GatherFrameMiscEncoderPostProcessedData(0, v56, v58, &v67, 0);
+    v46 = GTUSCSamplingStreamingManagerHelper::GatherFrameMiscEncoderPostProcessedData(1, v57, v59, &v64, v45);
+    [v46 waitUntilFinished];
     v17 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:__n[1]];
-    memset(&v64, 0, sizeof(v64));
-    std::vector<unsigned int>::reserve(&v64, __n[1]);
+    memset(&v63, 0, sizeof(v63));
+    std::vector<unsigned int>::reserve(&v63, __n[1]);
     for (i = __n[0]; i; i = *i)
     {
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(i + 28)];
-      v86.__begin_ = v19;
+      v85.__begin_ = v19;
       v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(i + 32)];
-      v86.__end_ = v20;
+      v85.__end_ = v20;
       v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(i + 36)];
-      v86.__end_cap_.__value_ = v21;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:3];
+      v85.__end_cap_.__value_ = v21;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:3];
       v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(i + 16)];
       [v17 setObject:v22 forKeyedSubscript:v23];
 
-      std::vector<unsigned int>::push_back[abi:nn200100](&v64, (i + 16));
+      std::vector<unsigned int>::push_back[abi:nn200100](&v63, (i + 16));
     }
 
     std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
-    v24 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:v66[1]];
-    v84 = 0uLL;
-    v85 = 0;
-    std::vector<unsigned int>::reserve(&v64, v66[1]);
-    v25 = v66[0];
-    if (v66[0])
+    v24 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:v65[1]];
+    v83 = 0uLL;
+    v84 = 0;
+    std::vector<unsigned int>::reserve(&v63, v65[1]);
+    v25 = v65[0];
+    if (v65[0])
     {
       do
       {
         v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v25 + 28)];
-        v83[0] = v26;
+        v82[0] = v26;
         v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v25 + 32)];
-        v83[1] = v27;
+        v82[1] = v27;
         v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v25 + 36)];
-        v83[2] = v28;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:3];
+        v82[2] = v28;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:3];
         v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v25 + 16)];
         [v24 setObject:v29 forKeyedSubscript:v30];
 
-        std::vector<unsigned int>::push_back[abi:nn200100](&v84, (v25 + 16));
+        std::vector<unsigned int>::push_back[abi:nn200100](&v83, (v25 + 16));
         v25 = *v25;
       }
 
       while (v25);
-      v31 = v84;
+      v31 = v83;
     }
 
     else
@@ -148,52 +148,52 @@ void __GTMTLReplayClient_streamShaderProfilingData_block_invoke(GTUSCSamplingStr
 
     v32 = v31;
     std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
-    begin = v64.__begin_;
-    v56 = [MEMORY[0x277CBEA90] dataWithBytes:v64.__begin_ length:v64.__end_ - v64.__begin_];
-    v55 = [MEMORY[0x277CBEA90] dataWithBytes:v32 length:*(&v84 + 1) - v32];
-    v63 = 0;
-    v48 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v17 requiringSecureCoding:1 error:&v63];
-    v34 = v63;
-    v62 = v34;
-    v50 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v24 requiringSecureCoding:1 error:&v62];
-    v45 = v62;
+    begin = v63.__begin_;
+    v55 = [MEMORY[0x277CBEA90] dataWithBytes:v63.__begin_ length:v63.__end_ - v63.__begin_];
+    v54 = [MEMORY[0x277CBEA90] dataWithBytes:v32 length:*(&v83 + 1) - v32];
+    v62 = 0;
+    v47 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v17 requiringSecureCoding:1 error:&v62];
+    v34 = v62;
+    v61 = v34;
+    v49 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v24 requiringSecureCoding:1 error:&v61];
+    v44 = v61;
 
     v35 = MEMORY[0x277CBEB38];
-    v73[0] = @"Blit Encoder Frame Data";
-    v73[1] = @"Blit Encoder Info";
-    v74 = v57;
-    v75 = v56;
-    v73[2] = @"Blit Split Encoder Frame Data";
-    v73[3] = @"Blit Split Encoder Info";
-    v76 = v58;
-    v77 = v55;
-    v73[4] = @"Blit Encoder Indices";
-    v36 = [*(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance + 16) objectForKeyedSubscript:@"blitEncoderIndices"];
-    v78 = v36;
-    v73[5] = @"Encoder Draw Call Count";
-    v37 = [*(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance + 16) objectForKeyedSubscript:@"activePerEncoderDrawCallCount"];
-    v79 = v37;
-    v73[6] = @"Source Sample Marker";
+    v72[0] = @"Blit Encoder Frame Data";
+    v72[1] = @"Blit Encoder Info";
+    v73 = v56;
+    v74 = v55;
+    v72[2] = @"Blit Split Encoder Frame Data";
+    v72[3] = @"Blit Split Encoder Info";
+    v75 = v57;
+    v76 = v54;
+    v72[4] = @"Blit Encoder Indices";
+    v36 = [*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 16) objectForKeyedSubscript:@"blitEncoderIndices"];
+    v77 = v36;
+    v72[5] = @"Encoder Draw Call Count";
+    v37 = [*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 16) objectForKeyedSubscript:@"activePerEncoderDrawCallCount"];
+    v78 = v37;
+    v72[6] = @"Source Sample Marker";
     v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:qword_27F09BD08];
-    v80 = v38;
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:v73 count:7];
+    v79 = v38;
+    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:v72 count:7];
     v40 = [v35 dictionaryWithDictionary:v39];
 
     if (dword_27F09C54C && dword_27F09C548)
     {
-      v72[0] = @"Blit TraceId to Sample Index";
-      v72[1] = @"Blit Encoder Time Data";
-      v71[0] = v48;
-      v71[1] = v59;
-      v72[2] = @"Blit Split TraceId to Sample Index";
-      v72[3] = @"Blit Split Encoder Time Data";
-      v71[2] = v50;
-      v71[3] = v60;
-      v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v72 count:4];
+      v71[0] = @"Blit TraceId to Sample Index";
+      v71[1] = @"Blit Encoder Time Data";
+      v70[0] = v47;
+      v70[1] = v58;
+      v71[2] = @"Blit Split TraceId to Sample Index";
+      v71[3] = @"Blit Split Encoder Time Data";
+      v70[2] = v49;
+      v70[3] = v59;
+      v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v71 count:4];
       [v40 addEntriesFromDictionary:v41];
     }
 
-    (*(*(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance + 32) + 16))();
+    (*(*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 32) + 16))();
     NSLog(&cfstr_SentBlitMiscDa.isa);
 
     if (v32)
@@ -206,22 +206,20 @@ void __GTMTLReplayClient_streamShaderProfilingData_block_invoke(GTUSCSamplingStr
       operator delete(begin);
     }
 
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v65);
-    v5 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v68);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v64);
+    v5 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v67);
   }
 
   GTUSCSamplingStreamingManagerHelper::StreamShaderProfilingData(v5);
   GTUSCSamplingStreamingManagerHelper::StreamEncoderDerivedCounterData(v42);
   dispatch_semaphore_signal(xmmword_27F09C6C8);
 
-  (*(*(v52 + 80) + 16))();
+  (*(*(v51 + 80) + 16))();
   v43 = atomic_load(&xmmword_27F09C7D8);
-  if (v43 == v51)
+  if (v43 == v50)
   {
-    GTUSCSamplingStreamingManagerHelper::CleanUp(&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
+    GTUSCSamplingStreamingManagerHelper::CleanUp(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __GTMTLReplayClient_streamDerivedCounterData_block_invoke(GTUSCSamplingStreamingManagerHelper *a1)
@@ -276,9 +274,9 @@ void __GTMTLReplayClient_streamDerivedCounterData_block_invoke(GTUSCSamplingStre
 
 void __GTMTLReplayClient_streamBatchFilteredData_block_invoke(GTUSCSamplingStreamingManagerHelper *a1)
 {
-  v36 = *(*(a1 + 4) + 8);
+  v37 = *(*(a1 + 4) + 8);
   GTUSCSamplingStreamingManagerHelper::Instance(a1);
-  GTUSCSamplingStreamingManagerHelper::Init((v36 + 48), v1);
+  GTUSCSamplingStreamingManagerHelper::Init((v37 + 48), v1);
   v2 = dispatch_semaphore_signal(xmmword_27F09C6C8);
   GTUSCSamplingStreamingManagerHelper::SetupGPURawCounters(v2);
   if (qword_27F09C588 != -1)
@@ -335,7 +333,7 @@ void __GTMTLReplayClient_streamBatchFilteredData_block_invoke(GTUSCSamplingStrea
     {
       if (v19 <= 0xAAAAAAAAAAAAAAALL)
       {
-        v38 = (&xmmword_27F09C594 + 12);
+        v39 = (&xmmword_27F09C594 + 12);
         if (0x5555555555555556 * ((unk_27F09C5B0 - *(&xmmword_27F09C594 + 12)) >> 3) > v19)
         {
           v19 = 0x5555555555555556 * ((unk_27F09C5B0 - *(&xmmword_27F09C594 + 12)) >> 3);
@@ -403,12 +401,12 @@ LABEL_29:
     std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
   }
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = ___ZN35GTUSCSamplingStreamingManagerHelper20InitBatchIdFilteringEP29GTUSCSamplingStreamingManager_block_invoke;
-  v37[3] = &__block_descriptor_40_e5_v8__0l;
-  v38 = GTUSCSamplingStreamingManagerHelper::Instance(void)::instance;
-  v29 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v37];
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = ___ZN35GTUSCSamplingStreamingManagerHelper20InitBatchIdFilteringEP29GTUSCSamplingStreamingManager_block_invoke;
+  v38[3] = &__block_descriptor_40_e5_v8__0l;
+  v39 = GTUSCSamplingStreamingManagerHelper::Instance(void)::instance;
+  v29 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v38];
   [**(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 8) addOperation:v29];
   [v29 waitUntilFinished];
   v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
@@ -419,10 +417,10 @@ LABEL_29:
   v33 = [MEMORY[0x277D0AF30] selectWithName:@"KickBoundary" options:0];
   [v32 addObject:v33];
 
-  GTUSCSamplingStreamingManagerHelper::StreamBatchIdFilteredCounters(v34);
-  (*(*(v36 + 80) + 16))();
-  v35 = atomic_load(&xmmword_27F09C7D8);
-  if (v35 == v36 + 48)
+  GTUSCSamplingStreamingManagerHelper::StreamBatchIdFilteredCounters(v34, v35);
+  (*(*(v37 + 80) + 16))();
+  v36 = atomic_load(&xmmword_27F09C7D8);
+  if (v36 == v37 + 48)
   {
 
     GTUSCSamplingStreamingManagerHelper::CleanUp(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
@@ -454,15 +452,15 @@ void __GTMTLReplayClient_collectGPUShaderTimelineData_block_invoke(GTUSCSampling
   v10[1] = 3221225472;
   v10[2] = ___ZN35GTUSCSamplingStreamingManagerHelper17StreamGPUTimelineEv_block_invoke;
   v10[3] = &__block_descriptor_40_e5_v8__0l;
-  v10[4] = &GTUSCSamplingStreamingManagerHelper::Instance(void)::instance;
+  v10[4] = GTUSCSamplingStreamingManagerHelper::Instance(void)::instance;
   v7 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v10];
-  GTUSCSamplingStreamingManagerHelper::StreamShaderProfilingData([**(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance + 8) addOperation:v7]);
+  GTUSCSamplingStreamingManagerHelper::StreamShaderProfilingData([**(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 8) addOperation:v7]);
 
   dispatch_semaphore_signal(xmmword_27F09C6C8);
   v8 = atomic_load(&xmmword_27F09C7D8);
   if (v8 == v1 + 48)
   {
-    GTUSCSamplingStreamingManagerHelper::CleanUp(&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
+    GTUSCSamplingStreamingManagerHelper::CleanUp(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
   }
 
   (*(*(v1 + 80) + 16))();
@@ -470,14 +468,14 @@ void __GTMTLReplayClient_collectGPUShaderTimelineData_block_invoke(GTUSCSampling
 
 void __GTMTLReplayClient_collectAPSData_block_invoke(GTUSCSamplingStreamingManagerHelper *a1)
 {
-  v201 = *MEMORY[0x277D85DE8];
+  v204 = *MEMORY[0x277D85DE8];
   v1 = *(*(a1 + 4) + 8);
   GTUSCSamplingStreamingManagerHelper::Instance(a1);
-  v179 = v1;
-  v177 = [*(v1 + 64) objectForKeyedSubscript:@"apsProfilingConfig"];
-  if (v177)
+  v182 = v1;
+  v180 = [*(v1 + 64) objectForKeyedSubscript:@"apsProfilingConfig"];
+  if (v180)
   {
-    v2 = v177;
+    v2 = v180;
     v3 = [v2 objectForKeyedSubscript:@"usingMinimumTracingMode"];
     v4 = v3;
     if (v3)
@@ -504,27 +502,27 @@ void __GTMTLReplayClient_collectAPSData_block_invoke(GTUSCSamplingStreamingManag
     if (v9 && [v9 count])
     {
       std::vector<BOOL>::resize(&xmmword_27F09C9B8, [v10 count]);
-      v183 = v4;
-      v193 = 0u;
+      v186 = v4;
+      v196 = 0u;
+      v197 = 0u;
       v194 = 0u;
-      v191 = 0u;
-      v192 = 0u;
+      v195 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v191 objects:&v199 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v194 objects:&v202 count:16];
       if (v12)
       {
         v13 = 0;
-        v14 = *v192;
+        v14 = *v195;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v192 != v14)
+            if (*v195 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [*(*(&v191 + 1) + 8 * i) BOOLValue];
+            v16 = [*(*(&v194 + 1) + 8 * i) BOOLValue];
             v17 = v13 >> 6;
             v18 = 1 << v13;
             if (v16)
@@ -541,41 +539,41 @@ void __GTMTLReplayClient_collectAPSData_block_invoke(GTUSCSamplingStreamingManag
             ++v13;
           }
 
-          v12 = [v11 countByEnumeratingWithState:&v191 objects:&v199 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v194 objects:&v202 count:16];
         }
 
         while (v12);
       }
 
-      v4 = v183;
+      v4 = v186;
     }
 
     v20 = [v2 objectForKeyedSubscript:@"overriddenCoreMasks"];
     v21 = v20;
     if (v20 && [v20 count])
     {
-      std::vector<BOOL>::resize(&xmmword_27F09C9C8 + 8, [v21 count]);
-      v184 = v4;
-      v189 = 0u;
+      std::vector<BOOL>::resize(&xmmword_27F09C9C8 + 1, [v21 count]);
+      v187 = v4;
+      v192 = 0u;
+      v193 = 0u;
       v190 = 0u;
-      v187 = 0u;
-      v188 = 0u;
+      v191 = 0u;
       v22 = v21;
-      v23 = [v22 countByEnumeratingWithState:&v187 objects:&v195 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v190 objects:&v198 count:16];
       if (v23)
       {
         v24 = 0;
-        v25 = *v188;
+        v25 = *v191;
         do
         {
           for (j = 0; j != v23; ++j)
           {
-            if (*v188 != v25)
+            if (*v191 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = [*(*(&v187 + 1) + 8 * j) BOOLValue];
+            v27 = [*(*(&v190 + 1) + 8 * j) BOOLValue];
             v28 = v24 >> 6;
             v29 = 1 << v24;
             if (v27)
@@ -592,13 +590,13 @@ void __GTMTLReplayClient_collectAPSData_block_invoke(GTUSCSamplingStreamingManag
             ++v24;
           }
 
-          v23 = [v22 countByEnumeratingWithState:&v187 objects:&v195 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v190 objects:&v198 count:16];
         }
 
         while (v23);
       }
 
-      v4 = v184;
+      v4 = v187;
     }
 
     v31 = [v2 objectForKeyedSubscript:@"numPossibleCoresPerMGPU"];
@@ -632,18 +630,18 @@ void __GTMTLReplayClient_collectAPSData_block_invoke(GTUSCSamplingStreamingManag
     qword_27F09C9B0 = qword_27F09C9B0 & 0xFFFFFFFFFFFFFFFELL | v39;
   }
 
-  v176 = [*(v179 + 64) objectForKeyedSubscript:@"useOverlap"];
-  if (v176)
+  v179 = [*(v182 + 64) objectForKeyedSubscript:@"useOverlap"];
+  if (v179)
   {
-    v40 = [v176 BOOLValue];
+    v40 = [v179 BOOLValue];
     qword_27F09C9B0 = qword_27F09C9B0 & 0xFFFFFFFFFFFFFFFELL | v40;
     HIBYTE(word_27F09C590) = v40;
   }
 
   LODWORD(xmmword_27F09C594) = 0;
-  *&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] = v179 + 48;
-  v178 = (v179 + 48);
-  v41 = [*(*(v179 + 48) + 8) defaultDevice];
+  *&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] = v182 + 48;
+  v181 = (v182 + 48);
+  v41 = [*(*(v182 + 48) + 8) defaultDevice];
   v42 = DEVICEOBJECT(v41);
   v43 = GTProfilerConfigurationVariables([v42 acceleratorPort]);
   v44 = qword_27F09C4A8;
@@ -652,11 +650,11 @@ void __GTMTLReplayClient_collectAPSData_block_invoke(GTUSCSamplingStreamingManag
   v45 = qword_27F09C4A8;
   if (!*(&xmmword_27F09C9B8 + 1))
   {
-    v174 = v45;
+    v177 = v45;
     v46 = [v45 objectForKeyedSubscript:@"num_cores"];
     v47 = [v46 unsignedIntValue];
 
-    v48 = [v174 objectForKeyedSubscript:@"core_mask_list"];
+    v48 = [v177 objectForKeyedSubscript:@"core_mask_list"];
     v49 = [v48 count];
     if (v49 <= 1)
     {
@@ -682,27 +680,27 @@ LABEL_177:
     }
 
     std::vector<BOOL>::resize(&xmmword_27F09C9B8, v47);
-    v197 = 0u;
+    v200 = 0u;
+    v201 = 0u;
     v198 = 0u;
-    v195 = 0u;
-    v196 = 0u;
+    v199 = 0u;
     v52 = v48;
-    v53 = [v52 countByEnumeratingWithState:&v195 objects:&v199 count:16];
+    v53 = [v52 countByEnumeratingWithState:&v198 objects:&v202 count:16];
     if (v53)
     {
       v54 = 0;
-      v185 = *v196;
-      v180 = v52;
+      v188 = *v199;
+      v183 = v52;
       do
       {
         for (k = 0; k != v53; ++k)
         {
-          if (*v196 != v185)
+          if (*v199 != v188)
           {
             objc_enumerationMutation(v52);
           }
 
-          v56 = [*(*(&v195 + 1) + 8 * k) unsignedShortValue];
+          v56 = [*(*(&v198 + 1) + 8 * k) unsignedShortValue];
           v57 = v56;
           v58 = *(&xmmword_27F09C9E8 + 1);
           if (*(&xmmword_27F09C9E8 + 1) >= qword_27F09C9F8)
@@ -752,7 +750,7 @@ LABEL_177:
               operator delete(v65);
             }
 
-            v52 = v180;
+            v52 = v183;
           }
 
           else
@@ -770,31 +768,31 @@ LABEL_177:
               v67 = (v57 & -v57);
               v68 = __clz(__rbit32(v67));
               *(v66 + (((v68 + (qword_27F09C9B0 >> 3) * v54) >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << (v68 + (qword_27F09C9B0 >> 3) * v54);
-              v111 = v67 == v57;
+              v112 = v67 == v57;
               v57 ^= v57 & -v57;
             }
 
-            while (!v111);
+            while (!v112);
           }
 
           ++v54;
         }
 
-        v53 = [v52 countByEnumeratingWithState:&v195 objects:&v199 count:16];
+        v53 = [v52 countByEnumeratingWithState:&v198 objects:&v202 count:16];
       }
 
       while (v53);
     }
 
-    v45 = v174;
+    v45 = v177;
   }
 
-  v181 = [*(v179 + 64) objectForKeyedSubscript:@"PhysicalMemory"];
-  v175 = [*(v179 + 64) objectForKeyedSubscript:@"DataExpansionFactor"];
-  if (v181)
+  v184 = [*(v182 + 64) objectForKeyedSubscript:@"PhysicalMemory"];
+  v178 = [*(v182 + 64) objectForKeyedSubscript:@"DataExpansionFactor"];
+  if (v184)
   {
-    v173 = [v181 unsignedLongLongValue];
-    [v175 doubleValue];
+    v176 = [v184 unsignedLongLongValue];
+    [v178 doubleValue];
     v72 = v71;
     v74 = *(&xmmword_27F09C9B8 + 1);
     v73 = xmmword_27F09C9B8;
@@ -842,296 +840,296 @@ LABEL_82:
         v82 = (*(&v79 + 1) - v79) >> 1;
         qword_27F09C9B0 &= ~4uLL;
         dispatch_semaphore_signal(xmmword_27F09C6C8);
-        v83 = 126 - 2 * __clz((*(&xmmword_27F09C990 + 1) - xmmword_27F09C990) >> 3);
+        v84 = 126 - 2 * __clz((*(&xmmword_27F09C990 + 1) - xmmword_27F09C990) >> 3);
         if (*(&xmmword_27F09C990 + 1) == xmmword_27F09C990)
         {
-          v84 = 0;
+          v85 = 0;
         }
 
         else
         {
-          v84 = v83;
+          v85 = v84;
         }
 
-        std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,unsigned long *,true>(xmmword_27F09C990, *(&xmmword_27F09C990 + 1), v84, 1);
-        v85 = xmmword_27F09C990;
-        v86 = (*(&xmmword_27F09C990 + 1) - xmmword_27F09C990) >> 3;
-        if (v86 >= v82)
+        std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,unsigned long *,true>(xmmword_27F09C990, *(&xmmword_27F09C990 + 1), v85, 1, v83);
+        v86 = xmmword_27F09C990;
+        v87 = (*(&xmmword_27F09C990 + 1) - xmmword_27F09C990) >> 3;
+        if (v87 >= v82)
         {
-          v86 = (*(&v79 + 1) - v79) >> 1;
+          v87 = (*(&v79 + 1) - v79) >> 1;
         }
 
-        v87 = (xmmword_27F09C990 + 8 * v86);
-        v88 = 0;
-        if (v86)
+        v88 = (xmmword_27F09C990 + 8 * v87);
+        v89 = 0;
+        if (v87)
         {
           do
           {
-            v89 = *v85++;
-            v88 += v89;
+            v90 = *v86++;
+            v89 += v90;
           }
 
-          while (v85 != v87);
+          while (v86 != v88);
         }
 
-        v90 = v80 * v72;
-        v186 = (*(&v79 + 1) - v79) >> 1;
-        for (m = 0; v87 != *(&xmmword_27F09C990 + 1); m += v92)
+        v91 = v80 * v72;
+        v189 = (*(&v79 + 1) - v79) >> 1;
+        for (m = 0; v88 != *(&xmmword_27F09C990 + 1); m += v93)
         {
-          v92 = *v87++;
+          v93 = *v88++;
         }
 
-        v93 = v75 - v86;
-        if (!v93)
-        {
-          v93 = 1;
-        }
-
-        if (v93 > m)
+        v94 = v75 - v87;
+        if (!v94)
         {
           v94 = 1;
         }
 
-        else
-        {
-          v94 = m / v93;
-        }
-
-        if (v82 > v88)
+        if (v94 > m)
         {
           v95 = 1;
         }
 
         else
         {
-          v95 = v88 / v82;
+          v95 = m / v94;
         }
 
-        v96 = vcvtpd_u64_f64(v173 / (v90 * v95));
-        if (v75 <= v96)
+        if (v82 > v89)
         {
-          v122 = [[GTGPUAPSConfig alloc] initForProfiling];
-          v123 = *(&xmmword_27F09C520 + 1);
-          *(&xmmword_27F09C520 + 1) = v122;
+          v96 = 1;
+        }
 
-          v121 = [*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 16) objectForKeyedSubscript:@"apsProfilingConfig"];
-          [*(&xmmword_27F09C520 + 1) readConfig:v121];
+        else
+        {
+          v96 = v89 / v82;
+        }
+
+        v97 = vcvtpd_u64_f64(v176 / (v91 * v96));
+        if (v75 <= v97)
+        {
+          v123 = [[GTGPUAPSConfig alloc] initForProfiling];
+          v124 = *(&xmmword_27F09C520 + 1);
+          *(&xmmword_27F09C520 + 1) = v123;
+
+          v122 = [*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 16) objectForKeyedSubscript:@"apsProfilingConfig"];
+          [*(&xmmword_27F09C520 + 1) readConfig:v122];
         }
 
         else
         {
           [*(&xmmword_27F09C520 + 1) setUscNumPerMGPU:0];
           [*(&xmmword_27F09C520 + 1) setMGPUMask:0];
-          v182 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:v82];
-          std::vector<BOOL>::resize(&xmmword_27F09C9C8 + 8, *(&xmmword_27F09C9B8 + 1));
-          v97 = 0;
+          v185 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:v82];
+          std::vector<BOOL>::resize(&xmmword_27F09C9C8 + 1, *(&xmmword_27F09C9B8 + 1));
           v98 = 0;
-          v99 = v90 * v94;
-          v100 = (*(&v79 + 1) - v79) >> 1;
-          v101 = v96 / v82;
-          v102 = v96 % v186;
+          v99 = 0;
+          v100 = v91 * v95;
+          v101 = (*(&v79 + 1) - v79) >> 1;
+          v102 = v97 / v82;
+          v103 = v97 % v189;
           do
           {
-            v103 = *(xmmword_27F09C9E8 + 2 * v97);
-            v104 = *(xmmword_27F09C9E8 + 2 * v97) != 0;
-            v105 = 0;
-            if (v103)
+            v104 = *(xmmword_27F09C9E8 + 2 * v98);
+            v105 = *(xmmword_27F09C9E8 + 2 * v98) != 0;
+            v106 = 0;
+            if (v104)
             {
-              v106 = v100 > v96;
+              v107 = v101 > v97;
             }
 
             else
             {
-              v106 = 1;
+              v107 = 1;
             }
 
-            if (!v106)
+            if (!v107)
             {
-              v107 = *(&xmmword_27F09C9C8 + 1);
-              v108 = 1;
+              v108 = *(&xmmword_27F09C9C8 + 1);
+              v109 = 1;
               do
               {
-                v109 = v103 & -v103;
-                v110 = (v103 & -v103);
-                v105 |= v109;
-                v111 = v110 == v103;
-                v103 ^= v109;
-                v112 = __clz(__rbit32(v110)) + (qword_27F09C9B0 >> 3) * v98;
-                *(v107 + ((v112 >> 3) & 0x1FFFFFF8)) |= 1 << v112;
-                v104 = !v111;
-                if (v111)
+                v110 = v104 & -v104;
+                v111 = (v104 & -v104);
+                v106 |= v110;
+                v112 = v111 == v104;
+                v104 ^= v110;
+                v113 = __clz(__rbit32(v111)) + (qword_27F09C9B0 >> 3) * v99;
+                *(v108 + ((v113 >> 3) & 0x1FFFFFF8)) |= 1 << v113;
+                v105 = !v112;
+                if (v112)
                 {
                   break;
                 }
               }
 
-              while (v108++ < v101);
+              while (v109++ < v102);
             }
 
-            if (v102 && v104)
+            if (v103 && v105)
             {
-              v114 = v103 & -v103;
-              v105 |= v114;
-              --v102;
-              v115 = __clz(__rbit32(v114)) + (qword_27F09C9B0 >> 3) * v98;
-              *(*(&xmmword_27F09C9C8 + 1) + ((v115 >> 3) & 0x1FFFFFF8)) |= 1 << v115;
+              v115 = v104 & -v104;
+              v106 |= v115;
+              --v103;
+              v116 = __clz(__rbit32(v115)) + (qword_27F09C9B0 >> 3) * v99;
+              *(*(&xmmword_27F09C9C8 + 1) + ((v116 >> 3) & 0x1FFFFFF8)) |= 1 << v116;
             }
 
-            v116 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v105];
-            v117 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v98];
-            [v182 setObject:v116 forKeyedSubscript:v117];
+            v117 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v106];
+            v118 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v99];
+            [v185 setObject:v117 forKeyedSubscript:v118];
 
-            v97 = (v98 + 1);
-            v98 = v97;
-            v100 = (*(&v79 + 1) - v79) >> 1;
+            v98 = (v99 + 1);
+            v99 = v98;
+            v101 = (*(&v79 + 1) - v79) >> 1;
           }
 
-          while (v186 > v97);
-          v118 = [v182 copy];
-          [*(&xmmword_27F09C520 + 1) setUscMaskPerMGPU:v118];
+          while (v189 > v98);
+          v119 = [v185 copy];
+          [*(&xmmword_27F09C520 + 1) setUscMaskPerMGPU:v119];
 
-          v119 = v75 - v96;
-          if (v75 < v96)
+          v120 = v75 - v97;
+          if (v75 < v97)
           {
-            v119 = 0;
+            v120 = 0;
           }
 
-          v120 = (v99 * v119);
-          [*(&xmmword_27F09C520 + 1) setEmitPos:v173 >= v120];
-          qword_27F09C9B0 = qword_27F09C9B0 & 0xFFFFFFFFFFFFFEFFLL | ((v173 >= v120) << 8);
-          v121 = v182;
+          v121 = (v100 * v120);
+          [*(&xmmword_27F09C520 + 1) setEmitPos:v176 >= v121];
+          qword_27F09C9B0 = qword_27F09C9B0 & 0xFFFFFFFFFFFFFEFFLL | ((v176 >= v121) << 8);
+          v122 = v185;
         }
 
         qword_27F09C9B0 |= 4uLL;
         LODWORD(xmmword_27F09C594) = 2;
-        GTUSCSamplingStreamingManagerHelper::InitAPSStreaming(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0], v124);
-        GTUSCSamplingStreamingManagerHelper::StreamAPS(v125);
+        GTUSCSamplingStreamingManagerHelper::InitAPSStreaming(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0], v125);
+        GTUSCSamplingStreamingManagerHelper::StreamAPS(v126);
         (*(*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 32) + 16))();
-        v126 = (*(&xmmword_27F09C990 + 1) - xmmword_27F09C990) >> 3;
-        v127 = 126 - 2 * __clz(v126);
+        v128 = (*(&xmmword_27F09C990 + 1) - xmmword_27F09C990) >> 3;
+        v129 = 126 - 2 * __clz(v128);
         qword_27F09C9B0 &= ~4uLL;
         if (*(&xmmword_27F09C990 + 1) == xmmword_27F09C990)
         {
-          v128 = 0;
+          v130 = 0;
         }
 
         else
         {
-          v128 = v127;
+          v130 = v129;
         }
 
-        std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,unsigned long *,true>(xmmword_27F09C990, *(&xmmword_27F09C990 + 1), v128, 1);
-        v129 = xmmword_27F09C990;
-        v130 = (*(&xmmword_27F09C990 + 1) - xmmword_27F09C990) >> 3;
-        if (v130 >= v186)
+        std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,unsigned long *,true>(xmmword_27F09C990, *(&xmmword_27F09C990 + 1), v130, 1, v127);
+        v131 = xmmword_27F09C990;
+        v132 = (*(&xmmword_27F09C990 + 1) - xmmword_27F09C990) >> 3;
+        if (v132 >= v189)
         {
-          v130 = (*(&v79 + 1) - v79) >> 1;
+          v132 = (*(&v79 + 1) - v79) >> 1;
         }
 
-        v131 = (xmmword_27F09C990 + 8 * v130);
+        v133 = (xmmword_27F09C990 + 8 * v132);
         if (*(&xmmword_27F09C990 + 1) == xmmword_27F09C990)
         {
-          v134 = 0;
-        }
-
-        else
-        {
-          v132 = 0;
-          do
-          {
-            v133 = *v129;
-            v129 += 2;
-            v132 += v133;
-          }
-
-          while (v129 != v131);
-          v134 = v132;
-        }
-
-        if (v131 == *(&xmmword_27F09C990 + 1))
-        {
-          v135 = 0;
-        }
-
-        else
-        {
           v136 = 0;
-          do
-          {
-            v137 = *v131;
-            v131 += 2;
-            v136 += v137;
-          }
-
-          while (v131 != *(&xmmword_27F09C990 + 1));
-          v135 = v136;
         }
 
-        v138 = [[GTGPUAPSConfig alloc] initForTimeline];
-        v139 = qword_27F09C530;
-        qword_27F09C530 = v138;
-
-        v140 = [[GTGPUAPSConfig alloc] initForCounters];
-        v141 = qword_27F09C538;
-        qword_27F09C538 = v140;
-
-        v142 = v126;
-        if (v173 < (v90 * (v134 / v186) * v126))
+        else
         {
-          if (v126 == v186)
+          v134 = 0;
+          do
           {
-            v143 = 1;
+            v135 = *v131;
+            v131 += 2;
+            v134 += v135;
+          }
+
+          while (v131 != v133);
+          v136 = v134;
+        }
+
+        if (v133 == *(&xmmword_27F09C990 + 1))
+        {
+          v137 = 0;
+        }
+
+        else
+        {
+          v138 = 0;
+          do
+          {
+            v139 = *v133;
+            v133 += 2;
+            v138 += v139;
+          }
+
+          while (v133 != *(&xmmword_27F09C990 + 1));
+          v137 = v138;
+        }
+
+        v140 = [[GTGPUAPSConfig alloc] initForTimeline];
+        v141 = qword_27F09C530;
+        qword_27F09C530 = v140;
+
+        v142 = [[GTGPUAPSConfig alloc] initForCounters];
+        v143 = qword_27F09C538;
+        qword_27F09C538 = v142;
+
+        v144 = v128;
+        if (v176 < (v91 * (v136 / v189) * v128))
+        {
+          if (v128 == v189)
+          {
+            v145 = 1;
           }
 
           else
           {
-            v143 = v126 - v186;
+            v145 = v128 - v189;
           }
 
-          v144 = [qword_27F09C530 countPeriod];
-          v145 = [qword_27F09C530 pulsePeriod];
-          v146 = (v90 * (v135 / v143) * v142) / v173;
-          if (v146 > 1.0)
+          v146 = [qword_27F09C530 countPeriod];
+          v147 = [qword_27F09C530 pulsePeriod];
+          v148 = (v91 * (v137 / v145) * v144) / v176;
+          if (v148 > 1.0)
           {
-            v146 = 1.0;
+            v148 = 1.0;
           }
 
-          v147 = vcvtd_n_u64_f64(v146, 0xFuLL);
-          while (v144 < v147)
+          v149 = vcvtd_n_u64_f64(v148, 0xFuLL);
+          while (v146 < v149)
           {
-            v144 *= 2;
-            v145 *= 2;
+            v146 *= 2;
+            v147 *= 2;
           }
 
-          if (v144 > [qword_27F09C530 countPeriod])
+          if (v146 > [qword_27F09C530 countPeriod])
           {
             [qword_27F09C530 setEmitThreadControlFlow:0];
           }
 
-          if (v144 >= 0x8000)
+          if (v146 >= 0x8000)
           {
-            v148 = 0x8000;
+            v150 = 0x8000;
           }
 
           else
           {
-            v148 = v144;
+            v150 = v146;
           }
 
-          [qword_27F09C530 setCountPeriod:v148];
-          [qword_27F09C538 setCountPeriod:v148];
-          if (v145 >= 0x800)
+          [qword_27F09C530 setCountPeriod:v150];
+          [qword_27F09C538 setCountPeriod:v150];
+          if (v147 >= 0x800)
           {
-            v149 = 2048;
+            v151 = 2048;
           }
 
           else
           {
-            v149 = v145;
+            v151 = v147;
           }
 
-          [qword_27F09C530 setPulsePeriod:v149];
-          [qword_27F09C538 setPulsePeriod:v149];
+          [qword_27F09C530 setPulsePeriod:v151];
+          [qword_27F09C538 setPulsePeriod:v151];
         }
 
         goto LABEL_158;
@@ -1148,14 +1146,14 @@ LABEL_158:
   LODWORD(xmmword_27F09C594) = 0;
   for (n = 4; ; --n)
   {
-    GTUSCSamplingStreamingManagerHelper::InitAPSStreaming(v178, v69);
-    v152 = GTUSCSamplingStreamingManagerHelper::StreamAPS(v151);
-    if (v152)
+    GTUSCSamplingStreamingManagerHelper::InitAPSStreaming(v181, v69);
+    GTUSCSamplingStreamingManagerHelper::StreamAPS(v153);
+    if (v154)
     {
       break;
     }
 
-    v152 = (*(*(v179 + 80) + 16))();
+    v154 = (*(*(v182 + 80) + 16))();
     if (!n)
     {
       break;
@@ -1164,82 +1162,82 @@ LABEL_158:
     dispatch_semaphore_signal(xmmword_27F09C6C8);
   }
 
-  v153 = 5;
+  v155 = 5;
   LODWORD(xmmword_27F09C594) = 1;
   do
   {
-    GTUSCSamplingStreamingManagerHelper::CleanupForAPSStreaming(v152);
+    GTUSCSamplingStreamingManagerHelper::CleanupForAPSStreaming(v154);
     if (xmmword_27F09C9D8 >= 1)
     {
-      v199 = *(&xmmword_27F09C9C8 + 1);
-      v200 = 0;
-      std::__fill_n_BOOL[abi:nn200100]<false,std::vector<BOOL>>(&v199, xmmword_27F09C9D8);
+      v202 = *(&xmmword_27F09C9C8 + 1);
+      v203 = 0;
+      std::__fill_n_BOOL[abi:nn200100]<false,std::vector<BOOL>>(&v202, xmmword_27F09C9D8);
     }
 
     qword_27F09C9B0 &= ~0x100uLL;
-    v154 = GTUSCSamplingStreamingManagerHelper::AllocUSCSamplingAddressBuffer(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
+    v156 = GTUSCSamplingStreamingManagerHelper::AllocUSCSamplingAddressBuffer(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
     qword_27F09C478 = [qword_27F09C498 mutableBytes];
-    v155 = [[ProgramAddressTableCollector alloc] initForHarvestingBinaries];
-    v156 = xmmword_27F09C480;
-    *&xmmword_27F09C480 = v155;
+    v157 = [[ProgramAddressTableCollector alloc] initForHarvestingBinaries];
+    v158 = xmmword_27F09C480;
+    *&xmmword_27F09C480 = v157;
 
     if (qword_27F09C588 != -1)
     {
-      GTUSCSamplingStreamingManagerHelper::SetupBuffersForAPSSource(v157);
-      v158 = [qword_27F09C538 grcOptions];
-      v159 = xmmword_27F09C500;
-      *&xmmword_27F09C500 = v158;
+      GTUSCSamplingStreamingManagerHelper::SetupBuffersForAPSSource(v159);
+      v160 = [qword_27F09C538 grcOptions];
+      v161 = xmmword_27F09C500;
+      *&xmmword_27F09C500 = v160;
 
-      v160 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
-      v161 = *(&xmmword_27F09C500 + 1);
-      *(&xmmword_27F09C500 + 1) = v160;
+      v162 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
+      v163 = *(&xmmword_27F09C500 + 1);
+      *(&xmmword_27F09C500 + 1) = v162;
 
-      v162 = *(&xmmword_27F09C500 + 1);
-      v163 = MEMORY[0x277D0AF30];
-      v164 = [qword_27F09C538 grcTrigger];
-      v165 = [v163 selectWithName:@"KickAndStateTracing" options:v164];
-      [v162 addObject:v165];
+      v164 = *(&xmmword_27F09C500 + 1);
+      v165 = MEMORY[0x277D0AF30];
+      v166 = [qword_27F09C538 grcTrigger];
+      v167 = [v165 selectWithName:@"KickAndStateTracing" options:v166];
+      [v164 addObject:v167];
 
-      v166 = (*(*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 32) + 16))();
-      GTUSCSamplingStreamingManagerHelper::InitRDELimiterCounters(v166);
+      v168 = (*(*(*&GTUSCSamplingStreamingManagerHelper::Instance(void)::instance[0] + 32) + 16))();
+      GTUSCSamplingStreamingManagerHelper::InitRDELimiterCounters(v168);
     }
 
-    if (GTUSCSamplingStreamingManagerHelper::StreamAPS(v157))
+    GTUSCSamplingStreamingManagerHelper::StreamAPS(v159);
+    if (v169)
     {
       break;
     }
 
-    v152 = (*(*(v179 + 80) + 16))();
-    --v153;
+    v154 = (*(*(v182 + 80) + 16))();
+    --v155;
   }
 
-  while (v153);
-  GTUSCSamplingStreamingManager::InitDerivedCountersInfo(v178);
-  GTUSCSamplingStreamingManagerHelper::StreamEncoderDerivedCounterData(v167);
+  while (v155);
+  GTUSCSamplingStreamingManager::InitDerivedCountersInfo(v181);
+  GTUSCSamplingStreamingManagerHelper::StreamEncoderDerivedCounterData(v170);
   LODWORD(xmmword_27F09C594) = 2;
-  v169 = 5;
+  v172 = 5;
   do
   {
-    GTUSCSamplingStreamingManagerHelper::InitAPSStreaming(v178, v168);
-    if (GTUSCSamplingStreamingManagerHelper::StreamAPS(v170))
+    GTUSCSamplingStreamingManagerHelper::InitAPSStreaming(v181, v171);
+    GTUSCSamplingStreamingManagerHelper::StreamAPS(v173);
+    if (v174)
     {
       break;
     }
 
-    (*(*(v179 + 80) + 16))();
-    --v169;
+    (*(*(v182 + 80) + 16))();
+    --v172;
   }
 
-  while (v169);
-  (*(*(v179 + 80) + 16))();
+  while (v172);
+  (*(*(v182 + 80) + 16))();
   dispatch_semaphore_signal(xmmword_27F09C6C8);
-  v171 = atomic_load(&xmmword_27F09C7D8);
-  if (v171 == v178)
+  v175 = atomic_load(&xmmword_27F09C7D8);
+  if (v175 == v181)
   {
     GTUSCSamplingStreamingManagerHelper::CleanUp(GTUSCSamplingStreamingManagerHelper::Instance(void)::instance);
   }
-
-  v172 = *MEMORY[0x277D85DE8];
 }
 
 void __GTMTLReplayClient_harvestTexture_block_invoke(uint64_t a1)
@@ -1362,23 +1360,23 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke(uint64_t a1)
 
 void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   info = 0;
   mach_timebase_info(&info);
-  v64 = *(v1 + 8);
+  v63 = v1[1];
   v2 = *v1;
-  v61 = *(*v1 + 16);
-  v3 = *(*v1 + 120);
+  v60 = *(*v1 + 2);
+  v3 = *(*v1 + 15);
   v4 = *(v3 + 12);
   if (v4 < 1)
   {
-    v58 = 0;
+    v57 = 0;
   }
 
   else
   {
-    v58 = 0;
+    v57 = 0;
     v5 = *(v3 + 24);
     do
     {
@@ -1387,15 +1385,15 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
         v6 = v2[13];
         if (v6 <= *v5 && v2[14] + v6 > *v5)
         {
-          v8 = v58 + 1;
+          v8 = v57 + 1;
         }
 
         else
         {
-          v8 = v58;
+          v8 = v57;
         }
 
-        v58 = v8;
+        v57 = v8;
       }
 
       v5 += 6;
@@ -1405,15 +1403,15 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
     while (v4);
   }
 
-  v63 = malloc_type_calloc(32 * v58, 0x10uLL, 0x1000040451B5BE8uLL);
-  v62 = objc_opt_new();
+  v62 = malloc_type_calloc(32 * v57, 0x10uLL, 0x1000040451B5BE8uLL);
+  v61 = objc_opt_new();
   GTMTLReplayController_prePlayForProfiling(v1);
-  v9 = *(v1 + 22560);
+  v9 = *(v1 + 5640);
   v10 = *v1;
   while (v10[14] + v10[13] > v9)
   {
     v11 = objc_autoreleasePoolPush();
-    v12 = *(v10[16] + 24) + (*(v1 + 22560) << 6);
+    v12 = *(v10[16] + 24) + (*(v1 + 5640) << 6);
     if (GTFenum_isBeginCommandBuffer(*(v12 + 8)))
     {
       v13 = GTMTLReplayController_restoreCommandBuffer(v1, v12);
@@ -1421,8 +1419,8 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
       GTMTLReplayController_defaultDispatchFunction(v1, v12);
       if (v13)
       {
-        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v1 + 22560)];
-        [v62 addObject:v14];
+        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v1 + 5640)];
+        [v61 addObject:v14];
       }
     }
 
@@ -1433,51 +1431,51 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
     }
 
     objc_autoreleasePoolPop(v11);
-    v9 = (*(v1 + 22560) + 1);
-    *(v1 + 22560) = v9;
+    v9 = (*(v1 + 5640) + 1);
+    *(v1 + 5640) = v9;
   }
 
-  v15 = [v64 defaultDevice];
-  v65 = [v15 newEvent];
+  v15 = [v63 defaultDevice];
+  v64 = [v15 newEvent];
 
-  v57 = mach_absolute_time();
+  v56 = mach_absolute_time();
   v16 = 0;
   LODWORD(v17) = 0;
   v18 = 1;
   do
   {
     v19 = v18;
-    v60 = v17;
+    v59 = v17;
     [g_activityLog enterPerformFrameTimingForIndex:?];
     v20 = g_signpostLog;
     if (os_signpost_enabled(g_signpostLog))
     {
       *buf = 67109120;
-      *&buf[4] = v60;
+      *&buf[4] = v59;
       _os_signpost_emit_with_name_impl(&dword_24D764000, v20, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "performFrameTiming %d", buf, 8u);
     }
 
     GTMTLReplayController_prePlayForProfiling(v1);
-    v59 = v19;
-    for (i = *(v1 + 22560); v2[14] + v2[13] > i; *(v1 + 22560) = i)
+    v58 = v19;
+    for (i = *(v1 + 5640); v2[14] + v2[13] > i; *(v1 + 5640) = i)
     {
       v22 = objc_autoreleasePoolPush();
-      v23 = *(v1 + 22560);
+      v23 = *(v1 + 5640);
       v24 = *(v2[16] + 24) + (v23 << 6);
       isBeginCommandBuffer = GTFenum_isBeginCommandBuffer(*(v24 + 8));
       if (isBeginCommandBuffer)
       {
         v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v23];
-        v27 = [v62 containsObject:v26];
+        v27 = [v61 containsObject:v26];
 
         if (v27)
         {
-          v28 = [v64 defaultCommandQueue];
+          v28 = [v63 defaultCommandQueue];
           v29 = [v28 commandBuffer];
 
           ++performFrameTimingDesktop_signalCounter;
-          [v29 encodeSignalEvent:v65 value:?];
-          [v29 encodeWaitForEvent:v65 value:performFrameTimingDesktop_signalCounter];
+          [v29 encodeSignalEvent:v64 value:?];
+          [v29 encodeWaitForEvent:v64 value:performFrameTimingDesktop_signalCounter];
           [v29 commit];
         }
 
@@ -1493,27 +1491,27 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
       GTMTLReplayController_defaultDispatchFunction(v1, v24);
       if (isBeginCommandBuffer)
       {
-        v31 = [v64 commandBufferForKey:{*(GTTraceFunc_argumentBytesWithMap(v24, *(v24 + 13), *(*v1 + 16)) + 1)}];
-        v66[0] = MEMORY[0x277D85DD0];
-        v66[1] = 3221225472;
-        v66[2] = __performFrameTimingDesktop_block_invoke;
-        v66[3] = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
-        v66[4] = &v63[2 * v16];
-        [v31 addCompletedHandler:v66];
+        v31 = [v63 commandBufferForKey:{*(GTTraceFunc_argumentBytesWithMap(v24, *(v24 + 13), *(*v1 + 2)) + 1)}];
+        v65[0] = MEMORY[0x277D85DD0];
+        v65[1] = 3221225472;
+        v65[2] = __performFrameTimingDesktop_block_invoke;
+        v65[3] = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
+        v65[4] = &v62[2 * v16];
+        [v31 addCompletedHandler:v65];
 
         ++v16;
       }
 
       if (v30)
       {
-        v32 = [v64 commandBufferForKey:{*(GTTraceFunc_argumentBytesWithMap(v24, *(v24 + 13), v61) + 1)}];
+        v32 = [v63 commandBufferForKey:{*(GTTraceFunc_argumentBytesWithMap(v24, *(v24 + 13), v60) + 1)}];
         ++performFrameTimingDesktop_signalCounter;
-        [v32 encodeSignalEvent:v65 value:?];
-        [v32 encodeWaitForEvent:v65 value:performFrameTimingDesktop_signalCounter];
+        [v32 encodeSignalEvent:v64 value:?];
+        [v32 encodeWaitForEvent:v64 value:performFrameTimingDesktop_signalCounter];
       }
 
       objc_autoreleasePoolPop(v22);
-      i = (*(v1 + 22560) + 1);
+      i = (*(v1 + 5640) + 1);
     }
 
     v33 = mach_absolute_time();
@@ -1521,27 +1519,27 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
     if (os_signpost_enabled(g_signpostLog))
     {
       *buf = 67109120;
-      *&buf[4] = v60;
+      *&buf[4] = v59;
       _os_signpost_emit_with_name_impl(&dword_24D764000, v34, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "performFrameTiming %d", buf, 8u);
     }
 
-    v35 = (v33 - v57) * info.numer / info.denom < 0x3B9ACA00;
+    v35 = (v33 - v56) * info.numer / info.denom < 0x3B9ACA00;
     [g_activityLog leaveActivity];
-    v18 = v59 + 1;
-    v17 = v60 + 1;
+    v18 = v58 + 1;
+    v17 = v59 + 1;
   }
 
-  while (v60 < 0x1F && v35);
-  v36 = [*(v1 + 8) defaultCommandQueue];
+  while (v59 < 0x1F && v35);
+  v36 = [v1[1] defaultCommandQueue];
   [v36 finish];
 
-  v37 = [MEMORY[0x277CBEB18] arrayWithCapacity:v60 + 1];
+  v37 = [MEMORY[0x277CBEB18] arrayWithCapacity:v59 + 1];
   v38 = 0;
-  v39 = v63 + 1;
+  v39 = v62 + 1;
   do
   {
-    qsort(&v63[2 * v38 * v58], v58, 0x10uLL, CommandBufferTimeInfo_compare);
-    if (v58 <= 0)
+    qsort(&v62[2 * v38 * v57], v57, 0x10uLL, CommandBufferTimeInfo_compare);
+    if (v57 <= 0)
     {
       v45 = 0;
     }
@@ -1550,7 +1548,7 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
     {
       v40 = 0.0;
       v41 = v39;
-      v42 = v58;
+      v42 = v57;
       v43 = 0.0;
       do
       {
@@ -1578,11 +1576,11 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
     [v37 addObject:v46];
 
     ++v38;
-    v39 += 2 * v58;
+    v39 += 2 * v57;
   }
 
-  while (v38 != v59);
-  free(v63);
+  while (v38 != v58);
+  free(v62);
   [v37 sortUsingComparator:&__block_literal_global_424];
   if ([v37 count])
   {
@@ -1604,26 +1602,24 @@ void __GTMTLReplayClient_queryShaderInfo_block_invoke_2(uint64_t a1)
     fprintf(v50, "#CI-INFO# %s\n", [v49 UTF8String]);
   }
 
-  v68[0] = @"frametime";
-  v68[1] = @"frameGPUTime";
+  v67[0] = @"frametime";
+  v67[1] = @"frameGPUTime";
   *buf = v37;
-  v70 = v47;
-  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v68 count:2];
+  v69 = v47;
+  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v67 count:2];
 
   v53 = *(*(a1 + 32) + 8);
   v54 = *(v53 + 40);
   *(v53 + 40) = v52;
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __GTMTLReplayClient_queryShaderInfo_block_invoke_3(uint64_t result)
+id *__GTMTLReplayClient_queryShaderInfo_block_invoke_3(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    result = [*(result + 40) getStateOccupancy];
-    *(*(*(v1 + 48) + 8) + 24) = v2;
+    result = [result[5] getStateOccupancy];
+    *(*(v1[6] + 1) + 24) = v2;
   }
 
   return result;

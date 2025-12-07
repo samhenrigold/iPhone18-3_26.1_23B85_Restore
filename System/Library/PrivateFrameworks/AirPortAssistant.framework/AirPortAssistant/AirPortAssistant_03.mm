@@ -1,57 +1,115 @@
-uint64_t sub_23EB8FC04(uint64_t a1, uint64_t a2, const __CFString *a3, uint64_t a4)
+uint64_t sub_23EB8FAFC(uint64_t a1, int a2)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  result = sub_23EB8F5B4(a2);
+  if (result)
+  {
+    result = 1;
+    if (a2 > 1918979692)
+    {
+      if (a2 == 1918979693)
+      {
+        return result;
+      }
+
+      v4 = 22341;
+    }
+
+    else
+    {
+      if (a2 == 1918976833)
+      {
+        return result;
+      }
+
+      v4 = 19812;
+    }
+
+    if (a2 != (v4 | 0x72610000))
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_23EB8FB78(unsigned __int8 *a1, int a2, std::string *a3)
+{
+  v9 = 0;
+  v8 = 0;
+  v5 = sub_23EB4BD2C(a2, &v8);
+  sub_23EB8CCB8(__p, v5);
+  sub_23EB90814(a1, __p, a3);
+  if (v7 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_23EB8FBE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_23EB8FC04(uint64_t a1, std::string *a2, const __CFString *a3, uint64_t a4)
+{
+  v64 = *MEMORY[0x277D85DE8];
   memset(&__p, 0, sizeof(__p));
-  v74 = 0;
-  v72 = a1;
+  v61 = 0;
+  v59 = a1;
   cf = 0;
   pthread_mutex_lock((a1 + 392));
   ++*(a1 + 456);
-  std::string::basic_string(&v71, a2, 0, 4uLL, __str);
-  v8 = v71.__r_.__value_.__r.__words[0];
-  v9 = SHIBYTE(v71.__r_.__value_.__r.__words[2]);
-  if (*(a2 + 23) >= 0)
+  std::string::basic_string(&v58, a2, 0, 4uLL, __str);
+  v8 = v58.__r_.__value_.__r.__words[0];
+  v9 = SHIBYTE(v58.__r_.__value_.__r.__words[2]);
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v10 = a2;
   }
 
   else
   {
-    v10 = *a2;
+    v10 = a2->__r_.__value_.__r.__words[0];
   }
 
-  v11 = sub_23EB4BD54(v10, 4uLL, &v74);
+  v11 = sub_23EB4BD54(v10, 4uLL, &v61);
   if (v11)
   {
     goto LABEL_67;
   }
 
-  v12 = *(a2 + 23);
-  if ((v12 & 0x80u) != 0)
+  size = HIBYTE(a2->__r_.__value_.__r.__words[2]);
+  if ((size & 0x80u) != 0)
   {
-    v12 = *(a2 + 8);
+    size = a2->__r_.__value_.__l.__size_;
   }
 
-  if (v12 >= 5)
+  if (size >= 5)
   {
-    std::string::basic_string(&v71, a2, 5uLL, 0xFFFFFFFFFFFFFFFFLL, __str);
+    std::string::basic_string(&v58, a2, 5uLL, 0xFFFFFFFFFFFFFFFFLL, __str);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    __p = v71;
+    __p = v58;
   }
 
-  size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v13 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = __p.__r_.__value_.__l.__size_;
+    v13 = __p.__r_.__value_.__l.__size_;
   }
 
-  if (!size)
+  if (!v13)
   {
-    v20 = sub_23EB8A18C(a1, v74, a3, a4);
+    v20 = sub_23EB8A18C(a1, v61, a3, a4);
 LABEL_66:
     v11 = v20;
     goto LABEL_67;
@@ -59,7 +117,7 @@ LABEL_66:
 
   if (sub_23EB8E208(a1, a2))
   {
-    v14 = *(a2 + 23);
+    v14 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
     if (v14 >= 0)
     {
       v15 = a2;
@@ -67,17 +125,17 @@ LABEL_66:
 
     else
     {
-      v15 = *a2;
+      v15 = a2->__r_.__value_.__r.__words[0];
     }
 
     if (v14 < 0)
     {
-      v14 = *(a2 + 8);
+      v14 = a2->__r_.__value_.__l.__size_;
     }
 
     if (v14 >= 16)
     {
-      v16 = &v15[v14];
+      v16 = v15 + v14;
       v17 = v15;
       do
       {
@@ -87,100 +145,100 @@ LABEL_66:
           break;
         }
 
-        if (*v18 == 0x6461722E69466957 && v18[1] == 0x2E5D2A5B2E736F69)
+        if (v18->__r_.__value_.__r.__words[0] == 0x6461722E69466957 && v18->__r_.__value_.__l.__size_ == 0x2E5D2A5B2E736F69)
         {
           if (v18 != v15)
           {
             break;
           }
 
-          memset(&v71, 0, sizeof(v71));
-          v41 = sub_23EB8F428(a1, 0);
-          v42 = v41;
-          if (v41)
+          memset(&v58, 0, sizeof(v58));
+          v33 = sub_23EB8F428(a1, 0);
+          v34 = v33;
+          if (v33)
           {
-            if (v41 < 1)
+            if (v33 < 1)
             {
               v11 = 0;
             }
 
             else
             {
-              v43 = 0;
+              v35 = 0;
               do
               {
-                snprintf(__str, 0x10uLL, "%ld", v43);
-                std::string::operator=(&v71, a2);
-                if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                snprintf(__str, 0x10uLL, "%ld", v35);
+                std::string::operator=(&v58, a2);
+                if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v44 = &v71;
+                  v36 = &v58;
                 }
 
                 else
                 {
-                  v44 = v71.__r_.__value_.__r.__words[0];
+                  v36 = v58.__r_.__value_.__r.__words[0];
                 }
 
-                if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v45 = SHIBYTE(v71.__r_.__value_.__r.__words[2]);
+                  v37 = SHIBYTE(v58.__r_.__value_.__r.__words[2]);
                 }
 
                 else
                 {
-                  v45 = v71.__r_.__value_.__l.__size_;
+                  v37 = v58.__r_.__value_.__l.__size_;
                 }
 
-                v46 = v44 + v45;
-                if (v45 >= 1)
+                v38 = v36 + v37;
+                if (v37 >= 1)
                 {
-                  v47 = v44;
+                  v39 = v36;
                   do
                   {
-                    v48 = memchr(v47, 42, v45);
-                    if (!v48)
+                    v40 = memchr(v39, 42, v37);
+                    if (!v40)
                     {
                       break;
                     }
 
-                    if (*v48 == 42)
+                    if (*v40 == 42)
                     {
-                      goto LABEL_96;
+                      goto LABEL_99;
                     }
 
-                    v47 = (v48 + 1);
-                    v45 = v46 - v47;
+                    v39 = (v40 + 1);
+                    v37 = v38 - v39;
                   }
 
-                  while (v46 - v47 > 0);
+                  while (v38 - v39 > 0);
                 }
 
-                v48 = v46;
-LABEL_96:
-                if (v48 == v46)
+                v40 = v38;
+LABEL_99:
+                if (v40 == v38)
                 {
-                  v49 = -1;
+                  v41 = -1;
                 }
 
                 else
                 {
-                  v49 = v48 - v44;
+                  v41 = v40 - v36;
                 }
 
-                std::string::replace(&v71, v49, 1uLL, __str);
-                v11 = sub_23EB92938(a1, &v71, a3, a4);
+                std::string::replace(&v58, v41, 1uLL, __str);
+                v11 = sub_23EB92938(a1, &v58.__r_.__value_.__l.__data_, a3, a4);
                 if (v11)
                 {
                   break;
                 }
 
-                ++v43;
+                ++v35;
               }
 
-              while (v43 != v42);
-              if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
+              while (v35 != v34);
+              if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v71.__r_.__value_.__l.__data_);
+                operator delete(v58.__r_.__value_.__l.__data_);
               }
             }
           }
@@ -193,20 +251,20 @@ LABEL_96:
           goto LABEL_67;
         }
 
-        v17 = v18 + 1;
+        v17 = (&v18->__r_.__value_.__l.__data_ + 1);
         v14 = v16 - v17;
       }
 
       while (v16 - v17 >= 16);
     }
 
-    v20 = sub_23EB92938(a1, a2, a3, a4);
+    v20 = sub_23EB92938(a1, &a2->__r_.__value_.__l.__data_, a3, a4);
     goto LABEL_66;
   }
 
   if (a4 == 2)
   {
-    v21 = sub_23EB8C68C(a1, v74, &cf, 2);
+    v21 = sub_23EB8C68C(a1, v61, &cf, 2);
     v22 = 0;
     v23 = 0;
     DeepCopy = cf;
@@ -214,11 +272,11 @@ LABEL_96:
 
   else
   {
-    v35 = sub_23EB8C68C(a1, v74, &cf, 1);
-    v11 = v35;
-    if (v35 == -5 || (DeepCopy = cf) == 0)
+    v30 = sub_23EB8C68C(a1, v61, &cf, 1);
+    v11 = v30;
+    if (v30 == -5 || (DeepCopy = cf) == 0)
     {
-      v21 = sub_23EB8C68C(a1, v74, &cf, 2);
+      v21 = sub_23EB8C68C(a1, v61, &cf, 2);
       v23 = 0;
       v22 = 0;
       DeepCopy = cf;
@@ -240,7 +298,7 @@ LABEL_96:
 
     else
     {
-      if (v35)
+      if (v30)
       {
         goto LABEL_67;
       }
@@ -257,7 +315,7 @@ LABEL_96:
     goto LABEL_35;
   }
 
-  v11 = sub_23EB8DED4(v21, v74, &cf);
+  v11 = sub_23EB8DED4(v21, v61, &cf);
   if (!v11)
   {
     DeepCopy = cf;
@@ -265,30 +323,40 @@ LABEL_96:
     if (!cf)
     {
       v11 = 0;
-      goto LABEL_145;
+      goto LABEL_148;
     }
 
     v22 = 1;
 LABEL_35:
-    v70 = 0;
-    v69 = 0;
+    v57 = 0;
+    v56 = 0;
     v26 = CFGetTypeID(DeepCopy);
     if (v26 == CFDictionaryGetTypeID() || (v27 = CFGetTypeID(cf), v27 == CFArrayGetTypeID()))
     {
       if (!a3)
       {
-        v71.__r_.__value_.__r.__words[0] = 0;
+        v58.__r_.__value_.__r.__words[0] = 0;
         if (a4 > 1)
         {
           v11 = 4294960591;
-          goto LABEL_145;
+          goto LABEL_148;
         }
 
-        if (sub_23EB94960(a1, a2, &v71, 2))
+        if (sub_23EB94960(a1, a2, &v58.__r_.__value_.__l.__data_, 2))
         {
           if (dword_27E381AB0 <= 1000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x3E8u)))
           {
-            sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::SetPropertyCF(const std::string &, CFTypeRef, eWhichValue)", 1000, "%s: This path (%s) does not exist in original settings for removal", v37, v38, v39, v40, "SetPropertyCF");
+            if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v32 = a2;
+            }
+
+            else
+            {
+              v32 = a2->__r_.__value_.__r.__words[0];
+            }
+
+            sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::SetPropertyCF(const std::string &, CFTypeRef, eWhichValue)", 1000, "%s: This path (%s) does not exist in original settings for removal", "SetPropertyCF", v32);
           }
 
           a3 = 0;
@@ -296,16 +364,16 @@ LABEL_35:
 
         else
         {
-          a3 = CFPropertyListCreateDeepCopy(*MEMORY[0x277CBECE8], v71.__r_.__value_.__l.__data_, 2uLL);
+          a3 = CFPropertyListCreateDeepCopy(*MEMORY[0x277CBECE8], v58.__r_.__value_.__l.__data_, 2uLL);
           if (!a3)
           {
             v11 = 4294960568;
-            goto LABEL_145;
+            goto LABEL_148;
           }
         }
       }
 
-      v11 = sub_23EB94F30(a1, &__p, a3, &v70, &v69);
+      v11 = sub_23EB94F30(a1, &__p, a3, &v57, &v56);
       if (!v11)
       {
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -320,145 +388,145 @@ LABEL_35:
 
         if (sub_23EB9AC64(p_p) == 2003061875)
         {
-          sub_23EB8CCB8(&v71, "legacywds");
-          sub_23EB90814(&__p, &v71, &__p);
-          if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
+          sub_23EB8CCB8(&v58, "legacywds");
+          sub_23EB90814(&__p, &v58, &__p);
+          if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v71.__r_.__value_.__l.__data_);
+            operator delete(v58.__r_.__value_.__l.__data_);
           }
         }
 
         if (!sub_23EB8E37C(a2, "WiFi.radios.[*].", 0))
         {
-          memset(&v71, 0, sizeof(v71));
-          v50 = sub_23EB8F428(a1, 0);
-          v51 = v50;
-          v68 = v22;
-          if (v50)
+          memset(&v58, 0, sizeof(v58));
+          v42 = sub_23EB8F428(a1, 0);
+          v43 = v42;
+          v55 = v22;
+          if (v42)
           {
-            if (v50 < 1)
+            if (v42 < 1)
             {
-              v67 = 0;
+              v54 = 0;
               v11 = 0;
-              v66 = 1;
+              v53 = 1;
             }
 
             else
             {
-              v52 = 0;
+              v44 = 0;
               while (1)
               {
-                snprintf(__str, 0x10uLL, "%ld", v52);
-                std::string::operator=(&v71, &__p);
-                if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                snprintf(__str, 0x10uLL, "%ld", v44);
+                std::string::operator=(&v58, &__p);
+                if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v53 = &v71;
+                  v45 = &v58;
                 }
 
                 else
                 {
-                  v53 = v71.__r_.__value_.__r.__words[0];
+                  v45 = v58.__r_.__value_.__r.__words[0];
                 }
 
-                if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v54 = SHIBYTE(v71.__r_.__value_.__r.__words[2]);
+                  v46 = SHIBYTE(v58.__r_.__value_.__r.__words[2]);
                 }
 
                 else
                 {
-                  v54 = v71.__r_.__value_.__l.__size_;
+                  v46 = v58.__r_.__value_.__l.__size_;
                 }
 
-                v55 = v53 + v54;
-                if (v54 >= 1)
+                v47 = v45 + v46;
+                if (v46 >= 1)
                 {
-                  v56 = v53;
+                  v48 = v45;
                   do
                   {
-                    v57 = memchr(v56, 42, v54);
-                    if (!v57)
+                    v49 = memchr(v48, 42, v46);
+                    if (!v49)
                     {
                       break;
                     }
 
-                    if (*v57 == 42)
+                    if (*v49 == 42)
                     {
-                      goto LABEL_120;
+                      goto LABEL_123;
                     }
 
-                    v56 = (v57 + 1);
-                    v54 = v55 - v56;
+                    v48 = (v49 + 1);
+                    v46 = v47 - v48;
                   }
 
-                  while (v55 - v56 > 0);
+                  while (v47 - v48 > 0);
                 }
 
-                v57 = v55;
-LABEL_120:
-                v58 = v57 == v55 ? -1 : v57 - v53;
-                std::string::replace(&v71, v58, 1uLL, __str);
-                v64 = (v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v71 : v71.__r_.__value_.__r.__words[0];
-                v65 = sub_23EB71598(cf, v64, v70, v59, v60, v61, v62, v63);
-                v66 = v65 == 0;
-                v11 = v65;
-                if (v65)
+                v49 = v47;
+LABEL_123:
+                v50 = v49 == v47 ? -1 : v49 - v45;
+                std::string::replace(&v58, v50, 1uLL, __str);
+                v51 = (v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v58 : v58.__r_.__value_.__r.__words[0];
+                v52 = sub_23EB71598(cf, v51, v57);
+                v53 = v52 == 0;
+                v11 = v52;
+                if (v52)
                 {
                   break;
                 }
 
-                if (++v52 == v51)
+                if (++v44 == v43)
                 {
                   v11 = 0;
                   break;
                 }
               }
 
-              v67 = v65 != 0;
+              v54 = v52 != 0;
             }
           }
 
           else
           {
-            v66 = 0;
+            v53 = 0;
             v11 = 4294967291;
-            v67 = 1;
+            v54 = 1;
           }
 
-          if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v71.__r_.__value_.__l.__data_);
+            operator delete(v58.__r_.__value_.__l.__data_);
           }
 
-          if (!v66)
+          if (!v53)
           {
-            if (!v67)
+            if (!v54)
             {
               goto LABEL_67;
             }
 
-            goto LABEL_145;
+            goto LABEL_148;
           }
 
-          v22 = v68;
-          goto LABEL_140;
+          v22 = v55;
+          goto LABEL_143;
         }
 
         if (sub_23EB8E37C(a2, "vaps.[*]", 0) == -1 || (v11 = (*(*a1 + 24))(a1, cf, a2, 1, &__p), !v11))
         {
-          v34 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-          v11 = sub_23EB71598(cf, v34, v70, v29, v30, v31, v32, v33);
+          v29 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+          v11 = sub_23EB71598(cf, v29, v57);
           if (!v11)
           {
-LABEL_140:
-            if (v69 == 1)
+LABEL_143:
+            if (v56 == 1)
             {
-              CFRelease(v70);
+              CFRelease(v57);
             }
 
             if (v22)
             {
-              v11 = sub_23EB8A18C(a1, v74, cf, 1);
+              v11 = sub_23EB8A18C(a1, v61, cf, 1);
             }
           }
         }
@@ -470,7 +538,7 @@ LABEL_140:
       v11 = 4294960540;
     }
 
-LABEL_145:
+LABEL_148:
     if (v25 && cf)
     {
       CFRelease(cf);
@@ -483,7 +551,7 @@ LABEL_145:
   }
 
 LABEL_67:
-  sub_23EBADBC0(&v72);
+  sub_23EBADBC0(&v59);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -571,16 +639,17 @@ const void *sub_23EB9048C(int a1, CFArrayRef theArray, int a3, const void *a4)
   return 0;
 }
 
-uint64_t sub_23EB90564(uint64_t a1, int a2, int a3, int a4, unsigned int a5, int *a6)
+uint64_t sub_23EB90564(uint64_t a1, uint64_t a2, int a3, int a4, unsigned int a5, int *a6)
 {
+  v10 = a2;
   if (sub_23EBB4A64(a2) != 6)
   {
     return 4294967292;
   }
 
-  v11 = sub_23EB8F5B4(a2);
+  v11 = sub_23EB8F5B4(v10);
   result = 4294967292;
-  if (a2 == 1918979445 && v11)
+  if (v10 == 1918979445 && v11)
   {
     if (a3)
     {
@@ -651,7 +720,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t sub_23EB906B8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t sub_23EB906B8(uint64_t a1, std::string *a2, int a3, uint64_t a4)
 {
   valuePtr = a3;
   v7 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
@@ -666,7 +735,7 @@ uint64_t sub_23EB906B8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return v9;
 }
 
-const __CFArray *sub_23EB90740(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+const __CFArray *sub_23EB90740(uint64_t a1, const char **a2, int a3, uint64_t a4)
 {
   valuePtr = a3;
   theArray = 0;
@@ -831,154 +900,154 @@ void sub_23EB90958(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_23EB90978(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   theDict = 0;
-  memset(&v42, 0, sizeof(v42));
+  memset(&v32, 0, sizeof(v32));
   cf = 0;
   v2 = sub_23EB8BFFC(a1, 1466517097, &theDict, 0);
   if (v2)
   {
-    goto LABEL_74;
+    goto LABEL_77;
   }
 
   Value = CFDictionaryGetValue(theDict, @"radios");
   v4 = Value;
   if (!Value)
   {
-    goto LABEL_71;
+    goto LABEL_74;
   }
 
   Count = CFArrayGetCount(Value);
   if (Count < 1)
   {
     v2 = 0;
-    goto LABEL_74;
+    goto LABEL_77;
   }
 
-  v11 = 0;
-  v35 = Count;
+  v6 = 0;
+  v25 = Count;
   allocator = *MEMORY[0x277CBECE8];
 LABEL_5:
-  v39 = 0;
-  v40 = 0;
+  v29 = 0;
+  v30 = 0;
   valuePtr = 0;
-  sub_23EB6FF14(v4, &v40, "[*]", v6, v7, v8, v9, v10, v11);
-  v2 = v12;
-  if (!v12)
+  sub_23EB6FF14(v4, &v30, "[*]", v6);
+  v2 = v7;
+  if (!v7)
   {
-    if (v40)
+    if (v30)
     {
-      v13 = 0;
+      v8 = 0;
       while (1)
       {
-        v14 = &off_278C690A8 + 2 * v13;
-        v15 = CFDictionaryGetValue(v40, *v14);
-        if (!v15)
+        v9 = &off_278C690A8 + 2 * v8;
+        v10 = CFDictionaryGetValue(v30, *v9);
+        if (!v10)
         {
           v2 = 4294967291;
-          goto LABEL_74;
+          goto LABEL_77;
         }
 
-        MEMORY[0x23EF1EFD0](&v42, "WiFi.radios.[*].");
-        v16 = *(v14 + 2);
-        sub_23EB8FB78(&v42, v16, &v42);
-        snprintf(__str, 0x10uLL, "%ld", v11);
-        if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        MEMORY[0x23EF1EFD0](&v32, "WiFi.radios.[*].");
+        v11 = *(v9 + 2);
+        sub_23EB8FB78(&v32, v11, &v32);
+        snprintf(__str, 0x10uLL, "%ld", v6);
+        if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v17 = &v42;
+          v12 = &v32;
         }
 
         else
         {
-          v17 = v42.__r_.__value_.__r.__words[0];
+          v12 = v32.__r_.__value_.__r.__words[0];
         }
 
-        if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          size = SHIBYTE(v42.__r_.__value_.__r.__words[2]);
+          size = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          size = v42.__r_.__value_.__l.__size_;
+          size = v32.__r_.__value_.__l.__size_;
         }
 
-        v19 = v17 + size;
+        v14 = v12 + size;
         if (size >= 1)
         {
-          v20 = v17;
+          v15 = v12;
           do
           {
-            v21 = memchr(v20, 42, size);
-            if (!v21)
+            v16 = memchr(v15, 42, size);
+            if (!v16)
             {
               break;
             }
 
-            if (*v21 == 42)
+            if (*v16 == 42)
             {
               goto LABEL_21;
             }
 
-            v20 = (v21 + 1);
-            size = v19 - v20;
+            v15 = (v16 + 1);
+            size = v14 - v15;
           }
 
-          while (v19 - v20 > 0);
+          while (v14 - v15 > 0);
         }
 
-        v21 = v19;
+        v16 = v14;
 LABEL_21:
-        if (v21 == v19)
+        if (v16 == v14)
         {
-          v22 = -1;
+          v17 = -1;
         }
 
         else
         {
-          v22 = v21 - v17;
+          v17 = v16 - v12;
         }
 
-        std::string::replace(&v42, v22, 1uLL, __str);
-        if (!CFNumberGetValue(v15, kCFNumberIntType, &valuePtr))
+        std::string::replace(&v32, v17, 1uLL, __str);
+        if (!CFNumberGetValue(v10, kCFNumberIntType, &valuePtr))
         {
           break;
         }
 
-        v39 = 0;
-        if (v16 != 1918981965)
+        v29 = 0;
+        if (v11 != 1918981965)
         {
-          if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v31 = &v42;
+            v20 = &v32;
           }
 
           else
           {
-            v31 = v42.__r_.__value_.__r.__words[0];
+            v20 = v32.__r_.__value_.__r.__words[0];
           }
 
-          v30 = sub_23EB90ED4(a1, v31, v15, 1, &v39);
+          v19 = sub_23EB90ED4(a1, v20, v10, 1, &v29);
           goto LABEL_37;
         }
 
-        v37 = 0;
-        sub_23EBB6A50(v40, &v37, v23, v24, v25, v26, v27, v28);
-        v30 = v29;
-        if (!v29)
+        v27 = 0;
+        sub_23EBB6A50(v30, &v27);
+        v19 = v18;
+        if (!v18)
         {
-          if (v37 > 7)
+          if (v27 > 7)
           {
-            if (v37 > 9)
+            if (v27 > 9)
             {
-              if (v37 != 10)
+              if (v27 != 10)
               {
-                if (v37 != 11)
+                if (v27 != 11)
                 {
                   goto LABEL_37;
                 }
 
-                goto LABEL_56;
+                goto LABEL_59;
               }
 
               if (!sub_23EB8BE08(a1, 1852788045))
@@ -989,134 +1058,144 @@ LABEL_21:
 
             else
             {
-              if (v37 == 8)
+              if (v27 == 8)
               {
-LABEL_62:
+LABEL_65:
                 if (!sub_23EB8BE08(a1, 1852787795))
                 {
                   goto LABEL_37;
                 }
 
-                goto LABEL_67;
+                goto LABEL_70;
               }
 
-LABEL_56:
+LABEL_59:
               if (!sub_23EB8BE08(a1, 1852787795))
               {
                 goto LABEL_37;
               }
             }
 
-            v37 = 12;
-            v33 = CFNumberCreate(allocator, kCFNumberNSIntegerType, &v37);
-            goto LABEL_68;
+            v27 = 12;
+            v23 = CFNumberCreate(allocator, kCFNumberNSIntegerType, &v27);
+            goto LABEL_71;
           }
 
-          if (v37 > 4)
+          if (v27 > 4)
           {
-            if (v37 == 5)
+            if (v27 == 5)
             {
               if (!sub_23EB8BE08(a1, 1852788045))
               {
                 goto LABEL_37;
               }
 
-LABEL_67:
-              v37 = 7;
-              v33 = CFNumberCreate(allocator, kCFNumberNSIntegerType, &v37);
-LABEL_68:
-              v39 = v33;
+LABEL_70:
+              v27 = 7;
+              v23 = CFNumberCreate(allocator, kCFNumberNSIntegerType, &v27);
+LABEL_71:
+              v29 = v23;
               goto LABEL_37;
             }
 
-            if (v37 == 6)
+            if (v27 == 6)
             {
-              goto LABEL_62;
+              goto LABEL_65;
             }
           }
 
           else
           {
-            if ((v37 - 2) < 2)
+            if ((v27 - 2) < 2)
             {
               if (sub_23EB8BE08(a1, 1852787795))
               {
-                v37 = 1;
-                v39 = CFNumberCreate(allocator, kCFNumberNSIntegerType, &v37);
-                sub_23EB8FB78(&v42, 1651725131, &v42);
-                v2 = sub_23EB8FC04(a1, &v42, &stru_285145FE8, 0);
+                v27 = 1;
+                v29 = CFNumberCreate(allocator, kCFNumberNSIntegerType, &v27);
+                sub_23EB8FB78(&v32, 1651725131, &v32);
+                v2 = sub_23EB8FC04(a1, &v32, &stru_285145FE8, 0);
                 if (v2)
                 {
-                  goto LABEL_74;
+                  goto LABEL_77;
                 }
               }
 
               goto LABEL_37;
             }
 
-            if (v37 == 4)
+            if (v27 == 4)
             {
-              goto LABEL_62;
+              goto LABEL_65;
             }
           }
         }
 
 LABEL_37:
-        v32 = v39;
-        if (v30 || v39)
+        v21 = v29;
+        if (v19 || v29)
         {
           if (cf)
           {
             CFRelease(cf);
             cf = 0;
-            v32 = v39;
+            v21 = v29;
           }
 
-          if (v32)
+          if (v21)
           {
-            cf = v32;
+            cf = v21;
           }
 
           else
           {
-            v2 = sub_23EB912D0(a1, &v42, &cf, 2);
+            v2 = sub_23EB912D0(a1, &v32, &cf, 2);
             if (v2)
             {
-              goto LABEL_74;
+              goto LABEL_77;
             }
           }
 
-          sub_23EB8FB78(&v42, *(v14 + 3), &v42);
-          v2 = sub_23EB8FC04(a1, &v42, cf, 0);
+          sub_23EB8FB78(&v32, *(v9 + 3), &v32);
+          v2 = sub_23EB8FC04(a1, &v32, cf, 0);
           if (v2)
           {
-            goto LABEL_74;
+            goto LABEL_77;
           }
         }
 
         else if (dword_27E381AB0 <= 8000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1F40u)))
         {
-          sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::PostImportValidateWiFiPlistSettings()", 8000, "%s: val is good: %u @ %s in radio index %ld.\n", v7, v8, v9, v10, "ACPStatus BaseStation::PostImportValidateWiFiPlistSettings()");
+          if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v22 = &v32;
+          }
+
+          else
+          {
+            v22 = v32.__r_.__value_.__r.__words[0];
+          }
+
+          sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::PostImportValidateWiFiPlistSettings()", 8000, "%s: val is good: %u @ %s in radio index %ld.\n", "ACPStatus BaseStation::PostImportValidateWiFiPlistSettings()", valuePtr, v22, v6);
         }
 
-        if (++v13 == 4)
+        if (++v8 == 4)
         {
           v2 = 0;
-          if (++v11 != v35)
+          if (++v6 != v25)
           {
             goto LABEL_5;
           }
 
-          goto LABEL_74;
+          goto LABEL_77;
         }
       }
     }
 
-LABEL_71:
+LABEL_74:
     v2 = 4294967292;
   }
 
-LABEL_74:
+LABEL_77:
   if (theDict)
   {
     CFRelease(theDict);
@@ -1128,9 +1207,9 @@ LABEL_74:
     CFRelease(cf);
   }
 
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v42.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
   return v2;
@@ -1148,23 +1227,23 @@ void sub_23EB90EA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t sub_23EB90ED4(uint64_t a1, char *a2, const __CFBoolean *a3, uint64_t a4, CFTypeRef *a5)
 {
-  v43 = 0;
   v42 = 0;
   v41 = 0;
+  v40 = 0;
   valuePtr = 0;
-  v39 = 0;
   v38 = 0;
   v37 = 0;
+  v36 = 0;
   v10 = sub_23EB9AC64(a2);
   theArray = 0;
-  v35 = 0;
-  v11 = sub_23EBB4964(v10, &v42);
+  v34 = 0;
+  v11 = sub_23EBB4964(v10, &v41);
   if (v11)
   {
     goto LABEL_2;
   }
 
-  if (*(v42 + 12) != 6)
+  if (*(v41 + 12) != 6)
   {
     goto LABEL_21;
   }
@@ -1194,7 +1273,7 @@ uint64_t sub_23EB90ED4(uint64_t a1, char *a2, const __CFBoolean *a3, uint64_t a4
   }
 
   v15 = Count;
-  v11 = sub_23EBB46B4(v10, &v43);
+  v11 = sub_23EBB46B4(v10, &v42);
   if (v11)
   {
 LABEL_2:
@@ -1203,9 +1282,9 @@ LABEL_2:
     goto LABEL_23;
   }
 
-  if (v43 == 2)
+  if (v42 == 2)
   {
-    p_valuePtr = &v41;
+    p_valuePtr = &v40;
     v18 = a3;
     v19 = kCFNumberShortType;
 LABEL_16:
@@ -1214,7 +1293,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if (v43 != 1)
+  if (v42 != 1)
   {
     p_valuePtr = &valuePtr;
     v18 = a3;
@@ -1233,20 +1312,20 @@ LABEL_17:
   for (i = 0; i != v15; ++i)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
-    if (v43 == 2)
+    if (v42 == 2)
     {
-      CFNumberGetValue(ValueAtIndex, kCFNumberShortType, &v38);
-      v24 = v38;
-      v25 = v41;
+      CFNumberGetValue(ValueAtIndex, kCFNumberShortType, &v37);
+      v24 = v37;
+      v25 = v40;
     }
 
     else
     {
-      if (v43 == 1)
+      if (v42 == 1)
       {
-        CFNumberGetValue(ValueAtIndex, kCFNumberSInt8Type, &v39);
-        v24 = v39;
-        if (Value == v39)
+        CFNumberGetValue(ValueAtIndex, kCFNumberSInt8Type, &v38);
+        v24 = v38;
+        if (Value == v38)
         {
           goto LABEL_21;
         }
@@ -1254,8 +1333,8 @@ LABEL_17:
         goto LABEL_36;
       }
 
-      CFNumberGetValue(ValueAtIndex, kCFNumberIntType, &v37);
-      v24 = v37;
+      CFNumberGetValue(ValueAtIndex, kCFNumberIntType, &v36);
+      v24 = v36;
       v25 = valuePtr;
     }
 
@@ -1267,7 +1346,7 @@ LABEL_17:
 LABEL_36:
     if (!i)
     {
-      v35 = v24;
+      v34 = v24;
       v21 = v24;
     }
   }
@@ -1302,11 +1381,11 @@ LABEL_22:
     while (1)
     {
       v27 = CFArrayGetValueAtIndex(theArray, v26);
-      CFNumberGetValue(v27, kCFNumberIntType, &v37);
+      CFNumberGetValue(v27, kCFNumberIntType, &v36);
       if ((valuePtr & 0xFFFFFFFE) == 2)
       {
-        v28 = v37;
-        if ((v37 & 0xFFFFFFFE) == 2)
+        v28 = v36;
+        if ((v36 & 0xFFFFFFFE) == 2)
         {
           break;
         }
@@ -1314,15 +1393,15 @@ LABEL_22:
 
       if ((valuePtr - 2) < 6 || valuePtr == 13)
       {
-        v28 = v37;
-        v30 = v37 - 4;
-        if (v37 - 4) < 0xA && ((0x20Fu >> v30))
+        v28 = v36;
+        v30 = v36 - 4;
+        if (v36 - 4) < 0xA && ((0x20Fu >> v30))
         {
           v28 = dword_23EC21EFC[v30];
           break;
         }
 
-        if (((valuePtr - 4) < 4 || valuePtr == 13) && v37 == 13)
+        if (((valuePtr - 4) < 4 || valuePtr == 13) && v36 == 13)
         {
           break;
         }
@@ -1330,8 +1409,8 @@ LABEL_22:
 
       if ((valuePtr - 9) <= 3)
       {
-        v28 = v37;
-        if ((v37 - 9) < 4)
+        v28 = v36;
+        if ((v36 - 9) < 4)
         {
           break;
         }
@@ -1344,21 +1423,21 @@ LABEL_22:
     }
 
 LABEL_69:
-    v35 = v28;
+    v34 = v28;
   }
 
 LABEL_70:
-  v13 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, &v35);
+  v13 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, &v34);
   if (!v13)
   {
     goto LABEL_22;
   }
 
-  sub_23EB8CCB8(__p, a2);
-  v12 = sub_23EB8FC04(a1, __p, v13, a4);
-  if (v34 < 0)
+  sub_23EB8CCB8(&__p, a2);
+  v12 = sub_23EB8FC04(a1, &__p, v13, a4);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   if (a5 && !v12)
@@ -1391,7 +1470,7 @@ void sub_23EB912B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_23EB912D0(uint64_t a1, uint64_t a2, CFMutableDictionaryRef *a3, uint64_t a4)
+uint64_t sub_23EB912D0(uint64_t a1, std::string *a2, CFTypeRef *a3, uint64_t a4)
 {
   v11 = a1;
   pthread_mutex_lock((a1 + 392));
@@ -1407,9 +1486,9 @@ uint64_t sub_23EB912D0(uint64_t a1, uint64_t a2, CFMutableDictionaryRef *a3, uin
   return v9;
 }
 
-void sub_23EB9135C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23EB9135C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EBADBC0(va);
   _Unwind_Resume(a1);
 }
@@ -1656,9 +1735,9 @@ uint64_t sub_23EB91690(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t sub_23EB91744(uint64_t a1, int a2, CFDataRef theData, CFTypeRef *a4)
+uint64_t sub_23EB91744(uint64_t a1, int a2, CFDataRef theData, CFNumberRef *a4)
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v4 = 4294967292;
   if (!theData || !a4)
   {
@@ -1692,11 +1771,11 @@ uint64_t sub_23EB91744(uint64_t a1, int a2, CFDataRef theData, CFTypeRef *a4)
 
       Length = CFDataGetLength(theData);
       BytePtr = CFDataGetBytePtr(v6);
-      v64 = *MEMORY[0x277CBECE8];
+      v39 = *MEMORY[0x277CBECE8];
       Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
       if (Mutable)
       {
-        v54 = Mutable;
+        v29 = Mutable;
         if (!Length)
         {
           goto LABEL_103;
@@ -1704,45 +1783,45 @@ uint64_t sub_23EB91744(uint64_t a1, int a2, CFDataRef theData, CFTypeRef *a4)
 
         if (!*BytePtr)
         {
-          v66 = *(BytePtr + 1);
-          v67 = bswap32(v66);
-          if (Length >= 40 * v67 + 16)
+          v41 = *(BytePtr + 1);
+          v42 = bswap32(v41);
+          if (Length >= 40 * v42 + 16)
           {
-            if (v66)
+            if (v41)
             {
-              v68 = (BytePtr + 16);
-              if (v67 <= 1)
+              v43 = (BytePtr + 16);
+              if (v42 <= 1)
               {
-                v69 = 1;
+                v44 = 1;
               }
 
               else
               {
-                v69 = v67;
+                v44 = v42;
               }
 
-              v70 = MEMORY[0x277CBF138];
-              v71 = MEMORY[0x277CBF150];
+              v45 = MEMORY[0x277CBF138];
+              v46 = MEMORY[0x277CBF150];
               while (1)
               {
-                v72 = CFDictionaryCreateMutable(v64, 0, v70, v71);
-                if (!v72)
+                v47 = CFDictionaryCreateMutable(v39, 0, v45, v46);
+                if (!v47)
                 {
                   goto LABEL_110;
                 }
 
-                v6 = v72;
-                if (!sub_23EBAEC24(v68, v68 + 6, v72))
+                v6 = v47;
+                if (!sub_23EBAEC24(v43, v43 + 6, v47))
                 {
 LABEL_111:
                   v4 = 0xFFFFFFFFLL;
                   goto LABEL_106;
                 }
 
-                CFArrayAppendValue(v54, v6);
+                CFArrayAppendValue(v29, v6);
                 CFRelease(v6);
-                v68 += 40;
-                if (!--v69)
+                v43 += 40;
+                if (!--v44)
                 {
                   goto LABEL_103;
                 }
@@ -1773,65 +1852,65 @@ LABEL_111:
         return v4;
       }
 
-      v73 = CFDataGetLength(theData);
-      v74 = CFDataGetBytePtr(v6);
-      v75 = *MEMORY[0x277CBECE8];
-      v76 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-      if (v76)
+      v48 = CFDataGetLength(theData);
+      v49 = CFDataGetBytePtr(v6);
+      v50 = *MEMORY[0x277CBECE8];
+      v51 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
+      if (v51)
       {
-        v54 = v76;
-        if (!v73)
+        v29 = v51;
+        if (!v48)
         {
           goto LABEL_103;
         }
 
-        if (*v74 == 50331648)
+        if (*v49 == 50331648)
         {
-          v77 = *(v74 + 1);
-          v78 = bswap32(v77);
-          if (v73 < 720 * v78 + 16)
+          v52 = *(v49 + 1);
+          v53 = bswap32(v52);
+          if (v48 < 720 * v53 + 16)
           {
             v4 = 4294967281;
             goto LABEL_107;
           }
 
-          if (v77)
+          if (v52)
           {
-            if (v78 <= 1)
+            if (v53 <= 1)
             {
-              v85 = 1;
+              v60 = 1;
             }
 
             else
             {
-              v85 = v78;
+              v60 = v53;
             }
 
-            v86 = MEMORY[0x277CBF138];
-            v87 = MEMORY[0x277CBF150];
+            v61 = MEMORY[0x277CBF138];
+            v62 = MEMORY[0x277CBF150];
             while (1)
             {
-              v89 = *(v74 + 8);
-              v88 = v74 + 16;
-              *v88 = bswap32(v89) >> 16;
-              v88[1] = bswap32(v88[1]) >> 16;
-              v88[359] = bswap32(v88[359]) >> 16;
-              v90 = CFDictionaryCreateMutable(v75, 0, v86, v87);
-              if (!v90)
+              v64 = *(v49 + 8);
+              v63 = v49 + 16;
+              *v63 = bswap32(v64) >> 16;
+              v63[1] = bswap32(v63[1]) >> 16;
+              v63[359] = bswap32(v63[359]) >> 16;
+              v65 = CFDictionaryCreateMutable(v50, 0, v61, v62);
+              if (!v65)
               {
                 goto LABEL_110;
               }
 
-              v6 = v90;
-              if (!sub_23EBAEEBC(v88, v90))
+              v6 = v65;
+              if (!sub_23EBAEEBC(v63, v65))
               {
                 goto LABEL_111;
               }
 
-              v74 = (v88 + 352);
-              CFArrayAppendValue(v54, v6);
+              v49 = (v63 + 352);
+              CFArrayAppendValue(v29, v6);
               CFRelease(v6);
-              if (!--v85)
+              if (!--v60)
               {
                 goto LABEL_103;
               }
@@ -1852,64 +1931,64 @@ LABEL_111:
   {
     if (a2 == 1633899617)
     {
-      v79 = CFDataGetLength(theData);
-      v80 = CFDataGetBytePtr(v6);
-      v81 = *MEMORY[0x277CBECE8];
-      v82 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-      if (v82)
+      v54 = CFDataGetLength(theData);
+      v55 = CFDataGetBytePtr(v6);
+      v56 = *MEMORY[0x277CBECE8];
+      v57 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
+      if (v57)
       {
-        v54 = v82;
-        if (!v79)
+        v29 = v57;
+        if (!v54)
         {
           goto LABEL_103;
         }
 
-        if (!*v80)
+        if (!*v55)
         {
-          v83 = *(v80 + 1);
-          v84 = bswap32(v83);
-          if (v79 >= 40 * v84 + 16)
+          v58 = *(v55 + 1);
+          v59 = bswap32(v58);
+          if (v54 >= 40 * v59 + 16)
           {
-            if (v83)
+            if (v58)
             {
-              v91 = (v80 + 16);
-              if (v84 <= 1)
+              v66 = (v55 + 16);
+              if (v59 <= 1)
               {
-                v92 = 1;
+                v67 = 1;
               }
 
               else
               {
-                v92 = v84;
+                v67 = v59;
               }
 
-              v93 = MEMORY[0x277CBF138];
-              v94 = MEMORY[0x277CBF150];
+              v68 = MEMORY[0x277CBF138];
+              v69 = MEMORY[0x277CBF150];
               do
               {
-                v95 = CFDictionaryCreateMutable(v81, 0, v93, v94);
-                if (!v95)
+                v70 = CFDictionaryCreateMutable(v56, 0, v68, v69);
+                if (!v70)
                 {
                   goto LABEL_110;
                 }
 
-                v6 = v95;
-                if (!sub_23EBAEC24(v91, v91 + 6, v95))
+                v6 = v70;
+                if (!sub_23EBAEC24(v66, v66 + 6, v70))
                 {
                   goto LABEL_111;
                 }
 
-                CFArrayAppendValue(v54, v6);
+                CFArrayAppendValue(v29, v6);
                 CFRelease(v6);
-                v91 += 40;
+                v66 += 40;
               }
 
-              while (--v92);
+              while (--v67);
             }
 
 LABEL_103:
             v4 = 0;
-            *a4 = v54;
+            *a4 = v29;
             goto LABEL_107;
           }
 
@@ -1928,60 +2007,60 @@ LABEL_78:
 
     if (a2 == 1886213217)
     {
-      v50 = CFDataGetLength(theData);
-      v51 = CFDataGetBytePtr(v6);
-      v52 = *MEMORY[0x277CBECE8];
-      v53 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-      if (v53)
+      v25 = CFDataGetLength(theData);
+      v26 = CFDataGetBytePtr(v6);
+      v27 = *MEMORY[0x277CBECE8];
+      v28 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
+      if (v28)
       {
-        v54 = v53;
-        if (!v50)
+        v29 = v28;
+        if (!v25)
         {
           goto LABEL_103;
         }
 
-        if (!*v51)
+        if (!*v26)
         {
-          v55 = *(v51 + 1);
-          v56 = bswap32(v55);
-          if (v50 >= 8 * v56 + 16)
+          v30 = *(v26 + 1);
+          v31 = bswap32(v30);
+          if (v25 >= 8 * v31 + 16)
           {
-            if (v55)
+            if (v30)
             {
-              v57 = (v51 + 16);
-              if (v56 <= 1)
+              v32 = (v26 + 16);
+              if (v31 <= 1)
               {
-                v58 = 1;
+                v33 = 1;
               }
 
               else
               {
-                v58 = v56;
+                v33 = v31;
               }
 
-              v59 = MEMORY[0x277CBF138];
-              v60 = MEMORY[0x277CBF150];
+              v34 = MEMORY[0x277CBF138];
+              v35 = MEMORY[0x277CBF150];
               while (1)
               {
-                *v57 = bswap32(*v57);
-                *(v57 + 4) = bswap32(*(v57 + 4)) >> 16;
-                *(v57 + 6) = bswap32(*(v57 + 6)) >> 16;
-                v61 = CFDictionaryCreateMutable(v52, 0, v59, v60);
-                if (!v61)
+                *v32 = bswap32(*v32);
+                *(v32 + 4) = bswap32(*(v32 + 4)) >> 16;
+                *(v32 + 6) = bswap32(*(v32 + 6)) >> 16;
+                v36 = CFDictionaryCreateMutable(v27, 0, v34, v35);
+                if (!v36)
                 {
                   break;
                 }
 
-                v6 = v61;
-                if (!sub_23EBAF138(v57, v61))
+                v6 = v36;
+                if (!sub_23EBAF138(v32, v36))
                 {
                   goto LABEL_111;
                 }
 
-                CFArrayAppendValue(v54, v6);
+                CFArrayAppendValue(v29, v6);
                 CFRelease(v6);
-                v57 += 8;
-                if (!--v58)
+                v32 += 8;
+                if (!--v33)
                 {
                   goto LABEL_103;
                 }
@@ -1992,7 +2071,7 @@ LABEL_110:
 LABEL_107:
               if (!*a4)
               {
-                CFRelease(v54);
+                CFRelease(v29);
               }
 
               return v4;
@@ -2028,17 +2107,17 @@ LABEL_107:
     Value = CFDictionaryGetValue(v6, @"radios");
     if (Value && (v9 = Value, Count = CFArrayGetCount(Value), Count >= 1))
     {
-      v16 = Count;
-      v17 = 0;
+      v11 = Count;
+      v12 = 0;
       alloc = *MEMORY[0x277CBECE8];
       while (1)
       {
         theDict = 0;
-        sub_23EB6FF14(v9, &theDict, "[*]", v11, v12, v13, v14, v15, v17);
-        if (v18)
+        sub_23EB6FF14(v9, &theDict, "[*]", v12);
+        if (v13)
         {
 LABEL_83:
-          v4 = v18;
+          v4 = v13;
           goto LABEL_105;
         }
 
@@ -2047,41 +2126,41 @@ LABEL_83:
           break;
         }
 
-        sub_23EB6FF14(theDict, v100, "%kO:mac", v19, v20, v21, v22, v23, @"raMA");
-        if (!v24)
+        sub_23EB6FF14(theDict, v75, "%kO:mac", @"raMA");
+        if (!v14)
         {
           *cStr = 0u;
-          v102 = 0u;
-          sub_23EB7E798(v100, 6, cStr);
-          v25 = CFStringCreateWithCString(alloc, cStr, 0x8000100u);
-          cf = v25;
-          if (!v25)
+          v77 = 0u;
+          sub_23EB7E798(v75, 6, cStr);
+          v15 = CFStringCreateWithCString(alloc, cStr, 0x8000100u);
+          cf = v15;
+          if (!v15)
           {
             goto LABEL_30;
           }
 
-          CFDictionarySetValue(theDict, @"raMA", v25);
+          CFDictionarySetValue(theDict, @"raMA", v15);
           CFRelease(cf);
         }
 
-        v26 = CFDictionaryGetValue(theDict, @"raMO");
-        theString1 = v26;
-        if (v26)
+        v16 = CFDictionaryGetValue(theDict, @"raMO");
+        theString1 = v16;
+        if (v16)
         {
-          v32 = CFGetTypeID(v26);
-          if (v32 == CFStringGetTypeID())
+          v17 = CFGetTypeID(v16);
+          if (v17 == CFStringGetTypeID())
           {
             *(a1 + 385) = 1;
           }
         }
 
-        sub_23EB6FF14(theDict, &theString1, "%kO", v27, v28, v29, v30, v31, @"raCr");
-        if (!v38)
+        sub_23EB6FF14(theDict, &theString1, "%kO", @"raCr");
+        if (!v18)
         {
-          v39 = theString1;
-          v40 = CFStringGetTypeID();
-          v18 = sub_23EBD4E00(1918976882, v39, v40, &cf);
-          if (v18)
+          v19 = theString1;
+          v20 = CFStringGetTypeID();
+          v13 = sub_23EBD4E00(1918976882, v19, v20, &cf);
+          if (v13)
           {
             goto LABEL_83;
           }
@@ -2090,33 +2169,33 @@ LABEL_83:
           CFRelease(cf);
         }
 
-        sub_23EB6FF14(theDict, &theString1, "%kO", v33, v34, v35, v36, v37, @"raI1");
-        if (!v46 && CFStringCompare(theString1, @"0.0.0.0", 0) == kCFCompareEqualTo)
+        sub_23EB6FF14(theDict, &theString1, "%kO", @"raI1");
+        if (!v21 && CFStringCompare(theString1, @"0.0.0.0", 0) == kCFCompareEqualTo)
         {
           theString1 = &stru_285145FE8;
           CFDictionarySetValue(theDict, @"raI1", &stru_285145FE8);
         }
 
-        sub_23EB6FF14(theDict, &theString1, "%kO", v41, v42, v43, v44, v45, @"raI2");
-        if (!v47 && CFStringCompare(theString1, @"0.0.0.0", 0) == kCFCompareEqualTo)
+        sub_23EB6FF14(theDict, &theString1, "%kO", @"raI2");
+        if (!v22 && CFStringCompare(theString1, @"0.0.0.0", 0) == kCFCompareEqualTo)
         {
           theString1 = &stru_285145FE8;
           CFDictionarySetValue(theDict, @"raI2", &stru_285145FE8);
         }
 
-        v18 = sub_23EBD4754(theDict);
-        if (v18)
+        v13 = sub_23EBD4754(theDict);
+        if (v13)
         {
           goto LABEL_83;
         }
 
-        v18 = sub_23EBD4BB8(theDict);
-        if (v18)
+        v13 = sub_23EBD4BB8(theDict);
+        if (v13)
         {
           goto LABEL_83;
         }
 
-        if (v16 == ++v17)
+        if (v11 == ++v12)
         {
           goto LABEL_30;
         }
@@ -2132,10 +2211,10 @@ LABEL_30:
     }
 
 LABEL_105:
-    v54 = 0;
+    v29 = 0;
 LABEL_106:
     CFRelease(v6);
-    if (!v54)
+    if (!v29)
     {
       return v4;
     }
@@ -2146,7 +2225,7 @@ LABEL_106:
   return sub_23EB97854(a1, theData, a4);
 }
 
-uint64_t sub_23EB9201C(CFDictionaryRef *a1, uint64_t a2, __CFString **a3, _BYTE *a4, uint64_t a5)
+uint64_t sub_23EB9201C(CFDictionaryRef *a1, uint64_t a2, CFStringRef *a3, _BYTE *a4, uint64_t a5)
 {
   theString1 = 0;
   v5 = 4294967292;
@@ -2218,7 +2297,7 @@ LABEL_20:
   return v5;
 }
 
-uint64_t sub_23EB92174(uint64_t a1, int a2, const __CFNumber *propertyList, __CFString **a4)
+uint64_t sub_23EB92174(uint64_t a1, int a2, const __CFNumber *propertyList, CFDataRef *a4)
 {
   v4 = 4294967292;
   if (!propertyList || !a4)
@@ -2240,35 +2319,35 @@ uint64_t sub_23EB92174(uint64_t a1, int a2, const __CFNumber *propertyList, __CF
           return 4294960553;
         }
 
-        sub_23EB6FF14(*(a1 + 32), &theString1, "%kC:int", v74, v75, v76, v77, v78, 2002862934);
-        if (!v19)
+        sub_23EB6FF14(*(a1 + 32), &theString1, "%kC:int", 2002862934);
+        if (!v14)
         {
           if ((cf & 0x400) != 0)
           {
-            v80 = theString1 & 0xFFFFF0FF | 0x400;
+            v50 = theString1 & 0xFFFFF0FF | 0x400;
           }
 
           else
           {
-            v79 = theString1 & 0xFFFFF0FF;
+            v49 = theString1 & 0xFFFFF0FF;
             if ((~cf & 0x900) != 0)
             {
-              v80 = v79 | 0x300;
+              v50 = v49 | 0x300;
             }
 
             else
             {
-              v80 = v79 | 0x900;
+              v50 = v49 | 0x900;
             }
           }
 
-          LODWORD(theString1) = v80;
+          LODWORD(theString1) = v50;
           v4 = 0;
           *a4 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &theString1);
           return v4;
         }
 
-        return v19;
+        return v14;
       }
 
       if (a2 != 2003061875)
@@ -2277,44 +2356,44 @@ uint64_t sub_23EB92174(uint64_t a1, int a2, const __CFNumber *propertyList, __CF
       }
 
       Count = CFArrayGetCount(propertyList);
-      v59 = 40 * Count + 16;
-      v60 = malloc_type_malloc(v59, 0x596D28FCuLL);
-      if (!v60)
+      v34 = 40 * Count + 16;
+      v35 = malloc_type_malloc(v34, 0x596D28FCuLL);
+      if (!v35)
       {
         return 4294960568;
       }
 
-      v51 = v60;
-      bzero(v60, v59);
-      *v51 = 0;
-      v51[1] = bswap32(Count);
+      v26 = v35;
+      bzero(v35, v34);
+      *v26 = 0;
+      v26[1] = bswap32(Count);
       if (Count >= 1)
       {
-        v61 = 0;
-        v62 = v51 + 22;
+        v36 = 0;
+        v37 = v26 + 22;
         do
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(propertyList, v61);
+          ValueAtIndex = CFArrayGetValueAtIndex(propertyList, v36);
           if (!ValueAtIndex)
           {
             goto LABEL_77;
           }
 
-          if ((sub_23EBAED48(ValueAtIndex, (v62 - 6), v62, 0x14uLL) & 1) == 0)
+          if ((sub_23EBAED48(ValueAtIndex, (v37 - 6), v37, 0x14uLL) & 1) == 0)
           {
 LABEL_78:
             v4 = 0xFFFFFFFFLL;
             goto LABEL_79;
           }
 
-          ++v61;
-          v62 += 40;
+          ++v36;
+          v37 += 40;
         }
 
-        while (Count != v61);
+        while (Count != v36);
       }
 
-      v56 = 2003061875;
+      v31 = 2003061875;
     }
 
     else
@@ -2331,46 +2410,46 @@ LABEL_78:
         return sub_23EBD4E00(1918976882, propertyList, TypeID, a4);
       }
 
-      v64 = CFArrayGetCount(propertyList);
-      v59 = 720 * v64 + 16;
-      v65 = malloc_type_malloc(v59, 0x5252046BuLL);
-      if (!v65)
+      v39 = CFArrayGetCount(propertyList);
+      v34 = 720 * v39 + 16;
+      v40 = malloc_type_malloc(v34, 0x5252046BuLL);
+      if (!v40)
       {
         return 4294960568;
       }
 
-      v51 = v65;
-      bzero(v65, v59);
-      *v51 = 50331648;
-      v51[1] = bswap32(v64);
-      if (v64 >= 1)
+      v26 = v40;
+      bzero(v40, v34);
+      *v26 = 50331648;
+      v26[1] = bswap32(v39);
+      if (v39 >= 1)
       {
-        v66 = 0;
-        v67 = v51;
+        v41 = 0;
+        v42 = v26;
         do
         {
-          v68 = CFArrayGetValueAtIndex(propertyList, v66);
-          if (!v68)
+          v43 = CFArrayGetValueAtIndex(propertyList, v41);
+          if (!v43)
           {
             goto LABEL_77;
           }
 
-          if (!sub_23EBAF044(v68, (v67 + 8)))
+          if (!sub_23EBAF044(v43, (v42 + 8)))
           {
             goto LABEL_78;
           }
 
-          v67[8] = bswap32(v67[8]) >> 16;
-          v67[9] = bswap32(v67[9]) >> 16;
-          v67[367] = bswap32(v67[367]) >> 16;
-          ++v66;
-          v67 += 360;
+          v42[8] = bswap32(v42[8]) >> 16;
+          v42[9] = bswap32(v42[9]) >> 16;
+          v42[367] = bswap32(v42[367]) >> 16;
+          ++v41;
+          v42 += 360;
         }
 
-        while (v64 != v66);
+        while (v39 != v41);
       }
 
-      v56 = 1886547538;
+      v31 = 1886547538;
     }
 
     goto LABEL_70;
@@ -2385,38 +2464,38 @@ LABEL_78:
         return v4;
       }
 
-      v48 = CFArrayGetCount(propertyList);
-      v49 = 8 * v48;
-      v50 = malloc_type_malloc(8 * v48 + 16, 0x2E9E3407uLL);
-      if (v50)
+      v23 = CFArrayGetCount(propertyList);
+      v24 = 8 * v23;
+      v25 = malloc_type_malloc(8 * v23 + 16, 0x2E9E3407uLL);
+      if (v25)
       {
-        v51 = v50;
-        bzero(v50, v49 + 16);
-        *v51 = 0;
-        v51[1] = bswap32(v48);
-        if (v48 >= 1)
+        v26 = v25;
+        bzero(v25, v24 + 16);
+        *v26 = 0;
+        v26[1] = bswap32(v23);
+        if (v23 >= 1)
         {
-          v52 = 0;
-          v53 = (v51 + 4);
+          v27 = 0;
+          v28 = (v26 + 4);
           while (1)
           {
-            v54 = CFArrayGetValueAtIndex(propertyList, v52);
-            if (!v54)
+            v29 = CFArrayGetValueAtIndex(propertyList, v27);
+            if (!v29)
             {
               break;
             }
 
-            if (!sub_23EBAF2C4(v54, v53))
+            if (!sub_23EBAF2C4(v29, v28))
             {
               goto LABEL_78;
             }
 
-            *v53 = bswap32(*v53);
-            *(v53 + 4) = bswap32(*(v53 + 4)) >> 16;
-            *(v53 + 6) = bswap32(*(v53 + 6)) >> 16;
-            ++v52;
-            v53 += 8;
-            if (v48 == v52)
+            *v28 = bswap32(*v28);
+            *(v28 + 4) = bswap32(*(v28 + 4)) >> 16;
+            *(v28 + 6) = bswap32(*(v28 + 6)) >> 16;
+            ++v27;
+            v28 += 8;
+            if (v23 == v27)
             {
               goto LABEL_43;
             }
@@ -2428,59 +2507,59 @@ LABEL_77:
         }
 
 LABEL_43:
-        v55 = v49 + 16;
-        v56 = 1886213217;
-        v57 = v51;
+        v30 = v24 + 16;
+        v31 = 1886213217;
+        v32 = v26;
 LABEL_71:
-        v4 = sub_23EB4EBC4(v56, v57, v55, 1, a4);
+        v4 = sub_23EB4EBC4(v31, v32, v30, 1, a4);
 LABEL_79:
-        free(v51);
+        free(v26);
         return v4;
       }
 
       return 4294960568;
     }
 
-    v69 = CFArrayGetCount(propertyList);
-    v59 = 40 * v69 + 16;
-    v70 = malloc_type_malloc(v59, 0xE485E192uLL);
-    if (!v70)
+    v44 = CFArrayGetCount(propertyList);
+    v34 = 40 * v44 + 16;
+    v45 = malloc_type_malloc(v34, 0xE485E192uLL);
+    if (!v45)
     {
       return 4294960568;
     }
 
-    v51 = v70;
-    bzero(v70, v59);
-    *v51 = 0;
-    v51[1] = bswap32(v69);
-    if (v69 >= 1)
+    v26 = v45;
+    bzero(v45, v34);
+    *v26 = 0;
+    v26[1] = bswap32(v44);
+    if (v44 >= 1)
     {
-      v71 = 0;
-      v72 = v51 + 22;
+      v46 = 0;
+      v47 = v26 + 22;
       do
       {
-        v73 = CFArrayGetValueAtIndex(propertyList, v71);
-        if (!v73)
+        v48 = CFArrayGetValueAtIndex(propertyList, v46);
+        if (!v48)
         {
           goto LABEL_77;
         }
 
-        if ((sub_23EBAED48(v73, (v72 - 6), v72, 0x14uLL) & 1) == 0)
+        if ((sub_23EBAED48(v48, (v47 - 6), v47, 0x14uLL) & 1) == 0)
         {
           goto LABEL_78;
         }
 
-        ++v71;
-        v72 += 40;
+        ++v46;
+        v47 += 40;
       }
 
-      while (v69 != v71);
+      while (v44 != v46);
     }
 
-    v56 = 1633899617;
+    v31 = 1633899617;
 LABEL_70:
-    v57 = v51;
-    v55 = v59;
+    v32 = v26;
+    v30 = v34;
     goto LABEL_71;
   }
 
@@ -2507,14 +2586,14 @@ LABEL_70:
       v11 = CFArrayGetCount(Value);
       if (v11 >= 1)
       {
-        v17 = v11;
-        v18 = 0;
+        v12 = v11;
+        v13 = 0;
         while (1)
         {
-          v81 = 0;
+          v51 = 0;
           theDict = 0;
-          sub_23EB6FF14(v10, &theDict, "[*]", v12, v13, v14, v15, v16, v18);
-          if (v19)
+          sub_23EB6FF14(v10, &theDict, "[*]", v13);
+          if (v14)
           {
             break;
           }
@@ -2524,67 +2603,67 @@ LABEL_70:
             return 4294967292;
           }
 
-          sub_23EB6FF14(theDict, &v81, "%kO", v20, v21, v22, v23, v24, @"raMA");
-          if (!v30)
+          sub_23EB6FF14(theDict, &v51, "%kO", @"raMA");
+          if (!v15)
           {
-            v19 = sub_23EB4EF94(1918979393, v81, 1, &cf);
-            if (v19)
+            v14 = sub_23EB4EF94(1918979393, v51, 1, &cf);
+            if (v14)
             {
-              return v19;
+              return v14;
             }
 
             CFDictionarySetValue(theDict, @"raMA", cf);
             CFRelease(cf);
           }
 
-          sub_23EB6FF14(theDict, &theString1, "%kO", v25, v26, v27, v28, v29, @"raCr");
-          if (!v36)
+          sub_23EB6FF14(theDict, &theString1, "%kO", @"raCr");
+          if (!v16)
           {
-            v37 = theString1;
-            v38 = CFDataGetTypeID();
-            v19 = sub_23EBD4E00(1918976882, v37, v38, &cf);
-            if (v19)
+            v17 = theString1;
+            v18 = CFDataGetTypeID();
+            v14 = sub_23EBD4E00(1918976882, v17, v18, &cf);
+            if (v14)
             {
-              return v19;
+              return v14;
             }
 
             CFDictionarySetValue(theDict, @"raCr", cf);
             CFRelease(cf);
           }
 
-          sub_23EB6FF14(theDict, &theString1, "%kO", v31, v32, v33, v34, v35, @"raI1");
-          if (!v44 && CFStringCompare(theString1, &stru_285145FE8, 0) == kCFCompareEqualTo)
+          sub_23EB6FF14(theDict, &theString1, "%kO", @"raI1");
+          if (!v19 && CFStringCompare(theString1, &stru_285145FE8, 0) == kCFCompareEqualTo)
           {
             theString1 = @"0.0.0.0";
             CFDictionarySetValue(theDict, @"raI1", @"0.0.0.0");
           }
 
-          sub_23EB6FF14(theDict, &theString1, "%kO", v39, v40, v41, v42, v43, @"raI2");
-          if (!v45 && CFStringCompare(theString1, &stru_285145FE8, 0) == kCFCompareEqualTo)
+          sub_23EB6FF14(theDict, &theString1, "%kO", @"raI2");
+          if (!v20 && CFStringCompare(theString1, &stru_285145FE8, 0) == kCFCompareEqualTo)
           {
             theString1 = @"0.0.0.0";
             CFDictionarySetValue(theDict, @"raI2", @"0.0.0.0");
           }
 
-          v19 = sub_23EBD4990(theDict);
-          if (v19)
+          v14 = sub_23EBD4990(theDict);
+          if (v14)
           {
-            return v19;
+            return v14;
           }
 
-          v19 = sub_23EBD500C(theDict);
-          if (v19)
+          v14 = sub_23EBD500C(theDict);
+          if (v14)
           {
-            return v19;
+            return v14;
           }
 
-          if (v17 == ++v18)
+          if (v12 == ++v13)
           {
             return 0;
           }
         }
 
-        return v19;
+        return v14;
       }
 
       return 0;
@@ -2596,7 +2675,7 @@ LABEL_70:
   return sub_23EB9798C(a1, propertyList, a4);
 }
 
-uint64_t sub_23EB92884(uint64_t a1, uint64_t a2, __CFString **a3, _BYTE *a4)
+uint64_t sub_23EB92884(uint64_t a1, uint64_t a2, CFStringRef *a3, _BYTE *a4)
 {
   v11 = a1;
   pthread_mutex_lock((a1 + 392));
@@ -2617,14 +2696,14 @@ uint64_t sub_23EB92884(uint64_t a1, uint64_t a2, __CFString **a3, _BYTE *a4)
   return v9;
 }
 
-void sub_23EB92924(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23EB92924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EBADBC0(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_23EB92938(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_23EB92938(uint64_t a1, const char **a2, uint64_t a3, uint64_t a4)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -3572,11 +3651,11 @@ LABEL_111:
   return v15;
 }
 
-uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef *a3, uint64_t a4)
+uint64_t sub_23EB94960(CFDictionaryRef *a1, std::string *a2, CFTypeRef *a3, uint64_t a4)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   memset(&__p, 0, sizeof(__p));
-  v45 = 0;
+  v34 = 0;
   cf = 0;
   if (!a3)
   {
@@ -3590,36 +3669,36 @@ uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef 
   std::string::basic_string(&__dst, a2, 0, 4uLL, &__str);
   v8 = __dst.__r_.__value_.__r.__words[0];
   v9 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-  if (*(a2 + 23) >= 0)
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v10 = a2;
   }
 
   else
   {
-    v10 = *a2;
+    v10 = a2->__r_.__value_.__r.__words[0];
   }
 
-  v11 = sub_23EB4BD54(v10, 4uLL, &v45);
+  v11 = sub_23EB4BD54(v10, 4uLL, &v34);
   if (!v11)
   {
-    v12 = sub_23EB8C68C(a1, v45, &cf, a4);
+    v12 = sub_23EB8C68C(a1, v34, &cf, a4);
     v11 = v12;
     if (v12 == -5)
     {
       if (dword_27E381AB0 <= 8000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1F40u)))
       {
-        if (*(a2 + 23) >= 0)
+        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v17 = a2;
+          v13 = a2;
         }
 
         else
         {
-          v17 = *a2;
+          v13 = a2->__r_.__value_.__r.__words[0];
         }
 
-        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyCFInternal(const std::string &, CFTypeRef *, eWhichValue) const", 8000, "Need default value for %s\n", v13, v14, v15, v16, v17);
+        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyCFInternal(const std::string &, CFTypeRef *, eWhichValue) const", 8000, "Need default value for %s\n", v13);
       }
 
       v11 = 4294967291;
@@ -3628,13 +3707,13 @@ uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef 
 
     if (a4 != 2 || !v12)
     {
-      v19 = *(a2 + 23);
-      if ((v19 & 0x80u) != 0)
+      size = HIBYTE(a2->__r_.__value_.__r.__words[2]);
+      if ((size & 0x80u) != 0)
       {
-        v19 = *(a2 + 8);
+        size = a2->__r_.__value_.__l.__size_;
       }
 
-      if (v19 >= 5)
+      if (size >= 5)
       {
         std::string::basic_string(&__dst, a2, 5uLL, 0xFFFFFFFFFFFFFFFFLL, &__str);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3647,23 +3726,23 @@ uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef 
 
       if (cf)
       {
-        size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v16 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          size = __p.__r_.__value_.__l.__size_;
+          v16 = __p.__r_.__value_.__l.__size_;
         }
 
-        if (!size)
+        if (!v16)
         {
           *a3 = cf;
           goto LABEL_16;
         }
 
-        v21 = CFGetTypeID(cf);
-        if (v21 != CFDictionaryGetTypeID())
+        v17 = CFGetTypeID(cf);
+        if (v17 != CFDictionaryGetTypeID())
         {
-          v22 = CFGetTypeID(cf);
-          if (v22 != CFArrayGetTypeID())
+          v18 = CFGetTypeID(cf);
+          if (v18 != CFArrayGetTypeID())
           {
             v11 = 4294960540;
             goto LABEL_16;
@@ -3672,9 +3751,9 @@ uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef 
 
         if (sub_23EB8E208(a1, a2))
         {
-          if (*(a2 + 23) < 0)
+          if (SHIBYTE(a2->__r_.__value_.__r.__words[2]) < 0)
           {
-            sub_23EBADCE0(&__dst, *a2, *(a2 + 8));
+            sub_23EBADCE0(&__dst, a2->__r_.__value_.__l.__data_, a2->__r_.__value_.__l.__size_);
           }
 
           else
@@ -3684,20 +3763,20 @@ uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef 
 
           if (!sub_23EB8E37C(&__dst, "WiFi.radios.[*].", 0))
           {
-            v23 = sub_23EB8F4AC(a1, 0);
-            snprintf(&__str, 0x10uLL, "%ld", v23);
-            v24 = sub_23EB8E37C(&__dst, "*", 0);
-            std::string::replace(&__dst, v24, 1uLL, &__str);
+            v19 = sub_23EB8F4AC(a1, 0);
+            snprintf(&__str, 0x10uLL, "%ld", v19);
+            v20 = sub_23EB8E37C(&__dst, "*", 0);
+            std::string::replace(&__dst, v20, 1uLL, &__str);
           }
 
-          v25 = sub_23EB95194(a1, &__dst, a3, a4);
+          v21 = sub_23EB95194(a1, &__dst.__r_.__value_.__l.__data_, a3, a4);
         }
 
         else
         {
-          if (*(a2 + 23) < 0)
+          if (SHIBYTE(a2->__r_.__value_.__r.__words[2]) < 0)
           {
-            sub_23EBADCE0(&__dst, *a2, *(a2 + 8));
+            sub_23EBADCE0(&__dst, a2->__r_.__value_.__l.__data_, a2->__r_.__value_.__l.__size_);
           }
 
           else
@@ -3707,11 +3786,11 @@ uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef 
 
           if (!sub_23EB8E37C(&__dst, "WiFi.radios.[*].", 0))
           {
-            v26 = sub_23EB8F4AC(a1, 0);
-            snprintf(__s, 0x10uLL, "%ld", v26);
-            v27 = sub_23EB8E37C(&__dst, "*", 0);
-            std::string::replace(&__dst, v27, 1uLL, __s);
-            std::string::basic_string(&__str, &__dst, 5uLL, 0xFFFFFFFFFFFFFFFFLL, &v47);
+            v22 = sub_23EB8F4AC(a1, 0);
+            snprintf(__s, 0x10uLL, "%ld", v22);
+            v23 = sub_23EB8E37C(&__dst, "*", 0);
+            std::string::replace(&__dst, v23, 1uLL, __s);
+            std::string::basic_string(&__str, &__dst, 5uLL, 0xFFFFFFFFFFFFFFFFLL, &v36);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
@@ -3749,10 +3828,18 @@ uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef 
             }
           }
 
-          v34 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-          sub_23EB6FF14(cf, a3, v34, v29, v30, v31, v32, v33, v42);
-          v11 = v35;
-          if (v35 != -5 && v35 != -6727)
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            sub_23EB6FF14(cf, a3, &__p);
+          }
+
+          else
+          {
+            sub_23EB6FF14(cf, a3, __p.__r_.__value_.__l.__data_);
+          }
+
+          v11 = v25;
+          if (v25 != -5 && v25 != -6727)
           {
             goto LABEL_74;
           }
@@ -3764,17 +3851,17 @@ uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef 
             {
               if (*a3)
               {
-                if (*(a2 + 23) >= 0)
+                if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                 {
-                  v41 = a2;
+                  LODWORD(v31) = a2;
                 }
 
                 else
                 {
-                  v41 = *a2;
+                  v31 = a2->__r_.__value_.__r.__words[0];
                 }
 
-                v11 = sub_23EB6FDFC(*MEMORY[0x277CBECE8], a1[6], "%ks=%O", v36, v37, v38, v39, v40, v41);
+                v11 = sub_23EB6FDFC(*MEMORY[0x277CBECE8], a1[6], "%ks=%O", v26, v27, v28, v29, v30, v31);
                 CFRelease(*a3);
               }
 
@@ -3787,10 +3874,10 @@ uint64_t sub_23EB94960(CFDictionaryRef *a1, uint64_t a2, CFMutableDictionaryRef 
             goto LABEL_74;
           }
 
-          v25 = sub_23EB94960(a1, a2, a3, 2);
+          v21 = sub_23EB94960(a1, a2, a3, 2);
         }
 
-        v11 = v25;
+        v11 = v21;
 LABEL_74:
         if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -3842,14 +3929,14 @@ void sub_23EB94EAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_23EB94F30(int a1, std::string *__str, const __CFString *a3, void *a4, _BYTE *a5)
+CFComparisonResult sub_23EB94F30(int a1, std::string *__str, const __CFString *a3, CFDataRef *a4, _BYTE *a5)
 {
   result = 4294967292;
   if (a4 && a5)
   {
     if (!a3)
     {
-      result = 0;
+      result = kCFCompareEqualTo;
       *a4 = 0;
       *a5 = 0;
       return result;
@@ -3882,7 +3969,7 @@ uint64_t sub_23EB94F30(int a1, std::string *__str, const __CFString *a3, void *a
               return 4294967293;
             }
 
-            result = 0;
+            result = kCFCompareEqualTo;
           }
 
           else
@@ -3998,14 +4085,14 @@ LABEL_25:
       v13 = @"::";
 LABEL_43:
       result = CFStringCompare(a3, v13, 0);
-      if (!result)
+      if (result == kCFCompareEqualTo)
       {
         *a4 = &stru_285145FE8;
         return result;
       }
 
 LABEL_44:
-      result = 0;
+      result = kCFCompareEqualTo;
       *a4 = a3;
     }
   }
@@ -4013,7 +4100,7 @@ LABEL_44:
   return result;
 }
 
-uint64_t sub_23EB95194(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_23EB95194(uint64_t a1, const char **a2, uint64_t a3, uint64_t a4)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -4968,7 +5055,7 @@ LABEL_174:
   return 4294967292;
 }
 
-uint64_t sub_23EB97254(int a1, int a2, const __CFString *a3, void *a4, _BYTE *a5)
+CFComparisonResult sub_23EB97254(int a1, int a2, const __CFString *a3, CFDataRef *a4, _BYTE *a5)
 {
   v9 = sub_23EB4BD2C(a2, v13);
   sub_23EB8CCB8(&__p, v9);
@@ -5020,7 +5107,7 @@ BOOL sub_23EB972F8(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t sub_23EB97374(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+uint64_t sub_23EB97374(uint64_t a1, std::string *a2, void *a3, uint64_t a4)
 {
   number = 0;
   v5 = sub_23EB912D0(a1, a2, &number, a4);
@@ -5045,7 +5132,7 @@ uint64_t sub_23EB97374(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
   return v5;
 }
 
-uint64_t sub_23EB973DC(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4)
+uint64_t sub_23EB973DC(uint64_t a1, std::string *a2, __int16 a3, uint64_t a4)
 {
   valuePtr = a3;
   v7 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt16Type, &valuePtr);
@@ -5060,7 +5147,7 @@ uint64_t sub_23EB973DC(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4)
   return v9;
 }
 
-uint64_t sub_23EB97464(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+uint64_t sub_23EB97464(uint64_t a1, std::string *a2, void *a3, uint64_t a4)
 {
   number = 0;
   v5 = sub_23EB912D0(a1, a2, &number, a4);
@@ -5088,11 +5175,11 @@ uint64_t sub_23EB97464(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 uint64_t sub_23EB974CC(uint64_t a1, int a2, void *a3, uint64_t a4)
 {
   sub_23EB4BD2C(a2, __s);
-  sub_23EB8CCB8(__p, __s);
-  v7 = sub_23EB97464(a1, __p, a3, a4);
-  if (v10 < 0)
+  sub_23EB8CCB8(&__p, __s);
+  v7 = sub_23EB97464(a1, &__p, a3, a4);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   return v7;
@@ -5108,7 +5195,7 @@ void sub_23EB9754C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_23EB97568(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t sub_23EB97568(uint64_t a1, std::string *a2, int a3, uint64_t a4)
 {
   v4 = MEMORY[0x277CBED28];
   if (!a3)
@@ -5119,7 +5206,7 @@ uint64_t sub_23EB97568(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return sub_23EB8FC04(a1, a2, *v4, a4);
 }
 
-uint64_t sub_23EB97588(uint64_t a1, uint64_t a2, BOOL *a3, uint64_t a4)
+uint64_t sub_23EB97588(uint64_t a1, std::string *a2, BOOL *a3, uint64_t a4)
 {
   BOOLean = 0;
   v5 = sub_23EB912D0(a1, a2, &BOOLean, a4);
@@ -5139,11 +5226,11 @@ uint64_t sub_23EB97588(uint64_t a1, uint64_t a2, BOOL *a3, uint64_t a4)
 uint64_t sub_23EB975E8(uint64_t a1, int a2, BOOL *a3, uint64_t a4)
 {
   sub_23EB4BD2C(a2, __s);
-  sub_23EB8CCB8(__p, __s);
-  v7 = sub_23EB97588(a1, __p, a3, a4);
-  if (v10 < 0)
+  sub_23EB8CCB8(&__p, __s);
+  v7 = sub_23EB97588(a1, &__p, a3, a4);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   return v7;
@@ -5159,7 +5246,7 @@ void sub_23EB97668(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_23EB97684(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_23EB97684(uint64_t a1, std::string *a2, uint64_t a3, uint64_t a4)
 {
   if (*(a3 + 23) >= 0)
   {
@@ -5183,7 +5270,7 @@ uint64_t sub_23EB97684(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return v10;
 }
 
-uint64_t sub_23EB97710(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_23EB97710(uint64_t a1, std::string *a2, uint64_t a3, uint64_t a4)
 {
   v16 = *MEMORY[0x277D85DE8];
   v13 = 0;
@@ -5401,7 +5488,7 @@ LABEL_5:
   return 4294960576;
 }
 
-BOOL sub_23EB97B0C(uint64_t a1, int a2)
+BOOL sub_23EB97B0C(uint64_t a1, uint64_t a2)
 {
   v4 = 0;
   sub_23EBB4A90(a2, &v4);
@@ -5720,10 +5807,10 @@ LABEL_26:
       v12 = sub_23EC0F418(v32, 0x10u);
       if (!v12)
       {
-        v12 = sub_23EB6FDFC(v30, theDict, "%kC=%s", v19, v20, v21, v22, v23, 1818449523);
+        v12 = sub_23EB6FDFC(v30, theDict, "%kC=%s", v19, v20, v21, v22, v23, 0x6C635673u);
         if (!v12)
         {
-          v12 = sub_23EB6FDFC(v30, theDict, "%kC=%i", v24, v25, v26, v27, v28, 1818449522);
+          v12 = sub_23EB6FDFC(v30, theDict, "%kC=%i", v24, v25, v26, v27, v28, 0x6C635672u);
         }
       }
 
@@ -5761,9 +5848,9 @@ uint64_t sub_23EB98170(uint64_t a1)
   return 0;
 }
 
-void sub_23EB981EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23EB981EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EBADBC0(va);
   _Unwind_Resume(a1);
 }
@@ -5821,9 +5908,9 @@ LABEL_15:
   return v2;
 }
 
-void sub_23EB98300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23EB98300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_23EBADBC0(va);
   _Unwind_Resume(a1);
 }
@@ -5927,7 +6014,7 @@ LABEL_13:
 
           else if (dword_27E381AB0 <= 5000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1388u)))
           {
-            sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::_CopySupported(CFDictionaryRef, CFDictionaryRef *)", 5000, "%s: skipping key: %@ value: %@ because it isn't supported.\n", v18, v19, v20, v21, "ACPStatus BaseStation::_CopySupported(CFDictionaryRef, CFDictionaryRef *)");
+            sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::_CopySupported(CFDictionaryRef, CFDictionaryRef *)", 5000, "%s: skipping key: %@ value: %@ because it isn't supported.\n", "ACPStatus BaseStation::_CopySupported(CFDictionaryRef, CFDictionaryRef *)", v12[v15], v14[v15]);
           }
 
           if (v9 == ++v15)
@@ -6028,90 +6115,90 @@ uint64_t sub_23EB98700(uint64_t a1, void *a2)
 
 uint64_t sub_23EB9875C(uint64_t a1, const __CFDictionary *a2, int a3, uint64_t a4)
 {
-  v76 = *MEMORY[0x277D85DE8];
-  v73 = 0;
+  v51 = *MEMORY[0x277D85DE8];
+  v48 = 0;
   cf = 0;
-  sub_23EB8CCB8(v71, "WiFi.radios.[*].");
+  sub_23EB8CCB8(v46, "WiFi.radios.[*].");
   memset(&__p, 0, sizeof(__p));
   if (!a2)
   {
-    v14 = 4294960591;
+    v9 = 4294960591;
     goto LABEL_32;
   }
 
   if (!CFDictionaryGetValue(a2, @"APPLE-CONFIG"))
   {
-    v14 = 4294960569;
+    v9 = 4294960569;
     goto LABEL_32;
   }
 
   sub_23EB89214(a1);
-  sub_23EB6FF14(a2, &v73, "%kC", v8, v9, v10, v11, v12, 1937326416);
-  v14 = v13;
-  if (v13)
+  sub_23EB6FF14(a2, &v48, "%kC", 1937326416);
+  v9 = v8;
+  if (v8)
   {
     goto LABEL_32;
   }
 
-  if (!v73)
+  if (!v48)
   {
     goto LABEL_31;
   }
 
-  v14 = sub_23EB8C09C(a1, 1937326416, v73, 2);
-  if (v14)
+  v9 = sub_23EB8C09C(a1, 1937326416, v48, 2);
+  if (v9)
   {
     goto LABEL_32;
   }
 
-  sub_23EB6FF14(a2, &v73, "%kC", v15, v16, v17, v18, v19, 1717907505);
-  v14 = v20;
-  if (v20)
+  sub_23EB6FF14(a2, &v48, "%kC", 1717907505);
+  v9 = v10;
+  if (v10)
   {
     goto LABEL_32;
   }
 
-  if (!v73)
+  if (!v48)
   {
     goto LABEL_31;
   }
 
-  v14 = sub_23EB8C09C(a1, 1717907505, v73, 2);
-  if (v14)
+  v9 = sub_23EB8C09C(a1, 1717907505, v48, 2);
+  if (v9)
   {
     goto LABEL_32;
   }
 
-  sub_23EB6FF14(a2, &v73, "%kC", v21, v22, v23, v24, v25, 1937327724);
-  v14 = v26;
-  if (v26)
+  sub_23EB6FF14(a2, &v48, "%kC", 1937327724);
+  v9 = v11;
+  if (v11)
   {
     goto LABEL_32;
   }
 
-  if (!v73)
+  if (!v48)
   {
 LABEL_31:
-    v14 = 4294967291;
+    v9 = 4294967291;
     goto LABEL_32;
   }
 
-  v14 = sub_23EB8C09C(a1, 1937327724, v73, 2);
-  if (v14)
+  v9 = sub_23EB8C09C(a1, 1937327724, v48, 2);
+  if (v9)
   {
     goto LABEL_32;
   }
 
-  sub_23EB6FF14(a2, &v73, "%kC", v27, v28, v29, v30, v31, 1717920116);
-  if (v32)
+  sub_23EB6FF14(a2, &v48, "%kC", 1717920116);
+  if (v12)
   {
     sub_23EB897A0(a1, 1);
   }
 
   else
   {
-    v14 = sub_23EB8C09C(a1, 1717920116, v73, 2);
-    if (v14)
+    v9 = sub_23EB8C09C(a1, 1717920116, v48, 2);
+    if (v9)
     {
       goto LABEL_32;
     }
@@ -6120,44 +6207,44 @@ LABEL_31:
   Value = CFDictionaryGetValue(a2, @"secureProperties");
   if (a4 && Value)
   {
-    v39 = *(a4 + 23);
-    if (v39 < 0)
+    v14 = *(a4 + 23);
+    if (v14 < 0)
     {
-      v39 = *(a4 + 8);
+      v14 = *(a4 + 8);
     }
 
-    if (!v39)
+    if (!v14)
     {
-      v14 = 4294967280;
+      v9 = 4294967280;
       goto LABEL_32;
     }
 
-    v14 = sub_23EB98D30(Value, a4, Value, &cf);
-    if (v14)
+    v9 = sub_23EB98D30(Value, a4, Value, &cf);
+    if (v9)
     {
       goto LABEL_32;
     }
   }
 
-  v73 = 0;
+  v48 = 0;
   if (cf)
   {
-    sub_23EB6FF14(cf, &v73, "%kC", v34, v35, v36, v37, v38, 1466517097);
-    v14 = v40;
-    v41 = v73;
-    if (v40)
+    sub_23EB6FF14(cf, &v48, "%kC", 1466517097);
+    v9 = v15;
+    v16 = v48;
+    if (v15)
     {
-      v42 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v42 = v73 == 0;
+      v17 = v48 == 0;
     }
 
-    v43 = !v42;
-    v69 = v43;
-    if (v73)
+    v18 = !v17;
+    v44 = v18;
+    if (v48)
     {
       goto LABEL_46;
     }
@@ -6165,109 +6252,109 @@ LABEL_31:
 
   else
   {
-    v14 = 0;
-    v69 = 0;
+    v9 = 0;
+    v44 = 0;
   }
 
-  sub_23EB6FF14(a2, &v73, "%kC", v34, v35, v36, v37, v38, 1466517097);
-  if (v45)
+  sub_23EB6FF14(a2, &v48, "%kC", 1466517097);
+  if (v20)
   {
-    v46 = 0;
+    v21 = 0;
     goto LABEL_48;
   }
 
-  v41 = v73;
+  v16 = v48;
 LABEL_46:
-  v14 = sub_23EB8C09C(a1, 1466517097, v41, 2);
-  if (v14)
+  v9 = sub_23EB8C09C(a1, 1466517097, v16, 2);
+  if (v9)
   {
     goto LABEL_32;
   }
 
-  v46 = 1;
+  v21 = 1;
 LABEL_48:
-  v48 = *(a1 + 200);
-  v47 = *(a1 + 208);
-  if (v47 == v48)
+  v23 = *(a1 + 200);
+  v22 = *(a1 + 208);
+  if (v22 == v23)
   {
     sub_23EB8A428(a1, 0);
-    v48 = *(a1 + 200);
-    v47 = *(a1 + 208);
+    v23 = *(a1 + 200);
+    v22 = *(a1 + 208);
   }
 
-  v49 = v47 - v48;
-  if (v49 >= 0xC)
+  v24 = v22 - v23;
+  if (v24 >= 0xC)
   {
-    v50 = v49 / 0xC;
+    v25 = v24 / 0xC;
     alloc = *MEMORY[0x277CBECE8];
-    if (v50 <= 1)
+    if (v25 <= 1)
     {
-      v51 = 1;
+      v26 = 1;
     }
 
     else
     {
-      v51 = v50;
+      v26 = v25;
     }
 
     while (1)
     {
-      v53 = *v48;
-      v48 += 3;
-      v52 = v53;
-      v54 = sub_23EB8F5B4(v53);
+      v28 = *v23;
+      v23 += 3;
+      v27 = v28;
+      v29 = sub_23EB8F5B4(v28);
       if (a3)
       {
-        v55 = sub_23EB98F20(a1, v52);
+        v30 = sub_23EB98F20(a1, v27);
       }
 
       else
       {
-        v55 = sub_23EB98FD8(a1, v52);
+        v30 = sub_23EB98FD8(a1, v27);
       }
 
-      if (v52 == 1466517097)
+      if (v27 == 1466517097)
       {
-        v56 = v46;
+        v31 = v21;
       }
 
       else
       {
-        v56 = 0;
+        v31 = 0;
       }
 
-      if ((v56 & 1) != 0 || !v55)
+      if ((v31 & 1) != 0 || !v30)
       {
         goto LABEL_68;
       }
 
-      if (v52 > 1937326415)
+      if (v27 > 1937326415)
       {
-        if (v52 == 1937326416)
+        if (v27 == 1937326416)
         {
           goto LABEL_68;
         }
 
-        v57 = 1937327724;
+        v32 = 1937327724;
       }
 
       else
       {
-        if (v52 == 1717907505)
+        if (v27 == 1717907505)
         {
           goto LABEL_68;
         }
 
-        v57 = 1717920116;
+        v32 = 1717920116;
       }
 
-      if (v52 != v57)
+      if (v27 != v32)
       {
-        if (!v46 || (!cf ? (v58 = v54) : (v58 = 0), (v58 & 1) == 0 && (cf ? (v59 = v54) : (v59 = 0), v59 != 1 || ((v69 | sub_23EB9931C(v55, v52) ^ 1) & 1) == 0)))
+        if (!v21 || (!cf ? (v33 = v29) : (v33 = 0), (v33 & 1) == 0 && (cf ? (v34 = v29) : (v34 = 0), v34 != 1 || ((v44 | sub_23EB9931C(v30, v27) ^ 1) & 1) == 0)))
         {
-          if (v54)
+          if (v29)
           {
-            sub_23EB8FB78(v71, v52, &__p);
+            sub_23EB8FB78(v46, v27, &__p);
           }
 
           else if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6282,30 +6369,30 @@ LABEL_48:
             *(&__p.__r_.__value_.__s + 23) = 0;
           }
 
-          sub_23EB4BD2C(v52, cStr);
-          v60 = CFStringCreateWithCString(alloc, cStr, 0x8000100u);
-          v61 = v60;
-          if (!v60)
+          sub_23EB4BD2C(v27, cStr);
+          v35 = CFStringCreateWithCString(alloc, cStr, 0x8000100u);
+          v36 = v35;
+          if (!v35)
           {
-            v14 = 4294960554;
+            v9 = 4294960554;
             break;
           }
 
-          v62 = sub_23EB9931C(v60, v52);
-          if ((v62 & (cf != 0)) != 0)
+          v37 = sub_23EB9931C(v35, v27);
+          if ((v37 & (cf != 0)) != 0)
           {
-            v63 = cf;
+            v38 = cf;
           }
 
           else
           {
-            v63 = a2;
+            v38 = a2;
           }
 
-          v73 = CFDictionaryGetValue(v63, v61);
-          CFRelease(v61);
-          v65 = v73;
-          if (v73)
+          v48 = CFDictionaryGetValue(v38, v36);
+          CFRelease(v36);
+          v40 = v48;
+          if (v48)
           {
             size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -6315,31 +6402,31 @@ LABEL_48:
 
             if (size)
             {
-              v67 = sub_23EB91690(v64, v52);
-              if (v67)
+              v42 = sub_23EB91690(v39, v27);
+              if (v42)
               {
-                v14 = sub_23EB91744(a1, v52, v65, &v73);
-                if (v14)
+                v9 = sub_23EB91744(a1, v27, v40, &v48);
+                if (v9)
                 {
                   break;
                 }
 
-                v65 = v73;
+                v40 = v48;
               }
 
-              v14 = sub_23EB8FC04(a1, &__p, v65, 2);
-              if (v67)
+              v9 = sub_23EB8FC04(a1, &__p, v40, 2);
+              if (v42)
               {
-                CFRelease(v73);
+                CFRelease(v48);
               }
             }
 
             else
             {
-              v14 = sub_23EB8C09C(a1, v52, v73, 2);
+              v9 = sub_23EB8C09C(a1, v27, v48, 2);
             }
 
-            if (v14)
+            if (v9)
             {
               break;
             }
@@ -6348,10 +6435,10 @@ LABEL_48:
       }
 
 LABEL_68:
-      if (!--v51)
+      if (!--v26)
       {
         *(a1 + 193) = 1;
-        v14 = sub_23EB897A0(a1, 1);
+        v9 = sub_23EB897A0(a1, 1);
         break;
       }
     }
@@ -6368,12 +6455,12 @@ LABEL_32:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v72 < 0)
+  if (v47 < 0)
   {
-    operator delete(v71[0]);
+    operator delete(v46[0]);
   }
 
-  return v14;
+  return v9;
 }
 
 void sub_23EB98CF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -6469,21 +6556,21 @@ uint64_t sub_23EB98D30(int a1, void *data, const __CFData *a3, void *a4)
   return v7;
 }
 
-void sub_23EB98EAC(uint64_t a1, void *a2, unint64_t *a3)
+void sub_23EB98EAC(uint64_t result, void *a2, unint64_t *a3)
 {
-  if (*(a1 + 208) == *(a1 + 200))
+  if (*(result + 208) == *(result + 200))
   {
-    sub_23EB8A428(a1, 0);
+    sub_23EB8A428(result, 0);
   }
 
   if (a2)
   {
-    *a2 = *(a1 + 200);
+    *a2 = *(result + 200);
   }
 
   if (a3)
   {
-    *a3 = (*(a1 + 208) - *(a1 + 200)) / 0xCuLL;
+    *a3 = (*(result + 208) - *(result + 200)) / 0xCuLL;
   }
 }
 
@@ -6821,19 +6908,19 @@ LABEL_30:
   return result;
 }
 
-void sub_23EB994CC(uint64_t a1, unint64_t a2)
+void sub_23EB994CC(char **result, unint64_t a2)
 {
-  v2 = *(a1 + 8) - *a1;
+  v2 = result[1] - *result;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    sub_23EBADE2C(a1, v4);
+    sub_23EBADE2C(result, v4);
   }
 
   else if (!v3)
   {
-    *(a1 + 8) = *a1 + a2;
+    result[1] = &(*result)[a2];
   }
 }
 
@@ -6843,7 +6930,7 @@ uint64_t sub_23EB994F4(uint64_t a1, CFDictionaryRef theDict, const __CFString *a
   if (!theDict)
   {
     v10 = 4294967292;
-    goto LABEL_114;
+    goto LABEL_126;
   }
 
   Count = CFDictionaryGetCount(theDict);
@@ -6851,49 +6938,49 @@ uint64_t sub_23EB994F4(uint64_t a1, CFDictionaryRef theDict, const __CFString *a
   if (Count <= 0)
   {
     v10 = 0;
-    goto LABEL_114;
+    goto LABEL_126;
   }
 
   keys = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
   if (!keys)
   {
     v10 = 4294967293;
-    goto LABEL_114;
+    goto LABEL_126;
   }
 
   v9 = malloc_type_malloc(8 * v8, 0x80040B8603338uLL);
   if (!v9)
   {
     v10 = 4294967293;
-    v66 = keys;
-    goto LABEL_113;
+    v39 = keys;
+    goto LABEL_125;
   }
 
   CFDictionaryGetKeysAndValues(theDict, keys, v9);
-  v68 = a3;
-  v69 = v9;
+  v41 = a3;
+  v42 = v9;
   v10 = 0;
   v11 = 0;
   v12 = off_27E381AF0;
   while (1)
   {
     v13 = keys[v11];
-    if (!v13 || !v69[v11])
+    if (!v13 || !v42[v11])
     {
       v10 = 4294967291;
-      goto LABEL_112;
+      goto LABEL_124;
     }
 
     v14 = v12;
     v15 = sub_23EB97E48(v13);
     if (!v15)
     {
-      goto LABEL_112;
+      goto LABEL_124;
     }
 
     if (a4 == 1 && !sub_23EB98FD8(a1, v15))
     {
-      goto LABEL_92;
+      goto LABEL_100;
     }
 
     v16 = sub_23EB8E1B0(a1, v15);
@@ -6904,12 +6991,12 @@ uint64_t sub_23EB994F4(uint64_t a1, CFDictionaryRef theDict, const __CFString *a
       v10 = sub_23EBB4A90(v15, valuePtr);
       if (v10)
       {
-        goto LABEL_112;
+        goto LABEL_124;
       }
 
       if (LODWORD(valuePtr[0]) && !sub_23EB8BE08(a1, valuePtr[0]))
       {
-        goto LABEL_103;
+        goto LABEL_115;
       }
 
       v10 = 0;
@@ -6921,11 +7008,11 @@ uint64_t sub_23EB994F4(uint64_t a1, CFDictionaryRef theDict, const __CFString *a
       v19 = v15 == 1466517097 || v18;
       if (v19 != 1)
       {
-        goto LABEL_104;
+        goto LABEL_116;
       }
     }
 
-    v20 = sub_23EB4BD2C(v15, v75);
+    v20 = sub_23EB4BD2C(v15, v48);
     MEMORY[0x23EF1EFD0](&__p, v20);
     if (sub_23EB8F5B4(v15))
     {
@@ -6965,7 +7052,7 @@ uint64_t sub_23EB994F4(uint64_t a1, CFDictionaryRef theDict, const __CFString *a
           {
             if (v25 != v23 && v25 - p_p != -1)
             {
-              goto LABEL_39;
+              goto LABEL_41;
             }
 
             break;
@@ -6982,18 +7069,24 @@ uint64_t sub_23EB994F4(uint64_t a1, CFDictionaryRef theDict, const __CFString *a
       sub_23EB8FB78(&__p, v15, &__p);
       if (dword_27E381AB0 <= 8000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1F40u)))
       {
-        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 8000, "%s: Just created a path %s for a WiFi setting without one.\n", v26, v27, v28, v29, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)");
+        v26 = &__p;
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v26 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 8000, "%s: Just created a path %s for a WiFi setting without one.\n", "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", v26);
       }
     }
 
-LABEL_39:
+LABEL_41:
     v12 = v14;
     if (sub_23EBB4A64(v15) == 6)
     {
       break;
     }
 
-LABEL_44:
+LABEL_46:
     if (!v17)
     {
       valuePtr[0] = 0;
@@ -7004,35 +7097,47 @@ LABEL_44:
         {
           if (sub_23EB99D18(0, &__p))
           {
-            if (!sub_23EB9A798(a1, &__p, v69[v11]))
+            if (!sub_23EB9A798(a1, &__p, v42[v11]))
             {
               if (dword_27E381AB0 <= 5000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1388u)))
               {
-                sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 5000, "%s: skipping import of value %@ for %s because it is invalid, reseting to default val: %@.\n", v54, v55, v56, v57, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)");
+                v35 = &__p;
+                if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                {
+                  v35 = __p.__r_.__value_.__r.__words[0];
+                }
+
+                sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 5000, "%s: skipping import of value %@ for %s because it is invalid, reseting to default val: %@.\n", "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", v42[v11], v35, valuePtr[0]);
               }
 
               v10 = sub_23EB8FC04(a1, &__p, valuePtr[0], 0);
               CFRelease(valuePtr[0]);
               if (v10)
               {
-                goto LABEL_112;
+                goto LABEL_124;
               }
 
-              goto LABEL_103;
+              goto LABEL_115;
             }
           }
 
-          else if (CFEqual(valuePtr[0], v69[v11]))
+          else if (CFEqual(valuePtr[0], v42[v11]))
           {
             if (dword_27E381AB0 <= 8000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1F40u)))
             {
-              sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 8000, "%s: skipping import of default value %@ for %s.\n", v62, v63, v64, v65, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)");
+              v38 = &__p;
+              if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              {
+                v38 = __p.__r_.__value_.__r.__words[0];
+              }
+
+              sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 8000, "%s: skipping import of default value %@ for %s.\n", "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", valuePtr[0], v38);
             }
 
             CFRelease(valuePtr[0]);
-LABEL_103:
+LABEL_115:
             v10 = 0;
-            goto LABEL_104;
+            goto LABEL_116;
           }
 
           CFRelease(valuePtr[0]);
@@ -7040,52 +7145,58 @@ LABEL_103:
       }
     }
 
-    v35 = v69[v11];
+    v28 = v42[v11];
     if (v15 != 1466517097)
     {
-      v10 = sub_23EB8FC04(a1, &__p, v69[v11], 0);
+      v10 = sub_23EB8FC04(a1, &__p, v42[v11], 0);
       if (dword_27E381AB0 <= 5000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1388u)))
       {
-        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 5000, "%s: Importing '%s' as: %@\n", v58, v59, v60, v61, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)");
+        v36 = &__p;
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v36 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 5000, "%s: Importing '%s' as: %@\n", "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", v36, v42[v11]);
       }
 
       if (v10)
       {
-        goto LABEL_112;
+        goto LABEL_124;
       }
 
-LABEL_92:
+LABEL_100:
       v12 = v14;
-      goto LABEL_104;
+      goto LABEL_116;
     }
 
-    if (CFDictionaryGetCount(v69[v11]))
+    if (CFDictionaryGetCount(v42[v11]))
     {
-      v41 = 0;
-      v74 = 0;
+      v29 = 0;
+      v47 = 0;
       do
       {
-        sub_23EB6FF14(v35, &v74, "%ks", v36, v37, v38, v39, v40, v14[v41]);
-        if (!v42)
+        sub_23EB6FF14(v28, &v47, "%ks", v14[v29]);
+        if (!v30)
         {
-          sub_23EB8CCB8(valuePtr, v14[v41]);
-          if (v73 < 0)
+          sub_23EB8CCB8(valuePtr, v14[v29]);
+          if (v46 < 0)
           {
             if (valuePtr[1] == 6)
             {
-              v49 = *valuePtr[0] != 1768186226 || *(valuePtr[0] + 2) != 29551;
+              v33 = *valuePtr[0] != 1768186226 || *(valuePtr[0] + 2) != 29551;
               operator delete(valuePtr[0]);
-              if (!v49)
+              if (!v33)
               {
-LABEL_65:
-                v10 = sub_23EB8E448(a1, theDict, v68, v74, v43, v44, v45, v46);
+LABEL_67:
+                v10 = sub_23EB8E448(a1, theDict, v41, v47);
                 if (v10)
                 {
-                  goto LABEL_112;
+                  goto LABEL_124;
                 }
 
                 v10 = sub_23EB90978(a1);
-                goto LABEL_75;
+                goto LABEL_79;
               }
             }
 
@@ -7095,76 +7206,88 @@ LABEL_65:
             }
           }
 
-          else if (v73 == 6 && LODWORD(valuePtr[0]) == 1768186226 && WORD2(valuePtr[0]) == 29551)
+          else if (v46 == 6 && LODWORD(valuePtr[0]) == 1768186226 && WORD2(valuePtr[0]) == 29551)
           {
-            goto LABEL_65;
+            goto LABEL_67;
           }
 
           MEMORY[0x23EF1EFD0](&__p, "WiFi.");
-          sub_23EB8CCB8(valuePtr, v14[v41]);
+          sub_23EB8CCB8(valuePtr, v14[v29]);
           sub_23EB90814(&__p, valuePtr, &__p);
-          if (v73 < 0)
+          if (v46 < 0)
           {
             operator delete(valuePtr[0]);
           }
 
           if (dword_27E381AB0 <= 8000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1F40u)))
           {
-            sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 8000, "%s: Importing WiFi root property val: '%@' @ %s.\n", v50, v51, v52, v53, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)");
+            v34 = &__p;
+            if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            {
+              v34 = __p.__r_.__value_.__r.__words[0];
+            }
+
+            sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 8000, "%s: Importing WiFi root property val: '%@' @ %s.\n", "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", v47, v34);
           }
 
-          v10 = sub_23EB8FC04(a1, &__p, v74, 0);
+          v10 = sub_23EB8FC04(a1, &__p, v47, 0);
           if (v10)
           {
-            goto LABEL_112;
+            goto LABEL_124;
           }
         }
 
-LABEL_75:
-        ++v41;
+LABEL_79:
+        ++v29;
       }
 
-      while (v41 != 4);
+      while (v29 != 4);
     }
 
-LABEL_104:
+LABEL_116:
     if (++v11 == v8)
     {
       v10 = sub_23EB8C480(a1);
-      goto LABEL_112;
+      goto LABEL_124;
     }
   }
 
   LODWORD(valuePtr[0]) = 0;
-  if (CFNumberGetValue(v69[v11], kCFNumberIntType, valuePtr))
+  if (CFNumberGetValue(v42[v11], kCFNumberIntType, valuePtr))
   {
-    v30 = valuePtr[0];
+    v27 = valuePtr[0];
     if (v15 == 2002862934)
     {
-      v30 = valuePtr[0] & 0xFFFE7FFF;
+      v27 = valuePtr[0] & 0xFFFE7FFF;
       LODWORD(valuePtr[0]) &= 0xFFFE7FFF;
     }
 
-    if (!sub_23EB90740(a1, &__p, v30, 1))
+    if (!sub_23EB90740(a1, &__p.__r_.__value_.__l.__data_, v27, 1))
     {
       if (dword_27E381AB0 <= 8000 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1F40u)))
       {
-        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 8000, "%s: skipping %s because possible value (%u) isn't supported.\n", v31, v32, v33, v34, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)");
+        v37 = &__p;
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v37 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", 8000, "%s: skipping %s because possible value (%u) isn't supported.\n", "ACPStatus BaseStation::ImportFromDictionary(CFDictionaryRef, CFDictionaryRef, eImportChoice)", v37, LODWORD(valuePtr[0]));
       }
 
-      goto LABEL_104;
+      goto LABEL_116;
     }
 
-    goto LABEL_44;
+    goto LABEL_46;
   }
 
   v10 = 4294967292;
-LABEL_112:
+LABEL_124:
   free(keys);
-  v66 = v69;
-LABEL_113:
-  free(v66);
-LABEL_114:
+  v39 = v42;
+LABEL_125:
+  free(v39);
+LABEL_126:
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7962,9 +8085,9 @@ const void *sub_23EB9A954(uint64_t a1, const void *a2)
   return v5;
 }
 
-uint64_t sub_23EB9AA24(uint64_t a1, uint64_t a2, int *a3)
+uint64_t sub_23EB9AA24(uint64_t a1, char *a2, int *a3)
 {
-  if (*(a2 + 23) >= 0)
+  if (a2[23] >= 0)
   {
     v6 = a2;
   }
@@ -7996,9 +8119,9 @@ LABEL_12:
   }
 
   v15 = 0;
-  if (*(a2 + 23) < 0)
+  if (a2[23] < 0)
   {
-    sub_23EBADCE0(&__dst, *a2, *(a2 + 8));
+    sub_23EBADCE0(&__dst, *a2, *(a2 + 1));
   }
 
   else
@@ -8055,12 +8178,12 @@ void sub_23EB9AB70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t sub_23EB9ABA8(uint64_t a1, char *a2)
 {
   cf = 0;
-  sub_23EB8CCB8(__p, a2);
-  v4 = sub_23EB912D0(a1, __p, &cf, 0);
+  sub_23EB8CCB8(&__p, a2);
+  v4 = sub_23EB912D0(a1, &__p, &cf, 0);
   v5 = v4;
-  if (v8 < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
     if (v5)
     {
       goto LABEL_3;
@@ -8198,7 +8321,7 @@ void sub_23EB9AD88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_23EB9ADA4(uint64_t a1, uint64_t a2, BOOL *a3)
+uint64_t sub_23EB9ADA4(uint64_t a1, std::string *a2, BOOL *a3)
 {
   cf2 = 0;
   cf1 = 0;
@@ -8265,106 +8388,100 @@ uint64_t sub_23EB9AE88(int a1, std::string *__str, _DWORD *a3, _DWORD *a4)
     return 4294960578;
   }
 
-  v27 = 0;
-  sub_23EB8DCF4(__str, &v27, 0);
+  v17 = 0;
+  sub_23EB8DCF4(__str, &v17, 0);
   *a4 = 0;
-  if (!v27)
+  if (!v17)
   {
     *a3 = 9;
     if (dword_27E381AB0 <= 5000)
     {
-      if (dword_27E381AB0 != -1 || (result = sub_23EB74AC8(&dword_27E381AB0, 0x1388u), result))
+      if (dword_27E381AB0 == -1)
       {
-        if ((__str->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        result = sub_23EB74AC8(&dword_27E381AB0, 0x1388u);
+        if (!result)
         {
-          v21 = __str;
+          return result;
         }
-
-        else
-        {
-          v21 = __str->__r_.__value_.__r.__words[0];
-        }
-
-        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyTypeInfo(const std::string &, ACPPropertyType &, BSUIType &) const", 5000, "Property in path: %s ***ASSUMED*** to be kACPPropertyTypeCustom\n", v7, v8, v9, v10, v21);
-        return 0;
       }
 
-      return result;
+      sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyTypeInfo(const std::string &, ACPPropertyType &, BSUIType &) const", 5000, "Property in path: %s ***ASSUMED*** to be kACPPropertyTypeCustom\n");
     }
 
     return 0;
   }
 
-  v11 = *(qword_27E383818 + 8);
-  if (v11)
+  v7 = *(qword_27E383818 + 8);
+  if (v7)
   {
-    v12 = qword_27E383818 + 8;
+    v8 = qword_27E383818 + 8;
     do
     {
-      if (*(v11 + 32) >= v27)
+      if (*(v7 + 32) >= v17)
       {
-        v12 = v11;
+        v8 = v7;
       }
 
-      v11 = *(v11 + 8 * (*(v11 + 32) < v27));
+      v7 = *(v7 + 8 * (*(v7 + 32) < v17));
     }
 
-    while (v11);
-    if (v12 != qword_27E383818 + 8 && v27 >= *(v12 + 32))
+    while (v7);
+    if (v8 != qword_27E383818 + 8 && v17 >= *(v8 + 32))
     {
       result = 0;
-      v23 = *(v12 + 40);
-      v24 = *(v23 + 8);
-      LODWORD(v23) = *(v23 + 12);
-      *a3 = v24;
-      *a4 = v23;
+      v13 = *(v8 + 40);
+      v14 = *(v13 + 8);
+      LODWORD(v13) = *(v13 + 12);
+      *a3 = v14;
+      *a4 = v13;
       return result;
     }
   }
 
-  v14 = dword_27E381AB0 > 5000 || v27 == 1918979378 || v27 == 1937327219;
-  if (!v14 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1388u)))
+  v10 = dword_27E381AB0 > 5000 || v17 == 1918979378 || v17 == 1937327219;
+  if (!v10 && (dword_27E381AB0 != -1 || sub_23EB74AC8(&dword_27E381AB0, 0x1388u)))
   {
     if ((__str->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v25 = __str;
+      v15 = __str;
     }
 
     else
     {
-      v25 = __str->__r_.__value_.__r.__words[0];
+      v15 = __str->__r_.__value_.__r.__words[0];
     }
 
-    sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyTypeInfo(const std::string &, ACPPropertyType &, BSUIType &) const", 5000, "Property in path: %s NOT in _propertyMap\n", v7, v8, v9, v10, v25);
+    sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyTypeInfo(const std::string &, ACPPropertyType &, BSUIType &) const", 5000, "Property in path: %s NOT in _propertyMap\n", v15);
   }
 
-  v26 = 0;
-  result = sub_23EB4BB3C(v27, &v26);
+  v16 = 0;
+  result = sub_23EB4BB3C(v17, &v16);
   if (!result)
   {
-    v22 = *(v26 + 1);
-    *a3 = v22;
+    *a3 = *(v16 + 1);
     if (dword_27E381AB0 <= 5000)
     {
       result = 0;
-      if (v27 != 1918979378 && v27 != 1937327219)
+      if (v17 == 1918979378)
       {
-        if (dword_27E381AB0 == -1)
-        {
-          result = sub_23EB74AC8(&dword_27E381AB0, 0x1388u);
-          if (!result)
-          {
-            return result;
-          }
-
-          v22 = *a3;
-        }
-
-        sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyTypeInfo(const std::string &, ACPPropertyType &, BSUIType &) const", 5000, "...but found it in ACP Property Map, type: %d\n", v16, v17, v18, v19, v22);
-        return 0;
+        return result;
       }
 
-      return result;
+      if (v17 == 1937327219)
+      {
+        return result;
+      }
+
+      if (dword_27E381AB0 == -1)
+      {
+        result = sub_23EB74AC8(&dword_27E381AB0, 0x1388u);
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyTypeInfo(const std::string &, ACPPropertyType &, BSUIType &) const", 5000, "...but found it in ACP Property Map, type: %d\n");
     }
 
     return 0;
@@ -8385,15 +8502,15 @@ uint64_t sub_23EB9AE88(int a1, std::string *__str, _DWORD *a3, _DWORD *a4)
   {
     if ((__str->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v20 = __str;
+      v12 = __str;
     }
 
     else
     {
-      v20 = __str->__r_.__value_.__r.__words[0];
+      v12 = __str->__r_.__value_.__r.__words[0];
     }
 
-    sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyTypeInfo(const std::string &, ACPPropertyType &, BSUIType &) const", 5000, "...and not found in ACP Property Map... so ***ASSUMED*** to be type: kACPPropertyTypeCustom\n", v16, v17, v18, v19, v20);
+    sub_23EB75374(&dword_27E381AB0, "ACPStatus BaseStation::GetPropertyTypeInfo(const std::string &, ACPPropertyType &, BSUIType &) const", 5000, "...and not found in ACP Property Map... so ***ASSUMED*** to be type: kACPPropertyTypeCustom\n", v12);
     return 0;
   }
 
@@ -8619,14 +8736,14 @@ uint64_t sub_23EB9B4DC(uint64_t a1)
   return v2;
 }
 
-uint64_t sub_23EB9B540(uint64_t a1, const __CFArray **a2)
+uint64_t sub_23EB9B540(void *a1, const __CFArray **a2)
 {
   if (!sub_23EB9B5C4(a1))
   {
     return 4294960569;
   }
 
-  v4 = *(a1 + 104);
+  v4 = a1[13];
   if (!v4)
   {
     return 4294960569;
@@ -8637,7 +8754,7 @@ uint64_t sub_23EB9B540(uint64_t a1, const __CFArray **a2)
     return 4294960591;
   }
 
-  v5 = sub_23EBAF698(*(a1 + 40), *(*(*(a1 + 72) + (((v4 + *(a1 + 96) - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v4 + *(a1 + 96) - 1) & 0x1FF)));
+  v5 = sub_23EBAF698(a1[5], *(*(a1[9] + (((v4 + a1[12] - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v4 + a1[12] - 1) & 0x1FF)));
   *a2 = v5;
   if (v5)
   {
@@ -8840,11 +8957,11 @@ LABEL_67:
   if (v6 == v19)
   {
 LABEL_33:
-    if (*v5 == 34 && v5[v6 - 1] == 34)
+    if (*v5 == 34 && *(v5 + v6 - 1) == 34)
     {
       sub_23EB994CC(a3, v6 - 2);
       v10 = *a3;
-      v17 = v5 + 1;
+      v17 = (v5 + 1);
       v18 = v6 - 2;
 LABEL_26:
       memcpy(v10, v17, v18);
@@ -8861,7 +8978,7 @@ LABEL_36:
 
   if (v6 == v20 && *v5 == 36)
   {
-    v21 = strspn(v5 + 1, "0123456789abcdefABCDEF");
+    v21 = strspn((v5 + 1), "0123456789abcdefABCDEF");
     if (v21 == v6 - 1)
     {
       v22 = v21;
@@ -8876,7 +8993,7 @@ LABEL_36:
       }
 
       sub_23EB994CC(a3, v14);
-      v23 = sub_23EB7EFEC(v5 + 1, v22, v14, *a3, &v36);
+      v23 = sub_23EB7EFEC((v5 + 1), v22, v14, *a3, &v36);
       goto LABEL_67;
     }
   }
@@ -8887,9 +9004,9 @@ LABEL_36:
     v24 = 28;
   }
 
-  if (v6 == v24 && *v5 == 48 && (v5[1] | 0x20) == 0x78)
+  if (v6 == v24 && *v5 == 48 && (*(v5 + 1) | 0x20) == 0x78)
   {
-    v25 = strspn(v5 + 2, "0123456789abcdefABCDEF");
+    v25 = strspn((v5 + 2), "0123456789abcdefABCDEF");
     if (v25 == v6 - 2)
     {
       v26 = v25;
@@ -8904,7 +9021,7 @@ LABEL_36:
       }
 
       sub_23EB994CC(a3, v14);
-      v23 = sub_23EB7EFEC(v5 + 2, v26, v14, *a3, &v36);
+      v23 = sub_23EB7EFEC((v5 + 2), v26, v14, *a3, &v36);
       goto LABEL_67;
     }
   }
@@ -9008,7 +9125,7 @@ void sub_23EB9BC80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL sub_23EB9BCD0(uint64_t a1, void **a2, char **a3, char *a4)
+BOOL sub_23EB9BCD0(uint64_t a1, void ***a2, char **a3, char *a4)
 {
   v22 = 0;
   v6 = *(a1 + 23);
@@ -9193,7 +9310,7 @@ uint64_t sub_23EB9BE68(uint64_t a1, int a2)
 uint64_t sub_23EB9BEF4(uint64_t a1, _BYTE *a2, BOOL *a3, uint64_t a4)
 {
   v4 = a4;
-  v23 = 0;
+  v18 = 0;
   cf = 0;
   v7 = sub_23EB8BFFC(a1, 1466517097, &cf, a4);
   v8 = v7;
@@ -9209,18 +9326,18 @@ uint64_t sub_23EB9BEF4(uint64_t a1, _BYTE *a2, BOOL *a3, uint64_t a4)
         goto LABEL_18;
       }
 
-      v18 = Count;
-      for (i = 0; i != v18; ++i)
+      v13 = Count;
+      for (i = 0; i != v13; ++i)
       {
-        sub_23EB6FF14(v11, &v23, "[*].%kO:int", v13, v14, v15, v16, v17, i);
-        if (v20)
+        sub_23EB6FF14(v11, &v18, "[*].%kO:int", i, @"wdFl");
+        if (v15)
         {
-          v8 = v20;
+          v8 = v15;
           goto LABEL_4;
         }
 
-        v21 = v23;
-        if (v23)
+        v16 = v18;
+        if (v18)
         {
           break;
         }
@@ -9232,7 +9349,7 @@ uint64_t sub_23EB9BEF4(uint64_t a1, _BYTE *a2, BOOL *a3, uint64_t a4)
       if (a3)
       {
         v8 = 0;
-        *a3 = (v21 & 2) != 0;
+        *a3 = (v16 & 2) != 0;
       }
 
       else
@@ -9260,7 +9377,7 @@ LABEL_4:
 uint64_t sub_23EB9C020(uint64_t a1, CFArrayRef theArray)
 {
   Value = theArray;
-  v15 = 0;
+  v10 = 0;
   cf = 0;
   if (!theArray)
   {
@@ -9284,17 +9401,17 @@ uint64_t sub_23EB9C020(uint64_t a1, CFArrayRef theArray)
   Count = CFArrayGetCount(Value);
   if (Count >= 2)
   {
-    v9 = Count;
-    v10 = 0;
+    v4 = Count;
+    v5 = 0;
     while (1)
     {
-      sub_23EB6FF14(Value, &v15, "[*].%kO:int", v4, v5, v6, v7, v8, v10);
-      if (!v11 && (v15 & 0x70) != 0)
+      sub_23EB6FF14(Value, &v10, "[*].%kO:int", v5, @"phymodes");
+      if (!v6 && (v10 & 0x70) != 0)
       {
         break;
       }
 
-      if (v9 == ++v10)
+      if (v4 == ++v5)
       {
         goto LABEL_10;
       }
@@ -9304,7 +9421,7 @@ uint64_t sub_23EB9C020(uint64_t a1, CFArrayRef theArray)
   else
   {
 LABEL_10:
-    v10 = 0;
+    v5 = 0;
   }
 
   if (cf)
@@ -9312,7 +9429,7 @@ LABEL_10:
     CFRelease(cf);
   }
 
-  return v10;
+  return v5;
 }
 
 BOOL sub_23EB9C128(uint64_t a1)
@@ -9325,7 +9442,7 @@ BOOL sub_23EB9C128(uint64_t a1)
     return 0;
   }
 
-  v2 = sub_23EBB65EC(v7, 0x11uLL);
+  v2 = sub_23EBB65EC(v7, 0x11uLL, -1);
   MEMORY[0x23EF1EFD0](&__p, v2);
   sub_23EB8FB78(&__p, 1651722053, &__p);
   sub_23EB97588(a1, &__p, &v6, 0);
@@ -9533,7 +9650,7 @@ uint64_t sub_23EB9C430(uint64_t a1, uint64_t a2)
 
   if (size == 4)
   {
-    v12 = sub_23EBB65EC(v61, 0x11uLL);
+    v12 = sub_23EBB65EC(v61, 0x11uLL, -1);
     MEMORY[0x23EF1EFD0](&__p, v12);
   }
 

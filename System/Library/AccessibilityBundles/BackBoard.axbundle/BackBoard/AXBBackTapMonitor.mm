@@ -180,17 +180,15 @@ void __25__AXBBackTapMonitor_init__block_invoke_8(uint64_t a1)
 
 - (void)_registerForBackTapFromMagnifier
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   _policyOption = [(AXBBackTapMonitor *)self _policyOption];
   backTapClient = [(AXBBackTapMonitor *)self backTapClient];
-  v9 = *MEMORY[0x29EDBDE48];
+  v8 = *MEMORY[0x29EDBDE48];
   v5 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:_policyOption | 1];
-  v10[0] = v5;
-  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v5;
+  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   mainAccessQueue = [MEMORY[0x29EDBD688] mainAccessQueue];
   [backTapClient sendAsynchronousMessage:v6 withIdentifier:10000 targetAccessQueue:mainAccessQueue completion:&__block_literal_global_303];
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __53__AXBBackTapMonitor__registerForBackTapFromMagnifier__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -205,23 +203,21 @@ uint64_t __53__AXBBackTapMonitor__registerForBackTapFromMagnifier__block_invoke(
 
 - (void)_registerForBackTap
 {
-  v11[1] = *MEMORY[0x29EDCA608];
+  v10[1] = *MEMORY[0x29EDCA608];
   v3 = AXLogBackTap();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_29BBBD000, v3, OS_LOG_TYPE_DEFAULT, "Registering for Back Tap", v9, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_29BBBD000, v3, OS_LOG_TYPE_DEFAULT, "Registering for Back Tap", v8, 2u);
   }
 
   backTapClient = [(AXBBackTapMonitor *)self backTapClient];
-  v10 = *MEMORY[0x29EDBDE48];
+  v9 = *MEMORY[0x29EDBDE48];
   v5 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:{-[AXBBackTapMonitor _policyOption](self, "_policyOption")}];
-  v11[0] = v5;
-  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   mainAccessQueue = [MEMORY[0x29EDBD688] mainAccessQueue];
   [backTapClient sendAsynchronousMessage:v6 withIdentifier:10000 targetAccessQueue:mainAccessQueue completion:&__block_literal_global_308];
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __40__AXBBackTapMonitor__registerForBackTap__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)

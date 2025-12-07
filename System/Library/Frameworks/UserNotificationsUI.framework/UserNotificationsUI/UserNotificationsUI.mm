@@ -1,28 +1,28 @@
-id _UNNotificationContentExtensionHostInterface()
+id _UNNotificationContentExtensionHostInterface(uint64_t a1)
 {
   if (_UNNotificationContentExtensionHostInterface_onceToken != -1)
   {
     _UNNotificationContentExtensionHostInterface_cold_1();
   }
 
-  v1 = _UNNotificationContentExtensionHostInterface___interface;
+  v2 = _UNNotificationContentExtensionHostInterface___interface;
 
-  return v1;
+  return v2;
 }
 
-id _UNNotificationContentExtensionVendorInterface()
+id _UNNotificationContentExtensionVendorInterface(uint64_t a1)
 {
   if (_UNNotificationContentExtensionVendorInterface_onceToken != -1)
   {
     _UNNotificationContentExtensionVendorInterface_cold_1();
   }
 
-  v1 = _UNNotificationContentExtensionVendorInterface___interface;
+  v2 = _UNNotificationContentExtensionVendorInterface___interface;
 
-  return v1;
+  return v2;
 }
 
-uint64_t MediaSafetyNetLibraryCore()
+uint64_t MediaSafetyNetLibraryCore(uint64_t a1)
 {
   if (!MediaSafetyNetLibraryCore_frameworkLibrary)
   {
@@ -32,7 +32,7 @@ uint64_t MediaSafetyNetLibraryCore()
   return MediaSafetyNetLibraryCore_frameworkLibrary;
 }
 
-uint64_t __MediaSafetyNetLibraryCore_block_invoke()
+uint64_t __MediaSafetyNetLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaSafetyNetLibraryCore_frameworkLibrary = result;
@@ -50,11 +50,19 @@ void *__getMSNMonitorEndExceptionSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t MediaSafetyNetLibrary()
 {
-  v0 = MediaSafetyNetLibraryCore();
+  v3 = 0;
+  v0 = MediaSafetyNetLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -69,7 +77,7 @@ void *__getMSNMonitorBeginExceptionSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void UNRegisterUserNotificationsUILogging()
+void UNRegisterUserNotificationsUILogging(uint64_t result, uint64_t a2)
 {
   if (UNRegisterUserNotificationsUILogging_onceToken != -1)
   {
@@ -101,21 +109,22 @@ void sub_23AB80868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t OUTLINED_FUNCTION_2()
+uint64_t OUTLINED_FUNCTION_2(uint64_t a1, uint64_t a2)
 {
 
   return objc_opt_class();
 }
 
-void sub_23AB81A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_23AB81A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -145,7 +154,7 @@ Class __getMTMaterialViewClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -163,7 +172,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __MaterialKitLibraryCore_block_invoke()
+uint64_t __MaterialKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MaterialKitLibraryCore_frameworkLibrary = result;

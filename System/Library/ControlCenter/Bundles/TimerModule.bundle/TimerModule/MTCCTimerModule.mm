@@ -4,6 +4,7 @@
 - (double)defaultDuration;
 - (id)launchURLForTouchType:(int64_t)type;
 - (id)processChangesForNewState:(id)state;
+- (void)reloadTimerStateUpdateDuration:(BOOL)duration;
 - (void)setDefaultDuration:(double)duration;
 - (void)timerBackgroundViewController:(id)controller timerDidChange:(id)change;
 - (void)timerBackgroundViewControllerAddButtonTapped:(id)tapped withEvent:(id)event;
@@ -16,17 +17,17 @@
 
 - (MTCCTimerModule)init
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v24.receiver = self;
-  v24.super_class = MTCCTimerModule;
-  v2 = [(CCUIAppLauncherModule *)&v24 init];
+  v26 = *MEMORY[0x29EDCA608];
+  v23.receiver = self;
+  v23.super_class = MTCCTimerModule;
+  v2 = [(CCUIAppLauncherModule *)&v23 init];
   if (v2)
   {
     v3 = MTLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v26 = v2;
+      v25 = v2;
       _os_log_impl(&dword_29C9FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Initialized", buf, 0xCu);
     }
 
@@ -53,8 +54,21 @@
     objc_msgSend_reloadTimerState(v2, v20, v21);
   }
 
-  v22 = *MEMORY[0x29EDCA608];
   return v2;
+}
+
+- (void)reloadTimerStateUpdateDuration:(BOOL)duration
+{
+  v5 = objc_msgSend_timers(self->_timerManager, a2, duration);
+  v8 = objc_msgSend_mtMainThreadScheduler(MEMORY[0x29EDC5E58], v6, v7);
+  v10 = objc_msgSend_reschedule_(v5, v9, v8);
+  v13[0] = MEMORY[0x29EDCA5F8];
+  v13[1] = 3221225472;
+  v13[2] = sub_29C9FB15C;
+  v13[3] = &unk_29F33F7F0;
+  v13[4] = self;
+  durationCopy = duration;
+  v12 = objc_msgSend_addSuccessBlock_(v10, v11, v13);
 }
 
 - (id)launchURLForTouchType:(int64_t)type
@@ -76,17 +90,16 @@
 
 - (void)timerDidChange:(id)change
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v4 = MTLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_29C9FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Timer did change notification received", &v8, 0xCu);
+    _os_log_impl(&dword_29C9FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Timer did change notification received", &v7, 0xCu);
   }
 
   objc_msgSend_reloadTimerState(self, v5, v6);
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 - (void)timerViewController:(id)controller timerDidChange:(id)change
@@ -104,14 +117,14 @@
 
 - (void)timerViewControllerButtonTapped:(id)tapped withEvent:(id)event
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   eventCopy = event;
   v6 = MTLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138543362;
+    v17 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_29C9FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Handling start/stop button tapped", &v18, 0xCu);
+    _os_log_impl(&dword_29C9FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Handling start/stop button tapped", &v17, 0xCu);
   }
 
   v9 = objc_msgSend_allTouches(eventCopy, v7, v8);
@@ -121,8 +134,6 @@
   self->_addButtonTapped = 0;
   v15 = objc_msgSend_type(v12, v13, v14);
   objc_msgSend_handleTapWithTouchType_(self, v16, v15);
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 - (void)timerBackgroundViewController:(id)controller timerDidChange:(id)change
@@ -140,14 +151,14 @@
 
 - (void)timerBackgroundViewControllerAddButtonTapped:(id)tapped withEvent:(id)event
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   eventCopy = event;
   v6 = MTLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138543362;
+    v17 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_29C9FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Handling add button tapped", &v18, 0xCu);
+    _os_log_impl(&dword_29C9FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Handling add button tapped", &v17, 0xCu);
   }
 
   v9 = objc_msgSend_allTouches(eventCopy, v7, v8);
@@ -157,8 +168,6 @@
   self->_addButtonTapped = 1;
   v15 = objc_msgSend_type(v12, v13, v14);
   objc_msgSend_handleTapWithTouchType_(self, v16, v15);
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 - (double)defaultDuration

@@ -1,634 +1,3 @@
-uint64_t CTEvaluateCertsForPolicy(unint64_t a1, uint64_t a2, char a3, int a4, void *a5, void *a6, uint64_t a7, uint64_t a8, void *a9, void *a10, __int128 *a11)
-{
-  memset(v41, 170, sizeof(v41));
-  bzero(v42, 0x4C0uLL);
-  v38 = 0xAAAAAAAAAAAAAAAALL;
-  v39 = 0xAAAAAAAAAAAAAAAALL;
-  if (__CFADD__(a1, a2))
-  {
-LABEL_47:
-    __break(0x5513u);
-  }
-
-  v40 = 0xAAAAAAAAAAAAAAAALL;
-  if (a1 + a2 < a1)
-  {
-    goto LABEL_46;
-  }
-
-  v38 = a1;
-  v39 = a1 + a2;
-  result = X509ChainParseCertificateSet(&v38, v42, 4, &v41[2], &v40);
-  if (result)
-  {
-    return result;
-  }
-
-  if (v38 != v39)
-  {
-    return 327690;
-  }
-
-  if ((a4 & 1) == 0 && !v43)
-  {
-    X509ChainResetChain(v41, &v41[2]);
-    v20 = v41[0];
-    v21 = (v41[0] + 296);
-    if (!v41[0])
-    {
-      v21 = &v41[1];
-    }
-
-    *v21 = v44;
-    v41[0] = v42;
-    v44[0] = v20;
-    v44[1] = v41;
-LABEL_23:
-    v37[0] = a7;
-    v37[1] = a8;
-    if (a7)
-    {
-      v24 = a8 == 0;
-    }
-
-    else
-    {
-      v24 = 1;
-    }
-
-    *&v25 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v36 = 0xAAAAAAAAAAAAAAAALL;
-    v34 = v25;
-    v35 = v25;
-    v33 = *a11;
-    LOBYTE(v34) = *(a11 + 16);
-    if (v24)
-    {
-      v26 = a3;
-    }
-
-    else
-    {
-      v26 = 1;
-    }
-
-    BYTE1(v34) = v26;
-    WORD1(v34) = *(a11 + 9);
-    if (!v24)
-    {
-      v27 = *(a11 + 4);
-      *(&v34 + 1) = v37;
-      *&v35 = v27;
-      v28 = oidForPubKeyLength();
-LABEL_33:
-      v30 = *(a11 + 6);
-      *(&v35 + 1) = v28;
-      v36 = v30;
-      result = X509ChainCheckPathWithOptions(12, v41, &v33, 0);
-      if (result)
-      {
-        return result;
-      }
-
-      v31 = v41[0];
-      if (!a5 || !a6 || !v41[0])
-      {
-LABEL_40:
-        if (a10 && v31)
-        {
-          v32 = v31[32];
-          *a10 = v31[31];
-          a10[1] = v32;
-        }
-
-        result = 0;
-        if (a9)
-        {
-          if (v31)
-          {
-            result = 0;
-            *a9 = v31[30];
-          }
-        }
-
-        return result;
-      }
-
-      if (v41[0] < v41[0] + 304)
-      {
-        result = X509CertificateParseKey(v41[0], a5, a6);
-        if (result)
-        {
-          return result;
-        }
-
-        goto LABEL_40;
-      }
-
-      goto LABEL_46;
-    }
-
-    if (*(a11 + 3) < (*(a11 + 3) + 16))
-    {
-      v29 = *(a11 + 4);
-      v28 = *(a11 + 5);
-      *(&v34 + 1) = *(a11 + 3);
-      *&v35 = v29;
-      goto LABEL_33;
-    }
-
-LABEL_46:
-    __break(0x5519u);
-    goto LABEL_47;
-  }
-
-  if (v42[265] != 1)
-  {
-    v23 = &v45;
-    v22 = v42;
-    goto LABEL_20;
-  }
-
-  if (!v41[2])
-  {
-    v22 = 0;
-    goto LABEL_22;
-  }
-
-  v22 = v41[2];
-  do
-  {
-    if ((v22[265] & 1) == 0)
-    {
-      v23 = (v22 + 304);
-      if (v22 < v22 + 304)
-      {
-        goto LABEL_20;
-      }
-
-      goto LABEL_46;
-    }
-
-    v22 = *(v22 + 34);
-  }
-
-  while (v22);
-  v23 = (v41[2] + 304);
-  v22 = v41[2];
-LABEL_20:
-  if (v22 + 304 > v23 || v22 > v22 + 304)
-  {
-    goto LABEL_46;
-  }
-
-LABEL_22:
-  result = X509ChainBuildPathPartial(v22, &v41[2], v41, a4 ^ 1u);
-  if (!result)
-  {
-    goto LABEL_23;
-  }
-
-  return result;
-}
-
-uint64_t CTEvaluatePragueSignatureCMS(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void *a6, void *a7)
-{
-  v9 = 0xAAAAAAAA0000AA01;
-  v8 = xmmword_100163490;
-  BYTE1(v9) = a5;
-  v10 = 0u;
-  v11 = 0u;
-  return CMSVerifySignedDataWithLeaf(a1, a2, a3, a4, &v8, a6, a7);
-}
-
-uint64_t CTEvaluateKDLSignatureCMS(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void *a6, void *a7)
-{
-  v9 = 0xAAAAAAAA0000AA01;
-  v8 = xmmword_1001634A0;
-  BYTE1(v9) = a5;
-  v10 = 0u;
-  v11 = 0u;
-  return CMSVerifySignedDataWithLeaf(a1, a2, a3, a4, &v8, a6, a7);
-}
-
-uint64_t CTVerifyAppleMarkerExtension(void *a1, uint64_t a2)
-{
-  result = 327700;
-  v4 = a1[31];
-  v5 = a1[32];
-  if (v4)
-  {
-    v6 = v5 == 0;
-  }
-
-  else
-  {
-    v6 = 1;
-  }
-
-  if (v6)
-  {
-    return 327707;
-  }
-
-  v7 = a1[30];
-  if ((v7 & 0x100000000) == 0)
-  {
-    if ((v7 & 0x200000000) == 0)
-    {
-      return result;
-    }
-
-    if (!__CFADD__(v4, v5))
-    {
-      v11 = v4 + v5;
-      if (v4 + v5 != -1)
-      {
-        if (v5 > 0x13)
-        {
-          return 327704;
-        }
-
-        v15 = (v11 - 1);
-        if (v11 - 1 >= v4)
-        {
-          v16 = 0;
-          v10 = 0;
-          v17 = 0;
-          while (v15 < v11)
-          {
-            v18 = *v15;
-            if ((v18 - 58) < 0xFFFFFFF6)
-            {
-              return 327705;
-            }
-
-            v19 = (&powersOfTen + v16);
-            if ((&powersOfTen + v16) < &powersOfTen || v19 + 1 > &CTOidCommonName || v19 > v19 + 1)
-            {
-              break;
-            }
-
-            if (v16 == 160 || (v17 & 0x1FFFFFFFFFFFFFFFLL) == 0x14)
-            {
-              goto LABEL_42;
-            }
-
-            v20 = v18 & 0xF;
-            v21 = *v19;
-            if (!is_mul_ok(v20, v21))
-            {
-              goto LABEL_43;
-            }
-
-            v22 = v20 * v21;
-            v14 = __CFADD__(v10, v22);
-            v10 += v22;
-            if (v14)
-            {
-              goto LABEL_41;
-            }
-
-            ++v17;
-            --v15;
-            v16 += 8;
-            if (v15 < v4)
-            {
-              goto LABEL_23;
-            }
-          }
-
-LABEL_40:
-          __break(0x5519u);
-LABEL_41:
-          __break(0x5500u);
-LABEL_42:
-          __break(1u);
-LABEL_43:
-          __break(0x550Cu);
-          goto LABEL_44;
-        }
-
-        goto LABEL_13;
-      }
-    }
-
-LABEL_44:
-    __break(0x5513u);
-    return result;
-  }
-
-  if (__CFADD__(v4, v5))
-  {
-    goto LABEL_44;
-  }
-
-  v8 = v4 + v5;
-  if (v4 + v5 == -1)
-  {
-    goto LABEL_44;
-  }
-
-  v9 = (v8 - 1);
-  if (v8 - 1 >= v4)
-  {
-    LOBYTE(v12) = 0;
-    v10 = 0;
-    while (v9 < v8)
-    {
-      v13 = (*v9 & 0x7F) << (7 * v12);
-      v14 = __CFADD__(v10, v13);
-      v10 += v13;
-      if (v14)
-      {
-        goto LABEL_41;
-      }
-
-      if (--v9 >= v4)
-      {
-        v12 = (v12 + 1);
-        if (v12 < 9)
-        {
-          continue;
-        }
-      }
-
-      goto LABEL_23;
-    }
-
-    goto LABEL_40;
-  }
-
-LABEL_13:
-  v10 = 0;
-LABEL_23:
-  if (v10 == a2)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 589829;
-  }
-}
-
-uint64_t CTVerifyHostname(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = 327702;
-  if (*(a1 + 232) && *(a1 + 224))
-  {
-    v7[1] = a3;
-    v8 = 0xAAAAAAAAAAAAAA00;
-    v7[0] = a2;
-    v4 = X509CertificateParseGeneralNamesContent(a1, sub_1001036E8, v7);
-    if (v8)
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      v5 = 327706;
-    }
-
-    if (v4)
-    {
-      return v4;
-    }
-
-    else
-    {
-      return v5;
-    }
-  }
-
-  return v3;
-}
-
-uint64_t sub_1001036E8(uint64_t result, uint64_t *a2, void *a3)
-{
-  if (result != 2)
-  {
-    return 1;
-  }
-
-  v3 = *a3;
-  v4 = a3[1];
-  v5 = ~*a3;
-  if (v4 > v5)
-  {
-    goto LABEL_55;
-  }
-
-  v6 = &v3[v4];
-  if (&v3[v4] == -1)
-  {
-    goto LABEL_55;
-  }
-
-  v7 = v6 - 1;
-  if (v6)
-  {
-    v8 = v7 >= v3;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (!v8)
-  {
-    goto LABEL_54;
-  }
-
-  if (a3 + 3 < a3)
-  {
-    goto LABEL_54;
-  }
-
-  v9 = a3 + 2;
-  if (a3 + 2 < a3)
-  {
-    goto LABEL_54;
-  }
-
-  v11 = *v7;
-  result = compare_octet_string(a2, a3);
-  if (!result)
-  {
-    goto LABEL_53;
-  }
-
-  if (v11 != 46)
-  {
-    goto LABEL_16;
-  }
-
-  v12 = v4 - 1;
-  if (v4)
-  {
-    if (v12 <= v4)
-    {
-      result = compare_octet_string_raw(a2, v3, v12);
-      if (result)
-      {
-LABEL_16:
-        v13 = a2[1];
-        if (v13 < 3)
-        {
-          return 1;
-        }
-
-        v14 = *a2;
-        if (**a2 != 42)
-        {
-          return 1;
-        }
-
-        if (v14 != -1)
-        {
-          if (v14[1] == 46)
-          {
-            v15 = -2;
-            if (v14 < 0xFFFFFFFFFFFFFFFELL)
-            {
-              v15 = *a2;
-            }
-
-            v16 = -v15;
-            v17 = 2;
-            result = 1;
-            while (v16 != v17)
-            {
-              if (v14[v17] == 46)
-              {
-                if (v13 == v17)
-                {
-                  return 1;
-                }
-
-                v18 = 0;
-                if (v4)
-                {
-                  while (1)
-                  {
-                    v19 = &v3[v18];
-                    if (&v3[v18] >= v6 || v19 < v3)
-                    {
-                      goto LABEL_54;
-                    }
-
-                    if (*v19 == 46)
-                    {
-                      break;
-                    }
-
-                    if (v4 == ++v18)
-                    {
-                      v18 = v4;
-                      break;
-                    }
-                  }
-                }
-
-                v21 = v13 - 1;
-                v8 = v4 >= v18;
-                v22 = v4 - v18;
-                if (!v8)
-                {
-                  goto LABEL_56;
-                }
-
-                if (v21 == v22)
-                {
-                  if (v18 > v5)
-                  {
-                    goto LABEL_55;
-                  }
-
-                  v23 = &v3[v18];
-                  if (&v3[v18] > v6 || v3 > v23)
-                  {
-                    goto LABEL_54;
-                  }
-
-                  result = memcmp(v14 + 1, v23, v13 - 1);
-                  if (!result)
-                  {
-                    goto LABEL_53;
-                  }
-                }
-
-                if (v11 != 46)
-                {
-                  return 1;
-                }
-
-                if (!v22)
-                {
-                  goto LABEL_56;
-                }
-
-                if (v21 != v22 - 1)
-                {
-                  return 1;
-                }
-
-                if (v18 > v5)
-                {
-                  goto LABEL_55;
-                }
-
-                v24 = &v3[v18];
-                if (&v3[v18] > v6 || v3 > v24 || v21 > v22)
-                {
-                  goto LABEL_54;
-                }
-
-                if (!memcmp(v14 + 1, v24, v21))
-                {
-                  goto LABEL_53;
-                }
-
-                return 1;
-              }
-
-              if (v13 == ++v17)
-              {
-                return result;
-              }
-            }
-
-            goto LABEL_55;
-          }
-
-          return 1;
-        }
-
-LABEL_55:
-        __break(0x5513u);
-        goto LABEL_56;
-      }
-
-LABEL_53:
-      result = 0;
-      *v9 = 1;
-      return result;
-    }
-
-LABEL_54:
-    __break(0x5519u);
-    goto LABEL_55;
-  }
-
-LABEL_56:
-  __break(0x5515u);
-  return result;
-}
-
 uint64_t CTEvaluateAppleSSLWithOptionalTemporalCheck(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, char a7)
 {
   v20 = 0xAAAAAAAA00AAAA01;
@@ -1522,7 +891,7 @@ LABEL_189:
           return v49;
         }
 
-        result = sub_100104A64(&v54);
+        result = sub_100104A64(&v54, (a1 + 264));
         if ((result & 1) == 0)
         {
           return v49;
@@ -1634,7 +1003,7 @@ LABEL_133:
       }
 
       v54 += v68;
-      if (v57 == 1)
+      if (v57)
       {
         *(a1 + 266) = v57;
       }
@@ -1701,15 +1070,13 @@ LABEL_157:
   }
 }
 
-uint64_t sub_10010494C(uint64_t *a1, int a2, _BYTE *a3)
+uint64_t sub_10010494C(unint64_t *a1, int a2, BOOL *a3)
 {
   if (*a1 > a1[1])
   {
     __break(0x5519u);
   }
 
-  v6 = *a1;
-  v7 = a1[1];
   if ((ccder_blob_decode_tl() & 1) != 0 || !a2)
   {
     return 0;
@@ -1723,19 +1090,18 @@ uint64_t sub_10010494C(uint64_t *a1, int a2, _BYTE *a3)
   return 1;
 }
 
-uint64_t sub_100104A64(uint64_t a1)
+uint64_t sub_100104A64(uint64_t a1, _BYTE *a2)
 {
   result = ccder_blob_decode_bitstring();
   if (result)
   {
-    *(a1 + 8);
     return 0;
   }
 
   return result;
 }
 
-uint64_t sub_100104B34(uint64_t *a1, void *a2, _BYTE *a3)
+uint64_t sub_100104B34(unint64_t *a1, unint64_t *a2, BOOL *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -1748,7 +1114,7 @@ uint64_t sub_100104B34(uint64_t *a1, void *a2, _BYTE *a3)
         return 1;
       }
 
-      if (*a3 == 1)
+      if (*a3)
       {
         *a2 = 0xAAAAAAAAAAAAAAAALL;
         *a2 = 0xAAAAAAAAAAAAAAABLL;
@@ -1762,7 +1128,7 @@ uint64_t sub_100104B34(uint64_t *a1, void *a2, _BYTE *a3)
   return result;
 }
 
-uint64_t sub_100104C08(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t sub_100104C08(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -1821,7 +1187,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100104D30(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t sub_100104D30(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -1856,7 +1222,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_100104DF4(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t sub_100104DF4(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   v6 = ccder_blob_decode_tl();
   result = 0;
@@ -1902,7 +1268,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t sub_100104F04(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t sub_100104F04(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result == 1)
@@ -1969,7 +1335,7 @@ uint64_t sub_100104FD8(uint64_t result, uint64_t a2, unsigned int a3)
   return result;
 }
 
-uint64_t sub_100105064(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4, unint64_t *a5, int a6)
+uint64_t sub_100105064(uint64_t result, unint64_t a2, unint64_t a3, unint64_t *a4, unint64_t *a5, int a6)
 {
   if (a6)
   {
@@ -2012,14 +1378,14 @@ uint64_t sub_100105064(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4
       if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 36)
       {
 
-        return sub_100106FB4(result);
+        return sub_100106FB4(result, a4, a5);
       }
 
       if (*a2 != 0x66463F78648862ALL || *(a2 + 8) != 22)
       {
         if (*a2 == 0xC6463F78648862ALL && *(a2 + 8) == 19)
         {
-          result = ccder_blob_check_null();
+          result = ccder_blob_check_null(result);
           if (!result)
           {
             return result;
@@ -2038,7 +1404,7 @@ uint64_t sub_100105064(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 29)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2059,7 +1425,7 @@ uint64_t sub_100105064(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4
               return sub_1001073E8(result, a4, a5);
             }
 
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2074,7 +1440,7 @@ LABEL_282:
         return 1;
       }
 
-      result = ccder_blob_check_null();
+      result = ccder_blob_check_null(result);
       if (!result)
       {
         return result;
@@ -2086,7 +1452,7 @@ LABEL_282:
     case 0xAuLL:
       if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 5122)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -2107,7 +1473,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 4610)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2119,7 +1485,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 278)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2131,7 +1497,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3073)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2143,7 +1509,7 @@ LABEL_282:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 1793)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2156,7 +1522,7 @@ LABEL_282:
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3329)
           {
 LABEL_214:
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2168,7 +1534,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 2305)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2180,7 +1546,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 513)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2192,7 +1558,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 1025)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2204,7 +1570,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 769)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2216,7 +1582,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 1537)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2228,7 +1594,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 6145)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2240,7 +1606,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 9217)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2252,7 +1618,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 8193)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2264,7 +1630,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 8705)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2282,7 +1648,7 @@ LABEL_214:
 
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3074)
           {
-            result = ccder_blob_check_null();
+            result = ccder_blob_check_null(result);
             if (!result)
             {
               return result;
@@ -2295,14 +1661,14 @@ LABEL_214:
           if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 304)
           {
 
-            return sub_100107184();
+            return sub_100107184(result, a4, a5);
           }
 
           v35 = 1;
           goto LABEL_165;
         }
 
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -2318,7 +1684,7 @@ LABEL_204:
     case 0xBuLL:
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x10901066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -2330,7 +1696,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x10301066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -2342,7 +1708,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x10601066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -2354,7 +1720,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x11801066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -2366,7 +1732,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x12401066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -2378,7 +1744,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x11901066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -2390,7 +1756,7 @@ LABEL_204:
 
       if (*a2 == 0x66463F78648862ALL && *(a2 + 3) == 0x21901066463F786)
       {
-        result = ccder_blob_check_null();
+        result = ccder_blob_check_null(result);
         if (!result)
         {
           return result;
@@ -2430,7 +1796,7 @@ LABEL_165:
 
   if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 832)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(result);
     if (!result)
     {
       return result;
@@ -2442,7 +1808,7 @@ LABEL_165:
 
   if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 3586)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(result);
     if (!result)
     {
       return result;
@@ -2455,7 +1821,7 @@ LABEL_165:
 
   if (*a2 == 0x66463F78648862ALL && *(a2 + 8) == 4354)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(result);
     if (!result)
     {
       return result;
@@ -2556,7 +1922,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t X509CertificateParseSPKI(unint64_t *a1, unint64_t *a2, unint64_t *a3, void *a4)
+uint64_t X509CertificateParseSPKI(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -2691,38 +2057,38 @@ uint64_t X509CertificateParseKey(uint64_t a1, void *a2, void *a3)
   return result;
 }
 
-uint64_t X509CertificateCheckSignatureDigest(char a1, uint64_t a2, void *a3, __int128 *a4, __int128 *a5)
+uint64_t X509CertificateCheckSignatureDigest(char a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v20 = 0uLL;
-  v19 = 0uLL;
-  v17 = 0;
-  v18 = 0;
+  v16 = 0uLL;
+  v15 = 0uLL;
+  v13 = 0;
+  v14 = 0;
   if (a2 + 88 > (a2 + 104))
   {
     goto LABEL_22;
   }
 
-  v9 = X509CertificateParseSPKI((a2 + 88), &v20, &v19, &v17);
-  if (!v9)
+  v7 = X509CertificateParseSPKI((a2 + 88), &v16, &v15, &v13);
+  if (!v7)
   {
-    v9 = 655632;
-    v11 = compare_octet_string(&v20, &rsaEncryption);
-    v12 = validateSignatureRSA;
-    if (v11)
+    v7 = 655632;
+    v9 = compare_octet_string(&v16, &rsaEncryption);
+    v10 = validateSignatureRSA;
+    if (v9)
     {
-      v13 = compare_octet_string(&v20, &ecPublicKey);
-      v12 = validateSignatureEC;
-      if (v13)
+      v11 = compare_octet_string(&v16, &ecPublicKey);
+      v10 = validateSignatureEC;
+      if (v11)
       {
         return 655617;
       }
     }
 
-    if (v14 = v12, v16 = *a5, v15 = *a4, (a1) && !compare_octet_string_raw(a4, &CTOidSha1, 5uLL) || (a1 & 4) != 0 && !compare_octet_string_raw(a4, &CTOidSha256, 9uLL) || (a1 & 8) != 0 && !compare_octet_string_raw(a4, &CTOidSha384, 9uLL) || (a1 & 0x10) != 0 && !compare_octet_string_raw(a4, &CTOidSha512, 9uLL))
+    if (v12 = v10, (a1) && !compare_octet_string_raw(a4, &CTOidSha1, 5uLL) || (a1 & 4) != 0 && !compare_octet_string_raw(a4, &CTOidSha256, 9uLL) || (a1 & 8) != 0 && !compare_octet_string_raw(a4, &CTOidSha384, 9uLL) || (a1 & 0x10) != 0 && !compare_octet_string_raw(a4, &CTOidSha512, 9uLL))
     {
-      if ((v18 || !v17) && (a3[1] || !*a3))
+      if ((v14 || !v13) && (a3[1] || !*a3))
       {
-        if (v14(v17))
+        if (v12(v13))
         {
           return 0;
         }
@@ -2738,30 +2104,31 @@ LABEL_22:
     }
   }
 
-  return v9;
+  return v7;
 }
 
-uint64_t X509CertificateCheckSignature(char a1, uint64_t a2, uint64_t *a3, uint64_t a4, __int128 *a5)
+uint64_t X509CertificateCheckSignature(char a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  *&v8 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v12[2] = v8;
-  v12[3] = v8;
-  v12[0] = v8;
-  v12[1] = v8;
-  v11[0] = v12;
-  v11[1] = 64;
-  v10 = 0uLL;
-  result = sub_100106174(a3, a4, v11, &v10);
+  *&v6 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v10[2] = v6;
+  v10[3] = v6;
+  v10[0] = v6;
+  v10[1] = v6;
+  v9[0] = v10;
+  v9[1] = 64;
+  v8[0] = 0;
+  v8[1] = 0;
+  result = sub_100106174(a3, a4, v9, v8);
   if (!result)
   {
-    return X509CertificateCheckSignatureDigest(a1, a2, v11, &v10, a5);
+    return X509CertificateCheckSignatureDigest(a1, a2, v9, v8);
   }
 
   return result;
 }
 
-uint64_t sub_100106174(uint64_t *a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t sub_100106174(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   result = compare_octet_string_raw(a2, &sha1WithRSA_oid, 9uLL);
   if (!result)
@@ -2805,8 +2172,6 @@ LABEL_8:
     *(a3 + 8) = 20;
     ccsha1_di();
 LABEL_14:
-    v10 = *a1;
-    v9 = a1[1];
     ccdigest();
     return 0;
   }
@@ -2838,47 +2203,40 @@ LABEL_15:
   return result;
 }
 
-uint64_t X509CertificateCheckSignatureWithPublicKey(uint64_t *a1, uint64_t a2, __int128 *a3, uint64_t *a4, __int128 *a5, __int128 *a6)
+uint64_t X509CertificateCheckSignatureWithPublicKey(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  *&v11 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v23[2] = v11;
-  v23[3] = v11;
-  v23[0] = v11;
-  v23[1] = v11;
-  v21 = v23;
-  v22 = 64;
-  v20 = 0uLL;
-  v12 = sub_100106174(a4, a5, &v21, &v20);
-  if (v12)
+  *&v7 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v16[2] = v7;
+  v16[3] = v7;
+  v16[0] = v7;
+  v16[1] = v7;
+  v14 = v16;
+  v15 = 64;
+  v13 = 0uLL;
+  v8 = sub_100106174(a4, a5, &v14, &v13);
+  if (v8)
   {
-    return v12;
+    return v8;
   }
 
-  v12 = 655617;
-  v13 = compare_octet_string(a2, &rsaEncryption);
-  v14 = validateSignatureRSA;
-  if (v13)
+  v8 = 655617;
+  v9 = compare_octet_string(a2, &rsaEncryption);
+  v10 = validateSignatureRSA;
+  if (v9)
   {
-    v15 = compare_octet_string(a2, &ecPublicKey);
-    v14 = validateSignatureEC;
-    if (v15)
+    v11 = compare_octet_string(a2, &ecPublicKey);
+    v10 = validateSignatureEC;
+    if (v11)
     {
-      return v12;
+      return v8;
     }
   }
 
-  v18 = *a5;
-  v19 = *a6;
-  if (a3)
-  {
-    v16 = *a3;
-  }
-
   result = *a1;
-  if ((a1[1] || !result) && (!v21 || v22))
+  if ((a1[1] || !result) && (!v14 || v15))
   {
-    if (v14(result))
+    if (v10(result))
     {
       return 0;
     }
@@ -3129,40 +2487,43 @@ LABEL_60:
 BOOL X509CertificateValidAtTime(uint64_t a1, time_t a2)
 {
   result = 0;
-  v5 = 0;
-  v6 = 0;
+  v7 = 0;
+  v8 = 0;
   if (a1 && a2 != -1)
   {
-    return !X509CertificateGetNotBefore(a1, &v6) && !X509CertificateGetNotAfter(a1, &v5) && difftime(a2, v6) >= 0.0 && difftime(a2, v5) <= 0.0;
+    X509CertificateGetNotBefore(a1, &v8);
+    result = 0;
+    if (!v5)
+    {
+      X509CertificateGetNotAfter(a1, &v7);
+      if (!v6 && difftime(a2, v8) >= 0.0 && difftime(a2, v7) <= 0.0)
+      {
+        return 1;
+      }
+    }
   }
 
   return result;
 }
 
-unint64_t X509CertificateGetNotBefore(uint64_t a1, time_t *a2)
+void X509CertificateGetNotBefore(uint64_t a1, time_t *a2)
 {
-  v4[0] = 0xAAAAAAAAAAAAAAAALL;
-  v4[1] = 0xAAAAAAAAAAAAAAAALL;
-  result = X509CertificateParseValidity(a1);
-  if (!result)
+  v3[0] = 0xAAAAAAAAAAAAAAAALL;
+  v3[1] = 0xAAAAAAAAAAAAAAAALL;
+  if (!X509CertificateParseValidity(a1, v3, 0))
   {
-    return sub_100106B10(v4, a2);
+    sub_100106B10(v3, a2);
   }
-
-  return result;
 }
 
-unint64_t X509CertificateGetNotAfter(uint64_t a1, time_t *a2)
+void X509CertificateGetNotAfter(uint64_t a1, time_t *a2)
 {
-  v4[0] = 0xAAAAAAAAAAAAAAAALL;
-  v4[1] = 0xAAAAAAAAAAAAAAAALL;
-  result = X509CertificateParseValidity(a1);
-  if (!result)
+  v3[0] = 0xAAAAAAAAAAAAAAAALL;
+  v3[1] = 0xAAAAAAAAAAAAAAAALL;
+  if (!X509CertificateParseValidity(a1, 0, v3))
   {
-    return sub_100106B10(v4, a2);
+    sub_100106B10(v3, a2);
   }
-
-  return result;
 }
 
 BOOL X509CertificateIsValid(uint64_t a1)
@@ -3172,39 +2533,39 @@ BOOL X509CertificateIsValid(uint64_t a1)
   return X509CertificateValidAtTime(a1, v2);
 }
 
-uint64_t X509CertificateParseValidity(uint64_t result)
+uint64_t X509CertificateParseValidity(uint64_t result, unint64_t *a2, unint64_t *a3)
 {
-  v1 = 720906;
+  v3 = 720906;
   if (!result)
   {
-    return v1;
+    return v3;
   }
 
-  v2 = *(result + 72);
-  v3 = *(result + 80);
-  if (!v2 || v3 == 0)
+  v4 = *(result + 72);
+  v5 = *(result + 80);
+  if (!v4 || v5 == 0)
   {
-    return v1;
+    return v3;
   }
 
-  if (__CFADD__(v2, v3))
+  if (__CFADD__(v4, v5))
   {
     __break(0x5513u);
   }
 
   else
   {
-    v5 = v2 + v3;
-    if (v2 <= v5)
+    v7 = v4 + v5;
+    if (v4 <= v7)
     {
-      v6[0] = *(result + 72);
-      v6[1] = v5;
-      if (!ccder_blob_decode_Time(v6))
+      v9[0] = *(result + 72);
+      v9[1] = v7;
+      if (!ccder_blob_decode_Time(v9, a2))
       {
         return 720907;
       }
 
-      if (ccder_blob_decode_Time(v6))
+      if (ccder_blob_decode_Time(v9, a3))
       {
         return 0;
       }
@@ -3217,105 +2578,96 @@ uint64_t X509CertificateParseValidity(uint64_t result)
   return result;
 }
 
-unint64_t sub_100106B10(uint64_t *a1, time_t *a2)
+void sub_100106B10(void *a1, time_t *a2)
 {
-  v2 = 720909;
   if (!a1)
   {
-    return v2;
+    return;
   }
 
-  v4 = a1[1];
-  if ((v4 | 2) != 0xF)
+  v3 = a1[1];
+  if ((v3 | 2) != 0xF)
   {
-    return v2;
+    return;
   }
 
-  v12.tm_zone = 0xAAAAAAAAAAAAAAAALL;
-  *v13 = 0;
-  *&v6 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v12.tm_mon = v6;
-  *&v12.tm_isdst = v6;
-  *&v12.tm_sec = v6;
-  v14 = 0;
-  v7 = *a1;
-  result = __memcpy_chk();
-  if (result > result + v4)
+  v11.tm_zone = 0xAAAAAAAAAAAAAAAALL;
+  *v12 = 0;
+  *&v5 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v11.tm_mon = v5;
+  *&v11.tm_isdst = v5;
+  *&v11.tm_sec = v5;
+  v13 = 0;
+  v6 = __memcpy_chk();
+  if (v6 > v6 + v3)
   {
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
-  v9 = &v13[v4];
-  if (&v13[v4] >= &v15 || &v13[v4] < v13)
+  v7 = &v12[v3];
+  if (&v12[v3] >= &v14 || &v12[v3] < v12)
   {
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
-  if (v4 > 0xF)
+  if (v3 > 0xF)
   {
     __break(1u);
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
-  v13[v4] = 0;
-  if (v4 != 13)
+  v12[v3] = 0;
+  if (v3 != 13)
   {
-    if (v9 + 1 >= v9 && v9 + 1 <= &v15)
+    if (v7 + 1 >= v7 && v7 + 1 <= &v14)
     {
-      result = strptime(v13, "%Y%m%d%H%M%SZ", &v12);
+      v8 = strptime(v12, "%Y%m%d%H%M%SZ", &v11);
       goto LABEL_15;
     }
 
-LABEL_24:
+LABEL_23:
     __break(0x5519u);
   }
 
-  if (BYTE5(v14))
+  if (BYTE5(v13))
   {
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
-  result = strptime(v13, "%y%m%d%H%M%SZ", &v12);
-  if (result && v12.tm_year >= 150)
+  v8 = strptime(v12, "%y%m%d%H%M%SZ", &v11);
+  if (v8 && v11.tm_year >= 150)
   {
-    v12.tm_year -= 100;
+    v11.tm_year -= 100;
   }
 
 LABEL_15:
-  v10 = a1[1];
-  if (v10 >= 0x11)
+  v9 = a1[1];
+  if (v9 >= 0x11)
+  {
+LABEL_25:
+    __break(0x5512u);
+    goto LABEL_26;
+  }
+
+  if (__CFADD__(v12, v9))
   {
 LABEL_26:
-    __break(0x5512u);
-    goto LABEL_27;
+    __break(0x5513u);
+    return;
   }
 
-  if (!__CFADD__(v13, v10))
+  if (v8 == &v12[v9])
   {
-    if (result != &v13[v10])
+    v10 = timegm(&v11);
+    if (v10 != -1)
     {
-      return 720910;
+      if (a2)
+      {
+        *a2 = v10;
+      }
     }
-
-    v11 = timegm(&v12);
-    if (v11 == -1)
-    {
-      return 720911;
-    }
-
-    v2 = 0;
-    if (a2)
-    {
-      *a2 = v11;
-    }
-
-    return v2;
   }
-
-LABEL_27:
-  __break(0x5513u);
-  return result;
 }
 
 BOOL sub_100106CC8(unint64_t *a1, void *a2, unint64_t *a3)
@@ -3406,7 +2758,7 @@ LABEL_20:
   return v7 == v10;
 }
 
-uint64_t sub_100106E04(unint64_t *a1, void *a2, unint64_t *a3)
+uint64_t sub_100106E04(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
@@ -3449,12 +2801,12 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_100106FB4(unint64_t *a1)
+uint64_t sub_100106FB4(unint64_t *a1, void *a2, unint64_t *a3)
 {
   result = ccder_blob_decode_tl();
   if (result)
   {
-    v3 = *a1;
+    v5 = *a1;
     if (*a1 >= 0x5555555555555556)
     {
       __break(0x5513u);
@@ -3462,15 +2814,15 @@ uint64_t sub_100106FB4(unint64_t *a1)
 
     else
     {
-      v4 = a1[1];
-      if (v4 != v3 - 0x5555555555555556)
+      v6 = a1[1];
+      if (v6 != v5 - 0x5555555555555556)
       {
         return 0;
       }
 
-      if (v3 <= v4)
+      if (v5 <= v6)
       {
-        *a1 = v3 - 0x5555555555555556;
+        *a1 = v5 - 0x5555555555555556;
         return 1;
       }
     }
@@ -3528,7 +2880,7 @@ LABEL_13:
 
 uint64_t sub_100107318(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, unint64_t *a5)
 {
-  result = ccder_blob_check_null();
+  result = ccder_blob_check_null(a1);
   if (result)
   {
     if (a2 > 0xFFFFFFFFFFFFFFF6)
@@ -3731,7 +3083,7 @@ LABEL_34:
     v10 = 0;
     v11 = a2 + 304 * a3;
     v12 = ~a2;
-    v13 = (a4 + 1);
+    v13 = a4 + 1;
     v14 = a3 - 1;
     v15 = (a2 + 272);
     while ((v10 * 304) >> 64 == (304 * v10) >> 63 && 304 * v10 <= v12)
@@ -3902,7 +3254,7 @@ unint64_t X509ChainBuildPathPartial(unint64_t result, unint64_t *a2, unint64_t *
   }
 
   *a3 = 0;
-  v5 = (a3 + 1);
+  v5 = a3 + 1;
   if (a3 + 1 < a3 || (v6 = result, a3[1] = a3, *(result + 288) = 0, result + 288 > result + 296) || (*a3 = result, a3[1] = result + 288, *(result + 296) = a3, result + 304 < result) || (v7 = result + 120, result + 120 > result + 136))
   {
 LABEL_38:
@@ -3913,24 +3265,24 @@ LABEL_38:
   {
     while (1)
     {
-      result = compare_octet_string(v7, (v6 + 13));
+      result = compare_octet_string(v7, v6 + 104);
       if (!result)
       {
         break;
       }
 
-      v10 = (v6 + 21);
-      if (!v6[22])
+      v10 = v6 + 168;
+      if (!*(v6 + 176))
       {
         goto LABEL_13;
       }
 
-      if (v10 > (v6 + 23))
+      if (v10 > v6 + 184)
       {
         goto LABEL_38;
       }
 
-      result = X509ChainGetCertificateUsingKeyIdentifier(a2, (v6 + 21));
+      result = X509ChainGetCertificateUsingKeyIdentifier(a2, v6 + 168);
       if (!result)
       {
         goto LABEL_13;
@@ -3976,17 +3328,17 @@ LABEL_13:
           while (v11);
         }
 
-        if (v10 > (v6 + 23))
+        if (v10 > v6 + 184)
         {
           goto LABEL_38;
         }
 
-        if (sub_1001079C0((v6 + 21), 1))
+        if (sub_1001079C0(v6 + 168, 1))
         {
           return 0;
         }
 
-        v15 = sub_100107A7C((v6 + 21));
+        v15 = sub_100107A7C(v6 + 168);
         if (a4)
         {
           v16 = 0;
@@ -4034,7 +3386,7 @@ LABEL_22:
         if (v11 <= v11 + 38)
         {
           *v14 = v11;
-          *v5 = v11 + 36;
+          *v5 = (v11 + 36);
           v7 = (v11 + 15);
           if (v11 + 15 <= v11 + 17)
           {
@@ -4050,7 +3402,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t sub_1001079C0(uint64_t result, int a2)
+unint64_t sub_1001079C0(unint64_t result, int a2)
 {
   v2 = &numAppleRoots;
   if (!a2)
@@ -4106,7 +3458,7 @@ uint64_t sub_1001079C0(uint64_t result, int a2)
   return result;
 }
 
-uint64_t sub_100107A7C(uint64_t result)
+unint64_t sub_100107A7C(unint64_t result)
 {
   v1 = numBAARoots;
   if (numBAARoots)
@@ -4372,7 +3724,7 @@ LABEL_46:
         goto LABEL_133;
       }
 
-      result = X509CertificateCheckSignature(a1, v15, (v8 + 16), v8 + 40, (v8 + 56));
+      result = X509CertificateCheckSignature(a1, v15, v8 + 16, v8 + 40);
       if (result)
       {
         return result;
@@ -4440,7 +3792,7 @@ LABEL_71:
 
         if (compare_octet_string(&v54[2], *(a3 + 32)) || compare_octet_string(v54, *(a3 + 24)))
         {
-          if (X509CertificateCheckSignatureWithPublicKey(*(a3 + 24), *(a3 + 32), *(a3 + 40), (v27 + 16), (v27 + 40), (v27 + 56)))
+          if (X509CertificateCheckSignatureWithPublicKey(*(a3 + 24), *(a3 + 32), *(a3 + 40), v27 + 16, v27 + 40))
           {
 LABEL_82:
             v31 = 589832;
@@ -4515,10 +3867,10 @@ LABEL_82:
     }
   }
 
-  v43 = (v27 + 16);
+  v43 = v27 + 16;
   v44 = v38 > v39 || v43 > v27 + 32;
   v45 = v27 + 40;
-  v46 = (v27 + 56);
+  v46 = v27 + 56;
   if (v44 || v45 > v46 || v46 > v27 + 72)
   {
 LABEL_133:
@@ -4526,7 +3878,7 @@ LABEL_133:
     goto LABEL_134;
   }
 
-  if (X509CertificateCheckSignature(29, v38, v43, v45, v46))
+  if (X509CertificateCheckSignature(29, v38, v43, v45))
   {
     v31 = 589836;
     return v26 | v31;
@@ -4562,13 +3914,6 @@ void sub_100108574()
   v2 = v0;
   v3 = &symptom_set_additional_qualifier;
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "reportClientIPAddress - Couldn't link symptoms -- bailing {_symptom_create: %p, _symptom_set_qualifier: %p, _symptom_send: %p, symptom_set_additional_qualifier: %p}", v1, 0x2Au);
-}
-
-void sub_100108614(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100012CA0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void sub_1001086A0()
@@ -4650,12 +3995,11 @@ void sub_100108E44(void *a1, char a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%@: Terminating connection, deleting identity and clearing public token. Connect immediately? %{BOOL}d Connected on %lu interfaces", &v7, 0x1Cu);
 }
 
-void sub_100108F08(uint64_t a1, uint64_t a2)
+void sub_100108F08()
 {
-  *(*a2 + 24);
   sub_100012CC8();
   sub_10002F05C();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
 void sub_100108FA8()
@@ -4679,12 +4023,11 @@ void sub_10010910C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100109188(uint64_t a1, uint64_t *a2)
+void sub_100109188()
 {
-  v2 = *a2;
   sub_100012CC8();
   sub_10002F05C();
-  _os_log_fault_impl(v3, v4, OS_LOG_TYPE_FAULT, v5, v6, 0x16u);
+  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
 }
 
 void sub_100109280()
@@ -4873,40 +4216,30 @@ void sub_10010A158(id *a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "handleReceivedMessage %@ could not convert to XPC object!", v4, 0xCu);
 }
 
-void sub_10010A1F0(uint64_t *a1)
+void sub_10010A2D0()
 {
-  v1 = *a1;
-  sub_10006C65C();
-  _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Unrecognized token received from %@", v3, 0xCu);
-}
-
-void sub_10010A2D0(uint64_t a1)
-{
-  v1 = *(a1 + 120);
   sub_10006C65C();
   sub_10006C63C();
 }
 
-void sub_10010A3A8(uint64_t a1)
+void sub_10010A3A8()
 {
-  v1 = *(a1 + 120);
   sub_10006C65C();
   sub_10006C63C();
 }
 
-void sub_10010A480(uint64_t a1)
+void sub_10010A480()
 {
-  v1 = *(a1 + 120);
   sub_10006C65C();
   sub_10006C63C();
 }
 
-void sub_10010A558()
+void sub_10010A558(uint64_t a1)
 {
-  v0 = APSPrettyPrintCollection();
+  v1 = APSPrettyPrintCollection();
   sub_100012CC8();
   sub_10006C64C();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void sub_10010A5F0(_xpc_connection_s *a1)
@@ -4978,20 +4311,20 @@ void sub_10010A9C4(uint64_t a1)
   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%@: Received ack from courier with no outgoing message in flight. Queue count: 0", &v1, 0xCu);
 }
 
-void sub_10010AA44(uint64_t a1)
+void sub_10010AA44()
 {
-  sub_100070654(a1, __stack_chk_guard);
+  sub_100070654(__stack_chk_guard);
   sub_10007063C();
   sub_100012CA0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10010AAB4(uint64_t a1)
+void sub_10010AAB4()
 {
-  sub_100070654(a1, __stack_chk_guard);
+  sub_100070654(__stack_chk_guard);
   sub_100070624();
   sub_100012CA0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_10010AB34()
@@ -5001,20 +4334,20 @@ void sub_10010AB34()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10010ABB8(uint64_t a1)
+void sub_10010ABB8()
 {
-  v1 = *(sub_100070654(a1, __stack_chk_guard) + 32);
+  sub_100070654(__stack_chk_guard);
   sub_100070624();
   sub_100012CA0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_10010AC38(uint64_t a1)
+void sub_10010AC38()
 {
-  sub_100070654(a1, __stack_chk_guard);
+  sub_100070654(__stack_chk_guard);
   sub_100070624();
   sub_100012CA0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_10010ACB8()
@@ -5052,44 +4385,44 @@ void sub_10010AF40()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10010AFC4(uint64_t a1)
+void sub_10010AFC4()
 {
-  sub_100070654(a1, __stack_chk_guard);
+  sub_100070654(__stack_chk_guard);
   sub_10007063C();
   sub_100012CA0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10010B034(uint64_t a1)
+void sub_10010B034()
 {
-  sub_100070654(a1, __stack_chk_guard);
+  sub_100070654(__stack_chk_guard);
   sub_100070624();
   sub_100012CA0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_10010B0B8(uint64_t a1)
+void sub_10010B0B8()
 {
-  sub_100070654(a1, __stack_chk_guard);
+  sub_100070654(__stack_chk_guard);
   sub_100070624();
   sub_100012CA0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_10010B13C(uint64_t a1)
+void sub_10010B13C()
 {
-  sub_100070654(a1, __stack_chk_guard);
+  sub_100070654(__stack_chk_guard);
   sub_10007063C();
   sub_100012CA0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10010B1AC(uint64_t a1)
+void sub_10010B1AC()
 {
-  sub_100070654(a1, __stack_chk_guard);
+  sub_100070654(__stack_chk_guard);
   sub_10007063C();
   sub_100012CA0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10010B244(uint64_t a1, uint64_t a2)
@@ -5175,6 +4508,13 @@ void sub_10010B8F0(id *a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "Production device set to invalid push environment: %@", v4, 0xCu);
 }
 
+void sub_10010B988(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_100012CAC(&_mh_execute_header, a2, a3, "Failed to authenticate with policy %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10010B9F8(uint64_t *a1, NSObject *a2)
 {
   v2 = *a1;
@@ -5195,14 +4535,6 @@ void sub_10010BCFC(int a1, NSObject *a2)
   v2 = 134217984;
   v3 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "SecItemAdd() failed: %ld", &v2, 0xCu);
-}
-
-void sub_10010BD78(uint64_t a1, uint64_t *a2)
-{
-  v7 = *a2;
-  v8 = *(a1 + 16);
-  sub_10004F2A0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void sub_10010BE50(_xpc_connection_s *a1)
@@ -5372,6 +4704,62 @@ void sub_10010CF10(int a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "APSMessageStore - Reindexing the DB failed with SQLite result: %d", v2, 8u);
 }
 
+void sub_10010D0A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CFStringRef APSOutgoingMessageRecordCopyGUID(CFAllocatorRef, APSOutgoingMessageRecordRef)";
+  sub_100012CAC(&_mh_execute_header, &_os_log_default, a3, "APSMessageStore - NULL message passed to %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10010D11C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CFStringRef APSOutgoingMessageRecordCopyGUIDUnlocked(CFAllocatorRef, APSOutgoingMessageRecordRef)";
+  sub_100012CAC(&_mh_execute_header, &_os_log_default, a3, "APSMessageStore - NULL message passed to %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10010D198(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "int64_t APSOutgoingMessageRecordGetDate(APSOutgoingMessageRecordRef)";
+  sub_100012CAC(&_mh_execute_header, &_os_log_default, a3, "APSMessageStore - NULL message passed to %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10010D214(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void APSOutgoingMessageRecordBulkCopy(APSOutgoingMessageRecordRef, int64_t *, CFStringRef *, CFStringRef *, CFStringRef *, CFStringRef *, CFDataRef *, BOOL *, int64_t *, int64_t *, int64_t *, int64_t *, int64_t *, int64_t *)";
+  sub_100012CAC(&_mh_execute_header, &_os_log_default, a3, "APSMessageStore - NULL message passed to %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10010D290(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CFStringRef APSIncomingMessageRecordCopyGUID(CFAllocatorRef, APSIncomingMessageRecordRef)";
+  sub_100012CAC(&_mh_execute_header, &_os_log_default, a3, "APSMessageStore - NULL message passed to %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10010D30C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CFStringRef APSIncomingMessageRecordCopyGUIDUnlocked(CFAllocatorRef, APSIncomingMessageRecordRef)";
+  sub_100012CAC(&_mh_execute_header, &_os_log_default, a3, "APSMessageStore - NULL message passed to %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10010D388(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "int64_t APSIncomingMessageRecordGetDate(APSIncomingMessageRecordRef)";
+  sub_100012CAC(&_mh_execute_header, &_os_log_default, a3, "APSMessageStore - NULL message passed to %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10010D404(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void APSIncomingMessageRecordBulkCopy(APSIncomingMessageRecordRef, int64_t *, CFStringRef *, CFDataRef *, CFStringRef *, CFStringRef *, CFStringRef *, CFDataRef *, BOOL *, BOOL *, int64_t *, int64_t *, int64_t *, BOOL *, CFDataRef *, APSIncomingMessagePushType *, APSIncomingMessageFlags *)";
+  sub_100012CAC(&_mh_execute_header, &_os_log_default, a3, "APSMessageStore - NULL message passed to %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10010D4DC(void *a1)
 {
   v1 = objc_begin_catch(a1);
@@ -5392,18 +4780,18 @@ void sub_10010D588(int a1)
   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "IOAllowPowerChange failed!  Error: %d", v1, 8u);
 }
 
-void sub_10010D694(uint64_t a1)
+void sub_10010D694()
 {
-  sub_100012D00(a1, __stack_chk_guard);
+  sub_100012D00(__stack_chk_guard);
   sub_10007063C();
-  sub_1000BC318(&_mh_execute_header, v1, v2, "%@: Re-holding power assertion %@", v3, v4, v5, v6, v7);
+  sub_1000BC318(&_mh_execute_header, v0, v1, "%@: Re-holding power assertion %@", v2, v3, v4, v5);
 }
 
-void sub_10010D6FC(uint64_t a1)
+void sub_10010D6FC()
 {
-  sub_100012D00(a1, __stack_chk_guard);
+  sub_100012D00(__stack_chk_guard);
   sub_10007063C();
-  sub_1000BC318(&_mh_execute_header, v1, v2, "%@: Holding power assertion %@", v3, v4, v5, v6, v7);
+  sub_1000BC318(&_mh_execute_header, v0, v1, "%@: Holding power assertion %@", v2, v3, v4, v5);
 }
 
 void sub_10010D764(uint64_t a1, NSObject *a2)
@@ -5419,18 +4807,18 @@ void sub_10010D764(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "%@: Power assertion %@ will automatically time out in %f seconds", &v4, 0x20u);
 }
 
-void sub_10010D7F8(uint64_t a1)
+void sub_10010D7F8()
 {
-  sub_100012D00(a1, __stack_chk_guard);
+  sub_100012D00(__stack_chk_guard);
   sub_10007063C();
-  sub_1000BC318(&_mh_execute_header, v1, v2, "%@: Releasing power assertion %@", v3, v4, v5, v6, v7);
+  sub_1000BC318(&_mh_execute_header, v0, v1, "%@: Releasing power assertion %@", v2, v3, v4, v5);
 }
 
-void sub_10010D860(uint64_t a1)
+void sub_10010D860()
 {
-  sub_100012D00(a1, __stack_chk_guard);
+  sub_100012D00(__stack_chk_guard);
   sub_10007063C();
-  sub_1000BC318(&_mh_execute_header, v1, v2, "%@: Disabling timeout of power assertion %@", v3, v4, v5, v6, v7);
+  sub_1000BC318(&_mh_execute_header, v0, v1, "%@: Disabling timeout of power assertion %@", v2, v3, v4, v5);
 }
 
 void sub_10010D8C8(uint64_t a1, NSObject *a2)
@@ -5452,308 +4840,308 @@ void sub_10010D940(uint64_t a1, int a2, os_log_t log)
 void sub_10010DA98(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid tag in array metadata: 0x%x (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 37);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid tag in array metadata: 0x%x", v1);
   __break(1u);
 }
 
 void sub_10010DADC()
 {
   printf("TB_ASSERT: (vErr == TB_ERROR_SUCCESS) && tb_message_subrange failed, \b\b (%s:%d)\n", "aon_microapsd.c", 74);
-  _os_crash();
+  _os_crash("TB_ASSERT: (vErr == TB_ERROR_SUCCESS) && tb_message_subrange failed");
   __break(1u);
 }
 
 void sub_10010DB18()
 {
   printf("TB_ASSERT: (err == TB_ERROR_SUCCESS) && failed to wrap packed buffer, \b\b (%s:%d)\n", "aon_microapsd.c", 55);
-  _os_crash();
+  _os_crash("TB_ASSERT: (err == TB_ERROR_SUCCESS) && failed to wrap packed buffer");
   __break(1u);
 }
 
 void sub_10010DB54(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid tag in array metadata: 0x%x (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 77);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid tag in array metadata: 0x%x", v1);
   __break(1u);
 }
 
 void sub_10010DB98(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 638);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010DBDC(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 419);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010DC20(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 494);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010DC64(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 569);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010DCA8(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid tag in array metadata: 0x%x (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 1720);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid tag in array metadata: 0x%x", v1);
   __break(1u);
 }
 
 void sub_10010DCEC()
 {
   printf("TB_ASSERT: (vErr == TB_ERROR_SUCCESS) && tb_message_subrange failed, \b\b (%s:%d)\n", "aon_microapsd.c", 1757);
-  _os_crash();
+  _os_crash("TB_ASSERT: (vErr == TB_ERROR_SUCCESS) && tb_message_subrange failed");
   __break(1u);
 }
 
 void sub_10010DD28()
 {
   printf("TB_ASSERT: (err == TB_ERROR_SUCCESS) && failed to wrap packed buffer, \b\b (%s:%d)\n", "aon_microapsd.c", 1738);
-  _os_crash();
+  _os_crash("TB_ASSERT: (err == TB_ERROR_SUCCESS) && failed to wrap packed buffer");
   __break(1u);
 }
 
 void sub_10010DD64(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid tag in array metadata: 0x%x (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 1760);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid tag in array metadata: 0x%x", v1);
   __break(1u);
 }
 
 void sub_10010DDA8(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 398);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010DDEC(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 2085);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010DE30(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 473);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010DE74()
 {
   printf("TB_ASSERT: (err == TB_ERROR_SUCCESS || err == TB_ERROR_USER_FAILURE) && unexpected tb_error_t returned, \b\b (%s:%d)\n", "aon_microapsd.c", 2521);
-  _os_crash();
+  _os_crash("TB_ASSERT: (err == TB_ERROR_SUCCESS || err == TB_ERROR_USER_FAILURE) && unexpected tb_error_t returned");
   __break(1u);
 }
 
 void sub_10010DEB0()
 {
   printf("TB_ASSERT: (cmp.encoded) && completion block must be called before returning, \b\b (%s:%d)\n", "aon_microapsd.c", 2522);
-  _os_crash();
+  _os_crash("TB_ASSERT: (cmp.encoded) && completion block must be called before returning");
   __break(1u);
 }
 
 void sub_10010DEEC()
 {
   printf("TB_ASSERT: (server->forcekeepalive != ((void*)0)) && implementation for ForceKeepAlive is not present, \b\b (%s:%d)\n", "aon_microapsd.c", 2517);
-  _os_crash();
+  _os_crash("TB_ASSERT: (server->forcekeepalive != ((void*)0)) && implementation for ForceKeepAlive is not present");
   __break(1u);
 }
 
 void sub_10010DF28()
 {
   printf("TB_ASSERT: (err == TB_ERROR_SUCCESS || err == TB_ERROR_USER_FAILURE) && unexpected tb_error_t returned, \b\b (%s:%d)\n", "aon_microapsd.c", 2504);
-  _os_crash();
+  _os_crash("TB_ASSERT: (err == TB_ERROR_SUCCESS || err == TB_ERROR_USER_FAILURE) && unexpected tb_error_t returned");
   __break(1u);
 }
 
 void sub_10010DF64()
 {
   printf("TB_ASSERT: (cmp.encoded) && completion block must be called before returning, \b\b (%s:%d)\n", "aon_microapsd.c", 2505);
-  _os_crash();
+  _os_crash("TB_ASSERT: (cmp.encoded) && completion block must be called before returning");
   __break(1u);
 }
 
 void sub_10010DFA0()
 {
   printf("TB_ASSERT: (server->stopkeepalive != ((void*)0)) && implementation for StopKeepAlive is not present, \b\b (%s:%d)\n", "aon_microapsd.c", 2500);
-  _os_crash();
+  _os_crash("TB_ASSERT: (server->stopkeepalive != ((void*)0)) && implementation for StopKeepAlive is not present");
   __break(1u);
 }
 
 void sub_10010DFDC()
 {
   printf("TB_ASSERT: (err == TB_ERROR_SUCCESS || err == TB_ERROR_USER_FAILURE) && unexpected tb_error_t returned, \b\b (%s:%d)\n", "aon_microapsd.c", 2485);
-  _os_crash();
+  _os_crash("TB_ASSERT: (err == TB_ERROR_SUCCESS || err == TB_ERROR_USER_FAILURE) && unexpected tb_error_t returned");
   __break(1u);
 }
 
 void sub_10010E018()
 {
   printf("TB_ASSERT: (cmp.encoded) && completion block must be called before returning, \b\b (%s:%d)\n", "aon_microapsd.c", 2486);
-  _os_crash();
+  _os_crash("TB_ASSERT: (cmp.encoded) && completion block must be called before returning");
   __break(1u);
 }
 
 void sub_10010E054()
 {
   printf("TB_ASSERT: (server->resumekeepalive != ((void*)0)) && implementation for ResumeKeepAlive is not present, \b\b (%s:%d)\n", "aon_microapsd.c", 2481);
-  _os_crash();
+  _os_crash("TB_ASSERT: (server->resumekeepalive != ((void*)0)) && implementation for ResumeKeepAlive is not present");
   __break(1u);
 }
 
 void sub_10010E090()
 {
   printf("TB_ASSERT: (err == TB_ERROR_SUCCESS || err == TB_ERROR_USER_FAILURE) && unexpected tb_error_t returned, \b\b (%s:%d)\n", "aon_microapsd.c", 2468);
-  _os_crash();
+  _os_crash("TB_ASSERT: (err == TB_ERROR_SUCCESS || err == TB_ERROR_USER_FAILURE) && unexpected tb_error_t returned");
   __break(1u);
 }
 
 void sub_10010E0CC()
 {
   printf("TB_ASSERT: (cmp.encoded) && completion block must be called before returning, \b\b (%s:%d)\n", "aon_microapsd.c", 2469);
-  _os_crash();
+  _os_crash("TB_ASSERT: (cmp.encoded) && completion block must be called before returning");
   __break(1u);
 }
 
 void sub_10010E108()
 {
   printf("TB_ASSERT: (server->initkeepalive != ((void*)0)) && implementation for InitKeepAlive is not present, \b\b (%s:%d)\n", "aon_microapsd.c", 2464);
-  _os_crash();
+  _os_crash("TB_ASSERT: (server->initkeepalive != ((void*)0)) && implementation for InitKeepAlive is not present");
   __break(1u);
 }
 
 void sub_10010E144(uint64_t a1)
 {
   printf("TB_FATAL: unrecognized selector: %llu (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 2526);
-  _os_crash();
+  _os_crash("TB_FATAL: unrecognized selector: %llu", v1);
   __break(1u);
 }
 
 void sub_10010E184(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 2036);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010E1C8(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid tag in array metadata: 0x%x (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 2547);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid tag in array metadata: 0x%x", v1);
   __break(1u);
 }
 
 void sub_10010E20C()
 {
   printf("TB_ASSERT: (vErr == TB_ERROR_SUCCESS) && tb_message_subrange failed, \b\b (%s:%d)\n", "aon_microapsd.c", 2584);
-  _os_crash();
+  _os_crash("TB_ASSERT: (vErr == TB_ERROR_SUCCESS) && tb_message_subrange failed");
   __break(1u);
 }
 
 void sub_10010E248()
 {
   printf("TB_ASSERT: (err == TB_ERROR_SUCCESS) && failed to wrap packed buffer, \b\b (%s:%d)\n", "aon_microapsd.c", 2565);
-  _os_crash();
+  _os_crash("TB_ASSERT: (err == TB_ERROR_SUCCESS) && failed to wrap packed buffer");
   __break(1u);
 }
 
 void sub_10010E284()
 {
   printf("TB_ASSERT: (aonmicroapsd_telemetryeventrecord__decode(msg, &item) == TB_ERROR_SUCCESS) && failed to decode type: AONMicroAPSD.TelemetryEventRecord, \b\b (%s:%d)\n", "aon_microapsd.c", 2570);
-  _os_crash();
+  _os_crash("TB_ASSERT: (aonmicroapsd_telemetryeventrecord__decode(msg, &item) == TB_ERROR_SUCCESS) && failed to decode type: AONMicroAPSD.TelemetryEventRecord");
   __break(1u);
 }
 
 void sub_10010E2C0(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid tag in array metadata: 0x%x (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 2587);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid tag in array metadata: 0x%x", v1);
   __break(1u);
 }
 
 void sub_10010E304()
 {
   printf("TB_ASSERT: (aonmicroapsd_telemetryeventrecord__decode(msg, &item) == TB_ERROR_SUCCESS) && failed to decode type: AONMicroAPSD.TelemetryEventRecord, \b\b (%s:%d)\n", "aon_microapsd.c", 2579);
-  _os_crash();
+  _os_crash("TB_ASSERT: (aonmicroapsd_telemetryeventrecord__decode(msg, &item) == TB_ERROR_SUCCESS) && failed to decode type: AONMicroAPSD.TelemetryEventRecord");
   __break(1u);
 }
 
 void sub_10010E340()
 {
   printf("TB_ASSERT: (aonmicroapsd_telemetryeventrecord__v_raw_encode(&msg, events) == TB_ERROR_SUCCESS) && failed to encode type: AONMicroAPSD.TelemetryEventRecord, \b\b (%s:%d)\n", "aon_microapsd.c", 2764);
-  _os_crash();
+  _os_crash("TB_ASSERT: (aonmicroapsd_telemetryeventrecord__v_raw_encode(&msg, events) == TB_ERROR_SUCCESS) && failed to encode type: AONMicroAPSD.TelemetryEventRecord");
   __break(1u);
 }
 
 void sub_10010E37C()
 {
   printf("TB_ASSERT: (aonmicroapsd_microapsdperfsamples__decode(msg, &samples) == TB_ERROR_SUCCESS) && failed to decode type: AONMicroAPSD.MicroAPSDPerfSamples, \b\b (%s:%d)\n", "aon_microapsd.c", 2868);
-  _os_crash();
+  _os_crash("TB_ASSERT: (aonmicroapsd_microapsdperfsamples__decode(msg, &samples) == TB_ERROR_SUCCESS) && failed to decode type: AONMicroAPSD.MicroAPSDPerfSamples");
   __break(1u);
 }
 
 void sub_10010E3B8()
 {
   printf("TB_ASSERT: (server->reportperfsamples != ((void*)0)) && implementation for ReportPerfSamples is not present, \b\b (%s:%d)\n", "aon_microapsd.c", 2870);
-  _os_crash();
+  _os_crash("TB_ASSERT: (server->reportperfsamples != ((void*)0)) && implementation for ReportPerfSamples is not present");
   __break(1u);
 }
 
 void sub_10010E3F4()
 {
   printf("TB_ASSERT: (server->reporttelemetryevents != ((void*)0)) && implementation for ReportTelemetryEvents is not present, \b\b (%s:%d)\n", "aon_microapsd.c", 2862);
-  _os_crash();
+  _os_crash("TB_ASSERT: (server->reporttelemetryevents != ((void*)0)) && implementation for ReportTelemetryEvents is not present");
   __break(1u);
 }
 
 void sub_10010E430()
 {
   printf("TB_ASSERT: (server->savekeepalivestate != ((void*)0)) && implementation for SaveKeepAliveState is not present, \b\b (%s:%d)\n", "aon_microapsd.c", 2852);
-  _os_crash();
+  _os_crash("TB_ASSERT: (server->savekeepalivestate != ((void*)0)) && implementation for SaveKeepAliveState is not present");
   __break(1u);
 }
 
 void sub_10010E46C(uint64_t a1)
 {
   printf("TB_FATAL: unrecognized selector: %llu (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 2874);
-  _os_crash();
+  _os_crash("TB_FATAL: unrecognized selector: %llu", v1);
   __break(1u);
 }
 
 void sub_10010E4AC(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 621);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010E4F0(unsigned __int8 a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 548);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
 }
 
 void sub_10010E534(uint64_t a1)
 {
   printf("TB_FATAL: invalid value: unexpected case value, %llx (%s:%d)\n", a1, "/Library/Caches/com.apple.xbs/Binaries/ApplePushService/install/TempContent/Objects/ApplePushService.build/apsd.build/DerivedSources/aon_microapsd.c", 994);
-  _os_crash();
+  _os_crash("TB_FATAL: invalid value: unexpected case value, %llx", v1);
   __break(1u);
   __DataStorage.init(bytes:length:)();
 }

@@ -2986,21 +2986,21 @@ void __83__STUsageDetailsViewModelCoordinator__unbouncedLoadViewModelWithComplet
 {
   OUTLINED_FUNCTION_2_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_264BA2000, v0, v1, "Could not find expected device in ST core data: %@. Empty usage will be shown.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_5(&dword_264BA2000, v0, v1, "Could not find expected device in ST core data: %@. Empty usage will be shown.", v2, v3, v4, v5);
 }
 
 void __208__STUsageDetailsViewModelCoordinator__loadAllHistoricalDeviceActivityForUserWithAltDSID_deviceActivityIdentifier_selectedItemDisplayName_selectedDay_selectedWeek_hadUsageData_referenceDate_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_264BA2000, v0, v1, "Failed to fetch all usage details using DeviceActivity: %{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_5(&dword_264BA2000, v0, v1, "Failed to fetch all usage details using DeviceActivity: %{public}@", v2, v3, v4, v5);
 }
 
 void __208__STUsageDetailsViewModelCoordinator__loadAllHistoricalDeviceActivityForUserWithAltDSID_deviceActivityIdentifier_selectedItemDisplayName_selectedDay_selectedWeek_hadUsageData_referenceDate_completionHandler___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_2_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_264BA2000, v0, v1, "Failed to fetch previous week usage details using DeviceActivity: %{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_5(&dword_264BA2000, v0, v1, "Failed to fetch previous week usage details using DeviceActivity: %{public}@", v2, v3, v4, v5);
 }
 
 @end

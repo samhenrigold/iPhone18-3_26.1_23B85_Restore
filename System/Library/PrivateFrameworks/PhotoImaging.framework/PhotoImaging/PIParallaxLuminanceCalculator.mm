@@ -15,7 +15,7 @@
   {
     v11 = v10;
     v12 = [objc_alloc(MEMORY[0x1E69B3BE8]) initWithTargetPixelCount:0x80000];
-    [v11 extent];
+    objc_msgSend_extent(v11);
     v13 = NUPixelSizeFromCGSize();
     [v12 scaleForImageSize:{v13, v14}];
     NUScaleToDouble();
@@ -49,7 +49,7 @@ LABEL_8:
     {
       v20 = v19;
       v21 = [objc_alloc(MEMORY[0x1E69B3BE8]) initWithTargetPixelCount:0x80000];
-      [v20 extent];
+      objc_msgSend_extent(v20);
       v22 = NUPixelSizeFromCGSize();
       [v21 scaleForImageSize:{v22, v23}];
       NUScaleToDouble();
@@ -187,13 +187,13 @@ LABEL_11:
     }
 
     NURectNormalize();
-    [v13 extent];
+    objc_msgSend_extent(v13);
     NURectDenormalize();
     v51 = v50;
     v53 = v52;
     v55 = v54;
     v57 = v56;
-    [v13 extent];
+    objc_msgSend_extent(v13);
     v61 = v53 + v57;
     v63 = v58 + v62;
     if (v51 + v55 >= v63)
@@ -276,7 +276,7 @@ LABEL_11:
 
     v72 = [v13 imageByCroppingToRect:{v68, v70, v55, v57}];
 
-    [v72 extent];
+    objc_msgSend_extent(v72);
     if (CGRectIsEmpty(v80))
     {
       [MEMORY[0x1E69B3A48] invalidError:@"image extent is empty after cropping to text area" object:v72];
@@ -292,7 +292,7 @@ LABEL_48:
     goto LABEL_49;
   }
 
-  [v13 extent];
+  objc_msgSend_extent(v13);
   if (!CGRectIsEmpty(v77))
   {
     v71 = v13;
@@ -319,7 +319,7 @@ LABEL_50:
   sRGBColorSpace = [MEMORY[0x1E69B3A10] sRGBColorSpace];
   v65 = 0u;
   v64 = 0u;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   NUPixelRectFromCGRect();
   mEMORY[0x1E69B3A58] = [MEMORY[0x1E69B3A58] sharedFactory];
   surfaceStoragePool = [mEMORY[0x1E69B3A58] surfaceStoragePool];

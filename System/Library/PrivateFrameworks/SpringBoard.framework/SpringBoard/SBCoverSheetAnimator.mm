@@ -40,22 +40,23 @@
 {
   animatedCopy = animated;
   completionCopy = completion;
-  v9 = 0.0;
+  v9 = completionCopy;
+  v10 = 0.0;
   if (sheet)
   {
-    v10 = 0;
-    v11 = 0.0;
+    v11 = 0;
+    v12 = 0.0;
   }
 
   else
   {
     if (animatedCopy)
     {
-      v12 = SBLogTelemetrySignposts();
-      if (os_signpost_enabled(v12))
+      v13 = SBLogTelemetrySignposts(completionCopy);
+      if (os_signpost_enabled(v13))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SB_LOCKSCREEN_UNLOCK_ANIMATION_START", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SB_LOCKSCREEN_UNLOCK_ANIMATION_START", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
       }
 
       kdebug_trace();
@@ -63,56 +64,56 @@
       [defaultCenter postNotificationName:@"SBCoverSheetWillAnimateDeactivation" object:self];
     }
 
-    v14 = objc_alloc_init(SBLockToAppStatusBarAnimator);
+    v15 = objc_alloc_init(SBLockToAppStatusBarAnimator);
     statusBarAnimator = self->_statusBarAnimator;
-    self->_statusBarAnimator = v14;
+    self->_statusBarAnimator = v15;
 
     [(SBLockToAppStatusBarAnimator *)self->_statusBarAnimator animateStatusBarFromLockToHome];
     [(SBCoverSheetAnimator *)self _prepareIconAnimatorIncludingLockScreen:1];
-    v11 = 1.0;
+    v12 = 1.0;
     [(SBIconZoomAnimator *)self->_iconAnimator setFraction:1.0];
     [MEMORY[0x277D75940] _synchronizeDrawing];
-    v16 = MEMORY[0x277CF0BA0];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke;
-    v29[3] = &unk_2783A98A0;
-    v29[4] = self;
-    v30 = completionCopy;
-    v17 = [v16 sentinelWithQueue:MEMORY[0x277D85CD0] signalCount:2 completion:v29];
+    v17 = MEMORY[0x277CF0BA0];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke;
+    v30[3] = &unk_2783A98A0;
+    v30[4] = self;
+    v31 = v9;
+    v18 = [v17 sentinelWithQueue:MEMORY[0x277D85CD0] signalCount:2 completion:v30];
     iconAnimator = self->_iconAnimator;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke_2;
-    v27[3] = &unk_2783A9398;
-    v10 = v17;
-    v28 = v10;
-    [(SBIconZoomAnimator *)iconAnimator animateToFraction:v27 afterDelay:0.0 withCompletion:0.0];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke_2;
+    v28[3] = &unk_2783A9398;
+    v11 = v18;
+    v29 = v11;
+    [(SBIconZoomAnimator *)iconAnimator animateToFraction:v28 afterDelay:0.0 withCompletion:0.0];
   }
 
   if (animatedCopy)
   {
-    v9 = 0.5;
+    v10 = 0.5;
   }
 
-  v19 = MEMORY[0x277D75D18];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke_3;
-  v25[3] = &unk_2783AE7A0;
-  v25[4] = self;
+  v20 = MEMORY[0x277D75D18];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke_3;
+  v26[3] = &unk_2783AE7A0;
+  v26[4] = self;
   sheetCopy = sheet;
-  *&v25[5] = v11;
-  *&v25[6] = v9;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke_4;
-  v22[3] = &unk_2783A9C98;
-  v23 = v10;
-  v24 = completionCopy;
-  v20 = completionCopy;
-  v21 = v10;
-  [v19 animateWithDuration:v25 animations:v22 completion:v9];
+  *&v26[5] = v12;
+  *&v26[6] = v10;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke_4;
+  v23[3] = &unk_2783A9C98;
+  v24 = v11;
+  v25 = v9;
+  v21 = v9;
+  v22 = v11;
+  [v20 animateWithDuration:v26 animations:v23 completion:v10];
 }
 
 uint64_t __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke(uint64_t a1)
@@ -145,7 +146,7 @@ uint64_t __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion_
   return [v2 _setWallpaperToLocked:v3 duration:v4];
 }
 
-uint64_t __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke_4(uint64_t a1)
+uint64_t (**__68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion___block_invoke_4(uint64_t a1))(void)
 {
   v2 = *(a1 + 32);
   if (v2)
@@ -156,7 +157,7 @@ uint64_t __68__SBCoverSheetAnimator_animateToCoverSheet_animated_withCompletion_
   result = *(a1 + 40);
   if (result)
   {
-    return (*(result + 16))();
+    return result[2]();
   }
 
   return result;

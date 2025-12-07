@@ -125,7 +125,7 @@ BOOL __49__HSTServerStage_initWithName_description_queue___block_invoke(id a1, _
     v7 = v6;
     if (v6)
     {
-      if (([(__CFString *)v6 isEqualToString:@"com.apple.NanoSettings"]& 1) != 0 || ([(__CFString *)v7 isEqualToString:@"com.apple.Preferences"]& 1) != 0)
+      if ([(__CFString *)v6 isEqualToString:@"com.apple.NanoSettings"]& 1) != 0 || (v8 = [(__CFString *)v7 isEqualToString:@"com.apple.Preferences"], (v8))
       {
         v5 = 1;
 LABEL_13:
@@ -133,10 +133,10 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v8 = MTLoggingPlugin();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = MTLoggingPlugin(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __49__HSTServerStage_initWithName_description_queue___block_invoke_cold_1(v7, v8);
+        __49__HSTServerStage_initWithName_description_queue___block_invoke_cold_1(v7, v10);
       }
     }
 
@@ -228,7 +228,7 @@ LABEL_14:
         v15 = &off_1093D0;
         v16[1] = -1431655766;
         v16[0] = -1;
-        HSAccessProvider::CreateServerSocket(@"127.0.0.1", (&loc_CAFC + 2), v12);
+        HSAccessProvider::CreateServerSocket(v12, @"127.0.0.1", (&loc_CAFC + 2));
         if ((v16[0] & 0x80000000) == 0)
         {
           close(v16[0]);
@@ -297,16 +297,25 @@ LABEL_14:
 
 - (void)initWithName:description:queue:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)initWithName:description:queue:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
+}
+
+- (void)initWithName:(uint64_t)a1 description:queue:.cold.3(uint64_t a1)
+{
+  LODWORD(v7) = 136446210;
+  *(&v7 + 4) = (*(*a1 + 16))(a1);
+  OUTLINED_FUNCTION_3_1(&dword_0, v1, v2, "Failed to register mach port in bootstrap namespace: %{public}s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __49__HSTServerStage_initWithName_description_queue___block_invoke_cold_1(uint64_t a1, NSObject *a2)
@@ -318,9 +327,17 @@ void __49__HSTServerStage_initWithName_description_queue___block_invoke_cold_1(u
 
 void __49__HSTServerStage_initWithName_description_queue___block_invoke_cold_2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
+}
+
+- (void)setPreferenceValue:(uint64_t)a1 forKey:.cold.1(uint64_t a1)
+{
+  LODWORD(v7) = 136446210;
+  *(&v7 + 4) = (*(*a1 + 16))(a1);
+  OUTLINED_FUNCTION_3_1(&dword_0, v1, v2, "Failed to create server socket: %{public}s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

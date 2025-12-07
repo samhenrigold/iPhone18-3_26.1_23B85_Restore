@@ -8,7 +8,7 @@
 
 - (int)fixUp
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (!self->_fixedup)
   {
     if ((self->flavor | 2) == 2)
@@ -21,48 +21,47 @@
       v7 = MEMORY[0x1E695DF70];
       v10 = objc_msgSend_count(v6, v8, v9);
       v12 = objc_msgSend_arrayWithCapacity_(v7, v11, v10);
+      v36 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
-      v41 = 0u;
-      v42 = 0u;
       v13 = v6;
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v39, v43, 16);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v36, v40, 16);
       if (v15)
       {
         v16 = v15;
-        v17 = *v40;
+        v17 = *v37;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v40 != v17)
+            if (*v37 != v17)
             {
               objc_enumerationMutation(v13);
             }
 
-            v19 = sub_1B9D98EE4(*(*(&v39 + 1) + 8 * i));
+            v19 = sub_1B9D98EE4(*(*(&v36 + 1) + 8 * i));
             objc_msgSend_addObject_(v12, v20, v19);
           }
 
-          v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v21, &v39, v43, 16);
+          v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v21, &v36, v40, 16);
         }
 
         while (v16);
       }
 
       objc_storeStrong(&self->certs, v12);
-      v38 = 0;
-      v22 = self->entitlements;
-      v23 = CESerializeCFDictionary();
-      v24 = MEMORY[0x1E69E50B8];
-      if (v23 != *MEMORY[0x1E69E50B8])
+      v35 = 0;
+      v22 = CESerializeCFDictionary();
+      v23 = MEMORY[0x1E69E50B8];
+      if (v22 != *MEMORY[0x1E69E50B8])
       {
-        v25 = sub_1B9D98960();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v24 = sub_1B9D98960();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          *v37 = 0;
+          *v34 = 0;
 LABEL_29:
-          _os_log_error_impl(&dword_1B9D96000, v25, OS_LOG_TYPE_ERROR, "Invalid entitlements in a provisioning profile", v37, 2u);
+          _os_log_error_impl(&dword_1B9D96000, v24, OS_LOG_TYPE_ERROR, "Invalid entitlements in a provisioning profile", v34, 2u);
           goto LABEL_19;
         }
 
@@ -70,14 +69,14 @@ LABEL_29:
       }
 
       derEntitlementsStorage = self->derEntitlementsStorage;
-      self->derEntitlementsStorage = v38;
+      self->derEntitlementsStorage = v35;
 
-      if (sub_1B9DC8A48(self->derEntitlementsStorage, &self->ceCtx) != *v24)
+      if (sub_1B9DC8A48(self->derEntitlementsStorage, &self->ceCtx) != *v23)
       {
-        v25 = sub_1B9D98960();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v24 = sub_1B9D98960();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          *v37 = 0;
+          *v34 = 0;
           goto LABEL_29;
         }
 
@@ -85,52 +84,51 @@ LABEL_19:
         v2 = -402620413;
 
 LABEL_23:
-        goto LABEL_24;
+        return v2;
       }
 
 LABEL_27:
       v2 = 0;
       self->_fixedup = 1;
-      goto LABEL_24;
+      return v2;
     }
 
-    v26 = MISProfileGetValue(self, @"DeveloperCertificates");
+    v25 = MISProfileGetValue(self, @"DeveloperCertificates");
     certs = self->certs;
-    self->certs = v26;
+    self->certs = v25;
 
     v13 = MISProfileGetValue(self, @"Entitlements");
-    v28 = sub_1B9DC8A48(v13, &self->ceCtx);
-    v29 = MEMORY[0x1E69E50B8];
-    if (v28 == *MEMORY[0x1E69E50B8])
+    v27 = sub_1B9DC8A48(v13, &self->ceCtx);
+    v28 = MEMORY[0x1E69E50B8];
+    if (v27 == *MEMORY[0x1E69E50B8])
     {
-      v38 = 0;
-      ceCtx = self->ceCtx;
-      if (CEQueryContextToCFDictionary() == *v29)
+      v35 = 0;
+      if (CEQueryContextToCFDictionary() == *v28)
       {
-        v36 = self->entitlements;
-        self->entitlements = v38;
+        v33 = self->entitlements;
+        self->entitlements = v35;
 
         goto LABEL_27;
       }
 
-      v30 = sub_1B9D98960();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = sub_1B9D98960();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        *v37 = 0;
-        v31 = v37;
+        *v34 = 0;
+        v30 = v34;
         goto LABEL_31;
       }
     }
 
     else
     {
-      v30 = sub_1B9D98960();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = sub_1B9D98960();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v38) = 0;
-        v31 = &v38;
+        LOWORD(v35) = 0;
+        v30 = &v35;
 LABEL_31:
-        _os_log_error_impl(&dword_1B9D96000, v30, OS_LOG_TYPE_ERROR, "Invalid entitlements in a provisioning profile", v31, 2u);
+        _os_log_error_impl(&dword_1B9D96000, v29, OS_LOG_TYPE_ERROR, "Invalid entitlements in a provisioning profile", v30, 2u);
       }
     }
 
@@ -139,10 +137,7 @@ LABEL_31:
     goto LABEL_23;
   }
 
-  v2 = 0;
-LABEL_24:
-  v34 = *MEMORY[0x1E69E9840];
-  return v2;
+  return 0;
 }
 
 - (void)dealloc

@@ -25,7 +25,6 @@
 - (void)_performLibraryRecentMusicRequestWithCompletion:(id)completion;
 - (void)_performStarterPackMultiplexRequestWithCompletion:(id)completion;
 - (void)_performStarterPackRoomRequestWithURL:(id)l completion:(id)completion;
-- (void)_unarchivedCombinedResponsesDictionary;
 - (void)_writeData:(id)data toURL:(id)l;
 - (void)performWithResponseHandler:(id)handler;
 @end
@@ -114,21 +113,20 @@ uint64_t __97__NMSMusicRecommendationsRequest__continueToLibraryPinsRequestWithC
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 72);
-    v3 = *(*(a1 + 72) + 16);
+    v2 = *(*(a1 + 72) + 16);
 
-    return v3();
+    return v2();
   }
 
   else
   {
     [*(a1 + 40) setLibraryPinsResponse:*(a1 + 48)];
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 56);
-    v7 = *(a1 + 64);
-    v8 = *(a1 + 72);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 56);
+    v6 = *(a1 + 64);
+    v7 = *(a1 + 72);
 
-    return [v6 _continueToRecentMusicRequestWithContext:v5 queue:v7 responseHandler:v8];
+    return [v5 _continueToRecentMusicRequestWithContext:v4 queue:v6 responseHandler:v7];
   }
 }
 
@@ -204,31 +202,30 @@ uint64_t __99__NMSMusicRecommendationsRequest__continueToHeavyRotationRequestWit
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 72);
-    v3 = *(*(a1 + 72) + 16);
+    v2 = *(*(a1 + 72) + 16);
 
-    return v3();
+    return v2();
   }
 
   else
   {
     [*(a1 + 40) setHeavyRotationResponse:*(a1 + 48)];
-    v5 = [*(a1 + 40) numberOfRecentMusicModelObjects];
-    v6 = [*(a1 + 40) minimumNumberOfRecentMusicModelObjects];
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 64);
-    v10 = *(a1 + 72);
-    if (v5 >= v6)
+    v4 = [*(a1 + 40) numberOfRecentMusicModelObjects];
+    v5 = [*(a1 + 40) minimumNumberOfRecentMusicModelObjects];
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 56);
+    v8 = *(a1 + 64);
+    v9 = *(a1 + 72);
+    if (v4 >= v5)
     {
 
-      return [v8 _continueToProcessResultsWithContext:v7 queue:v9 responseHandler:v10];
+      return [v7 _continueToProcessResultsWithContext:v6 queue:v8 responseHandler:v9];
     }
 
     else
     {
 
-      return [v8 _continueToLibraryRecentMusicRecommedationsWithContext:v7 queue:v9 responseHandler:v10];
+      return [v7 _continueToLibraryRecentMusicRecommedationsWithContext:v6 queue:v8 responseHandler:v9];
     }
   }
 }
@@ -277,46 +274,45 @@ uint64_t __111__NMSMusicRecommendationsRequest__continueToLibraryRecentMusicReco
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 72);
-    v3 = *(*(a1 + 72) + 16);
+    v2 = *(*(a1 + 72) + 16);
 
-    return v3();
+    return v2();
   }
 
   else
   {
     [*(a1 + 40) setLibraryRecentMusicResponse:*(a1 + 48)];
-    v5 = [*(a1 + 40) numberOfRecentMusicModelObjects];
-    if (v5 < [*(a1 + 40) minimumNumberOfRecentMusicModelObjects] && (+[NMSSubscriptionManager sharedManager](NMSSubscriptionManager, "sharedManager"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "hasCapability:", 1), v6, v7))
+    v4 = [*(a1 + 40) numberOfRecentMusicModelObjects];
+    if (v4 < [*(a1 + 40) minimumNumberOfRecentMusicModelObjects] && (+[NMSSubscriptionManager sharedManager](NMSSubscriptionManager, "sharedManager"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "hasCapability:", 1), v5, v6))
     {
-      v8 = *(a1 + 56);
-      if (v8[8] == 1 && ([v8 _unarchivedCombinedResponsesDictionary], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "objectForKeyedSubscript:", @"editorial-cachedLoadedOutput"), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v8 = *(a1 + 56), v10))
+      v7 = *(a1 + 56);
+      if (v7[8] == 1 && ([v7 _unarchivedCombinedResponsesDictionary], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKeyedSubscript:", @"editorial-cachedLoadedOutput"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v7 = *(a1 + 56), v9))
       {
-        v11 = *(a1 + 40);
-        v12 = *(a1 + 64);
-        v13 = *(a1 + 72);
+        v10 = *(a1 + 40);
+        v11 = *(a1 + 64);
+        v12 = *(a1 + 72);
 
-        return [v8 _continueToLegacyEditorialRequestWithContext:v11 queue:v12 responseHandler:v13];
+        return [v7 _continueToLegacyEditorialRequestWithContext:v10 queue:v11 responseHandler:v12];
       }
 
       else
       {
-        v18 = *(a1 + 40);
-        v19 = *(a1 + 64);
-        v20 = *(a1 + 72);
+        v17 = *(a1 + 40);
+        v18 = *(a1 + 64);
+        v19 = *(a1 + 72);
 
-        return [v8 _continueToStarterPackMultiplexRequestWithContext:v18 queue:v19 responseHandler:v20];
+        return [v7 _continueToStarterPackMultiplexRequestWithContext:v17 queue:v18 responseHandler:v19];
       }
     }
 
     else
     {
-      v14 = *(a1 + 40);
-      v15 = *(a1 + 56);
-      v16 = *(a1 + 64);
-      v17 = *(a1 + 72);
+      v13 = *(a1 + 40);
+      v14 = *(a1 + 56);
+      v15 = *(a1 + 64);
+      v16 = *(a1 + 72);
 
-      return [v15 _continueToProcessResultsWithContext:v14 queue:v16 responseHandler:v17];
+      return [v14 _continueToProcessResultsWithContext:v13 queue:v15 responseHandler:v16];
     }
   }
 }
@@ -370,19 +366,18 @@ void __106__NMSMusicRecommendationsRequest__continueToStarterPackMultiplexReques
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 72);
-    v3 = *(*(a1 + 72) + 16);
+    v2 = *(*(a1 + 72) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = [*(a1 + 40) results];
-    v5 = [v4 firstSection];
-    v6 = [v5 loadAdditionalContentURL];
+    v3 = [*(a1 + 40) results];
+    v4 = [v3 firstSection];
+    v5 = [v4 loadAdditionalContentURL];
 
-    [*(a1 + 48) _continueToStarterPackRoomRequestWithURL:v6 context:*(a1 + 56) queue:*(a1 + 64) responseHandler:*(a1 + 72)];
+    [*(a1 + 48) _continueToStarterPackRoomRequestWithURL:v5 context:*(a1 + 56) queue:*(a1 + 64) responseHandler:*(a1 + 72)];
   }
 }
 
@@ -431,21 +426,20 @@ uint64_t __105__NMSMusicRecommendationsRequest__continueToStarterPackRoomRequest
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 72);
-    v3 = *(*(a1 + 72) + 16);
+    v2 = *(*(a1 + 72) + 16);
 
-    return v3();
+    return v2();
   }
 
   else
   {
     [*(a1 + 40) setStarterPackResponse:*(a1 + 48)];
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 56);
-    v7 = *(a1 + 64);
-    v8 = *(a1 + 72);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 56);
+    v6 = *(a1 + 64);
+    v7 = *(a1 + 72);
 
-    return [v6 _continueToProcessResultsWithContext:v5 queue:v7 responseHandler:v8];
+    return [v5 _continueToProcessResultsWithContext:v4 queue:v6 responseHandler:v7];
   }
 }
 
@@ -600,7 +594,7 @@ uint64_t __92__NMSMusicRecommendationsRequest__continueToLibraryImportWithContex
 
 - (void)_performLibraryPinsRequestWithCompletion:(id)completion
 {
-  v32[4] = *MEMORY[0x277D85DE8];
+  v31[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CD5ED8];
   completionCopy = completion;
   v4 = objc_alloc_init(v3);
@@ -608,46 +602,44 @@ uint64_t __92__NMSMusicRecommendationsRequest__continueToLibraryImportWithContex
   identityKind = [MEMORY[0x277CD5EC8] identityKind];
   [v4 setItemKind:identityKind];
 
-  v23 = objc_alloc(MEMORY[0x277CD6018]);
-  v31[0] = *MEMORY[0x277CD5BC8];
+  v22 = objc_alloc(MEMORY[0x277CD6018]);
+  v30[0] = *MEMORY[0x277CD5BC8];
   v6 = MEMORY[0x277CD6018];
   v7 = *MEMORY[0x277CD59C0];
-  v30[0] = *MEMORY[0x277CD59A0];
-  v30[1] = v7;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
-  v8 = [v6 propertySetWithProperties:v24];
-  v32[0] = v8;
-  v31[1] = *MEMORY[0x277CD5BC0];
+  v29[0] = *MEMORY[0x277CD59A0];
+  v29[1] = v7;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v8 = [v6 propertySetWithProperties:v23];
+  v31[0] = v8;
+  v30[1] = *MEMORY[0x277CD5BC0];
   v9 = MEMORY[0x277CD6018];
-  v29 = *MEMORY[0x277CD5970];
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+  v28 = *MEMORY[0x277CD5970];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
   v11 = [v9 propertySetWithProperties:v10];
-  v32[1] = v11;
-  v31[2] = *MEMORY[0x277CD5BD0];
+  v31[1] = v11;
+  v30[2] = *MEMORY[0x277CD5BD0];
   v12 = MEMORY[0x277CD6018];
-  v28 = *MEMORY[0x277CD5AF8];
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v27 = *MEMORY[0x277CD5AF8];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
   v14 = [v12 propertySetWithProperties:v13];
-  v32[2] = v14;
-  v31[3] = *MEMORY[0x277CD5BB8];
+  v31[2] = v14;
+  v30[3] = *MEMORY[0x277CD5BB8];
   v15 = MEMORY[0x277CD6018];
-  v27 = *MEMORY[0x277CD5948];
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v26 = *MEMORY[0x277CD5948];
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   v17 = [v15 propertySetWithProperties:v16];
-  v32[3] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
-  v19 = [v23 initWithProperties:MEMORY[0x277CBEBF8] relationships:v18];
+  v31[3] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
+  v19 = [v22 initWithProperties:MEMORY[0x277CBEBF8] relationships:v18];
   [v4 setItemProperties:v19];
 
   v20 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277CD5998] ascending:1];
-  v26 = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v25 = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
   [v4 setItemSortDescriptors:v21];
 
   [v4 setFilteringOptions:{objc_msgSend(v4, "filteringOptions") | 0x10000}];
   [v4 performWithResponseHandler:completionCopy];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performHeavyRotationRequestWithCompletion:(id)completion
@@ -696,7 +688,7 @@ uint64_t __92__NMSMusicRecommendationsRequest__continueToLibraryImportWithContex
 
 void __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NMLogForCategory(5);
@@ -705,18 +697,18 @@ void __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithComple
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithCompletion___block_invoke_cold_1(a1);
+      __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithCompletion___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (Heavy Rotation) Got heavy rotation response: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (Heavy Rotation) Got heavy rotation response: %@", &v11, 0x16u);
   }
 
   v10 = *(a1 + 48);
@@ -724,92 +716,90 @@ void __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithComple
   {
     (*(v10 + 16))(v10, v5, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performLibraryRecentMusicRequestWithCompletion:(id)completion
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v101[0] = 0;
-  v101[1] = v101;
-  v101[2] = 0x3032000000;
-  v101[3] = __Block_byref_object_copy__2;
-  v101[4] = __Block_byref_object_dispose__2;
-  v102 = 0;
-  v99[0] = 0;
-  v99[1] = v99;
-  v99[2] = 0x3032000000;
-  v99[3] = __Block_byref_object_copy__2;
-  v99[4] = __Block_byref_object_dispose__2;
-  v100 = 0;
-  v97[0] = 0;
-  v97[1] = v97;
-  v97[2] = 0x3032000000;
-  v97[3] = __Block_byref_object_copy__2;
-  v97[4] = __Block_byref_object_dispose__2;
-  v98 = 0;
-  v95[0] = 0;
-  v95[1] = v95;
-  v95[2] = 0x3032000000;
-  v95[3] = __Block_byref_object_copy__2;
-  v95[4] = __Block_byref_object_dispose__2;
-  v96 = 0;
+  v100[0] = 0;
+  v100[1] = v100;
+  v100[2] = 0x3032000000;
+  v100[3] = __Block_byref_object_copy__2;
+  v100[4] = __Block_byref_object_dispose__2;
+  v101 = 0;
+  v98[0] = 0;
+  v98[1] = v98;
+  v98[2] = 0x3032000000;
+  v98[3] = __Block_byref_object_copy__2;
+  v98[4] = __Block_byref_object_dispose__2;
+  v99 = 0;
+  v96[0] = 0;
+  v96[1] = v96;
+  v96[2] = 0x3032000000;
+  v96[3] = __Block_byref_object_copy__2;
+  v96[4] = __Block_byref_object_dispose__2;
+  v97 = 0;
+  v94[0] = 0;
+  v94[1] = v94;
+  v94[2] = 0x3032000000;
+  v94[3] = __Block_byref_object_copy__2;
+  v94[4] = __Block_byref_object_dispose__2;
+  v95 = 0;
   queue = dispatch_queue_create("com.apple.NanoMusicSync.NMSMusicRecommendationsRequest.LibraryCompletion", 0);
-  v89[0] = MEMORY[0x277D85DD0];
-  v89[1] = 3221225472;
-  v89[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke;
-  v89[3] = &unk_27993DF78;
-  v91 = v101;
-  v92 = v97;
-  v93 = v99;
-  v94 = v95;
-  v52 = completionCopy;
-  v90 = v52;
-  v56 = MEMORY[0x25F865990](v89);
+  v88[0] = MEMORY[0x277D85DD0];
+  v88[1] = 3221225472;
+  v88[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke;
+  v88[3] = &unk_27993DF78;
+  v90 = v100;
+  v91 = v96;
+  v92 = v98;
+  v93 = v94;
+  v51 = completionCopy;
+  v89 = v51;
+  v55 = MEMORY[0x25F865990](v88);
   v4 = +[NMSyncDefaults sharedDefaults];
   libraryRecommendationPlaylists = [v4 libraryRecommendationPlaylists];
 
   if ([libraryRecommendationPlaylists count])
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
     v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     obj = libraryRecommendationPlaylists;
-    v6 = [obj countByEnumeratingWithState:&v85 objects:v110 count:16];
-    v59 = v5;
+    v6 = [obj countByEnumeratingWithState:&v84 objects:v109 count:16];
+    v58 = v5;
     if (v6)
     {
-      v7 = *v86;
+      v7 = *v85;
       do
       {
         v8 = 0;
         do
         {
-          if (*v86 != v7)
+          if (*v85 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v85 + 1) + 8 * v8);
+          v9 = *(*(&v84 + 1) + 8 * v8);
           v10 = objc_alloc(MEMORY[0x277CD5DA0]);
           identityKind = [MEMORY[0x277CD5F08] identityKind];
-          v84[0] = MEMORY[0x277D85DD0];
-          v84[1] = 3221225472;
-          v84[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_2;
-          v84[3] = &unk_27993DFA0;
-          v84[4] = v9;
-          v12 = [v10 initWithModelKind:identityKind block:v84];
+          v83[0] = MEMORY[0x277D85DD0];
+          v83[1] = 3221225472;
+          v83[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_2;
+          v83[3] = &unk_27993DFA0;
+          v83[4] = v9;
+          v12 = [v10 initWithModelKind:identityKind block:v83];
 
-          [v59 addObject:v12];
+          [v58 addObject:v12];
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [obj countByEnumeratingWithState:&v85 objects:v110 count:16];
+        v6 = [obj countByEnumeratingWithState:&v84 objects:v109 count:16];
       }
 
       while (v6);
@@ -821,38 +811,38 @@ void __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithComple
     v15 = NMSMPModelPlaylistVariantsNonFolder;
     v16 = MEMORY[0x277CD5EF8];
     v17 = [MEMORY[0x277CD5F58] kindWithVariants:1];
-    v109 = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v109 count:1];
+    v108 = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v108 count:1];
     v19 = [v16 kindWithKinds:v18];
     v20 = [v14 kindWithVariants:v15 & 0xFFFFFFFFFFFFFFFDLL playlistEntryKind:v19 options:4];
     [v13 setItemKind:v20];
 
     v21 = MEMORY[0x277CD6018];
     v22 = *MEMORY[0x277CD59A0];
-    v108[0] = *MEMORY[0x277CD59B8];
-    v108[1] = v22;
+    v107[0] = *MEMORY[0x277CD59B8];
+    v107[1] = v22;
     v23 = *MEMORY[0x277CD59B0];
-    v108[2] = *MEMORY[0x277CD59C0];
-    v108[3] = v23;
-    v108[4] = *MEMORY[0x277CD59C8];
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v108 count:5];
+    v107[2] = *MEMORY[0x277CD59C0];
+    v107[3] = v23;
+    v107[4] = *MEMORY[0x277CD59C8];
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v107 count:5];
     v25 = [v21 propertySetWithProperties:v24];
     [v13 setItemProperties:v25];
 
-    [v13 setAllowedItemIdentifiers:v59];
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3;
-    v78[3] = &unk_27993DFF0;
+    [v13 setAllowedItemIdentifiers:v58];
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3;
+    v77[3] = &unk_27993DFF0;
     v26 = v13;
-    v79 = v26;
-    v80 = queue;
-    v82 = v97;
-    v83 = v101;
-    v81 = v56;
-    [v26 performWithResponseHandler:v78];
+    v78 = v26;
+    v79 = queue;
+    v81 = v96;
+    v82 = v100;
+    v80 = v55;
+    [v26 performWithResponseHandler:v77];
 
-    v27 = v59;
+    v27 = v58;
   }
 
   else
@@ -861,10 +851,10 @@ void __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithComple
     block[1] = 3221225472;
     block[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_2_88;
     block[3] = &unk_27993E018;
-    v77 = v101;
-    v76 = v56;
+    v76 = v100;
+    v75 = v55;
     dispatch_async(queue, block);
-    v27 = v76;
+    v27 = v75;
   }
 
   v28 = +[NMSyncDefaults sharedDefaults];
@@ -873,42 +863,42 @@ void __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithComple
   if ([libraryRecommendationAlbums count])
   {
     v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     obja = libraryRecommendationAlbums;
-    v30 = [obja countByEnumeratingWithState:&v71 objects:v107 count:16];
-    v60 = v29;
+    v30 = [obja countByEnumeratingWithState:&v70 objects:v106 count:16];
+    v59 = v29;
     if (v30)
     {
-      v31 = *v72;
+      v31 = *v71;
       do
       {
         v32 = 0;
         do
         {
-          if (*v72 != v31)
+          if (*v71 != v31)
           {
             objc_enumerationMutation(obja);
           }
 
-          v33 = *(*(&v71 + 1) + 8 * v32);
+          v33 = *(*(&v70 + 1) + 8 * v32);
           v34 = objc_alloc(MEMORY[0x277CD5DA0]);
           identityKind2 = [MEMORY[0x277CD5E48] identityKind];
-          v70[0] = MEMORY[0x277D85DD0];
-          v70[1] = 3221225472;
-          v70[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3_90;
-          v70[3] = &unk_27993DFA0;
-          v70[4] = v33;
-          v36 = [v34 initWithModelKind:identityKind2 block:v70];
+          v69[0] = MEMORY[0x277D85DD0];
+          v69[1] = 3221225472;
+          v69[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3_90;
+          v69[3] = &unk_27993DFA0;
+          v69[4] = v33;
+          v36 = [v34 initWithModelKind:identityKind2 block:v69];
 
-          [v60 addObject:v36];
+          [v59 addObject:v36];
           ++v32;
         }
 
         while (v30 != v32);
-        v30 = [obja countByEnumeratingWithState:&v71 objects:v107 count:16];
+        v30 = [obja countByEnumeratingWithState:&v70 objects:v106 count:16];
       }
 
       while (v30);
@@ -923,55 +913,53 @@ void __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithComple
 
     v41 = objc_alloc(MEMORY[0x277CD6018]);
     v42 = *MEMORY[0x277CD5948];
-    v106[0] = *MEMORY[0x277CD5960];
-    v106[1] = v42;
-    v106[2] = *MEMORY[0x277CD5958];
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v106 count:3];
-    v104 = *MEMORY[0x277CD5B68];
+    v105[0] = *MEMORY[0x277CD5960];
+    v105[1] = v42;
+    v105[2] = *MEMORY[0x277CD5958];
+    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:3];
+    v103 = *MEMORY[0x277CD5B68];
     v44 = MEMORY[0x277CD6018];
-    v103 = *MEMORY[0x277CD5980];
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v103 count:1];
+    v102 = *MEMORY[0x277CD5980];
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v102 count:1];
     v46 = [v44 propertySetWithProperties:v45];
-    v105 = v46;
-    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+    v104 = v46;
+    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
     v48 = [v41 initWithProperties:v43 relationships:v47];
     [v37 setItemProperties:v48];
 
-    [v37 setAllowedItemIdentifiers:v60];
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_4;
-    v64[3] = &unk_27993DFF0;
+    [v37 setAllowedItemIdentifiers:v59];
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_4;
+    v63[3] = &unk_27993DFF0;
     v49 = v37;
-    v65 = v49;
-    v66 = queue;
-    v68 = v95;
-    v69 = v99;
-    v67 = v56;
-    [v49 performWithResponseHandler:v64];
+    v64 = v49;
+    v65 = queue;
+    v67 = v94;
+    v68 = v98;
+    v66 = v55;
+    [v49 performWithResponseHandler:v63];
 
-    v50 = v60;
+    v50 = v59;
   }
 
   else
   {
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_2_96;
-    v61[3] = &unk_27993E018;
-    v63 = v99;
-    v62 = v56;
-    dispatch_async(queue, v61);
-    v50 = v62;
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_2_96;
+    v60[3] = &unk_27993E018;
+    v62 = v98;
+    v61 = v55;
+    dispatch_async(queue, v60);
+    v50 = v61;
   }
 
-  _Block_object_dispose(v95, 8);
-  _Block_object_dispose(v97, 8);
+  _Block_object_dispose(v94, 8);
+  _Block_object_dispose(v96, 8);
 
-  _Block_object_dispose(v99, 8);
-  _Block_object_dispose(v101, 8);
-
-  v51 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v98, 8);
+  _Block_object_dispose(v100, 8);
 }
 
 void __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke(void *a1)
@@ -1057,7 +1045,7 @@ void __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithC
     v7 = NMLogForCategory(5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3_cold_1(a1);
+      __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3_cold_1();
     }
   }
 
@@ -1116,7 +1104,7 @@ void __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithC
     v7 = NMLogForCategory(5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3_cold_1(a1);
+      __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3_cold_1();
     }
   }
 
@@ -1210,7 +1198,7 @@ uint64_t __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestW
 
 void __84__NMSMusicRecommendationsRequest__performStarterPackMultiplexRequestWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NMLogForCategory(5);
@@ -1219,18 +1207,18 @@ void __84__NMSMusicRecommendationsRequest__performStarterPackMultiplexRequestWit
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __84__NMSMusicRecommendationsRequest__performStarterPackMultiplexRequestWithCompletion___block_invoke_cold_1(a1);
+      __84__NMSMusicRecommendationsRequest__performStarterPackMultiplexRequestWithCompletion___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (Starter Pack) Got multiplex response: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (Starter Pack) Got multiplex response: %@", &v11, 0x16u);
   }
 
   v10 = *(a1 + 48);
@@ -1238,8 +1226,6 @@ void __84__NMSMusicRecommendationsRequest__performStarterPackMultiplexRequestWit
   {
     (*(v10 + 16))(v10, v5, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performStarterPackRoomRequestWithURL:(id)l completion:(id)completion
@@ -1291,7 +1277,7 @@ void __84__NMSMusicRecommendationsRequest__performStarterPackMultiplexRequestWit
 
 void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NMLogForCategory(5);
@@ -1300,18 +1286,18 @@ void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_completion___block_invoke_cold_1(a1);
+      __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_completion___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (Starter Pack) Got starter pack room response: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (Starter Pack) Got starter pack room response: %@", &v11, 0x16u);
   }
 
   v10 = *(a1 + 48);
@@ -1319,68 +1305,66 @@ void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_
   {
     (*(v10 + 16))(v10, v5, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performLibraryImportChangeRequestWithModelObjects:(id)objects completion:(id)completion
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   completionCopy = completion;
   v7 = objectsCopy;
   v8 = completionCopy;
-  v32 = v7;
+  v31 = v7;
   if (![v7 count])
   {
     v8[2](v8, 0);
     goto LABEL_25;
   }
 
-  v52[0] = 0;
-  v52[1] = v52;
-  v52[2] = 0x2020000000;
-  v52[3] = 0;
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x3032000000;
-  v50[3] = __Block_byref_object_copy__2;
-  v50[4] = __Block_byref_object_dispose__2;
-  v51 = 0;
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke;
-  v45[3] = &unk_27993E040;
-  v48 = v52;
-  v49 = v50;
+  v51[0] = 0;
+  v51[1] = v51;
+  v51[2] = 0x2020000000;
+  v51[3] = 0;
+  v49[0] = 0;
+  v49[1] = v49;
+  v49[2] = 0x3032000000;
+  v49[3] = __Block_byref_object_copy__2;
+  v49[4] = __Block_byref_object_dispose__2;
+  v50 = 0;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke;
+  v44[3] = &unk_27993E040;
+  v47 = v51;
+  v48 = v49;
   v9 = v7;
-  v46 = v9;
-  v31 = v8;
-  v47 = v8;
-  v34 = MEMORY[0x25F865990](v45);
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  v45 = v9;
+  v30 = v8;
+  v46 = v8;
+  v33 = MEMORY[0x25F865990](v44);
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
+  v10 = [obj countByEnumeratingWithState:&v40 objects:v54 count:16];
   if (!v10)
   {
     goto LABEL_23;
   }
 
-  v11 = *v42;
+  v11 = *v41;
   do
   {
     v12 = 0;
     do
     {
-      if (*v42 != v11)
+      if (*v41 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v41 + 1) + 8 * v12);
+      v13 = *(*(&v40 + 1) + 8 * v12);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -1395,7 +1379,7 @@ void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v54 = v14;
+            v53 = v14;
             _os_log_impl(&dword_25B27B000, v18, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Import) Importing playlist: %{public}@", buf, 0xCu);
           }
 
@@ -1403,15 +1387,15 @@ void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_
           identifiers2 = [v14 identifiers];
           universalStore2 = [identifiers2 universalStore];
           globalPlaylistID2 = [universalStore2 globalPlaylistID];
-          v38[0] = MEMORY[0x277D85DD0];
-          v38[1] = 3221225472;
-          v38[2] = __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_107;
-          v38[3] = &unk_27993E068;
-          v39 = v14;
-          v40 = v34;
-          [defaultMediaLibrary addGlobalPlaylistWithID:globalPlaylistID2 andAddToCloudLibrary:0 completion:v38];
+          v37[0] = MEMORY[0x277D85DD0];
+          v37[1] = 3221225472;
+          v37[2] = __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_107;
+          v37[3] = &unk_27993E068;
+          v38 = v14;
+          v39 = v33;
+          [defaultMediaLibrary addGlobalPlaylistWithID:globalPlaylistID2 andAddToCloudLibrary:0 completion:v37];
 
-          v23 = v39;
+          v23 = v38;
         }
 
         else
@@ -1420,7 +1404,7 @@ void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_
           if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
           {
             *buf = 138543362;
-            v54 = v14;
+            v53 = v14;
             _os_log_fault_impl(&dword_25B27B000, v23, OS_LOG_TYPE_FAULT, "[Recommendation] (Import) Skipping import for playlist without a globalPlaylistID: %{public}@", buf, 0xCu);
           }
         }
@@ -1431,7 +1415,7 @@ void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v34[2](v34, 0);
+          v33[2](v33, 0);
           goto LABEL_21;
         }
 
@@ -1440,7 +1424,7 @@ void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v54 = v24;
+          v53 = v24;
           _os_log_impl(&dword_25B27B000, v25, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Import) Importing album: %{public}@", buf, 0xCu);
         }
 
@@ -1448,15 +1432,15 @@ void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_
         identifiers3 = [v24 identifiers];
         universalStore3 = [identifiers3 universalStore];
         adamID = [universalStore3 adamID];
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_110;
-        v35[3] = &unk_27993E090;
-        v36 = v24;
-        v37 = v34;
-        [defaultMediaLibrary2 addStoreItem:adamID andAddTracksToCloudLibrary:0 withCompletion:v35];
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_110;
+        v34[3] = &unk_27993E090;
+        v35 = v24;
+        v36 = v33;
+        [defaultMediaLibrary2 addStoreItem:adamID andAddTracksToCloudLibrary:0 withCompletion:v34];
 
-        globalPlaylistID = v36;
+        globalPlaylistID = v35;
       }
 
 LABEL_21:
@@ -1464,18 +1448,16 @@ LABEL_21:
     }
 
     while (v10 != v12);
-    v10 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
+    v10 = [obj countByEnumeratingWithState:&v40 objects:v54 count:16];
   }
 
   while (v10);
 LABEL_23:
 
-  _Block_object_dispose(v50, 8);
-  _Block_object_dispose(v52, 8);
-  v8 = v31;
+  _Block_object_dispose(v49, 8);
+  _Block_object_dispose(v51, 8);
+  v8 = v30;
 LABEL_25:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke(uint64_t a1, void *a2)
@@ -1486,7 +1468,7 @@ void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWith
   v7 = *(v4 + 40);
   v5 = (v4 + 40);
   v6 = v7;
-  v10 = v3;
+  v9 = v3;
   if (v7)
   {
     v3 = v6;
@@ -1496,14 +1478,13 @@ void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWith
   v8 = *(*(*(a1 + 48) + 8) + 24);
   if (v8 == [*(a1 + 32) count])
   {
-    v9 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 40) + 16))();
   }
 }
 
 void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_107(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = NMLogForCategory(5);
   v5 = v4;
@@ -1511,7 +1492,7 @@ void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWith
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_107_cold_1(v3, a1);
+      __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_107_cold_1();
     }
   }
 
@@ -1520,9 +1501,9 @@ void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWith
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v15 = 138543362;
-      v16 = v6;
-      _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Import) Successfully imported playlist: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v6;
+      _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Import) Successfully imported playlist: %{public}@", &v14, 0xCu);
     }
 
     v5 = [MEMORY[0x277CD5E38] playlistsQuery];
@@ -1540,12 +1521,11 @@ void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWith
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_110(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = NMLogForCategory(5);
   v6 = v5;
@@ -1553,20 +1533,19 @@ void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWith
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_110_cold_1(v4, a1);
+      __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_110_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Import) Successfully imported album: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Import) Successfully imported album: %{public}@", &v8, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_unarchivedCombinedResponsesDictionary
@@ -1682,14 +1661,14 @@ void __55__NMSMusicRecommendationsRequest__recentMusicDirectory__block_invoke()
 
 - (void)_writeData:(id)data toURL:(id)l
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   lCopy = l;
   if (dataCopy)
   {
-    v12 = 0;
-    v7 = [dataCopy writeToURL:lCopy options:1 error:&v12];
-    v8 = v12;
+    v11 = 0;
+    v7 = [dataCopy writeToURL:lCopy options:1 error:&v11];
+    v8 = v11;
     v9 = NMLogForCategory(5);
     v10 = v9;
     if (v7)
@@ -1697,9 +1676,9 @@ void __55__NMSMusicRecommendationsRequest__recentMusicDirectory__block_invoke()
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v14 = dataCopy;
-        v15 = 2112;
-        v16 = lCopy;
+        v13 = dataCopy;
+        v14 = 2112;
+        v15 = lCopy;
         _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "[Recommendations] Cached data %@ at url %@", buf, 0x16u);
       }
     }
@@ -1718,8 +1697,6 @@ void __55__NMSMusicRecommendationsRequest__recentMusicDirectory__block_invoke()
       [NMSMusicRecommendationsRequest _writeData:toURL:];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continueToLegacyForYouRequestWithContext:(id)context queue:(id)queue responseHandler:(id)handler
@@ -1766,31 +1743,30 @@ uint64_t __98__NMSMusicRecommendationsRequest__continueToLegacyForYouRequestWith
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 72);
-    v3 = *(*(a1 + 72) + 16);
+    v2 = *(*(a1 + 72) + 16);
 
-    return v3();
+    return v2();
   }
 
   else
   {
     [*(a1 + 40) setForYouResponse:*(a1 + 48)];
-    v5 = [*(a1 + 40) numberOfRecentMusicModelObjects];
-    v6 = [*(a1 + 40) minimumNumberOfRecentMusicModelObjects];
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 64);
-    v10 = *(a1 + 72);
-    if (v5 >= v6)
+    v4 = [*(a1 + 40) numberOfRecentMusicModelObjects];
+    v5 = [*(a1 + 40) minimumNumberOfRecentMusicModelObjects];
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 56);
+    v8 = *(a1 + 64);
+    v9 = *(a1 + 72);
+    if (v4 >= v5)
     {
 
-      return [v8 _continueToProcessResultsWithContext:v7 queue:v9 responseHandler:v10];
+      return [v7 _continueToProcessResultsWithContext:v6 queue:v8 responseHandler:v9];
     }
 
     else
     {
 
-      return [v8 _continueToLibraryRecentMusicRecommedationsWithContext:v7 queue:v9 responseHandler:v10];
+      return [v7 _continueToLibraryRecentMusicRecommedationsWithContext:v6 queue:v8 responseHandler:v9];
     }
   }
 }
@@ -1839,27 +1815,26 @@ uint64_t __101__NMSMusicRecommendationsRequest__continueToLegacyEditorialRequest
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 72);
-    v3 = *(*(a1 + 72) + 16);
+    v2 = *(*(a1 + 72) + 16);
 
-    return v3();
+    return v2();
   }
 
   else
   {
     [*(a1 + 40) setEditorialBrowseResponse:*(a1 + 48)];
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 56);
-    v7 = *(a1 + 64);
-    v8 = *(a1 + 72);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 56);
+    v6 = *(a1 + 64);
+    v7 = *(a1 + 72);
 
-    return [v6 _continueToProcessResultsWithContext:v5 queue:v7 responseHandler:v8];
+    return [v5 _continueToProcessResultsWithContext:v4 queue:v6 responseHandler:v7];
   }
 }
 
 - (void)_performForYouRequestWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_alloc_init(NMSModelForYouRecommendationsRequest);
   [(NMSModelForYouRecommendationsRequest *)v5 setLabel:@"ForYou Music Recommendations"];
@@ -1894,29 +1869,27 @@ uint64_t __101__NMSMusicRecommendationsRequest__continueToLegacyEditorialRequest
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v22 = v12;
-    v23 = 2114;
-    v24 = v5;
+    v21 = v12;
+    v22 = 2114;
+    v23 = v5;
     _os_log_impl(&dword_25B27B000, v13, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (ForYou) Performing request: %{public}@", buf, 0x16u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___block_invoke;
-  v17[3] = &unk_27993E108;
-  v18 = v12;
-  v19 = v5;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___block_invoke;
+  v16[3] = &unk_27993E108;
+  v17 = v12;
+  v18 = v5;
+  v19 = completionCopy;
   v14 = completionCopy;
   v15 = v5;
-  [(NMSModelForYouRecommendationsRequest *)v15 performWithResponseHandler:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(NMSModelForYouRecommendationsRequest *)v15 performWithResponseHandler:v16];
 }
 
 void __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NMLogForCategory(5);
@@ -1925,18 +1898,18 @@ void __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___block_invoke_cold_1(a1);
+      __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (ForYou) Got response: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (ForYou) Got response: %@", &v11, 0x16u);
   }
 
   v10 = *(a1 + 48);
@@ -1944,13 +1917,11 @@ void __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___
   {
     (*(v10 + 16))(v10, v5, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performEditorialBrowseRequestWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_alloc_init(NMSModelEditorialRecommendationsRequest);
   [(NMSModelEditorialRecommendationsRequest *)v5 setLabel:@"Editorial Recommendations"];
@@ -1981,29 +1952,27 @@ void __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v20 = v10;
-    v21 = 2114;
-    v22 = v5;
+    v19 = v10;
+    v20 = 2114;
+    v21 = v5;
     _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (Editorial) Performing request: %{public}@", buf, 0x16u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithCompletion___block_invoke;
-  v15[3] = &unk_27993E130;
-  v16 = v10;
-  v17 = v5;
-  v18 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithCompletion___block_invoke;
+  v14[3] = &unk_27993E130;
+  v15 = v10;
+  v16 = v5;
+  v17 = completionCopy;
   v12 = completionCopy;
   v13 = v5;
-  [(NMSModelEditorialRecommendationsRequest *)v13 performWithResponseHandler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(NMSModelEditorialRecommendationsRequest *)v13 performWithResponseHandler:v14];
 }
 
 void __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NMLogForCategory(5);
@@ -2012,18 +1981,18 @@ void __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithComp
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithCompletion___block_invoke_cold_1(a1);
+      __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithCompletion___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (Editorial) Got response: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (%{public}@) (Editorial) Got response: %@", &v11, 0x16u);
   }
 
   v10 = *(a1 + 48);
@@ -2031,13 +2000,11 @@ void __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithComp
   {
     (*(v10 + 16))(v10, v5, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performLegacyLibraryImportChangeRequestWithModelObjects:(id)objects completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v6 = MEMORY[0x277CD5EB8];
   objectsCopy = objects;
@@ -2049,26 +2016,24 @@ void __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithComp
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Import) Performing request: %{public}@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __102__NMSMusicRecommendationsRequest__performLegacyLibraryImportChangeRequestWithModelObjects_completion___block_invoke;
-  v13[3] = &unk_27993E090;
-  v14 = v8;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __102__NMSMusicRecommendationsRequest__performLegacyLibraryImportChangeRequestWithModelObjects_completion___block_invoke;
+  v12[3] = &unk_27993E090;
+  v13 = v8;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = v8;
-  [v11 performWithResponseHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v11 performWithResponseHandler:v12];
 }
 
 void __102__NMSMusicRecommendationsRequest__performLegacyLibraryImportChangeRequestWithModelObjects_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NMLogForCategory(5);
@@ -2077,15 +2042,15 @@ void __102__NMSMusicRecommendationsRequest__performLegacyLibraryImportChangeRequ
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __102__NMSMusicRecommendationsRequest__performLegacyLibraryImportChangeRequestWithModelObjects_completion___block_invoke_cold_1(a1);
+      __102__NMSMusicRecommendationsRequest__performLegacyLibraryImportChangeRequestWithModelObjects_completion___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Import) Got response: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Import) Got response: %@", &v10, 0xCu);
   }
 
   v9 = *(a1 + 40);
@@ -2093,126 +2058,81 @@ void __102__NMSMusicRecommendationsRequest__performLegacyLibraryImportChangeRequ
   {
     (*(v9 + 16))(v9, v5, v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_finishWithContext:queue:responseHandler:.cold.1()
+void __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithCompletion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "[Recommendation] Failed to archive combinedResponsesDictionary due to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __77__NMSMusicRecommendationsRequest__performHeavyRotationRequestWithCompletion___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3_cold_1(uint64_t a1)
+void __82__NMSMusicRecommendationsRequest__performLibraryRecentMusicRequestWithCompletion___block_invoke_3_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __84__NMSMusicRecommendationsRequest__performStarterPackMultiplexRequestWithCompletion___block_invoke_cold_1(uint64_t a1)
+void __84__NMSMusicRecommendationsRequest__performStarterPackMultiplexRequestWithCompletion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_completion___block_invoke_cold_1(uint64_t a1)
+void __83__NMSMusicRecommendationsRequest__performStarterPackRoomRequestWithURL_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_107_cold_1(uint64_t a1, uint64_t a2)
+void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_107_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 32);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_110_cold_1(uint64_t a1, uint64_t a2)
+void __96__NMSMusicRecommendationsRequest__performLibraryImportChangeRequestWithModelObjects_completion___block_invoke_110_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 32);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_unarchivedCombinedResponsesDictionary
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "Failed to unarchive combinedResponsesDictionary due to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)_writeData:toURL:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_writeData:toURL:.cold.2()
+void __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "[Recommendation] failed to write null data to disk for URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __70__NMSMusicRecommendationsRequest__performForYouRequestWithCompletion___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithCompletion___block_invoke_cold_1(uint64_t a1)
+void __79__NMSMusicRecommendationsRequest__performEditorialBrowseRequestWithCompletion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __102__NMSMusicRecommendationsRequest__performLegacyLibraryImportChangeRequestWithModelObjects_completion___block_invoke_cold_1(uint64_t a1)
+void __102__NMSMusicRecommendationsRequest__performLegacyLibraryImportChangeRequestWithModelObjects_completion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

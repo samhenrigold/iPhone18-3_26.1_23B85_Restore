@@ -8,13 +8,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC20LiveCommunicationKit10XPCWrapper_data);
-  v5 = *&self->data[OBJC_IVAR____TtC20LiveCommunicationKit10XPCWrapper_data];
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_238B6C4C4();
-  v8 = sub_238B6C844();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v5 = sub_238B6C4C4();
+  v6 = sub_238B6C844();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 - (_TtC20LiveCommunicationKit10XPCWrapper)initWithCoder:(id)coder

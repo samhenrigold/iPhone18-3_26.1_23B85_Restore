@@ -26,6 +26,7 @@
 - (int)loadDefaultSelectedCity;
 - (int)userTemperatureUnit;
 - (void)_clearCachedObjects;
+- (void)adjustPrefsForLocalWeatherEnabled:(BOOL)enabled;
 - (void)forceSyncCloudPreferences;
 - (void)resetLocale;
 - (void)saveToDiskWithCities:(id)cities;
@@ -37,6 +38,7 @@
 - (void)setCelsius:(BOOL)celsius;
 - (void)setDefaultCities:(id)cities;
 - (void)setDefaultSelectedCity:(unint64_t)city;
+- (void)setLocalWeatherEnabled:(BOOL)enabled;
 - (void)setSyncDelegate:(id)delegate;
 - (void)setupUbiquitousStoreIfNeeded;
 - (void)synchronizeStateToDiskDoNotify:(BOOL)notify;
@@ -76,7 +78,7 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
 
 + (id)userDefaultsPersistence
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [defaultManager containerURLForSecurityApplicationGroupIdentifier:@"group.com.apple.weather"];
 
@@ -87,17 +89,16 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
     dictionaryRepresentation = [v4 dictionaryRepresentation];
     v7 = [dictionaryRepresentation valueForKey:@"Cities"];
     v8 = [v7 valueForKeyPath:@"Name"];
-    v12 = 136315650;
-    v13 = "+[WeatherPreferences userDefaultsPersistence]";
-    v14 = 2112;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v8;
-    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_INFO, "%s tempGroupUrl? %@, Cities: %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "+[WeatherPreferences userDefaultsPersistence]";
+    v13 = 2112;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_INFO, "%s tempGroupUrl? %@, Cities: %@", &v11, 0x20u);
   }
 
   v9 = [[WeatherUserDefaults alloc] initWithUserDefaults:v4];
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -193,10 +194,21 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
   return v5 != 0;
 }
 
+- (void)adjustPrefsForLocalWeatherEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(WeatherPreferences *)self isLocalWeatherEnabled]!= enabled)
+  {
+    [(WeatherPreferences *)self setLocalWeatherEnabled:enabledCopy];
+
+    [(WeatherPreferences *)self synchronizeStateToDiskDoNotify:1];
+  }
+}
+
 - (void)setCelsius:(BOOL)celsius
 {
   celsiusCopy = celsius;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->_logUnitsAndLocale)
   {
     v5 = WALogForCategory(5);
@@ -211,11 +223,11 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
         v8 = @"CELSIUS";
       }
 
-      v13 = 138412546;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Changing temperature units from %@ to %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Changing temperature units from %@ to %@", &v12, 0x16u);
     }
   }
 
@@ -233,8 +245,6 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
 
   [v9 setTemperatureUnit:v11];
   [v10 start];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (int)userTemperatureUnit
@@ -274,28 +284,26 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
 
 - (id)cityFromPreferencesDictionary:(id)dictionary
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (![(WeatherPreferences *)self _defaultsCurrent])
   {
-    v13[0] = 0x28822C008;
-    v13[1] = 0x28822C028;
-    v13[2] = 0x28822C048;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __52__WeatherPreferences_cityFromPreferencesDictionary___block_invoke;
-    v11[3] = &unk_279E68990;
-    v12 = v5;
+    v12[0] = 0x28822C008;
+    v12[1] = 0x28822C028;
+    v12[2] = 0x28822C048;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __52__WeatherPreferences_cityFromPreferencesDictionary___block_invoke;
+    v10[3] = &unk_279E68990;
+    v11 = v5;
     v6 = v5;
-    v7 = [dictionaryCopy na_filter:v11];
+    v7 = [dictionaryCopy na_filter:v10];
 
     dictionaryCopy = v7;
   }
 
   v8 = [CityPersistenceConversions cityFromDictionary:dictionaryCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -350,7 +358,7 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
 
 - (void)saveToDiskWithCities:(id)cities
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   citiesCopy = cities;
   v5 = +[WeatherInternalPreferences sharedInternalPreferences];
   v6 = [v5 BOOLForKey:@"AlwaysUseLocallyAvailableSavedCities"];
@@ -361,8 +369,8 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
   {
     if (v8)
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_272ACF000, array, OS_LOG_TYPE_DEFAULT, "[WeatherPreferences] AlwaysUseLocallyAvailableSavedCities = 1, do not save new cities to disk.", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_272ACF000, array, OS_LOG_TYPE_DEFAULT, "[WeatherPreferences] AlwaysUseLocallyAvailableSavedCities = 1, do not save new cities to disk.", &v16, 2u);
     }
   }
 
@@ -370,9 +378,9 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
   {
     if (v8)
     {
-      v17 = 138412290;
-      v18 = citiesCopy;
-      _os_log_impl(&dword_272ACF000, array, OS_LOG_TYPE_DEFAULT, "Saving cities to disk: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = citiesCopy;
+      _os_log_impl(&dword_272ACF000, array, OS_LOG_TYPE_DEFAULT, "Saving cities to disk: %@", &v16, 0xCu);
     }
 
     array = [MEMORY[0x277CBEB18] array];
@@ -400,8 +408,6 @@ void __39__WeatherPreferences_sharedPreferences__block_invoke()
     [(WeatherPreferencesPersistence *)self->_persistence setObject:@"2.1" forKey:@"PrefsVersion"];
     [(WeatherPreferences *)self synchronizeStateToDiskDoNotify:1];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveToDiskWithCities:(id)cities activeCity:(unint64_t)city
@@ -442,7 +448,7 @@ uint64_t __36__WeatherPreferences__defaultCities__block_invoke()
 
 void __36__WeatherPreferences__defaultCities__block_invoke_2()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v1 = CFLocaleCopyCurrent();
   Value = CFLocaleGetValue(v1, *MEMORY[0x277CBEE98]);
@@ -454,34 +460,34 @@ void __36__WeatherPreferences__defaultCities__block_invoke_2()
   {
     if ([v5 count])
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v5 = v5;
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v15;
+        v9 = *v14;
         do
         {
           v10 = 0;
           do
           {
-            if (*v15 != v9)
+            if (*v14 != v9)
             {
               objc_enumerationMutation(v5);
             }
 
-            v11 = [CityPersistenceConversions cityFromALCity:*(*(&v14 + 1) + 8 * v10), v14];
+            v11 = [CityPersistenceConversions cityFromALCity:*(*(&v13 + 1) + 8 * v10), v13];
             [v0 na_safeAddObject:v11];
 
             ++v10;
           }
 
           while (v8 != v10);
-          v8 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v8 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v8);
@@ -492,50 +498,48 @@ void __36__WeatherPreferences__defaultCities__block_invoke_2()
   CFRelease(v1);
   v12 = __defaultCities;
   __defaultCities = v0;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDefaultCities:(id)cities
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   citiesCopy = cities;
   v4 = WALogForCategory(5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [citiesCopy valueForKeyPath:@"name"];
     *buf = 136315394;
-    v24 = "[WeatherPreferences setDefaultCities:]";
-    v25 = 2112;
-    v26 = v5;
+    v23 = "[WeatherPreferences setDefaultCities:]";
+    v24 = 2112;
+    v25 = v5;
     _os_log_impl(&dword_272ACF000, v4, OS_LOG_TYPE_INFO, "%s cities: %@", buf, 0x16u);
   }
 
   if (citiesCopy)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v17 = citiesCopy;
+    v16 = citiesCopy;
     v7 = citiesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         v11 = 0;
         do
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * v11);
+          v12 = *(*(&v17 + 1) + 8 * v11);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -557,7 +561,7 @@ void __36__WeatherPreferences__defaultCities__block_invoke_2()
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
@@ -566,20 +570,18 @@ void __36__WeatherPreferences__defaultCities__block_invoke_2()
     v15 = __defaultCities;
     __defaultCities = v6;
 
-    citiesCopy = v17;
+    citiesCopy = v16;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)loadSavedCities
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = WALogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v54 = "[WeatherPreferences loadSavedCities]";
+    v53 = "[WeatherPreferences loadSavedCities]";
     _os_log_impl(&dword_272ACF000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -611,7 +613,7 @@ void __36__WeatherPreferences__defaultCities__block_invoke_2()
   {
     v14 = [MEMORY[0x277CCABB0] numberWithBool:isLocalWeatherEnabled];
     *buf = 138412290;
-    v54 = v14;
+    v53 = v14;
     _os_log_impl(&dword_272ACF000, v13, OS_LOG_TYPE_DEFAULT, "in loadSavedCities, localWeatherEnabled=%@", buf, 0xCu);
   }
 
@@ -634,7 +636,7 @@ void __36__WeatherPreferences__defaultCities__block_invoke_2()
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v54 = v17;
+      v53 = v17;
       _os_log_impl(&dword_272ACF000, v18, OS_LOG_TYPE_DEFAULT, "in loadSavedCities, local weather city = %@", buf, 0xCu);
     }
 
@@ -644,32 +646,32 @@ void __36__WeatherPreferences__defaultCities__block_invoke_2()
   array3 = [MEMORY[0x277CBEB18] array];
   if (array2 && [(WeatherPreferences *)self _defaultsAreValid])
   {
-    v44 = v6;
-    v46 = array;
+    v43 = v6;
+    v45 = array;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
-    v45 = array2;
+    v44 = array2;
     obj = array2;
-    v21 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v21 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (v21)
     {
       v22 = v21;
       v23 = 20 - isLocalWeatherEnabled;
-      v24 = *v49;
+      v24 = *v48;
 LABEL_20:
       v25 = 0;
       while (1)
       {
-        if (*v49 != v24)
+        if (*v48 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
         selfCopy = self;
-        v27 = [(WeatherPreferences *)self cityFromPreferencesDictionary:*(*(&v48 + 1) + 8 * v25)];
+        v27 = [(WeatherPreferences *)self cityFromPreferencesDictionary:*(*(&v47 + 1) + 8 * v25)];
         [array3 na_safeAddObject:v27];
         name = [v27 name];
         array4 = [dictionary objectForKey:name];
@@ -692,7 +694,7 @@ LABEL_20:
 
         if (v22 == ++v25)
         {
-          v22 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+          v22 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
           if (v22)
           {
             goto LABEL_20;
@@ -707,40 +709,40 @@ LABEL_20:
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v54 = obj;
+      v53 = obj;
       _os_log_impl(&dword_272ACF000, v32, OS_LOG_TYPE_DEFAULT, "Retrieved stored cities: %@", buf, 0xCu);
     }
 
     v33 = WALogForCategory(5);
-    array = v46;
+    array = v45;
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v54 = array3;
+      v53 = array3;
       _os_log_impl(&dword_272ACF000, v33, OS_LOG_TYPE_DEFAULT, "Safely add stored cities: %@", buf, 0xCu);
     }
 
     v34 = [(WeatherPreferences *)self citiesByConsolidatingDuplicates:dictionary originalOrder:array3];
 
-    [v46 addObjectsFromArray:v34];
+    [v45 addObjectsFromArray:v34];
     loadActiveCity = [(WeatherPreferences *)self loadActiveCity];
-    if ([v46 count] <= loadActiveCity)
+    if ([v45 count] <= loadActiveCity)
     {
-      -[WeatherPreferences setActiveCity:](self, "setActiveCity:", [v46 count] - 1);
+      -[WeatherPreferences setActiveCity:](self, "setActiveCity:", [v45 count] - 1);
     }
 
     v36 = WALogForCategory(5);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v54 = v34;
+      v53 = v34;
       _os_log_impl(&dword_272ACF000, v36, OS_LOG_TYPE_DEFAULT, "Return loaded cities: %@", buf, 0xCu);
     }
 
-    v37 = v46;
+    v37 = v45;
     array3 = v34;
-    v6 = v44;
-    array2 = v45;
+    v6 = v43;
+    array2 = v44;
   }
 
   else
@@ -762,65 +764,63 @@ LABEL_20:
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v54 = array;
+      v53 = array;
       _os_log_impl(&dword_272ACF000, v40, OS_LOG_TYPE_DEFAULT, "No saved cities, and defaults are not valid. Laod new default cities: %@", buf, 0xCu);
     }
 
     v41 = array;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (id)citiesByConsolidatingDuplicates:(id)duplicates originalOrder:(id)order
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   duplicatesCopy = duplicates;
   orderCopy = order;
   array = [MEMORY[0x277CBEB18] array];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __68__WeatherPreferences_citiesByConsolidatingDuplicates_originalOrder___block_invoke;
-  v24[3] = &unk_279E689B8;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __68__WeatherPreferences_citiesByConsolidatingDuplicates_originalOrder___block_invoke;
+  v23[3] = &unk_279E689B8;
   v7 = array;
-  v25 = v7;
+  v24 = v7;
   selfCopy = self;
-  v27 = &v28;
-  [duplicatesCopy enumerateKeysAndObjectsUsingBlock:v24];
-  if (v29[3])
+  v26 = &v27;
+  [duplicatesCopy enumerateKeysAndObjectsUsingBlock:v23];
+  if (v28[3])
   {
     array2 = [MEMORY[0x277CBEB18] array];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v9 = orderCopy;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v31 count:16];
     if (v10)
     {
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
-          v19[0] = MEMORY[0x277D85DD0];
-          v19[1] = 3221225472;
-          v19[2] = __68__WeatherPreferences_citiesByConsolidatingDuplicates_originalOrder___block_invoke_2;
-          v19[3] = &unk_279E68358;
-          v19[4] = v13;
-          v14 = [v7 na_firstObjectPassingTest:v19];
+          v13 = *(*(&v19 + 1) + 8 * i);
+          v18[0] = MEMORY[0x277D85DD0];
+          v18[1] = 3221225472;
+          v18[2] = __68__WeatherPreferences_citiesByConsolidatingDuplicates_originalOrder___block_invoke_2;
+          v18[3] = &unk_279E68358;
+          v18[4] = v13;
+          v14 = [v7 na_firstObjectPassingTest:v18];
           if (v14)
           {
             [array2 addObject:v14];
@@ -828,7 +828,7 @@ LABEL_20:
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v20 objects:v32 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v19 objects:v31 count:16];
       }
 
       while (v10);
@@ -840,8 +840,7 @@ LABEL_20:
     array2 = [MEMORY[0x277CBEB18] arrayWithArray:orderCopy];
   }
 
-  _Block_object_dispose(&v28, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 
   return array2;
 }
@@ -870,50 +869,48 @@ void __68__WeatherPreferences_citiesByConsolidatingDuplicates_originalOrder___bl
 
 - (id)citiesByConsolidatingDuplicatesInBucket:(id)bucket
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   bucketCopy = bucket;
   array = [MEMORY[0x277CBEB18] array];
   firstObject = [bucketCopy firstObject];
   [array addObject:firstObject];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = bucketCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __62__WeatherPreferences_citiesByConsolidatingDuplicatesInBucket___block_invoke;
-        v14[3] = &unk_279E68358;
-        v14[4] = v11;
-        if (([array na_all:v14] & 1) == 0)
+        v11 = *(*(&v14 + 1) + 8 * i);
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __62__WeatherPreferences_citiesByConsolidatingDuplicatesInBucket___block_invoke;
+        v13[3] = &unk_279E68358;
+        v13[4] = v11;
+        if (([array na_all:v13] & 1) == 0)
         {
           [array addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1079,6 +1076,22 @@ LABEL_9:
   return v5;
 }
 
+- (void)setLocalWeatherEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = WALogForCategory(4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "setLocalWeatherEnabled=%@", &v7, 0xCu);
+  }
+
+  [(WeatherPreferencesPersistence *)self->_persistence setBool:enabledCopy forKey:@"LocalWeatherEnabledKey"];
+}
+
 - (BOOL)isLocalWeatherEnabled
 {
   v2 = [(WeatherPreferencesPersistence *)self->_persistence objectForKey:@"LocalWeatherEnabledKey"];
@@ -1162,25 +1175,25 @@ void __42__WeatherPreferences_serviceDebuggingPath__block_invoke()
 
 - (BOOL)areCitiesDefault:(id)default
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   defaultCopy = default;
   _defaultCities = [(WeatherPreferences *)self _defaultCities];
   v6 = [defaultCopy count];
-  v27 = _defaultCities;
+  v26 = _defaultCities;
   if (v6 == [_defaultCities count])
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = defaultCopy;
-    v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v7)
     {
       v8 = v7;
-      v25 = defaultCopy;
+      v24 = defaultCopy;
       LODWORD(v9) = 0;
-      v10 = *v29;
+      v10 = *v28;
       v11 = *MEMORY[0x277D7B1F0];
       v12 = *MEMORY[0x277D7B1F8];
       while (2)
@@ -1189,13 +1202,13 @@ void __42__WeatherPreferences_serviceDebuggingPath__block_invoke()
         v9 = v9;
         do
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * v13);
-          v15 = [v27 objectAtIndex:v9];
+          v14 = *(*(&v27 + 1) + 8 * v13);
+          v15 = [v26 objectAtIndex:v9];
           v16 = [v14 objectForKeyedSubscript:v11];
           [v16 floatValue];
           v18 = v17;
@@ -1214,7 +1227,7 @@ void __42__WeatherPreferences_serviceDebuggingPath__block_invoke()
         }
 
         while (v8 != v13);
-        v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v8)
         {
           continue;
@@ -1225,7 +1238,7 @@ void __42__WeatherPreferences_serviceDebuggingPath__block_invoke()
 
       v22 = 1;
 LABEL_13:
-      defaultCopy = v25;
+      defaultCopy = v24;
     }
 
     else
@@ -1239,26 +1252,23 @@ LABEL_13:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (void)temperatureUnitObserver:(id)observer didChangeTemperatureUnitTo:(int)to
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v9 = @"kWeatherPrefsUpdateNotificationKey";
+  v8 = @"kWeatherPrefsUpdateNotificationKey";
   v6 = NSStringFromWFTemperatureUnit();
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [defaultCenter postNotificationName:@"kWeatherPrefsDidUpdateUserTemperatureUnit" object:self userInfo:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)performUpgradeOfPersistence:(id)persistence fileManager:(id)manager error:(id *)error
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   persistenceCopy = persistence;
   managerCopy = manager;
   v9 = managerCopy;
@@ -1274,16 +1284,16 @@ LABEL_13:
       +[WeatherPreferences performUpgradeOfPersistence:fileManager:error:];
     }
 
-    *v27 = 0;
-    v28 = v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__3;
-    v31 = __Block_byref_object_dispose__3;
-    v32 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
-    v26 = 0;
+    *v26 = 0;
+    v27 = v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__3;
+    v30 = __Block_byref_object_dispose__3;
+    v31 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 0;
     v10 = WALogForCategory(14);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
@@ -1292,29 +1302,29 @@ LABEL_13:
     }
 
     v11 = performUpgradeOfPersistence_fileManager_error__migrationQueue;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_150;
-    v17[3] = &unk_279E68A50;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_150;
+    v16[3] = &unk_279E68A50;
     v9 = v9;
-    v18 = v9;
-    v20 = v27;
-    v21 = &v23;
-    v19 = persistenceCopy;
-    dispatch_sync(v11, v17);
+    v17 = v9;
+    v19 = v26;
+    v20 = &v22;
+    v18 = persistenceCopy;
+    dispatch_sync(v11, v16);
     if (error)
     {
-      v12 = *(v28 + 5);
+      v12 = *(v27 + 5);
       if (v12)
       {
         *error = v12;
       }
     }
 
-    LOBYTE(error) = *(v24 + 24);
+    LOBYTE(error) = *(v23 + 24);
 
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(v27, 8);
+    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(v26, 8);
   }
 
   else
@@ -1322,22 +1332,21 @@ LABEL_13:
     v13 = WALogForCategory(14);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v27 = 0;
-      _os_log_impl(&dword_272ACF000, v13, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - failed to update persistence.", v27, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_272ACF000, v13, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - failed to update persistence.", v26, 2u);
     }
 
     if (error)
     {
-      v33 = *MEMORY[0x277CCA450];
-      v34[0] = @"persistence was nil; can't upgrade it";
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+      v32 = *MEMORY[0x277CCA450];
+      v33[0] = @"persistence was nil; can't upgrade it";
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.weather.errorDomain" code:3 userInfo:v14];
 
       LOBYTE(error) = 0;
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return error & 1;
 }
 
@@ -1352,7 +1361,7 @@ uint64_t __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error_
 
 void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_150(uint64_t a1)
 {
-  v86[1] = *MEMORY[0x277D85DE8];
+  v85[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [v2 containerURLForSecurityApplicationGroupIdentifier:@"group.com.apple.weather"];
 
@@ -1363,7 +1372,7 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
     if (v5)
     {
       *buf = 138412290;
-      v78 = v3;
+      v77 = v3;
       _os_log_impl(&dword_272ACF000, v4, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - groupContainers: %@", buf, 0xCu);
     }
 
@@ -1374,7 +1383,7 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v78 = v4;
+      v77 = v4;
       _os_log_impl(&dword_272ACF000, v8, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - source: %@", buf, 0xCu);
     }
 
@@ -1382,7 +1391,7 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v78 = v7;
+      v77 = v7;
       _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - destination: %@", buf, 0xCu);
     }
 
@@ -1411,9 +1420,9 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
       else
       {
         v16 = *(a1 + 32);
-        v76 = 0;
-        v17 = [v16 createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v76];
-        v18 = v76;
+        v75 = 0;
+        v17 = [v16 createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v75];
+        v18 = v75;
         v19 = WALogForCategory(14);
         v20 = v19;
         if (v17)
@@ -1421,14 +1430,14 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v78 = v6;
+            v77 = v6;
             _os_log_impl(&dword_272ACF000, v20, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - succeeded to create destination folder %@", buf, 0xCu);
           }
 
           v21 = *(a1 + 32);
-          v75 = v18;
-          v22 = [v21 copyItemAtURL:v4 toURL:v7 error:&v75];
-          v15 = v75;
+          v74 = v18;
+          v22 = [v21 copyItemAtURL:v4 toURL:v7 error:&v74];
+          v15 = v74;
 
           v23 = WALogForCategory(14);
           v24 = v23;
@@ -1450,9 +1459,9 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
               __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_150_cold_2(v15, v24);
             }
 
-            v85 = *MEMORY[0x277CCA450];
-            v86[0] = @"failed copyItemAtURL";
-            v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:&v85 count:1];
+            v84 = *MEMORY[0x277CCA450];
+            v85[0] = @"failed copyItemAtURL";
+            v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:&v84 count:1];
             v15 = v15;
             v32 = v31;
             if (v15)
@@ -1486,9 +1495,9 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
             __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_150_cold_1(v18, v20);
           }
 
-          v83 = *MEMORY[0x277CCA450];
-          v84 = @"failed to create destination folder";
-          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v82 = *MEMORY[0x277CCA450];
+          v83 = @"failed to create destination folder";
+          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
           v15 = v18;
           v26 = v25;
           if (v15)
@@ -1548,7 +1557,7 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v78 = @"Celsius";
+      v77 = @"Celsius";
       _os_log_impl(&dword_272ACF000, v38, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - Moving Prefs key '%@' (representing BOOL of whether user temperature unit is celsius or fahrenheit) to new NSLocale API", buf, 0xCu);
     }
 
@@ -1571,11 +1580,11 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v78 = @"Celsius";
-        v79 = 2112;
-        v80 = v40;
-        v81 = 2112;
-        v82 = v43;
+        v77 = @"Celsius";
+        v78 = 2112;
+        v79 = v40;
+        v80 = 2112;
+        v81 = v43;
         _os_log_impl(&dword_272ACF000, v44, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - Migrated key '%@' (%@) NSLocale API value (%@).", buf, 0x20u);
       }
     }
@@ -1586,7 +1595,7 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v78 = @"Celsius";
+        v77 = @"Celsius";
         _os_log_impl(&dword_272ACF000, v43, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - Skipping key '%@' migration to NSLocale API -- must have already been migrated or doesn't exist.", buf, 0xCu);
       }
     }
@@ -1622,16 +1631,16 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
         }
 
         v57 = [v55 copy];
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_3;
-        v71[3] = &unk_279E68A28;
+        v70[0] = MEMORY[0x277D85DD0];
+        v70[1] = 3221225472;
+        v70[2] = __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_3;
+        v70[3] = &unk_279E68A28;
         v58 = *(a1 + 48);
-        v73 = &__block_literal_global_173;
-        v74 = v58;
+        v72 = &__block_literal_global_173;
+        v73 = v58;
         v59 = v55;
-        v72 = v59;
-        [v57 enumerateObjectsUsingBlock:v71];
+        v71 = v59;
+        [v57 enumerateObjectsUsingBlock:v70];
 
         if (!*(*(*(a1 + 48) + 8) + 40))
         {
@@ -1639,13 +1648,13 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
           v61 = v60;
           if (v56 && [v60 count])
           {
-            v70 = [v61 lastObject];
+            v69 = [v61 lastObject];
 
-            v69 = [v61 subarrayWithRange:{0, objc_msgSend(v61, "count") - 1}];
+            v68 = [v61 subarrayWithRange:{0, objc_msgSend(v61, "count") - 1}];
 
-            v56 = v70;
-            [*(a1 + 40) setObject:v70 forKey:@"LocalWeather"];
-            v61 = v69;
+            v56 = v69;
+            [*(a1 + 40) setObject:v69 forKey:@"LocalWeather"];
+            v61 = v68;
           }
 
           [*(a1 + 40) setObject:v61 forKey:@"Cities"];
@@ -1663,7 +1672,7 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
           v65 = [*(a1 + 40) stringForKey:@"PrefsVersion"];
           [v65 doubleValue];
           *buf = 134217984;
-          v78 = v66;
+          v77 = v66;
           _os_log_impl(&dword_272ACF000, v64, OS_LOG_TYPE_DEFAULT, "WeatherPreferences _performMigration - finished persistence upgrade from version: %f", buf, 0xCu);
         }
 
@@ -1692,13 +1701,11 @@ LABEL_74:
 
 LABEL_75:
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -1724,14 +1731,14 @@ LABEL_12:
 
         if (a4)
         {
-          v17[0] = @"key";
-          v17[1] = @"value";
-          v18[0] = v7;
-          v18[1] = v8;
-          v17[2] = @"container";
+          v16[0] = @"key";
+          v16[1] = @"value";
+          v17[0] = v7;
+          v17[1] = v8;
+          v16[2] = @"container";
           v13 = [v6 copy];
-          v18[2] = v13;
-          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+          v17[2] = v13;
+          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
           *a4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.weather.errorDomain" code:4 userInfo:v14];
         }
       }
@@ -1754,49 +1761,47 @@ LABEL_12:
 
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v69[4] = *MEMORY[0x277D85DE8];
-  v40 = a2;
-  v5 = [v40 mutableCopy];
+  v67[4] = *MEMORY[0x277D85DE8];
+  v38 = a2;
+  v5 = [v38 mutableCopy];
   v6 = MEMORY[0x277CBEB98];
-  v69[0] = 0x28822C648;
-  v69[1] = 0x28822C1C8;
-  v69[2] = 0x28822C7A8;
-  v69[3] = 0x28822C7C8;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:4];
+  v67[0] = 0x28822C648;
+  v67[1] = 0x28822C1C8;
+  v67[2] = 0x28822C7A8;
+  v67[3] = 0x28822C7C8;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:4];
   v8 = [v6 setWithArray:v7];
 
-  v61 = 0u;
-  v62 = 0u;
   v59 = 0u;
   v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v9 = v8;
   v10 = 0;
-  v11 = [v9 countByEnumeratingWithState:&v59 objects:v68 count:16];
+  v11 = [v9 countByEnumeratingWithState:&v57 objects:v66 count:16];
   if (v11)
   {
-    v12 = *v60;
+    v12 = *v58;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v60 != v12)
+        if (*v58 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v59 + 1) + 8 * i);
-        v15 = *(a1 + 40);
-        v16 = *(*(a1 + 48) + 8);
-        obj = *(v16 + 40);
-        v17 = (*(v15 + 16))();
-        objc_storeStrong((v16 + 40), obj);
-        if (v17)
+        v14 = *(a1 + 40);
+        v15 = *(*(a1 + 48) + 8);
+        obj = *(v15 + 40);
+        v16 = (*(v14 + 16))();
+        objc_storeStrong((v15 + 40), obj);
+        if (v16)
         {
           v10 = 1;
         }
@@ -1809,7 +1814,7 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v59 objects:v68 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v57 objects:v66 count:16];
       if (v11)
       {
         continue;
@@ -1819,77 +1824,77 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
     }
   }
 
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2020000000;
-  v57 = 0;
-  v18 = MEMORY[0x277CBEB98];
-  v67[0] = 0x28822C848;
-  v67[1] = 0x28822C788;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
-  v20 = [v18 setWithArray:v19];
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
+  v17 = MEMORY[0x277CBEB98];
+  v65[0] = 0x28822C848;
+  v65[1] = 0x28822C788;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
+  v19 = [v17 setWithArray:v18];
 
-  v52 = 0u;
-  v53 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v41 = v20;
-  v21 = [v41 countByEnumeratingWithState:&v50 objects:v66 count:16];
-  if (v21)
+  v48 = 0u;
+  v49 = 0u;
+  v39 = v19;
+  v20 = [v39 countByEnumeratingWithState:&v48 objects:v64 count:16];
+  if (v20)
   {
-    v22 = *v51;
+    v21 = *v49;
     while (2)
     {
-      for (j = 0; j != v21; ++j)
+      for (j = 0; j != v20; ++j)
       {
-        if (*v51 != v22)
+        if (*v49 != v21)
         {
-          objc_enumerationMutation(v41);
+          objc_enumerationMutation(v39);
         }
 
-        v24 = *(*(&v50 + 1) + 8 * j);
-        v25 = [v5 objectForKeyedSubscript:v24];
-        v26 = [v25 mutableCopy];
+        v23 = *(*(&v48 + 1) + 8 * j);
+        v24 = [v5 objectForKeyedSubscript:v23];
+        v25 = [v24 mutableCopy];
 
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v31 = WALogForCategory(14);
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v30 = WALogForCategory(14);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            v32 = objc_opt_class();
-            v33 = NSStringFromClass(v32);
-            __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_3_cold_1(v33, buf, v31);
+            v31 = objc_opt_class();
+            v32 = NSStringFromClass(v31);
+            __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_3_cold_1(v32, buf, v30);
           }
 
-          v63 = *MEMORY[0x277CCA470];
-          v64 = @"Container class was of incorrect class type";
-          v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
-          v35 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.weather.errorDomain" code:3 userInfo:v34];
+          v61 = *MEMORY[0x277CCA470];
+          v62 = @"Container class was of incorrect class type";
+          v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+          v34 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.weather.errorDomain" code:3 userInfo:v33];
 
-          v36 = *(*(a1 + 48) + 8);
-          v37 = *(v36 + 40);
-          *(v36 + 40) = v35;
+          v35 = *(*(a1 + 48) + 8);
+          v36 = *(v35 + 40);
+          *(v35 + 40) = v34;
 
           *a4 = 1;
           goto LABEL_31;
         }
 
-        v27 = [v26 copy];
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_190;
-        v43[3] = &unk_279E68A00;
-        v44 = v9;
-        v28 = *(a1 + 40);
-        v29 = *(a1 + 48);
-        v46 = v28;
-        v47 = v29;
-        v30 = v26;
-        v45 = v30;
-        v48 = &v54;
-        v49 = a4;
-        [v27 enumerateObjectsUsingBlock:v43];
+        v26 = [v25 copy];
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_190;
+        v41[3] = &unk_279E68A00;
+        v42 = v9;
+        v27 = *(a1 + 40);
+        v28 = *(a1 + 48);
+        v44 = v27;
+        v45 = v28;
+        v29 = v25;
+        v43 = v29;
+        v46 = &v52;
+        v47 = a4;
+        [v26 enumerateObjectsUsingBlock:v41];
 
         if (*(*(*(a1 + 48) + 8) + 40))
         {
@@ -1897,14 +1902,14 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
           goto LABEL_28;
         }
 
-        if (*(v55 + 24) == 1)
+        if (*(v53 + 24) == 1)
         {
-          [v5 setObject:v30 forKeyedSubscript:v24];
+          [v5 setObject:v29 forKeyedSubscript:v23];
         }
       }
 
-      v21 = [v41 countByEnumeratingWithState:&v50 objects:v66 count:16];
-      if (v21)
+      v20 = [v39 countByEnumeratingWithState:&v48 objects:v64 count:16];
+      if (v20)
       {
         continue;
       }
@@ -1915,48 +1920,45 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
 
 LABEL_28:
 
-  if ((v10 & 1) != 0 || *(v55 + 24) == 1)
+  if ((v10 & 1) != 0 || *(v53 + 24) == 1)
   {
     [*(a1 + 32) setObject:v5 atIndexedSubscript:a3];
   }
 
 LABEL_31:
 
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v52, 8);
 LABEL_32:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_190(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = [a2 mutableCopy];
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = *(*(a1 + 56) + 8);
-        obj = *(v13 + 40);
-        v14 = (*(*(a1 + 48) + 16))();
-        objc_storeStrong((v13 + 40), obj);
-        if (v14)
+        v12 = *(*(a1 + 56) + 8);
+        obj = *(v12 + 40);
+        v13 = (*(*(a1 + 48) + 16))();
+        objc_storeStrong((v12 + 40), obj);
+        if (v13)
         {
           [*(a1 + 40) setObject:v6 atIndexedSubscript:a3];
           *(*(*(a1 + 64) + 8) + 24) = 1;
@@ -1970,7 +1972,7 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -1981,8 +1983,6 @@ void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___bl
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (SynchronizedDefaultsDelegate)syncDelegate
@@ -1994,20 +1994,18 @@ LABEL_13:
 
 void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_150_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "WeatherPreferences _performMigration - failed to create destination folder %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "WeatherPreferences _performMigration - failed to create destination folder %@", &v2, 0xCu);
 }
 
 void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_150_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "WeatherPreferences _performMigration - failed copyItemAtURL %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "WeatherPreferences _performMigration - failed copyItemAtURL %@", &v2, 0xCu);
 }
 
 void __68__WeatherPreferences_performUpgradeOfPersistence_fileManager_error___block_invoke_3_cold_1(void *a1, uint8_t *buf, os_log_t log)

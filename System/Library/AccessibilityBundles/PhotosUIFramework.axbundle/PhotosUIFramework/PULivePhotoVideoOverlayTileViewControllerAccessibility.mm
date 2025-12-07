@@ -19,7 +19,7 @@
 
 - (void)_axApplyAssetToView
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v3 = [(PULivePhotoVideoOverlayTileViewControllerAccessibility *)self safeValueForKey:@"mergedVideo"];
   v4 = [v3 safeArrayForKey:@"assets"];
 
@@ -28,26 +28,26 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     subviews = [v6 subviews];
-    v8 = [subviews countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(subviews);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -64,7 +64,7 @@
           goto LABEL_13;
         }
 
-        v9 = [subviews countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           continue;
@@ -84,8 +84,6 @@ LABEL_13:
   }
 
   [v6 setIsAccessibilityElement:firstObject != 0];
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityLoadAccessibilityInformation

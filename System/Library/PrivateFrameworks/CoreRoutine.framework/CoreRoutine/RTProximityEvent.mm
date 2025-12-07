@@ -349,22 +349,22 @@ LABEL_18:
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   descriptionDictionary = [(RTProximityEvent *)self descriptionDictionary];
-  v12 = 0;
-  v3 = [MEMORY[0x1E696ACB0] JSONStringFromNSDictionary:descriptionDictionary error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [MEMORY[0x1E696ACB0] JSONStringFromNSDictionary:descriptionDictionary error:&v11];
+  v4 = v11;
   if (v4)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v4;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v4;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "%@ instance failed to create description:%@", buf, 0x16u);
     }
 
@@ -377,8 +377,6 @@ LABEL_18:
   }
 
   v7 = string;
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

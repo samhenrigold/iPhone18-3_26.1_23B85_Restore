@@ -14,7 +14,7 @@
 
 - (id)accountsForAccountManager:(id)manager
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE0F268);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE0F268, &qword_24525E4C8);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_24525DE30;
   v5 = *MEMORY[0x277CED1A0];

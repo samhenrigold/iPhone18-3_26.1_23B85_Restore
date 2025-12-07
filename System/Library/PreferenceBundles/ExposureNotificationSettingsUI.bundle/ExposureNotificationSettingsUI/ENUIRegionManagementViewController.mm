@@ -7,6 +7,8 @@
 - (id)specifiers;
 - (id)specifiersForHealthAgencyModels:(id)models;
 - (void)didTapAddRegion:(id)region;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ENUIRegionManagementViewController
@@ -28,6 +30,25 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ENUIRegionManagementViewController;
+  [(ENUIRegionManagementViewController *)&v4 viewWillAppear:appear];
+  [(ENUIRegionManagementViewController *)self reloadSpecifiers];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = ENUIRegionManagementViewController;
+  [(ENUIRegionManagementViewController *)&v7 viewDidDisappear:disappear];
+  table = [(ENUIRegionManagementViewController *)self table];
+  table2 = [(ENUIRegionManagementViewController *)self table];
+  indexPathForSelectedRow = [table2 indexPathForSelectedRow];
+  [table deselectRowAtIndexPath:indexPathForSelectedRow animated:0];
 }
 
 - (id)specifiers

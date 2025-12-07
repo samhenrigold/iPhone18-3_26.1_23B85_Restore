@@ -17,14 +17,12 @@
 {
   if (qword_1EAD44F40 != -1)
   {
-    modeCopy = mode;
     swift_once();
-    mode = modeCopy;
   }
 
   if (*(off_1EAD44F48 + 2))
   {
-    sub_1908789E8(mode);
+    sub_1908789E8();
   }
 
   else
@@ -39,9 +37,9 @@
 {
   reportCopy = report;
   selfCopy = self;
-  LOBYTE(mode) = _sSo29CKUnreadCountFilterControllerC7ChatKitE12unreadReport_09satisfiesC4ModeSbSo08IMUnreadbH0C_So018IMConversationListcJ0VtF_0(reportCopy, mode);
+  v7 = _sSo29CKUnreadCountFilterControllerC7ChatKitE12unreadReport_09satisfiesC4ModeSbSo08IMUnreadbH0C_So018IMConversationListcJ0VtF_0(reportCopy);
 
-  return mode & 1;
+  return v7 & 1;
 }
 
 @end

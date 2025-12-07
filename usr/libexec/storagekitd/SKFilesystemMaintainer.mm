@@ -5,6 +5,7 @@
 - (FSClient)client;
 - (SKFilesystemMaintainer)initWithDisk:(id)disk;
 - (SKFilesystemMaintainer)initWithDisks:(id)disks;
+- (id)createReceiverUsingFSKit:(id)kit opts:(id)opts taskGroup:(id)group writable:(BOOL)writable;
 @end
 
 @implementation SKFilesystemMaintainer
@@ -57,6 +58,64 @@
   }
 
   return client;
+}
+
+- (id)createReceiverUsingFSKit:(id)kit opts:(id)opts taskGroup:(id)group writable:(BOOL)writable
+{
+  writableCopy = writable;
+  kitCopy = kit;
+  optsCopy = opts;
+  groupCopy = group;
+  v12 = [SKFSTaskPair alloc];
+  v13 = [SKFSTaskMessageHandler alloc];
+  progress = [(SKFilesystemMaintainer *)self progress];
+  v15 = [(SKFSTaskMessageHandler *)v13 initWithProgress:progress dispatchGroup:groupCopy];
+  v16 = [(SKFSTaskPair *)v12 initWithMessageHandler:v15];
+
+  v34 = kitCopy;
+  diskIdentifier = [kitCopy diskIdentifier];
+  v32 = [FSBlockDeviceResource proxyResourceForBSDName:diskIdentifier isWritable:writableCopy];
+
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x3032000000;
+  v41[3] = sub_100024584;
+  v41[4] = sub_100024594;
+  v42 = 0;
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_100026098;
+  v40[3] = &unk_100049768;
+  v40[4] = self;
+  v40[5] = v41;
+  v18 = objc_retainBlock(v40);
+  dispatch_group_enter(groupCopy);
+  client = [(SKFilesystemMaintainer *)self client];
+  filesystem = [kitCopy filesystem];
+  bundle = [filesystem bundle];
+  bundleIdentifier = [bundle bundleIdentifier];
+  receiver = [(SKFSTaskPair *)v16 receiver];
+  getConnection = [receiver getConnection];
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = sub_10002626C;
+  v35[3] = &unk_100049790;
+  v25 = v16;
+  v36 = v25;
+  v26 = v32;
+  v37 = v26;
+  v27 = v18;
+  v39 = v27;
+  v28 = groupCopy;
+  v38 = v28;
+  [client checkResource:v26 usingBundle:bundleIdentifier options:optsCopy connection:getConnection replyHandler:v35];
+
+  v29 = v38;
+  v30 = v25;
+
+  _Block_object_dispose(v41, 8);
+
+  return v30;
 }
 
 - (BOOL)runMaintenanceOperationWithArgsCreator:(id)creator error:(id *)error

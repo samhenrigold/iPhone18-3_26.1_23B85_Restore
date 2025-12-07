@@ -46,12 +46,11 @@
 
 - (void)dealloc
 {
-  stateHandle = self->_stateHandle;
   os_state_remove_handler();
   free([(NDTActivity *)self activityIdentifier]);
-  v4.receiver = self;
-  v4.super_class = NDTActivity;
-  [(NDTActivity *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = NDTActivity;
+  [(NDTActivity *)&v3 dealloc];
 }
 
 - (OS_xpc_object)activity

@@ -1,6 +1,7 @@
 @interface DADeliveryAccount
 - (DADeliveryAccount)initWithDAMailAccount:(id)account;
 - (id)newDeliveryWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other;
+- (id)newDeliveryWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l;
 - (id)newDeliveryWithMessage:(id)message;
 @end
 
@@ -28,6 +29,15 @@
   v4 = [(DeliveryAccount *)&v6 newDeliveryWithMessage:message];
   [v4 setDAMailAccount:self->_DAMailAccount];
   return v4;
+}
+
+- (id)newDeliveryWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l
+{
+  v8.receiver = self;
+  v8.super_class = DADeliveryAccount;
+  v6 = [(DeliveryAccount *)&v8 newDeliveryWithHeaders:headers mixedContent:content textPartsAreHTML:l];
+  [v6 setDAMailAccount:self->_DAMailAccount];
+  return v6;
 }
 
 - (id)newDeliveryWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other

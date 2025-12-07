@@ -267,7 +267,7 @@ void __58__PXTileStatePool_setCurrentGeometry_forTileStateAtIndex___block_invoke
   return v8;
 }
 
-uint64_t __46__PXTileStatePool_indexesOfStatesPassingTest___block_invoke(uint64_t a1, uint64_t a2)
+void *__46__PXTileStatePool_indexesOfStatesPassingTest___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = (*(*(a1 + 48) + 16))();
   if (result)

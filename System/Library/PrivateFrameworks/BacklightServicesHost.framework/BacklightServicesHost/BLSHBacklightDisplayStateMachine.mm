@@ -81,19 +81,18 @@ LABEL_6:
   if (self->_lock_cbDisplayModeTransitionOperation.phase != 2)
   {
 LABEL_14:
-    lock_completedCBDisplayMode = self->_lock_completedCBDisplayMode;
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u->%u", lock_completedCBDisplayMode, self->_lock_cbDisplayModeTransitionOperation.cbDisplayMode];
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u->%u", self->_lock_completedCBDisplayMode, self->_lock_cbDisplayModeTransitionOperation.cbDisplayMode];
     if (self->_lock_cbDisplayModeTransitionOperation.shouldWait)
     {
-      v17 = @"waitingForCBDisplayMode";
+      v16 = @"waitingForCBDisplayMode";
     }
 
     else
     {
-      v17 = @"pendingCBDisplayMode";
+      v16 = @"pendingCBDisplayMode";
     }
 
-    [v4 appendString:v16 withName:v17];
+    [v4 appendString:v15 withName:v16];
 
     goto LABEL_18;
   }
@@ -112,22 +111,21 @@ LABEL_14:
 LABEL_18:
   if (self->_lock_cbFlipbookStateChangeOperation.phase != 2)
   {
-    lock_completedCBFlipbookState = self->_lock_completedCBFlipbookState;
-    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u->%u", lock_completedCBFlipbookState, self->_lock_cbFlipbookStateChangeOperation.cbFlipbookState];
-    [v4 appendString:v19 withName:@"pendingCBFlipbookState"];
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u->%u", self->_lock_completedCBFlipbookState, self->_lock_cbFlipbookStateChangeOperation.cbFlipbookState];
+    [v4 appendString:v17 withName:@"pendingCBFlipbookState"];
   }
 
-  v20 = [v4 appendObject:self->_lock_liveRenderingSystemActivityAssertion withName:@"liveAssertion" skipIfNil:1];
+  v18 = [v4 appendObject:self->_lock_liveRenderingSystemActivityAssertion withName:@"liveAssertion" skipIfNil:1];
   os_unfair_lock_unlock(&self->_lock);
   [(BLSHBacklightOSInterfaceProviding *)self->_osInterface caDisplayState];
-  v21 = NSStringFromCADisplayState();
-  v22 = [v4 appendObject:v21 withName:@"caDisplayState"];
+  v19 = NSStringFromCADisplayState();
+  v20 = [v4 appendObject:v19 withName:@"caDisplayState"];
 
-  v23 = NSStringFromCBDisplayMode_bls([(BLSHBacklightOSInterfaceProviding *)self->_osInterface cbDisplayMode]);
-  v24 = [v4 appendObject:v23 withName:@"cbDisplayMode"];
+  v21 = NSStringFromCBDisplayMode_bls([(BLSHBacklightOSInterfaceProviding *)self->_osInterface cbDisplayMode]);
+  v22 = [v4 appendObject:v21 withName:@"cbDisplayMode"];
 
-  v25 = [v4 appendBool:isShowingBlankingWindow withName:@"showingBlankingWindow" ifEqualTo:1];
-  v26 = [v4 appendInteger:-[BLSHBacklightOSInterfaceProviding cbFlipbookState](self->_osInterface withName:{"cbFlipbookState"), @"cbFlipbookState"}];
+  v23 = [v4 appendBool:isShowingBlankingWindow withName:@"showingBlankingWindow" ifEqualTo:1];
+  v24 = [v4 appendInteger:-[BLSHBacklightOSInterfaceProviding cbFlipbookState](self->_osInterface withName:{"cbFlipbookState"), @"cbFlipbookState"}];
   build = [v4 build];
 
   return build;
@@ -143,7 +141,7 @@ LABEL_18:
 
 - (void)_acquireLiveRenderingSystemActivityAssertion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_9_2(self);
@@ -152,12 +150,12 @@ LABEL_18:
       v2 = bls_backlight_log();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
-        v9 = *(v1 + 288);
-        v11 = 134218242;
-        v12 = v1;
-        v13 = 2114;
-        v14 = v9;
-        OUTLINED_FUNCTION_14_4(&dword_21FD11000, v2, v3, "DSM:%p already have live rendering system activity assertion %{public}@", &v11);
+        v8 = *(v1 + 288);
+        v10 = 134218242;
+        v11 = v1;
+        v12 = 2114;
+        v13 = v8;
+        OUTLINED_FUNCTION_14_4(&dword_21FD11000, v2, v3, "DSM:%p already have live rendering system activity assertion %{public}@", &v10);
       }
     }
 
@@ -169,24 +167,21 @@ LABEL_18:
       *(v1 + 288) = v5;
 
       v7 = *(v1 + 288);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __80__BLSHBacklightDisplayStateMachine__acquireLiveRenderingSystemActivityAssertion__block_invoke_2;
-      v10[3] = &unk_278420450;
-      v10[4] = v1;
-      v10[5] = v4;
-      [v7 acquireWithTimeout:v10 handler:0.0];
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __80__BLSHBacklightDisplayStateMachine__acquireLiveRenderingSystemActivityAssertion__block_invoke_2;
+      v9[3] = &unk_278420450;
+      v9[4] = v1;
+      v9[5] = v4;
+      [v7 acquireWithTimeout:v9 handler:0.0];
     }
 
     os_unfair_lock_unlock((v1 + 24));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceCurrentWatchdog
 {
-  v12 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_9_2(self);
@@ -209,13 +204,11 @@ LABEL_18:
 
     os_unfair_lock_unlock((v1 + 24));
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __80__BLSHBacklightDisplayStateMachine__acquireLiveRenderingSystemActivityAssertion__block_invoke_2(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = bls_backlight_log();
@@ -239,42 +232,36 @@ void __80__BLSHBacklightDisplayStateMachine__acquireLiveRenderingSystemActivityA
 
   if (os_log_type_enabled(v9, v10))
   {
-    v12 = *(a1 + 32);
-    v11 = *(a1 + 40);
+    v11 = *(a1 + 32);
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    v14 = v13;
-    v15 = [v7 bls_loggingString];
-    v17 = 134218754;
-    v18 = v12;
-    v19 = 2048;
-    v20 = v14;
+    v13 = v12;
+    v14 = [v7 bls_loggingString];
+    v15 = 134218754;
+    v16 = v11;
+    v17 = 2048;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v8;
     v21 = 2114;
-    v22 = v8;
-    v23 = 2114;
-    v24 = v15;
-    _os_log_impl(&dword_21FD11000, v9, v10, "DSM:%p live rendering system activity assertion callback elapsed:%.4lfs details:%{public}@ error:%{public}@", &v17, 0x2Au);
+    v22 = v14;
+    _os_log_impl(&dword_21FD11000, v9, v10, "DSM:%p live rendering system activity assertion callback elapsed:%.4lfs details:%{public}@ error:%{public}@", &v15, 0x2Au);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onMain_performNextStepInModeTransition
 {
-  v10 = *MEMORY[0x277D85DE8];
   mach_continuous_time();
   BSTimeDifferenceFromMachTimeToMachTime();
-  v1 = v0 <= 0.05;
-  v2 = bls_backlight_log();
-  v3 = 2 * v1;
-  if (os_log_type_enabled(v2, v3))
+  v4 = v3 <= 0.05;
+  v5 = bls_backlight_log();
+  v6 = 2 * v4;
+  if (os_log_type_enabled(v5, v6))
   {
-    v9 = NSStringFromCADisplayState();
+    v11 = NSStringFromCADisplayState();
     OUTLINED_FUNCTION_11_3();
-    _os_log_impl(v4, v5, v3, v6, v7, 0x20u);
+    _os_log_impl(v7, v8, v6, v9, v10, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BLSHBacklightDisplayStateMachine)initWithDelegate:(id)delegate platformProvider:(id)provider osInterfaceProvider:(id)interfaceProvider
@@ -352,13 +339,13 @@ void __80__BLSHBacklightDisplayStateMachine__acquireLiveRenderingSystemActivityA
   return v12;
 }
 
-uint64_t __90__BLSHBacklightDisplayStateMachine_initWithDelegate_platformProvider_osInterfaceProvider___block_invoke(uint64_t a1)
+uint64_t __90__BLSHBacklightDisplayStateMachine_initWithDelegate_platformProvider_osInterfaceProvider___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = [WeakRetained description];
-  v3 = BLSStateDataWithTitleDescriptionAndHints();
+  v3 = [WeakRetained description];
+  v4 = BLSStateDataWithTitleDescriptionAndHints();
 
-  return v3;
+  return v4;
 }
 
 - (void)dealloc
@@ -423,63 +410,60 @@ uint64_t __90__BLSHBacklightDisplayStateMachine_initWithDelegate_platformProvide
 
 - (void)resumeDisplayMode:(int64_t)mode
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   displayMode = self->_lock_displayRampOperation.displayMode;
   lock_isPrewarmingDisplayMode = self->_lock_isPrewarmingDisplayMode;
   self->_lock_isPrewarmingDisplayMode = 0;
-  if (displayMode != mode)
+  if (displayMode == mode)
+  {
+    if (lock_isPrewarmingDisplayMode)
+    {
+      v7 = bls_backlight_log();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      {
+        v8 = NSStringFromBLSBacklightDisplayMode(mode);
+        *buf = 134218242;
+        selfCopy2 = self;
+        v14 = 2114;
+        v15 = v8;
+        _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, "DSM:%p resumed transition to display mode:%{public}@", buf, 0x16u);
+      }
+
+      os_unfair_lock_unlock(&self->_lock);
+LABEL_9:
+      BSDispatchMain();
+      return;
+    }
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
+
+  else
   {
     v9 = bls_backlight_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v12 = NSStringFromBLSBacklightDisplayMode(mode);
-      v13 = NSStringFromBLSBacklightDisplayMode(displayMode);
+      v10 = NSStringFromBLSBacklightDisplayMode(mode);
+      v11 = NSStringFromBLSBacklightDisplayMode(displayMode);
       *buf = 134218498;
       selfCopy2 = self;
+      v14 = 2114;
+      v15 = v10;
       v16 = 2114;
-      v17 = v12;
-      v18 = 2114;
-      v19 = v13;
+      v17 = v11;
       _os_log_fault_impl(&dword_21FD11000, v9, OS_LOG_TYPE_FAULT, "DSM:%p resumed display mode:%{public}@ did not match current target:%{public}@", buf, 0x20u);
     }
 
     os_unfair_lock_unlock(&self->_lock);
-    if (!lock_isPrewarmingDisplayMode)
+    if (lock_isPrewarmingDisplayMode)
     {
-      goto LABEL_10;
+      goto LABEL_9;
     }
-
-    goto LABEL_9;
   }
-
-  if (lock_isPrewarmingDisplayMode)
-  {
-    v7 = bls_backlight_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      v8 = NSStringFromBLSBacklightDisplayMode(mode);
-      *buf = 134218242;
-      selfCopy2 = self;
-      v16 = 2114;
-      v17 = v8;
-      _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, "DSM:%p resumed transition to display mode:%{public}@", buf, 0x16u);
-    }
-
-    os_unfair_lock_unlock(&self->_lock);
-LABEL_9:
-    BSDispatchMain();
-LABEL_10:
-    v10 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-
-  os_unfair_lock_unlock(&self->_lock);
 }
 
-id __91__BLSHBacklightDisplayStateMachine_acquireLiveRenderingSystemActivityAssertionIfNecessary___block_invoke()
+BLSHTTRWatchdogConfiguration *__91__BLSHBacklightDisplayStateMachine_acquireLiveRenderingSystemActivityAssertionIfNecessary___block_invoke()
 {
   v0 = objc_opt_new();
   [v0 setIdentifier:@"bls_dsm_live_rendering_assertion"];
@@ -490,7 +474,7 @@ id __91__BLSHBacklightDisplayStateMachine_acquireLiveRenderingSystemActivityAsse
   return v0;
 }
 
-id __91__BLSHBacklightDisplayStateMachine_acquireLiveRenderingSystemActivityAssertionIfNecessary___block_invoke_2()
+BLSHTTRWatchdogDetails *__91__BLSHBacklightDisplayStateMachine_acquireLiveRenderingSystemActivityAssertionIfNecessary___block_invoke_2()
 {
   v0 = objc_opt_new();
   [v0 setRadarTitle:@"DSM Live Rendering Assertion Held Longer Than 90s"];
@@ -506,7 +490,7 @@ id __91__BLSHBacklightDisplayStateMachine_acquireLiveRenderingSystemActivityAsse
 
 - (void)osInterfaceProvider:(id)provider didCompleteTransitionToCBDisplayMode:(int64_t)mode withError:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   errorCopy = error;
   if (errorCopy)
@@ -514,14 +498,14 @@ id __91__BLSHBacklightDisplayStateMachine_acquireLiveRenderingSystemActivityAsse
     v10 = bls_backlight_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v18 = NSStringFromCBDisplayMode_bls(mode);
+      v17 = NSStringFromCBDisplayMode_bls(mode);
       bls_loggingString = [errorCopy bls_loggingString];
       *buf = 134218498;
       selfCopy3 = self;
-      v22 = 2114;
-      v23 = v18;
-      v24 = 2114;
-      v25 = bls_loggingString;
+      v21 = 2114;
+      v22 = v17;
+      v23 = 2114;
+      v24 = bls_loggingString;
       _os_log_fault_impl(&dword_21FD11000, v10, OS_LOG_TYPE_FAULT, "DSM:%p core brightness failed to switch to display mode:%{public}@ error:%{public}@", buf, 0x20u);
     }
   }
@@ -538,12 +522,12 @@ id __91__BLSHBacklightDisplayStateMachine_acquireLiveRenderingSystemActivityAsse
       phase = self->_lock_cbDisplayModeTransitionOperation.phase;
       *buf = 134218754;
       selfCopy3 = self;
-      v22 = 2114;
-      v23 = v14;
-      v24 = 2114;
-      v25 = v15;
-      v26 = 1024;
-      v27 = phase;
+      v21 = 2114;
+      v22 = v14;
+      v23 = 2114;
+      v24 = v15;
+      v25 = 1024;
+      v26 = phase;
       _os_log_impl(&dword_21FD11000, v13, OS_LOG_TYPE_INFO, "DSM:%p core brightness completed switch to wrong display mode:%{public}@, waiting for display mode:%{public}@ phase:%u", buf, 0x26u);
 
 LABEL_15:
@@ -565,8 +549,8 @@ LABEL_18:
       v14 = NSStringFromCBDisplayMode_bls(mode);
       *buf = 134218242;
       selfCopy3 = self;
-      v22 = 2114;
-      v23 = v14;
+      v21 = 2114;
+      v22 = v14;
       _os_log_impl(&dword_21FD11000, v13, OS_LOG_TYPE_INFO, "DSM:%p (likely initialization) core brightness completed switch to display mode:%{public}@", buf, 0x16u);
       goto LABEL_15;
     }
@@ -593,13 +577,11 @@ LABEL_18:
   os_unfair_lock_unlock(&self->_lock);
   BSDispatchMain();
 LABEL_19:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)osInterfaceProvider:(id)provider didCompleteSwitchToCBFlipbookState:(int64_t)state withError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   errorCopy = error;
   if (errorCopy)
@@ -607,25 +589,24 @@ LABEL_19:
     v10 = bls_backlight_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v17 = NSStringFromCBFlipbookState_bls(state);
+      v15 = NSStringFromCBFlipbookState_bls(state);
       bls_loggingString = [errorCopy bls_loggingString];
       *buf = 134218498;
       selfCopy2 = self;
+      v19 = 2114;
+      v20 = v15;
       v21 = 2114;
-      v22 = v17;
-      v23 = 2114;
-      v24 = bls_loggingString;
+      v22 = bls_loggingString;
       _os_log_fault_impl(&dword_21FD11000, v10, OS_LOG_TYPE_FAULT, "DSM:%p core brightness failed to switch to flipbook state:%{public}@ error:%{public}@", buf, 0x20u);
     }
   }
 
   os_unfair_lock_lock(&self->_lock);
-  lock_completedCBFlipbookState = self->_lock_completedCBFlipbookState;
   self->_lock_completedCBFlipbookState = state;
   if (self->_lock_cbFlipbookStateChangeOperation.phase == 1 && self->_lock_cbFlipbookStateChangeOperation.cbFlipbookState == state)
   {
-    v12 = bls_backlight_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v11 = bls_backlight_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [BLSHBacklightDisplayStateMachine osInterfaceProvider:state didCompleteSwitchToCBFlipbookState:? withError:?];
     }
@@ -638,29 +619,27 @@ LABEL_19:
 
   else
   {
-    v13 = bls_backlight_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = bls_backlight_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v14 = NSStringFromCBFlipbookState_bls(state);
-      v15 = NSStringFromCBFlipbookState_bls(self->_lock_cbFlipbookStateChangeOperation.cbFlipbookState);
+      v13 = NSStringFromCBFlipbookState_bls(state);
+      v14 = NSStringFromCBFlipbookState_bls(self->_lock_cbFlipbookStateChangeOperation.cbFlipbookState);
       *buf = 134218498;
       selfCopy2 = self;
+      v19 = 2114;
+      v20 = v13;
       v21 = 2114;
       v22 = v14;
-      v23 = 2114;
-      v24 = v15;
-      _os_log_impl(&dword_21FD11000, v13, OS_LOG_TYPE_INFO, "DSM:%p core brightness completed switch to wrong flipbook state:%{public}@}, waiting for flipbook state:%{public}@", buf, 0x20u);
+      _os_log_impl(&dword_21FD11000, v12, OS_LOG_TYPE_INFO, "DSM:%p core brightness completed switch to wrong flipbook state:%{public}@}, waiting for flipbook state:%{public}@", buf, 0x20u);
     }
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)osInterfaceProvider:(id)provider didCompleteTransitionToCADisplayState:(int64_t)state currentState:(int64_t)currentState transitionStatus:(int64_t)status
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (status != 3 && status)
   {
@@ -670,29 +649,27 @@ LABEL_19:
       goto LABEL_18;
     }
 
-    v26 = NSStringFromCADisplayStateTransitionStatus();
-    v27 = NSStringFromCADisplayState();
-    v28 = NSStringFromCADisplayState();
-    caDisplayState = self->_lock_caDisplayStateChangeOperation.caDisplayState;
-    v30 = NSStringFromCADisplayState();
+    v22 = NSStringFromCADisplayStateTransitionStatus();
+    v23 = NSStringFromCADisplayState();
+    v24 = NSStringFromCADisplayState();
+    v25 = NSStringFromCADisplayState();
     phase = self->_lock_caDisplayStateChangeOperation.phase;
-    startTimestamp = self->_lock_caDisplayStateChangeOperation.startTimestamp;
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
     *buf = 134219522;
     selfCopy6 = self;
-    v39 = 2112;
-    v40 = v26;
-    v41 = 2114;
-    v42 = v27;
-    v43 = 2114;
-    v44 = v28;
-    v45 = 2114;
-    *v46 = v30;
-    *&v46[8] = 1024;
-    *&v46[10] = phase;
-    v47 = 2048;
-    v48 = v33;
+    v31 = 2112;
+    v32 = v22;
+    v33 = 2114;
+    v34 = v23;
+    v35 = 2114;
+    v36 = v24;
+    v37 = 2114;
+    *v38 = v25;
+    *&v38[8] = 1024;
+    *&v38[10] = phase;
+    v39 = 2048;
+    v40 = v27;
     _os_log_fault_impl(&dword_21FD11000, v11, OS_LOG_TYPE_FAULT, "DSM:%p core animation state transition status:%@ to display state:%{public}@, current display state:%{public}@ – pending transition to display state:%{public}@ phase:%u elapsed:%lfs", buf, 0x44u);
 
 LABEL_16:
@@ -705,26 +682,24 @@ LABEL_16:
     v11 = bls_backlight_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
+      v17 = NSStringFromCADisplayState();
+      v18 = NSStringFromCADisplayState();
       v19 = NSStringFromCADisplayState();
-      v20 = NSStringFromCADisplayState();
-      v21 = self->_lock_caDisplayStateChangeOperation.caDisplayState;
-      v22 = NSStringFromCADisplayState();
-      v24 = self->_lock_caDisplayStateChangeOperation.phase;
-      v23 = self->_lock_caDisplayStateChangeOperation.startTimestamp;
+      v20 = self->_lock_caDisplayStateChangeOperation.phase;
       mach_continuous_time();
       BSTimeDifferenceFromMachTimeToMachTime();
       *buf = 134219266;
       selfCopy6 = self;
-      v39 = 2114;
-      v40 = v19;
-      v41 = 2114;
-      v42 = v20;
-      v43 = 2114;
-      v44 = v22;
-      v45 = 1024;
-      *v46 = v24;
-      *&v46[4] = 2048;
-      *&v46[6] = v25;
+      v31 = 2114;
+      v32 = v17;
+      v33 = 2114;
+      v34 = v18;
+      v35 = 2114;
+      v36 = v19;
+      v37 = 1024;
+      *v38 = v20;
+      *&v38[4] = 2048;
+      *&v38[6] = v21;
       _os_log_impl(&dword_21FD11000, v11, OS_LOG_TYPE_INFO, "DSM:%p core animation completed transition to wrong display state:%{public}@ (currentState:%{public}@), waiting for display state:%{public}@ phase:%u elapsed:%lfs", buf, 0x3Au);
     }
 
@@ -741,17 +716,17 @@ LABEL_16:
       goto LABEL_18;
     }
 
-    v26 = NSStringFromCADisplayStateTransitionStatus();
-    v27 = NSStringFromCADisplayState();
-    v28 = NSStringFromCADisplayState();
+    v22 = NSStringFromCADisplayStateTransitionStatus();
+    v23 = NSStringFromCADisplayState();
+    v24 = NSStringFromCADisplayState();
     *buf = 134218754;
     selfCopy6 = self;
-    v39 = 2114;
-    v40 = v26;
-    v41 = 2114;
-    v42 = v27;
-    v43 = 2114;
-    v44 = v28;
+    v31 = 2114;
+    v32 = v22;
+    v33 = 2114;
+    v34 = v23;
+    v35 = 2114;
+    v36 = v24;
     _os_log_impl(&dword_21FD11000, v11, OS_LOG_TYPE_INFO, "DSM:%p (likely initialization) core animation completed(%{public}@) switch to display state:%{public}@ currentState:%{public}@", buf, 0x2Au);
     goto LABEL_16;
   }
@@ -767,29 +742,27 @@ LABEL_21:
         self->_lock_caDisplayStateChangeOperation.phase = 2;
         os_unfair_lock_unlock(&self->_lock);
         BSDispatchMain();
-        goto LABEL_19;
+        return;
       }
 
       v12 = NSStringFromCADisplayState();
       v13 = NSStringFromCADisplayState();
-      v14 = self->_lock_caDisplayStateChangeOperation.caDisplayState;
-      v15 = NSStringFromCADisplayState();
-      v17 = self->_lock_caDisplayStateChangeOperation.phase;
-      v16 = self->_lock_caDisplayStateChangeOperation.startTimestamp;
+      v14 = NSStringFromCADisplayState();
+      v15 = self->_lock_caDisplayStateChangeOperation.phase;
       mach_continuous_time();
       BSTimeDifferenceFromMachTimeToMachTime();
       *buf = 134219266;
       selfCopy6 = self;
-      v39 = 2114;
-      v40 = v12;
-      v41 = 2114;
-      v42 = v13;
-      v43 = 2114;
-      v44 = v15;
-      v45 = 1024;
-      *v46 = v17;
-      *&v46[4] = 2048;
-      *&v46[6] = v18;
+      v31 = 2114;
+      v32 = v12;
+      v33 = 2114;
+      v34 = v13;
+      v35 = 2114;
+      v36 = v14;
+      v37 = 1024;
+      *v38 = v15;
+      *&v38[4] = 2048;
+      *&v38[6] = v16;
       _os_log_impl(&dword_21FD11000, v11, OS_LOG_TYPE_INFO, "DSM:%p core animation reporting interrupted transition to display state:%{public}@, current display state:%{public}@ – pending transition to display state:%{public}@ phase:%u elapsed:%lfs", buf, 0x3Au);
     }
 
@@ -802,17 +775,16 @@ LABEL_21:
 
       v12 = NSStringFromCADisplayState();
       v13 = NSStringFromCADisplayState();
-      v35 = self->_lock_caDisplayStateChangeOperation.startTimestamp;
       mach_continuous_time();
       BSTimeDifferenceFromMachTimeToMachTime();
       *buf = 134218754;
       selfCopy6 = self;
-      v39 = 2114;
-      v40 = v12;
-      v41 = 2114;
-      v42 = v13;
-      v43 = 2048;
-      v44 = v36;
+      v31 = 2114;
+      v32 = v12;
+      v33 = 2114;
+      v34 = v13;
+      v35 = 2048;
+      v36 = v28;
       _os_log_debug_impl(&dword_21FD11000, v11, OS_LOG_TYPE_DEBUG, "DSM:%p core animation completed transition to display state:%{public}@ (currentState:%{public}@) elapsed:%lfs", buf, 0x2Au);
     }
 
@@ -821,17 +793,17 @@ LABEL_21:
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v26 = NSStringFromCADisplayStateTransitionStatus();
-    v27 = NSStringFromCADisplayState();
-    v28 = NSStringFromCADisplayState();
+    v22 = NSStringFromCADisplayStateTransitionStatus();
+    v23 = NSStringFromCADisplayState();
+    v24 = NSStringFromCADisplayState();
     *buf = 134218754;
     selfCopy6 = self;
-    v39 = 2114;
-    v40 = v26;
-    v41 = 2114;
-    v42 = v27;
-    v43 = 2114;
-    v44 = v28;
+    v31 = 2114;
+    v32 = v22;
+    v33 = 2114;
+    v34 = v23;
+    v35 = 2114;
+    v36 = v24;
     _os_log_error_impl(&dword_21FD11000, v11, OS_LOG_TYPE_ERROR, "DSM:%p core animation completed(%{public}@) transition to matching display state:%{public}@, (currentState:%{public}@), but operation is not started", buf, 0x2Au);
     goto LABEL_16;
   }
@@ -839,8 +811,6 @@ LABEL_21:
 LABEL_18:
 
   os_unfair_lock_unlock(&self->_lock);
-LABEL_19:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)abortContextForTimer:(id)timer
@@ -994,7 +964,7 @@ LABEL_19:
 
 - (void)prewarmForDisplayMode:(int64_t)mode
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if ((mode - 3) <= 3)
   {
     [(BLSDisplayPowerResourceHint *)self->_powerResourceHint updateState:101];
@@ -1021,7 +991,7 @@ LABEL_19:
   lock_caDisplayPowerAssertion = self->_lock_caDisplayPowerAssertion;
   self->_lock_isPrewarmingDisplayMode = v9;
   self->_lock_prewarmingDisplayMode = mode;
-  v30 = v10;
+  v29 = v10;
   v12 = displayMode == mode && lock_isPrewarmingDisplayMode;
   if (displayMode != mode)
   {
@@ -1044,12 +1014,12 @@ LABEL_19:
   if (os_log_type_enabled(v13, v15))
   {
     NSStringFromBLSBacklightDisplayMode(displayMode);
-    v16 = v26 = v7 ^ 1;
-    v27 = v16;
+    v16 = v25 = v7 ^ 1;
+    v26 = v16;
     v17 = NSStringFromBLSBacklightDisplayMode(mode);
     v18 = phase;
     v19 = v17;
-    v28 = v7;
+    v27 = v7;
     if (v18 == 1)
     {
       v7 = " (interrupting ramp)";
@@ -1066,28 +1036,28 @@ LABEL_19:
     NSStringFromCBDisplayMode_bls(v21);
     *buf = 134220546;
     selfCopy = self;
-    v34 = 2114;
-    v35 = v16;
-    v36 = 2114;
-    v37 = v19;
-    v38 = 2080;
-    v39 = v7;
-    v40 = 2114;
-    v41 = v22;
-    v42 = 1024;
-    v43 = lock_caDisplayPowerAssertion != 0;
-    v44 = 1024;
-    v45 = v26;
-    v46 = 1024;
-    LOBYTE(v7) = v28;
-    v47 = displayMode != mode;
-    v48 = 1024;
-    v49 = v30;
-    v50 = 1024;
-    v51 = v12;
-    v53 = v52 = 2114;
+    v33 = 2114;
+    v34 = v16;
+    v35 = 2114;
+    v36 = v19;
+    v37 = 2080;
+    v38 = v7;
+    v39 = 2114;
+    v40 = v22;
+    v41 = 1024;
+    v42 = lock_caDisplayPowerAssertion != 0;
+    v43 = 1024;
+    v44 = v25;
+    v45 = 1024;
+    LOBYTE(v7) = v27;
+    v46 = displayMode != mode;
+    v47 = 1024;
+    v48 = v29;
+    v49 = 1024;
+    v50 = v12;
+    v52 = v51 = 2114;
     v23 = v12;
-    v24 = v53;
+    v24 = v52;
     _os_log_impl(&dword_21FD11000, v14, v15, "DSM:%p prewarmForDisplayMode:%{public}@->%{public}@%s previousPrewarm:%{public}@ hasAssertion:%{BOOL}u isPrewarmOn:%{BOOL}u requiresModeChange:%{BOOL}u shouldSignalPowerOn:%{BOOL}u shouldCleanup:%{BOOL}u cbDisplayMode:%{public}@", buf, 0x5Cu);
 
     v12 = v23;
@@ -1104,30 +1074,29 @@ LABEL_19:
   }
 
   [(BLSHBacklightDisplayStateMachine *)self acquireLiveRenderingSystemActivityAssertionIfNecessary:mode];
-  if (displayMode != mode)
+  if (displayMode == mode)
+  {
+    if (!v12)
+    {
+      return;
+    }
+  }
+
+  else
   {
     [(BLSHBacklightDisplayStateMachine *)self replaceCurrentWatchdog];
     if (!v12)
     {
-      goto LABEL_26;
+      return;
     }
-
-    goto LABEL_25;
   }
 
-  if (v12)
-  {
-LABEL_25:
-    BSDispatchMain();
-  }
-
-LABEL_26:
-  v25 = *MEMORY[0x277D85DE8];
+  BSDispatchMain();
 }
 
 - (void)setDisplayMode:(int64_t)mode withRampDuration:(double)duration
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if ((mode - 3) <= 3)
   {
     [(BLSDisplayPowerResourceHint *)self->_powerResourceHint updateState:101];
@@ -1149,11 +1118,11 @@ LABEL_26:
     {
       v15 = NSStringFromBLSBacklightDisplayMode(mode);
       OUTLINED_FUNCTION_12_5();
-      v44 = v16;
-      v45 = 2048;
+      v43 = v16;
+      v44 = 2048;
       durationCopy2 = duration;
-      v47 = 1024;
-      v48 = v7;
+      v46 = 1024;
+      v47 = v7;
       _os_log_impl(&dword_21FD11000, v14, OS_LOG_TYPE_INFO, "DSM:%p setDisplayMode:%{public}@ duration:%lf seqId:%d", buf, 0x26u);
     }
   }
@@ -1182,9 +1151,9 @@ LABEL_26:
 
     if (os_log_type_enabled(v20, v21))
     {
-      v42 = sequenceNumber;
+      v41 = sequenceNumber;
       NSStringFromBLSBacklightDisplayMode(mode);
-      v41 = v40 = displayMode;
+      v40 = v39 = displayMode;
       v22 = NSStringFromBLSBacklightDisplayMode(displayMode);
       v23 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:startSeconds];
       bls_shortLoggingString = [v23 bls_shortLoggingString];
@@ -1199,28 +1168,28 @@ LABEL_26:
       }
 
       OUTLINED_FUNCTION_12_5();
-      v44 = v41;
-      v45 = 2048;
+      v43 = v40;
+      v44 = 2048;
       durationCopy2 = duration;
-      v47 = 1024;
-      v48 = v7;
-      v49 = v26;
-      v50 = v22;
-      v51 = 2048;
+      v46 = 1024;
+      v47 = v7;
+      v48 = v26;
+      v49 = v22;
+      v50 = 2048;
       durationCopy3 = duration;
-      v53 = 1024;
-      v54 = v42;
-      v55 = v26;
-      v56 = bls_shortLoggingString;
-      v57 = v26;
-      v58 = v25;
+      v52 = 1024;
+      v53 = v41;
+      v54 = v26;
+      v55 = bls_shortLoggingString;
+      v56 = v26;
+      v57 = v25;
       _os_log_impl(&dword_21FD11000, v14, v21, "DSM:%p setDisplayMode:%{public}@ duration:%lf seqId:%d interrupting previous setDisplayMode:%{public}@ duration:%lf seqId:%d with started at:%{public}@%{public}@", buf, 0x54u);
       if (v17 > 3.0)
       {
       }
 
-      sequenceNumber = v42;
-      displayMode = v40;
+      sequenceNumber = v41;
+      displayMode = v39;
     }
 
     v13 = 0x277CCA000uLL;
@@ -1261,45 +1230,37 @@ LABEL_26:
   os_unfair_lock_unlock(&self->_lock);
   [(BLSHBacklightDisplayStateMachine *)self acquireLiveRenderingSystemActivityAssertionIfNecessary:mode];
   BSDispatchMain();
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)releaseLiveRenderingSystemActivityAssertion
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (self)
+  if (!self)
   {
-    os_unfair_lock_lock((self + 24));
-    v2 = *(self + 288);
-    v3 = v2 != 0;
-    if (v2)
-    {
-      v4 = bls_backlight_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-      {
-        v14 = *(self + 288);
-        OUTLINED_FUNCTION_10_2();
-        OUTLINED_FUNCTION_14_4(v9, v10, v11, v12, v13);
-      }
+    return 0;
+  }
 
-      [*(self + 288) invalidate];
-      v5 = *(self + 288);
-      *(self + 288) = 0;
+  os_unfair_lock_lock((self + 24));
+  v2 = *(self + 288);
+  v3 = v2 != 0;
+  if (v2)
+  {
+    v4 = bls_backlight_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      OUTLINED_FUNCTION_10_2();
+      OUTLINED_FUNCTION_14_4(v8, v9, v10, v11, v12);
     }
 
-    os_unfair_lock_unlock((self + 24));
-    [*(self + 16) stopWatchdog];
-    v6 = *(self + 16);
-    *(self + 16) = 0;
+    [*(self + 288) invalidate];
+    v5 = *(self + 288);
+    *(self + 288) = 0;
   }
 
-  else
-  {
-    v3 = 0;
-  }
+  os_unfair_lock_unlock((self + 24));
+  [*(self + 16) stopWatchdog];
+  v6 = *(self + 16);
+  *(self + 16) = 0;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1343,7 +1304,6 @@ LABEL_26:
 
 - (os_unfair_lock_s)switchToFlipbookState:(os_unfair_lock_s *)result
 {
-  v17 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v3 = result;
@@ -1353,16 +1313,15 @@ LABEL_26:
       v4 = bls_backlight_log();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
-        v9 = NSStringFromCBFlipbookState_bls(*&v3[52]._os_unfair_lock_opaque);
-        v10 = *&v3[56]._os_unfair_lock_opaque;
-        v11 = [*&v3[8]._os_unfair_lock_opaque now];
-        [v11 bls_machContinuousTime];
+        v7 = NSStringFromCBFlipbookState_bls(*&v3[52]._os_unfair_lock_opaque);
+        v8 = [*&v3[8]._os_unfair_lock_opaque now];
+        [v8 bls_machContinuousTime];
         BSTimeDifferenceFromMachTimeToMachTime();
-        v12 = NSStringFromCBFlipbookState_bls(a2);
+        v9 = NSStringFromCBFlipbookState_bls(a2);
         OUTLINED_FUNCTION_1_16();
         OUTLINED_FUNCTION_5_7();
         OUTLINED_FUNCTION_10_2();
-        _os_log_fault_impl(v13, v14, OS_LOG_TYPE_FAULT, v15, v16, 0x2Au);
+        _os_log_fault_impl(v10, v11, OS_LOG_TYPE_FAULT, v12, v13, 0x2Au);
       }
     }
 
@@ -1373,169 +1332,159 @@ LABEL_26:
     *&v3[52]._os_unfair_lock_opaque = a2;
     *&v3[54]._os_unfair_lock_opaque = 1;
     *&v3[56]._os_unfair_lock_opaque = v6;
-    v7 = *&v3[58]._os_unfair_lock_opaque;
     os_unfair_lock_unlock(v3 + 6);
-    OUTLINED_FUNCTION_8_3();
-    result = [*&v3[8]._os_unfair_lock_opaque switchToFlipbookState:a2];
+    OUTLINED_FUNCTION_8_3(0x1Cu);
+    return [*&v3[8]._os_unfair_lock_opaque switchToFlipbookState:a2];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)transitionToDisplayMode:(int)mode withDuration:(double)duration shouldWaitForCompletion:
 {
-  v80 = *MEMORY[0x277D85DE8];
-  if (!self)
+  v77 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-    goto LABEL_33;
-  }
+    OUTLINED_FUNCTION_9_2(self);
+    v8 = [*(v4 + 32) now];
+    [v8 timeIntervalSinceReferenceDate];
+    v10 = v9;
 
-  OUTLINED_FUNCTION_9_2(self);
-  v8 = [*(v4 + 32) now];
-  [v8 timeIntervalSinceReferenceDate];
-  v10 = v9;
-
-  v11 = *(v4 + 136);
-  if (*(v4 + 184) == 2)
-  {
-    v12 = bls_backlight_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v11 = *(v4 + 136);
+    if (*(v4 + 184) == 2)
     {
-      v13 = NSStringFromCBDisplayMode_bls(a2);
-      v58 = 134219010;
-      v59 = v4;
-      v60 = 2114;
-      v61 = v13;
-      v62 = 2048;
-      durationCopy = duration;
-      v64 = 2048;
-      durationCopy2 = duration;
-      v66 = 1024;
-      modeCopy = mode;
-      OUTLINED_FUNCTION_7_4();
-      _os_log_debug_impl(v14, v15, v16, v17, v18, 0x30u);
-LABEL_35:
-    }
-  }
-
-  else
-  {
-    v19 = *(v4 + 144);
-    v20 = v19 == a2 || !a2 && v19 == 2 || a2 == 2 && v19 == 0;
-    v22 = *(v4 + 160);
-    if (v20 && v22 > 0.0)
-    {
-      v23 = v10 - *(v4 + 176);
-      v24 = 1.0;
-      v25 = v23 / v22 >= 1.0;
-      v26 = v23 / v22 > 0.0 || v23 / v22 >= 1.0;
-      if (v23 / v22 <= 0.0)
-      {
-        v25 = 1;
-      }
-
-      if (!v26)
-      {
-        v24 = 0.0;
-      }
-
-      if (v25)
-      {
-        v27 = v24;
-      }
-
-      else
-      {
-        v27 = v23 / v22;
-      }
-
-      durationCopy5 = v27 * duration;
-      v29 = v10 - (duration - v27 * duration);
       v12 = bls_backlight_log();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v30 = NSStringFromCBDisplayMode_bls(v11);
-        v31 = *(v4 + 152);
-        v32 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:*(v4 + 168)];
-        bls_shortLoggingString = [v32 bls_shortLoggingString];
-        v34 = NSStringFromCBDisplayMode_bls(a2);
-        OUTLINED_FUNCTION_2_13();
-        v68 = v35;
-        v69 = v23;
-        v70 = v35;
-        durationCopy4 = v27;
-        v72 = v36;
-        v73 = v37;
-        v74 = v35;
-        v75 = v27 * duration;
-        v76 = v35;
-        durationCopy3 = duration;
-        v78 = 1024;
-        modeCopy2 = mode;
+        v13 = NSStringFromCBDisplayMode_bls(a2);
+        v55 = 134219010;
+        v56 = v4;
+        v57 = 2114;
+        v58 = v13;
+        v59 = 2048;
+        durationCopy = duration;
+        v61 = 2048;
+        durationCopy2 = duration;
+        v63 = 1024;
+        modeCopy = mode;
         OUTLINED_FUNCTION_7_4();
-        _os_log_debug_impl(v38, v39, v40, v41, v42, 0x6Cu);
+        _os_log_debug_impl(v14, v15, v16, v17, v18, 0x30u);
+LABEL_35:
+      }
+    }
+
+    else
+    {
+      v19 = *(v4 + 144);
+      v20 = v19 == a2 || !a2 && v19 == 2 || a2 == 2 && v19 == 0;
+      v22 = *(v4 + 160);
+      if (v20 && v22 > 0.0)
+      {
+        v23 = v10 - *(v4 + 176);
+        v24 = 1.0;
+        v25 = v23 / v22 >= 1.0;
+        v26 = v23 / v22 > 0.0 || v23 / v22 >= 1.0;
+        if (v23 / v22 <= 0.0)
+        {
+          v25 = 1;
+        }
+
+        if (!v26)
+        {
+          v24 = 0.0;
+        }
+
+        if (v25)
+        {
+          v27 = v24;
+        }
+
+        else
+        {
+          v27 = v23 / v22;
+        }
+
+        durationCopy5 = v27 * duration;
+        v29 = v10 - (duration - v27 * duration);
+        v12 = bls_backlight_log();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        {
+          v30 = NSStringFromCBDisplayMode_bls(v11);
+          v31 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:*(v4 + 168)];
+          bls_shortLoggingString = [v31 bls_shortLoggingString];
+          v33 = NSStringFromCBDisplayMode_bls(a2);
+          OUTLINED_FUNCTION_2_13();
+          v65 = v34;
+          v66 = v23;
+          v67 = v34;
+          durationCopy4 = v27;
+          v69 = v35;
+          v70 = v36;
+          v71 = v34;
+          v72 = v27 * duration;
+          v73 = v34;
+          durationCopy3 = duration;
+          v75 = 1024;
+          modeCopy2 = mode;
+          OUTLINED_FUNCTION_7_4();
+          _os_log_debug_impl(v37, v38, v39, v40, v41, 0x6Cu);
+        }
+
+        goto LABEL_31;
       }
 
-      goto LABEL_31;
+      v12 = bls_backlight_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      {
+        v13 = NSStringFromCBDisplayMode_bls(v11);
+        v43 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:*(v4 + 168)];
+        bls_shortLoggingString2 = [v43 bls_shortLoggingString];
+        v45 = NSStringFromCBDisplayMode_bls(a2);
+        OUTLINED_FUNCTION_2_13();
+        v65 = v46;
+        v66 = v47;
+        v67 = v48;
+        durationCopy4 = duration;
+        v69 = 1024;
+        LODWORD(v70) = mode;
+        OUTLINED_FUNCTION_7_4();
+        _os_log_debug_impl(v49, v50, v51, v52, v53, 0x4Eu);
+
+        goto LABEL_35;
+      }
     }
 
-    v12 = bls_backlight_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-    {
-      v13 = NSStringFromCBDisplayMode_bls(v11);
-      v45 = *(v4 + 152);
-      v46 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:*(v4 + 168)];
-      bls_shortLoggingString2 = [v46 bls_shortLoggingString];
-      v48 = NSStringFromCBDisplayMode_bls(a2);
-      OUTLINED_FUNCTION_2_13();
-      v68 = v49;
-      v69 = v50;
-      v70 = v51;
-      durationCopy4 = duration;
-      v72 = 1024;
-      LODWORD(v73) = mode;
-      OUTLINED_FUNCTION_7_4();
-      _os_log_debug_impl(v52, v53, v54, v55, v56, 0x4Eu);
-
-      goto LABEL_35;
-    }
-  }
-
-  v29 = v10;
-  durationCopy5 = duration;
+    v29 = v10;
+    durationCopy5 = duration;
 LABEL_31:
 
-  v43 = *(v4 + 48) + 1;
-  *(v4 + 48) = v43;
-  *(v4 + 128) = v43;
-  *(v4 + 136) = a2;
-  *(v4 + 144) = v11;
-  *(v4 + 152) = durationCopy5;
-  *(v4 + 160) = duration;
-  *(v4 + 168) = v10;
-  *(v4 + 176) = v29;
-  *(v4 + 184) = 1;
-  *(v4 + 192) = mode;
-  os_unfair_lock_unlock((v4 + 24));
-  [*(v4 + 32) transitionToDisplayMode:a2 withDuration:durationCopy5];
-  if ((mode & 1) == 0)
-  {
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __97__BLSHBacklightDisplayStateMachine_transitionToDisplayMode_withDuration_shouldWaitForCompletion___block_invoke;
-    block[3] = &unk_27841E650;
-    block[4] = v4;
-    dispatch_async(MEMORY[0x277D85CD0], block);
+    v42 = *(v4 + 48) + 1;
+    *(v4 + 48) = v42;
+    *(v4 + 128) = v42;
+    *(v4 + 136) = a2;
+    *(v4 + 144) = v11;
+    *(v4 + 152) = durationCopy5;
+    *(v4 + 160) = duration;
+    *(v4 + 168) = v10;
+    *(v4 + 176) = v29;
+    *(v4 + 184) = 1;
+    *(v4 + 192) = mode;
+    os_unfair_lock_unlock((v4 + 24));
+    [*(v4 + 32) transitionToDisplayMode:a2 withDuration:durationCopy5];
+    if ((mode & 1) == 0)
+    {
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __97__BLSHBacklightDisplayStateMachine_transitionToDisplayMode_withDuration_shouldWaitForCompletion___block_invoke;
+      block[3] = &unk_27841E650;
+      block[4] = v4;
+      dispatch_async(MEMORY[0x277D85CD0], block);
+    }
   }
-
-LABEL_33:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (os_unfair_lock_s)transitionToCADisplayState:(os_unfair_lock_s *)result
 {
-  v18 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v3 = result;
@@ -1545,17 +1494,15 @@ LABEL_33:
       v4 = bls_backlight_log();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        v9 = *&v3[62]._os_unfair_lock_opaque;
-        v10 = NSStringFromCADisplayState();
-        v11 = *&v3[66]._os_unfair_lock_opaque;
-        v12 = [*&v3[8]._os_unfair_lock_opaque now];
-        [v12 bls_machContinuousTime];
+        v7 = NSStringFromCADisplayState();
+        v8 = [*&v3[8]._os_unfair_lock_opaque now];
+        [v8 bls_machContinuousTime];
         BSTimeDifferenceFromMachTimeToMachTime();
-        v13 = NSStringFromCADisplayState();
+        v9 = NSStringFromCADisplayState();
         OUTLINED_FUNCTION_1_16();
         OUTLINED_FUNCTION_5_7();
         OUTLINED_FUNCTION_10_2();
-        _os_log_debug_impl(v14, v15, OS_LOG_TYPE_DEBUG, v16, v17, 0x2Au);
+        _os_log_debug_impl(v10, v11, OS_LOG_TYPE_DEBUG, v12, v13, 0x2Au);
       }
     }
 
@@ -1566,47 +1513,36 @@ LABEL_33:
     *&v3[62]._os_unfair_lock_opaque = a2;
     *&v3[64]._os_unfair_lock_opaque = 1;
     *&v3[66]._os_unfair_lock_opaque = v6;
-    v7 = *&v3[68]._os_unfair_lock_opaque;
     os_unfair_lock_unlock(v3 + 6);
-    OUTLINED_FUNCTION_8_3();
-    result = [*&v3[8]._os_unfair_lock_opaque transitionToCADisplayState:a2];
+    OUTLINED_FUNCTION_8_3(0x40u);
+    return [*&v3[8]._os_unfair_lock_opaque transitionToCADisplayState:a2];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)osInterfaceProvider:(uint64_t)a1 didCompleteTransitionToCBDisplayMode:(unint64_t)a2 withError:.cold.1(uint64_t a1, unint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromCBDisplayMode_bls(a2);
   OUTLINED_FUNCTION_1_16();
   OUTLINED_FUNCTION_11_3();
   OUTLINED_FUNCTION_14_4(v3, v4, v5, v6, v7);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)osInterfaceProvider:(uint64_t)a1 didCompleteTransitionToCBDisplayMode:(unint64_t)a2 withError:.cold.2(uint64_t a1, unint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromCBDisplayMode_bls(a2);
   OUTLINED_FUNCTION_1_16();
   OUTLINED_FUNCTION_11_3();
   _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)osInterfaceProvider:(uint64_t)a1 didCompleteSwitchToCBFlipbookState:(uint64_t)a2 withError:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromCBFlipbookState_bls(a2);
   OUTLINED_FUNCTION_1_16();
   OUTLINED_FUNCTION_11_3();
   OUTLINED_FUNCTION_14_4(v3, v4, v5, v6, v7);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

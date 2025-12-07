@@ -12,7 +12,7 @@
   {
     v5 = [[SXActionActivityGroup alloc] initWithTitle:0];
     v6 = [SXBlockActionActivity alloc];
-    v7 = SXBundle();
+    v7 = SXBundle(v6);
     v8 = [v7 localizedStringForKey:@"Open" value:&stru_1F532F6C0 table:0];
     v11 = MEMORY[0x1E69E9820];
     v12 = 3221225472;

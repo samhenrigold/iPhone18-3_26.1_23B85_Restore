@@ -2248,7 +2248,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t __36__ABVCardParser_parseActivityAlerts__block_invoke(uint64_t a1, void *a2, void *a3)
+void *__36__ABVCardParser_parseActivityAlerts__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v9[1] = *MEMORY[0x1E69E9840];
   result = [a2 length];
@@ -3752,36 +3752,36 @@ LABEL_22:
   return v12;
 }
 
-BOOL __37__ABVCardParser_importToValueSetter___block_invoke()
+BOOL __37__ABVCardParser_importToValueSetter___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = CPPhoneNumberCopyHomeCountryCode();
-  v1 = CFPhoneNumberCreate();
-  v2 = CFPhoneNumberCreate();
-  v3 = v2;
-  if (v1)
+  v3 = CPPhoneNumberCopyHomeCountryCode();
+  v4 = CFPhoneNumberCreate();
+  v5 = CFPhoneNumberCreate();
+  v6 = v5;
+  if (v4)
   {
-    v4 = v2 == 0;
+    v7 = v5 == 0;
   }
 
   else
   {
-    v4 = 1;
+    v7 = 1;
   }
 
-  if (!v4)
+  if (!v7)
   {
-    v7 = CFEqual(v1, v2) != 0;
+    v10 = CFEqual(v4, v5) != 0;
     goto LABEL_10;
   }
 
-  v7 = 0;
-  v5 = 0;
-  if (v1)
+  v10 = 0;
+  v8 = 0;
+  if (v4)
   {
 LABEL_10:
-    CFRelease(v1);
-    v5 = v7;
-    if (!v3)
+    CFRelease(v4);
+    v8 = v10;
+    if (!v6)
     {
       goto LABEL_9;
     }
@@ -3789,15 +3789,15 @@ LABEL_10:
     goto LABEL_8;
   }
 
-  if (v2)
+  if (v5)
   {
 LABEL_8:
-    CFRelease(v3);
+    CFRelease(v6);
   }
 
 LABEL_9:
-  CFRelease(v0);
-  return v5;
+  CFRelease(v3);
+  return v8;
 }
 
 - (void)copyNextPersonWithLength:(int *)length foundProperties:(const __CFArray *)properties

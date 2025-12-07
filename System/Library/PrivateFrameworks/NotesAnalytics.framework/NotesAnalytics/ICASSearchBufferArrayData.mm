@@ -32,8 +32,8 @@
 
 - (id)toDict
 {
-  v26[6] = *MEMORY[0x277D85DE8];
-  v25[0] = @"searchStringLength";
+  v25[6] = *MEMORY[0x277D85DE8];
+  v24[0] = @"searchStringLength";
   searchStringLength = [(ICASSearchBufferArrayData *)self searchStringLength];
   if (searchStringLength)
   {
@@ -45,9 +45,9 @@
     searchStringLength2 = objc_opt_new();
   }
 
-  v23 = searchStringLength2;
-  v26[0] = searchStringLength2;
-  v25[1] = @"topHitCount";
+  v22 = searchStringLength2;
+  v25[0] = searchStringLength2;
+  v24[1] = @"topHitCount";
   topHitCount = [(ICASSearchBufferArrayData *)self topHitCount];
   if (topHitCount)
   {
@@ -60,8 +60,8 @@
   }
 
   v5 = topHitCount2;
-  v26[1] = topHitCount2;
-  v25[2] = @"nonTopHitCount";
+  v25[1] = topHitCount2;
+  v24[2] = @"nonTopHitCount";
   nonTopHitCount = [(ICASSearchBufferArrayData *)self nonTopHitCount];
   if (nonTopHitCount)
   {
@@ -74,8 +74,8 @@
   }
 
   v8 = nonTopHitCount2;
-  v26[2] = nonTopHitCount2;
-  v25[3] = @"isResultSelected";
+  v25[2] = nonTopHitCount2;
+  v24[3] = @"isResultSelected";
   isResultSelected = [(ICASSearchBufferArrayData *)self isResultSelected];
   if (isResultSelected)
   {
@@ -88,8 +88,8 @@
   }
 
   v11 = isResultSelected2;
-  v26[3] = isResultSelected2;
-  v25[4] = @"nonTopHitRawCount";
+  v25[3] = isResultSelected2;
+  v24[4] = @"nonTopHitRawCount";
   nonTopHitRawCount = [(ICASSearchBufferArrayData *)self nonTopHitRawCount];
   if (nonTopHitRawCount)
   {
@@ -102,8 +102,8 @@
   }
 
   v14 = nonTopHitRawCount2;
-  v26[4] = nonTopHitRawCount2;
-  v25[5] = @"attachmentHitCount";
+  v25[4] = nonTopHitRawCount2;
+  v24[5] = @"attachmentHitCount";
   attachmentHitCount = [(ICASSearchBufferArrayData *)self attachmentHitCount];
   if (attachmentHitCount)
   {
@@ -116,10 +116,8 @@
   }
 
   v17 = attachmentHitCount2;
-  v26[5] = attachmentHitCount2;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v25[5] = attachmentHitCount2;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:6];
 
   return v18;
 }

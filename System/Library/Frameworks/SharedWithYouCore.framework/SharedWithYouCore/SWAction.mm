@@ -117,7 +117,7 @@
 
 void __26__SWAction_sourceBSAction__block_invoke(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [_SWActionResponse responseWithDestinationResponse:v3];
   if (v4)
@@ -149,17 +149,15 @@ void __26__SWAction_sourceBSAction__block_invoke(uint64_t a1, void *a2)
     {
       v11 = MEMORY[0x1E696ABC0];
       v12 = *MEMORY[0x1E696A798];
-      v15 = *MEMORY[0x1E696A278];
-      v16[0] = @"Did not get a valid BSActionResponse back from remote BSAction";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x1E696A278];
+      v15[0] = @"Did not get a valid BSActionResponse back from remote BSAction";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v10 = [v11 errorWithDomain:v12 code:2 userInfo:v13];
     }
 
     v5 = [_SWActionResponse responseWithSuccess:0 error:v10];
     [*(a1 + 32) failWithResponse:v5];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithBSActionSettings:(id)settings
@@ -175,7 +173,7 @@ void __26__SWAction_sourceBSAction__block_invoke(uint64_t a1, void *a2)
 
 - (void)fail
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   if (![(SWAction *)self isComplete])
   {
     [(SWAction *)self setComplete:1];
@@ -183,15 +181,15 @@ void __26__SWAction_sourceBSAction__block_invoke(uint64_t a1, void *a2)
 
     if (!response)
     {
-      v12[0] = *MEMORY[0x1E696A578];
+      v11[0] = *MEMORY[0x1E696A578];
       mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
       v5 = [mainBundle localizedStringForKey:@"SWAction was explicitly failed" value:&stru_1F4E16F00 table:0];
-      v13[0] = v5;
-      v12[1] = *MEMORY[0x1E696A588];
+      v12[0] = v5;
+      v11[1] = *MEMORY[0x1E696A588];
       mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
       v7 = [mainBundle2 localizedStringForKey:@"SWAction was explicitly failed" value:&stru_1F4E16F00 table:0];
-      v13[1] = v7;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+      v12[1] = v7;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
       v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.SharedWithYouCore._SWActionResponseErrorDomain" code:1 userInfo:v8];
       v10 = [_SWActionResponse responseWithSuccess:0 error:v9];
@@ -200,8 +198,6 @@ void __26__SWAction_sourceBSAction__block_invoke(uint64_t a1, void *a2)
 
     [(SWAction *)self _processResponse];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fulfill

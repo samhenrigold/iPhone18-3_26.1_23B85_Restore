@@ -18,69 +18,69 @@
 
 - (void)safari_saveWebpageCompleteToURL:()WBSWKWebViewExtras withCollectionMethod:collectionOptions:completionHandler:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = a6;
   _committedURL = [self _committedURL];
-  v13 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = WBS_LOG_CHANNEL_PREFIXDownloads(_committedURL, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 141558531;
-    v34 = 1752392040;
-    v35 = 2117;
-    v36 = _committedURL;
-    v37 = 2048;
-    v38 = a5;
-    _os_log_impl(&dword_1C6968000, v13, OS_LOG_TYPE_DEFAULT, "Saving Page Complete for %{sensitive, mask.hash}@ with options %zu", buf, 0x20u);
+    v37 = 1752392040;
+    v38 = 2117;
+    v39 = _committedURL;
+    v40 = 2048;
+    v41 = a5;
+    _os_log_impl(&dword_1C6968000, v14, OS_LOG_TYPE_DEFAULT, "Saving Page Complete for %{sensitive, mask.hash}@ with options %zu", buf, 0x20u);
   }
 
-  v14 = v10;
+  v15 = v10;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v31 = 0;
-  v16 = [defaultManager createDirectoryAtURL:v14 withIntermediateDirectories:1 attributes:0 error:&v31];
-  v17 = v31;
+  v34 = 0;
+  v17 = [defaultManager createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:&v34];
+  v18 = v34;
 
-  if (v16)
+  if (v17)
   {
-    v18 = objc_alloc_init(MEMORY[0x1E69853C8]);
-    [v18 setDirectory:v14];
-    [v18 setSuggestedFileName:@"index.html"];
+    v21 = objc_alloc_init(MEMORY[0x1E69853C8]);
+    [v21 setDirectory:v15];
+    [v21 setSuggestedFileName:@"index.html"];
     if ((a5 & 4) != 0)
     {
-      v23 = a4;
-      v19 = [objc_alloc(MEMORY[0x1E69853D0]) initWithElementLocalName:@"script" attributeLocalNames:0 attributeValues:0];
-      v32[0] = v19;
-      v20 = [objc_alloc(MEMORY[0x1E69853D0]) initWithElementLocalName:@"noscript" attributeLocalNames:0 attributeValues:0];
-      v32[1] = v20;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
-      [v18 setExclusionRules:v21];
+      v26 = a4;
+      v22 = [objc_alloc(MEMORY[0x1E69853D0]) initWithElementLocalName:@"script" attributeLocalNames:0 attributeValues:0];
+      v35[0] = v22;
+      v23 = [objc_alloc(MEMORY[0x1E69853D0]) initWithElementLocalName:@"noscript" attributeLocalNames:0 attributeValues:0];
+      v35[1] = v23;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+      [v21 setExclusionRules:v24];
 
-      a4 = v23;
+      a4 = v26;
     }
 
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __122__WKWebView_WBSWKWebViewExtras__safari_saveWebpageCompleteToURL_withCollectionMethod_collectionOptions_completionHandler___block_invoke;
-    v24[3] = &unk_1E8282D78;
-    v28 = v11;
-    v29 = a5;
-    v24[4] = self;
-    v25 = v14;
-    v26 = _committedURL;
-    v27 = @"index.html";
-    v30 = a4;
-    [self _archiveWithConfiguration:v18 completionHandler:v24];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __122__WKWebView_WBSWKWebViewExtras__safari_saveWebpageCompleteToURL_withCollectionMethod_collectionOptions_completionHandler___block_invoke;
+    v27[3] = &unk_1E8282D78;
+    v31 = v11;
+    v32 = a5;
+    v27[4] = self;
+    v28 = v15;
+    v29 = _committedURL;
+    v30 = @"index.html";
+    v33 = a4;
+    [self _archiveWithConfiguration:v21 completionHandler:v27];
   }
 
   else
   {
-    v22 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v25 = WBS_LOG_CHANNEL_PREFIXDownloads(v19, v20);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [WKWebView(WBSWKWebViewExtras) safari_saveWebpageCompleteToURL:withCollectionMethod:collectionOptions:completionHandler:];
     }
 
-    (*(v11 + 2))(v11, 0, v17);
+    (*(v11 + 2))(v11, 0, v18);
   }
 }
 

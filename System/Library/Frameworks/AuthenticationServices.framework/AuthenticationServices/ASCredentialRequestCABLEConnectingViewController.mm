@@ -3,7 +3,10 @@
 - (void)_setUpInformativeTextLabel;
 - (void)_showInformativeText;
 - (void)_startInformativeTextTimerIfNeeded;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ASCredentialRequestCABLEConnectingViewController
@@ -17,10 +20,10 @@
 
 - (void)viewDidLoad
 {
-  v31[2] = *MEMORY[0x1E69E9840];
-  v29.receiver = self;
-  v29.super_class = ASCredentialRequestCABLEConnectingViewController;
-  [(ASCredentialRequestPaneViewController *)&v29 viewDidLoad];
+  v30[2] = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = ASCredentialRequestCABLEConnectingViewController;
+  [(ASCredentialRequestPaneViewController *)&v28 viewDidLoad];
   v3 = objc_alloc_init(MEMORY[0x1E69DC638]);
   activityIndicator = self->_activityIndicator;
   self->_activityIndicator = v3;
@@ -34,11 +37,11 @@
   [v5 setFont:v7];
 
   v8 = objc_alloc(MEMORY[0x1E69DCF90]);
-  v31[0] = self->_activityIndicator;
-  v31[1] = v5;
+  v30[0] = self->_activityIndicator;
+  v30[1] = v5;
   v9 = v5;
-  v27 = v5;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+  v26 = v5;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   v11 = [v8 initWithArrangedSubviews:v10];
 
   [v11 setAlignment:3];
@@ -47,27 +50,52 @@
   view = [(ASCredentialRequestCABLEConnectingViewController *)self view];
   [view addSubview:v11];
 
-  v22 = MEMORY[0x1E696ACD8];
+  v21 = MEMORY[0x1E696ACD8];
   centerXAnchor = [v11 centerXAnchor];
   view2 = [(ASCredentialRequestCABLEConnectingViewController *)self view];
   safeAreaLayoutGuide = [view2 safeAreaLayoutGuide];
   centerXAnchor2 = [safeAreaLayoutGuide centerXAnchor];
-  v23 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v30[0] = v23;
+  v22 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v29[0] = v22;
   lastBaselineAnchor = [v9 lastBaselineAnchor];
   view3 = [(ASCredentialRequestCABLEConnectingViewController *)self view];
   centerYAnchor = [view3 centerYAnchor];
   v16 = [lastBaselineAnchor constraintEqualToAnchor:centerYAnchor];
-  v30[1] = v16;
+  v29[1] = v16;
   paneHeaderStackView = [(ASCredentialRequestPaneViewController *)self paneHeaderStackView];
   heightAnchor = [paneHeaderStackView heightAnchor];
   v19 = [heightAnchor constraintGreaterThanOrEqualToConstant:300.0];
-  v30[2] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
-  [v22 activateConstraints:v20];
+  v29[2] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
+  [v21 activateConstraints:v20];
 
   [(ASCredentialRequestPaneViewController *)self sizeToFitPaneContent];
-  v21 = *MEMORY[0x1E69E9840];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ASCredentialRequestCABLEConnectingViewController;
+  [(ASCredentialRequestPaneViewController *)&v4 viewWillAppear:appear];
+  [(UIActivityIndicatorView *)self->_activityIndicator startAnimating];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ASCredentialRequestCABLEConnectingViewController;
+  [(ASCredentialRequestPaneViewController *)&v4 viewDidAppear:appear];
+  [(ASCredentialRequestCABLEConnectingViewController *)self _startInformativeTextTimerIfNeeded];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = ASCredentialRequestCABLEConnectingViewController;
+  [(ASCredentialRequestCABLEConnectingViewController *)&v5 viewWillDisappear:disappear];
+  [(NSTimer *)self->_informativeTextTimer invalidate];
+  informativeTextTimer = self->_informativeTextTimer;
+  self->_informativeTextTimer = 0;
 }
 
 - (void)_startInformativeTextTimerIfNeeded
@@ -121,7 +149,7 @@ void __86__ASCredentialRequestCABLEConnectingViewController__startInformativeTex
 
 - (void)_setUpInformativeTextLabel
 {
-  v31[4] = *MEMORY[0x1E69E9840];
+  v30[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E69DCC10]);
   informativeTextLabel = self->_informativeTextLabel;
   self->_informativeTextLabel = v3;
@@ -155,31 +183,29 @@ void __86__ASCredentialRequestCABLEConnectingViewController__startInformativeTex
     v11 = 0.0;
   }
 
-  v23 = MEMORY[0x1E696ACD8];
+  v22 = MEMORY[0x1E696ACD8];
   [(UILabel *)self->_informativeTextLabel leadingAnchor];
-  v30 = v29 = layoutMarginsGuide;
+  v29 = v28 = layoutMarginsGuide;
   leadingAnchor = [layoutMarginsGuide leadingAnchor];
-  v27 = [v30 constraintEqualToSystemSpacingAfterAnchor:leadingAnchor multiplier:v11];
-  v31[0] = v27;
+  v26 = [v29 constraintEqualToSystemSpacingAfterAnchor:leadingAnchor multiplier:v11];
+  v30[0] = v26;
   trailingAnchor = [layoutMarginsGuide trailingAnchor];
   trailingAnchor2 = [(UILabel *)self->_informativeTextLabel trailingAnchor];
-  v24 = [trailingAnchor constraintEqualToSystemSpacingAfterAnchor:trailingAnchor2 multiplier:v11];
-  v31[1] = v24;
+  v23 = [trailingAnchor constraintEqualToSystemSpacingAfterAnchor:trailingAnchor2 multiplier:v11];
+  v30[1] = v23;
   view3 = [(ASCredentialRequestCABLEConnectingViewController *)self view];
   bottomAnchor = [view3 bottomAnchor];
   lastBaselineAnchor = [(UILabel *)self->_informativeTextLabel lastBaselineAnchor];
   v15 = [bottomAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:lastBaselineAnchor multiplier:2.0];
-  v31[2] = v15;
+  v30[2] = v15;
   view4 = [(ASCredentialRequestCABLEConnectingViewController *)self view];
   safeAreaLayoutGuide = [view4 safeAreaLayoutGuide];
   bottomAnchor2 = [safeAreaLayoutGuide bottomAnchor];
   lastBaselineAnchor2 = [(UILabel *)self->_informativeTextLabel lastBaselineAnchor];
   v20 = [bottomAnchor2 constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:lastBaselineAnchor2 multiplier:1.0];
-  v31[3] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
-  [v23 activateConstraints:v21];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v30[3] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:4];
+  [v22 activateConstraints:v21];
 }
 
 @end

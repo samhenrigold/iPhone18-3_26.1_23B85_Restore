@@ -167,48 +167,44 @@
 
 uint64_t __59__SGQuickResponsesRepliesFlattened_normalizedReplyTextsSet__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 getObject];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 getObject];
 
   return MEMORY[0x2821F96F8]();
 }
 
 + (id)normalizedReplyTextsSetForArray:(id)array
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v4 = objc_opt_new();
+  v30 = 0u;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
   obj = arrayCopy;
-  v5 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0x277CCA000uLL;
-    v8 = *v33;
+    v8 = *v31;
     do
     {
       v9 = 0;
-      v26 = v6;
+      v24 = v6;
       do
       {
-        if (*v33 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * v9);
-        v11 = *(v7 + 3240);
+        v10 = *(*(&v30 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = [SGQuickResponsesReplies normalizeReplyTextInternal:v10];
-          [v4 addObject:v12];
+          v11 = [SGQuickResponsesReplies normalizeReplyTextInternal:v10];
+          [v4 addObject:v11];
         }
 
         else
@@ -220,38 +216,38 @@ uint64_t __59__SGQuickResponsesRepliesFlattened_normalizedReplyTextsSet__block_i
             [currentHandler handleFailureInMethod:a2 object:self file:@"SGQuickResponsesConfig.m" lineNumber:611 description:{@"Invalid parameter not satisfying: %@", @"[obj isKindOfClass:NSArray.class]"}];
           }
 
-          v12 = v10;
+          v11 = v10;
+          v26 = 0u;
+          v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
-          v31 = 0u;
-          v13 = [v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
-          if (v13)
+          v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          if (v12)
           {
-            v14 = v13;
-            v15 = v8;
-            v16 = v7;
-            v17 = *v29;
+            v13 = v12;
+            v14 = v8;
+            v15 = v7;
+            v16 = *v27;
             do
             {
-              for (i = 0; i != v14; ++i)
+              for (i = 0; i != v13; ++i)
               {
-                if (*v29 != v17)
+                if (*v27 != v16)
                 {
-                  objc_enumerationMutation(v12);
+                  objc_enumerationMutation(v11);
                 }
 
-                v19 = [SGQuickResponsesReplies normalizeReplyTextInternal:*(*(&v28 + 1) + 8 * i)];
-                [v4 addObject:v19];
+                v18 = [SGQuickResponsesReplies normalizeReplyTextInternal:*(*(&v26 + 1) + 8 * i)];
+                [v4 addObject:v18];
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
             }
 
-            while (v14);
-            v7 = v16;
-            v8 = v15;
-            v6 = v26;
+            while (v13);
+            v7 = v15;
+            v8 = v14;
+            v6 = v24;
           }
         }
 
@@ -259,42 +255,41 @@ uint64_t __59__SGQuickResponsesRepliesFlattened_normalizedReplyTextsSet__block_i
       }
 
       while (v9 != v6);
-      v6 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v6 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v6);
   }
 
-  v21 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v4];
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v4];
 
-  return v21;
+  return v20;
 }
 
 + (unint64_t)countReplyTextsForArray:(id)array
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = [arrayCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -319,7 +314,7 @@ uint64_t __59__SGQuickResponsesRepliesFlattened_normalizedReplyTextsSet__block_i
         }
       }
 
-      v7 = [arrayCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -330,7 +325,6 @@ uint64_t __59__SGQuickResponsesRepliesFlattened_normalizedReplyTextsSet__block_i
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -8,10 +8,10 @@
 
 - (_ASCABLEQRCodeBadgeView)initWithFrame:(CGRect)frame
 {
-  v37[6] = *MEMORY[0x1E69E9840];
-  v36.receiver = self;
-  v36.super_class = _ASCABLEQRCodeBadgeView;
-  v3 = [(_ASCABLEQRCodeBadgeView *)&v36 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v36[6] = *MEMORY[0x1E69E9840];
+  v35.receiver = self;
+  v35.super_class = _ASCABLEQRCodeBadgeView;
+  v3 = [(_ASCABLEQRCodeBadgeView *)&v35 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_alloc_init(_ASCABLEQRCodeBadgePlatterView);
@@ -43,32 +43,31 @@
     iconOffsetYConstraint = v3->_iconOffsetYConstraint;
     v3->_iconOffsetYConstraint = v17;
 
-    v30 = MEMORY[0x1E696ACD8];
+    v29 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UIView *)v3->_platterView leadingAnchor];
     leadingAnchor2 = [(_ASCABLEQRCodeBadgeView *)v3 leadingAnchor];
-    v33 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v37[0] = v33;
+    v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v36[0] = v32;
     trailingAnchor = [(UIView *)v3->_platterView trailingAnchor];
     trailingAnchor2 = [(_ASCABLEQRCodeBadgeView *)v3 trailingAnchor];
     v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v37[1] = v19;
+    v36[1] = v19;
     topAnchor = [(UIView *)v3->_platterView topAnchor];
     topAnchor2 = [(_ASCABLEQRCodeBadgeView *)v3 topAnchor];
     v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v37[2] = v22;
+    v36[2] = v22;
     bottomAnchor = [(UIView *)v3->_platterView bottomAnchor];
     bottomAnchor2 = [(_ASCABLEQRCodeBadgeView *)v3 bottomAnchor];
     v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v37[3] = v25;
-    v37[4] = v3->_iconOffsetXConstraint;
-    v37[5] = v3->_iconOffsetYConstraint;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:6];
-    [v30 activateConstraints:v26];
+    v36[3] = v25;
+    v36[4] = v3->_iconOffsetXConstraint;
+    v36[5] = v3->_iconOffsetYConstraint;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:6];
+    [v29 activateConstraints:v26];
 
     v27 = v3;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

@@ -53,9 +53,9 @@
         self->_rows.__end_ = v9;
         operator delete(v9);
         cap = 0;
-        p_rows->__begin_ = 0;
-        p_rows->__end_ = 0;
-        p_rows->__cap_ = 0;
+        *p_rows = 0;
+        p_rows[1] = 0;
+        p_rows[2] = 0;
       }
 
       if (!(v10 >> 59))
@@ -148,9 +148,9 @@
         self->_columns.__end_ = v9;
         operator delete(v9);
         cap = 0;
-        p_columns->__begin_ = 0;
-        p_columns->__end_ = 0;
-        p_columns->__cap_ = 0;
+        *p_columns = 0;
+        p_columns[1] = 0;
+        p_columns[2] = 0;
       }
 
       if (!(v10 >> 59))
@@ -345,9 +345,9 @@
         self->_rectForCells.__end_ = v9;
         operator delete(v9);
         cap = 0;
-        p_rectForCells->__begin_ = 0;
-        p_rectForCells->__end_ = 0;
-        p_rectForCells->__cap_ = 0;
+        *p_rectForCells = 0;
+        p_rectForCells[1] = 0;
+        p_rectForCells[2] = 0;
       }
 
       if (!(v10 >> 59))
@@ -466,12 +466,12 @@
   *&self->_parsedProgram.numRows = v4;
   if (&self->_parsedProgram != program)
   {
-    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&self->_parsedProgram.rowHeights.__begin_, program->rowHeights.__begin_, program->rowHeights.__end_, program->rowHeights.__end_ - program->rowHeights.__begin_);
-    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&self->_parsedProgram.columnWidths.__begin_, program->columnWidths.__begin_, program->columnWidths.__end_, program->columnWidths.__end_ - program->columnWidths.__begin_);
+    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&self->_parsedProgram.rowHeights, program->rowHeights.__begin_, program->rowHeights.__end_, program->rowHeights.__end_ - program->rowHeights.__begin_);
+    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&self->_parsedProgram.columnWidths, program->columnWidths.__begin_, program->columnWidths.__end_, program->columnWidths.__end_ - program->columnWidths.__begin_);
     begin = program->merges.__begin_;
     end = program->merges.__end_;
 
-    std::vector<CRTableStructureMerge>::__assign_with_size[abi:ne200100]<CRTableStructureMerge*,CRTableStructureMerge*>(&self->_parsedProgram.merges.__begin_, begin, end, (end - begin) >> 5);
+    std::vector<CRTableStructureMerge>::__assign_with_size[abi:ne200100]<CRTableStructureMerge*,CRTableStructureMerge*>(&self->_parsedProgram.merges, begin, end, (end - begin) >> 5);
   }
 }
 

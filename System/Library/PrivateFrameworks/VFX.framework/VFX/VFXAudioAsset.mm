@@ -6,9 +6,9 @@
 
 - (void)didDetachFromWorld:(id)world
 {
-  v6 = objc_msgSend_scene(world, a2, world, v3);
+  v4 = objc_msgSend_scene(world, a2, world);
 
-  MEMORY[0x1EEE66B58](v6, sel_willRemoveAudioAsset_fromWorld_, self, world);
+  MEMORY[0x1EEE66B58](v4, sel_willRemoveAudioAsset_fromWorld_, self);
 }
 
 @end

@@ -38,12 +38,9 @@
 {
   objc_initWeak(&location, self);
   dataSource = [(HMIFetchUnassociatedFaceCropsOperation *)self dataSource];
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __67__HMIFetchUnassociatedFaceCropsOperation_mainInsideAutoreleasePool__block_invoke;
-  v4[3] = &unk_278753D20;
+  v4 = MEMORY[0x277D85DD0];
   objc_copyWeak(&v5, &location);
-  [dataSource fetchAllUnassociatedFaceCropsWithCompletion:v4];
+  [dataSource fetchAllUnassociatedFaceCropsWithCompletion:{v4, 3221225472, __67__HMIFetchUnassociatedFaceCropsOperation_mainInsideAutoreleasePool__block_invoke, &unk_278753D20}];
 
   objc_destroyWeak(&v5);
   objc_destroyWeak(&location);
@@ -74,7 +71,7 @@ void __67__HMIFetchUnassociatedFaceCropsOperation_mainInsideAutoreleasePool__blo
       }
 
       objc_autoreleasePoolPop(v10);
-      [v11 cancelWithError:v7];
+      [v11 cancelWithError:?];
     }
 
     else

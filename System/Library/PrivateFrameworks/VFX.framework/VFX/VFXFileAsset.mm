@@ -14,14 +14,14 @@
 
 - (VFXFileAsset)initWithFileNamed:(id)named entityObject:(id)object
 {
-  v10.receiver = self;
-  v10.super_class = VFXFileAsset;
-  v5 = [(VFXCoreAsset *)&v10 initWithEntityObject:object];
+  v9.receiver = self;
+  v9.super_class = VFXFileAsset;
+  v5 = [(VFXCoreAsset *)&v9 initWithEntityObject:object];
   if (v5)
   {
     namedCopy = named;
     v5->_filename = namedCopy;
-    objc_msgSend_setName_(v5, v7, namedCopy, v8);
+    objc_msgSend_setName_(v5, v7, namedCopy);
   }
 
   return v5;
@@ -36,24 +36,24 @@
     nameCopy = name;
     self->_filename = nameCopy;
 
-    objc_msgSend_setName_(self, v6, nameCopy, v8);
+    objc_msgSend_setName_(self, v6, nameCopy);
   }
 }
 
 - (id)absolutePath
 {
-  v4 = objc_msgSend_entityObject(self, a2, v2, v3);
-  v8 = objc_msgSend_properties(v4, v5, v6, v7);
+  v3 = objc_msgSend_entityObject(self, a2, v2);
+  v6 = objc_msgSend_properties(v3, v4, v5);
 
-  return MEMORY[0x1EEE66B58](v8, sel_absolutePath, v9, v10);
+  return MEMORY[0x1EEE66B58](v6, sel_absolutePath, v7);
 }
 
 - (void)setAbsolutePath:(id)path
 {
-  v5 = objc_msgSend_entityObject(self, a2, path, v3);
-  v9 = objc_msgSend_properties(v5, v6, v7, v8);
+  v4 = objc_msgSend_entityObject(self, a2, path);
+  v7 = objc_msgSend_properties(v4, v5, v6);
 
-  MEMORY[0x1EEE66B58](v9, sel_setAbsolutePath_, path, v10);
+  MEMORY[0x1EEE66B58](v7, sel_setAbsolutePath_, path);
 }
 
 - (void)dealloc
@@ -65,31 +65,31 @@
 
 - (void)copyTo:(id)to withContext:(id)context
 {
-  v9.receiver = self;
-  v9.super_class = VFXFileAsset;
-  [(VFXCoreAsset *)&v9 copyTo:to withContext:context];
+  v8.receiver = self;
+  v8.super_class = VFXFileAsset;
+  [(VFXCoreAsset *)&v8 copyTo:to withContext:context];
 
-  *(to + 6) = objc_msgSend_filename(self, v6, v7, v8);
+  *(to + 6) = objc_msgSend_filename(self, v6, v7);
 }
 
 - (id)copyWithFilename:(id)filename
 {
-  v5 = objc_msgSend_copy(self, a2, filename, v3);
-  v6 = v5;
-  if (v5)
+  v4 = objc_msgSend_copy(self, a2, filename);
+  v5 = v4;
+  if (v4)
   {
 
-    v6[6] = filename;
+    v5[6] = filename;
   }
 
-  return v6;
+  return v5;
 }
 
 - (VFXFileAsset)initWithCoder:(id)coder
 {
-  v19.receiver = self;
-  v19.super_class = VFXFileAsset;
-  v4 = [(VFXCoreAsset *)&v19 initWithCoder:?];
+  v17.receiver = self;
+  v17.super_class = VFXFileAsset;
+  v4 = [(VFXCoreAsset *)&v17 initWithCoder:?];
   if (v4)
   {
     v5 = objc_opt_class();
@@ -106,9 +106,9 @@
       if (v11)
       {
         PathComponent = v11;
-        if (objc_msgSend_hasPrefix_(v11, v12, @"/", v13))
+        if (objc_msgSend_hasPrefix_(v11, v12, @"/"))
         {
-          PathComponent = objc_msgSend_lastPathComponent(PathComponent, v15, v16, v17);
+          PathComponent = objc_msgSend_lastPathComponent(PathComponent, v14, v15);
         }
 
         v8 = PathComponent;

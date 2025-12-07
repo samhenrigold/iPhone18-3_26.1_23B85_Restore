@@ -14,11 +14,11 @@
 
 - (SFAirDropTransferMetaData)initWithInformation:(id)information
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   informationCopy = information;
-  v58.receiver = self;
-  v58.super_class = SFAirDropTransferMetaData;
-  v5 = [(SFAirDropTransferMetaData *)&v58 init];
+  v57.receiver = self;
+  v57.super_class = SFAirDropTransferMetaData;
+  v5 = [(SFAirDropTransferMetaData *)&v57 init];
   v6 = v5;
   if (v5)
   {
@@ -30,33 +30,33 @@
     v6->_senderIsMe = [v8 BOOLValue];
 
     v9 = [informationCopy objectForKeyedSubscript:@"AutoAccept"];
-    v50 = v6;
+    v49 = v6;
     v6->_canAutoAccept = [v9 BOOLValue];
 
-    v51 = informationCopy;
+    v50 = informationCopy;
     v10 = [informationCopy objectForKeyedSubscript:@"Files"];
-    v53 = objc_opt_new();
+    v52 = objc_opt_new();
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     obj = v10;
-    v11 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+    v11 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v55;
+      v13 = *v54;
       v14 = *MEMORY[0x1E6963710];
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v55 != v13)
+          if (*v54 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = [*(*(&v54 + 1) + 8 * i) mutableCopy];
+          v16 = [*(*(&v53 + 1) + 8 * i) mutableCopy];
           v17 = [v16 objectForKeyedSubscript:@"FileType"];
           if (UTTypeIsDynamic(v17))
           {
@@ -67,82 +67,81 @@
             [v16 setObject:PreferredIdentifierForTag forKeyedSubscript:@"FileType"];
           }
 
-          [v53 addObject:v16];
+          [v52 addObject:v16];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+        v12 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
       }
 
       while (v12);
     }
 
-    v6 = v50;
-    objc_storeStrong(&v50->_rawFiles, v53);
-    informationCopy = v51;
-    v21 = [v51 objectForKeyedSubscript:@"ItemsDescription"];
-    [(SFAirDropTransferMetaData *)v50 setItemsDescription:v21];
+    v6 = v49;
+    objc_storeStrong(&v49->_rawFiles, v52);
+    informationCopy = v50;
+    v21 = [v50 objectForKeyedSubscript:@"ItemsDescription"];
+    [(SFAirDropTransferMetaData *)v49 setItemsDescription:v21];
 
-    v22 = [v51 objectForKeyedSubscript:@"SmallFileIcon"];
-    smallPreviewImage = v50->_smallPreviewImage;
-    v50->_smallPreviewImage = v22;
+    v22 = [v50 objectForKeyedSubscript:@"SmallFileIcon"];
+    smallPreviewImage = v49->_smallPreviewImage;
+    v49->_smallPreviewImage = v22;
 
-    v24 = [v51 objectForKeyedSubscript:@"FileIcon"];
-    previewImage = v50->_previewImage;
-    v50->_previewImage = v24;
+    v24 = [v50 objectForKeyedSubscript:@"FileIcon"];
+    previewImage = v49->_previewImage;
+    v49->_previewImage = v24;
 
-    CGImageWithDataOrURL = [v51 objectForKeyedSubscript:@"SenderIcon"];
+    CGImageWithDataOrURL = [v50 objectForKeyedSubscript:@"SenderIcon"];
     v27 = CGImageWithDataOrURL;
     if (CGImageWithDataOrURL)
     {
       CGImageWithDataOrURL = createCGImageWithDataOrURL(CGImageWithDataOrURL);
     }
 
-    senderIcon = v50->_senderIcon;
-    v50->_senderIcon = CGImageWithDataOrURL;
+    senderIcon = v49->_senderIcon;
+    v49->_senderIcon = CGImageWithDataOrURL;
 
-    v29 = [v51 objectForKeyedSubscript:@"BundleID"];
-    senderBundleID = v50->_senderBundleID;
-    v50->_senderBundleID = v29;
+    v29 = [v50 objectForKeyedSubscript:@"BundleID"];
+    senderBundleID = v49->_senderBundleID;
+    v49->_senderBundleID = v29;
 
-    v31 = [v51 objectForKeyedSubscript:@"SenderComputerName"];
-    senderComputerName = v50->_senderComputerName;
-    v50->_senderComputerName = v31;
+    v31 = [v50 objectForKeyedSubscript:@"SenderComputerName"];
+    senderComputerName = v49->_senderComputerName;
+    v49->_senderComputerName = v31;
 
-    v33 = [v51 objectForKeyedSubscript:@"SenderEmail"];
-    senderEmail = v50->_senderEmail;
-    v50->_senderEmail = v33;
+    v33 = [v50 objectForKeyedSubscript:@"SenderEmail"];
+    senderEmail = v49->_senderEmail;
+    v49->_senderEmail = v33;
 
-    v35 = [v51 objectForKeyedSubscript:@"SenderEmailHash"];
-    senderEmailHash = v50->_senderEmailHash;
-    v50->_senderEmailHash = v35;
+    v35 = [v50 objectForKeyedSubscript:@"SenderEmailHash"];
+    senderEmailHash = v49->_senderEmailHash;
+    v49->_senderEmailHash = v35;
 
-    v37 = [v51 objectForKeyedSubscript:@"SenderCompositeName"];
-    senderCompositeName = v50->_senderCompositeName;
-    v50->_senderCompositeName = v37;
+    v37 = [v50 objectForKeyedSubscript:@"SenderCompositeName"];
+    senderCompositeName = v49->_senderCompositeName;
+    v49->_senderCompositeName = v37;
 
-    v39 = [v51 objectForKeyedSubscript:@"SenderFirstName"];
-    senderFirstName = v50->_senderFirstName;
-    v50->_senderFirstName = v39;
+    v39 = [v50 objectForKeyedSubscript:@"SenderFirstName"];
+    senderFirstName = v49->_senderFirstName;
+    v49->_senderFirstName = v39;
 
-    v41 = [v51 objectForKeyedSubscript:@"SenderLastName"];
-    senderLastName = v50->_senderLastName;
-    v50->_senderLastName = v41;
+    v41 = [v50 objectForKeyedSubscript:@"SenderLastName"];
+    senderLastName = v49->_senderLastName;
+    v49->_senderLastName = v41;
 
-    v43 = [v51 objectForKeyedSubscript:@"SenderID"];
-    senderID = v50->_senderID;
-    v50->_senderID = v43;
+    v43 = [v50 objectForKeyedSubscript:@"SenderID"];
+    senderID = v49->_senderID;
+    v49->_senderID = v43;
 
-    v45 = [v51 objectForKeyedSubscript:@"SenderNode"];
+    v45 = [v50 objectForKeyedSubscript:@"SenderNode"];
 
     if (v45)
     {
       v46 = SFNodeCopyContactIdentifier(v45);
-      contactIdentifier = v50->_contactIdentifier;
-      v50->_contactIdentifier = &v46->isa;
+      contactIdentifier = v49->_contactIdentifier;
+      v49->_contactIdentifier = &v46->isa;
     }
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -212,7 +211,7 @@
 
 - (void)updateUsingCoder:(id)coder
 {
-  v81[3] = *MEMORY[0x1E69E9840];
+  v83[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   self->_transferTypes = [coderCopy decodeInt64ForKey:@"transferTypes"];
   self->_canAutoAccept = [coderCopy decodeBoolForKey:@"canAutoAccept"];
@@ -265,86 +264,84 @@
 
     if (!self->_senderIcon)
     {
-      v27 = airdrop_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = airdrop_log(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [(SFAirDropTransferMetaData *)v27 updateUsingCoder:v28, v29, v30, v31, v32, v33, v34];
+        [(SFAirDropTransferMetaData *)v28 updateUsingCoder:v29, v30, v31, v32, v33, v34, v35];
       }
     }
   }
 
-  v35 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_smallPreviewImageData"];
+  v36 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_smallPreviewImageData"];
 
-  if (v35)
+  if (v36)
   {
-    v36 = createCGImageWithData(v35);
+    v37 = createCGImageWithData(v36);
     smallPreviewImage = self->_smallPreviewImage;
-    self->_smallPreviewImage = v36;
+    self->_smallPreviewImage = v37;
 
     if (!self->_smallPreviewImage)
     {
-      v38 = airdrop_log();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v40 = airdrop_log(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        [(SFAirDropTransferMetaData *)v38 updateUsingCoder:v39, v40, v41, v42, v43, v44, v45];
+        [(SFAirDropTransferMetaData *)v40 updateUsingCoder:v41, v42, v43, v44, v45, v46, v47];
       }
     }
   }
 
-  v46 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_previewImageData"];
+  v48 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_previewImageData"];
 
-  if (v46)
+  if (v48)
   {
-    v47 = createCGImageWithData(v46);
+    v49 = createCGImageWithData(v48);
     previewImage = self->_previewImage;
-    self->_previewImage = v47;
+    self->_previewImage = v49;
 
     if (!self->_previewImage)
     {
-      v49 = airdrop_log();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v52 = airdrop_log(v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
-        [(SFAirDropTransferMetaData *)v49 updateUsingCoder:v50, v51, v52, v53, v54, v55, v56];
+        [(SFAirDropTransferMetaData *)v52 updateUsingCoder:v53, v54, v55, v56, v57, v58, v59];
       }
     }
   }
 
-  v57 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"itemsDescription"];
-  v58 = [v57 copy];
+  v60 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"itemsDescription"];
+  v61 = [v60 copy];
   itemsDescription = self->_itemsDescription;
-  self->_itemsDescription = v58;
+  self->_itemsDescription = v61;
 
-  v60 = MEMORY[0x1E695DFD8];
-  v81[0] = objc_opt_class();
-  v81[1] = objc_opt_class();
-  v81[2] = objc_opt_class();
-  v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:3];
-  v62 = [v60 setWithArray:v61];
-  v63 = [coderCopy decodeObjectOfClasses:v62 forKey:@"itemsDescriptionAdvanced"];
+  v63 = MEMORY[0x1E695DFD8];
+  v83[0] = objc_opt_class();
+  v83[1] = objc_opt_class();
+  v83[2] = objc_opt_class();
+  v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:3];
+  v65 = [v63 setWithArray:v64];
+  v66 = [coderCopy decodeObjectOfClasses:v65 forKey:@"itemsDescriptionAdvanced"];
   itemsDescriptionAdvanced = self->_itemsDescriptionAdvanced;
-  self->_itemsDescriptionAdvanced = v63;
+  self->_itemsDescriptionAdvanced = v66;
 
-  v65 = MEMORY[0x1E695DFD8];
-  v80[0] = objc_opt_class();
-  v80[1] = objc_opt_class();
-  v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:2];
-  v67 = [v65 setWithArray:v66];
-  v68 = [coderCopy decodeObjectOfClasses:v67 forKey:@"items"];
+  v68 = MEMORY[0x1E695DFD8];
+  v82[0] = objc_opt_class();
+  v82[1] = objc_opt_class();
+  v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:2];
+  v70 = [v68 setWithArray:v69];
+  v71 = [coderCopy decodeObjectOfClasses:v70 forKey:@"items"];
   items = self->_items;
-  self->_items = v68;
+  self->_items = v71;
 
-  v70 = MEMORY[0x1E695DFD8];
-  v76 = objc_opt_class();
-  v77 = objc_opt_class();
+  v73 = MEMORY[0x1E695DFD8];
   v78 = objc_opt_class();
   v79 = objc_opt_class();
-  v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:4];
-  v72 = [v70 setWithArray:{v71, v76, v77, v78}];
-  v73 = [coderCopy decodeObjectOfClasses:v72 forKey:@"rawFiles"];
+  v80 = objc_opt_class();
+  v81 = objc_opt_class();
+  v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:4];
+  v75 = [v73 setWithArray:{v74, v78, v79, v80}];
+  v76 = [coderCopy decodeObjectOfClasses:v75 forKey:@"rawFiles"];
   rawFiles = self->_rawFiles;
-  self->_rawFiles = v73;
-
-  v75 = *MEMORY[0x1E69E9840];
+  self->_rawFiles = v76;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -393,43 +390,106 @@
 
 - (id)description
 {
-  objc_opt_class();
-  v14 = SFAirDropTransferTypesToString(self->_transferTypes);
-  NSAppendPrintF();
-  v3 = 0;
+  v30 = 0;
+  v3 = objc_opt_class();
+  v4 = SFAirDropTransferTypesToString(self->_transferTypes);
+  NSAppendPrintF(&v30, "<%@: transferTypes: [%@]", v3, v4);
+  v5 = v30;
 
-  self->_verifiableIdentity;
-  NSAppendPrintF();
-  v4 = v3;
+  v29 = v5;
+  if (self->_verifiableIdentity)
+  {
+    v6 = "yes";
+  }
 
-  self->_contactIdentifier;
-  NSAppendPrintF();
-  v5 = v4;
+  else
+  {
+    v6 = "no";
+  }
 
-  self->_senderIsMe;
-  NSAppendPrintF();
-  v6 = v5;
+  NSAppendPrintF(&v29, ", verifiableIdentity: %s", v6);
+  v7 = v29;
 
-  self->_canAutoAccept;
-  NSAppendPrintF();
-  v7 = v6;
+  v28 = v7;
+  if (self->_contactIdentifier)
+  {
+    v8 = "yes";
+  }
 
-  senderComputerName = self->_senderComputerName;
-  NSAppendPrintF();
-  v8 = v7;
+  else
+  {
+    v8 = "no";
+  }
 
-  self->_previewImage;
-  NSAppendPrintF();
-  v9 = v8;
+  NSAppendPrintF(&v28, ", hasContactIdentifier: %s", v8);
+  v9 = v28;
 
-  self->_smallPreviewImage;
-  NSAppendPrintF();
-  v10 = v9;
+  v27 = v9;
+  if (self->_senderIsMe)
+  {
+    v10 = "yes";
+  }
 
-  NSAppendPrintF();
-  v11 = v10;
+  else
+  {
+    v10 = "no";
+  }
 
-  return v10;
+  NSAppendPrintF(&v27, ", senderIsMe: %s", v10);
+  v11 = v27;
+
+  v26 = v11;
+  if (self->_canAutoAccept)
+  {
+    v12 = "yes";
+  }
+
+  else
+  {
+    v12 = "no";
+  }
+
+  NSAppendPrintF(&v26, ", canAutoAccept: %s", v12);
+  v13 = v26;
+
+  v25 = v13;
+  NSAppendPrintF(&v25, ", sender: %@", self->_senderComputerName);
+  v14 = v25;
+
+  v24 = v14;
+  if (self->_previewImage)
+  {
+    v15 = "yes";
+  }
+
+  else
+  {
+    v15 = "no";
+  }
+
+  NSAppendPrintF(&v24, ", hasPreviewImage: %s", v15);
+  v16 = v24;
+
+  v23 = v16;
+  if (self->_smallPreviewImage)
+  {
+    v17 = "yes";
+  }
+
+  else
+  {
+    v17 = "no";
+  }
+
+  NSAppendPrintF(&v23, ", hasSmallPreviewImage: %s", v17);
+  v18 = v23;
+
+  v22 = v18;
+  NSAppendPrintF(&v22, ">");
+  v19 = v22;
+  v20 = v22;
+
+  return v19;
 }
 
 - (unint64_t)hash
@@ -481,18 +541,19 @@
     if (v7)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v8 = airdrop_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v9 = airdrop_log(isKindOfClass);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          [(SFAirDropTransferMetaData *)v7 setItemsDescription:v8];
+          [(SFAirDropTransferMetaData *)v7 setItemsDescription:v9];
         }
 
         objc_storeStrong(&self->_itemsDescriptionAdvanced, v7);
-        v9 = [(NSDictionary *)self->_itemsDescriptionAdvanced objectForKeyedSubscript:@"SFAirDropActivitySubjectMain"];
+        v10 = [(NSDictionary *)self->_itemsDescriptionAdvanced objectForKeyedSubscript:@"SFAirDropActivitySubjectMain"];
         itemsDescription = self->_itemsDescription;
-        self->_itemsDescription = v9;
+        self->_itemsDescription = v10;
       }
 
       else
@@ -511,11 +572,10 @@
 
 - (void)setItemsDescription:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A9662000, a2, OS_LOG_TYPE_DEBUG, "Transfer provided JSON items description: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A9662000, a2, OS_LOG_TYPE_DEBUG, "Transfer provided JSON items description: %@", &v2, 0xCu);
 }
 
 @end

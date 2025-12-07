@@ -19,24 +19,24 @@
   v3 = [self->_apiManager apiForProtocol:&unk_28735E258];
   if (v3)
   {
-    v4 = v3;
-    v13 = 0;
-    [v3 getCustomParameterValue:&v13 fromParm:4 atFxTime:getFxTimeZero()];
-    v5 = v13;
+    v5 = v3;
+    v14 = 0;
+    [v3 getCustomParameterValue:&v14 fromParm:4 atFxTime:{getFxTimeZero(v3, v4)}];
+    v6 = v14;
 
-    v6 = objc_alloc_init(PAEKeyerAutokeySetup);
-    v7 = [objc_msgSend(v13 "initialSamples")];
-    [(PAEKeyerAutokeySetup *)v6 setInitialSamples:v7];
+    v7 = objc_alloc_init(PAEKeyerAutokeySetup);
+    v8 = [objc_msgSend(v14 "initialSamples")];
+    [(PAEKeyerAutokeySetup *)v7 setInitialSamples:v8];
 
-    v11 = *MEMORY[0x277CC08F0];
-    v12 = *(MEMORY[0x277CC08F0] + 16);
-    v10 = 0;
-    [v4 getCustomParameterValue:&v10 fromParm:9 atFxTime:&v11];
-    v8 = v10;
+    v12 = *MEMORY[0x277CC08F0];
+    v13 = *(MEMORY[0x277CC08F0] + 16);
+    v11 = 0;
+    [v5 getCustomParameterValue:&v11 fromParm:9 atFxTime:&v12];
+    v9 = v11;
 
-    v9 = v10;
-    self->_autokeySetup = v6;
-    self->_keyerHistogram = v9;
+    v10 = v11;
+    self->_autokeySetup = v7;
+    self->_keyerHistogram = v10;
   }
 }
 
@@ -75,12 +75,12 @@
     keyerHistogram = self->_keyerHistogram;
     if (keyerHistogram)
     {
-      v8 = *MEMORY[0x277CC08F0];
-      v9 = *(MEMORY[0x277CC08F0] + 16);
-      [v4 setCustomParameterValue:keyerHistogram toParm:9 atFxTime:&v8];
+      v10 = *MEMORY[0x277CC08F0];
+      v11 = *(MEMORY[0x277CC08F0] + 16);
+      v7 = [v4 setCustomParameterValue:keyerHistogram toParm:9 atFxTime:&v10];
     }
 
-    [v4 setCustomParameterValue:v5 toParm:4 atFxTime:getFxTimeZero()];
+    [v4 setCustomParameterValue:v5 toParm:4 atFxTime:{getFxTimeZero(v7, v8)}];
   }
 }
 
@@ -185,12 +185,11 @@
   if (getSamplesNb >= 1)
   {
     v6 = getSamplesNb;
-    v7 = 0;
-    do
+    for (i = 0; i != v6; ++i)
     {
       if (self)
       {
-        [(PAEKeyerAutokeySetupUtil *)self getInitialSample:v7];
+        objc_msgSend_getInitialSample_(self);
       }
 
       else
@@ -200,10 +199,7 @@
       }
 
       std::vector<Vec3f>::push_back[abi:ne200100](array, &v8);
-      v7 = (v7 + 1);
     }
-
-    while (v6 != v7);
   }
 }
 

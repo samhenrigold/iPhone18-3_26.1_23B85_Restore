@@ -54,7 +54,7 @@
   _Block_object_dispose(v18, 8);
 }
 
-uint64_t __105__FigNSURLSessionRegistry_copySessionAndAssertionForCreateOptions_dispatchQueue_outSession_outAssertion___block_invoke(uint64_t a1)
+void *__105__FigNSURLSessionRegistry_copySessionAndAssertionForCreateOptions_dispatchQueue_outSession_outAssertion___block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 16);
   v7[0] = MEMORY[0x1E69E9820];
@@ -253,7 +253,8 @@ uint64_t __105__FigNSURLSessionRegistry_copySessionAndAssertionForCreateOptions_
 - (void)init
 {
   fig_log_get_emitter();
-  if (FigSignalErrorAtGM())
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, v7, v8);
+  if (v5)
   {
 
     self = 0;

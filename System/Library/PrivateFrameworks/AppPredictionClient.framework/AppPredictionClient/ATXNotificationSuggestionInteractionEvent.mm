@@ -225,29 +225,30 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v15 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v15];
+      [(ATXDigestTimeline *)self initWithProto:v16];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  suggestionType = [(ATXPBNotificationSuggestionInteractionEvent *)v5 suggestionType];
-  eventType = [(ATXPBNotificationSuggestionInteractionEvent *)v5 eventType];
-  v8 = objc_alloc(MEMORY[0x1E696AFB0]);
-  suggestionUUID = [(ATXPBNotificationSuggestionInteractionEvent *)v5 suggestionUUID];
-  v10 = [v8 initWithUUIDString:suggestionUUID];
+  v6 = protoCopy;
+  suggestionType = [(ATXPBNotificationSuggestionInteractionEvent *)v6 suggestionType];
+  eventType = [(ATXPBNotificationSuggestionInteractionEvent *)v6 eventType];
+  v9 = objc_alloc(MEMORY[0x1E696AFB0]);
+  suggestionUUID = [(ATXPBNotificationSuggestionInteractionEvent *)v6 suggestionUUID];
+  v11 = [v9 initWithUUIDString:suggestionUUID];
 
-  v11 = objc_alloc(MEMORY[0x1E695DF00]);
-  secondsSinceReferenceDate = [(ATXPBNotificationSuggestionInteractionEvent *)v5 secondsSinceReferenceDate];
+  v12 = objc_alloc(MEMORY[0x1E695DF00]);
+  secondsSinceReferenceDate = [(ATXPBNotificationSuggestionInteractionEvent *)v6 secondsSinceReferenceDate];
 
-  v13 = [v11 initWithTimeIntervalSinceReferenceDate:secondsSinceReferenceDate];
-  self = [(ATXNotificationSuggestionInteractionEvent *)self initWithSuggestionType:suggestionType eventType:eventType suggestionUUID:v10 eventDate:v13];
+  v14 = [v12 initWithTimeIntervalSinceReferenceDate:secondsSinceReferenceDate];
+  self = [(ATXNotificationSuggestionInteractionEvent *)self initWithSuggestionType:suggestionType eventType:eventType suggestionUUID:v11 eventDate:v14];
 
   selfCopy = self;
 LABEL_8:

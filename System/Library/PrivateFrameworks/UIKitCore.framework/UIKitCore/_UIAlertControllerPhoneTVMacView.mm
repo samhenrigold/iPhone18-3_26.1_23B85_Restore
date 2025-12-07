@@ -2526,9 +2526,9 @@ LABEL_42:
 
         v11 = *(*(&v15 + 1) + 8 * i);
         underlyingAlertAction = [v11 underlyingAlertAction];
-        v13 = [underlyingAlertAction isEqual:actionCopy];
+        isEqual = objc_msgSend_isEqual_(underlyingAlertAction);
 
-        if (v13)
+        if (isEqual)
         {
           v8 = v11;
           goto LABEL_11;
@@ -3051,7 +3051,7 @@ LABEL_9:
   [(_UIAlertControllerPhoneTVMacView *)self _updateStyleForIdiomChange:v11];
   [(_UIAlertControllerPhoneTVMacView *)self _updateActionsGroupPresentationStyles];
   _unlocalizedOrderedPresentableAlertActions2 = [(_UIAlertControllerPhoneTVMacView *)self _unlocalizedOrderedPresentableAlertActions];
-  if (([_unlocalizedOrderedPresentableAlertActions isEqual:_unlocalizedOrderedPresentableAlertActions2] & 1) == 0)
+  if ((objc_msgSend_isEqual_(_unlocalizedOrderedPresentableAlertActions) & 1) == 0)
   {
     [(_UIAlertControllerPhoneTVMacView *)self _reloadInterfaceActionViewRepresentations];
   }
@@ -3760,15 +3760,15 @@ LABEL_20:
   v7 = v6;
   if (v6 == v9)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v9 && v6)
     {
-      v8 = [v9 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v9);
     }
   }
 
@@ -3778,7 +3778,7 @@ LABEL_20:
   }
 
   [(UILabel *)self->_titleLabel setText:?];
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(_UIAlertControllerPhoneTVMacView *)self _propertiesChanged];
   }
@@ -3793,15 +3793,15 @@ LABEL_20:
   v7 = v6;
   if (v6 == v9)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v9 && v6)
     {
-      v8 = [v9 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v9);
     }
   }
 
@@ -3811,7 +3811,7 @@ LABEL_20:
   }
 
   [(UILabel *)self->_messageLabel setText:?];
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(_UIAlertControllerPhoneTVMacView *)self _propertiesChanged];
   }
@@ -3826,15 +3826,15 @@ LABEL_20:
   v7 = v6;
   if (v6 == v9)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v9 && v6)
     {
-      v8 = [v9 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v9);
     }
   }
 
@@ -3844,7 +3844,7 @@ LABEL_20:
   }
 
   [(UILabel *)self->_titleLabel setAttributedText:?];
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(_UIAlertControllerPhoneTVMacView *)self _propertiesChanged];
   }
@@ -3859,15 +3859,15 @@ LABEL_20:
   v7 = v6;
   if (v6 == v9)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v9 && v6)
     {
-      v8 = [v9 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v9);
     }
   }
 
@@ -3877,7 +3877,7 @@ LABEL_20:
   }
 
   [(UILabel *)self->_messageLabel setAttributedText:?];
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(_UIAlertControllerPhoneTVMacView *)self _propertiesChanged];
   }
@@ -3892,15 +3892,15 @@ LABEL_20:
   v7 = v6;
   if (v6 == v9)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v9 && v6)
     {
-      v8 = [v9 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v9);
     }
   }
 
@@ -3910,7 +3910,7 @@ LABEL_20:
   }
 
   [(UILabel *)self->_detailMessageLabel setAttributedText:?];
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(_UIAlertControllerPhoneTVMacView *)self _propertiesChanged];
   }

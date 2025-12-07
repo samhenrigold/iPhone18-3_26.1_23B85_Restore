@@ -2,6 +2,8 @@
 + (id)sharedInstance;
 - (MSDViewServiceModel)init;
 - (id)errorMessageFromErrors;
+- (void)didReceiveAllowCancel:(BOOL)cancel;
+- (void)didReceiveDisableIdleTimer:(BOOL)timer;
 - (void)didReceiveError:(id)error;
 - (void)didReceiveProgress:(int64_t)progress;
 - (void)operationCompleted;
@@ -53,30 +55,30 @@
 
   if (v4)
   {
-    v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
+    v26 = 0u;
     obj = [(MSDViewServiceModel *)self errors];
-    v5 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
       v8 = &stru_10000C608;
-      v9 = *v25;
+      v9 = *v26;
       do
       {
         v10 = 0;
         v11 = v8;
         do
         {
-          if (*v25 != v9)
+          if (*v26 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v24 + 1) + 8 * v10);
+          v12 = *(*(&v25 + 1) + 8 * v10);
           localizedFailureReason = [v12 localizedFailureReason];
 
           localizedDescription = [v12 localizedDescription];
@@ -103,7 +105,7 @@
         }
 
         while (v6 != v10);
-        v6 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v6 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
       }
 
       while (v6);
@@ -114,12 +116,12 @@
       v8 = &stru_10000C608;
     }
 
-    v21 = sub_1000015E4();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_1000015E4(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v29 = v8;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Full message is now: %{public}@", buf, 0xCu);
+      v30 = v8;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Full message is now: %{public}@", buf, 0xCu);
     }
 
     v20 = v8;
@@ -147,7 +149,7 @@
 
 - (void)didReceiveProgress:(int64_t)progress
 {
-  v5 = sub_1000015E4();
+  v5 = sub_1000015E4(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 134217984;
@@ -165,7 +167,7 @@
 
 - (void)operationCompleted
 {
-  v3 = sub_1000015E4();
+  v3 = sub_1000015E4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -178,7 +180,7 @@
 - (void)operationFailed:(id)failed
 {
   failedCopy = failed;
-  v5 = sub_1000015E4();
+  v5 = sub_1000015E4(failedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -186,6 +188,34 @@
   }
 
   [(MSDViewServiceModel *)self setErrorToReport:failedCopy];
+}
+
+- (void)didReceiveAllowCancel:(BOOL)cancel
+{
+  cancelCopy = cancel;
+  v5 = sub_1000015E4(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = cancelCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received allow cancel status: %d", v6, 8u);
+  }
+
+  [(MSDViewServiceModel *)self setShowCancelButton:cancelCopy];
+}
+
+- (void)didReceiveDisableIdleTimer:(BOOL)timer
+{
+  timerCopy = timer;
+  v5 = sub_1000015E4(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = timerCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received disable idle timer status: %d", v6, 8u);
+  }
+
+  [(MSDViewServiceModel *)self setDisableIdleTimer:timerCopy];
 }
 
 @end

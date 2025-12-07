@@ -72,7 +72,7 @@
 
 + (CGImageSource)newImageSourceFromImageAtURL:(id)l
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   pathExtension = [lCopy pathExtension];
   if ([pathExtension length])
@@ -82,9 +82,9 @@
 
     if (identifier)
     {
-      v11 = *MEMORY[0x277CD3668];
-      v12[0] = identifier;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v10 = *MEMORY[0x277CD3668];
+      v11[0] = identifier;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     }
 
     else
@@ -101,7 +101,6 @@
 
   v8 = CGImageSourceCreateWithURL(lCopy, v7);
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -120,7 +119,7 @@
       v10 = v9;
       if (v6)
       {
-        [v6 preferredTransform];
+        objc_msgSend_preferredTransform(v6);
       }
 
       v14.size.width = v10 * 0.0 + 0.0 * v8;

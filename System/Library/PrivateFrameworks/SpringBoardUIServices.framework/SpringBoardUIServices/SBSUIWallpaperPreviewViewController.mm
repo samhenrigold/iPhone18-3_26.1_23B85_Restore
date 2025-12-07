@@ -1139,10 +1139,10 @@ uint64_t __100__SBSUIWallpaperPreviewViewController__setImageWallpaperForLocatio
   dispatch_async(v9, v13);
 }
 
-uint64_t __105__SBSUIWallpaperPreviewViewController__setProceduralWallpaperForLocationsOnMainThread_completionHandler___block_invoke(uint64_t a1)
+uint64_t __105__SBSUIWallpaperPreviewViewController__setProceduralWallpaperForLocationsOnMainThread_completionHandler___block_invoke(void *a1)
 {
-  SBSUIMagicWallpaperSetWithOptions(*(a1 + 32), *(a1 + 56), *(a1 + 40));
-  result = *(a1 + 48);
+  SBSUIMagicWallpaperSetWithOptions(a1[4], a1[7], a1[5]);
+  result = a1[6];
   if (result)
   {
     v3 = *(result + 16);
@@ -1391,7 +1391,7 @@ uint64_t __105__SBSUIWallpaperPreviewViewController__setProceduralWallpaperForLo
   if (options)
   {
     [(PBUIWallpaperOptions *)options cropRect];
-    v40 = v9;
+    v41 = v9;
     v11 = v10;
     v13 = v12;
     v15 = v14;
@@ -1419,7 +1419,7 @@ uint64_t __105__SBSUIWallpaperPreviewViewController__setProceduralWallpaperForLo
   }
 
   v11 = *(MEMORY[0x1E695F050] + 8);
-  v40 = *MEMORY[0x1E695F050];
+  v41 = *MEMORY[0x1E695F050];
   v13 = *(MEMORY[0x1E695F050] + 16);
   v15 = *(MEMORY[0x1E695F050] + 24);
   if (self->_proceduralWallpaper)
@@ -1462,34 +1462,35 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  if (self->_variant == -1)
+  variant = self->_variant;
+  if (variant == -1)
   {
-    v39 = [objc_alloc(MEMORY[0x1E69B7DE0]) initWithVariant:self->_variant type:0];
-    height = [objc_alloc(MEMORY[0x1E69B7E10]) initWithFrame:v39 configuration:self->_variant variant:0 cacheGroup:0 delegate:0 options:{x, y, width, height}];
+    v40 = [objc_alloc(MEMORY[0x1E69B7DE0]) initWithVariant:self->_variant type:0];
+    height = [objc_alloc(MEMORY[0x1E69B7E10]) initWithFrame:v40 configuration:self->_variant variant:0 cacheGroup:0 delegate:0 options:{x, y, width, height}];
 
     goto LABEL_7;
   }
 
-  v33 = SBSUIWallpaperGetOptions();
+  v34 = SBSUIWallpaperGetOptions(variant);
   v17 = 1.0;
-  if ([v33 supportsCropping])
+  if ([v34 supportsCropping])
   {
-    [v33 cropRect];
-    v40 = v34;
-    v11 = v35;
-    v13 = v36;
-    v15 = v37;
-    [v33 zoomScale];
-    v17 = v38;
+    [v34 cropRect];
+    v41 = v35;
+    v11 = v36;
+    v13 = v37;
+    v15 = v38;
+    [v34 zoomScale];
+    v17 = v39;
   }
 
-  parallaxEnabled = [v33 parallaxEnabled];
-  height = [(SBSUIWallpaperPreviewViewController *)self _wallpaperViewWithFrame:self->_variant variant:v33 options:x, y, width, height];
+  parallaxEnabled = [v34 parallaxEnabled];
+  height = [(SBSUIWallpaperPreviewViewController *)self _wallpaperViewWithFrame:self->_variant variant:v34 options:x, y, width, height];
 
 LABEL_12:
   [height setDelegate:self];
   [height setParallaxEnabled:parallaxEnabled];
-  [height setCropRect:v40 zoomScale:{v11, v13, v15, v17}];
+  [height setCropRect:v41 zoomScale:{v11, v13, v15, v17}];
 
   return height;
 }

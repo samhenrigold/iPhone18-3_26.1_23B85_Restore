@@ -27,11 +27,11 @@ BOOL __41__NSArray_INKeyImageProducing___keyImage__block_invoke(uint64_t a1, voi
   return v4;
 }
 
-uint64_t __69__NSArray_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_2(uint64_t result, uint64_t a2)
+id *__69__NSArray_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;

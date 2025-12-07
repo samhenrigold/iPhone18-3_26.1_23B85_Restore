@@ -447,20 +447,7 @@ BOOL isValidTimeComparison(void *a1)
   v1 = a1;
   v2 = [v1 leftExpression];
   v3 = [v1 rightExpression];
-  if ([v2 expressionType] != 4)
-  {
-    goto LABEL_9;
-  }
-
-  v4 = [v2 function];
-  v5 = [v4 isEqualToString:@"now"];
-
-  if (!v5 || [v1 predicateOperatorType] != 2 && objc_msgSend(v1, "predicateOperatorType") != 4 && objc_msgSend(v1, "predicateOperatorType"))
-  {
-    goto LABEL_9;
-  }
-
-  if (![v3 expressionType] && (objc_msgSend(v3, "constantValue"), v6 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v6, (isKindOfClass & 1) != 0))
+  if ([v2 expressionType] == 4 && (objc_msgSend(v2, "function"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isEqualToString:", @"now"), v4, v5) && (objc_msgSend(v1, "predicateOperatorType") == 2 || objc_msgSend(v1, "predicateOperatorType") == 4 || !objc_msgSend(v1, "predicateOperatorType")) && !objc_msgSend(v3, "expressionType") && (objc_msgSend(v3, "constantValue"), v6 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v6, (isKindOfClass & 1) != 0))
   {
     v8 = [v3 constantValue];
     v9 = [HMPredicateUtilities areOnlyHourAndMinuteSet:v8];
@@ -468,7 +455,6 @@ BOOL isValidTimeComparison(void *a1)
 
   else
   {
-LABEL_9:
     v9 = 0;
   }
 
@@ -779,9 +765,9 @@ LABEL_82:
   return [a2 hasError] ^ 1;
 }
 
-void sub_19BB8D2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19BB8D2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1158,27 +1144,36 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t IDSFoundationLibraryCore()
+uint64_t IDSFoundationLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!IDSFoundationLibraryCore_frameworkLibrary)
   {
     IDSFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = IDSFoundationLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return IDSFoundationLibraryCore_frameworkLibrary;
 }
 
 Class __getIDSDestinationClass_block_invoke(uint64_t a1)
 {
-  if (!IDSFoundationLibraryCore())
+  v6 = 0;
+  v2 = IDSFoundationLibraryCore(&v6);
+  v3 = v6;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v6)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v6);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("IDSDestination");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -1188,8 +1183,8 @@ Class __getIDSDestinationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v4 = abort_report_np();
-    return __IDSFoundationLibraryCore_block_invoke(v4);
+    v5 = abort_report_np("Unable to find class %s", "IDSDestination");
+    return __IDSFoundationLibraryCore_block_invoke(v5);
   }
 
   return result;
@@ -1197,21 +1192,15 @@ Class __getIDSDestinationClass_block_invoke(uint64_t a1)
 
 uint64_t __IDSFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IDSFoundationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __IDSLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IDSLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1445,9 +1434,9 @@ uint64_t StringAsHMMediaSystemRoleType(void *a1)
   }
 }
 
-void sub_19BB99EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19BB99EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3446,26 +3435,26 @@ LABEL_39:
 
 id _HMErrorFromOSStatus(uint64_t a1)
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getHMErrorFromOSStatusSymbolLoc_ptr;
-  v10 = getHMErrorFromOSStatusSymbolLoc_ptr;
+  v11 = getHMErrorFromOSStatusSymbolLoc_ptr;
   if (!getHMErrorFromOSStatusSymbolLoc_ptr)
   {
     v3 = CoreHAPLibrary();
-    v8[3] = dlsym(v3, "HMErrorFromOSStatus");
-    getHMErrorFromOSStatusSymbolLoc_ptr = v8[3];
-    v2 = v8[3];
+    v9[3] = dlsym(v3, "HMErrorFromOSStatus");
+    getHMErrorFromOSStatusSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    dlerror();
-    v6 = abort_report_np();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v6);
+    v6 = dlerror();
+    v7 = abort_report_np("%s", v6);
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
   v4 = v2(a1);
@@ -3484,50 +3473,44 @@ void *__getHMErrorFromOSStatusSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t CoreHAPLibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!CoreHAPLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __CoreHAPLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7547898;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __CoreHAPLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7547898;
+    v5 = 0;
     CoreHAPLibraryCore_frameworkLibrary = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = CoreHAPLibraryCore_frameworkLibrary;
     if (CoreHAPLibraryCore_frameworkLibrary)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = CoreHAPLibraryCore_frameworkLibrary;
-LABEL_5:
-  v2 = *MEMORY[0x1E69E9840];
-  return v0;
+  return CoreHAPLibraryCore_frameworkLibrary;
 }
 
 uint64_t __CoreHAPLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreHAPLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3555,9 +3538,9 @@ id getHAPTLVUnsignedNumberValueClass()
   return v1;
 }
 
-void sub_19BBE375C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19BBE375C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3574,7 +3557,7 @@ HMNetworkRouterWANStatus *__getHAPTLVUnsignedNumberValueClass_block_invoke(uint6
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "HAPTLVUnsignedNumberValue");
     return [(HMNetworkRouterWANStatus *)v3 initWithIdentifier:v4 status:v5, v6];
   }
 
@@ -3698,9 +3681,9 @@ void sub_19BBF012C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BBF12F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19BBF12F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3733,9 +3716,9 @@ void sub_19BBF3074(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BBF3478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19BBF3478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3983,36 +3966,36 @@ id HMDaysOfTheWeekToDateComponents(int a1)
 
 uint64_t HMDaysOfTheWeekFromDateComponents(void *a1, BOOL *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v18 = a2;
+  v17 = a2;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = a2 != 0;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [v10 calendar];
         v12 = v11;
         v4 = (!v11 || ([v11 maximumRangeOfUnit:512] == 1 ? (v14 = v13 == 7) : (v14 = 0), v14)) && (v15 = objc_msgSend(v10, "weekday"), (v15 - 8) >= 0xFFFFFFFFFFFFFFF9) && (v7 |= (1 << (v15 - 1)), v4) && objc_msgSend(v10, "era") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "year") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "month") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "day") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "hour") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "minute") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "second") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "nanosecond") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "weekdayOrdinal") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "quarter") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "weekOfMonth") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "weekOfYear") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "yearForWeekOfYear") == 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -4023,19 +4006,19 @@ uint64_t HMDaysOfTheWeekFromDateComponents(void *a1, BOOL *a2)
     v7 = 0;
   }
 
-  if (v18)
+  if (v17)
   {
-    *v18 = v4;
+    *v17 = v4;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
-void sub_19BC08210(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_19BC08210(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4102,28 +4085,28 @@ BOOL isValidHMSoftwareUpdateAssetSourceString(uint64_t a1)
 
 id validHMSoftwareUpdateAssetSourceStrings()
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v0 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = [&unk_1F0EFD3B8 allKeys];
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v0 length])
         {
           [v0 appendString:{@", "}];
@@ -4132,20 +4115,18 @@ id validHMSoftwareUpdateAssetSourceStrings()
         [v0 appendString:v6];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v0;
 }
 
 uint64_t stringToHMSoftwareUpdateAssetSource(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [&unk_1F0EFD3B8 objectForKeyedSubscript:v1];
   v3 = v2;
@@ -4161,18 +4142,17 @@ uint64_t stringToHMSoftwareUpdateAssetSource(void *a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v1;
-      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Invalid update asset source string %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v1;
+      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Invalid update asset source string %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     v4 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -4197,11 +4177,12 @@ void sub_19BC0E018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BC0EC70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, char a21)
+void sub_19BC0EC70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, ...)
 {
-  objc_destroyWeak((v21 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v20 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4219,11 +4200,12 @@ void sub_19BC0F72C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BC0FFB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_19BC0FFB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4358,7 +4340,7 @@ __CFString *HMSoftwareUpdateUpdateTypeToString(uint64_t a1)
 
 id generateURLForHomeKitObject(void *a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x1E696AF20] componentsWithString:@"com.apple.Home://"];
@@ -4371,30 +4353,30 @@ id generateURLForHomeKitObject(void *a1, void *a2)
 
   if ([v4 count])
   {
-    v27 = v5;
-    v29 = v3;
+    v26 = v5;
+    v28 = v3;
     v9 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v4, "count")}];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v28 = v4;
+    v27 = v4;
     obj = v4;
-    v10 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v10 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v32;
+      v12 = *v31;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v31 + 1) + 8 * i);
+          v14 = *(*(&v30 + 1) + 8 * i);
           v15 = [v14 queryName];
           v16 = [v14 uuidString];
           v17 = [v9 objectForKeyedSubscript:v15];
@@ -4413,23 +4395,21 @@ id generateURLForHomeKitObject(void *a1, void *a2)
           [v9 setObject:v22 forKeyedSubscript:v15];
         }
 
-        v11 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v11 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v11);
     }
 
     v23 = [v9 allValues];
-    v5 = v27;
-    [v27 setQueryItems:v23];
+    v5 = v26;
+    [v26 setQueryItems:v23];
 
-    v4 = v28;
-    v3 = v29;
+    v4 = v27;
+    v3 = v28;
   }
 
   v24 = [v5 URL];
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -4998,42 +4978,38 @@ void sub_19BC2D960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ____requestFetch_block_invoke(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = a1[4];
+  v15 = *MEMORY[0x1E69E9840];
   if (objc_opt_respondsToSelector())
   {
-    v3 = a1[4];
-    v4 = a1[5];
-    v5 = a1[6];
-    v6 = *MEMORY[0x1E69E9840];
+    v2 = a1[4];
+    v3 = a1[5];
+    v4 = a1[6];
 
-    [v3 softwareUpdateManager:v4 didReceiveRequestToFetchUpdateWithCompletionHandler:v5];
+    [v2 softwareUpdateManager:v3 didReceiveRequestToFetchUpdateWithCompletionHandler:v4];
   }
 
   else
   {
-    v7 = objc_autoreleasePoolPush();
-    v8 = a1[5];
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v5 = objc_autoreleasePoolPush();
+    v6 = a1[5];
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = HMFGetLogIdentifier();
+      v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v10;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Calling legacy fetch delegate", buf, 0xCu);
+      v14 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Calling legacy fetch delegate", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v7);
-    v11 = a1[4];
-    v12 = a1[5];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = ____requestFetch_block_invoke_160;
-    v14[3] = &unk_1E75487B8;
-    v15 = a1[6];
-    [v11 softwareUpdateManager:v12 didReceiveRequestToFetchWithCompletionHandler:v14];
-
-    v13 = *MEMORY[0x1E69E9840];
+    objc_autoreleasePoolPop(v5);
+    v9 = a1[4];
+    v10 = a1[5];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = ____requestFetch_block_invoke_160;
+    v11[3] = &unk_1E75487B8;
+    v12 = a1[6];
+    [v9 softwareUpdateManager:v10 didReceiveRequestToFetchWithCompletionHandler:v11];
   }
 }
 
@@ -5663,32 +5639,32 @@ LABEL_24:
   return 0;
 }
 
-void sub_19BC3C478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19BC3C478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getAnalyticsSendEventLazySymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!CoreAnalyticsLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __CoreAnalyticsLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7548828;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __CoreAnalyticsLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7548828;
+    v7 = 0;
     CoreAnalyticsLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = CoreAnalyticsLibraryCore_frameworkLibrary;
     if (CoreAnalyticsLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -5696,7 +5672,7 @@ void *__getAnalyticsSendEventLazySymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -5708,45 +5684,41 @@ LABEL_5:
   result = dlsym(v2, "AnalyticsSendEventLazy");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAnalyticsSendEventLazySymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreAnalyticsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreAnalyticsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_19BC423C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19BC423C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getMTRSetupPayloadClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!MatterLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __MatterLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7548868;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __MatterLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7548868;
+    v6 = 0;
     MatterLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (MatterLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -5754,7 +5726,7 @@ Class __getMTRSetupPayloadClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5765,21 +5737,17 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "MTRSetupPayload");
   }
 
   getMTRSetupPayloadClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MatterLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MatterLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6217,6 +6185,13 @@ void sub_19BC48B30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_19BC4D5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, ...)
+{
+  va_start(va, a55);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__24684(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -6502,31 +6477,31 @@ id pluralLocalizationKeyForAccessoryCategoryType(void *a1)
 
 id HMCacheSubdirectoryWithRelativePath(void *a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = [v2 URLsForDirectory:13 inDomains:1];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         buf[0] = 0;
         v10 = [v9 path];
         v11 = [v10 stringByAppendingPathComponent:v1];
@@ -6542,7 +6517,7 @@ id HMCacheSubdirectoryWithRelativePath(void *a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v23 objects:v29 count:16];
       if (v6)
       {
         continue;
@@ -6567,7 +6542,7 @@ id HMCacheSubdirectoryWithRelativePath(void *a1)
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v20;
+      v28 = v20;
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_FAULT, "%{public}@Failed to determine HomeKit cache directory; falling back to a temporary directory", buf, 0xCu);
     }
 
@@ -6576,22 +6551,21 @@ id HMCacheSubdirectoryWithRelativePath(void *a1)
   }
 
   v21 = v17;
-  v11 = [v17 stringByAppendingPathComponent:{v1, v24}];
+  v11 = [v17 stringByAppendingPathComponent:{v1, v23}];
 
 LABEL_17:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 id HMCreateHomeKitCacheDirectory()
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v0 = HMCacheSubdirectoryWithRelativePath(@"com.apple.HomeKit");
   v1 = [MEMORY[0x1E696AC08] defaultManager];
-  v10 = 0;
-  v2 = [v1 createDirectoryAtPath:v0 withIntermediateDirectories:1 attributes:0 error:&v10];
-  v3 = v10;
+  v9 = 0;
+  v2 = [v1 createDirectoryAtPath:v0 withIntermediateDirectories:1 attributes:0 error:&v9];
+  v3 = v9;
 
   if (v2)
   {
@@ -6606,11 +6580,11 @@ id HMCreateHomeKitCacheDirectory()
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v0;
-      v15 = 2112;
-      v16 = v3;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v0;
+      v14 = 2112;
+      v15 = v3;
       _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HomeKit cache directory %@: %@", buf, 0x20u);
     }
 
@@ -6618,27 +6592,23 @@ id HMCreateHomeKitCacheDirectory()
     v4 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
-id HMConfigurationsCacheDirectory()
+id HMConfigurationsCacheDirectory(uint64_t a1)
 {
   v7[3] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E696AEC0];
+  v1 = MEMORY[0x1E696AEC0];
   v7[0] = @"com.apple.HomeKit";
-  v1 = HMClientScopedHomeKitCacheDirectoryName();
-  v7[1] = v1;
+  v2 = HMClientScopedHomeKitCacheDirectoryName();
+  v7[1] = v2;
   v7[2] = @"com.apple.HomeKit.configurations";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
-  v3 = [v0 pathWithComponents:{v2, v7[0]}];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
+  v4 = [v1 pathWithComponents:{v3, v7[0]}];
 
-  v4 = HMCacheSubdirectoryWithRelativePath(v3);
+  v5 = HMCacheSubdirectoryWithRelativePath(v4);
 
-  v5 = *MEMORY[0x1E69E9840];
-
-  return v4;
+  return v5;
 }
 
 id HMClientScopedHomeKitCacheDirectoryName()
@@ -6661,21 +6631,19 @@ id HMClientScopedHomeKitCacheDirectoryName()
 
 id HMCreateConfigurationsCacheDirectory()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = HMClientScopedHomeKitCacheDirectoryName();
-  v5[0] = v0;
-  v5[1] = @"com.apple.HomeKit.configurations";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[0] = v0;
+  v4[1] = @"com.apple.HomeKit.configurations";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v2 = HMCreateHomeKitCacheSubdirectoryWithRelativePathComponents(v1);
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 id HMCreateHomeKitCacheSubdirectoryWithRelativePathComponents(void *a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (![v1 count])
   {
@@ -6693,18 +6661,18 @@ id HMCreateHomeKitCacheSubdirectoryWithRelativePathComponents(void *a1)
   }
 
   v6 = [MEMORY[0x1E696AC08] defaultManager];
-  v43 = 0;
-  v7 = [v6 createDirectoryAtPath:v2 withIntermediateDirectories:0 attributes:0 error:&v43];
-  v8 = v43;
+  v42 = 0;
+  v7 = [v6 createDirectoryAtPath:v2 withIntermediateDirectories:0 attributes:0 error:&v42];
+  v8 = v42;
 
   if ((v7 & 1) == 0)
   {
-    v32 = [v8 domain];
-    if ([v32 isEqualToString:*MEMORY[0x1E696A250]])
+    v31 = [v8 domain];
+    if ([v31 isEqualToString:*MEMORY[0x1E696A250]])
     {
-      v33 = [v8 code];
+      v32 = [v8 code];
 
-      if (v33 == 516)
+      if (v32 == 516)
       {
         goto LABEL_4;
       }
@@ -6714,21 +6682,21 @@ id HMCreateHomeKitCacheSubdirectoryWithRelativePathComponents(void *a1)
     {
     }
 
-    v34 = objc_autoreleasePoolPush();
-    v35 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v33 = objc_autoreleasePoolPush();
+    v34 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v36 = HMFGetLogIdentifier();
+      v35 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v45 = v36;
-      v46 = 2112;
-      v47 = v2;
-      v48 = 2112;
-      v49 = v8;
-      _os_log_impl(&dword_19BB39000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HomeKit cache directory %@: %@", buf, 0x20u);
+      v44 = v35;
+      v45 = 2112;
+      v46 = v2;
+      v47 = 2112;
+      v48 = v8;
+      _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HomeKit cache directory %@: %@", buf, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v34);
+    objc_autoreleasePoolPop(v33);
     v23 = 0;
     v14 = @"com.apple.HomeKit";
     goto LABEL_23;
@@ -6737,17 +6705,17 @@ id HMCreateHomeKitCacheSubdirectoryWithRelativePathComponents(void *a1)
 LABEL_4:
 
 LABEL_5:
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
-  v37 = v1;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v36 = v1;
   v9 = v1;
-  v10 = [v9 countByEnumeratingWithState:&v39 objects:v52 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v38 objects:v51 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v40;
+    v12 = *v39;
     v13 = *MEMORY[0x1E696A250];
     v14 = @"com.apple.HomeKit";
     while (2)
@@ -6757,19 +6725,19 @@ LABEL_5:
       v17 = v14;
       do
       {
-        if (*v40 != v12)
+        if (*v39 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(__CFString *)v17 stringByAppendingPathComponent:*(*(&v39 + 1) + 8 * v15), v37];
+        v14 = [(__CFString *)v17 stringByAppendingPathComponent:*(*(&v38 + 1) + 8 * v15), v36];
 
         v2 = HMCacheSubdirectoryWithRelativePath(v14);
 
         v18 = [MEMORY[0x1E696AC08] defaultManager];
-        v38 = 0;
-        v19 = [v18 createDirectoryAtPath:v2 withIntermediateDirectories:0 attributes:0 error:&v38];
-        v20 = v38;
+        v37 = 0;
+        v19 = [v18 createDirectoryAtPath:v2 withIntermediateDirectories:0 attributes:0 error:&v37];
+        v20 = v37;
 
         if ((v19 & 1) == 0)
         {
@@ -6787,13 +6755,13 @@ LABEL_19:
               v28 = [v20 userInfo];
               v29 = [v28 objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
               *buf = 138544130;
-              v45 = v26;
-              v46 = 2112;
-              v47 = v2;
-              v48 = 2048;
-              v49 = v27;
-              v50 = 2112;
-              v51 = v29;
+              v44 = v26;
+              v45 = 2112;
+              v46 = v2;
+              v47 = 2048;
+              v48 = v27;
+              v49 = 2112;
+              v50 = v29;
               _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HomeKit cache subdirectory %@: %ld, %@", buf, 0x2Au);
             }
 
@@ -6816,7 +6784,7 @@ LABEL_19:
       }
 
       while (v11 != v15);
-      v11 = [v9 countByEnumeratingWithState:&v39 objects:v52 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v38 objects:v51 count:16];
       if (v11)
       {
         continue;
@@ -6834,74 +6802,64 @@ LABEL_19:
   v2 = v2;
   v23 = v2;
 LABEL_22:
-  v1 = v37;
+  v1 = v36;
 LABEL_23:
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
 
 id HMFrameworkCacheDirectory()
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E696AEC0];
-  v7[0] = @"com.apple.HomeKit";
+  v6[0] = @"com.apple.HomeKit";
   v1 = HMClientScopedHomeKitCacheDirectoryName();
-  v7[1] = v1;
-  v7[2] = @"com.apple.HomeKit.HMCache";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
-  v3 = [v0 pathWithComponents:{v2, v7[0]}];
+  v6[1] = v1;
+  v6[2] = @"com.apple.HomeKit.HMCache";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
+  v3 = [v0 pathWithComponents:{v2, v6[0]}];
 
   v4 = HMCacheSubdirectoryWithRelativePath(v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 id HMCreateFrameworkCacheDirectory()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = HMClientScopedHomeKitCacheDirectoryName();
-  v5[0] = v0;
-  v5[1] = @"com.apple.HomeKit.HMCache";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[0] = v0;
+  v4[1] = @"com.apple.HomeKit.HMCache";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v2 = HMCreateHomeKitCacheSubdirectoryWithRelativePathComponents(v1);
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 id HMSoftwareUpdateCacheDirectory()
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E696AEC0];
-  v7[0] = @"com.apple.HomeKit";
+  v6[0] = @"com.apple.HomeKit";
   v1 = HMClientScopedHomeKitCacheDirectoryName();
-  v7[1] = v1;
-  v7[2] = @"com.apple.HomeKit.SoftwareUpdate";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
-  v3 = [v0 pathWithComponents:{v2, v7[0]}];
+  v6[1] = v1;
+  v6[2] = @"com.apple.HomeKit.SoftwareUpdate";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
+  v3 = [v0 pathWithComponents:{v2, v6[0]}];
 
   v4 = HMCacheSubdirectoryWithRelativePath(v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 id HMCreateSoftwareUpdateCacheDirectory()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = HMClientScopedHomeKitCacheDirectoryName();
-  v5[0] = v0;
-  v5[1] = @"com.apple.HomeKit.SoftwareUpdate";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[0] = v0;
+  v4[1] = @"com.apple.HomeKit.SoftwareUpdate";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v2 = HMCreateHomeKitCacheSubdirectoryWithRelativePathComponents(v1);
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -6920,46 +6878,43 @@ id allowedCharValueTypes()
 
 void __allowedCharValueTypes_block_invoke()
 {
-  v5[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:4];
   v2 = [v0 setWithArray:v1];
   v3 = allowedCharValueTypes_charValueTypes;
   allowedCharValueTypes_charValueTypes = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t isAllowedCharType(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
-    v12 = 0u;
-    v13 = 0u;
     v10 = 0u;
     v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v2 = allowedCharValueTypes();
-    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v3)
     {
-      v4 = *v11;
+      v4 = *v9;
       while (2)
       {
         v5 = 0;
         do
         {
-          if (*v11 != v4)
+          if (*v9 != v4)
           {
             objc_enumerationMutation(v2);
           }
 
-          v6 = *(*(&v10 + 1) + 8 * v5);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -6971,7 +6926,7 @@ uint64_t isAllowedCharType(void *a1)
         }
 
         while (v3 != v5);
-        v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v3)
         {
           continue;
@@ -6981,17 +6936,16 @@ uint64_t isAllowedCharType(void *a1)
       }
     }
 
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
 LABEL_12:
-    v7 = 1;
+    v6 = 1;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v6;
 }
 
 void sub_19BC56738(_Unwind_Exception *a1, int a2)
@@ -7101,7 +7055,7 @@ void __HMMaxLengthForNaming_block_invoke()
 
 void HMDispatchToContextQueueIfNotNil(void *a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -7119,31 +7073,28 @@ void HMDispatchToContextQueueIfNotNil(void *a1, void *a2, void *a3)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to dispatch to context queue due to nil context", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to dispatch to context queue due to nil context", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 id HMTransientIdentifier()
 {
-  v3[2] = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
-  v3[1] = 0;
-  MEMORY[0x19EAEC2D0](v3);
-  LODWORD(v3[0]) = -1431655766;
-  v0 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v3];
-  v1 = *MEMORY[0x1E69E9840];
+  v2[2] = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
+  v2[1] = 0;
+  MEMORY[0x19EAEC2D0](v2);
+  LODWORD(v2[0]) = -1431655766;
+  v0 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v2];
 
   return v0;
 }
 
-id HMExceptionForError(void *a1)
+void HMExceptionForError(void *a1)
 {
   v1 = a1;
   if ([v1 isHMError])
@@ -7153,13 +7104,13 @@ id HMExceptionForError(void *a1)
     v4 = [MEMORY[0x1E696ABC0] hmStringFromErrorCode:{objc_msgSend(v1, "code")}];
     v5 = [v2 exceptionWithName:v3 reason:v4 userInfo:0];
 
-    return v5;
+    v6 = v5;
   }
 
   else
   {
-    v7 = _HMFPreconditionFailure();
-    return __HMIsCurrentProcessAnExtension_block_invoke(v7);
+    _HMFPreconditionFailure();
+    __HMIsCurrentProcessAnExtension_block_invoke();
   }
 }
 
@@ -7173,30 +7124,30 @@ void __HMIsCurrentProcessAnExtension_block_invoke()
 
 id HMAccessoryUUIDsAsStringForAccessories(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = objc_autoreleasePoolPush();
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v1, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = v1;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v14 + 1) + 8 * i) uuid];
+        v9 = [*(*(&v13 + 1) + 8 * i) uuid];
         v10 = [v9 UUIDString];
 
         if (v10)
@@ -7205,7 +7156,7 @@ id HMAccessoryUUIDsAsStringForAccessories(void *a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -7213,8 +7164,6 @@ id HMAccessoryUUIDsAsStringForAccessories(void *a1)
 
   v11 = [v3 copy];
   objc_autoreleasePoolPop(v2);
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -7392,14 +7341,12 @@ uint64_t isRestoreSupportedForCharacteristic(void *a1)
 
 void __isRestoreSupportedForCharacteristic_block_invoke()
 {
-  v3[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"00000025-0000-1000-8000-0026BB765291";
-  v3[1] = @"000000B0-0000-1000-8000-0026BB765291";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
+  v2[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"00000025-0000-1000-8000-0026BB765291";
+  v2[1] = @"000000B0-0000-1000-8000-0026BB765291";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:2];
   v1 = isRestoreSupportedForCharacteristic_supportedRestoreCharacteristics;
   isRestoreSupportedForCharacteristic_supportedRestoreCharacteristics = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 id HMAccessoryInfoOptionsAsString(char a1)
@@ -7555,17 +7502,14 @@ __CFString *HMAccessoryWiFiCredentialTypeAsString(unint64_t a1)
   return v2;
 }
 
-uint64_t UIKitLibraryCore()
+uint64_t UIKitLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!UIKitLibraryCore_frameworkLibrary)
   {
     UIKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = UIKitLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return UIKitLibraryCore_frameworkLibrary;
 }
 
 uint64_t __Block_byref_object_copy__27018(uint64_t result, uint64_t a2)
@@ -7575,9 +7519,9 @@ uint64_t __Block_byref_object_copy__27018(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_19BC60AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19BC60AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7593,11 +7537,19 @@ void *__getNSDocumentTypeDocumentAttributeSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t UIKitLibrary()
 {
-  v0 = UIKitLibraryCore();
+  v3 = 0;
+  v0 = UIKitLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -7623,11 +7575,8 @@ void *__getNSCharacterEncodingDocumentAttributeSymbolLoc_block_invoke(uint64_t a
 
 uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9404,4 +9353,166 @@ LABEL_473:
   }
 
   return [a2 hasError] ^ 1;
+}
+
+void sub_19BC7C7D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 56));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_19BC7E924(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+__CFString *HMAccessoryAllowedHostPurposeAsString(unint64_t a1)
+{
+  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (!a1)
+  {
+    goto LABEL_42;
+  }
+
+  v3 = 1;
+  v4 = a1;
+  do
+  {
+    if ((v3 & a1) == 0)
+    {
+      goto LABEL_38;
+    }
+
+    if (v3 > 127)
+    {
+      if (v3 <= 1023)
+      {
+        switch(v3)
+        {
+          case 128:
+            v5 = @"UsageMetrics";
+            break;
+          case 256:
+            v5 = @"Diagnostics";
+            break;
+          case 512:
+            v5 = @"RemoteAccess";
+            break;
+          default:
+            goto LABEL_38;
+        }
+      }
+
+      else if (v3 > 4095)
+      {
+        if (v3 == 4096)
+        {
+          v5 = @"ConnectivityChecks";
+        }
+
+        else
+        {
+          if (v3 != 0x2000)
+          {
+            goto LABEL_38;
+          }
+
+          v5 = @"EmergencyNotifications";
+        }
+      }
+
+      else if (v3 == 1024)
+      {
+        v5 = @"HomeEcosystem";
+      }
+
+      else
+      {
+        if (v3 != 2048)
+        {
+          goto LABEL_38;
+        }
+
+        v5 = @"TimeSynchronization";
+      }
+    }
+
+    else if (v3 <= 7)
+    {
+      switch(v3)
+      {
+        case 1:
+          v5 = @"Other";
+          break;
+        case 2:
+          v5 = @"FirmwareUpdate";
+          break;
+        case 4:
+          v5 = @"AccountManagement";
+          break;
+        default:
+          goto LABEL_38;
+      }
+    }
+
+    else if (v3 > 31)
+    {
+      if (v3 == 32)
+      {
+        v5 = @"UserStorage";
+      }
+
+      else
+      {
+        if (v3 != 64)
+        {
+          goto LABEL_38;
+        }
+
+        v5 = @"Notifications";
+      }
+    }
+
+    else if (v3 == 8)
+    {
+      v5 = @"PeerToPeer";
+    }
+
+    else
+    {
+      if (v3 != 16)
+      {
+        goto LABEL_38;
+      }
+
+      v5 = @"UserEvents";
+    }
+
+    v4 &= ~v3;
+    [v2 addObject:v5];
+LABEL_38:
+    v3 *= 2;
+  }
+
+  while (v3 - 1 < a1);
+  if ((a1 & 1) == 0 && v4)
+  {
+    [v2 addObject:@"Other"];
+  }
+
+LABEL_42:
+  if ([v2 count])
+  {
+    v6 = [v2 componentsJoinedByString:{@", "}];
+  }
+
+  else
+  {
+    v6 = @"none";
+  }
+
+  return v6;
 }

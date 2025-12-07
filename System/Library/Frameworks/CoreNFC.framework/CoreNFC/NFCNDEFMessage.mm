@@ -32,7 +32,7 @@
 
 - (NFCNDEFMessage)initWithNDEFRecords:(NSArray *)records
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = records;
   if (![(NSArray *)v5 count])
   {
@@ -43,12 +43,12 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v6 = v5;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v37 objects:v49 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v36 objects:v48 count:16];
   if (!v7)
   {
 
@@ -58,21 +58,21 @@ LABEL_22:
   }
 
   v8 = v7;
-  v34 = a2;
+  v33 = a2;
   selfCopy2 = self;
-  v36 = v5;
+  v35 = v5;
   v9 = 0;
-  v10 = *v38;
+  v10 = *v37;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v38 != v10)
+      if (*v37 != v10)
       {
         objc_enumerationMutation(v6);
       }
 
-      v12 = *(*(&v37 + 1) + 8 * i);
+      v12 = *(*(&v36 + 1) + 8 * i);
       type = [v12 type];
       v14 = [type length];
       identifier = [v12 identifier];
@@ -81,13 +81,13 @@ LABEL_22:
       v9 += v14 + v16 + [payload length];
     }
 
-    v8 = [(NSArray *)v6 countByEnumeratingWithState:&v37 objects:v49 count:16];
+    v8 = [(NSArray *)v6 countByEnumeratingWithState:&v36 objects:v48 count:16];
   }
 
   while (v8);
 
   self = selfCopy2;
-  v5 = v36;
+  v5 = v35;
   if (v9 <= 0x20000)
   {
     goto LABEL_22;
@@ -100,7 +100,7 @@ LABEL_22:
     Class = object_getClass(selfCopy2);
     isMetaClass = class_isMetaClass(Class);
     ClassName = object_getClassName(selfCopy2);
-    Name = sel_getName(v34);
+    Name = sel_getName(v33);
     v23 = 45;
     if (isMetaClass)
     {
@@ -125,22 +125,21 @@ LABEL_22:
     }
 
     v27 = object_getClassName(selfCopy2);
-    v28 = sel_getName(v34);
+    v28 = sel_getName(v33);
     *buf = 67109890;
-    v42 = v26;
-    v43 = 2082;
-    v44 = v27;
-    v45 = 2082;
-    v46 = v28;
-    v47 = 1024;
-    v48 = 62;
+    v41 = v26;
+    v42 = 2082;
+    v43 = v27;
+    v44 = 2082;
+    v45 = v28;
+    v46 = 1024;
+    v47 = 62;
     _os_log_impl(&dword_23728C000, v24, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Total size of all NDEF records exceeds the size limit", buf, 0x22u);
   }
 
   selfCopy = 0;
 LABEL_24:
 
-  v31 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -162,30 +161,30 @@ LABEL_24:
 
 - (NFCNDEFMessage)initWithNFNdefMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v22 = objc_opt_new();
+  v21 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v19 = messageCopy;
+  v18 = messageCopy;
   obj = [messageCopy records];
-  v4 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         v9 = [NFCNDEFPayload alloc];
         typeNameFormat = [v8 typeNameFormat];
         type = [v8 type];
@@ -195,19 +194,19 @@ LABEL_24:
 
         if (v14)
         {
-          [v22 addObject:v14];
+          [v21 addObject:v14];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v5);
   }
 
-  if ([v22 count])
+  if ([v21 count])
   {
-    selfCopy = [(NFCNDEFMessage *)self _initWithRecords:v22];
+    selfCopy = [(NFCNDEFMessage *)self _initWithRecords:v21];
     v16 = selfCopy;
   }
 
@@ -217,7 +216,6 @@ LABEL_24:
     selfCopy = self;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -263,37 +261,37 @@ LABEL_24:
 
 - (id)asData
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D82B60]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = self->_records;
-  v4 = [(NSArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
-        v19 = 0;
+        v8 = *(*(&v19 + 1) + 8 * i);
+        v18 = 0;
         v9 = MEMORY[0x277D82B68];
         typeNameFormat = [v8 typeNameFormat];
         type = [v8 type];
         identifier = [v8 identifier];
         payload = [v8 payload];
-        v14 = [v9 recordsWithTNF:typeNameFormat type:type identifier:identifier payload:payload chunkSize:objc_msgSend(v8 outError:{"chunkSize"), &v19}];
+        v14 = [v9 recordsWithTNF:typeNameFormat type:type identifier:identifier payload:payload chunkSize:objc_msgSend(v8 outError:{"chunkSize"), &v18}];
 
-        if (v19)
+        if (v18)
         {
 
           asData = 0;
@@ -303,7 +301,7 @@ LABEL_24:
         [v3 addRecordArray:v14];
       }
 
-      v5 = [(NSArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v5)
       {
         continue;
@@ -315,8 +313,6 @@ LABEL_24:
 
   asData = [v3 asData];
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return asData;
 }
@@ -331,39 +327,39 @@ LABEL_11:
 
 + (BOOL)_validateRecords:(id)records fromOriginal:(id)original
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   originalCopy = original;
   v7 = [originalCopy length];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = recordsCopy;
-  v33 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  if (v32)
   {
     v8 = 0;
-    v34 = v7 - 2;
-    v35 = *v37;
-    v31 = originalCopy;
-    v32 = v7 - 1;
-    v29 = v7 - 4;
+    v33 = v7 - 2;
+    v34 = *v36;
+    v30 = originalCopy;
+    v31 = v7 - 1;
+    v28 = v7 - 4;
     while (2)
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v37 != v35)
+        if (*v36 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        if (v34 < v8)
+        if (v33 < v8)
         {
           goto LABEL_28;
         }
 
-        v10 = *(*(&v36 + 1) + 8 * i);
+        v10 = *(*(&v35 + 1) + 8 * i);
         v11 = [originalCopy subdataWithRange:{v8, 2}];
         bytes = [v11 bytes];
         v13 = *bytes;
@@ -371,7 +367,7 @@ LABEL_11:
         v15 = v8 + 2;
         if ((*bytes & 0x10) != 0)
         {
-          if (v32 < v15)
+          if (v31 < v15)
           {
 LABEL_23:
             v16 = v11;
@@ -390,7 +386,7 @@ LABEL_28:
 
         else
         {
-          if (v29 < v15)
+          if (v28 < v15)
           {
             goto LABEL_23;
           }
@@ -404,7 +400,7 @@ LABEL_28:
         v19 = v18 + v8;
         if ((v13 & 8) != 0)
         {
-          if (v32 < v19)
+          if (v31 < v19)
           {
             goto LABEL_27;
           }
@@ -433,7 +429,7 @@ LABEL_28:
 
 LABEL_25:
 LABEL_26:
-          originalCopy = v31;
+          originalCopy = v30;
           goto LABEL_27;
         }
 
@@ -447,12 +443,12 @@ LABEL_26:
 
         v8 = v17 + v14 + v20 + v19;
 
-        originalCopy = v31;
+        originalCopy = v30;
       }
 
       v26 = 1;
-      v33 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-      if (v33)
+      v32 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      if (v32)
       {
         continue;
       }
@@ -468,47 +464,46 @@ LABEL_26:
 
 LABEL_29:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 + (id)_getPayloadsFromNDEFRecords:(id)records
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
-  v38 = objc_opt_new();
+  v37 = objc_opt_new();
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = recordsCopy;
-  v41 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v40 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   v4 = 0;
-  if (!v41)
+  if (!v40)
   {
     v7 = 0;
     v8 = 0;
     goto LABEL_36;
   }
 
-  v37 = 0;
+  v36 = 0;
   LOBYTE(v5) = 0;
   messageEnd = 0;
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  v40 = *v44;
+  v39 = *v43;
   do
   {
     v10 = 0;
     do
     {
-      if (*v44 != v40)
+      if (*v43 != v39)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v43 + 1) + 8 * v10);
+      v11 = *(*(&v42 + 1) + 8 * v10);
       if (v5)
       {
         LODWORD(v5) = 1;
@@ -520,7 +515,7 @@ LABEL_29:
 
       else
       {
-        LODWORD(v5) = [*(*(&v43 + 1) + 8 * v10) messageBegin];
+        LODWORD(v5) = [*(*(&v42 + 1) + 8 * v10) messageBegin];
         if (messageEnd)
         {
 LABEL_8:
@@ -534,7 +529,7 @@ LABEL_11:
       chunked = [v11 chunked];
       if (chunked)
       {
-        v42 = v5;
+        v41 = v5;
         v5 = v7;
         typeNameFormat = [v11 typeNameFormat];
         v14 = typeNameFormat;
@@ -575,7 +570,7 @@ LABEL_11:
           v22 = [v21 initWithData:payload];
 
           v4 = type2;
-          v37 = v14;
+          v36 = v14;
           v23 = v22;
           v8 = identifier2;
           v7 = v23;
@@ -594,14 +589,14 @@ LABEL_11:
           payload2 = [v11 payload];
           payload = [(NFCNDEFPayload *)v24 initWithFormatType:typeNameFormat2 type:type3 identifier:identifier3 payload:payload2 chunkSize:0];
 
-          [v38 addObject:payload];
+          [v37 addObject:payload];
           v4 = 0;
           v7 = 0;
           v8 = 0;
           goto LABEL_25;
         }
 
-        v42 = v5;
+        v41 = v5;
         v5 = v7;
         if ([v11 typeNameFormat] != 6)
         {
@@ -618,7 +613,7 @@ LABEL_21:
           v7 = 0;
           v8 = 0;
           v9 = 0;
-          LOBYTE(v5) = v42;
+          LOBYTE(v5) = v41;
           goto LABEL_27;
         }
 
@@ -635,8 +630,8 @@ LABEL_21:
 
         if ([(NFCNDEFPayload *)v5 length])
         {
-          v32 = [[NFCNDEFPayload alloc] initWithFormatType:v37 type:v4 identifier:v8 payload:v5 chunkSize:0];
-          [v38 addObject:v32];
+          v32 = [[NFCNDEFPayload alloc] initWithFormatType:v36 type:v4 identifier:v8 payload:v5 chunkSize:0];
+          [v37 addObject:v32];
         }
 
         v4 = 0;
@@ -645,7 +640,7 @@ LABEL_21:
         v7 = 0;
       }
 
-      LODWORD(v5) = v42;
+      LODWORD(v5) = v41;
 LABEL_25:
 
       v9 = chunked;
@@ -658,57 +653,54 @@ LABEL_27:
       ++v10;
     }
 
-    while (v41 != v10);
-    v33 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-    v41 = v33;
+    while (v40 != v10);
+    v33 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v40 = v33;
   }
 
   while (v33);
 LABEL_36:
 
-  v34 = v38;
-  v35 = *MEMORY[0x277D85DE8];
-  return v38;
+  v34 = v37;
+  return v37;
 }
 
 - (id)_getURLsFromNDEFMessage:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   records = [messageCopy records];
-  v6 = [records countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [records countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(records);
         }
 
-        wellKnownTypeURIPayload = [*(*(&v13 + 1) + 8 * i) wellKnownTypeURIPayload];
+        wellKnownTypeURIPayload = [*(*(&v12 + 1) + 8 * i) wellKnownTypeURIPayload];
         if (wellKnownTypeURIPayload)
         {
           [v4 addObject:wellKnownTypeURIPayload];
         }
       }
 
-      v7 = [records countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [records countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

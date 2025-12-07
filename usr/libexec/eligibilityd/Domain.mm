@@ -9,11 +9,10 @@
 
 - (NSArray)contextKeys
 {
-  v2 = *(self + OBJC_IVAR___Domain_contextKeys);
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (unint64_t)answer

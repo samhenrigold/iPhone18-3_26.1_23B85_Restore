@@ -30,9 +30,9 @@
   return v8;
 }
 
-id __76__HFServiceStateCharacteristicMatchResult_initWithServices_characteristics___block_invoke(uint64_t a1, void *a2)
+id __76__HFServiceStateCharacteristicMatchResult_initWithServices_characteristics___block_invoke(void x0_0, void *a1)
 {
-  v2 = [a2 service];
+  v2 = objc_msgSend_service(a1);
   v3 = [v2 uniqueIdentifier];
 
   return v3;
@@ -92,50 +92,49 @@ id __76__HFServiceStateCharacteristicMatchResult_initWithServices_characteristic
 
 + (id)matchResultByMergingResults:(id)results
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   v4 = [MEMORY[0x277CBEB58] set];
   v5 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = resultsCopy;
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         services = [v10 services];
         [v4 unionSet:services];
 
         characteristicsByServiceUUID = [v10 characteristicsByServiceUUID];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __71__HFServiceStateCharacteristicMatchResult_matchResultByMergingResults___block_invoke;
-        v17[3] = &unk_277E03118;
-        v18 = v5;
-        [characteristicsByServiceUUID enumerateKeysAndObjectsUsingBlock:v17];
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __71__HFServiceStateCharacteristicMatchResult_matchResultByMergingResults___block_invoke;
+        v16[3] = &unk_277E03118;
+        v17 = v5;
+        [characteristicsByServiceUUID enumerateKeysAndObjectsUsingBlock:v16];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
   v13 = [[HFServiceStateCharacteristicMatchResult alloc] initWithServices:v4 characteristicsByServiceUUID:v5];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

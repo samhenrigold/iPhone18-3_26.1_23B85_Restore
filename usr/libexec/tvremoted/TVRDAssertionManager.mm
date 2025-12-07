@@ -79,38 +79,42 @@ void __30__TVRDAssertionManager__setup__block_invoke(uint64_t a1)
     v4 = [WeakRetained systemMonitor];
     v5 = [v4 screenLocked];
 
-    v6 = _TVRDXPCLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TVRDXPCLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = @"unlocked";
+      v8 = @"unlocked";
       if (v5)
       {
-        v7 = @"locked";
+        v8 = @"locked";
       }
 
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Screen is now %@", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Screen is now %@", &v11, 0xCu);
     }
 
-    if (v5 && ([*(a1 + 32) _newLockScreenBehaviour] & 1) == 0)
+    if (v5)
     {
-      v8 = _TVRDXPCLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = [*(a1 + 32) _newLockScreenBehaviour];
+      if ((v9 & 1) == 0)
       {
-        LOWORD(v9) = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resetting expiration timer", &v9, 2u);
-      }
+        v10 = _TVRDXPCLog(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v11) = 0;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Resetting expiration timer", &v11, 2u);
+        }
 
-      [v3 invalidateAssertionExpirationTimer];
-      [v3 _createAssertionExpirationTimer];
+        [v3 invalidateAssertionExpirationTimer];
+        [v3 _createAssertionExpirationTimer];
+      }
     }
   }
 }
 
 void __30__TVRDAssertionManager__setup__block_invoke_6(id a1)
 {
-  v1 = _TVRDXPCLog();
+  v1 = _TVRDXPCLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -150,24 +154,24 @@ id __30__TVRDAssertionManager__setup__block_invoke_10(uint64_t a1)
 
   v5 = v4;
   assertion = self->_assertion;
-  v7 = _TVRDXPCLog();
+  v7 = _TVRDXPCLog(v5);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (assertion)
   {
     if (v8)
     {
-      v15 = 138412290;
-      v16 = v5;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "We already have a valid %@", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "We already have a valid %@", &v16, 0xCu);
     }
 
     if ((_newLockScreenBehaviour & 1) == 0)
     {
-      v9 = _TVRDXPCLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = _TVRDXPCLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Resetting invalidation timer for assertion", &v15, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Resetting invalidation timer for assertion", &v16, 2u);
       }
 
       [(TVRDAssertionManager *)self _createAssertionExpirationTimer];
@@ -178,24 +182,24 @@ id __30__TVRDAssertionManager__setup__block_invoke_10(uint64_t a1)
   {
     if (v8)
     {
-      v15 = 138412290;
-      v16 = v5;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Acquiring %@", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Acquiring %@", &v16, 0xCu);
     }
 
     if (_newLockScreenBehaviour)
     {
-      v10 = [SBSSecureAppAssertion acquireSecureAppAssertionWithType:13 errorHandler:&__block_literal_global_28];
-      v11 = self->_assertion;
-      self->_assertion = v10;
+      v11 = [SBSSecureAppAssertion acquireSecureAppAssertionWithType:13 errorHandler:&__block_literal_global_28];
+      v12 = self->_assertion;
+      self->_assertion = v11;
     }
 
     else
     {
-      v12 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:@"com.apple.TVRemoteUIService" viewControllerClassName:@"TVRemoteAlertViewController"];
-      v13 = [SBSWakeToRemoteAlertAssertion acquireWakeToRemoteAlertAssertionWithDefinition:v12 errorHandler:&__block_literal_global_39];
-      v14 = self->_assertion;
-      self->_assertion = v13;
+      v13 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:@"com.apple.TVRemoteUIService" viewControllerClassName:@"TVRemoteAlertViewController"];
+      v14 = [SBSWakeToRemoteAlertAssertion acquireWakeToRemoteAlertAssertionWithDefinition:v13 errorHandler:&__block_literal_global_39];
+      v15 = self->_assertion;
+      self->_assertion = v14;
 
       [(TVRDAssertionManager *)self _createAssertionExpirationTimer];
     }
@@ -206,7 +210,7 @@ void __50__TVRDAssertionManager_acquireLockScreenAssertion__block_invoke(id a1, 
 {
   v2 = a2;
   v3 = [(NSError *)v2 code];
-  v4 = _TVRDXPCLog();
+  v4 = _TVRDXPCLog(v3);
   v5 = v4;
   if (v3 == 5)
   {
@@ -226,7 +230,7 @@ void __50__TVRDAssertionManager_acquireLockScreenAssertion__block_invoke(id a1, 
 void __50__TVRDAssertionManager_acquireLockScreenAssertion__block_invoke_37(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __50__TVRDAssertionManager_acquireLockScreenAssertion__block_invoke_37_cold_1(v2, v3);
@@ -235,7 +239,7 @@ void __50__TVRDAssertionManager_acquireLockScreenAssertion__block_invoke_37(id a
 
 - (void)releaseLockScreenAssertion
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -251,15 +255,16 @@ void __50__TVRDAssertionManager_acquireLockScreenAssertion__block_invoke_37(id a
 
 - (void)_createAssertionExpirationTimer
 {
-  if (+[TVRCFeatures isPersistOnLockScreenEnabled])
+  v3 = +[TVRCFeatures isPersistOnLockScreenEnabled];
+  if (v3)
   {
-    v3 = _TVRDXPCLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _TVRDXPCLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      v4 = "Persist On LockScreen Internal flag is enabled. Ignoring creating the timer.";
+      v5 = "Persist On LockScreen Internal flag is enabled. Ignoring creating the timer.";
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, v4, location, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v5, location, 2u);
       goto LABEL_11;
     }
 
@@ -270,11 +275,11 @@ LABEL_10:
 
   if (!assertion)
   {
-    v3 = _TVRDXPCLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _TVRDXPCLog(v7);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      v4 = "Lock Screen Assertion is nil. Skipping creating the expiration timer";
+      v5 = "Lock Screen Assertion is nil. Skipping creating the expiration timer";
       goto LABEL_10;
     }
 
@@ -285,32 +290,32 @@ LABEL_11:
 
   [(TVRDAssertionManager *)self invalidateAssertionExpirationTimer];
   objc_initWeak(location, self);
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = __55__TVRDAssertionManager__createAssertionExpirationTimer__block_invoke;
-  v11[3] = &unk_1000205E8;
-  objc_copyWeak(&v12, location);
-  v6 = [NSTimer timerWithTimeInterval:0 repeats:v11 block:480.0];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = __55__TVRDAssertionManager__createAssertionExpirationTimer__block_invoke;
+  v14[3] = &unk_1000205E8;
+  objc_copyWeak(&v15, location);
+  v8 = [NSTimer timerWithTimeInterval:0 repeats:v14 block:480.0];
   expirationTimer = self->_expirationTimer;
-  self->_expirationTimer = v6;
+  self->_expirationTimer = v8;
 
-  v8 = _TVRDXPCLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v11 = _TVRDXPCLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Starting Lock Screen Assertion Timer", v10, 2u);
+    *v13 = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Starting Lock Screen Assertion Timer", v13, 2u);
   }
 
-  v9 = +[NSRunLoop mainRunLoop];
-  [v9 addTimer:self->_expirationTimer forMode:NSRunLoopCommonModes];
+  v12 = +[NSRunLoop mainRunLoop];
+  [v12 addTimer:self->_expirationTimer forMode:NSRunLoopCommonModes];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(location);
 }
 
 void __55__TVRDAssertionManager__createAssertionExpirationTimer__block_invoke(uint64_t a1)
 {
-  v2 = _TVRDXPCLog();
+  v2 = _TVRDXPCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -325,7 +330,7 @@ void __55__TVRDAssertionManager__createAssertionExpirationTimer__block_invoke(ui
 {
   if (self->_expirationTimer)
   {
-    v3 = _TVRDXPCLog();
+    v3 = _TVRDXPCLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -344,7 +349,7 @@ void __55__TVRDAssertionManager__createAssertionExpirationTimer__block_invoke(ui
 {
   if (self->_expirationTimer)
   {
-    v3 = _TVRDXPCLog();
+    v3 = _TVRDXPCLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;

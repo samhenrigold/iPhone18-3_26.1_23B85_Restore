@@ -46,29 +46,27 @@
 - (void)isImageGenerationAllowedForUserDSID:(id)d completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA84D90, &qword_1B83E8B00);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
-  v13 = sub_1B83DDE3C();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = self;
-  v14[5] = d;
-  v14[6] = sub_1B83B6564;
-  v14[7] = v12;
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  v12 = sub_1B83DDE3C();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = self;
+  v13[5] = d;
+  v13[6] = sub_1B83B6564;
+  v13[7] = v11;
   dCopy = d;
   selfCopy = self;
-  sub_1B83B4324(0, 0, v10, &unk_1B83E8B70, v14);
+  sub_1B83B4324(0, 0, v9, &unk_1B83E8B70, v13);
 }
 
 - (id)isImageGenerationAllowedForUserDSID:(id)d error:(id *)error
 {
-  v5 = *(&self->super.isa + OBJC_IVAR___STOrganizationSettingsRestrictionUtility_implementation);
   dCopy = d;
   selfCopy = self;
   initWithBool_ = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];

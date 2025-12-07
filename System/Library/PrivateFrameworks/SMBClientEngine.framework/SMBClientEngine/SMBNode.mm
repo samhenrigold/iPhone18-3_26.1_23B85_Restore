@@ -1,6 +1,10 @@
 @interface SMBNode
++ (SMBNode)nodeWithParameters:(smb_create *)parameters onPiston:(id)piston onShareID:(unsigned int)d withName:(id)name withStreamName:(id)streamName callBack:(id)back;
++ (void)nodeForCmpd:(id)cmpd onShareID:(unsigned int)d callBack:(id)back;
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)fid;
 - (id)init:(id)init;
+- (id)init:(smb_create *)init onPiston:(id)piston onShareID:(unsigned int)d withName:(id)name withStreamName:(id)streamName callBack:(id)back;
+- (id)initForCmpd:(id)cmpd onShareID:(unsigned int)d;
 - (int)cmpdAddClose:(smb_close *)close withFlags:(unsigned __int16)flags;
 - (int)cmpdAddCreate:(smb_create *)create withName:(id)name withStreamName:(id)streamName;
 - (int)cmpdAddIoctl:(smb_ioctl *)ioctl getReparsePoint:(id)point;
@@ -19,13 +23,13 @@
 - (int)cmpdParseRead:(smb_read_write *)read intoBuffer:(id)buffer;
 - (int)cmpdParseSetInformation:(smb_setinfo *)information;
 - (int)cmpdParseWrite:(smb_read_write *)write;
+- (int)commonInit:(id)init onShareID:(unsigned int)d;
+- (int)commonInit:(id)init onShareID:(unsigned int)d name:(id)name streamName:(id)streamName;
 - (int)parseNextHeader:(unsigned __int16)header retNTStatus:(unsigned int *)status retMdpp:(mdchain *)mdpp;
 - (int)resetCmpdRequest;
 - (int)updateCmpdHdr;
 - (void)dealloc;
-- (void)resetCmpdRequest;
 - (void)sendCmpdRequest:(id)request;
-- (void)updateCmpdHdr;
 @end
 
 @implementation SMBNode
@@ -46,15 +50,138 @@
   return v6;
 }
 
-uint64_t __82__SMBNode_nodeWithParameters_onPiston_onShareID_withName_withStreamName_callBack___block_invoke(uint64_t a1, int a2)
+- (int)commonInit:(id)init onShareID:(unsigned int)d name:(id)name streamName:(id)streamName
 {
-  v3 = *(a1 + 40);
-  if (!a2)
+  v7 = *&d;
+  nameCopy = name;
+  streamNameCopy = streamName;
+  v12 = [(SMBNode *)self commonInit:init onShareID:v7];
+  if (!v12)
   {
-    v4 = *(a1 + 32);
+    [(SMBNode *)self setName:nameCopy];
+    [(SMBNode *)self setStreamName:streamNameCopy];
   }
 
-  return (*(v3 + 16))();
+  return v12;
+}
+
+- (int)commonInit:(id)init onShareID:(unsigned int)d
+{
+  v4 = *&d;
+  initCopy = init;
+  v7 = [initCopy getShare:v4];
+  if (v7)
+  {
+    [(SMBNode *)self setPd:initCopy];
+    [(SMBNode *)self setShareID:v4];
+    -[SMBNode setTreeID:](self, "setTreeID:", [v7 tree_id]);
+    -[SMBNode setOnEncryptedShare:](self, "setOnEncryptedShare:", [v7 isEncrypted]);
+    v8 = 0;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [SMBNode commonInit:onShareID:];
+    }
+
+    v8 = 2;
+  }
+
+  return v8;
+}
+
+- (id)initForCmpd:(id)cmpd onShareID:(unsigned int)d
+{
+  v4 = *&d;
+  cmpdCopy = cmpd;
+  v11.receiver = self;
+  v11.super_class = SMBNode;
+  v7 = [(SMBNode *)&v11 init];
+  v8 = v7;
+  if (v7 && ![(SMBNode *)v7 commonInit:cmpdCopy onShareID:v4])
+  {
+    v8->_isCmpd = 1;
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
++ (void)nodeForCmpd:(id)cmpd onShareID:(unsigned int)d callBack:(id)back
+{
+  v5 = *&d;
+  backCopy = back;
+  cmpdCopy = cmpd;
+  v8 = objc_alloc_init(SMBNode);
+  LODWORD(v5) = [(SMBNode *)v8 commonInit:cmpdCopy onShareID:v5];
+
+  if (!v5)
+  {
+    [(SMBNode *)v8 setIsCmpd:1];
+  }
+
+  backCopy[2]();
+}
+
+- (id)init:(smb_create *)init onPiston:(id)piston onShareID:(unsigned int)d withName:(id)name withStreamName:(id)streamName callBack:(id)back
+{
+  v11 = *&d;
+  pistonCopy = piston;
+  nameCopy = name;
+  streamNameCopy = streamName;
+  backCopy = back;
+  v22.receiver = self;
+  v22.super_class = SMBNode;
+  v18 = [(SMBNode *)&v22 init];
+  v19 = v18;
+  if (v18 && ![(SMBNode *)v18 commonInit:pistonCopy onShareID:v11 name:nameCopy streamName:streamNameCopy])
+  {
+    piston_create_file(v19, init, backCopy);
+    v20 = v19;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  return v20;
+}
+
++ (SMBNode)nodeWithParameters:(smb_create *)parameters onPiston:(id)piston onShareID:(unsigned int)d withName:(id)name withStreamName:(id)streamName callBack:(id)back
+{
+  v10 = *&d;
+  backCopy = back;
+  streamNameCopy = streamName;
+  nameCopy = name;
+  pistonCopy = piston;
+  v17 = objc_alloc_init(SMBNode);
+  v18 = [(SMBNode *)v17 commonInit:pistonCopy onShareID:v10 name:nameCopy streamName:streamNameCopy];
+
+  if (v18)
+  {
+    backCopy[2](backCopy, v18, 0);
+  }
+
+  else
+  {
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __82__SMBNode_nodeWithParameters_onPiston_onShareID_withName_withStreamName_callBack___block_invoke;
+    v20[3] = &unk_279B4F7E0;
+    v22 = backCopy;
+    v21 = v17;
+    piston_create_file(v21, parameters, v20);
+  }
+
+  return result;
 }
 
 - (int)cmpdAddCreate:(smb_create *)create withName:(id)name withStreamName:(id)streamName
@@ -563,7 +690,7 @@ LABEL_7:
   }
 
   v17 = 0;
-  v10 = smb2_smb_query_dir(self, directory, dirCopy, inCopy, 0, &v17, 0);
+  v10 = smb2_smb_query_dir(self, &directory->fileInfoClass, dirCopy, inCopy, 0, &v17, 0);
   v12 = v17;
   v13 = v12;
   if (v10 || !v12)
@@ -790,10 +917,10 @@ LABEL_8:
 
 - (int)parseNextHeader:(unsigned __int16)header retNTStatus:(unsigned int *)status retMdpp:(mdchain *)mdpp
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v34 = &v35;
+  v33 = &v34;
   memset(__dst, 0, sizeof(__dst));
   if (!self->_isCmpd)
   {
@@ -802,7 +929,7 @@ LABEL_8:
       [SMBNode parseNextHeader:retNTStatus:retMdpp:];
     }
 
-    goto LABEL_16;
+    return 22;
   }
 
   p_parsePos = &self->_parsePos;
@@ -815,7 +942,7 @@ LABEL_8:
       [SMBNode parseNextHeader:retNTStatus:retMdpp:];
     }
 
-    goto LABEL_16;
+    return 22;
   }
 
   if ([(SMB_rq *)v8 sr_command]!= header)
@@ -825,9 +952,7 @@ LABEL_8:
       [SMBNode parseNextHeader:rqp retNTStatus:? retMdpp:?];
     }
 
-LABEL_16:
-    replyError = 22;
-    goto LABEL_17;
+    return 22;
   }
 
   v11 = *p_parsePos;
@@ -837,10 +962,10 @@ LABEL_16:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        [SMBNode parseNextHeader:? retNTStatus:? retMdpp:?];
+        [SMBNode parseNextHeader:retNTStatus:retMdpp:];
       }
 
-      goto LABEL_16;
+      return 22;
     }
 
     if (([(SMB_rq *)rqp[v11] sr_extflags]& 2) != 0)
@@ -862,7 +987,7 @@ LABEL_16:
           [SMBNode parseNextHeader:rqp retNTStatus:? retMdpp:?];
         }
 
-        goto LABEL_17;
+        return replyError;
       }
     }
 
@@ -887,97 +1012,97 @@ LABEL_16:
   {
     smb_rq_getreply2 = [(SMB_rq *)*rqp smb_rq_getreply];
     *mdpp = smb_rq_getreply2;
-    v18 = *(smb_rq_getreply2 + 16);
-    v35 = *smb_rq_getreply2;
-    v36 = v18;
-    v20 = [(SMB_rq *)*rqp sr_command]== 5 && [(SMB_rq *)*rqp replyError]== 0;
+    v17 = *(smb_rq_getreply2 + 16);
+    v34 = *smb_rq_getreply2;
+    v35 = v17;
+    v19 = [(SMB_rq *)*rqp sr_command]== 5 && [(SMB_rq *)*rqp replyError]== 0;
     if (self->_marshallPos >= 2)
     {
-      v22 = 1;
-      v23 = MEMORY[0x277D86220];
-      *&v19 = 136315650;
-      v33 = v19;
-      v24 = rqp;
+      v21 = 1;
+      v22 = MEMORY[0x277D86220];
+      *&v18 = 136315650;
+      v32 = v18;
+      v23 = rqp;
       do
       {
-        if (([v24[1] sr_extflags] & 2) != 0)
+        if (([v23[1] sr_extflags] & 2) != 0)
         {
-          smb_rq_getreply3 = [v24[1] smb_rq_getreply];
-          v27 = smb_rq_getreply3[1];
-          v35 = *smb_rq_getreply3;
-          v36 = v27;
+          smb_rq_getreply3 = [v23[1] smb_rq_getreply];
+          v26 = smb_rq_getreply3[1];
+          v34 = *smb_rq_getreply3;
+          v35 = v26;
         }
 
         else
         {
-          if (!*v24)
+          if (!*v23)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               [SMBNode parseNextHeader:retNTStatus:retMdpp:];
             }
 
-            goto LABEL_16;
+            return 22;
           }
 
-          v25 = smb2_rq_next_command(*v24, &self->_cmpdNextCmdOffset, &v35);
-          if (v25)
+          v24 = smb2_rq_next_command(*v23, &self->_cmpdNextCmdOffset, &v34);
+          if (v24)
           {
-            replyError = v25;
+            replyError = v24;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              [SMBNode parseNextHeader:v24 retNTStatus:? retMdpp:?];
+              [SMBNode parseNextHeader:v23 retNTStatus:? retMdpp:?];
             }
 
-            goto LABEL_17;
+            return replyError;
           }
         }
 
-        v28 = smb2_rq_parse_header(v24[1], &v34);
-        if (v28)
+        v27 = smb2_rq_parse_header(v23[1], &v33);
+        if (v27)
         {
-          v29 = piston_log_level == 0;
+          v28 = piston_log_level == 0;
         }
 
         else
         {
-          v29 = 1;
+          v28 = 1;
         }
 
-        if (!v29)
+        if (!v28)
         {
-          v30 = v28;
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v29 = v27;
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            sr_messageid = [v24[1] sr_messageid];
-            *buf = v33;
-            v38 = "[SMBNode parseNextHeader:retNTStatus:retMdpp:]";
-            v39 = 1024;
-            v40 = v30;
-            v41 = 2048;
-            v42 = sr_messageid;
-            _os_log_error_impl(&dword_264287000, v23, OS_LOG_TYPE_ERROR, "%s: smb2_rq_parse_header failed %d, id %lld\n", buf, 0x1Cu);
+            sr_messageid = [v23[1] sr_messageid];
+            *buf = v32;
+            v37 = "[SMBNode parseNextHeader:retNTStatus:retMdpp:]";
+            v38 = 1024;
+            v39 = v29;
+            v40 = 2048;
+            v41 = sr_messageid;
+            _os_log_error_impl(&dword_264287000, v22, OS_LOG_TYPE_ERROR, "%s: smb2_rq_parse_header failed %d, id %lld\n", buf, 0x1Cu);
           }
         }
 
-        if ([v24[1] sr_command] == 5 && !objc_msgSend(v24[1], "replyError"))
+        if ([v23[1] sr_command] == 5 && !objc_msgSend(v23[1], "replyError"))
         {
-          ++v20;
+          ++v19;
         }
 
-        if ([v24[1] sr_command] == 6)
+        if ([v23[1] sr_command] == 6)
         {
-          v20 = (__PAIR64__(v20, [v24[1] replyError]) - 1) >> 32;
+          v19 = (__PAIR64__(v19, [v23[1] replyError]) - 1) >> 32;
         }
 
-        ++v22;
-        ++v24;
+        ++v21;
+        ++v23;
       }
 
-      while (self->_marshallPos > v22);
+      while (self->_marshallPos > v21);
     }
 
-    if (v20 >= 1)
+    if (v19 >= 1)
     {
       [(SMBNode *)self setIsOpen:1];
     }
@@ -987,8 +1112,6 @@ LABEL_16:
     *status = [(SMB_rq *)rqp[self->_parsePos++] sr_ntstatus];
   }
 
-LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
   return replyError;
 }
 
@@ -1051,10 +1174,11 @@ LABEL_6:
 LABEL_10:
 }
 
-void __27__SMBNode_sendCmpdRequest___block_invoke(uint64_t a1, int a2)
+void __27__SMBNode_sendCmpdRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = MEMORY[0x266734A50](*(a1 + 40));
-  if (a2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  if (v2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     __27__SMBNode_sendCmpdRequest___block_invoke_cold_1(a1);
     if (!v4)
@@ -1120,349 +1244,136 @@ LABEL_5:
 
 - (void)commonInit:onShareID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddCreate:withName:withStreamName:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddCreate:withName:withStreamName:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddCreate:withName:withStreamName:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddClose:withFlags:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddClose:withFlags:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddClose:withFlags:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddRead:intoBuffer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddRead:intoBuffer:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddRead:intoBuffer:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddWrite:fromBuffer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddWrite:fromBuffer:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddWrite:fromBuffer:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddIoctl:getReparsePoint:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddIoctl:getReparsePoint:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddIoctl:setReparsePoint:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddIoctl:setReparsePoint:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddIoctl:pipeTransceive:withRecvData:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddIoctl:pipeTransceive:withRecvData:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddQueryDirectory:onDir:returnDataIn:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddQueryDirectory:onDir:returnDataIn:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddQueryDirectory:onDir:returnDataIn:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddQueryInformation:withStreamName:forFileAllInfo:withInputBuffer:withOutputBuffer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddQueryInformation:withStreamName:forFileAllInfo:withInputBuffer:withOutputBuffer:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddQueryInformation:withStreamName:forFileAllInfo:withInputBuffer:withOutputBuffer:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cmpdAddSetInformation:withInputBuffer:withRenameTarget:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cmpdAddSetInformation:withInputBuffer:withRenameTarget:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateCmpdHdr
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseNextHeader:(unsigned int *)a1 retNTStatus:(uint64_t)a2 retMdpp:.cold.1(unsigned int *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [*(a2 + 8 * *a1) sr_command];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseNextHeader:(_DWORD *)a1 retNTStatus:(uint64_t)a2 retMdpp:.cold.2(_DWORD *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [*(a2 + 8 * (*a1 - 1)) sr_messageid];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseNextHeader:(unsigned int *)a1 retNTStatus:(uint64_t)a2 retMdpp:.cold.3(unsigned int *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [*(a2 + 8 * *a1) sr_messageid];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)parseNextHeader:(_DWORD *)a1 retNTStatus:retMdpp:.cold.4(_DWORD *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1 - 1;
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseNextHeader:(id *)a1 retNTStatus:retMdpp:.cold.5(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 sr_messageid];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseNextHeader:retNTStatus:retMdpp:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)parseNextHeader:retNTStatus:retMdpp:.cold.7()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)parseNextHeader:retNTStatus:retMdpp:.cold.8()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCmpdRequest:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sendCmpdRequest:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __27__SMBNode_sendCmpdRequest___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 8) sr_ntstatus];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)resetCmpdRequest
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

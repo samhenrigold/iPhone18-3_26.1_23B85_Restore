@@ -9,7 +9,7 @@
 - (void)checkCallsWithProgress:(double)progress stop:(BOOL)stop
 {
   stopCopy = stop;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   wasStopped = self->_wasStopped;
   if (wasStopped)
   {
@@ -17,17 +17,17 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       taskName = self->_taskName;
-      *&v38 = COERCE_DOUBLE(@" Also *stop* seems to have been reset!!!");
+      *&v37 = COERCE_DOUBLE(@" Also *stop* seems to have been reset!!!");
       if (stopCopy)
       {
-        *&v38 = COERCE_DOUBLE(&stru_2843F5C58);
+        *&v37 = COERCE_DOUBLE(&stru_2843F5C58);
       }
 
-      v40 = 138412546;
-      v41 = taskName;
-      v42 = 2112;
-      progressCopy5 = *&v38;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "%@: Progress called again although task was stopped!!!%@", &v40, 0x16u);
+      v39 = 138412546;
+      v40 = taskName;
+      v41 = 2112;
+      progressCopy5 = *&v37;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "%@: Progress called again although task was stopped!!!%@", &v39, 0x16u);
       LOBYTE(wasStopped) = self->_wasStopped;
     }
   }
@@ -47,13 +47,13 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = self->_taskName;
-      v40 = 138412802;
-      v41 = v13;
-      v42 = 2048;
+      v39 = 138412802;
+      v40 = v13;
+      v41 = 2048;
       progressCopy5 = lastProgress;
-      v44 = 2048;
+      v43 = 2048;
       progressCopy = progress;
-      _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_INFO, "%@: Progress going backwards from %1.4f to %1.4f", &v40, 0x20u);
+      _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_INFO, "%@: Progress going backwards from %1.4f to %1.4f", &v39, 0x20u);
     }
   }
 
@@ -71,15 +71,15 @@
       {
         v27 = self->_taskName;
         v28 = timestampOfLastCallToProgress - self->_timestampOfLastRecordedCallToProgress;
-        v40 = 138413058;
-        v41 = v27;
-        v42 = 2048;
+        v39 = 138413058;
+        v40 = v27;
+        v41 = 2048;
         progressCopy5 = *&numberOfCallsToProgressSinceLastRecordedCall;
-        v44 = 2048;
+        v43 = 2048;
         progressCopy = v28;
-        v46 = 2112;
-        v47 = *&v10;
-        _os_log_impl(&dword_22F0FC000, v26, OS_LOG_TYPE_DEFAULT, "%@: Progress --------, called %lu time(s) in %.2f sec%@", &v40, 0x2Au);
+        v45 = 2112;
+        v46 = *&v10;
+        _os_log_impl(&dword_22F0FC000, v26, OS_LOG_TYPE_DEFAULT, "%@: Progress --------, called %lu time(s) in %.2f sec%@", &v39, 0x2Au);
       }
 
       if (self->_reportMemoryUsage)
@@ -89,9 +89,9 @@
         {
           v30 = v29;
           memoryUsage = [(PGProgressCallChecker *)self memoryUsage];
-          v40 = 138412290;
-          v41 = memoryUsage;
-          _os_log_impl(&dword_22F0FC000, v30, OS_LOG_TYPE_DEFAULT, "Mem: %@", &v40, 0xCu);
+          v39 = 138412290;
+          v40 = memoryUsage;
+          _os_log_impl(&dword_22F0FC000, v30, OS_LOG_TYPE_DEFAULT, "Mem: %@", &v39, 0xCu);
         }
       }
 
@@ -104,15 +104,15 @@
       if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
       {
         v35 = self->_taskName;
-        v40 = 138413058;
-        v41 = v35;
-        v42 = 2048;
+        v39 = 138413058;
+        v40 = v35;
+        v41 = 2048;
         progressCopy5 = progress;
-        v44 = 2048;
+        v43 = 2048;
         progressCopy = Current - timestampOfLastCallToProgress;
-        v46 = 2112;
-        v47 = *&v10;
-        _os_log_fault_impl(&dword_22F0FC000, v34, OS_LOG_TYPE_FAULT, "%@: Progress %1.4f, not called for %.2f sec%@", &v40, 0x2Au);
+        v45 = 2112;
+        v46 = *&v10;
+        _os_log_fault_impl(&dword_22F0FC000, v34, OS_LOG_TYPE_FAULT, "%@: Progress %1.4f, not called for %.2f sec%@", &v39, 0x2Au);
       }
     }
 
@@ -123,31 +123,31 @@
       {
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          v39 = self->_taskName;
-          v40 = 138413058;
-          v41 = v39;
-          v42 = 2048;
+          v38 = self->_taskName;
+          v39 = 138413058;
+          v40 = v38;
+          v41 = 2048;
           progressCopy5 = progress;
-          v44 = 2048;
+          v43 = 2048;
           progressCopy = Current - timestampOfLastCallToProgress;
-          v46 = 2112;
-          v47 = *&v10;
-          _os_log_error_impl(&dword_22F0FC000, v32, OS_LOG_TYPE_ERROR, "%@: Progress %1.4f, not called for %.2f sec%@", &v40, 0x2Au);
+          v45 = 2112;
+          v46 = *&v10;
+          _os_log_error_impl(&dword_22F0FC000, v32, OS_LOG_TYPE_ERROR, "%@: Progress %1.4f, not called for %.2f sec%@", &v39, 0x2Au);
         }
       }
 
       else if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         v33 = self->_taskName;
-        v40 = 138413058;
-        v41 = v33;
-        v42 = 2048;
+        v39 = 138413058;
+        v40 = v33;
+        v41 = 2048;
         progressCopy5 = progress;
-        v44 = 2048;
+        v43 = 2048;
         progressCopy = Current - timestampOfLastCallToProgress;
-        v46 = 2112;
-        v47 = *&v10;
-        _os_log_impl(&dword_22F0FC000, v32, OS_LOG_TYPE_DEFAULT, "%@: Progress %1.4f, not called for %.2f sec%@", &v40, 0x2Au);
+        v45 = 2112;
+        v46 = *&v10;
+        _os_log_impl(&dword_22F0FC000, v32, OS_LOG_TYPE_DEFAULT, "%@: Progress %1.4f, not called for %.2f sec%@", &v39, 0x2Au);
       }
     }
 
@@ -165,17 +165,17 @@
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         v22 = self->_taskName;
-        v40 = 138413314;
-        v41 = v22;
-        v42 = 2048;
+        v39 = 138413314;
+        v40 = v22;
+        v41 = 2048;
         progressCopy5 = progress;
-        v44 = 2048;
+        v43 = 2048;
         progressCopy = *&v18;
-        v46 = 2048;
-        v47 = v19;
-        v48 = 2112;
-        v49 = v10;
-        _os_log_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_DEFAULT, "%@: Progress %1.4f, called %lu times in %.2f sec%@", &v40, 0x34u);
+        v45 = 2048;
+        v46 = v19;
+        v47 = 2112;
+        v48 = v10;
+        _os_log_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_DEFAULT, "%@: Progress %1.4f, called %lu times in %.2f sec%@", &v39, 0x34u);
       }
 
       if (self->_reportMemoryUsage)
@@ -185,9 +185,9 @@
         {
           v24 = v23;
           memoryUsage2 = [(PGProgressCallChecker *)self memoryUsage];
-          v40 = 138412290;
-          v41 = memoryUsage2;
-          _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_DEFAULT, "Mem: %@", &v40, 0xCu);
+          v39 = 138412290;
+          v40 = memoryUsage2;
+          _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_DEFAULT, "Mem: %@", &v39, 0xCu);
         }
       }
 
@@ -197,8 +197,6 @@
   }
 
   self->_timestampOfLastCallToProgress = Current;
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)memoryUsage

@@ -232,8 +232,8 @@ uint64_t __107__SBLayoutStateSceneIdentityProvider_sceneIdentityForApplication_c
 
       v36 = *(*(&v108 + 1) + 8 * v34);
       sceneIdentifier = [v36 sceneIdentifier];
-      v38 = [excludingIdentifiersCopy containsObject:sceneIdentifier];
-      v39 = [identifiersCopy containsObject:sceneIdentifier];
+      v38 = objc_msgSend_containsObject_(excludingIdentifiersCopy);
+      v39 = objc_msgSend_containsObject_(identifiersCopy);
       application = [v36 application];
       v41 = [application isEqual:v19];
 

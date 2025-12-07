@@ -102,10 +102,10 @@
 
 - (int64_t)_visitDictionary:(id)dictionary
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v30 = dictionaryCopy;
+  v29 = dictionaryCopy;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     [HKJSONVisitor _visitDictionary:];
@@ -135,28 +135,28 @@
 
   v8 = [(NSString *)self->_currentKeyPath copy];
   v9 = [(NSArray *)self->_allKeyPathComponents copy];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   allKeys = [dictionaryCopy allKeys];
   v11 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v12 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v32;
+    v14 = *v31;
 LABEL_10:
     v15 = 0;
     while (1)
     {
-      if (*v32 != v14)
+      if (*v31 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v31 + 1) + 8 * v15);
+      v16 = *(*(&v30 + 1) + 8 * v15);
       v17 = objc_autoreleasePoolPush();
       v18 = [v8 hk_stringByAppendingKeyPathComponent:v16];
       currentKeyPath = self->_currentKeyPath;
@@ -166,7 +166,7 @@ LABEL_10:
       allKeyPathComponents = self->_allKeyPathComponents;
       self->_allKeyPathComponents = v20;
 
-      v22 = [v30 objectForKeyedSubscript:v16];
+      v22 = [v29 objectForKeyedSubscript:v16];
       v23 = [(HKJSONVisitor *)self _traverseJSONObject:v22];
 
       objc_autoreleasePoolPop(v17);
@@ -184,7 +184,7 @@ LABEL_10:
 
       if (v13 == ++v15)
       {
-        v13 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (v13)
         {
           goto LABEL_10;
@@ -201,7 +201,7 @@ LABEL_10:
   if (objc_opt_respondsToSelector())
   {
     v25 = objc_loadWeakRetained(&self->_delegate);
-    v26 = [v25 performSelector:sel_visitor_didVisitDictionary_ withObject:self withObject:v30];
+    v26 = [v25 performSelector:sel_visitor_didVisitDictionary_ withObject:self withObject:v29];
 
     v27 = 1;
     if (v26 == 2)
@@ -229,13 +229,12 @@ LABEL_10:
 LABEL_25:
 
 LABEL_26:
-  v28 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (int64_t)_visitArray:(id)array
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -267,28 +266,28 @@ LABEL_26:
 
   p_allKeyPathComponents = &self->_allKeyPathComponents;
   obj = [(NSArray *)self->_allKeyPathComponents copy];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v9 = arrayCopy;
-  v10 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v31;
-    v28 = arrayCopy;
+    v13 = *v30;
+    v27 = arrayCopy;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v15 = *(*(&v29 + 1) + 8 * i);
         v16 = objc_autoreleasePoolPush();
         self->_currentIndex = v12;
         v17 = [MEMORY[0x1E696AD98] numberWithInteger:v12];
@@ -302,7 +301,7 @@ LABEL_26:
         {
           objc_autoreleasePoolPop(v16);
           p_allKeyPathComponents = &self->_allKeyPathComponents;
-          arrayCopy = v28;
+          arrayCopy = v27;
           goto LABEL_20;
         }
 
@@ -311,7 +310,7 @@ LABEL_26:
           objc_autoreleasePoolPop(v16);
 
           v7 = 0;
-          arrayCopy = v28;
+          arrayCopy = v27;
           goto LABEL_27;
         }
 
@@ -319,9 +318,9 @@ LABEL_26:
         objc_autoreleasePoolPop(v16);
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
       p_allKeyPathComponents = &self->_allKeyPathComponents;
-      arrayCopy = v28;
+      arrayCopy = v27;
       if (v11)
       {
         continue;
@@ -367,7 +366,6 @@ LABEL_20:
 LABEL_27:
 
 LABEL_28:
-  v26 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

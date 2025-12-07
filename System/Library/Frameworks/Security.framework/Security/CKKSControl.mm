@@ -1,13 +1,16 @@
 @interface CKKSControl
++ (id)CKKSControlObject:(BOOL)object error:(id *)error;
 - (CKKSControl)initWithConnection:(id)connection;
 - (id)objectProxyWithErrorHandler:(id)handler;
 - (void)dealloc;
 - (void)deleteSEView:(id)view reply:(id)reply;
+- (void)fetchSEViewKeyHierarchy:(id)hierarchy forceFetch:(BOOL)fetch reply:(id)reply;
 - (void)initialSyncStatus:(id)status reply:(id)reply;
 - (void)modifyTLKSharesForSEView:(id)view adding:(id)adding deleting:(id)deleting reply:(id)reply;
 - (void)pcsMirrorKeysForServices:(id)services reply:(id)reply;
 - (void)proposeTLKForSEView:(id)view proposedTLK:(id)k wrappedOldTLK:(id)lK tlkShares:(id)shares reply:(id)reply;
 - (void)rpcCKMetric:(id)metric attributes:(id)attributes reply:(id)reply;
+- (void)rpcFetchAndProcessChanges:(id)changes classA:(BOOL)a onlyIfNoRecentFetch:(BOOL)fetch reply:(id)reply;
 - (void)rpcGetCKDeviceIDWithReply:(id)reply;
 - (void)rpcKnownBadState:(id)state reply:(id)reply;
 - (void)rpcKnownBadStateForViews:(id)views reply:(id)reply;
@@ -17,6 +20,7 @@
 - (void)rpcResetLocal:(id)local reply:(id)reply;
 - (void)rpcResync:(id)resync reply:(id)reply;
 - (void)rpcResyncLocal:(id)local reply:(id)reply;
+- (void)rpcStatus:(id)status fast:(BOOL)fast waitForNonTransientState:(unint64_t)state reply:(id)reply;
 - (void)rpcTLKMissing:(id)missing reply:(id)reply;
 - (void)toggleHavoc:(id)havoc;
 @end
@@ -48,7 +52,7 @@
 
 void __39__CKKSControl_initialSyncStatus_reply___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope("ckkscontrol");
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -57,25 +61,25 @@ void __39__CKKSControl_initialSyncStatus_reply___block_invoke_2(uint64_t a1, uin
     if (v7)
     {
       v8 = *(a1 + 32);
-      v15 = 138412546;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v5;
+      v14 = 138412546;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v5;
       v9 = "Couldn't fetch initial sync status for view %@: %@";
       v10 = v6;
       v11 = 22;
 LABEL_6:
-      _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, v9, &v15, v11);
+      _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
     }
   }
 
   else if (v7)
   {
     v12 = *(a1 + 32);
-    v15 = 138412546;
-    v16 = v12;
-    v17 = 1024;
-    LODWORD(v18) = a2;
+    v14 = 138412546;
+    v15 = v12;
+    v16 = 1024;
+    LODWORD(v17) = a2;
     v9 = "Initial sync completed for view %@: %{BOOL}d";
     v10 = v6;
     v11 = 18;
@@ -83,7 +87,6 @@ LABEL_6:
   }
 
   (*(*(a1 + 48) + 16))(*(a1 + 48), a2, v5, v13);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pcsMirrorKeysForServices:(id)services reply:(id)reply
@@ -171,6 +174,28 @@ LABEL_6:
   [v15 modifyTLKSharesForSEView:viewCopy adding:addingCopy deleting:deletingCopy reply:v17];
 }
 
+- (void)fetchSEViewKeyHierarchy:(id)hierarchy forceFetch:(BOOL)fetch reply:(id)reply
+{
+  fetchCopy = fetch;
+  replyCopy = reply;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __56__CKKSControl_fetchSEViewKeyHierarchy_forceFetch_reply___block_invoke;
+  v15[3] = &unk_1E70DECC0;
+  v9 = replyCopy;
+  v16 = v9;
+  hierarchyCopy = hierarchy;
+  v11 = [(CKKSControl *)self objectProxyWithErrorHandler:v15];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __56__CKKSControl_fetchSEViewKeyHierarchy_forceFetch_reply___block_invoke_2;
+  v13[3] = &unk_1E70D4B28;
+  v13[4] = self;
+  v14 = v9;
+  v12 = v9;
+  [v11 fetchSEViewKeyHierarchy:hierarchyCopy forceFetch:fetchCopy reply:v13];
+}
+
 - (void)proposeTLKForSEView:(id)view proposedTLK:(id)k wrappedOldTLK:(id)lK tlkShares:(id)shares reply:(id)reply
 {
   replyCopy = reply;
@@ -222,33 +247,33 @@ LABEL_6:
 
 void __46__CKKSControl_rpcKnownBadStateForViews_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = a2;
-  v2 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v2 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v17 = 0;
-    v20 = 0;
-    v5 = *v22;
+    v16 = 0;
+    v19 = 0;
+    v5 = *v21;
     v6 = @"view";
     v7 = @"keystate";
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
-        v10 = [v9 objectForKeyedSubscript:{v6, v17}];
+        v9 = *(*(&v20 + 1) + 8 * i);
+        v10 = [v9 objectForKeyedSubscript:{v6, v16}];
         v11 = [v9 objectForKeyedSubscript:v7];
         if (([v10 isEqualToString:@"global"] & 1) == 0)
         {
@@ -259,16 +284,16 @@ void __46__CKKSControl_rpcKnownBadStateForViews_reply___block_invoke(uint64_t a1
             v14 = v6;
             if (([v11 isEqualToString:@"waitfortlk"] & 1) != 0 || objc_msgSend(v11, "isEqualToString:", @"error"))
             {
-              LODWORD(v17) = 1;
+              LODWORD(v16) = 1;
             }
 
-            v15 = [v11 isEqualToString:{@"waitforunlock", v17}];
+            v15 = [v11 isEqualToString:{@"waitforunlock", v16}];
             if (([v11 isEqualToString:@"waitfortlkcreation"] & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"waitfortlkupload") & 1) != 0 || objc_msgSend(v11, "isEqualToString:", @"waitfortrust"))
             {
-              HIDWORD(v17) = 1;
+              HIDWORD(v16) = 1;
             }
 
-            v20 |= v15;
+            v19 |= v15;
             v4 |= [v11 isEqualToString:@"loggedout"];
             v6 = v14;
             v7 = v13;
@@ -276,26 +301,24 @@ void __46__CKKSControl_rpcKnownBadStateForViews_reply___block_invoke(uint64_t a1
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v3);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rpcKnownBadState:(id)state reply:(id)reply
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   replyCopy = reply;
   if (stateCopy)
   {
-    v13[0] = stateCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = stateCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   }
 
   else
@@ -303,15 +326,13 @@ void __46__CKKSControl_rpcKnownBadStateForViews_reply___block_invoke(uint64_t a1
     v8 = 0;
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __38__CKKSControl_rpcKnownBadState_reply___block_invoke;
-  v11[3] = &unk_1E70D4AD8;
-  v12 = replyCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __38__CKKSControl_rpcKnownBadState_reply___block_invoke;
+  v10[3] = &unk_1E70D4AD8;
+  v11 = replyCopy;
   v9 = replyCopy;
-  [(CKKSControl *)self rpcKnownBadStateForViews:v8 reply:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [(CKKSControl *)self rpcKnownBadStateForViews:v8 reply:v10];
 }
 
 - (void)rpcTLKMissing:(id)missing reply:(id)reply
@@ -328,27 +349,27 @@ void __46__CKKSControl_rpcKnownBadStateForViews_reply___block_invoke(uint64_t a1
 
 void __35__CKKSControl_rpcTLKMissing_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 objectForKeyedSubscript:@"view"];
         v9 = [v7 objectForKeyedSubscript:@"keystate"];
         if (([v8 isEqualToString:@"global"] & 1) == 0 && (objc_msgSend(v9, "isEqualToString:", @"waitfortlk") & 1) == 0)
@@ -357,15 +378,13 @@ void __35__CKKSControl_rpcTLKMissing_reply___block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rpcGetCKDeviceIDWithReply:(id)reply
@@ -432,39 +451,37 @@ void __35__CKKSControl_rpcTLKMissing_reply___block_invoke(uint64_t a1, void *a2)
 
 - (void)rpcPushOutgoingChanges:(id)changes reply:(id)reply
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   replyCopy = reply;
   v8 = secLogObjForScope("ckkscontrol");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = changesCopy;
+    v17 = changesCopy;
     _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Requesting a push for view %@", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __44__CKKSControl_rpcPushOutgoingChanges_reply___block_invoke;
-  v15[3] = &unk_1E70DECC0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __44__CKKSControl_rpcPushOutgoingChanges_reply___block_invoke;
+  v14[3] = &unk_1E70DECC0;
   v9 = replyCopy;
-  v16 = v9;
-  v10 = [(CKKSControl *)self objectProxyWithErrorHandler:v15];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __44__CKKSControl_rpcPushOutgoingChanges_reply___block_invoke_2;
-  v13[3] = &unk_1E70D4A60;
-  v13[4] = self;
-  v14 = v9;
+  v15 = v9;
+  v10 = [(CKKSControl *)self objectProxyWithErrorHandler:v14];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __44__CKKSControl_rpcPushOutgoingChanges_reply___block_invoke_2;
+  v12[3] = &unk_1E70D4A60;
+  v12[4] = self;
+  v13 = v9;
   v11 = v9;
-  [v10 rpcPushOutgoingChanges:changesCopy reply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [v10 rpcPushOutgoingChanges:changesCopy reply:v12];
 }
 
 void __44__CKKSControl_rpcPushOutgoingChanges_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = secLogObjForScope("ckkscontrol");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -472,19 +489,19 @@ void __44__CKKSControl_rpcPushOutgoingChanges_reply___block_invoke_2(uint64_t a1
   {
     if (v5)
     {
-      v10 = 138412290;
-      v11 = v3;
+      v9 = 138412290;
+      v10 = v3;
       v6 = "Push finished with error: %@";
       v7 = v4;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
     }
   }
 
   else if (v5)
   {
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v6 = "Push finished successfully";
     v7 = v4;
     v8 = 2;
@@ -492,12 +509,43 @@ LABEL_6:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v3);
-  v9 = *MEMORY[0x1E69E9840];
+}
+
+- (void)rpcFetchAndProcessChanges:(id)changes classA:(BOOL)a onlyIfNoRecentFetch:(BOOL)fetch reply:(id)reply
+{
+  fetchCopy = fetch;
+  aCopy = a;
+  v22 = *MEMORY[0x1E69E9840];
+  changesCopy = changes;
+  replyCopy = reply;
+  v12 = secLogObjForScope("ckkscontrol");
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v21 = changesCopy;
+    _os_log_impl(&dword_1887D2000, v12, OS_LOG_TYPE_DEFAULT, "Requesting a fetch for view %@", buf, 0xCu);
+  }
+
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __74__CKKSControl_rpcFetchAndProcessChanges_classA_onlyIfNoRecentFetch_reply___block_invoke;
+  v18[3] = &unk_1E70DECC0;
+  v13 = replyCopy;
+  v19 = v13;
+  v14 = [(CKKSControl *)self objectProxyWithErrorHandler:v18];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __74__CKKSControl_rpcFetchAndProcessChanges_classA_onlyIfNoRecentFetch_reply___block_invoke_2;
+  v16[3] = &unk_1E70D4A60;
+  v16[4] = self;
+  v17 = v13;
+  v15 = v13;
+  [v14 rpcFetchAndProcessChanges:changesCopy classA:aCopy onlyIfNoRecentFetch:fetchCopy reply:v16];
 }
 
 void __74__CKKSControl_rpcFetchAndProcessChanges_classA_onlyIfNoRecentFetch_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = secLogObjForScope("ckkscontrol");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -505,19 +553,19 @@ void __74__CKKSControl_rpcFetchAndProcessChanges_classA_onlyIfNoRecentFetch_repl
   {
     if (v5)
     {
-      v10 = 138412290;
-      v11 = v3;
+      v9 = 138412290;
+      v10 = v3;
       v6 = "Fetch finished with error: %@";
       v7 = v4;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
     }
   }
 
   else if (v5)
   {
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v6 = "Fetch finished successfully";
     v7 = v4;
     v8 = 2;
@@ -525,44 +573,41 @@ LABEL_6:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v3);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rpcResync:(id)resync reply:(id)reply
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   resyncCopy = resync;
   replyCopy = reply;
   v8 = secLogObjForScope("ckkscontrol");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = resyncCopy;
+    v17 = resyncCopy;
     _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Requesting a resync for view %@", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __31__CKKSControl_rpcResync_reply___block_invoke;
-  v15[3] = &unk_1E70DECC0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __31__CKKSControl_rpcResync_reply___block_invoke;
+  v14[3] = &unk_1E70DECC0;
   v9 = replyCopy;
-  v16 = v9;
-  v10 = [(CKKSControl *)self objectProxyWithErrorHandler:v15];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __31__CKKSControl_rpcResync_reply___block_invoke_2;
-  v13[3] = &unk_1E70D4A60;
-  v13[4] = self;
-  v14 = v9;
+  v15 = v9;
+  v10 = [(CKKSControl *)self objectProxyWithErrorHandler:v14];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __31__CKKSControl_rpcResync_reply___block_invoke_2;
+  v12[3] = &unk_1E70D4A60;
+  v12[4] = self;
+  v13 = v9;
   v11 = v9;
-  [v10 rpcResync:resyncCopy reply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [v10 rpcResync:resyncCopy reply:v12];
 }
 
 void __31__CKKSControl_rpcResync_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = secLogObjForScope("ckkscontrol");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -570,19 +615,19 @@ void __31__CKKSControl_rpcResync_reply___block_invoke_2(uint64_t a1, void *a2)
   {
     if (v5)
     {
-      v10 = 138412290;
-      v11 = v3;
+      v9 = 138412290;
+      v10 = v3;
       v6 = "Resync finished with error: %@";
       v7 = v4;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
     }
   }
 
   else if (v5)
   {
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v6 = "Resync finished successfully";
     v7 = v4;
     v8 = 2;
@@ -590,44 +635,41 @@ LABEL_6:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v3);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rpcResyncLocal:(id)local reply:(id)reply
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   localCopy = local;
   replyCopy = reply;
   v8 = secLogObjForScope("ckkscontrol");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = localCopy;
+    v17 = localCopy;
     _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Requesting a local resync for view %@", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __36__CKKSControl_rpcResyncLocal_reply___block_invoke;
-  v15[3] = &unk_1E70DECC0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __36__CKKSControl_rpcResyncLocal_reply___block_invoke;
+  v14[3] = &unk_1E70DECC0;
   v9 = replyCopy;
-  v16 = v9;
-  v10 = [(CKKSControl *)self objectProxyWithErrorHandler:v15];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __36__CKKSControl_rpcResyncLocal_reply___block_invoke_2;
-  v13[3] = &unk_1E70D4A60;
-  v13[4] = self;
-  v14 = v9;
+  v15 = v9;
+  v10 = [(CKKSControl *)self objectProxyWithErrorHandler:v14];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __36__CKKSControl_rpcResyncLocal_reply___block_invoke_2;
+  v12[3] = &unk_1E70D4A60;
+  v12[4] = self;
+  v13 = v9;
   v11 = v9;
-  [v10 rpcResyncLocal:localCopy reply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [v10 rpcResyncLocal:localCopy reply:v12];
 }
 
 void __36__CKKSControl_rpcResyncLocal_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = secLogObjForScope("ckkscontrol");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -635,19 +677,19 @@ void __36__CKKSControl_rpcResyncLocal_reply___block_invoke_2(uint64_t a1, void *
   {
     if (v5)
     {
-      v10 = 138412290;
-      v11 = v3;
+      v9 = 138412290;
+      v10 = v3;
       v6 = "Local resync finished with error: %@";
       v7 = v4;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
     }
   }
 
   else if (v5)
   {
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v6 = "Local resync finished successfully";
     v7 = v4;
     v8 = 2;
@@ -655,12 +697,11 @@ LABEL_6:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v3);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rpcResetCloudKit:(id)kit reason:(id)reason reply:(id)reply
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   kitCopy = kit;
   replyCopy = reply;
   reasonCopy = reason;
@@ -668,32 +709,30 @@ LABEL_6:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = kitCopy;
+    v20 = kitCopy;
     _os_log_impl(&dword_1887D2000, v11, OS_LOG_TYPE_DEFAULT, "Requesting a CloudKit reset for view %@", buf, 0xCu);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __45__CKKSControl_rpcResetCloudKit_reason_reply___block_invoke;
-  v18[3] = &unk_1E70DECC0;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __45__CKKSControl_rpcResetCloudKit_reason_reply___block_invoke;
+  v17[3] = &unk_1E70DECC0;
   v12 = replyCopy;
-  v19 = v12;
-  v13 = [(CKKSControl *)self objectProxyWithErrorHandler:v18];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __45__CKKSControl_rpcResetCloudKit_reason_reply___block_invoke_2;
-  v16[3] = &unk_1E70D4A60;
-  v16[4] = self;
-  v17 = v12;
+  v18 = v12;
+  v13 = [(CKKSControl *)self objectProxyWithErrorHandler:v17];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __45__CKKSControl_rpcResetCloudKit_reason_reply___block_invoke_2;
+  v15[3] = &unk_1E70D4A60;
+  v15[4] = self;
+  v16 = v12;
   v14 = v12;
-  [v13 rpcResetCloudKit:kitCopy reason:reasonCopy reply:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [v13 rpcResetCloudKit:kitCopy reason:reasonCopy reply:v15];
 }
 
 void __45__CKKSControl_rpcResetCloudKit_reason_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = secLogObjForScope("ckkscontrol");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -701,19 +740,19 @@ void __45__CKKSControl_rpcResetCloudKit_reason_reply___block_invoke_2(uint64_t a
   {
     if (v5)
     {
-      v10 = 138412290;
-      v11 = v3;
+      v9 = 138412290;
+      v10 = v3;
       v6 = "CloudKit reset finished with error: %@";
       v7 = v4;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
     }
   }
 
   else if (v5)
   {
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v6 = "CloudKit reset finished successfully";
     v7 = v4;
     v8 = 2;
@@ -721,44 +760,41 @@ LABEL_6:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v3);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rpcResetLocal:(id)local reply:(id)reply
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   localCopy = local;
   replyCopy = reply;
   v8 = secLogObjForScope("ckkscontrol");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = localCopy;
+    v17 = localCopy;
     _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Requesting a local reset for view %@", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __35__CKKSControl_rpcResetLocal_reply___block_invoke;
-  v15[3] = &unk_1E70DECC0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __35__CKKSControl_rpcResetLocal_reply___block_invoke;
+  v14[3] = &unk_1E70DECC0;
   v9 = replyCopy;
-  v16 = v9;
-  v10 = [(CKKSControl *)self objectProxyWithErrorHandler:v15];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __35__CKKSControl_rpcResetLocal_reply___block_invoke_2;
-  v13[3] = &unk_1E70D4A60;
-  v13[4] = self;
-  v14 = v9;
+  v15 = v9;
+  v10 = [(CKKSControl *)self objectProxyWithErrorHandler:v14];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __35__CKKSControl_rpcResetLocal_reply___block_invoke_2;
+  v12[3] = &unk_1E70D4A60;
+  v12[4] = self;
+  v13 = v9;
   v11 = v9;
-  [v10 rpcResetLocal:localCopy reply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [v10 rpcResetLocal:localCopy reply:v12];
 }
 
 void __35__CKKSControl_rpcResetLocal_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = secLogObjForScope("ckkscontrol");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -766,19 +802,19 @@ void __35__CKKSControl_rpcResetLocal_reply___block_invoke_2(uint64_t a1, void *a
   {
     if (v5)
     {
-      v10 = 138412290;
-      v11 = v3;
+      v9 = 138412290;
+      v10 = v3;
       v6 = "Local reset finished with error: %@";
       v7 = v4;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
     }
   }
 
   else if (v5)
   {
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v6 = "Local reset finished successfully";
     v7 = v4;
     v8 = 2;
@@ -786,7 +822,28 @@ LABEL_6:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v3);
-  v9 = *MEMORY[0x1E69E9840];
+}
+
+- (void)rpcStatus:(id)status fast:(BOOL)fast waitForNonTransientState:(unint64_t)state reply:(id)reply
+{
+  fastCopy = fast;
+  replyCopy = reply;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __61__CKKSControl_rpcStatus_fast_waitForNonTransientState_reply___block_invoke;
+  v17[3] = &unk_1E70DECC0;
+  v11 = replyCopy;
+  v18 = v11;
+  statusCopy = status;
+  v13 = [(CKKSControl *)self objectProxyWithErrorHandler:v17];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __61__CKKSControl_rpcStatus_fast_waitForNonTransientState_reply___block_invoke_2;
+  v15[3] = &unk_1E70D4B00;
+  v15[4] = self;
+  v16 = v11;
+  v14 = v11;
+  [v13 rpcStatus:statusCopy fast:fastCopy waitForNonTransientState:state reply:v15];
 }
 
 - (id)objectProxyWithErrorHandler:(id)handler
@@ -832,6 +889,37 @@ LABEL_6:
   }
 
   return v7;
+}
+
++ (id)CKKSControlObject:(BOOL)object error:(id *)error
+{
+  objectCopy = object;
+  v12[1] = *MEMORY[0x1E69E9840];
+  v6 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.securityd.ckks" options:0];
+  if (v6)
+  {
+    v7 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1EFABB338];
+    CKKSSetupControlProtocol(v7);
+    objc_claimAutoreleasedReturnValue();
+
+    [v6 setRemoteObjectInterface:v7];
+    [v6 resume];
+    error = [[CKKSControl alloc] initWithConnection:v6];
+    [error setSynchronous:objectCopy];
+  }
+
+  else if (error)
+  {
+    v8 = MEMORY[0x1E696ABC0];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = @"Couldn't create connection (no reason given)";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    *error = [v8 errorWithDomain:@"securityd" code:-1 userInfo:v9];
+
+    error = 0;
+  }
+
+  return error;
 }
 
 @end

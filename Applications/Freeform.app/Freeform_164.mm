@@ -1,3 +1,385 @@
+void sub_101315A84()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Guide must have an associated spacing.", v2, v3, v4, v5);
+}
+
+void sub_101315B48()
+{
+  sub_1000C5968();
+  v3 = "[CRLiOSCanvasDragInteractionDelegate dragInteraction:prefersFullSizePreviewsForSession:]";
+  v4 = v0;
+  v5 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSCanvasDragInteractionDelegate.m";
+  v6 = 1024;
+  v7 = 131;
+  v8 = v0;
+  v9 = "canvasDragItem";
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, 0x2Cu);
+}
+
+void sub_101315C34()
+{
+  sub_1000C5968();
+  v3 = "[CRLiOSCanvasDragInteractionDelegate dragInteraction:sessionAllowsMoveOperation:]";
+  v4 = v0;
+  v5 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSCanvasDragInteractionDelegate.m";
+  v6 = 1024;
+  v7 = 138;
+  v8 = v0;
+  v9 = "canvasDragItem";
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, 0x2Cu);
+}
+
+void sub_101315D34()
+{
+  sub_1000C5968();
+  v2 = "[CRLPDFImageProvider i_commonInit]";
+  sub_1000C88F0();
+  v3 = 41;
+  _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d called i_common init twice on same object!", v1, 0x22u);
+}
+
+void sub_101315E04()
+{
+  sub_1000C5968();
+  v2 = "[CRLPDFImageProvider drawImageInContext:rect:]";
+  sub_1000C88F0();
+  v3 = 104;
+  _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't be drawing an invalid image provider", v1, 0x22u);
+}
+
+void sub_101315F24(void *a1)
+{
+  v2 = a1;
+  v8 = [sub_1000C59B8() error];
+  sub_1000CDD68();
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Cu);
+}
+
+void sub_101316048()
+{
+  sub_1000C5968();
+  v3 = "[CRLMoviePosterImageGenerator p_copyCGImageUsingAssetImageGeneratorForTime:error:]";
+  v4 = v0;
+  v5 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLMoviePosterImageGenerator.m";
+  v6 = 1024;
+  v7 = 165;
+  v8 = v0;
+  v9 = "_assetImageGenerator";
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, 0x2Cu);
+}
+
+void sub_101316134()
+{
+  sub_1000C5968();
+  v3 = "[CRLMoviePosterImageGenerator generateCGImageAsynchronouslyForTime:completionHandler:]";
+  v4 = v0;
+  v5 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLMoviePosterImageGenerator.m";
+  v6 = 1024;
+  v7 = 214;
+  v8 = v0;
+  v9 = "handler";
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, 0x2Cu);
+}
+
+void sub_101316220()
+{
+  sub_1000C5968();
+  v2 = "[CRLSwatchRenderingOperation provideSwatchForLaterDelivery:]";
+  sub_1000C88F0();
+  v3 = 286;
+  _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not have two swatches!", v1, 0x22u);
+}
+
+void sub_1013162F0()
+{
+  sub_1000C5968();
+  v2 = "[CRLSwatchRenderingOperation doWorkWithReadLock]";
+  sub_1000C88F0();
+  v3 = 303;
+  _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Subclasses must override", v1, 0x22u);
+}
+
+void sub_1013163D4()
+{
+  sub_1000C5968();
+  sub_1000C59AC();
+  sub_1000C599C();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_1013164C4()
+{
+  sub_1000C5968();
+  sub_1000C59AC();
+  sub_1000C599C();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_1013165A0()
+{
+  sub_1000C59E0();
+  sub_1000C59AC();
+  sub_1000D4D50();
+  sub_100114F34();
+  sub_100114F44();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_101316670()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_10131673C()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_101316808()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_1013168E8()
+{
+  sub_1000C5968();
+  sub_1000C59AC();
+  sub_1000D4D50();
+  sub_100114F34();
+  sub_100114F44();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x36u);
+}
+
+void sub_101316A78(void *a1)
+{
+  v2 = a1;
+  v3 = [sub_1000C59B8() p_libraryURL];
+  sub_1000C59AC();
+  sub_1000D4D50();
+  sub_100114F34();
+  sub_1000CDD68();
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Cu);
+}
+
+void sub_101316C28()
+{
+  sub_1000C59E0();
+  sub_1000C59AC();
+  sub_1000D4D50();
+  sub_100114F34();
+  sub_100114F44();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_101316CF8()
+{
+  sub_1000C5968();
+  sub_1000C59AC();
+  sub_1000C599C();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_101316DE8()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_101316EB4()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_101316F94()
+{
+  sub_1000C5968();
+  sub_1000C599C();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_101317088()
+{
+  sub_1000C5968();
+  sub_1000C599C();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_10131717C()
+{
+  sub_1000C5968();
+  sub_1000C599C();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_101317314()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_1013173F4()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_1013174D4()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_1013175B4()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_101317694()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000CEEE0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+}
+
+void sub_101317774(int a1, NSObject *a2)
+{
+  v2[0] = 67109890;
+  v2[1] = a1;
+  v3 = 2082;
+  v4 = "[CRLTextInputResponder(ObjCExtension) forwardInvocation:]";
+  v5 = 2082;
+  v6 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLTextInputResponder.m";
+  v7 = 1024;
+  v8 = 62;
+  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The OS undo gestures should not be sending us selectors we can't respond to!", v2, 0x22u);
+}
+
+void sub_10131785C()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Abstract method", v2, v3, v4, v5);
+}
+
+void sub_101317920()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Abstract method", v2, v3, v4, v5);
+}
+
+void sub_1013179E4()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Abstract method", v2, v3, v4, v5);
+}
+
+void sub_101317AA8()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Abstract method", v2, v3, v4, v5);
+}
+
+void sub_101317B6C()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Abstract method", v2, v3, v4, v5);
+}
+
+void sub_101317C30()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Abstract method", v2, v3, v4, v5);
+}
+
+void sub_101317CF4()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Abstract method", v2, v3, v4, v5);
+}
+
+void sub_101317DB8()
+{
+  sub_1000C5968();
+  sub_1000C88F0();
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Abstract method", v2, v3, v4, v5);
+}
+
+void sub_101317E90(uint64_t a1, int a2)
+{
+  v4[0] = 67110146;
+  v4[1] = a2;
+  v5 = 2082;
+  sub_1000C59AC();
+  v6 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLMetalShaderManager.m";
+  v7 = 1024;
+  v8 = 57;
+  v9 = 2112;
+  v10 = v2;
+  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Failed to create library, error %@", v4, 0x2Cu);
+}
+
+void sub_101317F84()
+{
+  sub_1000C5968();
+  sub_1000C59AC();
+  sub_1000C599C();
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
+}
+
+void sub_101318058()
+{
+  sub_1000C5968();
+  sub_1000C59AC();
+  sub_1000C599C();
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
+}
+
+void sub_10131812C()
+{
+  sub_1000C5968();
+  sub_1000C59AC();
+  sub_1000C599C();
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
+}
+
 void sub_101318214()
 {
   sub_1000C5968();
@@ -22,7 +404,7 @@ void sub_1013183B4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101318470(void *a1)
@@ -69,7 +451,7 @@ void sub_1013187F0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013188C0()
@@ -78,7 +460,7 @@ void sub_1013188C0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013189A4()
@@ -87,7 +469,7 @@ void sub_1013189A4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101318A74()
@@ -105,7 +487,7 @@ void sub_101318B44()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101318C3C(void *a1, uint8_t *buf, int a3, os_log_t log)
@@ -121,35 +503,35 @@ void sub_101318D08()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Angle out of range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Angle out of range", v2, v3, v4, v5);
 }
 
 void sub_101318DE0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Angle out of range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Angle out of range", v2, v3, v4, v5);
 }
 
 void sub_101318EA4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLSizeExpandedToMatchAspectRatio() actually shrank the size", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLSizeExpandedToMatchAspectRatio() actually shrank the size", v2, v3, v4, v5);
 }
 
 void sub_101318F68()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot give scale = 0 for CRLRoundedRectForScale!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot give scale = 0 for CRLRoundedRectForScale!", v2, v3, v4, v5);
 }
 
 void sub_10131902C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot give scale = 0 for CRLRoundedRectForScale!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot give scale = 0 for CRLRoundedRectForScale!", v2, v3, v4, v5);
 }
 
 void sub_101319104(uint8_t *a1, void *a2, uint64_t a3, void *a4)
@@ -440,28 +822,28 @@ void sub_10131AB08()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Sanboxing access didn't transfer as expected to sandboxed URL copy.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Sanboxing access didn't transfer as expected to sandboxed URL copy.", v2, v3, v4, v5);
 }
 
 void sub_10131ABCC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Copy should never be nil.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Copy should never be nil.", v2, v3, v4, v5);
 }
 
 void sub_10131AC90()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Sanboxing access didn't transfer as expected to sandboxed URL copy.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Sanboxing access didn't transfer as expected to sandboxed URL copy.", v2, v3, v4, v5);
 }
 
 void sub_10131AD54()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Copy should never be nil.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Copy should never be nil.", v2, v3, v4, v5);
 }
 
 void sub_10131AE18()
@@ -520,63 +902,63 @@ void sub_10131B2B4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not reuse an imager unless it has been explicitly marked as safe to reuse", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not reuse an imager unless it has been explicitly marked as safe to reuse", v2, v3, v4, v5);
 }
 
 void sub_10131B378()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot call viewScale if scaledImageSize has been set.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot call viewScale if scaledImageSize has been set.", v2, v3, v4, v5);
 }
 
 void sub_10131B43C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d viewScale must be > 0.0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d viewScale must be > 0.0", v2, v3, v4, v5);
 }
 
 void sub_10131B500()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot call contentsScale if scaledImageSize has been set.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot call contentsScale if scaledImageSize has been set.", v2, v3, v4, v5);
 }
 
 void sub_10131B5C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d contentsScale must be > 0.0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d contentsScale must be > 0.0", v2, v3, v4, v5);
 }
 
 void sub_10131B688()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot call scaledImageSize if viewScale or contentsScale has been set.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot call scaledImageSize if viewScale or contentsScale has been set.", v2, v3, v4, v5);
 }
 
 void sub_10131B74C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d can't make an image with 0 width or height", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d can't make an image with 0 width or height", v2, v3, v4, v5);
 }
 
 void sub_10131B824()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d given a non-integral scaled image size", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d given a non-integral scaled image size", v2, v3, v4, v5);
 }
 
 void sub_10131B8E8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d given a non-integral maximum image size", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d given a non-integral maximum image size", v2, v3, v4, v5);
 }
 
 void sub_10131B9AC()
@@ -596,42 +978,42 @@ void sub_10131BA98()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong canvas", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong canvas", v2, v3, v4, v5);
 }
 
 void sub_10131BB5C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong canvas", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong canvas", v2, v3, v4, v5);
 }
 
 void sub_10131BC20()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong canvas", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong canvas", v2, v3, v4, v5);
 }
 
 void sub_10131BCE4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Using a specific scaled image size and max image size at the same time is unsupported.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Using a specific scaled image size and max image size at the same time is unsupported.", v2, v3, v4, v5);
 }
 
 void sub_10131BDBC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d both ratios in imager are zero!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d both ratios in imager are zero!", v2, v3, v4, v5);
 }
 
 void sub_10131BEBC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't be reusing context", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't be reusing context", v2, v3, v4, v5);
 }
 
 void sub_10131BF80(int a1, NSObject *a2)
@@ -757,7 +1139,7 @@ void sub_10131C9E0(uint64_t a1, void *a2, void *a3)
   v7 = [a3 domain];
   [a3 code];
   sub_10013F708();
-  sub_10013F740(&_mh_execute_header, v8, v9, "Unable to decode data %p: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v10, v11, v12, v13, v14);
+  sub_10013F740(&_mh_execute_header, v8, v9, "Unable to decode data %p: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v10, v11, v12, v13);
 }
 
 void sub_10131CAD0(uint64_t a1, NSObject *a2)
@@ -775,7 +1157,7 @@ void sub_10131CB70(uint64_t a1, void *a2, void *a3)
   v7 = [a3 domain];
   [a3 code];
   sub_10013F708();
-  sub_10013F740(&_mh_execute_header, v8, v9, "Error reading data from path %@, errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v10, v11, v12, v13, v14);
+  sub_10013F740(&_mh_execute_header, v8, v9, "Error reading data from path %@, errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v10, v11, v12, v13);
 }
 
 void sub_10131CC60(void *a1, int a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
@@ -803,7 +1185,7 @@ void sub_10131CDB4()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10131CE9C()
@@ -811,7 +1193,7 @@ void sub_10131CE9C()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10131CF84()
@@ -819,7 +1201,7 @@ void sub_10131CF84()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10131D058()
@@ -827,7 +1209,7 @@ void sub_10131D058()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5);
 }
 
 void sub_10131D140(uint64_t a1, int a2)
@@ -849,7 +1231,7 @@ void sub_10131D234()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10131D308()
@@ -857,7 +1239,7 @@ void sub_10131D308()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10131D3DC(void *a1, void *a2)
@@ -871,7 +1253,7 @@ void sub_10131D3DC(void *a1, void *a2)
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100142454();
-  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error saving image data! errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13);
+  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error saving image data! errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12);
 }
 
 void sub_10131D500(void *a1, void *a2)
@@ -885,7 +1267,7 @@ void sub_10131D500(void *a1, void *a2)
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100142454();
-  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error saving image data! errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13);
+  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error saving image data! errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12);
 }
 
 void sub_10131D624(void *a1, void *a2)
@@ -899,7 +1281,7 @@ void sub_10131D624(void *a1, void *a2)
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100142454();
-  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error saving image data! errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13);
+  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error saving image data! errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12);
 }
 
 void sub_10131D748()
@@ -947,49 +1329,49 @@ void sub_10131DA9C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected editor controller!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected editor controller!", v2, v3, v4, v5);
 }
 
 void sub_10131DB60()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Callers to -[CRLCanvasEditor maskWithShape:] must have a -[tag] method to specify the shape type to use for the image mask.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Callers to -[CRLCanvasEditor maskWithShape:] must have a -[tag] method to specify the shape type to use for the image mask.", v2, v3, v4, v5);
 }
 
 void sub_10131DC24()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Canvas editor expects canvas selection!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Canvas editor expects canvas selection!", v2, v3, v4, v5);
 }
 
 void sub_10131DCE8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Canvas editor expects canvas selection!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Canvas editor expects canvas selection!", v2, v3, v4, v5);
 }
 
 void sub_10131DDAC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expected a command group to be open.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expected a command group to be open.", v2, v3, v4, v5);
 }
 
 void sub_10131DE70()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not be given file promises in normal paste logic! App being copied from is misbehaving.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not be given file promises in normal paste logic! App being copied from is misbehaving.", v2, v3, v4, v5);
 }
 
 void sub_10131DF98()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d couldn't find selected info in all drawables!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d couldn't find selected info in all drawables!", v2, v3, v4, v5);
 }
 
 void sub_10131E05C()
@@ -1120,7 +1502,7 @@ void sub_10131EBCC()
 {
   +[CRLAssertionHandler packedBacktraceString];
   sub_10015B6E4();
-  sub_100100F84(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v2, v3, v4, v5, v6);
+  sub_100100F84(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v2, v3, v4, v5);
 }
 
 uint64_t sub_10131ECB4()
@@ -1151,22 +1533,23 @@ void sub_10131EDA4(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)
 void sub_10131EE10(void *a1, int a2)
 {
   v3 = a1;
-  strerror(a2);
-  sub_10015D8A8(&_mh_execute_header, v4, v5, "Error cleaning up dispatch channel: %{public}s", v6, v7, v8, v9, 2u);
+  LODWORD(v10) = 136446210;
+  *(&v10 + 4) = strerror(a2);
+  sub_10015D8A8(&_mh_execute_header, v4, v5, "Error cleaning up dispatch channel: %{public}s", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void sub_10131EEC4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5);
 }
 
 void sub_10131EF88()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5);
 }
 
 void sub_10131F04C()
@@ -1204,49 +1587,49 @@ void sub_10131F23C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel file descriptor is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel file descriptor is closed", v2, v3, v4, v5);
 }
 
 void sub_10131F300()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5);
 }
 
 void sub_10131F3C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5);
 }
 
 void sub_10131F488()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5);
 }
 
 void sub_10131F54C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel file descriptor is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel file descriptor is closed", v2, v3, v4, v5);
 }
 
 void sub_10131F610()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5);
 }
 
 void sub_10131F6D4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Channel is closed", v2, v3, v4, v5);
 }
 
 void sub_10131F890()
@@ -1273,7 +1656,7 @@ void sub_10131FA44()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10131FB64()
@@ -1282,7 +1665,7 @@ void sub_10131FB64()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10131FC48()
@@ -1302,7 +1685,7 @@ void sub_10131FD38()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10131FE1C(uint64_t a1, int a2)
@@ -1325,7 +1708,7 @@ void sub_10131FF10()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10131FFE0()
@@ -1472,7 +1855,7 @@ void sub_101320C04()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101320CD4()
@@ -1481,7 +1864,7 @@ void sub_101320CD4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101320DB8()
@@ -1490,7 +1873,7 @@ void sub_101320DB8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101320E9C()
@@ -1499,7 +1882,7 @@ void sub_101320E9C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101320F94()
@@ -1695,21 +2078,21 @@ void sub_101322180()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't set shouldTouchesOutsideCancel after loading the view", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't set shouldTouchesOutsideCancel after loading the view", v2, v3, v4, v5);
 }
 
 void sub_101322244()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't add a cancel button after loading the view", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't add a cancel button after loading the view", v2, v3, v4, v5);
 }
 
 void sub_10132231C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't have more than one cancel button", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't have more than one cancel button", v2, v3, v4, v5);
 }
 
 void sub_1013223E0(void *a1, char a2, NSObject *a3)
@@ -1940,119 +2323,119 @@ void sub_10132358C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown CRLGLDataBufferDataType!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown CRLGLDataBufferDataType!", v2, v3, v4, v5);
 }
 
 void sub_101323650()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5);
 }
 
 void sub_101323714()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5);
 }
 
 void sub_1013237D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5);
 }
 
 void sub_10132389C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5);
 }
 
 void sub_101323960()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5);
 }
 
 void sub_101323A24()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5);
 }
 
 void sub_101323AE8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5);
 }
 
 void sub_101323BAC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown data type!", v2, v3, v4, v5);
 }
 
 void sub_101323C70()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to generate buffer(s)!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to generate buffer(s)!", v2, v3, v4, v5);
 }
 
 void sub_101323D8C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d no attributes!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d no attributes!", v2, v3, v4, v5);
 }
 
 void sub_101323E64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d vertexCount==0!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d vertexCount==0!", v2, v3, v4, v5);
 }
 
 void sub_101323F3C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bufferCount==0!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bufferCount==0!", v2, v3, v4, v5);
 }
 
 void sub_101324000()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Element array count Sanity check", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Element array count Sanity check", v2, v3, v4, v5);
 }
 
 void sub_1013240C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to generate buffer!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to generate buffer!", v2, v3, v4, v5);
 }
 
 void sub_1013241D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Too many vertices!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Too many vertices!", v2, v3, v4, v5);
 }
 
 void sub_10132429C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mesh size is not at least 2x2!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mesh size is not at least 2x2!", v2, v3, v4, v5);
 }
 
 void sub_101324360()
@@ -2085,42 +2468,42 @@ void sub_10132454C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't initialize metal buffers without a device!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't initialize metal buffers without a device!", v2, v3, v4, v5);
 }
 
 void sub_101324610()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mesh size is not at least 2x2!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mesh size is not at least 2x2!", v2, v3, v4, v5);
 }
 
 void sub_1013246D4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can only be called on a buffer that conforms to metal protocol!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can only be called on a buffer that conforms to metal protocol!", v2, v3, v4, v5);
 }
 
 void sub_101324798()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown attribute size!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown attribute size!", v2, v3, v4, v5);
 }
 
 void sub_10132485C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can only be called from within update block!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can only be called from within update block!", v2, v3, v4, v5);
 }
 
 void sub_101324920()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101324A20(uint64_t a1, int a2, NSObject *a3)
@@ -2156,28 +2539,28 @@ void sub_101324B60()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101324C38()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d userInteraction should be enabled when _userInteractionEnabledCount = 0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d userInteraction should be enabled when _userInteractionEnabledCount = 0", v2, v3, v4, v5);
 }
 
 void sub_101324CFC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101324DD4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Called endIgnoringUserInteractionWithToken without matching beginIgnoringUserInteraction", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Called endIgnoringUserInteractionWithToken without matching beginIgnoringUserInteraction", v2, v3, v4, v5);
 }
 
 void sub_10132503C()
@@ -2204,21 +2587,21 @@ void sub_101325214()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_1013252EC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Setting up player controller when movie isn't playable!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Setting up player controller when movie isn't playable!", v2, v3, v4, v5);
 }
 
 void sub_1013253C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Setting up player controller for data that needs to be downloaded!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Setting up player controller for data that needs to be downloaded!", v2, v3, v4, v5);
 }
 
 void sub_10132549C()
@@ -2235,21 +2618,21 @@ void sub_10132559C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101325660()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Attempting to tear down the player controller with inconsistent flag/dynamic time state", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Attempting to tear down the player controller with inconsistent flag/dynamic time state", v2, v3, v4, v5);
 }
 
 void sub_10132574C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101325810()
@@ -2266,35 +2649,35 @@ void sub_1013258E8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Dynamic poster time changes can only be made on the main thread", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Dynamic poster time changes can only be made on the main thread", v2, v3, v4, v5);
 }
 
 void sub_1013259AC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Dynamic poster time changes can only be made on the main thread", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Dynamic poster time changes can only be made on the main thread", v2, v3, v4, v5);
 }
 
 void sub_101325A84()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d A dynamic poster time change must be in progress", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d A dynamic poster time change must be in progress", v2, v3, v4, v5);
 }
 
 void sub_101325B48()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Dynamic poster time changes can only be made on the main thread", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Dynamic poster time changes can only be made on the main thread", v2, v3, v4, v5);
 }
 
 void sub_101325C20()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mismatch between starting and ending dynamic visible poster time changes", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mismatch between starting and ending dynamic visible poster time changes", v2, v3, v4, v5);
 }
 
 void sub_101325CF8()
@@ -2303,7 +2686,7 @@ void sub_101325CF8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101325DDC()
@@ -2312,7 +2695,7 @@ void sub_101325DDC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101325EC0()
@@ -2320,7 +2703,7 @@ void sub_101325EC0()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000D4D50();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Buffer size too small: %zu", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Buffer size too small: %zu", v2, v3, v4, v5);
 }
 
 void sub_101325FE0(void *a1, void *a2)
@@ -2334,7 +2717,7 @@ void sub_101325FE0(void *a1, void *a2)
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100142454();
-  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error reading from filter CRLStreamReadChannel: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13);
+  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error reading from filter CRLStreamReadChannel: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12);
 }
 
 void sub_101326104()
@@ -2359,7 +2742,7 @@ void sub_1013261F4(void *a1, void *a2)
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100142454();
-  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error reading from source CRLReadChannel: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13);
+  sub_10014249C(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Error reading from source CRLReadChannel: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12);
 }
 
 void sub_10132637C()
@@ -2368,7 +2751,7 @@ void sub_10132637C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10132649C()
@@ -2377,28 +2760,28 @@ void sub_10132649C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10132656C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d lineWidth should not be negative.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d lineWidth should not be negative.", v2, v3, v4, v5);
 }
 
 void sub_101326644()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can not calculate the stroked bounds of an empty path.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can not calculate the stroked bounds of an empty path.", v2, v3, v4, v5);
 }
 
 void sub_101326708()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Couldn't get a gradient for this join, but this should have been caught upstream by skipping no-op segments.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Couldn't get a gradient for this join, but this should have been caught upstream by skipping no-op segments.", v2, v3, v4, v5);
 }
 
 void sub_1013267CC(int a1, int a2, os_log_t log)
@@ -2420,7 +2803,7 @@ void sub_1013268C0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d path gradient can't handle moveTo element", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d path gradient can't handle moveTo element", v2, v3, v4, v5);
 }
 
 void sub_101326984(int a1, NSObject *a2)
@@ -2565,7 +2948,7 @@ void sub_10132765C(void *a1, void *a2)
   objc_opt_class();
   sub_10019F700();
   v6 = sub_10019F714(v5);
-  sub_10019F734(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unable to perform comparison on %{public}@", v9, v10, v11, v12, v13);
+  sub_10019F734(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unable to perform comparison on %{public}@", v9, v10, v11, v12);
 }
 
 void sub_101327770(void *a1, void *a2)
@@ -2575,7 +2958,7 @@ void sub_101327770(void *a1, void *a2)
   objc_opt_class();
   sub_10019F700();
   v6 = sub_10019F714(v5);
-  sub_10019F734(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unable to perform comparison on %{public}@", v9, v10, v11, v12, v13);
+  sub_10019F734(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unable to perform comparison on %{public}@", v9, v10, v11, v12);
 }
 
 void sub_101327884(int a1, NSObject *a2)
@@ -2615,7 +2998,7 @@ void sub_101327A4C()
   sub_1001A7A04();
   +[CRLAssertionHandler packedBacktraceString];
   sub_10015B6E4();
-  sub_100100F84(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v2, v3, v4, v5, v6);
+  sub_100100F84(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v2, v3, v4, v5);
 }
 
 uint64_t sub_101327AE0()
@@ -3244,70 +3627,70 @@ void sub_10132A7E0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to recover from CoreGraphics and CRLBrushStroke failing to stroke.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to recover from CoreGraphics and CRLBrushStroke failing to stroke.", v2, v3, v4, v5);
 }
 
 void sub_10132A8A4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot offset path that is already smaller than the offset amount!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot offset path that is already smaller than the offset amount!", v2, v3, v4, v5);
 }
 
 void sub_10132A968()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If delta X is 0, we would divide by zero.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If delta X is 0, we would divide by zero.", v2, v3, v4, v5);
 }
 
 void sub_10132AA2C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The wrap path cannot be empty when calculating the convex hull.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The wrap path cannot be empty when calculating the convex hull.", v2, v3, v4, v5);
 }
 
 void sub_10132AB04()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d firstElementAfter should be at least 1.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d firstElementAfter should be at least 1.", v2, v3, v4, v5);
 }
 
 void sub_10132ABDC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -pathByCreatingHoleInPathAtPoint doesn't know how to handle close elements.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -pathByCreatingHoleInPathAtPoint doesn't know how to handle close elements.", v2, v3, v4, v5);
 }
 
 void sub_10132ACB4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we have a path before, the last element before +1 should be a curve or line.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we have a path before, the last element before +1 should be a curve or line.", v2, v3, v4, v5);
 }
 
 void sub_10132AD8C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -pathByCreatingHoleInPathAtPoint doesn't know how to handle close elements.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -pathByCreatingHoleInPathAtPoint doesn't know how to handle close elements.", v2, v3, v4, v5);
 }
 
 void sub_10132AE64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we have a path after, the first element after should be a curve or line.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we have a path after, the first element after should be a curve or line.", v2, v3, v4, v5);
 }
 
 void sub_10132AF28()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to split a path with subpaths less than 2 elements at a time.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to split a path with subpaths less than 2 elements at a time.", v2, v3, v4, v5);
 }
 
 void sub_10132B028(uint8_t *buf, int a2, uint64_t a3, os_log_t log)
@@ -3329,7 +3712,7 @@ void sub_10132B0F0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d It is impossible to find pointAlongPathAtPercentage at any percentage of an empty path.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d It is impossible to find pointAlongPathAtPercentage at any percentage of an empty path.", v2, v3, v4, v5);
 }
 
 void sub_10132B2B8(int a1, NSObject *a2, double a3)
@@ -3351,63 +3734,63 @@ void sub_10132B3AC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d lineWidth should not be negative.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d lineWidth should not be negative.", v2, v3, v4, v5);
 }
 
 void sub_10132B484()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can not calculate the stroked bounds of an empty path.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can not calculate the stroked bounds of an empty path.", v2, v3, v4, v5);
 }
 
 void sub_10132B548()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should provide a threshold if not looking for the closest match.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should provide a threshold if not looking for the closest match.", v2, v3, v4, v5);
 }
 
 void sub_10132B620()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No valid roots!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No valid roots!", v2, v3, v4, v5);
 }
 
 void sub_10132B6F8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d isnan!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d isnan!", v2, v3, v4, v5);
 }
 
 void sub_10132B8AC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected angle sign", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected angle sign", v2, v3, v4, v5);
 }
 
 void sub_10132B970()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must provide a group info or nil as parent of a counter rotate info!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must provide a group info or nil as parent of a counter rotate info!", v2, v3, v4, v5);
 }
 
 void sub_10132BA34()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We don't expect this to be called", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We don't expect this to be called", v2, v3, v4, v5);
 }
 
 void sub_10132BAF8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We don't expect this to be called", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We don't expect this to be called", v2, v3, v4, v5);
 }
 
 void sub_10132BBBC()
@@ -3416,7 +3799,7 @@ void sub_10132BBBC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5);
 }
 
 void sub_10132BC8C()
@@ -3425,7 +3808,7 @@ void sub_10132BC8C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10132BD5C()
@@ -3434,7 +3817,7 @@ void sub_10132BD5C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10132BE2C()
@@ -3443,7 +3826,7 @@ void sub_10132BE2C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10132BEE8(void *a1, int a2)
@@ -3463,7 +3846,7 @@ void sub_10132C000()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10132C0D0()
@@ -3472,7 +3855,7 @@ void sub_10132C0D0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10132C1DC(int a1, NSObject *a2)
@@ -3656,28 +4039,28 @@ void sub_10132D384()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out of bounds error when appending a strokePointData object.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out of bounds error when appending a strokePointData object.", v2, v3, v4, v5);
 }
 
 void sub_10132D448()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out of bounds error when appending a strokePointData object.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out of bounds error when appending a strokePointData object.", v2, v3, v4, v5);
 }
 
 void sub_10132D50C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds startingAtIndex parameter.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds startingAtIndex parameter.", v2, v3, v4, v5);
 }
 
 void sub_10132D5E4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds endAtIndex parameter.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds endAtIndex parameter.", v2, v3, v4, v5);
 }
 
 void sub_10132D838()
@@ -3697,7 +4080,7 @@ void sub_10132D924()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpectedly failed to generate B-Spline control points.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpectedly failed to generate B-Spline control points.", v2, v3, v4, v5);
 }
 
 void sub_10132D9E8()
@@ -3998,21 +4381,21 @@ void sub_10132F5EC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected Bezier element type", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected Bezier element type", v2, v3, v4, v5);
 }
 
 void sub_10132F700()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d At least 2 points expected", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d At least 2 points expected", v2, v3, v4, v5);
 }
 
 void sub_10132F7C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d At least 2 points expected before the tail", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d At least 2 points expected before the tail", v2, v3, v4, v5);
 }
 
 void sub_10132F89C(int a1, uint8_t *buf, int a3, os_log_t log)
@@ -4034,7 +4417,7 @@ void sub_10132F974()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Undefined cubic control points", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Undefined cubic control points", v2, v3, v4, v5);
 }
 
 void sub_10132FBC4()
@@ -4049,16 +4432,18 @@ void sub_10132FC90(uint64_t a1, void *a2)
 {
   v2 = *(*(a1 + 32) + 16);
   v3 = a2;
-  [v2 count];
-  sub_10015D8A8(&_mh_execute_header, v4, v5, "Failed to parse ZIP entry %tu. Will attempt to adjust offset backward.", v6, v7, v8, v9, 0);
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = [v2 count] + 1;
+  sub_10015D8A8(&_mh_execute_header, v4, v5, "Failed to parse ZIP entry %tu. Will attempt to adjust offset backward.", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void sub_10132FD38(uint64_t a1, void *a2)
 {
   v2 = *(*(a1 + 32) + 16);
   v3 = a2;
-  [v2 count];
-  sub_10015D8A8(&_mh_execute_header, v4, v5, "Failed to parse ZIP entry %tu. Will attempt to adjust offset forward.", v6, v7, v8, v9, 0);
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = [v2 count] + 1;
+  sub_10015D8A8(&_mh_execute_header, v4, v5, "Failed to parse ZIP entry %tu. Will attempt to adjust offset forward.", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void sub_10132FF04()
@@ -4083,7 +4468,7 @@ void sub_10133018C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101330248(void *a1)
@@ -4099,7 +4484,7 @@ void sub_1013302C4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013303A8()
@@ -4108,7 +4493,7 @@ void sub_1013303A8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10133048C()
@@ -4117,7 +4502,7 @@ void sub_10133048C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101330570()
@@ -4126,7 +4511,7 @@ void sub_101330570()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101330654()
@@ -4135,7 +4520,7 @@ void sub_101330654()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101330788()
@@ -4144,7 +4529,7 @@ void sub_101330788()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10133086C()
@@ -4153,7 +4538,7 @@ void sub_10133086C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10133093C()
@@ -4295,7 +4680,7 @@ void sub_10133145C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Tool does not support azimuth.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Tool does not support azimuth.", v2, v3, v4, v5);
 }
 
 void sub_101331520()
@@ -4331,14 +4716,14 @@ void sub_10133176C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Tool does not support azimuth.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Tool does not support azimuth.", v2, v3, v4, v5);
 }
 
 void sub_101331844()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should have at least one stroke width option.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should have at least one stroke width option.", v2, v3, v4, v5);
 }
 
 void sub_101331908()
@@ -4376,182 +4761,182 @@ void sub_101331BD0()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101331D0C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No columns to lay out into", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No columns to lay out into", v2, v3, v4, v5);
 }
 
 void sub_101331DE4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Column index mismatch", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Column index mismatch", v2, v3, v4, v5);
 }
 
 void sub_101331EA8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Too many layoutStates pushed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Too many layoutStates pushed", v2, v3, v4, v5);
 }
 
 void sub_10133200C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d stack size is invalid", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d stack size is invalid", v2, v3, v4, v5);
 }
 
 void sub_10133210C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad paragraphEnumerator", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad paragraphEnumerator", v2, v3, v4, v5);
 }
 
 void sub_101332234()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad _state.paragraphRange.length", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad _state.paragraphRange.length", v2, v3, v4, v5);
 }
 
 void sub_1013322F8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We should not restore from our own object.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We should not restore from our own object.", v2, v3, v4, v5);
 }
 
 void sub_1013323D0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad _typesetterCharIndex", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad _typesetterCharIndex", v2, v3, v4, v5);
 }
 
 void sub_101332494()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d _pushedStates stack is empty", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d _pushedStates stack is empty", v2, v3, v4, v5);
 }
 
 void sub_101332558()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101332644()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad _state.column() in layoutColumn", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad _state.column() in layoutColumn", v2, v3, v4, v5);
 }
 
 void sub_10133280C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad lineHeightGuess", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad lineHeightGuess", v2, v3, v4, v5);
 }
 
 void sub_1013328E4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layout failure, No old lines.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layout failure, No old lines.", v2, v3, v4, v5);
 }
 
 void sub_101332C64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d anchoredCharIndex shouldn't go backwards", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d anchoredCharIndex shouldn't go backwards", v2, v3, v4, v5);
 }
 
 void sub_101332D3C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d discrepancy computing anchored range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d discrepancy computing anchored range", v2, v3, v4, v5);
 }
 
 void sub_101332EA0()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101332F78()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad _state.charIndex", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad _state.charIndex", v2, v3, v4, v5);
 }
 
 void sub_101333050()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad line end", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad line end", v2, v3, v4, v5);
 }
 
 void sub_101333128()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad glyphCount", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad glyphCount", v2, v3, v4, v5);
 }
 
 void sub_101333200()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d failed to create a line fragment", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d failed to create a line fragment", v2, v3, v4, v5);
 }
 
 void sub_1013332C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d pIsLastColumn doesn't work on the body or TOC", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d pIsLastColumn doesn't work on the body or TOC", v2, v3, v4, v5);
 }
 
 void sub_101333388()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad minHeight/maxHeight", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad minHeight/maxHeight", v2, v3, v4, v5);
 }
 
 void sub_10133344C()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101333524()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013335FC()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013336D4(uint64_t a1, int a2, os_log_t log)
@@ -4922,7 +5307,7 @@ void sub_101335B7C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Specified range is out of range of string", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Specified range is out of range of string", v2, v3, v4, v5);
 }
 
 void sub_101335C2C()
@@ -4936,7 +5321,7 @@ void sub_101335C98()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Character index out of range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Character index out of range", v2, v3, v4, v5);
 }
 
 void sub_101335D5C()
@@ -4983,16 +5368,16 @@ void sub_1013360F0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal value for arabic numeral topic label <= 0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal value for arabic numeral topic label <= 0", v2, v3, v4, v5);
 }
 
 void sub_1013361A0()
 {
-  if (__cxa_guard_acquire(&qword_101A34888))
+  if (__cxa_guard_acquire(byte_101A34888))
   {
     __cxa_atexit(sub_100221874, 0, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_101A34888);
+    __cxa_guard_release(byte_101A34888);
   }
 }
 
@@ -5000,70 +5385,70 @@ void sub_101336218()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal value for roman numeral topic label <= 0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal value for roman numeral topic label <= 0", v2, v3, v4, v5);
 }
 
 void sub_1013362DC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal value for circled number numeral topic label <= 0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal value for circled number numeral topic label <= 0", v2, v3, v4, v5);
 }
 
 void sub_1013363A0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal value for arabic numeral topic label <= 0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal value for arabic numeral topic label <= 0", v2, v3, v4, v5);
 }
 
 void sub_101336464()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d number out of bounds for algorithm", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d number out of bounds for algorithm", v2, v3, v4, v5);
 }
 
 void sub_10133653C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d string out of bounds", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d string out of bounds", v2, v3, v4, v5);
 }
 
 void sub_101336600()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Hebrew number out of bounds for algorithm", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Hebrew number out of bounds for algorithm", v2, v3, v4, v5);
 }
 
 void sub_1013366D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d string out of bounds", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d string out of bounds", v2, v3, v4, v5);
 }
 
 void sub_10133679C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index out of bounds", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index out of bounds", v2, v3, v4, v5);
 }
 
 void sub_101336860()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid surrogate pair", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid surrogate pair", v2, v3, v4, v5);
 }
 
 void sub_101336924()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index inside surrogate pair", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index inside surrogate pair", v2, v3, v4, v5);
 }
 
 void sub_101336A9C()
@@ -5079,49 +5464,49 @@ void sub_101336B80()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index is out of bounds", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index is out of bounds", v2, v3, v4, v5);
 }
 
 void sub_101336C44()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d inDigit is larger than single digit", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d inDigit is larger than single digit", v2, v3, v4, v5);
 }
 
 void sub_101336D08()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d inValue too large for ideographicNumberStringForSmallValue", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d inValue too large for ideographicNumberStringForSmallValue", v2, v3, v4, v5);
 }
 
 void sub_101336DCC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d number out of range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d number out of range", v2, v3, v4, v5);
 }
 
 void sub_101336EA4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d string out of range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d string out of range", v2, v3, v4, v5);
 }
 
 void sub_101336F68()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d number out of range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d number out of range", v2, v3, v4, v5);
 }
 
 void sub_101337040()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d string out of range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d string out of range", v2, v3, v4, v5);
 }
 
 void sub_101337104()
@@ -5189,7 +5574,7 @@ BOOL sub_1013374D0(_DWORD *a1)
   {
     sub_100142488();
     sub_1000C88F0();
-    sub_10022BC90(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to max", v6, v7, v8, v9, v10);
+    sub_10022BC90(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to max", v6, v7, v8, v9);
   }
 
   sub_10022BC78();
@@ -5247,7 +5632,7 @@ BOOL sub_101337768(_DWORD *a1)
   {
     sub_100142488();
     sub_1000C88F0();
-    sub_10022BC90(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to max", v6, v7, v8, v9, v10);
+    sub_10022BC90(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to max", v6, v7, v8, v9);
   }
 
   sub_10022BC78();
@@ -5273,7 +5658,7 @@ BOOL sub_10133788C(_DWORD *a1)
   {
     sub_100142488();
     sub_1000C88F0();
-    sub_10022BC90(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to max", v6, v7, v8, v9, v10);
+    sub_10022BC90(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to max", v6, v7, v8, v9);
   }
 
   sub_10022BC78();
@@ -5439,21 +5824,21 @@ void sub_1013387B0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot add line to subpath without move first", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot add line to subpath without move first", v2, v3, v4, v5);
 }
 
 void sub_101338874()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot add line to subpath without move first", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot add line to subpath without move first", v2, v3, v4, v5);
 }
 
 void sub_101338938()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot close subpath without a line or curve segment", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot close subpath without a line or curve segment", v2, v3, v4, v5);
 }
 
 void sub_101338A10(void *a1, void *a2)
@@ -5477,7 +5862,7 @@ void sub_101338B18()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101338C40(void *a1, NSObject *a2)
@@ -5514,14 +5899,14 @@ void sub_101338E04()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101338EDC()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101338FA0(void *a1, int a2)
@@ -5588,21 +5973,21 @@ void sub_1013395E4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Tried to free transform with no reps", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Tried to free transform with no reps", v2, v3, v4, v5);
 }
 
 void sub_1013396BC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLCanvasRepFreeTransformTracker: could not find a selected rep for the given layout", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLCanvasRepFreeTransformTracker: could not find a selected rep for the given layout", v2, v3, v4, v5);
 }
 
 void sub_101339780()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mismatched rep count", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mismatched rep count", v2, v3, v4, v5);
 }
 
 void sub_101339844()
@@ -5675,9 +6060,11 @@ void sub_101339DB4()
 void sub_101339E6C()
 {
   sub_1001A7A04();
-  v0 = +[CRLAssertionHandler packedBacktraceString];
+  v1 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v8) = 67109378;
+  HIDWORD(v8) = v0;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v1, v2, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v3, v4, v5, v6, 2u);
+  sub_100100F84(&_mh_execute_header, v2, v3, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v4, v5, v6, v7, v8);
 }
 
 void sub_101339F38()
@@ -5789,6 +6176,13 @@ void sub_10133AA14()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
+void sub_10133AAE0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10024EDA4(&_mh_execute_header, a2, a3, "Pushing editor %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10133AB74()
 {
   sub_1000C5968();
@@ -5805,6 +6199,13 @@ void sub_10133AC54()
   sub_1000C59F4();
   sub_1000CEEE0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_10133AD2C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10024EDA4(&_mh_execute_header, a2, a3, "Popping editor %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10133ADC0()
@@ -5841,6 +6242,13 @@ void sub_10133B044()
   sub_1000C59F4();
   sub_1000CEEE0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
+}
+
+void sub_10133B130(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10024EDA4(&_mh_execute_header, a2, a3, "Editor %@ changed selection and wants keyboard", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10133B1D8(int a1, NSObject *a2)
@@ -6230,21 +6638,21 @@ void sub_10133D758()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds startingAtPointIndex parameter.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds startingAtPointIndex parameter.", v2, v3, v4, v5);
 }
 
 void sub_10133D830()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds endingAtPointIndex parameter.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds endingAtPointIndex parameter.", v2, v3, v4, v5);
 }
 
 void sub_10133D908()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to convert a PKStroke with no points. Using fallback values.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to convert a PKStroke with no points. Using fallback values.", v2, v3, v4, v5);
 }
 
 void sub_10133D9CC(int a1, NSObject *a2)
@@ -6277,49 +6685,49 @@ void sub_10133DBB0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't be adding animations after we've started showing them", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't be adding animations after we've started showing them", v2, v3, v4, v5);
 }
 
 void sub_10133DC74()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unexpected animation started", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unexpected animation started", v2, v3, v4, v5);
 }
 
 void sub_10133DD38()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unexpected animation stopped", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unexpected animation stopped", v2, v3, v4, v5);
 }
 
 void sub_10133DE10()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d animation stopped before starting", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d animation stopped before starting", v2, v3, v4, v5);
 }
 
 void sub_10133DED4()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10133DFAC()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10133E084()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10133E15C()
@@ -6375,21 +6783,21 @@ void sub_10133E538()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to manipulate an invalid display link", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to manipulate an invalid display link", v2, v3, v4, v5);
 }
 
 void sub_10133E5FC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to manipulate an invalid display link", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to manipulate an invalid display link", v2, v3, v4, v5);
 }
 
 void sub_10133E6C0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to manipulate an invalid display link", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to manipulate an invalid display link", v2, v3, v4, v5);
 }
 
 void sub_10133E784(int a1, NSObject *a2)
@@ -6473,14 +6881,18 @@ void sub_10133ED94(void *a1, unint64_t a2)
 {
   v3 = a1;
   v4 = sub_10043BF9C(a2);
-  sub_10026D638(&_mh_execute_header, v5, v6, "enter state %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_10026D638(&_mh_execute_header, v5, v6, "enter state %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_10133EE40(void *a1, void *a2)
 {
   v3 = a1;
   v4 = sub_10043BF9C([a2 state]);
-  sub_10026D638(&_mh_execute_header, v5, v6, "multi-select reset from state %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_10026D638(&_mh_execute_header, v5, v6, "multi-select reset from state %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_10133F1D0(void *a1, uint64_t a2, void *a3)
@@ -6500,7 +6912,9 @@ void sub_10133F2C0(void *a1, void *a2)
 {
   v3 = a1;
   v4 = sub_10043BF9C([a2 state]);
-  sub_10026D638(&_mh_execute_header, v5, v6, "operation did end in state %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_10026D638(&_mh_execute_header, v5, v6, "operation did end in state %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_10133F4D4()
@@ -6533,28 +6947,28 @@ void sub_10133F6C0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not be trying to customize the touch types for this gesture!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not be trying to customize the touch types for this gesture!", v2, v3, v4, v5);
 }
 
 void sub_10133F784()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only expect a single touch in this logic.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only expect a single touch in this logic.", v2, v3, v4, v5);
 }
 
 void sub_10133F85C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only expect a touch to begin when we are possible.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only expect a touch to begin when we are possible.", v2, v3, v4, v5);
 }
 
 void sub_10133F934()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should have made a decision before touchesEnded", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should have made a decision before touchesEnded", v2, v3, v4, v5);
 }
 
 void sub_10133F9F8()
@@ -6625,28 +7039,28 @@ void sub_1013400D0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101340194()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can only reset editing state if we have a single info selected", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can only reset editing state if we have a single info selected", v2, v3, v4, v5);
 }
 
 void sub_101340258()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Listening to command notifications when we don't care!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Listening to command notifications when we don't care!", v2, v3, v4, v5);
 }
 
 void sub_10134031C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Listening to command notifications when we don't care!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Listening to command notifications when we don't care!", v2, v3, v4, v5);
 }
 
 void sub_1013403E0()
@@ -7171,7 +7585,7 @@ void sub_10134391C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101343A00()
@@ -7180,7 +7594,7 @@ void sub_101343A00()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101343AE4()
@@ -7189,7 +7603,7 @@ void sub_101343AE4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101343BF0()
@@ -7198,14 +7612,14 @@ void sub_101343BF0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101343D10()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mapping data providers to types is not allowed after pasteboard writing has started", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Mapping data providers to types is not allowed after pasteboard writing has started", v2, v3, v4, v5);
 }
 
 void sub_101343DD4()
@@ -7236,7 +7650,7 @@ void sub_101343F58()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No attempt was made to serialize native data", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No attempt was made to serialize native data", v2, v3, v4, v5);
 }
 
 void sub_10134401C(uint64_t a1, int a2, os_log_t log)
@@ -7258,7 +7672,7 @@ void sub_101344114()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No attempt was made to serialize native data", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No attempt was made to serialize native data", v2, v3, v4, v5);
 }
 
 void sub_101344250()
@@ -7323,11 +7737,13 @@ void sub_1013446E4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
-void sub_10134479C()
+void sub_10134479C(int a1)
 {
-  v0 = +[CRLAssertionHandler packedBacktraceString];
+  v2 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v9) = 67109378;
+  HIDWORD(v9) = a1;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v1, v2, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v3, v4, v5, v6, 2u);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
 }
 
 void sub_10134486C()
@@ -7749,21 +8165,21 @@ void sub_101346F24()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101346FFC()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013470E8()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013471D4()
@@ -7824,39 +8240,39 @@ void sub_10134764C()
 {
   sub_1002B3328();
   v2 = v1;
-  v11.x = sub_1002B3318();
-  v3 = NSStringFromCGPoint(v11);
+  v10.x = sub_1002B3318();
+  v3 = NSStringFromCGPoint(v10);
   sub_100128E0C();
   sub_1000C59AC();
   sub_1000D4D50();
   sub_1000C5A00();
-  sub_1002B32F8(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid target point for collaborator HUD! %@", v6, v7, v8, v9, v10);
+  sub_1002B32F8(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid target point for collaborator HUD! %@", v6, v7, v8, v9);
 }
 
 void sub_101347748()
 {
   sub_1002B3328();
   v2 = v1;
-  v11.x = sub_1002B3318();
-  v3 = NSStringFromCGPoint(v11);
+  v10.x = sub_1002B3318();
+  v3 = NSStringFromCGPoint(v10);
   sub_100128E0C();
   sub_1000C59AC();
   sub_1000D4D50();
   sub_1000C5A00();
-  sub_1002B32F8(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid target point for collaborator HUD! %@", v6, v7, v8, v9, v10);
+  sub_1002B32F8(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid target point for collaborator HUD! %@", v6, v7, v8, v9);
 }
 
 void sub_101347844()
 {
   sub_1002B3328();
   v2 = v1;
-  v11.x = sub_1002B3318();
-  v3 = NSStringFromCGPoint(v11);
+  v10.x = sub_1002B3318();
+  v3 = NSStringFromCGPoint(v10);
   sub_100128E0C();
   sub_1000C59AC();
   sub_1000D4D50();
   sub_1000C5A00();
-  sub_1002B32F8(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid target point for collaborator HUD! %@", v6, v7, v8, v9, v10);
+  sub_1002B32F8(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid target point for collaborator HUD! %@", v6, v7, v8, v9);
 }
 
 void sub_101347A80()
@@ -7969,77 +8385,77 @@ void sub_101348590()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348654()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348718()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_1013487DC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_1013488A0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348964()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348A28()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348AEC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348BB0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348C74()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348D38()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348DE8(void *a1)
@@ -8047,49 +8463,49 @@ void sub_101348DE8(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_101348EA4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_101348F68()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_10134902C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_1013490F0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_1013491B4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delegate callback called for unexpected insert page view controller.", v2, v3, v4, v5);
 }
 
 void sub_10134928C()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101349350(void *a1)
@@ -8097,56 +8513,56 @@ void sub_101349350(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_10134940C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This method only knows how to count pages of shapes.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This method only knows how to count pages of shapes.", v2, v3, v4, v5);
 }
 
 void sub_10134950C()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013495F8()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013496E4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLShapeControlRep only valid for control knob tracker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLShapeControlRep only valid for control knob tracker", v2, v3, v4, v5);
 }
 
 void sub_1013497BC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLShapeControlLayout only valid for control knob tracker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLShapeControlLayout only valid for control knob tracker", v2, v3, v4, v5);
 }
 
 void sub_101349894()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong knob for control knob tracker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong knob for control knob tracker", v2, v3, v4, v5);
 }
 
 void sub_10134996C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Ending knob when we didn't begin!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Ending knob when we didn't begin!", v2, v3, v4, v5);
 }
 
 void sub_101349A30()
@@ -8358,70 +8774,70 @@ void sub_10134AC9C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d zero-length character", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d zero-length character", v2, v3, v4, v5);
 }
 
 void sub_10134AD74()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Failed to advance curCharIndex", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Failed to advance curCharIndex", v2, v3, v4, v5);
 }
 
 void sub_10134AE4C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d zero-length character", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d zero-length character", v2, v3, v4, v5);
 }
 
 void sub_10134AF24()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The source storage and/or the specified sub range are invalid.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The source storage and/or the specified sub range are invalid.", v2, v3, v4, v5);
 }
 
 void sub_10134B13C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d request for characters past end of string (extendedString)", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d request for characters past end of string (extendedString)", v2, v3, v4, v5);
 }
 
 void sub_10134B200()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d request for characters past end of string", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d request for characters past end of string", v2, v3, v4, v5);
 }
 
 void sub_10134B2C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Callers to -[CRLShapeEditor intersectPaths:] must have a -[tag] method to specify what kind of intersection to perform.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Callers to -[CRLShapeEditor intersectPaths:] must have a -[tag] method to specify what kind of intersection to perform.", v2, v3, v4, v5);
 }
 
 void sub_10134B388()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot change shape from a shape whose width or height is zero", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot change shape from a shape whose width or height is zero", v2, v3, v4, v5);
 }
 
 void sub_10134B460()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot change shape to a shape whose width and height are both nonzero.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot change shape to a shape whose width and height are both nonzero.", v2, v3, v4, v5);
 }
 
 void sub_10134B538()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Changing shapes is only supported from within an open command group.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Changing shapes is only supported from within an open command group.", v2, v3, v4, v5);
 }
 
 void sub_10134B610(uint64_t a1, int a2, os_log_t log)
@@ -8483,21 +8899,21 @@ void sub_10134BA84()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d selection is past the end of storage", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d selection is past the end of storage", v2, v3, v4, v5);
 }
 
 void sub_10134BB48()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal nil parameter", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal nil parameter", v2, v3, v4, v5);
 }
 
 void sub_10134BC0C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal nil parameter", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal nil parameter", v2, v3, v4, v5);
 }
 
 void sub_10134BD20()
@@ -8514,21 +8930,21 @@ void sub_10134BDF8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not call when layout has not been validated", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not call when layout has not been validated", v2, v3, v4, v5);
 }
 
 void sub_10134BF0C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal anchored range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Illegal anchored range", v2, v3, v4, v5);
 }
 
 void sub_10134BFD0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d column transform hasn't been set yet.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d column transform hasn't been set yet.", v2, v3, v4, v5);
 }
 
 void sub_10134C0D0()
@@ -8555,7 +8971,7 @@ void sub_10134C2A8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid charIndex for line fragment", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid charIndex for line fragment", v2, v3, v4, v5);
 }
 
 void sub_10134C380()
@@ -8572,21 +8988,21 @@ void sub_10134C50C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d column has unexpected start", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d column has unexpected start", v2, v3, v4, v5);
 }
 
 void sub_10134C5D0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ruby glyph range is meaningless without limitSelection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ruby glyph range is meaningless without limitSelection", v2, v3, v4, v5);
 }
 
 void sub_10134C694()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10134C758()
@@ -8613,28 +9029,28 @@ void sub_10134C914()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layout should have run at least once on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layout should have run at least once on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10134CA8C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d There should always be a rep content subview with layers on top.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d There should always be a rep content subview with layers on top.", v2, v3, v4, v5);
 }
 
 void sub_10134CB64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The topmost rep content subview should always contain layers", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The topmost rep content subview should always contain layers", v2, v3, v4, v5);
 }
 
 void sub_10134CC28()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10134CD00()
@@ -8648,14 +9064,14 @@ void sub_10134CDD0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Reusing the subview for rep content layers must be allowed.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Reusing the subview for rep content layers must be allowed.", v2, v3, v4, v5);
 }
 
 void sub_10134CE94()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10134CF58()
@@ -8718,7 +9134,7 @@ void sub_10134D3B4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Our knob validator block expects to stop knob recognition before we have begun", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Our knob validator block expects to stop knob recognition before we have begun", v2, v3, v4, v5);
 }
 
 void sub_10134D48C()
@@ -8749,7 +9165,7 @@ void sub_10134D69C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d requesting a delay of 0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d requesting a delay of 0", v2, v3, v4, v5);
 }
 
 void sub_10134D774(uint64_t a1, void *a2)
@@ -8780,14 +9196,14 @@ void sub_10134D99C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d requesting a delay of 0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d requesting a delay of 0", v2, v3, v4, v5);
 }
 
 void sub_10134DA74()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d requesting a delay of 0", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d requesting a delay of 0", v2, v3, v4, v5);
 }
 
 void sub_10134DB38(void *a1, void *a2, int a3)
@@ -8810,14 +9226,14 @@ void sub_10134DC60()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't have delayed knob tracking!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't have delayed knob tracking!", v2, v3, v4, v5);
 }
 
 void sub_10134DD24()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delayed knob tracking timer fired when we have no tracker!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Delayed knob tracking timer fired when we have no tracker!", v2, v3, v4, v5);
 }
 
 void sub_10134DDE8(int a1, NSObject *a2)
@@ -9012,28 +9428,28 @@ void sub_10134EDD4(int a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The preferred center is not applicable for a noninteractive insertion context.", v2, 0x22u);
 }
 
-void sub_10134EEA8(int a1, pxrInternal__aapl__pxrReserved__::Tf_RefPtr_UniqueChangedCounter *this)
+void sub_10134EEA8(int a1, pxrInternal__aapl__pxrReserved__::Tf_RefPtr_UniqueChangedCounter *this, int a3)
 {
   if (!this)
   {
     return;
   }
 
-  v3 = *(this + 2);
-  if (v3 < 0)
+  v4 = *(this + 2);
+  if (v4 < 0)
   {
-    if (v3 == -2)
+    if (v4 == -2)
     {
-      v5 = 4294967294;
+      v6 = 4294967294;
     }
 
     else
     {
-      v5 = *(this + 2);
-      atomic_compare_exchange_strong_explicit(this + 2, &v5, v3 + 1, memory_order_release, memory_order_relaxed);
-      if (v5 == v3)
+      v6 = *(this + 2);
+      atomic_compare_exchange_strong_explicit(this + 2, &v6, v4 + 1, memory_order_release, memory_order_relaxed);
+      if (v6 == v4)
       {
-        if (v3 != -1)
+        if (v4 != -1)
         {
           return;
         }
@@ -9042,7 +9458,7 @@ void sub_10134EEA8(int a1, pxrInternal__aapl__pxrReserved__::Tf_RefPtr_UniqueCha
       }
     }
 
-    if ((pxrInternal__aapl__pxrReserved__::Tf_RefPtr_UniqueChangedCounter::_RemoveRefMaybeLocked(this, v5) & 1) == 0)
+    if ((pxrInternal__aapl__pxrReserved__::Tf_RefPtr_UniqueChangedCounter::_RemoveRefMaybeLocked(this, v6) & 1) == 0)
     {
       return;
     }
@@ -9056,9 +9472,9 @@ void sub_10134EEA8(int a1, pxrInternal__aapl__pxrReserved__::Tf_RefPtr_UniqueCha
   }
 
 LABEL_4:
-  v4 = *(*this + 8);
+  v5 = *(*this + 8);
 
-  v4(this);
+  v5(this);
 }
 
 uint64_t sub_10134EF68(uint64_t *a1)
@@ -9089,6 +9505,23 @@ uint64_t sub_10134EF68(uint64_t *a1)
   }
 
   return result;
+}
+
+void sub_10134F290(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (*(a1 + 23) >= 0)
+  {
+    v8 = a1;
+  }
+
+  else
+  {
+    v8 = *a1;
+  }
+
+  LODWORD(v9) = 136446210;
+  *(&v9 + 4) = v8;
+  sub_1002FA364(&_mh_execute_header, a2, a3, "UsdZipFileWriter::CreateNew failed, outputUSDZPath: %{public}s", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 uint64_t sub_10134F418(uint64_t a1)
@@ -9527,16 +9960,16 @@ void sub_101350B94(void *a1)
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x2Au);
 }
 
-void sub_101350C5C(void *a1)
+void sub_101350C5C(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   sub_10022BC84();
   sub_1000C59AC();
   sub_1000D4D50();
   sub_1000C88E0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Cu);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Cu);
 }
 
 void sub_101350EA4()
@@ -9831,28 +10264,28 @@ void sub_1013525A0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d subclass should override this method", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d subclass should override this method", v2, v3, v4, v5);
 }
 
 void sub_101352664()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d i_layerFrameInScaledCanvasIgnoringDragging is invalid in this state", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d i_layerFrameInScaledCanvasIgnoringDragging is invalid in this state", v2, v3, v4, v5);
 }
 
 void sub_101352728()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This method should not be called if current rep is not connected to connection line.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This method should not be called if current rep is not connected to connection line.", v2, v3, v4, v5);
 }
 
 void sub_1013527EC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Connection line item should not be nil.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Connection line item should not be nil.", v2, v3, v4, v5);
 }
 
 void sub_1013528B0(uint64_t a1, int a2, NSObject *a3)
@@ -9888,14 +10321,14 @@ void sub_1013529EC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to find topmost rotated ancestor for counteracting the layer transform.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to find topmost rotated ancestor for counteracting the layer transform.", v2, v3, v4, v5);
 }
 
 void sub_101352AB0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This rep's clipRect should not be null.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This rep's clipRect should not be null.", v2, v3, v4, v5);
 }
 
 void sub_101352C14()
@@ -9912,21 +10345,21 @@ void sub_101352CEC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If something in a group has been selected, there should  be a group selection.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If something in a group has been selected, there should  be a group selection.", v2, v3, v4, v5);
 }
 
 void sub_101352E28()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expect four collaborator sublayers", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expect four collaborator sublayers", v2, v3, v4, v5);
 }
 
 void sub_101352F14()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -positionOfStandardKnob:forBounds: works for standard knobs only", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -positionOfStandardKnob:forBounds: works for standard knobs only", v2, v3, v4, v5);
 }
 
 void sub_101352FD8()
@@ -9943,7 +10376,7 @@ void sub_101353150()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d beginning dynamic operation on rep already being manipulated", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d beginning dynamic operation on rep already being manipulated", v2, v3, v4, v5);
 }
 
 void sub_101353214()
@@ -9960,14 +10393,14 @@ void sub_101353300()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't have shadow renderable if shadow is not enabled", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't have shadow renderable if shadow is not enabled", v2, v3, v4, v5);
 }
 
 void sub_1013533C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d dynamic drag beginning outside of dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d dynamic drag beginning outside of dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_101353488()
@@ -9984,7 +10417,7 @@ void sub_101353560()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d dynamic rotate began outside of dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d dynamic rotate began outside of dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_101353638()
@@ -10015,21 +10448,21 @@ void sub_10135383C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d resize begins without being in dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d resize begins without being in dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_101353900()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't create CRLCommandSetInfoGeometry without a boardItem.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't create CRLCommandSetInfoGeometry without a boardItem.", v2, v3, v4, v5);
 }
 
 void sub_1013539C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d free transform begins without being in dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d free transform begins without being in dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_101353A9C()
@@ -10169,21 +10602,21 @@ void sub_1013545D0()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013546A8()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101354780()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135486C()
@@ -10259,77 +10692,77 @@ void sub_101354DE8()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101354EC0()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5);
 }
 
 void sub_101354FAC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Movie validation cancelled itself without the checker knowing about it.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Movie validation cancelled itself without the checker knowing about it.", v2, v3, v4, v5);
 }
 
 void sub_101355084()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Movie validation cancelled itself without the checker knowing about it.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Movie validation cancelled itself without the checker knowing about it.", v2, v3, v4, v5);
 }
 
 void sub_10135515C()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101355248()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Movie validation cancelled itself without the checker knowing about it.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Movie validation cancelled itself without the checker knowing about it.", v2, v3, v4, v5);
 }
 
 void sub_101355320()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Movie validation cancelled itself without the checker knowing about it.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Movie validation cancelled itself without the checker knowing about it.", v2, v3, v4, v5);
 }
 
 void sub_1013553E4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid preset", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid preset", v2, v3, v4, v5);
 }
 
 void sub_1013554A8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Asset tracks must be loaded", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Asset tracks must be loaded", v2, v3, v4, v5);
 }
 
 void sub_10135556C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Asset tracks must be loaded", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Asset tracks must be loaded", v2, v3, v4, v5);
 }
 
 void sub_101355630()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Asset tracks must be loaded", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Asset tracks must be loaded", v2, v3, v4, v5);
 }
 
 void sub_101355708()
@@ -10510,7 +10943,7 @@ void sub_1013566A8()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135677C()
@@ -10518,7 +10951,7 @@ void sub_10135677C()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101356850()
@@ -10526,7 +10959,7 @@ void sub_101356850()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101356924(int a1, NSObject *a2)
@@ -10600,35 +11033,35 @@ void sub_101356E14()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot show media replace UI with cross-container selection!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot show media replace UI with cross-container selection!", v2, v3, v4, v5);
 }
 
 void sub_101356ED8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Showing replace media UI when more than one image is selected!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Showing replace media UI when more than one image is selected!", v2, v3, v4, v5);
 }
 
 void sub_101356F9C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The URL array must only contain one object.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The URL array must only contain one object.", v2, v3, v4, v5);
 }
 
 void sub_101357060()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The data array must only contain one object.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The data array must only contain one object.", v2, v3, v4, v5);
 }
 
 void sub_101357124()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't replace media interactively without running completion blocks on the main queue.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't replace media interactively without running completion blocks on the main queue.", v2, v3, v4, v5);
 }
 
 void sub_1013571E8(uint64_t a1, int a2, os_log_t log)
@@ -10737,14 +11170,14 @@ void sub_101357950(void *a1)
   v3 = [sub_10034DF8C() state];
   v4 = sub_10043BF9C(v3);
   sub_1000C8938();
-  sub_10026D638(&_mh_execute_header, v5, v6, "reset drag from state %@", v7, v8, v9, v10, v11);
+  sub_10026D638(&_mh_execute_header, v5, v6, "reset drag from state %@", v7, v8, v9, v10);
 }
 
 void sub_101357A0C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should close group before resetting", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should close group before resetting", v2, v3, v4, v5);
 }
 
 void sub_101357AD0(unint64_t a1, void *a2)
@@ -10769,7 +11202,7 @@ void sub_101357BA4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d drag failed to take control!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d drag failed to take control!", v2, v3, v4, v5);
 }
 
 void sub_101357C7C(void *a1)
@@ -10777,7 +11210,7 @@ void sub_101357C7C(void *a1)
   v2 = a1;
   [sub_10034DF8C() count];
   sub_1000C8938();
-  sub_10026D638(&_mh_execute_header, v3, v4, "%zi touches began", v5, v6, v7, v8, v9);
+  sub_10026D638(&_mh_execute_header, v3, v4, "%zi touches began", v5, v6, v7, v8);
 }
 
 void sub_101357F24(void *a1)
@@ -10785,7 +11218,7 @@ void sub_101357F24(void *a1)
   v2 = a1;
   [sub_10034DF8C() count];
   sub_1000C8938();
-  sub_10026D638(&_mh_execute_header, v3, v4, "%zi touches ended", v5, v6, v7, v8, v9);
+  sub_10026D638(&_mh_execute_header, v3, v4, "%zi touches ended", v5, v6, v7, v8);
 }
 
 void sub_101357FD0(void *a1)
@@ -10794,35 +11227,35 @@ void sub_101357FD0(void *a1)
   v3 = [sub_10034DF8C() state];
   v4 = sub_10043BF9C(v3);
   sub_1000C8938();
-  sub_10026D638(&_mh_execute_header, v5, v6, "ending gesture with state: %@", v7, v8, v9, v10, v11);
+  sub_10026D638(&_mh_execute_header, v5, v6, "ending gesture with state: %@", v7, v8, v9, v10);
 }
 
 void sub_1013581AC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d setting tracker points when there is no tracker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d setting tracker points when there is no tracker", v2, v3, v4, v5);
 }
 
 void sub_101358284()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Search reference selection path must contain the text selection if selection path is provided", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Search reference selection path must contain the text selection if selection path is provided", v2, v3, v4, v5);
 }
 
 void sub_101358348()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New selection is not the same class as the old selection.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New selection is not the same class as the old selection.", v2, v3, v4, v5);
 }
 
 void sub_10135840C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Selection path must be provided on initialization for any search reference that is asked for one.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Selection path must be provided on initialization for any search reference that is asked for one.", v2, v3, v4, v5);
 }
 
 void sub_1013584E4(void *a1, void *a2, int a3)
@@ -10851,14 +11284,14 @@ void sub_101358640()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Didn't end paragraph layout", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Didn't end paragraph layout", v2, v3, v4, v5);
 }
 
 void sub_101358704()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d paragraph must be set up before requesting typesetter", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d paragraph must be set up before requesting typesetter", v2, v3, v4, v5);
 }
 
 void sub_1013587C8()
@@ -10875,7 +11308,7 @@ void sub_1013588B4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cached paragraph typesetter has wrong char count", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cached paragraph typesetter has wrong char count", v2, v3, v4, v5);
 }
 
 void sub_10135898C()
@@ -10892,35 +11325,35 @@ void sub_101358B54()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d nil state in paragraph layout", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d nil state in paragraph layout", v2, v3, v4, v5);
 }
 
 void sub_101358C18()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d localRange.length must be >= 1", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d localRange.length must be >= 1", v2, v3, v4, v5);
 }
 
 void sub_101358CF0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Incorrect initial range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Incorrect initial range", v2, v3, v4, v5);
 }
 
 void sub_101358E04()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must have at least one style run", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must have at least one style run", v2, v3, v4, v5);
 }
 
 void sub_101358EC8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid local range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid local range", v2, v3, v4, v5);
 }
 
 void sub_101358FA0()
@@ -10937,7 +11370,7 @@ void sub_1013590C8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid local range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid local range", v2, v3, v4, v5);
 }
 
 void sub_1013591A0()
@@ -10954,14 +11387,14 @@ void sub_10135928C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Failed to create temporary string for _textBuffer", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Failed to create temporary string for _textBuffer", v2, v3, v4, v5);
 }
 
 void sub_101359350()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid localRange parameter", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid localRange parameter", v2, v3, v4, v5);
 }
 
 void sub_101359428()
@@ -10998,63 +11431,63 @@ void sub_1013596D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shouldn't be called if no intersection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shouldn't be called if no intersection", v2, v3, v4, v5);
 }
 
 void sub_10135979C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d layoutLine called without paragraph being set up correctly", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d layoutLine called without paragraph being set up correctly", v2, v3, v4, v5);
 }
 
 void sub_101359874()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't skip glyph vectors with ruby", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't skip glyph vectors with ruby", v2, v3, v4, v5);
 }
 
 void sub_10135994C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad start char index", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad start char index", v2, v3, v4, v5);
 }
 
 void sub_101359BB4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad leading", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad leading", v2, v3, v4, v5);
 }
 
 void sub_101359C8C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad lineRef count", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad lineRef count", v2, v3, v4, v5);
 }
 
 void sub_101359D64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad endCharIndex", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad endCharIndex", v2, v3, v4, v5);
 }
 
 void sub_101359E8C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Last line should reach the end of the paragraph", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Last line should reach the end of the paragraph", v2, v3, v4, v5);
 }
 
 void sub_101359F64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expect label color, or paragraph color as the default.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expect label color, or paragraph color as the default.", v2, v3, v4, v5);
 }
 
 void sub_10135A03C()
@@ -11071,42 +11504,42 @@ void sub_10135A128()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLWPResolvePropertyForStyles should not return NSNull.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLWPResolvePropertyForStyles should not return NSNull.", v2, v3, v4, v5);
 }
 
 void sub_10135A200()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad localMaxCharIndex", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad localMaxCharIndex", v2, v3, v4, v5);
 }
 
 void sub_10135A2D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CTTypesetterCreateLine returned nil", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CTTypesetterCreateLine returned nil", v2, v3, v4, v5);
 }
 
 void sub_10135A400()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad hyphenation result", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad hyphenation result", v2, v3, v4, v5);
 }
 
 void sub_10135A4D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad line width", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad line width", v2, v3, v4, v5);
 }
 
 void sub_10135A600()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d line fragment isn't from the current paragraph", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d line fragment isn't from the current paragraph", v2, v3, v4, v5);
 }
 
 void sub_10135A6D8()
@@ -11125,63 +11558,63 @@ void sub_10135A7D4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d nil typesetter", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d nil typesetter", v2, v3, v4, v5);
 }
 
 void sub_10135A8AC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d nil lineRef", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d nil lineRef", v2, v3, v4, v5);
 }
 
 void sub_10135AB00()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal list level", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal list level", v2, v3, v4, v5);
 }
 
 void sub_10135ABD8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad run index", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad run index", v2, v3, v4, v5);
 }
 
 void sub_10135AC9C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Negative lineRef start position", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Negative lineRef start position", v2, v3, v4, v5);
 }
 
 void sub_10135AD74()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Emphasis marks, no font.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Emphasis marks, no font.", v2, v3, v4, v5);
 }
 
 void sub_10135AE38()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad runCount", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad runCount", v2, v3, v4, v5);
 }
 
 void sub_10135AEFC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d line fragment isn't from the current paragraph", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d line fragment isn't from the current paragraph", v2, v3, v4, v5);
 }
 
 void sub_10135AFD4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d break line has no thickness", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d break line has no thickness", v2, v3, v4, v5);
 }
 
 BOOL sub_10135B084(uint64_t a1, void *a2)
@@ -11196,7 +11629,7 @@ BOOL sub_10135B084(uint64_t a1, void *a2)
   {
     sub_100142488();
     sub_1000C88F0();
-    sub_10022BC90(&_mh_execute_header, v6, v7, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to min", v8, v9, v10, v11, v12);
+    sub_10022BC90(&_mh_execute_header, v6, v7, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to min", v8, v9, v10, v11);
   }
 
   sub_10022BC78();
@@ -11222,7 +11655,7 @@ BOOL sub_10135B1A8(uint64_t a1, void *a2)
   {
     sub_100142488();
     sub_1000C88F0();
-    sub_10022BC90(&_mh_execute_header, v6, v7, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to max", v8, v9, v10, v11, v12);
+    sub_10022BC90(&_mh_execute_header, v6, v7, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Out-of-bounds type assignment was clamped to max", v8, v9, v10, v11);
   }
 
   sub_10022BC78();
@@ -11240,28 +11673,28 @@ void sub_10135B2E0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad font", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad font", v2, v3, v4, v5);
 }
 
 void sub_10135B3B8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad underline value", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad underline value", v2, v3, v4, v5);
 }
 
 void sub_10135B490()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad strikethru value", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad strikethru value", v2, v3, v4, v5);
 }
 
 void sub_10135B554()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad writing direction map.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad writing direction map.", v2, v3, v4, v5);
 }
 
 void sub_10135B618()
@@ -11314,7 +11747,7 @@ void sub_10135BAF0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135BBC0()
@@ -11323,7 +11756,7 @@ void sub_10135BBC0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135BC90()
@@ -11332,7 +11765,7 @@ void sub_10135BC90()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135BD60()
@@ -11341,7 +11774,7 @@ void sub_10135BD60()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135BE30()
@@ -11350,7 +11783,7 @@ void sub_10135BE30()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135BF14()
@@ -11359,7 +11792,7 @@ void sub_10135BF14()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135BFE4()
@@ -11368,7 +11801,7 @@ void sub_10135BFE4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135C0B4()
@@ -11377,7 +11810,7 @@ void sub_10135C0B4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135C184()
@@ -11386,7 +11819,7 @@ void sub_10135C184()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135C2A4()
@@ -11465,28 +11898,28 @@ void sub_10135C9C0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong rep class for line segment knob tracker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong rep class for line segment knob tracker", v2, v3, v4, v5);
 }
 
 void sub_10135CA98()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong knob for line segment knob tracker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong knob for line segment knob tracker", v2, v3, v4, v5);
 }
 
 void sub_10135CB70()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shape is not a line segment, but using line segment knob tracker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shape is not a line segment, but using line segment knob tracker", v2, v3, v4, v5);
 }
 
 void sub_10135CC48()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong knob type for line segment resize", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong knob type for line segment resize", v2, v3, v4, v5);
 }
 
 void sub_10135CDFC()
@@ -11495,21 +11928,21 @@ void sub_10135CDFC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135CECC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layouts must either override computeLayoutGeometry, or have a non-nil info to query for geometry", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layouts must either override computeLayoutGeometry, or have a non-nil info to query for geometry", v2, v3, v4, v5);
 }
 
 void sub_10135CF90()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not begin a dynamic operation while already in one.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not begin a dynamic operation while already in one.", v2, v3, v4, v5);
 }
 
 void sub_10135D068()
@@ -11518,7 +11951,7 @@ void sub_10135D068()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135D14C()
@@ -11527,7 +11960,7 @@ void sub_10135D14C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135D21C()
@@ -11536,7 +11969,7 @@ void sub_10135D21C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135D300()
@@ -11545,7 +11978,7 @@ void sub_10135D300()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135D3E4()
@@ -11554,14 +11987,14 @@ void sub_10135D3E4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135D4B4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not transfer layout geometry to info that's in the document!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not transfer layout geometry to info that's in the document!", v2, v3, v4, v5);
 }
 
 void sub_10135D578()
@@ -11570,7 +12003,7 @@ void sub_10135D578()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10135D648()
@@ -12046,42 +12479,42 @@ void sub_10136020C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected an even number of indexes", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected an even number of indexes", v2, v3, v4, v5);
 }
 
 void sub_1013602E4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index vector size is wrong", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index vector size is wrong", v2, v3, v4, v5);
 }
 
 void sub_1013603A8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index vector size is wrong", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d index vector size is wrong", v2, v3, v4, v5);
 }
 
 void sub_1013604BC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't be trying to map NSNotFound", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't be trying to map NSNotFound", v2, v3, v4, v5);
 }
 
 void sub_101360580()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't be trying to map NSNotFound", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't be trying to map NSNotFound", v2, v3, v4, v5);
 }
 
 void sub_101360658()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad affinity", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad affinity", v2, v3, v4, v5);
 }
 
 void sub_101360758()
@@ -12176,63 +12609,63 @@ void sub_101361000()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for starPoints on wrong type of pathSource", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for starPoints on wrong type of pathSource", v2, v3, v4, v5);
 }
 
 void sub_1013610C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for starRadius on wrong type of pathSource", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for starRadius on wrong type of pathSource", v2, v3, v4, v5);
 }
 
 void sub_101361188()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for arrowIndent on wrong type of pathSource", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for arrowIndent on wrong type of pathSource", v2, v3, v4, v5);
 }
 
 void sub_10136124C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for arrowIndent on wrong type of pathSource", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for arrowIndent on wrong type of pathSource", v2, v3, v4, v5);
 }
 
 void sub_101361310()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for arrowIndent on wrong type of pathSource", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for arrowIndent on wrong type of pathSource", v2, v3, v4, v5);
 }
 
 void sub_1013613D4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for arrowIndent on wrong type of pathSource", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d asking for arrowIndent on wrong type of pathSource", v2, v3, v4, v5);
 }
 
 void sub_101361498()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d UITouch altitudeAngle is invalid; using a default in its place.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d UITouch altitudeAngle is invalid; using a default in its place.", v2, v3, v4, v5);
 }
 
 void sub_101361570()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d UITouch azimuth is invalid; using a default in its place.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d UITouch azimuth is invalid; using a default in its place.", v2, v3, v4, v5);
 }
 
 void sub_101361648()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d UITouch force is invalid; using a default in its place.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d UITouch force is invalid; using a default in its place.", v2, v3, v4, v5);
 }
 
 void sub_101361720()
@@ -12254,7 +12687,7 @@ void sub_1013617F8(void *a1, void *a2)
   v6 = [sub_1000C59B8() domain];
   [a2 code];
   sub_10030350C();
-  sub_1003A2950(&_mh_execute_header, v7, v8, "Error creating CRLAsset: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13);
+  sub_1003A2950(&_mh_execute_header, v7, v8, "Error creating CRLAsset: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12);
 }
 
 void sub_1013618C4()
@@ -12302,7 +12735,7 @@ void sub_101361C34(void *a1, void *a2)
   v6 = [sub_1000C59B8() domain];
   [a2 code];
   sub_10030350C();
-  sub_1003A2950(&_mh_execute_header, v7, v8, "Error creating asset wrapper: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13);
+  sub_1003A2950(&_mh_execute_header, v7, v8, "Error creating asset wrapper: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12);
 }
 
 void sub_101361D00(id *a1, void *a2)
@@ -12313,7 +12746,7 @@ void sub_101361D00(id *a1, void *a2)
   v6 = [*a1 domain];
   [*a1 code];
   sub_1003A2970();
-  sub_1003A2950(&_mh_execute_header, v7, v8, "Error creating CRLAsset: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13);
+  sub_1003A2950(&_mh_execute_header, v7, v8, "Error creating CRLAsset: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12);
 }
 
 void sub_101361E00()
@@ -12576,21 +13009,21 @@ void sub_101363490()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Input geometries' sizes don't match", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Input geometries' sizes don't match", v2, v3, v4, v5);
 }
 
 void sub_101363554()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Attempted to set the position of a CRLCanvasInfoGeometry with a non-finite position", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Attempted to set the position of a CRLCanvasInfoGeometry with a non-finite position", v2, v3, v4, v5);
 }
 
 void sub_101363618()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Attempted to set the size of a CRLCanvasInfoGeometry with NaNs", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Attempted to set the size of a CRLCanvasInfoGeometry with NaNs", v2, v3, v4, v5);
 }
 
 void sub_101363740(int a1, NSObject *a2)
@@ -12612,70 +13045,70 @@ void sub_10136384C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expected to get a toolkit UI state from the document!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expected to get a toolkit UI state from the document!", v2, v3, v4, v5);
 }
 
 void sub_101363910()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_1013639E8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not add a freehand drawing toolkit observer that's already added.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not add a freehand drawing toolkit observer that's already added.", v2, v3, v4, v5);
 }
 
 void sub_101363AAC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101363B84()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not remove a freehand drawing toolkit observer that has not been added.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not remove a freehand drawing toolkit observer that has not been added.", v2, v3, v4, v5);
 }
 
 void sub_101363C48()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only try to begin drawing mode when it's allowed.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only try to begin drawing mode when it's allowed.", v2, v3, v4, v5);
 }
 
 void sub_101363D0C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Transform mode can only begin when drawing mode is already active.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Transform mode can only begin when drawing mode is already active.", v2, v3, v4, v5);
 }
 
 void sub_101363DD0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101363E94()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101363F58()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10136401C(uint64_t a1, int a2, os_log_t log)
@@ -12697,42 +13130,42 @@ void sub_101364114()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101364228()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Async result building only supports searching one root.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Async result building only supports searching one root.", v2, v3, v4, v5);
 }
 
 void sub_1013642EC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Could not find next root search target. Defaulting to 0.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Could not find next root search target. Defaulting to 0.", v2, v3, v4, v5);
 }
 
 void sub_1013643B0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d must have a valid search target at this point", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d must have a valid search target at this point", v2, v3, v4, v5);
 }
 
 void sub_1013644C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Could not find searchReference in current root search target range.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Could not find searchReference in current root search target range.", v2, v3, v4, v5);
 }
 
 void sub_101364588()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can not find searchReference while currentRootSearchTargetRange is invalid.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can not find searchReference while currentRootSearchTargetRange is invalid.", v2, v3, v4, v5);
 }
 
 void sub_10136469C()
@@ -12757,42 +13190,42 @@ void sub_1013648F0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad selection -- extends past end of storage", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad selection -- extends past end of storage", v2, v3, v4, v5);
 }
 
 void sub_1013649C8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid index for right edge of selection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid index for right edge of selection", v2, v3, v4, v5);
 }
 
 void sub_101364AA0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Couldn't find left edge char index", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Couldn't find left edge char index", v2, v3, v4, v5);
 }
 
 void sub_101364B64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Precondition: caretIndex is either equal to the given charIndex or one past", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Precondition: caretIndex is either equal to the given charIndex or one past", v2, v3, v4, v5);
 }
 
 void sub_101364C3C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Character index should be inside allowable selection range.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Character index should be inside allowable selection range.", v2, v3, v4, v5);
 }
 
 void sub_101364D14()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not have received NSNotFound.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not have received NSNotFound.", v2, v3, v4, v5);
 }
 
 void sub_101364DD8()
@@ -12809,49 +13242,49 @@ void sub_101364EC4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expect no runs for a partitioned attachment line fragment", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Expect no runs for a partitioned attachment line fragment", v2, v3, v4, v5);
 }
 
 void sub_101364F88()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not have received NSNotFound.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not have received NSNotFound.", v2, v3, v4, v5);
 }
 
 void sub_101365060()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not have received NSNotFound.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not have received NSNotFound.", v2, v3, v4, v5);
 }
 
 void sub_101365124()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal direction", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal direction", v2, v3, v4, v5);
 }
 
 void sub_1013651E8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported direction", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported direction", v2, v3, v4, v5);
 }
 
 void sub_1013652C0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Result beyond selection range max.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Result beyond selection range max.", v2, v3, v4, v5);
 }
 
 void sub_101365398()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Result beyond selection range min.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Result beyond selection range min.", v2, v3, v4, v5);
 }
 
 void sub_10136545C()
@@ -12868,63 +13301,63 @@ void sub_101365534()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Empty column in p_withLineIndexForCharIndex", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Empty column in p_withLineIndexForCharIndex", v2, v3, v4, v5);
 }
 
 void sub_1013655F8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported vertical character direction", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported vertical character direction", v2, v3, v4, v5);
 }
 
 void sub_1013656BC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported vertical character direction", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported vertical character direction", v2, v3, v4, v5);
 }
 
 void sub_101365780()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d sentence movement in layout direction is not supported", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d sentence movement in layout direction is not supported", v2, v3, v4, v5);
 }
 
 void sub_1013658D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported horizontal line direction", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported horizontal line direction", v2, v3, v4, v5);
 }
 
 void sub_10136599C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported granularity", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported granularity", v2, v3, v4, v5);
 }
 
 void sub_101365A74()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d composed character extends past storage boundary", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d composed character extends past storage boundary", v2, v3, v4, v5);
 }
 
 void sub_101365B4C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported vertical character direction", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unsupported vertical character direction", v2, v3, v4, v5);
 }
 
 void sub_101365C74()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not be on last paragraph yet.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not be on last paragraph yet.", v2, v3, v4, v5);
 }
 
 void sub_101365D4C()
@@ -12950,7 +13383,7 @@ void sub_101365EEC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unexpected granularity", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d unexpected granularity", v2, v3, v4, v5);
 }
 
 void sub_101365FC4()
@@ -12967,56 +13400,56 @@ void sub_1013660B0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Column should not be nil", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Column should not be nil", v2, v3, v4, v5);
 }
 
 void sub_101366174()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d backwards should never be NULL!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d backwards should never be NULL!", v2, v3, v4, v5);
 }
 
 void sub_10136624C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid selection type", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid selection type", v2, v3, v4, v5);
 }
 
 void sub_101366310()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d can't delete without a command controller", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d can't delete without a command controller", v2, v3, v4, v5);
 }
 
 void sub_1013663E8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to delete past end of storage", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to delete past end of storage", v2, v3, v4, v5);
 }
 
 void sub_1013664AC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad ranges", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad ranges", v2, v3, v4, v5);
 }
 
 void sub_101366584()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad range lengths", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad range lengths", v2, v3, v4, v5);
 }
 
 void sub_10136665C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d overlapping transposition ranges", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d overlapping transposition ranges", v2, v3, v4, v5);
 }
 
 void sub_101366720()
@@ -13033,14 +13466,14 @@ void sub_10136685C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d can't delete without a command controller", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d can't delete without a command controller", v2, v3, v4, v5);
 }
 
 void sub_101366920()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid selection type", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid selection type", v2, v3, v4, v5);
 }
 
 void sub_1013669E4()
@@ -13075,14 +13508,14 @@ void sub_101366C88()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid selection anchor", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid selection anchor", v2, v3, v4, v5);
 }
 
 void sub_101366D60()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid selection anchor", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid selection anchor", v2, v3, v4, v5);
 }
 
 void sub_101366E38()
@@ -13162,7 +13595,9 @@ void sub_101367544(void *a1, unint64_t a2)
 {
   v3 = a1;
   v4 = sub_10043BF9C(a2);
-  sub_10026D638(&_mh_execute_header, v5, v6, "transitioning to state %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  sub_10026D638(&_mh_execute_header, v5, v6, "transitioning to state %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_101367998(uint64_t a1, void *a2)
@@ -13170,7 +13605,9 @@ void sub_101367998(uint64_t a1, void *a2)
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = sub_10043BF9C([v2 state]);
-  sub_10026D638(&_mh_execute_header, v5, v6, "delay timer fired. GR in state %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  sub_10026D638(&_mh_execute_header, v5, v6, "delay timer fired. GR in state %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_101367C28()
@@ -13204,20 +13641,24 @@ void sub_101367EB4()
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, 0x2Cu);
 }
 
-void sub_101367F8C(void *a1)
+void sub_101367F8C(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_100100F84(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
 }
 
-void sub_1013680DC(void *a1)
+void sub_1013680DC(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_100100F84(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
 }
 
 void sub_1013681A0()
@@ -13250,7 +13691,7 @@ void sub_101368360()
   sub_1000C5A14(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d attempting to take control with an unregistered TM %@");
 }
 
-void sub_1013684C4(uint64_t a1, void *a2, int a3)
+void sub_1013684C4(uint64_t *a1, void *a2, int a3)
 {
   v4 = a2;
   v5 = objc_opt_class();
@@ -13352,17 +13793,26 @@ void sub_101368C24()
 
 void sub_101368D2C(uint64_t a1, id *a2, void *a3)
 {
-  v4 = *a2;
-  v5 = a3;
-  v6 = [v4 error];
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = [*a2 error];
-  v10 = [v9 domain];
-  v11 = [*a2 error];
-  [v11 code];
-  v18 = [*a2 error];
-  sub_10013F740(&_mh_execute_header, v12, v13, "CRLAVPlayerController %p: Player looper failed with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v14, v15, v16, v17, 2u);
+  v5 = *a2;
+  v6 = a3;
+  v7 = [v5 error];
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
+  v10 = [*a2 error];
+  v11 = [v10 domain];
+  v12 = [*a2 error];
+  v13 = [v12 code];
+  v14 = [*a2 error];
+  *v21 = 134219010;
+  *&v21[4] = a1;
+  *&v21[12] = 2114;
+  *&v21[14] = v9;
+  *&v21[22] = 2114;
+  *v22 = 2048;
+  *&v22[2] = v13;
+  *&v22[10] = 2112;
+  *&v22[12] = v14;
+  sub_10013F740(&_mh_execute_header, v15, v16, "CRLAVPlayerController %p: Player looper failed with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v17, v18, v19, v20, *v21, *&v21[8], *&v21[16], v11, *v22, *&v22[8], *&v22[16]);
 }
 
 void sub_101368EF8()
@@ -13421,12 +13871,20 @@ void sub_101369438()
 
 void sub_101369524(uint64_t a1, void *a2, void *a3)
 {
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v13 = [a3 domain];
-  [a3 code];
-  sub_10013F740(&_mh_execute_header, v7, v8, "CRLAVPlayerController %p: Playback did fail with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, 2u);
+  v5 = a2;
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = [a3 domain];
+  *v15 = 134219010;
+  *&v15[4] = a1;
+  *&v15[12] = 2114;
+  *&v15[14] = v7;
+  *&v15[22] = 2114;
+  *v16 = 2048;
+  *&v16[2] = [a3 code];
+  *&v16[10] = 2112;
+  *&v16[12] = a3;
+  sub_10013F740(&_mh_execute_header, v9, v10, "CRLAVPlayerController %p: Playback did fail with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v11, v12, v13, v14, *v15, *&v15[8], *&v15[16], v8, *v16, *&v16[8], *&v16[16]);
 }
 
 void sub_101369644()
@@ -13919,7 +14377,7 @@ uint64_t sub_10136C58C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d subclasses of CRLImageProvider must implement -naturalSize", v2, v3, v4, v5, v7);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d subclasses of CRLImageProvider must implement -naturalSize", v2, v3, v4, v5);
   if (qword_101AD5A10 == -1)
   {
     return 1;
@@ -13933,7 +14391,7 @@ uint64_t sub_10136C65C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d subclasses of CRLImageProvider must implement -isValid", v2, v3, v4, v5, v7);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d subclasses of CRLImageProvider must implement -isValid", v2, v3, v4, v5);
   if (qword_101AD5A10 == -1)
   {
     return 1;
@@ -13947,7 +14405,7 @@ uint64_t sub_10136C72C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d subclasses of CRLImageProvider must implement -drawImageInContext:rect:", v2, v3, v4, v5, v7);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d subclasses of CRLImageProvider must implement -drawImageInContext:rect:", v2, v3, v4, v5);
   if (qword_101AD5A10 == -1)
   {
     return 1;
@@ -14030,209 +14488,219 @@ void sub_10136CFD0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't calculate a percentage of a path with a NaN length.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't calculate a percentage of a path with a NaN length.", v2, v3, v4, v5);
 }
 
 void sub_10136D094()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't calculate a percentage of a path with no length or elements.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't calculate a percentage of a path with no length or elements.", v2, v3, v4, v5);
 }
 
 void sub_10136D158()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't get a point on an empty path.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't get a point on an empty path.", v2, v3, v4, v5);
 }
 
 void sub_10136D230()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -rawGradientAt:fromElement: can't handle move to.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -rawGradientAt:fromElement: can't handle move to.", v2, v3, v4, v5);
 }
 
 void sub_10136D308()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -curvatureAt:fromElement: can't handle move to.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d -curvatureAt:fromElement: can't handle move to.", v2, v3, v4, v5);
 }
 
 void sub_10136D408()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLPathNearestAngleOnPathToLineApplier doesn't handle quad curves or some other element type", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLPathNearestAngleOnPathToLineApplier doesn't handle quad curves or some other element type", v2, v3, v4, v5);
 }
 
 void sub_10136D4CC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Degenerate curve! Cannot do intersection logic correctly", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Degenerate curve! Cannot do intersection logic correctly", v2, v3, v4, v5);
 }
 
 void sub_10136D590()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Did not clean up properly at end of drag operation!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Did not clean up properly at end of drag operation!", v2, v3, v4, v5);
 }
 
 void sub_10136D654()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10136D72C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Called dragging entered when we were already in state entered!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Called dragging entered when we were already in state entered!", v2, v3, v4, v5);
 }
 
 void sub_10136D8B8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d draggingUpdated called without draggingEntered called first!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d draggingUpdated called without draggingEntered called first!", v2, v3, v4, v5);
 }
 
-void sub_10136D968(void *a1)
+void sub_10136D968(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_100100F84(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
 }
 
 void sub_10136DA7C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d draggingExited called without draggingEntered called first!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d draggingExited called without draggingEntered called first!", v2, v3, v4, v5);
 }
 
 void sub_10136DB68()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d draggingUpdated called without draggingEntered called first!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d draggingUpdated called without draggingEntered called first!", v2, v3, v4, v5);
 }
 
 void sub_10136DC40()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d OS shouldn't tell us to perform drag operation when -shouldAllowDragOperationForDragInfo returns NO", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d OS shouldn't tell us to perform drag operation when -shouldAllowDragOperationForDragInfo returns NO", v2, v3, v4, v5);
 }
 
 void sub_10136DD40()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Called performIndirectDragOperationWithDragInfo when we were already in a drag!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Called performIndirectDragOperationWithDragInfo when we were already in a drag!", v2, v3, v4, v5);
 }
 
 void sub_10136DE18()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Indirect drops should never reject the resulting insert", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Indirect drops should never reject the resulting insert", v2, v3, v4, v5);
 }
 
 void sub_10136DEDC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Called performIndirectDragOperationWithDragInfo when we were already in a drag!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Called performIndirectDragOperationWithDragInfo when we were already in a drag!", v2, v3, v4, v5);
 }
 
 void sub_10136DFB4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Indirect drops should never reject the resulting insert", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Indirect drops should never reject the resulting insert", v2, v3, v4, v5);
 }
 
 void sub_10136E0C8()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10136E1A0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpectedly being asked to cleanup DnD when in state Idle", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpectedly being asked to cleanup DnD when in state Idle", v2, v3, v4, v5);
 }
 
 void sub_10136E264()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
-void sub_10136E328(void *a1)
+void sub_10136E328(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_100100F84(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
 }
 
 void sub_10136E400()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we have a drag destination, our drag operation should not be None", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we have a drag destination, our drag operation should not be None", v2, v3, v4, v5);
 }
 
-void sub_10136E4B0(void *a1)
+void sub_10136E4B0(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_100100F84(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
 }
 
-void sub_10136E5D8(void *a1)
+void sub_10136E5D8(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_100100F84(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
 }
 
 void sub_10136E69C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Showing canvas highlight when a rep is highlighted", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Showing canvas highlight when a rep is highlighted", v2, v3, v4, v5);
 }
 
 void sub_10136E7D8()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
-uint64_t sub_10136E8B0(uint64_t result, unint64_t a2, uint64_t a3)
+uint64_t sub_10136E8B0(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a4;
   if (result)
   {
+    v4 = a2;
     if (a2 < a2 + a3)
     {
-      sub_10041F8B8();
+      sub_10041F8B8(result + 8, &v4, &v5);
     }
   }
 
@@ -14458,7 +14926,7 @@ void sub_10136FDC4()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10136FE98()
@@ -14466,7 +14934,7 @@ void sub_10136FE98()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10136FF80()
@@ -14474,7 +14942,7 @@ void sub_10136FF80()
   sub_1000C5968();
   sub_1000C59AC();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013700B8(uint64_t a1, int a2)
@@ -14787,7 +15255,7 @@ void sub_101371FAC(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_10137207C()
@@ -14805,7 +15273,7 @@ void sub_101372140(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_101372210()
@@ -14823,7 +15291,7 @@ void sub_1013722D4(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_1013723A4()
@@ -14841,7 +15309,7 @@ void sub_101372468(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_101372538()
@@ -14859,7 +15327,7 @@ void sub_1013725FC(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_1013726B8()
@@ -14868,7 +15336,7 @@ void sub_1013726B8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101372788()
@@ -14877,7 +15345,7 @@ void sub_101372788()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101372858()
@@ -14886,7 +15354,7 @@ void sub_101372858()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10137293C()
@@ -14895,7 +15363,7 @@ void sub_10137293C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101372A20()
@@ -14904,7 +15372,7 @@ void sub_101372A20()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101372B04()
@@ -14922,7 +15390,7 @@ void sub_101372BE8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101372CCC()
@@ -14931,7 +15399,7 @@ void sub_101372CCC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101372D9C()
@@ -15149,49 +15617,49 @@ void sub_101373FF0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to make a non-rounded-rectangle path continuously curve", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to make a non-rounded-rectangle path continuously curve", v2, v3, v4, v5);
 }
 
 void sub_1013740B4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d called cornerRadius on wrong type pathSource", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d called cornerRadius on wrong type pathSource", v2, v3, v4, v5);
 }
 
 void sub_101374178()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d called cornerRadius on wrong type pathSource", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d called cornerRadius on wrong type pathSource", v2, v3, v4, v5);
 }
 
 void sub_10137423C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d called numberOfSides on wrong type pathSource", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d called numberOfSides on wrong type pathSource", v2, v3, v4, v5);
 }
 
 void sub_101374300()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Need to provide feedback string for chevron!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Need to provide feedback string for chevron!", v2, v3, v4, v5);
 }
 
 void sub_1013743C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Need to provide axLabel component string for chevron!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Need to provide axLabel component string for chevron!", v2, v3, v4, v5);
 }
 
 void sub_101374488()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Need to provide axValue string for chevron!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Need to provide axValue string for chevron!", v2, v3, v4, v5);
 }
 
 void sub_101374560()
@@ -15200,7 +15668,7 @@ void sub_101374560()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5);
 }
 
 void sub_101374630()
@@ -15209,7 +15677,7 @@ void sub_101374630()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5);
 }
 
 void sub_101374700()
@@ -15218,7 +15686,7 @@ void sub_101374700()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5);
 }
 
 void sub_1013747D0()
@@ -15238,42 +15706,42 @@ void sub_1013748AC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10137497C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must call -teardown on ICC before it is deallocated", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must call -teardown on ICC before it is deallocated", v2, v3, v4, v5);
 }
 
 void sub_101374A54()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must call -teardown on CVC before ICC is deallocated", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must call -teardown on CVC before ICC is deallocated", v2, v3, v4, v5);
 }
 
 void sub_101374B2C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layer host must be cleared out of ICC before it is deallocated, to avoid a zombie crash.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layer host must be cleared out of ICC before it is deallocated, to avoid a zombie crash.", v2, v3, v4, v5);
 }
 
 void sub_101374C04()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ObjCTypes string overflowed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ObjCTypes string overflowed", v2, v3, v4, v5);
 }
 
 void sub_101374CDC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The OS undo gestures should not be sending us selectors we can't respond to!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The OS undo gestures should not be sending us selectors we can't respond to!", v2, v3, v4, v5);
 }
 
 void sub_101374DA0()
@@ -15290,14 +15758,14 @@ void sub_101374E78()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d removeBackgroundRenderingObject called on an object that is not in the array", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d removeBackgroundRenderingObject called on an object that is not in the array", v2, v3, v4, v5);
 }
 
 void sub_101374F3C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected re-use of ICC with a different delegate", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected re-use of ICC with a different delegate", v2, v3, v4, v5);
 }
 
 void sub_101375000()
@@ -15344,7 +15812,7 @@ void sub_101375388()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10137544C()
@@ -15371,35 +15839,35 @@ void sub_1013755FC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_1013756D4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not suppress layer updates unless collab is suspended!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not suppress layer updates unless collab is suspended!", v2, v3, v4, v5);
 }
 
 void sub_1013757C0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d editor controller mismatch", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d editor controller mismatch", v2, v3, v4, v5);
 }
 
 void sub_101375898()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Negative reentrancy counter", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Negative reentrancy counter", v2, v3, v4, v5);
 }
 
 void sub_101375970()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ICC delegate must provide the editor controller! (You probably need to give it a document selection through canvas selection, too.)", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ICC delegate must provide the editor controller! (You probably need to give it a document selection through canvas selection, too.)", v2, v3, v4, v5);
 }
 
 void sub_101375A34(void *a1, int a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
@@ -15471,70 +15939,70 @@ void sub_101375F54()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Scroll options CRLCanvasScrollOptionWaitForViewLayoutIfNeeded and CRLCanvasScrollOptionScrollForcingLayoutIfNeeded are mutually exclusive", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Scroll options CRLCanvasScrollOptionWaitForViewLayoutIfNeeded and CRLCanvasScrollOptionScrollForcingLayoutIfNeeded are mutually exclusive", v2, v3, v4, v5);
 }
 
 void sub_10137602C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Scrolling automatically in an unsupported configuration!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Scrolling automatically in an unsupported configuration!", v2, v3, v4, v5);
 }
 
 void sub_1013760F0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_1013761B4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot calculate unobscured frame without view", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot calculate unobscured frame without view", v2, v3, v4, v5);
 }
 
 void sub_101376278()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We expect a superview for bounds calculation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We expect a superview for bounds calculation", v2, v3, v4, v5);
 }
 
 void sub_10137633C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot tell scrollRectToVisible to zoom!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot tell scrollRectToVisible to zoom!", v2, v3, v4, v5);
 }
 
 void sub_101376414()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot tell scrollRectToVisible to zoom!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot tell scrollRectToVisible to zoom!", v2, v3, v4, v5);
 }
 
 void sub_1013764D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d You shouldn't ask to grow the canvas if the canvas doesn't grow in general", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d You shouldn't ask to grow the canvas if the canvas doesn't grow in general", v2, v3, v4, v5);
 }
 
 void sub_10137659C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101376674()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we're given any info without a parent, we should have been given at least one info with a parent, too.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we're given any info without a parent, we should have been given at least one info with a parent, too.", v2, v3, v4, v5);
 }
 
 void sub_101376738()
@@ -15551,7 +16019,7 @@ void sub_101376810()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d couldn't remove rep from parent", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d couldn't remove rep from parent", v2, v3, v4, v5);
 }
 
 void sub_1013768D4()
@@ -15609,28 +16077,28 @@ void sub_101376D18()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101376DDC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101376EA0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101376F64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10137703C()
@@ -15647,91 +16115,91 @@ void sub_101377114()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_1013771D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only update HUD on the layout thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only update HUD on the layout thread.", v2, v3, v4, v5);
 }
 
 void sub_10137733C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101377414()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Showing two huds for the same lobby session", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Showing two huds for the same lobby session", v2, v3, v4, v5);
 }
 
 void sub_1013774D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only update HUD on the layout thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only update HUD on the layout thread.", v2, v3, v4, v5);
 }
 
 void sub_10137759C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only update HUD on the layout thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only update HUD on the layout thread.", v2, v3, v4, v5);
 }
 
 void sub_101377660()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only update HUD on the layout thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only update HUD on the layout thread.", v2, v3, v4, v5);
 }
 
 void sub_101377724()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d didn't end previous dynamic operation before starting a new one", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d didn't end previous dynamic operation before starting a new one", v2, v3, v4, v5);
 }
 
 void sub_1013777FC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Inspector-driven dynamic operation in process when beginning separate dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Inspector-driven dynamic operation in process when beginning separate dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_1013778C0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d didn't begin or already ending dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d didn't begin or already ending dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_101377984()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ending dynamic operation without starting a new one or calling willEnd", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ending dynamic operation without starting a new one or calling willEnd", v2, v3, v4, v5);
 }
 
 void sub_101377A5C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot begin inspector dynamic operation while in non-inspector dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot begin inspector dynamic operation while in non-inspector dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_101377B20()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Ended more dynamic operations than you began!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Ended more dynamic operations than you began!", v2, v3, v4, v5);
 }
 
 void sub_101377BE4()
@@ -15788,63 +16256,63 @@ void sub_101378058()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101378130()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Temporary additional board items should not already be in our model!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Temporary additional board items should not already be in our model!", v2, v3, v4, v5);
 }
 
 void sub_1013781F4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d change notifications should only come in on the main thread", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d change notifications should only come in on the main thread", v2, v3, v4, v5);
 }
 
 void sub_1013782CC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d failed to perform locked action", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d failed to perform locked action", v2, v3, v4, v5);
 }
 
 void sub_101378390()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Don't expect to have changed text on background thread", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Don't expect to have changed text on background thread", v2, v3, v4, v5);
 }
 
 void sub_101378454()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Don't expect to have changed selection on background thread", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Don't expect to have changed selection on background thread", v2, v3, v4, v5);
 }
 
 void sub_101378518()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d animation nesting not yet supported", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d animation nesting not yet supported", v2, v3, v4, v5);
 }
 
 void sub_1013785DC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d can't commit if we don't have an animation open", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d can't commit if we don't have an animation open", v2, v3, v4, v5);
 }
 
 void sub_1013786A0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d i_layout should only be called by our CV, from the main thread", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d i_layout should only be called by our CV, from the main thread", v2, v3, v4, v5);
 }
 
 void sub_101378764()
@@ -15881,7 +16349,7 @@ void sub_101378A00()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Content offset was outside the expected range! Clamping to a possibly sane value.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Content offset was outside the expected range! Clamping to a possibly sane value.", v2, v3, v4, v5);
 }
 
 void sub_101378AD8()
@@ -15916,7 +16384,7 @@ void sub_101378CC4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101378D80(void *a1)
@@ -15924,7 +16392,7 @@ void sub_101378D80(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_101378E50()
@@ -15933,7 +16401,7 @@ void sub_101378E50()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101378F0C(void *a1)
@@ -15941,7 +16409,7 @@ void sub_101378F0C(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_101378FC8()
@@ -15950,7 +16418,7 @@ void sub_101378FC8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101379084(void *a1)
@@ -15958,7 +16426,7 @@ void sub_101379084(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_101379154()
@@ -15967,7 +16435,7 @@ void sub_101379154()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101379210(void *a1)
@@ -15975,7 +16443,7 @@ void sub_101379210(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_1013792CC()
@@ -16242,7 +16710,7 @@ void sub_10137ACC8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Archive is closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Archive is closed", v2, v3, v4, v5);
 }
 
 void sub_10137ADC8(uint64_t a1, void *a2)
@@ -16326,21 +16794,21 @@ void sub_10137B308()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Already closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Already closed", v2, v3, v4, v5);
 }
 
 void sub_10137B3E0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Low water is too small", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Low water is too small", v2, v3, v4, v5);
 }
 
 void sub_10137B4A4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Already closed", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Already closed", v2, v3, v4, v5);
 }
 
 void sub_10137B57C()
@@ -16536,75 +17004,77 @@ void sub_10137C79C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d begin possible op with ICC in dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d begin possible op with ICC in dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_10137C874()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d beginning possible operation without ending previous operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d beginning possible operation without ending previous operation", v2, v3, v4, v5);
 }
 
 void sub_10137C938()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d begin op with ICC in dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d begin op with ICC in dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_10137CA10()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d beginning operation without ending previous operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d beginning operation without ending previous operation", v2, v3, v4, v5);
 }
 
 void sub_10137CAE8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No controlling TM when beginning operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No controlling TM when beginning operation", v2, v3, v4, v5);
 }
 
 void sub_10137CBC0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d tracker controller should not commit dynamic changes", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d tracker controller should not commit dynamic changes", v2, v3, v4, v5);
 }
 
 void sub_10137CCE8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ending op with ICC still in dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d ending op with ICC still in dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_10137CDAC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cancelling when not in operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cancelling when not in operation", v2, v3, v4, v5);
 }
 
 void sub_10137CE70()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot begin transforming reps until we are in a transform", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d cannot begin transforming reps until we are in a transform", v2, v3, v4, v5);
 }
 
-void sub_10137CF34(void *a1)
+void sub_10137CF34(void *a1, uint64_t a2, int a3)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v4 = a1;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  LODWORD(v13) = 67110146;
+  HIDWORD(v13) = a3;
   sub_10022BC84();
   sub_1000C59AC();
   sub_1000D4D50();
   sub_1000C5A00();
-  sub_10019F734(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d tracker is handling GR %@ when not in a transform", v6, v7, v8, v9, 2u);
+  sub_10019F734(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d tracker is handling GR %@ when not in a transform", v9, v10, v11, v12, v13);
 }
 
 void sub_10137D050(void *a1)
@@ -16630,28 +17100,32 @@ void sub_10137D158(uint64_t a1, int a2)
   _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d controlling GR reset in an operation, but we aren't in an operation! %@", v3, 0x2Cu);
 }
 
-void sub_10137D234(void *a1)
+void sub_10137D234(void *a1, uint64_t a2, int a3)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v4 = a1;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  LODWORD(v13) = 67110146;
+  HIDWORD(v13) = a3;
   sub_10022BC84();
   sub_1000C59AC();
   sub_1000D4D50();
   sub_1000C5A00();
-  sub_10019F734(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d tracker is handling TM %@ when not in a transform", v6, v7, v8, v9, 2u);
+  sub_10019F734(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d tracker is handling TM %@ when not in a transform", v9, v10, v11, v12, v13);
 }
 
-void sub_10137D350(void *a1)
+void sub_10137D350(void *a1, uint64_t a2, int a3)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v4 = a1;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  LODWORD(v13) = 67110146;
+  HIDWORD(v13) = a3;
   sub_10022BC84();
   sub_1000C59AC();
   sub_1000D4D50();
   sub_1000C5A00();
-  sub_10019F734(&_mh_execute_header, v4, v5, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Controlling TM %@ has different dynamic operation expectations than current operation", v6, v7, v8, v9, 2u);
+  sub_10019F734(&_mh_execute_header, v7, v8, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Controlling TM %@ has different dynamic operation expectations than current operation", v9, v10, v11, v12, v13);
 }
 
 void sub_10137D458()
@@ -16669,7 +17143,7 @@ void sub_10137D520()
 {
   v0 = +[CRLAssertionHandler packedBacktraceString];
   sub_10015B6E4();
-  sub_100100F84(&_mh_execute_header, v1, v2, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v3, v4, v5, v6, v7);
+  sub_100100F84(&_mh_execute_header, v1, v2, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v3, v4, v5, v6);
 }
 
 void sub_10137D5E8()
@@ -16691,7 +17165,7 @@ void sub_10137D6D4()
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100266C04();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUISmall.", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUISmall.", v2, v3, v4, v5);
 }
 
 void sub_10137D798()
@@ -16700,7 +17174,7 @@ void sub_10137D798()
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100266C04();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUIRegularZoom.", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUIRegularZoom.", v2, v3, v4, v5);
 }
 
 void sub_10137D85C()
@@ -16709,7 +17183,7 @@ void sub_10137D85C()
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100266C04();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUIRegularPlus.", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUIRegularPlus.", v2, v3, v4, v5);
 }
 
 void sub_10137D920()
@@ -16718,7 +17192,7 @@ void sub_10137D920()
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100266C04();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUIRegular.", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUIRegular.", v2, v3, v4, v5);
 }
 
 void sub_10137D9E4()
@@ -16727,7 +17201,7 @@ void sub_10137D9E4()
   sub_1000C59AC();
   sub_1000D4D50();
   sub_100266C04();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUILarge.", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d New device size not handled (%f). Defaulting to CRLUIScreenClassPhoneUILarge.", v2, v3, v4, v5);
 }
 
 void sub_10137DC38()
@@ -16752,7 +17226,7 @@ void sub_10137DE28()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The shape library and basic shape library must be in the same locale.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The shape library and basic shape library must be in the same locale.", v2, v3, v4, v5);
 }
 
 void sub_10137DEEC()
@@ -16772,21 +17246,21 @@ void sub_10137E050()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d separatedBasicResults must only contain 4 elements.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d separatedBasicResults must only contain 4 elements.", v2, v3, v4, v5);
 }
 
 void sub_10137E128()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d separatedShapeLibraryResults must only contain 4 elements.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d separatedShapeLibraryResults must only contain 4 elements.", v2, v3, v4, v5);
 }
 
 void sub_10137E200()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d allShapes cannot be nil.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d allShapes cannot be nil.", v2, v3, v4, v5);
 }
 
 void sub_10137E2C4()
@@ -16806,7 +17280,7 @@ void sub_10137E3C4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Comparison of shape position must return either ascending or descending.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Comparison of shape position must return either ascending or descending.", v2, v3, v4, v5);
 }
 
 void sub_10137E488()
@@ -16815,7 +17289,7 @@ void sub_10137E488()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10137E56C()
@@ -16824,7 +17298,7 @@ void sub_10137E56C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10137E63C()
@@ -16833,7 +17307,7 @@ void sub_10137E63C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10137E720()
@@ -16842,7 +17316,7 @@ void sub_10137E720()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10137E804()
@@ -16851,7 +17325,7 @@ void sub_10137E804()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10137E8D4()
@@ -16860,7 +17334,7 @@ void sub_10137E8D4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10137E9B8(int a1, NSObject *a2)
@@ -16880,21 +17354,21 @@ void sub_10137EAA0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d teardown not called for CRLCanvasView.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d teardown not called for CRLCanvasView.", v2, v3, v4, v5);
 }
 
 void sub_10137EB64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't try to set canvasView's controller more than once", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d shouldn't try to set canvasView's controller more than once", v2, v3, v4, v5);
 }
 
 void sub_10137EC28()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d attempting to call teardown on an instance of CRLCanvasView that has already been torn down.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d attempting to call teardown on an instance of CRLCanvasView that has already been torn down.", v2, v3, v4, v5);
 }
 
 void sub_10137ECEC(void *a1)
@@ -16922,35 +17396,35 @@ void sub_10137EF10()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d reps conforming to CRLPathEditableRep protocol only valid for path node knob tracker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d reps conforming to CRLPathEditableRep protocol only valid for path node knob tracker", v2, v3, v4, v5);
 }
 
 void sub_10137EFE8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong knob for path node knob tracker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d wrong knob for path node knob tracker", v2, v3, v4, v5);
 }
 
 void sub_10137F0C0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d knob tracker should never have a null knob", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d knob tracker should never have a null knob", v2, v3, v4, v5);
 }
 
 void sub_10137F198()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d should have created a knob, but got nil", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d should have created a knob, but got nil", v2, v3, v4, v5);
 }
 
 void sub_10137F25C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't close command group. This is bad news.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't close command group. This is bad news.", v2, v3, v4, v5);
 }
 
 void sub_10137F320(int a1, NSObject *a2)
@@ -17000,42 +17474,42 @@ void sub_10137F6F8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't provide an image renderer for a non-finite size", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't provide an image renderer for a non-finite size", v2, v3, v4, v5);
 }
 
 void sub_10137F7D0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should be able to lock new renderer.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should be able to lock new renderer.", v2, v3, v4, v5);
 }
 
 void sub_10137F894()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CGContext has an invalid associated screen scale.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CGContext has an invalid associated screen scale.", v2, v3, v4, v5);
 }
 
 void sub_10137F958()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d renderedCGImage shouldn't be NULL", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d renderedCGImage shouldn't be NULL", v2, v3, v4, v5);
 }
 
 void sub_10137FA1C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d completionMultiplyImage shouldn't be NULL", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d completionMultiplyImage shouldn't be NULL", v2, v3, v4, v5);
 }
 
 void sub_10137FAF4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d completionAddImage shouldn't be NULL", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d completionAddImage shouldn't be NULL", v2, v3, v4, v5);
 }
 
 void sub_10137FBCC(uint64_t a1, int a2, os_log_t log)
@@ -17083,14 +17557,14 @@ void sub_10137FEB0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Table View Cell style Value2 is not supported in CRLiOSInspectorTableViewCell.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Table View Cell style Value2 is not supported in CRLiOSInspectorTableViewCell.", v2, v3, v4, v5);
 }
 
 void sub_10137FF88()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Table View Cell style Value2 is not supported in CRLiOSInspectorTableViewCell.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Table View Cell style Value2 is not supported in CRLiOSInspectorTableViewCell.", v2, v3, v4, v5);
 }
 
 void sub_10138004C()
@@ -17109,14 +17583,14 @@ void sub_1013801D4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil table view if index path was also nil", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil table view if index path was also nil", v2, v3, v4, v5);
 }
 
 void sub_1013802AC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil delegate if table view was also nil", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil delegate if table view was also nil", v2, v3, v4, v5);
 }
 
 void sub_101380370(int a1, NSObject *a2)
@@ -17136,91 +17610,91 @@ void sub_101380480()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: beginUndoGrouping", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: beginUndoGrouping", v2, v3, v4, v5);
 }
 
 void sub_101380544()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: endUndoGrouping", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: endUndoGrouping", v2, v3, v4, v5);
 }
 
 void sub_101380608()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Disable count underflow", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Disable count underflow", v2, v3, v4, v5);
 }
 
 void sub_1013806CC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: groupsByEvent", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: groupsByEvent", v2, v3, v4, v5);
 }
 
 void sub_101380790()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: setGroupsByEvent:", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: setGroupsByEvent:", v2, v3, v4, v5);
 }
 
 void sub_101380854()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: setLevelsOfUndo:", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: setLevelsOfUndo:", v2, v3, v4, v5);
 }
 
 void sub_101380918()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: setRunLoopModes:", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: setRunLoopModes:", v2, v3, v4, v5);
 }
 
 void sub_1013809DC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected.", v2, v3, v4, v5);
 }
 
 void sub_101380AA0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected.", v2, v3, v4, v5);
 }
 
 void sub_101380B64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: removeAllActionsWithTarget:", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: removeAllActionsWithTarget:", v2, v3, v4, v5);
 }
 
 void sub_101380C28()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: registerUndoWithTarget", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: registerUndoWithTarget", v2, v3, v4, v5);
 }
 
 void sub_101380CEC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: prepareWithInvocationTarget", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: prepareWithInvocationTarget", v2, v3, v4, v5);
 }
 
 void sub_101380DB0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: setActionName:", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLUndoManager: undo manager has been overridden. This call is unexpected: setActionName:", v2, v3, v4, v5);
 }
 
 void sub_101380E74()
@@ -17247,7 +17721,7 @@ void sub_101381014()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013810E4()
@@ -17265,7 +17739,7 @@ void sub_1013811C8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381298()
@@ -17274,7 +17748,7 @@ void sub_101381298()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381368()
@@ -17283,7 +17757,7 @@ void sub_101381368()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381438()
@@ -17292,7 +17766,7 @@ void sub_101381438()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138151C()
@@ -17301,7 +17775,7 @@ void sub_10138151C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381600()
@@ -17310,7 +17784,7 @@ void sub_101381600()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013816E4()
@@ -17319,7 +17793,7 @@ void sub_1013816E4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013817A0()
@@ -17337,7 +17811,7 @@ void sub_10138186C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381950()
@@ -17346,7 +17820,7 @@ void sub_101381950()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381A34()
@@ -17355,7 +17829,7 @@ void sub_101381A34()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381B18()
@@ -17364,7 +17838,7 @@ void sub_101381B18()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381BFC()
@@ -17373,7 +17847,7 @@ void sub_101381BFC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381CE0()
@@ -17382,7 +17856,7 @@ void sub_101381CE0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381DC4()
@@ -17391,7 +17865,7 @@ void sub_101381DC4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381EA8()
@@ -17400,7 +17874,7 @@ void sub_101381EA8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101381F8C()
@@ -17409,7 +17883,7 @@ void sub_101381F8C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101382070()
@@ -17418,7 +17892,7 @@ void sub_101382070()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101382140()
@@ -17427,7 +17901,7 @@ void sub_101382140()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101382210()
@@ -17436,7 +17910,7 @@ void sub_101382210()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013822F4()
@@ -17445,7 +17919,7 @@ void sub_1013822F4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013823D8()
@@ -17454,7 +17928,7 @@ void sub_1013823D8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013824BC()
@@ -17463,7 +17937,7 @@ void sub_1013824BC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138258C()
@@ -17481,7 +17955,7 @@ void sub_101382670()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101382754()
@@ -17490,10 +17964,10 @@ void sub_101382754()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
-void sub_101382838(uint64_t a1, void *a2)
+void sub_101382838(uint64_t *a1, void *a2)
 {
   v2 = a2;
   v3 = objc_opt_class();
@@ -17509,7 +17983,7 @@ void sub_101382960()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101382A44()
@@ -17518,7 +17992,7 @@ void sub_101382A44()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101382B14()
@@ -17527,7 +18001,7 @@ void sub_101382B14()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101382BE4()
@@ -17536,7 +18010,7 @@ void sub_101382BE4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101382CB4()
@@ -17545,28 +18019,28 @@ void sub_101382CB4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101382D84()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad adornments type (expected kAdornmentsTypeInvisibles or kAdornmentsTypeInvisiblesBreak", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad adornments type (expected kAdornmentsTypeInvisibles or kAdornmentsTypeInvisiblesBreak", v2, v3, v4, v5);
 }
 
 void sub_101382E48()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad adornments type (expected kAdornmentsTypeEmphasisMarks or kAdornmentTypeHiddenDeletions", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad adornments type (expected kAdornmentsTypeEmphasisMarks or kAdornmentTypeHiddenDeletions", v2, v3, v4, v5);
 }
 
 void sub_101382F0C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad adornments type (expected kAdornmentsTypeAttachments", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d bad adornments type (expected kAdornmentsTypeAttachments", v2, v3, v4, v5);
 }
 
 void sub_101382FD0()
@@ -17641,7 +18115,7 @@ uint64_t sub_1013837FC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Passing in nil is invalid.", v2, v3, v4, v5, v7);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Passing in nil is invalid.", v2, v3, v4, v5);
   if (qword_101AD5A10 == -1)
   {
     return 1;
@@ -17655,7 +18129,7 @@ uint64_t sub_1013838CC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Creating retain cycle between gradient and its shading ref", v2, v3, v4, v5, v7);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Creating retain cycle between gradient and its shading ref", v2, v3, v4, v5);
   if (qword_101AD5A10 == -1)
   {
     return 1;
@@ -17693,7 +18167,7 @@ uint64_t sub_101383AEC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shading color space should not be unspecified.", v2, v3, v4, v5, v7);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shading color space should not be unspecified.", v2, v3, v4, v5);
   if (qword_101AD5A10 == -1)
   {
     return 1;
@@ -17707,7 +18181,7 @@ uint64_t sub_101383BBC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Subclasses should override.", v2, v3, v4, v5, v7);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Subclasses should override.", v2, v3, v4, v5);
   if (qword_101AD5A10 == -1)
   {
     return 1;
@@ -17721,7 +18195,7 @@ uint64_t sub_101383C8C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Subclasses should override.", v2, v3, v4, v5, v7);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Subclasses should override.", v2, v3, v4, v5);
   if (qword_101AD5A10 == -1)
   {
     return 1;
@@ -17735,14 +18209,14 @@ void sub_101383D5C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Token cannot be nil.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Token cannot be nil.", v2, v3, v4, v5);
 }
 
 void sub_101383E20()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Token cannot be nil.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Token cannot be nil.", v2, v3, v4, v5);
 }
 
 void sub_101383F34()
@@ -17766,7 +18240,7 @@ void sub_1013840AC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Token cannot be nil.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Token cannot be nil.", v2, v3, v4, v5);
 }
 
 void sub_10138415C(void *a1)
@@ -17782,14 +18256,14 @@ void sub_101384220()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Completion handler was already called.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Completion handler was already called.", v2, v3, v4, v5);
 }
 
 void sub_1013842E4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Removing all tokens should also cancel all timeout blocks.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Removing all tokens should also cancel all timeout blocks.", v2, v3, v4, v5);
 }
 
 void sub_1013843BC(id *a1, void *a2, id *a3)
@@ -17877,49 +18351,49 @@ void sub_101384BAC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unbalanced -pauseTimeout and -resumeTimeout calls.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unbalanced -pauseTimeout and -resumeTimeout calls.", v2, v3, v4, v5);
 }
 
 void sub_101384C84()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected state.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected state.", v2, v3, v4, v5);
 }
 
 void sub_101384D48()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected state.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected state.", v2, v3, v4, v5);
 }
 
 void sub_101384E0C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Operation completion handler is getting deallocated before it was invoked.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Operation completion handler is getting deallocated before it was invoked.", v2, v3, v4, v5);
 }
 
 void sub_101384ED0()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5);
 }
 
 void sub_101384FBC()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid parameter not satisfying: %{public}s", v2, v3, v4, v5);
 }
 
 void sub_1013850A8()
 {
   sub_1000C5968();
   sub_1000C599C();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101385180()
@@ -17952,28 +18426,28 @@ void sub_1013853A4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shouldn't be trying to set the width of a whole object eraser.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shouldn't be trying to set the width of a whole object eraser.", v2, v3, v4, v5);
 }
 
 void sub_101385508()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Path creator should always provide some kind of path.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Path creator should always provide some kind of path.", v2, v3, v4, v5);
 }
 
 void sub_1013855CC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This method should only be called for slicing erasers.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This method should only be called for slicing erasers.", v2, v3, v4, v5);
 }
 
 void sub_101385870()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d strokePatternOffsetArray must have the same count as the number of provided subpaths (if it's provided)", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d strokePatternOffsetArray must have the same count as the number of provided subpaths (if it's provided)", v2, v3, v4, v5);
 }
 
 void sub_101385984()
@@ -18026,14 +18500,14 @@ void sub_101385D58()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shouldn't be torn down twice!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shouldn't be torn down twice!", v2, v3, v4, v5);
 }
 
 void sub_101385E1C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must be torn down!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Must be torn down!", v2, v3, v4, v5);
 }
 
 void sub_101385EE0(uint64_t a1, int a2, os_log_t log)
@@ -18055,14 +18529,14 @@ void sub_101385FD8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layout with bottommost layers should have run at least once on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layout with bottommost layers should have run at least once on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_1013860B0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layout with overlay layers should have run at least once on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Layout with overlay layers should have run at least once on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101386174()
@@ -18082,7 +18556,7 @@ void sub_101386260()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101386374()
@@ -18220,42 +18694,42 @@ void sub_101386CAC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only CRLPKStrokePoint instances can be added to a stroke's point array", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only CRLPKStrokePoint instances can be added to a stroke's point array", v2, v3, v4, v5);
 }
 
 void sub_101386D70()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only CRLPKStrokePoint instances can be added to a stroke's point array", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only CRLPKStrokePoint instances can be added to a stroke's point array", v2, v3, v4, v5);
 }
 
 void sub_101386E34()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only CRLPKStrokePoint instances can be added to a stroke's point array", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only CRLPKStrokePoint instances can be added to a stroke's point array", v2, v3, v4, v5);
 }
 
 void sub_101386F0C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown platform!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown platform!", v2, v3, v4, v5);
 }
 
 void sub_101386FD0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown platform!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unknown platform!", v2, v3, v4, v5);
 }
 
 void sub_101387094()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shouldn't be asking for the maximum Metal texture size on a device that doesn't support Metal.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Shouldn't be asking for the maximum Metal texture size on a device that doesn't support Metal.", v2, v3, v4, v5);
 }
 
 void sub_101387158()
@@ -18448,14 +18922,14 @@ void sub_101387EB8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We need to set the poster time and the poster image together. The poster image is a board item asset so it is async so we'll have to wait until we have both, then use CRLCommandSetMoviePosterTime.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d We need to set the poster time and the poster image together. The poster image is a board item asset so it is async so we'll have to wait until we have both, then use CRLCommandSetMoviePosterTime.", v2, v3, v4, v5);
 }
 
 void sub_101387F7C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101388054()
@@ -18475,14 +18949,14 @@ void sub_101388140()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101388218()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d didEndChangingTimePropertyForMovieItem called without matching willBeginChangingTimePropertyForMovieItem", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d didEndChangingTimePropertyForMovieItem called without matching willBeginChangingTimePropertyForMovieItem", v2, v3, v4, v5);
 }
 
 void sub_1013882F0()
@@ -18502,7 +18976,7 @@ void sub_1013883DC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only should save default style with a single object selected!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Only should save default style with a single object selected!", v2, v3, v4, v5);
 }
 
 BOOL sub_10138848C(unsigned int *a1, void *a2)
@@ -18671,7 +19145,7 @@ void sub_101388ECC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101388FA4()
@@ -18691,63 +19165,63 @@ void sub_101389090()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101389168()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to add a document mode observer that's already added", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to add a document mode observer that's already added", v2, v3, v4, v5);
 }
 
 void sub_10138922C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101389304()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to remove a document mode observer that has not been added", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to remove a document mode observer that has not been added", v2, v3, v4, v5);
 }
 
 void sub_1013893C8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10138948C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_101389564()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not change mode while we are already changing the mode.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not change mode while we are already changing the mode.", v2, v3, v4, v5);
 }
 
 void sub_101389628()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_1013896EC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_1013897C4()
@@ -18846,7 +19320,7 @@ void sub_10138A0BC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138A18C()
@@ -18855,7 +19329,7 @@ void sub_10138A18C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138A248(void *a1)
@@ -18863,7 +19337,7 @@ void sub_10138A248(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_10138A304()
@@ -18872,7 +19346,7 @@ void sub_10138A304()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138A3D4()
@@ -18881,7 +19355,7 @@ void sub_10138A3D4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138A4A4()
@@ -18890,7 +19364,7 @@ void sub_10138A4A4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138A560(void *a1)
@@ -18898,7 +19372,7 @@ void sub_10138A560(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_10138A61C()
@@ -18907,7 +19381,7 @@ void sub_10138A61C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138A6EC()
@@ -18916,7 +19390,7 @@ void sub_10138A6EC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138A7BC()
@@ -18925,7 +19399,7 @@ void sub_10138A7BC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138A88C()
@@ -18934,7 +19408,7 @@ void sub_10138A88C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138A95C()
@@ -18943,7 +19417,7 @@ void sub_10138A95C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138AA2C()
@@ -18952,7 +19426,7 @@ void sub_10138AA2C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138AAFC()
@@ -18961,7 +19435,7 @@ void sub_10138AAFC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138ABE0()
@@ -18970,7 +19444,7 @@ void sub_10138ABE0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138ACB0()
@@ -18979,7 +19453,7 @@ void sub_10138ACB0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138AD80()
@@ -18988,7 +19462,7 @@ void sub_10138AD80()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138AE50()
@@ -18997,7 +19471,7 @@ void sub_10138AE50()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138AF20()
@@ -19015,66 +19489,81 @@ void sub_10138AFFC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5);
 }
 
 void sub_10138B0D4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5);
 }
 
 void sub_10138B198()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5);
 }
 
 void sub_10138B270()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5);
 }
 
 void sub_10138B348()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5);
 }
 
-void sub_10138B3F8(void *a1)
+void sub_10138B3F8(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_100100F84(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
 }
 
 void sub_10138B4D0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Desired size is an impossible multiple of current size.", v2, v3, v4, v5);
 }
 
-void sub_10138B580(void *a1)
+void sub_10138B580(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_100100F84(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
 }
 
-void sub_10138B680(void *a1)
+void sub_10138B680(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_100100F84(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
+}
+
+void sub_10138B744(int a1)
+{
+  LODWORD(v7) = 67110146;
+  HIDWORD(v7) = a1;
+  v8 = 2082;
+  sub_1000C59AC();
+  sub_1000C59C4(&_mh_execute_header, v1, v2, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d strokeEnd (%f) should be between 0 and 1 inclusive.", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10138B828()
@@ -19091,7 +19580,7 @@ void sub_10138B8F4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138B9D8()
@@ -19100,7 +19589,7 @@ void sub_10138B9D8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138BAA8()
@@ -19109,7 +19598,7 @@ void sub_10138BAA8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138BB8C()
@@ -19118,7 +19607,7 @@ void sub_10138BB8C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138BC5C()
@@ -19127,7 +19616,7 @@ void sub_10138BC5C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138BD2C()
@@ -19152,7 +19641,7 @@ void sub_10138BF3C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138C020()
@@ -19161,7 +19650,7 @@ void sub_10138C020()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138C104()
@@ -19186,7 +19675,7 @@ void sub_10138C2B0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138C3D0()
@@ -19195,7 +19684,7 @@ void sub_10138C3D0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138C4A0()
@@ -19204,7 +19693,7 @@ void sub_10138C4A0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138C570()
@@ -19221,7 +19710,7 @@ void sub_10138C6F0()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138C7D4()
@@ -19230,7 +19719,7 @@ void sub_10138C7D4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138C8B8()
@@ -19247,7 +19736,7 @@ void sub_10138C9D4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138CAA4()
@@ -19256,7 +19745,7 @@ void sub_10138CAA4()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138CB74()
@@ -19265,7 +19754,7 @@ void sub_10138CB74()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138CC94()
@@ -19274,7 +19763,7 @@ void sub_10138CC94()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138CDC8()
@@ -19283,7 +19772,7 @@ void sub_10138CDC8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138CF38(uint64_t a1, int a2, os_log_t log)
@@ -19318,56 +19807,56 @@ void sub_10138D12C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not start monitoring a control for animations that is already being monitored.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not start monitoring a control for animations that is already being monitored.", v2, v3, v4, v5);
 }
 
 void sub_10138D1F0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not stop monitoring a control for animations that is not already being monitored.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not stop monitoring a control for animations that is not already being monitored.", v2, v3, v4, v5);
 }
 
 void sub_10138D2F0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5);
 }
 
 void sub_10138D3C8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Button animation received out-of-order touch events. This may be due to calling [self refresh] or [tableView reloadData] directly instead of calling [self.refreshingDelegate refreshableInspectorPaneWantsToRefresh:self].", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Button animation received out-of-order touch events. This may be due to calling [self refresh] or [tableView reloadData] directly instead of calling [self.refreshingDelegate refreshableInspectorPaneWantsToRefresh:self].", v2, v3, v4, v5);
 }
 
 void sub_10138D48C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5);
 }
 
 void sub_10138D550()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5);
 }
 
 void sub_10138D614()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5);
 }
 
 void sub_10138D6D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Trying to apply animations to a control that's not being monitored.", v2, v3, v4, v5);
 }
 
 void sub_10138D7B0()
@@ -19425,7 +19914,7 @@ void sub_10138DDFC(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_10138DEB8()
@@ -19434,15 +19923,17 @@ void sub_10138DEB8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
-void sub_10138DF74(void *a1)
+void sub_10138DF74(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = +[CRLAssertionHandler packedBacktraceString];
+  v3 = a1;
+  v4 = +[CRLAssertionHandler packedBacktraceString];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = a2;
   sub_10010A4F8();
-  sub_1000C597C(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, 2u);
+  sub_1000C597C(&_mh_execute_header, v5, v6, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v7, v8, v9, v10, v11);
 }
 
 void sub_10138E034()
@@ -19451,7 +19942,7 @@ void sub_10138E034()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138E118()
@@ -19460,7 +19951,7 @@ void sub_10138E118()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138E1E8()
@@ -19469,7 +19960,7 @@ void sub_10138E1E8()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138E2A4(void *a1)
@@ -19477,7 +19968,7 @@ void sub_10138E2A4(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_10138E374()
@@ -19486,7 +19977,7 @@ void sub_10138E374()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138E430(void *a1)
@@ -19494,7 +19985,7 @@ void sub_10138E430(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_10138E500()
@@ -19503,7 +19994,7 @@ void sub_10138E500()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138E5BC(void *a1)
@@ -19511,7 +20002,7 @@ void sub_10138E5BC(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_10138E68C()
@@ -19520,7 +20011,7 @@ void sub_10138E68C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_10138E748(void *a1)
@@ -19528,7 +20019,7 @@ void sub_10138E748(void *a1)
   v1 = a1;
   v2 = +[CRLAssertionHandler packedBacktraceString];
   sub_100100F6C();
-  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8, v9);
+  sub_100100F84(&_mh_execute_header, v3, v4, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v5, v6, v7, v8);
 }
 
 void sub_10138E868(uint64_t a1, NSObject *a2)
@@ -19559,7 +20050,7 @@ void sub_10138EA28()
   sub_1005344AC();
   sub_1000C599C();
   sub_1002616D4();
-  sub_1005344BC(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected inequality between %{public}s and %{public}s", v2, v3, v4, v5, v6);
+  sub_1005344BC(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected inequality between %{public}s and %{public}s", v2, v3, v4, v5);
 }
 
 void sub_10138EB18()
@@ -19568,7 +20059,7 @@ void sub_10138EB18()
   sub_1005344AC();
   sub_1000C599C();
   sub_1002616D4();
-  sub_1005344BC(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected inequality between %{public}s and %{public}s", v2, v3, v4, v5, v6);
+  sub_1005344BC(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected inequality between %{public}s and %{public}s", v2, v3, v4, v5);
 }
 
 void sub_10138EBF4()
@@ -19577,7 +20068,7 @@ void sub_10138EBF4()
   sub_1005344AC();
   sub_1000C599C();
   sub_1002616D4();
-  sub_1005344BC(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected inequality between %{public}s and %{public}s", v2, v3, v4, v5, v6);
+  sub_1005344BC(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected inequality between %{public}s and %{public}s", v2, v3, v4, v5);
 }
 
 void sub_10138ED70()
@@ -19619,7 +20110,7 @@ void sub_10138F010(void *a1)
   v3 = sub_1000C59B8();
   v4 = NSStringFromSelector(v3);
   sub_100537C50();
-  sub_100537C30(&_mh_execute_header, v5, v6, "%{public}@\n %{public}@", v7, v8, v9, v10, v11);
+  sub_100537C30(&_mh_execute_header, v5, v6, "%{public}@\n %{public}@", v7, v8, v9, v10);
 }
 
 void sub_10138F0C0()
@@ -19654,8 +20145,12 @@ void sub_10138F324(void *a1, uint64_t a2, void *a3)
   v5 = a1;
   v6 = sub_1000C59B8();
   v7 = NSStringFromSelector(v6);
-  v14 = [a3 rootIdentifier];
-  sub_100537C30(&_mh_execute_header, v8, v9, "%{public}@\n providing root UUID for inserting textbox %{public}@", v10, v11, v12, v13, 2u);
+  v8 = [a3 rootIdentifier];
+  *v15 = 138543618;
+  *&v15[4] = v7;
+  *&v15[12] = 2114;
+  *&v15[14] = v8;
+  sub_100537C30(&_mh_execute_header, v9, v10, "%{public}@\n providing root UUID for inserting textbox %{public}@", v11, v12, v13, v14, *v15, *&v15[8], *&v15[16]);
 }
 
 void sub_10138F3F8()
@@ -19725,28 +20220,28 @@ void sub_10138F908()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Non smartfield selection has smartField range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Non smartfield selection has smartField range", v2, v3, v4, v5);
 }
 
 void sub_10138F9E0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal range length", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal range length", v2, v3, v4, v5);
 }
 
 void sub_10138FAB8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal range location", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal range location", v2, v3, v4, v5);
 }
 
 void sub_10138FB7C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Selection has a leading edge but no storage to get the leading char", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Selection has a leading edge but no storage to get the leading char", v2, v3, v4, v5);
 }
 
 void sub_10138FC40()
@@ -19766,21 +20261,21 @@ void sub_10138FD2C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Selection type must be visual", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Selection type must be visual", v2, v3, v4, v5);
 }
 
 void sub_10138FDF0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal visual range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal visual range", v2, v3, v4, v5);
 }
 
 void sub_10138FEB4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Visual ranges have not been calculated", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Visual ranges have not been calculated", v2, v3, v4, v5);
 }
 
 void sub_10138FF8C()
@@ -19861,14 +20356,14 @@ void sub_1013907C8()
 {
   sub_1002616C4();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to Parse SVG File", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to Parse SVG File", v2, v3, v4, v5);
 }
 
 void sub_1013908F4()
 {
   sub_1002616C4();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected 'defer' component", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected 'defer' component", v2, v3, v4, v5);
 }
 
 void sub_1013909D0(void *a1)
@@ -19936,14 +20431,14 @@ void sub_101390F94()
 {
   sub_1002616C4();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No value for initial polyline point!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No value for initial polyline point!", v2, v3, v4, v5);
 }
 
 void sub_10139119C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Info is wrong class for layout.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Info is wrong class for layout.", v2, v3, v4, v5);
 }
 
 void sub_101391274()
@@ -19963,28 +20458,28 @@ void sub_101391374()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Resize tracker should be able to say if it is enqueueing commands in real time.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Resize tracker should be able to say if it is enqueueing commands in real time.", v2, v3, v4, v5);
 }
 
 void sub_10139144C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d There should already be a command group open if we are enqueueing in real time.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d There should already be a command group open if we are enqueueing in real time.", v2, v3, v4, v5);
 }
 
 void sub_101391524()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Resize tracker should be able to say if it is enqueueing commands in real time.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Resize tracker should be able to say if it is enqueueing commands in real time.", v2, v3, v4, v5);
 }
 
 void sub_1013915FC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d There should already be a command group open if we are enqueueing in real time.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d There should already be a command group open if we are enqueueing in real time.", v2, v3, v4, v5);
 }
 
 void sub_101391738()
@@ -20076,7 +20571,7 @@ void sub_101391F4C()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101392030()
@@ -20085,7 +20580,7 @@ void sub_101392030()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101392114()
@@ -20094,7 +20589,7 @@ void sub_101392114()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101392248()
@@ -20103,7 +20598,7 @@ void sub_101392248()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101392318()
@@ -20112,7 +20607,7 @@ void sub_101392318()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013923FC()
@@ -20121,7 +20616,7 @@ void sub_1013923FC()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101392530(int a1)
@@ -20145,7 +20640,7 @@ void sub_101392640()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_101392724()
@@ -20154,7 +20649,7 @@ void sub_101392724()
   sub_1000C59AC();
   sub_1000C599C();
   sub_1000C59F4();
-  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  sub_1000C59C4(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 void sub_1013927F4(int a1, NSObject *a2)
@@ -20241,28 +20736,28 @@ void sub_101392E94()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d beginDrawing should be called from the waiting state.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d beginDrawing should be called from the waiting state.", v2, v3, v4, v5);
 }
 
 void sub_101392F58()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d endDrawing should be called from the started state.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d endDrawing should be called from the started state.", v2, v3, v4, v5);
 }
 
 void sub_10139301C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't handoff to a new path creator when using PencilKit.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't handoff to a new path creator when using PencilKit.", v2, v3, v4, v5);
 }
 
 void sub_1013930F4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Need at least two points to do a handoff.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Need at least two points to do a handoff.", v2, v3, v4, v5);
 }
 
 BOOL sub_1013931B8(unsigned int *a1, void *a2)
@@ -20300,14 +20795,14 @@ void sub_101393328()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d continueDrawing should be called from the started state.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d continueDrawing should be called from the started state.", v2, v3, v4, v5);
 }
 
 void sub_1013933EC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The immutable point count should only ever increase.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The immutable point count should only ever increase.", v2, v3, v4, v5);
 }
 
 void sub_1013934B0()
@@ -20844,7 +21339,7 @@ void sub_101396138()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Local URL should be a file URL.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Local URL should be a file URL.", v2, v3, v4, v5);
 }
 
 void sub_101396210(void *a1, void *a2)
@@ -20879,14 +21374,14 @@ void sub_1013963D0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't parse local defaults plist", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Can't parse local defaults plist", v2, v3, v4, v5);
 }
 
 void sub_101396494()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Don't have local defaults plist", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Don't have local defaults plist", v2, v3, v4, v5);
 }
 
 void sub_101396558(uint64_t a1, int a2, os_log_t log)
@@ -21114,42 +21609,42 @@ void sub_101397A1C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d showing UI for drag without being in some kind of dynamic operation", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d showing UI for drag without being in some kind of dynamic operation", v2, v3, v4, v5);
 }
 
 void sub_101397AE0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only call insertInfosAndUpdateDragForDuplicatingDragIfAppropriate once!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should only call insertInfosAndUpdateDragForDuplicatingDragIfAppropriate once!", v2, v3, v4, v5);
 }
 
 void sub_101397BB8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to find index!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unable to find index!", v2, v3, v4, v5);
 }
 
 void sub_101397C7C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d non-zero snap level when we aren't constraining the drag. that doesn't make sense.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d non-zero snap level when we aren't constraining the drag. that doesn't make sense.", v2, v3, v4, v5);
 }
 
 void sub_101397D54()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d number of reps uneven for attached drag", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d number of reps uneven for attached drag", v2, v3, v4, v5);
 }
 
 void sub_101397E2C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d prioritizing Y offset with a unit direction that doesn't have an Y value!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d prioritizing Y offset with a unit direction that doesn't have an Y value!", v2, v3, v4, v5);
 }
 
 void sub_101397EDC(void *a1)
@@ -21163,7 +21658,7 @@ void sub_101397F64()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d prioritizing X offset with a unit direction that doesn't have an X value!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d prioritizing X offset with a unit direction that doesn't have an X value!", v2, v3, v4, v5);
 }
 
 void sub_1013980B4()
@@ -21315,8 +21810,10 @@ void sub_101398F70(void *a1, void *a2)
   v5 = NSStringFromClass(v4);
   v6 = [a2 domain];
   [a2 code];
+  LODWORD(v13) = 138544130;
+  *(&v13 + 4) = v5;
   sub_1005A0990();
-  sub_1003A2950(&_mh_execute_header, v7, v8, "Error creating temporary directory: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, 2u);
+  sub_1003A2950(&_mh_execute_header, v7, v8, "Error creating temporary directory: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 void sub_101399064(void *a1, void *a2)
@@ -21327,8 +21824,10 @@ void sub_101399064(void *a1, void *a2)
   objc_claimAutoreleasedReturnValue();
   v6 = [sub_1000C59B8() domain];
   [a2 code];
+  LODWORD(v13) = 138544130;
+  *(&v13 + 4) = v2;
   sub_1005A0990();
-  sub_1003A2950(&_mh_execute_header, v7, v8, "Error copying photo picker item: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, 2u);
+  sub_1003A2950(&_mh_execute_header, v7, v8, "Error copying photo picker item: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 void sub_10139918C(void *a1, void *a2)
@@ -21339,8 +21838,10 @@ void sub_10139918C(void *a1, void *a2)
   objc_claimAutoreleasedReturnValue();
   v6 = [sub_1000C59B8() domain];
   [a2 code];
+  LODWORD(v13) = 138544130;
+  *(&v13 + 4) = v2;
   sub_1005A0990();
-  sub_1003A2950(&_mh_execute_header, v7, v8, "Error getting item from photo picker: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, 2u);
+  sub_1003A2950(&_mh_execute_header, v7, v8, "Error getting item from photo picker: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 void sub_1013992D0()
@@ -21404,14 +21905,14 @@ void sub_1013998FC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad extended range", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bad extended range", v2, v3, v4, v5);
 }
 
 void sub_1013999D4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal instantiation of abstract class CRLWPStorageSpellChecker", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d illegal instantiation of abstract class CRLWPStorageSpellChecker", v2, v3, v4, v5);
 }
 
 void sub_101399A98()
@@ -21431,28 +21932,28 @@ void sub_101399B98()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d checked ranges exceed storage", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d checked ranges exceed storage", v2, v3, v4, v5);
 }
 
 void sub_101399C98()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bogus char index", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Bogus char index", v2, v3, v4, v5);
 }
 
 void sub_101399D5C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Locale string is too short.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Locale string is too short.", v2, v3, v4, v5);
 }
 
 void sub_101399EAC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid charIndex.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Invalid charIndex.", v2, v3, v4, v5);
 }
 
 void sub_101399FD4()
@@ -21540,17 +22041,17 @@ void sub_10139A81C(void *a1)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
-void sub_10139A8FC(void *a1)
+void sub_10139A8FC(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   objc_opt_class();
   sub_10019F700();
   sub_1000C59AC();
   sub_1000D4D50();
   sub_1000C5A00();
-  v3 = v2;
+  v4 = v3;
   sub_1000C88E0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Cu);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Cu);
 }
 
 void sub_10139A9F0(void *a1)
@@ -21562,16 +22063,16 @@ void sub_10139A9F0(void *a1)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
-void sub_10139AAD0(void *a1)
+void sub_10139AAD0(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   objc_opt_class();
   sub_10019F700();
   sub_1000C59AC();
   sub_1000D4D50();
   sub_1000C5A00();
   sub_1000C88E0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Cu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Cu);
 }
 
 void sub_10139ABB8(void *a1)
@@ -21633,14 +22134,14 @@ void sub_10139B090()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Reached -dealloc without teardown being hit.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Reached -dealloc without teardown being hit.", v2, v3, v4, v5);
 }
 
 void sub_10139B168()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Reached -dealloc with associated animated GIF layers.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Reached -dealloc with associated animated GIF layers.", v2, v3, v4, v5);
 }
 
 void sub_10139B22C()
@@ -21665,21 +22166,21 @@ void sub_10139B3B4()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Scrubbing to time when not known to be scrubbing!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Scrubbing to time when not known to be scrubbing!", v2, v3, v4, v5);
 }
 
 void sub_10139B478()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Uneven begin/end scrubbing calls!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Uneven begin/end scrubbing calls!", v2, v3, v4, v5);
 }
 
 void sub_10139B58C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not be requesting an updated rate without also requesting an updated anchor time.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not be requesting an updated rate without also requesting an updated anchor time.", v2, v3, v4, v5);
 }
 
 void sub_10139B664()
@@ -21696,7 +22197,7 @@ void sub_10139B73C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10139B814()
@@ -21712,7 +22213,7 @@ void sub_10139B8D8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10139B9B0()
@@ -21737,7 +22238,7 @@ void sub_10139BB4C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Double-enabling display link", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Double-enabling display link", v2, v3, v4, v5);
 }
 
 void sub_10139BBFC(void *a1)
@@ -21753,84 +22254,84 @@ void sub_10139BCC8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Disabling display link unexpectedly!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Disabling display link unexpectedly!", v2, v3, v4, v5);
 }
 
 void sub_10139BD8C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10139BE50()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d This operation must only be performed on the main thread.", v2, v3, v4, v5);
 }
 
 void sub_10139BF14()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the current min z-value for a cross-container selection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the current min z-value for a cross-container selection", v2, v3, v4, v5);
 }
 
 void sub_10139BFD8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the current max z-value for a cross-container selection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the current max z-value for a cross-container selection", v2, v3, v4, v5);
 }
 
 void sub_10139C09C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the current z-value for a cross-container selection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the current z-value for a cross-container selection", v2, v3, v4, v5);
 }
 
 void sub_10139C160()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we have a cross-container selection, the container whose z-order is being changed must be specified!", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d If we have a cross-container selection, the container whose z-order is being changed must be specified!", v2, v3, v4, v5);
 }
 
 void sub_10139C238()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Max index for z-order is below min index! This is not good. Skipping z-order operation entirely.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Max index for z-order is below min index! This is not good. Skipping z-order operation entirely.", v2, v3, v4, v5);
 }
 
 void sub_10139C2FC()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not get the generic z-order siblings for a cross-container selection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Should not get the generic z-order siblings for a cross-container selection", v2, v3, v4, v5);
 }
 
 void sub_10139C460()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the generic min index for a cross-container selection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the generic min index for a cross-container selection", v2, v3, v4, v5);
 }
 
 void sub_10139C524()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the generic max index for a cross-container selection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the generic max index for a cross-container selection", v2, v3, v4, v5);
 }
 
 void sub_10139C5E8()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the generic max index for a cross-container selection", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot get the generic max index for a cross-container selection", v2, v3, v4, v5);
 }
 
 void sub_10139C6AC()
@@ -21869,28 +22370,28 @@ void sub_10139CA94()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Use the class method: styleProviderForStorage and do not allocate this class directly. Alternatively, provide your own implementation.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Use the class method: styleProviderForStorage and do not allocate this class directly. Alternatively, provide your own implementation.", v2, v3, v4, v5);
 }
 
 void sub_10139CB58()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Use the class method: styleProviderForStorage and do not allocate this class directly. Alternatively, provide your own implementation.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Use the class method: styleProviderForStorage and do not allocate this class directly. Alternatively, provide your own implementation.", v2, v3, v4, v5);
 }
 
 void sub_10139CC1C()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Use the class method: styleProviderForStorage and do not allocate this class directly. Alternatively, provide your own implementation.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Use the class method: styleProviderForStorage and do not allocate this class directly. Alternatively, provide your own implementation.", v2, v3, v4, v5);
 }
 
 void sub_10139CCE0()
 {
   sub_1000C5968();
   sub_1000C88F0();
-  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Use the class method: styleProviderForStorage and do not allocate this class directly. Alternatively, provide your own implementation.", v2, v3, v4, v5, v6);
+  sub_1000C891C(&_mh_execute_header, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Use the class method: styleProviderForStorage and do not allocate this class directly. Alternatively, provide your own implementation.", v2, v3, v4, v5);
 }
 
 uint64_t EntityProperty<>.init()()

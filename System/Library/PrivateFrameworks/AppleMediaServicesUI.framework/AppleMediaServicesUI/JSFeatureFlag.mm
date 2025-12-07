@@ -7,11 +7,12 @@
 
 - (BOOL)isEnabled:(id)enabled
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_10011AC3C();
+  LOBYTE(v4) = sub_10011AC3C(v4, v6);
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 - (id)isEnabledBatch:(id)batch

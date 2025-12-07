@@ -24,7 +24,9 @@
 - (void)deleteUserSessionSecureBlobwithReply:(id)reply;
 - (void)fetchAllUsersPersonaListforPid:(int)pid withCompletionHandler:(id)handler;
 - (void)fetchAsidMapforPid:(int)pid withCompletionHandler:(id)handler;
+- (void)fetchPersona:(id)persona forPid:(int)pid completionHandler:(id)handler;
 - (void)fetchPersonaGenerationNumberWithCompletionHandler:(id)handler;
+- (void)fetchPersonaListforPid:(int)pid withCompletionHandler:(id)handler;
 - (void)foregroundUserSessionAttributesWithReply:(id)reply;
 - (void)getUserSessionAttributes:(id)attributes reply:(id)reply;
 - (void)grantSandboxExtensionForPersonaWithUniqueString:(id)string completionHandler:(id)handler;
@@ -39,6 +41,7 @@
 - (void)mountUserSessionVolumeforID:(int)d withReply:(id)reply;
 - (void)personaLoginWithPid:(int)pid WithUserODuuid:(id)duuid withUid:(unsigned int)uid completionHandler:(id)handler;
 - (void)personaLogoutWithPid:(int)pid WithUserODuuid:(id)duuid withUid:(unsigned int)uid completionHandler:(id)handler;
+- (void)registerUserPersonaObserverForPID:(int)d withMachServiceName:(id)name completionHandler:(id)handler;
 - (void)removeSyncServiceSource:(id)source toUserSession:(int)session withReply:(id)reply;
 - (void)removeUserSession:(id)session reply:(id)reply;
 - (void)replacePersonaMachPortVoucher:(id)voucher withAccountID:(id)d generationSet:(BOOL)set forPid:(int)pid withReply:(id)reply;
@@ -130,6 +133,7 @@ LABEL_16:
     v10 = qword_1000EB420;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
+      v17 = 0;
       v11 = sub_1000011A8(1);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
@@ -143,7 +147,8 @@ LABEL_16:
 
       if (v12)
       {
-        v13 = _os_log_send_and_compose_impl();
+        v16 = 0;
+        v13 = _os_log_send_and_compose_impl(v12, &v17, 0, 0, &_mh_execute_header, v10, 0, "Failed to read the retrievePasscodeFromFileHandle", &v16, 2);
         v14 = v13;
         if (v13)
         {
@@ -191,18 +196,18 @@ LABEL_17:
   sessionCopy = session;
   secretCopy = secret;
   replyCopy = reply;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = sub_100058864;
-  v79 = sub_100058874;
-  v80 = 0;
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x3032000000;
-  v72 = sub_100058864;
-  v73 = sub_100058874;
-  v74 = 0;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x3032000000;
+  v82 = sub_100058864;
+  v83 = sub_100058874;
+  v84 = 0;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = sub_100058864;
+  v77 = sub_100058874;
+  v78 = 0;
   address = 0;
   if (qword_1000EB428 != -1)
   {
@@ -212,7 +217,7 @@ LABEL_17:
   v13 = qword_1000EB420;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v67 = 0;
+    v71 = 0;
     v14 = sub_1000011A8(1);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
@@ -226,8 +231,8 @@ LABEL_17:
 
     if (v15)
     {
-      v66 = 0;
-      v16 = _os_log_send_and_compose_impl();
+      v70 = 0;
+      v16 = _os_log_send_and_compose_impl(v15, &v71, 0, 0, &_mh_execute_header, v13, 0, "loadUserSession: Start", &v70, 2);
       v17 = v16;
       if (v16)
       {
@@ -253,7 +258,7 @@ LABEL_17:
     v23 = qword_1000EB420;
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v67 = 0;
+      v71 = 0;
       v24 = sub_1000011A8(1);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
@@ -267,8 +272,9 @@ LABEL_17:
 
       if (v25)
       {
-        v66 = 0;
-        v26 = _os_log_send_and_compose_impl();
+        v70 = 0;
+        LODWORD(v59) = 2;
+        v26 = _os_log_send_and_compose_impl(v25, &v71, 0, 0, &_mh_execute_header, v23, 0, "Entitlement failure", &v70, v59);
         v27 = v26;
         if (v26)
         {
@@ -286,13 +292,13 @@ LABEL_17:
 
     v34 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
 LABEL_74:
-    v50 = v70[5];
-    v70[5] = v34;
+    v50 = v74[5];
+    v74[5] = v34;
 
     if (replyCopy)
     {
 LABEL_88:
-      replyCopy[2](replyCopy, 0, v70[5]);
+      replyCopy[2](replyCopy, 0, v74[5]);
       goto LABEL_89;
     }
 
@@ -309,7 +315,7 @@ LABEL_88:
     v18 = qword_1000EB420;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v67 = 0;
+      v71 = 0;
       v19 = sub_1000011A8(1);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
@@ -323,8 +329,9 @@ LABEL_88:
 
       if (v20)
       {
-        v66 = 0;
-        v21 = _os_log_send_and_compose_impl();
+        v70 = 0;
+        LODWORD(v59) = 2;
+        v21 = _os_log_send_and_compose_impl(v20, &v71, 0, 0, &_mh_execute_header, v18, 0, "Long Secret, can't handle ...", &v70, v59);
         v22 = v21;
         if (v21)
         {
@@ -356,7 +363,7 @@ LABEL_88:
       v28 = qword_1000EB420;
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v67 = 0;
+        v71 = 0;
         v29 = sub_1000011A8(1);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
@@ -370,8 +377,9 @@ LABEL_88:
 
         if (v30)
         {
-          v66 = 0;
-          v31 = _os_log_send_and_compose_impl();
+          v70 = 0;
+          LODWORD(v59) = 2;
+          v31 = _os_log_send_and_compose_impl(v30, &v71, 0, 0, &_mh_execute_header, v28, 0, "FAILED to allocate VM", &v70, v59);
           v32 = v31;
           if (v31)
           {
@@ -388,8 +396,8 @@ LABEL_88:
       }
 
       v51 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-      v52 = v70[5];
-      v70[5] = v51;
+      v52 = v74[5];
+      v74[5] = v51;
 
       address = 0;
       goto LABEL_88;
@@ -406,7 +414,7 @@ LABEL_88:
       v35 = qword_1000EB420;
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v67 = 0;
+        v71 = 0;
         v36 = sub_1000011A8(1);
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
@@ -420,8 +428,9 @@ LABEL_88:
 
         if (v37)
         {
-          v66 = 0;
-          v38 = _os_log_send_and_compose_impl();
+          v70 = 0;
+          LODWORD(v59) = 2;
+          v38 = _os_log_send_and_compose_impl(v37, &v71, 0, 0, &_mh_execute_header, v35, 0, "Failed to retrieve Passcode", &v70, v59);
           v39 = v38;
           if (v38)
           {
@@ -438,8 +447,8 @@ LABEL_88:
       }
 
       v53 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-      v54 = v70[5];
-      v70[5] = v53;
+      v54 = v74[5];
+      v74[5] = v53;
 
       v55 = mach_task_self_;
       v56 = address;
@@ -466,17 +475,17 @@ LABEL_88:
   }
 
   v40 = qword_1000EB610;
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_10005887C;
-  block[3] = &unk_1000DD8E8;
-  v64 = v33;
+  block = _NSConcreteStackBlock;
+  v61 = 3221225472;
+  v62 = sub_10005887C;
+  v63 = &unk_1000DD8E8;
+  v68 = v33;
   sizeCopy2 = size;
-  v60 = sessionCopy;
+  v64 = sessionCopy;
   selfCopy = self;
-  v62 = &v75;
-  v63 = &v69;
-  dispatch_sync(v40, block);
+  v66 = &v79;
+  v67 = &v73;
+  dispatch_sync(v40, &block);
   v41 = address;
   if (address)
   {
@@ -496,7 +505,7 @@ LABEL_88:
     vm_deallocate(v42, v41, v43);
   }
 
-  replyCopy[2](replyCopy, v76[5], v70[5]);
+  replyCopy[2](replyCopy, v80[5], v74[5]);
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -505,7 +514,7 @@ LABEL_88:
   v45 = qword_1000EB420;
   if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
-    v67 = 0;
+    v71 = 0;
     v46 = sub_1000011A8(1);
     if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
@@ -519,8 +528,9 @@ LABEL_88:
 
     if (v47)
     {
-      v66 = 0;
-      v48 = _os_log_send_and_compose_impl();
+      v70 = 0;
+      LODWORD(v59) = 2;
+      v48 = _os_log_send_and_compose_impl(v47, &v71, 0, 0, &_mh_execute_header, v45, 0, "loadUserSession: End", &v70, v59, block, v61, v62, v63);
       v49 = v48;
       if (v48)
       {
@@ -537,21 +547,21 @@ LABEL_88:
   }
 
 LABEL_89:
-  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v73, 8);
 
-  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v79, 8);
 }
 
 - (void)unloadUserSession:(id)session reply:(id)reply
 {
   sessionCopy = session;
   replyCopy = reply;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = sub_100058864;
-  v32 = sub_100058874;
-  v33 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = sub_100058864;
+  v33 = sub_100058874;
+  v34 = 0;
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -560,7 +570,7 @@ LABEL_89:
   v8 = qword_1000EB420;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 0;
+    v28 = 0;
     v9 = sub_1000011A8(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
@@ -574,8 +584,8 @@ LABEL_89:
 
     if (v10)
     {
-      v26 = 0;
-      v11 = _os_log_send_and_compose_impl();
+      v27 = 0;
+      v11 = _os_log_send_and_compose_impl(v10, &v28, 0, 0, &_mh_execute_header, v8, 0, "unloadUserSession: Start", &v27, 2);
       v12 = v11;
       if (v11)
       {
@@ -597,9 +607,9 @@ LABEL_89:
     block[1] = 3221225472;
     block[2] = sub_100058F30;
     block[3] = &unk_1000DD910;
-    block[4] = &v28;
+    block[4] = &v29;
     dispatch_sync(qword_1000EB610, block);
-    replyCopy[2](replyCopy, v29[5]);
+    replyCopy[2](replyCopy, v30[5]);
     if (qword_1000EB428 != -1)
     {
       sub_100095FA0();
@@ -608,7 +618,7 @@ LABEL_89:
     v13 = qword_1000EB420;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 0;
+      v28 = 0;
       v14 = sub_1000011A8(1);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
@@ -622,8 +632,9 @@ LABEL_89:
 
       if (v15)
       {
-        v26 = 0;
-        v16 = _os_log_send_and_compose_impl();
+        v27 = 0;
+        LODWORD(v25) = 2;
+        v16 = _os_log_send_and_compose_impl(v15, &v28, 0, 0, &_mh_execute_header, v13, 0, "unloadUserSession: End", &v27, v25);
         v17 = v16;
         if (v16)
         {
@@ -650,7 +661,7 @@ LABEL_89:
     v18 = qword_1000EB420;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 0;
+      v28 = 0;
       v19 = sub_1000011A8(1);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
@@ -664,8 +675,9 @@ LABEL_89:
 
       if (v20)
       {
-        v26 = 0;
-        v21 = _os_log_send_and_compose_impl();
+        v27 = 0;
+        LODWORD(v25) = 2;
+        v21 = _os_log_send_and_compose_impl(v20, &v28, 0, 0, &_mh_execute_header, v18, 0, "Entitlement failure", &v27, v25);
         v22 = v21;
         if (v21)
         {
@@ -682,16 +694,16 @@ LABEL_89:
     }
 
     v23 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v24 = v29[5];
-    v29[5] = v23;
+    v24 = v30[5];
+    v30[5] = v23;
 
     if (replyCopy)
     {
-      replyCopy[2](replyCopy, v29[5]);
+      replyCopy[2](replyCopy, v30[5]);
     }
   }
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v29, 8);
 }
 
 - (void)createUserSession:(id)session withSecret:(id)secret oldSize:(unint64_t)size withOpaqueData:(id)data reply:(id)reply
@@ -700,18 +712,18 @@ LABEL_89:
   secretCopy = secret;
   dataCopy = data;
   replyCopy = reply;
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = sub_100058864;
+  v87 = sub_100058874;
+  v88 = 0;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x3032000000;
+  v80 = sub_100058864;
+  v81 = sub_100058874;
   v82 = 0;
-  v83 = &v82;
-  v84 = 0x3032000000;
-  v85 = sub_100058864;
-  v86 = sub_100058874;
-  v87 = 0;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3032000000;
-  v79 = sub_100058864;
-  v80 = sub_100058874;
-  v81 = 0;
   address = 0;
   if (qword_1000EB428 != -1)
   {
@@ -721,7 +733,7 @@ LABEL_89:
   v16 = qword_1000EB420;
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v74 = 0;
+    v75 = 0;
     v17 = sub_1000011A8(1);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
@@ -735,8 +747,8 @@ LABEL_89:
 
     if (v18)
     {
-      v73 = 0;
-      v19 = _os_log_send_and_compose_impl();
+      v74 = 0;
+      v19 = _os_log_send_and_compose_impl(v18, &v75, 0, 0, &_mh_execute_header, v16, 0, "createUserSession: Start", &v74, 2);
       v20 = v19;
       if (v19)
       {
@@ -766,7 +778,7 @@ LABEL_89:
         v33 = qword_1000EB420;
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v74 = 0;
+          v75 = 0;
           v34 = sub_1000011A8(1);
           if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
@@ -780,8 +792,9 @@ LABEL_89:
 
           if (v35)
           {
-            v73 = 0;
-            v36 = _os_log_send_and_compose_impl();
+            v74 = 0;
+            LODWORD(v72) = 2;
+            v36 = _os_log_send_and_compose_impl(v35, &v75, 0, 0, &_mh_execute_header, v33, 0, "createUserSession with SECRET passcode", &v74, v72);
             v37 = v36;
             if (v36)
             {
@@ -807,7 +820,7 @@ LABEL_89:
           v45 = qword_1000EB420;
           if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
-            v74 = 0;
+            v75 = 0;
             v46 = sub_1000011A8(1);
             if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
             {
@@ -821,8 +834,9 @@ LABEL_89:
 
             if (v47)
             {
-              v73 = 0;
-              v48 = _os_log_send_and_compose_impl();
+              v74 = 0;
+              LODWORD(v72) = 2;
+              v48 = _os_log_send_and_compose_impl(v47, &v75, 0, 0, &_mh_execute_header, v45, 0, "FAILED to allocate VM", &v74, v72);
               v49 = v48;
               if (v48)
               {
@@ -839,8 +853,8 @@ LABEL_89:
           }
 
           v55 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-          v56 = v77[5];
-          v77[5] = v55;
+          v56 = v78[5];
+          v78[5] = v55;
 
           address = 0;
           goto LABEL_110;
@@ -856,7 +870,7 @@ LABEL_89:
           v50 = qword_1000EB420;
           if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
-            v74 = 0;
+            v75 = 0;
             v51 = sub_1000011A8(1);
             if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
             {
@@ -870,8 +884,9 @@ LABEL_89:
 
             if (v52)
             {
-              v73 = 0;
-              v53 = _os_log_send_and_compose_impl();
+              v74 = 0;
+              LODWORD(v72) = 2;
+              v53 = _os_log_send_and_compose_impl(v52, &v75, 0, 0, &_mh_execute_header, v50, 0, "Failed to retrieve Passcode", &v74, v72);
               v54 = v53;
               if (v53)
               {
@@ -888,8 +903,8 @@ LABEL_89:
           }
 
           v66 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-          v67 = v77[5];
-          v77[5] = v66;
+          v67 = v78[5];
+          v78[5] = v66;
 
           v68 = mach_task_self_;
           v69 = address;
@@ -920,7 +935,7 @@ LABEL_89:
         v38 = qword_1000EB420;
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          v74 = 0;
+          v75 = 0;
           v39 = sub_1000011A8(1);
           if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
@@ -934,8 +949,9 @@ LABEL_89:
 
           if (v40)
           {
-            v73 = 0;
-            v41 = _os_log_send_and_compose_impl();
+            v74 = 0;
+            LODWORD(v72) = 2;
+            v41 = _os_log_send_and_compose_impl(v40, &v75, 0, 0, &_mh_execute_header, v38, 0, "createUserSession with NULL passcode", &v74, v72);
             v42 = v41;
             if (v41)
             {
@@ -956,8 +972,8 @@ LABEL_89:
       block[1] = 3221225472;
       block[2] = sub_100059A58;
       block[3] = &unk_1000DD458;
-      block[4] = &v82;
-      block[5] = &v76;
+      block[4] = &v83;
+      block[5] = &v77;
       dispatch_sync(qword_1000EB610, block);
       v57 = address;
       if (address)
@@ -978,7 +994,7 @@ LABEL_89:
         vm_deallocate(v58, v57, v59);
       }
 
-      replyCopy[2](replyCopy, v83[5], v77[5]);
+      replyCopy[2](replyCopy, v84[5], v78[5]);
       if (qword_1000EB428 != -1)
       {
         sub_100095FA0();
@@ -987,7 +1003,7 @@ LABEL_89:
       v61 = qword_1000EB420;
       if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
-        v74 = 0;
+        v75 = 0;
         v62 = sub_1000011A8(1);
         if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
         {
@@ -1001,8 +1017,9 @@ LABEL_89:
 
         if (v63)
         {
-          v73 = 0;
-          v64 = _os_log_send_and_compose_impl();
+          v74 = 0;
+          LODWORD(v72) = 2;
+          v64 = _os_log_send_and_compose_impl(v63, &v75, 0, 0, &_mh_execute_header, v61, 0, "createUserSession: End", &v74, v72);
           v65 = v64;
           if (v64)
           {
@@ -1029,7 +1046,7 @@ LABEL_89:
       v21 = qword_1000EB420;
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v74 = 0;
+        v75 = 0;
         v22 = sub_1000011A8(1);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
@@ -1043,8 +1060,9 @@ LABEL_89:
 
         if (v23)
         {
-          v73 = 0;
-          v24 = _os_log_send_and_compose_impl();
+          v74 = 0;
+          LODWORD(v72) = 2;
+          v24 = _os_log_send_and_compose_impl(v23, &v75, 0, 0, &_mh_execute_header, v21, 0, "Long Secret, can't handle ...", &v74, v72);
           v25 = v24;
           if (v24)
           {
@@ -1061,13 +1079,13 @@ LABEL_89:
       }
 
       v43 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
-      v44 = v77[5];
-      v77[5] = v43;
+      v44 = v78[5];
+      v78[5] = v43;
 
       if (replyCopy)
       {
 LABEL_110:
-        replyCopy[2](replyCopy, 0, v77[5]);
+        replyCopy[2](replyCopy, 0, v78[5]);
       }
     }
   }
@@ -1075,8 +1093,8 @@ LABEL_110:
   else
   {
     v26 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v27 = v77[5];
-    v77[5] = v26;
+    v27 = v78[5];
+    v78[5] = v26;
 
     if (qword_1000EB428 != -1)
     {
@@ -1086,7 +1104,7 @@ LABEL_110:
     v28 = qword_1000EB420;
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v74 = 0;
+      v75 = 0;
       v29 = sub_1000011A8(1);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
@@ -1100,8 +1118,9 @@ LABEL_110:
 
       if (v30)
       {
-        v73 = 0;
-        v31 = _os_log_send_and_compose_impl();
+        v74 = 0;
+        LODWORD(v72) = 2;
+        v31 = _os_log_send_and_compose_impl(v30, &v75, 0, 0, &_mh_execute_header, v28, 0, "Entitlement failure", &v74, v72);
         v32 = v31;
         if (v31)
         {
@@ -1123,9 +1142,9 @@ LABEL_110:
     }
   }
 
-  _Block_object_dispose(&v76, 8);
+  _Block_object_dispose(&v77, 8);
 
-  _Block_object_dispose(&v82, 8);
+  _Block_object_dispose(&v83, 8);
 }
 
 - (void)dataMigrationSetup:(id)setup withSecret:(id)secret oldSize:(unint64_t)size reply:(id)reply
@@ -1133,12 +1152,12 @@ LABEL_110:
   setupCopy = setup;
   secretCopy = secret;
   replyCopy = reply;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3032000000;
-  v79 = sub_100058864;
-  v80 = sub_100058874;
-  v81 = 0;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x3032000000;
+  v80 = sub_100058864;
+  v81 = sub_100058874;
+  v82 = 0;
   address = 0;
   if (qword_1000EB428 != -1)
   {
@@ -1148,7 +1167,7 @@ LABEL_110:
   v13 = qword_1000EB420;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v74 = 0;
+    v75 = 0;
     v14 = sub_1000011A8(1);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
@@ -1162,8 +1181,8 @@ LABEL_110:
 
     if (v15)
     {
-      v73 = 0;
-      v16 = _os_log_send_and_compose_impl();
+      v74 = 0;
+      v16 = _os_log_send_and_compose_impl(v15, &v75, 0, 0, &_mh_execute_header, v13, 0, "dataMigrationSetup: Start", &v74, 2);
       v17 = v16;
       if (v16)
       {
@@ -1193,7 +1212,7 @@ LABEL_110:
         v30 = qword_1000EB420;
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v74 = 0;
+          v75 = 0;
           v31 = sub_1000011A8(1);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
@@ -1207,8 +1226,9 @@ LABEL_110:
 
           if (v32)
           {
-            v73 = 0;
-            v33 = _os_log_send_and_compose_impl();
+            v74 = 0;
+            LODWORD(v67) = 2;
+            v33 = _os_log_send_and_compose_impl(v32, &v75, 0, 0, &_mh_execute_header, v30, 0, "dataMigrationSetup with SECRET passcode", &v74, v67);
             v34 = v33;
             if (v33)
             {
@@ -1234,7 +1254,7 @@ LABEL_110:
           v42 = qword_1000EB420;
           if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
-            v74 = 0;
+            v75 = 0;
             v43 = sub_1000011A8(1);
             if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
             {
@@ -1248,8 +1268,9 @@ LABEL_110:
 
             if (v44)
             {
-              v73 = 0;
-              v45 = _os_log_send_and_compose_impl();
+              v74 = 0;
+              LODWORD(v67) = 2;
+              v45 = _os_log_send_and_compose_impl(v44, &v75, 0, 0, &_mh_execute_header, v42, 0, "FAILED to allocate VM", &v74, v67);
               v46 = v45;
               if (v45)
               {
@@ -1266,8 +1287,8 @@ LABEL_110:
           }
 
           v53 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-          v54 = v77[5];
-          v77[5] = v53;
+          v54 = v78[5];
+          v78[5] = v53;
 
           address = 0;
           goto LABEL_105;
@@ -1284,7 +1305,7 @@ LABEL_110:
           v48 = qword_1000EB420;
           if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
-            v74 = 0;
+            v75 = 0;
             v49 = sub_1000011A8(1);
             if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
             {
@@ -1298,8 +1319,9 @@ LABEL_110:
 
             if (v50)
             {
-              v73 = 0;
-              v51 = _os_log_send_and_compose_impl();
+              v74 = 0;
+              LODWORD(v67) = 2;
+              v51 = _os_log_send_and_compose_impl(v50, &v75, 0, 0, &_mh_execute_header, v48, 0, "Failed to retrieve Passcode", &v74, v67);
               v52 = v51;
               if (v51)
               {
@@ -1316,8 +1338,8 @@ LABEL_110:
           }
 
           v61 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-          v62 = v77[5];
-          v77[5] = v61;
+          v62 = v78[5];
+          v78[5] = v61;
 
           v63 = mach_task_self_;
           v64 = address;
@@ -1348,7 +1370,7 @@ LABEL_110:
         v35 = qword_1000EB420;
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          v74 = 0;
+          v75 = 0;
           v36 = sub_1000011A8(1);
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
@@ -1362,8 +1384,9 @@ LABEL_110:
 
           if (v37)
           {
-            v73 = 0;
-            v38 = _os_log_send_and_compose_impl();
+            v74 = 0;
+            LODWORD(v67) = 2;
+            v38 = _os_log_send_and_compose_impl(v37, &v75, 0, 0, &_mh_execute_header, v35, 0, "dataMigrationSetup with NULL passcode", &v74, v67);
             v39 = v38;
             if (v38)
             {
@@ -1387,13 +1410,13 @@ LABEL_110:
       block[1] = 3221225472;
       block[2] = sub_10005A60C;
       block[3] = &unk_1000DD938;
-      v70 = v47;
+      v71 = v47;
       sizeCopy2 = size;
-      v68 = setupCopy;
-      v69 = &v76;
-      v72 = address;
+      v69 = setupCopy;
+      v70 = &v77;
+      v73 = address;
       dispatch_sync(v55, block);
-      replyCopy[2](replyCopy, v77[5]);
+      replyCopy[2](replyCopy, v78[5]);
       if (qword_1000EB428 != -1)
       {
         sub_100095FA0();
@@ -1402,7 +1425,7 @@ LABEL_110:
       v56 = qword_1000EB420;
       if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
-        v74 = 0;
+        v75 = 0;
         v57 = sub_1000011A8(1);
         if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
@@ -1416,8 +1439,9 @@ LABEL_110:
 
         if (v58)
         {
-          v73 = 0;
-          v59 = _os_log_send_and_compose_impl();
+          v74 = 0;
+          LODWORD(v67) = 2;
+          v59 = _os_log_send_and_compose_impl(v58, &v75, 0, 0, &_mh_execute_header, v56, 0, "dataMigrationSetup: End", &v74, v67);
           v60 = v59;
           if (v59)
           {
@@ -1444,7 +1468,7 @@ LABEL_110:
       v18 = qword_1000EB420;
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v74 = 0;
+        v75 = 0;
         v19 = sub_1000011A8(1);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
@@ -1458,8 +1482,9 @@ LABEL_110:
 
         if (v20)
         {
-          v73 = 0;
-          v21 = _os_log_send_and_compose_impl();
+          v74 = 0;
+          LODWORD(v67) = 2;
+          v21 = _os_log_send_and_compose_impl(v20, &v75, 0, 0, &_mh_execute_header, v18, 0, "Long Secret, can't handle ...", &v74, v67);
           v22 = v21;
           if (v21)
           {
@@ -1476,13 +1501,13 @@ LABEL_110:
       }
 
       v40 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
-      v41 = v77[5];
-      v77[5] = v40;
+      v41 = v78[5];
+      v78[5] = v40;
 
       if (replyCopy)
       {
 LABEL_105:
-        replyCopy[2](replyCopy, v77[5]);
+        replyCopy[2](replyCopy, v78[5]);
       }
     }
   }
@@ -1490,8 +1515,8 @@ LABEL_105:
   else
   {
     v23 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v24 = v77[5];
-    v77[5] = v23;
+    v24 = v78[5];
+    v78[5] = v23;
 
     if (qword_1000EB428 != -1)
     {
@@ -1501,7 +1526,7 @@ LABEL_105:
     v25 = qword_1000EB420;
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v74 = 0;
+      v75 = 0;
       v26 = sub_1000011A8(1);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
@@ -1515,8 +1540,9 @@ LABEL_105:
 
       if (v27)
       {
-        v73 = 0;
-        v28 = _os_log_send_and_compose_impl();
+        v74 = 0;
+        LODWORD(v67) = 2;
+        v28 = _os_log_send_and_compose_impl(v27, &v75, 0, 0, &_mh_execute_header, v25, 0, "Entitlement failure", &v74, v67);
         v29 = v28;
         if (v28)
         {
@@ -1538,18 +1564,18 @@ LABEL_105:
     }
   }
 
-  _Block_object_dispose(&v76, 8);
+  _Block_object_dispose(&v77, 8);
 }
 
 - (void)migrateSharedAndPrimaryUserVolumeWithReply:(id)reply
 {
   replyCopy = reply;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_100058864;
-  v44 = sub_100058874;
-  v45 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = sub_100058864;
+  v45 = sub_100058874;
+  v46 = 0;
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -1558,7 +1584,7 @@ LABEL_105:
   v5 = qword_1000EB420;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = 0;
+    v37 = 0;
     v6 = sub_1000011A8(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -1572,8 +1598,8 @@ LABEL_105:
 
     if (v7)
     {
-      LOWORD(v32) = 0;
-      v8 = _os_log_send_and_compose_impl();
+      LOWORD(v33) = 0;
+      v8 = _os_log_send_and_compose_impl(v7, &v37, 0, 0, &_mh_execute_header, v5, 0, "migrateSharedAndPrimaryUserVolume: Start", &v33, 2);
       v9 = v8;
       if (v8)
       {
@@ -1591,31 +1617,31 @@ LABEL_105:
 
   if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.mkb.usersession.migration"])
   {
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
     v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
-    v39 = 0;
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
-    v35 = 0;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10005AC6C;
     block[3] = &unk_1000DD960;
-    block[4] = &v36;
-    block[5] = &v32;
-    block[6] = &v40;
+    block[4] = &v37;
+    block[5] = &v33;
+    block[6] = &v41;
     dispatch_sync(qword_1000EB610, block);
-    if (v33[3])
+    if (v34[3])
     {
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_10005B0F0;
-      v28[3] = &unk_1000DD458;
-      v28[4] = &v36;
-      v28[5] = &v40;
-      dispatch_sync(qword_1000EB628, v28);
+      v29[0] = _NSConcreteStackBlock;
+      v29[1] = 3221225472;
+      v29[2] = sub_10005B0F0;
+      v29[3] = &unk_1000DD458;
+      v29[4] = &v37;
+      v29[5] = &v41;
+      dispatch_sync(qword_1000EB628, v29);
     }
 
     else
@@ -1628,7 +1654,7 @@ LABEL_105:
       v17 = qword_1000EB420;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = 0;
+        v31 = 0;
         v18 = sub_1000011A8(1);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
@@ -1642,8 +1668,9 @@ LABEL_105:
 
         if (v19)
         {
-          v29 = 0;
-          v20 = _os_log_send_and_compose_impl();
+          v30[0] = 0;
+          LODWORD(v28) = 2;
+          v20 = _os_log_send_and_compose_impl(v19, &v31, 0, 0, &_mh_execute_header, v17, 0, "Unable to find the primary UUID string, returning error, ENOENT", v30, v28);
           v21 = v20;
           if (v20)
           {
@@ -1660,17 +1687,17 @@ LABEL_105:
       }
     }
 
-    if (*(v33 + 24) == 1)
+    if (*(v34 + 24) == 1)
     {
-      v22 = v37[3];
+      v22 = v38[3];
       if (v22)
       {
         CFRelease(v22);
-        v37[3] = 0;
+        v38[3] = 0;
       }
     }
 
-    replyCopy[2](replyCopy, v41[5]);
+    replyCopy[2](replyCopy, v42[5]);
     if (qword_1000EB428 != -1)
     {
       sub_100095FA0();
@@ -1679,7 +1706,7 @@ LABEL_105:
     v23 = qword_1000EB420;
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 0;
+      v31 = 0;
       v24 = sub_1000011A8(1);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
@@ -1693,8 +1720,9 @@ LABEL_105:
 
       if (v25)
       {
-        v29 = 0;
-        v26 = _os_log_send_and_compose_impl();
+        v30[0] = 0;
+        LODWORD(v28) = 2;
+        v26 = _os_log_send_and_compose_impl(v25, &v31, 0, 0, &_mh_execute_header, v23, 0, "migrateSharedAndPrimaryUserVolume: End", v30, v28);
         v27 = v26;
         if (v26)
         {
@@ -1710,15 +1738,15 @@ LABEL_105:
       free(v27);
     }
 
-    _Block_object_dispose(&v32, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v37, 8);
   }
 
   else
   {
     v10 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v11 = v41[5];
-    v41[5] = v10;
+    v11 = v42[5];
+    v42[5] = v10;
 
     if (qword_1000EB428 != -1)
     {
@@ -1728,7 +1756,7 @@ LABEL_105:
     v12 = qword_1000EB420;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = 0;
+      v37 = 0;
       v13 = sub_1000011A8(1);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
@@ -1742,8 +1770,9 @@ LABEL_105:
 
       if (v14)
       {
-        LOWORD(v32) = 0;
-        v15 = _os_log_send_and_compose_impl();
+        LOWORD(v33) = 0;
+        LODWORD(v28) = 2;
+        v15 = _os_log_send_and_compose_impl(v14, &v37, 0, 0, &_mh_execute_header, v12, 0, "Volume Migration Entitlement failure", &v33, v28);
         v16 = v15;
         if (v15)
         {
@@ -1761,11 +1790,11 @@ LABEL_105:
 
     if (replyCopy)
     {
-      replyCopy[2](replyCopy, v41[5]);
+      replyCopy[2](replyCopy, v42[5]);
     }
   }
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v41, 8);
 }
 
 - (void)migrateGuestUserVolume:(id)volume withReply:(id)reply
@@ -1780,7 +1809,7 @@ LABEL_105:
   v8 = qword_1000EB420;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v59 = 0;
+    v62 = 0;
     v9 = sub_1000011A8(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
@@ -1794,8 +1823,8 @@ LABEL_105:
 
     if (v10)
     {
-      LOWORD(v54) = 0;
-      v11 = _os_log_send_and_compose_impl();
+      LOWORD(v57) = 0;
+      v11 = _os_log_send_and_compose_impl(v10, &v62, 0, 0, &_mh_execute_header, v8, 0, "migrateGuestUserVolume: Start", &v57, 2);
       v12 = v11;
       if (v11)
       {
@@ -1811,63 +1840,63 @@ LABEL_105:
     free(v12);
   }
 
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = sub_100058864;
-  v63 = sub_100058874;
-  v64 = 0;
-  v58 = -1;
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = sub_100058864;
+  v66 = sub_100058874;
+  v67 = 0;
+  v61 = -1;
   if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.mkb.usersession.migration"])
   {
     v13 = +[NSXPCConnection currentConnection];
     processIdentifier = [v13 processIdentifier];
 
-    v15 = [(UMSyncService *)self asidForClient:0 withAuid:&v58 withPid:processIdentifier];
+    v15 = [(UMSyncService *)self asidForClient:0 withAuid:&v61 withPid:processIdentifier];
     v16 = +[NSXPCConnection currentConnection];
     LODWORD(processIdentifier) = sub_1000011DC([v16 processIdentifier]);
 
-    v54 = 0;
-    v55 = &v54;
-    v56 = 0x2020000000;
     v57 = 0;
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x2020000000;
+    v58 = &v57;
+    v59 = 0x2020000000;
+    v60 = 0;
     v53 = 0;
+    v54 = &v53;
+    v55 = 0x2020000000;
+    v56 = 0;
     v17 = qword_1000EB610;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10005BA18;
     block[3] = &unk_1000DD988;
-    v47 = v15;
-    v48 = v58;
-    v49 = processIdentifier;
-    v44 = &v54;
+    v50 = v15;
+    v51 = v61;
+    v52 = processIdentifier;
+    v47 = &v57;
     v18 = volumeCopy;
-    v43 = v18;
-    v45 = &v59;
-    v46 = &v50;
+    v46 = v18;
+    v48 = &v62;
+    v49 = &v53;
     dispatch_sync(v17, block);
-    if (*(v51 + 24) == 1)
+    if (*(v54 + 24) == 1)
     {
       v19 = qword_1000EB628;
-      v38[0] = _NSConcreteStackBlock;
-      v38[1] = 3221225472;
-      v38[2] = sub_10005BAD4;
-      v38[3] = &unk_1000DD9B0;
-      v39 = v18;
-      v40 = &v54;
-      v41 = &v59;
-      dispatch_sync(v19, v38);
-      v20 = v55[3];
+      v41[0] = _NSConcreteStackBlock;
+      v41[1] = 3221225472;
+      v41[2] = sub_10005BAD4;
+      v41[3] = &unk_1000DD9B0;
+      v42 = v18;
+      v43 = &v57;
+      v44 = &v62;
+      dispatch_sync(v19, v41);
+      v20 = v58[3];
       if (v20)
       {
         CFRelease(v20);
-        v55[3] = 0;
+        v58[3] = 0;
       }
 
-      v21 = v39;
+      v21 = v42;
     }
 
     else
@@ -1880,6 +1909,7 @@ LABEL_105:
       v21 = qword_1000EB420;
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
+        v40 = 0;
         v29 = sub_1000011A8(1);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
@@ -1893,7 +1923,9 @@ LABEL_105:
 
         if (v30)
         {
-          v31 = _os_log_send_and_compose_impl();
+          v39[0] = 0;
+          LODWORD(v38) = 2;
+          v31 = _os_log_send_and_compose_impl(v30, &v40, 0, 0, &_mh_execute_header, v21, 0, "Unable to diskString for the persona returning error..", v39, v38);
           v32 = v31;
           if (v31)
           {
@@ -1918,6 +1950,7 @@ LABEL_105:
     v33 = qword_1000EB420;
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
+      v40 = 0;
       v34 = sub_1000011A8(1);
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
@@ -1931,7 +1964,9 @@ LABEL_105:
 
       if (v35)
       {
-        v36 = _os_log_send_and_compose_impl();
+        v39[0] = 0;
+        LODWORD(v38) = 2;
+        v36 = _os_log_send_and_compose_impl(v35, &v40, 0, 0, &_mh_execute_header, v33, 0, "migrateGuestUserVolume: End", v39, v38);
         v37 = v36;
         if (v36)
         {
@@ -1947,16 +1982,16 @@ LABEL_105:
       free(v37);
     }
 
-    replyCopy[2](replyCopy, v60[5]);
-    _Block_object_dispose(&v50, 8);
-    _Block_object_dispose(&v54, 8);
+    replyCopy[2](replyCopy, v63[5]);
+    _Block_object_dispose(&v53, 8);
+    _Block_object_dispose(&v57, 8);
   }
 
   else
   {
     v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v23 = v60[5];
-    v60[5] = v22;
+    v23 = v63[5];
+    v63[5] = v22;
 
     if (qword_1000EB428 != -1)
     {
@@ -1966,7 +2001,7 @@ LABEL_105:
     v24 = qword_1000EB420;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v54 = 0;
+      v57 = 0;
       v25 = sub_1000011A8(1);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
@@ -1980,8 +2015,9 @@ LABEL_105:
 
       if (v26)
       {
-        LOWORD(v50) = 0;
-        v27 = _os_log_send_and_compose_impl();
+        LOWORD(v53) = 0;
+        LODWORD(v38) = 2;
+        v27 = _os_log_send_and_compose_impl(v26, &v57, 0, 0, &_mh_execute_header, v24, 0, "Volume Migration Entitlement failure", &v53, v38);
         v28 = v27;
         if (v27)
         {
@@ -1999,17 +2035,761 @@ LABEL_105:
 
     if (replyCopy)
     {
-      replyCopy[2](replyCopy, v60[5]);
+      replyCopy[2](replyCopy, v63[5]);
     }
   }
 
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v62, 8);
 }
 
 - (void)createBootstrapTokenWithSecret:(id)secret secretSize:(unint64_t)size withDeviceSecretHandle:(id)handle deviceSecretSize:(unint64_t)secretSize withReply:(id)reply
 {
   secretCopy = secret;
   handleCopy = handle;
+  replyCopy = reply;
+  v105 = 0;
+  v106 = &v105;
+  v107 = 0x3032000000;
+  v108 = sub_100058864;
+  v109 = sub_100058874;
+  v110 = 0;
+  address = 0;
+  if (qword_1000EB428 != -1)
+  {
+    sub_100095FA0();
+  }
+
+  v15 = qword_1000EB420;
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v103 = 0;
+    v16 = sub_1000011A8(1);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v16;
+    }
+
+    else
+    {
+      v17 = v16 & 0xFFFFFFFE;
+    }
+
+    if (v17)
+    {
+      v102 = 0;
+      v18 = _os_log_send_and_compose_impl(v17, &v103, 0, 0, &_mh_execute_header, v15, 0, "createBootstrapToken: Start", &v102, 2);
+      v19 = v18;
+      if (v18)
+      {
+        sub_100002A8C(v18);
+      }
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    free(v19);
+  }
+
+  if (![(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.bootstrap.fullaccess"])
+  {
+    v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+    v26 = v106[5];
+    v106[5] = v25;
+
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v27 = qword_1000EB420;
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      v103 = 0;
+      v28 = sub_1000011A8(1);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        v29 = v28;
+      }
+
+      else
+      {
+        v29 = v28 & 0xFFFFFFFE;
+      }
+
+      if (v29)
+      {
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v30 = _os_log_send_and_compose_impl(v29, &v103, 0, 0, &_mh_execute_header, v27, 0, "Entitlement failure", &v102, v94);
+        v31 = v30;
+        if (v30)
+        {
+          sub_100002A8C(v30);
+        }
+      }
+
+      else
+      {
+        v31 = 0;
+      }
+
+      free(v31);
+    }
+
+    if (!replyCopy)
+    {
+      goto LABEL_73;
+    }
+
+LABEL_60:
+    replyCopy[2](replyCopy, v106[5]);
+LABEL_73:
+    v51 = 0;
+    goto LABEL_74;
+  }
+
+  if (size > 0x400 || secretSize >= 0x401)
+  {
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v32 = qword_1000EB420;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    {
+      v103 = 0;
+      v33 = sub_1000011A8(1);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      {
+        v34 = v33;
+      }
+
+      else
+      {
+        v34 = v33 & 0xFFFFFFFE;
+      }
+
+      if (v34)
+      {
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v35 = _os_log_send_and_compose_impl(v34, &v103, 0, 0, &_mh_execute_header, v32, 0, "Long Secret, can't handle ...", &v102, v94);
+        v36 = v35;
+        if (v35)
+        {
+          sub_100002A8C(v35);
+        }
+      }
+
+      else
+      {
+        v36 = 0;
+      }
+
+      free(v36);
+    }
+
+    v42 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
+    v43 = v106[5];
+    v106[5] = v42;
+
+    if (!replyCopy)
+    {
+      goto LABEL_73;
+    }
+
+    goto LABEL_60;
+  }
+
+  if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
+  {
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v20 = qword_1000EB420;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      v103 = 0;
+      v21 = sub_1000011A8(1);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        v22 = v21;
+      }
+
+      else
+      {
+        v22 = v21 & 0xFFFFFFFE;
+      }
+
+      if (v22)
+      {
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v23 = _os_log_send_and_compose_impl(v22, &v103, 0, 0, &_mh_execute_header, v20, 0, "FAILED to allocate VM", &v102, v94);
+        v24 = v23;
+        if (v23)
+        {
+          sub_100002A8C(v23);
+        }
+      }
+
+      else
+      {
+        v24 = 0;
+      }
+
+      free(v24);
+    }
+
+    v49 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+    v50 = v106[5];
+    v106[5] = v49;
+
+    address = 0;
+    replyCopy[2](replyCopy, v106[5]);
+    goto LABEL_73;
+  }
+
+  if (size)
+  {
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v37 = qword_1000EB420;
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    {
+      v103 = 0;
+      v38 = sub_1000011A8(1);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      {
+        v39 = v38;
+      }
+
+      else
+      {
+        v39 = v38 & 0xFFFFFFFE;
+      }
+
+      if (v39)
+      {
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v40 = _os_log_send_and_compose_impl(v39, &v103, 0, 0, &_mh_execute_header, v37, 0, "createBootstrapToken with SECRET token", &v102, v94);
+        v41 = v40;
+        if (v40)
+        {
+          sub_100002A8C(v40);
+        }
+      }
+
+      else
+      {
+        v41 = 0;
+      }
+
+      free(v41);
+    }
+
+    v52 = address;
+    if ([(UMSyncService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
+    {
+      if (qword_1000EB428 != -1)
+      {
+        sub_100095FA0();
+      }
+
+      v53 = qword_1000EB420;
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      {
+        v103 = 0;
+        v54 = sub_1000011A8(1);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+        {
+          v55 = v54;
+        }
+
+        else
+        {
+          v55 = v54 & 0xFFFFFFFE;
+        }
+
+        if (v55)
+        {
+          v102 = 0;
+          LODWORD(v94) = 2;
+          v56 = _os_log_send_and_compose_impl(v55, &v103, 0, 0, &_mh_execute_header, v53, 0, "Failed to retrieve Passcode", &v102, v94);
+          v57 = v56;
+          if (v56)
+          {
+            sub_100002A8C(v56);
+          }
+        }
+
+        else
+        {
+          v57 = 0;
+        }
+
+        free(v57);
+      }
+
+      v75 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
+      v76 = v106[5];
+      v106[5] = v75;
+
+      v77 = mach_task_self_;
+      v78 = address;
+      v79 = vm_page_size;
+      if (vm_page_size >= size)
+      {
+        sizeCopy = size;
+      }
+
+      else
+      {
+        sizeCopy = vm_page_size;
+      }
+
+      memset_s(address, sizeCopy, 0, sizeCopy);
+      vm_deallocate(v77, v78, v79);
+      replyCopy[2](replyCopy, v106[5]);
+      goto LABEL_73;
+    }
+
+    v51 = [NSData dataWithBytesNoCopy:v52 length:size freeWhenDone:0];
+  }
+
+  else
+  {
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v44 = qword_1000EB420;
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    {
+      v103 = 0;
+      v45 = sub_1000011A8(1);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      {
+        v46 = v45;
+      }
+
+      else
+      {
+        v46 = v45 & 0xFFFFFFFE;
+      }
+
+      if (v46)
+      {
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v47 = _os_log_send_and_compose_impl(v46, &v103, 0, 0, &_mh_execute_header, v44, 0, "createBootstrapToken with NULL token", &v102, v94);
+        v48 = v47;
+        if (v47)
+        {
+          sub_100002A8C(v47);
+        }
+      }
+
+      else
+      {
+        v48 = 0;
+      }
+
+      free(v48);
+    }
+
+    v51 = 0;
+  }
+
+  if (secretSize)
+  {
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v58 = qword_1000EB420;
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+    {
+      v95 = handleCopy;
+      v103 = 0;
+      v59 = sub_1000011A8(1);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      {
+        v60 = v59;
+      }
+
+      else
+      {
+        v60 = v59 & 0xFFFFFFFE;
+      }
+
+      if (v60)
+      {
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v61 = _os_log_send_and_compose_impl(v60, &v103, 0, 0, &_mh_execute_header, v58, 0, "has device passcode", &v102, v94);
+        v62 = v61;
+        if (v61)
+        {
+          sub_100002A8C(v61);
+        }
+      }
+
+      else
+      {
+        v62 = 0;
+      }
+
+      free(v62);
+      handleCopy = v95;
+    }
+
+    v68 = address;
+    if ([(UMSyncService *)self retrievePasscodeFromFileHandle:handleCopy ofLength:secretSize withbaseaddress:address + 1024])
+    {
+      if (qword_1000EB428 != -1)
+      {
+        sub_100095FA0();
+      }
+
+      v69 = qword_1000EB420;
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+      {
+        v103 = 0;
+        v70 = sub_1000011A8(1);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+        {
+          v71 = v70;
+        }
+
+        else
+        {
+          v71 = v70 & 0xFFFFFFFE;
+        }
+
+        if (v71)
+        {
+          v102 = 0;
+          LODWORD(v94) = 2;
+          v72 = _os_log_send_and_compose_impl(v71, &v103, 0, 0, &_mh_execute_header, v69, 0, "Failed to retrieve device Passcode", &v102, v94);
+          v73 = v72;
+          if (v72)
+          {
+            sub_100002A8C(v72);
+          }
+        }
+
+        else
+        {
+          v73 = 0;
+        }
+
+        free(v73);
+      }
+
+      v88 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
+      v89 = v106[5];
+      v106[5] = v88;
+
+      v90 = mach_task_self_;
+      v91 = address;
+      v92 = vm_page_size;
+      if (vm_page_size >= secretSize + 1024)
+      {
+        v93 = secretSize + 1024;
+      }
+
+      else
+      {
+        v93 = vm_page_size;
+      }
+
+      memset_s(address, v93, 0, v93);
+      vm_deallocate(v90, v91, v92);
+      replyCopy[2](replyCopy, v106[5]);
+      goto LABEL_74;
+    }
+
+    v74 = [NSData dataWithBytesNoCopy:v68 + 1024 length:size freeWhenDone:0];
+  }
+
+  else
+  {
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v63 = qword_1000EB420;
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    {
+      v103 = 0;
+      v64 = sub_1000011A8(1);
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      {
+        v65 = v64;
+      }
+
+      else
+      {
+        v65 = v64 & 0xFFFFFFFE;
+      }
+
+      if (v65)
+      {
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v66 = _os_log_send_and_compose_impl(v65, &v103, 0, 0, &_mh_execute_header, v63, 0, "createBootstrapToken with NULL device Passcode", &v102, v94);
+        v67 = v66;
+        if (v66)
+        {
+          sub_100002A8C(v66);
+        }
+      }
+
+      else
+      {
+        v67 = 0;
+      }
+
+      free(v67);
+    }
+
+    v74 = 0;
+  }
+
+  v81 = qword_1000EB610;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10005CCC0;
+  block[3] = &unk_1000DD9D8;
+  v51 = v51;
+  v97 = v51;
+  v82 = v74;
+  v98 = v82;
+  v99 = &v105;
+  v100 = address;
+  secretSizeCopy = secretSize;
+  dispatch_sync(v81, block);
+  replyCopy[2](replyCopy, v106[5]);
+  if (qword_1000EB428 != -1)
+  {
+    sub_100095FA0();
+  }
+
+  v83 = qword_1000EB420;
+  if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+  {
+    v103 = 0;
+    v84 = sub_1000011A8(1);
+    if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+    {
+      v85 = v84;
+    }
+
+    else
+    {
+      v85 = v84 & 0xFFFFFFFE;
+    }
+
+    if (v85)
+    {
+      v102 = 0;
+      LODWORD(v94) = 2;
+      v86 = _os_log_send_and_compose_impl(v85, &v103, 0, 0, &_mh_execute_header, v83, 0, "createBootstrapToken: End", &v102, v94);
+      v87 = v86;
+      if (v86)
+      {
+        sub_100002A8C(v86);
+      }
+    }
+
+    else
+    {
+      v87 = 0;
+    }
+
+    free(v87);
+  }
+
+LABEL_74:
+  _Block_object_dispose(&v105, 8);
+}
+
+- (void)createBootstrapTokenWithSecret:(id)secret withDevicePasscode:(id)passcode withReply:(id)reply
+{
+  secretCopy = secret;
+  passcodeCopy = passcode;
+  replyCopy = reply;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = sub_100058864;
+  v40 = sub_100058874;
+  v41 = 0;
+  if (qword_1000EB428 != -1)
+  {
+    sub_100095FA0();
+  }
+
+  v11 = qword_1000EB420;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v35 = 0;
+    v12 = sub_1000011A8(1);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v12;
+    }
+
+    else
+    {
+      v13 = v12 & 0xFFFFFFFE;
+    }
+
+    if (v13)
+    {
+      v34 = 0;
+      v14 = _os_log_send_and_compose_impl(v13, &v35, 0, 0, &_mh_execute_header, v11, 0, "createBootstrapToken: Start", &v34, 2);
+      v15 = v14;
+      if (v14)
+      {
+        sub_100002A8C(v14);
+      }
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    free(v15);
+  }
+
+  if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.bootstrap.fullaccess"])
+  {
+    v16 = qword_1000EB610;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10005D1B0;
+    block[3] = &unk_1000DDA00;
+    v31 = secretCopy;
+    v32 = passcodeCopy;
+    v33 = &v36;
+    dispatch_sync(v16, block);
+    replyCopy[2](replyCopy, v37[5]);
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v17 = qword_1000EB420;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v35 = 0;
+      v18 = sub_1000011A8(1);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = v18;
+      }
+
+      else
+      {
+        v19 = v18 & 0xFFFFFFFE;
+      }
+
+      if (v19)
+      {
+        v34 = 0;
+        LODWORD(v29) = 2;
+        v20 = _os_log_send_and_compose_impl(v19, &v35, 0, 0, &_mh_execute_header, v17, 0, "createBootstrapToken: End", &v34, v29);
+        v21 = v20;
+        if (v20)
+        {
+          sub_100002A8C(v20);
+        }
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      free(v21);
+    }
+  }
+
+  else
+  {
+    v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+    v23 = v37[5];
+    v37[5] = v22;
+
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v24 = qword_1000EB420;
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      v35 = 0;
+      v25 = sub_1000011A8(1);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        v26 = v25;
+      }
+
+      else
+      {
+        v26 = v25 & 0xFFFFFFFE;
+      }
+
+      if (v26)
+      {
+        v34 = 0;
+        LODWORD(v29) = 2;
+        v27 = _os_log_send_and_compose_impl(v26, &v35, 0, 0, &_mh_execute_header, v24, 0, "Entitlement failure", &v34, v29);
+        v28 = v27;
+        if (v27)
+        {
+          sub_100002A8C(v27);
+        }
+      }
+
+      else
+      {
+        v28 = 0;
+      }
+
+      free(v28);
+    }
+
+    if (replyCopy)
+    {
+      replyCopy[2](replyCopy, v37[5]);
+    }
+  }
+
+  _Block_object_dispose(&v36, 8);
+}
+
+- (void)changeBootstrapTokenWithOldSecret:(id)secret oldSize:(unint64_t)size withNewSecret:(id)newSecret newSize:(unint64_t)newSize withReply:(id)reply
+{
+  secretCopy = secret;
+  newSecretCopy = newSecret;
   replyCopy = reply;
   v104 = 0;
   v105 = &v104;
@@ -2041,7 +2821,7 @@ LABEL_105:
     if (v17)
     {
       v101 = 0;
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(v17, &v102, 0, 0, &_mh_execute_header, v15, 0, "changeBootstrapToken: Start", &v101, 2);
       v19 = v18;
       if (v18)
       {
@@ -2086,7 +2866,8 @@ LABEL_105:
       if (v29)
       {
         v101 = 0;
-        v30 = _os_log_send_and_compose_impl();
+        LODWORD(v94) = 2;
+        v30 = _os_log_send_and_compose_impl(v29, &v102, 0, 0, &_mh_execute_header, v27, 0, "Entitlement failure", &v101, v94);
         v31 = v30;
         if (v30)
         {
@@ -2114,7 +2895,7 @@ LABEL_73:
     goto LABEL_74;
   }
 
-  if (size > 0x400 || secretSize >= 0x401)
+  if (size > 0x400 || newSize >= 0x401)
   {
     if (qword_1000EB428 != -1)
     {
@@ -2139,7 +2920,8 @@ LABEL_73:
       if (v34)
       {
         v101 = 0;
-        v35 = _os_log_send_and_compose_impl();
+        LODWORD(v94) = 2;
+        v35 = _os_log_send_and_compose_impl(v34, &v102, 0, 0, &_mh_execute_header, v32, 0, "Long Secret, can't handle ...", &v101, v94);
         v36 = v35;
         if (v35)
         {
@@ -2192,7 +2974,8 @@ LABEL_73:
       if (v22)
       {
         v101 = 0;
-        v23 = _os_log_send_and_compose_impl();
+        LODWORD(v94) = 2;
+        v23 = _os_log_send_and_compose_impl(v22, &v102, 0, 0, &_mh_execute_header, v20, 0, "FAILED to allocate VM", &v101, v94);
         v24 = v23;
         if (v23)
         {
@@ -2242,7 +3025,8 @@ LABEL_73:
       if (v39)
       {
         v101 = 0;
-        v40 = _os_log_send_and_compose_impl();
+        LODWORD(v94) = 2;
+        v40 = _os_log_send_and_compose_impl(v39, &v102, 0, 0, &_mh_execute_header, v37, 0, "changeBootstrapToken with SECRET oldToken", &v101, v94);
         v41 = v40;
         if (v40)
         {
@@ -2284,7 +3068,8 @@ LABEL_73:
         if (v55)
         {
           v101 = 0;
-          v56 = _os_log_send_and_compose_impl();
+          LODWORD(v94) = 2;
+          v56 = _os_log_send_and_compose_impl(v55, &v102, 0, 0, &_mh_execute_header, v53, 0, "Failed to retrieve oldTokenData", &v101, v94);
           v57 = v56;
           if (v56)
           {
@@ -2351,739 +3136,8 @@ LABEL_73:
       if (v46)
       {
         v101 = 0;
-        v47 = _os_log_send_and_compose_impl();
-        v48 = v47;
-        if (v47)
-        {
-          sub_100002A8C(v47);
-        }
-      }
-
-      else
-      {
-        v48 = 0;
-      }
-
-      free(v48);
-    }
-
-    v51 = 0;
-  }
-
-  if (secretSize)
-  {
-    if (qword_1000EB428 != -1)
-    {
-      sub_100095FA0();
-    }
-
-    v58 = qword_1000EB420;
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-    {
-      v94 = handleCopy;
-      v102 = 0;
-      v59 = sub_1000011A8(1);
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-      {
-        v60 = v59;
-      }
-
-      else
-      {
-        v60 = v59 & 0xFFFFFFFE;
-      }
-
-      if (v60)
-      {
-        v101 = 0;
-        v61 = _os_log_send_and_compose_impl();
-        v62 = v61;
-        if (v61)
-        {
-          sub_100002A8C(v61);
-        }
-      }
-
-      else
-      {
-        v62 = 0;
-      }
-
-      free(v62);
-      handleCopy = v94;
-    }
-
-    v68 = address;
-    if ([(UMSyncService *)self retrievePasscodeFromFileHandle:handleCopy ofLength:secretSize withbaseaddress:address + 1024])
-    {
-      if (qword_1000EB428 != -1)
-      {
-        sub_100095FA0();
-      }
-
-      v69 = qword_1000EB420;
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-      {
-        v102 = 0;
-        v70 = sub_1000011A8(1);
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-        {
-          v71 = v70;
-        }
-
-        else
-        {
-          v71 = v70 & 0xFFFFFFFE;
-        }
-
-        if (v71)
-        {
-          v101 = 0;
-          v72 = _os_log_send_and_compose_impl();
-          v73 = v72;
-          if (v72)
-          {
-            sub_100002A8C(v72);
-          }
-        }
-
-        else
-        {
-          v73 = 0;
-        }
-
-        free(v73);
-      }
-
-      v88 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-      v89 = v105[5];
-      v105[5] = v88;
-
-      v90 = mach_task_self_;
-      v91 = address;
-      v92 = vm_page_size;
-      if (vm_page_size >= secretSize + 1024)
-      {
-        v93 = secretSize + 1024;
-      }
-
-      else
-      {
-        v93 = vm_page_size;
-      }
-
-      memset_s(address, v93, 0, v93);
-      vm_deallocate(v90, v91, v92);
-      replyCopy[2](replyCopy, v105[5]);
-      goto LABEL_74;
-    }
-
-    v74 = [NSData dataWithBytesNoCopy:v68 + 1024 length:size freeWhenDone:0];
-  }
-
-  else
-  {
-    if (qword_1000EB428 != -1)
-    {
-      sub_100095FA0();
-    }
-
-    v63 = qword_1000EB420;
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
-    {
-      v102 = 0;
-      v64 = sub_1000011A8(1);
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
-      {
-        v65 = v64;
-      }
-
-      else
-      {
-        v65 = v64 & 0xFFFFFFFE;
-      }
-
-      if (v65)
-      {
-        v101 = 0;
-        v66 = _os_log_send_and_compose_impl();
-        v67 = v66;
-        if (v66)
-        {
-          sub_100002A8C(v66);
-        }
-      }
-
-      else
-      {
-        v67 = 0;
-      }
-
-      free(v67);
-    }
-
-    v74 = 0;
-  }
-
-  v81 = qword_1000EB610;
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_10005CCC0;
-  block[3] = &unk_1000DD9D8;
-  v51 = v51;
-  v96 = v51;
-  v82 = v74;
-  v97 = v82;
-  v98 = &v104;
-  v99 = address;
-  secretSizeCopy = secretSize;
-  dispatch_sync(v81, block);
-  replyCopy[2](replyCopy, v105[5]);
-  if (qword_1000EB428 != -1)
-  {
-    sub_100095FA0();
-  }
-
-  v83 = qword_1000EB420;
-  if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
-  {
-    v102 = 0;
-    v84 = sub_1000011A8(1);
-    if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
-    {
-      v85 = v84;
-    }
-
-    else
-    {
-      v85 = v84 & 0xFFFFFFFE;
-    }
-
-    if (v85)
-    {
-      v101 = 0;
-      v86 = _os_log_send_and_compose_impl();
-      v87 = v86;
-      if (v86)
-      {
-        sub_100002A8C(v86);
-      }
-    }
-
-    else
-    {
-      v87 = 0;
-    }
-
-    free(v87);
-  }
-
-LABEL_74:
-  _Block_object_dispose(&v104, 8);
-}
-
-- (void)createBootstrapTokenWithSecret:(id)secret withDevicePasscode:(id)passcode withReply:(id)reply
-{
-  secretCopy = secret;
-  passcodeCopy = passcode;
-  replyCopy = reply;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_100058864;
-  v39 = sub_100058874;
-  v40 = 0;
-  if (qword_1000EB428 != -1)
-  {
-    sub_100095FA0();
-  }
-
-  v11 = qword_1000EB420;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    v34 = 0;
-    v12 = sub_1000011A8(1);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      v13 = v12;
-    }
-
-    else
-    {
-      v13 = v12 & 0xFFFFFFFE;
-    }
-
-    if (v13)
-    {
-      v33 = 0;
-      v14 = _os_log_send_and_compose_impl();
-      v15 = v14;
-      if (v14)
-      {
-        sub_100002A8C(v14);
-      }
-    }
-
-    else
-    {
-      v15 = 0;
-    }
-
-    free(v15);
-  }
-
-  if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.bootstrap.fullaccess"])
-  {
-    v16 = qword_1000EB610;
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_10005D1B0;
-    block[3] = &unk_1000DDA00;
-    v30 = secretCopy;
-    v31 = passcodeCopy;
-    v32 = &v35;
-    dispatch_sync(v16, block);
-    replyCopy[2](replyCopy, v36[5]);
-    if (qword_1000EB428 != -1)
-    {
-      sub_100095FA0();
-    }
-
-    v17 = qword_1000EB420;
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-    {
-      v34 = 0;
-      v18 = sub_1000011A8(1);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        v19 = v18;
-      }
-
-      else
-      {
-        v19 = v18 & 0xFFFFFFFE;
-      }
-
-      if (v19)
-      {
-        v33 = 0;
-        v20 = _os_log_send_and_compose_impl();
-        v21 = v20;
-        if (v20)
-        {
-          sub_100002A8C(v20);
-        }
-      }
-
-      else
-      {
-        v21 = 0;
-      }
-
-      free(v21);
-    }
-  }
-
-  else
-  {
-    v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v23 = v36[5];
-    v36[5] = v22;
-
-    if (qword_1000EB428 != -1)
-    {
-      sub_100095FA0();
-    }
-
-    v24 = qword_1000EB420;
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-    {
-      v34 = 0;
-      v25 = sub_1000011A8(1);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-      {
-        v26 = v25;
-      }
-
-      else
-      {
-        v26 = v25 & 0xFFFFFFFE;
-      }
-
-      if (v26)
-      {
-        v33 = 0;
-        v27 = _os_log_send_and_compose_impl();
-        v28 = v27;
-        if (v27)
-        {
-          sub_100002A8C(v27);
-        }
-      }
-
-      else
-      {
-        v28 = 0;
-      }
-
-      free(v28);
-    }
-
-    if (replyCopy)
-    {
-      replyCopy[2](replyCopy, v36[5]);
-    }
-  }
-
-  _Block_object_dispose(&v35, 8);
-}
-
-- (void)changeBootstrapTokenWithOldSecret:(id)secret oldSize:(unint64_t)size withNewSecret:(id)newSecret newSize:(unint64_t)newSize withReply:(id)reply
-{
-  secretCopy = secret;
-  newSecretCopy = newSecret;
-  replyCopy = reply;
-  v103 = 0;
-  v104 = &v103;
-  v105 = 0x3032000000;
-  v106 = sub_100058864;
-  v107 = sub_100058874;
-  v108 = 0;
-  address = 0;
-  if (qword_1000EB428 != -1)
-  {
-    sub_100095FA0();
-  }
-
-  v15 = qword_1000EB420;
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v101 = 0;
-    v16 = sub_1000011A8(1);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v17 = v16;
-    }
-
-    else
-    {
-      v17 = v16 & 0xFFFFFFFE;
-    }
-
-    if (v17)
-    {
-      v100 = 0;
-      v18 = _os_log_send_and_compose_impl();
-      v19 = v18;
-      if (v18)
-      {
-        sub_100002A8C(v18);
-      }
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    free(v19);
-  }
-
-  if (![(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.bootstrap.fullaccess"])
-  {
-    v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v26 = v104[5];
-    v104[5] = v25;
-
-    if (qword_1000EB428 != -1)
-    {
-      sub_100095FA0();
-    }
-
-    v27 = qword_1000EB420;
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-    {
-      v101 = 0;
-      v28 = sub_1000011A8(1);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-      {
-        v29 = v28;
-      }
-
-      else
-      {
-        v29 = v28 & 0xFFFFFFFE;
-      }
-
-      if (v29)
-      {
-        v100 = 0;
-        v30 = _os_log_send_and_compose_impl();
-        v31 = v30;
-        if (v30)
-        {
-          sub_100002A8C(v30);
-        }
-      }
-
-      else
-      {
-        v31 = 0;
-      }
-
-      free(v31);
-    }
-
-    if (!replyCopy)
-    {
-      goto LABEL_73;
-    }
-
-LABEL_60:
-    replyCopy[2](replyCopy, v104[5]);
-LABEL_73:
-    v51 = 0;
-    goto LABEL_74;
-  }
-
-  if (size > 0x400 || newSize >= 0x401)
-  {
-    if (qword_1000EB428 != -1)
-    {
-      sub_100095FA0();
-    }
-
-    v32 = qword_1000EB420;
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-    {
-      v101 = 0;
-      v33 = sub_1000011A8(1);
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-      {
-        v34 = v33;
-      }
-
-      else
-      {
-        v34 = v33 & 0xFFFFFFFE;
-      }
-
-      if (v34)
-      {
-        v100 = 0;
-        v35 = _os_log_send_and_compose_impl();
-        v36 = v35;
-        if (v35)
-        {
-          sub_100002A8C(v35);
-        }
-      }
-
-      else
-      {
-        v36 = 0;
-      }
-
-      free(v36);
-    }
-
-    v42 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
-    v43 = v104[5];
-    v104[5] = v42;
-
-    if (!replyCopy)
-    {
-      goto LABEL_73;
-    }
-
-    goto LABEL_60;
-  }
-
-  if (vm_allocate(mach_task_self_, &address, vm_page_size, -268435455))
-  {
-    if (qword_1000EB428 != -1)
-    {
-      sub_100095FA0();
-    }
-
-    v20 = qword_1000EB420;
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-    {
-      v101 = 0;
-      v21 = sub_1000011A8(1);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-      {
-        v22 = v21;
-      }
-
-      else
-      {
-        v22 = v21 & 0xFFFFFFFE;
-      }
-
-      if (v22)
-      {
-        v100 = 0;
-        v23 = _os_log_send_and_compose_impl();
-        v24 = v23;
-        if (v23)
-        {
-          sub_100002A8C(v23);
-        }
-      }
-
-      else
-      {
-        v24 = 0;
-      }
-
-      free(v24);
-    }
-
-    v49 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v50 = v104[5];
-    v104[5] = v49;
-
-    address = 0;
-    replyCopy[2](replyCopy, v104[5]);
-    goto LABEL_73;
-  }
-
-  if (size)
-  {
-    if (qword_1000EB428 != -1)
-    {
-      sub_100095FA0();
-    }
-
-    v37 = qword_1000EB420;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
-    {
-      v101 = 0;
-      v38 = sub_1000011A8(1);
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
-      {
-        v39 = v38;
-      }
-
-      else
-      {
-        v39 = v38 & 0xFFFFFFFE;
-      }
-
-      if (v39)
-      {
-        v100 = 0;
-        v40 = _os_log_send_and_compose_impl();
-        v41 = v40;
-        if (v40)
-        {
-          sub_100002A8C(v40);
-        }
-      }
-
-      else
-      {
-        v41 = 0;
-      }
-
-      free(v41);
-    }
-
-    v52 = address;
-    if ([(UMSyncService *)self retrievePasscodeFromFileHandle:secretCopy ofLength:size withbaseaddress:address])
-    {
-      if (qword_1000EB428 != -1)
-      {
-        sub_100095FA0();
-      }
-
-      v53 = qword_1000EB420;
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
-      {
-        v101 = 0;
-        v54 = sub_1000011A8(1);
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
-        {
-          v55 = v54;
-        }
-
-        else
-        {
-          v55 = v54 & 0xFFFFFFFE;
-        }
-
-        if (v55)
-        {
-          v100 = 0;
-          v56 = _os_log_send_and_compose_impl();
-          v57 = v56;
-          if (v56)
-          {
-            sub_100002A8C(v56);
-          }
-        }
-
-        else
-        {
-          v57 = 0;
-        }
-
-        free(v57);
-      }
-
-      v75 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-      v76 = v104[5];
-      v104[5] = v75;
-
-      v77 = mach_task_self_;
-      v78 = address;
-      v79 = vm_page_size;
-      if (vm_page_size >= size)
-      {
-        sizeCopy = size;
-      }
-
-      else
-      {
-        sizeCopy = vm_page_size;
-      }
-
-      memset_s(address, sizeCopy, 0, sizeCopy);
-      vm_deallocate(v77, v78, v79);
-      replyCopy[2](replyCopy, v104[5]);
-      goto LABEL_73;
-    }
-
-    v51 = [NSData dataWithBytesNoCopy:v52 length:size freeWhenDone:0];
-  }
-
-  else
-  {
-    if (qword_1000EB428 != -1)
-    {
-      sub_100095FA0();
-    }
-
-    v44 = qword_1000EB420;
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
-    {
-      v101 = 0;
-      v45 = sub_1000011A8(1);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
-      {
-        v46 = v45;
-      }
-
-      else
-      {
-        v46 = v45 & 0xFFFFFFFE;
-      }
-
-      if (v46)
-      {
-        v100 = 0;
-        v47 = _os_log_send_and_compose_impl();
+        LODWORD(v94) = 2;
+        v47 = _os_log_send_and_compose_impl(v46, &v102, 0, 0, &_mh_execute_header, v44, 0, "NULL oldToken", &v101, v94);
         v48 = v47;
         if (v47)
         {
@@ -3112,7 +3166,7 @@ LABEL_73:
     v58 = qword_1000EB420;
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
     {
-      v101 = 0;
+      v102 = 0;
       v59 = sub_1000011A8(1);
       if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
@@ -3126,8 +3180,9 @@ LABEL_73:
 
       if (v60)
       {
-        v100 = 0;
-        v61 = _os_log_send_and_compose_impl();
+        v101 = 0;
+        LODWORD(v94) = 2;
+        v61 = _os_log_send_and_compose_impl(v60, &v102, 0, 0, &_mh_execute_header, v58, 0, "changeBootstrapToken with SECRET newToken", &v101, v94);
         v62 = v61;
         if (v61)
         {
@@ -3154,7 +3209,7 @@ LABEL_73:
       v69 = qword_1000EB420;
       if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
       {
-        v101 = 0;
+        v102 = 0;
         v70 = sub_1000011A8(1);
         if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
         {
@@ -3168,8 +3223,9 @@ LABEL_73:
 
         if (v71)
         {
-          v100 = 0;
-          v72 = _os_log_send_and_compose_impl();
+          v101 = 0;
+          LODWORD(v94) = 2;
+          v72 = _os_log_send_and_compose_impl(v71, &v102, 0, 0, &_mh_execute_header, v69, 0, "Failed to retrieve oldTokenData", &v101, v94);
           v73 = v72;
           if (v72)
           {
@@ -3186,8 +3242,8 @@ LABEL_73:
       }
 
       v88 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-      v89 = v104[5];
-      v104[5] = v88;
+      v89 = v105[5];
+      v105[5] = v88;
 
       v90 = mach_task_self_;
       v91 = address;
@@ -3204,7 +3260,7 @@ LABEL_73:
 
       memset_s(address, v93, 0, v93);
       vm_deallocate(v90, v91, v92);
-      replyCopy[2](replyCopy, v104[5]);
+      replyCopy[2](replyCopy, v105[5]);
       goto LABEL_74;
     }
 
@@ -3221,7 +3277,7 @@ LABEL_73:
     v63 = qword_1000EB420;
     if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
     {
-      v101 = 0;
+      v102 = 0;
       v64 = sub_1000011A8(1);
       if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
       {
@@ -3235,8 +3291,9 @@ LABEL_73:
 
       if (v65)
       {
-        v100 = 0;
-        v66 = _os_log_send_and_compose_impl();
+        v101 = 0;
+        LODWORD(v94) = 2;
+        v66 = _os_log_send_and_compose_impl(v65, &v102, 0, 0, &_mh_execute_header, v63, 0, "NULL newToken", &v101, v94);
         v67 = v66;
         if (v66)
         {
@@ -3261,14 +3318,14 @@ LABEL_73:
   block[2] = sub_10005DEF8;
   block[3] = &unk_1000DD9D8;
   v51 = v51;
-  v95 = v51;
+  v96 = v51;
   v82 = v74;
-  v96 = v82;
-  v97 = &v103;
-  v98 = address;
+  v97 = v82;
+  v98 = &v104;
+  v99 = address;
   newSizeCopy = newSize;
   dispatch_sync(v81, block);
-  replyCopy[2](replyCopy, v104[5]);
+  replyCopy[2](replyCopy, v105[5]);
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -3277,7 +3334,7 @@ LABEL_73:
   v83 = qword_1000EB420;
   if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
   {
-    v101 = 0;
+    v102 = 0;
     v84 = sub_1000011A8(1);
     if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
     {
@@ -3291,8 +3348,9 @@ LABEL_73:
 
     if (v85)
     {
-      v100 = 0;
-      v86 = _os_log_send_and_compose_impl();
+      v101 = 0;
+      LODWORD(v94) = 2;
+      v86 = _os_log_send_and_compose_impl(v85, &v102, 0, 0, &_mh_execute_header, v83, 0, "changeBootstrapToken: End", &v101, v94);
       v87 = v86;
       if (v86)
       {
@@ -3309,7 +3367,7 @@ LABEL_73:
   }
 
 LABEL_74:
-  _Block_object_dispose(&v103, 8);
+  _Block_object_dispose(&v104, 8);
 }
 
 - (void)changeBootstrapTokenWithOldSecret:(id)secret withNewSecret:(id)newSecret withReply:(id)reply
@@ -3317,12 +3375,12 @@ LABEL_74:
   secretCopy = secret;
   newSecretCopy = newSecret;
   replyCopy = reply;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_100058864;
-  v39 = sub_100058874;
-  v40 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = sub_100058864;
+  v40 = sub_100058874;
+  v41 = 0;
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -3331,7 +3389,7 @@ LABEL_74:
   v11 = qword_1000EB420;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = 0;
+    v35 = 0;
     v12 = sub_1000011A8(1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
@@ -3345,8 +3403,8 @@ LABEL_74:
 
     if (v13)
     {
-      v33 = 0;
-      v14 = _os_log_send_and_compose_impl();
+      v34 = 0;
+      v14 = _os_log_send_and_compose_impl(v13, &v35, 0, 0, &_mh_execute_header, v11, 0, "changeBootstrapToken: Start", &v34, 2);
       v15 = v14;
       if (v14)
       {
@@ -3369,11 +3427,11 @@ LABEL_74:
     block[1] = 3221225472;
     block[2] = sub_10005E3E0;
     block[3] = &unk_1000DDA00;
-    v30 = secretCopy;
-    v31 = newSecretCopy;
-    v32 = &v35;
+    v31 = secretCopy;
+    v32 = newSecretCopy;
+    v33 = &v36;
     dispatch_sync(v16, block);
-    replyCopy[2](replyCopy, v36[5]);
+    replyCopy[2](replyCopy, v37[5]);
     if (qword_1000EB428 != -1)
     {
       sub_100095FA0();
@@ -3382,7 +3440,7 @@ LABEL_74:
     v17 = qword_1000EB420;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 0;
+      v35 = 0;
       v18 = sub_1000011A8(1);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -3396,8 +3454,9 @@ LABEL_74:
 
       if (v19)
       {
-        v33 = 0;
-        v20 = _os_log_send_and_compose_impl();
+        v34 = 0;
+        LODWORD(v29) = 2;
+        v20 = _os_log_send_and_compose_impl(v19, &v35, 0, 0, &_mh_execute_header, v17, 0, "changeBootstrapToken: End", &v34, v29);
         v21 = v20;
         if (v20)
         {
@@ -3417,8 +3476,8 @@ LABEL_74:
   else
   {
     v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v23 = v36[5];
-    v36[5] = v22;
+    v23 = v37[5];
+    v37[5] = v22;
 
     if (qword_1000EB428 != -1)
     {
@@ -3428,7 +3487,7 @@ LABEL_74:
     v24 = qword_1000EB420;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 0;
+      v35 = 0;
       v25 = sub_1000011A8(1);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
@@ -3442,8 +3501,9 @@ LABEL_74:
 
       if (v26)
       {
-        v33 = 0;
-        v27 = _os_log_send_and_compose_impl();
+        v34 = 0;
+        LODWORD(v29) = 2;
+        v27 = _os_log_send_and_compose_impl(v26, &v35, 0, 0, &_mh_execute_header, v24, 0, "Entitlement failure", &v34, v29);
         v28 = v27;
         if (v27)
         {
@@ -3461,11 +3521,11 @@ LABEL_74:
 
     if (replyCopy)
     {
-      replyCopy[2](replyCopy, v36[5]);
+      replyCopy[2](replyCopy, v37[5]);
     }
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
 }
 
 - (void)deleteBootstrapTokenWithSecret:(id)secret secretSize:(unint64_t)size withDeviceSecretHandle:(id)handle deviceSecretSize:(unint64_t)secretSize withReply:(id)reply
@@ -3473,12 +3533,12 @@ LABEL_74:
   secretCopy = secret;
   handleCopy = handle;
   replyCopy = reply;
-  v104 = 0;
-  v105 = &v104;
-  v106 = 0x3032000000;
-  v107 = sub_100058864;
-  v108 = sub_100058874;
-  v109 = 0;
+  v105 = 0;
+  v106 = &v105;
+  v107 = 0x3032000000;
+  v108 = sub_100058864;
+  v109 = sub_100058874;
+  v110 = 0;
   address = 0;
   if (qword_1000EB428 != -1)
   {
@@ -3488,7 +3548,7 @@ LABEL_74:
   v15 = qword_1000EB420;
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v102 = 0;
+    v103 = 0;
     v16 = sub_1000011A8(1);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
@@ -3502,8 +3562,8 @@ LABEL_74:
 
     if (v17)
     {
-      v101 = 0;
-      v18 = _os_log_send_and_compose_impl();
+      v102 = 0;
+      v18 = _os_log_send_and_compose_impl(v17, &v103, 0, 0, &_mh_execute_header, v15, 0, "deleteBootstrapToken: Start", &v102, 2);
       v19 = v18;
       if (v18)
       {
@@ -3522,8 +3582,8 @@ LABEL_74:
   if (![(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.bootstrap.fullaccess"])
   {
     v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v26 = v105[5];
-    v105[5] = v25;
+    v26 = v106[5];
+    v106[5] = v25;
 
     if (qword_1000EB428 != -1)
     {
@@ -3533,7 +3593,7 @@ LABEL_74:
     v27 = qword_1000EB420;
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v102 = 0;
+      v103 = 0;
       v28 = sub_1000011A8(1);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
@@ -3547,8 +3607,9 @@ LABEL_74:
 
       if (v29)
       {
-        v101 = 0;
-        v30 = _os_log_send_and_compose_impl();
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v30 = _os_log_send_and_compose_impl(v29, &v103, 0, 0, &_mh_execute_header, v27, 0, "Entitlement failure", &v102, v94);
         v31 = v30;
         if (v30)
         {
@@ -3570,7 +3631,7 @@ LABEL_74:
     }
 
 LABEL_60:
-    replyCopy[2](replyCopy, v105[5]);
+    replyCopy[2](replyCopy, v106[5]);
 LABEL_73:
     v51 = 0;
     goto LABEL_74;
@@ -3586,7 +3647,7 @@ LABEL_73:
     v32 = qword_1000EB420;
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v102 = 0;
+      v103 = 0;
       v33 = sub_1000011A8(1);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
@@ -3600,8 +3661,9 @@ LABEL_73:
 
       if (v34)
       {
-        v101 = 0;
-        v35 = _os_log_send_and_compose_impl();
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v35 = _os_log_send_and_compose_impl(v34, &v103, 0, 0, &_mh_execute_header, v32, 0, "Long Secret, can't handle ...", &v102, v94);
         v36 = v35;
         if (v35)
         {
@@ -3618,8 +3680,8 @@ LABEL_73:
     }
 
     v42 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
-    v43 = v105[5];
-    v105[5] = v42;
+    v43 = v106[5];
+    v106[5] = v42;
 
     if (!replyCopy)
     {
@@ -3639,7 +3701,7 @@ LABEL_73:
     v20 = qword_1000EB420;
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v102 = 0;
+      v103 = 0;
       v21 = sub_1000011A8(1);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
@@ -3653,8 +3715,9 @@ LABEL_73:
 
       if (v22)
       {
-        v101 = 0;
-        v23 = _os_log_send_and_compose_impl();
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v23 = _os_log_send_and_compose_impl(v22, &v103, 0, 0, &_mh_execute_header, v20, 0, "FAILED to allocate VM", &v102, v94);
         v24 = v23;
         if (v23)
         {
@@ -3671,11 +3734,11 @@ LABEL_73:
     }
 
     v49 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v50 = v105[5];
-    v105[5] = v49;
+    v50 = v106[5];
+    v106[5] = v49;
 
     address = 0;
-    replyCopy[2](replyCopy, v105[5]);
+    replyCopy[2](replyCopy, v106[5]);
     goto LABEL_73;
   }
 
@@ -3689,7 +3752,7 @@ LABEL_73:
     v37 = qword_1000EB420;
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      v102 = 0;
+      v103 = 0;
       v38 = sub_1000011A8(1);
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
@@ -3703,8 +3766,9 @@ LABEL_73:
 
       if (v39)
       {
-        v101 = 0;
-        v40 = _os_log_send_and_compose_impl();
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v40 = _os_log_send_and_compose_impl(v39, &v103, 0, 0, &_mh_execute_header, v37, 0, "deleteBootstrapToken with SECRET token", &v102, v94);
         v41 = v40;
         if (v40)
         {
@@ -3731,7 +3795,7 @@ LABEL_73:
       v53 = qword_1000EB420;
       if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
-        v102 = 0;
+        v103 = 0;
         v54 = sub_1000011A8(1);
         if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
@@ -3745,8 +3809,9 @@ LABEL_73:
 
         if (v55)
         {
-          v101 = 0;
-          v56 = _os_log_send_and_compose_impl();
+          v102 = 0;
+          LODWORD(v94) = 2;
+          v56 = _os_log_send_and_compose_impl(v55, &v103, 0, 0, &_mh_execute_header, v53, 0, "Failed to retrieve Passcode", &v102, v94);
           v57 = v56;
           if (v56)
           {
@@ -3763,8 +3828,8 @@ LABEL_73:
       }
 
       v75 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-      v76 = v105[5];
-      v105[5] = v75;
+      v76 = v106[5];
+      v106[5] = v75;
 
       v77 = mach_task_self_;
       v78 = address;
@@ -3781,7 +3846,7 @@ LABEL_73:
 
       memset_s(address, sizeCopy, 0, sizeCopy);
       vm_deallocate(v77, v78, v79);
-      replyCopy[2](replyCopy, v105[5]);
+      replyCopy[2](replyCopy, v106[5]);
       goto LABEL_73;
     }
 
@@ -3798,7 +3863,7 @@ LABEL_73:
     v44 = qword_1000EB420;
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
-      v102 = 0;
+      v103 = 0;
       v45 = sub_1000011A8(1);
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
@@ -3812,8 +3877,9 @@ LABEL_73:
 
       if (v46)
       {
-        v101 = 0;
-        v47 = _os_log_send_and_compose_impl();
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v47 = _os_log_send_and_compose_impl(v46, &v103, 0, 0, &_mh_execute_header, v44, 0, "deleteBootstrapToken with NULL token", &v102, v94);
         v48 = v47;
         if (v47)
         {
@@ -3842,8 +3908,8 @@ LABEL_73:
     v58 = qword_1000EB420;
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
     {
-      v94 = handleCopy;
-      v102 = 0;
+      v95 = handleCopy;
+      v103 = 0;
       v59 = sub_1000011A8(1);
       if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
@@ -3857,8 +3923,9 @@ LABEL_73:
 
       if (v60)
       {
-        v101 = 0;
-        v61 = _os_log_send_and_compose_impl();
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v61 = _os_log_send_and_compose_impl(v60, &v103, 0, 0, &_mh_execute_header, v58, 0, "has device passcode", &v102, v94);
         v62 = v61;
         if (v61)
         {
@@ -3872,7 +3939,7 @@ LABEL_73:
       }
 
       free(v62);
-      handleCopy = v94;
+      handleCopy = v95;
     }
 
     v68 = address;
@@ -3886,7 +3953,7 @@ LABEL_73:
       v69 = qword_1000EB420;
       if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
       {
-        v102 = 0;
+        v103 = 0;
         v70 = sub_1000011A8(1);
         if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
         {
@@ -3900,8 +3967,9 @@ LABEL_73:
 
         if (v71)
         {
-          v101 = 0;
-          v72 = _os_log_send_and_compose_impl();
+          v102 = 0;
+          LODWORD(v94) = 2;
+          v72 = _os_log_send_and_compose_impl(v71, &v103, 0, 0, &_mh_execute_header, v69, 0, "Failed to retrieve device Passcode", &v102, v94);
           v73 = v72;
           if (v72)
           {
@@ -3918,8 +3986,8 @@ LABEL_73:
       }
 
       v88 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-      v89 = v105[5];
-      v105[5] = v88;
+      v89 = v106[5];
+      v106[5] = v88;
 
       v90 = mach_task_self_;
       v91 = address;
@@ -3936,7 +4004,7 @@ LABEL_73:
 
       memset_s(address, v93, 0, v93);
       vm_deallocate(v90, v91, v92);
-      replyCopy[2](replyCopy, v105[5]);
+      replyCopy[2](replyCopy, v106[5]);
       goto LABEL_74;
     }
 
@@ -3953,7 +4021,7 @@ LABEL_73:
     v63 = qword_1000EB420;
     if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
     {
-      v102 = 0;
+      v103 = 0;
       v64 = sub_1000011A8(1);
       if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
       {
@@ -3967,8 +4035,9 @@ LABEL_73:
 
       if (v65)
       {
-        v101 = 0;
-        v66 = _os_log_send_and_compose_impl();
+        v102 = 0;
+        LODWORD(v94) = 2;
+        v66 = _os_log_send_and_compose_impl(v65, &v103, 0, 0, &_mh_execute_header, v63, 0, "deleteBootstrapToken with no device Passcode", &v102, v94);
         v67 = v66;
         if (v66)
         {
@@ -3993,14 +4062,14 @@ LABEL_73:
   block[2] = sub_10005F130;
   block[3] = &unk_1000DD9D8;
   v51 = v51;
-  v96 = v51;
+  v97 = v51;
   v82 = v74;
-  v97 = v82;
-  v98 = &v104;
-  v99 = address;
+  v98 = v82;
+  v99 = &v105;
+  v100 = address;
   secretSizeCopy = secretSize;
   dispatch_sync(v81, block);
-  replyCopy[2](replyCopy, v105[5]);
+  replyCopy[2](replyCopy, v106[5]);
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -4009,7 +4078,7 @@ LABEL_73:
   v83 = qword_1000EB420;
   if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
   {
-    v102 = 0;
+    v103 = 0;
     v84 = sub_1000011A8(1);
     if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
     {
@@ -4023,8 +4092,9 @@ LABEL_73:
 
     if (v85)
     {
-      v101 = 0;
-      v86 = _os_log_send_and_compose_impl();
+      v102 = 0;
+      LODWORD(v94) = 2;
+      v86 = _os_log_send_and_compose_impl(v85, &v103, 0, 0, &_mh_execute_header, v83, 0, "deleteBootstrapToken: END", &v102, v94);
       v87 = v86;
       if (v86)
       {
@@ -4041,7 +4111,7 @@ LABEL_73:
   }
 
 LABEL_74:
-  _Block_object_dispose(&v104, 8);
+  _Block_object_dispose(&v105, 8);
 }
 
 - (void)deleteBootstrapTokenWithSecret:(id)secret withDevicePasscode:(id)passcode withReply:(id)reply
@@ -4049,12 +4119,12 @@ LABEL_74:
   secretCopy = secret;
   passcodeCopy = passcode;
   replyCopy = reply;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_100058864;
-  v39 = sub_100058874;
-  v40 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = sub_100058864;
+  v40 = sub_100058874;
+  v41 = 0;
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -4063,7 +4133,7 @@ LABEL_74:
   v11 = qword_1000EB420;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = 0;
+    v35 = 0;
     v12 = sub_1000011A8(1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
@@ -4077,8 +4147,8 @@ LABEL_74:
 
     if (v13)
     {
-      v33 = 0;
-      v14 = _os_log_send_and_compose_impl();
+      v34 = 0;
+      v14 = _os_log_send_and_compose_impl(v13, &v35, 0, 0, &_mh_execute_header, v11, 0, "deleteBootstrapToken: Start", &v34, 2);
       v15 = v14;
       if (v14)
       {
@@ -4101,11 +4171,11 @@ LABEL_74:
     block[1] = 3221225472;
     block[2] = sub_10005F618;
     block[3] = &unk_1000DDA00;
-    v30 = secretCopy;
-    v31 = passcodeCopy;
-    v32 = &v35;
+    v31 = secretCopy;
+    v32 = passcodeCopy;
+    v33 = &v36;
     dispatch_sync(v16, block);
-    replyCopy[2](replyCopy, v36[5]);
+    replyCopy[2](replyCopy, v37[5]);
     if (qword_1000EB428 != -1)
     {
       sub_100095FA0();
@@ -4114,7 +4184,7 @@ LABEL_74:
     v17 = qword_1000EB420;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 0;
+      v35 = 0;
       v18 = sub_1000011A8(1);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -4128,8 +4198,9 @@ LABEL_74:
 
       if (v19)
       {
-        v33 = 0;
-        v20 = _os_log_send_and_compose_impl();
+        v34 = 0;
+        LODWORD(v29) = 2;
+        v20 = _os_log_send_and_compose_impl(v19, &v35, 0, 0, &_mh_execute_header, v17, 0, "deleteBootstrapToken: END", &v34, v29);
         v21 = v20;
         if (v20)
         {
@@ -4149,8 +4220,8 @@ LABEL_74:
   else
   {
     v22 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v23 = v36[5];
-    v36[5] = v22;
+    v23 = v37[5];
+    v37[5] = v22;
 
     if (qword_1000EB428 != -1)
     {
@@ -4160,7 +4231,7 @@ LABEL_74:
     v24 = qword_1000EB420;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 0;
+      v35 = 0;
       v25 = sub_1000011A8(1);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
@@ -4174,8 +4245,9 @@ LABEL_74:
 
       if (v26)
       {
-        v33 = 0;
-        v27 = _os_log_send_and_compose_impl();
+        v34 = 0;
+        LODWORD(v29) = 2;
+        v27 = _os_log_send_and_compose_impl(v26, &v35, 0, 0, &_mh_execute_header, v24, 0, "Entitlement failure", &v34, v29);
         v28 = v27;
         if (v27)
         {
@@ -4193,22 +4265,22 @@ LABEL_74:
 
     if (replyCopy)
     {
-      replyCopy[2](replyCopy, v36[5]);
+      replyCopy[2](replyCopy, v37[5]);
     }
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
 }
 
 - (void)checkBootstrapTokenExistsWithReply:(id)reply
 {
   replyCopy = reply;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_100058864;
-  v29 = sub_100058874;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_100058864;
+  v30 = sub_100058874;
+  v31 = 0;
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -4217,7 +4289,7 @@ LABEL_74:
   v5 = qword_1000EB420;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 0;
+    v25 = 0;
     v6 = sub_1000011A8(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -4231,8 +4303,8 @@ LABEL_74:
 
     if (v7)
     {
-      v23 = 0;
-      v8 = _os_log_send_and_compose_impl();
+      v24 = 0;
+      v8 = _os_log_send_and_compose_impl(v7, &v25, 0, 0, &_mh_execute_header, v5, 0, "checkBootstrapToken: Start", &v24, 2);
       v9 = v8;
       if (v8)
       {
@@ -4254,9 +4326,9 @@ LABEL_74:
     block[1] = 3221225472;
     block[2] = sub_10005FA68;
     block[3] = &unk_1000DD910;
-    block[4] = &v25;
+    block[4] = &v26;
     dispatch_sync(qword_1000EB610, block);
-    replyCopy[2](replyCopy, v26[5]);
+    replyCopy[2](replyCopy, v27[5]);
     if (qword_1000EB428 != -1)
     {
       sub_100095FA0();
@@ -4265,7 +4337,7 @@ LABEL_74:
     v10 = qword_1000EB420;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 0;
+      v25 = 0;
       v11 = sub_1000011A8(1);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
@@ -4279,8 +4351,9 @@ LABEL_74:
 
       if (v12)
       {
-        v23 = 0;
-        v13 = _os_log_send_and_compose_impl();
+        v24 = 0;
+        LODWORD(v22) = 2;
+        v13 = _os_log_send_and_compose_impl(v12, &v25, 0, 0, &_mh_execute_header, v10, 0, "checkBootstrapToken: End", &v24, v22);
         v14 = v13;
         if (v13)
         {
@@ -4300,8 +4373,8 @@ LABEL_74:
   else
   {
     v15 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v16 = v26[5];
-    v26[5] = v15;
+    v16 = v27[5];
+    v27[5] = v15;
 
     if (qword_1000EB428 != -1)
     {
@@ -4311,7 +4384,7 @@ LABEL_74:
     v17 = qword_1000EB420;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 0;
+      v25 = 0;
       v18 = sub_1000011A8(1);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -4325,8 +4398,9 @@ LABEL_74:
 
       if (v19)
       {
-        v23 = 0;
-        v20 = _os_log_send_and_compose_impl();
+        v24 = 0;
+        LODWORD(v22) = 2;
+        v20 = _os_log_send_and_compose_impl(v19, &v25, 0, 0, &_mh_execute_header, v17, 0, "Entitlement failure", &v24, v22);
         v21 = v20;
         if (v20)
         {
@@ -4344,23 +4418,23 @@ LABEL_74:
 
     if (replyCopy)
     {
-      replyCopy[2](replyCopy, v26[5]);
+      replyCopy[2](replyCopy, v27[5]);
     }
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v26, 8);
 }
 
 - (void)validateBootstrapTokenWithSecret:(id)secret secretSize:(unint64_t)size withReply:(id)reply
 {
   secretCopy = secret;
   replyCopy = reply;
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x3032000000;
-  v76 = sub_100058864;
-  v77 = sub_100058874;
-  v78 = 0;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x3032000000;
+  v77 = sub_100058864;
+  v78 = sub_100058874;
+  v79 = 0;
   address = 0;
   if (qword_1000EB428 != -1)
   {
@@ -4370,7 +4444,7 @@ LABEL_74:
   v10 = qword_1000EB420;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v71 = 0;
+    v72 = 0;
     v11 = sub_1000011A8(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
@@ -4384,8 +4458,8 @@ LABEL_74:
 
     if (v12)
     {
-      v70 = 0;
-      v13 = _os_log_send_and_compose_impl();
+      v71 = 0;
+      v13 = _os_log_send_and_compose_impl(v12, &v72, 0, 0, &_mh_execute_header, v10, 0, "validateBootstrapToken: Start", &v71, 2);
       v14 = v13;
       if (v13)
       {
@@ -4415,7 +4489,7 @@ LABEL_74:
         v27 = qword_1000EB420;
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v71 = 0;
+          v72 = 0;
           v28 = sub_1000011A8(1);
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
@@ -4429,8 +4503,9 @@ LABEL_74:
 
           if (v29)
           {
-            v70 = 0;
-            v30 = _os_log_send_and_compose_impl();
+            v71 = 0;
+            LODWORD(v66) = 2;
+            v30 = _os_log_send_and_compose_impl(v29, &v72, 0, 0, &_mh_execute_header, v27, 0, "FAILED to allocate VM", &v71, v66);
             v31 = v30;
             if (v30)
             {
@@ -4447,11 +4522,11 @@ LABEL_74:
         }
 
         v44 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-        v45 = v74[5];
-        v74[5] = v44;
+        v45 = v75[5];
+        v75[5] = v44;
 
         address = 0;
-        replyCopy[2](replyCopy, v74[5]);
+        replyCopy[2](replyCopy, v75[5]);
         goto LABEL_106;
       }
 
@@ -4465,7 +4540,7 @@ LABEL_74:
         v32 = qword_1000EB420;
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v71 = 0;
+          v72 = 0;
           v33 = sub_1000011A8(1);
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
@@ -4479,8 +4554,9 @@ LABEL_74:
 
           if (v34)
           {
-            v70 = 0;
-            v35 = _os_log_send_and_compose_impl();
+            v71 = 0;
+            LODWORD(v66) = 2;
+            v35 = _os_log_send_and_compose_impl(v34, &v72, 0, 0, &_mh_execute_header, v32, 0, "validateBootstrapToken with SECRET token", &v71, v66);
             v36 = v35;
             if (v35)
             {
@@ -4507,7 +4583,7 @@ LABEL_74:
           v47 = qword_1000EB420;
           if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
-            v71 = 0;
+            v72 = 0;
             v48 = sub_1000011A8(1);
             if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
             {
@@ -4521,8 +4597,9 @@ LABEL_74:
 
             if (v49)
             {
-              v70 = 0;
-              v50 = _os_log_send_and_compose_impl();
+              v71 = 0;
+              LODWORD(v66) = 2;
+              v50 = _os_log_send_and_compose_impl(v49, &v72, 0, 0, &_mh_execute_header, v47, 0, "Failed to retrieve Passcode", &v71, v66);
               v51 = v50;
               if (v50)
               {
@@ -4539,8 +4616,8 @@ LABEL_74:
           }
 
           v60 = [NSError errorWithDomain:NSPOSIXErrorDomain code:5 userInfo:0];
-          v61 = v74[5];
-          v74[5] = v60;
+          v61 = v75[5];
+          v75[5] = v60;
 
           v62 = mach_task_self_;
           v63 = address;
@@ -4557,7 +4634,7 @@ LABEL_74:
 
           memset_s(address, sizeCopy, 0, sizeCopy);
           vm_deallocate(v62, v63, v64);
-          replyCopy[2](replyCopy, v74[5]);
+          replyCopy[2](replyCopy, v75[5]);
           goto LABEL_106;
         }
 
@@ -4574,7 +4651,7 @@ LABEL_74:
         v39 = qword_1000EB420;
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v71 = 0;
+          v72 = 0;
           v40 = sub_1000011A8(1);
           if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
@@ -4588,8 +4665,9 @@ LABEL_74:
 
           if (v41)
           {
-            v70 = 0;
-            v42 = _os_log_send_and_compose_impl();
+            v71 = 0;
+            LODWORD(v66) = 2;
+            v42 = _os_log_send_and_compose_impl(v41, &v72, 0, 0, &_mh_execute_header, v39, 0, "validateBootstrapToken with NULL token", &v71, v66);
             v43 = v42;
             if (v42)
             {
@@ -4614,11 +4692,11 @@ LABEL_74:
       block[2] = sub_10006043C;
       block[3] = &unk_1000DDA28;
       v54 = v52;
-      v67 = v54;
-      v68 = &v73;
-      v69 = address;
+      v68 = v54;
+      v69 = &v74;
+      v70 = address;
       dispatch_sync(v53, block);
-      replyCopy[2](replyCopy, v74[5]);
+      replyCopy[2](replyCopy, v75[5]);
       if (qword_1000EB428 != -1)
       {
         sub_100095FA0();
@@ -4627,7 +4705,7 @@ LABEL_74:
       v55 = qword_1000EB420;
       if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
       {
-        v71 = 0;
+        v72 = 0;
         v56 = sub_1000011A8(1);
         if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
@@ -4641,8 +4719,9 @@ LABEL_74:
 
         if (v57)
         {
-          v70 = 0;
-          v58 = _os_log_send_and_compose_impl();
+          v71 = 0;
+          LODWORD(v66) = 2;
+          v58 = _os_log_send_and_compose_impl(v57, &v72, 0, 0, &_mh_execute_header, v55, 0, "validateBootstrapToken: End", &v71, v66);
           v59 = v58;
           if (v58)
           {
@@ -4669,7 +4748,7 @@ LABEL_74:
       v15 = qword_1000EB420;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v71 = 0;
+        v72 = 0;
         v16 = sub_1000011A8(1);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
@@ -4683,8 +4762,9 @@ LABEL_74:
 
         if (v17)
         {
-          v70 = 0;
-          v18 = _os_log_send_and_compose_impl();
+          v71 = 0;
+          LODWORD(v66) = 2;
+          v18 = _os_log_send_and_compose_impl(v17, &v72, 0, 0, &_mh_execute_header, v15, 0, "Long Secret, can't handle ...", &v71, v66);
           v19 = v18;
           if (v18)
           {
@@ -4701,13 +4781,13 @@ LABEL_74:
       }
 
       v37 = [NSError errorWithDomain:NSPOSIXErrorDomain code:7 userInfo:0];
-      v38 = v74[5];
-      v74[5] = v37;
+      v38 = v75[5];
+      v75[5] = v37;
 
       if (replyCopy)
       {
 LABEL_59:
-        replyCopy[2](replyCopy, v74[5]);
+        replyCopy[2](replyCopy, v75[5]);
       }
     }
   }
@@ -4715,8 +4795,8 @@ LABEL_59:
   else
   {
     v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v21 = v74[5];
-    v74[5] = v20;
+    v21 = v75[5];
+    v75[5] = v20;
 
     if (qword_1000EB428 != -1)
     {
@@ -4726,7 +4806,7 @@ LABEL_59:
     v22 = qword_1000EB420;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v71 = 0;
+      v72 = 0;
       v23 = sub_1000011A8(1);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
@@ -4740,8 +4820,9 @@ LABEL_59:
 
       if (v24)
       {
-        v70 = 0;
-        v25 = _os_log_send_and_compose_impl();
+        v71 = 0;
+        LODWORD(v66) = 2;
+        v25 = _os_log_send_and_compose_impl(v24, &v72, 0, 0, &_mh_execute_header, v22, 0, "Entitlement failure", &v71, v66);
         v26 = v25;
         if (v25)
         {
@@ -4764,19 +4845,19 @@ LABEL_59:
   }
 
 LABEL_106:
-  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v74, 8);
 }
 
 - (void)validateBootstrapTokenWithSecret:(id)secret withReply:(id)reply
 {
   secretCopy = secret;
   replyCopy = reply;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_100058864;
-  v35 = sub_100058874;
-  v36 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_100058864;
+  v39 = sub_100058874;
+  v40 = 0;
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -4785,7 +4866,7 @@ LABEL_106:
   v8 = qword_1000EB420;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 0;
+    v34 = 0;
     v9 = sub_1000011A8(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
@@ -4799,8 +4880,8 @@ LABEL_106:
 
     if (v10)
     {
-      v29 = 0;
-      v11 = _os_log_send_and_compose_impl();
+      v33 = 0;
+      v11 = _os_log_send_and_compose_impl(v10, &v34, 0, 0, &_mh_execute_header, v8, 0, "validateBootstrapToken: Start", &v33, 2);
       v12 = v11;
       if (v11)
       {
@@ -4819,14 +4900,14 @@ LABEL_106:
   if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.bootstrap.fullaccess"])
   {
     v13 = qword_1000EB610;
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_100060904;
-    block[3] = &unk_1000DDA50;
-    v27 = secretCopy;
-    v28 = &v31;
-    dispatch_sync(v13, block);
-    replyCopy[2](replyCopy, v32[5]);
+    block = _NSConcreteStackBlock;
+    v28 = 3221225472;
+    v29 = sub_100060904;
+    v30 = &unk_1000DDA50;
+    v31 = secretCopy;
+    v32 = &v35;
+    dispatch_sync(v13, &block);
+    replyCopy[2](replyCopy, v36[5]);
     if (qword_1000EB428 != -1)
     {
       sub_100095FA0();
@@ -4835,7 +4916,7 @@ LABEL_106:
     v14 = qword_1000EB420;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 0;
+      v34 = 0;
       v15 = sub_1000011A8(1);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
@@ -4849,8 +4930,9 @@ LABEL_106:
 
       if (v16)
       {
-        v29 = 0;
-        v17 = _os_log_send_and_compose_impl();
+        v33 = 0;
+        LODWORD(v26) = 2;
+        v17 = _os_log_send_and_compose_impl(v16, &v34, 0, 0, &_mh_execute_header, v14, 0, "validateBootstrapToken: End", &v33, v26, block, v28, v29, v30);
         v18 = v17;
         if (v17)
         {
@@ -4870,8 +4952,8 @@ LABEL_106:
   else
   {
     v19 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v20 = v32[5];
-    v32[5] = v19;
+    v20 = v36[5];
+    v36[5] = v19;
 
     if (qword_1000EB428 != -1)
     {
@@ -4881,7 +4963,7 @@ LABEL_106:
     v21 = qword_1000EB420;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 0;
+      v34 = 0;
       v22 = sub_1000011A8(1);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
@@ -4895,8 +4977,9 @@ LABEL_106:
 
       if (v23)
       {
-        v29 = 0;
-        v24 = _os_log_send_and_compose_impl();
+        v33 = 0;
+        LODWORD(v26) = 2;
+        v24 = _os_log_send_and_compose_impl(v23, &v34, 0, 0, &_mh_execute_header, v21, 0, "Entitlement failure", &v33, v26);
         v25 = v24;
         if (v24)
         {
@@ -4914,23 +4997,23 @@ LABEL_106:
 
     if (replyCopy)
     {
-      replyCopy[2](replyCopy, v32[5]);
+      replyCopy[2](replyCopy, v36[5]);
     }
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v35, 8);
 }
 
 - (void)removeUserSession:(id)session reply:(id)reply
 {
   sessionCopy = session;
   replyCopy = reply;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_100058864;
-  v35 = sub_100058874;
-  v36 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_100058864;
+  v39 = sub_100058874;
+  v40 = 0;
   if (qword_1000EB428 != -1)
   {
     sub_100095FA0();
@@ -4939,7 +5022,7 @@ LABEL_106:
   v8 = qword_1000EB420;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 0;
+    v34 = 0;
     v9 = sub_1000011A8(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
@@ -4953,8 +5036,8 @@ LABEL_106:
 
     if (v10)
     {
-      v29 = 0;
-      v11 = _os_log_send_and_compose_impl();
+      v33 = 0;
+      v11 = _os_log_send_and_compose_impl(v10, &v34, 0, 0, &_mh_execute_header, v8, 0, "removeUserSession: Start", &v33, 2);
       v12 = v11;
       if (v11)
       {
@@ -4973,14 +5056,14 @@ LABEL_106:
   if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.mkb.usersession.delete"])
   {
     v13 = qword_1000EB610;
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_100060D78;
-    block[3] = &unk_1000DDA50;
-    v27 = sessionCopy;
-    v28 = &v31;
-    dispatch_sync(v13, block);
-    replyCopy[2](replyCopy, v32[5]);
+    block = _NSConcreteStackBlock;
+    v28 = 3221225472;
+    v29 = sub_100060D78;
+    v30 = &unk_1000DDA50;
+    v31 = sessionCopy;
+    v32 = &v35;
+    dispatch_sync(v13, &block);
+    replyCopy[2](replyCopy, v36[5]);
     if (qword_1000EB428 != -1)
     {
       sub_100095FA0();
@@ -4989,7 +5072,7 @@ LABEL_106:
     v14 = qword_1000EB420;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 0;
+      v34 = 0;
       v15 = sub_1000011A8(1);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
@@ -5003,8 +5086,9 @@ LABEL_106:
 
       if (v16)
       {
-        v29 = 0;
-        v17 = _os_log_send_and_compose_impl();
+        v33 = 0;
+        LODWORD(v26) = 2;
+        v17 = _os_log_send_and_compose_impl(v16, &v34, 0, 0, &_mh_execute_header, v14, 0, "removeUserSession: End", &v33, v26, block, v28, v29, v30);
         v18 = v17;
         if (v17)
         {
@@ -5024,8 +5108,8 @@ LABEL_106:
   else
   {
     v19 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v20 = v32[5];
-    v32[5] = v19;
+    v20 = v36[5];
+    v36[5] = v19;
 
     if (qword_1000EB428 != -1)
     {
@@ -5035,7 +5119,7 @@ LABEL_106:
     v21 = qword_1000EB420;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 0;
+      v34 = 0;
       v22 = sub_1000011A8(1);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
@@ -5049,8 +5133,9 @@ LABEL_106:
 
       if (v23)
       {
-        v29 = 0;
-        v24 = _os_log_send_and_compose_impl();
+        v33 = 0;
+        LODWORD(v26) = 2;
+        v24 = _os_log_send_and_compose_impl(v23, &v34, 0, 0, &_mh_execute_header, v21, 0, "Entitlement failure", &v33, v26);
         v25 = v24;
         if (v24)
         {
@@ -5068,11 +5153,11 @@ LABEL_106:
 
     if (replyCopy)
     {
-      replyCopy[2](replyCopy, v32[5]);
+      replyCopy[2](replyCopy, v36[5]);
     }
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v35, 8);
 }
 
 - (void)listAllUserSessionIDsWithAReply:(id)reply
@@ -5086,6 +5171,7 @@ LABEL_106:
   v5 = qword_1000EB420;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
+    v24 = 0;
     v6 = sub_1000011A8(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -5099,7 +5185,8 @@ LABEL_106:
 
     if (v7)
     {
-      v8 = _os_log_send_and_compose_impl();
+      v23 = 0;
+      v8 = _os_log_send_and_compose_impl(v7, &v24, 0, 0, &_mh_execute_header, v5, 0, "listAllUserSessionIDsWithAReply: Start", &v23, 2);
       v9 = v8;
       if (v8)
       {
@@ -5137,6 +5224,7 @@ LABEL_106:
     v17 = qword_1000EB420;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
+      v24 = 0;
       v18 = sub_1000011A8(1);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -5150,7 +5238,9 @@ LABEL_106:
 
       if (v19)
       {
-        v20 = _os_log_send_and_compose_impl();
+        v23 = 0;
+        LODWORD(v22) = 2;
+        v20 = _os_log_send_and_compose_impl(v19, &v24, 0, 0, &_mh_execute_header, v17, 0, "listAllUserSessionIDsWithAReply: End", &v23, v22);
         v21 = v20;
         if (v20)
         {
@@ -5177,6 +5267,7 @@ LABEL_106:
     v12 = qword_1000EB420;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
+      v24 = 0;
       v13 = sub_1000011A8(1);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
@@ -5190,7 +5281,9 @@ LABEL_106:
 
       if (v14)
       {
-        v15 = _os_log_send_and_compose_impl();
+        v23 = 0;
+        LODWORD(v22) = 2;
+        v15 = _os_log_send_and_compose_impl(v14, &v24, 0, 0, &_mh_execute_header, v12, 0, "Entitlement failure", &v23, v22);
         v16 = v15;
         if (v15)
         {
@@ -5394,7 +5487,7 @@ LABEL_5:
       if (v13)
       {
         v19 = 0;
-        v14 = _os_log_send_and_compose_impl();
+        v14 = _os_log_send_and_compose_impl(v13, &v20, 0, 0, &_mh_execute_header, v11, 0, "Entitlement error for setUserSessionSecureBackupBlob", &v19, 2);
         v15 = v14;
         if (v14)
         {
@@ -5743,18 +5836,18 @@ LABEL_5:
 - (void)configureLoginUIWithUserSessionCount:(int)count reply:(id)reply
 {
   replyCopy = reply;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_100058864;
+  v34 = sub_100058874;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_100058864;
+  v28 = sub_100058874;
   v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = sub_100058864;
-  v33 = sub_100058874;
-  v34 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_100058864;
-  v27 = sub_100058874;
-  v28 = 0;
   if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.mkb.usersession.loginwindow"])
   {
     if (!_os_feature_enabled_impl())
@@ -5764,11 +5857,11 @@ LABEL_5:
       block[2] = sub_10006468C;
       block[3] = &unk_1000DDB40;
       countCopy = count;
-      block[5] = &v29;
-      block[6] = &v23;
+      block[5] = &v30;
+      block[6] = &v24;
       block[4] = self;
       dispatch_sync(qword_1000EB610, block);
-      replyCopy[2](replyCopy, v24[5], v30[5]);
+      replyCopy[2](replyCopy, v25[5], v31[5]);
       goto LABEL_30;
     }
 
@@ -5780,7 +5873,7 @@ LABEL_5:
     v7 = qword_1000EB420;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 0;
+      v23 = 0;
       v8 = sub_1000011A8(1);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
@@ -5794,8 +5887,8 @@ LABEL_5:
 
       if (v9)
       {
-        v21 = 0;
-        v10 = _os_log_send_and_compose_impl();
+        v22 = 0;
+        v10 = _os_log_send_and_compose_impl(v9, &v23, 0, 0, &_mh_execute_header, v7, 0, "LOCAL USER ENROLLMENT FEATURE ENABLED, WILL NOT BE ABLE TO PROVISION THE DEVICE; REMOVE FEATURE FLAG AND TRY AGAIN", &v22, 2);
         v11 = v10;
         if (v10)
         {
@@ -5819,7 +5912,7 @@ LABEL_5:
     v13 = qword_1000EB430;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v22 = 0;
+      v23 = 0;
       v14 = sub_1000011A8(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
@@ -5833,8 +5926,9 @@ LABEL_5:
 
       if (v15)
       {
-        v21 = 0;
-        v16 = _os_log_send_and_compose_impl();
+        v22 = 0;
+        LODWORD(v19) = 2;
+        v16 = _os_log_send_and_compose_impl(v15, &v23, 0, 0, &_mh_execute_header, v13, 16, "LOCAL USER ENROLLMENT FEATURE ENABLED, WILL NOT BE ABLE TO PROVISION DEVICE; REMOVE FEATURE FLAG AND TRY AGAIN - NOT SUPPORTED", &v22, v19);
         v17 = v16;
         if (v16)
         {
@@ -5858,18 +5952,18 @@ LABEL_5:
     v12 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
   }
 
-  v18 = v30[5];
-  v30[5] = v12;
+  v18 = v31[5];
+  v31[5] = v12;
 
   if (replyCopy)
   {
-    replyCopy[2](replyCopy, 0, v30[5]);
+    replyCopy[2](replyCopy, 0, v31[5]);
   }
 
 LABEL_30:
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
 - (void)switchToLoginUIUserSessionWithReply:(id)reply
@@ -6615,30 +6709,30 @@ LABEL_9:
   voucherCopy = voucher;
   dCopy = d;
   replyCopy = reply;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = sub_100058864;
+  v72 = sub_100058874;
+  v73 = 0;
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = sub_100058864;
+  v66 = sub_100058874;
   v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = sub_100058864;
-  v71 = sub_100058874;
-  v72 = 0;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3032000000;
-  v64 = sub_100058864;
-  v65 = sub_100058874;
-  v66 = 0;
-  v59[0] = 0;
-  v59[1] = v59;
-  v59[2] = 0x2020000000;
-  v60 = 22;
-  v57[0] = 0;
-  v57[1] = v57;
-  v57[2] = 0x2020000000;
-  v58 = 0;
-  v55[0] = 0;
-  v55[1] = v55;
-  v55[2] = 0x2020000000;
-  v56 = 0;
+  v60[0] = 0;
+  v60[1] = v60;
+  v60[2] = 0x2020000000;
+  v61 = 22;
+  v58[0] = 0;
+  v58[1] = v58;
+  v58[2] = 0x2020000000;
+  v59 = 0;
+  v56[0] = 0;
+  v56[1] = v56;
+  v56[2] = 0x2020000000;
+  v57 = 0;
   if (setCopy)
   {
     if (qword_1000EB448 != -1)
@@ -6649,22 +6743,27 @@ LABEL_9:
     v15 = qword_1000EB440;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v77 = 0;
-      v16 = sub_1000011A8(0);
+      v78 = 0;
+      LODWORD(v16) = sub_1000011A8(0);
       v17 = v15;
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v16 &= ~1u;
+        v16 = v16;
+      }
+
+      else
+      {
+        v16 = v16 & 0xFFFFFFFE;
       }
 
       if (v16)
       {
         remoteServiceName = [(UMSyncService *)self remoteServiceName];
-        *v73 = 138543618;
-        *&v73[4] = remoteServiceName;
-        *&v73[12] = 1024;
-        *v74 = pid;
-        v19 = _os_log_send_and_compose_impl();
+        *v74 = 138543618;
+        *&v74[4] = remoteServiceName;
+        *&v74[12] = 1024;
+        *v75 = pid;
+        v19 = _os_log_send_and_compose_impl(v16, &v78, 0, 0, &_mh_execute_header, v17, 2, "Remote Service replacePersonaMachPortVoucher requested by %{public}@ (%d)", v74, 18);
 
         if (v19)
         {
@@ -6692,7 +6791,7 @@ LABEL_9:
     v20 = qword_1000EB440;
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 0;
+      *v74 = 0;
       v21 = sub_1000011A8(0);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
@@ -6706,9 +6805,9 @@ LABEL_9:
 
       if (v22)
       {
-        LODWORD(v77) = 67109120;
-        HIDWORD(v77) = pid;
-        v23 = _os_log_send_and_compose_impl();
+        LODWORD(v78) = 67109120;
+        HIDWORD(v78) = pid;
+        v23 = _os_log_send_and_compose_impl(v22, v74, 0, 0, &_mh_execute_header, v20, 16, "replacePersonaMachPortVoucher with no entitlement from pid:%d", &v78);
         v24 = v23;
         if (v23)
         {
@@ -6728,10 +6827,10 @@ LABEL_9:
     {
       v34 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
       replyCopy[2](replyCopy, 0, v34);
-      goto LABEL_67;
+      goto LABEL_68;
     }
 
-    goto LABEL_68;
+    goto LABEL_69;
   }
 
   current_persona = voucher_get_current_persona();
@@ -6743,7 +6842,7 @@ LABEL_9:
   v26 = qword_1000EB440;
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v77 = 0;
+    v78 = 0;
     v27 = sub_1000011A8(0);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
@@ -6757,15 +6856,16 @@ LABEL_9:
 
     if (v28)
     {
-      *v73 = 67109890;
-      *&v73[4] = pid;
-      *&v73[8] = 1024;
-      *&v73[10] = current_persona;
-      *v74 = 2114;
-      *&v74[2] = dCopy;
-      v75 = 1024;
-      v76 = setCopy;
-      v29 = _os_log_send_and_compose_impl();
+      *v74 = 67109890;
+      *&v74[4] = pid;
+      *&v74[8] = 1024;
+      *&v74[10] = current_persona;
+      *v75 = 2114;
+      *&v75[2] = dCopy;
+      v76 = 1024;
+      v77 = setCopy;
+      LODWORD(v45) = 30;
+      v29 = _os_log_send_and_compose_impl(v28, &v78, 0, 0, &_mh_execute_header, v26, 0, "replacePersonaMachPortVoucher from pid %d, voucher persona %u, requested persona %{public}@, generationSet: %{BOOL}d", v74, v45);
       v30 = v29;
       if (v29)
       {
@@ -6793,22 +6893,22 @@ LABEL_9:
       block[1] = 3221225472;
       block[2] = sub_100068B80;
       block[3] = &unk_1000DDBE0;
-      v48 = v57;
-      v53 = v32;
-      v46 = voucherCopy;
-      v49 = v59;
+      v49 = v58;
+      v54 = v32;
+      v47 = voucherCopy;
+      v50 = v60;
       pidCopy = pid;
-      v47 = dCopy;
-      v50 = v55;
-      v51 = &v67;
-      v52 = &v61;
+      v48 = dCopy;
+      v51 = v56;
+      v52 = &v68;
+      v53 = &v62;
       dispatch_sync(v33, block);
-      replyCopy[2](replyCopy, v62[5], v68[5]);
+      replyCopy[2](replyCopy, v63[5], v69[5]);
 
-      v34 = v46;
-LABEL_67:
+      v34 = v47;
+LABEL_68:
 
-      goto LABEL_68;
+      goto LABEL_69;
     }
 
     if (qword_1000EB448 != -1)
@@ -6819,7 +6919,7 @@ LABEL_67:
     v40 = qword_1000EB440;
     if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 0;
+      *v74 = 0;
       v41 = sub_1000011A8(0);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
@@ -6833,9 +6933,9 @@ LABEL_67:
 
       if (v42)
       {
-        LODWORD(v77) = 67109120;
-        HIDWORD(v77) = pid;
-        v43 = _os_log_send_and_compose_impl();
+        LODWORD(v78) = 67109120;
+        HIDWORD(v78) = pid;
+        v43 = _os_log_send_and_compose_impl(v42, v74, 0, 0, &_mh_execute_header, v40, 16, "replacePersonaMachPortVoucher: no Account ID from pid:%d", &v78);
         v44 = v43;
         if (v43)
         {
@@ -6853,10 +6953,10 @@ LABEL_67:
 
     if (replyCopy)
     {
-LABEL_66:
+LABEL_67:
       v34 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
       replyCopy[2](replyCopy, 0, v34);
-      goto LABEL_67;
+      goto LABEL_68;
     }
   }
 
@@ -6870,7 +6970,7 @@ LABEL_66:
     v35 = qword_1000EB440;
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 0;
+      *v74 = 0;
       v36 = sub_1000011A8(0);
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
@@ -6884,9 +6984,9 @@ LABEL_66:
 
       if (v37)
       {
-        LODWORD(v77) = 67109120;
-        HIDWORD(v77) = pid;
-        v38 = _os_log_send_and_compose_impl();
+        LODWORD(v78) = 67109120;
+        HIDWORD(v78) = pid;
+        v38 = _os_log_send_and_compose_impl(v37, v74, 0, 0, &_mh_execute_header, v35, 16, "replacePersonaMachPortVoucher: no Source Voucher Port from pid:%d", &v78);
         v39 = v38;
         if (v38)
         {
@@ -6904,17 +7004,215 @@ LABEL_66:
 
     if (replyCopy)
     {
-      goto LABEL_66;
+      goto LABEL_67;
     }
   }
 
-LABEL_68:
-  _Block_object_dispose(v55, 8);
-  _Block_object_dispose(v57, 8);
-  _Block_object_dispose(v59, 8);
-  _Block_object_dispose(&v61, 8);
+LABEL_69:
+  _Block_object_dispose(v56, 8);
+  _Block_object_dispose(v58, 8);
+  _Block_object_dispose(v60, 8);
+  _Block_object_dispose(&v62, 8);
 
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v68, 8);
+}
+
+- (void)fetchPersonaListforPid:(int)pid withCompletionHandler:(id)handler
+{
+  v4 = *&pid;
+  handlerCopy = handler;
+  v38 = -1;
+  if (qword_1000EB448 != -1)
+  {
+    sub_10009602C();
+  }
+
+  v7 = qword_1000EB440;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v37 = 0;
+    v8 = sub_1000011A8(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = v8 & 0xFFFFFFFE;
+    }
+
+    if (v9)
+    {
+      v39 = 67109120;
+      v40 = v4;
+      v10 = _os_log_send_and_compose_impl(v9, &v37, 0, 0, &_mh_execute_header, v7, 2, "Received fetchPersonaListforPid (sync, pid: %d)", &v39);
+      v11 = v10;
+      if (v10)
+      {
+        sub_100002A8C(v10);
+      }
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    free(v11);
+  }
+
+  if (handlerCopy)
+  {
+    if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.persona.fetch"])
+    {
+      if (qword_1000EB448 != -1)
+      {
+        sub_100096004();
+      }
+
+      v12 = qword_1000EB440;
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      {
+        v37 = 0;
+        v13 = sub_1000011A8(0);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        {
+          v14 = v13;
+        }
+
+        else
+        {
+          v14 = v13 & 0xFFFFFFFE;
+        }
+
+        if (v14)
+        {
+          v39 = 67109120;
+          v40 = v4;
+          v15 = _os_log_send_and_compose_impl(v14, &v37, 0, 0, &_mh_execute_header, v12, 2, "fetchPersonaListforPid (sync, pid: %d): entitlement OK", &v39);
+          v16 = v15;
+          if (v15)
+          {
+            sub_100002A8C(v15);
+          }
+        }
+
+        else
+        {
+          v16 = 0;
+        }
+
+        free(v16);
+      }
+
+      v27 = [(UMSyncService *)self asidForClient:0 withAuid:&v38 withPid:v4];
+      v28 = +[NSXPCConnection currentConnection];
+      v29 = sub_1000011DC([v28 processIdentifier]);
+
+      v30 = qword_1000EB610;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_10006968C;
+      block[3] = &unk_1000DDC08;
+      v33 = v4;
+      v34 = v27;
+      v35 = v38;
+      v36 = v29;
+      v32 = handlerCopy;
+      dispatch_sync(v30, block);
+      v17 = v32;
+    }
+
+    else
+    {
+      if (qword_1000EB448 != -1)
+      {
+        sub_100096004();
+      }
+
+      v22 = qword_1000EB440;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        v37 = 0;
+        v23 = sub_1000011A8(0);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        {
+          v24 = v23;
+        }
+
+        else
+        {
+          v24 = v23 & 0xFFFFFFFE;
+        }
+
+        if (v24)
+        {
+          v39 = 67109120;
+          v40 = v4;
+          v25 = _os_log_send_and_compose_impl(v24, &v37, 0, 0, &_mh_execute_header, v22, 16, "fetchPersonaListforPid (sync, pid: %d): entitlement failure", &v39);
+          v26 = v25;
+          if (v25)
+          {
+            sub_100002A8C(v25);
+          }
+        }
+
+        else
+        {
+          v26 = 0;
+        }
+
+        free(v26);
+      }
+
+      v17 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+      (*(handlerCopy + 2))(handlerCopy, 0, v17);
+    }
+  }
+
+  else
+  {
+    if (qword_1000EB448 != -1)
+    {
+      sub_100096004();
+    }
+
+    v17 = qword_1000EB440;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v37 = 0;
+      v18 = sub_1000011A8(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        v19 = v18;
+      }
+
+      else
+      {
+        v19 = v18 & 0xFFFFFFFE;
+      }
+
+      if (v19)
+      {
+        v39 = 67109120;
+        v40 = v4;
+        v20 = _os_log_send_and_compose_impl(v19, &v37, 0, 0, &_mh_execute_header, v17, 16, "fetchPersonaListforPid (sync, pid: %d): no completion handler", &v39);
+        v21 = v20;
+        if (v20)
+        {
+          sub_100002A8C(v20);
+        }
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      free(v21);
+    }
+  }
 }
 
 - (void)fetchAllUsersPersonaListforPid:(int)pid withCompletionHandler:(id)handler
@@ -6944,7 +7242,7 @@ LABEL_68:
     {
       v32 = 67109120;
       pidCopy5 = pid;
-      v10 = _os_log_send_and_compose_impl();
+      v10 = _os_log_send_and_compose_impl(v9, &v31, 0, 0, &_mh_execute_header, v7, 2, "Received fetchAllUsersPersonaListforPid (sync, pid: %d)", &v32);
       v11 = v10;
       if (v10)
       {
@@ -6988,7 +7286,7 @@ LABEL_68:
         {
           v32 = 67109120;
           pidCopy5 = pid;
-          v15 = _os_log_send_and_compose_impl();
+          v15 = _os_log_send_and_compose_impl(v14, &v31, 0, 0, &_mh_execute_header, v12, 2, "fetchAllUsersPersonaListforPid (sync, pid: %d): entitlement OK", &v32);
           v16 = v15;
           if (v15)
           {
@@ -7041,7 +7339,7 @@ LABEL_68:
         {
           v32 = 67109120;
           pidCopy5 = pid;
-          v25 = _os_log_send_and_compose_impl();
+          v25 = _os_log_send_and_compose_impl(v24, &v31, 0, 0, &_mh_execute_header, v22, 16, "fetchAllUsersPersonaListforPid (sync, pid: %d): entitlement failure", &v32);
           v26 = v25;
           if (v25)
           {
@@ -7088,7 +7386,7 @@ LABEL_68:
       {
         v32 = 67109120;
         pidCopy5 = pid;
-        v20 = _os_log_send_and_compose_impl();
+        v20 = _os_log_send_and_compose_impl(v19, &v31, 0, 0, &_mh_execute_header, v17, 16, "fetchAllUsersPersonaListforPid (sync, pid: %d): no completion handler", &v32);
         v21 = v20;
         if (v20)
         {
@@ -7116,47 +7414,49 @@ LABEL_68:
       sub_100095F8C();
     }
 
-    v6 = qword_1000EB420;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = qword_1000EB420;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v7 = sub_1000011A8(1);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v18 = 0;
+      v8 = sub_1000011A8(1);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v8 = v7;
+        v9 = v8;
       }
 
       else
       {
-        v8 = v7 & 0xFFFFFFFE;
+        v9 = v8 & 0xFFFFFFFE;
       }
 
-      if (v8)
+      if (v9)
       {
-        v9 = _os_log_send_and_compose_impl();
-        v10 = v9;
-        if (v9)
+        LOWORD(v19[0]) = 0;
+        v10 = _os_log_send_and_compose_impl(v9, &v18, 0, 0, &_mh_execute_header, v7, 2, "In UMSyncServer: ASID Map not supported on this platform", v19, 2);
+        v11 = v10;
+        if (v10)
         {
-          sub_100002A8C(v9);
+          sub_100002A8C(v10);
         }
       }
 
       else
       {
-        v10 = 0;
+        v11 = 0;
       }
 
-      free(v10);
+      free(v11);
     }
 
     if (handlerCopy)
     {
-      v16 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
+      v17 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:0];
 LABEL_28:
-      handlerCopy[2](handlerCopy, 0, v16);
+      handlerCopy[2](handlerCopy, 0, v17);
       goto LABEL_29;
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
   else
@@ -7166,39 +7466,42 @@ LABEL_28:
       sub_100095F8C();
     }
 
-    v11 = qword_1000EB420;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = qword_1000EB420;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = sub_1000011A8(1);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v18 = 0;
+      v13 = sub_1000011A8(1);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = v12;
+        v14 = v13;
       }
 
       else
       {
-        v13 = v12 & 0xFFFFFFFE;
+        v14 = v13 & 0xFFFFFFFE;
       }
 
-      if (v13)
+      if (v14)
       {
-        v14 = _os_log_send_and_compose_impl();
-        v15 = v14;
-        if (v14)
+        v19[0] = 67109120;
+        v19[1] = pid;
+        v15 = _os_log_send_and_compose_impl(v14, &v18, 0, 0, &_mh_execute_header, v12, 0, "In UMSyncServer: fetchAsidMapforPid entitlement failure:%d", v19);
+        v16 = v15;
+        if (v15)
         {
-          sub_100002A8C(v14);
+          sub_100002A8C(v15);
         }
       }
 
       else
       {
-        v15 = 0;
+        v16 = 0;
       }
 
-      free(v15);
+      free(v16);
     }
 
-    v16 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+    v17 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
     if (handlerCopy)
     {
       goto LABEL_28;
@@ -7206,6 +7509,150 @@ LABEL_28:
   }
 
 LABEL_29:
+}
+
+- (void)fetchPersona:(id)persona forPid:(int)pid completionHandler:(id)handler
+{
+  v6 = *&pid;
+  personaCopy = persona;
+  handlerCopy = handler;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = sub_100058864;
+  v41 = sub_100058874;
+  v42 = 0;
+  v36 = -1;
+  if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.persona.fetch"])
+  {
+    if (personaCopy)
+    {
+      goto LABEL_28;
+    }
+
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v10 = qword_1000EB420;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v35 = 0;
+      v11 = sub_1000011A8(1);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = v11;
+      }
+
+      else
+      {
+        v12 = v11 & 0xFFFFFFFE;
+      }
+
+      if (v12)
+      {
+        LOWORD(v43[0]) = 0;
+        v13 = _os_log_send_and_compose_impl(v12, &v35, 0, 0, &_mh_execute_header, v10, 0, "In UMSyncServer: entitlement OK, but invalid profileInfo", v43, 2);
+        v14 = v13;
+        if (v13)
+        {
+          sub_100002A8C(v13);
+        }
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      free(v14);
+    }
+
+    v19 = 22;
+  }
+
+  else
+  {
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v10 = qword_1000EB420;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v35 = 0;
+      v15 = sub_1000011A8(1);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = v15;
+      }
+
+      else
+      {
+        v16 = v15 & 0xFFFFFFFE;
+      }
+
+      if (v16)
+      {
+        v43[0] = 67109120;
+        v43[1] = v6;
+        v17 = _os_log_send_and_compose_impl(v16, &v35, 0, 0, &_mh_execute_header, v10, 0, "In UMSyncServer: fetchPersona entitlement failure:%d", v43);
+        v18 = v17;
+        if (v17)
+        {
+          sub_100002A8C(v17);
+        }
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      free(v18);
+    }
+
+    v19 = 1;
+  }
+
+  v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v19 userInfo:0];
+  v21 = v38[5];
+  v38[5] = v20;
+
+LABEL_28:
+  if (v38[5])
+  {
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, 0);
+    }
+  }
+
+  else
+  {
+    v22 = [(UMSyncService *)self asidForClient:0 withAuid:&v36 withPid:v6];
+    v23 = +[NSXPCConnection currentConnection];
+    v24 = sub_1000011DC([v23 processIdentifier]);
+
+    v25 = qword_1000EB610;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10006A4DC;
+    block[3] = &unk_1000DDC58;
+    v26 = personaCopy;
+    v31 = v6;
+    v32 = v22;
+    v33 = v36;
+    v34 = v24;
+    v28 = v26;
+    v30 = &v37;
+    v29 = handlerCopy;
+    dispatch_sync(v25, block);
+  }
+
+  _Block_object_dispose(&v37, 8);
 }
 
 - (void)fetchPersonaGenerationNumberWithCompletionHandler:(id)handler
@@ -7250,9 +7697,9 @@ LABEL_29:
 
       if (v11)
       {
-        v17 = 67109120;
-        v18 = processIdentifier;
-        v12 = _os_log_send_and_compose_impl();
+        v17[0] = 67109120;
+        v17[1] = processIdentifier;
+        v12 = _os_log_send_and_compose_impl(v11, &v16, 0, 0, &_mh_execute_header, v9, 16, "Failed to fetch persona generation number: pid is missing entitlement: %d", v17);
         v13 = v12;
         if (v12)
         {
@@ -7316,8 +7763,8 @@ LABEL_29:
 
       if (v12)
       {
-        LOWORD(v43) = 0;
-        v13 = _os_log_send_and_compose_impl();
+        LOWORD(v43[0]) = 0;
+        v13 = _os_log_send_and_compose_impl(v12, &v35, 0, 0, &_mh_execute_header, v10, 0, "In UMSyncServer: entitlement OK, but invalid profileInfo", v43, 2);
         v14 = v13;
         if (v13)
         {
@@ -7360,9 +7807,9 @@ LABEL_29:
 
       if (v16)
       {
-        v43 = 67109120;
-        v44 = processIdentifier;
-        v17 = _os_log_send_and_compose_impl();
+        v43[0] = 67109120;
+        v43[1] = processIdentifier;
+        v17 = _os_log_send_and_compose_impl(v16, &v35, 0, 0, &_mh_execute_header, v10, 0, "In UMSyncServer: bundleIdentifiersForPersona entitlement failure:%d", v43);
         v18 = v17;
         if (v17)
         {
@@ -7424,13 +7871,13 @@ LABEL_28:
   identifiersCopy = identifiers;
   personaCopy = persona;
   handlerCopy = handler;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = sub_100058864;
-  v51 = sub_100058874;
-  v52 = 0;
-  v46 = -1;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = sub_100058864;
+  v52 = sub_100058874;
+  v53 = 0;
+  v47 = -1;
   v11 = +[NSXPCConnection currentConnection];
   processIdentifier = [v11 processIdentifier];
 
@@ -7444,7 +7891,7 @@ LABEL_28:
     v18 = qword_1000EB420;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v45 = 0;
+      v46 = 0;
       v19 = sub_1000011A8(1);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
@@ -7458,9 +7905,9 @@ LABEL_28:
 
       if (v20)
       {
-        v53 = 67109120;
-        v54 = processIdentifier;
-        v21 = _os_log_send_and_compose_impl();
+        v54[0] = 67109120;
+        v54[1] = processIdentifier;
+        v21 = _os_log_send_and_compose_impl(v20, &v46, 0, 0, &_mh_execute_header, v18, 0, "In UMSyncServer: bundleIdentifiersForPersona entitlement failure:%d", v54);
         v22 = v21;
         if (v21)
         {
@@ -7490,7 +7937,7 @@ LABEL_28:
     v13 = qword_1000EB420;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v45 = 0;
+      v46 = 0;
       v14 = sub_1000011A8(1);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
@@ -7504,8 +7951,8 @@ LABEL_28:
 
       if (v15)
       {
-        LOWORD(v53) = 0;
-        v16 = _os_log_send_and_compose_impl();
+        LOWORD(v54[0]) = 0;
+        v16 = _os_log_send_and_compose_impl(v15, &v46, 0, 0, &_mh_execute_header, v13, 0, "In UMSyncServer: entitlement OK, but invalid profileInfo", v54, 2);
         v17 = v16;
         if (v16)
         {
@@ -7522,8 +7969,8 @@ LABEL_28:
     }
 
     v24 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-    v25 = v48[5];
-    v48[5] = v24;
+    v25 = v49[5];
+    v49[5] = v24;
   }
 
   if (!identifiersCopy)
@@ -7536,7 +7983,7 @@ LABEL_28:
     v18 = qword_1000EB420;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v45 = 0;
+      v46 = 0;
       v26 = sub_1000011A8(1);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
@@ -7550,8 +7997,9 @@ LABEL_28:
 
       if (v27)
       {
-        LOWORD(v53) = 0;
-        v28 = _os_log_send_and_compose_impl();
+        LOWORD(v54[0]) = 0;
+        LODWORD(v36) = 2;
+        v28 = _os_log_send_and_compose_impl(v27, &v46, 0, 0, &_mh_execute_header, v18, 0, "In UMSyncServer: entitlement OK, but invalid bundleArray", v54, v36);
         v29 = v28;
         if (v28)
         {
@@ -7571,11 +8019,11 @@ LABEL_28:
 LABEL_40:
 
     v30 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v23 userInfo:0];
-    v31 = v48[5];
-    v48[5] = v30;
+    v31 = v49[5];
+    v49[5] = v30;
   }
 
-  if (v48[5])
+  if (v49[5])
   {
     if (handlerCopy)
     {
@@ -7585,7 +8033,7 @@ LABEL_40:
 
   else
   {
-    v32 = [(UMSyncService *)self asidForClient:0 withAuid:&v46 withPid:processIdentifier];
+    v32 = [(UMSyncService *)self asidForClient:0 withAuid:&v47 withPid:processIdentifier];
     v33 = +[NSXPCConnection currentConnection];
     v34 = sub_1000011DC([v33 processIdentifier]);
 
@@ -7594,18 +8042,106 @@ LABEL_40:
     block[1] = 3221225472;
     block[2] = sub_10006B6F4;
     block[3] = &unk_1000DDC80;
-    v37 = personaCopy;
-    v41 = processIdentifier;
-    v42 = v32;
-    v43 = v46;
-    v44 = v34;
-    v38 = identifiersCopy;
-    v40 = &v47;
-    v39 = handlerCopy;
+    v38 = personaCopy;
+    v42 = processIdentifier;
+    v43 = v32;
+    v44 = v47;
+    v45 = v34;
+    v39 = identifiersCopy;
+    v41 = &v48;
+    v40 = handlerCopy;
     dispatch_sync(v35, block);
   }
 
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v48, 8);
+}
+
+- (void)registerUserPersonaObserverForPID:(int)d withMachServiceName:(id)name completionHandler:(id)handler
+{
+  v6 = *&d;
+  nameCopy = name;
+  handlerCopy = handler;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = sub_100058864;
+  v35 = sub_100058874;
+  v36 = 0;
+  v30 = -1;
+  if ([(UMSyncService *)self remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.persona.observer"])
+  {
+    v10 = [(UMSyncService *)self asidForClient:0 withAuid:&v30 withPid:v6];
+    v11 = +[NSXPCConnection currentConnection];
+    v12 = sub_1000011DC([v11 processIdentifier]);
+
+    v13 = qword_1000EB610;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10006BD30;
+    block[3] = &unk_1000DDCA8;
+    v14 = nameCopy;
+    v26 = v10;
+    v27 = v30;
+    v28 = v12;
+    v23 = v14;
+    v25 = &v31;
+    v24 = handlerCopy;
+    dispatch_sync(v13, block);
+  }
+
+  else
+  {
+    if (qword_1000EB428 != -1)
+    {
+      sub_100095FA0();
+    }
+
+    v15 = qword_1000EB420;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = 0;
+      v16 = sub_1000011A8(1);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = v16;
+      }
+
+      else
+      {
+        v17 = v16 & 0xFFFFFFFE;
+      }
+
+      if (v17)
+      {
+        v37[0] = 67109120;
+        v37[1] = v6;
+        v18 = _os_log_send_and_compose_impl(v17, &v29, 0, 0, &_mh_execute_header, v15, 0, "Entitlement Failure for pid:%d", v37);
+        v19 = v18;
+        if (v18)
+        {
+          sub_100002A8C(v18);
+        }
+      }
+
+      else
+      {
+        v19 = 0;
+      }
+
+      free(v19);
+    }
+
+    v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+    v21 = v32[5];
+    v32[5] = v20;
+
+    if (handlerCopy)
+    {
+      (*(handlerCopy + 2))(handlerCopy, v32[5]);
+    }
+  }
+
+  _Block_object_dispose(&v31, 8);
 }
 
 - (void)personaLoginWithPid:(int)pid WithUserODuuid:(id)duuid withUid:(unsigned int)uid completionHandler:(id)handler
@@ -7649,7 +8185,7 @@ LABEL_40:
     v11 = v10;
     if (v10)
     {
-      [v10 auditToken];
+      objc_msgSend_auditToken(v10);
     }
 
     else
@@ -7693,7 +8229,7 @@ LABEL_40:
         v54 = v17;
         v55 = 1024;
         v56 = v40;
-        v23 = _os_log_send_and_compose_impl();
+        v23 = _os_log_send_and_compose_impl(v22, &v39, 0, 0, &_mh_execute_header, v20, 0, "In RDServer: grantSandboxExtensionForPersona:persona:%@, pid:%d, asid:%d, auid:%d", &v49, 30);
         v24 = v23;
         if (v23)
         {
@@ -7753,7 +8289,7 @@ LABEL_40:
       {
         v49 = 67109120;
         LODWORD(v50) = processIdentifier;
-        v15 = _os_log_send_and_compose_impl();
+        v15 = _os_log_send_and_compose_impl(v14, &v41, 0, 0, &_mh_execute_header, v12, 0, "In RDServer: grantSandboxExtensionForPersona entitlement failure:%d", &v49);
         v16 = v15;
         if (v15)
         {

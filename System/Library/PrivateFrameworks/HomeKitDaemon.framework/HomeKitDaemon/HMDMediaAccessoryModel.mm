@@ -36,7 +36,7 @@ void __36__HMDMediaAccessoryModel_properties__block_invoke(uint64_t a1)
 
 + (id)cd_getMKFMediaAccessoryFromAccessory:(id)accessory
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (!accessoryCopy)
   {
@@ -44,9 +44,9 @@ void __36__HMDMediaAccessoryModel_properties__block_invoke(uint64_t a1)
   }
 
   v5 = accessoryCopy;
-  v17 = 0;
-  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:accessoryCopy ofManagedObjectType:objc_opt_class() error:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:accessoryCopy ofManagedObjectType:objc_opt_class() error:&v16];
+  v7 = v16;
   v8 = v7;
   if (v6)
   {
@@ -72,19 +72,17 @@ void __36__HMDMediaAccessoryModel_properties__block_invoke(uint64_t a1)
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v8;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to find mkfMediaAccessory for accessory with UUID %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -2,7 +2,9 @@
 + (BindingEvaluator)bindingEvaluatorForScheme:(SEL)scheme;
 + (_LSCanOpenURLManager)sharedManager;
 + (id)queryForApplicationsAvailableForOpeningURL:(id)l;
+- (BOOL)canOpenURL:(id)l publicSchemes:(BOOL)schemes privateSchemes:(BOOL)privateSchemes XPCConnection:(id)connection error:(id *)error;
 - (BOOL)findApplicationBundleID:(unsigned int *)d bundleData:(const LSBundleData *)data context:(LSContext *)context forXPCConnection:(id)connection;
+- (BOOL)internalCanOpenURL:(id)l publicSchemes:(BOOL)schemes privateSchemes:(BOOL)privateSchemes XPCConnection:(id)connection error:(id *)error;
 - (BOOL)isBundleID:(unsigned int)d bundleData:(const LSBundleData *)data context:(LSContext *)context allowedToCheckScheme:(id)scheme error:(id *)error;
 - (BOOL)isXPCConnection:(id)connection allowedToCheckScheme:(id)scheme error:(id *)error;
 - (BOOL)legacy_isBundleID:(unsigned int)d bundleData:(const LSBundleData *)data context:(LSContext *)context allowedToCheckScheme:(id)scheme error:(id *)error;
@@ -18,7 +20,7 @@
 
 + (_LSCanOpenURLManager)sharedManager
 {
-  _LSAssertRunningInServer("+[_LSCanOpenURLManager sharedManager]");
+  _LSAssertRunningInServer("+[_LSCanOpenURLManager sharedManager]", a2);
   if (+[_LSCanOpenURLManager sharedManager]::once != -1)
   {
     +[_LSCanOpenURLManager sharedManager];
@@ -31,56 +33,70 @@
 
 - (_LSCanOpenURLManager)init
 {
-  v9.receiver = self;
-  v9.super_class = _LSCanOpenURLManager;
-  v2 = [(_LSCanOpenURLManager *)&v9 init];
+  v11.receiver = self;
+  v11.super_class = _LSCanOpenURLManager;
+  v2 = [(_LSCanOpenURLManager *)&v11 init];
+  v4 = v2;
   if (v2)
   {
-    if ([__LSDefaultsGetSharedInstance() isLightweightSystemServer])
+    if ([__LSDefaultsGetSharedInstance(v2 v3)])
     {
       copySchemesMap = objc_alloc_init(MEMORY[0x1E695DF90]);
     }
 
     else
     {
-      copySchemesMap = [(_LSCanOpenURLManager *)v2 copySchemesMap];
+      copySchemesMap = [(_LSCanOpenURLManager *)v4 copySchemesMap];
     }
 
-    canOpenURLsMap = v2->_canOpenURLsMap;
-    v2->_canOpenURLsMap = copySchemesMap;
+    canOpenURLsMap = v4->_canOpenURLsMap;
+    v4->_canOpenURLsMap = copySchemesMap;
 
-    v5 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x1E69E96A8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v6 = dispatch_queue_create("com.apple.launchservices.canopenurl", v5);
-    canOpenURLsMapQueue = v2->_canOpenURLsMapQueue;
-    v2->_canOpenURLsMapQueue = v6;
+    v7 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x1E69E96A8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v8 = dispatch_queue_create("com.apple.launchservices.canopenurl", v7);
+    canOpenURLsMapQueue = v4->_canOpenURLsMapQueue;
+    v4->_canOpenURLsMapQueue = v8;
   }
 
-  return v2;
+  return v4;
+}
+
+- (BOOL)canOpenURL:(id)l publicSchemes:(BOOL)schemes privateSchemes:(BOOL)privateSchemes XPCConnection:(id)connection error:(id *)error
+{
+  privateSchemesCopy = privateSchemes;
+  schemesCopy = schemes;
+  lCopy = l;
+  connectionCopy = connection;
+  _LSAssertRunningInServer("[_LSCanOpenURLManager canOpenURL:publicSchemes:privateSchemes:XPCConnection:error:]", v14);
+  LOBYTE(error) = [(_LSCanOpenURLManager *)self internalCanOpenURL:lCopy publicSchemes:schemesCopy privateSchemes:privateSchemesCopy XPCConnection:connectionCopy error:error];
+
+  return error;
 }
 
 - (int64_t)schemeTypeOfScheme:(id)scheme
 {
   schemeCopy = scheme;
-  _LSAssertRunningInServer("[_LSCanOpenURLManager schemeTypeOfScheme:]");
+  _LSAssertRunningInServer("[_LSCanOpenURLManager schemeTypeOfScheme:]", v6);
   if (!schemeCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSCanOpenURLManager.mm" lineNumber:116 description:{@"Invalid parameter not satisfying: %@", @"scheme != nil"}];
   }
 
-  v6 = _LSGetSchemeType(schemeCopy);
+  v7 = _LSGetSchemeType(schemeCopy);
 
-  return v6;
+  return v7;
 }
 
 - (void)resetSchemeQueryLimitForApplicationWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  _LSAssertRunningInServer("[_LSCanOpenURLManager resetSchemeQueryLimitForApplicationWithIdentifier:]");
-  if ([__LSDefaultsGetSharedInstance() isLightweightSystemServer])
+  _LSAssertRunningInServer("[_LSCanOpenURLManager resetSchemeQueryLimitForApplicationWithIdentifier:]", v5);
+  v8 = [__LSDefaultsGetSharedInstance(v6 v7)];
+  if (v8)
   {
-    v5 = _LSDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v9 = _LSDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [_LSCanOpenURLManager resetSchemeQueryLimitForApplicationWithIdentifier:];
     }
@@ -90,13 +106,13 @@
   {
     MEMORY[0x1865D7C40]();
     canOpenURLsMapQueue = self->_canOpenURLsMapQueue;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __74___LSCanOpenURLManager_resetSchemeQueryLimitForApplicationWithIdentifier___block_invoke;
-    v7[3] = &unk_1E6A1ABE8;
-    v7[4] = self;
-    v8 = identifierCopy;
-    dispatch_barrier_async(canOpenURLsMapQueue, v7);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __74___LSCanOpenURLManager_resetSchemeQueryLimitForApplicationWithIdentifier___block_invoke;
+    v11[3] = &unk_1E6A1ABE8;
+    v11[4] = self;
+    v12 = identifierCopy;
+    dispatch_barrier_async(canOpenURLsMapQueue, v11);
   }
 }
 
@@ -110,11 +126,12 @@
 
 - (void)writeSchemesMap
 {
-  _LSAssertRunningInServer("[_LSCanOpenURLManager(PrivateSchemeChecking) writeSchemesMap]");
-  if ([__LSDefaultsGetSharedInstance() isLightweightSystemServer])
+  _LSAssertRunningInServer("[_LSCanOpenURLManager(PrivateSchemeChecking) writeSchemesMap]", a2);
+  v6 = [__LSDefaultsGetSharedInstance(v4 v5)];
+  if (v6)
   {
-    v4 = _LSDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v7 = _LSDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [_LSCanOpenURLManager(PrivateSchemeChecking) writeSchemesMap];
     }
@@ -123,37 +140,37 @@
   else
   {
     canOpenURLsMapQueue = self->_canOpenURLsMapQueue;
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __62___LSCanOpenURLManager_PrivateSchemeChecking__writeSchemesMap__block_invoke;
-    v6[3] = &unk_1E6A18D78;
-    v6[4] = self;
-    v6[5] = a2;
-    _LSDispatchCoalescedAfterDelay(&self->_saveFlag, canOpenURLsMapQueue, v6, 1.0);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __62___LSCanOpenURLManager_PrivateSchemeChecking__writeSchemesMap__block_invoke;
+    v9[3] = &unk_1E6A18D78;
+    v9[4] = self;
+    v9[5] = a2;
+    _LSDispatchCoalescedAfterDelay(&self->_saveFlag, canOpenURLsMapQueue, v9, 1.0);
   }
 }
 
 - (id)copySchemesMap
 {
-  _LSAssertRunningInServer("[_LSCanOpenURLManager(PrivateSchemeChecking) copySchemesMap]");
-  queriedSchemesMapFileURL = [__LSDefaultsGetSharedInstance() queriedSchemesMapFileURL];
-  if (!queriedSchemesMapFileURL)
+  _LSAssertRunningInServer("[_LSCanOpenURLManager(PrivateSchemeChecking) copySchemesMap]", a2);
+  v6 = [__LSDefaultsGetSharedInstance(v4 v5)];
+  if (!v6)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSCanOpenURLManager.mm" lineNumber:203 description:@"Failed to get URL for lsd-schemes file"];
   }
 
-  v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithContentsOfURL:queriedSchemesMapFileURL];
-  if (!v5)
+  v7 = [objc_alloc(MEMORY[0x1E695DF90]) initWithContentsOfURL:v6];
+  if (!v7)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    path = [queriedSchemesMapFileURL path];
-    v8 = [defaultManager fileExistsAtPath:path];
+    path = [v6 path];
+    v10 = [defaultManager fileExistsAtPath:path];
 
-    if (v8)
+    if (v10)
     {
-      v9 = _LSDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v12 = _LSDefaultLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [_LSCanOpenURLManager(PrivateSchemeChecking) copySchemesMap];
       }
@@ -161,18 +178,106 @@
 
     else
     {
-      v9 = _LSDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v12 = _LSDefaultLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Scheme mapping file does not exist, creating file.", v12, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEFAULT, "Scheme mapping file does not exist, creating file.", v15, 2u);
       }
     }
 
-    v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
   }
 
-  return v5;
+  return v7;
+}
+
+- (BOOL)internalCanOpenURL:(id)l publicSchemes:(BOOL)schemes privateSchemes:(BOOL)privateSchemes XPCConnection:(id)connection error:(id *)error
+{
+  privateSchemesCopy = privateSchemes;
+  schemesCopy = schemes;
+  v27[1] = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  connectionCopy = connection;
+  scheme = [lCopy scheme];
+  lowercaseString = [scheme lowercaseString];
+
+  if (!lowercaseString)
+  {
+    if (error)
+    {
+      v26 = *MEMORY[0x1E696A278];
+      v27[0] = @"url";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v20, "[_LSCanOpenURLManager(PrivateSchemeChecking) internalCanOpenURL:publicSchemes:privateSchemes:XPCConnection:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSCanOpenURLManager.mm", 282);
+    }
+
+    goto LABEL_17;
+  }
+
+  v25 = 0;
+  [(_LSCanOpenURLManager *)self getIsURL:lCopy alwaysCheckable:&v25 hasHandler:&v25 + 1];
+  if ((v25 & 1) == 0)
+  {
+    LOBYTE(v25) = [(_LSCanOpenURLManager *)self isXPCConnection:connectionCopy allowedToCheckScheme:lowercaseString error:error];
+    if ((v25 & 1) == 0)
+    {
+LABEL_17:
+      v19 = 0;
+      goto LABEL_24;
+    }
+  }
+
+  if (HIBYTE(v25) != 1)
+  {
+    goto LABEL_18;
+  }
+
+  if (schemesCopy && privateSchemesCopy)
+  {
+    goto LABEL_14;
+  }
+
+  v16 = _LSGetSchemeType(lowercaseString);
+  v17 = v16 != 1 || privateSchemesCopy;
+  v18 = !schemesCopy;
+  if (v16)
+  {
+    v18 = 0;
+  }
+
+  if (!v18 && (v17 & 1) != 0)
+  {
+LABEL_14:
+    v19 = 1;
+  }
+
+  else
+  {
+LABEL_18:
+    v21 = [[_LSURLOverride alloc] initWithOriginalURL:lCopy];
+    v22 = v21;
+    if (v21)
+    {
+      overrideURL = [(_LSURLOverride *)v21 overrideURL];
+      v19 = [(_LSCanOpenURLManager *)self internalCanOpenURL:overrideURL publicSchemes:schemesCopy privateSchemes:privateSchemesCopy XPCConnection:connectionCopy error:error];
+    }
+
+    else if (error)
+    {
+      _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, 0, "[_LSCanOpenURLManager(PrivateSchemeChecking) internalCanOpenURL:publicSchemes:privateSchemes:XPCConnection:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSCanOpenURLManager.mm", 276);
+      *error = v19 = 0;
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+  }
+
+LABEL_24:
+
+  return v19;
 }
 
 - (void)getIsURL:(id)l alwaysCheckable:(BOOL *)checkable hasHandler:(BOOL *)handler
@@ -194,7 +299,7 @@
       v12 = objc_opt_class();
       if (v12)
       {
-        [v12 bindingEvaluatorForScheme:v11];
+        objc_msgSend_bindingEvaluatorForScheme_(v12);
       }
 
       else
@@ -213,7 +318,7 @@
 
       if (v14)
       {
-        LaunchServices::BindingEvaluator::getBestBinding(v29);
+        LaunchServices::BindingEvaluator::getBestBinding(v29, v14, 0, v20);
         v13 = v24;
         if (v24)
         {
@@ -277,13 +382,11 @@
   {
     *handler = v13;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isXPCConnection:(id)connection allowedToCheckScheme:(id)scheme error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   schemeCopy = scheme;
   v11 = schemeCopy;
@@ -295,40 +398,40 @@
       [currentHandler handleFailureInMethod:a2 object:self file:@"LSCanOpenURLManager.mm" lineNumber:335 description:{@"Invalid parameter not satisfying: %@", @"scheme != nil"}];
     }
 
-    v30 = 0;
+    v29 = 0;
+    v26 = 0;
     v27 = 0;
     v28 = 0;
-    v29 = 0;
     v12 = +[_LSDServiceDomain defaultServiceDomain];
-    v13 = LaunchServices::Database::Context::_get(&v27, v12, 0);
+    v13 = LaunchServices::Database::Context::_get(&v26, v12, 0);
 
     if (v13)
     {
-      v26 = 0;
       v25 = 0;
-      if (![(_LSCanOpenURLManager *)self findApplicationBundleID:&v26 bundleData:&v25 context:v13 forXPCConnection:connectionCopy]|| v25 && (*(v25 + 164) & 1) != 0)
+      v24 = 0;
+      if (![(_LSCanOpenURLManager *)self findApplicationBundleID:&v25 bundleData:&v24 context:v13 forXPCConnection:connectionCopy]|| v24 && (*(v24 + 164) & 1) != 0)
       {
         v16 = 1;
       }
 
       else
       {
-        v14 = *(v25 + 76);
-        v32 = *(v25 + 60);
-        v33 = v14;
-        _LSMakeVersionNumber(9, 0, 0, v31);
-        v35[0] = v32;
-        v35[1] = v33;
-        v34[0] = v31[0];
-        v34[1] = v31[1];
-        if (_LSVersionNumberCompare(v35, v34) > 1)
+        v14 = *(v24 + 76);
+        v31 = *(v24 + 60);
+        v32 = v14;
+        _LSMakeVersionNumber(9, 0, 0, v30);
+        v34[0] = v31;
+        v34[1] = v32;
+        v33[0] = v30[0];
+        v33[1] = v30[1];
+        if (_LSVersionNumberCompare(v34, v33) > 1)
         {
-          v15 = [(_LSCanOpenURLManager *)self legacy_isBundleID:v26 bundleData:v25 context:v13 allowedToCheckScheme:v11 error:error];
+          v15 = [(_LSCanOpenURLManager *)self legacy_isBundleID:v25 bundleData:v24 context:v13 allowedToCheckScheme:v11 error:error];
         }
 
         else
         {
-          v15 = [(_LSCanOpenURLManager *)self isBundleID:v26 bundleData:v25 context:v13 allowedToCheckScheme:v11 error:error];
+          v15 = [(_LSCanOpenURLManager *)self isBundleID:v25 bundleData:v24 context:v13 allowedToCheckScheme:v11 error:error];
         }
 
         v16 = v15;
@@ -338,7 +441,7 @@
     else if (error)
     {
       v17 = +[_LSDServiceDomain defaultServiceDomain];
-      v18 = LaunchServices::Database::Context::_get(&v27, v17, 0);
+      v18 = LaunchServices::Database::Context::_get(&v26, v17, 0);
 
       if (v18)
       {
@@ -347,7 +450,7 @@
 
       else
       {
-        v19 = v30;
+        v19 = v29;
       }
 
       v16 = 0;
@@ -359,18 +462,18 @@
       v16 = 0;
     }
 
-    if (v27 && v29 == 1)
+    if (v26 && v28 == 1)
     {
-      _LSContextDestroy(v27);
+      _LSContextDestroy(v26);
     }
 
-    v20 = v28;
+    v20 = v27;
+    v26 = 0;
     v27 = 0;
-    v28 = 0;
 
+    v28 = 0;
+    v21 = v29;
     v29 = 0;
-    v21 = v30;
-    v30 = 0;
   }
 
   else
@@ -378,7 +481,6 @@
     v16 = 1;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -528,16 +630,17 @@ LABEL_18:
   [currentHandler4 handleFailureInMethod:a2 object:self file:@"LSCanOpenURLManager.mm" lineNumber:429 description:{@"Invalid parameter not satisfying: %@", @"scheme != nil"}];
 
 LABEL_6:
-  if (data->plugins)
+  plugins = data->plugins;
+  if (plugins)
   {
-    v14 = _LSDatabaseGetStringArray(context->db);
+    v15 = _LSDatabaseGetStringArray(context->db, plugins);
     if (schemeCopy)
     {
       goto LABEL_8;
     }
 
 LABEL_11:
-    v15 = 0;
+    v16 = 0;
     if (!error)
     {
       goto LABEL_14;
@@ -546,39 +649,39 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v14 = 0;
+  v15 = 0;
   if (!schemeCopy)
   {
     goto LABEL_11;
   }
 
 LABEL_8:
-  v15 = [v14 containsObject:schemeCopy];
+  v16 = [v15 containsObject:schemeCopy];
   if (!error)
   {
     goto LABEL_14;
   }
 
 LABEL_12:
-  if ((v15 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
     schemeCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"This app is not allowed to query for scheme %@", schemeCopy];
     v24 = *MEMORY[0x1E696A578];
     v25[0] = schemeCopy;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-    *error = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", -106, v17, "[_LSCanOpenURLManager(PrivateSchemeChecking) isBundleID:bundleData:context:allowedToCheckScheme:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSCanOpenURLManager.mm", 448);
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    *error = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", -106, v18, "[_LSCanOpenURLManager(PrivateSchemeChecking) isBundleID:bundleData:context:allowedToCheckScheme:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSCanOpenURLManager.mm", 448);
   }
 
 LABEL_14:
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v16;
 }
 
 - (BOOL)legacy_isBundleID:(unsigned int)d bundleData:(const LSBundleData *)data context:(LSContext *)context allowedToCheckScheme:(id)scheme error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   schemeCopy = scheme;
+  v15 = schemeCopy;
   if (d)
   {
     if (data)
@@ -613,7 +716,7 @@ LABEL_35:
     currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"LSCanOpenURLManager.mm" lineNumber:463 description:{@"Invalid parameter not satisfying: %@", @"context != NULL && context->db != NULL"}];
 
-    if (schemeCopy)
+    if (v15)
     {
       goto LABEL_6;
     }
@@ -627,7 +730,7 @@ LABEL_4:
     goto LABEL_35;
   }
 
-  if (schemeCopy)
+  if (v15)
   {
     goto LABEL_6;
   }
@@ -637,10 +740,11 @@ LABEL_36:
   [currentHandler4 handleFailureInMethod:a2 object:self file:@"LSCanOpenURLManager.mm" lineNumber:464 description:{@"Invalid parameter not satisfying: %@", @"scheme != nil"}];
 
 LABEL_6:
-  if ([__LSDefaultsGetSharedInstance() isLightweightSystemServer])
+  v16 = [__LSDefaultsGetSharedInstance(schemeCopy v14)];
+  if (v16)
   {
-    v14 = _LSDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v17 = _LSDefaultLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [_LSCanOpenURLManager(PrivateSchemeChecking) legacy_isBundleID:bundleData:context:allowedToCheckScheme:error:];
     }
@@ -648,40 +752,40 @@ LABEL_6:
     goto LABEL_15;
   }
 
-  deviceFamilies = data->deviceFamilies;
   [(_LSDatabase *)context->db store];
-  v16 = _CSStringCopyCFString();
-  v14 = v16;
-  if (!v16)
+  v18 = _CSStringCopyCFString();
+  v17 = v18;
+  if (!v18)
   {
 LABEL_15:
-    v20 = 0;
+    v23 = 0;
     goto LABEL_24;
   }
 
-  v39 = 0;
-  v40[0] = &v39;
-  v40[1] = 0x3032000000;
-  v40[2] = __Block_byref_object_copy__12;
-  v40[3] = __Block_byref_object_dispose__12;
-  v41 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__12;
+  v46 = __Block_byref_object_dispose__12;
+  v47 = 0;
   canOpenURLsMapQueue = self->_canOpenURLsMapQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __111___LSCanOpenURLManager_PrivateSchemeChecking__legacy_isBundleID_bundleData_context_allowedToCheckScheme_error___block_invoke;
   block[3] = &unk_1E6A1B118;
-  v38 = &v39;
+  v41 = &v42;
   block[4] = self;
-  v14 = v16;
-  v37 = v14;
+  v17 = v18;
+  v40 = v17;
   dispatch_sync(canOpenURLsMapQueue, block);
-  v18 = *(v40[0] + 40);
-  if (v18)
+  v20 = v43[5];
+  if (v20)
   {
-    if ([v18 containsObject:schemeCopy])
+    v21 = [v20 containsObject:v15];
+    if (v21)
     {
-      v19 = _LSDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v22 = _LSDefaultLog(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         [_LSCanOpenURLManager(PrivateSchemeChecking) legacy_isBundleID:bundleData:context:allowedToCheckScheme:error:];
       }
@@ -689,88 +793,88 @@ LABEL_15:
       goto LABEL_22;
     }
 
-    if ([*(v40[0] + 40) count] > 0x31)
+    v25 = [v43[5] count];
+    if (v25 > 0x31)
     {
-      v27 = _LSDefaultLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v30 = _LSDefaultLog(v25);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        [_LSCanOpenURLManager(PrivateSchemeChecking) legacy_isBundleID:v14 bundleData:v40 context:? allowedToCheckScheme:? error:?];
+        [_LSCanOpenURLManager(PrivateSchemeChecking) legacy_isBundleID:bundleData:context:allowedToCheckScheme:error:];
       }
 
-      v20 = 0;
+      v23 = 0;
       goto LABEL_23;
     }
 
-    v21 = _LSDefaultLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v24 = _LSDefaultLog(v25);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      v28 = [*(v40[0] + 40) count];
+      v31 = [v43[5] count];
       *buf = 138412802;
-      v45 = v14;
-      v46 = 1024;
-      v47 = v28;
-      v48 = 2112;
-      v49 = schemeCopy;
-      _os_log_debug_impl(&dword_18162D000, v21, OS_LOG_TYPE_DEBUG, "LSTesting: app %@ has only asked about %d schemes, adding %@ and allowing", buf, 0x1Cu);
+      v51 = v17;
+      v52 = 1024;
+      v53 = v31;
+      v54 = 2112;
+      v55 = v15;
+      _os_log_debug_impl(&dword_18162D000, v24, OS_LOG_TYPE_DEBUG, "LSTesting: app %@ has only asked about %d schemes, adding %@ and allowing", buf, 0x1Cu);
     }
   }
 
   else
   {
-    v21 = _LSDefaultLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v24 = _LSDefaultLog(0);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       [_LSCanOpenURLManager(PrivateSchemeChecking) legacy_isBundleID:bundleData:context:allowedToCheckScheme:error:];
     }
   }
 
   MEMORY[0x1865D7C40]();
-  v22 = self->_canOpenURLsMapQueue;
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __111___LSCanOpenURLManager_PrivateSchemeChecking__legacy_isBundleID_bundleData_context_allowedToCheckScheme_error___block_invoke_74;
-  v33[3] = &unk_1E6A1B140;
-  v33[4] = self;
-  v34 = v14;
-  v35 = schemeCopy;
-  dispatch_barrier_async(v22, v33);
+  v26 = self->_canOpenURLsMapQueue;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __111___LSCanOpenURLManager_PrivateSchemeChecking__legacy_isBundleID_bundleData_context_allowedToCheckScheme_error___block_invoke_74;
+  v36[3] = &unk_1E6A1B140;
+  v36[4] = self;
+  v37 = v17;
+  v38 = v15;
+  dispatch_barrier_async(v26, v36);
 
 LABEL_22:
-  v20 = 1;
+  v23 = 1;
 LABEL_23:
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v42, 8);
 LABEL_24:
 
   if (error)
   {
-    v23 = v20;
+    v27 = v23;
   }
 
   else
   {
-    v23 = 1;
+    v27 = 1;
   }
 
-  if ((v23 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    v42 = *MEMORY[0x1E696A578];
-    v43 = @"This app has exceeded the number of allowed scheme queries";
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-    *error = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", -107, v24, "[_LSCanOpenURLManager(PrivateSchemeChecking) legacy_isBundleID:bundleData:context:allowedToCheckScheme:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSCanOpenURLManager.mm", 524);
+    v48 = *MEMORY[0x1E696A578];
+    v49 = @"This app has exceeded the number of allowed scheme queries";
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    *error = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", -107, v28, "[_LSCanOpenURLManager(PrivateSchemeChecking) legacy_isBundleID:bundleData:context:allowedToCheckScheme:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSCanOpenURLManager.mm", 524);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-  return v20;
+  return v23;
 }
 
 + (BindingEvaluator)bindingEvaluatorForScheme:(SEL)scheme
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   LaunchServices::BindingEvaluator::CreateWithURLScheme(a4, &retstr->var0);
   LaunchServices::BindingEvaluator::setOptions(retstr, 64);
-  v8[0] = 0xE00000002;
-  std::vector<LSBundleClass>::vector[abi:nn200100](__p, v8, 2uLL);
+  v7[0] = 0xE00000002;
+  std::vector<LSBundleClass>::vector[abi:nn200100](__p, v7, 2uLL);
   LaunchServices::BindingEvaluator::setAllowedBundleClasses(retstr, __p);
   result = __p[0];
   if (__p[0])
@@ -779,7 +883,6 @@ LABEL_24:
     operator delete(__p[0]);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 

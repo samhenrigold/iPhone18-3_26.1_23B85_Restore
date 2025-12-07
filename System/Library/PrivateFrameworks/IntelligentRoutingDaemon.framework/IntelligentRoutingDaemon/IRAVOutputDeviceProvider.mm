@@ -45,7 +45,7 @@
 
 void __40__IRAVOutputDeviceProvider_addObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 observers];
   v5 = [v4 containsObject:*(a1 + 32)];
@@ -65,11 +65,11 @@ void __40__IRAVOutputDeviceProvider_addObserver___block_invoke(uint64_t a1, void
       v11 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
       {
-        v17 = 136315394;
-        v18 = "#avod-provider, ";
-        v19 = 2112;
-        v20 = v10;
-        _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_INFO, "%s[%@], Registering for output devices notification", &v17, 0x16u);
+        v16 = 136315394;
+        v17 = "#avod-provider, ";
+        v18 = 2112;
+        v19 = v10;
+        _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_INFO, "%s[%@], Registering for output devices notification", &v16, 0x16u);
       }
 
       v12 = [v3 discoverySessionController];
@@ -81,8 +81,6 @@ void __40__IRAVOutputDeviceProvider_addObserver___block_invoke(uint64_t a1, void
     v15 = [v14 copy];
     [v13 provider:v3 didUpdateAVOutputDevices:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer
@@ -100,7 +98,7 @@ void __40__IRAVOutputDeviceProvider_addObserver___block_invoke(uint64_t a1, void
 
 void __43__IRAVOutputDeviceProvider_removeObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 observers];
   v5 = [v4 containsObject:*(a1 + 32)];
@@ -120,19 +118,17 @@ void __43__IRAVOutputDeviceProvider_removeObserver___block_invoke(uint64_t a1, v
       v11 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
       {
-        v14 = 136315394;
-        v15 = "#avod-provider, ";
-        v16 = 2112;
-        v17 = v10;
-        _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_INFO, "%s[%@], Unregistering for output devices notification", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "#avod-provider, ";
+        v15 = 2112;
+        v16 = v10;
+        _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_INFO, "%s[%@], Unregistering for output devices notification", &v13, 0x16u);
       }
 
       v12 = [v3 discoverySessionController];
       [v12 unregisterForAvailableOutputDevicesNotification];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateAVOutputDevices:(id)devices
@@ -150,7 +146,7 @@ void __43__IRAVOutputDeviceProvider_removeObserver___block_invoke(uint64_t a1, v
 
 void __53__IRAVOutputDeviceProvider_didUpdateAVOutputDevices___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 cachedDevices];
   v5 = [v4 isEqual:*(a1 + 32)];
@@ -163,31 +159,31 @@ void __53__IRAVOutputDeviceProvider_didUpdateAVOutputDevices___block_invoke(uint
     v7 = [v3 cachedDevices];
     v8 = [v7 copy];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v9 = [v3 observers];
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         v13 = 0;
         do
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v19 + 1) + 8 * v13++) provider:v3 didUpdateAVOutputDevices:v8];
+          [*(*(&v18 + 1) + 8 * v13++) provider:v3 didUpdateAVOutputDevices:v8];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v11);
@@ -200,12 +196,10 @@ void __53__IRAVOutputDeviceProvider_didUpdateAVOutputDevices___block_invoke(uint
       v16 = v14;
       v17 = [v3 _logDevicesString:v15];
       *buf = 138412290;
-      v24 = v17;
+      v23 = v17;
       _os_log_impl(&dword_25543D000, v16, OS_LOG_TYPE_DEFAULT, "#avod-provider, %@", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logActiveDevices
@@ -216,7 +210,7 @@ void __53__IRAVOutputDeviceProvider_didUpdateAVOutputDevices___block_invoke(uint
 
 void __44__IRAVOutputDeviceProvider_logActiveDevices__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D21270];
   if (os_log_type_enabled(*MEMORY[0x277D21270], OS_LOG_TYPE_DEFAULT))
   {
@@ -225,12 +219,10 @@ void __44__IRAVOutputDeviceProvider_logActiveDevices__block_invoke(uint64_t a1, 
     v6 = [v5 cachedDevices];
     v7 = [v5 _logDevicesString:v6];
 
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_DEFAULT, "#avod-provider, %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_DEFAULT, "#avod-provider, %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_logDevicesString:(id)string

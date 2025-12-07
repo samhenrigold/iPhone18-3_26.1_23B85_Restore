@@ -35,33 +35,38 @@
         shouldLog = [v4 shouldLog];
         if ([v4 shouldLogToDisk])
         {
-          v6 = shouldLog | 2;
+          LODWORD(v6) = shouldLog | 2;
         }
 
         else
         {
-          v6 = shouldLog;
+          LODWORD(v6) = shouldLog;
         }
 
-        if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_ERROR))
+        oSLogObject = [v4 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+        {
+          v6 = v6;
+        }
+
+        else
         {
           v6 &= 2u;
         }
 
         if (v6)
         {
-          v7 = objc_opt_class();
+          v8 = objc_opt_class();
           v12 = 138543618;
-          v13 = v7;
+          v13 = v8;
           v14 = 2114;
           v15 = v11;
-          LODWORD(v10) = 22;
-          v8 = _os_log_send_and_compose_impl();
-          if (v8)
+          v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to unarchive download policy. Error = %{public}@", &v12, 22);
+          if (v9)
           {
-            v9 = v8;
-            [NSString stringWithCString:v8 encoding:4, &v12, v10];
-            free(v9);
+            v10 = v9;
+            [NSString stringWithCString:v9 encoding:4];
+            free(v10);
             SSFileLog();
           }
         }

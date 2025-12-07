@@ -5,7 +5,7 @@
 
 void __65___LTSpeechTranslationRequest__startTranslationWithService_done___block_invoke(id *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   if (WeakRetained)
   {
@@ -29,67 +29,66 @@ void __65___LTSpeechTranslationRequest__startTranslationWithService_done___block
       *(WeakRetained + 20) = v9;
     }
 
-    if ([*(WeakRetained + 15) count])
+    v11 = [*(WeakRetained + 15) count];
+    if (v11)
     {
-      v11 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = _LTOSLogTranslationEngine(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23AAF5000, v11, OS_LOG_TYPE_DEFAULT, "Drain queued buffers first", buf, 2u);
+        _os_log_impl(&dword_23AAF5000, v13, OS_LOG_TYPE_DEFAULT, "Drain queued buffers first", buf, 2u);
       }
 
-      v23 = 0u;
       v24 = 0u;
-      v21 = 0u;
+      v25 = 0u;
       v22 = 0u;
-      v12 = *(WeakRetained + 15);
-      v13 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
-      if (v13)
+      v23 = 0u;
+      v14 = *(WeakRetained + 15);
+      v15 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      if (v15)
       {
-        v14 = v13;
-        v15 = *v22;
+        v16 = v15;
+        v17 = *v23;
         do
         {
-          v16 = 0;
+          v18 = 0;
           do
           {
-            if (*v22 != v15)
+            if (*v23 != v17)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v14);
             }
 
-            v17 = *(*(&v21 + 1) + 8 * v16);
+            v19 = *(*(&v22 + 1) + 8 * v18);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [WeakRetained _appendAudioPCMBuffer:v17];
+              [WeakRetained _appendAudioPCMBuffer:v19];
             }
 
             else
             {
-              v18 = CFGetTypeID(v17);
-              if (v18 == CMSampleBufferGetTypeID())
+              v20 = CFGetTypeID(v19);
+              if (v20 == CMSampleBufferGetTypeID())
               {
-                [WeakRetained _appendAudioSampleBuffer:v17 simulateRealtime:{0, v21}];
+                [WeakRetained _appendAudioSampleBuffer:v19 simulateRealtime:{0, v22}];
               }
             }
 
-            ++v16;
+            ++v18;
           }
 
-          while (v14 != v16);
-          v14 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          while (v16 != v18);
+          v16 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
-        while (v14);
+        while (v16);
       }
     }
 
-    v19 = *(WeakRetained + 15);
+    v21 = *(WeakRetained + 15);
     *(WeakRetained + 15) = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52___LTSpeechTranslationRequest_appendAudioPCMBuffer___block_invoke(uint64_t a1)

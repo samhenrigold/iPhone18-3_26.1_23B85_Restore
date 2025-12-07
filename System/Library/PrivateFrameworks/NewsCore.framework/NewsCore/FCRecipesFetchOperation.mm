@@ -10,7 +10,7 @@
 
 - (FCRecipesFetchOperation)initWithContext:(id)context accessChecker:(id)checker tagController:(id)controller recipeIDs:(id)ds recipeListIDs:(id)iDs
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   checkerCopy = checker;
   controllerCopy = controller;
@@ -18,15 +18,15 @@
   iDsCopy = iDs;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context"];
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context"];
     *buf = 136315906;
-    v33 = "[FCRecipesFetchOperation initWithContext:accessChecker:tagController:recipeIDs:recipeListIDs:]";
-    v34 = 2080;
-    v35 = "FCRecipesFetchOperation.m";
-    v36 = 1024;
-    v37 = 49;
-    v38 = 2114;
-    v39 = v28;
+    v32 = "[FCRecipesFetchOperation initWithContext:accessChecker:tagController:recipeIDs:recipeListIDs:]";
+    v33 = 2080;
+    v34 = "FCRecipesFetchOperation.m";
+    v35 = 1024;
+    v36 = 49;
+    v37 = 2114;
+    v38 = v27;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (controllerCopy)
@@ -42,36 +42,36 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagController"];
+    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagController"];
     *buf = 136315906;
-    v33 = "[FCRecipesFetchOperation initWithContext:accessChecker:tagController:recipeIDs:recipeListIDs:]";
-    v34 = 2080;
-    v35 = "FCRecipesFetchOperation.m";
-    v36 = 1024;
-    v37 = 50;
-    v38 = 2114;
-    v39 = v29;
+    v32 = "[FCRecipesFetchOperation initWithContext:accessChecker:tagController:recipeIDs:recipeListIDs:]";
+    v33 = 2080;
+    v34 = "FCRecipesFetchOperation.m";
+    v35 = 1024;
+    v36 = 50;
+    v37 = 2114;
+    v38 = v28;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!dsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recipeIDs"];
+    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recipeIDs"];
     *buf = 136315906;
-    v33 = "[FCRecipesFetchOperation initWithContext:accessChecker:tagController:recipeIDs:recipeListIDs:]";
-    v34 = 2080;
-    v35 = "FCRecipesFetchOperation.m";
-    v36 = 1024;
-    v37 = 51;
-    v38 = 2114;
-    v39 = v30;
+    v32 = "[FCRecipesFetchOperation initWithContext:accessChecker:tagController:recipeIDs:recipeListIDs:]";
+    v33 = 2080;
+    v34 = "FCRecipesFetchOperation.m";
+    v35 = 1024;
+    v36 = 51;
+    v37 = 2114;
+    v38 = v29;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v31.receiver = self;
-  v31.super_class = FCRecipesFetchOperation;
-  v18 = [(FCOperation *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = FCRecipesFetchOperation;
+  v18 = [(FCOperation *)&v30 init];
   v19 = v18;
   if (v18)
   {
@@ -91,7 +91,6 @@ LABEL_6:
     v19->_appConfigurationManager = news_core_ConfigurationManager;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -135,7 +134,7 @@ LABEL_6:
 
 - (void)performOperation
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = FCOperationLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -164,11 +163,11 @@ LABEL_6:
 
     v9 = recipeListIDs;
     *buf = 138543874;
-    v27 = shortOperationDescription;
-    v28 = 2048;
-    v29 = v7;
-    v30 = 2048;
-    v31 = [(NSArray *)v9 count];
+    v26 = shortOperationDescription;
+    v27 = 2048;
+    v28 = v7;
+    v29 = 2048;
+    v30 = [(NSArray *)v9 count];
     _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will fetch recipes for recipeIDs:%lu recipeListIDs:%lu", buf, 0x20u);
   }
 
@@ -185,8 +184,8 @@ LABEL_6:
 
   else
   {
-    v20 = [MEMORY[0x1E695DEC8] fc_arrayByAddingObjectsFromArray:0 toArray:0];
-    [(FCRecordChainFetchOperation *)v10 setTopLevelRecordIDs:v20];
+    v19 = [MEMORY[0x1E695DEC8] fc_arrayByAddingObjectsFromArray:0 toArray:0];
+    [(FCRecordChainFetchOperation *)v10 setTopLevelRecordIDs:v19];
 
     context = 0;
   }
@@ -195,37 +194,35 @@ LABEL_6:
   cachePolicy = [(FCRecipesFetchOperation *)self cachePolicy];
   [(FCRecordChainFetchOperation *)v10 setCachePolicy:cachePolicy];
 
-  v24[0] = @"Recipe";
-  v23[0] = @"sourceChannelTagID";
-  v23[1] = @"articleIDs";
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
-  v25[0] = v16;
-  v25[1] = MEMORY[0x1E695E0F0];
-  v24[1] = @"Tag";
-  v24[2] = @"Article";
-  v25[2] = MEMORY[0x1E695E0F0];
-  v24[3] = @"RecipeList";
-  v22 = @"recipeIDs";
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-  v25[3] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:4];
+  v23[0] = @"Recipe";
+  v22[0] = @"sourceChannelTagID";
+  v22[1] = @"articleIDs";
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v24[0] = v16;
+  v24[1] = MEMORY[0x1E695E0F0];
+  v23[1] = @"Tag";
+  v23[2] = @"Article";
+  v24[2] = MEMORY[0x1E695E0F0];
+  v23[3] = @"RecipeList";
+  v21 = @"recipeIDs";
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v24[3] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:4];
   [(FCRecordChainFetchOperation *)v10 setLinkKeysByRecordType:v18];
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __43__FCRecipesFetchOperation_performOperation__block_invoke;
-  v21[3] = &unk_1E7C39358;
-  v21[4] = self;
-  [(FCRecordChainFetchOperation *)v10 setRecordChainCompletionHandler:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __43__FCRecipesFetchOperation_performOperation__block_invoke;
+  v20[3] = &unk_1E7C39358;
+  v20[4] = self;
+  [(FCRecordChainFetchOperation *)v10 setRecordChainCompletionHandler:v20];
   [(FCOperation *)self associateChildOperation:v10];
   [(FCOperation *)v10 start];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __43__FCRecipesFetchOperation_performOperation__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -235,19 +232,19 @@ void __43__FCRecipesFetchOperation_performOperation__block_invoke(uint64_t a1, v
     aBlock[6] = 3221225472;
     aBlock[7] = __43__FCRecipesFetchOperation_performOperation__block_invoke_2;
     aBlock[8] = &unk_1E7C36C58;
-    v63 = *(a1 + 32);
-    v64 = v6;
-    [v63 finishedPerformingOperationWithError:v64];
+    v62 = *(a1 + 32);
+    v63 = v6;
+    [v62 finishedPerformingOperationWithError:v63];
   }
 
   else
   {
     v8 = [v5 objectForKeyedSubscript:&unk_1F2E707B8];
     v9 = [v5 objectForKeyedSubscript:&unk_1F2E707D0];
-    v55 = [v5 objectForKeyedSubscript:&unk_1F2E707E8];
+    v54 = [v5 objectForKeyedSubscript:&unk_1F2E707E8];
     v10 = [v5 objectForKeyedSubscript:&unk_1F2E70800];
     v11 = FCOperationLog;
-    v57 = v10;
+    v56 = v10;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
@@ -257,27 +254,27 @@ void __43__FCRecipesFetchOperation_performOperation__block_invoke(uint64_t a1, v
       v16 = v8;
       v17 = [v8 count];
       v18 = v9;
-      v19 = [v55 count];
-      v20 = [v57 count];
+      v19 = [v54 count];
+      v20 = [v56 count];
       *buf = 138544386;
       v21 = @"YES";
-      v66 = v14;
-      v67 = 2048;
+      v65 = v14;
+      v66 = 2048;
       if (!v20)
       {
         v21 = @"NO";
       }
 
-      v68 = v15;
-      v69 = 2048;
-      v70 = v17;
+      v67 = v15;
+      v68 = 2048;
+      v69 = v17;
       v8 = v16;
-      v71 = 2048;
-      v72 = v19;
+      v70 = 2048;
+      v71 = v19;
       v9 = v18;
-      v10 = v57;
-      v73 = 2114;
-      v74 = v21;
+      v10 = v56;
+      v72 = 2114;
+      v73 = v21;
       _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ received recipeRecords:%lu recipeListRecords:%lu articleRecords:%lu sourceChannelFetched:%{public}@", buf, 0x34u);
     }
 
@@ -337,20 +334,20 @@ void __43__FCRecipesFetchOperation_performOperation__block_invoke(uint64_t a1, v
       v35 = 0;
     }
 
-    v54 = v33;
+    v53 = v33;
     v36 = [v35 arrayByAddingObjectsFromArray:v33];
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __43__FCRecipesFetchOperation_performOperation__block_invoke_5;
-    v58[3] = &unk_1E7C44010;
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __43__FCRecipesFetchOperation_performOperation__block_invoke_5;
+    v57[3] = &unk_1E7C44010;
     v37 = v29;
     v38 = *(a1 + 32);
-    v59 = v37;
-    v60 = v38;
-    v39 = v55;
-    v61 = v39;
-    v56 = v36;
-    v40 = [v9 transformRecordsInOrder:v36 withBlock:v58];
+    v58 = v37;
+    v59 = v38;
+    v39 = v54;
+    v60 = v39;
+    v55 = v36;
+    v40 = [v9 transformRecordsInOrder:v36 withBlock:v57];
     v41 = [*(a1 + 32) _filterInaccessibleRecipes:v40];
     v42 = *(a1 + 32);
     if (v42)
@@ -361,10 +358,10 @@ void __43__FCRecipesFetchOperation_performOperation__block_invoke(uint64_t a1, v
     v43 = FCOperationLog;
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      v51 = [*(a1 + 32) shortOperationDescription];
-      v52 = v9;
+      v50 = [*(a1 + 32) shortOperationDescription];
+      v51 = v9;
       v44 = *(a1 + 32);
-      v53 = v8;
+      v52 = v8;
       if (v44)
       {
         v44 = v44[56];
@@ -381,21 +378,19 @@ void __43__FCRecipesFetchOperation_performOperation__block_invoke(uint64_t a1, v
       v48 = v47;
       v49 = [v48 count];
       *buf = 138543874;
-      v66 = v51;
-      v67 = 2048;
-      v68 = v46;
-      v69 = 2048;
-      v70 = v49;
+      v65 = v50;
+      v66 = 2048;
+      v67 = v46;
+      v68 = 2048;
+      v69 = v49;
       _os_log_impl(&dword_1B63EF000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@ result contains %lu recipes and %lu recipe lists", buf, 0x20u);
 
-      v9 = v52;
-      v8 = v53;
+      v9 = v51;
+      v8 = v52;
     }
 
     [*(a1 + 32) finishedPerformingOperationWithError:0];
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 void __43__FCRecipesFetchOperation_performOperation__block_invoke_22(uint64_t a1, void *a2)
@@ -429,7 +424,7 @@ FCRecipeList *__43__FCRecipesFetchOperation_performOperation__block_invoke_3(uin
 
 FCRecipe *__43__FCRecipesFetchOperation_performOperation__block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -448,11 +443,11 @@ FCRecipe *__43__FCRecipesFetchOperation_performOperation__block_invoke_5(uint64_
       v42 = [v41 identifier];
       v43 = [v5 sourceChannelTagID];
       *buf = 138543874;
-      v63 = v40;
-      v64 = 2114;
-      v65 = v42;
-      v66 = 2114;
-      v67 = v43;
+      v62 = v40;
+      v63 = 2114;
+      v64 = v42;
+      v65 = 2114;
+      v66 = v43;
       _os_log_error_impl(&dword_1B63EF000, v39, OS_LOG_TYPE_ERROR, "%{public}@ discarding recipe %{public}@ because source channel was not found. sourceTag=%{public}@", buf, 0x20u);
 LABEL_21:
     }
@@ -474,11 +469,11 @@ LABEL_22:
       v42 = [v41 identifier];
       v43 = [v9 identifier];
       *buf = 138543874;
-      v63 = v40;
-      v64 = 2114;
-      v65 = v42;
-      v66 = 2114;
-      v67 = v43;
+      v62 = v40;
+      v63 = 2114;
+      v64 = v42;
+      v65 = 2114;
+      v66 = v43;
       _os_log_impl(&dword_1B63EF000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@ discarding recipe %{public}@ because source channel=%{public}@ does not allow recipes", buf, 0x20u);
       goto LABEL_21;
     }
@@ -496,7 +491,7 @@ LABEL_22:
   v12 = [v11 configurationManager];
   v13 = [v12 configuration];
   v14 = *(a1 + 40);
-  v59 = v6;
+  v58 = v6;
   if (v14)
   {
     v14 = v14[49];
@@ -507,7 +502,7 @@ LABEL_22:
   v17 = MEMORY[0x1E695DFD8];
   v18 = [v5 articleIDs];
   v19 = [v17 setWithArray:v18];
-  v61 = FCHeadlinesByArticleIDFromHeldRecords(v13, v16, v19, *(a1 + 48), *(a1 + 32), 0, 1, 0);
+  v60 = FCHeadlinesByArticleIDFromHeldRecords(v13, v16, v19, *(a1 + 48), *(a1 + 32), 0, 1, 0);
 
   v20 = [v5 articleIDs];
   v21 = [v20 count];
@@ -517,51 +512,51 @@ LABEL_22:
     v22 = FCOperationLog;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
     {
-      v54 = *(a1 + 40);
-      v55 = v22;
-      v56 = [v54 shortOperationDescription];
-      v57 = [v5 base];
-      v58 = [v57 identifier];
+      v53 = *(a1 + 40);
+      v54 = v22;
+      v55 = [v53 shortOperationDescription];
+      v56 = [v5 base];
+      v57 = [v56 identifier];
       *buf = 138543618;
-      v63 = v56;
-      v64 = 2114;
-      v65 = v58;
-      _os_log_error_impl(&dword_1B63EF000, v55, OS_LOG_TYPE_ERROR, "%{public}@ recipe %{public}@ has no associated articles; all recipes should have at least 1 article", buf, 0x16u);
+      v62 = v55;
+      v63 = 2114;
+      v64 = v57;
+      _os_log_error_impl(&dword_1B63EF000, v54, OS_LOG_TYPE_ERROR, "%{public}@ recipe %{public}@ has no associated articles; all recipes should have at least 1 article", buf, 0x16u);
     }
   }
 
   v23 = [v5 articleIDs];
   v24 = [v23 count];
-  v25 = [v61 count];
+  v25 = [v60 count];
 
   v26 = v24 == v25;
-  v6 = v60;
+  v6 = v59;
   v27 = &OBJC_IVAR___FCArticleHeadline__bundlePaid;
-  v28 = v61;
+  v28 = v60;
   if (!v26)
   {
-    v29 = [v61 allKeys];
+    v29 = [v60 allKeys];
     v30 = FCOperationLog;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
     {
-      v48 = *(a1 + 40);
-      v49 = v30;
-      v50 = [v48 shortOperationDescription];
-      v51 = [v5 base];
-      v52 = [v51 identifier];
-      v53 = [v5 articleIDs];
+      v47 = *(a1 + 40);
+      v48 = v30;
+      v49 = [v47 shortOperationDescription];
+      v50 = [v5 base];
+      v51 = [v50 identifier];
+      v52 = [v5 articleIDs];
       *buf = 138544130;
-      v63 = v50;
-      v64 = 2114;
-      v65 = v52;
-      v66 = 2114;
-      v67 = v53;
-      v68 = 2114;
-      v69 = v29;
-      _os_log_error_impl(&dword_1B63EF000, v49, OS_LOG_TYPE_ERROR, "%{public}@ recipe %{public}@ fetched mismatch count of associated articles, record=%{public}@, fetched=%{public}@", buf, 0x2Au);
+      v62 = v49;
+      v63 = 2114;
+      v64 = v51;
+      v65 = 2114;
+      v66 = v52;
+      v67 = 2114;
+      v68 = v29;
+      _os_log_error_impl(&dword_1B63EF000, v48, OS_LOG_TYPE_ERROR, "%{public}@ recipe %{public}@ fetched mismatch count of associated articles, record=%{public}@, fetched=%{public}@", buf, 0x2Au);
 
       v27 = &OBJC_IVAR___FCArticleHeadline__bundlePaid;
-      v28 = v61;
+      v28 = v60;
     }
   }
 
@@ -579,10 +574,9 @@ LABEL_22:
   }
 
   v35 = [v34 assetManager];
-  v36 = [(FCRecipe *)v31 initWithRecipeRecord:v5 sourceChannel:v9 articles:v32 assetManager:v35 interestToken:v60];
+  v36 = [(FCRecipe *)v31 initWithRecipeRecord:v5 sourceChannel:v9 articles:v32 assetManager:v35 interestToken:v59];
 
 LABEL_23:
-  v46 = *MEMORY[0x1E69E9840];
 
   return v36;
 }

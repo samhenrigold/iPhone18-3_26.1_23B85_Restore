@@ -10,7 +10,7 @@
   if (date)
   {
     dateCopy = date;
-    v4 = sub_10003206C();
+    v4 = sub_10003206C(dateCopy);
     v5 = [v4 stringFromDate:dateCopy];
     +[NSDate timeIntervalSinceReferenceDate];
     v7 = v6;
@@ -38,7 +38,7 @@
   else
   {
     v5 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
-    v6 = sub_10003206C();
+    v6 = sub_10003206C(v5);
     v7 = [v6 stringFromDate:v5];
     +[NSDate timeIntervalSinceReferenceDate];
     interval = [NSString stringWithFormat:@"%@ (%.2f seconds ago)", v7, v8 - interval];

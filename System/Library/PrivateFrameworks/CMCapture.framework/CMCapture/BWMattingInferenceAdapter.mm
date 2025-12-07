@@ -221,7 +221,7 @@ id __103__BWMattingInferenceAdapter_inferenceProviderForType_version_configurati
 
 - (id)inferenceProviderForType:(int)type version:(id)version configuration:(id)configuration resourceProvider:(id)provider statusOut:(int *)out
 {
-  var0 = version.var0;
+  v9 = *&version.var0;
   if (version.var0 != 1)
   {
     objc_opt_class();
@@ -242,7 +242,7 @@ LABEL_72:
     }
 
     mainImageDownscalingFactor = [configuration mainImageDownscalingFactor];
-    if (v26 == 0.0 || (v27 = OUTLINED_FUNCTION_3_115(mainImageDownscalingFactor, v24, v25, var0)) == 0)
+    if (v26 == 0.0 || (v27 = OUTLINED_FUNCTION_3_115(mainImageDownscalingFactor, v24, v25, v9 & 0xFFFFFFFFFFFFLL)) == 0)
     {
 LABEL_79:
       v61 = 0;
@@ -570,7 +570,7 @@ LABEL_77:
     goto LABEL_79;
   }
 
-  v16 = OUTLINED_FUNCTION_3_115(mainImageDownscalingFactor2, v13, v14, var0 & 1);
+  v16 = OUTLINED_FUNCTION_3_115(mainImageDownscalingFactor2, v13, v14, v9 & 0xFFFFFFFF0001);
   if (!v16)
   {
     goto LABEL_79;

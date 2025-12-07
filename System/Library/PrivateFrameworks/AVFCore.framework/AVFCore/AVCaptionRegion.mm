@@ -27,7 +27,6 @@
 - (int)_updateExtentPropertiesOfFigCaptionRegionWithPosition:(id)position endPosition:(id)endPosition;
 - (int)_updateFigCaptionRegion;
 - (int)_updatePositionPropertyOfFigCaptionRegionWithPosition:(id)position;
-- (uint64_t)_endPosition;
 - (void)_setDisplayAlignment:(int64_t)alignment;
 - (void)_setHeight:(id)height;
 - (void)_setOrigin:(AVCaptionPoint *)origin;
@@ -906,7 +905,7 @@ LABEL_7:
     objc_exception_throw(v8);
   }
 
-  [(AVCaptionRegion *)alignment _setDisplayAlignment:?];
+  [(AVCaptionRegion *)alignment _setDisplayAlignment:self->_internal->figCaptionRegion];
 }
 
 - (void)_setWritingMode:(int64_t)mode
@@ -941,7 +940,7 @@ LABEL_7:
   return appleiTTTop_region;
 }
 
-uint64_t __30__AVCaptionRegion_appleiTTTop__block_invoke()
+AVCaptionRegion *__30__AVCaptionRegion_appleiTTTop__block_invoke()
 {
   v0 = [AVCaptionRegion alloc];
   result = [(AVCaptionRegion *)v0 initWithIdentifier:*MEMORY[0x1E6961358]];
@@ -959,7 +958,7 @@ uint64_t __30__AVCaptionRegion_appleiTTTop__block_invoke()
   return appleiTTBottom_region;
 }
 
-uint64_t __33__AVCaptionRegion_appleiTTBottom__block_invoke()
+AVCaptionRegion *__33__AVCaptionRegion_appleiTTBottom__block_invoke()
 {
   v0 = [AVCaptionRegion alloc];
   result = [(AVCaptionRegion *)v0 initWithIdentifier:*MEMORY[0x1E6961340]];
@@ -977,7 +976,7 @@ uint64_t __33__AVCaptionRegion_appleiTTBottom__block_invoke()
   return appleiTTLeft_region;
 }
 
-uint64_t __31__AVCaptionRegion_appleiTTLeft__block_invoke()
+AVCaptionRegion *__31__AVCaptionRegion_appleiTTLeft__block_invoke()
 {
   v0 = [AVCaptionRegion alloc];
   result = [(AVCaptionRegion *)v0 initWithIdentifier:*MEMORY[0x1E6961348]];
@@ -995,7 +994,7 @@ uint64_t __31__AVCaptionRegion_appleiTTLeft__block_invoke()
   return appleiTTRight_region;
 }
 
-uint64_t __32__AVCaptionRegion_appleiTTRight__block_invoke()
+AVCaptionRegion *__32__AVCaptionRegion_appleiTTRight__block_invoke()
 {
   v0 = [AVCaptionRegion alloc];
   result = [(AVCaptionRegion *)v0 initWithIdentifier:*MEMORY[0x1E6961350]];
@@ -1013,7 +1012,7 @@ uint64_t __32__AVCaptionRegion_appleiTTRight__block_invoke()
   return subRipTextBottom_region;
 }
 
-uint64_t __35__AVCaptionRegion_subRipTextBottom__block_invoke()
+AVCaptionRegion *__35__AVCaptionRegion_subRipTextBottom__block_invoke()
 {
   v0 = [AVCaptionRegion alloc];
   result = [(AVCaptionRegion *)v0 initWithIdentifier:*MEMORY[0x1E6961360]];
@@ -1228,22 +1227,6 @@ LABEL_9:
   }
 }
 
-- (uint64_t)_endPosition
-{
-  OUTLINED_FUNCTION_12();
-  v4 = [AVCaptionPosition alloc];
-  [v1 relativeToEnclosingRegionX];
-  v6 = v3 / 100.0 + v5;
-  [v1 relativeToEnclosingRegionY];
-  v8 = v2 / 100.0;
-  v9 = v2 / 100.0 + v7;
-  *&v8 = v9;
-  *&v9 = v6;
-  result = [(AVCaptionPosition *)v4 initWithRelativeToEnclosingRegionX:v9 andY:v8];
-  *v0 = result;
-  return result;
-}
-
 - (AVCaptionPosition)_endPosition
 {
   OUTLINED_FUNCTION_12();
@@ -1275,27 +1258,31 @@ LABEL_9:
   v3 = v2;
   v5 = v4;
   [v4 relativeToEnclosingRegionX];
+  v7 = v6;
   [v3 relativeToEnclosingRegionX];
+  v9 = v7 - v8;
   [v5 relativeToEnclosingRegionY];
+  v11 = v10;
   [v3 relativeToEnclosingRegionY];
-  *v1 = OUTLINED_FUNCTION_10();
-  v1[1] = v6;
-  result = OUTLINED_FUNCTION_10();
+  v13 = v11 - v12;
+  *v1 = OUTLINED_FUNCTION_10((v9 * 100.0));
+  v1[1] = v14;
+  result = OUTLINED_FUNCTION_10((v13 * 100.0));
   *v0 = result;
-  v0[1] = v8;
+  v0[1] = v16;
   return result;
 }
 
-- (void)_setDisplayAlignment:(uint64_t)a1 .cold.1(uint64_t a1, CFTypeRef *a2)
+- (void)_setDisplayAlignment:(uint64_t)a3 .cold.1(uint64_t a1, CFTypeRef *a2, uint64_t a3)
 {
-  v3 = **(&unk_1E74622D0 + a1);
+  v4 = **(&unk_1E74622D0 + a1);
   if (!FigCaptionDynamicStyleCreate())
   {
     FigCaptionRegionGetCMBaseObject();
     if (*(*(CMBaseObjectGetVTable() + 8) + 56))
     {
-      v4 = OUTLINED_FUNCTION_2_1();
-      v5(v4);
+      v5 = OUTLINED_FUNCTION_2_1();
+      v6(v5);
     }
   }
 
@@ -1304,9 +1291,9 @@ LABEL_9:
     CFRelease(*a2);
   }
 
-  if (v3)
+  if (v4)
   {
-    CFRelease(v3);
+    CFRelease(v4);
   }
 }
 

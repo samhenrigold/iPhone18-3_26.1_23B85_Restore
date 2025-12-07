@@ -193,15 +193,16 @@ void __46__VUIJSFoundation__startTimer_time_repeating___block_invoke(uint64_t a1
 {
   timerCopy = timer;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [timerCopy length])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) != 0 && (isKindOfClass = [timerCopy length]) != 0)
   {
     jsTimers = [(VUIJSFoundation *)self jsTimers];
-    v6 = [jsTimers objectForKey:timerCopy];
+    v7 = [jsTimers objectForKey:timerCopy];
 
-    if (v6)
+    if (v7)
     {
-      timer = [v6 timer];
-      [v6 removeManagedReferences];
+      timer = [v7 timer];
+      [v7 removeManagedReferences];
       jsTimers2 = [(VUIJSFoundation *)self jsTimers];
       [jsTimers2 removeObjectForKey:timerCopy];
 
@@ -209,18 +210,18 @@ void __46__VUIJSFoundation__startTimer_time_repeating___block_invoke(uint64_t a1
       block[1] = 3221225472;
       block[2] = __31__VUIJSFoundation__clearTimer___block_invoke;
       block[3] = &unk_1E872D768;
-      v11 = timer;
-      v9 = timer;
+      v12 = timer;
+      v10 = timer;
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
   }
 
   else
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = VUIDefaultLogObject(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(VUIJSFoundation *)timerCopy _clearTimer:v6];
+      [(VUIJSFoundation *)timerCopy _clearTimer:v7];
     }
   }
 }

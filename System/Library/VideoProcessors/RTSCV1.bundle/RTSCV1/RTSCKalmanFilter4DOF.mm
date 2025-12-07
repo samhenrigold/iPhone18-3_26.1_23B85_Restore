@@ -1,12 +1,11 @@
 @interface RTSCKalmanFilter4DOF
 - (RTSCKalmanFilter4DOF)init;
+- (_BYTE)updateWithVelocity:(_BYTE *)result noiseCovariance:;
 - (_OWORD)_updateInternalForIndex:(float32x4_t)index withMeasurement:(float32x4_t)measurement noiseCovariance:(float32x4_t)covariance;
-- (__n128)positionCovariance;
+- (__n128)updateWithPosition:(__n128)position noiseCovariance:(__n128)covariance;
 - (void)_updateStateTransitionModelWithTimeStep:(float)step;
 - (void)predictTimeStep:(float)step input:(id)input[3] processCovariance:;
 - (void)reset;
-- (void)updateWithPosition:(__n128)position noiseCovariance:(__n128)covariance;
-- (void)updateWithVelocity:(void *)velocity noiseCovariance:(const char *)covariance;
 @end
 
 @implementation RTSCKalmanFilter4DOF
@@ -221,30 +220,30 @@
   }
 }
 
-- (void)updateWithPosition:(__n128)position noiseCovariance:(__n128)covariance
+- (__n128)updateWithPosition:(__n128)position noiseCovariance:(__n128)covariance
 {
-  if (*(self + 676) == 1)
+  if (result[42].n128_u8[4] == 1)
   {
-    return [self _updateInternalForIndex:0 withMeasurement:? noiseCovariance:?];
+    return [(__n128 *)result _updateInternalForIndex:0 withMeasurement:a2.n128_f64[0] noiseCovariance:position.n128_f64[0], covariance.n128_f64[0], a5.n128_f64[0], a6.n128_f64[0]];
   }
 
-  *(self + 1) = position;
-  *(self + 4) = covariance;
-  *(self + 5) = a5;
-  *(self + 6) = a6;
-  *(self + 7) = a7;
-  *(self + 676) = 1;
-  return self;
+  result[1] = a2;
+  result[4] = position;
+  result[5] = covariance;
+  result[6] = a5;
+  result[7] = a6;
+  result[42].n128_u8[4] = 1;
+  return result;
 }
 
-- (void)updateWithVelocity:(void *)velocity noiseCovariance:(const char *)covariance
+- (_BYTE)updateWithVelocity:(_BYTE *)result noiseCovariance:
 {
-  if (*(velocity + 676) == 1)
+  if (result[676] == 1)
   {
-    return [velocity _updateInternalForIndex:1 withMeasurement:? noiseCovariance:?];
+    return [result _updateInternalForIndex:1 withMeasurement:? noiseCovariance:?];
   }
 
-  return velocity;
+  return result;
 }
 
 - (_OWORD)_updateInternalForIndex:(float32x4_t)index withMeasurement:(float32x4_t)measurement noiseCovariance:(float32x4_t)covariance
@@ -402,15 +401,6 @@
     }
   }
 
-  return result;
-}
-
-- (__n128)positionCovariance
-{
-  result = *(self + 64);
-  v2 = *(self + 80);
-  v3 = *(self + 96);
-  v4 = *(self + 112);
   return result;
 }
 

@@ -141,11 +141,11 @@ LABEL_6:
 
 - (id)buildPayload
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11 = @"State";
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = @"State";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsDTO state](self, "state")}];
-  v12[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v5 = [v4 mutableCopy];
 
   if ([(LAAnalyticsDTO *)self _isRatchetArmingEvaluation])
@@ -165,8 +165,6 @@ LABEL_6:
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsDTO policyResult](self, "policyResult")}];
     [v5 setObject:v8 forKey:@"PolicyResult"];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -254,28 +252,28 @@ LABEL_6:
   if (persistentStatusCheckTime)
   {
     v4 = [MEMORY[0x277CCA968] localizedStringFromDate:persistentStatusCheckTime dateStyle:1 timeStyle:2];
-    [persistentStatusCheckTime timeIntervalSinceNow];
-    if (v5 >= 0.0)
+    timeIntervalSinceNow = [persistentStatusCheckTime timeIntervalSinceNow];
+    if (v6 >= 0.0)
     {
-      v7 = v5;
-      v8 = LA_LOG_3();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v8 = v6;
+      v9 = LA_LOG_3(timeIntervalSinceNow);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
         v14 = v4;
         v15 = 2048;
-        v16 = v7;
-        _os_log_impl(&dword_238B7F000, v8, OS_LOG_TYPE_DEFAULT, "Scheduling status check at %{public}@ (%.0f seconds from now)", buf, 0x16u);
+        v16 = v8;
+        _os_log_impl(&dword_238B7F000, v9, OS_LOG_TYPE_DEFAULT, "Scheduling status check at %{public}@ (%.0f seconds from now)", buf, 0x16u);
       }
 
       objc_initWeak(buf, self);
-      v9 = +[DaemonUtils queue];
+      v10 = +[DaemonUtils queue];
       v11[0] = MEMORY[0x277D85DD0];
       v11[1] = 3221225472;
       v11[2] = __40__LAAnalyticsDTO__setupStatusMonitoring__block_invoke;
       v11[3] = &unk_278A61560;
       objc_copyWeak(&v12, buf);
-      [DaemonUtils dispatchReallyAfter:(v7 * 1000000000.0) tolerance:v9 queue:v11 block:0.0];
+      [DaemonUtils dispatchReallyAfter:(v8 * 1000000000.0) tolerance:v10 queue:v11 block:0.0];
 
       objc_destroyWeak(&v12);
       objc_destroyWeak(buf);
@@ -283,8 +281,8 @@ LABEL_6:
 
     else
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"past scheduled check time: %@", v4];
-      [(LAAnalyticsDTO *)self _checkStatusWithReason:v6];
+      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"past scheduled check time: %@", v4];
+      [(LAAnalyticsDTO *)self _checkStatusWithReason:v7];
     }
   }
 
@@ -292,8 +290,6 @@ LABEL_6:
   {
     [(LAAnalyticsDTO *)self _checkStatusWithReason:@"no scheduled check time"];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __40__LAAnalyticsDTO__setupStatusMonitoring__block_invoke(uint64_t a1)
@@ -338,34 +334,32 @@ void __40__LAAnalyticsDTO__setupStatusMonitoring__block_invoke(uint64_t a1)
 
 - (void)_checkStatusWithReason:(id)reason
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v5 = LA_LOG_3();
+  v5 = LA_LOG_3(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = reasonCopy;
+    v12 = reasonCopy;
     _os_log_impl(&dword_238B7F000, v5, OS_LOG_TYPE_DEFAULT, "Checking status now (%{public}@)", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   environmentProvider = self->_environmentProvider;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke;
-  v10[3] = &unk_278A61628;
-  objc_copyWeak(&v11, buf);
-  [(LACDTOEnvironmentProviding *)environmentProvider fetchEnvironmentForPolicy:1026 options:MEMORY[0x277CBEC10] completion:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke;
+  v9[3] = &unk_278A61628;
+  objc_copyWeak(&v10, buf);
+  [(LACDTOEnvironmentProviding *)environmentProvider fetchEnvironmentForPolicy:1026 options:MEMORY[0x277CBEC10] completion:v9];
   v7 = [MEMORY[0x277CBEAA8] now];
   [(LAAnalyticsDTO *)self _monitoringInterval];
   v8 = [v7 dateByAddingTimeInterval:?];
   [(LAAnalyticsDTO *)self setPersistentStatusCheckTime:v8];
 
   [(LAAnalyticsDTO *)self _setupStatusMonitoring];
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -375,7 +369,7 @@ void __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke(uint64_t a1, voi
   v7 = v6;
   if (!v5 || v6)
   {
-    WeakRetained = LA_LOG_3();
+    WeakRetained = LA_LOG_3(v6);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
       __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke_cold_1(v7, WeakRetained);
@@ -402,51 +396,38 @@ id __37__LAAnalyticsDTO__monitoringInterval__block_invoke(uint64_t a1, void *a2,
 {
   v4 = a2;
   v5 = a3;
-  v6 = *MEMORY[0x277D23F20];
   if (os_variant_allows_internal_security_policies())
   {
-    v7 = [MEMORY[0x277CCAC38] processInfo];
-    v8 = [v7 environment];
-    v9 = [v8 objectForKeyedSubscript:v4];
+    v6 = [MEMORY[0x277CCAC38] processInfo];
+    v7 = [v6 environment];
+    v8 = [v7 objectForKeyedSubscript:v4];
 
-    if (!v9)
+    if (!v8 || (v9 = objc_alloc_init(MEMORY[0x277CCABB8]), [MEMORY[0x277CCAC38] processInfo], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "environment"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKeyedSubscript:", v4), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "numberFromString:", v12), v13 = objc_claimAutoreleasedReturnValue(), v12, v11, v10, v9, !v13))
     {
-      goto LABEL_4;
-    }
+      v14 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+      v15 = [v14 persistentDomainForName:*MEMORY[0x277CCA208]];
 
-    v10 = objc_alloc_init(MEMORY[0x277CCABB8]);
-    v11 = [MEMORY[0x277CCAC38] processInfo];
-    v12 = [v11 environment];
-    v13 = [v12 objectForKeyedSubscript:v4];
-    v14 = [v10 numberFromString:v13];
-
-    if (!v14)
-    {
-LABEL_4:
-      v15 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      v16 = [v15 persistentDomainForName:*MEMORY[0x277CCA208]];
-
-      v17 = [v16 objectForKeyedSubscript:v4];
-      if (v17 && (v18 = v17, [v16 objectForKeyedSubscript:v4], v19 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v19, v18, (isKindOfClass & 1) != 0))
+      v16 = [v15 objectForKeyedSubscript:v4];
+      if (v16 && (v17 = v16, [v15 objectForKeyedSubscript:v4], v18 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v18, v17, (isKindOfClass & 1) != 0))
       {
-        v21 = [v16 objectForKeyedSubscript:v4];
+        v20 = [v15 objectForKeyedSubscript:v4];
       }
 
       else
       {
-        v21 = v5;
+        v20 = v5;
       }
 
-      v14 = v21;
+      v13 = v20;
     }
   }
 
   else
   {
-    v14 = v5;
+    v13 = v5;
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)_checkStatusWithEnvironment:(id)environment
@@ -579,19 +560,19 @@ LABEL_4:
 
 - (int64_t)coolDownBucket
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _coolDownTimeInterval = [(LAAnalyticsDTO *)self _coolDownTimeInterval];
   v3 = _coolDownTimeInterval;
   if (_coolDownTimeInterval)
   {
     v4 = 0;
     v5 = [_coolDownTimeInterval intValue] / 60;
-    v8[0] = xmmword_238B8D8F0;
-    v8[1] = xmmword_238B8D900;
-    v9 = 360;
+    v7[0] = xmmword_238B8D8F0;
+    v7[1] = xmmword_238B8D900;
+    v8 = 360;
     do
     {
-      if (*(v8 + v4) > v5)
+      if (*(v7 + v4) > v5)
       {
         break;
       }
@@ -607,7 +588,6 @@ LABEL_4:
     v4 = -1;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -663,7 +643,7 @@ LABEL_4:
 
 - (int64_t)_dtoResultFromLAResult:(id)result error:(id)error locationState:(int64_t)state
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   v10 = errorCopy;
@@ -717,86 +697,72 @@ LABEL_4:
         v21 = 3;
       }
 
-      else
+      else if (resultCopy && (-[LAAnalyticsDTO request](self, "request"), v32 = objc_claimAutoreleasedReturnValue(), [v32 options], v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "objectForKeyedSubscript:", &unk_284B71D80), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "BOOLValue"), v34, v33, v32, v35))
       {
-        if (!resultCopy)
+        if (!v14 && ![(LAAnalyticsDTO *)self state])
         {
-          goto LABEL_46;
-        }
+          request2 = [(LAAnalyticsDTO *)self request];
+          v37 = [request2 log];
 
-        request2 = [(LAAnalyticsDTO *)self request];
-        options = [request2 options];
-        v34 = [options objectForKeyedSubscript:&unk_284B71D80];
-        bOOLValue3 = [v34 BOOLValue];
-
-        if (bOOLValue3)
-        {
-          if (!v14 && ![(LAAnalyticsDTO *)self state])
-          {
-            request3 = [(LAAnalyticsDTO *)self request];
-            v37 = [request3 log];
-
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
-            {
-              [LAAnalyticsDTO _dtoResultFromLAResult:? error:? locationState:?];
-            }
-          }
-
-          selfCopy9 = self;
-          stateCopy9 = state;
-          v19 = 4;
-          v20 = 26;
-          v21 = 5;
-        }
-
-        else
-        {
-LABEL_46:
-          request4 = [(LAAnalyticsDTO *)self request];
-          v39 = [request4 log];
-
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
           {
             [LAAnalyticsDTO _dtoResultFromLAResult:? error:? locationState:?];
           }
-
-          selfCopy9 = self;
-          stateCopy9 = state;
-          v19 = 6;
-          v20 = 27;
-          v21 = 7;
         }
+
+        selfCopy9 = self;
+        stateCopy9 = state;
+        v19 = 4;
+        v20 = 26;
+        v21 = 5;
+      }
+
+      else
+      {
+        request3 = [(LAAnalyticsDTO *)self request];
+        v39 = [request3 log];
+
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+        {
+          [LAAnalyticsDTO _dtoResultFromLAResult:? error:? locationState:?];
+        }
+
+        selfCopy9 = self;
+        stateCopy9 = state;
+        v19 = 6;
+        v20 = 27;
+        v21 = 7;
       }
     }
 
     goto LABEL_58;
   }
 
-  request5 = [(LAAnalyticsDTO *)self request];
-  v16 = [request5 log];
+  request4 = [(LAAnalyticsDTO *)self request];
+  v16 = [request4 log];
 
   if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
+    request5 = [(LAAnalyticsDTO *)self request];
+    dtoRequestIdentifier = [request5 dtoRequestIdentifier];
     request6 = [(LAAnalyticsDTO *)self request];
-    dtoRequestIdentifier = [request6 dtoRequestIdentifier];
+    policy = [request6 policy];
     request7 = [(LAAnalyticsDTO *)self request];
-    policy = [request7 policy];
+    options = [request7 options];
     request8 = [(LAAnalyticsDTO *)self request];
-    options2 = [request8 options];
-    request9 = [(LAAnalyticsDTO *)self request];
-    [request9 dtoEnvironment];
+    [request8 dtoEnvironment];
     *buf = 138544642;
-    v53 = dtoRequestIdentifier;
-    v54 = 1024;
-    v55 = policy;
-    v56 = 2114;
-    v57 = options2;
-    v59 = v58 = 2114;
-    v41 = v59;
-    v60 = 2114;
-    v61 = resultCopy;
-    v62 = 2114;
-    v63 = v10;
+    v52 = dtoRequestIdentifier;
+    v53 = 1024;
+    v54 = policy;
+    v55 = 2114;
+    v56 = options;
+    v58 = v57 = 2114;
+    v41 = v58;
+    v59 = 2114;
+    v60 = resultCopy;
+    v61 = 2114;
+    v62 = v10;
     _os_log_fault_impl(&dword_238B7F000, v16, OS_LOG_TYPE_FAULT, "Both result and error were set by client %{public}@ for policy %d with options %{public}@ in DTO environment %{public}@: %{public}@, %{public}@", buf, 0x3Au);
   }
 
@@ -860,8 +826,8 @@ LABEL_58:
     {
       if ([MEMORY[0x277CD47F0] error:v10 hasCode:-1001])
       {
-        request10 = [(LAAnalyticsDTO *)self request];
-        v43 = [request10 log];
+        request9 = [(LAAnalyticsDTO *)self request];
+        v43 = [request9 log];
 
         if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
         {
@@ -908,7 +874,6 @@ LABEL_20:
 
 LABEL_59:
 
-  v44 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -939,25 +904,22 @@ LABEL_59:
 
 - (void)initWithEvaluationRequest:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_238B7F000, a2, OS_LOG_TYPE_FAULT, "%{public}@ is missing LACDTOService dependency", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_238B7F000, a2, OS_LOG_TYPE_FAULT, "%{public}@ is missing LACDTOService dependency", &v2, 0xCu);
 }
 
 void __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_238B7F000, a2, OS_LOG_TYPE_ERROR, "Failed to query the environment: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_238B7F000, a2, OS_LOG_TYPE_ERROR, "Failed to query the environment: %{public}@", &v2, 0xCu);
 }
 
 - (void)_dtoResultFromLAResult:(void *)a1 error:locationState:.cold.1(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v2 = [a1 request];
   v3 = [v2 dtoRequestIdentifier];
   v4 = [a1 request];
@@ -970,13 +932,10 @@ void __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke_cold_1(uint64_t 
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   _os_log_fault_impl(v9, v10, v11, v12, v13, 0x26u);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dtoResultFromLAResult:(void *)a1 error:locationState:.cold.2(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v2 = [a1 request];
   v3 = [v2 dtoRequestIdentifier];
   v4 = [a1 request];
@@ -989,13 +948,10 @@ void __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke_cold_1(uint64_t 
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_fault_impl(v9, v10, v11, v12, v13, 0x30u);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dtoResultFromLAResult:(void *)a1 error:locationState:.cold.3(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v2 = [a1 request];
   v3 = [v2 dtoRequestIdentifier];
   v4 = [a1 request];
@@ -1008,13 +964,10 @@ void __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke_cold_1(uint64_t 
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_fault_impl(v9, v10, v11, v12, v13, 0x30u);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dtoResultFromLAResult:(void *)a1 error:locationState:.cold.4(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v2 = [a1 request];
   v3 = [v2 dtoRequestIdentifier];
   v4 = [a1 request];
@@ -1027,8 +980,6 @@ void __41__LAAnalyticsDTO__checkStatusWithReason___block_invoke_cold_1(uint64_t 
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   _os_log_fault_impl(v9, v10, v11, v12, v13, 0x26u);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

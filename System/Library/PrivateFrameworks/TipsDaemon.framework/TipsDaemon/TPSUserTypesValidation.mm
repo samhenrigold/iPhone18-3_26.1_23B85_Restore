@@ -59,7 +59,7 @@
 
 - (void)validateWithCompletion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   targetUserTypes = [(TPSUserTypesValidation *)self targetUserTypes];
   if ([targetUserTypes count])
@@ -99,23 +99,23 @@ LABEL_4:
     targeting = [MEMORY[0x277D71778] targeting];
     if (os_log_type_enabled(targeting, OS_LOG_TYPE_DEBUG))
     {
-      v20 = objc_opt_class();
-      v21 = v20;
+      v19 = objc_opt_class();
+      v20 = v19;
       targetUserTypes4 = [(TPSUserTypesValidation *)self targetUserTypes];
-      v23 = [targetUserTypes4 componentsJoinedByString:{@", "}];
+      v22 = [targetUserTypes4 componentsJoinedByString:{@", "}];
       excludeUserTypes2 = [(TPSUserTypesValidation *)self excludeUserTypes];
-      v25 = [excludeUserTypes2 componentsJoinedByString:{@", "}];
-      v26 = 138413314;
-      v27 = v20;
-      v28 = 2112;
-      v29 = lowercaseString;
-      v30 = 2112;
-      v31 = v23;
-      v32 = 2112;
-      v33 = v25;
-      v34 = 1024;
-      v35 = v17;
-      _os_log_debug_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEBUG, "%@ - checking user type: %@, target user types: %@, exclude user types: %@. Valid: %d", &v26, 0x30u);
+      v24 = [excludeUserTypes2 componentsJoinedByString:{@", "}];
+      v25 = 138413314;
+      v26 = v19;
+      v27 = 2112;
+      v28 = lowercaseString;
+      v29 = 2112;
+      v30 = v22;
+      v31 = 2112;
+      v32 = v24;
+      v33 = 1024;
+      v34 = v17;
+      _os_log_debug_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEBUG, "%@ - checking user type: %@, target user types: %@, exclude user types: %@. Valid: %d", &v25, 0x30u);
     }
 
     goto LABEL_13;
@@ -139,18 +139,15 @@ LABEL_4:
 LABEL_13:
 
   completionCopy[2](completionCopy, v17, 0);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "%@ - neither target nor exclude user type(s) is specified.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "%@ - neither target nor exclude user type(s) is specified.", &v4, 0xCu);
 }
 
 @end

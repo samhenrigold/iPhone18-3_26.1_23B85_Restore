@@ -33,14 +33,14 @@
 
 - (EARPSRAudioProcessor)initWithConfigFile:(id)file configRoot:(id)root sampleRate:(unint64_t)rate delegate:(id)delegate queue:(id)queue
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   rootCopy = root;
   delegateCopy = delegate;
   queueCopy = queue;
-  v31.receiver = self;
-  v31.super_class = EARPSRAudioProcessor;
-  v16 = [(EARPSRAudioProcessor *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = EARPSRAudioProcessor;
+  v16 = [(EARPSRAudioProcessor *)&v32 init];
   v17 = v16;
   if (!v16)
   {
@@ -59,43 +59,44 @@
   {
     if (fileCopy)
     {
-      [fileCopy ear_toString];
+      objc_msgSend_ear_toString(fileCopy);
     }
 
     else
     {
       __p = 0uLL;
-      v34 = 0;
+      v35 = 0;
     }
 
-    memset(v30, 0, sizeof(v30));
-    memset(v28, 0, sizeof(v28));
-    v29 = 1065353216;
-    JsonFile = quasar::SystemConfig::readJsonFile(&v17->_sysConfig, &__p, v30, v28, 0, 0);
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v28);
-    v32 = v30;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v32);
-    if (SHIBYTE(v34) < 0)
+    memset(v31, 0, sizeof(v31));
+    memset(v29, 0, sizeof(v29));
+    v30 = 1065353216;
+    quasar::SystemConfig::readJsonFile(&v17->_sysConfig, &__p, v31, v29, 0, 0);
+    v25 = v24;
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v29);
+    v33 = v31;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v33);
+    if (SHIBYTE(v35) < 0)
     {
       operator delete(__p);
     }
 
-    HIBYTE(v34) = 3;
+    HIBYTE(v35) = 3;
     LODWORD(__p) = 7500656;
     quasar::SystemConfig::enforceMinVersion(&v17->_sysConfig, 62, 0, &__p);
-    if (SHIBYTE(v34) < 0)
+    if (SHIBYTE(v35) < 0)
     {
       operator delete(__p);
     }
 
-    if (JsonFile == 2)
+    if (v25 == 2)
     {
-      v25 = earPSRLog;
+      v26 = earPSRLog;
       if (os_log_type_enabled(earPSRLog, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(__p) = 0;
         v21 = "PSR: ERR: AudioProcessorPipeline created with incorrect version";
-        v22 = v25;
+        v22 = v26;
         v23 = 2;
         goto LABEL_15;
       }
@@ -104,7 +105,7 @@
     }
 
 LABEL_17:
-    v26 = v17;
+    v27 = v17;
     goto LABEL_18;
   }
 
@@ -121,10 +122,10 @@ LABEL_15:
   }
 
 LABEL_16:
-  v26 = 0;
+  v27 = 0;
 LABEL_18:
 
-  return v26;
+  return v27;
 }
 
 - (void)addAudio:(id)audio
@@ -163,7 +164,7 @@ LABEL_18:
   configRoot = self->_configRoot;
   if (configRoot)
   {
-    [(NSString *)configRoot ear_toString];
+    objc_msgSend_ear_toString(configRoot);
   }
 
   else

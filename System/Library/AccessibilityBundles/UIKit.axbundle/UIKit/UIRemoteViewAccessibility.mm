@@ -12,9 +12,9 @@ double __75___UIRemoteViewAccessibility__accessibilityRemoteElementCommunication
   return result;
 }
 
-void __83___UIRemoteViewAccessibility__accessibilityTransmitRemoteUUIDToPid_machPort_value___block_invoke(uint64_t a1)
+void __83___UIRemoteViewAccessibility__accessibilityTransmitRemoteUUIDToPid_machPort_value___block_invoke(uint64_t a1, __n128 a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   oslog[2] = a1;
   oslog[1] = a1;
   if (*(a1 + 48))
@@ -23,8 +23,8 @@ void __83___UIRemoteViewAccessibility__accessibilityTransmitRemoteUUIDToPid_mach
     type = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_4_8_64_4_0_8_0_8_64(v6, *(a1 + 32), *(a1 + 52), *(a1 + 48), *(a1 + 40));
-      _os_log_error_impl(&dword_29C4D6000, oslog[0], type, "%@: error connecting to remote view(pid: %d): %ld : (remote app %@)", v6, 0x26u);
+      __os_log_helper_16_2_4_8_64_4_0_8_0_8_64(v7, *(a1 + 32), *(a1 + 52), *(a1 + 48), *(a1 + 40));
+      _os_log_error_impl(&dword_29C4D6000, oslog[0], type, "%@: error connecting to remote view(pid: %d): %ld : (remote app %@)", v7, 0x26u);
     }
 
     objc_storeStrong(oslog, 0);
@@ -33,14 +33,14 @@ void __83___UIRemoteViewAccessibility__accessibilityTransmitRemoteUUIDToPid_mach
 
   else
   {
-    v2 = AXLogRemoteElement();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = AXLogRemoteElement();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_2_4_8_64_4_0_8_0_8_64(v5, *(a1 + 32), *(a1 + 52), *(a1 + 48), *(a1 + 40));
-      _os_log_impl(&dword_29C4D6000, v2, OS_LOG_TYPE_INFO, "%@: successfully transmitted to remote view(pid: %d): %ld : (remote app %@)", v5, 0x26u);
+      __os_log_helper_16_2_4_8_64_4_0_8_0_8_64(v6, *(a1 + 32), *(a1 + 52), *(a1 + 48), *(a1 + 40));
+      _os_log_impl(&dword_29C4D6000, v3, OS_LOG_TYPE_INFO, "%@: successfully transmitted to remote view(pid: %d): %ld : (remote app %@)", v6, 0x26u);
     }
 
-    objc_storeStrong(&v2, 0);
+    objc_storeStrong(&v3, 0);
   }
 
   CFRelease(*(a1 + 40));
@@ -55,7 +55,7 @@ double __64___UIRemoteViewAccessibility__accessibilityUnregisterRemoteView__bloc
   return result;
 }
 
-void __64___UIRemoteViewAccessibility__accessibilityUnregisterRemoteView__block_invoke_2()
+void __64___UIRemoteViewAccessibility__accessibilityUnregisterRemoteView__block_invoke_2(uint64_t a1, __n128 a2)
 {
   element = _AXUIElementCreateAppElementWithPid();
   AXUIElementSetMessagingTimeout(element, 0.5);

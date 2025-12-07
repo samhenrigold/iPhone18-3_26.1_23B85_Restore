@@ -196,7 +196,7 @@ LABEL_10:
   if (self->_fileLength > 0x2F)
   {
     filePointer = self->_filePointer;
-    v5 = (filePointer + 32);
+    v5 = filePointer + 32;
     if (*(filePointer + 4) == 0x42415446534F4B52 || *v5 == 0x62617466736F6B72)
     {
       v6 = [NSData dataWithBytes:v5 length:8];
@@ -258,7 +258,7 @@ LABEL_10:
           v2 = os_log_create("com.apple.accessoryupdater.ftab", "parsing");
           if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
           {
-            sub_100050F58(v15);
+            sub_100050F58();
           }
 
           goto LABEL_26;
@@ -289,7 +289,7 @@ LABEL_10:
       v2 = os_log_create("com.apple.accessoryupdater.ftab", "parsing");
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        sub_100050CE8(v5, filePointer);
+        sub_100050CE8();
       }
     }
   }
@@ -602,9 +602,7 @@ LABEL_15:
   fileHandleWriteDestination = self->_fileHandleWriteDestination;
   self->_fileHandleWriteDestination = 0;
 
-  v4 = +[NSMutableData data];
-  dataWriteDestination = self->_dataWriteDestination;
-  self->_dataWriteDestination = v4;
+  self->_dataWriteDestination = +[NSMutableData data];
 
   _objc_release_x1();
 }

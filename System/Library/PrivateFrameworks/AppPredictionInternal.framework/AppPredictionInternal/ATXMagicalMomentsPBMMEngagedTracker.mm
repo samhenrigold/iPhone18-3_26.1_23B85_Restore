@@ -1,5 +1,6 @@
 @interface ATXMagicalMomentsPBMMEngagedTracker
 - (BOOL)isEqual:(id)equal;
+- (id)anchorAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)anchorAsString:(int)string
+{
+  if (string >= 0x13)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859F0A8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAnchor:(id)anchor
@@ -187,30 +203,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    anchor = self->_anchor;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_bundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_consumerSubType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -276,7 +291,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_anchor != *(equalCopy + 4))
@@ -288,7 +302,7 @@
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -310,17 +324,17 @@ LABEL_13:
   consumerSubType = self->_consumerSubType;
   if (consumerSubType | *(equalCopy + 4))
   {
-    v9 = [(NSString *)consumerSubType isEqual:?];
+    v8 = [(NSString *)consumerSubType isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

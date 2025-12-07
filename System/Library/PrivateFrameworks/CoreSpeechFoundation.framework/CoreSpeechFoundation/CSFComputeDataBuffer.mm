@@ -11,7 +11,7 @@
 
 - (id)_allocateDataWithTensorProperties:(id)properties error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   v7 = [(CSFComputeDataBuffer *)self _getTensorSizeWithProperties:propertiesCopy];
   self->_elementSize = v7;
@@ -25,19 +25,17 @@
     if (error)
     {
       v9 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v16 = *MEMORY[0x1E696A578];
+      v15 = *MEMORY[0x1E696A578];
       v10 = MEMORY[0x1E696AEC0];
       v11 = [(CSFTensorProperties *)self->_tensorProperties description];
       v12 = [v10 stringWithFormat:@"cannot get element size with property: %@", v11];
-      v17[0] = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v16[0] = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       *error = [v9 initWithDomain:@"com.apple.corespeech" code:2458 userInfo:v13];
     }
 
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -94,7 +92,7 @@
 
 - (id)convertDataToArray
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   p_tensorProperties = &self->_tensorProperties;
   shape = [(CSFTensorProperties *)self->_tensorProperties shape];
   dataType = [(CSFTensorProperties *)*p_tensorProperties dataType];
@@ -104,8 +102,8 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v37 = "[CSFComputeDataBuffer convertDataToArray]";
-      v19 = "%s rank > 2 or == 0 is not supported";
+      v36 = "[CSFComputeDataBuffer convertDataToArray]";
+      v18 = "%s rank > 2 or == 0 is not supported";
       goto LABEL_36;
     }
 
@@ -120,10 +118,10 @@ LABEL_13:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v37 = "[CSFComputeDataBuffer convertDataToArray]";
-      v19 = "%s data is empty, Cannot convert ComputeData buffer to NSArray";
+      v36 = "[CSFComputeDataBuffer convertDataToArray]";
+      v18 = "%s data is empty, Cannot convert ComputeData buffer to NSArray";
 LABEL_36:
-      _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, v19, buf, 0xCu);
+      _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
       goto LABEL_13;
     }
 
@@ -149,16 +147,16 @@ LABEL_36:
       elementSize = self->_elementSize;
       if (i >= elementSize)
       {
-        v32 = CSLogContextFacilityCoreSpeech;
+        v31 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v37 = "[CSFComputeDataBuffer convertDataToArray]";
-          v38 = 2048;
-          v39 = i;
-          v40 = 2048;
-          v41 = elementSize;
-          _os_log_error_impl(&dword_1DDA4B000, v32, OS_LOG_TYPE_ERROR, "%s index: %lu out of bound: %lu", buf, 0x20u);
+          v36 = "[CSFComputeDataBuffer convertDataToArray]";
+          v37 = 2048;
+          v38 = i;
+          v39 = 2048;
+          v40 = elementSize;
+          _os_log_error_impl(&dword_1DDA4B000, v31, OS_LOG_TYPE_ERROR, "%s index: %lu out of bound: %lu", buf, 0x20u);
         }
 
         v16 = 0;
@@ -182,91 +180,90 @@ LABEL_36:
 
   else
   {
-    v33 = v7;
-    v34 = 0;
-    v20 = 0;
+    v32 = v7;
+    v33 = 0;
+    v19 = 0;
 LABEL_20:
     firstObject2 = [shape firstObject];
     unsignedLongValue2 = [firstObject2 unsignedLongValue];
 
-    if (v34 < unsignedLongValue2)
+    if (v33 < unsignedLongValue2)
     {
-      v23 = objc_alloc_init(*(v6 + 3952));
+      v22 = objc_alloc_init(*(v6 + 3952));
       for (j = 0; ; ++j)
       {
-        v25 = [shape objectAtIndexedSubscript:1];
-        unsignedLongValue3 = [v25 unsignedLongValue];
+        v24 = [shape objectAtIndexedSubscript:1];
+        unsignedLongValue3 = [v24 unsignedLongValue];
 
         if (j >= unsignedLongValue3)
         {
-          v30 = [v23 copy];
-          [v33 addObject:v30];
+          v29 = [v22 copy];
+          [v32 addObject:v29];
           v6 = 0x1E695D000;
 
-          ++v34;
+          ++v33;
           goto LABEL_20;
         }
 
-        v28 = self->_elementSize;
-        if (v20 >= v28)
+        v27 = self->_elementSize;
+        if (v19 >= v27)
         {
           break;
         }
 
         if (dataType)
         {
-          LODWORD(v27) = bytes[v20];
-          [MEMORY[0x1E696AD98] numberWithFloat:v27];
+          LODWORD(v26) = bytes[v19];
+          [MEMORY[0x1E696AD98] numberWithFloat:v26];
         }
 
         else
         {
-          [MEMORY[0x1E696AD98] numberWithInt:bytes2[v20]];
+          [MEMORY[0x1E696AD98] numberWithInt:bytes2[v19]];
         }
-        v29 = ;
-        [v23 addObject:v29];
+        v28 = ;
+        [v22 addObject:v28];
 
-        ++v20;
+        ++v19;
       }
 
-      v31 = CSLogContextFacilityCoreSpeech;
+      v30 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v37 = "[CSFComputeDataBuffer convertDataToArray]";
-        v38 = 2048;
-        v39 = v20;
-        v40 = 2048;
-        v41 = v28;
-        _os_log_error_impl(&dword_1DDA4B000, v31, OS_LOG_TYPE_ERROR, "%s index: %lu out of bound: %lu", buf, 0x20u);
+        v36 = "[CSFComputeDataBuffer convertDataToArray]";
+        v37 = 2048;
+        v38 = v19;
+        v39 = 2048;
+        v40 = v27;
+        _os_log_error_impl(&dword_1DDA4B000, v30, OS_LOG_TYPE_ERROR, "%s index: %lu out of bound: %lu", buf, 0x20u);
       }
 
       v16 = 0;
-      v7 = v33;
+      v7 = v32;
       goto LABEL_39;
     }
 
-    v7 = v33;
+    v7 = v32;
   }
 
   v16 = v7;
 LABEL_39:
 
 LABEL_14:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (CSFComputeDataBuffer)initWithInputArray:(id)array name:(id)name properties:(id)properties errOut:(id *)out
 {
-  v69[1] = *MEMORY[0x1E69E9840];
+  v68[1] = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   nameCopy = name;
   propertiesCopy = properties;
-  v59.receiver = self;
-  v59.super_class = CSFComputeDataBuffer;
-  v11 = [(CSFComputeDataBuffer *)&v59 init];
+  v58.receiver = self;
+  v58.super_class = CSFComputeDataBuffer;
+  v11 = [(CSFComputeDataBuffer *)&v58 init];
   if (!v11)
   {
     goto LABEL_36;
@@ -277,10 +274,10 @@ LABEL_14:
     if (out)
     {
       v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v68 = *MEMORY[0x1E696A578];
+      v67 = *MEMORY[0x1E696A578];
       arrayCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"initialize with inputArray: %@", arrayCopy];
-      v69[0] = arrayCopy;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:&v68 count:1];
+      v68[0] = arrayCopy;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:&v67 count:1];
       *out = [v19 initWithDomain:@"com.apple.corespeech" code:2458 userInfo:v21];
     }
 
@@ -293,19 +290,19 @@ LABEL_14:
     if (out)
     {
       v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v66 = *MEMORY[0x1E696A578];
+      v65 = *MEMORY[0x1E696A578];
       arrayCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"initialize with inputArray: %@", arrayCopy];
-      v67 = arrayCopy2;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+      v66 = arrayCopy2;
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
       *out = [v22 initWithDomain:@"com.apple.corespeech" code:2458 userInfo:v24];
     }
 
     goto LABEL_15;
   }
 
-  v58 = 0;
-  v53 = [(CSFComputeDataBuffer *)v11 _allocateDataWithTensorProperties:propertiesCopy error:&v58];
-  v16 = v58;
+  v57 = 0;
+  v52 = [(CSFComputeDataBuffer *)v11 _allocateDataWithTensorProperties:propertiesCopy error:&v57];
+  v16 = v57;
   if (!v16)
   {
     shape = [propertiesCopy shape];
@@ -322,8 +319,8 @@ LABEL_14:
           [v31 floatValue];
           v33 = v32;
 
-          v57 = v33;
-          [(NSData *)v53 replaceBytesInRange:v28 withBytes:4, &v57];
+          v56 = v33;
+          [(NSData *)v52 replaceBytesInRange:v28 withBytes:4, &v56];
         }
 
         else
@@ -335,20 +332,20 @@ LABEL_14:
               goto LABEL_47;
             }
 
-            v50 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v64 = *MEMORY[0x1E696A578];
-            v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Compute data type not supported"];
-            v65 = v54;
-            v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-            v47 = [v50 initWithDomain:@"com.apple.corespeech" code:2458 userInfo:v46];
+            v49 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v63 = *MEMORY[0x1E696A578];
+            v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Compute data type not supported"];
+            v64 = v53;
+            v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+            v46 = [v49 initWithDomain:@"com.apple.corespeech" code:2458 userInfo:v45];
             goto LABEL_44;
           }
 
           v29 = [arrayCopy objectAtIndexedSubscript:v27];
           intValue = [v29 intValue];
 
-          v57 = intValue;
-          [(NSData *)v53 replaceBytesInRange:v28 withBytes:4, &v57];
+          v56 = intValue;
+          [(NSData *)v52 replaceBytesInRange:v28 withBytes:4, &v56];
         }
 
         v28 += 4;
@@ -362,14 +359,14 @@ LABEL_14:
       {
         if (out)
         {
-          v45 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v60 = *MEMORY[0x1E696A578];
-          v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Rank > 0 not supported"];
-          v61 = v54;
-          v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-          v47 = [v45 initWithDomain:@"com.apple.corespeech" code:2458 userInfo:v46];
+          v44 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v59 = *MEMORY[0x1E696A578];
+          v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Rank > 0 not supported"];
+          v60 = v53;
+          v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+          v46 = [v44 initWithDomain:@"com.apple.corespeech" code:2458 userInfo:v45];
 LABEL_44:
-          *out = v47;
+          *out = v46;
 LABEL_45:
 
 LABEL_46:
@@ -381,28 +378,28 @@ LABEL_47:
       }
 
       v34 = 0;
-      v51 = 0;
+      v50 = 0;
 LABEL_26:
-      if (v51 < [arrayCopy count])
+      if (v50 < [arrayCopy count])
       {
-        v54 = [arrayCopy objectAtIndexedSubscript:?];
+        v53 = [arrayCopy objectAtIndexedSubscript:?];
         for (i = 0; ; ++i)
         {
-          if (i >= [v54 count])
+          if (i >= [v53 count])
           {
 
-            ++v51;
+            ++v50;
             goto LABEL_26;
           }
 
           if (dataType == 1)
           {
-            v38 = [v54 objectAtIndexedSubscript:i];
+            v38 = [v53 objectAtIndexedSubscript:i];
             [v38 floatValue];
             v40 = v39;
 
-            v57 = v40;
-            [(NSData *)v53 replaceBytesInRange:v34 withBytes:4, &v57];
+            v56 = v40;
+            [(NSData *)v52 replaceBytesInRange:v34 withBytes:4, &v56];
           }
 
           else
@@ -411,12 +408,12 @@ LABEL_26:
             {
               if (out)
               {
-                v48 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v62 = *MEMORY[0x1E696A578];
-                v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Compute data type not supported"];
-                v63 = v46;
-                v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-                *out = [v48 initWithDomain:@"com.apple.corespeech" code:2458 userInfo:v49];
+                v47 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v61 = *MEMORY[0x1E696A578];
+                v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Compute data type not supported"];
+                v62 = v45;
+                v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+                *out = [v47 initWithDomain:@"com.apple.corespeech" code:2458 userInfo:v48];
 
                 goto LABEL_45;
               }
@@ -424,11 +421,11 @@ LABEL_26:
               goto LABEL_46;
             }
 
-            v36 = [v54 objectAtIndexedSubscript:i];
+            v36 = [v53 objectAtIndexedSubscript:i];
             intValue2 = [v36 intValue];
 
-            v57 = intValue2;
-            [(NSData *)v53 replaceBytesInRange:v34 withBytes:4, &v57];
+            v56 = intValue2;
+            [(NSData *)v52 replaceBytesInRange:v34 withBytes:4, &v56];
           }
 
           v34 += 4;
@@ -438,8 +435,8 @@ LABEL_26:
 
     objc_storeStrong(&v11->_tensorProperties, properties);
     data = v11->_data;
-    v11->_data = v53;
-    v42 = v53;
+    v11->_data = v52;
+    v42 = v52;
 
     objc_storeStrong(&v11->_tensorName, name);
 LABEL_36:
@@ -458,7 +455,6 @@ LABEL_15:
   v25 = 0;
 LABEL_37:
 
-  v43 = *MEMORY[0x1E69E9840];
   return v25;
 }
 

@@ -27,7 +27,7 @@
 
 void __87__SVXSayItChildTaskProvider_createWithCommand_taskTracker_listenAfterSpeakingDisabled___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 setTimestamp:*(a1 + 40)];
   v4 = [*(a1 + 32) dialogIdentifier];
@@ -47,9 +47,9 @@ void __87__SVXSayItChildTaskProvider_createWithCommand_taskTracker_listenAfterSp
     v7 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = "[SVXSayItChildTaskProvider createWithCommand:taskTracker:listenAfterSpeakingDisabled:]_block_invoke";
-      _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_DEFAULT, "%s Overriding listenAfterSpeaking due to defaults", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[SVXSayItChildTaskProvider createWithCommand:taskTracker:listenAfterSpeakingDisabled:]_block_invoke";
+      _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_DEFAULT, "%s Overriding listenAfterSpeaking due to defaults", &v10, 0xCu);
     }
   }
 
@@ -58,8 +58,6 @@ LABEL_7:
   [v3 setListensAfterSpeaking:v8];
   v9 = [*(a1 + 32) listenAfterSpeakingBehavior];
   [v3 setListenAfterSpeakingBehavior:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

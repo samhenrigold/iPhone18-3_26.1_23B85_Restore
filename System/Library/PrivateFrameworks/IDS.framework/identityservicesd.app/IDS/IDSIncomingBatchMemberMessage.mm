@@ -37,9 +37,10 @@
 
 - (void)wasStoredWithGuid:(id)guid
 {
-  sub_100936B38();
+  v4 = sub_100936B38();
+  v6 = v5;
   selfCopy = self;
-  sub_10074C4C8();
+  sub_10074C4C8(v4, v6);
 }
 
 - (void)wasProcessedWithMessage:(id)message

@@ -27,8 +27,8 @@
 - (HFPresenceEventFormatter)initWithOptions:(id)options
 {
   optionsCopy = options;
-  home = [optionsCopy home];
-  v6 = [(HFPresenceEventFormatter *)self initWithHome:home];
+  v5 = objc_msgSend_home(optionsCopy);
+  v6 = [(HFPresenceEventFormatter *)self initWithHome:v5];
 
   if (v6)
   {
@@ -51,15 +51,15 @@
 
 - (id)stringForPresenceEventBuilder:(id)builder actionsDescription:(id)description
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   builderCopy = builder;
   descriptionCopy = description;
-  v62 = MEMORY[0x277D85DD0];
-  v63 = 3221225472;
-  v64 = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke;
-  v65 = &unk_277DF3568;
+  v61 = MEMORY[0x277D85DD0];
+  v62 = 3221225472;
+  v63 = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke;
+  v64 = &unk_277DF3568;
   v8 = builderCopy;
-  v66 = v8;
+  v65 = v8;
   activationGranularity = [v8 activationGranularity];
   v10 = @"ActivationGranularityUser";
   if (activationGranularity)
@@ -73,12 +73,12 @@
   }
 
   v11 = v10;
-  v57 = MEMORY[0x277D85DD0];
-  v58 = 3221225472;
-  v59 = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_2;
-  v60 = &unk_277DF3568;
+  v56 = MEMORY[0x277D85DD0];
+  v57 = 3221225472;
+  v58 = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_2;
+  v59 = &unk_277DF3568;
   v12 = v8;
-  v61 = v12;
+  v60 = v12;
   locationEventType = [v12 locationEventType];
   v14 = @"Arriving";
   if (locationEventType != 1)
@@ -92,10 +92,10 @@
   }
 
   v15 = v14;
-  v55[5] = MEMORY[0x277D85DD0];
-  v55[6] = 3221225472;
-  v55[7] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_3;
-  v55[8] = &unk_277DF3568;
+  v54[5] = MEMORY[0x277D85DD0];
+  v54[6] = 3221225472;
+  v54[7] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_3;
+  v54[8] = &unk_277DF3568;
   selfCopy = self;
   style = [(HFPresenceEventFormatter *)self style];
   if (style == 1)
@@ -124,12 +124,12 @@
 
   if (!type)
   {
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_4;
-    v55[3] = &unk_277DF3AE0;
-    v55[4] = self;
-    if (__77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_4(v55))
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_4;
+    v54[3] = &unk_277DF3AE0;
+    v54[4] = self;
+    if (__77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_4(v54))
     {
       v28 = @"_CurrentUser";
     }
@@ -143,8 +143,8 @@
   }
 
   users2 = [v12 users];
-  home = [(HFPresenceEventFormatter *)self home];
-  v24 = [users2 resolveSelectedUsersWithHome:home];
+  v23 = objc_msgSend_home(self);
+  v24 = [users2 resolveSelectedUsersWithHome:v23];
   v25 = [v24 count];
 
   if (v25 == 2)
@@ -153,16 +153,16 @@
     {
       v29 = [v19 stringByAppendingString:@"_ListOfUsers"];
 
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_6;
-      v47[3] = &unk_277DF3B08;
-      v48 = descriptionCopy;
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_6;
+      v46[3] = &unk_277DF3B08;
+      v47 = descriptionCopy;
       selfCopy2 = self;
-      v50 = v12;
-      v30 = _Block_copy(v47);
+      v49 = v12;
+      v30 = _Block_copy(v46);
 
-      v31 = v48;
+      v31 = v47;
       goto LABEL_29;
     }
 
@@ -178,10 +178,10 @@ LABEL_26:
     aBlock[1] = 3221225472;
     aBlock[2] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_7;
     aBlock[3] = &unk_277DF3B30;
-    v45 = descriptionCopy;
-    v46 = v25;
+    v44 = descriptionCopy;
+    v45 = v25;
     v30 = _Block_copy(aBlock);
-    v31 = v45;
+    v31 = v44;
 LABEL_29:
 
     goto LABEL_30;
@@ -194,16 +194,16 @@ LABEL_29:
   {
     v29 = [v19 stringByAppendingString:@"_SingleUser"];
 
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_5;
-    v51[3] = &unk_277DF3B08;
-    v52 = descriptionCopy;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_5;
+    v50[3] = &unk_277DF3B08;
+    v51 = descriptionCopy;
     selfCopy3 = self;
-    v54 = v12;
-    v30 = _Block_copy(v51);
+    v53 = v12;
+    v30 = _Block_copy(v50);
 
-    v31 = v52;
+    v31 = v51;
     goto LABEL_29;
   }
 
@@ -219,12 +219,12 @@ LABEL_30:
 
     if (!v30)
     {
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_8;
-      v42[3] = &unk_277DF3B58;
-      v43 = descriptionCopy;
-      v30 = _Block_copy(v42);
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescription___block_invoke_8;
+      v41[3] = &unk_277DF3B58;
+      v42 = descriptionCopy;
+      v30 = _Block_copy(v41);
     }
   }
 
@@ -240,11 +240,11 @@ LABEL_30:
     v35 = HFLogForCategory(0x31uLL);
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      v41 = objc_opt_class();
+      v40 = objc_opt_class();
       *buf = 138412546;
-      v68 = v41;
-      v69 = 2112;
-      v70 = v32;
+      v67 = v40;
+      v68 = 2112;
+      v69 = v32;
       _os_log_error_impl(&dword_20D9BF000, v35, OS_LOG_TYPE_ERROR, "%@: failed to localize string with key: %@", buf, 0x16u);
     }
   }
@@ -252,13 +252,11 @@ LABEL_30:
   if (![(HFPresenceEventFormatter *)self nameType])
   {
     v36 = MEMORY[0x277CD1EC0];
-    home2 = [(HFPresenceEventFormatter *)self home];
-    v38 = [v36 hf_sanitizeTriggerName:v34 home:home2];
+    v37 = objc_msgSend_home(self);
+    v38 = [v36 hf_sanitizeTriggerName:v34 home:v37];
 
     v34 = v38;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v34;
 }
@@ -329,7 +327,7 @@ BOOL __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescrip
   v2 = [*(a1 + 32) options];
   if ([v2 shouldUseFirstPersonPronounIfPossible])
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [v3 hf_allUsersIncludingCurrentUser];
     v5 = [v4 count] == 1 && objc_msgSend(*(a1 + 32), "nameType") != 0;
   }
@@ -352,7 +350,7 @@ id __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescripti
     v5 = *(a1 + 48);
     v7 = a2;
     v8 = [v5 users];
-    v9 = [*(a1 + 40) home];
+    v9 = objc_msgSend_home(*(a1 + 40));
     v10 = [v6 _formattedListForSelectedUsers:v8 inHome:v9];
     v19 = *(a1 + 32);
     v11 = &v21;
@@ -366,7 +364,7 @@ id __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescripti
     v12 = *(a1 + 48);
     v14 = a2;
     v8 = [v12 users];
-    v9 = [*(a1 + 40) home];
+    v9 = objc_msgSend_home(*(a1 + 40));
     v10 = [v13 _formattedListForSelectedUsers:v8 inHome:v9];
     v11 = &v20;
     [v4 stringWithValidatedFormat:v14 validFormatSpecifiers:@"%@" error:&v20, v10, v18, 0, v21];
@@ -388,7 +386,7 @@ id __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescripti
     v5 = *(a1 + 48);
     v7 = a2;
     v8 = [v5 users];
-    v9 = [*(a1 + 40) home];
+    v9 = objc_msgSend_home(*(a1 + 40));
     v10 = [v6 _formattedListForSelectedUsers:v8 inHome:v9];
     v19 = *(a1 + 32);
     v11 = &v21;
@@ -402,7 +400,7 @@ id __77__HFPresenceEventFormatter_stringForPresenceEventBuilder_actionsDescripti
     v12 = *(a1 + 48);
     v14 = a2;
     v8 = [v12 users];
-    v9 = [*(a1 + 40) home];
+    v9 = objc_msgSend_home(*(a1 + 40));
     v10 = [v13 _formattedListForSelectedUsers:v8 inHome:v9];
     v11 = &v20;
     [v4 stringWithValidatedFormat:v14 validFormatSpecifiers:@"%@" error:&v20, v10, v18, 0, v21];

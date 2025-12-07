@@ -429,7 +429,7 @@ LABEL_23:
   }
 }
 
-uint64_t __65__PUSlideshowSettingsViewController__synchronizedChangedSettings__block_invoke_2(uint64_t a1)
+void *__65__PUSlideshowSettingsViewController__synchronizedChangedSettings__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1000) setPreset:*(*(a1 + 32) + 1040)];
   if (*(a1 + 40) == 1)

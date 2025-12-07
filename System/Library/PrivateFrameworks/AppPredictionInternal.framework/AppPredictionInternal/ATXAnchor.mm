@@ -485,163 +485,33 @@ BOOL __60__ATXAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invo
   v5 = [self anchorTypeToString:1];
   v6 = [stringCopy isEqualToString:v5];
 
-  if (v6)
+  if (v6 & 1) != 0 || ([self anchorTypeToString:2], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(stringCopy, "isEqualToString:", v7), v7, (v8) || (objc_msgSend(self, "anchorTypeToString:", 4), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(stringCopy, "isEqualToString:", v9), v9, (v10) || (objc_msgSend(self, "anchorTypeToString:", 5), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(stringCopy, "isEqualToString:", v11), v11, (v12) || (objc_msgSend(self, "anchorTypeToString:", 6), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(stringCopy, "isEqualToString:", v13), v13, (v14) || (objc_msgSend(self, "anchorTypeToString:", 16), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(stringCopy, "isEqualToString:", v15), v15, (v16) || (objc_msgSend(self, "anchorTypeToString:", 17), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(stringCopy, "isEqualToString:", v17), v17, (v18) || (objc_msgSend(self, "anchorTypeToString:", 19), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(stringCopy, "isEqualToString:", v19), v19, (v20) || (objc_msgSend(self, "anchorTypeToString:", 18), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(stringCopy, "isEqualToString:", v21), v21, (v22) || (objc_msgSend(self, "anchorTypeToString:", 7), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(stringCopy, "isEqualToString:", v23), v23, (v24) || (objc_msgSend(self, "anchorTypeToString:", 8), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(stringCopy, "isEqualToString:", v25), v25, (v26) || (objc_msgSend(self, "anchorTypeToString:", 3), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(stringCopy, "isEqualToString:", v27), v27, (v28) || (objc_msgSend(self, "anchorTypeToString:", 20), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(stringCopy, "isEqualToString:", v29), v29, (v30) || (objc_msgSend(self, "anchorTypeToString:", 21), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(stringCopy, "isEqualToString:", v31), v31, (v32) || (objc_msgSend(self, "anchorTypeToString:", 22), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(stringCopy, "isEqualToString:", v33), v33, v34))
   {
-    v7 = off_278593200;
-LABEL_31:
-    v36 = *v7;
-    v37 = objc_opt_class();
-    goto LABEL_32;
-  }
-
-  v8 = [self anchorTypeToString:2];
-  v9 = [stringCopy isEqualToString:v8];
-
-  if (v9)
-  {
-    v7 = off_278593208;
-    goto LABEL_31;
-  }
-
-  v10 = [self anchorTypeToString:4];
-  v11 = [stringCopy isEqualToString:v10];
-
-  if (v11)
-  {
-    v7 = off_278593908;
-    goto LABEL_31;
-  }
-
-  v12 = [self anchorTypeToString:5];
-  v13 = [stringCopy isEqualToString:v12];
-
-  if (v13)
-  {
-    v7 = off_278593328;
-    goto LABEL_31;
-  }
-
-  v14 = [self anchorTypeToString:6];
-  v15 = [stringCopy isEqualToString:v14];
-
-  if (v15)
-  {
-    v7 = off_278593338;
-    goto LABEL_31;
-  }
-
-  v16 = [self anchorTypeToString:16];
-  v17 = [stringCopy isEqualToString:v16];
-
-  if (v17)
-  {
-    v7 = off_278593140;
-    goto LABEL_31;
-  }
-
-  v18 = [self anchorTypeToString:17];
-  v19 = [stringCopy isEqualToString:v18];
-
-  if (v19)
-  {
-    v7 = off_278593150;
-    goto LABEL_31;
-  }
-
-  v20 = [self anchorTypeToString:19];
-  v21 = [stringCopy isEqualToString:v20];
-
-  if (v21)
-  {
-    v7 = off_278593C20;
-    goto LABEL_31;
-  }
-
-  v22 = [self anchorTypeToString:18];
-  v23 = [stringCopy isEqualToString:v22];
-
-  if (v23)
-  {
-    v7 = off_278593378;
-    goto LABEL_31;
-  }
-
-  v24 = [self anchorTypeToString:7];
-  v25 = [stringCopy isEqualToString:v24];
-
-  if (v25)
-  {
-    v7 = off_278593A20;
-    goto LABEL_31;
-  }
-
-  v26 = [self anchorTypeToString:8];
-  v27 = [stringCopy isEqualToString:v26];
-
-  if (v27)
-  {
-    v7 = off_278593A28;
-    goto LABEL_31;
-  }
-
-  v28 = [self anchorTypeToString:3];
-  v29 = [stringCopy isEqualToString:v28];
-
-  if (v29)
-  {
-    v7 = off_278593900;
-    goto LABEL_31;
-  }
-
-  v30 = [self anchorTypeToString:20];
-  v31 = [stringCopy isEqualToString:v30];
-
-  if (v31)
-  {
-    v7 = off_2785944D8;
-    goto LABEL_31;
-  }
-
-  v32 = [self anchorTypeToString:21];
-  v33 = [stringCopy isEqualToString:v32];
-
-  if (v33)
-  {
-    v7 = off_2785944D0;
-    goto LABEL_31;
-  }
-
-  v34 = [self anchorTypeToString:22];
-  v35 = [stringCopy isEqualToString:v34];
-
-  if (v35)
-  {
-    v7 = off_2785937A8;
-    goto LABEL_31;
-  }
-
-  v37 = 0;
-LABEL_32:
-
-  return v37;
-}
-
-+ (id)anchorTypeToAnchorClassName:(int64_t)name
-{
-  v4 = name - 1;
-  if (name - 1) <= 0x15 && ((0x3F80FFu >> v4))
-  {
-    v5 = *off_2785A0E40[v4];
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v35 = objc_opt_class();
   }
 
   else
   {
-    v7 = 0;
+    v35 = 0;
   }
 
-  return v7;
+  return v35;
+}
+
++ (id)anchorTypeToAnchorClassName:(int64_t)name
+{
+  if (name - 1) <= 0x15 && ((0x3F80FFu >> (name - 1)))
+  {
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
 }
 
 + (id)allAnchorClasses
@@ -709,7 +579,7 @@ LABEL_32:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -726,11 +596,11 @@ LABEL_32:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -741,7 +611,6 @@ LABEL_32:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

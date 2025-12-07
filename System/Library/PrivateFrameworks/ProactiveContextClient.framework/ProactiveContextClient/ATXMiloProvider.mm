@@ -108,36 +108,32 @@ void __46__ATXMiloProvider_initWithInferredModeStream___block_invoke_3(uint64_t 
 
 - (void)requestPrediction
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = __atxlog_handle_modes();
+  v14 = *MEMORY[0x277D85DE8];
+  v4 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     v6 = v5;
     v7 = NSStringFromSelector(a2);
-    v9 = 138412802;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v7;
-    v13 = 2048;
-    v14 = 0x4082C00000000000;
-    _os_log_impl(&dword_260C9F000, v4, OS_LOG_TYPE_DEFAULT, "[%@][%@] Initiating prediction scan in %f seconds", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2048;
+    v13 = 0x4082C00000000000;
+    _os_log_impl(&dword_260C9F000, v4, OS_LOG_TYPE_DEFAULT, "[%@][%@] Initiating prediction scan in %f seconds", &v8, 0x20u);
   }
 
   [(_PASSimpleCoalescingTimer *)self->_coalescingTimerForPrediction runAfterDelaySeconds:1 coalescingBehavior:600.0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerPredictionRequest
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_3();
-  v3 = NSStringFromSelector(v2);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_3();
+  v4 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_260C9F000, v4, v5, "[%@][%@] ULConnection unavilable", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_260C9F000, v5, v6, "[%@][%@] ULConnection unavilable", v7, v8, v9, v10);
 }
 
 - (void)_subscribeToModeChanges
@@ -149,42 +145,40 @@ void __46__ATXMiloProvider_initWithInferredModeStream___block_invoke_3(uint64_t 
   userFocusComputedModeStream = self->_userFocusComputedModeStream;
   self->_userFocusComputedModeStream = computedMode;
 
-  v8 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = __atxlog_handle_modes(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = objc_opt_class();
-    v10 = v9;
-    v11 = NSStringFromSelector(a2);
+    v10 = objc_opt_class();
+    v11 = v10;
+    v12 = NSStringFromSelector(a2);
     identifier = [(BMStream *)self->_inferredModeStream identifier];
     identifier2 = [(BMStream *)self->_userFocusComputedModeStream identifier];
     v23 = 138413058;
-    v24 = v9;
+    v24 = v10;
     v25 = 2112;
-    v26 = v11;
+    v26 = v12;
     v27 = 2112;
     v28 = identifier;
     v29 = 2112;
     v30 = identifier2;
-    _os_log_impl(&dword_260C9F000, v8, OS_LOG_TYPE_DEFAULT, "[%@][%@] subscribing to %@ and %@ streams", &v23, 0x2Au);
+    _os_log_impl(&dword_260C9F000, v9, OS_LOG_TYPE_DEFAULT, "[%@][%@] subscribing to %@ and %@ streams", &v23, 0x2Au);
   }
 
   identifier3 = [(BMStream *)self->_inferredModeStream identifier];
-  v15 = [(ATXMiloProvider *)self _schedulerForStreamName:identifier3];
+  v16 = [(ATXMiloProvider *)self _schedulerForStreamName:identifier3];
   inferredModeScheduler = self->_inferredModeScheduler;
-  self->_inferredModeScheduler = v15;
+  self->_inferredModeScheduler = v16;
 
   identifier4 = [(BMStream *)self->_userFocusComputedModeStream identifier];
-  v18 = [(ATXMiloProvider *)self _schedulerForStreamName:identifier4];
+  v19 = [(ATXMiloProvider *)self _schedulerForStreamName:identifier4];
   userComputedModeScheduler = self->_userComputedModeScheduler;
-  self->_userComputedModeScheduler = v18;
+  self->_userComputedModeScheduler = v19;
 
   dSLPublisher = [(BMStream *)self->_inferredModeStream DSLPublisher];
   [(ATXMiloProvider *)self _subscribeToStreamWithPublisher:dSLPublisher scheduler:self->_inferredModeScheduler sink:self->_inferredModeStreamSink];
 
   dSLPublisher2 = [(BMStream *)self->_userFocusComputedModeStream DSLPublisher];
   [(ATXMiloProvider *)self _subscribeToStreamWithPublisher:dSLPublisher2 scheduler:self->_userComputedModeScheduler sink:self->_userComputedModeStreamSink];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -204,7 +198,7 @@ void __46__ATXMiloProvider_initWithInferredModeStream___block_invoke_3(uint64_t 
   sinkCopy = sink;
   if (!sinkCopy)
   {
-    v12 = __atxlog_handle_modes();
+    v12 = __atxlog_handle_modes(0);
     v13 = v12;
     if (publisherCopy)
     {
@@ -242,10 +236,10 @@ void __46__ATXMiloProvider_initWithInferredModeStream___block_invoke_3(uint64_t 
 
       if (!sinkCopy)
       {
-        v19 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = __atxlog_handle_modes(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [ATXMiloProvider _subscribeToStreamWithPublisher:v19 scheduler:? sink:?];
+          [ATXMiloProvider _subscribeToStreamWithPublisher:v20 scheduler:? sink:?];
         }
       }
 
@@ -264,15 +258,13 @@ void __46__ATXMiloProvider_initWithInferredModeStream___block_invoke_3(uint64_t 
       sinkCopy = 0;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [a2 state];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   v5 = v4;
   if (v3)
   {
@@ -289,22 +281,20 @@ void __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___bloc
     v8 = *(a1 + 40);
     v9 = v7;
     v10 = NSStringFromSelector(v8);
-    v12 = 138412546;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_260C9F000, v5, OS_LOG_TYPE_DEFAULT, "[%@][%@] successfully completed listening to mode events", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_260C9F000, v5, OS_LOG_TYPE_DEFAULT, "[%@][%@] successfully completed listening to mode events", &v11, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___block_invoke_22(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(WeakRetained);
   v6 = v5;
   if (WeakRetained)
   {
@@ -315,13 +305,13 @@ void __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___bloc
       v9 = v7;
       v10 = NSStringFromSelector(v8);
       v11 = [*(a1 + 32) rootStreamIdentifiers];
-      v13 = 138412802;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "[%@][%@] mode event received from %@", &v13, 0x20u);
+      v12 = 138412802;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "[%@][%@] mode event received from %@", &v12, 0x20u);
     }
 
     [WeakRetained _triggerHistoricalLabelDonationAtModeEndWithStoreEvent:v3];
@@ -331,11 +321,9 @@ void __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___bloc
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___block_invoke_22_cold_1(a1);
+      __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___block_invoke_22_cold_1();
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerMicrolocationLabelingAtModeStartWithStoreEvent:(id)event
@@ -478,32 +466,32 @@ LABEL_7:
   processName = [processInfo processName];
   nameCopy = [v5 stringWithFormat:@"ATXMiloProvider.Modes.%@.%@", processName, nameCopy];
 
-  v11 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = __atxlog_handle_modes(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = objc_opt_class();
-    v13 = v12;
-    v14 = NSStringFromSelector(a2);
+    v13 = objc_opt_class();
+    v14 = v13;
+    v15 = NSStringFromSelector(a2);
     *buf = 138412802;
-    v25 = v12;
+    v25 = v13;
     v26 = 2112;
-    v27 = v14;
+    v27 = v15;
     v28 = 2112;
     v29 = nameCopy;
-    _os_log_impl(&dword_260C9F000, v11, OS_LOG_TYPE_INFO, "[%@][%@] scheduler identifier: %@", buf, 0x20u);
+    _os_log_impl(&dword_260C9F000, v12, OS_LOG_TYPE_INFO, "[%@][%@] scheduler identifier: %@", buf, 0x20u);
   }
 
-  v15 = [objc_alloc(MEMORY[0x277CF1918]) initWithIdentifier:nameCopy targetQueue:self->_queue];
-  v16 = v15;
-  if (v15)
+  v16 = [objc_alloc(MEMORY[0x277CF1918]) initWithIdentifier:nameCopy targetQueue:self->_queue];
+  v17 = v16;
+  if (v16)
   {
-    v17 = v15;
+    v18 = v16;
   }
 
   else
   {
-    v18 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = __atxlog_handle_modes(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v21 = objc_opt_class();
       v22 = v21;
@@ -514,19 +502,17 @@ LABEL_7:
       v27 = v23;
       v28 = 2112;
       v29 = nameCopy;
-      _os_log_error_impl(&dword_260C9F000, v18, OS_LOG_TYPE_ERROR, "[%@][%@] unable to initialize Biome Scheduler: %@", buf, 0x20u);
+      _os_log_error_impl(&dword_260C9F000, v19, OS_LOG_TYPE_ERROR, "[%@][%@] unable to initialize Biome Scheduler: %@", buf, 0x20u);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 - (void)_userDidEnterModeOrModeWasPredicted
 {
   v47 = *MEMORY[0x277D85DE8];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = objc_opt_class();
@@ -593,34 +579,34 @@ LABEL_12:
   if (v26)
   {
     integerValue = [v26 integerValue];
-    v28 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = __atxlog_handle_modes(integerValue);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = objc_opt_class();
-      v30 = v29;
-      v31 = NSStringFromSelector(a2);
-      v32 = BMUserFocusInferredModeTypeAsString();
+      v30 = objc_opt_class();
+      v31 = v30;
+      v32 = NSStringFromSelector(a2);
+      v33 = BMUserFocusInferredModeTypeAsString();
       v41 = 138412802;
-      v42 = v29;
+      v42 = v30;
       v43 = 2112;
-      v44 = v31;
+      v44 = v32;
       v45 = 2114;
-      v46 = *&v32;
-      _os_log_impl(&dword_260C9F000, v28, OS_LOG_TYPE_DEFAULT, "[%@][%@] user entered mode: %{public}@", &v41, 0x20u);
+      v46 = *&v33;
+      _os_log_impl(&dword_260C9F000, v29, OS_LOG_TYPE_DEFAULT, "[%@][%@] user entered mode: %{public}@", &v41, 0x20u);
     }
 
-    v33 = objc_alloc(MEMORY[0x277D287A0]);
-    v34 = [(ATXMiloProvider *)self _truthLabelForMode:integerValue];
-    v35 = [v33 initWithName:v34];
+    v34 = objc_alloc(MEMORY[0x277D287A0]);
+    v35 = [(ATXMiloProvider *)self _truthLabelForMode:integerValue];
+    v36 = [v34 initWithName:v35];
 
     connection = [(ATXMiloProvider *)self connection];
-    [connection addLabel:v35];
+    [connection addLabel:v36];
   }
 
   else
   {
-    v35 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v36 = __atxlog_handle_modes(v27);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       v38 = objc_opt_class();
       v39 = v38;
@@ -631,23 +617,18 @@ LABEL_12:
       v44 = v40;
       v45 = 2048;
       v46 = v8;
-      _os_log_error_impl(&dword_260C9F000, v35, OS_LOG_TYPE_ERROR, "[%@][%@] Unable to find an inferred mode event or user focus computed mode event in the past %f seconds", &v41, 0x20u);
+      _os_log_error_impl(&dword_260C9F000, v36, OS_LOG_TYPE_ERROR, "[%@][%@] Unable to find an inferred mode event or user focus computed mode event in the past %f seconds", &v41, 0x20u);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_userDidExitModeOrModeWasNoLongerPredicted
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_3();
-  v3 = NSStringFromSelector(v2);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_3();
+  v4 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_260C9F000, v4, v5, "[%@][%@] Error: Expected to see at least two events in either the inferred mode stream or the user computed stream", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_260C9F000, v5, v6, "[%@][%@] Error: Expected to see at least two events in either the inferred mode stream or the user computed stream", v7, v8, v9, v10);
 }
 
 - (id)_truthLabelForMode:(int)mode
@@ -668,7 +649,7 @@ LABEL_12:
   v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
-  v9 = __atxlog_handle_modes();
+  v9 = __atxlog_handle_modes(endDateCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = objc_opt_class();
@@ -689,72 +670,57 @@ LABEL_12:
 
   if (connection)
   {
-    v14 = [objc_alloc(MEMORY[0x277D287A0]) initWithName:@"C9FC4298-DE04-494A-9791-71AB71B52E27"];
+    v15 = [objc_alloc(MEMORY[0x277D287A0]) initWithName:@"C9FC4298-DE04-494A-9791-71AB71B52E27"];
     connection2 = [(ATXMiloProvider *)self connection];
-    [connection2 addLabel:v14 betweenStartDate:dateCopy andEndDate:endDateCopy];
+    [connection2 addLabel:v15 betweenStartDate:dateCopy andEndDate:endDateCopy];
   }
 
   else
   {
-    v14 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_modes(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [ATXMiloProvider _triggerMicroLocationHistoricalLabelDonationWithStartDate:endDate:];
+      [ATXMiloProvider _triggerMicroLocationHistoricalLabelDonationWithStartDate:? endDate:?];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_subscribeToStreamWithPublisher:(uint64_t)a1 scheduler:(const char *)a2 sink:(NSObject *)a3 .cold.2(uint64_t a1, const char *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_260C9F000, a3, OS_LOG_TYPE_ERROR, "[%@][%@] Publisher was unexpectedly nil", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_260C9F000, a3, OS_LOG_TYPE_ERROR, "[%@][%@] Publisher was unexpectedly nil", v7, 0x16u);
 }
 
 void __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___block_invoke_cold_1(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_opt_class();
   v4 = *(a1 + 40);
   v5 = v3;
   v6 = NSStringFromSelector(v4);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_260C9F000, v7, v8, "[%@][%@] Error encountered while listening to mode events", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_260C9F000, v7, v8, "[%@][%@] Error encountered while listening to mode events", v9, v10, v11, v12);
 }
 
-void __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___block_invoke_22_cold_1(uint64_t a1)
+void __66__ATXMiloProvider__subscribeToStreamWithPublisher_scheduler_sink___block_invoke_22_cold_1()
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = objc_opt_class();
-  v4 = *(a1 + 48);
-  v5 = v3;
-  v6 = OUTLINED_FUNCTION_3();
-  v7 = NSStringFromSelector(v6);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_260C9F000, v8, v9, "[%@][%@] self is nil", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_triggerMicroLocationHistoricalLabelDonationWithStartDate:endDate:.cold.1()
-{
-  v12 = *MEMORY[0x277D85DE8];
   v1 = objc_opt_class();
   v2 = OUTLINED_FUNCTION_3();
   v3 = NSStringFromSelector(v2);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_260C9F000, v4, v5, "[%@][%@] Connection unavilable, Unable to label scans between dates", v6, v7, v8, v9, v11);
+  OUTLINED_FUNCTION_1(&dword_260C9F000, v4, v5, "[%@][%@] self is nil", v6, v7, v8, v9);
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)_triggerMicroLocationHistoricalLabelDonationWithStartDate:(uint64_t)a1 endDate:.cold.1(uint64_t a1)
+{
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_3();
+  v4 = NSStringFromSelector(v3);
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_1(&dword_260C9F000, v5, v6, "[%@][%@] Connection unavilable, Unable to label scans between dates", v7, v8, v9, v10);
 }
 
 @end

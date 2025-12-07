@@ -24,7 +24,7 @@
 {
   if (a3)
   {
-    MEMORY[0x238376E40](a3);
+    MEMORY[0x238376E40](a3, a2);
     v4 = [MEMORY[0x277CCABB0] numberWithDouble:?];
   }
 
@@ -567,155 +567,155 @@ LABEL_25:
 
 - (SKGPersonComponents)personWithName:()People alternateName:contactIdentifier:personIdentifier:emails:phones:addresses:
 {
-  v94 = *MEMORY[0x277D85DE8];
-  v47 = a3;
+  v93 = *MEMORY[0x277D85DE8];
+  v46 = a3;
   v14 = a4;
-  v45 = a5;
-  v46 = a6;
+  v44 = a5;
+  v45 = a6;
   v15 = a7;
   v16 = a8;
   v17 = a9;
-  v85 = 0;
-  v86 = &v85;
-  v87 = 0x3032000000;
-  v88 = __Block_byref_object_copy__23;
-  v89 = __Block_byref_object_dispose__23;
-  v90 = 0;
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x3032000000;
-  v82 = __Block_byref_object_copy__23;
-  v83 = __Block_byref_object_dispose__23;
   v84 = 0;
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x3032000000;
-  v76 = __Block_byref_object_copy__23;
-  v77 = __Block_byref_object_dispose__23;
+  v85 = &v84;
+  v86 = 0x3032000000;
+  v87 = __Block_byref_object_copy__23;
+  v88 = __Block_byref_object_dispose__23;
+  v89 = 0;
   v78 = 0;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy__23;
-  v71 = __Block_byref_object_dispose__23;
+  v79 = &v78;
+  v80 = 0x3032000000;
+  v81 = __Block_byref_object_copy__23;
+  v82 = __Block_byref_object_dispose__23;
+  v83 = 0;
   v72 = 0;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3032000000;
-  v64 = __Block_byref_object_copy__23;
-  v65 = __Block_byref_object_dispose__23;
+  v73 = &v72;
+  v74 = 0x3032000000;
+  v75 = __Block_byref_object_copy__23;
+  v76 = __Block_byref_object_dispose__23;
+  v77 = 0;
   v66 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = __Block_byref_object_copy__23;
+  v70 = __Block_byref_object_dispose__23;
+  v71 = 0;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = __Block_byref_object_copy__23;
+  v64 = __Block_byref_object_dispose__23;
+  v65 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __112__SKGProcessor_People__personWithName_alternateName_contactIdentifier_personIdentifier_emails_phones_addresses___block_invoke;
   aBlock[3] = &unk_27893F080;
-  aBlock[4] = &v85;
-  aBlock[5] = &v79;
-  aBlock[6] = &v73;
-  aBlock[7] = &v67;
-  aBlock[8] = &v61;
+  aBlock[4] = &v84;
+  aBlock[5] = &v78;
+  aBlock[6] = &v72;
+  aBlock[7] = &v66;
+  aBlock[8] = &v60;
   v18 = _Block_copy(aBlock);
   context = objc_autoreleasePoolPush();
-  enumerateInfoInString(v47, v18);
+  enumerateInfoInString(v46, v18);
   enumerateInfoInString(v14, v18);
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v19 = v15;
-  v20 = [v19 countByEnumeratingWithState:&v56 objects:v93 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v55 objects:v92 count:16];
   if (v20)
   {
-    v21 = *v57;
+    v21 = *v56;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v57 != v21)
+        if (*v56 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        enumerateInfoInString(*(*(&v56 + 1) + 8 * i), v18);
+        enumerateInfoInString(*(*(&v55 + 1) + 8 * i), v18);
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v56 objects:v93 count:{16, context}];
+      v20 = [v19 countByEnumeratingWithState:&v55 objects:v92 count:{16, context}];
     }
 
     while (v20);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v23 = v16;
-  v24 = [v23 countByEnumeratingWithState:&v52 objects:v92 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v51 objects:v91 count:16];
   if (v24)
   {
-    v25 = *v53;
+    v25 = *v52;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v53 != v25)
+        if (*v52 != v25)
         {
           objc_enumerationMutation(v23);
         }
 
-        enumerateInfoInString(*(*(&v52 + 1) + 8 * j), v18);
+        enumerateInfoInString(*(*(&v51 + 1) + 8 * j), v18);
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v52 objects:v92 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v51 objects:v91 count:16];
     }
 
     while (v24);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v27 = v17;
-  v28 = [v27 countByEnumeratingWithState:&v48 objects:v91 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v47 objects:v90 count:16];
   if (v28)
   {
-    v29 = *v49;
+    v29 = *v48;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v49 != v29)
+        if (*v48 != v29)
         {
           objc_enumerationMutation(v27);
         }
 
-        enumerateInfoInString(*(*(&v48 + 1) + 8 * k), v18);
+        enumerateInfoInString(*(*(&v47 + 1) + 8 * k), v18);
       }
 
-      v28 = [v27 countByEnumeratingWithState:&v48 objects:v91 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v47 objects:v90 count:16];
     }
 
     while (v28);
   }
 
-  if (v80[5] && v86[5] && v74[5] || [v68[5] count] || objc_msgSend(v62[5], "count"))
+  if (v79[5] && v85[5] && v73[5] || [v67[5] count] || objc_msgSend(v61[5], "count"))
   {
     v31 = [SKGPersonComponents alloc];
-    v32 = [(SKGPersonComponents *)v31 initWithEmailAddresses:v68[5] phoneNumbers:v62[5]];
-    if ([v80[5] count])
+    v32 = [(SKGPersonComponents *)v31 initWithEmailAddresses:v67[5] phoneNumbers:v61[5]];
+    if ([v79[5] count])
     {
-      v33 = [v80[5] count];
-      if (v33 == [v74[5] count])
+      v33 = [v79[5] count];
+      if (v33 == [v73[5] count])
       {
-        v34 = [v80[5] count];
-        if (v34 == [v86[5] count])
+        v34 = [v79[5] count];
+        if (v34 == [v85[5] count])
         {
-          for (m = 0; m < [v80[5] count]; ++m)
+          for (m = 0; m < [v79[5] count]; ++m)
           {
-            v36 = [v80[5] objectAtIndexedSubscript:m];
-            v37 = [v74[5] objectAtIndexedSubscript:m];
-            v38 = [v86[5] objectAtIndexedSubscript:m];
+            v36 = [v79[5] objectAtIndexedSubscript:m];
+            v37 = [v73[5] objectAtIndexedSubscript:m];
+            v38 = [v85[5] objectAtIndexedSubscript:m];
             v39 = v38;
             if (v36)
             {
@@ -736,8 +736,8 @@ LABEL_25:
       }
     }
 
-    [(SKGPersonComponents *)v32 setContactIdentifier:v45, context];
-    [(SKGPersonComponents *)v32 setPhotosPersonIdentifier:v46];
+    [(SKGPersonComponents *)v32 setContactIdentifier:v44, context];
+    [(SKGPersonComponents *)v32 setPhotosPersonIdentifier:v45];
   }
 
   else
@@ -747,21 +747,20 @@ LABEL_25:
 
   objc_autoreleasePoolPop(context);
 
-  _Block_object_dispose(&v61, 8);
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v66, 8);
 
-  _Block_object_dispose(&v73, 8);
-  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v72, 8);
+  _Block_object_dispose(&v78, 8);
 
-  _Block_object_dispose(&v85, 8);
-  v42 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v84, 8);
 
   return v32;
 }
 
 - (uint64_t)generatePeopleForRecord:()People processedItem:processedItemBlock:cancelBlock:
 {
-  v126[1] = *MEMORY[0x277D85DE8];
+  v125[1] = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -778,8 +777,8 @@ LABEL_25:
       v18 = v17;
       if (v17)
       {
-        v126[0] = v17;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v126 count:1];
+        v125[0] = v17;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v125 count:1];
         [v11 addParticipants:v19];
       }
 
@@ -871,8 +870,8 @@ LABEL_42:
       v18 = v33;
       if (v33)
       {
-        v125 = v33;
-        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v125 count:1];
+        v124 = v33;
+        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
         [v11 addOwners:v34];
       }
 
@@ -880,8 +879,8 @@ LABEL_42:
       v36 = v35;
       if (v35)
       {
-        v124 = v35;
-        v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
+        v123 = v35;
+        v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v123 count:1];
         [v11 addAuthors:v37];
       }
 
@@ -901,7 +900,7 @@ LABEL_42:
           goto LABEL_42;
         }
 
-        v74 = authors2;
+        v73 = authors2;
         recipients2 = [v11 recipients];
 
         if (!recipients2)
@@ -954,115 +953,115 @@ LABEL_44:
       goto LABEL_14;
     }
 
-    v53 = [self peopleForSharedAttributeKey:@"ReceivedSender" fromRecord:v10];
-    v54 = [self peopleForSharedAttributeKey:@"ReceivedRecipient" fromRecord:v10];
-    v55 = [self peopleForSharedAttributeKey:@"SentSender" fromRecord:v10];
-    v115 = [self peopleForSharedAttributeKey:@"SentRecipient" fromRecord:v10];
+    v52 = [self peopleForSharedAttributeKey:@"ReceivedSender" fromRecord:v10];
+    v53 = [self peopleForSharedAttributeKey:@"ReceivedRecipient" fromRecord:v10];
+    v54 = [self peopleForSharedAttributeKey:@"SentSender" fromRecord:v10];
+    v114 = [self peopleForSharedAttributeKey:@"SentRecipient" fromRecord:v10];
     context = v14;
-    v106 = v55;
-    if (v53)
+    v105 = v54;
+    if (v52)
     {
-      v56 = [v53 count];
-      if (v56 == [v54 count])
+      v55 = [v52 count];
+      if (v55 == [v53 count])
       {
-        v108 = copyArrayValueForKey();
         v107 = copyArrayValueForKey();
-        v93 = [v108 count];
-        if ([v107 count] == v93 && v93 == objc_msgSend(v53, "count") && v93)
+        v106 = copyArrayValueForKey();
+        v92 = [v107 count];
+        if ([v106 count] == v92 && v92 == objc_msgSend(v52, "count") && v92)
         {
-          v57 = 0;
-          v91 = (v12 + 2);
-          v101 = v54;
-          v103 = v53;
+          v56 = 0;
+          v90 = (v12 + 2);
+          v100 = v53;
+          v102 = v52;
           do
           {
-            v112 = [v53 objectAtIndexedSubscript:{v57, v91}];
-            v109 = [v54 objectAtIndexedSubscript:v57];
-            v97 = [v107 objectAtIndexedSubscript:v57];
-            v99 = [v108 objectAtIndexedSubscript:v57];
-            v95 = [self scoreFromDate:v99];
+            v111 = [v52 objectAtIndexedSubscript:{v56, v90}];
+            v108 = [v53 objectAtIndexedSubscript:v56];
+            v96 = [v106 objectAtIndexedSubscript:v56];
+            v98 = [v107 objectAtIndexedSubscript:v56];
+            v94 = [self scoreFromDate:v98];
             referenceIdentifier = [v11 referenceIdentifier];
             bundleIdentifier6 = [v11 bundleIdentifier];
             protectionClass = [v11 protectionClass];
-            v61 = [self itemFromRecord:v10 referenceIdentifier:referenceIdentifier bundleIdentifier:bundleIdentifier6 protectionClass:protectionClass];
+            v60 = [self itemFromRecord:v10 referenceIdentifier:referenceIdentifier bundleIdentifier:bundleIdentifier6 protectionClass:protectionClass];
 
-            v123 = v112;
-            v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v123 count:1];
-            [v61 addAuthors:v62];
+            v122 = v111;
+            v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&v122 count:1];
+            [v60 addAuthors:v61];
 
-            v122 = v109;
-            v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v122 count:1];
-            [v61 addRecipients:v63];
+            v121 = v108;
+            v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v121 count:1];
+            [v60 addRecipients:v62];
 
-            [v61 addInteraction:v97 score:v95];
-            LOBYTE(v63) = v12[2](v12, v61);
+            [v60 addInteraction:v96 score:v94];
+            LOBYTE(v62) = v12[2](v12, v60);
 
-            if ((v63 & 1) == 0)
+            if ((v62 & 1) == 0)
             {
               goto LABEL_84;
             }
 
-            ++v57;
-            v54 = v101;
-            v53 = v103;
+            ++v56;
+            v53 = v100;
+            v52 = v102;
           }
 
-          while (v93 != v57);
+          while (v92 != v56);
         }
 
         v14 = context;
-        v55 = v106;
+        v54 = v105;
       }
     }
 
-    if (v55)
+    if (v54)
     {
-      v64 = [v55 count];
-      v65 = v64 == [v115 count];
+      v63 = [v54 count];
+      v64 = v63 == [v114 count];
       v14 = context;
-      if (!v65)
+      if (!v64)
       {
         goto LABEL_66;
       }
 
-      v101 = v54;
-      v103 = v53;
-      v108 = copyArrayValueForKey();
+      v100 = v53;
+      v102 = v52;
       v107 = copyArrayValueForKey();
-      v94 = [v108 count];
-      if ([v107 count] == v94 && v94 == objc_msgSend(v106, "count") && v94)
+      v106 = copyArrayValueForKey();
+      v93 = [v107 count];
+      if ([v106 count] == v93 && v93 == objc_msgSend(v105, "count") && v93)
       {
-        v66 = 0;
-        v92 = (v12 + 2);
+        v65 = 0;
+        v91 = (v12 + 2);
         while (1)
         {
-          v113 = [v106 objectAtIndexedSubscript:{v66, v92}];
-          v110 = [v115 objectAtIndexedSubscript:v66];
-          v98 = [v107 objectAtIndexedSubscript:v66];
-          v100 = [v108 objectAtIndexedSubscript:v66];
-          v96 = [self scoreFromDate:v100];
+          v112 = [v105 objectAtIndexedSubscript:{v65, v91}];
+          v109 = [v114 objectAtIndexedSubscript:v65];
+          v97 = [v106 objectAtIndexedSubscript:v65];
+          v99 = [v107 objectAtIndexedSubscript:v65];
+          v95 = [self scoreFromDate:v99];
           referenceIdentifier2 = [v11 referenceIdentifier];
           bundleIdentifier7 = [v11 bundleIdentifier];
           protectionClass2 = [v11 protectionClass];
-          v70 = [self itemFromRecord:v10 referenceIdentifier:referenceIdentifier2 bundleIdentifier:bundleIdentifier7 protectionClass:protectionClass2];
+          v69 = [self itemFromRecord:v10 referenceIdentifier:referenceIdentifier2 bundleIdentifier:bundleIdentifier7 protectionClass:protectionClass2];
 
-          v121 = v113;
-          v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v121 count:1];
-          [v70 addAuthors:v71];
+          v120 = v112;
+          v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v120 count:1];
+          [v69 addAuthors:v70];
 
-          v120 = v110;
-          v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v120 count:1];
-          [v70 addRecipients:v72];
+          v119 = v109;
+          v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v119 count:1];
+          [v69 addRecipients:v71];
 
-          [v70 addInteraction:v98 score:v96];
-          LOBYTE(v72) = v12[2](v12, v70);
+          [v69 addInteraction:v97 score:v95];
+          LOBYTE(v71) = v12[2](v12, v69);
 
-          if ((v72 & 1) == 0)
+          if ((v71 & 1) == 0)
           {
             break;
           }
 
-          if (v94 == ++v66)
+          if (v93 == ++v65)
           {
             goto LABEL_64;
           }
@@ -1077,82 +1076,82 @@ LABEL_84:
 
 LABEL_64:
 
-      v53 = v103;
+      v52 = v102;
       v14 = context;
-      v54 = v101;
-      v55 = v106;
+      v53 = v100;
+      v54 = v105;
     }
 
-    if (v53 | v55)
+    if (v52 | v54)
     {
 LABEL_66:
 
       goto LABEL_44;
     }
 
-    v102 = v54;
-    v114 = [self peopleForAttributeKey:@"Author" fromRecord:v10];
+    v101 = v53;
+    v113 = [self peopleForAttributeKey:@"Author" fromRecord:v10];
     [v11 addAuthors:?];
-    v111 = [self peopleForAttributeKey:@"Recipient" fromRecord:v10];
+    v110 = [self peopleForAttributeKey:@"Recipient" fromRecord:v10];
     [v11 addRecipients:?];
-    v76 = [self accountOwnerFromRecord:v10];
-    v77 = v76;
-    if (v76)
+    v75 = [self accountOwnerFromRecord:v10];
+    v76 = v75;
+    if (v75)
     {
-      v119 = v76;
-      v78 = [MEMORY[0x277CBEA60] arrayWithObjects:&v119 count:1];
-      [v11 addOwners:v78];
+      v118 = v75;
+      v77 = [MEMORY[0x277CBEA60] arrayWithObjects:&v118 count:1];
+      [v11 addOwners:v77];
 
       v14 = context;
     }
 
-    v104 = v53;
-    v79 = [self ownerFromRecord:v10];
-    v80 = v79;
-    if (v79)
+    v103 = v52;
+    v78 = [self ownerFromRecord:v10];
+    v79 = v78;
+    if (v78)
     {
-      v118 = v79;
-      v81 = [MEMORY[0x277CBEA60] arrayWithObjects:&v118 count:1];
-      [v11 addParticipants:v81];
+      v117 = v78;
+      v80 = [MEMORY[0x277CBEA60] arrayWithObjects:&v117 count:1];
+      [v11 addParticipants:v80];
 
       v14 = context;
     }
 
-    v82 = [self lastEditorFromRecord:v10];
-    v83 = v82;
-    if (v80 && v82)
+    v81 = [self lastEditorFromRecord:v10];
+    v82 = v81;
+    if (v79 && v81)
     {
-      v117[0] = v80;
-      v117[1] = v82;
-      v84 = MEMORY[0x277CBEA60];
-      v85 = v117;
-      v86 = 2;
+      v116[0] = v79;
+      v116[1] = v81;
+      v83 = MEMORY[0x277CBEA60];
+      v84 = v116;
+      v85 = 2;
     }
 
     else
     {
-      if (!v82)
+      if (!v81)
       {
         goto LABEL_80;
       }
 
-      v116 = v82;
-      v84 = MEMORY[0x277CBEA60];
-      v85 = &v116;
-      v86 = 1;
+      v115 = v81;
+      v83 = MEMORY[0x277CBEA60];
+      v84 = &v115;
+      v85 = 1;
     }
 
-    v87 = [v84 arrayWithObjects:v85 count:v86];
-    [v11 addParticipants:v87];
+    v86 = [v83 arrayWithObjects:v84 count:v85];
+    [v11 addParticipants:v86];
 
 LABEL_80:
-    v88 = [self createdScoreFromRecord:v10];
-    [v11 addInteraction:@"creationDate" score:v88];
-    v89 = [self viewedScoreFromRecord:v10];
-    v90 = v89;
-    if (v89 && ([v89 isEqualToNumber:v88] & 1) == 0)
+    v87 = [self createdScoreFromRecord:v10];
+    [v11 addInteraction:@"creationDate" score:v87];
+    v88 = [self viewedScoreFromRecord:v10];
+    v89 = v88;
+    if (v88 && ([v88 isEqualToNumber:v87] & 1) == 0)
     {
-      [v11 addInteraction:@"viewedDate" score:v90];
+      [v11 addInteraction:@"viewedDate" score:v89];
     }
 
     goto LABEL_44;
@@ -1161,7 +1160,6 @@ LABEL_80:
   v22 = 1;
 LABEL_45:
 
-  v51 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

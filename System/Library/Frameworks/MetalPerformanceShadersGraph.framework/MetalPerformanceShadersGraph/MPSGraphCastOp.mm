@@ -8,73 +8,73 @@
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
   nameCopy = name;
-  mpsFileLoc("[MPSGraphCastOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm", v29);
+  mpsFileLoc(v30, "[MPSGraphCastOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm");
   v11 = nameCopy;
-  v36 = 260;
-  v35[0] = v29;
-  StringAttr = mlir::Builder::getStringAttr(builder, v35);
-  v14 = mlir::FileLineColLoc::get(StringAttr, 0x347u, 0);
+  v35 = 260;
+  v34[0] = v30;
+  StringAttr = mlir::Builder::getStringAttr(builder, v34);
+  v15 = mlir::FileLineColLoc::get(StringAttr, 0x347u, 0);
   if (v11)
   {
     uTF8String = [v11 UTF8String];
-    v16 = strlen(uTF8String);
-    if (v16 >= 0x7FFFFFFFFFFFFFF8)
+    v17 = strlen(uTF8String);
+    if (v17 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = v16;
-    if (v16 >= 0x17)
+    v18 = v17;
+    if (v17 >= 0x17)
     {
       operator new();
     }
 
-    v34 = v16;
-    if (v16)
+    *(&__dst.__r_.__value_.__s + 23) = v17;
+    if (v17)
     {
-      memmove(&__dst, uTF8String, v16);
+      memmove(&__dst, uTF8String, v17);
     }
 
-    v18 = (&__dst + v17);
+    p_size = (&__dst + v18);
   }
 
   else
   {
-    v34 = 8;
-    __dst = 0x747361632E73706DLL;
-    v18 = &v33;
+    *(&__dst.__r_.__value_.__s + 23) = 8;
+    __dst.__r_.__value_.__r.__words[0] = 0x747361632E73706DLL;
+    p_size = &__dst.__r_.__value_.__l.__size_;
   }
 
-  *v18 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v13, &__p);
+  *p_size = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &__p, v13, v14);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v20 = 1;
-  HIBYTE(v36) = 1;
+  v21 = 1;
+  HIBYTE(v35) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
-    v35[0] = p_p;
-    v20 = 3;
+    v34[0] = p_p;
+    v21 = 3;
   }
 
-  LOBYTE(v36) = v20;
-  v21 = mlir::Builder::getStringAttr(builder, v35);
-  v22 = mlir::NameLoc::get(v21, v14);
+  LOBYTE(v35) = v21;
+  v22 = mlir::Builder::getStringAttr(builder, v34);
+  v23 = mlir::NameLoc::get(v22, v15);
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if ((v34 & 0x80000000) == 0)
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
 
 LABEL_20:
-    operator delete(__dst);
+    operator delete(__dst.__r_.__value_.__l.__data_);
 
-    if ((v30 & 0x80000000) == 0)
+    if ((v31 & 0x80000000) == 0)
     {
       goto LABEL_17;
     }
@@ -83,32 +83,32 @@ LABEL_20:
   }
 
   operator delete(__p.__r_.__value_.__l.__data_);
-  if (v34 < 0)
+  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_20;
   }
 
 LABEL_16:
 
-  if ((v30 & 0x80000000) == 0)
+  if ((v31 & 0x80000000) == 0)
   {
     goto LABEL_17;
   }
 
 LABEL_21:
-  operator delete(v29[0]);
+  operator delete(v30[0]);
 LABEL_17:
   MLIRElementType = getMLIRElementType(*builder, self->_destType);
   valuesCopy = values;
-  v24 = *values;
-  if (valuesCopy[1] == v24)
+  v25 = *values;
+  if (valuesCopy[1] == v25)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  __dst = mlir::TypeAttr::get(MLIRElementType);
-  v35[0] = mlir::OpBuilder::create<mlir::mps::CastOp,mlir::Value &,mlir::TypeAttr>(builder, v22, v24, &__dst) - 16;
-  DefiningOp = mlir::Value::getDefiningOp(v35);
+  __dst.__r_.__value_.__r.__words[0] = mlir::TypeAttr::get(MLIRElementType);
+  v34[0] = (mlir::OpBuilder::create<mlir::mps::CastOp,mlir::Value &,mlir::TypeAttr>(builder, v23, v25, &__dst) - 16);
+  DefiningOp = mlir::Value::getDefiningOp(v34);
 
   return DefiningOp;
 }

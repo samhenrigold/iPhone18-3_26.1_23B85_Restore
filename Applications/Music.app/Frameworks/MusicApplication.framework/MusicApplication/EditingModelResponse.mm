@@ -44,7 +44,7 @@
   responseCopy = response;
   selfCopy = self;
   sub_D4CC8(response, v6, v7);
-  sub_17654(v6);
+  sub_17654(v6, v7);
 }
 
 @end

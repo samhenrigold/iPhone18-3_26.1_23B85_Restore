@@ -9,6 +9,7 @@
 + (id)feedTitleViewUpdateNewStoriesWithStoryForType:(unint64_t)type storyCount:(unint64_t)count linger:(BOOL)linger;
 - (BOOL)isEqual:(id)equal;
 - (NUFeedTitleViewUpdate)initWithType:(unint64_t)type updateType:(unint64_t)updateType;
+- (id)convertToTitleViewUpdateWithCompact:(BOOL)compact;
 - (id)copyWithZone:(_NSZone *)zone;
 @end
 
@@ -177,6 +178,126 @@
   }
 
   return v11;
+}
+
+- (id)convertToTitleViewUpdateWithCompact:(BOOL)compact
+{
+  updateType = [(NUFeedTitleViewUpdate *)self updateType];
+  if (updateType <= 1)
+  {
+    if (updateType)
+    {
+      if (updateType != 1)
+      {
+        goto LABEL_24;
+      }
+
+      v6 = NUBundle(1);
+      v7 = v6;
+      v8 = @"Checking for stories…";
+      goto LABEL_16;
+    }
+
+    feedImage = [(NUFeedTitleViewUpdate *)self feedImage];
+
+    if (feedImage)
+    {
+      v18 = [NUTitleViewUpdate alloc];
+      feedImage2 = [(NUFeedTitleViewUpdate *)self feedImage];
+      v20 = [(NUTitleViewUpdate *)v18 initWithImage:feedImage2];
+    }
+
+    else
+    {
+      attributedText = [(NUFeedTitleViewUpdate *)self attributedText];
+
+      if (attributedText)
+      {
+        v23 = [NUTitleViewUpdate alloc];
+        feedImage2 = [(NUFeedTitleViewUpdate *)self attributedText];
+        v20 = [(NUTitleViewUpdate *)v23 initWithAttributedText:feedImage2 styleType:0];
+      }
+
+      else
+      {
+        feedName = [(NUFeedTitleViewUpdate *)self feedName];
+
+        if (!feedName)
+        {
+          v3 = objc_alloc_init(NUTitleViewUpdate);
+          goto LABEL_22;
+        }
+
+        v25 = [NUTitleViewUpdate alloc];
+        feedImage2 = [(NUFeedTitleViewUpdate *)self feedName];
+        v20 = [(NUTitleViewUpdate *)v25 initWithText:feedImage2 styleType:0];
+      }
+    }
+
+    v3 = v20;
+
+LABEL_22:
+    [(NUTitleViewUpdate *)v3 setSpeakAccessibilityTitleWhenDisplayed:0];
+    accessibilityTitle = [(NUFeedTitleViewUpdate *)self accessibilityTitle];
+    [(NUTitleViewUpdate *)v3 setAccessibilityTitle:accessibilityTitle];
+    goto LABEL_23;
+  }
+
+  if (updateType == 2)
+  {
+    v6 = NUBundle(2);
+    v7 = v6;
+    v8 = @"Checking for updates…";
+LABEL_16:
+    accessibilityTitle = [v6 localizedStringForKey:v8 value:&stru_286E03B58 table:0];
+
+    v3 = [[NUTitleViewUpdate alloc] initWithText:accessibilityTitle styleType:1];
+    [(NUTitleViewUpdate *)v3 setCancelPendingUpdates:1];
+    accessibilityTitle2 = [(NUFeedTitleViewUpdate *)self accessibilityTitle];
+    [(NUTitleViewUpdate *)v3 setAccessibilityTitle:accessibilityTitle2];
+
+    [(NUTitleViewUpdate *)v3 setTextAlignment:[(NUFeedTitleViewUpdate *)self type]== 0];
+    goto LABEL_23;
+  }
+
+  if (updateType != 3)
+  {
+    goto LABEL_24;
+  }
+
+  storyCount = [(NUFeedTitleViewUpdate *)self storyCount];
+  v10 = NUBundle(storyCount);
+  v11 = v10;
+  if (storyCount <= 1)
+  {
+    v12 = @"New story";
+  }
+
+  else
+  {
+    v12 = @"New stories";
+  }
+
+  accessibilityTitle = [v10 localizedStringForKey:v12 value:&stru_286E03B58 table:0];
+
+  v14 = +[NUImages newStoriesArrow];
+  v3 = [[NUTitleViewUpdate alloc] initWithText:accessibilityTitle styleType:1 glyph:v14];
+  if ([(NUFeedTitleViewUpdate *)self type]== 1)
+  {
+    value = [(NUTitleViewUpdate *)v3 value];
+    [value setAlignment:1];
+  }
+
+  [(NUFeedTitleViewUpdate *)self lingerTimeInterval];
+  [(NUTitleViewUpdate *)v3 setLingerTimeInterval:?];
+  [(NUTitleViewUpdate *)v3 setCancelPendingUpdates:1];
+  accessibilityTitle3 = [(NUFeedTitleViewUpdate *)self accessibilityTitle];
+  [(NUTitleViewUpdate *)v3 setAccessibilityTitle:accessibilityTitle3];
+
+LABEL_23:
+LABEL_24:
+
+  return v3;
 }
 
 @end

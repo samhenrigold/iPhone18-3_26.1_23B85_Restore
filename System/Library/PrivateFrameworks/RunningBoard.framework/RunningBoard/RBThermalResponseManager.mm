@@ -91,17 +91,17 @@ LABEL_25:
 
 - (void)_takeAssertionForConditionLevel:(int64_t)level completion:(id)completion
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = MEMORY[0x277D46DD0];
   process = [(RBDaemonContextProviding *)self->_daemonContext process];
   v9 = [v7 identifierWithClientPid:{objc_msgSend(process, "rbs_pid")}];
 
   v10 = [MEMORY[0x277D46E18] attributeWithCondition:@"therm" value:level];
-  v28[0] = v10;
+  v27[0] = v10;
   v11 = [MEMORY[0x277D46D78] attributeWithCompletionPolicy:1];
-  v28[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+  v27[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
 
   v13 = MEMORY[0x277D46DC8];
   systemTarget = [MEMORY[0x277D47008] systemTarget];
@@ -116,17 +116,15 @@ LABEL_25:
   v20 = v9;
 
   assertionManager = [(RBDaemonContextProviding *)self->_daemonContext assertionManager];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __71__RBThermalResponseManager__takeAssertionForConditionLevel_completion___block_invoke;
-  v25[3] = &unk_279B33078;
-  v26 = v18;
-  v27 = completionCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __71__RBThermalResponseManager__takeAssertionForConditionLevel_completion___block_invoke;
+  v24[3] = &unk_279B33078;
+  v25 = v18;
+  v26 = completionCopy;
   v22 = v18;
   v23 = completionCopy;
-  [assertionManager acquireAssertionWithContext:v17 completion:v25];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [assertionManager acquireAssertionWithContext:v17 completion:v24];
 }
 
 void __71__RBThermalResponseManager__takeAssertionForConditionLevel_completion___block_invoke(uint64_t a1, void *a2)
@@ -141,17 +139,15 @@ void __71__RBThermalResponseManager__takeAssertionForConditionLevel_completion__
     }
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
 - (void)_queue_updateAssertion
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "In RBThermalResponseManager, notify_get_state failed with %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "In RBThermalResponseManager, notify_get_state failed with %d", v2, 8u);
 }
 
 void __50__RBThermalResponseManager__queue_updateAssertion__block_invoke(uint64_t a1, void *a2)
@@ -213,20 +209,18 @@ void __50__RBThermalResponseManager__queue_updateAssertion__block_invoke(uint64_
 
 void __71__RBThermalResponseManager__takeAssertionForConditionLevel_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "In RBThermalResponseManager, acqusition failed with %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "In RBThermalResponseManager, acqusition failed with %{public}@", &v2, 0xCu);
 }
 
 - (void)_initWithDaemonContext:(int)a1 notificationName:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "In RBThermalResponseManager, notify_register_dispatch failed with %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "In RBThermalResponseManager, notify_register_dispatch failed with %d", v2, 8u);
 }
 
 @end

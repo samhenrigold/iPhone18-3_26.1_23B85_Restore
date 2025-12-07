@@ -369,7 +369,7 @@ LABEL_5:
     v17 = 0;
     if (referenceCopy)
     {
-      [referenceCopy scrollPosition];
+      objc_msgSend_scrollPosition(referenceCopy);
       v10 = v16;
     }
 

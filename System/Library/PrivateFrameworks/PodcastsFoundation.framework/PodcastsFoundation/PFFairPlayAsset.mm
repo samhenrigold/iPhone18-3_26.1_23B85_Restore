@@ -36,21 +36,20 @@
 {
   v3 = sub_1D9176C2C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *&self->avAsset[OBJC_IVAR___PFFairPlayAsset_avAsset + 8];
-  v9 = *&self->avAsset[OBJC_IVAR___PFFairPlayAsset_avAsset + 16];
-  __swift_project_boxed_opaque_existential_1((&self->super.isa + OBJC_IVAR___PFFairPlayAsset_avAsset), v8);
-  v10 = *(v9 + 8);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *&self->avAsset[OBJC_IVAR___PFFairPlayAsset_avAsset + 8];
+  v8 = *&self->avAsset[OBJC_IVAR___PFFairPlayAsset_avAsset + 16];
+  __swift_project_boxed_opaque_existential_1((&self->super.isa + OBJC_IVAR___PFFairPlayAsset_avAsset), v7);
+  v9 = *(v8 + 8);
   selfCopy = self;
-  v12 = v10(v8, v9);
-  v13 = [v12 URL];
+  v11 = v9(v7, v8);
+  v12 = [v11 URL];
   sub_1D9176B9C();
 
-  LOBYTE(v13) = sub_1D9176A8C();
-  (*(v4 + 8))(v7, v3);
-  return v13 & 1;
+  LOBYTE(v12) = sub_1D9176A8C();
+  (*(v4 + 8))(v6, v3);
+  return v12 & 1;
 }
 
 @end

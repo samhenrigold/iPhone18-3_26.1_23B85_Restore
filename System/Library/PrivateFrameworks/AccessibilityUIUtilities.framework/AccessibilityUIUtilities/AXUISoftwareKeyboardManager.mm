@@ -27,7 +27,7 @@
   return v3;
 }
 
-uint64_t __45__AXUISoftwareKeyboardManager_sharedInstance__block_invoke()
+uint64_t __45__AXUISoftwareKeyboardManager_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedInstance_SoftwareKeyboardManager = objc_opt_new();
 

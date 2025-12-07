@@ -679,9 +679,9 @@ LABEL_21:
               {
                 v24 = [CCToolKitToolValueSearchPredicate alloc];
                 v25 = CCPBReaderReadDataNoCopy();
-                v113 = 0;
-                v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v113];
-                v10 = v113;
+                v111 = 0;
+                v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v111];
+                v10 = v111;
                 valueSearch = self->_valueSearch;
                 self->_valueSearch = v26;
 
@@ -733,7 +733,6 @@ LABEL_60:
               {
                 v104 = objc_opt_class();
                 v105 = NSStringFromClass(v104);
-                v106 = *&v6[*v9];
                 v10 = CCSkipFieldErrorForMessage();
               }
 
@@ -742,9 +741,9 @@ LABEL_60:
 
             v93 = [CCToolKitToolValidPredicate alloc];
             v94 = CCPBReaderReadDataNoCopy();
-            v114 = 0;
-            v95 = [(CCItemMessage *)v93 initWithData:v94 error:&v114];
-            v10 = v114;
+            v112 = 0;
+            v95 = [(CCItemMessage *)v93 initWithData:v94 error:&v112];
+            v10 = v112;
             v96 = self->_valid;
             self->_valid = v95;
 
@@ -784,9 +783,9 @@ LABEL_51:
 
           v75 = [CCToolKitToolSearchableItemPredicate alloc];
           v76 = CCPBReaderReadDataNoCopy();
-          v115 = 0;
-          v77 = [(CCItemMessage *)v75 initWithData:v76 error:&v115];
-          v10 = v115;
+          v113 = 0;
+          v77 = [(CCItemMessage *)v75 initWithData:v76 error:&v113];
+          v10 = v113;
           v78 = self->_searchableItem;
           self->_searchableItem = v77;
 
@@ -830,9 +829,9 @@ LABEL_50:
 
           v48 = [CCToolKitToolSuggestedPredicate alloc];
           v49 = CCPBReaderReadDataNoCopy();
-          v116 = 0;
-          v50 = [(CCItemMessage *)v48 initWithData:v49 error:&v116];
-          v10 = v116;
+          v114 = 0;
+          v50 = [(CCItemMessage *)v48 initWithData:v49 error:&v114];
+          v10 = v114;
           v51 = self->_suggested;
           self->_suggested = v50;
 
@@ -862,9 +861,9 @@ LABEL_50:
 
         v85 = [CCToolKitToolAllPredicate alloc];
         v86 = CCPBReaderReadDataNoCopy();
-        v117 = 0;
-        v87 = [(CCItemMessage *)v85 initWithData:v86 error:&v117];
-        v10 = v117;
+        v115 = 0;
+        v87 = [(CCItemMessage *)v85 initWithData:v86 error:&v115];
+        v10 = v115;
         v88 = self->_all;
         self->_all = v87;
 
@@ -908,9 +907,9 @@ LABEL_49:
 
           v41 = [CCToolKitToolIdSearchPredicate alloc];
           v42 = CCPBReaderReadDataNoCopy();
-          v118 = 0;
-          v43 = [(CCItemMessage *)v41 initWithData:v42 error:&v118];
-          v10 = v118;
+          v116 = 0;
+          v43 = [(CCItemMessage *)v41 initWithData:v42 error:&v116];
+          v10 = v116;
           v44 = self->_idSearch;
           self->_idSearch = v43;
 
@@ -934,9 +933,9 @@ LABEL_49:
 
         v63 = [CCToolKitToolStringSearchPredicate alloc];
         v64 = CCPBReaderReadDataNoCopy();
-        v119 = 0;
-        v65 = [(CCItemMessage *)v63 initWithData:v64 error:&v119];
-        v10 = v119;
+        v117 = 0;
+        v65 = [(CCItemMessage *)v63 initWithData:v64 error:&v117];
+        v10 = v117;
         v66 = self->_stringSearch;
         self->_stringSearch = v65;
 
@@ -960,9 +959,9 @@ LABEL_49:
         {
           v57 = [CCToolKitToolComparisonPredicate alloc];
           v58 = CCPBReaderReadDataNoCopy();
-          v121 = 0;
-          v59 = [(CCItemMessage *)v57 initWithData:v58 error:&v121];
-          v10 = v121;
+          v119 = 0;
+          v59 = [(CCItemMessage *)v57 initWithData:v58 error:&v119];
+          v10 = v119;
           v60 = self->_comparison;
           self->_comparison = v59;
 
@@ -985,9 +984,9 @@ LABEL_49:
 
           v36 = [CCToolKitToolCompoundPredicate alloc];
           v37 = CCPBReaderReadDataNoCopy();
-          v120 = 0;
-          v38 = [(CCItemMessage *)v36 initWithData:v37 error:&v120];
-          v10 = v120;
+          v118 = 0;
+          v38 = [(CCItemMessage *)v36 initWithData:v37 error:&v118];
+          v10 = v118;
           v39 = self->_compound;
           self->_compound = v38;
 
@@ -1029,23 +1028,22 @@ LABEL_65:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v111 = 1;
+    v109 = 1;
     goto LABEL_69;
   }
 
 LABEL_66:
-  v107 = objc_opt_class();
-  v108 = NSStringFromClass(v107);
-  v109 = *&v6[*v9];
-  v110 = CCInvalidBufferErrorForMessage();
+  v106 = objc_opt_class();
+  v107 = NSStringFromClass(v106);
+  v108 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_67:
-  v111 = 0;
+  v109 = 0;
 LABEL_69:
 
-  return v111;
+  return v109;
 }
 
 - (CCToolKitToolQueryAnyPredicate)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

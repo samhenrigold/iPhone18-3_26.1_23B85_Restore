@@ -73,7 +73,7 @@
   }
 
   v4 = sub_257ECCEC0();
-  sub_257BE4084(v6, &unk_27F8F62F0);
+  sub_257BE4084(v6, &unk_27F8F62F0, &unk_257ED9D30);
   return v4 & 1;
 }
 

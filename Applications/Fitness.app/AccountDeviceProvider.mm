@@ -6,7 +6,7 @@
 
 - (void)deviceListChangedWithNotification:(id)notification
 {
-  v4 = sub_100140278(&qword_1008E1760);
+  v4 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v4 - 8);
   v6 = &v13 - v5;
   v7 = type metadata accessor for Notification();

@@ -1,9 +1,54 @@
 @interface BRAccountNotificationPlugin
 - (BOOL)account:(id)account willChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount;
+- (BOOL)isCloudDocsUnsupported:(id)unsupported inStore:(id)store showUserNotification:(BOOL)notification;
 - (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount;
 @end
 
 @implementation BRAccountNotificationPlugin
+
+- (BOOL)isCloudDocsUnsupported:(id)unsupported inStore:(id)store showUserNotification:(BOOL)notification
+{
+  notificationCopy = notification;
+  unsupportedCopy = unsupported;
+  storeCopy = store;
+  v9 = +[BRDaemonConnection defaultConnection];
+  newSyncProxy = [v9 newSyncProxy];
+
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_FD8;
+  v21 = sub_FE8;
+  v22 = 0;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_FF0;
+  v16[3] = &unk_8190;
+  v16[4] = &v17;
+  [newSyncProxy validateCloudDocsSupported:notificationCopy withReply:v16];
+  v11 = v18[5];
+  if (v11)
+  {
+    v12 = brc_bread_crumbs();
+    v13 = brc_default_log();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = v18[5];
+      *buf = 138412546;
+      v24 = v14;
+      v25 = 2112;
+      v26 = v12;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] iCloud Drive can't be enabled: %@%@", buf, 0x16u);
+    }
+
+    [unsupportedCopy setEnabled:0 forDataclass:kAccountDataclassUbiquity];
+    [storeCopy saveAccount:unsupportedCopy withHandler:&stru_81D0];
+  }
+
+  _Block_object_dispose(&v17, 8);
+
+  return v11 != 0;
+}
 
 - (BOOL)account:(id)account willChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
 {
@@ -44,7 +89,7 @@
     _os_log_debug_impl(&dword_0, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] Account %@ will change with type: %u. Was Enabled: %@, Is Enabled: %@%@", v20, 0x30u);
   }
 
-  v16 = !(br_isEnabledForCloudDocs & 1 | ((br_isEnabledForCloudDocs2 & 1) == 0)) && [(BRAccountNotificationPlugin *)self isCloudDocsUnsupported:accountCopy inStore:storeCopy showUserNotification:type == 2, *v20, *&v20[16]];
+  v16 = !(br_isEnabledForCloudDocs & 1 | ((br_isEnabledForCloudDocs2 & 1) == 0)) && [(BRAccountNotificationPlugin *)self isCloudDocsUnsupported:accountCopy inStore:storeCopy showUserNotification:type == 2, *v20, *&v20[8]];
   return v16;
 }
 
@@ -501,7 +546,7 @@ LABEL_74:
           v55 = brc_default_log();
           if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
           {
-            sub_3224(buf);
+            sub_3224();
           }
 
           v56 = +[BRDaemonConnection secondaryConnection];
@@ -602,7 +647,7 @@ LABEL_106:
               v111 = brc_default_log();
               if (os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG))
               {
-                sub_3540(buf);
+                sub_3540();
               }
 
               br_dsid5 = [v12 br_dsid];

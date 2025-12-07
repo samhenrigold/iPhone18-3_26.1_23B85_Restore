@@ -3,7 +3,7 @@
 
 @implementation WLKDeepReplacement
 
-void ___WLKDeepReplacement_block_invoke(void *a1, void *a2, uint64_t a3)
+void ___WLKDeepReplacement_block_invoke(void *a1, void *a2, void *a3)
 {
   v4 = a1[4];
   v5 = a1[5];

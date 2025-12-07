@@ -43,7 +43,7 @@ uint64_t ___MRSetNowPlayingInfo_block_invoke_46(uint64_t a1, void *a2)
 
     else
     {
-      v6 = [v4 isEqualToString:v5] ^ 1;
+      v6 = objc_msgSend_isEqualToString_(v4) ^ 1;
     }
   }
 

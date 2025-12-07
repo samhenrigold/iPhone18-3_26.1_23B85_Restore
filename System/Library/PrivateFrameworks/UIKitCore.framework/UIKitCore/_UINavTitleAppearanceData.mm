@@ -543,9 +543,9 @@ LABEL_43:
       goto LABEL_22;
     }
 
-    v11 = [(NSDictionary *)v7 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v7);
 
-    if (!v11)
+    if (!isEqual)
     {
       goto LABEL_28;
     }
@@ -570,7 +570,7 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v14 = [(NSDictionary *)v7 isEqual:v13];
+  v14 = objc_msgSend_isEqual_(v7);
 
   if (!v14)
   {

@@ -167,7 +167,7 @@ LABEL_21:
     v9[2](v9, status, errorCopy);
   }
 
-  [(ICDPrivacyPromptOperation *)self finishWithError:errorCopy, *v17, *&v17[16]];
+  [(ICDPrivacyPromptOperation *)self finishWithError:errorCopy, *v17, *&v17[8]];
 LABEL_24:
 }
 

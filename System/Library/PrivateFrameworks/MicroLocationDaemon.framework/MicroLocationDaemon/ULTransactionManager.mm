@@ -71,7 +71,7 @@ void __30__ULTransactionManager_shared__block_invoke(uint64_t a1)
 
 void __41__ULTransactionManager_beginTransaction___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32) && ([*(a1 + 40) transactions], v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v2, "objectForKeyedSubscript:", *(a1 + 32)), v3 = objc_claimAutoreleasedReturnValue(), v3, v2, !v3))
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -83,9 +83,9 @@ void __41__ULTransactionManager_beginTransaction___block_invoke(uint64_t a1)
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "beginTransaction for identifier: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "beginTransaction for identifier: %@", &v10, 0xCu);
     }
 
     [*(a1 + 32) UTF8String];
@@ -105,13 +105,11 @@ void __41__ULTransactionManager_beginTransaction___block_invoke(uint64_t a1)
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_ERROR, "beginTransaction: transaction exists: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_ERROR, "beginTransaction: transaction exists: %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endTransaction:(id)transaction
@@ -133,7 +131,7 @@ void __41__ULTransactionManager_beginTransaction___block_invoke(uint64_t a1)
 
 void __39__ULTransactionManager_endTransaction___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32) && ([*(a1 + 40) transactions], v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v2, "objectForKeyedSubscript:", *(a1 + 32)), v3 = objc_claimAutoreleasedReturnValue(), v3, v2, v3))
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -145,9 +143,9 @@ void __39__ULTransactionManager_endTransaction___block_invoke(uint64_t a1)
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "endTransaction for identifier: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "endTransaction for identifier: %@", &v9, 0xCu);
     }
 
     v6 = [*(a1 + 40) transactions];
@@ -165,13 +163,11 @@ void __39__ULTransactionManager_endTransaction___block_invoke(uint64_t a1)
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
       v8 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "endTransaction: transaction doesnt exist: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "endTransaction: transaction doesnt exist: %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performUnderTransaction:(id)transaction block:(id)block
@@ -206,7 +202,7 @@ void __39__ULTransactionManager_endTransaction___block_invoke(uint64_t a1)
 
 void __49__ULTransactionManager_invalidateAllTransactions__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     __41__ULTransactionManager_beginTransaction___block_invoke_cold_1();
@@ -216,15 +212,13 @@ void __49__ULTransactionManager_invalidateAllTransactions__block_invoke(uint64_t
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "Invalidating all transactions: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "Invalidating all transactions: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 40) transactions];
   [v4 removeAllObjects];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dumpActiveTransactions

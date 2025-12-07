@@ -74,7 +74,7 @@
     [(MTLCommandEncoder *)v7 endEncoding];
   }
 
-  v9 = SharedCommandBuffer_commandBuffer(&self->_commandBuffer, sync);
+  v9 = SharedCommandBuffer_commandBuffer(&self->_commandBuffer.commandQueue, sync);
   v10 = [v9 renderCommandEncoderWithDescriptor:descriptorCopy];
   objc_storeStrong(p_commandEncoder, v10);
 
@@ -97,7 +97,7 @@
     [accelerationStructureCommandEncoder endEncoding];
   }
 
-  v6 = SharedCommandBuffer_commandBuffer((p_commandEncoder - 2), sync);
+  v6 = SharedCommandBuffer_commandBuffer(p_commandEncoder - 2, sync);
   accelerationStructureCommandEncoder = [v6 accelerationStructureCommandEncoder];
   objc_storeStrong(p_commandEncoder, accelerationStructureCommandEncoder);
 
@@ -122,7 +122,7 @@ LABEL_5:
     [v5 endEncoding];
   }
 
-  v6 = SharedCommandBuffer_commandBuffer((p_commandEncoder - 2), sync);
+  v6 = SharedCommandBuffer_commandBuffer(p_commandEncoder - 2, sync);
   v5 = InternalBlitCommandEncoder(v6, *(p_commandEncoder - 2));
   objc_storeStrong(p_commandEncoder, v5);
 

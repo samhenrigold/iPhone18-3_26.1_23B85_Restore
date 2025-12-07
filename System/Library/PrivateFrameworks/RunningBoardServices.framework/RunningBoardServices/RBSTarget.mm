@@ -1,5 +1,7 @@
 @interface RBSTarget
 + (RBSTarget)targetWithEndpoint:(id)endpoint;
++ (RBSTarget)targetWithPid:(int)pid;
++ (RBSTarget)targetWithPid:(int)pid environmentIdentifier:(id)identifier;
 + (RBSTarget)targetWithProcessIdentifier:(id)identifier;
 + (RBSTarget)targetWithProcessIdentifier:(id)identifier environmentIdentifier:(id)environmentIdentifier;
 + (RBSTarget)targetWithProcessIdentity:(id)identity;
@@ -160,6 +162,29 @@ uint64_t __25__RBSTarget_systemTarget__block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
++ (RBSTarget)targetWithPid:(int)pid
+{
+  v3 = [MEMORY[0x1E696AD98] numberWithInt:*&pid];
+  v4 = [RBSTarget targetWithProcessIdentifier:v3];
+
+  return v4;
+}
+
++ (RBSTarget)targetWithPid:(int)pid environmentIdentifier:(id)identifier
+{
+  v4 = *&pid;
+  identifierCopy = identifier;
+  if (v4 <= 0)
+  {
+    +[RBSTarget targetWithPid:environmentIdentifier:];
+  }
+
+  v6 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+  v7 = [RBSTarget targetWithProcessIdentifier:v6 environmentIdentifier:identifierCopy];
+
+  return v7;
+}
+
 + (RBSTarget)targetWithEndpoint:(id)endpoint
 {
   endpointCopy = endpoint;
@@ -247,7 +272,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v8 = rbs_coder_log();
+  v8 = rbs_coder_log(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [(RBSTarget *)v5 initWithRBSXPCCoder:v8];
@@ -505,11 +530,10 @@ LABEL_8:
 
 - (void)initWithRBSXPCCoder:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "no identity found for endpoint %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "no identity found for endpoint %@", &v2, 0xCu);
 }
 
 @end

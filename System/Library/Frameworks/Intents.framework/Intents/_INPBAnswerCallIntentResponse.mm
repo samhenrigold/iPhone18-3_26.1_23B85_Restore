@@ -3,6 +3,7 @@
 - (_INPBAnswerCallIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)statusCodeAsString:(int)string;
 - (int)StringAsStatusCode:(id)code;
 - (unint64_t)hash;
 - (void)addCallRecords:(id)records;
@@ -16,7 +17,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   answeredCall = [(_INPBAnswerCallIntentResponse *)self answeredCall];
   dictionaryRepresentation = [answeredCall dictionaryRepresentation];
@@ -25,30 +26,30 @@
   if ([(NSArray *)self->_callRecords count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = self->_callRecords;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation2 = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -77,8 +78,6 @@
 
     [dictionary setObject:v14 forKeyedSubscript:@"statusCode"];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -220,7 +219,7 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   answeredCall = [(_INPBAnswerCallIntentResponse *)self answeredCall];
 
@@ -230,33 +229,32 @@ LABEL_13:
     PBDataWriterWriteSubmessage();
   }
 
-  v17 = 0u;
-  v18 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = self->_callRecords;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -264,11 +262,8 @@ LABEL_13:
 
   if ([(_INPBAnswerCallIntentResponse *)self hasStatusCode])
   {
-    statusCode = self->_statusCode;
     PBDataWriterWriteInt32Field();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsStatusCode:(id)code
@@ -286,6 +281,26 @@ LABEL_13:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)statusCodeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NO_INCOMING_CALL";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"INCOMING_CALL";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

@@ -102,13 +102,13 @@ void __56__DBSColorTemperatureController_initWithNibName_bundle___block_invoke(u
   {
     v5 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale);
     bundleURL = [v7 bundleURL];
     v9 = [v5 initWithKey:@"DISPLAY_AND_BRIGHTNESS" defaultValue:0 table:@"Display" locale:currentLocale bundleURL:bundleURL];
 
     v10 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
-    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale2);
     bundleURL2 = [v12 bundleURL];
     v14 = [v10 initWithKey:@"BLUE_LIGHT_REDUCTION" defaultValue:0 table:@"Display" locale:currentLocale2 bundleURL:bundleURL2];
 
@@ -798,7 +798,8 @@ LABEL_9:
   v1 = DBSLogForCategory(0);
   if (OUTLINED_FUNCTION_1(v1))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, v8);
   }
 
   __assert_rtn("[DBSColorTemperatureController specifiers]", "DBSColorTemperatureController.m", 128, "0");
@@ -809,7 +810,8 @@ void __62__DBSColorTemperatureController_handleBlueLightStatusChanged___block_in
   v1 = DBSLogForCategory(0);
   if (OUTLINED_FUNCTION_1(v1))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, v8);
   }
 
   __assert_rtn("[DBSColorTemperatureController handleBlueLightStatusChanged:]_block_invoke", "DBSColorTemperatureController.m", 177, "0");
@@ -820,7 +822,8 @@ void __62__DBSColorTemperatureController_handleBlueLightStatusChanged___block_in
   v1 = DBSLogForCategory(0);
   if (OUTLINED_FUNCTION_1(v1))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, v8);
   }
 
   __assert_rtn("[DBSColorTemperatureController getBlueLightReductionManualEnabled:]", "DBSColorTemperatureController.m", 199, "0");
@@ -831,7 +834,8 @@ void __62__DBSColorTemperatureController_handleBlueLightStatusChanged___block_in
   v1 = DBSLogForCategory(0);
   if (OUTLINED_FUNCTION_1(v1))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, v8);
   }
 
   __assert_rtn("[DBSColorTemperatureController getBlueLightReductionScheduleEnabled:]", "DBSColorTemperatureController.m", 236, "0");
@@ -842,7 +846,8 @@ void __62__DBSColorTemperatureController_handleBlueLightStatusChanged___block_in
   v1 = DBSLogForCategory(0);
   if (OUTLINED_FUNCTION_1(v1))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "BLR strength could not be queried.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "BLR strength could not be queried.", v4, v5, v6, v7, v8);
   }
 
   __assert_rtn("[DBSColorTemperatureController temperatureStrength:]", "DBSColorTemperatureController.m", 292, "0");
@@ -853,7 +858,8 @@ void __62__DBSColorTemperatureController_handleBlueLightStatusChanged___block_in
   v1 = DBSLogForCategory(0);
   if (OUTLINED_FUNCTION_1(v1))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "BLR strength could not be set.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "BLR strength could not be set.", v4, v5, v6, v7, v8);
   }
 
   __assert_rtn("[DBSColorTemperatureController setTemperatureStrength:specifier:]", "DBSColorTemperatureController.m", 324, "0");
@@ -864,7 +870,8 @@ void __62__DBSColorTemperatureController_handleBlueLightStatusChanged___block_in
   v1 = DBSLogForCategory(0);
   if (OUTLINED_FUNCTION_1(v1))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, v8);
   }
 
   __assert_rtn("[DBSColorTemperatureController fromDetailForCell:]", "DBSColorTemperatureController.m", 399, "0");
@@ -875,7 +882,8 @@ void __62__DBSColorTemperatureController_handleBlueLightStatusChanged___block_in
   v1 = DBSLogForCategory(0);
   if (OUTLINED_FUNCTION_1(v1))
   {
-    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_22102E000, v2, v3, "Could not get blue light status.", v4, v5, v6, v7, v8);
   }
 
   __assert_rtn("[DBSColorTemperatureController toDetailForCell:]", "DBSColorTemperatureController.m", 424, "0");

@@ -10,7 +10,7 @@
 
 + (id)valueFromSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -29,16 +29,16 @@ LABEL_11:
     v10 = getWFGeneralLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v15 = 136315906;
-      v16 = "WFEnforceClass";
-      v17 = 2114;
-      v18 = v9;
-      v19 = 2114;
-      v20 = objc_opt_class();
-      v21 = 2114;
-      v22 = v8;
-      v11 = v20;
-      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v15, 0x2Au);
+      v14 = 136315906;
+      v15 = "WFEnforceClass";
+      v16 = 2114;
+      v17 = v9;
+      v18 = 2114;
+      v19 = objc_opt_class();
+      v20 = 2114;
+      v21 = v8;
+      v11 = v19;
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v14, 0x2Au);
     }
 
     v6 = 0;
@@ -57,8 +57,6 @@ LABEL_11:
 
   v12 = 0;
 LABEL_12:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -150,31 +148,29 @@ LABEL_6:
 
 void __85__WFWorkflowParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v5 numberOfItems])
   {
-    v13[0] = objc_opt_class();
-    v13[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __85__WFWorkflowParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
-    v10[3] = &unk_1E837FF18;
+    v12[0] = objc_opt_class();
+    v12[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __85__WFWorkflowParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
+    v9[3] = &unk_1E837FF18;
     v8 = *(a1 + 40);
-    v10[4] = *(a1 + 32);
-    v11 = v8;
-    v12 = *(a1 + 48);
-    [v5 generateCollectionByCoercingToItemClasses:v7 completionHandler:v10];
+    v9[4] = *(a1 + 32);
+    v10 = v8;
+    v11 = *(a1 + 48);
+    [v5 generateCollectionByCoercingToItemClasses:v7 completionHandler:v9];
   }
 
   else
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __85__WFWorkflowParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)

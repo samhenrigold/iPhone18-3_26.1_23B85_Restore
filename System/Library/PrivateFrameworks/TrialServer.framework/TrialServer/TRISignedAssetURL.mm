@@ -14,22 +14,21 @@
 
 + (id)allReferencedCKRecordKeys
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D73880];
-  v7[0] = *MEMORY[0x277D73888];
-  v7[1] = v2;
+  v6[0] = *MEMORY[0x277D73888];
+  v6[1] = v2;
   v3 = *MEMORY[0x277D73898];
-  v7[2] = *MEMORY[0x277D73890];
-  v7[3] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D73890];
+  v6[3] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
 
   return v4;
 }
 
 + (id)assetURLFromCKRecord:(id)record assetId:(id *)id
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   values = [recordCopy values];
   v9 = values;
@@ -44,7 +43,7 @@
       {
         recordID = [recordCopy recordID];
         *buf = 138412290;
-        v39 = recordID;
+        v38 = recordID;
         _os_log_fault_impl(&dword_26F567000, v12, OS_LOG_TYPE_FAULT, "Asset in CloudKit record %@ has missing or corrupt assetId.", buf, 0xCu);
       }
 
@@ -60,9 +59,9 @@
       {
         recordID2 = [recordCopy recordID];
         *buf = 138543618;
-        v39 = v11;
-        v40 = 2112;
-        v41 = recordID2;
+        v38 = v11;
+        v39 = 2112;
+        v40 = recordID2;
         _os_log_fault_impl(&dword_26F567000, fileURL, OS_LOG_TYPE_FAULT, "Asset %{public}@ in CloudKit record %@ has missing or corrupt asset.", buf, 0x16u);
       }
 
@@ -77,14 +76,14 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         [recordCopy recordID];
-        v31 = v30 = v14;
+        v30 = v29 = v14;
         *buf = 138543618;
-        v39 = v11;
-        v40 = 2112;
-        v41 = v31;
-        _os_log_fault_impl(&dword_26F567000, v30, OS_LOG_TYPE_FAULT, "Asset %{public}@ in CloudKit record %@ has missing fileURL.", buf, 0x16u);
+        v38 = v11;
+        v39 = 2112;
+        v40 = v30;
+        _os_log_fault_impl(&dword_26F567000, v29, OS_LOG_TYPE_FAULT, "Asset %{public}@ in CloudKit record %@ has missing fileURL.", buf, 0x16u);
 
-        v14 = v30;
+        v14 = v29;
       }
 
       v19 = 0;
@@ -98,10 +97,10 @@
       if (v15)
       {
         v16 = v15;
-        v37 = [TRISignatureKey keyFromData:v15];
-        if (v37)
+        v36 = [TRISignatureKey keyFromData:v15];
+        if (v36)
         {
-          v36 = v14;
+          v35 = v14;
           path = [fileURL path];
           if (!path)
           {
@@ -109,14 +108,14 @@
             [currentHandler handleFailureInMethod:a2 object:self file:@"TRISignedAssetURL+CloudKit.m" lineNumber:83 description:{@"Expression was unexpectedly nil/false: %@", @"assetURL.path"}];
           }
 
-          v18 = [v37 validateBase64Signature:v36 forFile:path];
+          v18 = [v36 validateBase64Signature:v35 forFile:path];
 
           if (v18)
           {
 
             objc_storeStrong(id, v11);
-            v14 = v36;
-            v19 = [[TRISignedAssetURL alloc] initWithUrl:fileURL signature:v36];
+            v14 = v35;
+            v19 = [[TRISignedAssetURL alloc] initWithUrl:fileURL signature:v35];
 LABEL_38:
 
 LABEL_39:
@@ -131,13 +130,13 @@ LABEL_41:
           {
             recordID3 = [recordCopy recordID];
             *buf = 138543618;
-            v39 = v11;
-            v40 = 2112;
-            v41 = recordID3;
+            v38 = v11;
+            v39 = 2112;
+            v40 = recordID3;
             _os_log_fault_impl(&dword_26F567000, v25, OS_LOG_TYPE_FAULT, "Asset %{public}@ from CloudKit record %@ has an invalid signature.", buf, 0x16u);
           }
 
-          v14 = v36;
+          v14 = v35;
         }
 
         else
@@ -148,9 +147,9 @@ LABEL_41:
             [recordCopy recordID];
             v27 = v26 = v14;
             *buf = 138543618;
-            v39 = v11;
-            v40 = 2112;
-            v41 = v27;
+            v38 = v11;
+            v39 = 2112;
+            v40 = v27;
             _os_log_fault_impl(&dword_26F567000, v25, OS_LOG_TYPE_FAULT, "Asset %{public}@ in CloudKit record %@ has public certificate which cannot be loaded.", buf, 0x16u);
 
             v14 = v26;
@@ -164,14 +163,14 @@ LABEL_41:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
           [recordCopy recordID];
-          v33 = v32 = v14;
+          v32 = v31 = v14;
           *buf = 138543618;
-          v39 = v11;
-          v40 = 2112;
-          v41 = v33;
+          v38 = v11;
+          v39 = 2112;
+          v40 = v32;
           _os_log_fault_impl(&dword_26F567000, v23, OS_LOG_TYPE_FAULT, "Asset %{public}@ in CloudKit record %@ has missing or corrupt public certificate.", buf, 0x16u);
 
-          v14 = v32;
+          v14 = v31;
         }
 
         v16 = 0;
@@ -185,9 +184,9 @@ LABEL_41:
       {
         recordID4 = [recordCopy recordID];
         *buf = 138543618;
-        v39 = v11;
-        v40 = 2112;
-        v41 = recordID4;
+        v38 = v11;
+        v39 = 2112;
+        v40 = recordID4;
         _os_log_fault_impl(&dword_26F567000, v16, OS_LOG_TYPE_FAULT, "Asset %{public}@ in CloudKit record %@ has missing or corrupt asset signature.", buf, 0x16u);
 
         v14 = 0;
@@ -203,14 +202,12 @@ LABEL_41:
   {
     recordID5 = [recordCopy recordID];
     *buf = 138412290;
-    v39 = recordID5;
+    v38 = recordID5;
     _os_log_fault_impl(&dword_26F567000, v11, OS_LOG_TYPE_FAULT, "Could not create Asset artifact from CloudKit record %@.", buf, 0xCu);
   }
 
   v19 = 0;
 LABEL_42:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -285,39 +282,8 @@ LABEL_3:
 {
   lCopy = l;
   v5 = lCopy;
-  if (!lCopy)
+  if (!lCopy || (v6 = self->_url == 0, [lCopy url], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (url = self->_url) != 0 && (objc_msgSend(v5, "url"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSURL isEqual:](url, "isEqual:", v10), v10, !v11) || (v12 = self->_signature == 0, objc_msgSend(v5, "signature"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_url == 0;
-  v7 = [lCopy url];
-  v8 = v7 != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  url = self->_url;
-  if (url)
-  {
-    v10 = [v5 url];
-    v11 = [(NSURL *)url isEqual:v10];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_signature == 0;
-  signature = [v5 signature];
-  v14 = signature != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -326,8 +292,8 @@ LABEL_8:
     signature = self->_signature;
     if (signature)
     {
-      signature2 = [v5 signature];
-      v17 = [(NSString *)signature isEqual:signature2];
+      signature = [v5 signature];
+      v17 = [(NSString *)signature isEqual:signature];
     }
 
     else

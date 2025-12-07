@@ -7,10 +7,10 @@
 
 - (uint64_t)SCN_safeHash
 {
-  v3 = *MEMORY[0x277D85DE8];
-  CC_SHA256_Init(&v1);
-  CFStringUpdateHash();
-  CC_SHA256_Final(md, &v1);
+  v5 = *MEMORY[0x277D85DE8];
+  CC_SHA256_Init(&v3);
+  CFStringUpdateHash(self);
+  CC_SHA256_Final(md, &v3);
   return *md;
 }
 

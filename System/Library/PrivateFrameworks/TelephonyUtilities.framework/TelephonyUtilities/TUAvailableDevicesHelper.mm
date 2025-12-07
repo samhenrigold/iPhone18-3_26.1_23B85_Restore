@@ -6,7 +6,7 @@
 
 + (void)getAvailableDevicesForAccountID:(id)d operatingSystem:(id)system model:(id)model minimumMajorVersion:(int)version completion:(id)completion
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   modelCopy = model;
   completionCopy = completion;
   v13 = MEMORY[0x1E698DD68];
@@ -15,23 +15,21 @@
   v16 = objc_alloc_init(v13);
   [v16 setAltDSID:dCopy];
 
-  v26[0] = systemCopy;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+  v25[0] = systemCopy;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
   [v16 setOperatingSystems:v17];
 
   v18 = objc_alloc_init(MEMORY[0x1E698DCC0]);
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __113__TUAvailableDevicesHelper_getAvailableDevicesForAccountID_operatingSystem_model_minimumMajorVersion_completion___block_invoke;
-  v22[3] = &unk_1E7425E28;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __113__TUAvailableDevicesHelper_getAvailableDevicesForAccountID_operatingSystem_model_minimumMajorVersion_completion___block_invoke;
+  v21[3] = &unk_1E7425E28;
   versionCopy = version;
-  v23 = modelCopy;
-  v24 = completionCopy;
+  v22 = modelCopy;
+  v23 = completionCopy;
   v19 = completionCopy;
   v20 = modelCopy;
-  [v18 deviceListWithContext:v16 completion:v22];
-
-  v21 = *MEMORY[0x1E69E9840];
+  [v18 deviceListWithContext:v16 completion:v21];
 }
 
 void __113__TUAvailableDevicesHelper_getAvailableDevicesForAccountID_operatingSystem_model_minimumMajorVersion_completion___block_invoke(uint64_t a1, void *a2)

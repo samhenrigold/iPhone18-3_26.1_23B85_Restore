@@ -3,7 +3,7 @@
 
 @implementation AXSCommandAndControlEnabled
 
-uint64_t ___AXSCommandAndControlEnabled_block_invoke()
+void *___AXSCommandAndControlEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

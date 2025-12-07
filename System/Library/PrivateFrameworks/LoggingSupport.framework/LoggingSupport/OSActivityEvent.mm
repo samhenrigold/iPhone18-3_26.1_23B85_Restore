@@ -22,7 +22,7 @@
 
 - (void)_addProperties:(id)properties
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v5 = [MEMORY[0x277CCABB0] numberWithInt:{-[OSActivityEvent processID](self, "processID")}];
   [propertiesCopy setObject:v5 forKey:@"processID"];
@@ -96,12 +96,12 @@
     [propertiesCopy setObject:eventMessage2 forKey:@"eventMessage"];
   }
 
-  memset(&v36, 0, sizeof(v36));
-  v40 = 0;
-  *v38 = 0u;
-  v39 = 0u;
-  v35 = self->_timeGMT.tv_sec - 60 * self->_tz.tz_minuteswest + 3600 * self->_tz.tz_dsttime;
-  v25 = gmtime_r(&v35, &v36);
+  memset(&v35, 0, sizeof(v35));
+  v39 = 0;
+  *v37 = 0u;
+  v38 = 0u;
+  v34 = self->_timeGMT.tv_sec - 60 * self->_tz.tz_minuteswest + 3600 * self->_tz.tz_dsttime;
+  v25 = gmtime_r(&v34, &v35);
   if (v25)
   {
     v26 = v25;
@@ -114,8 +114,8 @@
     }
 
     snprintf(__str, 0x20uLL, "%%F %%T.%06d%+03d%02d", self->_timeGMT.tv_usec, v28, v29);
-    strftime(v38, 0x24uLL, __str, v26);
-    timestamp = [MEMORY[0x277CCACA8] stringWithUTF8String:v38];
+    strftime(v37, 0x24uLL, __str, v26);
+    timestamp = [MEMORY[0x277CCACA8] stringWithUTF8String:v37];
     [propertiesCopy setObject:timestamp forKey:@"timestamp"];
   }
 
@@ -137,8 +137,6 @@
   {
     [propertiesCopy setObject:timezoneName forKeyedSubscript:@"timezoneName"];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __34__OSActivityEvent__addProperties___block_invoke()
@@ -339,7 +337,7 @@ uint64_t __34__OSActivityEvent__addProperties___block_invoke()
     senderImagePath = self->_senderImagePath;
     self->_senderImagePath = v22;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v22, senderImagePath);
   }
 }
 

@@ -156,19 +156,18 @@
 {
   transitionsCopy = transitions;
   selfCopy = self;
-  MultiSportWorkoutTracker.manuallyMoveToNextActivity(multisportTransitions:)();
+  MultiSportWorkoutTracker.manuallyMoveToNextActivity(multisportTransitions:)(transitionsCopy);
 }
 
 - (void)startEndWorkoutTimerFromDate:(id)date
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
+  MEMORY[0x28223BE20](v4, v6);
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  MultiSportWorkoutTracker.startEndWorkoutTimer(fromDate:)();
+  MultiSportWorkoutTracker.startEndWorkoutTimer(fromDate:)(v8);
 
   (*(v5 + 8))(v8, v4);
 }
@@ -187,8 +186,7 @@
 {
   v6 = type metadata accessor for Date();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v6, v8);
   v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   configurationCopy = configuration;

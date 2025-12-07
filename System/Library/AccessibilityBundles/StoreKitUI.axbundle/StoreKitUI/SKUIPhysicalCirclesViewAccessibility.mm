@@ -12,6 +12,7 @@
 - (void)_accessibilityActivateCircle:(id)circle;
 - (void)_accessibilityDeleteCircle:(id)circle;
 - (void)_reloadDidFinish;
+- (void)removeCircleAtIndex:(int64_t)index animated:(BOOL)animated completionBlock:(id)block;
 @end
 
 @implementation SKUIPhysicalCirclesViewAccessibility
@@ -124,9 +125,8 @@ void __69__SKUIPhysicalCirclesViewAccessibility__accessibilityActivateCircle___b
 
 void __60__SKUIPhysicalCirclesViewAccessibility_accessibilityScroll___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  v5 = *(a1 + 32);
-  v3 = v4;
+  v3 = a2;
+  v2 = v3;
   AXPerformSafeBlock();
 }
 
@@ -143,6 +143,24 @@ void __60__SKUIPhysicalCirclesViewAccessibility_accessibilityScroll___block_invo
   }
 
   return v4;
+}
+
+- (void)removeCircleAtIndex:(int64_t)index animated:(BOOL)animated completionBlock:(id)block
+{
+  animatedCopy = animated;
+  blockCopy = block;
+  v9 = [(SKUIPhysicalCirclesViewAccessibility *)self accessibilityElementAtIndex:index];
+  v10 = MEMORY[0x29EDBA0F8];
+  v11 = accessibilitySKUILocalizedString(@"removed.genre.circle");
+  accessibilityLabel = [v9 accessibilityLabel];
+  v13 = [v10 stringWithFormat:v11, accessibilityLabel];
+
+  v14.receiver = self;
+  v14.super_class = SKUIPhysicalCirclesViewAccessibility;
+  [(SKUIPhysicalCirclesViewAccessibility *)&v14 removeCircleAtIndex:index animated:animatedCopy completionBlock:blockCopy];
+
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v13);
 }
 
 - (void)_reloadDidFinish

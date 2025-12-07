@@ -19,21 +19,21 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, metadata);
-  v65 = 0;
-  objc_storeStrong(&v65, processor);
+  v61 = 0;
+  objc_storeStrong(&v61, processor);
   errorCopy = error;
-  v63 = 0;
-  objc_storeStrong(&v63, domain);
+  v59 = 0;
+  objc_storeStrong(&v59, domain);
   v6 = selfCopy;
   selfCopy = 0;
-  v62.receiver = v6;
-  v62.super_class = AMDDODMLEspressoModel;
-  v61 = [(AMDDODMLEspressoModel *)&v62 init];
-  selfCopy = v61;
-  objc_storeStrong(&selfCopy, v61);
-  if (!v61)
+  v58.receiver = v6;
+  v58.super_class = AMDDODMLEspressoModel;
+  v57 = [(AMDDODMLEspressoModel *)&v58 init];
+  selfCopy = v57;
+  objc_storeStrong(&selfCopy, v57);
+  if (!v57)
   {
-    v68 = 0;
+    v64 = 0;
     goto LABEL_16;
   }
 
@@ -55,9 +55,9 @@
   v15 = *(selfCopy + 3);
   *(selfCopy + 3) = v14;
   MEMORY[0x277D82BD8](v15);
-  v56 = selfCopy;
+  v52 = selfCopy;
   outputNames = [location[0] outputNames];
-  v16 = [v56 createBufferDictionary:?];
+  v16 = [v52 createBufferDictionary:?];
   v17 = *(selfCopy + 4);
   *(selfCopy + 4) = v16;
   MEMORY[0x277D82BD8](v17);
@@ -106,74 +106,70 @@
   v39 = *(selfCopy + 62);
   *(selfCopy + 62) = shortenedEmbeddingSize;
   MEMORY[0x277D82BD8](v39);
-  objc_storeStrong(selfCopy + 64, v65);
+  objc_storeStrong(selfCopy + 64, v61);
   initializeManually = [location[0] initializeManually];
   v41 = *(selfCopy + 65);
   *(selfCopy + 65) = initializeManually;
   MEMORY[0x277D82BD8](v41);
-  if ([selfCopy _buildPlan:errorCopy errorDomain:v63])
+  if ([selfCopy _buildPlan:errorCopy errorDomain:v59])
   {
-    if ([selfCopy _bindBuffers:errorCopy errorDomain:v63])
+    if ([selfCopy _bindBuffers:errorCopy errorDomain:v59])
     {
       if ([*(selfCopy + 65) longValue])
       {
-        if (![selfCopy initializeManually:errorCopy errorDomain:v63])
+        if (![selfCopy initializeManually:errorCopy errorDomain:v59])
         {
-          v68 = 0;
+          v64 = 0;
           goto LABEL_16;
         }
       }
 
       else
       {
-        v53 = selfCopy;
         initializationFunctionName = [location[0] initializationFunctionName];
         v42 = initializationFunctionName;
         [initializationFunctionName UTF8String];
-        v43 = v53[12];
-        v44 = v53[13];
-        v55 = espresso_network_set_function_name();
+        v51 = espresso_network_set_function_name();
         MEMORY[0x277D82BD8](initializationFunctionName);
-        if (v55)
+        if (v51)
         {
-          v45 = objc_alloc(MEMORY[0x277CCA9B8]);
-          v52 = [v45 initWithDomain:v63 code:77 userInfo:0];
-          v46 = v52;
-          *errorCopy = v52;
-          v68 = 0;
+          v43 = objc_alloc(MEMORY[0x277CCA9B8]);
+          v49 = [v43 initWithDomain:v59 code:77 userInfo:0];
+          v44 = v49;
+          *errorCopy = v49;
+          v64 = 0;
           goto LABEL_16;
         }
 
-        v47 = *(selfCopy + 11);
         if (espresso_plan_execute_sync())
         {
-          v48 = objc_alloc(MEMORY[0x277CCA9B8]);
-          v51 = [v48 initWithDomain:v63 code:77 userInfo:0];
-          v49 = v51;
-          *errorCopy = v51;
-          v68 = 0;
+          v45 = objc_alloc(MEMORY[0x277CCA9B8]);
+          v48 = [v45 initWithDomain:v59 code:77 userInfo:0];
+          v46 = v48;
+          *errorCopy = v48;
+          v64 = 0;
           goto LABEL_16;
         }
       }
 
-      v68 = MEMORY[0x277D82BE0](selfCopy);
+      v64 = MEMORY[0x277D82BE0](selfCopy);
       goto LABEL_16;
     }
 
-    v68 = 0;
+    v64 = 0;
   }
 
   else
   {
-    v68 = 0;
+    v64 = 0;
   }
 
 LABEL_16:
-  objc_storeStrong(&v63, 0);
-  objc_storeStrong(&v65, 0);
+  objc_storeStrong(&v59, 0);
+  objc_storeStrong(&v61, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  return v68;
+  return v64;
 }
 
 - (id)createBufferDictionary:(id)dictionary
@@ -222,209 +218,198 @@ LABEL_16:
   v4 = MEMORY[0x277D82BE0](dictionary);
   objc_storeStrong(&dictionary, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (int64_t)_buildPlan:(id *)plan errorDomain:(id)domain
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v41 = a2;
+  v35 = a2;
   planCopy = plan;
   location = 0;
   objc_storeStrong(&location, domain);
   selfCopy->_ctx = espresso_create_context();
   if (selfCopy->_ctx)
   {
-    ctx = selfCopy->_ctx;
     selfCopy->_plan = espresso_create_plan();
     if (selfCopy->_plan)
     {
-      plan = selfCopy->_plan;
       [(NSString *)selfCopy->_modelPath UTF8String];
-      v9 = espresso_plan_add_network();
-      v37 = v9;
-      if (v9)
+      v8 = espresso_plan_add_network();
+      v31 = v8;
+      if (v8)
       {
-        v10 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v31 = [v10 initWithDomain:location code:67 userInfo:0];
-        v11 = v31;
-        *planCopy = v31;
-        v43 = 0;
-        v38 = 1;
+        v9 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v26 = [v9 initWithDomain:location code:67 userInfo:0];
+        v10 = v26;
+        *planCopy = v26;
+        v37 = 0;
+        v32 = 1;
       }
 
       else
       {
         memset(__b, 0, sizeof(__b));
         obj = MEMORY[0x277D82BE0](selfCopy->_outputNameBufferMap);
-        v30 = [obj countByEnumeratingWithState:__b objects:v44 count:16];
-        if (v30)
+        v25 = [obj countByEnumeratingWithState:__b objects:v38 count:16];
+        if (v25)
         {
-          v26 = *__b[2];
-          v27 = 0;
-          v28 = v30;
+          v21 = *__b[2];
+          v22 = 0;
+          v23 = v25;
           while (1)
           {
-            v25 = v27;
-            if (*__b[2] != v26)
+            v20 = v22;
+            if (*__b[2] != v21)
             {
               objc_enumerationMutation(obj);
             }
 
-            v36 = *(__b[1] + 8 * v27);
-            v24 = selfCopy;
-            v23 = v36;
-            v12 = v36;
-            [v23 UTF8String];
-            v13 = v24->_net.plan;
-            v14 = *&v24->_net.network_index;
+            v30 = *(__b[1] + 8 * v22);
+            v19 = v30;
+            v11 = v30;
+            [v19 UTF8String];
             if (espresso_network_declare_output())
             {
               break;
             }
 
-            ++v27;
-            if (v25 + 1 >= v28)
+            ++v22;
+            if (v20 + 1 >= v23)
             {
-              v27 = 0;
-              v28 = [obj countByEnumeratingWithState:__b objects:v44 count:16];
-              if (!v28)
+              v22 = 0;
+              v23 = [obj countByEnumeratingWithState:__b objects:v38 count:16];
+              if (!v23)
               {
                 goto LABEL_15;
               }
             }
           }
 
-          v15 = objc_alloc(MEMORY[0x277CCA9B8]);
-          v22 = [v15 initWithDomain:location code:70 userInfo:0];
-          v16 = v22;
-          *planCopy = v22;
-          v43 = 0;
-          v38 = 1;
+          v12 = objc_alloc(MEMORY[0x277CCA9B8]);
+          v18 = [v12 initWithDomain:location code:70 userInfo:0];
+          v13 = v18;
+          *planCopy = v18;
+          v37 = 0;
+          v32 = 1;
         }
 
         else
         {
 LABEL_15:
-          v38 = 0;
+          v32 = 0;
         }
 
         MEMORY[0x277D82BD8](obj);
-        if (!v38)
+        if (!v32)
         {
-          v17 = selfCopy->_plan;
           if (espresso_plan_build())
           {
-            v18 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v21 = [v18 initWithDomain:location code:71 userInfo:0];
-            v19 = v21;
-            *planCopy = v21;
-            v43 = 0;
+            v14 = objc_alloc(MEMORY[0x277CCA9B8]);
+            v17 = [v14 initWithDomain:location code:71 userInfo:0];
+            v15 = v17;
+            *planCopy = v17;
+            v37 = 0;
           }
 
           else
           {
-            v43 = 1;
+            v37 = 1;
           }
 
-          v38 = 1;
+          v32 = 1;
         }
       }
     }
 
     else
     {
-      v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v33 = [v7 initWithDomain:location code:69 userInfo:0];
-      v8 = v33;
-      *planCopy = v33;
-      v43 = 0;
-      v38 = 1;
+      v6 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v27 = [v6 initWithDomain:location code:69 userInfo:0];
+      v7 = v27;
+      *planCopy = v27;
+      v37 = 0;
+      v32 = 1;
     }
   }
 
   else
   {
     v4 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v34 = [v4 initWithDomain:location code:68 userInfo:0];
-    v5 = v34;
-    *planCopy = v34;
-    v43 = 0;
-    v38 = 1;
+    v28 = [v4 initWithDomain:location code:68 userInfo:0];
+    v5 = v28;
+    *planCopy = v28;
+    v37 = 0;
+    v32 = 1;
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
-  return v43;
+  return v37;
 }
 
 - (int64_t)_bindBuffers:(id *)buffers errorDomain:(id)domain
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v96 = a2;
+  v78 = a2;
   buffersCopy = buffers;
   location = 0;
   objc_storeStrong(&location, domain);
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](selfCopy->_inputNameBufferMap);
-  v79 = [obj countByEnumeratingWithState:__b objects:v101 count:16];
-  if (v79)
+  v61 = [obj countByEnumeratingWithState:__b objects:v83 count:16];
+  if (v61)
   {
-    v75 = *__b[2];
-    v76 = 0;
-    v77 = v79;
+    v57 = *__b[2];
+    v58 = 0;
+    v59 = v61;
     while (1)
     {
-      v74 = v76;
-      if (*__b[2] != v75)
+      v56 = v58;
+      if (*__b[2] != v57)
       {
         objc_enumerationMutation(obj);
       }
 
-      v93 = *(__b[1] + 8 * v76);
-      v91 = [(NSDictionary *)selfCopy->_inputNameBufferMap objectForKeyedSubscript:v93];
-      v73 = selfCopy;
-      v71 = v93;
-      v4 = v93;
-      [v71 UTF8String];
-      v72 = v91;
-      v5 = v91;
-      [v72 mutableBytes];
-      plan = v73->_net.plan;
-      v7 = *&v73->_net.network_index;
-      v8 = espresso_network_bind_buffer();
-      v90 = v8;
-      if (v8)
+      v75 = *(__b[1] + 8 * v58);
+      v73 = [(NSDictionary *)selfCopy->_inputNameBufferMap objectForKeyedSubscript:v75];
+      v54 = v75;
+      v4 = v75;
+      [v54 UTF8String];
+      v55 = v73;
+      v5 = v73;
+      [v55 mutableBytes];
+      v6 = espresso_network_bind_buffer();
+      v72 = v6;
+      if (v6)
       {
-        v9 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v70 = [v9 initWithDomain:location code:72 userInfo:0];
-        v10 = v70;
-        *buffersCopy = v70;
-        v98 = 0;
-        v89 = 1;
+        v7 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v53 = [v7 initWithDomain:location code:72 userInfo:0];
+        v8 = v53;
+        *buffersCopy = v53;
+        v80 = 0;
+        v71 = 1;
       }
 
       else
       {
-        v89 = 0;
+        v71 = 0;
       }
 
-      objc_storeStrong(&v91, 0);
-      if (v89)
+      objc_storeStrong(&v73, 0);
+      if (v71)
       {
         break;
       }
 
-      ++v76;
-      if (v74 + 1 >= v77)
+      ++v58;
+      if (v56 + 1 >= v59)
       {
-        v76 = 0;
-        v77 = [obj countByEnumeratingWithState:__b objects:v101 count:16];
-        if (!v77)
+        v58 = 0;
+        v59 = [obj countByEnumeratingWithState:__b objects:v83 count:16];
+        if (!v59)
         {
           goto LABEL_11;
         }
@@ -435,68 +420,65 @@ LABEL_15:
   else
   {
 LABEL_11:
-    v89 = 0;
+    v71 = 0;
   }
 
   MEMORY[0x277D82BD8](obj);
-  if (!v89)
+  if (!v71)
   {
-    memset(v87, 0, sizeof(v87));
-    v68 = MEMORY[0x277D82BE0](selfCopy->_outputNameBufferMap);
-    v69 = [v68 countByEnumeratingWithState:v87 objects:v100 count:16];
-    if (v69)
+    memset(v69, 0, sizeof(v69));
+    v51 = MEMORY[0x277D82BE0](selfCopy->_outputNameBufferMap);
+    v52 = [v51 countByEnumeratingWithState:v69 objects:v82 count:16];
+    if (v52)
     {
-      v65 = *v87[2];
-      v66 = 0;
-      v67 = v69;
+      v48 = *v69[2];
+      v49 = 0;
+      v50 = v52;
       while (1)
       {
-        v64 = v66;
-        if (*v87[2] != v65)
+        v47 = v49;
+        if (*v69[2] != v48)
         {
-          objc_enumerationMutation(v68);
+          objc_enumerationMutation(v51);
         }
 
-        v88 = *(v87[1] + 8 * v66);
-        v86 = [(NSDictionary *)selfCopy->_outputNameBufferMap objectForKeyedSubscript:v88];
-        v63 = selfCopy;
-        v61 = v88;
-        v11 = v88;
-        [v61 UTF8String];
-        v62 = v86;
-        v12 = v86;
-        [v62 mutableBytes];
-        v13 = v63->_net.plan;
-        v14 = *&v63->_net.network_index;
-        v15 = espresso_network_bind_buffer();
-        v85 = v15;
-        if (v15)
+        v70 = *(v69[1] + 8 * v49);
+        v68 = [(NSDictionary *)selfCopy->_outputNameBufferMap objectForKeyedSubscript:v70];
+        v45 = v70;
+        v9 = v70;
+        [v45 UTF8String];
+        v46 = v68;
+        v10 = v68;
+        [v46 mutableBytes];
+        v11 = espresso_network_bind_buffer();
+        v67 = v11;
+        if (v11)
         {
-          v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-          v60 = [v16 initWithDomain:location code:73 userInfo:0];
-          v17 = v60;
-          *buffersCopy = v60;
-          v98 = 0;
-          v89 = 1;
+          v12 = objc_alloc(MEMORY[0x277CCA9B8]);
+          v44 = [v12 initWithDomain:location code:73 userInfo:0];
+          v13 = v44;
+          *buffersCopy = v44;
+          v80 = 0;
+          v71 = 1;
         }
 
         else
         {
-          v89 = 0;
+          v71 = 0;
         }
 
-        objc_storeStrong(&v86, 0);
-        if (v89)
+        objc_storeStrong(&v68, 0);
+        if (v71)
         {
           break;
         }
 
-        ++v66;
-        if (v64 + 1 >= v67)
+        ++v49;
+        if (v47 + 1 >= v50)
         {
-          v66 = 0;
-          v67 = [v68 countByEnumeratingWithState:v87 objects:v100 count:16];
-          if (!v67)
+          v49 = 0;
+          v50 = [v51 countByEnumeratingWithState:v69 objects:v82 count:16];
+          if (!v50)
           {
             goto LABEL_23;
           }
@@ -507,130 +489,118 @@ LABEL_11:
     else
     {
 LABEL_23:
-      v89 = 0;
+      v71 = 0;
     }
 
-    MEMORY[0x277D82BD8](v68);
-    if (!v89)
+    MEMORY[0x277D82BD8](v51);
+    if (!v71)
     {
-      v59 = selfCopy;
       [(NSString *)selfCopy->_trainingModeBufferName UTF8String];
-      v18 = v59->_net.plan;
-      v19 = *&v59->_net.network_index;
-      v20 = espresso_network_bind_buffer_to_global();
-      v84 = v20;
-      if (v20)
+      v14 = espresso_network_bind_buffer_to_global();
+      v66 = v14;
+      if (v14)
       {
-        v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v58 = [v21 initWithDomain:location code:75 userInfo:0];
-        v22 = v58;
-        *buffersCopy = v58;
-        v98 = 0;
-        v89 = 1;
+        v15 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v43 = [v15 initWithDomain:location code:75 userInfo:0];
+        v16 = v43;
+        *buffersCopy = v43;
+        v80 = 0;
+        v71 = 1;
         goto LABEL_46;
       }
 
-      v57 = selfCopy;
       [(NSString *)selfCopy->_learningRateBufferName UTF8String];
-      v23 = v57->_net.plan;
-      v24 = *&v57->_net.network_index;
-      v25 = espresso_network_bind_buffer_to_global();
-      v83 = v25;
-      if (v25)
+      v17 = espresso_network_bind_buffer_to_global();
+      v65 = v17;
+      if (v17)
       {
-        v26 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v56 = [v26 initWithDomain:location code:76 userInfo:0];
-        v27 = v56;
-        *buffersCopy = v56;
-        v98 = 0;
-        v89 = 1;
+        v18 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v42 = [v18 initWithDomain:location code:76 userInfo:0];
+        v19 = v42;
+        *buffersCopy = v42;
+        v80 = 0;
+        v71 = 1;
         goto LABEL_46;
       }
 
       *selfCopy->_bufIsTraining.data = 1.0;
       [(NSNumber *)selfCopy->_learningRate floatValue];
-      *selfCopy->_bufLR.data = v28;
-      memset(v81, 0, sizeof(v81));
-      v54 = MEMORY[0x277D82BE0](selfCopy->_weightNameBufferMap);
-      v55 = [v54 countByEnumeratingWithState:v81 objects:v99 count:16];
-      if (v55)
+      *selfCopy->_bufLR.data = v20;
+      memset(v63, 0, sizeof(v63));
+      v40 = MEMORY[0x277D82BE0](selfCopy->_weightNameBufferMap);
+      v41 = [v40 countByEnumeratingWithState:v63 objects:v81 count:16];
+      if (v41)
       {
-        v51 = *v81[2];
-        v52 = 0;
-        v53 = v55;
+        v37 = *v63[2];
+        v38 = 0;
+        v39 = v41;
         while (1)
         {
-          v50 = v52;
-          if (*v81[2] != v51)
+          v36 = v38;
+          if (*v63[2] != v37)
           {
-            objc_enumerationMutation(v54);
+            objc_enumerationMutation(v40);
           }
 
-          v82 = *(v81[1] + 8 * v52);
-          v80 = [(NSDictionary *)selfCopy->_weightNameBufferMap objectForKeyedSubscript:v82];
+          v64 = *(v63[1] + 8 * v38);
+          v62 = [(NSDictionary *)selfCopy->_weightNameBufferMap objectForKeyedSubscript:v64];
           if ([(NSNumber *)selfCopy->_initializeManually longValue])
           {
-            v45 = selfCopy;
-            v43 = v82;
-            v35 = v82;
-            [v43 UTF8String];
-            v44 = v80;
-            v36 = v80;
-            [v44 mutableBytes];
-            v37 = v45->_net.plan;
-            v38 = *&v45->_net.network_index;
+            v31 = v64;
+            v25 = v64;
+            [v31 UTF8String];
+            v32 = v62;
+            v26 = v62;
+            [v32 mutableBytes];
             if (!espresso_network_bind_buffer_to_global())
             {
 LABEL_39:
-              v89 = 0;
+              v71 = 0;
               goto LABEL_40;
             }
 
-            v39 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v42 = [v39 initWithDomain:location code:74 userInfo:0];
-            v40 = v42;
-            *buffersCopy = v42;
-            v98 = 0;
-            v89 = 1;
+            v27 = objc_alloc(MEMORY[0x277CCA9B8]);
+            v30 = [v27 initWithDomain:location code:74 userInfo:0];
+            v28 = v30;
+            *buffersCopy = v30;
+            v80 = 0;
+            v71 = 1;
           }
 
           else
           {
-            v49 = selfCopy;
-            v47 = v82;
-            v29 = v82;
-            [v47 UTF8String];
-            v48 = v80;
-            v30 = v80;
-            [v48 mutableBytes];
-            v31 = v49->_net.plan;
-            v32 = *&v49->_net.network_index;
+            v34 = v64;
+            v21 = v64;
+            [v34 UTF8String];
+            v35 = v62;
+            v22 = v62;
+            [v35 mutableBytes];
             if (!espresso_network_bind_buffer_to_global())
             {
               goto LABEL_39;
             }
 
-            v33 = objc_alloc(MEMORY[0x277CCA9B8]);
-            v46 = [v33 initWithDomain:location code:74 userInfo:0];
-            v34 = v46;
-            *buffersCopy = v46;
-            v98 = 0;
-            v89 = 1;
+            v23 = objc_alloc(MEMORY[0x277CCA9B8]);
+            v33 = [v23 initWithDomain:location code:74 userInfo:0];
+            v24 = v33;
+            *buffersCopy = v33;
+            v80 = 0;
+            v71 = 1;
           }
 
 LABEL_40:
-          objc_storeStrong(&v80, 0);
-          if (v89)
+          objc_storeStrong(&v62, 0);
+          if (v71)
           {
             goto LABEL_44;
           }
 
-          ++v52;
-          if (v50 + 1 >= v53)
+          ++v38;
+          if (v36 + 1 >= v39)
           {
-            v52 = 0;
-            v53 = [v54 countByEnumeratingWithState:v81 objects:v99 count:16];
-            if (!v53)
+            v38 = 0;
+            v39 = [v40 countByEnumeratingWithState:v63 objects:v81 count:16];
+            if (!v39)
             {
               break;
             }
@@ -638,21 +608,20 @@ LABEL_40:
         }
       }
 
-      v89 = 0;
+      v71 = 0;
 LABEL_44:
-      MEMORY[0x277D82BD8](v54);
-      if (!v89)
+      MEMORY[0x277D82BD8](v40);
+      if (!v71)
       {
-        v98 = 1;
-        v89 = 1;
+        v80 = 1;
+        v71 = 1;
       }
     }
   }
 
 LABEL_46:
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
-  return v98;
+  return v80;
 }
 
 - (id)_flattenedWeightsBeforeTraining
@@ -699,120 +668,115 @@ LABEL_46:
   MEMORY[0x277D82BD8](obj);
   v3 = MEMORY[0x277D82BE0](v14[0]);
   objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)trainOnData:(id)data numLocalIterations:(int64_t)iterations error:(id *)error errorDomain:(id)domain
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, data);
   iterationsCopy = iterations;
   errorCopy = error;
-  v80 = 0;
-  objc_storeStrong(&v80, domain);
-  v49 = selfCopy;
+  v76 = 0;
+  objc_storeStrong(&v76, domain);
   get_main_function_name();
-  plan = v49->_net.plan;
-  v7 = *&v49->_net.network_index;
-  v8 = espresso_network_set_function_name();
-  v79 = v8;
-  if (v8)
+  v6 = espresso_network_set_function_name();
+  v75 = v6;
+  if (v6)
   {
-    v9 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v45 = [v9 initWithDomain:v80 code:75 userInfo:0];
-    v10 = v45;
-    *errorCopy = v45;
-    v85 = 0;
-    v78 = 1;
+    v7 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v42 = [v7 initWithDomain:v76 code:75 userInfo:0];
+    v8 = v42;
+    *errorCopy = v42;
+    v81 = 0;
+    v74 = 1;
   }
 
   else
   {
     _flattenedWeightsBeforeTraining = [(AMDDODMLEspressoModel *)selfCopy _flattenedWeightsBeforeTraining];
-    v76 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:?];
-    v75 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:0];
+    v72 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:?];
+    v71 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:0];
     for (i = 0; i < iterationsCopy; ++i)
     {
-      v73 = [location[0] bindDataToInputsDirectly:selfCopy->_inputNameBufferMap batchSize:selfCopy->_batchSize error:errorCopy errorDomain:v80];
-      if (v73)
+      v69 = [location[0] bindDataToInputsDirectly:selfCopy->_inputNameBufferMap batchSize:selfCopy->_batchSize error:errorCopy errorDomain:v76];
+      if (v69)
       {
-        v11 = selfCopy->_plan;
-        v12 = espresso_plan_execute_sync();
-        v72 = v12;
-        if (v12)
+        v9 = espresso_plan_execute_sync();
+        v68 = v9;
+        if (v9)
         {
-          v13 = objc_alloc(MEMORY[0x277CCA9B8]);
-          v44 = [v13 initWithDomain:v80 code:79 userInfo:0];
-          v14 = v44;
-          *errorCopy = v44;
-          v85 = 0;
-          v78 = 1;
+          v10 = objc_alloc(MEMORY[0x277CCA9B8]);
+          v41 = [v10 initWithDomain:v76 code:79 userInfo:0];
+          v11 = v41;
+          *errorCopy = v41;
+          v81 = 0;
+          v74 = 1;
         }
 
         else
         {
-          v38 = [(NSDictionary *)selfCopy->_outputNameBufferMap objectForKeyedSubscript:selfCopy->_lossName];
-          v15 = v38;
-          mutableBytes = [v38 mutableBytes];
+          v35 = [(NSDictionary *)selfCopy->_outputNameBufferMap objectForKeyedSubscript:selfCopy->_lossName];
+          v12 = v35;
+          mutableBytes = [v35 mutableBytes];
+          MEMORY[0x277D82BD8](v35);
+          v67 = mutableBytes;
+          v66 = **mutableBytes;
+          v37 = v72;
+          *&v13 = v66;
+          v38 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
+          [v37 addObject:?];
           MEMORY[0x277D82BD8](v38);
-          v71 = mutableBytes;
-          v70 = **mutableBytes;
-          v40 = v76;
-          *&v16 = v70;
-          v41 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-          [v40 addObject:?];
-          MEMORY[0x277D82BD8](v41);
-          NSLog(&cfstr_Loss4f.isa, v70);
+          NSLog(&cfstr_Loss4f.isa, v66);
           memset(__b, 0, sizeof(__b));
-          v42 = MEMORY[0x277D82BE0](selfCopy->_metricNames);
-          v43 = [v42 countByEnumeratingWithState:__b objects:v95 count:16];
-          if (v43)
+          v39 = MEMORY[0x277D82BE0](selfCopy->_metricNames);
+          v40 = [v39 countByEnumeratingWithState:__b objects:v91 count:16];
+          if (v40)
           {
-            v35 = *__b[2];
-            v36 = 0;
-            v37 = v43;
+            v32 = *__b[2];
+            v33 = 0;
+            v34 = v40;
             while (1)
             {
-              v34 = v36;
-              if (*__b[2] != v35)
+              v31 = v33;
+              if (*__b[2] != v32)
               {
-                objc_enumerationMutation(v42);
+                objc_enumerationMutation(v39);
               }
 
-              v69 = *(__b[1] + 8 * v36);
-              v32 = [(NSDictionary *)selfCopy->_outputNameBufferMap objectForKeyedSubscript:v69];
-              v17 = v32;
-              mutableBytes2 = [v32 mutableBytes];
-              MEMORY[0x277D82BD8](v32);
-              v67 = mutableBytes2;
-              v66 = **mutableBytes2;
-              v65 = [v75 valueForKey:v69];
-              if (!v65)
+              v65 = *(__b[1] + 8 * v33);
+              v29 = [(NSDictionary *)selfCopy->_outputNameBufferMap objectForKeyedSubscript:v65];
+              v14 = v29;
+              mutableBytes2 = [v29 mutableBytes];
+              MEMORY[0x277D82BD8](v29);
+              v63 = mutableBytes2;
+              v62 = **mutableBytes2;
+              v61 = [v71 valueForKey:v65];
+              if (!v61)
               {
-                v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:0];
-                v20 = v65;
-                v65 = v19;
-                MEMORY[0x277D82BD8](v20);
-                [v75 setValue:v65 forKey:v69];
+                v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:0];
+                v17 = v61;
+                v61 = v16;
+                MEMORY[0x277D82BD8](v17);
+                [v71 setValue:v61 forKey:v65];
               }
 
-              v30 = v65;
-              LODWORD(v18) = v66;
-              v31 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-              [v30 addObject:?];
-              MEMORY[0x277D82BD8](v31);
-              objc_storeStrong(&v65, 0);
-              ++v36;
-              if (v34 + 1 >= v37)
+              v27 = v61;
+              LODWORD(v15) = v62;
+              v28 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
+              [v27 addObject:?];
+              MEMORY[0x277D82BD8](v28);
+              objc_storeStrong(&v61, 0);
+              ++v33;
+              if (v31 + 1 >= v34)
               {
-                v36 = 0;
-                v37 = [v42 countByEnumeratingWithState:__b objects:v95 count:16];
-                if (!v37)
+                v33 = 0;
+                v34 = [v39 countByEnumeratingWithState:__b objects:v91 count:16];
+                if (!v34)
                 {
                   break;
                 }
@@ -820,81 +784,81 @@ LABEL_46:
             }
           }
 
-          MEMORY[0x277D82BD8](v42);
+          MEMORY[0x277D82BD8](v39);
           if (!i && [(NSNumber *)selfCopy->_initializeManually longValue]== 1)
           {
-            v21 = [(AMDDODMLEspressoModel *)selfCopy finishInitializeManually:errorCopy errorDomain:v80];
+            v18 = [(AMDDODMLEspressoModel *)selfCopy finishInitializeManually:errorCopy errorDomain:v76];
           }
 
-          v78 = 0;
+          v74 = 0;
         }
       }
 
       else
       {
-        v85 = 0;
-        v78 = 1;
+        v81 = 0;
+        v74 = 1;
       }
 
-      objc_storeStrong(&v73, 0);
-      if (v78)
+      objc_storeStrong(&v69, 0);
+      if (v74)
       {
         goto LABEL_38;
       }
     }
 
-    v64 = 0;
-    memset(v62, 0, sizeof(v62));
-    v28 = MEMORY[0x277D82BE0](selfCopy->_weightNames);
-    v29 = [v28 countByEnumeratingWithState:v62 objects:v94 count:16];
-    if (v29)
+    v60 = 0;
+    memset(v58, 0, sizeof(v58));
+    v25 = MEMORY[0x277D82BE0](selfCopy->_weightNames);
+    v26 = [v25 countByEnumeratingWithState:v58 objects:v90 count:16];
+    if (v26)
     {
-      v25 = *v62[2];
-      v26 = 0;
-      v27 = v29;
+      v22 = *v58[2];
+      v23 = 0;
+      v24 = v26;
       while (1)
       {
-        v24 = v26;
-        if (*v62[2] != v25)
+        v21 = v23;
+        if (*v58[2] != v22)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v25);
         }
 
-        v63 = *(v62[1] + 8 * v26);
-        v61 = [(NSDictionary *)selfCopy->_weightNameBufferMap objectForKeyedSubscript:v63];
-        memset(v60, 0, sizeof(v60));
-        [v61 getBytes:v60 length:168];
-        v59 = v60[2] * v60[3] * v60[4] * v60[5];
-        v58 = 0.0;
-        v57 = 0.0;
-        for (j = 0; j < v59; ++j)
+        v59 = *(v58[1] + 8 * v23);
+        v57 = [(NSDictionary *)selfCopy->_weightNameBufferMap objectForKeyedSubscript:v59];
+        memset(v56, 0, sizeof(v56));
+        [v57 getBytes:v56 length:168];
+        v55 = v56[2] * v56[3] * v56[4] * v56[5];
+        v54 = 0.0;
+        v53 = 0.0;
+        for (j = 0; j < v55; ++j)
         {
-          v91 = v64;
-          v90 = 4;
-          v92 = v64;
-          v93 = 4;
-          v54 = v64;
-          v55 = 4;
-          [_flattenedWeightsBeforeTraining getBytes:&v58 range:{v64, 4}];
-          v57 = *(v60[0] + 4 * j);
-          v53 = v57 - v58;
-          v87 = v64;
+          v87 = v60;
           v86 = 4;
-          v88 = v64;
+          v88 = v60;
           v89 = 4;
-          v52[1] = v64;
-          v52[2] = 4;
-          [_flattenedWeightsBeforeTraining replaceBytesInRange:v64 withBytes:{4, &v53}];
-          v64 += 4;
+          v50 = v60;
+          v51 = 4;
+          [_flattenedWeightsBeforeTraining getBytes:&v54 range:{v60, 4}];
+          v53 = *(v56[0] + 4 * j);
+          v49 = v53 - v54;
+          v83 = v60;
+          v82 = 4;
+          v84 = v60;
+          v85 = 4;
+          v48[1] = v60;
+          v48[2] = 4;
+          [_flattenedWeightsBeforeTraining replaceBytesInRange:v60 withBytes:{4, &v49}];
+          v60 += 4;
         }
 
-        objc_storeStrong(&v61, 0);
-        ++v26;
-        if (v24 + 1 >= v27)
+        objc_storeStrong(&v57, 0);
+        ++v23;
+        if (v21 + 1 >= v24)
         {
-          v26 = 0;
-          v27 = [v28 countByEnumeratingWithState:v62 objects:v94 count:16];
-          if (!v27)
+          v23 = 0;
+          v24 = [v25 countByEnumeratingWithState:v58 objects:v90 count:16];
+          if (!v24)
           {
             break;
           }
@@ -902,55 +866,54 @@ LABEL_46:
       }
     }
 
-    MEMORY[0x277D82BD8](v28);
+    MEMORY[0x277D82BD8](v25);
     if ([(NSNumber *)selfCopy->_initializeManually longValue])
     {
-      v51 = [(AMDDODMLEspressoModel *)selfCopy getNewDeltasContainer:_flattenedWeightsBeforeTraining withError:errorCopy errorDomain:v80];
-      if (v51)
+      v47 = [(AMDDODMLEspressoModel *)selfCopy getNewDeltasContainer:_flattenedWeightsBeforeTraining withError:errorCopy errorDomain:v76];
+      if (v47)
       {
-        v50 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        [v50 setObject:v51 forKey:ModelDeltas];
-        [v50 setObject:selfCopy->_weightNames forKey:WeightNamesKeyInResponse];
-        [v50 setObject:v76 forKey:LossesKeyInResponse];
-        [v50 setObject:v75 forKey:ModelMetrics];
-        v85 = MEMORY[0x277D82BE0](v50);
-        v78 = 1;
-        objc_storeStrong(&v50, 0);
+        v46 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        [v46 setObject:v47 forKey:ModelDeltas];
+        [v46 setObject:selfCopy->_weightNames forKey:WeightNamesKeyInResponse];
+        [v46 setObject:v72 forKey:LossesKeyInResponse];
+        [v46 setObject:v71 forKey:ModelMetrics];
+        v81 = MEMORY[0x277D82BE0](v46);
+        v74 = 1;
+        objc_storeStrong(&v46, 0);
       }
 
       else
       {
-        v85 = 0;
-        v78 = 1;
+        v81 = 0;
+        v74 = 1;
       }
 
-      objc_storeStrong(&v51, 0);
+      objc_storeStrong(&v47, 0);
     }
 
     else
     {
-      v52[0] = [MEMORY[0x277CBEB38] dictionary];
-      [v52[0] setObject:_flattenedWeightsBeforeTraining forKey:ModelDeltas];
-      [v52[0] setObject:selfCopy->_weightNames forKey:WeightNamesKeyInResponse];
-      [v52[0] setObject:v76 forKey:LossesKeyInResponse];
-      [v52[0] setObject:v75 forKey:ModelMetrics];
-      v85 = MEMORY[0x277D82BE0](v52[0]);
-      v78 = 1;
-      objc_storeStrong(v52, 0);
+      v48[0] = [MEMORY[0x277CBEB38] dictionary];
+      [v48[0] setObject:_flattenedWeightsBeforeTraining forKey:ModelDeltas];
+      [v48[0] setObject:selfCopy->_weightNames forKey:WeightNamesKeyInResponse];
+      [v48[0] setObject:v72 forKey:LossesKeyInResponse];
+      [v48[0] setObject:v71 forKey:ModelMetrics];
+      v81 = MEMORY[0x277D82BE0](v48[0]);
+      v74 = 1;
+      objc_storeStrong(v48, 0);
     }
 
 LABEL_38:
-    objc_storeStrong(&v75, 0);
-    objc_storeStrong(&v76, 0);
+    objc_storeStrong(&v71, 0);
+    objc_storeStrong(&v72, 0);
     objc_storeStrong(&_flattenedWeightsBeforeTraining, 0);
   }
 
-  objc_storeStrong(&v80, 0);
+  objc_storeStrong(&v76, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
-  v22 = v85;
+  v19 = v81;
 
-  return v22;
+  return v19;
 }
 
 - (int64_t)initializeManually:(id *)manually errorDomain:(id)domain
@@ -1350,118 +1313,110 @@ LABEL_74:
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v122;
 }
 
 - (id)finishInitializeManually:(id *)manually errorDomain:(id)domain
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v38 = a2;
+  v32 = a2;
   manuallyCopy = manually;
   location = 0;
   objc_storeStrong(&location, domain);
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](selfCopy->_weightNameBufferMap);
-  v30 = [obj countByEnumeratingWithState:__b objects:v41 count:16];
-  if (v30)
+  v24 = [obj countByEnumeratingWithState:__b objects:v35 count:16];
+  if (v24)
   {
-    v26 = *__b[2];
-    v27 = 0;
-    v28 = v30;
+    v20 = *__b[2];
+    v21 = 0;
+    v22 = v24;
     while (1)
     {
-      v25 = v27;
-      if (*__b[2] != v26)
+      v19 = v21;
+      if (*__b[2] != v20)
       {
         objc_enumerationMutation(obj);
       }
 
-      v35 = *(__b[1] + 8 * v27);
-      v24 = selfCopy;
-      v23 = v35;
-      v4 = v35;
-      [v23 UTF8String];
-      plan = v24->_net.plan;
-      v6 = *&v24->_net.network_index;
-      v7 = espresso_network_unbind_buffer_to_global();
-      v33 = v7;
-      if (v7)
+      v29 = *(__b[1] + 8 * v21);
+      v18 = v29;
+      v4 = v29;
+      [v18 UTF8String];
+      v5 = espresso_network_unbind_buffer_to_global();
+      v27 = v5;
+      if (v5)
       {
         break;
       }
 
-      v31 = [(NSDictionary *)selfCopy->_weightNameBufferMap objectForKeyedSubscript:v35];
-      v21 = selfCopy;
-      v19 = v35;
-      v10 = v35;
-      [v19 UTF8String];
-      v20 = v31;
-      v11 = v31;
-      [v20 mutableBytes];
-      v12 = v21->_net.plan;
-      v13 = *&v21->_net.network_index;
+      v25 = [(NSDictionary *)selfCopy->_weightNameBufferMap objectForKeyedSubscript:v29];
+      v15 = v29;
+      v8 = v29;
+      [v15 UTF8String];
+      v16 = v25;
+      v9 = v25;
+      [v16 mutableBytes];
       if (espresso_network_bind_buffer_to_global())
       {
-        v14 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v18 = [v14 initWithDomain:location code:74 userInfo:0];
-        v15 = v18;
-        *manuallyCopy = v18;
-        v40 = 0;
-        v32 = 1;
+        v10 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v14 = [v10 initWithDomain:location code:74 userInfo:0];
+        v11 = v14;
+        *manuallyCopy = v14;
+        v34 = 0;
+        v26 = 1;
       }
 
       else
       {
-        v32 = 0;
+        v26 = 0;
       }
 
-      objc_storeStrong(&v31, 0);
-      if (v32)
+      objc_storeStrong(&v25, 0);
+      if (v26)
       {
         goto LABEL_14;
       }
 
-      ++v27;
-      if (v25 + 1 >= v28)
+      ++v21;
+      if (v19 + 1 >= v22)
       {
-        v27 = 0;
-        v28 = [obj countByEnumeratingWithState:__b objects:v41 count:16];
-        if (!v28)
+        v21 = 0;
+        v22 = [obj countByEnumeratingWithState:__b objects:v35 count:16];
+        if (!v22)
         {
           goto LABEL_13;
         }
       }
     }
 
-    v8 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v22 = [v8 initWithDomain:location code:74 userInfo:0];
-    v9 = v22;
-    *manuallyCopy = v22;
-    v40 = 0;
-    v32 = 1;
+    v6 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v17 = [v6 initWithDomain:location code:74 userInfo:0];
+    v7 = v17;
+    *manuallyCopy = v17;
+    v34 = 0;
+    v26 = 1;
   }
 
   else
   {
 LABEL_13:
-    v32 = 0;
+    v26 = 0;
   }
 
 LABEL_14:
   MEMORY[0x277D82BD8](obj);
-  if (!v32)
+  if (!v26)
   {
-    v40 = [MEMORY[0x277CCABB0] numberWithLong:1];
-    v32 = 1;
+    v34 = [MEMORY[0x277CCABB0] numberWithLong:1];
+    v26 = 1;
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
-  v16 = v40;
+  v12 = v34;
 
-  return v16;
+  return v12;
 }
 
 - (id)getNewDeltasContainer:(id)container withError:(id *)error errorDomain:(id)domain
@@ -1647,7 +1602,6 @@ LABEL_35:
   objc_storeStrong(&v55, 0);
   objc_storeStrong(&v56, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v11 = v60;
 
   return v11;
@@ -1656,18 +1610,16 @@ LABEL_35:
 - (void)dealloc
 {
   selfCopy = self;
-  v7 = a2;
+  v5 = a2;
   if (self->_plan)
   {
-    plan = selfCopy->_plan;
-    v6 = espresso_plan_destroy();
-    ctx = selfCopy->_ctx;
-    v5 = espresso_context_destroy();
+    v4 = espresso_plan_destroy();
+    v3 = espresso_context_destroy();
   }
 
-  v4.receiver = selfCopy;
-  v4.super_class = AMDDODMLEspressoModel;
-  [(AMDDODMLEspressoModel *)&v4 dealloc];
+  v2.receiver = selfCopy;
+  v2.super_class = AMDDODMLEspressoModel;
+  [(AMDDODMLEspressoModel *)&v2 dealloc];
 }
 
 @end

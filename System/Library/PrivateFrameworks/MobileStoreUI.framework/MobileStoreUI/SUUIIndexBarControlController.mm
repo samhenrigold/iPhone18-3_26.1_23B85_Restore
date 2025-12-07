@@ -257,7 +257,7 @@
   [(SUUIIndexBarControl *)self->_indexBarControl reloadSections:sectionsCopy];
 }
 
-void __48__SUUIIndexBarControlController_reloadSections___block_invoke(uint64_t a1, uint64_t a2)
+void __48__SUUIIndexBarControlController_reloadSections___block_invoke(uint64_t a1, void *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   v13 = 0u;

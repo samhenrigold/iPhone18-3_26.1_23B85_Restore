@@ -84,16 +84,16 @@
 
 void __60__HKWatchAppAvailability_appInstallStateOnWatch_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v8 = WeakRetained;
   if (!WeakRetained)
   {
-    v13 = *(a1 + 32);
-    v12 = [MEMORY[0x1E696ABC0] hk_error:100 format:{@"%@ deallocated", objc_opt_class()}];
-    (*(v13 + 16))(v13, 3, v12);
+    v15 = *(a1 + 32);
+    v14 = [MEMORY[0x1E696ABC0] hk_error:100 format:{@"%@ deallocated", objc_opt_class()}];
+    (*(v15 + 16))(v15, 3, v14);
 LABEL_17:
 
     goto LABEL_18;
@@ -101,90 +101,88 @@ LABEL_17:
 
   if (!v6 || ([WeakRetained _test_apps], v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
   {
-    v10 = [v8 _test_apps];
-    if (v10)
+    v12 = [v8 _test_apps];
+    if (v12)
     {
-      v11 = [v8 _test_apps];
-      v12 = [v8 findApplicationIn:v11];
+      v13 = [v8 _test_apps];
+      v14 = [v8 findApplicationIn:v13];
     }
 
     else
     {
-      v12 = [v8 findApplicationIn:v5];
+      v14 = [v8 findApplicationIn:v5];
     }
 
-    if (v12)
+    if (v14)
     {
-      if ([v12 isInstalled])
+      if ([v14 isInstalled])
       {
-        v14 = 2;
+        v18 = 2;
       }
 
       else
       {
-        v23 = [v12 progress];
-        v14 = v23 != 0;
+        v27 = [v14 progress];
+        v18 = v27 != 0;
       }
 
-      [v8 setInstallState:v14];
-      v20 = *(a1 + 32);
-      v21 = *(v20 + 16);
-      v22 = v14;
+      [v8 setInstallState:v18];
+      v24 = *(a1 + 32);
+      v25 = *(v24 + 16);
+      v26 = v18;
     }
 
     else
     {
-      _HKInitializeLogging();
-      v15 = HKLogDefault;
+      _HKInitializeLogging(v16, v17);
+      v19 = HKLogDefault;
       if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(a1 + 48);
-        v17 = v15;
-        v18 = NSStringFromSelector(v16);
-        v19 = [v8 bundleID];
+        v20 = *(a1 + 48);
+        v21 = v19;
+        v22 = NSStringFromSelector(v20);
+        v23 = [v8 bundleID];
         *buf = 138543874;
-        v31 = v8;
-        v32 = 2114;
-        v33 = v18;
-        v34 = 2114;
-        v35 = v19;
-        _os_log_impl(&dword_19197B000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Application (%{public}@) was not found on watch", buf, 0x20u);
+        v34 = v8;
+        v35 = 2114;
+        v36 = v22;
+        v37 = 2114;
+        v38 = v23;
+        _os_log_impl(&dword_19197B000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Application (%{public}@) was not found on watch", buf, 0x20u);
       }
 
       [v8 setInstallState:0];
-      v20 = *(a1 + 32);
-      v21 = *(v20 + 16);
-      v22 = 0;
+      v24 = *(a1 + 32);
+      v25 = *(v24 + 16);
+      v26 = 0;
     }
 
-    v21(v20, v22, 0);
+    v25(v24, v26, 0);
     goto LABEL_17;
   }
 
-  _HKInitializeLogging();
-  v25 = HKLogDefault;
+  _HKInitializeLogging(v10, v11);
+  v28 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
   {
-    v26 = *(a1 + 48);
-    v27 = v25;
-    v28 = NSStringFromSelector(v26);
-    v29 = [v8 bundleID];
+    v29 = *(a1 + 48);
+    v30 = v28;
+    v31 = NSStringFromSelector(v29);
+    v32 = [v8 bundleID];
     *buf = 138544130;
-    v31 = v8;
-    v32 = 2114;
-    v33 = v28;
-    v34 = 2114;
-    v35 = v29;
-    v36 = 2114;
-    v37 = v6;
-    _os_log_error_impl(&dword_19197B000, v27, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@] -> Failed to fetch install state for application (%{public}@) with error: %{public}@", buf, 0x2Au);
+    v34 = v8;
+    v35 = 2114;
+    v36 = v31;
+    v37 = 2114;
+    v38 = v32;
+    v39 = 2114;
+    v40 = v6;
+    _os_log_error_impl(&dword_19197B000, v30, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@] -> Failed to fetch install state for application (%{public}@) with error: %{public}@", buf, 0x2Au);
   }
 
   [v8 setInstallState:3];
   (*(*(a1 + 32) + 16))();
 LABEL_18:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)findApplicationIn:(id)in
@@ -203,7 +201,7 @@ LABEL_18:
 
 - (void)appQuery:(id)query resultsDidChange:(id)change
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   queryCopy = query;
   query = [(HKWatchAppAvailability *)self query];
@@ -226,82 +224,80 @@ LABEL_18:
     {
       if ([v12 isInstalled])
       {
-        v13 = 2;
+        v15 = 2;
       }
 
       else
       {
         progress = [v12 progress];
-        v13 = progress != 0;
+        v15 = progress != 0;
       }
     }
 
     else
     {
-      _HKInitializeLogging();
-      v14 = HKLogDefault;
+      _HKInitializeLogging(v13, v14);
+      v16 = HKLogDefault;
       if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = v14;
-        v16 = NSStringFromSelector(a2);
+        v17 = v16;
+        v18 = NSStringFromSelector(a2);
         bundleID = [(HKWatchAppAvailability *)self bundleID];
         *buf = 138543874;
         selfCopy2 = self;
-        v32 = 2114;
-        v33 = v16;
-        v34 = 2114;
-        v35 = bundleID;
-        _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Application (%{public}@) was not found on watch", buf, 0x20u);
+        v35 = 2114;
+        v36 = v18;
+        v37 = 2114;
+        v38 = bundleID;
+        _os_log_impl(&dword_19197B000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Application (%{public}@) was not found on watch", buf, 0x20u);
       }
 
-      v13 = 0;
+      v15 = 0;
     }
 
-    if ([(HKWatchAppAvailability *)self installState]== v13)
+    if ([(HKWatchAppAvailability *)self installState]== v15)
     {
-      if (v13 == 1)
+      if (v15 == 1)
       {
         observers = self->_observers;
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __52__HKWatchAppAvailability_appQuery_resultsDidChange___block_invoke_2;
-        v27[3] = &unk_1E73819B8;
-        v27[4] = self;
-        v28 = v12;
-        [(HKWatchAppAvailabilityObserver *)observers notifyObservers:v27];
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __52__HKWatchAppAvailability_appQuery_resultsDidChange___block_invoke_2;
+        v30[3] = &unk_1E73819B8;
+        v30[4] = self;
+        v31 = v12;
+        [(HKWatchAppAvailabilityObserver *)observers notifyObservers:v30];
       }
     }
 
     else
     {
-      [(HKWatchAppAvailability *)self setInstallState:v13];
-      _HKInitializeLogging();
-      v20 = HKLogDefault;
+      v22 = [(HKWatchAppAvailability *)self setInstallState:v15];
+      _HKInitializeLogging(v22, v23);
+      v24 = HKLogDefault;
       if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = MEMORY[0x1E696AD98];
-        v22 = self->_observers;
-        v23 = v20;
-        v24 = [v21 numberWithUnsignedInteger:{-[HKWatchAppAvailabilityObserver count](v22, "count")}];
+        v25 = MEMORY[0x1E696AD98];
+        v26 = self->_observers;
+        v27 = v24;
+        v28 = [v25 numberWithUnsignedInteger:{-[HKWatchAppAvailabilityObserver count](v26, "count")}];
         *buf = 138543618;
         selfCopy2 = self;
-        v32 = 2112;
-        v33 = v24;
-        _os_log_impl(&dword_19197B000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of onboarding completion update", buf, 0x16u);
+        v35 = 2112;
+        v36 = v28;
+        _os_log_impl(&dword_19197B000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying %@ observers of onboarding completion update", buf, 0x16u);
       }
 
-      v25 = self->_observers;
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __52__HKWatchAppAvailability_appQuery_resultsDidChange___block_invoke;
-      v29[3] = &unk_1E7381990;
-      v29[4] = self;
-      v29[5] = v13;
-      [(HKWatchAppAvailabilityObserver *)v25 notifyObservers:v29];
+      v29 = self->_observers;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __52__HKWatchAppAvailability_appQuery_resultsDidChange___block_invoke;
+      v32[3] = &unk_1E7381990;
+      v32[4] = self;
+      v32[5] = v15;
+      [(HKWatchAppAvailabilityObserver *)v29 notifyObservers:v32];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __52__HKWatchAppAvailability_appQuery_resultsDidChange___block_invoke_2(uint64_t a1, void *a2)

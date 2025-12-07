@@ -36,7 +36,7 @@
     baseBackendXPC = v9->_baseBackendXPC;
     if (baseBackendXPC)
     {
-      [baseBackendXPC backend];
+      objc_msgSend_backend(baseBackendXPC);
     }
 
     std::allocate_shared[abi:ne200100]<crypto_format_backend,std::allocator<crypto_format_backend>,std::shared_ptr<Backend>,std::shared_ptr<crypto::format> const&,0>();
@@ -81,7 +81,7 @@
       v13 = v6->_baseBackendXPC;
       if (v13)
       {
-        [(BackendXPC *)v13 backend];
+        objc_msgSend_backend(v13);
       }
 
       std::allocate_shared[abi:ne200100]<crypto_format_backend,std::allocator<crypto_format_backend>,std::shared_ptr<Backend>,std::shared_ptr<crypto::format> &,0>();
@@ -106,7 +106,7 @@
   v10.receiver = self;
   v10.super_class = CryptoBackendXPC;
   [(BackendXPC *)&v10 encodeWithCoder:coderCopy];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v5 = v9;
   crypto::format_serializer::encode(coderCopy, *(v8 + 48), v6);
   baseBackendXPC = [(CryptoBackendXPC *)self baseBackendXPC];
@@ -121,11 +121,11 @@
 - (void)replaceWithBackendXPC:(id)c
 {
   cCopy = c;
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   if (cCopy)
   {
-    [cCopy backend];
-    v6 = v9;
+    objc_msgSend_backend(cCopy);
+    v6 = v8;
   }
 
   else
@@ -133,18 +133,17 @@
     v6 = 0uLL;
   }
 
-  v8 = *(v10 + 24);
-  v7 = *(v10 + 32);
-  *(v10 + 24) = v6;
+  v7 = *(v9 + 32);
+  *(v9 + 24) = v6;
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   objc_storeStrong(&self->_baseBackendXPC, c);
-  if (v11)
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 }
 

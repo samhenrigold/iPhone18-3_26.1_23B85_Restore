@@ -109,8 +109,8 @@
 
 - (id)_randomDataGeneratorWithNumberOfBytes:()Encryption
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v4 = v8 - ((count + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7[1] = *MEMORY[0x277D85DE8];
+  v4 = v7 - ((count + 15) & 0xFFFFFFFFFFFFFFF0);
   if (SecRandomCopyBytes(*MEMORY[0x277CDC540], count, v4))
   {
     v5 = 0;
@@ -121,27 +121,23 @@
     v5 = [MEMORY[0x277CBEA90] dataWithBytes:v4 length:count];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)AESGCM256EncryptedDataWithSymmetricKey:()Encryption .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to encrypt data with status: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to encrypt data with status: %d", v2, 8u);
 }
 
 - (void)AESGCM256DecryptedDataWithSymmetricKey:()Encryption .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to decrypt data with status: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to decrypt data with status: %d", v2, 8u);
 }
 
 @end

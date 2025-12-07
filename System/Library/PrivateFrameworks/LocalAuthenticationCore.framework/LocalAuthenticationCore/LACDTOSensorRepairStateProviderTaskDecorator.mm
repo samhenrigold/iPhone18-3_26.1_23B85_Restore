@@ -9,11 +9,10 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "%@ will dealloc", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "%@ will dealloc", &v2, 0xCu);
 }
 
 - (LACDTOSensorRepairStateProviderTaskDecorator)initWithProvider:(id)provider replyQueue:(id)queue
@@ -42,7 +41,7 @@
   {
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is busy", self->_provider];
     v7 = [LACError errorWithCode:-1000 debugDescription:v6];
-    v8 = LACLogDTOSensor();
+    v8 = LACLogDTOSensor(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(LACDTOSensorRepairStateProviderCRAdapter *)self _fetchRepairStateWithCompletion:v7, v8];
@@ -94,33 +93,31 @@ void __79__LACDTOSensorRepairStateProviderTaskDecorator_fetchRepairStateWithComp
         goto LABEL_10;
       }
 
-      v10 = LACLogDTOSensor();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = LACLogDTOSensor(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v15 = 138543618;
         v16 = v5;
         v17 = 2114;
         v18 = v7;
-        _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ failed with background task error %{public}@. Resolving to unknown repair state.", &v15, 0x16u);
+        _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ failed with background task error %{public}@. Resolving to unknown repair state.", &v15, 0x16u);
       }
 
-      v11 = *(a1 + 40);
-      v12 = [[LACDTOMutableSensorRepairState alloc] initWithFlag:0];
+      v12 = *(a1 + 40);
+      v13 = [[LACDTOMutableSensorRepairState alloc] initWithFlag:0];
     }
 
     else
     {
-      v11 = *(a1 + 40);
-      v12 = [v3 value];
+      v12 = *(a1 + 40);
+      v13 = [v3 value];
     }
 
-    v13 = v12;
-    (*(v11 + 16))(v11, v12, 0);
+    v14 = v13;
+    (*(v12 + 16))(v12, v13, 0);
 
 LABEL_10:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_repairStateBackgroundTask

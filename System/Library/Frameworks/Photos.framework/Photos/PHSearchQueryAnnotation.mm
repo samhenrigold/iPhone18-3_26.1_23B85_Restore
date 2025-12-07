@@ -301,12 +301,15 @@ LABEL_6:
 uint64_t __75__PHSearchQueryAnnotation_searchQueryAnnotationsFromAttributedQueryString___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 objectForKeyedSubscript:@"PHSearchQueryAttributeKey"];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 32) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 32) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 + (id)annotatedQueryStringByFilteringToPHSearchQueryAttributes:(id)attributes
@@ -331,11 +334,11 @@ uint64_t __75__PHSearchQueryAnnotation_searchQueryAnnotationsFromAttributedQuery
   return v10;
 }
 
-uint64_t __84__PHSearchQueryAnnotation_annotatedQueryStringByFilteringToPHSearchQueryAttributes___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__84__PHSearchQueryAnnotation_annotatedQueryStringByFilteringToPHSearchQueryAttributes___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:@"PHSearchQueryAttributeKey" value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:@"PHSearchQueryAttributeKey" value:a2 range:{a3, a4}];
   }
 
   return result;
@@ -366,9 +369,12 @@ uint64_t __84__PHSearchQueryAnnotation_annotatedQueryStringByFilteringToPHSearch
 
 uint64_t __62__PHSearchQueryAnnotation__annotationFromQueryString_inRange___block_invoke(uint64_t a1, void *a2)
 {
-  *(*(*(a1 + 32) + 8) + 40) = [a2 objectForKeyedSubscript:@"PHSearchQueryAttributeKey"];
+  v3 = [a2 objectForKeyedSubscript:@"PHSearchQueryAttributeKey"];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 + (id)_updateSpotlightAttributedQueryString:(id)string disambiguation:(id)disambiguation range:(_NSRange)range
@@ -1577,9 +1583,12 @@ uint64_t __82__PHSearchQueryAnnotation_spotlightAttributedQueryStringFromAnnotat
   if (a2)
   {
     v4 = result;
-    *(*(*(v4 + 32) + 8) + 40) = [*(result + 40) _updateSpotlightAttributedQueryString:*(*(*(result + 32) + 8) + 40) withAnnotation:a2 range:{a3, a4}];
+    v5 = [*(result + 40) _updateSpotlightAttributedQueryString:*(*(*(result + 32) + 8) + 40) withAnnotation:a2 range:{a3, a4}];
+    v6 = *(*(v4 + 32) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v5, v7);
   }
 
   return result;

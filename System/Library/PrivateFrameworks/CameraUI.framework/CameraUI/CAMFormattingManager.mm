@@ -20,9 +20,11 @@
 
 uint64_t __37__CAMFormattingManager_sharedManager__block_invoke()
 {
-  sharedManager_formattingMangaer = objc_alloc_init(CAMFormattingManager);
+  v0 = objc_alloc_init(CAMFormattingManager);
+  v1 = sharedManager_formattingMangaer;
+  sharedManager_formattingMangaer = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CAMFormattingManager)init

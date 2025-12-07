@@ -15,7 +15,7 @@
   v12.super_class = _GCConfigurationMobileAssetManager;
   v3 = [(_GCConfigurationMobileAssetManager *)&v12 init];
   v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v5 = sub_100001128();
+  v5 = sub_100001128(v4);
   v6 = dispatch_queue_create_with_target_V2("com.apple.mobileasset.GameController.DB", v4, v5);
   v7 = *(v3 + 1);
   *(v3 + 1) = v6;

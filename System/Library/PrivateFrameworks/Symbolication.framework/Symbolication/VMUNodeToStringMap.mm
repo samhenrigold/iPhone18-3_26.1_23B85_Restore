@@ -30,7 +30,7 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1];
   [coderCopy encodeObject:v5 forKey:@"classVersion"];
@@ -52,30 +52,30 @@
   }
 
   [v6 serialize32:{-[VMUNodeToStringMap uniquedStringCount](self, "uniquedStringCount")}];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = self->_strings;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        [v6 serializeString:{*(*(&v15 + 1) + 8 * v12++), v15}];
+        [v6 serializeString:{*(*(&v14 + 1) + 8 * v12++), v14}];
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
@@ -83,8 +83,6 @@
 
   copyContiguousData = [v6 copyContiguousData];
   [coderCopy encodeObject:copyContiguousData forKey:@"simpleSerializerData"];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (VMUNodeToStringMap)initWithCoder:(id)coder
@@ -135,7 +133,7 @@
           goto LABEL_4;
         }
 
-        std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int &,unsigned int &>(&v5->_nodeToStringIndexMap.__table_.__bucket_list_.__ptr_, &v25);
+        std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int &,unsigned int &>(&v5->_nodeToStringIndexMap.__table_.__bucket_list_.__ptr_, &v25, &v25, &v28);
       }
 
       while (--v10);
@@ -179,7 +177,7 @@ LABEL_4:
         }
 
         [(NSMutableArray *)v5->_strings addObject:v20];
-        std::__hash_table<std::__hash_value_type<NSString * {__strong},unsigned int>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},unsigned int>,NSStringHashFunctor,NSStringEqualsFunctor,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},unsigned int>,NSStringEqualsFunctor,NSStringHashFunctor,true>,std::allocator<std::__hash_value_type<NSString * {__strong},unsigned int>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,unsigned int &>(&v5->_stringToIndexMap.__table_.__bucket_list_.__ptr_, &v25);
+        std::__hash_table<std::__hash_value_type<NSString * {__strong},unsigned int>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},unsigned int>,NSStringHashFunctor,NSStringEqualsFunctor,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},unsigned int>,NSStringEqualsFunctor,NSStringHashFunctor,true>,std::allocator<std::__hash_value_type<NSString * {__strong},unsigned int>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,unsigned int &>(&v5->_stringToIndexMap.__table_.__bucket_list_.__ptr_, &v25, &v25, &v28);
 
         if (++v28 >= v17)
         {
@@ -234,7 +232,7 @@ LABEL_18:
     [(NSMutableArray *)self->_strings addObject:stringCopy];
     v8 = [(NSMutableArray *)self->_strings count]- 1;
     v5 = &v8;
-    std::__hash_table<std::__hash_value_type<NSString * {__strong},unsigned int>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},unsigned int>,NSStringHashFunctor,NSStringEqualsFunctor,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},unsigned int>,NSStringEqualsFunctor,NSStringHashFunctor,true>,std::allocator<std::__hash_value_type<NSString * {__strong},unsigned int>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,unsigned int &>(&self->_stringToIndexMap.__table_.__bucket_list_.__ptr_, &stringCopy);
+    std::__hash_table<std::__hash_value_type<NSString * {__strong},unsigned int>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},unsigned int>,NSStringHashFunctor,NSStringEqualsFunctor,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},unsigned int>,NSStringEqualsFunctor,NSStringHashFunctor,true>,std::allocator<std::__hash_value_type<NSString * {__strong},unsigned int>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,unsigned int &>(&self->_stringToIndexMap.__table_.__bucket_list_.__ptr_, &stringCopy, &stringCopy, &v8);
   }
 
   v6 = *v5;
@@ -248,8 +246,8 @@ LABEL_18:
   nodeCopy = node;
   if (stringCopy)
   {
-    [(VMUNodeToStringMap *)self _indexForString:stringCopy];
-    std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int &,unsigned int &>(&self->_nodeToStringIndexMap.__table_.__bucket_list_.__ptr_, &nodeCopy);
+    v7 = [(VMUNodeToStringMap *)self _indexForString:stringCopy];
+    std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int &,unsigned int &>(&self->_nodeToStringIndexMap.__table_.__bucket_list_.__ptr_, &nodeCopy, &nodeCopy, &v7);
   }
 }
 
@@ -287,16 +285,15 @@ LABEL_18:
     v8 = v5 + 1;
     while (1)
     {
-      v9 = *(next + 4);
-      v10 = *(next + 5);
-      if (*v5 <= v10)
+      v9 = *(next + 5);
+      if (*v5 <= v9)
       {
         goto LABEL_6;
       }
 
-      v11 = *(v8 + (v10 >> 3));
-      v12 = 1 << (v10 & 7);
-      if ((v12 & v11) == 0)
+      v10 = *(v8 + (v9 >> 3));
+      v11 = 1 << (v9 & 7);
+      if ((v11 & v10) == 0)
       {
         break;
       }
@@ -309,11 +306,11 @@ LABEL_8:
       }
     }
 
-    *(v8 + (v10 >> 3)) = v11 | v12;
+    *(v8 + (v9 >> 3)) = v10 | v11;
 LABEL_6:
     if (graphCopy)
     {
-      [graphCopy nodeDetails:v9];
+      objc_msgSend_nodeDetails_(graphCopy);
     }
 
     goto LABEL_8;
@@ -325,27 +322,27 @@ LABEL_9:
 
 - (void)enumerateHexAddressesInStrings:(id)strings
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_strings;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [v9 rangeOfString:@" " options:4];
         if (v10 != 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -362,13 +359,11 @@ LABEL_9:
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id).cxx_construct

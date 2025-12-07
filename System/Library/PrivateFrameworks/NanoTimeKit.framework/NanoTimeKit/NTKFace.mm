@@ -346,7 +346,7 @@ LABEL_13:
   _Block_object_dispose(&v27, 8);
 }
 
-uint64_t __84__NTKFace_FaceGalleryAdditions___setFaceGalleryComplicationTypesForSlots_canRepeat___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__84__NTKFace_FaceGalleryAdditions___setFaceGalleryComplicationTypesForSlots_canRepeat___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
@@ -362,7 +362,7 @@ uint64_t __84__NTKFace_FaceGalleryAdditions___setFaceGalleryComplicationTypesFor
   return result;
 }
 
-uint64_t __84__NTKFace_FaceGalleryAdditions___setFaceGalleryComplicationTypesForSlots_canRepeat___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__84__NTKFace_FaceGalleryAdditions___setFaceGalleryComplicationTypesForSlots_canRepeat___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 unsignedIntegerValue];
   if (result == 5)
@@ -1324,7 +1324,7 @@ void __62__NTKFace__notifyObserversThatRespondToSelector_callSelector___block_in
     }
 
     device2 = [(NTKFace *)self device];
-    v28 = NTKMonochromeComplicationsEnabledForDevice();
+    v28 = NTKMonochromeComplicationsEnabledForDevice(device2);
 
     if (v28)
     {
@@ -1522,7 +1522,7 @@ void __48__NTKFace_selectedSlotOptionsForCustomEditMode___block_invoke(uint64_t 
   v5 = _NTKLoggingObjectForDomain(23, "NTKLoggingDomainFace");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __48__NTKFace_selectedSlotOptionsForCustomEditMode___block_invoke_cold_1();
+    __48__NTKFace_selectedSlotOptionsForCustomEditMode___block_invoke_cold_1(a1 + 32, (a1 + 48));
   }
 
   if (v4)
@@ -2429,8 +2429,7 @@ void __56__NTKFace_allowedComplicationTypesFromDescriptors_slot___block_invoke(u
   v5 = [(NTKFace *)self allowedComplicationTypesForSlot:slotCopy];
   v6 = [v5 mutableCopy];
 
-  [v6 addIndex:0];
-  v7 = NTKLunarCalendarLocaleID();
+  v7 = NTKLunarCalendarLocaleID([v6 addIndex:0]);
 
   if (!v7)
   {
@@ -3046,7 +3045,7 @@ void __20__NTKFace_editModes__block_invoke(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t __21__NTKFace_isEditable__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__21__NTKFace_isEditable__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) _hasOptionsForCustomEditMode:a2];
   if (result)
@@ -4248,9 +4247,9 @@ LABEL_7:
 - (NTKFace)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = NTKFace;
-  v5 = [(NTKFace *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = NTKFace;
+  v5 = [(NTKFace *)&v20 init];
   if (v5)
   {
     v5->_faceStyle = [coderCopy decodeIntegerForKey:@"FaceStyle"];
@@ -4267,25 +4266,25 @@ LABEL_7:
     device = v5->_device;
     v5->_device = v11;
 
-    [(NTKFace *)v5 _commonInit];
+    _commonInit = [(NTKFace *)v5 _commonInit];
     if (NTKUglyBooleanToSignalThisIsFaceMigration == 1)
     {
-      v13 = NTKMigratableFaceStyles();
-      v14 = [MEMORY[0x277CCABB0] numberWithInteger:v5->_faceStyle];
-      [v13 containsObject:v14];
+      v14 = NTKMigratableFaceStyles(_commonInit);
+      v15 = [MEMORY[0x277CCABB0] numberWithInteger:v5->_faceStyle];
+      [v14 containsObject:v15];
     }
 
-    v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ResourceDirectory"];
+    v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ResourceDirectory"];
     resourceDirectory = v5->_resourceDirectory;
-    v5->_resourceDirectory = v15;
+    v5->_resourceDirectory = v16;
 
-    v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Configuration"];
-    if (!v17)
+    v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Configuration"];
+    if (!v18)
     {
-      v17 = [(NTKFace *)v5 _configurationFromOldEncodingWithCoder:coderCopy];
+      v18 = [(NTKFace *)v5 _configurationFromOldEncodingWithCoder:coderCopy];
     }
 
-    [(NTKFace *)v5 _applyConfiguration:v17 allowFailure:0];
+    [(NTKFace *)v5 _applyConfiguration:v18 allowFailure:0];
 
     [(NTKFace *)v5 toggleComplicationChangeObservation:1];
   }
@@ -4709,12 +4708,12 @@ void __79__NTKFace_greenfieldFaceWithJSONObjectRepresentation_forDevice_withComp
 + (id)faceWithJSONObjectRepresentation:(id)representation forDevice:(id)device forMigration:(BOOL)migration allowFallbackFromInvalidFaceStyle:(BOOL)style
 {
   migrationCopy = migration;
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   deviceCopy = device;
   if (!representationCopy)
   {
-    v36 = 0;
+    v37 = 0;
     goto LABEL_41;
   }
 
@@ -4732,7 +4731,7 @@ void __79__NTKFace_greenfieldFaceWithJSONObjectRepresentation_forDevice_withComp
   }
 
   selfCopy = self;
-  v40 = migrationCopy;
+  v41 = migrationCopy;
   v12 = [representationCopy objectForKeyedSubscript:@"face type"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -4776,28 +4775,30 @@ void __79__NTKFace_greenfieldFaceWithJSONObjectRepresentation_forDevice_withComp
   }
 
   v21 = [representationCopy objectForKeyedSubscript:@"argon"];
+  v22 = v21;
   if (v21)
   {
     objc_opt_class();
-    if (isKindOfClass & objc_opt_isKindOfClass())
+    v21 = objc_opt_isKindOfClass();
+    if (isKindOfClass & v21)
     {
-      v22 = +[NTKFaceBundleManager sharedManager];
-      v23 = [v22 faceBundleForBundleIdentifier:v13 onDevice:deviceCopy];
+      v23 = +[NTKFaceBundleManager sharedManager];
+      v24 = [v23 faceBundleForBundleIdentifier:v13 onDevice:deviceCopy];
 
-      if (!v23)
+      if (!v24)
       {
-        v24 = [NTKArgonKeyDescriptor alloc];
-        v25 = [(NTKArgonKeyDescriptor *)v24 argon_initWithJSONRepresentation:v21];
+        v25 = [NTKArgonKeyDescriptor alloc];
+        v26 = [(NTKArgonKeyDescriptor *)v25 argon_initWithJSONRepresentation:v22];
 
-        if (v25 && (+[NTKFaceBundleManager sharedManager](NTKFaceBundleManager, "sharedManager"), v26 = objc_claimAutoreleasedReturnValue(), v27 = [v26 loadKeyDescriptor:v25], v26, (v27 & 1) != 0))
+        if (v26 && (+[NTKFaceBundleManager sharedManager](NTKFaceBundleManager, "sharedManager"), v27 = objc_claimAutoreleasedReturnValue(), v28 = [v27 loadKeyDescriptor:v26], v27, (v28 & 1) != 0))
         {
-          v28 = +[NTKFaceBundleManager sharedManager];
-          v23 = [v28 faceBundleForBundleIdentifier:v13 onDevice:deviceCopy];
+          v29 = +[NTKFaceBundleManager sharedManager];
+          v24 = [v29 faceBundleForBundleIdentifier:v13 onDevice:deviceCopy];
         }
 
         else
         {
-          v23 = 0;
+          v24 = 0;
         }
       }
     }
@@ -4808,7 +4809,8 @@ void __79__NTKFace_greenfieldFaceWithJSONObjectRepresentation_forDevice_withComp
     goto LABEL_33;
   }
 
-  if (![v13 length])
+  v21 = [v13 length];
+  if (!v21)
   {
     if (*buf == 44)
     {
@@ -4820,11 +4822,11 @@ LABEL_36:
     }
 
 LABEL_33:
-    if (v40)
+    if (v41)
     {
-      v32 = NTKMigratableFaceStyles();
-      v33 = [MEMORY[0x277CCABB0] numberWithInteger:*buf];
-      [v32 containsObject:v33];
+      v33 = NTKMigratableFaceStyles(v21);
+      v34 = [MEMORY[0x277CCABB0] numberWithInteger:*buf];
+      [v33 containsObject:v34];
     }
 
     faceClass = [selfCopy _faceClassForStyle:? onDevice:?];
@@ -4836,32 +4838,32 @@ LABEL_33:
     goto LABEL_36;
   }
 
-  v29 = +[NTKFaceBundleManager sharedManager];
-  v30 = [v29 faceBundleForBundleIdentifier:v13 onDevice:deviceCopy forMigration:bOOLValue];
+  v30 = +[NTKFaceBundleManager sharedManager];
+  v31 = [v30 faceBundleForBundleIdentifier:v13 onDevice:deviceCopy forMigration:bOOLValue];
 
-  faceClass = [v30 faceClass];
+  faceClass = [v31 faceClass];
   if (!faceClass)
   {
     goto LABEL_36;
   }
 
 LABEL_37:
-  v34 = [faceClass alloc];
-  v35 = [v34 _initWithFaceStyle:*buf forDevice:deviceCopy];
-  v36 = v35;
-  if (v35)
+  v35 = [faceClass alloc];
+  v36 = [v35 _initWithFaceStyle:*buf forDevice:deviceCopy];
+  v37 = v36;
+  if (v36)
   {
-    objc_storeStrong((v35 + 96), v13);
-    objc_storeStrong((v36 + 72), obj);
-    *(v36 + 80) = bOOLValue;
-    v37 = [[NTKFaceConfiguration alloc] initWithJSONDictionary:representationCopy editModeMapping:v36 forDevice:deviceCopy];
-    [v36 _customizeWithJSONDescription:representationCopy];
-    [v36 _applyConfiguration:v37 allowFailure:0 forMigration:v40];
+    objc_storeStrong((v36 + 96), v13);
+    objc_storeStrong((v37 + 72), obj);
+    *(v37 + 80) = bOOLValue;
+    v38 = [[NTKFaceConfiguration alloc] initWithJSONDictionary:representationCopy editModeMapping:v37 forDevice:deviceCopy];
+    [v37 _customizeWithJSONDescription:representationCopy];
+    [v37 _applyConfiguration:v38 allowFailure:0 forMigration:v41];
   }
 
 LABEL_41:
 
-  return v36;
+  return v37;
 }
 
 - (NTKArgonKeyDescriptor)keyDescriptor
@@ -5064,7 +5066,7 @@ LABEL_15:
     }
   }
 
-  [*(a1 + 48) setComplication:v12 forSlot:{v11, *v23, *&v23[16], v24}];
+  [*(a1 + 48) setComplication:v12 forSlot:{v11, *v23, *&v23[8], v24}];
 }
 
 void __57__NTKFace__applyConfiguration_allowFailure_forMigration___block_invoke_245(uint64_t a1, uint64_t a2)
@@ -5434,7 +5436,7 @@ void __53__NTKFace_availableInternalFaceDescriptorsForDevice___block_invoke_4(ui
   return v7 & 1;
 }
 
-uint64_t __50__NTKFace_isFaceStyleAvailableInternal_forDevice___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__50__NTKFace_isFaceStyleAvailableInternal_forDevice___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 faceStyle];
   if (*(a1 + 40) == result)
@@ -6980,30 +6982,34 @@ LABEL_15:
 
 - (unint64_t)_numberOfOptionsForCustomEditMode:(int64_t)mode slot:(id)slot
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_5();
+  v4 = objc_opt_class();
+  OUTLINED_FUNCTION_0_5(v4);
   return 0;
 }
 
 - (id)_optionAtIndex:(unint64_t)index forCustomEditMode:(int64_t)mode slot:(id)slot
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_5();
+  v5 = objc_opt_class();
+  OUTLINED_FUNCTION_0_5(v5);
   return 0;
 }
 
 - (unint64_t)_indexOfOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_5();
+  v5 = objc_opt_class();
+  OUTLINED_FUNCTION_0_5(v5);
   return 0;
 }
 
-void __48__NTKFace_selectedSlotOptionsForCustomEditMode___block_invoke_cold_1()
+void __48__NTKFace_selectedSlotOptionsForCustomEditMode___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "MISSING SELECTION FOR AN EDIT OPTION (face: %@, editMode: %ld). falling back to default edit option.", v4, v5, v6, v7, 2u);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  *v11 = 138412546;
+  *&v11[4] = v4;
+  *&v11[12] = 2048;
+  *&v11[14] = *a2;
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v5, v6, "MISSING SELECTION FOR AN EDIT OPTION (face: %@, editMode: %ld). falling back to default edit option.", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 + (void)faceWithJSONObjectRepresentation:(os_log_t)log forDevice:forMigration:allowFallbackFromInvalidFaceStyle:.cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -7017,7 +7023,7 @@ void __48__NTKFace_selectedSlotOptionsForCustomEditMode___block_invoke_cold_1()
 {
   v1 = [a1 description];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "Edit option %@ does not exist in device %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "Edit option %@ does not exist in device %@", v4, v5, v6, v7);
 }
 
 void __64__NTKFace_ArgonSupport__argon_compositedSnapshotWithCompletion___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)

@@ -24,10 +24,12 @@
 - (void)startAnimating
 {
   selfCopy = self;
-  v13.x = a2;
-  v13.y = a3;
-  v6 = NSStringFromCGPoint(v13);
-  OUTLINED_FUNCTION_0_0(&dword_1E5D0F000, v7, v8, "In startAnimating, centerPointValues does not contain CGPoint %@", v9, v10, v11, v12, 2u);
+  v14.x = a2;
+  v14.y = a3;
+  v6 = NSStringFromCGPoint(v14);
+  LODWORD(v13) = 138412290;
+  *(&v13 + 4) = v6;
+  OUTLINED_FUNCTION_0_0(&dword_1E5D0F000, v7, v8, "In startAnimating, centerPointValues does not contain CGPoint %@", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 - (void)layoutSubviews
@@ -338,10 +340,12 @@
 - (void)stopAnimatingFinishingCycle:(CGFloat)a3 .cold.1(void *a1, CGFloat a2, CGFloat a3)
 {
   v5 = a1;
-  v13.x = a2;
-  v13.y = a3;
-  v6 = NSStringFromCGPoint(v13);
-  OUTLINED_FUNCTION_0_0(&dword_1E5D0F000, v7, v8, "In stopAnimatingFinishingCycle, centerPointValues does not contain CGPoint %@", v9, v10, v11, v12, 2u);
+  v14.x = a2;
+  v14.y = a3;
+  v6 = NSStringFromCGPoint(v14);
+  LODWORD(v13) = 138412290;
+  *(&v13 + 4) = v6;
+  OUTLINED_FUNCTION_0_0(&dword_1E5D0F000, v7, v8, "In stopAnimatingFinishingCycle, centerPointValues does not contain CGPoint %@", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 @end

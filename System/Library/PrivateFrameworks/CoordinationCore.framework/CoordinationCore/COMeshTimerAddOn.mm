@@ -76,13 +76,13 @@
 
 - (COMeshTimerAddOn)initWithTimerManager:(id)manager homekitAdapter:(id)adapter hubAdapter:(id)hubAdapter
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   adapterCopy = adapter;
   hubAdapterCopy = hubAdapter;
-  v34.receiver = self;
-  v34.super_class = COMeshTimerAddOn;
-  v12 = [(COMeshAddOn *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = COMeshTimerAddOn;
+  v12 = [(COMeshAddOn *)&v33 init];
   v13 = v12;
   if (v12)
   {
@@ -130,12 +130,11 @@
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v36 = v13;
+      v35 = v13;
       _os_log_impl(&dword_244378000, v31, OS_LOG_TYPE_DEFAULT, "%p mesh add-on created", buf, 0xCu);
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -527,48 +526,46 @@ void __43__COMeshTimerAddOn_didAddToMeshController___block_invoke_18(uint64_t a1
 
 - (void)willRemoveFromMeshController:(id)controller
 {
-  v12[7] = *MEMORY[0x277D85DE8];
+  v11[7] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v12[2] = objc_opt_class();
-  v12[3] = objc_opt_class();
-  v12[4] = objc_opt_class();
-  v12[5] = objc_opt_class();
-  v5 = 0;
-  v12[6] = objc_opt_class();
-  do
-  {
-    [controllerCopy deregisterHandlerForNotificationClass:v12[v5++]];
-  }
-
-  while (v5 != 7);
   v11[0] = objc_opt_class();
   v11[1] = objc_opt_class();
   v11[2] = objc_opt_class();
   v11[3] = objc_opt_class();
-  v6 = 0;
   v11[4] = objc_opt_class();
+  v11[5] = objc_opt_class();
+  v5 = 0;
+  v11[6] = objc_opt_class();
   do
   {
-    [controllerCopy deregisterHandlerForRequestClass:v11[v6++]];
+    [controllerCopy deregisterHandlerForNotificationClass:v11[v5++]];
+  }
+
+  while (v5 != 7);
+  v10[0] = objc_opt_class();
+  v10[1] = objc_opt_class();
+  v10[2] = objc_opt_class();
+  v10[3] = objc_opt_class();
+  v6 = 0;
+  v10[4] = objc_opt_class();
+  do
+  {
+    [controllerCopy deregisterHandlerForRequestClass:v10[v6++]];
   }
 
   while (v6 != 5);
   actionDirector = [(COMeshTimerAddOn *)self actionDirector];
   [actionDirector removeHandler:self];
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __49__COMeshTimerAddOn_willRemoveFromMeshController___block_invoke;
-  v10[3] = &unk_278E15AB8;
-  v10[4] = self;
-  [(COMeshTimerAddOn *)self _withLock:v10];
-  v9.receiver = self;
-  v9.super_class = COMeshTimerAddOn;
-  [(COMeshAddOn *)&v9 willRemoveFromMeshController:controllerCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __49__COMeshTimerAddOn_willRemoveFromMeshController___block_invoke;
+  v9[3] = &unk_278E15AB8;
+  v9[4] = self;
+  [(COMeshTimerAddOn *)self _withLock:v9];
+  v8.receiver = self;
+  v8.super_class = COMeshTimerAddOn;
+  [(COMeshAddOn *)&v8 willRemoveFromMeshController:controllerCopy];
 }
 
 - (void)willStartMeshController:(id)controller
@@ -762,7 +759,7 @@ uint64_t __28__COMeshTimerAddOn_delegate__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v4);
 }
 
 - (void)setDelegate:(id)delegate
@@ -892,7 +889,7 @@ void __40__COMeshTimerAddOn__sendRequest_client___block_invoke(id *a1)
 
 void __40__COMeshTimerAddOn__sendRequest_client___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v10 = a2;
   v11 = a3;
   v12 = a4;
@@ -907,47 +904,44 @@ void __40__COMeshTimerAddOn__sendRequest_client___block_invoke_2(uint64_t a1, vo
     v14 = xpc_dictionary_create(0, 0, 0);
     if (v14)
     {
-      v15 = *(a1 + 40);
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      xpc_dictionary_set_string(v14, "command", [v17 UTF8String]);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      xpc_dictionary_set_string(v14, "command", [v16 UTF8String]);
 
-      v18 = [*(a1 + 48) clientBundleIdentifier];
-      v19 = v18;
-      if (!v18)
+      v17 = [*(a1 + 48) clientBundleIdentifier];
+      v18 = v17;
+      if (!v17)
       {
         v5 = [MEMORY[0x277CCA8D8] mainBundle];
-        v19 = [v5 bundleIdentifier];
+        v18 = [v5 bundleIdentifier];
       }
 
-      xpc_dictionary_set_string(v14, "client", [v19 UTF8String]);
-      if (!v18)
+      xpc_dictionary_set_string(v14, "client", [v18 UTF8String]);
+      if (!v17)
       {
       }
 
-      v20 = *(a1 + 32);
       nw_activity_submit_metrics();
     }
 
-    v21 = *(a1 + 32);
     nw_activity_complete_with_reason();
   }
 
   if (v13)
   {
-    v22 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v19 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 64);
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
-      v27 = 134218498;
-      v28 = v24;
-      v29 = 2112;
-      v30 = v26;
-      v31 = 2112;
-      v32 = v13;
-      _os_log_error_impl(&dword_244378000, v22, OS_LOG_TYPE_ERROR, "%p %@ from leader failed (%@)", &v27, 0x20u);
+      v20 = *(a1 + 64);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = 134218498;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v22;
+      v27 = 2112;
+      v28 = v13;
+      _os_log_error_impl(&dword_244378000, v19, OS_LOG_TYPE_ERROR, "%p %@ from leader failed (%@)", &v23, 0x20u);
     }
 
     [*(a1 + 56) finishWithError:v13];
@@ -957,8 +951,6 @@ void __40__COMeshTimerAddOn__sendRequest_client___block_invoke_2(uint64_t a1, vo
   {
     [*(a1 + 56) finishWithNoResult];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addCompletionsToFuture:(id)future withXPCCallback:(id)callback transactionDescription:(const char *)description
@@ -1099,39 +1091,39 @@ uint64_t __53__COMeshTimerAddOn__filteredTimersList_forAccessory___block_invoke(
 
 void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (*(a1 + 80) == 1 && [*(a1 + 32) performsLocalActions] && (objc_msgSend(*(a1 + 40), "leader"), v2 = objc_claimAutoreleasedReturnValue(), v2, !v2))
   {
-    v15 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 40);
-      v17 = *(a1 + 48);
+      v15 = *(a1 + 40);
+      v16 = *(a1 + 48);
       *buf = 134218242;
-      v42 = v16;
-      v43 = 2112;
-      v44 = v17;
-      _os_log_impl(&dword_244378000, v15, OS_LOG_TYPE_DEFAULT, "%p using local list of timers for %@", buf, 0x16u);
+      v41 = v15;
+      v42 = 2112;
+      v43 = v16;
+      _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p using local list of timers for %@", buf, 0x16u);
     }
 
-    v18 = [*(a1 + 56) timers];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_96;
-    v36[3] = &unk_278E16CB0;
-    v19 = *(a1 + 48);
-    v20 = *(a1 + 32);
-    v21 = *(a1 + 40);
+    v17 = [*(a1 + 56) timers];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_96;
+    v35[3] = &unk_278E16CB0;
+    v18 = *(a1 + 48);
+    v19 = *(a1 + 32);
+    v20 = *(a1 + 40);
+    v36 = v18;
     v37 = v19;
     v38 = v20;
-    v39 = v21;
-    v40 = *(a1 + 64);
-    v22 = [v18 addCompletionBlock:v36];
+    v39 = *(a1 + 64);
+    v21 = [v17 addCompletionBlock:v35];
 
-    v23 = [*(a1 + 32) recorder];
-    (v23)[2](v23, 0x2857B5848, &__block_literal_global_102);
+    v22 = [*(a1 + 32) recorder];
+    (v22)[2](v22, 0x2857B5848, &__block_literal_global_102);
 
-    v12 = v37;
+    v12 = v36;
   }
 
   else
@@ -1142,9 +1134,9 @@ void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___bl
       v4 = *(a1 + 40);
       v5 = *(a1 + 48);
       *buf = 134218242;
-      v42 = v4;
-      v43 = 2112;
-      v44 = v5;
+      v41 = v4;
+      v42 = 2112;
+      v43 = v5;
       _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p requesting list of timers for %@ from the leader ", buf, 0x16u);
     }
 
@@ -1157,33 +1149,31 @@ void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___bl
     }
 
     v8 = *(a1 + 40);
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103;
-    v27 = &unk_278E16D48;
-    v28 = v7;
-    v29 = v6;
-    v30 = *(a1 + 72);
-    v31 = *(a1 + 48);
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103;
+    v26 = &unk_278E16D48;
+    v27 = v7;
+    v28 = v6;
+    v29 = *(a1 + 72);
+    v30 = *(a1 + 48);
     v9 = *(a1 + 40);
     v10 = *(a1 + 32);
-    v32 = v9;
-    v33 = v10;
-    v34 = *(a1 + 64);
-    v35 = *(a1 + 56);
+    v31 = v9;
+    v32 = v10;
+    v33 = *(a1 + 64);
+    v34 = *(a1 + 56);
     v11 = v6;
     v12 = v7;
-    [v8 sendRequest:v11 withCompletionHandler:&v24];
+    [v8 sendRequest:v11 withCompletionHandler:&v23];
     v13 = [*(a1 + 32) recorder];
     (v13)[2](v13, 0x2857B5848, &__block_literal_global_108);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_96(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1192,7 +1182,7 @@ void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___bl
     v8 = COCoreLogForCategory(3);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_96_cold_1(a1);
+      __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_96_cold_1();
     }
 
     [*(a1 + 56) finishWithError:v7];
@@ -1217,11 +1207,11 @@ LABEL_8:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(a1 + 48);
-      v18 = 134218242;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v5;
-      _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p local timers list: %@", &v18, 0x16u);
+      v17 = 134218242;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v5;
+      _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p local timers list: %@", &v17, 0x16u);
     }
 
     [*(a1 + 56) finishWithResult:v5];
@@ -1232,18 +1222,16 @@ LABEL_8:
   v16 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_96_cold_2(a1, (a1 + 32));
+    __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_96_cold_2();
   }
 
   [*(a1 + 56) finishWithError:v15];
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -1255,105 +1243,102 @@ void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___bl
     {
       if (*(a1 + 32))
       {
-        v21 = xpc_dictionary_create(0, 0, 0);
-        if (v21)
+        v17 = xpc_dictionary_create(0, 0, 0);
+        if (v17)
         {
-          v22 = *(a1 + 40);
-          v23 = objc_opt_class();
-          v24 = NSStringFromClass(v23);
-          xpc_dictionary_set_string(v21, "command", [v24 UTF8String]);
+          v18 = objc_opt_class();
+          v19 = NSStringFromClass(v18);
+          xpc_dictionary_set_string(v17, "command", [v19 UTF8String]);
 
-          xpc_dictionary_set_string(v21, "client", [*(a1 + 48) UTF8String]);
-          v25 = *(a1 + 32);
+          xpc_dictionary_set_string(v17, "client", [*(a1 + 48) UTF8String]);
           nw_activity_submit_metrics();
         }
 
-        v26 = *(a1 + 32);
         nw_activity_complete_with_reason();
       }
 
-      v46 = 0;
-      v47 = &v46;
-      v48 = 0x3032000000;
-      v49 = __Block_byref_object_copy__11;
-      v50 = __Block_byref_object_dispose__11;
-      v51 = 0;
+      v39 = 0;
+      v40 = &v39;
+      v41 = 0x3032000000;
+      v42 = __Block_byref_object_copy__11;
+      v43 = __Block_byref_object_dispose__11;
+      v44 = 0;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v27 = [v11 timers];
-        v28 = v47[5];
-        v47[5] = v27;
+        v20 = [v11 timers];
+        v21 = v40[5];
+        v40[5] = v20;
 
         if (!*(a1 + 56) || ![*(a1 + 40) requiresFilter] || (objc_msgSend(v11, "isFiltered") & 1) != 0)
         {
           goto LABEL_25;
         }
 
-        v29 = COCoreLogForCategory(3);
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        v22 = COCoreLogForCategory(3);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v30 = *(a1 + 64);
+          v23 = *(a1 + 64);
           *buf = 134217984;
-          v53 = v30;
-          _os_log_impl(&dword_244378000, v29, OS_LOG_TYPE_INFO, "%p timer results from leader not filtered!", buf, 0xCu);
+          v46 = v23;
+          _os_log_impl(&dword_244378000, v22, OS_LOG_TYPE_INFO, "%p timer results from leader not filtered!", buf, 0xCu);
         }
 
-        v31 = [*(a1 + 72) homekit];
-        v32 = [v31 accessoryWithUniqueIdentifier:*(a1 + 56)];
-        if (!v32)
+        v24 = [*(a1 + 72) homekit];
+        v25 = [v24 accessoryWithUniqueIdentifier:*(a1 + 56)];
+        if (!v25)
         {
           v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:2 userInfo:0];
-          v41 = COCoreLogForCategory(3);
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          v34 = COCoreLogForCategory(3);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103_cold_2(a1);
+            __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103_cold_2();
           }
 
           [*(a1 + 80) finishWithError:v12];
           goto LABEL_28;
         }
 
-        v33 = [*(a1 + 72) _filteredTimersList:v47[5] forAccessory:v32];
-        v34 = v47[5];
-        v47[5] = v33;
+        v26 = [*(a1 + 72) _filteredTimersList:v40[5] forAccessory:v25];
+        v27 = v40[5];
+        v40[5] = v26;
       }
 
       else
       {
-        v35 = [MEMORY[0x277CBEA60] array];
-        v31 = v47[5];
-        v47[5] = v35;
+        v28 = [MEMORY[0x277CBEA60] array];
+        v24 = v40[5];
+        v40[5] = v28;
       }
 
 LABEL_25:
-      v36 = COCoreLogForCategory(3);
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v29 = COCoreLogForCategory(3);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v37 = *(a1 + 64);
-        v38 = v47[5];
+        v30 = *(a1 + 64);
+        v31 = v40[5];
         *buf = 134218242;
-        v53 = v37;
-        v54 = 2112;
-        v55 = v38;
-        _os_log_impl(&dword_244378000, v36, OS_LOG_TYPE_DEFAULT, "%p timers list from leader: %@", buf, 0x16u);
+        v46 = v30;
+        v47 = 2112;
+        v48 = v31;
+        _os_log_impl(&dword_244378000, v29, OS_LOG_TYPE_DEFAULT, "%p timers list from leader: %@", buf, 0x16u);
       }
 
-      v39 = [*(a1 + 88) timers];
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_105;
-      v42[3] = &unk_278E16D20;
-      v45 = &v46;
-      v43 = *(a1 + 64);
-      v44 = *(a1 + 80);
-      v40 = [v39 addCompletionBlock:v42];
+      v32 = [*(a1 + 88) timers];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_105;
+      v35[3] = &unk_278E16D20;
+      v38 = &v39;
+      v36 = *(a1 + 64);
+      v37 = *(a1 + 80);
+      v33 = [v32 addCompletionBlock:v35];
 
       v12 = 0;
-      v31 = v43;
+      v24 = v36;
 LABEL_28:
 
-      _Block_object_dispose(&v46, 8);
+      _Block_object_dispose(&v39, 8);
       goto LABEL_10;
     }
   }
@@ -1363,66 +1348,61 @@ LABEL_28:
     v13 = xpc_dictionary_create(0, 0, 0);
     if (v13)
     {
-      v14 = *(a1 + 40);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      xpc_dictionary_set_string(v13, "command", [v16 UTF8String]);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      xpc_dictionary_set_string(v13, "command", [v15 UTF8String]);
 
       xpc_dictionary_set_string(v13, "client", [*(a1 + 48) UTF8String]);
-      v17 = *(a1 + 32);
       nw_activity_submit_metrics();
     }
 
-    v18 = *(a1 + 32);
     nw_activity_complete_with_reason();
   }
 
-  v19 = COCoreLogForCategory(3);
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v16 = COCoreLogForCategory(3);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103_cold_1(a1);
+    __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103_cold_1();
   }
 
   [*(a1 + 80) finishWithError:v12];
 LABEL_10:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_105(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         if ([v8 isFiring])
         {
           v9 = [v8 timerID];
           v10 = *(*(*(a1 + 48) + 8) + 40);
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_2;
-          v21[3] = &unk_278E16CF8;
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_2;
+          v20[3] = &unk_278E16CF8;
           v11 = v9;
-          v22 = v11;
-          v12 = [v10 indexOfObjectPassingTest:v21];
+          v21 = v11;
+          v12 = [v10 indexOfObjectPassingTest:v20];
           if (v12 != 0x7FFFFFFFFFFFFFFFLL)
           {
             v13 = v12;
@@ -1435,7 +1415,7 @@ void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___bl
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v5);
@@ -1447,14 +1427,13 @@ void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___bl
     v18 = *(a1 + 32);
     v19 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 134218242;
-    v28 = v18;
-    v29 = 2112;
-    v30 = v19;
+    v27 = v18;
+    v28 = 2112;
+    v29 = v19;
     _os_log_impl(&dword_244378000, v17, OS_LOG_TYPE_DEFAULT, "%p timers list after merge: %@", buf, 0x16u);
   }
 
   [*(a1 + 40) finishWithResult:*(*(*(a1 + 48) + 8) + 40)];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_2(uint64_t a1, void *a2)
@@ -1495,16 +1474,16 @@ uint64_t __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage_
 
 void __47__COMeshTimerAddOn__timersForAccessory_member___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 134218242;
-    v23 = v3;
-    v24 = 2114;
-    v25 = v4;
+    v22 = v3;
+    v23 = 2114;
+    v24 = v4;
     _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p using secondary cluster timers for %{public}@", buf, 0x16u);
   }
 
@@ -1519,24 +1498,22 @@ void __47__COMeshTimerAddOn__timersForAccessory_member___block_invoke(uint64_t a
   }
 
   objc_initWeak(buf, *(a1 + 48));
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __47__COMeshTimerAddOn__timersForAccessory_member___block_invoke_111;
-  v17 = &unk_278E16DC0;
-  v18 = *(a1 + 32);
-  objc_copyWeak(&v21, buf);
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __47__COMeshTimerAddOn__timersForAccessory_member___block_invoke_111;
+  v16 = &unk_278E16DC0;
+  v17 = *(a1 + 32);
+  objc_copyWeak(&v20, buf);
   v9 = v8;
-  v19 = v9;
-  v20 = *(a1 + 56);
-  v10 = MEMORY[0x245D5FF10](&v14);
+  v18 = v9;
+  v19 = *(a1 + 56);
+  v10 = MEMORY[0x245D5FF10](&v13);
   v11 = [*(a1 + 48) actionDirector];
   v12 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 64)];
   [v11 requestAction:v7 members:v12 activity:v9 withCompletion:v10];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __47__COMeshTimerAddOn__timersForAccessory_member___block_invoke_111(id *a1, void *a2, void *a3)
@@ -1694,7 +1671,7 @@ void __47__COMeshTimerAddOn__timersForAccessory_member___block_invoke_2(uint64_t
 
 void __61__COMeshTimerAddOn__timersForAccessories_fromClient_results___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v21 = a2;
+  v18 = a2;
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -1708,17 +1685,14 @@ void __61__COMeshTimerAddOn__timersForAccessories_fromClient_results___block_inv
     v12 = xpc_dictionary_create(0, 0, 0);
     if (v12)
     {
-      v13 = *(a1 + 40);
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      xpc_dictionary_set_string(v12, "command", [v15 UTF8String]);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      xpc_dictionary_set_string(v12, "command", [v14 UTF8String]);
 
       xpc_dictionary_set_string(v12, "client", [*(a1 + 48) UTF8String]);
-      v16 = *(a1 + 32);
       nw_activity_submit_metrics();
     }
 
-    v17 = *(a1 + 32);
     nw_activity_complete_with_reason();
   }
 
@@ -1731,16 +1705,16 @@ void __61__COMeshTimerAddOn__timersForAccessories_fromClient_results___block_inv
   {
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v19 = *(a1 + 56);
+    v16 = *(a1 + 56);
     if (isKindOfClass)
     {
-      v20 = [v10 timers];
-      [v19 finishWithResult:v20];
+      v17 = [v10 timers];
+      [v16 finishWithResult:v17];
     }
 
     else
     {
-      [v19 finishWithResult:MEMORY[0x277CBEBF8]];
+      [v16 finishWithResult:MEMORY[0x277CBEBF8]];
     }
   }
 }
@@ -1780,21 +1754,20 @@ void __61__COMeshTimerAddOn__timersForAccessories_fromClient_results___block_inv
 
 uint64_t __61__COMeshTimerAddOn__timersForAccessories_fromClient_results___block_invoke_4(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v9 = *(a1 + 40);
+  v8 = *(a1 + 40);
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v9 count:1];
-  v6 = [v2 _isTimer:v4 targetingAccessoryIdentifiers:{v5, v9, v10}];
+  v5 = [v3 arrayWithObjects:&v8 count:1];
+  v6 = [v2 _isTimer:v4 targetingAccessoryIdentifiers:{v5, v8, v9}];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)_isTimer:(id)timer targetingAccessoryIdentifiers:(id)identifiers
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   identifiersCopy = identifiers;
   siriContext = [timerCopy siriContext];
@@ -1818,38 +1791,38 @@ uint64_t __61__COMeshTimerAddOn__timersForAccessories_fromClient_results___block
           timerID = [timerCopy timerID];
           query = [v11 query];
           *buf = 138412802;
-          v40 = timerID;
-          v41 = 2112;
-          v42 = query;
-          v43 = 2112;
-          v44 = identifiersCopy;
+          v39 = timerID;
+          v40 = 2112;
+          v41 = query;
+          v42 = 2112;
+          v43 = identifiersCopy;
           _os_log_debug_impl(&dword_244378000, v15, OS_LOG_TYPE_DEBUG, "checking if timer (%@) target (%@) contains %@", buf, 0x20u);
         }
 
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         queryItems = [v11 queryItems];
-        v17 = [queryItems countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v17 = [queryItems countByEnumeratingWithState:&v33 objects:v37 count:16];
         if (v17)
         {
           v18 = v17;
-          v30 = v11;
-          v31 = v9;
-          v32 = siriContext;
-          v33 = timerCopy;
-          v19 = *v35;
+          v29 = v11;
+          v30 = v9;
+          v31 = siriContext;
+          v32 = timerCopy;
+          v19 = *v34;
           while (2)
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v35 != v19)
+              if (*v34 != v19)
               {
                 objc_enumerationMutation(queryItems);
               }
 
-              v21 = *(*(&v34 + 1) + 8 * i);
+              v21 = *(*(&v33 + 1) + 8 * i);
               name = [v21 name];
               v23 = [@"identifier" isEqualToString:name];
 
@@ -1869,7 +1842,7 @@ uint64_t __61__COMeshTimerAddOn__timersForAccessories_fromClient_results___block
               }
             }
 
-            v18 = [queryItems countByEnumeratingWithState:&v34 objects:v38 count:16];
+            v18 = [queryItems countByEnumeratingWithState:&v33 objects:v37 count:16];
             if (v18)
             {
               continue;
@@ -1880,10 +1853,10 @@ uint64_t __61__COMeshTimerAddOn__timersForAccessories_fromClient_results___block
 
           v10 = 0;
 LABEL_30:
-          siriContext = v32;
-          timerCopy = v33;
-          v11 = v30;
-          v9 = v31;
+          siriContext = v31;
+          timerCopy = v32;
+          v11 = v29;
+          v9 = v30;
           goto LABEL_27;
         }
 
@@ -1916,7 +1889,6 @@ LABEL_27:
 
 LABEL_28:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2001,14 +1973,14 @@ void __38__COMeshTimerAddOn__sendNotification___block_invoke(id *a1, void *a2, v
   }
 }
 
-void __38__COMeshTimerAddOn__sendNotification___block_invoke_3(void *a1, uint64_t a2, uint64_t a3)
+void __38__COMeshTimerAddOn__sendNotification___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __38__COMeshTimerAddOn__sendNotification___block_invoke_3_cold_1(a1);
+      __38__COMeshTimerAddOn__sendNotification___block_invoke_3_cold_1();
     }
   }
 }
@@ -2040,27 +2012,27 @@ void __38__COMeshTimerAddOn__sendNotification___block_invoke_3(void *a1, uint64_
 
 uint64_t __45__COMeshTimerAddOn__timerManagerTimersAdded___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         if (([v7 isCurrentTimer] & 1) == 0)
         {
           v8 = [v7 lastModifiedDate];
@@ -2075,15 +2047,13 @@ uint64_t __45__COMeshTimerAddOn__timerManagerTimersAdded___block_invoke(uint64_t
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 40) _sendNotification:*(a1 + 48)];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _sendNotification:*(a1 + 48)];
 }
 
 - (void)_timerManagerTimersRemoved:(id)removed
@@ -2113,27 +2083,27 @@ uint64_t __45__COMeshTimerAddOn__timerManagerTimersAdded___block_invoke(uint64_t
 
 uint64_t __47__COMeshTimerAddOn__timerManagerTimersRemoved___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         if (([v7 isCurrentTimer] & 1) == 0)
         {
           v8 = [*(a1 + 40) timerIndex];
@@ -2142,15 +2112,13 @@ uint64_t __47__COMeshTimerAddOn__timerManagerTimersRemoved___block_invoke(uint64
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 40) _sendNotification:*(a1 + 48)];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _sendNotification:*(a1 + 48)];
 }
 
 - (void)_timerManagerTimersUpdated:(id)updated
@@ -2180,27 +2148,27 @@ uint64_t __47__COMeshTimerAddOn__timerManagerTimersRemoved___block_invoke(uint64
 
 uint64_t __47__COMeshTimerAddOn__timerManagerTimersUpdated___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         if (([v7 isCurrentTimer] & 1) == 0)
         {
           v8 = [v7 lastModifiedDate];
@@ -2215,15 +2183,13 @@ uint64_t __47__COMeshTimerAddOn__timerManagerTimersUpdated___block_invoke(uint64
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 40) _sendNotification:*(a1 + 48)];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _sendNotification:*(a1 + 48)];
 }
 
 - (void)_timerManagerTimerFired:(id)fired
@@ -2267,7 +2233,7 @@ uint64_t __47__COMeshTimerAddOn__timerManagerTimersUpdated___block_invoke(uint64
 
 void __44__COMeshTimerAddOn__timerManagerStateReset___block_invoke(uint64_t a1, char a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained)
@@ -2295,14 +2261,12 @@ void __44__COMeshTimerAddOn__timerManagerStateReset___block_invoke(uint64_t a1, 
       v6 = COCoreLogForCategory(3);
       if (os_log_type_enabled(&v6->super.super.super, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 134217984;
-        v11 = v5;
-        _os_log_impl(&dword_244378000, &v6->super.super.super, OS_LOG_TYPE_DEFAULT, "%p not emitting state reset, timers not updated", &v10, 0xCu);
+        v9 = 134217984;
+        v10 = v5;
+        _os_log_impl(&dword_244378000, &v6->super.super.super, OS_LOG_TYPE_DEFAULT, "%p not emitting state reset, timers not updated", &v9, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_timerManagerTimersChanged:(id)changed
@@ -2319,7 +2283,7 @@ void __44__COMeshTimerAddOn__timerManagerStateReset___block_invoke(uint64_t a1, 
 
 - (void)_startMerge
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   meshController = [(COMeshAddOn *)self meshController];
   meshControllerQueue = [(COMeshAddOn *)self meshControllerQueue];
   dispatch_assert_queue_V2(meshControllerQueue);
@@ -2329,9 +2293,9 @@ void __44__COMeshTimerAddOn__timerManagerStateReset___block_invoke(uint64_t a1, 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v18 = meshController;
-    v19 = 2048;
-    v20 = initForMerge;
+    v17 = meshController;
+    v18 = 2048;
+    v19 = initForMerge;
     _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p starting merge for %p...", buf, 0x16u);
   }
 
@@ -2347,21 +2311,19 @@ void __44__COMeshTimerAddOn__timerManagerStateReset___block_invoke(uint64_t a1, 
   }
 
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __31__COMeshTimerAddOn__startMerge__block_invoke;
-  v13[3] = &unk_278E16F00;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __31__COMeshTimerAddOn__startMerge__block_invoke;
+  v12[3] = &unk_278E16F00;
   v9 = meshControllerQueue;
-  v14 = v9;
-  objc_copyWeak(&v16, buf);
+  v13 = v9;
+  objc_copyWeak(&v15, buf);
   v10 = initForMerge;
-  v15 = v10;
-  v11 = [timers addCompletionBlock:v13];
+  v14 = v10;
+  v11 = [timers addCompletionBlock:v12];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __31__COMeshTimerAddOn__startMerge__block_invoke(uint64_t a1, void *a2)
@@ -2400,7 +2362,7 @@ void __31__COMeshTimerAddOn__startMerge__block_invoke_2(uint64_t a1)
 
 - (void)_broadcastMerge:(id)merge withTruth:(id)truth
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   truthCopy = truth;
   meshController = [(COMeshAddOn *)self meshController];
@@ -2417,11 +2379,11 @@ void __31__COMeshTimerAddOn__startMerge__block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v32 = meshController;
-      v33 = 2048;
-      v34 = mergeCopy;
-      v35 = 2114;
-      v36 = v11;
+      v31 = meshController;
+      v32 = 2048;
+      v33 = mergeCopy;
+      v34 = 2114;
+      v35 = v11;
       _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%p broadcasting merge %p with eTag %{public}@", buf, 0x20u);
     }
 
@@ -2433,32 +2395,32 @@ void __31__COMeshTimerAddOn__startMerge__block_invoke_2(uint64_t a1)
 
     [(COMeshTimerAddOn *)self setMergeTimers:truthCopy];
     objc_initWeak(buf, self);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke;
-    v28[3] = &unk_278E16F28;
-    objc_copyWeak(&v30, buf);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke;
+    v27[3] = &unk_278E16F28;
+    objc_copyWeak(&v29, buf);
     v15 = mergeCopy;
-    v29 = v15;
-    v16 = MEMORY[0x245D5FF10](v28);
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2;
-    v25 = &unk_278E16F50;
-    objc_copyWeak(&v27, buf);
+    v28 = v15;
+    v16 = MEMORY[0x245D5FF10](v27);
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2;
+    v24 = &unk_278E16F50;
+    objc_copyWeak(&v26, buf);
     v17 = v15;
-    v26 = v17;
-    v18 = MEMORY[0x245D5FF10](&v22);
+    v25 = v17;
+    v18 = MEMORY[0x245D5FF10](&v21);
     v19 = objc_alloc_init(MEMORY[0x277CBEA60]);
-    [(COMeshTimerAddOn *)self setMergingNodes:v19, v22, v23, v24, v25];
+    [(COMeshTimerAddOn *)self setMergingNodes:v19, v21, v22, v23, v24];
 
     v20 = objc_alloc_init(MEMORY[0x277CBEAC0]);
     [(COMeshTimerAddOn *)self setMergeResponses:v20];
 
     [meshController broadcastRequest:v17 includingSelf:0 recipientsCallback:v16 completionHandler:v18];
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(buf);
   }
 
@@ -2468,14 +2430,12 @@ void __31__COMeshTimerAddOn__startMerge__block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v32 = meshController;
-      v33 = 2048;
-      v34 = mergeCopy;
+      v31 = meshController;
+      v32 = 2048;
+      v33 = mergeCopy;
       _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p ignoring broadcast for merge %p", buf, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke(uint64_t a1, void *a2)
@@ -2526,7 +2486,7 @@ void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2(uint64_t 
 
 - (void)_primeMerge:(id)merge withNodes:(id)nodes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   nodesCopy = nodes;
   meshController = [(COMeshAddOn *)self meshController];
@@ -2545,13 +2505,13 @@ void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2(uint64_t 
     {
       if (v14)
       {
-        v16 = 134218496;
-        v17 = meshController;
-        v18 = 2048;
-        v19 = mergeCopy;
-        v20 = 2048;
-        v21 = v12;
-        _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p merge %p with %ld others.", &v16, 0x20u);
+        v15 = 134218496;
+        v16 = meshController;
+        v17 = 2048;
+        v18 = mergeCopy;
+        v19 = 2048;
+        v20 = v12;
+        _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p merge %p with %ld others.", &v15, 0x20u);
       }
     }
 
@@ -2559,11 +2519,11 @@ void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2(uint64_t 
     {
       if (v14)
       {
-        v16 = 134218240;
-        v17 = meshController;
-        v18 = 2048;
-        v19 = mergeCopy;
-        _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p is solo, so %p is finished.", &v16, 0x16u);
+        v15 = 134218240;
+        v16 = meshController;
+        v17 = 2048;
+        v18 = mergeCopy;
+        _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p is solo, so %p is finished.", &v15, 0x16u);
       }
 
       [(COMeshTimerAddOn *)self _finishMerge:mergeCopy];
@@ -2575,20 +2535,18 @@ void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2(uint64_t 
     v11 = COCoreLogForCategory(3);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 134218240;
-      v17 = meshController;
-      v18 = 2048;
-      v19 = mergeCopy;
-      _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p ignoring prime of merge %p", &v16, 0x16u);
+      v15 = 134218240;
+      v16 = meshController;
+      v17 = 2048;
+      v18 = mergeCopy;
+      _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p ignoring prime of merge %p", &v15, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continueMerge:(id)merge withResponse:(id)response fromNode:(id)node
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   responseCopy = response;
   nodeCopy = node;
@@ -2610,13 +2568,13 @@ void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2(uint64_t 
       v16 = COCoreLogForCategory(3);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v23 = 134218496;
-        v24 = meshController;
-        v25 = 2048;
-        v26 = nodeCopy;
-        v27 = 2048;
-        v28 = mergeCopy;
-        _os_log_debug_impl(&dword_244378000, v16, OS_LOG_TYPE_DEBUG, "%p skipping node %p in merge %p", &v23, 0x20u);
+        v22 = 134218496;
+        v23 = meshController;
+        v24 = 2048;
+        v25 = nodeCopy;
+        v26 = 2048;
+        v27 = mergeCopy;
+        _os_log_debug_impl(&dword_244378000, v16, OS_LOG_TYPE_DEBUG, "%p skipping node %p in merge %p", &v22, 0x20u);
       }
     }
 
@@ -2636,13 +2594,13 @@ void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2(uint64_t 
     {
       if (v21)
       {
-        v23 = 134218496;
-        v24 = meshController;
-        v25 = 2048;
-        v26 = mergeCopy;
-        v27 = 2048;
-        v28 = v19;
-        _os_log_debug_impl(&dword_244378000, v20, OS_LOG_TYPE_DEBUG, "%p merge %p still waiting on %ld others.", &v23, 0x20u);
+        v22 = 134218496;
+        v23 = meshController;
+        v24 = 2048;
+        v25 = mergeCopy;
+        v26 = 2048;
+        v27 = v19;
+        _os_log_debug_impl(&dword_244378000, v20, OS_LOG_TYPE_DEBUG, "%p merge %p still waiting on %ld others.", &v22, 0x20u);
       }
     }
 
@@ -2662,20 +2620,18 @@ void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2(uint64_t 
     v14 = COCoreLogForCategory(3);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 134218240;
-      v24 = meshController;
-      v25 = 2048;
-      v26 = mergeCopy;
-      _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p ignoring continuation of merge %p", &v23, 0x16u);
+      v22 = 134218240;
+      v23 = meshController;
+      v24 = 2048;
+      v25 = mergeCopy;
+      _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p ignoring continuation of merge %p", &v22, 0x16u);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_abandonMerge
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   meshController = [(COMeshAddOn *)self meshController];
   dispatchQueue = [meshController dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -2684,11 +2640,11 @@ void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2(uint64_t 
   v6 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134218240;
-    v11 = meshController;
-    v12 = 2048;
-    v13 = mergeRequest;
-    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p abandoning merge %p", &v10, 0x16u);
+    v9 = 134218240;
+    v10 = meshController;
+    v11 = 2048;
+    v12 = mergeRequest;
+    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p abandoning merge %p", &v9, 0x16u);
   }
 
   [(COMeshTimerAddOn *)self setMergeRequest:0];
@@ -2699,51 +2655,50 @@ void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2(uint64_t 
   [(COMeshTimerAddOn *)self setMergingNodes:v8];
 
   [(COMeshTimerAddOn *)self _processQueuedCommands];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_commandsForReconciling:(id)reconciling toTruth:(id)truth forNode:(id)node
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   reconcilingCopy = reconciling;
   truthCopy = truth;
   nodeCopy = node;
   array = [MEMORY[0x277CBEA60] array];
-  v50 = [truthCopy mutableCopy];
+  v49 = [truthCopy mutableCopy];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v11 = reconcilingCopy;
-  v12 = [(COTimersRemovedNotification *)v11 countByEnumeratingWithState:&v51 objects:v61 count:16];
-  v48 = truthCopy;
+  v12 = [(COTimersRemovedNotification *)v11 countByEnumeratingWithState:&v50 objects:v60 count:16];
+  v47 = truthCopy;
   if (!v12)
   {
     v14 = 0;
-    v49 = 0;
+    v48 = 0;
     v28 = v11;
-    v26 = v50;
+    v26 = v49;
 LABEL_30:
 
     goto LABEL_31;
   }
 
   v13 = v12;
-  v46 = array;
-  v47 = nodeCopy;
+  v45 = array;
+  v46 = nodeCopy;
   v14 = 0;
-  v49 = 0;
-  v15 = *v52;
+  v48 = 0;
+  v15 = *v51;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v52 != v15)
+      if (*v51 != v15)
       {
         objc_enumerationMutation(v11);
       }
 
-      v17 = *(*(&v51 + 1) + 8 * i);
+      v17 = *(*(&v50 + 1) + 8 * i);
       if (([v17 isCurrentTimer] & 1) == 0)
       {
         timerID = [v17 timerID];
@@ -2753,17 +2708,17 @@ LABEL_30:
           v20 = [v17 co_preferredTimer:v19];
           if (v17 != v20 && ([v17 isEqualIgnoringLastModifiedDate:v20] & 1) == 0)
           {
-            if (v49)
+            if (v48)
             {
-              v21 = [v49 arrayByAddingObject:v20];
+              v21 = [v48 arrayByAddingObject:v20];
 
-              v49 = v21;
-              truthCopy = v48;
+              v48 = v21;
+              truthCopy = v47;
             }
 
             else
             {
-              v49 = [MEMORY[0x277CBEA60] arrayWithObject:v20];
+              v48 = [MEMORY[0x277CBEA60] arrayWithObject:v20];
             }
           }
         }
@@ -2781,20 +2736,20 @@ LABEL_30:
         }
 
         timerID2 = [v17 timerID];
-        [v50 removeObjectForKey:timerID2];
+        [v49 removeObjectForKey:timerID2];
       }
     }
 
-    v13 = [(COTimersRemovedNotification *)v11 countByEnumeratingWithState:&v51 objects:v61 count:16];
+    v13 = [(COTimersRemovedNotification *)v11 countByEnumeratingWithState:&v50 objects:v60 count:16];
   }
 
   while (v13);
 
-  if (!v49)
+  if (!v48)
   {
-    array = v46;
-    nodeCopy = v47;
-    v26 = v50;
+    array = v45;
+    nodeCopy = v46;
+    v26 = v49;
     if (!v14)
     {
       goto LABEL_31;
@@ -2803,26 +2758,26 @@ LABEL_30:
     goto LABEL_27;
   }
 
-  v24 = [(COTimerNotification *)[COTimersUpdatedNotification alloc] initWithTimers:v49];
+  v24 = [(COTimerNotification *)[COTimersUpdatedNotification alloc] initWithTimers:v48];
   v25 = COCoreLogForCategory(3);
-  nodeCopy = v47;
-  v26 = v50;
+  nodeCopy = v46;
+  v26 = v49;
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     meshController = [(COMeshAddOn *)self meshController];
     timers = [(COTimerNotification *)v24 timers];
     *buf = 134218498;
-    v56 = meshController;
-    v57 = 2112;
-    v58 = v47;
-    v59 = 2112;
-    v60 = timers;
+    v55 = meshController;
+    v56 = 2112;
+    v57 = v46;
+    v58 = 2112;
+    v59 = timers;
     _os_log_debug_impl(&dword_244378000, v25, OS_LOG_TYPE_DEBUG, "%p %@ updating %@", buf, 0x20u);
 
-    truthCopy = v48;
+    truthCopy = v47;
   }
 
-  v27 = [v46 arrayByAddingObject:v24];
+  v27 = [v45 arrayByAddingObject:v24];
 
   array = v27;
   if (v14)
@@ -2835,14 +2790,14 @@ LABEL_27:
       meshController2 = [(COMeshAddOn *)self meshController];
       timers2 = [(COTimerNotification *)v28 timers];
       *buf = 134218498;
-      v56 = meshController2;
-      v57 = 2112;
-      v58 = nodeCopy;
-      v59 = 2112;
-      v60 = timers2;
+      v55 = meshController2;
+      v56 = 2112;
+      v57 = nodeCopy;
+      v58 = 2112;
+      v59 = timers2;
       _os_log_debug_impl(&dword_244378000, v29, OS_LOG_TYPE_DEBUG, "%p %@ removing %@", buf, 0x20u);
 
-      truthCopy = v48;
+      truthCopy = v47;
     }
 
     v30 = [array arrayByAddingObject:v28];
@@ -2864,14 +2819,14 @@ LABEL_31:
       meshController3 = [(COMeshAddOn *)self meshController];
       timers3 = [(COTimerNotification *)v33 timers];
       *buf = 134218498;
-      v56 = meshController3;
-      v57 = 2112;
-      v58 = nodeCopy;
-      v59 = 2112;
-      v60 = timers3;
+      v55 = meshController3;
+      v56 = 2112;
+      v57 = nodeCopy;
+      v58 = 2112;
+      v59 = timers3;
       _os_log_debug_impl(&dword_244378000, v34, OS_LOG_TYPE_DEBUG, "%p %@ requires %@", buf, 0x20u);
 
-      truthCopy = v48;
+      truthCopy = v47;
     }
 
     v35 = [array arrayByAddingObject:v33];
@@ -2881,13 +2836,12 @@ LABEL_31:
 
   v36 = array;
 
-  v37 = *MEMORY[0x277D85DE8];
   return array;
 }
 
 - (void)_finishMerge:(id)merge
 {
-  v147 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   meshController = [(COMeshAddOn *)self meshController];
   dispatchQueue = [meshController dispatchQueue];
@@ -2901,210 +2855,199 @@ LABEL_31:
     if (v7)
     {
       *buf = 134218240;
-      v144 = meshController;
-      v145 = 2048;
-      v146 = mergeCopy;
+      v143 = meshController;
+      v144 = 2048;
+      v145 = mergeCopy;
       _os_log_impl(&dword_244378000, log, OS_LOG_TYPE_DEFAULT, "%p ignoring conclusion of merge %p", buf, 0x16u);
     }
 
     goto LABEL_92;
   }
 
-  v77 = dispatchQueue;
+  v76 = dispatchQueue;
   if (v7)
   {
     *buf = 134218240;
-    v144 = meshController;
-    v145 = 2048;
-    v146 = mergeCopy;
+    v143 = meshController;
+    v144 = 2048;
+    v145 = mergeCopy;
     _os_log_impl(&dword_244378000, log, OS_LOG_TYPE_DEFAULT, "%p completing merge %p...", buf, 0x16u);
   }
 
-  v78 = mergeCopy;
+  v77 = mergeCopy;
 
   mergeTimers = [(COMeshTimerAddOn *)self mergeTimers];
   selfCopy = self;
   mergeResponses = [(COMeshTimerAddOn *)self mergeResponses];
-  v95 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v94 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v130 = 0u;
   v131 = 0u;
   v132 = 0u;
   v133 = 0u;
-  v134 = 0u;
   log = mergeTimers;
-  v10 = [log countByEnumeratingWithState:&v131 objects:v142 count:16];
+  v10 = [log countByEnumeratingWithState:&v130 objects:v141 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v132;
+    v12 = *v131;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v132 != v12)
+        if (*v131 != v12)
         {
           objc_enumerationMutation(log);
         }
 
-        v14 = *(*(&v131 + 1) + 8 * i);
+        v14 = *(*(&v130 + 1) + 8 * i);
         if (([v14 isCurrentTimer] & 1) == 0)
         {
           timerID = [v14 timerID];
-          [v95 setObject:v14 forKey:timerID];
+          [v94 setObject:v14 forKey:timerID];
         }
       }
 
-      v11 = [log countByEnumeratingWithState:&v131 objects:v142 count:16];
+      v11 = [log countByEnumeratingWithState:&v130 objects:v141 count:16];
     }
 
     while (v11);
   }
 
   v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v126 = 0u;
   v127 = 0u;
   v128 = 0u;
   v129 = 0u;
-  v130 = 0u;
   deletes = [(COMeshTimerAddOn *)self deletes];
-  v18 = [deletes countByEnumeratingWithState:&v127 objects:v141 count:16];
+  v18 = [deletes countByEnumeratingWithState:&v126 objects:v140 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v128;
+    v20 = *v127;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v128 != v20)
+        if (*v127 != v20)
         {
           objc_enumerationMutation(deletes);
         }
 
-        v22 = *(*(&v127 + 1) + 8 * j);
+        v22 = *(*(&v126 + 1) + 8 * j);
         identifier = [v22 identifier];
         [v16 setObject:v22 forKey:identifier];
       }
 
-      v19 = [deletes countByEnumeratingWithState:&v127 objects:v141 count:16];
+      v19 = [deletes countByEnumeratingWithState:&v126 objects:v140 count:16];
     }
 
     while (v19);
   }
 
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
   v124 = 0u;
+  v125 = 0u;
+  v122 = 0u;
+  v123 = 0u;
   obj = mergeResponses;
-  v94 = v16;
-  v85 = [obj countByEnumeratingWithState:&v123 objects:v140 count:16];
-  if (v85)
+  v93 = v16;
+  v84 = [obj countByEnumeratingWithState:&v122 objects:v139 count:16];
+  if (v84)
   {
-    v82 = *v124;
+    v81 = *v123;
     do
     {
       v24 = 0;
       do
       {
-        if (*v124 != v82)
+        if (*v123 != v81)
         {
           objc_enumerationMutation(obj);
         }
 
-        v89 = v24;
-        v25 = [obj objectForKey:{*(*(&v123 + 1) + 8 * v24), v77}];
+        v88 = v24;
+        v25 = [obj objectForKey:{*(*(&v122 + 1) + 8 * v24), v76}];
+        v118 = 0u;
         v119 = 0u;
         v120 = 0u;
         v121 = 0u;
-        v122 = 0u;
-        v91 = v25;
+        v90 = v25;
         timers = [v25 timers];
-        v27 = [timers countByEnumeratingWithState:&v119 objects:v139 count:16];
+        v27 = [timers countByEnumeratingWithState:&v118 objects:v138 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v120;
+          v29 = *v119;
           do
           {
             for (k = 0; k != v28; ++k)
             {
-              if (*v120 != v29)
+              if (*v119 != v29)
               {
                 objc_enumerationMutation(timers);
               }
 
-              v31 = *(*(&v119 + 1) + 8 * k);
+              v31 = *(*(&v118 + 1) + 8 * k);
               if (([v31 isCurrentTimer] & 1) == 0)
               {
                 timerID2 = [v31 timerID];
-                v33 = [v95 objectForKey:timerID2];
+                v33 = [v94 objectForKey:timerID2];
                 v34 = [v31 co_preferredTimer:v33];
 
                 if (v31 == v34)
                 {
-                  [v95 setObject:v31 forKey:timerID2];
+                  [v94 setObject:v31 forKey:timerID2];
                 }
               }
             }
 
-            v28 = [timers countByEnumeratingWithState:&v119 objects:v139 count:16];
+            v28 = [timers countByEnumeratingWithState:&v118 objects:v138 count:16];
           }
 
           while (v28);
         }
 
-        v117 = 0u;
-        v118 = 0u;
-        v115 = 0u;
         v116 = 0u;
-        deletes2 = [v91 deletes];
-        v36 = [deletes2 countByEnumeratingWithState:&v115 objects:v138 count:16];
+        v117 = 0u;
+        v114 = 0u;
+        v115 = 0u;
+        deletes2 = [v90 deletes];
+        v36 = [deletes2 countByEnumeratingWithState:&v114 objects:v137 count:16];
         if (v36)
         {
           v37 = v36;
-          v38 = *v116;
+          v38 = *v115;
           do
           {
             for (m = 0; m != v37; ++m)
             {
-              if (*v116 != v38)
+              if (*v115 != v38)
               {
                 objc_enumerationMutation(deletes2);
               }
 
-              v40 = *(*(&v115 + 1) + 8 * m);
+              v40 = *(*(&v114 + 1) + 8 * m);
               identifier2 = [v40 identifier];
               v42 = [v16 objectForKey:identifier2];
-              if (!v42)
+              if (!v42 || ([v40 date], v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v42, "date"), v44 = objc_claimAutoreleasedReturnValue(), v45 = objc_msgSend(v43, "compare:", v44), v44, v16 = v93, v43, v45 == -1))
               {
-                goto LABEL_45;
-              }
-
-              date = [v40 date];
-              date2 = [v42 date];
-              v45 = [date compare:date2];
-
-              v16 = v94;
-              if (v45 == -1)
-              {
-LABEL_45:
                 [v16 setObject:v40 forKey:identifier2];
               }
             }
 
-            v37 = [deletes2 countByEnumeratingWithState:&v115 objects:v138 count:16];
+            v37 = [deletes2 countByEnumeratingWithState:&v114 objects:v137 count:16];
           }
 
           while (v37);
         }
 
-        v24 = v89 + 1;
+        v24 = v88 + 1;
       }
 
-      while ((v89 + 1) != v85);
-      v85 = [obj countByEnumeratingWithState:&v123 objects:v140 count:16];
+      while ((v88 + 1) != v84);
+      v84 = [obj countByEnumeratingWithState:&v122 objects:v139 count:16];
     }
 
-    while (v85);
+    while (v84);
   }
 
   v46 = COCoreLogForCategory(3);
@@ -3113,13 +3056,13 @@ LABEL_45:
     [COMeshTimerAddOn _finishMerge:];
   }
 
-  v113[0] = MEMORY[0x277D85DD0];
-  v113[1] = 3221225472;
-  v113[2] = __33__COMeshTimerAddOn__finishMerge___block_invoke;
-  v113[3] = &unk_278E16F78;
-  v47 = v95;
-  v114 = v47;
-  [v16 enumerateKeysAndObjectsUsingBlock:v113];
+  v112[0] = MEMORY[0x277D85DD0];
+  v112[1] = 3221225472;
+  v112[2] = __33__COMeshTimerAddOn__finishMerge___block_invoke;
+  v112[3] = &unk_278E16F78;
+  v47 = v94;
+  v113 = v47;
+  [v16 enumerateKeysAndObjectsUsingBlock:v112];
   v48 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
   {
@@ -3127,33 +3070,33 @@ LABEL_45:
   }
 
   array = [MEMORY[0x277CBEB18] array];
+  v108 = 0u;
   v109 = 0u;
   v110 = 0u;
   v111 = 0u;
-  v112 = 0u;
-  v81 = v47;
+  v80 = v47;
   v49 = [(COMeshTimerAddOn *)selfCopy _commandsForReconciling:log toTruth:v47 forNode:0];
-  v50 = [v49 countByEnumeratingWithState:&v109 objects:v137 count:16];
+  v50 = [v49 countByEnumeratingWithState:&v108 objects:v136 count:16];
   if (v50)
   {
     v51 = v50;
-    v52 = *v110;
+    v52 = *v109;
     do
     {
       for (n = 0; n != v51; ++n)
       {
-        if (*v110 != v52)
+        if (*v109 != v52)
         {
           objc_enumerationMutation(v49);
         }
 
-        v54 = *(*(&v109 + 1) + 8 * n);
+        v54 = *(*(&v108 + 1) + 8 * n);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v55 = v108;
-          v108[0] = MEMORY[0x277D85DD0];
-          v108[1] = 3221225472;
+          v55 = v107;
+          v107[0] = MEMORY[0x277D85DD0];
+          v107[1] = 3221225472;
           v56 = __33__COMeshTimerAddOn__finishMerge___block_invoke_143;
         }
 
@@ -3162,9 +3105,9 @@ LABEL_45:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v55 = v107;
-            v107[0] = MEMORY[0x277D85DD0];
-            v107[1] = 3221225472;
+            v55 = v106;
+            v106[0] = MEMORY[0x277D85DD0];
+            v106[1] = 3221225472;
             v56 = __33__COMeshTimerAddOn__finishMerge___block_invoke_2;
           }
 
@@ -3176,9 +3119,9 @@ LABEL_45:
               continue;
             }
 
-            v55 = v106;
-            v106[0] = MEMORY[0x277D85DD0];
-            v106[1] = 3221225472;
+            v55 = v105;
+            v105[0] = MEMORY[0x277D85DD0];
+            v105[1] = 3221225472;
             v56 = __33__COMeshTimerAddOn__finishMerge___block_invoke_3;
           }
         }
@@ -3191,37 +3134,37 @@ LABEL_45:
         [array addObject:v57];
       }
 
-      v51 = [v49 countByEnumeratingWithState:&v109 objects:v137 count:16];
+      v51 = [v49 countByEnumeratingWithState:&v108 objects:v136 count:16];
     }
 
     while (v51);
   }
 
-  v104 = 0u;
-  v105 = 0u;
   v103 = 0u;
+  v104 = 0u;
   v102 = 0u;
-  v86 = obj;
+  v101 = 0u;
+  v85 = obj;
   v59 = selfCopy;
-  v58 = v94;
-  v83 = [v86 countByEnumeratingWithState:&v102 objects:v136 count:16];
-  if (v83)
+  v58 = v93;
+  v82 = [v85 countByEnumeratingWithState:&v101 objects:v135 count:16];
+  if (v82)
   {
-    v80 = *v103;
+    v79 = *v102;
     do
     {
       v60 = 0;
       do
       {
-        if (*v103 != v80)
+        if (*v102 != v79)
         {
-          objc_enumerationMutation(v86);
+          objc_enumerationMutation(v85);
         }
 
-        v61 = *(*(&v102 + 1) + 8 * v60);
-        v62 = [v86 objectForKey:{v61, v77}];
-        v90 = v62;
-        v92 = v60;
+        v61 = *(*(&v101 + 1) + 8 * v60);
+        v62 = [v85 objectForKey:{v61, v76}];
+        v89 = v62;
+        v91 = v60;
         if ([v62 notModified])
         {
           timers2 = log;
@@ -3229,9 +3172,9 @@ LABEL_45:
           if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134218242;
-            v144 = meshController;
-            v145 = 2112;
-            v146 = v61;
+            v143 = meshController;
+            v144 = 2112;
+            v145 = v61;
             _os_log_debug_impl(&dword_244378000, v64, OS_LOG_TYPE_DEBUG, "%p response is not-modified for %@", buf, 0x16u);
           }
         }
@@ -3241,59 +3184,59 @@ LABEL_45:
           timers2 = [v62 timers];
         }
 
-        v100 = 0u;
-        v101 = 0u;
-        v98 = 0u;
         v99 = 0u;
+        v100 = 0u;
+        v97 = 0u;
+        v98 = 0u;
         obja = timers2;
-        v65 = [(COMeshTimerAddOn *)v59 _commandsForReconciling:timers2 toTruth:v81 forNode:v61];
-        v66 = [v65 countByEnumeratingWithState:&v98 objects:v135 count:16];
+        v65 = [(COMeshTimerAddOn *)v59 _commandsForReconciling:timers2 toTruth:v80 forNode:v61];
+        v66 = [v65 countByEnumeratingWithState:&v97 objects:v134 count:16];
         if (v66)
         {
           v67 = v66;
-          v68 = *v99;
+          v68 = *v98;
           do
           {
             for (ii = 0; ii != v67; ++ii)
             {
-              if (*v99 != v68)
+              if (*v98 != v68)
               {
                 objc_enumerationMutation(v65);
               }
 
-              v70 = *(*(&v98 + 1) + 8 * ii);
+              v70 = *(*(&v97 + 1) + 8 * ii);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v97[0] = MEMORY[0x277D85DD0];
-                v97[1] = 3221225472;
-                v97[2] = __33__COMeshTimerAddOn__finishMerge___block_invoke_145;
-                v97[3] = &unk_278E15728;
-                v97[4] = v59;
-                v97[5] = v70;
-                v97[6] = v61;
-                v71 = MEMORY[0x245D5FF10](v97);
+                v96[0] = MEMORY[0x277D85DD0];
+                v96[1] = 3221225472;
+                v96[2] = __33__COMeshTimerAddOn__finishMerge___block_invoke_145;
+                v96[3] = &unk_278E15728;
+                v96[4] = v59;
+                v96[5] = v70;
+                v96[6] = v61;
+                v71 = MEMORY[0x245D5FF10](v96);
                 [array addObject:v71];
 
                 v59 = selfCopy;
               }
             }
 
-            v67 = [v65 countByEnumeratingWithState:&v98 objects:v135 count:16];
+            v67 = [v65 countByEnumeratingWithState:&v97 objects:v134 count:16];
           }
 
           while (v67);
         }
 
-        v60 = v92 + 1;
-        v58 = v94;
+        v60 = v91 + 1;
+        v58 = v93;
       }
 
-      while (v92 + 1 != v83);
-      v83 = [v86 countByEnumeratingWithState:&v102 objects:v136 count:16];
+      while (v91 + 1 != v82);
+      v82 = [v85 countByEnumeratingWithState:&v101 objects:v135 count:16];
     }
 
-    while (v83);
+    while (v82);
   }
 
   [(COMeshTimerAddOn *)v59 setMergeRequest:0];
@@ -3309,21 +3252,19 @@ LABEL_45:
 
   [(COMeshTimerAddOn *)v59 setQueuedCommands:array];
   v75 = COCoreLogForCategory(3);
-  mergeCopy = v78;
+  mergeCopy = v77;
   if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v144 = meshController;
-    v145 = 2048;
-    v146 = v78;
+    v143 = meshController;
+    v144 = 2048;
+    v145 = v77;
     _os_log_impl(&dword_244378000, v75, OS_LOG_TYPE_DEFAULT, "%p concluded merge %p", buf, 0x16u);
   }
 
   [(COMeshTimerAddOn *)v59 _processQueuedCommands];
-  dispatchQueue = v77;
+  dispatchQueue = v76;
 LABEL_92:
-
-  v76 = *MEMORY[0x277D85DE8];
 }
 
 void __33__COMeshTimerAddOn__finishMerge___block_invoke(uint64_t a1, void *a2)
@@ -3409,34 +3350,34 @@ uint64_t __47__COMeshTimerAddOn__reloadIndexWithCompletion___block_invoke_146(ui
 
 void __47__COMeshTimerAddOn__reloadIndexWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v18 = v3;
+    v17 = v3;
     v5 = v3;
     v6 = [MEMORY[0x277CBEB38] dictionary];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           if (([v12 isCurrentTimer] & 1) == 0)
           {
             v13 = [v12 timerID];
@@ -3450,7 +3391,7 @@ void __47__COMeshTimerAddOn__reloadIndexWithCompletion___block_invoke_2(uint64_t
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
@@ -3462,20 +3403,18 @@ void __47__COMeshTimerAddOn__reloadIndexWithCompletion___block_invoke_2(uint64_t
     block[2] = __47__COMeshTimerAddOn__reloadIndexWithCompletion___block_invoke_3;
     block[3] = &unk_278E15B60;
     block[4] = WeakRetained;
-    v20 = v6;
-    v21 = *(a1 + 32);
+    v19 = v6;
+    v20 = *(a1 + 32);
     v16 = v6;
     dispatch_async(v15, block);
 
-    v3 = v18;
+    v3 = v17;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__COMeshTimerAddOn__reloadIndexWithCompletion___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) timerIndex];
   v3 = [v2 isEqualToDictionary:*(a1 + 40)];
 
@@ -3490,60 +3429,57 @@ uint64_t __47__COMeshTimerAddOn__reloadIndexWithCompletion___block_invoke_3(uint
       v5 = "no";
     }
 
-    v9 = 134218242;
-    v10 = v6;
-    v11 = 2080;
-    v12 = v5;
-    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p timer index reloaded; updated: %s", &v9, 0x16u);
+    v8 = 134218242;
+    v9 = v6;
+    v10 = 2080;
+    v11 = v5;
+    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p timer index reloaded; updated: %s", &v8, 0x16u);
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, v3 ^ 1u);
+    return (*(result + 16))(result, v3 ^ 1u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_processQueuedCommands
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queuedCommands = [(COMeshTimerAddOn *)self queuedCommands];
   [(COMeshTimerAddOn *)self setQueuedCommands:MEMORY[0x277CBEBF8]];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = queuedCommands;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addTimerDeleteEvent:(id)event
@@ -3592,13 +3528,13 @@ BOOL __41__COMeshTimerAddOn__addTimerDeleteEvent___block_invoke(uint64_t a1, voi
 
 - (id)addTimer:(id)timer client:(id)client member:(id)member
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   clientCopy = client;
   memberCopy = member;
   v11 = [(COTimerRequest *)[COTimerCreateRequest alloc] initWithTimer:timerCopy];
   meshController = [(COMeshAddOn *)self meshController];
-  v45 = timerCopy;
+  v44 = timerCopy;
   if (-[COMeshTimerAddOn performsLocalActions](self, "performsLocalActions") && ([meshController leader], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
   {
     v26 = memberCopy;
@@ -3606,11 +3542,11 @@ BOOL __41__COMeshTimerAddOn__addTimerDeleteEvent___block_invoke(uint64_t a1, voi
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       meshController2 = [(COMeshAddOn *)self meshController];
-      timerID = [v45 timerID];
+      timerID = [v44 timerID];
       *buf = 134218242;
-      v59 = meshController2;
-      v60 = 2112;
-      v61 = timerID;
+      v58 = meshController2;
+      v59 = 2112;
+      v60 = timerID;
       _os_log_impl(&dword_244378000, v35, OS_LOG_TYPE_DEFAULT, "%p directly add a timer %@", buf, 0x16u);
     }
 
@@ -3622,10 +3558,10 @@ BOOL __41__COMeshTimerAddOn__addTimerDeleteEvent___block_invoke(uint64_t a1, voi
     block[2] = __43__COMeshTimerAddOn_addTimer_client_member___block_invoke;
     block[3] = &unk_278E15C88;
     block[4] = self;
-    v55 = v11;
+    v54 = v11;
     v28 = v38;
-    v56 = v28;
-    v57 = meshController;
+    v55 = v28;
+    v56 = meshController;
     dispatch_async(dispatchQueue, block);
 
     v32 = 1;
@@ -3637,14 +3573,14 @@ BOOL __41__COMeshTimerAddOn__addTimerDeleteEvent___block_invoke(uint64_t a1, voi
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if (memberCopy)
     {
-      v43 = v11;
+      v42 = v11;
       if (v15)
       {
         timerID2 = [timerCopy timerID];
         *buf = 134218242;
-        v59 = meshController;
-        v60 = 2112;
-        v61 = timerID2;
+        v58 = meshController;
+        v59 = 2112;
+        v60 = timerID2;
         _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p using secondary cluster to add %@", buf, 0x16u);
       }
 
@@ -3658,7 +3594,7 @@ BOOL __41__COMeshTimerAddOn__addTimerDeleteEvent___block_invoke(uint64_t a1, voi
         nw_activity_activate();
       }
 
-      v44 = clientCopy;
+      v43 = clientCopy;
       clientBundleIdentifier = [clientCopy clientBundleIdentifier];
       if (![clientBundleIdentifier length])
       {
@@ -3670,26 +3606,26 @@ BOOL __41__COMeshTimerAddOn__addTimerDeleteEvent___block_invoke(uint64_t a1, voi
 
       actionDirector = [(COMeshTimerAddOn *)self actionDirector];
       v25 = [MEMORY[0x277CBEB98] setWithObject:memberCopy];
-      v48[0] = MEMORY[0x277D85DD0];
+      v47[0] = MEMORY[0x277D85DD0];
       v26 = memberCopy;
       v27 = &off_244448000;
-      v48[1] = 3221225472;
-      v48[2] = __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155;
-      v48[3] = &unk_278E15778;
-      v49 = v20;
-      v50 = v18;
-      v51 = clientBundleIdentifier;
+      v47[1] = 3221225472;
+      v47[2] = __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155;
+      v47[3] = &unk_278E15778;
+      v48 = v20;
+      v49 = v18;
+      v50 = clientBundleIdentifier;
       v28 = v17;
-      v52 = v28;
-      v53 = meshController;
+      v51 = v28;
+      v52 = meshController;
       v29 = clientBundleIdentifier;
       v30 = v18;
       v31 = v20;
-      [actionDirector requestAction:v30 members:v25 activity:v31 withCompletion:v48];
+      [actionDirector requestAction:v30 members:v25 activity:v31 withCompletion:v47];
 
       v32 = 0;
-      v11 = v43;
-      clientCopy = v44;
+      v11 = v42;
+      clientCopy = v43;
     }
 
     else
@@ -3698,11 +3634,11 @@ BOOL __41__COMeshTimerAddOn__addTimerDeleteEvent___block_invoke(uint64_t a1, voi
       if (v15)
       {
         meshController3 = [(COMeshAddOn *)self meshController];
-        timerID3 = [v45 timerID];
+        timerID3 = [v44 timerID];
         *buf = 134218242;
-        v59 = meshController3;
-        v60 = 2112;
-        v61 = timerID3;
+        v58 = meshController3;
+        v59 = 2112;
+        v60 = timerID3;
         _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p requesting leader to add a timer %@", buf, 0x16u);
       }
 
@@ -3713,14 +3649,12 @@ BOOL __41__COMeshTimerAddOn__addTimerDeleteEvent___block_invoke(uint64_t a1, voi
   }
 
   recorder = [(COMeshTimerAddOn *)self recorder];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = *(v27 + 186);
-  v46[2] = __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_156;
-  v46[3] = &__block_descriptor_33_e19___NSDictionary_8__0l;
-  v47 = v32;
-  (recorder)[2](recorder, 0x2857B5848, v46);
-
-  v41 = *MEMORY[0x277D85DE8];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = *(v27 + 186);
+  v45[2] = __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_156;
+  v45[3] = &__block_descriptor_33_e19___NSDictionary_8__0l;
+  v46 = v32;
+  (recorder)[2](recorder, 0x2857B5848, v45);
 
   return v28;
 }
@@ -3748,7 +3682,7 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_2(uint64_t a1,
     v8 = COCoreLogForCategory(3);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_2_cold_1(a1);
+      __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_2_cold_1();
     }
 
     [*(a1 + 32) finishWithError:v7];
@@ -3769,26 +3703,23 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155(uint64_t a
     v7 = xpc_dictionary_create(0, 0, 0);
     if (v7)
     {
-      v8 = *(a1 + 40);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      xpc_dictionary_set_string(v7, "command", [v10 UTF8String]);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      xpc_dictionary_set_string(v7, "command", [v9 UTF8String]);
 
       xpc_dictionary_set_string(v7, "client", [*(a1 + 48) UTF8String]);
-      v11 = *(a1 + 32);
       nw_activity_submit_metrics();
     }
 
-    v12 = *(a1 + 32);
     nw_activity_complete_with_reason();
   }
 
   if (v6)
   {
-    v13 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v10 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155_cold_1(a1);
+      __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155_cold_1();
     }
 
     [*(a1 + 56) finishWithError:v6];
@@ -3802,13 +3733,13 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155(uint64_t a
 
 - (id)updateTimer:(id)timer client:(id)client member:(id)member
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   clientCopy = client;
   memberCopy = member;
   v11 = [(COTimerRequest *)[COTimerUpdateRequest alloc] initWithTimer:timerCopy];
   meshController = [(COMeshAddOn *)self meshController];
-  v45 = timerCopy;
+  v44 = timerCopy;
   if (-[COMeshTimerAddOn performsLocalActions](self, "performsLocalActions") && ([meshController leader], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
   {
     v26 = memberCopy;
@@ -3816,11 +3747,11 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155(uint64_t a
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       meshController2 = [(COMeshAddOn *)self meshController];
-      timerID = [v45 timerID];
+      timerID = [v44 timerID];
       *buf = 134218242;
-      v59 = meshController2;
-      v60 = 2112;
-      v61 = timerID;
+      v58 = meshController2;
+      v59 = 2112;
+      v60 = timerID;
       _os_log_impl(&dword_244378000, v35, OS_LOG_TYPE_DEFAULT, "%p directly update a timer %@", buf, 0x16u);
     }
 
@@ -3832,10 +3763,10 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155(uint64_t a
     block[2] = __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke;
     block[3] = &unk_278E15C88;
     block[4] = self;
-    v55 = v11;
+    v54 = v11;
     v28 = v38;
-    v56 = v28;
-    v57 = meshController;
+    v55 = v28;
+    v56 = meshController;
     dispatch_async(dispatchQueue, block);
 
     v32 = 1;
@@ -3847,14 +3778,14 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155(uint64_t a
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if (memberCopy)
     {
-      v43 = v11;
+      v42 = v11;
       if (v15)
       {
         timerID2 = [timerCopy timerID];
         *buf = 134218242;
-        v59 = meshController;
-        v60 = 2112;
-        v61 = timerID2;
+        v58 = meshController;
+        v59 = 2112;
+        v60 = timerID2;
         _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p using secondary cluster to update %@", buf, 0x16u);
       }
 
@@ -3868,7 +3799,7 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155(uint64_t a
         nw_activity_activate();
       }
 
-      v44 = clientCopy;
+      v43 = clientCopy;
       clientBundleIdentifier = [clientCopy clientBundleIdentifier];
       if (![clientBundleIdentifier length])
       {
@@ -3880,26 +3811,26 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155(uint64_t a
 
       actionDirector = [(COMeshTimerAddOn *)self actionDirector];
       v25 = [MEMORY[0x277CBEB98] setWithObject:memberCopy];
-      v48[0] = MEMORY[0x277D85DD0];
+      v47[0] = MEMORY[0x277D85DD0];
       v26 = memberCopy;
       v27 = &off_244448000;
-      v48[1] = 3221225472;
-      v48[2] = __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158;
-      v48[3] = &unk_278E15778;
-      v49 = v20;
-      v50 = v18;
-      v51 = clientBundleIdentifier;
+      v47[1] = 3221225472;
+      v47[2] = __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158;
+      v47[3] = &unk_278E15778;
+      v48 = v20;
+      v49 = v18;
+      v50 = clientBundleIdentifier;
       v28 = v17;
-      v52 = v28;
-      v53 = meshController;
+      v51 = v28;
+      v52 = meshController;
       v29 = clientBundleIdentifier;
       v30 = v18;
       v31 = v20;
-      [actionDirector requestAction:v30 members:v25 activity:v31 withCompletion:v48];
+      [actionDirector requestAction:v30 members:v25 activity:v31 withCompletion:v47];
 
       v32 = 0;
-      v11 = v43;
-      clientCopy = v44;
+      v11 = v42;
+      clientCopy = v43;
     }
 
     else
@@ -3908,11 +3839,11 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155(uint64_t a
       if (v15)
       {
         meshController3 = [(COMeshAddOn *)self meshController];
-        timerID3 = [v45 timerID];
+        timerID3 = [v44 timerID];
         *buf = 134218242;
-        v59 = meshController3;
-        v60 = 2112;
-        v61 = timerID3;
+        v58 = meshController3;
+        v59 = 2112;
+        v60 = timerID3;
         _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p requesting leader to update a timer %@", buf, 0x16u);
       }
 
@@ -3923,14 +3854,12 @@ void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155(uint64_t a
   }
 
   recorder = [(COMeshTimerAddOn *)self recorder];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = *(v27 + 186);
-  v46[2] = __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_159;
-  v46[3] = &__block_descriptor_33_e19___NSDictionary_8__0l;
-  v47 = v32;
-  (recorder)[2](recorder, 0x2857B5848, v46);
-
-  v41 = *MEMORY[0x277D85DE8];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = *(v27 + 186);
+  v45[2] = __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_159;
+  v45[3] = &__block_descriptor_33_e19___NSDictionary_8__0l;
+  v46 = v32;
+  (recorder)[2](recorder, 0x2857B5848, v45);
 
   return v28;
 }
@@ -3958,7 +3887,7 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_2(uint64_t 
     v8 = COCoreLogForCategory(3);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_2_cold_1(a1);
+      __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_2_cold_1();
     }
 
     [*(a1 + 32) finishWithError:v7];
@@ -3979,26 +3908,23 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158(uint64_
     v7 = xpc_dictionary_create(0, 0, 0);
     if (v7)
     {
-      v8 = *(a1 + 40);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      xpc_dictionary_set_string(v7, "command", [v10 UTF8String]);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      xpc_dictionary_set_string(v7, "command", [v9 UTF8String]);
 
       xpc_dictionary_set_string(v7, "client", [*(a1 + 48) UTF8String]);
-      v11 = *(a1 + 32);
       nw_activity_submit_metrics();
     }
 
-    v12 = *(a1 + 32);
     nw_activity_complete_with_reason();
   }
 
   if (v6)
   {
-    v13 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v10 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158_cold_1(a1);
+      __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158_cold_1();
     }
 
     [*(a1 + 56) finishWithError:v6];
@@ -4012,13 +3938,13 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158(uint64_
 
 - (id)removeTimer:(id)timer client:(id)client member:(id)member
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   clientCopy = client;
   memberCopy = member;
   v11 = [(COTimerRequest *)[COTimerDeleteRequest alloc] initWithTimer:timerCopy];
   meshController = [(COMeshAddOn *)self meshController];
-  v48 = timerCopy;
+  v47 = timerCopy;
   if (-[COMeshTimerAddOn performsLocalActions](self, "performsLocalActions") && ([meshController leader], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
   {
     v38 = COCoreLogForCategory(3);
@@ -4027,9 +3953,9 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158(uint64_
       meshController2 = [(COMeshAddOn *)self meshController];
       timerID = [timerCopy timerID];
       *buf = 134218242;
-      v62 = meshController2;
-      v63 = 2112;
-      v64 = timerID;
+      v61 = meshController2;
+      v62 = 2112;
+      v63 = timerID;
       _os_log_impl(&dword_244378000, v38, OS_LOG_TYPE_DEFAULT, "%p directly remove a timer %@", buf, 0x16u);
     }
 
@@ -4042,10 +3968,10 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158(uint64_
     block[2] = __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke;
     block[3] = &unk_278E15C88;
     block[4] = self;
-    v58 = v11;
+    v57 = v11;
     v31 = v41;
-    v59 = v31;
-    v60 = v25;
+    v58 = v31;
+    v59 = v25;
     dispatch_async(dispatchQueue, block);
 
     v35 = 1;
@@ -4057,14 +3983,14 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158(uint64_
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if (memberCopy)
     {
-      v46 = v11;
+      v45 = v11;
       if (v15)
       {
         timerID2 = [timerCopy timerID];
         *buf = 134218242;
-        v62 = meshController;
-        v63 = 2112;
-        v64 = timerID2;
+        v61 = meshController;
+        v62 = 2112;
+        v63 = timerID2;
         _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p using secondary cluster to remove %@", buf, 0x16u);
       }
 
@@ -4082,7 +4008,7 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158(uint64_
         nw_activity_activate();
       }
 
-      v47 = clientCopy;
+      v46 = clientCopy;
       clientBundleIdentifier = [clientCopy clientBundleIdentifier];
       v25 = meshController;
       if (![clientBundleIdentifier length])
@@ -4095,25 +4021,25 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158(uint64_
 
       actionDirector = [(COMeshTimerAddOn *)self actionDirector];
       v29 = [MEMORY[0x277CBEB98] setWithObject:memberCopy];
-      v51[0] = MEMORY[0x277D85DD0];
+      v50[0] = MEMORY[0x277D85DD0];
       v30 = &off_244448000;
-      v51[1] = 3221225472;
-      v51[2] = __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161;
-      v51[3] = &unk_278E15778;
-      v52 = v23;
-      v53 = v21;
-      v54 = clientBundleIdentifier;
+      v50[1] = 3221225472;
+      v50[2] = __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161;
+      v50[3] = &unk_278E15778;
+      v51 = v23;
+      v52 = v21;
+      v53 = clientBundleIdentifier;
       v31 = v17;
-      v55 = v31;
-      v56 = v25;
+      v54 = v31;
+      v55 = v25;
       v32 = clientBundleIdentifier;
       v33 = v21;
       v34 = v23;
-      [actionDirector requestAction:v33 members:v29 activity:v34 withCompletion:v51];
+      [actionDirector requestAction:v33 members:v29 activity:v34 withCompletion:v50];
 
       v35 = 0;
-      v11 = v46;
-      clientCopy = v47;
+      v11 = v45;
+      clientCopy = v46;
     }
 
     else
@@ -4122,11 +4048,11 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158(uint64_
       if (v15)
       {
         meshController3 = [(COMeshAddOn *)self meshController];
-        timerID4 = [v48 timerID];
+        timerID4 = [v47 timerID];
         *buf = 134218242;
-        v62 = meshController3;
-        v63 = 2112;
-        v64 = timerID4;
+        v61 = meshController3;
+        v62 = 2112;
+        v63 = timerID4;
         _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p requesting leader to remove a timer %@", buf, 0x16u);
       }
 
@@ -4137,14 +4063,12 @@ void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158(uint64_
   }
 
   recorder = [(COMeshTimerAddOn *)self recorder];
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = *(v30 + 186);
-  v49[2] = __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_162;
-  v49[3] = &__block_descriptor_33_e19___NSDictionary_8__0l;
-  v50 = v35;
-  (recorder)[2](recorder, 0x2857B5848, v49);
-
-  v44 = *MEMORY[0x277D85DE8];
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = *(v30 + 186);
+  v48[2] = __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_162;
+  v48[3] = &__block_descriptor_33_e19___NSDictionary_8__0l;
+  v49 = v35;
+  (recorder)[2](recorder, 0x2857B5848, v48);
 
   return v31;
 }
@@ -4172,7 +4096,7 @@ void __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_2(uint64_t 
     v8 = COCoreLogForCategory(3);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_2_cold_1(a1);
+      __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_2_cold_1();
     }
 
     [*(a1 + 32) finishWithError:v7];
@@ -4193,26 +4117,23 @@ void __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161(uint64_
     v7 = xpc_dictionary_create(0, 0, 0);
     if (v7)
     {
-      v8 = *(a1 + 40);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      xpc_dictionary_set_string(v7, "command", [v10 UTF8String]);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      xpc_dictionary_set_string(v7, "command", [v9 UTF8String]);
 
       xpc_dictionary_set_string(v7, "client", [*(a1 + 48) UTF8String]);
-      v11 = *(a1 + 32);
       nw_activity_submit_metrics();
     }
 
-    v12 = *(a1 + 32);
     nw_activity_complete_with_reason();
   }
 
   if (v6)
   {
-    v13 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v10 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161_cold_1(a1);
+      __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161_cold_1();
     }
 
     [*(a1 + 56) finishWithError:v6];
@@ -4226,36 +4147,36 @@ void __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161(uint64_
 
 - (id)dismissTimerWithIdentifier:(id)identifier client:(id)client
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   clientCopy = client;
   v8 = [[COTimerDismissRequest alloc] initWithTimerIdentifier:identifierCopy];
   meshController = [(COMeshAddOn *)self meshController];
   if (-[COMeshTimerAddOn performsLocalActions](self, "performsLocalActions") && ([meshController leader], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
   {
-    v23 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       meshController2 = [(COMeshAddOn *)self meshController];
       *buf = 134218242;
-      v36 = meshController2;
-      v37 = 2112;
-      v38 = identifierCopy;
-      _os_log_impl(&dword_244378000, v23, OS_LOG_TYPE_DEFAULT, "%p directly dismiss a timer %@", buf, 0x16u);
+      v35 = meshController2;
+      v36 = 2112;
+      v37 = identifierCopy;
+      _os_log_impl(&dword_244378000, v22, OS_LOG_TYPE_DEFAULT, "%p directly dismiss a timer %@", buf, 0x16u);
     }
 
-    v25 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v24 = objc_alloc_init(MEMORY[0x277D2C900]);
     dispatchQueue = [meshController dispatchQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke;
     block[3] = &unk_278E15C88;
     block[4] = self;
-    v13 = &v32;
-    v32 = v8;
-    v18 = v25;
-    v33 = v18;
-    v34 = meshController;
+    v13 = &v31;
+    v31 = v8;
+    v18 = v24;
+    v32 = v18;
+    v33 = meshController;
     dispatch_async(dispatchQueue, block);
 
     v19 = 1;
@@ -4265,24 +4186,24 @@ void __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161(uint64_
   {
     timerManager = [(COMeshTimerAddOn *)self timerManager];
     v12 = [timerManager dismissTimerWithIdentifier:identifierCopy];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_163;
-    v29[3] = &unk_278E17010;
-    v29[4] = self;
-    v13 = &v30;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_163;
+    v28[3] = &unk_278E17010;
+    v28[4] = self;
+    v13 = &v29;
     v14 = identifierCopy;
-    v30 = v14;
-    v15 = [v12 addCompletionBlock:v29];
+    v29 = v14;
+    v15 = [v12 addCompletionBlock:v28];
 
     v16 = COCoreLogForCategory(3);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       meshController3 = [(COMeshAddOn *)self meshController];
       *buf = 134218242;
-      v36 = meshController3;
-      v37 = 2112;
-      v38 = v14;
+      v35 = meshController3;
+      v36 = 2112;
+      v37 = v14;
       _os_log_impl(&dword_244378000, v16, OS_LOG_TYPE_DEFAULT, "%p requesting leader to dismiss a timer %@", buf, 0x16u);
     }
 
@@ -4291,14 +4212,12 @@ void __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161(uint64_
   }
 
   recorder = [(COMeshTimerAddOn *)self recorder];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_165;
-  v27[3] = &__block_descriptor_33_e19___NSDictionary_8__0l;
-  v28 = v19;
-  (recorder)[2](recorder, 0x2857B5848, v27);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_165;
+  v26[3] = &__block_descriptor_33_e19___NSDictionary_8__0l;
+  v27 = v19;
+  (recorder)[2](recorder, 0x2857B5848, v26);
 
   return v18;
 }
@@ -4326,7 +4245,7 @@ void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_2(u
     v8 = COCoreLogForCategory(3);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_2_cold_1(a1);
+      __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_2_cold_1();
     }
 
     [*(a1 + 32) finishWithError:v7];
@@ -4340,7 +4259,7 @@ void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_2(u
 
 void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_163(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = COCoreLogForCategory(3);
   v6 = v5;
@@ -4356,19 +4275,17 @@ void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_163
   {
     v7 = [*(a1 + 32) meshController];
     v8 = *(a1 + 40);
-    v10 = 134218242;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p early dismissed %@.", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p early dismissed %@.", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isTimer:(id)timer targetingAccessory:(id)accessory
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   timerCopy = timer;
   if (accessoryCopy)
@@ -4383,8 +4300,8 @@ void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_163
     else
     {
       uniqueIdentifier = [accessoryCopy uniqueIdentifier];
-      v15[0] = uniqueIdentifier;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+      v14[0] = uniqueIdentifier;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     }
 
     v11 = [(COMeshTimerAddOn *)self _isTimer:timerCopy targetingAccessoryIdentifiers:v10];
@@ -4396,13 +4313,12 @@ void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_163
     homekit = timerCopy;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)handleTimerReadRequest:(id)request callback:(id)callback
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   callbackCopy = callback;
   meshControllerQueue = [(COMeshAddOn *)self meshControllerQueue];
@@ -4414,9 +4330,9 @@ void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_163
   {
     meshController = [(COMeshAddOn *)self meshController];
     *buf = 134218242;
-    v33 = meshController;
-    v34 = 2112;
-    v35 = accessoryUniqueIdentifier;
+    v32 = meshController;
+    v33 = 2112;
+    v34 = accessoryUniqueIdentifier;
     _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%p retrieving timers for %@...", buf, 0x16u);
   }
 
@@ -4449,29 +4365,27 @@ void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_163
     timers = [MEMORY[0x277D2C900] futureWithResult:MEMORY[0x277CBEBF8]];
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke;
-  v30[3] = &unk_278E17038;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke;
+  v29[3] = &unk_278E17038;
   v19 = callbackCopy;
-  v31 = v19;
-  v20 = [timers addFailureBlock:v30];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_167;
-  v24[3] = &unk_278E17060;
-  v29 = v13;
-  v25 = v14;
+  v30 = v19;
+  v20 = [timers addFailureBlock:v29];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_167;
+  v23[3] = &unk_278E17060;
+  v28 = v13;
+  v24 = v14;
   selfCopy = self;
-  v27 = requestCopy;
-  v28 = v19;
+  v26 = requestCopy;
+  v27 = v19;
   homekit = v14;
-  v21 = [timers addSuccessBlock:v24];
+  v21 = [timers addSuccessBlock:v23];
 
-  v22 = v31;
+  v22 = v30;
 LABEL_11:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke(uint64_t a1, void *a2)
@@ -4490,19 +4404,19 @@ void __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke(uint6
 
 void __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_167(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(a1 + 64) == 1)
   {
-    v25 = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_2;
-    v28 = &unk_278E16C88;
+    v24 = MEMORY[0x277D85DD0];
+    v25 = 3221225472;
+    v26 = __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_2;
+    v27 = &unk_278E16C88;
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
-    v29 = v4;
-    v30 = v5;
-    v6 = [v3 indexesOfObjectsPassingTest:&v25];
+    v28 = v4;
+    v29 = v5;
+    v6 = [v3 indexesOfObjectsPassingTest:&v24];
     if ([v6 count])
     {
       v7 = [v3 mutableCopy];
@@ -4515,7 +4429,7 @@ void __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_167(u
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v3;
+      v31 = v3;
       _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "... returning filtered timers list\n%@", buf, 0xCu);
     }
 
@@ -4529,7 +4443,7 @@ void __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_167(u
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v3;
+      v31 = v3;
       _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "... returning timers list\n%@", buf, 0xCu);
     }
 
@@ -4552,53 +4466,40 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v14 = [*(a1 + 48) eTag];
-  if (!v14)
+  v13 = [*(a1 + 48) eTag];
+  if (v13 && (v14 = v13, [*(a1 + 48) eTag], v15 = objc_claimAutoreleasedReturnValue(), eTagForTimers(v3), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqualToString:", v16), v16, v15, v14, v17))
   {
-    goto LABEL_23;
-  }
-
-  v15 = v14;
-  v16 = [*(a1 + 48) eTag];
-  v17 = eTagForTimers(v3);
-  v18 = [v16 isEqualToString:v17];
-
-  if (v18)
-  {
-    v19 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_244378000, v19, OS_LOG_TYPE_DEFAULT, "... returning not-modified", buf, 2u);
+      _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "... returning not-modified", buf, 2u);
     }
 
-    v20 = [COTimerReadResponse alloc];
-    v21 = [*(a1 + 40) deletes];
-    v22 = [(COTimerReadResponse *)v20 initNotModifiedWithDeletes:v21];
+    v19 = [COTimerReadResponse alloc];
+    v20 = [*(a1 + 40) deletes];
+    v21 = [(COTimerReadResponse *)v19 initNotModifiedWithDeletes:v20];
   }
 
   else
   {
-LABEL_23:
-    v23 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v3;
-      _os_log_impl(&dword_244378000, v23, OS_LOG_TYPE_DEFAULT, "... returning alarms list and deletes\n%@", buf, 0xCu);
+      v31 = v3;
+      _os_log_impl(&dword_244378000, v22, OS_LOG_TYPE_DEFAULT, "... returning alarms list and deletes\n%@", buf, 0xCu);
     }
 
-    v24 = [COTimerReadResponse alloc];
-    v21 = [*(a1 + 40) deletes];
-    v22 = [(COTimerReadResponse *)v24 initWithTimers:v3 deletes:v21];
+    v23 = [COTimerReadResponse alloc];
+    v20 = [*(a1 + 40) deletes];
+    v21 = [(COTimerReadResponse *)v23 initWithTimers:v3 deletes:v20];
   }
 
-  v9 = v22;
+  v9 = v21;
 
 LABEL_17:
   (*(*(a1 + 56) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_2(uint64_t a1, void *a2)
@@ -4620,7 +4521,7 @@ uint64_t __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_2
 
 - (void)handleTimerCreateRequest:(id)request callback:(id)callback
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   requestCopy = request;
   meshController = [(COMeshAddOn *)self meshController];
@@ -4634,9 +4535,9 @@ uint64_t __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_2
   {
     timerID = [timer timerID];
     *buf = 134218242;
-    v32 = meshController;
-    v33 = 2112;
-    v34 = timerID;
+    v31 = meshController;
+    v32 = 2112;
+    v33 = timerID;
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p adding timer %@...", buf, 0x16u);
   }
 
@@ -4654,28 +4555,26 @@ uint64_t __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_2
   }
   v15 = ;
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke;
-  v28[3] = &unk_278E17088;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke;
+  v27[3] = &unk_278E17088;
   v16 = timer;
-  v29 = v16;
+  v28 = v16;
   v17 = callbackCopy;
-  v30 = v17;
-  v18 = [v15 addFailureBlock:v28];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke_168;
-  v24[3] = &unk_278E170B0;
-  v26 = meshController;
-  v27 = v17;
-  v25 = v16;
+  v29 = v17;
+  v18 = [v15 addFailureBlock:v27];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke_168;
+  v23[3] = &unk_278E170B0;
+  v25 = meshController;
+  v26 = v17;
+  v24 = v16;
   v19 = meshController;
   v20 = v17;
   v21 = v16;
-  v22 = [v15 addSuccessBlock:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = [v15 addSuccessBlock:v23];
 }
 
 void __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke(uint64_t a1, void *a2)
@@ -4694,13 +4593,13 @@ void __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke(uin
 
 void __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke_168(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) timerID];
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "... timer (%@) create completed", buf, 0xCu);
   }
 
@@ -4709,8 +4608,8 @@ void __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke_168
   (*(v4 + 16))(v4, v5, 0);
 
   v6 = [COTimersAddedNotification alloc];
-  v11 = *(a1 + 32);
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v10 = *(a1 + 32);
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
   v8 = [(COTimerNotification *)v6 initWithTimers:v7];
 
   v9 = COCoreLogForCategory(3);
@@ -4720,12 +4619,11 @@ void __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke_168
   }
 
   [*(a1 + 40) sendNotification:v8];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTimerUpdateRequest:(id)request callback:(id)callback
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   requestCopy = request;
   meshController = [(COMeshAddOn *)self meshController];
@@ -4739,9 +4637,9 @@ void __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke_168
   {
     timerID = [timer timerID];
     *buf = 134218242;
-    v32 = meshController;
-    v33 = 2112;
-    v34 = timerID;
+    v31 = meshController;
+    v32 = 2112;
+    v33 = timerID;
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p updating timer %@...", buf, 0x16u);
   }
 
@@ -4759,28 +4657,26 @@ void __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke_168
   }
   v15 = ;
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke;
-  v28[3] = &unk_278E17088;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke;
+  v27[3] = &unk_278E17088;
   v16 = timer;
-  v29 = v16;
+  v28 = v16;
   v17 = callbackCopy;
-  v30 = v17;
-  v18 = [v15 addFailureBlock:v28];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke_169;
-  v24[3] = &unk_278E170B0;
-  v26 = meshController;
-  v27 = v17;
-  v25 = v16;
+  v29 = v17;
+  v18 = [v15 addFailureBlock:v27];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke_169;
+  v23[3] = &unk_278E170B0;
+  v25 = meshController;
+  v26 = v17;
+  v24 = v16;
   v19 = meshController;
   v20 = v17;
   v21 = v16;
-  v22 = [v15 addSuccessBlock:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = [v15 addSuccessBlock:v23];
 }
 
 void __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke(uint64_t a1, void *a2)
@@ -4799,13 +4695,13 @@ void __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke(uin
 
 void __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke_169(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) timerID];
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "... timer (%@) update completed", buf, 0xCu);
   }
 
@@ -4814,8 +4710,8 @@ void __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke_169
   (*(v4 + 16))(v4, v5, 0);
 
   v6 = [COTimersUpdatedNotification alloc];
-  v11 = *(a1 + 32);
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v10 = *(a1 + 32);
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
   v8 = [(COTimerNotification *)v6 initWithTimers:v7];
 
   v9 = COCoreLogForCategory(3);
@@ -4825,12 +4721,11 @@ void __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke_169
   }
 
   [*(a1 + 40) sendNotification:v8];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTimerDeleteRequest:(id)request callback:(id)callback
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   requestCopy = request;
   meshController = [(COMeshAddOn *)self meshController];
@@ -4844,9 +4739,9 @@ void __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke_169
   {
     timerID = [timer timerID];
     *buf = 134218242;
-    v33 = meshController;
-    v34 = 2112;
-    v35 = timerID;
+    v32 = meshController;
+    v33 = 2112;
+    v34 = timerID;
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p delete timer %@...", buf, 0x16u);
   }
 
@@ -4864,29 +4759,27 @@ void __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke_169
   }
   v15 = ;
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke;
-  v29[3] = &unk_278E17088;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke;
+  v28[3] = &unk_278E17088;
   v16 = timer;
-  v30 = v16;
+  v29 = v16;
   v17 = callbackCopy;
-  v31 = v17;
-  v18 = [v15 addFailureBlock:v29];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke_170;
-  v24[3] = &unk_278E170D8;
-  v25 = v16;
+  v30 = v17;
+  v18 = [v15 addFailureBlock:v28];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke_170;
+  v23[3] = &unk_278E170D8;
+  v24 = v16;
   selfCopy = self;
-  v27 = meshController;
-  v28 = v17;
+  v26 = meshController;
+  v27 = v17;
   v19 = meshController;
   v20 = v17;
   v21 = v16;
-  v22 = [v15 addSuccessBlock:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = [v15 addSuccessBlock:v23];
 }
 
 void __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke(uint64_t a1, void *a2)
@@ -4905,14 +4798,14 @@ void __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke(uin
 
 void __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke_170(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) timerID];
   v4 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v3;
+    v17 = v3;
     _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "... timer (%@) delete completed", buf, 0xCu);
   }
 
@@ -4927,8 +4820,8 @@ void __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke_170
   (*(v9 + 16))(v9, v10, 0);
 
   v11 = [COTimersRemovedNotification alloc];
-  v16 = *(a1 + 32);
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v15 = *(a1 + 32);
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
   v13 = [(COTimerNotification *)v11 initWithTimers:v12];
 
   v14 = COCoreLogForCategory(3);
@@ -4938,12 +4831,11 @@ void __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke_170
   }
 
   [*(a1 + 48) sendNotification:v13];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTimerDismissRequest:(id)request callback:(id)callback
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   callbackCopy = callback;
   meshController = [(COMeshAddOn *)self meshController];
@@ -4961,78 +4853,76 @@ void __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke_170
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p dismiss timer %@...", buf, 0x16u);
   }
 
-  v45[0] = 0;
-  v45[1] = v45;
-  v45[2] = 0x2020000000;
-  v46 = 0;
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x2020000000;
+  v45 = 0;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v48 = __Block_byref_object_copy__11;
-  v49 = __Block_byref_object_dispose__11;
-  v50 = 0;
+  v47 = __Block_byref_object_copy__11;
+  v48 = __Block_byref_object_dispose__11;
+  v49 = 0;
   timerManager = [(COMeshTimerAddOn *)self timerManager];
   v13 = [timerManager dismissTimerWithIdentifier:identifier];
   timers = [timerManager timers];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke;
-  v40[3] = &unk_278E17100;
-  v43 = v45;
-  v44 = buf;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke;
+  v39[3] = &unk_278E17100;
+  v42 = v44;
+  v43 = buf;
   v15 = meshController;
-  v41 = v15;
+  v40 = v15;
   selfCopy = self;
-  v16 = MEMORY[0x245D5FF10](v40);
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_174;
-  v37[3] = &unk_278E17088;
+  v16 = MEMORY[0x245D5FF10](v39);
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_174;
+  v36[3] = &unk_278E17088;
   v17 = identifier;
-  v38 = v17;
+  v37 = v17;
   v18 = callbackCopy;
-  v39 = v18;
-  v19 = [v13 addFailureBlock:v37];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_175;
-  v32[3] = &unk_278E17128;
+  v38 = v18;
+  v19 = [v13 addFailureBlock:v36];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_175;
+  v31[3] = &unk_278E17128;
   v20 = v17;
-  v33 = v20;
+  v32 = v20;
   v21 = v18;
-  v34 = v21;
-  v36 = v45;
+  v33 = v21;
+  v35 = v44;
   v22 = v16;
-  v35 = v22;
-  v23 = [v13 addSuccessBlock:v32];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_176;
-  v28[3] = &unk_278E17178;
+  v34 = v22;
+  v23 = [v13 addSuccessBlock:v31];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_176;
+  v27[3] = &unk_278E17178;
   v24 = v20;
-  v29 = v24;
-  v31 = buf;
+  v28 = v24;
+  v30 = buf;
   v25 = v22;
-  v30 = v25;
-  v26 = [timers addSuccessBlock:v28];
+  v29 = v25;
+  v26 = [timers addSuccessBlock:v27];
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(v45, 8);
-
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v44, 8);
 }
 
 void __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
     v2 = a1 + 56;
     if (*(*(*(a1 + 56) + 8) + 40))
     {
       v3 = [COTimerFiringTimerDismissedNotification alloc];
-      v12[0] = *(*(*v2 + 8) + 40);
-      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11[0] = *(*(*v2 + 8) + 40);
+      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
       v5 = [(COTimerNotification *)v3 initWithTimers:v4];
 
       v6 = COCoreLogForCategory(3);
@@ -5046,14 +4936,12 @@ void __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke(ui
       if (objc_opt_respondsToSelector())
       {
         v8 = *(a1 + 40);
-        v11 = *(*(*(a1 + 56) + 8) + 40);
-        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+        v10 = *(*(*(a1 + 56) + 8) + 40);
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
         [v7 timerAddOn:v8 didDismissTimers:v9];
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_174(uint64_t a1, void *a2)
@@ -5062,7 +4950,7 @@ void __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_17
   v4 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_174_cold_1(a1);
+    __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_174_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -5072,14 +4960,14 @@ void __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_17
 
 uint64_t __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_175(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "... timer (%@) dismiss completed", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "... timer (%@) dismiss completed", &v7, 0xCu);
   }
 
   v4 = a1[5];
@@ -5087,9 +4975,7 @@ uint64_t __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invok
   (*(v4 + 16))(v4, v5, 0);
 
   *(*(a1[7] + 8) + 24) = 1;
-  result = (*(a1[6] + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 void __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_176(uint64_t a1, void *a2)
@@ -5172,37 +5058,35 @@ void __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_2(
 
 void __50__COMeshTimerAddOn_handleTimersAddedNotification___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     v6 = [v3 timerID];
-    v10 = 134218242;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p adding local timer %@", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p adding local timer %@", &v9, 0x16u);
   }
 
   v7 = *(a1 + 40);
   v8 = [*(a1 + 48) addTimer:v3];
   [v7 addObject:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __50__COMeshTimerAddOn_handleTimersAddedNotification___block_invoke_179(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p finished adding local timers", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p finished adding local timers", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) delegate];
@@ -5210,8 +5094,6 @@ void __50__COMeshTimerAddOn_handleTimersAddedNotification___block_invoke_179(uin
   {
     [v4 timerAddOn:*(a1 + 32) didAddTimers:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTimersRemovedNotification:(id)notification
@@ -5270,18 +5152,18 @@ void __50__COMeshTimerAddOn_handleTimersAddedNotification___block_invoke_179(uin
 
 void __52__COMeshTimerAddOn_handleTimersRemovedNotification___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 timerID];
   v5 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v12 = 134218242;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v4;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p removing local timer %@", &v12, 0x16u);
+    v11 = 134218242;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v4;
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p removing local timer %@", &v11, 0x16u);
   }
 
   v7 = *(a1 + 32);
@@ -5292,19 +5174,18 @@ void __52__COMeshTimerAddOn_handleTimersRemovedNotification___block_invoke(uint6
   v10 = [*(a1 + 56) removeTimer:v3];
 
   [v9 addObject:v10];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __52__COMeshTimerAddOn_handleTimersRemovedNotification___block_invoke_181(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p finished removing local timers", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p finished removing local timers", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) delegate];
@@ -5312,8 +5193,6 @@ void __52__COMeshTimerAddOn_handleTimersRemovedNotification___block_invoke_181(u
   {
     [v4 timerAddOn:*(a1 + 32) didRemoveTimers:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTimersUpdatedNotification:(id)notification
@@ -5369,37 +5248,35 @@ void __52__COMeshTimerAddOn_handleTimersRemovedNotification___block_invoke_181(u
 
 void __52__COMeshTimerAddOn_handleTimersUpdatedNotification___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     v6 = [v3 timerID];
-    v10 = 134218242;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p updating local timer %@", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p updating local timer %@", &v9, 0x16u);
   }
 
   v7 = *(a1 + 40);
   v8 = [*(a1 + 48) updateTimer:v3];
   [v7 addObject:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __52__COMeshTimerAddOn_handleTimersUpdatedNotification___block_invoke_182(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p finished updating local timers", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p finished updating local timers", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) delegate];
@@ -5407,8 +5284,6 @@ void __52__COMeshTimerAddOn_handleTimersUpdatedNotification___block_invoke_182(u
   {
     [v4 timerAddOn:*(a1 + 32) didUpdateTimers:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTimerFiredNotification:(id)notification
@@ -5469,17 +5344,17 @@ void __52__COMeshTimerAddOn_handleTimersUpdatedNotification___block_invoke_182(u
 
 void __64__COMeshTimerAddOn_handleTimerFiringTimerDismissedNotification___block_invoke(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [a2 timerID];
   v4 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
-    v11 = 134218242;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p dismissing local timer %@", &v11, 0x16u);
+    v10 = 134218242;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p dismissing local timer %@", &v10, 0x16u);
   }
 
   v7 = a1[5];
@@ -5487,20 +5362,18 @@ void __64__COMeshTimerAddOn_handleTimerFiringTimerDismissedNotification___block_
   v8 = [v3 UUIDString];
   v9 = [v6 dismissTimerWithIdentifier:v8];
   [v7 addObject:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __64__COMeshTimerAddOn_handleTimerFiringTimerDismissedNotification___block_invoke_183(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p finished dismissing local timers", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p finished dismissing local timers", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) delegate];
@@ -5508,8 +5381,6 @@ void __64__COMeshTimerAddOn_handleTimerFiringTimerDismissedNotification___block_
   {
     [v4 timerAddOn:*(a1 + 32) didDismissTimers:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTimerManagerStateResetNotification:(id)notification
@@ -5688,7 +5559,7 @@ void __62__COMeshTimerAddOn_timersAsAccessory_fromClient_withCallback___block_in
 
 void __61__COMeshTimerAddOn_timersForAccessories_fromClient_callback___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 categoryType];
   v5 = [v3 IDSIdentifier];
@@ -5700,27 +5571,26 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v9 = [*(a1 + 48) secondaryClusterMemberForAccessory:v3];
+  v8 = [*(a1 + 48) secondaryClusterMemberForAccessory:v3];
 
-  if (v9)
+  if (v8)
   {
     v7 = *(a1 + 56);
     goto LABEL_4;
   }
 
-  v10 = COCoreLogForCategory(3);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = COCoreLogForCategory(3);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(a1 + 64);
-    v12 = 134218242;
-    v13 = v11;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%p not getting timers for %@, accessory unavailable", &v12, 0x16u);
+    v10 = *(a1 + 64);
+    v11 = 134218242;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%p not getting timers for %@, accessory unavailable", &v11, 0x16u);
   }
 
 LABEL_5:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __61__COMeshTimerAddOn_timersForAccessories_fromClient_callback___block_invoke_187(uint64_t a1)
@@ -5823,13 +5693,12 @@ uint64_t __61__COMeshTimerAddOn_timersForAccessories_fromClient_callback___block
   return [v8 finishWithNoResult];
 }
 
-void __61__COMeshTimerAddOn_timersForAccessories_fromClient_callback___block_invoke_5(void *a1)
+void __61__COMeshTimerAddOn_timersForAccessories_fromClient_callback___block_invoke_5(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[5] + 16))();
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  (*(*(a1 + 40) + 16))();
+  v2 = *(*(a1 + 48) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void __61__COMeshTimerAddOn_timersForAccessories_fromClient_callback___block_invoke_6(uint64_t a1)
@@ -5956,7 +5825,7 @@ void __61__COMeshTimerAddOn_timersForAccessories_fromClient_callback___block_inv
 
 void __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invoke(uint64_t a1)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) uniqueIdentifier];
   v3 = [*(a1 + 32) IDSIdentifier];
   v4 = [*(a1 + 32) categoryType];
@@ -5966,13 +5835,13 @@ void __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invo
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
     *buf = 134218754;
-    v51 = v6;
-    v52 = 2112;
-    v53 = v7;
-    v54 = 2112;
-    v55 = v2;
-    v56 = 2112;
-    v57 = v4;
+    v50 = v6;
+    v51 = 2112;
+    v52 = v7;
+    v53 = 2112;
+    v54 = v2;
+    v55 = 2112;
+    v56 = v4;
     _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p as %@ checking dispatch for %@ of %@...", buf, 0x2Au);
   }
 
@@ -5991,14 +5860,14 @@ void __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invo
         v12 = COCoreLogForCategory(2);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v40 = *(a1 + 32);
-          v39 = *(a1 + 40);
+          v39 = *(a1 + 32);
+          v38 = *(a1 + 40);
           *buf = 134218498;
-          v51 = v39;
-          v52 = 2048;
-          v53 = v11;
-          v54 = 2112;
-          v55 = v40;
+          v50 = v38;
+          v51 = 2048;
+          v52 = v11;
+          v53 = 2112;
+          v54 = v39;
           _os_log_debug_impl(&dword_244378000, v12, OS_LOG_TYPE_DEBUG, "%p using interest tracker %p for can dispatch of %@", buf, 0x20u);
         }
 
@@ -6007,36 +5876,36 @@ void __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invo
 
       else if (v8 == 3)
       {
-        v41 = v3;
+        v40 = v3;
         v19 = COCoreLogForCategory(3);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invoke_cold_2((a1 + 40), v19, v20, v21, v22, v23, v24, v25);
         }
 
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
         v26 = [*(a1 + 40) meshController];
         v8 = [v26 nodes];
 
-        v27 = [v8 countByEnumeratingWithState:&v46 objects:v61 count:16];
+        v27 = [v8 countByEnumeratingWithState:&v45 objects:v60 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v47;
+          v29 = *v46;
           while (2)
           {
             for (i = 0; i != v28; ++i)
             {
-              if (*v47 != v29)
+              if (*v46 != v29)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v31 = [*(*(&v46 + 1) + 8 * i) IDSIdentifier];
-              v32 = [v31 isEqual:v41];
+              v31 = [*(*(&v45 + 1) + 8 * i) IDSIdentifier];
+              v32 = [v31 isEqual:v40];
 
               if (v32)
               {
@@ -6046,7 +5915,7 @@ void __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invo
               }
             }
 
-            v28 = [v8 countByEnumeratingWithState:&v46 objects:v61 count:16];
+            v28 = [v8 countByEnumeratingWithState:&v45 objects:v60 count:16];
             if (v28)
             {
               continue;
@@ -6060,7 +5929,7 @@ void __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invo
         LODWORD(v8) = v33 != 0;
 
 LABEL_36:
-        v3 = v41;
+        v3 = v40;
       }
 
       else
@@ -6074,30 +5943,30 @@ LABEL_36:
       v13 = COCoreLogForCategory(3);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invoke_cold_1(a1);
+        __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invoke_cold_1();
       }
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v14 = [*(a1 + 40) meshController];
       v11 = [v14 nodes];
 
-      v8 = [v11 countByEnumeratingWithState:&v42 objects:v60 count:16];
+      v8 = [v11 countByEnumeratingWithState:&v41 objects:v59 count:16];
       if (v8)
       {
-        v15 = *v43;
+        v15 = *v42;
         while (2)
         {
           for (j = 0; j != v8; j = j + 1)
           {
-            if (*v43 != v15)
+            if (*v42 != v15)
             {
               objc_enumerationMutation(v11);
             }
 
-            v17 = [*(*(&v42 + 1) + 8 * j) remote];
+            v17 = [*(*(&v41 + 1) + 8 * j) remote];
             v18 = [v17 type];
 
             if (v18 != -1)
@@ -6107,7 +5976,7 @@ LABEL_36:
             }
           }
 
-          v8 = [v11 countByEnumeratingWithState:&v42 objects:v60 count:16];
+          v8 = [v11 countByEnumeratingWithState:&v41 objects:v59 count:16];
           if (v8)
           {
             continue;
@@ -6138,25 +6007,24 @@ LABEL_37:
     }
 
     *buf = 134219010;
-    v51 = v35;
-    v52 = 2112;
-    v53 = v36;
-    v54 = 2080;
-    v55 = v37;
-    v56 = 2112;
-    v57 = v2;
-    v58 = 2112;
-    v59 = v4;
+    v50 = v35;
+    v51 = 2112;
+    v52 = v36;
+    v53 = 2080;
+    v54 = v37;
+    v55 = 2112;
+    v56 = v2;
+    v57 = 2112;
+    v58 = v4;
     _os_log_impl(&dword_244378000, v34, OS_LOG_TYPE_DEFAULT, "%p as %@ can%s dispatch for %@ of %@", buf, 0x34u);
   }
 
   (*(*(a1 + 56) + 16))();
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)establishSecondaryClusterForAccessory:(id)accessory
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if ([MEMORY[0x277CFD0B8] isHomeKitUsingAlarmsAndTimersIDSService])
   {
@@ -6165,29 +6033,27 @@ LABEL_37:
     {
       *buf = 134218242;
       selfCopy = self;
-      v11 = 2112;
-      v12 = @"com.apple.private.alloy.alarms-timers";
+      v10 = 2112;
+      v11 = @"com.apple.private.alloy.alarms-timers";
       _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p HomeKit is making use of IDS Service %@ for timers", buf, 0x16u);
     }
   }
 
   else
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __58__COMeshTimerAddOn_establishSecondaryClusterForAccessory___block_invoke;
-    v7[3] = &unk_278E156B0;
-    v7[4] = self;
-    v8 = accessoryCopy;
-    [(COMeshTimerAddOn *)self _withLock:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __58__COMeshTimerAddOn_establishSecondaryClusterForAccessory___block_invoke;
+    v6[3] = &unk_278E156B0;
+    v6[4] = self;
+    v7 = accessoryCopy;
+    [(COMeshTimerAddOn *)self _withLock:v6];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __58__COMeshTimerAddOn_establishSecondaryClusterForAccessory___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CFD0B8] isGlobalTimersEnabled] && !*(*(a1 + 32) + 80))
   {
     v2 = NSClassFromString(&cfstr_Coclusterrealm.isa);
@@ -6207,11 +6073,11 @@ void __58__COMeshTimerAddOn_establishSecondaryClusterForAccessory___block_invoke
     v7 = [MEMORY[0x277CFD078] clusterWithConfiguration:v6];
     v8 = [COMTActionDirector directorForCluster:v7];
     v9 = MEMORY[0x277CBEB98];
+    v18 = objc_opt_class();
     v19 = objc_opt_class();
     v20 = objc_opt_class();
-    v21 = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:3];
-    v11 = [v9 setWithArray:{v10, v19, v20}];
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:3];
+    v11 = [v9 setWithArray:{v10, v18, v19}];
 
     v12 = *(a1 + 32);
     v13 = objc_opt_class();
@@ -6223,36 +6089,34 @@ void __58__COMeshTimerAddOn_establishSecondaryClusterForAccessory___block_invoke
     v17 = *(v16 + 80);
     *(v16 + 80) = v8;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)secondaryClusterMemberForAccessory:(id)accessory
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   iDSIdentifier = [accessory IDSIdentifier];
   if ([iDSIdentifier length] && objc_msgSend(MEMORY[0x277CFD0B8], "isGlobalMessagingEnabled"))
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     obj = [(COMeshTimerAddOn *)self members];
-    v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           member = [v9 member];
           deviceMetadata = [member deviceMetadata];
           v12 = [deviceMetadata objectForKey:@"IDS"];
@@ -6265,7 +6129,7 @@ void __58__COMeshTimerAddOn_establishSecondaryClusterForAccessory___block_invoke
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v6)
         {
           continue;
@@ -6284,41 +6148,39 @@ LABEL_14:
     member2 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return member2;
 }
 
 - (id)secondaryClusterMemberIfRequiredForAccessory:(id)accessory
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   categoryType = [accessoryCopy categoryType];
   if ([categoryType isEqualToString:*MEMORY[0x277CCE8B0]])
   {
     iDSIdentifier = [accessoryCopy IDSIdentifier];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     meshController = [(COMeshAddOn *)self meshController];
     nodes = [meshController nodes];
 
-    v9 = [nodes countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [nodes countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(nodes);
           }
 
-          iDSIdentifier2 = [*(*(&v18 + 1) + 8 * i) IDSIdentifier];
+          iDSIdentifier2 = [*(*(&v17 + 1) + 8 * i) IDSIdentifier];
           v14 = [iDSIdentifier2 isEqual:iDSIdentifier];
 
           if (v14)
@@ -6329,7 +6191,7 @@ LABEL_14:
           }
         }
 
-        v10 = [nodes countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [nodes countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v10)
         {
           continue;
@@ -6347,8 +6209,6 @@ LABEL_13:
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -6375,7 +6235,7 @@ LABEL_13:
 
 void __58__COMeshTimerAddOn_setInterests_asAccessory_withCallback___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) IDSIdentifier];
   if (v2)
   {
@@ -6400,13 +6260,13 @@ void __58__COMeshTimerAddOn_setInterests_asAccessory_withCallback___block_invoke
       {
         v13 = *(a1 + 32);
         v12 = *(a1 + 40);
-        v21 = 134218498;
-        v22 = v12;
-        v23 = 2048;
-        v24 = v4;
-        v25 = 2112;
-        v26 = v13;
-        _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p using %p to track our interests for accessory %@", &v21, 0x20u);
+        v20 = 134218498;
+        v21 = v12;
+        v22 = 2048;
+        v23 = v4;
+        v24 = 2112;
+        v25 = v13;
+        _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p using %p to track our interests for accessory %@", &v20, 0x20u);
       }
     }
 
@@ -6418,13 +6278,13 @@ void __58__COMeshTimerAddOn_setInterests_asAccessory_withCallback___block_invoke
       {
         v16 = *(a1 + 32);
         v15 = *(a1 + 40);
-        v21 = 134218498;
-        v22 = v15;
-        v23 = 2048;
-        v24 = v4;
-        v25 = 2112;
-        v26 = v16;
-        _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p removing tracker %p for accessory %@", &v21, 0x20u);
+        v20 = 134218498;
+        v21 = v15;
+        v22 = 2048;
+        v23 = v4;
+        v24 = 2112;
+        v25 = v16;
+        _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p removing tracker %p for accessory %@", &v20, 0x20u);
       }
 
       v17 = [*(a1 + 40) ourInterests];
@@ -6442,18 +6302,16 @@ void __58__COMeshTimerAddOn_setInterests_asAccessory_withCallback___block_invoke
     v19 = COCoreLogForCategory(3);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      __58__COMeshTimerAddOn_setInterests_asAccessory_withCallback___block_invoke_cold_1(a1);
+      __58__COMeshTimerAddOn_setInterests_asAccessory_withCallback___block_invoke_cold_1();
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)interestTracker:(id)tracker setInterests:(id)interests forMember:(id)member callback:(id)callback
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   trackerCopy = tracker;
   interestsCopy = interests;
   memberCopy = member;
@@ -6471,50 +6329,48 @@ void __58__COMeshTimerAddOn_setInterests_asAccessory_withCallback___block_invoke
   {
     *buf = 134218754;
     selfCopy = self;
-    v40 = 2048;
-    v41 = trackerCopy;
-    v42 = 2114;
-    v43 = v18;
-    v44 = 2114;
-    v45 = interestsCopy;
+    v39 = 2048;
+    v40 = trackerCopy;
+    v41 = 2114;
+    v42 = v18;
+    v43 = 2114;
+    v44 = interestsCopy;
     _os_log_impl(&dword_244378000, v19, OS_LOG_TYPE_DEFAULT, "%p setting interests for tracker %p via %{public}@ to %{public}@", buf, 0x2Au);
   }
 
   objc_initWeak(buf, self);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___block_invoke;
-  v33[3] = &unk_278E17308;
-  objc_copyWeak(&v37, buf);
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___block_invoke;
+  v32[3] = &unk_278E17308;
+  objc_copyWeak(&v36, buf);
   v20 = trackerCopy;
-  v34 = v20;
+  v33 = v20;
   v21 = v18;
-  v35 = v21;
+  v34 = v21;
   v22 = callbackCopy;
-  v36 = v22;
-  v23 = MEMORY[0x245D5FF10](v33);
+  v35 = v22;
+  v23 = MEMORY[0x245D5FF10](v32);
   meshControllerQueue2 = [(COMeshAddOn *)self meshControllerQueue];
   actionDirector = [(COMeshTimerAddOn *)self actionDirector];
   v26 = [MEMORY[0x277CBEB98] setWithObject:memberCopy];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___block_invoke_205;
-  v30[3] = &unk_278E17330;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___block_invoke_205;
+  v29[3] = &unk_278E17330;
   v27 = meshControllerQueue2;
-  v31 = v27;
+  v30 = v27;
   v28 = v23;
-  v32 = v28;
-  [actionDirector requestAction:v21 members:v26 activity:0 withCompletion:v30];
+  v31 = v28;
+  [actionDirector requestAction:v21 members:v26 activity:0 withCompletion:v29];
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(buf);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
@@ -6527,15 +6383,15 @@ void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___bl
       {
         v7 = *(a1 + 32);
         v8 = *(a1 + 40);
-        v13 = 134218754;
-        v14 = WeakRetained;
-        v15 = 2048;
-        v16 = v7;
-        v17 = 2048;
-        v18 = v8;
-        v19 = 2112;
-        v20 = v3;
-        _os_log_error_impl(&dword_244378000, v6, OS_LOG_TYPE_ERROR, "%p failed to set interests for tracker %p via %p: %@", &v13, 0x2Au);
+        v12 = 134218754;
+        v13 = WeakRetained;
+        v14 = 2048;
+        v15 = v7;
+        v16 = 2048;
+        v17 = v8;
+        v18 = 2112;
+        v19 = v3;
+        _os_log_error_impl(&dword_244378000, v6, OS_LOG_TYPE_ERROR, "%p failed to set interests for tracker %p via %p: %@", &v12, 0x2Au);
       }
     }
 
@@ -6543,13 +6399,13 @@ void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___bl
     {
       v9 = *(a1 + 32);
       v10 = *(a1 + 40);
-      v13 = 134218496;
-      v14 = WeakRetained;
-      v15 = 2048;
-      v16 = v9;
-      v17 = 2048;
-      v18 = v10;
-      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p successfully set interests for tracker %p via %p", &v13, 0x20u);
+      v12 = 134218496;
+      v13 = WeakRetained;
+      v14 = 2048;
+      v15 = v9;
+      v16 = 2048;
+      v17 = v10;
+      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p successfully set interests for tracker %p via %p", &v12, 0x20u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -6559,8 +6415,6 @@ void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___bl
       [v11 didChangeCompositionForTimerAddOn:WeakRetained];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___block_invoke_205(uint64_t a1, uint64_t a2, void *a3)
@@ -6602,7 +6456,7 @@ void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___bl
 
 - (void)director:(id)director membersChanged:(id)changed
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   members = [(COMeshTimerAddOn *)self members];
   v7 = [members mutableCopy];
@@ -6613,34 +6467,34 @@ void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___bl
   allKeys = [interests allKeys];
   v10 = [allKeys mutableCopy];
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v11 = changedCopy;
-  v12 = [v11 countByEnumeratingWithState:&v49 objects:v59 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v48 objects:v58 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v50;
+    v14 = *v49;
     do
     {
       v15 = 0;
       do
       {
-        if (*v50 != v14)
+        if (*v49 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        member = [*(*(&v49 + 1) + 8 * v15) member];
+        member = [*(*(&v48 + 1) + 8 * v15) member];
         [v10 removeObject:member];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v49 objects:v59 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v48 objects:v58 count:16];
     }
 
     while (v13);
@@ -6658,33 +6512,33 @@ void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___bl
     {
       *buf = 134218242;
       selfCopy = self;
-      v57 = 2112;
-      v58 = v10;
+      v56 = 2112;
+      v57 = v10;
       _os_log_impl(&dword_244378000, v19, OS_LOG_TYPE_DEFAULT, "%p removing interests for %@", buf, 0x16u);
     }
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v20 = v7;
-  v21 = [v20 countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v44 objects:v53 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v46;
+    v23 = *v45;
     do
     {
       v24 = 0;
       do
       {
-        if (*v46 != v23)
+        if (*v45 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        member2 = [*(*(&v45 + 1) + 8 * v24) member];
+        member2 = [*(*(&v44 + 1) + 8 * v24) member];
         iDSIdentifier = [member2 IDSIdentifier];
 
         ourInterests = [(COMeshTimerAddOn *)self ourInterests];
@@ -6699,35 +6553,35 @@ void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___bl
       }
 
       while (v22 != v24);
-      v22 = [v20 countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v44 objects:v53 count:16];
     }
 
     while (v22);
   }
 
-  v40 = v20;
+  v39 = v20;
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v29 = v11;
-  v30 = [v29 countByEnumeratingWithState:&v41 objects:v53 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v40 objects:v52 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v42;
+    v32 = *v41;
     do
     {
       v33 = 0;
       do
       {
-        if (*v42 != v32)
+        if (*v41 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        member3 = [*(*(&v41 + 1) + 8 * v33) member];
+        member3 = [*(*(&v40 + 1) + 8 * v33) member];
         iDSIdentifier2 = [member3 IDSIdentifier];
         ourInterests2 = [(COMeshTimerAddOn *)self ourInterests];
         v37 = [ourInterests2 objectForKey:iDSIdentifier2];
@@ -6741,7 +6595,7 @@ void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___bl
       }
 
       while (v31 != v33);
-      v31 = [v29 countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v40 objects:v52 count:16];
     }
 
     while (v31);
@@ -6752,8 +6606,6 @@ void __68__COMeshTimerAddOn_interestTracker_setInterests_forMember_callback___bl
   {
     [delegate didChangeCompositionForTimerAddOn:self];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)director:(id)director performAction:(id)action from:(id)from callback:(id)callback
@@ -7003,484 +6855,299 @@ void __57__COMeshTimerAddOn_director_performAction_from_callback___block_invoke_
 
 - (void)didChangeNodesForMeshController:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 mergeRequest];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_filteredTimersList:forAccessory:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 meshController];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_96_cold_1(uint64_t a1)
+void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 48);
+  OUTLINED_FUNCTION_11(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v2, v3, "%p local timers list failed (%@)");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p timers list from leader failed (%@)");
 }
 
-void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_96_cold_2(uint64_t a1, uint64_t *a2)
+void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 48);
-  v3 = *a2;
+  OUTLINED_FUNCTION_11(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_1(&dword_244378000, v4, v5, "%p specified accessory (%@) was not found in order to filter local timers!");
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v1, v2, "%p timers list from leader failed (%@)");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __68__COMeshTimerAddOn__timersForAccessoryIdentifier_allowLocalStorage___block_invoke_103_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
-  OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_1(&dword_244378000, v3, v4, "%p specified accessory (%@) was not found in order to filter timers!");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_isTimer:targetingAccessoryIdentifiers:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_244378000, v0, v1, "Unknown targeting of %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p specified accessory (%@) was not found in order to filter timers!");
 }
 
 - (void)_isTimer:(void *)a1 targetingAccessoryIdentifiers:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 timerID];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __38__COMeshTimerAddOn__sendNotification___block_invoke_3_cold_1(void *a1)
+void __38__COMeshTimerAddOn__sendNotification___block_invoke_3_cold_1()
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
+  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_4();
-  v10 = v4;
-  v11 = v5;
-  v12 = v6;
-  _os_log_error_impl(&dword_244378000, v7, OS_LOG_TYPE_ERROR, "%p failed to send notifiction '%@' to member %@", v9, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_timerManagerTimerFired:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_244378000, v0, v1, "%p forwarding local update to the mesh", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __44__COMeshTimerAddOn__timerManagerStateReset___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_244378000, v0, v1, "%p forwarding reset to the mesh", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = v0;
+  v6 = v1;
+  v7 = v2;
+  _os_log_error_impl(&dword_244378000, v3, OS_LOG_TYPE_ERROR, "%p failed to send notifiction '%@' to member %@", v4, 0x20u);
 }
 
 void __46__COMeshTimerAddOn__broadcastMerge_withTruth___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 meshController];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continueMerge:withResponse:fromNode:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_12();
-  v4 = v0;
-  _os_log_debug_impl(&dword_244378000, v1, OS_LOG_TYPE_DEBUG, "%p merge %p received last response", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_244378000, v1, OS_LOG_TYPE_DEBUG, "%p merge %p received last response", v2, 0x16u);
 }
 
 - (void)_finishMerge:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 meshController];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishMerge:.cold.2()
 {
   OUTLINED_FUNCTION_9();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 meshController];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __47__COMeshTimerAddOn__reloadIndexWithCompletion___block_invoke_cold_1()
+void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p failed to fetch timers for index: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_2_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_10_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v1, v2, "%p direct add failed (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p direct add failed (%@)");
 }
 
-void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155_cold_1(uint64_t a1)
+void __43__COMeshTimerAddOn_addTimer_client_member___block_invoke_155_cold_1()
 {
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_11(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v1, v2, "%p add failed via secondary cluster (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p add failed via secondary cluster (%@)");
 }
 
-void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_2_cold_1(uint64_t a1)
+void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_10_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v1, v2, "%p direct update failed (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p direct update failed (%@)");
 }
 
-void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158_cold_1(uint64_t a1)
+void __46__COMeshTimerAddOn_updateTimer_client_member___block_invoke_158_cold_1()
 {
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_11(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v1, v2, "%p update failed via secondary cluster (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p update failed via secondary cluster (%@)");
 }
 
-void __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_2_cold_1(uint64_t a1)
+void __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_10_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v1, v2, "%p direct remove failed (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p direct remove failed (%@)");
 }
 
-void __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161_cold_1(uint64_t a1)
+void __46__COMeshTimerAddOn_removeTimer_client_member___block_invoke_161_cold_1()
 {
-  OUTLINED_FUNCTION_11(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_11(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v1, v2, "%p remove failed via secondary cluster (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p remove failed via secondary cluster (%@)");
 }
 
-void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_2_cold_1(uint64_t a1)
+void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_10_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v1, v2, "%p direct dismiss failed (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%p direct dismiss failed (%@)");
 }
 
 void __54__COMeshTimerAddOn_dismissTimerWithIdentifier_client___block_invoke_163_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v1 = v0;
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = [*(v0 + 32) meshController];
-  v3 = *(v1 + 40);
+  v1 = [*(v0 + 32) meshController];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7_1();
-  _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x20u);
 }
 
 void __52__COMeshTimerAddOn_handleTimerReadRequest_callback___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "... timers list failed (%@)", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "... timers list failed (%@)", v1, 0xCu);
 }
 
 void __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [*(v0 + 32) timerID];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_7_1();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __54__COMeshTimerAddOn_handleTimerCreateRequest_callback___block_invoke_168_cold_1(uint64_t a1, id *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = [*a2 timerID];
+  v2 = [*a2 timerID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [*(v0 + 32) timerID];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_7_1();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __54__COMeshTimerAddOn_handleTimerUpdateRequest_callback___block_invoke_169_cold_1(uint64_t a1, id *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = [*a2 timerID];
+  v2 = [*a2 timerID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [*(v0 + 32) timerID];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_7_1();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __54__COMeshTimerAddOn_handleTimerDeleteRequest_callback___block_invoke_170_cold_1(uint64_t a1, id *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 48);
-  v3 = [*a2 timerID];
+  v2 = [*a2 timerID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [*(*(*a2 + 8) + 40) timerID];
+  v2 = [*(*(*a2 + 8) + 40) timerID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __55__COMeshTimerAddOn_handleTimerDismissRequest_callback___block_invoke_174_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_244378000, v2, v3, "... timer (%@) dismiss failed (%@)");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleTimersAddedNotification:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_244378000, v0, v1, "%p added timers without a list of timers", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleTimersRemovedNotification:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_244378000, v0, v1, "%p removed timers without a list of timers", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleTimersUpdatedNotification:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_244378000, v0, v1, "%p updated timers without a list of timers", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleTimerFiringTimerDismissedNotification:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_244378000, v0, v1, "%p dismissed timers without a list of timers", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)handleTimerManagerStateResetNotification:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 meshController];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timersAsAccessory:(void *)a1 fromClient:withCallback:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 meshController];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __62__COMeshTimerAddOn_timersAsAccessory_fromClient_withCallback___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_244378000, v0, v1, "... returning %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timersForAccessories:fromClient:callback:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 count];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addTimer:asAccessory:fromClient:withCallback:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 meshController];
   v3 = [v0 timerID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTimer:asAccessory:fromClient:withCallback:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 meshController];
   v3 = [v0 timerID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTimer:asAccessory:fromClient:withCallback:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 meshController];
   v3 = [v0 timerID];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismissTimerWithIdentifier:fromClient:withCallback:.cold.1()
 {
   OUTLINED_FUNCTION_9();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 meshController];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invoke_cold_1(uint64_t a1)
+void __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_10_1(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_2(&dword_244378000, v1, v2, "%p looking for non-ephemeral node...", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_1(*MEMORY[0x277D85DE8]);
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_2(&dword_244378000, v1, v2, "%p looking for non-ephemeral node...", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __60__COMeshTimerAddOn_canDispatchAsAccessory_asInstance_reply___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_2(&dword_244378000, a2, a3, "%p looking for HomePod...", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_2(&dword_244378000, a2, a3, "%p looking for HomePod...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void __58__COMeshTimerAddOn_setInterests_asAccessory_withCallback___block_invoke_cold_1(uint64_t a1)
+void __58__COMeshTimerAddOn_setInterests_asAccessory_withCallback___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_10_1(a1, *MEMORY[0x277D85DE8]);
-  v4 = 134217984;
-  v5 = v1;
-  _os_log_error_impl(&dword_244378000, v2, OS_LOG_TYPE_ERROR, "%p cannot set interests, IDS identifier missing", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_1(*MEMORY[0x277D85DE8]);
+  v2 = 134217984;
+  v3 = v0;
+  _os_log_error_impl(&dword_244378000, v1, OS_LOG_TYPE_ERROR, "%p cannot set interests, IDS identifier missing", &v2, 0xCu);
 }
 
 @end

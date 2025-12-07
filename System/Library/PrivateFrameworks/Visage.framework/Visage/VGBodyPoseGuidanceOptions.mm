@@ -649,182 +649,34 @@
     v5 = equalCopy;
     torsoHeadTargetMin = self->_torsoHeadTargetMin;
     [v5 torsoHeadTargetMin];
-    if (torsoHeadTargetMin != v7)
-    {
-      goto LABEL_32;
-    }
-
-    torsoHeadTargetMax = self->_torsoHeadTargetMax;
-    [v5 torsoHeadTargetMax];
-    if (torsoHeadTargetMax != v9)
-    {
-      goto LABEL_32;
-    }
-
-    torsoHeadMarginMin = self->_torsoHeadMarginMin;
-    [v5 torsoHeadMarginMin];
-    if (torsoHeadMarginMin != v11)
-    {
-      goto LABEL_32;
-    }
-
-    torsoHeadMarginMax = self->_torsoHeadMarginMax;
-    [v5 torsoHeadMarginMax];
-    if (torsoHeadMarginMax != v13)
-    {
-      goto LABEL_32;
-    }
-
-    shouldersTwistTargetMin = self->_shouldersTwistTargetMin;
-    [v5 shouldersTwistTargetMin];
-    if (shouldersTwistTargetMin != v15)
-    {
-      goto LABEL_32;
-    }
-
-    shouldersTwistTargetMax = self->_shouldersTwistTargetMax;
-    [v5 shouldersTwistTargetMax];
-    if (shouldersTwistTargetMax != v17)
-    {
-      goto LABEL_32;
-    }
-
-    shouldersTwistMarginMin = self->_shouldersTwistMarginMin;
-    [v5 shouldersTwistMarginMin];
-    if (shouldersTwistMarginMin != v19)
-    {
-      goto LABEL_32;
-    }
-
-    shouldersTwistMarginMax = self->_shouldersTwistMarginMax;
-    [v5 shouldersTwistMarginMax];
-    if (shouldersTwistMarginMax != v21)
-    {
-      goto LABEL_32;
-    }
-
-    leftElbowTargetMin = self->_leftElbowTargetMin;
-    [v5 leftElbowTargetMin];
-    if (leftElbowTargetMin != v23)
-    {
-      goto LABEL_32;
-    }
-
-    leftElbowTargetMax = self->_leftElbowTargetMax;
-    [v5 leftElbowTargetMax];
-    if (leftElbowTargetMax != v25)
-    {
-      goto LABEL_32;
-    }
-
-    leftElbowMarginMin = self->_leftElbowMarginMin;
-    [v5 leftElbowMarginMin];
-    if (leftElbowMarginMin != v27)
-    {
-      goto LABEL_32;
-    }
-
-    leftElbowMarginMax = self->_leftElbowMarginMax;
-    [v5 leftElbowMarginMax];
-    if (leftElbowMarginMax != v29)
-    {
-      goto LABEL_32;
-    }
-
-    rightElbowTargetMin = self->_rightElbowTargetMin;
-    [v5 rightElbowTargetMin];
-    if (rightElbowTargetMin != v31)
-    {
-      goto LABEL_32;
-    }
-
-    rightElbowTargetMax = self->_rightElbowTargetMax;
-    [v5 rightElbowTargetMax];
-    if (rightElbowTargetMax != v33)
-    {
-      goto LABEL_32;
-    }
-
-    rightElbowMarginMin = self->_rightElbowMarginMin;
-    [v5 rightElbowMarginMin];
-    if (rightElbowMarginMin != v35)
-    {
-      goto LABEL_32;
-    }
-
-    rightElbowMarginMax = self->_rightElbowMarginMax;
-    [v5 rightElbowMarginMax];
-    if (rightElbowMarginMax != v37)
-    {
-      goto LABEL_32;
-    }
-
-    shouldersHeightAsymmetryTargetMin = self->_shouldersHeightAsymmetryTargetMin;
-    [v5 shouldersHeightAsymmetryTargetMin];
-    if (shouldersHeightAsymmetryTargetMin != v39)
-    {
-      goto LABEL_32;
-    }
-
-    shouldersHeightAsymmetryTargetMax = self->_shouldersHeightAsymmetryTargetMax;
-    [v5 shouldersHeightAsymmetryTargetMax];
-    if (shouldersHeightAsymmetryTargetMax != v41)
-    {
-      goto LABEL_32;
-    }
-
-    shouldersHeightAsymmetryMarginMin = self->_shouldersHeightAsymmetryMarginMin;
-    [v5 shouldersHeightAsymmetryMarginMin];
-    if (shouldersHeightAsymmetryMarginMin != v43)
-    {
-      goto LABEL_32;
-    }
-
-    shouldersHeightAsymmetryMarginMax = self->_shouldersHeightAsymmetryMarginMax;
-    [v5 shouldersHeightAsymmetryMarginMax];
-    if (shouldersHeightAsymmetryMarginMax != v45)
-    {
-      goto LABEL_32;
-    }
-
-    leftShoulderForwardTargetMin = self->_leftShoulderForwardTargetMin;
-    [v5 leftShoulderForwardTargetMin];
-    if (leftShoulderForwardTargetMin != v47)
-    {
-      goto LABEL_32;
-    }
-
-    leftShoulderForwardTargetMax = self->_leftShoulderForwardTargetMax;
-    [v5 leftShoulderForwardTargetMax];
-    if (leftShoulderForwardTargetMax != v49)
-    {
-      goto LABEL_32;
-    }
-
-    leftShoulderForwardMarginMin = self->_leftShoulderForwardMarginMin;
-    [v5 leftShoulderForwardMarginMin];
-    if (leftShoulderForwardMarginMin != v51)
-    {
-      goto LABEL_32;
-    }
-
-    leftShoulderForwardMarginMax = self->_leftShoulderForwardMarginMax;
-    [v5 leftShoulderForwardMarginMax];
-    if (leftShoulderForwardMarginMax != v53)
-    {
-      goto LABEL_32;
-    }
-
-    rightShoulderForwardTargetMin = self->_rightShoulderForwardTargetMin;
-    [v5 rightShoulderForwardTargetMin];
-    if (rightShoulderForwardTargetMin != v55)
-    {
-      goto LABEL_32;
-    }
-
-    rightShoulderForwardTargetMax = self->_rightShoulderForwardTargetMax;
-    [v5 rightShoulderForwardTargetMax];
-    if (rightShoulderForwardTargetMax == v57 && (rightShoulderForwardMarginMin = self->_rightShoulderForwardMarginMin, [v5 rightShoulderForwardMarginMin], rightShoulderForwardMarginMin == v59) && (rightShoulderForwardMarginMax = self->_rightShoulderForwardMarginMax, objc_msgSend(v5, "rightShoulderForwardMarginMax"), rightShoulderForwardMarginMax == v61))
+    if (torsoHeadTargetMin == v7
+      && (torsoHeadTargetMax = self->_torsoHeadTargetMax, [v5 torsoHeadTargetMax], torsoHeadTargetMax == v9)
+      && (torsoHeadMarginMin = self->_torsoHeadMarginMin, [v5 torsoHeadMarginMin], torsoHeadMarginMin == v11)
+      && (torsoHeadMarginMax = self->_torsoHeadMarginMax, [v5 torsoHeadMarginMax], torsoHeadMarginMax == v13)
+      && (shouldersTwistTargetMin = self->_shouldersTwistTargetMin, [v5 shouldersTwistTargetMin], shouldersTwistTargetMin == v15)
+      && (shouldersTwistTargetMax = self->_shouldersTwistTargetMax, [v5 shouldersTwistTargetMax], shouldersTwistTargetMax == v17)
+      && (shouldersTwistMarginMin = self->_shouldersTwistMarginMin, [v5 shouldersTwistMarginMin], shouldersTwistMarginMin == v19)
+      && (shouldersTwistMarginMax = self->_shouldersTwistMarginMax, [v5 shouldersTwistMarginMax], shouldersTwistMarginMax == v21)
+      && (leftElbowTargetMin = self->_leftElbowTargetMin, [v5 leftElbowTargetMin], leftElbowTargetMin == v23)
+      && (leftElbowTargetMax = self->_leftElbowTargetMax, [v5 leftElbowTargetMax], leftElbowTargetMax == v25)
+      && (leftElbowMarginMin = self->_leftElbowMarginMin, [v5 leftElbowMarginMin], leftElbowMarginMin == v27)
+      && (leftElbowMarginMax = self->_leftElbowMarginMax, [v5 leftElbowMarginMax], leftElbowMarginMax == v29)
+      && (rightElbowTargetMin = self->_rightElbowTargetMin, [v5 rightElbowTargetMin], rightElbowTargetMin == v31)
+      && (rightElbowTargetMax = self->_rightElbowTargetMax, [v5 rightElbowTargetMax], rightElbowTargetMax == v33)
+      && (rightElbowMarginMin = self->_rightElbowMarginMin, [v5 rightElbowMarginMin], rightElbowMarginMin == v35)
+      && (rightElbowMarginMax = self->_rightElbowMarginMax, [v5 rightElbowMarginMax], rightElbowMarginMax == v37)
+      && (shouldersHeightAsymmetryTargetMin = self->_shouldersHeightAsymmetryTargetMin, [v5 shouldersHeightAsymmetryTargetMin], shouldersHeightAsymmetryTargetMin == v39)
+      && (shouldersHeightAsymmetryTargetMax = self->_shouldersHeightAsymmetryTargetMax, [v5 shouldersHeightAsymmetryTargetMax], shouldersHeightAsymmetryTargetMax == v41)
+      && (shouldersHeightAsymmetryMarginMin = self->_shouldersHeightAsymmetryMarginMin, [v5 shouldersHeightAsymmetryMarginMin], shouldersHeightAsymmetryMarginMin == v43)
+      && (shouldersHeightAsymmetryMarginMax = self->_shouldersHeightAsymmetryMarginMax, [v5 shouldersHeightAsymmetryMarginMax], shouldersHeightAsymmetryMarginMax == v45)
+      && (leftShoulderForwardTargetMin = self->_leftShoulderForwardTargetMin, [v5 leftShoulderForwardTargetMin], leftShoulderForwardTargetMin == v47)
+      && (leftShoulderForwardTargetMax = self->_leftShoulderForwardTargetMax, [v5 leftShoulderForwardTargetMax], leftShoulderForwardTargetMax == v49)
+      && (leftShoulderForwardMarginMin = self->_leftShoulderForwardMarginMin, [v5 leftShoulderForwardMarginMin], leftShoulderForwardMarginMin == v51)
+      && (leftShoulderForwardMarginMax = self->_leftShoulderForwardMarginMax, [v5 leftShoulderForwardMarginMax], leftShoulderForwardMarginMax == v53)
+      && (rightShoulderForwardTargetMin = self->_rightShoulderForwardTargetMin, [v5 rightShoulderForwardTargetMin], rightShoulderForwardTargetMin == v55)
+      && (rightShoulderForwardTargetMax = self->_rightShoulderForwardTargetMax, [v5 rightShoulderForwardTargetMax], rightShoulderForwardTargetMax == v57)
+      && (rightShoulderForwardMarginMin = self->_rightShoulderForwardMarginMin, [v5 rightShoulderForwardMarginMin], rightShoulderForwardMarginMin == v59)
+      && (rightShoulderForwardMarginMax = self->_rightShoulderForwardMarginMax, [v5 rightShoulderForwardMarginMax], rightShoulderForwardMarginMax == v61))
     {
       bestAlignmentToleranceAngleFrontPose = self->_bestAlignmentToleranceAngleFrontPose;
       [v5 bestAlignmentToleranceAngleFrontPose];
@@ -833,7 +685,6 @@
 
     else
     {
-LABEL_32:
       v64 = 0;
     }
   }
@@ -848,126 +699,124 @@ LABEL_32:
 
 - (id)toDictionary
 {
-  v65[29] = *MEMORY[0x277D85DE8];
-  v64[0] = @"torsoHeadTargetMin";
+  v64[29] = *MEMORY[0x277D85DE8];
+  v63[0] = @"torsoHeadTargetMin";
   *&v2 = self->_torsoHeadTargetMin;
-  v63 = [MEMORY[0x277CCABB0] numberWithFloat:v2];
-  v65[0] = v63;
-  v64[1] = @"torsoHeadTargetMax";
+  v62 = [MEMORY[0x277CCABB0] numberWithFloat:v2];
+  v64[0] = v62;
+  v63[1] = @"torsoHeadTargetMax";
   *&v4 = self->_torsoHeadTargetMax;
-  v62 = [MEMORY[0x277CCABB0] numberWithFloat:v4];
-  v65[1] = v62;
-  v64[2] = @"torsoHeadMarginMin";
+  v61 = [MEMORY[0x277CCABB0] numberWithFloat:v4];
+  v64[1] = v61;
+  v63[2] = @"torsoHeadMarginMin";
   *&v5 = self->_torsoHeadMarginMin;
-  v61 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
-  v65[2] = v61;
-  v64[3] = @"torsoHeadMarginMax";
+  v60 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
+  v64[2] = v60;
+  v63[3] = @"torsoHeadMarginMax";
   *&v6 = self->_torsoHeadMarginMax;
-  v60 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-  v65[3] = v60;
-  v64[4] = @"shouldersTwistTargetMin";
+  v59 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
+  v64[3] = v59;
+  v63[4] = @"shouldersTwistTargetMin";
   *&v7 = self->_shouldersTwistTargetMin;
-  v59 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v65[4] = v59;
-  v64[5] = @"shouldersTwistTargetMax";
+  v58 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
+  v64[4] = v58;
+  v63[5] = @"shouldersTwistTargetMax";
   *&v8 = self->_shouldersTwistTargetMax;
-  v58 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v65[5] = v58;
-  v64[6] = @"shouldersTwistMarginMin";
+  v57 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
+  v64[5] = v57;
+  v63[6] = @"shouldersTwistMarginMin";
   *&v9 = self->_shouldersTwistMarginMin;
-  v57 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-  v65[6] = v57;
-  v64[7] = @"shouldersTwistMarginMax";
+  v56 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
+  v64[6] = v56;
+  v63[7] = @"shouldersTwistMarginMax";
   *&v10 = self->_shouldersTwistMarginMax;
-  v56 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-  v65[7] = v56;
-  v64[8] = @"leftElbowTargetMin";
+  v55 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
+  v64[7] = v55;
+  v63[8] = @"leftElbowTargetMin";
   *&v11 = self->_leftElbowTargetMin;
-  v55 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-  v65[8] = v55;
-  v64[9] = @"leftElbowTargetMax";
+  v54 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
+  v64[8] = v54;
+  v63[9] = @"leftElbowTargetMax";
   *&v12 = self->_leftElbowTargetMax;
-  v54 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
-  v65[9] = v54;
-  v64[10] = @"leftElbowMarginMin";
+  v53 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
+  v64[9] = v53;
+  v63[10] = @"leftElbowMarginMin";
   *&v13 = self->_leftElbowMarginMin;
-  v53 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-  v65[10] = v53;
-  v64[11] = @"leftElbowMarginMax";
+  v52 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
+  v64[10] = v52;
+  v63[11] = @"leftElbowMarginMax";
   *&v14 = self->_leftElbowMarginMax;
-  v52 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-  v65[11] = v52;
-  v64[12] = @"rightElbowTargetMin";
+  v51 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
+  v64[11] = v51;
+  v63[12] = @"rightElbowTargetMin";
   *&v15 = self->_rightElbowTargetMin;
-  v51 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
-  v65[12] = v51;
-  v64[13] = @"rightElbowTargetMax";
+  v50 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
+  v64[12] = v50;
+  v63[13] = @"rightElbowTargetMax";
   *&v16 = self->_rightElbowTargetMax;
-  v50 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-  v65[13] = v50;
-  v64[14] = @"rightElbowMarginMin";
+  v49 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
+  v64[13] = v49;
+  v63[14] = @"rightElbowMarginMin";
   *&v17 = self->_rightElbowMarginMin;
-  v49 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
-  v65[14] = v49;
-  v64[15] = @"rightElbowMarginMax";
+  v48 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
+  v64[14] = v48;
+  v63[15] = @"rightElbowMarginMax";
   *&v18 = self->_rightElbowMarginMax;
-  v48 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-  v65[15] = v48;
-  v64[16] = @"shouldersHeightAsymmetryTargetMin";
+  v47 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
+  v64[15] = v47;
+  v63[16] = @"shouldersHeightAsymmetryTargetMin";
   *&v19 = self->_shouldersHeightAsymmetryTargetMin;
-  v47 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-  v65[16] = v47;
-  v64[17] = @"shouldersHeightAsymmetryTargetMax";
+  v46 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
+  v64[16] = v46;
+  v63[17] = @"shouldersHeightAsymmetryTargetMax";
   *&v20 = self->_shouldersHeightAsymmetryTargetMax;
-  v46 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
-  v65[17] = v46;
-  v64[18] = @"shouldersHeightAsymmetryMarginMin";
+  v45 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+  v64[17] = v45;
+  v63[18] = @"shouldersHeightAsymmetryMarginMin";
   *&v21 = self->_shouldersHeightAsymmetryMarginMin;
-  v45 = [MEMORY[0x277CCABB0] numberWithFloat:v21];
-  v65[18] = v45;
-  v64[19] = @"shouldersHeightAsymmetryMarginMax";
+  v44 = [MEMORY[0x277CCABB0] numberWithFloat:v21];
+  v64[18] = v44;
+  v63[19] = @"shouldersHeightAsymmetryMarginMax";
   *&v22 = self->_shouldersHeightAsymmetryMarginMax;
-  v44 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
-  v65[19] = v44;
-  v64[20] = @"leftShoulderForwardTargetMin";
+  v43 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
+  v64[19] = v43;
+  v63[20] = @"leftShoulderForwardTargetMin";
   *&v23 = self->_leftShoulderForwardTargetMin;
   v24 = [MEMORY[0x277CCABB0] numberWithFloat:v23];
-  v65[20] = v24;
-  v64[21] = @"leftShoulderForwardTargetMax";
+  v64[20] = v24;
+  v63[21] = @"leftShoulderForwardTargetMax";
   *&v25 = self->_leftShoulderForwardTargetMax;
   v26 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
-  v65[21] = v26;
-  v64[22] = @"leftShoulderForwardMarginMin";
+  v64[21] = v26;
+  v63[22] = @"leftShoulderForwardMarginMin";
   *&v27 = self->_leftShoulderForwardMarginMin;
   v28 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
-  v65[22] = v28;
-  v64[23] = @"leftShoulderForwardMarginMax";
+  v64[22] = v28;
+  v63[23] = @"leftShoulderForwardMarginMax";
   *&v29 = self->_leftShoulderForwardMarginMax;
   v30 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
-  v65[23] = v30;
-  v64[24] = @"rightShoulderForwardTargetMin";
+  v64[23] = v30;
+  v63[24] = @"rightShoulderForwardTargetMin";
   *&v31 = self->_rightShoulderForwardTargetMin;
   v32 = [MEMORY[0x277CCABB0] numberWithFloat:v31];
-  v65[24] = v32;
-  v64[25] = @"rightShoulderForwardTargetMax";
+  v64[24] = v32;
+  v63[25] = @"rightShoulderForwardTargetMax";
   *&v33 = self->_rightShoulderForwardTargetMax;
   v34 = [MEMORY[0x277CCABB0] numberWithFloat:v33];
-  v65[25] = v34;
-  v64[26] = @"rightShoulderForwardMarginMin";
+  v64[25] = v34;
+  v63[26] = @"rightShoulderForwardMarginMin";
   *&v35 = self->_rightShoulderForwardMarginMin;
   v36 = [MEMORY[0x277CCABB0] numberWithFloat:v35];
-  v65[26] = v36;
-  v64[27] = @"rightShoulderForwardMarginMax";
+  v64[26] = v36;
+  v63[27] = @"rightShoulderForwardMarginMax";
   *&v37 = self->_rightShoulderForwardMarginMax;
   v38 = [MEMORY[0x277CCABB0] numberWithFloat:v37];
-  v65[27] = v38;
-  v64[28] = @"bestAlignmentToleranceAngleFrontPose";
+  v64[27] = v38;
+  v63[28] = @"bestAlignmentToleranceAngleFrontPose";
   *&v39 = self->_bestAlignmentToleranceAngleFrontPose;
   v40 = [MEMORY[0x277CCABB0] numberWithFloat:v39];
-  v65[28] = v40;
-  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:29];
-
-  v42 = *MEMORY[0x277D85DE8];
+  v64[28] = v40;
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:29];
 
   return v41;
 }

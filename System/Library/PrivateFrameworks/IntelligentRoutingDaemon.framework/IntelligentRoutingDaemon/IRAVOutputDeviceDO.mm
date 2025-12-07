@@ -1,5 +1,6 @@
 @interface IRAVOutputDeviceDO
 + (id)AVOutputDeviceToDO:(id)o;
++ (id)aVOutputDeviceDOWithDeviceID:(id)d modelID:(id)iD deviceName:(id)name hasAirplayProperties:(BOOL)properties discoveredOverInfra:(BOOL)infra discoveredWithBroker:(BOOL)broker deviceType:(unint64_t)type deviceSubType:(unint64_t)self0;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToAVOutputDeviceDO:(id)o;
 - (IRAVOutputDeviceDO)initWithCoder:(id)coder;
@@ -124,6 +125,19 @@
   return v21;
 }
 
++ (id)aVOutputDeviceDOWithDeviceID:(id)d modelID:(id)iD deviceName:(id)name hasAirplayProperties:(BOOL)properties discoveredOverInfra:(BOOL)infra discoveredWithBroker:(BOOL)broker deviceType:(unint64_t)type deviceSubType:(unint64_t)self0
+{
+  brokerCopy = broker;
+  infraCopy = infra;
+  propertiesCopy = properties;
+  nameCopy = name;
+  iDCopy = iD;
+  dCopy = d;
+  v19 = [[self alloc] initWithDeviceID:dCopy modelID:iDCopy deviceName:nameCopy hasAirplayProperties:propertiesCopy discoveredOverInfra:infraCopy discoveredWithBroker:brokerCopy deviceType:type deviceSubType:subType];
+
+  return v19;
+}
+
 - (id)copyWithReplacementDeviceID:(id)d
 {
   dCopy = d;
@@ -135,11 +149,9 @@
 - (id)copyWithReplacementModelID:(id)d
 {
   dCopy = d;
-  v5 = objc_alloc(objc_opt_class());
-  deviceType = self->_deviceType;
-  v7 = [v5 initWithDeviceID:self->_deviceID modelID:dCopy deviceName:self->_deviceName hasAirplayProperties:self->_hasAirplayProperties discoveredOverInfra:self->_discoveredOverInfra discoveredWithBroker:self->_discoveredWithBroker deviceType:deviceType deviceSubType:self->_deviceSubType];
+  v5 = [objc_alloc(objc_opt_class()) initWithDeviceID:self->_deviceID modelID:dCopy deviceName:self->_deviceName hasAirplayProperties:self->_hasAirplayProperties discoveredOverInfra:self->_discoveredOverInfra discoveredWithBroker:self->_discoveredWithBroker deviceType:self->_deviceType deviceSubType:self->_deviceSubType];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementDeviceName:(id)name
@@ -154,76 +166,7 @@
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
-  {
-    goto LABEL_16;
-  }
-
-  v6 = self->_deviceID == 0;
-  deviceID = [oCopy deviceID];
-  v8 = deviceID != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_16;
-  }
-
-  deviceID = self->_deviceID;
-  if (deviceID)
-  {
-    deviceID2 = [v5 deviceID];
-    v11 = [(NSString *)deviceID isEqual:deviceID2];
-
-    if (!v11)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  v12 = self->_modelID == 0;
-  modelID = [v5 modelID];
-  v14 = modelID != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_16;
-  }
-
-  modelID = self->_modelID;
-  if (modelID)
-  {
-    modelID2 = [v5 modelID];
-    v17 = [(NSString *)modelID isEqual:modelID2];
-
-    if (!v17)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  v18 = self->_deviceName == 0;
-  deviceName = [v5 deviceName];
-  v20 = deviceName != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_16;
-  }
-
-  deviceName = self->_deviceName;
-  if (deviceName)
-  {
-    deviceName2 = [v5 deviceName];
-    v23 = [(NSString *)deviceName isEqual:deviceName2];
-
-    if (!v23)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  hasAirplayProperties = self->_hasAirplayProperties;
-  if (hasAirplayProperties == [v5 hasAirplayProperties] && (discoveredOverInfra = self->_discoveredOverInfra, discoveredOverInfra == objc_msgSend(v5, "discoveredOverInfra")) && (discoveredWithBroker = self->_discoveredWithBroker, discoveredWithBroker == objc_msgSend(v5, "discoveredWithBroker")) && (deviceType = self->_deviceType, deviceType == objc_msgSend(v5, "deviceType")))
+  if (oCopy && (v6 = self->_deviceID == 0, [oCopy deviceID], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 != v8) && ((deviceID = self->_deviceID) == 0 || (objc_msgSend(v5, "deviceID"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](deviceID, "isEqual:", v10), v10, v11)) && (v12 = self->_modelID == 0, objc_msgSend(v5, "modelID"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 != v14) && ((modelID = self->_modelID) == 0 || (objc_msgSend(v5, "modelID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](modelID, "isEqual:", v16), v16, v17)) && (v18 = self->_deviceName == 0, objc_msgSend(v5, "deviceName"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 != v20) && ((deviceName = self->_deviceName) == 0 || (objc_msgSend(v5, "deviceName"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](deviceName, "isEqual:", v22), v22, v23)) && (hasAirplayProperties = self->_hasAirplayProperties, hasAirplayProperties == objc_msgSend(v5, "hasAirplayProperties")) && (discoveredOverInfra = self->_discoveredOverInfra, discoveredOverInfra == objc_msgSend(v5, "discoveredOverInfra")) && (discoveredWithBroker = self->_discoveredWithBroker, discoveredWithBroker == objc_msgSend(v5, "discoveredWithBroker")) && (deviceType = self->_deviceType, deviceType == objc_msgSend(v5, "deviceType")))
   {
     deviceSubType = self->_deviceSubType;
     v29 = deviceSubType == [v5 deviceSubType];
@@ -231,7 +174,6 @@
 
   else
   {
-LABEL_16:
     v29 = 0;
   }
 
@@ -257,7 +199,7 @@ LABEL_16:
 
 - (IRAVOutputDeviceDO)initWithCoder:(id)coder
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"deviceID"];
   if (v5)
@@ -270,9 +212,9 @@ LABEL_16:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRAVOutputDeviceDO key deviceID (expected %@, decoded %@)", v7, v9, 0];
-      v53 = *MEMORY[0x277CCA450];
-      v54[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+      v52 = *MEMORY[0x277CCA450];
+      v53[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRAVOutputDeviceDOOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 LABEL_15:
@@ -297,9 +239,9 @@ LABEL_6:
         v16 = objc_opt_class();
         v10 = NSStringFromClass(v16);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRAVOutputDeviceDO key modelID (expected %@, decoded %@)", v9, v10, 0];
-        v51 = *MEMORY[0x277CCA450];
-        v52 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+        v50 = *MEMORY[0x277CCA450];
+        v51 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
         v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRAVOutputDeviceDOOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v17];
 LABEL_14:
@@ -332,9 +274,9 @@ LABEL_19:
         v20 = objc_opt_class();
         v11 = NSStringFromClass(v20);
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRAVOutputDeviceDO key deviceName (expected %@, decoded %@)", v10, v11, 0];
-        v49 = *MEMORY[0x277CCA450];
-        v50 = v12;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+        v48 = *MEMORY[0x277CCA450];
+        v49 = v12;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
         v21 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRAVOutputDeviceDOOCNTErrorDomain" code:3 userInfo:v17];
         [coderCopy failWithError:v21];
 
@@ -352,8 +294,8 @@ LABEL_19:
       }
     }
 
-    v25 = [coderCopy decodeInt64ForKey:@"hasAirplayProperties"];
-    if (v25)
+    v24 = [coderCopy decodeInt64ForKey:@"hasAirplayProperties"];
+    if (v24)
     {
       goto LABEL_23;
     }
@@ -368,8 +310,8 @@ LABEL_19:
     if ([coderCopy containsValueForKey:@"hasAirplayProperties"])
     {
 LABEL_23:
-      v26 = [coderCopy decodeInt64ForKey:@"discoveredOverInfra"];
-      if (v26)
+      v25 = [coderCopy decodeInt64ForKey:@"discoveredOverInfra"];
+      if (v25)
       {
         goto LABEL_24;
       }
@@ -384,8 +326,8 @@ LABEL_23:
       if ([coderCopy containsValueForKey:@"discoveredOverInfra"])
       {
 LABEL_24:
-        v27 = [coderCopy decodeInt64ForKey:@"discoveredWithBroker"];
-        if (v27)
+        v26 = [coderCopy decodeInt64ForKey:@"discoveredWithBroker"];
+        if (v26)
         {
           goto LABEL_25;
         }
@@ -400,8 +342,8 @@ LABEL_24:
         if ([coderCopy containsValueForKey:@"discoveredWithBroker"])
         {
 LABEL_25:
-          v28 = [coderCopy decodeInt64ForKey:@"deviceType"];
-          if (v28)
+          v27 = [coderCopy decodeInt64ForKey:@"deviceType"];
+          if (v27)
           {
             goto LABEL_26;
           }
@@ -416,13 +358,13 @@ LABEL_25:
           if ([coderCopy containsValueForKey:@"deviceType"])
           {
 LABEL_26:
-            v29 = [coderCopy decodeInt64ForKey:@"deviceSubType"];
-            if (v29)
+            v28 = [coderCopy decodeInt64ForKey:@"deviceSubType"];
+            if (v28)
             {
               goto LABEL_27;
             }
 
-            v38 = v28;
+            v37 = v27;
             error7 = [coderCopy error];
 
             if (error7)
@@ -430,62 +372,62 @@ LABEL_26:
               goto LABEL_17;
             }
 
-            v28 = v38;
+            v27 = v37;
             if ([coderCopy containsValueForKey:@"deviceSubType"])
             {
 LABEL_27:
-              self = [(IRAVOutputDeviceDO *)self initWithDeviceID:v5 modelID:v7 deviceName:v9 hasAirplayProperties:v25 != 0 discoveredOverInfra:v26 != 0 discoveredWithBroker:v27 != 0 deviceType:v28 deviceSubType:v29];
+              self = [(IRAVOutputDeviceDO *)self initWithDeviceID:v5 modelID:v7 deviceName:v9 hasAirplayProperties:v24 != 0 discoveredOverInfra:v25 != 0 discoveredWithBroker:v26 != 0 deviceType:v27 deviceSubType:v28];
               selfCopy = self;
               goto LABEL_18;
             }
 
-            v39 = *MEMORY[0x277CCA450];
-            v40 = @"Missing serialized value for IRAVOutputDeviceDO.deviceSubType";
-            v31 = MEMORY[0x277CBEAC0];
-            v32 = &v40;
-            v33 = &v39;
+            v38 = *MEMORY[0x277CCA450];
+            v39 = @"Missing serialized value for IRAVOutputDeviceDO.deviceSubType";
+            v30 = MEMORY[0x277CBEAC0];
+            v31 = &v39;
+            v32 = &v38;
           }
 
           else
           {
-            v41 = *MEMORY[0x277CCA450];
-            v42 = @"Missing serialized value for IRAVOutputDeviceDO.deviceType";
-            v31 = MEMORY[0x277CBEAC0];
-            v32 = &v42;
-            v33 = &v41;
+            v40 = *MEMORY[0x277CCA450];
+            v41 = @"Missing serialized value for IRAVOutputDeviceDO.deviceType";
+            v30 = MEMORY[0x277CBEAC0];
+            v31 = &v41;
+            v32 = &v40;
           }
         }
 
         else
         {
-          v43 = *MEMORY[0x277CCA450];
-          v44 = @"Missing serialized value for IRAVOutputDeviceDO.discoveredWithBroker";
-          v31 = MEMORY[0x277CBEAC0];
-          v32 = &v44;
-          v33 = &v43;
+          v42 = *MEMORY[0x277CCA450];
+          v43 = @"Missing serialized value for IRAVOutputDeviceDO.discoveredWithBroker";
+          v30 = MEMORY[0x277CBEAC0];
+          v31 = &v43;
+          v32 = &v42;
         }
       }
 
       else
       {
-        v45 = *MEMORY[0x277CCA450];
-        v46 = @"Missing serialized value for IRAVOutputDeviceDO.discoveredOverInfra";
-        v31 = MEMORY[0x277CBEAC0];
-        v32 = &v46;
-        v33 = &v45;
+        v44 = *MEMORY[0x277CCA450];
+        v45 = @"Missing serialized value for IRAVOutputDeviceDO.discoveredOverInfra";
+        v30 = MEMORY[0x277CBEAC0];
+        v31 = &v45;
+        v32 = &v44;
       }
     }
 
     else
     {
-      v47 = *MEMORY[0x277CCA450];
-      v48 = @"Missing serialized value for IRAVOutputDeviceDO.hasAirplayProperties";
-      v31 = MEMORY[0x277CBEAC0];
-      v32 = &v48;
-      v33 = &v47;
+      v46 = *MEMORY[0x277CCA450];
+      v47 = @"Missing serialized value for IRAVOutputDeviceDO.hasAirplayProperties";
+      v30 = MEMORY[0x277CBEAC0];
+      v31 = &v47;
+      v32 = &v46;
     }
 
-    v10 = [v31 dictionaryWithObjects:v32 forKeys:v33 count:1];
+    v10 = [v30 dictionaryWithObjects:v31 forKeys:v32 count:1];
     v11 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRAVOutputDeviceDOOCNTErrorDomain" code:1 userInfo:v10];
     [coderCopy failWithError:v11];
     goto LABEL_16;
@@ -501,7 +443,6 @@ LABEL_27:
   selfCopy = 0;
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -540,76 +540,77 @@ void __64__AVTFunCamAvatarPickerController_startObservingChangesIfNeeded__block_
 
   v6 = v5;
   allowsCreation2 = [(AVTFunCamAvatarPickerController *)self allowsCreation];
-  v8 = AVTAvatarUIBundle();
-  v9 = v8;
-  if (allowsCreation2)
+  v8 = allowsCreation2;
+  v9 = AVTAvatarUIBundle(allowsCreation2);
+  v10 = v9;
+  if (v8)
   {
-    v10 = @"ADD";
+    v11 = @"ADD";
   }
 
   else
   {
-    v10 = @"NONE";
+    v11 = @"NONE";
   }
 
-  v11 = [v8 localizedStringForKey:v10 value:&stru_1F39618F0 table:@"Localized"];
+  v12 = [v9 localizedStringForKey:v11 value:&stru_1F39618F0 table:@"Localized"];
 
-  v12 = MEMORY[0x1E69DCAB8];
-  v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v14 = [v12 imageNamed:v6 inBundle:v13 compatibleWithTraitCollection:0];
+  v13 = MEMORY[0x1E69DCAB8];
+  v14 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v15 = [v13 imageNamed:v6 inBundle:v14 compatibleWithTraitCollection:0];
 
-  _imageThatSuppressesAccessibilityHairlineThickening = [v14 _imageThatSuppressesAccessibilityHairlineThickening];
+  _imageThatSuppressesAccessibilityHairlineThickening = [v15 _imageThatSuppressesAccessibilityHairlineThickening];
 
-  v37 = v11;
-  v16 = [[AVTAvatarListImageItem alloc] initWithImage:_imageThatSuppressesAccessibilityHairlineThickening title:v11];
-  [(AVTFunCamAvatarPickerController *)self setNoneItem:v16];
+  v38 = v12;
+  v17 = [[AVTAvatarListImageItem alloc] initWithImage:_imageThatSuppressesAccessibilityHairlineThickening title:v12];
+  [(AVTFunCamAvatarPickerController *)self setNoneItem:v17];
 
   noneItem = [(AVTFunCamAvatarPickerController *)self noneItem];
   [array addObject:noneItem];
 
   requestForCustomAvatars = [MEMORY[0x1E698E310] requestForCustomAvatars];
   store = [(AVTFunCamAvatarPickerController *)self store];
-  v39 = 0;
-  v20 = [store avatarsForFetchRequest:requestForCustomAvatars error:&v39];
-  v21 = v39;
+  v40 = 0;
+  v21 = [store avatarsForFetchRequest:requestForCustomAvatars error:&v40];
+  v22 = v40;
 
-  if (!v20)
+  if (!v21)
   {
     logger = [(AVTFunCamAvatarPickerController *)self logger];
-    v23 = [v21 description];
-    [logger logErrorFetchingRecords:v23];
+    v24 = [v22 description];
+    [logger logErrorFetchingRecords:v24];
   }
 
-  reverseObjectEnumerator = [v20 reverseObjectEnumerator];
+  reverseObjectEnumerator = [v21 reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator allObjects];
 
   [(AVTFunCamAvatarPickerController *)self setEditableRecords:allObjects];
-  v26 = [objc_opt_class() itemsFromRecords:allObjects];
-  [array addObjectsFromArray:v26];
+  v27 = [objc_opt_class() itemsFromRecords:allObjects];
+  [array addObjectsFromArray:v27];
 
   requestForPredefinedAvatars = [MEMORY[0x1E698E310] requestForPredefinedAvatars];
 
   store2 = [(AVTFunCamAvatarPickerController *)self store];
-  v38 = 0;
-  v29 = [store2 avatarsForFetchRequest:requestForPredefinedAvatars error:&v38];
-  v30 = v38;
+  v39 = 0;
+  v30 = [store2 avatarsForFetchRequest:requestForPredefinedAvatars error:&v39];
+  v31 = v39;
 
-  if (!v29)
+  if (!v30)
   {
     logger2 = [(AVTFunCamAvatarPickerController *)self logger];
-    v32 = [v30 description];
-    [logger2 logErrorFetchingRecords:v32];
+    v33 = [v31 description];
+    [logger2 logErrorFetchingRecords:v33];
   }
 
-  v33 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_11];
-  v34 = [v29 filteredArrayUsingPredicate:v33];
+  v34 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_11];
+  v35 = [v30 filteredArrayUsingPredicate:v34];
 
-  [(AVTFunCamAvatarPickerController *)self setPuppetRecords:v34];
-  v35 = [objc_opt_class() itemsFromRecords:v34];
-  [array addObjectsFromArray:v35];
+  [(AVTFunCamAvatarPickerController *)self setPuppetRecords:v35];
+  v36 = [objc_opt_class() itemsFromRecords:v35];
+  [array addObjectsFromArray:v36];
 
-  v36 = [array copy];
-  [(AVTFunCamAvatarPickerController *)self setItems:v36];
+  v37 = [array copy];
+  [(AVTFunCamAvatarPickerController *)self setItems:v37];
 
   [(AVTFunCamAvatarPickerController *)self reloadData];
 }
@@ -938,10 +939,10 @@ void __73__AVTFunCamAvatarPickerController_collectionView_cellForItemAtIndexPath
 void __73__AVTFunCamAvatarPickerController_collectionView_cellForItemAtIndexPath___block_invoke_2(id *a1, void *a2)
 {
   v3 = a2;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   v4 = [v3 avatar];
   if ([v4 isEditable] && (objc_msgSend(a1[4], "isDisplayingGridLayout") & 1) == 0)
   {
@@ -1004,24 +1005,24 @@ void __73__AVTFunCamAvatarPickerController_collectionView_cellForItemAtIndexPath
     [v18 updateWithTintColor:v19];
 
     v20 = a1[5];
-    v21 = AVTAvatarEditorPlaceholderSilhouette();
-    [v20 updateWithImage:v21 animated:0];
+    v22 = AVTAvatarEditorPlaceholderSilhouette(v21);
+    [v20 updateWithImage:v22 animated:0];
   }
 
-  v22 = [a1[4] imageProvider];
-  v23 = [v3 avatar];
-  v24 = [v22 providerForRecord:v23 scope:v6];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __73__AVTFunCamAvatarPickerController_collectionView_cellForItemAtIndexPath___block_invoke_3;
-  v26[3] = &unk_1E7F3BD18;
-  v27 = a1[5];
-  v28 = a1[6];
-  v29 = &v30;
-  v25 = (v24)[2](v24, v26, 0);
+  v23 = [a1[4] imageProvider];
+  v24 = [v3 avatar];
+  v25 = [v23 providerForRecord:v24 scope:v6];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __73__AVTFunCamAvatarPickerController_collectionView_cellForItemAtIndexPath___block_invoke_3;
+  v27[3] = &unk_1E7F3BD18;
+  v28 = a1[5];
+  v29 = a1[6];
+  v30 = &v31;
+  v26 = (v25)[2](v25, v27, 0);
 
-  *(v31 + 24) = 1;
-  _Block_object_dispose(&v30, 8);
+  *(v32 + 24) = 1;
+  _Block_object_dispose(&v31, 8);
 }
 
 void __73__AVTFunCamAvatarPickerController_collectionView_cellForItemAtIndexPath___block_invoke_3(uint64_t a1, void *a2)

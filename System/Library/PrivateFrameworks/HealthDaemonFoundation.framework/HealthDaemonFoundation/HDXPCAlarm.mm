@@ -4,6 +4,8 @@
 - (void)beginReceivingEventsWithHandler:(id)handler;
 - (void)eventDidFire:(id)fire;
 - (void)invalidate;
+- (void)setNextFireDate:(id)date isUserVisible:(BOOL)visible;
+- (void)unitTest_fireEventImmediatelyWithDate:(id)date isUserVisible:(BOOL)visible;
 - (void)unschedule;
 @end
 
@@ -80,6 +82,26 @@
   os_unfair_lock_unlock(&self->_lock);
 }
 
+- (void)setNextFireDate:(id)date isUserVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  dateCopy = date;
+  v6 = [HDXPCAlarmEvent alloc];
+  eventName = [(HDXPCAlarm *)self eventName];
+  v8 = [(HDXPCAlarmEvent *)v6 initWithName:eventName fireDate:dateCopy isUserVisible:visibleCopy];
+
+  scheduler = [(HDXPCAlarm *)self scheduler];
+  [scheduler scheduleEvent:v8];
+
+  unitTest_schedulerObserver = [(HDXPCAlarm *)self unitTest_schedulerObserver];
+
+  if (unitTest_schedulerObserver)
+  {
+    unitTest_schedulerObserver2 = [(HDXPCAlarm *)self unitTest_schedulerObserver];
+    (unitTest_schedulerObserver2)[2](unitTest_schedulerObserver2, dateCopy, visibleCopy);
+  }
+}
+
 - (void)unschedule
 {
   scheduler = [(HDXPCAlarm *)self scheduler];
@@ -125,6 +147,18 @@ void __27__HDXPCAlarm_eventDidFire___block_invoke(uint64_t a1)
   v3 = *(a1 + 48);
   v4 = [*(a1 + 40) fireDate];
   (*(v3 + 16))(v3, v2, v4, [*(a1 + 40) isUserVisible]);
+}
+
+- (void)unitTest_fireEventImmediatelyWithDate:(id)date isUserVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  dateCopy = date;
+  v7 = [HDXPCAlarmEvent alloc];
+  eventName = [(HDXPCAlarm *)self eventName];
+  v10 = [(HDXPCAlarmEvent *)v7 initWithName:eventName fireDate:dateCopy isUserVisible:visibleCopy];
+
+  scheduler = [(HDXPCAlarm *)self scheduler];
+  [scheduler unittest_fireEvent:v10];
 }
 
 - (void)beginReceivingEventsWithHandler:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

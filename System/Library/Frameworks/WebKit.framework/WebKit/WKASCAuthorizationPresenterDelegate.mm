@@ -5,10 +5,10 @@
 - (uint64_t)authorizationPresenter:(WTF *)this validateUserEnteredPIN:(WTF::StringImpl *)n completionHandler:;
 - (uint64_t)authorizationPresenter:(const void *)presenter credentialRequestedForLoginChoice:authenticatedContext:completionHandler:;
 - (uint64_t)authorizationPresenter:(const void *)presenter validateUserEnteredPIN:completionHandler:;
-- (uint64_t)authorizationPresenter:(uint64_t)presenter credentialRequestedForLoginChoice:(uint64_t)choice authenticatedContext:completionHandler:;
+- (uint64_t)authorizationPresenter:(uint64_t *)presenter@<X8> credentialRequestedForLoginChoice:authenticatedContext:completionHandler:;
 - (uint64_t)authorizationPresenter:(uint64_t)presenter credentialRequestedForLoginChoice:authenticatedContext:completionHandler:;
-- (uint64_t)authorizationPresenter:(uint64_t)presenter validateUserEnteredPIN:(uint64_t)n completionHandler:;
 - (uint64_t)authorizationPresenter:(uint64_t)presenter validateUserEnteredPIN:completionHandler:;
+- (uint64_t)authorizationPresenter:(uint64_t)presenter@<X0> validateUserEnteredPIN:(unint64_t)n@<X1> completionHandler:(uint64_t *)handler@<X8>;
 - (uint64_t)dispatchCoordinatorCallback:(WTF *)this;
 - (uint64_t)dispatchCoordinatorCallback:(uint64_t)result;
 - (void)authorizationPresenter:(id)presenter credentialRequestedForLoginChoice:(id)choice authenticatedContext:(id)context completionHandler:(id)handler;
@@ -62,20 +62,20 @@
 - (void)authorizationPresenter:(id)presenter credentialRequestedForLoginChoice:(id)choice authenticatedContext:(id)context completionHandler:(id)handler
 {
   v9 = _Block_copy(handler);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F110BA60;
-  *(v10 + 1) = v9;
-  v26 = v10;
-  [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v26];
-  v11 = v26;
-  v26 = 0;
-  if (v11)
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F110BA60;
+  v11[1] = v9;
+  v30 = v11;
+  [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v30];
+  v12 = v30;
+  v30 = 0;
+  if (v12)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v12 + 8))(v12);
   }
 
   _Block_release(0);
-  WebKit::getASCPlatformPublicKeyCredentialLoginChoiceClass[0](v12);
+  WebKit::getASCPlatformPublicKeyCredentialLoginChoiceClass[0](v13);
   isKindOfClass = objc_opt_isKindOfClass();
   if (isKindOfClass)
   {
@@ -86,35 +86,35 @@
         contextCopy = context;
       }
 
-      v15 = WTF::fastMalloc(0x10);
-      *v15 = &unk_1F110BAB0;
-      *(v15 + 1) = context;
-      v26 = v15;
-      [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v26];
-      v16 = v26;
-      v26 = 0;
-      if (v16)
+      v17 = WTF::fastMalloc(v15, 0x10);
+      *v17 = &unk_1F110BAB0;
+      v17[1] = context;
+      v30 = v17;
+      [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v30];
+      v18 = v30;
+      v30 = 0;
+      if (v18)
       {
-        (*(*v16 + 8))(v16);
+        (*(*v18 + 8))(v18);
       }
 
       goto LABEL_20;
     }
 
-    MEMORY[0x19EB02040](&v26, [choice name]);
-    v20 = v26;
-    v26 = 0;
+    MEMORY[0x19EB02040](&v30, [choice name]);
+    v24 = v30;
+    v30 = 0;
     if (context)
     {
       contextCopy2 = context;
     }
 
-    v22 = WTF::fastMalloc(0x18);
-    *v22 = &unk_1F110BAD8;
-    v22[1] = v20;
-    v22[2] = context;
-    v25 = v22;
-    [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v25];
+    v26 = WTF::fastMalloc(v23, 0x18);
+    *v26 = &unk_1F110BAD8;
+    v26[1] = v24;
+    v26[2] = context;
+    v29 = v26;
+    [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v29];
   }
 
   else
@@ -125,28 +125,28 @@
       goto LABEL_20;
     }
 
-    MEMORY[0x19EB02040](&v26, [choice name]);
-    v17 = v26;
-    v26 = 0;
-    v18 = WTF::fastMalloc(0x10);
-    *v18 = &unk_1F110BB00;
-    v18[1] = v17;
-    v25 = v18;
-    [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v25];
+    MEMORY[0x19EB02040](&v30, [choice name]);
+    v19 = v30;
+    v30 = 0;
+    v21 = WTF::fastMalloc(v20, 0x10);
+    *v21 = &unk_1F110BB00;
+    v21[1] = v19;
+    v29 = v21;
+    [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v29];
   }
 
-  v23 = v25;
-  v25 = 0;
-  if (v23)
+  v27 = v29;
+  v29 = 0;
+  if (v27)
   {
-    (*(*v23 + 8))(v23);
+    (*(*v27 + 8))(v27);
   }
 
-  v24 = v26;
-  v26 = 0;
-  if (v24 && atomic_fetch_add_explicit(v24, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v28 = v30;
+  v30 = 0;
+  if (v28 && atomic_fetch_add_explicit(v28, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v24, v19);
+    WTF::StringImpl::destroy(v28, v22);
   }
 
 LABEL_20:
@@ -156,39 +156,39 @@ LABEL_20:
 - (void)authorizationPresenter:(id)presenter validateUserEnteredPIN:(id)n completionHandler:(id)handler
 {
   v7 = _Block_copy(handler);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F110BB28;
-  *(v8 + 1) = v7;
-  v16 = v8;
-  [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v16];
-  v9 = v16;
-  v16 = 0;
-  if (v9)
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F110BB28;
+  v9[1] = v7;
+  v18 = v9;
+  [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v18];
+  v10 = v18;
+  v18 = 0;
+  if (v10)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v10 + 8))(v10);
   }
 
   _Block_release(0);
-  MEMORY[0x19EB02040](&v16, n);
-  v10 = v16;
-  v16 = 0;
-  v11 = WTF::fastMalloc(0x10);
-  *v11 = &unk_1F110BB78;
-  v11[1] = v10;
-  v15 = v11;
-  [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v15];
-  v13 = v15;
-  v15 = 0;
-  if (v13)
+  MEMORY[0x19EB02040](&v18, n);
+  v11 = v18;
+  v18 = 0;
+  v13 = WTF::fastMalloc(v12, 0x10);
+  *v13 = &unk_1F110BB78;
+  v13[1] = v11;
+  v17 = v13;
+  [(WKASCAuthorizationPresenterDelegate *)self dispatchCoordinatorCallback:&v17];
+  v15 = v17;
+  v17 = 0;
+  if (v15)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v15 + 8))(v15);
   }
 
-  v14 = v16;
-  v16 = 0;
-  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v16 = v18;
+  v18 = 0;
+  if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v14, v12);
+    WTF::StringImpl::destroy(v16, v14);
   }
 
   _Block_release(0);
@@ -201,7 +201,7 @@ LABEL_20:
   callback[2] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = callback[1];
@@ -230,20 +230,20 @@ LABEL_20:
   return WTF::fastFree(presenter, v2);
 }
 
-- (uint64_t)authorizationPresenter:(uint64_t)presenter credentialRequestedForLoginChoice:(uint64_t)choice authenticatedContext:completionHandler:
+- (uint64_t)authorizationPresenter:(uint64_t *)presenter@<X8> credentialRequestedForLoginChoice:authenticatedContext:completionHandler:
 {
-  v4 = WTF::fastMalloc(0x10);
-  v5 = *(presenter + 8);
-  *(presenter + 8) = 0;
-  *v4 = &unk_1F110BA88;
-  v4[1] = v5;
-  result = *(choice + 64);
-  *(choice + 64) = v4;
+  v5 = WTF::fastMalloc(presenter, 0x10);
+  v6 = *(self + 8);
+  *(self + 8) = 0;
+  *v5 = &unk_1F110BA88;
+  v5[1] = v6;
+  result = *(a2 + 64);
+  *(a2 + 64) = v5;
   if (result)
   {
-    v7 = *(*result + 8);
+    v8 = *(*result + 8);
 
-    return v7();
+    return v8();
   }
 
   return result;
@@ -314,20 +314,20 @@ LABEL_20:
   return WTF::fastFree(presenter, v2);
 }
 
-- (uint64_t)authorizationPresenter:(uint64_t)presenter validateUserEnteredPIN:(uint64_t)n completionHandler:
+- (uint64_t)authorizationPresenter:(uint64_t)presenter@<X0> validateUserEnteredPIN:(unint64_t)n@<X1> completionHandler:(uint64_t *)handler@<X8>
 {
-  v4 = WTF::fastMalloc(0x10);
-  v5 = *(presenter + 8);
+  v5 = WTF::fastMalloc(handler, 0x10);
+  v6 = *(presenter + 8);
   *(presenter + 8) = 0;
-  *v4 = &unk_1F110BB50;
-  v4[1] = v5;
+  *v5 = &unk_1F110BB50;
+  v5[1] = v6;
   result = *(n + 64);
-  *(n + 64) = v4;
+  *(n + 64) = v5;
   if (result)
   {
-    v7 = *(*result + 8);
+    v8 = *(*result + 8);
 
-    return v7();
+    return v8();
   }
 
   return result;
@@ -366,7 +366,7 @@ LABEL_20:
   *(this + 2) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 1);

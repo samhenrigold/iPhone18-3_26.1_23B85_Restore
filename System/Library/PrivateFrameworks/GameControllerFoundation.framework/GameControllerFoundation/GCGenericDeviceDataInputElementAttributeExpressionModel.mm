@@ -95,7 +95,7 @@
 
 - (id)buildExpressionWithContext:(id)context error:(id *)error
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v31[2] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   elementIdentifier = [(GCGenericDeviceDataInputElementAttributeExpressionModel *)self elementIdentifier];
   attribute = [(GCGenericDeviceDataInputElementAttributeExpressionModel *)self attribute];
@@ -110,13 +110,13 @@
 
     v13 = MEMORY[0x1E696ABC0];
     v14 = *MEMORY[0x1E696A578];
-    v32[0] = @"Invalid 'Input Element Attribute' expression.";
+    v31[0] = @"Invalid 'Input Element Attribute' expression.";
     v15 = *MEMORY[0x1E696A588];
-    v31[0] = v14;
-    v31[1] = v15;
+    v30[0] = v14;
+    v30[1] = v15;
     v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Not tracking any element with identifier %@", elementIdentifier];
-    v32[1] = v11;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v31[1] = v11;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
     *error = [v13 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v16];
     goto LABEL_12;
   }
@@ -133,14 +133,14 @@
 
     v17 = MEMORY[0x1E696ABC0];
     v18 = *MEMORY[0x1E696A588];
-    v29[0] = *MEMORY[0x1E696A578];
-    v29[1] = v18;
-    v30[0] = @"Invalid 'Input Element Attribute' expression.";
+    v28[0] = *MEMORY[0x1E696A578];
+    v28[1] = v18;
+    v29[0] = @"Invalid 'Input Element Attribute' expression.";
     v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Element with identifier '%@' does not have a '%@' attribute.", elementIdentifier, attribute];
-    v30[1] = v16;
+    v29[1] = v16;
     v19 = MEMORY[0x1E695DF20];
-    v20 = v30;
-    v21 = v29;
+    v20 = v29;
+    v21 = v28;
     goto LABEL_11;
   }
 
@@ -154,14 +154,14 @@
 
     v17 = MEMORY[0x1E696ABC0];
     v22 = *MEMORY[0x1E696A588];
-    v27[0] = *MEMORY[0x1E696A578];
-    v27[1] = v22;
-    v28[0] = @"Invalid 'Input Element Attribute' expression.";
+    v26[0] = *MEMORY[0x1E696A578];
+    v26[1] = v22;
+    v27[0] = @"Invalid 'Input Element Attribute' expression.";
     v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Element with identifier '%@' has an '%@' attribute, but it's not a number.", elementIdentifier, attribute];
-    v28[1] = v16;
+    v27[1] = v16;
     v19 = MEMORY[0x1E695DF20];
-    v20 = v28;
-    v21 = v27;
+    v20 = v27;
+    v21 = v26;
 LABEL_11:
     v23 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:2];
     *error = [v17 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v23];
@@ -181,14 +181,13 @@ LABEL_12:
 LABEL_13:
 
 LABEL_14:
-  v24 = *MEMORY[0x1E69E9840];
 
   return error;
 }
 
 - (id)buildReactiveExpressionWithContext:(id)context consumer:(id)consumer error:(id *)error
 {
-  v39[2] = *MEMORY[0x1E69E9840];
+  v38[2] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   consumerCopy = consumer;
   if (objc_opt_respondsToSelector())
@@ -207,12 +206,12 @@ LABEL_14:
 
       v20 = MEMORY[0x1E696ABC0];
       v21 = *MEMORY[0x1E696A588];
-      v36[0] = *MEMORY[0x1E696A578];
-      v36[1] = v21;
-      v37[0] = @"Invalid 'Input Element Attribute' expression.";
+      v35[0] = *MEMORY[0x1E696A578];
+      v35[1] = v21;
+      v36[0] = @"Invalid 'Input Element Attribute' expression.";
       v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Not tracking any element with identifier %@", elementIdentifier];
-      v37[1] = v15;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
+      v36[1] = v15;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
       *error = [v20 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v22];
       goto LABEL_16;
     }
@@ -236,35 +235,35 @@ LABEL_19:
 
       if (error)
       {
-        v31 = MEMORY[0x1E696ABC0];
+        v30 = MEMORY[0x1E696ABC0];
         v27 = *MEMORY[0x1E696A588];
-        v32[0] = *MEMORY[0x1E696A578];
-        v32[1] = v27;
-        v33[0] = @"Invalid 'Input Element Attribute' expression.";
+        v31[0] = *MEMORY[0x1E696A578];
+        v31[1] = v27;
+        v32[0] = @"Invalid 'Input Element Attribute' expression.";
         v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Element with identifier '%@' has an '%@' attribute, but it's not a number.", elementIdentifier, attribute];
-        v33[1] = v22;
+        v32[1] = v22;
         v24 = MEMORY[0x1E695DF20];
-        v25 = v33;
-        v26 = v32;
+        v25 = v32;
+        v26 = v31;
         goto LABEL_15;
       }
     }
 
     else if (error)
     {
-      v31 = MEMORY[0x1E696ABC0];
+      v30 = MEMORY[0x1E696ABC0];
       v23 = *MEMORY[0x1E696A588];
-      v34[0] = *MEMORY[0x1E696A578];
-      v34[1] = v23;
-      v35[0] = @"Invalid 'Input Element Attribute' expression.";
+      v33[0] = *MEMORY[0x1E696A578];
+      v33[1] = v23;
+      v34[0] = @"Invalid 'Input Element Attribute' expression.";
       v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Element with identifier '%@' does not have a '%@' attribute.", elementIdentifier, attribute];
-      v35[1] = v22;
+      v34[1] = v22;
       v24 = MEMORY[0x1E695DF20];
-      v25 = v35;
-      v26 = v34;
+      v25 = v34;
+      v26 = v33;
 LABEL_15:
       v28 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:2];
-      *error = [v31 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v28];
+      *error = [v30 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v28];
 
 LABEL_16:
     }
@@ -281,19 +280,18 @@ LABEL_16:
 
   v17 = MEMORY[0x1E696ABC0];
   v18 = *MEMORY[0x1E696A578];
-  v39[0] = @"Invalid 'Input Element Attribute' expression.";
+  v38[0] = @"Invalid 'Input Element Attribute' expression.";
   v19 = *MEMORY[0x1E696A588];
-  v38[0] = v18;
-  v38[1] = v19;
+  v37[0] = v18;
+  v37[1] = v19;
   elementIdentifier = [MEMORY[0x1E696AEC0] stringWithFormat:@"Context is tot tracking any input elements."];
-  v39[1] = elementIdentifier;
-  attribute = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v38[1] = elementIdentifier;
+  attribute = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
   [v17 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:attribute];
   *error = null = 0;
 LABEL_20:
 
 LABEL_21:
-  v29 = *MEMORY[0x1E69E9840];
 
   return null;
 }

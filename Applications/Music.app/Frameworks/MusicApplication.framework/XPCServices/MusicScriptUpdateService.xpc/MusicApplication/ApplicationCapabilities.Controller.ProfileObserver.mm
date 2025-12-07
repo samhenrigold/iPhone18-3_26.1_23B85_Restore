@@ -8,18 +8,18 @@
 - (_TtCCV9MusicCore23ApplicationCapabilities10ControllerP33_3C92A9FA31E0FE3D8D536795352BB0D115ProfileObserver)init
 {
   swift_weakInit();
-  v8.receiver = self;
-  v8.super_class = type metadata accessor for ApplicationCapabilities.Controller.ProfileObserver();
-  v3 = [(ApplicationCapabilities.Controller.ProfileObserver *)&v8 init];
-  v4 = objc_opt_self();
-  v5 = v3;
-  result = [v4 sharedConnection];
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for ApplicationCapabilities.Controller.ProfileObserver(0, v3);
+  v4 = [(ApplicationCapabilities.Controller.ProfileObserver *)&v9 init];
+  v5 = objc_opt_self();
+  v6 = v4;
+  result = [v5 sharedConnection];
   if (result)
   {
-    v7 = result;
-    [(ApplicationCapabilities.Controller.ProfileObserver *)result registerObserver:v5];
+    v8 = result;
+    [(ApplicationCapabilities.Controller.ProfileObserver *)result registerObserver:v6];
 
-    return v5;
+    return v6;
   }
 
   else
@@ -40,9 +40,9 @@
     v6 = sharedConnection;
     [sharedConnection unregisterObserver:selfCopy];
 
-    v7.receiver = selfCopy;
-    v7.super_class = type metadata accessor for ApplicationCapabilities.Controller.ProfileObserver();
-    [(ApplicationCapabilities.Controller.ProfileObserver *)&v7 dealloc];
+    v8.receiver = selfCopy;
+    v8.super_class = type metadata accessor for ApplicationCapabilities.Controller.ProfileObserver(0, v7);
+    [(ApplicationCapabilities.Controller.ProfileObserver *)&v8 dealloc];
   }
 
   else

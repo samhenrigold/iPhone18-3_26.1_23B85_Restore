@@ -83,7 +83,7 @@
 
 - (unint64_t)_reserveCapacity:(unsigned int)capacity
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   bytes = self->_bytes;
   v4 = bytes[1];
   v5 = v4 + capacity;
@@ -93,14 +93,14 @@
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = *__error();
-        v10 = __error();
-        v11 = strerror(*v10);
-        v12[0] = 67109378;
-        v12[1] = v9;
-        v13 = 2080;
-        v14 = v11;
-        _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not resize aggregate storage: [%i] %s", v12, 0x12u);
+        v8 = *__error();
+        v9 = __error();
+        v10 = strerror(*v9);
+        v11[0] = 67109378;
+        v11[1] = v8;
+        v12 = 2080;
+        v13 = v10;
+        _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not resize aggregate storage: [%i] %s", v11, 0x12u);
       }
 
       atomic_store(1u, &self->_dead);
@@ -111,7 +111,6 @@
   }
 
   bytes[1] = v5;
-  v7 = *MEMORY[0x1E69E9840];
   return v4 - 12;
 }
 
@@ -210,11 +209,11 @@ LABEL_6:
 
 - (void)_remapWithFlock:(BOOL)flock
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = atomic_load(&self->_dead);
   if (v3)
   {
-    goto LABEL_13;
+    return;
   }
 
   flockCopy = flock;
@@ -232,15 +231,15 @@ LABEL_6:
     }
   }
 
-  memset(&v22, 0, sizeof(v22));
-  if (fstat(self->_fd, &v22))
+  memset(&v21, 0, sizeof(v21));
+  if (fstat(self->_fd, &v21))
   {
     goto LABEL_7;
   }
 
-  st_size = v22.st_size;
-  self->_mappedLen = v22.st_size;
-  v10 = st_size;
+  st_size = v21.st_size;
+  self->_mappedLen = v21.st_size;
+  v9 = st_size;
   if (!st_size)
   {
     *__buf = 0x40CCC4DA157;
@@ -250,17 +249,17 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v10 = 4096;
+    v9 = 4096;
     self->_mappedLen = 4096;
   }
 
-  v11 = mmap(0, v10, 3, 513, self->_fd, 0);
-  self->_bytes = v11;
-  if (v11 != -1)
+  v10 = mmap(0, v9, 3, 513, self->_fd, 0);
+  self->_bytes = v10;
+  if (v10 != -1)
   {
-    v12 = v11;
-    v13 = *v11;
-    if (*v11 != -867327657)
+    v11 = v10;
+    v12 = *v10;
+    if (*v10 != -867327657)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
@@ -268,9 +267,9 @@ LABEL_6:
         *__buf = 138412802;
         *&__buf[4] = path;
         *&__buf[12] = 1024;
-        *&__buf[14] = v13;
-        v24 = 1024;
-        v25 = -867327657;
+        *&__buf[14] = v12;
+        v23 = 1024;
+        v24 = -867327657;
         _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Aggregate storage file %@ has wrong magic number: got %x, expected %x", __buf, 0x18u);
       }
 
@@ -280,28 +279,28 @@ LABEL_6:
         goto LABEL_7;
       }
 
-      v12 = self->_bytes;
+      v11 = self->_bytes;
     }
 
-    v14 = v12[2];
+    v13 = v11[2];
     mappedLen = self->_mappedLen;
-    if (mappedLen >= v14 && v12[1] <= v14)
+    if (mappedLen >= v13 && v11[1] <= v13)
     {
       goto LABEL_26;
     }
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = self->_path;
-      v20 = v12[1];
+      v18 = self->_path;
+      v19 = v11[1];
       *__buf = 138413058;
-      *&__buf[4] = v19;
+      *&__buf[4] = v18;
       *&__buf[12] = 1024;
-      *&__buf[14] = v20;
-      v24 = 1024;
-      v25 = v14;
-      v26 = 2048;
-      v27 = mappedLen;
+      *&__buf[14] = v19;
+      v23 = 1024;
+      v24 = v13;
+      v25 = 2048;
+      v26 = mappedLen;
       _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Aggregate storage file %@ claims size %u, capacity %u, but is only %lu bytes", __buf, 0x22u);
     }
 
@@ -321,13 +320,13 @@ LABEL_26:
 LABEL_7:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = *__error();
-    v17 = __error();
-    v18 = strerror(*v17);
+    v15 = *__error();
+    v16 = __error();
+    v17 = strerror(*v16);
     *__buf = 67109378;
-    *&__buf[4] = v16;
+    *&__buf[4] = v15;
     *&__buf[8] = 2080;
-    *&__buf[10] = v18;
+    *&__buf[10] = v17;
     _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Aggregate storage remap failed: [%i] %s", __buf, 0x12u);
   }
 
@@ -341,9 +340,6 @@ LABEL_10:
       flock(fd, 8);
     }
   }
-
-LABEL_13:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -369,7 +365,7 @@ LABEL_13:
 
 - (PETAggregateStateStorageOnDisk)initWithPath:(id)path
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -377,9 +373,9 @@ LABEL_13:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PETAggregateStateStorage.m" lineNumber:172 description:{@"Invalid parameter not satisfying: %@", @"path"}];
   }
 
-  v23.receiver = self;
-  v23.super_class = PETAggregateStateStorageOnDisk;
-  v7 = [(PETAggregateStateStorageOnDisk *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = PETAggregateStateStorageOnDisk;
+  v7 = [(PETAggregateStateStorageOnDisk *)&v22 init];
   v8 = v7;
   if (!v7)
   {
@@ -402,11 +398,11 @@ LABEL_11:
     v12 = __error();
     v13 = strerror(*v12);
     *buf = 138412802;
-    v25 = pathCopy;
-    v26 = 1024;
-    v27 = v11;
-    v28 = 2080;
-    v29 = v13;
+    v24 = pathCopy;
+    v25 = 1024;
+    v26 = v11;
+    v27 = 2080;
+    v28 = v13;
     v14 = MEMORY[0x1E69E9C10];
     v15 = "Could not open aggregate storage at %@: [%i] %s";
 LABEL_14:
@@ -422,15 +418,15 @@ LABEL_14:
       goto LABEL_11;
     }
 
-    v18 = *__error();
-    v19 = __error();
-    v20 = strerror(*v19);
+    v17 = *__error();
+    v18 = __error();
+    v19 = strerror(*v18);
     *buf = 138412802;
-    v25 = pathCopy;
-    v26 = 1024;
-    v27 = v18;
-    v28 = 2080;
-    v29 = v20;
+    v24 = pathCopy;
+    v25 = 1024;
+    v26 = v17;
+    v27 = 2080;
+    v28 = v19;
     v14 = MEMORY[0x1E69E9C10];
     v15 = "Could not set RunningBoard file lock exception attribute at %@: [%i] %s";
     goto LABEL_14;
@@ -442,7 +438,6 @@ LABEL_7:
   v10 = v8;
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

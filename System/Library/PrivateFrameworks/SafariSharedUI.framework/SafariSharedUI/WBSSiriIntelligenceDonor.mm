@@ -7,12 +7,13 @@ void __179__WBSSiriIntelligenceDonor_WBSUISiriIntelligenceDonorExtras__donateTex
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __179__WBSSiriIntelligenceDonor_WBSUISiriIntelligenceDonorExtras__donateTextInWebView_extractedReaderText_canDonateFullPageText_profileIdentifier_personalizationData_extractInnerText___block_invoke_cold_1(v7, v6);
+      __179__WBSSiriIntelligenceDonor_WBSUISiriIntelligenceDonorExtras__donateTextInWebView_extractedReaderText_canDonateFullPageText_profileIdentifier_personalizationData_extractInnerText___block_invoke_cold_1(v9, v8);
     }
   }
 
@@ -20,10 +21,10 @@ void __179__WBSSiriIntelligenceDonor_WBSUISiriIntelligenceDonorExtras__donateTex
   {
     if (![v5 length])
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v11 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(0, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        __179__WBSSiriIntelligenceDonor_WBSUISiriIntelligenceDonorExtras__donateTextInWebView_extractedReaderText_canDonateFullPageText_profileIdentifier_personalizationData_extractInnerText___block_invoke_cold_2(a1, v8);
+        __179__WBSSiriIntelligenceDonor_WBSUISiriIntelligenceDonorExtras__donateTextInWebView_extractedReaderText_canDonateFullPageText_profileIdentifier_personalizationData_extractInnerText___block_invoke_cold_2(a1, v11);
       }
     }
 

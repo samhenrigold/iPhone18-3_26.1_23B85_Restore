@@ -126,7 +126,8 @@
   }
 
   theArray = 0;
-  if (FigCFHTTPCopyClientCertChain(&theArray))
+  FigCFHTTPCopyClientCertChain(&theArray);
+  if (v8)
   {
     goto LABEL_16;
   }
@@ -139,7 +140,7 @@ LABEL_4:
   }
 
   ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
-  if (!ValueAtIndex || (v9 = ValueAtIndex, v10 = CFGetTypeID(ValueAtIndex), v10 != SecIdentityGetTypeID()) || (v11 = *MEMORY[0x1E695E480], Count = CFArrayGetCount(theArray), (MutableCopy = CFArrayCreateMutableCopy(v11, Count, theArray)) == 0))
+  if (!ValueAtIndex || (v10 = ValueAtIndex, v11 = CFGetTypeID(ValueAtIndex), v11 != SecIdentityGetTypeID()) || (v12 = *MEMORY[0x1E695E480], Count = CFArrayGetCount(theArray), (MutableCopy = CFArrayCreateMutableCopy(v12, Count, theArray)) == 0))
   {
 LABEL_16:
     if (theArray)
@@ -150,17 +151,17 @@ LABEL_16:
     goto LABEL_4;
   }
 
-  v14 = MutableCopy;
+  v15 = MutableCopy;
   CFArrayRemoveValueAtIndex(MutableCopy, 0);
-  v15 = [objc_alloc(MEMORY[0x1E695AC48]) initWithIdentity:v9 certificates:v14 persistence:1];
-  if (!v15)
+  v16 = [objc_alloc(MEMORY[0x1E695AC48]) initWithIdentity:v10 certificates:v15 persistence:1];
+  if (!v16)
   {
-    CFRelease(v14);
+    CFRelease(v15);
     goto LABEL_16;
   }
 
-  (*(handler + 2))(handler, 0, v15);
-  CFRelease(v14);
+  (*(handler + 2))(handler, 0, v16);
+  CFRelease(v15);
   if (theArray)
   {
     CFRelease(theArray);
@@ -236,13 +237,13 @@ LABEL_18:
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
   cf[16] = *MEMORY[0x1E69E9840];
-  v94 = 0;
-  v93 = 0;
+  v103 = 0;
+  v102 = 0;
   v10 = objc_autoreleasePoolPush();
   v11 = [(FigHTTPRequestSessionDataDelegate *)self _copyAndLockRequestForTask:task];
   if (!v11)
   {
-    v94 = -12420;
+    v103 = -12420;
     goto LABEL_77;
   }
 
@@ -250,10 +251,10 @@ LABEL_18:
   v12 = [(FigHTTPRequestSessionDataDelegate *)self adoptVoucherFromRetainProxy:v11];
   Owner = FigRetainProxyGetOwner();
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v89 = v12;
+  v98 = v12;
   if (*(DerivedStorage + 172))
   {
-    v94 = -12420;
+    v103 = -12420;
     self = selfCopy;
     goto LABEL_76;
   }
@@ -292,22 +293,22 @@ LABEL_18:
   v25 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v25 && !v25(Owner, @"FHRP_CFNetworkTimingData", v24, cf))
   {
-    v95 = 0.0;
-    v92 = 0.0;
+    *v104 = 0;
+    v101 = 0.0;
     if (!FigCFDictionaryGetDoubleIfPresent() && !FigCFDictionaryGetDoubleIfPresent() && !FigCFDictionaryGetDoubleIfPresent())
     {
       FigCFDictionaryGetDoubleIfPresent();
     }
 
-    if (v95 > 0.0)
+    if (*v104 > 0.0)
     {
-      *(v15 + 208) = *(v15 + 192) + ((v95 - *(v15 + 184)) * 1000000000.0);
+      *(v15 + 208) = *(v15 + 192) + ((*v104 - *(v15 + 184)) * 1000000000.0);
     }
 
     FigCFDictionaryGetDoubleIfPresent();
-    if (v92 > 0.0)
+    if (v101 > 0.0)
     {
-      *(v15 + 216) = *(v15 + 192) + ((v92 - *(v15 + 184)) * 1000000000.0);
+      *(v15 + 216) = *(v15 + 192) + ((v101 - *(v15 + 184)) * 1000000000.0);
     }
 
     CFRelease(cf[0]);
@@ -334,12 +335,12 @@ LABEL_18:
     *(v15 + 144) = allHeaderFields;
     if (!allHeaderFields)
     {
-      _figHTTPRequestCreateErrorComment(v15, v28, @"NULL HTTP response headers", v29, v30, v31, v32, v33, v84);
-      v94 = FigSignalErrorAtGM();
+      _figHTTPRequestCreateErrorComment(v15, v28, @"NULL HTTP response headers", v29, v30, v31, v32, v33);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v91, v94, v96);
+      v103 = v34;
     }
 
     statusCode = [response statusCode];
-    v35 = statusCode;
     *(v15 + 416) = 0;
     *(v15 + 424) = 0;
   }
@@ -347,23 +348,22 @@ LABEL_18:
   else if ([objc_msgSend(objc_msgSend(response "URL")] && objc_msgSend(objc_msgSend(objc_msgSend(response, "URL"), "scheme"), "caseInsensitiveCompare:", @"file"))
   {
     v36 = objc_opt_class();
-    v85 = [objc_msgSend(response "URL")];
-    _figHTTPRequestCreateErrorComment(v15, v37, @"Received response of type %@ for scheme %@", v38, v39, v40, v41, v42, v36);
-    statusCode = FigSignalErrorAtGM();
-    v35 = 0;
-    v94 = statusCode;
+    v37 = [objc_msgSend(response "URL")];
+    _figHTTPRequestCreateErrorComment(v15, v38, @"Received response of type %@ for scheme %@", v39, v40, v41, v42, v43, v36, v37);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v92, v95, v96);
+    statusCode = 0;
+    v103 = v44;
   }
 
   else
   {
     *(v15 + 144) = objc_alloc_init(MEMORY[0x1E695DF20]);
-    statusCode = [response expectedContentLength];
-    *(v15 + 416) = statusCode;
-    v35 = 200;
+    *(v15 + 416) = [response expectedContentLength];
+    statusCode = 200;
   }
 
   *(v15 + 457) = 1;
-  FigBytePumpGetFigBaseObject(statusCode);
+  FigBytePumpGetFigBaseObject();
   if (figHTTPShouldReportNetworkHistory(v15))
   {
     if (*(v15 + 176))
@@ -385,22 +385,22 @@ LABEL_18:
     }
   }
 
-  Callback = v94;
-  if (v94)
+  Callback = v103;
+  if (v103)
   {
     goto LABEL_72;
   }
 
-  v44 = [MEMORY[0x1E695AC08] localizedStringForStatusCode:v35];
-  Response = CFHTTPMessageCreateResponse(v24, v35, v44, *MEMORY[0x1E695ADB8]);
+  v46 = [MEMORY[0x1E695AC08] localizedStringForStatusCode:statusCode];
+  Response = CFHTTPMessageCreateResponse(v24, statusCode, v46, *MEMORY[0x1E695ADB8]);
   *(v15 + 152) = Response;
   if (Response)
   {
-    v46 = Response;
-    v47 = *(v15 + 144);
-    if (v47)
+    v48 = Response;
+    v49 = *(v15 + 144);
+    if (v49)
     {
-      CFDictionaryApplyFunction(v47, figApplyHeaderToCFHTTPMessaage, v46);
+      CFDictionaryApplyFunction(v49, figApplyHeaderToCFHTTPMessaage, v48);
     }
   }
 
@@ -409,31 +409,31 @@ LABEL_18:
     *(v15 + 80) = CFRetain([response URL]);
   }
 
-  v48 = *(v15 + 368);
-  if (v48)
+  v50 = *(v15 + 368);
+  if (v50)
   {
-    CFRelease(v48);
+    CFRelease(v50);
   }
 
   [response _CFURLResponse];
   *(v15 + 368) = CFURLResponseCopyPeerAddress();
-  FigCFHTTPCopyErrorCodeAndCommentForHTTPStatusCode(v35, &v94, &v93);
-  if (v94)
+  FigCFHTTPCopyErrorCodeAndCommentForHTTPStatusCode(statusCode, &v103, &v102);
+  if (v103)
   {
-    v49 = *(v15 + 520);
-    v50 = v93;
-    *(v15 + 520) = v93;
-    if (v50)
+    v51 = *(v15 + 520);
+    v52 = v102;
+    *(v15 + 520) = v102;
+    if (v52)
     {
-      CFRetain(v50);
+      CFRetain(v52);
     }
 
-    if (v49)
+    if (v51)
     {
-      CFRelease(v49);
+      CFRelease(v51);
     }
 
-    LODWORD(v92) = 0;
+    LODWORD(v101) = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -444,10 +444,10 @@ LABEL_18:
 
   if (*(v15 + 170))
   {
-    v52 = [*(v15 + 144) valueForKey:@"Content-Encoding"];
-    if (v52)
+    v54 = [*(v15 + 144) valueForKey:@"Content-Encoding"];
+    if (v54)
     {
-      if (![v52 caseInsensitiveCompare:@"gzip"])
+      if (![v54 caseInsensitiveCompare:@"gzip"])
       {
         *(v15 + 171) = 1;
       }
@@ -457,23 +457,23 @@ LABEL_18:
   if (*(v15 + 168))
   {
     cf[0] = 0;
-    v95 = 0.0;
-    v92 = 0.0;
+    *v104 = 0;
+    v101 = 0.0;
     type = OS_LOG_TYPE_DEFAULT;
-    if (FigCFHTTPGetContentRangeFromHeaderString([*(v15 + 144) valueForKey:@"Content-Range"], cf, &v95, &v92, &type))
+    if (FigCFHTTPGetContentRangeFromHeaderString([*(v15 + 144) valueForKey:@"Content-Range"], cf, v104, &v101, &type))
     {
-      v60 = *(v15 + 120);
-      v59 = *(v15 + 128);
-      if (cf[0] == v60)
+      v62 = *(v15 + 120);
+      v61 = *(v15 + 128);
+      if (cf[0] == v62)
       {
-        v61 = v95;
-        if (!v59 || *&v95 == cf[0] + v59 - 1 || type && *&v95 + 1 == *&v92)
+        v63 = *v104;
+        if (!v61 || *v104 == cf[0] + v61 - 1 || type && *v104 + 1 == *&v101)
         {
-          v62 = *&v95 - cf[0] + 1;
-          *(v15 + 416) = v62;
-          if (v59 > v62)
+          v64 = *v104 - cf[0] + 1;
+          *(v15 + 416) = v64;
+          if (v61 > v64)
           {
-            *(v15 + 128) = v62;
+            *(v15 + 128) = v64;
           }
 
           goto LABEL_66;
@@ -482,22 +482,21 @@ LABEL_18:
 
       else
       {
-        v61 = v95;
+        v63 = *v104;
       }
 
-      v86 = cf[0];
-      v87 = v61;
-      v85 = *(v15 + 128);
-      _figHTTPRequestCreateErrorComment(v15, v53, @"content range mismatch - should be start %lld length %lld is start %lld length %lld", v54, v55, v56, v57, v58, v60);
+      _figHTTPRequestCreateErrorComment(v15, v55, @"content range mismatch - should be start %lld length %lld is start %lld length %lld", v56, v57, v58, v59, v60, v62, v61, cf[0], v63);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF17508, 4294954357, "HTTPRequest", 2134);
 LABEL_85:
-      v94 = FigSignalErrorAtGM();
+      v103 = v66;
       goto LABEL_63;
     }
 
-    if (v35 == 206 && !*(v15 + 128))
+    if (statusCode == 206 && !*(v15 + 128))
     {
-      v94 = FigSignalErrorAtGM();
-      _figHTTPRequestCreateErrorComment(v15, v71, @"have 206 with no Content-Range, and no end length", v72, v73, v74, v75, v76, v84);
+      v74 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v91, v94, v96);
+      v103 = v75;
+      _figHTTPRequestCreateErrorComment(v15, v76, @"have 206 with no Content-Range, and no end length", v77, v78, v79, v80, v81, v74, v93);
       goto LABEL_63;
     }
   }
@@ -511,37 +510,37 @@ LABEL_66:
   cf[0] = 0;
   if (FigCFHTTPGetContentLengthFromHeaderString([*(v15 + 144) valueForKey:@"Content-Length"], cf))
   {
-    v70 = cf[0];
+    v73 = cf[0];
     *(v15 + 416) = cf[0];
     if (!*(v15 + 168))
     {
       goto LABEL_68;
     }
 
-    if (v35 == 304)
+    if (statusCode == 304)
     {
       *(v15 + 416) = 0;
       goto LABEL_68;
     }
 
-    v83 = *(v15 + 128);
-    if (v83)
+    v90 = *(v15 + 128);
+    if (v90)
     {
-      if (v83 == v70)
+      if (v90 == v73)
       {
 LABEL_68:
         if (*(v15 + 365))
         {
-          v63 = 17;
+          v65 = 17;
         }
 
         else
         {
-          v63 = 1;
+          v65 = 1;
         }
 
-        Callback = figHTTPRequestPerformReadCallback(Owner, 0, 0, 0, v63, 0);
-        v94 = Callback;
+        Callback = figHTTPRequestPerformReadCallback(Owner, 0, 0, 0, v65, 0);
+        v103 = Callback;
 LABEL_72:
         handler = handlerCopy;
         goto LABEL_73;
@@ -555,12 +554,12 @@ LABEL_98:
       goto LABEL_68;
     }
 
-    v85 = v70;
-    _figHTTPRequestCreateErrorComment(v15, v64, @"byte range length mismatch - should be length %lld is length %lld", v65, v66, v67, v68, v69, *(v15 + 128));
+    _figHTTPRequestCreateErrorComment(v15, v67, @"byte range length mismatch - should be length %lld is length %lld", v68, v69, v70, v71, v72, *(v15 + 128), v73);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF17508, 4294954357, "HTTPRequest", 2178);
     goto LABEL_85;
   }
 
-  if (v35 == 304 || !*(v15 + 168))
+  if (statusCode == 304 || !*(v15 + 168))
   {
     goto LABEL_68;
   }
@@ -570,11 +569,12 @@ LABEL_98:
     goto LABEL_98;
   }
 
-  v94 = FigSignalErrorAtGM();
-  _figHTTPRequestCreateErrorComment(v15, v77, @"byte range and no content length - error code is %d", v78, v79, v80, v81, v82, v35);
+  v82 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v91, v94, v96);
+  v103 = v83;
+  _figHTTPRequestCreateErrorComment(v15, v84, @"byte range and no content length - error code is %d", v85, v86, v87, v88, v89, v82, statusCode);
 LABEL_63:
   handler = handlerCopy;
-  Callback = v94;
+  Callback = v103;
 LABEL_73:
   self = selfCopy;
   if (Callback != -12785 && Callback)
@@ -583,10 +583,10 @@ LABEL_73:
   }
 
 LABEL_76:
-  [(FigHTTPRequestSessionDataDelegate *)self restoreVoucher:v89, v84, v85, v86, *&v87];
+  [(FigHTTPRequestSessionDataDelegate *)self restoreVoucher:v98];
   FigRetainProxyUnlockMutex();
   FigRetainProxyRelease();
-  if (!v94)
+  if (!v103)
   {
     (*(handler + 2))(handler, 1);
     goto LABEL_80;
@@ -601,9 +601,9 @@ LABEL_77:
 
 LABEL_80:
   objc_autoreleasePoolPop(v10);
-  if (v93)
+  if (v102)
   {
-    CFRelease(v93);
+    CFRelease(v102);
   }
 }
 
@@ -636,24 +636,24 @@ LABEL_80:
   }
 
   v15 = [objc_msgSend(_incompleteTaskMetrics "transactionMetrics")];
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
   if (v15)
   {
     v16 = v15;
     if (nw_data_transfer_report_get_state([v15 _dataTransferReport]) == nw_data_transfer_report_state_collected)
     {
       transport_smoothed_rtt_milliseconds = nw_data_transfer_report_get_transport_smoothed_rtt_milliseconds([v16 _dataTransferReport], 0);
-      *(v48 + 6) = transport_smoothed_rtt_milliseconds;
+      *(v49 + 6) = transport_smoothed_rtt_milliseconds;
       if (transport_smoothed_rtt_milliseconds)
       {
         goto LABEL_14;
       }
     }
 
-    else if (*(v48 + 6))
+    else if (*(v49 + 6))
     {
       goto LABEL_14;
     }
@@ -662,19 +662,19 @@ LABEL_80:
     {
       _establishmentReport = [v16 _establishmentReport];
       enumerate_block = MEMORY[0x1E69E9820];
-      *v45 = 3221225472;
-      *&v45[8] = __figHTTPGetConnectionRTT_block_invoke;
-      *&v45[16] = &unk_1E748EF08;
-      v46 = &v47;
+      *v46 = 3221225472;
+      *&v46[8] = __figHTTPGetConnectionRTT_block_invoke;
+      *&v46[16] = &unk_1E748EF08;
+      v47 = &v48;
       nw_establishment_report_enumerate_protocols(_establishmentReport, &enumerate_block);
     }
   }
 
 LABEL_14:
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v48, 8);
   if (!*(DerivedStorage + 172))
   {
-    v43 = v11;
+    v44 = v11;
     figHTTPSetIsDormant(Owner, 0);
     UpTimeNanoseconds = FigGetUpTimeNanoseconds();
     *(DerivedStorage + 232) = figHTTPCapUptimeToResponseEndTime(DerivedStorage, UpTimeNanoseconds);
@@ -686,20 +686,21 @@ LABEL_14:
 
     v20 = objc_autoreleasePoolPush();
     Length = CFDataGetLength(v8);
-    OutputBuffer = figHttpRequestEnsureNotTooManyBytes(Owner, Length);
-    v23 = *(DerivedStorage + 365);
-    if (OutputBuffer)
+    figHttpRequestEnsureNotTooManyBytes(Owner, Length);
+    OutputBuffer = v22;
+    v24 = *(DerivedStorage + 365);
+    if (v22)
     {
-      v25 = 0;
+      v26 = 0;
     }
 
     else
     {
       if (*(DerivedStorage + 365))
       {
-        v24 = *(DerivedStorage + 424);
-        v25 = *(DerivedStorage + 120) - v24;
-        if (v25 < Length)
+        v25 = *(DerivedStorage + 424);
+        v26 = *(DerivedStorage + 120) - v25;
+        if (v26 < Length)
         {
           *(DerivedStorage + 365) = 0;
           goto LABEL_25;
@@ -708,19 +709,19 @@ LABEL_14:
 
       else
       {
-        v25 = 0;
+        v26 = 0;
         if (Length)
         {
           goto LABEL_25;
         }
 
-        v24 = *(DerivedStorage + 424);
+        v25 = *(DerivedStorage + 424);
       }
 
-      *(DerivedStorage + 424) = v24 + Length;
+      *(DerivedStorage + 424) = v25 + Length;
     }
 
-    if (v23)
+    if (v24)
     {
 LABEL_54:
       if (!FigRetainProxyIsInvalidated())
@@ -737,20 +738,20 @@ LABEL_54:
       }
 
       objc_autoreleasePoolPop(v20);
-      v11 = v43;
+      v11 = v44;
       goto LABEL_58;
     }
 
 LABEL_25:
-    v42 = v20;
+    v43 = v20;
     if (*(DerivedStorage + 16))
     {
       selfCopy = self;
-      v26 = FigRetainProxyGetOwner();
-      v27 = CMBaseObjectGetDerivedStorage();
-      v28 = CFDataGetLength(v8) - v25;
-      *(v27 + 424) += v25;
-      if (v28 < 1)
+      v27 = FigRetainProxyGetOwner();
+      v28 = CMBaseObjectGetDerivedStorage();
+      v29 = CFDataGetLength(v8) - v26;
+      *(v28 + 424) += v26;
+      if (v29 < 1)
       {
 LABEL_40:
         OutputBuffer = 0;
@@ -760,49 +761,49 @@ LABEL_40:
       {
         while (1)
         {
-          v47 = 0;
+          v48 = 0;
           enumerate_block = 0;
-          OutputBuffer = figHTTPRequestGetOutputBuffer(v26, &enumerate_block, &v47);
+          OutputBuffer = figHTTPRequestGetOutputBuffer(v27, &enumerate_block, &v48);
           if (FigRetainProxyIsInvalidated() || OutputBuffer)
           {
             break;
           }
 
-          if (!*(v27 + 384))
+          if (!*(v28 + 384))
           {
             goto LABEL_40;
           }
 
-          if (v47 >= v28)
+          if (v48 >= v29)
           {
-            v29 = v28;
+            v30 = v29;
           }
 
           else
           {
-            v29 = v47;
+            v30 = v48;
           }
 
-          v51.location = v25;
-          v51.length = v29;
-          CFDataGetBytes(v8, v51, enumerate_block);
-          v30 = *(v27 + 408) - v29;
-          *(v27 + 400) += v29;
-          *(v27 + 408) = v30;
-          if (*(v27 + 362) || !v30)
+          v52.location = v26;
+          v52.length = v30;
+          CFDataGetBytes(v8, v52, enumerate_block);
+          v31 = *(v28 + 408) - v30;
+          *(v28 + 400) += v30;
+          *(v28 + 408) = v31;
+          if (*(v28 + 362) || !v31)
           {
-            v32 = figHttpRequestSendOutputBlockBuffer(v10, 0);
-            if (v32)
+            v33 = figHttpRequestSendOutputBlockBuffer(v10, 0);
+            if (v33)
             {
-              OutputBuffer = v32;
+              OutputBuffer = v33;
               break;
             }
           }
 
-          v25 += v29;
-          v31 = v28 <= v29;
-          v28 -= v29;
-          if (v31)
+          v26 += v30;
+          v32 = v29 <= v30;
+          v29 -= v30;
+          if (v32)
           {
             goto LABEL_40;
           }
@@ -813,70 +814,70 @@ LABEL_40:
       goto LABEL_42;
     }
 
-    v33 = FigRetainProxyGetOwner();
-    v34 = CMBaseObjectGetDerivedStorage();
-    v35 = v34;
-    if (*(v34 + 365))
+    v34 = FigRetainProxyGetOwner();
+    v35 = CMBaseObjectGetDerivedStorage();
+    v36 = v35;
+    if (*(v35 + 365))
     {
-      v36 = *(v34 + 120) - *(v34 + 424);
+      v37 = *(v35 + 120) - *(v35 + 424);
     }
 
     else
     {
-      v36 = 0;
+      v37 = 0;
     }
 
-    if (CMBlockBufferCreateEmpty(*(v34 + 160), 0, 0, (v34 + 384)))
+    if (CMBlockBufferCreateEmpty(*(v35 + 160), 0, 0, (v35 + 384)))
     {
       [FigHTTPRequestSessionDataDelegate URLSession:? dataTask:? didReceiveData:?];
     }
 
     else
     {
-      if (*(v35 + 384))
+      if (*(v36 + 384))
       {
-        v37 = CFDataGetLength(v8);
-        appended = figHttpRequestEnsureNotTooManyBytes(v33, v37);
+        v38 = CFDataGetLength(v8);
+        figHttpRequestEnsureNotTooManyBytes(v34, v38);
         if (!appended)
         {
-          v39 = v37 - v36;
-          if (v37 <= v36)
+          v40 = v38 - v37;
+          if (v38 <= v37)
           {
-            *(v35 + 424) += v37;
-            if (v37 != v36)
+            *(v36 + 424) += v38;
+            if (v38 != v37)
             {
-              v39 = 0;
+              v40 = 0;
               goto LABEL_53;
             }
 
-            v39 = 0;
+            v40 = 0;
 LABEL_52:
-            *(v35 + 365) = 0;
+            *(v36 + 365) = 0;
 LABEL_53:
-            v20 = v42;
-            *(v35 + 400) = v39;
-            *(v35 + 408) = 0;
-            *(v35 + 392) = 0;
+            v20 = v43;
+            *(v36 + 400) = v40;
+            *(v36 + 408) = 0;
+            *(v36 + 392) = 0;
             OutputBuffer = figHttpRequestSendOutputBlockBuffer(v10, 0);
             goto LABEL_54;
           }
 
-          *v45 = 0;
+          *v46 = 0;
           enumerate_block = 0;
-          *&v45[4] = figHttpRequestFreeCFData;
-          *&v45[12] = CFRetain(v8);
+          *&v46[4] = figHttpRequestFreeCFData;
+          *&v46[12] = CFRetain(v8);
           BytePtr = CFDataGetBytePtr(v8);
-          appended = CMBlockBufferAppendMemoryBlock(*(v35 + 384), BytePtr, v37, 0, &enumerate_block, v36, v37 - v36, 0);
+          appended = CMBlockBufferAppendMemoryBlock(*(v36 + 384), BytePtr, v38, 0, &enumerate_block, v37, v38 - v37, 0);
           if (!appended)
           {
-            *(v35 + 424) += v36;
+            *(v36 + 424) += v37;
             goto LABEL_52;
           }
         }
 
         OutputBuffer = appended;
 LABEL_42:
-        v20 = v42;
+        v20 = v43;
         goto LABEL_54;
       }
 
@@ -940,7 +941,7 @@ LABEL_59:
 
     if (*(DerivedStorage + 172))
     {
-      goto LABEL_31;
+      goto LABEL_34;
     }
 
     *(DerivedStorage + 224) = FigGetUpTimeNanoseconds();
@@ -950,14 +951,14 @@ LABEL_59:
     v15 = CMBaseObjectGetDerivedStorage();
     if (*(v15 + 172))
     {
-LABEL_28:
+LABEL_31:
       if (!FigRetainProxyIsInvalidated())
       {
-        figHttpRequestCloseNSURLSessionTask();
+        figHttpRequestCloseNSURLSessionTask(Owner);
       }
 
       objc_autoreleasePoolPop(v13);
-LABEL_31:
+LABEL_34:
       [(FigHTTPRequestSessionDataDelegate *)self restoreVoucher:v8];
       FigRetainProxyUnlockMutex();
       FigRetainProxyRelease();
@@ -969,45 +970,78 @@ LABEL_31:
     if (v17)
     {
       domain2 = [v17 domain];
+      code = [*(v16 + 512) code];
+      if (*(v16 + 178))
+      {
+        v26 = *(v16 + 72);
+      }
+
+      else
+      {
+        v26 = @"[]";
+      }
+
+      _figHTTPRequestCreateErrorComment(v16, v20, @"Network error: domain=%@, code=%d, %@ for %@", v21, v22, v23, v24, v25, domain2, code, *(v16 + 512), v26);
       [*(v16 + 512) code];
-      _figHTTPRequestCreateErrorComment(v16, v21, @"Network error: domain=%@, code=%d, %@ for %@", v22, v23, v24, v25, v26, domain2);
-      [*(v16 + 512) code];
-      OutputBuffer = FigSignalErrorAtGM();
-      goto LABEL_21;
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", blockBufferOut, v50, v51);
+      OutputBuffer = v30;
+LABEL_24:
+      if (OutputBuffer)
+      {
+        OUTLINED_FUNCTION_0_134();
+        v36 = OutputBuffer;
+        goto LABEL_29;
+      }
+
+LABEL_26:
+      if (*(v16 + 384) && *(v16 + 392) < *(v16 + 400))
+      {
+        figHttpRequestSendOutputBlockBuffer(v14, 2u);
+        goto LABEL_30;
+      }
+
+      OUTLINED_FUNCTION_0_134();
+      v36 = 0;
+LABEL_29:
+      figHTTPRequestPerformReadCallback(v31, v32, v33, v34, v35, v36);
+LABEL_30:
+      FigRetainProxyIsInvalidated();
+      goto LABEL_31;
     }
 
     if (!*(v16 + 169))
     {
-      goto LABEL_23;
+      goto LABEL_26;
     }
 
-    v19 = *(v16 + 384);
-    if (v19)
+    v27 = *(v16 + 384);
+    if (v27)
     {
       if (*(v16 + 408))
       {
         dataPointerOut = 0;
         lengthAtOffsetOut = 0;
-        if (!CMBlockBufferGetDataPointer(v19, *(v16 + 400), &lengthAtOffsetOut, 0, &dataPointerOut) && lengthAtOffsetOut)
+        if (!CMBlockBufferGetDataPointer(v27, *(v16 + 400), &lengthAtOffsetOut, 0, &dataPointerOut) && lengthAtOffsetOut)
         {
           OutputBuffer = 0;
-          v20 = dataPointerOut;
-LABEL_20:
-          *v20 = 0;
+          v29 = dataPointerOut;
+LABEL_21:
+          *v29 = 0;
           *(v16 + 400) = vaddq_s64(*(v16 + 400), xmmword_196E78030);
-LABEL_38:
+LABEL_41:
           *(v16 + 169) = 0;
-          goto LABEL_21;
+          goto LABEL_24;
         }
 
-        goto LABEL_42;
+        v47 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF17508, 4294954874, "HTTPRequest", 1442);
+        goto LABEL_46;
       }
 
       lengthAtOffsetOut = 0;
       figHttpRequestSendOutputBlockBuffer(v14, 0);
       if (FigRetainProxyIsInvalidated())
       {
-        goto LABEL_28;
+        goto LABEL_31;
       }
     }
 
@@ -1021,61 +1055,47 @@ LABEL_38:
       OutputBuffer = figHTTPRequestGetOutputBuffer(Owner, &lengthAtOffsetOut, &dataPointerOut);
       if (FigRetainProxyIsInvalidated())
       {
-        goto LABEL_28;
+        goto LABEL_31;
       }
 
       if (!OutputBuffer)
       {
-        v20 = lengthAtOffsetOut;
-        goto LABEL_20;
+        v29 = lengthAtOffsetOut;
+        goto LABEL_21;
       }
 
-LABEL_43:
-      _figHTTPRequestCreateErrorComment(v16, v37, @"Memory error", v38, v39, v40, v41, v42, blockBufferOut);
-LABEL_21:
-      if (OutputBuffer)
-      {
-        OUTLINED_FUNCTION_0_134();
-        v33 = OutputBuffer;
-        goto LABEL_26;
-      }
-
-LABEL_23:
-      if (*(v16 + 384) && *(v16 + 392) < *(v16 + 400))
-      {
-        figHttpRequestSendOutputBlockBuffer(v14, 2u);
-        goto LABEL_27;
-      }
-
-      OUTLINED_FUNCTION_0_134();
-      v33 = 0;
-LABEL_26:
-      figHTTPRequestPerformReadCallback(v28, v29, v30, v31, v32, v33);
-LABEL_27:
-      FigRetainProxyIsInvalidated();
-      goto LABEL_28;
+LABEL_47:
+      _figHTTPRequestCreateErrorComment(v16, v41, @"Memory error", v42, v43, v44, v45, v46, v47);
+      goto LABEL_24;
     }
 
-    v34 = MEMORY[0x19A8CC720](*(v16 + 160), 1, 1296807808, 0);
-    if (v34)
+    v37 = MEMORY[0x19A8CC720](*(v16 + 160), 1, 1296807808, 0);
+    if (v37)
     {
-      v35 = v34;
-      v36 = CMBlockBufferCreateWithMemoryBlock(*(v16 + 160), v34, 1uLL, *(v16 + 160), 0, 0, 1uLL, 0, (v16 + 384));
+      v38 = v37;
+      v39 = CMBlockBufferCreateWithMemoryBlock(*(v16 + 160), v37, 1uLL, *(v16 + 160), 0, 0, 1uLL, 0, (v16 + 384));
       if (*(v16 + 384))
       {
-        OutputBuffer = v36;
-        *v35 = 0;
+        OutputBuffer = v39;
+        *v38 = 0;
         *(v16 + 400) = xmmword_196E78040;
         *(v16 + 392) = 0;
-        goto LABEL_38;
+        goto LABEL_41;
       }
 
-      CFAllocatorDeallocate(*(v16 + 160), v35);
+      CFAllocatorDeallocate(*(v16 + 160), v38);
+      v48 = 1486;
     }
 
-LABEL_42:
-    OutputBuffer = FigSignalErrorAtGM();
-    goto LABEL_43;
+    else
+    {
+      v48 = 1477;
+    }
+
+    v47 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF17508, 4294954874, "HTTPRequest", v48);
+LABEL_46:
+    OutputBuffer = v40;
+    goto LABEL_47;
   }
 }
 
@@ -1136,20 +1156,6 @@ LABEL_42:
       FigRetainProxyRelease();
     }
   }
-}
-
-- (uint64_t)URLSession:(_DWORD *)a1 dataTask:didReceiveData:.cold.1(_DWORD *a1)
-{
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
-}
-
-- (uint64_t)URLSession:(_DWORD *)a1 dataTask:didReceiveData:.cold.2(_DWORD *a1)
-{
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
 }
 
 - (_BYTE)URLSession:(_BYTE *)result dataTask:didReceiveData:.cold.3(_BYTE *result)

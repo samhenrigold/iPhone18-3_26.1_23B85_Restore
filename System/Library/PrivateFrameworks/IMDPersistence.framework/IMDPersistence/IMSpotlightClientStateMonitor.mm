@@ -11,9 +11,9 @@
 - (IMSpotlightClientStateMonitor)initWithChangeHandler:(id)handler
 {
   handlerCopy = handler;
-  v24.receiver = self;
-  v24.super_class = IMSpotlightClientStateMonitor;
-  v5 = [(IMSpotlightClientStateMonitor *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = IMSpotlightClientStateMonitor;
+  v5 = [(IMSpotlightClientStateMonitor *)&v23 init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x1E696AD10]);
@@ -30,22 +30,21 @@
     v5->_changeHandler = v11;
 
     objc_initWeak(&location, v5);
-    v13 = v5->_queue;
-    v18 = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = sub_1B7B91C1C;
-    v21 = &unk_1E7CBB650;
-    objc_copyWeak(&v22, &location);
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = sub_1B7B91C1C;
+    v20 = &unk_1E7CBB650;
+    objc_copyWeak(&v21, &location);
     v5->_clientStateToken = IMDispatchForNotify();
-    v14 = v5->_queue;
+    v13 = v5->_queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1B7B91C5C;
     block[3] = &unk_1E7CB6AE0;
-    v17 = v5;
-    dispatch_async(v14, block);
+    v16 = v5;
+    dispatch_async(v13, block);
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
@@ -62,24 +61,24 @@
 
 - (void)_updateClientState
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_1B7AE1A44;
-  v22 = sub_1B7AE2538;
-  v23 = 0;
-  v4 = objc_msgSend_synchronousSpotlightQueryProvider(IMDPersistenceService, a2, v2);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_1B7B91E5C;
-  v17[3] = &unk_1E7CBB678;
-  v17[4] = &v18;
-  objc_msgSend_fetchSpotlightClientStateWithCompletion_(v4, v5, v17);
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_1B7AE1A44;
+  v28 = sub_1B7AE2538;
+  v29 = 0;
+  v5 = objc_msgSend_synchronousSpotlightQueryProvider(IMDPersistenceService, a2, v2, v3);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = sub_1B7B91E5C;
+  v23[3] = &unk_1E7CBB678;
+  v23[4] = &v24;
+  objc_msgSend_fetchSpotlightClientStateWithCompletion_(v5, v6, v23, v7);
 
-  v8 = objc_msgSend_lock(self, v6, v7);
-  objc_msgSend_lock(v8, v9, v10);
+  v11 = objc_msgSend_lock(self, v8, v9, v10);
+  objc_msgSend_lock(v11, v12, v13, v14);
 
-  objc_storeStrong(&self->_clientState, v19[5]);
+  objc_storeStrong(&self->_clientState, v25[5]);
   if (self->_changeHandler)
   {
     block[0] = MEMORY[0x1E69E9820];
@@ -87,26 +86,26 @@
     block[2] = sub_1B7B91E6C;
     block[3] = &unk_1E7CBB6A0;
     block[4] = self;
-    block[5] = &v18;
+    block[5] = &v24;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
-  v13 = objc_msgSend_lock(self, v11, v12);
-  objc_msgSend_unlock(v13, v14, v15);
+  v18 = objc_msgSend_lock(self, v15, v16, v17);
+  objc_msgSend_unlock(v18, v19, v20, v21);
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
 - (IMSpotlightClientState)clientState
 {
-  v4 = objc_msgSend_lock(self, a2, v2);
-  objc_msgSend_lock(v4, v5, v6);
+  v5 = objc_msgSend_lock(self, a2, v2, v3);
+  objc_msgSend_lock(v5, v6, v7, v8);
 
-  v9 = objc_msgSend_copy(self->_clientState, v7, v8);
-  v12 = objc_msgSend_lock(self, v10, v11);
-  objc_msgSend_unlock(v12, v13, v14);
+  v12 = objc_msgSend_copy(self->_clientState, v9, v10, v11);
+  v16 = objc_msgSend_lock(self, v13, v14, v15);
+  objc_msgSend_unlock(v16, v17, v18, v19);
 
-  return v9;
+  return v12;
 }
 
 - (void)cancel

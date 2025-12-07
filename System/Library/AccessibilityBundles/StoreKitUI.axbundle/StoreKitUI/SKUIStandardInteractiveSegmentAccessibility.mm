@@ -87,7 +87,7 @@
   return v3;
 }
 
-uint64_t __66__SKUIStandardInteractiveSegmentAccessibility_accessibilityTraits__block_invoke(uint64_t a1)
+void *__66__SKUIStandardInteractiveSegmentAccessibility_accessibilityTraits__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [v2 safeDoubleForKey:@"_selectionProgress"];

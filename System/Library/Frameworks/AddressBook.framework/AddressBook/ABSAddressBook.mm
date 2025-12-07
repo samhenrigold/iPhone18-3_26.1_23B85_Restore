@@ -162,14 +162,14 @@ LABEL_10:
   return v7;
 }
 
-uint64_t __41__ABSAddressBook_initWithSettings_error___block_invoke()
+uint64_t __41__ABSAddressBook_initWithSettings_error___block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x277CFBDB8] sharedInstance];
-  v1 = [v0 isAccessGranted];
+  v1 = [MEMORY[0x277CFBDB8] sharedInstance];
+  v2 = [v1 isAccessGranted];
 
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 callLocalChangeCallbacks:v1];
+  return [v3 callLocalChangeCallbacks:v2];
 }
 
 - (CNContactStore)store

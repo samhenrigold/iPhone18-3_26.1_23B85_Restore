@@ -6,6 +6,7 @@
 - (void)_configureBarsIfNecessary;
 - (void)_updateAnnotationButtonAccessibilityTraits;
 - (void)annotationButtonPressed;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SSSScreenshotsViewControllerAccessibility
@@ -23,6 +24,15 @@
   [validationsCopy validateClass:@"SSSScreenshotsViewController" hasInstanceVariable:@"_redoItem" withType:"UIBarButtonItem"];
   [validationsCopy validateClass:@"SSSScreenshotsViewController" hasInstanceVariable:@"_doneItem" withType:"UIBarButtonItem"];
   [validationsCopy validateClass:@"SSSScreenshotsViewController" hasInstanceVariable:@"_closeItem" withType:"UIBarButtonItem"];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SSSScreenshotsViewControllerAccessibility;
+  [(SSSScreenshotsViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(SSSScreenshotsViewControllerAccessibility *)self _axSetDidPostNotification:0];
+  [(SSSScreenshotsViewControllerAccessibility *)self _accessibilityPostLayoutChangeIfNecessary];
 }
 
 - (void)_configureBarsIfNecessary
@@ -80,20 +90,18 @@
   v3 = [(SSSScreenshotsViewControllerAccessibility *)self safeValueForKey:@"_annotationEnabledButton"];
   accessibilityTraits = [v3 accessibilityTraits];
 
-  v5 = [(SSSScreenshotsViewControllerAccessibility *)self safeBoolForKey:@"_annotationModeEnabled"];
-  v6 = accessibilityTraits & ~*MEMORY[0x29EDC7FC0];
-  if (v5)
+  if ([(SSSScreenshotsViewControllerAccessibility *)self safeBoolForKey:@"_annotationModeEnabled"])
   {
-    v7 = *MEMORY[0x29EDC7FC0] | accessibilityTraits;
+    v5 = *MEMORY[0x29EDC7FC0] | accessibilityTraits;
   }
 
   else
   {
-    v7 = accessibilityTraits & ~*MEMORY[0x29EDC7FC0];
+    v5 = accessibilityTraits & ~*MEMORY[0x29EDC7FC0];
   }
 
-  v8 = [(SSSScreenshotsViewControllerAccessibility *)self safeValueForKey:@"_annotationEnabledButton"];
-  [v8 setAccessibilityTraits:v7];
+  v6 = [(SSSScreenshotsViewControllerAccessibility *)self safeValueForKey:@"_annotationEnabledButton"];
+  [v6 setAccessibilityTraits:v5];
 }
 
 - (void)_accessibilityPostLayoutChangeIfNecessary

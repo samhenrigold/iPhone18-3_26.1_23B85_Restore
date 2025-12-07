@@ -1,6 +1,7 @@
 @interface _NFTagSession
 + (id)validateEntitlements:(id)entitlements;
 - (BOOL)willStartSession;
+- (_NFTagSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode;
 - (unsigned)_hceComplete;
 - (void)_handleOneAPDU:(id)u;
 - (void)_printHceCurrentState;
@@ -93,6 +94,27 @@
   return v5;
 }
 
+- (_NFTagSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode
+{
+  v10.receiver = self;
+  v10.super_class = _NFTagSession;
+  v5 = [(_NFXPCSession *)&v10 initWithRemoteObject:object workQueue:queue allowsBackgroundMode:mode];
+  if (v5)
+  {
+    v6 = objc_alloc_init(NFNdefTagAgent);
+    tagAgent = v5->_tagAgent;
+    v5->_tagAgent = v6;
+
+    v8 = v5->_tagAgent;
+    if (v8)
+    {
+      v8->_delegate = v5;
+    }
+  }
+
+  return v5;
+}
+
 - (void)cleanup
 {
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -146,7 +168,7 @@
 
 - (BOOL)willStartSession
 {
-  sub_10026449C();
+  sub_10026449C(NFSecureElementWrapper);
   v4.receiver = self;
   v4.super_class = _NFTagSession;
   return [(_NFSession *)&v4 willStartSession];

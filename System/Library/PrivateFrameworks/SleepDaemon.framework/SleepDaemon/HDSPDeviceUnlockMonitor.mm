@@ -93,7 +93,7 @@
 
 void __51__HDSPDeviceUnlockMonitor_hasBeenUnlockedSinceBoot__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[8];
   if ((v3 & 1) == 0)
@@ -102,102 +102,91 @@ void __51__HDSPDeviceUnlockMonitor_hasBeenUnlockedSinceBoot__block_invoke(uint64
     v4 = HKSPLogForCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = objc_opt_class();
-      v7 = *(*(a1 + 32) + 8);
-      v10 = 138543618;
+      v5 = objc_opt_class();
+      v6 = *(*(a1 + 32) + 8);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 1024;
       v11 = v6;
-      v12 = 1024;
-      v13 = v7;
-      v8 = v6;
-      _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] found initial hasBeenUnlockedSinceBoot value of [%d]", &v10, 0x12u);
+      v7 = v5;
+      _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] found initial hasBeenUnlockedSinceBoot value of [%d]", &v8, 0x12u);
     }
 
     v3 = *(*(a1 + 32) + 8);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = v3;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_latestKeyBagValueForHasBeenUnlockedSinceBoot
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = MKBDeviceUnlockedSinceBoot();
   v3 = v2;
-  if ((v2 & 0x80000000) != 0)
+  if ((v2 & 0x80000000) == 0)
   {
-    v5 = HKSPLogForCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v7 = objc_opt_class();
-      v8 = MEMORY[0x277CCABB0];
-      v9 = v7;
-      v10 = [v8 numberWithInt:v3];
-      v11 = 138543618;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v10;
-      _os_log_error_impl(&dword_269B11000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] received an error when calling MKBDeviceUnlockedSinceBoot().  Error code: [%@]", &v11, 0x16u);
-    }
-
-    result = 0;
+    return v2 == 1;
   }
 
-  else
+  v5 = HKSPLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    result = v2 == 1;
+    v6 = objc_opt_class();
+    v7 = MEMORY[0x277CCABB0];
+    v8 = v6;
+    v9 = [v7 numberWithInt:v3];
+    v10 = 138543618;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_error_impl(&dword_269B11000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] received an error when calling MKBDeviceUnlockedSinceBoot().  Error code: [%@]", &v10, 0x16u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)handleFirstUnlock
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
+    v7 = objc_opt_class();
+    v4 = v7;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] handleFirstUnlock", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __44__HDSPDeviceUnlockMonitor_handleFirstUnlock__block_invoke;
-  v6[3] = &unk_279C7B108;
-  v6[4] = self;
-  [(HDSPDeviceUnlockMonitor *)self _withLock:v6];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __44__HDSPDeviceUnlockMonitor_handleFirstUnlock__block_invoke;
+  v5[3] = &unk_279C7B108;
+  v5[4] = self;
+  [(HDSPDeviceUnlockMonitor *)self _withLock:v5];
   [(HKSPObserverSet *)self->_observers enumerateObserversWithBlock:&__block_literal_global_6];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)notificationListener:(id)listener didReceiveNotificationWithName:(id)name
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy isEqualToString:@"com.apple.mobile.keybagd.first_unlock"])
   {
     v6 = HKSPLogForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 138543618;
-      *&v11[4] = objc_opt_class();
-      *&v11[12] = 2114;
-      *&v11[14] = nameCopy;
-      v7 = *&v11[4];
-      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v11, 0x16u);
+      *v10 = 138543618;
+      *&v10[4] = objc_opt_class();
+      *&v10[12] = 2114;
+      *&v10[14] = nameCopy;
+      v7 = *&v10[4];
+      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v10, 0x16u);
     }
 
     [(HDSPDeviceUnlockMonitor *)self handleFirstUnlock];
   }
 
   futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }

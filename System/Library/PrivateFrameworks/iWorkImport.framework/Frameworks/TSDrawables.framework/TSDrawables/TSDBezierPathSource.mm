@@ -124,7 +124,7 @@
       v6 = *(v6 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v5 = google::protobuf::Arena::CreateMaybeMessage<TSD::BezierPathSourceArchive>(v6);
+    v5 = google::protobuf::Arena::CreateMaybeMessage<TSD::BezierPathSourceArchive>(v6, a2);
     *(archive + 7) = v5;
   }
 

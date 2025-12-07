@@ -161,7 +161,7 @@ LABEL_40:
     goto LABEL_35;
   }
 
-  v20 = shared_ht_log_handle();
+  v20 = shared_ht_log_handle(objCType11);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     sub_10001480C(numberCopy, v20);
@@ -179,26 +179,26 @@ LABEL_36:
   if (dictionaryCopy)
   {
     v4 = xpc_dictionary_create(0, 0, 0);
-    v20 = 0u;
-    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v5 = dictionaryCopy;
-    v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v21;
+      v8 = *v23;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v21 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * v9);
+        v10 = *(*(&v22 + 1) + 8 * v9);
         v11 = [v5 objectForKeyedSubscript:v10];
         v12 = v11;
         if (v10)
@@ -213,8 +213,8 @@ LABEL_4:
 
         if (v13)
         {
-          v17 = shared_ht_log_handle();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = shared_ht_log_handle(v11);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             sub_1000149A4();
           }
@@ -223,7 +223,8 @@ LABEL_4:
         }
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
           break;
         }
@@ -249,10 +250,11 @@ LABEL_4:
           else
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            v16 = objc_opt_isKindOfClass();
+            if ((v16 & 1) == 0)
             {
-              v17 = shared_ht_log_handle();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v19 = shared_ht_log_handle(v16);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 sub_100014938();
               }
@@ -260,18 +262,18 @@ LABEL_4:
 LABEL_27:
 
 LABEL_28:
-              v16 = 0;
+              v18 = 0;
               goto LABEL_29;
             }
 
             [v12 timeIntervalSince1970];
-            xpc_dictionary_set_date(v4, uTF8String, (v15 * 1000000000.0));
+            xpc_dictionary_set_date(v4, uTF8String, (v17 * 1000000000.0));
           }
         }
 
         if (v7 == ++v9)
         {
-          v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -281,10 +283,10 @@ LABEL_28:
         }
       }
 
-      v17 = shared_ht_log_handle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = shared_ht_log_handle(isKindOfClass);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        sub_10001489C(v10, v5, v17);
+        sub_10001489C(v10, v5, v19);
       }
 
       goto LABEL_27;
@@ -292,16 +294,16 @@ LABEL_28:
 
 LABEL_21:
 
-    v16 = v4;
+    v18 = v4;
 LABEL_29:
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  return v16;
+  return v18;
 }
 
 + (id)sandboxExtensionForPath:(id)path

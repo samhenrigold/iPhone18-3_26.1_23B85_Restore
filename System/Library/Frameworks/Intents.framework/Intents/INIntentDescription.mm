@@ -12,7 +12,7 @@
 
 uint64_t __39__INIntentDescription_slotDescriptions__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 rank];
@@ -33,17 +33,17 @@ uint64_t __39__INIntentDescription_slotDescriptions__block_invoke(uint64_t a1, v
       v13 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v20 = *(a1 + 32);
-        v21 = v13;
-        v22 = [v20 name];
-        v23 = [v6 facadePropertyName];
-        v24 = 136315650;
-        v25 = "[INIntentDescription slotDescriptions]_block_invoke";
-        v26 = 2112;
-        v27 = v22;
-        v28 = 2112;
-        v29 = v23;
-        _os_log_error_impl(&dword_18E991000, v21, OS_LOG_TYPE_ERROR, "%s Slot %@:%@ does not have a valid rank", &v24, 0x20u);
+        v19 = *(a1 + 32);
+        v20 = v13;
+        v21 = [v19 name];
+        v22 = [v6 facadePropertyName];
+        v23 = 136315650;
+        v24 = "[INIntentDescription slotDescriptions]_block_invoke";
+        v25 = 2112;
+        v26 = v21;
+        v27 = 2112;
+        v28 = v22;
+        _os_log_error_impl(&dword_18E991000, v20, OS_LOG_TYPE_ERROR, "%s Slot %@:%@ does not have a valid rank", &v23, 0x20u);
       }
 
       v11 = 1;
@@ -55,23 +55,22 @@ uint64_t __39__INIntentDescription_slotDescriptions__block_invoke(uint64_t a1, v
     v12 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
-      v17 = v12;
-      v18 = [v16 name];
-      v19 = [v5 facadePropertyName];
-      v24 = 136315650;
-      v25 = "[INIntentDescription slotDescriptions]_block_invoke";
-      v26 = 2112;
-      v27 = v18;
-      v28 = 2112;
-      v29 = v19;
-      _os_log_error_impl(&dword_18E991000, v17, OS_LOG_TYPE_ERROR, "%s Slot %@:%@ does not have a valid rank", &v24, 0x20u);
+      v15 = *(a1 + 32);
+      v16 = v12;
+      v17 = [v15 name];
+      v18 = [v5 facadePropertyName];
+      v23 = 136315650;
+      v24 = "[INIntentDescription slotDescriptions]_block_invoke";
+      v25 = 2112;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v18;
+      _os_log_error_impl(&dword_18E991000, v16, OS_LOG_TYPE_ERROR, "%s Slot %@:%@ does not have a valid rank", &v23, 0x20u);
     }
 
     v11 = -1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -122,75 +121,30 @@ uint64_t __39__INIntentDescription_slotDescriptions__block_invoke(uint64_t a1, v
   {
     v5 = equalCopy;
     name = self->_name;
-    if (name != v5[4] && ![(NSString *)name isEqualToString:?])
+    v8 = 0;
+    if (name == v5[4] || [(NSString *)name isEqualToString:?])
     {
-      goto LABEL_8;
-    }
-
-    responseName = self->_responseName;
-    if (responseName != v5[5] && ![(NSString *)responseName isEqualToString:?])
-    {
-      goto LABEL_8;
-    }
-
-    if (self->_facadeClass != v5[6])
-    {
-      goto LABEL_8;
-    }
-
-    if (self->_dataClass != v5[7])
-    {
-      goto LABEL_8;
-    }
-
-    type = self->_type;
-    if (type != v5[8] && ![(NSString *)type isEqualToString:?])
-    {
-      goto LABEL_8;
-    }
-
-    if (self->_isPrivate != *(v5 + 24))
-    {
-      goto LABEL_8;
-    }
-
-    if (self->_handleSelector)
-    {
-      handleSelector = self->_handleSelector;
-    }
-
-    else
-    {
-      handleSelector = 0;
-    }
-
-    v12 = v5[9];
-    if (v12)
-    {
-      v13 = v5[9];
-    }
-
-    if (handleSelector != v12)
-    {
-      goto LABEL_8;
-    }
-
-    v14 = self->_confirmSelector ? self->_confirmSelector : 0;
-    v15 = v5[10];
-    if (v15)
-    {
-      v16 = v5[10];
-    }
-
-    if (v14 == v15 && ((slotsByName = self->_slotsByName, slotsByName == v5[1]) || [(NSDictionary *)slotsByName isEqualToDictionary:?]))
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-LABEL_8:
-      v8 = 0;
+      responseName = self->_responseName;
+      if ((responseName == v5[5] || [(NSString *)responseName isEqualToString:?]) && self->_facadeClass == v5[6] && self->_dataClass == v5[7])
+      {
+        type = self->_type;
+        if ((type == v5[8] || [(NSString *)type isEqualToString:?]) && self->_isPrivate == *(v5 + 24))
+        {
+          v11 = self->_handleSelector ? self->_handleSelector : 0;
+          if (v11 == v5[9])
+          {
+            v12 = self->_confirmSelector ? self->_confirmSelector : 0;
+            if (v12 == v5[10])
+            {
+              slotsByName = self->_slotsByName;
+              if (slotsByName == v5[1] || [(NSDictionary *)slotsByName isEqualToDictionary:?])
+              {
+                v8 = 1;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -223,20 +177,13 @@ LABEL_8:
   }
 
   v12 = NSStringFromSelector(handleSelector);
-  v13 = [v12 hash];
-  confirmSelector = self->_confirmSelector;
-  if (confirmSelector)
-  {
-    v15 = self->_confirmSelector;
-  }
+  v13 = v4 ^ v3 ^ v6 ^ v8 ^ v9;
+  v14 = isPrivate ^ [v12 hash];
+  v15 = NSStringFromSelector(self->_confirmSelector);
+  v16 = v14 ^ [v15 hash];
+  v17 = v16 ^ [(NSDictionary *)self->_slotsByName hash];
 
-  v16 = v4 ^ v3 ^ v6 ^ v8 ^ v9;
-  v17 = isPrivate ^ v13;
-  v18 = NSStringFromSelector(confirmSelector);
-  v19 = v17 ^ [v18 hash];
-  v20 = v19 ^ [(NSDictionary *)self->_slotsByName hash];
-
-  return v16 ^ v20;
+  return v13 ^ v17;
 }
 
 - (id)slotByName:(id)name
@@ -275,14 +222,14 @@ LABEL_8:
 
 - (INIntentDescription)initWithName:(id)name responseName:(id)responseName facadeClass:(Class)class dataClass:(Class)dataClass type:(id)type isPrivate:(BOOL)private handleSelector:(SEL)selector confirmSelector:(SEL)self0 slotsByName:(id)self1
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   responseNameCopy = responseName;
   typeCopy = type;
   byNameCopy = byName;
-  v49.receiver = self;
-  v49.super_class = INIntentDescription;
-  v21 = [(INIntentDescription *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = INIntentDescription;
+  v21 = [(INIntentDescription *)&v48 init];
   if (v21)
   {
     v22 = [nameCopy copy];
@@ -311,9 +258,9 @@ LABEL_8:
     }
 
     v21->_handleSelector = selectorCopy;
-    v47 = responseNameCopy;
-    v48 = nameCopy;
-    v46 = typeCopy;
+    v46 = responseNameCopy;
+    v47 = nameCopy;
+    v45 = typeCopy;
     if (confirmSelector)
     {
       confirmSelectorCopy = confirmSelector;
@@ -329,35 +276,35 @@ LABEL_8:
     slotsByName = v21->_slotsByName;
     v21->_slotsByName = v30;
 
-    v45 = byNameCopy;
+    v44 = byNameCopy;
     v32 = byNameCopy;
     v33 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v32, "count")}];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
     allKeys = [v32 allKeys];
-    v35 = [allKeys countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v35 = [allKeys countByEnumeratingWithState:&v49 objects:v53 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v51;
+      v37 = *v50;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v51 != v37)
+          if (*v50 != v37)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v39 = *(*(&v50 + 1) + 8 * i);
-          v40 = [v32 objectForKeyedSubscript:{v39, v45}];
+          v39 = *(*(&v49 + 1) + 8 * i);
+          v40 = [v32 objectForKeyedSubscript:{v39, v44}];
           facadePropertyName = [v40 facadePropertyName];
           [(NSDictionary *)v33 setObject:v39 forKey:facadePropertyName];
         }
 
-        v36 = [allKeys countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v36 = [allKeys countByEnumeratingWithState:&v49 objects:v53 count:16];
       }
 
       while (v36);
@@ -366,13 +313,12 @@ LABEL_8:
     alternativeSlotNames = v21->_alternativeSlotNames;
     v21->_alternativeSlotNames = v33;
 
-    responseNameCopy = v47;
-    nameCopy = v48;
-    byNameCopy = v45;
-    typeCopy = v46;
+    responseNameCopy = v46;
+    nameCopy = v47;
+    byNameCopy = v44;
+    typeCopy = v45;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

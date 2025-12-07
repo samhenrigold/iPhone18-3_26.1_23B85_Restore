@@ -454,7 +454,7 @@ LABEL_27:
             v27 = processHandle;
             if (processHandle)
             {
-              [processHandle auditToken];
+              objc_msgSend_auditToken(processHandle);
             }
 
             else

@@ -1,7 +1,7 @@
 @interface UIStatusBar_Base(Snapshots)
 - (BOOL)sb_getLocalDataOverrides:()Snapshots;
-- (uint64_t)sb_setLocalDataOverrides:()Snapshots;
 - (void)sb_setEnabledStatusBarPartIdentifiersForStatusBarParts:()Snapshots;
+- (void)sb_setLocalDataOverrides:()Snapshots;
 - (void)sb_setSnapshotOverridesWithTimeEnabled:()Snapshots overriddenDate:;
 @end
 
@@ -130,7 +130,7 @@
   }
 }
 
-- (uint64_t)sb_setLocalDataOverrides:()Snapshots
+- (void)sb_setLocalDataOverrides:()Snapshots
 {
   v9 = *MEMORY[0x277D85DE8];
   memset(v8, 0, 512);

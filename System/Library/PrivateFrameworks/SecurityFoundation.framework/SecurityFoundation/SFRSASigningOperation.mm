@@ -72,10 +72,7 @@
 
 - (void)setSigningKeySpecifier:(id)specifier
 {
-  v4 = [specifier copy];
-  rsaSigningOperationInternal = self->_rsaSigningOperationInternal;
-  v6 = rsaSigningOperationInternal[1];
-  rsaSigningOperationInternal[1] = v4;
+  *(self->_rsaSigningOperationInternal + 1) = [specifier copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -89,10 +86,7 @@
 
 - (void)setDigestOperation:(id)operation
 {
-  v4 = [operation copyWithZone:0];
-  rsaSigningOperationInternal = self->_rsaSigningOperationInternal;
-  v6 = rsaSigningOperationInternal[2];
-  rsaSigningOperationInternal[2] = v4;
+  *(self->_rsaSigningOperationInternal + 2) = [operation copyWithZone:0];
 
   MEMORY[0x2821F96F8]();
 }

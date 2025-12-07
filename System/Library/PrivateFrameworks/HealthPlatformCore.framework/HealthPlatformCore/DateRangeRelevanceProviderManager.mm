@@ -29,7 +29,7 @@
 
 + (Class)_relevanceProviderClass
 {
-  type metadata accessor for DateRangeRelevanceProvider();
+  type metadata accessor for DateRangeRelevanceProvider(0);
 
   return swift_getObjCClassFromMetadata();
 }

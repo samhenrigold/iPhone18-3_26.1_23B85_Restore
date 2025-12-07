@@ -193,17 +193,17 @@
   self->_pinParasitics = parasitics;
   [(HalogenCalcTypeC *)self _applyGain:data toData:self->_adcGain, transitionThreshold];
   [(HalogenCalcTypeC *)self _applyGain:detection toData:self->_adcGain];
-  *&v36 = NAN;
-  v37 = NAN;
-  v34 = -1;
+  *&v34 = NAN;
   v35 = NAN;
-  [(HalogenCalcTypeC *)self _goertzelSecondOrder:detection hasFftValue:&v36 hasPhase:&v35 withHanning:1 amplitudeCorrectionFactor:2.0];
-  [(HalogenCalcTypeC *)self _goertzelSecondOrder:data hasFftValue:&v37 hasPhase:&v34 withHanning:1 amplitudeCorrectionFactor:2.0];
-  v15 = *&v36;
-  v16 = v37;
-  self->_measurementCurrentAmplitude = v37;
+  v32 = -1;
+  v33 = NAN;
+  [(HalogenCalcTypeC *)self _goertzelSecondOrder:detection hasFftValue:&v34 hasPhase:&v33 withHanning:1 amplitudeCorrectionFactor:2.0];
+  [(HalogenCalcTypeC *)self _goertzelSecondOrder:data hasFftValue:&v35 hasPhase:&v32 withHanning:1 amplitudeCorrectionFactor:2.0];
+  v15 = *&v34;
+  v16 = v35;
+  self->_measurementCurrentAmplitude = v35;
   self->_measurementVoltageAmplitude = v15;
-  self->_measurementVoltagePhase = v35;
+  self->_measurementVoltagePhase = v33;
   if (v15 < 0.14 || v16 < 0.14)
   {
     NSLog(&cfstr_UnexpectedMeas.isa, *&v16, *&v15);
@@ -294,18 +294,14 @@
             return 2;
           }
 
+          else if ([HalogenCalcTypeC _isResistiveOnly:"_isResistiveOnly:resistanceInOhms:loadPhase:" resistanceInOhms:? loadPhase:?])
+          {
+            return 1;
+          }
+
           else
           {
-            loadPhase = self->_loadPhase;
-            if ([HalogenCalcTypeC _isResistiveOnly:"_isResistiveOnly:resistanceInOhms:loadPhase:" resistanceInOhms:? loadPhase:?])
-            {
-              return 1;
-            }
-
-            else
-            {
-              return 2;
-            }
+            return 2;
           }
         }
 
@@ -340,7 +336,6 @@
         v24 = 2;
         if (v29 < 10000.0)
         {
-          v30 = self->_loadPhase;
           if ([HalogenCalcTypeC _isResistiveOnly:"_isResistiveOnly:resistanceInOhms:loadPhase:" resistanceInOhms:? loadPhase:?])
           {
             return 0;
@@ -709,7 +704,6 @@
 
 - (void)initWithParams:(uint64_t)a1 signalFrequency:(void *)a2 sampleRate:tiaGain:adcGain:parasiticCap:.cold.3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
@@ -717,12 +711,10 @@
   }
 
   *a2 = a1;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:(uint64_t)a1 signalFrequency:(void *)a2 sampleRate:tiaGain:adcGain:parasiticCap:.cold.4(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
@@ -730,12 +722,10 @@
   }
 
   *a2 = a1;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:(uint64_t)a1 signalFrequency:(void *)a2 sampleRate:tiaGain:adcGain:parasiticCap:.cold.5(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
@@ -743,7 +733,6 @@
   }
 
   *a2 = a1;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_allocBuffers

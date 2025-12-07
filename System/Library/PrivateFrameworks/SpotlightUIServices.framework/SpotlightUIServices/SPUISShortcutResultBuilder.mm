@@ -266,14 +266,12 @@ LABEL_5:
 
 - (id)buildDescriptions
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D4C598];
   numberOfActionsString = [(SPUISShortcutResultBuilder *)self numberOfActionsString];
   v4 = [v2 textWithString:numberOfActionsString];
-  v8[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   return v5;
 }
@@ -343,18 +341,18 @@ void __42__SPUISShortcutResultBuilder_buildCommand__block_invoke()
 
 - (id)buildButtonItems
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if ([(SPUISShortcutResultBuilder *)self resultShadowsSettingResult])
   {
     v3 = objc_opt_new();
-    v13.receiver = self;
-    v13.super_class = SPUISShortcutResultBuilder;
-    buildCommand = [(SPUISResultBuilder *)&v13 buildCommand];
+    v12.receiver = self;
+    v12.super_class = SPUISShortcutResultBuilder;
+    buildCommand = [(SPUISResultBuilder *)&v12 buildCommand];
     [v3 setCommand:buildCommand];
 
-    v15[0] = v3;
+    v14[0] = v3;
     v5 = MEMORY[0x277CBEA60];
-    v6 = v15;
+    v6 = v14;
 LABEL_5:
     buildButtonItems = [v5 arrayWithObjects:v6 count:1];
 
@@ -364,22 +362,21 @@ LABEL_5:
   if ([(SPUISShortcutResultBuilder *)self isAlarmResult])
   {
     v3 = objc_opt_new();
-    v12.receiver = self;
-    v12.super_class = SPUISShortcutResultBuilder;
-    buildCommand2 = [(SPUISResultBuilder *)&v12 buildCommand];
+    v11.receiver = self;
+    v11.super_class = SPUISShortcutResultBuilder;
+    buildCommand2 = [(SPUISResultBuilder *)&v11 buildCommand];
     [v3 setCommand:buildCommand2];
 
-    v14 = v3;
+    v13 = v3;
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v14;
+    v6 = &v13;
     goto LABEL_5;
   }
 
-  v11.receiver = self;
-  v11.super_class = SPUISShortcutResultBuilder;
-  buildButtonItems = [(SPUISResultBuilder *)&v11 buildButtonItems];
+  v10.receiver = self;
+  v10.super_class = SPUISShortcutResultBuilder;
+  buildButtonItems = [(SPUISResultBuilder *)&v10 buildButtonItems];
 LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
 
   return buildButtonItems;
 }

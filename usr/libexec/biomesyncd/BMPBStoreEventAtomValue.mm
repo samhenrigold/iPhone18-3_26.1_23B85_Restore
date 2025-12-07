@@ -51,26 +51,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    dataVersion = self->_dataVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    dataTimestamp = self->_dataTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_eventData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -107,7 +105,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 32);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_dataVersion != *(equalCopy + 4))
@@ -119,7 +116,7 @@
   else if ((*(equalCopy + 32) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -139,17 +136,17 @@ LABEL_14:
   eventData = self->_eventData;
   if (eventData | *(equalCopy + 3))
   {
-    v7 = [(NSData *)eventData isEqual:?];
+    v6 = [(NSData *)eventData isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

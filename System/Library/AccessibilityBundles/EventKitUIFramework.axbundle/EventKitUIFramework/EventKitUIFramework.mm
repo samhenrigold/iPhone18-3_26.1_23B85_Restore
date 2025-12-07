@@ -46,32 +46,32 @@ id accessibilityLocalizedString(void *a1)
 
 id accessibilityCalendarTitleForEventIfNecessary(void *a1)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v1 = a1;
   v2 = [MEMORY[0x29EDB8E20] set];
   v3 = [v1 eventStore];
   v4 = [v3 calendarsForEntityType:0];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [v10 source];
         if ([v11 sourceType] == 5)
         {
@@ -88,7 +88,7 @@ id accessibilityCalendarTitleForEventIfNecessary(void *a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -116,7 +116,6 @@ id accessibilityCalendarTitleForEventIfNecessary(void *a1)
   }
 
 LABEL_19:
-  v17 = *MEMORY[0x29EDCA608];
 
   return v16;
 }
@@ -173,16 +172,16 @@ id getAXCustomContentClass()
   return v1;
 }
 
-void sub_29BDC5674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29BDC5674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_29BDC5930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29BDC5930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -196,28 +195,28 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 
 Class __getAXCustomContentClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v4[0] = 0;
+  v6 = *MEMORY[0x29EDCA608];
+  v3[0] = 0;
   if (!AccessibilityLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x29EDCA5F8];
-    v4[2] = 3221225472;
-    v4[3] = __AccessibilityLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_29F2BCC68;
-    v6 = 0;
+    v3[1] = MEMORY[0x29EDCA5F8];
+    v3[2] = 3221225472;
+    v3[3] = __AccessibilityLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_29F2BCC68;
+    v5 = 0;
     AccessibilityLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!AccessibilityLibraryCore_frameworkLibrary)
   {
-    __getAXCustomContentClass_block_invoke_cold_2(v4);
+    __getAXCustomContentClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("AXCustomContent");
@@ -228,18 +227,21 @@ Class __getAXCustomContentClass_block_invoke(uint64_t a1)
   }
 
   getAXCustomContentClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t __AccessibilityLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AccessibilityLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x29EDCA608];
   return result;
+}
+
+void sub_29BDC6430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void __getAXCustomContentClass_block_invoke_cold_1()
@@ -259,4 +261,24 @@ void __getAXCustomContentClass_block_invoke_cold_2(void *a1)
 
   __break(1u);
   AXDateStringForFormat();
+}
+
+CGRect CGRectIntersection(CGRect r1, CGRect r2)
+{
+  MEMORY[0x2A1C59B60](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect CGRectUnion(CGRect r1, CGRect r2)
+{
+  MEMORY[0x2A1C59BA0](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
 }

@@ -58,101 +58,106 @@
   y = CGRectNull.origin.y;
   width = CGRectNull.size.width;
   height = CGRectNull.size.height;
-  v37 = 0u;
-  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   containedElements = [(CRLAccessibilitySummaryContainerElement *)self containedElements];
-  v6 = [containedElements countByEnumeratingWithState:&v37 objects:v41 count:16];
-  if (v6)
+  accessibilityFrame = [containedElements countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (accessibilityFrame)
   {
-    v7 = v6;
-    v8 = *v38;
-    v36 = CGRectZero.origin.y;
-    v34 = CGRectZero.size.height;
-    v35 = CGRectZero.size.width;
-    v9 = height;
-    v10 = width;
-    v11 = y;
+    v8 = accessibilityFrame;
+    v9 = *v40;
+    v38 = CGRectZero.origin.y;
+    v36 = CGRectZero.size.height;
+    v37 = CGRectZero.size.width;
+    v10 = height;
+    v11 = width;
+    v12 = y;
     x = CGRectNull.origin.x;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      v14 = 0;
+      do
       {
-        if (*v38 != v8)
+        if (*v40 != v9)
         {
           objc_enumerationMutation(containedElements);
         }
 
-        v14 = *(*(&v37 + 1) + 8 * i);
-        if (CRLAccessibilityShouldPerformValidationChecks())
+        v15 = *(*(&v39 + 1) + 8 * v14);
+        if (CRLAccessibilityShouldPerformValidationChecks(accessibilityFrame, v7))
         {
-          [v14 accessibilityFrame];
-          v46.origin.y = v36;
-          v46.origin.x = CGRectZero.origin.x;
-          v46.size.height = v34;
-          v46.size.width = v35;
-          if (CGRectEqualToRect(v42, v46))
+          [v15 accessibilityFrame];
+          v48.origin.y = v38;
+          v48.origin.x = CGRectZero.origin.x;
+          v48.size.height = v36;
+          v48.size.width = v37;
+          v16 = CGRectEqualToRect(v44, v48);
+          if (v16)
           {
-            ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-            if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Found CGRectZero AX frame for contained element, this is probably a bug", v16, v17, v18, v19, v20, *&v34))
+            ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(v16);
+            if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Found CGRectZero AX frame for contained element, this is probably a bug", v18, v19, v20, v21, v22, *&v36))
             {
               abort();
             }
           }
         }
 
-        v43.origin.x = x;
-        v43.origin.y = v11;
-        v43.size.width = v10;
-        v43.size.height = v9;
-        v47.origin.x = CGRectNull.origin.x;
-        v47.origin.y = y;
-        v47.size.width = width;
-        v47.size.height = height;
-        v21 = CGRectEqualToRect(v43, v47);
-        [v14 accessibilityFrame];
-        v26 = v22;
-        v27 = v23;
+        v45.origin.x = x;
+        v45.origin.y = v12;
+        v45.size.width = v11;
+        v45.size.height = v10;
+        v49.origin.x = CGRectNull.origin.x;
+        v49.origin.y = y;
+        v49.size.width = width;
+        v49.size.height = height;
+        v23 = CGRectEqualToRect(v45, v49);
+        accessibilityFrame = [v15 accessibilityFrame];
         v28 = v24;
         v29 = v25;
-        if (!v21)
+        v30 = v26;
+        v31 = v27;
+        if (!v23)
         {
-          v44.origin.x = x;
-          v44.origin.y = v11;
-          v44.size.width = v10;
-          v44.size.height = v9;
-          *&v22 = CGRectUnion(v44, *&v26);
+          v46.origin.x = x;
+          v46.origin.y = v12;
+          v46.size.width = v11;
+          v46.size.height = v10;
+          *&v24 = CGRectUnion(v46, *&v28);
         }
 
-        x = v22;
-        v11 = v23;
-        v10 = v24;
-        v9 = v25;
+        x = v24;
+        v12 = v25;
+        v11 = v26;
+        v10 = v27;
+        v14 = v14 + 1;
       }
 
-      v7 = [containedElements countByEnumeratingWithState:&v37 objects:v41 count:16];
+      while (v8 != v14);
+      accessibilityFrame = [containedElements countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v8 = accessibilityFrame;
     }
 
-    while (v7);
+    while (accessibilityFrame);
   }
 
   else
   {
-    v9 = height;
-    v10 = width;
-    v11 = y;
+    v10 = height;
+    v11 = width;
+    v12 = y;
     x = CGRectNull.origin.x;
   }
 
-  v30 = x;
-  v31 = v11;
-  v32 = v10;
-  v33 = v9;
-  result.size.height = v33;
-  result.size.width = v32;
-  result.origin.y = v31;
-  result.origin.x = v30;
+  v32 = x;
+  v33 = v12;
+  v34 = v11;
+  v35 = v10;
+  result.size.height = v35;
+  result.size.width = v34;
+  result.origin.y = v33;
+  result.origin.x = v32;
   return result;
 }
 

@@ -14,66 +14,64 @@
 
 - (void)startObserving:(id)observing
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   observingCopy = observing;
   objc_initWeak(&location, self);
   objc_copyWeak(&to, &location);
   v5 = observingCopy;
-  v20 = v5;
-  v30 = 0;
-  v28 = &unk_1F5F3DC60;
-  objc_moveWeak(v29, &to);
-  v6 = v20;
-  v20 = 0;
-  v29[1] = v6;
-  v30 = &v28;
+  v19 = v5;
+  v29 = 0;
+  v27 = &unk_1F5F3DC60;
+  objc_moveWeak(v28, &to);
+  v6 = v19;
+  v19 = 0;
+  v28[1] = v6;
+  v29 = &v27;
   objc_destroyWeak(&to);
-  AddProgressObserver(v5, &self->_observers, &v28);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v28);
+  AddProgressObserver(v5, &self->_observers, &v27);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v27);
   objc_initWeak(&from, self);
   v7 = v5;
-  v16 = v7;
-  objc_copyWeak(&v17, &from);
-  v15.fString.fRef = &stru_1F5F42870;
+  v15 = v7;
+  objc_copyWeak(&v16, &from);
+  v14.fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  TString::SetStringRefAsImmutable(&v15, @"fileURL");
-  v13 = v16;
-  objc_copyWeak(&v14, &v17);
+  TString::SetStringRefAsImmutable(&v14, @"fileURL");
+  v12 = v15;
+  objc_copyWeak(&v13, &v16);
   v8 = v7;
-  TKeyValueObserver::TKeyValueObserver(v24);
-  v22 = v13;
-  objc_copyWeak(&v23, &v14);
+  TKeyValueObserver::TKeyValueObserver(v23);
+  v21 = v12;
+  objc_copyWeak(&v22, &v13);
   v9 = v8;
-  v25 = v22;
-  objc_copyWeak(&v26, &v23);
-  v33 = 0;
-  v10 = v25;
-  v25 = 0;
-  v31[0] = &unk_1F5F3DCF0;
-  v31[1] = v10;
-  objc_moveWeak(&v32, &v26);
-  v33 = v31;
-  objc_destroyWeak(&v26);
+  v24 = v21;
+  objc_copyWeak(&v25, &v22);
+  v32 = 0;
+  v10 = v24;
+  v24 = 0;
+  v30[0] = &unk_1F5F3DCF0;
+  v30[1] = v10;
+  objc_moveWeak(&v31, &v25);
+  v32 = v30;
+  objc_destroyWeak(&v25);
 
-  v27 = v9;
-  std::unordered_set<NSObject *>::unordered_set(&v28, &v27, 1);
-  v11 = TKeyValueObserver::CreateObserver(v24, v31, &v28, &v15);
-  std::__hash_table<std::__hash_value_type<unsigned long long,TRecordProgress>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,TRecordProgress>>>::~__hash_table(&v28);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v31);
-  TKeyValueObserver::StartObservingPriv(v24, v11, v9, &v15, 0);
+  v26 = v9;
+  std::unordered_set<NSObject *>::unordered_set(&v27, &v26, 1);
+  v11 = TKeyValueObserver::CreateObserver(v23, v30, &v27, &v14);
+  std::__hash_table<std::__hash_value_type<unsigned long long,TRecordProgress>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,TRecordProgress>>>::~__hash_table(&v27);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v30);
+  TKeyValueObserver::StartObservingPriv(v23, v11, v9, &v14, 0);
 
-  objc_destroyWeak(&v23);
-  std::vector<TKeyValueObserver>::push_back[abi:ne200100](&self->_observers, v24);
-  TKeyValueObserver::~TKeyValueObserver(v24);
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v22);
+  std::vector<TKeyValueObserver>::push_back[abi:ne200100](&self->_observers, v23);
+  TKeyValueObserver::~TKeyValueObserver(v23);
+  objc_destroyWeak(&v13);
 
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v15.fString.fRef);
-  objc_destroyWeak(&v17);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v14.fString.fRef);
+  objc_destroyWeak(&v16);
 
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopObserving
@@ -103,7 +101,7 @@
       if (progressNode)
       {
         userInfo = [v5 userInfo];
-        OperationTypeFromProgress(userInfo, &v38);
+        OperationTypeFromProgress(&v38, userInfo);
 
         userInfo2 = [v5 userInfo];
         v11 = *MEMORY[0x1E696A858];
@@ -208,7 +206,7 @@ void __34__DSFileProgress_progressChanged___block_invoke(uint64_t a1)
 
 - (void)startObserving:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((self + 16));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -223,8 +221,8 @@ void __34__DSFileProgress_progressChanged___block_invoke(uint64_t a1)
 
     if ((IsEqual(v9, &fileURL->super) & 1) == 0)
     {
-      NodeForURL(v9, v16);
-      v10 = TNodeFromFINode(*v16);
+      NodeForURL(v15, v9);
+      v10 = TNodeFromFINode(*v15);
       v11 = FINodeFromTNode(v10);
 
       objc_storeWeak(v4 + 4, v11);
@@ -233,22 +231,20 @@ void __34__DSFileProgress_progressChanged___block_invoke(uint64_t a1)
       {
         v13 = SanitizedURL(fileURL);
         v14 = SanitizedURL(v9);
-        *v16 = 138544130;
-        *&v16[4] = v13;
-        v17 = 2114;
-        v18 = v5;
-        v19 = 2114;
-        v20 = v14;
-        v21 = 2114;
-        v22 = v11;
-        _os_log_impl(&dword_1E5674000, v12, OS_LOG_TYPE_INFO, "Progress URL / Node changed - old: '%{public}@ / %{public}@', new: '%{public}@ / %{public}@''", v16, 0x2Au);
+        *v15 = 138544130;
+        *&v15[4] = v13;
+        v16 = 2114;
+        v17 = v5;
+        v18 = 2114;
+        v19 = v14;
+        v20 = 2114;
+        v21 = v11;
+        _os_log_impl(&dword_1E5674000, v12, OS_LOG_TYPE_INFO, "Progress URL / Node changed - old: '%{public}@ / %{public}@', new: '%{public}@ / %{public}@''", v15, 0x2Au);
       }
     }
 
     objc_sync_exit(v4);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)startObserving:

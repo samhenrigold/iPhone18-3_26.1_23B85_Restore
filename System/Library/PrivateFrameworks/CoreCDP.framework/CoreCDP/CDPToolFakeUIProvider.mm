@@ -115,13 +115,13 @@ LABEL_12:
 LABEL_6:
 }
 
-uint64_t __102__CDPToolFakeUIProvider_cdpContext_promptForRemoteSecretWithDevices_offeringRemoteApproval_validator___block_invoke(uint64_t result, char a2)
+void *__102__CDPToolFakeUIProvider_cdpContext_promptForRemoteSecretWithDevices_offeringRemoteApproval_validator___block_invoke(void *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
     v3 = result;
     puts("Remote secret is invalid... cancelling prompt/validation");
-    v4 = *(v3 + 32);
+    v4 = v3[4];
 
     return [v4 cancelValidationWithError:0];
   }
@@ -129,13 +129,13 @@ uint64_t __102__CDPToolFakeUIProvider_cdpContext_promptForRemoteSecretWithDevice
   return result;
 }
 
-uint64_t __102__CDPToolFakeUIProvider_cdpContext_promptForRemoteSecretWithDevices_offeringRemoteApproval_validator___block_invoke_2(uint64_t result, char a2)
+void *__102__CDPToolFakeUIProvider_cdpContext_promptForRemoteSecretWithDevices_offeringRemoteApproval_validator___block_invoke_2(void *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
     v3 = result;
     puts("Recovery key is invalid... cancelling prompt/validation");
-    v4 = *(v3 + 32);
+    v4 = v3[4];
 
     return [v4 cancelValidationWithError:0];
   }
@@ -189,31 +189,29 @@ LABEL_6:
 
 void __69__CDPToolFakeUIProvider_startCustodianRecoveryWithContext_validator___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = _CDPLogSystem();
+  v7 = _CDPLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Custodian recovery session started sessionID: %@, error: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Custodian recovery session started sessionID: %@, error: %@", &v9, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   [WeakRetained showCustodianProvidedCodeEntryScreen:*(a1 + 32) controller:*(a1 + 40) validator:*(a1 + 48)];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)showCustodianProvidedCodeEntryScreen:(id)screen controller:(id)controller validator:(id)validator
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   validatorCopy = validator;
   controllerCopy = controller;
-  v9 = _CDPLogSystem();
+  v9 = _CDPLogSystem(controllerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -221,30 +219,28 @@ void __69__CDPToolFakeUIProvider_startCustodianRecoveryWithContext_validator___b
   }
 
   printf("Enter the recovery code provided by your custodian: ");
-  scanf("%s", v17);
-  v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v17];
-  v11 = _CDPLogSystem();
+  scanf("%s", v16);
+  v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
+  v11 = _CDPLogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CDPToolFakeUIProvider showCustodianProvidedCodeEntryScreen:v10 controller:v11 validator:?];
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __83__CDPToolFakeUIProvider_showCustodianProvidedCodeEntryScreen_controller_validator___block_invoke;
-  v14[3] = &unk_1E869DE50;
-  v15 = validatorCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __83__CDPToolFakeUIProvider_showCustodianProvidedCodeEntryScreen_controller_validator___block_invoke;
+  v13[3] = &unk_1E869DE50;
+  v14 = validatorCopy;
   v12 = validatorCopy;
-  [(CDPToolFakeUIProvider *)self validateCode:v10 controller:controllerCopy completion:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(CDPToolFakeUIProvider *)self validateCode:v10 controller:controllerCopy completion:v13];
 }
 
 void __83__CDPToolFakeUIProvider_showCustodianProvidedCodeEntryScreen_controller_validator___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = _CDPLogSystem();
+  v7 = _CDPLogSystem(v6);
   v8 = v7;
   if (v6)
   {
@@ -281,7 +277,7 @@ void __83__CDPToolFakeUIProvider_showCustodianProvidedCodeEntryScreen_controller
 void __83__CDPToolFakeUIProvider_showCustodianProvidedCodeEntryScreen_controller_validator___block_invoke_33(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (a2)
   {
@@ -311,7 +307,7 @@ void __83__CDPToolFakeUIProvider_showCustodianProvidedCodeEntryScreen_controller
   codeCopy = code;
   controllerCopy = controller;
   completionCopy = completion;
-  v11 = _CDPLogSystem();
+  v11 = _CDPLogSystem(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -345,31 +341,31 @@ void __60__CDPToolFakeUIProvider_validateCode_controller_completion___block_invo
   {
     if ([v6 code] == -9002)
     {
-      v8 = _CDPLogSystem();
+      v8 = _CDPLogSystem(-9002);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
         _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "CLI: The recovery code is not valid", buf, 2u);
       }
 
-      puts("The recovery code is not valid");
-      v9 = _CDPLogSystem();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v9 = puts("The recovery code is not valid");
+      v10 = _CDPLogSystem(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *v16 = 0;
-        _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "CLI: Reenter the recovery code provided by your custodian...", v16, 2u);
+        _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "CLI: Reenter the recovery code provided by your custodian...", v16, 2u);
       }
 
       printf("Reenter the recovery code provided by your custodian: ");
       scanf("%s", v15);
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
-      v11 = _CDPLogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
+      v12 = _CDPLogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        __60__CDPToolFakeUIProvider_validateCode_controller_completion___block_invoke_cold_1(v10, v11);
+        __60__CDPToolFakeUIProvider_validateCode_controller_completion___block_invoke_cold_1(v11, v12);
       }
 
-      [WeakRetained validateCode:v10 controller:*(a1 + 32) completion:*(a1 + 40)];
+      [WeakRetained validateCode:v11 controller:*(a1 + 32) completion:*(a1 + 40)];
     }
 
     else
@@ -380,12 +376,10 @@ void __60__CDPToolFakeUIProvider_validateCode_controller_completion___block_invo
 
   else
   {
-    v12 = *(a1 + 40);
-    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CDPStateError" code:0 userInfo:0];
-    (*(v12 + 16))(v12, 0, v13);
+    v13 = *(a1 + 40);
+    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CDPStateError" code:0 userInfo:0];
+    (*(v13 + 16))(v13, 0, v14);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cdpRecoveryFlowContext:(id)context promptForRemoteSecretWithDevices:(id)devices validator:(id)validator
@@ -421,13 +415,13 @@ void __60__CDPToolFakeUIProvider_validateCode_controller_completion___block_invo
   }
 }
 
-uint64_t __96__CDPToolFakeUIProvider_cdpContext_promptForICSCWithIsNumeric_numericLength_isRandom_validator___block_invoke(uint64_t result, char a2)
+void *__96__CDPToolFakeUIProvider_cdpContext_promptForICSCWithIsNumeric_numericLength_isRandom_validator___block_invoke(void *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
     v3 = result;
     puts("ICSC is invalid... cancelling prompt/validation");
-    v4 = *(v3 + 32);
+    v4 = v3[4];
 
     return [v4 cancelValidationWithError:0];
   }
@@ -496,39 +490,35 @@ void __87__CDPToolFakeUIProvider_cdpContext_promptForRecoveryKeyWithSecretValida
 
 - (void)showCustodianProvidedCodeEntryScreen:(uint64_t)a1 controller:(NSObject *)a2 validator:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "CLI: Entered recovery code: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "CLI: Entered recovery code: %@", &v2, 0xCu);
 }
 
 void __83__CDPToolFakeUIProvider_showCustodianProvidedCodeEntryScreen_controller_validator___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "CLI: Validate recovery code failed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "CLI: Validate recovery code failed with error: %@", &v2, 0xCu);
 }
 
 void __83__CDPToolFakeUIProvider_showCustodianProvidedCodeEntryScreen_controller_validator___block_invoke_33_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Custodian recovery info failed validation with error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Custodian recovery info failed validation with error: %@", &v3, 0xCu);
 }
 
 void __60__CDPToolFakeUIProvider_validateCode_controller_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "CLI: Reentered recovery code: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "CLI: Reentered recovery code: %@", &v2, 0xCu);
 }
 
 @end

@@ -58,15 +58,14 @@
 {
   updatedCopy = updated;
   v9 = sub_2588BBAC8();
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2588BBAA8();
   storeCopy = store;
   dataCopy = data;
-  v15 = sub_25887AF30(storeCopy, data, updatedCopy, v12);
+  v14 = sub_25887AF30(storeCopy, data, updatedCopy, v11);
 
-  return v15;
+  return v14;
 }
 
 - (MIUIMedicalIDNavigationBarView)initWithCoder:(id)coder

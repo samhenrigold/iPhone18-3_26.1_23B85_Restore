@@ -720,16 +720,8 @@ LABEL_15:
 
 - (id)defaultFolder
 {
-  if (![(SDAirDropHandleriCloudDrive *)self->_icloudDriveHandler iCloudDriveIsAccessible])
+  if (!-[SDAirDropHandleriCloudDrive iCloudDriveIsAccessible](self->_icloudDriveHandler, "iCloudDriveIsAccessible") || (-[SDAirDropHandleriCloudDrive iCloudDriveURL](self->_icloudDriveHandler, "iCloudDriveURL"), v3 = objc_claimAutoreleasedReturnValue(), v3, !v3) || (-[SDAirDropHandleriCloudDrive iCloudDriveURL](self->_icloudDriveHandler, "iCloudDriveURL"), v4 = objc_claimAutoreleasedReturnValue(), [v4 URLByAppendingPathComponent:@"Downloads" isDirectory:1], v5 = objc_claimAutoreleasedReturnValue(), v4, !v5))
   {
-    goto LABEL_4;
-  }
-
-  iCloudDriveURL = [(SDAirDropHandleriCloudDrive *)self->_icloudDriveHandler iCloudDriveURL];
-
-  if (!iCloudDriveURL || (-[SDAirDropHandleriCloudDrive iCloudDriveURL](self->_icloudDriveHandler, "iCloudDriveURL"), v4 = objc_claimAutoreleasedReturnValue(), [v4 URLByAppendingPathComponent:@"Downloads" isDirectory:1], v5 = objc_claimAutoreleasedReturnValue(), v4, !v5))
-  {
-LABEL_4:
     v5 = sub_1001F17F4();
   }
 

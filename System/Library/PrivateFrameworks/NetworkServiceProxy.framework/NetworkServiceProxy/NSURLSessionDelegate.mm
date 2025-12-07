@@ -6,7 +6,7 @@
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   challengeCopy = challenge;
   handlerCopy = handler;
@@ -16,8 +16,8 @@
     sessionDescription = [sessionCopy sessionDescription];
     protectionSpace = [challengeCopy protectionSpace];
     *buf = 138412546;
-    v58 = sessionDescription;
-    v59 = 2048;
+    v57 = sessionDescription;
+    v58 = 2048;
     serverTrust = [protectionSpace serverTrust];
     _os_log_debug_impl(&dword_1AE7E2000, v11, OS_LOG_TYPE_DEBUG, "Received an authentication challenge for %@, serverTrust = %p", buf, 0x16u);
   }
@@ -49,11 +49,11 @@
         validationHostname = [(NSURLSessionDelegate *)self validationHostname];
         leafOID2 = [(NSURLSessionDelegate *)self leafOID];
         *buf = 138412802;
-        v58 = sessionDescription2;
-        v59 = 2112;
+        v57 = sessionDescription2;
+        v58 = 2112;
         serverTrust = validationHostname;
-        v61 = 2112;
-        v62 = leafOID2;
+        v60 = 2112;
+        v61 = leafOID2;
         _os_log_debug_impl(&dword_1AE7E2000, v19, OS_LOG_TYPE_DEBUG, "Creating a pinning policy with name %@, hostname %@, and leaf OID %@", buf, 0x20u);
       }
 
@@ -71,11 +71,11 @@
           validationHostname3 = [(NSURLSessionDelegate *)self validationHostname];
           leafOID4 = [(NSURLSessionDelegate *)self leafOID];
           *buf = 138412802;
-          v58 = sessionDescription4;
-          v59 = 2112;
+          v57 = sessionDescription4;
+          v58 = 2112;
           serverTrust = validationHostname3;
-          v61 = 2112;
-          v62 = leafOID4;
+          v60 = 2112;
+          v61 = leafOID4;
           _os_log_error_impl(&dword_1AE7E2000, v40, OS_LOG_TYPE_ERROR, "Failed to create a pinning policy from name %@, hostname %@, and OID %@", buf, 0x20u);
         }
 
@@ -107,19 +107,19 @@
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v58 = validationHostname5;
+          v57 = validationHostname5;
           _os_log_debug_impl(&dword_1AE7E2000, v30, OS_LOG_TYPE_DEBUG, "Creating a server trust policy with hostname %@", buf, 0xCu);
         }
 
         SSL = SecPolicyCreateSSL(1u, validationHostname5);
         if (!SSL)
         {
-          v47 = nplog_obj();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v46 = nplog_obj();
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v58 = validationHostname5;
-            _os_log_error_impl(&dword_1AE7E2000, v47, OS_LOG_TYPE_ERROR, "Failed to create a SSL policy from hostname %@", buf, 0xCu);
+            v57 = validationHostname5;
+            _os_log_error_impl(&dword_1AE7E2000, v46, OS_LOG_TYPE_ERROR, "Failed to create a SSL policy from hostname %@", buf, 0xCu);
           }
 
           handlerCopy[2](handlerCopy, 3, 0);
@@ -170,8 +170,8 @@
       {
         sessionDescription5 = [sessionCopy sessionDescription];
         *buf = 138412546;
-        v58 = sessionDescription5;
-        v59 = 1024;
+        v57 = sessionDescription5;
+        v58 = 1024;
         LODWORD(serverTrust) = v37;
         _os_log_error_impl(&dword_1AE7E2000, v38, OS_LOG_TYPE_ERROR, "Failed to set the trust policies for %@: %d", buf, 0x12u);
       }
@@ -189,9 +189,9 @@ LABEL_40:
     result[2] = __73__NSURLSessionDelegate_URLSession_didReceiveChallenge_completionHandler___block_invoke;
     result[3] = &unk_1E7A31040;
     result[4] = self;
-    v55 = sessionCopy;
+    v54 = sessionCopy;
     v41 = handlerCopy;
-    v56 = v41;
+    v55 = v41;
     v42 = SecTrustEvaluateAsyncWithError(serverTrust3, MEMORY[0x1E69E96A0], result);
     CFRelease(v17);
     if (v42)
@@ -200,7 +200,7 @@ LABEL_40:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v58) = v42;
+        LODWORD(v57) = v42;
         _os_log_error_impl(&dword_1AE7E2000, v43, OS_LOG_TYPE_ERROR, "SecTrustEvaluateAsync returned an error: %d", buf, 8u);
       }
 
@@ -221,13 +221,11 @@ LABEL_40:
   }
 
 LABEL_41:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __73__NSURLSessionDelegate_URLSession_didReceiveChallenge_completionHandler___block_invoke(uint64_t a1, __SecTrust *a2, int a3, NSObject *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v8 = nplog_obj();
   v9 = v8;
   if (a3)
@@ -249,9 +247,9 @@ void __73__NSURLSessionDelegate_URLSession_didReceiveChallenge_completionHandler
 
       v10 = [*(a1 + 40) sessionDescription];
       *buf = 138412546;
-      v23 = v10;
-      v24 = 1024;
-      LODWORD(v25) = result;
+      v22 = v10;
+      v23 = 1024;
+      LODWORD(v24) = result;
       _os_log_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_DEFAULT, "%@ TLS certificate failed validation with result %d", buf, 0x12u);
       goto LABEL_7;
     }
@@ -266,34 +264,34 @@ void __73__NSURLSessionDelegate_URLSession_didReceiveChallenge_completionHandler
 
       v11 = [*(a1 + 40) sessionDescription];
       *buf = 138412290;
-      v23 = v11;
+      v22 = v11;
       _os_log_debug_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_DEBUG, "Extended validation for %@ is not enabled", buf, 0xCu);
       goto LABEL_13;
     }
 
     v9 = SecTrustCopyResult(a2);
-    v15 = nplog_obj();
-    v10 = v15;
+    v14 = nplog_obj();
+    v10 = v14;
     if (v9)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v20 = [*(a1 + 40) sessionDescription];
+        v19 = [*(a1 + 40) sessionDescription];
         *buf = 138412546;
-        v23 = v20;
-        v24 = 2112;
-        v25 = v9;
+        v22 = v19;
+        v23 = 2112;
+        v24 = v9;
         _os_log_debug_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_DEBUG, "Got trust result info for %@: %@", buf, 0x16u);
       }
 
-      v16 = [v9 objectForKeyedSubscript:*MEMORY[0x1E697B338]];
+      v15 = [v9 objectForKeyedSubscript:*MEMORY[0x1E697B338]];
 
-      if (v16)
+      if (v15)
       {
-        v17 = CFGetTypeID(v16);
-        if (v17 == CFBooleanGetTypeID())
+        v16 = CFGetTypeID(v15);
+        if (v16 == CFBooleanGetTypeID())
         {
-          if (CFBooleanGetValue(v16))
+          if (CFBooleanGetValue(v15))
           {
             goto LABEL_14;
           }
@@ -306,28 +304,28 @@ void __73__NSURLSessionDelegate_URLSession_didReceiveChallenge_completionHandler
         goto LABEL_7;
       }
 
-      v18 = [*(a1 + 40) sessionDescription];
+      v17 = [*(a1 + 40) sessionDescription];
       *buf = 138412290;
-      v23 = v18;
-      v19 = "%@ TLS certificate failed extended validation";
+      v22 = v17;
+      v18 = "%@ TLS certificate failed extended validation";
     }
 
     else
     {
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
 LABEL_7:
 
         goto LABEL_10;
       }
 
-      v18 = [*(a1 + 40) sessionDescription];
+      v17 = [*(a1 + 40) sessionDescription];
       *buf = 138412290;
-      v23 = v18;
-      v19 = "Failed to get validation results for %@ TLS certificate";
+      v22 = v17;
+      v18 = "Failed to get validation results for %@ TLS certificate";
     }
 
-    _os_log_error_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_ERROR, v19, buf, 0xCu);
+    _os_log_error_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
 
     goto LABEL_7;
   }
@@ -335,36 +333,36 @@ LABEL_7:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v23 = a4;
+    v22 = a4;
     _os_log_error_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_ERROR, "SecTrustEvaluateAsyncWithError failed with %@", buf, 0xCu);
   }
 
 LABEL_10:
 
-  if (![*(a1 + 32) ignoreInvalidCerts])
+  if ([*(a1 + 32) ignoreInvalidCerts])
   {
-    (*(*(a1 + 48) + 16))();
-    goto LABEL_16;
-  }
-
-  v9 = nplog_obj();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    v11 = [*(a1 + 40) sessionDescription];
-    *buf = 138412290;
-    v23 = v11;
-    _os_log_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring invalid %@ TLS cert", buf, 0xCu);
-LABEL_13:
-  }
-
+    v9 = nplog_obj();
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
 LABEL_14:
 
-  v12 = *(a1 + 48);
-  v13 = [MEMORY[0x1E696AF30] credentialForTrust:a2];
-  (*(v12 + 16))(v12, 0, v13);
+      v12 = *(a1 + 48);
+      v13 = [MEMORY[0x1E696AF30] credentialForTrust:a2];
+      (*(v12 + 16))(v12, 0, v13);
 
-LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
+      return;
+    }
+
+    v11 = [*(a1 + 40) sessionDescription];
+    *buf = 138412290;
+    v22 = v11;
+    _os_log_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring invalid %@ TLS cert", buf, 0xCu);
+LABEL_13:
+
+    goto LABEL_14;
+  }
+
+  (*(*(a1 + 48) + 16))();
 }
 
 @end

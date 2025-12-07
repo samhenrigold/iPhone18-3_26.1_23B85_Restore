@@ -1364,7 +1364,7 @@ LABEL_11:
   }
 
   self->_currentStreamSchedule = *(&self->super.isa + v15);
-  dsCopy = [(VCSessionUplinkVideoStreamController *)self anchorStreamIDWithCappedVideoStreamIDs:ds, *v28, *&v28[16], *v29, *&v29[16], v30, dsCopy];
+  dsCopy = [(VCSessionUplinkVideoStreamController *)self anchorStreamIDWithCappedVideoStreamIDs:ds, *v28, *&v28[8], *v29, *&v29[16], v30, dsCopy];
   if (dsCopy)
   {
     v17 = dsCopy;
@@ -2837,7 +2837,7 @@ LABEL_10:
   return selfCopy;
 }
 
-uint64_t __68__VCSessionUplinkVideoStreamController_filterPendingTemporalStreams__block_invoke(uint64_t a1, void *a2, void *a3)
+void *__68__VCSessionUplinkVideoStreamController_filterPendingTemporalStreams__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) containsObject:?];

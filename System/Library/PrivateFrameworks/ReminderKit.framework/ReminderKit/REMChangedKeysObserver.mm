@@ -10,12 +10,12 @@
 - (REMChangedKeysObserver)initWithTarget:(id)target keysToObserve:(id)observe includeInitial:(BOOL)initial
 {
   initialCopy = initial;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   targetCopy = target;
   observeCopy = observe;
-  v27.receiver = self;
-  v27.super_class = REMChangedKeysObserver;
-  v11 = [(REMChangedKeysObserver *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = REMChangedKeysObserver;
+  v11 = [(REMChangedKeysObserver *)&v26 init];
   v12 = v11;
   if (v11)
   {
@@ -25,8 +25,8 @@
     mutableChangedKeys = v12->_mutableChangedKeys;
     v12->_mutableChangedKeys = v13;
 
+    v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     if (initialCopy)
     {
       v15 = 7;
@@ -37,79 +37,77 @@
       v15 = 3;
     }
 
+    v22 = 0uLL;
     v23 = 0uLL;
-    v24 = 0uLL;
     v16 = observeCopy;
-    v17 = [v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v24;
+      v19 = *v23;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v24 != v19)
+          if (*v23 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [targetCopy addObserver:v12 forKeyPath:*(*(&v23 + 1) + 8 * i) options:v15 context:{0, v23}];
+          [targetCopy addObserver:v12 forKeyPath:*(*(&v22 + 1) + 8 * i) options:v15 context:{0, v22}];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v18);
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_keysToObserve;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [self->_target removeObserver:self forKeyPath:*(*(&v10 + 1) + 8 * v7++) context:0];
+        [self->_target removeObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++) context:0];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = REMChangedKeysObserver;
-  [(REMChangedKeysObserver *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = REMChangedKeysObserver;
+  [(REMChangedKeysObserver *)&v8 dealloc];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v9 = *MEMORY[0x1E696A500];
   changeCopy = change;
@@ -132,21 +130,19 @@
       v15 = +[REMLog utility];
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v18 = 138412802;
-        v19 = pathCopy;
-        v20 = 2112;
-        v21 = v11;
-        v22 = 2112;
-        v23 = v12;
-        _os_log_debug_impl(&dword_19A0DB000, v15, OS_LOG_TYPE_DEBUG, "REMChangedKeysObserver detected a change {keyPath: %@, old: %@, new: %@}", &v18, 0x20u);
+        v17 = 138412802;
+        v18 = pathCopy;
+        v19 = 2112;
+        v20 = v11;
+        v21 = 2112;
+        v22 = v12;
+        _os_log_debug_impl(&dword_19A0DB000, v15, OS_LOG_TYPE_DEBUG, "REMChangedKeysObserver detected a change {keyPath: %@, old: %@, new: %@}", &v17, 0x20u);
       }
 
       mutableChangedKeys = [(REMChangedKeysObserver *)self mutableChangedKeys];
       [mutableChangedKeys addObject:pathCopy];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)keyDidChange:(id)change

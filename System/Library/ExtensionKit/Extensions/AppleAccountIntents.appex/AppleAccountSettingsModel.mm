@@ -12,7 +12,7 @@
 
   type metadata accessor for AIDAServiceType(0);
   sub_10000EA54();
-  sub_10000FCE8(&qword_10001C6C0);
+  sub_10000FCE8(&qword_10001C6C0, &unk_1000119A4);
   v6.super.isa = sub_1000105A4().super.isa;
 
   return v6.super.isa;

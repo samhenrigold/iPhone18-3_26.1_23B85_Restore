@@ -13,7 +13,6 @@
 - (LNURLLaunchRequest)initWithURL:(id)l
 {
   v3 = sub_19774EAD0();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
   sub_19774EA90();
   return sub_19768A2B4();
@@ -60,13 +59,12 @@
 {
   v3 = sub_19774EAD0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_19774EA90();
-  v8 = sub_19768E1BC();
-  (*(v4 + 8))(v7, v3);
-  return v8;
+  v7 = sub_19768E1BC(v6);
+  (*(v4 + 8))(v6, v3);
+  return v7;
 }
 
 - (NSString)doNotDismissSiriKey

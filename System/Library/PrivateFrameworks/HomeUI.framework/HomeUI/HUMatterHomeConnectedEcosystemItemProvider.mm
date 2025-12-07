@@ -69,7 +69,7 @@ id __57__HUMatterHomeConnectedEcosystemItemProvider_reloadItems__block_invoke(ui
   v13 = v3;
   v5 = v3;
   v6 = _Block_copy(aBlock);
-  v7 = [v5 allKeys];
+  v7 = objc_msgSend_allKeys(v5);
   v8 = [WeakRetained reloadItemsWithHomeKitObjects:v7 filter:0 itemMap:v6];
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;

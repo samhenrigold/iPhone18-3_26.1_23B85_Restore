@@ -20,12 +20,12 @@
   PVInputHGNodeMap<unsigned int>::GetNode(inputs, 1u, &v20);
   memset(&v19, 0, sizeof(v19));
   lhs = *time;
-  [(PVEffect *)self effectRange];
+  objc_msgSend_effectRange(self);
   rhs = v16[0];
   CMTimeSubtract(&v19, &lhs, &rhs);
   v16[0] = v19;
   Seconds = CMTimeGetSeconds(v16);
-  [(PVEffect *)self effectRange];
+  objc_msgSend_effectRange(self);
   lhs = v16[1];
   v12 = CMTimeGetSeconds(&lhs);
   v13 = HGObject::operator new(0x220uLL);

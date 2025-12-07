@@ -7,7 +7,7 @@
 - (void)__setViewServiceIsDisplayingPopover:(BOOL)popover;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilityLoadAccessibilityInformation:(double)information retryTime:;
-- (void)_accessibilityLoadAccessibilityInformation:(void *)information;
+- (void)_accessibilityLoadAccessibilityInformation:(void *)result;
 - (void)_accessibilityRemoteView:(id)view pid:(int)pid machPort:(unsigned int)port;
 - (void)_awakeWithConnectionInfo:(id)info;
 - (void)_axRemoteViewLoadRequest:(id)request;
@@ -200,11 +200,11 @@ LABEL_15:
   [(_UIRemoteViewControllerLegacyImplAccessibility *)selfCopy _accessibilityLoadAccessibilityInformation:?];
 }
 
-- (void)_accessibilityLoadAccessibilityInformation:(void *)information
+- (void)_accessibilityLoadAccessibilityInformation:(void *)result
 {
-  if (information)
+  if (result)
   {
-    [(_UIRemoteViewControllerLegacyImplAccessibility *)information _accessibilityLoadAccessibilityInformation:0.1 retryTime:?];
+    [(_UIRemoteViewControllerLegacyImplAccessibility *)result _accessibilityLoadAccessibilityInformation:0.1 retryTime:?];
   }
 }
 
@@ -417,11 +417,11 @@ LABEL_15:
   {
     objc_opt_class();
     v5 = __UIAccessibilityCastAsSafeCategory();
-    [_UIRemoteViewAccessibility _accessibilitySetRemoteMachPort:v5];
+    [(_UIRemoteViewAccessibility *)v5 _accessibilitySetRemoteMachPort:port];
     MEMORY[0x29EDC9740](v5);
     objc_opt_class();
     v6 = __UIAccessibilityCastAsSafeCategory();
-    [_UIRemoteViewAccessibility _accessibilitySetRemoteViewPid:v6];
+    [(_UIRemoteViewAccessibility *)v6 _accessibilitySetRemoteViewPid:pid];
     MEMORY[0x29EDC9740](v6);
     objc_opt_class();
     v7 = __UIAccessibilityCastAsSafeCategory();

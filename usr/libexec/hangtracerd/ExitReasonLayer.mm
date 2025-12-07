@@ -11,17 +11,17 @@
 {
   layerCopy = layer;
   codeLayerCopy = codeLayer;
-  v12.receiver = self;
-  v12.super_class = ExitReasonLayer;
-  v9 = [(ExitReasonLayer *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = ExitReasonLayer;
+  v9 = [(ExitReasonLayer *)&v14 init];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_exitReasonNamespaceTextLayer, layer);
     objc_storeStrong(&v10->_exitReasonCodeTextLayer, codeLayer);
     [(ExitReasonLayer *)v10 addSublayer:v10->_exitReasonNamespaceTextLayer];
-    [(ExitReasonLayer *)v10 addSublayer:v10->_exitReasonCodeTextLayer];
-    v10->_spaceBetweenTextLayers = sub_100029E34();
+    v11 = [(ExitReasonLayer *)v10 addSublayer:v10->_exitReasonCodeTextLayer];
+    v10->_spaceBetweenTextLayers = sub_100029E34(v11, v12);
   }
 
   return v10;

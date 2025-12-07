@@ -5,7 +5,7 @@
 - (id)createPersistentFocusPickerElementForActivityDescription:(id)description enabled:(BOOL)enabled;
 - (id)initWithBannerPoster:(void *)poster systemApertureElementRegistrar:;
 - (id)previewFocusWithModeIdentifier:(void *)identifier withReason:;
-- (uint64_t)toggleActivityPickerPresentation;
+- (id)toggleActivityPickerPresentation;
 - (uint64_t)toggleFocusWithModeIdentifier:(void *)identifier withReason:;
 - (void)_availableModesFetchQueue_fetchAvailableModes;
 - (void)_handleFocusElementEvent:(uint64_t)event;
@@ -394,17 +394,17 @@ void __56__SBFocusActivityManager__updateFocusElementWithReason___block_invoke(u
     if (self)
     {
       v7 = [MEMORY[0x277D0AA10] managerWithBannerPoster:v5 systemApertureElementRegistrar:posterCopy];
-      v8 = *(self + 6);
-      *(self + 6) = v7;
+      v8 = self[6];
+      self[6] = v7;
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         v9 = objc_alloc_init(SBFocusActivityBannerAuthority);
-        v10 = *(self + 13);
-        *(self + 13) = v9;
+        v10 = self[13];
+        self[13] = v9;
 
-        v11 = *(self + 13);
+        v11 = self[13];
         v12 = v5;
         v13 = +[SBFocusActivityBannerAuthority requesterIdentifier];
         [v12 registerAuthority:v11 forRequesterIdentifier:v13];
@@ -415,15 +415,15 @@ void __56__SBFocusActivityManager__updateFocusElementWithReason___block_invoke(u
       *(self + 6) = 0;
       v14 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
       v15 = dispatch_queue_create("com.apple.springboard.focus-activity-manager.fetch", v14);
-      v16 = *(self + 4);
-      *(self + 4) = v15;
+      v16 = self[4];
+      self[4] = v15;
 
       v17 = [MEMORY[0x277D059F0] serviceForClientIdentifier:@"com.apple.private.SpringBoard.focus.intents"];
-      v18 = *(self + 1);
-      *(self + 1) = v17;
+      v18 = self[1];
+      self[1] = v17;
 
-      [*(self + 1) addListener:self withCompletionHandler:0];
-      v19 = *(self + 4);
+      [self[1] addListener:self withCompletionHandler:0];
+      v19 = self[4];
       OUTLINED_FUNCTION_1_4();
       v22 = 3221225472;
       v23 = __78__SBFocusActivityManager_initWithBannerPoster_systemApertureElementRegistrar___block_invoke;
@@ -567,12 +567,12 @@ LABEL_23:
   return self;
 }
 
-- (uint64_t)toggleActivityPickerPresentation
+- (id)toggleActivityPickerPresentation
 {
   selfCopy = self;
   if (self)
   {
-    if (*(self + 40))
+    if (self[5])
     {
       v2 = +[SBWorkspace mainWorkspace];
       OUTLINED_FUNCTION_1_4();
@@ -586,12 +586,12 @@ LABEL_23:
     else
     {
       v5 = objc_alloc_init(SBFocusActivityPickerTransientOverlayViewController);
-      v6 = *(selfCopy + 40);
-      *(selfCopy + 40) = v5;
+      v6 = selfCopy[5];
+      selfCopy[5] = v5;
 
-      [*(selfCopy + 40) setDelegate:selfCopy];
+      [selfCopy[5] setDelegate:selfCopy];
       v2 = +[SBWorkspace mainWorkspace];
-      v4 = [v2 presentTransientOverlayViewController:*(selfCopy + 40) animated:1 completion:0];
+      v4 = [v2 presentTransientOverlayViewController:selfCopy[5] animated:1 completion:0];
     }
 
     selfCopy = v4;

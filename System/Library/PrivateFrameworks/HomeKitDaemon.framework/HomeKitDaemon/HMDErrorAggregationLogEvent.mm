@@ -31,7 +31,7 @@
       }
     }
 
-    v17 = [dictionary copy];
+    v17 = objc_msgSend_copy(dictionary);
     coreAnalyticsSerializedEvent = v14->_coreAnalyticsSerializedEvent;
     v14->_coreAnalyticsSerializedEvent = v17;
   }

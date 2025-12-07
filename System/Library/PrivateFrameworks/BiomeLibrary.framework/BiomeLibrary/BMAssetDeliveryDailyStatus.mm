@@ -16,14 +16,12 @@
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"deviceMetadata_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_69_103433];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"availableAssetDailyStatus_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_71_103434];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -82,30 +80,30 @@ LABEL_12:
 
 - (id)jsonDictionary
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   deviceMetadata = [(BMAssetDeliveryDailyStatus *)self deviceMetadata];
   jsonDictionary = [deviceMetadata jsonDictionary];
 
   availableAssetDailyStatus = [(BMAssetDeliveryDailyStatus *)self availableAssetDailyStatus];
   jsonDictionary2 = [availableAssetDailyStatus jsonDictionary];
 
-  v12[0] = @"deviceMetadata";
+  v11[0] = @"deviceMetadata";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = @"availableAssetDailyStatus";
-  v13[0] = null;
+  v11[1] = @"availableAssetDailyStatus";
+  v12[0] = null;
   null2 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = null2;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   if (jsonDictionary2)
   {
     if (jsonDictionary)
@@ -124,14 +122,13 @@ LABEL_12:
   }
 
 LABEL_7:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (BMAssetDeliveryDailyStatus)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"deviceMetadata"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -144,9 +141,9 @@ LABEL_7:
   if (objc_opt_isKindOfClass())
   {
     v9 = v7;
-    v24 = 0;
-    v8 = [[BMUAFDeviceMetadata alloc] initWithJSONDictionary:v9 error:&v24];
-    v12 = v24;
+    v23 = 0;
+    v8 = [[BMUAFDeviceMetadata alloc] initWithJSONDictionary:v9 error:&v23];
+    v12 = v23;
     if (v12)
     {
       if (error)
@@ -175,9 +172,9 @@ LABEL_23:
     if (objc_opt_isKindOfClass())
     {
       v13 = v9;
-      v23 = 0;
-      v10 = [[BMUAFAvailableAssetDailyStatus alloc] initWithJSONDictionary:v13 error:&v23];
-      v14 = v23;
+      v22 = 0;
+      v10 = [[BMUAFAvailableAssetDailyStatus alloc] initWithJSONDictionary:v13 error:&v22];
+      v14 = v22;
       if (!v14)
       {
 
@@ -197,13 +194,13 @@ LABEL_22:
 
     if (error)
     {
-      v22 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
       v18 = *MEMORY[0x1E698F240];
-      v25 = *MEMORY[0x1E696A578];
+      v24 = *MEMORY[0x1E696A578];
       v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"availableAssetDailyStatus"];
-      v26 = v10;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      *error = [v22 initWithDomain:v18 code:2 userInfo:v19];
+      v25 = v10;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      *error = [v21 initWithDomain:v18 code:2 userInfo:v19];
 
       goto LABEL_22;
     }
@@ -221,17 +218,16 @@ LABEL_26:
 
   v15 = objc_alloc(MEMORY[0x1E696ABC0]);
   v16 = *MEMORY[0x1E698F240];
-  v27 = *MEMORY[0x1E696A578];
+  v26 = *MEMORY[0x1E696A578];
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"deviceMetadata"];
-  v28[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v27[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
   v17 = [v15 initWithDomain:v16 code:2 userInfo:v9];
   selfCopy = 0;
   *error = v17;
 LABEL_24:
 
 LABEL_25:
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -425,36 +421,34 @@ LABEL_31:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"deviceMetadata" number:1 type:14 subMessageClass:objc_opt_class()];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"availableAssetDailyStatus" number:2 type:14 subMessageClass:objc_opt_class()];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
-id __37__BMAssetDeliveryDailyStatus_columns__block_invoke_2(uint64_t a1, void *a2)
+id __37__BMAssetDeliveryDailyStatus_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 availableAssetDailyStatus];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 availableAssetDailyStatus];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __37__BMAssetDeliveryDailyStatus_columns__block_invoke(uint64_t a1, void *a2)
+id __37__BMAssetDeliveryDailyStatus_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 deviceMetadata];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 deviceMetadata];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

@@ -16,7 +16,7 @@
 - (void)didTapAcceptButton
 {
   selfCopy = self;
-  sub_1006432CC();
+  sub_1006432CC(selfCopy);
 }
 
 - (CHMoveModeChangePromptViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

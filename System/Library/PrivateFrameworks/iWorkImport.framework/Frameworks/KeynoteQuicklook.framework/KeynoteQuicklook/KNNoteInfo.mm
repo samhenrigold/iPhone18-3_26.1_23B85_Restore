@@ -33,9 +33,9 @@
 {
   contextCopy = context;
   storageCopy = storage;
-  v35.receiver = self;
-  v35.super_class = KNNoteInfo;
-  v8 = [(KNNoteInfo *)&v35 initWithContext:contextCopy];
+  v21.receiver = self;
+  v21.super_class = KNNoteInfo;
+  v8 = [(KNNoteInfo *)&v21 initWithContext:contextCopy];
   if (v8)
   {
     if (storageCopy)
@@ -48,22 +48,22 @@
     else
     {
       objc_opt_class();
-      v13 = objc_msgSend_documentRoot(contextCopy, v11, v12);
+      documentRoot = [contextCopy documentRoot];
       containedStorage = TSUCheckedDynamicCast();
 
-      v16 = objc_msgSend_show(containedStorage, v14, v15);
-      v19 = objc_msgSend_theme(v16, v17, v18);
-      v22 = objc_msgSend_defaultPresenterNotesParagraphStyle(v19, v20, v21);
+      show = [containedStorage show];
+      theme = [show theme];
+      defaultPresenterNotesParagraphStyle = [theme defaultPresenterNotesParagraphStyle];
 
-      v23 = objc_alloc(MEMORY[0x277D80F28]);
-      v26 = objc_msgSend_stylesheet(containedStorage, v24, v25);
-      v29 = objc_msgSend_initialListStyle(v22, v27, v28);
-      v31 = objc_msgSend_initWithContext_string_kind_stylesheet_paragraphStyle_listStyle_section_columnStyle_(v23, v30, contextCopy, 0, 4, v26, v22, v29, 0, 0);
-      v32 = v8->_containedStorage;
-      v8->_containedStorage = v31;
+      v15 = objc_alloc(MEMORY[0x277D80F28]);
+      stylesheet = [containedStorage stylesheet];
+      initialListStyle = [defaultPresenterNotesParagraphStyle initialListStyle];
+      v18 = [v15 initWithContext:contextCopy string:0 kind:4 stylesheet:stylesheet paragraphStyle:defaultPresenterNotesParagraphStyle listStyle:initialListStyle section:0 columnStyle:0];
+      v19 = v8->_containedStorage;
+      v8->_containedStorage = v18;
     }
 
-    objc_msgSend_setParentInfo_(v8->_containedStorage, v33, v8);
+    [(TSWPStorage *)v8->_containedStorage setParentInfo:v8];
   }
 
   return v8;
@@ -71,7 +71,7 @@
 
 - (void)dealloc
 {
-  objc_msgSend_setParentInfo_(self->_containedStorage, a2, 0);
+  [(TSWPStorage *)self->_containedStorage setParentInfo:0];
   containedStorage = self->_containedStorage;
   self->_containedStorage = 0;
 
@@ -83,27 +83,26 @@
 - (id)copyWithContext:(id)context
 {
   contextCopy = context;
-  v5 = [KNNoteInfo alloc];
-  v8 = objc_msgSend_initWithContext_(v5, v6, contextCopy);
-  if (v8)
+  v5 = [[KNNoteInfo alloc] initWithContext:contextCopy];
+  if (v5)
   {
-    v9 = objc_msgSend_copyWithContext_(self->_containedStorage, v7, contextCopy);
-    v10 = v8[10];
-    v8[10] = v9;
+    v6 = [(TSWPStorage *)self->_containedStorage copyWithContext:contextCopy];
+    containedStorage = v5->_containedStorage;
+    v5->_containedStorage = v6;
 
-    objc_msgSend_setParentInfo_(v8[10], v11, v8);
+    [(TSWPStorage *)v5->_containedStorage setParentInfo:v5];
   }
 
-  return v8;
+  return v5;
 }
 
 - (void)adoptStylesheet:(id)stylesheet withMapper:(id)mapper
 {
   mapperCopy = mapper;
   stylesheetCopy = stylesheet;
-  objc_msgSend_willModify(self, v8, v9);
-  v13 = objc_msgSend_containedStorage(self, v10, v11);
-  objc_msgSend_adoptStylesheet_withMapper_(v13, v12, stylesheetCopy, mapperCopy);
+  [(KNNoteInfo *)self willModify];
+  containedStorage = [(KNNoteInfo *)self containedStorage];
+  [containedStorage adoptStylesheet:stylesheetCopy withMapper:mapperCopy];
 }
 
 - (void)setContainedStorage:(id)storage
@@ -111,12 +110,12 @@
   storageCopy = storage;
   if (self->_containedStorage != storageCopy)
   {
-    v10 = storageCopy;
-    objc_msgSend_willModify(self, v6, v7);
-    objc_msgSend_setParentInfo_(self->_containedStorage, v8, 0);
+    v6 = storageCopy;
+    [(KNNoteInfo *)self willModify];
+    [(TSWPStorage *)self->_containedStorage setParentInfo:0];
     objc_storeStrong(&self->_containedStorage, storage);
-    objc_msgSend_setParentInfo_(self->_containedStorage, v9, self);
-    storageCopy = v10;
+    [(TSWPStorage *)self->_containedStorage setParentInfo:self];
+    storageCopy = v6;
   }
 }
 
@@ -124,18 +123,18 @@
 {
   geometryCopy = geometry;
   v4 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNNoteInfo setGeometry:]");
-  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNNoteInfo.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v6, v8, 110, 0, "Do not call method");
+  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNNoteInfo setGeometry:]"];
+  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNNoteInfo.m"];
+  [v4 handleFailureInFunction:v5 file:v6 lineNumber:110 isFatal:0 description:"Do not call method"];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
-  v12 = MEMORY[0x277CBEAD8];
-  v13 = *MEMORY[0x277CBE658];
-  v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v14, @"%s: %s", "Do not call method", "[KNNoteInfo setGeometry:]");
-  v17 = objc_msgSend_exceptionWithName_reason_userInfo_(v12, v16, v13, v15, 0);
-  v18 = v17;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s", "Do not call method", "-[KNNoteInfo setGeometry:]"];
+  v10 = [v7 exceptionWithName:v8 reason:v9 userInfo:0];
+  v11 = v10;
 
-  objc_exception_throw(v17);
+  objc_exception_throw(v10);
 }
 
 - (TSDInfo)parentInfo
@@ -172,30 +171,30 @@
 
 - (BOOL)isFloatingAboveText
 {
-  v3 = objc_msgSend_owningAttachment(self, a2, v2);
-  v4 = v3 == 0;
+  owningAttachment = [(KNNoteInfo *)self owningAttachment];
+  v3 = owningAttachment == 0;
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)isAnchoredToText
 {
-  v3 = objc_msgSend_owningAttachment(self, a2, v2);
-  isAnchored = objc_msgSend_isAnchored(v3, v4, v5);
+  owningAttachment = [(KNNoteInfo *)self owningAttachment];
+  isAnchored = [owningAttachment isAnchored];
 
   return isAnchored;
 }
 
 - (BOOL)isInlineWithText
 {
-  if (objc_msgSend_isFloatingAboveText(self, a2, v2))
+  if ([(KNNoteInfo *)self isFloatingAboveText])
   {
     return 0;
   }
 
   else
   {
-    return objc_msgSend_isAnchoredToText(self, v4, v5) ^ 1;
+    return ![(KNNoteInfo *)self isAnchoredToText];
   }
 }
 
@@ -203,24 +202,24 @@
 {
   attachmentCopy = attachment;
   v4 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNNoteInfo setOwningAttachment:]");
-  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNNoteInfo.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v6, v8, 158, 0, "Do not call method");
+  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNNoteInfo setOwningAttachment:]"];
+  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNNoteInfo.m"];
+  [v4 handleFailureInFunction:v5 file:v6 lineNumber:158 isFatal:0 description:"Do not call method"];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
-  v12 = MEMORY[0x277CBEAD8];
-  v13 = *MEMORY[0x277CBE658];
-  v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v14, @"%s: %s", "Do not call method", "[KNNoteInfo setOwningAttachment:]");
-  v17 = objc_msgSend_exceptionWithName_reason_userInfo_(v12, v16, v13, v15, 0);
-  v18 = v17;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s", "Do not call method", "-[KNNoteInfo setOwningAttachment:]"];
+  v10 = [v7 exceptionWithName:v8 reason:v9 userInfo:0];
+  v11 = v10;
 
-  objc_exception_throw(v17);
+  objc_exception_throw(v10);
 }
 
 - (BOOL)isThemeContent
 {
-  v3 = objc_msgSend_parentInfo(self, a2, v2);
-  isThemeContent = objc_msgSend_isThemeContent(v3, v4, v5);
+  parentInfo = [(KNNoteInfo *)self parentInfo];
+  isThemeContent = [parentInfo isThemeContent];
 
   return isThemeContent;
 }
@@ -231,7 +230,7 @@
   if (self->_containedStorage)
   {
     v4[0] = self->_containedStorage;
-    v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v4, 1);
+    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   }
 
   else
@@ -244,76 +243,76 @@
 
 - (id)childEnumerator
 {
-  v4 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
-  v9 = objc_msgSend_containedStorage(self, v5, v6);
-  if (v9)
+  array = [MEMORY[0x277CBEB18] array];
+  containedStorage = [(KNNoteInfo *)self containedStorage];
+  if (containedStorage)
   {
-    objc_msgSend_addObject_(v4, v7, v9);
+    [array addObject:containedStorage];
   }
 
-  v10 = objc_msgSend_objectEnumerator(v4, v7, v8);
+  objectEnumerator = [array objectEnumerator];
 
-  return v10;
+  return objectEnumerator;
 }
 
 - (void)willBeAddedToDocumentRoot:(id)root dolcContext:(id)context
 {
   contextCopy = context;
   rootCopy = root;
-  v11 = objc_msgSend_containedStorage(self, v8, v9);
-  objc_msgSend_willBeAddedToDocumentRoot_dolcContext_(v11, v10, rootCopy, contextCopy);
+  containedStorage = [(KNNoteInfo *)self containedStorage];
+  [containedStorage willBeAddedToDocumentRoot:rootCopy dolcContext:contextCopy];
 }
 
 - (void)wasAddedToDocumentRoot:(id)root dolcContext:(id)context
 {
   contextCopy = context;
   rootCopy = root;
-  v10 = objc_msgSend_context(rootCopy, v8, v9);
-  objc_msgSend_wasAddedToDocumentWithContext_(self, v11, v10);
+  context = [rootCopy context];
+  [(KNNoteInfo *)self wasAddedToDocumentWithContext:context];
 
-  v15 = objc_msgSend_containedStorage(self, v12, v13);
-  objc_msgSend_wasAddedToDocumentRoot_dolcContext_(v15, v14, rootCopy, contextCopy);
+  containedStorage = [(KNNoteInfo *)self containedStorage];
+  [containedStorage wasAddedToDocumentRoot:rootCopy dolcContext:contextCopy];
 }
 
 - (void)willBeRemovedFromDocumentRoot:(id)root
 {
   rootCopy = root;
-  v7 = objc_msgSend_containedStorage(self, v5, v6);
-  objc_msgSend_willBeRemovedFromDocumentRoot_(v7, v8, rootCopy);
+  containedStorage = [(KNNoteInfo *)self containedStorage];
+  [containedStorage willBeRemovedFromDocumentRoot:rootCopy];
 
-  v12 = objc_msgSend_context(rootCopy, v9, v10);
+  context = [rootCopy context];
 
-  objc_msgSend_willBeRemovedFromDocumentWithContext_(self, v11, v12);
+  [(KNNoteInfo *)self willBeRemovedFromDocumentWithContext:context];
 }
 
 - (void)wasRemovedFromDocumentRoot:(id)root
 {
   rootCopy = root;
-  v8 = objc_msgSend_containedStorage(self, v5, v6);
-  objc_msgSend_wasRemovedFromDocumentRoot_(v8, v7, rootCopy);
+  containedStorage = [(KNNoteInfo *)self containedStorage];
+  [containedStorage wasRemovedFromDocumentRoot:rootCopy];
 }
 
 - (id)objectUUIDPath
 {
   objc_opt_class();
-  v5 = objc_msgSend_parentInfo(self, v3, v4);
-  v6 = TSUDynamicCast();
+  parentInfo = [(KNNoteInfo *)self parentInfo];
+  v4 = TSUDynamicCast();
 
-  if (!v6)
+  if (!v4)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNNoteInfo objectUUIDPath]");
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNNoteInfo.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 380, 0, "invalid nil value for '%{public}s'", "tspParentInfo");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNNoteInfo objectUUIDPath]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNNoteInfo.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:380 isFatal:0 description:{"invalid nil value for '%{public}s'", "tspParentInfo"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v16 = objc_msgSend_objectUUIDPath(v6, v7, v8);
-  v19 = objc_msgSend_objectUUID(self, v17, v18);
-  v21 = objc_msgSend_UUIDPathByAppendingUUID_(v16, v20, v19);
+  objectUUIDPath = [v4 objectUUIDPath];
+  objectUUID = [(KNNoteInfo *)self objectUUID];
+  v10 = [objectUUIDPath UUIDPathByAppendingUUID:objectUUID];
 
-  return v21;
+  return v10;
 }
 
 - (CGRect)frameForPrinting
@@ -333,18 +332,18 @@
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[20]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[20]];
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v6, v5, unarchiverCopy);
+  [(KNNoteInfo *)self loadFromArchive:v4 unarchiver:unarchiverCopy];
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275DBB1D8, off_2812EA908[20]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275DBB1D8 descriptor:off_2812EA908[20]];
 
-  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
+  [(KNNoteInfo *)self saveToArchive:v4 archiver:archiverCopy];
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -357,37 +356,39 @@
   v11[3] = &unk_27A698B58;
   v11[4] = self;
   v8 = unarchiverCopy;
-  v10 = objc_opt_class();
+  v9 = objc_opt_class();
   if (v7)
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v8, v9, v7, v10, 0, v11);
+    v10 = v7;
   }
 
   else
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v8, v9, MEMORY[0x277D80A18], v10, 0, v11);
+    v10 = MEMORY[0x277D80A18];
   }
+
+  [v8 readReferenceMessage:v10 class:v9 protocol:0 completion:v11];
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v9 = objc_msgSend_containedStorage(self, v6, v7);
+  containedStorage = [(KNNoteInfo *)self containedStorage];
   *(archive + 4) |= 1u;
-  v10 = *(archive + 3);
-  if (!v10)
+  v7 = *(archive + 3);
+  if (!v7)
   {
-    v11 = *(archive + 1);
-    if (v11)
+    v8 = *(archive + 1);
+    if (v8)
     {
-      v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
+      v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v10 = MEMORY[0x277C8F050](v11);
-    *(archive + 3) = v10;
+    v7 = MEMORY[0x277C8F050](v8);
+    *(archive + 3) = v7;
   }
 
-  objc_msgSend_setStrongReference_message_(archiverCopy, v8, v9, v10);
+  [archiverCopy setStrongReference:containedStorage message:v7];
 }
 
 @end

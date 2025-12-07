@@ -24,7 +24,7 @@
 
 - (VVMSharedCallStatusObserver)init
 {
-  v3 = sub_1000430EC();
+  v3 = sub_1000430EC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
@@ -60,22 +60,21 @@
     delegates = v6->delegates;
     v6->delegates = v15;
 
-    v17 = sub_1000430EC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_1000430EC(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = objc_opt_class();
+      v19 = objc_opt_class();
       *buf = 136315650;
       v28 = "";
       v29 = 2080;
       v30 = "";
       v31 = 2112;
-      v32 = v18;
-      v19 = v18;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ Creating TUCallCenter instance", buf, 0x20u);
+      v32 = v19;
+      v20 = v19;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ Creating TUCallCenter instance", buf, 0x20u);
     }
 
-    v20 = +[TUCallCenter sharedInstance];
-    v21 = sub_1000430EC();
+    v21 = sub_1000430EC(+[TUCallCenter sharedInstance]);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       v22 = objc_opt_class();
@@ -98,7 +97,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_1000430EC();
+  v3 = sub_1000430EC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
@@ -124,20 +123,20 @@
 - (void)handleCallStatusChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_1000430EC();
+  v5 = sub_1000430EC(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     name = [notificationCopy name];
-    v21 = 136315906;
-    v22 = "";
-    v23 = 2080;
-    v24 = "";
-    v25 = 2112;
-    v26 = v6;
-    v27 = 2112;
-    v28 = name;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling <%@>", &v21, 0x2Au);
+    v22 = 136315906;
+    v23 = "";
+    v24 = 2080;
+    v25 = "";
+    v26 = 2112;
+    v27 = v6;
+    v28 = 2112;
+    v29 = name;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling <%@>", &v22, 0x2Au);
   }
 
   name2 = [notificationCopy name];
@@ -155,39 +154,39 @@
 
       if (isTelephonyProvider)
       {
-        v14 = sub_1000430EC();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = sub_1000430EC(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = objc_opt_class();
+          v16 = objc_opt_class();
           status = [object2 status];
-          v21 = 136315906;
-          v22 = "";
-          v23 = 2080;
-          v24 = "";
-          v25 = 2112;
-          v26 = v15;
-          v27 = 1024;
-          LODWORD(v28) = status;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling CallStatus changed to %d", &v21, 0x26u);
+          v22 = 136315906;
+          v23 = "";
+          v24 = 2080;
+          v25 = "";
+          v26 = 2112;
+          v27 = v16;
+          v28 = 1024;
+          LODWORD(v29) = status;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling CallStatus changed to %d", &v22, 0x26u);
         }
 
         if ([object2 status] == 6)
         {
           localSenderIdentityUUID = [object2 localSenderIdentityUUID];
-          v18 = sub_1000430EC();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = sub_1000430EC(localSenderIdentityUUID);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = objc_opt_class();
-            v21 = 136315906;
-            v22 = "";
-            v23 = 2080;
-            v24 = "";
-            v25 = 2112;
-            v26 = v19;
-            v27 = 2112;
-            v28 = localSenderIdentityUUID;
-            v20 = v19;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is notifying delegate CallStatus Disconnected for uuid %@", &v21, 0x2Au);
+            v20 = objc_opt_class();
+            v22 = 136315906;
+            v23 = "";
+            v24 = 2080;
+            v25 = "";
+            v26 = 2112;
+            v27 = v20;
+            v28 = 2112;
+            v29 = localSenderIdentityUUID;
+            v21 = v20;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is notifying delegate CallStatus Disconnected for uuid %@", &v22, 0x2Au);
           }
 
           [(VVMSharedCallStatusObserver *)self notifyCallStatusDisconnected:localSenderIdentityUUID];

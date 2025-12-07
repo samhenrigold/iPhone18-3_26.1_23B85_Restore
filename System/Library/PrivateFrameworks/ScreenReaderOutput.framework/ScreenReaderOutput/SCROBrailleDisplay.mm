@@ -19,6 +19,7 @@
 - (id)driverModelIdentifier;
 - (id)keyArrayForBrailleStringWithCurrentModifiers:(id)modifiers;
 - (id)lineDescriptor;
+- (id)newBrailleKeyboardKeyForText:(id)text modifiers:(unsigned int)modifiers;
 - (id)realStatus;
 - (id)virtualStatus;
 - (int)virtualStatusAlignment;
@@ -82,6 +83,7 @@
 - (void)handleCommandTranslateForDispatcher:(id)dispatcher;
 - (void)handleCommandWordDescriptionEvent:(id)event forDispatcher:(id)dispatcher;
 - (void)handleEvent:(id)event;
+- (void)handlePlanarPanFailedIsLeft:(BOOL)left;
 - (void)handleUnsupportedKeyEvent:(id)event forDispatcher:(id)dispatcher;
 - (void)invalidate;
 - (void)panBeginning;
@@ -99,6 +101,7 @@
 - (void)setBlinkingCursorEnabled:(BOOL)enabled;
 - (void)setBrailleFormatter:(id)formatter;
 - (void)setBrailleKeyDebounceTimeout:(double)timeout;
+- (void)setDelegateWantsDisplayCallback:(BOOL)callback;
 - (void)setImageData:(id)data;
 - (void)setInputAllowed:(BOOL)allowed;
 - (void)setInputContractionMode:(int)mode;
@@ -107,6 +110,11 @@
 - (void)setOutputContractionMode:(int)mode;
 - (void)setOutputShowEightDot:(BOOL)dot;
 - (void)setPlanarData:(id)data;
+- (void)setPrepareToMemorizeNextKey:(BOOL)key immediate:(BOOL)immediate;
+- (void)setSingleLetterInputIsOn:(BOOL)on;
+- (void)setStatusAttributesWithMasterCellIndex:(int64_t)index virtualAlignment:(int)alignment;
+- (void)setTextSearchModeOn:(BOOL)on;
+- (void)setVirtualStatusAlignment:(int)alignment;
 - (void)simulateKeypress:(id)keypress;
 - (void)translateBrailleToClipboard;
 - (void)unpauseInputOnBrailleFormatterChange;
@@ -270,7 +278,7 @@ LABEL_5:
 
 - (void)_runThread
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   [(NSLock *)self->_contentLock lock];
   if (self->_isValid && self->_brailleDriver)
@@ -278,23 +286,23 @@ LABEL_5:
     v4 = objc_autoreleasePoolPush();
     _attemptLoad = [(SCROBrailleDisplay *)self _attemptLoad];
     objc_autoreleasePoolPop(v4);
-    v6 = _SCROD_LOG();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _SCROD_LOG(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       brailleDriver = self->_brailleDriver;
       ioElement = self->_ioElement;
-      v24 = 138543874;
-      v25 = brailleDriver;
-      v26 = 2114;
-      v27 = ioElement;
-      v28 = 1024;
-      v29 = _attemptLoad;
-      _os_log_impl(&dword_26490B000, v6, OS_LOG_TYPE_DEFAULT, "Load driver %{public}@ with element: %{public}@ : result: %d", &v24, 0x1Cu);
+      v23 = 138543874;
+      v24 = brailleDriver;
+      v25 = 2114;
+      v26 = ioElement;
+      v27 = 1024;
+      v28 = _attemptLoad;
+      _os_log_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEFAULT, "Load driver %{public}@ with element: %{public}@ : result: %d", &v23, 0x1Cu);
     }
 
     if (_attemptLoad)
     {
-      v9 = 1;
+      v10 = 1;
       modelIdentifier = [(SCROBrailleDriverProtocol *)self->_brailleDriver modelIdentifier];
       driverModelIdentifier = self->_driverModelIdentifier;
       self->_driverModelIdentifier = modelIdentifier;
@@ -305,9 +313,9 @@ LABEL_5:
       self->_statusSize = statusSize & ~(statusSize >> 63);
       self->_postsKeyboardEvents = [(SCROBrailleDriverProtocol *)self->_brailleDriver postsKeyboardEvents];
       self->_brailleInputMode = [(SCROBrailleDriverProtocol *)self->_brailleDriver brailleInputMode];
-      v14 = [[SCROBrailleLine alloc] initWithDriver:self->_brailleDriver mainSize:self->_mainSize statusSize:self->_statusSize];
+      v15 = [[SCROBrailleLine alloc] initWithDriver:self->_brailleDriver mainSize:self->_mainSize statusSize:self->_statusSize];
       brailleLine = self->_brailleLine;
-      self->_brailleLine = v14;
+      self->_brailleLine = v15;
 
       [(SCROBrailleLine *)self->_brailleLine setTranslationDelegate:self];
       self->_runLoop = CFRunLoopGetCurrent();
@@ -321,7 +329,6 @@ LABEL_5:
 
       runLoop = self->_runLoop;
       [(SCROBrailleEventDispatcher *)self->_eventDispatcher start];
-      v18 = self->_brailleDriver;
       if (objc_opt_respondsToSelector())
       {
         [(SCROBrailleDriverProtocol *)self->_brailleDriver setBrailleDriverDelegate:self];
@@ -333,20 +340,20 @@ LABEL_5:
     else
     {
       runLoop = 0;
-      v9 = 1;
+      v10 = 1;
     }
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
     runLoop = 0;
     _attemptLoad = 0;
   }
 
   [(NSLock *)self->_contentLock unlock];
   objc_autoreleasePoolPop(v3);
-  if (v9)
+  if (v10)
   {
     v19 = objc_autoreleasePoolPush();
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -373,8 +380,6 @@ LABEL_5:
       objc_autoreleasePoolPop(v19);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)_blinkingCursorSetting
@@ -565,7 +570,6 @@ LABEL_5:
 
 - (BOOL)isPlanar
 {
-  brailleDriver = self->_brailleDriver;
   result = 0;
   if (objc_opt_respondsToSelector())
   {
@@ -879,7 +883,6 @@ LABEL_23:
 
 - (id)canvasDescriptor
 {
-  brailleDriver = self->_brailleDriver;
   if (objc_opt_respondsToSelector())
   {
     canvas = [(SCROBrailleDriverProtocol *)self->_brailleDriver canvas];
@@ -896,15 +899,14 @@ LABEL_23:
 
 - (BOOL)isMultiLine
 {
-  brailleDriver = self->_brailleDriver;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_brailleDriver;
+  brailleDriver = self->_brailleDriver;
 
-  return [(SCROBrailleDriverProtocol *)v4 shouldUseMultiRow];
+  return [(SCROBrailleDriverProtocol *)brailleDriver shouldUseMultiRow];
 }
 
 - (void)requestFlushLine
@@ -990,6 +992,14 @@ LABEL_23:
   return aggregatedData;
 }
 
+- (void)setVirtualStatusAlignment:(int)alignment
+{
+  eventDispatcher = self->_eventDispatcher;
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:*&alignment];
+  v4 = [SCROBrailleEvent eventWithType:4 data:v5];
+  [(SCROBrailleEventDispatcher *)eventDispatcher enqueueEvent:v4];
+}
+
 - (int)virtualStatusAlignment
 {
   [(NSLock *)self->_contentLock lock];
@@ -1012,6 +1022,24 @@ LABEL_23:
   masterStatusCellIndex = [(SCROBrailleDisplayStatus *)self->_status masterStatusCellIndex];
   [(NSLock *)self->_contentLock unlock];
   return masterStatusCellIndex;
+}
+
+- (void)setDelegateWantsDisplayCallback:(BOOL)callback
+{
+  eventDispatcher = self->_eventDispatcher;
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:callback];
+  v4 = [SCROBrailleEvent eventWithType:32 data:v5];
+  [(SCROBrailleEventDispatcher *)eventDispatcher enqueueEvent:v4];
+}
+
+- (void)setStatusAttributesWithMasterCellIndex:(int64_t)index virtualAlignment:(int)alignment
+{
+  v4 = *&alignment;
+  eventDispatcher = self->_eventDispatcher;
+  v8 = [MEMORY[0x277CCABB0] numberWithInteger:index];
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  v7 = [SCROBrailleEvent eventWithType:27 data:v8 data2:v6 data3:0];
+  [(SCROBrailleEventDispatcher *)eventDispatcher enqueueEvent:v7];
 }
 
 - (void)simulateKeypress:(id)keypress
@@ -1063,6 +1091,32 @@ LABEL_23:
   eventDispatcher = self->_eventDispatcher;
   v3 = [SCROBrailleEvent eventWithType:48 data:0];
   [(SCROBrailleEventDispatcher *)eventDispatcher enqueueEvent:v3];
+}
+
+- (void)setPrepareToMemorizeNextKey:(BOOL)key immediate:(BOOL)immediate
+{
+  immediateCopy = immediate;
+  eventDispatcher = self->_eventDispatcher;
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:key];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:immediateCopy];
+  v7 = [SCROBrailleEvent eventWithType:23 data:v8 data2:v6 data3:0];
+  [(SCROBrailleEventDispatcher *)eventDispatcher enqueueEvent:v7];
+}
+
+- (void)setSingleLetterInputIsOn:(BOOL)on
+{
+  eventDispatcher = self->_eventDispatcher;
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:on];
+  v4 = [SCROBrailleEvent eventWithType:38 data:v5];
+  [(SCROBrailleEventDispatcher *)eventDispatcher enqueueEvent:v4];
+}
+
+- (void)setTextSearchModeOn:(BOOL)on
+{
+  eventDispatcher = self->_eventDispatcher;
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:on];
+  v4 = [SCROBrailleEvent eventWithType:40 data:v5];
+  [(SCROBrailleEventDispatcher *)eventDispatcher enqueueEvent:v4];
 }
 
 - (void)translateBrailleToClipboard
@@ -1219,7 +1273,7 @@ LABEL_32:
     (eventHandled2)[2](eventHandled2, eventCopy);
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v13);
 }
 
 - (void)_unloadHandler
@@ -1568,34 +1622,34 @@ LABEL_10:
 
 - (void)_simulateKeypressHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   data = [handler data];
   v5 = data;
   if (data)
   {
     keyMasks = [data keyMasks];
     array = [MEMORY[0x277CBEB18] array];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v8 = keyMasks;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         v12 = 0;
         do
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          intValue = [*(*(&v16 + 1) + 8 * v12) intValue];
+          intValue = [*(*(&v15 + 1) + 8 * v12) intValue];
           v14 = [MEMORY[0x277CCABB0] numberWithInt:intValue];
           [array addObject:v14];
 
@@ -1603,7 +1657,7 @@ LABEL_10:
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -1611,8 +1665,6 @@ LABEL_10:
 
     [(SCROBrailleDisplay *)self _processKeyEvents:array];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_bulkStatusAttributesHandler:(id)handler
@@ -2712,29 +2764,27 @@ LABEL_26:
   modifiersCopy = modifiers;
   [(SCROBrailleDisplay *)self isInputContracted];
   v5 = self->_persistentKeyModifiers | [(SCROBrailleDisplayInput *)self->_input currentBrailleModifiers];
-  v6 = *MEMORY[0x277CF3390];
-  *MEMORY[0x277CF33A8];
   [(SCROBrailleDisplay *)self isInputEightDot];
-  v7 = BRLTModeForFlags();
+  v6 = BRLTModeForFlags();
   if ([(SCROBrailleLine *)self->_brailleLine isSingleLetterInputOn])
   {
-    v7 = 2;
+    v6 = 2;
   }
 
-  v8 = +[SCROBrailleTranslationManager inputManager];
-  v9 = [v8 textForPrintBraille:modifiersCopy language:0 mode:v7 locations:0];
+  v7 = +[SCROBrailleTranslationManager inputManager];
+  v8 = [v7 textForPrintBraille:modifiersCopy language:0 mode:v6 locations:0];
 
-  if ([v9 length] >= 2)
+  if ([v8 length] >= 2)
   {
-    v10 = [v9 substringToIndex:1];
+    v9 = [v8 substringToIndex:1];
 
-    v9 = v10;
+    v8 = v9;
   }
 
-  v11 = [(SCROBrailleDisplay *)self newBrailleKeyboardKeyForText:v9 modifiers:v5];
-  v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v11, 0}];
+  v10 = [(SCROBrailleDisplay *)self newBrailleKeyboardKeyForText:v8 modifiers:v5];
+  v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v10, 0}];
 
-  return v12;
+  return v11;
 }
 
 - (id)brailleInputManager
@@ -2921,14 +2971,14 @@ LABEL_26:
 
 - (void)handleCommandRouterKeyEvent:(id)event forDispatcher:(id)dispatcher
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v44 = 0;
-  v45 = 0;
-  v42 = 0;
   v43 = 0;
-  v6 = [eventCopy getRouterIndex:&v45 token:&v44 location:&v43 appToken:&v42];
-  v7 = v42;
+  v44 = 0;
+  v41 = 0;
+  v42 = 0;
+  v6 = [eventCopy getRouterIndex:&v44 token:&v43 location:&v42 appToken:&v41];
+  v7 = v41;
   if (!v6)
   {
     goto LABEL_20;
@@ -2936,17 +2986,17 @@ LABEL_26:
 
   if ([eventCopy isSecondaryRouter])
   {
+    v39 = 0;
     v40 = 0;
-    v41 = 0;
-    LOBYTE(v39) = [(SCROBrailleLine *)self->_brailleLine selectUpToRouterIndex:v45 selectionBegin:&v41 selectionEnd:&v40];
-    [(SCROBrailleDisplay *)self _forwardToScreenReader:eventCopy routerIndex:v45 token:v44 BeginLocation:v41 endLocation:v40 appToken:v7 didPerform:v39];
+    LOBYTE(v38) = [(SCROBrailleLine *)self->_brailleLine selectUpToRouterIndex:v44 selectionBegin:&v40 selectionEnd:&v39];
+    [(SCROBrailleDisplay *)self _forwardToScreenReader:eventCopy routerIndex:v44 token:v43 BeginLocation:v40 endLocation:v39 appToken:v7 didPerform:v38];
     goto LABEL_22;
   }
 
   Current = CFAbsoluteTimeGetCurrent();
   lastRouterIndex = [(SCROBrailleDisplay *)self lastRouterIndex];
-  v10 = v45;
-  if (lastRouterIndex == v45)
+  v10 = v44;
+  if (lastRouterIndex == v44)
   {
     [(SCROBrailleDisplay *)self lastRouterPressTime];
     v12 = Current - v11;
@@ -2957,7 +3007,7 @@ LABEL_26:
       goto LABEL_9;
     }
 
-    v10 = v45;
+    v10 = v44;
   }
 
   [(SCROBrailleDisplay *)self setLastRouterIndex:v10];
@@ -2967,14 +3017,14 @@ LABEL_9:
   [(SCROBrailleDisplay *)self setLastRouterPressTime:Current];
   if ([(SCROBrailleDisplay *)self routerClicks]< 2)
   {
-    LOBYTE(v41) = 0;
-    v18 = [(SCROBrailleLine *)self->_brailleLine moveCursorToRouterIndex:v45 forwardToScreenReader:&v41 updateRouterLocation:&v43];
-    if (v41 == 1)
+    LOBYTE(v40) = 0;
+    v18 = [(SCROBrailleLine *)self->_brailleLine moveCursorToRouterIndex:v44 forwardToScreenReader:&v40 updateRouterLocation:&v42];
+    if (v40 == 1)
     {
-      [eventCopy setRouterIndex:v45 token:v44 location:v43 appToken:v7];
+      [eventCopy setRouterIndex:v44 token:v43 location:v42 appToken:v7];
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      v46 = eventCopy;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+      v45 = eventCopy;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
       [WeakRetained brailleDisplay:self pressedKeys:v20];
 
 LABEL_21:
@@ -2992,33 +3042,33 @@ LABEL_20:
     goto LABEL_21;
   }
 
+  v39 = -1;
   v40 = -1;
-  v41 = -1;
   routerClicks = [(SCROBrailleDisplay *)self routerClicks];
   brailleLine = self->_brailleLine;
   if (routerClicks != 2)
   {
-    if (![(SCROBrailleLine *)brailleLine selectEntireLine:&v41 selectionEnd:&v40])
+    if (![(SCROBrailleLine *)brailleLine selectEntireLine:&v40 selectionEnd:&v39])
     {
       goto LABEL_12;
     }
 
 LABEL_16:
     v21 = [eventCopy copy];
-    [v21 setRouterIndex:v45 token:v44 location:v41 appToken:v7];
+    [v21 setRouterIndex:v44 token:v43 location:v40 appToken:v7];
     [v21 setIsSecondaryRouter:0];
     v22 = [eventCopy copy];
-    [v22 setRouterIndex:v45 token:v44 location:v40 appToken:v7];
+    [v22 setRouterIndex:v44 token:v43 location:v39 appToken:v7];
     [v22 setIsSecondaryRouter:1];
-    NSLog(&cfstr_AquiObrailledi.isa, v41, v40);
-    v47[0] = v21;
-    v47[1] = v22;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+    NSLog(&cfstr_AquiObrailledi.isa, v40, v39);
+    v46[0] = v21;
+    v46[1] = v22;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
 
     goto LABEL_17;
   }
 
-  if ([(SCROBrailleLine *)brailleLine selectContiguousBrailleRange:v45 selectionBegin:&v41 selectionEnd:&v40])
+  if ([(SCROBrailleLine *)brailleLine selectContiguousBrailleRange:v44 selectionBegin:&v40 selectionEnd:&v39])
   {
     goto LABEL_16;
   }
@@ -3059,13 +3109,11 @@ LABEL_22:
   [(SCROBrailleDisplayInput *)v36 setBrailleTranslationTimeout:v35];
   v37 = +[SCROSharedInputProperties sharedInstance];
   [v37 setLastBrailleChordPosted:v29];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_forwardToScreenReader:(id)reader routerIndex:(int64_t)index token:(int64_t)token BeginLocation:(int64_t)location endLocation:(int64_t)endLocation appToken:(id)appToken didPerform:(BOOL)perform
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   readerCopy = reader;
   appTokenCopy = appToken;
   if (perform)
@@ -3074,16 +3122,16 @@ LABEL_22:
     [v17 setRouterIndex:index token:token location:location appToken:appTokenCopy];
     [v17 setIsSecondaryRouter:0];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v25[0] = v17;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = v17;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     [WeakRetained brailleDisplay:self pressedKeys:v19];
 
     v20 = [readerCopy copy];
     [v20 setRouterIndex:index token:token location:endLocation appToken:appTokenCopy];
     [v20 setIsSecondaryRouter:1];
     v21 = objc_loadWeakRetained(&self->_delegate);
-    v24 = v20;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v23 = v20;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
     [v21 brailleDisplay:self pressedKeys:v22];
   }
 
@@ -3092,19 +3140,17 @@ LABEL_22:
     v17 = objc_loadWeakRetained(&self->_delegate);
     [v17 playCommandNotSupportedSoundForBrailleDisplay:self];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommandDeleteKeyEvent:(id)event forDispatcher:(id)dispatcher
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (![(SCROBrailleLine *)self->_brailleLine deleteAtCursor])
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v21[0] = eventCopy;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = eventCopy;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     [WeakRetained brailleDisplay:self pressedKeys:v7];
   }
 
@@ -3127,19 +3173,17 @@ LABEL_22:
   [(SCROBrailleDisplayInput *)v18 setBrailleTranslationTimeout:v17];
   v19 = +[SCROSharedInputProperties sharedInstance];
   [v19 setLastBrailleChordPosted:Current];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommandForwardDeleteKeyEvent:(id)event forDispatcher:(id)dispatcher
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (![(SCROBrailleLine *)self->_brailleLine forwardDeleteAtCursor])
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v21[0] = eventCopy;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = eventCopy;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     [WeakRetained brailleDisplay:self pressedKeys:v7];
   }
 
@@ -3162,13 +3206,11 @@ LABEL_22:
   [(SCROBrailleDisplayInput *)v18 setBrailleTranslationTimeout:v17];
   v19 = +[SCROSharedInputProperties sharedInstance];
   [v19 setLastBrailleChordPosted:Current];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommandEscapeKeyEvent:(id)event forDispatcher:(id)dispatcher
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   mEMORY[0x277CF3318] = [MEMORY[0x277CF3318] sharedModel];
   handleEscape = [mEMORY[0x277CF3318] handleEscape];
@@ -3176,8 +3218,8 @@ LABEL_22:
   if ((handleEscape & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v23[0] = eventCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = eventCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     [WeakRetained brailleDisplay:self pressedKeys:v9];
   }
 
@@ -3200,13 +3242,11 @@ LABEL_22:
   [(SCROBrailleDisplayInput *)v20 setBrailleTranslationTimeout:v19];
   v21 = +[SCROSharedInputProperties sharedInstance];
   [v21 setLastBrailleChordPosted:Current];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommandReturnBrailleEvent:(id)event forDispatcher:(id)dispatcher
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   mEMORY[0x277CF3318] = [MEMORY[0x277CF3318] sharedModel];
   handleReturn = [mEMORY[0x277CF3318] handleReturn];
@@ -3214,8 +3254,8 @@ LABEL_22:
   if ((handleReturn & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v23[0] = eventCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = eventCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     [WeakRetained brailleDisplay:self pressedKeys:v9];
   }
 
@@ -3238,8 +3278,6 @@ LABEL_22:
   [(SCROBrailleDisplayInput *)v20 setBrailleTranslationTimeout:v19];
   v21 = +[SCROSharedInputProperties sharedInstance];
   [v21 setLastBrailleChordPosted:Current];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommandWordDescriptionEvent:(id)event forDispatcher:(id)dispatcher
@@ -3390,35 +3428,35 @@ LABEL_22:
 
 - (id)_newBrailleKeyForCurrentBrailleChord
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(SCROBrailleKey);
   [(SCROBrailleKey *)v3 setDisplayToken:[(SCROIOElementProtocol *)self->_ioElement identifier]];
   [(SCROBrailleKey *)v3 setDisplayMode:[(SCROBrailleLine *)self->_brailleLine displayMode]];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   currentBrailleChord = [(SCROBrailleDisplayInput *)self->_input currentBrailleChord];
-  v5 = [currentBrailleChord countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [currentBrailleChord countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(currentBrailleChord);
         }
 
-        -[SCROBrailleKey addKeyMask:](v3, "addKeyMask:", [*(*(&v11 + 1) + 8 * v8++) unsignedIntValue]);
+        -[SCROBrailleKey addKeyMask:](v3, "addKeyMask:", [*(*(&v10 + 1) + 8 * v8++) unsignedIntValue]);
       }
 
       while (v6 != v8);
-      v6 = [currentBrailleChord countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [currentBrailleChord countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -3430,43 +3468,42 @@ LABEL_22:
   }
 
   [(SCROBrailleKey *)v3 addModifierMask:[(SCROBrailleDisplayInput *)self->_input currentBrailleModifiers]];
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (id)_newBrailleKeyForCurrentKeyChord
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(SCROBrailleKey);
   [(SCROBrailleKey *)v3 setDisplayToken:[(SCROIOElementProtocol *)self->_ioElement identifier]];
   [(SCROBrailleKey *)v3 setDisplayMode:[(SCROBrailleLine *)self->_brailleLine displayMode]];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   currentChord = [(SCROBrailleDisplayInput *)self->_input currentChord];
-  v5 = [currentChord countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [currentChord countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(currentChord);
         }
 
-        unsignedIntValue = [*(*(&v15 + 1) + 8 * i) unsignedIntValue];
+        unsignedIntValue = [*(*(&v14 + 1) + 8 * i) unsignedIntValue];
         if ((unsignedIntValue & 0xF) != 0 && (unsignedIntValue & 0xF) != 3)
         {
           [(SCROBrailleKey *)v3 addKeyMask:unsignedIntValue];
         }
       }
 
-      v6 = [currentChord countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [currentChord countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -3477,9 +3514,9 @@ LABEL_22:
     routerEvent = [(SCROBrailleDisplayInput *)self->_input routerEvent];
     if ((routerEvent & 0xF) == 0)
     {
-      v14 = 0;
+      v13 = 0;
       [(NSLock *)self->_contentLock lock];
-      if ([(SCROBrailleLine *)self->_brailleLine getStatusRouterIndex:&v14 forRawIndex:BYTE1(routerEvent)])
+      if ([(SCROBrailleLine *)self->_brailleLine getStatusRouterIndex:&v13 forRawIndex:BYTE1(routerEvent)])
       {
         routerEvent |= 3u;
       }
@@ -3490,8 +3527,59 @@ LABEL_22:
     [(SCROBrailleKey *)v3 addKeyMask:routerEvent & 0xFFFF00FF];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v3;
+}
+
+- (id)newBrailleKeyboardKeyForText:(id)text modifiers:(unsigned int)modifiers
+{
+  v4 = *&modifiers;
+  textCopy = text;
+  v7 = objc_alloc_init(SCROBrailleKeyboardKey);
+  [(SCROBrailleKey *)v7 setDisplayToken:[(SCROIOElementProtocol *)self->_ioElement identifier]];
+  [(SCROBrailleKey *)v7 setDisplayMode:[(SCROBrailleLine *)self->_brailleLine displayMode]];
+  [(SCROBrailleKeyboardKey *)v7 setKeyString:textCopy];
+  [(SCROBrailleKeyboardKey *)v7 setModifiers:v4];
+  if ([textCopy length] == 1 && *MEMORY[0x277CF3390] != v4)
+  {
+    v8 = [textCopy mutableCopy];
+    CFStringTransform(v8, 0, *MEMORY[0x277CBF110], 0);
+    CFStringTransform(v8, 0, *MEMORY[0x277CBF100], 0);
+    if ([(__CFString *)v8 length])
+    {
+      lowercaseString = [(__CFString *)v8 lowercaseString];
+      v10 = [lowercaseString characterAtIndex:0];
+
+      v15 = v10;
+      if ((v10 - 97) > 0x19)
+      {
+        if ((v10 - 49) > 8)
+        {
+          v12 = [MEMORY[0x277CCACA8] stringWithCharacters:&v15 length:1];
+          v13 = [&unk_287652388 objectForKey:v12];
+
+          if (v13)
+          {
+            -[SCROBrailleKeyboardKey setKeyCode:](v7, "setKeyCode:", [v13 unsignedIntegerValue]);
+          }
+
+          goto LABEL_12;
+        }
+
+        v11 = (v10 - 19);
+      }
+
+      else
+      {
+        v11 = (v10 - 93);
+      }
+
+      [(SCROBrailleKeyboardKey *)v7 setKeyCode:v11];
+    }
+
+LABEL_12:
+  }
+
+  return v7;
 }
 
 - (void)brailleDriverDidReceiveInput
@@ -3737,17 +3825,15 @@ LABEL_33:
 
 - (void)didInsertScriptString:(id)string
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   input = self->_input;
   stringCopy = string;
   v6 = [(SCROBrailleDisplay *)self newBrailleKeyboardKeyForText:stringCopy modifiers:self->_persistentKeyModifiers | [(SCROBrailleDisplayInput *)input currentBrailleModifiers]];
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v10[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   [WeakRetained brailleDisplay:self pressedKeys:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)brailleDisplayInsertedCharacter:(id)character modifiers:(id)modifiers
@@ -3769,6 +3855,13 @@ LABEL_33:
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained brailleDisplay:self deletedUntranslatedText:v5 speakLiterally:v7];
+}
+
+- (void)handlePlanarPanFailedIsLeft:(BOOL)left
+{
+  leftCopy = left;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained handlePlanarPanFailedIsLeft:leftCopy];
 }
 
 - (void)setInputContractionMode:(int)mode

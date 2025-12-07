@@ -299,7 +299,7 @@ uint64_t __103__AVMediaSelectionGroup_mediaSelectionOptionsFromArray_filteredAnd
   return [v6 isEqualToString:v5];
 }
 
-uint64_t __103__AVMediaSelectionGroup_mediaSelectionOptionsFromArray_filteredAndSortedAccordingToPreferredLanguages___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__103__AVMediaSelectionGroup_mediaSelectionOptionsFromArray_filteredAndSortedAccordingToPreferredLanguages___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if ((result & 1) == 0)

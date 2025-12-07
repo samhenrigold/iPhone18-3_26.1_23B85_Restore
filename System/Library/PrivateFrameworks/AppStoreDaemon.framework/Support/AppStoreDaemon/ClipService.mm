@@ -36,7 +36,7 @@
   v14 = [[ASDAccountStatusResponse alloc] initWithAccountID:ams_DSID];
   if (ams_activeiTunesAccount)
   {
-    v15 = sub_100405768();
+    v15 = sub_100405768(FamilyManager);
     v41 = 0;
     v16 = sub_100405844(v15, v10, [requestCopy lookupFamilyInfoIfNecessary], 0, &v42, &v41);
     v17 = v41;
@@ -240,7 +240,7 @@
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[%@] Clip card event with bundleID: %{public}@ itemID: %{public}@ referral source bundleID: %{public}@ sourceURL: %{public}@", &v18, 0x34u);
   }
 
-  v17 = sub_1002B5560();
+  v17 = sub_1002B5560(MetricsCoordinator);
   sub_1002B7314(v17, eventCopy);
 
   if (handlerCopy)

@@ -15,12 +15,11 @@
 
 - (void)dealloc
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___FAFamilySettingsDaemonListener_listener);
   selfCopy = self;
-  dispatch thunk of XPCListener.cancel()();
-  v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for FamilySettingsDaemonListener();
-  [(FAFamilySettingsDaemonListener *)&v4 dealloc];
+  v3 = dispatch thunk of XPCListener.cancel()();
+  v5.receiver = selfCopy;
+  v5.super_class = type metadata accessor for FamilySettingsDaemonListener(v3, v4);
+  [(FAFamilySettingsDaemonListener *)&v5 dealloc];
 }
 
 - (FAFamilySettingsDaemonListener)init

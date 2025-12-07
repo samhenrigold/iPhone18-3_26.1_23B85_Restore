@@ -9,7 +9,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_190B19DE4();
+  sub_190B19DE4(selfCopy);
 
   sub_1908D84D0();
   v6 = sub_190D57160();

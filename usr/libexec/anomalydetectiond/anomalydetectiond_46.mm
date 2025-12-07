@@ -1,114 +1,3 @@
-uint64_t CMMsl::Magnetometer::hash_value(CMMsl::Magnetometer *this)
-{
-  if ((*(this + 36) & 1) == 0)
-  {
-    v1 = 0.0;
-    if ((*(this + 36) & 8) != 0)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_19:
-    v3 = 0;
-    if ((*(this + 36) & 0x10) != 0)
-    {
-      goto LABEL_6;
-    }
-
-LABEL_20:
-    v5 = 0;
-    if ((*(this + 36) & 0x20) != 0)
-    {
-      goto LABEL_9;
-    }
-
-LABEL_21:
-    v7 = 0;
-    if ((*(this + 36) & 4) != 0)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_22;
-  }
-
-  v1 = *(this + 1);
-  if (v1 == 0.0)
-  {
-    v1 = 0.0;
-  }
-
-  if ((*(this + 36) & 8) == 0)
-  {
-    goto LABEL_19;
-  }
-
-LABEL_3:
-  v2 = *(this + 6);
-  v3 = LODWORD(v2);
-  if (v2 == 0.0)
-  {
-    v3 = 0;
-  }
-
-  if ((*(this + 36) & 0x10) == 0)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_6:
-  v4 = *(this + 7);
-  v5 = LODWORD(v4);
-  if (v4 == 0.0)
-  {
-    v5 = 0;
-  }
-
-  if ((*(this + 36) & 0x20) == 0)
-  {
-    goto LABEL_21;
-  }
-
-LABEL_9:
-  v6 = *(this + 8);
-  v7 = LODWORD(v6);
-  if (v6 == 0.0)
-  {
-    v7 = 0;
-  }
-
-  if ((*(this + 36) & 4) != 0)
-  {
-LABEL_12:
-    v8 = *(this + 5);
-    v9 = LODWORD(v8);
-    if (v8 == 0.0)
-    {
-      v9 = 0;
-    }
-
-    if ((*(this + 36) & 2) != 0)
-    {
-      goto LABEL_15;
-    }
-
-LABEL_23:
-    v10 = 0;
-    return v3 ^ *&v1 ^ v5 ^ v7 ^ v9 ^ v10;
-  }
-
-LABEL_22:
-  v9 = 0;
-  if ((*(this + 36) & 2) == 0)
-  {
-    goto LABEL_23;
-  }
-
-LABEL_15:
-  v10 = *(this + 4);
-  return v3 ^ *&v1 ^ v5 ^ v7 ^ v9 ^ v10;
-}
-
 void CMMsl::MagnetometerCalibratorFilterParameters::~MagnetometerCalibratorFilterParameters(CMMsl::MagnetometerCalibratorFilterParameters *this)
 {
   *this = off_100420098;
@@ -283,7 +172,7 @@ uint64_t CMMsl::MagnetometerCalibratorFilterParameters::MagnetometerCalibratorFi
   return a1;
 }
 
-CMMsl *CMMsl::MagnetometerCalibratorFilterParameters::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::MagnetometerCalibratorFilterParameters::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -1281,35 +1170,25 @@ uint64_t CMMsl::MagnetometerCalibratorFilterParameters::hash_value(CMMsl::Magnet
   {
     if (*(this + 16) == 0.0)
     {
-      v2 = 0;
+      v1 = 0;
     }
 
     else
     {
-      v2 = *(this + 16);
+      v1 = *(this + 16);
     }
   }
 
   else
   {
-    v2 = 0;
+    v1 = 0;
   }
 
-  v3 = *(this + 4);
-  v4 = *(this + 5);
-  v5 = PBHashBytes() ^ v2;
-  v6 = *(this + 1);
-  v7 = *(this + 2);
-  v8 = PBHashBytes();
-  v9 = *(this + 13);
-  v10 = *(this + 14);
-  v11 = v5 ^ v8 ^ PBHashBytes();
-  v12 = *(this + 7);
-  v13 = *(this + 8);
-  v14 = PBHashBytes();
-  v15 = *(this + 10);
-  v16 = *(this + 11);
-  return v11 ^ v14 ^ PBHashBytes();
+  v2 = PBHashBytes() ^ v1;
+  v3 = PBHashBytes();
+  v4 = v2 ^ v3 ^ PBHashBytes();
+  v5 = PBHashBytes();
+  return v4 ^ v5 ^ PBHashBytes();
 }
 
 void CMMsl::MagnetometerReset::~MagnetometerReset(CMMsl::MagnetometerReset *this)
@@ -4874,7 +4753,7 @@ float CMMsl::MobilityBoutMetrics::MobilityBoutMetrics(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::MobilityBoutMetrics::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::MobilityBoutMetrics::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9906,4 +9785,116 @@ LABEL_18:
   }
 
   return v3 ^ *&v1 ^ v5 ^ v7 ^ v9 ^ v11 ^ v13;
+}
+
+void CMMsl::ModelBasedBioMotionClassification::~ModelBasedBioMotionClassification(CMMsl::ModelBasedBioMotionClassification *this)
+{
+  v2 = *(this + 1);
+  *this = off_100420220;
+  *(this + 1) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  PB::Base::~Base(this);
+}
+
+{
+  CMMsl::ModelBasedBioMotionClassification::~ModelBasedBioMotionClassification(this);
+
+  operator delete();
+}
+
+CMMsl::ModelBasedBioMotionClassification *CMMsl::ModelBasedBioMotionClassification::ModelBasedBioMotionClassification(CMMsl::ModelBasedBioMotionClassification *this, const CMMsl::BioMotionClassification **a2)
+{
+  *this = off_100420220;
+  *(this + 1) = 0;
+  if (a2[1])
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t CMMsl::ModelBasedBioMotionClassification::operator=(uint64_t a1, const CMMsl::BioMotionClassification **a2)
+{
+  if (a1 != a2)
+  {
+    CMMsl::ModelBasedBioMotionClassification::ModelBasedBioMotionClassification(&v5, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
+    v6 = v3;
+    CMMsl::ModelBasedBioMotionClassification::~ModelBasedBioMotionClassification(&v5);
+  }
+
+  return a1;
+}
+
+uint64_t CMMsl::swap(uint64_t this, CMMsl::ModelBasedBioMotionClassification *a2, CMMsl::ModelBasedBioMotionClassification *a3)
+{
+  v3 = *(this + 8);
+  *(this + 8) = *(a2 + 1);
+  *(a2 + 1) = v3;
+  return this;
+}
+
+void *CMMsl::ModelBasedBioMotionClassification::ModelBasedBioMotionClassification(void *a1, uint64_t a2)
+{
+  *a1 = off_100420220;
+  a1[1] = 0;
+  v3 = *(a2 + 8);
+  *(a2 + 8) = 0;
+  v4 = a1[1];
+  a1[1] = v3;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  return a1;
+}
+
+{
+  *a1 = off_100420220;
+  a1[1] = 0;
+  v3 = *(a2 + 8);
+  *(a2 + 8) = 0;
+  v4 = a1[1];
+  a1[1] = v3;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  return a1;
+}
+
+uint64_t CMMsl::ModelBasedBioMotionClassification::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v3 = *(a2 + 8);
+    *(a2 + 8) = 0;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = v3;
+    v6[0] = off_100420220;
+    v6[1] = v4;
+    CMMsl::ModelBasedBioMotionClassification::~ModelBasedBioMotionClassification(v6);
+  }
+
+  return a1;
+}
+
+uint64_t CMMsl::ModelBasedBioMotionClassification::formatText(CMMsl::ModelBasedBioMotionClassification *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 1);
+  if (v5)
+  {
+    (*(*v5 + 32))(v5, a2, "super");
+  }
+
+  return PB::TextFormatter::endObject(a2);
 }

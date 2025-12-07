@@ -16,6 +16,7 @@
 - (id)predicateWithoutStaleCharacteristicsFromPredicate:(id)predicate accessory:(id)accessory conditionModified:(BOOL *)modified;
 - (id)rewriteNowAdjustedForHomeTimeZone:(id)zone;
 - (id)rewritePredicate:(id)predicate currentCharacteristicInPredicate:(id *)inPredicate characteristicsToRead:(id)read homePresence:(id)presence;
+- (id)rewritePredicate:(id)predicate forDaemon:(BOOL)daemon message:(id)message;
 - (id)sunrise;
 - (id)sunset;
 - (id)updatePredicate:(id)predicate currentCharacteristicInPredicate:(id *)inPredicate conditionModified:(BOOL *)modified removedCharacteristic:(id)characteristic underService:(id)service underAccessory:(id)accessory;
@@ -34,35 +35,35 @@
 
 - (void)fillAnalyticsData:(id)data forPredicate:(id)predicate
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   predicateCopy = predicate;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     subpredicates = [predicateCopy subpredicates];
-    v9 = [subpredicates countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v9 = [subpredicates countByEnumeratingWithState:&v49 objects:v53 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v51;
+      v11 = *v50;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v51 != v11)
+          if (*v50 != v11)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          [(HMDPredicateUtilities *)self fillAnalyticsData:dataCopy forPredicate:*(*(&v50 + 1) + 8 * i)];
+          [(HMDPredicateUtilities *)self fillAnalyticsData:dataCopy forPredicate:*(*(&v49 + 1) + 8 * i)];
         }
 
-        v10 = [subpredicates countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v10 = [subpredicates countByEnumeratingWithState:&v49 objects:v53 count:16];
       }
 
       while (v10);
@@ -121,9 +122,9 @@
             else
             {
               keyPath2 = [leftExpression keyPath];
-              v49 = [keyPath2 isEqualToString:*MEMORY[0x277CD0FB0]];
+              v48 = [keyPath2 isEqualToString:*MEMORY[0x277CD0FB0]];
 
-              if (!dataCopy || !v49)
+              if (!dataCopy || !v48)
               {
                 goto LABEL_50;
               }
@@ -240,8 +241,6 @@ LABEL_52:
 
 LABEL_53:
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateAnalyticsData:(id)data
@@ -255,27 +254,27 @@ LABEL_53:
 
 - (BOOL)containsPresenceEvents:(id)events
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     subpredicates = [eventsCopy subpredicates];
-    v6 = [subpredicates countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [subpredicates countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
       isKindOfClass = 0;
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(subpredicates);
           }
@@ -287,11 +286,11 @@ LABEL_53:
 
           else
           {
-            isKindOfClass = [(HMDPredicateUtilities *)self containsPresenceEvents:*(*(&v19 + 1) + 8 * i)];
+            isKindOfClass = [(HMDPredicateUtilities *)self containsPresenceEvents:*(*(&v18 + 1) + 8 * i)];
           }
         }
 
-        v7 = [subpredicates countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [subpredicates countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -330,8 +329,113 @@ LABEL_53:
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return isKindOfClass & 1;
+}
+
+- (id)rewritePredicate:(id)predicate forDaemon:(BOOL)daemon message:(id)message
+{
+  daemonCopy = daemon;
+  v43 = *MEMORY[0x277D85DE8];
+  predicateCopy = predicate;
+  messageCopy = message;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v10 = predicateCopy;
+    array = [MEMORY[0x277CBEB18] array];
+    v38 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v36 = v10;
+    subpredicates = [v10 subpredicates];
+    v13 = [subpredicates countByEnumeratingWithState:&v38 objects:v42 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = *v39;
+      do
+      {
+        for (i = 0; i != v14; ++i)
+        {
+          if (*v39 != v15)
+          {
+            objc_enumerationMutation(subpredicates);
+          }
+
+          v17 = [(HMDPredicateUtilities *)self rewritePredicate:*(*(&v38 + 1) + 8 * i) forDaemon:daemonCopy message:messageCopy];
+          if (v17)
+          {
+            [array addObject:v17];
+          }
+        }
+
+        v14 = [subpredicates countByEnumeratingWithState:&v38 objects:v42 count:16];
+      }
+
+      while (v14);
+    }
+
+    if ([array count])
+    {
+      v18 = v36;
+      v19 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:objc_msgSend(v36 subpredicates:{"compoundPredicateType"), array}];
+    }
+
+    else
+    {
+      v19 = 0;
+      v18 = v36;
+    }
+  }
+
+  else
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v20 = predicateCopy;
+      predicateOperatorType = [v20 predicateOperatorType];
+      leftExpression = [v20 leftExpression];
+      if ([leftExpression expressionType] == 3)
+      {
+        keyPath = [leftExpression keyPath];
+        v24 = [keyPath isEqualToString:*MEMORY[0x277CD0C40]];
+
+        if (v24)
+        {
+          v37 = predicateOperatorType;
+          rightExpression = [v20 rightExpression];
+          if (![rightExpression expressionType])
+          {
+            constantValue = [rightExpression constantValue];
+            objc_opt_class();
+            isKindOfClass = objc_opt_isKindOfClass();
+
+            if (isKindOfClass)
+            {
+              home = [(HMDPredicateUtilities *)self home];
+              constantValue2 = [rightExpression constantValue];
+              v34 = [HMDPresenceEventModel eventModelWithDictionary:constantValue2 home:home eventTriggerUUID:0 message:messageCopy];
+              v29 = [[HMDPresenceEvent alloc] initWithModel:v34 home:home];
+              v30 = MEMORY[0x277CCA9C0];
+              v31 = [(HMDPresenceEvent *)v29 createPresenceEventPayload:daemonCopy];
+              v32 = [v30 expressionForConstantValue:v31];
+
+              v19 = [objc_alloc(MEMORY[0x277CCA918]) initWithLeftExpression:leftExpression rightExpression:v32 modifier:objc_msgSend(v20 type:"comparisonPredicateModifier") options:{v37, objc_msgSend(v20, "options")}];
+              goto LABEL_24;
+            }
+          }
+        }
+      }
+    }
+
+    v19 = predicateCopy;
+  }
+
+LABEL_24:
+
+  return v19;
 }
 
 - (id)dateTodayMatchingComponents:(id)components
@@ -390,7 +494,7 @@ LABEL_53:
 
 - (id)_updatePredicate:(id)predicate staleCharacteristicInCurrentPredicate:(BOOL *)currentPredicate accessory:(id)accessory conditionModified:(BOOL *)modified
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   accessoryCopy = accessory;
   objc_opt_class();
@@ -413,23 +517,23 @@ LABEL_53:
           if (isKindOfClass)
           {
             constantValue2 = [rightExpression constantValue];
-            v49 = [constantValue2 hmf_UUIDForKey:*MEMORY[0x277CCF0B0]];
+            v48 = [constantValue2 hmf_UUIDForKey:*MEMORY[0x277CCF0B0]];
             v30 = [constantValue2 hmf_numberForKey:*MEMORY[0x277CD25F8]];
-            v47 = HAPInstanceIDFromValue();
+            v46 = HAPInstanceIDFromValue();
 
-            v46 = constantValue2;
+            v45 = constantValue2;
             v31 = [constantValue2 hmf_numberForKey:*MEMORY[0x277CD2140]];
             v32 = HAPInstanceIDFromValue();
 
             uuid = [accessoryCopy uuid];
-            v45 = v32;
-            if ([uuid isEqual:v49])
+            v44 = v32;
+            if ([uuid isEqual:v48])
             {
-              v34 = [accessoryCopy findCharacteristic:v32 forService:v47];
+              v34 = [accessoryCopy findCharacteristic:v32 forService:v46];
 
               if (!v34)
               {
-                v51 = predicateCopy;
+                v50 = predicateCopy;
                 v35 = objc_autoreleasePoolPush();
                 selfCopy = self;
                 v37 = HMFGetOSLogHandle();
@@ -439,9 +543,9 @@ LABEL_53:
                   v38 = selfCopy;
                   v40 = v39 = v35;
                   *buf = 138543618;
-                  v57 = v40;
-                  v58 = 2112;
-                  v59 = v22;
+                  v56 = v40;
+                  v57 = 2112;
+                  v58 = v22;
                   _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Removing predicate %@ because referenced characteristic no longer exists", buf, 0x16u);
 
                   v35 = v39;
@@ -452,7 +556,7 @@ LABEL_53:
                 *currentPredicate = 1;
                 *modified = 1;
 
-                predicateCopy = v51;
+                predicateCopy = v50;
                 goto LABEL_30;
               }
             }
@@ -488,37 +592,37 @@ LABEL_30:
     goto LABEL_35;
   }
 
-  v50 = predicateCopy;
+  v49 = predicateCopy;
   v12 = predicateCopy;
   array = [MEMORY[0x277CBEB18] array];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v48 = v12;
+  v47 = v12;
   subpredicates = [v12 subpredicates];
-  v15 = [subpredicates countByEnumeratingWithState:&v52 objects:v60 count:16];
+  v15 = [subpredicates countByEnumeratingWithState:&v51 objects:v59 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v53;
+    v17 = *v52;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v53 != v17)
+        if (*v52 != v17)
         {
           objc_enumerationMutation(subpredicates);
         }
 
-        v19 = [(HMDPredicateUtilities *)self _updatePredicate:*(*(&v52 + 1) + 8 * i) staleCharacteristicInCurrentPredicate:currentPredicate accessory:accessoryCopy conditionModified:modified];
+        v19 = [(HMDPredicateUtilities *)self _updatePredicate:*(*(&v51 + 1) + 8 * i) staleCharacteristicInCurrentPredicate:currentPredicate accessory:accessoryCopy conditionModified:modified];
         if (v19)
         {
           [array addObject:v19];
         }
       }
 
-      v16 = [subpredicates countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v16 = [subpredicates countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
     while (v16);
@@ -526,20 +630,18 @@ LABEL_30:
 
   if ([array count])
   {
-    v20 = v48;
-    v21 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:objc_msgSend(v48 subpredicates:{"compoundPredicateType"), array}];
+    v20 = v47;
+    v21 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:objc_msgSend(v47 subpredicates:{"compoundPredicateType"), array}];
   }
 
   else
   {
     v21 = 0;
-    v20 = v48;
+    v20 = v47;
   }
 
-  predicateCopy = v50;
+  predicateCopy = v49;
 LABEL_35:
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -554,44 +656,44 @@ LABEL_35:
 
 - (id)updatePredicate:(id)predicate removedUser:(id)user conditionModified:(BOOL *)modified
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   userCopy = user;
   home = [(HMDPredicateUtilities *)self home];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v51 = predicateCopy;
-    v53 = home;
+    v50 = predicateCopy;
+    v52 = home;
     v11 = predicateCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     subpredicates = [v11 subpredicates];
-    v14 = [subpredicates countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v14 = [subpredicates countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v58;
+      v16 = *v57;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v58 != v16)
+          if (*v57 != v16)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          v18 = [(HMDPredicateUtilities *)self updatePredicate:*(*(&v57 + 1) + 8 * i) removedUser:userCopy conditionModified:modified];
+          v18 = [(HMDPredicateUtilities *)self updatePredicate:*(*(&v56 + 1) + 8 * i) removedUser:userCopy conditionModified:modified];
           if (v18)
           {
             [array addObject:v18];
           }
         }
 
-        v15 = [subpredicates countByEnumeratingWithState:&v57 objects:v65 count:16];
+        v15 = [subpredicates countByEnumeratingWithState:&v56 objects:v64 count:16];
       }
 
       while (v15);
@@ -607,9 +709,9 @@ LABEL_35:
       v19 = 0;
     }
 
-    home = v53;
+    home = v52;
 
-    predicateCopy = v51;
+    predicateCopy = v50;
     goto LABEL_27;
   }
 
@@ -632,38 +734,38 @@ LABEL_25:
   }
 
   rightExpression = [v20 rightExpression];
-  if ([rightExpression expressionType] || (objc_msgSend(rightExpression, "constantValue"), v50 = rightExpression, v25 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v25, rightExpression = v50, (isKindOfClass & 1) == 0))
+  if ([rightExpression expressionType] || (objc_msgSend(rightExpression, "constantValue"), v49 = rightExpression, v25 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v25, rightExpression = v49, (isKindOfClass & 1) == 0))
   {
 
     goto LABEL_25;
   }
 
-  constantValue = [v50 constantValue];
+  constantValue = [v49 constantValue];
   v27 = objc_autoreleasePoolPush();
   selfCopy = self;
   v29 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v30 = v54 = v27;
+    v30 = v53 = v27;
     *buf = 138543618;
-    v62 = v30;
-    v63 = 2112;
-    v64 = constantValue;
+    v61 = v30;
+    v62 = 2112;
+    v63 = constantValue;
     _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@presence event dictionary: %@", buf, 0x16u);
 
-    v27 = v54;
+    v27 = v53;
   }
 
   objc_autoreleasePoolPop(v27);
-  v55 = *MEMORY[0x277CD24D0];
+  v54 = *MEMORY[0x277CD24D0];
   v31 = [constantValue hmf_arrayForKey:?];
   v32 = [v31 mutableCopy];
 
   uuid = [userCopy uuid];
   uUIDString = [uuid UUIDString];
 
-  v48 = uUIDString;
+  v47 = uUIDString;
   v35 = [v32 indexOfObject:uUIDString];
   v36 = constantValue;
   if (v35 == 0x7FFFFFFFFFFFFFFFLL)
@@ -674,38 +776,37 @@ LABEL_25:
   else
   {
     [v32 removeObjectAtIndex:v35];
-    v39 = [constantValue mutableCopy];
-    v47 = v32;
-    [v39 setObject:v32 forKey:v55];
-    v46 = v39;
-    v45 = [HMDPresenceEventModel eventModelWithDictionary:v39 home:home eventTriggerUUID:0 message:0];
-    v56 = home;
-    v40 = [[HMDPresenceEvent alloc] initWithModel:v45 home:home];
-    v41 = MEMORY[0x277CCA9C0];
-    v42 = v40;
-    v43 = [(HMDPresenceEvent *)v40 createPresenceEventPayload:1];
-    v44 = [v41 expressionForConstantValue:v43];
+    v38 = [constantValue mutableCopy];
+    v46 = v32;
+    [v38 setObject:v32 forKey:v54];
+    v45 = v38;
+    v44 = [HMDPresenceEventModel eventModelWithDictionary:v38 home:home eventTriggerUUID:0 message:0];
+    v55 = home;
+    v39 = [[HMDPresenceEvent alloc] initWithModel:v44 home:home];
+    v40 = MEMORY[0x277CCA9C0];
+    v41 = v39;
+    v42 = [(HMDPresenceEvent *)v39 createPresenceEventPayload:1];
+    v43 = [v40 expressionForConstantValue:v42];
 
-    v19 = [objc_alloc(MEMORY[0x277CCA918]) initWithLeftExpression:leftExpression rightExpression:v44 modifier:objc_msgSend(v20 type:"comparisonPredicateModifier") options:{predicateOperatorType, objc_msgSend(v20, "options")}];
+    v19 = [objc_alloc(MEMORY[0x277CCA918]) initWithLeftExpression:leftExpression rightExpression:v43 modifier:objc_msgSend(v20 type:"comparisonPredicateModifier") options:{predicateOperatorType, objc_msgSend(v20, "options")}];
     if (modified)
     {
       *modified = 1;
     }
 
-    home = v56;
+    home = v55;
     v36 = constantValue;
-    v32 = v47;
+    v32 = v46;
   }
 
 LABEL_27:
-  v37 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)updatePredicate:(id)predicate currentCharacteristicInPredicate:(id *)inPredicate conditionModified:(BOOL *)modified removedCharacteristic:(id)characteristic underService:(id)service underAccessory:(id)accessory
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -725,7 +826,7 @@ LABEL_53:
     v27 = predicateCopy;
     rightExpression = [v27 rightExpression];
     leftExpression = [v27 leftExpression];
-    v69 = rightExpression;
+    v68 = rightExpression;
     if ([leftExpression expressionType] == 4)
     {
       function = [leftExpression function];
@@ -736,7 +837,7 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v71 = v27;
+      v70 = v27;
       v31 = predicateCopy;
       homeLocationHandler = [home homeLocationHandler];
       timeZone = [homeLocationHandler timeZone];
@@ -749,14 +850,14 @@ LABEL_18:
 
         leftExpression = v35;
         predicateCopy = v31;
-        rightExpression = v69;
-        v27 = v71;
+        rightExpression = v68;
+        v27 = v70;
         goto LABEL_18;
       }
 
       predicateCopy = v31;
-      rightExpression = v69;
-      v27 = v71;
+      rightExpression = v68;
+      v27 = v70;
     }
 
 LABEL_19:
@@ -765,7 +866,7 @@ LABEL_19:
       function2 = [rightExpression function];
       if ([function2 isEqualToString:@"now"])
       {
-        v72 = v27;
+        v71 = v27;
         v37 = predicateCopy;
         homeLocationHandler2 = [home homeLocationHandler];
         timeZone3 = [homeLocationHandler2 timeZone];
@@ -773,7 +874,7 @@ LABEL_19:
         if (!timeZone3)
         {
           predicateCopy = v37;
-          v27 = v72;
+          v27 = v71;
           goto LABEL_24;
         }
 
@@ -781,9 +882,9 @@ LABEL_19:
         timeZone4 = [function2 timeZone];
         v41 = [(HMDPredicateUtilities *)self rewriteNowAdjustedForHomeTimeZone:timeZone4];
 
-        v69 = v41;
+        v68 = v41;
         predicateCopy = v37;
-        v27 = v72;
+        v27 = v71;
       }
     }
 
@@ -797,13 +898,13 @@ LABEL_24:
 
         if (v58)
         {
-          expressionType = [v69 expressionType];
+          expressionType = [v68 expressionType];
           if (inPredicate)
           {
             if (!expressionType && *inPredicate)
             {
               *inPredicate = 0;
-              v56 = v69;
+              v56 = v68;
               if (modified)
               {
                 *modified = 1;
@@ -818,35 +919,35 @@ LABEL_24:
       goto LABEL_52;
     }
 
-    if ([v69 expressionType] || (objc_msgSend(v69, "constantValue"), v44 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v44, (isKindOfClass & 1) == 0))
+    if ([v68 expressionType] || (objc_msgSend(v68, "constantValue"), v44 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v44, (isKindOfClass & 1) == 0))
     {
 LABEL_52:
 
       goto LABEL_53;
     }
 
-    constantValue = [v69 constantValue];
-    v67 = [constantValue hmf_UUIDForKey:*MEMORY[0x277CCF0B0]];
+    constantValue = [v68 constantValue];
+    v66 = [constantValue hmf_UUIDForKey:*MEMORY[0x277CCF0B0]];
     v47 = [constantValue hmf_numberForKey:*MEMORY[0x277CD25F8]];
-    v64 = HAPInstanceIDFromValue();
+    v63 = HAPInstanceIDFromValue();
 
     v48 = [constantValue hmf_numberForKey:*MEMORY[0x277CD2140]];
-    v65 = HAPInstanceIDFromValue();
+    v64 = HAPInstanceIDFromValue();
 
     uuid = [accessoryCopy uuid];
-    if ([v67 isEqual:uuid])
+    if ([v66 isEqual:uuid])
     {
-      v63 = constantValue;
+      v62 = constantValue;
       instanceID = [characteristicCopy instanceID];
-      if ([v65 isEqual:instanceID])
+      if ([v64 isEqual:instanceID])
       {
         [serviceCopy instanceID];
-        v51 = v73 = predicateCopy;
-        v62 = [v64 isEqual:v51];
+        v51 = v72 = predicateCopy;
+        v61 = [v63 isEqual:v51];
 
-        predicateCopy = v73;
-        constantValue = v63;
-        if (v62)
+        predicateCopy = v72;
+        constantValue = v62;
+        if (v61)
         {
           v52 = objc_autoreleasePoolPush();
           selfCopy = self;
@@ -855,16 +956,16 @@ LABEL_52:
           {
             v55 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v81 = v55;
-            v82 = 2112;
-            v83 = characteristicCopy;
+            v80 = v55;
+            v81 = 2112;
+            v82 = characteristicCopy;
             _os_log_impl(&dword_2531F8000, v54, OS_LOG_TYPE_INFO, "%{public}@Char %@ has been removed, and it has reference in the condition, updating the condition", buf, 0x16u);
 
-            predicateCopy = v73;
+            predicateCopy = v72;
           }
 
           objc_autoreleasePoolPop(v52);
-          constantValue = v63;
+          constantValue = v62;
           if (inPredicate)
           {
             *inPredicate = characteristicCopy;
@@ -873,7 +974,7 @@ LABEL_52:
               *modified = 1;
             }
 
-            v56 = v69;
+            v56 = v68;
 LABEL_46:
 
             v26 = 0;
@@ -884,45 +985,45 @@ LABEL_46:
         goto LABEL_51;
       }
 
-      constantValue = v63;
+      constantValue = v62;
     }
 
 LABEL_51:
     goto LABEL_52;
   }
 
-  v68 = home;
-  v70 = predicateCopy;
+  v67 = home;
+  v69 = predicateCopy;
   v17 = predicateCopy;
   array = [MEMORY[0x277CBEB18] array];
+  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
-  v66 = v17;
+  v65 = v17;
   subpredicates = [v17 subpredicates];
-  v20 = [subpredicates countByEnumeratingWithState:&v76 objects:v84 count:16];
+  v20 = [subpredicates countByEnumeratingWithState:&v75 objects:v83 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v77;
+    v22 = *v76;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v77 != v22)
+        if (*v76 != v22)
         {
           objc_enumerationMutation(subpredicates);
         }
 
-        v24 = [(HMDPredicateUtilities *)self updatePredicate:*(*(&v76 + 1) + 8 * i) currentCharacteristicInPredicate:inPredicate conditionModified:modified removedCharacteristic:characteristicCopy underService:serviceCopy underAccessory:accessoryCopy];
+        v24 = [(HMDPredicateUtilities *)self updatePredicate:*(*(&v75 + 1) + 8 * i) currentCharacteristicInPredicate:inPredicate conditionModified:modified removedCharacteristic:characteristicCopy underService:serviceCopy underAccessory:accessoryCopy];
         if (v24)
         {
           [array addObject:v24];
         }
       }
 
-      v21 = [subpredicates countByEnumeratingWithState:&v76 objects:v84 count:16];
+      v21 = [subpredicates countByEnumeratingWithState:&v75 objects:v83 count:16];
     }
 
     while (v21);
@@ -930,29 +1031,27 @@ LABEL_51:
 
   if ([array count])
   {
-    v25 = v66;
-    v26 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:objc_msgSend(v66 subpredicates:{"compoundPredicateType"), array}];
+    v25 = v65;
+    v26 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:objc_msgSend(v65 subpredicates:{"compoundPredicateType"), array}];
   }
 
   else
   {
     v26 = 0;
-    v25 = v66;
+    v25 = v65;
   }
 
-  home = v68;
+  home = v67;
 
-  predicateCopy = v70;
+  predicateCopy = v69;
 LABEL_54:
-
-  v60 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 - (id)comparePresence:(id)presence operatorType:(id)type homePresence:(id)homePresence
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   presenceCopy = presence;
   typeCopy = type;
   homePresenceCopy = homePresence;
@@ -971,13 +1070,13 @@ LABEL_54:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v16;
-      v23 = 2112;
-      v24 = homePresenceCopy;
-      v25 = 2112;
-      v26 = presenceCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Checking whether the homePresence %@ agree with the presence events in condition: %@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v16;
+      v22 = 2112;
+      v23 = homePresenceCopy;
+      v24 = 2112;
+      v25 = presenceCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Checking whether the homePresence %@ agree with the presence events in condition: %@", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -991,14 +1090,12 @@ LABEL_54:
 
   v18 = [MEMORY[0x277CCABB0] numberWithBool:v17];
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)rewritePredicate:(id)predicate currentCharacteristicInPredicate:(id *)inPredicate characteristicsToRead:(id)read homePresence:(id)presence
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   readCopy = read;
   presenceCopy = presence;
@@ -1016,7 +1113,7 @@ LABEL_54:
       goto LABEL_63;
     }
 
-    v95 = home;
+    v94 = home;
     predicateOperatorType = [v26 predicateOperatorType];
     rightExpression = [v23 rightExpression];
     leftExpression = [v23 leftExpression];
@@ -1049,23 +1146,23 @@ LABEL_43:
         if (![v35 expressionType])
         {
           [v35 constantValue];
-          v36 = v86 = v35;
+          v36 = v85 = v35;
           objc_opt_class();
           v37 = objc_opt_isKindOfClass();
 
           if ((v37 & 1) == 0)
           {
             v24 = 0x277CCA000;
-            v35 = v86;
+            v35 = v85;
             goto LABEL_22;
           }
 
-          v82 = MEMORY[0x277CCA9C0];
-          v35 = v86;
-          constantValue = [v86 constantValue];
-          v83 = [v82 expressionWithFormat:@"FUNCTION($THIS_OBJECT, 'addDeltaToNow:', %@)", constantValue];
+          v81 = MEMORY[0x277CCA9C0];
+          v35 = v85;
+          constantValue = [v85 constantValue];
+          v82 = [v81 expressionWithFormat:@"FUNCTION($THIS_OBJECT, 'addDeltaToNow:', %@)", constantValue];
 
-          rightExpression = v83;
+          rightExpression = v82;
         }
 
         v24 = 0x277CCA000;
@@ -1117,15 +1214,15 @@ LABEL_60:
         if (v61)
         {
           constantValue5 = [rightExpression2 constantValue];
-          v92 = [constantValue5 hmf_UUIDForKey:*MEMORY[0x277CCF0B0]];
+          v91 = [constantValue5 hmf_UUIDForKey:*MEMORY[0x277CCF0B0]];
           v63 = [constantValue5 hmf_numberForKey:*MEMORY[0x277CD25F8]];
-          v87 = HAPInstanceIDFromValue();
+          v86 = HAPInstanceIDFromValue();
 
-          v84 = constantValue5;
+          v83 = constantValue5;
           v64 = [constantValue5 hmf_numberForKey:*MEMORY[0x277CD2140]];
           v65 = HAPInstanceIDFromValue();
 
-          v66 = [v95 accessoryWithUUID:v92];
+          v66 = [v94 accessoryWithUUID:v91];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1142,7 +1239,7 @@ LABEL_60:
           if (v68)
           {
             v69 = v68;
-            v70 = [v68 findCharacteristic:v65 forService:v87];
+            v70 = [v68 findCharacteristic:v65 forService:v86];
             v71 = v70;
             if (inPredicate && v70)
             {
@@ -1188,12 +1285,12 @@ LABEL_59:
           goto LABEL_62;
         }
 
-        v91 = predicateCopy;
+        v90 = predicateCopy;
         v51 = *inPredicate;
         if (!*inPredicate)
         {
           v50 = 0;
-          predicateCopy = v91;
+          predicateCopy = v90;
           goto LABEL_62;
         }
 
@@ -1207,7 +1304,7 @@ LABEL_59:
         *inPredicate = 0;
         v56 = 4;
         leftExpression = v55;
-        predicateCopy = v91;
+        predicateCopy = v90;
         goto LABEL_68;
       }
     }
@@ -1235,8 +1332,8 @@ LABEL_59:
         if (v75)
         {
           constantValue8 = [rightExpression3 constantValue];
-          v88 = [HMDPresenceEventModel eventModelWithDictionary:constantValue8 home:v95 eventTriggerUUID:0 message:0];
-          v76 = [[HMDPresenceEvent alloc] initWithModel:v88 home:v95];
+          v87 = [HMDPresenceEventModel eventModelWithDictionary:constantValue8 home:v94 eventTriggerUUID:0 message:0];
+          v76 = [[HMDPresenceEvent alloc] initWithModel:v87 home:v94];
           v77 = MEMORY[0x277CCA9C0];
           v78 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v23, "predicateOperatorType")}];
           presenceCopy = [v77 expressionWithFormat:@"FUNCTION($THIS_OBJECT, 'comparePresence:operatorType:homePresence:', %@, %@, %@)", v76, v78, presenceCopy];
@@ -1266,42 +1363,42 @@ LABEL_61:
 LABEL_62:
 
     v23 = v50;
-    home = v95;
+    home = v94;
     goto LABEL_63;
   }
 
-  v89 = predicateCopy;
-  v94 = home;
+  v88 = predicateCopy;
+  v93 = home;
   v14 = predicateCopy;
   array = [MEMORY[0x277CBEB18] array];
+  v95 = 0u;
   v96 = 0u;
   v97 = 0u;
   v98 = 0u;
-  v99 = 0u;
-  v85 = v14;
+  v84 = v14;
   subpredicates = [v14 subpredicates];
-  v17 = [subpredicates countByEnumeratingWithState:&v96 objects:v100 count:16];
+  v17 = [subpredicates countByEnumeratingWithState:&v95 objects:v99 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v97;
+    v19 = *v96;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v97 != v19)
+        if (*v96 != v19)
         {
           objc_enumerationMutation(subpredicates);
         }
 
-        v21 = [(HMDPredicateUtilities *)self rewritePredicate:*(*(&v96 + 1) + 8 * i) currentCharacteristicInPredicate:inPredicate characteristicsToRead:readCopy homePresence:presenceCopy];
+        v21 = [(HMDPredicateUtilities *)self rewritePredicate:*(*(&v95 + 1) + 8 * i) currentCharacteristicInPredicate:inPredicate characteristicsToRead:readCopy homePresence:presenceCopy];
         if (v21)
         {
           [array addObject:v21];
         }
       }
 
-      v18 = [subpredicates countByEnumeratingWithState:&v96 objects:v100 count:16];
+      v18 = [subpredicates countByEnumeratingWithState:&v95 objects:v99 count:16];
     }
 
     while (v18);
@@ -1309,29 +1406,27 @@ LABEL_62:
 
   if ([array count])
   {
-    v22 = v85;
-    v23 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:objc_msgSend(v85 subpredicates:{"compoundPredicateType"), array}];
-    home = v94;
+    v22 = v84;
+    v23 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:objc_msgSend(v84 subpredicates:{"compoundPredicateType"), array}];
+    home = v93;
   }
 
   else
   {
     v23 = 0;
-    home = v94;
-    v22 = v85;
+    home = v93;
+    v22 = v84;
   }
 
-  predicateCopy = v89;
+  predicateCopy = v88;
 LABEL_63:
-
-  v80 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
 
 - (id)sunset
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   home = [(HMDPredicateUtilities *)self home];
   homeLocationHandler = [home homeLocationHandler];
   location = [homeLocationHandler location];
@@ -1344,22 +1439,21 @@ LABEL_63:
   {
     v10 = HMFGetLogIdentifier();
     hmf_localTimeDescription = [v6 hmf_localTimeDescription];
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2112;
-    v17 = hmf_localTimeDescription;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Sunset time: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v10;
+    v15 = 2112;
+    v16 = hmf_localTimeDescription;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Sunset time: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)sunrise
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   home = [(HMDPredicateUtilities *)self home];
   homeLocationHandler = [home homeLocationHandler];
   location = [homeLocationHandler location];
@@ -1372,15 +1466,14 @@ LABEL_63:
   {
     v10 = HMFGetLogIdentifier();
     hmf_localTimeDescription = [v6 hmf_localTimeDescription];
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2112;
-    v17 = hmf_localTimeDescription;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Sunrise time: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v10;
+    v15 = 2112;
+    v16 = hmf_localTimeDescription;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Sunrise time: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1400,7 +1493,7 @@ LABEL_63:
     if (v12)
     {
       objc_storeWeak(&v12->_home, homeCopy);
-      v14 = [identifierCopy copy];
+      v14 = objc_msgSend_copy(identifierCopy);
       logIdentifier = v13->_logIdentifier;
       v13->_logIdentifier = v14;
 
@@ -1429,14 +1522,14 @@ id __52__HMDPredicateUtilities_initWithHome_logIdentifier___block_invoke(uint64_
 
 + (id)unarchiveFromData:(id)data error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = MEMORY[0x277CBEB98];
   v8 = objc_opt_class();
   v9 = [v7 setWithObjects:{v8, objc_opt_class(), 0}];
-  v20 = 0;
-  v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v9 fromData:dataCopy error:&v20];
-  v11 = v20;
+  v19 = 0;
+  v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v9 fromData:dataCopy error:&v19];
+  v11 = v19;
   if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v12 = v10;
@@ -1451,9 +1544,9 @@ id __52__HMDPredicateUtilities_initWithHome_logIdentifier___block_invoke(uint64_
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v11;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v11;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive predicate: %@", buf, 0x16u);
     }
 
@@ -1471,14 +1564,12 @@ id __52__HMDPredicateUtilities_initWithHome_logIdentifier___block_invoke(uint64_
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)filteredPredicate:(id)predicate withUserUUIDs:(id)ds
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   dsCopy = ds;
   objc_opt_class();
@@ -1486,29 +1577,29 @@ id __52__HMDPredicateUtilities_initWithHome_logIdentifier___block_invoke(uint64_
   {
     v8 = predicateCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     subpredicates = [v8 subpredicates];
-    v11 = [subpredicates countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v11 = [subpredicates countByEnumeratingWithState:&v46 objects:v50 count:16];
     if (v11)
     {
       v12 = v11;
-      v41 = v8;
-      v43 = predicateCopy;
+      v40 = v8;
+      v42 = predicateCopy;
       v13 = 0;
-      v14 = *v48;
+      v14 = *v47;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v48 != v14)
+          if (*v47 != v14)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          v16 = *(*(&v47 + 1) + 8 * i);
+          v16 = *(*(&v46 + 1) + 8 * i);
           v17 = [self filteredPredicate:v16 withUserUUIDs:dsCopy];
           if (v17)
           {
@@ -1518,13 +1609,13 @@ id __52__HMDPredicateUtilities_initWithHome_logIdentifier___block_invoke(uint64_
           v13 |= v17 != v16;
         }
 
-        v12 = [subpredicates countByEnumeratingWithState:&v47 objects:v51 count:16];
+        v12 = [subpredicates countByEnumeratingWithState:&v46 objects:v50 count:16];
       }
 
       while (v12);
 
-      v8 = v41;
-      predicateCopy = v43;
+      v8 = v40;
+      predicateCopy = v42;
       if (v13)
       {
         if (![array count])
@@ -1533,7 +1624,7 @@ id __52__HMDPredicateUtilities_initWithHome_logIdentifier___block_invoke(uint64_
           goto LABEL_26;
         }
 
-        v18 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:objc_msgSend(v41 subpredicates:{"compoundPredicateType"), array}];
+        v18 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:objc_msgSend(v40 subpredicates:{"compoundPredicateType"), array}];
 LABEL_25:
         v37 = v18;
 LABEL_26:
@@ -1576,44 +1667,44 @@ LABEL_26:
             v26 = [constantValue2 hmf_arrayForKey:*MEMORY[0x277CD24D0]];
             if ([v26 count])
             {
-              v44 = constantValue2;
-              v45[0] = MEMORY[0x277D85DD0];
-              v45[1] = 3221225472;
-              v45[2] = __57__HMDPredicateUtilities_filteredPredicate_withUserUUIDs___block_invoke;
-              v45[3] = &unk_27972D738;
-              v46 = dsCopy;
-              v27 = [v26 hmf_objectsPassingTest:v45];
+              v43 = constantValue2;
+              v44[0] = MEMORY[0x277D85DD0];
+              v44[1] = 3221225472;
+              v44[2] = __57__HMDPredicateUtilities_filteredPredicate_withUserUUIDs___block_invoke;
+              v44[3] = &unk_27972D738;
+              v45 = dsCopy;
+              v27 = [v26 hmf_objectsPassingTest:v44];
               v28 = [v27 count];
               if (v28 < [v26 count])
               {
                 if ([v27 count])
                 {
-                  v42 = [v44 mutableCopy];
-                  [v42 setObject:v27 forKeyedSubscript:v25];
+                  v41 = [v43 mutableCopy];
+                  [v41 setObject:v27 forKeyedSubscript:v25];
                   v29 = MEMORY[0x277CCA9C0];
-                  v30 = [v42 copy];
-                  v40 = [v29 expressionForConstantValue:v30];
+                  v30 = objc_msgSend_copy(v41);
+                  v39 = [v29 expressionForConstantValue:v30];
 
-                  v31 = v44;
+                  v31 = v43;
                   v32 = objc_alloc(MEMORY[0x277CCA918]);
                   comparisonPredicateModifier = [v8 comparisonPredicateModifier];
                   predicateOperatorType = [v8 predicateOperatorType];
                   options = [v8 options];
                   v36 = v32;
-                  rightExpression = v40;
-                  v37 = [v36 initWithLeftExpression:array rightExpression:v40 modifier:comparisonPredicateModifier type:predicateOperatorType options:options];
+                  rightExpression = v39;
+                  v37 = [v36 initWithLeftExpression:array rightExpression:v39 modifier:comparisonPredicateModifier type:predicateOperatorType options:options];
                 }
 
                 else
                 {
                   v37 = 0;
-                  v31 = v44;
+                  v31 = v43;
                 }
 
                 goto LABEL_26;
               }
 
-              constantValue2 = v44;
+              constantValue2 = v43;
             }
           }
         }
@@ -1623,8 +1714,6 @@ LABEL_26:
 
   v37 = predicateCopy;
 LABEL_33:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -1654,12 +1743,11 @@ uint64_t __57__HMDPredicateUtilities_filteredPredicate_withUserUUIDs___block_inv
 
 uint64_t __36__HMDPredicateUtilities_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_136176;
-  logCategory__hmf_once_v2_136176 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_136176;
+  logCategory__hmf_once_v2_136176 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)encodePredicate:(id)predicate error:(id *)error

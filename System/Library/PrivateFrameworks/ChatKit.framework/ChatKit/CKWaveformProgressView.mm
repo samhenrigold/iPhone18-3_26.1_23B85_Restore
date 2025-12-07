@@ -92,9 +92,9 @@
 - (void)prepareForDisplay
 {
   color = [(CKWaveformProgressView *)self color];
-  [(CKWaveformProgressView *)self duration];
+  objc_msgSend_duration(self);
   v5 = v4;
-  [(CKWaveformProgressView *)self currentTime];
+  objc_msgSend_currentTime(self);
   v7 = v6;
   waveform = [(CKWaveformProgressView *)self waveform];
   [waveform size];

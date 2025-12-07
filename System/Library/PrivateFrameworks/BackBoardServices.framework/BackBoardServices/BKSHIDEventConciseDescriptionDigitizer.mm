@@ -13,62 +13,62 @@ void ___BKSHIDEventConciseDescriptionDigitizer_block_invoke_2(uint64_t a1, void 
     v6 = v5;
     if (IOHIDEventGetType() == 11)
     {
-      IntegerValue = IOHIDEventGetIntegerValue();
+      IOHIDEventGetIntegerValue();
       IOHIDEventGetFloatValue();
-      v9 = v8;
       IOHIDEventGetFloatValue();
-      v11 = v10;
-      v12 = [v6 appendInteger:IntegerValue withName:@"path"];
-      v13 = [v6 appendPoint:0 withName:{v9, v11}];
+      v7 = [v6 appendInteger:? withName:?];
+      v8 = [v6 appendPoint:? withName:?];
       _BKSHIDEventAppendEventFlags(v3, v6);
     }
 
     else
     {
-      [v6 appendString:IOHIDEventTypeGetName() withName:0];
+      IOHIDEventTypeGetName();
+      [v6 appendString:? withName:?];
     }
 
     if (*(*(*(a1 + 48) + 8) + 24) < *(a1 + 56))
     {
-      v14 = [*(a1 + 40) objectAtIndexedSubscript:?];
-      v15 = v14;
-      if (v14)
+      v9 = [*(a1 + 40) objectAtIndexedSubscript:?];
+      v10 = v9;
+      if (v9)
       {
-        v16 = [v14 pathIndex];
-        if (v16 == IOHIDEventGetIntegerValue())
+        v11 = [v9 pathIndex];
+        if (v11 == IOHIDEventGetIntegerValue())
         {
-          v17 = [*(a1 + 32) appendUnsignedInteger:objc_msgSend(v15 withName:"touchIdentifier") format:{@"touchID", 1}];
-          v18 = [v15 hitTestContextCategory];
-          if (v18)
+          [v10 touchIdentifier];
+          v12 = [*(a1 + 32) appendUnsignedInteger:? withName:? format:?];
+          v13 = [v10 hitTestContextCategory];
+          if (v13)
           {
-            v19 = *(a1 + 32);
-            v20 = NSStringFromBKSTouchHitTestContextCategory(v18);
-            [v19 appendString:v20 withName:@"hcat"];
+            v14 = *(a1 + 32);
+            v15 = NSStringFromBKSTouchHitTestContextCategory(v13);
+            [v14 appendString:? withName:?];
           }
 
-          v21 = [v15 locus];
+          v16 = [v10 locus];
+          if (v16)
+          {
+            v17 = *(a1 + 32);
+            v18 = NSStringFromBKSHIDTouchLocus(v16);
+            [v17 appendString:? withName:?];
+          }
+
+          v19 = *(a1 + 32);
+          [v10 preciseLocation];
+          v20 = [v19 appendPoint:? withName:?];
+          v21 = [v10 authenticationMessage];
+
           if (v21)
           {
-            v22 = *(a1 + 32);
-            v23 = NSStringFromBKSHIDTouchLocus(v21);
-            [v22 appendString:v23 withName:0];
+            [*(a1 + 32) appendString:? withName:?];
           }
 
-          v24 = *(a1 + 32);
-          [v15 preciseLocation];
-          v25 = [v24 appendPoint:0 withName:?];
-          v26 = [v15 authenticationMessage];
+          v22 = [v10 securityAnalysis];
 
-          if (v26)
+          if (v22)
           {
-            [*(a1 + 32) appendString:@"auth" withName:0];
-          }
-
-          v27 = [v15 securityAnalysis];
-
-          if (v27)
-          {
-            [*(a1 + 32) appendString:@"sa" withName:0];
+            [*(a1 + 32) appendString:? withName:?];
           }
         }
       }
@@ -79,12 +79,7 @@ void ___BKSHIDEventConciseDescriptionDigitizer_block_invoke_2(uint64_t a1, void 
 
   else
   {
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = ___BKSHIDEventConciseDescriptionDigitizer_block_invoke_3;
-    v28[3] = &__block_descriptor_40_e43_v16__0___BSDescriptionStringAppendTarget__8l;
-    v28[4] = v3;
-    [v5 appendCustomFormatWithName:@":" block:v28];
+    [v5 appendCustomFormatWithName:? block:?];
   }
 }
 
@@ -93,7 +88,7 @@ void ___BKSHIDEventConciseDescriptionDigitizer_block_invoke_3(uint64_t a1, void 
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = BKSHIDEventGetConciseDescription(v2);
-  [v3 appendString:v4];
+  [v3 appendString:?];
 }
 
 @end

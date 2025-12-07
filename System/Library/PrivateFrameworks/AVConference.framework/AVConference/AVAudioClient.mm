@@ -835,7 +835,7 @@ uint64_t __36__AVAudioClient_setMicrophoneMuted___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __34__AVAudioClient_isMicrophoneMuted__block_invoke(uint64_t a1)
+void *__34__AVAudioClient_isMicrophoneMuted__block_invoke(uint64_t a1)
 {
   v4[1] = *MEMORY[0x1E69E9840];
   v3 = @"getMute";
@@ -954,7 +954,7 @@ void __48__AVAudioClient_setMixingVoiceWithMediaEnabled___block_invoke(uint64_t 
   return v4;
 }
 
-uint64_t __35__AVAudioClient_currentInputDevice__block_invoke(uint64_t a1)
+id __35__AVAudioClient_currentInputDevice__block_invoke(uint64_t a1)
 {
   v6[1] = *MEMORY[0x1E69E9840];
   v5 = @"getCurrentAudioInputDevice";
@@ -994,7 +994,7 @@ uint64_t __35__AVAudioClient_currentInputDevice__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __36__AVAudioClient_currentOutputDevice__block_invoke(uint64_t a1)
+id __36__AVAudioClient_currentOutputDevice__block_invoke(uint64_t a1)
 {
   v6[1] = *MEMORY[0x1E69E9840];
   v5 = @"getCurrentAudioOutputDevice";
@@ -1808,7 +1808,7 @@ void *__56__AVAudioClient_registerSecureMicrophoneEngagedHandler___block_invoke(
   }
 }
 
-uint64_t __35__AVAudioClient_resetXPCConnection__block_invoke(uint64_t a1)
+void *__35__AVAudioClient_resetXPCConnection__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setupXPCConnection];
   if (result)
@@ -1850,7 +1850,7 @@ uint64_t __35__AVAudioClient_resetXPCConnection__block_invoke(uint64_t a1)
   [(AVConferenceXPCClient *)self->_xpcConnection registerBlockForService:"audioSessionServerDied" block:v4 queue:self->_clientAudioSessionQueue];
 }
 
-uint64_t __55__AVAudioClient_registerBlocksForDelegateNotifications__block_invoke(uint64_t a1, void *a2)
+void *__55__AVAudioClient_registerBlocksForDelegateNotifications__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -1863,7 +1863,7 @@ uint64_t __55__AVAudioClient_registerBlocksForDelegateNotifications__block_invok
   return result;
 }
 
-uint64_t __55__AVAudioClient_registerBlocksForDelegateNotifications__block_invoke_2(uint64_t a1, void *a2)
+void *__55__AVAudioClient_registerBlocksForDelegateNotifications__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -1876,7 +1876,7 @@ uint64_t __55__AVAudioClient_registerBlocksForDelegateNotifications__block_invok
   return result;
 }
 
-uint64_t __55__AVAudioClient_registerBlocksForDelegateNotifications__block_invoke_3(uint64_t a1, void *a2)
+uint64_t (**__55__AVAudioClient_registerBlocksForDelegateNotifications__block_invoke_3(uint64_t a1, void *a2))(void)
 {
   v12 = *MEMORY[0x1E69E9840];
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
@@ -1901,14 +1901,14 @@ uint64_t __55__AVAudioClient_registerBlocksForDelegateNotifications__block_invok
     result = *(*(a1 + 32) + 48);
     if (result)
     {
-      return (*(result + 16))();
+      return result[2]();
     }
   }
 
   return result;
 }
 
-uint64_t __55__AVAudioClient_registerBlocksForDelegateNotifications__block_invoke_107(uint64_t a1, void *a2)
+void *__55__AVAudioClient_registerBlocksForDelegateNotifications__block_invoke_107(uint64_t a1, void *a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];

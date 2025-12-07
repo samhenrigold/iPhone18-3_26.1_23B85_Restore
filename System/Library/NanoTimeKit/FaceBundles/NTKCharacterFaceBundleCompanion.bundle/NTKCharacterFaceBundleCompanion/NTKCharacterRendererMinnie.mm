@@ -22,7 +22,7 @@
   if (v3)
   {
     [(NTKCharacterRenderer *)v3 _setPoseSpecs:&minniePoseSpecs];
-    [(NTKCharacterRenderer *)v4 _setStateSpecs:&minnieStateSpecs];
+    [(NTKCharacterRenderer *)v4 _setStateSpecs:minnieStateSpecs];
     [(NTKCharacterRendererMinnie *)v4 _getBlinkDuration];
     [(NTKCharacterRenderer *)v4 _setBlinkDuration:?];
   }

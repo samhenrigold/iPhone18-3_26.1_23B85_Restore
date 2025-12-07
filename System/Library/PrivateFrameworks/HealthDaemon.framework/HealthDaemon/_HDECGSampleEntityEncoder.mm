@@ -9,17 +9,15 @@
 
 - (id)orderedProperties
 {
-  v9[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"private_classification";
-  v9[1] = @"average_heart_rate";
-  v9[2] = @"voltage_payload";
-  v9[3] = @"symptoms_status";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"private_classification";
+  v8[1] = @"average_heart_rate";
+  v8[2] = @"voltage_payload";
+  v8[3] = @"symptoms_status";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

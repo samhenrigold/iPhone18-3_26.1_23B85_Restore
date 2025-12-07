@@ -39,7 +39,7 @@
   v14[1] = objc_opt_class();
   v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v8 = [v5 setWithArray:v7];
-  v9 = __atxlog_handle_usage_insights();
+  v9 = __atxlog_handle_usage_insights(v8);
   v10 = [v4 robustDecodeObjectOfClasses:v8 forKey:@"phubbingSessions" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.UsageInsights" errorCode:-1 logHandle:{v9, v14[0]}];
 
   error = [coderCopy error];

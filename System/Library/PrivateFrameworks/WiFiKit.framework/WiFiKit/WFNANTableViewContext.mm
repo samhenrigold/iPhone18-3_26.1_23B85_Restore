@@ -29,6 +29,7 @@
 - (void)removeSubscriber:(id)subscriber;
 - (void)removeSubscriberAtIndex:(int64_t)index;
 - (void)subscriber:(id)subscriber failedToStartWithError:(int64_t)error;
+- (void)subscriber:(id)subscriber lostDiscoveryResultForPublishID:(unsigned __int8)d address:(id)address;
 - (void)subscriber:(id)subscriber receivedDiscoveyResult:(id)result;
 - (void)subscriber:(id)subscriber terminatedWithReason:(int64_t)reason;
 - (void)subscriberStarted:(id)started;
@@ -66,21 +67,22 @@
 
 - (void)addPublisher:(id)publisher
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   publisherCopy = publisher;
   [publisherCopy start];
   [(NSMutableArray *)self->_publishers addObject:publisherCopy];
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
-      v8 = [(NSMutableArray *)self->_publishers count];
+      v10 = [(NSMutableArray *)self->_publishers count];
       *buf = 134217984;
-      v14 = v8;
-      _os_log_impl(&dword_273ECD000, v7, v6, "Added new publisher, new count is %lu", buf, 0xCu);
+      v15 = v10;
+      _os_log_impl(&dword_273ECD000, v9, v7, "Added new publisher, new count is %lu", buf, 0xCu);
     }
   }
 
@@ -88,46 +90,43 @@
   block[1] = 3221225472;
   block[2] = __38__WFNANTableViewContext_addPublisher___block_invoke;
   block[3] = &unk_279EBCFE0;
-  v12 = publisherCopy;
-  v9 = publisherCopy;
+  v13 = publisherCopy;
+  v11 = publisherCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __38__WFNANTableViewContext_addPublisher___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
-  v6[1] = @"WFNANTableViewContextChangedPublisherKey";
-  v7[0] = v2;
-  v7[1] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[1] = @"WFNANTableViewContextChangedPublisherKey";
+  v6[0] = v2;
+  v6[1] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   [v4 postNotificationName:@"WFNANPublishersChangedNotification" object:0 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSubscriber:(id)subscriber
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   subscriberCopy = subscriber;
   [subscriberCopy start];
   [(NSMutableArray *)self->_subscribers addObject:subscriberCopy];
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
-      v8 = [(NSMutableArray *)self->_subscribers count];
+      v10 = [(NSMutableArray *)self->_subscribers count];
       *buf = 134217984;
-      v14 = v8;
-      _os_log_impl(&dword_273ECD000, v7, v6, "Added new subcriber, new count is %lu", buf, 0xCu);
+      v15 = v10;
+      _os_log_impl(&dword_273ECD000, v9, v7, "Added new subcriber, new count is %lu", buf, 0xCu);
     }
   }
 
@@ -135,32 +134,28 @@ void __38__WFNANTableViewContext_addPublisher___block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __39__WFNANTableViewContext_addSubscriber___block_invoke;
   block[3] = &unk_279EBCFE0;
-  v12 = subscriberCopy;
-  v9 = subscriberCopy;
+  v13 = subscriberCopy;
+  v11 = subscriberCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __39__WFNANTableViewContext_addSubscriber___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
-  v6[1] = @"WFNANTableViewContextChangedSubscriberKey";
-  v7[0] = v2;
-  v7[1] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[1] = @"WFNANTableViewContextChangedSubscriberKey";
+  v6[0] = v2;
+  v6[1] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   [v4 postNotificationName:@"WFNANSubscribersChangedNotification" object:0 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDiscoveryResult:(id)result forSubscriber:(id)subscriber
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   subscriberCopy = subscriber;
   discoveryResults = self->_discoveryResults;
@@ -179,57 +174,54 @@ void __39__WFNANTableViewContext_addSubscriber___block_invoke(uint64_t a1)
 
   v13 = WFLogForCategory(0);
   v14 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v13)
+  v15 = v14;
+  if (WFCurrentLogLevel(v14, v16) >= 3 && v13)
   {
-    v15 = v13;
-    if (os_log_type_enabled(v15, v14))
+    v17 = v13;
+    if (os_log_type_enabled(v17, v15))
     {
       configuration3 = [subscriberCopy configuration];
       serviceName = [configuration3 serviceName];
       *buf = 138412546;
-      v25 = serviceName;
-      v26 = 2048;
-      v27 = [array count];
-      _os_log_impl(&dword_273ECD000, v15, v14, "Added new discovery result for subscriber %@, new count is %lu", buf, 0x16u);
+      v26 = serviceName;
+      v27 = 2048;
+      v28 = [array count];
+      _os_log_impl(&dword_273ECD000, v17, v15, "Added new discovery result for subscriber %@, new count is %lu", buf, 0x16u);
     }
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __58__WFNANTableViewContext_addDiscoveryResult_forSubscriber___block_invoke;
-  v21[3] = &unk_279EBD290;
-  v22 = subscriberCopy;
-  v23 = resultCopy;
-  v18 = resultCopy;
-  v19 = subscriberCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v21);
-
-  v20 = *MEMORY[0x277D85DE8];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __58__WFNANTableViewContext_addDiscoveryResult_forSubscriber___block_invoke;
+  v22[3] = &unk_279EBD290;
+  v23 = subscriberCopy;
+  v24 = resultCopy;
+  v20 = resultCopy;
+  v21 = subscriberCopy;
+  dispatch_async(MEMORY[0x277D85CD0], v22);
 }
 
 void __58__WFNANTableViewContext_addDiscoveryResult_forSubscriber___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v9[0] = v2;
-  v9[1] = v3;
-  v8[1] = @"WFNANTableViewContextChangedSubscriberKey";
-  v8[2] = @"WFNANTableViewContextChangedDiscoveryResultKey";
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[0] = v2;
+  v8[1] = v3;
+  v7[1] = @"WFNANTableViewContextChangedSubscriberKey";
+  v7[2] = @"WFNANTableViewContextChangedDiscoveryResultKey";
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   v6 = [MEMORY[0x277CCAB98] defaultCenter];
   [v6 postNotificationName:@"WFNANDiscoveryResultsChangedNotification" object:0 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDataSession:(id)session forPublisher:(id)publisher
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   publisherCopy = publisher;
   dataSessionsForPublish = self->_dataSessionsForPublish;
@@ -248,57 +240,54 @@ void __58__WFNANTableViewContext_addDiscoveryResult_forSubscriber___block_invoke
 
   v13 = WFLogForCategory(0);
   v14 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v13)
+  v15 = v14;
+  if (WFCurrentLogLevel(v14, v16) >= 3 && v13)
   {
-    v15 = v13;
-    if (os_log_type_enabled(v15, v14))
+    v17 = v13;
+    if (os_log_type_enabled(v17, v15))
     {
       configuration3 = [publisherCopy configuration];
       serviceName = [configuration3 serviceName];
       *buf = 138412546;
-      v25 = serviceName;
-      v26 = 2048;
-      v27 = [array count];
-      _os_log_impl(&dword_273ECD000, v15, v14, "Added new data session for publisher %@, new count is %lu", buf, 0x16u);
+      v26 = serviceName;
+      v27 = 2048;
+      v28 = [array count];
+      _os_log_impl(&dword_273ECD000, v17, v15, "Added new data session for publisher %@, new count is %lu", buf, 0x16u);
     }
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __53__WFNANTableViewContext_addDataSession_forPublisher___block_invoke;
-  v21[3] = &unk_279EBD290;
-  v22 = publisherCopy;
-  v23 = sessionCopy;
-  v18 = sessionCopy;
-  v19 = publisherCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v21);
-
-  v20 = *MEMORY[0x277D85DE8];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __53__WFNANTableViewContext_addDataSession_forPublisher___block_invoke;
+  v22[3] = &unk_279EBD290;
+  v23 = publisherCopy;
+  v24 = sessionCopy;
+  v20 = sessionCopy;
+  v21 = publisherCopy;
+  dispatch_async(MEMORY[0x277D85CD0], v22);
 }
 
 void __53__WFNANTableViewContext_addDataSession_forPublisher___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v9[0] = v2;
-  v9[1] = v3;
-  v8[1] = @"WFNANTableViewContextChangedPublisherKey";
-  v8[2] = @"WFNANTableViewContextChangedDataSessionKey";
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[0] = v2;
+  v8[1] = v3;
+  v7[1] = @"WFNANTableViewContextChangedPublisherKey";
+  v7[2] = @"WFNANTableViewContextChangedDataSessionKey";
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   v6 = [MEMORY[0x277CCAB98] defaultCenter];
   [v6 postNotificationName:@"WFNANDataSessionsForPublishChangedNotification" object:0 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDataSession:(id)session forSubscriber:(id)subscriber
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   subscriberCopy = subscriber;
   dataSessionsForSubscribe = self->_dataSessionsForSubscribe;
@@ -317,73 +306,71 @@ void __53__WFNANTableViewContext_addDataSession_forPublisher___block_invoke(uint
 
   v13 = WFLogForCategory(0);
   v14 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v13)
+  v15 = v14;
+  if (WFCurrentLogLevel(v14, v16) >= 3 && v13)
   {
-    v15 = v13;
-    if (os_log_type_enabled(v15, v14))
+    v17 = v13;
+    if (os_log_type_enabled(v17, v15))
     {
       configuration3 = [subscriberCopy configuration];
       serviceName = [configuration3 serviceName];
       *buf = 138412546;
-      v25 = serviceName;
-      v26 = 2048;
-      v27 = [array count];
-      _os_log_impl(&dword_273ECD000, v15, v14, "Added new data session for subscriber %@, new count is %lu", buf, 0x16u);
+      v26 = serviceName;
+      v27 = 2048;
+      v28 = [array count];
+      _os_log_impl(&dword_273ECD000, v17, v15, "Added new data session for subscriber %@, new count is %lu", buf, 0x16u);
     }
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __54__WFNANTableViewContext_addDataSession_forSubscriber___block_invoke;
-  v21[3] = &unk_279EBD290;
-  v22 = subscriberCopy;
-  v23 = sessionCopy;
-  v18 = sessionCopy;
-  v19 = subscriberCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v21);
-
-  v20 = *MEMORY[0x277D85DE8];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __54__WFNANTableViewContext_addDataSession_forSubscriber___block_invoke;
+  v22[3] = &unk_279EBD290;
+  v23 = subscriberCopy;
+  v24 = sessionCopy;
+  v20 = sessionCopy;
+  v21 = subscriberCopy;
+  dispatch_async(MEMORY[0x277D85CD0], v22);
 }
 
 void __54__WFNANTableViewContext_addDataSession_forSubscriber___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v9[0] = v2;
-  v9[1] = v3;
-  v8[1] = @"WFNANTableViewContextChangedSubscriberKey";
-  v8[2] = @"WFNANTableViewContextChangedDataSessionKey";
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[0] = v2;
+  v8[1] = v3;
+  v7[1] = @"WFNANTableViewContextChangedSubscriberKey";
+  v7[2] = @"WFNANTableViewContextChangedDataSessionKey";
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   v6 = [MEMORY[0x277CCAB98] defaultCenter];
   [v6 postNotificationName:@"WFNANDataSessionsForSubscribeChangedNotification" object:0 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePublisherAtIndex:(int64_t)index
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [(WFNANTableViewContext *)self getPublisherAtIndex:?];
   [v5 stop];
   [(NSMutableArray *)self->_publishers removeObjectAtIndex:index];
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v6)
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6)
   {
-    v8 = v6;
-    if (os_log_type_enabled(v8, v7))
+    v10 = v6;
+    if (os_log_type_enabled(v10, v8))
     {
-      v9 = [(NSMutableArray *)self->_publishers count];
+      v11 = [(NSMutableArray *)self->_publishers count];
       *buf = 134218240;
       indexCopy = index;
-      v16 = 2048;
-      v17 = v9;
-      _os_log_impl(&dword_273ECD000, v8, v7, "Removed publisher at index %ld, new count is %lu", buf, 0x16u);
+      v17 = 2048;
+      v18 = v11;
+      _os_log_impl(&dword_273ECD000, v10, v8, "Removed publisher at index %ld, new count is %lu", buf, 0x16u);
     }
   }
 
@@ -391,32 +378,28 @@ void __54__WFNANTableViewContext_addDataSession_forSubscriber___block_invoke(uin
   block[1] = 3221225472;
   block[2] = __48__WFNANTableViewContext_removePublisherAtIndex___block_invoke;
   block[3] = &unk_279EBCFE0;
-  v13 = v5;
-  v10 = v5;
+  v14 = v5;
+  v12 = v5;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __48__WFNANTableViewContext_removePublisherAtIndex___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v6[1] = @"WFNANTableViewContextChangedPublisherKey";
-  v7[0] = v2;
-  v7[1] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[1] = @"WFNANTableViewContextChangedPublisherKey";
+  v6[0] = v2;
+  v6[1] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   [v4 postNotificationName:@"WFNANPublishersChangedNotification" object:0 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePublisher:(id)publisher
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   publisherCopy = publisher;
   if ([(NSMutableArray *)self->_publishers count])
   {
@@ -437,19 +420,20 @@ void __48__WFNANTableViewContext_removePublisherAtIndex___block_invoke(uint64_t 
 
     [publisherCopy stop];
     [(NSMutableArray *)self->_publishers removeObjectAtIndex:v5];
-    v8 = WFLogForCategory(0);
-    v9 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v8)
+    v10 = WFLogForCategory(0);
+    v11 = OSLogForWFLogLevel(3uLL);
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) >= 3 && v10)
     {
-      v10 = v8;
-      if (os_log_type_enabled(v10, v9))
+      v14 = v10;
+      if (os_log_type_enabled(v14, v12))
       {
-        v11 = [(NSMutableArray *)self->_publishers count];
+        v15 = [(NSMutableArray *)self->_publishers count];
         *buf = 134218240;
-        v16 = v5;
-        v17 = 2048;
-        v18 = v11;
-        _os_log_impl(&dword_273ECD000, v10, v9, "Removed publisher at index %ld, new count is %lu", buf, 0x16u);
+        v19 = v5;
+        v20 = 2048;
+        v21 = v15;
+        _os_log_impl(&dword_273ECD000, v14, v12, "Removed publisher at index %ld, new count is %lu", buf, 0x16u);
       }
     }
 
@@ -457,7 +441,7 @@ void __48__WFNANTableViewContext_removePublisherAtIndex___block_invoke(uint64_t 
     block[1] = 3221225472;
     block[2] = __41__WFNANTableViewContext_removePublisher___block_invoke;
     block[3] = &unk_279EBCFE0;
-    v14 = publisherCopy;
+    v17 = publisherCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -466,52 +450,50 @@ void __48__WFNANTableViewContext_removePublisherAtIndex___block_invoke(uint64_t 
 LABEL_5:
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v6 && os_log_type_enabled(v6, v7))
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) && v6 && os_log_type_enabled(v6, v8))
     {
       *buf = 138412290;
-      v16 = publisherCopy;
-      _os_log_impl(&dword_273ECD000, v6, v7, "Publisher %@ does not exist", buf, 0xCu);
+      v19 = publisherCopy;
+      _os_log_impl(&dword_273ECD000, v6, v8, "Publisher %@ does not exist", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __41__WFNANTableViewContext_removePublisher___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v6[1] = @"WFNANTableViewContextChangedPublisherKey";
-  v7[0] = v2;
-  v7[1] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[1] = @"WFNANTableViewContextChangedPublisherKey";
+  v6[0] = v2;
+  v6[1] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   [v4 postNotificationName:@"WFNANPublishersChangedNotification" object:0 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSubscriberAtIndex:(int64_t)index
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [(WFNANTableViewContext *)self getSubscriberAtIndex:?];
   [v5 stop];
   [(NSMutableArray *)self->_subscribers removeObjectAtIndex:index];
   v6 = WFLogForCategory(0);
   v7 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v6)
+  v8 = v7;
+  if (WFCurrentLogLevel(v7, v9) >= 3 && v6)
   {
-    v8 = v6;
-    if (os_log_type_enabled(v8, v7))
+    v10 = v6;
+    if (os_log_type_enabled(v10, v8))
     {
-      v9 = [(NSMutableArray *)self->_subscribers count];
+      v11 = [(NSMutableArray *)self->_subscribers count];
       *buf = 134218240;
       indexCopy = index;
-      v16 = 2048;
-      v17 = v9;
-      _os_log_impl(&dword_273ECD000, v8, v7, "Removed subscriber at index %ld, new count is %lu", buf, 0x16u);
+      v17 = 2048;
+      v18 = v11;
+      _os_log_impl(&dword_273ECD000, v10, v8, "Removed subscriber at index %ld, new count is %lu", buf, 0x16u);
     }
   }
 
@@ -519,32 +501,28 @@ void __41__WFNANTableViewContext_removePublisher___block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __49__WFNANTableViewContext_removeSubscriberAtIndex___block_invoke;
   block[3] = &unk_279EBCFE0;
-  v13 = v5;
-  v10 = v5;
+  v14 = v5;
+  v12 = v5;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__WFNANTableViewContext_removeSubscriberAtIndex___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v6[1] = @"WFNANTableViewContextChangedSubscriberKey";
-  v7[0] = v2;
-  v7[1] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[1] = @"WFNANTableViewContextChangedSubscriberKey";
+  v6[0] = v2;
+  v6[1] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   [v4 postNotificationName:@"WFNANSubscribersChangedNotification" object:0 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSubscriber:(id)subscriber
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   subscriberCopy = subscriber;
   if ([(NSMutableArray *)self->_subscribers count])
   {
@@ -565,19 +543,20 @@ void __49__WFNANTableViewContext_removeSubscriberAtIndex___block_invoke(uint64_t
 
     [subscriberCopy stop];
     [(NSMutableArray *)self->_subscribers removeObjectAtIndex:v5];
-    v8 = WFLogForCategory(0);
-    v9 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v8)
+    v10 = WFLogForCategory(0);
+    v11 = OSLogForWFLogLevel(3uLL);
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) >= 3 && v10)
     {
-      v10 = v8;
-      if (os_log_type_enabled(v10, v9))
+      v14 = v10;
+      if (os_log_type_enabled(v14, v12))
       {
-        v11 = [(NSMutableArray *)self->_subscribers count];
+        v15 = [(NSMutableArray *)self->_subscribers count];
         *buf = 134218240;
-        v16 = v5;
-        v17 = 2048;
-        v18 = v11;
-        _os_log_impl(&dword_273ECD000, v10, v9, "Removed subscriber at index %ld, new count is %lu", buf, 0x16u);
+        v19 = v5;
+        v20 = 2048;
+        v21 = v15;
+        _os_log_impl(&dword_273ECD000, v14, v12, "Removed subscriber at index %ld, new count is %lu", buf, 0x16u);
       }
     }
 
@@ -585,7 +564,7 @@ void __49__WFNANTableViewContext_removeSubscriberAtIndex___block_invoke(uint64_t
     block[1] = 3221225472;
     block[2] = __42__WFNANTableViewContext_removeSubscriber___block_invoke;
     block[3] = &unk_279EBCFE0;
-    v14 = subscriberCopy;
+    v17 = subscriberCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -594,37 +573,34 @@ void __49__WFNANTableViewContext_removeSubscriberAtIndex___block_invoke(uint64_t
 LABEL_5:
     v6 = WFLogForCategory(0);
     v7 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v6 && os_log_type_enabled(v6, v7))
+    v8 = v7;
+    if (WFCurrentLogLevel(v7, v9) && v6 && os_log_type_enabled(v6, v8))
     {
       *buf = 138412290;
-      v16 = subscriberCopy;
-      _os_log_impl(&dword_273ECD000, v6, v7, "Subscriber %@ does not exist", buf, 0xCu);
+      v19 = subscriberCopy;
+      _os_log_impl(&dword_273ECD000, v6, v8, "Subscriber %@ does not exist", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __42__WFNANTableViewContext_removeSubscriber___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v6[1] = @"WFNANTableViewContextChangedSubscriberKey";
-  v7[0] = v2;
-  v7[1] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[1] = @"WFNANTableViewContextChangedSubscriberKey";
+  v6[0] = v2;
+  v6[1] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   [v4 postNotificationName:@"WFNANSubscribersChangedNotification" object:0 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDiscoveryResultWithPublishID:(unsigned __int8)d andPublisherAddress:(id)address forSubscriber:(id)subscriber
 {
   dCopy = d;
-  v36 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   subscriberCopy = subscriber;
   discoveryResults = self->_discoveryResults;
@@ -655,90 +631,88 @@ void __42__WFNANTableViewContext_removeSubscriber___block_invoke(uint64_t a1)
     }
 
     [v12 removeObjectAtIndex:v13];
-    v23 = self->_discoveryResults;
+    v25 = self->_discoveryResults;
     configuration2 = [subscriberCopy configuration];
-    [(NSMutableDictionary *)v23 setObject:v12 forKey:configuration2];
+    [(NSMutableDictionary *)v25 setObject:v12 forKey:configuration2];
 
-    v25 = WFLogForCategory(0);
-    v26 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v25)
+    v27 = WFLogForCategory(0);
+    v28 = OSLogForWFLogLevel(3uLL);
+    v29 = v28;
+    if (WFCurrentLogLevel(v28, v30) >= 3 && v27)
     {
-      v27 = v25;
-      if (os_log_type_enabled(v27, v26))
+      v31 = v27;
+      if (os_log_type_enabled(v31, v29))
       {
         configuration3 = [subscriberCopy configuration];
         serviceName = [configuration3 serviceName];
         *buf = 138412546;
-        *v35 = serviceName;
-        *&v35[8] = 2048;
-        *&v35[10] = [v12 count];
-        _os_log_impl(&dword_273ECD000, v27, v26, "Removed discovery result for subcriber %@, new count is %lu", buf, 0x16u);
+        *v38 = serviceName;
+        *&v38[8] = 2048;
+        *&v38[10] = [v12 count];
+        _os_log_impl(&dword_273ECD000, v31, v29, "Removed discovery result for subcriber %@, new count is %lu", buf, 0x16u);
       }
     }
 
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __94__WFNANTableViewContext_removeDiscoveryResultWithPublishID_andPublisherAddress_forSubscriber___block_invoke;
-    v31[3] = &unk_279EBD290;
-    v32 = subscriberCopy;
-    v33 = v14;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __94__WFNANTableViewContext_removeDiscoveryResultWithPublishID_andPublisherAddress_forSubscriber___block_invoke;
+    v34[3] = &unk_279EBD290;
+    v35 = subscriberCopy;
+    v36 = v14;
     v17 = v14;
-    dispatch_async(MEMORY[0x277D85CD0], v31);
+    dispatch_async(MEMORY[0x277D85CD0], v34);
 
-    v19 = v32;
+    v21 = v35;
     goto LABEL_17;
   }
 
 LABEL_6:
   v17 = WFLogForCategory(0);
   v18 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v17)
+  v19 = v18;
+  if (WFCurrentLogLevel(v18, v20) && v17)
   {
-    v19 = v17;
-    if (os_log_type_enabled(v19, v18))
+    v21 = v17;
+    if (os_log_type_enabled(v21, v19))
     {
-      v20 = [addressCopy description];
+      v22 = [addressCopy description];
       configuration4 = [subscriberCopy configuration];
       serviceName2 = [configuration4 serviceName];
       *buf = 67109634;
-      *v35 = dCopy;
-      *&v35[4] = 2112;
-      *&v35[6] = v20;
-      *&v35[14] = 2112;
-      *&v35[16] = serviceName2;
-      _os_log_impl(&dword_273ECD000, v19, v18, "Discovery result with publish ID %hhu and address %@ does not exist for subscriber %@", buf, 0x1Cu);
+      *v38 = dCopy;
+      *&v38[4] = 2112;
+      *&v38[6] = v22;
+      *&v38[14] = 2112;
+      *&v38[16] = serviceName2;
+      _os_log_impl(&dword_273ECD000, v21, v19, "Discovery result with publish ID %hhu and address %@ does not exist for subscriber %@", buf, 0x1Cu);
     }
 
-    v17 = v19;
+    v17 = v21;
 LABEL_17:
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __94__WFNANTableViewContext_removeDiscoveryResultWithPublishID_andPublisherAddress_forSubscriber___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v9[0] = v2;
-  v9[1] = v3;
-  v8[1] = @"WFNANTableViewContextChangedSubscriberKey";
-  v8[2] = @"WFNANTableViewContextChangedDiscoveryResultKey";
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[0] = v2;
+  v8[1] = v3;
+  v7[1] = @"WFNANTableViewContextChangedSubscriberKey";
+  v7[2] = @"WFNANTableViewContextChangedDiscoveryResultKey";
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   v6 = [MEMORY[0x277CCAB98] defaultCenter];
   [v6 postNotificationName:@"WFNANDiscoveryResultsChangedNotification" object:0 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDataSession:(id)session forPublisher:(id)publisher
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   publisherCopy = publisher;
   dataSessionsForPublish = self->_dataSessionsForPublish;
@@ -763,86 +737,84 @@ void __94__WFNANTableViewContext_removeDiscoveryResultWithPublishID_andPublisher
     }
 
     [v10 removeObjectAtIndex:v11];
-    v17 = self->_dataSessionsForPublish;
+    v19 = self->_dataSessionsForPublish;
     configuration2 = [publisherCopy configuration];
-    [(NSMutableDictionary *)v17 setObject:v10 forKey:configuration2];
+    [(NSMutableDictionary *)v19 setObject:v10 forKey:configuration2];
 
-    v19 = WFLogForCategory(0);
-    v20 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v19)
+    v21 = WFLogForCategory(0);
+    v22 = OSLogForWFLogLevel(3uLL);
+    v23 = v22;
+    if (WFCurrentLogLevel(v22, v24) >= 3 && v21)
     {
-      v21 = v19;
-      if (os_log_type_enabled(v21, v20))
+      v25 = v21;
+      if (os_log_type_enabled(v25, v23))
       {
         configuration3 = [publisherCopy configuration];
         serviceName = [configuration3 serviceName];
         *buf = 138412546;
-        v29 = serviceName;
-        v30 = 2048;
-        v31 = [v10 count];
-        _os_log_impl(&dword_273ECD000, v21, v20, "Removed data session for publisher %@, new count is %lu", buf, 0x16u);
+        v32 = serviceName;
+        v33 = 2048;
+        v34 = [v10 count];
+        _os_log_impl(&dword_273ECD000, v25, v23, "Removed data session for publisher %@, new count is %lu", buf, 0x16u);
       }
     }
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __56__WFNANTableViewContext_removeDataSession_forPublisher___block_invoke;
-    v25[3] = &unk_279EBD290;
-    v26 = publisherCopy;
-    v27 = sessionCopy;
-    dispatch_async(MEMORY[0x277D85CD0], v25);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __56__WFNANTableViewContext_removeDataSession_forPublisher___block_invoke;
+    v28[3] = &unk_279EBD290;
+    v29 = publisherCopy;
+    v30 = sessionCopy;
+    dispatch_async(MEMORY[0x277D85CD0], v28);
 
-    v14 = v26;
+    v16 = v29;
     goto LABEL_16;
   }
 
 LABEL_5:
   v12 = WFLogForCategory(0);
   v13 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v12)
+  v14 = v13;
+  if (WFCurrentLogLevel(v13, v15) && v12)
   {
-    v14 = v12;
-    if (os_log_type_enabled(v14, v13))
+    v16 = v12;
+    if (os_log_type_enabled(v16, v14))
     {
       configuration4 = [publisherCopy configuration];
       serviceName2 = [configuration4 serviceName];
       *buf = 138412546;
-      v29 = sessionCopy;
-      v30 = 2112;
-      v31 = serviceName2;
-      _os_log_impl(&dword_273ECD000, v14, v13, "Data session %@ does not exist for publisher %@", buf, 0x16u);
+      v32 = sessionCopy;
+      v33 = 2112;
+      v34 = serviceName2;
+      _os_log_impl(&dword_273ECD000, v16, v14, "Data session %@ does not exist for publisher %@", buf, 0x16u);
     }
 
-    v12 = v14;
+    v12 = v16;
 LABEL_16:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WFNANTableViewContext_removeDataSession_forPublisher___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v9[0] = v2;
-  v9[1] = v3;
-  v8[1] = @"WFNANTableViewContextChangedPublisherKey";
-  v8[2] = @"WFNANTableViewContextChangedDataSessionKey";
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[0] = v2;
+  v8[1] = v3;
+  v7[1] = @"WFNANTableViewContextChangedPublisherKey";
+  v7[2] = @"WFNANTableViewContextChangedDataSessionKey";
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   v6 = [MEMORY[0x277CCAB98] defaultCenter];
   [v6 postNotificationName:@"WFNANDataSessionsForPublishChangedNotification" object:0 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDataSession:(id)session forSubscriber:(id)subscriber
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   subscriberCopy = subscriber;
   dataSessionsForSubscribe = self->_dataSessionsForSubscribe;
@@ -867,81 +839,79 @@ void __56__WFNANTableViewContext_removeDataSession_forPublisher___block_invoke(u
     }
 
     [v10 removeObjectAtIndex:v11];
-    v17 = self->_dataSessionsForSubscribe;
+    v19 = self->_dataSessionsForSubscribe;
     configuration2 = [subscriberCopy configuration];
-    [(NSMutableDictionary *)v17 setObject:v10 forKey:configuration2];
+    [(NSMutableDictionary *)v19 setObject:v10 forKey:configuration2];
 
-    v19 = WFLogForCategory(0);
-    v20 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v19)
+    v21 = WFLogForCategory(0);
+    v22 = OSLogForWFLogLevel(3uLL);
+    v23 = v22;
+    if (WFCurrentLogLevel(v22, v24) >= 3 && v21)
     {
-      v21 = v19;
-      if (os_log_type_enabled(v21, v20))
+      v25 = v21;
+      if (os_log_type_enabled(v25, v23))
       {
         configuration3 = [subscriberCopy configuration];
         serviceName = [configuration3 serviceName];
         *buf = 138412546;
-        v29 = serviceName;
-        v30 = 2048;
-        v31 = [v10 count];
-        _os_log_impl(&dword_273ECD000, v21, v20, "Removed data session for subscriber %@, new count is %lu", buf, 0x16u);
+        v32 = serviceName;
+        v33 = 2048;
+        v34 = [v10 count];
+        _os_log_impl(&dword_273ECD000, v25, v23, "Removed data session for subscriber %@, new count is %lu", buf, 0x16u);
       }
     }
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __57__WFNANTableViewContext_removeDataSession_forSubscriber___block_invoke;
-    v25[3] = &unk_279EBD290;
-    v26 = subscriberCopy;
-    v27 = sessionCopy;
-    dispatch_async(MEMORY[0x277D85CD0], v25);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __57__WFNANTableViewContext_removeDataSession_forSubscriber___block_invoke;
+    v28[3] = &unk_279EBD290;
+    v29 = subscriberCopy;
+    v30 = sessionCopy;
+    dispatch_async(MEMORY[0x277D85CD0], v28);
 
-    v14 = v26;
+    v16 = v29;
     goto LABEL_16;
   }
 
 LABEL_5:
   v12 = WFLogForCategory(0);
   v13 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v12)
+  v14 = v13;
+  if (WFCurrentLogLevel(v13, v15) && v12)
   {
-    v14 = v12;
-    if (os_log_type_enabled(v14, v13))
+    v16 = v12;
+    if (os_log_type_enabled(v16, v14))
     {
       configuration4 = [subscriberCopy configuration];
       serviceName2 = [configuration4 serviceName];
       *buf = 138412546;
-      v29 = sessionCopy;
-      v30 = 2112;
-      v31 = serviceName2;
-      _os_log_impl(&dword_273ECD000, v14, v13, "Data session %@ does not exist for subscriber %@", buf, 0x16u);
+      v32 = sessionCopy;
+      v33 = 2112;
+      v34 = serviceName2;
+      _os_log_impl(&dword_273ECD000, v16, v14, "Data session %@ does not exist for subscriber %@", buf, 0x16u);
     }
 
-    v12 = v14;
+    v12 = v16;
 LABEL_16:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __57__WFNANTableViewContext_removeDataSession_forSubscriber___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"WFNANTableViewContextChangedOperationTypeKey";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"WFNANTableViewContextChangedOperationTypeKey";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v9[0] = v2;
-  v9[1] = v3;
-  v8[1] = @"WFNANTableViewContextChangedSubscriberKey";
-  v8[2] = @"WFNANTableViewContextChangedDataSessionKey";
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[0] = v2;
+  v8[1] = v3;
+  v7[1] = @"WFNANTableViewContextChangedSubscriberKey";
+  v7[2] = @"WFNANTableViewContextChangedDataSessionKey";
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   v6 = [MEMORY[0x277CCAB98] defaultCenter];
   [v6 postNotificationName:@"WFNANDataSessionsForSubscribeChangedNotification" object:0 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getPublisherAtIndex:(int64_t)index
@@ -1090,220 +1060,248 @@ void __57__WFNANTableViewContext_removeDataSession_forSubscriber___block_invoke(
 
 - (void)publisherStarted:(id)started
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4)
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4)
   {
-    v6 = v4;
-    if (os_log_type_enabled(v6, v5))
+    v8 = v4;
+    if (os_log_type_enabled(v8, v6))
     {
       configuration = [startedCopy configuration];
       serviceName = [configuration serviceName];
-      v10 = 138412290;
-      v11 = serviceName;
-      _os_log_impl(&dword_273ECD000, v6, v5, "NAN publish %@ started", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = serviceName;
+      _os_log_impl(&dword_273ECD000, v8, v6, "NAN publish %@ started", &v11, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publisher:(id)publisher failedToStartWithError:(int64_t)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   publisherCopy = publisher;
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7)
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7)
   {
-    v9 = v7;
-    if (os_log_type_enabled(v9, v8))
+    v11 = v7;
+    if (os_log_type_enabled(v11, v9))
     {
       configuration = [publisherCopy configuration];
       serviceName = [configuration serviceName];
-      v13 = 138412546;
-      v14 = serviceName;
-      v15 = 2048;
+      v14 = 138412546;
+      v15 = serviceName;
+      v16 = 2048;
       errorCopy = error;
-      _os_log_impl(&dword_273ECD000, v9, v8, "NAN publish %@ failed to start with error %ld", &v13, 0x16u);
+      _os_log_impl(&dword_273ECD000, v11, v9, "NAN publish %@ failed to start with error %ld", &v14, 0x16u);
     }
   }
 
   [(WFNANTableViewContext *)self removePublisher:publisherCopy];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publisher:(id)publisher terminatedWithReason:(int64_t)reason
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   publisherCopy = publisher;
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7)
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7)
   {
-    v9 = v7;
-    if (os_log_type_enabled(v9, v8))
+    v11 = v7;
+    if (os_log_type_enabled(v11, v9))
     {
       configuration = [publisherCopy configuration];
       serviceName = [configuration serviceName];
-      v13 = 138412546;
-      v14 = serviceName;
-      v15 = 2048;
+      v14 = 138412546;
+      v15 = serviceName;
+      v16 = 2048;
       reasonCopy = reason;
-      _os_log_impl(&dword_273ECD000, v9, v8, "NAN publish %@ terminated with reason %ld", &v13, 0x16u);
+      _os_log_impl(&dword_273ECD000, v11, v9, "NAN publish %@ terminated with reason %ld", &v14, 0x16u);
     }
   }
 
   [(WFNANTableViewContext *)self removePublisher:publisherCopy];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publisher:(id)publisher dataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   publisherCopy = publisher;
   v10 = WFLogForCategory(0);
   v11 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v10)
+  v12 = v11;
+  if (WFCurrentLogLevel(v11, v13) >= 3 && v10)
   {
-    v12 = v10;
-    if (os_log_type_enabled(v12, v11))
+    v14 = v10;
+    if (os_log_type_enabled(v14, v12))
     {
       initiatorDataAddress = [handleCopy initiatorDataAddress];
-      v15 = 138412290;
-      v16 = initiatorDataAddress;
-      _os_log_impl(&dword_273ECD000, v12, v11, "Data confirmed for session with peer %@", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = initiatorDataAddress;
+      _os_log_impl(&dword_273ECD000, v14, v12, "Data confirmed for session with peer %@", &v16, 0xCu);
     }
   }
 
   [(WFNANTableViewContext *)self addDataSession:handleCopy forPublisher:publisherCopy];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publisher:(id)publisher dataTerminatedForHandle:(id)handle reason:(int64_t)reason
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   publisherCopy = publisher;
   v9 = WFLogForCategory(0);
   v10 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v9)
+  v11 = v10;
+  if (WFCurrentLogLevel(v10, v12) >= 3 && v9)
   {
-    v11 = v9;
-    if (os_log_type_enabled(v11, v10))
+    v13 = v9;
+    if (os_log_type_enabled(v13, v11))
     {
       initiatorDataAddress = [handleCopy initiatorDataAddress];
-      v14 = 138412290;
-      v15 = initiatorDataAddress;
-      _os_log_impl(&dword_273ECD000, v11, v10, "Data terminated for session with peer %@", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = initiatorDataAddress;
+      _os_log_impl(&dword_273ECD000, v13, v11, "Data terminated for session with peer %@", &v15, 0xCu);
     }
   }
 
   [(WFNANTableViewContext *)self removeDataSession:handleCopy forPublisher:publisherCopy];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscriberStarted:(id)started
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v4)
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) >= 3 && v4)
   {
-    v6 = v4;
-    if (os_log_type_enabled(v6, v5))
+    v8 = v4;
+    if (os_log_type_enabled(v8, v6))
     {
       configuration = [startedCopy configuration];
       serviceName = [configuration serviceName];
-      v10 = 138412290;
-      v11 = serviceName;
-      _os_log_impl(&dword_273ECD000, v6, v5, "NAN subscribe %@ started", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = serviceName;
+      _os_log_impl(&dword_273ECD000, v8, v6, "NAN subscribe %@ started", &v11, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscriber:(id)subscriber failedToStartWithError:(int64_t)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   subscriberCopy = subscriber;
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7)
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7)
   {
-    v9 = v7;
-    if (os_log_type_enabled(v9, v8))
+    v11 = v7;
+    if (os_log_type_enabled(v11, v9))
     {
       configuration = [subscriberCopy configuration];
       serviceName = [configuration serviceName];
-      v13 = 138412546;
-      v14 = serviceName;
-      v15 = 2048;
+      v14 = 138412546;
+      v15 = serviceName;
+      v16 = 2048;
       errorCopy = error;
-      _os_log_impl(&dword_273ECD000, v9, v8, "NAN subscribe %@ failed to start with error %ld", &v13, 0x16u);
+      _os_log_impl(&dword_273ECD000, v11, v9, "NAN subscribe %@ failed to start with error %ld", &v14, 0x16u);
     }
   }
 
   [(WFNANTableViewContext *)self removeSubscriber:subscriberCopy];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscriber:(id)subscriber terminatedWithReason:(int64_t)reason
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   subscriberCopy = subscriber;
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7)
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7)
   {
-    v9 = v7;
-    if (os_log_type_enabled(v9, v8))
+    v11 = v7;
+    if (os_log_type_enabled(v11, v9))
     {
       configuration = [subscriberCopy configuration];
       serviceName = [configuration serviceName];
-      v13 = 138412546;
-      v14 = serviceName;
-      v15 = 2048;
+      v14 = 138412546;
+      v15 = serviceName;
+      v16 = 2048;
       reasonCopy = reason;
-      _os_log_impl(&dword_273ECD000, v9, v8, "NAN subscribe %@ terminated with reason %ld", &v13, 0x16u);
+      _os_log_impl(&dword_273ECD000, v11, v9, "NAN subscribe %@ terminated with reason %ld", &v14, 0x16u);
     }
   }
 
   [(WFNANTableViewContext *)self removeSubscriber:subscriberCopy];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscriber:(id)subscriber receivedDiscoveyResult:(id)result
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   subscriberCopy = subscriber;
   resultCopy = result;
   v8 = WFLogForCategory(0);
   v9 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v8)
+  v10 = v9;
+  if (WFCurrentLogLevel(v9, v11) >= 3 && v8)
   {
-    v10 = v8;
-    if (os_log_type_enabled(v10, v9))
+    v12 = v8;
+    if (os_log_type_enabled(v12, v10))
     {
       configuration = [subscriberCopy configuration];
       serviceName = [configuration serviceName];
       serviceSpecificInfo = [resultCopy serviceSpecificInfo];
-      v14 = [serviceSpecificInfo description];
-      v16 = 138412546;
-      v17 = serviceName;
-      v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_273ECD000, v10, v9, "NAN subscribe %@ received discovery result %@", &v16, 0x16u);
+      v16 = [serviceSpecificInfo description];
+      v17 = 138412546;
+      v18 = serviceName;
+      v19 = 2112;
+      v20 = v16;
+      _os_log_impl(&dword_273ECD000, v12, v10, "NAN subscribe %@ received discovery result %@", &v17, 0x16u);
     }
   }
 
   [(WFNANTableViewContext *)self addDiscoveryResult:resultCopy forSubscriber:subscriberCopy];
-  v15 = *MEMORY[0x277D85DE8];
+}
+
+- (void)subscriber:(id)subscriber lostDiscoveryResultForPublishID:(unsigned __int8)d address:(id)address
+{
+  dCopy = d;
+  v24 = *MEMORY[0x277D85DE8];
+  subscriberCopy = subscriber;
+  addressCopy = address;
+  v10 = WFLogForCategory(0);
+  v11 = OSLogForWFLogLevel(3uLL);
+  v12 = v11;
+  if (WFCurrentLogLevel(v11, v13) >= 3 && v10)
+  {
+    v14 = v10;
+    if (os_log_type_enabled(v14, v12))
+    {
+      configuration = [subscriberCopy configuration];
+      serviceName = [configuration serviceName];
+      v17 = [addressCopy description];
+      v18 = 138412802;
+      v19 = serviceName;
+      v20 = 1024;
+      v21 = dCopy;
+      v22 = 2112;
+      v23 = v17;
+      _os_log_impl(&dword_273ECD000, v14, v12, "NAN subscribe %@ lost discovery result with publish ID %hhu and address %@", &v18, 0x1Cu);
+    }
+  }
+
+  [(WFNANTableViewContext *)self removeDiscoveryResultWithPublishID:dCopy andPublisherAddress:addressCopy forSubscriber:subscriberCopy];
 }
 
 @end

@@ -1039,7 +1039,7 @@ void __46__PUPhotoEditLayoutSupport_isPhoneClassDevice__block_invoke()
   return productType_productType;
 }
 
-uint64_t __39__PUPhotoEditLayoutSupport_productType__block_invoke()
+uint64_t __39__PUPhotoEditLayoutSupport_productType__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = MGGetProductType();
   productType_productType = result;

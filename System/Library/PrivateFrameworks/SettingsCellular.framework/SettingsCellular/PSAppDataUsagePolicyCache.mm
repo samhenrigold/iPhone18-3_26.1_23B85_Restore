@@ -38,9 +38,9 @@ uint64_t __43__PSAppDataUsagePolicyCache_sharedInstance__block_invoke()
 
 - (id)initPrivate
 {
-  v24.receiver = self;
-  v24.super_class = PSAppDataUsagePolicyCache;
-  v2 = [(PSAppDataUsagePolicyCache *)&v24 init];
+  v22.receiver = self;
+  v22.super_class = PSAppDataUsagePolicyCache;
+  v2 = [(PSAppDataUsagePolicyCache *)&v22 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -56,13 +56,12 @@ uint64_t __43__PSAppDataUsagePolicyCache_sharedInstance__block_invoke()
 
     [(CoreTelephonyClient *)v2->_ctClient setDelegate:v2];
     objc_initWeak(&location, v2);
-    v9 = *MEMORY[0x277CBECE8];
-    v10 = MEMORY[0x277D85CD0];
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __40__PSAppDataUsagePolicyCache_initPrivate__block_invoke;
-    v21 = &unk_279BA8600;
-    objc_copyWeak(&v22, &location);
+    v9 = MEMORY[0x277D85CD0];
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __40__PSAppDataUsagePolicyCache_initPrivate__block_invoke;
+    v19 = &unk_279BA8600;
+    objc_copyWeak(&v20, &location);
     v2->_ctServerConnection = _CTServerConnectionCreateOnTargetQueue();
 
     if (!v2->_ctServerConnection)
@@ -70,14 +69,13 @@ uint64_t __43__PSAppDataUsagePolicyCache_sharedInstance__block_invoke()
       getLogger = [(PSAppDataUsagePolicyCache *)v2 getLogger];
       if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
       {
-        *v17 = 0;
-        _os_log_error_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_ERROR, "Failed to create CT server connection", v17, 2u);
+        *v15 = 0;
+        _os_log_error_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_ERROR, "Failed to create CT server connection", v15, 2u);
       }
 
       objc_exception_throw([objc_alloc(MEMORY[0x277CBEAD8]) initWithName:@"CT server connection error" reason:@"Failed to create CT server connection" userInfo:0]);
     }
 
-    v11 = *MEMORY[0x277CC3B50];
     _CTServerConnectionRegisterForNotification();
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v2 selector:sel_willEnterForeground name:*MEMORY[0x277D76758] object:0];
@@ -88,7 +86,7 @@ uint64_t __43__PSAppDataUsagePolicyCache_sharedInstance__block_invoke()
     defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter3 addObserver:v2 selector:sel_managedConfigurationProfileListDidChange name:*MEMORY[0x277D26148] object:0];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
@@ -128,14 +126,14 @@ void __40__PSAppDataUsagePolicyCache_initPrivate__block_invoke(uint64_t a1)
 
 - (void)handlePolicyChangedNotification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   getLogger = [(PSAppDataUsagePolicyCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *MEMORY[0x277CC3B50];
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "Received notification %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "Received notification %@", &v8, 0xCu);
   }
 
   [(PSAppDataUsagePolicyCache *)self clearCache];
@@ -143,17 +141,15 @@ void __40__PSAppDataUsagePolicyCache_initPrivate__block_invoke(uint64_t a1)
   getLogger2 = [(PSAppDataUsagePolicyCache *)self getLogger];
   if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[PSAppDataUsagePolicyCache handlePolicyChangedNotification]";
-    v11 = 2112;
-    v12 = @"PSPerAppNetworkDataAccessPolicyChangedNotification";
-    _os_log_impl(&dword_2658CA000, getLogger2, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[PSAppDataUsagePolicyCache handlePolicyChangedNotification]";
+    v10 = 2112;
+    v11 = @"PSPerAppNetworkDataAccessPolicyChangedNotification";
+    _os_log_impl(&dword_2658CA000, getLogger2, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v8, 0x16u);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter performSelectorOnMainThread:sel_postNotification_ withObject:v5 waitUntilDone:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willEnterForeground
@@ -241,38 +237,36 @@ void __48__PSAppDataUsagePolicyCache_addPoliciesToCache___block_invoke(uint64_t 
 
 - (void)fetchUsagePoliciesFor:(id)for
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   forCopy = for;
   getLogger = [(PSAppDataUsagePolicyCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v14 = [forCopy count];
+    v13 = [forCopy count];
     _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "Fetching usage policies for %lu apps.", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   ctClient = self->_ctClient;
   v7 = [MEMORY[0x277CBEB98] setWithArray:forCopy];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __51__PSAppDataUsagePolicyCache_fetchUsagePoliciesFor___block_invoke;
-  v10[3] = &unk_279BA8650;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __51__PSAppDataUsagePolicyCache_fetchUsagePoliciesFor___block_invoke;
+  v9[3] = &unk_279BA8650;
+  v9[4] = self;
   v8 = forCopy;
-  v11 = v8;
-  objc_copyWeak(&v12, buf);
-  [(CoreTelephonyClient *)ctClient getLocalPolicies:v7 completion:v10];
+  v10 = v8;
+  objc_copyWeak(&v11, buf);
+  [(CoreTelephonyClient *)ctClient getLocalPolicies:v7 completion:v9];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PSAppDataUsagePolicyCache_fetchUsagePoliciesFor___block_invoke(id *a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [a1[4] getLogger];
@@ -281,9 +275,9 @@ void __51__PSAppDataUsagePolicyCache_fetchUsagePoliciesFor___block_invoke(id *a1
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_error_impl(&dword_2658CA000, WeakRetained, OS_LOG_TYPE_ERROR, "Failed to fetch policies, error: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_error_impl(&dword_2658CA000, WeakRetained, OS_LOG_TYPE_ERROR, "Failed to fetch policies, error: %@", &v10, 0xCu);
     }
   }
 
@@ -292,35 +286,33 @@ void __51__PSAppDataUsagePolicyCache_fetchUsagePoliciesFor___block_invoke(id *a1
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [a1[5] count];
-      v11 = 134217984;
-      v12 = v9;
-      _os_log_impl(&dword_2658CA000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Policies fetch success for %lu apps.", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = v9;
+      _os_log_impl(&dword_2658CA000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Policies fetch success for %lu apps.", &v10, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(a1 + 6);
     [WeakRetained addPoliciesToCache:v5];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchUsagePolicyFor:(id)for
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   forCopy = for;
   getLogger = [(PSAppDataUsagePolicyCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = forCopy;
+    v14 = forCopy;
     _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "Fetching usage policies for %{public}@", buf, 0xCu);
   }
 
   ctClient = self->_ctClient;
   v7 = [MEMORY[0x277CBEB98] setWithObject:forCopy];
-  v13 = 0;
-  v8 = [(CoreTelephonyClient *)ctClient getLocalPolicies:v7 error:&v13];
-  v9 = v13;
+  v12 = 0;
+  v8 = [(CoreTelephonyClient *)ctClient getLocalPolicies:v7 error:&v12];
+  v9 = v12;
 
   getLogger2 = [(PSAppDataUsagePolicyCache *)self getLogger];
   v11 = getLogger2;
@@ -329,9 +321,9 @@ void __51__PSAppDataUsagePolicyCache_fetchUsagePoliciesFor___block_invoke(id *a1
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v15 = forCopy;
-      v16 = 2112;
-      v17 = v9;
+      v14 = forCopy;
+      v15 = 2112;
+      v16 = v9;
       _os_log_error_impl(&dword_2658CA000, v11, OS_LOG_TYPE_ERROR, "Failed to fetch policies for %{public}@, error: %@", buf, 0x16u);
     }
   }
@@ -341,26 +333,24 @@ void __51__PSAppDataUsagePolicyCache_fetchUsagePoliciesFor___block_invoke(id *a1
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = forCopy;
+      v14 = forCopy;
       _os_log_impl(&dword_2658CA000, v11, OS_LOG_TYPE_DEFAULT, "Policies fetch success for %{public}@", buf, 0xCu);
     }
 
     [(PSAppDataUsagePolicyCache *)self addPoliciesToCache:v8];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)policiesFor:(id)for
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   forCopy = for;
   getLogger = [(PSAppDataUsagePolicyCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543362;
-    v12 = forCopy;
-    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_INFO, "Requested usage policies for %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = forCopy;
+    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_INFO, "Requested usage policies for %{public}@", &v10, 0xCu);
   }
 
   v6 = [(NSCache *)self->_policyCache objectForKey:forCopy];
@@ -370,17 +360,15 @@ void __51__PSAppDataUsagePolicyCache_fetchUsagePoliciesFor___block_invoke(id *a1
     getLogger2 = [(PSAppDataUsagePolicyCache *)self getLogger];
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_INFO))
     {
-      v11 = 138543362;
-      v12 = forCopy;
-      _os_log_impl(&dword_2658CA000, getLogger2, OS_LOG_TYPE_INFO, "Cache did not have usage policies for %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = forCopy;
+      _os_log_impl(&dword_2658CA000, getLogger2, OS_LOG_TYPE_INFO, "Cache did not have usage policies for %{public}@", &v10, 0xCu);
     }
 
     [(PSAppDataUsagePolicyCache *)self fetchUsagePolicyFor:forCopy];
   }
 
   v8 = [(NSCache *)self->_policyCache objectForKey:forCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -423,7 +411,7 @@ void __51__PSAppDataUsagePolicyCache_fetchUsagePoliciesFor___block_invoke(id *a1
 
 void __52__PSAppDataUsagePolicyCache_setPolicies_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
 
@@ -442,11 +430,11 @@ LABEL_10:
       }
 
       v7 = [*(a1 + 32) bundleId];
-      v14 = 138543618;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v3;
-      _os_log_error_impl(&dword_2658CA000, v6, OS_LOG_TYPE_ERROR, "Set policy failed for %{public}@, error: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v3;
+      _os_log_error_impl(&dword_2658CA000, v6, OS_LOG_TYPE_ERROR, "Set policy failed for %{public}@, error: %@", &v13, 0x16u);
 LABEL_9:
 
       goto LABEL_10;
@@ -461,9 +449,9 @@ LABEL_9:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [*(a1 + 32) bundleId];
-      v14 = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_2658CA000, v9, OS_LOG_TYPE_DEFAULT, "Set policy success for %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v10;
+      _os_log_impl(&dword_2658CA000, v9, OS_LOG_TYPE_DEFAULT, "Set policy success for %{public}@", &v13, 0xCu);
     }
 
     v6 = objc_loadWeakRetained((a1 + 48));
@@ -477,8 +465,6 @@ LABEL_9:
 
 LABEL_11:
   (*(*(a1 + 40) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

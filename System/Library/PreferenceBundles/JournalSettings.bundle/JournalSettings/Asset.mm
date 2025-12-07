@@ -24,7 +24,7 @@
 
   v6 = sub_6328C(v8);
 
-  sub_8EF0(v8, &qword_C5418);
+  sub_8EF0(v8, &qword_C5418, &unk_9CDA0);
   return v6 & 1;
 }
 

@@ -31,68 +31,67 @@
 - (NSString)statusDescription
 {
   v3 = objc_alloc(MEMORY[0x1E696AD60]);
-  record = self->_record;
-  v5 = objc_opt_class();
+  v4 = objc_opt_class();
   scopedIdentifier = [(CPLRecordChange *)self->_record scopedIdentifier];
-  v7 = [v3 initWithFormat:@"%@ %@:", v5, scopedIdentifier];
+  v6 = [v3 initWithFormat:@"%@ %@:", v4, scopedIdentifier];
 
   isUnknown = [(CPLRecordStatus *)self isUnknown];
   if (isUnknown)
   {
-    [v7 appendString:@" unknown"];
+    [v6 appendString:@" unknown"];
   }
 
   if ([(CPLRecordStatus *)self isResetting])
   {
-    [v7 appendString:@" resetting"];
+    [v6 appendString:@" resetting"];
     isUnknown = 1;
   }
 
   if ([(CPLRecordStatus *)self isQuarantined])
   {
-    [v7 appendString:@" quarantined"];
+    [v6 appendString:@" quarantined"];
     isUnknown = 1;
   }
 
   if ([(CPLRecordStatus *)self isUploaded])
   {
-    [v7 appendString:@" uploaded"];
+    [v6 appendString:@" uploaded"];
     isUnknown = 1;
   }
 
   if ([(CPLRecordStatus *)self isWaitingForUpload])
   {
-    [v7 appendString:@" waitingForUpload"];
+    [v6 appendString:@" waitingForUpload"];
     isUnknown = 1;
   }
 
   if ([(CPLRecordStatus *)self isUploading])
   {
-    [v7 appendString:@" uploading"];
+    [v6 appendString:@" uploading"];
     isUnknown = 1;
   }
 
   if ([(CPLRecordStatus *)self isWaitingForUpdate])
   {
-    [v7 appendString:@" waitingForUpdate"];
+    [v6 appendString:@" waitingForUpdate"];
     isUnknown = 1;
   }
 
   if ([(CPLRecordStatus *)self isUpdating])
   {
-    [v7 appendString:@" updating"];
+    [v6 appendString:@" updating"];
     isUnknown = 1;
   }
 
   if ([(CPLRecordStatus *)self isConfirmed])
   {
-    [v7 appendString:@" confirmed"];
+    [v6 appendString:@" confirmed"];
     if (![(CPLRecordStatus *)self isShared])
     {
       goto LABEL_26;
     }
 
-    v9 = @" shared";
+    v8 = @" shared";
   }
 
   else
@@ -100,12 +99,12 @@
     isShared = [(CPLRecordStatus *)self isShared];
     if (isShared)
     {
-      v9 = @" shared";
+      v8 = @" shared";
     }
 
     else
     {
-      v9 = @" no status";
+      v8 = @" no status";
     }
 
     if (!isShared && isUnknown)
@@ -114,19 +113,18 @@
     }
   }
 
-  [v7 appendString:v9];
+  [v6 appendString:v8];
 LABEL_26:
 
-  return v7;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  record = self->_record;
   coderCopy = coder;
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  [coderCopy encodeObject:v6 forKey:@"rClass"];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [coderCopy encodeObject:v5 forKey:@"rClass"];
 
   scopedIdentifier = [(CPLRecordChange *)self->_record scopedIdentifier];
   [coderCopy encodeObject:scopedIdentifier forKey:@"r"];

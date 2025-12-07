@@ -4,7 +4,6 @@
 - (PFLBackgroundRunner)init;
 - (unsigned)start;
 - (void)cleanup;
-- (void)start;
 - (void)stop;
 @end
 
@@ -45,16 +44,16 @@ uint64_t __33__PFLBackgroundRunner_initialize__block_invoke()
 
 - (BOOL)prepareForActivity:(id)activity
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   userInfo = [activityCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"QuickTypePFLBackgroundTask"];
 
   if ([v6 length])
   {
-    v21 = 0;
-    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v21];
-    v8 = v21;
+    v20 = 0;
+    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v20];
+    v8 = v20;
     [(PFLBackgroundRunner *)self setTask:v7];
 
     task = [(PFLBackgroundRunner *)self task];
@@ -64,13 +63,13 @@ uint64_t __33__PFLBackgroundRunner_initialize__block_invoke()
       v10 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.NLPLearner" name:@"AccessGPU"];
       v11 = objc_alloc(MEMORY[0x277D46DB8]);
       v12 = [MEMORY[0x277D47008] targetWithPid:getpid()];
-      v24[0] = v10;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v23[0] = v10;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
       v14 = [v11 initWithExplanation:@"PFL training" target:v12 attributes:v13];
 
-      v20 = 0;
-      v15 = [v14 acquireWithError:&v20];
-      v16 = v20;
+      v19 = 0;
+      v15 = [v14 acquireWithError:&v19];
+      v16 = v19;
 
       v17 = sLog_6;
       if (v15)
@@ -78,7 +77,7 @@ uint64_t __33__PFLBackgroundRunner_initialize__block_invoke()
         if (os_log_type_enabled(sLog_6, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v23 = v14;
+          v22 = v14;
           _os_log_impl(&dword_25AE22000, v17, OS_LOG_TYPE_INFO, "acquired assertion for background task runner %@", buf, 0xCu);
         }
 
@@ -118,13 +117,12 @@ uint64_t __33__PFLBackgroundRunner_initialize__block_invoke()
     v15 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (unsigned)start
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   task = [(PFLBackgroundRunner *)self task];
   v4 = [task url];
 
@@ -136,9 +134,9 @@ uint64_t __33__PFLBackgroundRunner_initialize__block_invoke()
     _os_log_impl(&dword_25AE22000, v5, OS_LOG_TYPE_DEFAULT, "starting PFLBackgroundRunner with task url %@", &buf, 0xCu);
   }
 
-  v21 = 0;
-  v6 = [objc_alloc(MEMORY[0x277D05628]) initWithResumptionURL:v4 error:&v21];
-  v7 = v21;
+  v20 = 0;
+  v6 = [objc_alloc(MEMORY[0x277D05628]) initWithResumptionURL:v4 error:&v20];
+  v7 = v20;
   v8 = v7;
   if (!v6 || v7)
   {
@@ -154,20 +152,20 @@ uint64_t __33__PFLBackgroundRunner_initialize__block_invoke()
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v23 = 0x2020000000;
-    v24 = 1;
+    v22 = 0x2020000000;
+    v23 = 1;
     v9 = dispatch_group_create();
     dispatch_group_enter(v9);
     defaultSessionConfiguration = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __28__PFLBackgroundRunner_start__block_invoke;
-    v17[3] = &unk_279928CB0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __28__PFLBackgroundRunner_start__block_invoke;
+    v16[3] = &unk_279928CB0;
     p_buf = &buf;
     v11 = v9;
-    v18 = v11;
-    v19 = v6;
-    [v19 downloadAttachmentsWithConfiguration:defaultSessionConfiguration completion:v17];
+    v17 = v11;
+    v18 = v6;
+    [v18 downloadAttachmentsWithConfiguration:defaultSessionConfiguration completion:v16];
 
     dispatch_group_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
     [(PFLBackgroundRunner *)self cleanup];
@@ -177,8 +175,8 @@ uint64_t __33__PFLBackgroundRunner_initialize__block_invoke()
       v13 = 0;
       if (os_log_type_enabled(sLog_6, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_25AE22000, v12, OS_LOG_TYPE_DEFAULT, "finished posting results", v16, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_25AE22000, v12, OS_LOG_TYPE_DEFAULT, "finished posting results", v15, 2u);
         v13 = 0;
       }
     }
@@ -191,13 +189,12 @@ uint64_t __33__PFLBackgroundRunner_initialize__block_invoke()
     _Block_object_dispose(&buf, 8);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void __28__PFLBackgroundRunner_start__block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -220,21 +217,21 @@ void __28__PFLBackgroundRunner_start__block_invoke(uint64_t a1, void *a2)
       v7 = [v5 recipe];
       v8 = [*(a1 + 40) matchingRecordSet];
       *buf = 138412802;
-      v34 = v5;
-      v35 = 2112;
-      v36 = v7;
-      v37 = 2112;
-      v38 = v8;
+      v33 = v5;
+      v34 = 2112;
+      v35 = v7;
+      v36 = 2112;
+      v37 = v8;
       _os_log_impl(&dword_25AE22000, v6, OS_LOG_TYPE_DEFAULT, "training with session:%@ recipe:%@ recordSet:%@", buf, 0x20u);
     }
 
     v9 = [*(a1 + 40) recipe];
     v10 = [*(a1 + 40) matchingRecordSet];
+    v30 = 0;
     v31 = 0;
-    v32 = 0;
-    v11 = trainMLPModelForDES(v9, v10, &v32, &v31);
-    v12 = v32;
-    v13 = v31;
+    v11 = trainMLPModelForDES(v9, v10, &v31, &v30);
+    v12 = v31;
+    v13 = v30;
 
     v14 = sLog_6;
     v15 = os_log_type_enabled(sLog_6, OS_LOG_TYPE_DEFAULT);
@@ -247,11 +244,11 @@ void __28__PFLBackgroundRunner_start__block_invoke(uint64_t a1, void *a2)
         v22 = [v20 recipe];
         v23 = [*(a1 + 40) matchingRecordSet];
         *buf = 138412802;
-        v34 = v22;
-        v35 = 2112;
-        v36 = v23;
-        v37 = 2112;
-        v38 = v13;
+        v33 = v22;
+        v34 = 2112;
+        v35 = v23;
+        v36 = 2112;
+        v37 = v13;
         _os_log_impl(&dword_25AE22000, v21, OS_LOG_TYPE_DEFAULT, "quicktype training failed for recipe:%@ recordSet:%@ err:%@", buf, 0x20u);
       }
 
@@ -259,14 +256,14 @@ void __28__PFLBackgroundRunner_start__block_invoke(uint64_t a1, void *a2)
       v24 = *(a1 + 32);
       v16 = a1 + 32;
       dispatch_group_enter(v24);
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __28__PFLBackgroundRunner_start__block_invoke_71;
-      v29[3] = &unk_279928C88;
-      v18 = &v30;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __28__PFLBackgroundRunner_start__block_invoke_71;
+      v28[3] = &unk_279928C88;
+      v18 = &v29;
       v25 = *(v16 + 8);
-      v30 = *v16;
-      [v25 completeWithError:v13 completionHandler:v29];
+      v29 = *v16;
+      [v25 completeWithError:v13 completionHandler:v28];
     }
 
     else
@@ -274,27 +271,25 @@ void __28__PFLBackgroundRunner_start__block_invoke(uint64_t a1, void *a2)
       if (v15)
       {
         *buf = 138412290;
-        v34 = v11;
+        v33 = v11;
         _os_log_impl(&dword_25AE22000, v14, OS_LOG_TYPE_DEFAULT, "training succeeded with json result %@", buf, 0xCu);
       }
 
       v17 = *(a1 + 32);
       v16 = a1 + 32;
       dispatch_group_enter(v17);
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __28__PFLBackgroundRunner_start__block_invoke_72;
-      v27[3] = &unk_279928C88;
-      v18 = &v28;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __28__PFLBackgroundRunner_start__block_invoke_72;
+      v26[3] = &unk_279928C88;
+      v18 = &v27;
       v19 = *(v16 + 8);
-      v28 = *v16;
-      [v19 completeWithJSONResult:v11 binaryResult:v12 completionHandler:v27];
+      v27 = *v16;
+      [v19 completeWithJSONResult:v11 binaryResult:v12 completionHandler:v26];
     }
 
     dispatch_group_leave(*v16);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -307,46 +302,6 @@ void __28__PFLBackgroundRunner_start__block_invoke(uint64_t a1, void *a2)
   }
 
   [(PFLBackgroundRunner *)self cleanup];
-}
-
-- (void)prepareForActivity:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_25AE22000, v0, v1, "failed to acquire AccessGPU RBSAssertion, unable to run PFL training, err:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)prepareForActivity:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_25AE22000, v0, v1, "unable to de-serialize task from data %@ err:%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)prepareForActivity:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_25AE22000, v0, v1, "missing serialized task from activity %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)start
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_25AE22000, v0, v1, "unable to reconstruct session from url:%@ err:%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __28__PFLBackgroundRunner_start__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_25AE22000, v0, v1, "session attachements failed downloaded with err:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

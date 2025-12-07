@@ -17,7 +17,7 @@
     v16 = v15;
     if (self)
     {
-      [self transform];
+      objc_msgSend_transform(self);
     }
 
     else

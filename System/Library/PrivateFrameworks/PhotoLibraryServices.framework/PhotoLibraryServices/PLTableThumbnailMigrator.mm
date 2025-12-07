@@ -92,28 +92,28 @@ void __99__PLTableThumbnailMigrator_migrateAllAssetsPendingTableThumbRebuildInLi
     v26 = 0;
     v11 = [v10 _nextBatchOfItemsPendingTableRebuildInLibrary:v9 excludingAssetIDs:v7 sourceObjects:&v26];
     v12 = v26;
-    v13 = [v11 count];
+    v13 = objc_msgSend_count(v11);
     v14 = PLThumbnailsGetLog();
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if (v13)
     {
       if (v15)
       {
-        *&v16 = COERCE_DOUBLE([v11 count]);
+        *&v16 = COERCE_DOUBLE(objc_msgSend_count(v11));
         *buf = 134217984;
         v28 = *&v16;
         _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_DEFAULT, "Processing batch of %ld assets for table thumb migration...", buf, 0xCu);
       }
 
       [*(a1 + 40) _rebuildTablesForBatch:v11 inLibrary:v9 toFormats:v25];
-      v4 += [v11 count];
+      v4 += objc_msgSend_count(v11);
       v14 = PLThumbnailsGetLog();
       if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_13;
       }
 
-      *&v17 = COERCE_DOUBLE([v11 count]);
+      *&v17 = COERCE_DOUBLE(objc_msgSend_count(v11));
       *buf = 134218496;
       v28 = *&v17;
       v29 = 2048;
@@ -282,7 +282,7 @@ void __79__PLTableThumbnailMigrator_rebuildTableThumbForAsset_inLibrary_toTableF
   batchCopy = batch;
   libraryCopy = library;
   formatsCopy = formats;
-  if ([batchCopy count])
+  if (objc_msgSend_count(batchCopy))
   {
     os_unfair_lock_lock(&self->_pendingAssetObjectIDsLock);
     v33 = 0u;
@@ -324,7 +324,7 @@ void __79__PLTableThumbnailMigrator_rebuildTableThumbForAsset_inLibrary_toTableF
     }
 
     os_unfair_lock_unlock(&self->_pendingAssetObjectIDsLock);
-    v18 = [v11 count];
+    v18 = objc_msgSend_count(v11);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __71__PLTableThumbnailMigrator__rebuildTablesForBatch_inLibrary_toFormats___block_invoke;
@@ -430,7 +430,7 @@ void __71__PLTableThumbnailMigrator__rebuildTablesForBatch_inLibrary_toFormats__
     while (v5);
   }
 
-  if ([v2 count])
+  if (objc_msgSend_count(v2))
   {
     [PLThumbnailIndexes recycleThumbnailIndexes:v2 inLibrary:*(a1 + 40)];
   }
@@ -835,7 +835,7 @@ uint64_t __109__PLTableThumbnailMigrator__writeCompressedTableThumbsFromMasterTh
   _predicateForAssetsPendingTableRebuild = [self _predicateForAssetsPendingTableRebuild];
   [v9 setPredicate:_predicateForAssetsPendingTableRebuild];
 
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v11 = MEMORY[0x1E696AB28];
     predicate = [v9 predicate];

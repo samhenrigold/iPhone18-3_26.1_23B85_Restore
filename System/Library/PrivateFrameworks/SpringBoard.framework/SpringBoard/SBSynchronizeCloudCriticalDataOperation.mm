@@ -110,7 +110,7 @@
   return v3;
 }
 
-uint64_t __53__SBSynchronizeCloudCriticalDataOperation_isComplete__block_invoke(uint64_t a1)
+void *__53__SBSynchronizeCloudCriticalDataOperation_isComplete__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_isComplete];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -166,7 +166,7 @@ uint64_t __53__SBSynchronizeCloudCriticalDataOperation_isComplete__block_invoke(
   return v3;
 }
 
-uint64_t __65__SBSynchronizeCloudCriticalDataOperation__pendingOperationCount__block_invoke(uint64_t a1)
+void *__65__SBSynchronizeCloudCriticalDataOperation__pendingOperationCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) operationCount];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -466,21 +466,21 @@ void __77__SBSynchronizeCloudCriticalDataOperation__queue_fetchCloudDefaultsOper
   [v8 _fetchDomains:v9 fromIndex:0 queue:v7 completion:v11];
 }
 
-void __77__SBSynchronizeCloudCriticalDataOperation__queue_fetchCloudDefaultsOperation__block_invoke_3(uint64_t a1)
+void __77__SBSynchronizeCloudCriticalDataOperation__queue_fetchCloudDefaultsOperation__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
     BSContinuousMachTimeNow();
-    v6 = v5 - *(a1 + 48);
-    v7 = 138543618;
-    v8 = v4;
-    v9 = 2048;
-    v10 = v6;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Completed syncing domains (duration: %f sec)", &v7, 0x16u);
+    v7 = v6 - *(a1 + 48);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v7;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Completed syncing domains (duration: %f sec)", &v8, 0x16u);
   }
 
   kdebug_trace();
@@ -574,24 +574,24 @@ void __84__SBSynchronizeCloudCriticalDataOperation__fetchDomains_fromIndex_queue
   }
 }
 
-uint64_t __84__SBSynchronizeCloudCriticalDataOperation__fetchDomains_fromIndex_queue_completion___block_invoke_70(uint64_t a1)
+uint64_t __84__SBSynchronizeCloudCriticalDataOperation__fetchDomains_fromIndex_queue_completion___block_invoke_70(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v5 = *(a1 + 40);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = *(a1 + 40);
     BSContinuousMachTimeNow();
-    v7 = v6 - *(a1 + 72);
-    v9 = 138543874;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2048;
-    v14 = v7;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Completed syncing domain: %@ (duration: %f sec)", &v9, 0x20u);
+    v8 = v7 - *(a1 + 72);
+    v10 = 138543874;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2048;
+    v15 = v8;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Completed syncing domain: %@ (duration: %f sec)", &v10, 0x20u);
   }
 
   return [*(a1 + 32) _fetchDomains:*(a1 + 48) fromIndex:*(a1 + 80) + 1 queue:*(a1 + 56) completion:*(a1 + 64)];

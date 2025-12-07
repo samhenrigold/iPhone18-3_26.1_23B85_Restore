@@ -290,8 +290,8 @@ uint64_t sub_10005FBC4()
   sub_10005C634();
   sub_1000583C4();
   sub_10002AEC4();
-  v17 = sub_10004B650(0, 0);
-  nullsub_3(v17, v18);
+  sub_10004B650(0, 0);
+  nullsub_3();
   pthread_set_qos_class_self_np(QOS_CLASS_USER_INITIATED, 0);
   pthread_set_fixedpriority_self();
   sub_1000424E4();
@@ -381,7 +381,7 @@ uint64_t sub_10006025C(intptr_t type, int a2)
   }
 }
 
-uint64_t sub_100060310(uint64_t a1, _OWORD *a2, int a3, uint64_t a4, _DWORD *a5)
+uint64_t sub_100060310(uint64_t a1, _OWORD *a2, int a3, int a4, _DWORD *a5)
 {
   *pidp = 0;
   v9 = a2[1];
@@ -392,9 +392,9 @@ uint64_t sub_100060310(uint64_t a1, _OWORD *a2, int a3, uint64_t a4, _DWORD *a5)
   switch(a3)
   {
     case 9:
-      v11 = a2[1];
+      v10 = a2[1];
       *atoken.val = *a2;
-      *&atoken.val[4] = v11;
+      *&atoken.val[4] = v10;
       if (sub_1000064E4(&atoken, @"com.apple.private.iokit.reservepower-control"))
       {
         *a5 = sub_100050F9C(a4);
@@ -410,7 +410,7 @@ uint64_t sub_100060310(uint64_t a1, _OWORD *a2, int a3, uint64_t a4, _DWORD *a5)
       sub_10000D2DC(pidp[0], a4);
       break;
     case 7:
-      nullsub_3(a4, v10);
+      nullsub_3();
       break;
   }
 
@@ -520,7 +520,7 @@ const void *sub_1000605B4()
 void sub_100060678(id a1)
 {
   sub_100057730();
-  nullsub_3(v1, v2);
+  nullsub_3();
 
   sub_10005CE9C();
 }
@@ -591,7 +591,7 @@ void sub_100060854(int a1, int a2, CFTypeRef cf1)
   }
 }
 
-void sub_100060894(uint64_t a1, uint64_t a2)
+void sub_100060894(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 != 2)
   {
@@ -609,19 +609,19 @@ void sub_100060894(uint64_t a1, uint64_t a2)
   {
     if (msgh_id == dword_1000AD584)
     {
-      v5 = 5;
+      v6 = 5;
     }
 
     else if (msgh_id == dword_1000AD574 || msgh_id == dword_1000AD578)
     {
       byte_1000AD588 = 1;
-      v5 = 2;
+      v6 = 2;
     }
 
     else if (msgh_id == dword_1000AD57C)
     {
       byte_1000AD588 = 0;
-      v5 = 1;
+      v6 = 1;
     }
 
     else
@@ -632,21 +632,21 @@ void sub_100060894(uint64_t a1, uint64_t a2)
       }
 
       sub_10005DF60(@"System Shutdown", kCFBooleanTrue);
-      v5 = 4;
+      v6 = 4;
     }
 
-    dword_1000AB7C8 = v5;
+    dword_1000AB7C8 = v6;
   }
 
 LABEL_11:
   if (dword_1000AD58C != dword_1000AB7C8)
   {
-    v6 = CFNumberCreate(0, kCFNumberIntType, &dword_1000AB7C8);
-    if (v6)
+    v7 = CFNumberCreate(0, kCFNumberIntType, &dword_1000AB7C8);
+    if (v7)
     {
-      v7 = v6;
-      sub_10005DF60(@"ConsoleShutdown", v6);
-      CFRelease(v7);
+      v8 = v7;
+      sub_10005DF60(@"ConsoleShutdown", v7);
+      CFRelease(v8);
     }
 
     dword_1000AD58C = dword_1000AB7C8;
@@ -655,10 +655,11 @@ LABEL_11:
   mach_msg_destroy(msg);
 }
 
-void sub_100060A08(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100060A08(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
 uint64_t sub_100060A24(mach_port_t a1, int a2, uint64_t a3, int a4)
@@ -1388,12 +1389,6 @@ LABEL_10:
     return result;
   }
 
-  v4 = *(result + 12);
-  v5 = *(result + 52);
-  v6 = *(result + 56);
-  v7 = *(result + 28);
-  v8 = *(result + 84);
-  v9 = *(result + 100);
   result = sub_10004ACFC();
   *(a2 + 32) = result;
   *(a2 + 24) = NDR_record;
@@ -2126,14 +2121,6 @@ void sub_1000635E4(void *a1, void *a2)
   _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "LPM: listener: rejected new connection from PID %d (no entitlement)\n", v4, 8u);
 }
 
-void sub_100063718(unsigned __int8 *a1, uint64_t *a2)
-{
-  v7 = *a1;
-  v8 = *a2;
-  sub_100018C08();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-}
-
 void sub_1000637A0()
 {
   sub_100018BFC();
@@ -2162,13 +2149,6 @@ void sub_100063964()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100063A34(uint64_t a1)
-{
-  v6 = *(a1 + 24);
-  sub_100018C08();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-}
-
 void sub_100063B08(void *a1)
 {
   v1 = a1;
@@ -2177,11 +2157,11 @@ void sub_100063B08(void *a1)
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Failed to create queue %s", &v2, 0xCu);
 }
 
-uint64_t sub_100063D44()
+void sub_100063D44()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_100063D68(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  sub_100063D68();
 }
 
 void sub_1000640D0(uint64_t a1, NSObject *a2)
@@ -2226,13 +2206,6 @@ void sub_100064740(int a1, int a2, os_log_t log)
   v4 = 1024;
   v5 = a2;
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "New cycle count: %d. Previous cycle count at which data is saved: %d\n", v3, 0xEu);
-}
-
-void sub_1000647C8(int *a1)
-{
-  v6 = *a1;
-  sub_10001C010();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
 void sub_100064C88()
@@ -2298,13 +2271,11 @@ void sub_100064F90()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100065000(uint64_t a1)
+void sub_100065000()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 64);
   sub_10001C050();
   sub_100018BD8();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_1000650A0(void *a1, void *a2)
@@ -2642,7 +2613,7 @@ LABEL_42:
   [v31 removeObjectForKey:@"TimeStamp"];
   v32 = [objc_loadWeak((a1 + 40)) dataGroupName];
   v33 = [objc_loadWeak((a1 + 40)) collectionQueue];
-  if (!sub_10000DF94())
+  if (!sub_10000DF94(0))
   {
     if (!sub_10003E824())
     {
@@ -2653,7 +2624,7 @@ LABEL_42:
     goto LABEL_54;
   }
 
-  if (!sub_10000DF94() || !sub_10000E064() || !sub_10000DF94() || !sub_10000E150())
+  if (!sub_10000DF94(0) || !sub_10000E064() || !sub_10000DF94(0) || !sub_10000E150())
   {
     if (!sub_10003E824())
     {
@@ -2885,15 +2856,14 @@ void sub_100066AD4()
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-void sub_100066B10(NSObject *a1, uint64_t a2, uint64_t *a3)
+void sub_100066B10(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v4 = *a3;
     sub_10003E884();
     sub_10003E814();
     sub_10001C068();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
   }
 }
 
@@ -2931,12 +2901,11 @@ void sub_100066CDC()
   }
 }
 
-void sub_100066D3C(uint64_t *a1)
+void sub_100066D3C()
 {
-  v1 = *a1;
   sub_10003E814();
   sub_100018BD8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100066DC0()
@@ -2946,12 +2915,11 @@ void sub_100066DC0()
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-void sub_100066DFC(uint64_t a1, uint64_t *a2)
+void sub_100066DFC()
 {
-  v2 = *a2;
   sub_100018BF0();
   sub_10003E814();
-  sub_100018C18(&_mh_execute_header, v3, v4, "Failed to get size for file %@. Error %@");
+  sub_100018C18(&_mh_execute_header, v0, v1, "Failed to get size for file %@. Error %@");
 }
 
 void sub_100066F3C()
@@ -2997,15 +2965,14 @@ void sub_1000670F0()
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-void sub_100067194(uint64_t a1, uint64_t *a2)
+void sub_100067194()
 {
   if (sub_10003E824())
   {
-    v3 = *a2;
     sub_10003E884();
     sub_10003E814();
     sub_10001C068();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
   }
 }
 
@@ -3021,11 +2988,10 @@ void sub_100067238()
 
 void sub_100067340(uint64_t a1, id *a2)
 {
-  v2 = *(a1 + 24);
   [*a2 intValue];
   sub_10003E884();
   sub_10001C068();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 void sub_1000673D8()
@@ -3299,11 +3265,11 @@ NSError *sub_100067FA0(NSError *result, NSErrorUserInfoKey *a2, void *a3, void *
 {
   if (result)
   {
-    p_isa = &result->super.isa;
+    v5 = result;
     *a2 = NSUnderlyingErrorKey;
     *a3 = @"key not found";
     result = [NSError errorWithDomain:NSPOSIXErrorDomain code:14 userInfo:[NSDictionary dictionaryWithObjects:"dictionaryWithObjects:forKeys:count:" forKeys:? count:?]];
-    *p_isa = result;
+    v5->super.isa = result;
   }
 
   *a4 = 0;
@@ -3315,13 +3281,6 @@ void sub_100068030()
   sub_100018BE4();
   sub_10003E7EC();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-}
-
-void sub_10006806C(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_1000680E4(int a1, NSObject *a2)
@@ -3337,13 +3296,6 @@ void sub_1000682D8(uint64_t *a1, NSObject *a2)
   v3 = 138543362;
   v4 = v2;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "AutoWakeScheduler: Not arming timer for a past or distant future event %{public}@\n", &v3, 0xCu);
-}
-
-void sub_100068354(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10001C010();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_100068534()
@@ -3367,12 +3319,11 @@ void sub_1000686C8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100068738(uint64_t a1)
+void sub_100068738()
 {
-  v1 = *(a1 + 32);
   sub_100047AFC();
   sub_10001C010();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000687AC()
@@ -3550,12 +3501,11 @@ void sub_10006902C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100069068(uint64_t *a1)
+void sub_100069068()
 {
-  v1 = *a1;
   sub_100047B08();
   sub_100018BD8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_100069154()
@@ -3640,12 +3590,11 @@ void sub_10006954C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1000695BC(unsigned int *a1)
+void sub_1000695BC()
 {
-  v1 = *a1;
   sub_100047AFC();
   sub_10001C010();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100069630()
@@ -3676,14 +3625,12 @@ void sub_10006978C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000697C8(unsigned int *a1, unsigned int *a2)
+void sub_1000697C8()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_100047AFC();
   sub_100047AF0();
   sub_100018C08();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_100069848()
@@ -3840,12 +3787,11 @@ void sub_10006A008()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_10006A078(unsigned int *a1)
+void sub_10006A078()
 {
-  v1 = *a1;
   sub_100047AFC();
   sub_10001C010();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10006A0EC()
@@ -3855,13 +3801,12 @@ void sub_10006A0EC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10006A15C(unsigned int *a1)
+void sub_10006A15C()
 {
-  v1 = *a1;
   sub_100047AFC();
   sub_100047AF0();
   sub_100018BD8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_10006A1D8(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -3991,14 +3936,12 @@ void sub_10006A724()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10006A760(unsigned int *a1, unsigned int *a2)
+void sub_10006A760()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_100047AFC();
   sub_100047AF0();
   sub_100018C08();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_10006A7E0()
@@ -4074,20 +4017,18 @@ void sub_10006ABF8(int a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Unhandled inMessageType (%x)\n", v2, 8u);
 }
 
-void sub_10006AC70(unsigned int *a1)
+void sub_10006AC70()
 {
-  v1 = *a1;
   sub_100018C48();
   sub_100018C08();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_10006ACE4(unsigned int *a1)
+void sub_10006ACE4()
 {
-  v1 = *a1;
   sub_100018C48();
   sub_100018C08();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_10006ADC0(uint64_t *a1, NSObject *a2)
@@ -4105,11 +4046,11 @@ void sub_10006B00C(uint8_t *buf, _BYTE *a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "logAsyncAssertionActivity: No kIOPMAssertionActivityAction key present when trying to log.", buf, 2u);
 }
 
-void sub_10006B1EC(unsigned int *a1)
+void sub_10006B1EC()
 {
-  sub_100054A30(a1, __stack_chk_guard);
+  sub_100054A30(__stack_chk_guard);
   sub_100018C08();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_10006B26C()
@@ -4140,28 +4081,28 @@ void sub_10006B354()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10006B390(unsigned int *a1)
+void sub_10006B390()
 {
-  sub_100054A30(a1, __stack_chk_guard);
+  sub_100054A30(__stack_chk_guard);
   sub_100047AFC();
   sub_100018C08();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10006B40C(unsigned int *a1)
+void sub_10006B40C()
 {
-  sub_100054A30(a1, __stack_chk_guard);
+  sub_100054A30(__stack_chk_guard);
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10006B490(unsigned int *a1)
+void sub_10006B490()
 {
-  sub_100054A30(a1, __stack_chk_guard);
+  sub_100054A30(__stack_chk_guard);
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_10006B514()
@@ -4219,21 +4160,20 @@ void sub_10006B7C0()
 void sub_10006B7FC(const __CFArray *a1, uint64_t a2, NSObject *a3)
 {
   CFArrayGetCount(a1);
-  v6 = *(a2 + 96);
   sub_100018BF0();
-  v9 = 2112;
-  v10 = a1;
-  v11 = 1024;
-  v12 = v7;
-  _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "Only logging data : Received logging data of length %ld %@ for pid %d", v8, 0x1Cu);
+  v7 = 2112;
+  v8 = a1;
+  v9 = 1024;
+  v10 = v5;
+  _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "Only logging data : Received logging data of length %ld %@ for pid %d", v6, 0x1Cu);
 }
 
-void sub_10006B8B0(uint64_t a1)
+void sub_10006B8B0()
 {
-  sub_100054A24(a1);
+  sub_100054A24();
   sub_100047AFC();
   sub_10001C010();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10006B920()
@@ -4306,37 +4246,34 @@ void sub_10006BDB8()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10006BE28(uint64_t a1)
+void sub_10006BE28()
 {
-  v1 = *(a1 + 52);
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10006BE9C(uint64_t a1, uint64_t a2)
+void sub_10006BE9C()
 {
-  v2 = *(a1 + 96);
-  v3 = *(a2 + 52);
   sub_100047AFC();
   sub_100018C08();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_10006BF20(uint64_t a1)
+void sub_10006BF20()
 {
-  sub_100054A24(a1);
+  sub_100054A24();
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10006BF90(uint64_t a1)
+void sub_10006BF90()
 {
-  sub_100054A24(a1);
+  sub_100054A24();
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10006C000()
@@ -4395,20 +4332,19 @@ void sub_10006C24C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10006C288(uint64_t a1)
+void sub_10006C288()
 {
-  v1 = *(a1 + 96);
   sub_100047AFC();
   sub_10001C010();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_10006C310(uint64_t a1)
+void sub_10006C310()
 {
-  sub_100054A24(a1);
+  sub_100054A24();
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10006C380()
@@ -4446,28 +4382,28 @@ void sub_10006C50C()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10006C548(unsigned int *a1)
+void sub_10006C548()
 {
-  sub_100054A18(a1);
+  sub_100054A18();
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10006C5B8(unsigned int *a1)
+void sub_10006C5B8()
 {
-  sub_100054A18(a1);
+  sub_100054A18();
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10006C628(unsigned int *a1)
+void sub_10006C628()
 {
-  sub_100054A18(a1);
+  sub_100054A18();
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10006C698()
@@ -4588,12 +4524,12 @@ void sub_10006CB10()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10006CB80(unsigned int *a1)
+void sub_10006CB80()
 {
-  sub_100054A18(a1);
+  sub_100054A18();
   sub_100047AFC();
   sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10006CBF0()
@@ -4622,13 +4558,6 @@ void sub_10006CD7C()
   sub_100018BE4();
   sub_100018BD8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_10006CDB8(uint64_t a1)
-{
-  v6 = 24 * *(*(*a1 + 8) + 24);
-  sub_100018BD8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_10006CEB8()
@@ -4667,13 +4596,12 @@ void sub_10006D02C(uint64_t a1, void *a2)
   *a2 = 0;
 }
 
-void sub_10006D0D8(uint64_t *a1, void *a2)
+void sub_10006D0D8(uint64_t a1, void *a2)
 {
   if (os_log_type_enabled(qword_1000AC970, OS_LOG_TYPE_ERROR))
   {
-    v9 = *a1;
     sub_100018C38();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 
   *a2 = 0;
@@ -4946,225 +4874,257 @@ void sub_10006E92C(uint64_t a1, xpc_connection_t connection)
 void sub_10006E9DC(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EA58(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EAD4(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EB50(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EBCC(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EC48(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006ECC4(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006ED40(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EDBC(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EE38(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EEB4(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EF30(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006EFAC(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F028(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F0A4(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F120(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F19C(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F218(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F294(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F310(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F38C(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F408(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F484(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F500(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F57C(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F5F8(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F674(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F6F0(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F76C(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F7E8(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F864(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F8E0(uint64_t a1)
 {
   sub_10001C098(a1, __stack_chk_guard);
+  v6 = 136315394;
   sub_10001C12C();
-  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, 2u);
+  sub_100060A08(&_mh_execute_header, &_os_log_default, v1, "XPC %s from PID %u\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10006F95C(uint64_t a1)

@@ -10,10 +10,10 @@
 
 - (RBPersonaManager)init
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = RBPersonaManager;
-  v2 = [(RBPersonaManager *)&v19 init];
+  v23 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = RBPersonaManager;
+  v2 = [(RBPersonaManager *)&v18 init];
   v3 = v2;
   if (v2)
   {
@@ -80,23 +80,22 @@
       }
 
       *buf = 136315394;
-      v21 = v16;
-      v22 = 2080;
-      v23 = v14;
+      v20 = v16;
+      v21 = 2080;
+      v22 = v14;
       _os_log_impl(&dword_262485000, v15, OS_LOG_TYPE_DEFAULT, "Personas are supported: %s; isSharedIPad: %s", buf, 0x16u);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)personaForIdentity:(id)identity context:(id)context personaUID:(unsigned int *)d personaUniqueString:(id *)string
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   contextCopy = context;
-  v30 = identityCopy;
+  v29 = identityCopy;
   if (![(RBPersonaManager *)self personasAreSupported])
   {
     v21 = 0;
@@ -110,7 +109,7 @@
   v14 = 0;
   v15 = 0;
   v16 = &personaString;
-  v37[0] = managedPersona;
+  v36[0] = managedPersona;
   personalPersonaUID = -1;
   do
   {
@@ -125,22 +124,22 @@
 
     v20 = v15;
     v15 = 1;
-    v16 = v37;
+    v16 = v36;
   }
 
   while ((v20 & 1) == 0);
   if ([contextCopy lsPersona])
   {
-    v35 = 0;
-    memset(v34, 0, sizeof(v34));
-    v33 = 0u;
+    v34 = 0;
+    memset(v33, 0, sizeof(v33));
     v32 = 0u;
+    v31 = 0u;
     memset(&buf[4], 0, 48);
     *buf = 2;
     if (!kpersona_info())
     {
       personalPersonaUID = *&buf[4];
-      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:v34 + 4];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:v33 + 4];
 
       goto LABEL_14;
     }
@@ -192,7 +191,6 @@ LABEL_19:
   }
 
 LABEL_24:
-  v27 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -213,7 +211,6 @@ LABEL_24:
 
 - (BOOL)isConcretePersona:(id)persona
 {
-  v7 = *MEMORY[0x277D85DE8];
   personaCopy = persona;
   if ([(RBPersonaManager *)self personasAreSupported])
   {
@@ -221,7 +218,6 @@ LABEL_24:
     kpersona_find();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

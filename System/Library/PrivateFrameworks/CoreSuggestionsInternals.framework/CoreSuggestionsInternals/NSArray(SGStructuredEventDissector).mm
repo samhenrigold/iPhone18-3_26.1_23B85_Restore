@@ -7,7 +7,7 @@
 - (BOOL)sg_isEmptySchemaObject
 {
   sg_deepCopyWithoutEmptySchemaObjects = [self sg_deepCopyWithoutEmptySchemaObjects];
-  v2 = [sg_deepCopyWithoutEmptySchemaObjects count] == 0;
+  v2 = objc_msgSend_count(sg_deepCopyWithoutEmptySchemaObjects) == 0;
 
   return v2;
 }

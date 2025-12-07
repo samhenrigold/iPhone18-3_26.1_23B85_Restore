@@ -53,7 +53,7 @@
   v15 = [v14 _flatImageWithColor:v13];
   [(CKAudioBalloonView *)self setWaveform:v15];
 
-  [objectCopy duration];
+  objc_msgSend_duration(objectCopy);
   v17 = v16;
 
   [(CKAudioBalloonView *)self setDuration:v17];
@@ -258,7 +258,7 @@
 
   if (![v10 isAccessibilityPreferredContentSizeCategory])
   {
-    [(CKColoredBalloonView *)self balloonDescriptor];
+    objc_msgSend_balloonDescriptor(self);
     [v10 balloonMaskSizeWithBalloonDescriptor:v62];
     v43 = v44;
     if (!insets)
@@ -459,7 +459,7 @@ LABEL_8:
   v4 = v3;
   if (v3 == 0.0 && ![(CKAudioBalloonView *)self isPlaying])
   {
-    [(CKAudioBalloonView *)self duration];
+    objc_msgSend_duration(self);
     v4 = v5;
   }
 
@@ -475,7 +475,7 @@ LABEL_8:
   progressView = [(CKAudioBalloonView *)self progressView];
   [(CKAudioBalloonView *)self time];
   v4 = v3;
-  [(CKAudioBalloonView *)self duration];
+  objc_msgSend_duration(self);
   [CKAudioProgressView progressForTime:v4 duration:v5];
   [progressView setProgress:?];
   isPlaying = [(CKAudioBalloonView *)self isPlaying];

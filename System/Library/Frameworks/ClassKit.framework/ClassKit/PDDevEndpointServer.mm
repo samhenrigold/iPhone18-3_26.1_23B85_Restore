@@ -1016,7 +1016,7 @@ LABEL_13:
 {
   pathCopy = path;
   completionCopy = completion;
-  if (sub_1000B280C())
+  if (sub_1000B280C(PDClient))
   {
     sub_100023888(self, a2);
     database = [(PDDevEndpointServer *)self database];
@@ -1074,14 +1074,15 @@ LABEL_13:
     p_info = &OBJC_METACLASS___PDCKRecordZone.info;
     do
     {
-      for (i = 0; i != v29; i = i + 1)
+      v15 = 0;
+      do
       {
         if (*v31 != v13)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v30 + 1) + 8 * i);
+        v16 = *(*(&v30 + 1) + 8 * v15);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1110,8 +1111,11 @@ LABEL_13:
             [studentDB insertOrUpdateObject:v22];
           }
         }
+
+        v15 = v15 + 1;
       }
 
+      while (v29 != v15);
       v29 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 

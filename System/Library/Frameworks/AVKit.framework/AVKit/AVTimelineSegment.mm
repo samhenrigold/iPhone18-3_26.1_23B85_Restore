@@ -29,7 +29,7 @@
     v4 = playerItemSegment;
     if (playerItemSegment)
     {
-      [playerItemSegment timeMapping];
+      objc_msgSend_timeMapping(playerItemSegment);
     }
 
     else
@@ -76,7 +76,7 @@
   v8 = 0u;
   v5 = 0u;
   v6 = 0u;
-  [(AVPlayerItemSegment *)playerItemSegment timeMapping];
+  objc_msgSend_timeMapping(playerItemSegment, a2);
   *&v4.value = v8;
   v4.epoch = v9;
   return CMTimeGetSeconds(&v4);
@@ -109,7 +109,7 @@
   {
     v15 = 0u;
     memset(v16, 0, sizeof(v16));
-    [segmentCopy timeMapping];
+    objc_msgSend_timeMapping(segmentCopy);
     time = *(v16 + 8);
     Seconds = CMTimeGetSeconds(&time);
     time = *(&v16[3] + 8);

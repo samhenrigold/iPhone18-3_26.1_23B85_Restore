@@ -39,7 +39,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10002689C(v8);
+  sub_10002689C(v8, v9);
 }
 
 - (void)setInterruptionHandler:(id)handler
@@ -64,7 +64,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10002689C(v8);
+  sub_10002689C(v8, v9);
 }
 
 - (void)activateWithCompletion:(id)completion

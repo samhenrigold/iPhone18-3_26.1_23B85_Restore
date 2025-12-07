@@ -6,72 +6,68 @@
 - (uint64_t)mf_copyIDNADecodedEmailAddress;
 - (uint64_t)mf_copyIDNAEncodedEmailAddress;
 - (uint64_t)mf_copyUncommentedAddress;
-- (void)mf_emailAddressesWithEquivalentDomains;
+- (uint64_t)mf_emailAddressesWithEquivalentDomains;
 @end
 
 @implementation NSString(NSEmailAddressString)
 
-- (void)mf_emailAddressesWithEquivalentDomains
+- (uint64_t)mf_emailAddressesWithEquivalentDomains
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mf_rangeOfAddressDomain = [self mf_rangeOfAddressDomain];
   if (mf_rangeOfAddressDomain == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v4 = MEMORY[0x1E695E0F0];
+    return MEMORY[0x1E695E0F0];
+  }
+
+  v5 = mf_rangeOfAddressDomain;
+  v6 = v3;
+  if ([&unk_1F4F3B350 containsObject:{objc_msgSend(objc_msgSend(self, "substringWithRange:", mf_rangeOfAddressDomain, v3), "lowercaseString")}])
+  {
+    v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(&unk_1F4F3B350, "count")}];
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v7 = [&unk_1F4F3B350 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v14;
+      do
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v14 != v9)
+          {
+            objc_enumerationMutation(&unk_1F4F3B350);
+          }
+
+          v11 = [self stringByReplacingCharactersInRange:v5 withString:{v6, *(*(&v13 + 1) + 8 * i)}];
+          if ([v11 isEqualToString:self])
+          {
+            [v4 insertObject:v11 atIndex:0];
+          }
+
+          else
+          {
+            [v4 addObject:v11];
+          }
+        }
+
+        v8 = [&unk_1F4F3B350 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      }
+
+      while (v8);
+    }
   }
 
   else
   {
-    v5 = mf_rangeOfAddressDomain;
-    v6 = v3;
-    if ([&unk_1F4F3B350 containsObject:{objc_msgSend(objc_msgSend(self, "substringWithRange:", mf_rangeOfAddressDomain, v3), "lowercaseString")}])
-    {
-      v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(&unk_1F4F3B350, "count")}];
-      v14 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v7 = [&unk_1F4F3B350 countByEnumeratingWithState:&v14 objects:v19 count:16];
-      if (v7)
-      {
-        v8 = v7;
-        v9 = *v15;
-        do
-        {
-          for (i = 0; i != v8; ++i)
-          {
-            if (*v15 != v9)
-            {
-              objc_enumerationMutation(&unk_1F4F3B350);
-            }
-
-            v11 = [self stringByReplacingCharactersInRange:v5 withString:{v6, *(*(&v14 + 1) + 8 * i)}];
-            if ([v11 isEqualToString:self])
-            {
-              [v4 insertObject:v11 atIndex:0];
-            }
-
-            else
-            {
-              [v4 addObject:v11];
-            }
-          }
-
-          v8 = [&unk_1F4F3B350 countByEnumeratingWithState:&v14 objects:v19 count:16];
-        }
-
-        while (v8);
-      }
-    }
-
-    else
-    {
-      selfCopy = self;
-      v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&selfCopy count:1];
-    }
+    selfCopy = self;
+    return [MEMORY[0x1E695DEC8] arrayWithObjects:&selfCopy count:1];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

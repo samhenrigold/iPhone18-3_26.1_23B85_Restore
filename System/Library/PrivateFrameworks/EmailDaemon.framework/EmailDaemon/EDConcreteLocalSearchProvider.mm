@@ -72,145 +72,143 @@ void __36__EDConcreteLocalSearchProvider_log__block_invoke(uint64_t a1)
 
 - (id)topHitsSearchWithQuery:(id)query delegate:(id)delegate completion:(id)completion
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v60[1] = *MEMORY[0x1E69E9840];
   queryCopy = query;
   val = delegate;
   completionCopy = completion;
-  v44 = queryCopy;
+  v43 = queryCopy;
   searchableIndexManager = [(EDConcreteLocalSearchProvider *)self searchableIndexManager];
   index = [searchableIndexManager index];
 
-  v41 = index;
+  v40 = index;
   [(EDConcreteLocalSearchProvider *)self _updateParsecBundleIdentifierIfNeeded];
   messageQueryTransformer = [(EDConcreteLocalSearchProvider *)self messageQueryTransformer];
   predicate = [queryCopy predicate];
-  v43 = [messageQueryTransformer transformPredicate:predicate];
+  v42 = [messageQueryTransformer transformPredicate:predicate];
 
   suggestion = [queryCopy suggestion];
   searchableIndexBundleID = [index searchableIndexBundleID];
-  v59 = 0;
-  v42 = [EDSearchableIndexExpressionGenerator expressionForPredicate:v43 suggestion:suggestion bundleID:searchableIndexBundleID nonSpotlightPredicates:&v59];
-  v38 = v59;
+  v58 = 0;
+  v41 = [EDSearchableIndexExpressionGenerator expressionForPredicate:v42 suggestion:suggestion bundleID:searchableIndexBundleID nonSpotlightPredicates:&v58];
+  v37 = v58;
 
   maxTopHitsInCommittedSearch = [(EDConcreteLocalSearchProvider *)self maxTopHitsInCommittedSearch];
   v16 = objc_alloc(MEMORY[0x1E699AE88]);
-  searchString = [v42 searchString];
-  queryString = [v42 queryString];
-  v61[0] = queryString;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:1];
+  searchString = [v41 searchString];
+  queryString = [v41 queryString];
+  v60[0] = queryString;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:1];
   searchableIndexBundleID2 = [index searchableIndexBundleID];
   _deviceLanguage = [MEMORY[0x1E695DF58] _deviceLanguage];
-  suggestion2 = [v44 suggestion];
+  suggestion2 = [v43 suggestion];
   v23 = [v16 initWithSearchString:searchString filterQueries:v19 bundleID:searchableIndexBundleID2 keyboardLanguage:_deviceLanguage updatedSuggestion:suggestion2 generateSuggestions:0 logDescription:@"Top Hits" resultLimit:maxTopHitsInCommittedSearch suggestionLimit:0 customFlags:0 feedbackQueryID:-1];
 
   topHitsQueryResult = [v23 topHitsQueryResult];
   v25 = MEMORY[0x1E699B7C8];
-  v60[0] = topHitsQueryResult;
+  v59[0] = topHitsQueryResult;
   topHitsQueryInstantAnswersResult = [v23 topHitsQueryInstantAnswersResult];
-  v60[1] = topHitsQueryInstantAnswersResult;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
+  v59[1] = topHitsQueryInstantAnswersResult;
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:2];
   v28 = [v25 join:v27];
 
   objc_initWeak(&location, self);
   objc_initWeak(&from, val);
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke;
-  v52[3] = &unk_1E82531A8;
-  objc_copyWeak(&v55, &location);
-  objc_copyWeak(&v56, &from);
-  v29 = v44;
-  v53 = v29;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke;
+  v51[3] = &unk_1E82531A8;
+  objc_copyWeak(&v54, &location);
+  objc_copyWeak(&v55, &from);
+  v29 = v43;
+  v52 = v29;
   v30 = completionCopy;
-  v54 = v30;
-  [v28 addSuccessBlock:v52];
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_15;
-  v48[3] = &unk_1E82531D0;
-  objc_copyWeak(&v51, &from);
+  v53 = v30;
+  [v28 addSuccessBlock:v51];
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_15;
+  v47[3] = &unk_1E82531D0;
+  objc_copyWeak(&v50, &from);
   v31 = v29;
-  v49 = v31;
+  v48 = v31;
   v32 = v30;
-  v50 = v32;
-  [v28 addFailureBlock:v48];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_17;
-  v45[3] = &unk_1E8251E98;
-  objc_copyWeak(&v47, &from);
+  v49 = v32;
+  [v28 addFailureBlock:v47];
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_17;
+  v44[3] = &unk_1E8251E98;
+  objc_copyWeak(&v46, &from);
   v33 = v31;
-  v46 = v33;
-  [v23 setEmbeddingHandler:v45];
+  v45 = v33;
+  [v23 setEmbeddingHandler:v44];
   [v23 start];
-  v34 = v46;
+  v34 = v45;
   v35 = v23;
 
-  objc_destroyWeak(&v47);
-  objc_destroyWeak(&v51);
+  objc_destroyWeak(&v46);
+  objc_destroyWeak(&v50);
 
-  objc_destroyWeak(&v56);
   objc_destroyWeak(&v55);
+  objc_destroyWeak(&v54);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v35;
 }
 
 void __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v26 = a1;
-  v32 = objc_loadWeakRetained((a1 + 56));
-  v29 = v3;
+  v25 = a1;
+  v31 = objc_loadWeakRetained((a1 + 56));
+  v28 = v3;
   v4 = [v3 objectAtIndexedSubscript:0];
   v5 = [v4 searchableItemIdentifiers];
-  v31 = [v5 ef_compactMap:&__block_literal_global_38];
+  v30 = [v5 ef_compactMap:&__block_literal_global_38];
 
   v6 = [WeakRetained messagePersistence];
-  v30 = [v6 persistedMessagesForDatabaseIDs:v31 requireProtectedData:1 temporarilyUnavailableDatabaseIDs:0];
+  v29 = [v6 persistedMessagesForDatabaseIDs:v30 requireProtectedData:1 temporarilyUnavailableDatabaseIDs:0];
 
-  v25 = [v29 objectAtIndexedSubscript:1];
-  v28 = [v25 instantAnswersSuggestions];
-  if ([v28 count])
+  v24 = [v28 objectAtIndexedSubscript:1];
+  v27 = [v24 instantAnswersSuggestions];
+  if ([v27 count])
   {
-    v7 = [v28 firstObject];
+    v7 = [v27 firstObject];
     [WeakRetained _instantAnswersFromSuggestion:v7];
   }
 
   else
   {
-    v7 = [v30 firstObject];
+    v7 = [v29 firstObject];
     [WeakRetained _instantAnswersDebuggingIfNeededForMessage:v7];
   }
-  v27 = ;
+  v26 = ;
 
-  v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v34 = objc_opt_new();
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
+  v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v33 = objc_opt_new();
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = [v4 searchableItemIdentifiers];
-  v8 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
+  v8 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
   if (v8)
   {
-    v9 = *v38;
+    v9 = *v37;
     do
     {
       v10 = 0;
       do
       {
-        if (*v38 != v9)
+        if (*v37 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * v10);
+        v11 = *(*(&v36 + 1) + 8 * v10);
         v12 = [v4 mailRankingSignalsByPersistentID];
         v13 = [v12 objectForKeyedSubscript:v11];
 
@@ -219,14 +217,14 @@ void __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_complet
 
         v16 = [WeakRetained _snippetHintsFromQueryResultMatchingHints:v15];
         v17 = [objc_alloc(MEMORY[0x1E699AEA0]) initWithSearchableItemIdentifier:v11 snippetHints:v16];
-        [v35 addObject:v17];
-        [v34 setObject:v13 forKeyedSubscript:v11];
+        [v34 addObject:v17];
+        [v33 setObject:v13 forKeyedSubscript:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
+      v8 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
     }
 
     while (v8);
@@ -235,40 +233,38 @@ void __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_complet
   v18 = +[EDConcreteLocalSearchProvider log];
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [v30 count];
-    v20 = [v31 count];
-    v21 = *(v26 + 32);
+    v19 = [v29 count];
+    v20 = [v30 count];
+    v21 = *(v25 + 32);
     *buf = 134218754;
-    v42 = v19;
-    v43 = 2048;
-    v44 = v20;
-    v45 = 2114;
-    v46 = v31;
-    v47 = 2114;
-    v48 = v21;
+    v41 = v19;
+    v42 = 2048;
+    v43 = v20;
+    v44 = 2114;
+    v45 = v30;
+    v46 = 2114;
+    v47 = v21;
     _os_log_impl(&dword_1C61EF000, v18, OS_LOG_TYPE_DEFAULT, "Spotlight top hits search found %lu messages matching the %lu searchableItemIdentifiers returned:\n%{public}@ for query %{public}@", buf, 0x2Au);
   }
 
-  if ([v32 isSearchCanceled])
+  if ([v31 isSearchCanceled])
   {
     v22 = +[EDConcreteLocalSearchProvider log];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(v26 + 32);
+      v23 = *(v25 + 32);
       *buf = 138543362;
-      v42 = v23;
+      v41 = v23;
       _os_log_impl(&dword_1C61EF000, v22, OS_LOG_TYPE_DEFAULT, "Spotlight top hits found Canceled for query %{public}@", buf, 0xCu);
     }
   }
 
   else
   {
-    [v32 localSearchDidFindTopHits:v30 itemSnippetData:v35 rankingSignals:v34 instantAnswer:v27];
-    (*(*(v26 + 40) + 16))();
-    [v32 localSearchDidFinishTopHitsQuery:1];
+    [v31 localSearchDidFindTopHits:v29 itemSnippetData:v34 rankingSignals:v33 instantAnswer:v26];
+    (*(*(v25 + 40) + 16))();
+    [v31 localSearchDidFinishTopHitsQuery:1];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 id __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -281,39 +277,36 @@ id __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completio
 
 void __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_15(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = +[EDConcreteLocalSearchProvider log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v6 = [v3 ef_publicDescription];
-    __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_15_cold_1(v6, a1);
+    [v3 ef_publicDescription];
+    objc_claimAutoreleasedReturnValue();
+    __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_15_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
   [WeakRetained localSearchDidFinishTopHitsQuery:3];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_17(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = +[EDConcreteLocalSearchProvider log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2114;
-    v10 = v6;
-    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Spotlight top hits and instant answers search hasQueryEmbedding: %{BOOL}d for query %{public}@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2114;
+    v9 = v6;
+    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Spotlight top hits and instant answers search hasQueryEmbedding: %{BOOL}d for query %{public}@", v7, 0x12u);
   }
 
   [WeakRetained localSearchDidHaveTopHitsQueryEmbedding:a2];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)liveSearchWithQuery:(id)query delegate:(id)delegate
@@ -358,71 +351,69 @@ void __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_complet
 
 void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke(uint64_t a1, void *a2)
 {
-  v28[11] = *MEMORY[0x1E69E9840];
+  v27[11] = *MEMORY[0x1E69E9840];
   v3 = a2;
   [v3 setLive:1];
   v4 = [*(a1 + 32) searchableIndexBundleID];
   [v3 setBundleID:v4];
 
   v5 = *MEMORY[0x1E6964D90];
-  v28[0] = *MEMORY[0x1E6964A30];
-  v28[1] = v5;
+  v27[0] = *MEMORY[0x1E6964A30];
+  v27[1] = v5;
   v6 = *MEMORY[0x1E6964D78];
-  v28[2] = *MEMORY[0x1E6964DB0];
-  v28[3] = v6;
+  v27[2] = *MEMORY[0x1E6964DB0];
+  v27[3] = v6;
   v7 = *MEMORY[0x1E6964DC0];
-  v28[4] = *MEMORY[0x1E6964DB8];
-  v28[5] = v7;
+  v27[4] = *MEMORY[0x1E6964DB8];
+  v27[5] = v7;
   v8 = *MEMORY[0x1E6964D58];
-  v28[6] = *MEMORY[0x1E6964D10];
-  v28[7] = v8;
+  v27[6] = *MEMORY[0x1E6964D10];
+  v27[7] = v8;
   v9 = *MEMORY[0x1E6964C58];
-  v28[8] = *MEMORY[0x1E6964D20];
-  v28[9] = v9;
-  v28[10] = *MEMORY[0x1E6964C60];
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:11];
+  v27[8] = *MEMORY[0x1E6964D20];
+  v27[9] = v9;
+  v27[10] = *MEMORY[0x1E6964C60];
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:11];
   [v3 setFetchAttributes:v10];
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_2;
-  v26[3] = &unk_1E8250808;
-  objc_copyWeak(&v27, (a1 + 64));
-  [v3 setGatheredBlock:v26];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_3;
-  v21[3] = &unk_1E8253220;
-  objc_copyWeak(&v25, (a1 + 64));
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_2;
+  v25[3] = &unk_1E8250808;
+  objc_copyWeak(&v26, (a1 + 64));
+  [v3 setGatheredBlock:v25];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_3;
+  v20[3] = &unk_1E8253220;
+  objc_copyWeak(&v24, (a1 + 64));
   v11 = *(a1 + 40);
   v12 = *(a1 + 48);
   v13 = *(a1 + 56);
-  v22 = v11;
-  v23 = v12;
-  v24 = v13;
-  [v3 setResultsBlock:v21];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_24;
-  v18[3] = &unk_1E8251E98;
-  objc_copyWeak(&v20, (a1 + 64));
-  v19 = *(a1 + 40);
-  [v3 setEmbeddingBlock:v18];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_25;
-  v15[3] = &unk_1E8253248;
-  objc_copyWeak(&v17, (a1 + 64));
-  v16 = *(a1 + 40);
-  [v3 setFailureBlock:v15];
+  v21 = v11;
+  v22 = v12;
+  v23 = v13;
+  [v3 setResultsBlock:v20];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_24;
+  v17[3] = &unk_1E8251E98;
+  objc_copyWeak(&v19, (a1 + 64));
+  v18 = *(a1 + 40);
+  [v3 setEmbeddingBlock:v17];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_25;
+  v14[3] = &unk_1E8253248;
+  objc_copyWeak(&v16, (a1 + 64));
+  v15 = *(a1 + 40);
+  [v3 setFailureBlock:v14];
 
-  objc_destroyWeak(&v17);
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v19);
 
-  objc_destroyWeak(&v25);
-  objc_destroyWeak(&v27);
-
-  v14 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v26);
 }
 
 void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_2(uint64_t a1)
@@ -436,7 +427,7 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
 
 void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_3(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = WeakRetained;
@@ -458,34 +449,34 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v46 = 0x3032000000;
-      v47 = __Block_byref_object_copy__17;
-      v48 = __Block_byref_object_dispose__17;
-      v49 = [MEMORY[0x1E695DF70] array];
-      v29 = objc_opt_new();
+      v45 = 0x3032000000;
+      v46 = __Block_byref_object_copy__17;
+      v47 = __Block_byref_object_dispose__17;
+      v48 = [MEMORY[0x1E695DF70] array];
+      v28 = objc_opt_new();
       v8 = objc_opt_new();
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_19;
-      v31[3] = &unk_1E82531F8;
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_19;
+      v30[3] = &unk_1E82531F8;
       v9 = *(a1 + 40);
       p_buf = &buf;
-      v31[4] = v9;
-      v10 = v29;
-      v32 = v10;
-      v30 = v8;
-      v33 = v30;
+      v30[4] = v9;
+      v10 = v28;
+      v31 = v10;
+      v29 = v8;
+      v32 = v29;
       v11 = v5;
-      v34 = v11;
-      [v3 enumerateObjectsUsingBlock:v31];
+      v33 = v11;
+      [v3 enumerateObjectsUsingBlock:v30];
       v12 = [EDMessageListItemPredicates predicateForMessagesWithPersistentIDs:*(*(&buf + 1) + 40)];
       v13 = v12;
       if (*(a1 + 48))
       {
         v14 = MEMORY[0x1E696AE18];
-        v44[0] = *(a1 + 48);
-        v44[1] = v12;
-        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
+        v43[0] = *(a1 + 48);
+        v43[1] = v12;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
         v16 = [v14 ef_andCompoundPredicateWithSubpredicatesForSearchQuery:v15];
 
         v13 = v16;
@@ -502,11 +493,11 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
         {
           v21 = *(a1 + 32);
           v22 = [v19 count];
-          *v36 = 138543618;
-          v37 = v21;
-          v38 = 2048;
-          v39 = v22;
-          _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEFAULT, "Spotlight live search found Canceled for query %{public}@ message count:%lu", v36, 0x16u);
+          *v35 = 138543618;
+          v36 = v21;
+          v37 = 2048;
+          v38 = v22;
+          _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEFAULT, "Spotlight live search found Canceled for query %{public}@ message count:%lu", v35, 0x16u);
         }
       }
 
@@ -519,25 +510,23 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
           v25 = [*(*(&buf + 1) + 40) count];
           v26 = *(*(&buf + 1) + 40);
           v27 = *(a1 + 32);
-          *v36 = 134218754;
-          v37 = v24;
-          v38 = 2048;
-          v39 = v25;
-          v40 = 2114;
-          v41 = v26;
-          v42 = 2114;
-          v43 = v27;
-          _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "Spotlight live search found %lu messages matching the %lu searchableItemIdentifiers returned:\n%{public}@ for query %{public}@", v36, 0x2Au);
+          *v35 = 134218754;
+          v36 = v24;
+          v37 = 2048;
+          v38 = v25;
+          v39 = 2114;
+          v40 = v26;
+          v41 = 2114;
+          v42 = v27;
+          _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "Spotlight live search found %lu messages matching the %lu searchableItemIdentifiers returned:\n%{public}@ for query %{public}@", v35, 0x2Au);
         }
 
-        [v11 localSearchDidFindMessages:v19 itemSnippetData:v10 rankingSignals:v30];
+        [v11 localSearchDidFindMessages:v19 itemSnippetData:v10 rankingSignals:v29];
       }
 
       _Block_object_dispose(&buf, 8);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_19(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -576,7 +565,7 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
 
 void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_24(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -584,22 +573,19 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v8[0] = 67109378;
-      v8[1] = a2;
-      v9 = 2114;
-      v10 = v6;
-      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Spotlight live search hasQueryEmbedding: %{BOOL}d for query %{public}@", v8, 0x12u);
+      v7[0] = 67109378;
+      v7[1] = a2;
+      v8 = 2114;
+      v9 = v6;
+      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Spotlight live search hasQueryEmbedding: %{BOOL}d for query %{public}@", v7, 0x12u);
     }
 
     [WeakRetained localSearchDidHaveQueryEmbedding:a2];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_25(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -607,8 +593,9 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
     v5 = +[EDConcreteLocalSearchProvider log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v6 = [v3 ef_publicDescription];
-      __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_25_cold_1(v6, a1);
+      [v3 ef_publicDescription];
+      objc_claimAutoreleasedReturnValue();
+      __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_25_cold_1();
     }
 
     if (([WeakRetained isSearchCanceled] & 1) == 0)
@@ -616,13 +603,11 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
       [WeakRetained localSearchDidFail];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_instantAnswersDebuggingIfNeededForMessage:(id)message
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if (messageCopy && ([MEMORY[0x1E699ACE8] preferenceEnabled:62] & 1) != 0)
   {
@@ -632,8 +617,8 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
     v8 = [v5 initWithGlobalMessageID:globalMessageID mailboxScope:allMailboxesScope];
 
     messagePersistence = [(EDConcreteLocalSearchProvider *)self messagePersistence];
-    v22[0] = v8;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = v8;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
     v11 = [messagePersistence messagesForMessageObjectIDs:v10 missedMessageObjectIDs:0];
 
     if ([v11 count])
@@ -643,9 +628,9 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
       {
         firstObject = [v11 firstObject];
         ef_publicDescription = [firstObject ef_publicDescription];
-        v20 = 138543362;
-        v21 = ef_publicDescription;
-        _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "[instant answers] created EMInstantAnswer for %{public}@", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = ef_publicDescription;
+        _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "[instant answers] created EMInstantAnswer for %{public}@", &v19, 0xCu);
       }
 
       v15 = objc_alloc(MEMORY[0x1E699ACE0]);
@@ -664,14 +649,12 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (id)_instantAnswersFromSuggestion:(id)suggestion
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   instantAnswer = [suggestionCopy instantAnswer];
   messageId = [instantAnswer messageId];
@@ -692,8 +675,8 @@ void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_in
   v10 = [v8 initWithGlobalMessageID:integerValue mailboxScope:allMailboxesScope];
 
   messagePersistence = [(EDConcreteLocalSearchProvider *)self messagePersistence];
-  v24[0] = v10;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   v13 = [messagePersistence messagesForMessageObjectIDs:v12 missedMessageObjectIDs:0];
 
   if (![v13 count])
@@ -709,9 +692,9 @@ LABEL_9:
   {
     firstObject = [v13 firstObject];
     ef_publicDescription = [firstObject ef_publicDescription];
-    v22 = 138543362;
-    v23 = ef_publicDescription;
-    _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "[instant answers] created EMInstantAnswer for %{public}@", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = ef_publicDescription;
+    _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "[instant answers] created EMInstantAnswer for %{public}@", &v21, 0xCu);
   }
 
   v17 = objc_alloc(MEMORY[0x1E699ACE0]);
@@ -719,35 +702,34 @@ LABEL_9:
   v19 = [v17 initWithCSInstantAnswers:instantAnswer message:firstObject2];
 
 LABEL_10:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
 - (id)_snippetHintsFromQueryResultMatchingHints:(id)hints
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   hintsCopy = hints;
   v4 = objc_opt_new();
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = hintsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = MEMORY[0x1E699ADD8];
         attribute = [v9 attribute];
         v12 = [v10 snippetHintZoneFromString:attribute];
@@ -756,13 +738,11 @@ LABEL_10:
         [v4 setObject:tokens forKeyedSubscript:v12];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -826,18 +806,18 @@ void __70__EDConcreteLocalSearchProvider__updateParsecBundleIdentifierIfNeeded__
   [MEMORY[0x1E699AE18] setBundleIdentifier:v2];
 }
 
-void __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_15_cold_1(uint64_t a1, uint64_t a2)
+void __76__EDConcreteLocalSearchProvider_topHitsSearchWithQuery_delegate_completion___block_invoke_15_cold_1()
 {
-  OUTLINED_FUNCTION_1_5(a1, a2);
-  OUTLINED_FUNCTION_0_6(v3, 5.8382e-34, v4, v5);
-  _os_log_error_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_ERROR, "Spotlight top hits and instant answers search returned error %{public}@ for query %{public}@", v6, 0x16u);
+  OUTLINED_FUNCTION_1_5();
+  OUTLINED_FUNCTION_0_6(v1, 5.8382e-34, v2, v3);
+  _os_log_error_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_ERROR, "Spotlight top hits and instant answers search returned error %{public}@ for query %{public}@", v4, 0x16u);
 }
 
-void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_25_cold_1(uint64_t a1, uint64_t a2)
+void __62__EDConcreteLocalSearchProvider_liveSearchWithQuery_delegate___block_invoke_25_cold_1()
 {
-  OUTLINED_FUNCTION_1_5(a1, a2);
-  OUTLINED_FUNCTION_0_6(v3, 5.8382e-34, v4, v5);
-  _os_log_error_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_ERROR, "Spotlight live search returned error %{public}@ for query %{public}@", v6, 0x16u);
+  OUTLINED_FUNCTION_1_5();
+  OUTLINED_FUNCTION_0_6(v1, 5.8382e-34, v2, v3);
+  _os_log_error_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_ERROR, "Spotlight live search returned error %{public}@ for query %{public}@", v4, 0x16u);
 }
 
 @end

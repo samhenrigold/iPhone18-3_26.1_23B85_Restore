@@ -9,11 +9,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  configIdentifier = self->_configIdentifier;
-  v5 = [v3 initWithFormat:@"<GDViewUpdateSourceResponse configId: %@, response: %@>", configIdentifier, self->_response];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<GDViewUpdateSourceResponse configId: %@, response: %@>", self->_configIdentifier, self->_response];
 
-  return v5;
+  return v2;
 }
 
 - (GDViewUpdateSourceResponse)initWithCoder:(id)coder

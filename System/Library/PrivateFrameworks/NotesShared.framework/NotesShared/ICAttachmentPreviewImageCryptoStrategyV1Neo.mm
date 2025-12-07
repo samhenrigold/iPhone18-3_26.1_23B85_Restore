@@ -417,42 +417,42 @@ void __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block
   [v9 performBlockAndWait:v11];
 }
 
-void __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2(uint64_t a1)
+void __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = [*(a1 + 32) objectID];
-  v4 = [v2 ic_existingObjectWithID:v3 context:*(a1 + 40)];
+  v3 = objc_opt_class();
+  v4 = [*(a1 + 32) objectID];
+  v5 = [v3 ic_existingObjectWithID:v4 context:*(a1 + 40)];
 
-  if (v4)
+  if (v5)
   {
-    v5 = [*(a1 + 32) encryptedPreviewImageURL];
-    if (!v5)
+    v6 = [*(a1 + 32) encryptedPreviewImageURL];
+    if (!v6)
     {
-      v11 = os_log_create("com.apple.notes", "Crypto");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = os_log_create("com.apple.notes", "Crypto");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2_cold_2(v4);
+        __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2_cold_2(v5);
       }
 
-      v7 = v11;
+      v8 = v12;
       goto LABEL_14;
     }
 
     objc_opt_class();
-    v6 = [v4 cryptoStrategy];
-    v7 = ICCheckedDynamicCast();
+    v7 = [v5 cryptoStrategy];
+    v8 = ICCheckedDynamicCast();
 
-    v8 = [v7 decryptedDataFromFileURL:v5];
-    v9 = *(*(a1 + 48) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v9 = [v8 decryptedDataFromFileURL:v6];
+    v10 = *(*(a1 + 48) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
-    if (!*(*(*(a1 + 48) + 8) + 40) && [v5 ic_isReachable])
+    if (!*(*(*(a1 + 48) + 8) + 40) && [v6 ic_isReachable])
     {
-      v11 = os_log_create("com.apple.notes", "Crypto");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = os_log_create("com.apple.notes", "Crypto");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2_cold_1(v4);
+        __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2_cold_1(v5);
       }
 
 LABEL_14:
@@ -461,13 +461,13 @@ LABEL_14:
 
   else
   {
-    v7 = os_log_create("com.apple.notes", "Crypto");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = os_log_create("com.apple.notes", "Crypto");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2_cold_3();
     }
 
-    v5 = v7;
+    v6 = v8;
   }
 }
 
@@ -477,14 +477,14 @@ LABEL_14:
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Encrypting preview image metadata… {previewImage: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Encrypting preview image metadata… {previewImage: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __70__ICAttachmentPreviewImageCryptoStrategyV1Neo_writeEncryptedMetadata___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt preview image metadata {previewImage: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt preview image metadata {previewImage: %@}", v4, v5, v6, v7);
 }
 
 - (void)writeEncryptedImageData:(void *)a1 .cold.1(void *a1)
@@ -493,35 +493,35 @@ void __70__ICAttachmentPreviewImageCryptoStrategyV1Neo_writeEncryptedMetadata___
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Encrypting preview image data… {previewImage: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Encrypting preview image data… {previewImage: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __71__ICAttachmentPreviewImageCryptoStrategyV1Neo_writeEncryptedImageData___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot serialize preview image data {previewImage: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot serialize preview image data {previewImage: %@}", v4, v5, v6, v7);
 }
 
 void __71__ICAttachmentPreviewImageCryptoStrategyV1Neo_writeEncryptedImageData___block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt preview image data {previewImage: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt preview image data {previewImage: %@}", v4, v5, v6, v7);
 }
 
 void __71__ICAttachmentPreviewImageCryptoStrategyV1Neo_writeEncryptedImageData___block_invoke_cold_3(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt preview image data because URL is nil {previewImage: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt preview image data because URL is nil {previewImage: %@}", v4, v5, v6, v7);
 }
 
 void __74__ICAttachmentPreviewImageCryptoStrategyV1Neo_serializeEncryptedMetadata___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot serialize preview image metadata encryption object {previewImage: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot serialize preview image metadata encryption object {previewImage: %@}", v4, v5, v6, v7);
 }
 
 - (void)decryptedMetadata
@@ -530,14 +530,14 @@ void __74__ICAttachmentPreviewImageCryptoStrategyV1Neo_serializeEncryptedMetadat
   shortLoggingDescription = [object shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting preview image metadata… {previewImage: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting preview image metadata… {previewImage: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __64__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedMetadata__block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt preview image metadata {previewImage: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt preview image metadata {previewImage: %@}", v4, v5, v6, v7);
 }
 
 - (void)decryptedImageData
@@ -546,28 +546,28 @@ void __64__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedMetadata__block_
   shortLoggingDescription = [object shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting preview image data… {previewImage: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting preview image data… {previewImage: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt preview image for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt preview image for %@", v4, v5, v6, v7);
 }
 
 void __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt preview image data because URL is nil {previewImage: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt preview image data because URL is nil {previewImage: %@}", v4, v5, v6, v7);
 }
 
 void __65__ICAttachmentPreviewImageCryptoStrategyV1Neo_decryptedImageData__block_invoke_2_cold_3()
 {
   v0 = [0 objectID];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v1, v2, "Cannot encrypt preview image data because object vanished {previewImageID: %@}", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v1, v2, "Cannot encrypt preview image data because object vanished {previewImageID: %@}", v3, v4, v5, v6);
 }
 
 @end

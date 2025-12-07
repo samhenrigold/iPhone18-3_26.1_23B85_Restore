@@ -25,9 +25,11 @@
 
 uint64_t __29__VSACAccount_sharedInstance__block_invoke()
 {
-  sharedInstance___vs_lazy_init_variable = objc_alloc_init(VSACAccount);
+  v0 = objc_alloc_init(VSACAccount);
+  v1 = sharedInstance___vs_lazy_init_variable;
+  sharedInstance___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (VSACAccount)initWithManualPasswordOption:(unint64_t)option
@@ -135,7 +137,7 @@ uint64_t __29__VSACAccount_sharedInstance__block_invoke()
     v9 = ams_paidPasswordPromptSetting;
     if (ams_paidPasswordPromptSetting >= 4)
     {
-      v10 = VSErrorLogObject();
+      v10 = VSErrorLogObject(ams_paidPasswordPromptSetting);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         [(VSACAccount *)v9 convertedAMSAccountPasswordPromptSettingWithPaid:v10];

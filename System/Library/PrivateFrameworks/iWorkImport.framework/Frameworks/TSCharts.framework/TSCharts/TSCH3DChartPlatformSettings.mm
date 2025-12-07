@@ -817,26 +817,25 @@ LABEL_13:
       v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, v26, v27, v28, "[TSCH3DChartPlatformSettings normalizedLabelPickingSlackForViewScale:viewport:]");
       v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, v34, v35, v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartPlatformSettings.mm");
       v38 = MEMORY[0x277CCACA8];
-      v60 = *(viewport + 1);
-      sub_276152FD4("ivec2(%d, %d)", v39, v40, v41, v42, v43, v44, v45, *viewport);
-      if (v62 >= 0)
+      sub_276152FD4(__p, "ivec2(%d, %d)", *viewport, 0);
+      if (v54 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v38, v46, v47, v48, v49, &__p);
+        objc_msgSend_stringWithUTF8String_(v38, v39, v40, v41, v42, __p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v38, v46, v47, v48, v49, __p);
+        objc_msgSend_stringWithUTF8String_(v38, v39, v40, v41, v42, __p[0]);
       }
-      v51 = ;
-      if (v62 < 0)
+      v44 = ;
+      if (v54 < 0)
       {
-        operator delete(__p);
+        operator delete(__p[0]);
       }
 
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v50, v52, v53, v54, v32, v37, 625, 0, "invalid viewport %@", v51, v60);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v43, v45, v46, v47, v32, v37, 625, 0, "invalid viewport %@", v44);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v55, v56, v57, v58);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v48, v49, v50, v51);
     }
 
     v29 = 1.0 / v30;

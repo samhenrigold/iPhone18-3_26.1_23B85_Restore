@@ -1,8 +1,10 @@
 @interface AWDLibnetcoreCellularFallbackReport
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)denyReasonAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkEventsAsString:(int)string;
 - (int)StringAsDenyReason:(id)reason;
 - (int)StringAsNetworkEvents:(id)events;
 - (int)denyReason;
@@ -75,6 +77,19 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)denyReasonAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE326D8[string - 1];
+  }
+}
+
 - (int)StringAsDenyReason:(id)reason
 {
   if ([reason isEqualToString:@"DENY_REASON_BLOCKED_FROM_USING_CELL_DATA"])
@@ -105,6 +120,19 @@
   }
 
   return p_networkEvents->list[index];
+}
+
+- (id)networkEventsAsString:(int)string
+{
+  if ((string - 1) >= 0xA)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE326F0[string - 1];
+  }
 }
 
 - (int)StringAsNetworkEvents:(id)events
@@ -207,7 +235,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if ((has & 4) != 0)
@@ -231,18 +259,18 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v24 = self->_denyReason - 1;
-  if (v24 >= 3)
+  v23 = self->_denyReason - 1;
+  if (v23 >= 3)
   {
-    v25 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", self->_denyReason];
+    v24 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", self->_denyReason];
   }
 
   else
   {
-    v25 = off_29EE326D8[v24];
+    v24 = off_29EE326D8[v23];
   }
 
-  [dictionary setObject:v25 forKey:@"denyReason"];
+  [dictionary setObject:v24 forKey:@"denyReason"];
   if (*&self->_has)
   {
 LABEL_4:
@@ -284,29 +312,29 @@ LABEL_5:
   if ([(NSMutableArray *)self->_primaryInterfaceAttemptStatisticsReports count])
   {
     v10 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_primaryInterfaceAttemptStatisticsReports, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     primaryInterfaceAttemptStatisticsReports = self->_primaryInterfaceAttemptStatisticsReports;
-    v12 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v12 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v31;
+      v14 = *v30;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v31 != v14)
+          if (*v30 != v14)
           {
             objc_enumerationMutation(primaryInterfaceAttemptStatisticsReports);
           }
 
-          [v10 addObject:{objc_msgSend(*(*(&v30 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v10 addObject:{objc_msgSend(*(*(&v29 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v13 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v13 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v13);
@@ -318,29 +346,29 @@ LABEL_5:
   if ([(NSMutableArray *)self->_dataUsageSnapshotsAtNetworkEvents count])
   {
     v16 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_dataUsageSnapshotsAtNetworkEvents, "count")}];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     dataUsageSnapshotsAtNetworkEvents = self->_dataUsageSnapshotsAtNetworkEvents;
-    v18 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v18 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v27;
+      v20 = *v26;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v27 != v20)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(dataUsageSnapshotsAtNetworkEvents);
           }
 
-          [v16 addObject:{objc_msgSend(*(*(&v26 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v16 addObject:{objc_msgSend(*(*(&v25 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v19 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v19 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v19);
@@ -349,17 +377,15 @@ LABEL_5:
     [dictionary setObject:v16 forKey:@"dataUsageSnapshotsAtNetworkEvents"];
   }
 
-  v22 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if ((has & 4) != 0)
   {
-    fellback = self->_fellback;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -379,101 +405,93 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  denyReason = self->_denyReason;
   PBDataWriterWriteInt32Field();
   if (*&self->_has)
   {
 LABEL_4:
-    fallbackTimerMsecs = self->_fallbackTimerMsecs;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_5:
   if (self->_networkEvents.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_networkEvents.list[v6];
       PBDataWriterWriteInt32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_networkEvents.count);
+    while (v5 < self->_networkEvents.count);
   }
 
   if (self->_timeToNetworkEventsMsecs.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_timeToNetworkEventsMsecs.list[v8];
       PBDataWriterWriteUint64Field();
-      ++v8;
+      ++v6;
     }
 
-    while (v8 < self->_timeToNetworkEventsMsecs.count);
+    while (v6 < self->_timeToNetworkEventsMsecs.count);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   primaryInterfaceAttemptStatisticsReports = self->_primaryInterfaceAttemptStatisticsReports;
-  v11 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v11)
+  v8 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v8)
   {
-    v12 = v11;
-    v13 = *v30;
+    v9 = v8;
+    v10 = *v22;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v13)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(primaryInterfaceAttemptStatisticsReports);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v12 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v9 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v12);
+    while (v9);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   dataUsageSnapshotsAtNetworkEvents = self->_dataUsageSnapshotsAtNetworkEvents;
-  v17 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v25 objects:v33 count:16];
-  if (v17)
+  v13 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v13)
   {
-    v18 = v17;
-    v19 = *v26;
+    v14 = v13;
+    v15 = *v18;
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v14; ++j)
       {
-        if (*v26 != v19)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(dataUsageSnapshotsAtNetworkEvents);
         }
 
-        v21 = *(*(&v25 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v18 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v14 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v18);
+    while (v14);
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -573,7 +591,7 @@ LABEL_5:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -611,65 +629,64 @@ LABEL_4:
 LABEL_5:
   PBRepeatedInt32Copy();
   PBRepeatedUInt64Copy();
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   primaryInterfaceAttemptStatisticsReports = self->_primaryInterfaceAttemptStatisticsReports;
-  v9 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v9 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(primaryInterfaceAttemptStatisticsReports);
         }
 
-        v13 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v25 + 1) + 8 * i) copyWithZone:zone];
         [v6 addPrimaryInterfaceAttemptStatisticsReports:v13];
       }
 
-      v10 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [(NSMutableArray *)primaryInterfaceAttemptStatisticsReports countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v10);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   dataUsageSnapshotsAtNetworkEvents = self->_dataUsageSnapshotsAtNetworkEvents;
-  v15 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v15 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(dataUsageSnapshotsAtNetworkEvents);
         }
 
-        v19 = [*(*(&v22 + 1) + 8 * j) copyWithZone:zone];
+        v19 = [*(*(&v21 + 1) + 8 * j) copyWithZone:zone];
         [v6 addDataUsageSnapshotsAtNetworkEvents:v19];
       }
 
-      v16 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v16 = [(NSMutableArray *)dataUsageSnapshotsAtNetworkEvents countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v16);
   }
 
-  v20 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -681,12 +698,10 @@ LABEL_5:
     return IsEqual;
   }
 
-  v6 = *(equal + 92);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equal + 92) & 4) != 0)
     {
-      v7 = *(equal + 88);
       if (self->_fellback)
       {
         if ((*(equal + 88) & 1) == 0)
@@ -813,7 +828,7 @@ LABEL_8:
 
 - (void)mergeFrom:(id)from
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v5 = *(from + 92);
   if ((v5 & 4) != 0)
   {
@@ -867,63 +882,61 @@ LABEL_5:
     }
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v12 = *(from + 10);
-  v13 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v28;
+    v15 = *v27;
     do
     {
       for (k = 0; k != v14; ++k)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(AWDLibnetcoreCellularFallbackReport *)self addPrimaryInterfaceAttemptStatisticsReports:*(*(&v27 + 1) + 8 * k)];
+        [(AWDLibnetcoreCellularFallbackReport *)self addPrimaryInterfaceAttemptStatisticsReports:*(*(&v26 + 1) + 8 * k)];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v14);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v17 = *(from + 8);
-  v18 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v24;
+    v20 = *v23;
     do
     {
       for (m = 0; m != v19; ++m)
       {
-        if (*v24 != v20)
+        if (*v23 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        [(AWDLibnetcoreCellularFallbackReport *)self addDataUsageSnapshotsAtNetworkEvents:*(*(&v23 + 1) + 8 * m)];
+        [(AWDLibnetcoreCellularFallbackReport *)self addDataUsageSnapshotsAtNetworkEvents:*(*(&v22 + 1) + 8 * m)];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v19);
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -1,7 +1,6 @@
 @interface HDMCRecentBasalBodyTemperatureRange
 - (BOOL)isEqual:(id)equal;
 - (id)_initWithUpperQuantileValue:(double)value medianValue:(double)medianValue lowerQuantileValue:(double)quantileValue unit:(id)unit;
-- (id)description;
 - (id)recentBasalBodyTemperatureWithMostRecentQuantity:(id)quantity;
 - (unint64_t)hash;
 - (void)initWithUpperQuantileQuantity:(void *)quantity medianQuantity:(void *)medianQuantity lowerQuantileQuantity:;
@@ -47,14 +46,6 @@
   }
 
   return self;
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  median = self->_median;
-  return [v3 stringWithFormat:@"<%@: %@, %@, %@>", v4, self->_lowerQuantile, median, self->_upperQuantile];
 }
 
 - (BOOL)isEqual:(id)equal

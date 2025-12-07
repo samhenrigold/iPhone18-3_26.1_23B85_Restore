@@ -350,23 +350,21 @@ void *__61__MRAVXPCPipeTransport_getInputStream_outputStream_userInfo___block_in
 
 - (void)stream:(id)stream handleEvent:(unint64_t)event
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (event == 2)
   {
     inputStreamInternal = self->_inputStreamInternal;
     if (inputStreamInternal == stream)
     {
-      v6 = [(NSInputStream *)inputStreamInternal read:v10 maxLength:35840];
+      v6 = [(NSInputStream *)inputStreamInternal read:v9 maxLength:35840];
       if (v6)
       {
-        v7 = [MEMORY[0x1E695DEF0] dataWithBytes:v10 length:v6];
+        v7 = [MEMORY[0x1E695DEF0] dataWithBytes:v9 length:v6];
         remoteObjectProxy = [(NSXPCConnection *)self->_pipeConnection remoteObjectProxy];
         [remoteObjectProxy sendData:v7];
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendData:(id)data

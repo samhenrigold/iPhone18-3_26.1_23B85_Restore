@@ -58,7 +58,7 @@
 
     v17 = 401;
 LABEL_15:
-    re::makeResourceSharingError(v17, 0, buf);
+    re::makeResourceSharingError(buf, v17, 0);
     (*(v8 + 2))(v8, 0, *buf);
 
     goto LABEL_32;
@@ -202,7 +202,7 @@ LABEL_23:
     }
   }
 
-  re::makeResourceSharingError(0x1F4, 0, buf);
+  re::makeResourceSharingError(buf, 0x1F4, 0);
   (*(v8 + 2))(v8, 0, *buf);
 
 LABEL_25:

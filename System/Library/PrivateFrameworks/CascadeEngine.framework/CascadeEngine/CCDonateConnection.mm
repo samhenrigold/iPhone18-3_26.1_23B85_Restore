@@ -8,6 +8,7 @@
 - (void)_cleanupRequestState;
 - (void)abortSetDonation;
 - (void)addItemsWithContents:(id)contents metaContents:(id)metaContents completion:(id)completion;
+- (void)beginSetDonationWithItemType:(unsigned __int16)type encodedDescriptors:(id)descriptors sourceVersion:(unint64_t)version sourceValidity:(id)validity options:(unsigned __int16)options completion:(id)completion;
 - (void)endSetDonationWithOptions:(unsigned __int16)options revisionToken:(id)token completion:(id)completion;
 - (void)rejectConnection;
 - (void)remoteUpdateFromDeviceUUID:(id)d options:(unsigned __int16)options mergeableDelta:(id)delta peerDeviceSite:(id)site relayedDeviceSites:(id)sites completion:(id)completion;
@@ -45,14 +46,10 @@ void __29__CCDonateConnection_isAlive__block_invoke(uint64_t a1)
 
 - (void)resume
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9 = MEMORY[0x1DA74EA40](*self);
+  v8 = MEMORY[0x1DA74EA40](*self);
   WeakRetained = objc_loadWeakRetained((a2 + 32));
-  v11 = *(a2 + 56);
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cleanupRequestState
@@ -97,6 +94,106 @@ void __29__CCDonateConnection_isAlive__block_invoke(uint64_t a1)
   return v10;
 }
 
+- (void)beginSetDonationWithItemType:(unsigned __int16)type encodedDescriptors:(id)descriptors sourceVersion:(unint64_t)version sourceValidity:(id)validity options:(unsigned __int16)options completion:(id)completion
+{
+  typeCopy = type;
+  descriptorsCopy = descriptors;
+  validityCopy = validity;
+  v16 = MEMORY[0x1DA74EA40](completion);
+  openStreamCompletion = self->_openStreamCompletion;
+  self->_openStreamCompletion = v16;
+
+  v18 = CCTypeIdentifierRegistryBridge();
+  v19 = [v18 setIdentifierForItemType:typeCopy];
+
+  if (v19)
+  {
+    v43 = 0;
+    v20 = [MEMORY[0x1E6993A78] descriptorsFromEncodedString:descriptorsCopy error:&v43];
+    v21 = v43;
+    if (!v20)
+    {
+      v34 = __biome_log_for_category();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        [CCDonateConnection beginSetDonationWithItemType:encodedDescriptors:sourceVersion:sourceValidity:options:completion:];
+      }
+
+      (*(self->_openStreamCompletion + 2))();
+      goto LABEL_18;
+    }
+
+    optionsCopy = options;
+    versionCopy = version;
+    v22 = [objc_alloc(MEMORY[0x1E698E9F8]) initWithType:4 name:v19 descriptors:v20 options:0];
+    requestManager = self->_requestManager;
+    v42 = v21;
+    v24 = [(CCDonateRequestManager *)requestManager requestAccessToResource:v22 withMode:3 error:&v42];
+    v25 = v42;
+
+    if (v24)
+    {
+      v38 = validityCopy;
+      v26 = MEMORY[0x1E6993A50];
+      container = [v24 container];
+      v41 = v25;
+      v28 = [v26 setFromResourceSpecifier:v22 inContainer:container error:&v41];
+      v37 = v41;
+
+      set = self->_set;
+      self->_set = v28;
+
+      v30 = self->_set;
+      if (v30)
+      {
+        personaIdentifier = [(CCSet *)v30 personaIdentifier];
+        LOWORD(v36) = optionsCopy;
+        validityCopy = v38;
+        v32 = [[CCDonateRequest alloc] initWithConnection:self manager:self->_requestManager itemType:typeCopy encodedDescriptors:descriptorsCopy personaIdentifier:personaIdentifier sourceVersion:versionCopy sourceValidity:v38 options:v36 accessAssertion:v24];
+        objc_storeWeak(&self->_request, v32);
+        [(CCDonateRequestManager *)self->_requestManager submitRequest:v32];
+
+        v25 = v37;
+LABEL_17:
+
+        v21 = v25;
+LABEL_18:
+
+        goto LABEL_19;
+      }
+
+      v35 = __biome_log_for_category();
+      v25 = v37;
+      validityCopy = v38;
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      {
+        [CCDonateConnection beginSetDonationWithItemType:encodedDescriptors:sourceVersion:sourceValidity:options:completion:];
+      }
+    }
+
+    else
+    {
+      v35 = __biome_log_for_category();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      {
+        [CCDonateConnection beginSetDonationWithItemType:encodedDescriptors:sourceVersion:sourceValidity:options:completion:];
+      }
+    }
+
+    (*(self->_openStreamCompletion + 2))();
+    goto LABEL_17;
+  }
+
+  v33 = __biome_log_for_category();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  {
+    [CCDonateConnection beginSetDonationWithItemType:typeCopy encodedDescriptors:? sourceVersion:? sourceValidity:? options:? completion:?];
+  }
+
+  (*(self->_openStreamCompletion + 2))();
+LABEL_19:
+}
+
 - (void)timeout
 {
   queue = self->_queue;
@@ -121,13 +218,13 @@ void __29__CCDonateConnection_isAlive__block_invoke(uint64_t a1)
 
 - (void)endSetDonationWithOptions:(unsigned __int16)options revisionToken:(id)token completion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   completionCopy = completion;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -135,13 +232,13 @@ void __29__CCDonateConnection_isAlive__block_invoke(uint64_t a1)
   block[3] = &unk_1E85C2C60;
   optionsCopy = options;
   block[4] = self;
-  v24 = &v26;
+  v23 = &v25;
   v11 = tokenCopy;
-  v22 = v11;
+  v21 = v11;
   v12 = completionCopy;
-  v23 = v12;
+  v22 = v12;
   dispatch_sync(queue, block);
-  if (*(v27 + 24) == 1)
+  if (*(v26 + 24) == 1)
   {
     v13 = [(CCDifferentialUpdater *)self->_updater waitForCommit:options & 1];
     WeakRetained = objc_loadWeakRetained(&self->_request);
@@ -164,9 +261,9 @@ void __29__CCDonateConnection_isAlive__block_invoke(uint64_t a1)
       v18 = objc_loadWeakRetained(&self->_request);
       v19 = CCDonateServiceResponseDescription();
       *buf = 138412546;
-      v31 = v18;
-      v32 = 2112;
-      v33 = v19;
+      v30 = v18;
+      v31 = 2112;
+      v32 = v19;
       _os_log_impl(&dword_1DA444000, v17, OS_LOG_TYPE_DEFAULT, "Completing request %@ with response %@", buf, 0x16u);
     }
 
@@ -177,8 +274,7 @@ void __29__CCDonateConnection_isAlive__block_invoke(uint64_t a1)
     }
   }
 
-  _Block_object_dispose(&v26, 8);
-  v20 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 }
 
 void __73__CCDonateConnection_endSetDonationWithOptions_revisionToken_completion___block_invoke(uint64_t a1)
@@ -216,7 +312,7 @@ void __73__CCDonateConnection_endSetDonationWithOptions_revisionToken_completion
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t __73__CCDonateConnection_endSetDonationWithOptions_revisionToken_completion___block_invoke_2(uint64_t a1)
+void *__73__CCDonateConnection_endSetDonationWithOptions_revisionToken_completion___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) finishUpdateWithRevisionToken:*(a1 + 40) designateAsFullSet:(*(a1 + 64) >> 4) & 1];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -226,7 +322,7 @@ uint64_t __73__CCDonateConnection_endSetDonationWithOptions_revisionToken_comple
     result = *(a1 + 48);
     if (result)
     {
-      v3 = *(result + 16);
+      v3 = result[2];
 
       return v3();
     }
@@ -256,7 +352,7 @@ void __38__CCDonateConnection_abortSetDonation__block_invoke(uint64_t a1)
 
 - (void)_cleanupDonation:(int64_t)donation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   WeakRetained = objc_loadWeakRetained(&self->_request);
 
@@ -267,11 +363,11 @@ void __38__CCDonateConnection_abortSetDonation__block_invoke(uint64_t a1)
     {
       v7 = objc_loadWeakRetained(&self->_request);
       v8 = CCDonateRequestTerminationTypeDescription(donation);
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_1DA444000, v6, OS_LOG_TYPE_DEFAULT, "Cleaning up request %@ with termination type %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_1DA444000, v6, OS_LOG_TYPE_DEFAULT, "Cleaning up request %@ with termination type %@", &v12, 0x16u);
     }
 
     [(CCDifferentialUpdater *)self->_updater abort];
@@ -288,8 +384,6 @@ void __38__CCDonateConnection_abortSetDonation__block_invoke(uint64_t a1)
     v11 = objc_loadWeakRetained(&self->_xpcConnection);
     [v11 invalidate];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addItemsWithContents:(id)contents metaContents:(id)metaContents completion:(id)completion
@@ -578,50 +672,22 @@ LABEL_12:
   return WeakRetained;
 }
 
-- (void)beginSetDonationWithItemType:encodedDescriptors:sourceVersion:sourceValidity:options:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, v0, v1, "Failed to resolve set: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)beginSetDonationWithItemType:encodedDescriptors:sourceVersion:sourceValidity:options:completion:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1DA444000, v1, OS_LOG_TYPE_ERROR, "Failed to obtain write access for resource: %@, error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)beginSetDonationWithItemType:encodedDescriptors:sourceVersion:sourceValidity:options:completion:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, v0, v1, "Invalid descriptors: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1DA444000, v1, OS_LOG_TYPE_ERROR, "Failed to obtain write access for resource: %@, error: %@", v2, 0x16u);
 }
 
 - (void)beginSetDonationWithItemType:(unsigned __int16)a1 encodedDescriptors:sourceVersion:sourceValidity:options:completion:.cold.4(unsigned __int16 a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = CCTypeIdentifierRegistryBridge();
   v3 = [v2 descriptionForTypeIdentifier:a1];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __117__CCDonateConnection_remoteUpdateFromDeviceUUID_options_mergeableDelta_peerDeviceSite_relayedDeviceSites_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_1DA444000, v0, v1, "Failed to obtain read only access for mergeable deltas resource %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

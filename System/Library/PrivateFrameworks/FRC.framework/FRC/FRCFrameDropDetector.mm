@@ -74,173 +74,165 @@
 
 - (void)debugPrintFRCFrameMetadataInfo:(id)info
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   puts("[Frame] Curated Time, Original Time, Recipe, Displacement");
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   obj = infoCopy;
-  v4 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [obj countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       v9 = v6;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
         v6 = v9 + 1;
-        printf("[%3ld] %ld, %ld, %ld, %3ld\n", v9, [*(*(&v12 + 1) + 8 * v8) ptsInNanos], objc_msgSend(*(*(&v12 + 1) + 8 * v8), "originalPTSInNanos"), objc_msgSend(*(*(&v12 + 1) + 8 * v8), "sequenceAdjusterRecipe"), objc_msgSend(*(*(&v12 + 1) + 8 * v8), "sequenceAdjusterDisplacement"));
+        printf("[%3ld] %ld, %ld, %ld, %3ld\n", v9, [*(*(&v11 + 1) + 8 * v8) ptsInNanos], objc_msgSend(*(*(&v11 + 1) + 8 * v8), "originalPTSInNanos"), objc_msgSend(*(*(&v11 + 1) + 8 * v8), "sequenceAdjusterRecipe"), objc_msgSend(*(*(&v11 + 1) + 8 * v8), "sequenceAdjusterDisplacement"));
         ++v8;
         ++v9;
       }
 
       while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [obj countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)debugPrintFRCFrameTimingInfo:(id)info
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   infoCopy = info;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [infoCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [infoCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(infoCopy);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         if (v9)
         {
-          [v9 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v9);
         }
 
         NSLog(&cfstr_3ldPts4f4lldD.isa, v6++, (0 / 0), 0, 0);
       }
 
-      v5 = [infoCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [infoCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)debugPrintFRCFrameInternalTimingInfo:(id)info
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   infoCopy = info;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [infoCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [infoCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(infoCopy);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         if (v9)
         {
-          [v9 presentationTimeStamp];
-          [v9 frameDuration];
-          [v9 interpolatedFrameDuration];
+          objc_msgSend_presentationTimeStamp(v9);
+          objc_msgSend_frameDuration(v9);
+          objc_msgSend_interpolatedFrameDuration(v9);
         }
 
         NSLog(&cfstr_3ldPts4f4lldDD.isa, v6++, (0 / 0), 0, 0, 0, 0, 0, 0, [v9 framesToBeDuplicated], objc_msgSend(v9, "frameIsAtBigGap"));
       }
 
-      v5 = [infoCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [infoCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)debugPrintFRCFRCFrameBurstyDropInfo:(id)info
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   infoCopy = info;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [infoCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [infoCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(infoCopy);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         burstyIdx = [v9 burstyIdx];
         burstyStart = [v9 burstyStart];
         burstyLen = [v9 burstyLen];
         if (v9)
         {
-          [v9 burstyBaseDuration];
+          objc_msgSend_burstyBaseDuration(v9);
         }
 
         NSLog(&cfstr_3ldBurstyDropI.isa, v6++, burstyIdx, burstyStart, burstyLen, 0, 0);
       }
 
-      v5 = [infoCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [infoCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sortFrameMetadataListInDisplayOrderFromMetadataList:(id)list
@@ -287,56 +279,56 @@ uint64_t __76__FRCFrameDropDetector_sortFrameMetadataListInDisplayOrderFromMetad
 
 - (id)calculateFrameDropInfoFromSortedMetadataList:(id)list sortedTimingList:(id)timingList
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   listCopy = list;
   timingListCopy = timingList;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   frameInternalPTSList = self->frameInternalPTSList;
   self->frameInternalPTSList = v8;
 
-  memset(&v50, 0, sizeof(v50));
+  memset(&v49, 0, sizeof(v49));
   v10 = [timingListCopy objectAtIndexedSubscript:0];
   v11 = v10;
   if (v10)
   {
-    [v10 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v10);
   }
 
   else
   {
-    memset(&v50, 0, sizeof(v50));
+    memset(&v49, 0, sizeof(v49));
   }
 
-  memset(&v49, 0, sizeof(v49));
-  CMTimeMake(&v49, 0, v50.timescale);
+  memset(&v48, 0, sizeof(v48));
+  CMTimeMake(&v48, 0, v49.timescale);
   v12 = [timingListCopy count];
-  v37 = [listCopy count];
+  v36 = [listCopy count];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v13 = timingListCopy;
-  v38 = [v13 countByEnumeratingWithState:&v45 objects:v51 count:16];
-  if (v38)
+  v37 = [v13 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  if (v37)
   {
     v14 = 0;
-    v35 = v12 - 1;
-    v36 = *v46;
-    v34 = listCopy;
-    v33 = v13;
+    v34 = v12 - 1;
+    v35 = *v45;
+    v33 = listCopy;
+    v32 = v13;
     do
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v46 != v36)
+        if (*v45 != v35)
         {
           objc_enumerationMutation(v13);
         }
 
-        v16 = *(*(&v45 + 1) + 8 * i);
+        v16 = *(*(&v44 + 1) + 8 * i);
         if (v16)
         {
-          [v16 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v16);
         }
 
         else
@@ -344,8 +336,8 @@ uint64_t __76__FRCFrameDropDetector_sortFrameMetadataListInDisplayOrderFromMetad
           memset(&time, 0, sizeof(time));
         }
 
-        v50 = time;
-        if (v14 >= v37)
+        v49 = time;
+        if (v14 >= v36)
         {
           sequenceAdjusterDisplacement = 0;
           sequenceAdjusterRecipe = 0;
@@ -358,7 +350,7 @@ uint64_t __76__FRCFrameDropDetector_sortFrameMetadataListInDisplayOrderFromMetad
           sequenceAdjusterDisplacement = [v17 sequenceAdjusterDisplacement];
         }
 
-        if (v14 >= v35)
+        if (v14 >= v34)
         {
           v25 = 0;
           v26 = 0;
@@ -371,14 +363,14 @@ uint64_t __76__FRCFrameDropDetector_sortFrameMetadataListInDisplayOrderFromMetad
           memset(&time, 0, sizeof(time));
           if (v20)
           {
-            [v20 presentationTimeStamp];
+            objc_msgSend_presentationTimeStamp(v20);
           }
 
           lhs = time;
-          rhs = v50;
-          CMTimeSubtract(&v43, &lhs, &rhs);
-          v49 = v43;
-          if (v14 >= v37 - 1)
+          rhs = v49;
+          CMTimeSubtract(&v42, &lhs, &rhs);
+          v48 = v42;
+          if (v14 >= v36 - 1)
           {
             v25 = 0;
             v26 = 0;
@@ -414,35 +406,35 @@ uint64_t __76__FRCFrameDropDetector_sortFrameMetadataListInDisplayOrderFromMetad
               self->_retimingRecipe = sequenceAdjusterRecipe;
             }
 
-            v13 = v33;
-            listCopy = v34;
+            v13 = v32;
+            listCopy = v33;
           }
         }
 
         v29 = objc_alloc_init(FRCFrameInternalTimingInfo);
-        time = v50;
-        [(FRCFrameInternalTimingInfo *)v29 setPresentationTimeStamp:&time];
         time = v49;
+        [(FRCFrameInternalTimingInfo *)v29 setPresentationTimeStamp:&time];
+        time = v48;
         [(FRCFrameInternalTimingInfo *)v29 setFrameDuration:&time];
         [(FRCFrameInternalTimingInfo *)v29 setFramesToBeDuplicated:v25];
         [(FRCFrameInternalTimingInfo *)v29 setFrameIsAtBigGap:v26];
         if (v25 < 1)
         {
-          time = v49;
+          time = v48;
           [(FRCFrameInternalTimingInfo *)v29 setInterpolatedFrameDuration:&time];
         }
 
         else
         {
-          CMTimeMake(&v43, 1, v49.timescale);
-          lhs = v49;
-          CMTimeAdd(&time, &lhs, &v43);
-          CMTimeMultiplyByRatio(&v40, &time, 1, 2);
-          time = v40;
+          CMTimeMake(&v42, 1, v48.timescale);
+          lhs = v48;
+          CMTimeAdd(&time, &lhs, &v42);
+          CMTimeMultiplyByRatio(&v39, &time, 1, 2);
+          time = v39;
           [(FRCFrameInternalTimingInfo *)v29 setInterpolatedFrameDuration:&time];
           if (v29)
           {
-            [(FRCFrameInternalTimingInfo *)v29 interpolatedFrameDuration];
+            objc_msgSend_interpolatedFrameDuration(v29);
           }
 
           else
@@ -450,8 +442,8 @@ uint64_t __76__FRCFrameDropDetector_sortFrameMetadataListInDisplayOrderFromMetad
             memset(&time, 0, sizeof(time));
           }
 
-          CMTimeConvertScale(&v39, &time, v49.timescale, kCMTimeRoundingMethod_QuickTime);
-          time = v39;
+          CMTimeConvertScale(&v38, &time, v48.timescale, kCMTimeRoundingMethod_QuickTime);
+          time = v38;
           [(FRCFrameInternalTimingInfo *)v29 setInterpolatedFrameDuration:&time];
           ++self->_numberOfInsertionPoints;
         }
@@ -460,10 +452,10 @@ uint64_t __76__FRCFrameDropDetector_sortFrameMetadataListInDisplayOrderFromMetad
         ++v14;
       }
 
-      v38 = [v13 countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v37 = [v13 countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
 
   if (self->_debugPrint)
@@ -473,8 +465,6 @@ uint64_t __76__FRCFrameDropDetector_sortFrameMetadataListInDisplayOrderFromMetad
   }
 
   v30 = self->frameInternalPTSList;
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -511,12 +501,12 @@ uint64_t __72__FRCFrameDropDetector_sortFrameTimingListInDisplayOrderFromTimingL
   v6 = v5;
   if (v4)
   {
-    [v4 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v4);
     v7 = v12;
     if (v6)
     {
 LABEL_3:
-      [v6 presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(v6);
       v8 = v11;
       goto LABEL_6;
     }
@@ -548,7 +538,7 @@ LABEL_6:
 
 - (id)calculateFrameDurationFromSortedTimingList:(id)list
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   listCopy = list;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   frameInternalPTSList = self->frameInternalPTSList;
@@ -559,7 +549,7 @@ LABEL_6:
   v8 = v7;
   if (v7)
   {
-    [v7 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v7);
   }
 
   else
@@ -567,22 +557,22 @@ LABEL_6:
     memset(&timescale, 0, sizeof(timescale));
   }
 
-  memset(&v33, 0, sizeof(v33));
-  CMTimeMake(&v33, 0, timescale.timescale);
-  CMTimeMake(&v32, timescale.timescale, timescale.timescale);
-  self->minDuration = v32;
+  memset(&v32, 0, sizeof(v32));
+  CMTimeMake(&v32, 0, timescale.timescale);
+  CMTimeMake(&v31, timescale.timescale, timescale.timescale);
+  self->minDuration = v31;
   v9 = [listCopy count];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v10 = listCopy;
-  v11 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v27 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v29;
+    v14 = *v28;
     v15 = v9 - 1;
     do
     {
@@ -590,52 +580,52 @@ LABEL_6:
       v17 = v13;
       do
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * v16);
+        v18 = *(*(&v27 + 1) + 8 * v16);
         if (v18)
         {
-          [v18 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v18);
         }
 
         else
         {
-          memset(&v32, 0, sizeof(v32));
+          memset(&v31, 0, sizeof(v31));
         }
 
-        timescale = v32;
+        timescale = v31;
         v13 = v17 + 1;
         if (v17 < v15)
         {
           v19 = [v10 objectAtIndexedSubscript:v17 + 1];
           v20 = v19;
-          memset(&v32, 0, sizeof(v32));
+          memset(&v31, 0, sizeof(v31));
           if (v19)
           {
-            [v19 presentationTimeStamp];
+            objc_msgSend_presentationTimeStamp(v19);
           }
 
-          lhs = v32;
-          v25 = timescale;
-          CMTimeSubtract(&time1, &lhs, &v25);
-          v33 = time1;
+          lhs = v31;
+          v24 = timescale;
+          CMTimeSubtract(&time1, &lhs, &v24);
+          v32 = time1;
           lhs = self->minDuration;
           if (CMTimeCompare(&time1, &lhs) == -1)
           {
-            self->minDuration = v33;
+            self->minDuration = v32;
           }
         }
 
         v21 = objc_alloc_init(FRCFrameInternalTimingInfo);
-        v32 = timescale;
-        [(FRCFrameInternalTimingInfo *)v21 setPresentationTimeStamp:&v32];
-        v32 = v33;
-        [(FRCFrameInternalTimingInfo *)v21 setFrameDuration:&v32];
-        v32 = v33;
-        [(FRCFrameInternalTimingInfo *)v21 setInterpolatedFrameDuration:&v32];
+        v31 = timescale;
+        [(FRCFrameInternalTimingInfo *)v21 setPresentationTimeStamp:&v31];
+        v31 = v32;
+        [(FRCFrameInternalTimingInfo *)v21 setFrameDuration:&v31];
+        v31 = v32;
+        [(FRCFrameInternalTimingInfo *)v21 setInterpolatedFrameDuration:&v31];
         [(NSMutableArray *)self->frameInternalPTSList addObject:v21];
 
         ++v16;
@@ -643,7 +633,7 @@ LABEL_6:
       }
 
       while (v12 != v16);
-      v12 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v27 objects:v34 count:16];
     }
 
     while (v12);
@@ -656,8 +646,6 @@ LABEL_6:
   }
 
   v22 = self->frameInternalPTSList;
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -679,55 +667,55 @@ LABEL_6:
 
 - (id)detectFrameDropsFromInternalTimingList:(id)list
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   listCopy = list;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   frameBurstyDropInfoList = self->frameBurstyDropInfoList;
   self->frameBurstyDropInfoList = v5;
 
-  memset(&v41, 0, sizeof(v41));
-  CMTimeMake(&v41, 0, self->minDuration.timescale);
   memset(&v40, 0, sizeof(v40));
-  [(FRCFrameDropDetector *)self droppingThreshold];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
+  CMTimeMake(&v40, 0, self->minDuration.timescale);
+  memset(&v39, 0, sizeof(v39));
+  objc_msgSend_droppingThreshold(self);
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v7 = listCopy;
-  v8 = [v7 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (!v8)
   {
-    v25 = 0;
+    v24 = 0;
     goto LABEL_25;
   }
 
   v9 = v8;
   v10 = 0;
-  v23 = 0;
+  v22 = 0;
   obj = v7;
   v11 = 0;
-  v25 = 0;
+  v24 = 0;
   v12 = 0;
-  v13 = *v37;
+  v13 = *v36;
   v14 = 1;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v37 != v13)
+      if (*v36 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v36 + 1) + 8 * i);
-      memset(&v35, 0, sizeof(v35));
+      v16 = *(*(&v35 + 1) + 8 * i);
+      memset(&v34, 0, sizeof(v34));
       if (v16)
       {
-        [v16 frameDuration];
+        objc_msgSend_frameDuration(v16);
       }
 
-      time1 = v35;
-      time2 = v40;
+      time1 = v34;
+      time2 = v39;
       if (CMTimeCompare(&time1, &time2) != -1)
       {
         if (v11)
@@ -740,49 +728,49 @@ LABEL_6:
 LABEL_16:
           v17 = 0;
           memset(&time2, 0, sizeof(time2));
-          v29 = 0;
-          v30 = 0;
           v28 = 0;
+          v29 = 0;
+          v27 = 0;
         }
 
         else
         {
-          ++v25;
-          v41 = v35;
-          v23 = v12;
+          ++v24;
+          v40 = v34;
+          v22 = v12;
           if (!v16)
           {
             goto LABEL_16;
           }
 
 LABEL_11:
-          [v16 frameDuration];
-          [v16 frameDuration];
-          v17 = v29;
+          objc_msgSend_frameDuration(v16);
+          objc_msgSend_frameDuration(v16);
+          v17 = v28;
         }
 
         CMTimeMake(&rhs, 1, v17);
         CMTimeAdd(&time1, &time2, &rhs);
-        CMTimeMultiplyByRatio(&v32, &time1, 1, 2);
-        time1 = v32;
+        CMTimeMultiplyByRatio(&v31, &time1, 1, 2);
+        time1 = v31;
         [v16 setInterpolatedFrameDuration:&time1];
         if (v16)
         {
-          [v16 interpolatedFrameDuration];
-          [v16 frameDuration];
-          v19 = v26;
+          objc_msgSend_interpolatedFrameDuration(v16);
+          objc_msgSend_frameDuration(v16);
+          v19 = v25;
         }
 
         else
         {
           v19 = 0;
           memset(&time1, 0, sizeof(time1));
-          v26 = 0;
+          v25 = 0;
         }
 
         ++v10;
-        CMTimeConvertScale(&v27, &time1, v19, kCMTimeRoundingMethod_QuickTime);
-        time1 = v27;
+        CMTimeConvertScale(&v26, &time1, v19, kCMTimeRoundingMethod_QuickTime);
+        time1 = v26;
         [v16 setInterpolatedFrameDuration:&time1];
         ++self->_numberOfInsertionPoints;
         v11 = 1;
@@ -792,10 +780,10 @@ LABEL_11:
       if (!(v14 & 1 | (v11 == 0)))
       {
         v18 = objc_alloc_init(FRCFrameBurstyDropInfo);
-        [(FRCFrameBurstyDropInfo *)v18 setBurstyIdx:v25];
-        [(FRCFrameBurstyDropInfo *)v18 setBurstyStart:v23];
+        [(FRCFrameBurstyDropInfo *)v18 setBurstyIdx:v24];
+        [(FRCFrameBurstyDropInfo *)v18 setBurstyStart:v22];
         [(FRCFrameBurstyDropInfo *)v18 setBurstyLen:v10];
-        time1 = v41;
+        time1 = v40;
         [(FRCFrameBurstyDropInfo *)v18 setBurstyBaseDuration:&time1];
         [(NSMutableArray *)self->frameBurstyDropInfoList addObject:v18];
       }
@@ -810,7 +798,7 @@ LABEL_21:
     }
 
     v7 = obj;
-    v9 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v9 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
   }
 
   while (v9);
@@ -820,46 +808,44 @@ LABEL_25:
   {
     NSLog(&cfstr_FrameDropDetec_5.isa);
     [(FRCFrameDropDetector *)self debugPrintFRCFrameInternalTimingInfo:v7];
-    NSLog(&cfstr_FrameDropDetec_6.isa, v25);
+    NSLog(&cfstr_FrameDropDetec_6.isa, v24);
     [(FRCFrameDropDetector *)self debugPrintFRCFRCFrameBurstyDropInfo:self->frameBurstyDropInfoList];
   }
 
   v20 = self->frameBurstyDropInfoList;
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (void)detectLocationOfBurstyGapsFromBurstyDropList:(id)list frameInternalTimingList:(id)timingList
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   listCopy = list;
   timingListCopy = timingList;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = listCopy;
-  v7 = [listCopy countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v7 = [listCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v32;
+    v9 = *v31;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * i);
-        memset(&v30, 0, sizeof(v30));
+        v11 = *(*(&v30 + 1) + 8 * i);
+        memset(&v29, 0, sizeof(v29));
         if (v11)
         {
-          [v11 burstyBaseDuration];
+          objc_msgSend_burstyBaseDuration(v11);
         }
 
         else
@@ -867,8 +853,8 @@ LABEL_25:
           memset(&time, 0, sizeof(time));
         }
 
-        CMTimeConvertScale(&v30, &time, 600, kCMTimeRoundingMethod_QuickTime);
-        value = v30.value;
+        CMTimeConvertScale(&v29, &time, 600, kCMTimeRoundingMethod_QuickTime);
+        value = v29.value;
         burstyStart = [v11 burstyStart];
         burstyLen = [v11 burstyLen];
         v15 = burstyLen;
@@ -985,7 +971,7 @@ LABEL_25:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v8);
@@ -996,8 +982,6 @@ LABEL_25:
     NSLog(&cfstr_FrameDropDetec_8.isa);
     [(FRCFrameDropDetector *)self debugPrintFRCFrameInternalTimingInfo:timingListCopy];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)detectFrameDropsFromFrameMetadataList:(id)list frameTimingList:(id)timingList
@@ -1052,83 +1036,83 @@ LABEL_25:
 
 - (void)detectSingleFrameDropsFromInternalTimingList:(id)list
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   listCopy = list;
-  memset(&v28, 0, sizeof(v28));
-  [(FRCFrameDropDetector *)self droppingThreshold];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  memset(&v27, 0, sizeof(v27));
+  objc_msgSend_droppingThreshold(self);
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v5 = listCopy;
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
-        memset(&v23, 0, sizeof(v23));
+        v10 = *(*(&v23 + 1) + 8 * i);
+        memset(&v22, 0, sizeof(v22));
         if (v10)
         {
-          [v10 frameDuration];
+          objc_msgSend_frameDuration(v10);
         }
 
-        time1 = v23;
-        time2 = v28;
+        time1 = v22;
+        time2 = v27;
         if (CMTimeCompare(&time1, &time2) == 1)
         {
           if (v10)
           {
-            [v10 frameDuration];
-            [v10 frameDuration];
-            v11 = v17;
+            objc_msgSend_frameDuration(v10);
+            objc_msgSend_frameDuration(v10);
+            v11 = v16;
           }
 
           else
           {
             v11 = 0;
             memset(&time2, 0, sizeof(time2));
-            v17 = 0;
-            v18 = 0;
             v16 = 0;
+            v17 = 0;
+            v15 = 0;
           }
 
           CMTimeMake(&rhs, 1, v11);
           CMTimeAdd(&time1, &time2, &rhs);
-          CMTimeMultiplyByRatio(&v20, &time1, 1, 2);
-          time1 = v20;
+          CMTimeMultiplyByRatio(&v19, &time1, 1, 2);
+          time1 = v19;
           [v10 setInterpolatedFrameDuration:&time1];
           if (v10)
           {
-            [v10 interpolatedFrameDuration];
-            [v10 frameDuration];
-            v12 = v14;
+            objc_msgSend_interpolatedFrameDuration(v10);
+            objc_msgSend_frameDuration(v10);
+            v12 = v13;
           }
 
           else
           {
             v12 = 0;
             memset(&time1, 0, sizeof(time1));
-            v14 = 0;
+            v13 = 0;
           }
 
-          CMTimeConvertScale(&v15, &time1, v12, kCMTimeRoundingMethod_QuickTime);
-          time1 = v15;
+          CMTimeConvertScale(&v14, &time1, v12, kCMTimeRoundingMethod_QuickTime);
+          time1 = v14;
           [v10 setInterpolatedFrameDuration:&time1];
           [v10 setFramesToBeDuplicated:1];
           ++self->_numberOfInsertionPoints;
           if (v10)
           {
-            [v10 frameDuration];
+            objc_msgSend_frameDuration(v10);
           }
 
           else
@@ -1142,7 +1126,7 @@ LABEL_25:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v7);
@@ -1153,8 +1137,6 @@ LABEL_25:
     NSLog(&cfstr_FrameDropDetec_5.isa);
     [(FRCFrameDropDetector *)self debugPrintFRCFrameInternalTimingInfo:v5];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)detectSingleFrameDropsFromFrameTimingList:(id)list
@@ -1175,7 +1157,7 @@ LABEL_25:
 
 - (id)buildInsertionPointListFromInternalTimingList:(id)list bailOutCode:(int64_t *)code
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   listCopy = list;
   if (![listCopy count])
   {
@@ -1188,66 +1170,66 @@ LABEL_25:
   insertionPointList = self->insertionPointList;
   self->insertionPointList = v7;
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v9 = listCopy;
-  v10 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v10)
   {
     v11 = v10;
-    v29 = listCopy;
+    v28 = listCopy;
     v12 = 0;
     v13 = 0;
-    v14 = *v37;
+    v14 = *v36;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v37 != v14)
+        if (*v36 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v36 + 1) + 8 * i);
-        v34 = 0uLL;
-        v35 = 0;
+        v16 = *(*(&v35 + 1) + 8 * i);
+        v33 = 0uLL;
+        v34 = 0;
         if (v16)
         {
-          [v16 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v16);
         }
 
         v17 = objc_alloc_init(FRCFrameInsertionPoint);
         -[FRCFrameInsertionPoint setNumberOfFramesToInsert:](v17, "setNumberOfFramesToInsert:", [v16 framesToBeDuplicated]);
         if (v16)
         {
-          [v16 interpolatedFrameDuration];
+          objc_msgSend_interpolatedFrameDuration(v16);
         }
 
         else
         {
-          v32 = 0uLL;
-          v33 = 0;
+          v31 = 0uLL;
+          v32 = 0;
         }
 
+        v29 = v31;
         v30 = v32;
-        v31 = v33;
-        [(FRCFrameInsertionPoint *)v17 setInterpolatedFrameDuration:&v30];
+        [(FRCFrameInsertionPoint *)v17 setInterpolatedFrameDuration:&v29];
+        v29 = v33;
         v30 = v34;
-        v31 = v35;
-        [(FRCFrameInsertionPoint *)v17 setPresentationTimeStamp:&v30];
+        [(FRCFrameInsertionPoint *)v17 setPresentationTimeStamp:&v29];
         [(NSMutableArray *)self->insertionPointList addObject:v17];
         v12 += [v16 framesToBeDuplicated];
       }
 
       v13 += v11;
-      v11 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v11);
     v18 = v13 - 2;
-    listCopy = v29;
+    listCopy = v28;
   }
 
   else
@@ -1310,78 +1292,74 @@ LABEL_31:
   v19 = self->insertionPointList;
 LABEL_32:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (void)scaleNumberOfFramesToInsertFor2xSloMo:(id)mo
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   moCopy = mo;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [moCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [moCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(moCopy);
         }
 
-        [*(*(&v9 + 1) + 8 * v7) setNumberOfFramesToInsert:{(2 * objc_msgSend(*(*(&v9 + 1) + 8 * v7), "numberOfFramesToInsert")) | 1}];
+        [*(*(&v8 + 1) + 8 * v7) setNumberOfFramesToInsert:{(2 * objc_msgSend(*(*(&v8 + 1) + 8 * v7), "numberOfFramesToInsert")) | 1}];
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [moCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [moCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)countNumberOfFramesWithRecipeInMetadataList:(id)list
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   listCopy = list;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [listCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [listCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(listCopy);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) sequenceAdjusterRecipe])
+        if ([*(*(&v10 + 1) + 8 * i) sequenceAdjusterRecipe])
         {
           ++v6;
         }
       }
 
-      v5 = [listCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [listCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -1392,20 +1370,19 @@ LABEL_32:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)selectFrameInsertionPointsFromTimingList:(id)list metadataList:(id)metadataList sloMo:(BOOL)mo withError:(id *)error
 {
   moCopy = mo;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   listCopy = list;
   metadataListCopy = metadataList;
   v12 = MEMORY[0x277CC08F0];
   self->_numberOfInsertionPoints = 0;
   self->_maximumDuration = *v12;
-  v31 = 0;
+  v30 = 0;
   v13 = [metadataListCopy count];
   v14 = [(FRCFrameDropDetector *)self countNumberOfFramesWithRecipeInMetadataList:metadataListCopy];
   if (v13 < 1)
@@ -1427,7 +1404,7 @@ LABEL_32:
   frameInternalPTSList = self->frameInternalPTSList;
   self->frameInternalPTSList = v15;
 
-  v17 = [(FRCFrameDropDetector *)self buildInsertionPointListFromInternalTimingList:self->frameInternalPTSList bailOutCode:&v31];
+  v17 = [(FRCFrameDropDetector *)self buildInsertionPointListFromInternalTimingList:self->frameInternalPTSList bailOutCode:&v30];
   insertionPointList = self->insertionPointList;
   self->insertionPointList = v17;
 
@@ -1441,10 +1418,10 @@ LABEL_32:
   self->_gatingCause = 0;
   if (error && !v19)
   {
-    v20 = v31;
-    if (v31 > 2)
+    v20 = v30;
+    if (v30 > 2)
     {
-      if (v31 == 3)
+      if (v30 == 3)
       {
         v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Bail out at frame drop detection (reason: very low frame rate. recipe=%ld)", self->_retimingRecipe];
         *error = [(FRCFrameDropDetector *)self errorWithDescription:v22];
@@ -1452,7 +1429,7 @@ LABEL_32:
         goto LABEL_22;
       }
 
-      if (v31 == 4)
+      if (v30 == 4)
       {
         v21 = @"Bail out at frame drop detection (reason: burst drop in the end)";
         goto LABEL_20;
@@ -1461,13 +1438,13 @@ LABEL_32:
 
     else
     {
-      if (v31 == 1)
+      if (v30 == 1)
       {
         v21 = @"Bail out at frame drop detection (reason: no drops detected)";
         goto LABEL_20;
       }
 
-      if (v31 == 2)
+      if (v30 == 2)
       {
         v21 = @"Bail out at frame drop detection (reason: too many drops detected)";
 LABEL_20:
@@ -1485,7 +1462,7 @@ LABEL_22:
       localizedDescription = [v24 localizedDescription];
       uTF8String = [localizedDescription UTF8String];
       *buf = 136315138;
-      v33 = uTF8String;
+      v32 = uTF8String;
       _os_log_impl(&dword_24A8C8000, v25, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
@@ -1493,8 +1470,6 @@ LABEL_22:
   }
 
   v28 = v19;
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

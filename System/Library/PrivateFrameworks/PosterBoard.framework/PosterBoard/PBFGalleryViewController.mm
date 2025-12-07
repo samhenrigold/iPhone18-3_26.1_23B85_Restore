@@ -307,12 +307,13 @@ uint64_t __140__PBFGalleryViewController_editingSceneViewController_userDidDismi
 void __58__PBFGalleryViewController__fetchNewGalleryFromProactive___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v6 = a5;
+  v7 = v6;
   if (v6)
   {
-    v7 = PBFLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PBFLogCommon(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __58__PBFGalleryViewController__fetchNewGalleryFromProactive___block_invoke_cold_1(v6, v7);
+      __58__PBFGalleryViewController__fetchNewGalleryFromProactive___block_invoke_cold_1(v7, v8);
     }
   }
 

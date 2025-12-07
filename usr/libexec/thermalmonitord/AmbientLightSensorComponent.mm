@@ -49,18 +49,16 @@
       if (v4)
       {
         v5 = v4;
-        hidEventSystem = self->_hidEventSystem;
         IOHIDEventSystemClientSetMatching();
-        v7 = self->_hidEventSystem;
         IOHIDEventSystemClientScheduleWithRunLoop();
         CFRelease(v5);
         copySensorArray = [(AmbientLightSensorComponent *)self copySensorArray];
         if (copySensorArray)
         {
-          v9 = copySensorArray;
+          v7 = copySensorArray;
           if (CFArrayGetCount(copySensorArray) >= 1)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v9, 0);
+            ValueAtIndex = CFArrayGetValueAtIndex(v7, 0);
             self->_service = ValueAtIndex;
             if (ValueAtIndex)
             {
@@ -73,7 +71,7 @@
             }
           }
 
-          CFRelease(v9);
+          CFRelease(v7);
         }
       }
     }

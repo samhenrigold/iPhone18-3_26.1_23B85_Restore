@@ -59,30 +59,30 @@
   [v5 setPreferredAction:v16];
 }
 
-void __84__SBApplicationSignatureVersionRepairAlertItem_configure_requirePasscodeForActions___block_invoke(uint64_t a1)
+void __84__SBApplicationSignatureVersionRepairAlertItem_configure_requirePasscodeForActions___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(*(a1 + 32) + 112) bundleIdentifier];
+    v4 = [*(*(a1 + 32) + 112) bundleIdentifier];
     *buf = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "[Signature Repair] [%{public}@] Attempting to upgrade repair", buf, 0xCu);
+    v11 = v4;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "[Signature Repair] [%{public}@] Attempting to upgrade repair", buf, 0xCu);
   }
 
-  v4 = objc_alloc(MEMORY[0x277CEC478]);
-  v5 = [*(*(a1 + 32) + 112) bundleIdentifier];
-  v6 = [v4 initWithBundleID:v5];
+  v5 = objc_alloc(MEMORY[0x277CEC478]);
+  v6 = [*(*(a1 + 32) + 112) bundleIdentifier];
+  v7 = [v5 initWithBundleID:v6];
 
-  [v6 setExitReason:32];
-  v7 = [MEMORY[0x277CEC480] defaultService];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __84__SBApplicationSignatureVersionRepairAlertItem_configure_requirePasscodeForActions___block_invoke_17;
-  v8[3] = &unk_2783BA588;
-  v8[4] = *(a1 + 32);
-  [v7 repairAppWithOptions:v6 replyHandler:v8];
+  [v7 setExitReason:32];
+  v8 = [MEMORY[0x277CEC480] defaultService];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __84__SBApplicationSignatureVersionRepairAlertItem_configure_requirePasscodeForActions___block_invoke_17;
+  v9[3] = &unk_2783BA588;
+  v9[4] = *(a1 + 32);
+  [v8 repairAppWithOptions:v7 replyHandler:v9];
 
   [*(a1 + 32) deactivateForButton];
 }

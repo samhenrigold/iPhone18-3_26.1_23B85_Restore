@@ -108,7 +108,7 @@ void __72__WFRemoteLinkAction_loadDefaultResultForEnumeration_completionHandler_
 
 - (WFRemoteLinkAction)initWithActionIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier metadata:(id)metadata serializedParameters:(id)parameters fullyQualifiedActionIdentifier:(id)actionIdentifier remoteWidgetConnection:(id)connection
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v14 = MEMORY[0x1E696E740];
   actionIdentifierCopy = actionIdentifier;
@@ -119,15 +119,15 @@ void __72__WFRemoteLinkAction_loadDefaultResultForEnumeration_completionHandler_
   v20 = [[v14 alloc] initWithIntentIdentifier:&stru_1F4A1C408 localizedName:0 bundleIdentifier:bundleIdentifierCopy extensionBundleIdentifier:0 counterpartIdentifiers:0 teamIdentifier:0 supportedIntents:0 supportedEntities:0 bundleURL:0 documentTypes:0];
 
   v21 = [WFActionDefinition alloc];
-  v34 = @"AppDefinition";
+  v33 = @"AppDefinition";
   serializedRepresentation = [v20 serializedRepresentation];
-  v35[0] = serializedRepresentation;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+  v34[0] = serializedRepresentation;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
   v24 = [(WFActionDefinition *)v21 initWithDictionary:v23];
 
-  v33.receiver = self;
-  v33.super_class = WFRemoteLinkAction;
-  v25 = [(WFLinkAction *)&v33 initWithIdentifier:identifierCopy metadata:metadataCopy definition:v24 serializedParameters:parametersCopy appIntentDescriptor:v20 fullyQualifiedActionIdentifier:actionIdentifierCopy];
+  v32.receiver = self;
+  v32.super_class = WFRemoteLinkAction;
+  v25 = [(WFLinkAction *)&v32 initWithIdentifier:identifierCopy metadata:metadataCopy definition:v24 serializedParameters:parametersCopy appIntentDescriptor:v20 fullyQualifiedActionIdentifier:actionIdentifierCopy];
 
   if (v25)
   {
@@ -139,7 +139,6 @@ void __72__WFRemoteLinkAction_loadDefaultResultForEnumeration_completionHandler_
     v28 = v25;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v25;
 }
 

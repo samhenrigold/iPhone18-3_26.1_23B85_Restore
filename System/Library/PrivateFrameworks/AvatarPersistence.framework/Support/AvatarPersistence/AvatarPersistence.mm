@@ -144,9 +144,8 @@ void sub_100001880(uint64_t a1, void *a2)
     if (state)
     {
       v6 = [*(a1 + 32) logger];
-      v10 = *(a1 + 32);
-      v11 = [objc_opt_class() _stringFromXPCActivityState:v4];
-      [v6 logAnalysisServiceDidNotProcessState:v11];
+      v10 = [objc_opt_class() _stringFromXPCActivityState:v4];
+      [v6 logAnalysisServiceDidNotProcessState:v10];
     }
 
     else

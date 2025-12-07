@@ -216,7 +216,7 @@
   v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = __164__HKBloodPressureSeries_drawSeriesWithBlockCoordinates_axisRect_zoomLevelConfiguration_pointTransform_renderContext_secondaryRenderContext_seriesRenderingDelegate___block_invoke;

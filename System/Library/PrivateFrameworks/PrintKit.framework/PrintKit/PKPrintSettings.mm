@@ -202,7 +202,7 @@ void __40__PKPrintSettings_userCodableDictionary__block_invoke(uint64_t a1, void
   v9 = v8;
   if (*a5)
   {
-    v10 = (*(v8 + 2))(v8);
+    v10 = v8[2](v8);
     [*(a1 + 32) setObject:v10 forKeyedSubscript:v11];
   }
 }

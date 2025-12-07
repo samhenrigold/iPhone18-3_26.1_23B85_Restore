@@ -18,7 +18,7 @@
     [MEMORY[0x1E69C5DA8] registerForService:nameCopy delegate:v16];
     v17 = objc_alloc(MEMORY[0x1E69C5DA0]);
     v18 = (interfaceFactory)();
-    v19 = __atxlog_handle_context_user_education_suggestions();
+    v19 = __atxlog_handle_context_user_education_suggestions(v18);
     v20 = [v17 initWithServiceName:serviceNameCopy allowlistedServerInterface:v18 allowlistedClientInterface:0 serverInitiatedRequestHandler:0 interruptionHandler:&__block_literal_global_47 invalidationHandler:&__block_literal_global_14_0 logHandle:v19];
     xpcClientHelper = v15->_xpcClientHelper;
     v15->_xpcClientHelper = v20;
@@ -30,7 +30,7 @@
 void __56__ATXUserEducationSuggestionConnector_remoteObjectProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_context_user_education_suggestions();
+  v3 = __atxlog_handle_context_user_education_suggestions(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56__ATXUserEducationSuggestionConnector_remoteObjectProxy__block_invoke_cold_1(v2, v3);

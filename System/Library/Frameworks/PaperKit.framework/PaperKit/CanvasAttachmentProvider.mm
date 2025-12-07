@@ -11,7 +11,7 @@
 
   specialized _arrayForceCast<A, B>(_:)(v3);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CHCanvasAttachment_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CHCanvasAttachment_pMd, &_sSo18CHCanvasAttachment_pMR);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;

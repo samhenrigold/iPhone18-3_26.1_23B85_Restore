@@ -3935,9 +3935,10 @@ void sub_1DDD6CC3C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v16 - 224) = v15;
   std::vector<FullyConnectedLayerBNNS<float>>::__destroy_vector::operator()[abi:ne200100](v16 - 224);
   *a15 = &unk_1F592AE40;
-  if (a15[4])
+  v17 = a15[4];
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   *(v16 - 224) = v16 - 160;
@@ -3958,9 +3959,10 @@ void sub_1DDD6CC48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v11 - 224) = v10;
   std::vector<FullyConnectedLayerBNNS<float>>::__destroy_vector::operator()[abi:ne200100](v11 - 224);
   *a10 = &unk_1F592AE40;
-  if (a10[4])
+  v12 = a10[4];
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
   *(v11 - 224) = v11 - 160;
@@ -3981,9 +3983,10 @@ void sub_1DDD6CC54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v16 - 224) = v15;
   std::vector<FullyConnectedLayerBNNS<float>>::__destroy_vector::operator()[abi:ne200100](v16 - 224);
   *a15 = &unk_1F592AE40;
-  if (a15[4])
+  v17 = a15[4];
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   *(v16 - 224) = v16 - 160;
@@ -4417,7 +4420,7 @@ void sub_1DDD6D7B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void applesauce::CF::ObjectRef<__CFString const*>::to_description(_BYTE *a1, CFTypeRef cf)
+void applesauce::CF::ObjectRef<__CFString const*>::to_description(uint64_t a1, CFTypeRef cf)
 {
   v3 = CFCopyDescription(cf);
   applesauce::CF::details::CFString_get_value<true>(a1, v3);
@@ -5641,9 +5644,13 @@ void sub_1DDD71250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     operator delete(v25);
   }
 
-  if (*(v22 + 248) == 1 && *(v22 + 240))
+  if (*(v22 + 248) == 1)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    v26 = *(v22 + 240);
+    if (v26)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    }
   }
 
   if (*(v22 + 208) == 1)
@@ -5651,9 +5658,13 @@ void sub_1DDD71250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     audiodsp::espresso::v1::plan::~plan(a18);
   }
 
-  if (*(v22 + 168) == 1 && *(v22 + 160))
+  if (*(v22 + 168) == 1)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    v27 = *(v22 + 160);
+    if (v27)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+    }
   }
 
   if (*(v22 + 143) < 0)
@@ -5789,11 +5800,11 @@ void sub_1DDD73324(void *a1, int a2)
   JUMPOUT(0x1DDD73878);
 }
 
-void sub_1DDD7332C(uint64_t a1, int a2)
+void sub_1DDD7332C(void *a1, int a2)
 {
   if (a2)
   {
-    __clang_call_terminate();
+    __clang_call_terminate(a1);
   }
 
   JUMPOUT(0x1DDD73878);
@@ -6063,31 +6074,31 @@ void sub_1DDD736D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-uint64_t FullyConnectedLayerBNNS<signed char>::FullyConnectedLayerBNNS(uint64_t a1, uint64_t *a2)
+uint64_t FullyConnectedLayerBNNS<signed char>::FullyConnectedLayerBNNS(uint64_t a1, uint64_t a2)
 {
   memcpy(a1, a2, 0x318uLL);
   *(a1 + 792) = 0;
   *(a1 + 800) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 792, a2[99], a2[100], (a2[100] - a2[99]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 792), *(a2 + 792), *(a2 + 800), (*(a2 + 800) - *(a2 + 792)) >> 2);
   *(a1 + 832) = 0;
   *(a1 + 816) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 816, a2[102], a2[103], (a2[103] - a2[102]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 816), *(a2 + 816), *(a2 + 824), (*(a2 + 824) - *(a2 + 816)) >> 2);
   *(a1 + 856) = 0;
   *(a1 + 840) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 840, a2[105], a2[106], (a2[106] - a2[105]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 840), *(a2 + 840), *(a2 + 848), (*(a2 + 848) - *(a2 + 840)) >> 2);
   *(a1 + 880) = 0;
   *(a1 + 864) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 864, a2[108], a2[109], (a2[109] - a2[108]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 864), *(a2 + 864), *(a2 + 872), (*(a2 + 872) - *(a2 + 864)) >> 2);
   *(a1 + 904) = 0;
   *(a1 + 888) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 888, a2[111], a2[112], (a2[112] - a2[111]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 888), *(a2 + 888), *(a2 + 896), (*(a2 + 896) - *(a2 + 888)) >> 2);
   *(a1 + 928) = 0;
   *(a1 + 912) = 0u;
-  std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a1 + 912, a2[114], a2[115], a2[115] - a2[114]);
+  std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a1 + 912, *(a2 + 912), *(a2 + 920), *(a2 + 920) - *(a2 + 912));
   *(a1 + 952) = 0;
   *(a1 + 936) = 0u;
-  std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a1 + 936, a2[117], a2[118], a2[118] - a2[117]);
-  *(a1 + 960) = a2[120];
+  std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a1 + 936, *(a2 + 936), *(a2 + 944), *(a2 + 944) - *(a2 + 936));
+  *(a1 + 960) = *(a2 + 960);
   return a1;
 }
 
@@ -6160,31 +6171,31 @@ void sub_1DDD73AD0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t FullyConnectedLayerBNNS<short>::FullyConnectedLayerBNNS(uint64_t a1, uint64_t *a2)
+uint64_t FullyConnectedLayerBNNS<short>::FullyConnectedLayerBNNS(uint64_t a1, uint64_t a2)
 {
   memcpy(a1, a2, 0x318uLL);
   *(a1 + 792) = 0;
   *(a1 + 800) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 792, a2[99], a2[100], (a2[100] - a2[99]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 792), *(a2 + 792), *(a2 + 800), (*(a2 + 800) - *(a2 + 792)) >> 2);
   *(a1 + 832) = 0;
   *(a1 + 816) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 816, a2[102], a2[103], (a2[103] - a2[102]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 816), *(a2 + 816), *(a2 + 824), (*(a2 + 824) - *(a2 + 816)) >> 2);
   *(a1 + 856) = 0;
   *(a1 + 840) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 840, a2[105], a2[106], (a2[106] - a2[105]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 840), *(a2 + 840), *(a2 + 848), (*(a2 + 848) - *(a2 + 840)) >> 2);
   *(a1 + 880) = 0;
   *(a1 + 864) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 864, a2[108], a2[109], (a2[109] - a2[108]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 864), *(a2 + 864), *(a2 + 872), (*(a2 + 872) - *(a2 + 864)) >> 2);
   *(a1 + 904) = 0;
   *(a1 + 888) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 888, a2[111], a2[112], (a2[112] - a2[111]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 888), *(a2 + 888), *(a2 + 896), (*(a2 + 896) - *(a2 + 888)) >> 2);
   *(a1 + 928) = 0;
   *(a1 + 912) = 0u;
-  std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1 + 912, a2[114], a2[115], (a2[115] - a2[114]) >> 1);
+  std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1 + 912, *(a2 + 912), *(a2 + 920), (*(a2 + 920) - *(a2 + 912)) >> 1);
   *(a1 + 952) = 0;
   *(a1 + 936) = 0u;
-  std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1 + 936, a2[117], a2[118], (a2[118] - a2[117]) >> 1);
-  *(a1 + 960) = a2[120];
+  std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1 + 936, *(a2 + 936), *(a2 + 944), (*(a2 + 944) - *(a2 + 936)) >> 1);
+  *(a1 + 960) = *(a2 + 960);
   return a1;
 }
 
@@ -6267,31 +6278,31 @@ void std::vector<short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<std::complex<float>>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t FullyConnectedLayerBNNS<int>::FullyConnectedLayerBNNS(uint64_t a1, uint64_t *a2)
+uint64_t FullyConnectedLayerBNNS<int>::FullyConnectedLayerBNNS(uint64_t a1, uint64_t a2)
 {
   memcpy(a1, a2, 0x318uLL);
   *(a1 + 792) = 0;
   *(a1 + 800) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 792, a2[99], a2[100], (a2[100] - a2[99]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 792), *(a2 + 792), *(a2 + 800), (*(a2 + 800) - *(a2 + 792)) >> 2);
   *(a1 + 832) = 0;
   *(a1 + 816) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 816, a2[102], a2[103], (a2[103] - a2[102]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 816), *(a2 + 816), *(a2 + 824), (*(a2 + 824) - *(a2 + 816)) >> 2);
   *(a1 + 856) = 0;
   *(a1 + 840) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 840, a2[105], a2[106], (a2[106] - a2[105]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 840), *(a2 + 840), *(a2 + 848), (*(a2 + 848) - *(a2 + 840)) >> 2);
   *(a1 + 880) = 0;
   *(a1 + 864) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 864, a2[108], a2[109], (a2[109] - a2[108]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 864), *(a2 + 864), *(a2 + 872), (*(a2 + 872) - *(a2 + 864)) >> 2);
   *(a1 + 904) = 0;
   *(a1 + 888) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 888, a2[111], a2[112], (a2[112] - a2[111]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 888), *(a2 + 888), *(a2 + 896), (*(a2 + 896) - *(a2 + 888)) >> 2);
   *(a1 + 928) = 0;
   *(a1 + 912) = 0u;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 912, a2[114], a2[115], (a2[115] - a2[114]) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 912, *(a2 + 912), *(a2 + 920), (*(a2 + 920) - *(a2 + 912)) >> 2);
   *(a1 + 952) = 0;
   *(a1 + 936) = 0u;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 936, a2[117], a2[118], (a2[118] - a2[117]) >> 2);
-  *(a1 + 960) = a2[120];
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 936, *(a2 + 936), *(a2 + 944), (*(a2 + 944) - *(a2 + 936)) >> 2);
+  *(a1 + 960) = *(a2 + 960);
   return a1;
 }
 
@@ -6406,31 +6417,31 @@ void *FullyConnectedLayerBNNS<float>::~FullyConnectedLayerBNNS(void *a1)
   return a1;
 }
 
-uint64_t FullyConnectedLayerBNNS<float>::FullyConnectedLayerBNNS(uint64_t a1, uint64_t *a2)
+uint64_t FullyConnectedLayerBNNS<float>::FullyConnectedLayerBNNS(uint64_t a1, uint64_t a2)
 {
   memcpy(a1, a2, 0x318uLL);
   *(a1 + 792) = 0;
   *(a1 + 800) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 792, a2[99], a2[100], (a2[100] - a2[99]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 792), *(a2 + 792), *(a2 + 800), (*(a2 + 800) - *(a2 + 792)) >> 2);
   *(a1 + 832) = 0;
   *(a1 + 816) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 816, a2[102], a2[103], (a2[103] - a2[102]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 816), *(a2 + 816), *(a2 + 824), (*(a2 + 824) - *(a2 + 816)) >> 2);
   *(a1 + 856) = 0;
   *(a1 + 840) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 840, a2[105], a2[106], (a2[106] - a2[105]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 840), *(a2 + 840), *(a2 + 848), (*(a2 + 848) - *(a2 + 840)) >> 2);
   *(a1 + 880) = 0;
   *(a1 + 864) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 864, a2[108], a2[109], (a2[109] - a2[108]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 864), *(a2 + 864), *(a2 + 872), (*(a2 + 872) - *(a2 + 864)) >> 2);
   *(a1 + 904) = 0;
   *(a1 + 888) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 888, a2[111], a2[112], (a2[112] - a2[111]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 888), *(a2 + 888), *(a2 + 896), (*(a2 + 896) - *(a2 + 888)) >> 2);
   *(a1 + 928) = 0;
   *(a1 + 912) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 912, a2[114], a2[115], (a2[115] - a2[114]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 912), *(a2 + 912), *(a2 + 920), (*(a2 + 920) - *(a2 + 912)) >> 2);
   *(a1 + 952) = 0;
   *(a1 + 936) = 0u;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 936, a2[117], a2[118], (a2[118] - a2[117]) >> 2);
-  *(a1 + 960) = a2[120];
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 936), *(a2 + 936), *(a2 + 944), (*(a2 + 944) - *(a2 + 936)) >> 2);
+  *(a1 + 960) = *(a2 + 960);
   return a1;
 }
 
@@ -9467,7 +9478,7 @@ uint64_t EndpointVADObservationFeatures::GetFeatureDimensions(EndpointVADObserva
   return result;
 }
 
-void *std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];

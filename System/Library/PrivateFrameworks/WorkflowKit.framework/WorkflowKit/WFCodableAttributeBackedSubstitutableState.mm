@@ -13,7 +13,7 @@
 
 - (void)resizeDisplayImageIfNecessary:(id)necessary
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   displayImage = [necessaryCopy displayImage];
   if (displayImage)
@@ -62,7 +62,7 @@
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 136315138;
-                  v24 = "[WFCodableAttributeBackedSubstitutableState resizeDisplayImageIfNecessary:]";
+                  v23 = "[WFCodableAttributeBackedSubstitutableState resizeDisplayImageIfNecessary:]";
                   _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s Unable to resize oversized display image provided by custom intent.", buf, 0xCu);
                 }
               }
@@ -74,8 +74,6 @@
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processWithContext:(id)context userInputRequiredHandler:(id)handler valueHandler:(id)valueHandler
@@ -127,27 +125,26 @@ void __103__WFCodableAttributeBackedSubstitutableState_processWithContext_userIn
   v3 = a2;
   if (v3)
   {
-    v4 = *(a1 + 32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = [*(a1 + 32) supportsDynamicEnumeration] ^ 1;
+      v4 = [*(a1 + 32) supportsDynamicEnumeration] ^ 1;
     }
 
     else
     {
-      v5 = 0;
+      v4 = 0;
     }
 
-    v6 = [*(a1 + 32) wf_contentItemClass];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __103__WFCodableAttributeBackedSubstitutableState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
-    v7[3] = &unk_1E837BBC0;
-    v9 = *(a1 + 40);
-    v10 = v5;
-    v8 = v3;
-    [v8 generateCollectionByCoercingToItemClass:v6 completionHandler:v7];
+    v5 = [*(a1 + 32) wf_contentItemClass];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __103__WFCodableAttributeBackedSubstitutableState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
+    v6[3] = &unk_1E837BBC0;
+    v8 = *(a1 + 40);
+    v9 = v4;
+    v7 = v3;
+    [v7 generateCollectionByCoercingToItemClass:v5 completionHandler:v6];
   }
 
   else
@@ -376,13 +373,12 @@ LABEL_14:
 
 + (id)processingValueClasses
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:4];
 
   return v2;
 }

@@ -13,7 +13,7 @@
 - ($AA6A45B2DFCED8527C3A0E9A46B0D48F)processIncomingExpressions:(SEL)expressions
 {
   v5 = retstr;
-  v110 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   var0 = a4->var0;
   var3 = a4->var3;
   var2 = a4->var2;
@@ -22,7 +22,6 @@
   var6 = a4->var6;
   var5 = a4->var5;
   var8 = a4->var8;
-  v88 = var8;
   var7 = a4->var7;
   var11 = a4->var11;
   var10 = a4->var10;
@@ -34,165 +33,163 @@
   *&retstr->var4 = 0u;
   *&retstr->var6 = 0u;
   retstr->var8 = 0;
-  +[AXSSMotionTrackingExpressionConfiguration_Exclave emptyAccessibilityExpressions];
-  v107 = 0u;
-  v108 = 0u;
+  objc_msgSend_emptyAccessibilityExpressions(AXSSMotionTrackingExpressionConfiguration_Exclave, expressions);
   v105 = 0u;
   v106 = 0u;
-  v75 = [&unk_1F4066600 countByEnumeratingWithState:&v105 objects:v109 count:16];
-  if (v75)
+  v103 = 0u;
+  v104 = 0u;
+  v73 = [&unk_1F4066600 countByEnumeratingWithState:&v103 objects:v107 count:16];
+  if (v73)
   {
-    v69 = *v106;
-    v73 = v5;
-    v71 = var12;
-    v72 = var11;
-    v70 = var13;
+    v67 = *v104;
+    v71 = v5;
+    v69 = var12;
+    v70 = var11;
+    v68 = var13;
     do
     {
-      for (i = 0; i != v75; ++i)
+      for (i = 0; i != v73; ++i)
       {
-        if (*v106 != v69)
+        if (*v104 != v67)
         {
           objc_enumerationMutation(&unk_1F4066600);
         }
 
-        unsignedIntegerValue = [*(*(&v105 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v103 + 1) + 8 * i) unsignedIntegerValue];
         [objc_opt_class() _minConfidenceExpressionStarted:3 forActivation:unsignedIntegerValue];
-        v83 = v13;
+        v81 = v12;
         [objc_opt_class() _minConfidenceExpressionStarted:2 forActivation:unsignedIntegerValue];
-        v15 = v14;
+        v14 = v13;
         [objc_opt_class() _minConfidenceExpressionStarted:1 forActivation:unsignedIntegerValue];
-        v17 = v16;
+        v16 = v15;
         [objc_opt_class() _minConfidenceExpressionStarted:0 forActivation:unsignedIntegerValue];
-        v19 = v18;
+        v18 = v17;
         [objc_opt_class() _minConfidenceExpressionStarted:4 forActivation:unsignedIntegerValue];
-        v21 = v20;
+        v20 = v19;
         [objc_opt_class() _minConfidenceExpressionStarted:5 forActivation:unsignedIntegerValue];
-        v23 = v22;
+        v22 = v21;
         [objc_opt_class() _minConfidenceExpressionStarted:6 forActivation:unsignedIntegerValue];
-        v85 = v24;
+        v83 = v23;
         [objc_opt_class() _minConfidenceExpressionStarted:7 forActivation:unsignedIntegerValue];
-        v84 = v25;
+        v82 = v24;
         [objc_opt_class() _minConfidenceExpressionStarted:8 forActivation:unsignedIntegerValue];
-        v26 = 0;
-        v82 = v27;
-        v29 = var2 > v15 && var1 > v15;
-        v31 = var6 > v19 && var5 > v19;
-        v78 = v29;
-        v79 = v31;
-        v33 = v88 > v21 && var7 > v21;
-        v35 = var9 > v23 && var10 > v23;
-        v80 = v33;
-        v81 = v35;
-        if (var3 > v17)
+        v25 = 0;
+        v80 = v26;
+        v28 = var2 > v14 && var1 > v14;
+        v30 = var6 > v18 && var5 > v18;
+        v76 = v28;
+        v77 = v30;
+        v32 = var8 > v20 && var7 > v20;
+        v34 = var9 > v22 && var10 > v22;
+        v78 = v32;
+        v79 = v34;
+        if (var3 > v16)
         {
-          v36 = objc_opt_class();
-          *&v37 = var3;
-          *&v38 = var4;
-          v26 = [v36 _jawOpenStartingWithValue:unsignedIntegerValue mouthClose:v37 forActivation:v38];
+          v35 = objc_opt_class();
+          *&v36 = var3;
+          *&v37 = var4;
+          v25 = [v35 _jawOpenStartingWithValue:unsignedIntegerValue mouthClose:v36 forActivation:v37];
         }
 
-        v77 = v26;
-        [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        v76 = v101 >= unsignedIntegerValue;
-        [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        v39 = v100 >= unsignedIntegerValue;
-        [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        v40 = v99 >= unsignedIntegerValue;
-        [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self previousExpressions];
-        v41 = v19 * 0.375;
-        v42 = v21 * 0.95;
-        v43 = v23 * 0.65;
-        v45 = var2 > (v15 * 0.61538) && var1 > (v15 * 0.61538);
-        v47 = var3 > (v17 * 0.5) && v103 >= unsignedIntegerValue;
-        v49 = var6 > v41 && var5 > v41;
-        v51 = var7 > v42 && v88 > v42;
-        v53 = var9 > v43 && var10 > v43;
-        v55 = v70 > (v85 * 0.6) && v98 >= unsignedIntegerValue;
-        v57 = v71 > (v82 * 0.6) && v96 >= unsignedIntegerValue;
-        v59 = v72 > (v84 * 0.6) && v97 >= unsignedIntegerValue;
-        v60 = var0 > (v83 * 0.1) && v102 >= unsignedIntegerValue;
-        v61 = v45 && v104 >= unsignedIntegerValue;
-        v62 = var0 <= v83;
-        if (v60)
+        v75 = v25;
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
+        v74 = v99[0] >= unsignedIntegerValue;
+        objc_msgSend_previousExpressions(self);
+        v38 = v98 >= unsignedIntegerValue;
+        objc_msgSend_previousExpressions(self);
+        v39 = v97 >= unsignedIntegerValue;
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
+        objc_msgSend_previousExpressions(self);
+        v40 = v18 * 0.375;
+        v41 = v20 * 0.95;
+        v42 = v22 * 0.65;
+        v44 = var2 > (v14 * 0.61538) && var1 > (v14 * 0.61538);
+        v46 = var3 > (v16 * 0.5) && v101 >= unsignedIntegerValue;
+        v48 = var6 > v40 && var5 > v40;
+        v50 = var7 > v41 && var8 > v41;
+        v52 = var9 > v42 && var10 > v42;
+        v54 = v68 > (v83 * 0.6) && v96 >= unsignedIntegerValue;
+        v56 = v69 > (v80 * 0.6) && v94 >= unsignedIntegerValue;
+        v58 = v70 > (v82 * 0.6) && v95 >= unsignedIntegerValue;
+        v59 = var0 > (v81 * 0.1) && v100 >= unsignedIntegerValue;
+        v60 = v44 && v102 >= unsignedIntegerValue;
+        v61 = var0 <= v81;
+        if (v59)
         {
-          v62 = 0;
+          v61 = 0;
         }
 
-        v5 = v73;
-        if ((v78 | v61))
+        v5 = v71;
+        if ((v76 | v60))
         {
-          v73->var2 = unsignedIntegerValue;
+          v71->var2 = unsignedIntegerValue;
         }
 
-        if ((v62 & v77 | v47))
+        if ((v61 & v75 | v46))
         {
-          v73->var1 = unsignedIntegerValue;
+          v71->var1 = unsignedIntegerValue;
         }
 
-        if (!v62)
+        if (!v61)
         {
-          v73->var3 = unsignedIntegerValue;
+          v71->var3 = unsignedIntegerValue;
         }
 
-        if (v79 || v49 && v76)
+        if (v77 || v48 && v74)
         {
-          v73->var0 = unsignedIntegerValue;
+          v71->var0 = unsignedIntegerValue;
         }
 
-        if (v80 || v51 && v39)
+        if (v78 || v50 && v38)
         {
-          v73->var4 = unsignedIntegerValue;
+          v71->var4 = unsignedIntegerValue;
         }
 
-        if (v81 || v53 && v40)
+        if (v79 || v52 && v39)
         {
-          v73->var5 = unsignedIntegerValue;
+          v71->var5 = unsignedIntegerValue;
         }
 
-        if (v71 > v82 || v57)
+        if (v69 > v80 || v56)
         {
-          v73->var7 = unsignedIntegerValue;
+          v71->var7 = unsignedIntegerValue;
         }
 
-        if (v72 > v84 || v59)
+        if (v70 > v82 || v58)
         {
-          v73->var8 = unsignedIntegerValue;
-          v63 = unsignedIntegerValue;
+          v71->var8 = unsignedIntegerValue;
+          v62 = unsignedIntegerValue;
         }
 
         else
         {
-          v63 = v73->var8;
+          v62 = v71->var8;
         }
 
-        if (!v73->var7 && !v63 && (v70 > v85 || v55))
+        if (!v71->var7 && !v62 && (v68 > v83 || v54))
         {
-          v73->var6 = unsignedIntegerValue;
+          v71->var6 = unsignedIntegerValue;
         }
       }
 
-      v75 = [&unk_1F4066600 countByEnumeratingWithState:&v105 objects:v109 count:16];
+      v73 = [&unk_1F4066600 countByEnumeratingWithState:&v103 objects:v107 count:16];
     }
 
-    while (v75);
+    while (v73);
   }
 
-  v64 = *&v5->var6;
-  v94[2] = *&v5->var4;
-  v94[3] = v64;
-  v95 = v5->var8;
-  v65 = *&v5->var2;
-  v94[0] = *&v5->var0;
-  v94[1] = v65;
-  result = [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self setPreviousExpressions:v94];
-  v67 = *MEMORY[0x1E69E9840];
-  return result;
+  v63 = *&v5->var6;
+  v92[2] = *&v5->var4;
+  v92[3] = v63;
+  v93 = v5->var8;
+  v64 = *&v5->var2;
+  v92[0] = *&v5->var0;
+  v92[1] = v64;
+  return [(AXSSMotionTrackingExpressionConfiguration_Exclave *)self setPreviousExpressions:v92];
 }
 
 + (float)_minConfidenceExpressionStarted:(unint64_t)started forActivation:(unint64_t)activation

@@ -18,14 +18,14 @@
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)duration
 {
-  result = [(_PXStoryConcreteCompanionTimelineSegmentTransition *)self transitionInfo];
+  result = objc_msgSend_transitionInfo(self, a3);
   *retstr = v5;
   return result;
 }
 
 - (int64_t)kind
 {
-  [(_PXStoryConcreteCompanionTimelineSegmentTransition *)self transitionInfo];
+  objc_msgSend_transitionInfo(self, a2);
   if (v3 > 0xAuLL)
   {
     return 0;

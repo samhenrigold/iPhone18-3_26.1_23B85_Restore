@@ -191,7 +191,7 @@
 
 void __41__HFCameraVideoCache__cacheClip_inClips___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v7 = a2;
   if ([v7 isComplete])
   {
@@ -201,18 +201,18 @@ void __41__HFCameraVideoCache__cacheClip_inClips___block_invoke_2(uint64_t a1, v
 
     if (v10)
     {
-      [v7 duration];
+      objc_msgSend_duration(v7);
       *(*(*(a1 + 40) + 8) + 24) = v11 + *(*(*(a1 + 40) + 8) + 24);
       v12 = HFLogForCategory(0xDuLL);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = [v7 hf_prettyDescription];
         v14 = [v10 path];
-        v38 = 138412546;
-        v39 = v13;
-        v40 = 2112;
-        v41 = v14;
-        _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "[SKIPPED] video exists; clip: %@; path: %@", &v38, 0x16u);
+        v37 = 138412546;
+        v38 = v13;
+        v39 = 2112;
+        v40 = v14;
+        _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "[SKIPPED] video exists; clip: %@; path: %@", &v37, 0x16u);
       }
 
       [*(a1 + 32) _notifyVideoExistsForClip:v7 atURL:v10];
@@ -253,9 +253,9 @@ void __41__HFCameraVideoCache__cacheClip_inClips___block_invoke_2(uint64_t a1, v
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         v22 = [v7 hf_prettyDescription];
-        v38 = 138412290;
-        v39 = v22;
-        _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "[SKIPPED] download operation exists; clip: %@", &v38, 0xCu);
+        v37 = 138412290;
+        v38 = v22;
+        _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "[SKIPPED] download operation exists; clip: %@", &v37, 0xCu);
       }
 
       [v20 setQueuePriority:v19];
@@ -278,7 +278,7 @@ void __41__HFCameraVideoCache__cacheClip_inClips___block_invoke_2(uint64_t a1, v
     v27 = v26;
 
     v28 = *(*(*(a1 + 40) + 8) + 24);
-    [v7 duration];
+    objc_msgSend_duration(v7);
     v30 = v28 + v29;
     v31 = v30 <= v27;
     v32 = vabdd_f64(v30, v27);
@@ -288,7 +288,7 @@ void __41__HFCameraVideoCache__cacheClip_inClips___block_invoke_2(uint64_t a1, v
       if ([*(a1 + 32) _queueVideoDownloadForClip:v7 priority:{v19, v32}])
       {
 LABEL_29:
-        [v7 duration];
+        objc_msgSend_duration(v7);
         *(*(*(a1 + 40) + 8) + 24) = v34 + *(*(*(a1 + 40) + 8) + 24);
 LABEL_35:
 
@@ -303,9 +303,9 @@ LABEL_35:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         v36 = [v7 hf_prettyDescription];
-        v38 = 138412290;
-        v39 = v36;
-        _os_log_impl(&dword_20D9BF000, v35, OS_LOG_TYPE_DEFAULT, "[SKIPPED] clip duration takes us over the limit; clip: %@", &v38, 0xCu);
+        v37 = 138412290;
+        v38 = v36;
+        _os_log_impl(&dword_20D9BF000, v35, OS_LOG_TYPE_DEFAULT, "[SKIPPED] clip duration takes us over the limit; clip: %@", &v37, 0xCu);
       }
     }
 
@@ -317,14 +317,12 @@ LABEL_35:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v15 = [v7 hf_prettyDescription];
-    v38 = 138412290;
-    v39 = v15;
-    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "[SKIPPED] incomplete clip: %@", &v38, 0xCu);
+    v37 = 138412290;
+    v38 = v15;
+    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "[SKIPPED] incomplete clip: %@", &v37, 0xCu);
   }
 
 LABEL_36:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheClip:(id)clip
@@ -353,7 +351,7 @@ LABEL_36:
 
 - (void)_cacheClip:(id)clip
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   if (!+[HFUtilities isInternalTest])
   {
@@ -381,9 +379,9 @@ LABEL_36:
         hf_prettyDescription = [clipCopy hf_prettyDescription];
         path = [v9 path];
         *buf = 138412546;
-        v20 = hf_prettyDescription;
-        v21 = 2112;
-        v22 = path;
+        v19 = hf_prettyDescription;
+        v20 = 2112;
+        v21 = path;
         _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "[SKIPPED] video exists; clip: %@; path: %@", buf, 0x16u);
       }
 
@@ -400,7 +398,7 @@ LABEL_36:
         {
           hf_prettyDescription2 = [clipCopy hf_prettyDescription];
           *buf = 138412290;
-          v20 = hf_prettyDescription2;
+          v19 = hf_prettyDescription2;
           _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "[SKIPPED] download operation exists; clip: %@", buf, 0xCu);
         }
 
@@ -423,12 +421,10 @@ LABEL_36:
     {
       hf_prettyDescription3 = [clipCopy hf_prettyDescription];
       *buf = 138412290;
-      v20 = hf_prettyDescription3;
+      v19 = hf_prettyDescription3;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "[SKIPPED] incomplete clip: %@", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingDownloadOperationForClip:(id)clip
@@ -459,7 +455,7 @@ uint64_t __56__HFCameraVideoCache__existingDownloadOperationForClip___block_invo
 
 - (BOOL)_queueVideoDownloadForClip:(id)clip priority:(int64_t)priority
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v7 = [clipCopy size];
   diskCache = [(HFCameraVideoCache *)self diskCache];
@@ -481,11 +477,11 @@ uint64_t __56__HFCameraVideoCache__existingDownloadOperationForClip___block_invo
       hf_prettyDescription = [clipCopy hf_prettyDescription];
       destinationURL = [v12 destinationURL];
       path = [destinationURL path];
-      v20 = 138412546;
-      v21 = hf_prettyDescription;
-      v22 = 2112;
-      v23 = path;
-      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "[QUEUED] download operation for clip: %@; destination: %@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = hf_prettyDescription;
+      v21 = 2112;
+      v22 = path;
+      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "[QUEUED] download operation for clip: %@; destination: %@", &v19, 0x16u);
     }
 
     operationQueue = [(HFCameraVideoCache *)self operationQueue];
@@ -497,13 +493,12 @@ uint64_t __56__HFCameraVideoCache__existingDownloadOperationForClip___block_invo
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     operationQueue = [clipCopy hf_prettyDescription];
-    v20 = 138412290;
-    v21 = operationQueue;
-    _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "[SKIPPED] disk cache cannot accommodate clip size: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = operationQueue;
+    _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "[SKIPPED] disk cache cannot accommodate clip size: %@", &v19, 0xCu);
 LABEL_7:
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -692,7 +687,7 @@ void __36__HFCameraVideoCache_diskCacheLimit__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __40__HFCameraVideoCache_cacheDurationLimit__block_invoke(uint64_t a1)
+void *__40__HFCameraVideoCache_cacheDurationLimit__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cacheDurationLimit];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -733,7 +728,7 @@ uint64_t __40__HFCameraVideoCache_cacheDurationLimit__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __56__HFCameraVideoCache_expensiveNetworkCacheDurationLimit__block_invoke(uint64_t a1)
+void *__56__HFCameraVideoCache_expensiveNetworkCacheDurationLimit__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _expensiveNetworkCacheDurationLimit];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -777,7 +772,7 @@ uint64_t __56__HFCameraVideoCache_expensiveNetworkCacheDurationLimit__block_invo
 
 - (void)_limitDiskCacheToPercentageofAvailableDiskSpace:(unint64_t)space
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!+[HFUtilities isInternalTest])
   {
     workQueue = [(HFCameraVideoCache *)self workQueue];
@@ -791,12 +786,12 @@ uint64_t __56__HFCameraVideoCache_expensiveNetworkCacheDurationLimit__block_invo
   }
 
   v7 = +[HFCameraUtilities videoCachesDirectoryURL];
-  v21 = 0;
-  v8 = *MEMORY[0x277CBE9F8];
   v20 = 0;
-  v9 = [v7 getResourceValue:&v21 forKey:v8 error:&v20];
-  v10 = v21;
-  v11 = v20;
+  v8 = *MEMORY[0x277CBE9F8];
+  v19 = 0;
+  v9 = [v7 getResourceValue:&v20 forKey:v8 error:&v19];
+  v10 = v20;
+  v11 = v19;
 
   if (!v9)
   {
@@ -804,9 +799,9 @@ uint64_t __56__HFCameraVideoCache_expensiveNetworkCacheDurationLimit__block_invo
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[HFCameraVideoCache _limitDiskCacheToPercentageofAvailableDiskSpace:]";
-      v24 = 2112;
-      v25 = v11;
+      v22 = "[HFCameraVideoCache _limitDiskCacheToPercentageofAvailableDiskSpace:]";
+      v23 = 2112;
+      v24 = v11;
       _os_log_error_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
     }
 
@@ -827,20 +822,18 @@ uint64_t __56__HFCameraVideoCache_expensiveNetworkCacheDurationLimit__block_invo
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v23 = "[HFCameraVideoCache _limitDiskCacheToPercentageofAvailableDiskSpace:]";
-      v24 = 2048;
-      v25 = v13;
-      v26 = 2048;
+      v22 = "[HFCameraVideoCache _limitDiskCacheToPercentageofAvailableDiskSpace:]";
+      v23 = 2048;
+      v24 = v13;
+      v25 = 2048;
       spaceCopy = space;
-      v28 = 2112;
-      v29 = v10;
+      v27 = 2112;
+      v28 = v10;
       _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "%s diskCacheLimit: %lu (%lu%% of %@ available)", buf, 0x2Au);
     }
 
 LABEL_11:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyVideoExistsForClip:(id)clip atURL:(id)l
@@ -861,36 +854,34 @@ LABEL_11:
 
 - (void)_gloablNotifyDidAddVideoForClip:(id)clip
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   if (+[HFCameraUtilities markCachedVideoAsGreenInTimeline])
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v6 = HFCameraVideoCacheDidAddVideoDebugNotification;
-    v10 = @"uniqueIdentifier";
+    v9 = @"uniqueIdentifier";
     uniqueIdentifier = [clipCopy uniqueIdentifier];
-    v11[0] = uniqueIdentifier;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = uniqueIdentifier;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [defaultCenter postNotificationName:v6 object:self userInfo:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDownloadVideoFileForClip:(id)clip toURL:(id)l
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   lCopy = l;
   v8 = HFLogForCategory(0xDuLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     path = [lCopy path];
-    v15 = 138412546;
-    v16 = clipCopy;
-    v17 = 2112;
-    v18 = path;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "[FILE DOWNLOADED] clip: %@; path: %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = clipCopy;
+    v16 = 2112;
+    v17 = path;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "[FILE DOWNLOADED] clip: %@; path: %@", &v14, 0x16u);
   }
 
   diskCache = [(HFCameraVideoCache *)self diskCache];
@@ -907,24 +898,22 @@ LABEL_11:
   }
 
   [(HFCameraVideoCache *)self _gloablNotifyDidAddVideoForClip:clipCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)foundVideoFileForClip:(id)clip atURL:(id)l
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   lCopy = l;
   v8 = HFLogForCategory(0xDuLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     path = [lCopy path];
-    v15 = 138412546;
-    v16 = clipCopy;
-    v17 = 2112;
-    v18 = path;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "[FILE EXISTS] clip: %@; path: %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = clipCopy;
+    v16 = 2112;
+    v17 = path;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "[FILE EXISTS] clip: %@; path: %@", &v14, 0x16u);
   }
 
   diskCache = [(HFCameraVideoCache *)self diskCache];
@@ -941,42 +930,36 @@ LABEL_11:
   }
 
   [(HFCameraVideoCache *)self _gloablNotifyDidAddVideoForClip:clipCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkDidBecomeExpensive:(id)expensive
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = HFLogForCategory(0xDuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[HFCameraVideoCache networkDidBecomeExpensive:]";
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%s: cancelling all in-flight operations", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[HFCameraVideoCache networkDidBecomeExpensive:]";
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%s: cancelling all in-flight operations", &v6, 0xCu);
   }
 
   operationQueue = [(HFCameraVideoCache *)self operationQueue];
   [operationQueue cancelAllOperations];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)diskCache:(id)cache didEvictFileFromDisk:(id)disk forUniqueIdentifier:(id)identifier
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (+[HFCameraUtilities markCachedVideoAsGreenInTimeline])
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v8 = HFCameraVideoCacheDidRemoveVideoDebugNotification;
-    v11 = @"uniqueIdentifier";
-    v12[0] = identifierCopy;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"uniqueIdentifier";
+    v11[0] = identifierCopy;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     [defaultCenter postNotificationName:v8 object:self userInfo:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)diskCache:(id)cache shouldAddExistingFileToCache:(id)toCache

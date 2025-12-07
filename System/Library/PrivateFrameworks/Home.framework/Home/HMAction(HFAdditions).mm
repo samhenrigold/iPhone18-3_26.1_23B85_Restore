@@ -9,27 +9,27 @@
 
 - (uint64_t)hf_affectedCharacteristic
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  NSLog(&cfstr_HasNotImplemen.isa, v1);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  NSLog(&cfstr_HasNotImplemen.isa, v3);
 
   return 0;
 }
 
 - (id)hf_affectedAccessoryProfiles
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  NSLog(&cfstr_HasNotImplemen_0.isa, v1);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  NSLog(&cfstr_HasNotImplemen_0.isa, v3);
 
   if (_MergedGlobals_300 != -1)
   {
     dispatch_once(&_MergedGlobals_300, &__block_literal_global_7_9);
   }
 
-  v2 = qword_280E03A20;
+  v4 = qword_280E03A20;
 
-  return v2;
+  return v4;
 }
 
 - (uint64_t)hf_isServiceLikeItemInvolved:()HFAdditions

@@ -81,7 +81,7 @@
         v10 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          [(MOConnectionManager *)selfCopy _getActiveConnection];
+          [MOConnectionManager _getActiveConnection];
         }
       }
 
@@ -102,7 +102,7 @@
       v11 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        [(MOConnectionManager *)selfCopy _getActiveConnection];
+        [MOConnectionManager _getActiveConnection];
       }
 
       [*p_xpc_connection activate];
@@ -117,7 +117,7 @@
       v12 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(MOConnectionManager *)selfCopy _getActiveConnection];
+        [MOConnectionManager _getActiveConnection];
       }
 
       v5 = 0;
@@ -131,7 +131,7 @@
 
 void __43__MOConnectionManager__getActiveConnection__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -143,13 +143,11 @@ void __43__MOConnectionManager__getActiveConnection__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = v2[3];
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_25E48F000, v4, OS_LOG_TYPE_INFO, "Connection '%@' Invalidated", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_25E48F000, v4, OS_LOG_TYPE_INFO, "Connection '%@' Invalidated", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__MOConnectionManager__getActiveConnection__block_invoke_3(uint64_t a1)
@@ -212,19 +210,17 @@ void __45__MOConnectionManager__getSingleCallHandler___block_invoke_2(uint64_t a
 
 - (id)_makeConnectionErrorWithReason:(id)reason
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = *MEMORY[0x277CCA450];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277CCA450];
   v4 = MEMORY[0x277CCACA8];
   reasonCopy = reason;
   getConnectionName = [(MOConnectionManager *)self getConnectionName];
   reasonCopy = [v4 stringWithFormat:@"%@:%@", getConnectionName, reasonCopy];
 
-  v13[0] = reasonCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = reasonCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:13 userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -616,45 +612,36 @@ id __44__MOConnectionManager_getAsyncProxyProvider__block_invoke(uint64_t a1, vo
 
 - (void)_getActiveConnection
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(self + 24);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(&dword_25E48F000, v2, OS_LOG_TYPE_ERROR, "Can't activate connection '%@': nil delegate", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25E48F000, v0, OS_LOG_TYPE_ERROR, "Can't activate connection '%@': nil delegate", v1, 0xCu);
 }
 
 - (void)withProxyProvider:proxyHandler:onError:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  v3 = 1024;
-  v4 = 210;
-  _os_log_error_impl(&dword_25E48F000, v0, OS_LOG_TYPE_ERROR, "Should use valid sync proxy block handler (in %s:%d)", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 1024;
+  v3 = 210;
+  _os_log_error_impl(&dword_25E48F000, v0, OS_LOG_TYPE_ERROR, "Should use valid sync proxy block handler (in %s:%d)", v1, 0x12u);
 }
 
 void __62__MOConnectionManager_withProxyProvider_proxyHandler_onError___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) getConnectionName];
   v4 = [a2 localizedDescription];
   v5 = [a2 localizedFailureReason];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_25E48F000, v6, v7, "%@: proxy error, %@, %@, retrying...", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25E48F000, v6, v7, "%@: proxy error, %@, %@, retrying...", v8, v9, v10, v11);
 }
 
 void __62__MOConnectionManager_withProxyProvider_proxyHandler_onError___block_invoke_17_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) getConnectionName];
   v4 = [a2 localizedDescription];
   v5 = [a2 localizedFailureReason];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_25E48F000, v6, v7, "%@: proxy error, %@, %@.", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25E48F000, v6, v7, "%@: proxy error, %@, %@.", v8, v9, v10, v11);
 }
 
 @end

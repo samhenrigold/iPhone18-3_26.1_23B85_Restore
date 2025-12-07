@@ -14,97 +14,96 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend__item(self, v5, v6);
-  v9 = objc_msgSend__initWithItem_conversationInitiator_(v4, v8, v7, self->_conversationInitiator);
+  _item = [(IMChatItem *)self _item];
+  v6 = [v4 _initWithItem:_item conversationInitiator:self->_conversationInitiator];
 
-  return v9;
+  return v6;
 }
 
 - (id)_initWithItem:(id)item conversationInitiator:(id)initiator
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   initiatorCopy = initiator;
-  v18.receiver = self;
-  v18.super_class = IMTUConversationChatItem;
-  v8 = [(IMChatItem *)&v18 _initWithItem:itemCopy];
+  v14.receiver = self;
+  v14.super_class = IMTUConversationChatItem;
+  v8 = [(IMChatItem *)&v14 _initWithItem:itemCopy];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(v8 + 7, initiator);
-    v12 = objc_msgSend_guid(itemCopy, v10, v11);
-    v13 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v11 = sub_1A83AC604();
 
     if (IMOSLoggingEnabled())
     {
-      v15 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v20 = v13;
-        v21 = 2112;
-        v22 = itemCopy;
-        _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Creating new IMTranscriptChatItem with GUID %@ from IMTUConversationItem %@", buf, 0x16u);
+        v16 = v11;
+        v17 = 2112;
+        v18 = itemCopy;
+        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Creating new IMTranscriptChatItem with GUID %@ from IMTUConversationItem %@", buf, 0x16u);
       }
     }
 
-    objc_msgSend__setGUID_(v9, v14, v13);
+    [v9 _setGUID:v11];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)activeCall
 {
-  v4 = objc_msgSend_sharedRegistry(IMChatRegistry, a2, v2);
-  v7 = objc_msgSend_tuConversationUUID(self, v5, v6);
-  v9 = objc_msgSend_activeCallForConversationUUID_(v4, v8, v7);
+  v3 = +[IMChatRegistry sharedRegistry];
+  tuConversationUUID = [(IMTUConversationChatItem *)self tuConversationUUID];
+  v5 = [v3 activeCallForConversationUUID:tuConversationUUID];
 
-  return v9;
+  return v5;
 }
 
 - (NSUUID)tuConversationUUID
 {
   v3 = objc_alloc(MEMORY[0x1E696AFB0]);
-  v6 = objc_msgSend__item(self, v4, v5);
-  v9 = objc_msgSend_guid(v6, v7, v8);
-  v11 = objc_msgSend_initWithUUIDString_(v3, v10, v9);
+  _item = [(IMChatItem *)self _item];
+  guid = [_item guid];
+  v6 = [v3 initWithUUIDString:guid];
 
-  return v11;
+  return v6;
 }
 
 - (TUConversation)tuConversation
 {
-  v4 = objc_msgSend_sharedRegistry(IMChatRegistry, a2, v2);
-  v7 = objc_msgSend_tuConversationUUID(self, v5, v6);
-  v9 = objc_msgSend_existingConversationForFaceTimeConversationUUID_(v4, v8, v7);
+  v3 = +[IMChatRegistry sharedRegistry];
+  tuConversationUUID = [(IMTUConversationChatItem *)self tuConversationUUID];
+  v5 = [v3 existingConversationForFaceTimeConversationUUID:tuConversationUUID];
 
-  return v9;
+  return v5;
 }
 
 - (BOOL)isFromMe
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_isFromMe(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  isFromMe = [_item isFromMe];
 
-  return v6;
+  return isFromMe;
 }
 
 - (NSDate)time
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_time(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  time = [_item time];
 
-  return v6;
+  return time;
 }
 
 - (unint64_t)conversationAVMode
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_avMode(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  avMode = [_item avMode];
 
-  return v6;
+  return avMode;
 }
 
 @end

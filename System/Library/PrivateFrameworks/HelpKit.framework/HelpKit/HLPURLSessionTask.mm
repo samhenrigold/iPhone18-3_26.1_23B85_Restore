@@ -138,34 +138,34 @@ void __52__HLPURLSessionTask_initWithSessionTask_identifier___block_invoke(uint6
 
 - (void)didCompleteWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(NSHashTable *)self->_sessionTaskDelegates copy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v14 + 1) + 8 * v10++) URLSessionSessionTask:self didCompleteWithError:errorCopy];
+        [*(*(&v13 + 1) + 8 * v10++) URLSessionSessionTask:self didCompleteWithError:errorCopy];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -178,8 +178,6 @@ void __52__HLPURLSessionTask_initWithSessionTask_identifier___block_invoke(uint6
   block[3] = &unk_279706B10;
   block[4] = self;
   dispatch_sync(sessionTaskDelegateQueue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __42__HLPURLSessionTask_didCompleteWithError___block_invoke(uint64_t a1)

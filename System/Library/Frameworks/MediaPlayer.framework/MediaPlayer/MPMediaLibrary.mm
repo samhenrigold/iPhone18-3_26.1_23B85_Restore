@@ -917,7 +917,7 @@ uint64_t __53__MPMediaLibrary__reloadLibraryForRestrictionsChange__block_invoke(
 
   v29 = selfCopy;
   os_unfair_lock_unlock([(MPMediaLibrary *)selfCopy _MLCoreStorageLockPointer]);
-  [_MLCoreStorage _MediaLibrary_coreLibrary];
+  objc_msgSend__MediaLibrary_coreLibrary(_MLCoreStorage);
 
   result.__cntrl_ = v31;
   result.__ptr_ = v30;
@@ -5333,7 +5333,7 @@ void __47__MPMediaLibrary_removeLibraryFilterPredicate___block_invoke(uint64_t a
   }
 }
 
-uint64_t __44__MPMediaLibrary_addLibraryFilterPredicate___block_invoke(uint64_t a1)
+void *__44__MPMediaLibrary_addLibraryFilterPredicate___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) containsObject:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -5409,9 +5409,9 @@ uint64_t __33__MPMediaLibrary_isDeviceLibrary__block_invoke(uint64_t a1)
   return [__userMediaLibraries enumerateKeysAndObjectsUsingBlock:v2];
 }
 
-uint64_t __33__MPMediaLibrary_isDeviceLibrary__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__33__MPMediaLibrary_isDeviceLibrary__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  result = [*(a1 + 32) isEqual:?];
+  result = [*(a1 + 32) isEqual:a3];
   *(*(*(a1 + 40) + 8) + 24) = result;
   *a4 = *(*(*(a1 + 40) + 8) + 24);
   return result;
@@ -5865,7 +5865,7 @@ uint64_t __65__MPMediaLibrary__scheduleLibraryChangeNotificationPostingBlock___b
   dispatch_sync(entityCacheQueue, v4);
 }
 
-uint64_t __58__MPMediaLibrary__clearCachedEntitiesIncludingResultSets___block_invoke(uint64_t a1)
+void *__58__MPMediaLibrary__clearCachedEntitiesIncludingResultSets___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 48) removeAllObjects];
   [*(*(a1 + 32) + 80) removeAllObjects];
@@ -6839,7 +6839,7 @@ uint64_t __46__MPMediaLibrary_endDiscoveringMediaLibraries__block_invoke(uint64_
   return [*(a1 + 32) _endDiscoveringMediaLibrariesIfAllowed];
 }
 
-uint64_t __48__MPMediaLibrary_beginDiscoveringMediaLibraries__block_invoke()
+void *__48__MPMediaLibrary_beginDiscoveringMediaLibraries__block_invoke()
 {
   if (!__numberOfHomeSharingObservers++)
   {

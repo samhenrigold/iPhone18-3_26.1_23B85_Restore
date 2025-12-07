@@ -90,7 +90,7 @@
   v13 = v5;
   v14 = v5;
   v12 = v5;
-  HSUtil::Decoder::decodeArray(decode, &v12);
+  HSUtil::Decoder::decodeArray(&v12, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));
@@ -112,7 +112,7 @@
       v10[3] = v6;
       v10[0] = v6;
       v10[1] = v6;
-      HSUtil::Decoder::decodeData(&v12, v10);
+      HSUtil::Decoder::decodeData(v10, &v12);
       if (v12)
       {
         break;

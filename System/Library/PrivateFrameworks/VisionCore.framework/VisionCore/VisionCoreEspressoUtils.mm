@@ -223,19 +223,19 @@ void __83__VisionCoreEspressoUtils__addNewTensorDescriptorsTo_forBlobNamesWithTy
 
 + (id)tensorShapesForBlobNames:(id)names ofNetworkModelFileURL:(id)l error:(id *)error
 {
-  v51[19] = *MEMORY[0x1E69E9840];
+  v52[19] = *MEMORY[0x1E69E9840];
   namesCopy = names;
   lCopy = l;
   v8 = [lCopy VisionCoreFileSystemPathAndReturnError:error];
   if (!v8)
   {
     error = 0;
-    goto LABEL_45;
+    goto LABEL_48;
   }
 
   v9 = [namesCopy count];
-  v39 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:40 * v9];
-  mutableBytes = [v39 mutableBytes];
+  v40 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:40 * v9];
+  mutableBytes = [v40 mutableBytes];
   v11 = mutableBytes;
   if (v9)
   {
@@ -253,24 +253,24 @@ void __83__VisionCoreEspressoUtils__addNewTensorDescriptorsTo_forBlobNamesWithTy
     while (v9 != v12);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v47, [v8 UTF8String]);
-  size = HIBYTE(v47.__r_.__value_.__r.__words[2]);
-  v16 = v47.__r_.__value_.__r.__words[0];
-  if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  std::string::basic_string[abi:ne200100]<0>(&v48, [v8 UTF8String]);
+  size = HIBYTE(v48.__r_.__value_.__r.__words[2]);
+  v16 = v48.__r_.__value_.__r.__words[0];
+  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v47.__r_.__value_.__l.__size_;
+    size = v48.__r_.__value_.__l.__size_;
   }
 
   else
   {
-    v16 = &v47;
+    v16 = &v48;
   }
 
   if (!size)
   {
     v23 = 0;
     v24 = 4294967290;
-    goto LABEL_26;
+    goto LABEL_29;
   }
 
   v17 = (v16 + size);
@@ -309,122 +309,132 @@ LABEL_19:
   v24 = 4294967290;
   if (v19 == v17 || (v25 = v19 - v16, v25 == -1))
   {
-LABEL_26:
-    if ((*(&v47.__r_.__value_.__s + 23) & 0x80) != 0)
+LABEL_29:
+    if ((*(&v48.__r_.__value_.__s + 23) & 0x80) != 0)
     {
-      goto LABEL_41;
+      goto LABEL_44;
     }
 
-LABEL_27:
+LABEL_30:
     if ((v23 & 1) == 0)
     {
-      goto LABEL_42;
+      goto LABEL_45;
     }
 
-LABEL_28:
+LABEL_31:
     error = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v9];
     if (v9)
     {
       for (i = 0; i != v9; ++i)
       {
-        v27 = *v11;
-        v28 = *(v11 + 16);
-        v50 = *(v11 + 32);
-        v48 = v27;
+        v28 = *v11;
+        v29 = *(v11 + 16);
+        v51 = *(v11 + 32);
         v49 = v28;
-        v29 = [VisionCoreEspressoTensorShape shapeForBlobDimensions:&v48];
-        v30 = [namesCopy objectAtIndexedSubscript:i];
-        [error setObject:v29 forKey:v30];
+        v50 = v29;
+        v30 = [VisionCoreEspressoTensorShape shapeForBlobDimensions:&v49];
+        v31 = [namesCopy objectAtIndexedSubscript:i];
+        [error setObject:v30 forKey:v31];
 
         v11 += 40;
       }
     }
 
-    goto LABEL_44;
+    goto LABEL_47;
   }
 
-  std::string::replace(&v47, v25 + 10, 0xFFFFFFFFFFFFFFFFLL, "shape", 5uLL);
-  std::ifstream::basic_ifstream(&v48);
+  std::string::replace(&v48, v25 + 10, 0xFFFFFFFFFFFFFFFFLL, "shape", 5uLL);
+  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v26 = &v48;
+  }
+
+  else
+  {
+    v26 = v48.__r_.__value_.__r.__words[0];
+  }
+
+  std::ifstream::basic_ifstream(&v49, v26);
   std::string::basic_string[abi:ne200100]<0>(__p, "json");
   Espresso::load_network_shape();
-  if (v42 < 0)
+  if (v43 < 0)
   {
     operator delete(__p[0]);
     if (!v9)
     {
-      goto LABEL_40;
+      goto LABEL_43;
     }
   }
 
   else if (!v9)
   {
-    goto LABEL_40;
+    goto LABEL_43;
   }
 
-  v31 = v11;
-  v32 = v9;
+  v32 = v11;
+  v33 = v9;
   do
   {
-    *(v31 + 24) = 0u;
-    *(v31 + 8) = 0u;
-    std::string::basic_string[abi:ne200100]<0>(__p, *v31);
-    v33 = std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::find<std::string>(v43, __p);
-    if (&v44 != v33 || (v33 = std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::find<std::string>(&v45, __p), &v46 != v33))
+    *(v32 + 24) = 0u;
+    *(v32 + 8) = 0u;
+    std::string::basic_string[abi:ne200100]<0>(__p, *v32);
+    v34 = std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::find<std::string>(&v44, __p);
+    if (&v45 != v34 || (v34 = std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::find<std::string>(&v46, __p), &v47 != v34))
     {
-      v34 = *(v33 + 56);
-      *&v35 = v34;
-      *(&v35 + 1) = SHIDWORD(v34);
-      *(v31 + 8) = v35;
-      v36 = *(v33 + 64);
-      *&v35 = v36;
-      *(&v35 + 1) = SHIDWORD(v36);
-      *(v31 + 24) = v35;
+      v35 = *(v34 + 56);
+      *&v36 = v35;
+      *(&v36 + 1) = SHIDWORD(v35);
+      *(v32 + 8) = v36;
+      v37 = *(v34 + 64);
+      *&v36 = v37;
+      *(&v36 + 1) = SHIDWORD(v37);
+      *(v32 + 24) = v36;
     }
 
-    if (v42 < 0)
+    if (v43 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v31 += 40;
-    --v32;
+    v32 += 40;
+    --v33;
   }
 
-  while (v32);
-LABEL_40:
-  std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::destroy(v46);
-  std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::destroy(v44);
-  *&v48 = *MEMORY[0x1E69E54C8];
-  *(&v48 + *(v48 - 24)) = *(MEMORY[0x1E69E54C8] + 24);
-  MEMORY[0x1E12C7F40](&v49);
+  while (v33);
+LABEL_43:
+  std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::destroy(v47);
+  std::__tree<std::__value_type<std::string,Espresso::layer_shape>,std::__map_value_compare<std::string,std::__value_type<std::string,Espresso::layer_shape>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,Espresso::layer_shape>>>::destroy(v45);
+  *&v49 = *MEMORY[0x1E69E54C8];
+  *(&v49 + *(v49 - 24)) = *(MEMORY[0x1E69E54C8] + 24);
+  MEMORY[0x1E12C7F40](&v50);
   std::istream::~istream();
-  MEMORY[0x1E12C7FA0](v51);
+  MEMORY[0x1E12C7FA0](v52);
   v24 = 0;
   v23 = 1;
-  if ((*(&v47.__r_.__value_.__s + 23) & 0x80) == 0)
+  if ((*(&v48.__r_.__value_.__s + 23) & 0x80) == 0)
   {
-    goto LABEL_27;
+    goto LABEL_30;
   }
 
-LABEL_41:
-  operator delete(v47.__r_.__value_.__l.__data_);
+LABEL_44:
+  operator delete(v48.__r_.__value_.__l.__data_);
   if (v23)
   {
-    goto LABEL_28;
+    goto LABEL_31;
   }
 
-LABEL_42:
+LABEL_45:
   if (error)
   {
-    v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unable to introspect %@", v8];
-    *error = [MEMORY[0x1E696ABC0] VisionCoreErrorForEspressoReturnStatus:v24 localizedDescription:v37];
+    v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unable to introspect %@", v8];
+    *error = [MEMORY[0x1E696ABC0] VisionCoreErrorForEspressoReturnStatus:v24 localizedDescription:v38];
 
     error = 0;
   }
 
-LABEL_44:
+LABEL_47:
 
-LABEL_45:
+LABEL_48:
 
   return error;
 }

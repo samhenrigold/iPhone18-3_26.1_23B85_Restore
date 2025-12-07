@@ -533,7 +533,7 @@ LABEL_7:
   v39 = firstSublayout;
 LABEL_8:
   v132 = *MEMORY[0x277CBF348];
-  v133 = v132;
+  v133[0] = v132;
   v130[0] = 0;
   v130[1] = v130;
   v130[2] = 0x3010000000;
@@ -668,8 +668,8 @@ LABEL_20:
     if (((1 << mode) & 0x30) != 0)
     {
       v61 = 0;
-      *&v133 = v92;
-      *(&v133 + 1) = v5;
+      *v133 = v92;
+      *(v133 + 1) = v5;
       *&v132 = v92;
       *(&v132 + 1) = v5;
       v62 = 0.0;
@@ -699,8 +699,8 @@ LABEL_20:
     if (mode == 7)
     {
       v61 = 0;
-      *&v133 = v92;
-      *(&v133 + 1) = v5;
+      *v133 = v92;
+      *(v133 + 1) = v5;
       *&v132 = v92;
       *(&v132 + 1) = v5;
       v66 = v80 * 0.5;
@@ -718,8 +718,8 @@ LABEL_46:
 
     else
     {
-      *&v133 = v92;
-      *(&v133 + 1) = v5;
+      *v133 = v92;
+      *(v133 + 1) = v5;
       PXPointSetValueForAxis();
       PXPointValueForAxis();
       PXPointSetValueForAxis();
@@ -796,7 +796,7 @@ LABEL_55:
   v94[2] = __51__PXGSplitLayout__performUpdateSublayoutGeometries__block_invoke_2;
   v94[3] = &unk_2782A7A40;
   v94[4] = self;
-  v95 = v133;
+  v95 = v133[0];
   v100 = v61;
   v96 = v71;
   v97 = v62;

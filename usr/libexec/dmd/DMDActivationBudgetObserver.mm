@@ -18,33 +18,13 @@
   v16.receiver = self;
   v16.super_class = DMDActivationBudgetObserver;
   v9 = [(DMDActivationPredicateObserver *)&v16 initWithDelegate:delegate uniqueIdentifier:identifier predicate:predicateCopy];
-  if (!v9)
+  if (!v9 || (v10 = objc_opt_new(), usageMonitor = v9->_usageMonitor, v9->_usageMonitor = v10, usageMonitor, v12 = objc_opt_new(), expiredNotificationTimes = v9->_expiredNotificationTimes, v9->_expiredNotificationTimes = v12, expiredNotificationTimes, [(DMDActivationBudgetObserver *)v9 _extractComponentsFromBudgetPredicate:predicateCopy]) && [(DMDActivationBudgetObserver *)v9 _registerPredicateObserver])
   {
-    goto LABEL_4;
-  }
-
-  v10 = objc_opt_new();
-  usageMonitor = v9->_usageMonitor;
-  v9->_usageMonitor = v10;
-
-  v12 = objc_opt_new();
-  expiredNotificationTimes = v9->_expiredNotificationTimes;
-  v9->_expiredNotificationTimes = v12;
-
-  if (![(DMDActivationBudgetObserver *)v9 _extractComponentsFromBudgetPredicate:predicateCopy])
-  {
-    goto LABEL_5;
-  }
-
-  if ([(DMDActivationBudgetObserver *)v9 _registerPredicateObserver])
-  {
-LABEL_4:
     v14 = v9;
   }
 
   else
   {
-LABEL_5:
     v14 = 0;
   }
 
@@ -57,33 +37,13 @@ LABEL_5:
   v16.receiver = self;
   v16.super_class = DMDActivationBudgetObserver;
   v9 = [(DMDActivationPredicateObserver *)&v16 initWithDelegate:delegate uniqueIdentifier:identifier predicate:predicateCopy];
-  if (!v9)
+  if (!v9 || (v10 = objc_opt_new(), usageMonitor = v9->_usageMonitor, v9->_usageMonitor = v10, usageMonitor, v12 = objc_opt_new(), expiredNotificationTimes = v9->_expiredNotificationTimes, v9->_expiredNotificationTimes = v12, expiredNotificationTimes, [(DMDActivationBudgetObserver *)v9 _extractComponentsFromCompositeBudgetPredicate:predicateCopy]) && [(DMDActivationBudgetObserver *)v9 _registerPredicateObserver])
   {
-    goto LABEL_4;
-  }
-
-  v10 = objc_opt_new();
-  usageMonitor = v9->_usageMonitor;
-  v9->_usageMonitor = v10;
-
-  v12 = objc_opt_new();
-  expiredNotificationTimes = v9->_expiredNotificationTimes;
-  v9->_expiredNotificationTimes = v12;
-
-  if (![(DMDActivationBudgetObserver *)v9 _extractComponentsFromCompositeBudgetPredicate:predicateCopy])
-  {
-    goto LABEL_5;
-  }
-
-  if ([(DMDActivationBudgetObserver *)v9 _registerPredicateObserver])
-  {
-LABEL_4:
     v14 = v9;
   }
 
   else
   {
-LABEL_5:
     v14 = 0;
   }
 

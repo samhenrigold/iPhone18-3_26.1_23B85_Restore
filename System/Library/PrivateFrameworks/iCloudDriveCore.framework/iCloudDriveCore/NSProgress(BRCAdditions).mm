@@ -2,8 +2,6 @@
 - (id)brc_dumpDescription;
 - (uint64_t)brc_publish;
 - (uint64_t)brc_unpublish;
-- (void)brc_publish;
-- (void)brc_unpublish;
 @end
 
 @implementation NSProgress(BRCAdditions)
@@ -72,22 +70,6 @@
   v8 = [v6 stringWithFormat:@"%@f:%.4f uc:%lld/%lld", v5, v7, objc_msgSend(self, "completedUnitCount"), objc_msgSend(self, "totalUnitCount")];
 
   return v8;
-}
-
-- (void)brc_publish
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[NOTIF] published progress for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)brc_unpublish
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[NOTIF] unpublished progress for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

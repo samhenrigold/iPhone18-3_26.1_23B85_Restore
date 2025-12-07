@@ -17,21 +17,21 @@ void __83___UIRapidClickPresentationAssistant_presentFromSourcePreview_lifecycle
   [v4 presentViewController:v2 animated:0 completion:v3];
 }
 
-uint64_t __83___UIRapidClickPresentationAssistant_presentFromSourcePreview_lifecycleCompletion___block_invoke_2(uint64_t result)
+id *__83___UIRapidClickPresentationAssistant_presentFromSourcePreview_lifecycleCompletion___block_invoke_2(id *result)
 {
   if (*(result + 48) == 1)
   {
-    return [*(result + 32) _performPresentationAnimationsFromViewController:*(result + 40)];
+    return [result[4] _performPresentationAnimationsFromViewController:result[5]];
   }
 
   return result;
 }
 
-uint64_t __87___UIRapidClickPresentationAssistant__performPresentationAnimationsFromViewController___block_invoke_3(uint64_t result, int a2)
+id *__87___UIRapidClickPresentationAssistant__performPresentationAnimationsFromViewController___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) transitionDidEnd:1];
+    return [result[4] transitionDidEnd:1];
   }
 
   return result;
@@ -56,7 +56,7 @@ uint64_t __84___UIRapidClickPresentationAssistant_dismissWithReason_alongsideAct
 
 void __84___UIRapidClickPresentationAssistant_dismissWithReason_alongsideActions_completion___block_invoke_2(uint64_t a1)
 {
-  v1 = [*(a1 + 32) presentation];
+  v1 = objc_msgSend_presentation(*(a1 + 32));
   v5 = [v1 viewController];
 
   v2 = [v5 presentedViewController];

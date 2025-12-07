@@ -30,7 +30,7 @@
   }
 
   [dictionary setObject:v5 forKeyedSubscript:@"didChangePrimary"];
-  v6 = [dictionary copy];
+  v6 = objc_msgSend_copy(dictionary);
 
   return v6;
 }

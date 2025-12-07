@@ -11,21 +11,19 @@
 
 - (_BlastDoorLPARAsset)init
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4.receiver = self;
-  v4.super_class = _BlastDoorLPARAsset;
-  result = [(_BlastDoorLPARAsset *)&v4 init];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = *MEMORY[0x277D85DE8];
+  v3.receiver = self;
+  v3.super_class = _BlastDoorLPARAsset;
+  return [(_BlastDoorLPARAsset *)&v3 init];
 }
 
 - (id)_initWithARAsset:(id)asset
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
-  v10.receiver = self;
-  v10.super_class = _BlastDoorLPARAsset;
-  v5 = [(_BlastDoorLPARAsset *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = _BlastDoorLPARAsset;
+  v5 = [(_BlastDoorLPARAsset *)&v9 init];
   p_isa = &v5->super.isa;
   if (v5)
   {
@@ -36,7 +34,6 @@
     v7 = p_isa;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return p_isa;
 }
 
@@ -63,11 +60,11 @@
 
 - (_BlastDoorLPARAsset)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = _BlastDoorLPARAsset;
-  v5 = [(_BlastDoorLPARAsset *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = _BlastDoorLPARAsset;
+  v5 = [(_BlastDoorLPARAsset *)&v15 init];
   if (v5)
   {
     v6 = [coderCopy _bd_lp_strictlyDecodeNSDataForKey:@"data"];
@@ -88,17 +85,16 @@
     v13 = v5;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPARAsset;
-  if ([(_BlastDoorLPARAsset *)&v13 isEqual:equalCopy])
+  v12.receiver = self;
+  v12.super_class = _BlastDoorLPARAsset;
+  if ([(_BlastDoorLPARAsset *)&v12 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -136,7 +132,6 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

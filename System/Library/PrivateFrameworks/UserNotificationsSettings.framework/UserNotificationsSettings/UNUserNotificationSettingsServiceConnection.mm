@@ -195,19 +195,19 @@ uint64_t __61__UNUserNotificationSettingsServiceConnection_sharedInstance__block
 
 - (id)notificationSourceWithIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy_;
+  v17 = __Block_byref_object_dispose_;
+  v18 = 0;
   v5 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = identifierCopy;
+    v20 = identifierCopy;
     _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Getting notification source %{public}@ (sync)", buf, 0xCu);
   }
 
@@ -217,14 +217,13 @@ uint64_t __61__UNUserNotificationSettingsServiceConnection_sharedInstance__block
   block[2] = __80__UNUserNotificationSettingsServiceConnection_notificationSourceWithIdentifier___block_invoke;
   block[3] = &unk_279E14E68;
   block[4] = self;
-  v12 = identifierCopy;
-  v13 = &v14;
+  v11 = identifierCopy;
+  v12 = &v13;
   v7 = identifierCopy;
   dispatch_sync(queue, block);
-  v8 = v15[5];
+  v8 = v14[5];
 
-  _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 
   return v8;
 }
@@ -249,45 +248,43 @@ void __80__UNUserNotificationSettingsServiceConnection_notificationSourceWithIde
 
 void __80__UNUserNotificationSettingsServiceConnection_notificationSourceWithIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_ERROR))
   {
-    __80__UNUserNotificationSettingsServiceConnection_notificationSourceWithIdentifier___block_invoke_2_cold_1(a1);
+    __80__UNUserNotificationSettingsServiceConnection_notificationSourceWithIdentifier___block_invoke_2_cold_1();
   }
 }
 
 void __80__UNUserNotificationSettingsServiceConnection_notificationSourceWithIdentifier___block_invoke_4(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(*(a1 + 32) + 8) + 40);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Got notification source %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Got notification source %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)notificationSourcesWithIdentifiers:(id)identifiers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy_;
+  v17 = __Block_byref_object_dispose_;
+  v18 = 0;
   v5 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = identifiersCopy;
+    v20 = identifiersCopy;
     _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Getting notification sources %{public}@ (sync)", buf, 0xCu);
   }
 
@@ -297,14 +294,13 @@ void __80__UNUserNotificationSettingsServiceConnection_notificationSourceWithIde
   block[2] = __82__UNUserNotificationSettingsServiceConnection_notificationSourcesWithIdentifiers___block_invoke;
   block[3] = &unk_279E14E68;
   block[4] = self;
-  v12 = identifiersCopy;
-  v13 = &v14;
+  v11 = identifiersCopy;
+  v12 = &v13;
   v7 = identifiersCopy;
   dispatch_sync(queue, block);
-  v8 = v15[5];
+  v8 = v14[5];
 
-  _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 
   return v8;
 }
@@ -329,28 +325,26 @@ void __82__UNUserNotificationSettingsServiceConnection_notificationSourcesWithId
 
 void __82__UNUserNotificationSettingsServiceConnection_notificationSourcesWithIdentifiers___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_ERROR))
   {
-    __82__UNUserNotificationSettingsServiceConnection_notificationSourcesWithIdentifiers___block_invoke_2_cold_1(a1);
+    __82__UNUserNotificationSettingsServiceConnection_notificationSourcesWithIdentifiers___block_invoke_2_cold_1();
   }
 }
 
 void __82__UNUserNotificationSettingsServiceConnection_notificationSourcesWithIdentifiers___block_invoke_6(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(*(a1 + 32) + 8) + 40);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Got notification sources %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Got notification sources %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)notificationSourcesWithFilter:(id)filter
@@ -410,24 +404,22 @@ void __77__UNUserNotificationSettingsServiceConnection_notificationSourcesWithFi
 
 void __77__UNUserNotificationSettingsServiceConnection_notificationSourcesWithFilter___block_invoke_10(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(*(a1 + 32) + 8) + 40);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Got all notification sources %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Got all notification sources %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authorizationWithOptions:(unint64_t)options forNotificationSourceIdentifier:(id)identifier withCompletionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v10 = *MEMORY[0x277CE2078];
@@ -435,25 +427,23 @@ void __77__UNUserNotificationSettingsServiceConnection_notificationSourcesWithFi
   {
     *buf = 134218242;
     optionsCopy = options;
-    v21 = 2114;
-    v22 = identifierCopy;
+    v20 = 2114;
+    v21 = identifierCopy;
     _os_log_impl(&dword_270B40000, v10, OS_LOG_TYPE_DEFAULT, "Authorize notification settings %ld for source %{public}@ (sync)", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __126__UNUserNotificationSettingsServiceConnection_authorizationWithOptions_forNotificationSourceIdentifier_withCompletionHandler___block_invoke;
-  v15[3] = &unk_279E14F00;
-  v15[4] = self;
-  v16 = identifierCopy;
-  v17 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __126__UNUserNotificationSettingsServiceConnection_authorizationWithOptions_forNotificationSourceIdentifier_withCompletionHandler___block_invoke;
+  v14[3] = &unk_279E14F00;
+  v14[4] = self;
+  v15 = identifierCopy;
+  v16 = handlerCopy;
   optionsCopy2 = options;
   v12 = handlerCopy;
   v13 = identifierCopy;
-  dispatch_sync(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_sync(queue, v14);
 }
 
 void __126__UNUserNotificationSettingsServiceConnection_authorizationWithOptions_forNotificationSourceIdentifier_withCompletionHandler___block_invoke(uint64_t a1)
@@ -482,7 +472,7 @@ void __126__UNUserNotificationSettingsServiceConnection_authorizationWithOptions
 
 void __126__UNUserNotificationSettingsServiceConnection_authorizationWithOptions_forNotificationSourceIdentifier_withCompletionHandler___block_invoke_13(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CE2078];
   if (v5)
@@ -496,11 +486,11 @@ void __126__UNUserNotificationSettingsServiceConnection_authorizationWithOptions
   else if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 1024;
-    v13 = a2;
-    _os_log_impl(&dword_270B40000, v6, OS_LOG_TYPE_DEFAULT, "Authorize notification settings for %{public}@ completed with status granted: %d", &v10, 0x12u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 1024;
+    v12 = a2;
+    _os_log_impl(&dword_270B40000, v6, OS_LOG_TYPE_DEFAULT, "Authorize notification settings for %{public}@ completed with status granted: %d", &v9, 0x12u);
   }
 
   v8 = *(a1 + 40);
@@ -508,20 +498,18 @@ void __126__UNUserNotificationSettingsServiceConnection_authorizationWithOptions
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revokeAuthorizationForNotificationSourceIdentifier:(id)identifier withCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = identifierCopy;
+    v16 = identifierCopy;
     _os_log_impl(&dword_270B40000, v8, OS_LOG_TYPE_DEFAULT, "Revoke authorization for source %{public}@ (sync)", buf, 0xCu);
   }
 
@@ -531,13 +519,11 @@ void __126__UNUserNotificationSettingsServiceConnection_authorizationWithOptions
   block[2] = __120__UNUserNotificationSettingsServiceConnection_revokeAuthorizationForNotificationSourceIdentifier_withCompletionHandler___block_invoke;
   block[3] = &unk_279E14F28;
   block[4] = self;
-  v14 = identifierCopy;
-  v15 = handlerCopy;
+  v13 = identifierCopy;
+  v14 = handlerCopy;
   v10 = handlerCopy;
   v11 = identifierCopy;
   dispatch_sync(queue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __120__UNUserNotificationSettingsServiceConnection_revokeAuthorizationForNotificationSourceIdentifier_withCompletionHandler___block_invoke(uint64_t a1)
@@ -565,7 +551,7 @@ void __120__UNUserNotificationSettingsServiceConnection_revokeAuthorizationForNo
 
 void __120__UNUserNotificationSettingsServiceConnection_revokeAuthorizationForNotificationSourceIdentifier_withCompletionHandler___block_invoke_17(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CE2078];
   if (v5)
@@ -579,11 +565,11 @@ void __120__UNUserNotificationSettingsServiceConnection_revokeAuthorizationForNo
   else if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 1024;
-    v13 = a2;
-    _os_log_impl(&dword_270B40000, v6, OS_LOG_TYPE_DEFAULT, "Revoke authorization for %{public}@ completed with status granted: %d", &v10, 0x12u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 1024;
+    v12 = a2;
+    _os_log_impl(&dword_270B40000, v6, OS_LOG_TYPE_DEFAULT, "Revoke authorization for %{public}@ completed with status granted: %d", &v9, 0x12u);
   }
 
   v8 = *(a1 + 40);
@@ -591,25 +577,23 @@ void __120__UNUserNotificationSettingsServiceConnection_revokeAuthorizationForNo
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)notificationSettingsForSourceIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy_;
+  v17 = __Block_byref_object_dispose_;
+  v18 = 0;
   v5 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = identifierCopy;
+    v20 = identifierCopy;
     _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Get notification settings for source %{public}@ (sync)", buf, 0xCu);
   }
 
@@ -619,14 +603,13 @@ void __120__UNUserNotificationSettingsServiceConnection_revokeAuthorizationForNo
   block[2] = __87__UNUserNotificationSettingsServiceConnection_notificationSettingsForSourceIdentifier___block_invoke;
   block[3] = &unk_279E14E68;
   block[4] = self;
-  v12 = identifierCopy;
-  v13 = &v14;
+  v11 = identifierCopy;
+  v12 = &v13;
   v7 = identifierCopy;
   dispatch_sync(queue, block);
-  v8 = v15[5];
+  v8 = v14[5];
 
-  _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 
   return v8;
 }
@@ -720,16 +703,16 @@ void __65__UNUserNotificationSettingsServiceConnection_setSourceSettings___block
 
 - (void)replaceNotificationSettings:(id)settings forNotificationSourceIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   identifierCopy = identifier;
   v8 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v17 = settingsCopy;
-    v18 = 2114;
-    v19 = identifierCopy;
+    v16 = settingsCopy;
+    v17 = 2114;
+    v18 = identifierCopy;
     _os_log_impl(&dword_270B40000, v8, OS_LOG_TYPE_DEFAULT, "Replace notification settings %{public}@ for source %{public}@ (sync)", buf, 0x16u);
   }
 
@@ -739,13 +722,11 @@ void __65__UNUserNotificationSettingsServiceConnection_setSourceSettings___block
   block[2] = __107__UNUserNotificationSettingsServiceConnection_replaceNotificationSettings_forNotificationSourceIdentifier___block_invoke;
   block[3] = &unk_279E14FC8;
   block[4] = self;
-  v14 = settingsCopy;
-  v15 = identifierCopy;
+  v13 = settingsCopy;
+  v14 = identifierCopy;
   v10 = identifierCopy;
   v11 = settingsCopy;
   dispatch_sync(queue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __107__UNUserNotificationSettingsServiceConnection_replaceNotificationSettings_forNotificationSourceIdentifier___block_invoke(uint64_t a1)
@@ -766,7 +747,7 @@ void __107__UNUserNotificationSettingsServiceConnection_replaceNotificationSetti
 
 - (void)replaceNotificationTopicSettings:(id)settings forNotificationSourceIdentifier:(id)identifier topicIdentifier:(id)topicIdentifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   identifierCopy = identifier;
   topicIdentifierCopy = topicIdentifier;
@@ -774,29 +755,27 @@ void __107__UNUserNotificationSettingsServiceConnection_replaceNotificationSetti
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v22 = settingsCopy;
-    v23 = 2114;
-    v24 = identifierCopy;
-    v25 = 2114;
-    v26 = topicIdentifierCopy;
+    v21 = settingsCopy;
+    v22 = 2114;
+    v23 = identifierCopy;
+    v24 = 2114;
+    v25 = topicIdentifierCopy;
     _os_log_impl(&dword_270B40000, v11, OS_LOG_TYPE_DEFAULT, "Replace notification topic settings %{public}@ for source %{public}@ and topic %{public}@ (sync)", buf, 0x20u);
   }
 
   queue = self->_queue;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __128__UNUserNotificationSettingsServiceConnection_replaceNotificationTopicSettings_forNotificationSourceIdentifier_topicIdentifier___block_invoke;
-  v17[3] = &unk_279E14FF0;
-  v17[4] = self;
-  v18 = settingsCopy;
-  v19 = identifierCopy;
-  v20 = topicIdentifierCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __128__UNUserNotificationSettingsServiceConnection_replaceNotificationTopicSettings_forNotificationSourceIdentifier_topicIdentifier___block_invoke;
+  v16[3] = &unk_279E14FF0;
+  v16[4] = self;
+  v17 = settingsCopy;
+  v18 = identifierCopy;
+  v19 = topicIdentifierCopy;
   v13 = topicIdentifierCopy;
   v14 = identifierCopy;
   v15 = settingsCopy;
-  dispatch_sync(queue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_sync(queue, v16);
 }
 
 void __128__UNUserNotificationSettingsServiceConnection_replaceNotificationTopicSettings_forNotificationSourceIdentifier_topicIdentifier___block_invoke(uint64_t a1)
@@ -826,19 +805,17 @@ void __73__UNUserNotificationSettingsServiceConnection_notificationSystemSetting
 
 void __73__UNUserNotificationSettingsServiceConnection_notificationSystemSettings__block_invoke_29(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(*(a1 + 32) + 8) + 40);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Got system settings %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_270B40000, v5, OS_LOG_TYPE_DEFAULT, "Got system settings %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNotificationSystemSettings:(id)settings
@@ -973,174 +950,79 @@ void __70__UNUserNotificationSettingsServiceConnection__queue_ensureConnection__
 
 - (void)updateNotificationSourcesWithBundleIdentifiers:(id)identifiers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_observers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) settingsServiceConnection:self didUpdateNotificationSourcesWithIdentifiers:{identifiersCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) settingsServiceConnection:self didUpdateNotificationSourcesWithIdentifiers:{identifiersCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNotificationSystemSettings:(id)settings
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_observers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) settingsServiceConnection:self didUpdateNotificationSystemSettings:{settingsCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) settingsServiceConnection:self didUpdateNotificationSystemSettings:{settingsCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void __80__UNUserNotificationSettingsServiceConnection_notificationSourceWithIdentifier___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_270B40000, v2, v3, "Getting notification source %{public}@ (sync) failed with error: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __82__UNUserNotificationSettingsServiceConnection_notificationSourcesWithIdentifiers___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_270B40000, v2, v3, "Getting notification sources %{public}@ (sync) failed with error: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __77__UNUserNotificationSettingsServiceConnection_notificationSourcesWithFilter___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270B40000, v0, v1, "Getting all notification sources (sync) failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __126__UNUserNotificationSettingsServiceConnection_authorizationWithOptions_forNotificationSourceIdentifier_withCompletionHandler___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270B40000, v0, v1, "Authorize notification settings (sync) failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __120__UNUserNotificationSettingsServiceConnection_revokeAuthorizationForNotificationSourceIdentifier_withCompletionHandler___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270B40000, v0, v1, "Revoke authorization (sync) failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__UNUserNotificationSettingsServiceConnection_notificationSettingsForSourceIdentifier___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270B40000, v0, v1, "Get notification settings (sync) failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __65__UNUserNotificationSettingsServiceConnection_setSourceSettings___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*(*(a1 + 32) + 8) + 40));
-  OUTLINED_FUNCTION_0(&dword_270B40000, a2, a3, "Set soure settings (sync) failed with error: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __107__UNUserNotificationSettingsServiceConnection_replaceNotificationSettings_forNotificationSourceIdentifier___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270B40000, v0, v1, "Replace notification settings (sync) failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __128__UNUserNotificationSettingsServiceConnection_replaceNotificationTopicSettings_forNotificationSourceIdentifier_topicIdentifier___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270B40000, v0, v1, "Replace notification topic settings (sync) failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __73__UNUserNotificationSettingsServiceConnection_notificationSystemSettings__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270B40000, v0, v1, "Getting system settings (sync) failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __77__UNUserNotificationSettingsServiceConnection_setNotificationSystemSettings___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270B40000, v0, v1, "Setting system settings (sync) failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__UNUserNotificationSettingsServiceConnection_resetScheduledDeliverySetting__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270B40000, v0, v1, "Resetting scheduled delivery setting (sync) failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*(*(a1 + 32) + 8) + 40);
+  OUTLINED_FUNCTION_0(&dword_270B40000, a2, a3, "Set soure settings (sync) failed with error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

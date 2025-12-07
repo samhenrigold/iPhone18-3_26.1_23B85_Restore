@@ -48,23 +48,22 @@
 
   selfCopy = self;
   sub_1C5768378(v7, v6);
-  sub_1C5632FA8(v7);
+  sub_1C5632FA8(v7, v6);
 }
 
 - (NSURL)directoryURL
 {
   v3 = sub_1C584EA90();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3, v6);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3, v5);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_1C57693F8(v8);
+  sub_1C57693F8(v7);
 
-  v10 = sub_1C584EA20();
-  (*(v4 + 8))(v8, v3);
+  v9 = sub_1C584EA20();
+  (*(v4 + 8))(v7, v3);
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)useLocalBundle
@@ -85,83 +84,78 @@
 {
   v3 = sub_1C584EA90();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3, v6);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v8, self + OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_localBundleURL, v3);
-  v9 = sub_1C584EA20();
-  (*(v4 + 8))(v8, v3);
+  MEMORY[0x1EEE9AC00](v3, v5);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_localBundleURL, v3);
+  v8 = sub_1C584EA20();
+  (*(v4 + 8))(v7, v3);
 
-  return v9;
+  return v8;
 }
 
 - (NSURL)onlineBundleURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC16E660, &unk_1C58685F0);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3 - 8, v5);
-  v7 = &v15 - v6;
-  v8 = OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_onlineBundleURL;
+  MEMORY[0x1EEE9AC00](v3 - 8, v4);
+  v6 = &v14 - v5;
+  v7 = OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_onlineBundleURL;
   swift_beginAccess();
-  sub_1C5754258(self + v8, v7);
-  v9 = sub_1C584EA90();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v7, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  sub_1C5754258(self + v7, v6);
+  v8 = sub_1C584EA90();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v6, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    v13 = sub_1C584EA20();
-    (*(v10 + 8))(v7, v9);
-    v12 = v13;
+    v12 = sub_1C584EA20();
+    (*(v9 + 8))(v6, v8);
+    v11 = v12;
   }
 
-  return v12;
+  return v11;
 }
 
 - (void)setOnlineBundleURL:(id)l
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC16E660, &unk_1C58685F0);
-  v6 = *(*(v5 - 8) + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5 - 8, v7);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8, v11);
-  v13 = &v18 - v12;
+  v7 = MEMORY[0x1EEE9AC00](v5 - 8, v6);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7, v10);
+  v12 = &v17 - v11;
   if (l)
   {
     sub_1C584EA50();
-    v14 = sub_1C584EA90();
-    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
+    v13 = sub_1C584EA90();
+    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
   }
 
   else
   {
-    v14 = sub_1C584EA90();
-    (*(*(v14 - 8) + 56))(v13, 1, 1, v14);
+    v13 = sub_1C584EA90();
+    (*(*(v13 - 8) + 56))(v12, 1, 1, v13);
   }
 
-  v15 = OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_onlineBundleURL;
+  v14 = OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_onlineBundleURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_1C576DC7C(v13, self + v15);
+  sub_1C576DC7C(v12, self + v14);
   swift_endAccess();
-  sub_1C5754258(self + v15, v10);
+  sub_1C5754258(self + v14, v9);
   sub_1C584EA90();
-  v17 = (*(*(v14 - 8) + 48))(v10, 1, v14) == 1;
-  sub_1C5625230(v10, &unk_1EC16E660, &unk_1C58685F0);
-  (*((*MEMORY[0x1E69E7D40] & *selfCopy) + 0x88))(v17);
+  v16 = (*(*(v13 - 8) + 48))(v9, 1, v13) == 1;
+  sub_1C5625230(v9, &unk_1EC16E660, &unk_1C58685F0);
+  (*((*MEMORY[0x1E69E7D40] & *selfCopy) + 0x88))(v16);
 
-  sub_1C5625230(v13, &unk_1EC16E660, &unk_1C58685F0);
+  sub_1C5625230(v12, &unk_1EC16E660, &unk_1C58685F0);
 }
 
 - (NSSet)fetchedResourceNames
 {
-  v3 = OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_fetchedResourceNames;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5 = sub_1C584F920();
+  v2 = sub_1C584F920();
 
-  return v5;
+  return v2;
 }
 
 - (void)setFetchedResourceNames:(id)names
@@ -169,7 +163,6 @@
   v4 = sub_1C584F930();
   v5 = OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_fetchedResourceNames;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -189,7 +182,7 @@
   (*(v6 + 56))(self + OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_onlineBundleURL, 1, 1, v4);
   *(self + OBJC_IVAR____TtC6MapsUI35_MUWebBasedPlacecardResourceManager_fetchedResourceNames) = MEMORY[0x1E69E7CD0];
   v8.receiver = self;
-  v8.super_class = type metadata accessor for _MUWebBasedPlacecardResourceManager();
+  v8.super_class = type metadata accessor for _MUWebBasedPlacecardResourceManager(0);
   return [(_MUWebBasedPlacecardResourceManager *)&v8 init];
 }
 

@@ -1,4 +1,5 @@
 @interface ANCBulletinAlert
+- (ANCBulletinAlert)initWithBulletin:(id)bulletin observer:(id)observer categoryID:(unsigned __int8)d;
 - (BOOL)hasExtraContent;
 - (BOOL)hasNegativeAction;
 - (BOOL)isSilent;
@@ -13,6 +14,24 @@
 @end
 
 @implementation ANCBulletinAlert
+
+- (ANCBulletinAlert)initWithBulletin:(id)bulletin observer:(id)observer categoryID:(unsigned __int8)d
+{
+  dCopy = d;
+  bulletinCopy = bulletin;
+  observerCopy = observer;
+  v14.receiver = self;
+  v14.super_class = ANCBulletinAlert;
+  v11 = [(ANCAlert *)&v14 initWithCategoryID:dCopy];
+  v12 = v11;
+  if (v11)
+  {
+    objc_storeStrong(&v11->_bulletin, bulletin);
+    objc_storeStrong(&v12->_observer, observer);
+  }
+
+  return v12;
+}
 
 - (BOOL)isSilent
 {

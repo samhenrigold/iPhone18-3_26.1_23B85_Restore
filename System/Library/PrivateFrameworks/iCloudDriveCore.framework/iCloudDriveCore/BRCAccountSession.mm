@@ -1,7 +1,11 @@
 @interface BRCAccountSession
++ (BOOL)_checkIntegrity:(id)integrity serverTruth:(BOOL)truth session:(id)session skipControlFiles:(BOOL)files dbCreationDate:(id *)date deviceIDChanged:(BOOL *)changed error:(id *)error;
 + (BOOL)_openConnection:(id)connection databaseName:(id)name baseURL:(id)l readonly:(BOOL)readonly error:(id *)error;
 + (BOOL)_openConnection:(id)connection serverTruth:(BOOL)truth databaseName:(id)name baseURL:(id)l initialVersion:(unsigned int *)version lastCurrentVersion:(unsigned int *)currentVersion error:(id *)error;
 + (BOOL)_registerStaticDBFunctions:(id)functions error:(id *)error;
++ (BOOL)_validateDatabase:(id)database baseURL:(id)l session:(id)session serverTruth:(BOOL)truth initialVersion:(unsigned int)version lastCurrentVersion:(unsigned int)currentVersion error:(id *)error;
++ (BOOL)openAndValidateDatabase:(id)database serverTruth:(BOOL)truth session:(id)session baseURL:(id)l skipControlFiles:(BOOL)files initialVersion:(unsigned int *)version lastCurrentVersion:(unsigned int *)currentVersion dbCreationDate:(id *)self0 deviceIDChanged:(BOOL *)self1 error:(id *)self2;
++ (BOOL)upgradeOfflineDB:(id)b serverTruth:(BOOL)truth session:(id)session error:(id *)error;
 + (id)sessionForBackingUpDatabasesAtURL:(id)l;
 + (id)sessionForCheckingInconsistencies;
 + (id)sessionForDumpingDatabasesAtURL:(id)l;
@@ -13,10 +17,12 @@
 - (BOOL)_createClientZone:(id)zone;
 - (BOOL)_decorateUserInfoForFPFSDomain:(id)domain panicOnDomainIDMismatch:(BOOL)mismatch withError:(id *)error;
 - (BOOL)_deleteClientZone:(id)zone;
+- (BOOL)_dumpClientZone:(id)zone toContext:(id)context includeAllItems:(BOOL)items error:(id *)error;
 - (BOOL)_dumpClientZoneStatus:(id)status toContext:(id)context error:(id *)error;
 - (BOOL)_finishClientTruthConnectionSetupWithError:(id *)error;
 - (BOOL)_finishServerTruthConnectionSetupWithError:(id *)error;
 - (BOOL)_isCZMAccountBasedOnCloudDocsPlistState;
+- (BOOL)_openConnection:(id)connection databaseName:(id)name readonly:(BOOL)readonly error:(id *)error;
 - (BOOL)_recursivelyPrepareFolderForLogOutAtURL:(id)l pruneEmptyFolders:(BOOL)folders pruneEmptyTopLevelFolder:(BOOL)folder maxDepth:(unint64_t)depth;
 - (BOOL)_registerDynamicDBFunctions:(id)functions error:(id *)error;
 - (BOOL)_setupBackupDetector:(backup_detector *)detector error:(id *)error;
@@ -28,6 +34,7 @@
 - (BOOL)backupDatabaseToURL:(id)l includeServer:(BOOL)server doNotObfuscate:(BOOL)obfuscate error:(id *)error;
 - (BOOL)createServerZone:(id)zone;
 - (BOOL)deleteServerZone:(id)zone;
+- (BOOL)dumpDatabaseToFileHandle:(id)handle zoneName:(id)name includeAllItems:(BOOL)items verbose:(BOOL)verbose tracker:(id)tracker error:(id *)error;
 - (BOOL)dumpFPFSMigrationStatusToFileHandle:(id)handle tracker:(id)tracker includeNonMigratedItems:(BOOL)items error:(id *)error;
 - (BOOL)dumpFileCoordinationInfoToFileHandle:(id)handle error:(id *)error;
 - (BOOL)dumpItemsToHandle:(id)handle itemType:(id)type tracker:(id)tracker error:(id *)error;
@@ -118,9 +125,11 @@
 - (id)getOrCreateAppLibraryAndPrivateZonesIfNecessary:(id)necessary appLibraryExists:(BOOL *)exists;
 - (id)getOrCreateSharedZones:(id)zones shareAcceptOp:(id)op;
 - (id)getOrReserveLibraryRowIDForLibrary:(id)library;
+- (id)groupContainerStagePathForCurrentPersonaFromStageType:(signed __int16)type;
 - (id)itemsNeedingIndexingEnumeratorFromNotifRank:(unint64_t)rank batchSize:(unint64_t)size db:(id)db;
 - (id)newAppLibraryFromPQLResultSet:(id)set version:(int)version;
 - (id)newConnection:(id)connection;
+- (id)newConnectionWithLabel:(id)label readonly:(BOOL)readonly error:(id *)error;
 - (id)newLocalItemFromPQLResultSet:(id)set db:(id)db error:(id *)error;
 - (id)newPrivateClientZoneFromPQLResultSet:(id)set error:(id *)error;
 - (id)newPrivateServerZoneFromPQLResultSet:(id)set error:(id *)error;
@@ -164,6 +173,7 @@
 - (void)_clearNeedsUpgradeErrorsWithBrVersion:(id)version;
 - (void)_cloudDocsAppsListDidChange:(id)change;
 - (void)_createAccountSupportPathIfNeeded:(id)needed protectParent:(BOOL)parent;
+- (void)_createGroupContainerStageOfType:(signed __int16)type;
 - (void)_dumpClientZoneBlockedState:(id)state toContext:(id)context;
 - (void)_dumpSpecialSyncContextsToContext:(id)context;
 - (void)_enumerateAppLibraryRowIDs:(id)ds usingBlock:(id)block;
@@ -196,6 +206,8 @@
 - (void)_sendItemsPendingScanningProvider:(id)provider event:(id)event;
 - (void)_sendTelemetryEventForPendingItemsWithFPReport:(id)report migrationUUID:(id)d daysSinceImportStarted:(int64_t)started;
 - (void)_sendTelemetryEventWithDiagnosticAttributes:(id)attributes event:(id)event;
+- (void)_setDatabaseProfilingForDB:(id)b enabled:(BOOL)enabled verbose:(BOOL)verbose;
+- (void)_setICloudDesktopEnabled:(BOOL)enabled forAccount:(id)account;
 - (void)_setupThrottles;
 - (void)_startWatcher;
 - (void)_submitDBCorruptionTelemetryEventIfNeeded;
@@ -207,7 +219,6 @@
 - (void)_updateFPFSMigrationItemTypes:(char)types withStateKey:(id)key isPackage:(BOOL)package;
 - (void)_validatePersona;
 - (void)accountStartedSchedulingCZM;
-- (void)accountWaitOperation;
 - (void)addOfflineAppLibrary:(id)library;
 - (void)addOfflineClientZone:(id)zone;
 - (void)addOfflineServerZone:(id)zone;
@@ -243,7 +254,6 @@
 - (void)fsImporter;
 - (void)initializeDatabaseFacades;
 - (void)invalidateExtensionXPCClient;
-- (void)isGreedy;
 - (void)markAccountMigrationComplete;
 - (void)markMigrationToFPFSCleanupComplete;
 - (void)markMigrationToFPFSComplete;
@@ -266,6 +276,8 @@
 - (void)sendFileStatsTelemetryWithDescriptors:(id)descriptors perItemSendTelemetryBlock:(id)block;
 - (void)sendNonMigratedItemTelemetryWithfileIDs:(id)ds;
 - (void)sessionDirPath;
+- (void)setFPFSMigrationState:(unsigned int)state;
+- (void)setOptimizeStorageEnabled:(BOOL)enabled forKey:(id)key synchronous:(BOOL)synchronous;
 - (void)setupDatabase;
 - (void)stageRegistry;
 - (void)stopDBWatcher;
@@ -296,7 +308,6 @@
 
 - (void)_mutexZonesLock
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -304,10 +315,8 @@
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: BRCurrentPersonaMatchesID(self.personaIdentifier)%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: BRCurrentPersonaMatchesID(self.personaIdentifier)%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedCurrentUserRecordName
@@ -714,7 +723,7 @@
 
 - (void)dbBecameCorruptedWithDescription:(id)description error:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   errorCopy = error;
   [(BRCAccountSession *)self invalidateExtensionXPCClient];
@@ -722,12 +731,12 @@
   objc_sync_enter(selfCopy);
   if (!selfCopy->_dbCorruptionQueue)
   {
-    v12 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UNSPECIFIED, 0);
-    v13 = dispatch_queue_attr_make_with_autorelease_frequency(v12, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v14 = dispatch_queue_create("db-corrupting-handler-queue", v13);
+    v11 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UNSPECIFIED, 0);
+    v12 = dispatch_queue_attr_make_with_autorelease_frequency(v11, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v13 = dispatch_queue_create("db-corrupting-handler-queue", v12);
 
     dbCorruptionQueue = selfCopy->_dbCorruptionQueue;
-    selfCopy->_dbCorruptionQueue = v14;
+    selfCopy->_dbCorruptionQueue = v13;
 
     [(BRCAccountSession *)selfCopy captureDBCorruptionInfoWithDescription:descriptionCopy error:errorCopy];
     objc_sync_exit(selfCopy);
@@ -743,16 +752,16 @@
     abc_report_panic_with_signature();
     [MEMORY[0x277CCACA8] stringWithFormat:@"db was corrupted with description - '%@' and due to - %@", descriptionCopy, errorCopy];
     objc_claimAutoreleasedReturnValue();
-    v20 = brc_bread_crumbs();
-    v21 = brc_default_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v19 = brc_bread_crumbs();
+    v20 = brc_default_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      v22 = brc_append_system_info_to_message();
+      v21 = brc_append_system_info_to_message();
       *buf = 138412546;
-      v25 = v22;
-      v26 = 2112;
-      v27 = v20;
-      _os_log_fault_impl(&dword_223E7A000, v21, OS_LOG_TYPE_FAULT, "[CRIT] %@%@", buf, 0x16u);
+      v24 = v21;
+      v25 = 2112;
+      v26 = v19;
+      _os_log_fault_impl(&dword_223E7A000, v20, OS_LOG_TYPE_FAULT, "[CRIT] %@%@", buf, 0x16u);
     }
 
     brc_append_system_info_to_message();
@@ -765,12 +774,11 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = v9;
+    v24 = v9;
     _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] Corrupting handling is already in-flight%@", buf, 0xCu);
   }
 
   objc_sync_exit(selfCopy);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)newConnection:(id)connection
@@ -903,9 +911,7 @@ void __55__BRCAccountSession_BRCDatabaseManager__newConnection___block_invoke(ui
   serverReadWriteDatabaseFacade = self->_serverReadWriteDatabaseFacade;
   self->_serverReadWriteDatabaseFacade = v3;
 
-  v5 = [[BRCReadWriteClientDatabaseFacade alloc] initWithDB:self->_clientDB workloop:self->_clientTruthWorkloop];
-  clientReadWriteDatabaseFacade = self->_clientReadWriteDatabaseFacade;
-  self->_clientReadWriteDatabaseFacade = v5;
+  self->_clientReadWriteDatabaseFacade = [[BRCReadWriteClientDatabaseFacade alloc] initWithDB:self->_clientDB workloop:self->_clientTruthWorkloop];
 
   MEMORY[0x2821F96F8]();
 }
@@ -1012,6 +1018,26 @@ void __54__BRCAccountSession_BRCDatabaseManager__stopDBWatcher__block_invoke(uin
   }
 }
 
+- (BOOL)_openConnection:(id)connection databaseName:(id)name readonly:(BOOL)readonly error:(id *)error
+{
+  readonlyCopy = readonly;
+  connectionCopy = connection;
+  nameCopy = name;
+  LODWORD(readonlyCopy) = [objc_opt_class() _openConnection:connectionCopy databaseName:nameCopy baseURL:self->_dbURL readonly:readonlyCopy error:error];
+
+  if (readonlyCopy)
+  {
+    v12 = [(BRCAccountSession *)self _registerDynamicDBFunctions:connectionCopy error:error];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
 + (BOOL)_openConnection:(id)connection databaseName:(id)name baseURL:(id)l readonly:(BOOL)readonly error:(id *)error
 {
   readonlyCopy = readonly;
@@ -1085,15 +1111,14 @@ LABEL_9:
   return v7;
 }
 
-void __74__BRCAccountSession_BRCDatabaseManager___registerStaticDBFunctions_error___block_invoke(uint64_t a1, sqlite3_context *a2, uint64_t a3, uint64_t *a4)
+void __74__BRCAccountSession_BRCDatabaseManager___registerStaticDBFunctions_error___block_invoke(uint64_t a1, sqlite3_context *a2, uint64_t a3, void *a4)
 {
-  v7 = *a4;
-  v8 = pql_sqlite3_value_object();
-  if (!v8 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v7 = pql_sqlite3_value_object();
+  if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    v18 = brc_bread_crumbs();
-    v19 = brc_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v17 = brc_bread_crumbs();
+    v18 = brc_default_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       __74__BRCAccountSession_BRCDatabaseManager___registerStaticDBFunctions_error___block_invoke_cold_2();
     }
@@ -1102,66 +1127,66 @@ void __74__BRCAccountSession_BRCDatabaseManager___registerStaticDBFunctions_erro
     goto LABEL_23;
   }
 
-  v23 = a2;
-  v9 = [MEMORY[0x277CBEA90] newFromSqliteValue:a4[1]];
-  v10 = -1000;
+  v22 = a2;
+  v8 = [MEMORY[0x277CBEA90] newFromSqliteValue:a4[1]];
+  v9 = -1000;
   while (1)
   {
-    v11 = objc_autoreleasePoolPush();
-    if (!v9)
+    v10 = objc_autoreleasePoolPush();
+    if (!v8)
     {
       goto LABEL_18;
     }
 
-    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v9 encoding:4];
-    if ([v12 isEqualToString:@"root"])
+    v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
+    if ([v11 isEqualToString:@"root"])
     {
-      v20 = 0;
+      v19 = 0;
 LABEL_16:
-      sqlite3_result_int(v23, v20);
+      sqlite3_result_int(v22, v19);
 
-      objc_autoreleasePoolPop(v11);
+      objc_autoreleasePoolPop(v10);
       goto LABEL_22;
     }
 
-    if ([v12 isEqualToString:@"documents"])
+    if ([v11 isEqualToString:@"documents"])
     {
-      v20 = 1;
+      v19 = 1;
       goto LABEL_16;
     }
 
-    v13 = *(a1 + 32);
-    v14 = [v8 dbRowID];
-    v15 = [v13 fetch:{@"SELECT item_parent_id FROM client_items WHERE zone_rowid = %@ AND item_id = %@", v14, v9}];
+    v12 = *(a1 + 32);
+    v13 = [v7 dbRowID];
+    v14 = [v12 fetch:{@"SELECT item_parent_id FROM client_items WHERE zone_rowid = %@ AND item_id = %@", v13, v8}];
 
-    if (([v15 next] & 1) == 0)
+    if (([v14 next] & 1) == 0)
     {
       break;
     }
 
-    v16 = [v15 dataAtIndex:0];
+    v15 = [v14 dataAtIndex:0];
 
-    objc_autoreleasePoolPop(v11);
-    v9 = v16;
-    if (__CFADD__(v10++, 1))
+    objc_autoreleasePoolPop(v10);
+    v8 = v15;
+    if (__CFADD__(v9++, 1))
     {
       goto LABEL_19;
     }
   }
 
 LABEL_18:
-  objc_autoreleasePoolPop(v11);
-  v16 = v9;
+  objc_autoreleasePoolPop(v10);
+  v15 = v8;
 LABEL_19:
-  v21 = brc_bread_crumbs();
-  v22 = brc_default_log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+  v20 = brc_bread_crumbs();
+  v21 = brc_default_log();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
   {
     __74__BRCAccountSession_BRCDatabaseManager___registerStaticDBFunctions_error___block_invoke_cold_1();
   }
 
-  sqlite3_result_null(v23);
-  v9 = v16;
+  sqlite3_result_null(v22);
+  v8 = v15;
 LABEL_22:
 
 LABEL_23:
@@ -1281,12 +1306,12 @@ uint64_t __75__BRCAccountSession_BRCDatabaseManager___registerDynamicDBFunctions
 {
   checkerCopy = checker;
   readonlyCopy = readonly;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   if (checkerCopy)
   {
     v8 = &unk_2837B0BB0;
@@ -1298,23 +1323,23 @@ uint64_t __75__BRCAccountSession_BRCDatabaseManager___registerDynamicDBFunctions
   }
 
   obj = v8;
-  v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v28;
+    v12 = *v27;
     v13 = 0x277CCA000uLL;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v12)
+        if (*v27 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v27 + 1) + 8 * i);
+        v15 = *(*(&v26 + 1) + 8 * i);
         v16 = [*(v13 + 3240) stringWithFormat:@"%@.db", v15];
         if (v11)
         {
@@ -1341,7 +1366,7 @@ LABEL_16:
         v11 = 1;
       }
 
-      v10 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v10)
       {
         continue;
@@ -1358,18 +1383,39 @@ LABEL_16:
 
 LABEL_18:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v11;
+}
+
+- (id)newConnectionWithLabel:(id)label readonly:(BOOL)readonly error:(id *)error
+{
+  readonlyCopy = readonly;
+  labelCopy = label;
+  v9 = [(BRCAccountSession *)self newConnection:labelCopy];
+  v10 = [labelCopy isEqualToString:@"checker"];
+
+  if ([(BRCAccountSession *)self _setupConnection:v9 readonly:readonlyCopy forChecker:v10 error:error])
+  {
+    v11 = v9;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = v11;
+
+  return v12;
 }
 
 - (BOOL)_setupBackupDetector:(backup_detector *)detector error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = [(NSURL *)self->_dbURL URLByAppendingPathComponent:@"control-odd"];
   v8 = [(NSURL *)self->_dbURL URLByAppendingPathComponent:@"control-even"];
-  v23 = 0;
+  v22 = 0;
   detector->var2 = 0;
-  if (create_control_file([v7 fileSystemRepresentation], &v23, 1))
+  if (create_control_file([v7 fileSystemRepresentation], &v22, 1))
   {
     br_errorFromErrno = [MEMORY[0x277CCA9B8] br_errorFromErrno];
     if (br_errorFromErrno)
@@ -1378,20 +1424,20 @@ LABEL_18:
       v11 = brc_default_log();
       if (os_log_type_enabled(v11, 0x90u))
       {
-        v21 = "(passed to caller)";
+        v20 = "(passed to caller)";
         *buf = 136315906;
-        v25 = "[BRCAccountSession(BRCDatabaseManager) _setupBackupDetector:error:]";
-        v26 = 2080;
+        v24 = "[BRCAccountSession(BRCDatabaseManager) _setupBackupDetector:error:]";
+        v25 = 2080;
         if (!error)
         {
-          v21 = "(ignored by caller)";
+          v20 = "(ignored by caller)";
         }
 
-        v27 = v21;
-        v28 = 2112;
-        v29 = br_errorFromErrno;
-        v30 = 2112;
-        v31 = v10;
+        v26 = v20;
+        v27 = 2112;
+        v28 = br_errorFromErrno;
+        v29 = 2112;
+        v30 = v10;
         _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -1406,10 +1452,10 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  detector->var0 = v23;
-  if (!create_control_file([v8 fileSystemRepresentation], &v23, 1))
+  detector->var0 = v22;
+  if (!create_control_file([v8 fileSystemRepresentation], &v22, 1))
   {
-    detector->var1 = v23;
+    detector->var1 = v22;
     br_errorFromErrno = brc_bread_crumbs();
     v12 = 1;
     v13 = brc_default_log();
@@ -1419,13 +1465,13 @@ LABEL_13:
       var1 = detector->var1;
       var2 = detector->var2;
       *buf = 134218754;
-      v25 = var0;
-      v26 = 2048;
-      v27 = var1;
-      v28 = 2048;
-      v29 = var2;
-      v30 = 2112;
-      v31 = br_errorFromErrno;
+      v24 = var0;
+      v25 = 2048;
+      v26 = var1;
+      v27 = 2048;
+      v28 = var2;
+      v29 = 2112;
+      v30 = br_errorFromErrno;
       _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] database backup detector initialized {old:%llu; new:%llu; c:%llu}%@", buf, 0x2Au);
     }
 
@@ -1439,20 +1485,20 @@ LABEL_13:
     v15 = brc_default_log();
     if (os_log_type_enabled(v15, 0x90u))
     {
-      v22 = "(passed to caller)";
+      v21 = "(passed to caller)";
       *buf = 136315906;
-      v25 = "[BRCAccountSession(BRCDatabaseManager) _setupBackupDetector:error:]";
-      v26 = 2080;
+      v24 = "[BRCAccountSession(BRCDatabaseManager) _setupBackupDetector:error:]";
+      v25 = 2080;
       if (!error)
       {
-        v22 = "(ignored by caller)";
+        v21 = "(ignored by caller)";
       }
 
-      v27 = v22;
-      v28 = 2112;
-      v29 = br_errorFromErrno;
-      v30 = 2112;
-      v31 = v14;
+      v26 = v21;
+      v27 = 2112;
+      v28 = br_errorFromErrno;
+      v29 = 2112;
+      v30 = v14;
       _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -1470,24 +1516,23 @@ LABEL_6:
 LABEL_7:
 
 LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)_stepBackupDetector:(backup_detector *)detector newState:(backup_detector *)state error:(id *)error
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v9 = [(NSURL *)self->_dbURL URLByAppendingPathComponent:@"control-odd"];
   v10 = [(NSURL *)self->_dbURL URLByAppendingPathComponent:@"control-even"];
   v11 = v10;
-  memset(&v46, 0, sizeof(v46));
+  memset(&v45, 0, sizeof(v45));
   if (detector->var2)
   {
     v10 = v9;
   }
 
   fileSystemRepresentation = [v10 fileSystemRepresentation];
-  if (lstat(fileSystemRepresentation, &v46))
+  if (lstat(fileSystemRepresentation, &v45))
   {
     v13 = *__error();
     v14 = brc_bread_crumbs();
@@ -1496,10 +1541,10 @@ LABEL_14:
     {
       *buf = 136315650;
       st_ino = fileSystemRepresentation;
-      v49 = 1024;
-      *v50 = v13;
-      *&v50[4] = 2112;
-      *&v50[6] = v14;
+      v48 = 1024;
+      *v49 = v13;
+      *&v49[4] = 2112;
+      *&v49[6] = v14;
       _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] failed stating '%s' %{errno}d%@", buf, 0x1Cu);
     }
 
@@ -1511,20 +1556,20 @@ LABEL_14:
       v18 = brc_default_log();
       if (os_log_type_enabled(v18, 0x90u))
       {
-        v37 = "(passed to caller)";
+        v36 = "(passed to caller)";
         *buf = 136315906;
         st_ino = "[BRCAccountSession(BRCDatabaseManager) _stepBackupDetector:newState:error:]";
-        v49 = 2080;
+        v48 = 2080;
         if (!error)
         {
-          v37 = "(ignored by caller)";
+          v36 = "(ignored by caller)";
         }
 
-        *v50 = v37;
-        *&v50[8] = 2112;
-        *&v50[10] = br_errorFromErrno;
-        v51 = 2112;
-        v52 = v17;
+        *v49 = v36;
+        *&v49[8] = 2112;
+        *&v49[10] = br_errorFromErrno;
+        v50 = 2112;
+        v51 = v17;
         _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -1537,7 +1582,7 @@ LABEL_14:
     goto LABEL_33;
   }
 
-  if (v46.st_ino != detector->var1)
+  if (v45.st_ino != detector->var1)
   {
     v25 = brc_bread_crumbs();
     v26 = brc_default_log();
@@ -1545,13 +1590,13 @@ LABEL_14:
     {
       var1 = detector->var1;
       *buf = 134218754;
-      st_ino = v46.st_ino;
-      v49 = 2048;
-      *v50 = var1;
-      *&v50[8] = 2080;
-      *&v50[10] = fileSystemRepresentation;
-      v51 = 2112;
-      v52 = v25;
+      st_ino = v45.st_ino;
+      v48 = 2048;
+      *v49 = var1;
+      *&v49[8] = 2080;
+      *&v49[10] = fileSystemRepresentation;
+      v50 = 2112;
+      v51 = v25;
       _os_log_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEFAULT, "[WARNING] backup detected: ino %llu instead of %llu at '%s'\n%@", buf, 0x2Au);
     }
 
@@ -1585,18 +1630,18 @@ LABEL_31:
     v30 = "(passed to caller)";
     *buf = 136315906;
     st_ino = "[BRCAccountSession(BRCDatabaseManager) _stepBackupDetector:newState:error:]";
-    v49 = 2080;
+    v48 = 2080;
     if (!error)
     {
       v30 = "(ignored by caller)";
     }
 
 LABEL_48:
-    *v50 = v30;
-    *&v50[8] = 2112;
-    *&v50[10] = br_errorFromErrno;
-    v51 = 2112;
-    v52 = v28;
+    *v49 = v30;
+    *&v49[8] = 2112;
+    *&v49[10] = br_errorFromErrno;
+    v50 = 2112;
+    v51 = v28;
     _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     goto LABEL_31;
   }
@@ -1612,9 +1657,9 @@ LABEL_48:
   }
 
   fileSystemRepresentation2 = [v21 fileSystemRepresentation];
-  if (!lstat(fileSystemRepresentation2, &v46))
+  if (!lstat(fileSystemRepresentation2, &v45))
   {
-    if (v46.st_ino != detector->var0)
+    if (v45.st_ino != detector->var0)
     {
       v31 = brc_bread_crumbs();
       v32 = brc_default_log();
@@ -1623,23 +1668,23 @@ LABEL_48:
         var0 = detector->var0;
         *buf = 136315906;
         st_ino = fileSystemRepresentation2;
-        v49 = 2048;
-        *v50 = v46.st_ino;
-        *&v50[8] = 2048;
-        *&v50[10] = var0;
-        v51 = 2112;
-        v52 = v31;
+        v48 = 2048;
+        *v49 = v45.st_ino;
+        *&v49[8] = 2048;
+        *&v49[10] = var0;
+        v50 = 2112;
+        v51 = v31;
         _os_log_debug_impl(&dword_223E7A000, v32, OS_LOG_TYPE_DEBUG, "[DEBUG] mismatch on new control file '%s': %llu != %llu\n%@", buf, 0x2Au);
       }
 
       goto LABEL_37;
     }
 
-    if (!create_control_file(fileSystemRepresentation2, &v46.st_ino, 1))
+    if (!create_control_file(fileSystemRepresentation2, &v45.st_ino, 1))
     {
-      v38 = v46.st_ino;
+      v37 = v45.st_ino;
       state->var0 = detector->var1;
-      state->var1 = v38;
+      state->var1 = v37;
       state->var2 = detector->var2 + 1;
       goto LABEL_38;
     }
@@ -1654,7 +1699,7 @@ LABEL_48:
     [BRCAccountSession(BRCDatabaseManager) _stepBackupDetector:newState:error:];
   }
 
-  if (create_control_file(fileSystemRepresentation2, &v46.st_ino, 1))
+  if (create_control_file(fileSystemRepresentation2, &v45.st_ino, 1))
   {
 LABEL_29:
     br_errorFromErrno = [MEMORY[0x277CCA9B8] br_errorFromErrno];
@@ -1673,7 +1718,7 @@ LABEL_29:
     v30 = "(passed to caller)";
     *buf = 136315906;
     st_ino = "[BRCAccountSession(BRCDatabaseManager) _stepBackupDetector:newState:error:]";
-    v49 = 2080;
+    v48 = 2080;
     if (!error)
     {
       v30 = "(ignored by caller)";
@@ -1686,51 +1731,50 @@ LABEL_37:
   var2 = detector->var2;
   *&state->var0 = *&detector->var0;
   state->var2 = var2;
-  state->var0 = v46.st_ino;
+  state->var0 = v45.st_ino;
 LABEL_38:
   br_errorFromErrno = brc_bread_crumbs();
   v34 = brc_default_log();
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
-    v39 = detector->var0;
-    v40 = detector->var1;
-    v41 = state->var0;
-    v42 = state->var1;
-    v43 = detector->var2;
-    v44 = state->var2;
+    v38 = detector->var0;
+    v39 = detector->var1;
+    v40 = state->var0;
+    v41 = state->var1;
+    v42 = detector->var2;
+    v43 = state->var2;
     *buf = 134219522;
-    st_ino = v39;
-    v49 = 2048;
-    *v50 = v41;
-    *&v50[8] = 2048;
-    *&v50[10] = v40;
-    v51 = 2048;
-    v52 = v42;
-    v53 = 2048;
-    v54 = v43;
-    v55 = 2048;
-    v56 = v44;
-    v57 = 2112;
-    v58 = br_errorFromErrno;
+    st_ino = v38;
+    v48 = 2048;
+    *v49 = v40;
+    *&v49[8] = 2048;
+    *&v49[10] = v39;
+    v50 = 2048;
+    v51 = v41;
+    v52 = 2048;
+    v53 = v42;
+    v54 = 2048;
+    v55 = v43;
+    v56 = 2112;
+    v57 = br_errorFromErrno;
     _os_log_debug_impl(&dword_223E7A000, v34, OS_LOG_TYPE_DEBUG, "[DEBUG] database backup detector updated {old:%llu -> %llu; new:%llu -> %llu; c:%llu -> %llu}%@", buf, 0x48u);
   }
 
   v20 = 1;
 LABEL_41:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (void)preventDatabaseFromBeingReused
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [(NSURL *)self->_dbURL URLByAppendingPathComponent:@"control-odd"];
   v4 = [(NSURL *)self->_dbURL URLByAppendingPathComponent:@"control-even"];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v16 = 0;
-  v6 = [defaultManager removeItemAtURL:v3 error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [defaultManager removeItemAtURL:v3 error:&v15];
+  v7 = v15;
   if ((v6 & 1) == 0)
   {
     v8 = brc_bread_crumbs();
@@ -1738,18 +1782,18 @@ LABEL_41:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v18 = v3;
-      v19 = 2112;
-      v20 = v7;
-      v21 = 2112;
-      v22 = v8;
+      v17 = v3;
+      v18 = 2112;
+      v19 = v7;
+      v20 = 2112;
+      v21 = v8;
       _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] can't remove %@: %@%@", buf, 0x20u);
     }
   }
 
-  v15 = v7;
-  v10 = [defaultManager removeItemAtURL:v4 error:&v15];
-  v11 = v15;
+  v14 = v7;
+  v10 = [defaultManager removeItemAtURL:v4 error:&v14];
+  v11 = v14;
 
   if ((v10 & 1) == 0)
   {
@@ -1758,16 +1802,14 @@ LABEL_41:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v18 = v4;
-      v19 = 2112;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
+      v17 = v4;
+      v18 = 2112;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] can't remove %@: %@%@", buf, 0x20u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fixObfuscatedMangledID:(id)d
@@ -1843,7 +1885,7 @@ uint64_t __64__BRCAccountSession_BRCDatabaseManager__fixObfuscatedMangledID___bl
 
 - (BOOL)createServerZone:(id)zone
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   serverDB = self->_serverDB;
   ownerName = [zoneCopy ownerName];
@@ -1882,11 +1924,11 @@ uint64_t __64__BRCAccountSession_BRCDatabaseManager__fixObfuscatedMangledID___bl
         {
           dbRowID2 = [zoneCopy dbRowID];
           *buf = 138412802;
-          v36 = dbRowID2;
-          v37 = 2112;
-          v38 = v10;
-          v39 = 2112;
-          v40 = v23;
+          v35 = dbRowID2;
+          v36 = 2112;
+          v37 = v10;
+          v38 = 2112;
+          v39 = v23;
           _os_log_fault_impl(&dword_223E7A000, v24, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: got a new rowid for already existing zone (sct.dbRowID=%@ rowID=%@)%@", buf, 0x20u);
         }
       }
@@ -1911,11 +1953,11 @@ uint64_t __64__BRCAccountSession_BRCDatabaseManager__fixObfuscatedMangledID___bl
       {
         lastError = [(BRCPQLConnection *)self->_serverDB lastError];
         *buf = 138412802;
-        v36 = zoneCopy;
-        v37 = 2112;
-        v38 = lastError;
-        v39 = 2112;
-        v40 = v11;
+        v35 = zoneCopy;
+        v36 = 2112;
+        v37 = lastError;
+        v38 = 2112;
+        v39 = v11;
         _os_log_fault_impl(&dword_223E7A000, dbRowID5, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to update plist for zone %@: %@%@", buf, 0x20u);
       }
     }
@@ -1965,11 +2007,11 @@ LABEL_26:
       dbRowID5 = [zoneCopy dbRowID];
       lastInsertedRowID = [(BRCPQLConnection *)self->_serverDB lastInsertedRowID];
       *buf = 138412802;
-      v36 = dbRowID5;
-      v37 = 2048;
-      v38 = lastInsertedRowID;
-      v39 = 2112;
-      v40 = v10;
+      v35 = dbRowID5;
+      v36 = 2048;
+      v37 = lastInsertedRowID;
+      v38 = 2112;
+      v39 = v10;
       _os_log_fault_impl(&dword_223E7A000, v11, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: sct.dbRowID is %@ lastInsertedRow is %lld%@", buf, 0x20u);
     }
 
@@ -1982,18 +2024,17 @@ LABEL_26:
   {
     lastError2 = [(BRCPQLConnection *)self->_serverDB lastError];
     *buf = 138412802;
-    v36 = zoneCopy;
-    v37 = 2112;
-    v38 = lastError2;
-    v39 = 2112;
-    v40 = serverReadWriteDatabaseFacade;
+    v35 = zoneCopy;
+    v36 = 2112;
+    v37 = lastError2;
+    v38 = 2112;
+    v39 = serverReadWriteDatabaseFacade;
     _os_log_error_impl(&dword_223E7A000, ownerName3, 0x90u, "[ERROR] Failed to create server zone %@:  %@%@", buf, 0x20u);
   }
 
   v16 = 0;
 LABEL_28:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -2031,7 +2072,7 @@ LABEL_28:
 
 - (id)_reserveRowIDForLibrary:(id)library
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   libraryCopy = library;
   [(BRCPQLConnection *)self->_serverDB assertOnQueue];
   if ([(BRCPQLConnection *)self->_serverDB execute:@"INSERT INTO rowid_reservations (container_id) VALUES (%@)", libraryCopy])
@@ -2058,11 +2099,11 @@ LABEL_28:
     {
       lastError = [(BRCPQLConnection *)self->_serverDB lastError];
       *buf = 138412802;
-      v12 = libraryCopy;
-      v13 = 2112;
-      v14 = lastError;
-      v15 = 2112;
-      v16 = v6;
+      v11 = libraryCopy;
+      v12 = 2112;
+      v13 = lastError;
+      v14 = 2112;
+      v15 = v6;
       _os_log_fault_impl(&dword_223E7A000, v7, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: couldn't allocate a rowid. libraryID %@ error %@%@", buf, 0x20u);
     }
 
@@ -2070,7 +2111,6 @@ LABEL_28:
   }
 
 LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2084,7 +2124,7 @@ LABEL_9:
   v9 = [(BRCAccountSession *)self fixObfuscatedMangledID:v8];
 
   v10 = [objc_alloc(MEMORY[0x277CFAE60]) initWithAppLibraryName:v9];
-  v11 = _BRCClassesForContainerState();
+  v11 = _BRCClassesForContainerState(v10);
   v12 = [setCopy unarchivedObjectOfClasses:v11 atIndex:2];
 
   v13 = [setCopy numberAtIndex:3];
@@ -2305,7 +2345,7 @@ id __73__BRCAccountSession_BRCDatabaseManager___appLibrariesEnumerator_version__
   v9 = [(BRCAccountSession *)self fixObfuscatedMangledID:v8];
 
   v10 = [objc_alloc(MEMORY[0x277CFAE60]) initWithZoneName:v9 ownerName:v7];
-  v11 = _BRCClassesForContainerState();
+  v11 = _BRCClassesForContainerState(v10);
   v12 = [setCopy unarchivedObjectOfClasses:v11 atIndex:3];
 
   if (!v12)
@@ -2349,7 +2389,7 @@ id __69__BRCAccountSession_BRCDatabaseManager___sharedClientZonesEnumerator__blo
   v9 = [(BRCAccountSession *)self fixObfuscatedMangledID:v8];
 
   v10 = [objc_alloc(MEMORY[0x277CFAE60]) initWithZoneName:v9 ownerName:v7];
-  v11 = _BRCClassesForContainerState();
+  v11 = _BRCClassesForContainerState(v10);
   v12 = [setCopy unarchivedObjectOfClasses:v11 atIndex:3];
 
   if (!v12)
@@ -2409,7 +2449,7 @@ id __78__BRCAccountSession_BRCDatabaseManager___sharedServerZoneByName_ownerName
   v8 = [(BRCAccountSession *)self fixObfuscatedMangledID:v7];
 
   v9 = [objc_alloc(MEMORY[0x277CFAE60]) initWithZoneName:v8 ownerName:0];
-  v10 = _BRCClassesForContainerState();
+  v10 = _BRCClassesForContainerState(v9);
   v11 = [setCopy unarchivedObjectOfClasses:v10 atIndex:3];
 
   if (!v11)
@@ -2490,7 +2530,7 @@ id __67__BRCAccountSession_BRCDatabaseManager___privateClientZoneByID_db___block
   v8 = [(BRCAccountSession *)self fixObfuscatedMangledID:v7];
 
   v9 = [objc_alloc(MEMORY[0x277CFAE60]) initWithZoneName:v8 ownerName:0];
-  v10 = _BRCClassesForContainerState();
+  v10 = _BRCClassesForContainerState(v9);
   v11 = [setCopy unarchivedObjectOfClasses:v10 atIndex:3];
 
   if (!v11)
@@ -2581,7 +2621,7 @@ id __98__BRCAccountSession_BRCDatabaseManager__itemsNeedingIndexingEnumeratorFro
 
 - (void)_clearNeedsUpgradeErrorsWithBrVersion:(id)version
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -2589,26 +2629,26 @@ id __98__BRCAccountSession_BRCDatabaseManager__itemsNeedingIndexingEnumeratorFro
     [BRCAccountSession(BRCDatabaseManager) _clearNeedsUpgradeErrorsWithBrVersion:];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   _privateClientZonesEnumerator = [(BRCAccountSession *)self _privateClientZonesEnumerator];
-  v7 = [_privateClientZonesEnumerator countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v7 = [_privateClientZonesEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(_privateClientZonesEnumerator);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         if (([v11 state] & 0x200000) != 0)
         {
           [v11 _forDBUpgrade_setStateBits:16 clearStateBits:0x200000];
@@ -2616,32 +2656,32 @@ id __98__BRCAccountSession_BRCDatabaseManager__itemsNeedingIndexingEnumeratorFro
         }
       }
 
-      v8 = [_privateClientZonesEnumerator countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v8 = [_privateClientZonesEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v8);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   _sharedClientZonesEnumerator = [(BRCAccountSession *)self _sharedClientZonesEnumerator];
-  v13 = [_sharedClientZonesEnumerator countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v13 = [_sharedClientZonesEnumerator countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(_sharedClientZonesEnumerator);
         }
 
-        v17 = *(*(&v20 + 1) + 8 * j);
+        v17 = *(*(&v19 + 1) + 8 * j);
         if (([v17 state] & 0x200000) != 0)
         {
           [v17 _forDBUpgrade_setStateBits:16 clearStateBits:0x200000];
@@ -2649,7 +2689,7 @@ id __98__BRCAccountSession_BRCDatabaseManager__itemsNeedingIndexingEnumeratorFro
         }
       }
 
-      v14 = [_sharedClientZonesEnumerator countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v14 = [_sharedClientZonesEnumerator countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v14);
@@ -2657,8 +2697,6 @@ id __98__BRCAccountSession_BRCDatabaseManager__itemsNeedingIndexingEnumeratorFro
 
   clientDB = [(BRCAccountSession *)self clientDB];
   [clientDB execute:@"UPDATE client_items SET item_min_supported_os_rowid = NULL  WHERE item_localsyncupstate = 4 AND item_localsyncupstate != 0"];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_registerLastBootIfNeeded:(id)needed table:(id)table skipControlFiles:(BOOL)files dbCreationDate:(id *)date deviceIDChanged:(BOOL *)changed
@@ -2772,6 +2810,252 @@ LABEL_25:
   return longValue;
 }
 
++ (BOOL)_checkIntegrity:(id)integrity serverTruth:(BOOL)truth session:(id)session skipControlFiles:(BOOL)files dbCreationDate:(id *)date deviceIDChanged:(BOOL *)changed error:(id *)error
+{
+  filesCopy = files;
+  truthCopy = truth;
+  v58 = *MEMORY[0x277D85DE8];
+  integrityCopy = integrity;
+  sessionCopy = session;
+  v50 = 0uLL;
+  v51 = 0;
+  v17 = brc_bread_crumbs();
+  v18 = brc_default_log();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  {
+    +[BRCAccountSession(BRCDatabaseManager) _checkIntegrity:serverTruth:session:skipControlFiles:dbCreationDate:deviceIDChanged:error:];
+  }
+
+  if (truthCopy)
+  {
+    v19 = [integrityCopy numberWithSQL:@"SELECT count(*) FROM server_state"];
+    if ([v19 br_isEqualToNumber:&unk_2837AFFF8])
+    {
+      v20 = [MEMORY[0x277D82C10] nameWithString:@"server_boot_history"];
+      [self _registerLastBootIfNeeded:integrityCopy table:v20 skipControlFiles:filesCopy dbCreationDate:date deviceIDChanged:changed];
+
+      v21 = 0;
+      v22 = 0;
+      v23 = 0;
+      v24 = 0;
+      v25 = 0;
+LABEL_44:
+      v30 = 1;
+      goto LABEL_47;
+    }
+
+    v26 = [MEMORY[0x277CCA9B8] br_errorWithPOSIXCode:22 description:@"missing entry in the server_state table"];
+    if (v26)
+    {
+      v27 = brc_bread_crumbs();
+      v28 = brc_default_log();
+      if (os_log_type_enabled(v28, 0x90u))
+      {
+        v43 = "(passed to caller)";
+        *buf = 136315906;
+        *&buf[4] = "+[BRCAccountSession(BRCDatabaseManager) _checkIntegrity:serverTruth:session:skipControlFiles:dbCreationDate:deviceIDChanged:error:]";
+        *&buf[12] = 2080;
+        if (!error)
+        {
+          v43 = "(ignored by caller)";
+        }
+
+        *&buf[14] = v43;
+        *&buf[22] = 2112;
+        v53 = v26;
+        v54 = 2112;
+        v55 = v27;
+        _os_log_error_impl(&dword_223E7A000, v28, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+      }
+    }
+
+    if (error)
+    {
+      v29 = v26;
+      *error = v26;
+    }
+
+    v21 = 0;
+    v22 = 0;
+    v23 = 0;
+    v24 = 0;
+    v25 = 0;
+    v30 = 0;
+    goto LABEL_47;
+  }
+
+  if (sessionCopy)
+  {
+    v25 = [integrityCopy fetch:{@"SELECT old, new, counter, os, br FROM backup_detector"}];
+    if ([v25 next])
+    {
+      *&v50 = [v25 unsignedLongLongAtIndex:0];
+      *(&v50 + 1) = [v25 unsignedLongLongAtIndex:1];
+      v51 = [v25 unsignedLongLongAtIndex:2];
+      v49 = [v25 stringAtIndex:3];
+      v23 = [v25 stringAtIndex:4];
+    }
+
+    else
+    {
+      v23 = 0;
+      v49 = 0;
+    }
+
+    [v25 close];
+    if (!filesCopy)
+    {
+      *buf = v50;
+      *&buf[16] = v51;
+      if (![sessionCopy _stepBackupDetector:buf newState:&v50 error:error])
+      {
+        v19 = 0;
+        v21 = 0;
+        v22 = 0;
+LABEL_46:
+        v30 = 0;
+        v24 = v49;
+        goto LABEL_47;
+      }
+    }
+
+    errorCopy2 = error;
+  }
+
+  else
+  {
+    errorCopy2 = error;
+    v23 = 0;
+    v49 = 0;
+    v25 = 0;
+  }
+
+  v48 = OSVersion();
+  v21 = BRVersion();
+  if (([v23 isEqualToString:v21] & 1) == 0)
+  {
+    [sessionCopy _clearNeedsUpgradeErrorsWithBrVersion:v21];
+  }
+
+  if (sessionCopy && ([integrityCopy execute:{@"UPDATE backup_detector set old = %llu, new = %llu, counter = %llu, br = %@", v50, v51, v21}] & 1) == 0)
+  {
+    lastError = [integrityCopy lastError];
+    if (lastError)
+    {
+      v37 = brc_bread_crumbs();
+      v38 = brc_default_log();
+      if (os_log_type_enabled(v38, 0x90u))
+      {
+        v45 = "(passed to caller)";
+        *buf = 136315906;
+        *&buf[4] = "+[BRCAccountSession(BRCDatabaseManager) _checkIntegrity:serverTruth:session:skipControlFiles:dbCreationDate:deviceIDChanged:error:]";
+        *&buf[12] = 2080;
+        if (!errorCopy2)
+        {
+          v45 = "(ignored by caller)";
+        }
+
+        *&buf[14] = v45;
+        *&buf[22] = 2112;
+        v53 = lastError;
+        v54 = 2112;
+        v55 = v37;
+        _os_log_error_impl(&dword_223E7A000, v38, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+      }
+    }
+
+    if (errorCopy2)
+    {
+      v39 = lastError;
+      *errorCopy2 = lastError;
+    }
+
+    v19 = 0;
+    v30 = 0;
+    v22 = v48;
+    v24 = v49;
+    goto LABEL_47;
+  }
+
+  v19 = [integrityCopy numberWithSQL:@"SELECT count(*) FROM client_state"];
+  if (([v19 br_isEqualToNumber:&unk_2837AFFF8] & 1) == 0)
+  {
+    v32 = [MEMORY[0x277CCA9B8] br_errorWithPOSIXCode:22 description:@"missing entry in the client_state table"];
+    v22 = v48;
+    if (v32)
+    {
+      v33 = brc_bread_crumbs();
+      v34 = brc_default_log();
+      if (os_log_type_enabled(v34, 0x90u))
+      {
+        v44 = "(passed to caller)";
+        *buf = 136315906;
+        *&buf[4] = "+[BRCAccountSession(BRCDatabaseManager) _checkIntegrity:serverTruth:session:skipControlFiles:dbCreationDate:deviceIDChanged:error:]";
+        *&buf[12] = 2080;
+        if (!errorCopy2)
+        {
+          v44 = "(ignored by caller)";
+        }
+
+        *&buf[14] = v44;
+        *&buf[22] = 2112;
+        v53 = v32;
+        v54 = 2112;
+        v55 = v33;
+        _os_log_error_impl(&dword_223E7A000, v34, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+      }
+    }
+
+    if (errorCopy2)
+    {
+      v35 = v32;
+      *errorCopy2 = v32;
+    }
+
+    goto LABEL_46;
+  }
+
+  v47 = sessionCopy;
+  v31 = [MEMORY[0x277D82C10] nameWithString:@"boot_history"];
+  [self _registerLastBootIfNeeded:integrityCopy table:v31 skipControlFiles:filesCopy dbCreationDate:date deviceIDChanged:changed];
+
+  v22 = v48;
+  v24 = v49;
+  if (![v49 isEqualToString:v48] || (objc_msgSend(v23, "isEqualToString:", v21) & 1) == 0)
+  {
+    v40 = brc_bread_crumbs();
+    v41 = brc_default_log();
+    sessionCopy = v47;
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138413314;
+      *&buf[4] = v23;
+      *&buf[12] = 2112;
+      *&buf[14] = v49;
+      *&buf[22] = 2112;
+      v53 = v21;
+      v54 = 2112;
+      v55 = v48;
+      v56 = 2112;
+      v57 = v40;
+      _os_log_impl(&dword_223E7A000, v41, OS_LOG_TYPE_DEFAULT, "[NOTICE] CloudDocs was upgraded from [%@ on %@] to [%@ on %@]%@", buf, 0x34u);
+    }
+
+    if (v47)
+    {
+      [integrityCopy execute:{@"UPDATE backup_detector SET os = %@", v48}];
+    }
+
+    goto LABEL_44;
+  }
+
+  v30 = 1;
+  sessionCopy = v47;
+LABEL_47:
+
+  return v30;
+}
+
 - (void)_loadClientStateFromClientDB
 {
   v3 = brc_bread_crumbs();
@@ -2803,7 +3087,7 @@ LABEL_25:
     v12 = brc_default_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [(BRCAccountSession(BRCDatabaseManager) *)&self->_clientState _loadClientStateFromClientDB];
+      [BRCAccountSession(BRCDatabaseManager) _loadClientStateFromClientDB];
     }
   }
 
@@ -2813,7 +3097,7 @@ LABEL_25:
     v12 = brc_default_log();
     if (os_log_type_enabled(v12, 0x90u))
     {
-      [(BRCAccountSession(BRCDatabaseManager) *)&self->_clientState _loadClientStateFromClientDB];
+      [BRCAccountSession(BRCDatabaseManager) _loadClientStateFromClientDB];
     }
   }
 }
@@ -2869,7 +3153,7 @@ LABEL_25:
 
 void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
@@ -2879,27 +3163,27 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
 
   if (([WeakRetained isCancelled] & 1) == 0)
   {
-    memset(v28, 0, sizeof(v28));
-    __brc_create_section(0, "[BRCAccountSession(BRCDatabaseManager) _finishClientTruthConnectionSetupWithError:]_block_invoke", 1350, 0, v28);
+    memset(v27, 0, sizeof(v27));
+    __brc_create_section(0, "[BRCAccountSession(BRCDatabaseManager) _finishClientTruthConnectionSetupWithError:]_block_invoke", 1350, 0, v27);
     v5 = brc_bread_crumbs();
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_2(v28);
+      __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_2();
     }
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_265;
-    v26[3] = &unk_2784FF960;
-    objc_copyWeak(&v27, (a1 + 40));
-    [WeakRetained enumerateServerZones:v26];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_267;
-    v24[3] = &unk_2784FF988;
-    objc_copyWeak(&v25, (a1 + 40));
-    [WeakRetained enumerateAppLibraries:v24];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_265;
+    v25[3] = &unk_2784FF960;
+    objc_copyWeak(&v26, (a1 + 40));
+    [WeakRetained enumerateServerZones:v25];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_267;
+    v23[3] = &unk_2784FF988;
+    objc_copyWeak(&v24, (a1 + 40));
+    [WeakRetained enumerateAppLibraries:v23];
     v7 = [(BRCPersistedState *)BRCClientRanksPersistedState loadFromClientStateInSession:WeakRetained];
     v8 = [v7 getAndClearIsNotifRankChanged];
 
@@ -2910,7 +3194,7 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v30 = v9;
+        v29 = v9;
         _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[NOTICE] We have changes in the notification rank, need to make this flush as checkpoint%@", buf, 0xCu);
       }
 
@@ -2926,9 +3210,9 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v30 = v11;
-        v31 = 2112;
-        v32 = v13;
+        v29 = v11;
+        v30 = 2112;
+        v31 = v13;
         _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[NOTICE] Saving client state data: %@%@", buf, 0x16u);
       }
 
@@ -2939,9 +3223,9 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
       {
         if ([*(a1 + 32) isDataSeparated])
         {
-          v18 = brc_bread_crumbs();
-          v19 = brc_default_log();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+          v17 = brc_bread_crumbs();
+          v18 = brc_default_log();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
           {
             __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_4();
           }
@@ -2952,26 +3236,24 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
         abc_report_panic_with_signature();
         [MEMORY[0x277CCACA8] stringWithFormat:@"unable to flush client state, crash to maintain consistency"];
         objc_claimAutoreleasedReturnValue();
-        v20 = brc_bread_crumbs();
-        v21 = brc_default_log();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+        v19 = brc_bread_crumbs();
+        v20 = brc_default_log();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
         {
-          v22 = brc_append_system_info_to_message();
-          __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_3(v22, v20, buf, v21);
+          v21 = brc_append_system_info_to_message();
+          __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_3(v21, v19, buf, v20);
         }
 
         brc_append_system_info_to_message();
-        v23 = [objc_claimAutoreleasedReturnValue() UTF8String];
-        __assert_rtn("[BRCAccountSession(BRCDatabaseManager) _finishClientTruthConnectionSetupWithError:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CloudDocs_plugins/core/shared/database/BRCDatabaseManager.m", 1385, v23);
+        v22 = [objc_claimAutoreleasedReturnValue() UTF8String];
+        __assert_rtn("[BRCAccountSession(BRCDatabaseManager) _finishClientTruthConnectionSetupWithError:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CloudDocs_plugins/core/shared/database/BRCDatabaseManager.m", 1385, v22);
       }
     }
 
-    objc_destroyWeak(&v25);
-    objc_destroyWeak(&v27);
-    __brc_leave_section(v28);
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v26);
+    __brc_leave_section(v27);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_265(uint64_t a1, void *a2)
@@ -3030,7 +3312,7 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_2_cold_2(v11);
+      __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_2_cold_2();
     }
 
     v7 = [(BRCPersistedState *)BRCClientRanksPersistedState loadFromClientStateInSession:WeakRetained];
@@ -3049,7 +3331,7 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
 
 void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_2_277(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = a3;
   v9 = a2;
@@ -3093,13 +3375,13 @@ LABEL_7:
   v19 = brc_default_log();
   if (os_log_type_enabled(v19, 0x90u))
   {
-    v22 = 138412802;
-    v23 = WeakRetained;
-    v24 = 2112;
-    v25 = v7;
-    v26 = 2112;
-    v27 = v18;
-    _os_log_error_impl(&dword_223E7A000, v19, 0x90u, "[ERROR] %@ - Got error: %@. Invalidating the extension...%@", &v22, 0x20u);
+    v21 = 138412802;
+    v22 = WeakRetained;
+    v23 = 2112;
+    v24 = v7;
+    v25 = 2112;
+    v26 = v18;
+    _os_log_error_impl(&dword_223E7A000, v19, 0x90u, "[ERROR] %@ - Got error: %@. Invalidating the extension...%@", &v21, 0x20u);
   }
 
   [WeakRetained invalidateExtensionXPCClient];
@@ -3107,7 +3389,6 @@ LABEL_7:
   (v20)[2](v20, v9, v8, v7);
 
   (*(*(a1 + 32) + 16))();
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_finishServerTruthConnectionSetupWithError:(id *)error
@@ -3210,6 +3491,111 @@ LABEL_9:
   return version;
 }
 
++ (BOOL)openAndValidateDatabase:(id)database serverTruth:(BOOL)truth session:(id)session baseURL:(id)l skipControlFiles:(BOOL)files initialVersion:(unsigned int *)version lastCurrentVersion:(unsigned int *)currentVersion dbCreationDate:(id *)self0 deviceIDChanged:(BOOL *)self1 error:(id *)self2
+{
+  truthCopy = truth;
+  v56 = *MEMORY[0x277D85DE8];
+  databaseCopy = database;
+  sessionCopy = session;
+  lCopy = l;
+  v21 = @"client.db";
+  if (truthCopy)
+  {
+    v21 = @"server.db";
+  }
+
+  v22 = v21;
+  v45 = 0;
+  v23 = brc_bread_crumbs();
+  v24 = brc_default_log();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138412802;
+    *&buf[4] = v22;
+    *&buf[12] = 2112;
+    *&buf[14] = lCopy;
+    *&buf[22] = 2112;
+    v53 = v23;
+    _os_log_debug_impl(&dword_223E7A000, v24, OS_LOG_TYPE_DEBUG, "[DEBUG] Opening DB %@ in base URL: %@%@", buf, 0x20u);
+  }
+
+  if ([self _openConnection:databaseCopy serverTruth:truthCopy databaseName:v22 baseURL:lCopy initialVersion:&v45 + 4 lastCurrentVersion:&v45 error:error])
+  {
+    if (version)
+    {
+      *version = HIDWORD(v45);
+    }
+
+    if (currentVersion)
+    {
+      *currentVersion = v45;
+    }
+
+    if (HIDWORD(v45) >> 4 >= 0x753)
+    {
+      v25 = brc_bread_crumbs();
+      v26 = brc_default_log();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      {
+        +[BRCAccountSession(BRCDatabaseManager) openAndValidateDatabase:serverTruth:session:baseURL:skipControlFiles:initialVersion:lastCurrentVersion:dbCreationDate:deviceIDChanged:error:];
+      }
+
+      files = 1;
+    }
+
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x3032000000;
+    v53 = __Block_byref_object_copy__1;
+    v54 = __Block_byref_object_dispose__1;
+    v55 = 0;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __181__BRCAccountSession_BRCDatabaseManager__openAndValidateDatabase_serverTruth_session_baseURL_skipControlFiles_initialVersion_lastCurrentVersion_dbCreationDate_deviceIDChanged_error___block_invoke;
+    v33[3] = &unk_2784FFA70;
+    v34 = databaseCopy;
+    selfCopy = self;
+    v35 = lCopy;
+    v27 = sessionCopy;
+    v43 = truthCopy;
+    v41 = HIDWORD(v45);
+    v42 = v45;
+    v36 = v27;
+    v37 = buf;
+    filesCopy = files;
+    dateCopy = date;
+    changedCopy = changed;
+    v28 = [v34 performWithFlags:10 action:v33];
+    v29 = brc_bread_crumbs();
+    v30 = brc_default_log();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    {
+      v32 = *(*&buf[8] + 40);
+      *v46 = 138412802;
+      v47 = v22;
+      v48 = 2112;
+      v49 = v32;
+      v50 = 2112;
+      v51 = v29;
+      _os_log_debug_impl(&dword_223E7A000, v30, OS_LOG_TYPE_DEBUG, "[DEBUG] Done with %@ DB: error: %@%@", v46, 0x20u);
+    }
+
+    if (error)
+    {
+      *error = *(*&buf[8] + 40);
+    }
+
+    _Block_object_dispose(buf, 8);
+  }
+
+  else
+  {
+    v28 = 0;
+  }
+
+  return v28;
+}
+
 uint64_t __181__BRCAccountSession_BRCDatabaseManager__openAndValidateDatabase_serverTruth_session_baseURL_skipControlFiles_initialVersion_lastCurrentVersion_dbCreationDate_deviceIDChanged_error___block_invoke(uint64_t a1)
 {
   if (([*(a1 + 32) execute:@"PRAGMA recursive_triggers = true"] & 1) == 0)
@@ -3271,7 +3657,7 @@ uint64_t __181__BRCAccountSession_BRCDatabaseManager__openAndValidateDatabase_se
 + (BOOL)_openConnection:(id)connection serverTruth:(BOOL)truth databaseName:(id)name baseURL:(id)l initialVersion:(unsigned int *)version lastCurrentVersion:(unsigned int *)currentVersion error:(id *)error
 {
   errorCopy2 = error;
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   nameCopy = name;
   lCopy = l;
@@ -3282,9 +3668,9 @@ uint64_t __181__BRCAccountSession_BRCDatabaseManager__openAndValidateDatabase_se
     +[BRCAccountSession(BRCDatabaseManager) _openConnection:serverTruth:databaseName:baseURL:initialVersion:lastCurrentVersion:error:];
   }
 
-  v94 = 0;
-  v20 = [BRCAccountSession _openConnection:connectionCopy databaseName:nameCopy baseURL:lCopy readonly:0 error:&v94];
-  v21 = v94;
+  v93 = 0;
+  v20 = [BRCAccountSession _openConnection:connectionCopy databaseName:nameCopy baseURL:lCopy readonly:0 error:&v93];
+  v21 = v93;
   if (!v20)
   {
     v31 = brc_bread_crumbs();
@@ -3355,15 +3741,15 @@ LABEL_64:
       }
 
       truthCopy3 = truth;
-      v77 = unsignedIntValue / 0x3E8uLL;
-      v78 = brc_bread_crumbs();
-      v79 = brc_default_log();
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
+      v76 = unsignedIntValue / 0x3E8uLL;
+      v77 = brc_bread_crumbs();
+      v78 = brc_default_log();
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
       {
         +[BRCAccountSession(BRCDatabaseManager) _openConnection:serverTruth:databaseName:baseURL:initialVersion:lastCurrentVersion:error:];
       }
 
-      [BRCDatabaseFromTheFutureException raise:@"DatabaseFromTheFuture" format:@"database has a major version from the future: %d (want at most %d)", v77, 34];
+      [BRCDatabaseFromTheFutureException raise:@"DatabaseFromTheFuture" format:@"database has a major version from the future: %d (want at most %d)", v76, 34];
     }
 
     else
@@ -3390,12 +3776,12 @@ LABEL_64:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109634;
-      *v96 = unsignedIntValue / 0x3E8u;
+      *v95 = unsignedIntValue / 0x3E8u;
       v29 = unsignedIntValue % 0x3E8u;
-      *&v96[4] = 1024;
-      *&v96[6] = v29;
-      *&v96[10] = 2112;
-      *&v96[12] = v26;
+      *&v95[4] = 1024;
+      *&v95[6] = v29;
+      *&v95[10] = 2112;
+      *&v95[12] = v26;
       _os_log_fault_impl(&dword_223E7A000, v27, OS_LOG_TYPE_FAULT, "[CRIT] Internal users only version %d.%03d has seen an ulterior change and needs to be reset%@", buf, 0x18u);
     }
 
@@ -3410,8 +3796,8 @@ LABEL_64:
     errorCopy2 = error;
   }
 
-  v93 = 61;
-  v40 = sqlite3_file_control([connectionCopy dbHandle], 0, 101, &v93);
+  v92 = 61;
+  v40 = sqlite3_file_control([connectionCopy dbHandle], 0, 101, &v92);
   v41 = 0x2784FD000uLL;
   if (v40)
   {
@@ -3420,13 +3806,13 @@ LABEL_64:
     v44 = brc_default_log();
     if (os_log_type_enabled(v44, 0x90u))
     {
-      v80 = sqlite3_errmsg([connectionCopy dbHandle]);
+      v79 = sqlite3_errmsg([connectionCopy dbHandle]);
       *buf = 67109634;
-      *v96 = v42;
-      *&v96[4] = 2080;
-      *&v96[6] = v80;
-      *&v96[14] = 2112;
-      *&v96[16] = v43;
+      *v95 = v42;
+      *&v95[4] = 2080;
+      *&v95[6] = v79;
+      *&v95[14] = 2112;
+      *&v95[16] = v43;
       _os_log_error_impl(&dword_223E7A000, v44, 0x90u, "[ERROR] unable to truncate database: %d; %s%@", buf, 0x1Cu);
     }
 
@@ -3441,13 +3827,13 @@ LABEL_64:
       v49 = brc_default_log();
       if (os_log_type_enabled(v49, 0x90u))
       {
-        v83 = [connectionCopy url];
+        v82 = [connectionCopy url];
         *buf = 138412802;
-        *v96 = v83;
-        *&v96[8] = 1024;
-        *&v96[10] = v47;
-        *&v96[14] = 2112;
-        *&v96[16] = v48;
+        *v95 = v82;
+        *&v95[8] = 1024;
+        *&v95[10] = v47;
+        *&v95[14] = 2112;
+        *&v95[16] = v48;
         _os_log_error_impl(&dword_223E7A000, v49, 0x90u, "[ERROR] can't unlink '%@' %{errno}d%@", buf, 0x1Cu);
       }
 
@@ -3462,9 +3848,9 @@ LABEL_64:
   }
 
   v50 = *(v41 + 2368);
-  v92 = v21;
-  v51 = [v50 _openConnection:connectionCopy databaseName:nameCopy baseURL:lCopy readonly:0 error:&v92];
-  v52 = v92;
+  v91 = v21;
+  v51 = [v50 _openConnection:connectionCopy databaseName:nameCopy baseURL:lCopy readonly:0 error:&v91];
+  v52 = v91;
 
   if ((v51 & 1) == 0)
   {
@@ -3518,14 +3904,14 @@ LABEL_59:
     if ((v73 & 1) == 0)
     {
       abc_report_panic_with_signature();
-      v85 = MEMORY[0x277CCACA8];
+      v84 = MEMORY[0x277CCACA8];
       lastError = [connectionCopy lastError];
-      [v85 stringWithFormat:@"we should be able to attach the server db {%@}", lastError];
+      [v84 stringWithFormat:@"we should be able to attach the server db {%@}", lastError];
       objc_claimAutoreleasedReturnValue();
 
-      v87 = brc_bread_crumbs();
-      v88 = brc_default_log();
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
+      v86 = brc_bread_crumbs();
+      v87 = brc_default_log();
+      if (os_log_type_enabled(v87, OS_LOG_TYPE_FAULT))
       {
         [BRCAccountSession(BRCDatabaseManager) _startWatcher];
       }
@@ -3573,9 +3959,9 @@ LABEL_70:
 
     if (unsignedIntValue >= 0x84D1 && (unsignedIntValue - 34000) >= 0x3E8)
     {
-      v81 = brc_bread_crumbs();
-      v82 = brc_default_log();
-      if (os_log_type_enabled(v82, OS_LOG_TYPE_FAULT))
+      v80 = brc_bread_crumbs();
+      v81 = brc_default_log();
+      if (os_log_type_enabled(v81, OS_LOG_TYPE_FAULT))
       {
         +[BRCAccountSession(BRCDatabaseManager) _openConnection:serverTruth:databaseName:baseURL:initialVersion:lastCurrentVersion:error:];
       }
@@ -3592,12 +3978,12 @@ LABEL_70:
   if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
   {
     *buf = 67109634;
-    *v96 = unsignedIntValue / 0x3E8u;
+    *v95 = unsignedIntValue / 0x3E8u;
     v58 = unsignedIntValue % 0x3E8u;
-    *&v96[4] = 1024;
-    *&v96[6] = unsignedIntValue % 0x3E8u;
-    *&v96[10] = 2112;
-    *&v96[12] = v56;
+    *&v95[4] = 1024;
+    *&v95[6] = unsignedIntValue % 0x3E8u;
+    *&v95[10] = 2112;
+    *&v95[12] = v56;
     _os_log_fault_impl(&dword_223E7A000, v57, OS_LOG_TYPE_FAULT, "[CRIT] Internal users only version %d.%03d has seen an ulterior change and needs to be reset%@", buf, 0x18u);
   }
 
@@ -3617,20 +4003,20 @@ LABEL_45:
     v68 = brc_default_log();
     if (os_log_type_enabled(v68, 0x90u))
     {
-      v84 = "(passed to caller)";
+      v83 = "(passed to caller)";
       *buf = 136315906;
-      *v96 = "+[BRCAccountSession(BRCDatabaseManager) _openConnection:serverTruth:databaseName:baseURL:initialVersion:lastCurrentVersion:error:]";
-      *&v96[8] = 2080;
+      *v95 = "+[BRCAccountSession(BRCDatabaseManager) _openConnection:serverTruth:databaseName:baseURL:initialVersion:lastCurrentVersion:error:]";
+      *&v95[8] = 2080;
       if (!errorCopy2)
       {
-        v84 = "(ignored by caller)";
+        v83 = "(ignored by caller)";
       }
 
-      *&v96[10] = v84;
-      *&v96[18] = 2112;
-      *&v96[20] = v66;
-      v97 = 2112;
-      v98 = v67;
+      *&v95[10] = v83;
+      *&v95[18] = 2112;
+      *&v95[20] = v66;
+      v96 = 2112;
+      v97 = v67;
       _os_log_error_impl(&dword_223E7A000, v68, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -3645,8 +4031,548 @@ LABEL_51:
   v34 = 0;
 LABEL_69:
 
-  v75 = *MEMORY[0x277D85DE8];
   return v34;
+}
+
++ (BOOL)_validateDatabase:(id)database baseURL:(id)l session:(id)session serverTruth:(BOOL)truth initialVersion:(unsigned int)version lastCurrentVersion:(unsigned int)currentVersion error:(id *)error
+{
+  truthCopy = truth;
+  v83 = *MEMORY[0x277D85DE8];
+  databaseCopy = database;
+  lCopy = l;
+  sessionCopy = session;
+  v14 = brc_bread_crumbs();
+  v15 = brc_default_log();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    +[BRCAccountSession(BRCDatabaseManager) _validateDatabase:baseURL:session:serverTruth:initialVersion:lastCurrentVersion:error:];
+  }
+
+  v73 = os_transaction_create();
+  v16 = off_28374EAC8;
+  if (off_28374EAC8)
+  {
+    v17 = 1;
+    v18 = internal_fixups;
+    do
+    {
+      v19 = *v18;
+      if (v19 > version)
+      {
+        break;
+      }
+
+      if (v19 == version)
+      {
+        v20 = brc_bread_crumbs();
+        v21 = brc_default_log();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109634;
+          *v80 = currentVersion;
+          *&v80[4] = 1024;
+          *&v80[6] = version;
+          *&v80[10] = 2112;
+          *&v80[12] = v20;
+          _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[NOTICE] doing an internal fixup from %d to %d%@", buf, 0x18u);
+        }
+
+        v78[0] = 0;
+        v22 = objc_autoreleasePoolPush();
+        v23 = (v16)(sessionCopy, databaseCopy, truthCopy, v78);
+        objc_autoreleasePoolPop(v22);
+        if ((v23 & 1) == 0)
+        {
+          v61 = brc_bread_crumbs();
+          v62 = brc_default_log();
+          if (os_log_type_enabled(v62, 0x90u))
+          {
+            *buf = 67109890;
+            *v80 = currentVersion;
+            *&v80[4] = 1024;
+            *&v80[6] = version;
+            *&v80[10] = 2112;
+            *&v80[12] = v78[0];
+            *&v80[20] = 2112;
+            *&v80[22] = v61;
+            _os_log_error_impl(&dword_223E7A000, v62, 0x90u, "[ERROR] can't internal fixup from version %d to %d: %@%@", buf, 0x22u);
+          }
+
+          v44 = databaseCopy;
+          if (error)
+          {
+            *error = v78[0];
+          }
+
+          v63 = v78[0];
+LABEL_82:
+
+          v47 = 0;
+LABEL_83:
+          v45 = v73;
+          v48 = lCopy;
+          goto LABEL_84;
+        }
+      }
+
+      v18 = &internal_fixups[4 * v17];
+      v16 = *(v18 + 1);
+      ++v17;
+    }
+
+    while (v16);
+  }
+
+  v24 = off_28374EAF8;
+  if (off_28374EAF8)
+  {
+    v25 = 1;
+    v26 = schema_fixups;
+    do
+    {
+      v27 = *v26;
+      if (*v26 > version)
+      {
+        break;
+      }
+
+      if (v27 > currentVersion)
+      {
+        v28 = brc_bread_crumbs();
+        v29 = brc_default_log();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109634;
+          *v80 = currentVersion;
+          *&v80[4] = 1024;
+          *&v80[6] = v27;
+          *&v80[10] = 2112;
+          *&v80[12] = v28;
+          _os_log_impl(&dword_223E7A000, v29, OS_LOG_TYPE_DEFAULT, "[NOTICE] fixuping database from version %d to %d%@", buf, 0x18u);
+        }
+
+        v78[0] = 0;
+        v30 = objc_autoreleasePoolPush();
+        v31 = (v24)(sessionCopy, databaseCopy, truthCopy, v78);
+        objc_autoreleasePoolPop(v30);
+        if ((v31 & 1) == 0)
+        {
+          v64 = brc_bread_crumbs();
+          v65 = brc_default_log();
+          if (os_log_type_enabled(v65, 0x90u))
+          {
+            *buf = 67109890;
+            *v80 = currentVersion;
+            *&v80[4] = 1024;
+            *&v80[6] = v27;
+            *&v80[10] = 2112;
+            *&v80[12] = v78[0];
+            *&v80[20] = 2112;
+            *&v80[22] = v64;
+            _os_log_error_impl(&dword_223E7A000, v65, 0x90u, "[ERROR] can't fixup from version %d to %d: %@%@", buf, 0x22u);
+          }
+
+          if (error)
+          {
+LABEL_68:
+            *error = v78[0];
+          }
+
+LABEL_69:
+
+          v47 = 0;
+          v44 = databaseCopy;
+          goto LABEL_83;
+        }
+      }
+
+      v26 = &schema_fixups[4 * v25];
+      v24 = *(v26 + 1);
+      ++v25;
+    }
+
+    while (v24);
+  }
+
+  v32 = off_28374EB78;
+  if (off_28374EB78)
+  {
+    v33 = 0;
+    v34 = range_fixups;
+    do
+    {
+      v35 = *v34;
+      v36 = v34[1];
+      if (*v34 <= version && v36 >= version)
+      {
+        v38 = brc_bread_crumbs();
+        v39 = brc_default_log();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67110146;
+          *v80 = v33;
+          *&v80[4] = 1024;
+          *&v80[6] = version;
+          *&v80[10] = 1024;
+          *&v80[12] = v35;
+          *&v80[16] = 1024;
+          *&v80[18] = v36;
+          *&v80[22] = 2112;
+          *&v80[24] = v38;
+          _os_log_impl(&dword_223E7A000, v39, OS_LOG_TYPE_DEFAULT, "[NOTICE] running fixup %d on version %d which is in range [%d,%d]%@", buf, 0x24u);
+        }
+
+        v78[0] = 0;
+        v40 = objc_autoreleasePoolPush();
+        v41 = (v32)(sessionCopy, databaseCopy, truthCopy, v78);
+        objc_autoreleasePoolPop(v40);
+        if ((v41 & 1) == 0)
+        {
+          v49 = brc_bread_crumbs();
+          v50 = brc_default_log();
+          if (os_log_type_enabled(v50, 0x90u))
+          {
+            *buf = 67110402;
+            *v80 = v33;
+            *&v80[4] = 1024;
+            *&v80[6] = version;
+            *&v80[10] = 1024;
+            *&v80[12] = v35;
+            *&v80[16] = 1024;
+            *&v80[18] = v36;
+            *&v80[22] = 2112;
+            *&v80[24] = v78[0];
+            v81 = 2112;
+            v82 = v49;
+            _os_log_error_impl(&dword_223E7A000, v50, 0x90u, "[ERROR] can't fixup %d on %d which is in range [%d,%d] - %@%@", buf, 0x2Eu);
+          }
+
+          if (error)
+          {
+            goto LABEL_68;
+          }
+
+          goto LABEL_69;
+        }
+      }
+
+      v34 = &range_fixups[4 * ++v33];
+      v32 = *(v34 + 1);
+    }
+
+    while (v32);
+  }
+
+  if (version < 0x84D1)
+  {
+    v44 = databaseCopy;
+    if (version == 34000)
+    {
+      v42 = brc_bread_crumbs();
+      v43 = brc_default_log();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+      {
+        +[BRCAccountSession(BRCDatabaseManager) _validateDatabase:baseURL:session:serverTruth:initialVersion:lastCurrentVersion:error:];
+      }
+    }
+
+    else
+    {
+      v51 = off_28374DF38;
+      if (off_28374DF38)
+      {
+        if (truthCopy)
+        {
+          v52 = "server";
+        }
+
+        else
+        {
+          v52 = "client";
+        }
+
+        v53 = 1;
+        v54 = schema_upgrades;
+        do
+        {
+          v55 = *v54;
+          if (v55 > version)
+          {
+            v56 = brc_bread_crumbs();
+            v57 = brc_default_log();
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315906;
+              *v80 = v52;
+              *&v80[8] = 1024;
+              *&v80[10] = version;
+              *&v80[14] = 1024;
+              *&v80[16] = v55;
+              *&v80[20] = 2112;
+              *&v80[22] = v56;
+              _os_log_impl(&dword_223E7A000, v57, OS_LOG_TYPE_DEFAULT, "[NOTICE] migrating %s database from version %d to %d%@", buf, 0x22u);
+            }
+
+            v77 = 0;
+            v58 = objc_autoreleasePoolPush();
+            v59 = (v51)(sessionCopy, databaseCopy, truthCopy, &v77);
+            objc_autoreleasePoolPop(v58);
+            if ((v59 & 1) == 0)
+            {
+              v66 = brc_bread_crumbs();
+              v67 = brc_default_log();
+              if (os_log_type_enabled(v67, 0x90u))
+              {
+                *buf = 67109890;
+                *v80 = version;
+                *&v80[4] = 1024;
+                *&v80[6] = v55;
+                *&v80[10] = 2112;
+                *&v80[12] = v77;
+                *&v80[20] = 2112;
+                *&v80[22] = v66;
+                _os_log_error_impl(&dword_223E7A000, v67, 0x90u, "[ERROR] can't migrate from version %d to %d: %@%@", buf, 0x22u);
+              }
+
+              goto LABEL_79;
+            }
+
+            if (([databaseCopy setUserVersion:v55] & 1) == 0)
+            {
+              lastError = [databaseCopy lastError];
+              v69 = v77;
+              v77 = lastError;
+
+              v70 = brc_bread_crumbs();
+              v71 = brc_default_log();
+              if (os_log_type_enabled(v71, 0x90u))
+              {
+                *buf = 67109634;
+                *v80 = v55;
+                *&v80[4] = 2112;
+                *&v80[6] = v77;
+                *&v80[14] = 2112;
+                *&v80[16] = v70;
+                _os_log_error_impl(&dword_223E7A000, v71, 0x90u, "[ERROR] can't set user version to %u: %@%@", buf, 0x1Cu);
+              }
+
+LABEL_79:
+              if (error)
+              {
+                *error = v77;
+              }
+
+              v63 = v77;
+              goto LABEL_82;
+            }
+
+            userVersion = [databaseCopy userVersion];
+            version = [userVersion unsignedIntValue];
+
+            if (version != v55)
+            {
+              [BRCAccountSession(BRCDatabaseManager) _validateDatabase:v78 baseURL:(v78 + 4) session:? serverTruth:? initialVersion:? lastCurrentVersion:? error:?];
+            }
+          }
+
+          v54 = &schema_upgrades[4 * v53];
+          v51 = *(v54 + 1);
+          ++v53;
+        }
+
+        while (v51);
+        if (version == 34000)
+        {
+          goto LABEL_40;
+        }
+      }
+
+      v42 = brc_bread_crumbs();
+      v43 = brc_default_log();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+      {
+        +[BRCAccountSession(BRCDatabaseManager) _validateDatabase:baseURL:session:serverTruth:initialVersion:lastCurrentVersion:error:];
+      }
+    }
+  }
+
+  else
+  {
+    v42 = brc_bread_crumbs();
+    v43 = brc_default_log();
+    v44 = databaseCopy;
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109634;
+      *v80 = version;
+      *&v80[4] = 1024;
+      *&v80[6] = 34000;
+      *&v80[10] = 2112;
+      *&v80[12] = v42;
+      _os_log_impl(&dword_223E7A000, v43, OS_LOG_TYPE_DEFAULT, "[WARNING] your database comes from a compatible future (db at version %d, current is %d)%@", buf, 0x18u);
+    }
+  }
+
+LABEL_40:
+  v45 = v73;
+  v46 = objc_opt_self();
+  v47 = 1;
+  v48 = lCopy;
+LABEL_84:
+
+  return v47;
+}
+
++ (BOOL)upgradeOfflineDB:(id)b serverTruth:(BOOL)truth session:(id)session error:(id *)error
+{
+  truthCopy = truth;
+  v39 = *MEMORY[0x277D85DE8];
+  bCopy = b;
+  sessionCopy = session;
+  userVersion = [bCopy userVersion];
+  unsignedIntValue = [userVersion unsignedIntValue];
+
+  if (unsignedIntValue >= 34001)
+  {
+    v13 = brc_bread_crumbs();
+    v14 = brc_default_log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109634;
+      *v38 = unsignedIntValue;
+      *&v38[4] = 1024;
+      *&v38[6] = 34000;
+      *&v38[10] = 2112;
+      *&v38[12] = v13;
+      _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] your database comes from a compatible future (db at version %d, current is %d)%@", buf, 0x18u);
+    }
+
+LABEL_9:
+LABEL_10:
+    v16 = 1;
+    goto LABEL_11;
+  }
+
+  if (unsignedIntValue == 34000)
+  {
+    v13 = brc_bread_crumbs();
+    v15 = brc_default_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      +[BRCAccountSession(BRCDatabaseManager) _validateDatabase:baseURL:session:serverTruth:initialVersion:lastCurrentVersion:error:];
+    }
+
+    goto LABEL_9;
+  }
+
+  v18 = off_28374DF38;
+  if (!off_28374DF38)
+  {
+    goto LABEL_10;
+  }
+
+  errorCopy = error;
+  v19 = "client";
+  if (truthCopy)
+  {
+    v19 = "server";
+  }
+
+  v35 = v19;
+  v20 = 1;
+  v21 = schema_upgrades;
+  while (1)
+  {
+    v22 = *v21;
+    if (v22 <= unsignedIntValue)
+    {
+      goto LABEL_22;
+    }
+
+    v23 = brc_bread_crumbs();
+    v24 = brc_default_log();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315906;
+      *v38 = v35;
+      *&v38[8] = 1024;
+      *&v38[10] = unsignedIntValue;
+      *&v38[14] = 1024;
+      *&v38[16] = v22;
+      *&v38[20] = 2112;
+      *&v38[22] = v23;
+      _os_log_impl(&dword_223E7A000, v24, OS_LOG_TYPE_DEFAULT, "[NOTICE] migrating %s database from version %d to %d%@", buf, 0x22u);
+    }
+
+    v36 = 0;
+    v25 = objc_autoreleasePoolPush();
+    v26 = (v18)(sessionCopy, bCopy, truthCopy, &v36);
+    objc_autoreleasePoolPop(v25);
+    if ((v26 & 1) == 0)
+    {
+      break;
+    }
+
+    if (([bCopy setUserVersion:v22] & 1) == 0)
+    {
+      lastError = [bCopy lastError];
+      v31 = v36;
+      v36 = lastError;
+
+      v32 = brc_bread_crumbs();
+      v33 = brc_default_log();
+      if (os_log_type_enabled(v33, 0x90u))
+      {
+        *buf = 67109634;
+        *v38 = v22;
+        *&v38[4] = 2112;
+        *&v38[6] = v36;
+        *&v38[14] = 2112;
+        *&v38[16] = v32;
+        _os_log_error_impl(&dword_223E7A000, v33, 0x90u, "[ERROR] can't set user version to %u: %@%@", buf, 0x1Cu);
+      }
+
+      goto LABEL_30;
+    }
+
+    userVersion2 = [bCopy userVersion];
+    unsignedIntValue = [userVersion2 unsignedIntValue];
+
+LABEL_22:
+    v21 = &schema_upgrades[4 * v20];
+    v18 = *(v21 + 1);
+    ++v20;
+    if (!v18)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  v28 = brc_bread_crumbs();
+  v29 = brc_default_log();
+  if (os_log_type_enabled(v29, 0x90u))
+  {
+    *buf = 67109890;
+    *v38 = unsignedIntValue;
+    *&v38[4] = 1024;
+    *&v38[6] = v22;
+    *&v38[10] = 2112;
+    *&v38[12] = v36;
+    *&v38[20] = 2112;
+    *&v38[22] = v28;
+    _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] can't migrate from version %d to %d: %@%@", buf, 0x22u);
+  }
+
+LABEL_30:
+  if (errorCopy)
+  {
+    *errorCopy = v36;
+  }
+
+  v16 = 0;
+LABEL_11:
+
+  return v16;
 }
 
 - (BOOL)runDatabaseFixups
@@ -3675,7 +4601,7 @@ LABEL_69:
 
 BOOL __76__BRCAccountSession_BRCDatabaseManager__runDatabaseFixupsForDB_serverTruth___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 numberWithSQL:@"SELECT max(fixup_version) + 1 FROM completed_db_fixups"];
   v5 = [v4 unsignedIntValue];
@@ -3703,17 +4629,17 @@ BOOL __76__BRCAccountSession_BRCDatabaseManager__runDatabaseFixupsForDB_serverTr
         }
 
         *buf = 67109634;
-        v22 = v7;
-        v23 = 2080;
-        v24 = v11;
-        v25 = 2112;
-        v26 = v9;
+        v21 = v7;
+        v22 = 2080;
+        v23 = v11;
+        v24 = 2112;
+        v25 = v9;
         _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[NOTICE] Running db fixup %d for %s db%@", buf, 0x1Cu);
       }
 
       v12 = objc_autoreleasePoolPush();
-      v20 = 0;
-      if (((db_fixups[v7])(*(a1 + 32), v3, *(a1 + 40), &v20) & 1) == 0)
+      v19 = 0;
+      if (((db_fixups[v7])(*(a1 + 32), v3, *(a1 + 40), &v19) & 1) == 0)
       {
         break;
       }
@@ -3725,13 +4651,13 @@ BOOL __76__BRCAccountSession_BRCDatabaseManager__runDatabaseFixupsForDB_serverTr
         v16 = brc_default_log();
         if (os_log_type_enabled(v16, 0x90u))
         {
-          v19 = [v3 lastError];
+          v18 = [v3 lastError];
           *buf = 67109634;
-          v22 = v7;
-          v23 = 2112;
-          v24 = v19;
-          v25 = 2112;
-          v26 = v15;
+          v21 = v7;
+          v22 = 2112;
+          v23 = v18;
+          v24 = 2112;
+          v25 = v15;
           _os_log_error_impl(&dword_223E7A000, v16, 0x90u, "[ERROR] failed registering completion of db fixup %d with error %@%@", buf, 0x1Cu);
         }
 
@@ -3750,11 +4676,11 @@ BOOL __76__BRCAccountSession_BRCDatabaseManager__runDatabaseFixupsForDB_serverTr
     if (os_log_type_enabled(v14, 0x90u))
     {
       *buf = 67109634;
-      v22 = v7;
-      v23 = 2112;
-      v24 = v20;
-      v25 = 2112;
-      v26 = v13;
+      v21 = v7;
+      v22 = 2112;
+      v23 = v19;
+      v24 = 2112;
+      v25 = v13;
       _os_log_error_impl(&dword_223E7A000, v14, 0x90u, "[ERROR] db fixup %d failed %@%@", buf, 0x1Cu);
     }
 
@@ -3763,53 +4689,52 @@ BOOL __76__BRCAccountSession_BRCDatabaseManager__runDatabaseFixupsForDB_serverTr
 
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)runDatabaseFixup:(unint64_t)fixup error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__1;
-  v30 = __Block_byref_object_dispose__1;
-  v31 = 0;
+  v41 = *MEMORY[0x277D85DE8];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__1;
+  v29 = __Block_byref_object_dispose__1;
+  v30 = 0;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   serverDB = self->_serverDB;
-  v40[0] = self->_clientDB;
-  v40[1] = serverDB;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v41 count:16];
+  v39[0] = self->_clientDB;
+  v39[1] = serverDB;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v40 count:16];
   if (v9)
   {
-    v10 = *v23;
+    v10 = *v22;
     v11 = 1;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
         if (v11)
         {
-          v13 = *(*(&v22 + 1) + 8 * i);
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __64__BRCAccountSession_BRCDatabaseManager__runDatabaseFixup_error___block_invoke;
-          v21[3] = &unk_2784FFA98;
-          v21[4] = self;
-          v21[5] = v13;
-          v21[6] = &v26;
-          v21[7] = fixup;
-          v11 = [v13 performWithFlags:27 action:v21];
+          v13 = *(*(&v21 + 1) + 8 * i);
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __64__BRCAccountSession_BRCDatabaseManager__runDatabaseFixup_error___block_invoke;
+          v20[3] = &unk_2784FFA98;
+          v20[4] = self;
+          v20[5] = v13;
+          v20[6] = &v25;
+          v20[7] = fixup;
+          v11 = [v13 performWithFlags:27 action:v20];
         }
 
         else
@@ -3818,7 +4743,7 @@ LABEL_18:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v22 objects:v41 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v21 objects:v40 count:16];
     }
 
     while (v9);
@@ -3829,27 +4754,27 @@ LABEL_18:
     v11 = 1;
   }
 
-  v14 = v27[5];
+  v14 = v26[5];
   if (v14)
   {
     v15 = brc_bread_crumbs();
     v16 = brc_default_log();
     if (os_log_type_enabled(v16, 0x90u))
     {
-      v20 = "(passed to caller)";
+      v19 = "(passed to caller)";
       *buf = 136315906;
-      v33 = "[BRCAccountSession(BRCDatabaseManager) runDatabaseFixup:error:]";
-      v34 = 2080;
+      v32 = "[BRCAccountSession(BRCDatabaseManager) runDatabaseFixup:error:]";
+      v33 = 2080;
       if (!error)
       {
-        v20 = "(ignored by caller)";
+        v19 = "(ignored by caller)";
       }
 
-      v35 = v20;
-      v36 = 2112;
-      v37 = v14;
-      v38 = 2112;
-      v39 = v15;
+      v34 = v19;
+      v35 = 2112;
+      v36 = v14;
+      v37 = 2112;
+      v38 = v15;
       _os_log_error_impl(&dword_223E7A000, v16, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -3860,46 +4785,42 @@ LABEL_18:
     *error = v14;
   }
 
-  _Block_object_dispose(&v26, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
   return v11;
 }
 
-uint64_t __64__BRCAccountSession_BRCDatabaseManager__runDatabaseFixup_error___block_invoke(void *a1)
+uint64_t __64__BRCAccountSession_BRCDatabaseManager__runDatabaseFixup_error___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = a1[5] == *(a1[4] + 208);
-  v3 = *(a1[6] + 8) + 40;
-  v4 = db_fixups[a1[7]]();
-  if ((v4 & 1) == 0)
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = db_fixups[*(a1 + 56)]();
+  if ((v2 & 1) == 0)
   {
-    v5 = brc_bread_crumbs();
-    v6 = brc_default_log();
-    if (os_log_type_enabled(v6, 0x90u))
+    v3 = brc_bread_crumbs();
+    v4 = brc_default_log();
+    if (os_log_type_enabled(v4, 0x90u))
     {
-      v9 = a1[7];
-      v10 = *(*(a1[6] + 8) + 40);
-      v11 = 134218498;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] db fixup %lu failed %@%@", &v11, 0x20u);
+      v6 = *(a1 + 56);
+      v7 = *(*(*(a1 + 48) + 8) + 40);
+      v8 = 134218498;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_error_impl(&dword_223E7A000, v4, 0x90u, "[ERROR] db fixup %lu failed %@%@", &v8, 0x20u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v2;
 }
 
 - (BOOL)reimportFPFSDomainWithError:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CC6348];
-  v18 = 0;
-  v5 = [BRCImportUtil reimportItemsBelowItemWithIdentifier:v4 error:&v18];
-  v6 = v18;
+  v17 = 0;
+  v5 = [BRCImportUtil reimportItemsBelowItemWithIdentifier:v4 error:&v17];
+  v6 = v17;
   v7 = +[BRCAutoBugCaptureReporter sharedABCReporter];
   [v7 captureLogsForOperationType:@"OpenAccountSession" ofSubtype:@"ReimportRootItem" forError:v6];
 
@@ -3910,7 +4831,7 @@ uint64_t __64__BRCAccountSession_BRCDatabaseManager__runDatabaseFixup_error___bl
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v8;
+      v21 = v8;
       v10 = "[NOTICE] Signalled reimport of all FP items%@";
 LABEL_7:
       _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
@@ -3927,7 +4848,7 @@ LABEL_7:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v8;
+      v21 = v8;
       v10 = "[WARNING] RootContainerItem not found -> Trying to reimport from a domain that we just added. Skip the reimport...%@";
       goto LABEL_7;
     }
@@ -3938,17 +4859,17 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v14 = brc_bread_crumbs();
-  v15 = brc_default_log();
-  if (os_log_type_enabled(v15, 0x90u))
+  v13 = brc_bread_crumbs();
+  v14 = brc_default_log();
+  if (os_log_type_enabled(v14, 0x90u))
   {
     *buf = 138412802;
-    v22 = v4;
-    v23 = 2112;
-    v24 = v6;
-    v25 = 2112;
-    v26 = v14;
-    _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] Failed to signal reimport of %@ on startup %@%@", buf, 0x20u);
+    v21 = v4;
+    v22 = 2112;
+    v23 = v6;
+    v24 = 2112;
+    v25 = v13;
+    _os_log_error_impl(&dword_223E7A000, v14, 0x90u, "[ERROR] Failed to signal reimport of %@ on startup %@%@", buf, 0x20u);
   }
 
   if (!error)
@@ -3957,17 +4878,16 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  v16 = MEMORY[0x277CCA9B8];
-  v17 = *MEMORY[0x277CFABD0];
-  v19 = *MEMORY[0x277CCA7E8];
-  v20 = v6;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-  [v16 br_errorWithDomain:v17 code:100 userInfo:v8 description:@"Failed to signal reimport of root container on startup"];
+  v15 = MEMORY[0x277CCA9B8];
+  v16 = *MEMORY[0x277CFABD0];
+  v18 = *MEMORY[0x277CCA7E8];
+  v19 = v6;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  [v15 br_errorWithDomain:v16 code:100 userInfo:v8 description:@"Failed to signal reimport of root container on startup"];
   *error = v11 = 0;
 LABEL_9:
 
 LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -4020,14 +4940,14 @@ LABEL_10:
 
 - (BOOL)_updateDomain:(id)domain withUserInfo:(id)info error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   [domainCopy setUserInfo:info];
   v9 = [MEMORY[0x277CFAE58] br_getProviderIDForDataSeparated:self->_isDataSeparated];
-  v19 = 0;
-  v10 = [MEMORY[0x277CC64A8] br_addDomain:domainCopy forProviderIdentifier:v9 error:&v19];
+  v18 = 0;
+  v10 = [MEMORY[0x277CC64A8] br_addDomain:domainCopy forProviderIdentifier:v9 error:&v18];
 
-  v11 = v19;
+  v11 = v18;
   if (v10)
   {
     v12 = brc_bread_crumbs();
@@ -4035,7 +4955,7 @@ LABEL_10:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v12;
+      v20 = v12;
       _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[NOTICE] Domain update was successful%@", buf, 0xCu);
     }
   }
@@ -4056,13 +4976,12 @@ LABEL_10:
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)_decorateUserInfoForFPFSDomain:(id)domain panicOnDomainIDMismatch:(BOOL)mismatch withError:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   if (domainCopy)
   {
@@ -4085,7 +5004,7 @@ LABEL_10:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v42) = 0;
+    LOBYTE(v41) = 0;
     if (self->_isDataSeparated)
     {
       defaultStore = [MEMORY[0x277CB8F48] defaultStore];
@@ -4108,17 +5027,17 @@ LABEL_10:
     }
 
     clientTruthWorkloop = self->_clientTruthWorkloop;
-    v33 = MEMORY[0x277D85DD0];
-    v34 = 3221225472;
-    v35 = __106__BRCAccountSession_BRCDatabaseManager___decorateUserInfoForFPFSDomain_panicOnDomainIDMismatch_withError___block_invoke;
-    v36 = &unk_2784FFAC0;
+    v32 = MEMORY[0x277D85DD0];
+    v33 = 3221225472;
+    v34 = __106__BRCAccountSession_BRCDatabaseManager___decorateUserInfoForFPFSDomain_panicOnDomainIDMismatch_withError___block_invoke;
+    v35 = &unk_2784FFAC0;
     v29 = v18;
-    v37 = v29;
+    v36 = v29;
     selfCopy = self;
-    v39 = buf;
+    v38 = buf;
     mismatchCopy = mismatch;
-    dispatch_async_and_wait(clientTruthWorkloop, &v33);
-    v17 = *(*&buf[8] + 24) != 1 || [(BRCAccountSession *)self _updateDomain:v9 withUserInfo:v29 error:error, v33, v34, v35, v36];
+    dispatch_async_and_wait(clientTruthWorkloop, &v32);
+    v17 = *(*&buf[8] + 24) != 1 || [(BRCAccountSession *)self _updateDomain:v9 withUserInfo:v29 error:error, v32, v33, v34, v35];
 
     _Block_object_dispose(buf, 8);
   }
@@ -4132,20 +5051,20 @@ LABEL_10:
       v15 = brc_default_log();
       if (os_log_type_enabled(v15, 0x90u))
       {
-        v32 = "(passed to caller)";
+        v31 = "(passed to caller)";
         *buf = 136315906;
         *&buf[4] = "[BRCAccountSession(BRCDatabaseManager) _decorateUserInfoForFPFSDomain:panicOnDomainIDMismatch:withError:]";
         *&buf[12] = 2080;
         if (!error)
         {
-          v32 = "(ignored by caller)";
+          v31 = "(ignored by caller)";
         }
 
-        *&buf[14] = v32;
+        *&buf[14] = v31;
         *&buf[22] = 2112;
-        v42 = v9;
-        v43 = 2112;
-        v44 = v14;
+        v41 = v9;
+        v42 = 2112;
+        v43 = v14;
         _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -4163,13 +5082,12 @@ LABEL_10:
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 void __106__BRCAccountSession_BRCDatabaseManager___decorateUserInfoForFPFSDomain_panicOnDomainIDMismatch_withError___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CFAC28];
   v3 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277CFAC28]];
 
@@ -4204,9 +5122,9 @@ LABEL_8:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v24 = v5;
-    v25 = 2112;
-    v26 = v6;
+    v23 = v5;
+    v24 = 2112;
+    v25 = v6;
     _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[NOTICE] Updating migration UUID %@%@", buf, 0x16u);
   }
 
@@ -4221,16 +5139,16 @@ LABEL_11:
       abc_report_panic_with_signature();
       [MEMORY[0x277CCACA8] stringWithFormat:@"The domain has a non nil database ID (%@) which is different than our database ID (%@) ", v9, *(*(a1 + 40) + 88)];
       objc_claimAutoreleasedReturnValue();
-      v20 = brc_bread_crumbs();
-      v21 = brc_default_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v19 = brc_bread_crumbs();
+      v20 = brc_default_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         [BRCAccountSession(BRCDatabaseManager) _startWatcher];
       }
 
       brc_append_system_info_to_message();
-      v22 = [objc_claimAutoreleasedReturnValue() UTF8String];
-      __assert_rtn("[BRCAccountSession(BRCDatabaseManager) _decorateUserInfoForFPFSDomain:panicOnDomainIDMismatch:withError:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CloudDocs_plugins/core/shared/database/BRCDatabaseManager.m", 2005, v22);
+      v21 = [objc_claimAutoreleasedReturnValue() UTF8String];
+      __assert_rtn("[BRCAccountSession(BRCDatabaseManager) _decorateUserInfoForFPFSDomain:panicOnDomainIDMismatch:withError:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CloudDocs_plugins/core/shared/database/BRCDatabaseManager.m", 2005, v21);
     }
 
     [*(a1 + 32) setObject:*(*(a1 + 40) + 88) forKeyedSubscript:v8];
@@ -4240,9 +5158,9 @@ LABEL_11:
     {
       v12 = *(*(a1 + 40) + 88);
       *buf = 138412546;
-      v24 = v12;
-      v25 = 2112;
-      v26 = v10;
+      v23 = v12;
+      v24 = 2112;
+      v25 = v10;
       _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[NOTICE] Updating domain databaseID to %@%@", buf, 0x16u);
     }
 
@@ -4273,13 +5191,11 @@ LABEL_11:
       *(*(*(a1 + 48) + 8) + 24) = 1;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)openDBForNewDomain:(BOOL)domain deviceIDChanged:(BOOL *)changed withError:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (!self->_offline)
   {
     [(BRCAccountSession *)self setupDatabase];
@@ -4288,9 +5204,9 @@ LABEL_11:
   [(BRCPQLConnection *)self->_clientDB setCrashIfUsedAfterClose:0];
   [(BRCPQLConnection *)self->_serverDB setCrashIfUsedAfterClose:0];
   [(BRCAccountSession *)self initializeDatabaseFacades];
-  v38 = 0;
   v37 = 0;
-  if (!self->_offline && (![(BRCAccountSession *)self openAndValidateDatabase:self->_serverDB serverTruth:1 initialVersion:0 lastCurrentVersion:&v38 deviceIDChanged:0 error:error]|| ![(BRCAccountSession *)self openAndValidateDatabase:self->_clientDB serverTruth:0 initialVersion:0 lastCurrentVersion:&v38 + 4 deviceIDChanged:&v37 error:error]))
+  v36 = 0;
+  if (!self->_offline && (![(BRCAccountSession *)self openAndValidateDatabase:self->_serverDB serverTruth:1 initialVersion:0 lastCurrentVersion:&v37 deviceIDChanged:0 error:error]|| ![(BRCAccountSession *)self openAndValidateDatabase:self->_clientDB serverTruth:0 initialVersion:0 lastCurrentVersion:&v37 + 4 deviceIDChanged:&v36 error:error]))
   {
     [(BRCPQLConnection *)self->_serverDB brc_close];
     serverDB = self->_serverDB;
@@ -4305,7 +5221,7 @@ LABEL_24:
 
   if (changed)
   {
-    *changed = v37;
+    *changed = v36;
   }
 
   if (domain)
@@ -4315,9 +5231,9 @@ LABEL_24:
 
   else
   {
-    if (HIDWORD(v38))
+    if (HIDWORD(v37))
     {
-      v13 = v38 == 0;
+      v13 = v37 == 0;
     }
 
     else
@@ -4359,36 +5275,36 @@ LABEL_24:
   v12 = [v11 objectForKeyedSubscript:*MEMORY[0x277CFAC20]];
   if (v12)
   {
-    v28 = v9;
+    v27 = v9;
   }
 
   else
   {
-    v28 = 1;
+    v27 = 1;
   }
 
-  if ((v28 & 1) == 0 && ![(NSString *)self->_databaseID isEqualToString:v12])
+  if ((v27 & 1) == 0 && ![(NSString *)self->_databaseID isEqualToString:v12])
   {
-    v34 = brc_bread_crumbs();
-    v29 = brc_default_log();
-    if (os_log_type_enabled(v29, 0x90u))
+    v33 = brc_bread_crumbs();
+    v28 = brc_default_log();
+    if (os_log_type_enabled(v28, 0x90u))
     {
       databaseID = self->_databaseID;
       *buf = 138412802;
-      v40 = v12;
-      v41 = 2112;
-      v42 = databaseID;
-      v43 = 2112;
-      v44 = v34;
-      _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] DatabaseID mismatch %@ vs %@. Signalling reimport%@", buf, 0x20u);
+      v39 = v12;
+      v40 = 2112;
+      v41 = databaseID;
+      v42 = 2112;
+      v43 = v33;
+      _os_log_error_impl(&dword_223E7A000, v28, 0x90u, "[ERROR] DatabaseID mismatch %@ vs %@. Signalling reimport%@", buf, 0x20u);
     }
 
-    v30 = [AppTelemetryTimeSeriesEvent newDatabaseIDMismatchEventWithFPDatabaseID:v12 cloudDocsDatabaseID:self->_databaseID];
+    v29 = [AppTelemetryTimeSeriesEvent newDatabaseIDMismatchEventWithFPDatabaseID:v12 cloudDocsDatabaseID:self->_databaseID];
     analyticsReporter = [(BRCAccountSession *)self analyticsReporter];
-    [analyticsReporter postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v30];
+    [analyticsReporter postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v29];
 
-    v32 = +[BRCAutoBugCaptureReporter sharedABCReporter];
-    [v32 captureLogsForOperationType:@"OpenAccountSession" ofSubtype:@"DatabaseMismatch" forError:0];
+    v31 = +[BRCAutoBugCaptureReporter sharedABCReporter];
+    [v31 captureLogsForOperationType:@"OpenAccountSession" ofSubtype:@"DatabaseMismatch" forError:0];
 
 LABEL_38:
     if (![(BRCAccountSession *)self reimportFPFSDomainWithError:error])
@@ -4417,12 +5333,12 @@ LABEL_39:
 
 LABEL_22:
   v20 = self->_serverDB;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __86__BRCAccountSession_BRCDatabaseManager__openDBForNewDomain_deviceIDChanged_withError___block_invoke;
-  v36[3] = &unk_2784FFA48;
-  v36[4] = self;
-  [(BRCPQLConnection *)v20 performWithFlags:1 action:v36];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __86__BRCAccountSession_BRCDatabaseManager__openDBForNewDomain_deviceIDChanged_withError___block_invoke;
+  v35[3] = &unk_2784FFA48;
+  v35[4] = self;
+  [(BRCPQLConnection *)v20 performWithFlags:1 action:v35];
   v21 = self->_serverDB;
   self->_serverDB = 0;
 
@@ -4432,12 +5348,12 @@ LABEL_22:
   }
 
   clientDB = self->_clientDB;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __86__BRCAccountSession_BRCDatabaseManager__openDBForNewDomain_deviceIDChanged_withError___block_invoke_2;
-  v35[3] = &unk_2784FFA48;
-  v35[4] = self;
-  [(BRCPQLConnection *)clientDB performWithFlags:1 action:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __86__BRCAccountSession_BRCDatabaseManager__openDBForNewDomain_deviceIDChanged_withError___block_invoke_2;
+  v34[3] = &unk_2784FFA48;
+  v34[4] = self;
+  [(BRCPQLConnection *)clientDB performWithFlags:1 action:v34];
 LABEL_25:
   v23 = self->_clientDB;
   self->_clientDB = 0;
@@ -4449,13 +5365,12 @@ LABEL_25:
   v25 = 0;
 LABEL_26:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (void)closeDBs
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   clientReadDatabaseFacade = self->_clientReadDatabaseFacade;
   self->_clientReadDatabaseFacade = 0;
 
@@ -4500,34 +5415,34 @@ LABEL_26:
   }
 
   objc_sync_exit(selfCopy);
-  v24 = selfCopy;
+  v23 = selfCopy;
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v13 = v7;
-  v14 = [v13 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v14)
   {
-    v15 = *v27;
+    v15 = *v26;
     v16 = MEMORY[0x277D85DD0];
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * i);
+        v18 = *(*(&v25 + 1) + 8 * i);
         serialQueue = [v18 serialQueue];
         v20 = serialQueue == 0;
 
         if (v20)
         {
-          [(BRCAccountSession(BRCDatabaseManager) *)&v30 closeDBs];
+          [(BRCAccountSession(BRCDatabaseManager) *)v29 closeDBs];
         }
 
         serialQueue2 = [v18 serialQueue];
@@ -4539,17 +5454,15 @@ LABEL_26:
         dispatch_sync(serialQueue2, block);
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v14);
   }
 
-  [(BRCAccountSession *)v24 stopDBWatcher];
-  clientState = v24->_clientState;
-  v24->_clientState = 0;
-
-  v23 = *MEMORY[0x277D85DE8];
+  [(BRCAccountSession *)v23 stopDBWatcher];
+  clientState = v23->_clientState;
+  v23->_clientState = 0;
 }
 
 - (BOOL)initializeOfflineDatabaseWhileUpgrading:(BOOL)upgrading loadClientState:(BOOL)state forDBDump:(BOOL)dump error:(id *)error
@@ -4671,23 +5584,21 @@ void __113__BRCAccountSession_BRCDatabaseManager__initializeOfflineDatabaseWhile
 
 void __113__BRCAccountSession_BRCDatabaseManager__initializeOfflineDatabaseWhileUpgrading_loadClientState_forDBDump_error___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138412802;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Encountered an error %@ running stmt %@%@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Encountered an error %@ running stmt %@%@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __113__BRCAccountSession_BRCDatabaseManager__initializeOfflineDatabaseWhileUpgrading_loadClientState_forDBDump_error___block_invoke_352(uint64_t a1)
@@ -4729,148 +5640,148 @@ void __113__BRCAccountSession_BRCDatabaseManager__initializeOfflineDatabaseWhile
 
 uint64_t __113__BRCAccountSession_BRCDatabaseManager__initializeOfflineDatabaseWhileUpgrading_loadClientState_forDBDump_error___block_invoke_2_353(uint64_t a1, void *a2)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v4 = [*(a1 + 32) _sharedServerZonesEnumerator:v3];
-  v5 = [v4 countByEnumeratingWithState:&v57 objects:v65 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v56 objects:v64 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v58;
+    v7 = *v57;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v58 != v7)
+        if (*v57 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(a1 + 32) addOfflineServerZone:*(*(&v57 + 1) + 8 * i)];
+        [*(a1 + 32) addOfflineServerZone:*(*(&v56 + 1) + 8 * i)];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v57 objects:v65 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v56 objects:v64 count:16];
     }
 
     while (v6);
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v9 = [*(a1 + 32) _privateServerZonesEnumerator:v3];
-  v10 = [v9 countByEnumeratingWithState:&v53 objects:v64 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v52 objects:v63 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v54;
+    v12 = *v53;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v54 != v12)
+        if (*v53 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(a1 + 32) addOfflineServerZone:*(*(&v53 + 1) + 8 * j)];
+        [*(a1 + 32) addOfflineServerZone:*(*(&v52 + 1) + 8 * j)];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v53 objects:v64 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v52 objects:v63 count:16];
     }
 
     while (v11);
   }
 
   v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v15 = [*(a1 + 32) _sharedClientZonesEnumerator];
-  v16 = [v15 countByEnumeratingWithState:&v49 objects:v63 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v48 objects:v62 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v50;
+    v18 = *v49;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v50 != v18)
+        if (*v49 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v49 + 1) + 8 * k);
+        v20 = *(*(&v48 + 1) + 8 * k);
         [*(a1 + 32) addOfflineClientZone:v20];
         v21 = [v20 dbRowID];
         [v14 setObject:v20 forKeyedSubscript:v21];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v49 objects:v63 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v48 objects:v62 count:16];
     }
 
     while (v17);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v22 = [*(a1 + 32) _privateClientZonesEnumerator];
-  v23 = [v22 countByEnumeratingWithState:&v45 objects:v62 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v44 objects:v61 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v46;
+    v25 = *v45;
     do
     {
       for (m = 0; m != v24; ++m)
       {
-        if (*v46 != v25)
+        if (*v45 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v45 + 1) + 8 * m);
+        v27 = *(*(&v44 + 1) + 8 * m);
         [*(a1 + 32) addOfflineClientZone:v27];
         v28 = [v27 dbRowID];
         [v14 setObject:v27 forKeyedSubscript:v28];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v45 objects:v62 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v44 objects:v61 count:16];
     }
 
     while (v24);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  v40 = v3;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v39 = v3;
   v29 = [*(a1 + 32) _appLibrariesEnumerator:v3];
-  v30 = [v29 countByEnumeratingWithState:&v41 objects:v61 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v40 objects:v60 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v42;
+    v32 = *v41;
     do
     {
       for (n = 0; n != v31; ++n)
       {
-        if (*v42 != v32)
+        if (*v41 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v41 + 1) + 8 * n);
+        v34 = *(*(&v40 + 1) + 8 * n);
         [*(a1 + 32) addOfflineAppLibrary:v34];
         v35 = [v34 zoneRowID];
         v36 = [v14 objectForKeyedSubscript:v35];
@@ -4882,7 +5793,7 @@ uint64_t __113__BRCAccountSession_BRCDatabaseManager__initializeOfflineDatabaseW
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v41 objects:v61 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v40 objects:v60 count:16];
     }
 
     while (v31);
@@ -4893,13 +5804,12 @@ uint64_t __113__BRCAccountSession_BRCDatabaseManager__initializeOfflineDatabaseW
     [*(a1 + 32) _loadClientStateFromClientDB];
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)dumpFileCoordinationInfoToFileHandle:(id)handle error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = dup([handle fileDescriptor]);
   v7 = fdopen(v6, "a");
   if (v7)
@@ -4918,21 +5828,21 @@ uint64_t __113__BRCAccountSession_BRCDatabaseManager__initializeOfflineDatabaseW
       v11 = brc_default_log();
       if (os_log_type_enabled(v11, 0x90u))
       {
-        v15 = "(passed to caller)";
-        v16 = 136315906;
-        v17 = "[BRCAccountSession(BRCDatabaseManager) dumpFileCoordinationInfoToFileHandle:error:]";
-        v18 = 2080;
+        v14 = "(passed to caller)";
+        v15 = 136315906;
+        v16 = "[BRCAccountSession(BRCDatabaseManager) dumpFileCoordinationInfoToFileHandle:error:]";
+        v17 = 2080;
         if (!error)
         {
-          v15 = "(ignored by caller)";
+          v14 = "(ignored by caller)";
         }
 
-        v19 = v15;
-        v20 = 2112;
-        v21 = br_errorFromErrno;
-        v22 = 2112;
-        v23 = v10;
-        _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] %s: %s error: %@%@", &v16, 0x2Au);
+        v18 = v14;
+        v19 = 2112;
+        v20 = br_errorFromErrno;
+        v21 = 2112;
+        v22 = v10;
+        _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] %s: %s error: %@%@", &v15, 0x2Au);
       }
     }
 
@@ -4943,9 +5853,7 @@ uint64_t __113__BRCAccountSession_BRCDatabaseManager__initializeOfflineDatabaseW
     }
   }
 
-  result = v7 != 0;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 != 0;
 }
 
 - (void)_registerObfuscationFunction:(id)function
@@ -5105,10 +6013,10 @@ void __70__BRCAccountSession_BRCDatabaseManager___registerObfuscationFunction___
 - (BOOL)backupDatabaseToURL:(id)l includeServer:(BOOL)server doNotObfuscate:(BOOL)obfuscate error:(id *)error
 {
   serverCopy = server;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   lCopy = l;
+  v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   if (serverCopy)
   {
     v10 = &unk_2837B0BE0;
@@ -5119,46 +6027,46 @@ void __70__BRCAccountSession_BRCDatabaseManager___registerObfuscationFunction___
     v10 = &unk_2837B0BF8;
   }
 
+  v56 = 0uLL;
   v57 = 0uLL;
-  v58 = 0uLL;
   obj = v10;
-  v11 = [v10 countByEnumeratingWithState:&v55 objects:v59 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v54 objects:v58 count:16];
   errorCopy = error;
   if (v11)
   {
     v12 = v11;
-    v48 = *v56;
+    v47 = *v55;
     obfuscateCopy = obfuscate;
-    v46 = serverCopy;
+    v45 = serverCopy;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v56 != v48)
+        if (*v55 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v55 + 1) + 8 * i);
+        v14 = *(*(&v54 + 1) + 8 * i);
         v15 = [(BRCAccountSession *)self newConnection:@"backup"];
         v16 = lCopy;
         v17 = [lCopy URLByAppendingPathComponent:v14];
         sqliteErrorHandler = [v15 sqliteErrorHandler];
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __96__BRCAccountSession_BRCDatabaseManager__backupDatabaseToURL_includeServer_doNotObfuscate_error___block_invoke;
-        v53[3] = &unk_2784FFB58;
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __96__BRCAccountSession_BRCDatabaseManager__backupDatabaseToURL_includeServer_doNotObfuscate_error___block_invoke;
+        v52[3] = &unk_2784FFB58;
         v19 = sqliteErrorHandler;
-        v54 = v19;
-        [v15 setSqliteErrorHandler:v53];
+        v53 = v19;
+        [v15 setSqliteErrorHandler:v52];
         autoRollbackHandler = [v15 autoRollbackHandler];
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __96__BRCAccountSession_BRCDatabaseManager__backupDatabaseToURL_includeServer_doNotObfuscate_error___block_invoke_405;
-        v51[3] = &unk_2784FFB58;
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __96__BRCAccountSession_BRCDatabaseManager__backupDatabaseToURL_includeServer_doNotObfuscate_error___block_invoke_405;
+        v50[3] = &unk_2784FFB58;
         v21 = autoRollbackHandler;
-        v52 = v21;
-        [v15 setAutoRollbackHandler:v51];
+        v51 = v21;
+        [v15 setAutoRollbackHandler:v50];
         error = errorCopy;
         if (![(BRCAccountSession *)self _openConnection:v15 databaseName:v14 readonly:1 error:errorCopy])
         {
@@ -5186,9 +6094,9 @@ LABEL_19:
         lCopy = v16;
       }
 
-      v12 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+      v12 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
       obfuscate = obfuscateCopy;
-      serverCopy = v46;
+      serverCopy = v45;
       if (v12)
       {
         continue;
@@ -5210,20 +6118,20 @@ LABEL_27:
       {
         if (shouldObfuscateFilenames)
         {
-          v36 = [BRCUserDefaults defaultsForMangledID:0];
-          v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", objc_msgSend(v36, "sqliteCacheSize")];
-          v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", objc_msgSend(v36, "sqliteCacheSpill")];
-          v39 = [MEMORY[0x277D82C18] rawInjection:objc_msgSend(v37 length:{"UTF8String"), objc_msgSend(v37, "length")}];
-          [v15 execute:{@"PRAGMA cache_size = %@", v39}];
+          v35 = [BRCUserDefaults defaultsForMangledID:0];
+          v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", objc_msgSend(v35, "sqliteCacheSize")];
+          v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", objc_msgSend(v35, "sqliteCacheSpill")];
+          v38 = [MEMORY[0x277D82C18] rawInjection:objc_msgSend(v36 length:{"UTF8String"), objc_msgSend(v36, "length")}];
+          [v15 execute:{@"PRAGMA cache_size = %@", v38}];
 
-          v40 = [MEMORY[0x277D82C18] rawInjection:objc_msgSend(v38 length:{"UTF8String"), objc_msgSend(v38, "length")}];
-          [v15 execute:{@"PRAGMA cache_spill = %@", v40}];
+          v39 = [MEMORY[0x277D82C18] rawInjection:objc_msgSend(v37 length:{"UTF8String"), objc_msgSend(v37, "length")}];
+          [v15 execute:{@"PRAGMA cache_spill = %@", v39}];
 
           [(BRCAccountSession *)self _registerObfuscationFunction:v15];
           [v15 groupInTransaction:&__block_literal_global_441];
           [v15 groupInTransaction:&__block_literal_global_446];
-          v41 = [v15 numberWithSQL:@"SELECT 1 FROM sqlite_master where type = 'table' AND name = 'client_pkg_items'"];
-          bOOLValue = [v41 BOOLValue];
+          v40 = [v15 numberWithSQL:@"SELECT 1 FROM sqlite_master where type = 'table' AND name = 'client_pkg_items'"];
+          bOOLValue = [v40 BOOLValue];
 
           if (bOOLValue)
           {
@@ -5263,19 +6171,19 @@ LABEL_27:
   {
     if (shouldObfuscateFilenames)
     {
-      v27 = [BRCUserDefaults defaultsForMangledID:0];
-      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", objc_msgSend(v27, "sqliteCacheSize")];
-      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", objc_msgSend(v27, "sqliteCacheSpill")];
-      v30 = [MEMORY[0x277D82C18] rawInjection:objc_msgSend(v28 length:{"UTF8String"), objc_msgSend(v28, "length")}];
-      [v15 execute:{@"PRAGMA cache_size = %@", v30}];
+      v26 = [BRCUserDefaults defaultsForMangledID:0];
+      v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", objc_msgSend(v26, "sqliteCacheSize")];
+      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", objc_msgSend(v26, "sqliteCacheSpill")];
+      v29 = [MEMORY[0x277D82C18] rawInjection:objc_msgSend(v27 length:{"UTF8String"), objc_msgSend(v27, "length")}];
+      [v15 execute:{@"PRAGMA cache_size = %@", v29}];
 
-      v31 = MEMORY[0x277D82C18];
-      uTF8String = [v29 UTF8String];
-      v33 = [v29 length];
-      v34 = uTF8String;
+      v30 = MEMORY[0x277D82C18];
+      uTF8String = [v28 UTF8String];
+      v32 = [v28 length];
+      v33 = uTF8String;
       error = errorCopy;
-      v35 = [v31 rawInjection:v34 length:v33];
-      [v15 execute:{@"PRAGMA cache_spill = %@", v35}];
+      v34 = [v30 rawInjection:v33 length:v32];
+      [v15 execute:{@"PRAGMA cache_spill = %@", v34}];
 
       [(BRCAccountSession *)self _registerObfuscationFunction:v15];
       [v15 groupInTransaction:&__block_literal_global_411];
@@ -5299,13 +6207,12 @@ LABEL_20:
   v24 = 0;
 LABEL_21:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 void __96__BRCAccountSession_BRCDatabaseManager__backupDatabaseToURL_includeServer_doNotObfuscate_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -5313,13 +6220,13 @@ void __96__BRCAccountSession_BRCDatabaseManager__backupDatabaseToURL_includeServ
   v11 = brc_default_log();
   if (os_log_type_enabled(v11, 0x90u))
   {
-    v17 = 138412802;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v10;
-    _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] sqlite error handler called on DB backup - %@ (%@)%@", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v10;
+    _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] sqlite error handler called on DB backup - %@ (%@)%@", &v16, 0x20u);
   }
 
   v12 = [v9 domain];
@@ -5346,12 +6253,11 @@ LABEL_9:
   }
 
 LABEL_10:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __96__BRCAccountSession_BRCDatabaseManager__backupDatabaseToURL_includeServer_doNotObfuscate_error___block_invoke_405(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -5359,13 +6265,13 @@ void __96__BRCAccountSession_BRCDatabaseManager__backupDatabaseToURL_includeServ
   v11 = brc_default_log();
   if (os_log_type_enabled(v11, 0x90u))
   {
-    v17 = 138412802;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v10;
-    _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] Auto rollback handler called on DB backup - %@ (%@)%@", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v10;
+    _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] Auto rollback handler called on DB backup - %@ (%@)%@", &v16, 0x20u);
   }
 
   v12 = [v9 domain];
@@ -5392,7 +6298,6 @@ LABEL_9:
   }
 
 LABEL_10:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)accountStatisticsWithDB:(id)b
@@ -5426,7 +6331,7 @@ LABEL_10:
 
 - (void)scheduleZoneMovesToCloudDocs:(id)docs
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   docsCopy = docs;
   cloudDocsClientZone = [(BRCAccountSession *)self cloudDocsClientZone];
   defaultAppLibrary = [cloudDocsClientZone defaultAppLibrary];
@@ -5435,49 +6340,49 @@ LABEL_10:
   if ((wasMovedToCloudDocs & 1) == 0)
   {
     v8 = [docsCopy mutableCopy];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __68__BRCAccountSession_BRCZoneMigration__scheduleZoneMovesToCloudDocs___block_invoke;
-    v27[3] = &unk_2784FF7D8;
-    v28 = v8;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __68__BRCAccountSession_BRCZoneMigration__scheduleZoneMovesToCloudDocs___block_invoke;
+    v26[3] = &unk_2784FF7D8;
+    v27 = v8;
     selfCopy = self;
     v9 = v8;
-    [(BRCAccountSession *)self enumerateAppLibraries:v27];
+    [(BRCAccountSession *)self enumerateAppLibraries:v26];
     allObjects = [v9 allObjects];
 
     docsCopy = allObjects;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v11 = docsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v23 objects:v32 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v22 objects:v31 count:16];
   if (v12)
   {
     v14 = v12;
-    v15 = *v24;
+    v15 = *v23;
     *&v13 = 138412290;
-    v21 = v13;
+    v20 = v13;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * i);
+        v17 = *(*(&v22 + 1) + 8 * i);
         if ([v17 isCloudDocsZone])
         {
           v18 = brc_bread_crumbs();
           v19 = brc_default_log();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
           {
-            *buf = v21;
-            v31 = v18;
+            *buf = v20;
+            v30 = v18;
             _os_log_fault_impl(&dword_223E7A000, v19, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Can't CZM the clouddocs zone%@", buf, 0xCu);
           }
         }
@@ -5488,7 +6393,7 @@ LABEL_10:
         }
       }
 
-      v14 = [v11 countByEnumeratingWithState:&v23 objects:v32 count:16];
+      v14 = [v11 countByEnumeratingWithState:&v22 objects:v31 count:16];
     }
 
     while (v14);
@@ -5506,8 +6411,6 @@ LABEL_10:
       dispatch_once(&scheduleZoneMovesToCloudDocs__onceToken, block);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__BRCAccountSession_BRCZoneMigration__scheduleZoneMovesToCloudDocs___block_invoke(uint64_t a1, void *a2)
@@ -5581,6 +6484,15 @@ void __68__BRCAccountSession_BRCZoneMigration__scheduleZoneMovesToCloudDocs___bl
   {
     -[BRCAccountSession _setDatabaseProfilingForDB:enabled:verbose:](self, "_setDatabaseProfilingForDB:enabled:verbose:", bCopy, 1, [v4 dbVerboseProfiled]);
   }
+}
+
+- (void)_setDatabaseProfilingForDB:(id)b enabled:(BOOL)enabled verbose:(BOOL)verbose
+{
+  verboseCopy = verbose;
+  enabledCopy = enabled;
+  bCopy = b;
+  [bCopy setVerboseProfilingEnabled:verboseCopy];
+  [bCopy setProfilingEnabled:enabledCopy];
 }
 
 - (id)getFPFSNonMigratedItemsWithDB:(id)b
@@ -5660,30 +6572,30 @@ void __74__BRCAccountSession_DatabaseAdditions___getFPFSMigrationStatus_withErro
 
 - (BOOL)dumpFPFSMigrationStatusToFileHandle:(id)handle tracker:(id)tracker includeNonMigratedItems:(BOOL)items error:(id *)error
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   trackerCopy = tracker;
-  memset(v50, 0, sizeof(v50));
-  __brc_create_section(0, "[BRCAccountSession(DatabaseAdditions) dumpFPFSMigrationStatusToFileHandle:tracker:includeNonMigratedItems:error:]", 165, 0, v50);
+  memset(v49, 0, sizeof(v49));
+  __brc_create_section(0, "[BRCAccountSession(DatabaseAdditions) dumpFPFSMigrationStatusToFileHandle:tracker:includeNonMigratedItems:error:]", 165, 0, v49);
   v9 = brc_bread_crumbs();
   v10 = brc_default_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [BRCAccountSession(DatabaseAdditions) dumpFPFSMigrationStatusToFileHandle:v50 tracker:? includeNonMigratedItems:? error:?];
+    [BRCAccountSession(DatabaseAdditions) dumpFPFSMigrationStatusToFileHandle:tracker:includeNonMigratedItems:error:];
   }
 
   v11 = self->_readOnlyDB;
   v12 = v11;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__17;
-  v44 = __Block_byref_object_dispose__17;
   v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__17;
+  v43 = __Block_byref_object_dispose__17;
+  v44 = 0;
   cloudDocsFD = self->_cloudDocsFD;
   if (cloudDocsFD < 0)
   {
@@ -5716,82 +6628,82 @@ LABEL_22:
       v25 = brc_default_log();
       if (os_log_type_enabled(v25, 0x90u))
       {
-        v30 = "(passed to caller)";
-        *v59 = 136315906;
-        *&v59[4] = "[BRCAccountSession(DatabaseAdditions) dumpFPFSMigrationStatusToFileHandle:tracker:includeNonMigratedItems:error:]";
-        *&v59[12] = 2080;
-        if (!v32)
+        v29 = "(passed to caller)";
+        *v58 = 136315906;
+        *&v58[4] = "[BRCAccountSession(DatabaseAdditions) dumpFPFSMigrationStatusToFileHandle:tracker:includeNonMigratedItems:error:]";
+        *&v58[12] = 2080;
+        if (!v31)
         {
-          v30 = "(ignored by caller)";
+          v29 = "(ignored by caller)";
         }
 
-        *&v59[14] = v30;
-        *&v59[22] = 2112;
-        v60 = br_errorFromErrno;
-        LOWORD(v61) = 2112;
-        *(&v61 + 2) = v24;
-        _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] %s: %s error: %@%@", v59, 0x2Au);
+        *&v58[14] = v29;
+        *&v58[22] = 2112;
+        v59 = br_errorFromErrno;
+        LOWORD(v60) = 2112;
+        *(&v60 + 2) = v24;
+        _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] %s: %s error: %@%@", v58, 0x2Au);
       }
     }
 
-    if (v32)
+    if (v31)
     {
       v26 = br_errorFromErrno;
-      *v32 = br_errorFromErrno;
+      *v31 = br_errorFromErrno;
     }
 
     goto LABEL_22;
   }
 
-  *v59 = 0;
-  *&v59[8] = v59;
-  *&v59[16] = 0x3032000000;
-  v60 = __Block_byref_object_copy__17;
-  *&v61 = __Block_byref_object_dispose__17;
-  *(&v61 + 1) = [[BRCDumpContext alloc] initWithFile:v16 db:v12];
-  [*(*&v59[8] + 40) setLiveDaemon:cloudDocsFD >= 0];
-  [*(*&v59[8] + 40) setTaskTracker:trackerCopy];
+  *v58 = 0;
+  *&v58[8] = v58;
+  *&v58[16] = 0x3032000000;
+  v59 = __Block_byref_object_copy__17;
+  *&v60 = __Block_byref_object_dispose__17;
+  *(&v60 + 1) = [[BRCDumpContext alloc] initWithFile:v16 db:v12];
+  [*(*&v58[8] + 40) setLiveDaemon:cloudDocsFD >= 0];
+  [*(*&v58[8] + 40) setTaskTracker:trackerCopy];
   [(BRCAccountSession *)self disableDatabaseProfilingForDB:v12];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __114__BRCAccountSession_DatabaseAdditions__dumpFPFSMigrationStatusToFileHandle_tracker_includeNonMigratedItems_error___block_invoke;
-  v34[3] = &unk_2785022F8;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __114__BRCAccountSession_DatabaseAdditions__dumpFPFSMigrationStatusToFileHandle_tracker_includeNonMigratedItems_error___block_invoke;
+  v33[3] = &unk_2785022F8;
   v17 = v12;
-  v35 = v17;
+  v34 = v17;
   selfCopy = self;
-  v37 = &v40;
-  v38 = v59;
-  v39 = &v46;
-  [(BRCPQLConnection *)v17 performWithFlags:1 action:v34];
-  v18 = v41[5];
+  v36 = &v39;
+  v37 = v58;
+  v38 = &v45;
+  [(BRCPQLConnection *)v17 performWithFlags:1 action:v33];
+  v18 = v40[5];
   if (v18)
   {
     v19 = brc_bread_crumbs();
     v20 = brc_default_log();
     if (os_log_type_enabled(v20, 0x90u))
     {
-      v29 = "(passed to caller)";
+      v28 = "(passed to caller)";
       *buf = 136315906;
-      v52 = "[BRCAccountSession(DatabaseAdditions) dumpFPFSMigrationStatusToFileHandle:tracker:includeNonMigratedItems:error:]";
-      v53 = 2080;
-      if (!v32)
+      v51 = "[BRCAccountSession(DatabaseAdditions) dumpFPFSMigrationStatusToFileHandle:tracker:includeNonMigratedItems:error:]";
+      v52 = 2080;
+      if (!v31)
       {
-        v29 = "(ignored by caller)";
+        v28 = "(ignored by caller)";
       }
 
-      v54 = v29;
-      v55 = 2112;
-      v56 = v18;
-      v57 = 2112;
-      v58 = v19;
+      v53 = v28;
+      v54 = 2112;
+      v55 = v18;
+      v56 = 2112;
+      v57 = v19;
       _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
 
-  if (v32)
+  if (v31)
   {
     v21 = v18;
-    *v32 = v18;
+    *v31 = v18;
   }
 
   fclose(v16);
@@ -5800,16 +6712,15 @@ LABEL_22:
     [(BRCAccountSession *)self enableDatabaseProfilingForDB:v17];
   }
 
-  v22 = *(v47 + 24);
+  v22 = *(v46 + 24);
 
-  _Block_object_dispose(v59, 8);
+  _Block_object_dispose(v58, 8);
 LABEL_23:
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
 
-  _Block_object_dispose(&v46, 8);
-  __brc_leave_section(v50);
+  _Block_object_dispose(&v45, 8);
+  __brc_leave_section(v49);
 
-  v27 = *MEMORY[0x277D85DE8];
   return v22 & 1;
 }
 
@@ -6037,7 +6948,7 @@ uint64_t __87__BRCAccountSession_DatabaseAdditions__enumerateItemsWithType_itemR
 
 - (BOOL)dumpItemsURLsToHandle:(id)handle itemRowIDs:(id)ds error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   dsCopy = ds;
   v10 = self->_clientDB;
@@ -6059,20 +6970,20 @@ LABEL_10:
       v17 = brc_default_log();
       if (os_log_type_enabled(v17, 0x90u))
       {
-        v21 = "(passed to caller)";
+        v20 = "(passed to caller)";
         *buf = 136315906;
         *&buf[4] = "[BRCAccountSession(DatabaseAdditions) dumpItemsURLsToHandle:itemRowIDs:error:]";
         *&buf[12] = 2080;
         if (!error)
         {
-          v21 = "(ignored by caller)";
+          v20 = "(ignored by caller)";
         }
 
-        *&buf[14] = v21;
+        *&buf[14] = v20;
         *&buf[22] = 2112;
-        v24 = br_errorFromErrno;
-        LOWORD(v25) = 2112;
-        *(&v25 + 2) = v16;
+        v23 = br_errorFromErrno;
+        LOWORD(v24) = 2112;
+        *(&v24 + 2) = v16;
         _os_log_error_impl(&dword_223E7A000, v17, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -6090,44 +7001,43 @@ LABEL_10:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v24 = __Block_byref_object_copy__17;
-  *&v25 = __Block_byref_object_dispose__17;
-  *(&v25 + 1) = [[BRCDumpContext alloc] initWithFile:v12 db:v10];
+  v23 = __Block_byref_object_copy__17;
+  *&v24 = __Block_byref_object_dispose__17;
+  *(&v24 + 1) = [[BRCDumpContext alloc] initWithFile:v12 db:v10];
   [*(*&buf[8] + 40) setTaskTracker:0];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __79__BRCAccountSession_DatabaseAdditions__dumpItemsURLsToHandle_itemRowIDs_error___block_invoke;
-  v22[3] = &unk_278502370;
-  v22[4] = buf;
-  [(BRCAccountSession *)self enumerateItemsWithType:0 itemRowIDs:dsCopy db:v10 withBlock:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __79__BRCAccountSession_DatabaseAdditions__dumpItemsURLsToHandle_itemRowIDs_error___block_invoke;
+  v21[3] = &unk_278502370;
+  v21[4] = buf;
+  [(BRCAccountSession *)self enumerateItemsWithType:0 itemRowIDs:dsCopy db:v10 withBlock:v21];
   fclose(v13);
   _Block_object_dispose(buf, 8);
 
   v14 = 1;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)dumpItemsToHandle:(id)handle itemType:(id)type tracker:(id)tracker error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   typeCopy = type;
   trackerCopy = tracker;
-  memset(v35, 0, sizeof(v35));
-  __brc_create_section(0, "[BRCAccountSession(DatabaseAdditions) dumpItemsToHandle:itemType:tracker:error:]", 374, 0, v35);
+  memset(v34, 0, sizeof(v34));
+  __brc_create_section(0, "[BRCAccountSession(DatabaseAdditions) dumpItemsToHandle:itemType:tracker:error:]", 374, 0, v34);
   v13 = brc_bread_crumbs();
   v14 = brc_default_log();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    *&buf[4] = v35[0];
+    *&buf[4] = v34[0];
     *&buf[12] = 2112;
     *&buf[14] = typeCopy;
     *&buf[22] = 2112;
-    v37 = v13;
+    v36 = v13;
     _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx dumping all %@ items%@", buf, 0x20u);
   }
 
@@ -6148,20 +7058,20 @@ LABEL_11:
       v21 = brc_default_log();
       if (os_log_type_enabled(v21, 0x90u))
       {
-        v26 = "(passed to caller)";
+        v25 = "(passed to caller)";
         *buf = 136315906;
         *&buf[4] = "[BRCAccountSession(DatabaseAdditions) dumpItemsToHandle:itemType:tracker:error:]";
         *&buf[12] = 2080;
         if (!error)
         {
-          v26 = "(ignored by caller)";
+          v25 = "(ignored by caller)";
         }
 
-        *&buf[14] = v26;
+        *&buf[14] = v25;
         *&buf[22] = 2112;
-        v37 = br_errorFromErrno;
-        LOWORD(v38) = 2112;
-        *(&v38 + 2) = v20;
+        v36 = br_errorFromErrno;
+        LOWORD(v37) = 2112;
+        *(&v37 + 2) = v20;
         _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -6181,42 +7091,42 @@ LABEL_13:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v37 = __Block_byref_object_copy__17;
-  *&v38 = __Block_byref_object_dispose__17;
-  *(&v38 + 1) = [[BRCDumpContext alloc] initWithFile:v17 db:v15];
+  v36 = __Block_byref_object_copy__17;
+  *&v37 = __Block_byref_object_dispose__17;
+  *(&v37 + 1) = [[BRCDumpContext alloc] initWithFile:v17 db:v15];
   [*(*&buf[8] + 40) setTaskTracker:trackerCopy];
   if (v18)
   {
     [*(*&buf[8] + 40) setNewLineAfterWrite:0];
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
-    v34 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0;
     [*(*&buf[8] + 40) writeLineWithFormat:@"{"];
     [*(*&buf[8] + 40) writeEmptyLine];
   }
 
   else
   {
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
-    v34 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0;
   }
 
-  v29[0] = 0;
-  v29[1] = v29;
-  v29[2] = 0x2020000000;
-  v30 = 1;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __81__BRCAccountSession_DatabaseAdditions__dumpItemsToHandle_itemType_tracker_error___block_invoke;
-  v27[3] = &unk_278502398;
-  v27[4] = buf;
-  v27[5] = &v31;
-  v28 = v18;
-  v27[6] = v29;
-  [(BRCAccountSession *)self enumerateItemsWithType:typeCopy itemRowIDs:0 db:v15 withBlock:v27];
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x2020000000;
+  v29 = 1;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __81__BRCAccountSession_DatabaseAdditions__dumpItemsToHandle_itemType_tracker_error___block_invoke;
+  v26[3] = &unk_278502398;
+  v26[4] = buf;
+  v26[5] = &v30;
+  v27 = v18;
+  v26[6] = v28;
+  [(BRCAccountSession *)self enumerateItemsWithType:typeCopy itemRowIDs:0 db:v15 withBlock:v26];
   if (v18)
   {
     [*(*&buf[8] + 40) writeEmptyLine];
@@ -6224,15 +7134,14 @@ LABEL_13:
   }
 
   fclose(v17);
-  _Block_object_dispose(v29, 8);
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(&v30, 8);
   _Block_object_dispose(buf, 8);
 
   v23 = 1;
 LABEL_18:
 
-  __brc_leave_section(v35);
-  v24 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v34);
   return v23;
 }
 
@@ -6293,25 +7202,25 @@ void __81__BRCAccountSession_DatabaseAdditions__dumpItemsToHandle_itemType_track
 
 - (BOOL)enumerateSharedToMeItemsWithBlock:(id)block error:(id *)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v6 = self->_clientDB;
-  v38 = v6;
+  v37 = v6;
   if (v6)
   {
-    v55 = 0;
-    v56 = &v55;
-    v57 = 0x2020000000;
-    v58 = 0;
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __80__BRCAccountSession_DatabaseAdditions__enumerateSharedToMeItemsWithBlock_error___block_invoke;
-    v52[3] = &unk_278502320;
-    v54 = &v55;
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x2020000000;
+    v57 = 0;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __80__BRCAccountSession_DatabaseAdditions__enumerateSharedToMeItemsWithBlock_error___block_invoke;
+    v51[3] = &unk_278502320;
+    v53 = &v54;
     v7 = v6;
-    v53 = v7;
-    [(BRCPQLConnection *)v7 performWithFlags:1 action:v52];
-    if (*(v56 + 24) == 1)
+    v52 = v7;
+    [(BRCPQLConnection *)v7 performWithFlags:1 action:v51];
+    if (*(v55 + 24) == 1)
     {
       v8 = brc_bread_crumbs();
       v9 = brc_default_log();
@@ -6327,20 +7236,20 @@ void __81__BRCAccountSession_DatabaseAdditions__dumpItemsToHandle_itemType_track
         v18 = brc_default_log();
         if (os_log_type_enabled(v18, 0x90u))
         {
-          v36 = "(passed to caller)";
+          v35 = "(passed to caller)";
           *buf = 136315906;
           *&buf[4] = "[BRCAccountSession(DatabaseAdditions) enumerateSharedToMeItemsWithBlock:error:]";
           *&buf[12] = 2080;
           if (!error)
           {
-            v36 = "(ignored by caller)";
+            v35 = "(ignored by caller)";
           }
 
-          *&buf[14] = v36;
+          *&buf[14] = v35;
           *&buf[22] = 2112;
-          v60 = v16;
-          v61 = 2112;
-          v62 = v17;
+          v59 = v16;
+          v60 = 2112;
+          v61 = v17;
           _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -6360,34 +7269,34 @@ void __81__BRCAccountSession_DatabaseAdditions__dumpItemsToHandle_itemType_track
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        v60 = 0;
+        v59 = 0;
         v29 = [BRCUserDefaults defaultsForMangledID:0];
         readerScanBatchSize = [v29 readerScanBatchSize];
 
-        v48 = 0;
-        v49 = &v48;
-        v50 = 0x2020000000;
-        v51 = 0;
+        v47 = 0;
+        v48 = &v47;
+        v49 = 0x2020000000;
+        v50 = 0;
         v31 = MEMORY[0x277D85DD0];
         do
         {
-          v40[0] = v31;
-          v40[1] = 3221225472;
-          v40[2] = __80__BRCAccountSession_DatabaseAdditions__enumerateSharedToMeItemsWithBlock_error___block_invoke_141;
-          v40[3] = &unk_2785023C0;
+          v39[0] = v31;
+          v39[1] = 3221225472;
+          v39[2] = __80__BRCAccountSession_DatabaseAdditions__enumerateSharedToMeItemsWithBlock_error___block_invoke_141;
+          v39[3] = &unk_2785023C0;
           v32 = v7;
-          v45 = &v48;
-          v46 = readerScanBatchSize;
-          v44 = buf;
-          v41 = v32;
+          v44 = &v47;
+          v45 = readerScanBatchSize;
+          v43 = buf;
+          v40 = v32;
           selfCopy = self;
-          v47 = _resolveDeviceID;
-          v43 = blockCopy;
-          [(BRCPQLConnection *)v32 performWithFlags:1 action:v40];
+          v46 = _resolveDeviceID;
+          v42 = blockCopy;
+          [(BRCPQLConnection *)v32 performWithFlags:1 action:v39];
         }
 
-        while (*(v49 + 24) != 1);
-        _Block_object_dispose(&v48, 8);
+        while (*(v48 + 24) != 1);
+        _Block_object_dispose(&v47, 8);
         _Block_object_dispose(buf, 8);
         v24 = 1;
         goto LABEL_27;
@@ -6400,20 +7309,20 @@ void __81__BRCAccountSession_DatabaseAdditions__dumpItemsToHandle_itemType_track
         v27 = brc_default_log();
         if (os_log_type_enabled(v27, 0x90u))
         {
-          v37 = "(passed to caller)";
+          v36 = "(passed to caller)";
           *buf = 136315906;
           *&buf[4] = "[BRCAccountSession(DatabaseAdditions) enumerateSharedToMeItemsWithBlock:error:]";
           *&buf[12] = 2080;
           if (!error)
           {
-            v37 = "(ignored by caller)";
+            v36 = "(ignored by caller)";
           }
 
-          *&buf[14] = v37;
+          *&buf[14] = v36;
           *&buf[22] = 2112;
-          v60 = v16;
-          v61 = 2112;
-          v62 = v26;
+          v59 = v16;
+          v60 = 2112;
+          v61 = v26;
           _os_log_error_impl(&dword_223E7A000, v27, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -6428,7 +7337,7 @@ void __81__BRCAccountSession_DatabaseAdditions__dumpItemsToHandle_itemType_track
     v24 = 0;
 LABEL_27:
 
-    _Block_object_dispose(&v55, 8);
+    _Block_object_dispose(&v54, 8);
     goto LABEL_28;
   }
 
@@ -6439,20 +7348,20 @@ LABEL_27:
     v22 = brc_default_log();
     if (os_log_type_enabled(v22, 0x90u))
     {
-      v35 = "(passed to caller)";
+      v34 = "(passed to caller)";
       *buf = 136315906;
       *&buf[4] = "[BRCAccountSession(DatabaseAdditions) enumerateSharedToMeItemsWithBlock:error:]";
       *&buf[12] = 2080;
       if (!error)
       {
-        v35 = "(ignored by caller)";
+        v34 = "(ignored by caller)";
       }
 
-      *&buf[14] = v35;
+      *&buf[14] = v34;
       *&buf[22] = 2112;
-      v60 = v20;
-      v61 = 2112;
-      v62 = v21;
+      v59 = v20;
+      v60 = 2112;
+      v61 = v21;
       _os_log_error_impl(&dword_223E7A000, v22, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -6466,7 +7375,6 @@ LABEL_27:
   v24 = 0;
 LABEL_28:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -6480,31 +7388,30 @@ uint64_t __80__BRCAccountSession_DatabaseAdditions__enumerateSharedToMeItemsWith
 
 uint64_t __80__BRCAccountSession_DatabaseAdditions__enumerateSharedToMeItemsWithBlock_error___block_invoke_141(uint64_t a1)
 {
-  v2 = *(a1 + 72);
-  v3 = [*(a1 + 32) fetchWithSlowStatementRadar:@"none" sql:{@"SELECT item_file_id, zone_rowid    FROM client_items   WHERE item_sharing_options != 0    ORDER BY rowid    LIMIT %lld    OFFSET %lld", *(a1 + 72), *(*(*(a1 + 56) + 8) + 24)}];
+  v2 = [*(a1 + 32) fetchWithSlowStatementRadar:@"none" sql:{@"SELECT item_file_id, zone_rowid    FROM client_items   WHERE item_sharing_options != 0    ORDER BY rowid    LIMIT %lld    OFFSET %lld", *(a1 + 72), *(*(*(a1 + 56) + 8) + 24)}];
   *(*(*(a1 + 64) + 8) + 24) = 1;
-  if ([v3 next])
+  if ([v2 next])
   {
     do
     {
       *(*(*(a1 + 64) + 8) + 24) = 0;
       ++*(*(*(a1 + 56) + 8) + 24);
-      v4 = [v3 integerAtIndex:0];
-      v5 = *(a1 + 40);
-      v6 = [v3 numberAtIndex:1];
-      v7 = [v5 serverZoneByRowID:v6];
+      v3 = [v2 integerAtIndex:0];
+      v4 = *(a1 + 40);
+      v5 = [v2 numberAtIndex:1];
+      v6 = [v4 serverZoneByRowID:v5];
 
-      v8 = [v7 clientZone];
-      v9 = [v8 isSharedZone];
+      v7 = [v6 clientZone];
+      v8 = [v7 isSharedZone];
 
-      if (v9)
+      if (v8)
       {
-        v10 = [MEMORY[0x277CCACA8] br_pathWithDeviceID:*(a1 + 80) fileID:v4];
+        v9 = [MEMORY[0x277CCACA8] br_pathWithDeviceID:*(a1 + 80) fileID:v3];
         (*(*(a1 + 48) + 16))();
       }
     }
 
-    while (([v3 next] & 1) != 0);
+    while (([v2 next] & 1) != 0);
   }
 
   return 0;
@@ -6512,7 +7419,7 @@ uint64_t __80__BRCAccountSession_DatabaseAdditions__enumerateSharedToMeItemsWith
 
 - (void)_dumpSpecialSyncContextsToContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   syncContextProvider = [(BRCAccountSession *)self syncContextProvider];
   v6 = objc_opt_new();
@@ -6526,29 +7433,29 @@ uint64_t __80__BRCAccountSession_DatabaseAdditions__enumerateSharedToMeItemsWith
 
   if ([v6 count])
   {
-    v18 = syncContextProvider;
+    v17 = syncContextProvider;
     [contextCopy writeLineWithFormat:@"Special Sync Contexts"];
     [contextCopy writeLineWithFormat:@"-----------------------------------------------------"];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
+          v14 = *(*(&v18 + 1) + 8 * i);
           contextIdentifier = [v14 contextIdentifier];
           fp_obfuscatedDotSeparatedComponents = [contextIdentifier fp_obfuscatedDotSeparatedComponents];
           [contextCopy writeLineWithFormat:@"+ %@", fp_obfuscatedDotSeparatedComponents];
@@ -6558,27 +7465,207 @@ uint64_t __80__BRCAccountSession_DatabaseAdditions__enumerateSharedToMeItemsWith
           [contextCopy popIndentation];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
     }
 
-    syncContextProvider = v18;
+    syncContextProvider = v17;
+  }
+}
+
+- (BOOL)dumpDatabaseToFileHandle:(id)handle zoneName:(id)name includeAllItems:(BOOL)items verbose:(BOOL)verbose tracker:(id)tracker error:(id *)error
+{
+  verboseCopy = verbose;
+  v75 = *MEMORY[0x277D85DE8];
+  handleCopy = handle;
+  nameCopy = name;
+  trackerCopy = tracker;
+  memset(v63, 0, sizeof(v63));
+  __brc_create_section(0, "[BRCAccountSession(DatabaseAdditions) dumpDatabaseToFileHandle:zoneName:includeAllItems:verbose:tracker:error:]", 549, 0, v63);
+  v13 = brc_bread_crumbs();
+  v14 = brc_default_log();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCAccountSession(DatabaseAdditions) dumpDatabaseToFileHandle:zoneName:includeAllItems:verbose:tracker:error:];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = self->_clientDB;
+  v16 = v15;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v62 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__17;
+  v57 = __Block_byref_object_dispose__17;
+  v58 = 0;
+  cloudDocsFD = self->_cloudDocsFD;
+  if (cloudDocsFD < 0)
+  {
+    containerScheduler = 0;
+    if (!v15)
+    {
+LABEL_24:
+      v33 = 0;
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    containerScheduler = [(BRCAccountSession *)self containerScheduler];
+    if (!v16)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  v19 = dup([handleCopy fileDescriptor]);
+  v20 = fdopen(v19, "a");
+  if (!v20)
+  {
+    br_errorFromErrno = [MEMORY[0x277CCA9B8] br_errorFromErrno];
+    if (br_errorFromErrno)
+    {
+      v35 = brc_bread_crumbs();
+      v36 = brc_default_log();
+      if (os_log_type_enabled(v36, 0x90u))
+      {
+        v40 = "(passed to caller)";
+        *v72 = 136315906;
+        *&v72[4] = "[BRCAccountSession(DatabaseAdditions) dumpDatabaseToFileHandle:zoneName:includeAllItems:verbose:tracker:error:]";
+        *&v72[12] = 2080;
+        if (!error)
+        {
+          v40 = "(ignored by caller)";
+        }
+
+        *&v72[14] = v40;
+        *&v72[22] = 2112;
+        v73 = br_errorFromErrno;
+        LOWORD(v74) = 2112;
+        *(&v74 + 2) = v35;
+        _os_log_error_impl(&dword_223E7A000, v36, 0x90u, "[ERROR] %s: %s error: %@%@", v72, 0x2Au);
+      }
+    }
+
+    if (error)
+    {
+      v37 = br_errorFromErrno;
+      *error = br_errorFromErrno;
+    }
+
+    goto LABEL_24;
+  }
+
+  *v72 = 0;
+  *&v72[8] = v72;
+  *&v72[16] = 0x3032000000;
+  v73 = __Block_byref_object_copy__17;
+  *&v74 = __Block_byref_object_dispose__17;
+  *(&v74 + 1) = [[BRCDumpContext alloc] initWithFile:v20 db:v16];
+  [*(*&v72[8] + 40) setLiveDaemon:cloudDocsFD >= 0];
+  [*(*&v72[8] + 40) setTaskTracker:trackerCopy];
+  [*(*&v72[8] + 40) setVerbose:verboseCopy];
+  [(BRCAccountSession *)self disableDatabaseProfilingForDB:v16];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zoneName_includeAllItems_verbose_tracker_error___block_invoke;
+  v45[3] = &unk_278502428;
+  v49 = v72;
+  v45[4] = self;
+  v21 = v16;
+  v46 = v21;
+  v47 = containerScheduler;
+  itemsCopy = items;
+  v48 = nameCopy;
+  v50 = &v53;
+  v51 = &v59;
+  [(BRCPQLConnection *)v21 performWithFlags:1 action:v45];
+  analyticsReporter = [(BRCAccountSession *)self analyticsReporter];
+  [analyticsReporter dumpToContext:*(*&v72[8] + 40)];
+
+  globalProgress = [(BRCAccountSession *)self globalProgress];
+  [globalProgress dumpToContext:*(*&v72[8] + 40)];
+
+  v24 = +[BRCCloudDocsAppsMonitor cloudDocsAppsMonitor];
+  [v24 dumpToContext:*(*&v72[8] + 40)];
+
+  v25 = [BRCUserDefaults defaultsForMangledID:0];
+  fpfsUploadV2 = [v25 fpfsUploadV2];
+
+  if (fpfsUploadV2)
+  {
+    v27 = [BRCUploadSyncUpRequestsManager defaultManagerWithPersonaIdentifier:self->_personaIdentifier];
+    [v27 dumpToContext:*(*&v72[8] + 40)];
+  }
+
+  [(BRCAccountSession *)self _dumpSpecialSyncContextsToContext:*(*&v72[8] + 40)];
+  v28 = +[BRCDaemon daemon];
+  [v28 dumpToContext:*(*&v72[8] + 40)];
+
+  v29 = v54[5];
+  if (v29)
+  {
+    v30 = brc_bread_crumbs();
+    v31 = brc_default_log();
+    if (os_log_type_enabled(v31, 0x90u))
+    {
+      v39 = "(passed to caller)";
+      *buf = 136315906;
+      v65 = "[BRCAccountSession(DatabaseAdditions) dumpDatabaseToFileHandle:zoneName:includeAllItems:verbose:tracker:error:]";
+      v66 = 2080;
+      if (!error)
+      {
+        v39 = "(ignored by caller)";
+      }
+
+      v67 = v39;
+      v68 = 2112;
+      v69 = v29;
+      v70 = 2112;
+      v71 = v30;
+      _os_log_error_impl(&dword_223E7A000, v31, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+    }
+  }
+
+  if (error)
+  {
+    v32 = v29;
+    *error = v29;
+  }
+
+  fclose(v20);
+  if (cloudDocsFD >= 0)
+  {
+    [(BRCAccountSession *)self enableDatabaseProfilingForDB:v21];
+  }
+
+  v33 = *(v60 + 24);
+
+  _Block_object_dispose(v72, 8);
+LABEL_25:
+  _Block_object_dispose(&v53, 8);
+
+  _Block_object_dispose(&v59, 8);
+  __brc_leave_section(v63);
+
+  return v33 & 1;
 }
 
 uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zoneName_includeAllItems_verbose_tracker_error___block_invoke(uint64_t a1, void *a2)
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v4 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSZ"];
-  v110 = [v3 fetch:@"SELECT count(*) FROM boot_history"];
-  [v110 next];
-  v113 = v4;
+  v109 = [v3 fetch:@"SELECT count(*) FROM boot_history"];
+  [v109 next];
+  v112 = v4;
   if ([*(*(*(a1 + 64) + 8) + 40) liveDaemon])
   {
     v5 = [*(a1 + 32) accountFacade];
@@ -6600,7 +7687,7 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
     v12 = [v11 br_realpath];
     [v6 writeLineWithFormat:@"dump taken at %@ [account=%@] [inCarry=%s] [home=%@]", v8, v9, v10, v12];
 
-    v4 = v113;
+    v4 = v112;
   }
 
   else
@@ -6689,15 +7776,15 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
 
   v36 = [MEMORY[0x277D82C18] rawInjection:v34 length:v35];
   [*(*(*(a1 + 64) + 8) + 40) writeLineWithFormat:@"server_truth"];
-  v111 = v36;
-  v112 = v3;
+  v110 = v36;
+  v111 = v3;
   v37 = [v3 fetch:{@"SELECT date, os, br, bird_schema, db_schema%@ FROM server_boot_history ORDER BY rowid DESC LIMIT 10", v36}];
   if ([v37 next])
   {
     do
     {
       v38 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{objc_msgSend(v37, "intAtIndex:", 0)}];
-      v39 = [v113 stringFromDate:v38];
+      v39 = [v112 stringFromDate:v38];
       v40 = [v37 stringAtIndex:1];
       v41 = [v37 stringAtIndex:2];
       v42 = [v37 numberAtIndex:3];
@@ -6719,14 +7806,14 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
   }
 
   [*(*(*(a1 + 64) + 8) + 40) writeLineWithFormat:@"client_truth"];
-  v45 = [v112 fetch:{@"SELECT date, os, br, bird_schema, db_schema%@ FROM boot_history ORDER BY rowid DESC LIMIT 10", v111}];
+  v45 = [v111 fetch:{@"SELECT date, os, br, bird_schema, db_schema%@ FROM boot_history ORDER BY rowid DESC LIMIT 10", v110}];
 
   if ([v45 next])
   {
     do
     {
       v46 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{objc_msgSend(v45, "intAtIndex:", 0)}];
-      v47 = [v113 stringFromDate:v46];
+      v47 = [v112 stringFromDate:v46];
       v48 = [v45 stringAtIndex:1];
       v49 = [v45 stringAtIndex:2];
       v50 = [v45 numberAtIndex:3];
@@ -6748,17 +7835,17 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
   }
 
   [*(*(*(a1 + 64) + 8) + 40) writeLineWithFormat:@"backup_detector"];
-  v53 = v112;
-  v54 = [v112 fetch:{@"SELECT old, new, counter, os, br FROM backup_detector"}];
+  v53 = v111;
+  v54 = [v111 fetch:{@"SELECT old, new, counter, os, br FROM backup_detector"}];
 
   if ([v54 next])
   {
-    v108 = [v54 numberAtIndex:0];
+    v107 = [v54 numberAtIndex:0];
     v55 = [v54 numberAtIndex:1];
     v56 = [v54 numberAtIndex:2];
     v57 = [v54 stringAtIndex:3];
     v58 = [v54 stringAtIndex:4];
-    v59 = [v112 userVersion];
+    v59 = [v111 userVersion];
     v60 = *(*(*(a1 + 64) + 8) + 40);
     v61 = [v57 UTF8String];
     v62 = [v58 UTF8String];
@@ -6772,11 +7859,11 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
       v63 = -1;
     }
 
-    [v60 writeLineWithFormat:@"  [%@|%@|%@] OS:%s CloudDocs:%s DBSchema:%ld", v108, v55, v56, v61, v62, v63];
+    [v60 writeLineWithFormat:@"  [%@|%@|%@] OS:%s CloudDocs:%s DBSchema:%ld", v107, v55, v56, v61, v62, v63];
     [*(*(*(a1 + 64) + 8) + 40) writeEmptyLine];
     [v54 close];
 
-    v53 = v112;
+    v53 = v111;
   }
 
   v64 = [v53 fetch:@"SELECT * FROM server_state"];
@@ -6800,7 +7887,7 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
     [*(*(*(a1 + 64) + 8) + 40) writeEmptyLine];
   }
 
-  v109 = v66;
+  v108 = v66;
   [*(*(*(a1 + 64) + 8) + 40) writeLineWithFormat:@"devices:"];
   v67 = [v53 fetch:{@"SELECT key, name FROM devices"}];
 
@@ -6851,14 +7938,14 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
   [*(a1 + 48) dumpToContext:*(*(*(a1 + 64) + 8) + 40) includeAllItems:*(a1 + 88) db:*(a1 + 40)];
   v82 = *(a1 + 32);
   v83 = *(a1 + 56);
-  v119 = 0;
-  v84 = [v82 clientZonesMatchingSearchString:v83 error:&v119];
-  v85 = v119;
+  v118 = 0;
+  v84 = [v82 clientZonesMatchingSearchString:v83 error:&v118];
+  v85 = v118;
   v86 = v85;
   v87 = *(*(*(a1 + 64) + 8) + 40);
   if (v84)
   {
-    v106 = v85;
+    v105 = v85;
     v88 = [v84 count];
     v89 = *(a1 + 56);
     if (!v89)
@@ -6868,36 +7955,36 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
 
     [v87 writeLineWithFormat:@"%u containers matching '%@'", v88, v89];
     [*(*(*(a1 + 64) + 8) + 40) writeLineWithFormat:@"-----------------------------------------------------"];
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
     v116 = 0u;
-    v107 = v84;
+    v117 = 0u;
+    v114 = 0u;
+    v115 = 0u;
+    v106 = v84;
     v90 = v84;
-    v91 = [v90 countByEnumeratingWithState:&v115 objects:v124 count:16];
+    v91 = [v90 countByEnumeratingWithState:&v114 objects:v123 count:16];
     if (v91)
     {
       v92 = v91;
-      v93 = *v116;
+      v93 = *v115;
       while (2)
       {
         for (i = 0; i != v92; ++i)
         {
-          if (*v116 != v93)
+          if (*v115 != v93)
           {
             objc_enumerationMutation(v90);
           }
 
-          v95 = *(*(&v115 + 1) + 8 * i);
+          v95 = *(*(&v114 + 1) + 8 * i);
           v96 = objc_autoreleasePoolPush();
           v97 = brc_bread_crumbs();
           v98 = brc_default_log();
           if (os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v121 = v95;
-            v122 = 2112;
-            v123 = v97;
+            v120 = v95;
+            v121 = 2112;
+            v122 = v97;
             _os_log_debug_impl(&dword_223E7A000, v98, OS_LOG_TYPE_DEBUG, "[DEBUG] dumping client zone %@%@", buf, 0x16u);
           }
 
@@ -6917,7 +8004,7 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
           objc_autoreleasePoolPop(v96);
         }
 
-        v92 = [v90 countByEnumeratingWithState:&v115 objects:v124 count:16];
+        v92 = [v90 countByEnumeratingWithState:&v114 objects:v123 count:16];
         if (v92)
         {
           continue;
@@ -6929,8 +8016,8 @@ uint64_t __112__BRCAccountSession_DatabaseAdditions__dumpDatabaseToFileHandle_zo
 
 LABEL_61:
 
-    v86 = v106;
-    v84 = v107;
+    v86 = v105;
+    v84 = v106;
   }
 
   else
@@ -6941,7 +8028,7 @@ LABEL_61:
 
   if (*(a1 + 88) == 1)
   {
-    [BRCPackageItem dumpSession:*(a1 + 32) toContext:*(*(*(a1 + 64) + 8) + 40) db:v112 error:0];
+    [BRCPackageItem dumpSession:*(a1 + 32) toContext:*(*(*(a1 + 64) + 8) + 40) db:v111 error:0];
   }
 
   [*(a1 + 32) dumpXPCClientsToContext:*(*(*(a1 + 64) + 8) + 40)];
@@ -6955,9 +8042,8 @@ LABEL_61:
     *(*(*(a1 + 80) + 8) + 24) = 1;
   }
 
-  [v110 close];
+  [v109 close];
 
-  v104 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -7002,24 +8088,118 @@ LABEL_61:
   return v12;
 }
 
+- (BOOL)_dumpClientZone:(id)zone toContext:(id)context includeAllItems:(BOOL)items error:(id *)error
+{
+  itemsCopy = items;
+  v33 = *MEMORY[0x277D85DE8];
+  zoneCopy = zone;
+  contextCopy = context;
+  v12 = [zoneCopy descriptionWithContext:contextCopy];
+  [contextCopy writeLineWithFormat:@"- %@", v12];
+
+  [(BRCAccountSession *)self _dumpClientZoneBlockedState:zoneCopy toContext:contextCopy];
+  [contextCopy writeLineWithFormat:@"-----------------------------------------------------"];
+  if ([zoneCopy isPrivateZone])
+  {
+    [contextCopy pushIndentation];
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    asPrivateClientZone = [zoneCopy asPrivateClientZone];
+    appLibraries = [asPrivateClientZone appLibraries];
+
+    v15 = [appLibraries countByEnumeratingWithState:&v28 objects:v32 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v29;
+      do
+      {
+        for (i = 0; i != v16; ++i)
+        {
+          if (*v29 != v17)
+          {
+            objc_enumerationMutation(appLibraries);
+          }
+
+          [*(*(&v28 + 1) + 8 * i) dumpToContext:contextCopy];
+        }
+
+        v16 = [appLibraries countByEnumeratingWithState:&v28 objects:v32 count:16];
+      }
+
+      while (v16);
+    }
+
+    [contextCopy popIndentation];
+  }
+
+  [contextCopy writeLineWithFormat:&stru_2837504F0];
+  [contextCopy pushIndentation];
+  serverZone = [zoneCopy serverZone];
+  if (!serverZone)
+  {
+    if ([zoneCopy isSharedZone])
+    {
+      asSharedClientZone = [zoneCopy asSharedClientZone];
+      zoneName = [asSharedClientZone zoneName];
+      ownerName = [asSharedClientZone ownerName];
+      v23 = [contextCopy db];
+      serverZone = [(BRCAccountSession *)self _sharedServerZoneByName:zoneName ownerName:ownerName db:v23];
+    }
+
+    else
+    {
+      asSharedClientZone = [zoneCopy zoneName];
+      zoneName = [contextCopy db];
+      serverZone = [(BRCAccountSession *)self _privateServerZoneByName:asSharedClientZone db:zoneName];
+    }
+
+    [zoneCopy associateWithServerZone:serverZone];
+  }
+
+  v24 = [zoneCopy dumpActivityToContext:contextCopy includeExpensiveActivity:itemsCopy error:error];
+  if (v24)
+  {
+    [contextCopy writeLineWithFormat:&stru_2837504F0];
+    v25 = [serverZone dumpTablesToContext:contextCopy includeAllItems:itemsCopy error:error];
+    v26 = [zoneCopy dumpTablesToContext:contextCopy includeAllItems:itemsCopy error:error];
+    if (v25 && v26)
+    {
+      [contextCopy writeLineWithFormat:@" - not done dumping items -"];
+    }
+
+    [contextCopy popIndentation];
+    [contextCopy writeLineWithFormat:@"-----------------------------------------------------"];
+  }
+
+  else
+  {
+    [contextCopy popIndentation];
+  }
+
+  return v24;
+}
+
 - (BOOL)dumpStatusToFileHandle:(id)handle zoneName:(id)name tracker:(id)tracker error:(id *)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   nameCopy = name;
   trackerCopy = tracker;
-  memset(v36, 0, sizeof(v36));
-  __brc_create_section(0, "[BRCAccountSession(DatabaseAdditions) dumpStatusToFileHandle:zoneName:tracker:error:]", 876, 0, v36);
+  memset(v35, 0, sizeof(v35));
+  __brc_create_section(0, "[BRCAccountSession(DatabaseAdditions) dumpStatusToFileHandle:zoneName:tracker:error:]", 876, 0, v35);
   v13 = brc_bread_crumbs();
   v14 = brc_default_log();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    *&buf[4] = v36[0];
+    *&buf[4] = v35[0];
     *&buf[12] = 2112;
     *&buf[14] = nameCopy;
     *&buf[22] = 2112;
-    v46 = v13;
+    v45 = v13;
     _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx dumping status for zone: %@%@", buf, 0x20u);
   }
 
@@ -7027,23 +8207,23 @@ LABEL_61:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v46 = __Block_byref_object_copy__17;
-  v47 = __Block_byref_object_dispose__17;
-  v48 = 0;
+  v45 = __Block_byref_object_copy__17;
+  v46 = __Block_byref_object_dispose__17;
+  v47 = 0;
   [(BRCAccountSession *)self disableDatabaseProfilingForDB:v15];
-  v27 = MEMORY[0x277D85DD0];
-  v28 = 3221225472;
-  v29 = __86__BRCAccountSession_DatabaseAdditions__dumpStatusToFileHandle_zoneName_tracker_error___block_invoke;
-  v30 = &unk_278501D98;
+  v26 = MEMORY[0x277D85DD0];
+  v27 = 3221225472;
+  v28 = __86__BRCAccountSession_DatabaseAdditions__dumpStatusToFileHandle_zoneName_tracker_error___block_invoke;
+  v29 = &unk_278501D98;
   v16 = handleCopy;
-  v31 = v16;
-  v35 = buf;
+  v30 = v16;
+  v34 = buf;
   v17 = trackerCopy;
-  v32 = v17;
+  v31 = v17;
   selfCopy = self;
   v18 = nameCopy;
-  v34 = v18;
-  [(BRCPQLConnection *)v15 performWithFlags:1 action:&v27];
+  v33 = v18;
+  [(BRCPQLConnection *)v15 performWithFlags:1 action:&v26];
   v19 = *(*&buf[8] + 40);
   if (v19)
   {
@@ -7051,21 +8231,21 @@ LABEL_61:
     v21 = brc_default_log();
     if (os_log_type_enabled(v21, 0x90u))
     {
-      v26 = "(passed to caller)";
-      *v37 = 136315906;
-      v38 = "[BRCAccountSession(DatabaseAdditions) dumpStatusToFileHandle:zoneName:tracker:error:]";
-      v39 = 2080;
+      v25 = "(passed to caller)";
+      *v36 = 136315906;
+      v37 = "[BRCAccountSession(DatabaseAdditions) dumpStatusToFileHandle:zoneName:tracker:error:]";
+      v38 = 2080;
       if (!error)
       {
-        v26 = "(ignored by caller)";
+        v25 = "(ignored by caller)";
       }
 
-      v40 = v26;
-      v41 = 2112;
-      v42 = v19;
-      v43 = 2112;
-      v44 = v20;
-      _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", v37, 0x2Au);
+      v39 = v25;
+      v40 = 2112;
+      v41 = v19;
+      v42 = 2112;
+      v43 = v20;
+      _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", v36, 0x2Au);
     }
   }
 
@@ -7075,19 +8255,18 @@ LABEL_61:
     *error = v19;
   }
 
-  [(BRCAccountSession *)self enableDatabaseProfilingForDB:v15, v27, v28, v29, v30];
+  [(BRCAccountSession *)self enableDatabaseProfilingForDB:v15, v26, v27, v28, v29];
   v23 = *(*&buf[8] + 40) == 0;
 
   _Block_object_dispose(buf, 8);
-  __brc_leave_section(v36);
+  __brc_leave_section(v35);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 uint64_t __86__BRCAccountSession_DatabaseAdditions__dumpStatusToFileHandle_zoneName_tracker_error___block_invoke(uint64_t a1, void *a2)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = dup([*(a1 + 32) fileDescriptor]);
   v5 = fdopen(v4, "a");
@@ -7105,19 +8284,19 @@ uint64_t __86__BRCAccountSession_DatabaseAdditions__dumpStatusToFileHandle_zoneN
     [v9 next];
     v10 = *(a1 + 48);
     v11 = *(a1 + 56);
-    v53 = 0;
-    v12 = [v10 clientZonesMatchingSearchString:v11 error:&v53];
-    v13 = v53;
+    v52 = 0;
+    v12 = [v10 clientZonesMatchingSearchString:v11 error:&v52];
+    v13 = v52;
     v14 = v13;
     if (v12)
     {
-      v46 = v6;
+      v45 = v6;
       v15 = [v12 count];
       v16 = *(a1 + 56);
-      v47 = v3;
-      v44 = v9;
-      v45 = v7;
-      v42 = v14;
+      v46 = v3;
+      v43 = v9;
+      v44 = v7;
+      v41 = v14;
       if (v16)
       {
         v17 = [v16 UTF8String];
@@ -7129,36 +8308,36 @@ uint64_t __86__BRCAccountSession_DatabaseAdditions__dumpStatusToFileHandle_zoneN
       }
 
       [(BRCDumpContext *)v8 writeLineWithFormat:@"%u containers matching '%s'", v15, v17];
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
-      v43 = v12;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v42 = v12;
       v29 = v12;
-      v30 = [v29 countByEnumeratingWithState:&v49 objects:v58 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v48 objects:v57 count:16];
       if (v30)
       {
         v31 = v30;
-        v32 = *v50;
+        v32 = *v49;
         while (2)
         {
           for (i = 0; i != v31; ++i)
           {
-            if (*v50 != v32)
+            if (*v49 != v32)
             {
               objc_enumerationMutation(v29);
             }
 
-            v34 = *(*(&v49 + 1) + 8 * i);
+            v34 = *(*(&v48 + 1) + 8 * i);
             v35 = objc_autoreleasePoolPush();
             v36 = brc_bread_crumbs();
             v37 = brc_default_log();
             if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v55 = v29;
-              v56 = 2112;
-              v57 = v36;
+              v54 = v29;
+              v55 = 2112;
+              v56 = v36;
               _os_log_debug_impl(&dword_223E7A000, v37, OS_LOG_TYPE_DEBUG, "[DEBUG] dumping container %@%@", buf, 0x16u);
             }
 
@@ -7176,7 +8355,7 @@ uint64_t __86__BRCAccountSession_DatabaseAdditions__dumpStatusToFileHandle_zoneN
             objc_autoreleasePoolPop(v35);
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v49 objects:v58 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v48 objects:v57 count:16];
           if (v31)
           {
             continue;
@@ -7188,12 +8367,12 @@ uint64_t __86__BRCAccountSession_DatabaseAdditions__dumpStatusToFileHandle_zoneN
 
 LABEL_22:
 
-      v6 = v46;
-      v3 = v47;
-      v9 = v44;
-      v7 = v45;
-      v14 = v42;
-      v12 = v43;
+      v6 = v45;
+      v3 = v46;
+      v9 = v43;
+      v7 = v44;
+      v14 = v41;
+      v12 = v42;
     }
 
     else
@@ -7223,24 +8402,23 @@ LABEL_22:
     [0 close];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)printShareRequests:(id)requests isPending:(BOOL)pending asJSON:(BOOL)n error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__17;
-  v35 = __Block_byref_object_dispose__17;
-  v36 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__17;
+  v34 = __Block_byref_object_dispose__17;
+  v35 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
   workloop = [(BRCDatabaseFacade *)self->_serverReadWriteDatabaseFacade workloop];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -7248,34 +8426,34 @@ LABEL_22:
   block[3] = &unk_278502450;
   block[4] = self;
   v12 = requestsCopy;
-  v22 = v12;
-  v23 = &v31;
-  v24 = &v27;
+  v21 = v12;
+  v22 = &v30;
+  v23 = &v26;
   pendingCopy = pending;
   nCopy = n;
   dispatch_async(workloop, block);
 
-  v13 = v32[5];
+  v13 = v31[5];
   if (v13)
   {
     v14 = brc_bread_crumbs();
     v15 = brc_default_log();
     if (os_log_type_enabled(v15, 0x90u))
     {
-      v20 = "(passed to caller)";
+      v19 = "(passed to caller)";
       *buf = 136315906;
-      v38 = "[BRCAccountSession(DatabaseAdditions) printShareRequests:isPending:asJSON:error:]";
-      v39 = 2080;
+      v37 = "[BRCAccountSession(DatabaseAdditions) printShareRequests:isPending:asJSON:error:]";
+      v38 = 2080;
       if (!error)
       {
-        v20 = "(ignored by caller)";
+        v19 = "(ignored by caller)";
       }
 
-      v40 = v20;
-      v41 = 2112;
-      v42 = v13;
-      v43 = 2112;
-      v44 = v14;
+      v39 = v19;
+      v40 = 2112;
+      v41 = v13;
+      v42 = 2112;
+      v43 = v14;
       _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -7286,11 +8464,10 @@ LABEL_22:
     *error = v13;
   }
 
-  v17 = *(v28 + 24);
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v31, 8);
+  v17 = *(v27 + 24);
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 
@@ -7302,7 +8479,7 @@ void __82__BRCAccountSession_DatabaseAdditions__printShareRequests_isPending_asJ
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __82__BRCAccountSession_DatabaseAdditions__printShareRequests_isPending_asJSON_error___block_invoke_cold_1(v24);
+    __82__BRCAccountSession_DatabaseAdditions__printShareRequests_isPending_asJSON_error___block_invoke_cold_1();
   }
 
   v4 = *(*(a1 + 32) + 208);
@@ -7839,6 +9016,62 @@ LABEL_31:
   }
 }
 
+- (void)setFPFSMigrationState:(unsigned int)state
+{
+  v3 = *&state;
+  v17[1] = *MEMORY[0x277D85DE8];
+  [(BRCPQLConnection *)self->_clientDB assertOnQueue];
+  v5 = brc_bread_crumbs();
+  v6 = brc_default_log();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCAccountSession(FPFSAdditions) setFPFSMigrationState:];
+  }
+
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  [(BRCClientState *)self->_clientState setObject:v7 forKeyedSubscript:@"kBRCFPFSMigrationStateKey"];
+
+  if (v3 == 2)
+  {
+    v10 = brc_bread_crumbs();
+    v11 = brc_default_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      [BRCAccountSession(FPFSAdditions) setFPFSMigrationState:];
+    }
+
+    [(BRCClientState *)self->_clientState setObject:0 forKeyedSubscript:@"kBRCFPFSMigrationCleanupLastRowIDKey"];
+    fsImporter = [(BRCAccountSession(FPFSAdditions) *)self fsImporter];
+    [fsImporter signal];
+  }
+
+  else if (!v3)
+  {
+    fpfsMigrationUUID = [(BRCAccountSession *)self fpfsMigrationUUID];
+
+    if (fpfsMigrationUUID)
+    {
+      v9 = [MEMORY[0x277CBEAA8] now];
+      [(BRCClientState *)self->_clientState setObject:v9 forKeyedSubscript:@"kBRCFPFSMigrationEndTimeKey"];
+
+      [(BRCAccountSession *)self triggerFPFSImportFinishedTelemetryEventIfNeeded];
+    }
+
+    else
+    {
+      [(BRCAccountSession *)self _cleanupMigrationClientState];
+    }
+  }
+
+  [(BRCPQLConnection *)self->_clientDB forceBatchStart];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v16 = @"kBRCFPFSMigrationStateKey";
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v17[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  [defaultCenter postNotificationName:@"kBRCFPFSMigrationStateKey" object:0 userInfo:v15];
+}
+
 - (void)_cleanupMigrationClientState
 {
   [(BRCClientState *)self->_clientState setObject:0 forKeyedSubscript:@"kBRCFPFSMigrationStateKey"];
@@ -8088,10 +9321,10 @@ LABEL_14:
 
 void __100__BRCAccountSession_FPFSAdditions__sendFileStatsTelemetryWithDescriptors_perItemSendTelemetryBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v22 = v6;
+  v21 = v6;
   if (v6)
   {
     v7 = v6;
@@ -8099,38 +9332,38 @@ void __100__BRCAccountSession_FPFSAdditions__sendFileStatsTelemetryWithDescripto
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, 0x90u))
     {
-      v21 = *(a1 + 32);
+      v20 = *(a1 + 32);
       *buf = 138412802;
-      v29 = v21;
-      v30 = 2112;
-      v31 = v7;
-      v32 = 2112;
-      v33 = v8;
+      v28 = v20;
+      v29 = 2112;
+      v30 = v7;
+      v31 = 2112;
+      v32 = v8;
       _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] error while getting attributes for fileIDs %@: %@%@", buf, 0x20u);
     }
   }
 
   else
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v10 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v10 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v5);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
           v15 = [v14 error];
 
           if (v15)
@@ -8142,11 +9375,11 @@ void __100__BRCAccountSession_FPFSAdditions__sendFileStatsTelemetryWithDescripto
               v18 = [v14 fileID];
               v19 = [v14 error];
               *buf = 134218498;
-              v29 = v18;
-              v30 = 2112;
-              v31 = v19;
-              v32 = 2112;
-              v33 = v16;
+              v28 = v18;
+              v29 = 2112;
+              v30 = v19;
+              v31 = 2112;
+              v32 = v16;
               _os_log_error_impl(&dword_223E7A000, v17, 0x90u, "[ERROR] Error occured while getting diagnostic attributes for fileID: %llu: %@%@", buf, 0x20u);
             }
           }
@@ -8157,19 +9390,17 @@ void __100__BRCAccountSession_FPFSAdditions__sendFileStatsTelemetryWithDescripto
           }
         }
 
-        v11 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v11);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendNonMigratedItemTelemetryWithfileIDs:(id)ds
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = brc_bread_crumbs();
   v6 = brc_default_log();
@@ -8182,53 +9413,51 @@ void __100__BRCAccountSession_FPFSAdditions__sendFileStatsTelemetryWithDescripto
   fpfsMigrationStartTime = [(BRCAccountSession *)self fpfsMigrationStartTime];
   br_sharedProviderManager = [MEMORY[0x277CC64A8] br_sharedProviderManager];
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v9 = dsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     do
     {
       v13 = 0;
       do
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [objc_alloc(MEMORY[0x277CC6490]) initWithFileID:{objc_msgSend(*(*(&v26 + 1) + 8 * v13), "unsignedLongLongValue")}];
+        v14 = [objc_alloc(MEMORY[0x277CC6490]) initWithFileID:{objc_msgSend(*(*(&v25 + 1) + 8 * v13), "unsignedLongLongValue")}];
         [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v11);
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __76__BRCAccountSession_FPFSAdditions__sendNonMigratedItemTelemetryWithfileIDs___block_invoke;
-  v21[3] = &unk_278504720;
-  v22 = fpfsMigrationUUID;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __76__BRCAccountSession_FPFSAdditions__sendNonMigratedItemTelemetryWithfileIDs___block_invoke;
+  v20[3] = &unk_278504720;
+  v21 = fpfsMigrationUUID;
   selfCopy = self;
-  v24 = v9;
-  v25 = fpfsMigrationStartTime;
+  v23 = v9;
+  v24 = fpfsMigrationStartTime;
   v15 = fpfsMigrationStartTime;
   v16 = v9;
   v17 = fpfsMigrationUUID;
-  [(BRCAccountSession *)self sendFileStatsTelemetryWithDescriptors:v8 perItemSendTelemetryBlock:v21];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(BRCAccountSession *)self sendFileStatsTelemetryWithDescriptors:v8 perItemSendTelemetryBlock:v20];
 }
 
 void __76__BRCAccountSession_FPFSAdditions__sendNonMigratedItemTelemetryWithfileIDs___block_invoke(uint64_t a1, void *a2)
@@ -8285,7 +9514,7 @@ void __76__BRCAccountSession_FPFSAdditions__sendNonMigratedItemTelemetryWithfile
 
 - (void)invalidateExtensionXPCClient
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = [(NSMutableSet *)selfCopy->_extensionXPCClients copy];
@@ -8296,30 +9525,30 @@ void __76__BRCAccountSession_FPFSAdditions__sendNonMigratedItemTelemetryWithfile
     -[BRCAccountSession(FPFSAdditions) invalidateExtensionXPCClient].cold.1(v4, buf, [v3 count], v5);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v13 + 1) + 8 * v9++) invalidate];
+        [*(*(&v12 + 1) + 8 * v9++) invalidate];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -8327,16 +9556,72 @@ void __76__BRCAccountSession_FPFSAdditions__sendNonMigratedItemTelemetryWithfile
 
   if ([(NSMutableSet *)selfCopy->_extensionXPCClients count])
   {
-    v11 = brc_bread_crumbs();
-    v12 = brc_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v10 = brc_bread_crumbs();
+    v11 = brc_default_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [BRCAccountSession(FPFSAdditions) invalidateExtensionXPCClient];
     }
   }
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x277D85DE8];
+}
+
+- (id)groupContainerStagePathForCurrentPersonaFromStageType:(signed __int16)type
+{
+  typeCopy = type;
+  v22 = *MEMORY[0x277D85DE8];
+  if (groupContainerStagePathForCurrentPersonaFromStageType__once != -1)
+  {
+    [BRCAccountSession(FPFSAdditions) groupContainerStagePathForCurrentPersonaFromStageType:];
+  }
+
+  v4 = groupContainerStagePathForCurrentPersonaFromStageType__stageTypeToPathByPersonaID;
+  objc_sync_enter(v4);
+  v5 = [MEMORY[0x277CCACA8] br_currentPersonaIDWithIsDataSeparated:0];
+  v6 = groupContainerStagePathForCurrentPersonaFromStageType__stageTypeToPathByPersonaID;
+  v7 = [MEMORY[0x277CCABB0] numberWithShort:typeCopy];
+  v8 = [v6 objectForKeyedSubscript:v7];
+
+  if (!v8)
+  {
+    v8 = objc_opt_new();
+    v9 = groupContainerStagePathForCurrentPersonaFromStageType__stageTypeToPathByPersonaID;
+    v10 = [MEMORY[0x277CCABB0] numberWithShort:typeCopy];
+    [v9 setObject:v8 forKeyedSubscript:v10];
+  }
+
+  v11 = [v8 objectForKeyedSubscript:v5];
+  if (!v11)
+  {
+    if (typeCopy || ([MEMORY[0x277CCACA8] brc_groupDownloadStagePath], v14 = objc_claimAutoreleasedReturnValue(), (v11 = v14) == 0))
+    {
+      v12 = brc_bread_crumbs();
+      v13 = brc_default_log();
+      if (os_log_type_enabled(v13, 0x90u))
+      {
+        v17[0] = 67109634;
+        v17[1] = typeCopy;
+        v18 = 2112;
+        v19 = v5;
+        v20 = 2112;
+        v21 = v12;
+        _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] Can't find group container path of type %d for current persona %@%@", v17, 0x1Cu);
+      }
+
+      v11 = 0;
+    }
+
+    else
+    {
+      br_realpath = [v14 br_realpath];
+      [v8 setObject:br_realpath forKeyedSubscript:v5];
+    }
+  }
+
+  objc_sync_exit(v4);
+
+  return v11;
 }
 
 uint64_t __90__BRCAccountSession_FPFSAdditions__groupContainerStagePathForCurrentPersonaFromStageType___block_invoke()
@@ -8428,18 +9713,16 @@ uint64_t __90__BRCAccountSession_FPFSAdditions__groupContainerStagePathForCurren
 - (void)_reportForFPFSImportStatusTelemetryEventIfNeeded:(unsigned int)needed completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x3032000000;
-  v9[3] = __Block_byref_object_copy__31;
-  v9[4] = __Block_byref_object_dispose__31;
-  v6 = objc_alloc_init(BRCFPImportReport);
-  personaIdentifier = self->_personaIdentifier;
-  v10 = v6;
-  v8 = handlerCopy;
+  v6[0] = 0;
+  v6[1] = v6;
+  v6[2] = 0x3032000000;
+  v6[3] = __Block_byref_object_copy__31;
+  v6[4] = __Block_byref_object_dispose__31;
+  v7 = objc_alloc_init(BRCFPImportReport);
+  v5 = handlerCopy;
   BRPerformWithPersonaAndError();
 
-  _Block_object_dispose(v9, 8);
+  _Block_object_dispose(v6, 8);
 }
 
 void __103__BRCAccountSession_FPFSAdditions___reportForFPFSImportStatusTelemetryEventIfNeeded_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -8474,7 +9757,7 @@ void __103__BRCAccountSession_FPFSAdditions___reportForFPFSImportStatusTelemetry
 
 void __103__BRCAccountSession_FPFSAdditions___reportForFPFSImportStatusTelemetryEventIfNeeded_completionHandler___block_invoke_106(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -8486,16 +9769,16 @@ void __103__BRCAccountSession_FPFSAdditions___reportForFPFSImportStatusTelemetry
     {
       v15 = [v7 fp_prettyDescription];
       *buf = 138412546;
-      v37 = v15;
-      v38 = 2112;
-      v39 = v13;
+      v35 = v15;
+      v36 = 2112;
+      v37 = v13;
       _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed querying the import status: %@%@", buf, 0x16u);
     }
 
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CFABD0];
     v8 = [v7 fp_prettyDescription];
-    [v16 br_errorWithDomain:v17 code:94 userInfo:&unk_2837B0DD8 description:{@"importProgressForDomainWithID failed: %@", v8, v30}];
+    [v16 br_errorWithDomain:v17 code:94 userInfo:&unk_2837B0DD8 description:{@"importProgressForDomainWithID failed: %@", v8, v28}];
     v18 = LABEL_19:;
     [*(*(*(a1 + 40) + 8) + 40) setImportError:v18];
 
@@ -8512,7 +9795,7 @@ void __103__BRCAccountSession_FPFSAdditions___reportForFPFSImportStatusTelemetry
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v37 = v19;
+        v35 = v19;
         _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] Migration might be stuck in MigrationNeedsClean status - send telemtry error!%@", buf, 0xCu);
       }
 
@@ -8526,7 +9809,7 @@ void __103__BRCAccountSession_FPFSAdditions___reportForFPFSImportStatusTelemetry
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v37 = v21;
+        v35 = v21;
         _os_log_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEFAULT, "[WARNING] There's no import ongoing in fp - send telemtry error!%@", buf, 0xCu);
       }
 
@@ -8541,44 +9824,44 @@ LABEL_28:
 
   if (([v5 status] == 2 || objc_msgSend(v5, "status") == 1) && objc_msgSend(v5, "numberOfItemsInError"))
   {
-    v33 = 0u;
-    v34 = 0u;
     v31 = 0u;
     v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v8 = [v5 errorDetails];
-    v9 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v32;
+      v11 = *v30;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v32 != v11)
+          if (*v30 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          if ([*(*(&v31 + 1) + 8 * i) retryCount] >= 4)
+          if ([*(*(&v29 + 1) + 8 * i) retryCount] >= 4)
           {
-            v25 = brc_bread_crumbs();
-            v26 = brc_default_log();
-            if (os_log_type_enabled(v26, 0x90u))
+            v23 = brc_bread_crumbs();
+            v24 = brc_default_log();
+            if (os_log_type_enabled(v24, 0x90u))
             {
               __103__BRCAccountSession_FPFSAdditions___reportForFPFSImportStatusTelemetryEventIfNeeded_completionHandler___block_invoke_106_cold_1();
             }
 
-            v27 = MEMORY[0x277CCA9B8];
-            v28 = *MEMORY[0x277CFABD0];
-            v29 = [v5 numberOfItemsInError];
+            v25 = MEMORY[0x277CCA9B8];
+            v26 = *MEMORY[0x277CFABD0];
+            v27 = [v5 numberOfItemsInError];
             v8 = [v5 errorDetails];
-            [v27 br_errorWithDomain:v28 code:97 userInfo:&unk_2837B0E50 description:{@"FP has %ld items in error: <%@>", v29, v8}];
+            [v25 br_errorWithDomain:v26 code:97 userInfo:&unk_2837B0E50 description:{@"FP has %ld items in error: <%@>", v27, v8}];
             goto LABEL_19;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v10)
         {
           continue;
@@ -8592,10 +9875,7 @@ LABEL_28:
   }
 
 LABEL_29:
-  v23 = *(*(*(a1 + 40) + 8) + 40);
   (*(*(a1 + 32) + 16))();
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_getAndUpdateDaysSinceLastMigrationProgress:(int64_t)progress itemsNotMigrated:(int64_t)migrated reconciledItems:(int64_t)items
@@ -8685,7 +9965,7 @@ LABEL_8:
 
 - (id)_triggerMigrationStuckRecoveryIfNeededDaysSinceImportStarted:(int64_t)started daysSinceLastMigrationProgress:(int64_t)progress importError:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   clientDB = [(BRCAccountSession *)self clientDB];
   [clientDB assertOnQueue];
@@ -8721,15 +10001,15 @@ LABEL_8:
       {
         if ([v18 fpfsStuckMigrationRecoveryDaysWithoutProgressThreshold] <= progress)
         {
-          v27 = brc_bread_crumbs();
-          v28 = brc_default_log();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v26 = brc_bread_crumbs();
+          v27 = brc_default_log();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
             startedCopy = progress;
-            v34 = 2112;
-            v35 = v27;
-            _os_log_impl(&dword_223E7A000, v28, OS_LOG_TYPE_DEFAULT, "[WARNING] Migration progress is stuck for %lld days, invoking recovery flow...%@", buf, 0x16u);
+            v33 = 2112;
+            v34 = v26;
+            _os_log_impl(&dword_223E7A000, v27, OS_LOG_TYPE_DEFAULT, "[WARNING] Migration progress is stuck for %lld days, invoking recovery flow...%@", buf, 0x16u);
           }
 
           objc_initWeak(buf, self);
@@ -8738,24 +10018,24 @@ LABEL_8:
           block[1] = 3221225472;
           block[2] = __140__BRCAccountSession_FPFSAdditions___triggerMigrationStuckRecoveryIfNeededDaysSinceImportStarted_daysSinceLastMigrationProgress_importError___block_invoke;
           block[3] = &unk_2784FF400;
-          objc_copyWeak(&v31, buf);
+          objc_copyWeak(&v30, buf);
           dispatch_async(clientTruthWorkloop, block);
 
           v22 = [(BRCAccountSession *)self _createRecoveryExecutedErrorForImportError:errorCopy];
-          objc_destroyWeak(&v31);
+          objc_destroyWeak(&v30);
           objc_destroyWeak(buf);
           goto LABEL_14;
         }
 
-        v25 = brc_bread_crumbs();
-        v26 = brc_default_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v24 = brc_bread_crumbs();
+        v25 = brc_default_log();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
           startedCopy = progress;
-          v34 = 2112;
-          v35 = v25;
-          _os_log_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEFAULT, "[NOTICE] Days import is stuck (%lld) are less then threshold%@", buf, 0x16u);
+          v33 = 2112;
+          v34 = v24;
+          _os_log_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEFAULT, "[NOTICE] Days import is stuck (%lld) are less then threshold%@", buf, 0x16u);
         }
 
 LABEL_13:
@@ -8771,8 +10051,8 @@ LABEL_14:
       {
         *buf = 134218242;
         startedCopy = started;
-        v34 = 2112;
-        v35 = v20;
+        v33 = 2112;
+        v34 = v20;
         _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[NOTICE] Days since import started (%lld) are less then threshold%@", buf, 0x16u);
       }
     }
@@ -8785,8 +10065,8 @@ LABEL_14:
       {
         *buf = 134218242;
         startedCopy = v19;
-        v34 = 2112;
-        v35 = v20;
+        v33 = 2112;
+        v34 = v20;
         _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[NOTICE] Days since last boot history (%ld) are less then threshold%@", buf, 0x16u);
       }
     }
@@ -8798,8 +10078,6 @@ LABEL_14:
 LABEL_16:
   v22 = v14;
 LABEL_17:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -9162,7 +10440,7 @@ void __140__BRCAccountSession_FPFSAdditions___triggerMigrationStuckRecoveryIfNee
 
 - (void)_sendFPFSImportStatusTelemetryEvent
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fpfsMigrationUUID = [(BRCAccountSession *)self fpfsMigrationUUID];
   fpfsMigrationState = [(BRCAccountSession *)self fpfsMigrationState];
   if ((fpfsMigrationState - 3) >= 0xFFFFFFFE)
@@ -9187,18 +10465,18 @@ void __140__BRCAccountSession_FPFSAdditions___triggerMigrationStuckRecoveryIfNee
       }
 
       objc_initWeak(location, self);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke;
-      v19[3] = &unk_2785047C0;
-      objc_copyWeak(v22, location);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke;
+      v18[3] = &unk_2785047C0;
+      objc_copyWeak(v21, location);
       v17 = fpfsMigrationUUID;
-      v22[1] = v10;
-      v20 = v17;
+      v21[1] = v10;
+      v19 = v17;
       selfCopy = self;
-      [(BRCAccountSession *)self _reportForFPFSImportStatusTelemetryEventIfNeeded:v5 completionHandler:v19];
+      [(BRCAccountSession *)self _reportForFPFSImportStatusTelemetryEventIfNeeded:v5 completionHandler:v18];
 
-      objc_destroyWeak(v22);
+      objc_destroyWeak(v21);
       objc_destroyWeak(location);
     }
 
@@ -9210,16 +10488,14 @@ void __140__BRCAccountSession_FPFSAdditions___triggerMigrationStuckRecoveryIfNee
       {
         *location = 134218498;
         *&location[4] = v10;
-        v24 = 1024;
-        v25 = fpfsImportStatusTelemetryDaysThreshold;
-        v26 = 2112;
-        v27 = v13;
+        v23 = 1024;
+        v24 = fpfsImportStatusTelemetryDaysThreshold;
+        v25 = 2112;
+        v26 = v13;
         _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] Not sending FPFS Import status telemetry because: Days since import started: %ld. Threshold: %d%@", location, 0x1Cu);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke(uint64_t a1, void *a2)
@@ -9248,16 +10524,16 @@ void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent_
 
 void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke_2(uint64_t a1)
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v48 = [AppTelemetryTimeSeriesEvent newLongEvent:402 UUID:*(a1 + 32) value:*(a1 + 64)];
+  v57 = *MEMORY[0x277D85DE8];
+  v47 = [AppTelemetryTimeSeriesEvent newLongEvent:402 UUID:*(a1 + 32) value:*(a1 + 64)];
   v2 = [*(a1 + 40) _createAppTelemetryFPFSMigrationInvestigation:1];
-  v3 = [v48 investigation];
+  v3 = [v47 investigation];
   [v3 setFpfsMigrationInvestigation:v2];
 
   v4 = [*(a1 + 48) importError];
-  v51 = 0;
-  v5 = [*(a1 + 40) fetchAccountWaitOperationWithAccountReady:&v51];
-  if ((v51 & 1) == 0)
+  v50 = 0;
+  v5 = [*(a1 + 40) fetchAccountWaitOperationWithAccountReady:&v50];
+  if ((v50 & 1) == 0)
   {
     v6 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFABD0] code:137 description:@"Account is not ready"];
 
@@ -9267,7 +10543,7 @@ void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent_
   v7 = [*(a1 + 40) fpfsMigrationNonMigratedItems];
   v8 = *(a1 + 40);
   v9 = [*(a1 + 48) fpReport];
-  [v8 _populateFPFSImportStatusTelemetryEventForEvent:v48 withFPImportReport:v9 itemsNotMigrated:v7];
+  [v8 _populateFPFSImportStatusTelemetryEventForEvent:v47 withFPImportReport:v9 itemsNotMigrated:v7];
 
   v10 = *(a1 + 40);
   v11 = [*(a1 + 48) fpReport];
@@ -9286,7 +10562,7 @@ void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent_
     v30 = brc_default_log();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke_2_cold_1((a1 + 32));
+      __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke_2_cold_1();
     }
 
     goto LABEL_10;
@@ -9298,26 +10574,26 @@ void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent_
   {
     v19 = *(a1 + 32);
     *buf = 138412802;
-    v53 = v19;
-    v54 = 2112;
-    v55 = v16;
-    v56 = 2112;
-    v57 = v17;
+    v52 = v19;
+    v53 = 2112;
+    v54 = v16;
+    v55 = 2112;
+    v56 = v17;
     _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] Sending Error FPFS migration status telemetry event (%@) with error: %@%@", buf, 0x20u);
   }
 
   v20 = [v16 code];
-  v21 = [v48 investigation];
+  v21 = [v47 investigation];
   [v21 setErrorCode:v20];
 
   v22 = [v16 domain];
-  v23 = [v48 investigation];
+  v23 = [v47 investigation];
   [v23 setErrorDomain:v22];
 
   v24 = MEMORY[0x277CCACA8];
   v25 = [v16 fp_prettyDescription];
   v26 = [v24 stringWithFormat:@"%@", v25];
-  v27 = [v48 investigation];
+  v27 = [v47 investigation];
   [v27 setErrorDescription:v26];
 
   v28 = [v16 userInfo];
@@ -9326,14 +10602,14 @@ void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent_
   if (v29)
   {
     v30 = [v29 stringValue];
-    v31 = [v48 investigation];
+    v31 = [v47 investigation];
     [v31 setOperationType:v30];
 
 LABEL_10:
   }
 
   v32 = [*(a1 + 40) analyticsReporter];
-  [v32 postReportForDefaultSubCategoryWithCategory:6 telemetryTimeEvent:v48];
+  [v32 postReportForDefaultSubCategoryWithCategory:6 telemetryTimeEvent:v47];
 
   [*(a1 + 40) _fixImportStatusErrorIfPossible:v16];
   if ((!v16 || ([v16 br_isCloudDocsErrorCode:96] & 1) == 0) && objc_msgSend(*(a1 + 40), "_shouldTriggerTapToRadar:daysSinceLastMigrationProgress:", *(a1 + 64), v15))
@@ -9343,7 +10619,7 @@ LABEL_10:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v53 = v33;
+      v52 = v33;
       _os_log_impl(&dword_223E7A000, v34, OS_LOG_TYPE_DEFAULT, "[NOTICE] Triggering request for diagnostic collection from file provider%@", buf, 0xCu);
     }
 
@@ -9358,12 +10634,12 @@ LABEL_10:
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = v37;
+        v52 = v37;
         _os_log_impl(&dword_223E7A000, v38, OS_LOG_TYPE_DEFAULT, "[NOTICE] Triggering TTR due to stuck migration%@", buf, 0xCu);
       }
 
       v39 = MEMORY[0x277CCACA8];
-      v40 = [v48 telemetrySchema];
+      v40 = [v47 telemetrySchema];
       if (v40 > 299)
       {
         if (v40 <= 402)
@@ -9772,36 +11048,32 @@ LABEL_58:
       v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"FPFS Migration is running for then %ld days and might be stuck.\nError: %@", *(a1 + 64), v16];
       v45 = [*(a1 + 40) tapToRadarManager];
       v46 = [MEMORY[0x277CCA9B8] brc_errorStuckFPFSMigration];
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke_178;
-      v49[3] = &unk_2784FF1F0;
-      objc_copyWeak(&v50, (a1 + 56));
-      [v45 requestTapToRadarWithTitle:v43 description:v44 keywords:&unk_2837B0C58 attachments:MEMORY[0x277CBEBF8] sendFullLog:1 displayReason:@"FPFS migration seem stuck" triggerRootCause:v46 additionalDevices:0 completionHandler:v49];
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke_178;
+      v48[3] = &unk_2784FF1F0;
+      objc_copyWeak(&v49, (a1 + 56));
+      [v45 requestTapToRadarWithTitle:v43 description:v44 keywords:&unk_2837B0C58 attachments:MEMORY[0x277CBEBF8] sendFullLog:1 displayReason:@"FPFS migration seem stuck" triggerRootCause:v46 additionalDevices:0 completionHandler:v48];
 
-      objc_destroyWeak(&v50);
+      objc_destroyWeak(&v49);
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke_161(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412546;
-    v7 = v2;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Request for diagnostic collection returned with error: %@%@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = v2;
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Request for diagnostic collection returned with error: %@%@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke_178(uint64_t a1, uint64_t a2)
@@ -9881,19 +11153,17 @@ void __83__BRCAccountSession_FPFSAdditions__triggerFPFSImportFinishedTelemetryEv
 
 uint64_t __68__BRCAccountSession_FPFSAdditions___fixImportStatusErrorIfPossible___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] Seems that we missed the notification about migration complete. Completing it now.%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] Seems that we missed the notification about migration complete. Completing it now.%@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 32) markMigrationToFPFSComplete];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) markMigrationToFPFSComplete];
 }
 
 void __76__BRCAccountSession_FPFSAdditions___triggerFPFSImportFinishedTelemetryEvent__block_invoke(uint64_t a1, uint64_t a2)
@@ -9933,7 +11203,7 @@ void __76__BRCAccountSession_FPFSAdditions___triggerFPFSImportFinishedTelemetryE
 
 - (void)_sendFPFSImportFinishedTelemetryEvent:(id)event
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   fpfsMigrationUUID = [(BRCAccountSession *)self fpfsMigrationUUID];
   v6 = [AppTelemetryTimeSeriesEvent newIntEvent:401 UUID:fpfsMigrationUUID value:eventCopy == 0];
@@ -9955,11 +11225,11 @@ void __76__BRCAccountSession_FPFSAdditions___triggerFPFSImportFinishedTelemetryE
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v41 = fpfsMigrationUUID;
-    v42 = 2112;
-    v43 = eventCopy;
-    v44 = 2112;
-    v45 = v7;
+    v40 = fpfsMigrationUUID;
+    v41 = 2112;
+    v42 = eventCopy;
+    v43 = 2112;
+    v44 = v7;
     _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] Sending Error FPFS migration finished telemetry event (%@) with error: %@%@", buf, 0x20u);
   }
 
@@ -10458,8 +11728,6 @@ LABEL_58:
   }
 
   [(BRCAccountSession *)self _cleanupMigrationClientState];
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_postImportAnalysisForProviderDomainID:(id)d withLostItemCount:(unint64_t)count withMigrationID:(id)iD
@@ -10479,7 +11747,7 @@ LABEL_58:
 
 - (id)_clientZonesMatchingSearchString:(id)string
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   lowercaseString = [stringCopy lowercaseString];
   if ([lowercaseString isEqualToString:stringCopy])
@@ -10519,31 +11787,31 @@ LABEL_58:
     {
       v18 = v17;
       v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSearchString___block_invoke;
-      v61[3] = &unk_278504810;
-      v62 = v15;
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSearchString___block_invoke;
+      v60[3] = &unk_278504810;
+      v61 = v15;
       v20 = v19;
-      v63 = v20;
-      [(BRCAccountSession *)self enumerateSharedClientZones:v61];
+      v62 = v20;
+      [(BRCAccountSession *)self enumerateSharedClientZones:v60];
       [v20 addObject:v18];
-      v21 = v63;
+      v21 = v62;
       v22 = v20;
 
-      v23 = v62;
+      v23 = v61;
       v24 = v22;
       goto LABEL_22;
     }
   }
 
   selfCopy = self;
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSearchString___block_invoke_2;
-  v59[3] = &__block_descriptor_33_e28___NSString_16__0__NSString_8l;
-  v60 = v6;
-  v25 = MEMORY[0x22AA4A310](v59);
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSearchString___block_invoke_2;
+  v58[3] = &__block_descriptor_33_e28___NSString_16__0__NSString_8l;
+  v59 = v6;
+  v25 = MEMORY[0x22AA4A310](v58);
   v26 = objc_alloc(MEMORY[0x277CCAC68]);
   v27 = (v25)[2](v25, v15);
   v28 = v27;
@@ -10575,31 +11843,31 @@ LABEL_58:
   v35 = [v31 initWithPattern:v34 options:0 error:0];
 
   array = [MEMORY[0x277CBEB18] array];
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSearchString___block_invoke_3;
-  v55[3] = &unk_278504858;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSearchString___block_invoke_3;
+  v54[3] = &unk_278504858;
   v37 = v14;
   v38 = v25;
-  v58 = v38;
+  v57 = v38;
   v39 = v30;
-  v56 = v39;
+  v55 = v39;
   v40 = array;
-  v57 = v40;
-  v41 = MEMORY[0x22AA4A310](v55);
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSearchString___block_invoke_4;
-  v50[3] = &unk_278504880;
-  v54 = v38;
-  v51 = v39;
-  v52 = v35;
+  v56 = v40;
+  v41 = MEMORY[0x22AA4A310](v54);
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSearchString___block_invoke_4;
+  v49[3] = &unk_278504880;
+  v53 = v38;
+  v50 = v39;
+  v51 = v35;
   v42 = v40;
-  v53 = v42;
+  v52 = v42;
   v22 = v35;
   v16 = v39;
   v18 = v38;
-  v43 = MEMORY[0x22AA4A310](v50);
+  v43 = MEMORY[0x22AA4A310](v49);
   if (!v37)
   {
     [(BRCAccountSession *)selfCopy enumeratePrivateClientZones:v41];
@@ -10612,20 +11880,18 @@ LABEL_58:
   if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v65 = stringCopy;
-    v66 = 2112;
-    v67 = v42;
-    v68 = 2112;
-    v69 = v44;
+    v64 = stringCopy;
+    v65 = 2112;
+    v66 = v42;
+    v67 = 2112;
+    v68 = v44;
     _os_log_debug_impl(&dword_223E7A000, v45, OS_LOG_TYPE_DEBUG, "[DEBUG] containers matching '%@': %@%@", buf, 0x20u);
   }
 
   v23 = v42;
   v24 = v23;
-  v14 = v48;
+  v14 = v47;
 LABEL_22:
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -10708,7 +11974,7 @@ uint64_t __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSea
 
 - (id)clientZonesMatchingSearchString:(id)string error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v7 = [(BRCAccountSession *)self _clientZonesMatchingSearchString:stringCopy];
   if ([v7 count])
@@ -10725,21 +11991,21 @@ uint64_t __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSea
       v11 = brc_default_log();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v15 = "(passed to caller)";
-        v16 = 136315906;
-        v17 = "[BRCAccountSession(BRCContainerFindByName) clientZonesMatchingSearchString:error:]";
-        v18 = 2080;
+        v14 = "(passed to caller)";
+        v15 = 136315906;
+        v16 = "[BRCAccountSession(BRCContainerFindByName) clientZonesMatchingSearchString:error:]";
+        v17 = 2080;
         if (!error)
         {
-          v15 = "(ignored by caller)";
+          v14 = "(ignored by caller)";
         }
 
-        v19 = v15;
-        v20 = 2112;
-        v21 = v9;
-        v22 = 2112;
-        v23 = v10;
-        _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] %s: %s error: %@%@", &v16, 0x2Au);
+        v18 = v14;
+        v19 = 2112;
+        v20 = v9;
+        v21 = 2112;
+        v22 = v10;
+        _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] %s: %s error: %@%@", &v15, 0x2Au);
       }
     }
 
@@ -10752,14 +12018,12 @@ uint64_t __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSea
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)singleClientZoneMatchingSearchString:(id)string error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v7 = [(BRCAccountSession *)self _clientZonesMatchingSearchString:stringCopy];
   if (![v7 count])
@@ -10771,20 +12035,20 @@ uint64_t __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSea
       v25 = brc_default_log();
       if (os_log_type_enabled(v25, 0x90u))
       {
-        v30 = "(passed to caller)";
+        v29 = "(passed to caller)";
         *buf = 136315906;
-        v38 = "[BRCAccountSession(BRCContainerFindByName) singleClientZoneMatchingSearchString:error:]";
-        v39 = 2080;
+        v37 = "[BRCAccountSession(BRCContainerFindByName) singleClientZoneMatchingSearchString:error:]";
+        v38 = 2080;
         if (!error)
         {
-          v30 = "(ignored by caller)";
+          v29 = "(ignored by caller)";
         }
 
-        v40 = v30;
-        v41 = 2112;
-        v42 = v8;
-        v43 = 2112;
-        v44 = v24;
+        v39 = v29;
+        v40 = 2112;
+        v41 = v8;
+        v42 = 2112;
+        v43 = v24;
         _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -10801,26 +12065,26 @@ uint64_t __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSea
   if ([v7 count] >= 2)
   {
     v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v33;
+      v12 = *v32;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v33 != v12)
+          if (*v32 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v32 + 1) + 8 * i);
+          v14 = *(*(&v31 + 1) + 8 * i);
           if ([v14 isPrivateZone])
           {
             zoneName = [v14 zoneName];
@@ -10835,7 +12099,7 @@ uint64_t __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSea
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v11);
@@ -10844,7 +12108,7 @@ uint64_t __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSea
     v17 = MEMORY[0x277CCA9B8];
     v18 = *MEMORY[0x277CFABD0];
     v19 = [v8 componentsJoinedByString:{@", "}];
-    v20 = [v17 br_errorWithDomain:v18 code:12 description:{@"Too many containers matching '%@': {%@}", stringCopy, v19, v32}];
+    v20 = [v17 br_errorWithDomain:v18 code:12 description:{@"Too many containers matching '%@': {%@}", stringCopy, v19, v31}];
 
     if (v20)
     {
@@ -10852,20 +12116,20 @@ uint64_t __78__BRCAccountSession_BRCContainerFindByName___clientZonesMatchingSea
       v22 = brc_default_log();
       if (os_log_type_enabled(v22, 0x90u))
       {
-        v31 = "(passed to caller)";
+        v30 = "(passed to caller)";
         *buf = 136315906;
-        v38 = "[BRCAccountSession(BRCContainerFindByName) singleClientZoneMatchingSearchString:error:]";
-        v39 = 2080;
+        v37 = "[BRCAccountSession(BRCContainerFindByName) singleClientZoneMatchingSearchString:error:]";
+        v38 = 2080;
         if (!error)
         {
-          v31 = "(ignored by caller)";
+          v30 = "(ignored by caller)";
         }
 
-        v40 = v31;
-        v41 = 2112;
-        v42 = v20;
-        v43 = 2112;
-        v44 = v21;
+        v39 = v30;
+        v40 = 2112;
+        v41 = v20;
+        v42 = 2112;
+        v43 = v21;
         _os_log_error_impl(&dword_223E7A000, v22, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -10884,14 +12148,12 @@ LABEL_24:
   firstObject = [v7 firstObject];
 LABEL_26:
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (id)_appLibrariesMatchingSearchString:(id)string
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   lowercaseString = [stringCopy lowercaseString];
   if ([lowercaseString isEqualToString:stringCopy])
@@ -10909,18 +12171,18 @@ LABEL_26:
   if (v8 && ([(BRCAccountSession *)self appLibraryByID:v8], (v9 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v10 = v9;
-    v41[0] = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+    v40[0] = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
   }
 
   else
   {
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSearchString___block_invoke;
-    v33[3] = &__block_descriptor_33_e28___NSString_16__0__NSString_8l;
-    v34 = v6;
-    v12 = MEMORY[0x22AA4A310](v33);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSearchString___block_invoke;
+    v32[3] = &__block_descriptor_33_e28___NSString_16__0__NSString_8l;
+    v33 = v6;
+    v12 = MEMORY[0x22AA4A310](v32);
     v13 = objc_alloc(MEMORY[0x277CCAC68]);
     v14 = (v12)[2](v12, v8);
     v15 = v14;
@@ -10937,36 +12199,34 @@ LABEL_26:
     v17 = [v13 initWithPattern:v16 options:0 error:0];
 
     array = [MEMORY[0x277CBEB18] array];
-    v26 = MEMORY[0x277D85DD0];
-    v27 = 3221225472;
-    v28 = __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSearchString___block_invoke_2;
-    v29 = &unk_2785048C8;
-    v32 = v12;
-    v30 = v17;
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSearchString___block_invoke_2;
+    v28 = &unk_2785048C8;
+    v31 = v12;
+    v29 = v17;
     v19 = array;
-    v31 = v19;
+    v30 = v19;
     v20 = v17;
     v10 = v12;
-    v21 = MEMORY[0x22AA4A310](&v26);
-    [(BRCAccountSession *)self enumerateAppLibraries:v21, v26, v27, v28, v29];
+    v21 = MEMORY[0x22AA4A310](&v25);
+    [(BRCAccountSession *)self enumerateAppLibraries:v21, v25, v26, v27, v28];
     [v19 sortUsingComparator:&__block_literal_global_28];
     v22 = brc_bread_crumbs();
     v23 = brc_default_log();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v36 = stringCopy;
-      v37 = 2112;
-      v38 = v19;
-      v39 = 2112;
-      v40 = v22;
+      v35 = stringCopy;
+      v36 = 2112;
+      v37 = v19;
+      v38 = 2112;
+      v39 = v22;
       _os_log_debug_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] containers matching '%@': %@%@", buf, 0x20u);
     }
 
     v11 = v19;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -11017,7 +12277,7 @@ uint64_t __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSe
 
 - (id)appLibrariesMatchingSearchString:(id)string error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v7 = [(BRCAccountSession *)self _appLibrariesMatchingSearchString:stringCopy];
   if ([v7 count])
@@ -11034,21 +12294,21 @@ uint64_t __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSe
       v11 = brc_default_log();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v15 = "(passed to caller)";
-        v16 = 136315906;
-        v17 = "[BRCAccountSession(BRCContainerFindByName) appLibrariesMatchingSearchString:error:]";
-        v18 = 2080;
+        v14 = "(passed to caller)";
+        v15 = 136315906;
+        v16 = "[BRCAccountSession(BRCContainerFindByName) appLibrariesMatchingSearchString:error:]";
+        v17 = 2080;
         if (!error)
         {
-          v15 = "(ignored by caller)";
+          v14 = "(ignored by caller)";
         }
 
-        v19 = v15;
-        v20 = 2112;
-        v21 = v9;
-        v22 = 2112;
-        v23 = v10;
-        _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] %s: %s error: %@%@", &v16, 0x2Au);
+        v18 = v14;
+        v19 = 2112;
+        v20 = v9;
+        v21 = 2112;
+        v22 = v10;
+        _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] %s: %s error: %@%@", &v15, 0x2Au);
       }
     }
 
@@ -11061,14 +12321,12 @@ uint64_t __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSe
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)singleAppLibraryMatchingSearchString:(id)string error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v7 = [(BRCAccountSession *)self _appLibrariesMatchingSearchString:stringCopy];
   if (![v7 count])
@@ -11080,20 +12338,20 @@ uint64_t __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSe
       v23 = brc_default_log();
       if (os_log_type_enabled(v23, 0x90u))
       {
-        v28 = "(passed to caller)";
+        v27 = "(passed to caller)";
         *buf = 136315906;
-        v36 = "[BRCAccountSession(BRCContainerFindByName) singleAppLibraryMatchingSearchString:error:]";
-        v37 = 2080;
+        v35 = "[BRCAccountSession(BRCContainerFindByName) singleAppLibraryMatchingSearchString:error:]";
+        v36 = 2080;
         if (!error)
         {
-          v28 = "(ignored by caller)";
+          v27 = "(ignored by caller)";
         }
 
-        v38 = v28;
-        v39 = 2112;
-        v40 = v8;
-        v41 = 2112;
-        v42 = v22;
+        v37 = v27;
+        v38 = 2112;
+        v39 = v8;
+        v40 = 2112;
+        v41 = v22;
         _os_log_error_impl(&dword_223E7A000, v23, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -11110,30 +12368,30 @@ uint64_t __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSe
   if ([v7 count] >= 2)
   {
     v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v31;
+      v12 = *v30;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v31 != v12)
+          if (*v30 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          appLibraryID = [*(*(&v30 + 1) + 8 * i) appLibraryID];
+          appLibraryID = [*(*(&v29 + 1) + 8 * i) appLibraryID];
           [v8 addObject:appLibraryID];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v11);
@@ -11142,7 +12400,7 @@ uint64_t __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSe
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277CFABD0];
     v17 = [v8 componentsJoinedByString:{@", "}];
-    v18 = [v15 br_errorWithDomain:v16 code:12 description:{@"Too many containers matching '%@': {%@}", stringCopy, v17, v30}];
+    v18 = [v15 br_errorWithDomain:v16 code:12 description:{@"Too many containers matching '%@': {%@}", stringCopy, v17, v29}];
 
     if (v18)
     {
@@ -11150,20 +12408,20 @@ uint64_t __79__BRCAccountSession_BRCContainerFindByName___appLibrariesMatchingSe
       v20 = brc_default_log();
       if (os_log_type_enabled(v20, 0x90u))
       {
-        v29 = "(passed to caller)";
+        v28 = "(passed to caller)";
         *buf = 136315906;
-        v36 = "[BRCAccountSession(BRCContainerFindByName) singleAppLibraryMatchingSearchString:error:]";
-        v37 = 2080;
+        v35 = "[BRCAccountSession(BRCContainerFindByName) singleAppLibraryMatchingSearchString:error:]";
+        v36 = 2080;
         if (!error)
         {
-          v29 = "(ignored by caller)";
+          v28 = "(ignored by caller)";
         }
 
-        v38 = v29;
-        v39 = 2112;
-        v40 = v18;
-        v41 = 2112;
-        v42 = v19;
+        v37 = v28;
+        v38 = 2112;
+        v39 = v18;
+        v40 = 2112;
+        v41 = v19;
         _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -11181,8 +12439,6 @@ LABEL_21:
 
   firstObject = [v7 firstObject];
 LABEL_23:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -11294,10 +12550,76 @@ LABEL_23:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: db connections weren't properly closed and nillified%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  [(BRCBarrier *)self->_dbLoadingBarrier signalBarrier];
+  if (self->_cloudDocsFD != -1)
+  {
+    v3 = brc_bread_crumbs();
+    v4 = brc_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      [BRCAccountSession dealloc];
+    }
+
+    [(BRCAccountSession *)self close];
+  }
+
+  if (self->_clientDB || self->_serverDB)
+  {
+    v5 = brc_bread_crumbs();
+    v6 = brc_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    {
+      [BRCAccountSession dealloc];
+    }
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v8 = [(NSMutableSet *)selfCopy->_extensionXPCClients copy];
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v9 = v8;
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v10)
+  {
+    v11 = *v17;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v17 != v11)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        [*(*(&v16 + 1) + 8 * v12++) invalidate];
+      }
+
+      while (v10 != v12);
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v10);
+  }
+
+  if ([(NSMutableSet *)selfCopy->_extensionXPCClients count])
+  {
+    v13 = brc_bread_crumbs();
+    v14 = brc_default_log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    {
+      [BRCAccountSession(FPFSAdditions) invalidateExtensionXPCClient];
+    }
+  }
+
+  objc_sync_exit(selfCopy);
+  v15.receiver = selfCopy;
+  v15.super_class = BRCAccountSession;
+  [(BRCAccountSession *)&v15 dealloc];
 }
 
 - (NSString)description
@@ -11583,53 +12905,51 @@ void __67__BRCAccountSession_performAsyncOnServerReadWriteDatabaseWorkloop___blo
 
 - (void)closeXPCClientsSync
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createAccountSupportPathIfNeeded:(id)needed protectParent:(BOOL)parent
 {
   parentCopy = parent;
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
-  memset(v74, 0, sizeof(v74));
-  __brc_create_section(0, "[BRCAccountSession _createAccountSupportPathIfNeeded:protectParent:]", 559, 0, v74);
+  memset(v73, 0, sizeof(v73));
+  __brc_create_section(0, "[BRCAccountSession _createAccountSupportPathIfNeeded:protectParent:]", 559, 0, v73);
   v5 = brc_bread_crumbs();
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    *v80 = v74[0];
-    *&v80[8] = 2112;
-    v81 = neededCopy;
-    *v82 = 2112;
-    *&v82[2] = v5;
+    *v79 = v73[0];
+    *&v79[8] = 2112;
+    v80 = neededCopy;
+    *v81 = 2112;
+    *&v81[2] = v5;
     _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx creating '%@'%@", buf, 0x20u);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v73 = 0;
-  v8 = [defaultManager createDirectoryAtPath:neededCopy withIntermediateDirectories:1 attributes:0 error:&v73];
-  v9 = v73;
+  v72 = 0;
+  v8 = [defaultManager createDirectoryAtPath:neededCopy withIntermediateDirectories:1 attributes:0 error:&v72];
+  v9 = v72;
   v10 = v9;
   if ((v8 & 1) == 0)
   {
     if (([v9 br_isCocoaErrorCode:516] & 1) == 0)
     {
-      v61 = brc_bread_crumbs();
-      v62 = brc_default_log();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
+      v60 = brc_bread_crumbs();
+      v61 = brc_default_log();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        *v80 = neededCopy;
-        *&v80[8] = 2112;
-        v81 = v10;
-        *v82 = 2112;
-        *&v82[2] = v61;
-        _os_log_fault_impl(&dword_223E7A000, v62, OS_LOG_TYPE_FAULT, "[CRIT] can't create directory at '%@': %@%@", buf, 0x20u);
+        *v79 = neededCopy;
+        *&v79[8] = 2112;
+        v80 = v10;
+        *v81 = 2112;
+        *&v81[2] = v60;
+        _os_log_fault_impl(&dword_223E7A000, v61, OS_LOG_TYPE_FAULT, "[CRIT] can't create directory at '%@': %@%@", buf, 0x20u);
       }
 
 LABEL_69:
@@ -11644,9 +12964,9 @@ LABEL_69:
     }
   }
 
-  v72 = v10;
-  v13 = [defaultManager attributesOfItemAtPath:neededCopy error:&v72];
-  v14 = v72;
+  v71 = v10;
+  v13 = [defaultManager attributesOfItemAtPath:neededCopy error:&v71];
+  v14 = v71;
 
   v15 = v14 == 0;
   if (v14)
@@ -11655,14 +12975,14 @@ LABEL_69:
     v17 = brc_default_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v46 = neededCopy;
+      v45 = neededCopy;
       fileSystemRepresentation = [neededCopy fileSystemRepresentation];
       *buf = 136315650;
-      *v80 = fileSystemRepresentation;
-      *&v80[8] = 2112;
-      v81 = v14;
-      *v82 = 2112;
-      *&v82[2] = v16;
+      *v79 = fileSystemRepresentation;
+      *&v79[8] = 2112;
+      v80 = v14;
+      *v81 = 2112;
+      *&v81[2] = v16;
       _os_log_fault_impl(&dword_223E7A000, v17, OS_LOG_TYPE_FAULT, "[CRIT] can't retrieve attributes of item at '%s': %@%@", buf, 0x20u);
     }
   }
@@ -11678,13 +12998,13 @@ LABEL_69:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       fileOwnerAccountName2 = [v13 fileOwnerAccountName];
-      v49 = NSUserName();
+      v48 = NSUserName();
       *buf = 138412802;
-      *v80 = fileOwnerAccountName2;
-      *&v80[8] = 2112;
-      v81 = v49;
-      *v82 = 2112;
-      *&v82[2] = v21;
+      *v79 = fileOwnerAccountName2;
+      *&v79[8] = 2112;
+      v80 = v48;
+      *v81 = 2112;
+      *&v81[2] = v21;
       _os_log_fault_impl(&dword_223E7A000, v22, OS_LOG_TYPE_FAULT, "[CRIT] created directory has a wrong owner (value: %@, expected: %@)%@", buf, 0x20u);
     }
 
@@ -11697,10 +13017,21 @@ LABEL_69:
     v24 = brc_default_log();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
-      v67 = aPcDBLSW[[v13 filePosixPermissions] >> 12];
+      v66 = aPcDBLSW[[v13 filePosixPermissions] >> 12];
       if (([v13 filePosixPermissions] & 0x100) != 0)
       {
-        v50 = 114;
+        v49 = 114;
+      }
+
+      else
+      {
+        v49 = 45;
+      }
+
+      v65 = v49;
+      if (([v13 filePosixPermissions] & 0x80) != 0)
+      {
+        v50 = 119;
       }
 
       else
@@ -11708,10 +13039,10 @@ LABEL_69:
         v50 = 45;
       }
 
-      v66 = v50;
-      if (([v13 filePosixPermissions] & 0x80) != 0)
+      v64 = v50;
+      if (([v13 filePosixPermissions] & 0x40) != 0)
       {
-        v51 = 119;
+        v51 = 120;
       }
 
       else
@@ -11719,10 +13050,10 @@ LABEL_69:
         v51 = 45;
       }
 
-      v65 = v51;
-      if (([v13 filePosixPermissions] & 0x40) != 0)
+      v63 = v51;
+      if (([v13 filePosixPermissions] & 0x20) != 0)
       {
-        v52 = 120;
+        v52 = 114;
       }
 
       else
@@ -11730,10 +13061,10 @@ LABEL_69:
         v52 = 45;
       }
 
-      v64 = v52;
-      if (([v13 filePosixPermissions] & 0x20) != 0)
+      v62 = v52;
+      if (([v13 filePosixPermissions] & 0x10) != 0)
       {
-        v53 = 114;
+        v53 = 119;
       }
 
       else
@@ -11741,10 +13072,9 @@ LABEL_69:
         v53 = 45;
       }
 
-      v63 = v53;
-      if (([v13 filePosixPermissions] & 0x10) != 0)
+      if (([v13 filePosixPermissions] & 8) != 0)
       {
-        v54 = 119;
+        v54 = 120;
       }
 
       else
@@ -11752,9 +13082,9 @@ LABEL_69:
         v54 = 45;
       }
 
-      if (([v13 filePosixPermissions] & 8) != 0)
+      if (([v13 filePosixPermissions] & 4) != 0)
       {
-        v55 = 120;
+        v55 = 114;
       }
 
       else
@@ -11762,23 +13092,25 @@ LABEL_69:
         v55 = 45;
       }
 
-      if (([v13 filePosixPermissions] & 4) != 0)
+      filePosixPermissions = [v13 filePosixPermissions];
+      filePosixPermissions2 = [v13 filePosixPermissions];
+      *buf = 67111682;
+      *v79 = v66;
+      if ((filePosixPermissions & 2) != 0)
       {
-        v56 = 114;
+        v58 = 119;
       }
 
       else
       {
-        v56 = 45;
+        v58 = 45;
       }
 
-      filePosixPermissions = [v13 filePosixPermissions];
-      filePosixPermissions2 = [v13 filePosixPermissions];
-      *buf = 67111682;
-      *v80 = v67;
-      if ((filePosixPermissions & 2) != 0)
+      *&v79[4] = 1024;
+      *&v79[6] = v65;
+      if (filePosixPermissions2)
       {
-        v59 = 119;
+        v59 = 120;
       }
 
       else
@@ -11786,36 +13118,24 @@ LABEL_69:
         v59 = 45;
       }
 
-      *&v80[4] = 1024;
-      *&v80[6] = v66;
-      if (filePosixPermissions2)
-      {
-        v60 = 120;
-      }
-
-      else
-      {
-        v60 = 45;
-      }
-
-      LOWORD(v81) = 1024;
-      *(&v81 + 2) = v65;
-      HIWORD(v81) = 1024;
-      *v82 = v64;
-      *&v82[4] = 1024;
-      *&v82[6] = v63;
-      v83 = 1024;
-      v84 = v54;
-      v85 = 1024;
-      v86 = v55;
-      v87 = 1024;
-      v88 = v56;
-      v89 = 1024;
-      v90 = v59;
-      v91 = 1024;
-      v92 = v60;
-      v93 = 2112;
-      v94 = v23;
+      LOWORD(v80) = 1024;
+      *(&v80 + 2) = v64;
+      HIWORD(v80) = 1024;
+      *v81 = v63;
+      *&v81[4] = 1024;
+      *&v81[6] = v62;
+      v82 = 1024;
+      v83 = v53;
+      v84 = 1024;
+      v85 = v54;
+      v86 = 1024;
+      v87 = v55;
+      v88 = 1024;
+      v89 = v58;
+      v90 = 1024;
+      v91 = v59;
+      v92 = 2112;
+      v93 = v23;
       _os_log_fault_impl(&dword_223E7A000, v24, OS_LOG_TYPE_FAULT, "[CRIT] created directory doesn't have read/write access for owner (permission: %c%c%c%c%c%c%c%c%c%c)%@", buf, 0x48u);
     }
 
@@ -11834,12 +13154,12 @@ LABEL_69:
 
   else
   {
-    v77 = v25;
-    v78 = v27;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-    v71 = v14;
-    v31 = [defaultManager setAttributes:v30 ofItemAtPath:neededCopy error:&v71];
-    v29 = v71;
+    v76 = v25;
+    v77 = v27;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+    v70 = v14;
+    v31 = [defaultManager setAttributes:v30 ofItemAtPath:neededCopy error:&v70];
+    v29 = v70;
 
     if ((v31 & 1) == 0)
     {
@@ -11848,11 +13168,11 @@ LABEL_69:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        *v80 = neededCopy;
-        *&v80[8] = 2112;
-        v81 = v29;
-        *v82 = 2112;
-        *&v82[2] = v32;
+        *v79 = neededCopy;
+        *&v79[8] = 2112;
+        v80 = v29;
+        *v81 = 2112;
+        *&v81[2] = v32;
         _os_log_fault_impl(&dword_223E7A000, v33, OS_LOG_TYPE_FAULT, "[CRIT] can't protect directory at '%@': %@%@", buf, 0x20u);
       }
     }
@@ -11861,9 +13181,9 @@ LABEL_69:
   if (parentCopy)
   {
     stringByDeletingLastPathComponent = [neededCopy stringByDeletingLastPathComponent];
-    v70 = v29;
-    v35 = [defaultManager attributesOfItemAtPath:stringByDeletingLastPathComponent error:&v70];
-    v36 = v70;
+    v69 = v29;
+    v35 = [defaultManager attributesOfItemAtPath:stringByDeletingLastPathComponent error:&v69];
+    v36 = v69;
 
     v37 = [v35 objectForKeyedSubscript:v25];
     v38 = [v37 isEqualToString:v27];
@@ -11875,12 +13195,12 @@ LABEL_69:
 
     else
     {
-      v75 = v25;
-      v76 = v27;
-      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-      v69 = v36;
-      v40 = [defaultManager setAttributes:v39 ofItemAtPath:stringByDeletingLastPathComponent error:&v69];
-      v29 = v69;
+      v74 = v25;
+      v75 = v27;
+      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v68 = v36;
+      v40 = [defaultManager setAttributes:v39 ofItemAtPath:stringByDeletingLastPathComponent error:&v68];
+      v29 = v68;
 
       if ((v40 & 1) == 0)
       {
@@ -11889,11 +13209,11 @@ LABEL_69:
         if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412802;
-          *v80 = stringByDeletingLastPathComponent;
-          *&v80[8] = 2112;
-          v81 = v29;
-          *v82 = 2112;
-          *&v82[2] = v41;
+          *v79 = stringByDeletingLastPathComponent;
+          *&v79[8] = 2112;
+          v80 = v29;
+          *v81 = 2112;
+          *&v81[2] = v41;
           _os_log_fault_impl(&dword_223E7A000, v42, OS_LOG_TYPE_FAULT, "[CRIT] can't protect directory at '%@': %@%@", buf, 0x20u);
         }
       }
@@ -11917,8 +13237,7 @@ LABEL_69:
     [BRCAccountSession _createAccountSupportPathIfNeeded:protectParent:];
   }
 
-  __brc_leave_section(v74);
-  v45 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v73);
 }
 
 - (void)markAccountMigrationComplete
@@ -11936,7 +13255,7 @@ LABEL_69:
 
 void __54__BRCAccountSession__clearLegacyConflictVersionsAsync__block_invoke()
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_notifications_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
@@ -11948,9 +13267,9 @@ void __54__BRCAccountSession__clearLegacyConflictVersionsAsync__block_invoke()
   v3 = *MEMORY[0x277D0D610];
   v4 = [MEMORY[0x277CFAE38] homeDirectoryURL];
   v5 = [v4 path];
-  v11 = 0;
-  v6 = [v2 removeAdditionsInNamespace:v3 underPath:v5 withMatchingPredicate:&__block_literal_global_46 errorPerAddition:0 error:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [v2 removeAdditionsInNamespace:v3 underPath:v5 withMatchingPredicate:&__block_literal_global_46 errorPerAddition:0 error:&v10];
+  v7 = v10;
 
   if ((v6 & 1) == 0)
   {
@@ -11959,19 +13278,32 @@ void __54__BRCAccountSession__clearLegacyConflictVersionsAsync__block_invoke()
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
       _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[NOTICE] Couldn't clear the legacy additions after migrating to FPFS - %@%@", buf, 0x16u);
     }
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)_setICloudDesktopEnabled:(BOOL)enabled forAccount:(id)account
+{
+  enabledCopy = enabled;
+  accountCopy = account;
+  [accountCopy br_setEnabledForiCloudDesktop:enabledCopy];
+  defaultStore = [MEMORY[0x277CB8F48] defaultStore];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__BRCAccountSession__setICloudDesktopEnabled_forAccount___block_invoke;
+  v8[3] = &unk_278502540;
+  v9 = accountCopy;
+  v7 = accountCopy;
+  [defaultStore saveAccount:v7 withCompletionHandler:v8];
 }
 
 void __57__BRCAccountSession__setICloudDesktopEnabled_forAccount___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -11979,23 +13311,21 @@ void __57__BRCAccountSession__setICloudDesktopEnabled_forAccount___block_invoke(
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, 0x90u))
     {
-      v9 = *(a1 + 32);
-      v10 = 138412802;
-      v11 = v9;
-      v12 = 2112;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_error_impl(&dword_223E7A000, v7, 0x90u, "[ERROR] can't save account %@: %@%@", &v10, 0x20u);
+      v8 = *(a1 + 32);
+      v9 = 138412802;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_error_impl(&dword_223E7A000, v7, 0x90u, "[ERROR] can't save account %@: %@%@", &v9, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_addOrImportDomainIfNeededWithError:(id *)error domainAdded:(BOOL *)added domainImported:(BOOL *)imported
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   defaultStore = [MEMORY[0x277CB8F48] defaultStore];
   v9 = [defaultStore accountWithIdentifier:self->_acAccountID];
 
@@ -12011,37 +13341,37 @@ void __57__BRCAccountSession__setICloudDesktopEnabled_forAccount___block_invoke(
     }
 
 LABEL_6:
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x3032000000;
-    v59 = __Block_byref_object_copy__44;
-    v60 = __Block_byref_object_dispose__44;
-    v61 = 0;
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x2020000000;
     v55 = 0;
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
+    v56 = &v55;
+    v57 = 0x3032000000;
+    v58 = __Block_byref_object_copy__44;
+    v59 = __Block_byref_object_dispose__44;
+    v60 = 0;
     v51 = 0;
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x3032000000;
-    v45 = __Block_byref_object_copy__44;
-    v46 = __Block_byref_object_dispose__44;
+    v52 = &v51;
+    v53 = 0x2020000000;
+    v54 = 0;
     v47 = 0;
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = __Block_byref_object_copy__44;
-    v40 = __Block_byref_object_dispose__44;
+    v48 = &v47;
+    v49 = 0x2020000000;
+    v50 = 0;
     v41 = 0;
-    v33 = userPersonaUniqueString;
-    v34 = accountDescription;
-    v35 = v9;
+    v42 = &v41;
+    v43 = 0x3032000000;
+    v44 = __Block_byref_object_copy__44;
+    v45 = __Block_byref_object_dispose__44;
+    v46 = 0;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy__44;
+    v39 = __Block_byref_object_dispose__44;
+    v40 = 0;
+    v32 = userPersonaUniqueString;
+    v33 = accountDescription;
+    v34 = v9;
     BRPerformWithPersonaAndError();
-    v15 = v57[5];
+    v15 = v56[5];
     v16 = v15 == 0;
     if (v15)
     {
@@ -12050,20 +13380,20 @@ LABEL_6:
       v19 = brc_default_log();
       if (os_log_type_enabled(v19, 0x90u))
       {
-        v31 = "(passed to caller)";
+        v30 = "(passed to caller)";
         *buf = 136315906;
         selfCopy = "[BRCAccountSession _addOrImportDomainIfNeededWithError:domainAdded:domainImported:]";
-        v64 = 2080;
+        v63 = 2080;
         if (!error)
         {
-          v31 = "(ignored by caller)";
+          v30 = "(ignored by caller)";
         }
 
-        v65 = v31;
-        v66 = 2112;
-        v67 = v17;
-        v68 = 2112;
-        v69 = v18;
+        v64 = v30;
+        v65 = 2112;
+        v66 = v17;
+        v67 = 2112;
+        v68 = v18;
         _os_log_error_impl(&dword_223E7A000, v19, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
 
@@ -12074,13 +13404,13 @@ LABEL_6:
       }
     }
 
-    else if ((v53[3] & 1) == 0)
+    else if ((v52[3] & 1) == 0)
     {
       v21 = brc_bread_crumbs();
       v22 = brc_default_log();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        if (*(v49 + 24))
+        if (*(v48 + 24))
         {
           v23 = "Importing";
         }
@@ -12090,38 +13420,38 @@ LABEL_6:
           v23 = "Adding";
         }
 
-        v24 = v43[5];
-        v25 = v37[5];
+        v24 = v42[5];
+        v25 = v36[5];
         *buf = 138413314;
         selfCopy = self;
-        v64 = 2080;
-        v65 = v23;
-        v66 = 2112;
-        v67 = v24;
-        v68 = 2112;
-        v69 = v25;
-        v70 = 2112;
-        v71 = v21;
+        v63 = 2080;
+        v64 = v23;
+        v65 = 2112;
+        v66 = v24;
+        v67 = 2112;
+        v68 = v25;
+        v69 = 2112;
+        v70 = v21;
         _os_log_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - %s Provider Domain %@/%@ was successful%@", buf, 0x34u);
       }
 
       if (imported)
       {
-        *imported = *(v49 + 24);
+        *imported = *(v48 + 24);
       }
 
       if (added)
       {
-        *added = *(v49 + 24) ^ 1;
+        *added = *(v48 + 24) ^ 1;
       }
     }
 
-    _Block_object_dispose(&v36, 8);
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v41, 8);
 
-    _Block_object_dispose(&v48, 8);
-    _Block_object_dispose(&v52, 8);
-    _Block_object_dispose(&v56, 8);
+    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v51, 8);
+    _Block_object_dispose(&v55, 8);
 
     goto LABEL_22;
   }
@@ -12142,37 +13472,36 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v28 = brc_bread_crumbs();
-  v29 = brc_default_log();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  v27 = brc_bread_crumbs();
+  v28 = brc_default_log();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
-    [BRCAccountSession _addOrImportDomainIfNeededWithError:? domainAdded:? domainImported:?];
+    [BRCAccountSession _addOrImportDomainIfNeededWithError:domainAdded:domainImported:];
   }
 
-  v30 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFABD0] code:116 description:{@"Can't get persona for accountID %@", self->_acAccountID}];
+  v29 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFABD0] code:116 description:{@"Can't get persona for accountID %@", self->_acAccountID}];
   if (error)
   {
-    v30 = v30;
-    *error = v30;
+    v29 = v29;
+    *error = v29;
   }
 
   v16 = 0;
 LABEL_22:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke(uint64_t a1, void *a2)
 {
-  v184 = *MEMORY[0x277D85DE8];
+  v182 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (!v4)
   {
-    v160 = 0;
-    v5 = [MEMORY[0x277CC64A8] br_getDomainForCurrentPersonaWithError:&v160];
-    v6 = v160;
-    v7 = v160;
+    v158 = 0;
+    v5 = [MEMORY[0x277CC64A8] br_getDomainForCurrentPersonaWithError:&v158];
+    v6 = v158;
+    v7 = v158;
     v8 = *(a1 + 32);
     v9 = *(v8 + 136);
     *(v8 + 136) = v5;
@@ -12186,11 +13515,11 @@ void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_dom
         v12 = *(a1 + 32);
         v13 = *(v12 + 136);
         *buf = 138412802;
-        v171 = v12;
+        v169 = v12;
+        v170 = 2112;
+        v171 = v13;
         v172 = 2112;
-        v173 = v13;
-        v174 = 2112;
-        v175 = v10;
+        v173 = v10;
         _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - Found an existing FPFS domain: %@%@", buf, 0x20u);
       }
 
@@ -12208,11 +13537,11 @@ LABEL_82:
       {
         v85 = *(a1 + 32);
         *buf = 138412802;
-        v171 = v85;
+        v169 = v85;
+        v170 = 2112;
+        v171 = v7;
         v172 = 2112;
-        v173 = v7;
-        v174 = 2112;
-        v175 = v14;
+        v173 = v14;
         _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] %@ - Got an error while looking for FPFS domain, fail the request to open account. Error: %@%@", buf, 0x20u);
       }
 
@@ -12245,33 +13574,33 @@ LABEL_82:
       v100 = *(a1 + 32);
       v101 = *(a1 + 40);
       *buf = 138413058;
-      v171 = v100;
+      v169 = v100;
+      v170 = 2112;
+      v171 = v101;
       v172 = 2112;
-      v173 = v101;
+      v173 = v16;
       v174 = 2112;
-      v175 = v16;
-      v176 = 2112;
-      v177 = v21;
+      v175 = v21;
       _os_log_debug_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - Cleaning Ciconia for persona ID: %@ at: %@%@", buf, 0x2Au);
     }
 
     v23 = objc_opt_new();
-    v159[0] = MEMORY[0x277D85DD0];
-    v159[1] = 3221225472;
-    v159[2] = __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_63;
-    v159[3] = &unk_2784FF540;
-    v159[4] = *(a1 + 32);
-    [v23 cleanupCiconiaAtURL:v16 diagnosticsURL:v17 completionHandler:v159];
+    v157[0] = MEMORY[0x277D85DD0];
+    v157[1] = 3221225472;
+    v157[2] = __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_63;
+    v157[3] = &unk_2784FF540;
+    v157[4] = *(a1 + 32);
+    [v23 cleanupCiconiaAtURL:v16 diagnosticsURL:v17 completionHandler:v157];
 
 LABEL_17:
-    v141 = v17;
+    v139 = v17;
     v24 = [MEMORY[0x277CFAE58] br_getProviderDomainIDForCurrentPersona];
     v25 = [v24 stringByDeletingLastPathComponent];
     v26 = *(*(a1 + 80) + 8);
     v27 = *(v26 + 40);
     *(v26 + 40) = v25;
 
-    v143 = v24;
+    v141 = v24;
     v28 = [v24 lastPathComponent];
     v29 = *(*(a1 + 88) + 8);
     v30 = *(v29 + 40);
@@ -12281,7 +13610,7 @@ LABEL_17:
     v32 = [MEMORY[0x277CCAA00] defaultManager];
     v33 = [v32 fileExistsAtPath:v31];
 
-    v142 = v16;
+    v140 = v16;
     if (v33)
     {
       v34 = [MEMORY[0x277CBEBC0] fileURLWithPath:v31 isDirectory:1];
@@ -12297,11 +13626,11 @@ LABEL_17:
       {
         v41 = *(a1 + 32);
         *buf = 138412802;
-        v171 = v41;
+        v169 = v41;
+        v170 = 2112;
+        v171 = v35;
         v172 = 2112;
-        v173 = v35;
-        v174 = 2112;
-        v175 = v39;
+        v173 = v39;
         _os_log_impl(&dword_223E7A000, v40, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - Found LMD folder with legacy XATTR '%@', checking if it's valid for import%@", buf, 0x20u);
       }
 
@@ -12313,9 +13642,9 @@ LABEL_17:
         {
           v46 = *(a1 + 32);
           *buf = 138412546;
-          v171 = v46;
-          v172 = 2112;
-          v173 = v44;
+          v169 = v46;
+          v170 = 2112;
+          v171 = v44;
           _os_log_impl(&dword_223E7A000, v45, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - Mobile Documents folder owner matches the session owner. We can safely import. %@", buf, 0x16u);
         }
 
@@ -12331,29 +13660,29 @@ LABEL_17:
           v50 = *(a1 + 32);
           v51 = [*(v50 + 568) accountDSID];
           *buf = 138413058;
-          v171 = v50;
+          v169 = v50;
+          v170 = 2112;
+          v171 = v35;
           v172 = 2112;
-          v173 = v35;
+          v173 = v51;
           v174 = 2112;
-          v175 = v51;
-          v176 = 2112;
-          v177 = v48;
+          v175 = v48;
           _os_log_impl(&dword_223E7A000, v49, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ - Mobile Documents folder owner (%@) DOES NOT match the session owner (%@). Not invoking Import%@", buf, 0x2Au);
         }
 
         if (!v38)
         {
           v52 = MEMORY[0x277CBEBC0];
-          v156[0] = MEMORY[0x277D85DD0];
-          v156[1] = 3221225472;
-          v156[2] = __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_67;
-          v156[3] = &unk_278502B88;
-          v156[4] = *(a1 + 32);
+          v154[0] = MEMORY[0x277D85DD0];
+          v154[1] = 3221225472;
+          v154[2] = __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_67;
+          v154[3] = &unk_278502B88;
+          v154[4] = *(a1 + 32);
           v53 = v36;
           v54 = *(a1 + 64);
-          v157 = v53;
-          v158 = v54;
-          [v52 br_setIOPolicy:1 type:7 forBlock:v156];
+          v155 = v53;
+          v156 = v54;
+          [v52 br_setIOPolicy:1 type:7 forBlock:v154];
         }
 
         BRCRecursiveRemoveBelow(*(*(a1 + 32) + 600));
@@ -12369,9 +13698,9 @@ LABEL_17:
       {
         v47 = *(a1 + 32);
         *buf = 138412546;
-        v171 = v47;
-        v172 = 2112;
-        v173 = v35;
+        v169 = v47;
+        v170 = 2112;
+        v171 = v35;
         _os_log_impl(&dword_223E7A000, v38, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - Didn't find LMD folder. Will start from scratch%@", buf, 0x16u);
       }
     }
@@ -12396,19 +13725,19 @@ LABEL_17:
       v61 = *(a1 + 40);
       v62 = *(a1 + 48);
       *buf = 138413826;
-      v171 = v60;
-      v172 = 2080;
-      v173 = v57;
+      v169 = v60;
+      v170 = 2080;
+      v171 = v57;
+      v172 = 2112;
+      v173 = v58;
       v174 = 2112;
-      v175 = v58;
+      v175 = v59;
       v176 = 2112;
-      v177 = v59;
+      v177 = v61;
       v178 = 2112;
-      v179 = v61;
+      v179 = v62;
       v180 = 2112;
-      v181 = v62;
-      v182 = 2112;
-      v183 = v55;
+      v181 = v55;
       _os_log_impl(&dword_223E7A000, v56, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - Will attempt to %s domain: providerID = %@ , domainID = %@, persona = %@, displayName = %@%@", buf, 0x48u);
     }
 
@@ -12437,122 +13766,122 @@ LABEL_17:
 
     [v72 setObject:v66 forKeyedSubscript:*MEMORY[0x277CFAC18]];
     [*(*(a1 + 32) + 136) setUserInfo:v72];
-    v139 = v72;
-    v140 = v66;
+    v137 = v72;
+    v138 = v66;
     if (*(*(*(a1 + 96) + 8) + 24) == 1)
     {
       [*(a1 + 32) _clearLegacyConflictVersionsAsync];
       if ([*(a1 + 56) isDataSeparatedAccount])
       {
         [MEMORY[0x277CC64A8] br_getLegacyEnterpriseProviderManager];
-        v145 = v155 = 0;
-        v74 = [v145 br_getFPDomainsWithError:&v155];
-        v138 = v155;
-        if (v138)
+        v143 = v153 = 0;
+        v74 = [v143 br_getFPDomainsWithError:&v153];
+        v136 = v153;
+        if (v136)
         {
           obj = brc_bread_crumbs();
           v75 = brc_default_log();
           if (os_log_type_enabled(v75, 0x90u))
           {
-            v133 = *(a1 + 32);
+            v131 = *(a1 + 32);
             *buf = 138412802;
-            v171 = v133;
+            v169 = v131;
+            v170 = 2112;
+            v171 = v136;
             v172 = 2112;
-            v173 = v138;
-            v174 = 2112;
-            v175 = obj;
+            v173 = obj;
             _os_log_error_impl(&dword_223E7A000, v75, 0x90u, "[ERROR] %@ - couldn't get existing domains: %@%@", buf, 0x20u);
           }
         }
 
         else
         {
-          v136 = v70;
+          v134 = v70;
           v86 = brc_bread_crumbs();
           v87 = brc_default_log();
           if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
           {
             v88 = *(a1 + 32);
-            [v145 providerIdentifier];
+            [v143 providerIdentifier];
             v90 = v89 = v74;
             *buf = 138413058;
-            v171 = v88;
+            v169 = v88;
+            v170 = 2112;
+            v171 = v89;
             v172 = 2112;
-            v173 = v89;
+            v173 = v90;
             v174 = 2112;
-            v175 = v90;
-            v176 = 2112;
-            v177 = v86;
+            v175 = v86;
             _os_log_impl(&dword_223E7A000, v87, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - Found the following domains: %@ from provider: %@%@", buf, 0x2Au);
 
             v74 = v89;
           }
 
-          v154[0] = MEMORY[0x277D85DD0];
-          v154[1] = 3221225472;
-          v154[2] = __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_76;
-          v154[3] = &unk_278505CC0;
+          v152[0] = MEMORY[0x277D85DD0];
+          v152[1] = 3221225472;
+          v152[2] = __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_76;
+          v152[3] = &unk_278505CC0;
           v91 = a1;
-          v154[4] = *(a1 + 88);
-          [v74 br_copy_if:v154];
+          v152[4] = *(a1 + 88);
+          [v74 br_copy_if:v152];
+          v148 = 0u;
+          v149 = 0u;
           v150 = 0u;
-          v151 = 0u;
-          v152 = 0u;
-          obj = v153 = 0u;
-          v92 = [obj countByEnumeratingWithState:&v150 objects:v169 count:16];
+          obj = v151 = 0u;
+          v92 = [obj countByEnumeratingWithState:&v148 objects:v167 count:16];
           if (v92)
           {
             v93 = v92;
-            v134 = v74;
-            v94 = *v151;
+            v132 = v74;
+            v94 = *v149;
             do
             {
               for (i = 0; i != v93; ++i)
               {
-                if (*v151 != v94)
+                if (*v149 != v94)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v96 = *(*(&v150 + 1) + 8 * i);
+                v96 = *(*(&v148 + 1) + 8 * i);
                 v97 = brc_bread_crumbs();
                 v98 = brc_default_log();
                 if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
                 {
                   v99 = *(v91 + 32);
                   *buf = 138412802;
-                  v171 = v99;
+                  v169 = v99;
+                  v170 = 2112;
+                  v171 = v96;
                   v172 = 2112;
-                  v173 = v96;
-                  v174 = 2112;
-                  v175 = v97;
+                  v173 = v97;
                   _os_log_impl(&dword_223E7A000, v98, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - Trying to remove domain %@%@", buf, 0x20u);
                 }
 
-                v149[0] = MEMORY[0x277D85DD0];
-                v149[1] = 3221225472;
-                v149[2] = __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_78;
-                v149[3] = &unk_2784FFFA8;
-                v149[4] = *(v91 + 32);
-                v149[5] = v96;
-                [v145 br_removeDomain:v96 sync:1 completionHandler:v149];
+                v147[0] = MEMORY[0x277D85DD0];
+                v147[1] = 3221225472;
+                v147[2] = __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_78;
+                v147[3] = &unk_2784FFFA8;
+                v147[4] = *(v91 + 32);
+                v147[5] = v96;
+                [v143 br_removeDomain:v96 sync:1 completionHandler:v147];
               }
 
-              v93 = [obj countByEnumeratingWithState:&v150 objects:v169 count:16];
+              v93 = [obj countByEnumeratingWithState:&v148 objects:v167 count:16];
             }
 
             while (v93);
             v4 = 0;
             v7 = 0;
             a1 = v91;
-            v70 = v136;
+            v70 = v134;
             v73 = 0x277CC6000;
-            v74 = v134;
+            v74 = v132;
           }
 
           else
           {
-            v70 = v136;
+            v70 = v134;
           }
         }
       }
@@ -12561,40 +13890,39 @@ LABEL_17:
       v103 = *(*(a1 + 32) + 136);
       v104 = *(*(*(a1 + 80) + 8) + 40);
       v105 = [MEMORY[0x277CBEBC0] fileURLWithPath:v70];
-      v148 = 0;
-      LOBYTE(v102) = [v102 br_importDomain:v103 forProviderIdentifier:v104 fromDirectoryAtURL:v105 error:&v148];
-      v80 = v148;
+      v146 = 0;
+      LOBYTE(v102) = [v102 br_importDomain:v103 forProviderIdentifier:v104 fromDirectoryAtURL:v105 error:&v146];
+      v80 = v146;
 
       if ((v102 & 1) == 0)
       {
         v107 = [v80 br_isCocoaErrorCode:3328];
         v108 = MEMORY[0x277CCA9B8];
         v109 = *MEMORY[0x277CFABD0];
-        v110 = *MEMORY[0x277CCA7E8];
         if (v107)
         {
-          v167 = *MEMORY[0x277CCA7E8];
-          v168 = v80;
-          v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v168 forKeys:&v167 count:1];
-          v112 = @"volume not supported by FPFS";
-          v113 = v108;
-          v114 = v109;
-          v115 = 121;
+          v165 = *MEMORY[0x277CCA7E8];
+          v166 = v80;
+          v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v166 forKeys:&v165 count:1];
+          v111 = @"volume not supported by FPFS";
+          v112 = v108;
+          v113 = v109;
+          v114 = 121;
         }
 
         else
         {
-          v165 = *MEMORY[0x277CCA7E8];
-          v166 = v80;
-          v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v166 forKeys:&v165 count:1];
-          v112 = @"Can't import FPFS domain";
-          v113 = v108;
-          v114 = v109;
-          v115 = 92;
+          v163 = *MEMORY[0x277CCA7E8];
+          v164 = v80;
+          v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v164 forKeys:&v163 count:1];
+          v111 = @"Can't import FPFS domain";
+          v112 = v108;
+          v113 = v109;
+          v114 = 92;
         }
 
-        v84 = [v113 br_errorWithDomain:v114 code:v115 userInfo:v111 description:v112];
-        v106 = v143;
+        v84 = [v112 br_errorWithDomain:v113 code:v114 userInfo:v110 description:v111];
+        v106 = v141;
 
         goto LABEL_71;
       }
@@ -12604,9 +13932,9 @@ LABEL_17:
     {
       v76 = *(*(a1 + 32) + 136);
       v77 = *(*(*(a1 + 80) + 8) + 40);
-      v147 = 0;
-      v78 = [MEMORY[0x277CC64A8] br_addDomain:v76 forProviderIdentifier:v77 error:&v147];
-      v79 = v147;
+      v145 = 0;
+      v78 = [MEMORY[0x277CC64A8] br_addDomain:v76 forProviderIdentifier:v77 error:&v145];
+      v79 = v145;
       v80 = v79;
       if ((v78 & 1) == 0)
       {
@@ -12614,9 +13942,9 @@ LABEL_17:
         {
           v81 = MEMORY[0x277CCA9B8];
           v82 = *MEMORY[0x277CFABD0];
-          v163 = *MEMORY[0x277CCA7E8];
-          v164 = v80;
-          v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v164 forKeys:&v163 count:1];
+          v161 = *MEMORY[0x277CCA7E8];
+          v162 = v80;
+          v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v162 forKeys:&v161 count:1];
           v84 = [v81 br_errorWithDomain:v82 code:121 userInfo:v83 description:@"volume not supported by FPFS"];
         }
 
@@ -12632,78 +13960,76 @@ LABEL_17:
 
     v84 = 0;
 LABEL_66:
-    v106 = v143;
+    v106 = v141;
 LABEL_71:
 
     if (v84)
     {
-      v146 = 0;
-      v116 = [MEMORY[0x277CC6420] providerDomainWithID:v106 cachePolicy:0 error:&v146];
-      v117 = v146;
-      if (!v117 && [v116 disconnectionState] == 6)
+      v144 = 0;
+      v115 = [MEMORY[0x277CC6420] providerDomainWithID:v106 cachePolicy:0 error:&v144];
+      v116 = v144;
+      if (!v116 && [v115 disconnectionState] == 6)
       {
-        v135 = v7;
-        v137 = v70;
+        v133 = v7;
+        v135 = v70;
         if (*(*(*(a1 + 96) + 8) + 24))
         {
-          v118 = "importing";
+          v117 = "importing";
         }
 
         else
         {
-          v118 = "adding";
+          v117 = "adding";
         }
 
-        v119 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed %s domain. Device out of space for domain %@", v118, *(*(a1 + 32) + 136)];
-        v120 = brc_bread_crumbs();
-        v121 = brc_default_log();
-        if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
+        v118 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed %s domain. Device out of space for domain %@", v117, *(*(a1 + 32) + 136)];
+        v119 = brc_bread_crumbs();
+        v120 = brc_default_log();
+        if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
         {
-          v122 = *(a1 + 32);
+          v121 = *(a1 + 32);
           *buf = 138412802;
-          v171 = v122;
+          v169 = v121;
+          v170 = 2112;
+          v171 = v118;
           v172 = 2112;
           v173 = v119;
-          v174 = 2112;
-          v175 = v120;
-          _os_log_impl(&dword_223E7A000, v121, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - %@%@", buf, 0x20u);
+          _os_log_impl(&dword_223E7A000, v120, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - %@%@", buf, 0x20u);
         }
 
-        v123 = MEMORY[0x277CCA9B8];
-        v124 = *MEMORY[0x277CFABD0];
-        v161 = *MEMORY[0x277CCA7E8];
-        v125 = [v84 copy];
-        v162 = v125;
-        v126 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v162 forKeys:&v161 count:1];
-        v127 = [v123 br_errorWithDomain:v124 code:85 userInfo:v126 description:{@"%@", v119}];
+        v122 = MEMORY[0x277CCA9B8];
+        v123 = *MEMORY[0x277CFABD0];
+        v159 = *MEMORY[0x277CCA7E8];
+        v124 = [v84 copy];
+        v160 = v124;
+        v125 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v160 forKeys:&v159 count:1];
+        v126 = [v122 br_errorWithDomain:v123 code:85 userInfo:v125 description:{@"%@", v118}];
 
-        v128 = *(a1 + 32);
-        v129 = *(v128 + 136);
-        *(v128 + 136) = 0;
+        v127 = *(a1 + 32);
+        v128 = *(v127 + 136);
+        *(v127 + 136) = 0;
 
-        v84 = v127;
-        v7 = v135;
-        v70 = v137;
-        v106 = v143;
+        v84 = v126;
+        v7 = v133;
+        v70 = v135;
+        v106 = v141;
       }
     }
 
-    v130 = *(*(a1 + 64) + 8);
-    v131 = *(v130 + 40);
-    *(v130 + 40) = v84;
+    v129 = *(*(a1 + 64) + 8);
+    v130 = *(v129 + 40);
+    *(v129 + 40) = v84;
 
     goto LABEL_82;
   }
 
   objc_storeStrong((*(*(a1 + 64) + 8) + 40), a2);
 LABEL_83:
-
-  v132 = *MEMORY[0x277D85DE8];
 }
 
 void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_63(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -12711,32 +14037,27 @@ void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_dom
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, 0x90u))
     {
-      v7 = *(a1 + 32);
-      v8 = 138412802;
-      v9 = v7;
-      v10 = 2112;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_error_impl(&dword_223E7A000, v5, 0x90u, "[ERROR] %@ - Cleaning up Ciconia failed: %@%@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 138412802;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_error_impl(&dword_223E7A000, v5, 0x90u, "[ERROR] %@ - Cleaning up Ciconia failed: %@%@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_67(uint64_t a1)
+uint64_t __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_67(void *a1)
 {
-  result = [*(*(a1 + 32) + 456) renameAndUnlinkInBackgroundItemAtPath:*(a1 + 40)];
+  result = [*(a1[4] + 456) renameAndUnlinkInBackgroundItemAtPath:a1[5]];
   if ((result & 1) == 0)
   {
-    result = BRCRecursiveRemoveBelow(*(a1 + 40));
+    result = BRCRecursiveRemoveBelow(a1[5]);
     if (!result)
     {
-      v3 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFABD0] code:99 userInfo:0 description:@"Found unknown account data on disk"];
-      v4 = *(*(a1 + 48) + 8);
-      v5 = *(v4 + 40);
-      *(v4 + 40) = v3;
+      *(*(a1[6] + 8) + 40) = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFABD0] code:99 userInfo:0 description:@"Found unknown account data on disk"];
 
       return MEMORY[0x2821F96F8]();
     }
@@ -12755,7 +14076,7 @@ uint64_t __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded
 
 void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_domainImported___block_invoke_78(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -12765,15 +14086,15 @@ void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_dom
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v11 = 138413058;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v3;
-      v17 = 2112;
-      v18 = v4;
-      _os_log_error_impl(&dword_223E7A000, v5, 0x90u, "[ERROR] %@ - couldn't remove domain %@: %@%@", &v11, 0x2Au);
+      v10 = 138413058;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v3;
+      v16 = 2112;
+      v17 = v4;
+      _os_log_error_impl(&dword_223E7A000, v5, 0x90u, "[ERROR] %@ - couldn't remove domain %@: %@%@", &v10, 0x2Au);
     }
   }
 
@@ -12785,17 +14106,15 @@ void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_dom
     {
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
-      v11 = 138412802;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - Successfully removed domain %@%@", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] %@ - Successfully removed domain %@%@", &v10, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixFileProviderDomainDecorations
@@ -12810,18 +14129,59 @@ void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_dom
   MEMORY[0x2821F96F8]();
 }
 
+- (void)_createGroupContainerStageOfType:(signed __int16)type
+{
+  typeCopy = type;
+  v18 = *MEMORY[0x277D85DE8];
+  if ([MEMORY[0x277D77BF8] br_isInSyncBubble])
+  {
+    v5 = brc_bread_crumbs();
+    v6 = brc_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      [BRCAccountSession _createGroupContainerStageOfType:];
+    }
+  }
+
+  else
+  {
+    v5 = [(BRCAccountSession *)self groupContainerStagePathForCurrentPersonaFromStageType:typeCopy];
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    v6 = 0;
+    if (([defaultManager fileExistsAtPath:v5 isDirectory:0] & 1) == 0)
+    {
+      v11 = 0;
+      v8 = [defaultManager createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v11];
+      v6 = v11;
+      if ((v8 & 1) == 0)
+      {
+        v9 = brc_bread_crumbs();
+        v10 = brc_default_log();
+        if (os_log_type_enabled(v10, 0x90u))
+        {
+          *buf = 138412802;
+          v13 = v5;
+          v14 = 2112;
+          v15 = v6;
+          v16 = 2112;
+          v17 = v9;
+          _os_log_error_impl(&dword_223E7A000, v10, 0x90u, "[ERROR] Unable to create directory at '%@'; %@%@", buf, 0x20u);
+        }
+      }
+    }
+  }
+}
+
 - (void)_refreshRootsCache
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitDelayedTelemetryEventIfNeeded:(id)needed wait:(double)wait withBlock:(id)block
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   blockCopy = block;
   v10 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:neededCopy];
@@ -12833,9 +14193,9 @@ void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_dom
     v14 = objc_opt_class();
     v15 = objc_opt_class();
     v16 = [v12 setWithObjects:{v13, v14, v15, objc_opt_class(), 0}];
-    v31 = 0;
-    v17 = [v11 unarchivedObjectOfClasses:v16 fromData:v10 error:&v31];
-    v18 = v31;
+    v30 = 0;
+    v17 = [v11 unarchivedObjectOfClasses:v16 fromData:v10 error:&v30];
+    v18 = v30;
 
     if (v18)
     {
@@ -12845,10 +14205,10 @@ void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_dom
       {
         *location = 138412802;
         *&location[4] = neededCopy;
-        v33 = 2112;
-        v34 = v18;
-        v35 = 2112;
-        v36 = v19;
+        v32 = 2112;
+        v33 = v18;
+        v34 = 2112;
+        v35 = v19;
         _os_log_debug_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] Error Unarchiving %@ - %@%@", location, 0x20u);
       }
     }
@@ -12856,15 +14216,15 @@ void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_dom
     else
     {
       objc_initWeak(location, self);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock___block_invoke;
-      v26[3] = &unk_2785052D0;
-      objc_copyWeak(&v30, location);
-      v29 = blockCopy;
-      v27 = v17;
-      v28 = neededCopy;
-      v21 = MEMORY[0x22AA4A310](v26);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock___block_invoke;
+      v25[3] = &unk_2785052D0;
+      objc_copyWeak(&v29, location);
+      v28 = blockCopy;
+      v26 = v17;
+      v27 = neededCopy;
+      v21 = MEMORY[0x22AA4A310](v25);
       v22 = v21;
       if (wait <= 0.0)
       {
@@ -12878,17 +14238,15 @@ void __84__BRCAccountSession__addOrImportDomainIfNeededWithError_domainAdded_dom
         dispatch_after(v23, v24, v22);
       }
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(location);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -12904,39 +14262,38 @@ void __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock
         __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock___block_invoke_cold_1();
       }
 
-      v5 = *(a1 + 32);
       (*(*(a1 + 48) + 16))();
-      v6 = [MEMORY[0x277CCAA00] defaultManager];
-      v8 = *(a1 + 40);
-      v7 = (a1 + 40);
-      v14 = 0;
-      v9 = [v6 removeItemAtPath:v8 error:&v14];
-      v4 = v14;
+      v5 = [MEMORY[0x277CCAA00] defaultManager];
+      v7 = *(a1 + 40);
+      v6 = (a1 + 40);
+      v12 = 0;
+      v8 = [v5 removeItemAtPath:v7 error:&v12];
+      v4 = v12;
 
-      if (v9)
+      if (v8)
       {
-        v10 = brc_bread_crumbs();
-        v11 = brc_default_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v9 = brc_bread_crumbs();
+        v10 = brc_default_log();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock___block_invoke_cold_2(v7);
+          __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock___block_invoke_cold_2();
         }
       }
 
       else
       {
-        v10 = brc_bread_crumbs();
-        v11 = brc_default_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v9 = brc_bread_crumbs();
+        v10 = brc_default_log();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          v13 = *v7;
+          v11 = *v6;
           *buf = 138412802;
-          v16 = v13;
+          v14 = v11;
+          v15 = 2112;
+          v16 = v4;
           v17 = 2112;
-          v18 = v4;
-          v19 = 2112;
-          v20 = v10;
-          _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Error while deleting %@ - %@%@", buf, 0x20u);
+          v18 = v9;
+          _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] Error while deleting %@ - %@%@", buf, 0x20u);
         }
       }
     }
@@ -12946,16 +14303,19 @@ void __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock
       objc_sync_exit(v4);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitSessionOpenFailedTelemetryEventIfNeeded
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Checking if there is a need to submit ACCOUNT_SESSION_OPEN_ERROR telemetry%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCAccountSession _submitSessionOpenFailedTelemetryEventIfNeeded];
+  }
+
+  br_accountSessionOpenErrorInfoPath = [MEMORY[0x277CCACA8] br_accountSessionOpenErrorInfoPath];
+  [(BRCAccountSession *)self _submitDelayedTelemetryEventIfNeeded:br_accountSessionOpenErrorInfoPath wait:&__block_literal_global_104 withBlock:0.0];
 }
 
 void __67__BRCAccountSession__submitSessionOpenFailedTelemetryEventIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -12976,10 +14336,15 @@ void __67__BRCAccountSession__submitSessionOpenFailedTelemetryEventIfNeeded__blo
 
 - (void)_submitDBCorruptionTelemetryEventIfNeeded
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Checking if there is a need to submit DB_RESET telemetry%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCAccountSession _submitDBCorruptionTelemetryEventIfNeeded];
+  }
+
+  br_corruptedDBInfoPath = [MEMORY[0x277CCACA8] br_corruptedDBInfoPath];
+  [(BRCAccountSession *)self _submitDelayedTelemetryEventIfNeeded:br_corruptedDBInfoPath wait:&__block_literal_global_110 withBlock:0.0];
 }
 
 void __62__BRCAccountSession__submitDBCorruptionTelemetryEventIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -13002,10 +14367,19 @@ void __62__BRCAccountSession__submitDBCorruptionTelemetryEventIfNeeded__block_in
 
 - (void)_submitReimportDomainFailedTelemetryEventIfNeeded
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Checking if there is a need to submit reimport failed telemetry%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = [BRCUserDefaults defaultsForMangledID:0];
+  [v3 secondsToWaitBeforeSendingReimportDomainFailureTTR];
+  v5 = v4;
+
+  v6 = brc_bread_crumbs();
+  v7 = brc_default_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCAccountSession _submitReimportDomainFailedTelemetryEventIfNeeded];
+  }
+
+  br_reimportDomainErrorInfoPath = [MEMORY[0x277CCACA8] br_reimportDomainErrorInfoPath];
+  [(BRCAccountSession *)self _submitDelayedTelemetryEventIfNeeded:br_reimportDomainErrorInfoPath wait:&__block_literal_global_116 withBlock:v5];
 }
 
 void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -13031,34 +14405,32 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
 
 - (void)_setupThrottles
 {
-  v3 = objc_alloc_init(BRCThrottleProvider);
-  throttleProvider = self->_throttleProvider;
-  self->_throttleProvider = v3;
+  self->_throttleProvider = objc_alloc_init(BRCThrottleProvider);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (BOOL)openWithError:(id *)error pushWorkloop:(id)workloop
 {
-  v142 = *MEMORY[0x277D85DE8];
+  v141 = *MEMORY[0x277D85DE8];
   workloopCopy = workloop;
   if (self->_isOpen)
   {
     [BRCAccountSession openWithError:pushWorkloop:];
   }
 
-  memset(v131, 0, sizeof(v131));
-  __brc_create_section(1, "[BRCAccountSession openWithError:pushWorkloop:]", 1071, 0, v131);
+  memset(v130, 0, sizeof(v130));
+  __brc_create_section(1, "[BRCAccountSession openWithError:pushWorkloop:]", 1071, 0, v130);
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 134218498;
-    v135 = v131[0];
-    v136 = 2112;
+    v134 = v130[0];
+    v135 = 2112;
     selfCopy = self;
-    v138 = 2112;
-    v139 = v7;
+    v137 = 2112;
+    v138 = v7;
     _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_INFO, "[INFO] ┏%llx %@ - Opening session%@", buf, 0x20u);
   }
 
@@ -13103,12 +14475,12 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
       abc_report_panic_with_signature();
       [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to open file at path '%@' %{errno}d", stringByDeletingLastPathComponent, *__error()];
       objc_claimAutoreleasedReturnValue();
-      v116 = brc_bread_crumbs();
-      v117 = brc_default_log();
-      if (os_log_type_enabled(v117, OS_LOG_TYPE_FAULT))
+      v115 = brc_bread_crumbs();
+      v116 = brc_default_log();
+      if (os_log_type_enabled(v116, OS_LOG_TYPE_FAULT))
       {
-        v118 = brc_append_system_info_to_message();
-        [(BRCAccountSession *)v118 openWithError:v116 pushWorkloop:buf];
+        v117 = brc_append_system_info_to_message();
+        [(BRCAccountSession *)v117 openWithError:v115 pushWorkloop:buf];
       }
 
       brc_append_system_info_to_message();
@@ -13128,12 +14500,12 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
       abc_report_panic_with_signature();
       [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to lock file at path '%@' %{errno}d", stringByDeletingLastPathComponent, *__error()];
       objc_claimAutoreleasedReturnValue();
-      v120 = brc_bread_crumbs();
-      v121 = brc_default_log();
-      if (os_log_type_enabled(v121, OS_LOG_TYPE_FAULT))
+      v119 = brc_bread_crumbs();
+      v120 = brc_default_log();
+      if (os_log_type_enabled(v120, OS_LOG_TYPE_FAULT))
       {
-        v122 = brc_append_system_info_to_message();
-        [(BRCAccountSession *)v122 openWithError:v120 pushWorkloop:buf];
+        v121 = brc_append_system_info_to_message();
+        [(BRCAccountSession *)v121 openWithError:v119 pushWorkloop:buf];
       }
 
       brc_append_system_info_to_message();
@@ -13153,7 +14525,7 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
   block[2] = __48__BRCAccountSession_openWithError_pushWorkloop___block_invoke;
   block[3] = &unk_2784FF450;
   v31 = v29;
-  v130 = v31;
+  v129 = v31;
   dispatch_async(v30, block);
 
   [(BRCAccountSession *)self _setupSharedPackageExtensionsPlist];
@@ -13163,10 +14535,10 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
   self->_volume = v32;
 
   [MEMORY[0x277CFAE00] clearAccountDescriptorCache];
-  v128 = 0;
   v127 = 0;
-  v34 = [(BRCAccountSession *)self _addOrImportDomainIfNeededWithError:&v127 domainAdded:&v128 + 1 domainImported:&v128];
-  v35 = v127;
+  v126 = 0;
+  v34 = [(BRCAccountSession *)self _addOrImportDomainIfNeededWithError:&v126 domainAdded:&v127 + 1 domainImported:&v127];
+  v35 = v126;
   v36 = v35;
   if (!v34)
   {
@@ -13179,20 +14551,20 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
         v103 = brc_default_log();
         if (os_log_type_enabled(v103, 0x90u))
         {
-          v107 = "(passed to caller)";
+          v106 = "(passed to caller)";
           *buf = 136315906;
-          v135 = "[BRCAccountSession openWithError:pushWorkloop:]";
-          v136 = 2080;
+          v134 = "[BRCAccountSession openWithError:pushWorkloop:]";
+          v135 = 2080;
           if (!error)
           {
-            v107 = "(ignored by caller)";
+            v106 = "(ignored by caller)";
           }
 
-          selfCopy = v107;
-          v138 = 2112;
-          v139 = v101;
-          v140 = 2112;
-          v141 = v102;
+          selfCopy = v106;
+          v137 = 2112;
+          v138 = v101;
+          v139 = 2112;
+          v140 = v102;
           _os_log_error_impl(&dword_223E7A000, v103, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -13206,39 +14578,39 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
 
     else
     {
-      v108 = MEMORY[0x277CCA9B8];
-      v132 = *MEMORY[0x277CCA7E8];
-      v133 = v36;
-      v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
-      v101 = [v108 br_errorWithDomain:*MEMORY[0x277CFABD0] code:81 userInfo:v109 description:@"Can't create FPFS domain"];
+      v107 = MEMORY[0x277CCA9B8];
+      v131 = *MEMORY[0x277CCA7E8];
+      v132 = v36;
+      v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+      v101 = [v107 br_errorWithDomain:*MEMORY[0x277CFABD0] code:81 userInfo:v108 description:@"Can't create FPFS domain"];
 
       if (v101)
       {
-        v110 = brc_bread_crumbs();
-        v111 = brc_default_log();
-        if (os_log_type_enabled(v111, 0x90u))
+        v109 = brc_bread_crumbs();
+        v110 = brc_default_log();
+        if (os_log_type_enabled(v110, 0x90u))
         {
-          v113 = "(passed to caller)";
+          v112 = "(passed to caller)";
           *buf = 136315906;
-          v135 = "[BRCAccountSession openWithError:pushWorkloop:]";
-          v136 = 2080;
+          v134 = "[BRCAccountSession openWithError:pushWorkloop:]";
+          v135 = 2080;
           if (!error)
           {
-            v113 = "(ignored by caller)";
+            v112 = "(ignored by caller)";
           }
 
-          selfCopy = v113;
-          v138 = 2112;
-          v139 = v101;
-          v140 = 2112;
-          v141 = v110;
-          _os_log_error_impl(&dword_223E7A000, v111, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+          selfCopy = v112;
+          v137 = 2112;
+          v138 = v101;
+          v139 = 2112;
+          v140 = v109;
+          _os_log_error_impl(&dword_223E7A000, v110, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
 
       if (error)
       {
-        v112 = v101;
+        v111 = v101;
         *error = v101;
       }
     }
@@ -13246,7 +14618,7 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
     goto LABEL_33;
   }
 
-  if (![(BRCVolume *)self->_volume setupWithError:error]|| ([(BRCAccountSession *)self _refreshRootsCache], v37 = [[BRCStageRegistry alloc] initWithAccountSession:self], stageRegistry = self->_stageRegistry, self->_stageRegistry = v37, stageRegistry, [(BRCStageRegistry *)self->_stageRegistry open], buf[0] = 0, ![(BRCAccountSession *)self openDBForNewDomain:(HIBYTE(v128) | v128) & 1 deviceIDChanged:buf withError:error]))
+  if (![(BRCVolume *)self->_volume setupWithError:error]|| ([(BRCAccountSession *)self _refreshRootsCache], v37 = [[BRCStageRegistry alloc] initWithAccountSession:self], stageRegistry = self->_stageRegistry, self->_stageRegistry = v37, stageRegistry, [(BRCStageRegistry *)self->_stageRegistry open], buf[0] = 0, ![(BRCAccountSession *)self openDBForNewDomain:(HIBYTE(v127) | v127) & 1 deviceIDChanged:buf withError:error]))
   {
 LABEL_33:
     v86 = 0;
@@ -13367,9 +14739,9 @@ LABEL_33:
     defaultAppLibrary = [defaultClientZone defaultAppLibrary];
     if (!defaultAppLibrary)
     {
-      v114 = brc_bread_crumbs();
-      v115 = brc_default_log();
-      if (os_log_type_enabled(v115, OS_LOG_TYPE_FAULT))
+      v113 = brc_bread_crumbs();
+      v114 = brc_default_log();
+      if (os_log_type_enabled(v114, OS_LOG_TYPE_FAULT))
       {
         [BRCAccountSession openWithError:pushWorkloop:];
       }
@@ -13400,20 +14772,20 @@ LABEL_33:
     [(BRCAccountSession *)self _submitDBCorruptionTelemetryEventIfNeeded];
     [(BRCAccountSession *)self _submitSessionOpenFailedTelemetryEventIfNeeded];
     [(BRCAccountSession *)self _submitReimportDomainFailedTelemetryEventIfNeeded];
-    v126[0] = MEMORY[0x277D85DD0];
-    v126[1] = 3221225472;
-    v126[2] = __48__BRCAccountSession_openWithError_pushWorkloop___block_invoke_172;
-    v126[3] = &unk_278505D30;
-    v126[4] = self;
-    [(BRCAccountSession *)self fetchUserRecordIDWithCompletionHandler:v126];
+    v125[0] = MEMORY[0x277D85DD0];
+    v125[1] = 3221225472;
+    v125[2] = __48__BRCAccountSession_openWithError_pushWorkloop___block_invoke_172;
+    v125[3] = &unk_278505D30;
+    v125[4] = self;
+    [(BRCAccountSession *)self fetchUserRecordIDWithCompletionHandler:v125];
     clientTruthWorkloop = self->_clientTruthWorkloop;
-    v124[0] = MEMORY[0x277D85DD0];
-    v124[1] = 3221225472;
-    v124[2] = __48__BRCAccountSession_openWithError_pushWorkloop___block_invoke_2;
-    v124[3] = &unk_278500EE0;
-    v125 = v128;
-    v124[4] = self;
-    dispatch_async(clientTruthWorkloop, v124);
+    v123[0] = MEMORY[0x277D85DD0];
+    v123[1] = 3221225472;
+    v123[2] = __48__BRCAccountSession_openWithError_pushWorkloop___block_invoke_2;
+    v123[3] = &unk_278500EE0;
+    v124 = v127;
+    v123[4] = self;
+    dispatch_async(clientTruthWorkloop, v123);
     +[BRCSQLBackedSet clearTempDatabases];
     self->_isOpen = 1;
   }
@@ -13424,58 +14796,56 @@ LABEL_33:
   }
 
 LABEL_34:
-  __brc_leave_section(v131);
+  __brc_leave_section(v130);
 
-  v105 = *MEMORY[0x277D85DE8];
   return v86;
 }
 
 void __48__BRCAccountSession_openWithError_pushWorkloop___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  memset(v15, 0, sizeof(v15));
-  __brc_create_section(0, "[BRCAccountSession openWithError:pushWorkloop:]_block_invoke", 1108, 0, v15);
+  memset(v14, 0, sizeof(v14));
+  __brc_create_section(0, "[BRCAccountSession openWithError:pushWorkloop:]_block_invoke", 1108, 0, v14);
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 134218498;
-    v17 = v15[0];
-    v18 = 2112;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v3;
+    v16 = v14[0];
+    v17 = 2112;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v3;
     _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx including %@ in backup%@", buf, 0x20u);
   }
 
   v5 = *(a1 + 32);
   v6 = *MEMORY[0x277CBE878];
-  v14 = 0;
-  v7 = [v5 setResourceValue:MEMORY[0x277CBEC28] forKey:v6 error:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [v5 setResourceValue:MEMORY[0x277CBEC28] forKey:v6 error:&v13];
+  v8 = v13;
   if ((v7 & 1) == 0)
   {
     v9 = brc_bread_crumbs();
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, 0x90u))
     {
-      v13 = [*(a1 + 32) path];
+      v12 = [*(a1 + 32) path];
       *buf = 138412802;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v9;
       _os_log_error_impl(&dword_223E7A000, v10, 0x90u, "[ERROR] Unable to include '%@' from backups: %@%@", buf, 0x20u);
     }
   }
 
-  __brc_leave_section(v15);
+  __brc_leave_section(v14);
 
   objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__BRCAccountSession_openWithError_pushWorkloop___block_invoke_2(uint64_t a1)
@@ -13650,7 +15020,7 @@ id __53__BRCAccountSession__pcsChainAllItemsWithSystemTask___block_invoke_2(uint
   return v3;
 }
 
-uint64_t __53__BRCAccountSession__pcsChainAllItemsWithSystemTask___block_invoke_3(uint64_t a1)
+void *__53__BRCAccountSession__pcsChainAllItemsWithSystemTask___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isTaskExpired];
   if (result)
@@ -13728,23 +15098,8 @@ void __53__BRCAccountSession__pcsChainAllItemsWithSystemTask___block_invoke_5(ui
   libraryCopy = library;
   [(BRCPQLConnection *)self->_clientDB assertOnQueue];
   defaultClientZone = [libraryCopy defaultClientZone];
-  if (!libraryCopy)
+  if (!libraryCopy || [libraryCopy saltingState] != 2 || (objc_msgSend(libraryCopy, "rootItemID"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(defaultClientZone, "itemByItemID:", v6), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "asDirectory"), asDirectory = objc_claimAutoreleasedReturnValue(), v7, v6, !asDirectory))
   {
-    goto LABEL_4;
-  }
-
-  if ([libraryCopy saltingState] != 2)
-  {
-    goto LABEL_4;
-  }
-
-  rootItemID = [libraryCopy rootItemID];
-  v7 = [defaultClientZone itemByItemID:rootItemID];
-  asDirectory = [v7 asDirectory];
-
-  if (!asDirectory)
-  {
-LABEL_4:
     v9 = [defaultClientZone db];
     dbRowID = [defaultClientZone dbRowID];
     v11 = [v9 fetch:{@"SELECT item_id FROM server_items WHERE salting_state = 2 AND item_type IN (0, 9, 10) AND zone_rowid = %@ LIMIT 1", dbRowID}];
@@ -13886,7 +15241,7 @@ LABEL_9:
 
 void __61__BRCAccountSession__saltPartiallySaltedItemsWithSystemTask___block_invoke_2(id *a1, int a2, int a3, void *a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = a4;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   v9 = WeakRetained;
@@ -13903,36 +15258,34 @@ void __61__BRCAccountSession__saltPartiallySaltedItemsWithSystemTask___block_inv
     v16 = brc_default_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v19 = a1[4];
+      v18 = a1[4];
       *buf = 138413314;
-      v26 = v19;
-      v27 = 1024;
-      v28 = a2;
-      v29 = 1024;
-      v30 = a3;
-      v31 = 2112;
-      v32 = v7;
-      v33 = 2112;
-      v34 = v15;
+      v25 = v18;
+      v26 = 1024;
+      v27 = a2;
+      v28 = 1024;
+      v29 = a3;
+      v30 = 2112;
+      v31 = v7;
+      v32 = 2112;
+      v33 = v15;
       _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] Finished metadata salting a batch for item %@ when completed: %d validation: %d error: %@%@", buf, 0x2Cu);
     }
 
     if (!v7 || ([v7 brc_isSaltingError] & 1) != 0 || (a3 & 1) != 0 || objc_msgSend(v7, "brc_isCloudKitCancellationError"))
     {
       v17 = v9[6];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __61__BRCAccountSession__saltPartiallySaltedItemsWithSystemTask___block_invoke_192;
-      v20[3] = &unk_2784FFE68;
-      v21 = v7;
-      v22 = a1[5];
-      v23 = v9;
-      v24 = a1[6];
-      dispatch_async(v17, v20);
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __61__BRCAccountSession__saltPartiallySaltedItemsWithSystemTask___block_invoke_192;
+      v19[3] = &unk_2784FFE68;
+      v20 = v7;
+      v21 = a1[5];
+      v22 = v9;
+      v23 = a1[6];
+      dispatch_async(v17, v19);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__BRCAccountSession__saltPartiallySaltedItemsWithSystemTask___block_invoke_192(uint64_t a1)
@@ -13980,36 +15333,36 @@ uint64_t __46__BRCAccountSession__recoverAndReportBoosting__block_invoke(uint64_
 
 - (unint64_t)_recoverAndReportBrokenShareOptions
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [(BRCPQLConnection *)self->_clientDB fetch:@"SELECT ci.rowid, ci.zone_rowid, ci.item_id, ci.item_creator_id, ci.item_sharing_options, ci.item_side_car_ckinfo, ci.item_parent_zone_rowid, ci.item_localsyncupstate, ci.item_local_diffs, ci.item_notifs_rank, ci.app_library_rowid, ci.item_min_supported_os_rowid, ci.item_user_visible, ci.item_stat_ckinfo, ci.item_state, ci.item_type, ci.item_mode, ci.item_birthtime, ci.item_lastusedtime, ci.item_favoriterank, ci.item_parent_id, ci.item_filename, ci.item_hidden_ext, ci.item_finder_tags, ci.item_xattr_signature, ci.item_trash_put_back_path, ci.item_trash_put_back_parent_id, ci.item_alias_target, ci.item_creator, ci.item_processing_stamp, ci.item_bouncedname, ci.item_scope, ci.item_local_change_count, ci.item_old_version_identifier, ci.fp_creation_item_identifier, ci.version_name, ci.version_ckinfo, ci.version_mtime, ci.version_size, ci.version_thumb_size, ci.version_thumb_signature, ci.version_content_signature, ci.version_xattr_signature, ci.version_edited_since_shared, ci.version_device, ci.version_conflict_loser_etags, ci.version_quarantine_info, ci.version_uploaded_assets, ci.version_upload_error, ci.version_old_zone_item_id, ci.version_old_zone_rowid, ci.version_local_change_count, ci.version_old_version_identifier, ci.item_live_conflict_loser_etags, ci.item_file_id, ci.item_generation FROM client_items AS ci LEFT JOIN server_items AS si ON ci.item_id = si.item_id AND ci.zone_rowid = si.zone_rowid WHERE ci.zone_rowid != ci.item_parent_zone_rowid AND (ci.item_sharing_options & 4) = 0 AND (si.item_id IS NULL OR item_id_is_root(si.item_parent_id))"];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __56__BRCAccountSession__recoverAndReportBrokenShareOptions__block_invoke;
-  v21[3] = &unk_2784FF910;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __56__BRCAccountSession__recoverAndReportBrokenShareOptions__block_invoke;
+  v20[3] = &unk_2784FF910;
   selfCopy = self;
-  v20 = v3;
-  v21[4] = self;
-  v4 = [v3 enumerateObjects:v21];
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v19 = v3;
+  v20[4] = self;
+  v4 = [v3 enumerateObjects:v20];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         clientZone = [v10 clientZone];
         isSharedZone = [clientZone isSharedZone];
@@ -14021,9 +15374,9 @@ uint64_t __46__BRCAccountSession__recoverAndReportBoosting__block_invoke(uint64_
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v27 = v10;
-            v28 = 2112;
-            v29 = v14;
+            v26 = v10;
+            v27 = 2112;
+            v28 = v14;
             _os_log_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] Item %@ is missing a shareID%@", buf, 0x16u);
           }
 
@@ -14036,7 +15389,7 @@ uint64_t __46__BRCAccountSession__recoverAndReportBoosting__block_invoke(uint64_
         objc_autoreleasePoolPop(v11);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v6);
@@ -14050,7 +15403,6 @@ uint64_t __46__BRCAccountSession__recoverAndReportBoosting__block_invoke(uint64_
   v16 = [AppTelemetryTimeSeriesEvent newCorruptSharingOptionsProblemWithProblemCount:v7];
   [(BRCAnalyticsReporter *)selfCopy->_analyticsReporter postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v16];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -14066,7 +15418,7 @@ id __56__BRCAccountSession__recoverAndReportBrokenShareOptions__block_invoke(uin
 
 - (unint64_t)_reportBasehashSalting
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = [(BRCPQLConnection *)self->_clientDB fetchWithSlowStatementRadar:@"rdar://157468592" sql:@"SELECT COUNT(*), child.item_id, child.zone_rowid FROM server_items AS child INNER JOIN server_items AS parent ON child.item_parent_id = parent.item_id AND child.zone_rowid = parent.zone_rowid WHERE IFNULL(child.basehash_salt_validation_key, 0) != IFNULL(validation_key(parent.child_basehash_salt), 0) AND LENGTH(child.item_filename) > 0 AND child.item_type != 3 AND (parent.salting_state = 3 OR child.basehash_salt_validation_key IS NOT NULL)"];
   if (([v3 next] & 1) == 0)
   {
@@ -14087,11 +15439,11 @@ id __56__BRCAccountSession__recoverAndReportBrokenShareOptions__block_invoke(uin
     {
       debugItemIDString = [v5 debugItemIDString];
       *buf = 67109634;
-      v38 = v4;
-      v39 = 2112;
-      v40 = debugItemIDString;
-      v41 = 2112;
-      v42 = v8;
+      v37 = v4;
+      v38 = 2112;
+      v39 = debugItemIDString;
+      v40 = 2112;
+      v41 = v8;
       _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Found %d items with basehash salting issues example itemID %@%@", buf, 0x1Cu);
     }
   }
@@ -14102,20 +15454,20 @@ id __56__BRCAccountSession__recoverAndReportBrokenShareOptions__block_invoke(uin
     v5 = 0;
   }
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __43__BRCAccountSession__reportBasehashSalting__block_invoke;
-  v36[3] = &unk_2784FF870;
-  v36[4] = self;
-  v11 = MEMORY[0x22AA4A310](v36);
   v35[0] = MEMORY[0x277D85DD0];
   v35[1] = 3221225472;
-  v35[2] = __43__BRCAccountSession__reportBasehashSalting__block_invoke_204;
+  v35[2] = __43__BRCAccountSession__reportBasehashSalting__block_invoke;
   v35[3] = &unk_2784FF870;
   v35[4] = self;
-  v12 = MEMORY[0x22AA4A310](v35);
+  v11 = MEMORY[0x22AA4A310](v35);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __43__BRCAccountSession__reportBasehashSalting__block_invoke_204;
+  v34[3] = &unk_2784FF870;
+  v34[4] = self;
+  v12 = MEMORY[0x22AA4A310](v34);
   clientDB = self->_clientDB;
-  v34 = v11;
+  v33 = v11;
   v14 = MEMORY[0x22AA4A310](v11);
   v15 = MEMORY[0x22AA4A310](v12);
   v16 = [(BRCPQLConnection *)clientDB fetchWithSlowStatementRadar:@"rdar://157468592" sql:@"SELECT COUNT(*), item_id, zone_rowid FROM server_items AS child WHERE item_id_is_app_library_root(child.item_parent_id) AND IFNULL(child.basehash_salt_validation_key, 0) != IFNULL(call_block(%p, child.item_parent_id), 0) AND LENGTH(child.item_filename) > 0 AND child.item_type != 3 AND (call_block(%p, child.item_parent_id) = 3 OR child.basehash_salt_validation_key IS NOT NULL)", v14, v15];
@@ -14142,13 +15494,13 @@ id __56__BRCAccountSession__recoverAndReportBrokenShareOptions__block_invoke(uin
     {
       debugItemIDString2 = [v20 debugItemIDString];
       *buf = 67109890;
-      v38 = v19;
-      v39 = 2112;
-      v40 = debugItemIDString2;
-      v41 = 2112;
-      v42 = mangledID2;
-      v43 = 2112;
-      v44 = v24;
+      v37 = v19;
+      v38 = 2112;
+      v39 = debugItemIDString2;
+      v40 = 2112;
+      v41 = mangledID2;
+      v42 = 2112;
+      v43 = v24;
       _os_log_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEFAULT, "[WARNING] Found %d items parented to root with basehash salting issues example itemID %@ zone %@%@", buf, 0x26u);
     }
   }
@@ -14170,7 +15522,6 @@ id __56__BRCAccountSession__recoverAndReportBrokenShareOptions__block_invoke(uin
   v30 = [AppTelemetryTimeSeriesEvent newBasehashSaltingProblemCountWithProblemCount:v18 mangledID:mangledID2 itemIDString:itemIDString];
 
   [(BRCAnalyticsReporter *)self->_analyticsReporter postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v30];
-  v31 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -14209,19 +15560,19 @@ void __43__BRCAccountSession__reportBasehashSalting__block_invoke_204(uint64_t a
 
 - (unint64_t)_recoverAndReportDanglingLostZombieDirectories
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [(BRCPQLConnection *)self->_clientDB fetchWithExpectedIndex:@"client_items/sync_state_job_recovery;client_items/version_old_zone_rowid" sql:@"SELECT ci1.rowid, ci1.zone_rowid, ci1.item_id, ci1.item_creator_id, ci1.item_sharing_options, ci1.item_side_car_ckinfo, ci1.item_parent_zone_rowid, ci1.item_localsyncupstate, ci1.item_local_diffs, ci1.item_notifs_rank, ci1.app_library_rowid, ci1.item_min_supported_os_rowid, ci1.item_user_visible, ci1.item_stat_ckinfo, ci1.item_state, ci1.item_type, ci1.item_mode, ci1.item_birthtime, ci1.item_lastusedtime, ci1.item_favoriterank, ci1.item_parent_id, ci1.item_filename, ci1.item_hidden_ext, ci1.item_finder_tags, ci1.item_xattr_signature, ci1.item_trash_put_back_path, ci1.item_trash_put_back_parent_id, ci1.item_alias_target, ci1.item_creator, ci1.item_processing_stamp, ci1.item_bouncedname, ci1.item_scope, ci1.item_local_change_count, ci1.item_old_version_identifier, ci1.fp_creation_item_identifier, ci1.version_name, ci1.version_ckinfo, ci1.version_mtime, ci1.version_size, ci1.version_thumb_size, ci1.version_thumb_signature, ci1.version_content_signature, ci1.version_xattr_signature, ci1.version_edited_since_shared, ci1.version_device, ci1.version_conflict_loser_etags, ci1.version_quarantine_info, ci1.version_uploaded_assets, ci1.version_upload_error, ci1.version_old_zone_item_id, ci1.version_old_zone_rowid, ci1.version_local_change_count, ci1.version_old_version_identifier, ci1.item_live_conflict_loser_etags, ci1.item_file_id, ci1.item_generation FROM client_items AS ci1                             LEFT JOIN client_items AS ci2                             ON ci2.version_old_zone_item_id = ci1.item_id AND ci2.version_old_zone_rowid = ci1.zone_rowid                             WHERE ci2.version_old_zone_rowid IS NULL                               AND ci2.version_old_zone_item_id IS NULL                               AND ci1.item_state = -3                               AND ci1.item_localsyncupstate != 0                               AND ci1.item_type IN (0, 9, 10)"];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __67__BRCAccountSession__recoverAndReportDanglingLostZombieDirectories__block_invoke;
-  v16[3] = &unk_2784FF910;
-  v16[4] = self;
-  v4 = [v3 enumerateObjects:v16];
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __67__BRCAccountSession__recoverAndReportDanglingLostZombieDirectories__block_invoke;
+  v15[3] = &unk_2784FF910;
+  v15[4] = self;
+  v4 = [v3 enumerateObjects:v15];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (!v5)
   {
 
@@ -14232,21 +15583,21 @@ LABEL_13:
 
   v6 = v5;
   LODWORD(v7) = 0;
-  v8 = *v18;
+  v8 = *v17;
   do
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v18 != v8)
+      if (*v17 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v10 = *(*(&v17 + 1) + 8 * i);
+      v10 = *(*(&v16 + 1) + 8 * i);
       v11 = objc_autoreleasePoolPush();
       if (([v10 isDirectory] & 1) == 0)
       {
-        [(BRCAccountSession *)v21 _recoverAndReportDanglingLostZombieDirectories];
+        [(BRCAccountSession *)v20 _recoverAndReportDanglingLostZombieDirectories];
       }
 
       [v10 markRemovedFromFilesystemRecursively:1];
@@ -14260,7 +15611,7 @@ LABEL_13:
     }
 
     v7 = (v7 + v6);
-    v6 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v6 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
   }
 
   while (v6);
@@ -14274,7 +15625,6 @@ LABEL_13:
   [(BRCAnalyticsReporter *)self->_analyticsReporter postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v13];
 
 LABEL_14:
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -14313,7 +15663,7 @@ id __67__BRCAccountSession__recoverAndReportDanglingLostZombieDirectories__block
 
 void __120__BRCAccountSession__recoverContentPolicyIfNecessaryForItemID_appLibrary_isAppLibraryRoot_isDocumentsFolder_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -14331,52 +15681,51 @@ LABEL_11:
 
     if (v8 != [v5 contentPolicy])
     {
-      v12 = brc_bread_crumbs();
-      v13 = brc_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v11 = brc_bread_crumbs();
+      v12 = brc_default_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v20 = *(a1 + 32);
+        v18 = *(a1 + 32);
         *buf = 138413058;
-        v24 = v20;
+        v22 = v18;
+        v23 = 2048;
+        v24 = v8;
         v25 = 2048;
-        v26 = v8;
-        v27 = 2048;
-        v28 = [v5 contentPolicy];
-        v29 = 2112;
-        v30 = v12;
-        _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] Item %@ has unexpected content policy. Expected:%ld Actual:%ld%@", buf, 0x2Au);
+        v26 = [v5 contentPolicy];
+        v27 = 2112;
+        v28 = v11;
+        _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Item %@ has unexpected content policy. Expected:%ld Actual:%ld%@", buf, 0x2Au);
       }
 
-      v14 = *(a1 + 32);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __120__BRCAccountSession__recoverContentPolicyIfNecessaryForItemID_appLibrary_isAppLibraryRoot_isDocumentsFolder_completion___block_invoke_222;
-      v21[3] = &unk_2784FF540;
-      v22 = v14;
-      [BRCImportUtil forceIngestionForItemID:v22 completionHandler:v21];
+      v13 = *(a1 + 32);
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __120__BRCAccountSession__recoverContentPolicyIfNecessaryForItemID_appLibrary_isAppLibraryRoot_isDocumentsFolder_completion___block_invoke_222;
+      v19[3] = &unk_2784FF540;
+      v20 = v13;
+      [BRCImportUtil forceIngestionForItemID:v20 completionHandler:v19];
     }
 
     v6 = *(*(a1 + 56) + 16);
     goto LABEL_16;
   }
 
-  v9 = *(a1 + 65);
   if (*(a1 + 64))
   {
     if ((*(a1 + 65) & 1) == 0)
     {
       v7 = +[BRCQueryItemUtil sharedQueryItemUtil];
-      v10 = [BRCQueryItemInfo queryItemInfoForAppLibraryRoot:*(a1 + 48)];
+      v9 = [BRCQueryItemInfo queryItemInfoForAppLibraryRoot:*(a1 + 48)];
 LABEL_10:
-      v11 = v10;
-      v8 = [v7 contentPolicyForItemInfo:v10 sessionContext:*(a1 + 40)];
+      v10 = v9;
+      v8 = [v7 contentPolicyForItemInfo:v9 sessionContext:*(a1 + 40)];
 
       goto LABEL_11;
     }
 
 LABEL_9:
     v7 = +[BRCQueryItemUtil sharedQueryItemUtil];
-    v10 = [BRCQueryItemInfo queryItemInfoForAppLibraryDocumentsFolder:*(a1 + 48)];
+    v9 = [BRCQueryItemInfo queryItemInfoForAppLibraryDocumentsFolder:*(a1 + 48)];
     goto LABEL_10;
   }
 
@@ -14385,40 +15734,37 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v16 = brc_bread_crumbs();
-  v17 = brc_default_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+  v14 = brc_bread_crumbs();
+  v15 = brc_default_log();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
     __120__BRCAccountSession__recoverContentPolicyIfNecessaryForItemID_appLibrary_isAppLibraryRoot_isDocumentsFolder_completion___block_invoke_cold_1();
   }
 
-  v18 = *(a1 + 56);
-  v19 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"item must be root container or app library root or app library documents folder"];
-  (*(v18 + 16))(v18, 0, v19);
+  v16 = *(a1 + 56);
+  v17 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"item must be root container or app library root or app library documents folder"];
+  (*(v16 + 16))(v16, 0, v17);
 
 LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __120__BRCAccountSession__recoverContentPolicyIfNecessaryForItemID_appLibrary_isAppLibraryRoot_isDocumentsFolder_completion___block_invoke_222(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412802;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Done Force Ingestion of %@ to update the contentPolicy - %@%@", &v8, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = 138412802;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Done Force Ingestion of %@ to update the contentPolicy - %@%@", &v7, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverAndReportContentPolicyWithCompletion:(id)completion
@@ -14524,7 +15870,7 @@ uint64_t __65__BRCAccountSession_recoverAndReportContentPolicyWithCompletion___b
 
 uint64_t __65__BRCAccountSession__recoverAndReportBouncedDocumentsDirectories__block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 isCloudDocsAppLibrary] & 1) == 0 && (objc_msgSend(v3, "isiCloudDesktopAppLibrary") & 1) == 0)
   {
@@ -14548,9 +15894,9 @@ uint64_t __65__BRCAccountSession__recoverAndReportBouncedDocumentsDirectories__b
 
       if (v15)
       {
-        v40 = v13;
-        v41 = v11;
-        v42 = v3;
+        v39 = v13;
+        v40 = v11;
+        v41 = v3;
         v16 = brc_bread_crumbs();
         v17 = brc_default_log();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
@@ -14562,30 +15908,30 @@ uint64_t __65__BRCAccountSession__recoverAndReportBouncedDocumentsDirectories__b
         v18 = [v4 clientZone];
         v19 = [v4 st];
         v20 = [v19 parentID];
-        v39 = v7;
+        v38 = v7;
         v21 = [v18 itemsEnumeratorWithParentID:v20 andLogicalName:v7];
 
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
         v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
         v22 = v21;
-        v23 = [v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v42 objects:v50 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v44;
+          v25 = *v43;
           do
           {
             v26 = 0;
             do
             {
-              if (*v44 != v25)
+              if (*v43 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v27 = *(*(&v43 + 1) + 8 * v26);
+              v27 = *(*(&v42 + 1) + 8 * v26);
               v28 = objc_autoreleasePoolPush();
               if ([v27 isDirectory])
               {
@@ -14600,9 +15946,9 @@ uint64_t __65__BRCAccountSession__recoverAndReportBouncedDocumentsDirectories__b
                   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412546;
-                    v48 = v27;
-                    v49 = 2112;
-                    v50 = v32;
+                    v47 = v27;
+                    v48 = 2112;
+                    v49 = v32;
                     _os_log_debug_impl(&dword_223E7A000, v33, OS_LOG_TYPE_DEBUG, "[DEBUG] Merging folder %@ into the Documents folder%@", buf, 0x16u);
                   }
 
@@ -14618,7 +15964,7 @@ uint64_t __65__BRCAccountSession__recoverAndReportBouncedDocumentsDirectories__b
             }
 
             while (v24 != v26);
-            v24 = [v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v42 objects:v50 count:16];
           }
 
           while (v24);
@@ -14626,18 +15972,18 @@ uint64_t __65__BRCAccountSession__recoverAndReportBouncedDocumentsDirectories__b
 
         v35 = [v4 st];
         v36 = v35;
-        if (v40)
+        if (v39)
         {
           [v35 clearBouncedName];
         }
 
         else
         {
-          [v35 setLogicalName:v39];
+          [v35 setLogicalName:v38];
         }
 
-        v11 = v41;
-        v3 = v42;
+        v11 = v40;
+        v3 = v41;
 
         [v4 markForceNeedsSyncUp];
         [v4 saveToDB];
@@ -14645,7 +15991,6 @@ uint64_t __65__BRCAccountSession__recoverAndReportBouncedDocumentsDirectories__b
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -14996,7 +16341,7 @@ void __80__BRCAccountSession__recoverAndReportStateIntegrityWithCompletion_recov
 
 void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
@@ -15036,7 +16381,7 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke(uint
   v11 = [MEMORY[0x277D77BF8] sharedManager];
   v12 = [v11 currentPersona];
 
-  v28 = 0;
+  v27 = 0;
   v13 = [v12 userPersonaUniqueString];
   v14 = v13;
   if (v13 == v10 || ([v13 isEqualToString:v10] & 1) != 0)
@@ -15048,17 +16393,17 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke(uint
   {
     if (voucher_process_can_use_arbitrary_personas())
     {
-      v27 = 0;
-      v18 = [v12 copyCurrentPersonaContextWithError:&v27];
+      v26 = 0;
+      v17 = [v12 copyCurrentPersonaContextWithError:&v26];
+      v18 = v26;
       v19 = v27;
-      v20 = v28;
-      v28 = v18;
+      v27 = v17;
 
-      if (v19)
+      if (v18)
       {
-        v21 = brc_bread_crumbs();
-        v22 = brc_default_log();
-        if (os_log_type_enabled(v22, 0x90u))
+        v20 = brc_bread_crumbs();
+        v21 = brc_default_log();
+        if (os_log_type_enabled(v21, 0x90u))
         {
           __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_cold_4();
         }
@@ -15071,17 +16416,17 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke(uint
         goto LABEL_12;
       }
 
-      v23 = brc_bread_crumbs();
-      v24 = brc_default_log();
-      if (os_log_type_enabled(v24, 0x90u))
+      v22 = brc_bread_crumbs();
+      v23 = brc_default_log();
+      if (os_log_type_enabled(v23, 0x90u))
       {
         *buf = 138412802;
-        v30 = v7;
-        v31 = 2112;
-        v32 = v15;
-        v33 = 2112;
-        v34 = v23;
-        _os_log_error_impl(&dword_223E7A000, v24, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v29 = v7;
+        v30 = 2112;
+        v31 = v15;
+        v32 = 2112;
+        v33 = v22;
+        _os_log_error_impl(&dword_223E7A000, v23, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
     }
 
@@ -15089,9 +16434,9 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke(uint
     {
       if (v9 || ([v12 isDataSeparatedPersona] & 1) != 0)
       {
-        v25 = brc_bread_crumbs();
-        v26 = brc_default_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v24 = brc_bread_crumbs();
+        v25 = brc_default_log();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           __br_notify_register_dispatch_block_invoke_cold_3();
         }
@@ -15100,9 +16445,9 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke(uint
         goto LABEL_12;
       }
 
-      v23 = brc_bread_crumbs();
-      v24 = brc_default_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v22 = brc_bread_crumbs();
+      v23 = brc_default_log();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -15116,8 +16461,6 @@ LABEL_12:
 
   _BRRestorePersona();
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2()
@@ -15130,7 +16473,7 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2()
 
 void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_245(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
@@ -15170,7 +16513,7 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_245(
   v11 = [MEMORY[0x277D77BF8] sharedManager];
   v12 = [v11 currentPersona];
 
-  v30 = 0;
+  v29 = 0;
   v13 = [v12 userPersonaUniqueString];
   v14 = v13;
   if (v13 == v10 || ([v13 isEqualToString:v10] & 1) != 0)
@@ -15182,17 +16525,17 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_245(
   {
     if (voucher_process_can_use_arbitrary_personas())
     {
-      v29 = 0;
-      v18 = [v12 copyCurrentPersonaContextWithError:&v29];
+      v28 = 0;
+      v17 = [v12 copyCurrentPersonaContextWithError:&v28];
+      v18 = v28;
       v19 = v29;
-      v20 = v30;
-      v30 = v18;
+      v29 = v17;
 
-      if (v19)
+      if (v18)
       {
-        v21 = brc_bread_crumbs();
-        v22 = brc_default_log();
-        if (os_log_type_enabled(v22, 0x90u))
+        v20 = brc_bread_crumbs();
+        v21 = brc_default_log();
+        if (os_log_type_enabled(v21, 0x90u))
         {
           __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_cold_4();
         }
@@ -15205,17 +16548,17 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_245(
         goto LABEL_12;
       }
 
-      v23 = brc_bread_crumbs();
-      v24 = brc_default_log();
-      if (os_log_type_enabled(v24, 0x90u))
+      v22 = brc_bread_crumbs();
+      v23 = brc_default_log();
+      if (os_log_type_enabled(v23, 0x90u))
       {
         *buf = 138412802;
-        v32 = v7;
-        v33 = 2112;
-        v34 = v15;
-        v35 = 2112;
-        v36 = v23;
-        _os_log_error_impl(&dword_223E7A000, v24, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v31 = v7;
+        v32 = 2112;
+        v33 = v15;
+        v34 = 2112;
+        v35 = v22;
+        _os_log_error_impl(&dword_223E7A000, v23, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
     }
 
@@ -15223,9 +16566,9 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_245(
     {
       if (v9 || ([v12 isDataSeparatedPersona] & 1) != 0)
       {
-        v25 = brc_bread_crumbs();
-        v26 = brc_default_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v24 = brc_bread_crumbs();
+        v25 = brc_default_log();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           __br_notify_register_dispatch_block_invoke_cold_3();
         }
@@ -15234,9 +16577,9 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_245(
         goto LABEL_12;
       }
 
-      v23 = brc_bread_crumbs();
-      v24 = brc_default_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v22 = brc_bread_crumbs();
+      v23 = brc_default_log();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -15246,17 +16589,15 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_245(
   }
 
 LABEL_12:
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_249;
-  v27[3] = &unk_278506000;
-  v28 = v3;
-  [WeakRetained _recoverAndReportStateIntegrityWithCompletion:v27 recoveryTask:v28];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_249;
+  v26[3] = &unk_278506000;
+  v27 = v3;
+  [WeakRetained _recoverAndReportStateIntegrityWithCompletion:v26 recoveryTask:v27];
 
   _BRRestorePersona();
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2_246()
@@ -15275,7 +16616,7 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_249(
 
 void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2_253(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
@@ -15315,7 +16656,7 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2_25
   v11 = [MEMORY[0x277D77BF8] sharedManager];
   v12 = [v11 currentPersona];
 
-  v28 = 0;
+  v27 = 0;
   v13 = [v12 userPersonaUniqueString];
   v14 = v13;
   if (v13 == v10 || ([v13 isEqualToString:v10] & 1) != 0)
@@ -15327,17 +16668,17 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2_25
   {
     if (voucher_process_can_use_arbitrary_personas())
     {
-      v27 = 0;
-      v18 = [v12 copyCurrentPersonaContextWithError:&v27];
+      v26 = 0;
+      v17 = [v12 copyCurrentPersonaContextWithError:&v26];
+      v18 = v26;
       v19 = v27;
-      v20 = v28;
-      v28 = v18;
+      v27 = v17;
 
-      if (v19)
+      if (v18)
       {
-        v21 = brc_bread_crumbs();
-        v22 = brc_default_log();
-        if (os_log_type_enabled(v22, 0x90u))
+        v20 = brc_bread_crumbs();
+        v21 = brc_default_log();
+        if (os_log_type_enabled(v21, 0x90u))
         {
           __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_cold_4();
         }
@@ -15350,17 +16691,17 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2_25
         goto LABEL_12;
       }
 
-      v23 = brc_bread_crumbs();
-      v24 = brc_default_log();
-      if (os_log_type_enabled(v24, 0x90u))
+      v22 = brc_bread_crumbs();
+      v23 = brc_default_log();
+      if (os_log_type_enabled(v23, 0x90u))
       {
         *buf = 138412802;
-        v30 = v7;
-        v31 = 2112;
-        v32 = v15;
-        v33 = 2112;
-        v34 = v23;
-        _os_log_error_impl(&dword_223E7A000, v24, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v29 = v7;
+        v30 = 2112;
+        v31 = v15;
+        v32 = 2112;
+        v33 = v22;
+        _os_log_error_impl(&dword_223E7A000, v23, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
     }
 
@@ -15368,9 +16709,9 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2_25
     {
       if (v9 || ([v12 isDataSeparatedPersona] & 1) != 0)
       {
-        v25 = brc_bread_crumbs();
-        v26 = brc_default_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v24 = brc_bread_crumbs();
+        v25 = brc_default_log();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           __br_notify_register_dispatch_block_invoke_cold_3();
         }
@@ -15379,9 +16720,9 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2_25
         goto LABEL_12;
       }
 
-      v23 = brc_bread_crumbs();
-      v24 = brc_default_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v22 = brc_bread_crumbs();
+      v23 = brc_default_log();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -15395,8 +16736,6 @@ LABEL_12:
 
   _BRRestorePersona();
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_3()
@@ -15409,7 +16748,7 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_3()
 
 void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_259(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
@@ -15449,7 +16788,7 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_259(
   v11 = [MEMORY[0x277D77BF8] sharedManager];
   v12 = [v11 currentPersona];
 
-  v33 = 0;
+  v32 = 0;
   v13 = [v12 userPersonaUniqueString];
   v14 = v13;
   if (v13 == v10 || ([v13 isEqualToString:v10] & 1) != 0)
@@ -15461,17 +16800,17 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_259(
   {
     if (voucher_process_can_use_arbitrary_personas())
     {
-      v32 = 0;
-      v21 = [v12 copyCurrentPersonaContextWithError:&v32];
+      v31 = 0;
+      v20 = [v12 copyCurrentPersonaContextWithError:&v31];
+      v21 = v31;
       v22 = v32;
-      v23 = v33;
-      v33 = v21;
+      v32 = v20;
 
-      if (v22)
+      if (v21)
       {
-        v24 = brc_bread_crumbs();
-        v25 = brc_default_log();
-        if (os_log_type_enabled(v25, 0x90u))
+        v23 = brc_bread_crumbs();
+        v24 = brc_default_log();
+        if (os_log_type_enabled(v24, 0x90u))
         {
           __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_cold_4();
         }
@@ -15484,17 +16823,17 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_259(
         goto LABEL_12;
       }
 
-      v26 = brc_bread_crumbs();
-      v27 = brc_default_log();
-      if (os_log_type_enabled(v27, 0x90u))
+      v25 = brc_bread_crumbs();
+      v26 = brc_default_log();
+      if (os_log_type_enabled(v26, 0x90u))
       {
         *buf = 138412802;
-        v35 = v7;
-        v36 = 2112;
-        v37 = v15;
-        v38 = 2112;
-        v39 = v26;
-        _os_log_error_impl(&dword_223E7A000, v27, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v34 = v7;
+        v35 = 2112;
+        v36 = v15;
+        v37 = 2112;
+        v38 = v25;
+        _os_log_error_impl(&dword_223E7A000, v26, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
     }
 
@@ -15502,9 +16841,9 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_259(
     {
       if (v9 || ([v12 isDataSeparatedPersona] & 1) != 0)
       {
-        v28 = brc_bread_crumbs();
-        v29 = brc_default_log();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v27 = brc_bread_crumbs();
+        v28 = brc_default_log();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           __br_notify_register_dispatch_block_invoke_cold_3();
         }
@@ -15513,9 +16852,9 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_259(
         goto LABEL_12;
       }
 
-      v26 = brc_bread_crumbs();
-      v27 = brc_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v25 = brc_bread_crumbs();
+      v26 = brc_default_log();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -15531,19 +16870,17 @@ LABEL_12:
   if (!v17)
   {
     v18 = [WeakRetained clientTruthWorkloop];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_263;
-    v30[3] = &unk_2784FF478;
-    v30[4] = WeakRetained;
-    v31 = v3;
-    dispatch_async(v18, v30);
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_263;
+    v29[3] = &unk_2784FF478;
+    v29[4] = WeakRetained;
+    v30 = v3;
+    dispatch_async(v18, v29);
   }
 
   _BRRestorePersona();
 LABEL_16:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_2_260()
@@ -15565,16 +16902,15 @@ void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_263(
 
 - (void)_fixupItemsAtStartup
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 uint64_t __41__BRCAccountSession__fixupItemsAtStartup__block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 clientZone];
   v5 = [v3 changeState];
@@ -15593,16 +16929,16 @@ uint64_t __41__BRCAccountSession__fixupItemsAtStartup__block_invoke(uint64_t a1,
       v12 = brc_default_log();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v17 = [v4 mangledID];
-        v18 = 138413058;
-        v19 = v17;
-        v20 = 2048;
-        v21 = v8;
-        v22 = 2048;
-        v23 = v10;
-        v24 = 2112;
-        v25 = v11;
-        _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Will acknowledge the last sync down again for %@ (server:%lld, client:%lld)%@", &v18, 0x2Au);
+        v16 = [v4 mangledID];
+        v17 = 138413058;
+        v18 = v16;
+        v19 = 2048;
+        v20 = v8;
+        v21 = 2048;
+        v22 = v10;
+        v23 = 2112;
+        v24 = v11;
+        _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Will acknowledge the last sync down again for %@ (server:%lld, client:%lld)%@", &v17, 0x2Au);
       }
 
       [*(a1 + 32) addObject:v3];
@@ -15619,96 +16955,94 @@ uint64_t __41__BRCAccountSession__fixupItemsAtStartup__block_invoke(uint64_t a1,
     [*(a1 + 40) addObject:v4];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_266(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v13 = a1;
+  v12 = a1;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2;
-        v14[3] = &unk_2784FFA48;
-        v14[4] = v9;
-        [v3 performWithFlags:8 action:v14];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2;
+        v13[3] = &unk_2784FFA48;
+        v13[4] = v9;
+        [v3 performWithFlags:8 action:v13];
         objc_autoreleasePoolPop(v10);
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
-  *(*(*(v13 + 48) + 8) + 24) = [*(*(v13 + 40) + 240) nextRank];
-  v11 = *MEMORY[0x277D85DE8];
+  *(*(*(v12 + 48) + 8) + 24) = [*(*(v12 + 40) + 240) nextRank];
   return 1;
 }
 
 uint64_t __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_3(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v15 = a2;
+  v27 = *MEMORY[0x277D85DE8];
+  v14 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v4)
   {
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       v6 = 0;
       do
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * v6);
+        v7 = *(*(&v16 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        memset(v16, 0, sizeof(v16));
-        __brc_create_section(0, "[BRCAccountSession _fixupItemsAtStartup]_block_invoke_3", 1983, 0, v16);
+        memset(v15, 0, sizeof(v15));
+        __brc_create_section(0, "[BRCAccountSession _fixupItemsAtStartup]_block_invoke_3", 1983, 0, v15);
         v9 = brc_bread_crumbs();
         v10 = brc_default_log();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218498;
-          v22 = v16[0];
-          v23 = 2112;
-          v24 = v7;
-          v25 = 2112;
-          v26 = v9;
+          v21 = v15[0];
+          v22 = 2112;
+          v23 = v7;
+          v24 = 2112;
+          v25 = v9;
           _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Acknowledge the last sync down again for %@%@", buf, 0x20u);
         }
 
@@ -15716,19 +17050,18 @@ uint64_t __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_3(uint64_t a
         v12 = [v7 changeState];
         [v11 fixAndAcknowledgeSyncDown:v7 requestID:objc_msgSend(v12 upToRank:"clientRequestID") caughtUpWithServer:{*(*(*(a1 + 48) + 8) + 24), 0}];
 
-        __brc_leave_section(v16);
+        __brc_leave_section(v15);
         objc_autoreleasePoolPop(v8);
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v17 objects:v27 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v16 objects:v26 count:16];
     }
 
     while (v4);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -15745,67 +17078,66 @@ uint64_t __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_267(uint64_t
 
 void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_269(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  memset(v22, 0, sizeof(v22));
-  __brc_create_section(0, "[BRCAccountSession _fixupItemsAtStartup]_block_invoke_2", 2008, 0, v22);
+  v23 = *MEMORY[0x277D85DE8];
+  memset(v21, 0, sizeof(v21));
+  __brc_create_section(0, "[BRCAccountSession _fixupItemsAtStartup]_block_invoke_2", 2008, 0, v21);
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_269_cold_1(v22);
+    __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_269_cold_1();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v5)
   {
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v18 + 1) + 8 * v7++) scheduleSyncDown];
+        [*(*(&v17 + 1) + 8 * v7++) scheduleSyncDown];
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v5);
   }
 
   v8 = *(a1 + 40);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_270;
-  v17[3] = &unk_2785060A0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_270;
+  v16[3] = &unk_2785060A0;
   v9 = *(a1 + 56);
-  v17[4] = v8;
-  v17[5] = v9;
-  [v8 enumerateServerZones:v17];
+  v16[4] = v8;
+  v16[5] = v9;
+  [v8 enumerateServerZones:v16];
   v10 = *(a1 + 48);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271;
-  v14[3] = &unk_2784FF788;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271;
+  v13[3] = &unk_2784FF788;
   v11 = v10;
   v12 = *(a1 + 40);
-  v15 = v11;
-  v16 = v12;
-  [v11 groupInBatch:v14];
+  v14 = v11;
+  v15 = v12;
+  [v11 groupInBatch:v13];
 
-  __brc_leave_section(v22);
-  v13 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v21);
 }
 
 uint64_t __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_270(uint64_t a1, void *a2)
@@ -15829,35 +17161,35 @@ uint64_t __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_270(uint64_t
 
 void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271(uint64_t a1, void *a2)
 {
-  v70 = *MEMORY[0x277D85DE8];
-  v46 = a2;
+  v69 = *MEMORY[0x277D85DE8];
+  v45 = a2;
   v3 = [*(a1 + 32) fetch:{@"SELECT rowid, zone_rowid, item_id, item_creator_id, item_sharing_options, item_side_car_ckinfo, item_parent_zone_rowid, item_localsyncupstate, item_local_diffs, item_notifs_rank, app_library_rowid, item_min_supported_os_rowid, item_user_visible, item_stat_ckinfo, item_state, item_type, item_mode, item_birthtime, item_lastusedtime, item_favoriterank, item_parent_id, item_filename, item_hidden_ext, item_finder_tags, item_xattr_signature, item_trash_put_back_path, item_trash_put_back_parent_id, item_alias_target, item_creator, item_processing_stamp, item_bouncedname, item_scope, item_local_change_count, item_old_version_identifier, fp_creation_item_identifier, version_name, version_ckinfo, version_mtime, version_size, version_thumb_size, version_thumb_signature, version_content_signature, version_xattr_signature, version_edited_since_shared, version_device, version_conflict_loser_etags, version_quarantine_info, version_uploaded_assets, version_upload_error, version_old_zone_item_id, version_old_zone_rowid, version_local_change_count, version_old_version_identifier, item_live_conflict_loser_etags, item_file_id, item_generation FROM client_items WHERE item_localsyncupstate = 7"}];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_3_275;
-  v58[3] = &unk_2784FF910;
-  v47 = a1;
-  v58[4] = *(a1 + 40);
-  v4 = [v3 enumerateObjects:v58];
-  v5 = [v4 countByEnumeratingWithState:&v59 objects:v69 count:16];
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_3_275;
+  v57[3] = &unk_2784FF910;
+  v46 = a1;
+  v57[4] = *(a1 + 40);
+  v4 = [v3 enumerateObjects:v57];
+  v5 = [v4 countByEnumeratingWithState:&v58 objects:v68 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v60;
+    v7 = *v59;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v60 != v7)
+        if (*v59 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v59 + 1) + 8 * i);
+        v9 = *(*(&v58 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         v11 = [v9 asDocument];
         [v11 reIngestFromFileProvider];
@@ -15865,49 +17197,49 @@ void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271(uint64_t a
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v59 objects:v69 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v58 objects:v68 count:16];
     }
 
     while (v6);
   }
 
-  v12 = [*(*(v47 + 40) + 200) fetch:{@"SELECT ci.rowid, ci.zone_rowid, ci.item_id, ci.item_creator_id, ci.item_sharing_options, ci.item_side_car_ckinfo, ci.item_parent_zone_rowid, ci.item_localsyncupstate, ci.item_local_diffs, ci.item_notifs_rank, ci.app_library_rowid, ci.item_min_supported_os_rowid, ci.item_user_visible, ci.item_stat_ckinfo, ci.item_state, ci.item_type, ci.item_mode, ci.item_birthtime, ci.item_lastusedtime, ci.item_favoriterank, ci.item_parent_id, ci.item_filename, ci.item_hidden_ext, ci.item_finder_tags, ci.item_xattr_signature, ci.item_trash_put_back_path, ci.item_trash_put_back_parent_id, ci.item_alias_target, ci.item_creator, ci.item_processing_stamp, ci.item_bouncedname, ci.item_scope, ci.item_local_change_count, ci.item_old_version_identifier, ci.fp_creation_item_identifier, ci.version_name, ci.version_ckinfo, ci.version_mtime, ci.version_size, ci.version_thumb_size, ci.version_thumb_signature, ci.version_content_signature, ci.version_xattr_signature, ci.version_edited_since_shared, ci.version_device, ci.version_conflict_loser_etags, ci.version_quarantine_info, ci.version_uploaded_assets, ci.version_upload_error, ci.version_old_zone_item_id, ci.version_old_zone_rowid, ci.version_local_change_count, ci.version_old_version_identifier, ci.item_live_conflict_loser_etags, ci.item_file_id, ci.item_generation FROM client_items AS ci WHERE ci.item_localsyncupstate = 4 AND item_min_supported_os_rowid IS NULL AND NOT EXISTS (SELECT 1 FROM client_sync_up AS su WHERE su.throttle_id = ci.rowid AND su.throttle_state != 0)"}];
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
+  v12 = [*(*(v46 + 40) + 200) fetch:{@"SELECT ci.rowid, ci.zone_rowid, ci.item_id, ci.item_creator_id, ci.item_sharing_options, ci.item_side_car_ckinfo, ci.item_parent_zone_rowid, ci.item_localsyncupstate, ci.item_local_diffs, ci.item_notifs_rank, ci.app_library_rowid, ci.item_min_supported_os_rowid, ci.item_user_visible, ci.item_stat_ckinfo, ci.item_state, ci.item_type, ci.item_mode, ci.item_birthtime, ci.item_lastusedtime, ci.item_favoriterank, ci.item_parent_id, ci.item_filename, ci.item_hidden_ext, ci.item_finder_tags, ci.item_xattr_signature, ci.item_trash_put_back_path, ci.item_trash_put_back_parent_id, ci.item_alias_target, ci.item_creator, ci.item_processing_stamp, ci.item_bouncedname, ci.item_scope, ci.item_local_change_count, ci.item_old_version_identifier, ci.fp_creation_item_identifier, ci.version_name, ci.version_ckinfo, ci.version_mtime, ci.version_size, ci.version_thumb_size, ci.version_thumb_signature, ci.version_content_signature, ci.version_xattr_signature, ci.version_edited_since_shared, ci.version_device, ci.version_conflict_loser_etags, ci.version_quarantine_info, ci.version_uploaded_assets, ci.version_upload_error, ci.version_old_zone_item_id, ci.version_old_zone_rowid, ci.version_local_change_count, ci.version_old_version_identifier, ci.item_live_conflict_loser_etags, ci.item_file_id, ci.item_generation FROM client_items AS ci WHERE ci.item_localsyncupstate = 4 AND item_min_supported_os_rowid IS NULL AND NOT EXISTS (SELECT 1 FROM client_sync_up AS su WHERE su.throttle_id = ci.rowid AND su.throttle_state != 0)"}];
   v55 = 0u;
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_4;
-  v53[3] = &unk_2784FF910;
-  v53[4] = *(v47 + 40);
-  v44 = v12;
-  v13 = [v12 enumerateObjects:v53];
-  v14 = [v13 countByEnumeratingWithState:&v54 objects:v68 count:16];
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_4;
+  v52[3] = &unk_2784FF910;
+  v52[4] = *(v46 + 40);
+  v43 = v12;
+  v13 = [v12 enumerateObjects:v52];
+  v14 = [v13 countByEnumeratingWithState:&v53 objects:v67 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v55;
+    v17 = *v54;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v55 != v17)
+        if (*v54 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v54 + 1) + 8 * j);
+        v19 = *(*(&v53 + 1) + 8 * j);
         v20 = objc_autoreleasePoolPush();
         v21 = brc_bread_crumbs();
         v22 = brc_default_log();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v65 = v19;
-          v66 = 2112;
-          v67 = v21;
+          v64 = v19;
+          v65 = 2112;
+          v66 = v21;
           _os_log_fault_impl(&dword_223E7A000, v22, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: %@ is missing a sync up throttle%@", buf, 0x16u);
         }
 
@@ -15918,7 +17250,7 @@ void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271(uint64_t a
         if ([v19 isSharedToMeChildItem])
         {
           [v19 markLatestSyncRequestFailedInZone:&unk_2837B0490];
-          [*(*(v47 + 40) + 624) scheduleSyncUpForSideCar];
+          [*(*(v46 + 40) + 624) scheduleSyncUpForSideCar];
           v16 = 1;
         }
 
@@ -15933,7 +17265,7 @@ void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271(uint64_t a
         objc_autoreleasePoolPop(v20);
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v54 objects:v68 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v53 objects:v67 count:16];
     }
 
     while (v15);
@@ -15944,42 +17276,42 @@ void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271(uint64_t a
     v16 = 0;
   }
 
-  v27 = [*(*(v47 + 40) + 200) fetch:{@"SELECT ci.rowid, ci.zone_rowid, ci.item_id, ci.item_creator_id, ci.item_sharing_options, ci.item_side_car_ckinfo, ci.item_parent_zone_rowid, ci.item_localsyncupstate, ci.item_local_diffs, ci.item_notifs_rank, ci.app_library_rowid, ci.item_min_supported_os_rowid, ci.item_user_visible, ci.item_stat_ckinfo, ci.item_state, ci.item_type, ci.item_mode, ci.item_birthtime, ci.item_lastusedtime, ci.item_favoriterank, ci.item_parent_id, ci.item_filename, ci.item_hidden_ext, ci.item_finder_tags, ci.item_xattr_signature, ci.item_trash_put_back_path, ci.item_trash_put_back_parent_id, ci.item_alias_target, ci.item_creator, ci.item_processing_stamp, ci.item_bouncedname, ci.item_scope, ci.item_local_change_count, ci.item_old_version_identifier, ci.fp_creation_item_identifier, ci.version_name, ci.version_ckinfo, ci.version_mtime, ci.version_size, ci.version_thumb_size, ci.version_thumb_signature, ci.version_content_signature, ci.version_xattr_signature, ci.version_edited_since_shared, ci.version_device, ci.version_conflict_loser_etags, ci.version_quarantine_info, ci.version_uploaded_assets, ci.version_upload_error, ci.version_old_zone_item_id, ci.version_old_zone_rowid, ci.version_local_change_count, ci.version_old_version_identifier, ci.item_live_conflict_loser_etags, ci.item_file_id, ci.item_generation FROM client_items AS ci LEFT JOIN client_sync_up AS su ON su.throttle_id = ci.rowid AND su.zone_rowid = ci.zone_rowid LEFT JOIN client_uploads AS cu ON cu.throttle_id = ci.rowid AND cu.zone_rowid = ci.zone_rowid WHERE ci.item_localsyncupstate = 3 AND ci.item_localsyncupstate != 0 AND ci.item_type IN (1, 6) AND (IFNULL(cu.throttle_state, 0) = 0 OR (cu.throttle_state = 31 AND IFNULL(su.throttle_state, 0) = 0))"}];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
+  v27 = [*(*(v46 + 40) + 200) fetch:{@"SELECT ci.rowid, ci.zone_rowid, ci.item_id, ci.item_creator_id, ci.item_sharing_options, ci.item_side_car_ckinfo, ci.item_parent_zone_rowid, ci.item_localsyncupstate, ci.item_local_diffs, ci.item_notifs_rank, ci.app_library_rowid, ci.item_min_supported_os_rowid, ci.item_user_visible, ci.item_stat_ckinfo, ci.item_state, ci.item_type, ci.item_mode, ci.item_birthtime, ci.item_lastusedtime, ci.item_favoriterank, ci.item_parent_id, ci.item_filename, ci.item_hidden_ext, ci.item_finder_tags, ci.item_xattr_signature, ci.item_trash_put_back_path, ci.item_trash_put_back_parent_id, ci.item_alias_target, ci.item_creator, ci.item_processing_stamp, ci.item_bouncedname, ci.item_scope, ci.item_local_change_count, ci.item_old_version_identifier, ci.fp_creation_item_identifier, ci.version_name, ci.version_ckinfo, ci.version_mtime, ci.version_size, ci.version_thumb_size, ci.version_thumb_signature, ci.version_content_signature, ci.version_xattr_signature, ci.version_edited_since_shared, ci.version_device, ci.version_conflict_loser_etags, ci.version_quarantine_info, ci.version_uploaded_assets, ci.version_upload_error, ci.version_old_zone_item_id, ci.version_old_zone_rowid, ci.version_local_change_count, ci.version_old_version_identifier, ci.item_live_conflict_loser_etags, ci.item_file_id, ci.item_generation FROM client_items AS ci LEFT JOIN client_sync_up AS su ON su.throttle_id = ci.rowid AND su.zone_rowid = ci.zone_rowid LEFT JOIN client_uploads AS cu ON cu.throttle_id = ci.rowid AND cu.zone_rowid = ci.zone_rowid WHERE ci.item_localsyncupstate = 3 AND ci.item_localsyncupstate != 0 AND ci.item_type IN (1, 6) AND (IFNULL(cu.throttle_state, 0) = 0 OR (cu.throttle_state = 31 AND IFNULL(su.throttle_state, 0) = 0))"}];
   v50 = 0u;
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_283;
-  v48[3] = &unk_2784FF910;
-  v48[4] = *(v47 + 40);
-  v45 = v27;
-  v28 = [v27 enumerateObjects:v48];
-  v29 = [v28 countByEnumeratingWithState:&v49 objects:v63 count:16];
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_283;
+  v47[3] = &unk_2784FF910;
+  v47[4] = *(v46 + 40);
+  v44 = v27;
+  v28 = [v27 enumerateObjects:v47];
+  v29 = [v28 countByEnumeratingWithState:&v48 objects:v62 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v50;
+    v31 = *v49;
     do
     {
       for (k = 0; k != v30; ++k)
       {
-        if (*v50 != v31)
+        if (*v49 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = *(*(&v49 + 1) + 8 * k);
+        v33 = *(*(&v48 + 1) + 8 * k);
         v34 = objc_autoreleasePoolPush();
         v35 = brc_bread_crumbs();
         v36 = brc_default_log();
         if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v65 = v33;
-          v66 = 2112;
-          v67 = v35;
+          v64 = v33;
+          v65 = 2112;
+          v66 = v35;
           _os_log_fault_impl(&dword_223E7A000, v36, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: %@ has a corrupt upload throttle%@", buf, 0x16u);
         }
 
@@ -15990,7 +17322,7 @@ void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271(uint64_t a
         objc_autoreleasePoolPop(v34);
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v49 objects:v63 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v48 objects:v62 count:16];
     }
 
     while (v30);
@@ -15998,12 +17330,12 @@ void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271(uint64_t a
 
   if ((v16 & 1) == 0)
   {
-    v38 = [*(*(v47 + 40) + 624) sideCarSyncPersistedState];
+    v38 = [*(*(v46 + 40) + 624) sideCarSyncPersistedState];
     v39 = [v38 needsSync];
 
     if ((v39 & 1) == 0)
     {
-      v40 = [*(*(v47 + 40) + 200) numberWithSQL:{@"SELECT throttle_id FROM client_sync_up WHERE zone_rowid = %@ AND throttle_state != 0", &unk_2837B0490}];
+      v40 = [*(*(v46 + 40) + 200) numberWithSQL:{@"SELECT throttle_id FROM client_sync_up WHERE zone_rowid = %@ AND throttle_state != 0", &unk_2837B0490}];
       if ([v40 BOOLValue])
       {
         v41 = brc_bread_crumbs();
@@ -16013,12 +17345,10 @@ void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271(uint64_t a
           __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271_cold_1();
         }
 
-        [*(*(v47 + 40) + 624) scheduleSyncUpForSideCar];
+        [*(*(v46 + 40) + 624) scheduleSyncUpForSideCar];
       }
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 id __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_3_275(uint64_t a1, void *a2, uint64_t a3)
@@ -16061,7 +17391,7 @@ id __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_283(uint64_t a1, v
 
 - (void)resumeIfNecessary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!self->_offline)
   {
     [(BRCAccountSession *)self _assertQOS:17];
@@ -16076,43 +17406,43 @@ id __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_283(uint64_t a1, v
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v21 = selfCopy;
-      v22 = 2112;
-      v23 = v4;
+      v20 = selfCopy;
+      v21 = 2112;
+      v22 = v4;
       _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ already resumed%@", buf, 0x16u);
     }
 
     objc_sync_exit(selfCopy);
-    goto LABEL_25;
+    return;
   }
 
   selfCopy->_resumed = 1;
   objc_sync_exit(selfCopy);
 
-  memset(v19, 0, sizeof(v19));
-  __brc_create_section(1, "[BRCAccountSession resumeIfNecessary]", 2119, 0, v19);
+  memset(v18, 0, sizeof(v18));
+  __brc_create_section(1, "[BRCAccountSession resumeIfNecessary]", 2119, 0, v18);
   v6 = brc_bread_crumbs();
   v7 = brc_default_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 134218498;
-    v21 = v19[0];
-    v22 = 2112;
-    v23 = selfCopy;
-    v24 = 2112;
-    v25 = v6;
+    v20 = v18[0];
+    v21 = 2112;
+    v22 = selfCopy;
+    v23 = 2112;
+    v24 = v6;
     _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_INFO, "[INFO] ┏%llx %@ - Resuming session%@", buf, 0x20u);
   }
 
   [(BRCAnalyticsReporter *)selfCopy->_analyticsReporter registerBackgroundXPCActivities];
   [(BRCFairScheduler *)selfCopy->_fairClientDBScheduler resume];
   clientTruthWorkloop = selfCopy->_clientTruthWorkloop;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __38__BRCAccountSession_resumeIfNecessary__block_invoke;
-  v18[3] = &unk_2784FF450;
-  v18[4] = selfCopy;
-  dispatch_async_and_wait(clientTruthWorkloop, v18);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __38__BRCAccountSession_resumeIfNecessary__block_invoke;
+  v17[3] = &unk_2784FF450;
+  v17[4] = selfCopy;
+  dispatch_async_and_wait(clientTruthWorkloop, v17);
   [(BRCDeadlineScheduler *)selfCopy->_defaultScheduler resume];
   if (!self->_offline)
   {
@@ -16181,9 +17511,7 @@ LABEL_21:
   }
 
   [(BRCAccountSession *)selfCopy runDatabaseFixups];
-  __brc_leave_section(v19);
-LABEL_25:
-  v17 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v18);
 }
 
 - (void)waitForUploadsToCompleteInSyncBubbleWithReply:(id)reply
@@ -16269,25 +17597,25 @@ LABEL_6:
 
 - (void)captureSessionOpenFailedInfoWithError:(id)error
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   br_accountSessionOpenErrorInfoPath = [MEMORY[0x277CCACA8] br_accountSessionOpenErrorInfoPath];
-  v23 = @"Error";
+  v22 = @"Error";
   brc_errorAccountSessionOpenFailed = errorCopy;
   if (!errorCopy)
   {
     brc_errorAccountSessionOpenFailed = [MEMORY[0x277CCA9B8] brc_errorAccountSessionOpenFailed];
   }
 
-  v24[0] = brc_errorAccountSessionOpenFailed;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v23[0] = brc_errorAccountSessionOpenFailed;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
   if (!errorCopy)
   {
   }
 
-  v16 = 0;
-  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v15];
+  v8 = v15;
   if (!v7)
   {
     v9 = brc_bread_crumbs();
@@ -16295,11 +17623,11 @@ LABEL_6:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412802;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v9;
+      v17 = v6;
+      v18 = 2112;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
       _os_log_fault_impl(&dword_223E7A000, v10, OS_LOG_TYPE_FAULT, "[CRIT] Failed to encode session open failed info %@: %@%@", buf, 0x20u);
     }
   }
@@ -16314,11 +17642,11 @@ LABEL_6:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v18 = br_accountSessionOpenErrorInfoPath;
-      v19 = 2112;
-      v20 = v6;
-      v21 = 2112;
-      v22 = v13;
+      v17 = br_accountSessionOpenErrorInfoPath;
+      v18 = 2112;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v13;
       _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] Successfully created %@ - with data - %@%@", buf, 0x20u);
     }
   }
@@ -16332,13 +17660,11 @@ LABEL_6:
       [BRCAccountSession captureSessionOpenFailedInfoWithError:];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)captureDBCorruptionInfoWithDescription:(id)description error:(id)error
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   errorCopy = error;
   if (([errorCopy br_isCloudDocsErrorCode:99] & 1) == 0)
@@ -16351,24 +17677,24 @@ LABEL_6:
       br_corruptedDBInfoPath = br_reimportDomainErrorInfoPath;
     }
 
-    v27[0] = @"Description";
-    v27[1] = @"Error";
-    v28[0] = descriptionCopy;
+    v26[0] = @"Description";
+    v26[1] = @"Error";
+    v27[0] = descriptionCopy;
     brc_errorCorruptedDB = errorCopy;
     if (!errorCopy)
     {
       brc_errorCorruptedDB = [MEMORY[0x277CCA9B8] brc_errorCorruptedDB];
     }
 
-    v28[1] = brc_errorCorruptedDB;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v27[1] = brc_errorCorruptedDB;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
     if (!errorCopy)
     {
     }
 
-    v20 = 0;
-    v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v20];
-    v12 = v20;
+    v19 = 0;
+    v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v19];
+    v12 = v19;
     if (!v11)
     {
       v13 = brc_bread_crumbs();
@@ -16376,11 +17702,11 @@ LABEL_6:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        v22 = v10;
-        v23 = 2112;
-        v24 = v12;
-        v25 = 2112;
-        v26 = v13;
+        v21 = v10;
+        v22 = 2112;
+        v23 = v12;
+        v24 = 2112;
+        v25 = v13;
         _os_log_fault_impl(&dword_223E7A000, v14, OS_LOG_TYPE_FAULT, "[CRIT] Failed to encode corruption info %@: %@%@", buf, 0x20u);
       }
     }
@@ -16395,11 +17721,11 @@ LABEL_6:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v22 = br_corruptedDBInfoPath;
-        v23 = 2112;
-        v24 = v10;
-        v25 = 2112;
-        v26 = v17;
+        v21 = br_corruptedDBInfoPath;
+        v22 = 2112;
+        v23 = v10;
+        v24 = 2112;
+        v25 = v17;
         _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] Successfully created %@ - with data - %@%@", buf, 0x20u);
       }
     }
@@ -16414,8 +17740,6 @@ LABEL_6:
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isConsolidatedAccount
@@ -16428,30 +17752,29 @@ LABEL_6:
 
 - (void)close
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)closeAndResetLocalStateWithDescription:(id)description error:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   errorCopy = error;
-  memset(v18, 0, sizeof(v18));
-  __brc_create_section(1, "[BRCAccountSession closeAndResetLocalStateWithDescription:error:]", 2537, 0, v18);
+  memset(v17, 0, sizeof(v17));
+  __brc_create_section(1, "[BRCAccountSession closeAndResetLocalStateWithDescription:error:]", 2537, 0, v17);
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 134218498;
-    v20 = v18[0];
-    v21 = 2112;
+    v19 = v17[0];
+    v20 = 2112;
     selfCopy = self;
-    v23 = 2112;
-    v24 = v8;
+    v22 = 2112;
+    v23 = v8;
     _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_INFO, "[INFO] ┏%llx %@ - Resetting local state%@", buf, 0x20u);
   }
 
@@ -16509,26 +17832,23 @@ LABEL_13:
   accountHandler = self->_accountHandler;
   self->_accountHandler = v11;
 
-  __brc_leave_section(v18);
-  v17 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v17);
 }
 
 - (void)_validatePersona
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = brc_append_system_info_to_message();
   OUTLINED_FUNCTION_1_0();
-  v9 = a2;
-  OUTLINED_FUNCTION_15_0(&dword_223E7A000, a3, v6, "[CRIT] %@%@", v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = a2;
+  OUTLINED_FUNCTION_15_0(&dword_223E7A000, a3, v6, "[CRIT] %@%@", v7);
 }
 
 - (BOOL)_recursivelyPrepareFolderForLogOutAtURL:(id)l pruneEmptyFolders:(BOOL)folders pruneEmptyTopLevelFolder:(BOOL)folder maxDepth:(unint64_t)depth
 {
   folderCopy = folder;
   foldersCopy = folders;
-  v114[4] = *MEMORY[0x277D85DE8];
+  v113[4] = *MEMORY[0x277D85DE8];
   lCopy = l;
   v10 = lCopy;
   if (depth)
@@ -16541,49 +17861,49 @@ LABEL_13:
       maxRelativePathDepth = [v12 maxRelativePathDepth];
 
       v14 = *MEMORY[0x277CBE8A8];
-      v84 = *MEMORY[0x277CBE868];
-      v114[0] = *MEMORY[0x277CBE868];
-      v114[1] = v14;
-      v94 = v14;
+      v83 = *MEMORY[0x277CBE868];
+      v113[0] = *MEMORY[0x277CBE868];
+      v113[1] = v14;
+      v93 = v14;
       v15 = *MEMORY[0x277CBE8B0];
-      v92 = *MEMORY[0x277CBE890];
-      v114[2] = *MEMORY[0x277CBE890];
-      v114[3] = v15;
-      v95 = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:4];
+      v91 = *MEMORY[0x277CBE890];
+      v113[2] = *MEMORY[0x277CBE890];
+      v113[3] = v15;
+      v94 = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:4];
       v17 = 1;
       v18 = [defaultManager enumeratorAtURL:v10 includingPropertiesForKeys:v16 options:1 errorHandler:&__block_literal_global_309];
 
       v19 = [BRCUserDefaults defaultsForMangledID:0];
       uploadMaxFileSize = [v19 uploadMaxFileSize];
       uploadMaxPkgFileSize = [v19 uploadMaxPkgFileSize];
+      v104 = 0u;
       v105 = 0u;
       v106 = 0u;
       v107 = 0u;
-      v108 = 0u;
       obj = v18;
-      v99 = [obj countByEnumeratingWithState:&v105 objects:v113 count:16];
-      if (v99)
+      v98 = [obj countByEnumeratingWithState:&v104 objects:v112 count:16];
+      if (v98)
       {
-        v79 = v19;
-        v80 = folderCopy;
-        v81 = defaultManager;
-        v82 = v10;
-        v88 = 2 * maxRelativePathDepth;
-        v83 = depth - 1;
-        v97 = 0;
-        v98 = *v106;
+        v78 = v19;
+        v79 = folderCopy;
+        v80 = defaultManager;
+        v81 = v10;
+        v87 = 2 * maxRelativePathDepth;
+        v82 = depth - 1;
+        v96 = 0;
+        v97 = *v105;
         v20 = selfCopy;
         while (1)
         {
-          for (i = 0; i != v99; ++i)
+          for (i = 0; i != v98; ++i)
           {
-            if (*v106 != v98)
+            if (*v105 != v97)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v105 + 1) + 8 * i);
+            v22 = *(*(&v104 + 1) + 8 * i);
             context = objc_autoreleasePoolPush();
             v23 = [BRCUserDefaults defaultsForMangledID:0];
             excludedFilenamesWorthPreserving = [v23 excludedFilenamesWorthPreserving];
@@ -16596,9 +17916,9 @@ LABEL_13:
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v110 = v22;
-              v111 = 2112;
-              v112 = v27;
+              v109 = v22;
+              v110 = 2112;
+              v111 = v27;
               _os_log_debug_impl(&dword_223E7A000, v28, OS_LOG_TYPE_DEBUG, "[DEBUG] enumerate URL [%@]%@", buf, 0x16u);
             }
 
@@ -16610,9 +17930,9 @@ LABEL_13:
               {
                 path = [v22 path];
                 *buf = 138412546;
-                v110 = path;
-                v111 = 2112;
-                v112 = v29;
+                v109 = path;
+                v110 = 2112;
+                v111 = v29;
                 _os_log_debug_impl(&dword_223E7A000, v30, OS_LOG_TYPE_DEBUG, "[DEBUG] unlinking br security bookmark %@%@", buf, 0x16u);
               }
 
@@ -16627,9 +17947,9 @@ LABEL_13:
               goto LABEL_57;
             }
 
-            v104 = 0;
-            v37 = [v22 getResourceValue:&v104 forKey:v95 error:0];
-            v38 = v104;
+            v103 = 0;
+            v37 = [v22 getResourceValue:&v103 forKey:v94 error:0];
+            v38 = v103;
             v36 = v38;
             if (v37 && [v38 BOOLValue])
             {
@@ -16639,9 +17959,9 @@ LABEL_13:
               {
                 path3 = [v22 path];
                 *buf = 138412546;
-                v110 = path3;
-                v111 = 2112;
-                v112 = v39;
+                v109 = path3;
+                v110 = 2112;
+                v111 = v39;
                 _os_log_debug_impl(&dword_223E7A000, v40, OS_LOG_TYPE_DEBUG, "[DEBUG] unlinking symlink %@%@", buf, 0x16u);
               }
 
@@ -16666,9 +17986,9 @@ LABEL_13:
               {
                 path6 = [v22 path];
                 *buf = 138412546;
-                v110 = path6;
-                v111 = 2112;
-                v112 = v45;
+                v109 = path6;
+                v110 = 2112;
+                v111 = v45;
                 _os_log_debug_impl(&dword_223E7A000, v46, OS_LOG_TYPE_DEBUG, "[DEBUG] keeping preserved item %@%@", buf, 0x16u);
               }
 
@@ -16677,9 +17997,9 @@ LABEL_13:
               goto LABEL_23;
             }
 
-            v103 = 0;
-            v47 = [v22 getResourceValue:&v103 forKey:v94 error:0];
-            v48 = v103;
+            v102 = 0;
+            v47 = [v22 getResourceValue:&v102 forKey:v93 error:0];
+            v48 = v102;
             v33 = v48;
             if (v47 && ([v48 BOOLValue] & 1) != 0)
             {
@@ -16707,9 +18027,9 @@ LABEL_29:
                 {
                   path8 = [v22 path];
                   *buf = 138412546;
-                  v110 = path8;
-                  v111 = 2112;
-                  v112 = v45;
+                  v109 = path8;
+                  v110 = 2112;
+                  v111 = v45;
                   _os_log_debug_impl(&dword_223E7A000, v46, OS_LOG_TYPE_DEBUG, "[DEBUG] keeping item too large to upload %@%@", buf, 0x16u);
                 }
 
@@ -16717,16 +18037,16 @@ LABEL_23:
 
                 v35 = 0;
 LABEL_56:
-                ++v97;
+                ++v96;
                 goto LABEL_57;
               }
 
               goto LABEL_35;
             }
 
-            v102 = 0;
-            v49 = [v22 getResourceValue:&v102 forKey:v92 error:0];
-            v50 = v102;
+            v101 = 0;
+            v49 = [v22 getResourceValue:&v101 forKey:v91 error:0];
+            v50 = v101;
             v34 = v50;
             if (v49 && [v50 BOOLValue])
             {
@@ -16741,7 +18061,7 @@ LABEL_38:
               if (foldersCopy)
               {
                 path9 = [v22 path];
-                v57 = [path9 br_isExcludedWithMaximumDepth:v88];
+                v57 = [path9 br_isExcludedWithMaximumDepth:v87];
 
                 if (v57)
                 {
@@ -16750,11 +18070,11 @@ LABEL_38:
                   if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
                   {
                     [v22 path];
-                    v60 = v85 = v58;
+                    v60 = v84 = v58;
                     *buf = 138412546;
-                    v110 = v60;
-                    v111 = 2112;
-                    v112 = v85;
+                    v109 = v60;
+                    v110 = 2112;
+                    v111 = v84;
                     v61 = v59;
                     v62 = "[DEBUG] unlinking excluded item %@%@";
                     goto LABEL_53;
@@ -16773,11 +18093,11 @@ LABEL_38:
                   if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
                   {
                     [v22 path];
-                    v60 = v85 = v58;
+                    v60 = v84 = v58;
                     *buf = 138412546;
-                    v110 = v60;
-                    v111 = 2112;
-                    v112 = v85;
+                    v109 = v60;
+                    v110 = 2112;
+                    v111 = v84;
                     v61 = v59;
                     v62 = "[DEBUG] unlinking .localized file %@%@";
                     goto LABEL_53;
@@ -16788,9 +18108,9 @@ LABEL_38:
 
                 lastPathComponent2 = [v22 lastPathComponent];
                 br_pathExtension = [lastPathComponent2 br_pathExtension];
-                v86 = [br_pathExtension isEqualToString:@"app"];
+                v85 = [br_pathExtension isEqualToString:@"app"];
 
-                if (v86)
+                if (v85)
                 {
                   path10 = [v22 path];
                   v71 = BRCGetXattrValueForKeyOnPath(path10, @"com.apple.clouddocs.app-uploaded");
@@ -16802,24 +18122,24 @@ LABEL_38:
                     if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
                     {
                       [v22 path];
-                      v60 = v85 = v58;
+                      v60 = v84 = v58;
                       *buf = 138412546;
-                      v110 = v60;
-                      v111 = 2112;
-                      v112 = v85;
+                      v109 = v60;
+                      v110 = 2112;
+                      v111 = v84;
                       v61 = v59;
                       v62 = "[DEBUG] unlinking uploaded .app file %@%@";
 LABEL_53:
                       _os_log_debug_impl(&dword_223E7A000, v61, OS_LOG_TYPE_DEBUG, v62, buf, 0x16u);
 
-                      v58 = v85;
+                      v58 = v84;
                     }
 
 LABEL_54:
 
-                    v87 = selfCopy->_fileUnlinker;
+                    v86 = selfCopy->_fileUnlinker;
                     path11 = [v22 path];
-                    [(BRCFileUnlinker *)v87 renameAndUnlinkInBackgroundItemAtPath:path11];
+                    [(BRCFileUnlinker *)v86 renameAndUnlinkInBackgroundItemAtPath:path11];
 
                     v20 = selfCopy;
                     goto LABEL_57;
@@ -16832,16 +18152,16 @@ LABEL_54:
               goto LABEL_56;
             }
 
-            v101 = 0;
-            v63 = [v22 getResourceValue:&v101 forKey:v84 error:0];
-            v64 = v101;
+            v100 = 0;
+            v63 = [v22 getResourceValue:&v100 forKey:v83 error:0];
+            v64 = v100;
             v35 = v64;
             if (!v63 || ([v64 BOOLValue] & 1) == 0)
             {
               goto LABEL_38;
             }
 
-            if (![(BRCAccountSession *)v20 _recursivelyPrepareFolderForLogOutAtURL:v22 pruneEmptyFolders:foldersCopy pruneEmptyTopLevelFolder:0 maxDepth:v83])
+            if (![(BRCAccountSession *)v20 _recursivelyPrepareFolderForLogOutAtURL:v22 pruneEmptyFolders:foldersCopy pruneEmptyTopLevelFolder:0 maxDepth:v82])
             {
               goto LABEL_56;
             }
@@ -16851,14 +18171,14 @@ LABEL_57:
             objc_autoreleasePoolPop(context);
           }
 
-          v99 = [obj countByEnumeratingWithState:&v105 objects:v113 count:16];
-          if (!v99)
+          v98 = [obj countByEnumeratingWithState:&v104 objects:v112 count:16];
+          if (!v98)
           {
-            v17 = v97 == 0;
-            defaultManager = v81;
-            v10 = v82;
-            folderCopy = v80;
-            v19 = v79;
+            v17 = v96 == 0;
+            defaultManager = v80;
+            v10 = v81;
+            folderCopy = v79;
+            v19 = v78;
             break;
           }
         }
@@ -16890,29 +18210,27 @@ LABEL_57:
     LOBYTE(v17) = 0;
   }
 
-  v77 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 uint64_t __113__BRCAccountSession__recursivelyPrepareFolderForLogOutAtURL_pruneEmptyFolders_pruneEmptyTopLevelFolder_maxDepth___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = brc_bread_crumbs();
   v7 = brc_default_log();
   if (os_log_type_enabled(v7, 0x90u))
   {
-    v10 = 138412802;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_error_impl(&dword_223E7A000, v7, 0x90u, "[ERROR] Unable to enumerate URL [%@] with Error [%@]%@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_error_impl(&dword_223E7A000, v7, 0x90u, "[ERROR] Unable to enumerate URL [%@] with Error [%@]%@", &v9, 0x20u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -16958,19 +18276,19 @@ uint64_t __61__BRCAccountSession__unlinkContainersWithRootURL_containers___block
 
 - (void)destroyLocalData
 {
-  v24 = *MEMORY[0x277D85DE8];
-  memset(v17, 0, sizeof(v17));
-  __brc_create_section(0, "[BRCAccountSession destroyLocalData]", 2776, 0, v17);
+  v23 = *MEMORY[0x277D85DE8];
+  memset(v16, 0, sizeof(v16));
+  __brc_create_section(0, "[BRCAccountSession destroyLocalData]", 2776, 0, v16);
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v19 = v17[0];
-    v20 = 2112;
+    v18 = v16[0];
+    v19 = 2112;
     selfCopy = self;
-    v22 = 2112;
-    v23 = v3;
+    v21 = 2112;
+    v22 = v3;
     _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx destroying local account data for %@%@", buf, 0x20u);
   }
 
@@ -16991,25 +18309,23 @@ uint64_t __61__BRCAccountSession__unlinkContainersWithRootURL_containers___block
   self->_sessionDirPath = 0;
 
   dispatch_group_async(v5, v8, &__block_literal_global_321);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __37__BRCAccountSession_destroyLocalData__block_invoke_322;
-  v15[3] = &unk_2784FF450;
-  v16 = v9;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __37__BRCAccountSession_destroyLocalData__block_invoke_322;
+  v14[3] = &unk_2784FF450;
+  v15 = v9;
   v13 = v9;
-  dispatch_group_notify(v5, v8, v15);
+  dispatch_group_notify(v5, v8, v14);
 
-  __brc_leave_section(v17);
-  v14 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v16);
 }
 
 void __37__BRCAccountSession_destroyLocalData__block_invoke()
 {
-  v0 = *MEMORY[0x277D6C230];
   TCCAccessReset();
-  v1 = brc_bread_crumbs();
-  v2 = brc_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v0 = brc_bread_crumbs();
+  v1 = brc_default_log();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __37__BRCAccountSession_destroyLocalData__block_invoke_cold_1();
   }
@@ -17027,57 +18343,56 @@ void __37__BRCAccountSession_destroyLocalData__block_invoke_322()
 
 - (void)_loadClientZonesFromDisk
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 uint64_t __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v37 = a2;
+  v54 = *MEMORY[0x277D85DE8];
+  v36 = a2;
+  v45 = 0;
   v46 = 0;
   v47 = 0;
-  v48 = 0;
-  __brc_create_section(0, "[BRCAccountSession _loadClientZonesFromDisk]_block_invoke", 2819, 0, &v46);
+  __brc_create_section(0, "[BRCAccountSession _loadClientZonesFromDisk]_block_invoke", 2819, 0, &v45);
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_cold_1(&v46);
+    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_cold_1();
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
-  v5 = [*(a1 + 32) _privateServerZonesEnumerator:v37];
-  v6 = [v5 countByEnumeratingWithState:&v42 objects:v54 count:16];
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v5 = [*(a1 + 32) _privateServerZonesEnumerator:v36];
+  v6 = [v5 countByEnumeratingWithState:&v41 objects:v53 count:16];
   if (v6)
   {
-    v7 = *v43;
+    v7 = *v42;
     do
     {
       v8 = 0;
       do
       {
-        if (*v43 != v7)
+        if (*v42 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v42 + 1) + 8 * v8);
+        v9 = *(*(&v41 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
         v11 = brc_bread_crumbs();
         v12 = brc_default_log();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v51 = v9;
-          v52 = 2112;
-          v53 = v11;
+          v50 = v9;
+          v51 = 2112;
+          v52 = v11;
           _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] loaded server zone: %@%@", buf, 0x16u);
         }
 
@@ -17099,53 +18414,53 @@ uint64_t __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke(uint64_t
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v42 objects:v54 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v41 objects:v53 count:16];
     }
 
     while (v6);
   }
 
-  __brc_leave_section(&v46);
+  __brc_leave_section(&v45);
+  v45 = 0;
   v46 = 0;
   v47 = 0;
-  v48 = 0;
-  __brc_create_section(0, "[BRCAccountSession _loadClientZonesFromDisk]_block_invoke", 2830, 0, &v46);
+  __brc_create_section(0, "[BRCAccountSession _loadClientZonesFromDisk]_block_invoke", 2830, 0, &v45);
   v19 = brc_bread_crumbs();
   v20 = brc_default_log();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_cold_2(&v46);
+    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_cold_2();
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v21 = [*(a1 + 32) _sharedServerZonesEnumerator:v37];
-  v22 = [v21 countByEnumeratingWithState:&v38 objects:v49 count:16];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v21 = [*(a1 + 32) _sharedServerZonesEnumerator:v36];
+  v22 = [v21 countByEnumeratingWithState:&v37 objects:v48 count:16];
   if (v22)
   {
-    v23 = *v39;
+    v23 = *v38;
     do
     {
       v24 = 0;
       do
       {
-        if (*v39 != v23)
+        if (*v38 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        v25 = *(*(&v38 + 1) + 8 * v24);
+        v25 = *(*(&v37 + 1) + 8 * v24);
         v26 = objc_autoreleasePoolPush();
         v27 = brc_bread_crumbs();
         v28 = brc_default_log();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v51 = v25;
-          v52 = 2112;
-          v53 = v27;
+          v50 = v25;
+          v51 = 2112;
+          v52 = v27;
           _os_log_debug_impl(&dword_223E7A000, v28, OS_LOG_TYPE_DEBUG, "[DEBUG] loaded server zone: %@%@", buf, 0x16u);
         }
 
@@ -17167,51 +18482,50 @@ uint64_t __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke(uint64_t
       }
 
       while (v22 != v24);
-      v22 = [v21 countByEnumeratingWithState:&v38 objects:v49 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v37 objects:v48 count:16];
     }
 
     while (v22);
   }
 
-  __brc_leave_section(&v46);
-  v35 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v45);
   return 1;
 }
 
 uint64_t __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324(uint64_t a1, void *a2)
 {
-  v144 = *MEMORY[0x277D85DE8];
-  v102 = a2;
-  memset(v143, 0, sizeof(v143));
-  __brc_create_section(0, "[BRCAccountSession _loadClientZonesFromDisk]_block_invoke", 2848, 0, v143);
+  v143 = *MEMORY[0x277D85DE8];
+  v101 = a2;
+  memset(v142, 0, sizeof(v142));
+  __brc_create_section(0, "[BRCAccountSession _loadClientZonesFromDisk]_block_invoke", 2848, 0, v142);
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_1(v143);
+    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_1();
   }
 
-  v134 = 0u;
-  v135 = 0u;
-  v132 = 0u;
   v133 = 0u;
+  v134 = 0u;
+  v131 = 0u;
+  v132 = 0u;
   v5 = [*(a1 + 32) _privateClientZonesEnumerator];
-  v6 = [v5 countByEnumeratingWithState:&v132 objects:v142 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v131 objects:v141 count:16];
   if (v6)
   {
-    context = *v133;
-    v105 = *MEMORY[0x277CFABD0];
+    context = *v132;
+    v104 = *MEMORY[0x277CFABD0];
     obj = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v133 != context)
+        if (*v132 != context)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v132 + 1) + 8 * i);
+        v8 = *(*(&v131 + 1) + 8 * i);
         v9 = objc_autoreleasePoolPush();
         v10 = brc_bread_crumbs();
         v11 = brc_default_log();
@@ -17254,11 +18568,11 @@ uint64_t __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324(uint
             *&buf[12] = 2112;
             *&buf[14] = v14;
             *&buf[22] = 2112;
-            v141 = v18;
+            v140 = v18;
             _os_log_fault_impl(&dword_223E7A000, v19, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: [client|server]zoneNames mismatch:  %@ does not match with %@%@", buf, 0x20u);
           }
 
-          v20 = [MEMORY[0x277CCA9B8] errorWithDomain:v105 code:77 userInfo:0];
+          v20 = [MEMORY[0x277CCA9B8] errorWithDomain:v104 code:77 userInfo:0];
           [*(a1 + 32) dbBecameCorruptedWithDescription:@"Zone names mistmatch" error:v20];
         }
 
@@ -17282,45 +18596,45 @@ LABEL_20:
       }
 
       v5 = obj;
-      v6 = [obj countByEnumeratingWithState:&v132 objects:v142 count:16];
+      v6 = [obj countByEnumeratingWithState:&v131 objects:v141 count:16];
     }
 
     while (v6);
   }
 
-  __brc_leave_section(v143);
-  memset(v143, 0, sizeof(v143));
-  __brc_create_section(0, "[BRCAccountSession _loadClientZonesFromDisk]_block_invoke", 2874, 0, v143);
+  __brc_leave_section(v142);
+  memset(v142, 0, sizeof(v142));
+  __brc_create_section(0, "[BRCAccountSession _loadClientZonesFromDisk]_block_invoke", 2874, 0, v142);
   v25 = brc_bread_crumbs();
   v26 = brc_default_log();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_2(v143);
+    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_2();
   }
 
-  v130 = 0u;
-  v131 = 0u;
-  v128 = 0u;
   v129 = 0u;
+  v130 = 0u;
+  v127 = 0u;
+  v128 = 0u;
   v27 = [*(a1 + 32) _sharedClientZonesEnumerator];
-  v28 = [v27 countByEnumeratingWithState:&v128 objects:v139 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v127 objects:v138 count:16];
   if (v28)
   {
-    obja = *v129;
-    v106 = *MEMORY[0x277CFABD0];
-    v103 = v27;
+    obja = *v128;
+    v105 = *MEMORY[0x277CFABD0];
+    v102 = v27;
     do
     {
       v29 = 0;
       contexta = v28;
       do
       {
-        if (*v129 != obja)
+        if (*v128 != obja)
         {
-          objc_enumerationMutation(v103);
+          objc_enumerationMutation(v102);
         }
 
-        v30 = *(*(&v128 + 1) + 8 * v29);
+        v30 = *(*(&v127 + 1) + 8 * v29);
         v31 = objc_autoreleasePoolPush();
         v32 = brc_bread_crumbs();
         v33 = brc_default_log();
@@ -17372,11 +18686,11 @@ LABEL_20:
             *&buf[12] = 2112;
             *&buf[14] = v36;
             *&buf[22] = 2112;
-            v141 = v42;
+            v140 = v42;
             _os_log_fault_impl(&dword_223E7A000, v43, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: [client|server]zoneName or ownerss mismatch:  %@ does not match with %@%@", buf, 0x20u);
           }
 
-          v44 = [MEMORY[0x277CCA9B8] errorWithDomain:v106 code:78 userInfo:0];
+          v44 = [MEMORY[0x277CCA9B8] errorWithDomain:v105 code:78 userInfo:0];
           [*(a1 + 32) dbBecameCorruptedWithDescription:@"Zone names or owners mismatch" error:v44];
         }
 
@@ -17401,53 +18715,53 @@ LABEL_43:
       }
 
       while (contexta != v29);
-      v27 = v103;
-      v28 = [v103 countByEnumeratingWithState:&v128 objects:v139 count:16];
+      v27 = v102;
+      v28 = [v102 countByEnumeratingWithState:&v127 objects:v138 count:16];
     }
 
     while (v28);
   }
 
-  __brc_leave_section(v143);
+  __brc_leave_section(v142);
   memset(buf, 0, sizeof(buf));
   __brc_create_section(0, "[BRCAccountSession _loadClientZonesFromDisk]_block_invoke", 2902, 0, buf);
   v49 = brc_bread_crumbs();
   v50 = brc_default_log();
   if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
   {
-    [(BRCAccountSession *)buf _loadClientZonesFromDisk];
+    [BRCAccountSession _loadClientZonesFromDisk];
   }
 
-  v126 = 0u;
-  v127 = 0u;
-  v124 = 0u;
   v125 = 0u;
-  v51 = [*(a1 + 32) _appLibrariesEnumerator:v102];
-  v52 = [v51 countByEnumeratingWithState:&v124 objects:v138 count:16];
+  v126 = 0u;
+  v123 = 0u;
+  v124 = 0u;
+  v51 = [*(a1 + 32) _appLibrariesEnumerator:v101];
+  v52 = [v51 countByEnumeratingWithState:&v123 objects:v137 count:16];
   if (v52)
   {
-    v53 = *v125;
+    v53 = *v124;
     contextb = v51;
     do
     {
       for (j = 0; j != v52; ++j)
       {
-        if (*v125 != v53)
+        if (*v124 != v53)
         {
           objc_enumerationMutation(contextb);
         }
 
-        v55 = *(*(&v124 + 1) + 8 * j);
+        v55 = *(*(&v123 + 1) + 8 * j);
         v56 = objc_autoreleasePoolPush();
         v57 = brc_bread_crumbs();
         v58 = brc_default_log();
         if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
         {
-          *v143 = 138412546;
-          *&v143[4] = v55;
-          *&v143[12] = 2112;
-          *&v143[14] = v57;
-          _os_log_debug_impl(&dword_223E7A000, v58, OS_LOG_TYPE_DEBUG, "[DEBUG] loaded app library: %@%@", v143, 0x16u);
+          *v142 = 138412546;
+          *&v142[4] = v55;
+          *&v142[12] = 2112;
+          *&v142[14] = v57;
+          _os_log_debug_impl(&dword_223E7A000, v58, OS_LOG_TYPE_DEBUG, "[DEBUG] loaded app library: %@%@", v142, 0x16u);
         }
 
         v59 = *(a1 + 40);
@@ -17489,9 +18803,9 @@ LABEL_65:
           v69 = brc_default_log();
           if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
           {
-            *v143 = 138412290;
-            *&v143[4] = v68;
-            _os_log_fault_impl(&dword_223E7A000, v69, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: appLibrary.wasMovedToCloudDocs ? clientZone.isCloudDocsZone : [clientZone.zoneName isEqualToString:appLibraryID]%@", v143, 0xCu);
+            *v142 = 138412290;
+            *&v142[4] = v68;
+            _os_log_fault_impl(&dword_223E7A000, v69, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: appLibrary.wasMovedToCloudDocs ? clientZone.isCloudDocsZone : [clientZone.zoneName isEqualToString:appLibraryID]%@", v142, 0xCu);
           }
 
           goto LABEL_65;
@@ -17501,9 +18815,9 @@ LABEL_65:
         v65 = brc_default_log();
         if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
         {
-          *v143 = 138412290;
-          *&v143[4] = v64;
-          _os_log_debug_impl(&dword_223E7A000, v65, OS_LOG_TYPE_DEBUG, "[DEBUG] ignoring app library because it's missing a client zone%@", v143, 0xCu);
+          *v142 = 138412290;
+          *&v142[4] = v64;
+          _os_log_debug_impl(&dword_223E7A000, v65, OS_LOG_TYPE_DEBUG, "[DEBUG] ignoring app library because it's missing a client zone%@", v142, 0xCu);
         }
 
 LABEL_68:
@@ -17511,7 +18825,7 @@ LABEL_68:
       }
 
       v51 = contextb;
-      v52 = [contextb countByEnumeratingWithState:&v124 objects:v138 count:16];
+      v52 = [contextb countByEnumeratingWithState:&v123 objects:v137 count:16];
     }
 
     while (v52);
@@ -17525,30 +18839,30 @@ LABEL_68:
   v71 = brc_default_log();
   if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
   {
-    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_4(buf);
+    __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_4();
   }
 
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
   v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
   v72 = [*(a1 + 56) allValues];
-  v73 = [v72 countByEnumeratingWithState:&v120 objects:v137 count:16];
+  v73 = [v72 countByEnumeratingWithState:&v119 objects:v136 count:16];
   if (v73)
   {
-    v107 = *v121;
-    v104 = v72;
+    v106 = *v120;
+    v103 = v72;
     do
     {
       objb = v73;
       for (k = 0; k != objb; ++k)
       {
-        if (*v121 != v107)
+        if (*v120 != v106)
         {
-          objc_enumerationMutation(v104);
+          objc_enumerationMutation(v103);
         }
 
-        v75 = *(*(&v120 + 1) + 8 * k);
+        v75 = *(*(&v119 + 1) + 8 * k);
         contextc = objc_autoreleasePoolPush();
         v76 = [v75 clientZone];
         if (!v76)
@@ -17558,11 +18872,11 @@ LABEL_80:
           v81 = brc_default_log();
           if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
           {
-            *v143 = 138412546;
-            *&v143[4] = v75;
-            *&v143[12] = 2112;
-            *&v143[14] = v80;
-            _os_log_impl(&dword_223E7A000, v81, OS_LOG_TYPE_DEFAULT, "[WARNING] dropping %@ because it's missing its client zone or app library%@", v143, 0x16u);
+            *v142 = 138412546;
+            *&v142[4] = v75;
+            *&v142[12] = 2112;
+            *&v142[14] = v80;
+            _os_log_impl(&dword_223E7A000, v81, OS_LOG_TYPE_DEFAULT, "[WARNING] dropping %@ because it's missing its client zone or app library%@", v142, 0x16u);
           }
 
           goto LABEL_96;
@@ -17591,11 +18905,11 @@ LABEL_80:
           v83 = brc_default_log();
           if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
           {
-            *v143 = 138412546;
-            *&v143[4] = v80;
-            *&v143[12] = 2112;
-            *&v143[14] = v82;
-            _os_log_debug_impl(&dword_223E7A000, v83, OS_LOG_TYPE_DEBUG, "[DEBUG] activating %@%@", v143, 0x16u);
+            *v142 = 138412546;
+            *&v142[4] = v80;
+            *&v142[12] = 2112;
+            *&v142[14] = v82;
+            _os_log_debug_impl(&dword_223E7A000, v83, OS_LOG_TYPE_DEBUG, "[DEBUG] activating %@%@", v142, 0x16u);
           }
 
           [v80 resume];
@@ -17626,33 +18940,33 @@ LABEL_80:
           v91 = [v80 zoneName];
           [v90 setObject:v80 forKeyedSubscript:v91];
 
-          v118 = 0u;
-          v119 = 0u;
-          v116 = 0u;
           v117 = 0u;
+          v118 = 0u;
+          v115 = 0u;
+          v116 = 0u;
           v92 = [v80 asPrivateClientZone];
           v81 = [v92 appLibraries];
 
-          v93 = [v81 countByEnumeratingWithState:&v116 objects:v136 count:16];
+          v93 = [v81 countByEnumeratingWithState:&v115 objects:v135 count:16];
           if (v93)
           {
-            v94 = *v117;
+            v94 = *v116;
             do
             {
               for (m = 0; m != v93; ++m)
               {
-                if (*v117 != v94)
+                if (*v116 != v94)
                 {
                   objc_enumerationMutation(v81);
                 }
 
-                v96 = *(*(&v116 + 1) + 8 * m);
+                v96 = *(*(&v115 + 1) + 8 * m);
                 v97 = *(*(a1 + 32) + 392);
                 v98 = [v96 dbRowID];
                 [v97 setObject:v96 forKeyedSubscript:v98];
               }
 
-              v93 = [v81 countByEnumeratingWithState:&v116 objects:v136 count:16];
+              v93 = [v81 countByEnumeratingWithState:&v115 objects:v135 count:16];
             }
 
             while (v93);
@@ -17664,8 +18978,8 @@ LABEL_96:
         objc_autoreleasePoolPop(contextc);
       }
 
-      v72 = v104;
-      v73 = [v104 countByEnumeratingWithState:&v120 objects:v137 count:16];
+      v72 = v103;
+      v73 = [v103 countByEnumeratingWithState:&v119 objects:v136 count:16];
     }
 
     while (v73);
@@ -17679,15 +18993,14 @@ LABEL_96:
     v99 = *(a1 + 32);
   }
 
-  v115[0] = MEMORY[0x277D85DD0];
-  v115[1] = 3221225472;
-  v115[2] = __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_334;
-  v115[3] = &unk_2785060F0;
-  v115[4] = v99;
-  [v99 _enumerateAppLibraryRowIDs:v102 usingBlock:v115];
+  v114[0] = MEMORY[0x277D85DD0];
+  v114[1] = 3221225472;
+  v114[2] = __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_334;
+  v114[3] = &unk_2785060F0;
+  v114[4] = v99;
+  [v99 _enumerateAppLibraryRowIDs:v101 usingBlock:v114];
   brc_mutex_unlock((*(a1 + 32) + 248));
 
-  v100 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -17717,7 +19030,7 @@ void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_334(uint64_t
 
 - (void)_handleUnloadedZones:(id)zones
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   if ([zonesCopy count])
   {
@@ -17727,14 +19040,14 @@ void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_334(uint64_t
     if (handleUnloadedZones)
     {
       clientTruthWorkloop = self->_clientTruthWorkloop;
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __42__BRCAccountSession__handleUnloadedZones___block_invoke;
-      v11[3] = &unk_2784FF478;
-      v12 = zonesCopy;
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __42__BRCAccountSession__handleUnloadedZones___block_invoke;
+      v10[3] = &unk_2784FF478;
+      v11 = zonesCopy;
       selfCopy = self;
-      dispatch_async(clientTruthWorkloop, v11);
-      v8 = v12;
+      dispatch_async(clientTruthWorkloop, v10);
+      v8 = v11;
     }
 
     else
@@ -17744,15 +19057,13 @@ void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_334(uint64_t
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v15 = zonesCopy;
-        v16 = 2112;
-        v17 = v8;
+        v14 = zonesCopy;
+        v15 = 2112;
+        v16 = v8;
         _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] We found %@ unloaded zones, but handling logic is disabled by user defaults%@", buf, 0x16u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__BRCAccountSession__handleUnloadedZones___block_invoke(uint64_t a1)
@@ -17768,15 +19079,15 @@ uint64_t __42__BRCAccountSession__handleUnloadedZones___block_invoke(uint64_t a1
 
 void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = brc_bread_crumbs();
   v7 = brc_default_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v15 = a2;
-    v16 = 2112;
-    v17 = v6;
+    v14 = a2;
+    v15 = 2112;
+    v16 = v6;
     _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Checking if unloaded zone %lu is being referenced by a client item%@", buf, 0x16u);
   }
 
@@ -17796,8 +19107,6 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2(uint64_t a1, 
     [*(a1 + 32) dbBecameCorruptedWithDescription:@"Unloaded zone is referenced by item" error:v12];
     *a3 = 1;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_unloadClientZones
@@ -17857,30 +19166,30 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2(uint64_t a1, 
 
 - (id)sharedServerZoneRowIDsByOwnerNamePrefix:(id)prefix
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   prefixCopy = prefix;
   v5 = objc_opt_new();
   [(BRCAccountSession *)self _mutexZonesLock];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   objectEnumerator = [(NSMutableDictionary *)self->_sharedServerZonesByMangledID objectEnumerator];
-  v7 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         ownerName = [v11 ownerName];
         v13 = [ownerName hasPrefix:prefixCopy];
 
@@ -17891,14 +19200,13 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2(uint64_t a1, 
         }
       }
 
-      v8 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   brc_mutex_unlock(&self->_zonesLock.pthread);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -18014,31 +19322,31 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2(uint64_t a1, 
 
 - (void)enumerateServerZones:(id)zones
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   [(BRCAccountSession *)self _mutexZonesLock];
   allValues = [(NSMutableDictionary *)self->_serverZonesByZoneRowID allValues];
   brc_mutex_unlock(&self->_zonesLock.pthread);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         clientZone = [v11 clientZone];
         if (clientZone)
@@ -18056,7 +19364,7 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2(uint64_t a1, 
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -18067,37 +19375,35 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2(uint64_t a1, 
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateAppLibraries:(id)libraries
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   librariesCopy = libraries;
   [(BRCAccountSession *)self _mutexZonesLock];
   allValues = [(NSMutableDictionary *)self->_appLibrariesByRowID allValues];
   brc_mutex_unlock(&self->_zonesLock.pthread);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
+      v11 = *(*(&v13 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
       LODWORD(v11) = librariesCopy[2](librariesCopy, v11);
       objc_autoreleasePoolPop(v12);
@@ -18108,7 +19414,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -18118,8 +19424,6 @@ LABEL_3:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateContainersWithDBFacade:(id)facade handler:(id)handler
@@ -18132,7 +19436,7 @@ LABEL_3:
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [BRCAccountSession enumerateContainersWithDBFacade:v15 handler:?];
+    [BRCAccountSession enumerateContainersWithDBFacade:handler:];
   }
 
   v12[0] = MEMORY[0x277D85DD0];
@@ -18290,7 +19594,7 @@ LABEL_21:
 
 - (void)enumeratePrivateServerZones:(id)zones
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   if (!zonesCopy)
   {
@@ -18300,26 +19604,26 @@ LABEL_21:
   [(BRCAccountSession *)self _mutexZonesLock];
   allValues = [(NSMutableDictionary *)self->_privateServerZonesByID allValues];
   brc_mutex_unlock(&self->_zonesLock.pthread);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
 LABEL_5:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
+      v11 = *(*(&v13 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
       LODWORD(v11) = zonesCopy[2](zonesCopy, v11);
       objc_autoreleasePoolPop(v12);
@@ -18330,7 +19634,7 @@ LABEL_5:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           goto LABEL_5;
@@ -18340,8 +19644,6 @@ LABEL_5:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)privateClientZoneByID:(id)d
@@ -18369,7 +19671,7 @@ LABEL_5:
 
 - (void)enumerateClientZones:(id)zones
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   if (!zonesCopy)
   {
@@ -18379,26 +19681,26 @@ LABEL_5:
   [(BRCAccountSession *)self _mutexZonesLock];
   allValues = [(NSMutableDictionary *)self->_serverZonesByZoneRowID allValues];
   brc_mutex_unlock(&self->_zonesLock.pthread);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = allValues;
-  v6 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v6 = [obj countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
 LABEL_5:
     v9 = 0;
     while (1)
     {
-      if (*v19 != v8)
+      if (*v18 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v18 + 1) + 8 * v9);
+      v10 = *(*(&v17 + 1) + 8 * v9);
       v11 = objc_autoreleasePoolPush();
       clientZone = [v10 clientZone];
       if (!clientZone)
@@ -18408,9 +19710,9 @@ LABEL_5:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v23 = v10;
-          v24 = 2112;
-          v25 = v13;
+          v22 = v10;
+          v23 = 2112;
+          v24 = v13;
           _os_log_fault_impl(&dword_223E7A000, v14, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: missing client zone for %@%@", buf, 0x16u);
         }
       }
@@ -18425,7 +19727,7 @@ LABEL_5:
 
       if (v7 == ++v9)
       {
-        v7 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v7 = [obj countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v7)
         {
           goto LABEL_5;
@@ -18435,35 +19737,33 @@ LABEL_5:
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clientZones
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(BRCAccountSession *)self _mutexZonesLock];
   v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableDictionary count](self->_serverZonesByZoneRowID, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   objectEnumerator = [(NSMutableDictionary *)self->_serverZonesByZoneRowID objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         clientZone = [v9 clientZone];
         [v3 addObject:clientZone];
@@ -18471,21 +19771,20 @@ LABEL_5:
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   brc_mutex_unlock(&self->_zonesLock.pthread);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)enumeratePrivateClientZones:(id)zones
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   if (!zonesCopy)
   {
@@ -18495,26 +19794,26 @@ LABEL_5:
   [(BRCAccountSession *)self _mutexZonesLock];
   allValues = [(NSMutableDictionary *)self->_privateClientZonesByID allValues];
   brc_mutex_unlock(&self->_zonesLock.pthread);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
 LABEL_5:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
+      v11 = *(*(&v13 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
       LODWORD(v11) = zonesCopy[2](zonesCopy, v11);
       objc_autoreleasePoolPop(v12);
@@ -18525,7 +19824,7 @@ LABEL_5:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           goto LABEL_5;
@@ -18535,8 +19834,6 @@ LABEL_5:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sharedServerZoneByMangledID:(id)d
@@ -18587,7 +19884,7 @@ LABEL_5:
 
 - (void)enumerateSharedClientZones:(id)zones
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   if (!zonesCopy)
   {
@@ -18597,26 +19894,26 @@ LABEL_5:
   [(BRCAccountSession *)self _mutexZonesLock];
   allValues = [(NSMutableDictionary *)self->_sharedClientZonesByMangledID allValues];
   brc_mutex_unlock(&self->_zonesLock.pthread);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         serverZone = [v11 serverZone];
         if (serverZone)
@@ -18634,7 +19931,7 @@ LABEL_5:
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -18645,8 +19942,6 @@ LABEL_5:
   }
 
 LABEL_14:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performBlock:(id)block whileRemovingPrivateClientZone:(id)zone
@@ -18775,7 +20070,7 @@ uint64_t __45__BRCAccountSession_destroySharedClientZone___block_invoke(uint64_t
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __45__BRCAccountSession_destroySharedClientZone___block_invoke_cold_1(a1);
+    __45__BRCAccountSession_destroySharedClientZone___block_invoke_cold_1();
   }
 
   return [*(a1 + 40) _deleteClientZone:*(a1 + 48)];
@@ -18787,7 +20082,7 @@ uint64_t __45__BRCAccountSession_destroySharedClientZone___block_invoke_356(uint
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __45__BRCAccountSession_destroySharedClientZone___block_invoke_356_cold_1(a1);
+    __45__BRCAccountSession_destroySharedClientZone___block_invoke_356_cold_1();
   }
 
   return [*(a1 + 40) deleteServerZone:*(a1 + 48)];
@@ -18795,7 +20090,7 @@ uint64_t __45__BRCAccountSession_destroySharedClientZone___block_invoke_356(uint
 
 - (id)appLibraryByRowID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (!dCopy)
   {
@@ -18813,9 +20108,9 @@ uint64_t __45__BRCAccountSession_destroySharedClientZone___block_invoke_356(uint
       v7 = brc_default_log();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412290;
-        v11 = v6;
-        _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't find app library in the middle of closing%@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v6;
+        _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't find app library in the middle of closing%@", &v9, 0xCu);
       }
     }
 
@@ -18829,8 +20124,6 @@ uint64_t __45__BRCAccountSession_destroySharedClientZone___block_invoke_356(uint
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -19224,26 +20517,26 @@ LABEL_22:
 
 - (id)_getOrCreateAppLibraryAndPrivateZonesIfNecessary:(id)necessary creationFlags:(unsigned int *)flags
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x3032000000;
-  v71 = __Block_byref_object_copy__44;
-  v72 = __Block_byref_object_dispose__44;
-  v73 = 0;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x3032000000;
-  v65 = __Block_byref_object_copy__44;
-  v66 = __Block_byref_object_dispose__44;
   v67 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__44;
-  v60 = __Block_byref_object_dispose__44;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__44;
+  v71 = __Block_byref_object_dispose__44;
+  v72 = 0;
   v61 = 0;
+  v62 = &v61;
+  v63 = 0x3032000000;
+  v64 = __Block_byref_object_copy__44;
+  v65 = __Block_byref_object_dispose__44;
+  v66 = 0;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__44;
+  v59 = __Block_byref_object_dispose__44;
+  v60 = 0;
   serialQueue = [(BRCPQLConnection *)self->_clientDB serialQueue];
   dispatch_assert_queue_not_V2(serialQueue);
 
@@ -19258,18 +20551,18 @@ LABEL_22:
   }
 
   v9 = [(BRCAccountSession *)self _shouldPrivateAppLibraryBeCZMMoved:necessaryCopy];
-  memset(v55, 0, sizeof(v55));
-  __brc_create_section(0, "[BRCAccountSession _getOrCreateAppLibraryAndPrivateZonesIfNecessary:creationFlags:]", 3725, 0, v55);
+  memset(v54, 0, sizeof(v54));
+  __brc_create_section(0, "[BRCAccountSession _getOrCreateAppLibraryAndPrivateZonesIfNecessary:creationFlags:]", 3725, 0, v54);
   v10 = brc_bread_crumbs();
   v11 = brc_default_log();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    *&buf[4] = v55[0];
+    *&buf[4] = v54[0];
     *&buf[12] = 2112;
     *&buf[14] = necessaryCopy;
     *&buf[22] = 2112;
-    v75 = v10;
+    v74 = v10;
     _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Creating app library and zones: %@ if needed%@", buf, 0x20u);
   }
 
@@ -19277,20 +20570,20 @@ LABEL_22:
   {
     brc_mutex_lock(&self->_zonesCreationLock.pthread);
     v15 = [(BRCAccountSession *)self appLibraryByMangledID:necessaryCopy];
-    v16 = v69[5];
-    v69[5] = v15;
+    v16 = v68[5];
+    v68[5] = v15;
 
-    defaultClientZone = [v69[5] defaultClientZone];
-    v18 = v63[5];
-    v63[5] = defaultClientZone;
+    defaultClientZone = [v68[5] defaultClientZone];
+    v18 = v62[5];
+    v62[5] = defaultClientZone;
 
-    privateServerZone = [v63[5] privateServerZone];
-    v20 = v57[5];
-    v57[5] = privateServerZone;
+    privateServerZone = [v62[5] privateServerZone];
+    v20 = v56[5];
+    v56[5] = privateServerZone;
 
-    if (v57[5])
+    if (v56[5])
     {
-      delegate = [v69[5] delegate];
+      delegate = [v68[5] delegate];
       v22 = delegate == 0;
 
       if (v22)
@@ -19299,10 +20592,10 @@ LABEL_22:
         v24 = brc_default_log();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          [BRCAccountSession _getOrCreateAppLibraryAndPrivateZonesIfNecessary:? creationFlags:?];
+          [BRCAccountSession _getOrCreateAppLibraryAndPrivateZonesIfNecessary:creationFlags:];
         }
 
-        [v69[5] setDelegate:self->_containerScheduler];
+        [v68[5] setDelegate:self->_containerScheduler];
       }
 
       brc_mutex_unlock(&self->_zonesCreationLock.pthread);
@@ -19310,17 +20603,17 @@ LABEL_22:
       v26 = brc_default_log();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        v37 = v57[5];
-        v38 = v63[5];
-        v39 = v69[5];
+        v36 = v56[5];
+        v37 = v62[5];
+        v38 = v68[5];
         *buf = 138413058;
-        *&buf[4] = v37;
+        *&buf[4] = v36;
         *&buf[12] = 2112;
-        *&buf[14] = v38;
+        *&buf[14] = v37;
         *&buf[22] = 2112;
-        v75 = v39;
-        LOWORD(v76) = 2112;
-        *(&v76 + 2) = v25;
+        v74 = v38;
+        LOWORD(v75) = 2112;
+        *(&v75 + 2) = v25;
         _os_log_debug_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] returning early server zone: %@\nclient zone: %@\napp library: %@%@", buf, 0x2Au);
       }
 
@@ -19337,60 +20630,60 @@ LABEL_22:
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v75 = __Block_byref_object_copy__44;
-        *&v76 = __Block_byref_object_dispose__44;
-        *(&v76 + 1) = 0;
+        v74 = __Block_byref_object_copy__44;
+        *&v75 = __Block_byref_object_dispose__44;
+        *(&v75 + 1) = 0;
         serverDB = self->_serverDB;
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __84__BRCAccountSession__getOrCreateAppLibraryAndPrivateZonesIfNecessary_creationFlags___block_invoke;
-        v50[3] = &unk_278506140;
-        v54 = v9;
-        v52 = &v56;
-        v50[4] = self;
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __84__BRCAccountSession__getOrCreateAppLibraryAndPrivateZonesIfNecessary_creationFlags___block_invoke;
+        v49[3] = &unk_278506140;
+        v53 = v9;
+        v51 = &v55;
+        v49[4] = self;
         v28 = necessaryCopy;
-        v51 = v28;
-        v53 = buf;
-        [(BRCPQLConnection *)serverDB performWithFlags:19 action:v50];
-        if (v57[5])
+        v50 = v28;
+        v52 = buf;
+        [(BRCPQLConnection *)serverDB performWithFlags:19 action:v49];
+        if (v56[5])
         {
           clientDB = self->_clientDB;
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = __84__BRCAccountSession__getOrCreateAppLibraryAndPrivateZonesIfNecessary_creationFlags___block_invoke_362;
-          v42[3] = &unk_278506168;
-          v49 = v9;
-          v44 = &v62;
-          v42[4] = self;
-          v43 = v28;
-          v45 = &v56;
-          v46 = &v68;
-          v47 = buf;
+          v41[0] = MEMORY[0x277D85DD0];
+          v41[1] = 3221225472;
+          v41[2] = __84__BRCAccountSession__getOrCreateAppLibraryAndPrivateZonesIfNecessary_creationFlags___block_invoke_362;
+          v41[3] = &unk_278506168;
+          v48 = v9;
+          v43 = &v61;
+          v41[4] = self;
+          v42 = v28;
+          v44 = &v55;
+          v45 = &v67;
+          v46 = buf;
           flagsCopy = flags;
-          [(BRCPQLConnection *)clientDB performWithFlags:23 action:v42];
+          [(BRCPQLConnection *)clientDB performWithFlags:23 action:v41];
         }
 
         _Block_object_dispose(buf, 8);
       }
 
       brc_mutex_unlock(&self->_zonesCreationLock.pthread);
-      if (v69[5])
+      if (v68[5])
       {
         v30 = brc_bread_crumbs();
         v31 = brc_default_log();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          v32 = v69[5];
-          v33 = v57[5];
-          v34 = v63[5];
+          v32 = v68[5];
+          v33 = v56[5];
+          v34 = v62[5];
           *buf = 138413058;
           *&buf[4] = v32;
           *&buf[12] = 2112;
           *&buf[14] = v33;
           *&buf[22] = 2112;
-          v75 = v34;
-          LOWORD(v76) = 2112;
-          *(&v76 + 2) = v30;
+          v74 = v34;
+          LOWORD(v75) = 2112;
+          *(&v75 + 2) = v30;
           _os_log_debug_impl(&dword_223E7A000, v31, OS_LOG_TYPE_DEBUG, "[DEBUG] returning app library %@\nserver zone:%@\n, client zone: %@%@", buf, 0x2Au);
         }
       }
@@ -19401,22 +20694,22 @@ LABEL_22:
         v31 = brc_default_log();
         if (os_log_type_enabled(v31, 0x90u))
         {
-          v40 = v57[5];
-          v41 = v63[5];
+          v39 = v56[5];
+          v40 = v62[5];
           *buf = 138413058;
           *&buf[4] = necessaryCopy;
           *&buf[12] = 2112;
-          *&buf[14] = v40;
+          *&buf[14] = v39;
           *&buf[22] = 2112;
-          v75 = v41;
-          LOWORD(v76) = 2112;
-          *(&v76 + 2) = v30;
+          v74 = v40;
+          LOWORD(v75) = 2112;
+          *(&v75 + 2) = v30;
           _os_log_error_impl(&dword_223E7A000, v31, 0x90u, "[ERROR] couldn't create app library\n appID: %@\nserverZone: %@\nclientZone: %@%@", buf, 0x2Au);
         }
       }
     }
 
-    v14 = v69[5];
+    v14 = v68[5];
   }
 
   else
@@ -19431,13 +20724,11 @@ LABEL_22:
     v14 = 0;
   }
 
-  __brc_leave_section(v55);
-  _Block_object_dispose(&v56, 8);
+  __brc_leave_section(v54);
+  _Block_object_dispose(&v55, 8);
 
-  _Block_object_dispose(&v62, 8);
-  _Block_object_dispose(&v68, 8);
-
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v67, 8);
 
   return v14;
 }
@@ -19731,7 +21022,7 @@ uint64_t __58__BRCAccountSession_getOrCreateSharedZones_shareAcceptOp___block_in
 
 - (id)getOrReserveLibraryRowIDForLibrary:(id)library
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   libraryCopy = library;
   [(BRCPQLConnection *)self->_serverDB assertOnQueue];
   if ([libraryCopy isShared])
@@ -19759,13 +21050,13 @@ uint64_t __58__BRCAccountSession_getOrCreateSharedZones_shareAcceptOp___block_in
       v10 = brc_default_log();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v13 = 138412802;
-        v14 = v7;
-        v15 = 2112;
-        v16 = libraryCopy;
-        v17 = 2112;
-        v18 = v9;
-        _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] reserved rowid %@ for %@%@", &v13, 0x20u);
+        v12 = 138412802;
+        v13 = v7;
+        v14 = 2112;
+        v15 = libraryCopy;
+        v16 = 2112;
+        v17 = v9;
+        _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] reserved rowid %@ for %@%@", &v12, 0x20u);
       }
 
       if (v7)
@@ -19776,8 +21067,6 @@ uint64_t __58__BRCAccountSession_getOrCreateSharedZones_shareAcceptOp___block_in
 
     brc_mutex_unlock(&self->_zonesLock.pthread);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -19814,25 +21103,25 @@ void __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invo
 void __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 232);
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__44;
-  v29 = __Block_byref_object_dispose__44;
-  v30 = 0;
   v19 = 0;
   v20 = &v19;
   v21 = 0x3032000000;
   v22 = __Block_byref_object_copy__44;
   v23 = __Block_byref_object_dispose__44;
   v24 = 0;
+  v17[0] = 0;
+  v17[1] = v17;
+  v17[2] = 0x3032000000;
+  v17[3] = __Block_byref_object_copy__44;
+  v17[4] = __Block_byref_object_dispose__44;
+  v18 = 0;
   objc_sync_enter(@"currentUserRecordID");
   v3 = [v2 objectForKeyedSubscript:@"currentUserRecordID"];
-  v4 = v26[5];
-  v26[5] = v3;
+  v4 = v20[5];
+  v20[5] = v3;
 
   objc_sync_exit(@"currentUserRecordID");
-  if (!v26[5])
+  if (!v20[5])
   {
     v5 = brc_bread_crumbs();
     v6 = brc_default_log();
@@ -19845,32 +21134,30 @@ void __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invo
     v8 = [*(a1 + 32) syncContextProvider];
     v9 = [v8 defaultSyncContext];
     v10 = [v9 ckContainer];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invoke_369;
-    v14[3] = &unk_2785061E0;
-    v17 = &v19;
-    v18 = &v25;
-    v14[4] = *(a1 + 32);
-    v15 = v2;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invoke_369;
+    v12[3] = &unk_2785061E0;
+    v15 = v17;
+    v16 = &v19;
+    v12[4] = *(a1 + 32);
+    v13 = v2;
     v11 = v7;
-    v16 = v11;
-    [v10 fetchUserRecordIDWithCompletionHandler:v14];
+    v14 = v11;
+    [v10 fetchUserRecordIDWithCompletionHandler:v12];
 
     dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
-    v12 = v26[5];
   }
 
-  v13 = v20[5];
   (*(*(a1 + 40) + 16))();
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(v17, 8);
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v19, 8);
 }
 
 void __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invoke_369(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = brc_bread_crumbs();
@@ -19878,11 +21165,11 @@ void __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invo
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v20 = v6;
-    v21 = 2112;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v8;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] fetched user record id %@ with error %@%@", buf, 0x20u);
   }
 
@@ -19891,25 +21178,23 @@ void __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invo
   if (*(*(*(a1 + 64) + 8) + 40))
   {
     v10 = *(*(a1 + 32) + 48);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invoke_370;
-    v14[3] = &unk_2785061B8;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invoke_370;
+    v13[3] = &unk_2785061B8;
     v11 = *(a1 + 40);
-    v18 = *(a1 + 64);
+    v17 = *(a1 + 64);
     v12 = *(a1 + 32);
-    v15 = v11;
-    v16 = v12;
-    v17 = *(a1 + 48);
-    dispatch_async(v10, v14);
+    v14 = v11;
+    v15 = v12;
+    v16 = *(a1 + 48);
+    dispatch_async(v10, v13);
   }
 
   else
   {
     dispatch_semaphore_signal(*(a1 + 48));
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invoke_370(uint64_t a1)
@@ -19958,7 +21243,7 @@ intptr_t __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_
       v8 = brc_default_log();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        [BRCAccountSession _cloudDocsAppsListDidChange:v13];
+        [BRCAccountSession _cloudDocsAppsListDidChange:];
       }
 
       v12[0] = MEMORY[0x277D85DD0];
@@ -20145,9 +21430,7 @@ uint64_t __49__BRCAccountSession__cloudDocsAppsListDidChange___block_invoke_7(ui
 - (void)cloudDocsAppsListDidChange:(id)change
 {
   changeCopy = change;
-  personaIdentifier = self->_personaIdentifier;
-  v7 = changeCopy;
-  v6 = changeCopy;
+  v3 = changeCopy;
   BRPerformWithPersonaAndError();
 }
 
@@ -20187,6 +21470,75 @@ void __48__BRCAccountSession_cloudDocsAppsListDidChange___block_invoke(uint64_t 
   }
 }
 
+- (void)setOptimizeStorageEnabled:(BOOL)enabled forKey:(id)key synchronous:(BOOL)synchronous
+{
+  synchronousCopy = synchronous;
+  enabledCopy = enabled;
+  v35 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  memset(v24, 0, sizeof(v24));
+  __brc_create_section(0, "[BRCAccountSession setOptimizeStorageEnabled:forKey:synchronous:]", 4187, 0, v24);
+  v10 = brc_bread_crumbs();
+  v11 = brc_default_log();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134219010;
+    v26 = v24[0];
+    if (enabledCopy)
+    {
+      v17 = "enabling";
+    }
+
+    else
+    {
+      v17 = "disabling";
+    }
+
+    v27 = 2080;
+    v28 = v17;
+    v18 = "YES";
+    v29 = 2112;
+    v30 = keyCopy;
+    if (!synchronousCopy)
+    {
+      v18 = "NO";
+    }
+
+    v31 = 2080;
+    v32 = v18;
+    v33 = 2112;
+    v34 = v10;
+    _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %s storage optimization for %@ synchronous %s%@", buf, 0x34u);
+  }
+
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [standardUserDefaults setObject:v12 forKey:keyCopy];
+
+  [standardUserDefaults synchronize];
+  v13 = dispatch_group_create();
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___block_invoke;
+  v21[3] = &unk_278506280;
+  v23 = synchronousCopy;
+  v14 = v13;
+  v22 = v14;
+  v15 = MEMORY[0x22AA4A310](v21);
+  v15[2](v15, *MEMORY[0x277CC6348]);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___block_invoke_386;
+  v19[3] = &unk_2785062A8;
+  v16 = v15;
+  v20 = v16;
+  [(BRCAccountSession *)self enumerateAppLibraries:v19];
+  dispatch_group_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
+  BRPostAccountTokenChangedNotification();
+
+  __brc_leave_section(v24);
+}
+
 void __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -20208,28 +21560,26 @@ void __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___bloc
 
 void __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412802;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Done Force Ingestion %@ to update the contentPolicy - error %@%@", &v8, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = 138412802;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Done Force Ingestion %@ to update the contentPolicy - error %@%@", &v7, 0x20u);
   }
 
   if (*(a1 + 48) == 1)
   {
     dispatch_group_leave(*(a1 + 40));
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___block_invoke_386(uint64_t a1, void *a2)
@@ -20253,7 +21603,7 @@ uint64_t __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___
 
 - (void)dumpXPCClientsToContext:(id)context
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -20262,67 +21612,66 @@ uint64_t __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___
 
   [contextCopy writeLineWithFormat:&stru_2837504F0];
   [contextCopy writeLineWithFormat:@"%ld xpc clients:", objc_msgSend(v6, "count")];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) dumpToContext:contextCopy];
+        [*(*(&v11 + 1) + 8 * v10++) dumpToContext:contextCopy];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
 
   [contextCopy writeLineWithFormat:&stru_2837504F0];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dumpMiscOperationsToContext:(id)context
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   allObjects = [(NSHashTable *)self->_miscOperations allObjects];
   [contextCopy writeLineWithFormat:&stru_2837504F0];
   [contextCopy writeLineWithFormat:@"%ld misc operations:", objc_msgSend(allObjects, "count")];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = allObjects;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -20339,13 +21688,11 @@ uint64_t __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initalizeItemFetcher
@@ -20480,37 +21827,37 @@ uint64_t __66__BRCAccountSession_setOptimizeStorageEnabled_forKey_synchronous___
 
 void __49__BRCAccountSession__handleTrashedItemsMigration__block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v25 = a2;
+  v36 = *MEMORY[0x277D85DE8];
+  v24 = a2;
   v3 = [*(*(a1 + 32) + 200) fetch:{@"SELECT rowid, zone_rowid, item_id, item_creator_id, item_sharing_options, item_side_car_ckinfo, item_parent_zone_rowid, item_localsyncupstate, item_local_diffs, item_notifs_rank, app_library_rowid, item_min_supported_os_rowid, item_user_visible, item_stat_ckinfo, item_state, item_type, item_mode, item_birthtime, item_lastusedtime, item_favoriterank, item_parent_id, item_filename, item_hidden_ext, item_finder_tags, item_xattr_signature, item_trash_put_back_path, item_trash_put_back_parent_id, item_alias_target, item_creator, item_processing_stamp, item_bouncedname, item_scope, item_local_change_count, item_old_version_identifier, fp_creation_item_identifier, version_name, version_ckinfo, version_mtime, version_size, version_thumb_size, version_thumb_signature, version_content_signature, version_xattr_signature, version_edited_since_shared, version_device, version_conflict_loser_etags, version_quarantine_info, version_uploaded_assets, version_upload_error, version_old_zone_item_id, version_old_zone_rowid, version_local_change_count, version_old_version_identifier, item_live_conflict_loser_etags, item_file_id, item_generation FROM client_items WHERE item_scope = 3 AND item_localsyncupstate = 5 LIMIT %lld", *(a1 + 48)}];
   v4 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __49__BRCAccountSession__handleTrashedItemsMigration__block_invoke_2;
-  v30[3] = &unk_2784FF910;
-  v23 = v3;
-  v24 = a1;
-  v30[4] = *(a1 + 32);
-  v5 = [v3 enumerateObjects:v30];
-  v6 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __49__BRCAccountSession__handleTrashedItemsMigration__block_invoke_2;
+  v29[3] = &unk_2784FF910;
+  v22 = v3;
+  v23 = a1;
+  v29[4] = *(a1 + 32);
+  v5 = [v3 enumerateObjects:v29];
+  v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         v12 = [v10 clientZone];
         v13 = [v10 itemID];
@@ -20523,46 +21870,45 @@ void __49__BRCAccountSession__handleTrashedItemsMigration__block_invoke(uint64_t
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v7);
   }
 
-  [v23 close];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  [v22 close];
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v15 = v4;
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v27;
+    v18 = *v26;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v27 != v18)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v26 + 1) + 8 * j);
+        v20 = *(*(&v25 + 1) + 8 * j);
         v21 = objc_autoreleasePoolPush();
         [v20 saveToDB];
         objc_autoreleasePoolPop(v21);
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v17);
   }
 
-  *(*(*(v24 + 40) + 8) + 24) = [v15 count] == 0;
-  v22 = *MEMORY[0x277D85DE8];
+  *(*(*(v23 + 40) + 8) + 24) = [v15 count] == 0;
 }
 
 id __49__BRCAccountSession__handleTrashedItemsMigration__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -20727,7 +22073,7 @@ LABEL_22:
 
 - (BOOL)globalID:(id)d isStrictChildOfGlobalID:(id)iD
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   v8 = [BRCUserDefaults defaultsForMangledID:0];
@@ -20763,14 +22109,14 @@ LABEL_22:
       {
         *buf = 138413314;
         selfCopy = self;
-        v31 = 1024;
-        v32 = maxSyncPathDepth;
-        v33 = 2112;
-        v34 = iDCopy;
-        v35 = 2112;
-        v36 = dCopy;
-        v37 = 2112;
-        v38 = v22;
+        v30 = 1024;
+        v31 = maxSyncPathDepth;
+        v32 = 2112;
+        v33 = iDCopy;
+        v34 = 2112;
+        v35 = dCopy;
+        v36 = 2112;
+        v37 = v22;
         _os_log_fault_impl(&dword_223E7A000, v23, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: reset needed for %@ because the hierarchy is deeper than %u under %@ when looking for %@%@", buf, 0x30u);
       }
 
@@ -20783,39 +22129,20 @@ LABEL_22:
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
-}
-
-void __74__BRCAccountSession_BRCDatabaseManager___registerStaticDBFunctions_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: we have a cycle%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __74__BRCAccountSession_BRCDatabaseManager___registerStaticDBFunctions_error___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] API MISUSE: is_parented_or_equal_to(Container, parent_id, parentId_or_Set)%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__BRCAccountSession_BRCDatabaseManager___registerDynamicDBFunctions_error___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2112;
-  *&v4[14] = a1;
-  OUTLINED_FUNCTION_4(&dword_223E7A000, a2, a3, "[DEBUG] recursive update of %lld%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2112;
+  *&v3[14] = a1;
+  OUTLINED_FUNCTION_4(&dword_223E7A000, a2, a3, "[DEBUG] recursive update of %lld%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -20823,18 +22150,15 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: sself%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: sself%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_2(uint64_t *a1)
+void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx db pre flush%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx db pre flush%@");
 }
 
 void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_3(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -20846,33 +22170,8 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
   _os_log_fault_impl(&dword_223E7A000, log, OS_LOG_TYPE_FAULT, "[CRIT] %@%@", buf, 0x16u);
 }
 
-void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: unable to flush client state, exit to maintain consistency%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_265_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Saved zone state for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_267_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Saved app library state for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_2_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -20880,179 +22179,93 @@ void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSet
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: sself%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: sself%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_2_cold_2(uint64_t *a1)
+void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_2_cold_2()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx db post flush%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx db post flush%@");
 }
 
 void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_2_277_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_6_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_2_277_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_15(&dword_223E7A000, v0, v1, "[ERROR] Ciconia DB was likely dropped - domain removal will happen on next start%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __181__BRCAccountSession_BRCDatabaseManager__openAndValidateDatabase_serverTruth_session_baseURL_skipControlFiles_initialVersion_lastCurrentVersion_dbCreationDate_deviceIDChanged_error___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*v0 lastError];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7(&dword_223E7A000, v2, v3, "[CRIT] UNREACHABLE: Failed to enable recursive triggers - %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __96__BRCAccountSession_BRCDatabaseManager__backupDatabaseToURL_includeServer_doNotObfuscate_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_15(&dword_223E7A000, v0, v1, "[ERROR] disk is full - will fail%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_223E7A000, v2, v3, "[CRIT] UNREACHABLE: Failed to enable recursive triggers - %@%@", v4, v5, v6, v7);
 }
 
 void __86__BRCAccountSession_DatabaseAdditions__dumpStatusToFileHandle_zoneName_tracker_error___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_15(&dword_223E7A000, a2, a3, "[ERROR] Failed opening file handle%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __82__BRCAccountSession_DatabaseAdditions__printShareRequests_isPending_asJSON_error___block_invoke_cold_1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v2, v3, "[DEBUG] ┏%llx Printing open requests for access%@");
-  v4 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_15(&dword_223E7A000, a2, a3, "[ERROR] Failed opening file handle%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __103__BRCAccountSession_FPFSAdditions___reportForFPFSImportStatusTelemetryEventIfNeeded_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *(*(a1 + 32) + 120);
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *(*(a1 + 32) + 120);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: Failed adopting persona %@%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: Failed adopting persona %@%@", v3, DWORD2(v3));
 }
 
 void __103__BRCAccountSession_FPFSAdditions___reportForFPFSImportStatusTelemetryEventIfNeeded_completionHandler___block_invoke_106_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Items in error - import won't complete%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Items in error - import won't complete%@", v1, 0xCu);
 }
 
 void __140__BRCAccountSession_FPFSAdditions___triggerMigrationStuckRecoveryIfNeededDaysSinceImportStarted_daysSinceLastMigrationProgress_importError___block_invoke_2_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  v4 = v0;
-  _os_log_error_impl(&dword_223E7A000, v1, 0x90u, "[ERROR] FPFS Migration recovery failed: %@%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_223E7A000, v1, 0x90u, "[ERROR] FPFS Migration recovery failed: %@%@", v2, 0x16u);
 }
 
-void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke_2_cold_1(uint64_t *a1)
+void __71__BRCAccountSession_FPFSAdditions___sendFPFSImportStatusTelemetryEvent__block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __76__BRCAccountSession_FPFSAdditions___triggerFPFSImportFinishedTelemetryEvent__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerClient:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: ![_xpcClients containsObject:client]%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterClient:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: [_xpcClients containsObject:client]%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createAccountSupportPathIfNeeded:protectParent:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_createAccountSupportPathIfNeeded:protectParent:.cold.2()
+- (void)_addOrImportDomainIfNeededWithError:domainAdded:domainImported:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] permissions checked%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54__BRCAccountSession__clearLegacyConflictVersionsAsync__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[NOTIF] Clearing Legacy Conflict Versions Due To Migration to FPFS%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_addOrImportDomainIfNeededWithError:(uint64_t *)a1 domainAdded:domainImported:.cold.1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createGroupContainerStageOfType:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Running in sync bubble. Should not try to create the group container download stage folder%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21060,24 +22273,20 @@ void __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: sself->_analyticsReporter%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: sself->_analyticsReporter%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock___block_invoke_cold_2(uint64_t *a1)
+void __73__BRCAccountSession__submitDelayedTelemetryEventIfNeeded_wait_withBlock___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __67__BRCAccountSession__submitSessionOpenFailedTelemetryEventIfNeeded__block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21085,15 +22294,12 @@ void __67__BRCAccountSession__submitSessionOpenFailedTelemetryEventIfNeeded__blo
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: decodedData.count == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: decodedData.count == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __62__BRCAccountSession__submitDBCorruptionTelemetryEventIfNeeded__block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21101,15 +22307,12 @@ void __62__BRCAccountSession__submitDBCorruptionTelemetryEventIfNeeded__block_in
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: decodedData.count == 2%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: decodedData.count == 2%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21117,15 +22320,12 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: decodedData.count == 2%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: decodedData.count == 2%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openWithError:pushWorkloop:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21133,27 +22333,15 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !_isOpen%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !_isOpen%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openWithError:pushWorkloop:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openWithError:pushWorkloop:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: defaultAppLibrary%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openWithError:(uint64_t)a3 pushWorkloop:.cold.4(void *a1, uint64_t a2, uint64_t a3)
@@ -21162,33 +22350,21 @@ void __70__BRCAccountSession__submitReimportDomainFailedTelemetryEventIfNeeded__
   OUTLINED_FUNCTION_15_0(&dword_223E7A000, v6, v4, "[CRIT] %@%@", v5);
 }
 
-void __53__BRCAccountSession__pcsChainAllItemsWithSystemTask___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Checking for items that need pcs chaining%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__BRCAccountSession__saltPartiallySaltedItemsWithSystemTask___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Checking for items that need salting%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_reportBasehashSalting
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  brc_bread_crumbs();
+  objc_claimAutoreleasedReturnValue();
+  OUTLINED_FUNCTION_2();
+  v2 = brc_default_log();
+  if (OUTLINED_FUNCTION_5(v2))
+  {
+    OUTLINED_FUNCTION_3();
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: rs.next%@", v5, v6, v7, v8);
+  }
 }
 
 void __43__BRCAccountSession__reportBasehashSalting__block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21196,15 +22372,12 @@ void __43__BRCAccountSession__reportBasehashSalting__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: itemID.isNonDesktopRoot%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: itemID.isNonDesktopRoot%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __43__BRCAccountSession__reportBasehashSalting__block_invoke_204_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21212,10 +22385,8 @@ void __43__BRCAccountSession__reportBasehashSalting__block_invoke_204_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: itemID.isNonDesktopRoot%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: itemID.isNonDesktopRoot%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recoverAndReportDanglingLostZombieDirectories
@@ -21232,61 +22403,37 @@ void __43__BRCAccountSession__reportBasehashSalting__block_invoke_204_cold_1()
   }
 }
 
-void __120__BRCAccountSession__recoverContentPolicyIfNecessaryForItemID_appLibrary_isAppLibraryRoot_isDocumentsFolder_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: item must be root container or app library root or app library documents folder%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __65__BRCAccountSession__recoverAndReportBouncedDocumentsDirectories__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_recoverAndReportStateIntegrityWithCompletion:recoveryTask:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Starting _recoverAndReportStateIntegrity%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BRCAccountSession__registerBackgroundXPCActivities__block_invoke_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_269_cold_1(uint64_t *a1)
+void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_269_cold_1()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_assertQOS:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21294,48 +22441,19 @@ void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: qos_class_self() == expected%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: qos_class_self() == expected%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)accountWaitOperation
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: _accountWaitOperation.operationFailureThrottle%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)captureSessionOpenFailedInfoWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)closeAndResetLocalStateWithDescription:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: hasDB%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_recursivelyPrepareFolderForLogOutAtURL:pruneEmptyFolders:pruneEmptyTopLevelFolder:maxDepth:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: directoryURL is nil%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unlinkContainersWithRootURL:containers:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21343,101 +22461,59 @@ void __41__BRCAccountSession__fixupItemsAtStartup__block_invoke_2_271_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self.isOpen The session must be open in order to calculate pristine containers%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self.isOpen The session must be open in order to calculate pristine containers%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_unlinkContainersWithRootURL:containers:.cold.2()
+void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Calculating pristineContainerIDs before logout.%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __37__BRCAccountSession_destroyLocalData__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] did reset TCC access%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __37__BRCAccountSession_destroyLocalData__block_invoke_322_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] done deleting local account data%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_cold_2(uint64_t *a1)
+void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_1(uint64_t *a1)
+void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_1()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_2(uint64_t *a1)
+void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_2()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_4(uint64_t *a1)
+void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_324_cold_4()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __45__BRCAccountSession__loadClientZonesFromDisk__block_invoke_331_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverZoneByRowID:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21445,15 +22521,12 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: serverZone%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: serverZone%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverZoneByRowID:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21461,24 +22534,20 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: serverZone.clientZone%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: serverZone.clientZone%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-- (void)enumerateContainersWithDBFacade:(uint64_t *)a1 handler:.cold.1(uint64_t *a1)
+- (void)enumerateContainersWithDBFacade:handler:.cold.1()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)enumeratePrivateServerZones:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21486,15 +22555,12 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: block%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: block%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateClientZones:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21502,15 +22568,12 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: block%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: block%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumeratePrivateClientZones:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21518,15 +22581,12 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: block%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: block%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateSharedClientZones:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21534,26 +22594,21 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: block%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: block%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performBlock:(NSObject *)a3 whileRemovingPrivateClientZone:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [a1 zoneName];
   OUTLINED_FUNCTION_1_0();
-  v8 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Deactivating private client zone %@%@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Deactivating private client zone %@%@", v6, 0x16u);
 }
 
 - (void)destroySharedClientZone:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21561,15 +22616,12 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: sharedClientZone.state & BRCClientZoneStateIsResetting%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: sharedClientZone.state & BRCClientZoneStateIsResetting%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)destroySharedClientZone:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21577,44 +22629,33 @@ void __42__BRCAccountSession__handleUnloadedZones___block_invoke_2_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: sharedClientZone.state & BRCClientZoneStateWantsDataUnlinked%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: sharedClientZone.state & BRCClientZoneStateWantsDataUnlinked%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)destroySharedClientZone:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __45__BRCAccountSession_destroySharedClientZone___block_invoke_cold_1(uint64_t a1)
+void __45__BRCAccountSession_destroySharedClientZone___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __45__BRCAccountSession_destroySharedClientZone___block_invoke_356_cold_1(uint64_t a1)
+void __45__BRCAccountSession_destroySharedClientZone___block_invoke_356_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)appLibraryByRowID:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21622,42 +22663,28 @@ void __45__BRCAccountSession_destroySharedClientZone___block_invoke_356_cold_1(u
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: dbRowID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: dbRowID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appLibraryByRowID:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [a1 unsignedLongLongValue];
   OUTLINED_FUNCTION_1_0();
-  v8 = a2;
-  OUTLINED_FUNCTION_15_0(&dword_223E7A000, a3, v5, "[CRIT] UNREACHABLE: can't find app library for %lld%@", v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)__getOrCreateServerZone:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] server zone already exists%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  OUTLINED_FUNCTION_15_0(&dword_223E7A000, a3, v5, "[CRIT] UNREACHABLE: can't find app library for %lld%@", v6);
 }
 
 - (void)__getOrCreateServerZone:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__getOrCreateServerZone:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21665,32 +22692,19 @@ void __45__BRCAccountSession_destroySharedClientZone___block_invoke_356_cold_1(u
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: serverZone.dbRowID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: serverZone.dbRowID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)__getOrCreateClientZone:withServerZone:alreadyExists:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] client zone already exists%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__getOrCreateClientZone:withServerZone:alreadyExists:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__getOrCreateClientZone:withServerZone:alreadyExists:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21698,15 +22712,12 @@ void __45__BRCAccountSession_destroySharedClientZone___block_invoke_356_cold_1(u
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: [clientZone.dbRowID br_isEqualToNumber:serverZone.dbRowID]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: [clientZone.dbRowID br_isEqualToNumber:serverZone.dbRowID]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__getOrCreateAppLibrary:rowID:alreadyExists:withClientZone:createCZMMoved:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21714,23 +22725,12 @@ void __45__BRCAccountSession_destroySharedClientZone___block_invoke_356_cold_1(u
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: rowID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: rowID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)__getOrCreateAppLibrary:rowID:alreadyExists:withClientZone:createCZMMoved:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] app library already exists%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__registerServerZone:clientZone:appLibrary:isShared:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21738,58 +22738,26 @@ void __45__BRCAccountSession_destroySharedClientZone___block_invoke_356_cold_1(u
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: isShared == (appLibrary == nil)%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: isShared == (appLibrary == nil)%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-- (void)__registerServerZone:clientZone:appLibrary:isShared:.cold.2()
+- (void)_getOrCreateAppLibraryAndPrivateZonesIfNecessary:creationFlags:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: no zone name on a server zone%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)__registerServerZone:clientZone:appLibrary:isShared:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: No mangledID on a server zone%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)__registerServerZone:clientZone:appLibrary:isShared:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: No db rowID on an app library or server zone%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_getOrCreateAppLibraryAndPrivateZonesIfNecessary:(uint64_t)a1 creationFlags:.cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 624);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)_getOrCreateAppLibraryAndPrivateZonesIfNecessary:creationFlags:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __84__BRCAccountSession__getOrCreateAppLibraryAndPrivateZonesIfNecessary_creationFlags___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21797,23 +22765,12 @@ void __84__BRCAccountSession__getOrCreateAppLibraryAndPrivateZonesIfNecessary_cr
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: serverZone%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: serverZone%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __84__BRCAccountSession__getOrCreateAppLibraryAndPrivateZonesIfNecessary_creationFlags___block_invoke_362_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: can't find the default client zone%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getOrCreateSharedZones:shareAcceptOp:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21821,31 +22778,12 @@ void __84__BRCAccountSession__getOrCreateAppLibraryAndPrivateZonesIfNecessary_cr
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: mangledID.isShared%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: mangledID.isShared%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getOrReserveLibraryRowIDForLibrary:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: can't reserve library rowID for a shared zone%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] fetching the user record id because it wasn't set in the client state%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cachedCurrentUserRecordName
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -21853,49 +22791,21 @@ void __60__BRCAccountSession_fetchUserRecordIDWithCompletionHandler___block_invo
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: userRecordName != nil%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: userRecordName != nil%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_cloudDocsAppsListDidChange:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)_cloudDocsAppsListDidChange:.cold.1()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cloudDocsAppsListDidChange:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Running in sync bubble. Ignoring app list did change event%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __48__BRCAccountSession_cloudDocsAppsListDidChange___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Couldn't change personas during app list refresh%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isGreedy
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] greediness enforced because optimize storage is disabled%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)sessionDirPath
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_2();
@@ -21903,17 +22813,15 @@ void __48__BRCAccountSession_cloudDocsAppsListDidChange___block_invoke_cold_1()
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] UNREACHABLE: sessionDirPath was accessed after being closed%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: sessionDirPath was accessed after being closed%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheDirPath
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_2();
@@ -21921,17 +22829,15 @@ void __48__BRCAccountSession_cloudDocsAppsListDidChange___block_invoke_cold_1()
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] UNREACHABLE: cacheDirPath was accessed after being closed%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: cacheDirPath was accessed after being closed%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyScheduler
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_2();
@@ -21939,17 +22845,15 @@ void __48__BRCAccountSession_cloudDocsAppsListDidChange___block_invoke_cold_1()
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] UNREACHABLE: applyScheduler was accessed after being closed%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: applyScheduler was accessed after being closed%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)containerScheduler
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_2();
@@ -21957,17 +22861,15 @@ void __48__BRCAccountSession_cloudDocsAppsListDidChange___block_invoke_cold_1()
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] UNREACHABLE: containerScheduler was accessed after being closed%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: containerScheduler was accessed after being closed%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fsImporter
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_2();
@@ -21975,17 +22877,15 @@ void __48__BRCAccountSession_cloudDocsAppsListDidChange___block_invoke_cold_1()
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] UNREACHABLE: fsImporter was accessed after being closed%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: fsImporter was accessed after being closed%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notificationManager
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_2();
@@ -21993,17 +22893,15 @@ void __48__BRCAccountSession_cloudDocsAppsListDidChange___block_invoke_cold_1()
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] UNREACHABLE: notificationManager was accessed after being closed%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: notificationManager was accessed after being closed%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stageRegistry
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_2();
@@ -22011,11 +22909,10 @@ void __48__BRCAccountSession_cloudDocsAppsListDidChange___block_invoke_cold_1()
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] UNREACHABLE: stageRegistry was accessed after being closed%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: stageRegistry was accessed after being closed%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

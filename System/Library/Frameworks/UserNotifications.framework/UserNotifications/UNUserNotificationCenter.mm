@@ -163,7 +163,7 @@ LABEL_17:
 
 - (UNUserNotificationCenter)initWithBundleIdentifier:(id)identifier queue:(id)queue
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   queueCopy = queue;
   if (!identifierCopy)
@@ -171,9 +171,9 @@ LABEL_17:
     [UNUserNotificationCenter initWithBundleIdentifier:queue:];
   }
 
-  v14.receiver = self;
-  v14.super_class = UNUserNotificationCenter;
-  v8 = [(UNUserNotificationCenter *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = UNUserNotificationCenter;
+  v8 = [(UNUserNotificationCenter *)&v13 init];
   if (v8)
   {
     UNRegisterUserNotificationsLogging();
@@ -181,7 +181,7 @@ LABEL_17:
     if (os_log_type_enabled(UNLogConnections, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = identifierCopy;
+      v15 = identifierCopy;
       _os_log_impl(&dword_1B85E3000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Creating a user notification center", buf, 0xCu);
     }
 
@@ -192,7 +192,6 @@ LABEL_17:
     objc_storeStrong(&v8->_queue, queue);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -281,12 +280,12 @@ LABEL_17:
 
 void __73__UNUserNotificationCenter_addNotificationRequest_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(a1 + 32))
   {
-    v7[0] = *(a1 + 32);
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = *(a1 + 32);
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
     [UNAttachmentUtilities deleteAttachmentFilesInRequestsIfNecessary:v4];
   }
 
@@ -295,8 +294,6 @@ void __73__UNUserNotificationCenter_addNotificationRequest_withCompletionHandler
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replaceContentForRequestWithIdentifier:(id)identifier replacementContent:(id)content completionHandler:(id)handler
@@ -322,12 +319,12 @@ void __73__UNUserNotificationCenter_addNotificationRequest_withCompletionHandler
 
 void __104__UNUserNotificationCenter_replaceContentForRequestWithIdentifier_replacementContent_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(a1 + 32))
   {
-    v7[0] = *(a1 + 32);
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = *(a1 + 32);
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
     [UNAttachmentUtilities deleteAttachmentFilesInContentsIfNecessary:v4];
   }
 
@@ -336,8 +333,6 @@ void __104__UNUserNotificationCenter_replaceContentForRequestWithIdentifier_repl
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setNotificationRequests:(id)requests completionHandler:(id)handler

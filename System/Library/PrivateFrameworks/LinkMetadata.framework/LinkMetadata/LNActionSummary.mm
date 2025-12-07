@@ -178,7 +178,7 @@ LABEL_36:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   summaryString = [(LNActionSummary *)self summaryString];
   [coderCopy encodeObject:summaryString forKey:@"summaryString"];
@@ -202,14 +202,12 @@ LABEL_36:
     v13 = v12;
     if (v12)
     {
-      v16 = v11;
-      v17[0] = v12;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = v11;
+      v16[0] = v12;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       [coderCopy encodeObject:v14 forKey:@"prelocalizedStrings"];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (LNActionSummary)initWithCoder:(id)coder
@@ -274,26 +272,15 @@ LABEL_36:
   }
   v5 = ;
   localeIdentifier = [v5 localeIdentifier];
-  if (!localeIdentifier)
+  if (localeIdentifier && (v7 = localeIdentifier, -[LNActionSummary prelocalizedStrings](self, "prelocalizedStrings"), v8 = objc_claimAutoreleasedReturnValue(), [v5 localeIdentifier], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKeyedSubscript:", v9), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v8, v7, v10))
   {
-    goto LABEL_7;
-  }
-
-  v7 = localeIdentifier;
-  prelocalizedStrings = [(LNActionSummary *)self prelocalizedStrings];
-  localeIdentifier2 = [v5 localeIdentifier];
-  v10 = [prelocalizedStrings objectForKeyedSubscript:localeIdentifier2];
-
-  if (v10)
-  {
-    prelocalizedStrings2 = [(LNActionSummary *)self prelocalizedStrings];
-    localeIdentifier3 = [v5 localeIdentifier];
-    summaryString = [(LNStaticDeferredLocalizedString *)prelocalizedStrings2 objectForKeyedSubscript:localeIdentifier3];
+    prelocalizedStrings = [(LNActionSummary *)self prelocalizedStrings];
+    localeIdentifier2 = [v5 localeIdentifier];
+    summaryString = [(LNStaticDeferredLocalizedString *)prelocalizedStrings objectForKeyedSubscript:localeIdentifier2];
   }
 
   else
   {
-LABEL_7:
     summaryString = [(LNActionSummary *)self summaryString];
 
     if (!summaryString)
@@ -306,9 +293,9 @@ LABEL_7:
     formatString = [summaryString2 formatString];
     table = [(LNActionSummary *)self table];
     bundleURL = [(LNActionSummary *)self bundleURL];
-    prelocalizedStrings2 = [(LNStaticDeferredLocalizedString *)v14 initWithKey:formatString table:table bundleURL:bundleURL];
+    prelocalizedStrings = [(LNStaticDeferredLocalizedString *)v14 initWithKey:formatString table:table bundleURL:bundleURL];
 
-    summaryString = [(LNStaticDeferredLocalizedString *)prelocalizedStrings2 localizedStringForLocaleIdentifier:identifierCopy];
+    summaryString = [(LNStaticDeferredLocalizedString *)prelocalizedStrings localizedStringForLocaleIdentifier:identifierCopy];
   }
 
 LABEL_10:

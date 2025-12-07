@@ -7,16 +7,13 @@
 
 - (_TtC11WorkoutCore29WorkoutAppInstallationUtility)init
 {
-  v3 = *MEMORY[0x277D09580];
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  v7 = objc_allocWithZone(type metadata accessor for WorkoutAppInstallationUtility());
-  v8 = specialized WorkoutAppInstallationUtility.init(dependencies:)(v4, v6, v7);
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  v5 = objc_allocWithZone(type metadata accessor for WorkoutAppInstallationUtility(0));
+  v6 = specialized WorkoutAppInstallationUtility.init(dependencies:)(v2, v4, v5);
   swift_getObjectType();
-  v9 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x30);
-  v10 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x34);
   swift_deallocPartialClassInstance();
-  return v8;
+  return v6;
 }
 
 - (void)dealloc
@@ -30,7 +27,7 @@
     [sharedDeviceConnection removeObserver_];
 
     v7.receiver = selfCopy;
-    v7.super_class = type metadata accessor for WorkoutAppInstallationUtility();
+    v7.super_class = type metadata accessor for WorkoutAppInstallationUtility(0);
     [(WorkoutAppInstallationUtility *)&v7 dealloc];
   }
 

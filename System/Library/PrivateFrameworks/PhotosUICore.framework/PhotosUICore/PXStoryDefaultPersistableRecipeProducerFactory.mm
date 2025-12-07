@@ -20,7 +20,7 @@
     goto LABEL_5;
   }
 
-  if (([configurationCopy options] & 2) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if ((objc_msgSend_options(configurationCopy) & 2) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
 LABEL_2:
     v6 = objc_alloc_init(PXStoryPassthroughPersistableRecipeProducer);

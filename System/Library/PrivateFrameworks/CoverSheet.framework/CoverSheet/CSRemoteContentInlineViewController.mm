@@ -27,6 +27,7 @@
 - (void)aggregateBehavior:(id)behavior;
 - (void)beginCancelTouchesForCurrentEventInHostedContent;
 - (void)dealloc;
+- (void)endCancelTouchesForCurrentEventInHostedContent;
 - (void)hostDidChangeContentBounds;
 - (void)loadView;
 - (void)remoteDidChangeStyle;
@@ -583,6 +584,13 @@ LABEL_37:
   _cancelTouchesForCurrentEventInHostedContent = [WeakRetained _cancelTouchesForCurrentEventInHostedContent];
   cancelInlineContentTouchesAssertion = self->_cancelInlineContentTouchesAssertion;
   self->_cancelInlineContentTouchesAssertion = _cancelTouchesForCurrentEventInHostedContent;
+}
+
+- (void)endCancelTouchesForCurrentEventInHostedContent
+{
+  cancelInlineContentTouchesAssertion = self->_cancelInlineContentTouchesAssertion;
+  self->_cancelInlineContentTouchesAssertion = 0;
+  MEMORY[0x2821F96F8](self, cancelInlineContentTouchesAssertion);
 }
 
 - (void)settings:(id)settings changedValueForKey:(id)key

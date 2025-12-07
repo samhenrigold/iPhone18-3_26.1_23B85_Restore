@@ -56,12 +56,12 @@
 
 - (void)_updateConstraintsWithLabel:(id)label
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14 = @"label";
-  v15[0] = label;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13 = @"label";
+  v14[0] = label;
   v4 = MEMORY[0x277CBEAC0];
   labelCopy = label;
-  v6 = [v4 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v6 = [v4 dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v7 = MEMORY[0x277CCAAD0];
   0x4031000000000000 = [MEMORY[0x277CCACA8] stringWithFormat:@"|-%f-[label]-%f-|", 0x4031000000000000, 0x4031000000000000];
   v9 = [v7 constraintsWithVisualFormat:0x4031000000000000 options:0 metrics:0 views:v6];
@@ -73,8 +73,6 @@
 
   contentView2 = [(MCProfileTitlePageWarningCell *)self contentView];
   [contentView2 addConstraints:v10];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

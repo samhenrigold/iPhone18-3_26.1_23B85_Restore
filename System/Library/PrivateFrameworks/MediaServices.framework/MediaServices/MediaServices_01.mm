@@ -436,8 +436,8 @@ LABEL_27:
       v23 = a1;
     }
 
-    v25 = (v23 + alignp - 1) & -alignp;
-    v26 = _MSVDebugIvarValue((v23 + alignp - 1) & -alignp, v11);
+    v25 = ((v23 + alignp - 1) & -alignp);
+    v26 = _MSVDebugIvarValue(v25, v11, v5 == 40);
     v27 = v26;
     v28 = *v11;
     if (v28 == 123 || v28 == 40)
@@ -457,7 +457,7 @@ LABEL_27:
       v32 = 0;
     }
 
-    a1 = (v32 + v25);
+    a1 = (v25 + v32);
 
     v9 = 0;
   }
@@ -526,46 +526,45 @@ id MSVProcessCopyMediaFrameworksDescriptions()
       dispatch_once(&MSVProcessCopyMediaFrameworksDescriptions_onceToken, &__block_literal_global_1367);
     }
 
-    v2 = *MEMORY[0x1E69E9A60];
     if (_dyld_process_info_create())
     {
       _dyld_process_info_get_state();
       MSVProcessCopyMediaFrameworksDescriptions_lastTimestamp = 0;
-      v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(MSVProcessCopyMediaFrameworksDescriptions_frameworkNames, "count")}];
+      v2 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(MSVProcessCopyMediaFrameworksDescriptions_frameworkNames, "count")}];
       if (os_variant_has_internal_content())
       {
         dyld_shared_cache_some_image_overridden();
       }
 
-      v9 = MEMORY[0x1E69E9820];
-      v1 = v3;
+      v8 = MEMORY[0x1E69E9820];
+      v1 = v2;
       _dyld_process_info_for_each_image();
       _dyld_process_info_release();
       os_unfair_lock_lock(&MSVProcessCopyMediaFrameworksDescriptions_lock);
-      v4 = [v1 copy];
-      v5 = MSVProcessCopyMediaFrameworksDescriptions_frameworkDescriptions;
-      MSVProcessCopyMediaFrameworksDescriptions_frameworkDescriptions = v4;
+      v3 = [v1 copy];
+      v4 = MSVProcessCopyMediaFrameworksDescriptions_frameworkDescriptions;
+      MSVProcessCopyMediaFrameworksDescriptions_frameworkDescriptions = v3;
 
       os_unfair_lock_unlock(&MSVProcessCopyMediaFrameworksDescriptions_lock);
-      v6 = v1;
+      v5 = v1;
     }
 
     else
     {
       os_unfair_lock_lock(&MSVProcessCopyMediaFrameworksDescriptions_lock);
-      v6 = [MSVProcessCopyMediaFrameworksDescriptions_frameworkDescriptions copy];
+      v5 = [MSVProcessCopyMediaFrameworksDescriptions_frameworkDescriptions copy];
       os_unfair_lock_unlock(&MSVProcessCopyMediaFrameworksDescriptions_lock);
-      if (v6)
+      if (v5)
       {
-        v7 = v6;
+        v6 = v5;
       }
 
       else
       {
-        v7 = v1;
+        v6 = v1;
       }
 
-      v1 = v7;
+      v1 = v6;
     }
   }
 
@@ -609,7 +608,6 @@ void __MSVProcessCopyMediaFrameworksDescriptions_block_invoke_3(uint64_t a1, uin
 
 void __MSVProcessCopyMediaFrameworksDescriptions_block_invoke()
 {
-  v11 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F215CA28];
   v1 = MSVProcessCopyMediaFrameworksDescriptions_frameworkNames;
   MSVProcessCopyMediaFrameworksDescriptions_frameworkNames = v0;
@@ -617,19 +615,17 @@ void __MSVProcessCopyMediaFrameworksDescriptions_block_invoke()
   v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(MSVProcessCopyMediaFrameworksDescriptions_frameworkNames, "count")}];
   if (_dyld_get_shared_cache_uuid())
   {
-    v6 = MEMORY[0x1E69E9820];
-    v7 = 3221225472;
-    v8 = __MSVProcessCopyMediaFrameworksDescriptions_block_invoke_2;
-    v9 = &unk_1E79819B0;
-    v10 = v2;
+    v5 = MEMORY[0x1E69E9820];
+    v6 = 3221225472;
+    v7 = __MSVProcessCopyMediaFrameworksDescriptions_block_invoke_2;
+    v8 = &unk_1E79819B0;
+    v9 = v2;
     dyld_shared_cache_iterate_text();
   }
 
   v3 = [v2 copy];
   v4 = MSVProcessCopyMediaFrameworksDescriptions_frameworkUUIDs;
   MSVProcessCopyMediaFrameworksDescriptions_frameworkUUIDs = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __MSVProcessCopyMediaFrameworksDescriptions_block_invoke_2(uint64_t a1, uint64_t a2)
@@ -649,24 +645,23 @@ void __MSVProcessCopyMediaFrameworksDescriptions_block_invoke_2(uint64_t a1, uin
 
 id MSVProcessCopyUUID()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  v4[1] = 0;
+  v3[2] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  v3[1] = 0;
   v0 = &UUID_NULL;
   if (_dyld_get_prog_image_header() && _dyld_get_image_uuid())
   {
-    v0 = v4;
+    v0 = v3;
   }
 
   v1 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v0];
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
 
 uint64_t MSVGetDiskUsageForPath(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (v1)
@@ -680,38 +675,37 @@ uint64_t MSVGetDiskUsageForPath(void *a1)
         v4 = __error();
         v5 = strerror(*v4);
         *buf = 138543618;
-        v9 = v2;
-        v10 = 2080;
-        v11 = v5;
+        v8 = v2;
+        v9 = 2080;
+        v10 = v5;
         _os_log_impl(&dword_1AC81F000, v3, OS_LOG_TYPE_ERROR, "MSVGetUsageForPath encountered error. path=%{public}@ err=%s", buf, 0x16u);
       }
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t MSVEnableDirStatsForDirectory(void *a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   *buf = 0u;
   if (fsctl([v1 UTF8String], 0xC1104A71uLL, buf, 0))
   {
@@ -720,17 +714,17 @@ uint64_t MSVEnableDirStatsForDirectory(void *a1)
     {
       v3 = __error();
       v4 = strerror(*v3);
-      v13 = 138478083;
-      v14 = v1;
-      v15 = 2080;
-      v16 = v4;
-      _os_log_impl(&dword_1AC81F000, v2, OS_LOG_TYPE_ERROR, "Unable to check dirstats for directory %{private}@, error %s", &v13, 0x16u);
+      v12 = 138478083;
+      v13 = v1;
+      v14 = 2080;
+      v15 = v4;
+      _os_log_impl(&dword_1AC81F000, v2, OS_LOG_TYPE_ERROR, "Unable to check dirstats for directory %{private}@, error %s", &v12, 0x16u);
     }
   }
 
   else
   {
-    v10 = v19;
+    v10 = v18;
 
     if (v10)
     {
@@ -748,22 +742,22 @@ LABEL_12:
     _os_log_impl(&dword_1AC81F000, v5, OS_LOG_TYPE_DEFAULT, "MSVEnableDirStatsForDirectory - Enabling dirstat for path %{public}@", buf, 0xCu);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   *buf = 0u;
   *&buf[4] = 1;
   if (!fsctl([v1 UTF8String], 0xC1104A71uLL, buf, 0))
@@ -776,17 +770,16 @@ LABEL_12:
   {
     v7 = __error();
     v8 = strerror(*v7);
-    v13 = 138478083;
-    v14 = v1;
-    v15 = 2080;
-    v16 = v8;
-    _os_log_impl(&dword_1AC81F000, v6, OS_LOG_TYPE_ERROR, "Unable to enable dirstats for directory %{private}@, error %s", &v13, 0x16u);
+    v12 = 138478083;
+    v13 = v1;
+    v14 = 2080;
+    v15 = v8;
+    _os_log_impl(&dword_1AC81F000, v6, OS_LOG_TYPE_ERROR, "Unable to enable dirstats for directory %{private}@, error %s", &v12, 0x16u);
   }
 
   v9 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -814,7 +807,7 @@ id MSVBundleIDForTCCIdentity(uint64_t a1)
 
 void MSVAuditTokenForCurrentProcess(uint64_t a1@<X8>)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *&v1 = -1;
   *(&v1 + 1) = -1;
   *a1 = v1;
@@ -829,14 +822,12 @@ void MSVAuditTokenForCurrentProcess(uint64_t a1@<X8>)
     {
       v5 = mach_error_string(v3);
       *buf = 136446466;
-      v9 = v5;
-      v10 = 1024;
-      v11 = v3;
+      v8 = v5;
+      v9 = 1024;
+      v10 = v3;
       _os_log_impl(&dword_1AC81F000, v4, OS_LOG_TYPE_ERROR, "MSVAuditTokenForCurrentProcess() failed: %{public}s (0x%x)", buf, 0x12u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __Block_byref_object_copy__1860(uint64_t result, uint64_t a2)
@@ -905,45 +896,42 @@ void __MSVLaunchApplicationWithOptions_block_invoke(uint64_t a1, uint64_t a2, vo
 
 void __MSVLaunchApplicationWithOptions_block_invoke_2(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A400];
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Launch timed out";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E696A578];
+  v7[0] = @"Launch timed out";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v5 = [v2 errorWithDomain:v3 code:-1 userInfo:v4];
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id MSVMediaLoggingDirectory()
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
   v0 = MSVMobileHomeDirectory();
   v1 = MEMORY[0x1E696AEC0];
-  v6[0] = v0;
-  v6[1] = @"Library";
-  v6[2] = @"Logs";
-  v6[3] = @"MediaServices";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
+  v5[0] = v0;
+  v5[1] = @"Library";
+  v5[2] = @"Logs";
+  v5[3] = @"MediaServices";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
   v3 = [v1 pathWithComponents:v2];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 id MSVHomeSharingCacheDirectory()
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   v0 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
   v1 = [v0 lastObject];
 
-  v7[0] = v1;
-  v7[1] = @"com.apple.mobileipod";
-  v7[2] = @"HomeSharingLibraries";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
+  v6[0] = v1;
+  v6[1] = @"com.apple.mobileipod";
+  v6[2] = @"HomeSharingLibraries";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
   v3 = [MEMORY[0x1E696AEC0] pathWithComponents:v2];
   if ([v3 length])
   {
@@ -955,8 +943,6 @@ id MSVHomeSharingCacheDirectory()
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:@"unable to create cache directory"];
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -996,96 +982,92 @@ id MSVCreateTemporaryFileHandle(void *a1, void *a2)
   return v11;
 }
 
-id MSVGzipCompressData()
+id MSVGzipCompressData(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = v0;
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = v3;
   memset(&strm.avail_in, 0, 104);
-  strm.avail_in = [v1 length];
-  strm.next_in = [v1 bytes];
-  v2 = 0;
+  strm.avail_in = [v4 length];
+  strm.next_in = [v4 bytes];
+  v5 = 0;
   if (!deflateInit2_(&strm, -1, 8, 31, 8, 0, "1.2.12", 112))
   {
-    v3 = [MEMORY[0x1E695DF88] data];
+    v6 = [MEMORY[0x1E695DF88] data];
     while (1)
     {
       strm.avail_out = 0x4000;
-      strm.next_out = v9;
-      v4 = deflate(&strm, 4 * (strm.avail_in == 0));
-      if (v4 > 1)
+      strm.next_out = v11;
+      v7 = deflate(&strm, 4 * (strm.avail_in == 0));
+      if (v7 > 1)
       {
         break;
       }
 
-      v5 = v4;
+      v8 = v7;
       if (strm.avail_out != 0x4000)
       {
-        [v3 appendBytes:v9 length:0x4000 - strm.avail_out];
+        [v6 appendBytes:v11 length:0x4000 - strm.avail_out];
       }
 
-      if (v5)
+      if (v8)
       {
         deflateEnd(&strm);
-        v2 = [v3 copy];
+        v5 = [v6 copy];
         goto LABEL_9;
       }
     }
 
     deflateEnd(&strm);
-    v2 = 0;
+    v5 = 0;
 LABEL_9:
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v2;
+  return v5;
 }
 
-id MSVGzipDecompressData()
+id MSVGzipDecompressData(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = v0;
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = v3;
   memset(&strm.avail_in, 0, 104);
-  strm.avail_in = [v1 length];
-  strm.next_in = [v1 bytes];
-  v2 = 0;
+  strm.avail_in = [v4 length];
+  strm.next_in = [v4 bytes];
+  v5 = 0;
   if (!inflateInit2_(&strm, 31, "1.2.12", 112))
   {
-    v3 = [MEMORY[0x1E695DF88] data];
+    v6 = [MEMORY[0x1E695DF88] data];
     while (1)
     {
       strm.avail_out = 0x4000;
-      strm.next_out = v9;
-      v4 = inflate(&strm, 4 * (strm.avail_in == 0));
-      if (v4 > 1)
+      strm.next_out = v11;
+      v7 = inflate(&strm, 4 * (strm.avail_in == 0));
+      if (v7 > 1)
       {
         break;
       }
 
-      v5 = v4;
+      v8 = v7;
       if (strm.avail_out != 0x4000)
       {
-        [v3 appendBytes:v9 length:0x4000 - strm.avail_out];
+        [v6 appendBytes:v11 length:0x4000 - strm.avail_out];
       }
 
-      if (v5)
+      if (v8)
       {
         inflateEnd(&strm);
-        v2 = [v3 copy];
+        v5 = [v6 copy];
         goto LABEL_9;
       }
     }
 
     inflateEnd(&strm);
-    v2 = 0;
+    v5 = 0;
 LABEL_9:
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v2;
+  return v5;
 }
 
 uint64_t MSVGzipCompressFile(void *a1, void *a2)
@@ -1156,61 +1138,60 @@ uint64_t __MSVGzipCompressFile_block_invoke(uint64_t a1, id a2)
   return result;
 }
 
-gzFile_s *MSVGzipDecompressFile()
+gzFile_s *MSVGzipDecompressFile(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v18 = *MEMORY[0x1E69E9840];
-  v3 = v0;
-  v4 = v2;
-  v5 = [v3 path];
-  v6 = gzopen([v5 UTF8String], "r");
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v5 = v4;
+  v20 = *MEMORY[0x1E69E9840];
+  v6 = v3;
+  v7 = v5;
+  v8 = [v6 path];
+  v9 = gzopen([v8 UTF8String], "r");
 
-  if (v6)
+  if (v9)
   {
-    v7 = [MEMORY[0x1E696AC08] defaultManager];
-    v8 = [v4 path];
-    v9 = [v7 fileExistsAtPath:v8];
+    v10 = [MEMORY[0x1E696AC08] defaultManager];
+    v11 = [v7 path];
+    v12 = [v10 fileExistsAtPath:v11];
 
-    if ((v9 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
-      v10 = [v4 path];
-      [v7 createFileAtPath:v10 contents:0 attributes:0];
+      v13 = [v7 path];
+      [v10 createFileAtPath:v13 contents:0 attributes:0];
     }
 
-    v11 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:v4 error:0];
-    if (v11)
+    v14 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:v7 error:0];
+    if (v14)
     {
-      v12 = v11;
+      v15 = v14;
       while (1)
       {
-        v13 = gzread(v6, buf, 0x4000u);
-        if (v13 <= 0)
+        v16 = gzread(v9, buf, 0x4000u);
+        if (v16 <= 0)
         {
           break;
         }
 
-        v14 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:buf length:v13 freeWhenDone:0];
-        [v12 writeData:v14];
+        v17 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:buf length:v16 freeWhenDone:0];
+        [v15 writeData:v17];
       }
 
-      v6 = (v13 == 0);
-      if (!v13)
+      v9 = (v16 == 0);
+      if (!v16)
       {
-        [v12 closeFile];
+        [v15 closeFile];
 
-        v12 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v6 = 0;
+      v9 = 0;
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v9;
 }
 
 uint64_t MSVDeviceIsiPad()
@@ -1410,7 +1391,7 @@ double MSVGetMaximumScreenSize()
 
 void __MSVGetMaximumScreenSize_block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswerWithError();
   v1 = MGCopyAnswerWithError();
   if ([v0 integerValue] < 1 || objc_msgSend(v1, "integerValue") < 1)
@@ -1420,16 +1401,16 @@ void __MSVGetMaximumScreenSize_block_invoke()
       dispatch_once(&MSVGetMaximumScreenScale_onceToken, &__block_literal_global_130);
     }
 
-    CGAffineTransformMakeScale(&v6, *&MSVGetMaximumScreenScale_deviceScreenScale, *&MSVGetMaximumScreenScale_deviceScreenScale);
-    *&MSVGetMaximumScreenSize_maximumScreenSize_0 = v6.c * 1024.0 + v6.a * 1366.0;
-    *&MSVGetMaximumScreenSize_maximumScreenSize_1 = v6.d * 1024.0 + v6.b * 1366.0;
+    CGAffineTransformMakeScale(&v5, *&MSVGetMaximumScreenScale_deviceScreenScale, *&MSVGetMaximumScreenScale_deviceScreenScale);
+    *&MSVGetMaximumScreenSize_maximumScreenSize_0 = v5.c * 1024.0 + v5.a * 1366.0;
+    *&MSVGetMaximumScreenSize_maximumScreenSize_1 = v5.d * 1024.0 + v5.b * 1366.0;
     v4 = os_log_create("com.apple.amp.MediaServices", "SystemUtilities");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      *&v6.a = 67109376;
-      LOWORD(v6.b) = 1024;
-      *(&v6.b + 2) = 0;
-      _os_log_impl(&dword_1AC81F000, v4, OS_LOG_TYPE_ERROR, "Failed to get screen size from MobileGestalt (width_error = %d / height_error = %d", &v6, 0xEu);
+      *&v5.a = 67109376;
+      LOWORD(v5.b) = 1024;
+      *(&v5.b + 2) = 0;
+      _os_log_impl(&dword_1AC81F000, v4, OS_LOG_TYPE_ERROR, "Failed to get screen size from MobileGestalt (width_error = %d / height_error = %d", &v5, 0xEu);
     }
   }
 
@@ -1440,13 +1421,11 @@ void __MSVGetMaximumScreenSize_block_invoke()
     MSVGetMaximumScreenSize_maximumScreenSize_0 = *&v2;
     *&MSVGetMaximumScreenSize_maximumScreenSize_1 = v3;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __MSVGetMaximumScreenScale_block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswerWithError();
   v1 = v0;
   if (v0)
@@ -1461,12 +1440,10 @@ void __MSVGetMaximumScreenScale_block_invoke()
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v6 = 0;
+      v5 = 0;
       _os_log_impl(&dword_1AC81F000, v3, OS_LOG_TYPE_ERROR, "Failed to get main screen scale from MobileGestalt (error = %d)", buf, 8u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 double MSVGetMaximumScreenScale()
@@ -1543,29 +1520,26 @@ LABEL_11:
 
 uint64_t MSVGetCurrentThreadPriority()
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
+  v11 = *MEMORY[0x1E69E9840];
   v9 = 0u;
-  v6 = 0u;
+  v10 = 0u;
   v7 = 0u;
+  v8 = 0u;
+  v5 = 0u;
+  v6 = 0u;
   *thread_info_out = 0u;
   thread_info_outCnt = 28;
   v0 = pthread_self();
   v1 = pthread_mach_thread_np(v0);
   if (thread_info(v1, 5u, thread_info_out, &thread_info_outCnt))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = DWORD1(v7);
+    return DWORD1(v6);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t msv_dispatch_sync_BOOL(NSObject *a1, void *a2)
@@ -1832,17 +1806,14 @@ uint64_t __Block_byref_object_copy__1929(uint64_t result, uint64_t a2)
 
 uint64_t __msv_dispatch_sync_object_block_invoke(uint64_t a1)
 {
-  v2 = (*(*(a1 + 32) + 16))();
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = (*(*(a1 + 32) + 16))();
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1AC847DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC847DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1854,79 +1825,79 @@ uint64_t __Block_byref_object_copy__2002(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1AC847F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC847F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC848074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC848074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC8481A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC8481A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC8482DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC8482DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC848410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC848410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC848544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC848544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC84867C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC84867C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC8487AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC8487AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC8488E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC8488E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC848A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC848A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC848CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC848CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1975,9 +1946,9 @@ LABEL_9:
   return v5;
 }
 
-void sub_1AC84F734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC84F734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1994,9 +1965,9 @@ id __MSVJSONDateFormatter()
   return v1;
 }
 
-void sub_1AC8528AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC8528AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2286,9 +2257,9 @@ uint64_t __Block_byref_object_copy__2966(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1AC855998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC855998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2300,52 +2271,52 @@ uint64_t __Block_byref_object_copy__3014(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1AC855BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC855BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC855DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC855DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id _MSVTransformStateValue(void *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (_NSIsNSArray())
   {
     v2 = v1;
     v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = _MSVTransformStateValue(*(*(&v18 + 1) + 8 * i));
+          v9 = _MSVTransformStateValue(*(*(&v17 + 1) + 8 * i));
           [v3 addObject:v9];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v6);
@@ -2387,41 +2358,40 @@ LABEL_10:
   v10 = MEMORY[0x1E695DF90];
   v11 = v1;
   v12 = [v10 dictionaryWithCapacity:{objc_msgSend(v11, "count")}];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = ___MSVTransformStateValue_block_invoke;
-  v16[3] = &unk_1E7982030;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = ___MSVTransformStateValue_block_invoke;
+  v15[3] = &unk_1E7982030;
   v3 = v12;
-  v17 = v3;
-  [v11 enumerateKeysAndObjectsUsingBlock:v16];
+  v16 = v3;
+  [v11 enumerateKeysAndObjectsUsingBlock:v15];
 
 LABEL_21:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 uint64_t __MSVLogAddStateHandler_block_invoke_4(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = _MSVTransformStateValue(v2);
-  v13 = 0;
-  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:v3 format:200 options:0 error:&v13];
-  v5 = v13;
+  v12 = 0;
+  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:v3 format:200 options:0 error:&v12];
+  v5 = v12;
   v6 = v5;
   if (v3 && v2 && v5)
   {
     v7 = os_log_create("com.apple.amp.MediaServices", "Default_Oversize");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v14[0] = @"0:value";
-      v14[1] = @"1:transformedValue";
-      v15[0] = v2;
-      v15[1] = v3;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+      v13[0] = @"0:value";
+      v13[1] = @"1:transformedValue";
+      v14[0] = v2;
+      v14[1] = v3;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
       *buf = 138543362;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&dword_1AC81F000, v7, OS_LOG_TYPE_FAULT, "Failure to serialize state dump: %{public}@", buf, 0xCu);
     }
   }
@@ -2436,11 +2406,10 @@ uint64_t __MSVLogAddStateHandler_block_invoke_4(uint64_t a1, void *a2)
   [v9 handleFailureInFunction:v10 file:@"OSLog+MSVAdditions.m" lineNumber:65 description:{@"Error serializing state capture: %@", v6}];
 
 LABEL_9:
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
-id MSVTimelineChartPrefix(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+id MSVTimelineChartPrefix(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = [MEMORY[0x1E696AD60] stringWithCapacity:a4];
   if (a4 >= 1)
@@ -2539,7 +2508,7 @@ LABEL_27:
 
 void _MSVPropertyListEncoderAppendCharacters(void *a1, unsigned __int16 *a2, unint64_t a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = 0;
   v7 = a2 + 1;
@@ -2555,7 +2524,7 @@ void _MSVPropertyListEncoderAppendCharacters(void *a1, unsigned __int16 *a2, uni
         v11 = v8 + 1;
         while (1)
         {
-          v21[v10] = v9;
+          v20[v10] = v9;
           if (v8 == v10)
           {
             break;
@@ -2574,7 +2543,7 @@ void _MSVPropertyListEncoderAppendCharacters(void *a1, unsigned __int16 *a2, uni
 LABEL_12:
         if (v11 > v6)
         {
-          [v5 appendBytes:v21 length:v10 - v6];
+          [v5 appendBytes:v20 length:v10 - v6];
           v6 = v11;
         }
       }
@@ -2608,13 +2577,11 @@ LABEL_12:
       break;
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1AC85C370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AC85C370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2653,9 +2620,9 @@ id _MSVFileExtensionForCoderTypeAndCompressionAlgorithm(void *a1)
   return v3;
 }
 
-void sub_1AC85C9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC85C9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2682,10 +2649,11 @@ void sub_1AC85F3C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AC860648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1AC860648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2754,9 +2722,9 @@ void sub_1AC8622C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1AC862C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AC862C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2780,9 +2748,9 @@ void __getSDRDiagnosticReporterClass_block_invoke(uint64_t a1)
   }
 }
 
-void sub_1AC8637FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1AC8637FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2798,17 +2766,17 @@ void *__getkSymptomDiagnosticReplySuccessSymbolLoc_block_invoke(uint64_t a1)
 
 void *SymptomDiagnosticReporterLibrary()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!SymptomDiagnosticReporterLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __SymptomDiagnosticReporterLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E79825B0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __SymptomDiagnosticReporterLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E79825B0;
+    v6 = 0;
     SymptomDiagnosticReporterLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -2816,21 +2784,20 @@ void *SymptomDiagnosticReporterLibrary()
   if (!SymptomDiagnosticReporterLibraryCore_frameworkLibrary)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *SymptomDiagnosticReporterLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"MSVAutoBugCapture.m" lineNumber:30 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *SymptomDiagnosticReporterLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"MSVAutoBugCapture.m" lineNumber:30 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
@@ -2899,11 +2866,8 @@ void *__getkSymptomDiagnosticErrorRandomizedSuppressionSymbolLoc_block_invoke(ui
 
 uint64_t __SymptomDiagnosticReporterLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SymptomDiagnosticReporterLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2955,11 +2919,11 @@ void sub_1AC864D94(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1AC8650BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AC8650BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2984,7 +2948,7 @@ void *MSVWeakLinkSymbol(const char *a1, void *a2)
 
 uint64_t _MSVDYLDHandle(void *a1)
 {
-  v39[3] = *MEMORY[0x1E69E9840];
+  v38[3] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   if ([v2 fileExistsAtPath:v1])
@@ -2996,50 +2960,50 @@ uint64_t _MSVDYLDHandle(void *a1)
   {
     v4 = @"/";
     v5 = MEMORY[0x1E696AEC0];
-    v38[0] = @"/";
-    v38[1] = @"System";
-    v38[2] = @"Library";
-    v38[3] = @"PrivateFrameworks";
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:4];
-    v6 = [v5 pathWithComponents:v24];
-    v39[0] = v6;
-    v7 = MEMORY[0x1E696AEC0];
     v37[0] = @"/";
     v37[1] = @"System";
     v37[2] = @"Library";
-    v37[3] = @"Frameworks";
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:4];
-    v9 = [v7 pathWithComponents:v8];
-    v39[1] = v9;
-    v10 = MEMORY[0x1E696AEC0];
+    v37[3] = @"PrivateFrameworks";
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:4];
+    v6 = [v5 pathWithComponents:v23];
+    v38[0] = v6;
+    v7 = MEMORY[0x1E696AEC0];
     v36[0] = @"/";
-    v36[1] = @"AppleInternal";
+    v36[1] = @"System";
     v36[2] = @"Library";
     v36[3] = @"Frameworks";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:4];
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:4];
+    v9 = [v7 pathWithComponents:v8];
+    v38[1] = v9;
+    v10 = MEMORY[0x1E696AEC0];
+    v35[0] = @"/";
+    v35[1] = @"AppleInternal";
+    v35[2] = @"Library";
+    v35[3] = @"Frameworks";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:4];
     v12 = [v10 pathWithComponents:v11];
-    v39[2] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:3];
+    v38[2] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:3];
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v28 objects:&v32 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v27 objects:&v31 count:16];
     if (v15)
     {
-      v16 = *v29;
+      v16 = *v28;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v29 != v16)
+          if (*v28 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          v18 = [*(*(&v28 + 1) + 8 * i) stringByAppendingPathComponent:v1];
+          v18 = [*(*(&v27 + 1) + 8 * i) stringByAppendingPathComponent:v1];
           v19 = [v18 stringByAppendingPathExtension:@"framework"];
 
           if ([v2 fileExistsAtPath:v19])
@@ -3050,7 +3014,7 @@ uint64_t _MSVDYLDHandle(void *a1)
           }
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v28 objects:&v32 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v27 objects:&v31 count:16];
         if (v15)
         {
           continue;
@@ -3064,10 +3028,10 @@ uint64_t _MSVDYLDHandle(void *a1)
 LABEL_13:
   }
 
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   if (_MSVDYLDHandle___once != -1)
   {
     dispatch_once(&_MSVDYLDHandle___once, &__block_literal_global_4767);
@@ -3092,16 +3056,22 @@ LABEL_16:
   block[1] = 3221225472;
   block[2] = ___MSVDYLDHandle_block_invoke_2;
   block[3] = &unk_1E7982B78;
-  v27 = &v32;
-  v26 = v3;
+  v26 = &v31;
+  v25 = v3;
   dispatch_sync(v20, block);
 
 LABEL_19:
-  v21 = v33[3];
-  _Block_object_dispose(&v32, 8);
+  v21 = v32[3];
+  _Block_object_dispose(&v31, 8);
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
+}
+
+void sub_1AC866CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id *MSVWeakLinkStringConstant(const char *a1, void *a2)
@@ -3137,23 +3107,23 @@ Class MSVWeakLinkClass(void *a1, void *a2)
   return v4;
 }
 
-void sub_1AC867068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC867068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC86720C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC86720C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AC867444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AC867444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3607,6 +3577,13 @@ void carrayBindDel(void *a1)
   }
 
   sqlite3_free(a1);
+}
+
+void sub_1AC868798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__4910(uint64_t result, uint64_t a2)
@@ -4072,9 +4049,10 @@ uint64_t MSVNanoIDCreateEightChar()
   return v7 | v8;
 }
 
-void sub_1AC874104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1AC874104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a26, 8);
   _Unwind_Resume(a1);
 }
@@ -4090,17 +4068,17 @@ void *__getSBUserNotificationForcesModalAlertAppearanceSymbolLoc_block_invoke(ui
 
 void *SpringBoardServicesLibrary()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!SpringBoardServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __SpringBoardServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E79828E0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __SpringBoardServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E79828E0;
+    v6 = 0;
     SpringBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -4108,21 +4086,20 @@ void *SpringBoardServicesLibrary()
   if (!SpringBoardServicesLibraryCore_frameworkLibrary)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *SpringBoardServicesLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"MSVSystemDialog.m" lineNumber:18 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *SpringBoardServicesLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"MSVSystemDialog.m" lineNumber:18 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
@@ -4155,7 +4132,7 @@ void *__getSBUserNotificationAllowedApplicationsKeySymbolLoc_block_invoke(uint64
 
 void _MSVSystemDialogUserNotificationCallback(__CFUserNotification *a1, char a2)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v4 = +[MSVSystemDialogManager sharedManager];
   v5 = [v4 systemDialogForUserNotification:a1];
   if (!v5)
@@ -4180,8 +4157,8 @@ void _MSVSystemDialogUserNotificationCallback(__CFUserNotification *a1, char a2)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v15[0] = v8;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      v14[0] = v8;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
     }
 
     else
@@ -4218,7 +4195,6 @@ LABEL_14:
   [v5 setActiveRunLoopSource:0];
 
 LABEL_17:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __Block_byref_object_copy__5286(uint64_t result, uint64_t a2)
@@ -4230,11 +4206,8 @@ uint64_t __Block_byref_object_copy__5286(uint64_t result, uint64_t a2)
 
 uint64_t __SpringBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4259,16 +4232,16 @@ id MSVImageUtilitiesCopyUTTypeForImageFormat(unint64_t a1)
   return v4;
 }
 
-id MSVImageUtilitiesCopyUTTypeForImage()
+id MSVImageUtilitiesCopyUTTypeForImage(uint64_t a1)
 {
   Property = CGImageGetProperty();
   if (Property)
   {
-    v1 = Property;
-    v2 = CFGetTypeID(Property);
-    if (v2 == CFStringGetTypeID())
+    v2 = Property;
+    v3 = CFGetTypeID(Property);
+    if (v3 == CFStringGetTypeID())
     {
-      Property = v1;
+      Property = v2;
     }
 
     else
@@ -4309,20 +4282,19 @@ CGImageSourceRef MSVImageUtilitiesCreateImageSource(void *a1)
 
 CGImageRef MSVImageUtilitiesCreateImageFromSource(CGImageSource *a1, size_t a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v8 = [MEMORY[0x1E696AAA8] currentHandler];
-    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CGImageRef MSVImageUtilitiesCreateImageFromSource(CGImageSourceRef, size_t)"}];
-    [v8 handleFailureInFunction:v9 file:@"MSVImageUtilities.m" lineNumber:64 description:@"MSVImageUtilitiesCreateImageFromSource: imageSource cannot be NULL"];
+    v7 = [MEMORY[0x1E696AAA8] currentHandler];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CGImageRef MSVImageUtilitiesCreateImageFromSource(CGImageSourceRef, size_t)"}];
+    [v7 handleFailureInFunction:v8 file:@"MSVImageUtilities.m" lineNumber:64 description:@"MSVImageUtilitiesCreateImageFromSource: imageSource cannot be NULL"];
   }
 
-  v10 = *MEMORY[0x1E696E0A8];
-  v11[0] = MEMORY[0x1E695E110];
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696E0A8];
+  v10[0] = MEMORY[0x1E695E110];
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   ImageAtIndex = CGImageSourceCreateImageAtIndex(a1, a2, v4);
 
-  v6 = *MEMORY[0x1E69E9840];
   return ImageAtIndex;
 }
 
@@ -4346,7 +4318,7 @@ CGImageDestinationRef MSVImageUtilitiesCreateFileImageDestination(unint64_t a1, 
 
 BOOL MSVImageUtilitiesResizeSourceImageToDestination(CGImageSource *a1, size_t a2, uint64_t a3, CGImageDestination *a4, double a5)
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (a4)
@@ -4357,9 +4329,9 @@ BOOL MSVImageUtilitiesResizeSourceImageToDestination(CGImageSource *a1, size_t a
 
   else
   {
-    v16 = [MEMORY[0x1E696AAA8] currentHandler];
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL MSVImageUtilitiesResizeSourceImageToDestination(CGImageSourceRef, size_t, MSVImageFormat, CGImageDestinationRef, CGFloat)"}];
-    [v16 handleFailureInFunction:v17 file:@"MSVImageUtilities.m" lineNumber:83 description:@"MSVImageUtilitiesResizeSourceImageToDestination: imageSource cannot be NULL"];
+    v15 = [MEMORY[0x1E696AAA8] currentHandler];
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL MSVImageUtilitiesResizeSourceImageToDestination(CGImageSourceRef, size_t, MSVImageFormat, CGImageDestinationRef, CGFloat)"}];
+    [v15 handleFailureInFunction:v16 file:@"MSVImageUtilities.m" lineNumber:83 description:@"MSVImageUtilitiesResizeSourceImageToDestination: imageSource cannot be NULL"];
 
     if (a4)
     {
@@ -4367,17 +4339,17 @@ BOOL MSVImageUtilitiesResizeSourceImageToDestination(CGImageSource *a1, size_t a
     }
   }
 
-  v18 = [MEMORY[0x1E696AAA8] currentHandler];
-  v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL MSVImageUtilitiesResizeSourceImageToDestination(CGImageSourceRef, size_t, MSVImageFormat, CGImageDestinationRef, CGFloat)"}];
-  [v18 handleFailureInFunction:v19 file:@"MSVImageUtilities.m" lineNumber:84 description:@"MSVImageUtilitiesResizeSourceImageToDestination: imageDestination cannot be NULL"];
+  v17 = [MEMORY[0x1E696AAA8] currentHandler];
+  v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL MSVImageUtilitiesResizeSourceImageToDestination(CGImageSourceRef, size_t, MSVImageFormat, CGImageDestinationRef, CGFloat)"}];
+  [v17 handleFailureInFunction:v18 file:@"MSVImageUtilities.m" lineNumber:84 description:@"MSVImageUtilitiesResizeSourceImageToDestination: imageDestination cannot be NULL"];
 
 LABEL_3:
-  v20[0] = *MEMORY[0x1E696E100];
+  v19[0] = *MEMORY[0x1E696E100];
   v10 = [MEMORY[0x1E696AD98] numberWithDouble:a5];
-  v20[1] = *MEMORY[0x1E696DFE8];
-  v21[0] = v10;
-  v21[1] = MEMORY[0x1E695E118];
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v19[1] = *MEMORY[0x1E696DFE8];
+  v20[0] = v10;
+  v20[1] = MEMORY[0x1E695E118];
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   ThumbnailAtIndex = CGImageSourceCreateThumbnailAtIndex(a1, a2, v11);
   if (ThumbnailAtIndex)
@@ -4387,7 +4359,6 @@ LABEL_3:
     CFRelease(ThumbnailAtIndex);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return ThumbnailAtIndex != 0;
 }
 
@@ -4436,7 +4407,7 @@ LABEL_10:
 
 BOOL MSVImageUtilitiesResizeSourceImageToJPEGDestination(CGImageSource *a1, size_t a2, CGImageDestination *a3, double a4, double a5)
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (a3)
@@ -4447,9 +4418,9 @@ BOOL MSVImageUtilitiesResizeSourceImageToJPEGDestination(CGImageSource *a1, size
 
   else
   {
-    v16 = [MEMORY[0x1E696AAA8] currentHandler];
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL MSVImageUtilitiesResizeSourceImageToJPEGDestination(CGImageSourceRef, size_t, CGImageDestinationRef, CGFloat, CGFloat)"}];
-    [v16 handleFailureInFunction:v17 file:@"MSVImageUtilities.m" lineNumber:102 description:@"MSVImageUtilitiesResizeSourceImageToJPEGDestination: imageSource cannot be NULL"];
+    v15 = [MEMORY[0x1E696AAA8] currentHandler];
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL MSVImageUtilitiesResizeSourceImageToJPEGDestination(CGImageSourceRef, size_t, CGImageDestinationRef, CGFloat, CGFloat)"}];
+    [v15 handleFailureInFunction:v16 file:@"MSVImageUtilities.m" lineNumber:102 description:@"MSVImageUtilitiesResizeSourceImageToJPEGDestination: imageSource cannot be NULL"];
 
     if (a3)
     {
@@ -4457,17 +4428,17 @@ BOOL MSVImageUtilitiesResizeSourceImageToJPEGDestination(CGImageSource *a1, size
     }
   }
 
-  v18 = [MEMORY[0x1E696AAA8] currentHandler];
-  v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL MSVImageUtilitiesResizeSourceImageToJPEGDestination(CGImageSourceRef, size_t, CGImageDestinationRef, CGFloat, CGFloat)"}];
-  [v18 handleFailureInFunction:v19 file:@"MSVImageUtilities.m" lineNumber:103 description:@"MSVImageUtilitiesResizeSourceImageToJPEGDestination: imageDestination cannot be NULL"];
+  v17 = [MEMORY[0x1E696AAA8] currentHandler];
+  v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL MSVImageUtilitiesResizeSourceImageToJPEGDestination(CGImageSourceRef, size_t, CGImageDestinationRef, CGFloat, CGFloat)"}];
+  [v17 handleFailureInFunction:v18 file:@"MSVImageUtilities.m" lineNumber:103 description:@"MSVImageUtilitiesResizeSourceImageToJPEGDestination: imageDestination cannot be NULL"];
 
 LABEL_3:
-  v20[0] = *MEMORY[0x1E696E100];
+  v19[0] = *MEMORY[0x1E696E100];
   v10 = [MEMORY[0x1E696AD98] numberWithDouble:a5];
-  v20[1] = *MEMORY[0x1E696DFE8];
-  v21[0] = v10;
-  v21[1] = MEMORY[0x1E695E118];
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v19[1] = *MEMORY[0x1E696DFE8];
+  v20[0] = v10;
+  v20[1] = MEMORY[0x1E695E118];
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   ThumbnailAtIndex = CGImageSourceCreateThumbnailAtIndex(a1, a2, v11);
   if (ThumbnailAtIndex)
@@ -4477,7 +4448,6 @@ LABEL_3:
     CFRelease(ThumbnailAtIndex);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return ThumbnailAtIndex != 0;
 }
 
@@ -4609,23 +4579,17 @@ double MSVImageUtilitiesMakeBoundingBoxSize(double a1, double a2, double a3, dou
 {
   if (a1 == 0.0 || a2 == 0.0)
   {
-    result = *MEMORY[0x1E695F060];
-    v7 = *(MEMORY[0x1E695F060] + 8);
+    return *MEMORY[0x1E695F060];
   }
 
-  else
+  v4 = a3 / a1;
+  v5 = a4 / a2;
+  if (v4 >= v5)
   {
-    v4 = a3 / a1;
-    v5 = a4 / a2;
-    if (v4 >= v5)
-    {
-      v4 = v5;
-    }
-
-    return a1 * v4;
+    v4 = v5;
   }
 
-  return result;
+  return a1 * v4;
 }
 
 __CFString *NSStringFromMSVErrorCode(uint64_t a1)
@@ -4681,20 +4645,20 @@ __CFString *NSStringFromMSVSQLDatabaseErrorCode(unint64_t a1)
   return v2;
 }
 
-void sub_1AC877B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AC877B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
-  objc_destroyWeak((v12 + 56));
+  va_start(va1, a17);
+  va_start(va, a17);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  objc_destroyWeak((v19 + 56));
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  objc_destroyWeak((v11 + 40));
-  objc_destroyWeak((v10 + 40));
-  objc_destroyWeak((v13 - 104));
+  objc_destroyWeak((v18 + 40));
+  objc_destroyWeak((v17 + 40));
+  objc_destroyWeak((v20 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -4765,5 +4729,13 @@ lldiv_t lldiv(uint64_t a1, uint64_t a2)
   v2 = MEMORY[0x1EEE70FF0](a1, a2);
   result.rem = v3;
   result.quot = v2;
+  return result;
+}
+
+objc_method_description protocol_getMethodDescription(Protocol *p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod)
+{
+  v4 = MEMORY[0x1EEE66EC8](p, aSel, isRequiredMethod, isInstanceMethod);
+  result.types = v5;
+  result.name = v4;
   return result;
 }

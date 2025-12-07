@@ -7,7 +7,7 @@
 
 - (NLPMLClassifierModel)initWithModelDescription:(id)description parameterDictionary:(id)dictionary error:(id *)error
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   dictionaryCopy = dictionary;
   inputDescriptionsByName = [descriptionCopy inputDescriptionsByName];
@@ -30,12 +30,12 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v27 = dictionaryCopy;
+  v26 = dictionaryCopy;
   outputDescriptionsByName = [descriptionCopy outputDescriptionsByName];
   if ([outputDescriptionsByName count] != 1)
   {
 
-    dictionaryCopy = v27;
+    dictionaryCopy = v26;
     goto LABEL_9;
   }
 
@@ -44,14 +44,14 @@ LABEL_10:
   v17 = [allValues2 objectAtIndexedSubscript:0];
   type = [v17 type];
 
-  dictionaryCopy = v27;
+  dictionaryCopy = v26;
   self = selfCopy;
   if (type == 3)
   {
-    v18 = [v27 objectForKey:@"modelData"];
-    v29.receiver = selfCopy;
-    v29.super_class = NLPMLClassifierModel;
-    v19 = [(NLModel *)&v29 initWithData:v18 error:error];
+    v18 = [v26 objectForKey:@"modelData"];
+    v28.receiver = selfCopy;
+    v28.super_class = NLPMLClassifierModel;
+    v19 = [(NLModel *)&v28 initWithData:v18 error:error];
     v20 = v19;
     if (v19)
     {
@@ -71,21 +71,20 @@ LABEL_11:
   }
 
   v22 = MEMORY[0x1E696ABC0];
-  v30 = *MEMORY[0x1E696A578];
-  v31[0] = @"Failed to load model file";
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v29 = *MEMORY[0x1E696A578];
+  v30[0] = @"Failed to load model file";
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
   [v22 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:2 userInfo:v18];
   *error = selfCopy2 = 0;
 LABEL_13:
 
 LABEL_15:
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
 - (id)predictionFromFeatures:(id)features options:(id)options error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   modelDescription = self->_modelDescription;
   featuresCopy = features;
   inputDescriptionsByName = [(MLModelDescription *)modelDescription inputDescriptionsByName];
@@ -104,10 +103,10 @@ LABEL_15:
   {
     v17 = [(NLModel *)self predictedLabelForString:stringValue];
     v18 = objc_alloc(MEMORY[0x1E695FE48]);
-    v25 = v14;
+    v24 = v14;
     v19 = [MEMORY[0x1E695FE60] featureValueWithString:v17];
-    v26 = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v25 = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v21 = [v18 initWithDictionary:v20 error:error];
 
 LABEL_5:
@@ -117,9 +116,9 @@ LABEL_5:
   if (error)
   {
     v22 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = @"Prediction failed due to missing input";
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x1E696A578];
+    v27[0] = @"Prediction failed due to missing input";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     [v22 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:4 userInfo:v17];
     *error = v21 = 0;
     goto LABEL_5;
@@ -127,8 +126,6 @@ LABEL_5:
 
   v21 = 0;
 LABEL_6:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

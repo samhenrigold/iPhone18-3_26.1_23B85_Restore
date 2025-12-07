@@ -195,7 +195,7 @@ void __ManageEventsCallback_block_invoke(uint64_t a1)
   }
 }
 
-void AddEventToPlugin(CFDictionaryRef *a1, const void *a2, CFDictionaryRef theDict)
+void AddEventToPlugin(CFMutableDictionaryRef *a1, const void *a2, CFDictionaryRef theDict)
 {
   Value = CFDictionaryGetValue(theDict, @"ServiceDomain");
   v7 = CFDictionaryGetValue(theDict, @"ServiceType");
@@ -815,50 +815,41 @@ LABEL_5:
   return v7;
 }
 
-uint64_t HandleTemporaryEventsForService(uint64_t a1, const void *a2, const void *a3, CFDictionaryRef theDict)
+void HandleTemporaryEventsForService(uint64_t a1, const void *a2, const void *a3, CFDictionaryRef theDict)
 {
-  result = CFDictionaryGetValue(theDict, a2);
-  if (result)
+  Value = CFDictionaryGetValue(theDict, a2);
+  if (Value)
   {
-    v7 = result;
-    result = CFArrayGetCount(result);
-    if (result >= 1)
+    v6 = Value;
+    Count = CFArrayGetCount(Value);
+    if (Count >= 1)
     {
-      v8 = result;
+      v8 = Count;
       for (i = 0; i != v8; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v7, i);
-        Value = CFDictionaryGetValue(ValueAtIndex, @"ServiceName");
+        ValueAtIndex = CFArrayGetValueAtIndex(v6, i);
+        v11 = CFDictionaryGetValue(ValueAtIndex, @"ServiceName");
         v12 = CFDictionaryGetValue(ValueAtIndex, @"LaunchdToken");
         CFDictionaryGetValue(ValueAtIndex, @"LaunchdDict");
-        if (Value)
+        if (!v11 || CFEqual(a3, v11))
         {
-          result = CFEqual(a3, Value);
-          if (!result)
+          valuePtr = 0;
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
           {
-            continue;
+            *buf = 136315394;
+            v15 = "com.apple.bonjour.events";
+            v16 = 2080;
+            v17 = "HandleTemporaryEventsForService";
+            _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "%s:%s HandleTemporaryEventsForService signal\n", buf, 0x16u);
           }
-        }
 
-        valuePtr = 0;
-        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
-        {
-          *buf = 136315394;
-          v16 = "com.apple.bonjour.events";
-          v17 = 2080;
-          v18 = "HandleTemporaryEventsForService";
-          _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "%s:%s HandleTemporaryEventsForService signal\n", buf, 0x16u);
+          CFNumberGetValue(v12, kCFNumberLongLongType, &valuePtr);
+          _CFXPCCreateXPCObjectFromCFObject();
+          UserEventAgentFireEvent();
         }
-
-        CFNumberGetValue(v12, kCFNumberLongLongType, &valuePtr);
-        _CFXPCCreateXPCObjectFromCFObject();
-        v13 = *(a1 + 24);
-        UserEventAgentFireEvent();
       }
     }
   }
-
-  return result;
 }
 
 uint64_t Release(void *a1)

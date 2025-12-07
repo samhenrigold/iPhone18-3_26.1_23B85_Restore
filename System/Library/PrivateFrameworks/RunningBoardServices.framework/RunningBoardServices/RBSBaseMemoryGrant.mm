@@ -52,21 +52,20 @@
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = [objc_opt_class() description];
   v5 = v4;
-  category = self->_category;
   strength = self->_strength;
   if (strength > 2)
   {
-    v8 = @"(unknown)";
+    v7 = @"(unknown)";
   }
 
   else
   {
-    v8 = off_1E7276758[strength];
+    v7 = off_1E7276758[strength];
   }
 
-  v9 = [v3 initWithFormat:@"<%@| category:%@ strength:%@>", v4, self->_category, v8];
+  v8 = [v3 initWithFormat:@"<%@| category:%@ strength:%@>", v4, self->_category, v7];
 
-  return v9;
+  return v8;
 }
 
 - (_BYTE)_initWithCategory:(char)category strength:

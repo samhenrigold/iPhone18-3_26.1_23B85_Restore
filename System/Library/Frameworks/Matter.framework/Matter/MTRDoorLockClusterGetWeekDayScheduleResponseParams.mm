@@ -103,11 +103,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:257 commandID:12 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v19)
   {
     sub_2393C5AAC(v18);
-    sub_2393C5ADC(v18, *(v19 + 1), *(v19 + 3));
+    sub_2393C5ADC(v18, *(v19 + 8), *(v19 + 24));
     v8 = sub_2393C6FD0(v18, 256);
     if (!v8)
     {
@@ -177,8 +177,8 @@ LABEL_6:
 
   if (*(struct + 5) == 1)
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(struct + 5)];
-    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setDaysMask:v8];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(struct + 5, v8)->super.isa)}];
+    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setDaysMask:v9];
   }
 
   else
@@ -188,8 +188,8 @@ LABEL_6:
 
   if (*(struct + 7) == 1)
   {
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(struct + 7)];
-    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setStartHour:v9];
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(struct + 7, v10)->super.isa)}];
+    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setStartHour:v11];
   }
 
   else
@@ -199,8 +199,8 @@ LABEL_6:
 
   if (*(struct + 9) == 1)
   {
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(struct + 9)];
-    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setStartMinute:v10];
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(struct + 9, v12)->super.isa)}];
+    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setStartMinute:v13];
   }
 
   else
@@ -210,8 +210,8 @@ LABEL_6:
 
   if (*(struct + 11) == 1)
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(struct + 11)];
-    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setEndHour:v11];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(struct + 11, v14)->super.isa)}];
+    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setEndHour:v15];
   }
 
   else
@@ -219,12 +219,12 @@ LABEL_6:
     [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setEndHour:0];
   }
 
-  v13 = *(struct + 13);
-  v12 = struct + 13;
-  if (v13 == 1)
+  v18 = *(struct + 13);
+  v17 = struct + 13;
+  if (v18 == 1)
   {
-    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(v12)];
-    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setEndMinute:v14];
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(v17, v16)->super.isa)}];
+    [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setEndMinute:v19];
   }
 
   else
@@ -232,11 +232,11 @@ LABEL_6:
     [(MTRDoorLockClusterGetWeekDayScheduleResponseParams *)self setEndMinute:0];
   }
 
-  v15 = 0;
-  v16 = 0;
-  result.mFile = v16;
-  result.mError = v15;
-  result.mLine = HIDWORD(v15);
+  v20 = 0;
+  v21 = 0;
+  result.mFile = v21;
+  result.mError = v20;
+  result.mLine = HIDWORD(v20);
   return result;
 }
 

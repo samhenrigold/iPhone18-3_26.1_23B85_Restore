@@ -33,20 +33,19 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_anchor];
   v5 = v4;
-  UUID = self->_UUID;
   if (self->_deleted)
   {
-    v7 = @" (deleted)";
+    v6 = @" (deleted)";
   }
 
   else
   {
-    v7 = &stru_2863CB240;
+    v6 = &stru_2863CB240;
   }
 
-  v8 = [v3 stringWithFormat:@"<%@ %@ %@>", v4, self->_UUID, v7];
+  v7 = [v3 stringWithFormat:@"<%@ %@ %@>", v4, self->_UUID, v6];
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal

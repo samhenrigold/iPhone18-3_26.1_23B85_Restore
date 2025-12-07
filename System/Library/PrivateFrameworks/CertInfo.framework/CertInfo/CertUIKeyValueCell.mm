@@ -3,6 +3,7 @@
 - (CertUIKeyValueCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (void)_setup;
 - (void)_setupConstraints;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 - (void)setValue:(id)value forKey:(id)key;
 @end
 
@@ -69,6 +70,13 @@
   [contentView2 addSubview:self->_valueLabel];
 
   [(CertUIKeyValueCell *)self _setupConstraints];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = CertUIKeyValueCell;
+  [(CertUIKeyValueCell *)&v4 setSelected:selected animated:animated];
 }
 
 - (void)setValue:(id)value forKey:(id)key

@@ -6,7 +6,7 @@
 - (CAHostingToken)initWithCoder:(id)coder;
 - (id)_initWithPort:(_DWORD *)port data:;
 - (id)_initWithPort:(_DWORD *)port data:(char)data lenient:(void *)lenient error:;
-- (id)_initWithXPCRepresentation:(char)representation lenient:(void *)lenient error:;
+- (id)_initWithXPCRepresentation:(uint64_t)representation lenient:(void *)lenient error:;
 - (id)createXPCRepresentation;
 - (id)description;
 - (unint64_t)hash;
@@ -130,14 +130,14 @@
   }
 }
 
-- (id)_initWithXPCRepresentation:(char)representation lenient:(void *)lenient error:
+- (id)_initWithXPCRepresentation:(uint64_t)representation lenient:(void *)lenient error:
 {
   if (!self)
   {
     return 0;
   }
 
-  if (!a2 || object_getClass(a2) != MEMORY[0x1E69E9E80] || (value = xpc_dictionary_get_value(a2, "p"), (v10 = xpc_dictionary_get_value(a2, "d")) == 0) || (v11 = v10, object_getClass(v10) != MEMORY[0x1E69E9E70]) || xpc_data_get_length(v11) != 16)
+  if (!a2 || (v7 = representation, object_getClass(a2) != MEMORY[0x1E69E9E80]) || (value = xpc_dictionary_get_value(a2, "p"), (v10 = xpc_dictionary_get_value(a2, "d")) == 0) || (v11 = v10, object_getClass(v10) != MEMORY[0x1E69E9E70]) || xpc_data_get_length(v11) != 16)
   {
     if (lenient)
     {
@@ -149,7 +149,7 @@
 
   bytes_ptr = xpc_data_get_bytes_ptr(v11);
 
-  return [(CAHostingToken *)self _initWithPort:bytes_ptr data:representation lenient:lenient error:?];
+  return [(CAHostingToken *)self _initWithPort:bytes_ptr data:v7 lenient:lenient error:?];
 }
 
 - (id)_initWithPort:(_DWORD *)port data:(char)data lenient:(void *)lenient error:

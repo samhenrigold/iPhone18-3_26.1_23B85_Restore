@@ -13,7 +13,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = ParticipantsCollectionViewDataSource.collectionView(_:cellForItemAt:)(viewCopy, v9);
+  v12 = ParticipantsCollectionViewDataSource.collectionView(_:cellForItemAt:)();
 
   (*(v7 + 8))(v9, v6);
 

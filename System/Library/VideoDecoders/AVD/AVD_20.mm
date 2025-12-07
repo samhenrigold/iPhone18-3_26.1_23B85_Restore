@@ -3539,7 +3539,7 @@ uint64_t AppleAVDDestroyDecodeDeviceInternal(uint64_t a1)
   return v2;
 }
 
-uint64_t AppleAVDGetSecondPixelBufferFromBufferPoolAndLink(uint64_t a1, unsigned int a2, unsigned int *a3, int a4, uint64_t a5, uint64_t a6)
+uint64_t AppleAVDGetSecondPixelBufferFromBufferPoolAndLink(uint64_t a1, uint64_t a2, unsigned int *a3, int a4, uint64_t a5, uint64_t a6)
 {
   v12 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 8 * a4 + 200);
@@ -3589,26 +3589,26 @@ uint64_t AppleAVDUnmapCVPixelBuffer(uint64_t a1, uint64_t a2, int a3, unsigned i
   }
 }
 
-uint64_t AppleAVDChangeVTResolutionInternal(int a1, void *a2, CFDictionaryRef theDict, int a4, int a5)
+uint64_t AppleAVDChangeVTResolutionInternal(int a1, void *a2, CFDictionaryRef theDict, int a4, int a5, uint64_t a6)
 {
-  v29 = a5;
-  v30 = a4;
-  v8 = (a4 + 15) & 0xFFFFFFF0;
-  v9 = (a5 + 15) & 0xFFFFFFF0;
-  v10 = v8 - a4;
-  v11 = v9 - a5;
-  v27 = v9 - a5;
-  v28 = v8 - a4;
+  v30 = a5;
+  v31 = a4;
+  v9 = (a4 + 15) & 0xFFFFFFF0;
+  v10 = (a5 + 15) & 0xFFFFFFF0;
+  v11 = v9 - a4;
+  v12 = v10 - a5;
+  v28 = v10 - a5;
+  v29 = v9 - a4;
   value = 0;
   valuePtr = 0;
-  v12 = *MEMORY[0x277CC4DA0];
+  v13 = *MEMORY[0x277CC4DA0];
   ValueIfPresent = CFDictionaryGetValueIfPresent(theDict, *MEMORY[0x277CC4DA0], &value);
-  v14 = MEMORY[0x277CC4EC8];
-  v15 = MEMORY[0x277CC4DD8];
-  if (!ValueIfPresent || (CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr) ? (v16 = valuePtr == v11) : (v16 = 1), v16))
+  v15 = MEMORY[0x277CC4EC8];
+  v16 = MEMORY[0x277CC4DD8];
+  if (!ValueIfPresent || (CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr) ? (v17 = valuePtr == v12) : (v17 = 1), v17))
   {
-    v18 = *MEMORY[0x277CC4DB8];
-    if ((!CFDictionaryGetValueIfPresent(theDict, *MEMORY[0x277CC4DB8], &value) || !CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr) || valuePtr == v10) && (!CFDictionaryGetValueIfPresent(theDict, *v14, &value) || !CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr) || valuePtr == a4) && (!CFDictionaryGetValueIfPresent(theDict, *v15, &value) || !CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr) || valuePtr == a5))
+    v19 = *MEMORY[0x277CC4DB8];
+    if ((!CFDictionaryGetValueIfPresent(theDict, *MEMORY[0x277CC4DB8], &value) || !CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr) || valuePtr == v11) && (!CFDictionaryGetValueIfPresent(theDict, *v15, &value) || !CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr) || valuePtr == a4) && (!CFDictionaryGetValueIfPresent(theDict, *v16, &value) || !CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr) || valuePtr == a5))
     {
       return 0;
     }
@@ -3616,50 +3616,50 @@ uint64_t AppleAVDChangeVTResolutionInternal(int a1, void *a2, CFDictionaryRef th
 
   else
   {
-    v18 = *MEMORY[0x277CC4DB8];
+    v19 = *MEMORY[0x277CC4DB8];
   }
 
-  v19 = CFNumberCreate(0, kCFNumberSInt32Type, &v30);
-  v20 = CFNumberCreate(0, kCFNumberSInt32Type, &v29);
-  v21 = v14;
-  v22 = v20;
-  CFDictionaryReplaceValue(theDict, *v21, v19);
-  CFDictionaryReplaceValue(theDict, *v15, v22);
-  CFDictionaryRemoveValue(theDict, v18);
-  CFDictionaryRemoveValue(theDict, v12);
-  if (v8 != a4)
+  v20 = CFNumberCreate(0, kCFNumberSInt32Type, &v31);
+  v21 = CFNumberCreate(0, kCFNumberSInt32Type, &v30);
+  v22 = v15;
+  v23 = v21;
+  CFDictionaryReplaceValue(theDict, *v22, v20);
+  CFDictionaryReplaceValue(theDict, *v16, v23);
+  CFDictionaryRemoveValue(theDict, v19);
+  CFDictionaryRemoveValue(theDict, v13);
+  if (v9 != a4)
   {
-    v23 = CFNumberCreate(0, kCFNumberSInt32Type, &v28);
-    CFDictionaryAddValue(theDict, v18, v23);
-    if (v23)
-    {
-      CFRelease(v23);
-    }
-  }
-
-  if (v9 != a5)
-  {
-    v24 = CFNumberCreate(0, kCFNumberSInt32Type, &v27);
-    CFDictionaryAddValue(theDict, v12, v24);
+    v24 = CFNumberCreate(0, kCFNumberSInt32Type, &v29);
+    CFDictionaryAddValue(theDict, v19, v24);
     if (v24)
     {
       CFRelease(v24);
     }
   }
 
-  v17 = VTDecoderSessionSetPixelBufferAttributes();
+  if (v10 != a5)
+  {
+    v25 = CFNumberCreate(0, kCFNumberSInt32Type, &v28);
+    CFDictionaryAddValue(theDict, v13, v25);
+    if (v25)
+    {
+      CFRelease(v25);
+    }
+  }
+
+  v18 = VTDecoderSessionSetPixelBufferAttributes();
   *a2 = 0;
-  if (v19)
+  if (v20)
   {
-    CFRelease(v19);
+    CFRelease(v20);
   }
 
-  if (v22)
+  if (v23)
   {
-    CFRelease(v22);
+    CFRelease(v23);
   }
 
-  return v17;
+  return v18;
 }
 
 void CPBManager::~CPBManager(CPBManager *this)

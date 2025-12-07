@@ -28,7 +28,7 @@
   swift_unknownObjectRetain();
   _s13AEBookPlugins4PageC13generatePages4fromSayACGAA30DocumentPaginationDataProvider_p_tFZ_0(from);
   swift_unknownObjectRelease();
-  type metadata accessor for Page();
+  type metadata accessor for Page(0);
   v4.super.isa = sub_139A30().super.isa;
 
   return v4.super.isa;

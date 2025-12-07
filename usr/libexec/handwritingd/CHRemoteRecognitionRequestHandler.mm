@@ -332,19 +332,8 @@ LABEL_15:
           v84 = v25;
         }
 
-        if (v18 & 1 | ((+[CHRecognizerConfiguration isSupportedLatinScriptLocale:withMode:](CHRecognizerConfiguration, "isSupportedLatinScriptLocale:withMode:", v20, [requestCopy recognitionMode]) & 1) == 0))
+        if (v18 & 1 | ((+[CHRecognizerConfiguration isSupportedLatinScriptLocale:withMode:](CHRecognizerConfiguration, "isSupportedLatinScriptLocale:withMode:", v20, [requestCopy recognitionMode]) & 1) == 0) || (recognizerInferenceCache = self->_recognizerInferenceCache, objc_msgSend(requestCopy, "drawing"), v27 = objc_claimAutoreleasedReturnValue(), -[CHRecognizerInferenceCache retrieveActivationMatrixForDrawing:recognitionEngineCachingKey:outStrokeIndexMapping:outStrokeEndings:outPrincipalPoints:](recognizerInferenceCache, "retrieveActivationMatrixForDrawing:recognitionEngineCachingKey:outStrokeIndexMapping:outStrokeEndings:outPrincipalPoints:", v27, v84, 0, 0, 0), v28 = objc_claimAutoreleasedReturnValue(), v27, v29 = objc_msgSend(v28, "unlikelyHasLatinContents"), v28, (v29 & 1) == 0))
         {
-          goto LABEL_21;
-        }
-
-        recognizerInferenceCache = self->_recognizerInferenceCache;
-        drawing = [requestCopy drawing];
-        v28 = [(CHRecognizerInferenceCache *)recognizerInferenceCache retrieveActivationMatrixForDrawing:drawing recognitionEngineCachingKey:v84 outStrokeIndexMapping:0 outStrokeEndings:0 outPrincipalPoints:0];
-
-        unlikelyHasLatinContents = [v28 unlikelyHasLatinContents];
-        if ((unlikelyHasLatinContents & 1) == 0)
-        {
-LABEL_21:
           transientPhraseLexicon = [(CHInputContextLexiconManager *)self->_lexiconManager transientPhraseLexicon];
           vocabulary = [(CHInputContextLexiconManager *)self->_lexiconManager vocabulary];
           textReplacements = [(CHInputContextLexiconManager *)self->_lexiconManager textReplacements];

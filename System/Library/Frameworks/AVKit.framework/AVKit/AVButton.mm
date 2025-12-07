@@ -3,7 +3,6 @@
 + (id)buttonWithAccessibilityIdentifier:(id)identifier isFirstGeneration:(BOOL)generation;
 + (id)customHighlightedAnimationButtonWithAccessibilityIdentifier:(id)identifier;
 - (AVContentIntersectingDelegate)contentIntersectingDelegate;
-- (BOOL)_hasAnyTitle;
 - (BOOL)beginTrackingWithTouch:(id)touch withEvent:(id)event;
 - (BOOL)continueTrackingWithTouch:(id)touch withEvent:(id)event;
 - (BOOL)isCollapsedOrExcluded;
@@ -21,6 +20,7 @@
 - (double)baselineOffsetFromBottom;
 - (id)_preferredFont;
 - (id)accessibilityLabel;
+- (uint64_t)_hasAnyTitle;
 - (void)_handleUserInteractionGestureRecognizer:(id)recognizer;
 - (void)_resetTrackedState;
 - (void)_updateBackgroundEffectViewIsHidden;
@@ -241,7 +241,7 @@ LABEL_11:
   return result;
 }
 
-- (BOOL)_hasAnyTitle
+- (uint64_t)_hasAnyTitle
 {
   selfCopy = self;
   if (self)
@@ -981,7 +981,7 @@ void __38__AVButton__performHighlightAnimation__block_invoke(uint64_t a1)
 {
   v3 = [(AVButton *)self imageForState:0];
   [v3 size];
-  if (!v3 || ((v5 = v4, v6 = v4, v7 = fabsf(v6), v6 > 0.0) ? (v8 = v7 < 0.00000011921) : (v8 = 1), v8 || [(AVButton *)self _hasAnyTitle]|| ([(AVButton *)self intrinsicContentSize], v9 <= v5)))
+  if (!v3 || ((v5 = v4, v6 = v4, v7 = fabsf(v6), v6 > 0.0) ? (v8 = v7 < 0.00000011921) : (v8 = 1), v8 || ([(AVButton *)self _hasAnyTitle]& 1) != 0 || ([(AVButton *)self intrinsicContentSize], v9 <= v5)))
   {
     v12 = NAN;
   }

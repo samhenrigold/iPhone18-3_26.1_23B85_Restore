@@ -2,8 +2,10 @@
 - (void)_dismiss;
 - (void)_setupRemoteProxy;
 - (void)configureWithContext:(id)context completion:(id)completion;
+- (void)itemChooser:(id)chooser didSelectItemAtIndex:(int64_t)index activate:(BOOL)activate;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
 - (void)removeFromParentViewController;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -55,6 +57,21 @@
   [itemChooserController setDelegate:self];
 
   [(AXSBVOTItemChooserRootViewController *)self setItemChooserSelectedIndex:0x7FFFFFFFFFFFFFFFLL];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = AXSBVOTItemChooserRootViewController;
+  [(AXSBVOTItemChooserRootViewController *)&v6 viewDidAppear:appear];
+  [(AXSBVOTItemChooserRootViewController *)self _setupRemoteProxy];
+  itemChooserController = [(AXSBVOTItemChooserRootViewController *)self itemChooserController];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_10001252C;
+  v5[3] = &unk_100028758;
+  v5[4] = self;
+  [(AXSBVOTItemChooserRootViewController *)self presentViewController:itemChooserController animated:0 completion:v5];
 }
 
 - (void)_dismiss
@@ -117,6 +134,15 @@
   v8.receiver = self;
   v8.super_class = AXSBVOTItemChooserRootViewController;
   [(AXSBVOTItemChooserRootViewController *)&v8 removeFromParentViewController];
+}
+
+- (void)itemChooser:(id)chooser didSelectItemAtIndex:(int64_t)index activate:(BOOL)activate
+{
+  activateCopy = activate;
+  [(AXSBVOTItemChooserRootViewController *)self setItemChooserSelectedIndex:index];
+  [(AXSBVOTItemChooserRootViewController *)self setItemChooserActivate:activateCopy];
+
+  [(AXSBVOTItemChooserRootViewController *)self _dismiss];
 }
 
 @end

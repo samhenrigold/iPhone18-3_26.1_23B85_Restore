@@ -213,7 +213,7 @@ void __88__PHAGraphRebuildTask_runWithGraphManager_withIncrementalChange_progres
   return v13 & 1;
 }
 
-uint64_t __66__PHAGraphRebuildTask_runWithGraphManager_progressReporter_error___block_invoke_2(uint64_t a1, _BYTE *a2, double a3)
+void *__66__PHAGraphRebuildTask_runWithGraphManager_progressReporter_error___block_invoke_2(uint64_t a1, _BYTE *a2, double a3)
 {
   result = [*(a1 + 32) isCancelledWithProgress:a3 * 0.7];
   *a2 = result;
@@ -243,7 +243,7 @@ void __66__PHAGraphRebuildTask_runWithGraphManager_progressReporter_error___bloc
   (*(*(a1 + 48) + 16))();
 }
 
-uint64_t __66__PHAGraphRebuildTask_runWithGraphManager_progressReporter_error___block_invoke_4(uint64_t a1, _BYTE *a2, double a3)
+void *__66__PHAGraphRebuildTask_runWithGraphManager_progressReporter_error___block_invoke_4(uint64_t a1, _BYTE *a2, double a3)
 {
   result = [*(a1 + 32) isCancelledWithProgress:a3 * 0.3 + 0.7];
   *a2 = result;

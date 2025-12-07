@@ -28,7 +28,6 @@
 
     if (!-[IOSClass isAssignableFrom:](type, "isAssignableFrom:", [id getClass]))
     {
-      name = self->name_;
       v22 = JreStrcat("$@$$", v8, v9, v10, v11, v12, v13, v14, @"Invalid type ");
       v23 = new_JavaLangAssertionError_initWithId_(v22);
       objc_exception_throw(v23);
@@ -45,7 +44,6 @@
 {
   if (!id)
   {
-    name = self->name_;
     v9 = JreStrcat("$$$", a2, descriptor, id, v4, v5, v6, v7, @"value for ");
     v10 = new_JavaLangIllegalArgumentException_initWithNSString_(v9);
     objc_exception_throw(v10);
@@ -68,7 +66,6 @@
 
     if (!-[IOSClass isAssignableFrom:](type, "isAssignableFrom:", [v9 getClass]))
     {
-      name = self->name_;
       v20 = JreStrcat("$$", v12, v13, v14, v15, v16, v17, v18, @"Unexpected type of value returned for ");
       v21 = new_JavaLangAssertionError_initWithId_(v20);
       objc_exception_throw(v21);

@@ -159,7 +159,7 @@ LABEL_13:
 
 + (id)parsedNamesWithHumanNames:(id)names FHIRVersion:(id)version error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   versionCopy = version;
   objc_opt_class();
@@ -167,54 +167,53 @@ LABEL_13:
   if (v9)
   {
     v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v9, "count")}];
+    v24 = 0u;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
-      v24 = v9;
-      v25 = namesCopy;
+      v14 = *v25;
+      v22 = v9;
+      v23 = namesCopy;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v26 + 1) + 8 * i);
           objc_opt_class();
-          v17 = HKSafeObject();
-          if (!v17)
+          v16 = HKSafeObject();
+          if (!v16)
           {
             goto LABEL_14;
           }
 
-          v18 = v17;
-          v19 = [[HDHealthRecordParsedHumanName alloc] initWithHumanNameDictionary:v17 FHIRVersion:versionCopy error:error];
-          if (!v19)
+          v17 = v16;
+          v18 = [[HDHealthRecordParsedHumanName alloc] initWithHumanNameDictionary:v16 FHIRVersion:versionCopy error:error];
+          if (!v18)
           {
 
 LABEL_14:
-            v21 = 0;
-            v9 = v24;
-            namesCopy = v25;
+            v20 = 0;
+            v9 = v22;
+            namesCopy = v23;
             goto LABEL_15;
           }
 
-          v20 = v19;
-          [v10 addObject:v19];
+          v19 = v18;
+          [v10 addObject:v18];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
-        v9 = v24;
-        namesCopy = v25;
+        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v9 = v22;
+        namesCopy = v23;
         if (v13)
         {
           continue;
@@ -224,23 +223,21 @@ LABEL_14:
       }
     }
 
-    v21 = v10;
+    v20 = v10;
 LABEL_15:
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 + (id)preferredNameInNames:(id)names FHIRVersion:(id)version
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -249,39 +246,39 @@ LABEL_15:
   }
 
   v7 = objc_alloc_init(MEMORY[0x277CBEAA8]);
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __66__HDHealthRecordParsedHumanName_preferredNameInNames_FHIRVersion___block_invoke;
-  v41[3] = &unk_2796E2B70;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __66__HDHealthRecordParsedHumanName_preferredNameInNames_FHIRVersion___block_invoke;
+  v40[3] = &unk_2796E2B70;
   v8 = v7;
-  v42 = v8;
-  v9 = [namesCopy hk_filter:v41];
+  v41 = v8;
+  v9 = [namesCopy hk_filter:v40];
   if ([v9 count])
   {
-    v31 = v8;
-    v32 = namesCopy;
+    v30 = v8;
+    v31 = namesCopy;
     v10 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:7];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v30 = v9;
+    v29 = v9;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v37 objects:v44 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v36 objects:v43 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v38;
+      v14 = *v37;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v38 != v14)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v37 + 1) + 8 * i);
+          v16 = *(*(&v36 + 1) + 8 * i);
           v17 = [v16 use];
           v18 = v17;
           if (v17)
@@ -307,32 +304,32 @@ LABEL_15:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v37 objects:v44 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v36 objects:v43 count:16];
       }
 
       while (v13);
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    v22 = [&unk_28641A2A8 countByEnumeratingWithState:&v33 objects:v43 count:16];
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v22 = [&unk_28641A2A8 countByEnumeratingWithState:&v32 objects:v42 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v34;
-      v9 = v30;
+      v24 = *v33;
+      v9 = v29;
       while (2)
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v34 != v24)
+          if (*v33 != v24)
           {
             objc_enumerationMutation(&unk_28641A2A8);
           }
 
-          v26 = [v10 objectForKeyedSubscript:*(*(&v33 + 1) + 8 * j)];
+          v26 = [v10 objectForKeyedSubscript:*(*(&v32 + 1) + 8 * j)];
           if (v26)
           {
             v27 = v26;
@@ -340,7 +337,7 @@ LABEL_15:
           }
         }
 
-        v23 = [&unk_28641A2A8 countByEnumeratingWithState:&v33 objects:v43 count:16];
+        v23 = [&unk_28641A2A8 countByEnumeratingWithState:&v32 objects:v42 count:16];
         if (v23)
         {
           continue;
@@ -355,21 +352,19 @@ LABEL_15:
     else
     {
       v27 = 0;
-      v9 = v30;
+      v9 = v29;
     }
 
 LABEL_29:
 
-    v8 = v31;
-    namesCopy = v32;
+    v8 = v30;
+    namesCopy = v31;
   }
 
   else
   {
     v27 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

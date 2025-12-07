@@ -40,7 +40,7 @@
   sub_10075E06C();
   viewCopy = view;
   selfCopy = self;
-  sub_1002C5944();
+  sub_1002C5944(v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -55,7 +55,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_1002C5CC8();
+  sub_1002C5CC8(cellCopy, v11);
 
   (*(v9 + 8))(v11, v8);
 }

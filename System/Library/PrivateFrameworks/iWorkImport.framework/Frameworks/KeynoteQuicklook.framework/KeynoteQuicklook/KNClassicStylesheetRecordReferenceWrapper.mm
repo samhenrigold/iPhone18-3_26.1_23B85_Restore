@@ -6,15 +6,14 @@
 
 + (BOOL)allowUnarchivingObjectClass:(Class)class
 {
-  v4 = objc_opt_class();
-  if (objc_msgSend_isSubclassOfClass_(class, v5, v4))
+  if (([(objc_class *)class isSubclassOfClass:objc_opt_class()]& 1) != 0)
   {
     return 1;
   }
 
-  v8 = objc_opt_class();
+  v5 = objc_opt_class();
 
-  return objc_msgSend_isSubclassOfClass_(class, v7, v8);
+  return [(objc_class *)class isSubclassOfClass:v5];
 }
 
 @end

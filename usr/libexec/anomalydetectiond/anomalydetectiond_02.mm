@@ -1,3 +1,53 @@
+void CLMartyEstimatesAlgCoupledCrash::resetConfiguration(CLMartyEstimatesAlgCoupledCrash *this)
+{
+  v32 = [CSPersistentConfiguration configBaseKey:"EstimatesAlgCCConfig" forFeatureMode:*(this + 24)];
+  v2 = +[CSPersistentConfiguration sharedConfiguration];
+  LODWORD(v3) = 0.5;
+  LODWORD(v4) = 11.5;
+  LODWORD(v5) = 1193033728;
+  [v2 algorithmThresholdNumber:0 inArrayForKey:v32 withMinValue:v3 maxValue:v5 defaultValue:v4];
+  LODWORD(v33) = v6;
+
+  v7 = +[CSPersistentConfiguration sharedConfiguration];
+  LODWORD(v8) = 1117782016;
+  LODWORD(v9) = 30.0;
+  [v7 algorithmThresholdNumber:1 inArrayForKey:v32 withMinValue:0.0 maxValue:v8 defaultValue:v9];
+  DWORD1(v33) = v10;
+
+  v11 = +[CSPersistentConfiguration sharedConfiguration];
+  LODWORD(v12) = 1112014848;
+  LODWORD(v13) = 7.0;
+  [v11 algorithmThresholdNumber:2 inArrayForKey:v32 withMinValue:0.0 maxValue:v12 defaultValue:v13];
+  DWORD2(v33) = v14;
+
+  v15 = +[CSPersistentConfiguration sharedConfiguration];
+  LODWORD(v16) = 1157234688;
+  LODWORD(v17) = 1120403456;
+  [v15 algorithmThresholdNumber:3 inArrayForKey:v32 withMinValue:0.0 maxValue:v16 defaultValue:v17];
+  HIDWORD(v33) = v18;
+
+  v19 = +[CSPersistentConfiguration sharedConfiguration];
+  LODWORD(v20) = 1157234688;
+  LODWORD(v21) = 19.0;
+  [v19 algorithmThresholdNumber:4 inArrayForKey:v32 withMinValue:0.0 maxValue:v20 defaultValue:v21];
+  v34 = v22;
+
+  v23 = +[CSPersistentConfiguration sharedConfiguration];
+  LODWORD(v24) = 1157234688;
+  LODWORD(v25) = 1118568448;
+  [v23 algorithmThresholdNumber:5 inArrayForKey:v32 withMinValue:0.0 maxValue:v24 defaultValue:v25];
+  v35 = v26;
+
+  v27 = +[CSPersistentConfiguration sharedConfiguration];
+  LODWORD(v28) = 0.5;
+  LODWORD(v29) = 15.0;
+  LODWORD(v30) = 1193033728;
+  [v27 algorithmThresholdNumber:6 inArrayForKey:v32 withMinValue:v28 maxValue:v30 defaultValue:v29];
+  v36 = v31;
+
+  CLMartyEstimatesAlgCoupledCrash::setConfig(this, &v33);
+}
+
 double CLMartyEstimatesAlgCoupledCrash::setConfig(uint64_t a1, __int128 *a2)
 {
   v3 = *(a1 + 32);
@@ -433,16 +483,16 @@ void sub_100030B74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_100030B9C@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_100030B9C@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -927,16 +977,16 @@ void sub_100031F60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_100031F94@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_100031F94@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -1397,9 +1447,9 @@ BOOL CLZgDetection::checkIfOnlyOneGyroSat(uint64_t a1, float *a2, float *a3, _DW
 
 float32_t CLZgDetection::calculateInterpolate@<S0>(const CSSPUTriad_Struct *a1@<X1>, const CSSPUTriad_Struct *a2@<X2>, float32x2_t a3@<X3>, float32x2_t *a4@<X8>)
 {
-  v5 = (*&a3 - a2->timestamp) / (a1->timestamp - a2->timestamp);
-  a4[1] = vmla_n_f32(*&a2->x, vsub_f32(*&a1->x, *&a2->x), v5);
-  result = a2->z + (v5 * (a1->z - a2->z));
+  v4 = (*&a3 - a2->timestamp) / (a1->timestamp - a2->timestamp);
+  a4[1] = vmla_n_f32(*&a2->x, vsub_f32(*&a1->x, *&a2->x), v4);
+  result = a2->z + (v4 * (a1->z - a2->z));
   a4[2].f32[0] = result;
   *a4 = a3;
   return result;
@@ -1729,16 +1779,16 @@ void sub_10003477C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_1000347B0@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_1000347B0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -1897,7 +1947,7 @@ double CLKappaFeaturesAlgPeakDetectorMAP::setConfig(uint64_t a1, __int128 *a2)
 void CLKappaFeaturesAlgPeakDetectorMAP::epochFinalize(CLKappaFeaturesAlgPeakDetectorMAP *this, uint64_t a2)
 {
   v4 = *(*(this + 6) + 24);
-  CSAccelPeakDetectorResult::detectPeaks(v4, v43, *(*(this + 4) + 16), *(*(this + 4) + 24) * 0.000001);
+  CSAccelPeakDetectorResult::detectPeaks(v4, &v43, *(*(this + 4) + 16), *(*(this + 4) + 24) * 0.000001);
   __p = 0;
   v41 = 0;
   v42 = 0;
@@ -2097,8 +2147,10 @@ void CLKappaFeaturesAlgPeakDetectorMAP::epochFinalize(CLKappaFeaturesAlgPeakDete
   }
 }
 
-void sub_1000352A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_1000352A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
+
   if (__p)
   {
     operator delete(__p);
@@ -2109,7 +2161,7 @@ void sub_1000352A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a14);
   }
 
-  sub_100035E48(&a17);
+  sub_100035E48(va);
 
   _Unwind_Resume(a1);
 }
@@ -2384,7 +2436,7 @@ void sub_100035BAC(id a1)
   _objc_release_x1();
 }
 
-void *sub_100035BF0(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *sub_100035BF0(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2459,7 +2511,7 @@ void *sub_100035BF0(void *result, char *__src, char *a3, unint64_t a4)
   return result;
 }
 
-void *sub_100035D1C(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *sub_100035D1C(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2953,7 +3005,7 @@ uint64_t CLKappaDeescalatorAutocorrelation::getAutocorrelationStats(unsigned __i
   return v5;
 }
 
-uint64_t sub_10003A9A4(unsigned __int16 *a1, unint64_t a2)
+unsigned __int16 *sub_10003A9A4(unsigned __int16 *a1, unint64_t a2)
 {
   v4 = *(a1 + 1);
   if (v4 <= a2)
@@ -3007,7 +3059,7 @@ uint64_t CLKappaDeescalatorAutocorrelation::getAirbagDetectedStats(unsigned __in
   return v3 & 1;
 }
 
-uint64_t sub_10003AB3C(unsigned __int16 *a1, unint64_t a2)
+unsigned __int16 *sub_10003AB3C(unsigned __int16 *a1, unint64_t a2)
 {
   v4 = *(a1 + 1);
   if (v4 <= a2)
@@ -3395,16 +3447,16 @@ void sub_10003B858(_Unwind_Exception *a1)
   }
 }
 
-char **sub_10003B98C@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_10003B98C@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -4563,10 +4615,6 @@ unsigned __int16 *CLKappaInferencesAlgSevereCrash::feedFeatures(uint64_t a1, uin
 }
 
 {
-  return CLKappaDeescalatorMAP::updateWithIsMAP(*(a1 + 224), a2);
-}
-
-{
   return CLKappaDeescalatorMAP::updateWithFreeFall(*(a1 + 224), a2);
 }
 
@@ -4585,10 +4633,6 @@ unsigned __int16 *virtual thunk toCLKappaInferencesAlgSevereCrash::feedFeatures(
 
 {
   return CLKappaInferencesAlgSevereCrash::feedFeatures(a1 + *(*a1 - 88), a2);
-}
-
-{
-  return CLKappaDeescalatorMAP::updateWithIsMAP(*(a1 + *(*a1 - 136) + 224), a2);
 }
 
 {
@@ -5620,7 +5664,7 @@ uint64_t CLSafetyDeescalatorProjectilePhone::updateWithUncoupledCrash(uint64_t t
   return this;
 }
 
-uint64_t sub_1000404B8(unsigned __int16 *a1, unint64_t a2)
+unsigned __int16 *sub_1000404B8(unsigned __int16 *a1, unint64_t a2)
 {
   v4 = *(a1 + 1);
   if (v4 <= a2)
@@ -5761,16 +5805,16 @@ void sub_100040AD8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_100040AFC@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_100040AFC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -6155,14 +6199,14 @@ void CLSafetyDeescalatorGolf::log(CLSafetyDeescalatorGolf *this, uint64_t a2)
   }
 }
 
-uint64_t sub_1000420A4@<X0>(void *a1@<X0>, void *a2@<X8>)
+unint64_t *sub_1000420A4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  sub_10000F110(a2, a1[16], a1[17], (a1[17] - a1[16]) >> 3);
-  result = sub_100042338((a2 + 3), a1 + 10);
-  a2[9] = a1[19];
+  sub_10000F110(a2, *(a1 + 128), *(a1 + 136), (*(a1 + 136) - *(a1 + 128)) >> 3);
+  result = sub_100042338(a2 + 3, (a1 + 80));
+  a2[9] = *(a1 + 152);
   return result;
 }
 
@@ -6178,7 +6222,7 @@ void sub_1000420F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *CLSafetyDeescalatorGolf::updateWithGolfFeatures(uint64_t a1, uint64_t a2)
+uint64_t *CLSafetyDeescalatorGolf::updateWithGolfFeatures(uint64_t a1, uint64_t a2)
 {
   if ((*(a1 + 76) & 1) == 0)
   {
@@ -6274,10 +6318,10 @@ void sub_1000422BC(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100042338(uint64_t a1, void *a2)
+unint64_t *sub_100042338(unint64_t *a1, void *a2)
 {
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
   *a1 = 0u;
   v4 = a2[4];
   v5 = a2[1];
@@ -6302,7 +6346,7 @@ uint64_t sub_100042338(uint64_t a1, void *a2)
   return a1;
 }
 
-uint64_t *sub_1000423E4(void *a1, char **a2, char *a3, char *a4, char *a5)
+void *sub_1000423E4(unint64_t *a1, char **a2, char *a3, char *a4, char *a5)
 {
   if (a5 == a3)
   {
@@ -6317,7 +6361,7 @@ uint64_t *sub_1000423E4(void *a1, char **a2, char *a3, char *a4, char *a5)
   return sub_100042418(a1, a2, a3, v5);
 }
 
-uint64_t *sub_100042418(void *a1, char **a2, char *a3, unint64_t a4)
+void *sub_100042418(unint64_t *a1, char **a2, char *a3, unint64_t a4)
 {
   v8 = a1[1];
   v9 = a1[2];
@@ -6416,10 +6460,9 @@ uint64_t *sub_100042418(void *a1, char **a2, char *a3, unint64_t a4)
   return result;
 }
 
-void *sub_100042558(void *result, unint64_t a2)
+void sub_100042558(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -6440,7 +6483,7 @@ void *sub_100042558(void *result, unint64_t a2)
     v5 = v4 >> 9;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 >> 9)
   {
     v7 = v6 >> 9;
@@ -6453,19 +6496,19 @@ void *sub_100042558(void *result, unint64_t a2)
 
   if (v5 <= v6 >> 9)
   {
-    for (result[4] = v6 - (v7 << 9); v7; --v7)
+    for (a1[4] = v6 - (v7 << 9); v7; --v7)
     {
-      v14 = v2[1];
+      v14 = a1[1];
       v16[0] = *v14;
-      v2[1] = v14 + 1;
-      result = sub_10000FD18(v2, v16);
+      a1[1] = (v14 + 1);
+      sub_10000FD18(a1, v16);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
       v10 = v3 >> 3;
@@ -6481,10 +6524,10 @@ void *sub_100042558(void *result, unint64_t a2)
       }
 
       v13 = v10 - v7;
-      v18 = result;
+      v18 = a1;
       if (v12)
       {
-        sub_100010140(result, v12);
+        sub_100010140(a1, v12);
       }
 
       v16[0] = 0;
@@ -6495,7 +6538,7 @@ void *sub_100042558(void *result, unint64_t a2)
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -6503,16 +6546,14 @@ void *sub_100042558(void *result, unint64_t a2)
       operator new();
     }
 
-    for (result[4] -= v7 << 9; v7; --v7)
+    for (a1[4] -= v7 << 9; v7; --v7)
     {
-      v15 = v2[1];
+      v15 = a1[1];
       v16[0] = *v15;
-      v2[1] = v15 + 1;
-      result = sub_10000FD18(v2, v16);
+      a1[1] = (v15 + 1);
+      sub_10000FD18(a1, v16);
     }
   }
-
-  return result;
 }
 
 void sub_1000427FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6525,7 +6566,7 @@ void sub_1000427FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_100042870(uint64_t a1, uint64_t a2)
+void *sub_100042870(uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -6534,13 +6575,11 @@ uint64_t *sub_100042870(uint64_t a1, uint64_t a2)
     if (v4 < 1)
     {
       result -= (511 - v4) >> 9;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 9;
-      v5 = *result;
     }
   }
 
@@ -6893,24 +6932,24 @@ uint64_t CLKappaAlgFlowController::closeEpoch(CLKappaAlgFlowController *this, un
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    *v61 = a2;
-    *&v61[8] = 2048;
-    *&v61[10] = +[CSTimeManager SPU_estimate_current_timestamp];
+    *v59 = a2;
+    *&v59[8] = 2048;
+    *&v59[10] = +[CSTimeManager SPU_estimate_current_timestamp];
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%llu closeEpoch now %llu", buf, 0x16u);
   }
 
   v5 = *(this + 73);
-  v53 = *(this + 72);
-  v54 = v5;
+  v51 = *(this + 72);
+  v52 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  CSKappaEpochBufferIterator::CSKappaEpochBufferIterator(buf, &v53);
-  if (v54)
+  CSKappaEpochBufferIterator::CSKappaEpochBufferIterator(buf, &v51);
+  if (v52)
   {
-    sub_100009A48(v54);
+    sub_100009A48(v52);
   }
 
   v6 = 0;
@@ -6934,28 +6973,28 @@ uint64_t CLKappaAlgFlowController::closeEpoch(CLKappaAlgFlowController *this, un
     if (*(*v8 + 25) == 1)
     {
       v11 = *(this + 73);
-      *v57 = *(this + 72);
-      *&v57[8] = v11;
+      *v55 = *(this + 72);
+      *&v55[8] = v11;
       if (v11)
       {
         atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
       }
 
-      (*(*v10 + 152))(v10, v57);
-      if (*&v57[8])
+      (*(*v10 + 152))(v10, v55);
+      if (*&v55[8])
       {
-        sub_100009A48(*&v57[8]);
+        sub_100009A48(*&v55[8]);
       }
 
       (*(**v8 + 168))(*v8, a2);
-      (*(**v8 + 160))(&v55);
+      (*(**v8 + 160))(&v53);
       v12 = *(this + 63);
       v13 = *(this + 64);
       while (v12 != v13)
       {
         if (*(*v12 + 25) == 1)
         {
-          (*(*v55 + 16))(v55);
+          (*(*v53 + 16))(v53);
         }
 
         v12 += 16;
@@ -6967,16 +7006,16 @@ uint64_t CLKappaAlgFlowController::closeEpoch(CLKappaAlgFlowController *this, un
       {
         if (*(*v14 + 25) == 1)
         {
-          (*(*v55 + 16))(v55);
+          (*(*v53 + 16))(v53);
         }
 
         v14 += 16;
       }
 
-      (*(*v55 + 32))(v55);
-      if (v56)
+      (*(*v53 + 32))(v53);
+      if (v54)
       {
-        sub_100009A48(v56);
+        sub_100009A48(v54);
       }
     }
   }
@@ -6988,37 +7027,37 @@ uint64_t CLKappaAlgFlowController::closeEpoch(CLKappaAlgFlowController *this, un
     if (*(*v16 + 25) == 1)
     {
       v19 = *(this + 73);
-      *v57 = *(this + 72);
-      *&v57[8] = v19;
+      *v55 = *(this + 72);
+      *&v55[8] = v19;
       if (v19)
       {
         atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
       }
 
-      (*(*v18 + 152))(v18, v57);
-      if (*&v57[8])
+      (*(*v18 + 152))(v18, v55);
+      if (*&v55[8])
       {
-        sub_100009A48(*&v57[8]);
+        sub_100009A48(*&v55[8]);
       }
 
       (*(**v16 + 168))(*v16, a2);
-      (*(**v16 + 160))(&v55);
+      (*(**v16 + 160))(&v53);
       v20 = *(this + 66);
       v21 = *(this + 67);
       while (v20 != v21)
       {
         if (*(*v20 + 25) == 1)
         {
-          (*(*v55 + 16))(v55);
+          (*(*v53 + 16))(v53);
         }
 
         v20 += 16;
       }
 
-      (*(*v55 + 32))(v55);
-      if (v56)
+      (*(*v53 + 32))(v53);
+      if (v54)
       {
-        sub_100009A48(v56);
+        sub_100009A48(v54);
       }
     }
   }
@@ -7030,25 +7069,25 @@ uint64_t CLKappaAlgFlowController::closeEpoch(CLKappaAlgFlowController *this, un
     if (*(*v22 + 25) == 1)
     {
       v25 = *(this + 73);
-      *v57 = *(this + 72);
-      *&v57[8] = v25;
+      *v55 = *(this + 72);
+      *&v55[8] = v25;
       if (v25)
       {
         atomic_fetch_add_explicit((v25 + 8), 1uLL, memory_order_relaxed);
       }
 
-      (*(*v24 + 152))(v24, v57);
-      if (*&v57[8])
+      (*(*v24 + 152))(v24, v55);
+      if (*&v55[8])
       {
-        sub_100009A48(*&v57[8]);
+        sub_100009A48(*&v55[8]);
       }
 
       (*(**v22 + 168))(*v22, a2);
-      (*(**v22 + 160))(&v55);
-      (*(*v55 + 32))(v55);
-      if (v56)
+      (*(**v22 + 160))(&v53);
+      (*(*v53 + 32))(v53);
+      if (v54)
       {
-        sub_100009A48(v56);
+        sub_100009A48(v54);
       }
     }
   }
@@ -7063,8 +7102,8 @@ uint64_t CLKappaAlgFlowController::closeEpoch(CLKappaAlgFlowController *this, un
     v26 = qword_1004567F0;
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      *v57 = 0;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "overriding SC de", v57, 2u);
+      *v55 = 0;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "overriding SC de", v55, 2u);
     }
 
     v27 = *(this + 54);
@@ -7075,21 +7114,20 @@ uint64_t CLKappaAlgFlowController::closeEpoch(CLKappaAlgFlowController *this, un
     }
 
     {
-      v31 = v30;
+      v30 = v29;
       if (!v28)
       {
-        v33 = 0;
+        v32 = 0;
 LABEL_68:
-        (*(*v31 + 160))(&lpsrc, v31);
+        (*(*v30 + 160))(&lpsrc, v30);
         if (lpsrc)
         {
-          v34 = **lpsrc;
-          if (v35)
+          if (v33)
           {
-            v36 = v52;
-            if (v52)
+            v34 = v50;
+            if (v50)
             {
-              atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v50->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             goto LABEL_74;
@@ -7098,39 +7136,39 @@ LABEL_68:
 
         else
         {
-          v35 = 0;
+          v33 = 0;
         }
 
-        v36 = 0;
+        v34 = 0;
 LABEL_74:
-        if (v52)
+        if (v50)
         {
-          sub_100009A48(v52);
+          sub_100009A48(v50);
         }
 
-        v35[48] = 0;
-        if (v36)
+        v33[48] = 0;
+        if (v34)
         {
-          sub_100009A48(v36);
+          sub_100009A48(v34);
         }
 
-        if (v33)
+        if (v32)
         {
-          sub_100009A48(v33);
+          sub_100009A48(v32);
         }
 
         goto LABEL_80;
       }
 
       atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-      v32 = v28;
+      v31 = v28;
     }
 
     else
     {
+      v30 = 0;
       v31 = 0;
       v32 = 0;
-      v33 = 0;
       if (!v28)
       {
         goto LABEL_68;
@@ -7138,7 +7176,7 @@ LABEL_74:
     }
 
     sub_100009A48(v28);
-    v33 = v32;
+    v32 = v31;
     goto LABEL_68;
   }
 
@@ -7148,63 +7186,63 @@ LABEL_80:
     sub_10004BE84();
   }
 
-  v37 = qword_1004567F0;
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v35 = qword_1004567F0;
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
-    v38 = *(this + 3);
-    v39 = *(this + 2);
-    if (v39)
+    v36 = *(this + 3);
+    v37 = *(this + 2);
+    if (v37)
     {
-      v40 = a2 - v39;
+      v38 = a2 - v37;
     }
 
     else
     {
-      v40 = 0;
+      v38 = 0;
     }
 
-    *v57 = 67240704;
-    *&v57[4] = v38;
-    *&v57[8] = 2050;
-    *&v57[10] = a2;
-    v58 = 2050;
-    v59 = v40;
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "close epoch cnt %{public}d, ts %{public}llu, delta microseconds %{public}llu", v57, 0x1Cu);
+    *v55 = 67240704;
+    *&v55[4] = v36;
+    *&v55[8] = 2050;
+    *&v55[10] = a2;
+    v56 = 2050;
+    v57 = v38;
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "close epoch cnt %{public}d, ts %{public}llu, delta microseconds %{public}llu", v55, 0x1Cu);
   }
 
   [*(this + 75) onCloseEpoch:a2 epochNumber:(*(this + 3))++];
-  v41 = *(this + 2);
-  if (v41)
+  v39 = *(this + 2);
+  if (v39)
   {
-    v42 = *(this + 69);
-    v43 = *(this + 70);
+    v40 = *(this + 69);
+    v41 = *(this + 70);
     while (1)
     {
-      if (v42 == v43)
+      if (v40 == v41)
       {
         if (qword_1004567E8 != -1)
         {
           sub_10004BE84();
         }
 
-        v44 = qword_1004567F0;
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v42 = qword_1004567F0;
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
-          v45 = a2 - *(this + 2);
-          *v57 = 134349056;
-          *&v57[4] = v45;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "stopping %{public}llu microseconds after trigger", v57, 0xCu);
+          v43 = a2 - *(this + 2);
+          *v55 = 134349056;
+          *&v55[4] = v43;
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "stopping %{public}llu microseconds after trigger", v55, 0xCu);
         }
 
         goto LABEL_96;
       }
 
-      if ((*(**v42 + 136))(*v42, a2, v41))
+      if ((*(**v40 + 136))(*v40, a2, v39))
       {
         break;
       }
 
-      v42 += 2;
+      v40 += 2;
     }
 
     if (*(this + 2) + 1000000 * *(this + 4) < a2)
@@ -7214,44 +7252,44 @@ LABEL_80:
         sub_10004BE84();
       }
 
-      v44 = qword_1004567F0;
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+      v42 = qword_1004567F0;
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
       {
-        v47 = a2 - *(this + 2);
-        *v57 = 134217984;
-        *&v57[4] = v47;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_FAULT, "forcing stop %llu microseconds after trigger", v57, 0xCu);
+        v45 = a2 - *(this + 2);
+        *v55 = 134217984;
+        *&v55[4] = v45;
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_FAULT, "forcing stop %llu microseconds after trigger", v55, 0xCu);
       }
 
 LABEL_96:
 
       CLKappaAlgFlowController::stop(this, a2);
-      v46 = 0;
+      v44 = 0;
       goto LABEL_109;
     }
   }
 
-  v48 = *(this + 69);
-  v49 = *(this + 70);
-  while (v48 != v49)
+  v46 = *(this + 69);
+  v47 = *(this + 70);
+  while (v46 != v47)
   {
-    if (*(*v48 + 25) == 1)
+    if (*(*v46 + 25) == 1)
     {
-      (*(**v48 + 176))(*v48, a2);
+      (*(**v46 + 176))(*v46, a2);
     }
 
-    v48 += 2;
+    v46 += 2;
   }
 
   CSKappaEpochBuffer::advanceEpoch(*(this + 72));
-  v46 = 1;
+  v44 = 1;
 LABEL_109:
-  if (*&v61[4])
+  if (*&v59[4])
   {
-    sub_100009A48(*&v61[4]);
+    sub_100009A48(*&v59[4]);
   }
 
-  return v46;
+  return v44;
 }
 
 void sub_100044578(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20)
@@ -8812,8 +8850,8 @@ LABEL_43:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    *v18 = v3;
-    sub_1000472E0(*(a1 + 552), *(a1 + 560), a1, v18);
+    *v19 = v3;
+    sub_1000472E0(*(a1 + 552), *(a1 + 560), a1, v19);
   }
 
   else
@@ -8821,8 +8859,8 @@ LABEL_43:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      *v18 = v3;
-      sub_100047388(*(a1 + 552), *(a1 + 560), a1, v18);
+      *v19 = v3;
+      sub_100047388(*(a1 + 552), *(a1 + 560), a1, v19);
     }
 
     else
@@ -8830,8 +8868,8 @@ LABEL_43:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        *v18 = v3;
-        sub_100047430(*(a1 + 552), *(a1 + 560), a1, v18);
+        *v19 = v3;
+        sub_100047430(*(a1 + 552), *(a1 + 560), a1, v19);
       }
 
       else
@@ -8839,8 +8877,8 @@ LABEL_43:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          *v18 = v3;
-          sub_1000474D8(*(a1 + 552), *(a1 + 560), a1, v18);
+          *v19 = v3;
+          sub_1000474D8(*(a1 + 552), *(a1 + 560), a1, v19);
         }
 
         else
@@ -8848,8 +8886,8 @@ LABEL_43:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            *v18 = v3;
-            sub_100047588(*(a1 + 552), *(a1 + 560), a1, v18);
+            *v19 = v3;
+            sub_100047588(*(a1 + 552), *(a1 + 560), a1, v19);
           }
 
           else
@@ -8857,8 +8895,8 @@ LABEL_43:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              *v18 = v3;
-              sub_100047638(*(a1 + 552), *(a1 + 560), a1, v18);
+              *v19 = v3;
+              sub_100047638(*(a1 + 552), *(a1 + 560), a1, v19);
             }
 
             else
@@ -8866,8 +8904,8 @@ LABEL_43:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                *v18 = v3;
-                sub_1000476E8(*(a1 + 552), *(a1 + 560), a1, v18);
+                *v19 = v3;
+                sub_1000476E8(*(a1 + 552), *(a1 + 560), a1, v19);
               }
 
               else
@@ -8875,27 +8913,28 @@ LABEL_43:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  *v18 = v3;
-                  sub_100047798(*(a1 + 552), *(a1 + 560), a1, v18);
+                  *v19 = v3;
+                  sub_100047798(*(a1 + 552), *(a1 + 560), a1, v19);
                 }
 
                 else
                 {
                   objc_opt_class();
-                  if (objc_opt_isKindOfClass())
+                  isKindOfClass = objc_opt_isKindOfClass();
+                  if (isKindOfClass)
                   {
-                    *v18 = v3;
-                    sub_100047848(*(a1 + 552), *(a1 + 560), a1, v18);
+                    *v19 = v3;
+                    sub_100047848(*(a1 + 552), *(a1 + 560), a1, v19);
                   }
 
                   else
                   {
-                    v17 = sub_1000478F8();
-                    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                    v18 = sub_1000478F8(isKindOfClass);
+                    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
                     {
-                      *v18 = 138412290;
-                      *&v18[4] = objc_opt_class();
-                      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "problem! unknown / missing epochFeed for %@", v18, 0xCu);
+                      *v19 = 138412290;
+                      *&v19[4] = objc_opt_class();
+                      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "problem! unknown / missing epochFeed for %@", v19, 0xCu);
                     }
                   }
                 }
@@ -9099,16 +9138,16 @@ uint64_t sub_100047848(void *a1, void *a2, uint64_t a3, id *a4)
   return a3;
 }
 
-id sub_1000478F8()
+id sub_1000478F8(uint64_t a1)
 {
   if (qword_1004567F8 != -1)
   {
     sub_10004BEC0();
   }
 
-  v1 = qword_100456800;
+  v2 = qword_100456800;
 
-  return v1;
+  return v2;
 }
 
 uint64_t CLKappaAlgFlowController::isActive(CLKappaAlgFlowController *this, uint64_t a2, uint64_t a3)
@@ -9206,49 +9245,48 @@ void CLKappaAlgFlowController::createRemoteSample(CLKappaAlgFlowController *this
     (*(*v4 + 160))(&lpsrc);
     if (lpsrc)
     {
-      v5 = **lpsrc;
-      if (v6)
+      if (v5)
       {
-        v7 = v11;
-        if (v11)
+        v6 = v10;
+        if (v10)
         {
-          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
         }
       }
 
       else
       {
-        v7 = 0;
+        v6 = 0;
       }
     }
 
     else
     {
-      v7 = 0;
       v6 = 0;
+      v5 = 0;
     }
 
-    if (v11)
+    if (v10)
     {
-      sub_100009A48(v11);
+      sub_100009A48(v10);
     }
 
     *(a2 + 3) = 0;
     *(a2 + 1) = 0;
-    v8 = *(this + 3);
-    v9 = v6[4];
+    v7 = *(this + 3);
+    v8 = v5[4];
     *a2 = *(this + 592);
     *(a2 + 4) = 0;
-    *(a2 + 8) = v8;
+    *(a2 + 8) = v7;
     *(a2 + 20) = 0;
     *(a2 + 12) = 0;
     *(a2 + 28) = 0;
-    *(a2 + 32) = v9;
+    *(a2 + 32) = v8;
     *(a2 + 40) = 0;
     *(a2 + 48) = 1;
-    if (v7)
+    if (v6)
     {
-      sub_100009A48(v7);
+      sub_100009A48(v6);
     }
   }
 
@@ -9669,7 +9707,7 @@ void sub_100049128(uint64_t *a1)
   }
 }
 
-void sub_100049168(uint64_t a1, unint64_t a2)
+void sub_100049168(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -9738,7 +9776,7 @@ void sub_100049264(uint64_t a1)
   }
 }
 
-uint64_t *sub_1000492A8(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *sub_1000492A8(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -9769,106 +9807,4 @@ uint64_t *sub_1000492A8(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
   }
 
   return v5;
-}
-
-void sub_100049320(uint64_t *a1)
-{
-  v2 = *a1;
-  for (i = a1[1]; i != v2; i -= 16)
-  {
-    v4 = *(i - 8);
-    if (v4)
-    {
-      sub_100009A48(v4);
-    }
-  }
-
-  a1[1] = v2;
-}
-
-void sub_10004936C(uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 60))
-  {
-    operator new();
-  }
-
-  sub_1000092C0();
-}
-
-void **sub_1000493B4(void **result, __int128 *a2)
-{
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
-  if (v4 >= v5)
-  {
-    v8 = (v4 - *result) >> 4;
-    v9 = v8 + 1;
-    if ((v8 + 1) >> 60)
-    {
-      sub_10000CD24();
-    }
-
-    v10 = v5 - *result;
-    if (v10 >> 3 > v9)
-    {
-      v9 = v10 >> 3;
-    }
-
-    if (v10 >= 0x7FFFFFFFFFFFFFF0)
-    {
-      v11 = 0xFFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v11 = v9;
-    }
-
-    v18[4] = result;
-    if (v11)
-    {
-      sub_10004936C(result, v11);
-    }
-
-    v12 = 16 * v8;
-    v13 = *a2;
-    *(16 * v8) = *a2;
-    if (*(&v13 + 1))
-    {
-      atomic_fetch_add_explicit((*(&v13 + 1) + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v7 = (v12 + 16);
-    v14 = result[1] - *result;
-    v15 = v12 - v14;
-    memcpy((v12 - v14), *result, v14);
-    v16 = *v3;
-    *v3 = v15;
-    v3[1] = v7;
-    v17 = v3[2];
-    v3[2] = 0;
-    v18[2] = v16;
-    v18[3] = v17;
-    v18[0] = v16;
-    v18[1] = v16;
-    result = sub_1000494C8(v18);
-  }
-
-  else
-  {
-    v6 = *(a2 + 1);
-    *v4 = *a2;
-    *(v4 + 1) = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v7 = v4 + 16;
-  }
-
-  v3[1] = v7;
-  return result;
 }

@@ -9,7 +9,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100036958(self, v3);
@@ -33,7 +33,7 @@
   v2 = qword_1000702B0;
   if (!qword_1000702B0)
   {
-    v3 = sub_100002830();
+    v3 = sub_100002830(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -48,21 +48,22 @@
 
 - (id)initSingleton
 {
-  v5.receiver = self;
-  v5.super_class = FMFConfig;
-  v2 = [(FMFConfig *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = FMFConfig;
+  v2 = [(FMFConfig *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100002830();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100002830(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_10003822C(v3);
+      sub_10003822C(v4);
     }
 
-    objc_storeStrong(&qword_1000702B0, v2);
+    objc_storeStrong(&qword_1000702B0, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (BOOL)isFMFAllowed
@@ -81,7 +82,7 @@ LABEL_7:
       return byte_10006FA78;
     }
 
-    v4 = sub_100002830();
+    v4 = sub_100002830(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_100038270(&v6, v4);

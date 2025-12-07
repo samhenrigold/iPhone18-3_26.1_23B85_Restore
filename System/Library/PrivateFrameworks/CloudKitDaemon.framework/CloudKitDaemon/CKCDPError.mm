@@ -138,7 +138,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
   if ((*&self->_has & 2) != 0)
   {
@@ -179,30 +179,30 @@
     v13 = objc_alloc(MEMORY[0x277CBEB18]);
     v16 = objc_msgSend_count(self->_auxiliaryUserInfos, v14, v15);
     v18 = objc_msgSend_initWithCapacity_(v13, v17, v16);
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v19 = self->_auxiliaryUserInfos;
-    v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v34, v38, 16);
+    v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v33, v37, 16);
     if (v21)
     {
       v24 = v21;
-      v25 = *v35;
+      v25 = *v34;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v35 != v25)
+          if (*v34 != v25)
           {
             objc_enumerationMutation(v19);
           }
 
-          v27 = objc_msgSend_dictionaryRepresentation(*(*(&v34 + 1) + 8 * i), v22, v23);
+          v27 = objc_msgSend_dictionaryRepresentation(*(*(&v33 + 1) + 8 * i), v22, v23);
           objc_msgSend_addObject_(v18, v28, v27);
         }
 
-        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v22, &v34, v38, 16);
+        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v22, &v33, v37, 16);
       }
 
       while (v24);
@@ -217,18 +217,15 @@
     objc_msgSend_setObject_forKey_(v5, v31, v30, @"targetPartition");
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if ((*&self->_has & 2) != 0)
   {
-    code = self->_code;
     PBDataWriterWriteInt32Field();
   }
 
@@ -244,49 +241,44 @@
 
   if (*&self->_has)
   {
-    auxiliaryCode = self->_auxiliaryCode;
     PBDataWriterWriteInt32Field();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v7 = self->_auxiliaryUserInfos;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v17, v21, 16);
-  if (v9)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = self->_auxiliaryUserInfos;
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v12, v16, 16);
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v18;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      v12 = 0;
+      v10 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v5);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
-        ++v12;
+        ++v10;
       }
 
-      while (v10 != v12);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v14, &v17, v21, 16);
+      while (v8 != v10);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v12, v16, 16);
     }
 
-    while (v10);
+    while (v8);
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    targetPartition = self->_targetPartition;
     PBDataWriterWriteInt32Field();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -343,7 +335,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -368,30 +360,30 @@
     *(v12 + 52) |= 1u;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v18 = self->_auxiliaryUserInfos;
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v29, v33, 16);
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v28, v32, 16);
   if (v20)
   {
     v22 = v20;
-    v23 = *v30;
+    v23 = *v29;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v30 != v23)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(v18);
         }
 
-        v25 = objc_msgSend_copyWithZone_(*(*(&v29 + 1) + 8 * i), v21, zone, v29);
+        v25 = objc_msgSend_copyWithZone_(*(*(&v28 + 1) + 8 * i), v21, zone, v28);
         objc_msgSend_addAuxiliaryUserInfo_(v12, v26, v25);
       }
 
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v29, v33, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v28, v32, 16);
     }
 
     while (v22);
@@ -403,7 +395,6 @@
     *(v12 + 52) |= 4u;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -416,7 +407,6 @@
     goto LABEL_23;
   }
 
-  v8 = *(equalCopy + 52);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0 || self->_code != *(equalCopy + 8))
@@ -431,24 +421,24 @@
   }
 
   message = self->_message;
-  v10 = equalCopy[5];
-  if (message | v10 && !objc_msgSend_isEqual_(message, v7, v10))
+  v9 = equalCopy[5];
+  if (message | v9 && !objc_msgSend_isEqual_(message, v7, v9))
   {
     goto LABEL_23;
   }
 
   auxiliaryDomain = self->_auxiliaryDomain;
-  v12 = equalCopy[2];
-  if (auxiliaryDomain | v12)
+  v11 = equalCopy[2];
+  if (auxiliaryDomain | v11)
   {
-    if (!objc_msgSend_isEqual_(auxiliaryDomain, v7, v12))
+    if (!objc_msgSend_isEqual_(auxiliaryDomain, v7, v11))
     {
       goto LABEL_23;
     }
   }
 
   has = self->_has;
-  v14 = *(equalCopy + 52);
+  v13 = *(equalCopy + 52);
   if (has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_auxiliaryCode != *(equalCopy + 2))
@@ -463,34 +453,34 @@
   }
 
   auxiliaryUserInfos = self->_auxiliaryUserInfos;
-  v16 = equalCopy[3];
-  if (auxiliaryUserInfos | v16)
+  v15 = equalCopy[3];
+  if (auxiliaryUserInfos | v15)
   {
-    if (!objc_msgSend_isEqual_(auxiliaryUserInfos, v7, v16))
+    if (!objc_msgSend_isEqual_(auxiliaryUserInfos, v7, v15))
     {
 LABEL_23:
-      v17 = 0;
+      v16 = 0;
       goto LABEL_24;
     }
 
     has = self->_has;
-    v14 = *(equalCopy + 52);
+    v13 = *(equalCopy + 52);
   }
 
-  v17 = (v14 & 4) == 0;
+  v16 = (v13 & 4) == 0;
   if ((has & 4) != 0)
   {
-    if ((v14 & 4) == 0 || self->_targetPartition != *(equalCopy + 12))
+    if ((v13 & 4) == 0 || self->_targetPartition != *(equalCopy + 12))
     {
       goto LABEL_23;
     }
 
-    v17 = 1;
+    v16 = 1;
   }
 
 LABEL_24:
 
-  return v17;
+  return v16;
 }
 
 - (unint64_t)hash
@@ -533,7 +523,7 @@ LABEL_24:
 
 - (void)mergeFrom:(id)from
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v6 = fromCopy;
   if ((*(fromCopy + 52) & 2) != 0)
@@ -560,29 +550,29 @@ LABEL_24:
     *&self->_has |= 1u;
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = *(v6 + 3);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v17, v21, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v16, v20, 16);
   if (v11)
   {
     v13 = v11;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        objc_msgSend_addAuxiliaryUserInfo_(self, v12, *(*(&v17 + 1) + 8 * i), v17);
+        objc_msgSend_addAuxiliaryUserInfo_(self, v12, *(*(&v16 + 1) + 8 * i), v16);
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v17, v21, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v16, v20, 16);
     }
 
     while (v13);
@@ -593,8 +583,6 @@ LABEL_24:
     self->_targetPartition = *(v6 + 12);
     *&self->_has |= 4u;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

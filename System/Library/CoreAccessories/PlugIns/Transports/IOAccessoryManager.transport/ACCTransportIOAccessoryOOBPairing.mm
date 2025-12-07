@@ -1,4 +1,5 @@
 @interface ACCTransportIOAccessoryOOBPairing
+- (ACCTransportIOAccessoryOOBPairing)initWithDelegate:(id)delegate andIOService:(unsigned int)service;
 - (ACCTransportIOAccessoryOOBPairingProtocol)delegate;
 - (BOOL)_handleIncomingOOBPairingInfoData:(int)data;
 - (BOOL)openServiceSession;
@@ -26,17 +27,127 @@
 
 @implementation ACCTransportIOAccessoryOOBPairing
 
+- (ACCTransportIOAccessoryOOBPairing)initWithDelegate:(id)delegate andIOService:(unsigned int)service
+{
+  v4 = *&service;
+  delegateCopy = delegate;
+  v11.receiver = self;
+  v11.super_class = ACCTransportIOAccessoryOOBPairing;
+  v7 = [(ACCTransportIOAccessoryBase *)&v11 initWithIOAccessoryClass:4 ioService:v4];
+  v8 = v7;
+  if (v7)
+  {
+    objc_storeWeak(&v7->_parentConnectionUUID, 0);
+    endpointUUID = v8->_endpointUUID;
+    v8->_endpointUUID = 0;
+
+    objc_storeWeak(&v8->_delegate, delegateCopy);
+    v8->super._ioConnect = 0;
+    v8->_oobPairingInfoReadBuffer = malloc_type_malloc(0x400uLL, 0xE46DA76BuLL);
+    v8->_oobPairingInfoReadBufferLength = 1024;
+    v8->_oobPairingDataReadBuffer = malloc_type_malloc(0x400uLL, 0x1C20EAD8uLL);
+    v8->_oobPairingDataReadBufferLength = 1024;
+    [(ACCTransportIOAccessoryOOBPairing *)v8 _checkAccInfo];
+  }
+
+  return v8;
+}
+
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_233656000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  if (gLogObjects)
+  {
+    v3 = gNumLogObjects < 8;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  if (v3)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCTransportIOAccessoryOOBPairing dealloc];
+    }
+
+    v5 = MEMORY[0x277D86220];
+    v4 = MEMORY[0x277D86220];
+  }
+
+  else
+  {
+    v5 = *(gLogObjects + 56);
+  }
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    ioService = [(ACCTransportIOAccessoryBase *)self ioService];
+    _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_DEFAULT, "deallocing OOBPairing %d", buf, 8u);
+  }
+
+  objc_storeWeak(&self->_delegate, 0);
+  objc_storeWeak(&self->_parentConnectionUUID, 0);
+  endpointUUID = self->_endpointUUID;
+  self->_endpointUUID = 0;
+
+  deviceSupportedTypes = self->_deviceSupportedTypes;
+  self->_deviceSupportedTypes = 0;
+
+  deviceVendorName = self->_deviceVendorName;
+  self->_deviceVendorName = 0;
+
+  deviceName = self->_deviceName;
+  self->_deviceName = 0;
+
+  deviceModelNumber = self->_deviceModelNumber;
+  self->_deviceModelNumber = 0;
+
+  deviceHardwareRevision = self->_deviceHardwareRevision;
+  self->_deviceHardwareRevision = 0;
+
+  deviceFirmwareRevision = self->_deviceFirmwareRevision;
+  self->_deviceFirmwareRevision = 0;
+
+  deviceSerialNumber = self->_deviceSerialNumber;
+  self->_deviceSerialNumber = 0;
+
+  deviceDockType = self->_deviceDockType;
+  self->_deviceDockType = 0;
+
+  deviceUID = self->_deviceUID;
+  self->_deviceUID = 0;
+
+  v16 = self->_deviceSupportedTypes;
+  self->_deviceSupportedTypes = 0;
+
+  oobPairingInfoReadBuffer = self->_oobPairingInfoReadBuffer;
+  if (oobPairingInfoReadBuffer)
+  {
+    free(oobPairingInfoReadBuffer);
+    self->_oobPairingInfoReadBuffer = 0;
+  }
+
+  oobPairingDataReadBuffer = self->_oobPairingDataReadBuffer;
+  if (oobPairingDataReadBuffer)
+  {
+    free(oobPairingDataReadBuffer);
+    self->_oobPairingDataReadBuffer = 0;
+  }
+
+  self->_oobPairingInfoReadBufferLength = 0;
+  self->_oobPairingDataReadBufferLength = 0;
+  v19.receiver = self;
+  v19.super_class = ACCTransportIOAccessoryOOBPairing;
+  [(ACCTransportIOAccessoryBase *)&v19 dealloc];
 }
 
 - (BOOL)openServiceSession
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v3 = gNumLogObjects < 8;
@@ -67,11 +178,11 @@
   {
     ioService = [(ACCTransportIOAccessoryBase *)self ioService];
     endpointUUID = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
-    v24 = 67109378;
-    *v25 = ioService;
-    *&v25[4] = 2112;
-    *&v25[6] = endpointUUID;
-    _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_DEFAULT, "OOBPairing openServiceSession, ioService = %d, endpointUUID %@", &v24, 0x12u);
+    v23 = 67109378;
+    *v24 = ioService;
+    *&v24[4] = 2112;
+    *&v24[6] = endpointUUID;
+    _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_DEFAULT, "OOBPairing openServiceSession, ioService = %d, endpointUUID %@", &v23, 0x12u);
   }
 
   if (self->super._ioConnect)
@@ -98,13 +209,13 @@
     }
 
     endpointUUID2 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
-    v24 = 138412290;
-    *v25 = endpointUUID2;
+    v23 = 138412290;
+    *v24 = endpointUUID2;
     v14 = "OOB Pairing is already open (endpointUUID %@)";
     v15 = v8;
     v16 = 12;
 LABEL_24:
-    _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_DEFAULT, v14, &v24, v16);
+    _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_DEFAULT, v14, &v23, v16);
 
 LABEL_25:
     v17 = 1;
@@ -129,7 +240,7 @@ LABEL_25:
       }
 
       v8 = MEMORY[0x277D86220];
-      v22 = MEMORY[0x277D86220];
+      v21 = MEMORY[0x277D86220];
     }
 
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -139,12 +250,12 @@ LABEL_25:
 
     ioService3 = [(ACCTransportIOAccessoryBase *)self ioService];
     endpointUUID2 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
-    v24 = 67109634;
-    *v25 = ioService3;
-    *&v25[4] = 1024;
-    *&v25[6] = 0;
-    *&v25[10] = 2112;
-    *&v25[12] = endpointUUID2;
+    v23 = 67109634;
+    *v24 = ioService3;
+    *&v24[4] = 1024;
+    *&v24[6] = 0;
+    *&v24[10] = 2112;
+    *&v24[12] = endpointUUID2;
     v14 = "OOB Pairing for self.ioService %d is open, result = 0x%X (endpointUUID %@)";
     v15 = v8;
     v16 = 24;
@@ -171,23 +282,22 @@ LABEL_25:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     endpointUUID3 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
-    v24 = 67109378;
-    *v25 = v11;
-    *&v25[4] = 2112;
-    *&v25[6] = endpointUUID3;
-    _os_log_impl(&dword_233656000, v8, OS_LOG_TYPE_DEFAULT, "ERROR: OOB Pairing open failed! result %xh (endpointUUID %@)", &v24, 0x12u);
+    v23 = 67109378;
+    *v24 = v11;
+    *&v24[4] = 2112;
+    *&v24[6] = endpointUUID3;
+    _os_log_impl(&dword_233656000, v8, OS_LOG_TYPE_DEFAULT, "ERROR: OOB Pairing open failed! result %xh (endpointUUID %@)", &v23, 0x12u);
   }
 
   v17 = 0;
 LABEL_35:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (void)closeServiceSession
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   ioConnect = self->super._ioConnect;
   if (ioConnect)
   {
@@ -222,11 +332,11 @@ LABEL_35:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       endpointUUID = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
-      v12 = 138412290;
-      v13 = endpointUUID;
+      v11 = 138412290;
+      v12 = endpointUUID;
       v10 = "OOB Pairing is closed (endpointUUID %@)";
 LABEL_22:
-      _os_log_impl(&dword_233656000, v8, OS_LOG_TYPE_DEFAULT, v10, &v12, 0xCu);
+      _os_log_impl(&dword_233656000, v8, OS_LOG_TYPE_DEFAULT, v10, &v11, 0xCu);
     }
   }
 
@@ -261,14 +371,12 @@ LABEL_22:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       endpointUUID = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
-      v12 = 138412290;
-      v13 = endpointUUID;
+      v11 = 138412290;
+      v12 = endpointUUID;
       v10 = "OOB Pairing is already closed (endpointUUID %@)";
       goto LABEL_22;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)supportsType:(int)type
@@ -297,7 +405,7 @@ LABEL_22:
 
 - (BOOL)_handleIncomingOOBPairingInfoData:(int)data
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   v4 = 0x2812FE000uLL;
   if (gLogObjects)
   {
@@ -349,9 +457,9 @@ LABEL_22:
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              *v111 = v15;
-              *&v111[8] = 1024;
-              *&v111[10] = v16;
+              *v107 = v15;
+              *&v107[8] = 1024;
+              *&v107[10] = v16;
               _os_log_error_impl(&dword_233656000, v14, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
@@ -370,22 +478,20 @@ LABEL_22:
             endpointUUID = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
             ioConnect = self->super._ioConnect;
             *buf = 134218498;
-            *v111 = oobPairingDataReadBufferLength;
-            *&v111[8] = 2112;
-            *&v111[10] = endpointUUID;
-            *&v111[18] = 1024;
-            *&v111[20] = ioConnect;
+            *v107 = oobPairingDataReadBufferLength;
+            *&v107[8] = 2112;
+            *&v107[10] = endpointUUID;
+            *&v107[18] = 1024;
+            *&v107[20] = ioConnect;
             _os_log_debug_impl(&dword_233656000, v19, OS_LOG_TYPE_DEBUG, "read upto %zu bytes for OOB Pairing Data (endpointUUID %@), call IOAccessoryOOBPairingInterfaceGetPairingData, ioConnect %d", buf, 0x1Cu);
           }
 
-          v20 = self->super._ioConnect;
-          oobPairingDataReadBuffer = self->_oobPairingDataReadBuffer;
           PairingData = IOAccessoryOOBPairingInterfaceGetPairingData();
-          v23 = gLogObjects;
-          v24 = gNumLogObjects;
+          v21 = gLogObjects;
+          v22 = gNumLogObjects;
           if (gLogObjects && gNumLogObjects >= 8)
           {
-            v25 = *(gLogObjects + 56);
+            v23 = *(gLogObjects + 56);
           }
 
           else
@@ -393,27 +499,27 @@ LABEL_22:
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              *v111 = v23;
-              *&v111[8] = 1024;
-              *&v111[10] = v24;
+              *v107 = v21;
+              *&v107[8] = 1024;
+              *&v107[10] = v22;
               _os_log_error_impl(&dword_233656000, v14, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
-            v26 = v14;
-            v25 = v14;
+            v24 = v14;
+            v23 = v14;
           }
 
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
-            v42 = self->_oobPairingDataReadBufferLength;
+            v40 = self->_oobPairingDataReadBufferLength;
             endpointUUID2 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
             *buf = 134218498;
-            *v111 = v42;
-            *&v111[8] = 2112;
-            *&v111[10] = endpointUUID2;
-            *&v111[18] = 1024;
-            *&v111[20] = PairingData;
-            _os_log_debug_impl(&dword_233656000, v25, OS_LOG_TYPE_DEBUG, "read %zu bytes for OOB Pairing Data (endpointUUID %@), result = 0x%X", buf, 0x1Cu);
+            *v107 = v40;
+            *&v107[8] = 2112;
+            *&v107[10] = endpointUUID2;
+            *&v107[18] = 1024;
+            *&v107[20] = PairingData;
+            _os_log_debug_impl(&dword_233656000, v23, OS_LOG_TYPE_DEBUG, "read %zu bytes for OOB Pairing Data (endpointUUID %@), result = 0x%X", buf, 0x1Cu);
           }
 
           if (PairingData)
@@ -421,43 +527,27 @@ LABEL_22:
             break;
           }
 
-          v27 = self->_oobPairingDataReadBufferLength;
-          if (!v27)
-          {
-            goto LABEL_48;
-          }
-
-          delegate = [(ACCTransportIOAccessoryOOBPairing *)self delegate];
-          if (!delegate)
-          {
-            goto LABEL_48;
-          }
-
-          v29 = delegate;
-          delegate2 = [(ACCTransportIOAccessoryOOBPairing *)self delegate];
-          v31 = objc_opt_respondsToSelector();
-
-          if (v31)
+          v25 = self->_oobPairingDataReadBufferLength;
+          if (v25 && ([(ACCTransportIOAccessoryOOBPairing *)self delegate], (v26 = objc_claimAutoreleasedReturnValue()) != 0) && (v27 = v26, [(ACCTransportIOAccessoryOOBPairing *)self delegate], v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_opt_respondsToSelector(), v28, v27, (v29 & 1) != 0))
           {
             *buf = 5;
             activeType = self->_activeType;
-            v32 = objc_alloc_init(MEMORY[0x277CBEB28]);
-            [v32 appendBytes:buf length:2];
-            [v32 appendBytes:&activeType length:2];
-            [v32 appendBytes:self->_oobPairingDataReadBuffer length:self->_oobPairingDataReadBufferLength];
-            delegate3 = [(ACCTransportIOAccessoryOOBPairing *)self delegate];
+            v30 = objc_alloc_init(MEMORY[0x277CBEB28]);
+            [v30 appendBytes:buf length:2];
+            [v30 appendBytes:&activeType length:2];
+            [v30 appendBytes:self->_oobPairingDataReadBuffer length:self->_oobPairingDataReadBufferLength];
+            delegate = [(ACCTransportIOAccessoryOOBPairing *)self delegate];
             endpointUUID3 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
-            [delegate3 IOAccessoryOOBPairingDataArrived:v32 endpointUUID:endpointUUID3];
+            [delegate IOAccessoryOOBPairingDataArrived:v30 endpointUUID:endpointUUID3];
           }
 
           else
           {
-LABEL_48:
-            v35 = gLogObjects;
-            v36 = gNumLogObjects;
+            v33 = gLogObjects;
+            v34 = gNumLogObjects;
             if (gLogObjects && gNumLogObjects >= 8)
             {
-              v37 = *(gLogObjects + 56);
+              v35 = *(gLogObjects + 56);
             }
 
             else
@@ -465,46 +555,46 @@ LABEL_48:
               if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                *v111 = v35;
-                *&v111[8] = 1024;
-                *&v111[10] = v36;
+                *v107 = v33;
+                *&v107[8] = 1024;
+                *&v107[10] = v34;
                 _os_log_error_impl(&dword_233656000, v14, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
 
-              v38 = v14;
-              v37 = v14;
+              v36 = v14;
+              v35 = v14;
             }
 
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
-              v44 = self->_oobPairingDataReadBufferLength;
+              v42 = self->_oobPairingDataReadBufferLength;
               endpointUUID4 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
               parentConnectionUUID = [(ACCTransportIOAccessoryOOBPairing *)self parentConnectionUUID];
               *buf = 134218754;
-              *v111 = v44;
-              *&v111[8] = 2112;
-              *&v111[10] = endpointUUID4;
-              *&v111[18] = 2112;
-              *&v111[20] = parentConnectionUUID;
-              *&v111[28] = 1024;
-              v112 = 0;
-              _os_log_error_impl(&dword_233656000, v37, OS_LOG_TYPE_ERROR, "received OOB Pairing Data (%zu) but delegate doesn't handle it or no data, endpointUUID %@, parentUUID %@, result %d", buf, 0x26u);
+              *v107 = v42;
+              *&v107[8] = 2112;
+              *&v107[10] = endpointUUID4;
+              *&v107[18] = 2112;
+              *&v107[20] = parentConnectionUUID;
+              *&v107[28] = 1024;
+              v108 = 0;
+              _os_log_error_impl(&dword_233656000, v35, OS_LOG_TYPE_ERROR, "received OOB Pairing Data (%zu) but delegate doesn't handle it or no data, endpointUUID %@, parentUUID %@, result %d", buf, 0x26u);
             }
           }
 
           v13 = 1;
           v4 = 0x2812FE000;
-          if (v27 != 1024)
+          if (v25 != 1024)
           {
-            goto LABEL_155;
+            return v13;
           }
         }
 
-        v99 = gLogObjects;
-        v100 = gNumLogObjects;
+        v96 = gLogObjects;
+        v97 = gNumLogObjects;
         if (gLogObjects && gNumLogObjects >= 8)
         {
-          v97 = *(gLogObjects + 56);
+          v94 = *(gLogObjects + 56);
         }
 
         else
@@ -512,29 +602,29 @@ LABEL_48:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *v111 = v99;
-            *&v111[8] = 1024;
-            *&v111[10] = v100;
+            *v107 = v96;
+            *&v107[8] = 1024;
+            *&v107[10] = v97;
             _os_log_error_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
-          v97 = MEMORY[0x277D86220];
-          v106 = MEMORY[0x277D86220];
+          v94 = MEMORY[0x277D86220];
+          v103 = MEMORY[0x277D86220];
         }
 
-        if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
         {
           endpointUUID5 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
           parentConnectionUUID2 = [(ACCTransportIOAccessoryOOBPairing *)self parentConnectionUUID];
           *buf = 138412802;
-          *v111 = endpointUUID5;
-          *&v111[8] = 2112;
-          *&v111[10] = parentConnectionUUID2;
-          *&v111[18] = 1024;
-          *&v111[20] = PairingData;
-          v104 = "error reading OOB Pairing Data, endpointUUID %@, parentUUID %@, result %d";
+          *v107 = endpointUUID5;
+          *&v107[8] = 2112;
+          *&v107[10] = parentConnectionUUID2;
+          *&v107[18] = 1024;
+          *&v107[20] = PairingData;
+          v101 = "error reading OOB Pairing Data, endpointUUID %@, parentUUID %@, result %d";
 LABEL_157:
-          _os_log_error_impl(&dword_233656000, v97, OS_LOG_TYPE_ERROR, v104, buf, 0x1Cu);
+          _os_log_error_impl(&dword_233656000, v94, OS_LOG_TYPE_ERROR, v101, buf, 0x1Cu);
         }
 
         goto LABEL_154;
@@ -542,7 +632,7 @@ LABEL_157:
 
       if (gLogObjects && gNumLogObjects >= 8)
       {
-        v98 = *(gLogObjects + 56);
+        v95 = *(gLogObjects + 56);
       }
 
       else
@@ -552,13 +642,13 @@ LABEL_157:
           [ACCTransportIOAccessoryOOBPairing dealloc];
         }
 
-        v98 = MEMORY[0x277D86220];
-        v105 = MEMORY[0x277D86220];
+        v95 = MEMORY[0x277D86220];
+        v102 = MEMORY[0x277D86220];
       }
 
-      if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
-        [(ACCTransportIOAccessoryOOBPairing *)&self->super._ioConnect _handleIncomingOOBPairingInfoData:v98];
+        [(ACCTransportIOAccessoryOOBPairing *)&self->super._ioConnect _handleIncomingOOBPairingInfoData:v95];
       }
     }
 
@@ -579,7 +669,7 @@ LABEL_157:
           }
 
           v8 = MEMORY[0x277D86220];
-          v88 = MEMORY[0x277D86220];
+          v85 = MEMORY[0x277D86220];
         }
 
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
@@ -591,7 +681,7 @@ LABEL_157:
         ActivePairingType = IOAccessoryOOBPairingInterfaceGetActivePairingType();
         if (gLogObjects && gNumLogObjects >= 8)
         {
-          v90 = *(gLogObjects + 56);
+          v87 = *(gLogObjects + 56);
         }
 
         else
@@ -601,18 +691,17 @@ LABEL_157:
             [ACCTransportIOAccessoryOOBPairing dealloc];
           }
 
-          v90 = MEMORY[0x277D86220];
-          v91 = MEMORY[0x277D86220];
+          v87 = MEMORY[0x277D86220];
+          v88 = MEMORY[0x277D86220];
         }
 
-        if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
         {
           [ACCTransportIOAccessoryOOBPairing _handleIncomingOOBPairingInfoData:?];
         }
 
         self->_activeType = [(ACCTransportIOAccessoryOOBPairing *)self _convertOOBPairingTypeFromIOAccessory:ActivePairingType];
-        v13 = 1;
-        goto LABEL_155;
+        return 1;
       }
 
       if (v6)
@@ -628,7 +717,7 @@ LABEL_157:
         }
 
         v11 = MEMORY[0x277D86220];
-        v92 = MEMORY[0x277D86220];
+        v89 = MEMORY[0x277D86220];
       }
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -636,17 +725,16 @@ LABEL_157:
         endpointUUID6 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
         parentConnectionUUID3 = [(ACCTransportIOAccessoryOOBPairing *)self parentConnectionUUID];
         *buf = 67109634;
-        *v111 = data;
-        *&v111[4] = 2112;
-        *&v111[6] = endpointUUID6;
-        *&v111[14] = 2112;
-        *&v111[16] = parentConnectionUUID3;
+        *v107 = data;
+        *&v107[4] = 2112;
+        *&v107[6] = endpointUUID6;
+        *&v107[14] = 2112;
+        *&v107[16] = parentConnectionUUID3;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Wrong OOB Pairing data type (%d), endpointUUID %@, parentUUID %@", buf, 0x1Cu);
       }
     }
 
-    v13 = 0;
-    goto LABEL_155;
+    return 0;
   }
 
   if (v6)
@@ -662,7 +750,7 @@ LABEL_157:
     }
 
     v10 = MEMORY[0x277D86220];
-    v47 = MEMORY[0x277D86220];
+    v45 = MEMORY[0x277D86220];
   }
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
@@ -671,138 +759,137 @@ LABEL_157:
   }
 
   v13 = 0;
-  v48 = MEMORY[0x277D86220];
+  v46 = MEMORY[0x277D86220];
   while (1)
   {
     self->_oobPairingInfoReadBufferLength = 1024;
-    v49 = gLogObjects;
-    v50 = *(v4 + 3704);
+    v47 = gLogObjects;
+    v48 = *(v4 + 3704);
     if (gLogObjects)
     {
-      v51 = v50 < 8;
+      v49 = v48 < 8;
     }
 
     else
     {
-      v51 = 1;
+      v49 = 1;
     }
 
-    if (v51)
+    if (v49)
     {
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        *v111 = v49;
-        *&v111[8] = 1024;
-        *&v111[10] = v50;
-        _os_log_error_impl(&dword_233656000, v48, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+        *v107 = v47;
+        *&v107[8] = 1024;
+        *&v107[10] = v48;
+        _os_log_error_impl(&dword_233656000, v46, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
       }
 
-      v52 = v48;
-      v53 = v48;
+      v50 = v46;
+      v51 = v46;
     }
 
     else
     {
-      v53 = *(gLogObjects + 56);
+      v51 = *(gLogObjects + 56);
     }
 
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
     {
       oobPairingInfoReadBufferLength = self->_oobPairingInfoReadBufferLength;
       endpointUUID7 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
-      v78 = self->super._ioConnect;
+      v75 = self->super._ioConnect;
       *buf = 134218498;
-      *v111 = oobPairingInfoReadBufferLength;
-      *&v111[8] = 2112;
-      *&v111[10] = endpointUUID7;
-      *&v111[18] = 1024;
-      *&v111[20] = v78;
-      _os_log_debug_impl(&dword_233656000, v53, OS_LOG_TYPE_DEBUG, "read upto %zu bytes for OOB Pairing Info (endpointUUID %@), call IOAccessoryOOBPairingInterfaceGetPairingInfo, ioConnect %d", buf, 0x1Cu);
+      *v107 = oobPairingInfoReadBufferLength;
+      *&v107[8] = 2112;
+      *&v107[10] = endpointUUID7;
+      *&v107[18] = 1024;
+      *&v107[20] = v75;
+      _os_log_debug_impl(&dword_233656000, v51, OS_LOG_TYPE_DEBUG, "read upto %zu bytes for OOB Pairing Info (endpointUUID %@), call IOAccessoryOOBPairingInterfaceGetPairingInfo, ioConnect %d", buf, 0x1Cu);
     }
 
     if (!self->super._ioConnect)
     {
-      v59 = gLogObjects;
-      v60 = *(v4 + 3704);
-      if (gLogObjects && v60 >= 8)
+      v56 = gLogObjects;
+      v57 = *(v4 + 3704);
+      if (gLogObjects && v57 >= 8)
       {
-        v61 = *(gLogObjects + 56);
+        v58 = *(gLogObjects + 56);
       }
 
       else
       {
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *v111 = v59;
-          *&v111[8] = 1024;
-          *&v111[10] = v60;
-          _os_log_error_impl(&dword_233656000, v48, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+          *v107 = v56;
+          *&v107[8] = 1024;
+          *&v107[10] = v57;
+          _os_log_error_impl(&dword_233656000, v46, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
-        v75 = v48;
-        v61 = v48;
+        v72 = v46;
+        v58 = v46;
       }
 
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
-        v84 = self->super._ioConnect;
+        v81 = self->super._ioConnect;
         endpointUUID8 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
         parentConnectionUUID4 = [(ACCTransportIOAccessoryOOBPairing *)self parentConnectionUUID];
         ioService = [(ACCTransportIOAccessoryBase *)self ioService];
         *buf = 67109890;
-        *v111 = v84;
-        *&v111[4] = 2112;
-        *&v111[6] = endpointUUID8;
-        *&v111[14] = 2112;
-        *&v111[16] = parentConnectionUUID4;
-        *&v111[24] = 1024;
-        *&v111[26] = ioService;
-        _os_log_error_impl(&dword_233656000, v61, OS_LOG_TYPE_ERROR, "ERROR: No _ioConnect(%d) while trying to get OOB Pairing Info, endpointUUID %@, parentUUID %@, ioService %d", buf, 0x22u);
+        *v107 = v81;
+        *&v107[4] = 2112;
+        *&v107[6] = endpointUUID8;
+        *&v107[14] = 2112;
+        *&v107[16] = parentConnectionUUID4;
+        *&v107[24] = 1024;
+        *&v107[26] = ioService;
+        _os_log_error_impl(&dword_233656000, v58, OS_LOG_TYPE_ERROR, "ERROR: No _ioConnect(%d) while trying to get OOB Pairing Info, endpointUUID %@, parentUUID %@, ioService %d", buf, 0x22u);
 
         v4 = 0x2812FE000;
       }
 
-      v63 = 1024;
+      v60 = 1024;
       goto LABEL_107;
     }
 
-    oobPairingInfoReadBuffer = self->_oobPairingInfoReadBuffer;
     PairingInfo = IOAccessoryOOBPairingInterfaceGetPairingInfo();
-    v56 = gLogObjects;
-    v57 = *(v4 + 3704);
-    if (gLogObjects && v57 >= 8)
+    v53 = gLogObjects;
+    v54 = *(v4 + 3704);
+    if (gLogObjects && v54 >= 8)
     {
-      v58 = *(gLogObjects + 56);
+      v55 = *(gLogObjects + 56);
     }
 
     else
     {
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        *v111 = v56;
-        *&v111[8] = 1024;
-        *&v111[10] = v57;
-        _os_log_error_impl(&dword_233656000, v48, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+        *v107 = v53;
+        *&v107[8] = 1024;
+        *&v107[10] = v54;
+        _os_log_error_impl(&dword_233656000, v46, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
       }
 
-      v62 = v48;
-      v58 = v48;
+      v59 = v46;
+      v55 = v46;
     }
 
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
     {
-      v79 = self->_oobPairingInfoReadBufferLength;
+      v76 = self->_oobPairingInfoReadBufferLength;
       endpointUUID9 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
       *buf = 134218498;
-      *v111 = v79;
-      *&v111[8] = 2112;
-      *&v111[10] = endpointUUID9;
-      *&v111[18] = 1024;
-      *&v111[20] = PairingInfo;
-      _os_log_debug_impl(&dword_233656000, v58, OS_LOG_TYPE_DEBUG, "read %zu bytes for OOB Pairing Info (endpointUUID %@), result = 0x%X", buf, 0x1Cu);
+      *v107 = v76;
+      *&v107[8] = 2112;
+      *&v107[10] = endpointUUID9;
+      *&v107[18] = 1024;
+      *&v107[20] = PairingInfo;
+      _os_log_debug_impl(&dword_233656000, v55, OS_LOG_TYPE_DEBUG, "read %zu bytes for OOB Pairing Info (endpointUUID %@), result = 0x%X", buf, 0x1Cu);
 
       v4 = 0x2812FE000;
     }
@@ -812,61 +899,61 @@ LABEL_157:
       break;
     }
 
-    v63 = self->_oobPairingInfoReadBufferLength;
-    delegate4 = [(ACCTransportIOAccessoryOOBPairing *)self delegate];
-    if (delegate4 && (v65 = delegate4, [(ACCTransportIOAccessoryOOBPairing *)self delegate], v66 = objc_claimAutoreleasedReturnValue(), v67 = objc_opt_respondsToSelector(), v66, v4 = 0x2812FE000, v65, (v67 & 1) != 0))
+    v60 = self->_oobPairingInfoReadBufferLength;
+    delegate2 = [(ACCTransportIOAccessoryOOBPairing *)self delegate];
+    if (delegate2 && (v62 = delegate2, [(ACCTransportIOAccessoryOOBPairing *)self delegate], v63 = objc_claimAutoreleasedReturnValue(), v64 = objc_opt_respondsToSelector(), v63, v4 = 0x2812FE000, v62, (v64 & 1) != 0))
     {
       *buf = 4;
       activeType = self->_activeType;
-      v68 = objc_alloc_init(MEMORY[0x277CBEB28]);
-      [v68 appendBytes:buf length:2];
-      [v68 appendBytes:&activeType length:2];
-      [v68 appendBytes:self->_oobPairingInfoReadBuffer length:self->_oobPairingInfoReadBufferLength];
-      delegate5 = [(ACCTransportIOAccessoryOOBPairing *)self delegate];
+      v65 = objc_alloc_init(MEMORY[0x277CBEB28]);
+      [v65 appendBytes:buf length:2];
+      [v65 appendBytes:&activeType length:2];
+      [v65 appendBytes:self->_oobPairingInfoReadBuffer length:self->_oobPairingInfoReadBufferLength];
+      delegate3 = [(ACCTransportIOAccessoryOOBPairing *)self delegate];
       endpointUUID10 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
-      [delegate5 IOAccessoryOOBPairingInfoArrived:v68 endpointUUID:endpointUUID10];
+      [delegate3 IOAccessoryOOBPairingInfoArrived:v65 endpointUUID:endpointUUID10];
 
       v4 = 0x2812FE000;
     }
 
     else
     {
-      v71 = gLogObjects;
-      v72 = *(v4 + 3704);
-      if (gLogObjects && v72 >= 8)
+      v68 = gLogObjects;
+      v69 = *(v4 + 3704);
+      if (gLogObjects && v69 >= 8)
       {
-        v73 = *(gLogObjects + 56);
+        v70 = *(gLogObjects + 56);
       }
 
       else
       {
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *v111 = v71;
-          *&v111[8] = 1024;
-          *&v111[10] = v72;
-          _os_log_error_impl(&dword_233656000, v48, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+          *v107 = v68;
+          *&v107[8] = 1024;
+          *&v107[10] = v69;
+          _os_log_error_impl(&dword_233656000, v46, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
-        v74 = v48;
-        v73 = v48;
+        v71 = v46;
+        v70 = v46;
       }
 
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
       {
-        v81 = self->_oobPairingDataReadBufferLength;
+        v78 = self->_oobPairingDataReadBufferLength;
         endpointUUID11 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
         parentConnectionUUID5 = [(ACCTransportIOAccessoryOOBPairing *)self parentConnectionUUID];
         *buf = 134218754;
-        *v111 = v81;
-        *&v111[8] = 2112;
-        *&v111[10] = endpointUUID11;
-        *&v111[18] = 2112;
-        *&v111[20] = parentConnectionUUID5;
-        *&v111[28] = 1024;
-        v112 = 0;
-        _os_log_error_impl(&dword_233656000, v73, OS_LOG_TYPE_ERROR, "received OOB Pairing Info (%zu) but delegate doesn't handle it, endpointUUID %@, parentUUID %@, result = %02x", buf, 0x26u);
+        *v107 = v78;
+        *&v107[8] = 2112;
+        *&v107[10] = endpointUUID11;
+        *&v107[18] = 2112;
+        *&v107[20] = parentConnectionUUID5;
+        *&v107[28] = 1024;
+        v108 = 0;
+        _os_log_error_impl(&dword_233656000, v70, OS_LOG_TYPE_ERROR, "received OOB Pairing Info (%zu) but delegate doesn't handle it, endpointUUID %@, parentUUID %@, result = %02x", buf, 0x26u);
 
         v4 = 0x2812FE000;
       }
@@ -874,17 +961,17 @@ LABEL_157:
 
     v13 = 1;
 LABEL_107:
-    if (v63 != 1024)
+    if (v60 != 1024)
     {
-      goto LABEL_155;
+      return v13;
     }
   }
 
-  v95 = gLogObjects;
-  v96 = *(v4 + 3704);
-  if (gLogObjects && v96 >= 8)
+  v92 = gLogObjects;
+  v93 = *(v4 + 3704);
+  if (gLogObjects && v93 >= 8)
   {
-    v97 = *(gLogObjects + 56);
+    v94 = *(gLogObjects + 56);
   }
 
   else
@@ -892,47 +979,45 @@ LABEL_107:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      *v111 = v95;
-      *&v111[8] = 1024;
-      *&v111[10] = v96;
+      *v107 = v92;
+      *&v107[8] = 1024;
+      *&v107[10] = v93;
       _os_log_error_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
     }
 
-    v97 = MEMORY[0x277D86220];
-    v101 = MEMORY[0x277D86220];
+    v94 = MEMORY[0x277D86220];
+    v98 = MEMORY[0x277D86220];
   }
 
-  if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
   {
     endpointUUID5 = [(ACCTransportIOAccessoryOOBPairing *)self endpointUUID];
     parentConnectionUUID2 = [(ACCTransportIOAccessoryOOBPairing *)self parentConnectionUUID];
     *buf = 138412802;
-    *v111 = endpointUUID5;
-    *&v111[8] = 2112;
-    *&v111[10] = parentConnectionUUID2;
-    *&v111[18] = 1024;
-    *&v111[20] = PairingInfo;
-    v104 = "error reading OOB Pairing Info, endpointUUID %@, parentUUID %@, result = %02x";
+    *v107 = endpointUUID5;
+    *&v107[8] = 2112;
+    *&v107[10] = parentConnectionUUID2;
+    *&v107[18] = 1024;
+    *&v107[20] = PairingInfo;
+    v101 = "error reading OOB Pairing Info, endpointUUID %@, parentUUID %@, result = %02x";
     goto LABEL_157;
   }
 
 LABEL_154:
 
-LABEL_155:
-  v107 = *MEMORY[0x277D85DE8];
-  return v13 & 1;
+  return v13;
 }
 
 - (void)_registerReadCallback
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4(&dword_233656000, a2, a3, "ERROR registering OOBPairingReceiveCallback: 0x%x", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
+  OUTLINED_FUNCTION_4(&dword_233656000, a2, a3, "ERROR registering OOBPairingReceiveCallback: 0x%x", a5, a6, a7, a8, v8);
 }
 
 - (void)_checkAccInfo
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   [(ACCTransportIOAccessoryBase *)self ioService];
   v3 = IOAccessoryOOBPairingInterfaceCopyDeviceVendorName();
   deviceVendorName = self->_deviceVendorName;
@@ -1059,40 +1144,38 @@ LABEL_155:
     v38 = self->_supports2way;
     v39 = self->_devicePlatformID;
     *buf = 136318722;
-    v43 = "[ACCTransportIOAccessoryOOBPairing _checkAccInfo]";
-    v44 = 1024;
-    v45 = 437;
-    v46 = 1024;
-    v47 = ioService;
-    v48 = 2112;
-    v49 = endpointUUID;
+    v42 = "[ACCTransportIOAccessoryOOBPairing _checkAccInfo]";
+    v43 = 1024;
+    v44 = 437;
+    v45 = 1024;
+    v46 = ioService;
+    v47 = 2112;
+    v48 = endpointUUID;
     v40 = endpointUUID;
-    v50 = 2112;
-    v51 = v29;
-    v52 = 2112;
-    v53 = v30;
-    v54 = 2112;
-    v55 = v31;
-    v56 = 2112;
-    v57 = v32;
-    v58 = 2112;
-    v59 = v33;
-    v60 = 2112;
-    v61 = v34;
-    v62 = 2112;
-    v63 = v35;
-    v64 = 2112;
-    v65 = v36;
-    v66 = 1024;
-    v67 = activeType;
-    v68 = 2112;
-    v69 = v38;
-    v70 = 2112;
-    v71 = v39;
+    v49 = 2112;
+    v50 = v29;
+    v51 = 2112;
+    v52 = v30;
+    v53 = 2112;
+    v54 = v31;
+    v55 = 2112;
+    v56 = v32;
+    v57 = 2112;
+    v58 = v33;
+    v59 = 2112;
+    v60 = v34;
+    v61 = 2112;
+    v62 = v35;
+    v63 = 2112;
+    v64 = v36;
+    v65 = 1024;
+    v66 = activeType;
+    v67 = 2112;
+    v68 = v38;
+    v69 = 2112;
+    v70 = v39;
     _os_log_impl(&dword_233656000, v25, OS_LOG_TYPE_INFO, "%s:%d ioService = %d, endpointUUID %@, vendorName %@, name %@, model %@, hwRev %@, fwRev %@, ser %@, dock %@, supported %@, active %d, 2way %@, platformID %@", buf, 0x8Cu);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_convertOOBPairingTypeFromIOAccessory:(int)accessory
@@ -1120,7 +1203,7 @@ LABEL_155:
 
 - (BOOL)transmitData:(id)data
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (gLogObjects)
   {
@@ -1182,11 +1265,11 @@ LABEL_155:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       endpointUUID = self->_endpointUUID;
-      v37 = 134218242;
-      *v38 = v10;
-      *&v38[8] = 2112;
-      *&v38[10] = endpointUUID;
-      _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_DEFAULT, "ERROR: Not enough bytes (%lu) for message header for OOBPairing transmit, endpointUUID %@", &v37, 0x16u);
+      v34 = 134218242;
+      *v35 = v10;
+      *&v35[8] = 2112;
+      *&v35[10] = endpointUUID;
+      _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_DEFAULT, "ERROR: Not enough bytes (%lu) for message header for OOBPairing transmit, endpointUUID %@", &v34, 0x16u);
     }
 
     goto LABEL_70;
@@ -1200,7 +1283,7 @@ LABEL_155:
     {
       if (gLogObjects && gNumLogObjects >= 8)
       {
-        v23 = *(gLogObjects + 56);
+        v22 = *(gLogObjects + 56);
       }
 
       else
@@ -1210,21 +1293,21 @@ LABEL_155:
           [ACCTransportIOAccessoryOOBPairing dealloc];
         }
 
-        v23 = MEMORY[0x277D86220];
-        v27 = MEMORY[0x277D86220];
+        v22 = MEMORY[0x277D86220];
+        v25 = MEMORY[0x277D86220];
       }
 
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_61;
       }
 
-      v28 = self->_endpointUUID;
-      v37 = 67109378;
-      *v38 = v13;
-      *&v38[4] = 2112;
-      *&v38[6] = v28;
-      v29 = "ERROR: PairingType (%d) not supported for OOBPairing transmit, endpointUUID %@";
+      v26 = self->_endpointUUID;
+      v34 = 67109378;
+      *v35 = v13;
+      *&v35[4] = 2112;
+      *&v35[6] = v26;
+      v27 = "ERROR: PairingType (%d) not supported for OOBPairing transmit, endpointUUID %@";
       goto LABEL_60;
     }
   }
@@ -1247,27 +1330,26 @@ LABEL_155:
 
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v35 = self->_endpointUUID;
+    v32 = self->_endpointUUID;
     ioConnect = self->super._ioConnect;
-    v37 = 138413058;
-    *v38 = v35;
-    *&v38[8] = 1024;
-    *&v38[10] = ioConnect;
-    *&v38[14] = 1024;
-    *&v38[16] = v12;
-    v39 = 2048;
-    v40 = v11;
-    _os_log_debug_impl(&dword_233656000, v14, OS_LOG_TYPE_DEBUG, "OOBPairing: endpointUUID %@, ioConnect %d, transmitData: messageID %d, payloadLen %lu", &v37, 0x22u);
+    v34 = 138413058;
+    *v35 = v32;
+    *&v35[8] = 1024;
+    *&v35[10] = ioConnect;
+    *&v35[14] = 1024;
+    *&v35[16] = v12;
+    v36 = 2048;
+    v37 = v11;
+    _os_log_debug_impl(&dword_233656000, v14, OS_LOG_TYPE_DEBUG, "OOBPairing: endpointUUID %@, ioConnect %d, transmitData: messageID %d, payloadLen %lu", &v34, 0x22u);
   }
 
   if (v12 > 1)
   {
     if (v12 == 2)
     {
-      v25 = self->super._ioConnect;
-      v22 = IOAccessoryOOBPairingInterfaceSendPairingInfo();
+      v21 = IOAccessoryOOBPairingInterfaceSendPairingInfo();
 LABEL_48:
-      if (!v22)
+      if (!v21)
       {
         goto LABEL_49;
       }
@@ -1286,7 +1368,7 @@ LABEL_62:
         }
 
         v15 = MEMORY[0x277D86220];
-        v32 = MEMORY[0x277D86220];
+        v30 = MEMORY[0x277D86220];
       }
 
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -1297,20 +1379,19 @@ LABEL_62:
 LABEL_70:
 
 LABEL_71:
-      v26 = 0;
+      v24 = 0;
       goto LABEL_72;
     }
 
     if (v12 == 3)
     {
-      v21 = self->super._ioConnect;
-      v22 = IOAccessoryOOBPairingInterfaceSendPairingData();
+      v21 = IOAccessoryOOBPairingInterfaceSendPairingData();
       goto LABEL_48;
     }
 
     if (gLogObjects && gNumLogObjects >= 8)
     {
-      v23 = *(gLogObjects + 56);
+      v22 = *(gLogObjects + 56);
     }
 
     else
@@ -1320,25 +1401,25 @@ LABEL_71:
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
-      v23 = MEMORY[0x277D86220];
-      v30 = MEMORY[0x277D86220];
+      v22 = MEMORY[0x277D86220];
+      v28 = MEMORY[0x277D86220];
     }
 
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_61:
 
       goto LABEL_62;
     }
 
-    v31 = self->_endpointUUID;
-    v37 = 67109378;
-    *v38 = v12;
-    *&v38[4] = 2112;
-    *&v38[6] = v31;
-    v29 = "ERROR: Invalid messageID (%d) for OOBPairing transmit, endpointUUID %@";
+    v29 = self->_endpointUUID;
+    v34 = 67109378;
+    *v35 = v12;
+    *&v35[4] = 2112;
+    *&v35[6] = v29;
+    v27 = "ERROR: Invalid messageID (%d) for OOBPairing transmit, endpointUUID %@";
 LABEL_60:
-    _os_log_impl(&dword_233656000, v23, OS_LOG_TYPE_DEFAULT, v29, &v37, 0x12u);
+    _os_log_impl(&dword_233656000, v22, OS_LOG_TYPE_DEFAULT, v27, &v34, 0x12u);
     goto LABEL_61;
   }
 
@@ -1353,19 +1434,18 @@ LABEL_60:
     v20 = [delegate IOAccessoryOOBPairingDataStartedForEndpointUUID:self->_endpointUUID];
   }
 
-  v24 = v20;
+  v23 = v20;
 
-  if ((v24 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
     goto LABEL_62;
   }
 
 LABEL_49:
-  v26 = 1;
+  v24 = 1;
 LABEL_72:
 
-  v33 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v24;
 }
 
 - (id)description
@@ -1584,7 +1664,7 @@ LABEL_72:
 
 - (NSString)deviceUID
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   deviceUID = self->_deviceUID;
   if (deviceUID && ![(NSString *)deviceUID isEqualToString:@"Unknown"])
   {
@@ -1623,8 +1703,8 @@ LABEL_72:
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "ERROR: IOAccessoryManagerCopyAccessoryDeviceUID failed", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "ERROR: IOAccessoryManagerCopyAccessoryDeviceUID failed", &v19, 2u);
     }
 
     goto LABEL_25;
@@ -1652,9 +1732,9 @@ LABEL_72:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v10 = self->_deviceUID;
-    v20 = 138412290;
-    v21 = v10;
-    _os_log_impl(&dword_233656000, v6, OS_LOG_TYPE_INFO, "from IOAccessoryManagerCopyAccessoryDeviceUID, _deviceUID: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v10;
+    _os_log_impl(&dword_233656000, v6, OS_LOG_TYPE_INFO, "from IOAccessoryManagerCopyAccessoryDeviceUID, _deviceUID: %@", &v19, 0xCu);
   }
 
   if (!self->_deviceUID)
@@ -1694,20 +1774,19 @@ LABEL_26:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = self->_deviceUID;
-    v20 = 138412290;
-    v21 = v16;
-    _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_INFO, "return _deviceUID: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v16;
+    _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_INFO, "return _deviceUID: %@", &v19, 0xCu);
   }
 
   v17 = self->_deviceUID;
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (NSNumber)devicePlatformID
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!self->_devicePlatformID)
   {
     [(ACCTransportIOAccessoryBase *)self ioService];
@@ -1744,9 +1823,9 @@ LABEL_26:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = self->_devicePlatformID;
-      v16 = 138412290;
-      v17 = v8;
-      _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_INFO, "from IOAccessoryOOBPairingInterfaceCopyDevicePlatformID, _devicePlatformID: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v8;
+      _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_INFO, "from IOAccessoryOOBPairingInterfaceCopyDevicePlatformID, _devicePlatformID: %@", &v15, 0xCu);
     }
   }
 
@@ -1779,13 +1858,12 @@ LABEL_26:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = self->_devicePlatformID;
-    v16 = 138412290;
-    v17 = v12;
-    _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_INFO, "return _devicePlatformID: %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = v12;
+    _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_INFO, "return _devicePlatformID: %@", &v15, 0xCu);
   }
 
   v13 = self->_devicePlatformID;
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1837,99 +1915,81 @@ LABEL_26:
 
 - (void)_handleIncomingOOBPairingInfoData:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 endpointUUID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_5() ioService];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleIncomingOOBPairingInfoData:(NSObject *)a3 .cold.4(int *a1, void *a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = *a1;
   [a2 endpointUUID];
   objc_claimAutoreleasedReturnValue();
   v7 = [OUTLINED_FUNCTION_5() parentConnectionUUID];
-  v9[0] = 67109890;
-  v9[1] = v6;
-  v10 = 2112;
-  v11 = v3;
-  v12 = 2112;
-  v13 = v7;
-  v14 = 1024;
-  v15 = [a2 ioService];
-  _os_log_error_impl(&dword_233656000, a3, OS_LOG_TYPE_ERROR, "ERROR: No _ioConnect(%d) while trying to get OOB Pairing Data, endpointUUID %@, parentUUID %@, ioService %d", v9, 0x22u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = 67109890;
+  v8[1] = v6;
+  v9 = 2112;
+  v10 = v3;
+  v11 = 2112;
+  v12 = v7;
+  v13 = 1024;
+  v14 = [a2 ioService];
+  _os_log_error_impl(&dword_233656000, a3, OS_LOG_TYPE_ERROR, "ERROR: No _ioConnect(%d) while trying to get OOB Pairing Data, endpointUUID %@, parentUUID %@, ioService %d", v8, 0x22u);
 }
 
 - (void)_handleIncomingOOBPairingInfoData:(void *)a1 .cold.6(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 endpointUUID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_5() ioService];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleIncomingOOBPairingInfoData:(void *)a1 .cold.8(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 endpointUUID];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_5() ioService];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_handleIncomingOOBPairingInfoData:(_DWORD *)a1 .cold.10(_DWORD *a1)
+- (void)_handleIncomingOOBPairingInfoData:(void *)a1 .cold.10(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = [a1 endpointUUID];
-  v9 = a1[22];
+  v6 = [a1 endpointUUID];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x18u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
 - (void)transmitData:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 192);
-  v2 = *(a1 + 8);
-  v7 = 138412802;
-  v8 = v1;
+  v5 = 138412802;
+  v6 = v1;
   OUTLINED_FUNCTION_2();
+  v7 = v2;
+  v8 = 2112;
   v9 = v3;
-  v10 = 2112;
-  v11 = v4;
-  _os_log_debug_impl(&dword_233656000, v5, OS_LOG_TYPE_DEBUG, "OOBPairing: endpointUUID %@, ioConnect %d, transmitData: %@", &v7, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_233656000, v4, OS_LOG_TYPE_DEBUG, "OOBPairing: endpointUUID %@, ioConnect %d, transmitData: %@", &v5, 0x1Cu);
 }
 
 - (void)transmitData:(uint64_t)a1 .cold.8(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 192);
-  v5 = 138412546;
-  v6 = v1;
+  v4 = 138412546;
+  v5 = v1;
   OUTLINED_FUNCTION_2();
-  v7 = v2;
-  _os_log_error_impl(&dword_233656000, v3, OS_LOG_TYPE_ERROR, "ERROR: send OOB pairing data, endpointUUID %@, error 0x%X", &v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = v2;
+  _os_log_error_impl(&dword_233656000, v3, OS_LOG_TYPE_ERROR, "ERROR: send OOB pairing data, endpointUUID %@, error 0x%X", &v4, 0x12u);
 }
 
 @end

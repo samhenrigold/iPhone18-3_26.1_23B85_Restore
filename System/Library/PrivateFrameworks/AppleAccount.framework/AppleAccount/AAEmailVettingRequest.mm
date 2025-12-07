@@ -42,10 +42,10 @@
 
 - (id)urlRequest
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = AAEmailVettingRequest;
-  urlRequest = [(AARequest *)&v14 urlRequest];
+  v16 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = AAEmailVettingRequest;
+  urlRequest = [(AARequest *)&v13 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   [v4 setHTTPMethod:@"POST"];
@@ -56,25 +56,22 @@
   [v4 aa_setBodyWithParameters:bodyDictionary];
   hTTPBody = [v4 HTTPBody];
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:objc_msgSend(hTTPBody length:"bytes") encoding:{objc_msgSend(hTTPBody, "length"), 4}];
-  v9 = _AALogSystem();
+  v9 = _AALogSystem(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = v8;
+    v15 = v8;
     _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
-  [v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"];
-  v10 = _AALogSystem();
+  v10 = _AALogSystem([v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [v4 valueForHTTPHeaderField:@"Authorization"];
     *buf = 138412290;
-    v16 = v11;
+    v15 = v11;
     _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

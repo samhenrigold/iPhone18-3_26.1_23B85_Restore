@@ -1,2996 +1,3 @@
-uint64_t MetricTextWithAccessory.accessibilityLabel.getter()
-{
-  if (v0[8])
-  {
-    v1 = v0[7];
-
-    return v1;
-  }
-
-  else
-  {
-    v2 = v0[4];
-    if (v0[5])
-    {
-      lazy protocol witness table accessor for type String and conformance String();
-      v2 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-
-    v4 = v0[1];
-    v19 = *v0;
-    v20 = v4;
-    v5 = v0[3];
-    v21 = v0[2];
-    v22 = v5;
-    v23 = v2;
-    v24 = v3;
-
-    v7 = 0;
-    v8 = MEMORY[0x277D84F90];
-LABEL_7:
-    if (v7 <= 3)
-    {
-      v9 = 3;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    v10 = v9 + 1;
-    v11 = 16 * v7 + 40;
-    while (1)
-    {
-      if (v7 == 3)
-      {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd);
-        swift_arrayDestroy();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
-        lazy protocol witness table accessor for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>(&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd);
-        v1 = BidirectionalCollection<>.joined(separator:)();
-
-        return v1;
-      }
-
-      if (v10 == ++v7)
-      {
-        break;
-      }
-
-      v12 = v11 + 16;
-      v13 = *&v18[v11];
-      v11 += 16;
-      if (v13)
-      {
-        v14 = *&v18[v12 - 24];
-
-        result = swift_isUniquelyReferenced_nonNull_native();
-        if ((result & 1) == 0)
-        {
-          result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v8 + 16) + 1, 1, v8);
-          v8 = result;
-        }
-
-        v16 = *(v8 + 16);
-        v15 = *(v8 + 24);
-        if (v16 >= v15 >> 1)
-        {
-          result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1, v8);
-          v8 = result;
-        }
-
-        *(v8 + 16) = v16 + 1;
-        v17 = v8 + 16 * v16;
-        *(v17 + 32) = v14;
-        *(v17 + 40) = v13;
-        goto LABEL_7;
-      }
-    }
-
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t MetricTextWithAccessory.redactionReasons.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v5 = type metadata accessor for EnvironmentValues();
-  v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA16RedactionReasonsV_GMd);
-  MEMORY[0x28223BE20](v9);
-  v11 = &v15 - v10;
-  outlined init with copy of LegibilityWeight?(v2 + *(a1 + 44), &v15 - v10, &_s7SwiftUI11EnvironmentV7ContentOyAA16RedactionReasonsV_GMd);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = type metadata accessor for RedactionReasons();
-    return (*(*(v12 - 8) + 32))(a2, v11, v12);
-  }
-
-  else
-  {
-    static os_log_type_t.fault.getter();
-    v14 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
-
-    EnvironmentValues.init()();
-    swift_getAtKeyPath();
-
-    return (*(v6 + 8))(v8, v5);
-  }
-}
-
-void MetricTextWithAccessory.workoutViewStyle.getter(uint64_t a1@<X0>, _BYTE *a2@<X8>)
-{
-  v5 = type metadata accessor for EnvironmentValues();
-  v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = v2 + *(a1 + 48);
-  v10 = *v9;
-  if (*(v9 + 8) == 1)
-  {
-    *a2 = v10;
-  }
-
-  else
-  {
-
-    static os_log_type_t.fault.getter();
-    v11 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
-
-    EnvironmentValues.init()();
-    swift_getAtKeyPath();
-    outlined consume of Environment<WorkoutViewStyle>.Content(v10, 0);
-    (*(v6 + 8))(v8, v5);
-  }
-}
-
-uint64_t MetricTextWithAccessory.body.getter@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
-{
-  v193 = a2;
-  v180 = type metadata accessor for AccessibilityChildBehavior();
-  v179 = *(v180 - 1);
-  MEMORY[0x28223BE20](v180);
-  v178 = &v151 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI4ViewPAAE16privacySensitiveyQrSbFQOyAA15ModifiedContentVyAFyAFyAA4TextVAA14_OpacityEffectVGAA18_AnimationModifierVySbGGAMySSGG_Qo_Md);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGSgMd);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI4TextVSgMd);
-  v7 = *(a1 + 2);
-  v8 = a1;
-  v188 = a1;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA14_OpacityEffectVGAA18_AnimationModifierVySbGGAJySSGGMd);
-  v10 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>>, _AnimationModifier<String>> and conformance <> ModifiedContent<A, B>();
-  v220 = v9;
-  v221 = v10;
-  OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
-  v12 = lazy protocol witness table accessor for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>>? and conformance <A> A?();
-  v13 = lazy protocol witness table accessor for type Text? and conformance <A> A?(&lazy protocol witness table cache variable for type Text? and conformance <A> A?, &_s7SwiftUI4TextVSgMd);
-  v14 = *(v8 + 3);
-  v176 = v4;
-  v220 = v4;
-  v221 = v5;
-  v173 = v5;
-  v222 = v6;
-  v223 = v7;
-  v15 = v7;
-  v165 = OpaqueTypeConformance2;
-  v224 = OpaqueTypeConformance2;
-  v225 = v12;
-  v164 = v12;
-  v226 = v13;
-  v227 = v14;
-  v16 = type metadata accessor for MetricTextiOSPlatter();
-  v175 = *(v16 - 8);
-  MEMORY[0x28223BE20](v16);
-  v171 = &v151 - v17;
-  v200 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMd);
-  v18 = type metadata accessor for ModifiedContent();
-  v172 = *(v18 - 8);
-  MEMORY[0x28223BE20](v18);
-  v170 = &v151 - v19;
-  v177 = v16;
-  WitnessTable = swift_getWitnessTable();
-  v21 = lazy protocol witness table accessor for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<LegibilityWeight?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMd);
-  v161 = WitnessTable;
-  v218 = WitnessTable;
-  v219 = v21;
-  v198 = MEMORY[0x277CDFAD8];
-  v22 = swift_getWitnessTable();
-  v220 = v18;
-  v221 = v22;
-  OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
-  v166 = *(OpaqueTypeMetadata2 - 8);
-  MEMORY[0x28223BE20](OpaqueTypeMetadata2);
-  v163 = &v151 - v24;
-  swift_getTupleTypeMetadata2();
-  v25 = type metadata accessor for TupleView();
-  v174 = v18;
-  v220 = v18;
-  v221 = v22;
-  v162 = v22;
-  v26 = swift_getOpaqueTypeConformance2();
-  v27 = swift_getWitnessTable();
-  v197 = OpaqueTypeMetadata2;
-  v220 = OpaqueTypeMetadata2;
-  v221 = v25;
-  v199 = v26;
-  v222 = v26;
-  v223 = v27;
-  v28 = swift_getOpaqueTypeMetadata2();
-  v169 = *(v28 - 8);
-  MEMORY[0x28223BE20](v28);
-  v168 = &v151 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v30);
-  v167 = &v151 - v31;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA14_OpacityEffectVGAA18_AnimationModifierVySbGGMd);
-  v33 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>();
-  v156 = v32;
-  v220 = v32;
-  v221 = v6;
-  v183 = v6;
-  v222 = v6;
-  v223 = v15;
-  v34 = v15;
-  v155 = v33;
-  v224 = v33;
-  v225 = v13;
-  v182 = v13;
-  v226 = v13;
-  v227 = v14;
-  v194 = v14;
-  type metadata accessor for MetricTextWatchOS();
-  v35 = type metadata accessor for ModifiedContent();
-  v158 = swift_getWitnessTable();
-  v216 = v158;
-  v217 = v21;
-  v36 = swift_getWitnessTable();
-  v220 = v35;
-  v221 = v25;
-  v196 = v25;
-  v200 = v36;
-  v222 = v36;
-  v223 = v27;
-  v195 = v27;
-  v37 = swift_getOpaqueTypeMetadata2();
-  v187 = v28;
-  v38 = type metadata accessor for _ConditionalContent();
-  v186 = *(v38 - 8);
-  MEMORY[0x28223BE20](v38);
-  v184 = &v151 - v39;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16LegibilityWeightOSgMd);
-  MEMORY[0x28223BE20](v40 - 8);
-  v42 = &v151 - v41;
-  v43 = *(v34 - 8);
-  MEMORY[0x28223BE20](v44);
-  v181 = &v151 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v153 = swift_checkMetadataState();
-  v152 = *(v153 - 8);
-  MEMORY[0x28223BE20](v153);
-  v47 = &v151 - v46;
-  v48 = swift_checkMetadataState();
-  v154 = *(v48 - 8);
-  MEMORY[0x28223BE20](v48);
-  v50 = &v151 - v49;
-  v185 = v37;
-  v159 = *(v37 - 8);
-  MEMORY[0x28223BE20](v51);
-  v157 = &v151 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v53);
-  v160 = &v151 - v54;
-  v192 = v38;
-  v55 = v188;
-  v56 = type metadata accessor for _ConditionalContent();
-  v191 = *(v56 - 8);
-  MEMORY[0x28223BE20](v56);
-  v190 = &v151 - v57;
-  v58 = v189;
-  MetricTextWithAccessory.workoutViewStyle.getter(v55, &v215);
-  v198 = v48;
-  if (((1 << v215) & 0xCFC) != 0)
-  {
-    v159 = &v151;
-    MEMORY[0x28223BE20](v59);
-    v160 = v56;
-    v60 = v194;
-    MEMORY[0x28223BE20](v61);
-    v63 = MEMORY[0x28223BE20](v62);
-    v147 = v34;
-    v148 = v60;
-    v149 = v58;
-    v64 = v58 + *(v55 + 40);
-    v65 = v181;
-    (*(v43 + 16))(v181, v64, v34, v63);
-    v66 = *(v58 + 49);
-    v150 = v60;
-    v149 = v182;
-    v148 = v164;
-    v147 = v165;
-    v67 = v171;
-    MetricTextiOSPlatter.init(value:unit:description:accessoryView:includesSlashes:)(partial apply for closure #5 in MetricTextWithAccessory.body.getter, partial apply for closure #6 in MetricTextWithAccessory.body.getter, partial apply for closure #7 in MetricTextWithAccessory.body.getter, v65, v66, v171, v176, v173, v183, v34);
-    swift_getKeyPath();
-    v68 = *MEMORY[0x277CDFB78];
-    v69 = type metadata accessor for LegibilityWeight();
-    v70 = *(v69 - 8);
-    (*(v70 + 104))(v42, v68, v69);
-    (*(v70 + 56))(v42, 0, 1, v69);
-    v71 = v170;
-    v72 = v177;
-    View.environment<A>(_:_:)();
-
-    outlined destroy of LegibilityWeight?(v42, &_s7SwiftUI16LegibilityWeightOSgMd);
-    (*(v175 + 8))(v67, v72);
-    v73 = v178;
-    static AccessibilityChildBehavior.combine.getter();
-    v74 = v163;
-    v75 = v174;
-    View.accessibilityElement(children:)();
-    (v179[1])(v73, v180);
-    v76 = (*(v172 + 8))(v71, v75);
-    MEMORY[0x28223BE20](v76);
-    v147 = v34;
-    v148 = v60;
-    v149 = v58;
-    v77 = swift_checkMetadataState();
-    v78 = v168;
-    v79 = v197;
-    v80 = v199;
-    v81 = v195;
-    View.accessibilityLabel<A>(content:)();
-    (*(v166 + 8))(v74, v79);
-    v220 = v79;
-    v221 = v77;
-    v222 = v80;
-    v223 = v81;
-    v82 = swift_getOpaqueTypeConformance2();
-    v83 = v167;
-    v84 = v187;
-    static ViewBuilder.buildExpression<A>(_:)(v78, v187, v82);
-    v85 = *(v169 + 8);
-    v85(v78, v84);
-    static ViewBuilder.buildBlock<A>(_:)(v83, v84, v82);
-    v220 = v198;
-    v221 = v77;
-    v222 = v200;
-    v223 = v81;
-    v86 = swift_getOpaqueTypeConformance2();
-    v87 = v184;
-    static ViewBuilder.buildEither<A, B>(second:)(v78, v185, v84);
-    v203 = v86;
-    v204 = v82;
-    v88 = v192;
-    swift_getWitnessTable();
-    v89 = v190;
-    static ViewBuilder.buildEither<A, B>(first:)(v87, v88);
-    (*(v186 + 8))(v87, v88);
-    v90 = v78;
-    v91 = v199;
-    v85(v90, v84);
-    v92 = v83;
-    v93 = v196;
-    v94 = v84;
-    v56 = v160;
-    v85(v92, v94);
-    v95 = v197;
-  }
-
-  else if (((1 << v215) & 0x301) != 0)
-  {
-    v180 = &v151;
-    MEMORY[0x28223BE20](v59);
-    v179 = &v146;
-    v96 = v58;
-    MEMORY[0x28223BE20](v97);
-    v99 = MEMORY[0x28223BE20](v98);
-    v100 = v34;
-    v147 = v34;
-    v148 = v101;
-    v102 = v101;
-    v149 = v58;
-    LODWORD(v178) = *(v58 + 72);
-    v104 = *(v43 + 16);
-    v105 = v58 + *(v103 + 40);
-    v106 = v181;
-    v188 = v50;
-    v107 = v100;
-    v104(v181, v105, v99);
-    v150 = v102;
-    v148 = v182;
-    v149 = v182;
-    v147 = v155;
-    v108 = v107;
-    MetricTextWatchOS.init(value:unit:description:accessoryAsSuffix:accessoryView:)(partial apply for closure #1 in MetricTextWithAccessory.body.getter, partial apply for closure #2 in MetricTextWithAccessory.body.getter, partial apply for closure #3 in MetricTextWithAccessory.body.getter, v178, v106, v47, v156, v183, v183, v107);
-    swift_getKeyPath();
-    v109 = *MEMORY[0x277CDFB78];
-    v110 = v56;
-    v111 = type metadata accessor for LegibilityWeight();
-    v112 = *(v111 - 8);
-    (*(v112 + 104))(v42, v109, v111);
-    v113 = v111;
-    v56 = v110;
-    (*(v112 + 56))(v42, 0, 1, v113);
-    v114 = v188;
-    v115 = v153;
-    View.environment<A>(_:_:)();
-
-    outlined destroy of LegibilityWeight?(v42, &_s7SwiftUI16LegibilityWeightOSgMd);
-    v116 = (*(v152 + 8))(v47, v115);
-    MEMORY[0x28223BE20](v116);
-    v147 = v108;
-    v148 = v194;
-    v149 = v96;
-    v93 = v196;
-    v117 = swift_checkMetadataState();
-    v118 = v157;
-    v119 = v198;
-    v120 = v117;
-    v189 = v117;
-    v121 = v200;
-    v122 = v195;
-    View.accessibilityLabel<A>(content:)();
-    (*(v154 + 8))(v114, v119);
-    v220 = v119;
-    v221 = v120;
-    v222 = v121;
-    v223 = v122;
-    v123 = swift_getOpaqueTypeConformance2();
-    v124 = v160;
-    v125 = v185;
-    static ViewBuilder.buildExpression<A>(_:)(v118, v185, v123);
-    v194 = v159[1];
-    v194(v118, v125);
-    static ViewBuilder.buildBlock<A>(_:)(v124, v125, v123);
-    v126 = v197;
-    v220 = v197;
-    v221 = v189;
-    v222 = v199;
-    v223 = v122;
-    v127 = swift_getOpaqueTypeConformance2();
-    v128 = v184;
-    static ViewBuilder.buildEither<A, B>(first:)(v118, v125);
-    v201 = v123;
-    v202 = v127;
-    v129 = v192;
-    swift_getWitnessTable();
-    v89 = v190;
-    static ViewBuilder.buildEither<A, B>(first:)(v128, v129);
-    (*(v186 + 8))(v128, v129);
-    v130 = v118;
-    v95 = v126;
-    v131 = v194;
-    v194(v130, v125);
-    v131(v160, v125);
-    v91 = v199;
-    v81 = v195;
-  }
-
-  else
-  {
-    LocalizedStringKey.init(stringLiteral:)();
-    LOWORD(v150) = 256;
-    v149 = 0;
-    v132 = Text.init(_:tableName:bundle:comment:)();
-    v134 = v133;
-    v194 = v135;
-    v220 = v132;
-    v221 = v133;
-    v137 = v136 & 1;
-    LOBYTE(v222) = v136 & 1;
-    v223 = v135;
-    v93 = v196;
-    v211 = v48;
-    v212 = v196;
-    v138 = v195;
-    v213 = v200;
-    v214 = v195;
-    v139 = swift_getOpaqueTypeConformance2();
-    v95 = v197;
-    v211 = v197;
-    v212 = v93;
-    v213 = v199;
-    v214 = v138;
-    v91 = v199;
-    v140 = swift_getOpaqueTypeConformance2();
-    v209 = v139;
-    v210 = v140;
-    v81 = v138;
-    v141 = v192;
-    swift_getWitnessTable();
-    v89 = v190;
-    static ViewBuilder.buildEither<A, B>(second:)(&v220, v141, MEMORY[0x277CE0BD8]);
-    outlined consume of Text.Storage(v132, v134, v137);
-  }
-
-  v220 = v198;
-  v221 = v93;
-  v222 = v200;
-  v223 = v81;
-  v142 = swift_getOpaqueTypeConformance2();
-  v220 = v95;
-  v221 = v93;
-  v222 = v91;
-  v223 = v81;
-  v143 = swift_getOpaqueTypeConformance2();
-  v207 = v142;
-  v208 = v143;
-  v205 = swift_getWitnessTable();
-  v206 = MEMORY[0x277CE0BC8];
-  v144 = swift_getWitnessTable();
-  static ViewBuilder.buildBlock<A>(_:)(v89, v56, v144);
-  return (*(v191 + 8))(v89, v56);
-}
-
-uint64_t closure #1 in MetricTextWithAccessory.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  lazy protocol witness table accessor for type String and conformance String();
-
-  v4 = Text.init<A>(_:)();
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v11 = *(a1 + 48);
-  v12 = 1.0;
-  if (v11 == 1)
-  {
-    v12 = *(a1 + *(type metadata accessor for MetricTextWithAccessory() + 52));
-  }
-
-  result = static Animation.default.getter();
-  *a2 = v4;
-  *(a2 + 8) = v6;
-  *(a2 + 16) = v8 & 1;
-  *(a2 + 24) = v10;
-  *(a2 + 32) = v12;
-  *(a2 + 40) = result;
-  *(a2 + 48) = v11;
-  return result;
-}
-
-uint64_t closure #2 in MetricTextWithAccessory.body.getter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  v3 = *(a1 + 24);
-  if (v3)
-  {
-    lazy protocol witness table accessor for type String and conformance String();
-    StringProtocol.localizedLowercase.getter();
-    result = Text.init<A>(_:)();
-    v3 = v7 & 1;
-  }
-
-  else
-  {
-    result = 0;
-    v5 = 0;
-    v6 = 0;
-  }
-
-  *a2 = result;
-  a2[1] = v5;
-  a2[2] = v3;
-  a2[3] = v6;
-  return result;
-}
-
-uint64_t closure #5 in MetricTextWithAccessory.body.getter(uint64_t a1)
-{
-  v2 = type metadata accessor for RedactionReasons();
-  v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v8 = &v27 - v7;
-  v9 = type metadata accessor for MetricTextWithAccessory();
-  MetricTextWithAccessory.redactionReasons.getter(v9, v8);
-  static RedactionReasons.privacy.getter();
-  lazy protocol witness table accessor for type RedactionReasons and conformance RedactionReasons();
-  v10 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-  v11 = *(v3 + 8);
-  v11(v5, v2);
-  v11(v8, v2);
-  if (v10)
-  {
-    v12 = 0xE400000000000000;
-    v13 = 757935405;
-  }
-
-  else
-  {
-    v13 = *a1;
-  }
-
-  *&v32[0] = v13;
-  *(&v32[0] + 1) = v12;
-  lazy protocol witness table accessor for type String and conformance String();
-  v14 = Text.init<A>(_:)();
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v21 = *(a1 + 48);
-  v22 = 1.0;
-  if (v21 == 1)
-  {
-    v22 = *(a1 + *(v9 + 52));
-  }
-
-  v23 = static Animation.default.getter();
-  v25 = *a1;
-  v24 = *(a1 + 8);
-  v33 = v18 & 1;
-  *&v27 = v14;
-  *(&v27 + 1) = v16;
-  LOBYTE(v28) = v18 & 1;
-  *(&v28 + 1) = v20;
-  *&v29 = v22;
-  *(&v29 + 1) = v23;
-  LOBYTE(v30) = v21;
-  *(&v30 + 1) = 0;
-  *&v31 = v25;
-  *(&v31 + 1) = v24;
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA14_OpacityEffectVGAA18_AnimationModifierVySbGGAJySSGGMd);
-  lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>>, _AnimationModifier<String>> and conformance <> ModifiedContent<A, B>();
-  View.privacySensitive(_:)();
-  v32[2] = v29;
-  v32[3] = v30;
-  v32[4] = v31;
-  v32[0] = v27;
-  v32[1] = v28;
-  return outlined destroy of LegibilityWeight?(v32, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA14_OpacityEffectVGAA18_AnimationModifierVySbGGAJySSGGMd);
-}
-
-uint64_t closure #6 in MetricTextWithAccessory.body.getter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  v4 = type metadata accessor for Text.Scale();
-  MEMORY[0x28223BE20](v4);
-  v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(a1 + 24);
-  if (v9)
-  {
-    v26 = v6;
-    v27 = v5;
-    v30[0] = *(a1 + 16);
-    v30[1] = v9;
-    lazy protocol witness table accessor for type String and conformance String();
-    v28 = StringProtocol.localizedUppercase.getter();
-    v29 = v10;
-    v11 = Text.init<A>(_:)();
-    v13 = v12;
-    v15 = v14;
-    v16 = type metadata accessor for MetricTextWithAccessory();
-    MetricTextWithAccessory.workoutViewStyle.getter(v16, v30);
-    if (LOBYTE(v30[0]) == 4)
-    {
-      static Text.Scale.default.getter();
-    }
-
-    else
-    {
-      static Text.Scale.secondary.getter();
-    }
-
-    v17 = Text.textScale(_:isEnabled:)();
-    v18 = v22;
-    v25 = v23;
-    v19 = v24;
-    outlined consume of Text.Storage(v11, v13, v15 & 1);
-
-    (*(v26 + 8))(v8, v27);
-    if (one-time initialization token for scaleFactorForEnclosedText != -1)
-    {
-      swift_once();
-    }
-
-    v21 = static MetricUnitFont.scaleFactorForEnclosedText;
-    result = swift_getKeyPath();
-    v9 = v25 & 1;
-  }
-
-  else
-  {
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    result = 0;
-    v21 = 0;
-  }
-
-  *a2 = v17;
-  a2[1] = v18;
-  a2[2] = v9;
-  a2[3] = v19;
-  a2[4] = result;
-  a2[5] = v21;
-  return result;
-}
-
-uint64_t closure #3 in MetricTextWithAccessory.body.getter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  v3 = *(a1 + 40);
-  if (v3)
-  {
-    lazy protocol witness table accessor for type String and conformance String();
-    StringProtocol.localizedUppercase.getter();
-    result = Text.init<A>(_:)();
-    v3 = v7 & 1;
-  }
-
-  else
-  {
-    result = 0;
-    v5 = 0;
-    v6 = 0;
-  }
-
-  *a2 = result;
-  a2[1] = v5;
-  a2[2] = v3;
-  a2[3] = v6;
-  return result;
-}
-
-uint64_t closure #4 in MetricTextWithAccessory.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v25[1] = a5;
-  v8 = *(a3 - 8);
-  MEMORY[0x28223BE20](a1);
-  v25[0] = v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v12 = v25 - v11;
-  v13 = type metadata accessor for MetricTextWithAccessory();
-  v27 = MetricTextWithAccessory.accessibilityLabel.getter();
-  v28 = v14;
-  lazy protocol witness table accessor for type String and conformance String();
-  v15 = Text.init<A>(_:)();
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  static ViewBuilder.buildExpression<A>(_:)(a2 + *(v13 + 40), a3, a4);
-  v27 = v15;
-  v28 = v17;
-  v19 &= 1u;
-  v29 = v19;
-  v30 = v21;
-  v31[0] = &v27;
-  v22 = v25[0];
-  (*(v8 + 16))(v25[0], v12, a3);
-  v31[1] = v22;
-  outlined copy of Text.Storage(v15, v17, v19);
-
-  v26[0] = MEMORY[0x277CE0BD8];
-  v26[1] = a3;
-  v25[2] = MEMORY[0x277CE0BC8];
-  v25[3] = a4;
-  static ViewBuilder.buildBlock<each A>(_:)(v31, 2uLL, v26);
-  outlined consume of Text.Storage(v15, v17, v19);
-
-  v23 = *(v8 + 8);
-  v23(v12, a3);
-  v23(v22, a3);
-  outlined consume of Text.Storage(v27, v28, v29);
-}
-
-uint64_t MetricText.body.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + 48);
-  v12[2] = *(v1 + 32);
-  v12[3] = v3;
-  v13 = *(v1 + 64);
-  v4 = *(v1 + 16);
-  v12[0] = *v1;
-  v12[1] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9WorkoutUI23MetricTextWithAccessoryVy05SwiftB09EmptyViewVGMd);
-  v6 = v5[11];
-  *(a1 + v6) = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA16RedactionReasonsV_GMd);
-  swift_storeEnumTagMultiPayload();
-  v7 = a1 + v5[12];
-  *v7 = swift_getKeyPath();
-  *(v7 + 8) = 0;
-  *(a1 + v5[13]) = 0x3FD6666666666666;
-  *(a1 + 64) = *(v1 + 64);
-  v8 = *(v1 + 48);
-  *(a1 + 32) = *(v1 + 32);
-  *(a1 + 48) = v8;
-  v9 = *(v1 + 16);
-  *a1 = *v1;
-  *(a1 + 16) = v9;
-  *(a1 + 72) = 0;
-  return outlined init with copy of MetricTextDescriptor(v12, v11);
-}
-
-uint64_t protocol witness for View.body.getter in conformance MetricText@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + 48);
-  v12[2] = *(v1 + 32);
-  v12[3] = v3;
-  v13 = *(v1 + 64);
-  v4 = *(v1 + 16);
-  v12[0] = *v1;
-  v12[1] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9WorkoutUI23MetricTextWithAccessoryVy05SwiftB09EmptyViewVGMd);
-  v6 = v5[11];
-  *(a1 + v6) = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA16RedactionReasonsV_GMd);
-  swift_storeEnumTagMultiPayload();
-  v7 = a1 + v5[12];
-  *v7 = swift_getKeyPath();
-  *(v7 + 8) = 0;
-  *(a1 + v5[13]) = 0x3FD6666666666666;
-  *(a1 + 64) = *(v1 + 64);
-  v8 = *(v1 + 48);
-  *(a1 + 32) = *(v1 + 32);
-  *(a1 + 48) = v8;
-  v9 = *(v1 + 16);
-  *a1 = *v1;
-  *(a1 + 16) = v9;
-  *(a1 + 72) = 0;
-  return outlined init with copy of MetricTextDescriptor(v12, v11);
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>>, _AnimationModifier<String>> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>>, _AnimationModifier<String>> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>>, _AnimationModifier<String>> and conformance <> ModifiedContent<A, B>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA14_OpacityEffectVGAA18_AnimationModifierVySbGGAJySSGGMd);
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>(&lazy protocol witness table cache variable for type _AnimationModifier<String> and conformance _AnimationModifier<A>, &_s7SwiftUI18_AnimationModifierVySSGMd);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>>, _AnimationModifier<String>> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA14_OpacityEffectVGAA18_AnimationModifierVySbGGMd);
-    lazy protocol witness table accessor for type ModifiedContent<Text, _OpacityEffect> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>(&lazy protocol witness table cache variable for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>, &_s7SwiftUI18_AnimationModifierVySbGMd);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _OpacityEffect>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<Text, _OpacityEffect> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<Text, _OpacityEffect> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<Text, _OpacityEffect> and conformance <> ModifiedContent<A, B>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4TextVAA14_OpacityEffectVGMd);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Text, _OpacityEffect> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>>? and conformance <A> A?()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>>? and conformance <A> A?;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>>? and conformance <A> A?)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGSgMd);
-    lazy protocol witness table accessor for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>> and conformance <> ModifiedContent<A, B>();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>>? and conformance <A> A?);
-  }
-
-  return result;
-}
-
-void type metadata completion function for MetricTextWithAccessory()
-{
-  swift_checkMetadataState();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for Environment<RedactionReasons>();
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for Environment<WorkoutViewStyle>();
-      if (v2 <= 0x3F)
-      {
-        swift_cvw_initStructMetadataWithLayoutString();
-      }
-    }
-  }
-}
-
-uint64_t getEnumTagSinglePayload for MetricTextWithAccessory(uint64_t a1, unsigned int a2, uint64_t a3)
-{
-  v5 = *(a3 + 16);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 84);
-  if (v7 <= 0x7FFFFFFF)
-  {
-    v8 = 0x7FFFFFFF;
-  }
-
-  else
-  {
-    v8 = *(v6 + 84);
-  }
-
-  v9 = *(type metadata accessor for RedactionReasons() - 8);
-  v10 = 8;
-  if (*(v9 + 64) > 8uLL)
-  {
-    v10 = *(v9 + 64);
-  }
-
-  v11 = *(v6 + 80);
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (v8 >= a2)
-  {
-    goto LABEL_30;
-  }
-
-  v12 = *(v9 + 80) & 0xF8 | 7;
-  v13 = ((v10 + ((((v11 + 73) & ~v11) + *(v6 + 64) + v12) & ~v12) + 24) & 0xFFFFFFFFFFFFFFF8) + 8;
-  v14 = v13 & 0xFFFFFFF8;
-  if ((v13 & 0xFFFFFFF8) != 0)
-  {
-    v15 = 2;
-  }
-
-  else
-  {
-    v15 = a2 - v8 + 1;
-  }
-
-  if (v15 >= 0x10000)
-  {
-    v16 = 4;
-  }
-
-  else
-  {
-    v16 = 2;
-  }
-
-  if (v15 < 0x100)
-  {
-    v16 = 1;
-  }
-
-  if (v15 >= 2)
-  {
-    v17 = v16;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  if (v17 > 1)
-  {
-    if (v17 == 2)
-    {
-      v18 = *(a1 + v13);
-      if (!v18)
-      {
-        goto LABEL_30;
-      }
-    }
-
-    else
-    {
-      v18 = *(a1 + v13);
-      if (!v18)
-      {
-        goto LABEL_30;
-      }
-    }
-  }
-
-  else if (!v17 || (v18 = *(a1 + v13)) == 0)
-  {
-LABEL_30:
-    if ((v7 & 0x80000000) != 0)
-    {
-      v22 = *(v6 + 48);
-
-      return v22((a1 + v11 + 73) & ~v11, v7, v5);
-    }
-
-    else
-    {
-      v21 = *(a1 + 8);
-      if (v21 >= 0xFFFFFFFF)
-      {
-        LODWORD(v21) = -1;
-      }
-
-      return (v21 + 1);
-    }
-  }
-
-  v20 = v18 - 1;
-  if (v14)
-  {
-    v20 = 0;
-    LODWORD(v14) = *a1;
-  }
-
-  return v8 + (v14 | v20) + 1;
-}
-
-double storeEnumTagSinglePayload for MetricTextWithAccessory(char *a1, uint64_t a2, unsigned int a3, uint64_t a4)
-{
-  v7 = *(a4 + 16);
-  v8 = *(v7 - 8);
-  v23 = v8;
-  v9 = *(v8 + 84);
-  if (v9 <= 0x7FFFFFFF)
-  {
-    v10 = 0x7FFFFFFF;
-  }
-
-  else
-  {
-    v10 = *(v8 + 84);
-  }
-
-  v11 = *(type metadata accessor for RedactionReasons() - 8);
-  v13 = 8;
-  if (*(v11 + 64) > 8uLL)
-  {
-    v13 = *(v11 + 64);
-  }
-
-  v14 = *(v8 + 80);
-  v15 = *(v11 + 80) & 0xF8 | 7;
-  v16 = ((v13 + ((((v14 + 73) & ~v14) + *(v8 + 64) + v15) & ~v15) + 24) & 0xFFFFFFFFFFFFFFF8) + 8;
-  if (v10 >= a3)
-  {
-    v19 = 0;
-    v20 = a2 - v10;
-    if (a2 <= v10)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  else
-  {
-    if (v16)
-    {
-      v17 = 2;
-    }
-
-    else
-    {
-      v17 = a3 - v10 + 1;
-    }
-
-    if (v17 >= 0x10000)
-    {
-      v18 = 4;
-    }
-
-    else
-    {
-      v18 = 2;
-    }
-
-    if (v17 < 0x100)
-    {
-      v18 = 1;
-    }
-
-    if (v17 >= 2)
-    {
-      v19 = v18;
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    v20 = a2 - v10;
-    if (a2 <= v10)
-    {
-LABEL_19:
-      if (v19 > 1)
-      {
-        if (v19 != 2)
-        {
-          *&a1[v16] = 0;
-          if (!a2)
-          {
-            return result;
-          }
-
-          goto LABEL_35;
-        }
-
-        *&a1[v16] = 0;
-      }
-
-      else if (v19)
-      {
-        a1[v16] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_35;
-      }
-
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_35:
-      if ((v9 & 0x80000000) != 0)
-      {
-        v22 = *(v23 + 56);
-
-        v22(&a1[v14 + 73] & ~v14, a2, v9, v7);
-      }
-
-      else if ((a2 & 0x80000000) != 0)
-      {
-        result = 0.0;
-        *(a1 + 40) = 0u;
-        *(a1 + 24) = 0u;
-        *(a1 + 8) = 0u;
-        *(a1 + 56) = 0u;
-        *a1 = a2 & 0x7FFFFFFF;
-      }
-
-      else
-      {
-        *(a1 + 1) = (a2 - 1);
-      }
-
-      return result;
-    }
-  }
-
-  if (v16)
-  {
-    v21 = 1;
-  }
-
-  else
-  {
-    v21 = v20;
-  }
-
-  if (v16)
-  {
-    bzero(a1, v16);
-    *a1 = ~v10 + a2;
-  }
-
-  if (v19 > 1)
-  {
-    if (v19 == 2)
-    {
-      *&a1[v16] = v21;
-    }
-
-    else
-    {
-      *&a1[v16] = v21;
-    }
-  }
-
-  else if (v19)
-  {
-    a1[v16] = v21;
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for MetricTextDescriptor(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0 && *(a1 + 72))
-  {
-    return *a1 + 0x80000000;
-  }
-
-  v2 = *(a1 + 8);
-  if (v2 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for MetricTextDescriptor(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *(result + 56) = 0u;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 72) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *(result + 8) = (a2 - 1);
-      return result;
-    }
-
-    *(result + 72) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for MetricTextWatchOS()
-{
-  result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
-  {
-    result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
-    {
-      result = swift_checkMetadataState();
-      if (v3 <= 0x3F)
-      {
-        result = swift_checkMetadataState();
-        if (v4 <= 0x3F)
-        {
-          swift_cvw_initStructMetadataWithLayoutString();
-          return 0;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for MetricTextWatchOS(unsigned __int16 *a1, unsigned int a2, void *a3)
-{
-  v5 = *(a3[2] - 8);
-  v6 = *(v5 + 84);
-  v7 = a3[4];
-  v8 = *(a3[3] - 8);
-  v9 = *(v8 + 84);
-  if (v9 <= v6)
-  {
-    v10 = *(v5 + 84);
-  }
-
-  else
-  {
-    v10 = *(v8 + 84);
-  }
-
-  v11 = *(v7 - 8);
-  v12 = *(v11 + 84);
-  if (v12 <= v10)
-  {
-    v13 = v10;
-  }
-
-  else
-  {
-    v13 = *(v11 + 84);
-  }
-
-  v14 = *(a3[5] - 8);
-  v15 = *(v14 + 84);
-  v16 = *(v8 + 80);
-  v17 = *(*(a3[3] - 8) + 64);
-  v18 = *(v11 + 80);
-  v19 = *(*(v7 - 8) + 64);
-  v20 = *(v14 + 80);
-  v21 = *(v14 + 64);
-  if (v15 <= v13)
-  {
-    v22 = v13;
-  }
-
-  else
-  {
-    v22 = *(v14 + 84);
-  }
-
-  if (v22 <= 0xFE)
-  {
-    v22 = 254;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v23 = *(*(a3[2] - 8) + 64) + v16;
-  v24 = a2 - v22;
-  if (a2 > v22)
-  {
-    v25 = v21 + ((v19 + v20 + ((v17 + v18 + (v23 & ~v16)) & ~v18)) & ~v20) + 1;
-    v26 = 8 * v25;
-    if (v25 > 3)
-    {
-      goto LABEL_15;
-    }
-
-    v28 = ((v24 + ~(-1 << v26)) >> v26) + 1;
-    if (HIWORD(v28))
-    {
-      v27 = *(a1 + v25);
-      if (!v27)
-      {
-        goto LABEL_35;
-      }
-
-      goto LABEL_22;
-    }
-
-    if (v28 > 0xFF)
-    {
-      v27 = *(a1 + v25);
-      if (!*(a1 + v25))
-      {
-        goto LABEL_35;
-      }
-
-      goto LABEL_22;
-    }
-
-    if (v28 >= 2)
-    {
-LABEL_15:
-      v27 = *(a1 + v25);
-      if (!*(a1 + v25))
-      {
-        goto LABEL_35;
-      }
-
-LABEL_22:
-      v29 = (v27 - 1) << v26;
-      if (v25 > 3)
-      {
-        v29 = 0;
-      }
-
-      if (v21 + ((v19 + v20 + ((v17 + v18 + (v23 & ~v16)) & ~v18)) & ~v20) == -1)
-      {
-        v31 = 0;
-      }
-
-      else
-      {
-        if (v25 <= 3)
-        {
-          v30 = v21 + ((v19 + v20 + ((v17 + v18 + (v23 & ~v16)) & ~v18)) & ~v20) + 1;
-        }
-
-        else
-        {
-          v30 = 4;
-        }
-
-        if (v30 > 2)
-        {
-          if (v30 == 3)
-          {
-            v31 = *a1 | (*(a1 + 2) << 16);
-          }
-
-          else
-          {
-            v31 = *a1;
-          }
-        }
-
-        else if (v30 == 1)
-        {
-          v31 = *a1;
-        }
-
-        else
-        {
-          v31 = *a1;
-        }
-      }
-
-      v38 = v22 + (v31 | v29);
-      return (v38 + 1);
-    }
-  }
-
-LABEL_35:
-  if (v6 != v22)
-  {
-    v34 = (a1 + v23) & ~v16;
-    if (v9 == v22)
-    {
-      v35 = *(v8 + 48);
-      v36 = *(v8 + 84);
-      v37 = a3[3];
-
-      return v35(v34, v36, v37);
-    }
-
-    v34 = (v34 + v17 + v18) & ~v18;
-    if (v12 == v22)
-    {
-      v35 = *(v11 + 48);
-      v36 = *(v11 + 84);
-      v37 = a3[4];
-
-      return v35(v34, v36, v37);
-    }
-
-    v34 = (v34 + v19 + v20) & ~v20;
-    if (v15 == v22)
-    {
-      v35 = *(v14 + 48);
-      v36 = *(v14 + 84);
-      v37 = a3[5];
-
-      return v35(v34, v36, v37);
-    }
-
-    v39 = *(v34 + v21);
-    if (v39 < 2)
-    {
-      return 0;
-    }
-
-    v38 = (v39 + 2147483646) & 0x7FFFFFFF;
-    return (v38 + 1);
-  }
-
-  v32 = *(v5 + 48);
-
-  return v32();
-}
-
-char *storeEnumTagSinglePayload for MetricTextWatchOS(char *result, unsigned int a2, unsigned int a3, void *a4)
-{
-  v5 = *(a4[2] - 8);
-  v6 = *(v5 + 84);
-  v7 = a4[4];
-  v8 = *(a4[3] - 8);
-  v9 = *(v8 + 84);
-  if (v9 <= v6)
-  {
-    v10 = *(v5 + 84);
-  }
-
-  else
-  {
-    v10 = *(v8 + 84);
-  }
-
-  v11 = *(v7 - 8);
-  v12 = *(v11 + 84);
-  if (v12 <= v10)
-  {
-    v13 = v10;
-  }
-
-  else
-  {
-    v13 = *(v11 + 84);
-  }
-
-  v14 = *(a4[5] - 8);
-  v15 = *(v14 + 84);
-  v16 = *(*(a4[2] - 8) + 64);
-  v17 = *(v8 + 80);
-  v18 = *(*(a4[3] - 8) + 64);
-  v19 = *(v11 + 80);
-  v20 = *(*(v7 - 8) + 64);
-  v21 = *(v14 + 80);
-  v22 = *(v14 + 64);
-  if (v15 <= v13)
-  {
-    v23 = v13;
-  }
-
-  else
-  {
-    v23 = *(v14 + 84);
-  }
-
-  if (v23 <= 0xFE)
-  {
-    v23 = 254;
-  }
-
-  v24 = v16 + v17;
-  v25 = v22 + ((v20 + v21 + ((v18 + v19 + ((v16 + v17) & ~v17)) & ~v19)) & ~v21) + 1;
-  v26 = a3 >= v23;
-  v27 = a3 - v23;
-  if (v27 != 0 && v26)
-  {
-    if (v25 <= 3)
-    {
-      v32 = ((v27 + ~(-1 << (8 * v25))) >> (8 * v25)) + 1;
-      if (HIWORD(v32))
-      {
-        v28 = 4;
-      }
-
-      else
-      {
-        if (v32 < 0x100)
-        {
-          v33 = 1;
-        }
-
-        else
-        {
-          v33 = 2;
-        }
-
-        if (v32 >= 2)
-        {
-          v28 = v33;
-        }
-
-        else
-        {
-          v28 = 0;
-        }
-      }
-    }
-
-    else
-    {
-      v28 = 1;
-    }
-  }
-
-  else
-  {
-    v28 = 0;
-  }
-
-  if (v23 < a2)
-  {
-    v29 = ~v23 + a2;
-    if (v25 < 4)
-    {
-      v31 = (v29 >> (8 * v25)) + 1;
-      if (v25)
-      {
-        v34 = v29 & ~(-1 << (8 * v25));
-        v35 = result;
-        bzero(result, v25);
-        result = v35;
-        if (v25 != 3)
-        {
-          if (v25 == 2)
-          {
-            *v35 = v34;
-            if (v28 > 1)
-            {
-LABEL_59:
-              if (v28 == 2)
-              {
-                *&result[v25] = v31;
-              }
-
-              else
-              {
-                *&result[v25] = v31;
-              }
-
-              return result;
-            }
-          }
-
-          else
-          {
-            *v35 = v29;
-            if (v28 > 1)
-            {
-              goto LABEL_59;
-            }
-          }
-
-          goto LABEL_56;
-        }
-
-        *v35 = v34;
-        v35[2] = BYTE2(v34);
-      }
-
-      if (v28 > 1)
-      {
-        goto LABEL_59;
-      }
-    }
-
-    else
-    {
-      v30 = result;
-      bzero(result, v25);
-      result = v30;
-      *v30 = v29;
-      v31 = 1;
-      if (v28 > 1)
-      {
-        goto LABEL_59;
-      }
-    }
-
-LABEL_56:
-    if (v28)
-    {
-      result[v25] = v31;
-    }
-
-    return result;
-  }
-
-  if (v28 > 1)
-  {
-    if (v28 != 2)
-    {
-      *&result[v25] = 0;
-      if (!a2)
-      {
-        return result;
-      }
-
-      goto LABEL_39;
-    }
-
-    *&result[v25] = 0;
-LABEL_38:
-    if (!a2)
-    {
-      return result;
-    }
-
-    goto LABEL_39;
-  }
-
-  if (!v28)
-  {
-    goto LABEL_38;
-  }
-
-  result[v25] = 0;
-  if (!a2)
-  {
-    return result;
-  }
-
-LABEL_39:
-  if (v6 != v23)
-  {
-    result = (&result[v24] & ~v17);
-    if (v9 == v23)
-    {
-      v37 = *(v8 + 56);
-    }
-
-    else
-    {
-      result = (&result[v18 + v19] & ~v19);
-      if (v12 == v23)
-      {
-        v37 = *(v11 + 56);
-      }
-
-      else
-      {
-        result = (&result[v20 + v21] & ~v21);
-        if (v15 != v23)
-        {
-          result[v22] = a2 + 1;
-          return result;
-        }
-
-        v37 = *(v14 + 56);
-      }
-    }
-
-    return v37(result);
-  }
-
-  v36 = *(v5 + 56);
-
-  return v36();
-}
-
-void type metadata completion function for MetricTextiOSPlatter()
-{
-  swift_checkMetadataState();
-  if (v0 <= 0x3F)
-  {
-    swift_checkMetadataState();
-    if (v1 <= 0x3F)
-    {
-      swift_checkMetadataState();
-      if (v2 <= 0x3F)
-      {
-        swift_checkMetadataState();
-        if (v3 <= 0x3F)
-        {
-          type metadata accessor for Environment<WorkoutViewStyle>();
-          if (v4 <= 0x3F)
-          {
-            swift_cvw_initStructMetadataWithLayoutString();
-          }
-        }
-      }
-    }
-  }
-}
-
-uint64_t getEnumTagSinglePayload for MetricTextiOSPlatter(int *a1, unsigned int a2, void *a3)
-{
-  v5 = *(a3[2] - 8);
-  v6 = *(v5 + 84);
-  v7 = a3[4];
-  v8 = *(a3[3] - 8);
-  v9 = *(v8 + 84);
-  if (v9 <= v6)
-  {
-    v10 = *(v5 + 84);
-  }
-
-  else
-  {
-    v10 = *(v8 + 84);
-  }
-
-  v11 = *(v7 - 8);
-  v12 = *(v11 + 84);
-  if (v12 <= v10)
-  {
-    v13 = v10;
-  }
-
-  else
-  {
-    v13 = *(v11 + 84);
-  }
-
-  v14 = *(a3[5] - 8);
-  v15 = *(v14 + 84);
-  v16 = *(v8 + 80);
-  v17 = *(*(a3[3] - 8) + 64);
-  v18 = *(v11 + 80);
-  v19 = *(*(v7 - 8) + 64);
-  v20 = *(v14 + 80);
-  v21 = *(v14 + 64);
-  if (v15 <= v13)
-  {
-    v22 = v13;
-  }
-
-  else
-  {
-    v22 = *(v14 + 84);
-  }
-
-  if (v22 <= 0xFE)
-  {
-    v22 = 254;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v23 = *(*(a3[2] - 8) + 64) + v16;
-  if (v22 < a2)
-  {
-    v24 = ((((((((v19 + v20 + ((v17 + v18 + (v23 & ~v16)) & ~v18)) & ~v20) + v21) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8;
-    v25 = a2 - v22;
-    v26 = v24 & 0xFFFFFFF8;
-    if ((v24 & 0xFFFFFFF8) != 0)
-    {
-      v27 = 2;
-    }
-
-    else
-    {
-      v27 = v25 + 1;
-    }
-
-    if (v27 >= 0x10000)
-    {
-      v28 = 4;
-    }
-
-    else
-    {
-      v28 = 2;
-    }
-
-    if (v27 < 0x100)
-    {
-      v28 = 1;
-    }
-
-    if (v27 >= 2)
-    {
-      v29 = v28;
-    }
-
-    else
-    {
-      v29 = 0;
-    }
-
-    if (v29 > 1)
-    {
-      if (v29 == 2)
-      {
-        v30 = *(a1 + v24);
-        if (v30)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      else
-      {
-        v30 = *(a1 + v24);
-        if (v30)
-        {
-          goto LABEL_28;
-        }
-      }
-    }
-
-    else if (v29)
-    {
-      v30 = *(a1 + v24);
-      if (v30)
-      {
-LABEL_28:
-        v31 = v30 - 1;
-        if (v26)
-        {
-          v31 = 0;
-          v32 = *a1;
-        }
-
-        else
-        {
-          v32 = 0;
-        }
-
-        v39 = v22 + (v32 | v31);
-        return (v39 + 1);
-      }
-    }
-  }
-
-  if (v6 != v22)
-  {
-    v35 = (a1 + v23) & ~v16;
-    if (v9 == v22)
-    {
-      v36 = *(v8 + 48);
-      v37 = *(v8 + 84);
-      v38 = a3[3];
-
-      return v36(v35, v37, v38);
-    }
-
-    v35 = (v35 + v17 + v18) & ~v18;
-    if (v12 == v22)
-    {
-      v36 = *(v11 + 48);
-      v37 = *(v11 + 84);
-      v38 = a3[4];
-
-      return v36(v35, v37, v38);
-    }
-
-    v35 = (v35 + v19 + v20) & ~v20;
-    if (v15 == v22)
-    {
-      v36 = *(v14 + 48);
-      v37 = *(v14 + 84);
-      v38 = a3[5];
-
-      return v36(v35, v37, v38);
-    }
-
-    v40 = *(v35 + v21);
-    if (v40 >= 2)
-    {
-      v39 = (v40 + 2147483646) & 0x7FFFFFFF;
-      return (v39 + 1);
-    }
-
-    return 0;
-  }
-
-  v33 = *(v5 + 48);
-
-  return v33();
-}
-
-_DWORD *storeEnumTagSinglePayload for MetricTextiOSPlatter(_DWORD *result, unsigned int a2, unsigned int a3, void *a4)
-{
-  v5 = *(a4[2] - 8);
-  v6 = a4[4];
-  v7 = *(v5 + 84);
-  v8 = *(a4[3] - 8);
-  v9 = *(v8 + 84);
-  if (v9 <= v7)
-  {
-    v10 = *(v5 + 84);
-  }
-
-  else
-  {
-    v10 = *(v8 + 84);
-  }
-
-  v11 = *(v6 - 8);
-  v12 = *(v11 + 84);
-  if (v12 <= v10)
-  {
-    v13 = v10;
-  }
-
-  else
-  {
-    v13 = *(v11 + 84);
-  }
-
-  v14 = *(a4[5] - 8);
-  v15 = *(v14 + 84);
-  v16 = *(*(a4[2] - 8) + 64);
-  v17 = *(v8 + 80);
-  v18 = *(*(a4[3] - 8) + 64);
-  v19 = *(v11 + 80);
-  v20 = *(*(v6 - 8) + 64);
-  v21 = *(v14 + 80);
-  v22 = *(v14 + 64);
-  if (v15 <= v13)
-  {
-    v23 = v13;
-  }
-
-  else
-  {
-    v23 = *(v14 + 84);
-  }
-
-  if (v23 <= 0xFE)
-  {
-    v23 = 254;
-  }
-
-  v24 = v16 + v17;
-  v25 = ((((((((v20 + v21 + ((v18 + v19 + ((v16 + v17) & ~v17)) & ~v19)) & ~v21) + v22) & 0xFFFFFFFFFFFFFFF8) + 39) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8;
-  if (v23 >= a3)
-  {
-    v29 = 0;
-    v30 = a2 - v23;
-    if (a2 <= v23)
-    {
-      goto LABEL_25;
-    }
-
-LABEL_30:
-    if (v25)
-    {
-      v31 = 1;
-    }
-
-    else
-    {
-      v31 = v30;
-    }
-
-    if (v25)
-    {
-      v32 = ~v23 + a2;
-      v33 = result;
-      bzero(result, v25);
-      result = v33;
-      *v33 = v32;
-    }
-
-    if (v29 > 1)
-    {
-      if (v29 == 2)
-      {
-        *(result + v25) = v31;
-      }
-
-      else
-      {
-        *(result + v25) = v31;
-      }
-    }
-
-    else if (v29)
-    {
-      *(result + v25) = v31;
-    }
-
-    return result;
-  }
-
-  v26 = a3 - v23;
-  if (v25)
-  {
-    v27 = 2;
-  }
-
-  else
-  {
-    v27 = v26 + 1;
-  }
-
-  if (v27 >= 0x10000)
-  {
-    v28 = 4;
-  }
-
-  else
-  {
-    v28 = 2;
-  }
-
-  if (v27 < 0x100)
-  {
-    v28 = 1;
-  }
-
-  if (v27 >= 2)
-  {
-    v29 = v28;
-  }
-
-  else
-  {
-    v29 = 0;
-  }
-
-  v30 = a2 - v23;
-  if (a2 > v23)
-  {
-    goto LABEL_30;
-  }
-
-LABEL_25:
-  if (v29 > 1)
-  {
-    if (v29 != 2)
-    {
-      *(result + v25) = 0;
-      if (!a2)
-      {
-        return result;
-      }
-
-      goto LABEL_41;
-    }
-
-    *(result + v25) = 0;
-LABEL_40:
-    if (!a2)
-    {
-      return result;
-    }
-
-    goto LABEL_41;
-  }
-
-  if (!v29)
-  {
-    goto LABEL_40;
-  }
-
-  *(result + v25) = 0;
-  if (!a2)
-  {
-    return result;
-  }
-
-LABEL_41:
-  if (v7 != v23)
-  {
-    result = ((result + v24) & ~v17);
-    if (v9 == v23)
-    {
-      v35 = *(v8 + 56);
-    }
-
-    else
-    {
-      result = ((result + v18 + v19) & ~v19);
-      if (v12 == v23)
-      {
-        v35 = *(v11 + 56);
-      }
-
-      else
-      {
-        result = ((result + v20 + v21) & ~v21);
-        if (v15 != v23)
-        {
-          *(result + v22) = a2 + 1;
-          return result;
-        }
-
-        v35 = *(v14 + 56);
-      }
-    }
-
-    return v35(result);
-  }
-
-  v34 = *(v5 + 56);
-
-  return v34();
-}
-
-uint64_t associated type witness table accessor for View.Body : View in MetricTextWatchOS<A, B, C, D>()
-{
-  return associated type witness table accessor for View.Body : View in MetricTextWatchOS<A, B, C, D>();
-}
-
-{
-  return swift_getOpaqueTypeConformance2();
-}
-
-uint64_t lazy protocol witness table accessor for type Text? and conformance <A> A?(unint64_t *a1, uint64_t *a2)
-{
-  result = *a1;
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type MetricUnitFont and conformance MetricUnitFont()
-{
-  result = lazy protocol witness table cache variable for type MetricUnitFont and conformance MetricUnitFont;
-  if (!lazy protocol witness table cache variable for type MetricUnitFont and conformance MetricUnitFont)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type MetricUnitFont and conformance MetricUnitFont);
-  }
-
-  return result;
-}
-
-uint64_t lazy protocol witness table accessor for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>(unint64_t *a1, uint64_t *a2)
-{
-  result = *a1;
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t outlined destroy of LegibilityWeight?(uint64_t a1, uint64_t *a2)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
-  return a1;
-}
-
-uint64_t outlined init with copy of LegibilityWeight?(uint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
-  return a2;
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance PickerEditingStateHandler.State()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  MEMORY[0x20F30CD90](v1);
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PickerEditingStateHandler.State()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  MEMORY[0x20F30CD90](v1);
-  return Hasher._finalize()();
-}
-
-uint64_t PickerEditingStateHandler.state.getter()
-{
-  swift_getKeyPath();
-  lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  return *(v0 + 16);
-}
-
-uint64_t key path getter for PickerEditingStateHandler.state : PickerEditingStateHandler@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = *a1;
-  swift_getKeyPath();
-  lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  *a2 = *(v3 + 16);
-  return result;
-}
-
-uint64_t PickerEditingStateHandler.state.setter(uint64_t result)
-{
-  if (*(v1 + 16) != result)
-  {
-    KeyPath = swift_getKeyPath();
-    MEMORY[0x28223BE20](KeyPath);
-    lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-  }
-
-  return result;
-}
-
-uint64_t PickerEditingStateHandler.bindings.getter()
-{
-  swift_getKeyPath();
-  lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  swift_beginAccess();
-}
-
-uint64_t key path getter for PickerEditingStateHandler.bindings : PickerEditingStateHandler@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v3 = *a1;
-  swift_getKeyPath();
-  lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  swift_beginAccess();
-  *a2 = *(v3 + 24);
-}
-
-uint64_t key path setter for PickerEditingStateHandler.bindings : PickerEditingStateHandler()
-{
-  swift_getKeyPath();
-  lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-}
-
-uint64_t closure #1 in PickerEditingStateHandler.bindings.setter(uint64_t a1, uint64_t a2)
-{
-  swift_beginAccess();
-  *(a1 + 24) = a2;
-}
-
-uint64_t PickerEditingStateHandler.init()()
-{
-  v1 = v0;
-  *(v0 + 16) = 0;
-  *(v0 + 24) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC9WorkoutUI25PickerEditingStateHandlerC0G0O_05SwiftD07BindingVySbGTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  ObservationRegistrar.init()();
-  v2 = 0;
-  while (1)
-  {
-    v4 = outlined read-only object #0 of static PickerEditingStateHandler.State.allCases.getter[v2 + 32];
-    if (!outlined read-only object #0 of static PickerEditingStateHandler.State.allCases.getter[v2 + 32])
-    {
-      goto LABEL_4;
-    }
-
-    v5 = swift_allocObject();
-    *(v5 + 16) = 0;
-    *(v5 + 24) = 0;
-    *(v5 + 32) = v1;
-    *(v5 + 40) = v4;
-    v6 = swift_allocObject();
-    *(v6 + 16) = 0;
-    *(v6 + 24) = 0;
-    *(v6 + 32) = v1;
-    *(v6 + 40) = v4;
-    swift_retain_n();
-    Binding.init(get:set:)();
-    swift_getKeyPath();
-    lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-    ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-    swift_getKeyPath();
-    ObservationRegistrar.willSet<A, B>(_:keyPath:)();
-
-    swift_beginAccess();
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v8 = *(v1 + 24);
-    *(v1 + 24) = 0x8000000000000000;
-    v9 = specialized __RawDictionaryStorage.find<A>(_:)(v4);
-    v11 = v8[2];
-    v12 = (v10 & 1) == 0;
-    v13 = __OFADD__(v11, v12);
-    v14 = v11 + v12;
-    if (v13)
-    {
-      break;
-    }
-
-    v15 = v10;
-    if (v8[3] < v14)
-    {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v14, isUniquelyReferenced_nonNull_native);
-      v9 = specialized __RawDictionaryStorage.find<A>(_:)(v4);
-      if ((v15 & 1) != (v16 & 1))
-      {
-        goto LABEL_19;
-      }
-
-LABEL_11:
-      v17 = v8;
-      if ((v15 & 1) == 0)
-      {
-        goto LABEL_12;
-      }
-
-      goto LABEL_2;
-    }
-
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      goto LABEL_11;
-    }
-
-    v21 = v9;
-    specialized _NativeDictionary.copy()();
-    v9 = v21;
-    v17 = v8;
-    if ((v15 & 1) == 0)
-    {
-LABEL_12:
-      v17[(v9 >> 6) + 8] |= 1 << v9;
-      *(v17[6] + v9) = v4;
-      v18 = v17[7] + 24 * v9;
-      *v18 = v23;
-      *(v18 + 8) = v24;
-      *(v18 + 16) = v25;
-      v19 = v17[2];
-      v13 = __OFADD__(v19, 1);
-      v20 = v19 + 1;
-      if (v13)
-      {
-        goto LABEL_18;
-      }
-
-      v17[2] = v20;
-      goto LABEL_3;
-    }
-
-LABEL_2:
-    v3 = v17[7] + 24 * v9;
-    *v3 = v23;
-    *(v3 + 8) = v24;
-    *(v3 + 16) = v25;
-
-LABEL_3:
-    *(v1 + 24) = v17;
-    swift_endAccess();
-    swift_getKeyPath();
-    ObservationRegistrar.didSet<A, B>(_:keyPath:)();
-
-LABEL_4:
-    if (++v2 == 8)
-    {
-      return v1;
-    }
-  }
-
-  __break(1u);
-LABEL_18:
-  __break(1u);
-LABEL_19:
-  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #1 in closure #1 in PickerEditingStateHandler.init()@<X0>(uint64_t a1@<X2>, unsigned __int8 a2@<W3>, BOOL *a3@<X8>)
-{
-  swift_getKeyPath();
-  lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  *a3 = *(a1 + 16) == a2;
-  return result;
-}
-
-_BYTE *closure #2 in closure #1 in PickerEditingStateHandler.init()(_BYTE *result, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5)
-{
-  v6 = a5;
-  if (*result == 1)
-  {
-    if (*(a4 + 16) != a5)
-    {
-      KeyPath = swift_getKeyPath();
-      MEMORY[0x28223BE20](KeyPath);
-      lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-      ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-    }
-  }
-
-  else
-  {
-    swift_getKeyPath();
-    lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-    ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-    if (*(a4 + 16) == v6)
-    {
-      if (v6)
-      {
-        v8 = swift_getKeyPath();
-        MEMORY[0x28223BE20](v8);
-        ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-      }
-
-      else
-      {
-        *(a4 + 16) = 0;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t PickerEditingStateHandler.mode(_:)(uint64_t a1)
-{
-  swift_getKeyPath();
-  lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler();
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  swift_beginAccess();
-  v3 = *(v1 + 24);
-  if (*(v3 + 16) && (v4 = specialized __RawDictionaryStorage.find<A>(_:)(a1), (v5 & 1) != 0))
-  {
-    v6 = *(*(v3 + 56) + 24 * v4);
-
-    return v6;
-  }
-
-  else
-  {
-    static Binding.constant(_:)();
-    return v8;
-  }
-}
-
-uint64_t PickerEditingStateHandler.__deallocating_deinit()
-{
-
-  v1 = OBJC_IVAR____TtC9WorkoutUI25PickerEditingStateHandler___observationRegistrar;
-  v2 = type metadata accessor for ObservationRegistrar();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t type metadata accessor for PickerEditingStateHandler()
-{
-  result = type metadata singleton initialization cache for PickerEditingStateHandler;
-  if (!type metadata singleton initialization cache for PickerEditingStateHandler)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for PickerEditingStateHandler()
-{
-  result = type metadata accessor for ObservationRegistrar();
-  if (v1 <= 0x3F)
-  {
-    result = swift_updateClassMetadata2();
-    if (!result)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for PickerEditingStateHandler.State(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0xF9)
-  {
-    goto LABEL_17;
-  }
-
-  if (a2 + 7 >= 0xFFFF00)
-  {
-    v2 = 4;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if ((a2 + 7) >> 8 < 0xFF)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    v4 = *(a1 + 1);
-    if (v4)
-    {
-      return (*a1 | (v4 << 8)) - 7;
-    }
-  }
-
-  else
-  {
-    if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-
-      return (*a1 | (v4 << 8)) - 7;
-    }
-
-    v4 = a1[1];
-    if (a1[1])
-    {
-      return (*a1 | (v4 << 8)) - 7;
-    }
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 8;
-  v8 = v6 - 8;
-  if (!v7)
-  {
-    v8 = -1;
-  }
-
-  return (v8 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for PickerEditingStateHandler.State(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 7 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 7) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 < 0xF9)
-  {
-    v4 = 0;
-  }
-
-  if (a2 > 0xF8)
-  {
-    v5 = ((a2 - 249) >> 8) + 1;
-    *result = a2 + 7;
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        *(result + 1) = v5;
-      }
-
-      else
-      {
-        *(result + 1) = v5;
-      }
-    }
-
-    else if (v4)
-    {
-      *(result + 1) = v5;
-    }
-
-    return result;
-  }
-
-  if (v4 > 1)
-  {
-    if (v4 != 2)
-    {
-      *(result + 1) = 0;
-      if (a2)
-      {
-        goto LABEL_20;
-      }
-
-      return result;
-    }
-
-    *(result + 1) = 0;
-  }
-
-  else if (v4)
-  {
-    *(result + 1) = 0;
-    if (!a2)
-    {
-      return result;
-    }
-
-LABEL_20:
-    *result = a2 + 7;
-    return result;
-  }
-
-  if (a2)
-  {
-    goto LABEL_20;
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type [PickerEditingStateHandler.State] and conformance [A]()
-{
-  result = lazy protocol witness table cache variable for type [PickerEditingStateHandler.State] and conformance [A];
-  if (!lazy protocol witness table cache variable for type [PickerEditingStateHandler.State] and conformance [A])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay9WorkoutUI25PickerEditingStateHandlerC0E0OGMd);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type [PickerEditingStateHandler.State] and conformance [A]);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type PickerEditingStateHandler.State and conformance PickerEditingStateHandler.State()
-{
-  result = lazy protocol witness table cache variable for type PickerEditingStateHandler.State and conformance PickerEditingStateHandler.State;
-  if (!lazy protocol witness table cache variable for type PickerEditingStateHandler.State and conformance PickerEditingStateHandler.State)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PickerEditingStateHandler.State and conformance PickerEditingStateHandler.State);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type PickerEditingStateHandler and conformance PickerEditingStateHandler()
-{
-  result = lazy protocol witness table cache variable for type PickerEditingStateHandler and conformance PickerEditingStateHandler;
-  if (!lazy protocol witness table cache variable for type PickerEditingStateHandler and conformance PickerEditingStateHandler)
-  {
-    type metadata accessor for PickerEditingStateHandler();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PickerEditingStateHandler and conformance PickerEditingStateHandler);
-  }
-
-  return result;
-}
-
-uint64_t objectdestroyTm_86()
-{
-  swift_unknownObjectRelease();
-
-  return swift_deallocObject();
-}
-
-void closure #1 in PickerEditingStateHandler.state.setterpartial apply()
-{
-  partial apply for closure #1 in PickerEditingStateHandler.state.setter();
-}
-
-{
-  partial apply for closure #1 in PickerEditingStateHandler.state.setter();
-}
-
-uint64_t MockWheelchairUseProvider.__deallocating_deinit()
-{
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t ElevationChangeMetricView.init(metricType:elevationChange:formattingManager:)@<X0>(uint64_t a1@<X0>, double a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  result = swift_getKeyPath();
-  v11 = a2;
-  *a5 = a1;
-  if (a3)
-  {
-    v11 = 0.0;
-  }
-
-  *(a5 + 8) = v11;
-  *(a5 + 16) = a4;
-  *(a5 + 24) = result;
-  *(a5 + 32) = 0;
-  return result;
-}
-
-uint64_t ElevationChangeMetricView.descriptionString.getter()
-{
-  v1 = type metadata accessor for EnvironmentValues();
-  v2 = *(v1 - 8);
-  MEMORY[0x28223BE20](v1);
-  v4 = &v25 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = *(v0 + 24);
-  v6 = *(v0 + 32);
-  if (*v0 == 53)
-  {
-    if (*(v0 + 32))
-    {
-      v7 = *(v0 + 24);
-    }
-
-    else
-    {
-
-      static os_log_type_t.fault.getter();
-      v9 = static Log.runtimeIssuesLog.getter();
-      os_log(_:dso:log:_:_:)();
-
-      EnvironmentValues.init()();
-      swift_getAtKeyPath();
-      outlined consume of Environment<WorkoutViewStyle>.Content(v5, 0);
-      (*(v2 + 8))(v4, v1);
-      LOBYTE(v7) = v26;
-    }
-
-    if (v7 <= 9u && ((1 << v7) & 0x301) != 0)
-    {
-      v10 = "_METRIC_DESCRIPTION_FULL";
-      if (one-time initialization token for WorkoutUIBundle != -1)
-      {
-        swift_once();
-      }
-
-      swift_beginAccess();
-      v11 = WorkoutUIBundle.super.isa;
-      v24 = 0xE000000000000000;
-      v12 = 0xD000000000000023;
-    }
-
-    else
-    {
-      if (v6)
-      {
-        v20 = v5;
-      }
-
-      else
-      {
-
-        static os_log_type_t.fault.getter();
-        v22 = static Log.runtimeIssuesLog.getter();
-        os_log(_:dso:log:_:_:)();
-
-        EnvironmentValues.init()();
-        swift_getAtKeyPath();
-        outlined consume of Environment<WorkoutViewStyle>.Content(v5, 0);
-        (*(v2 + 8))(v4, v1);
-        v20 = v26;
-      }
-
-      if (v20 == 2)
-      {
-        v10 = "ION_ONE_LINE_FULL";
-        if (one-time initialization token for WorkoutUIBundle != -1)
-        {
-          swift_once();
-        }
-
-        swift_beginAccess();
-        v11 = WorkoutUIBundle.super.isa;
-        v24 = 0xE000000000000000;
-        v12 = 0xD000000000000028;
-      }
-
-      else
-      {
-        v10 = "ionChangeMetricView";
-        if (one-time initialization token for WorkoutUIBundle != -1)
-        {
-          swift_once();
-        }
-
-        swift_beginAccess();
-        v11 = WorkoutUIBundle.super.isa;
-        v24 = 0xE000000000000000;
-        v12 = 0xD000000000000031;
-      }
-    }
-
-    goto LABEL_13;
-  }
-
-  if (*v0 == 10)
-  {
-    if (*(v0 + 32))
-    {
-      v8 = *(v0 + 24);
-    }
-
-    else
-    {
-
-      static os_log_type_t.fault.getter();
-      v14 = static Log.runtimeIssuesLog.getter();
-      os_log(_:dso:log:_:_:)();
-
-      EnvironmentValues.init()();
-      swift_getAtKeyPath();
-      outlined consume of Environment<WorkoutViewStyle>.Content(v5, 0);
-      (*(v2 + 8))(v4, v1);
-      LOBYTE(v8) = v26;
-    }
-
-    if (v8 <= 9u && ((1 << v8) & 0x301) != 0)
-    {
-      if (one-time initialization token for WorkoutUIBundle != -1)
-      {
-        swift_once();
-      }
-
-      swift_beginAccess();
-      v11 = WorkoutUIBundle.super.isa;
-      v24 = 0xE000000000000000;
-      v13 = 0x800000020CBA3510;
-      v12 = 0xD000000000000021;
-      goto LABEL_20;
-    }
-
-    if (v6)
-    {
-      v21 = v5;
-    }
-
-    else
-    {
-
-      static os_log_type_t.fault.getter();
-      v23 = static Log.runtimeIssuesLog.getter();
-      os_log(_:dso:log:_:_:)();
-
-      EnvironmentValues.init()();
-      swift_getAtKeyPath();
-      outlined consume of Environment<WorkoutViewStyle>.Content(v5, 0);
-      (*(v2 + 8))(v4, v1);
-      v21 = v26;
-    }
-
-    if (v21 == 2)
-    {
-      v10 = "ETRIC_DESCRIPTION_ONE_LINE_FULL";
-      if (one-time initialization token for WorkoutUIBundle != -1)
-      {
-        swift_once();
-      }
-
-      swift_beginAccess();
-      v11 = WorkoutUIBundle.super.isa;
-      v24 = 0xE000000000000000;
-      v12 = 0xD000000000000026;
-    }
-
-    else
-    {
-      v10 = "_METRIC_DESCRIPTION";
-      if (one-time initialization token for WorkoutUIBundle != -1)
-      {
-        swift_once();
-      }
-
-      swift_beginAccess();
-      v11 = WorkoutUIBundle.super.isa;
-      v24 = 0xE000000000000000;
-      v12 = 0xD00000000000002FLL;
-    }
-
-LABEL_13:
-    v13 = v10 | 0x8000000000000000;
-LABEL_20:
-    v15.value._countAndFlagsBits = 0x617A696C61636F4CLL;
-    v15.value._object = 0xEB00000000656C62;
-    v16._countAndFlagsBits = 0;
-    v16._object = 0xE000000000000000;
-    v17 = 0;
-    countAndFlagsBits = NSLocalizedString(_:tableName:bundle:value:comment:)(*&v12, v15, v11, v16, *(&v24 - 1))._countAndFlagsBits;
-
-    return countAndFlagsBits;
-  }
-
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
 id ElevationChangeMetricView.body.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = *(v1 + 16);
@@ -3224,7 +231,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Countdow
   result = lazy protocol witness table cache variable for type ModifiedContent<CountdownIconView, _AlignmentWritingModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<CountdownIconView, _AlignmentWritingModifier> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB017CountdownIconViewVAA25_AlignmentWritingModifierVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB017CountdownIconViewVAA25_AlignmentWritingModifierVGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB017CountdownIconViewVAA25_AlignmentWritingModifierVGMR);
     lazy protocol witness table accessor for type CountdownIconView and conformance CountdownIconView();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<CountdownIconView, _AlignmentWritingModifier> and conformance <> ModifiedContent<A, B>);
@@ -3304,15 +311,15 @@ uint64_t RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
   v3 = *(v38 - 8);
   MEMORY[0x28223BE20](v38);
   v5 = &v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA4ListVys5NeverOAGyAA7SectionVyAA05EmptyG0VAGyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyACyAqAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAqAE0Q14Representation14representationQrqd__yXE_tAaPRd__lFQOyACyAqAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyA8_yAOGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_D13ShapeModifierVyAA9RectangleVGG_Qo__AqAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAqAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAOSiAA7ForEachVySaySiGSiAqAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideH12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAOG_AMyAoCyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAqAE0Q7ActionsyQrqd__yXEAaPRd__lFQOyACyAqAEAuVQrAX_tFQOyAZyAGyA59_14WorkoutStepRowV_A2_ACyAA5ImageVA18_GtGG_Qo_A22_G_AGyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAOGSgtGG_A2_ACyACyA8_yACyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGA14_yAA13AnyShapeStyleVSgGGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA4ListVys5NeverOAGyAA7SectionVyAA05EmptyG0VAGyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyACyAqAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAqAE0Q14Representation14representationQrqd__yXE_tAaPRd__lFQOyACyAqAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyA8_yAOGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_D13ShapeModifierVyAA9RectangleVGG_Qo__AqAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAqAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAOSiAA7ForEachVySaySiGSiAqAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideH12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAOG_AMyAoCyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAqAE0Q7ActionsyQrqd__yXEAaPRd__lFQOyACyAqAEAuVQrAX_tFQOyAZyAGyA59_14WorkoutStepRowV_A2_ACyAA5ImageVA18_GtGG_Qo_A22_G_AGyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAOGSgtGG_A2_ACyACyA8_yACyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGA14_yAA13AnyShapeStyleVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA4ListVys5NeverOAGyAA7SectionVyAA05EmptyG0VAGyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyACyAqAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAqAE0Q14Representation14representationQrqd__yXE_tAaPRd__lFQOyACyAqAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyA8_yAOGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_D13ShapeModifierVyAA9RectangleVGG_Qo__AqAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAqAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAOSiAA7ForEachVySaySiGSiAqAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideH12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAOG_AMyAoCyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAqAE0Q7ActionsyQrqd__yXEAaPRd__lFQOyACyAqAEAuVQrAX_tFQOyAZyAGyA59_14WorkoutStepRowV_A2_ACyAA5ImageVA18_GtGG_Qo_A22_G_AGyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAOGSgtGG_A2_ACyACyA8_yACyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGA14_yAA13AnyShapeStyleVSgGGMR);
   MEMORY[0x28223BE20](v6);
   v8 = &v34 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE15navigationTitleyQrqd__SyRd__lFQOyAA15ModifiedContentVyAA6VStackVyAA05TupleC0VyAA4ListVys5NeverOAJyAA7SectionVyAA05EmptyC0VAJyAcAE12onTapGesture5count7performQrSi_yyctFQOyAFyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAJyAA4TextV_AA6SpacerVAcAE0S14Representation14representationQrqd__yXE_tAaBRd__lFQOyAFyAcAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA1_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AFyA9_yARGAA0V18AttachmentModifierVGQo_tGG_Qo_AA01_G13ShapeModifierVyAA9RectangleVGG_Qo__AcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAFyAcAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyARSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA1__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideJ12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGARG_APyArFyA50_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAcAE0S7ActionsyQrqd__yXEAaBRd__lFQOyAFyAcAEAvWQrAY_tFQOyA_yAJyA60_14WorkoutStepRowV_A3_AFyAA5ImageVA19_GtGG_Qo_A23_G_AJyA10_Sg_A86_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGARGSgtGG_A3_AFyAFyA9_yAFyA1_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA60_31PinnedBottomButtonModifierPhoneVGSgtGGA15_yAA13AnyShapeStyleVSgGG_SSQo_Md);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE15navigationTitleyQrqd__SyRd__lFQOyAA15ModifiedContentVyAA6VStackVyAA05TupleC0VyAA4ListVys5NeverOAJyAA7SectionVyAA05EmptyC0VAJyAcAE12onTapGesture5count7performQrSi_yyctFQOyAFyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAJyAA4TextV_AA6SpacerVAcAE0S14Representation14representationQrqd__yXE_tAaBRd__lFQOyAFyAcAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA1_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AFyA9_yARGAA0V18AttachmentModifierVGQo_tGG_Qo_AA01_G13ShapeModifierVyAA9RectangleVGG_Qo__AcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAFyAcAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyARSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA1__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideJ12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGARG_APyArFyA50_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAcAE0S7ActionsyQrqd__yXEAaBRd__lFQOyAFyAcAEAvWQrAY_tFQOyA_yAJyA60_14WorkoutStepRowV_A3_AFyAA5ImageVA19_GtGG_Qo_A23_G_AJyA10_Sg_A86_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGARGSgtGG_A3_AFyAFyA9_yAFyA1_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA60_31PinnedBottomButtonModifierPhoneVGSgtGGA15_yAA13AnyShapeStyleVSgGG_SSQo_Md, &_s7SwiftUI4ViewPAAE15navigationTitleyQrqd__SyRd__lFQOyAA15ModifiedContentVyAA6VStackVyAA05TupleC0VyAA4ListVys5NeverOAJyAA7SectionVyAA05EmptyC0VAJyAcAE12onTapGesture5count7performQrSi_yyctFQOyAFyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAJyAA4TextV_AA6SpacerVAcAE0S14Representation14representationQrqd__yXE_tAaBRd__lFQOyAFyAcAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA1_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AFyA9_yARGAA0V18AttachmentModifierVGQo_tGG_Qo_AA01_G13ShapeModifierVyAA9RectangleVGG_Qo__AcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAFyAcAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyARSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA1__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideJ12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGARG_APyArFyA50_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAcAE0S7ActionsyQrqd__yXEAaBRd__lFQOyAFyAcAEAvWQrAY_tFQOyA_yAJyA60_14WorkoutStepRowV_A3_AFyAA5ImageVA19_GtGG_Qo_A23_G_AJyA10_Sg_A86_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGARGSgtGG_A3_AFyAFyA9_yAFyA1_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA60_31PinnedBottomButtonModifierPhoneVGSgtGGA15_yAA13AnyShapeStyleVSgGG_SSQo_MR);
   v34 = *(v9 - 8);
   v35 = v9;
   MEMORY[0x28223BE20](v9);
   v11 = &v34 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE29navigationBarTitleDisplayModeyQrAA010NavigationE4ItemV0fgH0OFQOyAcAE0dF0yQrqd__SyRd__lFQOyAA15ModifiedContentVyAA6VStackVyAA05TupleC0VyAA4ListVys5NeverOAOyAA7SectionVyAA05EmptyC0VAOyAcAE12onTapGesture5count7performQrSi_yyctFQOyAKyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAOyAA4TextV_AA6SpacerVAcAE0X14Representation14representationQrqd__yXE_tAaBRd__lFQOyAKyAcAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA6_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AKyA14_yAWGAA31AccessibilityAttachmentModifierVGQo_tGG_Qo_AA01_L13ShapeModifierVyAA9RectangleVGG_Qo__AcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAKyAcAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAWSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA6__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideO12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAWG_AUyAwKyA55_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAcAE0X7ActionsyQrqd__yXEAaBRd__lFQOyAKyAcAEA_A0_QrA2__tFQOyA4_yAOyA65_14WorkoutStepRowV_A8_AKyAA5ImageVA24_GtGG_Qo_A28_G_AOyA15_Sg_A91_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAWGSgtGG_A8_AKyAKyA14_yAKyA6_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA65_31PinnedBottomButtonModifierPhoneVGSgtGGA20_yAA13AnyShapeStyleVSgGG_SSQo__Qo_Md);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE29navigationBarTitleDisplayModeyQrAA010NavigationE4ItemV0fgH0OFQOyAcAE0dF0yQrqd__SyRd__lFQOyAA15ModifiedContentVyAA6VStackVyAA05TupleC0VyAA4ListVys5NeverOAOyAA7SectionVyAA05EmptyC0VAOyAcAE12onTapGesture5count7performQrSi_yyctFQOyAKyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAOyAA4TextV_AA6SpacerVAcAE0X14Representation14representationQrqd__yXE_tAaBRd__lFQOyAKyAcAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA6_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AKyA14_yAWGAA31AccessibilityAttachmentModifierVGQo_tGG_Qo_AA01_L13ShapeModifierVyAA9RectangleVGG_Qo__AcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAKyAcAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAWSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA6__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideO12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAWG_AUyAwKyA55_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAcAE0X7ActionsyQrqd__yXEAaBRd__lFQOyAKyAcAEA_A0_QrA2__tFQOyA4_yAOyA65_14WorkoutStepRowV_A8_AKyAA5ImageVA24_GtGG_Qo_A28_G_AOyA15_Sg_A91_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAWGSgtGG_A8_AKyAKyA14_yAKyA6_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA65_31PinnedBottomButtonModifierPhoneVGSgtGGA20_yAA13AnyShapeStyleVSgGG_SSQo__Qo_Md, &_s7SwiftUI4ViewPAAE29navigationBarTitleDisplayModeyQrAA010NavigationE4ItemV0fgH0OFQOyAcAE0dF0yQrqd__SyRd__lFQOyAA15ModifiedContentVyAA6VStackVyAA05TupleC0VyAA4ListVys5NeverOAOyAA7SectionVyAA05EmptyC0VAOyAcAE12onTapGesture5count7performQrSi_yyctFQOyAKyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAOyAA4TextV_AA6SpacerVAcAE0X14Representation14representationQrqd__yXE_tAaBRd__lFQOyAKyAcAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA6_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AKyA14_yAWGAA31AccessibilityAttachmentModifierVGQo_tGG_Qo_AA01_L13ShapeModifierVyAA9RectangleVGG_Qo__AcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAKyAcAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAWSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA6__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideO12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAWG_AUyAwKyA55_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAcAE0X7ActionsyQrqd__yXEAaBRd__lFQOyAKyAcAEA_A0_QrA2__tFQOyA4_yAOyA65_14WorkoutStepRowV_A8_AKyAA5ImageVA24_GtGG_Qo_A28_G_AOyA15_Sg_A91_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAWGSgtGG_A8_AKyAKyA14_yAKyA6_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA65_31PinnedBottomButtonModifierPhoneVGSgtGGA20_yAA13AnyShapeStyleVSgGG_SSQo__Qo_MR);
   v36 = *(v12 - 8);
   v37 = v12;
   MEMORY[0x28223BE20](v12);
@@ -3320,7 +327,7 @@ uint64_t RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
   *v8 = static HorizontalAlignment.center.getter();
   *(v8 + 1) = 0;
   v8[16] = 1;
-  v15 = &v8[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA4ListVys5NeverOAIyAA7SectionVyAA05EmptyD0VAIyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAsAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAIyAA4TextV_AA6SpacerVAsAE0T14Representation14representationQrqd__yXE_tAaRRd__lFQOyAXyAsAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA4_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AXyA12_yAQGAA0W18AttachmentModifierVGQo_tGG_Qo_AA01_S13ShapeModifierVyAA9RectangleVGG_Qo__AsAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAXyAsAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAQSiAA7ForEachVySaySiGSiAsAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA4__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideI12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAQG_AOyAqXyA53_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAsAE0T7ActionsyQrqd__yXEAaRRd__lFQOyAXyAsAEAyZQrA0__tFQOyA2_yAIyA63_14WorkoutStepRowV_A6_AXyAA5ImageVA22_GtGG_Qo_A26_G_AIyA13_Sg_A89_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAQGSgtGG_A6_AXyAXyA12_yAXyA4_AA010_FlexFrameG0VGGAA32_EnvironmentKeyTransformModifierVySbGGA63_31PinnedBottomButtonModifierPhoneVGSgtGGMd) + 44)];
+  v15 = &v8[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA4ListVys5NeverOAIyAA7SectionVyAA05EmptyD0VAIyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAsAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAIyAA4TextV_AA6SpacerVAsAE0T14Representation14representationQrqd__yXE_tAaRRd__lFQOyAXyAsAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA4_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AXyA12_yAQGAA0W18AttachmentModifierVGQo_tGG_Qo_AA01_S13ShapeModifierVyAA9RectangleVGG_Qo__AsAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAXyAsAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAQSiAA7ForEachVySaySiGSiAsAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA4__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideI12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAQG_AOyAqXyA53_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAsAE0T7ActionsyQrqd__yXEAaRRd__lFQOyAXyAsAEAyZQrA0__tFQOyA2_yAIyA63_14WorkoutStepRowV_A6_AXyAA5ImageVA22_GtGG_Qo_A26_G_AIyA13_Sg_A89_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAQGSgtGG_A6_AXyAXyA12_yAXyA4_AA010_FlexFrameG0VGGAA32_EnvironmentKeyTransformModifierVySbGGA63_31PinnedBottomButtonModifierPhoneVGSgtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA4ListVys5NeverOAIyAA7SectionVyAA05EmptyD0VAIyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAsAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAIyAA4TextV_AA6SpacerVAsAE0T14Representation14representationQrqd__yXE_tAaRRd__lFQOyAXyAsAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA4_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AXyA12_yAQGAA0W18AttachmentModifierVGQo_tGG_Qo_AA01_S13ShapeModifierVyAA9RectangleVGG_Qo__AsAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAXyAsAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAQSiAA7ForEachVySaySiGSiAsAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA4__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideI12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAQG_AOyAqXyA53_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAsAE0T7ActionsyQrqd__yXEAaRRd__lFQOyAXyAsAEAyZQrA0__tFQOyA2_yAIyA63_14WorkoutStepRowV_A6_AXyAA5ImageVA22_GtGG_Qo_A26_G_AIyA13_Sg_A89_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAQGSgtGG_A6_AXyAXyA12_yAXyA4_AA010_FlexFrameG0VGGAA32_EnvironmentKeyTransformModifierVySbGGA63_31PinnedBottomButtonModifierPhoneVGSgtGGMR) + 44)];
   v39 = v2;
   closure #1 in RepeatPickerPhone.body.getter(v2, v15);
   [objc_allocWithZone(MEMORY[0x277D75348]) initWithDisplayP3Red:0.607843137 green:0.431372549 blue:0.980392157 alpha:1.0];
@@ -3354,7 +361,7 @@ uint64_t RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
   v27 = MEMORY[0x277D837D0];
   View.navigationTitle<A>(_:)();
 
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v8, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA4ListVys5NeverOAGyAA7SectionVyAA05EmptyG0VAGyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyACyAqAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAqAE0Q14Representation14representationQrqd__yXE_tAaPRd__lFQOyACyAqAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyA8_yAOGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_D13ShapeModifierVyAA9RectangleVGG_Qo__AqAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAqAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAOSiAA7ForEachVySaySiGSiAqAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideH12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAOG_AMyAoCyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAqAE0Q7ActionsyQrqd__yXEAaPRd__lFQOyACyAqAEAuVQrAX_tFQOyAZyAGyA59_14WorkoutStepRowV_A2_ACyAA5ImageVA18_GtGG_Qo_A22_G_AGyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAOGSgtGG_A2_ACyACyA8_yACyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGA14_yAA13AnyShapeStyleVSgGGMd);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>( v8,  &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA4ListVys5NeverOAGyAA7SectionVyAA05EmptyG0VAGyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyACyAqAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAqAE0Q14Representation14representationQrqd__yXE_tAaPRd__lFQOyACyAqAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyA8_yAOGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_D13ShapeModifierVyAA9RectangleVGG_Qo__AqAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAqAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAOSiAA7ForEachVySaySiGSiAqAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideH12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAOG_AMyAoCyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAqAE0Q7ActionsyQrqd__yXEAaPRd__lFQOyACyAqAEAuVQrAX_tFQOyAZyAGyA59_14WorkoutStepRowV_A2_ACyAA5ImageVA18_GtGG_Qo_A22_G_AGyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAOGSgtGG_A2_ACyACyA8_yACyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGA14_yAA13AnyShapeStyleVSgGGMd,  &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA4ListVys5NeverOAGyAA7SectionVyAA05EmptyG0VAGyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyACyAqAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAqAE0Q14Representation14representationQrqd__yXE_tAaPRd__lFQOyACyAqAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyA8_yAOGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_D13ShapeModifierVyAA9RectangleVGG_Qo__AqAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAqAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAOSiAA7ForEachVySaySiGSiAqAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideH12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAOG_AMyAoCyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAqAE0Q7ActionsyQrqd__yXEAaPRd__lFQOyACyAqAEAuVQrAX_tFQOyAZyAGyA59_14WorkoutStepRowV_A2_ACyAA5ImageVA18_GtGG_Qo_A22_G_AGyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAOGSgtGG_A2_ACyACyA8_yACyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGA14_yAA13AnyShapeStyleVSgGGMR);
   v28 = v38;
   (*(v3 + 104))(v5, *MEMORY[0x277CDDDC0], v38);
   v41._countAndFlagsBits = v6;
@@ -3367,11 +374,11 @@ uint64_t RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
   (*(v3 + 8))(v5, v28);
   v31 = (*(v34 + 8))(v11, v30);
   MEMORY[0x28223BE20](v31);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19TupleToolbarContentVyAA0dE7BuilderV10buildBlockyQrxAA0dE0RzlFZQOy_AA0D4ItemVyytAA08ModifiedE0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Sg_AA012_ConditionalE0VyAyeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GtGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19TupleToolbarContentVyAA0dE7BuilderV10buildBlockyQrxAA0dE0RzlFZQOy_AA0D4ItemVyytAA08ModifiedE0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Sg_AA012_ConditionalE0VyAyeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GtGMd, &_s7SwiftUI19TupleToolbarContentVyAA0dE7BuilderV10buildBlockyQrxAA0dE0RzlFZQOy_AA0D4ItemVyytAA08ModifiedE0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Sg_AA012_ConditionalE0VyAyeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GtGMR);
   v41._countAndFlagsBits = v30;
   v41._object = OpaqueTypeConformance2;
   swift_getOpaqueTypeConformance2();
-  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type TupleToolbarContent<((<<opaque return type of static ToolbarContentBuilder.buildBlock<A>(_:)>>.0)?, _ConditionalContent<<<opaque return type of static ToolbarContentBuilder.buildBlock<A>(_:)>>.0, <<opaque return type of static ToolbarContentBuilder.buildBlock<A>(_:)>>.0>)> and conformance TupleToolbarContent<A>, &_s7SwiftUI19TupleToolbarContentVyAA0dE7BuilderV10buildBlockyQrxAA0dE0RzlFZQOy_AA0D4ItemVyytAA08ModifiedE0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Sg_AA012_ConditionalE0VyAyeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GtGMd);
+  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type TupleToolbarContent<((<<opaque return type of static ToolbarContentBuilder.buildBlock<A>(_:)>>.0)?, _ConditionalContent<<<opaque return type of static ToolbarContentBuilder.buildBlock<A>(_:)>>.0, <<opaque return type of static ToolbarContentBuilder.buildBlock<A>(_:)>>.0>)> and conformance TupleToolbarContent<A>, &_s7SwiftUI19TupleToolbarContentVyAA0dE7BuilderV10buildBlockyQrxAA0dE0RzlFZQOy_AA0D4ItemVyytAA08ModifiedE0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Sg_AA012_ConditionalE0VyAyeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GtGMd, &_s7SwiftUI19TupleToolbarContentVyAA0dE7BuilderV10buildBlockyQrxAA0dE0RzlFZQOy_AA0D4ItemVyytAA08ModifiedE0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Sg_AA012_ConditionalE0VyAyeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GtGMR, MEMORY[0x277CDDF68]);
   v32 = v37;
   View.toolbar<A>(content:)();
   return (*(v36 + 8))(v14, v32);
@@ -3380,33 +387,33 @@ uint64_t RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
 uint64_t closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v60 = a2;
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA4TextVAA16_FlexFrameLayoutVGGMd);
+  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA4TextVAA16_FlexFrameLayoutVGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA4TextVAA16_FlexFrameLayoutVGGMR);
   v53 = *(v54 - 8);
   MEMORY[0x28223BE20](v54);
   v4 = &v47 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGMR);
   MEMORY[0x28223BE20](v5);
   v52 = &v47 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGMR);
   v59 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
   v51 = &v47 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9);
   v50 = &v47 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMR);
   MEMORY[0x28223BE20](v11 - 8);
   v58 = &v47 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v13);
   v15 = &v47 - v14;
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ListVys5NeverOAA9TupleViewVyAA7SectionVyAA05EmptyF0VAGyAA0F0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAmAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAmAE0P14Representation14representationQrqd__yXE_tAaLRd__lFQOyARyAmAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyAZG_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ARyA6_yAKGAA0S18AttachmentModifierVGQo_tGG_Qo_AA01_O13ShapeModifierVyAA9RectangleVGG_Qo__AmAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAmAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAKSiAA7ForEachVySaySiGSiAmAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAZ_SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideC12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAKG_AIyAkRyA47_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAmAE0P7ActionsyQrqd__yXEAaLRd__lFQOyARyAmAEAsTQrAV_tFQOyAXyAGyA57_14WorkoutStepRowV_A0_ARyAA5ImageVA16_GtGG_Qo_A20_G_AGyA7_Sg_A83_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAKGSgtGGMd);
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ListVys5NeverOAA9TupleViewVyAA7SectionVyAA05EmptyF0VAGyAA0F0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAmAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAmAE0P14Representation14representationQrqd__yXE_tAaLRd__lFQOyARyAmAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyAZG_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ARyA6_yAKGAA0S18AttachmentModifierVGQo_tGG_Qo_AA01_O13ShapeModifierVyAA9RectangleVGG_Qo__AmAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAmAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAKSiAA7ForEachVySaySiGSiAmAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAZ_SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideC12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAKG_AIyAkRyA47_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAmAE0P7ActionsyQrqd__yXEAaLRd__lFQOyARyAmAEAsTQrAV_tFQOyAXyAGyA57_14WorkoutStepRowV_A0_ARyAA5ImageVA16_GtGG_Qo_A20_G_AGyA7_Sg_A83_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAKGSgtGGMd, &_s7SwiftUI4ListVys5NeverOAA9TupleViewVyAA7SectionVyAA05EmptyF0VAGyAA0F0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAmAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAmAE0P14Representation14representationQrqd__yXE_tAaLRd__lFQOyARyAmAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyAZG_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ARyA6_yAKGAA0S18AttachmentModifierVGQo_tGG_Qo_AA01_O13ShapeModifierVyAA9RectangleVGG_Qo__AmAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAmAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAKSiAA7ForEachVySaySiGSiAmAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAZ_SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideC12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAKG_AIyAkRyA47_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAmAE0P7ActionsyQrqd__yXEAaLRd__lFQOyARyAmAEAsTQrAV_tFQOyAXyAGyA57_14WorkoutStepRowV_A0_ARyAA5ImageVA16_GtGG_Qo_A20_G_AGyA7_Sg_A83_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAKGSgtGGMR);
   v55 = *(v56 - 8);
   MEMORY[0x28223BE20](v56);
   v57 = &v47 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v17);
   v19 = &v47 - v18;
   v61 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA7SectionVyAA05EmptyD0VACyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAGGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAGSiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAGG_AEyAgNyA43_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAiAE0N7ActionsyQrqd__yXEAaHRd__lFQOyANyAiAEAoPQrAR_tFQOyATyACyA53_14WorkoutStepRowV_AxNyAA5ImageVA12_GtGG_Qo_A16_G_ACyA3_Sg_A79_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAGGSgtGMd);
-  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA7SectionVyAA05EmptyD0VACyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAGGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAGSiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAGG_AEyAgNyA43_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAiAE0N7ActionsyQrqd__yXEAaHRd__lFQOyANyAiAEAoPQrAR_tFQOyATyACyA53_14WorkoutStepRowV_AxNyAA5ImageVA12_GtGG_Qo_A16_G_ACyA3_Sg_A79_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAGGSgtGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA7SectionVyAA05EmptyD0VACyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAGGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAGSiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAGG_AEyAgNyA43_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAiAE0N7ActionsyQrqd__yXEAaHRd__lFQOyANyAiAEAoPQrAR_tFQOyATyACyA53_14WorkoutStepRowV_AxNyAA5ImageVA12_GtGG_Qo_A16_G_ACyA3_Sg_A79_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAGGSgtGMd, &_s7SwiftUI9TupleViewVyAA7SectionVyAA05EmptyD0VACyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAGGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAGSiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAGG_AEyAgNyA43_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAiAE0N7ActionsyQrqd__yXEAaHRd__lFQOyANyAiAEAoPQrAR_tFQOyATyACyA53_14WorkoutStepRowV_AxNyAA5ImageVA12_GtGG_Qo_A16_G_ACyA3_Sg_A79_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAGGSgtGMR);
+  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>( &lazy protocol witness table cache variable for type TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)> and conformance TupleView<A>,  &_s7SwiftUI9TupleViewVyAA7SectionVyAA05EmptyD0VACyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAGGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAGSiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAGG_AEyAgNyA43_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAiAE0N7ActionsyQrqd__yXEAaHRd__lFQOyANyAiAEAoPQrAR_tFQOyATyACyA53_14WorkoutStepRowV_AxNyAA5ImageVA12_GtGG_Qo_A16_G_ACyA3_Sg_A79_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAGGSgtGMd,  &_s7SwiftUI9TupleViewVyAA7SectionVyAA05EmptyD0VACyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAGGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAGSiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAGG_AEyAgNyA43_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAiAE0N7ActionsyQrqd__yXEAaHRd__lFQOyANyAiAEAoPQrAR_tFQOyATyACyA53_14WorkoutStepRowV_AxNyAA5ImageVA12_GtGG_Qo_A16_G_ACyA3_Sg_A79_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAGGSgtGMR,  MEMORY[0x277CE14C0]);
   v20 = v19;
   List<>.init(content:)();
   if (*(a1 + 104))
@@ -3428,17 +435,17 @@ uint64_t closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, char
     MEMORY[0x28223BE20](v21);
     *(&v47 - 2) = a1;
     outlined init with copy of RepeatPickerPhone(a1, v63);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4TextVAA16_FlexFrameLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4TextVAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA4TextVAA16_FlexFrameLayoutVGMR);
     lazy protocol witness table accessor for type ModifiedContent<Text, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
     Button.init(action:label:)();
     v63[0] = *a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd, &_s7SwiftUI5StateVySiGMR);
     State.wrappedValue.getter();
     v25 = v62;
     if (v25 == WorkoutBlock.repetitions.getter())
     {
       v63[0] = *(a1 + 32);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd, &_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMR);
       State.wrappedValue.getter();
       v26 = v62;
       v27 = WorkoutBlock.steps.getter();
@@ -3460,11 +467,11 @@ uint64_t closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, char
     v33[1] = _s7SwiftUI4ViewPAAE8disabledyQrSbFySbzcfU_TA_19;
     v33[2] = v31;
     v34 = v51;
-    outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(v32, v51, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+    outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(v32, v51, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGMR);
     v35 = v34;
     v36 = v50;
-    outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(v35, v50, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGMd);
-    outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(v36, v15, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGMd);
+    outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(v35, v50, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGMR);
+    outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(v36, v15, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGMR);
     v29 = 0;
     v7 = v49;
   }
@@ -3481,34 +488,34 @@ uint64_t closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, char
   v40 = v56;
   v38(v57, v19, v56);
   v41 = v58;
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v15, v58, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v15, v58, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMR);
   v42 = v60;
   v38(v60, v39, v40);
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ListVys5NeverOAA9TupleViewVyAA7SectionVyAA05EmptyF0VAGyAA0F0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAmAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAmAE0P14Representation14representationQrqd__yXE_tAaLRd__lFQOyARyAmAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyAZG_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ARyA6_yAKGAA0S18AttachmentModifierVGQo_tGG_Qo_AA01_O13ShapeModifierVyAA9RectangleVGG_Qo__AmAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAmAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAKSiAA7ForEachVySaySiGSiAmAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAZ_SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideC12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAKG_AIyAkRyA47_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAmAE0P7ActionsyQrqd__yXEAaLRd__lFQOyARyAmAEAsTQrAV_tFQOyAXyAGyA57_14WorkoutStepRowV_A0_ARyAA5ImageVA16_GtGG_Qo_A20_G_AGyA7_Sg_A83_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAKGSgtGG_A0_ARyARyA6_yARyAzA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA57_31PinnedBottomButtonModifierPhoneVGSgtMd);
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ListVys5NeverOAA9TupleViewVyAA7SectionVyAA05EmptyF0VAGyAA0F0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAmAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAmAE0P14Representation14representationQrqd__yXE_tAaLRd__lFQOyARyAmAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyAZG_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ARyA6_yAKGAA0S18AttachmentModifierVGQo_tGG_Qo_AA01_O13ShapeModifierVyAA9RectangleVGG_Qo__AmAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAmAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAKSiAA7ForEachVySaySiGSiAmAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAZ_SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideC12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAKG_AIyAkRyA47_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAmAE0P7ActionsyQrqd__yXEAaLRd__lFQOyARyAmAEAsTQrAV_tFQOyAXyAGyA57_14WorkoutStepRowV_A0_ARyAA5ImageVA16_GtGG_Qo_A20_G_AGyA7_Sg_A83_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAKGSgtGG_A0_ARyARyA6_yARyAzA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA57_31PinnedBottomButtonModifierPhoneVGSgtMd, &_s7SwiftUI4ListVys5NeverOAA9TupleViewVyAA7SectionVyAA05EmptyF0VAGyAA0F0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAmAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAmAE0P14Representation14representationQrqd__yXE_tAaLRd__lFQOyARyAmAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyAZG_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ARyA6_yAKGAA0S18AttachmentModifierVGQo_tGG_Qo_AA01_O13ShapeModifierVyAA9RectangleVGG_Qo__AmAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAmAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAKSiAA7ForEachVySaySiGSiAmAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAZ_SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideC12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAKG_AIyAkRyA47_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAmAE0P7ActionsyQrqd__yXEAaLRd__lFQOyARyAmAEAsTQrAV_tFQOyAXyAGyA57_14WorkoutStepRowV_A0_ARyAA5ImageVA16_GtGG_Qo_A20_G_AGyA7_Sg_A83_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAKGSgtGG_A0_ARyARyA6_yARyAzA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA57_31PinnedBottomButtonModifierPhoneVGSgtMR);
   v44 = &v42[*(v43 + 48)];
   *v44 = 0;
   v44[8] = 1;
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v41, &v42[*(v43 + 64)], &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd);
-  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v15, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v41, &v42[*(v43 + 64)], &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMR);
+  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v15, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMR);
   v45 = *(v37 + 8);
   v45(v20, v40);
-  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v41, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd);
+  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v41, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA4TextVAA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGG07WorkoutB0012PinnedBottomeM5PhoneVGSgMR);
   return (v45)(v39, v40);
 }
 
 uint64_t closure #1 in closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v39 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGMR);
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v35 = &v34 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMR);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9);
   v11 = &v34 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAEGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAESiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAEGMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAEGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAESiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAEGMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAEGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAESiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAEGMR);
   v36 = *(v12 - 8);
   v37 = v12;
   MEMORY[0x28223BE20](v12);
@@ -3516,8 +523,8 @@ uint64_t closure #1 in closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t
   MEMORY[0x28223BE20](v14);
   v16 = &v34 - v15;
   v40 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAeAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAeAE0L14Representation14representationQrqd__yXE_tAaDRd__lFQOyAJyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AJyAZyAA05EmptyD0VGAA0O18AttachmentModifierVGQo_tGG_Qo_AA01_K13ShapeModifierVyAA9RectangleVGG_Qo__AeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAJyAeAE06pickerX0yQrqd__AA06PickerX0Rd__lFQOyAA6PickerVyA11_SiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SiQo_GG_AA011WheelPickerX0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGMd);
-  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAeAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAeAE0L14Representation14representationQrqd__yXE_tAaDRd__lFQOyAJyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AJyAZyAA05EmptyD0VGAA0O18AttachmentModifierVGQo_tGG_Qo_AA01_K13ShapeModifierVyAA9RectangleVGG_Qo__AeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAJyAeAE06pickerX0yQrqd__AA06PickerX0Rd__lFQOyAA6PickerVyA11_SiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SiQo_GG_AA011WheelPickerX0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAeAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAeAE0L14Representation14representationQrqd__yXE_tAaDRd__lFQOyAJyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AJyAZyAA05EmptyD0VGAA0O18AttachmentModifierVGQo_tGG_Qo_AA01_K13ShapeModifierVyAA9RectangleVGG_Qo__AeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAJyAeAE06pickerX0yQrqd__AA06PickerX0Rd__lFQOyAA6PickerVyA11_SiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SiQo_GG_AA011WheelPickerX0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAeAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAeAE0L14Representation14representationQrqd__yXE_tAaDRd__lFQOyAJyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AJyAZyAA05EmptyD0VGAA0O18AttachmentModifierVGQo_tGG_Qo_AA01_K13ShapeModifierVyAA9RectangleVGG_Qo__AeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAJyAeAE06pickerX0yQrqd__AA06PickerX0Rd__lFQOyAA6PickerVyA11_SiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SiQo_GG_AA011WheelPickerX0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGMR);
+  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAeAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAeAE0L14Representation14representationQrqd__yXE_tAaDRd__lFQOyAJyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AJyAZyAA05EmptyD0VGAA0O18AttachmentModifierVGQo_tGG_Qo_AA01_K13ShapeModifierVyAA9RectangleVGG_Qo__AeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAJyAeAE06pickerX0yQrqd__AA06PickerX0Rd__lFQOyAA6PickerVyA11_SiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SiQo_GG_AA011WheelPickerX0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAeAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAeAE0L14Representation14representationQrqd__yXE_tAaDRd__lFQOyAJyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AJyAZyAA05EmptyD0VGAA0O18AttachmentModifierVGQo_tGG_Qo_AA01_K13ShapeModifierVyAA9RectangleVGG_Qo__AeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAJyAeAE06pickerX0yQrqd__AA06PickerX0Rd__lFQOyAA6PickerVyA11_SiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SiQo_GG_AA011WheelPickerX0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGMR, MEMORY[0x277CE14C0]);
   v17 = v16;
   Section<>.init(content:)();
   v18 = WorkoutBlock.steps.getter();
@@ -3546,7 +553,7 @@ LABEL_5:
 LABEL_3:
   MEMORY[0x28223BE20](v20);
   *(&v34 - 2) = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaMRd__lFQOyACyAnAE0M7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleL0Vy0gB00gI3RowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GAA21_TraitWritingModifierVyAA011OnMoveTraitZ0VGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaMRd__lFQOyACyAnAE0M7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleL0Vy0gB00gI3RowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GAA21_TraitWritingModifierVyAA011OnMoveTraitZ0VGGMd, &_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaMRd__lFQOyACyAnAE0M7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleL0Vy0gB00gI3RowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GAA21_TraitWritingModifierVyAA011OnMoveTraitZ0VGGMR);
   lazy protocol witness table accessor for type ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>> and conformance <> ModifiedContent<A, B>();
   v21 = v35;
   Section<>.init(content:)();
@@ -3560,34 +567,34 @@ LABEL_6:
   v27 = *(v36 + 16);
   v28 = v38;
   v27(v38, v17, v37);
-  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v22, v8, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd);
+  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v22, v8, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMR);
   v29 = v8;
   v30 = v39;
   v27(v39, v28, v26);
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAEGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAESiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAEG_ACyAeNyA43_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAiAE0N7ActionsyQrqd__yXEAaHRd__lFQOyANyAiAEAoPQrAR_tFQOyATyAGyA53_14WorkoutStepRowV_AxNyAA5ImageVA12_GtGG_Qo_A16_G_AGyA3_Sg_A79_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgtMd);
-  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v29, &v30[*(v31 + 48)], &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd);
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v22, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAEGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAESiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAEG_ACyAeNyA43_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAiAE0N7ActionsyQrqd__yXEAaHRd__lFQOyANyAiAEAoPQrAR_tFQOyATyAGyA53_14WorkoutStepRowV_AxNyAA5ImageVA12_GtGG_Qo_A16_G_AGyA3_Sg_A79_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgtMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAiAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAiAE0N14Representation14representationQrqd__yXE_tAaHRd__lFQOyANyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonZ0Rd__lFQOyAA6ButtonVyAVG_AA014BorderedButtonZ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ANyA2_yAEGAA0Q18AttachmentModifierVGQo_tGG_Qo_AA01_M13ShapeModifierVyAA9RectangleVGG_Qo__AiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyANyAiAE06pickerZ0yQrqd__AA06PickerZ0Rd__lFQOyAA6PickerVyAESiAA7ForEachVySaySiGSiAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAV_SiQo_GG_AA011WheelPickerZ0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAEG_ACyAeNyA43_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAiAE0N7ActionsyQrqd__yXEAaHRd__lFQOyANyAiAEAoPQrAR_tFQOyATyAGyA53_14WorkoutStepRowV_AxNyAA5ImageVA12_GtGG_Qo_A16_G_AGyA3_Sg_A79_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgtMR);
+  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v29, &v30[*(v31 + 48)], &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMR);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v22, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMR);
   v32 = *(v25 + 8);
   v32(v17, v26);
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v29, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v29, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0J4StepCG10Foundation4UUIDVAA0E0PAAE20accessibilityActionsyQrqd__yXEAaQRd__lFQOyAGyArAE0O7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy0jB00jL3RowV_AA6SpacerVAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0S18AttachmentModifierVG_A_yAA6ButtonVyAA4TextVGSg_A25_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAEGSgMR);
   return (v32)(v28, v26);
 }
 
-uint64_t closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+uint64_t closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter@<X0>(__int128 *a1@<X0>, uint64_t a2@<X8>)
 {
   v61 = a2;
   v54 = type metadata accessor for WheelPickerStyle();
   v53 = *(v54 - 8);
   MEMORY[0x28223BE20](v54);
   v52 = &v46 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd);
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMR);
   v50 = *(v51 - 8);
   MEMORY[0x28223BE20](v51);
   v47 = &v46 - v4;
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelhG0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVGMd);
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelhG0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelhG0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVGMR);
   MEMORY[0x28223BE20](v49);
   v48 = &v46 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMR);
   MEMORY[0x28223BE20](v6 - 8);
   v60 = &v46 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v8);
@@ -3596,13 +603,13 @@ uint64_t closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter
   v10 = *(v57 - 8);
   MEMORY[0x28223BE20](v57);
   v12 = &v46 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMR);
   MEMORY[0x28223BE20](v13);
   v15 = &v46 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0VyAA4TextV_AA6SpacerVAeAE0F14Representation14representationQrqd__yXE_tAaDRd__lFQOyACyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAA0U0VyAOG_AA08BordereduS0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyAWyAA05EmptyE0VGAA0i10AttachmentZ0VGQo_tGG_Qo_AA01_d5ShapeZ0VyAA9RectangleVGGMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0VyAA4TextV_AA6SpacerVAeAE0F14Representation14representationQrqd__yXE_tAaDRd__lFQOyACyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAA0U0VyAOG_AA08BordereduS0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyAWyAA05EmptyE0VGAA0i10AttachmentZ0VGQo_tGG_Qo_AA01_d5ShapeZ0VyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0VyAA4TextV_AA6SpacerVAeAE0F14Representation14representationQrqd__yXE_tAaDRd__lFQOyACyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAA0U0VyAOG_AA08BordereduS0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyAWyAA05EmptyE0VGAA0i10AttachmentZ0VGQo_tGG_Qo_AA01_d5ShapeZ0VyAA9RectangleVGGMR);
   MEMORY[0x28223BE20](v16);
   v18 = &v46 - v17;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAcAE0K14Representation14representationQrqd__yXE_tAaBRd__lFQOyAHyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AHyAZyAA05EmptyC0VGAA0N18AttachmentModifierVGQo_tGG_Qo_AA01_J13ShapeModifierVyAA9RectangleVGG_Qo_Md);
+  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAcAE0K14Representation14representationQrqd__yXE_tAaBRd__lFQOyAHyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AHyAZyAA05EmptyC0VGAA0N18AttachmentModifierVGQo_tGG_Qo_AA01_J13ShapeModifierVyAA9RectangleVGG_Qo_Md, &_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAcAE0K14Representation14representationQrqd__yXE_tAaBRd__lFQOyAHyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AHyAZyAA05EmptyC0VGAA0N18AttachmentModifierVGQo_tGG_Qo_AA01_J13ShapeModifierVyAA9RectangleVGG_Qo_MR);
   v56 = *(v59 - 8);
   MEMORY[0x28223BE20](v59);
   v58 = &v46 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3611,26 +618,26 @@ uint64_t closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter
   *v15 = static VerticalAlignment.center.getter();
   *(v15 + 1) = 0;
   v15[16] = 1;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA4TextV_AA6SpacerVAA0D0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaNRd__lFQOyAA15ModifiedContentVyAoAE11buttonStyleyQrqd__AA015PrimitiveButtonQ0Rd__lFQOyAA0S0VyAKG_AA08BorderedsQ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ASyAWyAA05EmptyD0VGAA023AccessibilityAttachmentX0VGQo_tGGMd);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA4TextV_AA6SpacerVAA0D0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaNRd__lFQOyAA15ModifiedContentVyAoAE11buttonStyleyQrqd__AA015PrimitiveButtonQ0Rd__lFQOyAA0S0VyAKG_AA08BorderedsQ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ASyAWyAA05EmptyD0VGAA023AccessibilityAttachmentX0VGQo_tGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA4TextV_AA6SpacerVAA0D0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaNRd__lFQOyAA15ModifiedContentVyAoAE11buttonStyleyQrqd__AA015PrimitiveButtonQ0Rd__lFQOyAA0S0VyAKG_AA08BorderedsQ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ASyAWyAA05EmptyD0VGAA023AccessibilityAttachmentX0VGQo_tGGMR);
   closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter(a1, &v15[*(v23 + 44)]);
   static AccessibilityChildBehavior.combine.getter();
-  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(Text, Spacer, <<opaque return type of View.accessibilityRepresentation<A>(representation:)>>.0)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd);
+  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(Text, Spacer, <<opaque return type of View.accessibilityRepresentation<A>(representation:)>>.0)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMR, MEMORY[0x277CE1138]);
   View.accessibilityElement(children:)();
   (*(v10 + 8))(v12, v57);
   v24 = 1;
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v15, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v15, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMR);
   v18[*(v16 + 36)] = 0;
   v25 = swift_allocObject();
-  v26 = *(a1 + 80);
-  *(v25 + 80) = *(a1 + 64);
+  v26 = a1[5];
+  *(v25 + 80) = a1[4];
   *(v25 + 96) = v26;
-  *(v25 + 112) = *(a1 + 96);
-  *(v25 + 128) = *(a1 + 112);
-  v27 = *(a1 + 16);
+  *(v25 + 112) = a1[6];
+  *(v25 + 128) = *(a1 + 14);
+  v27 = a1[1];
   *(v25 + 16) = *a1;
   *(v25 + 32) = v27;
-  v28 = *(a1 + 48);
-  *(v25 + 48) = *(a1 + 32);
+  v28 = a1[3];
+  *(v25 + 48) = a1[2];
   *(v25 + 64) = v28;
   outlined init with copy of RepeatPickerPhone(a1, &v63);
   lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>();
@@ -3638,22 +645,22 @@ uint64_t closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter
   v29 = v55;
   View.onTapGesture(count:perform:)();
 
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v18, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0VyAA4TextV_AA6SpacerVAeAE0F14Representation14representationQrqd__yXE_tAaDRd__lFQOyACyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAA0U0VyAOG_AA08BordereduS0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyAWyAA05EmptyE0VGAA0i10AttachmentZ0VGQo_tGG_Qo_AA01_d5ShapeZ0VyAA9RectangleVGGMd);
-  v63 = *(a1 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v18, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0VyAA4TextV_AA6SpacerVAeAE0F14Representation14representationQrqd__yXE_tAaDRd__lFQOyACyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAA0U0VyAOG_AA08BordereduS0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyAWyAA05EmptyE0VGAA0i10AttachmentZ0VGQo_tGG_Qo_AA01_d5ShapeZ0VyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0VyAA4TextV_AA6SpacerVAeAE0F14Representation14representationQrqd__yXE_tAaDRd__lFQOyACyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAA0U0VyAOG_AA08BordereduS0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyAWyAA05EmptyE0VGAA0i10AttachmentZ0VGQo_tGG_Qo_AA01_d5ShapeZ0VyAA9RectangleVGGMR);
+  v63 = a1[1];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   if (v62 == 1)
   {
     v62 = *a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd, &_s7SwiftUI5StateVySiGMR);
     State.projectedValue.getter();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd, _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMR);
     lazy protocol witness table accessor for type ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0> and conformance <> ForEach<A, B, C>();
     v30 = v47;
     Picker.init(selection:label:content:)();
     v31 = v52;
     WheelPickerStyle.init()();
-    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd);
+    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMR, MEMORY[0x277CDF038]);
     v32 = v48;
     v33 = v51;
     v34 = v54;
@@ -3663,11 +670,11 @@ uint64_t closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter
     static Edge.Set.top.getter();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.pickerStyle<A>(_:)>>.0, HideListRowSeparator> and conformance <> ModifiedContent<A, B>();
     View.listRowInsets(_:_:)();
-    outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v32, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelhG0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVGMd);
+    outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v32, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelhG0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSiAA7ForEachVySaySiGSiAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelhG0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVGMR);
     v24 = 0;
   }
 
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_Md);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_Md, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_MR);
   (*(*(v35 - 8) + 56))(v29, v24, 1, v35);
   v36 = v56;
   v37 = *(v56 + 16);
@@ -3676,33 +683,33 @@ uint64_t closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter
   v40 = v57;
   v37(v58, v57, v59);
   v41 = v60;
-  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v29, v60, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd);
+  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v29, v60, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMR);
   v42 = v61;
   v37(v61, v39, v38);
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAcAE0K14Representation14representationQrqd__yXE_tAaBRd__lFQOyAHyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AHyAZyAA05EmptyC0VGAA0N18AttachmentModifierVGQo_tGG_Qo_AA01_J13ShapeModifierVyAA9RectangleVGG_Qo__AcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAHyAcAE06pickerX0yQrqd__AA06PickerX0Rd__lFQOyAA6PickerVyA11_SiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SiQo_GG_AA011WheelPickerX0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtMd);
-  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v41, &v42[*(v43 + 48)], &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd);
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v29, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd);
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAcAE0K14Representation14representationQrqd__yXE_tAaBRd__lFQOyAHyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AHyAZyAA05EmptyC0VGAA0N18AttachmentModifierVGQo_tGG_Qo_AA01_J13ShapeModifierVyAA9RectangleVGG_Qo__AcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAHyAcAE06pickerX0yQrqd__AA06PickerX0Rd__lFQOyAA6PickerVyA11_SiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SiQo_GG_AA011WheelPickerX0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtMd, _s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAcAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAcAE0K14Representation14representationQrqd__yXE_tAaBRd__lFQOyAHyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonX0Rd__lFQOyAA0Z0VyARG_AA08BorderedzX0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AHyAZyAA05EmptyC0VGAA0N18AttachmentModifierVGQo_tGG_Qo_AA01_J13ShapeModifierVyAA9RectangleVGG_Qo__AcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAHyAcAE06pickerX0yQrqd__AA06PickerX0Rd__lFQOyAA6PickerVyA11_SiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SiQo_GG_AA011WheelPickerX0VQo_07WorkoutB020HideListRowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtMR);
+  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v41, v42 + *(v43 + 48), &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMR);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v29, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMR);
   v44 = *(v36 + 8);
   v44(v40, v38);
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v41, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v41, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMd, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05WheelpO0VQo_07WorkoutB008HideListE9Separator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgMR);
   return (v44)(v39, v38);
 }
 
-uint64_t closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+double closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v41 = a2;
   v47 = type metadata accessor for BorderedButtonStyle();
   v45 = *(v47 - 8);
   MEMORY[0x28223BE20](v47);
   v44 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd);
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR);
   v42 = *(v43 - 8);
   MEMORY[0x28223BE20](v43);
   v5 = &v37 - v4;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA4TextVG_AA08BorderediG0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA4TextVG_AA08BorderediG0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA4TextVG_AA08BorderediG0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
   MEMORY[0x28223BE20](v46);
   v7 = &v37 - v6;
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE27accessibilityRepresentation14representationQrqd__yXE_tAaBRd__lFQOyAA15ModifiedContentVyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonJ0Rd__lFQOyAA0L0VyAA4TextVG_AA08BorderedlJ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AGyAKyAA05EmptyC0VGAA023AccessibilityAttachmentR0VGQo_Md);
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE27accessibilityRepresentation14representationQrqd__yXE_tAaBRd__lFQOyAA15ModifiedContentVyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonJ0Rd__lFQOyAA0L0VyAA4TextVG_AA08BorderedlJ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AGyAKyAA05EmptyC0VGAA023AccessibilityAttachmentR0VGQo_Md, &_s7SwiftUI4ViewPAAE27accessibilityRepresentation14representationQrqd__yXE_tAaBRd__lFQOyAA15ModifiedContentVyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonJ0Rd__lFQOyAA0L0VyAA4TextVG_AA08BorderedlJ0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AGyAKyAA05EmptyC0VGAA023AccessibilityAttachmentR0VGQo_MR);
   v8 = *(v49 - 8);
   MEMORY[0x28223BE20](v49);
   v48 = &v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3737,8 +744,8 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPho
   Button.init(action:label:)();
   v21 = v44;
   BorderedButtonStyle.init()();
-  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type Button<Text> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA4TextVGMd);
-  _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(&lazy protocol witness table cache variable for type BorderedButtonStyle and conformance BorderedButtonStyle, MEMORY[0x277CDDEE0]);
+  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type Button<Text> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR, MEMORY[0x277CDF028]);
+  _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(&lazy protocol witness table cache variable for type BorderedButtonStyle and conformance BorderedButtonStyle, MEMORY[0x277CDDEE0], MEMORY[0x277CDDED0]);
   v22 = v43;
   v23 = v47;
   View.buttonStyle<A>(_:)();
@@ -3749,12 +756,12 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPho
   *v25 = KeyPath;
   v25[1] = 0;
   MEMORY[0x28223BE20](KeyPath);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA9EmptyViewVGAA31AccessibilityAttachmentModifierVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA9EmptyViewVGAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA9EmptyViewVGAA31AccessibilityAttachmentModifierVGMR);
   lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyWritingModifier<Color?>> and conformance <> ModifiedContent<A, B>();
   lazy protocol witness table accessor for type ModifiedContent<Button<EmptyView>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>();
   v26 = v50;
   View.accessibilityRepresentation<A>(representation:)();
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v7, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA4TextVG_AA08BorderediG0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v7, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA4TextVG_AA08BorderediG0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA4TextVG_AA08BorderediG0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
   v27 = *(v8 + 16);
   v28 = v48;
   v29 = v49;
@@ -3769,7 +776,7 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPho
   v31[3] = v40;
   v31[4] = 0;
   *(v31 + 40) = 1;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4TextV_AA6SpacerVAA4ViewPAAE27accessibilityRepresentation14representationQrqd__yXE_tAaFRd__lFQOyAA15ModifiedContentVyAgAE11buttonStyleyQrqd__AA015PrimitiveButtonL0Rd__lFQOyAA0N0VyACG_AA08BorderednL0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AKyAOyAA05EmptyE0VGAA023AccessibilityAttachmentS0VGQo_tMd);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4TextV_AA6SpacerVAA4ViewPAAE27accessibilityRepresentation14representationQrqd__yXE_tAaFRd__lFQOyAA15ModifiedContentVyAgAE11buttonStyleyQrqd__AA015PrimitiveButtonL0Rd__lFQOyAA0N0VyACG_AA08BorderednL0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AKyAOyAA05EmptyE0VGAA023AccessibilityAttachmentS0VGQo_tMd, &_s7SwiftUI4TextV_AA6SpacerVAA4ViewPAAE27accessibilityRepresentation14representationQrqd__yXE_tAaFRd__lFQOyAA15ModifiedContentVyAgAE11buttonStyleyQrqd__AA015PrimitiveButtonL0Rd__lFQOyAA0N0VyACG_AA08BorderednL0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AKyAOyAA05EmptyE0VGAA023AccessibilityAttachmentS0VGQo_tMR);
   v27(v31 + *(v34 + 64), v28, v29);
   outlined copy of Text.Storage(v30, v32, v33);
   v35 = *(v8 + 8);
@@ -3777,27 +784,29 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPho
   v35(v50, v29);
   v35(v28, v29);
   outlined consume of Text.Storage(v30, v32, v33);
+
+  return result;
 }
 
-uint64_t closure #2 in closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
+void closure #2 in closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter(uint64_t a2@<X8>)
 {
-  v2 = type metadata accessor for LocalizedStringKey.StringInterpolation();
-  MEMORY[0x28223BE20](v2 - 8);
+  v3 = type metadata accessor for LocalizedStringKey.StringInterpolation();
+  MEMORY[0x28223BE20](v3 - 8);
   LocalizedStringKey.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v3._countAndFlagsBits = 0;
-  v3._object = 0xE000000000000000;
-  LocalizedStringKey.StringInterpolation.appendLiteral(_:)(v3);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd);
-  State.wrappedValue.getter();
-  LocalizedStringKey.StringInterpolation.appendInterpolation<A>(_:specifier:)();
   v4._countAndFlagsBits = 0;
   v4._object = 0xE000000000000000;
   LocalizedStringKey.StringInterpolation.appendLiteral(_:)(v4);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd, &_s7SwiftUI5StateVySiGMR);
+  State.wrappedValue.getter();
+  LocalizedStringKey.StringInterpolation.appendInterpolation<A>(_:specifier:)();
+  v5._countAndFlagsBits = 0;
+  v5._object = 0xE000000000000000;
+  LocalizedStringKey.StringInterpolation.appendLiteral(_:)(v5);
   LocalizedStringKey.init(stringInterpolation:)();
-  v5 = Text.init(_:tableName:bundle:comment:)();
-  v7 = v6;
-  v9 = v8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  v6 = Text.init(_:tableName:bundle:comment:)();
+  v8 = v7;
+  v10 = v9;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   if (v18 == 1)
   {
@@ -3810,24 +819,23 @@ uint64_t closure #2 in closure #1 in closure #1 in closure #1 in closure #1 in R
     static Color.white.getter();
   }
 
-  v10 = Text.foregroundStyle<A>(_:)();
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  outlined consume of Text.Storage(v5, v7, v9 & 1);
+  v11 = Text.foregroundStyle<A>(_:)();
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  outlined consume of Text.Storage(v6, v8, v10 & 1);
 
-  *a1 = v10;
-  *(a1 + 8) = v12;
-  *(a1 + 16) = v14 & 1;
-  *(a1 + 24) = v16;
-  return result;
+  *a2 = v11;
+  *(a2 + 8) = v13;
+  *(a2 + 16) = v15 & 1;
+  *(a2 + 24) = v17;
 }
 
 uint64_t closure #3 in closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter(uint64_t a1)
 {
   v2 = type metadata accessor for LocalizedStringKey.StringInterpolation();
   MEMORY[0x28223BE20](v2 - 8);
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA9EmptyViewVGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA9EmptyViewVGMd, &_s7SwiftUI6ButtonVyAA9EmptyViewVGMR);
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v6 = v15 - v5;
@@ -3850,14 +858,14 @@ uint64_t closure #3 in closure #1 in closure #1 in closure #1 in closure #1 in R
   v11._object = 0xE000000000000000;
   LocalizedStringKey.StringInterpolation.appendLiteral(_:)(v11);
   v15[0] = *a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd, &_s7SwiftUI5StateVySiGMR);
   State.wrappedValue.getter();
   LocalizedStringKey.StringInterpolation.appendInterpolation<A>(_:specifier:)();
   v12._countAndFlagsBits = 0;
   v12._object = 0xE000000000000000;
   LocalizedStringKey.StringInterpolation.appendLiteral(_:)(v12);
   LocalizedStringKey.init(stringInterpolation:)();
-  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type Button<EmptyView> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA9EmptyViewVGMd);
+  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type Button<EmptyView> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA9EmptyViewVGMd, &_s7SwiftUI6ButtonVyAA9EmptyViewVGMR, MEMORY[0x277CDF028]);
   View.accessibilityValue(_:)();
 
   return (*(v4 + 8))(v6, v3);
@@ -3868,27 +876,29 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in closure #1 in c
   v3 = *(a1 + 16);
   v2[1] = *(a1 + 16);
   v4 = *(&v3 + 1);
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v4, v2, &_s7SwiftUI11AnyLocationCySbGSgMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v4, v2, &_s7SwiftUI11AnyLocationCySbGSgMd, &_s7SwiftUI11AnyLocationCySbGSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   v2[0] = v3;
   State.wrappedValue.setter();
-  return outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v3, &_s7SwiftUI5StateVySbGMd);
+  return outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v3, &_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
 }
 
-uint64_t closure #1 in closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter()
+double closure #1 in closure #1 in closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter(uint64_t a1, uint64_t a2, double a3)
 {
   static Animation.default.getter();
   withAnimation<A>(_:_:)();
+
+  return result;
 }
 
 uint64_t closure #3 in closure #1 in closure #1 in closure #1 in RepeatPickerPhone.body.getter()
 {
   specialized _copySequenceToContiguousArray<A>(_:)(2, 99, 1);
   swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_Md);
-  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_Md, &_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_MR);
+  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd, &_sSaySiGMR, MEMORY[0x277D83980]);
   swift_getOpaqueTypeConformance2();
   return ForEach<>.init(_:id:content:)();
 }
@@ -3920,7 +930,7 @@ uint64_t closure #1 in closure #3 in closure #1 in closure #1 in closure #1 in R
 uint64_t closure #2 in closure #1 in closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v19 = *(a1 + 32);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd, &_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMR);
   State.wrappedValue.getter();
   v4 = swift_allocObject();
   v5 = *(a1 + 80);
@@ -3935,12 +945,12 @@ uint64_t closure #2 in closure #1 in closure #1 in RepeatPickerPhone.body.getter
   *(v4 + 48) = *(a1 + 32);
   *(v4 + 64) = v7;
   outlined init with copy of RepeatPickerPhone(a1, &v19);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11WorkoutCore0A4StepCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
   type metadata accessor for UUID();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE20accessibilityActionsyQrqd__yXEAaBRd__lFQOyAA15ModifiedContentVyAcAE0D7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0Vy07WorkoutB00O7StepRowV_AA6SpacerVAFyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0j10AttachmentW0VG_ANyAA6ButtonVyAA4TextVGSg_A12_tGSgQo_Md);
-  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [WorkoutStep] and conformance [A], &_sSay11WorkoutCore0A4StepCGMd);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMd);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE20accessibilityActionsyQrqd__yXEAaBRd__lFQOyAA15ModifiedContentVyAcAE0D7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0Vy07WorkoutB00O7StepRowV_AA6SpacerVAFyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0j10AttachmentW0VG_ANyAA6ButtonVyAA4TextVGSg_A12_tGSgQo_Md, &_s7SwiftUI4ViewPAAE20accessibilityActionsyQrqd__yXEAaBRd__lFQOyAA15ModifiedContentVyAcAE0D7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0Vy07WorkoutB00O7StepRowV_AA6SpacerVAFyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0j10AttachmentW0VG_ANyAA6ButtonVyAA4TextVGSg_A12_tGSgQo_MR);
+  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [WorkoutStep] and conformance [A], &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR, MEMORY[0x277D83980]);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMR);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGSgMd, &_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGSgMR);
   v10 = lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>();
   v11 = lazy protocol witness table accessor for type TupleView<(Button<Text>?, Button<Text>?)>? and conformance <A> A?();
   *&v19 = v8;
@@ -3948,7 +958,7 @@ uint64_t closure #2 in closure #1 in closure #1 in RepeatPickerPhone.body.getter
   v20 = v10;
   v21 = v11;
   swift_getOpaqueTypeConformance2();
-  _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(&lazy protocol witness table cache variable for type WorkoutStep and conformance WorkoutStep, MEMORY[0x277D7DD30]);
+  _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(&lazy protocol witness table cache variable for type WorkoutStep and conformance WorkoutStep, MEMORY[0x277D7DD30], MEMORY[0x277D7DD40]);
   ForEach<>.init(_:content:)();
   v12 = swift_allocObject();
   v13 = *(a1 + 80);
@@ -3965,7 +975,7 @@ uint64_t closure #2 in closure #1 in closure #1 in RepeatPickerPhone.body.getter
   v16 = swift_allocObject();
   *(v16 + 16) = partial apply for closure #2 in closure #2 in closure #1 in closure #1 in RepeatPickerPhone.body.getter;
   *(v16 + 24) = v12;
-  v17 = (a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaMRd__lFQOyACyAnAE0M7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleL0Vy0gB00gI3RowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GAA21_TraitWritingModifierVyAA011OnMoveTraitZ0VGGMd) + 36));
+  v17 = (a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaMRd__lFQOyACyAnAE0M7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleL0Vy0gB00gI3RowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GAA21_TraitWritingModifierVyAA011OnMoveTraitZ0VGGMd, &_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaMRd__lFQOyACyAnAE0M7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleL0Vy0gB00gI3RowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GAA21_TraitWritingModifierVyAA011OnMoveTraitZ0VGGMR) + 36));
   *v17 = partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed IndexSet, @unowned Int) -> ();
   v17[1] = v16;
   return outlined init with copy of RepeatPickerPhone(a1, &v19);
@@ -3979,13 +989,13 @@ uint64_t closure #1 in closure #2 in closure #1 in closure #1 in RepeatPickerPho
   v5 = *(v22 - 8);
   MEMORY[0x28223BE20](v22);
   v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0Vy07WorkoutB00L7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_Md);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0Vy07WorkoutB00L7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_Md, &_s7SwiftUI4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleC0Vy07WorkoutB00L7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_MR);
   v9 = *(v8 - 8);
   v23 = v8;
   v24 = v9;
   MEMORY[0x28223BE20](v8);
   v11 = &v19 - v10;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMd);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMR);
   MEMORY[0x28223BE20](v25);
   v13 = &v19 - v12;
   v21 = *a1;
@@ -4002,8 +1012,8 @@ uint64_t closure #1 in closure #2 in closure #1 in closure #1 in RepeatPickerPho
   v39 = v44;
   v38[0] = v40;
   v38[1] = v41;
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v33, &v29, &_s7SwiftUI9TupleViewVy07WorkoutB00E7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGMd);
-  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v38, &_s7SwiftUI9TupleViewVy07WorkoutB00E7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v33, &v29, &_s7SwiftUI9TupleViewVy07WorkoutB00E7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGMd, &_s7SwiftUI9TupleViewVy07WorkoutB00E7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGMR);
+  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v38, &_s7SwiftUI9TupleViewVy07WorkoutB00E7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGMd, &_s7SwiftUI9TupleViewVy07WorkoutB00E7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGMR);
   *(v31 + 7) = v33;
   *(&v31[3] + 7) = v36;
   *(&v31[2] + 7) = v35;
@@ -4017,8 +1027,8 @@ uint64_t closure #1 in closure #2 in closure #1 in closure #1 in RepeatPickerPho
   LOBYTE(v30[0]) = v32;
   *(v30 + 1) = v31[0];
   static AccessibilityChildBehavior.combine.getter();
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00F7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGGMd);
-  v16 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(WorkoutStepRow, Spacer, ModifiedContent<Image, _EnvironmentKeyWritingModifier<Color?>>)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00F7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGGMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00F7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00F7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGGMR);
+  v16 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(WorkoutStepRow, Spacer, ModifiedContent<Image, _EnvironmentKeyWritingModifier<Color?>>)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00F7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00F7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGGMR, MEMORY[0x277CE1138]);
   View.accessibilityElement(children:)();
   (*(v5 + 8))(v7, v22);
   v42 = v30[1];
@@ -4027,7 +1037,7 @@ uint64_t closure #1 in closure #2 in closure #1 in closure #1 in RepeatPickerPho
   v45 = v30[4];
   v40 = v29;
   v41 = v30[0];
-  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v40, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00F7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGGMd);
+  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v40, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00F7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00F7StepRowV_AA6SpacerVAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGGMR);
   *&v29 = v15;
   *(&v29 + 1) = v16;
   swift_getOpaqueTypeConformance2();
@@ -4036,18 +1046,18 @@ uint64_t closure #1 in closure #2 in closure #1 in closure #1 in RepeatPickerPho
   (*(v24 + 8))(v11, v17);
   v27 = v20;
   v28 = v21;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGSgMd, &_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGSgMR);
   lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>();
   lazy protocol witness table accessor for type TupleView<(Button<Text>?, Button<Text>?)>? and conformance <A> A?();
   View.accessibilityActions<A>(_:)();
-  return outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v13, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMd);
+  return outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v13, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMR);
 }
 
-uint64_t closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+double closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in RepeatPickerPhone.body.getter@<D0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   v3 = *(a1 + 64);
   type metadata accessor for WorkoutStep();
-  _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(&lazy protocol witness table cache variable for type WorkoutStep and conformance WorkoutStep, MEMORY[0x277D7DD30]);
+  _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(&lazy protocol witness table cache variable for type WorkoutStep and conformance WorkoutStep, MEMORY[0x277D7DD30], MEMORY[0x277D7DD28]);
   v4 = v3;
 
   v5 = ObservedObject.init(wrappedValue:)();
@@ -4064,19 +1074,21 @@ uint64_t closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in R
   *(a2 + 48) = v8;
   *(a2 + 56) = KeyPath;
   *(a2 + 64) = v9;
+
+  return result;
 }
 
 uint64_t closure #2 in closure #1 in closure #2 in closure #1 in closure #1 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGMd);
+  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGMd, &_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGMR);
   v62 = *(v63 - 8);
   MEMORY[0x28223BE20](v63);
   v59 = &v55 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR);
   v61 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
   v60 = &v55 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGSgMd, &_s7SwiftUI6ButtonVyAA4TextVGSgMR);
   MEMORY[0x28223BE20](v9 - 8);
   v58 = &v55 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v11);
@@ -4087,7 +1099,7 @@ uint64_t closure #2 in closure #1 in closure #2 in closure #1 in closure #1 in R
   v18 = &v55 - v17;
   v68 = *(a1 + 32);
   v66[0] = *(a1 + 32);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd, &_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMR);
   State.wrappedValue.getter();
   v19 = specialized Collection<>.firstIndex(of:)(a2, v67);
   v21 = v20;
@@ -4213,19 +1225,19 @@ LABEL_6:
 
   v37(v15, v38, 1, v7);
   v50 = v57;
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v18, v57, &_s7SwiftUI6ButtonVyAA4TextVGSgMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v18, v57, &_s7SwiftUI6ButtonVyAA4TextVGSgMd, &_s7SwiftUI6ButtonVyAA4TextVGSgMR);
   v51 = v58;
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v15, v58, &_s7SwiftUI6ButtonVyAA4TextVGSgMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v15, v58, &_s7SwiftUI6ButtonVyAA4TextVGSgMd, &_s7SwiftUI6ButtonVyAA4TextVGSgMR);
   v52 = v59;
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v50, v59, &_s7SwiftUI6ButtonVyAA4TextVGSgMd);
-  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGSg_AGtMd);
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v51, v52 + *(v53 + 48), &_s7SwiftUI6ButtonVyAA4TextVGSgMd);
-  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v15, &_s7SwiftUI6ButtonVyAA4TextVGSgMd);
-  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v18, &_s7SwiftUI6ButtonVyAA4TextVGSgMd);
-  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v51, &_s7SwiftUI6ButtonVyAA4TextVGSgMd);
-  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v50, &_s7SwiftUI6ButtonVyAA4TextVGSgMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v50, v59, &_s7SwiftUI6ButtonVyAA4TextVGSgMd, &_s7SwiftUI6ButtonVyAA4TextVGSgMR);
+  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGSg_AGtMd, &_s7SwiftUI6ButtonVyAA4TextVGSg_AGtMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v51, v52 + *(v53 + 48), &_s7SwiftUI6ButtonVyAA4TextVGSgMd, &_s7SwiftUI6ButtonVyAA4TextVGSgMR);
+  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v15, &_s7SwiftUI6ButtonVyAA4TextVGSgMd, &_s7SwiftUI6ButtonVyAA4TextVGSgMR);
+  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v18, &_s7SwiftUI6ButtonVyAA4TextVGSgMd, &_s7SwiftUI6ButtonVyAA4TextVGSgMR);
+  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v51, &_s7SwiftUI6ButtonVyAA4TextVGSgMd, &_s7SwiftUI6ButtonVyAA4TextVGSgMR);
+  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(v50, &_s7SwiftUI6ButtonVyAA4TextVGSgMd, &_s7SwiftUI6ButtonVyAA4TextVGSgMR);
   a3 = v56;
-  outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(v52, v56, &_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGMd);
+  outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(v52, v56, &_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGMd, &_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGMR);
   v22 = 0;
   return (*(v62 + 56))(a3, v22, 1, v63);
 }
@@ -4252,20 +1264,20 @@ void closure #1 in closure #2 in closure #1 in closure #2 in closure #1 in closu
     v28 = v2;
     v29 = v3;
     v26 = v6;
-    outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v35, &v31, &_sSay11WorkoutCore0A4StepCGMd);
-    outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v34, &v31, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd);
+    outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v35, &v31, &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v34, &v31, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd, &_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMR);
     State.wrappedValue.getter();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11WorkoutCore0A4StepCGMd);
-    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [WorkoutStep] and conformance [A], &_sSay11WorkoutCore0A4StepCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [WorkoutStep] and conformance [A], &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR, MEMORY[0x277D83960]);
     MutableCollection.move(fromOffsets:toOffset:)();
     (*(v7 + 8))(v9, v26);
     v31 = v2;
     v32 = v3;
     v30 = v33;
     State.wrappedValue.setter();
-    outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v35, &_sSay11WorkoutCore0A4StepCGMd);
-    outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v34, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd);
+    outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v35, &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+    outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v34, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMR);
     if (one-time initialization token for WorkoutUIBundle == -1)
     {
       goto LABEL_3;
@@ -4286,7 +1298,7 @@ LABEL_3:
   v36._countAndFlagsBits = 0;
   NSLocalizedString(_:tableName:bundle:value:comment:)(v11, v12, v10, v13, v36);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
   v14 = swift_allocObject();
   *(v14 + 16) = xmmword_20CB5DA70;
   v31 = v2;
@@ -4362,20 +1374,20 @@ void closure #2 in closure #2 in closure #1 in closure #2 in closure #1 in closu
     v28 = v2;
     v29 = v3;
     v26 = v6;
-    outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v35, &v31, &_sSay11WorkoutCore0A4StepCGMd);
-    outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v34, &v31, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd);
+    outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v35, &v31, &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v34, &v31, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd, &_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMR);
     State.wrappedValue.getter();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11WorkoutCore0A4StepCGMd);
-    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [WorkoutStep] and conformance [A], &_sSay11WorkoutCore0A4StepCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [WorkoutStep] and conformance [A], &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR, MEMORY[0x277D83960]);
     MutableCollection.move(fromOffsets:toOffset:)();
     (*(v7 + 8))(v9, v26);
     v31 = v2;
     v32 = v3;
     v30 = v33;
     State.wrappedValue.setter();
-    outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v35, &_sSay11WorkoutCore0A4StepCGMd);
-    outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v34, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd);
+    outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v35, &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+    outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v34, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMR);
     if (one-time initialization token for WorkoutUIBundle == -1)
     {
       goto LABEL_3;
@@ -4396,7 +1408,7 @@ LABEL_3:
   v36._countAndFlagsBits = 0;
   NSLocalizedString(_:tableName:bundle:value:comment:)(v11, v12, v10, v13, v36);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
   v14 = swift_allocObject();
   *(v14 + 16) = xmmword_20CB5DA70;
   v31 = v2;
@@ -4458,18 +1470,18 @@ uint64_t closure #2 in closure #2 in closure #1 in closure #1 in RepeatPickerPho
   v8 = v4;
   v6[2] = v4;
   v6[3] = v3;
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v8, v6, &_sSay11WorkoutCore0A4StepCGMd);
-  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v7, v6, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v8, v6, &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v7, v6, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd, &_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMR);
   State.wrappedValue.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11WorkoutCore0A4StepCGMd);
-  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [WorkoutStep] and conformance [A], &_sSay11WorkoutCore0A4StepCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+  lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type [WorkoutStep] and conformance [A], &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR, MEMORY[0x277D83960]);
   MutableCollection.move(fromOffsets:toOffset:)();
   v6[0] = v4;
   v6[1] = v3;
   State.wrappedValue.setter();
-  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v8, &_sSay11WorkoutCore0A4StepCGMd);
-  return outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v7, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd);
+  outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v8, &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+  return outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(&v7, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMd, &_s7SwiftUI11AnyLocationCySay11WorkoutCore0E4StepCGGSgMR);
 }
 
 __n128 closure #3 in closure #1 in RepeatPickerPhone.body.getter@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -4533,48 +1545,48 @@ __n128 closure #3 in closure #1 in RepeatPickerPhone.body.getter@<Q0>(uint64_t a
 
 uint64_t closure #2 in RepeatPickerPhone.body.getter@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v72 = a2;
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Sg_AA012_ConditionalD0VyAwcDyQrxAaERzlFZQOy_AGyytAIyAKyAA07DefaultJ5LabelVGAPyAA13AnyShapeStyleVSgGGGQo_GtMd);
-  MEMORY[0x28223BE20](v71);
-  v70 = &v61 - v3;
-  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA07DefaultJ5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGQo_Md);
-  v65 = *(v67 - 8);
-  MEMORY[0x28223BE20](v67);
-  v62 = &v61 - v4;
-  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA07DefaultG5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGMd);
-  v64 = *(v68 - 8);
-  MEMORY[0x28223BE20](v68);
-  v63 = &v61 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA07ToolbarD7BuilderV10buildBlockyQrxAA0eD0RzlFZQOy_AA0E4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_AeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GMd);
+  v74 = a2;
+  v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Sg_AA012_ConditionalD0VyAwcDyQrxAaERzlFZQOy_AGyytAIyAKyAA07DefaultJ5LabelVGAPyAA13AnyShapeStyleVSgGGGQo_GtMd, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Sg_AA012_ConditionalD0VyAwcDyQrxAaERzlFZQOy_AGyytAIyAKyAA07DefaultJ5LabelVGAPyAA13AnyShapeStyleVSgGGGQo_GtMR);
+  MEMORY[0x28223BE20](v73);
+  v72 = &v63 - v3;
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA07DefaultJ5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGQo_Md, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA07DefaultJ5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGQo_MR);
+  v67 = *(v69 - 8);
+  MEMORY[0x28223BE20](v69);
+  v64 = &v63 - v4;
+  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA07DefaultG5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGMd, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA07DefaultG5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGMR);
+  v66 = *(v70 - 8);
+  MEMORY[0x28223BE20](v70);
+  v65 = &v63 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA07ToolbarD7BuilderV10buildBlockyQrxAA0eD0RzlFZQOy_AA0E4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_AeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GMd, &_s7SwiftUI19_ConditionalContentVyAA07ToolbarD7BuilderV10buildBlockyQrxAA0eD0RzlFZQOy_AA0E4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_AeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GMR);
   MEMORY[0x28223BE20](v6 - 8);
-  v69 = &v61 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Md);
-  v75 = *(v8 - 8);
+  v71 = &v63 - v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_Md, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_MR);
+  v77 = *(v8 - 8);
   MEMORY[0x28223BE20](v8);
-  v73 = &v61 - v9;
+  v75 = &v63 - v9;
   v10 = type metadata accessor for ToolbarItemPlacement();
   MEMORY[0x28223BE20](v10 - 8);
-  v12 = &v61 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd);
-  v74 = *(v76 - 8);
-  MEMORY[0x28223BE20](v76);
-  v14 = &v61 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd);
+  v12 = &v63 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMR);
+  v76 = *(v78 - 8);
+  MEMORY[0x28223BE20](v78);
+  v14 = &v63 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMR);
   MEMORY[0x28223BE20](v15 - 8);
-  v17 = &v61 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = &v63 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = MEMORY[0x28223BE20](v18);
-  v21 = (&v61 - v20);
+  v21 = (&v63 - v20);
   v22 = a1[11];
-  v66 = v12;
+  v68 = v12;
   if (!v22)
   {
-    (*(v75 + 56))(v17, 1, 1, v8, v19);
-    v47 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd);
-    v77 = v76;
-    v78 = v47;
+    (*(v77 + 56))(v17, 1, 1, v8, v19);
+    v48 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMR, MEMORY[0x277CDD7A8]);
+    v79 = v78;
+    v80 = v48;
     OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
     MEMORY[0x20F309920](v17, v8, OpaqueTypeConformance2);
-    outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v17, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd);
+    outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v17, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMR);
     v30 = a1[13];
     if (v30)
     {
@@ -4582,57 +1594,58 @@ uint64_t closure #2 in RepeatPickerPhone.body.getter@<X0>(void *a1@<X0>, uint64_
     }
 
 LABEL_5:
-    v49 = static ToolbarItemPlacement.confirmationAction.getter();
-    MEMORY[0x28223BE20](v49);
-    *(&v61 - 2) = a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA07DefaultE5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGMd);
+    v50 = static ToolbarItemPlacement.confirmationAction.getter();
+    MEMORY[0x28223BE20](v50);
+    *(&v63 - 2) = a1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA07DefaultE5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA07DefaultE5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Button<DefaultButtonLabel>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>> and conformance <> ModifiedContent<A, B>();
-    v50 = v63;
+    v51 = v65;
     ToolbarItem<>.init(placement:content:)();
-    v51 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<DefaultButtonLabel>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA07DefaultG5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGMd);
-    v52 = v62;
-    v53 = v68;
-    MEMORY[0x20F3098F0](v50, v68, v51);
-    v54 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd);
-    v77 = v76;
-    v78 = v54;
-    v55 = swift_getOpaqueTypeConformance2();
-    v77 = v53;
-    v78 = v51;
-    v56 = swift_getOpaqueTypeConformance2();
-    v46 = v69;
-    v57 = v67;
-    MEMORY[0x20F309910](v52, v8, v67, v55, v56);
-    v65[1](v52, v57);
-    (*(v64 + 8))(v50, v53);
+    v52 = MEMORY[0x277CDD7A8];
+    v53 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<DefaultButtonLabel>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA07DefaultG5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGMd, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA07DefaultG5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGMR, MEMORY[0x277CDD7A8]);
+    v54 = v64;
+    v55 = v70;
+    MEMORY[0x20F3098F0](v51, v70, v53);
+    v56 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMR, v52);
+    v79 = v78;
+    v80 = v56;
+    v57 = swift_getOpaqueTypeConformance2();
+    v79 = v55;
+    v80 = v53;
+    v58 = swift_getOpaqueTypeConformance2();
+    v47 = v71;
+    v59 = v69;
+    MEMORY[0x20F309910](v54, v8, v69, v57, v58);
+    v67[1](v54, v59);
+    (*(v66 + 8))(v51, v55);
     goto LABEL_6;
   }
 
-  v61 = a1[12];
-  v23 = v61;
+  v63 = a1[12];
+  v23 = v63;
 
   v24 = static ToolbarItemPlacement.cancellationAction.getter();
   MEMORY[0x28223BE20](v24);
-  *(&v61 - 2) = v22;
-  *(&v61 - 1) = v23;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
+  *(&v63 - 2) = v22;
+  *(&v63 - 1) = v23;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
   lazy protocol witness table accessor for type ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>> and conformance <> ModifiedContent<A, B>();
-  v25 = v76;
+  v25 = v78;
   ToolbarItem<>.init(placement:content:)();
-  v26 = v73;
-  v27 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd);
+  v26 = v75;
+  v27 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMR, MEMORY[0x277CDD7A8]);
   MEMORY[0x20F3098F0](v14, v25, v27);
-  v28 = v75;
-  (*(v75 + 16))(v17, v26, v8);
+  v28 = v77;
+  (*(v77 + 16))(v17, v26, v8);
   (*(v28 + 56))(v17, 0, 1, v8);
-  v77 = v25;
-  v78 = v27;
+  v79 = v25;
+  v80 = v27;
   v29 = swift_getOpaqueTypeConformance2();
   MEMORY[0x20F309920](v17, v8, v29);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v22);
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v17, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v22, v63);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v17, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMR);
   (*(v28 + 8))(v26, v8);
-  (*(v74 + 8))(v14, v25);
+  (*(v76 + 8))(v14, v25);
   v30 = a1[13];
   if (!v30)
   {
@@ -4643,46 +1656,47 @@ LABEL_3:
   v31 = a1[14];
 
   v32 = static ToolbarItemPlacement.destructiveAction.getter();
-  v64 = v8;
-  v65 = v21;
+  v66 = v8;
+  v67 = v21;
   MEMORY[0x28223BE20](v32);
-  *(&v61 - 2) = v30;
-  *(&v61 - 1) = v31;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
+  *(&v63 - 2) = v30;
+  *(&v63 - 1) = v31;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
   lazy protocol witness table accessor for type ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>> and conformance <> ModifiedContent<A, B>();
   ToolbarItem<>.init(placement:content:)();
-  v33 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd);
-  v34 = v73;
-  v35 = v76;
-  MEMORY[0x20F3098F0](v14, v76, v33);
-  v77 = v35;
-  v78 = v33;
-  v36 = swift_getOpaqueTypeConformance2();
-  v37 = v75;
-  v38 = v14;
-  v39 = v36;
-  v40 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<DefaultButtonLabel>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA07DefaultG5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGMd);
-  v77 = v68;
-  v78 = v40;
-  v41 = swift_getOpaqueTypeConformance2();
-  v42 = v69;
-  v43 = v64;
-  MEMORY[0x20F309900](v34, v64, v67, v39, v41);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v30);
-  v44 = v34;
-  v21 = v65;
-  (*(v37 + 8))(v44, v43);
+  v33 = MEMORY[0x277CDD7A8];
+  v34 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<Image>, _EnvironmentKeyWritingModifier<Color?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMd, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGMR, MEMORY[0x277CDD7A8]);
+  v35 = v75;
+  v36 = v78;
+  MEMORY[0x20F3098F0](v14, v78, v34);
+  v79 = v36;
+  v80 = v34;
+  v37 = swift_getOpaqueTypeConformance2();
+  v38 = v77;
+  v39 = v14;
+  v40 = v37;
+  v41 = lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ToolbarItem<(), ModifiedContent<Button<DefaultButtonLabel>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>> and conformance ToolbarItem<A, B>, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA07DefaultG5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGMd, &_s7SwiftUI11ToolbarItemVyytAA15ModifiedContentVyAA6ButtonVyAA07DefaultG5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGGMR, v33);
+  v79 = v70;
+  v80 = v41;
+  v42 = swift_getOpaqueTypeConformance2();
+  v43 = v71;
+  v44 = v66;
+  MEMORY[0x20F309900](v35, v66, v69, v40, v42);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v30, v31);
   v45 = v35;
-  v46 = v42;
-  (*(v74 + 8))(v38, v45);
+  v21 = v67;
+  (*(v38 + 8))(v45, v44);
+  v46 = v36;
+  v47 = v43;
+  (*(v76 + 8))(v39, v46);
 LABEL_6:
-  v58 = v70;
-  v59 = *(v71 + 48);
-  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v21, v70, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd);
-  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v46, v58 + v59, &_s7SwiftUI19_ConditionalContentVyAA07ToolbarD7BuilderV10buildBlockyQrxAA0eD0RzlFZQOy_AA0E4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_AeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GMd);
+  v60 = v72;
+  v61 = *(v73 + 48);
+  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v21, v72, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMR);
+  _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(v47, v60 + v61, &_s7SwiftUI19_ConditionalContentVyAA07ToolbarD7BuilderV10buildBlockyQrxAA0eD0RzlFZQOy_AA0E4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_AeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GMd, &_s7SwiftUI19_ConditionalContentVyAA07ToolbarD7BuilderV10buildBlockyQrxAA0eD0RzlFZQOy_AA0E4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_AeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GMR);
   TupleToolbarContent.init(_:)();
-  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v46, &_s7SwiftUI19_ConditionalContentVyAA07ToolbarD7BuilderV10buildBlockyQrxAA0eD0RzlFZQOy_AA0E4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_AeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GMd);
-  return outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v21, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd);
+  outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v47, &_s7SwiftUI19_ConditionalContentVyAA07ToolbarD7BuilderV10buildBlockyQrxAA0eD0RzlFZQOy_AA0E4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_AeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GMd, &_s7SwiftUI19_ConditionalContentVyAA07ToolbarD7BuilderV10buildBlockyQrxAA0eD0RzlFZQOy_AA0E4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_AeFyQrxAaGRzlFZQOy_AIyytAKyAMyAA07DefaultK5LabelVGARyAA13AnyShapeStyleVSgGGGQo_GMR);
+  return outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(v21, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMd, &_s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgMR);
 }
 
 uint64_t closure #2 in closure #1 in closure #2 in RepeatPickerPhone.body.getter@<X0>(uint64_t *a1@<X8>)
@@ -4692,19 +1706,19 @@ uint64_t closure #2 in closure #1 in closure #2 in RepeatPickerPhone.body.getter
   return result;
 }
 
-uint64_t closure #1 in closure #2 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(uint64_t)@<X5>, uint64_t a4@<X8>)
+uint64_t closure #1 in closure #2 in RepeatPickerPhone.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a6)(uint64_t)@<X5>, uint64_t a7@<X8>)
 {
-  v8 = swift_allocObject();
-  *(v8 + 16) = a1;
-  *(v8 + 24) = a2;
+  v11 = swift_allocObject();
+  *(v11 + 16) = a1;
+  *(v11 + 24) = a2;
 
-  v9 = Button.init(action:label:)();
-  v10 = a3(v9);
+  v12 = Button.init(action:label:)();
+  v13 = a6(v12);
   KeyPath = swift_getKeyPath();
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
-  v13 = (a4 + *(result + 36));
-  *v13 = KeyPath;
-  v13[1] = v10;
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
+  v16 = (a7 + *(result + 36));
+  *v16 = KeyPath;
+  v16[1] = v13;
   return result;
 }
 
@@ -4740,20 +1754,20 @@ uint64_t closure #3 in closure #2 in RepeatPickerPhone.body.getter@<X0>(uint64_t
   KeyPath = swift_getKeyPath();
   v17[0] = v11;
   v13 = AnyShapeStyle.init<A>(_:)();
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA07DefaultE5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGMd);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA07DefaultE5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA07DefaultE5LabelVGAA30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGGMR);
   v15 = (a2 + *(result + 36));
   *v15 = KeyPath;
   v15[1] = v13;
   return result;
 }
 
-uint64_t closure #2 in closure #1 in RepeatPickerPhone.body.getter(uint64_t a1)
+uint64_t closure #2 in closure #1 in RepeatPickerPhone.body.getter(__int128 *a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMd, &_s7SwiftUI5StateVySay11WorkoutCore0D4StepCGGMR);
   State.wrappedValue.getter();
   WorkoutBlock.steps.setter();
-  v2 = *(a1 + 72);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd);
+  v2 = *(a1 + 9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySiGMd, &_s7SwiftUI5StateVySiGMR);
   State.wrappedValue.getter();
   return v2();
 }
@@ -4763,9 +1777,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<VStack<T
   result = lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA4ListVys5NeverOAGyAA7SectionVyAA05EmptyG0VAGyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyACyAqAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAqAE0Q14Representation14representationQrqd__yXE_tAaPRd__lFQOyACyAqAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyA8_yAOGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_D13ShapeModifierVyAA9RectangleVGG_Qo__AqAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAqAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAOSiAA7ForEachVySaySiGSiAqAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideH12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAOG_AMyAoCyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAqAE0Q7ActionsyQrqd__yXEAaPRd__lFQOyACyAqAEAuVQrAX_tFQOyAZyAGyA59_14WorkoutStepRowV_A2_ACyAA5ImageVA18_GtGG_Qo_A22_G_AGyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAOGSgtGG_A2_ACyACyA8_yACyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGA14_yAA13AnyShapeStyleVSgGGMd);
-    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4ListVys5NeverOAEyAA7SectionVyAA05EmptyE0VAEyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAoAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAEyAA4TextV_AA6SpacerVAoAE0Q14Representation14representationQrqd__yXE_tAaNRd__lFQOyATyAoAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ATyA8_yAMGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_P13ShapeModifierVyAA9RectangleVGG_Qo__AoAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyATyAoAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAMSiAA7ForEachVySaySiGSiAoAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideF12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAMG_AKyAmTyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAoAE0Q7ActionsyQrqd__yXEAaNRd__lFQOyATyAoAEAuVQrAX_tFQOyAZyAEyA59_14WorkoutStepRowV_A2_ATyAA5ImageVA18_GtGG_Qo_A22_G_AEyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAMGSgtGG_A2_ATyATyA8_yATyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGMd);
-    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<AnyShapeStyle?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA4ListVys5NeverOAGyAA7SectionVyAA05EmptyG0VAGyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyACyAqAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAqAE0Q14Representation14representationQrqd__yXE_tAaPRd__lFQOyACyAqAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyA8_yAOGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_D13ShapeModifierVyAA9RectangleVGG_Qo__AqAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAqAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAOSiAA7ForEachVySaySiGSiAqAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideH12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAOG_AMyAoCyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAqAE0Q7ActionsyQrqd__yXEAaPRd__lFQOyACyAqAEAuVQrAX_tFQOyAZyAGyA59_14WorkoutStepRowV_A2_ACyAA5ImageVA18_GtGG_Qo_A22_G_AGyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAOGSgtGG_A2_ACyACyA8_yACyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGA14_yAA13AnyShapeStyleVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA4ListVys5NeverOAGyAA7SectionVyAA05EmptyG0VAGyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyACyAqAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAqAE0Q14Representation14representationQrqd__yXE_tAaPRd__lFQOyACyAqAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyA8_yAOGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_D13ShapeModifierVyAA9RectangleVGG_Qo__AqAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAqAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAOSiAA7ForEachVySaySiGSiAqAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideH12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAOG_AMyAoCyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAqAE0Q7ActionsyQrqd__yXEAaPRd__lFQOyACyAqAEAuVQrAX_tFQOyAZyAGyA59_14WorkoutStepRowV_A2_ACyAA5ImageVA18_GtGG_Qo_A22_G_AGyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAOGSgtGG_A2_ACyACyA8_yACyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGA14_yAA13AnyShapeStyleVSgGGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>( &lazy protocol witness table cache variable for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>,  &_s7SwiftUI6VStackVyAA9TupleViewVyAA4ListVys5NeverOAEyAA7SectionVyAA05EmptyE0VAEyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAoAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAEyAA4TextV_AA6SpacerVAoAE0Q14Representation14representationQrqd__yXE_tAaNRd__lFQOyATyAoAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ATyA8_yAMGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_P13ShapeModifierVyAA9RectangleVGG_Qo__AoAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyATyAoAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAMSiAA7ForEachVySaySiGSiAoAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideF12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAMG_AKyAmTyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAoAE0Q7ActionsyQrqd__yXEAaNRd__lFQOyATyAoAEAuVQrAX_tFQOyAZyAEyA59_14WorkoutStepRowV_A2_ATyAA5ImageVA18_GtGG_Qo_A22_G_AEyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAMGSgtGG_A2_ATyATyA8_yATyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGMd,  &_s7SwiftUI6VStackVyAA9TupleViewVyAA4ListVys5NeverOAEyAA7SectionVyAA05EmptyE0VAEyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAoAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAEyAA4TextV_AA6SpacerVAoAE0Q14Representation14representationQrqd__yXE_tAaNRd__lFQOyATyAoAE11buttonStyleyQrqd__AA20PrimitiveButtonStyleRd__lFQOyAA6ButtonVyA0_G_AA19BorderedButtonStyleVQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ATyA8_yAMGAA0T18AttachmentModifierVGQo_tGG_Qo_AA01_P13ShapeModifierVyAA9RectangleVGG_Qo__AoAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyATyAoAE11pickerStyleyQrqd__AA11PickerStyleRd__lFQOyAA6PickerVyAMSiAA7ForEachVySaySiGSiAoAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyA0__SiQo_GG_AA16WheelPickerStyleVQo_07WorkoutB004HideF12RowSeparator33_A607961C6E65DD4DD1C2818C5FE69B58LLVG_Qo_SgtGAMG_AKyAmTyA49_ySay11WorkoutCore11WorkoutStepCG10Foundation4UUIDVAoAE0Q7ActionsyQrqd__yXEAaNRd__lFQOyATyAoAEAuVQrAX_tFQOyAZyAEyA59_14WorkoutStepRowV_A2_ATyAA5ImageVA18_GtGG_Qo_A22_G_AEyA9_Sg_A85_tGSgQo_GAA21_TraitWritingModifierVyAA14OnMoveTraitKeyVGGAMGSgtGG_A2_ATyATyA8_yATyA0_AA16_FlexFrameLayoutVGGAA32_EnvironmentKeyTransformModifierVySbGGA59_31PinnedBottomButtonModifierPhoneVGSgtGGMR,  MEMORY[0x277CE1198]);
+    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<AnyShapeStyle?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA13AnyShapeStyleVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4778,9 +1792,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<ForEach<
   result = lazy protocol witness table cache variable for type ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaMRd__lFQOyACyAnAE0M7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleL0Vy0gB00gI3RowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GAA21_TraitWritingModifierVyAA011OnMoveTraitZ0VGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaMRd__lFQOyACyAnAE0M7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleL0Vy0gB00gI3RowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GAA21_TraitWritingModifierVyAA011OnMoveTraitZ0VGGMd, &_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaMRd__lFQOyACyAnAE0M7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleL0Vy0gB00gI3RowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GAA21_TraitWritingModifierVyAA011OnMoveTraitZ0VGGMR);
     lazy protocol witness table accessor for type ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0> and conformance <> ForEach<A, B, C>();
-    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _TraitWritingModifier<OnMoveTraitKey> and conformance _TraitWritingModifier<A>, &_s7SwiftUI21_TraitWritingModifierVyAA06OnMoveC3KeyVGMd);
+    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _TraitWritingModifier<OnMoveTraitKey> and conformance _TraitWritingModifier<A>, &_s7SwiftUI21_TraitWritingModifierVyAA06OnMoveC3KeyVGMd, &_s7SwiftUI21_TraitWritingModifierVyAA06OnMoveC3KeyVGMR, MEMORY[0x277CE04A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4793,9 +1807,9 @@ unint64_t lazy protocol witness table accessor for type ForEach<[WorkoutStep], U
   result = lazy protocol witness table cache variable for type ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0> and conformance <> ForEach<A, B, C>;
   if (!lazy protocol witness table cache variable for type ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0> and conformance <> ForEach<A, B, C>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI7ForEachVySay11WorkoutCore0E4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaKRd__lFQOyAA15ModifiedContentVyAlAE0K7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleJ0Vy0eB00eG3RowV_AA6SpacerVAOyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI7ForEachVySay11WorkoutCore0E4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaKRd__lFQOyAA15ModifiedContentVyAlAE0K7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleJ0Vy0eB00eG3RowV_AA6SpacerVAOyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GMd, &_s7SwiftUI7ForEachVySay11WorkoutCore0E4StepCG10Foundation4UUIDVAA4ViewPAAE20accessibilityActionsyQrqd__yXEAaKRd__lFQOyAA15ModifiedContentVyAlAE0K7Element8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleJ0Vy0eB00eG3RowV_AA6SpacerVAOyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0Q18AttachmentModifierVG_AWyAA6ButtonVyAA4TextVGSg_A21_tGSgQo_GMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0Vy07WorkoutB00N7StepRowV_AA6SpacerVACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGtGG_Qo_AA0i10AttachmentV0VGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGSgMd, &_s7SwiftUI9TupleViewVyAA6ButtonVyAA4TextVGSg_AItGSgMR);
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type TupleView<(Button<Text>?, Button<Text>?)>? and conformance <A> A?();
     swift_getOpaqueTypeConformance2();
@@ -4806,10 +1820,10 @@ unint64_t lazy protocol witness table accessor for type ForEach<[WorkoutStep], U
   return result;
 }
 
-uint64_t outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with take of ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
@@ -4818,11 +1832,11 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0VyAA4TextV_AA6SpacerVAeAE0F14Representation14representationQrqd__yXE_tAaDRd__lFQOyACyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAA0U0VyAOG_AA08BordereduS0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyAWyAA05EmptyE0VGAA0i10AttachmentZ0VGQo_tGG_Qo_AA01_d5ShapeZ0VyAA9RectangleVGGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd);
-    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(Text, Spacer, <<opaque return type of View.accessibilityRepresentation<A>(representation:)>>.0)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0VyAA4TextV_AA6SpacerVAeAE0F14Representation14representationQrqd__yXE_tAaDRd__lFQOyACyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAA0U0VyAOG_AA08BordereduS0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyAWyAA05EmptyE0VGAA0i10AttachmentZ0VGQo_tGG_Qo_AA01_d5ShapeZ0VyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE20accessibilityElement8childrenQrAA26AccessibilityChildBehaviorV_tFQOyAA6HStackVyAA05TupleE0VyAA4TextV_AA6SpacerVAeAE0F14Representation14representationQrqd__yXE_tAaDRd__lFQOyACyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAA0U0VyAOG_AA08BordereduS0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_ACyAWyAA05EmptyE0VGAA0i10AttachmentZ0VGQo_tGG_Qo_AA01_d5ShapeZ0VyAA9RectangleVGGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(Text, Spacer, <<opaque return type of View.accessibilityRepresentation<A>(representation:)>>.0)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA0E0PAAE27accessibilityRepresentation14representationQrqd__yXE_tAaJRd__lFQOyAA15ModifiedContentVyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonN0Rd__lFQOyAA0P0VyAGG_AA08BorderedpN0VQo_AA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGG_AOyASyAA05EmptyE0VGAA023AccessibilityAttachmentU0VGQo_tGGMR, MEMORY[0x277CE1138]);
     swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ContentShapeModifier<Rectangle> and conformance _ContentShapeModifier<A>, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMd);
+    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ContentShapeModifier<Rectangle> and conformance _ContentShapeModifier<A>, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMd, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMR, MEMORY[0x277CE0470]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4830,28 +1844,28 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   return result;
 }
 
-uint64_t _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t _s7SwiftUI21ToolbarContentBuilderV10buildBlockyQrxAA0cD0RzlFZQOy_AA0C4ItemVyytAA08ModifiedD0VyAA6ButtonVyAA5ImageVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGGQo_SgWOcTm_0(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4869,9 +1883,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<E
   result = lazy protocol witness table cache variable for type ModifiedContent<Button<EmptyView>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Button<EmptyView>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA9EmptyViewVGAA31AccessibilityAttachmentModifierVGMd);
-    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type Button<EmptyView> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA9EmptyViewVGMd);
-    _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(&lazy protocol witness table cache variable for type AccessibilityAttachmentModifier and conformance AccessibilityAttachmentModifier, MEMORY[0x277CDE470]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA9EmptyViewVGAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA9EmptyViewVGAA31AccessibilityAttachmentModifierVGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type Button<EmptyView> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA9EmptyViewVGMd, &_s7SwiftUI6ButtonVyAA9EmptyViewVGMR, MEMORY[0x277CDF028]);
+    _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_9(&lazy protocol witness table cache variable for type AccessibilityAttachmentModifier and conformance AccessibilityAttachmentModifier, MEMORY[0x277CDE470], MEMORY[0x277CDE458]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Button<EmptyView>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>);
   }
@@ -4879,12 +1893,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<E
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>> and conformance VStack<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -4892,21 +1906,21 @@ uint64_t lazy protocol witness table accessor for type VStack<TupleView<(List<Ne
   return result;
 }
 
-uint64_t outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of ModifiedContent<VStack<TupleView<(List<Never, TupleView<(Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.listRowInsets(_:_:)>>.0)?)>, EmptyView>, Section<EmptyView, ModifiedContent<ForEach<[WorkoutStep], UUID, <<opaque return type of View.accessibilityActions<A>(_:)>>.0>, _TraitWritingModifier<OnMoveTraitKey>>, EmptyView>?)>>, Spacer, ModifiedContent<ModifiedContent<Button<ModifiedContent<Text, _FlexFrameLayout>>, _EnvironmentKeyTransformModifier<Bool>>, PinnedBottomButtonModifierPhone>?)>>, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t objectdestroy_12Tm_1()
+uint64_t objectdestroy_12Tm_1(uint64_t a1)
 {
 
-  if (*(v0 + 104))
+  if (*(v1 + 104))
   {
   }
 
-  if (*(v0 + 120))
+  if (*(v1 + 120))
   {
   }
 
@@ -5075,7 +2089,7 @@ void one-time initialization function for graphBottomPadding()
 
 uint64_t DistancePickerWatch.body.getter@<X0>(void *a1@<X8>)
 {
-  v3 = type metadata accessor for DistancePickerWatch();
+  v3 = type metadata accessor for DistancePickerWatch(0);
   v4 = *(v3 - 8);
   v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3 - 8);
@@ -5088,7 +2102,7 @@ uint64_t DistancePickerWatch.body.getter@<X0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t type metadata accessor for DistancePickerWatch()
+uint64_t type metadata accessor for DistancePickerWatch(uint64_t a1)
 {
   result = type metadata singleton initialization cache for DistancePickerWatch;
   if (!type metadata singleton initialization cache for DistancePickerWatch)
@@ -5102,18 +2116,18 @@ uint64_t type metadata accessor for DistancePickerWatch()
 uint64_t closure #1 in DistancePickerWatch.body.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   v44 = a2;
-  v3 = type metadata accessor for DistancePickerWatch();
+  v3 = type metadata accessor for DistancePickerWatch(0);
   v4 = v3 - 8;
   v41 = *(v3 - 8);
   v5 = *(v41 + 64);
   MEMORY[0x28223BE20](v3);
   v34 = v5;
   v40 = &v34 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GA15_yAA0T9DirectionOGGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GA15_yAA0T9DirectionOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GA15_yAA0T9DirectionOGGMR);
   v39 = v6;
   MEMORY[0x28223BE20](v6);
   v8 = &v34 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAHyAA6VStackVyAA05TupleC0VyAHyAHyAHyAHyAA6HStackVyALyAA6PickerVyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_ALyAY_AA012_ConditionalI0VyAPyARSiATySnySiGSiAZGGA5_GtGSgtGGAA16_FlexFrameLayoutVGAA01_wX0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA24_ForegroundStyleModifierVyAA14TintShapeStyleVGG_AcAE5sheet11isPresented0D7Dismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAcAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAYG_07WorkoutB015UnitButtonStyleVQo__ALyA43_013LapLengthUnitM0VSg_A43_012DistanceUnitM0VtGQo_tGGA15_GA18_yAA0X9DirectionOGG_SiQo_Md);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAHyAA6VStackVyAA05TupleC0VyAHyAHyAHyAHyAA6HStackVyALyAA6PickerVyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_ALyAY_AA012_ConditionalI0VyAPyARSiATySnySiGSiAZGGA5_GtGSgtGGAA16_FlexFrameLayoutVGAA01_wX0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA24_ForegroundStyleModifierVyAA14TintShapeStyleVGG_AcAE5sheet11isPresented0D7Dismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAcAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAYG_07WorkoutB015UnitButtonStyleVQo__ALyA43_013LapLengthUnitM0VSg_A43_012DistanceUnitM0VtGQo_tGGA15_GA18_yAA0X9DirectionOGG_SiQo_Md, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAHyAA6VStackVyAA05TupleC0VyAHyAHyAHyAHyAA6HStackVyALyAA6PickerVyAA05EmptyC0VSiAA7ForEachVySaySiGSiAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_ALyAY_AA012_ConditionalI0VyAPyARSiATySnySiGSiAZGGA5_GtGSgtGGAA16_FlexFrameLayoutVGAA01_wX0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA24_ForegroundStyleModifierVyAA14TintShapeStyleVGG_AcAE5sheet11isPresented0D7Dismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAcAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAYG_07WorkoutB015UnitButtonStyleVQo__ALyA43_013LapLengthUnitM0VSg_A43_012DistanceUnitM0VtGQo_tGGA15_GA18_yAA0X9DirectionOGG_SiQo_MR);
   v10 = *(v9 - 8);
   v42 = v9;
   v43 = v10;
@@ -5122,26 +2136,26 @@ uint64_t closure #1 in DistancePickerWatch.body.getter@<X0>(uint64_t a1@<X1>, ui
   *v8 = static HorizontalAlignment.center.getter();
   *(v8 + 1) = 0;
   v8[16] = 1;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAKyAKyAA6HStackVyAIyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySaySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AIyAZ_AA012_ConditionalJ0VyAOyAQSiASySnySiGSiA_GGA6_GtGSgtGGAA010_FlexFrameG0VGAA01_vG0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleZ0VyAA14TintShapeStyleVGG_AvAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaURd__lFQOyAvAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAZG_07WorkoutB015UnitButtonStyleVQo__AIyA44_013LapLengthUnitL0VSg_A44_012DistanceUnitL0VtGQo_tGGMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAKyAKyAA6HStackVyAIyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySaySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AIyAZ_AA012_ConditionalJ0VyAOyAQSiASySnySiGSiA_GGA6_GtGSgtGGAA010_FlexFrameG0VGAA01_vG0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleZ0VyAA14TintShapeStyleVGG_AvAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaURd__lFQOyAvAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAZG_07WorkoutB015UnitButtonStyleVQo__AIyA44_013LapLengthUnitL0VSg_A44_012DistanceUnitL0VtGQo_tGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAKyAKyAA6HStackVyAIyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySaySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AIyAZ_AA012_ConditionalJ0VyAOyAQSiASySnySiGSiA_GGA6_GtGSgtGGAA010_FlexFrameG0VGAA01_vG0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleZ0VyAA14TintShapeStyleVGG_AvAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaURd__lFQOyAvAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAZG_07WorkoutB015UnitButtonStyleVQo__AIyA44_013LapLengthUnitL0VSg_A44_012DistanceUnitL0VtGQo_tGGMR);
   closure #1 in closure #1 in DistancePickerWatch.body.getter(a1, &v8[*(v12 + 44)]);
   GeometryProxy.size.getter();
   GeometryProxy.size.getter();
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v13 = &v8[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GMd) + 36)];
+  v13 = &v8[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GMR) + 36)];
   v14 = v52;
   *v13 = v51;
   *(v13 + 1) = v14;
   *(v13 + 2) = v53;
   KeyPath = swift_getKeyPath();
   v16 = &v8[*(v6 + 36)];
-  v17 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA15LayoutDirectionOGMd) + 28);
+  v17 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA15LayoutDirectionOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA15LayoutDirectionOGMR) + 28);
   v18 = *MEMORY[0x277CDFA88];
   v19 = type metadata accessor for LayoutDirection();
   (*(*(v19 - 8) + 104))(v16 + v17, v18, v19);
   *v16 = KeyPath;
   v38 = *(v4 + 28);
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd);
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd, &_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMR);
   v20 = a1;
   Bindable.wrappedValue.getter();
   v21 = v46;
@@ -5164,7 +2178,7 @@ uint64_t closure #1 in DistancePickerWatch.body.getter@<X0>(uint64_t a1@<X1>, ui
   v27 = v39;
   View.onChange<A>(of:initial:_:)();
 
-  outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v8, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GA15_yAA0T9DirectionOGGMd);
+  outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v8, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GA15_yAA0T9DirectionOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GA15_yAA0T9DirectionOGGMR);
   Bindable.wrappedValue.getter();
   v28 = v46;
   swift_getKeyPath();
@@ -5194,46 +2208,46 @@ void closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X0
 {
   v95 = a1;
   v84 = a2;
-  v76 = type metadata accessor for DistancePickerWatch();
+  v76 = type metadata accessor for DistancePickerWatch(0);
   v89 = *(v76 - 8);
   MEMORY[0x28223BE20](v76);
   v94 = v2;
   v91 = &v73 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd);
+  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR);
   v75 = *(v77 - 8);
   MEMORY[0x28223BE20](v77);
   v90 = &v73 - v3;
-  v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA0F0VyAA4TextVG_07WorkoutB004UnitfE0VQo_Md);
+  v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA0F0VyAA4TextVG_07WorkoutB004UnitfE0VQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA0F0VyAA4TextVG_07WorkoutB004UnitfE0VQo_MR);
   v78 = *(v80 - 8);
   MEMORY[0x28223BE20](v80);
   v92 = &v73 - v4;
-  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAcAE11buttonStyleyQrqd__AA06ButtonL0Rd__lFQOyAA0M0VyAA4TextVG_07WorkoutB004UnitmL0VQo__AA05TupleC0VyAS09LapLengthP6PickerVSg_AS08DistancepT0VtGQo_Md);
+  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAcAE11buttonStyleyQrqd__AA06ButtonL0Rd__lFQOyAA0M0VyAA4TextVG_07WorkoutB004UnitmL0VQo__AA05TupleC0VyAS09LapLengthP6PickerVSg_AS08DistancepT0VtGQo_Md, &_s7SwiftUI4ViewPAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAcAE11buttonStyleyQrqd__AA06ButtonL0Rd__lFQOyAA0M0VyAA4TextVG_07WorkoutB004UnitmL0VQo__AA05TupleC0VyAS09LapLengthP6PickerVSg_AS08DistancepT0VtGQo_MR);
   v82 = *(v83 - 8);
   MEMORY[0x28223BE20](v83);
   v81 = &v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v6);
   v79 = &v73 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
   MEMORY[0x28223BE20](v8 - 8);
   v10 = &v73 - v9;
   v88 = type metadata accessor for Font.TextStyle();
   v11 = *(v88 - 8);
   MEMORY[0x28223BE20](v88);
   v13 = &v73 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyE0VSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AEyAR_AA19_ConditionalContentVyAGyAISiAKySnySiGSiASGGAZGtGSgtGGMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyE0VSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AEyAR_AA19_ConditionalContentVyAGyAISiAKySnySiGSiASGGAZGtGSgtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyE0VSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AEyAR_AA19_ConditionalContentVyAGyAISiAKySnySiGSiASGGAZGtGSgtGGMR);
   MEMORY[0x28223BE20](v14 - 8);
   v16 = &v73 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGMR);
   v18 = v17 - 8;
   MEMORY[0x28223BE20](v17);
   v20 = &v73 - v19;
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGMd);
+  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGMR);
   MEMORY[0x28223BE20](v85);
   v22 = &v73 - v21;
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd);
+  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
   MEMORY[0x28223BE20](v87);
   v24 = &v73 - v23;
-  v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd);
+  v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMR);
   MEMORY[0x28223BE20](v86);
   v74 = &v73 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v26);
@@ -5243,11 +2257,11 @@ void closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X0
   *v16 = static VerticalAlignment.center.getter();
   *(v16 + 1) = 0;
   v16[16] = 1;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySaySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AIyAV_AA19_ConditionalContentVyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGMd);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySaySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AIyAV_AA19_ConditionalContentVyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySaySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AIyAV_AA19_ConditionalContentVyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGMR);
   closure #1 in closure #1 in closure #1 in DistancePickerWatch.body.getter(v95, &v16[*(v31 + 44)]);
   static Alignment.center.getter();
   _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v16, v20, &_s7SwiftUI6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyE0VSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AEyAR_AA19_ConditionalContentVyAGyAISiAKySnySiGSiASGGAZGtGSgtGGMd);
+  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v16, v20, &_s7SwiftUI6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyE0VSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AEyAR_AA19_ConditionalContentVyAGyAISiAKySnySiGSiASGGAZGtGSgtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyE0VSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AEyAR_AA19_ConditionalContentVyAGyAISiAKySnySiGSiASGGAZGtGSgtGGMR);
   v32 = &v20[*(v18 + 44)];
   v33 = v107;
   *(v32 + 4) = v106;
@@ -5266,7 +2280,7 @@ void closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X0
 
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v20, v22, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGMd);
+  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v20, v22, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGMR);
   v36 = &v22[*(v85 + 36)];
   v37 = v110;
   *v36 = v109;
@@ -5280,16 +2294,16 @@ void closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X0
   (*(v41 + 104))(v10, v39, v40);
   (*(v41 + 56))(v10, 0, 1, v40);
   v42 = static Font.system(_:design:weight:)();
-  _s7SwiftUI4FontV6DesignOSgWOhTm_13(v10, &_s7SwiftUI4FontV6DesignOSgMd);
+  _s7SwiftUI4FontV6DesignOSgWOhTm_13(v10, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
   (*(v11 + 8))(v13, v38);
   KeyPath = swift_getKeyPath();
-  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v22, v24, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGMd);
+  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v22, v24, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGMR);
   v44 = &v24[*(v87 + 36)];
   *v44 = KeyPath;
   v44[1] = v42;
   TintShapeStyle.init()();
-  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v24, v28, &_s7SwiftUI15ModifiedContentVyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd);
-  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v28, v93, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd);
+  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v24, v28, &_s7SwiftUI15ModifiedContentVyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
+  outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v28, v93, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMR);
   v45 = v95;
   v46 = v91;
   _s9WorkoutUI19DistancePickerWatchVWOcTm_0(v95, v91, type metadata accessor for DistancePickerWatch);
@@ -5308,7 +2322,7 @@ void closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X0
     if (v53)
     {
       v96 = Color.init(uiColor:)();
-      v54 = lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type Button<Text> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA4TextVGMd);
+      v54 = lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type Button<Text> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR, MEMORY[0x277CDF028]);
       v55 = lazy protocol witness table accessor for type UnitButtonStyle and conformance UnitButtonStyle();
       v56 = v77;
       View.buttonStyle<A>(_:)();
@@ -5319,18 +2333,18 @@ void closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X0
       v59 = *(v57 + 8);
       v100 = v58;
       v101 = v59;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
       State.projectedValue.getter();
       _s9WorkoutUI19DistancePickerWatchVWOcTm_0(v45, v46, type metadata accessor for DistancePickerWatch);
       v60 = swift_allocObject();
       outlined init with take of DistancePickerWatch(v46, v60 + v47, type metadata accessor for DistancePickerWatch);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVy07WorkoutB019LapLengthUnitPickerVSg_AD08DistancehI0VtGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVy07WorkoutB019LapLengthUnitPickerVSg_AD08DistancehI0VtGMd, &_s7SwiftUI9TupleViewVy07WorkoutB019LapLengthUnitPickerVSg_AD08DistancehI0VtGMR);
       v96 = v56;
       v97 = &type metadata for UnitButtonStyle;
       v98 = v54;
       v99 = v55;
       swift_getOpaqueTypeConformance2();
-      lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type TupleView<(LapLengthUnitPicker?, DistanceUnitPicker)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVy07WorkoutB019LapLengthUnitPickerVSg_AD08DistancehI0VtGMd);
+      lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type TupleView<(LapLengthUnitPicker?, DistanceUnitPicker)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVy07WorkoutB019LapLengthUnitPickerVSg_AD08DistancehI0VtGMd, &_s7SwiftUI9TupleViewVy07WorkoutB019LapLengthUnitPickerVSg_AD08DistancehI0VtGMR, MEMORY[0x277CE14C0]);
       v61 = v79;
       v62 = v80;
       v63 = v92;
@@ -5339,21 +2353,21 @@ void closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X0
       (*(v78 + 8))(v63, v62);
       v64 = v93;
       v65 = v74;
-      outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v93, v74, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd);
+      outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v93, v74, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMR);
       v66 = v82;
       v67 = *(v82 + 16);
       v68 = v81;
       v69 = v83;
       v67(v81, v61, v83);
       v70 = v84;
-      outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v65, v84, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd);
-      v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGG_ApAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaORd__lFQOyApAE06buttonZ0yQrqd__AA06ButtonZ0Rd__lFQOyAA6ButtonVyATG_07WorkoutB0010UnitButtonZ0VQo__AGyA38_013LapLengthUnitH0VSg_A38_012DistanceUnitH0VtGQo_tMd);
+      outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v65, v84, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMR);
+      v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGG_ApAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaORd__lFQOyApAE06buttonZ0yQrqd__AA06ButtonZ0Rd__lFQOyAA6ButtonVyATG_07WorkoutB0010UnitButtonZ0VQo__AGyA38_013LapLengthUnitH0VSg_A38_012DistanceUnitH0VtGQo_tMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGG_ApAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaORd__lFQOyApAE06buttonZ0yQrqd__AA06ButtonZ0Rd__lFQOyAA6ButtonVyATG_07WorkoutB0010UnitButtonZ0VQo__AGyA38_013LapLengthUnitH0VSg_A38_012DistanceUnitH0VtGQo_tMR);
       v67((v70 + *(v71 + 48)), v68, v69);
       v72 = *(v66 + 8);
       v72(v61, v69);
-      outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v64, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd);
+      outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v64, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMR);
       v72(v68, v69);
-      outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v65, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd);
+      outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v65, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6HStackVyAA9TupleViewVyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAT_AA012_ConditionalD0VyAIyAKSiAMySnySiGSiAUGGA0_GtGSgtGGAA16_FlexFrameLayoutVGAA01_rS0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA09TintShapeZ0VGGMR);
       return;
     }
   }
@@ -5366,137 +2380,138 @@ void closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X0
   __break(1u);
 }
 
-uint64_t closure #1 in closure #1 in closure #1 in DistancePickerWatch.body.getter@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+void closure #1 in closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X0>, char *a2@<X8>)
 {
-  v80 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGMd);
-  v78 = *(v3 - 8);
-  v79 = v3;
+  v85 = a2;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGMd, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGMR);
+  v83 = *(v3 - 8);
+  v84 = v3;
   MEMORY[0x28223BE20](v3);
-  v68 = (&v61 - v4);
-  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0H0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGAU_GMd);
-  MEMORY[0x28223BE20](v62);
-  v64 = &v61 - v5;
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd);
-  v63 = *(v65 - 8);
-  MEMORY[0x28223BE20](v65);
-  v61 = &v61 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd);
+  v73 = (&v66 - v4);
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0H0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGAU_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0H0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGAU_GMR);
+  MEMORY[0x28223BE20](v67);
+  v69 = &v66 - v5;
+  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMR);
+  v68 = *(v70 - 8);
+  MEMORY[0x28223BE20](v70);
+  v66 = &v66 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMR);
   MEMORY[0x28223BE20](v7 - 8);
-  v67 = &v61 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v72 = &v66 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9);
-  v66 = &v61 - v10;
-  v71 = type metadata accessor for Locale();
-  v70 = *(v71 - 8);
-  MEMORY[0x28223BE20](v71);
-  v12 = &v61 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd);
+  v71 = &v66 - v10;
+  v76 = type metadata accessor for Locale();
+  v75 = *(v76 - 8);
+  MEMORY[0x28223BE20](v76);
+  v12 = &v66 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMR);
   MEMORY[0x28223BE20](v13 - 8);
-  v77 = &v61 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v82 = &v66 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v15);
-  v76 = &v61 - v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd);
+  v81 = &v66 - v16;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd, &_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMR);
   v18 = *(v17 - 8);
   MEMORY[0x28223BE20](v17);
-  v20 = &v61 - v19;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd);
-  v74 = *(v21 - 8);
-  v75 = v21;
+  v20 = &v66 - v19;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMR);
+  v79 = *(v21 - 8);
+  v80 = v21;
   MEMORY[0x28223BE20](v21);
-  v73 = &v61 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v78 = &v66 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v23);
-  v25 = &v61 - v24;
-  type metadata accessor for DistancePickerWatch();
+  v25 = &v66 - v24;
+  type metadata accessor for DistancePickerWatch(0);
   Bindable.projectedValue.getter();
   swift_getKeyPath();
   Bindable<A>.subscript.getter();
 
-  v69 = *(v18 + 8);
-  v69(v20, v17);
-  v81 = a1;
-  v84 = v86;
-  v85 = v87;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd);
-  _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GACyxq_q0_GAae2aER0_rlWlTm_0(&lazy protocol witness table cache variable for type ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0> and conformance <> ForEach<A, B, C>, &_s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd);
-  v72 = v25;
+  v74 = *(v18 + 8);
+  v74(v20, v17);
+  v86 = a1;
+  v89 = v91;
+  v90 = v92;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd, _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMR);
+  _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GACyxq_q0_GAae2aER0_rlWlTm_0(&lazy protocol witness table cache variable for type ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0> and conformance <> ForEach<A, B, C>, &_s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd, _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMR);
+  v77 = v25;
   Picker.init(selection:label:content:)();
   Bindable.wrappedValue.getter();
-  v26 = DistancePickerViewModel.showsFractional.getter();
+  v27 = DistancePickerViewModel.showsFractional.getter(v26);
 
-  if ((v26 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    v40 = 1;
-    v41 = v76;
+    v45 = 1;
+    v46 = v81;
 LABEL_13:
-    (*(v78 + 56))(v41, v40, 1, v79);
-    v53 = v73;
-    v52 = v74;
-    v54 = *(v74 + 16);
-    v55 = v72;
-    v56 = v75;
-    v54(v73, v72, v75);
-    v57 = v77;
-    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v41, v77, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd);
-    v58 = v80;
-    v54(v80, v53, v56);
-    v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05TupleE0VyAN_AA19_ConditionalContentVyACyAESiAGySnySiGSiAOGGAXGtGSgtMd);
-    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v57, &v58[*(v59 + 48)], &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd);
-    outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v41, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd);
-    v60 = *(v52 + 8);
-    v60(v55, v56);
-    outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v57, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd);
-    return (v60)(v53, v56);
+    (*(v83 + 56))(v46, v45, 1, v84);
+    v58 = v78;
+    v57 = v79;
+    v59 = *(v79 + 16);
+    v60 = v77;
+    v61 = v80;
+    v59(v78, v77, v80);
+    v62 = v82;
+    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v46, v82, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMR);
+    v63 = v85;
+    v59(v85, v58, v61);
+    v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05TupleE0VyAN_AA19_ConditionalContentVyACyAESiAGySnySiGSiAOGGAXGtGSgtMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AA05TupleE0VyAN_AA19_ConditionalContentVyACyAESiAGySnySiGSiAOGGAXGtGSgtMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v62, &v63[*(v64 + 48)], &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMR);
+    outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v46, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMR);
+    v65 = *(v57 + 8);
+    v65(v60, v61);
+    outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v62, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMd, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGSgMR);
+    v65(v58, v61);
+    return;
   }
 
   static Locale.current.getter();
-  v27 = Locale.decimalSeparator.getter();
-  v29 = v28;
-  (*(v70 + 8))(v12, v71);
-  v30 = 46;
-  if (v29)
+  v28 = Locale.decimalSeparator.getter();
+  v30 = v29;
+  (*(v75 + 8))(v12, v76);
+  v31 = 46;
+  if (v30)
   {
-    v30 = v27;
+    v31 = v28;
   }
 
-  v71 = v30;
-  if (v29)
+  v76 = v31;
+  if (v30)
   {
-    v31 = v29;
+    v32 = v30;
   }
 
   else
   {
-    v31 = 0xE100000000000000;
+    v32 = 0xE100000000000000;
   }
 
   Bindable.wrappedValue.getter();
-  v32 = v86;
+  v33 = v91;
   swift_getKeyPath();
-  *&v86 = v32;
+  *&v91 = v33;
   lazy protocol witness table accessor for type DistancePickerViewModel and conformance DistancePickerViewModel();
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   swift_beginAccess();
-  v33 = *(v32 + 56);
+  v34 = *(v33 + 56);
 
-  Bindable.wrappedValue.getter();
-  v34 = DistancePickerViewModel.minimumIntegralValue.getter();
+  v35 = Bindable.wrappedValue.getter();
+  v37 = DistancePickerViewModel.minimumIntegralValue.getter(v35, v36);
 
   Bindable.projectedValue.getter();
   swift_getKeyPath();
-  if (v33 != v34)
+  if (v34 != v37)
   {
     Bindable<A>.subscript.getter();
 
-    v42 = (v69)(v20, v17);
-    v43 = v84;
-    MEMORY[0x28223BE20](v42);
-    v82 = v43;
-    v83 = v44;
+    v47 = (v74)(v20, v17);
+    v48 = v89;
+    MEMORY[0x28223BE20](v47);
+    v87 = v48;
+    v88 = v49;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd);
-    _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GACyxq_q0_GAae2aER0_rlWlTm_0(&lazy protocol witness table cache variable for type ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0> and conformance <> ForEach<A, B, C>, &_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd);
-    v39 = v61;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd, &_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMR);
+    _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GACyxq_q0_GAae2aER0_rlWlTm_0(&lazy protocol witness table cache variable for type ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0> and conformance <> ForEach<A, B, C>, &_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd, &_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMR);
+    v44 = v66;
     Picker.init(selection:label:content:)();
 
     goto LABEL_12;
@@ -5504,74 +2519,73 @@ LABEL_13:
 
   Bindable<A>.subscript.getter();
 
-  v69(v20, v17);
-  v35 = v84;
-  v36 = v85;
-  Bindable.wrappedValue.getter();
-  v37 = DistancePickerViewModel.minimumFractionalValue.getter();
+  v74(v20, v17);
+  v38 = v89;
+  v39 = v90;
+  v40 = Bindable.wrappedValue.getter();
+  v42 = DistancePickerViewModel.minimumFractionalValue.getter(v40, v41);
 
-  if (v37 <= 100)
+  if (v42 <= 100)
   {
-    MEMORY[0x28223BE20](result);
-    v82 = v35;
-    v83 = v36;
+    MEMORY[0x28223BE20](v43);
+    v87 = v38;
+    v88 = v39;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd);
-    _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GACyxq_q0_GAae2aER0_rlWlTm_0(&lazy protocol witness table cache variable for type ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0> and conformance <> ForEach<A, B, C>, &_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd);
-    v39 = v61;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd, &_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMR);
+    _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GACyxq_q0_GAae2aER0_rlWlTm_0(&lazy protocol witness table cache variable for type ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0> and conformance <> ForEach<A, B, C>, &_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMd, &_s7SwiftUI7ForEachVySnySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GMR);
+    v44 = v66;
     Picker.init(selection:label:content:)();
 
 LABEL_12:
-    v45 = v63;
-    v46 = v65;
-    (*(v63 + 16))(v64, v39, v65);
+    v50 = v68;
+    v51 = v70;
+    (*(v68 + 16))(v69, v44, v70);
     swift_storeEnumTagMultiPayload();
-    lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd);
-    v47 = v66;
+    lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGMR, MEMORY[0x277CDF038]);
+    v52 = v71;
     _ConditionalContent<>.init(storage:)();
-    (*(v45 + 8))(v39, v46);
-    v48 = v67;
-    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v47, v67, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd);
-    v49 = v68;
-    v50 = v71;
-    *v68 = v71;
-    *(v49 + 8) = v31;
-    *(v49 + 16) = 0;
-    *(v49 + 24) = MEMORY[0x277D84F90];
-    v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4TextV_AA19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0H0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAC_SiQo_GGASGtMd);
-    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v48, v49 + *(v51 + 48), &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd);
-    outlined copy of Text.Storage(v50, v31, 0);
+    (*(v50 + 8))(v44, v51);
+    v53 = v72;
+    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v52, v72, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMR);
+    v54 = v73;
+    v55 = v76;
+    *v73 = v76;
+    *(v54 + 8) = v32;
+    *(v54 + 16) = 0;
+    *(v54 + 24) = MEMORY[0x277D84F90];
+    v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4TextV_AA19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0H0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAC_SiQo_GGASGtMd, &_s7SwiftUI4TextV_AA19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0H0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAC_SiQo_GGASGtMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(v53, v54 + *(v56 + 48), &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMR);
+    outlined copy of Text.Storage(v55, v32, 0);
 
-    outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v47, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd);
-    outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v48, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd);
-    outlined consume of Text.Storage(v50, v31, 0);
+    outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v52, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMR);
+    outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(v53, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMd, &_s7SwiftUI19_ConditionalContentVyAA6PickerVyAA9EmptyViewVSiAA7ForEachVySnySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GGASGMR);
+    outlined consume of Text.Storage(v55, v32, 0);
 
-    v41 = v76;
-    outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v49, v76, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGMd);
-    v40 = 0;
+    v46 = v81;
+    outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(v54, v81, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGMd, &_s7SwiftUI9TupleViewVyAA4TextV_AA19_ConditionalContentVyAA6PickerVyAA05EmptyD0VSiAA7ForEachVySnySiGSiAA0D0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAE_SiQo_GGAUGtGMR);
+    v45 = 0;
     goto LABEL_13;
   }
 
   __break(1u);
-  return result;
 }
 
 uint64_t closure #1 in closure #1 in closure #1 in closure #1 in DistancePickerWatch.body.getter()
 {
-  type metadata accessor for DistancePickerWatch();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd);
-  Bindable.wrappedValue.getter();
-  v0 = DistancePickerViewModel.minimumIntegralValue.getter();
-  v1 = DistancePickerViewModel.maxValue.getter();
-  result = DistancePickerViewModel.increment.getter();
+  type metadata accessor for DistancePickerWatch(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd, &_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMR);
+  v0 = Bindable.wrappedValue.getter();
+  v2 = DistancePickerViewModel.minimumIntegralValue.getter(v0, v1);
+  v4 = DistancePickerViewModel.maxValue.getter(v3);
+  result = DistancePickerViewModel.increment.getter(v5);
   if (result)
   {
-    specialized _copySequenceToContiguousArray<A>(_:)(v0, v1, result);
+    specialized _copySequenceToContiguousArray<A>(_:)(v2, v4, result);
 
     swift_getKeyPath();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_Md);
-    lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_Md, &_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_MR);
+    lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd, &_sSaySiGMR, MEMORY[0x277D83980]);
     swift_getOpaqueTypeConformance2();
     return ForEach<>.init(_:id:content:)();
   }
@@ -5612,20 +2626,20 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in closure #1 in D
   return result;
 }
 
-uint64_t closure #2 in closure #1 in closure #1 in DistancePickerWatch.body.getter()
+uint64_t closure #2 in closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1)
 {
-  type metadata accessor for DistancePickerWatch();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  type metadata accessor for DistancePickerWatch(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   return State.wrappedValue.setter();
 }
 
-id closure #3 in closure #1 in closure #1 in DistancePickerWatch.body.getter@<X0>(uint64_t a1@<X8>)
+void closure #3 in closure #1 in closure #1 in DistancePickerWatch.body.getter(uint64_t a1@<X8>)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = v28 - v3;
-  type metadata accessor for DistancePickerWatch();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd);
+  type metadata accessor for DistancePickerWatch(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd, &_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMR);
   Bindable.wrappedValue.getter();
   v5 = v29;
   v6 = *(v29 + 16);
@@ -5639,10 +2653,10 @@ id closure #3 in closure #1 in closure #1 in DistancePickerWatch.body.getter@<X0
   v8 = NSUnitLength.hkUnit.getter();
 
   v9 = MEMORY[0x20F30D2C0](v8);
-  result = [v6 localizedLongUnitStringForDistanceUnit:v9 distanceInUnit:1 textCase:99.0];
-  if (result)
+  v10 = [v6 localizedLongUnitStringForDistanceUnit:v9 distanceInUnit:1 textCase:99.0];
+  if (v10)
   {
-    v11 = result;
+    v11 = v10;
     v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v14 = v13;
 
@@ -5661,7 +2675,7 @@ id closure #3 in closure #1 in closure #1 in DistancePickerWatch.body.getter@<X0
     v20 = type metadata accessor for Font.Design();
     (*(*(v20 - 8) + 56))(v4, 1, 1, v20);
     static Font.system(size:weight:design:)();
-    _s7SwiftUI4FontV6DesignOSgWOhTm_13(v4, &_s7SwiftUI4FontV6DesignOSgMd);
+    _s7SwiftUI4FontV6DesignOSgWOhTm_13(v4, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
     v21 = Text.font(_:)();
     v23 = v22;
     v25 = v24;
@@ -5679,27 +2693,25 @@ id closure #3 in closure #1 in closure #1 in DistancePickerWatch.body.getter@<X0
   {
     __break(1u);
   }
-
-  return result;
 }
 
 uint64_t closure #4 in closure #1 in closure #1 in DistancePickerWatch.body.getter@<X0>(id *a1@<X0>, uint64_t a2@<X8>)
 {
   v35 = a2;
-  v34 = type metadata accessor for DistanceUnitPicker();
+  v34 = type metadata accessor for DistanceUnitPicker(0);
   MEMORY[0x28223BE20](v34);
   v36 = v32 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v4);
   v6 = v32 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd, &_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMR);
   *&v33 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
   v9 = v32 - v8;
-  v10 = type metadata accessor for LapLengthUnitPicker();
+  v10 = type metadata accessor for LapLengthUnitPicker(0);
   v11 = *(v10 - 1);
   MEMORY[0x28223BE20](v10);
   v13 = v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9WorkoutUI19LapLengthUnitPickerVSgMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9WorkoutUI19LapLengthUnitPickerVSgMd, &_s9WorkoutUI19LapLengthUnitPickerVSgMR);
   MEMORY[0x28223BE20](v14 - 8);
   v16 = v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v18 = MEMORY[0x28223BE20](v17);
@@ -5707,7 +2719,7 @@ uint64_t closure #4 in closure #1 in closure #1 in DistancePickerWatch.body.gett
   v21 = *a1;
   if ([*a1 effectiveTypeIdentifier] == 46 && objc_msgSend(v21, sel_swimmingLocationType) == 1)
   {
-    v32[0] = *(type metadata accessor for DistancePickerWatch() + 20);
+    v32[0] = *(type metadata accessor for DistancePickerWatch(0) + 20);
     Bindable.projectedValue.getter();
     swift_getKeyPath();
     v32[1] = a1;
@@ -5720,7 +2732,7 @@ uint64_t closure #4 in closure #1 in closure #1 in DistancePickerWatch.body.gett
     v23 = *(v37 + 16);
 
     *&v13[v10[5]] = swift_getKeyPath();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMR);
     swift_storeEnumTagMultiPayload();
     *v13 = v22;
     *(v13 + 8) = v33;
@@ -5741,7 +2753,7 @@ uint64_t closure #4 in closure #1 in closure #1 in DistancePickerWatch.body.gett
     (*(v11 + 56))(v20, 1, 1, v10);
   }
 
-  type metadata accessor for DistancePickerWatch();
+  type metadata accessor for DistancePickerWatch(0);
   Bindable.wrappedValue.getter();
   Bindable.wrappedValue.getter();
   v25 = *(v38 + 16);
@@ -5749,9 +2761,9 @@ uint64_t closure #4 in closure #1 in closure #1 in DistancePickerWatch.body.gett
   KeyPath = swift_getKeyPath();
   v27 = v34;
   *&v6[*(v34 + 20)] = KeyPath;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMR);
   swift_storeEnumTagMultiPayload();
-  type metadata accessor for DistancePickerViewModel();
+  type metadata accessor for DistancePickerViewModel(0);
   lazy protocol witness table accessor for type DistancePickerViewModel and conformance DistancePickerViewModel();
   Bindable<A>.init(wrappedValue:)();
   *&v6[*(v27 + 24)] = v25;
@@ -5760,20 +2772,22 @@ uint64_t closure #4 in closure #1 in closure #1 in DistancePickerWatch.body.gett
   _s9WorkoutUI19DistancePickerWatchVWOcTm_0(v6, v36, type metadata accessor for DistanceUnitPicker);
   v29 = v35;
   outlined init with copy of LapLengthUnitPicker?(v16, v35);
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9WorkoutUI19LapLengthUnitPickerVSg_AA08DistanceeF0VtMd);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9WorkoutUI19LapLengthUnitPickerVSg_AA08DistanceeF0VtMd, &_s9WorkoutUI19LapLengthUnitPickerVSg_AA08DistanceeF0VtMR);
   _s9WorkoutUI19DistancePickerWatchVWOcTm_0(v28, v29 + *(v30 + 48), type metadata accessor for DistanceUnitPicker);
   outlined destroy of DistanceUnitPicker(v6);
-  _s7SwiftUI4FontV6DesignOSgWOhTm_13(v20, &_s9WorkoutUI19LapLengthUnitPickerVSgMd);
+  _s7SwiftUI4FontV6DesignOSgWOhTm_13(v20, &_s9WorkoutUI19LapLengthUnitPickerVSgMd, &_s9WorkoutUI19LapLengthUnitPickerVSgMR);
   outlined destroy of DistanceUnitPicker(v28);
-  return _s7SwiftUI4FontV6DesignOSgWOhTm_13(v16, &_s9WorkoutUI19LapLengthUnitPickerVSgMd);
+  return _s7SwiftUI4FontV6DesignOSgWOhTm_13(v16, &_s9WorkoutUI19LapLengthUnitPickerVSgMd, &_s9WorkoutUI19LapLengthUnitPickerVSgMR);
 }
 
-uint64_t closure #2 in closure #1 in DistancePickerWatch.body.getter()
+double closure #2 in closure #1 in DistancePickerWatch.body.getter()
 {
-  type metadata accessor for DistancePickerWatch();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd);
+  type metadata accessor for DistancePickerWatch(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd, &_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMR);
   Bindable.wrappedValue.getter();
   DistancePickerViewModel.updateDistanceGoal()();
+
+  return result;
 }
 
 uint64_t protocol witness for View.body.getter in conformance DistancePickerWatch@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
@@ -5790,16 +2804,16 @@ uint64_t protocol witness for View.body.getter in conformance DistancePickerWatc
   return result;
 }
 
-void type metadata completion function for DistancePickerWatch()
+void type metadata completion function for DistancePickerWatch(uint64_t a1)
 {
   type metadata accessor for FIUIWorkoutActivityType();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for Bindable<DistancePickerViewModel>();
-    if (v1 <= 0x3F)
+    type metadata accessor for Bindable<DistancePickerViewModel>(319);
+    if (v2 <= 0x3F)
     {
       type metadata accessor for State<Bool>();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -5809,7 +2823,7 @@ void type metadata completion function for DistancePickerWatch()
 
 uint64_t partial apply for closure #1 in DistancePickerWatch.body.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for DistancePickerWatch() - 8);
+  v3 = *(type metadata accessor for DistancePickerWatch(0) - 8);
   v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
 
   return closure #1 in DistancePickerWatch.body.getter(v4, a1);
@@ -5820,9 +2834,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GA15_yAA0T9DirectionOGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GA15_yAA0T9DirectionOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GA15_yAA0T9DirectionOGGMR);
     lazy protocol witness table accessor for type ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<LayoutDirection> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA15LayoutDirectionOGMd);
+    lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<LayoutDirection> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA15LayoutDirectionOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA15LayoutDirectionOGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>> and conformance <> ModifiedContent<A, B>);
   }
@@ -5835,8 +2849,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<VStack<T
   result = lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GMd);
-    lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAGyAGyAA6HStackVyAEyAA6PickerVyAA05EmptyE0VSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AEyAV_AA012_ConditionalG0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AEyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyACyACyACyACyAA6HStackVyAGyAA6PickerVyAA05EmptyG0VSiAA7ForEachVySaySiGSiAA0G0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AGyAV_AA012_ConditionalD0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AGyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGA12_GMR);
+    lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAGyAGyAA6HStackVyAEyAA6PickerVyAA05EmptyE0VSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AEyAV_AA012_ConditionalG0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AEyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA15ModifiedContentVyAGyAGyAGyAA6HStackVyAEyAA6PickerVyAA05EmptyE0VSiAA7ForEachVySaySiGSiAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GG_AEyAV_AA012_ConditionalG0VyAKyAMSiAOySnySiGSiAWGGA2_GtGSgtGGAA16_FlexFrameLayoutVGAA01_sT0VGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleX0VyAA14TintShapeStyleVGG_ArAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaQRd__lFQOyArAE11buttonStyleyQrqd__AA11ButtonStyleRd__lFQOyAA6ButtonVyAVG_07WorkoutB015UnitButtonStyleVQo__AEyA40_013LapLengthUnitI0VSg_A40_012DistanceUnitI0VtGQo_tGGMR, MEMORY[0x277CE1198]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout> and conformance <> ModifiedContent<A, B>);
   }
@@ -5846,18 +2860,19 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<VStack<T
 
 uint64_t partial apply for closure #2 in closure #1 in closure #1 in DistancePickerWatch.body.getter()
 {
-  type metadata accessor for DistancePickerWatch();
+  v1 = *(type metadata accessor for DistancePickerWatch(0) - 8);
+  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
 
-  return closure #2 in closure #1 in closure #1 in DistancePickerWatch.body.getter();
+  return closure #2 in closure #1 in closure #1 in DistancePickerWatch.body.getter(v2);
 }
 
 uint64_t objectdestroyTm_87()
 {
-  v1 = (type metadata accessor for DistancePickerWatch() - 8);
+  v1 = (type metadata accessor for DistancePickerWatch(0) - 8);
   v2 = (v0 + ((*(*v1 + 80) + 16) & ~*(*v1 + 80)));
 
   v3 = v1[7];
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMd, &_s7SwiftUI8BindableVy07WorkoutB023DistancePickerViewModelCGMR);
   (*(*(v4 - 8) + 8))(v2 + v3, v4);
 
   return swift_deallocObject();
@@ -5865,7 +2880,7 @@ uint64_t objectdestroyTm_87()
 
 uint64_t partial apply for closure #4 in closure #1 in closure #1 in DistancePickerWatch.body.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for DistancePickerWatch() - 8);
+  v3 = *(type metadata accessor for DistancePickerWatch(0) - 8);
   v4 = (v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80)));
 
   return closure #4 in closure #1 in closure #1 in DistancePickerWatch.body.getter(v4, a1);
@@ -5873,7 +2888,7 @@ uint64_t partial apply for closure #4 in closure #1 in closure #1 in DistancePic
 
 uint64_t outlined init with copy of LapLengthUnitPicker?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9WorkoutUI19LapLengthUnitPickerVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9WorkoutUI19LapLengthUnitPickerVSgMd, &_s9WorkoutUI19LapLengthUnitPickerVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -5887,15 +2902,15 @@ uint64_t _s9WorkoutUI19DistancePickerWatchVWOcTm_0(uint64_t a1, uint64_t a2, uin
 
 uint64_t outlined destroy of DistanceUnitPicker(uint64_t a1)
 {
-  v2 = type metadata accessor for DistanceUnitPicker();
+  v2 = type metadata accessor for DistanceUnitPicker(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t _s7SwiftUI4FontV6DesignOSgWOhTm_13(uint64_t a1, uint64_t *a2)
+uint64_t _s7SwiftUI4FontV6DesignOSgWOhTm_13(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -5906,12 +2921,12 @@ uint64_t outlined init with take of DistancePickerWatch(uint64_t a1, uint64_t a2
   return a2;
 }
 
-uint64_t _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GACyxq_q0_GAae2aER0_rlWlTm_0(unint64_t *a1, uint64_t *a2)
+uint64_t _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SiQo_GACyxq_q0_GAae2aER0_rlWlTm_0(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -5920,33 +2935,33 @@ uint64_t _s7SwiftUI7ForEachVySaySiGSiAA4ViewPAAE3tag_15includeOptionalQrqd___Sbt
   return result;
 }
 
-uint64_t outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>, _FlexFrameLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<TintShapeStyle>>, <<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)>>, _FrameLayout>, _EnvironmentKeyWritingModifier<LayoutDirection>>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with take of HStack<TupleView<(Picker<EmptyView, Int, ForEach<[Int], Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, TupleView<(Text, _ConditionalContent<Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>, Picker<EmptyView, Int, ForEach<Range<Int>, Int, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>>>)>?)>>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type GeometryReader<<<opaque return type of View.onChange<A>(of:initial:_:)>>.0> and conformance GeometryReader<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -6054,12 +3069,11 @@ void *protocol witness for RawRepresentable.init(rawValue:) in conformance Worko
   return result;
 }
 
-uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in conformance WorkoutConfigurationCapabilities@<X0>(uint64_t *a1@<X8>)
+void protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in conformance WorkoutConfigurationCapabilities(uint64_t *a2@<X8>)
 {
-  v2 = specialized SetAlgebra<>.init(arrayLiteral:)();
+  v3 = specialized SetAlgebra<>.init(arrayLiteral:)();
 
-  *a1 = v2;
-  return result;
+  *a2 = v3;
 }
 
 unint64_t lazy protocol witness table accessor for type WorkoutConfigurationCapabilities and conformance WorkoutConfigurationCapabilities()
@@ -6396,15 +3410,15 @@ uint64_t WorkoutNotificationTranscriptView.init(units:formattingManager:resetIdl
 uint64_t WorkoutNotificationTranscriptView.body.getter@<X0>(uint64_t a1@<X8>)
 {
   v38 = a1;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd);
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMR);
   v32 = *(v36 - 8);
   MEMORY[0x28223BE20](v36);
   v31 = &v30 - v2;
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE19onScrollPhaseChangeyQryAA0eF0O_AFtcFQOyAA0eC0VyAA05TupleC0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAOyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGASyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGG_Qo_Md);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE19onScrollPhaseChangeyQryAA0eF0O_AFtcFQOyAA0eC0VyAA05TupleC0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAOyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGASyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGG_Qo_Md, &_s7SwiftUI4ViewPAAE19onScrollPhaseChangeyQryAA0eF0O_AFtcFQOyAA0eC0VyAA05TupleC0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAOyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGASyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGG_Qo_MR);
   v34 = *(v37 - 8);
   MEMORY[0x28223BE20](v37);
   v33 = &v30 - v3;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA6VStackVyAA9TupleViewVyAA6HStackVyAIy07WorkoutB00j16NotificationUnitH0V_ANtGG_ANtGGAA0H0PAAE19onScrollPhaseChangeyQryAA0nO0O_AWtcFQOyAA0nH0VyAIyAA7ForEachVySnySiGSiAA08ModifiedD0VyA2_yAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGA6_yAA4FontVSgGGSgG_AL26SessionExtraControlsButtonVtGG_Qo__GMd);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA6VStackVyAA9TupleViewVyAA6HStackVyAIy07WorkoutB00j16NotificationUnitH0V_ANtGG_ANtGGAA0H0PAAE19onScrollPhaseChangeyQryAA0nO0O_AWtcFQOyAA0nH0VyAIyAA7ForEachVySnySiGSiAA08ModifiedD0VyA2_yAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGA6_yAA4FontVSgGGSgG_AL26SessionExtraControlsButtonVtGG_Qo__GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA6VStackVyAA9TupleViewVyAA6HStackVyAIy07WorkoutB00j16NotificationUnitH0V_ANtGG_ANtGGAA0H0PAAE19onScrollPhaseChangeyQryAA0nO0O_AWtcFQOyAA0nH0VyAIyAA7ForEachVySnySiGSiAA08ModifiedD0VyA2_yAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGA6_yAA4FontVSgGGSgG_AL26SessionExtraControlsButtonVtGG_Qo__GMR);
   MEMORY[0x28223BE20](v35);
   v5 = &v30 - v4;
   v6 = type metadata accessor for EnvironmentValues();
@@ -6427,8 +3441,8 @@ LABEL_3:
       MEMORY[0x28223BE20](v8);
       *(&v30 - 2) = &v60;
       static Axis.Set.vertical.getter();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA7ForEachVySnySiGSiAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGALyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGMd);
-      lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA7ForEachVySnySiGSiAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGALyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA7ForEachVySnySiGSiAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGALyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGMd, &_s7SwiftUI9TupleViewVyAA7ForEachVySnySiGSiAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGALyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGMR);
+      lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA7ForEachVySnySiGSiAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGALyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGMd, &_s7SwiftUI9TupleViewVyAA7ForEachVySnySiGSiAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGALyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGMR, MEMORY[0x277CE14C0]);
       v13 = v31;
       ScrollView.init(_:showsIndicators:content:)();
       v14 = swift_allocObject();
@@ -6438,7 +3452,7 @@ LABEL_3:
       v14[3] = v62[0];
       *(v14 + 57) = *(v62 + 9);
       outlined init with copy of WorkoutNotificationTranscriptView(&v60, v58);
-      v16 = lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ScrollView<TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)>> and conformance ScrollView<A>, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd);
+      v16 = lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ScrollView<TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)>> and conformance ScrollView<A>, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMR, MEMORY[0x277CDD6E0]);
       v17 = v33;
       v18 = v36;
       View.onScrollPhaseChange(_:)();
@@ -6448,8 +3462,8 @@ LABEL_3:
       v20 = v37;
       (*(v34 + 16))(v5, v17, v37);
       swift_storeEnumTagMultiPayload();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd);
-      lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(HStack<TupleView<(WorkoutNotificationUnitView, WorkoutNotificationUnitView)>>, WorkoutNotificationUnitView)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMR);
+      lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(HStack<TupleView<(WorkoutNotificationUnitView, WorkoutNotificationUnitView)>>, WorkoutNotificationUnitView)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMR, MEMORY[0x277CE1198]);
       *&v58[0] = v18;
       *(&v58[0] + 1) = v16;
       swift_getOpaqueTypeConformance2();
@@ -6460,14 +3474,14 @@ LABEL_3:
 
   else
   {
-    _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(&v63, v58, &_s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGMd);
+    _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(&v63, v58, &_s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGMd, &_s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGMR);
     static os_log_type_t.fault.getter();
     v22 = static Log.runtimeIssuesLog.getter();
     os_log(_:dso:log:_:_:)();
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
-    _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(&v63, &_s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGMd);
+    _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(&v63, &_s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGMd, &_s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGMR);
     v8 = (*(v7 + 8))(v10, v6);
     if (LOBYTE(v58[0]) != 11)
     {
@@ -6496,8 +3510,8 @@ LABEL_3:
   v58[4] = v44;
   v58[0] = v40;
   v58[1] = v41;
-  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(&v50, &v39, &_s7SwiftUI9TupleViewVyAA6HStackVyACy07WorkoutB00f16NotificationUnitD0V_AHtGG_AHtGMd);
-  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(v58, &_s7SwiftUI9TupleViewVyAA6HStackVyACy07WorkoutB00f16NotificationUnitD0V_AHtGG_AHtGMd);
+  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(&v50, &v39, &_s7SwiftUI9TupleViewVyAA6HStackVyACy07WorkoutB00f16NotificationUnitD0V_AHtGG_AHtGMd, &_s7SwiftUI9TupleViewVyAA6HStackVyACy07WorkoutB00f16NotificationUnitD0V_AHtGG_AHtGMR);
+  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(v58, &_s7SwiftUI9TupleViewVyAA6HStackVyACy07WorkoutB00f16NotificationUnitD0V_AHtGG_AHtGMd, &_s7SwiftUI9TupleViewVyAA6HStackVyACy07WorkoutB00f16NotificationUnitD0V_AHtGG_AHtGMR);
   *(&v48[6] + 7) = v56;
   *(&v48[5] + 7) = v55;
   *(&v48[2] + 7) = v52;
@@ -6525,9 +3539,9 @@ LABEL_3:
   v5[16] = v28;
   *(v5 + 17) = v26;
   swift_storeEnumTagMultiPayload();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd);
-  lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(HStack<TupleView<(WorkoutNotificationUnitView, WorkoutNotificationUnitView)>>, WorkoutNotificationUnitView)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd);
-  v29 = lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ScrollView<TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)>> and conformance ScrollView<A>, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMR);
+  lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(HStack<TupleView<(WorkoutNotificationUnitView, WorkoutNotificationUnitView)>>, WorkoutNotificationUnitView)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMR, MEMORY[0x277CE1198]);
+  v29 = lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ScrollView<TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)>> and conformance ScrollView<A>, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMR, MEMORY[0x277CDD6E0]);
   *&v40 = v36;
   *(&v40 + 1) = v29;
   swift_getOpaqueTypeConformance2();
@@ -6553,8 +3567,8 @@ uint64_t closure #1 in WorkoutNotificationTranscriptView.body.getter@<X0>(uint64
   *(v34 + 9) = *(v40 + 9);
   v33[0] = v37;
   v33[1] = v38;
-  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(&v29, v43, &_s7SwiftUI9TupleViewVy07WorkoutB00e16NotificationUnitD0V_AFtGMd);
-  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(v33, &_s7SwiftUI9TupleViewVy07WorkoutB00e16NotificationUnitD0V_AFtGMd);
+  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(&v29, v43, &_s7SwiftUI9TupleViewVy07WorkoutB00e16NotificationUnitD0V_AFtGMd, &_s7SwiftUI9TupleViewVy07WorkoutB00e16NotificationUnitD0V_AFtGMR);
+  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(v33, &_s7SwiftUI9TupleViewVy07WorkoutB00e16NotificationUnitD0V_AFtGMd, &_s7SwiftUI9TupleViewVy07WorkoutB00e16NotificationUnitD0V_AFtGMR);
   *(&v28[1] + 7) = v30;
   *(&v28[2] + 7) = v31;
   *(&v28[3] + 7) = v32[0];
@@ -6620,7 +3634,7 @@ uint64_t closure #1 in WorkoutNotificationTranscriptView.body.getter@<X0>(uint64
   *(a2 + 120) = v14;
   *(a2 + 128) = KeyPath;
   *(a2 + 136) = 0;
-  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(v35, v43, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00f16NotificationUnitE0V_AHtGGMd);
+  _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(v35, v43, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00f16NotificationUnitE0V_AHtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00f16NotificationUnitE0V_AHtGGMR);
 
   v23 = v13;
 
@@ -6635,7 +3649,7 @@ uint64_t closure #1 in WorkoutNotificationTranscriptView.body.getter@<X0>(uint64
   v48 = v28[3];
   v49 = v28[4];
   v45 = v28[0];
-  return _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(v43, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00f16NotificationUnitE0V_AHtGGMd);
+  return _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(v43, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00f16NotificationUnitE0V_AHtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVy07WorkoutB00f16NotificationUnitE0V_AHtGGMR);
 }
 
 uint64_t closure #1 in closure #1 in WorkoutNotificationTranscriptView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -6702,13 +3716,13 @@ uint64_t closure #1 in closure #1 in WorkoutNotificationTranscriptView.body.gett
   return outlined consume of Environment<WorkoutViewStyle>.Content(v19, 0);
 }
 
-uint64_t closure #2 in WorkoutNotificationTranscriptView.body.getter@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+uint64_t closure #2 in WorkoutNotificationTranscriptView.body.getter@<X0>(uint64_t *a1@<X0>, char *a2@<X8>)
 {
   v4 = type metadata accessor for Material();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v43 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySnySiGSiAA15ModifiedContentVyAFyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAJyAA4FontVSgGGSgGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySnySiGSiAA15ModifiedContentVyAFyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAJyAA4FontVSgGGSgGMd, &_s7SwiftUI7ForEachVySnySiGSiAA15ModifiedContentVyAFyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAJyAA4FontVSgGGSgGMR);
   v9 = *(v8 - 8);
   MEMORY[0x28223BE20](v8);
   v11 = &v43 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6734,14 +3748,14 @@ LABEL_3:
     v53 = v17;
     swift_getKeyPath();
     v18 = swift_allocObject();
-    v19 = *(a1 + 16);
+    v19 = *(a1 + 1);
     v18[1] = *a1;
     v18[2] = v19;
-    v18[3] = *(a1 + 32);
+    v18[3] = *(a1 + 2);
     *(v18 + 57) = *(a1 + 41);
     outlined init with copy of WorkoutNotificationTranscriptView(a1, v51);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGSgMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGSgMR);
     lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>? and conformance <A> A?();
     ForEach<>.init(_:id:content:)();
@@ -6782,10 +3796,10 @@ LABEL_4:
   (*(v25 + 16))(v7, v26, v4);
   v27 = AnyShapeStyle.init<A>(_:)();
   v28 = swift_allocObject();
-  v29 = *(a1 + 16);
+  v29 = *(a1 + 1);
   v28[1] = *a1;
   v28[2] = v29;
-  v28[3] = *(a1 + 32);
+  v28[3] = *(a1 + 2);
   *(v28 + 57) = *(a1 + 41);
   v30 = v9;
   v31 = *(v9 + 16);
@@ -6794,7 +3808,7 @@ LABEL_4:
   v31(v49, v50, v48);
   v34 = v47;
   v31(v47, v32, v33);
-  v35 = &v34[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySnySiGSiAA15ModifiedContentVyAFyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAJyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtMd) + 48)];
+  v35 = &v34[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySnySiGSiAA15ModifiedContentVyAFyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAJyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtMd, &_s7SwiftUI7ForEachVySnySiGSiAA15ModifiedContentVyAFyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAJyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtMR) + 48)];
   v56 = 0uLL;
   v36 = countAndFlagsBits;
   v37 = object;
@@ -6840,7 +3854,7 @@ unint64_t closure #1 in closure #2 in WorkoutNotificationTranscriptView.body.get
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v9 = &v36 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v36 - v11;
   v13 = type metadata accessor for Font.TextStyle();
@@ -6887,7 +3901,7 @@ LABEL_6:
     (*(*(v28 - 8) + 56))(v12, 1, 1, v28);
     static Font.Weight.medium.getter();
     static Font.system(_:design:weight:)();
-    _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(v12, &_s7SwiftUI4FontV6DesignOSgMd);
+    _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(v12, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
     (*(v14 + 8))(v17, v13);
     v29 = v40;
     (*(v7 + 104))(v9, *MEMORY[0x277CE0A10], v40);
@@ -7005,10 +4019,10 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<VSta
   result = lazy protocol witness table cache variable for type _ConditionalContent<VStack<TupleView<(HStack<TupleView<(WorkoutNotificationUnitView, WorkoutNotificationUnitView)>>, WorkoutNotificationUnitView)>>, <<opaque return type of View.onScrollPhaseChange(_:)>>.0> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<VStack<TupleView<(HStack<TupleView<(WorkoutNotificationUnitView, WorkoutNotificationUnitView)>>, WorkoutNotificationUnitView)>>, <<opaque return type of View.onScrollPhaseChange(_:)>>.0> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA6VStackVyAA9TupleViewVyAA6HStackVyAGy07WorkoutB00i16NotificationUnitG0V_ALtGG_ALtGGAA0G0PAAE19onScrollPhaseChangeyQryAA0mN0O_AUtcFQOyAA0mG0VyAGyAA7ForEachVySnySiGSiAA08ModifiedD0VyA0_yAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGA4_yAA4FontVSgGGSgG_AJ26SessionExtraControlsButtonVtGG_Qo_GMd);
-    lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(HStack<TupleView<(WorkoutNotificationUnitView, WorkoutNotificationUnitView)>>, WorkoutNotificationUnitView)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd);
-    lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ScrollView<TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)>> and conformance ScrollView<A>, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA6VStackVyAA9TupleViewVyAA6HStackVyAGy07WorkoutB00i16NotificationUnitG0V_ALtGG_ALtGGAA0G0PAAE19onScrollPhaseChangeyQryAA0mN0O_AUtcFQOyAA0mG0VyAGyAA7ForEachVySnySiGSiAA08ModifiedD0VyA0_yAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGA4_yAA4FontVSgGGSgG_AJ26SessionExtraControlsButtonVtGG_Qo_GMd, &_s7SwiftUI19_ConditionalContentVyAA6VStackVyAA9TupleViewVyAA6HStackVyAGy07WorkoutB00i16NotificationUnitG0V_ALtGG_ALtGGAA0G0PAAE19onScrollPhaseChangeyQryAA0mN0O_AUtcFQOyAA0mG0VyAGyAA7ForEachVySnySiGSiAA08ModifiedD0VyA0_yAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGA4_yAA4FontVSgGGSgG_AJ26SessionExtraControlsButtonVtGG_Qo_GMR);
+    lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(HStack<TupleView<(WorkoutNotificationUnitView, WorkoutNotificationUnitView)>>, WorkoutNotificationUnitView)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6HStackVyAEy07WorkoutB00g16NotificationUnitE0V_AJtGG_AJtGGMR, MEMORY[0x277CE1198]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMR);
+    lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ScrollView<TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)>> and conformance ScrollView<A>, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMd, &_s7SwiftUI10ScrollViewVyAA05TupleD0VyAA7ForEachVySnySiGSiAA15ModifiedContentVyAJyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGSgG_07WorkoutB026SessionExtraControlsButtonVtGGMR, MEMORY[0x277CDD6E0]);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<VStack<TupleView<(HStack<TupleView<(WorkoutNotificationUnitView, WorkoutNotificationUnitView)>>, WorkoutNotificationUnitView)>>, <<opaque return type of View.onScrollPhaseChange(_:)>>.0> and conformance <> _ConditionalContent<A, B>);
@@ -7017,10 +4031,10 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<VSta
   return result;
 }
 
-uint64_t _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOcTm_2(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
@@ -7029,7 +4043,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>? and conformance <A> A?;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>? and conformance <A> A?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGSgMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGSgMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>? and conformance <A> A?);
@@ -7043,9 +4057,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd);
+    lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -7053,12 +4067,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type TupleView<(ForEach<Range<Int>, Int, ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>?>, SessionExtraControlsButton)> and conformance TupleView<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7093,10 +4107,10 @@ uint64_t partial apply for closure #2 in closure #2 in WorkoutNotificationTransc
   return result;
 }
 
-uint64_t _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(uint64_t a1, uint64_t *a2)
+uint64_t _s7SwiftUI11EnvironmentVy07WorkoutB00D9ViewStyleOGWOhTm_2(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -7130,15 +4144,15 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Seymour
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SeymourAvailability()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SeymourAvailability(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x20F30CD90](v1);
+  MEMORY[0x20F30CD90](v2);
   return Hasher._finalize()();
 }
 
-uint64_t *protocol witness for RawRepresentable.init(rawValue:) in conformance SeymourAvailability@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+unint64_t *protocol witness for RawRepresentable.init(rawValue:) in conformance SeymourAvailability@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v2 = *result;
   v3 = *result > 1;
@@ -7155,10 +4169,10 @@ uint64_t *protocol witness for RawRepresentable.init(rawValue:) in conformance S
 void SwimmingDistancePickerPhone.valuesChanged()()
 {
   v1 = *(v0 + 8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySdGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySdGMd, &_s7SwiftUI5StateVySdGMR);
   State.wrappedValue.getter();
   v7 = *(v0 + 56);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySo12NSUnitLengthCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySo12NSUnitLengthCGMd, &_s7SwiftUI5StateVySo12NSUnitLengthCGMR);
   State.wrappedValue.getter();
   v2 = NSUnitLength.hkUnit.getter();
   v3 = [objc_opt_self() quantityWithUnit:v2 doubleValue:{*&v8, v7}];
@@ -7167,22 +4181,22 @@ void SwimmingDistancePickerPhone.valuesChanged()()
 
   v5 = v4;
   v6 = v3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySo10HKQuantityCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySo10HKQuantityCGMd, &_s7SwiftUI7BindingVySo10HKQuantityCGMR);
   Binding.wrappedValue.setter();
 }
 
-uint64_t SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
+double SwimmingDistancePickerPhone.body.getter@<D0>(uint64_t a1@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonK0Rd__lFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0M0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedmK0VQo__Qo__AeAE0E6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyALyAeAE06pickerK0yQrqd__AA06PickerK0Rd__lFQOyAA6PickerVyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerK0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAeAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAeAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AeAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtGMd);
-  lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonK0Rd__lFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0M0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedmK0VQo__Qo__AeAE0E6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyALyAeAE06pickerK0yQrqd__AA06PickerK0Rd__lFQOyAA6PickerVyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerK0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAeAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAeAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AeAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonK0Rd__lFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0M0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedmK0VQo__Qo__AeAE0E6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyALyAeAE06pickerK0yQrqd__AA06PickerK0Rd__lFQOyAA6PickerVyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerK0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAeAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAeAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AeAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonK0Rd__lFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0M0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedmK0VQo__Qo__AeAE0E6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyALyAeAE06pickerK0yQrqd__AA06PickerK0Rd__lFQOyAA6PickerVyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerK0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAeAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAeAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AeAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtGMR);
+  lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonK0Rd__lFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0M0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedmK0VQo__Qo__AeAE0E6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyALyAeAE06pickerK0yQrqd__AA06PickerK0Rd__lFQOyAA6PickerVyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerK0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAeAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAeAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AeAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonK0Rd__lFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0M0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedmK0VQo__Qo__AeAE0E6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyALyAeAE06pickerK0yQrqd__AA06PickerK0Rd__lFQOyAA6PickerVyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerK0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAeAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAeAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AeAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtGMR, MEMORY[0x277CE14C0]);
   Section<>.init(content:)();
   v13 = *(v1 + 16);
   v14[0] = *(v1 + 32);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySbGMd, &_s7SwiftUI7BindingVySbGMR);
   Binding.projectedValue.getter();
   v3 = v11;
   v11 = *(v1 + 72);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.projectedValue.getter();
   v4 = v13;
   v5 = v14[0];
@@ -7196,7 +4210,7 @@ uint64_t SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
   v14[24] = v5;
   v15 = v6;
   v16 = v7;
-  v8 = a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA7SectionVyAA9EmptyViewVAA05TupleG0VyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonO0Rd__lFQOyAA6HStackVyAIyAA4TextV_AA6SpacerVACyACyAA0Q0VyATGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA3_GA5_tGG_AA08BorderedqO0VQo__Qo__AkAE0I6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyACyARyAkAE06pickerO0yQrqd__AA06PickerO0Rd__lFQOyAA6PickerVyAGSdAA7ForEachVySaySdGSdAkAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAT_SdQo_GG_AA011WheelPickerO0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAkAEA12_A13_A14__Qrqd___SbyyctSQRd__lFQOyAkAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAkAEA15_yQrqd__AAA16_Rd__lFQOyA18_yAGSo12NSUnitLengthCA20_ySayA47_GA47_AkAEA22__A23_Qrqd___SbtSHRd__lFQOyAT_A47_Qo_GG_A28_Qo_A33_G_Qo__A47_Qo_SgtGAGGA31_25PickerEditModeCoordinatorVGMd) + 36);
+  v8 = a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA7SectionVyAA9EmptyViewVAA05TupleG0VyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonO0Rd__lFQOyAA6HStackVyAIyAA4TextV_AA6SpacerVACyACyAA0Q0VyATGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA3_GA5_tGG_AA08BorderedqO0VQo__Qo__AkAE0I6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyACyARyAkAE06pickerO0yQrqd__AA06PickerO0Rd__lFQOyAA6PickerVyAGSdAA7ForEachVySaySdGSdAkAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAT_SdQo_GG_AA011WheelPickerO0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAkAEA12_A13_A14__Qrqd___SbyyctSQRd__lFQOyAkAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAkAEA15_yQrqd__AAA16_Rd__lFQOyA18_yAGSo12NSUnitLengthCA20_ySayA47_GA47_AkAEA22__A23_Qrqd___SbtSHRd__lFQOyAT_A47_Qo_GG_A28_Qo_A33_G_Qo__A47_Qo_SgtGAGGA31_25PickerEditModeCoordinatorVGMd, &_s7SwiftUI15ModifiedContentVyAA7SectionVyAA9EmptyViewVAA05TupleG0VyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonO0Rd__lFQOyAA6HStackVyAIyAA4TextV_AA6SpacerVACyACyAA0Q0VyATGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA3_GA5_tGG_AA08BorderedqO0VQo__Qo__AkAE0I6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyACyARyAkAE06pickerO0yQrqd__AA06PickerO0Rd__lFQOyAA6PickerVyAGSdAA7ForEachVySaySdGSdAkAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAT_SdQo_GG_AA011WheelPickerO0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAkAEA12_A13_A14__Qrqd___SbyyctSQRd__lFQOyAkAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAkAEA15_yQrqd__AAA16_Rd__lFQOyA18_yAGSo12NSUnitLengthCA20_ySayA47_GA47_AkAEA22__A23_Qrqd___SbtSHRd__lFQOyAT_A47_Qo_GG_A28_Qo_A33_G_Qo__A47_Qo_SgtGAGGA31_25PickerEditModeCoordinatorVGMR) + 36);
   *(v8 + 32) = *&v14[16];
   *(v8 + 48) = v6;
   *(v8 + 64) = v16;
@@ -7204,6 +4218,8 @@ uint64_t SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
   *v8 = v13;
   *(v8 + 16) = v9;
   outlined init with copy of PickerEditModeCoordinator(&v13, &v11);
+
+  return result;
 }
 
 uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
@@ -7213,26 +4229,26 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
   v85 = *(v86 - 8);
   MEMORY[0x28223BE20](v86);
   v84 = &v78 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMd);
+  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMR);
   v82 = *(v83 - 8);
   MEMORY[0x28223BE20](v83);
   v80 = &v78 - v4;
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA7ForEachVySayAMGAmeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo_GG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMd);
+  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA7ForEachVySayAMGAmeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo_GG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA7ForEachVySayAMGAmeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo_GG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMR);
   MEMORY[0x28223BE20](v87);
   v81 = &v78 - v5;
-  v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAVGAvcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AVQo_GG_AA05WheelpO0VQo_07WorkoutB0012AdjustedListE16SeparatorLeadingVG_Qo_Md);
+  v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAVGAvcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AVQo_GG_AA05WheelpO0VQo_07WorkoutB0012AdjustedListE16SeparatorLeadingVG_Qo_Md, &_s7SwiftUI4ViewPAAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerO0Rd__lFQOyAA0P0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAVGAvcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AVQo_GG_AA05WheelpO0VQo_07WorkoutB0012AdjustedListE16SeparatorLeadingVG_Qo_MR);
   v89 = *(v90 - 8);
   MEMORY[0x28223BE20](v90);
   v88 = &v78 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMR);
   MEMORY[0x28223BE20](v7 - 8);
   v97 = &v78 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9);
   v99 = &v78 - v10;
-  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerH0Rd__lFQOyAA0I0VyAA05EmptyF0VSdAA7ForEachVySaySdGSdAgAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeliH0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVGMd);
+  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerH0Rd__lFQOyAA0I0VyAA05EmptyF0VSdAA7ForEachVySaySdGSdAgAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeliH0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerH0Rd__lFQOyAA0I0VyAA05EmptyF0VSdAA7ForEachVySaySdGSdAgAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeliH0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVGMR);
   MEMORY[0x28223BE20](v78);
   v79 = (&v78 - v11);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMR);
   MEMORY[0x28223BE20](v12 - 8);
   v96 = &v78 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v14);
@@ -7241,14 +4257,14 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
   v101 = *(v16 - 8);
   MEMORY[0x28223BE20](v16);
   v18 = &v78 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA15ModifiedContentVyAKyAA6ButtonVyAGGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGATGAVtGGMd);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA15ModifiedContentVyAKyAA6ButtonVyAGGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGATGAVtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA15ModifiedContentVyAKyAA6ButtonVyAGGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGATGAVtGGMR);
   MEMORY[0x28223BE20](v19);
   v21 = &v78 - v20;
-  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyAOyAA0G0VyAKGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAXGAZtGG_AA08BorderedgE0VQo_Md);
+  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyAOyAA0G0VyAKGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAXGAZtGG_AA08BorderedgE0VQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyAOyAA0G0VyAKGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAXGAZtGG_AA08BorderedgE0VQo_MR);
   v92 = *(v91 - 8);
   MEMORY[0x28223BE20](v91);
   v23 = &v78 - v22;
-  v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonJ0Rd__lFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0L0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedlJ0VQo__Qo_Md);
+  v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonJ0Rd__lFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0L0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedlJ0VQo__Qo_Md, &_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonJ0Rd__lFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0L0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedlJ0VQo__Qo_MR);
   v94 = *(v95 - 8);
   MEMORY[0x28223BE20](v95);
   v93 = (&v78 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0));
@@ -7257,14 +4273,14 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
   *v21 = static VerticalAlignment.center.getter();
   *(v21 + 1) = 0;
   v21[16] = 1;
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyAOyAA6ButtonVyAKGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAXGAZtGGMd);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyAOyAA6ButtonVyAKGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAXGAZtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyAOyAA6ButtonVyAKGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAXGAZtGGMR);
   closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter(a1, &v21[*(v28 + 44)]);
   BorderedButtonStyle.init()();
-  v29 = lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA15ModifiedContentVyAKyAA6ButtonVyAGGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGATGAVtGGMd);
-  v30 = _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type BorderedButtonStyle and conformance BorderedButtonStyle, MEMORY[0x277CDDEE0]);
+  v29 = lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA15ModifiedContentVyAKyAA6ButtonVyAGGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGATGAVtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA15ModifiedContentVyAKyAA6ButtonVyAGGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGATGAVtGGMR, MEMORY[0x277CE1138]);
+  v30 = _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type BorderedButtonStyle and conformance BorderedButtonStyle, MEMORY[0x277CDDEE0], MEMORY[0x277CDDED0]);
   View.buttonStyle<A>(_:)();
   v101[1](v18, v16);
-  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v21, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA15ModifiedContentVyAKyAA6ButtonVyAGGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGATGAVtGGMd);
+  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v21, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA15ModifiedContentVyAKyAA6ButtonVyAGGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGATGAVtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA4TextV_AA6SpacerVAA15ModifiedContentVyAKyAA6ButtonVyAGGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGATGAVtGGMR);
   v31 = swift_allocObject();
   v32 = *(a1 + 80);
   *(v31 + 80) = *(a1 + 64);
@@ -7290,7 +4306,7 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
   v37 = v100;
   (*(v92 + 8))(v36, v35);
   *v103 = *(a1 + 72);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   v38 = 1;
   if (v105 == 1)
@@ -7300,11 +4316,11 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
     *v79 = v39;
     *(v40 + 8) = 0;
     *(v40 + 16) = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA0D0PAAE11pickerStyleyQrqd__AA06PickerI0Rd__lFQOyAA0J0VyAA05EmptyD0VSdAA7ForEachVySaySdGSdAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeljI0VQo_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA0D0PAAE11pickerStyleyQrqd__AA06PickerI0Rd__lFQOyAA0J0VyAA05EmptyD0VSdAA7ForEachVySaySdGSdAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeljI0VQo_GMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA0D0PAAE11pickerStyleyQrqd__AA06PickerI0Rd__lFQOyAA0J0VyAA05EmptyD0VSdAA7ForEachVySaySdGSdAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeljI0VQo_GMR);
     closure #3 in closure #1 in SwimmingDistancePickerPhone.body.getter(a1);
     *(v40 + *(v78 + 36)) = 0;
     *v103 = *(a1 + 40);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySdGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySdGMd, &_s7SwiftUI5StateVySdGMR);
     State.wrappedValue.getter();
     v41 = swift_allocObject();
     v42 = *(a1 + 80);
@@ -7321,11 +4337,11 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
     lazy protocol witness table accessor for type ModifiedContent<HStack<<<opaque return type of View.pickerStyle<A>(_:)>>.0>, AdjustedListRowSeparatorLeading> and conformance <> ModifiedContent<A, B>();
     View.onChange<A>(of:initial:_:)();
 
-    outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v40, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerH0Rd__lFQOyAA0I0VyAA05EmptyF0VSdAA7ForEachVySaySdGSdAgAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeliH0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVGMd);
+    outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v40, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerH0Rd__lFQOyAA0I0VyAA05EmptyF0VSdAA7ForEachVySaySdGSdAgAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeliH0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerH0Rd__lFQOyAA0I0VyAA05EmptyF0VSdAA7ForEachVySaySdGSdAgAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeliH0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVGMR);
     v38 = 0;
   }
 
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_Md);
+  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_Md, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_MR);
   v46 = 1;
   (*(*(v45 - 8) + 56))(v37, v38, 1, v45);
   *v103 = *(a1 + 88);
@@ -7335,20 +4351,20 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
   {
     v105 = *(a1 + 56);
     v102 = *(a1 + 56);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySo12NSUnitLengthCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySo12NSUnitLengthCGMd, &_s7SwiftUI5StateVySo12NSUnitLengthCGMR);
     v48 = State.projectedValue.getter();
     *&v49 = MEMORY[0x28223BE20](v48);
     *v103 = v50;
     *&v103[8] = v49;
     v92 = type metadata accessor for NSUnitLength();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySaySo12NSUnitLengthCGAeA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AEQo_GMd);
-    _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type NSUnitLength and conformance NSObject, type metadata accessor for NSUnitLength);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySaySo12NSUnitLengthCGAeA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AEQo_GMd, &_s7SwiftUI7ForEachVySaySo12NSUnitLengthCGAeA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AEQo_GMR);
+    _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type NSUnitLength and conformance NSObject, type metadata accessor for NSUnitLength, MEMORY[0x277D85378]);
     lazy protocol witness table accessor for type ForEach<[NSUnitLength], NSUnitLength, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0> and conformance <> ForEach<A, B, C>();
     v51 = v80;
     Picker.init(selection:label:content:)();
     v52 = v84;
     WheelPickerStyle.init()();
-    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, NSUnitLength, ForEach<[NSUnitLength], NSUnitLength, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMd);
+    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, NSUnitLength, ForEach<[NSUnitLength], NSUnitLength, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMR, MEMORY[0x277CDF038]);
     v53 = v81;
     v54 = v83;
     v55 = v86;
@@ -7361,7 +4377,7 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
     v57 = lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.pickerStyle<A>(_:)>>.0, AdjustedListRowSeparatorLeading> and conformance <> ModifiedContent<A, B>();
     v58 = v88;
     View.listRowInsets(_:_:)();
-    outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v53, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA7ForEachVySayAMGAmeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo_GG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMd);
+    outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v53, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA7ForEachVySayAMGAmeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo_GG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA7ForEachVySayAMGAmeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo_GG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMR);
     *v103 = v105;
     State.wrappedValue.getter();
     v59 = v102;
@@ -7381,7 +4397,7 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
     *&v103[8] = v57;
     v47 = v99;
     swift_getOpaqueTypeConformance2();
-    _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type NSUnitLength and conformance NSObject, type metadata accessor for NSUnitLength);
+    _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type NSUnitLength and conformance NSObject, type metadata accessor for NSUnitLength, MEMORY[0x277D85380]);
     v64 = v90;
     View.onChange<A>(of:initial:_:)();
 
@@ -7389,7 +4405,7 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
     v46 = 0;
   }
 
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_Md);
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_Md, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_MR);
   (*(*(v65 - 8) + 56))(v47, v46, 1, v65);
   v66 = v94;
   v67 = v47;
@@ -7399,38 +4415,38 @@ uint64_t closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@
   v68(v93, v101, v95);
   v71 = v37;
   v72 = v96;
-  outlined init with copy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v71, v96, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd);
+  outlined init with copy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v71, v96, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMR);
   v73 = v97;
-  outlined init with copy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v47, v97, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd);
+  outlined init with copy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v47, v97, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMR);
   v74 = v98;
   v68(v98, v69, v70);
-  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonJ0Rd__lFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0L0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedlJ0VQo__Qo__AcAE0D6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyAJyAcAE06pickerJ0yQrqd__AA06PickerJ0Rd__lFQOyAA6PickerVyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerJ0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAcAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAcAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AcAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtMd);
-  outlined init with copy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v72, &v74[*(v75 + 48)], &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd);
-  outlined init with copy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v73, &v74[*(v75 + 64)], &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd);
-  outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v67, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd);
-  outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v100, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd);
+  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonJ0Rd__lFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0L0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedlJ0VQo__Qo__AcAE0D6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyAJyAcAE06pickerJ0yQrqd__AA06PickerJ0Rd__lFQOyAA6PickerVyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerJ0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAcAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAcAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AcAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtMd, &_s7SwiftUI4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAcAE11buttonStyleyQrqd__AA015PrimitiveButtonJ0Rd__lFQOyAA6HStackVyAA05TupleC0VyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0L0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedlJ0VQo__Qo__AcAE0D6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyAJyAcAE06pickerJ0yQrqd__AA06PickerJ0Rd__lFQOyAA6PickerVyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerJ0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAcAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAcAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AcAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtMR);
+  outlined init with copy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v72, &v74[*(v75 + 48)], &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMR);
+  outlined init with copy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v73, &v74[*(v75 + 64)], &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMR);
+  outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v67, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMR);
+  outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v100, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMR);
   v76 = *(v66 + 8);
   v76(v101, v70);
-  outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v73, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd);
-  outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v72, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd);
+  outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v73, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAcAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAA15ModifiedContentVyAcAE11pickerStyleyQrqd__AA06PickerS0Rd__lFQOyAA0T0VyAA05EmptyC0VSo12NSUnitLengthCAA7ForEachVySayAYGAycAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AYQo_GG_AA05WheeltS0VQo_07WorkoutB0012AdjustedListI16SeparatorLeadingVG_Qo__AYQo_SgMR);
+  outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(v72, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMd, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___SbyyctSQRd__lFQOyAA15ModifiedContentVyAA6HStackVyAcAE11pickerStyleyQrqd__AA06PickerL0Rd__lFQOyAA0M0VyAA05EmptyC0VSdAA7ForEachVySaySdGSdAcAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelmL0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgMR);
   return (v76)(v69, v70);
 }
 
-uint64_t closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+double closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v64 = a2;
-  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd);
+  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA4TextVGMd, &_s7SwiftUI6ButtonVyAA4TextVGMR);
   v69 = *(v70 - 8);
   MEMORY[0x28223BE20](v70);
   v68 = &v61[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v4);
   v6 = &v61[-v5];
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
+  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
   MEMORY[0x28223BE20](v76);
   v67 = &v61[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v8);
   v10 = &v61[-v9];
-  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
+  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
   MEMORY[0x28223BE20](v75);
   v73 = &v61[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v12);
@@ -7470,7 +4486,7 @@ uint64_t closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter@<X0
   outlined init with copy of SwimmingDistancePickerPhone(a1, v79);
   Button.init(action:label:)();
   v79[0] = *(a1 + 72);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   if (v78 == 1)
   {
@@ -7492,11 +4508,11 @@ uint64_t closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter@<X0
   *v37 = KeyPath;
   v37[1] = v31;
   v38 = swift_getKeyPath();
-  _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(v10, v20, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
+  _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(v10, v20, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
   v39 = &v20[*(v75 + 36)];
   *v39 = v38;
   v39[1] = 0;
-  _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(v20, v77, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
+  _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(v20, v77, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
   v40 = swift_allocObject();
   *(v40 + 112) = *(a1 + 96);
   v41 = *(a1 + 80);
@@ -7533,16 +4549,16 @@ uint64_t closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter@<X0
   v49 = swift_getKeyPath();
   v50 = v47;
   v51 = v66;
-  _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(v50, v66, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
+  _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(v50, v66, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
   v52 = &v51[*(v75 + 36)];
   *v52 = v49;
   v52[1] = 0;
   v53 = v71;
-  _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(v51, v71, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
+  _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(v51, v71, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
   v54 = v72;
-  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(v77, v72, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
+  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(v77, v72, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
   v55 = v73;
-  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(v53, v73, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
+  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(v53, v73, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
   v56 = v65;
   v57 = v64;
   v58 = v63;
@@ -7553,16 +4569,18 @@ uint64_t closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter@<X0
   v57[3] = v74;
   v57[4] = 0;
   *(v57 + 40) = 1;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4TextV_AA6SpacerVAA15ModifiedContentVyAGyAA6ButtonVyACGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAPGARtMd);
-  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(v54, v57 + *(v59 + 64), &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
-  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(v55, v57 + *(v59 + 80), &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
+  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4TextV_AA6SpacerVAA15ModifiedContentVyAGyAA6ButtonVyACGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAPGARtMd, &_s7SwiftUI4TextV_AA6SpacerVAA15ModifiedContentVyAGyAA6ButtonVyACGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAPGARtMR);
+  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(v54, v57 + *(v59 + 64), &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
+  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(v55, v57 + *(v59 + 80), &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
   outlined copy of Text.Storage(v56, v58, v51);
 
-  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v53, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
-  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v77, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
-  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v55, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
-  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v54, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd);
+  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v53, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
+  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v77, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
+  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v55, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
+  outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(v54, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGANGMR);
   outlined consume of Text.Storage(v56, v58, v51);
+
+  return result;
 }
 
 uint64_t closure #1 in closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter(uint64_t a1)
@@ -7570,25 +4588,25 @@ uint64_t closure #1 in closure #1 in closure #1 in SwimmingDistancePickerPhone.b
   v3 = *(a1 + 72);
   v2[1] = *(a1 + 72);
   v4 = *(&v3 + 1);
-  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(&v4, v2, &_s7SwiftUI11AnyLocationCySbGSgMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(&v4, v2, &_s7SwiftUI11AnyLocationCySbGSgMd, &_s7SwiftUI11AnyLocationCySbGSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   v2[0] = v3;
   State.wrappedValue.setter();
-  return outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(&v3, &_s7SwiftUI5StateVySbGMd);
+  return outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(&v3, &_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
 }
 
-uint64_t closure #2 in closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@<X8>)
+uint64_t closure #2 in closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a2@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySdGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySdGMd, &_s7SwiftUI5StateVySdGMR);
   State.wrappedValue.getter();
-  specialized static PickerFormatters.formattedSwimmingNumber(_:formattingManager:)(v6);
+  specialized static PickerFormatters.formattedSwimmingNumber(_:formattingManager:)();
   lazy protocol witness table accessor for type String and conformance String();
   result = Text.init<A>(_:)();
-  *a1 = result;
-  *(a1 + 8) = v3;
-  *(a1 + 16) = v4 & 1;
-  *(a1 + 24) = v5;
+  *a2 = result;
+  *(a2 + 8) = v4;
+  *(a2 + 16) = v5 & 1;
+  *(a2 + 24) = v6;
   return result;
 }
 
@@ -7597,18 +4615,18 @@ uint64_t closure #1 in closure #3 in closure #1 in closure #1 in SwimmingDistanc
   v3 = *(a1 + 88);
   v2[1] = *(a1 + 88);
   v4 = *(&v3 + 1);
-  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(&v4, v2, &_s7SwiftUI11AnyLocationCySbGSgMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(&v4, v2, &_s7SwiftUI11AnyLocationCySbGSgMd, &_s7SwiftUI11AnyLocationCySbGSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   v2[0] = v3;
   State.wrappedValue.setter();
-  return outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(&v3, &_s7SwiftUI5StateVySbGMd);
+  return outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(&v3, &_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
 }
 
 uint64_t closure #4 in closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *(a1 + 8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySo12NSUnitLengthCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySo12NSUnitLengthCGMd, &_s7SwiftUI5StateVySo12NSUnitLengthCGMR);
   State.wrappedValue.getter();
   NSUnitLength.localizedName(formattingManager:)(*(v3 + 16));
 
@@ -7621,10 +4639,12 @@ uint64_t closure #4 in closure #1 in closure #1 in SwimmingDistancePickerPhone.b
   return result;
 }
 
-uint64_t closure #3 in closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter()
+double closure #3 in closure #1 in closure #1 in SwimmingDistancePickerPhone.body.getter(uint64_t a1, uint64_t a2, double a3)
 {
   static Animation.default.getter();
   withAnimation<A>(_:_:)();
+
+  return result;
 }
 
 uint64_t closure #1 in closure #2 in closure #1 in SwimmingDistancePickerPhone.body.getter(uint64_t a1)
@@ -7632,12 +4652,12 @@ uint64_t closure #1 in closure #2 in closure #1 in SwimmingDistancePickerPhone.b
   v3 = *(a1 + 72);
   v2[1] = *(a1 + 72);
   v4 = *(&v3 + 1);
-  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(&v4, v2, &_s7SwiftUI11AnyLocationCySbGSgMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
+  _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(&v4, v2, &_s7SwiftUI11AnyLocationCySbGSgMd, &_s7SwiftUI11AnyLocationCySbGSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
   State.wrappedValue.getter();
   v2[0] = v3;
   State.wrappedValue.setter();
-  return outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(&v3, &_s7SwiftUI5StateVySbGMd);
+  return outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(&v3, &_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
 }
 
 uint64_t closure #3 in closure #1 in SwimmingDistancePickerPhone.body.getter(uint64_t a1)
@@ -7646,19 +4666,19 @@ uint64_t closure #3 in closure #1 in SwimmingDistancePickerPhone.body.getter(uin
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v11[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSdAA7ForEachVySaySdGSdAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSdAA7ForEachVySaySdGSdAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSdAA7ForEachVySaySdGSdAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GGMR);
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v9 = &v11[-v8];
   v13 = *(a1 + 40);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySdGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySdGMd, &_s7SwiftUI5StateVySdGMR);
   State.projectedValue.getter();
   v12 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySaySdGSdAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySaySdGSdAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GMd, &_s7SwiftUI7ForEachVySaySdGSdAA4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GMR);
   lazy protocol witness table accessor for type ForEach<[Double], Double, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0> and conformance <> ForEach<A, B, C>();
   Picker.init(selection:label:content:)();
   WheelPickerStyle.init()();
-  lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, Double, ForEach<[Double], Double, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSdAA7ForEachVySaySdGSdAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GGMd);
+  lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, Double, ForEach<[Double], Double, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSdAA7ForEachVySaySdGSdAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSdAA7ForEachVySaySdGSdAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GGMR, MEMORY[0x277CDF038]);
   View.pickerStyle<A>(_:)();
   (*(v3 + 8))(v5, v2);
   return (*(v7 + 8))(v9, v6);
@@ -7681,9 +4701,9 @@ uint64_t closure #1 in closure #3 in closure #1 in SwimmingDistancePickerPhone.b
   *(v2 + 64) = v5;
 
   outlined init with copy of SwimmingDistancePickerPhone(a1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySdGMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_Md);
-  lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type [Double] and conformance [A], &_sSaySdGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySdGMd, &_sSaySdGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_Md, &_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_MR);
+  lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type [Double] and conformance [A], &_sSaySdGMd, &_sSaySdGMR, MEMORY[0x277D83980]);
   v7[0] = MEMORY[0x277CE0BD8];
   v7[1] = MEMORY[0x277D839F8];
   v7[2] = MEMORY[0x277CE0BC8];
@@ -7695,7 +4715,7 @@ uint64_t closure #1 in closure #3 in closure #1 in SwimmingDistancePickerPhone.b
 uint64_t closure #1 in closure #1 in closure #3 in closure #1 in SwimmingDistancePickerPhone.body.getter@<X0>(double *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
-  specialized static PickerFormatters.formattedSwimmingNumber(_:formattingManager:)(*a1);
+  specialized static PickerFormatters.formattedSwimmingNumber(_:formattingManager:)();
   lazy protocol witness table accessor for type String and conformance String();
   result = Text.init<A>(_:)();
   *a2 = result;
@@ -7729,10 +4749,10 @@ uint64_t closure #5 in closure #1 in SwimmingDistancePickerPhone.body.getter(uin
   *(v2 + 64) = v5;
 
   outlined init with copy of SwimmingDistancePickerPhone(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo12NSUnitLengthCGMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_So12NSUnitLengthCQo_Md);
-  lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type [NSUnitLength] and conformance [A], &_sSaySo12NSUnitLengthCGMd);
-  v6 = _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type NSUnitLength and conformance NSObject, type metadata accessor for NSUnitLength);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo12NSUnitLengthCGMd, &_sSaySo12NSUnitLengthCGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_So12NSUnitLengthCQo_Md, &_s7SwiftUI4ViewPAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_So12NSUnitLengthCQo_MR);
+  lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type [NSUnitLength] and conformance [A], &_sSaySo12NSUnitLengthCGMd, &_sSaySo12NSUnitLengthCGMR, MEMORY[0x277D83980]);
+  v6 = _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type NSUnitLength and conformance NSObject, type metadata accessor for NSUnitLength, MEMORY[0x277D85378]);
   v7 = type metadata accessor for NSUnitLength();
   v9[0] = MEMORY[0x277CE0BD8];
   v9[1] = v7;
@@ -7757,33 +4777,33 @@ id closure #1 in closure #5 in closure #1 in SwimmingDistancePickerPhone.body.ge
   return v8;
 }
 
-uint64_t specialized SwimmingDistancePickerPhone.init(viewModel:editMode:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X8>)
+void specialized SwimmingDistancePickerPhone.init(viewModel:editMode:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X8>)
 {
   State.init(wrappedValue:)();
-  v7 = v26;
-  v8 = v27;
-  LOBYTE(v25) = 0;
+  v7 = v25;
+  v8 = v26;
+  LOBYTE(v24) = 0;
   State.init(wrappedValue:)();
-  v9 = v26;
-  v10 = v27;
+  v9 = v25;
+  v10 = v26;
   type metadata accessor for SwimmingDistancePickerViewModel();
-  _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type SwimmingDistancePickerViewModel and conformance SwimmingDistancePickerViewModel, type metadata accessor for SwimmingDistancePickerViewModel);
+  _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(&lazy protocol witness table cache variable for type SwimmingDistancePickerViewModel and conformance SwimmingDistancePickerViewModel, type metadata accessor for SwimmingDistancePickerViewModel, &protocol conformance descriptor for SwimmingDistancePickerViewModel);
 
   v11 = ObservedObject.init(wrappedValue:)();
   v13 = v12;
-  v26 = *(a1 + 40);
-  v27 = *(a1 + 48);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySo10HKQuantityCGMd);
-  MEMORY[0x20F30B100](&v25);
-  v15 = v25;
-  [v25 _value];
+  v25 = *(a1 + 40);
+  v26 = *(a1 + 48);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySo10HKQuantityCGMd, &_s7SwiftUI7BindingVySo10HKQuantityCGMR);
+  MEMORY[0x20F30B100](&v24);
+  v15 = v24;
+  [v24 _value];
   v17 = v16;
 
-  v26 = *(a1 + 40);
-  v27 = *(a1 + 48);
-  MEMORY[0x20F30B100](&v25, v14);
-  v18 = v25;
-  v19 = [v25 _unit];
+  v25 = *(a1 + 40);
+  v26 = *(a1 + 48);
+  MEMORY[0x20F30B100](&v24, v14);
+  v18 = v24;
+  v19 = [v24 _unit];
 
   v20 = HKUnit.unitLength.getter();
 
@@ -7800,7 +4820,6 @@ uint64_t specialized SwimmingDistancePickerPhone.init(viewModel:editMode:)@<X0>(
   *(a5 + 80) = v8;
   *(a5 + 88) = v9;
   *(a5 + 96) = v10;
-  return result;
 }
 
 uint64_t getEnumTagSinglePayload for SwimmingDistancePickerPhone(uint64_t a1, int a2)
@@ -7870,10 +4889,10 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.pickerStyle<A>(_:)>>.0, AdjustedListRowSeparatorLeading> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.pickerStyle<A>(_:)>>.0, AdjustedListRowSeparatorLeading> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA7ForEachVySayAMGAmeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo_GG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA7ForEachVySayAMGAmeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo_GG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA7ForEachVySayAMGAmeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo_GG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMR);
     type metadata accessor for WheelPickerStyle();
-    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, NSUnitLength, ForEach<[NSUnitLength], NSUnitLength, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMd);
+    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, NSUnitLength, ForEach<[NSUnitLength], NSUnitLength, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA7ForEachVySayAGGAgA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo_GGMR, MEMORY[0x277CDF038]);
     swift_getOpaqueTypeConformance2();
     lazy protocol witness table accessor for type AdjustedListRowSeparatorLeading and conformance AdjustedListRowSeparatorLeading();
     result = swift_getWitnessTable();
@@ -7887,10 +4906,10 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.pickerStyle<A>(_:)>>.0, AdjustedListRowSeparatorLeading> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.pickerStyle<A>(_:)>>.0, AdjustedListRowSeparatorLeading> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA05TupleE0VyAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo__ATtGG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA05TupleE0VyAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo__APtGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA05TupleE0VyAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo__ATtGG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerG0Rd__lFQOyAA0H0VyAA05EmptyE0VSo12NSUnitLengthCAA05TupleE0VyAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AMQo__ATtGG_AA05WheelhG0VQo_07WorkoutB031AdjustedListRowSeparatorLeadingVGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA05TupleE0VyAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo__APtGGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA05TupleE0VyAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo__APtGGMR);
     type metadata accessor for WheelPickerStyle();
-    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, NSUnitLength, TupleView<(<<opaque return type of View.tag<A>(_:includeOptional:)>>.0, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0)>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA05TupleE0VyAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo__APtGGMd);
+    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type Picker<EmptyView, NSUnitLength, TupleView<(<<opaque return type of View.tag<A>(_:includeOptional:)>>.0, <<opaque return type of View.tag<A>(_:includeOptional:)>>.0)>> and conformance Picker<A, B, C>, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA05TupleE0VyAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo__APtGGMd, &_s7SwiftUI6PickerVyAA9EmptyViewVSo12NSUnitLengthCAA05TupleE0VyAA0E0PAAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_AGQo__APtGGMR, MEMORY[0x277CDF038]);
     swift_getOpaqueTypeConformance2();
     lazy protocol witness table accessor for type AdjustedListRowSeparatorLeading and conformance AdjustedListRowSeparatorLeading();
     result = swift_getWitnessTable();
@@ -7900,7 +4919,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   return result;
 }
 
-uint64_t _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s9WorkoutUI31SwimmingDistancePickerViewModelCAC7Combine16ObservableObjectAAWlTm_0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7918,8 +4937,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<HStack<<
   result = lazy protocol witness table cache variable for type ModifiedContent<HStack<<<opaque return type of View.pickerStyle<A>(_:)>>.0>, AdjustedListRowSeparatorLeading> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<HStack<<<opaque return type of View.pickerStyle<A>(_:)>>.0>, AdjustedListRowSeparatorLeading> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerH0Rd__lFQOyAA0I0VyAA05EmptyF0VSdAA7ForEachVySaySdGSdAgAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeliH0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVGMd);
-    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type HStack<<<opaque return type of View.pickerStyle<A>(_:)>>.0> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerF0Rd__lFQOyAA0G0VyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelgF0VQo_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerH0Rd__lFQOyAA0I0VyAA05EmptyF0VSdAA7ForEachVySaySdGSdAgAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeliH0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerH0Rd__lFQOyAA0I0VyAA05EmptyF0VSdAA7ForEachVySaySdGSdAgAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheeliH0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVGMR);
+    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type HStack<<<opaque return type of View.pickerStyle<A>(_:)>>.0> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerF0Rd__lFQOyAA0G0VyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelgF0VQo_GMd, &_s7SwiftUI6HStackVyAA4ViewPAAE11pickerStyleyQrqd__AA06PickerF0Rd__lFQOyAA0G0VyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAA4TextV_SdQo_GG_AA05WheelgF0VQo_GMR, MEMORY[0x277CE1138]);
     lazy protocol witness table accessor for type AdjustedListRowSeparatorLeading and conformance AdjustedListRowSeparatorLeading();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<HStack<<<opaque return type of View.pickerStyle<A>(_:)>>.0>, AdjustedListRowSeparatorLeading> and conformance <> ModifiedContent<A, B>);
@@ -7928,19 +4947,19 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<HStack<<
   return result;
 }
 
-uint64_t outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7952,7 +4971,7 @@ uint64_t lazy protocol witness table accessor for type TupleView<(<<opaque retur
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7960,10 +4979,10 @@ uint64_t lazy protocol witness table accessor for type TupleView<(<<opaque retur
   return result;
 }
 
-uint64_t _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t _s7SwiftUI15ModifiedContentVyAA6ButtonVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGWObTm_0(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
@@ -7973,17 +4992,17 @@ uint64_t objectdestroyTm_89()
   return swift_deallocObject();
 }
 
-uint64_t _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t _s7SwiftUI11AnyLocationCySbGSgWOcTm_1(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of HStack<TupleView<(Text, Spacer, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>, ModifiedContent<ModifiedContent<Button<Text>, _EnvironmentKeyWritingModifier<Color?>>, _EnvironmentKeyWritingModifier<Color?>>)>>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -7992,7 +5011,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Section<
   result = lazy protocol witness table cache variable for type ModifiedContent<Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)>, EmptyView>, PickerEditModeCoordinator> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)>, EmptyView>, PickerEditModeCoordinator> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA7SectionVyAA9EmptyViewVAA05TupleG0VyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonO0Rd__lFQOyAA6HStackVyAIyAA4TextV_AA6SpacerVACyACyAA0Q0VyATGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA3_GA5_tGG_AA08BorderedqO0VQo__Qo__AkAE0I6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyACyARyAkAE06pickerO0yQrqd__AA06PickerO0Rd__lFQOyAA6PickerVyAGSdAA7ForEachVySaySdGSdAkAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAT_SdQo_GG_AA011WheelPickerO0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAkAEA12_A13_A14__Qrqd___SbyyctSQRd__lFQOyAkAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAkAEA15_yQrqd__AAA16_Rd__lFQOyA18_yAGSo12NSUnitLengthCA20_ySayA47_GA47_AkAEA22__A23_Qrqd___SbtSHRd__lFQOyAT_A47_Qo_GG_A28_Qo_A33_G_Qo__A47_Qo_SgtGAGGA31_25PickerEditModeCoordinatorVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA7SectionVyAA9EmptyViewVAA05TupleG0VyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonO0Rd__lFQOyAA6HStackVyAIyAA4TextV_AA6SpacerVACyACyAA0Q0VyATGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA3_GA5_tGG_AA08BorderedqO0VQo__Qo__AkAE0I6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyACyARyAkAE06pickerO0yQrqd__AA06PickerO0Rd__lFQOyAA6PickerVyAGSdAA7ForEachVySaySdGSdAkAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAT_SdQo_GG_AA011WheelPickerO0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAkAEA12_A13_A14__Qrqd___SbyyctSQRd__lFQOyAkAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAkAEA15_yQrqd__AAA16_Rd__lFQOyA18_yAGSo12NSUnitLengthCA20_ySayA47_GA47_AkAEA22__A23_Qrqd___SbtSHRd__lFQOyAT_A47_Qo_GG_A28_Qo_A33_G_Qo__A47_Qo_SgtGAGGA31_25PickerEditModeCoordinatorVGMd, &_s7SwiftUI15ModifiedContentVyAA7SectionVyAA9EmptyViewVAA05TupleG0VyAA0G0PAAE12onTapGesture5count7performQrSi_yyctFQOyAkAE11buttonStyleyQrqd__AA015PrimitiveButtonO0Rd__lFQOyAA6HStackVyAIyAA4TextV_AA6SpacerVACyACyAA0Q0VyATGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA3_GA5_tGG_AA08BorderedqO0VQo__Qo__AkAE0I6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyACyARyAkAE06pickerO0yQrqd__AA06PickerO0Rd__lFQOyAA6PickerVyAGSdAA7ForEachVySaySdGSdAkAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAT_SdQo_GG_AA011WheelPickerO0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAkAEA12_A13_A14__Qrqd___SbyyctSQRd__lFQOyAkAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyACyAkAEA15_yQrqd__AAA16_Rd__lFQOyA18_yAGSo12NSUnitLengthCA20_ySayA47_GA47_AkAEA22__A23_Qrqd___SbtSHRd__lFQOyAT_A47_Qo_GG_A28_Qo_A33_G_Qo__A47_Qo_SgtGAGGA31_25PickerEditModeCoordinatorVGMR);
     lazy protocol witness table accessor for type Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)>, EmptyView> and conformance <> Section<A, B, C>();
     lazy protocol witness table accessor for type PickerEditModeCoordinator and conformance PickerEditModeCoordinator();
     result = swift_getWitnessTable();
@@ -8007,8 +5026,8 @@ unint64_t lazy protocol witness table accessor for type Section<EmptyView, Tuple
   result = lazy protocol witness table cache variable for type Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)>, EmptyView> and conformance <> Section<A, B, C>;
   if (!lazy protocol witness table cache variable for type Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)>, EmptyView> and conformance <> Section<A, B, C>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonM0Rd__lFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAA15ModifiedContentVyAVyAA0O0VyARGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA3_GA5_tGG_AA08BorderedoM0VQo__Qo__AiAE0G6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyAVyAPyAiAE06pickerM0yQrqd__AA06PickerM0Rd__lFQOyAA6PickerVyAESdAA7ForEachVySaySdGSdAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SdQo_GG_AA011WheelPickerM0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAiAEA12_A13_A14__Qrqd___SbyyctSQRd__lFQOyAiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAVyAiAEA15_yQrqd__AAA16_Rd__lFQOyA18_yAESo12NSUnitLengthCA20_ySayA47_GA47_AiAEA22__A23_Qrqd___SbtSHRd__lFQOyAR_A47_Qo_GG_A28_Qo_A33_G_Qo__A47_Qo_SgtGAEGMd);
-    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonK0Rd__lFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0M0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedmK0VQo__Qo__AeAE0E6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyALyAeAE06pickerK0yQrqd__AA06PickerK0Rd__lFQOyAA6PickerVyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerK0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAeAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAeAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AeAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonM0Rd__lFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAA15ModifiedContentVyAVyAA0O0VyARGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA3_GA5_tGG_AA08BorderedoM0VQo__Qo__AiAE0G6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyAVyAPyAiAE06pickerM0yQrqd__AA06PickerM0Rd__lFQOyAA6PickerVyAESdAA7ForEachVySaySdGSdAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SdQo_GG_AA011WheelPickerM0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAiAEA12_A13_A14__Qrqd___SbyyctSQRd__lFQOyAiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAVyAiAEA15_yQrqd__AAA16_Rd__lFQOyA18_yAESo12NSUnitLengthCA20_ySayA47_GA47_AiAEA22__A23_Qrqd___SbtSHRd__lFQOyAR_A47_Qo_GG_A28_Qo_A33_G_Qo__A47_Qo_SgtGAEGMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE12onTapGesture5count7performQrSi_yyctFQOyAiAE11buttonStyleyQrqd__AA015PrimitiveButtonM0Rd__lFQOyAA6HStackVyAGyAA4TextV_AA6SpacerVAA15ModifiedContentVyAVyAA0O0VyARGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA3_GA5_tGG_AA08BorderedoM0VQo__Qo__AiAE0G6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyAVyAPyAiAE06pickerM0yQrqd__AA06PickerM0Rd__lFQOyAA6PickerVyAESdAA7ForEachVySaySdGSdAiAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAR_SdQo_GG_AA011WheelPickerM0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAiAEA12_A13_A14__Qrqd___SbyyctSQRd__lFQOyAiAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyAVyAiAEA15_yQrqd__AAA16_Rd__lFQOyA18_yAESo12NSUnitLengthCA20_ySayA47_GA47_AiAEA22__A23_Qrqd___SbtSHRd__lFQOyAR_A47_Qo_GG_A28_Qo_A33_G_Qo__A47_Qo_SgtGAEGMR);
+    lazy protocol witness table accessor for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonK0Rd__lFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0M0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedmK0VQo__Qo__AeAE0E6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyALyAeAE06pickerK0yQrqd__AA06PickerK0Rd__lFQOyAA6PickerVyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerK0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAeAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAeAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AeAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE12onTapGesture5count7performQrSi_yyctFQOyAeAE11buttonStyleyQrqd__AA015PrimitiveButtonK0Rd__lFQOyAA6HStackVyACyAA4TextV_AA6SpacerVAA15ModifiedContentVyARyAA0M0VyANGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGA_GA1_tGG_AA08BorderedmK0VQo__Qo__AeAE0E6Change2of7initial_Qrqd___SbyyctSQRd__lFQOyARyALyAeAE06pickerK0yQrqd__AA06PickerK0Rd__lFQOyAA6PickerVyAA05EmptyD0VSdAA7ForEachVySaySdGSdAeAE3tag_15includeOptionalQrqd___SbtSHRd__lFQOyAN_SdQo_GG_AA011WheelPickerK0VQo_G07WorkoutB031AdjustedListRowSeparatorLeadingVG_SdQo_SgAeAEA8_A9_A10__Qrqd___SbyyctSQRd__lFQOyAeAE13listRowInsetsyQrAA4EdgeO3SetV_12CoreGraphics7CGFloatVSgtFQOyARyAeAEA11_yQrqd__AAA12_Rd__lFQOyA14_yA16_So12NSUnitLengthCA18_ySayA45_GA45_AeAEA20__A21_Qrqd___SbtSHRd__lFQOyAN_A45_Qo_GG_A26_Qo_A31_G_Qo__A45_Qo_SgtGMR, MEMORY[0x277CE14C0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Section<EmptyView, TupleView<(<<opaque return type of View.onTapGesture(count:perform:)>>.0, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?, (<<opaque return type of View.onChange<A>(of:initial:_:)>>.0)?)>, EmptyView> and conformance <> Section<A, B, C>);
   }
@@ -8027,19 +5046,19 @@ uint64_t WorkoutFigure.init(activityType:useSmallerIcon:color:animating:)@<X0>(u
 
 uint64_t WorkoutFigure.body.getter@<X0>(uint64_t a1@<X8>)
 {
-  v37 = a1;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMd);
-  MEMORY[0x28223BE20](v36);
-  v3 = &v33 - v2;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGy07WorkoutB008AnimatedG5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentL0VGAGyAH0G9TypeImageVAUG_GMd);
-  MEMORY[0x28223BE20](v33);
-  v35 = &v33 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGMd);
-  MEMORY[0x28223BE20](v5);
-  v7 = &v33 - v6;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMd);
+  v38 = a1;
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMR);
+  MEMORY[0x28223BE20](v37);
+  v3 = &v34 - v2;
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGy07WorkoutB008AnimatedG5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentL0VGAGyAH0G9TypeImageVAUG_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGy07WorkoutB008AnimatedG5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentL0VGAGyAH0G9TypeImageVAUG_GMR);
   MEMORY[0x28223BE20](v34);
-  v9 = &v33 - v8;
+  v36 = &v34 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGMR);
+  MEMORY[0x28223BE20](v5);
+  v7 = &v34 - v6;
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMR);
+  MEMORY[0x28223BE20](v35);
+  v9 = &v34 - v8;
   v10 = *v1;
   v11 = *(v1 + 16);
   v12 = *(v1 + 24);
@@ -8061,57 +5080,59 @@ uint64_t WorkoutFigure.body.getter@<X0>(uint64_t a1@<X8>)
     AnimatedWorkoutGlyph.init(activityType:iconSize:animated:)(v15, v12, v7);
     v17 = v11;
     v18 = Color.init(uiColor:)();
-    *&v7[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGMd) + 36)] = v18;
+    *&v7[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGMR) + 36)] = v18;
     *&v7[*(v5 + 36)] = 257;
     v19 = [v16 localizedName];
     v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v22 = v21;
 
-    v40 = v20;
-    v41 = v22;
+    v41 = v20;
+    v42 = v22;
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type String and conformance String();
     View.accessibilityLabel<A>(_:)();
 
-    outlined destroy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(v7, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGMd);
+    outlined destroy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(v7, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGMR);
     v23 = &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMd;
-    outlined init with copy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(v9, v35, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMd);
+    v24 = &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMR;
+    outlined init with copy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(v9, v36, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMR, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMR, lazy protocol witness table accessor for type WorkoutTypeImage and conformance WorkoutTypeImage);
     _ConditionalContent<>.init(storage:)();
-    v24 = v9;
+    v25 = v9;
   }
 
   else
   {
-    v25 = v11;
-    v26 = Color.init(uiColor:)();
-    v40 = v16;
-    v41 = v13;
-    v42 = v26;
-    v27 = [v16 localizedName];
-    v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v30 = v29;
+    v26 = v11;
+    v27 = Color.init(uiColor:)();
+    v41 = v16;
+    v42 = v13;
+    v43 = v27;
+    v28 = [v16 localizedName];
+    v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v31 = v30;
 
-    v38 = v28;
-    v39 = v30;
+    v39 = v29;
+    v40 = v31;
     lazy protocol witness table accessor for type WorkoutTypeImage and conformance WorkoutTypeImage();
     lazy protocol witness table accessor for type String and conformance String();
     View.accessibilityLabel<A>(_:)();
 
-    v31 = v40;
+    v32 = v41;
 
     v23 = &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMd;
-    outlined init with copy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(v3, v35, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMd);
+    v24 = &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMR;
+    outlined init with copy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(v3, v36, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMR, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMR, lazy protocol witness table accessor for type WorkoutTypeImage and conformance WorkoutTypeImage);
     _ConditionalContent<>.init(storage:)();
-    v24 = v3;
+    v25 = v3;
   }
 
-  return outlined destroy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(v24, v23);
+  return outlined destroy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(v25, v23, v24);
 }
 
 unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>()
@@ -8119,7 +5140,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGMR);
     lazy protocol witness table accessor for type ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>);
@@ -8133,8 +5154,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Animated
   result = lazy protocol witness table cache variable for type ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGMd);
-    lazy protocol witness table accessor for type AnimatedWorkoutGlyph and conformance AnimatedWorkoutGlyph(&lazy protocol witness table cache variable for type AnimatedWorkoutGlyph and conformance AnimatedWorkoutGlyph, type metadata accessor for AnimatedWorkoutGlyph);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGMR);
+    lazy protocol witness table accessor for type AnimatedWorkoutGlyph and conformance AnimatedWorkoutGlyph(&lazy protocol witness table cache variable for type AnimatedWorkoutGlyph and conformance AnimatedWorkoutGlyph, type metadata accessor for AnimatedWorkoutGlyph, &protocol conformance descriptor for AnimatedWorkoutGlyph);
     lazy protocol witness table accessor for type _ForegroundStyleModifier<Color> and conformance _ForegroundStyleModifier<A>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>);
@@ -8143,7 +5164,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Animated
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type AnimatedWorkoutGlyph and conformance AnimatedWorkoutGlyph(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AnimatedWorkoutGlyph and conformance AnimatedWorkoutGlyph(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8156,14 +5177,14 @@ uint64_t lazy protocol witness table accessor for type AnimatedWorkoutGlyph and 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
-    lazy protocol witness table accessor for type AnimatedWorkoutGlyph and conformance AnimatedWorkoutGlyph(&lazy protocol witness table cache variable for type AccessibilityAttachmentModifier and conformance AccessibilityAttachmentModifier, MEMORY[0x277CDE470]);
+    lazy protocol witness table accessor for type AnimatedWorkoutGlyph and conformance AnimatedWorkoutGlyph(&lazy protocol witness table cache variable for type AccessibilityAttachmentModifier and conformance AccessibilityAttachmentModifier, MEMORY[0x277CDE470], MEMORY[0x277CDE458]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -8171,17 +5192,17 @@ uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedC
   return result;
 }
 
-uint64_t outlined init with copy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined destroy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -8249,7 +5270,7 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier>, ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier>, ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier>> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy07WorkoutB008AnimatedF5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentK0VGAEyAF0F9TypeImageVASGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy07WorkoutB008AnimatedF5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentK0VGAEyAF0F9TypeImageVASGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy07WorkoutB008AnimatedF5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentK0VGAEyAF0F9TypeImageVASGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB008AnimatedE5GlyphVAA24_ForegroundStyleModifierVyAA5ColorVGGAA16_FixedSizeLayoutVGAA023AccessibilityAttachmentJ0VGMR, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout> and conformance <> ModifiedContent<A, B>);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<AnimatedWorkoutGlyph, _ForegroundStyleModifier<Color>>, _FixedSizeLayout>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<WorkoutTypeImage, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E9TypeImageVAA31AccessibilityAttachmentModifierVGMR, lazy protocol witness table accessor for type WorkoutTypeImage and conformance WorkoutTypeImage);
     result = swift_getWitnessTable();
@@ -8261,7 +5282,7 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
 
 void closure #1 in static EffortUIController.makeHostingController(shouldEmbedInNavStack:startingEffort:workoutActivityType:shouldShowWorkoutGlyph:showCurrentWorkloadButton:animated:cancel:completion:)(uint64_t a1, void (*a2)(id))
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11WorkoutCore18AppleExertionScaleOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11WorkoutCore18AppleExertionScaleOSgMd, &_s11WorkoutCore18AppleExertionScaleOSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v11 - v5;
   outlined init with copy of AppleExertionScale?(a1, &v11 - v5);
@@ -8286,10 +5307,10 @@ void closure #1 in static EffortUIController.makeHostingController(shouldEmbedIn
 uint64_t static EffortUIController.makeHostingController(shouldEmbedInNavStack:startingEffort:workoutActivityType:shouldShowWorkoutGlyph:showCurrentWorkloadButton:cancel:completion:)(char a1, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v37 = a5;
-  v14 = type metadata accessor for EffortNavigationView();
+  v14 = type metadata accessor for EffortNavigationView(0);
   MEMORY[0x28223BE20](v14);
   v16 = &v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11WorkoutCore18AppleExertionScaleOSgMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11WorkoutCore18AppleExertionScaleOSgMd, &_s11WorkoutCore18AppleExertionScaleOSgMR);
   MEMORY[0x28223BE20](v17 - 8);
   v19 = &v36 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v20);
@@ -8312,7 +5333,7 @@ uint64_t static EffortUIController.makeHostingController(shouldEmbedInNavStack:s
   *(v25 + 24) = a9;
   v26 = v14[11];
   *&v16[v26] = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMR);
   swift_storeEnumTagMultiPayload();
   *v16 = a1 & 1;
   outlined init with copy of AppleExertionScale?(v19, &v16[v14[5]]);
@@ -8358,10 +5379,10 @@ uint64_t static EffortUIController.makeHostingController(shouldEmbedInNavStack:s
 
 uint64_t static EffortUIController.makeHostingController(shouldEmbedInNavStack:startingEffort:workoutActivityType:shouldShowWorkoutGlyph:showCurrentWorkloadButton:completion:)(char a1, void *a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7)
 {
-  v12 = type metadata accessor for EffortNavigationView();
+  v12 = type metadata accessor for EffortNavigationView(0);
   MEMORY[0x28223BE20](v12);
   v14 = &v34[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11WorkoutCore18AppleExertionScaleOSgMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11WorkoutCore18AppleExertionScaleOSgMd, &_s11WorkoutCore18AppleExertionScaleOSgMR);
   MEMORY[0x28223BE20](v15 - 8);
   v17 = &v34[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v18);
@@ -8384,7 +5405,7 @@ uint64_t static EffortUIController.makeHostingController(shouldEmbedInNavStack:s
   *(v23 + 24) = a7;
   v24 = v12[11];
   *&v14[v24] = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMR);
   swift_storeEnumTagMultiPayload();
   *v14 = a1 & 1;
   outlined init with copy of AppleExertionScale?(v17, &v14[v12[5]]);
@@ -8442,21 +5463,21 @@ id EffortUIController.init()()
   return objc_msgSendSuper2(&v2, sel_init);
 }
 
-id EffortUIController.__deallocating_deinit()
+id EffortUIController.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for EffortUIController();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for EffortUIController();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 uint64_t specialized static EffortUIController.makeHostingController(shouldEmbedInNavStack:startingEffort:workoutActivityType:shouldShowWorkoutGlyph:showCurrentWorkloadButton:animated:cancel:completion:)(char a1, void *a2, int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v37 = a3;
   v38 = a4;
-  v14 = type metadata accessor for EffortNavigationView();
+  v14 = type metadata accessor for EffortNavigationView(0);
   MEMORY[0x28223BE20](v14);
   v16 = &v36[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11WorkoutCore18AppleExertionScaleOSgMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11WorkoutCore18AppleExertionScaleOSgMd, &_s11WorkoutCore18AppleExertionScaleOSgMR);
   MEMORY[0x28223BE20](v17 - 8);
   v19 = &v36[-((v18 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v20);
@@ -8479,7 +5500,7 @@ uint64_t specialized static EffortUIController.makeHostingController(shouldEmbed
   *(v25 + 24) = a8;
   v26 = v14[11];
   *&v16[v26] = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA13DismissActionV_GMR);
   swift_storeEnumTagMultiPayload();
   *v16 = a1 & 1;
   outlined init with copy of AppleExertionScale?(v19, &v16[v14[5]]);
@@ -8528,7 +5549,7 @@ unint64_t lazy protocol witness table accessor for type EffortNavigationView and
   result = lazy protocol witness table cache variable for type EffortNavigationView and conformance EffortNavigationView;
   if (!lazy protocol witness table cache variable for type EffortNavigationView and conformance EffortNavigationView)
   {
-    type metadata accessor for EffortNavigationView();
+    type metadata accessor for EffortNavigationView(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type EffortNavigationView and conformance EffortNavigationView);
   }
@@ -8575,42 +5596,42 @@ void TimeInZoneMetricView.init(elapsedTime:isStale:)(uint64_t a1@<X0>, char a2@<
 
 uint64_t TimeInZoneMetricView.body.getter@<X0>(uint64_t a1@<X8>)
 {
-  v44 = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMd);
+  v45 = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMR);
   MEMORY[0x28223BE20](v2);
-  v4 = &v37[-v3];
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAA6VStackVyAA9TupleViewVyAA6SpacerV_AGy07WorkoutB0015ElapsedTimeOrNomI0VAA13_OffsetEffectVGAGyAGyAGyAA4TextVAN25MetricDescriptionCoreFontVGAN26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAN0S3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGAGyAGyAA6HStackVyAKyAGyApA21_TraitWritingModifierVyAA22LayoutPriorityTraitKeyVGG_AGyAGyA0_A13_yAU4CaseOSgGGAA31AccessibilityAttachmentModifierVGtGGA10_GA17_G_GMd);
-  MEMORY[0x28223BE20](v41);
-  v43 = &v37[-v5];
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMd);
+  v4 = &v38[-v3];
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAA6VStackVyAA9TupleViewVyAA6SpacerV_AGy07WorkoutB0015ElapsedTimeOrNomI0VAA13_OffsetEffectVGAGyAGyAGyAA4TextVAN25MetricDescriptionCoreFontVGAN26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAN0S3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGAGyAGyAA6HStackVyAKyAGyApA21_TraitWritingModifierVyAA22LayoutPriorityTraitKeyVGG_AGyAGyA0_A13_yAU4CaseOSgGGAA31AccessibilityAttachmentModifierVGtGGA10_GA17_G_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAA6VStackVyAA9TupleViewVyAA6SpacerV_AGy07WorkoutB0015ElapsedTimeOrNomI0VAA13_OffsetEffectVGAGyAGyAGyAA4TextVAN25MetricDescriptionCoreFontVGAN26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAN0S3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGAGyAGyAA6HStackVyAKyAGyApA21_TraitWritingModifierVyAA22LayoutPriorityTraitKeyVGG_AGyAGyA0_A13_yAU4CaseOSgGGAA31AccessibilityAttachmentModifierVGtGGA10_GA17_G_GMR);
   MEMORY[0x28223BE20](v42);
-  v7 = &v37[-v6];
+  v44 = &v38[-v5];
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMR);
+  MEMORY[0x28223BE20](v43);
+  v7 = &v38[-v6];
   v8 = type metadata accessor for EnvironmentValues();
   v9 = *(v8 - 8);
   MEMORY[0x28223BE20](v8);
-  v11 = &v37[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v11 = &v38[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v12 = *(v1 + 16);
-  v68[0] = *v1;
-  v68[1] = v12;
-  v69 = *(v1 + 32);
+  v69[0] = *v1;
+  v69[1] = v12;
+  v70 = *(v1 + 32);
   if (BYTE8(v12))
   {
     v13 = v12;
-    v67 = v12;
+    v68 = v12;
   }
 
   else
   {
-    outlined init with copy of TimeInZoneMetricView(v68, v66);
+    outlined init with copy of TimeInZoneMetricView(v69, v67);
     static os_log_type_t.fault.getter();
     v14 = static Log.runtimeIssuesLog.getter();
     os_log(_:dso:log:_:_:)();
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
-    outlined destroy of TimeInZoneMetricView(v68);
+    outlined destroy of TimeInZoneMetricView(v69);
     (*(v9 + 8))(v11, v8);
-    v13 = v67;
+    v13 = v68;
   }
 
   if ((v13 - 5) > 1)
@@ -8618,176 +5639,178 @@ uint64_t TimeInZoneMetricView.body.getter@<X0>(uint64_t a1@<X8>)
     *v4 = static VerticalAlignment.center.getter();
     *(v4 + 1) = 0;
     v4[16] = 0;
-    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNomD0VAA21_TraitWritingModifierVyAA0g8PriorityP3KeyVGG_AKyAKyAKyAKyAA4TextVAL25MetricDescriptionCoreFontVGAL26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmenttqR0VyAV4CaseOSgGGAA023AccessibilityAttachmentR0VGtGGMd);
-    closure #2 in TimeInZoneMetricView.body.getter(v68, &v4[*(v29 + 44)]);
-    *&v4[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGMd) + 36)] = 0;
+    v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNomD0VAA21_TraitWritingModifierVyAA0g8PriorityP3KeyVGG_AKyAKyAKyAKyAA4TextVAL25MetricDescriptionCoreFontVGAL26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmenttqR0VyAV4CaseOSgGGAA023AccessibilityAttachmentR0VGtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNomD0VAA21_TraitWritingModifierVyAA0g8PriorityP3KeyVGG_AKyAKyAKyAKyAA4TextVAL25MetricDescriptionCoreFontVGAL26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmenttqR0VyAV4CaseOSgGGAA023AccessibilityAttachmentR0VGtGGMR);
+    closure #2 in TimeInZoneMetricView.body.getter(v69, &v4[*(v30 + 44)]);
+    *&v4[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGMR) + 36)] = 0;
     KeyPath = swift_getKeyPath();
-    v31 = &v4[*(v2 + 36)];
-    v32 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMd) + 28);
-    v33 = *MEMORY[0x277CDFB78];
-    v34 = type metadata accessor for LegibilityWeight();
-    v35 = *(v34 - 8);
-    (*(v35 + 104))(v31 + v32, v33, v34);
-    (*(v35 + 56))(v31 + v32, 0, 1, v34);
-    *v31 = KeyPath;
+    v32 = &v4[*(v2 + 36)];
+    v33 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMR) + 28);
+    v34 = *MEMORY[0x277CDFB78];
+    v35 = type metadata accessor for LegibilityWeight();
+    v36 = *(v35 - 8);
+    (*(v36 + 104))(v32 + v33, v34, v35);
+    (*(v36 + 56))(v32 + v33, 0, 1, v35);
+    *v32 = KeyPath;
     v27 = &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMd;
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v4, v43, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMd);
+    v28 = &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMR;
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v4, v44, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMR, lazy protocol witness table accessor for type ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow> and conformance <> ModifiedContent<A, B>);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMR, lazy protocol witness table accessor for type ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow> and conformance <> ModifiedContent<A, B>);
     _ConditionalContent<>.init(storage:)();
-    v28 = v4;
+    v29 = v4;
   }
 
   else
   {
-    v40 = static HorizontalAlignment.leading.getter();
-    v56 = 0;
-    closure #1 in TimeInZoneMetricView.body.getter(v68, &v46);
-    v63 = v52;
+    v41 = static HorizontalAlignment.leading.getter();
+    v57 = 0;
+    closure #1 in TimeInZoneMetricView.body.getter(v69, &v47);
     v64 = v53;
     v65 = v54;
-    v59 = v48;
+    v66 = v55;
     v60 = v49;
     v61 = v50;
     v62 = v51;
-    v57 = v46;
+    v63 = v52;
     v58 = v47;
-    v66[6] = v52;
-    v66[7] = v53;
-    v66[8] = v54;
-    v66[2] = v48;
-    v66[3] = v49;
-    v66[4] = v50;
-    v66[5] = v51;
-    v66[0] = v46;
-    v66[1] = v47;
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(&v57, &v45, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNojD0VAA13_OffsetEffectVGAGyAGyAGyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGMd);
-    outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v66, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNojD0VAA13_OffsetEffectVGAGyAGyAGyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGMd);
-    *&v55[87] = v62;
-    *&v55[103] = v63;
-    *&v55[119] = v64;
-    *&v55[135] = v65;
-    *&v55[23] = v58;
-    *&v55[39] = v59;
-    *&v55[55] = v60;
-    *&v55[71] = v61;
-    *&v55[7] = v57;
-    v38 = v56;
+    v59 = v48;
+    v67[6] = v53;
+    v67[7] = v54;
+    v67[8] = v55;
+    v67[2] = v49;
+    v67[3] = v50;
+    v67[4] = v51;
+    v67[5] = v52;
+    v67[0] = v47;
+    v67[1] = v48;
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(&v58, &v46, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNojD0VAA13_OffsetEffectVGAGyAGyAGyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGMd, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNojD0VAA13_OffsetEffectVGAGyAGyAGyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGMR);
+    outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v67, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNojD0VAA13_OffsetEffectVGAGyAGyAGyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGMd, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNojD0VAA13_OffsetEffectVGAGyAGyAGyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGMR);
+    *&v56[87] = v63;
+    *&v56[103] = v64;
+    *&v56[119] = v65;
+    *&v56[135] = v66;
+    *&v56[23] = v59;
+    *&v56[39] = v60;
+    *&v56[55] = v61;
+    *&v56[71] = v62;
+    *&v56[7] = v58;
+    v39 = v57;
     v15 = swift_getKeyPath();
-    v16 = &v7[*(v42 + 36)];
-    v17 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMd) + 28);
+    v16 = &v7[*(v43 + 36)];
+    v17 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMR) + 28);
     v18 = *MEMORY[0x277CDFB78];
     v19 = type metadata accessor for LegibilityWeight();
     v20 = *(v19 - 8);
-    v39 = v2;
+    v40 = v2;
     v21 = v20;
     (*(v20 + 104))(v16 + v17, v18, v19);
     (*(v21 + 56))(v16 + v17, 0, 1, v19);
     *v16 = v15;
-    v22 = *&v55[112];
-    *(v7 + 113) = *&v55[96];
+    v22 = *&v56[112];
+    *(v7 + 113) = *&v56[96];
     *(v7 + 129) = v22;
-    *(v7 + 145) = *&v55[128];
-    v23 = *&v55[48];
-    *(v7 + 49) = *&v55[32];
+    *(v7 + 145) = *&v56[128];
+    v23 = *&v56[48];
+    *(v7 + 49) = *&v56[32];
     *(v7 + 65) = v23;
-    v24 = *&v55[80];
-    *(v7 + 81) = *&v55[64];
+    v24 = *&v56[80];
+    *(v7 + 81) = *&v56[64];
     *(v7 + 97) = v24;
-    v25 = *&v55[16];
-    *(v7 + 17) = *v55;
-    *v7 = v40;
+    v25 = *&v56[16];
+    *(v7 + 17) = *v56;
+    *v7 = v41;
     *(v7 + 1) = 0;
-    v7[16] = v38;
-    v26 = *&v55[143];
+    v7[16] = v39;
+    v26 = *&v56[143];
     *(v7 + 33) = v25;
     *(v7 + 20) = v26;
     *(v7 + 21) = 0;
     v27 = &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMd;
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v7, v43, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMd);
+    v28 = &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMR;
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v7, v44, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMR, lazy protocol witness table accessor for type ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow> and conformance <> ModifiedContent<A, B>);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMR, lazy protocol witness table accessor for type ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow> and conformance <> ModifiedContent<A, B>);
     _ConditionalContent<>.init(storage:)();
-    v28 = v7;
+    v29 = v7;
   }
 
-  return outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v28, v27);
+  return outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v29, v27, v28);
 }
 
 uint64_t closure #2 in TimeInZoneMetricView.body.getter@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
-  v39 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGMd);
-  v36[1] = v3;
+  v41 = a2;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGMR);
+  v38[1] = v3;
   MEMORY[0x28223BE20](v3);
-  v5 = v36 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd);
+  v5 = v38 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMR);
   MEMORY[0x28223BE20](v6 - 8);
-  v8 = v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9);
-  v11 = v36 - v10;
-  v38 = *a1;
-  v37 = *(a1 + 8);
+  v11 = v38 - v10;
+  v40 = *a1;
+  v39 = *(a1 + 8);
   v12 = *(a1 + 1);
   v46 = *a1;
   v47 = v12;
   v48 = a1[4];
   v44 = TimeInZoneMetricView.description.getter();
   v45 = v13;
-  lazy protocol witness table accessor for type String and conformance String();
-  v14 = Text.init<A>(_:)();
-  v16 = v15;
-  v18 = v17;
-  specialized View.metricDescriptionFont(multiline:)(1, v14, v15, v17 & 1, v19, v49);
-  outlined consume of Text.Storage(v14, v16, v18 & 1);
+  v14 = lazy protocol witness table accessor for type String and conformance String();
+  v15 = Text.init<A>(_:)();
+  v17 = v16;
+  v19 = v18;
+  specialized View.metricDescriptionFont(multiline:)(1, v15, v16, v18 & 1, v20, v49);
+  outlined consume of Text.Storage(v15, v17, v19 & 1);
 
-  v20 = &v5[*(v3 + 36)];
-  v21 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4TextV4CaseOSgGMd) + 28);
-  v22 = *MEMORY[0x277CE0B48];
-  v23 = type metadata accessor for Text.Case();
-  v24 = *(v23 - 8);
-  (*(v24 + 104))(v20 + v21, v22, v23);
-  (*(v24 + 56))(v20 + v21, 0, 1, v23);
-  *v20 = swift_getKeyPath();
-  v25 = v49[1];
+  v21 = &v5[*(v3 + 36)];
+  v22 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4TextV4CaseOSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4TextV4CaseOSgGMR) + 28);
+  v23 = *MEMORY[0x277CE0B48];
+  v24 = type metadata accessor for Text.Case();
+  v25 = *(v24 - 8);
+  (*(v25 + 104))(v21 + v22, v23, v24);
+  (*(v25 + 56))(v21 + v22, 0, 1, v24);
+  *v21 = swift_getKeyPath();
+  v26 = v49[1];
   *v5 = v49[0];
-  *(v5 + 1) = v25;
+  *(v5 + 1) = v26;
   v5[80] = v50;
-  v26 = v49[4];
+  v27 = v49[4];
   *(v5 + 3) = v49[3];
-  *(v5 + 4) = v26;
+  *(v5 + 4) = v27;
   *(v5 + 2) = v49[2];
-  v27 = *(a1 + 1);
+  v28 = *(a1 + 1);
   v46 = *a1;
-  v47 = v27;
+  v47 = v28;
   v48 = a1[4];
   v44 = TimeInZoneMetricView.description.getter();
-  v45 = v28;
-  v42 = 10;
-  v43 = 0xE100000000000000;
-  v40 = 32;
-  v41 = 0xE100000000000000;
-  v29 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  v31 = v30;
+  v45 = v29;
+  v43[0] = 10;
+  v43[1] = 0xE100000000000000;
+  v42[0] = 32;
+  v42[1] = 0xE100000000000000;
+  v31 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(v43, v42, 0, 0, 0, 1, MEMORY[0x277D837D0], MEMORY[0x277D837D0], v30, MEMORY[0x277D837D0], v14, v14, v14);
+  v33 = v32;
 
-  *&v46 = v29;
-  *(&v46 + 1) = v31;
+  *&v46 = v31;
+  *(&v46 + 1) = v33;
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>> and conformance <> ModifiedContent<A, B>();
   View.accessibilityLabel<A>(_:)();
 
-  outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v5, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGMd);
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v11, v8, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd);
-  v32 = v39;
-  *v39 = v38;
-  *(v32 + 8) = v37;
-  v32[2] = 0x3FF0000000000000;
-  v33 = v32;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNoG4ViewVAA21_TraitWritingModifierVyAA014LayoutPriorityK3KeyVGG_ACyACyACyACyAA4TextVAD25MetricDescriptionCoreFontVGAD26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentplM0VyAN4CaseOSgGGAA023AccessibilityAttachmentM0VGtMd);
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v8, v33 + *(v34 + 48), &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd);
-  outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v11, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd);
-  return outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v8, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd);
+  outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v5, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v11, v8, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMR);
+  v34 = v41;
+  *v41 = v40;
+  *(v34 + 8) = v39;
+  v34[2] = 0x3FF0000000000000;
+  v35 = v34;
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNoG4ViewVAA21_TraitWritingModifierVyAA014LayoutPriorityK3KeyVGG_ACyACyACyACyAA4TextVAD25MetricDescriptionCoreFontVGAD26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentplM0VyAN4CaseOSgGGAA023AccessibilityAttachmentM0VGtMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNoG4ViewVAA21_TraitWritingModifierVyAA014LayoutPriorityK3KeyVGG_ACyACyACyACyAA4TextVAD25MetricDescriptionCoreFontVGAD26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentplM0VyAN4CaseOSgGGAA023AccessibilityAttachmentM0VGtMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v8, v35 + *(v36 + 48), &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMR);
+  outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v11, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMR);
+  return outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v8, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGAA023AccessibilityAttachmentZ0VGMR);
 }
 
 uint64_t TimeInZoneMetricView.description.getter()
@@ -8928,8 +5951,8 @@ uint64_t closure #1 in TimeInZoneMetricView.body.getter@<X0>(__int128 *a1@<X0>, 
   v53 = v24;
   v56 = v25;
   v57 = v19;
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(&v45, &v30, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGMd);
-  return outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(&v51, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(&v45, &v30, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGMR);
+  return outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(&v51, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGMR);
 }
 
 void one-time initialization function for elapsedTimeViewTitle()
@@ -8956,10 +5979,10 @@ void one-time initialization function for elapsedTimeViewTitle()
 
 uint64_t ElapsedTimeOrNoTimeView.body.getter@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMR);
   MEMORY[0x28223BE20](v6);
   v8 = v26 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOy07WorkoutB015ElapsedTimeViewVAA08ModifiedD0VyAJyAA4TextVAF15MetricValueFontVGAA31AccessibilityAttachmentModifierVG_GMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOy07WorkoutB015ElapsedTimeViewVAA08ModifiedD0VyAJyAA4TextVAF15MetricValueFontVGAA31AccessibilityAttachmentModifierVG_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOy07WorkoutB015ElapsedTimeViewVAA08ModifiedD0VyAJyAA4TextVAF15MetricValueFontVGAA31AccessibilityAttachmentModifierVG_GMR);
   MEMORY[0x28223BE20](v9);
   v11 = v26 - v10;
   if (a2)
@@ -9005,7 +6028,7 @@ uint64_t ElapsedTimeOrNoTimeView.body.getter@<X0>(uint64_t a1@<X0>, char a2@<W1>
     v24 = NSLocalizedString(_:tableName:bundle:value:comment:)(v21, v22, v20, v23, v36);
 
     v27 = v24;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMd, &_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMR);
     lazy protocol witness table accessor for type ModifiedContent<Text, MetricValueFont> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<Text, MetricValueFont> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMd, &_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMR, lazy protocol witness table accessor for type MetricValueFont and conformance MetricValueFont);
     View.accessibilityLabel<A>(_:)();
 
@@ -9013,13 +6036,13 @@ uint64_t ElapsedTimeOrNoTimeView.body.getter@<X0>(uint64_t a1@<X0>, char a2@<W1>
     v34[1] = v29;
     v34[2] = v30;
     v35 = v31;
-    outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v34, &_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMd);
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v8, v11, &_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMd);
+    outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v34, &_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMd, &_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v8, v11, &_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ElapsedTimeView and conformance ElapsedTimeView();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Text, MetricValueFont>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    return outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v8, &_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMd);
+    return outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(v8, &_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMR);
   }
 
   else
@@ -9038,8 +6061,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<VStack<T
   result = lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGMd);
-    lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6SpacerV_AA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNokE0VAA13_OffsetEffectVGAIyAIyAIyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6SpacerV_AA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNokE0VAA13_OffsetEffectVGAIyAIyAIyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA6SpacerV_AA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNokE0VAA13_OffsetEffectVGAIyAIyAIyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGMR, MEMORY[0x277CE1198]);
     lazy protocol witness table accessor for type MetricRow and conformance MetricRow();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow> and conformance <> ModifiedContent<A, B>);
@@ -9048,14 +6071,14 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<VStack<T
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
-    lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<LegibilityWeight?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMd);
+    lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<LegibilityWeight?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -9068,8 +6091,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<HStack<T
   result = lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGMd);
-    lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNojE0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_AGyAGyAGyAGyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNojE0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_AGyAGyAGyAGyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA15ModifiedContentVy07WorkoutB0015ElapsedTimeOrNojE0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_AGyAGyAGyAGyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGMR, MEMORY[0x277CE1138]);
     lazy protocol witness table accessor for type MetricRow and conformance MetricRow();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow> and conformance <> ModifiedContent<A, B>);
@@ -9135,7 +6158,7 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>, ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>, ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA6VStackVyAA9TupleViewVyAA6SpacerV_AEy07WorkoutB0015ElapsedTimeOrNolH0VAA13_OffsetEffectVGAEyAEyAEyAA4TextVAL25MetricDescriptionCoreFontVGAL26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAL0R3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGAEyAEyAA6HStackVyAIyAEyAnA21_TraitWritingModifierVyAA22LayoutPriorityTraitKeyVGG_AEyAEyAZA11_yAS4CaseOSgGGAA31AccessibilityAttachmentModifierVGtGGA8_GA15_GGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA6VStackVyAA9TupleViewVyAA6SpacerV_AEy07WorkoutB0015ElapsedTimeOrNolH0VAA13_OffsetEffectVGAEyAEyAEyAA4TextVAL25MetricDescriptionCoreFontVGAL26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAL0R3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGAEyAEyAA6HStackVyAIyAEyAnA21_TraitWritingModifierVyAA22LayoutPriorityTraitKeyVGG_AEyAEyAZA11_yAS4CaseOSgGGAA31AccessibilityAttachmentModifierVGtGGA8_GA15_GGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA6VStackVyAA9TupleViewVyAA6SpacerV_AEy07WorkoutB0015ElapsedTimeOrNolH0VAA13_OffsetEffectVGAEyAEyAEyAA4TextVAL25MetricDescriptionCoreFontVGAL26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAL0R3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGAEyAEyAA6HStackVyAIyAEyAnA21_TraitWritingModifierVyAA22LayoutPriorityTraitKeyVGG_AEyAEyAZA11_yAS4CaseOSgGGAA31AccessibilityAttachmentModifierVGtGGA8_GA15_GGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACy07WorkoutB0015ElapsedTimeOrNokG0VAA13_OffsetEffectVGACyACyACyAA4TextVAJ25MetricDescriptionCoreFontVGAJ26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA24_ForegroundStyleModifierVyAA5ColorVGGtGGAJ0Q3RowVGAA30_EnvironmentKeyWritingModifierVyAA16LegibilityWeightOSgGGMR, lazy protocol witness table accessor for type ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow> and conformance <> ModifiedContent<A, B>);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyACy07WorkoutB0015ElapsedTimeOrNojG0VAA21_TraitWritingModifierVyAA014LayoutPriorityM3KeyVGG_ACyACyACyACyAA4TextVAH25MetricDescriptionCoreFontVGAH26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA012_EnvironmentrnO0VyAR4CaseOSgGGAA023AccessibilityAttachmentO0VGtGGAH0T3RowVGA_yAA16LegibilityWeightOSgGGMR, lazy protocol witness table accessor for type ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow> and conformance <> ModifiedContent<A, B>);
     result = swift_getWitnessTable();
@@ -9203,7 +6226,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, MetricValueFont>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, MetricValueFont>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextV07WorkoutB015MetricValueFontVGAA31AccessibilityAttachmentModifierVGMR);
     lazy protocol witness table accessor for type ModifiedContent<Text, MetricValueFont> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<Text, MetricValueFont> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMd, &_s7SwiftUI15ModifiedContentVyAA4TextV07WorkoutB015MetricValueFontVGMR, lazy protocol witness table accessor for type MetricValueFont and conformance MetricValueFont);
     lazy protocol witness table accessor for type AccessibilityAttachmentModifier and conformance AccessibilityAttachmentModifier();
     result = swift_getWitnessTable();
@@ -9218,9 +6241,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextV07WorkoutB025MetricDescriptionCoreFontVGAF26ExtendedLineSpacingSupport33_241C09B5AC269BC1C919798A0AC522FDLLVGAA30_EnvironmentKeyWritingModifierVyAE4CaseOSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Text.Case?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4TextV4CaseOSgGMd);
+    lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Text.Case?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4TextV4CaseOSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4TextV4CaseOSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -9228,12 +6251,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<Text, MetricValueFont> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<Text, MetricValueFont> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -9242,12 +6265,12 @@ uint64_t lazy protocol witness table accessor for type ModifiedContent<Text, Met
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type VStack<TupleView<(Spacer, ModifiedContent<ElapsedTimeOrNoTimeView, _OffsetEffect>, ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _ForegroundStyleModifier<Color>>)>> and conformance VStack<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -9255,17 +6278,17 @@ uint64_t lazy protocol witness table accessor for type VStack<TupleView<(Spacer,
   return result;
 }
 
-uint64_t outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(ModifiedContent<ElapsedTimeOrNoTimeView, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Text, MetricDescriptionCoreFont>, ExtendedLineSpacingSupport>, _EnvironmentKeyWritingModifier<Text.Case?>>, AccessibilityAttachmentModifier>)>>, MetricRow>, _EnvironmentKeyWritingModifier<LegibilityWeight?>>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -9274,7 +6297,7 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Elap
   result = lazy protocol witness table cache variable for type _ConditionalContent<ElapsedTimeView, ModifiedContent<ModifiedContent<Text, MetricValueFont>, AccessibilityAttachmentModifier>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ElapsedTimeView, ModifiedContent<ModifiedContent<Text, MetricValueFont>, AccessibilityAttachmentModifier>> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVy07WorkoutB015ElapsedTimeViewVAA08ModifiedD0VyAHyAA4TextVAD15MetricValueFontVGAA31AccessibilityAttachmentModifierVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVy07WorkoutB015ElapsedTimeViewVAA08ModifiedD0VyAHyAA4TextVAD15MetricValueFontVGAA31AccessibilityAttachmentModifierVGGMd, &_s7SwiftUI19_ConditionalContentVy07WorkoutB015ElapsedTimeViewVAA08ModifiedD0VyAHyAA4TextVAD15MetricValueFontVGAA31AccessibilityAttachmentModifierVGGMR);
     lazy protocol witness table accessor for type ElapsedTimeView and conformance ElapsedTimeView();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Text, MetricValueFont>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
@@ -9355,7 +6378,7 @@ uint64_t protocol witness for Layout.explicitAlignment(of:in:proposal:subviews:c
   return protocol witness for Layout.explicitAlignment(of:in:proposal:subviews:cache:) in conformance TrainingLoadDayViewLayout(a1, a2, a3, a4, a5, a6, a7, a8, a9, MEMORY[0x277CE1160]);
 }
 
-void (*protocol witness for Animatable.animatableData.modify in conformance TrainingLoadDayViewLayout(uint64_t *a1))(void *a1)
+uint64_t (*protocol witness for Animatable.animatableData.modify in conformance TrainingLoadDayViewLayout(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9854,7 +6877,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t protocol witness for View.body.getter in conformance IntervalStyledButton@<X0>(uint64_t a1@<X8>)
+double protocol witness for View.body.getter in conformance IntervalStyledButton@<D0>(uint64_t a1@<X8>)
 {
   v3 = *v1;
   v2 = v1[1];
@@ -9870,6 +6893,8 @@ uint64_t protocol witness for View.body.getter in conformance IntervalStyledButt
   *(a1 + 32) = v7;
   *(a1 + 40) = v5;
   *(a1 + 48) = v8;
+
+  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type TintedButton and conformance TintedButton()
@@ -9882,4 +6907,3018 @@ unint64_t lazy protocol witness table accessor for type TintedButton and conform
   }
 
   return result;
+}
+
+uint64_t MediaConfigurationRoomButton.init(activityType:placement:)@<X0>(uint64_t result@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+{
+  v3 = *a2;
+  *a3 = result;
+  *(a3 + 8) = v3;
+  return result;
+}
+
+double MediaConfigurationRoomButton.body.getter@<D0>(uint64_t a2@<X8>)
+{
+  v4 = *v2;
+  LOBYTE(v12[0]) = *(v2 + 8);
+  if (static Platform.current.getter())
+  {
+    MediaConfigurationRoomButtonWatch.init(activityType:placement:)(v4, v12, v9);
+    v11 = 0;
+    v10 = 0;
+  }
+
+  else
+  {
+    MediaConfigurationRoomButtonPhone.init(activityType:placement:)(v4, v12, v9);
+    v11 = 1;
+    v10 = 1;
+  }
+
+  lazy protocol witness table accessor for type MediaConfigurationRoomButtonWatch and conformance MediaConfigurationRoomButtonWatch();
+  lazy protocol witness table accessor for type MediaConfigurationRoomButtonPhone and conformance MediaConfigurationRoomButtonPhone();
+  _ConditionalContent<>.init(storage:)();
+  v5 = v12[3];
+  v6 = v12[4];
+  *(a2 + 32) = v12[2];
+  *(a2 + 48) = v5;
+  *(a2 + 64) = v6;
+  *(a2 + 80) = v13;
+  result = *v12;
+  v8 = v12[1];
+  *a2 = v12[0];
+  *(a2 + 16) = v8;
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type MediaConfigurationRoomButtonWatch and conformance MediaConfigurationRoomButtonWatch()
+{
+  result = lazy protocol witness table cache variable for type MediaConfigurationRoomButtonWatch and conformance MediaConfigurationRoomButtonWatch;
+  if (!lazy protocol witness table cache variable for type MediaConfigurationRoomButtonWatch and conformance MediaConfigurationRoomButtonWatch)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MediaConfigurationRoomButtonWatch and conformance MediaConfigurationRoomButtonWatch);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type MediaConfigurationRoomButtonPhone and conformance MediaConfigurationRoomButtonPhone()
+{
+  result = lazy protocol witness table cache variable for type MediaConfigurationRoomButtonPhone and conformance MediaConfigurationRoomButtonPhone;
+  if (!lazy protocol witness table cache variable for type MediaConfigurationRoomButtonPhone and conformance MediaConfigurationRoomButtonPhone)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MediaConfigurationRoomButtonPhone and conformance MediaConfigurationRoomButtonPhone);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for MediaConfigurationRoomButton(uint64_t *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 9))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for MediaConfigurationRoomButton(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 9) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 9) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for MediaConfigurationRoomButton.ButtonPlacement(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xFE)
+  {
+    goto LABEL_20;
+  }
+
+  v2 = a2 + 2;
+  if (a2 + 2 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if (v2 >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  if (v2 >= 0x100)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if (v4 <= 1)
+  {
+    if (!v4)
+    {
+      goto LABEL_20;
+    }
+
+    v5 = a1[1];
+    if (!a1[1])
+    {
+      goto LABEL_20;
+    }
+
+    return (*a1 | (v5 << 8)) - 2;
+  }
+
+  if (v4 == 2)
+  {
+    v5 = *(a1 + 1);
+    if (*(a1 + 1))
+    {
+      return (*a1 | (v5 << 8)) - 2;
+    }
+  }
+
+  else
+  {
+    v5 = *(a1 + 1);
+    if (v5)
+    {
+      return (*a1 | (v5 << 8)) - 2;
+    }
+  }
+
+LABEL_20:
+  v7 = *a1;
+  v8 = v7 >= 2;
+  v9 = (v7 + 2147483646) & 0x7FFFFFFF;
+  if (!v8)
+  {
+    v9 = -1;
+  }
+
+  if (v9 + 1 >= 2)
+  {
+    return v9;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t storeEnumTagSinglePayload for MediaConfigurationRoomButton.ButtonPlacement(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  v3 = a3 + 2;
+  if (a3 + 2 >= 0xFFFF00)
+  {
+    v4 = 4;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
+  if (v3 >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  if (v3 >= 0x100)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a3 < 0xFE)
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFD)
+  {
+    v6 = ((a2 - 254) >> 8) + 1;
+    *result = a2 + 2;
+    if (v5 > 1)
+    {
+      if (v5 == 2)
+      {
+        *(result + 1) = v6;
+      }
+
+      else
+      {
+        *(result + 1) = v6;
+      }
+    }
+
+    else if (v5)
+    {
+      *(result + 1) = v6;
+    }
+
+    return result;
+  }
+
+  if (v5 > 1)
+  {
+    if (v5 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_22;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v5)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_22:
+    *result = a2 + 2;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_22;
+  }
+
+  return result;
+}
+
+uint64_t getEnumTag for MediaConfigurationRoomButton.ButtonPlacement(unsigned __int8 *a1)
+{
+  v1 = *a1;
+  v2 = v1 >= 2;
+  v3 = (v1 + 2147483646) & 0x7FFFFFFF;
+  if (v2)
+  {
+    return (v3 + 1);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+_BYTE *destructiveInjectEnumTag for MediaConfigurationRoomButton.ButtonPlacement(_BYTE *result, int a2)
+{
+  if (a2)
+  {
+    *result = a2 + 1;
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type _ConditionalContent<MediaConfigurationRoomButtonWatch, MediaConfigurationRoomButtonPhone> and conformance <> _ConditionalContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type _ConditionalContent<MediaConfigurationRoomButtonWatch, MediaConfigurationRoomButtonPhone> and conformance <> _ConditionalContent<A, B>;
+  if (!lazy protocol witness table cache variable for type _ConditionalContent<MediaConfigurationRoomButtonWatch, MediaConfigurationRoomButtonPhone> and conformance <> _ConditionalContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVy07WorkoutB033MediaConfigurationRoomButtonWatchVAD0fghI5PhoneVGMd, &_s7SwiftUI19_ConditionalContentVy07WorkoutB033MediaConfigurationRoomButtonWatchVAD0fghI5PhoneVGMR);
+    lazy protocol witness table accessor for type MediaConfigurationRoomButtonWatch and conformance MediaConfigurationRoomButtonWatch();
+    lazy protocol witness table accessor for type MediaConfigurationRoomButtonPhone and conformance MediaConfigurationRoomButtonPhone();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<MediaConfigurationRoomButtonWatch, MediaConfigurationRoomButtonPhone> and conformance <> _ConditionalContent<A, B>);
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for IntervalBlockConfigurationView(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for IntervalBlockConfigurationView;
+  if (!type metadata singleton initialization cache for IntervalBlockConfigurationView)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+void type metadata completion function for IntervalBlockConfigurationView(uint64_t a1)
+{
+  type metadata accessor for EnvironmentObject<ConfigurationNavigationModel>(319);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for EnvironmentObject<IntervalWorkoutConfiguration>(319);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for ObservedObject<WorkoutBlock>(319);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for FIUIFormattingManager();
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for HKActivityMoveMode(319);
+          if (v5 <= 0x3F)
+          {
+            type metadata accessor for State<Bool>();
+            if (v6 <= 0x3F)
+            {
+              type metadata accessor for Binding<UUID?>(319);
+              if (v7 <= 0x3F)
+              {
+                swift_cvw_initStructMetadataWithLayoutString();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t closure #1 in IntervalBlockConfigurationView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v83 = a2;
+  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v78);
+  v79 = v65 - v3;
+  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVACyACyACyACy0gB008IntervalI16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledO3KeyVGGAA012_Environmentu9TransformQ0VySbGGAA01_vupQ0VyAM0M15NavigationModelCSgGGA_yAF0lgM0CSgGGGAQyAA02OnsoU0VGGMd, &_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVACyACyACyACy0gB008IntervalI16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledO3KeyVGGAA012_Environmentu9TransformQ0VySbGGAA01_vupQ0VyAM0M15NavigationModelCSgGGA_yAF0lgM0CSgGGGAQyAA02OnsoU0VGGMR);
+  MEMORY[0x28223BE20](v76);
+  v75 = v65 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0L4StepCG10Foundation4UUIDVAHyAHyAHyAHy0lB008IntervalN16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledT3KeyVGGAA012_Environmentz9TransformV0VySbGGAA012_EnvironmentzuV0VyAR0R15NavigationModelCSgGGA4_yAK0qlR0CSgGGGAVyAA02OnxtZ0VGG_AQSgQo_Md, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA15ModifiedContentVyAA7ForEachVySay11WorkoutCore0L4StepCG10Foundation4UUIDVAHyAHyAHyAHy0lB008IntervalN16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledT3KeyVGGAA012_Environmentz9TransformV0VySbGGAA012_EnvironmentzuV0VyAR0R15NavigationModelCSgGGA4_yAK0qlR0CSgGGGAVyAA02OnxtZ0VGG_AQSgQo_MR);
+  v81 = *(v5 - 8);
+  v82 = v5;
+  MEMORY[0x28223BE20](v5);
+  v80 = v65 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v77 = v65 - v8;
+  v73 = type metadata accessor for IntervalBlockConfigurationView(0);
+  v9 = *(v73 - 8);
+  MEMORY[0x28223BE20](v73);
+  v86 = v65 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v87 = v10;
+  v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMR);
+  MEMORY[0x28223BE20](v72);
+  v70 = v65 - v11;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAA15ModifiedContentVyAMyAA6ButtonVy07WorkoutB009RepeatRowC0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledQ3KeyVGGAA012_Environmentw9TransformS0VySbGG_AA010NavigationC0VyAP0O6PickerVGQo_Md, &_s7SwiftUI4ViewPAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAA15ModifiedContentVyAMyAA6ButtonVy07WorkoutB009RepeatRowC0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledQ3KeyVGGAA012_Environmentw9TransformS0VySbGG_AA010NavigationC0VyAP0O6PickerVGQo_MR);
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v69 = v65 - v14;
+  v15 = type metadata accessor for WorkoutBlockType();
+  v16 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15);
+  v18 = v65 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v19);
+  v21 = v65 - v20;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAA15ModifiedContentVyAMyAA6ButtonVy07WorkoutB009RepeatRowC0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledQ3KeyVGGAA012_Environmentw9TransformS0VySbGG_AA010NavigationC0VyAP0O6PickerVGQo_SgMd, &_s7SwiftUI4ViewPAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAA15ModifiedContentVyAMyAA6ButtonVy07WorkoutB009RepeatRowC0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledQ3KeyVGGAA012_Environmentw9TransformS0VySbGG_AA010NavigationC0VyAP0O6PickerVGQo_SgMR);
+  MEMORY[0x28223BE20](v22 - 8);
+  v74 = v65 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v24);
+  v26 = v65 - v25;
+  v85 = a1;
+  v71 = *(a1 + 40);
+  WorkoutBlock.blockType.getter();
+  (*(v16 + 104))(v18, *MEMORY[0x277D7DDD0], v15);
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type WorkoutBlockType and conformance WorkoutBlockType, MEMORY[0x277D7DDE0], MEMORY[0x277D7DDF0]);
+  dispatch thunk of RawRepresentable.rawValue.getter();
+  dispatch thunk of RawRepresentable.rawValue.getter();
+  v27 = *(v16 + 8);
+  v27(v18, v15);
+  v27(v21, v15);
+  v28 = 1;
+  v84 = v26;
+  if (v88 == v90)
+  {
+    v29 = v85;
+    v30 = v86;
+    outlined init with copy of IntervalBlockConfigurationView(v85, v86);
+    v67 = v12;
+    v31 = (*(v9 + 80) + 16) & ~*(v9 + 80);
+    v66 = v13;
+    v32 = swift_allocObject();
+    v33 = outlined init with take of IntervalBlockConfigurationView(v30, v32 + v31);
+    v68 = v9;
+    MEMORY[0x28223BE20](v33);
+    lazy protocol witness table accessor for type RepeatRowView and conformance RepeatRowView();
+    v34 = v70;
+    Button.init(action:label:)();
+    *(v34 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMR) + 36)) = 1;
+    v35 = (*(v29 + 96) & 0x20) == 0;
+    KeyPath = swift_getKeyPath();
+    v37 = swift_allocObject();
+    *(v37 + 16) = v35;
+    v38 = (v34 + *(v72 + 36));
+    *v38 = KeyPath;
+    v38[1] = _s7SwiftUI4ViewPAAE8disabledyQrSbFySbzcfU_TA_20;
+    v38[2] = v37;
+    v39 = *(v29 + 112);
+    LOBYTE(v90) = *(v29 + 104);
+    v91 = v39;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
+    State.projectedValue.getter();
+    v65[3] = v89;
+    v40 = v29;
+    v26 = v84;
+    outlined init with copy of IntervalBlockConfigurationView(v40, v30);
+    v13 = v66;
+    v41 = swift_allocObject();
+    outlined init with take of IntervalBlockConfigurationView(v30, v41 + v31);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI14NavigationViewVy07WorkoutB012RepeatPickerVGMd, &_s7SwiftUI14NavigationViewVy07WorkoutB012RepeatPickerVGMR);
+    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type NavigationView<RepeatPicker> and conformance NavigationView<A>, &_s7SwiftUI14NavigationViewVy07WorkoutB012RepeatPickerVGMd, &_s7SwiftUI14NavigationViewVy07WorkoutB012RepeatPickerVGMR, MEMORY[0x277CDD978]);
+    v9 = v68;
+    v12 = v67;
+    v42 = v69;
+    View.sheet<A>(isPresented:onDismiss:content:)();
+
+    _s10Foundation4UUIDVSgWOhTm_4(v34, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMR);
+    (*(v13 + 32))(v26, v42, v12);
+    v28 = 0;
+  }
+
+  (*(v13 + 56))(v26, v28, 1, v12);
+  v88 = WorkoutBlock.steps.getter();
+  v43 = v85;
+  v44 = v86;
+  outlined init with copy of IntervalBlockConfigurationView(v85, v86);
+  v45 = (*(v9 + 80) + 16) & ~*(v9 + 80);
+  v46 = swift_allocObject();
+  outlined init with take of IntervalBlockConfigurationView(v44, v46 + v45);
+  v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR);
+  type metadata accessor for UUID();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGARy0E4Core0feH0CSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGARy0E4Core0feH0CSgGGMR);
+  lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type [WorkoutStep] and conformance [A], &_sSay11WorkoutCore0A4StepCGMd, &_sSay11WorkoutCore0A4StepCGMR, MEMORY[0x277D83980]);
+  lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>();
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type WorkoutStep and conformance WorkoutStep, MEMORY[0x277D7DD30], MEMORY[0x277D7DD40]);
+  v47 = v75;
+  ForEach<>.init(_:content:)();
+  outlined init with copy of IntervalBlockConfigurationView(v43, v44);
+  v48 = swift_allocObject();
+  outlined init with take of IntervalBlockConfigurationView(v44, v48 + v45);
+  v49 = swift_allocObject();
+  *(v49 + 16) = partial apply for closure #5 in closure #1 in IntervalBlockConfigurationView.body.getter;
+  *(v49 + 24) = v48;
+  v50 = (v47 + *(v76 + 36));
+  *v50 = _s10Foundation8IndexSetVIegn_ACytIegnr_TRTA_0;
+  v50[1] = v49;
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMd, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMR);
+  v52 = v79;
+  MEMORY[0x20F30B100](v51);
+  outlined init with copy of IntervalBlockConfigurationView(v43, v44);
+  v53 = swift_allocObject();
+  outlined init with take of IntervalBlockConfigurationView(v44, v53 + v45);
+  lazy protocol witness table accessor for type ModifiedContent<ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>>, _TraitWritingModifier<OnDeleteTraitKey>> and conformance <> ModifiedContent<A, B>();
+  lazy protocol witness table accessor for type UUID? and conformance <A> A?();
+  v54 = v77;
+  View.onChange<A>(of:initial:_:)();
+
+  _s10Foundation4UUIDVSgWOhTm_4(v52, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  _s10Foundation4UUIDVSgWOhTm_4(v47, &_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVACyACyACyACy0gB008IntervalI16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledO3KeyVGGAA012_Environmentu9TransformQ0VySbGGAA01_vupQ0VyAM0M15NavigationModelCSgGGA_yAF0lgM0CSgGGGAQyAA02OnsoU0VGGMd, &_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVACyACyACyACy0gB008IntervalI16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledO3KeyVGGAA012_Environmentu9TransformQ0VySbGGAA01_vupQ0VyAM0M15NavigationModelCSgGGA_yAF0lgM0CSgGGGAQyAA02OnsoU0VGGMR);
+  v55 = v84;
+  v56 = v74;
+  sub_20C697FD4(v84, v74);
+  v58 = v80;
+  v57 = v81;
+  v59 = *(v81 + 16);
+  v60 = v82;
+  v59(v80, v54, v82);
+  v61 = v83;
+  sub_20C697FD4(v56, v83);
+  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAA15ModifiedContentVyAMyAA6ButtonVy07WorkoutB009RepeatRowC0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledQ3KeyVGGAA012_Environmentw9TransformS0VySbGG_AA010NavigationC0VyAP0O6PickerVGQo_Sg_AcAE0G6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAMyAA7ForEachVySay0N4Core0N4StepCG10Foundation4UUIDVAMyAMyAMyAMyAP025IntervalStepConfigurationP0VAXGA0_GAA01_xwrS0VyAP013ConfigurationZ5ModelCSgGGA26_yA14_08IntervalN13ConfigurationCSgGGGAUyAA02OnuqW0VGG_A20_SgQo_tMd, &_s7SwiftUI4ViewPAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaBRd__lFQOyAA15ModifiedContentVyAMyAA6ButtonVy07WorkoutB009RepeatRowC0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledQ3KeyVGGAA012_Environmentw9TransformS0VySbGG_AA010NavigationC0VyAP0O6PickerVGQo_Sg_AcAE0G6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAMyAA7ForEachVySay0N4Core0N4StepCG10Foundation4UUIDVAMyAMyAMyAMyAP025IntervalStepConfigurationP0VAXGA0_GAA01_xwrS0VyAP013ConfigurationZ5ModelCSgGGA26_yA14_08IntervalN13ConfigurationCSgGGGAUyAA02OnuqW0VGG_A20_SgQo_tMR);
+  v59((v61 + *(v62 + 48)), v58, v60);
+  v63 = *(v57 + 8);
+  v63(v54, v60);
+  sub_20C698044(v55);
+  v63(v58, v60);
+  return sub_20C698044(v56);
+}
+
+double closure #1 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a1)
+{
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
+  State.wrappedValue.getter();
+  State.wrappedValue.setter();
+
+  return result;
+}
+
+double closure #2 in closure #1 in IntervalBlockConfigurationView.body.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v5 = type metadata accessor for WorkoutBlock();
+  v6 = _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type WorkoutBlock and conformance WorkoutBlock, MEMORY[0x277D7DD60], MEMORY[0x277D7DD58]);
+  MEMORY[0x20F308920](v3, v4, v5, v6);
+  swift_getKeyPath();
+  ObservedObject.Wrapper.subscript.getter();
+
+  result = *&v8;
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 1;
+  return result;
+}
+
+uint64_t closure #1 in closure #3 in closure #1 in IntervalBlockConfigurationView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  v4 = type metadata accessor for IntervalBlockConfigurationView(0);
+  v5 = *(v4 - 8);
+  v6 = *(v5 + 64);
+  MEMORY[0x28223BE20](v4 - 8);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v10 = &v21 - v9;
+  MEMORY[0x28223BE20](v11);
+  v13 = &v21 - v12;
+  v22 = *(a1 + 48);
+  outlined init with copy of IntervalBlockConfigurationView(a1, &v21 - v12);
+  v14 = (*(v5 + 80) + 16) & ~*(v5 + 80);
+  v15 = swift_allocObject();
+  outlined init with take of IntervalBlockConfigurationView(v13, v15 + v14);
+  outlined init with copy of IntervalBlockConfigurationView(a1, v10);
+  v16 = swift_allocObject();
+  outlined init with take of IntervalBlockConfigurationView(v10, v16 + v14);
+  outlined init with copy of IntervalBlockConfigurationView(a1, v7);
+  v17 = swift_allocObject();
+  outlined init with take of IntervalBlockConfigurationView(v7, v17 + v14);
+  type metadata accessor for WorkoutBlock();
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type WorkoutBlock and conformance WorkoutBlock, MEMORY[0x277D7DD60], MEMORY[0x277D7DD58]);
+
+  v18 = v22;
+  result = ObservedObject.init(wrappedValue:)();
+  *a2 = result;
+  a2[1] = v20;
+  a2[2] = v18;
+  a2[3] = partial apply for closure #1 in closure #1 in closure #3 in closure #1 in IntervalBlockConfigurationView.body.getter;
+  a2[4] = v15;
+  a2[5] = partial apply for closure #2 in closure #1 in closure #3 in closure #1 in IntervalBlockConfigurationView.body.getter;
+  a2[6] = v16;
+  a2[7] = partial apply for closure #3 in closure #1 in closure #3 in closure #1 in IntervalBlockConfigurationView.body.getter;
+  a2[8] = v17;
+  return result;
+}
+
+uint64_t closure #1 in closure #1 in closure #3 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a1, uint64_t a2)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
+  State.wrappedValue.setter();
+  return WorkoutBlock.repetitions.setter();
+}
+
+void closure #3 in closure #1 in closure #3 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a1)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
+  State.wrappedValue.setter();
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    v3 = v2;
+    v4 = IntervalWorkoutConfiguration.intervalWorkout.getter();
+
+    IntervalWorkout.removeRepeat(from:)();
+  }
+
+  else
+  {
+    type metadata accessor for IntervalWorkoutConfiguration();
+    _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type IntervalWorkoutConfiguration and conformance WorkoutConfiguration, MEMORY[0x277D7D9A0], MEMORY[0x277D7DA48]);
+    EnvironmentObject.error()();
+    __break(1u);
+  }
+}
+
+uint64_t closure #4 in closure #1 in IntervalBlockConfigurationView.body.getter@<X0>(uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v53 = a3;
+  v4 = type metadata accessor for UUID();
+  v48 = *(v4 - 8);
+  v49 = v4;
+  MEMORY[0x28223BE20](v4);
+  v6 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMR);
+  v8 = v7 - 8;
+  MEMORY[0x28223BE20](v7);
+  v10 = (&v42 - v9);
+  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMR);
+  MEMORY[0x28223BE20](v50);
+  v46 = &v42 - v11;
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGMR);
+  MEMORY[0x28223BE20](v51);
+  v52 = &v42 - v12;
+  v13 = *(a2 + 48);
+  v43 = *(a2 + 56);
+  type metadata accessor for IntervalBlockConfigurationView(0);
+  type metadata accessor for IntervalStepConfigurationRow(0);
+
+  v42 = v13;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMd, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMR);
+  Binding.projectedValue.getter();
+  type metadata accessor for ConfigurationNavigationModel(0);
+  v44 = _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type ConfigurationNavigationModel and conformance ConfigurationNavigationModel, type metadata accessor for ConfigurationNavigationModel, &protocol conformance descriptor for ConfigurationNavigationModel);
+  v14 = EnvironmentObject.init()();
+  v16 = v15;
+  v17 = type metadata accessor for IntervalWorkoutConfiguration();
+  v18 = _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type IntervalWorkoutConfiguration and conformance WorkoutConfiguration, MEMORY[0x277D7D9A0], MEMORY[0x277D7DA48]);
+  v47 = v17;
+  v45 = v18;
+  v19 = EnvironmentObject.init()();
+  *v10 = v14;
+  v10[1] = v16;
+  v10[2] = v19;
+  v10[3] = v20;
+  type metadata accessor for WorkoutBlock();
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type WorkoutBlock and conformance WorkoutBlock, MEMORY[0x277D7DD60], MEMORY[0x277D7DD58]);
+  v10[4] = ObservedObject.init(wrappedValue:)();
+  v10[5] = v21;
+  type metadata accessor for WorkoutStep();
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type WorkoutStep and conformance WorkoutStep, MEMORY[0x277D7DD30], MEMORY[0x277D7DD28]);
+  v10[6] = ObservedObject.init(wrappedValue:)();
+  v10[7] = v22;
+  v23 = v43;
+  v10[8] = v42;
+  v10[9] = v23;
+  MEMORY[0x20F304900]();
+  LOBYTE(v14) = IntervalBlockConfigurationView.shouldDisableDelete(stepId:)(v6);
+  (*(v48 + 8))(v6, v49);
+  *(v10 + *(v8 + 44)) = v14 & 1;
+  if ((*(a2 + 96) & 0x20) != 0)
+  {
+    goto LABEL_5;
+  }
+
+  v24 = *(a2 + 16);
+  if (!v24)
+  {
+LABEL_10:
+    EnvironmentObject.error()();
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  v25 = v24;
+  v26 = dispatch thunk of WorkoutConfiguration.externalProvider.getter();
+
+  if (v26)
+  {
+
+LABEL_5:
+    v27 = 0;
+    goto LABEL_6;
+  }
+
+  v27 = 1;
+LABEL_6:
+  KeyPath = swift_getKeyPath();
+  v29 = swift_allocObject();
+  *(v29 + 16) = v27;
+  v30 = v46;
+  outlined init with take of ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>(v10, v46, &_s7SwiftUI15ModifiedContentVy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMR);
+  v31 = (v30 + *(v50 + 36));
+  *v31 = KeyPath;
+  v31[1] = closure #1 in View.disabled(_:)partial apply;
+  v31[2] = v29;
+  v32 = *a2;
+  if (*a2)
+  {
+
+    v33 = static ObservableObject.environmentStore.getter();
+    v34 = v52;
+    outlined init with take of ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>(v30, v52, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMR);
+    v35 = (v34 + *(v51 + 36));
+    *v35 = v33;
+    v35[1] = v32;
+    v36 = *(a2 + 16);
+    if (v36)
+    {
+      v37 = v36;
+      v38 = static ObservableObject.environmentStore.getter();
+      v39 = v53;
+      outlined init with take of ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>(v34, v53, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGMR);
+      result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGARy0E4Core0feH0CSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGARy0E4Core0feH0CSgGGMR);
+      v41 = (v39 + *(result + 36));
+      *v41 = v38;
+      v41[1] = v36;
+      return result;
+    }
+
+    goto LABEL_10;
+  }
+
+LABEL_11:
+  result = EnvironmentObject.error()();
+  __break(1u);
+  return result;
+}
+
+uint64_t IntervalBlockConfigurationView.shouldDisableDelete(stepId:)(uint64_t a1)
+{
+  v3 = type metadata accessor for UUID();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+  MEMORY[0x28223BE20](v7);
+  v9 = &v26 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v15 = &v26 - v14;
+  MEMORY[0x28223BE20](v16);
+  v18 = &v26 - v17;
+  if ((*(v1 + 96) & 0x20) == 0)
+  {
+    goto LABEL_2;
+  }
+
+  v27 = v6;
+  type metadata accessor for IntervalBlockConfigurationView(0);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMd, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMR);
+  MEMORY[0x20F30B100](v20);
+  (*(v4 + 16))(v15, a1, v3);
+  (*(v4 + 56))(v15, 0, 1, v3);
+  v21 = *(v7 + 48);
+  outlined init with copy of UUID?(v18, v9);
+  outlined init with copy of UUID?(v15, &v9[v21]);
+  v22 = *(v4 + 48);
+  if (v22(v9, 1, v3) != 1)
+  {
+    outlined init with copy of UUID?(v9, v12);
+    if (v22(&v9[v21], 1, v3) != 1)
+    {
+      v23 = v27;
+      (*(v4 + 32))(v27, &v9[v21], v3);
+      _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9610]);
+      v19 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v24 = *(v4 + 8);
+      v24(v23, v3);
+      _s10Foundation4UUIDVSgWOhTm_4(v15, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      _s10Foundation4UUIDVSgWOhTm_4(v18, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      v24(v12, v3);
+      _s10Foundation4UUIDVSgWOhTm_4(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      return v19 & 1;
+    }
+
+    _s10Foundation4UUIDVSgWOhTm_4(v15, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    _s10Foundation4UUIDVSgWOhTm_4(v18, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    (*(v4 + 8))(v12, v3);
+    goto LABEL_8;
+  }
+
+  _s10Foundation4UUIDVSgWOhTm_4(v15, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  _s10Foundation4UUIDVSgWOhTm_4(v18, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  if (v22(&v9[v21], 1, v3) != 1)
+  {
+LABEL_8:
+    _s10Foundation4UUIDVSgWOhTm_4(v9, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+    v19 = 0;
+    return v19 & 1;
+  }
+
+  _s10Foundation4UUIDVSgWOhTm_4(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+LABEL_2:
+  v19 = 1;
+  return v19 & 1;
+}
+
+void closure #5 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a1, void *a2)
+{
+  v2 = a2[2];
+  if (v2)
+  {
+    v3 = v2;
+    IntervalWorkoutConfiguration.removeSteps(atOffsets:from:)();
+  }
+
+  else
+  {
+    type metadata accessor for IntervalWorkoutConfiguration();
+    _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type IntervalWorkoutConfiguration and conformance WorkoutConfiguration, MEMORY[0x277D7D9A0], MEMORY[0x277D7DA48]);
+    EnvironmentObject.error()();
+    __break(1u);
+  }
+}
+
+uint64_t closure #6 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v14[-v6];
+  v8 = type metadata accessor for UUID();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v14[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  outlined init with copy of UUID?(a1, v7);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return _s10Foundation4UUIDVSgWOhTm_4(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  }
+
+  v13 = (*(v9 + 32))(v11, v7, v8);
+  MEMORY[0x28223BE20](v13);
+  *&v14[-16] = a3;
+  *&v14[-8] = v11;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sytSgMd, &_sytSgMR);
+  withAnimation<A>(_:_:)();
+  return (*(v9 + 8))(v11, v8);
+}
+
+void closure #1 in closure #6 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a2@<X1>, BOOL *a3@<X8>)
+{
+  v5 = WorkoutBlock.steps.getter();
+  v9[2] = a2;
+  v6 = specialized Sequence.first(where:)(partial apply for closure #1 in closure #1 in closure #6 in closure #1 in IntervalBlockConfigurationView.body.getter, v9, v5);
+
+  if (v6)
+  {
+    v7 = WorkoutStep.forcePublisherUpdate.modify();
+    *v8 = !*v8;
+    v7(v10, 0);
+  }
+
+  *a3 = v6 == 0;
+}
+
+uint64_t closure #1 in closure #1 in closure #6 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a1, uint64_t a2)
+{
+  v2 = type metadata accessor for UUID();
+  v3 = *(v2 - 8);
+  v4 = MEMORY[0x28223BE20](v2);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x20F304900](v4);
+  v7 = static UUID.== infix(_:_:)();
+  (*(v3 + 8))(v6, v2);
+  return v7 & 1;
+}
+
+uint64_t protocol witness for View.body.getter in conformance IntervalBlockConfigurationView()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA0D0PAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaDRd__lFQOyAA15ModifiedContentVyAOyAA6ButtonVy07WorkoutB009RepeatRowD0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledR3KeyVGGAA012_Environmentx9TransformT0VySbGG_AA010NavigationD0VyAR0P6PickerVGQo_Sg_AeAE0H6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAOyAA7ForEachVySay0O4Core0O4StepCG10Foundation4UUIDVAOyAOyAOyAOyAR025IntervalStepConfigurationQ0VAZGA2_GAA01_yxsT0VyAR28ConfigurationNavigationModelCSgGGA28_yA16_08IntervalO13ConfigurationCSgGGGAWyAA02OnvrX0VGG_A22_SgQo_tGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaDRd__lFQOyAA15ModifiedContentVyAOyAA6ButtonVy07WorkoutB009RepeatRowD0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledR3KeyVGGAA012_Environmentx9TransformT0VySbGG_AA010NavigationD0VyAR0P6PickerVGQo_Sg_AeAE0H6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAOyAA7ForEachVySay0O4Core0O4StepCG10Foundation4UUIDVAOyAOyAOyAOyAR025IntervalStepConfigurationQ0VAZGA2_GAA01_yxsT0VyAR28ConfigurationNavigationModelCSgGGA28_yA16_08IntervalO13ConfigurationCSgGGGAWyAA02OnvrX0VGG_A22_SgQo_tGMR);
+  lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaDRd__lFQOyAA15ModifiedContentVyAOyAA6ButtonVy07WorkoutB009RepeatRowD0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledR3KeyVGGAA012_Environmentx9TransformT0VySbGG_AA010NavigationD0VyAR0P6PickerVGQo_Sg_AeAE0H6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAOyAA7ForEachVySay0O4Core0O4StepCG10Foundation4UUIDVAOyAOyAOyAOyAR025IntervalStepConfigurationQ0VAZGA2_GAA01_yxsT0VyAR28ConfigurationNavigationModelCSgGGA28_yA16_08IntervalO13ConfigurationCSgGGGAWyAA02OnvrX0VGG_A22_SgQo_tGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaDRd__lFQOyAA15ModifiedContentVyAOyAA6ButtonVy07WorkoutB009RepeatRowD0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledR3KeyVGGAA012_Environmentx9TransformT0VySbGG_AA010NavigationD0VyAR0P6PickerVGQo_Sg_AeAE0H6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAOyAA7ForEachVySay0O4Core0O4StepCG10Foundation4UUIDVAOyAOyAOyAOyAR025IntervalStepConfigurationQ0VAZGA2_GAA01_yxsT0VyAR28ConfigurationNavigationModelCSgGGA28_yA16_08IntervalO13ConfigurationCSgGGGAWyAA02OnvrX0VGG_A22_SgQo_tGMR, MEMORY[0x277CE14C0]);
+  return Section<>.init(content:)();
+}
+
+uint64_t outlined init with copy of IntervalBlockConfigurationView(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for IntervalBlockConfigurationView(0);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined init with take of IntervalBlockConfigurationView(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for IntervalBlockConfigurationView(0);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t partial apply for closure #4 in closure #1 in IntervalBlockConfigurationView.body.getter@<X0>(uint64_t a2@<X8>)
+{
+  v4 = *(type metadata accessor for IntervalBlockConfigurationView(0) - 8);
+  v5 = v2 + ((*(v4 + 80) + 16) & ~*(v4 + 80));
+
+  return closure #4 in closure #1 in IntervalBlockConfigurationView.body.getter(v5, a2);
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGARy0E4Core0feH0CSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGARy0E4Core0feH0CSgGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>> and conformance <> ModifiedContent<A, B>();
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy11WorkoutCore08IntervalG13ConfigurationCSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy11WorkoutCore08IntervalG13ConfigurationCSgGMR, MEMORY[0x277CE0868]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGAA01_qpkL0VyAD0H15NavigationModelCSgGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGMR, MEMORY[0x277CE0868]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>();
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMR, MEMORY[0x277CE08A0]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB028IntervalStepConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMR);
+    _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type IntervalStepConfigurationRow and conformance IntervalStepConfigurationRow, type metadata accessor for IntervalStepConfigurationRow, &protocol conformance descriptor for IntervalStepConfigurationRow);
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _TraitWritingModifier<IsDeleteDisabledTraitKey> and conformance _TraitWritingModifier<A>, &_s7SwiftUI21_TraitWritingModifierVyAA016IsDeleteDisabledC3KeyVGMd, &_s7SwiftUI21_TraitWritingModifierVyAA016IsDeleteDisabledC3KeyVGMR, MEMORY[0x277CE04A0]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+void partial apply for closure #5 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a1)
+{
+  v3 = *(type metadata accessor for IntervalBlockConfigurationView(0) - 8);
+  v4 = (v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80)));
+
+  closure #5 in closure #1 in IntervalBlockConfigurationView.body.getter(a1, v4);
+}
+
+uint64_t partial apply for closure #6 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a1, uint64_t a2)
+{
+  v5 = *(type metadata accessor for IntervalBlockConfigurationView(0) - 8);
+  v6 = v2 + ((*(v5 + 80) + 16) & ~*(v5 + 80));
+
+  return closure #6 in closure #1 in IntervalBlockConfigurationView.body.getter(a1, a2, v6);
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>>, _TraitWritingModifier<OnDeleteTraitKey>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>>, _TraitWritingModifier<OnDeleteTraitKey>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>>, _TraitWritingModifier<OnDeleteTraitKey>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVACyACyACyACy0gB008IntervalI16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledO3KeyVGGAA012_Environmentu9TransformQ0VySbGGAA01_vupQ0VyAM0M15NavigationModelCSgGGA_yAF0lgM0CSgGGGAQyAA02OnsoU0VGGMd, &_s7SwiftUI15ModifiedContentVyAA7ForEachVySay11WorkoutCore0G4StepCG10Foundation4UUIDVACyACyACyACy0gB008IntervalI16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledO3KeyVGGAA012_Environmentu9TransformQ0VySbGGAA01_vupQ0VyAM0M15NavigationModelCSgGGA_yAF0lgM0CSgGGGAQyAA02OnsoU0VGGMR);
+    lazy protocol witness table accessor for type ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>> and conformance <> ForEach<A, B, C>();
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _TraitWritingModifier<OnDeleteTraitKey> and conformance _TraitWritingModifier<A>, &_s7SwiftUI21_TraitWritingModifierVyAA08OnDeleteC3KeyVGMd, &_s7SwiftUI21_TraitWritingModifierVyAA08OnDeleteC3KeyVGMR, MEMORY[0x277CE04A0]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>>, _TraitWritingModifier<OnDeleteTraitKey>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>> and conformance <> ForEach<A, B, C>()
+{
+  result = lazy protocol witness table cache variable for type ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>> and conformance <> ForEach<A, B, C>;
+  if (!lazy protocol witness table cache variable for type ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>> and conformance <> ForEach<A, B, C>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI7ForEachVySay11WorkoutCore0E4StepCG10Foundation4UUIDVAA15ModifiedContentVyALyALyALy0eB008IntervalG16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledO3KeyVGGAA012_Environmentu9TransformQ0VySbGGAA01_vupQ0VyAM0M15NavigationModelCSgGGA_yAD0leM0CSgGGGMd, &_s7SwiftUI7ForEachVySay11WorkoutCore0E4StepCG10Foundation4UUIDVAA15ModifiedContentVyALyALyALy0eB008IntervalG16ConfigurationRowVAA21_TraitWritingModifierVyAA016IsDeleteDisabledO3KeyVGGAA012_Environmentu9TransformQ0VySbGGAA01_vupQ0VyAM0M15NavigationModelCSgGGA_yAD0leM0CSgGGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ForEach<[WorkoutStep], UUID, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>>, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>> and conformance <> ForEach<A, B, C>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type UUID? and conformance <A> A?()
+{
+  result = lazy protocol witness table cache variable for type UUID? and conformance <A> A?;
+  if (!lazy protocol witness table cache variable for type UUID? and conformance <A> A?)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9610]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type UUID? and conformance <A> A?);
+  }
+
+  return result;
+}
+
+uint64_t partial apply for closure #3 in closure #1 in IntervalBlockConfigurationView.body.getter()
+{
+  type metadata accessor for IntervalBlockConfigurationView(0);
+  lazy protocol witness table accessor for type RepeatPicker and conformance RepeatPicker();
+  return NavigationView.init(content:)();
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGAA012_Environmentp9TransformL0VySbGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>();
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMR, MEMORY[0x277CE08A0]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVy07WorkoutB013RepeatRowViewVGAA21_TraitWritingModifierVyAA016IsDeleteDisabledJ3KeyVGGMR);
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type Button<RepeatRowView> and conformance Button<A>, &_s7SwiftUI6ButtonVy07WorkoutB013RepeatRowViewVGMd, &_s7SwiftUI6ButtonVy07WorkoutB013RepeatRowViewVGMR, MEMORY[0x277CDF028]);
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _TraitWritingModifier<IsDeleteDisabledTraitKey> and conformance _TraitWritingModifier<A>, &_s7SwiftUI21_TraitWritingModifierVyAA016IsDeleteDisabledC3KeyVGMd, &_s7SwiftUI21_TraitWritingModifierVyAA016IsDeleteDisabledC3KeyVGMR, MEMORY[0x277CE04A0]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Button<RepeatRowView>, _TraitWritingModifier<IsDeleteDisabledTraitKey>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+{
+  result = *a1;
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t partial apply for closure #1 in closure #1 in closure #3 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t a1)
+{
+  v3 = *(type metadata accessor for IntervalBlockConfigurationView(0) - 8);
+  v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
+
+  return closure #1 in closure #1 in closure #3 in closure #1 in IntervalBlockConfigurationView.body.getter(a1, v4);
+}
+
+uint64_t objectdestroyTm_90()
+{
+  v1 = (type metadata accessor for IntervalBlockConfigurationView(0) - 8);
+  v2 = v0 + ((*(*v1 + 80) + 16) & ~*(*v1 + 80));
+
+  v3 = v2 + v1[13];
+
+  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMd, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMR) + 32);
+  v5 = type metadata accessor for UUID();
+  v6 = *(v5 - 8);
+  if (!(*(v6 + 48))(v3 + v4, 1, v5))
+  {
+    (*(v6 + 8))(v3 + v4, v5);
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #1 in closure #1 in IntervalBlockConfigurationView.body.getter(uint64_t (*a1)(uint64_t))
+{
+  v2 = *(type metadata accessor for IntervalBlockConfigurationView(0) - 8);
+  v3 = v1 + ((*(v2 + 80) + 16) & ~*(v2 + 80));
+
+  return a1(v3);
+}
+
+uint64_t _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_15(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t outlined init with take of ModifiedContent<IntervalStepConfigurationRow, _TraitWritingModifier<IsDeleteDisabledTraitKey>>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
+  return a2;
+}
+
+uint64_t _s10Foundation4UUIDVSgWOhTm_4(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
+  return a1;
+}
+
+unint64_t lazy protocol witness table accessor for type Section<EmptyView, TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)>, EmptyView> and conformance <> Section<A, B, C>()
+{
+  result = lazy protocol witness table cache variable for type Section<EmptyView, TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)>, EmptyView> and conformance <> Section<A, B, C>;
+  if (!lazy protocol witness table cache variable for type Section<EmptyView, TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)>, EmptyView> and conformance <> Section<A, B, C>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaHRd__lFQOyAA15ModifiedContentVyASyAA6ButtonVy07WorkoutB009RepeatRowE0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledT3KeyVGGAA012_Environmentz9TransformV0VySbGG_AA010NavigationE0VyAV0R6PickerVGQo_Sg_AiAE0J6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyASyAA7ForEachVySay0Q4Core0Q4StepCG10Foundation4UUIDVASyASyASyASyAV025IntervalStepConfigurationS0VA2_GA6_GAA012_EnvironmentzuV0VyAV28ConfigurationNavigationModelCSgGGA32_yA20_08IntervalQ13ConfigurationCSgGGGA_yAA02OnxtZ0VGG_A26_SgQo_tGAEGMd, &_s7SwiftUI7SectionVyAA9EmptyViewVAA05TupleE0VyAA0E0PAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaHRd__lFQOyAA15ModifiedContentVyASyAA6ButtonVy07WorkoutB009RepeatRowE0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledT3KeyVGGAA012_Environmentz9TransformV0VySbGG_AA010NavigationE0VyAV0R6PickerVGQo_Sg_AiAE0J6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyASyAA7ForEachVySay0Q4Core0Q4StepCG10Foundation4UUIDVASyASyASyASyAV025IntervalStepConfigurationS0VA2_GA6_GAA012_EnvironmentzuV0VyAV28ConfigurationNavigationModelCSgGGA32_yA20_08IntervalQ13ConfigurationCSgGGGA_yAA02OnxtZ0VGG_A26_SgQo_tGAEGMR);
+    lazy protocol witness table accessor for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaDRd__lFQOyAA15ModifiedContentVyAOyAA6ButtonVy07WorkoutB009RepeatRowD0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledR3KeyVGGAA012_Environmentx9TransformT0VySbGG_AA010NavigationD0VyAR0P6PickerVGQo_Sg_AeAE0H6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAOyAA7ForEachVySay0O4Core0O4StepCG10Foundation4UUIDVAOyAOyAOyAOyAR025IntervalStepConfigurationQ0VAZGA2_GAA01_yxsT0VyAR28ConfigurationNavigationModelCSgGGA28_yA16_08IntervalO13ConfigurationCSgGGGAWyAA02OnvrX0VGG_A22_SgQo_tGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE5sheet11isPresented9onDismiss7contentQrAA7BindingVySbG_yycSgqd__yctAaDRd__lFQOyAA15ModifiedContentVyAOyAA6ButtonVy07WorkoutB009RepeatRowD0VGAA21_TraitWritingModifierVyAA016IsDeleteDisabledR3KeyVGGAA012_Environmentx9TransformT0VySbGG_AA010NavigationD0VyAR0P6PickerVGQo_Sg_AeAE0H6Change2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAOyAA7ForEachVySay0O4Core0O4StepCG10Foundation4UUIDVAOyAOyAOyAOyAR025IntervalStepConfigurationQ0VAZGA2_GAA01_yxsT0VyAR28ConfigurationNavigationModelCSgGGA28_yA16_08IntervalO13ConfigurationCSgGGGAWyAA02OnvrX0VGG_A22_SgQo_tGMR, MEMORY[0x277CE14C0]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Section<EmptyView, TupleView<((<<opaque return type of View.sheet<A>(isPresented:onDismiss:content:)>>.0)?, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)>, EmptyView> and conformance <> Section<A, B, C>);
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for IntervalStepConfigurationRow(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for IntervalStepConfigurationRow;
+  if (!type metadata singleton initialization cache for IntervalStepConfigurationRow)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+void type metadata completion function for IntervalStepConfigurationRow(uint64_t a1)
+{
+  type metadata accessor for EnvironmentObject<ConfigurationNavigationModel>(319);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for EnvironmentObject<IntervalWorkoutConfiguration>(319);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for ObservedObject<WorkoutBlock>(319);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for ObservedObject<WorkoutStep>(319);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for FIUIFormattingManager();
+          if (v5 <= 0x3F)
+          {
+            type metadata accessor for HKActivityMoveMode(319);
+            if (v6 <= 0x3F)
+            {
+              type metadata accessor for Binding<UUID?>(319);
+              if (v7 <= 0x3F)
+              {
+                swift_cvw_initStructMetadataWithLayoutString();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata accessor for ObservedObject<WorkoutStep>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for ObservedObject<WorkoutStep>)
+  {
+    type metadata accessor for WorkoutStep();
+    _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type WorkoutStep and conformance WorkoutStep, MEMORY[0x277D7DD30], MEMORY[0x277D7DD28]);
+    v1 = type metadata accessor for ObservedObject();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for ObservedObject<WorkoutStep>);
+    }
+  }
+}
+
+uint64_t IntervalStepConfigurationRow.body.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = v1;
+  v110 = a1;
+  v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI14NavigationLinkVy07WorkoutB00E7StepRowVAA15ModifiedContentVyAHyAD08IntervalF8EditViewVAA30_EnvironmentKeyWritingModifierVyAD013ConfigurationC5ModelCSgGGALy0E4Core0jeQ0CSgGGGMd, &_s7SwiftUI14NavigationLinkVy07WorkoutB00E7StepRowVAA15ModifiedContentVyAHyAD08IntervalF8EditViewVAA30_EnvironmentKeyWritingModifierVyAD013ConfigurationC5ModelCSgGGALy0E4Core0jeQ0CSgGGGMR);
+  v102 = *(v111 - 8);
+  MEMORY[0x28223BE20](v111);
+  v101 = &v89 - v3;
+  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAGy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAH28ConfigurationNavigationModelCSgGGALy0G4Core0hgP0CSgGGAA0K0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonU0Rd__lFQOyAA0W0VyAGyAH0gI3RowVAA01_d5ShapeO0VyAA9RectangleVGGG_AA05PlainwU0VQo_GAA0Q4LinkVyA3_AWG_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAGy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAH28ConfigurationNavigationModelCSgGGALy0G4Core0hgP0CSgGGAA0K0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonU0Rd__lFQOyAA0W0VyAGyAH0gI3RowVAA01_d5ShapeO0VyAA9RectangleVGGG_AA05PlainwU0VQo_GAA0Q4LinkVyA3_AWG_GMR);
+  MEMORY[0x28223BE20](v108);
+  v109 = &v89 - v4;
+  v5 = type metadata accessor for PlainButtonStyle();
+  v100 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v98 = &v89 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for IntervalStepConfigurationRow(0);
+  v92 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v93 = v8;
+  v94 = &v89 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v106 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMR);
+  v96 = *(v106 - 1);
+  MEMORY[0x28223BE20](v106);
+  v95 = &v89 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOyAA0G0VyAA15ModifiedContentVy07WorkoutB00J7StepRowVAA01_I13ShapeModifierVyAA9RectangleVGGG_AA05PlaingE0VQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOyAA0G0VyAA15ModifiedContentVy07WorkoutB00J7StepRowVAA01_I13ShapeModifierVyAA9RectangleVGGG_AA05PlaingE0VQo_MR);
+  v99 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v97 = &v89 - v11;
+  v103 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAH28ConfigurationNavigationModelCSgGGALy0G4Core0hgP0CSgGGAA0K0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonU0Rd__lFQOyAA0W0VyAGyAH0gI3RowVAA01_d5ShapeO0VyAA9RectangleVGGG_AA05PlainwU0VQo__GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAH28ConfigurationNavigationModelCSgGGALy0G4Core0hgP0CSgGGAA0K0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonU0Rd__lFQOyAA0W0VyAGyAH0gI3RowVAA01_d5ShapeO0VyAA9RectangleVGGG_AA05PlainwU0VQo__GMR);
+  MEMORY[0x28223BE20](v103);
+  v105 = (&v89 - v12);
+  v13 = type metadata accessor for UUID();
+  v14 = *(v13 - 8);
+  MEMORY[0x28223BE20](v13);
+  v90 = &v89 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+  MEMORY[0x28223BE20](v16);
+  v18 = &v89 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v19 - 8);
+  v91 = &v89 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v23 = &v89 - v22;
+  MEMORY[0x28223BE20](v24);
+  v26 = &v89 - v25;
+  v107 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAF28ConfigurationNavigationModelCSgGGAJy0F4Core0gfO0CSgGGAA0J0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonT0Rd__lFQOyAA0V0VyAEyAF0fH3RowVAA01_d5ShapeN0VyAA9RectangleVGGG_AA05PlainvT0VQo_GMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAF28ConfigurationNavigationModelCSgGGAJy0F4Core0gfO0CSgGGAA0J0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonT0Rd__lFQOyAA0V0VyAEyAF0fH3RowVAA01_d5ShapeN0VyAA9RectangleVGGG_AA05PlainvT0VQo_GMR);
+  MEMORY[0x28223BE20](v107);
+  v104 = &v89 - v27;
+  v28 = static Platform.current.getter();
+  if (v28)
+  {
+    v106 = &v89;
+    MEMORY[0x28223BE20](v28);
+    v105 = (&v89 - 4);
+    *(&v89 - 2) = v2;
+    IntervalStepConfigurationRow.stepEditViewModel.getter();
+    type metadata accessor for ConfigurationNavigationModel(0);
+    _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type ConfigurationNavigationModel and conformance ConfigurationNavigationModel, type metadata accessor for ConfigurationNavigationModel, &protocol conformance descriptor for ConfigurationNavigationModel);
+    v29 = EnvironmentObject.init()();
+    v103 = v30;
+    v104 = v29;
+    type metadata accessor for IntervalWorkoutConfiguration();
+    _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type IntervalWorkoutConfiguration and conformance WorkoutConfiguration, MEMORY[0x277D7D9A0], MEMORY[0x277D7DA48]);
+    v31 = EnvironmentObject.init()();
+    v33 = v32;
+    type metadata accessor for IntervalStepEditViewModel(0);
+    _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type IntervalStepEditViewModel and conformance IntervalStepEditViewModel, type metadata accessor for IntervalStepEditViewModel, &protocol conformance descriptor for IntervalStepEditViewModel);
+    v34 = ObservedObject.init(wrappedValue:)();
+    v36 = *v2;
+    if (!*v2)
+    {
+      goto LABEL_20;
+    }
+
+    v37 = v34;
+    v38 = v35;
+
+    v39 = static ObservableObject.environmentStore.getter();
+    v40 = v2[2];
+    if (v40)
+    {
+      v41 = v39;
+      v42 = v40;
+      v43 = static ObservableObject.environmentStore.getter();
+      v112 = v104;
+      v113 = v103;
+      v114 = v31;
+      v115 = v33;
+      v116 = v37;
+      v117 = v38;
+      v118 = v41;
+      v119 = v36;
+      v120 = v43;
+      v121 = v40;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAD28ConfigurationNavigationModelCSgGGAHy0E4Core0feN0CSgGGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAD28ConfigurationNavigationModelCSgGGAHy0E4Core0feN0CSgGGMR);
+      lazy protocol witness table accessor for type WorkoutStepRow and conformance WorkoutStepRow();
+      lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>();
+      v44 = v101;
+      NavigationLink.init(destination:label:)();
+      v45 = v102;
+      v46 = v111;
+      (*(v102 + 16))(v109, v44, v111);
+      swift_storeEnumTagMultiPayload();
+      lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>();
+      _s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGACyxGAA04ViewF0AAWlTm_0(&lazy protocol witness table cache variable for type NavigationLink<WorkoutStepRow, ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>> and conformance NavigationLink<A, B>, &_s7SwiftUI14NavigationLinkVy07WorkoutB00E7StepRowVAA15ModifiedContentVyAHyAD08IntervalF8EditViewVAA30_EnvironmentKeyWritingModifierVyAD013ConfigurationC5ModelCSgGGALy0E4Core0jeQ0CSgGGGMd, &_s7SwiftUI14NavigationLinkVy07WorkoutB00E7StepRowVAA15ModifiedContentVyAHyAD08IntervalF8EditViewVAA30_EnvironmentKeyWritingModifierVyAD013ConfigurationC5ModelCSgGGALy0E4Core0jeQ0CSgGGGMR, MEMORY[0x277CDD938]);
+      _ConditionalContent<>.init(storage:)();
+      return (*(v45 + 8))(v44, v46);
+    }
+
+    EnvironmentObject.error()();
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  v101 = v5;
+  v102 = v10;
+  MEMORY[0x20F304900]();
+  (*(v14 + 56))(v26, 0, 1, v13);
+  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMd, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMR);
+  v89 = v2;
+  MEMORY[0x20F30B100](v48);
+  v49 = *(v16 + 48);
+  _s10Foundation4UUIDVSgWOcTm_4(v26, v18, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  _s10Foundation4UUIDVSgWOcTm_4(v23, &v18[v49], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v50 = *(v14 + 48);
+  if (v50(v18, 1, v13) == 1)
+  {
+    _s10Foundation4UUIDVSgWOhTm_5(v23, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    _s10Foundation4UUIDVSgWOhTm_5(v26, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    v51 = v50(&v18[v49], 1, v13);
+    v52 = v89;
+    v53 = v102;
+    if (v51 == 1)
+    {
+      _s10Foundation4UUIDVSgWOhTm_5(v18, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      goto LABEL_13;
+    }
+
+    goto LABEL_10;
+  }
+
+  v54 = v91;
+  _s10Foundation4UUIDVSgWOcTm_4(v18, v91, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  if (v50(&v18[v49], 1, v13) == 1)
+  {
+    _s10Foundation4UUIDVSgWOhTm_5(v23, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    _s10Foundation4UUIDVSgWOhTm_5(v26, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    (*(v14 + 8))(v54, v13);
+    v52 = v89;
+    v53 = v102;
+LABEL_10:
+    _s10Foundation4UUIDVSgWOhTm_5(v18, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+LABEL_11:
+    v55 = v94;
+    outlined init with copy of IntervalStepConfigurationRow(v52, v94);
+    v56 = (*(v92 + 80) + 16) & ~*(v92 + 80);
+    v57 = swift_allocObject();
+    v58 = outlined init with take of IntervalStepConfigurationRow(v55, v57 + v56);
+    MEMORY[0x28223BE20](v58);
+    *(&v89 - 2) = v52;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB00E7StepRowVAA01_D13ShapeModifierVyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E7StepRowVAA01_D13ShapeModifierVyAA9RectangleVGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<WorkoutStepRow, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>();
+    v59 = v95;
+    Button.init(action:label:)();
+    v60 = v98;
+    PlainButtonStyle.init()();
+    v61 = _s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGACyxGAA04ViewF0AAWlTm_0(&lazy protocol witness table cache variable for type Button<ModifiedContent<WorkoutStepRow, _ContentShapeModifier<Rectangle>>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMR, MEMORY[0x277CDF028]);
+    v62 = _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type PlainButtonStyle and conformance PlainButtonStyle, MEMORY[0x277CDDB18], MEMORY[0x277CDDB08]);
+    v63 = v97;
+    v64 = v106;
+    v65 = v101;
+    View.buttonStyle<A>(_:)();
+    (*(v100 + 8))(v60, v65);
+    (*(v96 + 8))(v59, v64);
+    v66 = v99;
+    (*(v99 + 16))(v105, v63, v53);
+    swift_storeEnumTagMultiPayload();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAD28ConfigurationNavigationModelCSgGGAHy0E4Core0feN0CSgGGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAD28ConfigurationNavigationModelCSgGGAHy0E4Core0feN0CSgGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>();
+    v112 = v64;
+    v113 = v65;
+    v114 = v61;
+    v115 = v62;
+    swift_getOpaqueTypeConformance2();
+    v67 = v104;
+    _ConditionalContent<>.init(storage:)();
+    (*(v66 + 8))(v63, v53);
+LABEL_16:
+    sub_20C69841C(v67, v109);
+    swift_storeEnumTagMultiPayload();
+    lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>();
+    _s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGACyxGAA04ViewF0AAWlTm_0(&lazy protocol witness table cache variable for type NavigationLink<WorkoutStepRow, ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>> and conformance NavigationLink<A, B>, &_s7SwiftUI14NavigationLinkVy07WorkoutB00E7StepRowVAA15ModifiedContentVyAHyAD08IntervalF8EditViewVAA30_EnvironmentKeyWritingModifierVyAD013ConfigurationC5ModelCSgGGALy0E4Core0jeQ0CSgGGGMd, &_s7SwiftUI14NavigationLinkVy07WorkoutB00E7StepRowVAA15ModifiedContentVyAHyAD08IntervalF8EditViewVAA30_EnvironmentKeyWritingModifierVyAD013ConfigurationC5ModelCSgGGALy0E4Core0jeQ0CSgGGGMR, MEMORY[0x277CDD938]);
+    _ConditionalContent<>.init(storage:)();
+    return sub_20C69848C(v67);
+  }
+
+  v68 = v90;
+  (*(v14 + 32))(v90, &v18[v49], v13);
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9610]);
+  v69 = v54;
+  v70 = dispatch thunk of static Equatable.== infix(_:_:)();
+  v71 = *(v14 + 8);
+  v71(v68, v13);
+  _s10Foundation4UUIDVSgWOhTm_5(v23, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  _s10Foundation4UUIDVSgWOhTm_5(v26, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v71(v69, v13);
+  _s10Foundation4UUIDVSgWOhTm_5(v18, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v52 = v89;
+  v53 = v102;
+  if ((v70 & 1) == 0)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_13:
+  IntervalStepConfigurationRow.stepEditViewModel.getter();
+  type metadata accessor for ConfigurationNavigationModel(0);
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type ConfigurationNavigationModel and conformance ConfigurationNavigationModel, type metadata accessor for ConfigurationNavigationModel, &protocol conformance descriptor for ConfigurationNavigationModel);
+  v100 = EnvironmentObject.init()();
+  v99 = v72;
+  type metadata accessor for IntervalWorkoutConfiguration();
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type IntervalWorkoutConfiguration and conformance WorkoutConfiguration, MEMORY[0x277D7D9A0], MEMORY[0x277D7DA48]);
+  v98 = EnvironmentObject.init()();
+  v74 = v73;
+  type metadata accessor for IntervalStepEditViewModel(0);
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type IntervalStepEditViewModel and conformance IntervalStepEditViewModel, type metadata accessor for IntervalStepEditViewModel, &protocol conformance descriptor for IntervalStepEditViewModel);
+  v75 = ObservedObject.init(wrappedValue:)();
+  v77 = *v52;
+  if (!*v52)
+  {
+LABEL_19:
+    EnvironmentObject.error()();
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v78 = v75;
+  v79 = v76;
+
+  v80 = static ObservableObject.environmentStore.getter();
+  v81 = v52[2];
+  if (v81)
+  {
+    v82 = v80;
+    v83 = v81;
+    v84 = static ObservableObject.environmentStore.getter();
+    v85 = v105;
+    v86 = v99;
+    *v105 = v100;
+    v85[1] = v86;
+    v85[2] = v98;
+    v85[3] = v74;
+    v85[4] = v78;
+    v85[5] = v79;
+    v85[6] = v82;
+    v85[7] = v77;
+    v85[8] = v84;
+    v85[9] = v81;
+    swift_storeEnumTagMultiPayload();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAD28ConfigurationNavigationModelCSgGGAHy0E4Core0feN0CSgGGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAD28ConfigurationNavigationModelCSgGGAHy0E4Core0feN0CSgGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>();
+    v87 = _s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGACyxGAA04ViewF0AAWlTm_0(&lazy protocol witness table cache variable for type Button<ModifiedContent<WorkoutStepRow, _ContentShapeModifier<Rectangle>>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMR, MEMORY[0x277CDF028]);
+    v88 = _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type PlainButtonStyle and conformance PlainButtonStyle, MEMORY[0x277CDDB18], MEMORY[0x277CDDB08]);
+    v112 = v106;
+    v113 = v101;
+    v114 = v87;
+    v115 = v88;
+    swift_getOpaqueTypeConformance2();
+    v67 = v104;
+    _ConditionalContent<>.init(storage:)();
+    goto LABEL_16;
+  }
+
+LABEL_20:
+  result = EnvironmentObject.error()();
+  __break(1u);
+  return result;
+}
+
+double closure #1 in IntervalStepConfigurationRow.body.getter(uint64_t a1, double a2)
+{
+  static Animation.default.getter();
+  withAnimation<A>(_:_:)();
+
+  return result;
+}
+
+uint64_t closure #1 in closure #1 in IntervalStepConfigurationRow.body.getter()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v0 - 8);
+  v2 = v9 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = MEMORY[0x28223BE20](v3);
+  v6 = v9 - v5;
+  MEMORY[0x20F304900](v4);
+  v7 = type metadata accessor for UUID();
+  (*(*(v7 - 8) + 56))(v6, 0, 1, v7);
+  type metadata accessor for IntervalStepConfigurationRow(0);
+  _s10Foundation4UUIDVSgWOcTm_4(v6, v2, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMd, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMR);
+  Binding.wrappedValue.setter();
+  return _s10Foundation4UUIDVSgWOhTm_5(v6, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+}
+
+uint64_t closure #2 in IntervalStepConfigurationRow.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *(a1 + 64);
+  type metadata accessor for WorkoutStep();
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type WorkoutStep and conformance WorkoutStep, MEMORY[0x277D7DD30], MEMORY[0x277D7DD28]);
+
+  v4 = v3;
+  result = ObservedObject.init(wrappedValue:)();
+  *a2 = result;
+  *(a2 + 8) = v6;
+  *(a2 + 16) = v4;
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 0;
+  return result;
+}
+
+uint64_t closure #4 in IntervalStepConfigurationRow.body.getter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  v3 = *(a1 + 64);
+  type metadata accessor for WorkoutStep();
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type WorkoutStep and conformance WorkoutStep, MEMORY[0x277D7DD30], MEMORY[0x277D7DD28]);
+
+  v4 = v3;
+  result = ObservedObject.init(wrappedValue:)();
+  *a2 = result;
+  a2[1] = v6;
+  a2[2] = v4;
+  a2[3] = 0;
+  return result;
+}
+
+void *IntervalStepConfigurationRow.stepEditViewModel.getter()
+{
+  v1 = type metadata accessor for StepType();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1);
+  v20 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v6 = &v19 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMd, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMR);
+  MEMORY[0x28223BE20](v7);
+  v9 = &v19 - v8;
+  v10 = v0[8];
+  v22 = v0[9];
+  v11 = v0[7];
+  type metadata accessor for IntervalStepConfigurationRow(0);
+  v21 = v10;
+  Binding.projectedValue.getter();
+  type metadata accessor for IntervalStepEditViewModel(0);
+  v12 = swift_allocObject();
+  v12[4] = 0;
+  *(v12 + OBJC_IVAR____TtC9WorkoutUI25IntervalStepEditViewModel____lazy_storage___goalsForInterval) = 0;
+  swift_beginAccess();
+  type metadata accessor for WorkoutBlock();
+  _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type WorkoutBlock and conformance WorkoutBlock, MEMORY[0x277D7DD60], MEMORY[0x277D7DD58]);
+
+  v12[2] = ObservedObject.init(wrappedValue:)();
+  v12[3] = v13;
+  swift_endAccess();
+  v12[4] = v11;
+
+  v12[5] = WorkoutStep.activityType.getter();
+  WorkoutStep.stepType.getter();
+  swift_beginAccess();
+  (*(v2 + 16))(v20, v6, v1);
+  Published.init(initialValue:)();
+  (*(v2 + 8))(v6, v1);
+  swift_endAccess();
+  v14 = WorkoutStep.goal.getter();
+  swift_beginAccess();
+  v23 = v14;
+  Published.init(initialValue:)();
+  swift_endAccess();
+  v15 = v21;
+  v12[6] = v22;
+  *(v12 + OBJC_IVAR____TtC9WorkoutUI25IntervalStepEditViewModel_formattingManager) = v15;
+  _s10Foundation4UUIDVSgWOcTm_4(v9, v12 + OBJC_IVAR____TtC9WorkoutUI25IntervalStepEditViewModel__currentEditingStepUUID, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMd, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMR);
+  v16 = WorkoutStep.activePowerZonesAlertTargetZone.getter();
+  if (v16)
+  {
+    v17 = v16;
+    dispatch thunk of PowerZonesAlertTargetZone.loadPowerZonesAsynchronously()();
+  }
+
+  _s10Foundation4UUIDVSgWOhTm_5(v9, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMd, &_s7SwiftUI7BindingVy10Foundation4UUIDVSgGMR);
+  return v12;
+}
+
+unint64_t lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>;
+  if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAF28ConfigurationNavigationModelCSgGGAJy0F4Core0gfO0CSgGGAA0J0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonT0Rd__lFQOyAA0V0VyAEyAF0fH3RowVAA01_d5ShapeN0VyAA9RectangleVGGG_AA05PlainvT0VQo_GMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAF28ConfigurationNavigationModelCSgGGAJy0F4Core0gfO0CSgGGAA0J0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonT0Rd__lFQOyAA0V0VyAEyAF0fH3RowVAA01_d5ShapeN0VyAA9RectangleVGGG_AA05PlainvT0VQo_GMR);
+    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>> and conformance <> ModifiedContent<A, B>();
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMR);
+    type metadata accessor for PlainButtonStyle();
+    _s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGACyxGAA04ViewF0AAWlTm_0(&lazy protocol witness table cache variable for type Button<ModifiedContent<WorkoutStepRow, _ContentShapeModifier<Rectangle>>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVy07WorkoutB00F7StepRowVAA01_E13ShapeModifierVyAA9RectangleVGGGMR, MEMORY[0x277CDF028]);
+    _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(&lazy protocol witness table cache variable for type PlainButtonStyle and conformance PlainButtonStyle, MEMORY[0x277CDDB18], MEMORY[0x277CDDB08]);
+    swift_getOpaqueTypeConformance2();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>);
+  }
+
+  return result;
+}
+
+uint64_t outlined init with copy of IntervalStepConfigurationRow(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for IntervalStepConfigurationRow(0);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined init with take of IntervalStepConfigurationRow(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for IntervalStepConfigurationRow(0);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+double partial apply for closure #1 in IntervalStepConfigurationRow.body.getter()
+{
+  v1 = *(type metadata accessor for IntervalStepConfigurationRow(0) - 8);
+  v3 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
+
+  return closure #1 in IntervalStepConfigurationRow.body.getter(v3, v2);
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<WorkoutStepRow, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<WorkoutStepRow, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<WorkoutStepRow, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB00E7StepRowVAA01_D13ShapeModifierVyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E7StepRowVAA01_D13ShapeModifierVyAA9RectangleVGGMR);
+    lazy protocol witness table accessor for type WorkoutStepRow and conformance WorkoutStepRow();
+    _s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGACyxGAA04ViewF0AAWlTm_0(&lazy protocol witness table cache variable for type _ContentShapeModifier<Rectangle> and conformance _ContentShapeModifier<A>, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMd, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMR, MEMORY[0x277CE0470]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<WorkoutStepRow, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+uint64_t _s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGACyxGAA04ViewF0AAWlTm_0(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+{
+  result = *a1;
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t _s9WorkoutUI28ConfigurationNavigationModelCAC7Combine16ObservableObjectAAWlTm_16(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t _s10Foundation4UUIDVSgWOcTm_4(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
+  return a2;
+}
+
+uint64_t _s10Foundation4UUIDVSgWOhTm_5(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
+  return a1;
+}
+
+unint64_t lazy protocol witness table accessor for type _ConditionalContent<_ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, NavigationLink<WorkoutStepRow, ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>>> and conformance <> _ConditionalContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type _ConditionalContent<_ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, NavigationLink<WorkoutStepRow, ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>>> and conformance <> _ConditionalContent<A, B>;
+  if (!lazy protocol witness table cache variable for type _ConditionalContent<_ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, NavigationLink<WorkoutStepRow, ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>>> and conformance <> _ConditionalContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAEy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAF28ConfigurationNavigationModelCSgGGAJy0F4Core0gfO0CSgGGAA0J0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonT0Rd__lFQOyAA0V0VyAEyAF0fH3RowVAA01_d5ShapeN0VyAA9RectangleVGGG_AA05PlainvT0VQo_GAA0P4LinkVyA1_AUGGMd, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAEy07WorkoutB020IntervalStepEditViewVAA30_EnvironmentKeyWritingModifierVyAF28ConfigurationNavigationModelCSgGGAJy0F4Core0gfO0CSgGGAA0J0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonT0Rd__lFQOyAA0V0VyAEyAF0fH3RowVAA01_d5ShapeN0VyAA9RectangleVGGG_AA05PlainvT0VQo_GAA0P4LinkVyA1_AUGGMR);
+    lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>();
+    _s7SwiftUI30_EnvironmentKeyWritingModifierVy07WorkoutB028ConfigurationNavigationModelCSgGACyxGAA04ViewF0AAWlTm_0(&lazy protocol witness table cache variable for type NavigationLink<WorkoutStepRow, ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>> and conformance NavigationLink<A, B>, &_s7SwiftUI14NavigationLinkVy07WorkoutB00E7StepRowVAA15ModifiedContentVyAHyAD08IntervalF8EditViewVAA30_EnvironmentKeyWritingModifierVyAD013ConfigurationC5ModelCSgGGALy0E4Core0jeQ0CSgGGGMd, &_s7SwiftUI14NavigationLinkVy07WorkoutB00E7StepRowVAA15ModifiedContentVyAHyAD08IntervalF8EditViewVAA30_EnvironmentKeyWritingModifierVyAD013ConfigurationC5ModelCSgGGALy0E4Core0jeQ0CSgGGGMR, MEMORY[0x277CDD938]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<_ConditionalContent<ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, NavigationLink<WorkoutStepRow, ModifiedContent<ModifiedContent<IntervalStepEditView, _EnvironmentKeyWritingModifier<ConfigurationNavigationModel?>>, _EnvironmentKeyWritingModifier<IntervalWorkoutConfiguration?>>>> and conformance <> _ConditionalContent<A, B>);
+  }
+
+  return result;
+}
+
+uint64_t View.inlineNavigationBarTitle(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4[0] = a1;
+  v4[1] = a2;
+  return MEMORY[0x20F30ABE0](v4, a3, &type metadata for InlineNavigationBarTitle);
+}
+
+uint64_t getEnumTagSinglePayload for InlineNavigationBarTitle(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 16))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for InlineNavigationBarTitle(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *result = a2 & 0x7FFFFFFF;
+    *(result + 8) = 0;
+    if (a3 < 0)
+    {
+      *(result + 16) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 16) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for ViewModifier.body(content:) in conformance InlineNavigationBarTitle()
+{
+  v1 = type metadata accessor for NavigationBarItem.TitleDisplayMode();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1);
+  v4 = v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *v0;
+  v6 = v0[1];
+  v13[2] = v5;
+  v13[3] = v6;
+  lazy protocol witness table accessor for type String and conformance String();
+
+  v7 = Text.init<A>(_:)();
+  v9 = v8;
+  v11 = v10;
+  (*(v2 + 104))(v4, *MEMORY[0x277CDDDC0], v1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy07WorkoutB024InlineNavigationBarTitle33_B86241820663BC1B3220D14BE7395977LLVGMd, &_s7SwiftUI21_ViewModifier_ContentVy07WorkoutB024InlineNavigationBarTitle33_B86241820663BC1B3220D14BE7395977LLVGMR);
+  lazy protocol witness table accessor for type _ViewModifier_Content<InlineNavigationBarTitle> and conformance _ViewModifier_Content<A>();
+  View.navigationBarTitle(_:displayMode:)();
+  outlined consume of Text.Storage(v7, v9, v11 & 1);
+
+  return (*(v2 + 8))(v4, v1);
+}
+
+unint64_t lazy protocol witness table accessor for type _ViewModifier_Content<InlineNavigationBarTitle> and conformance _ViewModifier_Content<A>()
+{
+  result = lazy protocol witness table cache variable for type _ViewModifier_Content<InlineNavigationBarTitle> and conformance _ViewModifier_Content<A>;
+  if (!lazy protocol witness table cache variable for type _ViewModifier_Content<InlineNavigationBarTitle> and conformance _ViewModifier_Content<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI21_ViewModifier_ContentVy07WorkoutB024InlineNavigationBarTitle33_B86241820663BC1B3220D14BE7395977LLVGMd, &_s7SwiftUI21_ViewModifier_ContentVy07WorkoutB024InlineNavigationBarTitle33_B86241820663BC1B3220D14BE7395977LLVGMR);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type _ViewModifier_Content<InlineNavigationBarTitle> and conformance _ViewModifier_Content<A>);
+  }
+
+  return result;
+}
+
+uint64_t get_witness_table_7SwiftUI4ViewRzlAA15ModifiedContentVyx07WorkoutB017HeaderHyphenationVGAaBHPxAaBHD1__AgA0C8ModifierHPyHCHCTm(void *a1, uint64_t a2, void (*a3)(void))
+{
+  type metadata accessor for ModifiedContent();
+  a3();
+  return swift_getWitnessTable();
+}
+
+uint64_t protocol witness for ViewModifier.body(content:) in conformance HeaderHyphenation(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, unint64_t *a7)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+  lazy protocol witness table accessor for type _ViewModifier_Content<HeaderHyphenation> and conformance _ViewModifier_Content<A>(a7, a5, a6);
+  return View.hyphenationFactor(_:)();
+}
+
+uint64_t lazy protocol witness table accessor for type _ViewModifier_Content<HeaderHyphenation> and conformance _ViewModifier_Content<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t get_witness_table_qd__7SwiftUI4ViewHD2_AaBPAAE17hyphenationFactoryQr12CoreGraphics7CGFloatVFQOyAA01_C16Modifier_ContentVy07WorkoutB017HeaderHyphenationVG_Qo_HOTm(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t *a4)
+{
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
+  lazy protocol witness table accessor for type _ViewModifier_Content<HeaderHyphenation> and conformance _ViewModifier_Content<A>(a4, a2, a3);
+  return swift_getOpaqueTypeConformance2();
+}
+
+uint64_t getEnumTagSinglePayload for NaturalDistanceMetricText(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 40))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for NaturalDistanceMetricText(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0u;
+    *(result + 24) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 40) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 40) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+id NaturalDistanceMetricText.body.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = *v1;
+  v4 = *(v1 + 1);
+  v5 = *(v1 + 2);
+  result = [v4 localizedCompactNaturalScaleStringWithDistanceInMeters:v5 distanceType:0 unitStyle:0 usedUnit:*v1];
+  if (result)
+  {
+    v7 = result;
+    v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v10 = v9;
+
+    v11 = [v4 localizedShortUnitStringForDistanceUnit:objc_msgSend(v4 textCase:{sel_naturalScaleUnitForDistanceInMeters_distanceType_, v5, v3), 2}];
+    if (v11)
+    {
+      v12 = v11;
+      v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v15 = v14;
+    }
+
+    else
+    {
+      v13 = 0;
+      v15 = 0;
+    }
+
+    v18 = *(v1 + 3);
+    v16 = v18;
+    *a1 = v8;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v13;
+    *(a1 + 24) = v15;
+    *(a1 + 32) = v16;
+    *(a1 + 48) = 0;
+    *(a1 + 56) = 0;
+    *(a1 + 64) = 0;
+    return outlined init with copy of String?(&v18, &v17);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t static CatalogMediaTypeBridge.makeMediaTypeBridge(from:)(unsigned __int8 a1, uint64_t a2, char a3)
+{
+  if (a3)
+  {
+    return a1 + 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+unint64_t CatalogMediaType.init(mediaTypeBridge:)(uint64_t a1, __n128 a2)
+{
+  result = a1 - 1;
+  if (result >= 4)
+  {
+    result = _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t CatalogMediaTypeBridge.init(rawStringValue:)()
+{
+  v0 = MEMORY[0x20F3030F0]();
+  if (v0 == 4)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v0 + 1;
+  }
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance CatalogMediaTypeBridge()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x20F30CD90](v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CatalogMediaTypeBridge(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  MEMORY[0x20F30CD90](v2);
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CatalogMediaTypeBridge@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  result = specialized CatalogMediaTypeBridge.init(rawValue:)(*a1);
+  *a2 = result;
+  *(a2 + 8) = v4 & 1;
+  return result;
+}
+
+id static CatalogMediaTypeHelper.mediaTypeBridgeRawValue(from:)(uint64_t a1, uint64_t a2)
+{
+
+  v4 = MEMORY[0x20F3030F0](a1, a2);
+  if (v4 <= 1)
+  {
+    if (v4)
+    {
+      v5 = 2;
+    }
+
+    else
+    {
+      v5 = 1;
+    }
+
+    return [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithInteger_];
+  }
+
+  if (v4 == 2)
+  {
+    v5 = 3;
+    return [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithInteger_];
+  }
+
+  if (v4 == 3)
+  {
+    v5 = 4;
+    return [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithInteger_];
+  }
+
+  return 0;
+}
+
+id CatalogMediaTypeHelper.__allocating_init()()
+{
+  v1 = objc_allocWithZone(v0);
+
+  return [v1 init];
+}
+
+id CatalogMediaTypeHelper.init()()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for CatalogMediaTypeHelper();
+  return objc_msgSendSuper2(&v2, sel_init);
+}
+
+id CatalogMediaTypeHelper.__deallocating_deinit(uint64_t a1, uint64_t a2)
+{
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for CatalogMediaTypeHelper();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
+}
+
+uint64_t CatalogMediaTypeBridge.activityType.getter(uint64_t a1, __n128 a2)
+{
+  if (a1 > 2)
+  {
+    if (a1 == 3 || a1 == 4)
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (a1 == 1)
+    {
+      return 37;
+    }
+
+    if (a1 == 2)
+    {
+      return 52;
+    }
+  }
+
+  result = _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+  __break(1u);
+  return result;
+}
+
+void CatalogMediaTypeBridge.rawStringValue.getter(uint64_t a1, __n128 a2)
+{
+  if ((a1 - 1) >= 4)
+  {
+    _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+    __break(1u);
+  }
+
+  JUMPOUT(0x20F303100);
+}
+
+void protocol witness for CustomStringConvertible.description.getter in conformance CatalogMediaTypeBridge(uint64_t a1, __n128 a2)
+{
+  if ((*v2 - 1) >= 4)
+  {
+    _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+    __break(1u);
+  }
+
+  JUMPOUT(0x20F303100);
+}
+
+uint64_t CatalogMediaTypeBridge.logString.getter(uint64_t a1, __n128 a2)
+{
+  if ((a1 - 1) >= 4)
+  {
+    result = _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+    __break(1u);
+  }
+
+  else
+  {
+    v2 = MEMORY[0x20F303100](a2);
+    MEMORY[0x20F30BC00](v2);
+
+    MEMORY[0x20F30BC00](40, 0xE100000000000000);
+    v3 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x20F30BC00](v3);
+
+    MEMORY[0x20F30BC00](41, 0xE100000000000000);
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t specialized CatalogMediaTypeBridge.init(rawValue:)(uint64_t result)
+{
+  if ((result - 5) < 0xFFFFFFFFFFFFFFFCLL)
+  {
+    return 0;
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type CatalogMediaTypeBridge and conformance CatalogMediaTypeBridge()
+{
+  result = lazy protocol witness table cache variable for type CatalogMediaTypeBridge and conformance CatalogMediaTypeBridge;
+  if (!lazy protocol witness table cache variable for type CatalogMediaTypeBridge and conformance CatalogMediaTypeBridge)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type CatalogMediaTypeBridge and conformance CatalogMediaTypeBridge);
+  }
+
+  return result;
+}
+
+Swift::String __swiftcall GuidedWorkoutLocalizationProvider.guidedWorkoutOutdoorPushWalkingPace()()
+{
+  if (one-time initialization token for WorkoutUIBundle != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = WorkoutUIBundle.super.isa;
+  v8._object = 0xE000000000000000;
+  v1._countAndFlagsBits = 0xD000000000000028;
+  v1._object = 0x800000020CBA3D80;
+  v2.value._object = 0x800000020CB99A10;
+  v2.value._countAndFlagsBits = 0xD000000000000013;
+  v3._countAndFlagsBits = 0;
+  v3._object = 0xE000000000000000;
+  v8._countAndFlagsBits = 0;
+  v4 = NSLocalizedString(_:tableName:bundle:value:comment:)(v1, v2, v0, v3, v8);
+
+  countAndFlagsBits = v4._countAndFlagsBits;
+  object = v4._object;
+  result._object = object;
+  result._countAndFlagsBits = countAndFlagsBits;
+  return result;
+}
+
+Swift::String __swiftcall GuidedWorkoutLocalizationProvider.guidedWorkoutOutdoorPushRunningPace()()
+{
+  if (one-time initialization token for WorkoutUIBundle != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = WorkoutUIBundle.super.isa;
+  v8._object = 0xE000000000000000;
+  v1._countAndFlagsBits = 0xD000000000000028;
+  v1._object = 0x800000020CBA3DB0;
+  v2.value._object = 0x800000020CB99A10;
+  v2.value._countAndFlagsBits = 0xD000000000000013;
+  v3._countAndFlagsBits = 0;
+  v3._object = 0xE000000000000000;
+  v8._countAndFlagsBits = 0;
+  v4 = NSLocalizedString(_:tableName:bundle:value:comment:)(v1, v2, v0, v3, v8);
+
+  countAndFlagsBits = v4._countAndFlagsBits;
+  object = v4._object;
+  result._object = object;
+  result._countAndFlagsBits = countAndFlagsBits;
+  return result;
+}
+
+Swift::String __swiftcall GuidedWorkoutLocalizationProvider.guidedWorkoutWalk()()
+{
+  if (one-time initialization token for WorkoutUIBundle != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = WorkoutUIBundle.super.isa;
+  v8._object = 0xE000000000000000;
+  v1._object = 0x800000020CBA3DE0;
+  v2.value._object = 0x800000020CB99A10;
+  v1._countAndFlagsBits = 0xD000000000000013;
+  v2.value._countAndFlagsBits = 0xD000000000000013;
+  v3._countAndFlagsBits = 0;
+  v3._object = 0xE000000000000000;
+  v8._countAndFlagsBits = 0;
+  v4 = NSLocalizedString(_:tableName:bundle:value:comment:)(v1, v2, v0, v3, v8);
+
+  countAndFlagsBits = v4._countAndFlagsBits;
+  object = v4._object;
+  result._object = object;
+  result._countAndFlagsBits = countAndFlagsBits;
+  return result;
+}
+
+Swift::String __swiftcall GuidedWorkoutLocalizationProvider.guidedWorkoutRun()()
+{
+  if (one-time initialization token for WorkoutUIBundle != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = WorkoutUIBundle.super.isa;
+  v8._object = 0xE000000000000000;
+  v1._object = 0x800000020CBA3E00;
+  v2.value._countAndFlagsBits = 0xD000000000000013;
+  v2.value._object = 0x800000020CB99A10;
+  v1._countAndFlagsBits = 0xD000000000000012;
+  v3._countAndFlagsBits = 0;
+  v3._object = 0xE000000000000000;
+  v8._countAndFlagsBits = 0;
+  v4 = NSLocalizedString(_:tableName:bundle:value:comment:)(v1, v2, v0, v3, v8);
+
+  countAndFlagsBits = v4._countAndFlagsBits;
+  object = v4._object;
+  result._object = object;
+  result._countAndFlagsBits = countAndFlagsBits;
+  return result;
+}
+
+Swift::String __swiftcall GuidedWorkoutLocalizationProvider.guidedWorkoutVulcanDisambiguationTitle()()
+{
+  if (one-time initialization token for WorkoutUIBundle != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = WorkoutUIBundle.super.isa;
+  v8._object = 0xE000000000000000;
+  v1._countAndFlagsBits = 0xD00000000000002ALL;
+  v1._object = 0x800000020CBA3E20;
+  v2.value._object = 0x800000020CB99A10;
+  v2.value._countAndFlagsBits = 0xD000000000000013;
+  v3._countAndFlagsBits = 0;
+  v3._object = 0xE000000000000000;
+  v8._countAndFlagsBits = 0;
+  v4 = NSLocalizedString(_:tableName:bundle:value:comment:)(v1, v2, v0, v3, v8);
+
+  countAndFlagsBits = v4._countAndFlagsBits;
+  object = v4._object;
+  result._object = object;
+  result._countAndFlagsBits = countAndFlagsBits;
+  return result;
+}
+
+Swift::String __swiftcall GuidedWorkoutLocalizationProvider.guidedWorkoutClose()()
+{
+  if (one-time initialization token for WorkoutUIBundle != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = WorkoutUIBundle.super.isa;
+  v8._object = 0xE000000000000000;
+  v1._countAndFlagsBits = 0xD000000000000014;
+  v1._object = 0x800000020CBA3E50;
+  v2.value._object = 0x800000020CB99A10;
+  v2.value._countAndFlagsBits = 0xD000000000000013;
+  v3._countAndFlagsBits = 0;
+  v3._object = 0xE000000000000000;
+  v8._countAndFlagsBits = 0;
+  v4 = NSLocalizedString(_:tableName:bundle:value:comment:)(v1, v2, v0, v3, v8);
+
+  countAndFlagsBits = v4._countAndFlagsBits;
+  object = v4._object;
+  result._object = object;
+  result._countAndFlagsBits = countAndFlagsBits;
+  return result;
+}
+
+Swift::String __swiftcall GuidedWorkoutLocalizationProvider.guidedWorkoutOK()()
+{
+  if (one-time initialization token for WorkoutUIBundle != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = WorkoutUIBundle.super.isa;
+  v8._object = 0xE000000000000000;
+  v1.value._countAndFlagsBits = 0x617A696C61636F4CLL;
+  v1.value._object = 0xEB00000000656C62;
+  v2._countAndFlagsBits = 19279;
+  v2._object = 0xE200000000000000;
+  v3._countAndFlagsBits = 0;
+  v3._object = 0xE000000000000000;
+  v8._countAndFlagsBits = 0;
+  v4 = NSLocalizedString(_:tableName:bundle:value:comment:)(v2, v1, v0, v3, v8);
+
+  countAndFlagsBits = v4._countAndFlagsBits;
+  object = v4._object;
+  result._object = object;
+  result._countAndFlagsBits = countAndFlagsBits;
+  return result;
+}
+
+Swift::String __swiftcall GuidedWorkoutLocalizationProvider.guidedWorkoutNoInternet()()
+{
+  if (one-time initialization token for WorkoutUIBundle != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = WorkoutUIBundle.super.isa;
+  v8._object = 0xE000000000000000;
+  v1._countAndFlagsBits = 0xD000000000000029;
+  v1._object = 0x800000020CBA3E70;
+  v2.value._object = 0x800000020CB99A10;
+  v2.value._countAndFlagsBits = 0xD000000000000013;
+  v3._countAndFlagsBits = 0;
+  v3._object = 0xE000000000000000;
+  v8._countAndFlagsBits = 0;
+  v4 = NSLocalizedString(_:tableName:bundle:value:comment:)(v1, v2, v0, v3, v8);
+
+  countAndFlagsBits = v4._countAndFlagsBits;
+  object = v4._object;
+  result._object = object;
+  result._countAndFlagsBits = countAndFlagsBits;
+  return result;
+}
+
+Swift::String __swiftcall GuidedWorkoutLocalizationProvider.guidedWorkoutPlaybackError()()
+{
+  if (one-time initialization token for WorkoutUIBundle != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = WorkoutUIBundle.super.isa;
+  v8._object = 0xE000000000000000;
+  v1._countAndFlagsBits = 0xD000000000000023;
+  v1._object = 0x800000020CBA3EA0;
+  v2.value._object = 0x800000020CB99A10;
+  v2.value._countAndFlagsBits = 0xD000000000000013;
+  v3._countAndFlagsBits = 0;
+  v3._object = 0xE000000000000000;
+  v8._countAndFlagsBits = 0;
+  v4 = NSLocalizedString(_:tableName:bundle:value:comment:)(v1, v2, v0, v3, v8);
+
+  countAndFlagsBits = v4._countAndFlagsBits;
+  object = v4._object;
+  result._object = object;
+  result._countAndFlagsBits = countAndFlagsBits;
+  return result;
+}
+
+id GuidedWorkoutLocalizationProvider.__allocating_init()()
+{
+  v1 = objc_allocWithZone(v0);
+
+  return [v1 init];
+}
+
+id GuidedWorkoutLocalizationProvider.init()(uint64_t a1)
+{
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for GuidedWorkoutLocalizationProvider();
+  return objc_msgSendSuper2(&v3, sel_init);
+}
+
+id GuidedWorkoutLocalizationProvider.__deallocating_deinit()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for GuidedWorkoutLocalizationProvider();
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+uint64_t Color.init(rgbHex:)(int a1)
+{
+  v1 = type metadata accessor for Color.RGBColorSpace();
+  MEMORY[0x28223BE20](v1);
+  (*(v3 + 104))(&v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0), *MEMORY[0x277CE0EE0]);
+  return Color.init(_:red:green:blue:opacity:)();
+}
+
+unint64_t lazy protocol witness table accessor for type PreviewSupportedDevices and conformance PreviewSupportedDevices()
+{
+  result = lazy protocol witness table cache variable for type PreviewSupportedDevices and conformance PreviewSupportedDevices;
+  if (!lazy protocol witness table cache variable for type PreviewSupportedDevices and conformance PreviewSupportedDevices)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PreviewSupportedDevices and conformance PreviewSupportedDevices);
+  }
+
+  return result;
+}
+
+uint64_t PreviewSupportedDevices.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v74 = a2;
+  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGAKyAA0h11DisplayNamekN0VGGMd, &_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGAKyAA0h11DisplayNamekN0VGGMR) - 8;
+  MEMORY[0x28223BE20](v76);
+  v73 = &v64 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v72 = &v64 - v5;
+  MEMORY[0x28223BE20](v6);
+  v71 = &v64 - v7;
+  MEMORY[0x28223BE20](v8);
+  v70 = &v64 - v9;
+  MEMORY[0x28223BE20](v10);
+  v69 = &v64 - v11;
+  MEMORY[0x28223BE20](v12);
+  v68 = &v64 - v13;
+  MEMORY[0x28223BE20](v14);
+  v78 = &v64 - v15;
+  MEMORY[0x28223BE20](v16);
+  v75 = &v64 - v17;
+  MEMORY[0x28223BE20](v18);
+  v81 = &v64 - v19;
+  MEMORY[0x28223BE20](v20);
+  v22 = &v64 - v21;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGMd, &_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGMR);
+  v24 = *(v23 + 36);
+  v77 = v22;
+  MEMORY[0x20F308780](0xD00000000000001BLL, 0x800000020CBA3F00);
+  v25 = type metadata accessor for PreviewDevice();
+  v80 = *(*(v25 - 8) + 56);
+  v80(&v22[v24], 0, 1, v25);
+  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy07WorkoutB023PreviewSupportedDevicesVGMd, &_s7SwiftUI21_ViewModifier_ContentVy07WorkoutB023PreviewSupportedDevicesVGMR);
+  v26 = *(v79 - 8);
+  v27 = *(v26 + 16);
+  v28 = v26 + 16;
+  v64 = a1;
+  v27(v22, a1, v79);
+  v65 = v23;
+  v66 = v28;
+  v29 = v76;
+  v30 = &v22[*(v76 + 44)];
+  *v30 = 0xD00000000000001BLL;
+  *(v30 + 1) = 0x800000020CBA3F00;
+  v31 = v23;
+  v32 = *(v23 + 36);
+  v33 = v81;
+  MEMORY[0x20F308780](0xD00000000000001BLL, 0x800000020CBA3F20);
+  v80((v33 + v32), 0, 1, v25);
+  v27(v33, a1, v79);
+  v34 = v27;
+  v35 = (v33 + *(v29 + 44));
+  *v35 = 0xD00000000000001BLL;
+  v35[1] = 0x800000020CBA3F20;
+  v36 = *(v31 + 36);
+  v37 = v75;
+  MEMORY[0x20F308780](0xD00000000000001BLL, 0x800000020CBA3F40);
+  v38 = (v37 + v36);
+  v67 = v25;
+  v39 = v80;
+  v80(v38, 0, 1, v25);
+  v40 = v39;
+  v41 = v64;
+  v34(v37, v64, v79);
+  v42 = (v37 + *(v29 + 44));
+  *v42 = 0xD00000000000001BLL;
+  v42[1] = 0x800000020CBA3F40;
+  v43 = v65;
+  v44 = *(v65 + 36);
+  v45 = v78;
+  MEMORY[0x20F308780](0xD00000000000001BLL, 0x800000020CBA3F60);
+  v40(v45 + v44, 0, 1, v25);
+  v46 = v41;
+  v47 = v41;
+  v48 = v79;
+  v34(v45, v46, v79);
+  v49 = v76;
+  v50 = (v45 + *(v76 + 44));
+  *v50 = 0xD00000000000001BLL;
+  v50[1] = 0x800000020CBA3F60;
+  v51 = *(v43 + 36);
+  v52 = v68;
+  MEMORY[0x20F308780](0xD000000000000018, 0x800000020CBA3F80);
+  v80((v52 + v51), 0, 1, v67);
+  v34(v52, v47, v48);
+  v53 = (v52 + *(v49 + 44));
+  *v53 = 0xD000000000000018;
+  v53[1] = 0x800000020CBA3F80;
+  v54 = v69;
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v77, v69);
+  v55 = v70;
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v81, v70);
+  v56 = v75;
+  v57 = v71;
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v75, v71);
+  v58 = v78;
+  v59 = v72;
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v78, v72);
+  v60 = v73;
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v52, v73);
+  v61 = v74;
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v54, v74);
+  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGAKyAA0h11DisplayNamekN0VGG_A4StMd, &_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGAKyAA0h11DisplayNamekN0VGG_A4StMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v55, v61 + v62[12]);
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v57, v61 + v62[16]);
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v59, v61 + v62[20]);
+  outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v60, v61 + v62[24]);
+  outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v52);
+  outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v58);
+  outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v56);
+  outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v81);
+  outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v77);
+  outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v60);
+  outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v59);
+  outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v57);
+  outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v55);
+  return outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(v54);
+}
+
+uint64_t outlined init with copy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGAKyAA0h11DisplayNamekN0VGGMd, &_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGAKyAA0h11DisplayNamekN0VGGMR);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined destroy of ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGAKyAA0h11DisplayNamekN0VGGMd, &_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingF0VyAA0h6DeviceK3KeyVGGAKyAA0h11DisplayNamekN0VGGMR);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+unint64_t lazy protocol witness table accessor for type TupleView<(ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>)> and conformance TupleView<A>()
+{
+  result = lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>)> and conformance TupleView<A>;
+  if (!lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>)> and conformance TupleView<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA01_d9Modifier_F0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingG0VyAA0i6DeviceL3KeyVGGAMyAA0i11DisplayNamelO0VGG_A4UtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA01_d9Modifier_F0Vy07WorkoutB023PreviewSupportedDevicesVGAA013_TraitWritingG0VyAA0i6DeviceL3KeyVGGAMyAA0i11DisplayNamelO0VGG_A4UtGMR);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>, ModifiedContent<ModifiedContent<_ViewModifier_Content<PreviewSupportedDevices>, _TraitWritingModifier<PreviewDeviceTraitKey>>, _TraitWritingModifier<PreviewDisplayNameTraitKey>>)> and conformance TupleView<A>);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for CountdownView(uint64_t *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 8))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for CountdownView(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 8) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 8) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t CountdownView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  swift_getKeyPath();
+  _s9WorkoutUI16SessionViewModelCAC11Observation10ObservableAAWlTm_2(&lazy protocol witness table cache variable for type SessionViewModel and conformance SessionViewModel, type metadata accessor for SessionViewModel, &protocol conformance descriptor for SessionViewModel);
+
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  swift_beginAccess();
+  v4 = *(a1 + 24);
+  v5 = dispatch thunk of WorkoutConfiguration.activityType.getter();
+
+  v6 = swift_allocObject();
+  *(v6 + 16) = a1;
+  *(swift_allocObject() + 16) = a1;
+  v7 = swift_retain_n();
+  v8 = specialized WorkoutCountdownAnimatedViewRepresentable.init(sessionViewModel:onCountdownStep:onCountdownSkipped:)(v7, partial apply for closure #1 in CountdownView.body.getter, v6);
+  v10 = v9;
+  v12 = v11;
+  *&v32 = v8;
+  *(&v32 + 1) = v13;
+  *&v33 = v9;
+  *(&v33 + 1) = v11;
+  lazy protocol witness table accessor for type WorkoutCountdownAnimatedViewRepresentable and conformance WorkoutCountdownAnimatedViewRepresentable();
+  View.accessibilityHidden(_:)();
+
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v10, v12);
+  static Alignment.center.getter();
+  _FrameLayout.init(width:height:alignment:)();
+  v14 = (a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGMR) + 36));
+  *v14 = v32;
+  v14[1] = v33;
+  v14[2] = v34;
+  v15 = static Alignment.top.getter();
+  v17 = v16;
+  v18 = a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGAA08_OverlayL0VyACyAD0f3TopO0VAHGGGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGAA08_OverlayL0VyACyAD0f3TopO0VAHGGGMR) + 36);
+  swift_getKeyPath();
+  v19 = v5;
+  ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+  v20 = *(a1 + 24);
+  lazy protocol witness table accessor for type CountdownTopOverlay and conformance CountdownTopOverlay();
+  v21 = v20;
+  View.accessibilityHidden(_:)();
+
+  v22 = (v18 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07WorkoutB0012CountdownTopC0VAA023AccessibilityAttachmentD0VGGMd, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07WorkoutB0012CountdownTopC0VAA023AccessibilityAttachmentD0VGGMR) + 36));
+  *v22 = v15;
+  v22[1] = v17;
+  v23 = static Alignment.bottom.getter();
+  v25 = v24;
+  v26 = [v19 localizedName];
+  v27 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v29 = v28;
+
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGAA08_OverlayL0VyACyAD0f3TopO0VAHGGGANyAD0f6BottomO0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGAA08_OverlayL0VyACyAD0f3TopO0VAHGGGANyAD0f6BottomO0VGGMR);
+  v31 = (a2 + *(result + 36));
+  *v31 = v27;
+  v31[1] = v29;
+  v31[2] = 0x4038000000000000;
+  v31[3] = v23;
+  v31[4] = v25;
+  return result;
+}
+
+void closure #1 in CountdownView.body.getter(_BYTE *a1, uint64_t a2)
+{
+  if (*a1)
+  {
+    if (*a1 == 1)
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
+      v2 = swift_allocObject();
+      *(v2 + 16) = xmmword_20CB5DA70;
+      v3 = MEMORY[0x277D83C10];
+      *(v2 + 56) = MEMORY[0x277D83B88];
+      *(v2 + 64) = v3;
+      v4 = 2;
+    }
+
+    else
+    {
+      swift_getKeyPath();
+      _s9WorkoutUI16SessionViewModelCAC11Observation10ObservableAAWlTm_2(&lazy protocol witness table cache variable for type SessionViewModel and conformance SessionViewModel, type metadata accessor for SessionViewModel, &protocol conformance descriptor for SessionViewModel);
+      ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+      swift_beginAccess();
+      if (*(a2 + 32) != 19)
+      {
+        AudioServicesPlaySystemSoundWithCompletion(0x5C2u, 0);
+      }
+
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
+      v2 = swift_allocObject();
+      *(v2 + 16) = xmmword_20CB5DA70;
+      v7 = MEMORY[0x277D83C10];
+      *(v2 + 56) = MEMORY[0x277D83B88];
+      *(v2 + 64) = v7;
+      v4 = 3;
+    }
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
+    v2 = swift_allocObject();
+    *(v2 + 16) = xmmword_20CB5DA70;
+    v5 = MEMORY[0x277D83C10];
+    *(v2 + 56) = MEMORY[0x277D83B88];
+    *(v2 + 64) = v5;
+    v4 = 1;
+  }
+
+  *(v2 + 32) = v4;
+  v8 = static String.localizedStringWithFormat(_:_:)();
+  v10 = v9;
+
+  v11 = *MEMORY[0x277D76438];
+  v12 = MEMORY[0x20F30BAD0](v8, v10);
+
+  UIAccessibilityPostNotification(v11, v12);
+}
+
+unint64_t lazy protocol witness table accessor for type CountdownTopOverlay and conformance CountdownTopOverlay()
+{
+  result = lazy protocol witness table cache variable for type CountdownTopOverlay and conformance CountdownTopOverlay;
+  if (!lazy protocol witness table cache variable for type CountdownTopOverlay and conformance CountdownTopOverlay)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type CountdownTopOverlay and conformance CountdownTopOverlay);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout>, _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>>>, _OverlayModifier<CountdownBottomOverlay>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout>, _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>>>, _OverlayModifier<CountdownBottomOverlay>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout>, _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>>>, _OverlayModifier<CountdownBottomOverlay>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGAA08_OverlayL0VyACyAD0f3TopO0VAHGGGANyAD0f6BottomO0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGAA08_OverlayL0VyACyAD0f3TopO0VAHGGGANyAD0f6BottomO0VGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout>, _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>>> and conformance <> ModifiedContent<A, B>();
+    lazy protocol witness table accessor for type _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>> and conformance _OverlayModifier<A>(&lazy protocol witness table cache variable for type _OverlayModifier<CountdownBottomOverlay> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVy07WorkoutB0015CountdownBottomC0VGMd, &_s7SwiftUI16_OverlayModifierVy07WorkoutB0015CountdownBottomC0VGMR);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout>, _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>>>, _OverlayModifier<CountdownBottomOverlay>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout>, _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>>> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout>, _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>>> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout>, _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>>> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGAA08_OverlayL0VyACyAD0f3TopO0VAHGGGMd, &_s7SwiftUI15ModifiedContentVyACyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGAA08_OverlayL0VyACyAD0f3TopO0VAHGGGMR);
+    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
+    lazy protocol witness table accessor for type _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>> and conformance _OverlayModifier<A>(&lazy protocol witness table cache variable for type _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07WorkoutB0012CountdownTopC0VAA023AccessibilityAttachmentD0VGGMd, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07WorkoutB0012CountdownTopC0VAA023AccessibilityAttachmentD0VGGMR);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout>, _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>>> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGAA12_FrameLayoutVGMR);
+    lazy protocol witness table accessor for type ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier>, _FrameLayout> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>()
+{
+  result = lazy protocol witness table cache variable for type ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>;
+  if (!lazy protocol witness table cache variable for type ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGMd, &_s7SwiftUI15ModifiedContentVy07WorkoutB00E34CountdownAnimatedViewRepresentableVAA31AccessibilityAttachmentModifierVGMR);
+    lazy protocol witness table accessor for type WorkoutCountdownAnimatedViewRepresentable and conformance WorkoutCountdownAnimatedViewRepresentable();
+    _s9WorkoutUI16SessionViewModelCAC11Observation10ObservableAAWlTm_2(&lazy protocol witness table cache variable for type AccessibilityAttachmentModifier and conformance AccessibilityAttachmentModifier, MEMORY[0x277CDE470], MEMORY[0x277CDE458]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<WorkoutCountdownAnimatedViewRepresentable, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>);
+  }
+
+  return result;
+}
+
+uint64_t _s9WorkoutUI16SessionViewModelCAC11Observation10ObservableAAWlTm_2(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type _OverlayModifier<ModifiedContent<CountdownTopOverlay, AccessibilityAttachmentModifier>> and conformance _OverlayModifier<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+id specialized static PairedDeviceUtilities.activePairedDeviceName.getter()
+{
+  result = [objc_opt_self() sharedInstance];
+  if (result)
+  {
+    v1 = result;
+    v2 = [result getActivePairedDevice];
+    if (v2)
+    {
+      v3 = v2;
+      if ([v2 valueForProperty_])
+      {
+        _bridgeAnyObjectToAny(_:)();
+
+        swift_unknownObjectRelease();
+      }
+
+      else
+      {
+
+        v5 = 0u;
+        v6 = 0u;
+      }
+
+      v7[0] = v5;
+      v7[1] = v6;
+      if (*(&v6 + 1))
+      {
+        if (swift_dynamicCast())
+        {
+          return v4;
+        }
+      }
+
+      else
+      {
+        outlined destroy of Any?(v7);
+      }
+    }
+
+    else
+    {
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t specialized static PairedDeviceUtilities.deviceIsPaired.getter()
+{
+  result = [objc_opt_self() sharedInstance];
+  if (result)
+  {
+    v1 = result;
+    v2 = [result getActivePairedDevice];
+    if (!v2)
+    {
+
+      return 0;
+    }
+
+    v3 = v2;
+    if ([v2 valueForProperty_])
+    {
+      _bridgeAnyObjectToAny(_:)();
+
+      swift_unknownObjectRelease();
+    }
+
+    else
+    {
+
+      v5 = 0u;
+      v6 = 0u;
+    }
+
+    v7[0] = v5;
+    v7[1] = v6;
+    if (*(&v6 + 1))
+    {
+      if (swift_dynamicCast() && (v4 & 1) != 0)
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      outlined destroy of Any?(v7);
+    }
+
+    return 1;
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SessionExtraControlsButton(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 72))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 24);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
 }

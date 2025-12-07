@@ -112,8 +112,8 @@
     [(SUUIGiftItemView *)self->_itemView setTheme:self->_theme];
     [(UILabel *)self->_priceLabel setBackgroundColor:backgroundColor];
     priceLabel = self->_priceLabel;
-    primaryTextColor = [(SUUIGiftTheme *)self->_theme primaryTextColor];
-    [(UILabel *)priceLabel setTextColor:primaryTextColor];
+    v10 = objc_msgSend_primaryTextColor(self->_theme);
+    [(UILabel *)priceLabel setTextColor:v10];
 
     [(UILabel *)self->_messageLabel setBackgroundColor:backgroundColor];
     messageLabel = self->_messageLabel;
@@ -127,8 +127,8 @@
 
     [(UILabel *)self->_senderNameLabelLabel setBackgroundColor:backgroundColor];
     senderNameLabelLabel = self->_senderNameLabelLabel;
-    primaryTextColor2 = [(SUUIGiftTheme *)self->_theme primaryTextColor];
-    [(UILabel *)senderNameLabelLabel setTextColor:primaryTextColor2];
+    v16 = objc_msgSend_primaryTextColor(self->_theme);
+    [(UILabel *)senderNameLabelLabel setTextColor:v16];
 
     themeName = [(SUUIGiftTheme *)v18 themeName];
     [(SUUIGiftThemeCollectionViewCell *)self setAccessibilityLabel:themeName];
@@ -384,7 +384,7 @@ LABEL_13:
 {
   messageCopy = message;
   text = [(UILabel *)self->_messageLabel text];
-  if (text != messageCopy && ([messageCopy isEqualToString:text] & 1) == 0)
+  if (text != messageCopy && (objc_msgSend_isEqualToString_(messageCopy) & 1) == 0)
   {
     messageLabel = self->_messageLabel;
     if (messageCopy)
@@ -432,7 +432,7 @@ LABEL_13:
 {
   priceCopy = price;
   text = [(UILabel *)self->_priceLabel text];
-  if (text != priceCopy && ([priceCopy isEqualToString:text] & 1) == 0)
+  if (text != priceCopy && (objc_msgSend_isEqualToString_(priceCopy) & 1) == 0)
   {
     priceLabel = self->_priceLabel;
     if (priceCopy)
@@ -452,8 +452,8 @@ LABEL_13:
         [(UILabel *)v10 setFont:v11];
 
         v12 = self->_priceLabel;
-        primaryTextColor = [(SUUIGiftTheme *)self->_theme primaryTextColor];
-        [(UILabel *)v12 setTextColor:primaryTextColor];
+        v13 = objc_msgSend_primaryTextColor(self->_theme);
+        [(UILabel *)v12 setTextColor:v13];
 
         contentView = [(SUUIGiftThemeCollectionViewCell *)self contentView];
         [contentView addSubview:self->_priceLabel];
@@ -480,7 +480,7 @@ LABEL_13:
 {
   nameCopy = name;
   text = [(UILabel *)self->_senderNameLabel text];
-  if (text != nameCopy && ([nameCopy isEqualToString:text] & 1) == 0)
+  if (text != nameCopy && (objc_msgSend_isEqualToString_(nameCopy) & 1) == 0)
   {
     senderNameLabel = self->_senderNameLabel;
     if (nameCopy)
@@ -536,8 +536,8 @@ LABEL_13:
       [(UILabel *)v23 setFont:v24];
 
       v25 = self->_senderNameLabelLabel;
-      primaryTextColor = [(SUUIGiftTheme *)self->_theme primaryTextColor];
-      [(UILabel *)v25 setTextColor:primaryTextColor];
+      v26 = objc_msgSend_primaryTextColor(self->_theme);
+      [(UILabel *)v25 setTextColor:v26];
 
       v27 = self->_senderNameLabelLabel;
       clientContext = [(SUUIGiftConfiguration *)self->_giftConfiguration clientContext];

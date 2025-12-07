@@ -4,7 +4,6 @@
 + (void)clearCurrentRestoreSessionWithAccount:(id)account;
 - (MBServiceRestoreSession)initWithPersonaIdentifier:(id)identifier;
 - (MBServiceRestoreSession)initWithPropertyList:(id)list;
-- (id)description;
 - (id)propertyList;
 - (void)saveAtPath:(id)path;
 @end
@@ -172,12 +171,11 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v34 = pathCopy;
-    v35 = 2112;
+    v36 = pathCopy;
+    v37 = 2112;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Saving restore session at %@: %@", buf, 0x16u);
-    selfCopy2 = self;
-    _MBLog();
+    _MBLog(@"Df", "Saving restore session at %@: %@", pathCopy, self);
   }
 
   v6 = [NSMutableDictionary dictionaryWithContentsOfFile:pathCopy];
@@ -199,9 +197,9 @@
 
   v11 = +[NSFileManager defaultManager];
   stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
-  v32 = 0;
-  v13 = [v11 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v32];
-  v14 = v32;
+  v34 = 0;
+  v13 = [v11 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v34];
+  v14 = v34;
 
   if ((v13 & 1) == 0)
   {
@@ -213,99 +211,97 @@
       if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v34 = v14;
+        v36 = v14;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_FAULT, "Error creating restore session dir %@", buf, 0xCu);
+        v22 = @"F ";
 LABEL_21:
-        _MBLog();
+        _MBLog(v22, "Error creating restore session dir %@", v14);
       }
     }
 
     else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v34 = v14;
+      v36 = v14;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Error creating restore session dir %@", buf, 0xCu);
+      v22 = @"E ";
       goto LABEL_21;
     }
 
-    v28 = [[MBException alloc] initWithCode:1 format:{@"Error creating restore session dir %@", v14, selfCopy2}];
+    v31 = [[MBException alloc] initWithCode:1 format:{@"Error creating restore session dir %@", v14}];
     goto LABEL_31;
   }
 
-  v31 = 0;
-  v15 = [NSPropertyListSerialization dataWithPropertyList:v9 format:200 options:0 error:&v31];
-  v16 = v31;
+  v33 = 0;
+  v15 = [NSPropertyListSerialization dataWithPropertyList:v9 format:200 options:0 error:&v33];
+  v16 = v33;
 
   if (!v15)
   {
-    v22 = MBIsInternalInstall();
-    v23 = MBGetDefaultLog();
-    v24 = v23;
-    if (v22)
+    v23 = MBIsInternalInstall();
+    v24 = MBGetDefaultLog();
+    v25 = v24;
+    if (v23)
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v34 = v16;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_FAULT, "Failed to serialize property list %@", buf, 0xCu);
+        v36 = v16;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, "Failed to serialize property list %@", buf, 0xCu);
+        v26 = @"F ";
 LABEL_25:
-        _MBLog();
+        _MBLog(v26, "Failed to serialize property list %@", v16);
       }
     }
 
-    else if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v34 = v16;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to serialize property list %@", buf, 0xCu);
+      v36 = v16;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to serialize property list %@", buf, 0xCu);
+      v26 = @"E ";
       goto LABEL_25;
     }
 
-    v28 = [[MBException alloc] initWithCode:1 format:{@"Failed to serialize property list %@", v16, selfCopy2}];
+    v31 = [[MBException alloc] initWithCode:1 format:{@"Failed to serialize property list %@", v16}];
     goto LABEL_31;
   }
 
-  v30 = v16;
-  v17 = [v15 writeToFile:pathCopy options:268435457 error:&v30];
-  v18 = v30;
+  v32 = v16;
+  v17 = [v15 writeToFile:pathCopy options:268435457 error:&v32];
+  v18 = v32;
 
   if ((v17 & 1) == 0)
   {
-    v25 = MBIsInternalInstall();
-    v26 = MBGetDefaultLog();
-    v27 = v26;
-    if (v25)
+    v27 = MBIsInternalInstall();
+    v28 = MBGetDefaultLog();
+    v29 = v28;
+    if (v27)
     {
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v34 = v18;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_FAULT, "Failed to write property list %@", buf, 0xCu);
+        v36 = v18;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_FAULT, "Failed to write property list %@", buf, 0xCu);
+        v30 = @"F ";
 LABEL_29:
-        _MBLog();
+        _MBLog(v30, "Failed to write property list %@", v18);
       }
     }
 
-    else if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v34 = v18;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to write property list %@", buf, 0xCu);
+      v36 = v18;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to write property list %@", buf, 0xCu);
+      v30 = @"E ";
       goto LABEL_29;
     }
 
-    v28 = [[MBException alloc] initWithCode:1 format:{@"Failed to write property list %@", v18, selfCopy2}];
+    v31 = [[MBException alloc] initWithCode:1 format:{@"Failed to write property list %@", v18}];
 LABEL_31:
-    objc_exception_throw(v28);
+    objc_exception_throw(v31);
   }
-}
-
-- (id)description
-{
-  v3 = objc_opt_class();
-  backupUDID = self->_backupUDID;
-  snapshotBackupPolicy = self->_snapshotBackupPolicy;
-  return [NSString stringWithFormat:@"<%@: personaIdentifier=%@ backupUDID=%@, snapshotID=%u, snapshotUUID=%@, startDate=%@, finishing=%d, cancelled=%d, snapshotBackupPolicy=%lu telemetryID=%lu>", v3, self->_personaIdentifier, backupUDID, self->_snapshotID, self->_snapshotUUID, self->_startDate, self->_finishing, self->_cancelled, snapshotBackupPolicy, self->_telemetryID];
 }
 
 @end

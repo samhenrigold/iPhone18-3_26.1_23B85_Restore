@@ -1,6 +1,5 @@
 @interface KCContainer
 - (KCContainer)initWithKCData:(kcdata_iter)data;
-- (void)omit;
 @end
 
 @implementation KCContainer
@@ -35,13 +34,6 @@
   }
 
   return v5;
-}
-
-- (void)omit
-{
-  data = self->_data;
-  self->_data = 0;
-  MEMORY[0x1EEE66BB8]();
 }
 
 @end

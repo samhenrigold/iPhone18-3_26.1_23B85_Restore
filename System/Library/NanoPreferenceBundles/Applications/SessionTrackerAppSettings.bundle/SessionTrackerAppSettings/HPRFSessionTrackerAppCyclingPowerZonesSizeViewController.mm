@@ -7,6 +7,8 @@
 - (void)_insertZoneSizeSpecifiers:(id)specifiers;
 - (void)_pressedZoneSizePreference:(id)preference;
 - (void)setConfiguration:(id)configuration;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HPRFSessionTrackerAppCyclingPowerZonesSizeViewController
@@ -26,6 +28,21 @@
   }
 
   return v10;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HPRFSessionTrackerAppCyclingPowerZonesSizeViewController;
+  [(HPRFSessionTrackerAppCyclingPowerZonesSizeViewController *)&v4 viewWillAppear:appear];
+  [(HPRFSessionTrackerAppCyclingPowerZonesSizeViewController *)self reloadSpecifiers];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = HPRFSessionTrackerAppCyclingPowerZonesSizeViewController;
+  [(HPRFSessionTrackerAppCyclingPowerZonesSizeViewController *)&v3 viewWillDisappear:disappear];
 }
 
 - (id)localizedPaneTitle

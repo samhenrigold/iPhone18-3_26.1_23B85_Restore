@@ -203,9 +203,9 @@ uint64_t DriverKit_AppleEthernetMLX5::SetPowerState_Impl(IOService *this, uint32
     IOPCIDevice::ConfigurationRead8(MLX5_pciDev, 4uLL, &readData);
     IOPCIDevice::ConfigurationWrite8(MLX5_pciDev, 4uLL, readData | 4);
     v5 = this[1].OSObject::OSMetaClassBase::__vftable;
-    free_low = LODWORD(v5[2].free);
+    v6 = LODWORD(v5[2].free) == 0;
     LODWORD(v5[2].free) = 1;
-    if (!DriverKit_AppleEthernetMLX5_IVars::load(this[1].OSObject::OSMetaClassBase::__vftable))
+    if (!DriverKit_AppleEthernetMLX5_IVars::load(this[1].OSObject::OSMetaClassBase::__vftable, v6))
     {
       Dispatch = this[1].OSObject::OSMetaClassBase::__vftable[2].Dispatch;
       v11 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
@@ -1182,7 +1182,7 @@ mlx5::FSBase *mlx5::FSBase::release(mlx5::FSBase *this)
     v6 = *(v1 + 2);
     if (v6)
     {
-      mlx5::FSBase::release(v6, 0);
+      mlx5::FSBase::release(v6);
     }
 
     if (*(v1 + 2) == 4)
@@ -1241,7 +1241,7 @@ mlx5::FSBase *mlx5::FSBase::removeNode(mlx5::FSBase *this)
   return result;
 }
 
-uint64_t mlx5::FTEntry::allocStarEntry(uint64_t a1)
+uint64_t mlx5::FTEntry::allocStarEntry(uint64_t a1, const void *a2, int a3)
 {
   if (*(a1 + 596) != *(a1 + 592))
   {
@@ -1309,7 +1309,7 @@ uint64_t mlx5::FlowTable::setStarRule(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t mlx5::FlowTable::connectPrevFTs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t mlx5::FlowTable::connectPrevFTs(uint64_t a1, uint64_t a2, uint64_t a3, mlx5::FSBase *a4)
 {
   v5 = a3;
   do
@@ -1361,10 +1361,42 @@ uint64_t mlx5::FlowTable::connectPrevFTs(uint64_t a1, uint64_t a2, uint64_t a3, 
 
 void mlx5::FlowTable::createStarRule(mlx5::FlowTable *this, mlx5::FSPrio *a2)
 {
-  bzero(v4, 0x400uLL);
-  v5 = bswap32(*(this + 21));
-  v6 = v5;
-  mlx5::FlowGroup::alloc(v4, v3);
+  bzero(v36, 0x400uLL);
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v4 = 0u;
+  v5 = 0u;
+  v37 = bswap32(*(this + 21));
+  v38 = v37;
+  mlx5::FlowGroup::alloc(v36, v3);
 }
 
 const char **mlx5::FlowTable::findNext(const char **this, mlx5::FSPrio *a2)
@@ -1425,7 +1457,7 @@ const char **mlx5::FlowTable::findPrev(const char **this, mlx5::FlowTable *a2, m
       do
       {
         v7 = *(v3 + 2);
-        this = mlx5::FlowTable::findFirstReverse(v7, v3 + 3);
+        this = mlx5::FlowTable::findFirstReverse(v7, v3 + 3, a3);
         v3 = *(v7 + 16);
         if (this)
         {
@@ -1439,7 +1471,7 @@ const char **mlx5::FlowTable::findPrev(const char **this, mlx5::FlowTable *a2, m
 
         if (!v8)
         {
-          this = mlx5::FlowTable::_findFirstReverse(*(v7 + 16), (v7 + 24));
+          this = mlx5::FlowTable::_findFirstReverse(*(v7 + 16), (v7 + 24), a3);
         }
 
         if (this)
@@ -1540,7 +1572,7 @@ uint64_t mlx5::FlowTable::destroyStarRule(mlx5::FlowTable *this, mlx5::FSPrio *a
   return result;
 }
 
-uint64_t *mlx5::FlowNamespace::findPrio(mlx5::FlowNamespace *this, int a2)
+char *mlx5::FlowNamespace::findPrio(mlx5::FlowNamespace *this, int a2)
 {
   v4 = *(this + 7);
   v2 = this + 56;
@@ -1557,16 +1589,16 @@ uint64_t *mlx5::FlowNamespace::findPrio(mlx5::FlowNamespace *this, int a2)
     }
   }
 
-  return (i - 24);
+  return i - 24;
 }
 
-uint64_t mlx5::FlowNamespace::allocNewLevel(uint64_t this, mlx5::FlowNamespace *a2, mlx5::FSPrio *a3)
+uint64_t **mlx5::FlowNamespace::allocNewLevel(uint64_t **this, mlx5::FlowNamespace *a2, mlx5::FSPrio *a3)
 {
   if (this)
   {
     v3 = this;
-    v4 = *(this + 56);
-    if (v4 == (this + 56))
+    v4 = this[7];
+    if (v4 == (this + 7))
     {
       v5 = 0;
     }
@@ -1589,30 +1621,30 @@ uint64_t mlx5::FlowNamespace::allocNewLevel(uint64_t this, mlx5::FlowNamespace *
         v4 = *v4;
       }
 
-      while (v4 != (this + 56));
+      while (v4 != (this + 7));
     }
 
-    v6 = *(this + 16);
+    v6 = this[2];
     if (v6)
     {
       if (gMLX5DebugFlags)
       {
-        mlx5::FlowNamespace::allocNewLevel(*(this + 16));
+        mlx5::FlowNamespace::allocNewLevel(this[2]);
       }
     }
 
-    return mlx5::FlowNamespace::allocNewLevel(v6, v3, a3) + v5;
+    return (mlx5::FlowNamespace::allocNewLevel(v6, v3, a3) + v5);
   }
 
   return this;
 }
 
-uint64_t *mlx5::FlowNamespace::allocNewLevel(uint64_t *this, mlx5::FSPrio *a2, mlx5::FlowNamespace *a3)
+mlx5::FlowNamespace *mlx5::FlowNamespace::allocNewLevel(mlx5::FlowNamespace *this, mlx5::FSPrio *a2, mlx5::FlowNamespace *a3)
 {
   if (this)
   {
-    v3 = this[8];
-    if (v3 != this + 7)
+    v3 = *(this + 8);
+    if (v3 != (this + 56))
     {
       v4 = 0;
       while (1)
@@ -1630,7 +1662,7 @@ uint64_t *mlx5::FlowNamespace::allocNewLevel(uint64_t *this, mlx5::FSPrio *a2, m
         {
           if ((v3 - 24) == a2)
           {
-            return (mlx5::FlowNamespace::allocNewLevel(this[2], this, a3) + v4);
+            return (mlx5::FlowNamespace::allocNewLevel(*(this + 2), this, a3) + v4);
           }
 
           for (i = *(v3 + 32); i != (v3 + 32); i = *i)
@@ -1643,15 +1675,15 @@ uint64_t *mlx5::FlowNamespace::allocNewLevel(uint64_t *this, mlx5::FSPrio *a2, m
         }
 
         v3 = *(v3 + 8);
-        if (v3 == this + 7)
+        if (v3 == (this + 56))
         {
-          return (mlx5::FlowNamespace::allocNewLevel(this[2], this, a3) + v4);
+          return (mlx5::FlowNamespace::allocNewLevel(*(this + 2), this, a3) + v4);
         }
       }
     }
 
     v4 = 0;
-    return (mlx5::FlowNamespace::allocNewLevel(this[2], this, a3) + v4);
+    return (mlx5::FlowNamespace::allocNewLevel(*(this + 2), this, a3) + v4);
   }
 
   return this;
@@ -1689,15 +1721,15 @@ uint64_t mlx5::FlowRootNamespace::updateRootFTCreate(uint64_t a1, _DWORD *a2)
   return updated;
 }
 
-uint64_t mlx5::FlowNamespace::createFlowTable(mlx5::FlowNamespace *this, int a2, unsigned int a3, const char *a4)
+uint64_t mlx5::FlowNamespace::createFlowTable(mlx5::FlowNamespace *this, int a2, int a3, char *a4, uint64_t a5)
 {
-  v4 = *(this + 7);
-  if (v4 != (this + 56))
+  v5 = *(this + 7);
+  if (v5 != (this + 56))
   {
-    while (*(v4 - 4) != 1 || v4[15] != a2)
+    while (*(v5 - 4) != 1 || v5[15] != a2)
     {
-      v4 = *v4;
-      if (v4 == (this + 56))
+      v5 = *v5;
+      if (v5 == (this + 56))
       {
         return 0;
       }
@@ -1705,17 +1737,17 @@ uint64_t mlx5::FlowNamespace::createFlowTable(mlx5::FlowNamespace *this, int a2,
 
     do
     {
-      v5 = this;
+      v6 = this;
       this = *(this + 2);
     }
 
     while (this);
-    if (*(v5 + 2))
+    if (*(v6 + 2))
     {
-      mlx5::FlowNamespace::createFlowTable(v5);
+      mlx5::FlowNamespace::createFlowTable(v6);
     }
 
-    if (v4[13] != v4[12])
+    if (v5[13] != v5[12])
     {
       operator new();
     }
@@ -1724,40 +1756,40 @@ uint64_t mlx5::FlowNamespace::createFlowTable(mlx5::FlowNamespace *this, int a2,
   return 0;
 }
 
-uint64_t mlx5::FlowTable::cmdRemoveNode(mlx5::FlowTable *this)
+uint64_t mlx5::FlowTable::cmdRemoveNode(const char **this)
 {
   v2 = this;
   do
   {
     v3 = v2;
-    v2 = *(v2 + 2);
+    v2 = v2[2];
   }
 
   while (v2);
   if (*(v3 + 2))
   {
-    IOLog("mlx5: flow steering node %s is not in tree\n", *(v3 + 6));
+    IOLog("mlx5: flow steering node %s is not in tree\n", v3[6]);
     v4 = 0;
   }
 
   else
   {
-    v4 = *(v3 + 11);
+    v4 = v3[11];
   }
 
   result = DriverKit_AppleEthernetMLX5_IVars::destroyFT(v4, *(this + 48), *(this + 25), *(this + 23));
   if (result != -536870185 && result != 0)
   {
-    result = IOLog("mlx5: flow steering can't destroy ft %s\n", *(this + 6));
+    result = IOLog("mlx5: flow steering can't destroy ft %s\n", this[6]);
   }
 
-  --*(*(this + 2) + 76);
+  --*(this[2] + 19);
   return result;
 }
 
-uint64_t mlx5::FlowRootNamespace::updateRootFTDestroy(mlx5::FlowRootNamespace *this, mlx5::FlowTable *a2)
+uint64_t mlx5::FlowRootNamespace::updateRootFTDestroy(mlx5::FlowTable **this, mlx5::FlowTable *a2)
 {
-  if (*(this + 12) != a2)
+  if (this[12] != a2)
   {
     return 0;
   }
@@ -1778,15 +1810,15 @@ uint64_t mlx5::FlowRootNamespace::updateRootFTDestroy(mlx5::FlowRootNamespace *t
   else
   {
     v7 = 0;
-    Next = v6 - 3;
+    Next = (v6 - 3);
   }
 
-  updated = DriverKit_AppleEthernetMLX5_IVars::updateRootFT(*(this + 11), *(Next + 25), *(Next + 23));
+  updated = DriverKit_AppleEthernetMLX5_IVars::updateRootFT(this[11], Next[25], Next[23]);
   v2 = updated;
   if (updated == -536870185 || updated == 0)
   {
 LABEL_11:
-    *(this + 12) = Next;
+    this[12] = Next;
     if (!v7)
     {
       return v2;
@@ -1817,7 +1849,7 @@ uint64_t mlx5::FlowTable::destroy(mlx5::FlowTable *this)
   }
 
   while (v3);
-  if (*(v4 + 2))
+  if (*(v4 + 8))
   {
     mlx5::FlowTable::destroy(v4);
   }
@@ -1843,32 +1875,32 @@ uint64_t mlx5::FlowTable::destroy(mlx5::FlowTable *this)
   return 0;
 }
 
-uint64_t mlx5::FlowTable::createFlowGroup(mlx5::FlowTable *this, mlx5::FlowGroup *a2)
+void *mlx5::FlowTable::createFlowGroup(uint64_t **this, mlx5::FlowGroup *a2)
 {
-  if ((*(this + 72) & 1) == 0)
+  if ((this[9] & 1) == 0)
   {
     v5 = this;
     do
     {
       v6 = v5;
-      v5 = *(v5 + 2);
+      v5 = v5[2];
     }
 
     while (v5);
     if (*(v6 + 2))
     {
-      IOLog("mlx5: flow steering node %s is not in tree\n", *(v6 + 6));
-      LODWORD(v7) = 0;
+      IOLog("mlx5: flow steering node %s is not in tree\n", v6[6]);
+      v7 = 0;
     }
 
     else
     {
-      v7 = *(v6 + 11);
+      v7 = v6[11];
     }
 
-    v8 = *(this + 8);
+    v8 = this[8];
 
-    mlx5::FlowGroup::create(v7, this, v8, a2);
+    mlx5::FlowGroup::create(v7, this, v8, a2, 1);
   }
 
   if (gMLX5DebugFlags)
@@ -1916,7 +1948,7 @@ uint64_t mlx5::FlowGroup::cmdRemoveNode(mlx5::FlowGroup *this)
   return result;
 }
 
-const char **mlx5::FlowTable::_findFirstReverse(uint64_t a1, void *a2)
+const char **mlx5::FlowTable::_findFirstReverse(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a1)
   {
@@ -1927,14 +1959,14 @@ const char **mlx5::FlowTable::_findFirstReverse(uint64_t a1, void *a2)
 
     for (i = a2[1]; i != a1 + 56; i = *(i + 8))
     {
-      v5 = i - 24;
-      v6 = *(i - 16);
-      if (v6)
+      v6 = i - 24;
+      v7 = *(i - 16);
+      if (v7)
       {
-        if (v6 == 2)
+        if (v7 == 2)
         {
           ++*(i + 20);
-          return v5;
+          return v6;
         }
       }
 
@@ -1945,7 +1977,7 @@ const char **mlx5::FlowTable::_findFirstReverse(uint64_t a1, void *a2)
           IOLog("mlx5:%s:%d FlowTable::_findFirstReverse(), (ns->type == FS_TYPE_NAMESPACE) is %d\n", "_findFirstReverse", 850, 1);
         }
 
-        FirstReverse = mlx5::FlowTable::findFirstReverse((i - 24), (i + 32));
+        FirstReverse = mlx5::FlowTable::findFirstReverse((i - 24), (i + 32), a3);
         if (FirstReverse)
         {
           return FirstReverse;
@@ -1957,18 +1989,18 @@ const char **mlx5::FlowTable::_findFirstReverse(uint64_t a1, void *a2)
   return 0;
 }
 
-const char **mlx5::FlowTable::findFirstReverse(const char **result, void *a2)
+const char **mlx5::FlowTable::findFirstReverse(const char **result, void *a2, uint64_t a3)
 {
   if (result)
   {
-    v3 = result;
+    v4 = result;
     if (gMLX5DebugFlags)
     {
       IOLog("mlx5:%s:%d FlowTable::findFirstReverse(%p = %s, %p)\n", "findFirstReverse", 874, result, result[6], a2);
     }
 
-    v4 = a2[1];
-    if (v4 == v3 + 7)
+    v5 = a2[1];
+    if (v5 == v4 + 7)
     {
       return 0;
     }
@@ -1977,22 +2009,22 @@ const char **mlx5::FlowTable::findFirstReverse(const char **result, void *a2)
     {
       while (1)
       {
-        if (*(v4 - 16) == 1)
+        if (*(v5 - 16) == 1)
         {
           if (gMLX5DebugFlags)
           {
-            IOLog("mlx5:%s:%d FlowTable::findFirstReverse(iterator) prio is %p = %s, %d\n", "findFirstReverse", 882, (v4 - 24), *(v4 + 24), 1);
+            IOLog("mlx5:%s:%d FlowTable::findFirstReverse(iterator) prio is %p = %s, %d\n", "findFirstReverse", 882, (v5 - 24), *(v5 + 24), 1);
           }
 
-          result = mlx5::FlowTable::_findFirstReverse(v4 - 24, v4 + 32);
+          result = mlx5::FlowTable::_findFirstReverse(v5 - 24, (v5 + 32), a3);
           if (result)
           {
             break;
           }
         }
 
-        v4 = *(v4 + 8);
-        if (v4 == v3 + 7)
+        v5 = *(v5 + 8);
+        if (v5 == v4 + 7)
         {
           return 0;
         }
@@ -2003,11 +2035,11 @@ const char **mlx5::FlowTable::findFirstReverse(const char **result, void *a2)
   return result;
 }
 
-uint64_t mlx5::FlowTable::findFirstReverse(uint64_t a1, void *a2)
+uint64_t mlx5::FlowTable::findFirstReverse(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a1)
   {
-    return mlx5::FlowTable::_findFirstReverse(a1, a2);
+    return mlx5::FlowTable::_findFirstReverse(a1, a2, a3);
   }
 
   return a1;
@@ -2054,7 +2086,7 @@ const char **mlx5::FlowTable::_findFirst(uint64_t a1, uint64_t **a2)
   return 0;
 }
 
-const char **mlx5::FlowTable::findFirst(const char **result, const char ***a2)
+const char **mlx5::FlowTable::findFirst(const char **result, const char **a2)
 {
   if (result)
   {
@@ -2065,7 +2097,7 @@ const char **mlx5::FlowTable::findFirst(const char **result, const char ***a2)
     }
 
     v4 = *a2;
-    if (*a2 == v3 + 7)
+    if (*a2 == (v3 + 7))
     {
       return 0;
     }
@@ -2078,10 +2110,10 @@ const char **mlx5::FlowTable::findFirst(const char **result, const char ***a2)
         {
           if (gMLX5DebugFlags)
           {
-            IOLog("mlx5:%s:%d FlowTable::findFirst(iterator) prio is %p = %s, %d\n", "findFirst", 968, v4 - 3, v4[3], 1);
+            IOLog("mlx5:%s:%d FlowTable::findFirst(iterator) prio is %p = %s, %d\n", "findFirst", 968, v4 - 24, *(v4 + 3), 1);
           }
 
-          result = mlx5::FlowTable::_findFirst(v4 - 3, v4 + 4);
+          result = mlx5::FlowTable::_findFirst((v4 - 24), v4 + 4);
           if (result)
           {
             break;
@@ -2089,7 +2121,7 @@ const char **mlx5::FlowTable::findFirst(const char **result, const char ***a2)
         }
 
         v4 = *v4;
-        if (v4 == v3 + 7)
+        if (v4 == (v3 + 7))
         {
           return 0;
         }
@@ -2110,7 +2142,7 @@ uint64_t mlx5::FlowTable::findFirst(uint64_t a1, uint64_t **a2)
   return a1;
 }
 
-uint64_t mlx5::FlowTable::createAutogroup(mlx5::FlowTable *this, int a2, unsigned __int8 *a3)
+void *mlx5::FlowTable::createAutogroup(mlx5::FlowTable *this, int a2, unsigned __int8 *a3)
 {
   if (gMLX5DebugFlags)
   {
@@ -2143,24 +2175,24 @@ uint64_t mlx5::FlowTable::createAutogroup(mlx5::FlowTable *this, int a2, unsigne
     if (v10 == (this + 56))
     {
       v11 = 0;
-      v12 = this + 56;
+      v12 = (this + 56);
     }
 
     else
     {
       v11 = 0;
-      v12 = this + 56;
+      v12 = (this + 56);
       do
       {
         if (*(v10 - 4) == 3)
         {
-          v13 = v10[141];
+          v13 = *(v10 + 141);
           if (v11 + v9 <= v13)
           {
             break;
           }
 
-          v11 = v10[142] + v13;
+          v11 = *(v10 + 142) + v13;
           v12 = v10;
         }
 
@@ -2188,7 +2220,7 @@ uint64_t mlx5::FlowTable::createAutogroup(mlx5::FlowTable *this, int a2, unsigne
       if (*(v17 + 2))
       {
         IOLog("mlx5: flow steering node %s is not in tree\n", *(v17 + 6));
-        LODWORD(v18) = 0;
+        v18 = 0;
       }
 
       else
@@ -2196,7 +2228,7 @@ uint64_t mlx5::FlowTable::createAutogroup(mlx5::FlowTable *this, int a2, unsigne
         v18 = *(v17 + 11);
       }
 
-      mlx5::FlowGroup::create(v18, this, v12, v21);
+      mlx5::FlowGroup::create(v18, this, v12, v21, 0);
     }
 
     IOLog("mlx5: FlowTable::createAutogroup() exceeding max_fte: %d > %d\n");
@@ -2219,12 +2251,12 @@ uint64_t mlx5::FlowGroup::getFreeIndex(uint64_t a1, uint64_t **a2)
   }
 
   v6 = *(a1 + 56);
-  v4 = (a1 + 56);
+  v4 = a1 + 56;
   for (i = v6; i != v4; i = *i)
   {
-    if (*(i - 4) == 4)
+    if (*(i - 16) == 4)
     {
-      if (*(i + 10) != result)
+      if (*(i + 40) != result)
       {
         return result;
       }
@@ -2240,7 +2272,7 @@ uint64_t mlx5::FlowGroup::getFreeIndex(uint64_t a1, uint64_t **a2)
   return result;
 }
 
-uint64_t mlx5::FlowRule::cmdRemoveNode(mlx5::FlowRule *this)
+void *mlx5::FlowRule::cmdRemoveNode(mlx5::FlowRule *this)
 {
   v2 = this;
   do
@@ -2316,7 +2348,7 @@ uint64_t mlx5::FTEntry::cmdRemoveNode(mlx5::FTEntry *this)
   return result;
 }
 
-uint64_t mlx5::FlowGroup::addDest(mlx5::FlowGroup *this, unsigned __int8 *a2, uint64_t a3, uint64_t a4, mlx5::FlowDestination *a5)
+mlx5::FlowRule *mlx5::FlowGroup::addDest(mlx5::FlowGroup *this, unsigned __int8 *a2, int a3, int a4, mlx5::FlowDestination *a5)
 {
   v10 = 0;
   for (i = *(this + 7); i != (this + 56); i = *i)
@@ -2370,7 +2402,7 @@ LABEL_11:
 LABEL_15:
             if (*(i + 576) == a3 && *(i + 9) == a4)
             {
-              mlx5::FTEntry::addDest();
+              mlx5::FTEntry::addDest((i - 3), this, a5);
             }
           }
         }
@@ -2386,7 +2418,7 @@ LABEL_15:
   return 0;
 }
 
-uint64_t mlx5::FlowTable::addDest(mlx5::FlowTable *this, int a2, unsigned __int8 *a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, mlx5::FlowDestination *a7)
+mlx5::FlowRule *mlx5::FlowTable::addDest(mlx5::FlowTable *this, int a2, unsigned __int8 *a3, unsigned __int8 *a4, int a5, int a6, mlx5::FlowDestination *a7)
 {
   v15 = this + 56;
   v14 = *(this + 7);
@@ -2453,12 +2485,11 @@ void mlx5::FlowRootNamespace::create(uint64_t a1, int a2, const char *a3)
   operator new();
 }
 
-uint64_t mlx5::FlowRootNamespace::initRootTree(uint64_t a1, int a2, uint64_t a3, mlx5::FlowNamespace *a4, uint64_t a5)
+uint64_t mlx5::FlowRootNamespace::initRootTree(uint64_t a1, uint64_t a2, uint64_t a3, mlx5::FlowNamespace *a4, uint64_t a5)
 {
   if (!*a3)
   {
-    v16 = *(a3 + 8);
-    mlx5::FlowNamespace::create();
+    mlx5::FlowNamespace::create(a4, *(a3 + 8));
   }
 
   if (*a3 != 1)
@@ -2508,9 +2539,7 @@ uint64_t mlx5::FlowRootNamespace::initRootTree(uint64_t a1, int a2, uint64_t a3,
       if (v5 <= v10)
       {
 LABEL_14:
-        v14 = (a3 - *(a5 + 16)) >> 6;
-        v15 = *(a3 + 48);
-        mlx5::FlowNamespace::createPrio(a4, v14, *(a3 + 60), *(a3 + 8));
+        mlx5::FlowNamespace::createPrio(a4, (a3 - *(a5 + 16)) >> 6, *(a3 + 60), *(a3 + 8), *(a3 + 48));
       }
     }
   }
@@ -2518,7 +2547,7 @@ LABEL_14:
   return 0;
 }
 
-uint64_t mlx5::FlowRootNamespace::initRootTree(uint64_t a1, int a2, uint64_t a3, mlx5::FlowNamespace *a4)
+uint64_t mlx5::FlowRootNamespace::initRootTree(uint64_t a1, uint64_t a2, uint64_t a3, mlx5::FlowNamespace *a4)
 {
   if (*(a3 + 24) < 1)
   {
@@ -2632,21 +2661,21 @@ mlx5::FSBase *DriverKit_AppleEthernetMLX5_IVars::cleanupRootNS(DriverKit_AppleEt
   if (result)
   {
     v3 = *(result + 7);
-    if (v3 != (result + 56))
+    if (v3 != result + 56)
     {
       do
       {
         if (*(v3 - 4) == 1)
         {
-          v4 = v3[4];
-          if (v4 != v3 + 4)
+          v4 = *(v3 + 4);
+          if (v4 != v3 + 32)
           {
             do
             {
               if (!*(v4 - 4))
               {
-                v6 = v4 + 4;
-                for (i = v4[4]; i != v6; i = *v6)
+                v6 = v4 + 32;
+                for (i = *(v4 + 4); i != v6; i = *v6)
                 {
                   mlx5::FSBase::removeNode((i - 3));
                 }
@@ -2655,7 +2684,7 @@ mlx5::FSBase *DriverKit_AppleEthernetMLX5_IVars::cleanupRootNS(DriverKit_AppleEt
               v4 = *v4;
             }
 
-            while (v4 != v3 + 4);
+            while (v4 != v3 + 32);
             result = *(this + 14404);
           }
         }
@@ -2663,23 +2692,23 @@ mlx5::FSBase *DriverKit_AppleEthernetMLX5_IVars::cleanupRootNS(DriverKit_AppleEt
         v3 = *v3;
       }
 
-      while (v3 != (result + 56));
+      while (v3 != result + 56);
       v3 = *(result + 7);
     }
 
-    if (v3 != (result + 56))
+    if (v3 != result + 56)
     {
       do
       {
         if (*(v3 - 4) == 1)
         {
-          v8 = v3 + 4;
-          v7 = v3[4];
-          if (v7 != v3 + 4)
+          v8 = (v3 + 32);
+          v7 = *(v3 + 4);
+          if (v7 != v3 + 32)
           {
             do
             {
-              mlx5::FSBase::removeNode((v7 - 3));
+              mlx5::FSBase::removeNode((v7 - 24));
               v7 = *v8;
             }
 
@@ -2691,16 +2720,16 @@ mlx5::FSBase *DriverKit_AppleEthernetMLX5_IVars::cleanupRootNS(DriverKit_AppleEt
         v3 = *v3;
       }
 
-      while (v3 != (result + 56));
+      while (v3 != result + 56);
       v3 = *(result + 7);
     }
 
-    v9 = (result + 56);
+    v9 = result + 56;
     while (v3 != v9)
     {
-      mlx5::FSBase::removeNode((v3 - 3));
+      mlx5::FSBase::removeNode((v3 - 24));
       result = *(this + 14404);
-      v9 = (result + 56);
+      v9 = result + 56;
       v3 = *(result + 7);
     }
 
@@ -3658,7 +3687,7 @@ LABEL_155:
   return this;
 }
 
-AppleEthernetMLX5Cmd **DriverKit_AppleEthernetMLX5_IVars::pageRequestHandler(AppleEthernetMLX5Cmd **this, uint64_t a2, signed int a3)
+AppleEthernetMLX5Cmd **DriverKit_AppleEthernetMLX5_IVars::pageRequestHandler(AppleEthernetMLX5Cmd **this, uint64_t a2, int a3)
 {
   if (a3 < 0)
   {
@@ -4317,29 +4346,27 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::destroyCQ(uint64_t a1, unsigned int 
   v5 = radix_tree_delete(a1 + 115336, v4);
   if (!v5)
   {
-    v7 = *a2;
     IOLog("mlx5: cq 0x%x not found in tree\n");
     return 3758096385;
   }
 
   if (v5 != a2)
   {
-    v6 = *a2;
     IOLog("mlx5: corruption on srqn 0x%x\n");
     return 3758096385;
   }
 
-  v11[0] = 0;
-  v11[1] = 0;
-  v10 = 0;
-  v9 = 260;
-  LODWORD(v10) = bswap32(*a2);
-  result = AppleEthernetMLX5Cmd::exec(*(a1 + 304), &v9, 16, v11, 16);
+  v9[0] = 0;
+  v9[1] = 0;
+  v8 = 0;
+  v7 = 260;
+  LODWORD(v8) = bswap32(*a2);
+  result = AppleEthernetMLX5Cmd::exec(*(a1 + 304), &v7, 16, v9, 16);
   if (!result)
   {
-    if (LOBYTE(v11[0]))
+    if (LOBYTE(v9[0]))
     {
-      return AppleEthernetMLX5Cmd::statusToErr(v11);
+      return AppleEthernetMLX5Cmd::statusToErr(v9);
     }
 
     else
@@ -5352,7 +5379,7 @@ LABEL_13:
 void DriverKit_AppleEthernetMLX5_NetIf_IVars::addEthAddrRuleSub(uint64_t a1, unsigned __int8 *a2, int a3, uint64_t a4, unsigned __int8 *a5, uint64_t a6, uint64_t a7, mlx5::FlowDestination *a8)
 {
   v9 = *(*(a1 + 16) + 115280);
-  v14 = 2;
+  v13 = 2;
   if (a3 == 1)
   {
     v12 = 1;
@@ -5384,27 +5411,26 @@ void DriverKit_AppleEthernetMLX5_NetIf_IVars::addEthAddrRuleSub(uint64_t a1, uns
     if (a2[1] == 51)
     {
       *(a4 + 4) |= 0xFFFF0000;
-      v15 = *(a1 + 604);
+      v14 = *(a1 + 604);
       *(a5 + 3) = -8826;
-      mlx5::FlowRule::add(v9, 1, a4, a5, 4, 16777214, &v14, a8);
+      mlx5::FlowRule::add(v9, 1, a4, a5, 4, 16777214, &v13, a8);
     }
   }
 
   else if (v11 == 1)
   {
-    v13 = a2[1];
     v12 = 1;
     if (!a2[1] && a2[2] == 94 && (a2[3] & 0x80000000) == 0)
     {
       *(a4 + 4) |= 0xFFFF0000;
-      v15 = *(a1 + 600);
+      v14 = *(a1 + 600);
       *(a5 + 3) = 8;
-      mlx5::FlowRule::add(v9, 1, a4, a5, 4, 16777214, &v14, a8);
+      mlx5::FlowRule::add(v9, 1, a4, a5, 4, 16777214, &v13, a8);
     }
 
 LABEL_7:
-    v15 = *(a1 + 608);
-    mlx5::FlowRule::add(v9, v12, a4, a5, 4, 16777214, &v14, a8);
+    v14 = *(a1 + 608);
+    mlx5::FlowRule::add(v9, v12, a4, a5, 4, 16777214, &v13, a8);
   }
 
   v12 = 1;
@@ -5622,12 +5648,12 @@ LABEL_44:
   return DriverKit_AppleEthernetMLX5_IVars::modifyNicVPortVlans(*(this + 2), (&v33 - ((2 * v6 + 15) & 0xFFFFFFFFFFFFFFF0)), v6);
 }
 
-void DriverKit_AppleEthernetMLX5_NetIf_IVars::addVlanRuleSub(DriverKit_AppleEthernetMLX5_NetIf_IVars *a1, int a2, __int16 a3, uint64_t a4, unsigned __int8 *a5, uint64_t a6, uint64_t a7, mlx5::FlowDestination *a8)
+void DriverKit_AppleEthernetMLX5_NetIf_IVars::addVlanRuleSub(mlx5::FlowRule **a1, int a2, __int16 a3, uint64_t a4, unsigned __int8 *a5, uint64_t a6, uint64_t a7, mlx5::FlowDestination *a8)
 {
-  v10 = *(a1 + 2) + 114688;
-  v11 = *(*(a1 + 2) + 115256);
+  v10 = a1[2] + 114688;
+  v11 = *(a1[2] + 14407);
   v13 = 1;
-  v14 = *(v10 + 592);
+  v14 = *(v10 + 74);
   if (a2 == 2)
   {
     *(a4 + 16) |= 0x400000u;
@@ -5659,7 +5685,7 @@ LABEL_9:
   goto LABEL_9;
 }
 
-void DriverKit_AppleEthernetMLX5_NetIf_IVars::addVlanRule(DriverKit_AppleEthernetMLX5_NetIf_IVars *a1, int a2, __int16 a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, mlx5::FlowDestination *a8)
+void DriverKit_AppleEthernetMLX5_NetIf_IVars::addVlanRule(mlx5::FlowRule **a1, int a2, __int16 a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, mlx5::FlowDestination *a8)
 {
   v39 = 0u;
   v40 = 0u;
@@ -5773,7 +5799,7 @@ mlx5::FSBase *DriverKit_AppleEthernetMLX5_NetIf_IVars::delAnyVidRules(DriverKit_
   return result;
 }
 
-void DriverKit_AppleEthernetMLX5_NetIf_IVars::addAnyVidRules(DriverKit_AppleEthernetMLX5_NetIf_IVars *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, mlx5::FlowDestination *a8)
+void DriverKit_AppleEthernetMLX5_NetIf_IVars::addAnyVidRules(mlx5::FlowRule **this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, mlx5::FlowDestination *a8)
 {
   v39 = 0u;
   v40 = 0u;
@@ -5811,20 +5837,20 @@ void DriverKit_AppleEthernetMLX5_NetIf_IVars::addAnyVidRules(DriverKit_AppleEthe
   DriverKit_AppleEthernetMLX5_NetIf_IVars::addVlanRuleSub(this, 1, 0, v8, v9, a6, a7, a8);
 }
 
-void DriverKit_AppleEthernetMLX5_NetIf_IVars::addAllVlanRules(DriverKit_AppleEthernetMLX5_NetIf_IVars *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, mlx5::FlowDestination *a8)
+void DriverKit_AppleEthernetMLX5_NetIf_IVars::addAllVlanRules(mlx5::FlowRule **this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, mlx5::FlowDestination *a8)
 {
   v8 = 0;
-  v9 = 5080;
+  v9 = 635;
   while (1)
   {
-    v10 = *(this + v9);
+    v10 = this[v9];
     if (v10)
     {
       break;
     }
 
     v8 -= 64;
-    v9 += 8;
+    ++v9;
     if (v8 == -4096)
     {
       goto LABEL_7;
@@ -5965,10 +5991,10 @@ LABEL_7:
   v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v11 = *(this + 2) + 114688;
-  v12 = *(*(this + 2) + 115256);
+  v11 = this[2] + 114688;
+  v12 = *(this[2] + 14407);
   v77 = 1;
-  v78 = *(v11 + 592);
+  v78 = *(v11 + 74);
   LODWORD(v14) = 0x800000;
   mlx5::FlowRule::add(v12, 1, &v13, v45, 4, 16777214, &v77, a8);
 }
@@ -6266,8 +6292,9 @@ LABEL_9:
   return result;
 }
 
-uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::vPortContextUpdateAddrList(uint64_t a1, int a2)
+uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::vPortContextUpdateAddrList(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2)
   {
     v4 = *(a1 + 5072);
@@ -6324,13 +6351,13 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::vPortContextUpdateAddrList(uin
   }
 
   bzero(&v16 - ((6 * v4 + 15) & 0xFFFFFFFF0), (6 * v4));
-  DriverKit_AppleEthernetMLX5_NetIf_IVars::fillAddrArray(a1, a2, &v16 - ((6 * v4 + 15) & 0xFFFFFFFF0), v4);
-  result = DriverKit_AppleEthernetMLX5_IVars::modifyNicVPortMacList(*(a1 + 16), a2, &v16 - ((6 * v4 + 15) & 0xFFFFFFFF0), v4);
+  DriverKit_AppleEthernetMLX5_NetIf_IVars::fillAddrArray(a1, v2, &v16 - ((6 * v4 + 15) & 0xFFFFFFFF0), v4);
+  result = DriverKit_AppleEthernetMLX5_IVars::modifyNicVPortMacList(*(a1 + 16), v2, &v16 - ((6 * v4 + 15) & 0xFFFFFFFF0), v4);
 LABEL_14:
   if (result != -536870185 && result)
   {
     v15 = "MC";
-    if (!a2)
+    if (!v2)
     {
       v15 = "UC";
     }
@@ -6792,7 +6819,7 @@ mlx5::FlowTable *DriverKit_AppleEthernetMLX5_IVars::destroyFlowTable(uint64_t a1
 
 uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createTtcFlowTable(DriverKit_AppleEthernetMLX5_NetIf_IVars *this)
 {
-  FlowTable = mlx5::FlowNamespace::createFlowTable(*(*(this + 2) + 115240), 0, 0xBu, "ttc");
+  FlowTable = mlx5::FlowNamespace::createFlowTable(*(*(this + 2) + 115240), 0, 11, "ttc", 0);
   *(this + 78) = FlowTable;
   if (FlowTable)
   {
@@ -6805,7 +6832,7 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createTtcFlowTable(DriverKit_A
   }
 }
 
-uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::FlowTable **a2)
+uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, uint64_t ***a2)
 {
   v3 = 3758097084;
   bzero(v25, 0x400uLL);
@@ -6816,8 +6843,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
   v27 = 251658240;
   FlowGroup = mlx5::FlowTable::createFlowGroup(a2[1], v25);
   v5 = *a2;
-  *(a2[2] + v5) = FlowGroup;
-  if (*(a2[2] + v5))
+  a2[2][v5] = FlowGroup;
+  if (a2[2][v5])
   {
     *a2 = v5 + 1;
     bzero(v25, 0x400uLL);
@@ -6828,8 +6855,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
     v27 = 385875968;
     v6 = mlx5::FlowTable::createFlowGroup(a2[1], v25);
     v7 = *a2;
-    *(a2[2] + v7) = v6;
-    if (*(a2[2] + v7))
+    a2[2][v7] = v6;
+    if (a2[2][v7])
     {
       *a2 = v7 + 1;
       bzero(v25, 0x400uLL);
@@ -6839,8 +6866,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
       v27 = 419430400;
       v8 = mlx5::FlowTable::createFlowGroup(a2[1], v25);
       v9 = *a2;
-      *(a2[2] + v9) = v8;
-      if (*(a2[2] + v9))
+      a2[2][v9] = v8;
+      if (a2[2][v9])
       {
         *a2 = v9 + 1;
         bzero(v25, 0x400uLL);
@@ -6848,8 +6875,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
         v27 = 436207616;
         v10 = mlx5::FlowTable::createFlowGroup(a2[1], v25);
         v11 = *a2;
-        *(a2[2] + v11) = v10;
-        if (*(a2[2] + v11))
+        a2[2][v11] = v10;
+        if (a2[2][v11])
         {
           *a2 = v11 + 1;
           bzero(v25, 0x400uLL);
@@ -6862,8 +6889,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
           v27 = 440401920;
           v12 = mlx5::FlowTable::createFlowGroup(a2[1], v25);
           v13 = *a2;
-          *(a2[2] + v13) = v12;
-          if (*(a2[2] + v13))
+          a2[2][v13] = v12;
+          if (a2[2][v13])
           {
             *a2 = v13 + 1;
             bzero(v25, 0x400uLL);
@@ -6875,8 +6902,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
             v27 = 442499072;
             v14 = mlx5::FlowTable::createFlowGroup(a2[1], v25);
             v15 = *a2;
-            *(a2[2] + v15) = v14;
-            if (*(a2[2] + v15))
+            a2[2][v15] = v14;
+            if (a2[2][v15])
             {
               *a2 = v15 + 1;
               bzero(v25, 0x400uLL);
@@ -6887,8 +6914,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
               v27 = 443023360;
               v16 = mlx5::FlowTable::createFlowGroup(a2[1], v25);
               v17 = *a2;
-              *(a2[2] + v17) = v16;
-              if (*(a2[2] + v17))
+              a2[2][v17] = v16;
+              if (a2[2][v17])
               {
                 *a2 = v17 + 1;
                 bzero(v25, 0x400uLL);
@@ -6900,8 +6927,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
                 v27 = 510132224;
                 v18 = mlx5::FlowTable::createFlowGroup(a2[1], v25);
                 v19 = *a2;
-                *(a2[2] + v19) = v18;
-                if (*(a2[2] + v19))
+                a2[2][v19] = v18;
+                if (a2[2][v19])
                 {
                   *a2 = v19 + 1;
                   bzero(v25, 0x400uLL);
@@ -6912,8 +6939,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
                   v27 = 543686656;
                   v20 = mlx5::FlowTable::createFlowGroup(a2[1], v25);
                   v21 = *a2;
-                  *(a2[2] + v21) = v20;
-                  if (*(a2[2] + v21))
+                  a2[2][v21] = v20;
+                  if (a2[2][v21])
                   {
                     *a2 = v21 + 1;
                     bzero(v25, 0x400uLL);
@@ -6923,8 +6950,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2Groups(uint64_t a1, mlx5::Fl
                     v27 = 560463872;
                     v22 = mlx5::FlowTable::createFlowGroup(a2[1], v25);
                     v23 = *a2;
-                    *(a2[2] + v23) = v22;
-                    if (*(a2[2] + v23))
+                    a2[2][v23] = v22;
+                    if (a2[2][v23])
                     {
                       v3 = 0;
                       *a2 = v23 + 1;
@@ -6946,7 +6973,7 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2FlowTable(DriverKit_AppleEth
 {
   v1 = this + 114688;
   *(this + 28818) = 0;
-  FlowTable = mlx5::FlowNamespace::createFlowTable(*(this + 14405), 0, 0x6822u, "main");
+  FlowTable = mlx5::FlowNamespace::createFlowTable(*(this + 14405), 0, 26658, "main", 0);
   *(v1 + 74) = FlowTable;
   if (FlowTable)
   {
@@ -6956,7 +6983,7 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createL2FlowTable(DriverKit_AppleEth
   return 3758097084;
 }
 
-uint64_t DriverKit_AppleEthernetMLX5_IVars::createVlanGroups(uint64_t a1, mlx5::FlowTable **a2)
+uint64_t DriverKit_AppleEthernetMLX5_IVars::createVlanGroups(uint64_t a1, uint64_t ***a2)
 {
   v3 = 3758097084;
   bzero(v11, 0x400uLL);
@@ -6965,8 +6992,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createVlanGroups(uint64_t a1, mlx5::
   v13 = -15794176;
   FlowGroup = mlx5::FlowTable::createFlowGroup(a2[1], v11);
   v5 = *a2;
-  *(a2[2] + v5) = FlowGroup;
-  if (*(a2[2] + v5))
+  a2[2][v5] = FlowGroup;
+  if (a2[2][v5])
   {
     *a2 = v5 + 1;
     bzero(v11, 0x400uLL);
@@ -6976,8 +7003,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createVlanGroups(uint64_t a1, mlx5::
     v13 = 17825792;
     v6 = mlx5::FlowTable::createFlowGroup(a2[1], v11);
     v7 = *a2;
-    *(a2[2] + v7) = v6;
-    if (*(a2[2] + v7))
+    a2[2][v7] = v6;
+    if (a2[2][v7])
     {
       *a2 = v7 + 1;
       bzero(v11, 0x400uLL);
@@ -6987,8 +7014,8 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createVlanGroups(uint64_t a1, mlx5::
       v13 = 34603008;
       v8 = mlx5::FlowTable::createFlowGroup(a2[1], v11);
       v9 = *a2;
-      *(a2[2] + v9) = v8;
-      if (*(a2[2] + v9))
+      a2[2][v9] = v8;
+      if (a2[2][v9])
       {
         v3 = 0;
         *a2 = v9 + 1;
@@ -7003,7 +7030,7 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createVlanFlowTable(DriverKit_AppleE
 {
   v1 = this + 114688;
   *(this + 28812) = 0;
-  FlowTable = mlx5::FlowNamespace::createFlowTable(*(this + 14405), 0, 0x1003u, "vlan");
+  FlowTable = mlx5::FlowNamespace::createFlowTable(*(this + 14405), 0, 4099, "vlan", 0);
   *(v1 + 71) = FlowTable;
   if (FlowTable)
   {
@@ -7013,7 +7040,7 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::createVlanFlowTable(DriverKit_AppleE
   return 3758097084;
 }
 
-uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createInnerRssGroups(uint64_t a1, mlx5::FlowTable **a2)
+uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createInnerRssGroups(uint64_t a1, uint64_t ***a2)
 {
   v3 = 3758097084;
   bzero(v11, 0x400uLL);
@@ -7023,8 +7050,8 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createInnerRssGroups(uint64_t 
   v13 = 117440512;
   FlowGroup = mlx5::FlowTable::createFlowGroup(a2[1], v11);
   v5 = *a2;
-  *(a2[2] + v5) = FlowGroup;
-  if (*(a2[2] + v5))
+  a2[2][v5] = FlowGroup;
+  if (a2[2][v5])
   {
     *a2 = v5 + 1;
     bzero(v11, 0x400uLL);
@@ -7034,8 +7061,8 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createInnerRssGroups(uint64_t 
     v13 = 150994944;
     v6 = mlx5::FlowTable::createFlowGroup(a2[1], v11);
     v7 = *a2;
-    *(a2[2] + v7) = v6;
-    if (*(a2[2] + v7))
+    a2[2][v7] = v6;
+    if (a2[2][v7])
     {
       *a2 = v7 + 1;
       bzero(v11, 0x400uLL);
@@ -7043,8 +7070,8 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createInnerRssGroups(uint64_t 
       v13 = 167772160;
       v8 = mlx5::FlowTable::createFlowGroup(a2[1], v11);
       v9 = *a2;
-      *(a2[2] + v9) = v8;
-      if (*(a2[2] + v9))
+      a2[2][v9] = v8;
+      if (a2[2][v9])
       {
         v3 = 0;
         *a2 = v9 + 1;
@@ -7058,7 +7085,7 @@ uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createInnerRssGroups(uint64_t 
 uint64_t DriverKit_AppleEthernetMLX5_NetIf_IVars::createInnerRssFlowTable(DriverKit_AppleEthernetMLX5_NetIf_IVars *this)
 {
   *(this + 160) = 0;
-  FlowTable = mlx5::FlowNamespace::createFlowTable(*(*(this + 2) + 115240), 0, 0xBu, "inner_rss");
+  FlowTable = mlx5::FlowNamespace::createFlowTable(*(*(this + 2) + 115240), 0, 11, "inner_rss", 0);
   *(this + 81) = FlowTable;
   if (FlowTable)
   {
@@ -7536,88 +7563,79 @@ void AppleEthernetMLX5EQ::async_interrupt(uint64_t this)
   v4 = *(this + 80);
   if (v2)
   {
-    v5 = v2 + (((v4 - 1) & v3) << 6);
-    if (((((v4 & v3) != 0) ^ *(v5 + 63)) & 1) == 0)
+    v5 = (v2 + (((v4 - 1) & v3) << 6));
+    if (((((v4 & v3) != 0) ^ v5[63]) & 1) == 0)
     {
       v6 = 0;
       do
       {
         __dmb(1u);
-        v7 = *(v5 + 1);
-        switch(*(v5 + 1))
+        v7 = v5[1];
+        switch(v5[1])
         {
-          case 1:
-          case 2:
-          case 3:
-          case 5:
-          case 7:
-          case 0x10:
-          case 0x11:
-          case 0x13:
-            v8 = bswap32(*(v5 + 56) & 0xFFFFFF00);
+          case 1u:
+          case 2u:
+          case 3u:
+          case 5u:
+          case 7u:
+          case 0x10u:
+          case 0x11u:
+          case 0x13u:
             eqe_type_str(v7);
             this = IOLog("mlx5: EQ::interrupt: event %s(%d) arrived on resource 0x%x\n");
             break;
-          case 4:
-            v18 = bswap32(*(v5 + 32) & 0xFFFFFF00);
-            v22 = *(v5 + 43);
+          case 4u:
             this = IOLog("mlx5: EQ::interrupt: CQ error on CQN 0x%x, syndrom 0x%x\n");
             break;
-          case 9:
-            v12 = *(v5 + 40) >> 4;
-            v13 = *(v5 + 3);
-            if ((v13 - 4) < 6 || v13 == 1)
+          case 9u:
+            v10 = v5[3];
+            if ((v10 - 4) < 6 || v10 == 1)
             {
               if (gMLX5DebugFlags)
               {
-                IOLog("mlx5:%s:%d EQ::interrupt: Port change event: %d\n", "async_interrupt", 235, *(v5 + 3));
-                v13 = *(v5 + 3);
+                IOLog("mlx5:%s:%d EQ::interrupt: Port change event: %d\n", "async_interrupt", 235, v5[3]);
+                v10 = v5[3];
               }
 
-              v15 = v13 - 4;
-              if (v15 > 5)
+              v12 = v10 - 4;
+              if (v12 > 5)
               {
-                v16 = 2;
+                v13 = 2;
               }
 
               else
               {
-                v16 = dword_10001EA00[v15];
+                v13 = dword_10001EA00[v12];
               }
 
-              this = DriverKit_AppleEthernetMLX5_IVars::event(*(v1 + 56), v16);
+              this = DriverKit_AppleEthernetMLX5_IVars::event(*(v1 + 56), v13);
             }
 
             else
             {
-              v21 = *(v5 + 40) >> 4;
               this = IOLog("mlx5: EQ::interrupt: Port event with unrecognized subtype: port %d, sub_type %d\n");
             }
 
             break;
-          case 0xD:
-          case 0x22:
+          case 0xDu:
+          case 0x22u:
             break;
-          case 0x12:
-          case 0x14:
-            v11 = bswap32(*(v5 + 56) & 0xFFFFFF00);
+          case 0x12u:
+          case 0x14u:
             eqe_type_str(v7);
             this = IOLog("mlx5: EQ::interrupt: SRQ event %s(%d): srqn 0x%x\n");
             break;
-          case 0x16:
+          case 0x16u:
             DriverKit_AppleEthernetMLX5_IVars::portModuleEvent(this, v5);
             break;
-          case 0x1E:
-            if (*(v5 + 3) - 1 >= 4)
+          case 0x1Eu:
+            if (v5[3] - 1 >= 4)
             {
-              v19 = *(v5 + 40) >> 4;
               this = IOLog("mlx5: EQ::interrupt: dcbx event with unrecognized subtype: port %d, sub_type %d\n");
             }
 
             break;
           default:
-            v17 = *(v1 + 77);
-            v20 = *(v5 + 1);
             this = IOLog("mlx5: EQ::interrupt: Unhandled event 0x%x on EQ 0x%x\n");
             break;
         }
@@ -7636,17 +7654,17 @@ void AppleEthernetMLX5EQ::async_interrupt(uint64_t this)
           ++v6;
         }
 
-        v9 = *(v1 + 40);
-        v10 = *(v1 + 80);
-        if (!v9)
+        v8 = *(v1 + 40);
+        v9 = *(v1 + 80);
+        if (!v8)
         {
           break;
         }
 
-        v5 = v9 + (((v10 - 1) & v3) << 6);
+        v5 = (v8 + (((v9 - 1) & v3) << 6));
       }
 
-      while (((((v10 & v3) != 0) ^ *(v5 + 63)) & 1) == 0);
+      while (((((v9 & v3) != 0) ^ v5[63]) & 1) == 0);
     }
   }
 
@@ -7667,26 +7685,17 @@ const char *eqe_type_str(unsigned int a1)
   }
 }
 
-void DriverKit_AppleEthernetMLX5_IVars::portModuleEvent(uint64_t a1, unsigned __int8 *a2)
+void DriverKit_AppleEthernetMLX5_IVars::portModuleEvent(uint64_t a1, uint64_t a2)
 {
-  v2 = a2[33];
-  v3 = a2[35] & 0xF;
-  switch(v3)
+  v2 = *(a2 + 35) & 0xF;
+  switch(v2)
   {
     case 3:
-      v4 = a2[38] & 0xF;
-      if (v4 <= 7)
-      {
-        v5 = off_1000246E0[v4];
-      }
-
-      v7 = a2[33];
       IOLog("mlx5: Module %u, error: %s\n");
       break;
     case 2:
       if (gMLX5DebugFlags)
       {
-        v9 = a2[33];
         IOLog("mlx5:%s:%d Module %u, status: unplugged\n");
       }
 
@@ -7694,13 +7703,11 @@ void DriverKit_AppleEthernetMLX5_IVars::portModuleEvent(uint64_t a1, unsigned __
     case 1:
       if (gMLX5DebugFlags)
       {
-        v8 = a2[33];
         IOLog("mlx5:%s:%d Module %u, status: plugged\n");
       }
 
       break;
     default:
-      v6 = a2[33];
       IOLog("mlx5: Module %u, unknown status\n");
       break;
   }
@@ -8165,35 +8172,35 @@ uint64_t DriverKit_AppleEthernetMLX5_IVars::start(DriverKit_AppleEthernetMLX5_IV
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetMLX5_IVars::load(DriverKit_AppleEthernetMLX5_IVars *this)
+uint64_t DriverKit_AppleEthernetMLX5_IVars::load(DriverKit_AppleEthernetMLX5_IVars *this, BOOL a2)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2000000000;
-  v9 = 0;
-  v2 = *(this + 2);
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2000000000;
+  v10 = 0;
+  v3 = *(this + 2);
   block[0] = _NSConcreteStackBlock;
   block[1] = 1107296256;
   block[2] = ___ZN33DriverKit_AppleEthernetMLX5_IVars4loadEb_block_invoke;
-  block[4] = &v6;
+  block[4] = &v7;
   block[5] = this;
   block[3] = &__block_descriptor_tmp_2;
-  IODispatchQueue::DispatchSync(v2, block);
-  v3 = v7[3];
-  if (!v3)
+  IODispatchQueue::DispatchSync(v3, block);
+  v4 = v8[3];
+  if (!v4)
   {
 LABEL_7:
     IOLog("mlx5: failed to %s in %s:%d\n");
     goto LABEL_8;
   }
 
-  *(this + 38) = v3;
+  *(this + 38) = v4;
   if (!DriverKit_AppleEthernetMLX5_IVars::waitFwInit(this))
   {
+    v14 = 0;
     v13 = 0;
-    v12 = 0;
-    v11 = 1025;
-    if (!AppleEthernetMLX5Cmd::exec(*(this + 38), &v11, 16, v10, 12) && !AppleEthernetMLX5Cmd::statusToErr(v10) && !DriverKit_AppleEthernetMLX5_IVars::setISSI(this) && !DriverKit_AppleEthernetMLX5_IVars::satisfyStartupPages(this, 1) && !DriverKit_AppleEthernetMLX5_IVars::setHCACtrl(this) && !DriverKit_AppleEthernetMLX5_IVars::handleHCACap(this) && !DriverKit_AppleEthernetMLX5_IVars::satisfyStartupPages(this, 0) && !DriverKit_AppleEthernetMLX5_IVars::initHCA(this) && !DriverKit_AppleEthernetMLX5_IVars::queryHCACaps(this) && !DriverKit_AppleEthernetMLX5_IVars::queryBoardId(this) && !DriverKit_AppleEthernetMLX5_IVars::detectMSI(this) && !DriverKit_AppleEthernetMLX5_IVars::allocMapUAR(this, this + 72))
+    v12 = 1025;
+    if (!AppleEthernetMLX5Cmd::exec(*(this + 38), &v12, 16, v11, 12) && !AppleEthernetMLX5Cmd::statusToErr(v11) && !DriverKit_AppleEthernetMLX5_IVars::setISSI(this) && !DriverKit_AppleEthernetMLX5_IVars::satisfyStartupPages(this, 1) && !DriverKit_AppleEthernetMLX5_IVars::setHCACtrl(this) && !DriverKit_AppleEthernetMLX5_IVars::handleHCACap(this) && !DriverKit_AppleEthernetMLX5_IVars::satisfyStartupPages(this, 0) && !DriverKit_AppleEthernetMLX5_IVars::initHCA(this) && !DriverKit_AppleEthernetMLX5_IVars::queryHCACaps(this) && !DriverKit_AppleEthernetMLX5_IVars::queryBoardId(this) && !DriverKit_AppleEthernetMLX5_IVars::detectMSI(this) && !DriverKit_AppleEthernetMLX5_IVars::allocMapUAR(this, this + 72))
     {
       DriverKit_AppleEthernetMLX5_IVars::startEQs(this);
     }
@@ -8203,7 +8210,7 @@ LABEL_7:
 
   IOLog("mlx5: firmware initialization timeout\n");
 LABEL_8:
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   return 3758097084;
 }
 
@@ -8616,17 +8623,15 @@ void AppleEthernetMLX5CmdMsg::AppleEthernetMLX5CmdMsg(AppleEthernetMLX5CmdMsg *t
 
 void AppleEthernetMLX5CmdMsg::~AppleEthernetMLX5CmdMsg(AppleEthernetMLX5CmdMsg *this)
 {
-  v2 = *(this + 3);
-  if (v2)
+  if (*(this + 3))
   {
-    v3 = *(v2 + 16);
     operator delete();
   }
 
-  v4 = *(this + 4);
-  if (v4)
+  v1 = *(this + 4);
+  if (v1)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v1 + 8))(v1);
   }
 }
 
@@ -9523,7 +9528,7 @@ LABEL_25:
   return this;
 }
 
-AppleEthernetMLX5CmdMsg *AppleEthernetMLX5Cmd::allocCmdMsg(AppleEthernetMLX5Cmd *this, unsigned int a2)
+AppleEthernetMLX5CmdMsg *AppleEthernetMLX5Cmd::allocCmdMsg(AppleEthernetMLX5Cmd *this, int a2)
 {
   if (a2 < 0x11 || (v2 = *(this + 44), v2 == (this + 352)))
   {

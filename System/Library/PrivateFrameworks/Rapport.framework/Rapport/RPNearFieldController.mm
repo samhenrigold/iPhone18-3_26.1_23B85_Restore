@@ -11,6 +11,7 @@
 - (void)_invalidated;
 - (void)_startPolling;
 - (void)didBeginTransaction:(id)transaction;
+- (void)didDetectDeviceNearbyWithInitiatorRole:(BOOL)role;
 - (void)didInterruptTransaction:(id)transaction withError:(id)error;
 - (void)didUpdateTransaction:(id)transaction;
 - (void)invalidate;
@@ -110,33 +111,34 @@
 
 - (void)_interrupted
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_RPNearFieldController <= 30 && (gLogCategory_RPNearFieldController != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_RPNearFieldController <= 30)
   {
-    [RPNearFieldController _interrupted];
+    if (gLogCategory_RPNearFieldController != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(RPNearFieldController *)v3 _interrupted];
+    }
   }
 
   currentTransaction = [(RPNearFieldController *)self currentTransaction];
   if (currentTransaction)
   {
     [(RPNearFieldController *)self setCurrentTransaction:0];
-    v4 = MEMORY[0x1E696ABC0];
-    v9 = *MEMORY[0x1E696A578];
-    v10[0] = @"XPC connection was interrupted.";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-    v6 = [v4 errorWithDomain:@"RPNearFieldControllerErrorDomain" code:0 userInfo:v5];
+    v7 = MEMORY[0x1E696ABC0];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = @"XPC connection was interrupted.";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v9 = [v7 errorWithDomain:@"RPNearFieldControllerErrorDomain" code:0 userInfo:v8];
 
     delegate = [(RPNearFieldController *)self delegate];
-    [delegate nearFieldController:self didInterruptTransaction:currentTransaction error:v6];
+    [delegate nearFieldController:self didInterruptTransaction:currentTransaction error:v9];
   }
 
   if (self->_didStart)
   {
     [(RPNearFieldController *)self _startPolling];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -145,9 +147,12 @@
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    if (!self->_invalidateDone && gLogCategory_RPNearFieldController <= 30 && (gLogCategory_RPNearFieldController != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateDone && gLogCategory_RPNearFieldController <= 30)
     {
-      [RPNearFieldController invalidate];
+      if (gLogCategory_RPNearFieldController != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPNearFieldController *)v3 invalidate];
+      }
     }
 
     [(RPNearFieldController *)self stop];
@@ -162,18 +167,24 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_RPNearFieldController <= 30 && (gLogCategory_RPNearFieldController != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_RPNearFieldController <= 30)
     {
-      [RPNearFieldController _invalidated];
+      if (gLogCategory_RPNearFieldController != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPNearFieldController *)v3 _invalidated];
+      }
     }
 
     xpcConnection = self->_xpcConnection;
     self->_xpcConnection = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_RPNearFieldController <= 30 && (gLogCategory_RPNearFieldController != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPNearFieldController <= 30)
     {
-      [RPNearFieldController _invalidated];
+      if (gLogCategory_RPNearFieldController != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        [(RPNearFieldController *)v7 _invalidated];
+      }
     }
   }
 }
@@ -196,7 +207,7 @@ void __43__RPNearFieldController__remoteObjectProxy__block_invoke(uint64_t a1, v
   v4 = a2;
   if (gLogCategory_RPNearFieldController <= 90 && (gLogCategory_RPNearFieldController != -1 || _LogCategory_Initialize()))
   {
-    __43__RPNearFieldController__remoteObjectProxy__block_invoke_cold_1();
+    __43__RPNearFieldController__remoteObjectProxy__block_invoke_cold_1(v4);
   }
 
   v3 = [*(a1 + 32) delegate];
@@ -221,7 +232,7 @@ void __54__RPNearFieldController__synchronousRemoteObjectProxy__block_invoke(uin
   v4 = a2;
   if (gLogCategory_RPNearFieldController <= 90 && (gLogCategory_RPNearFieldController != -1 || _LogCategory_Initialize()))
   {
-    __54__RPNearFieldController__synchronousRemoteObjectProxy__block_invoke_cold_1();
+    __54__RPNearFieldController__synchronousRemoteObjectProxy__block_invoke_cold_1(v4);
   }
 
   v3 = [*(a1 + 32) delegate];
@@ -281,8 +292,7 @@ LABEL_9:
 - (void)_startPolling
 {
   currentApplicationLabel = [self currentApplicationLabel];
-  [self currentPreferredPollingType];
-  LogPrintF();
+  LogPrintF(&gLogCategory_RPNearFieldController, "-[RPNearFieldController _startPolling]", 30, "Starting polling with applicationLabel:%@ preferredPollingType:%d\n", currentApplicationLabel, [self currentPreferredPollingType]);
 }
 
 - (void)stop
@@ -319,6 +329,14 @@ LABEL_9:
   identifier = [transactionCopy identifier];
 
   [_remoteObjectProxy invalidateTransactionWithIdentifier:identifier context:contextCopy];
+}
+
+- (void)didDetectDeviceNearbyWithInitiatorRole:(BOOL)role
+{
+  roleCopy = role;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  delegate = [(RPNearFieldController *)self delegate];
+  [delegate nearFieldController:self didDetectDeviceNearbyWithInitiatorRole:roleCopy];
 }
 
 - (void)didBeginTransaction:(id)transaction
@@ -375,7 +393,7 @@ LABEL_12:
   if (gLogCategory_RPNearFieldController <= 90 && (gLogCategory_RPNearFieldController != -1 || _LogCategory_Initialize()))
   {
     delegate = [(RPNearFieldController *)self currentTransaction];
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPNearFieldController, "[RPNearFieldController didUpdateTransaction:]", 90, "did update transaction:%@ mismatching current transaction:%@", transactionCopy, delegate);
     goto LABEL_12;
   }
 
@@ -405,7 +423,7 @@ LABEL_6:
   if (gLogCategory_RPNearFieldController <= 90 && (gLogCategory_RPNearFieldController != -1 || _LogCategory_Initialize()))
   {
     delegate = [(RPNearFieldController *)self currentTransaction];
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPNearFieldController, "[RPNearFieldController didInterruptTransaction:withError:]", 90, "did interrupt transaction:%@ mismatching current transaction:%@", transactionCopy, delegate);
     goto LABEL_6;
   }
 

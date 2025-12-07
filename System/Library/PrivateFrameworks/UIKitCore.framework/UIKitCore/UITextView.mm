@@ -777,7 +777,7 @@ uint64_t __60__UITextView__shouldInvalidateLayoutForLinkAttributesChange__block_
   textContainer = [(UITextView *)self textContainer];
   attributesForExtraLineFragment = [textContainer attributesForExtraLineFragment];
 
-  if (typingAttributes != attributesForExtraLineFragment && ([typingAttributes isEqual:attributesForExtraLineFragment] & 1) == 0)
+  if (typingAttributes != attributesForExtraLineFragment && (objc_msgSend_isEqual_(typingAttributes) & 1) == 0)
   {
     textContainer2 = [(UITextView *)self textContainer];
     [textContainer2 setAttributesForExtraLineFragment:typingAttributes];
@@ -1403,7 +1403,7 @@ LABEL_24:
   if (font2 && v7)
   {
     font3 = [(UITextView *)self font];
-    v9 = [font3 isEqual:v7] ^ 1;
+    v9 = objc_msgSend_isEqual_(font3) ^ 1;
   }
 
   v23 = v9;
@@ -1487,7 +1487,7 @@ void __47__UITextView__adjustFontForTypesettingLanguage__block_invoke_2(uint64_t
     v13 = 1;
   }
 
-  if (!v13 && ([(__CTFont *)v10 isEqual:v11]& 1) == 0)
+  if (!v13 && (objc_msgSend_isEqual_(v10) & 1) == 0)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
     [*(a1 + 40) addAttribute:*off_1E70EC918 value:v12 range:{a3, a4}];
@@ -2144,7 +2144,7 @@ LABEL_23:
     v6 = tintColor;
     if (tintColor)
     {
-      if (([tintColor isEqual:self->_cachedTintColor] & 1) == 0)
+      if ((objc_msgSend_isEqual_(tintColor) & 1) == 0)
       {
         objc_storeStrong(&self->_cachedTintColor, v6);
         [(UITextView *)self _invalidateLayoutForLinkAttributesChange:1];
@@ -2164,26 +2164,26 @@ LABEL_23:
     v7 = v6;
     if (v5 == v6)
     {
-      v8 = 1;
+      isEqual = 1;
     }
 
     else if (v6)
     {
-      v8 = [v5 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v5);
     }
 
     else
     {
-      v8 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
   }
 
-  return v8;
+  return isEqual;
 }
 
 - (void)_updateBaselineInformationDependentOnBounds
@@ -2569,9 +2569,9 @@ LABEL_7:
     {
       if (v7 && v8)
       {
-        v10 = [v7 isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(v7);
 
-        if (v10)
+        if (isEqual)
         {
           goto LABEL_11;
         }
@@ -2664,7 +2664,7 @@ void __51__UITextView_TextLists___supportsTextKit2TextLists__block_invoke()
   }
 
   v0 = _UIMainBundleIdentifier();
-  if ([v0 isEqualToString:@"com.apple.mobilenotes"])
+  if (objc_msgSend_isEqualToString_(v0))
   {
     _MergedGlobals_65 = 1;
   }
@@ -2877,7 +2877,7 @@ LABEL_15:
 
 - (Class)_intelligenceBaseClass
 {
-  sub_188A34624(0, &qword_1EA93F8C0);
+  sub_188A34624(0, &qword_1EA93F8C0, off_1E70EAB60);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -2886,7 +2886,7 @@ LABEL_15:
 {
   collectorCopy = collector;
   selfCopy = self;
-  _sSo10UITextViewC5UIKitE27_intelligenceCollectContent2in9collectorySo6CGRectV_21UIIntelligenceSupport0J16ElementCollectorCtF_0(collectorCopy);
+  _sSo10UITextViewC5UIKitE27_intelligenceCollectContent2in9collectorySo6CGRectV_21UIIntelligenceSupport0J16ElementCollectorCtF_0(collectorCopy, v6);
 }
 
 - (id)largeContentTitle
@@ -3065,13 +3065,6 @@ uint64_t __91__UITextView_AnimatedInsertion___replaceRangeUsingColorWipe_withAtt
   }
 
   return _resolvesNaturalAlignmentWithBaseWritingDirection__resolvesNaturalAlignmentWithBaseWritingDirection;
-}
-
-uint64_t __63__UITextView__resolvesNaturalAlignmentWithBaseWritingDirection__block_invoke()
-{
-  result = dyld_program_sdk_at_least();
-  _resolvesNaturalAlignmentWithBaseWritingDirection__resolvesNaturalAlignmentWithBaseWritingDirection = result;
-  return result;
 }
 
 - (id)_activityItemsConfigurationAtLocation:(CGPoint)location
@@ -3504,7 +3497,7 @@ void __94__UITextView__reconfigureWithLayoutManager_triggeredByLayoutManagerAcce
     v23 = draggableCopy;
     v24 = containerCopy2;
     v26 = v25 = selectableCopy;
-    v27 = [v20 isEqualToString:v26];
+    isEqualToString = objc_msgSend_isEqualToString_(v20);
 
     selectableCopy = v25;
     containerCopy2 = v24;
@@ -3513,7 +3506,7 @@ void __94__UITextView__reconfigureWithLayoutManager_triggeredByLayoutManagerAcce
     editableCopy = v21;
     containerCopy = v62;
 
-    enabledCopy = enabledCopy & ~v27;
+    enabledCopy = enabledCopy & ~isEqualToString;
   }
 
   v28 = selfCopy;
@@ -4272,7 +4265,7 @@ LABEL_46:
   v4 = attributedText;
   if (+[UIDictationUtilities shouldLogCorrectionInfoForCurrentBundleId])
   {
-    if (!v4 || (-[NSAttributedString string](v4, "string"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 isEqualToString:&stru_1EFB14550], v5, v6))
+    if (!v4 || ([(NSAttributedString *)v4 string], v5 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v5), v5, isEqualToString))
     {
       [UIDictationController logCorrectionStatisticsForDelegate:self reason:25];
     }
@@ -4498,11 +4491,11 @@ LABEL_26:
 LABEL_52:
 }
 
-uint64_t __32__UITextView_setAttributedText___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__32__UITextView_setAttributedText___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
-    return [*(result + 32) addAttribute:*off_1E70EC918 value:*(result + 40) range:{a3, a4}];
+    return [result[4] addAttribute:*off_1E70EC918 value:result[5] range:{a3, a4}];
   }
 
   return result;
@@ -4547,9 +4540,9 @@ void __32__UITextView_setAttributedText___block_invoke_2(id *a1, void *a2, uint6
     goto LABEL_11;
   }
 
-  v13 = [(__CTFont *)v10 isEqual:v11];
+  isEqual = objc_msgSend_isEqual_(v10);
 
-  if ((v13 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_11:
     [a1[6] addAttribute:*off_1E70EC918 value:v10 range:{a3, a4}];
@@ -4558,13 +4551,13 @@ LABEL_11:
 LABEL_12:
 }
 
-uint64_t __32__UITextView_setAttributedText___block_invoke_4(uint64_t result, void *a2, uint64_t a3, uint64_t a4)
+void *__32__UITextView_setAttributedText___block_invoke_4(void *result, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
     v6 = result;
     v7 = [a2 isLowConfidence];
-    v8 = *(v6 + 32);
+    v8 = v6[4];
 
     return [v8 addTextAlternativesDisplayStyle:v7 toRange:{a3, a4}];
   }
@@ -4626,7 +4619,7 @@ uint64_t __32__UITextView_setAttributedText___block_invoke_4(uint64_t result, vo
   [(UIScrollView *)&v19 setContentOffset:x, y];
   if (x != v7 || y != v9)
   {
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_SingleLineTextViewAdjustsForHorizontalContentOffset, @"SingleLineTextViewAdjustsForHorizontalContentOffset") & 1) == 0)
+    if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_SingleLineTextViewAdjustsForHorizontalContentOffset, @"SingleLineTextViewAdjustsForHorizontalContentOffset"))
     {
       v11 = vabdd_f64(x, v7);
       v12 = !byte_1EA95E774 || v11 <= 0.00000011920929;
@@ -5604,7 +5597,7 @@ void __37__UITextView__baselineOffsetsAtSize___block_invoke(uint64_t a1)
   v12 = v11;
   v16 = 0uLL;
   v17 = 0;
-  [(UITextView *)self _saveSizeBeforeLayoutCalculation:textContainer];
+  objc_msgSend__saveSizeBeforeLayoutCalculation_(self);
   delegate = [textLayoutManager delegate];
   if (width != v12)
   {
@@ -5658,7 +5651,7 @@ void __55__UITextView__performTextKit1LayoutCalculation_inSize___block_invoke(ui
   v7 = *(a1 + 32);
   if (v7)
   {
-    [v7 _saveSizeBeforeLayoutCalculation:*(a1 + 40)];
+    objc_msgSend__saveSizeBeforeLayoutCalculation_(v7);
   }
 
   v8 = [v3 delegate];
@@ -5949,9 +5942,9 @@ void __39__UITextView__intrinsicSizeWithinSize___block_invoke_3(double *a1, void
 
   typesettingLanguage = [v6 typesettingLanguage];
   typesettingLanguage2 = [changeCopy typesettingLanguage];
-  v9 = [typesettingLanguage isEqualToString:typesettingLanguage2];
+  isEqualToString = objc_msgSend_isEqualToString_(typesettingLanguage);
 
-  if ((v9 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UITextView *)self _adjustFontForTypesettingLanguage];
   }
@@ -8778,7 +8771,7 @@ LABEL_16:
 
     if (undoManager != undoManager2)
     {
-      if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+      if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
       {
         v13 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED4998A8) + 8);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -8800,7 +8793,7 @@ LABEL_16:
   {
     if (undoManager != undoManager2)
     {
-      if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+      if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
       {
         v14 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED4998B0) + 8);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
@@ -9452,7 +9445,7 @@ LABEL_16:
 
     if (_undoRedoInProgress)
     {
-      if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+      if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
       {
         v15 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &textInput_didApplyAttributedText_toCharacterRange____s_category) + 8);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -9529,9 +9522,9 @@ LABEL_16:
 
   if (v18 && v17)
   {
-    v22 = [v17 isEqual:v18];
+    isEqual = objc_msgSend_isEqual_(v17);
 
-    if (v22)
+    if (isEqual)
     {
       goto LABEL_26;
     }
@@ -10043,13 +10036,13 @@ void __24__UITextView_lineHeight__block_invoke(uint64_t a1, void *a2)
   [v4 enumerateAttribute:v3 inRange:0 options:v5 usingBlock:{0x100000, v6}];
 }
 
-uint64_t __24__UITextView_lineHeight__block_invoke_2(uint64_t result, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__24__UITextView_lineHeight__block_invoke_2(void *result, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   if (a2)
   {
     v6 = result;
     result = [a2 minimumLineHeight];
-    *(*(*(v6 + 32) + 8) + 24) = v7;
+    *(*(v6[4] + 8) + 24) = v7;
     *a5 = 1;
   }
 
@@ -10343,7 +10336,7 @@ void __61__UITextView__linkTextAttributesForLink_forCharacterAtIndex___block_inv
     v12 = 1;
     if (v13 && v11)
     {
-      v12 = [v13 isEqual:v11] ^ 1;
+      v12 = objc_msgSend_isEqual_(v13) ^ 1;
     }
   }
 
@@ -10627,7 +10620,7 @@ LABEL_19:
     if (font2 && v6)
     {
       font3 = [(UITextView *)self font];
-      v8 = [font3 isEqual:v6] ^ 1;
+      v8 = objc_msgSend_isEqual_(font3) ^ 1;
     }
 
     v22 = v8;
@@ -10703,7 +10696,7 @@ void __48__UITextView__adjustFontForAccessibilityTraits___block_invoke_2(uint64_
     v13 = 1;
   }
 
-  if (!v13 && ([v10 isEqual:v11] & 1) == 0)
+  if (!v13 && (objc_msgSend_isEqual_(v10) & 1) == 0)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
     [*(a1 + 40) addAttribute:*off_1E70EC918 value:v12 range:{a3, a4}];
@@ -12225,7 +12218,7 @@ void __42__UITextView__textInteractableItemForTag___block_invoke(void *a1, void 
 {
   v9 = a2;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v9 isEqualToString:a1[4]])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqualToString_(v9))
   {
     v10 = [*(a1[5] + 2792) textRangeForCharacterRange:{a3, a4}];
     v11 = *(a1[6] + 8);
@@ -12484,7 +12477,7 @@ uint64_t __42__UITextView__textInteractableItemForTag___block_invoke_2(uint64_t 
   attributesCopy = attributes;
   if (os_variant_has_internal_diagnostics())
   {
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0)
+    if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging"))
     {
       if (byte_1EA95E17C)
       {
@@ -12751,7 +12744,7 @@ LABEL_7:
   else if (self)
   {
     v17 = completionCopy;
-    if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+    if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
     {
       v39 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_handleTextKit1PreviewGenerationForTextAnimation_ofRange_completion____s_category) + 8);
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
@@ -13240,7 +13233,7 @@ void __67__UITextView_writingToolsCoordinator_willChangeToState_completion___blo
               else
               {
                 selectedText = [(UITextView *)self selectedText];
-                [v9 isEqualToString:selectedText];
+                objc_msgSend_isEqualToString_(v9);
               }
             }
           }
@@ -13274,7 +13267,7 @@ void __112__UITextView_StateRestoration__decodeRestorableStateWithCoder_includin
 {
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) selectedText];
-  LODWORD(v2) = [v2 isEqualToString:v3];
+  LODWORD(v2) = objc_msgSend_isEqualToString_(v2);
 
   if (v2)
   {

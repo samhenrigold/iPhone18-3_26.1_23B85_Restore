@@ -661,7 +661,7 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
       v63 = *(*(a1 + 1872) + 848);
       block = v62 + 1544;
       v99 = a1 + 23024;
-      AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v63 + 3534, &block);
+      AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v63 + 3534, &block, *(a1 + 1904));
       v64 = *(*(a1 + 23024) + 16);
       v65 = *(a1 + 2328);
       v65[65] = *(v62 + 1544) & 0xFFFFFFFFFFC0;
@@ -1277,7 +1277,7 @@ LABEL_62:
     if (v70)
     {
       v71 = v70[2];
-      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(v70);
+      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(v70, *(a1 + 1912));
       v75 = *(a1 + 2336);
       v76 = v75[43];
       v77 = v75[52];
@@ -1376,7 +1376,7 @@ LABEL_73:
                     goto LABEL_101;
                   }
 
-                  v106 = __clz(__rbit64(v130));
+                  LODWORD(v106) = __clz(__rbit64(v130));
                   v108 = v106 | 0x40;
                   p_j = &v130;
                 }
@@ -1389,7 +1389,7 @@ LABEL_73:
 
             v93 = 0;
             v94 = __clz(__rbit64(v88));
-            LODWORD(v95) = v94 | 0x40;
+            v95 = v94 | 0x40u;
             v88 &= ~(1 << v94);
 LABEL_85:
             v128 = *(v71 + 1360);
@@ -1435,7 +1435,7 @@ LABEL_91:
           *(v99 + 16) = *(a1 + 28128);
           *v99 = v101;
           v96 = *(v71 + 1360) & 0x10000000000;
-          LODWORD(v95) = 40;
+          v95 = 40;
 LABEL_86:
           AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::bindBufferResourceToCommand(a1, v95, v96 != 0);
         }
@@ -1584,7 +1584,7 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
   v14 = *(a1 + 1160);
   if (!v14)
   {
-    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(a1 + 24, 0x22u);
+    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(a1 + 24, 34);
     v14 = *(a1 + 1160);
   }
 
@@ -1634,10 +1634,10 @@ void sub_29CD59B68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::insertIndirectTGOptKernel(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4, uint64_t *a5)
+void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::insertIndirectTGOptKernel(uint64_t result, uint64_t a2, unint64_t *a3, void *a4, uint64_t *a5)
 {
-  v5 = a1 + 24576;
-  if (*(a1 + 28248))
+  v5 = result + 24576;
+  if (*(result + 28248))
   {
     return;
   }
@@ -1652,9 +1652,9 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
     *(v11 + 32) = 0x6000000060000000;
   }
 
-  v13 = *(a1 + 2336);
-  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(a1, *(*(*(a1 + 1872) + 848) + 17104));
-  if (*(a1 + 2292) == 1)
+  v13 = *(result + 2336);
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(result, *(*(*(result + 1872) + 848) + 17104));
+  if (*(result + 2292) == 1)
   {
     v14 = 4608;
   }
@@ -1665,19 +1665,19 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
   }
 
   v15 = v14 | 0xF;
-  v16 = *(a1 + 160);
-  v17 = *(a1 + 168);
+  v16 = *(result + 160);
+  v17 = *(result + 168);
   v18 = v17 + (v14 | 0xF);
   if (v18 <= v16)
   {
 LABEL_9:
-    *(a1 + 176) = v18;
+    *(result + 176) = v18;
     goto LABEL_10;
   }
 
-  v28 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 3, 0);
-  v16 = *(a1 + 160);
-  v17 = *(a1 + 168);
+  v28 = AGX::DataBufferAllocator<44ul>::growNoInline(result + 24, 3, 0);
+  v16 = *(result + 160);
+  v17 = *(result + 168);
   if (v28)
   {
     v18 = v17 + v15;
@@ -1691,29 +1691,29 @@ LABEL_9:
 
 LABEL_10:
   v19 = (v17 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v20 = v19 + *(a1 + 184);
+  v20 = v19 + *(result + 184);
   v21 = v19 + v14;
-  *(a1 + 168) = v19 + v14;
-  *(a1 + 27560) |= 0x4000000000uLL;
+  *(result + 168) = v19 + v14;
+  *(result + 27560) |= 0x4000000000uLL;
   *(v5 + 3016) |= 1u;
-  *(*(a1 + 22496) + 1328) = v20;
+  *(*(result + 22496) + 1328) = v20;
   v22 = MEMORY[0x29EDC5638];
-  *(a1 + 22808) = *(*(a1 + 48) + 224) + *MEMORY[0x29EDC5638];
+  *(result + 22808) = *(*(result + 48) + 224) + *MEMORY[0x29EDC5638];
   *a3 = v19;
   v23 = v21 + 31;
   if (v21 + 31 <= v16)
   {
 LABEL_11:
-    *(a1 + 176) = v23;
+    *(result + 176) = v23;
     goto LABEL_12;
   }
 
-  v29 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 3, 0);
-  v21 = *(a1 + 168);
+  v29 = AGX::DataBufferAllocator<44ul>::growNoInline(result + 24, 3, 0);
+  v21 = *(result + 168);
   if (v29)
   {
     v23 = v21 + 31;
-    if (v21 + 31 <= *(a1 + 160))
+    if (v21 + 31 <= *(result + 160))
     {
       goto LABEL_11;
     }
@@ -1724,36 +1724,36 @@ LABEL_27:
 
 LABEL_12:
   v24 = ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = v24 + *(a1 + 184);
+  v25 = v24 + *(result + 184);
   *(v5 + 3016) |= 1u;
   v26 = *v22;
   *a4 = v24;
   *v24 = 0;
-  *(a1 + 168) = v24 + 8;
-  *(a1 + 27560) |= 0x8000000000uLL;
-  *(*(a1 + 22496) + 1336) = v25;
-  *(a1 + 22816) = *(*(a1 + 48) + 224) + v26;
+  *(result + 168) = v24 + 8;
+  *(result + 27560) |= 0x8000000000uLL;
+  *(*(result + 22496) + 1336) = v25;
+  *(result + 22816) = *(*(result + 48) + 224) + v26;
   v32 = xmmword_29D2F1C60;
   v33 = 1;
   v30 = xmmword_29D2F1C70;
   v31 = 1;
-  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(a1, a2, &v32, &v30);
-  v27 = a1 + 32 * a2;
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(result, a2, &v32, &v30);
+  v27 = result + 32 * a2;
   if (((1 << a2) & 0xFFF339E0480) != 0 && !*(v27 + 72))
   {
-    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(a1 + 24, a2);
+    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(result + 24, a2);
   }
 
   *a5 = *(v27 + 72) - 40;
-  if (*(a1 + 2292) == 1)
+  if (*(result + 2292) == 1)
   {
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::encodeBarrier(a1, a2, 0, 0);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::encodeBarrier(result, a2, 0, 0);
   }
 
   if (v13)
   {
 
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(a1, v13);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(result, v13);
   }
 }
 
@@ -1863,34 +1863,34 @@ LABEL_16:
   }
 }
 
-void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(uint64_t a1, unsigned int a2, _DWORD *a3, void *a4)
+void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(uint64_t result, uint64_t a2, _DWORD *a3, void *a4)
 {
-  if (a4[1] * *a4 * a4[2] > *(*(a1 + 2336) + 456))
+  if (a4[1] * *a4 * a4[2] > *(*(result + 2336) + 456))
   {
     return;
   }
 
-  v4 = *(a1 + 168);
+  v4 = *(result + 168);
   v5 = v4 + 24;
-  if ((v4 + 24) > *(a1 + 160))
+  if ((v4 + 24) > *(result + 160))
   {
     v29 = a3;
     v30 = a4;
     v31 = a2;
-    v32 = a1;
-    v33 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 24, 3, 0);
-    a1 = v32;
+    v32 = result;
+    v33 = AGX::DataBufferAllocator<44ul>::growNoInline(result + 24, 3, 0);
+    result = v32;
     v4 = *(v32 + 168);
     if (!v33)
     {
-      a2 = v31;
+      LODWORD(a2) = v31;
       a4 = v30;
       a3 = v29;
       goto LABEL_4;
     }
 
     v5 = v4 + 24;
-    a2 = v31;
+    LODWORD(a2) = v31;
     a4 = v30;
     a3 = v29;
     if ((v4 + 24) > *(v32 + 160))
@@ -1899,30 +1899,30 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
     }
   }
 
-  *(a1 + 176) = v5;
+  *(result + 176) = v5;
 LABEL_4:
-  v6 = *(a1 + 184) + v4;
-  *(a1 + 168) = v4 + 24;
+  v6 = *(result + 184) + v4;
+  *(result + 168) = v4 + 24;
   v7 = *a3;
   v8 = a3[2];
   v9 = a3[4];
   *v4 = *a3;
   *(v4 + 4) = v8;
   *(v4 + 8) = v9;
-  *(a1 + 26688) = v6;
-  v10 = *(a1 + 22496);
+  *(result + 26688) = v6;
+  v10 = *(result + 22496);
   *(v10 + 1304) = v6;
-  v11 = *(*(a1 + 48) + 224) + *MEMORY[0x29EDC5638];
-  *(a1 + 22784) = v11;
-  *(a1 + 27560) |= 0x800000000uLL;
-  *(a1 + 27592) |= 1u;
+  v11 = *(*(result + 48) + 224) + *MEMORY[0x29EDC5638];
+  *(result + 22784) = v11;
+  *(result + 27560) |= 0x800000000uLL;
+  *(result + 27592) |= 1u;
   *(v4 + 12) = 0x100000001;
   *(v4 + 20) = 1;
-  *(a1 + 26696) = v6 + 12;
+  *(result + 26696) = v6 + 12;
   *(v10 + 1312) = v6 + 12;
-  *(a1 + 22792) = v11;
-  *(a1 + 27560) |= 0x1000000000uLL;
-  *(a1 + 27592) |= 1u;
+  *(result + 22792) = v11;
+  *(result + 27560) |= 0x1000000000uLL;
+  *(result + 27592) |= 1u;
   v12 = *a4;
   v13 = a4[1];
   v14 = *(a4 + 4);
@@ -1991,9 +1991,9 @@ LABEL_4:
   *(v10 + 60) = v9;
   *(v10 + 16) = 0;
   *(v10 + 24) = 0;
-  v28 = *(a1 + 2336);
+  v28 = *(result + 2336);
 
-  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::performEnqueueKernel(a1, a2, 0, v28, 3);
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::performEnqueueKernel(result, a2, 0, v28, 3);
 }
 
 void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::encodeBarrier(uint64_t a1, uint64_t a2, int a3, int a4)
@@ -2203,7 +2203,7 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
         v9[2].i32[0] |= 2u;
       }
 
-      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(a1 + 2336));
+      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(a1 + 2336), *(a1 + 1912));
       v32 = *(a1 + 2336);
       v33 = *(v32 + 208) + *(v32 + 172);
       v34 = *(v32 + 16);
@@ -2362,7 +2362,7 @@ LABEL_43:
             break;
           }
 
-          v55 = __clz(__rbit64(v280));
+          LODWORD(v55) = __clz(__rbit64(v280));
           v57 = v55 | 0x40;
           v56 = &v280;
         }
@@ -2410,7 +2410,7 @@ LABEL_43:
               break;
             }
 
-            v64 = __clz(__rbit64(v280));
+            LODWORD(v64) = __clz(__rbit64(v280));
             v66 = v64 | 0x40;
             v65 = &v280;
           }
@@ -3145,7 +3145,7 @@ LABEL_198:
       v200 = WORD2(v277) | (*(v11 + 3862) << 16);
       if ((v269 & 0xFFFFFFFFFFFFFCFFLL) == 3)
       {
-        v201 = *(&unk_29D2F2740 + ((v269 >> 6) & 0x3FC)) & 7;
+        v201 = *(dword_29D2F2740 + ((v269 >> 6) & 0x3FC)) & 7;
       }
 
       else
@@ -3186,7 +3186,7 @@ LABEL_198:
       v204 = WORD2(v277) | (*(v11 + 3826) << 16);
       if ((v269 & 0xFFFFFFFFFFFFFCFFLL) == 3)
       {
-        v205 = *(&unk_29D2F2740 + ((v269 >> 6) & 0x3FC)) & 7;
+        v205 = *(dword_29D2F2740 + ((v269 >> 6) & 0x3FC)) & 7;
       }
 
       else
@@ -3233,7 +3233,7 @@ LABEL_198:
     v216 = *(a1 + 2420);
     if ((v269 & 0xFFFFFFFFFFFFFCFFLL) == 3)
     {
-      v217 = *(&unk_29D2F2740 + ((v269 >> 6) & 0x3FC)) & 7;
+      v217 = *(dword_29D2F2740 + ((v269 >> 6) & 0x3FC)) & 7;
     }
 
     else
@@ -3280,7 +3280,7 @@ LABEL_198:
     v222 = *(a1 + 2396) * *(a1 + 2384);
     if ((v269 & 0xFFFFFFFFFFFFFCFFLL) == 3)
     {
-      v223 = *(&unk_29D2F2740 + ((v269 >> 6) & 0x3FC)) & 7;
+      v223 = *(dword_29D2F2740 + ((v269 >> 6) & 0x3FC)) & 7;
     }
 
     else
@@ -3529,7 +3529,7 @@ LABEL_5:
 
     v35 = *(v2 + 22496) + 1496;
     v36 = v2 + 22976;
-    if (AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList(v4 + 2352, &v35))
+    if (AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList(v4 + 2352, &v35, *(v2 + 1904)))
     {
       if (v16)
       {
@@ -3542,7 +3542,7 @@ LABEL_5:
 
     v35 = v2 + 28152;
     v36 = v2 + 28160;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v4 + 3146, &v35))
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v4 + 3146, &v35, *(v2 + 1904)))
     {
       IOGPUResourceListAddResource();
     }
@@ -3550,7 +3550,7 @@ LABEL_5:
     **(v2 + 28144) = *(v2 + 28152);
     v35 = v2 + 28168;
     v36 = v2 + 28176;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v4 + 2952, &v35))
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v4 + 2952, &v35, *(v2 + 1904)))
     {
       IOGPUResourceListAddResource();
     }
@@ -3558,7 +3558,7 @@ LABEL_5:
     *(*(v2 + 28144) + 8) = *(v2 + 28168);
     v35 = *(v2 + 22496) + 1544;
     v36 = v2 + 23024;
-    if (AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v4 + 3534, &v35))
+    if (AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v4 + 3534, &v35, *(v2 + 1904)))
     {
       if (v16)
       {
@@ -3572,7 +3572,7 @@ LABEL_5:
     v18 = *(v2 + 2280);
     v35 = *(v2 + 22496) + 1424;
     v36 = v2 + 22904;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v18, &v35))
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v18, &v35, *(v2 + 1904)))
     {
       if (v16)
       {
@@ -3586,7 +3586,7 @@ LABEL_5:
     v19 = *(v2 + 2272);
     v35 = *(v2 + 22496) + 1432;
     v36 = v2 + 22912;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v19, &v35))
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v19, &v35, *(v2 + 1904)))
     {
       if (v16)
       {
@@ -3599,7 +3599,7 @@ LABEL_5:
 
     v35 = *(v2 + 22496) + 1536;
     v36 = v2 + 23016;
-    result = AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList(v4 + 2752, &v35);
+    result = AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList(v4 + 2752, &v35, *(v2 + 1904));
     if (result)
     {
       if (v16)
@@ -3627,7 +3627,7 @@ LABEL_5:
   {
     v35 = *(v2 + 22496) + 1400;
     v36 = v2 + 22880;
-    result = AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList(v4 + 2152, &v35);
+    result = AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList(v4 + 2152, &v35, *(v2 + 1904));
     v22 = *(v2 + 2328);
     *(v22 + 152) = *(*(v2 + 22496) + 1400);
     v23 = atomic_load_explicit(&v4[2347], memory_order_acquire);
@@ -3673,7 +3673,7 @@ LABEL_5:
   return result;
 }
 
-void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::bindBufferResourceToCommand(uint64_t a1, unsigned int a2, int a3)
+void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::bindBufferResourceToCommand(uint64_t result, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -3685,11 +3685,11 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
     v3 = 1;
   }
 
-  v4 = a1 + 22504;
-  v5 = *(a1 + 22504 + 8 * a2);
+  v4 = result + 22504;
+  v5 = *(result + 22504 + 8 * a2);
   if (v5)
   {
-    if (a2 - 37 <= 0x1D && ((1 << (a2 - 37)) & 0x3E687661) != 0)
+    if ((a2 - 37) <= 0x1D && ((1 << (a2 - 37)) & 0x3E687661) != 0)
     {
 
       IOGPUResourceListAddResource();
@@ -3697,13 +3697,14 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
 
     else
     {
-      AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResource(*(a1 + 2008), v5, 0, a2, v3);
-      v8 = a2;
+      v7 = a2;
+      AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResource(*(result + 2008), v5, 0, a2, v3);
+      v8 = v7;
       IOGPUResourceListAddResource();
-      v9 = a1;
-      if (*(a1 + 2292) == 1)
+      v9 = result;
+      if (*(result + 2292) == 1)
       {
-        v10 = *(a1 + 27616);
+        v10 = *(result + 27616);
         if (!v10)
         {
           operator new();
@@ -3712,7 +3713,7 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
         v11 = *(*(v4 + 8 * v8) + 48);
         v17 = v3;
         ResourceTracker<_ResourceTrackerBinding>::addResource((v10 + 8), &v17, v11, v3);
-        v9 = a1;
+        v9 = result;
       }
 
       if (v8 <= 0x22)
@@ -3722,10 +3723,10 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
         {
           v13 = MEMORY[0x29EDC5638];
           IOGPUResourceListAddResource();
-          AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setAndBindResource(*(a1 + 2008), *(v12 + 8 * v8), v3, v14);
-          if (*(a1 + 2292) == 1)
+          AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setAndBindResource(*(result + 2008), *(v12 + 8 * v8), v3, v14);
+          if (*(result + 2292) == 1)
           {
-            v15 = *(a1 + 27616);
+            v15 = *(result + 27616);
             if (!v15)
             {
               operator new();
@@ -3741,7 +3742,7 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
   }
 }
 
-uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::bindTextureResourceToCommand(uint64_t a1, unsigned int a2, int a3)
+uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::bindTextureResourceToCommand(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -3753,7 +3754,7 @@ uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL
     v4 = 1;
   }
 
-  v5 = 3 * a2;
+  v5 = (3 * a2);
   v6 = a1 + 23056;
   AGX::ResourceGroupUsage<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResource(*(a1 + 2008), *(a1 + 23056 + 8 * v5), 3u, a2, v4);
   result = IOGPUResourceListAddResource();
@@ -4110,7 +4111,7 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
 
   if (*(*(v4 + 424) + 24) == 1)
   {
-    AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(a1 + 2336));
+    AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(a1 + 2336), *(a1 + 1912));
     v14 = *(a1 + 2336);
     v15 = *(v14 + 208) + *(v14 + 172);
     v16 = *(v14 + 16);
@@ -4638,7 +4639,7 @@ LABEL_116:
     v269 = vdupq_n_s64(1uLL);
     v271 = v119;
     v272 = v269;
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(a1, 0x1Au, &v268, &v271);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(a1, 26, &v268, &v271);
     if (*(a1 + 2292) == 1 && *(a1 + 28248) == 1)
     {
       v139 = *(a1 + 28264);
@@ -4850,7 +4851,7 @@ LABEL_160:
   *(a1 + 2060) |= 1u;
   v174 = *(a1 + 2336);
   AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(a1, v173);
-  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(a1, 0x1Bu, qword_29D2F5330, qword_29D2F5330);
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(a1, 27, qword_29D2F5330, qword_29D2F5330);
   if (*(a1 + 2292) == 1 && *(a1 + 28248) == 1)
   {
     v175 = *(a1 + 28264);
@@ -5210,32 +5211,32 @@ LABEL_203:
   *(*(a1 + 2328) + 586) |= v260;
 }
 
-void *std::deque<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block>>::__add_back_capacity(void *a1)
+void std::deque<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x40;
   v3 = v1 - 64;
   if (!v2)
   {
-    v6 = a1[3];
-    v7 = v6 - *a1;
-    if (a1[2] - a1[1] < v7)
+    v5 = a1[3];
+    v6 = v5 - *a1;
+    if (a1[2] - a1[1] < v6)
     {
       operator new();
     }
 
-    v8 = v7 >> 2;
-    if (v6 == *a1)
+    v7 = v6 >> 2;
+    if (v5 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8;
+      v8 = v7;
     }
 
-    if (!(v9 >> 61))
+    if (!(v8 >> 61))
     {
       operator new();
     }
@@ -5245,9 +5246,9 @@ void *std::deque<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,
 
   a1[4] = v3;
   v4 = a1[1];
-  v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *>>::emplace_back<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *&>(a1, &v10);
+  v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *>>::emplace_back<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *&>(a1, &v9);
 }
 
 void sub_29CD5FE38(_Unwind_Exception *a1)
@@ -5257,18 +5258,17 @@ void sub_29CD5FE38(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *>>::emplace_back<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *&>(void *result, void *a2)
+void std::__split_buffer<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *>>::emplace_back<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      v11 = &v4[-*result] >> 2;
-      if (v4 == *result)
+      v11 = &v4[-*a1] >> 2;
+      if (v4 == *a1)
       {
         v11 = 1;
       }
@@ -5287,17 +5287,16 @@ void *std::__split_buffer<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlo
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v7], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
+    a1[1] = &v5[8 * v8];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
+  a1[2] = (v4 + 8);
 }
 
 void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsIndirectInternal(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5649,20 +5648,20 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
     v10 = *(a2 + *MEMORY[0x29EDC5638] + 8);
     v11 = a1;
     AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::encodeIndirectComputeParameters(a1, a2, a3, 0x23u);
-    v12 = v11[21];
+    v12 = *(v11 + 168);
     v13 = v12 + 3;
-    if ((v12 + 3) > v11[20])
+    if ((v12 + 3) > *(v11 + 160))
     {
-      v37 = AGX::DataBufferAllocator<44ul>::growNoInline(v11 + 3, 3, 0);
+      v37 = AGX::DataBufferAllocator<44ul>::growNoInline(v11 + 24, 3, 0);
       v14 = v11;
-      v12 = v11[21];
+      v12 = *(v11 + 168);
       if (!v37)
       {
         goto LABEL_12;
       }
 
       v13 = v12 + 3;
-      if ((v12 + 3) > v11[20])
+      if ((v12 + 3) > *(v11 + 160))
       {
         abort();
       }
@@ -6525,7 +6524,7 @@ void *AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
     v7 = (a3 + 15) | 0xF;
     v8 = *(a1 + 168);
     v9 = v8 + v7;
-    if ((v8 + v7) <= *(a1 + 160))
+    if (v8 + v7 <= *(a1 + 160))
     {
       goto LABEL_3;
     }
@@ -6546,7 +6545,7 @@ void *AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
     v9 = v8 + v7;
     a3 = v23;
     a2 = v22;
-    if ((v8 + v7) <= *(v24 + 160))
+    if (v8 + v7 <= *(v24 + 160))
     {
 LABEL_3:
       *(a1 + 176) = v9;
@@ -6566,7 +6565,7 @@ LABEL_21:
   v14 = (a3 + 15) | 0xF;
   v15 = *(a1 + 168);
   v16 = v15 + v14;
-  if ((v15 + v14) > *(a1 + 160))
+  if (v15 + v14 > *(a1 + 160))
   {
     v26 = a2;
     v27 = a3;
@@ -6584,7 +6583,7 @@ LABEL_21:
     v16 = v15 + v14;
     a3 = v27;
     a2 = v26;
-    if ((v15 + v14) > *(v28 + 160))
+    if (v15 + v14 > *(v28 + 160))
     {
       goto LABEL_21;
     }
@@ -6711,7 +6710,7 @@ LABEL_6:
   AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(a1, *(*(*(a1 + 1872) + 848) + 17200));
   if (!*(a1 + 712))
   {
-    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(a1 + 24, 0x14u);
+    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(a1 + 24, 20);
   }
 
   v10 = *(*(a1 + 48) + 1312) + *MEMORY[0x29EDC5638];
@@ -6899,7 +6898,7 @@ uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL
   return a1;
 }
 
-void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyBufferToBufferImpl(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6)
+void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyBufferToBufferImpl(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6)
 {
   v6 = a6 + a5;
   v7 = a6 + a3;
@@ -6967,7 +6966,7 @@ LABEL_17:
     if (!v106)
     {
       v109 = a6;
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v105 + 3, 18, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v105 + 3), 18, 0))
       {
         goto LABEL_117;
       }
@@ -6986,7 +6985,7 @@ LABEL_17:
     }
 
     v110 = a6;
-    v111 = AGX::DataBufferAllocator<44ul>::growNoInline(v105 + 3, 18, 0);
+    v111 = AGX::DataBufferAllocator<44ul>::growNoInline((v105 + 3), 18, 0);
     a6 = v110;
     a5 = v123;
     if (!v111)
@@ -7786,11 +7785,11 @@ LABEL_16:
   }
 }
 
-uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::executeKernelThreadsInternal(uint64_t result, uint64_t a2, _DWORD *a3, void *a4)
+void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::executeKernelThreadsInternal(uint64_t result, uint64_t a2, _DWORD *a3, void *a4)
 {
   if (a4[1] * *a4 * a4[2] > *(*(result + 2336) + 456))
   {
-    return result;
+    return;
   }
 
   v4 = *(result + 168);
@@ -7806,14 +7805,14 @@ uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL
     v4 = *(v32 + 168);
     if (!v33)
     {
-      a2 = v31;
+      LODWORD(a2) = v31;
       a4 = v30;
       a3 = v29;
       goto LABEL_4;
     }
 
     v5 = v4 + 24;
-    a2 = v31;
+    LODWORD(a2) = v31;
     a4 = v30;
     a3 = v29;
     if ((v4 + 24) > *(v32 + 160))
@@ -7914,7 +7913,7 @@ LABEL_4:
   *(v10 + 24) = 0;
   v28 = *(result + 2336);
 
-  return AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::performEnqueueKernel(result, a2, 0, v28, 3);
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::performEnqueueKernel(result, a2, 0, v28, 3);
 }
 
 void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::performEnqueueKernel(uint64_t a1, unsigned int a2, size_t a3, uint64_t a4, int a5)
@@ -8048,7 +8047,7 @@ LABEL_5:
         *(a1 + 4944) |= 2u;
       }
 
-      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(a1 + 2336));
+      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(a1 + 2336), *(a1 + 1912));
       v37 = *(a1 + 2336);
       v38 = *(v37 + 208) + *(v37 + 172);
       v39 = *(v37 + 16);
@@ -9122,7 +9121,7 @@ LABEL_230:
       v222 = WORD2(a3) | (*(v11 + 3862) << 16);
       if ((v286 & 0xFFFFFFFFFFFFFCFFLL) == 3)
       {
-        v223 = *(&unk_29D2F2740 + ((v286 >> 6) & 0x3FC)) & 7;
+        v223 = *(dword_29D2F2740 + ((v286 >> 6) & 0x3FC)) & 7;
       }
 
       else
@@ -9164,7 +9163,7 @@ LABEL_230:
       v226 = WORD2(a3) | (*(v11 + 3826) << 16);
       if ((v286 & 0xFFFFFFFFFFFFFCFFLL) == 3)
       {
-        v227 = *(&unk_29D2F2740 + ((v286 >> 6) & 0x3FC)) & 7;
+        v227 = *(dword_29D2F2740 + ((v286 >> 6) & 0x3FC)) & 7;
       }
 
       else
@@ -9212,7 +9211,7 @@ LABEL_230:
     v238 = *(a1 + 2420);
     if ((v286 & 0xFFFFFFFFFFFFFCFFLL) == 3)
     {
-      v239 = *(&unk_29D2F2740 + ((v286 >> 6) & 0x3FC)) & 7;
+      v239 = *(dword_29D2F2740 + ((v286 >> 6) & 0x3FC)) & 7;
     }
 
     else
@@ -9260,7 +9259,7 @@ LABEL_230:
     v244 = *(a1 + 2396) * *(a1 + 2384);
     if ((v286 & 0xFFFFFFFFFFFFFCFFLL) == 3)
     {
-      v245 = *(&unk_29D2F2740 + ((v286 >> 6) & 0x3FC)) & 7;
+      v245 = *(dword_29D2F2740 + ((v286 >> 6) & 0x3FC)) & 7;
     }
 
     else
@@ -9509,7 +9508,7 @@ LABEL_5:
 
     v34 = *(v2 + 4544) + 1496;
     v35 = v2 + 4776;
-    if (AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList(v3 + 2352, &v34))
+    if (AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList(v3 + 2352, &v34, *(v2 + 1904)))
     {
       if (v15)
       {
@@ -9522,7 +9521,7 @@ LABEL_5:
 
     v34 = v2 + 5504;
     v35 = v2 + 5512;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v3 + 3146, &v34))
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v3 + 3146, &v34, *(v2 + 1904)))
     {
       IOGPUResourceListAddResource();
     }
@@ -9530,7 +9529,7 @@ LABEL_5:
     **(v2 + 5496) = *(v2 + 5504);
     v34 = v2 + 5520;
     v35 = v2 + 5528;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v3 + 2952, &v34))
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v3 + 2952, &v34, *(v2 + 1904)))
     {
       IOGPUResourceListAddResource();
     }
@@ -9538,7 +9537,7 @@ LABEL_5:
     *(*(v2 + 5496) + 8) = *(v2 + 5520);
     v34 = *(v2 + 4544) + 1544;
     v35 = v2 + 4824;
-    if (AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v3 + 3534, &v34))
+    if (AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v3 + 3534, &v34, *(v2 + 1904)))
     {
       if (v15)
       {
@@ -9552,7 +9551,7 @@ LABEL_5:
     v17 = *(v2 + 2280);
     v34 = *(v2 + 4544) + 1424;
     v35 = v2 + 4704;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v17, &v34))
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v17, &v34, *(v2 + 1904)))
     {
       if (v15)
       {
@@ -9566,7 +9565,7 @@ LABEL_5:
     v18 = *(v2 + 2272);
     v34 = *(v2 + 4544) + 1432;
     v35 = v2 + 4712;
-    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v18, &v34))
+    if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v18, &v34, *(v2 + 1904)))
     {
       if (v15)
       {
@@ -9579,7 +9578,7 @@ LABEL_5:
 
     v34 = *(v2 + 4544) + 1536;
     v35 = v2 + 4816;
-    result = AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList(v3 + 2752, &v34);
+    result = AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList(v3 + 2752, &v34, *(v2 + 1904));
     if (result)
     {
       if (v15)
@@ -9607,7 +9606,7 @@ LABEL_5:
   {
     v34 = *(v2 + 4544) + 1400;
     v35 = v2 + 4680;
-    result = AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList(v3 + 2152, &v34);
+    result = AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList(v3 + 2152, &v34, *(v2 + 1904));
     v21 = *(v2 + 2328);
     *(v21 + 152) = *(*(v2 + 4544) + 1400);
     v22 = atomic_load_explicit(&v3[2347], memory_order_acquire);

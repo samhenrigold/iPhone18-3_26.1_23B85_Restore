@@ -9,7 +9,7 @@
 
 - (id)copySamplesFrom:(unint64_t)from to:(unint64_t)to
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   ptr = self->_remoteVADCircularBufferImpl.__ptr_;
   v7 = ptr[2];
   v8 = ptr[4];
@@ -25,7 +25,6 @@
 
   if (v9 <= from && to > from && v8 >= to && v8 > from && v9 < to)
   {
-    v17 = *ptr;
     operator new[]();
   }
 
@@ -34,15 +33,15 @@
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v21 = "copySamples";
-    v22 = 2050;
+    v19 = "copySamples";
+    v20 = 2050;
     fromCopy2 = from;
-    v24 = 2050;
+    v22 = 2050;
     toCopy2 = to;
+    v24 = 2050;
+    v25 = v9;
     v26 = 2050;
-    v27 = v9;
-    v28 = 2050;
-    v29 = v8;
+    v27 = v8;
     _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s Invalid request: reqStartSample=%{public}lu, reqEndSample=%{public}lu, oldestSampleInBuffer: %{public}lu, latestSampleInBuffer=%{public}lu", buf, 0x34u);
   }
 
@@ -50,17 +49,16 @@
   if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v21 = "[CSRemoteVADCircularBuffer copySamplesFrom:to:]";
-    v22 = 2050;
+    v19 = "[CSRemoteVADCircularBuffer copySamplesFrom:to:]";
+    v20 = 2050;
     fromCopy2 = from;
-    v24 = 2050;
+    v22 = 2050;
     toCopy2 = to;
-    v26 = 2050;
-    v27 = 0;
+    v24 = 2050;
+    v25 = 0;
     _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_DEFAULT, "%s Could NOT copyFrom: %{public}lu to: %{public}lu, retSampleCount: %{public}lu", buf, 0x2Au);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

@@ -7,11 +7,11 @@
 
 - (WLKSiriSearchResponse)initWithDictionary:(id)dictionary
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v33.receiver = self;
-  v33.super_class = WLKSiriSearchResponse;
-  v6 = [(WLKSiriSearchResponse *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = WLKSiriSearchResponse;
+  v6 = [(WLKSiriSearchResponse *)&v32 init];
   v7 = v6;
   if (v6)
   {
@@ -74,28 +74,28 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       firstObject = v11;
-      v16 = [firstObject countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v16 = [firstObject countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v16)
       {
         v17 = v16;
-        v27 = v11;
-        v28 = v9;
-        v18 = *v30;
+        v26 = v11;
+        v27 = v9;
+        v18 = *v29;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v30 != v18)
+            if (*v29 != v18)
             {
               objc_enumerationMutation(firstObject);
             }
 
-            v20 = *(*(&v29 + 1) + 8 * i);
+            v20 = *(*(&v28 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -107,12 +107,12 @@ LABEL_26:
             }
           }
 
-          v17 = [firstObject countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v17 = [firstObject countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
         while (v17);
-        v9 = v28;
-        v11 = v27;
+        v9 = v27;
+        v11 = v26;
       }
     }
 
@@ -121,7 +121,6 @@ LABEL_26:
 
 LABEL_29:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

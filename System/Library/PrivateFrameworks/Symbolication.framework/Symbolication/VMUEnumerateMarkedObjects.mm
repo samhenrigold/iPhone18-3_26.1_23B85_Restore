@@ -3,7 +3,7 @@
 
 @implementation VMUEnumerateMarkedObjects
 
-uint64_t ___VMUEnumerateMarkedObjects_block_invoke(uint64_t result)
+void *___VMUEnumerateMarkedObjects_block_invoke(void *result)
 {
   v1 = s_currentMarkingContext;
   if (s_currentMarkingContext)
@@ -11,8 +11,8 @@ uint64_t ___VMUEnumerateMarkedObjects_block_invoke(uint64_t result)
     v2 = result;
     do
     {
-      *(*(*(v2 + 40) + 8) + 24) += *(v1 + 28);
-      if (*(v2 + 32))
+      *(*(*(v2 + 5) + 8) + 24) += *(v1 + 28);
+      if (*(v2 + 4))
       {
         v3 = *(v1 + 20);
         if (v3)
@@ -23,7 +23,7 @@ uint64_t ___VMUEnumerateMarkedObjects_block_invoke(uint64_t result)
           {
             if (*(v5 + 8 * v4))
             {
-              result = [*(v2 + 32) addObject:?];
+              result = [*(v2 + 4) addObject:?];
               v3 = *(v1 + 20);
             }
 

@@ -209,7 +209,7 @@ LABEL_14:
 
 - (id)_eveningRoutineIntervalForEvening:(id)evening
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   periodOfDayPredictor = self->_periodOfDayPredictor;
   eveningCopy = evening;
   startDate = [eveningCopy startDate];
@@ -226,13 +226,12 @@ LABEL_14:
   v13 = RELogForDomain(8);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v12;
-    _os_log_impl(&dword_22859F000, v13, OS_LOG_TYPE_DEFAULT, "eveningStart is: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v12;
+    _os_log_impl(&dword_22859F000, v13, OS_LOG_TYPE_DEFAULT, "eveningStart is: %@", &v16, 0xCu);
   }
 
   v14 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v12 duration:v8 * 0.400000006 + v10];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -288,7 +287,7 @@ uint64_t __75__REDailyRoutinePredictor_periodOfDayPredictorDidUpdatePredictedInt
 
 - (void)_updateCurrentRoutine
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   currentPeriodOfDay = [(REPeriodOfDayPredictor *)self->_periodOfDayPredictor currentPeriodOfDay];
   intervalForCurrentPeriodOfDay = [(REPeriodOfDayPredictor *)self->_periodOfDayPredictor intervalForCurrentPeriodOfDay];
@@ -297,25 +296,25 @@ uint64_t __75__REDailyRoutinePredictor_periodOfDayPredictorDidUpdatePredictedInt
   v6 = RELogForDomain(8);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v23 = self->_currentRoutine;
-    if (v23 > 2)
+    v22 = self->_currentRoutine;
+    if (v22 > 2)
     {
-      v26 = 0;
+      v25 = 0;
     }
 
     else
     {
-      v26 = off_2785FB310[v23];
+      v25 = off_2785FB310[v22];
     }
 
     currentRoutineInterval = self->_currentRoutineInterval;
     REStringForPeriodOfDay(currentPeriodOfDay);
     *buf = 138412802;
-    v30 = v26;
-    v31 = 2112;
-    v32 = currentRoutineInterval;
-    v34 = v33 = 2112;
-    v25 = v34;
+    v29 = v25;
+    v30 = 2112;
+    v31 = currentRoutineInterval;
+    v33 = v32 = 2112;
+    v24 = v33;
     _os_log_debug_impl(&dword_22859F000, v6, OS_LOG_TYPE_DEBUG, "Current routine (%@, %@) updating based on period of day: %@", buf, 0x20u);
   }
 
@@ -401,9 +400,9 @@ LABEL_16:
 
     v19 = self->_currentRoutineInterval;
     *buf = 138412546;
-    v30 = v18;
-    v31 = 2112;
-    v32 = v19;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v19;
     _os_log_impl(&dword_22859F000, v16, OS_LOG_TYPE_INFO, "Updated routine to %@, %@", buf, 0x16u);
   }
 
@@ -421,11 +420,9 @@ LABEL_16:
     block[6] = v20;
     dispatch_async(queue, block);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__REDailyRoutinePredictor__updateCurrentRoutine__block_invoke(uint64_t a1)
+void *__48__REDailyRoutinePredictor__updateCurrentRoutine__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   if (v2 == 2)

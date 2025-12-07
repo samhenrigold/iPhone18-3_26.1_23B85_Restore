@@ -84,30 +84,31 @@ uint64_t __60__MCResourceDownloader_syncCloseStreamForSession_withError___block_
 {
   v17 = *MEMORY[0x277D85DE8];
   v8 = [(MCResourceDownloader *)self session:session];
-  v9 = mcs_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = mcs_log(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     sessionCopy = session;
     v15 = 2112;
     errorCopy = error;
-    _os_log_impl(&dword_239FB7000, v9, OS_LOG_TYPE_DEFAULT, "URL session[%@] did complete with error [%@].", buf, 0x16u);
+    _os_log_impl(&dword_239FB7000, v10, OS_LOG_TYPE_DEFAULT, "URL session[%@] did complete with error [%@].", buf, 0x16u);
   }
 
-  if (error && v8)
+  if (error)
   {
-    syncQueue = [(MCSession *)v8 syncQueue];
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __61__MCResourceDownloader_URLSession_task_didCompleteWithError___block_invoke;
-    block[3] = &unk_278B43C88;
-    block[4] = self;
-    block[5] = v8;
-    block[6] = error;
-    dispatch_async(syncQueue, block);
+    if (v8)
+    {
+      syncQueue = [(MCSession *)v8 syncQueue];
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __61__MCResourceDownloader_URLSession_task_didCompleteWithError___block_invoke;
+      block[3] = &unk_278B43C88;
+      block[4] = self;
+      block[5] = v8;
+      block[6] = error;
+      dispatch_async(syncQueue, block);
+    }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__MCResourceDownloader_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1)
@@ -118,13 +119,13 @@ void __61__MCResourceDownloader_URLSession_task_didCompleteWithError___block_inv
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v10 = mcs_log();
+  v19 = *MEMORY[0x277D85DE8];
+  v10 = mcs_log(self, a2);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     taskCopy = task;
-    v18 = 2112;
+    v17 = 2112;
     responseCopy = response;
     _os_log_impl(&dword_239FB7000, v10, OS_LOG_TYPE_DEFAULT, "URLSession received task[%@] response[%@].", buf, 0x16u);
   }
@@ -145,8 +146,6 @@ void __61__MCResourceDownloader_URLSession_task_didCompleteWithError___block_inv
     block[6] = response;
     dispatch_async(syncQueue, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __81__MCResourceDownloader_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke(uint64_t a1)
@@ -154,24 +153,24 @@ void __81__MCResourceDownloader_URLSession_dataTask_didReceiveResponse_completio
   v19 = *MEMORY[0x277D85DE8];
   v2 = [objc_msgSend(*(a1 + 32) "peerStates")];
   v3 = [objc_msgSend(v2 "outgoingStreamRequests")];
-  v4 = mcs_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = mcs_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 48);
+    v6 = *(a1 + 48);
     *buf = 138412802;
-    v14 = v5;
+    v14 = v6;
     v15 = 2112;
     v16 = [v3 name];
     v17 = 1024;
     v18 = [v3 streamID];
-    _os_log_impl(&dword_239FB7000, v4, OS_LOG_TYPE_DEFAULT, "Streaming: received HTTP response [%@] stream name [%@] streamID [%08X].", buf, 0x1Cu);
+    _os_log_impl(&dword_239FB7000, v5, OS_LOG_TYPE_DEFAULT, "Streaming: received HTTP response [%@] stream name [%@] streamID [%08X].", buf, 0x1Cu);
   }
 
-  v6 = [*(a1 + 48) statusCode];
-  v7 = *(a1 + 64);
-  if (v6 == 200)
+  v7 = [*(a1 + 48) statusCode];
+  v8 = *(a1 + 64);
+  if (v7 == 200)
   {
-    *(*(a1 + 40) + 24) = _Block_copy(v7);
+    *(*(a1 + 40) + 24) = _Block_copy(v8);
     if (![*(a1 + 56) countOfBytesExpectedToReceive])
     {
       [v3 setProgressUnbounded:1];
@@ -183,25 +182,23 @@ void __81__MCResourceDownloader_URLSession_dataTask_didReceiveResponse_completio
 
   else
   {
-    v7[2](v7, 0);
-    v8 = [MEMORY[0x277CBAB48] localizedStringForStatusCode:v6];
-    v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"MCSession" code:6 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObject:forKey:", v8, *MEMORY[0x277CCA450])}];
+    v8[2](v8, 0);
+    v9 = [MEMORY[0x277CBAB48] localizedStringForStatusCode:v7];
+    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"MCSession" code:6 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObject:forKey:", v9, *MEMORY[0x277CCA450])}];
     if ([v3 completionHandler])
     {
-      v10 = [*(a1 + 32) callbackQueue];
+      v11 = [*(a1 + 32) callbackQueue];
       v12[0] = MEMORY[0x277D85DD0];
       v12[1] = 3221225472;
       v12[2] = __81__MCResourceDownloader_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_173;
       v12[3] = &unk_278B43C60;
       v12[4] = v3;
-      v12[5] = v9;
-      dispatch_async(v10, v12);
+      v12[5] = v10;
+      dispatch_async(v11, v12);
     }
 
     [objc_msgSend(v2 "outgoingStreamRequests")];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __81__MCResourceDownloader_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_173(uint64_t a1)
@@ -216,7 +213,7 @@ uint64_t __81__MCResourceDownloader_URLSession_dataTask_didReceiveResponse_compl
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
 {
   v19 = *MEMORY[0x277D85DE8];
-  v8 = mcs_log();
+  v8 = mcs_log(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -230,7 +227,7 @@ uint64_t __81__MCResourceDownloader_URLSession_dataTask_didReceiveResponse_compl
   session = [(MCResourceDownloader *)self session];
   if (session)
   {
-    v10 = session;
+    v11 = session;
     if ([data length])
     {
       [(MCResourceDownloader *)self sendData:data fromByteOffset:0];
@@ -238,29 +235,27 @@ uint64_t __81__MCResourceDownloader_URLSession_dataTask_didReceiveResponse_compl
 
     else
     {
-      syncQueue = [(MCSession *)v10 syncQueue];
+      syncQueue = [(MCSession *)v11 syncQueue];
       v14[0] = MEMORY[0x277D85DD0];
       v14[1] = 3221225472;
       v14[2] = __59__MCResourceDownloader_URLSession_dataTask_didReceiveData___block_invoke;
       v14[3] = &unk_278B43C60;
       v14[4] = self;
-      v14[5] = v10;
+      v14[5] = v11;
       dispatch_async(syncQueue, v14);
     }
   }
 
   else
   {
-    v11 = mcs_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = mcs_log(0, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [MCResourceDownloader URLSession:dataTask:didReceiveData:];
     }
 
     [(NSURLSessionDataTask *)self->_urlTask cancel];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __59__MCResourceDownloader_URLSession_dataTask_didReceiveData___block_invoke(uint64_t a1)
@@ -271,88 +266,87 @@ void __59__MCResourceDownloader_URLSession_dataTask_didReceiveData___block_invok
 
 - (void)sendData:(id)data fromByteOffset:(unint64_t)offset
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   session = [(MCResourceDownloader *)self session];
   if (session)
   {
-    v8 = session;
-    v9 = [objc_msgSend(-[NSMutableDictionary objectForKey:](-[MCSession peerStates](session "peerStates")];
-    [v9 setSourceSuspended:1];
-    v21[1] = v21;
-    v10 = (v21 - ((AGPSessionMaximumSegmentSize(1) + 15) & 0x1FFFFFFF0));
-    *v10 = bswap32([v9 streamID]);
-    LODWORD(v11) = AGPSessionMaximumSegmentSize(1) - 4;
-    v12 = [data length];
-    v13 = v12 - offset;
-    if (v12 - offset >= v11)
+    v9 = session;
+    v10 = [objc_msgSend(-[NSMutableDictionary objectForKey:](-[MCSession peerStates](session "peerStates")];
+    [v10 setSourceSuspended:1];
+    v25[1] = v25;
+    v11 = v25 - ((AGPSessionMaximumSegmentSize(1) + 15) & 0x1FFFFFFF0);
+    *v11 = bswap32([v10 streamID]);
+    LODWORD(v12) = AGPSessionMaximumSegmentSize(1) - 4;
+    v13 = [data length];
+    v14 = v13 - offset;
+    if (v13 - offset >= v12)
     {
-      v11 = v11;
+      v12 = v12;
     }
 
     else
     {
-      v11 = v12 - offset;
+      v12 = v13 - offset;
     }
 
-    memcpy(v10 + 1, ([data bytes] + offset), v11);
-    v14 = mcs_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = memcpy(v11 + 4, ([data bytes] + offset), v12);
+    v17 = mcs_log(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      name = [v9 name];
+      name = [v10 name];
       *buf = 138412802;
-      v26 = name;
-      v27 = 2048;
-      v28 = v11;
-      v29 = 2048;
-      v30 = v13;
-      _os_log_impl(&dword_239FB7000, v14, OS_LOG_TYPE_DEFAULT, "Streaming: Outgoing HTTP download stream segment [%@]: %ld bytes to send (total %ld).", buf, 0x20u);
+      v30 = name;
+      v31 = 2048;
+      v32 = v12;
+      v33 = 2048;
+      v34 = v14;
+      _os_log_impl(&dword_239FB7000, v17, OS_LOG_TYPE_DEFAULT, "Streaming: Outgoing HTTP download stream segment [%@]: %ld bytes to send (total %ld).", buf, 0x20u);
     }
 
     *buf = 0;
-    v24 = [(MCPeerID *)self->_peerID pid];
-    agpSession = [(MCSession *)v8 agpSession];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __48__MCResourceDownloader_sendData_fromByteOffset___block_invoke;
-    v23[3] = &unk_278B43CD8;
-    v23[8] = v11;
-    v23[9] = v13;
-    v23[4] = v9;
-    v23[5] = self;
-    v23[10] = offset;
-    v23[6] = data;
-    v23[7] = v8;
-    if (AGPSessionSendTo(agpSession, &v24, 1, v10, v11 + 4, buf, 0, 0xAu, 1, v23))
+    v28 = [(MCPeerID *)self->_peerID pid];
+    agpSession = [(MCSession *)v9 agpSession];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __48__MCResourceDownloader_sendData_fromByteOffset___block_invoke;
+    v27[3] = &unk_278B43CD8;
+    v27[8] = v12;
+    v27[9] = v14;
+    v27[4] = v10;
+    v27[5] = self;
+    v27[10] = offset;
+    v27[6] = data;
+    v27[7] = v9;
+    v20 = AGPSessionSendTo(agpSession, &v28, 1, v11, v12 + 4, buf, 0, 0xAu, 1u, v27);
+    if (v20)
     {
-      v17 = mcs_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v22 = mcs_log(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [MCResourceDownloader sendData:buf fromByteOffset:?];
+        [MCResourceDownloader sendData:fromByteOffset:];
       }
 
-      syncQueue = [(MCSession *)v8 syncQueue];
+      syncQueue = [(MCSession *)v9 syncQueue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __48__MCResourceDownloader_sendData_fromByteOffset___block_invoke_177;
       block[3] = &unk_278B43C60;
       block[4] = self;
-      block[5] = v8;
+      block[5] = v9;
       dispatch_async(syncQueue, block);
     }
   }
 
   else
   {
-    v19 = mcs_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v24 = mcs_log(0, v8);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [MCResourceDownloader URLSession:dataTask:didReceiveData:];
     }
 
     [(NSURLSessionDataTask *)self->_urlTask cancel];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __48__MCResourceDownloader_sendData_fromByteOffset___block_invoke(uint64_t a1)
@@ -421,13 +415,12 @@ void __48__MCResourceDownloader_sendData_fromByteOffset___block_invoke_177(uint6
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)sendData:(unsigned int *)a1 fromByteOffset:.cold.1(unsigned int *a1)
+- (void)sendData:fromByteOffset:.cold.1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 @end

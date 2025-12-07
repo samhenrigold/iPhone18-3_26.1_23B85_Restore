@@ -30,7 +30,7 @@
 - (void)setFilterType:(id)type
 {
   typeCopy = type;
-  if (([typeCopy isEqualToString:self->_currentFilterType] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(typeCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_currentFilterType, type);
     if (typeCopy)

@@ -47,12 +47,12 @@
 
   if (isStewieEmergency)
   {
-    v7 = CKFrameworkBundle();
-    service = v7;
-    v9 = @"STEWIE_EMERGENCY_STATUS_SERVICE";
-    v10 = @"ChatKit-SYDROB_FEATURES";
+    v8 = CKFrameworkBundle(v7);
+    service = v8;
+    v10 = @"STEWIE_EMERGENCY_STATUS_SERVICE";
+    v11 = @"ChatKit-SYDROB_FEATURES";
 LABEL_7:
-    __ck_displayName = [v7 localizedStringForKey:v9 value:&stru_1F04268F8 table:v10];
+    __ck_displayName = [v8 localizedStringForKey:v10 value:&stru_1F04268F8 table:v11];
     goto LABEL_8;
   }
 
@@ -62,28 +62,29 @@ LABEL_7:
 
   if (isStewieRoadside)
   {
-    v7 = CKFrameworkBundle();
-    service = v7;
-    v9 = @"STEWIE_ROADSIDE_STATUS_SERVICE";
-    v10 = @"ChatKit-Avocet";
+    v8 = CKFrameworkBundle(v15);
+    service = v8;
+    v10 = @"STEWIE_ROADSIDE_STATUS_SERVICE";
+    v11 = @"ChatKit-Avocet";
     goto LABEL_7;
   }
 
-  if ([iMChatItem isStewieSharingChat])
+  isStewieSharingChat = [iMChatItem isStewieSharingChat];
+  if (isStewieSharingChat)
   {
-    v7 = CKFrameworkBundle();
-    service = v7;
-    v9 = @"TS_DESCRIPTION_SERVICE_NAME";
-    v10 = @"TranscriptSharing-SYDROB_FEATURES";
+    v8 = CKFrameworkBundle(isStewieSharingChat);
+    service = v8;
+    v10 = @"TS_DESCRIPTION_SERVICE_NAME";
+    v11 = @"TranscriptSharing-SYDROB_FEATURES";
     goto LABEL_7;
   }
 
   service = [iMChatItem service];
   __ck_displayName = [service __ck_displayName];
 LABEL_8:
-  v15 = __ck_displayName;
+  v18 = __ck_displayName;
 
-  return v15;
+  return v18;
 }
 
 - (id)_subtext
@@ -164,7 +165,7 @@ LABEL_8:
 - (id)_encryptionSubtext
 {
   v3 = MEMORY[0x1E696AEC0];
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(self);
   v5 = [v4 localizedStringForKey:@"MESSAGE_STATUS_ENCRYPTED" value:&stru_1F04268F8 table:@"ChatKit"];
   v6 = [v3 localizedStringWithFormat:@" %@", v5];
 
@@ -207,39 +208,40 @@ LABEL_8:
   handle = [iMChatItem handle];
   _displayNameWithAbbreviation = [handle _displayNameWithAbbreviation];
 
-  LODWORD(handle) = [iMChatItem isLiteServiceCapable];
-  v5 = MEMORY[0x1E696AEC0];
-  v6 = CKFrameworkBundle();
-  v7 = v6;
+  isLiteServiceCapable = [iMChatItem isLiteServiceCapable];
+  LODWORD(handle) = isLiteServiceCapable;
+  v6 = MEMORY[0x1E696AEC0];
+  v7 = CKFrameworkBundle(isLiteServiceCapable);
+  v8 = v7;
   if (handle)
   {
-    v8 = @"SMS_FALLBACK_STATUS_MESSAGE";
+    v9 = @"SMS_FALLBACK_STATUS_MESSAGE";
   }
 
   else
   {
-    v8 = @"SMS_FALLBACK_STATUS_MESSAGE_NO_REPLY";
+    v9 = @"SMS_FALLBACK_STATUS_MESSAGE_NO_REPLY";
   }
 
-  v9 = [v6 localizedStringForKey:v8 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
-  v10 = [v5 localizedStringWithFormat:v9, _displayNameWithAbbreviation];
+  v10 = [v7 localizedStringForKey:v9 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
+  v11 = [v6 localizedStringWithFormat:v10, _displayNameWithAbbreviation];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
-    v13 = @"\u200F";
+    v14 = @"\u200F";
   }
 
   else
   {
-    v13 = @"\u200E";
+    v14 = @"\u200E";
   }
 
-  v14 = [(__CFString *)v13 stringByAppendingString:v10];
+  v15 = [(__CFString *)v14 stringByAppendingString:v11];
 
-  return v14;
+  return v15;
 }
 
 @end

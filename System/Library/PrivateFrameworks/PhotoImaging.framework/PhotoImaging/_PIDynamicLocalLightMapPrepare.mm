@@ -134,12 +134,12 @@
       v23 = 0;
       if (v20 && v21)
       {
-        [v20 extent];
+        objc_msgSend_extent(v20);
         v25 = v24;
         v27 = v26;
         v29 = v28;
         v31 = v30;
-        [v21 extent];
+        objc_msgSend_extent(v21);
         v66.origin.x = v32;
         v66.origin.y = v33;
         v66.size.width = v34;
@@ -155,7 +155,7 @@
 
         else
         {
-          [v20 extent];
+          objc_msgSend_extent(v20);
           v67.origin.x = 0.0;
           v67.origin.y = 0.0;
           v67.size.width = 1.0;
@@ -163,7 +163,7 @@
           if (CGRectEqualToRect(v65, v67))
           {
             imageByClampingToExtent = [v20 imageByClampingToExtent];
-            [v21 extent];
+            objc_msgSend_extent(v21);
             v23 = [imageByClampingToExtent imageByCroppingToRect:?];
           }
 
@@ -174,17 +174,17 @@
             imageByClampingToExtent = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:2];
             v37 = MEMORY[0x1E695F688];
             v38 = [imageByClampingToExtent objectAtIndexedSubscript:0];
-            [v38 extent];
+            objc_msgSend_extent(v38);
             v39 = [v37 vectorWithCGRect:?];
             v60 = v39;
             v40 = MEMORY[0x1E695F688];
             v41 = [imageByClampingToExtent objectAtIndexedSubscript:1];
-            [v41 extent];
+            objc_msgSend_extent(v41);
             v42 = [v40 vectorWithCGRect:?];
             v61 = v42;
             v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:2];
 
-            [v21 extent];
+            objc_msgSend_extent(v21);
             v45 = v44;
             v47 = v46;
             v49 = v48;

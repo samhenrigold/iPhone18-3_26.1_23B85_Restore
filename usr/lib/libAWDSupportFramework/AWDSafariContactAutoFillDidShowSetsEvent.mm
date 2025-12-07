@@ -99,7 +99,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    isShowingMeCardSets = self->_isShowingMeCardSets;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 4) == 0)
     {
@@ -109,7 +108,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -124,7 +122,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  isShowingPreviouslyCustomizedSet = self->_isShowingPreviouslyCustomizedSet;
 
   PBDataWriterWriteBOOLField();
 }
@@ -229,7 +226,6 @@ LABEL_4:
         goto LABEL_15;
       }
 
-      v6 = *(equal + 16);
       if (self->_isShowingMeCardSets)
       {
         if ((*(equal + 16) & 1) == 0)

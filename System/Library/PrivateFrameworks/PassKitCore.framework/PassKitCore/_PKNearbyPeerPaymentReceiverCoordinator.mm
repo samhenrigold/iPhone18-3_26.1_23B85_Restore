@@ -41,7 +41,7 @@
 
 - (void)nearbyReceiverRequiresConfirmationWithContactID:(NSString *)d completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840, &qword_1ADB783A0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -68,7 +68,7 @@
 
 - (void)recipientMetadataWithAppearanceData:(PKPeerPaymentProfileAppearanceData *)data nonce:(NSString *)nonce completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840, &qword_1ADB783A0);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -97,7 +97,7 @@
 
 - (void)validateTransactionWithResult:(NSData *)result completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840, &qword_1ADB783A0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

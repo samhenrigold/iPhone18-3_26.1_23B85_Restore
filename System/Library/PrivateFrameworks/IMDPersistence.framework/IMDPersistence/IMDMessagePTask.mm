@@ -22,15 +22,15 @@
 
 - (IMDMessagePTask)initWithStoreDictionary:(id)dictionary
 {
-  v5 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, @"guid");
-  v8 = objc_msgSend_initWithGUID_(self, v6, v5);
-  if (v8)
+  v6 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, @"guid", v3);
+  v11 = objc_msgSend_initWithGUID_(self, v7, v6, v8);
+  if (v11)
   {
-    v9 = objc_msgSend_objectForKeyedSubscript_(dictionary, v7, @"task_flags");
-    v8->_taskFlags = objc_msgSend_integerValue(v9, v10, v11);
+    v12 = objc_msgSend_objectForKeyedSubscript_(dictionary, v9, @"task_flags", v10);
+    v11->_taskFlags = objc_msgSend_integerValue(v12, v13, v14, v15);
   }
 
-  return v8;
+  return v11;
 }
 
 - (void)dealloc

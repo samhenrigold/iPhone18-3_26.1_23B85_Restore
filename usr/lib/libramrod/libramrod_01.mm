@@ -1,14 +1,14 @@
-CFBooleanRef ramrod_get_effective_security_mode_ap()
+CFBooleanRef ramrod_get_effective_production_status_ap()
 {
   v0 = kCFBooleanFalse;
-  v1 = ramrod_copy_value_from_IONode("IODeviceTree:/chosen", @"effective-security-mode-ap");
+  v1 = ramrod_copy_value_from_IONode("IODeviceTree:/chosen", @"effective-production-status-ap");
   if (v1)
   {
-    v9 = v1;
-    v10 = CFGetTypeID(v1);
-    if (v10 == CFDataGetTypeID())
+    v2 = v1;
+    v3 = CFGetTypeID(v1);
+    if (v3 == CFDataGetTypeID())
     {
-      if (*CFDataGetBytePtr(v9))
+      if (*CFDataGetBytePtr(v2))
       {
         v0 = kCFBooleanTrue;
       }
@@ -16,15 +16,47 @@ CFBooleanRef ramrod_get_effective_security_mode_ap()
 
     else
     {
-      ramrod_log_msg("%s: Got a NULL return from IORegistryEntryCreateCFProperty\n", v11, v12, v13, v14, v15, v16, v17, "ramrod_get_effective_security_mode_ap");
+      ramrod_log_msg("%s: Got a NULL return from IORegistryEntryCreateCFProperty\n", "ramrod_get_effective_production_status_ap");
     }
 
-    CFRelease(v9);
+    CFRelease(v2);
   }
 
   else
   {
-    ramrod_log_msg("%s: Got a NULL return from IORegistryEntryCreateCFProperty\n", v2, v3, v4, v5, v6, v7, v8, "ramrod_get_effective_security_mode_ap");
+    ramrod_log_msg("%s: Got a NULL return from IORegistryEntryCreateCFProperty\n", "ramrod_get_effective_production_status_ap");
+  }
+
+  return v0;
+}
+
+CFBooleanRef ramrod_get_effective_security_mode_ap()
+{
+  v0 = kCFBooleanFalse;
+  v1 = ramrod_copy_value_from_IONode("IODeviceTree:/chosen", @"effective-security-mode-ap");
+  if (v1)
+  {
+    v2 = v1;
+    v3 = CFGetTypeID(v1);
+    if (v3 == CFDataGetTypeID())
+    {
+      if (*CFDataGetBytePtr(v2))
+      {
+        v0 = kCFBooleanTrue;
+      }
+    }
+
+    else
+    {
+      ramrod_log_msg("%s: Got a NULL return from IORegistryEntryCreateCFProperty\n", "ramrod_get_effective_security_mode_ap");
+    }
+
+    CFRelease(v2);
+  }
+
+  else
+  {
+    ramrod_log_msg("%s: Got a NULL return from IORegistryEntryCreateCFProperty\n", "ramrod_get_effective_security_mode_ap");
   }
 
   return v0;
@@ -55,115 +87,112 @@ CFDataRef ramrod_hash_stored_apnonce_with_method(const __CFString *a1)
     IOObjectRelease(v3);
     if (ramrod_should_entangle_nonce())
     {
-      ramrod_log_msg("Need to entangle the nonce with UID 1. Aborting because we don't know how to do that yet.\n", v5, v6, v7, v8, v9, v10, v11, v15);
+      ramrod_log_msg("Need to entangle the nonce with UID 1. Aborting because we don't know how to do that yet.\n");
     }
 
     else if (CFProperty)
     {
-      v13 = CFGetTypeID(CFProperty);
-      if (v13 == CFDataGetTypeID())
+      v6 = CFGetTypeID(CFProperty);
+      if (v6 == CFDataGetTypeID())
       {
-        v12 = ramrod_hash_data_with_method(CFProperty, a1);
+        v5 = ramrod_hash_data_with_method(CFProperty, a1);
         goto LABEL_8;
       }
     }
 
-    v12 = 0;
+    v5 = 0;
 LABEL_8:
     AMSupportSafeRelease();
-    return v12;
+    return v5;
   }
 
   return 0;
 }
 
-uint64_t ramrod_copy_device_identity_static_info(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_copy_device_identity_static_info(uint64_t result)
 {
   if (!result)
   {
     return result;
   }
 
-  v8 = result;
-  ramrod_log_msg("%s: Attempting to read device identity info\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_copy_device_identity_static_info");
-  *(v8 + 80) = 0u;
-  *(v8 + 96) = 0u;
-  *(v8 + 48) = 0u;
-  *(v8 + 64) = 0u;
-  *(v8 + 16) = 0u;
-  *(v8 + 32) = 0u;
-  *v8 = 0u;
-  v9 = ramrod_copy_crypto_hash_method();
-  *(v8 + 88) = v9;
-  if (v9)
+  v1 = result;
+  ramrod_log_msg("%s: Attempting to read device identity info\n", "ramrod_copy_device_identity_static_info");
+  *(v1 + 80) = 0u;
+  *(v1 + 96) = 0u;
+  *(v1 + 48) = 0u;
+  *(v1 + 64) = 0u;
+  *(v1 + 16) = 0u;
+  *(v1 + 32) = 0u;
+  *v1 = 0u;
+  v2 = ramrod_copy_crypto_hash_method();
+  *(v1 + 88) = v2;
+  if (v2)
   {
-    v54 = "ramrod_copy_device_identity_static_info";
-    ramrod_log_msg_cf(@"%s: image4CryptoHashMethod: %@\n");
+    ramrod_log_msg_cf(@"%s: image4CryptoHashMethod: %@\n", "ramrod_copy_device_identity_static_info", v2);
   }
 
-  v10 = ramrod_copy_ecid();
-  v11 = v10;
-  if (!v10)
+  v3 = ramrod_copy_ecid();
+  v4 = v3;
+  if (!v3)
   {
-    goto LABEL_21;
-  }
-
-  v12 = CFGetTypeID(v10);
-  if (v12 != CFNumberGetTypeID() || CFNumberGetValue(v11, kCFNumberSInt64Type, v8) != 1)
-  {
-    goto LABEL_21;
-  }
-
-  AMSupportSafeRelease();
-  v13 = ramrod_copy_board_id();
-  *(v8 + 8) = v13;
-  if (!v13 || (v21 = CFGetTypeID(v13), v21 != CFNumberGetTypeID()))
-  {
-    v30 = "%s: Unable to get board ID..\n";
-LABEL_20:
-    ramrod_log_msg(v30, v14, v15, v16, v17, v18, v19, v20, "ramrod_copy_device_identity_static_info");
-    goto LABEL_21;
-  }
-
-  v22 = ramrod_copy_chip_id();
-  *(v8 + 16) = v22;
-  if (!v22 || (v23 = CFGetTypeID(v22), v23 != CFNumberGetTypeID()))
-  {
-    v30 = "%s: Unable to read chipID\n";
     goto LABEL_20;
   }
 
-  v24 = MGCopyAnswer();
-  *(v8 + 24) = v24;
-  if (!v24)
+  v5 = CFGetTypeID(v3);
+  if (v5 != CFNumberGetTypeID() || CFNumberGetValue(v4, kCFNumberSInt64Type, v1) != 1)
   {
-    v24 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &unk_1C46B8);
-    *(v8 + 24) = v24;
+    goto LABEL_20;
   }
 
-  v25 = CFGetTypeID(v24);
-  if (v25 != CFNumberGetTypeID())
+  AMSupportSafeRelease();
+  v6 = ramrod_copy_board_id();
+  *(v1 + 8) = v6;
+  if (!v6 || (v7 = CFGetTypeID(v6), v7 != CFNumberGetTypeID()))
   {
-    v30 = "%s: Failed to read security domain value\n";
+    ramrod_log_msg("%s: Unable to get board ID..\n");
+    goto LABEL_20;
+  }
+
+  v8 = ramrod_copy_chip_id();
+  *(v1 + 16) = v8;
+  if (!v8 || (v9 = CFGetTypeID(v8), v9 != CFNumberGetTypeID()))
+  {
+    ramrod_log_msg("%s: Unable to read chipID\n");
+    goto LABEL_20;
+  }
+
+  v10 = MGCopyAnswer();
+  *(v1 + 24) = v10;
+  if (!v10)
+  {
+    v10 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &unk_1C46B8);
+    *(v1 + 24) = v10;
+  }
+
+  v11 = CFGetTypeID(v10);
+  if (v11 != CFNumberGetTypeID())
+  {
+    ramrod_log_msg("%s: Failed to read security domain value\n");
     goto LABEL_20;
   }
 
   certificate_production_status = ramrod_get_certificate_production_status();
-  v27 = CFGetTypeID(certificate_production_status);
-  if (v27 != CFBooleanGetTypeID())
+  v13 = CFGetTypeID(certificate_production_status);
+  if (v13 != CFBooleanGetTypeID())
   {
-    v30 = "%s: Failed to read certificate production status\n";
+    ramrod_log_msg("%s: Failed to read certificate production status\n");
     goto LABEL_20;
   }
 
-  *(v8 + 32) = CFBooleanGetValue(certificate_production_status);
+  *(v1 + 32) = CFBooleanGetValue(certificate_production_status);
   AMSupportSafeRelease();
   if (kCFBooleanTrue)
   {
-    v28 = CFGetTypeID(kCFBooleanTrue);
-    if (v28 != CFBooleanGetTypeID())
+    v14 = CFGetTypeID(kCFBooleanTrue);
+    if (v14 != CFBooleanGetTypeID())
     {
-      v30 = "%s: Failed to read img4_supported\n";
+      ramrod_log_msg("%s: Failed to read img4_supported\n");
       goto LABEL_20;
     }
 
@@ -175,72 +204,72 @@ LABEL_20:
     Value = 0;
   }
 
-  *(v8 + 48) = Value;
+  *(v1 + 48) = Value;
   AMSupportSafeRelease();
   certificate_security_mode = ramrod_get_certificate_security_mode();
-  v32 = CFGetTypeID(certificate_security_mode);
-  if (v32 != CFBooleanGetTypeID())
+  v17 = CFGetTypeID(certificate_security_mode);
+  if (v17 != CFBooleanGetTypeID())
   {
-    v30 = "%s: Failed to read security mode\n";
+    ramrod_log_msg("%s: Failed to read security mode\n");
     goto LABEL_20;
   }
 
-  *(v8 + 49) = CFBooleanGetValue(certificate_security_mode);
+  *(v1 + 49) = CFBooleanGetValue(certificate_security_mode);
   AMSupportSafeRelease();
   effective_production_status_ap = ramrod_get_effective_production_status_ap();
-  v34 = CFGetTypeID(effective_production_status_ap);
-  if (v34 != CFBooleanGetTypeID())
+  v19 = CFGetTypeID(effective_production_status_ap);
+  if (v19 != CFBooleanGetTypeID())
   {
-    v30 = "%s: Failed to read production status\n";
+    ramrod_log_msg("%s: Failed to read production status\n");
     goto LABEL_20;
   }
 
-  *(v8 + 51) = CFBooleanGetValue(effective_production_status_ap);
+  *(v1 + 51) = CFBooleanGetValue(effective_production_status_ap);
   AMSupportSafeRelease();
   effective_security_mode_ap = ramrod_get_effective_security_mode_ap();
-  v36 = CFGetTypeID(effective_security_mode_ap);
-  if (v36 != CFBooleanGetTypeID())
+  v21 = CFGetTypeID(effective_security_mode_ap);
+  if (v21 != CFBooleanGetTypeID())
   {
-    v30 = "%s: Failed to read sec mode ap\n";
+    ramrod_log_msg("%s: Failed to read sec mode ap\n");
     goto LABEL_20;
   }
 
-  *(v8 + 50) = CFBooleanGetValue(effective_security_mode_ap);
+  *(v1 + 50) = CFBooleanGetValue(effective_security_mode_ap);
   AMSupportSafeRelease();
-  v37 = ramrod_hash_stored_apnonce_with_method(*(v8 + 88));
-  *(v8 + 40) = v37;
-  if (!v37)
+  v22 = ramrod_hash_stored_apnonce_with_method(*(v1 + 88));
+  *(v1 + 40) = v22;
+  if (!v22)
   {
-LABEL_32:
-    ramrod_log_msg("Retrieved APNonce (without regeneration) was NULL.\n", v38, v39, v40, v41, v42, v43, v44, v54);
-    v46 = *(v8 + 40);
-    goto LABEL_33;
-  }
-
-  v45 = CFGetTypeID(v37);
-  if (v45 != CFDataGetTypeID())
-  {
-LABEL_21:
-    AMSupportSafeRelease();
-    ramrod_release_device_identity(v8);
-    return 0;
-  }
-
-  v46 = *(v8 + 40);
-  if (!v46)
-  {
+LABEL_31:
+    ramrod_log_msg("Retrieved APNonce (without regeneration) was NULL.\n");
+    v24 = *(v1 + 40);
     goto LABEL_32;
   }
 
-LABEL_33:
-  if (!v46)
+  v23 = CFGetTypeID(v22);
+  if (v23 != CFDataGetTypeID())
   {
-    v46 = @"NULL";
+LABEL_20:
+    AMSupportSafeRelease();
+    ramrod_release_device_identity(v1);
+    return 0;
   }
 
-  ramrod_log_msg_cf(@"ApNonce (retrieved): %@", v46);
-  ramrod_log_msg("Successfully copied device Identity\n", v47, v48, v49, v50, v51, v52, v53, v55);
-  ramrod_log_msg_cf(@"DeviceInfo:\nBoardID: %@\nChipID: %@\n", *(v8 + 8), *(v8 + 16));
+  v24 = *(v1 + 40);
+  if (!v24)
+  {
+    goto LABEL_31;
+  }
+
+LABEL_32:
+  if (!v24)
+  {
+    v24 = @"NULL";
+  }
+
+  ramrod_log_msg_cf(@"ApNonce (retrieved): %@", v24);
+  ramrod_log_msg("Successfully copied device Identity\n");
+  ramrod_log_msg_cf(@"DeviceInfo:\nBoardID: %@\nChipID: %@\n", *(v1 + 8), *(v1 + 16));
   AMSupportSafeRelease();
   return 1;
 }
@@ -289,22 +318,22 @@ uint64_t ramrod_configure_authinstall_object(uint64_t a1, uint64_t a2)
       CFDictionarySetValue(MutableCopy, kAMAuthInstallApParameterChipID, *(a2 + 16));
       CFDictionarySetValue(MutableCopy, kAMAuthInstallApParameterBoardID, *(a2 + 8));
       CFDictionarySetValue(MutableCopy, kAMAuthInstallApParameterSecurityDomain, *(a2 + 24));
-      v12 = *(a2 + 40);
-      if (v12 && CFDataGetLength(v12) >= 1)
+      v5 = *(a2 + 40);
+      if (v5 && CFDataGetLength(v5) >= 1)
       {
         CFDictionarySetValue(MutableCopy, kAMAuthInstallApParameterApNonce, *(a2 + 40));
       }
 
-      v13 = *(a2 + 64);
-      if (v13 && CFDataGetLength(v13) >= 1)
+      v6 = *(a2 + 64);
+      if (v6 && CFDataGetLength(v6) >= 1)
       {
         CFDictionarySetValue(MutableCopy, kAMAuthInstallApParameterSepNonce, *(a2 + 64));
       }
 
-      v14 = *(a2 + 88);
-      if (v14)
+      v7 = *(a2 + 88);
+      if (v7)
       {
-        CFDictionarySetValue(MutableCopy, kAMAuthInstallApParameterImg4DigestType, v14);
+        CFDictionarySetValue(MutableCopy, kAMAuthInstallApParameterImg4DigestType, v7);
       }
 
       if (*(a2 + 104))
@@ -312,38 +341,37 @@ uint64_t ramrod_configure_authinstall_object(uint64_t a1, uint64_t a2)
         CFDictionarySetValue(MutableCopy, kAMAuthInstallApParameterAllowMixAndMatch, kCFBooleanTrue);
       }
 
-      v15 = AMAuthInstallApSetParameters();
-      if (v15)
+      if (AMAuthInstallApSetParameters())
       {
-        ramrod_log_msg("Could not set AP parameters: %d\n", v16, v17, v18, v19, v20, v21, v22, v15);
+        ramrod_log_msg("Could not set AP parameters: %d\n");
       }
 
       else
       {
-        if (!*(a2 + 56) || (v25 = AMAuthInstallBasebandSetParametersWithUpdaterOutput()) == 0)
+        if (!*(a2 + 56) || !AMAuthInstallBasebandSetParametersWithUpdaterOutput())
         {
-          v23 = 1;
+          v8 = 1;
           goto LABEL_18;
         }
 
-        ramrod_log_msg("Could not set baseband parameters: %d\n", v26, v27, v28, v29, v30, v31, v32, v25);
+        ramrod_log_msg("Could not set baseband parameters: %d\n");
       }
     }
   }
 
   else
   {
-    ramrod_log_msg("Could not query generic AP parameters\n", v3, v4, v5, v6, v7, v8, v9, v33);
+    ramrod_log_msg("Could not query generic AP parameters\n");
   }
 
-  v23 = 0;
+  v8 = 0;
 LABEL_18:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  return v23;
+  return v8;
 }
 
-void *setiBULoggingPointer(void *result)
+uint64_t (*setiBULoggingPointer(uint64_t (*result)(const char *, ...)))(const char *, ...)
 {
   if (result)
   {
@@ -443,52 +471,50 @@ BOOL sub_134AC()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-id ramrod_splat_enabled(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+id ramrod_splat_enabled(void *a1)
 {
   if (!a1)
   {
-    v14 = "%s: Warning: build identity is NULL\n";
-LABEL_14:
-    ramrod_log_msg(v14, a2, a3, a4, a5, a6, a7, a8, "ramrod_splat_enabled");
+    ramrod_log_msg("%s: Warning: build identity is NULL\n");
     return 0;
   }
 
-  v8 = [a1 objectForKeyedSubscript:@"Manifest"];
+  v1 = [a1 objectForKeyedSubscript:@"Manifest"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v14 = "%s: Warning: build identity -> Manifest is NULL or invalid\n";
-    goto LABEL_14;
+    ramrod_log_msg("%s: Warning: build identity -> Manifest is NULL or invalid\n");
+    return 0;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v9 = [v8 allKeys];
-  result = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v2 = [v1 allKeys];
+  result = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (result)
   {
-    v11 = result;
-    v12 = *v16;
+    v4 = result;
+    v5 = *v8;
     while (2)
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v4; i = i + 1)
       {
-        if (*v16 != v12)
+        if (*v8 != v5)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v15 + 1) + 8 * i) hasPrefix:{@"Cryptex1, "}])
+        if ([*(*(&v7 + 1) + 8 * i) hasPrefix:{@"Cryptex1, "}])
         {
           return &dword_0 + 1;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       result = 0;
-      if (v11)
+      if (v4)
       {
         continue;
       }
@@ -502,159 +528,208 @@ LABEL_14:
 
 uint64_t ramrod_splat_local_policy_supported(void *a1)
 {
-  v11[0] = [NSNumber numberWithInt:8198];
-  v11[1] = [NSNumber numberWithInt:8224];
-  v11[2] = [NSNumber numberWithInt:8228];
-  v11[3] = [NSNumber numberWithInt:0x4000];
-  v11[4] = [NSNumber numberWithInt:0x8000];
-  v11[5] = [NSNumber numberWithInt:32769];
-  v11[6] = [NSNumber numberWithInt:32771];
-  v11[7] = [NSNumber numberWithInt:32774];
-  v11[8] = [NSNumber numberWithInt:32784];
-  v11[9] = [NSNumber numberWithInt:32785];
-  v11[10] = [NSNumber numberWithInt:32786];
-  v11[11] = [NSNumber numberWithInt:32789];
-  v11[12] = [NSNumber numberWithInt:32800];
-  v11[13] = [NSNumber numberWithInt:32816];
-  v11[14] = [NSNumber numberWithInt:33537];
+  v6[0] = [NSNumber numberWithInt:8198];
+  v6[1] = [NSNumber numberWithInt:8224];
+  v6[2] = [NSNumber numberWithInt:8228];
+  v6[3] = [NSNumber numberWithInt:0x4000];
+  v6[4] = [NSNumber numberWithInt:0x8000];
+  v6[5] = [NSNumber numberWithInt:32769];
+  v6[6] = [NSNumber numberWithInt:32771];
+  v6[7] = [NSNumber numberWithInt:32774];
+  v6[8] = [NSNumber numberWithInt:32784];
+  v6[9] = [NSNumber numberWithInt:32785];
+  v6[10] = [NSNumber numberWithInt:32786];
+  v6[11] = [NSNumber numberWithInt:32789];
+  v6[12] = [NSNumber numberWithInt:32800];
+  v6[13] = [NSNumber numberWithInt:32816];
+  v6[14] = [NSNumber numberWithInt:33537];
   v2 = [[NSArray arrayWithObjects:15 count:?], "containsObject:", a1];
-  [a1 unsignedIntValue];
-  ramrod_log_msg("%s: 0x%x %s supported\n", v3, v4, v5, v6, v7, v8, v9, "ramrod_splat_local_policy_supported");
+  v3 = [a1 unsignedIntValue];
+  v4 = "is";
+  if (v2)
+  {
+    v4 = "is not";
+  }
+
+  ramrod_log_msg("%s: 0x%x %s supported\n", "ramrod_splat_local_policy_supported", v3, v4);
   return v2 ^ 1;
 }
 
 uint64_t ramrod_splat_install(void *a1, CFErrorRef *a2, uint64_t a3)
 {
-  v107 = +[NSFileManager defaultManager];
-  v115 = 0;
+  v61 = +[NSFileManager defaultManager];
+  v69 = 0;
   v6 = sub_13F34(a1, @"SplatOnlyUpdate");
   v7 = sub_13F34(a1, @"SplatComboUpdate");
   v8 = sub_13F34(a1, @"StageToProposed");
-  v16 = v8;
-  v17 = v6 | v7;
+  v9 = v8;
+  v10 = v6 | v7;
   if ((v6 | v7) & 1) == 0 || (v8)
   {
-    v19 = [a1 objectForKeyedSubscript:@"BuildIdentity"];
+    v12 = [a1 objectForKeyedSubscript:@"BuildIdentity"];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || !v19)
+    if ((objc_opt_isKindOfClass() & 1) == 0 || !v12)
     {
-      v18 = "missing RAMROD_SPLAT_OPT_BUILD_IDENTITY";
+      v11 = "missing RAMROD_SPLAT_OPT_BUILD_IDENTITY";
       goto LABEL_10;
     }
 
-    v113 = 0;
-    v114 = 0;
-    v20 = sub_15050(a1);
-    result = sub_15100(v20, a1, &v114, &v113, a2, v21, v22, v23);
+    v67 = 0;
+    v68 = 0;
+    v13 = sub_15050(a1);
+    result = sub_15100(v13, a1, &v68, &v67, a2);
     if (!result)
     {
       return result;
     }
 
-    if (v16)
+    if (v9)
     {
-      v32 = v113;
+      v15 = v67;
     }
 
     else
     {
-      v32 = v114;
-      sub_14040(v113, 0);
+      v15 = v68;
+      sub_14040(v67, 0);
     }
 
-    v105 = a3;
-    v106 = v32;
+    v59 = a3;
+    v60 = v15;
     if (v7)
     {
-      ramrod_log_msg("%s: Keeping existing proposed directory for combo update\n", v25, v26, v27, v28, v29, v30, v31, "ramrod_splat_install");
-      [v114 stringByAppendingPathComponent:@"/rollback"];
-      v36 = v113;
+      ramrod_log_msg("%s: Keeping existing proposed directory for combo update\n", "ramrod_splat_install");
+      [v68 stringByAppendingPathComponent:@"/rollback"];
+      v19 = v67;
     }
 
     else
     {
-      if (!sub_14040(v32, &v115) || !sub_140C0(v32, &v115))
+      if (!sub_14040(v15, &v69) || !sub_140C0(v15, &v69))
       {
-        v56 = v115;
-        v57 = "failed to recreate destination directory";
+        v36 = v69;
+        v37 = "failed to recreate destination directory";
         goto LABEL_46;
       }
 
       if (((v6 | v7) & 1) == 0)
       {
 LABEL_49:
-        v60 = v17;
-        v61 = &dword_1A8EB8;
-        v62 = 9;
+        v40 = v10;
+        v41 = &dword_1A8EB8;
+        v42 = 9;
         while (1)
         {
-          v63 = *v61;
-          if (v63 || sub_143E0(v19, [NSString stringWithUTF8String:*(v61 + 1)]))
+          v43 = *v41;
+          if (v43 || (v44 = *(v41 + 1), sub_143E0(v12, [NSString stringWithUTF8String:v44])))
           {
-            v71 = *(v61 + 4);
-            if (v71)
+            v45 = *(v41 + 4);
+            if (v45)
             {
-              v71 = [NSString stringWithUTF8String:?];
+              v45 = [NSString stringWithUTF8String:?];
             }
 
-            if (v63 == 1)
+            if (v43 == 1)
             {
-              v71 = sub_141EC(0, a2);
+              v45 = sub_141EC(0, a2);
             }
 
-            v72 = v32;
-            if (v71)
+            v46 = v15;
+            if (v45)
             {
-              v72 = [v32 stringByAppendingPathComponent:?];
+              v46 = [v15 stringByAppendingPathComponent:?];
             }
 
-            [v72 UTF8String];
-            ramrod_log_msg("%s: Installing %s -> %s\n", v73, v74, v75, v76, v77, v78, v79, "ramrod_splat_install");
-            if (!sub_140C0([v72 stringByDeletingLastPathComponent], &v115))
+            if (v43 > 3)
             {
-              v56 = v115;
-              v57 = "failed to create containing directory";
-LABEL_74:
-              v58 = a2;
+              if (v43 == 4)
+              {
+                v47 = "system version plist";
+              }
+
+              else if (v43 == 5)
+              {
+                v47 = "build manifest plist";
+              }
+
+              else
+              {
+                v47 = "global manifest";
+                if (v43 == 6)
+                {
+                  v47 = "reverse patch";
+                }
+              }
+            }
+
+            else if (v43)
+            {
+              if (v43 == 2)
+              {
+                v47 = "global manifest directory root";
+              }
+
+              else
+              {
+                v47 = "global manifest";
+                if (v43 == 3)
+                {
+                  v47 = "restore version plist";
+                }
+              }
+            }
+
+            else
+            {
+              v47 = *(v41 + 1);
+            }
+
+            ramrod_log_msg("%s: Installing %s -> %s\n", "ramrod_splat_install", v47, [v46 UTF8String]);
+            if (!sub_140C0([v46 stringByDeletingLastPathComponent], &v69))
+            {
+              v36 = v69;
+              v37 = "failed to create containing directory";
+LABEL_86:
+              v38 = a2;
               goto LABEL_47;
             }
 
-            v80 = *(v61 + 1);
-            if (((*(v105 + 16))(v105, v63, v80, [v72 fileSystemRepresentation]) & 1) == 0)
+            v48 = *(v41 + 1);
+            if (((*(v59 + 16))(v59, v43, v48, [v46 fileSystemRepresentation]) & 1) == 0)
             {
-              v81 = sub_13F34(a1, @"SafariDownlevelUpdate");
-              v89 = 57;
-              if (v81)
+              v49 = sub_13F34(a1, @"SafariDownlevelUpdate");
+              v50 = 57;
+              if (v49)
               {
-                v89 = 58;
+                v50 = 58;
               }
 
-              if (*(v61 + v89) == 1)
+              if (*(v41 + v50) == 1)
               {
-                ramrod_log_msg("%s: %s\n", v82, v83, v84, v85, v86, v87, v88, "ramrod_splat_install");
-                ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2011, 0, @"%s", v99, v100, v101, "install handler failed");
+                ramrod_log_msg("%s: %s\n", "ramrod_splat_install", "install handler failed");
+                ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2011, 0, @"%s", v53, v54, v55, "install handler failed");
                 return 0;
               }
             }
 
-            if ((v60 & 1) != 0 && *(v61 + 59) == 1)
+            if ((v40 & 1) != 0 && *(v41 + 59) == 1)
             {
-              v90 = [v106 stringByAppendingPathComponent:@"/rollback/payloadv2"];
-              v91 = [v90 fileSystemRepresentation];
-              ramrod_log_msg("%s: Copying reverse patch %s -> %s\n", v92, v93, v94, v95, v96, v97, v98, "ramrod_splat_install");
-              if (!sub_140C0(v90, &v115))
+              v51 = [v60 stringByAppendingPathComponent:@"/rollback/payloadv2"];
+              v52 = [v51 fileSystemRepresentation];
+              ramrod_log_msg("%s: Copying reverse patch %s -> %s\n", "ramrod_splat_install", *(v41 + 6), v52);
+              if (!sub_140C0(v51, &v69))
               {
-                v56 = v115;
-                v57 = "failed to create containing directory for reverse patch";
-                goto LABEL_74;
+                v36 = v69;
+                v37 = "failed to create containing directory for reverse patch";
+                goto LABEL_86;
               }
 
-              if (((*(v105 + 16))(v105, 6, v80, v91) & 1) == 0)
+              if (((*(v59 + 16))(v59, 6, v48, v52) & 1) == 0)
               {
-                v57 = "install handler failed for reverse patch";
-                v58 = a2;
-                v59 = 2011;
-                v56 = 0;
+                v37 = "install handler failed for reverse patch";
+                v38 = a2;
+                v39 = 2011;
+                v36 = 0;
                 goto LABEL_48;
               }
             }
@@ -662,140 +737,140 @@ LABEL_74:
 
           else
           {
-            ramrod_log_msg("%s: %s isn't present in build identity, skipping\n", v64, v65, v66, v67, v68, v69, v70, "ramrod_splat_install");
+            ramrod_log_msg("%s: %s isn't present in build identity, skipping\n", "ramrod_splat_install", v44);
           }
 
-          v61 += 16;
-          --v62;
-          v32 = v106;
-          if (!v62)
+          v41 += 16;
+          --v42;
+          v15 = v60;
+          if (!v42)
           {
             return ramrod_splat_write_personalized_ticket(a1, a2);
           }
         }
       }
 
-      v54 = v114;
-      v55 = [v114 stringByAppendingPathComponent:@"/rollback"];
-      if ([(NSFileManager *)v107 fileExistsAtPath:v55])
+      v34 = v68;
+      v35 = [v68 stringByAppendingPathComponent:@"/rollback"];
+      if ([(NSFileManager *)v61 fileExistsAtPath:v35])
       {
-        v36 = v55;
+        v19 = v35;
       }
 
       else
       {
-        v36 = v54;
+        v19 = v34;
       }
     }
 
-    ramrod_log_msg_cf(@"%s: Preserving rollback objects from %@\n", "ramrod_splat_install", v36);
-    v37 = [v32 stringByAppendingPathComponent:@"/rollback"];
-    if (sub_140C0(v37, &v115))
+    ramrod_log_msg_cf(@"%s: Preserving rollback objects from %@\n", "ramrod_splat_install", v19);
+    v20 = [v15 stringByAppendingPathComponent:@"/rollback"];
+    if (sub_140C0(v20, &v69))
     {
-      v103 = v19;
-      v41 = [(NSFileManager *)v107 contentsOfDirectoryAtPath:v36 error:&v115];
-      if (!v41)
+      v57 = v12;
+      v21 = [(NSFileManager *)v61 contentsOfDirectoryAtPath:v19 error:&v69];
+      if (!v21)
       {
-        v56 = v115;
-        v57 = "failed to list current dir for rollback clones";
-        v58 = a2;
-        v59 = 2010;
+        v36 = v69;
+        v37 = "failed to list current dir for rollback clones";
+        v38 = a2;
+        v39 = 2010;
         goto LABEL_48;
       }
 
-      v42 = v41;
-      v102 = v17;
-      v104 = a2;
-      v43 = +[NSMutableArray array];
-      v44 = 9;
-      v45 = &off_1A8ED8;
+      v22 = v21;
+      v56 = v10;
+      v58 = a2;
+      v23 = +[NSMutableArray array];
+      v24 = 9;
+      v25 = &off_1A8ED8;
       do
       {
-        if (*(v45 + 27) == 1 && *v45)
+        if (*(v25 + 27) == 1 && *v25)
         {
-          [v43 addObject:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:")}];
+          [v23 addObject:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:")}];
         }
 
-        v45 += 8;
-        --v44;
+        v25 += 8;
+        --v24;
       }
 
-      while (v44);
-      v111 = 0u;
-      v112 = 0u;
-      v109 = 0u;
-      v110 = 0u;
-      v46 = [(NSArray *)v42 countByEnumeratingWithState:&v109 objects:v116 count:16];
-      if (v46)
+      while (v24);
+      v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v26 = [(NSArray *)v22 countByEnumeratingWithState:&v63 objects:v70 count:16];
+      if (v26)
       {
-        v47 = v46;
-        v48 = *v110;
+        v27 = v26;
+        v28 = *v64;
         do
         {
-          for (i = 0; i != v47; i = i + 1)
+          for (i = 0; i != v27; i = i + 1)
           {
-            if (*v110 != v48)
+            if (*v64 != v28)
             {
-              objc_enumerationMutation(v42);
+              objc_enumerationMutation(v22);
             }
 
-            v50 = *(*(&v109 + 1) + 8 * i);
-            if ([v43 containsObject:v50])
+            v30 = *(*(&v63 + 1) + 8 * i);
+            if ([v23 containsObject:v30])
             {
-              ramrod_log_msg_cf(@"%s: Skipping %@\n", "ramrod_splat_install", v50);
+              ramrod_log_msg_cf(@"%s: Skipping %@\n", "ramrod_splat_install", v30);
             }
 
             else
             {
-              v51 = [v36 stringByAppendingPathComponent:v50];
-              v52 = [v37 stringByAppendingPathComponent:v50];
-              v108 = 0;
-              if ([(NSFileManager *)v107 fileExistsAtPath:v51 isDirectory:&v108]&& (v108 & 1) == 0 && !sub_14148(v51, v52, &v115))
+              v31 = [v19 stringByAppendingPathComponent:v30];
+              v32 = [v20 stringByAppendingPathComponent:v30];
+              v62 = 0;
+              if ([(NSFileManager *)v61 fileExistsAtPath:v31 isDirectory:&v62]&& (v62 & 1) == 0 && !sub_14148(v31, v32, &v69))
               {
-                v56 = v115;
-                v57 = "failed to clone boot object for rollback";
-                v58 = v104;
-                v59 = 2007;
+                v36 = v69;
+                v37 = "failed to clone boot object for rollback";
+                v38 = v58;
+                v39 = 2007;
                 goto LABEL_48;
               }
             }
           }
 
-          v47 = [(NSArray *)v42 countByEnumeratingWithState:&v109 objects:v116 count:16];
+          v27 = [(NSArray *)v22 countByEnumeratingWithState:&v63 objects:v70 count:16];
         }
 
-        while (v47);
+        while (v27);
       }
 
-      a2 = v104;
-      v53 = sub_141EC(1, v104);
-      if (v53)
+      a2 = v58;
+      v33 = sub_141EC(1, v58);
+      if (v33)
       {
-        sub_14040([v37 stringByAppendingPathComponent:v53], 0);
+        sub_14040([v20 stringByAppendingPathComponent:v33], 0);
       }
 
-      sub_14040([v37 stringByAppendingPathComponent:@"CryptexUpgradeManifest.plist"], 0);
-      v32 = v106;
-      v17 = v102;
-      v19 = v103;
+      sub_14040([v20 stringByAppendingPathComponent:@"CryptexUpgradeManifest.plist"], 0);
+      v15 = v60;
+      v10 = v56;
+      v12 = v57;
       goto LABEL_49;
     }
 
-    v56 = v115;
-    v57 = "failed to recreate rollback directory";
+    v36 = v69;
+    v37 = "failed to recreate rollback directory";
 LABEL_46:
-    v58 = a2;
+    v38 = a2;
 LABEL_47:
-    v59 = 2009;
+    v39 = 2009;
 LABEL_48:
-    sub_13F9C(v58, v59, v56, "ramrod_splat_install", v57, v38, v39, v40);
+    sub_13F9C(v38, v39, v36, "ramrod_splat_install", v37);
     return 0;
   }
 
-  v18 = "missing RAMROD_SPLAT_OPT_STAGE_TO_PROPOSED";
+  v11 = "missing RAMROD_SPLAT_OPT_STAGE_TO_PROPOSED";
 LABEL_10:
-  ramrod_log_msg("%s: %s\n", v9, v10, v11, v12, v13, v14, v15, "ramrod_splat_install");
-  ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2000, 0, @"%s", v33, v34, v35, v18);
+  ramrod_log_msg("%s: %s\n", "ramrod_splat_install", v11);
+  ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2000, 0, @"%s", v16, v17, v18, v11);
   return 0;
 }
 
@@ -811,22 +886,20 @@ id sub_13F34(void *a1, uint64_t a2)
   return [v2 BOOLValue];
 }
 
-void sub_13F9C(CFErrorRef *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_13F9C(CFErrorRef *a1, CFIndex a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v8 = a5;
-  v9 = a4;
   if (a3)
   {
     [objc_msgSend(a3 "description")];
-    ramrod_log_msg("%s: %s: %s\n", v13, v14, v15, v16, v17, v18, v19, v9);
+    ramrod_log_msg("%s: %s: %s\n");
   }
 
   else
   {
-    ramrod_log_msg("%s: %s\n", a2, 0, a4, a5, a6, a7, a8, a4);
+    ramrod_log_msg("%s: %s\n");
   }
 
-  ramrod_create_error_cf(a1, @"RamrodErrorDomain", a2, a3, @"%s", v20, v21, v22, v8);
+  ramrod_create_error_cf(a1, @"RamrodErrorDomain", a2, a3, @"%s", v9, v10, v11, a5);
 }
 
 BOOL sub_14040(void *a1, uint64_t a2)
@@ -837,8 +910,7 @@ BOOL sub_14040(void *a1, uint64_t a2)
     return 1;
   }
 
-  v5 = [a1 fileSystemRepresentation];
-  ramrod_log_msg("Removing %s\n", v6, v7, v8, v9, v10, v11, v12, v5);
+  ramrod_log_msg("Removing %s\n", [a1 fileSystemRepresentation]);
   result = [(NSFileManager *)v4 removeItemAtPath:a1 error:a2];
   if (result)
   {
@@ -856,8 +928,7 @@ BOOL sub_140C0(void *a1, uint64_t a2)
     return 1;
   }
 
-  v5 = [a1 fileSystemRepresentation];
-  ramrod_log_msg("Creating directory at %s\n", v6, v7, v8, v9, v10, v11, v12, v5);
+  ramrod_log_msg("Creating directory at %s\n", [a1 fileSystemRepresentation]);
   result = [(NSFileManager *)v4 createDirectoryAtPath:a1 withIntermediateDirectories:1 attributes:0 error:a2];
   if (result)
   {
@@ -870,19 +941,19 @@ BOOL sub_140C0(void *a1, uint64_t a2)
 BOOL sub_14148(void *a1, void *a2, void *a3)
 {
   v5 = [a1 fileSystemRepresentation];
-  v16 = [a2 fileSystemRepresentation];
-  ramrod_log_msg("Cloning %s -> %s\n", v6, v7, v8, v9, v10, v11, v12, v5);
-  v13 = clonefile(v5, v16, 0);
-  if (v13)
+  v6 = [a2 fileSystemRepresentation];
+  ramrod_log_msg("Cloning %s -> %s\n", v5, v6);
+  v7 = clonefile(v5, v6, 0);
+  if (v7)
   {
-    v14 = __error();
+    v8 = __error();
     if (a3)
     {
-      *a3 = [NSError errorWithDomain:NSPOSIXErrorDomain code:*v14 userInfo:0];
+      *a3 = [NSError errorWithDomain:NSPOSIXErrorDomain code:*v8 userInfo:0];
     }
   }
 
-  return v13 == 0;
+  return v7 == 0;
 }
 
 NSString *sub_141EC(int a1, CFErrorRef *a2)
@@ -960,225 +1031,239 @@ BOOL sub_143E0(void *a1, uint64_t a2)
 
 uint64_t ramrod_splat_write_personalized_ticket(void *a1, CFErrorRef *a2)
 {
-  v39 = 0;
+  v26 = 0;
   v4 = sub_15050(a1);
-  v37 = 0;
-  v38 = 0;
-  if (!sub_15100(v4, a1, &v38, &v37, a2, v5, v6, v7))
+  v24 = 0;
+  v25 = 0;
+  if (!sub_15100(v4, a1, &v25, &v24, a2))
   {
     return 0;
   }
 
   if (sub_13F34(a1, @"StageToProposed"))
   {
-    v8 = &v37;
+    v5 = &v24;
   }
 
   else
   {
-    v8 = &v38;
+    v5 = &v25;
   }
 
-  v9 = *v8;
-  v10 = [a1 objectForKeyedSubscript:@"TicketData"];
+  v6 = *v5;
+  v7 = [a1 objectForKeyedSubscript:@"TicketData"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && v10)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && v7)
   {
-    v11 = sub_141EC(1, a2);
-    if (!v11)
+    v8 = sub_141EC(1, a2);
+    if (!v8)
     {
       return 0;
     }
 
-    v12 = [v9 stringByAppendingPathComponent:v11];
-    ramrod_log_msg_cf(@"%s: writing cryptex1 ticket to %@\n", "ramrod_splat_write_personalized_ticket", v12);
-    if (([v10 writeToFile:v12 options:1 error:&v39] & 1) == 0)
+    v9 = [v6 stringByAppendingPathComponent:v8];
+    ramrod_log_msg_cf(@"%s: writing cryptex1 ticket to %@\n", "ramrod_splat_write_personalized_ticket", v9);
+    if (([v7 writeToFile:v9 options:1 error:&v26] & 1) == 0)
     {
-      v29 = v39;
-      v30 = "failed to write cryptex1 ticket";
-      v31 = a2;
-      v32 = 2005;
+      v16 = v26;
+      v17 = "failed to write cryptex1 ticket";
+      v18 = a2;
+      v19 = 2005;
       goto LABEL_20;
     }
   }
 
-  v16 = [a1 objectForKeyedSubscript:@"LocalPolicyData"];
+  v10 = [a1 objectForKeyedSubscript:@"LocalPolicyData"];
   objc_opt_class();
-  v17 = 1;
-  if ((objc_opt_isKindOfClass() & 1) == 0 || !v16)
+  v11 = 1;
+  if ((objc_opt_isKindOfClass() & 1) == 0 || !v10)
   {
-    return v17;
+    return v11;
   }
 
-  v18 = [a1 objectForKeyedSubscript:@"ApTicketHashData"];
+  v12 = [a1 objectForKeyedSubscript:@"ApTicketHashData"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || !v18)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || !v12)
   {
-    ramrod_log_msg("%s: %s\n", v19, v20, v21, v22, v23, v24, v25, "ramrod_splat_write_personalized_ticket");
-    ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2012, 0, @"%s", v33, v34, v35, "ticket hash required to write local policy");
+    ramrod_log_msg("%s: %s\n", "ramrod_splat_write_personalized_ticket", "ticket hash required to write local policy");
+    ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2012, 0, @"%s", v20, v21, v22, "ticket hash required to write local policy");
     return 0;
   }
 
-  v26 = +[NSMutableString stringWithCapacity:](NSMutableString, "stringWithCapacity:", 2 * [v18 length]);
-  if ([v18 length])
+  v13 = +[NSMutableString stringWithCapacity:](NSMutableString, "stringWithCapacity:", 2 * [v12 length]);
+  if ([v12 length])
   {
-    v27 = 0;
+    v14 = 0;
     do
     {
-      -[NSMutableString appendFormat:](v26, "appendFormat:", @"%02hhX", *([v18 bytes] + v27++));
+      -[NSMutableString appendFormat:](v13, "appendFormat:", @"%02hhX", *([v12 bytes] + v14++));
     }
 
-    while (v27 < [v18 length]);
+    while (v14 < [v12 length]);
   }
 
-  v28 = [objc_msgSend(v4 stringByAppendingPathComponent:{v26), "stringByAppendingPathComponent:", @"LocalPolicy.cryptex1.img4"}];
-  ramrod_log_msg_cf(@"%s: writing cryptex1 local policy to %@\n", "ramrod_splat_write_personalized_ticket", v28);
-  v17 = 1;
-  if (([v16 writeToFile:v28 options:1 error:&v39] & 1) == 0)
+  v15 = [objc_msgSend(v4 stringByAppendingPathComponent:{v13), "stringByAppendingPathComponent:", @"LocalPolicy.cryptex1.img4"}];
+  ramrod_log_msg_cf(@"%s: writing cryptex1 local policy to %@\n", "ramrod_splat_write_personalized_ticket", v15);
+  v11 = 1;
+  if (([v10 writeToFile:v15 options:1 error:&v26] & 1) == 0)
   {
-    v29 = v39;
-    v30 = "failed to write cryptex1 local policy";
-    v31 = a2;
-    v32 = 2006;
+    v16 = v26;
+    v17 = "failed to write cryptex1 local policy";
+    v18 = a2;
+    v19 = 2006;
 LABEL_20:
-    sub_13F9C(v31, v32, v29, "ramrod_splat_write_personalized_ticket", v30, v13, v14, v15);
+    sub_13F9C(v18, v19, v16, "ramrod_splat_write_personalized_ticket", v17);
     return 0;
   }
 
-  return v17;
+  return v11;
 }
 
 uint64_t ramrod_splat_verify(void *a1, void *a2)
 {
-  v130 = 0;
-  v131[0] = 0;
+  v55 = 0;
+  v56[0] = 0;
   v4 = sub_15050(a1);
-  if (!sub_15100(v4, a1, v131, &v130, 0, v5, v6, v7))
+  if (!sub_15100(v4, a1, v56, &v55, 0))
   {
     return 22;
   }
 
-  v8 = v131[0];
+  v5 = v56[0];
   if (sub_13F34(a1, @"StageToProposed"))
   {
-    v8 = v130;
+    v5 = v55;
   }
 
-  v9 = sub_141EC(0, 0);
-  v10 = sub_141EC(1, 0);
-  v11 = 22;
-  if (v9)
+  v6 = sub_141EC(0, 0);
+  v7 = sub_141EC(1, 0);
+  v8 = 22;
+  if (v6)
   {
-    v12 = v10;
-    if (v10)
+    v9 = v7;
+    if (v7)
     {
-      v13 = [v8 stringByAppendingPathComponent:v9];
-      v14 = [v8 stringByAppendingPathComponent:v12];
-      v15 = [a1 objectForKeyedSubscript:@"VerifyManifestPathOverride"];
-      v16 = &classRef_NSError;
+      v10 = [v5 stringByAppendingPathComponent:v6];
+      v11 = [v5 stringByAppendingPathComponent:v9];
+      v12 = [a1 objectForKeyedSubscript:@"VerifyManifestPathOverride"];
+      v13 = &classRef_NSError;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v17 = v15;
+        v14 = v12;
       }
 
       else
       {
-        v17 = 0;
+        v14 = 0;
       }
 
-      v18 = sub_13F34(a1, @"VerifyGlobalManifest");
-      v19 = v18;
-      if (v18)
+      v15 = sub_13F34(a1, @"VerifyGlobalManifest");
+      v16 = v15;
+      if (v15)
       {
-        v20 = v13;
+        v17 = v10;
       }
 
       else
       {
-        v20 = v14;
+        v17 = v11;
       }
 
-      if (v17)
+      if (v14)
       {
-        v21 = v17;
+        v18 = v14;
       }
 
       else
       {
-        v21 = v20;
+        v18 = v17;
       }
 
-      [v21 fileSystemRepresentation];
-      ramrod_log_msg("%s: Verifying manifest: %s\n", v22, v23, v24, v25, v26, v27, v28, "ramrod_splat_verify");
+      ramrod_log_msg("%s: Verifying manifest: %s\n", "ramrod_splat_verify", [v18 fileSystemRepresentation]);
       if (!sub_D5200(2, 16, 0, 0))
       {
-        ramrod_log_msg("%s: AppleImage4 API unavailable, skipping verification\n", v29, v30, v31, v32, v33, v34, v35, "ramrod_splat_verify");
+        ramrod_log_msg("%s: AppleImage4 API unavailable, skipping verification\n");
         return 19;
       }
 
-      v141 = 0u;
-      v142 = 0u;
-      v139 = 0u;
-      v140 = 0u;
-      v137 = 0u;
-      v138 = 0u;
-      v135 = 0u;
-      v136 = 0u;
-      v134 = 0u;
-      LOWORD(v134) = 6;
-      bzero(v133, 0x3C0uLL);
-      v132 = 0;
-      memset(&v131[1], 0, 48);
-      if (v19)
+      v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
+      v59 = 0u;
+      LOWORD(v59) = 6;
+      bzero(v58, 0x3C0uLL);
+      v57 = 0;
+      memset(&v56[1], 0, 48);
+      if (v16)
       {
         if (&_img4_chip_ap_reduced)
         {
 LABEL_18:
           if (!off_1AD480 || a2)
           {
-            if (!off_1AD478 || !a2 || !img4_chip_get_cryptex1_boot())
+            if (!off_1AD478)
+            {
+              goto LABEL_32;
+            }
+
+            if (!a2)
+            {
+              goto LABEL_32;
+            }
+
+            cryptex1_boot = img4_chip_get_cryptex1_boot();
+            v20 = "boot";
+            if (!cryptex1_boot)
             {
               goto LABEL_32;
             }
           }
 
-          else if (!img4_chip_get_cryptex1_boot_proposal())
+          else
           {
+            cryptex1_boot_proposal = img4_chip_get_cryptex1_boot_proposal();
+            v20 = "boot proposal";
+            if (!cryptex1_boot_proposal)
+            {
 LABEL_32:
-            ramrod_log_msg("%s: cryptex1 chips unavailable, skipping verification\n", v36, v37, v38, v39, v40, v41, v42, "ramrod_splat_verify");
-            return 19;
+              ramrod_log_msg("%s: cryptex1 chips unavailable, skipping verification\n");
+              return 19;
+            }
           }
 
-          ramrod_log_msg("%s: Verifying against cryptex1 %s coprocessor\n", v36, v37, v38, v39, v40, v41, v42, "ramrod_splat_verify");
-          v43 = [a1 objectForKeyedSubscript:@"VerifyIUOUOverride"];
-          v44 = [a1 objectForKeyedSubscript:@"VerifyEUOUOverride"];
+          ramrod_log_msg("%s: Verifying against cryptex1 %s coprocessor\n", "ramrod_splat_verify", v20);
+          v22 = [a1 objectForKeyedSubscript:@"VerifyIUOUOverride"];
+          v23 = [a1 objectForKeyedSubscript:@"VerifyEUOUOverride"];
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
-            v45 = img4_chip_instantiate();
-            if (v45)
+            v24 = img4_chip_instantiate();
+            if (v24)
             {
-              v11 = v45;
-              strerror(v45);
-              ramrod_log_msg("%s: img4_chip_instantiate() failed: %d (%s)\n", v46, v47, v48, v49, v50, v51, v52, "ramrod_splat_verify");
-              return v11;
+              v8 = v24;
+              v25 = strerror(v24);
+              ramrod_log_msg("%s: img4_chip_instantiate() failed: %d (%s)\n", "ramrod_splat_verify", v8, v25);
+              return v8;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v43 BOOLValue];
-              ramrod_log_msg("%s: Overriding chip with iuou = %i\n", v53, v54, v55, v56, v57, v58, v59, "ramrod_splat_verify");
-              BYTE4(v137) = [v43 BOOLValue];
+              ramrod_log_msg("%s: Overriding chip with iuou = %i\n", "ramrod_splat_verify", [v22 BOOLValue]);
+              BYTE4(v62) = [v22 BOOLValue];
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v44 BOOLValue];
-              ramrod_log_msg("%s: Overriding chip with euou = %i\n", v60, v61, v62, v63, v64, v65, v66, "ramrod_splat_verify");
-              BYTE6(v137) = [v44 BOOLValue];
+              ramrod_log_msg("%s: Overriding chip with euou = %i\n", "ramrod_splat_verify", [v23 BOOLValue]);
+              BYTE6(v62) = [v23 BOOLValue];
             }
 
             img4_chip_init_from_buff();
@@ -1189,89 +1274,107 @@ LABEL_32:
           {
             if ([a2 length] >= 0x31)
             {
-              ramrod_log_msg("%s: Nonce exceeds maximum length\n", v67, v68, v69, v70, v71, v72, v73, "ramrod_splat_verify");
+              ramrod_log_msg("%s: Nonce exceeds maximum length\n", "ramrod_splat_verify");
               return 22;
             }
 
-            HIDWORD(v132) = [a2 length];
-            [a2 getBytes:&v131[1] + 2 length:{objc_msgSend(a2, "length")}];
+            HIDWORD(v57) = [a2 length];
+            [a2 getBytes:&v56[1] + 2 length:{objc_msgSend(a2, "length")}];
           }
 
-          v75 = &dword_1A8EB8;
-          v76 = 9;
+          v27 = &dword_1A8EB8;
+          v28 = 9;
+          v29 = 0uLL;
+          v30 = xmmword_10A0B8;
           while (1)
           {
-            if (*(v75 + 60) == 1)
+            v53 = v29;
+            v54 = v29;
+            v51 = v29;
+            v52 = v29;
+            v49 = v30;
+            v50 = 0;
+            v48 = 0;
+            if (*(v27 + 60) == 1)
             {
-              v77 = v16;
-              v78 = [v8 stringByAppendingPathComponent:{objc_msgSend(v16[10], "stringWithUTF8String:", *(v75 + 4))}];
-              v79 = [v78 fileSystemRepresentation];
-              v80 = [v21 fileSystemRepresentation];
-              if (access(v79, 0))
+              v31 = v13;
+              v32 = [v5 stringByAppendingPathComponent:{objc_msgSend(v13[10], "stringWithUTF8String:", *(v27 + 4))}];
+              v33 = [v32 fileSystemRepresentation];
+              v34 = [v18 fileSystemRepresentation];
+              if (access(v33, 0))
               {
-                v81 = *__error();
-                v82 = sub_13F34(a1, @"SafariDownlevelUpdate");
-                v83 = 57;
-                if (v82)
+                v35 = *__error();
+                v36 = sub_13F34(a1, @"SafariDownlevelUpdate");
+                v37 = 57;
+                if (v36)
                 {
-                  v83 = 58;
+                  v37 = 58;
                 }
 
-                v16 = v77;
-                if (*(v75 + v83) == 1)
+                v13 = v31;
+                v29 = 0uLL;
+                v30 = xmmword_10A0B8;
+                if (*(v27 + v37) == 1)
                 {
-                  strerror(v81);
-                  ramrod_log_msg("%s: Payload not found (%s): %d %s\n", v108, v109, v110, v111, v112, v113, v114, "ramrod_splat_verify");
-                  return v81;
+                  v42 = strerror(v35);
+                  ramrod_log_msg("%s: Payload not found (%s): %d %s\n", "ramrod_splat_verify", v33, v35, v42);
+                  return v35;
                 }
               }
 
               else
               {
-                if (access(v80, 0))
+                if (access(v34, 0))
                 {
-                  v115 = __error();
-                  v11 = *v115;
-                  strerror(*v115);
-                  ramrod_log_msg("%s: Manifest not found (%s): %d %s\n", v116, v117, v118, v119, v120, v121, v122, "ramrod_splat_verify");
-                  return v11;
+                  v43 = __error();
+                  v8 = *v43;
+                  v44 = strerror(*v43);
+                  ramrod_log_msg("%s: Manifest not found (%s): %d %s\n", "ramrod_splat_verify", v34, v8, v44);
+                  return v8;
                 }
 
-                v84 = [NSData dataWithContentsOfFile:v78];
-                [(NSData *)v84 bytes];
-                [(NSData *)v84 length];
-                if (!img4_firmware_new())
+                v38 = [NSData dataWithContentsOfFile:v32];
+                *(&v53 + 1) = [(NSData *)v38 bytes];
+                *&v54 = [(NSData *)v38 length];
+                v39 = v27[6];
+                v48 = img4_firmware_new();
+                if (!v48)
                 {
-                  ramrod_log_msg("%s: img4_firmware_new() failed\n", v85, v86, v87, v88, v89, v90, v91, "ramrod_splat_verify");
+                  ramrod_log_msg("%s: img4_firmware_new() failed\n", "ramrod_splat_verify");
                   return 12;
                 }
 
-                v92 = [NSData dataWithContentsOfFile:v21];
-                [(NSData *)v92 bytes];
-                if (![(NSData *)v92 length])
+                v40 = [NSData dataWithContentsOfFile:v18];
+                *(&v51 + 1) = [(NSData *)v40 bytes];
+                *&v52 = [(NSData *)v40 length];
+                if (!v52)
                 {
-                  ramrod_log_msg("%s: Manifest is empty", v93, v94, v95, v96, v97, v98, v99, "ramrod_splat_verify");
+                  ramrod_log_msg("%s: Manifest is empty", "ramrod_splat_verify");
                   img4_firmware_destroy();
                   return 96;
                 }
 
                 img4_firmware_attach_manifest();
-                v100 = img4_firmware_evaluate();
+                v41 = img4_firmware_evaluate();
                 img4_firmware_destroy();
-                if (v100)
+                v47 = 0;
+                v46 = bswap32(v39);
+                if (v41)
                 {
-                  strerror(v100);
-                  ramrod_log_msg("%s: Failed to verify %s (%s): %d %s\n", v123, v124, v125, v126, v127, v128, v129, "ramrod_splat_verify");
-                  return v100;
+                  v45 = strerror(v41);
+                  ramrod_log_msg("%s: Failed to verify %s (%s): %d %s\n", "ramrod_splat_verify", &v46, v33, v41, v45);
+                  return v41;
                 }
 
-                ramrod_log_msg("%s: Successfully verified %s (%s)\n", v101, v102, v103, v104, v105, v106, v107, "ramrod_splat_verify");
-                v16 = v77;
+                ramrod_log_msg("%s: Successfully verified %s (%s)\n", "ramrod_splat_verify", &v46, v33);
+                v13 = v31;
+                v29 = 0uLL;
+                v30 = xmmword_10A0B8;
               }
             }
 
-            v75 += 16;
-            if (!--v76)
+            v27 += 16;
+            if (!--v28)
             {
               return 0;
             }
@@ -1284,78 +1387,78 @@ LABEL_32:
         goto LABEL_18;
       }
 
-      ramrod_log_msg("%s: Failed to get AP chip\n", v36, v37, v38, v39, v40, v41, v42, "ramrod_splat_verify");
+      ramrod_log_msg("%s: Failed to get AP chip\n", "ramrod_splat_verify");
       return 2;
     }
   }
 
-  return v11;
+  return v8;
 }
 
 uint64_t ramrod_splat_stage_rollback(void *a1, CFErrorRef *a2, uint64_t a3)
 {
-  v42 = 0;
-  v43 = 0;
-  v41 = 0;
+  v22 = 0;
+  v23 = 0;
+  v21 = 0;
   v6 = sub_15050(a1);
-  result = sub_15100(v6, a1, &v42, &v41, a2, v7, v8, v9);
+  result = sub_15100(v6, a1, &v22, &v21, a2);
   if (!result)
   {
     return result;
   }
 
-  v11 = [v42 stringByAppendingPathComponent:@"/rollback"];
+  v8 = [v22 stringByAppendingPathComponent:@"/rollback"];
   if (![+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
   {
-    [v11 fileSystemRepresentation];
-    ramrod_log_msg("%s: Rollback directory does not exist: %s\n", v30, v31, v32, v33, v34, v35, v36, "ramrod_splat_stage_rollback");
+    [v8 fileSystemRepresentation];
+    ramrod_log_msg("%s: Rollback directory does not exist: %s\n");
     return 0;
   }
 
-  if (!sub_14040(v41, &v43))
+  if (!sub_14040(v21, &v23))
   {
-    v37 = v43;
-    v38 = "failed to remove destination directory";
-    v39 = a2;
-    v40 = 2008;
+    v17 = v23;
+    v18 = "failed to remove destination directory";
+    v19 = a2;
+    v20 = 2008;
     goto LABEL_17;
   }
 
-  if (!sub_14148(v11, v41, &v43))
+  if (!sub_14148(v8, v21, &v23))
   {
-    v37 = v43;
-    v38 = "failed to clone rollback directory";
-    v39 = a2;
-    v40 = 2007;
+    v17 = v23;
+    v18 = "failed to clone rollback directory";
+    v19 = a2;
+    v20 = 2007;
     goto LABEL_17;
   }
 
-  v15 = [v41 stringByAppendingPathComponent:@"/payloadv2"];
-  v16 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", v15];
-  v24 = [v15 fileSystemRepresentation];
-  if ((v16 & 1) == 0)
+  v9 = [v21 stringByAppendingPathComponent:@"/payloadv2"];
+  v10 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", v9];
+  v11 = [v9 fileSystemRepresentation];
+  if ((v10 & 1) == 0)
   {
-    ramrod_log_msg("%s: Assets directory does not exist: %s\n", v17, v18, v19, v20, v21, v22, v23, "ramrod_splat_stage_rollback");
+    ramrod_log_msg("%s: Assets directory does not exist: %s\n");
     return 0;
   }
 
-  v25 = 9;
+  v12 = 9;
   for (i = &byte_1A8EF3; *(i - 59) || *i != 1; i += 64)
   {
 LABEL_11:
-    if (!--v25)
+    if (!--v12)
     {
-      sub_14040(v15, 0);
+      sub_14040(v9, 0);
       return 1;
     }
   }
 
-  v27 = *(i - 27);
-  v28 = [v42 stringByAppendingPathComponent:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v27)}];
-  v29 = [v41 stringByAppendingPathComponent:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v27)}];
-  if (sub_140C0([v29 stringByDeletingLastPathComponent], &v43))
+  v14 = *(i - 27);
+  v15 = [v22 stringByAppendingPathComponent:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v14)}];
+  v16 = [v21 stringByAppendingPathComponent:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v14)}];
+  if (sub_140C0([v16 stringByDeletingLastPathComponent], &v23))
   {
-    result = (*(a3 + 16))(a3, v24, *(i - 11), [v28 fileSystemRepresentation], objc_msgSend(v29, "fileSystemRepresentation"));
+    result = (*(a3 + 16))(a3, v11, *(i - 11), [v15 fileSystemRepresentation], objc_msgSend(v16, "fileSystemRepresentation"));
     if (!result)
     {
       return result;
@@ -1364,12 +1467,12 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v37 = v43;
-  v38 = "failed to create containing directory";
-  v39 = a2;
-  v40 = 2009;
+  v17 = v23;
+  v18 = "failed to create containing directory";
+  v19 = a2;
+  v20 = 2009;
 LABEL_17:
-  sub_13F9C(v39, v40, v37, "ramrod_splat_stage_rollback", v38, v12, v13, v14);
+  sub_13F9C(v19, v20, v17, "ramrod_splat_stage_rollback", v18);
   return 0;
 }
 
@@ -1383,7 +1486,7 @@ id sub_15050(void *a1)
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0 || !v2)
     {
-      ramrod_log_msg("%s: RAMROD_SPLAT_OPT_PREBOOT_MOUNTPOINT is required\n", v3, v4, v5, v6, v7, v8, v9, "_get_os_preboot_path");
+      ramrod_log_msg("%s: RAMROD_SPLAT_OPT_PREBOOT_MOUNTPOINT is required\n", "_get_os_preboot_path");
       return 0;
     }
   }
@@ -1391,37 +1494,37 @@ id sub_15050(void *a1)
   return v2;
 }
 
-BOOL sub_15100(void *a1, void *a2, void *a3, void *a4, CFErrorRef *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_15100(void *a1, void *a2, void *a3, void *a4, CFErrorRef *a5)
 {
   if (a1)
   {
     if (sub_13F34(a2, @"SafariDownlevelUpdate"))
     {
-      v11 = @"downlevel";
+      v8 = @"downlevel";
     }
 
     else
     {
-      v11 = @"cryptex1";
+      v8 = @"cryptex1";
     }
 
-    v12 = [a1 stringByAppendingPathComponent:v11];
-    v13 = v12;
+    v9 = [a1 stringByAppendingPathComponent:v8];
+    v10 = v9;
     if (a3)
     {
-      *a3 = [v12 stringByAppendingPathComponent:@"current"];
+      *a3 = [v9 stringByAppendingPathComponent:@"current"];
     }
 
     if (a4)
     {
-      *a4 = [v13 stringByAppendingPathComponent:@"proposed"];
+      *a4 = [v10 stringByAppendingPathComponent:@"proposed"];
     }
   }
 
   else
   {
-    ramrod_log_msg("%s: %s\n", a2, a3, a4, a5, a6, a7, a8, "_get_splat_preboot_paths");
-    ramrod_create_error_cf(a5, @"RamrodErrorDomain", 2001, 0, @"%s", v15, v16, v17, "preboot directory is nil");
+    ramrod_log_msg("%s: %s\n", "_get_splat_preboot_paths", "preboot directory is nil");
+    ramrod_create_error_cf(a5, @"RamrodErrorDomain", 2001, 0, @"%s", v12, v13, v14, "preboot directory is nil");
   }
 
   return a1 != 0;
@@ -1429,36 +1532,36 @@ BOOL sub_15100(void *a1, void *a2, void *a3, void *a4, CFErrorRef *a5, uint64_t 
 
 uint64_t ramrod_splat_commit_proposed(void *a1, CFErrorRef *a2)
 {
-  v24 = 0;
-  v25 = 0;
+  v14 = 0;
+  v15 = 0;
   v4 = sub_15050(a1);
-  result = sub_15100(v4, a1, &v25, &v24, a2, v5, v6, v7);
+  result = sub_15100(v4, a1, &v15, &v14, a2);
   if (result)
   {
-    v9 = [v24 fileSystemRepresentation];
-    result = sub_1535C(v9, [v25 fileSystemRepresentation], a2);
+    v6 = [v14 fileSystemRepresentation];
+    result = sub_1535C(v6, [v15 fileSystemRepresentation], a2);
     if (result)
     {
-      v24 = 0;
-      v25 = 0;
-      v10 = sub_15050(a1);
-      if (v10)
+      v14 = 0;
+      v15 = 0;
+      v7 = sub_15050(a1);
+      if (v7)
       {
-        v18 = v10;
+        v8 = v7;
         if ((sub_13F34(a1, @"SafariDownlevelUpdate") & 1) == 0 && (sub_13F34(a1, @"SplatOnlyUpdate") & 1) == 0)
         {
-          v19 = [v18 stringByAppendingPathComponent:@"supplemental"];
-          v25 = [v19 stringByAppendingPathComponent:@"current"];
-          v24 = [v19 stringByAppendingPathComponent:@"proposed"];
-          v20 = [v24 fileSystemRepresentation];
-          sub_1535C(v20, [v25 fileSystemRepresentation], a2);
+          v9 = [v8 stringByAppendingPathComponent:@"supplemental"];
+          v15 = [v9 stringByAppendingPathComponent:@"current"];
+          v14 = [v9 stringByAppendingPathComponent:@"proposed"];
+          v10 = [v14 fileSystemRepresentation];
+          sub_1535C(v10, [v15 fileSystemRepresentation], a2);
         }
       }
 
       else
       {
-        ramrod_log_msg("%s: %s\n", v11, v12, v13, v14, v15, v16, v17, "_get_supplemental_preboot_paths");
-        ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2001, 0, @"%s", v21, v22, v23, "preboot directory is nil");
+        ramrod_log_msg("%s: %s\n", "_get_supplemental_preboot_paths", "preboot directory is nil");
+        ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2001, 0, @"%s", v11, v12, v13, "preboot directory is nil");
       }
 
       return 1;
@@ -1474,59 +1577,59 @@ uint64_t sub_1535C(const std::__fs::filesystem::path *a1, const std::__fs::files
   {
     if (access(a2, 0))
     {
-      ramrod_log_msg("%s: Moving %s to %s\n", v14, v15, v16, v17, v18, v19, v20, "ramrod_splat_commit_proposed_internal");
-      rename(a1, a2, v21);
-      if (!v22)
+      ramrod_log_msg("%s: Moving %s to %s\n", "ramrod_splat_commit_proposed_internal", a1, a2);
+      rename(a1, a2, v7);
+      if (!v8)
       {
         return 1;
       }
 
-      v23 = *__error();
-      v24 = "rename() failed";
-      v25 = a3;
-      v26 = 2002;
+      v9 = *__error();
+      v10 = "rename() failed";
+      v11 = a3;
+      v12 = 2002;
     }
 
     else
     {
-      ramrod_log_msg("%s: Swapping %s with %s\n", v14, v15, v16, v17, v18, v19, v20, "ramrod_splat_commit_proposed_internal");
+      ramrod_log_msg("%s: Swapping %s with %s\n", "ramrod_splat_commit_proposed_internal", a1, a2);
       if (!renamex_np(a1, a2, 2u))
       {
-        v13 = 1;
+        v6 = 1;
         if (!removefile(a1, 0, 1u))
         {
-          return v13;
+          return v6;
         }
 
-        v28 = __error();
-        strerror(*v28);
-        ramrod_log_msg("%s: Failed to delete proposed (%s): %d (%s)\n", v29, v30, v31, v32, v33, v34, v35, "ramrod_splat_commit_proposed_internal");
+        v14 = __error();
+        strerror(*v14);
+        ramrod_log_msg("%s: Failed to delete proposed (%s): %d (%s)\n");
         return 1;
       }
 
-      v23 = *__error();
-      v24 = "rename_np() failed";
-      v25 = a3;
-      v26 = 2003;
+      v9 = *__error();
+      v10 = "rename_np() failed";
+      v11 = a3;
+      v12 = 2003;
     }
 
-    sub_15B94(v25, v26, v23, "ramrod_splat_commit_proposed_internal", v24);
+    sub_15B94(v11, v12, v9, "ramrod_splat_commit_proposed_internal", v10);
     return 0;
   }
 
-  ramrod_log_msg("%s: Warning: proposed directory doesn't exist, skipping: %s\n", v6, v7, v8, v9, v10, v11, v12, "ramrod_splat_commit_proposed_internal");
+  ramrod_log_msg("%s: Warning: proposed directory doesn't exist, skipping: %s\n");
   return 1;
 }
 
-BOOL ramrod_splat_cleanup(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL ramrod_splat_cleanup(void *a1)
 {
-  ramrod_log_msg("%s: Cleaning up proposed directory in preboot\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_splat_cleanup");
-  v14 = 0;
-  v9 = sub_15050(a1);
-  result = sub_15100(v9, a1, 0, &v14, 0, v10, v11, v12);
+  ramrod_log_msg("%s: Cleaning up proposed directory in preboot\n", "ramrod_splat_cleanup");
+  v4 = 0;
+  v2 = sub_15050(a1);
+  result = sub_15100(v2, a1, 0, &v4, 0);
   if (result)
   {
-    return sub_14040(v14, 0);
+    return sub_14040(v4, 0);
   }
 
   return result;
@@ -1534,51 +1637,51 @@ BOOL ramrod_splat_cleanup(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 id ramrod_splat_copy_object_path(const char *a1, void *a2)
 {
-  v13 = 0;
-  v14 = 0;
+  v10 = 0;
+  v11 = 0;
   v4 = sub_15050(a2);
-  if (!sub_15100(v4, a2, &v14, &v13, 0, v5, v6, v7))
+  if (!sub_15100(v4, a2, &v11, &v10, 0))
   {
     return 0;
   }
 
-  v8 = v14;
+  v5 = v11;
   if (sub_13F34(a2, @"StageToProposed"))
   {
-    v9 = v13;
+    v6 = v10;
   }
 
   else
   {
-    v9 = v8;
+    v6 = v5;
   }
 
   if (!a1)
   {
-    if (v9)
+    if (v6)
     {
-      return CFRetain(v9);
+      return CFRetain(v6);
     }
 
     return 0;
   }
 
-  v10 = &dword_1A8EB8;
-  v11 = 9;
-  while (*v10 || strcmp(*(v10 + 1), a1))
+  v7 = &dword_1A8EB8;
+  v8 = 9;
+  while (*v7 || strcmp(*(v7 + 1), a1))
   {
-    v10 += 16;
-    if (!--v11)
+    v7 += 16;
+    if (!--v8)
     {
       return 0;
     }
   }
 
-  result = [v9 stringByAppendingPathComponent:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", *(v10 + 4))}];
-  v9 = result;
+  result = [v6 stringByAppendingPathComponent:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", *(v7 + 4))}];
+  v6 = result;
   if (result)
   {
-    return CFRetain(v9);
+    return CFRetain(v6);
   }
 
   return result;
@@ -1618,14 +1721,14 @@ uint64_t ramrod_splat_object_4cc(char *__s2)
 
 CFTypeRef ramrod_splat_copy_rollback_assets_path(void *a1)
 {
-  v9 = 0;
+  v6 = 0;
   v2 = sub_15050(a1);
-  if (!sub_15100(v2, a1, &v9, 0, 0, v3, v4, v5))
+  if (!sub_15100(v2, a1, &v6, 0, 0))
   {
     return 0;
   }
 
-  v6 = [v9 stringByAppendingPathComponent:@"/rollback/payloadv2"];
+  v3 = [v6 stringByAppendingPathComponent:@"/rollback/payloadv2"];
   if (![+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
   {
     return 0;
@@ -1633,38 +1736,38 @@ CFTypeRef ramrod_splat_copy_rollback_assets_path(void *a1)
 
   else
   {
-    return CFRetain(v6);
+    return CFRetain(v3);
   }
 }
 
 NSString *ramrod_splat_copy_ticket_path(void *a1, int a2)
 {
-  v14 = 0;
-  v15 = 0;
+  v11 = 0;
+  v12 = 0;
   v4 = sub_15050(a1);
-  if (!sub_15100(v4, a1, &v15, &v14, 0, v5, v6, v7))
+  if (!sub_15100(v4, a1, &v12, &v11, 0))
   {
     return 0;
   }
 
-  v8 = v15;
-  v9 = sub_13F34(a1, @"StageToProposed");
-  v10 = v14;
+  v5 = v12;
+  v6 = sub_13F34(a1, @"StageToProposed");
+  v7 = v11;
   result = sub_141EC(a2, 0);
   if (result)
   {
-    v12 = result;
-    if (v9)
+    v9 = result;
+    if (v6)
     {
-      v13 = v10;
+      v10 = v7;
     }
 
     else
     {
-      v13 = v8;
+      v10 = v5;
     }
 
-    result = [v13 stringByAppendingPathComponent:{v12, v14}];
+    result = [v10 stringByAppendingPathComponent:{v9, v11}];
     if (result)
     {
       return CFRetain(result);
@@ -1695,124 +1798,124 @@ uint64_t ramrod_splat_get_total_cryptex_size(void *a1, CFErrorRef *a2)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || !v3)
   {
-    ramrod_log_msg("%s: %s\n", v4, v5, v6, v7, v8, v9, v10, "ramrod_splat_get_total_cryptex_size");
-    ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2000, 0, @"%s", v71, v72, v73, "missing RAMROD_SPLAT_OPT_BUILD_IDENTITY");
+    ramrod_log_msg("%s: %s\n", "ramrod_splat_get_total_cryptex_size", "missing RAMROD_SPLAT_OPT_BUILD_IDENTITY");
+    ramrod_create_error_cf(a2, @"RamrodErrorDomain", 2000, 0, @"%s", v16, v17, v18, "missing RAMROD_SPLAT_OPT_BUILD_IDENTITY");
     return 0;
   }
 
-  if (!ramrod_splat_enabled(v3, v4, v5, v6, v7, v8, v9, v10))
+  if (!ramrod_splat_enabled(v3))
   {
-    ramrod_log_msg("%s: Cryptexes not supported in this environment. Returning 0 for size\n", v11, v12, v13, v14, v15, v16, v17, "ramrod_splat_get_total_cryptex_size");
+    ramrod_log_msg("%s: Cryptexes not supported in this environment. Returning 0 for size\n", "ramrod_splat_get_total_cryptex_size");
     return 0;
   }
 
-  v76 = 0;
-  v18 = &off_1A8EC8;
-  v19 = 9;
+  v21 = 0;
+  v4 = &off_1A8EC8;
+  v5 = 9;
   do
   {
-    v20 = *v18;
-    if (!*(v18 - 1) || !v20)
+    v7 = *(v4 - 1);
+    v6 = *v4;
+    if (!v7 || !v6)
     {
-      ramrod_log_msg("%s: Tag or info_size_key not specified for this entry, skipping. Tag: %s InfoSizeKey: %s\n", v11, v12, v13, v14, v15, v16, v17, "ramrod_splat_get_total_cryptex_size");
+      ramrod_log_msg("%s: Tag or info_size_key not specified for this entry, skipping. Tag: %s InfoSizeKey: %s\n");
       goto LABEL_17;
     }
 
-    if (*(v18 - 4))
+    if (*(v4 - 4))
     {
       goto LABEL_17;
     }
 
-    v21 = [NSString stringWithUTF8String:*(v18 - 1)];
-    v22 = [NSString stringWithUTF8String:v20];
-    if (!sub_143E0(v3, v21))
+    v8 = [NSString stringWithUTF8String:*(v4 - 1)];
+    v9 = [NSString stringWithUTF8String:v6];
+    if (!sub_143E0(v3, v8))
     {
-      ramrod_log_msg("%s: %s isn't present in the build identity dictionary, skipping\n", v23, v24, v25, v26, v27, v28, v29, "ramrod_splat_get_total_cryptex_size");
+      ramrod_log_msg("%s: %s isn't present in the build identity dictionary, skipping\n");
       goto LABEL_17;
     }
 
-    v30 = [v3 objectForKeyedSubscript:@"Info"];
-    if (!v22)
+    v10 = [v3 objectForKeyedSubscript:@"Info"];
+    if (!v9)
     {
-      v40 = "Invalid arguments passed to %s\n";
+      v13 = "Invalid arguments passed to %s\n";
 LABEL_21:
-      ramrod_log_msg(v40, v31, v32, v33, v34, v35, v36, v37, "_build_identity_info_dict_contains_entry");
+      ramrod_log_msg(v13, "_build_identity_info_dict_contains_entry");
 LABEL_22:
-      ramrod_log_msg("%s: Could not find entry for %s in the buildIdentity info dict. Skipping\n", v41, v42, v43, v44, v45, v46, v47, "ramrod_splat_get_total_cryptex_size");
+      ramrod_log_msg("%s: Could not find entry for %s in the buildIdentity info dict. Skipping\n");
       goto LABEL_17;
     }
 
-    v38 = v30;
+    v11 = v10;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v40 = "%s: BuildIdentity does not contain 'Info' key\n";
+    v13 = "%s: BuildIdentity does not contain 'Info' key\n";
     if ((isKindOfClass & 1) == 0)
     {
       goto LABEL_21;
     }
 
-    if (![v38 objectForKey:v22])
+    if (![v11 objectForKey:v9])
     {
       goto LABEL_22;
     }
 
-    ramrod_log_msg("%s: Found entry for %s in buildIdentity\n", v41, v42, v43, v44, v45, v46, v47, "ramrod_splat_get_total_cryptex_size");
-    v48 = [v3 objectForKeyedSubscript:@"Info"];
+    ramrod_log_msg("%s: Found entry for %s in buildIdentity\n", "ramrod_splat_get_total_cryptex_size", v6);
+    v14 = [v3 objectForKeyedSubscript:@"Info"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v56 = [v48 objectForKeyedSubscript:v22];
+      v15 = [v14 objectForKeyedSubscript:v9];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && v56)
+      if ((objc_opt_isKindOfClass() & 1) != 0 && v15)
       {
-        [v56 longLongValue];
-        ramrod_log_msg("%s: Size of %s is %lld MB\n", v64, v65, v66, v67, v68, v69, v70, "ramrod_splat_get_total_cryptex_size");
-        v76 += [v56 longLongValue];
+        ramrod_log_msg("%s: Size of %s is %lld MB\n", "ramrod_splat_get_total_cryptex_size", v7, [v15 longLongValue]);
+        v21 += [v15 longLongValue];
         goto LABEL_17;
       }
     }
 
     else
     {
-      ramrod_log_msg("%s: Unable to read info dictionary from build identity for %s\n", v49, v50, v51, v52, v53, v54, v55, "ramrod_splat_get_total_cryptex_size");
+      ramrod_log_msg("%s: Unable to read info dictionary from build identity for %s\n", "ramrod_splat_get_total_cryptex_size", v6);
     }
 
-    ramrod_log_msg("%s: Unable to read size of %s. Skipping\n", v57, v58, v59, v60, v61, v62, v63, "ramrod_splat_get_total_cryptex_size");
+    ramrod_log_msg("%s: Unable to read size of %s. Skipping\n");
 LABEL_17:
-    v18 += 8;
-    --v19;
+    v4 += 8;
+    --v5;
   }
 
-  while (v19);
-  if (v76)
+  while (v5);
+  if (v21)
   {
-    v74 = v76 << 20;
-    ramrod_log_msg("%s: Total size of cryptexes is %lld bytes\n", v11, v12, v13, v14, v15, v16, v17, "ramrod_splat_get_total_cryptex_size");
+    v19 = v21 << 20;
+    ramrod_log_msg("%s: Total size of cryptexes is %lld bytes\n");
   }
 
   else
   {
-    v74 = 3355443200;
-    ramrod_log_msg("%s: Unable to determine size of any cryptex. Returning default size(%lld bytes)\n", v11, v12, v13, v14, v15, v16, v17, "ramrod_splat_get_total_cryptex_size");
+    v19 = 3355443200;
+    ramrod_log_msg("%s: Unable to determine size of any cryptex. Returning default size(%lld bytes)\n");
   }
 
-  return v74;
+  return v19;
 }
 
-void sub_15B94(CFErrorRef *a1, CFIndex a2, int __errnum, char a4, char a5)
+void sub_15B94(CFErrorRef *a1, CFIndex a2, int __errnum, const char *a4, const char *a5)
 {
-  strerror(__errnum);
-  ramrod_log_msg("%s: %s: %d (%s)\n", v9, v10, v11, v12, v13, v14, v15, a4);
-  v16 = CFErrorCreate(kCFAllocatorDefault, kCFErrorDomainPOSIX, __errnum, 0);
-  ramrod_create_error_cf(a1, @"RamrodErrorDomain", a2, v16, @"%s", v17, v18, v19, a5);
-  if (v16)
+  v10 = strerror(__errnum);
+  ramrod_log_msg("%s: %s: %d (%s)\n", a4, a5, __errnum, v10);
+  v11 = CFErrorCreate(kCFAllocatorDefault, kCFErrorDomainPOSIX, __errnum, 0);
+  ramrod_create_error_cf(a1, @"RamrodErrorDomain", a2, v11, @"%s", v12, v13, v14, a5);
+  if (v11)
   {
 
-    CFRelease(v16);
+    CFRelease(v11);
   }
 }
 
-uint64_t picoPNG::decodePNG(void *a1, unint64_t *a2, unint64_t *a3, unsigned __int8 *a4, unint64_t a5, char a6)
+uint64_t picoPNG::decodePNG(uint64_t *a1, unint64_t *a2, unint64_t *a3, unsigned __int8 *a4, unint64_t a5, char a6)
 {
   v6 = 0;
   *v112 = 0u;
@@ -2165,21 +2268,20 @@ LABEL_128:
           v43 = 0;
           v44 = 0;
           v45 = v103;
-          v133 = vshlq_u64(vdupq_n_s64(v103 + 3), xmmword_10A0D0);
-          v134 = vshlq_u64(vdupq_n_s64(v103 + 1), xmmword_10A0E0);
-          v135 = v103 >> 1;
-          v136 = v103;
-          v128[0] = (v104 + 7) >> 3;
-          v128[1] = v128[0];
-          v129 = vshlq_u64(vdupq_n_s64(v104 + 3), xmmword_10A0D0);
-          v130 = vshlq_u64(vdupq_n_s64(v104 + 1), xmmword_10A0E0);
-          v131 = v104 >> 1;
-          v132 = ((v103 + 7) >> 3);
-          v127 = 0;
+          v132 = vshlq_u64(vdupq_n_s64(v103 + 3), xmmword_10A0D0);
+          v133 = vshlq_u64(vdupq_n_s64(v103 + 1), xmmword_10A0E0);
+          v134 = v103 >> 1;
+          v135 = v103;
+          v127[0] = (v104 + 7) >> 3;
+          v127[1] = v127[0];
+          v128 = vshlq_u64(vdupq_n_s64(v104 + 3), xmmword_10A0D0);
+          v129 = vshlq_u64(vdupq_n_s64(v104 + 1), xmmword_10A0E0);
+          v130 = v104 >> 1;
+          v131 = ((v103 + 7) >> 3);
           memset(v126, 0, sizeof(v126));
           do
           {
-            v46 = (&v132)[v43];
+            v46 = (&v131)[v43];
             v47 = v46 == 0;
             v48 = (v46 * v38 + 7) >> 3;
             if (!v47)
@@ -2187,7 +2289,7 @@ LABEL_128:
               ++v48;
             }
 
-            v44 += v48 * v128[v43];
+            v44 += v48 * v127[v43];
             v126[++v43] = v44;
           }
 
@@ -2202,10 +2304,10 @@ LABEL_128:
           sub_180AC(&__p, (v103 * v38 + 7) >> 3);
           for (j = 0; j != 7; ++j)
           {
-            v49 = (&v132)[j];
+            v49 = (&v131)[j];
             if (v49)
             {
-              v93 = v128[j];
+              v93 = v127[j];
               if (v93)
               {
                 v50 = __p;
@@ -2326,16 +2428,16 @@ LABEL_128:
         v101 = (v103 * v38 + 7) >> 3;
         if (v38 < 8)
         {
-          v132 = 0;
-          v133 = 0uLL;
-          sub_180AC(&v132, v101);
+          v131 = 0;
+          v132 = 0uLL;
+          sub_180AC(&v131, v101);
           v77 = 0;
           v78 = 0;
           v79 = 0;
           while (1)
           {
             v80 = v77 ? &v42[(v77 - 1) * v99] : 0;
-            sub_17420(&v103, v132, v120 + v78 + 1, v80, (v38 + 7) >> 3, *(v120 + v78), v101);
+            sub_17420(&v103, v131, v120 + v78 + 1, v80, (v38 + 7) >> 3, *(v120 + v78), v101);
             v98 = DWORD2(v113) != 0;
             if (DWORD2(v113))
             {
@@ -2349,7 +2451,7 @@ LABEL_128:
               {
                 v82 = v79 + v81;
                 v83 = ~(v79 + v81);
-                v84 = (v132[v81 >> 3] >> (~v81 & 7)) & 1;
+                v84 = (v131[v81 >> 3] >> (~v81 & 7)) & 1;
                 ++v81;
                 v42[v82 >> 3] |= v84 << (v83 & 7);
               }
@@ -2368,10 +2470,10 @@ LABEL_128:
 
           v85 = 1;
 LABEL_160:
-          if (v132)
+          if (v131)
           {
-            v133.i64[0] = v132;
-            operator delete(v132);
+            v132.i64[0] = v131;
+            operator delete(v131);
           }
 
           if (!v98)
@@ -2385,14 +2487,14 @@ LABEL_163:
 LABEL_165:
             if ((a6 & 1) != 0 && (v105 != 6 || v106 != 8))
             {
-              v132 = 0;
-              v133 = 0uLL;
-              sub_188A8(&v132, *a1, a1[1], a1[1] - *a1);
-              DWORD2(v113) = sub_17690(a1, v132, &v103, v103, v104);
-              if (v132)
+              v131 = 0;
+              v132 = 0uLL;
+              sub_188A8(&v131, *a1, a1[1], a1[1] - *a1);
+              DWORD2(v113) = sub_17690(a1, v131, &v103, v103, v104);
+              if (v131)
               {
-                v133.i64[0] = v132;
-                operator delete(v132);
+                v132.i64[0] = v131;
+                operator delete(v131);
               }
             }
           }
@@ -2493,19 +2595,19 @@ void sub_16824(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void sub_168AC(void *a1, unint64_t a2)
+void sub_168AC(void *result, unint64_t a2)
 {
-  v2 = a1[1] - *a1;
+  v2 = result[1] - *result;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    sub_17F9C(a1, v4);
+    sub_17F9C(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + a2;
+    result[1] = *result + a2;
   }
 }
 
@@ -2564,10 +2666,10 @@ uint64_t sub_168D4(uint64_t *a1, unsigned __int8 **a2)
       goto LABEL_181;
     }
 
-    v12 = v10 + 2;
-    v13 = *(v10 + 2 + (v107 >> 3));
-    v14 = (*(v10 + 2 + ((v107 + 1) >> 3)) >> ((v107 + 1) & 7)) & 1;
-    v15 = *(v10 + 2 + ((v107 + 2) >> 3)) >> ((v107 + 2) & 7);
+    v12 = (v10 + 2);
+    v13 = v10[(v107 >> 3) + 2];
+    v14 = (v10[((v107 + 1) >> 3) + 2] >> ((v107 + 1) & 7)) & 1;
+    v15 = v10[((v107 + 2) >> 3) + 2] >> ((v107 + 2) & 7);
     v16 = v107 + 3;
     v107 += 3;
     v17 = v14 & 0xFFFFFFFD | (2 * (v15 & 1));
@@ -2965,7 +3067,7 @@ LABEL_181:
           {
             if (v20)
             {
-              v68 = (v10 + v18 + 6);
+              v68 = &v10[v18 + 6];
               do
               {
                 v69 = *v68++;
@@ -3265,7 +3367,7 @@ LABEL_184:
   return v3;
 }
 
-uint64_t sub_17420(uint64_t result, _BYTE *a2, char *a3, unsigned __int8 *a4, unint64_t a5, uint64_t a6, unint64_t a7)
+uint64_t sub_17420(uint64_t result, _BYTE *a2, char *a3, char *a4, unint64_t a5, uint64_t a6, unint64_t a7)
 {
   if (a6 <= 1)
   {
@@ -3720,7 +3822,7 @@ uint64_t sub_17690(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
     if (v8)
     {
       v34 = v10 + 3;
-      v35 = (a2 + 1);
+      v35 = a2 + 1;
       do
       {
         v36 = *a2;
@@ -4046,13 +4148,13 @@ char *sub_17CC0(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5)
 
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 >= a5)
+  if ((v9 - v10) >= a5)
   {
     v17 = v10 - __dst;
-    if (v10 - __dst >= a5)
+    if ((v10 - __dst) >= a5)
     {
       v22 = &__dst[a5];
-      v23 = &v10[-a5];
+      v23 = (v10 - a5);
       v24 = *(a1 + 8);
       if (v10 >= a5)
       {
@@ -4087,7 +4189,7 @@ char *sub_17CC0(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5)
 
       else
       {
-        v19 = &a4[__dst] - __src;
+        v19 = (&a4[__dst] - __src);
         v20 = *(a1 + 8);
         do
         {
@@ -4105,9 +4207,9 @@ char *sub_17CC0(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5)
       }
 
       v29 = &__dst[a5];
-      v30 = (v19 - a5);
+      v30 = &v19[-a5];
       v31 = v19;
-      if (v19 - a5 < v10)
+      if (&v19[-a5] < v10)
       {
         do
         {
@@ -4134,7 +4236,7 @@ char *sub_17CC0(uint64_t a1, char *__dst, _BYTE *__src, char *a4, int64_t a5)
   }
 
   v11 = *a1;
-  v12 = &v10[a5 - *a1];
+  v12 = v10 - *a1 + a5;
   if (v12 < 0)
   {
     sub_17EC8();
@@ -4275,7 +4377,7 @@ void *sub_180AC(void *a1, size_t a2)
   {
     sub_18120(a1, a2);
     v4 = a1[1];
-    v5 = &v4[a2];
+    v5 = v4 + a2;
     bzero(v4, a2);
     a1[1] = v5;
   }
@@ -4596,7 +4698,7 @@ void sub_18498(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_184E4(void *a1, unint64_t a2, uint64_t *a3)
+uint64_t *sub_184E4(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -4647,7 +4749,7 @@ void sub_185A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *sub_185BC(void *a1, unint64_t a2)
+void *sub_185BC(uint64_t *a1, unint64_t a2)
 {
   if (a2 >> 61)
   {
@@ -4657,7 +4759,7 @@ char *sub_185BC(void *a1, unint64_t a2)
   result = sub_185F8(a1, a2);
   *a1 = result;
   a1[1] = result;
-  a1[2] = &result[8 * v4];
+  a1[2] = result + 8 * v4;
   return result;
 }
 
@@ -4671,24 +4773,24 @@ void *sub_185F8(uint64_t a1, unint64_t a2)
   return operator new(8 * a2);
 }
 
-void sub_18630(void *a1, unint64_t a2, uint64_t *a3)
+void sub_18630(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    sub_186D8(a1, a2 - v3, a3);
+    sub_186D8(result, a2 - v3, a3);
   }
 }
 
-void *sub_18660(void *a1, unint64_t a2)
+uint64_t *sub_18660(uint64_t *a1, unint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -4698,7 +4800,7 @@ void *sub_18660(void *a1, unint64_t a2)
     sub_185BC(a1, a2);
     v4 = a1[1];
     bzero(v4, 8 * a2);
-    a1[1] = &v4[8 * a2];
+    a1[1] = v4 + 8 * a2;
   }
 
   return a1;
@@ -4867,46 +4969,46 @@ void sub_18908(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AMRestorePartitionFWCopyTagData(const __CFURL *a1)
+uint64_t AMRestorePartitionFWCopyTagData(const __CFURL *a1, const __CFString *a2, CFTypeRef *a3, off_t *a4, CFTypeRef *a5, off_t *a6)
 {
   if (a1)
   {
-    v1 = sub_18DEC(a1, 0);
-    if (v1)
+    v7 = sub_18DEC(a1, 0);
+    if (v7)
     {
-      v2 = v1;
-      v3 = malloc(0x8000uLL);
-      if (v3)
+      v8 = v7;
+      v9 = malloc(0x8000uLL);
+      if (v9)
       {
-        if (read(v2, v3, 0x8000uLL))
+        if (read(v8, v9, 0x8000uLL))
         {
-          Img4DecodeParseLengthFromBuffer();
-          AMSupportLogInternal();
+          v10 = Img4DecodeParseLengthFromBuffer();
+          AMSupportLogInternal(6, "AMRestorePartitionFWCopyTagData", "No more segments. (derstat=%d)", v10);
         }
 
-        AMSupportLogInternal();
+        AMSupportLogInternal(3, "AMRestorePartitionFWCopyTagData", "No DER segments found.");
       }
 
       else
       {
-        sub_D6000();
+        sub_D6000(0);
       }
 
-      if (v2 >= 1)
+      if (v8 >= 1)
       {
-        close(v2);
+        close(v8);
       }
     }
 
     else
     {
-      AMSupportLogInternal();
+      AMSupportLogInternal(3, "AMRestorePartitionFWCopyTagData", "Unable to open inURL %@", a1);
     }
   }
 
   else
   {
-    sub_D6014();
+    sub_D6014(0);
   }
 
   AMSupportSafeFree();
@@ -4921,8 +5023,8 @@ uint64_t sub_18DEC(const __CFURL *a1, int a2)
   bzero(buffer, 0x400uLL);
   if (!CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
   {
-    AMSupportLogInternal();
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "_AMRestorePartitionOpenFileWithURL", "failed to convert url to file system representation");
+    AMSupportLogInternal(8, "_AMRestorePartitionOpenFileWithURL", "%@", a1);
     return 0xFFFFFFFFLL;
   }
 
@@ -4930,7 +5032,7 @@ uint64_t sub_18DEC(const __CFURL *a1, int a2)
   v5 = v4;
   if (v4 <= 0)
   {
-    sub_D6054();
+    sub_D6054(v4);
     return v5;
   }
 
@@ -4943,176 +5045,416 @@ uint64_t sub_18DEC(const __CFURL *a1, int a2)
   return v5;
 }
 
-uint64_t AMRestorePartitionFWCommitData(const __CFURL *a1, CFStringRef theString, CFDataRef theData, int a4)
+uint64_t AMRestorePartitionFWCommitData(const __CFData *a1, CFStringRef theString, CFDataRef theData, int a4, uint64_t a5)
 {
-  v13 = 0;
-  v14 = 0;
+  v46 = 0;
+  v47 = 0;
   *bytes = 0;
+  theString1 = 0;
+  theDataa = 0;
   if (!a1)
   {
-    sub_D6470();
-    goto LABEL_19;
+    sub_D6470(0);
+    goto LABEL_24;
   }
 
   if (!theString)
   {
-    sub_D645C();
-    goto LABEL_19;
+    sub_D645C(a1);
+    goto LABEL_24;
   }
 
+  v7 = theData;
   if (!theData)
   {
-    sub_D6448();
-    goto LABEL_19;
+    sub_D6448(a1);
+    goto LABEL_24;
   }
 
   if (!a4)
   {
-    CFDataGetLength(theData);
+    v14 = CFDataGetLength(theData);
     goto LABEL_16;
   }
 
-  v18 = 0;
+  v51 = 0;
   memset(length, 0, sizeof(length));
   if (CFStringGetLength(theString) != 4)
   {
-    goto LABEL_29;
+    AMSupportLogInternal(3, "AMRestorePartitionCreateUnsignedImg4", "tag %@ is not 4 chars.", theString);
+LABEL_81:
+    v12 = 0;
+LABEL_82:
+    v13 = 0;
+    goto LABEL_12;
   }
 
-  v16 = 0;
+  v49 = 0;
   *buffer = 0;
   if (!CFStringGetCString(theString, buffer, 5, 0x8000100u))
   {
     sub_D60FC();
-LABEL_30:
-    v9 = 0;
-LABEL_31:
-    v10 = 0;
-    goto LABEL_12;
+    goto LABEL_81;
   }
 
   if (AMAuthInstallApImg4CreatePayload())
   {
-    goto LABEL_29;
+    AMSupportLogInternal(3, "AMRestorePartitionCreateUnsignedImg4", "IM4P encode failed with %d");
+    goto LABEL_81;
   }
 
-  if (!v18)
+  if (!v51)
   {
     sub_D60D0();
-    goto LABEL_30;
+    goto LABEL_81;
   }
 
-  BytePtr = CFDataGetBytePtr(v18);
-  v7 = CFDataGetLength(v18);
-  if (Img4EncodeStitchManifest(BytePtr, v7, 0, 0, &length[1], length) != 100)
+  BytePtr = CFDataGetBytePtr(v51);
+  v10 = CFDataGetLength(v51);
+  if (Img4EncodeStitchManifest(BytePtr, v10, 0, 0, &length[1], length) != 100)
   {
-LABEL_29:
-    AMSupportLogInternal();
-    goto LABEL_30;
+    AMSupportLogInternal(3, "AMRestorePartitionCreateUnsignedImg4", "failed to encode image4 with %d");
+    goto LABEL_81;
   }
 
-  v8 = CFDataCreate(0, *&length[1], length[0]);
-  if (!v8)
+  v11 = CFDataCreate(0, *&length[1], length[0]);
+  if (!v11)
   {
     sub_D60A4();
-    v9 = 0;
-    goto LABEL_31;
+    v12 = 0;
+    goto LABEL_82;
   }
 
-  v9 = CFRetain(v8);
-  v10 = 1;
+  v12 = CFRetain(v11);
+  v13 = 1;
 LABEL_12:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeFree();
-  if ((v10 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    goto LABEL_18;
+    AMSupportLogInternal(3, "AMRestorePartitionFWCommitData", "IM4P encode failed with %d");
+    goto LABEL_24;
   }
 
-  if (!v9)
+  if (!v12)
   {
     sub_D641C();
-    goto LABEL_19;
+    goto LABEL_24;
   }
 
-  CFDataGetLength(v9);
+  v14 = CFDataGetLength(v12);
+  v7 = v12;
 LABEL_16:
-  if ((AMRestorePartitionFWCopyTagData(a1) | 8) != 8)
+  v15 = AMRestorePartitionFWCopyTagData(a1, theString, &theString1, &v47, &theDataa, &v46);
+  if ((v15 | 8) != 8)
   {
-LABEL_18:
-    AMSupportLogInternal();
-    goto LABEL_19;
+    AMSupportLogInternal(3, "AMRestorePartitionFWCommitData", "Failed to parse input device amr=%d.");
+LABEL_24:
+    v18 = 0;
+    goto LABEL_25;
   }
 
-  sub_D63F0();
-LABEL_19:
+  if (!theString1)
+  {
+    sub_D63F0();
+    goto LABEL_24;
+  }
+
+  v16 = &v47;
+  if (v15 == 8)
+  {
+    v16 = &v46;
+  }
+
+  v17 = *v16;
+  if (v15)
+  {
+    v18 = sub_18DEC(a1, 1);
+    if (v18 > 0)
+    {
+      v19 = 0;
+      v20 = 0;
+      goto LABEL_37;
+    }
+
+LABEL_86:
+    v41 = __error();
+    AMSupportLogInternal(3, "AMRestorePartitionFWCommitData", "unable to open fileHandle: %@, returned %d", a1, *v41);
+    goto LABEL_25;
+  }
+
+  v21 = CFStringCompare(theString1, theString, 0);
+  v18 = sub_18DEC(a1, 1);
+  if (v18 < 1)
+  {
+    goto LABEL_86;
+  }
+
+  if (v21 == kCFCompareEqualTo)
+  {
+    v19 = 0;
+    v20 = 0;
+LABEL_37:
+    if (lseek(v18, v17, 0) == v17)
+    {
+      if ((sub_195D8(v7, v18) & 1) == 0)
+      {
+        sub_D62D8();
+        goto LABEL_25;
+      }
+
+      if (!v19)
+      {
+        goto LABEL_42;
+      }
+
+      if (lseek(v18, v17 + v14, 0) == v17 + v14)
+      {
+        AMSupportLogInternal(6, "AMRestorePartitionFWCommitData", "Tag %@ was found in input, but wasn't the last tag (%@), appending final input data.", theString, theString1);
+        if ((sub_195D8(v20, v18) & 1) == 0)
+        {
+          sub_D6304();
+          goto LABEL_25;
+        }
+
+LABEL_42:
+        v29 = CFDataCreate(kCFAllocatorDefault, bytes, 2);
+        v30 = v29;
+        if (v29)
+        {
+          if (CFDataGetLength(v29) == 2)
+          {
+            if (sub_195D8(v30, v18))
+            {
+              v31 = close(v18);
+              if (v31)
+              {
+                sub_D6388(v31);
+              }
+
+              else
+              {
+                if (!a5)
+                {
+LABEL_60:
+                  v18 = -1;
+                  goto LABEL_61;
+                }
+
+                v32 = IOServiceMatching("AppleEmbeddedNVMeController");
+                if (v32)
+                {
+                  v33 = v32;
+                  v34 = 0;
+                  do
+                  {
+                    CFRetain(v33);
+                    MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v33);
+                    if (MatchingService)
+                    {
+                      break;
+                    }
+
+                    v36 = 10 - v34 >= 3 ? 3 : 10 - v34;
+                    v37 = CFCopyDescription(v33);
+                    CStringPtr = CFStringGetCStringPtr(v37, 0);
+                    AMSupportLogInternal(3, "_wait_for_io_service_matching_name", "waiting for matching IOKit service: %s\n", CStringPtr);
+                    sleep(v36);
+                    v34 += v36;
+                    CFRelease(v37);
+                  }
+
+                  while (v34 < 0xA);
+                  CFRelease(v33);
+                }
+
+                else
+                {
+                  AMSupportLogInternal(3, "_wait_for_io_service_matching_name", "unable to create matching dictionary for service '%s'\n", "AppleEmbeddedNVMeController");
+                  MatchingService = 0;
+                }
+
+                v39 = IORegistryEntrySetCFProperty(MatchingService, @"fw-write-done", kCFBooleanTrue);
+                if (!v39)
+                {
+                  a5 = 0;
+                  goto LABEL_60;
+                }
+
+                AMSupportLogInternal(3, "_flushNAND", "failed to set fw-write-done property: 0x%x\n", v39);
+                AMSupportLogInternal(3, "AMRestorePartitionFWCommitData", "Failed to flush to NAND");
+              }
+
+              a5 = 99;
+              goto LABEL_60;
+            }
+
+            sub_D635C();
+          }
+
+          else
+          {
+            sub_D6330();
+          }
+        }
+
+        else
+        {
+          sub_D63C4();
+        }
+
+LABEL_25:
+        a5 = 99;
+        goto LABEL_61;
+      }
+    }
+
+    sub_D628C(v17);
+    goto LABEL_25;
+  }
+
+  if (theDataa)
+  {
+    v22 = v47;
+    v23 = CFDataGetLength(theDataa);
+    v24 = v23 + v22;
+    v25 = v46 - (v23 + v22);
+    if (v23 + v22)
+    {
+      if (v46 == v23 + v22)
+      {
+        sub_D6208();
+      }
+
+      else if (lseek(v18, v24, 0) == v24)
+      {
+        v26 = malloc(v25);
+        if (v26)
+        {
+          v27 = v26;
+          if (read(v18, v26, v25) == v25)
+          {
+            v28 = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, v27, v25, kCFAllocatorMalloc);
+            if (v28)
+            {
+              v20 = v28;
+              v19 = 1;
+              goto LABEL_37;
+            }
+          }
+
+          else
+          {
+            sub_D6174();
+          }
+
+          AMSupportSafeFree();
+        }
+
+        else
+        {
+          sub_D61B8(v25);
+        }
+      }
+
+      else
+      {
+        sub_D6128(v24);
+      }
+    }
+
+    else
+    {
+      sub_D6234();
+    }
+
+    AMSupportLogInternal(3, "AMRestorePartitionFWCommitData", "finalData is NULL", v42);
+    goto LABEL_25;
+  }
+
+  sub_D6260();
+  a5 = 99;
+LABEL_61:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  return 99;
+  if (v18 >= 1)
+  {
+    close(v18);
+  }
+
+  return a5;
 }
 
 uint64_t sub_195D8(const __CFData *a1, int a2)
 {
   if (a1)
   {
-    if (a2 > 0)
+    if (a2 <= 0)
+    {
+      AMSupportLogInternal(3, "_flushDataToHandle", "toFile is %d");
+    }
+
+    else
     {
       BytePtr = CFDataGetBytePtr(a1);
-      if (!BytePtr)
+      if (BytePtr)
       {
-        sub_D6484();
-        return 0;
-      }
-
-      v5 = BytePtr;
-      Length = CFDataGetLength(a1);
-      v7 = Length;
-      if (Length < 1)
-      {
-        v8 = 0;
-LABEL_10:
-        if (v8 == v7)
+        v5 = BytePtr;
+        Length = CFDataGetLength(a1);
+        v7 = Length;
+        if (Length < 1)
         {
-          return 1;
+          v8 = 0;
+LABEL_10:
+          if (v8 == v7)
+          {
+            return 1;
+          }
+
+          AMSupportLogInternal(3, "_flushDataToHandle", "Wrote %lu of %lu bytes!");
+        }
+
+        else
+        {
+          v8 = 0;
+          v9 = Length;
+          while (1)
+          {
+            v10 = write(a2, v5, v9);
+            if (v10 <= 0)
+            {
+              break;
+            }
+
+            v5 += v10;
+            v9 -= v10;
+            v8 += v10;
+            if (v8 >= v7)
+            {
+              goto LABEL_10;
+            }
+          }
+
+          v12 = __error();
+          strerror(*v12);
+          AMSupportLogInternal(3, "_flushDataToHandle", "failed to write to file: %s, attempted %lu bytes, only wrote %lu.");
         }
       }
 
       else
       {
-        v8 = 0;
-        v9 = Length;
-        while (1)
-        {
-          v10 = write(a2, v5, v9);
-          if (v10 <= 0)
-          {
-            break;
-          }
-
-          v5 += v10;
-          v9 -= v10;
-          v8 += v10;
-          if (v8 >= v7)
-          {
-            goto LABEL_10;
-          }
-        }
-
-        v12 = __error();
-        strerror(*v12);
+        sub_D6484(0);
       }
     }
-
-    AMSupportLogInternal();
   }
 
   else
   {
-    sub_D6498();
+    sub_D6498(0);
   }
 
   return 0;
@@ -5136,7 +5478,7 @@ uint64_t sub_19798()
 {
   if (pthread_mutex_init(&stru_1C6538, 0))
   {
-    ramrod_log_msg("unable to initialize display lock\n", v0, v1, v2, v3, v4, v5, v6, v16);
+    ramrod_log_msg("unable to initialize display lock\n");
   }
 
   pthread_mutex_lock(&stru_1C6538);
@@ -5144,12 +5486,12 @@ uint64_t sub_19798()
   byte_1C65C8 = 0;
   dword_1C65C4 = 257;
   byte_1C65FC = 1;
-  v7 = MGGetSInt32Answer();
-  if (v7)
+  v0 = MGGetSInt32Answer();
+  if (v0)
   {
-    if (v7 == 1)
+    if (v0 == 1)
     {
-      ramrod_log_msg("inverting UI color", v8, v9, v10, v11, v12, v13, v14, v16);
+      ramrod_log_msg("inverting UI color");
       *&dword_1C65CC = 0xFFCCCCCCFF000000;
       HIWORD(dword_1C65C4) = -1;
       byte_1C65C8 = -1;
@@ -5157,7 +5499,7 @@ uint64_t sub_19798()
 
     else
     {
-      ramrod_log_msg("unexpect color map policy %d", v8, v9, v10, v11, v12, v13, v14, v7);
+      ramrod_log_msg("unexpect color map policy %d", v0);
     }
   }
 
@@ -5171,7 +5513,7 @@ uint64_t sub_19798()
   return pthread_mutex_unlock(&stru_1C6538);
 }
 
-void ramrod_set_progress_UI(int a1, double a2)
+void ramrod_set_progress_UI(uint64_t result, double a2)
 {
   v2 = 100.0;
   if (a2 <= 100.0)
@@ -5189,12 +5531,12 @@ void ramrod_set_progress_UI(int a1, double a2)
     v3 = 0.0;
   }
 
-  if (v3 != *&qword_1C46D8 || a1 != 0)
+  if (v3 != *&qword_1C46D8 || result != 0)
   {
     qword_1C46D8 = *&v3;
     if (dword_1C46E0 != -1)
     {
-      off_1C6630(v3);
+      off_1C6630(result, v3);
       v3 = *&qword_1C46D8;
     }
 
@@ -5207,11 +5549,11 @@ void ramrod_set_progress_UI(int a1, double a2)
   }
 }
 
-uint64_t ramrod_display_set_granular_progress_forced(int a1, double a2)
+uint64_t ramrod_display_set_granular_progress_forced(uint64_t a1, double a2)
 {
   pthread_once(&stru_1C46C0, sub_19798);
   pthread_mutex_lock(&stru_1C6538);
-  ramrod_log_msg("%s: %f\n", v4, v5, v6, v7, v8, v9, v10, "ramrod_display_set_granular_progress_forced");
+  ramrod_log_msg("%s: %f\n", "ramrod_display_set_granular_progress_forced", a2);
   ramrod_set_progress_UI(a1, a2);
 
   return pthread_mutex_unlock(&stru_1C6538);
@@ -5264,13 +5606,13 @@ void sub_19ACC()
 void ramrod_display_set_showprogress(int a1)
 {
   pthread_once(&stru_1C46C0, sub_19798);
-  v9 = "Disabling";
+  v2 = "Disabling";
   if (a1)
   {
-    v9 = "Enabling";
+    v2 = "Enabling";
   }
 
-  ramrod_log_msg("%s progress UI", v2, v3, v4, v5, v6, v7, v8, v9);
+  ramrod_log_msg("%s progress UI", v2);
   BYTE1(dword_1C65C4) = a1;
 
   sub_19ACC();
@@ -5282,64 +5624,64 @@ uint64_t ramrod_display_show_image_with_alpha(const __CFString *a1, int a2)
   pthread_mutex_lock(&stru_1C6538);
   if (dword_1C46E0 != -1)
   {
-    bzero(v41, 0x400uLL);
+    bzero(v13, 0x400uLL);
     v4 = buffer;
     bzero(buffer, 0x400uLL);
-    v37 = 0;
-    v38 = 0;
-    v39 = 0;
+    v9 = 0;
+    v10 = 0;
+    v11 = 0;
     CFStringGetFileSystemRepresentation(a1, buffer, 1024);
     if (access(buffer, 0))
     {
-      v12 = strrchr(buffer, 47);
-      if (!v12)
+      v5 = strrchr(buffer, 47);
+      if (!v5)
       {
-        ramrod_log_msg("'%s' is not an absolute path\n", v13, v14, v15, v16, v17, v18, v19, buffer);
+        ramrod_log_msg("'%s' is not an absolute path\n");
         return pthread_mutex_unlock(&stru_1C6538);
       }
 
-      *v12 = 0;
-      v20 = v12 + 1;
-      v21 = strchr(v12 + 1, 46);
-      if (!v21)
+      *v5 = 0;
+      v6 = v5 + 1;
+      v7 = strchr(v5 + 1, 46);
+      if (!v7)
       {
-        ramrod_log_msg("'%s' does not have an extension\n", v22, v23, v24, v25, v26, v27, v28, v20);
+        ramrod_log_msg("'%s' does not have an extension\n");
         return pthread_mutex_unlock(&stru_1C6538);
       }
 
-      *v21 = 0;
-      v4 = v41;
-      if (!sub_19DF8(buffer, v20, dword_1C658C, v41))
+      *v7 = 0;
+      v4 = v13;
+      if (!sub_19DF8(buffer, v6, dword_1C658C, v13))
       {
-        ramrod_log_msg("could not find suitable image for %s/%s\n", v5, v6, v7, v8, v9, v10, v11, buffer);
+        ramrod_log_msg("could not find suitable image for %s/%s\n");
         return pthread_mutex_unlock(&stru_1C6538);
       }
     }
 
-    ramrod_log_msg("loading image: %s\n", v5, v6, v7, v8, v9, v10, v11, v4);
-    if (sub_1A074(v4, &v37, dword_1C6588))
+    ramrod_log_msg("loading image: %s\n", v4);
+    if (sub_1A074(v4, &v9, dword_1C6588))
     {
-      if (v37 > xmmword_1C6578 || v38 > *(&xmmword_1C6578 + 1))
+      if (v9 > xmmword_1C6578 || v10 > *(&xmmword_1C6578 + 1))
       {
-        ramrod_log_msg("image dimensions (%zu, %zu) too big\n", v29, v30, v31, v32, v33, v34, v35, v37);
+        ramrod_log_msg("image dimensions (%zu, %zu) too big\n");
       }
 
       else
       {
         if (a2)
         {
-          sub_1A25C(&v37, 1);
+          sub_1A25C(&v9, 1);
         }
 
-        sub_1A2D4(*(&unk_1C65D8 + dword_1C46E0), &v37);
+        sub_1A2D4(qword_1C65D8[dword_1C46E0], &v9);
         sub_1A344();
-        sub_1A2D4(*(&unk_1C65D8 + dword_1C46E0), &v37);
+        sub_1A2D4(qword_1C65D8[dword_1C46E0], &v9);
       }
     }
 
     else
     {
-      ramrod_log_msg("unable to load image '%s'\n", v29, v30, v31, v32, v33, v34, v35, buffer);
+      ramrod_log_msg("unable to load image '%s'\n");
     }
   }
 
@@ -5348,18 +5690,18 @@ uint64_t ramrod_display_show_image_with_alpha(const __CFString *a1, int a2)
 
 BOOL sub_19DF8(const char *a1, const char *a2, int a3, char *a4)
 {
-  memset(v18, 0, sizeof(v18));
+  memset(v11, 0, sizeof(v11));
   v8 = MGGetSInt32Answer() - 1;
   if (v8 >= 9 || ((0x12Fu >> v8) & 1) == 0)
   {
-    LOBYTE(v18[0]) = 0;
+    LOBYTE(v11[0]) = 0;
     byte_1C6594 = 0;
     goto LABEL_10;
   }
 
   __strlcpy_chk();
   byte_1C6594 = 0;
-  if (!LOBYTE(v18[0]))
+  if (!LOBYTE(v11[0]))
   {
 LABEL_10:
     snprintf(a4, 0x400uLL, "%s/%s@%zu.tga", a1, a2, *(&xmmword_1C6578 + 1));
@@ -5368,7 +5710,7 @@ LABEL_10:
       snprintf(a4, 0x400uLL, "%s/%s@%dx.tga", a1, a2, a3);
       if (access(a4, 0))
       {
-        if (!LOBYTE(v18[0]) || (snprintf(a4, 0x400uLL, "%s/%s~%s.tga", a1, a2, v18), access(a4, 0)))
+        if (!LOBYTE(v11[0]) || (snprintf(a4, 0x400uLL, "%s/%s~%s.tga", a1, a2, v11), access(a4, 0)))
         {
           snprintf(a4, 0x400uLL, "%s/%s.tga", a1, a2);
           return access(a4, 0) == 0;
@@ -5379,17 +5721,17 @@ LABEL_10:
     return 1;
   }
 
-  ramrod_log_msg("Using product_suffix of %s\n", v9, v10, v11, v12, v13, v14, v15, v18);
+  ramrod_log_msg("Using product_suffix of %s\n", v11);
   MGGetFloat32Answer();
-  if (v16 <= 0.0 || (snprintf(a4, 0x400uLL, "%s/%s@%zu~%s-USBc.tga", a1, a2, *(&xmmword_1C6578 + 1), v18), access(a4, 0)))
+  if (v9 <= 0.0 || (snprintf(a4, 0x400uLL, "%s/%s@%zu~%s-USBc.tga", a1, a2, *(&xmmword_1C6578 + 1), v11), access(a4, 0)))
   {
-    snprintf(a4, 0x400uLL, "%s/%s@%zu~%s.tga", a1, a2, *(&xmmword_1C6578 + 1), v18);
+    snprintf(a4, 0x400uLL, "%s/%s@%zu~%s.tga", a1, a2, *(&xmmword_1C6578 + 1), v11);
     if (!access(a4, 0))
     {
       return 1;
     }
 
-    snprintf(a4, 0x400uLL, "%s/%s@%dx~%s.tga", a1, a2, a3, v18);
+    snprintf(a4, 0x400uLL, "%s/%s@%dx~%s.tga", a1, a2, a3, v11);
     if (!access(a4, 0))
     {
       return 1;
@@ -5403,7 +5745,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_1A074(const char *a1, void *a2, int a3)
+uint64_t sub_1A074(const char *a1, unint64_t *a2, int a3)
 {
   v6 = strlen(a1);
   if (v6 < 4 || strcasecmp(&a1[v6 - 4], ".png"))
@@ -5432,36 +5774,36 @@ LABEL_4:
       if (a3 != 90)
       {
 LABEL_20:
-        ramrod_log_msg("unexpected rotation value %d\n", v7, v8, v9, v10, v11, v12, v13, a3);
+        ramrod_log_msg("unexpected rotation value %d\n", a3);
         return 0;
       }
     }
 
-    v15 = a2[1];
-    v14 = a2[2];
-    v16 = *a2;
-    v17 = malloc(4 * *a2 * v15);
+    v8 = a2[1];
+    v7 = a2[2];
+    v9 = *a2;
+    v10 = malloc(4 * *a2 * v8);
     if (a3 == 90)
     {
-      if (v15)
+      if (v8)
       {
-        v29 = 0;
-        v30 = &v17[4 * v15 - 4];
+        v22 = 0;
+        v23 = &v10[4 * v8 - 4];
         do
         {
-          v31 = v30;
-          for (i = v16; i; --i)
+          v24 = v23;
+          for (i = v9; i; --i)
           {
-            v33 = *v14++;
-            *v31 = v33;
-            v31 += v15;
+            v26 = *v7++;
+            *v24 = v26;
+            v24 += v8;
           }
 
-          ++v29;
-          v30 -= 4;
+          ++v22;
+          v23 -= 4;
         }
 
-        while (v29 != v15);
+        while (v22 != v8);
       }
     }
 
@@ -5469,55 +5811,55 @@ LABEL_20:
     {
       if (a3 == 180)
       {
-        if (v15)
+        if (v8)
         {
-          v24 = 0;
-          v25 = &v17[4 * v15 * v16 - 4];
+          v17 = 0;
+          v18 = &v10[4 * v8 * v9 - 4];
           do
           {
-            v26 = v25;
-            for (j = v16; j; --j)
+            v19 = v18;
+            for (j = v9; j; --j)
             {
-              v28 = *v14++;
-              *v26-- = v28;
+              v21 = *v7++;
+              *v19-- = v21;
             }
 
-            ++v24;
-            v25 -= 4 * v16;
+            ++v17;
+            v18 -= 4 * v9;
           }
 
-          while (v24 != v15);
+          while (v17 != v8);
         }
 
         goto LABEL_34;
       }
 
-      if (v15)
+      if (v8)
       {
-        v18 = 0;
-        v19 = &v17[4 * (v16 - 1) * v15];
+        v11 = 0;
+        v12 = &v10[4 * (v9 - 1) * v8];
         do
         {
-          v20 = v19;
-          for (k = v16; k; --k)
+          v13 = v12;
+          for (k = v9; k; --k)
           {
-            v22 = *v14++;
-            *v20 = v22;
-            v20 -= 4 * v15;
+            v15 = *v7++;
+            *v13 = v15;
+            v13 -= 4 * v8;
           }
 
-          ++v18;
-          v19 += 4;
+          ++v11;
+          v12 += 4;
         }
 
-        while (v18 != v15);
+        while (v11 != v8);
       }
     }
 
-    *a2 = v15;
-    a2[1] = v16;
+    *a2 = v8;
+    a2[1] = v9;
 LABEL_34:
-    a2[2] = v17;
+    a2[2] = v10;
     return 1;
   }
 
@@ -5598,7 +5940,7 @@ uint64_t sub_1A344()
   {
     if ((dword_1C65C4 & 1) == 0)
     {
-      sub_1B808(*(&unk_1C6538 + dword_1C46E0 + 20));
+      sub_1B808(*(&stru_1C6538 + dword_1C46E0 + 20));
     }
 
     IOMobileFramebufferSwapBegin();
@@ -5702,18 +6044,18 @@ LABEL_10:
 LABEL_13:
   for (i = 0; i != 16; i += 8)
   {
-    v3 = *(&unk_1C6538 + i + 160);
+    v3 = *(&stru_1C6538 + i + 160);
     if (v3)
     {
       sub_1B808(v3);
       if (qword_1C6670)
       {
-        sub_1B880(*(&unk_1C6538 + i + 160), &qword_1C6660, dword_1C6598, unk_1C659C);
+        sub_1B880(*(&stru_1C6538 + i + 160), &qword_1C6660, dword_1C6598, unk_1C659C);
       }
 
       if (qword_1C6658)
       {
-        sub_1B880(*(&unk_1C6538 + i + 160), &qword_1C6648, v0, v1);
+        sub_1B880(*(&stru_1C6538 + i + 160), &qword_1C6648, v0, v1);
       }
     }
   }
@@ -5736,7 +6078,7 @@ uint64_t ramrod_display_set_aux_image_path(const __CFString *a1, CFErrorRef *a2)
     bzero(buffer, 0x400uLL);
     CFStringGetFileSystemRepresentation(a1, buffer, 1024);
     v4 = sub_1A074(buffer, &qword_1C6648, dword_1C6588);
-    v12 = v4;
+    v5 = v4;
     if (v4)
     {
       sub_1A25C(&qword_1C6648, 0);
@@ -5744,20 +6086,20 @@ uint64_t ramrod_display_set_aux_image_path(const __CFString *a1, CFErrorRef *a2)
 
     else
     {
-      ramrod_log_msg("failed to load image %s\n", v5, v6, v7, v8, v9, v10, v11, buffer);
-      ramrod_create_error_cf(a2, @"RamrodErrorDomain", 3, 0, @"%s: unable to load image file %@", v13, v14, v15, "ramrod_display_set_aux_image_path");
+      ramrod_log_msg("failed to load image %s\n", buffer);
+      ramrod_create_error_cf(a2, @"RamrodErrorDomain", 3, 0, @"%s: unable to load image file %@", v6, v7, v8, "ramrod_display_set_aux_image_path");
     }
   }
 
   else
   {
-    v12 = 1;
+    v5 = 1;
   }
 
   sub_1A5C8();
   ramrod_set_progress_UI(1, *&qword_1C46D8);
   pthread_mutex_unlock(&stru_1C6538);
-  return v12 & 1;
+  return v5 & 1;
 }
 
 BOOL ramrod_display_retry_framebuffer_create()
@@ -5771,212 +6113,207 @@ BOOL ramrod_display_retry_framebuffer_create()
 
 void sub_1A990()
 {
-  if (dword_1C6600 > 0)
+  if (dword_1C6600 <= 0)
   {
-    return;
-  }
+    DisplayList = IOMobileFramebufferCreateDisplayList();
+    if (DisplayList)
+    {
+      goto LABEL_3;
+    }
 
-  DisplayList = IOMobileFramebufferCreateDisplayList();
-  if (DisplayList)
-  {
-    goto LABEL_3;
-  }
+    v10 = dword_1C46F8;
+    if (dword_1C46F8 < 1)
+    {
+      goto LABEL_27;
+    }
 
-  v31 = dword_1C46F8;
-  if (dword_1C46F8 >= 1)
-  {
-    v32 = dword_1C46F8 + 1;
+    v11 = dword_1C46F8 + 1;
     do
     {
-      dword_1C46F8 = v31 - 1;
-      v33 = 100000 * (v32 - v31);
-      if (v33 >= 1000000)
+      dword_1C46F8 = v10 - 1;
+      v12 = 100000 * (v11 - v10);
+      if (v12 >= 1000000)
       {
-        v34 = 1000000;
+        v13 = 1000000;
       }
 
       else
       {
-        v34 = v33;
+        v13 = v12;
       }
 
-      usleep(v34);
-      v35 = IOMobileFramebufferCreateDisplayList();
-      v31 = dword_1C46F8;
+      usleep(v13);
+      v14 = IOMobileFramebufferCreateDisplayList();
+      v10 = dword_1C46F8;
     }
 
-    while (dword_1C46F8 >= 1 && v35 == 0);
-    DisplayList = v35;
-    if (v35)
+    while (dword_1C46F8 >= 1 && v14 == 0);
+    DisplayList = v14;
+    if (v14)
     {
 LABEL_3:
-      v8 = qword_1C6610;
+      v1 = qword_1C6610;
       if (qword_1C6610)
       {
         if (dword_1C6600 >= 1)
         {
-          v9 = 0;
-          v10 = 72;
+          v2 = 0;
+          v3 = 72;
           do
           {
-            CFRelease(*&v8[v10]);
-            v8 = qword_1C6610;
-            *(qword_1C6610 + v10) = 0;
-            ++v9;
-            v10 += 80;
+            CFRelease(*&v1[v3]);
+            v1 = qword_1C6610;
+            *(qword_1C6610 + v3) = 0;
+            ++v2;
+            v3 += 80;
           }
 
-          while (v9 < dword_1C6600);
+          while (v2 < dword_1C6600);
         }
 
-        free(v8);
+        free(v1);
         qword_1C6610 = 0;
       }
 
       dword_1C6600 = 0;
       Count = CFArrayGetCount(DisplayList);
       qword_1C6610 = calloc(Count, 0x50uLL);
-      if (!qword_1C6610)
+      if (qword_1C6610)
       {
-        v45 = "unable to allocate framebuffer display\n";
-LABEL_29:
-        ramrod_log_msg(v45, v12, v13, v14, v15, v16, v17, v18, v67);
-        goto LABEL_35;
-      }
-
-      sub_1C38C(DisplayList, 0);
-      if (qword_1C6608)
-      {
-LABEL_35:
-        CFRelease(DisplayList);
-        goto LABEL_36;
-      }
-
-      sub_1C38C(DisplayList, 1);
-      if (dword_1C6600 >= 1 && (*(qword_1C6610 + 80 * dword_1C6600 - 80) & 1) == 0)
-      {
-        ramrod_log_msg("attempting to power on display port\n", v12, v13, v14, v15, v16, v17, v18, v67);
-        v19 = __IOAVClassMatching();
-        if (v19)
+        sub_1C38C(DisplayList, 0);
+        if (!qword_1C6608)
         {
-          v27 = wait_for_io_service_matching_dict(v19, 0xAu);
-          if (v27)
+          sub_1C38C(DisplayList, 1);
+          if (dword_1C6600 >= 1 && (*(qword_1C6610 + 80 * dword_1C6600 - 80) & 1) == 0)
           {
-            v28 = v27;
-            v29 = IOAVControllerCreateWithService();
-            IOObjectRelease(v28);
-            if (v29)
+            ramrod_log_msg("attempting to power on display port\n");
+            v5 = __IOAVClassMatching();
+            if (v5)
             {
-              v30 = IOAVControllerSetPower();
-              CFRelease(v29);
-              if (v30)
+              v6 = wait_for_io_service_matching_dict(v5, 0xAu);
+              if (v6)
               {
-                ramrod_log_msg("unable to power on DisplayPort: 0x%x\n", v12, v13, v14, v15, v16, v17, v18, v30);
+                v7 = v6;
+                v8 = IOAVControllerCreateWithService();
+                IOObjectRelease(v7);
+                if (v8)
+                {
+                  v9 = IOAVControllerSetPower();
+                  CFRelease(v8);
+                  if (v9)
+                  {
+                    ramrod_log_msg("unable to power on DisplayPort: 0x%x\n");
+                  }
+                }
+
+                else
+                {
+                  ramrod_log_msg("Unable to create IOAVController from service");
+                }
               }
 
-              goto LABEL_34;
+              else
+              {
+                ramrod_log_msg("timed out waiting for IOAVController service\n");
+              }
             }
 
-            v46 = "Unable to create IOAVController from service";
+            else
+            {
+              ramrod_log_msg("IOAVClassMatching returned no matching class for IOAVController\n");
+            }
           }
 
-          else
+          if (!qword_1C6608)
           {
-            v46 = "timed out waiting for IOAVController service\n";
+            ramrod_log_msg("unable to find a usable display\n");
           }
         }
-
-        else
-        {
-          v46 = "IOAVClassMatching returned no matching class for IOAVController\n";
-        }
-
-        ramrod_log_msg(v46, v20, v21, v22, v23, v24, v25, v26, v67);
       }
 
-LABEL_34:
-      if (qword_1C6608)
+      else
       {
-        goto LABEL_35;
+        ramrod_log_msg("unable to allocate framebuffer display\n");
       }
 
-      v45 = "unable to find a usable display\n";
-      goto LABEL_29;
+      CFRelease(DisplayList);
     }
-  }
 
-  ramrod_log_msg("unable to get display list\n", v0, v1, v2, v3, v4, v5, v6, v67);
-LABEL_36:
-  if (!dword_1C6600)
-  {
-    v62 = "unable to get framebuffer\n";
-LABEL_51:
-    ramrod_log_msg(v62, v38, v39, v40, v41, v42, v43, v44, v67);
-LABEL_52:
-    sub_1C314();
-    return;
-  }
-
-  off_1C6638(v37);
-  if (!qword_1C6608)
-  {
-    if (*qword_1C6610 != 1)
+    else
     {
-      goto LABEL_49;
+LABEL_27:
+      ramrod_log_msg("unable to get display list\n");
     }
 
-    qword_1C6608 = qword_1C6610;
-    ramrod_log_msg("%s: Will use %s\n", v47, v48, v49, v50, v51, v52, v53, "create_framebuffer");
+    if (!dword_1C6600)
+    {
+      ramrod_log_msg("unable to get framebuffer\n");
+LABEL_50:
+      sub_1C314();
+      return;
+    }
+
+    off_1C6638(v16);
     if (!qword_1C6608)
     {
-      goto LABEL_49;
+      if (*qword_1C6610 != 1)
+      {
+        goto LABEL_48;
+      }
+
+      qword_1C6608 = qword_1C6610;
+      ramrod_log_msg("%s: Will use %s\n", "create_framebuffer", (qword_1C6610 + 2));
+      if (!qword_1C6608)
+      {
+        goto LABEL_48;
+      }
     }
-  }
 
-  v68[0] = 0;
-  v68[1] = 0;
-  DisplaySize = IOMobileFramebufferGetDisplaySize();
-  if (DisplaySize)
-  {
-    ramrod_log_msg("unable to get display size: 0x%x\n", v55, v56, v57, v58, v59, v60, v61, DisplaySize);
-  }
-
-  else
-  {
-    xmmword_1C6578 = vcvtq_u64_f64(*v68);
-  }
-
-  off_1C6618(dword_1C658C, dword_1C6588);
-  v63 = qword_1C6608;
-  if (!qword_1C6608 || *qword_1C6608 != 1 || (*(qword_1C6608 + 1) & 1) == 0 && (*(qword_1C6610 + 80 * dword_1C6600 - 80) & 1) == 0)
-  {
-LABEL_49:
-    v68[0] = 0;
-    if (pthread_create(v68, 0, sub_1BA68, 0))
+    v22[0] = 0;
+    v22[1] = 0;
+    DisplaySize = IOMobileFramebufferGetDisplaySize();
+    if (DisplaySize)
     {
-      v62 = "unable to create hot plug thread\n";
-      goto LABEL_51;
+      ramrod_log_msg("unable to get display size: 0x%x\n", DisplaySize);
     }
 
-    pthread_detach(v68[0]);
-    v63 = qword_1C6608;
-    if (!qword_1C6608)
+    else
     {
-      goto LABEL_52;
+      xmmword_1C6578 = vcvtq_u64_f64(*v22);
     }
-  }
 
-  v64 = sub_1BBC8(*(v63 + 9), *v63);
-  if ((*qword_1C6608 & 1) == 0)
-  {
-    v65 = off_1C6618(dword_1C658C, dword_1C6588);
-    off_1C6628(v65);
-    sub_1A5C8();
-  }
+    off_1C6618(dword_1C658C, dword_1C6588);
+    v18 = qword_1C6608;
+    if (!qword_1C6608 || *qword_1C6608 != 1 || (*(qword_1C6608 + 1) & 1) == 0 && (*(qword_1C6610 + 80 * dword_1C6600 - 80) & 1) == 0)
+    {
+LABEL_48:
+      v22[0] = 0;
+      if (pthread_create(v22, 0, sub_1BA68, 0))
+      {
+        ramrod_log_msg("unable to create hot plug thread\n");
+        goto LABEL_50;
+      }
 
-  if (*(qword_1C6610 + 80 * dword_1C6600 - 80) == 1 && v64 != 0)
-  {
-    goto LABEL_52;
+      pthread_detach(v22[0]);
+      v18 = qword_1C6608;
+      if (!qword_1C6608)
+      {
+        goto LABEL_50;
+      }
+    }
+
+    v19 = sub_1BBC8(*(v18 + 9), *v18);
+    if ((*qword_1C6608 & 1) == 0)
+    {
+      v20 = off_1C6618(dword_1C658C, dword_1C6588);
+      off_1C6628(v20);
+      sub_1A5C8();
+    }
+
+    if (*(qword_1C6610 + 80 * dword_1C6600 - 80) == 1 && v19 != 0)
+    {
+      goto LABEL_50;
+    }
   }
 }
 
@@ -5985,61 +6322,66 @@ void sub_1ADA8()
   v0 = MGGetSInt32Answer();
   if (v0 == 3)
   {
-    v9 = dword_1C658C;
-    v8 = 80 * dword_1C658C;
-    v10 = 239;
+    v2 = dword_1C658C;
+    v1 = 80 * dword_1C658C;
+    v3 = 239;
   }
 
   else if (v0 == 9)
   {
-    v8 = (*(&xmmword_1C6578 + 1) * -0.06 + *(&xmmword_1C6578 + 1) * 0.5 + -45.0 + -2.0);
-    v9 = dword_1C658C;
-    v10 = 234;
+    v1 = (*(&xmmword_1C6578 + 1) * -0.06 + *(&xmmword_1C6578 + 1) * 0.5 + -45.0 + -2.0);
+    v2 = dword_1C658C;
+    v3 = 234;
   }
 
   else
   {
-    v9 = dword_1C658C;
-    v8 = 56 * dword_1C658C;
-    v10 = 189;
+    v2 = dword_1C658C;
+    v1 = 56 * dword_1C658C;
+    v3 = 189;
   }
 
-  v11 = v9 * v10;
+  v4 = v2 * v3;
   if (byte_1C6594)
   {
-    v12 = MGGetSInt32Answer();
-    dword_1C6590 = v12;
-    if (v12 == 11)
+    v5 = MGGetSInt32Answer();
+    dword_1C6590 = v5;
+    if (v5 == 11)
     {
-      v13 = 286;
+      v6 = 286;
     }
 
     else
     {
-      v13 = 224;
+      v6 = 224;
     }
 
-    if (v12 == 20)
+    if (v5 == 20)
     {
-      v8 = 254;
+      v1 = 254;
     }
 
     else
     {
-      v8 = v13;
+      v1 = v6;
     }
   }
 
-  ramrod_log_msg("Progress Bar Y offset at %d, display class %d\n", v1, v2, v3, v4, v5, v6, v7, v8);
+  else
+  {
+    v5 = dword_1C6590;
+  }
+
+  ramrod_log_msg("Progress Bar Y offset at %d, display class %d\n", v1, v5);
   if (dword_1C6588 > 179)
   {
     if (dword_1C6588 == 180)
     {
       dword_1C6598 = (xmmword_1C6578 - qword_1C6660) / 2;
       unk_1C659C = (DWORD2(xmmword_1C6578) - dword_1C6668) / 2;
-      dword_1C65A0 = (v11 + xmmword_1C6578) / 2;
-      v14 = (*(&xmmword_1C6578 + 1) >> 1) - v8;
-      v15 = xmmword_10A6B0;
+      dword_1C65A0 = (v4 + xmmword_1C6578) / 2;
+      v7 = (*(&xmmword_1C6578 + 1) >> 1) - v1;
+      v8 = xmmword_10A6B0;
     }
 
     else
@@ -6051,9 +6393,9 @@ void sub_1ADA8()
 
       dword_1C6598 = (xmmword_1C6578 - qword_1C6660) / 2;
       unk_1C659C = (DWORD2(xmmword_1C6578) - dword_1C6668) / 2;
-      dword_1C65A0 = v8 + (xmmword_1C6578 >> 1);
-      v14 = (v11 + DWORD2(xmmword_1C6578)) / 2;
-      v15 = xmmword_10A6A0;
+      dword_1C65A0 = v1 + (xmmword_1C6578 >> 1);
+      v7 = (v4 + DWORD2(xmmword_1C6578)) / 2;
+      v8 = xmmword_10A6A0;
     }
   }
 
@@ -6066,37 +6408,37 @@ void sub_1ADA8()
 
     dword_1C6598 = (xmmword_1C6578 - qword_1C6660) / 2;
     unk_1C659C = (DWORD2(xmmword_1C6578) - dword_1C6668) / 2;
-    dword_1C65A0 = (xmmword_1C6578 >> 1) - v8;
-    v14 = (DWORD2(xmmword_1C6578) - v11) / 2;
-    v15 = xmmword_10A6C0;
+    dword_1C65A0 = (xmmword_1C6578 >> 1) - v1;
+    v7 = (DWORD2(xmmword_1C6578) - v4) / 2;
+    v8 = xmmword_10A6C0;
   }
 
   else
   {
     dword_1C6598 = (xmmword_1C6578 - qword_1C6660) / 2;
     unk_1C659C = (DWORD2(xmmword_1C6578) - dword_1C6668) / 2;
-    dword_1C65A0 = (xmmword_1C6578 - v11) / 2;
-    v14 = v8 + (*(&xmmword_1C6578 + 1) >> 1);
-    v15 = xmmword_10A6D0;
+    dword_1C65A0 = (xmmword_1C6578 - v4) / 2;
+    v7 = v1 + (*(&xmmword_1C6578 + 1) >> 1);
+    v8 = xmmword_10A6D0;
   }
 
-  dword_1C65A4 = v14;
-  *&dword_1C65A8 = v15;
-  dword_1C65B8 = v11 - 4;
+  dword_1C65A4 = v7;
+  *&dword_1C65A8 = v8;
+  dword_1C65B8 = v4 - 4;
 }
 
 uint64_t sub_1B080(int a1, int a2)
 {
-  bzero(v13, 0x400uLL);
-  if (sub_19DF8("/usr/share/progressui", "applelogo", a1, v13))
+  bzero(v5, 0x400uLL);
+  if (sub_19DF8("/usr/share/progressui", "applelogo", a1, v5))
   {
-    ramrod_log_msg("found applelogo at %s\n", v4, v5, v6, v7, v8, v9, v10, v13);
-    sub_1A074(v13, &qword_1C6660, a2);
+    ramrod_log_msg("found applelogo at %s\n", v5);
+    sub_1A074(v5, &qword_1C6660, a2);
   }
 
   else
   {
-    ramrod_log_msg("unable to find a suitable applelogo for this hardware\n", v4, v5, v6, v7, v8, v9, v10, v12);
+    ramrod_log_msg("unable to find a suitable applelogo for this hardware\n");
   }
 
   return sub_1A25C(&qword_1C6660, 1);
@@ -6114,147 +6456,146 @@ void sub_1B154()
   }
 }
 
-void sub_1B1AC(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_1B1AC(double a1)
 {
-  v9 = a1 - *&qword_1C6678;
+  v1 = a1 - *&qword_1C6678;
   if (a1 - *&qword_1C6678 < 0.0)
   {
-    v9 = 0.0;
+    v1 = 0.0;
   }
 
   if (*&qword_1C6678 > 0.0)
   {
-    v10 = v9;
+    v2 = v1;
   }
 
   else
   {
-    v10 = a1;
+    v2 = a1;
   }
 
   if (byte_1C6640 == 1)
   {
-    v11 = v10;
+    v3 = v2;
   }
 
   else
   {
-    v11 = a1;
+    v3 = a1;
   }
 
-  if (v11 * dword_1C65B8 / 100.0 >= dword_1C65B8)
+  if (v3 * dword_1C65B8 / 100.0 >= dword_1C65B8)
   {
-    v12 = dword_1C65B8;
+    v4 = dword_1C65B8;
   }
 
   else
   {
-    v12 = v11 * dword_1C65B8 / 100.0;
+    v4 = v3 * dword_1C65B8 / 100.0;
   }
 
   if ((dword_1C46E0 & 0x80000000) == 0)
   {
-    v13 = *(&unk_1C6538 + dword_1C46E0 + 20);
-    v14 = *(&unk_1C6538 + dword_1C46E0 + 46);
-    if (v14)
+    v5 = *(&stru_1C6538 + dword_1C46E0 + 20);
+    if (*(&stru_1C6538 + dword_1C46E0 + 46))
     {
       IOMobileFramebufferSwapWaitWithTimeout();
     }
 
     if ((dword_1C65C4 & 0x100) != 0)
     {
-      v15 = IOSurfaceGetBytesPerRow(v13) >> 2;
-      v23 = IOSurfaceGetBaseAddress(v13) + 4 * (dword_1C65A4 * v15);
-      v24 = dword_1C658C;
+      v6 = IOSurfaceGetBytesPerRow(v5) >> 2;
+      v7 = IOSurfaceGetBaseAddress(v5) + 4 * (dword_1C65A4 * v6);
+      v8 = dword_1C658C;
       if (dword_1C658C < 5)
       {
         if (dword_1C658C <= 0)
         {
-          ramrod_log_msg("Warning: Detected scale is X%d, Supported scales are 1 to %d. Going to use X1 as a fallback.\n", v16, v17, v18, v19, v20, v21, v22, dword_1C658C);
-          v24 = 1;
+          ramrod_log_msg("Warning: Detected scale is X%d, Supported scales are 1 to %d. Going to use X1 as a fallback.\n", dword_1C658C, 4);
+          v8 = 1;
         }
       }
 
       else
       {
-        ramrod_log_msg("Warning: Detected scale is X%d, Supported scales are 1 to %d. Going to use X%d as a fallback.\n", v16, v17, v18, v19, v20, v21, v22, dword_1C658C);
-        v24 = 4;
+        ramrod_log_msg("Warning: Detected scale is X%d, Supported scales are 1 to %d. Going to use X%d as a fallback.\n", dword_1C658C, 4, 4);
+        v8 = 4;
       }
 
-      v25 = 0;
-      v26 = 0;
-      v44 = (4 * v24);
-      v46 = *(&off_1A90F8 + 3 * (v24 - 1));
-      v27 = *v46;
-      v28 = -1;
-      v47 = v27;
+      v9 = 0;
+      v10 = 0;
+      v27 = (4 * v8);
+      v29 = *(&off_1A90F8 + 3 * (v8 - 1));
+      v11 = *v29;
+      v12 = -1;
+      v30 = v11;
       while (1)
       {
-        v29 = &dword_1C65CC;
-        if (v11 <= 0.0)
+        v13 = &dword_1C65CC;
+        if (v3 <= 0.0)
         {
-          v30 = *(v46 + 2);
-          if (v30)
+          v14 = *(v29 + 2);
+          if (v14)
           {
-            v29 = &dword_1C65CC;
+            v13 = &dword_1C65CC;
             goto LABEL_28;
           }
 
-          v29 = &dword_1C65D0;
+          v13 = &dword_1C65D0;
         }
 
-        v30 = *(v46 + 1);
+        v14 = *(v29 + 1);
 LABEL_28:
-        v45 = v23;
-        v31 = &v23[4 * dword_1C65A0];
-        if (v27)
+        v28 = v7;
+        v15 = &v7[4 * dword_1C65A0];
+        if (v11)
         {
-          v32 = *v29;
-          v33 = (v30 + v25);
+          v16 = *v13;
+          v17 = (v14 + v9);
           do
           {
-            v34 = *v33++;
-            *v31 = sub_1B684(v34, v32);
-            v31 += (*algn_1C65AC * v15) + dword_1C65A8;
-            --v27;
+            v18 = *v17++;
+            *v15 = sub_1B684(v18, v16);
+            v15 += (*algn_1C65AC * v6) + dword_1C65A8;
+            --v11;
           }
 
-          while (v27);
+          while (v11);
         }
 
         if (dword_1C65B8 < 1)
         {
-          v36 = v47;
+          v20 = v30;
         }
 
         else
         {
-          v35 = 0;
-          v36 = v47;
+          v19 = 0;
+          v20 = v30;
           do
           {
-            v37 = &dword_1C65CC;
-            if (v35 >= v12)
+            v21 = &dword_1C65CC;
+            if (v19 >= v4)
             {
-              v37 = &dword_1C65D0;
+              v21 = &dword_1C65D0;
             }
 
-            *v31 = *v37;
-            v31 += (*algn_1C65AC * v15) + dword_1C65A8;
-            ++v35;
+            *v15 = *v21;
+            v15 += (*algn_1C65AC * v6) + dword_1C65A8;
+            ++v19;
           }
 
-          while (v35 < dword_1C65B8);
+          while (v19 < dword_1C65B8);
         }
 
-        v38 = &dword_1C65CC;
-        if (v11 < 100.0)
+        v22 = &dword_1C65CC;
+        if (v3 < 100.0)
         {
-          v39 = *(v46 + 2);
-          if (v39)
+          v23 = *(v29 + 2);
+          if (v23)
           {
-            v38 = &dword_1C65CC;
-            if (v36)
+            v22 = &dword_1C65CC;
+            if (v20)
             {
               goto LABEL_44;
             }
@@ -6262,59 +6603,59 @@ LABEL_28:
             goto LABEL_46;
           }
 
-          v38 = &dword_1C65D0;
+          v22 = &dword_1C65D0;
         }
 
-        v39 = *(v46 + 1);
-        if (v36)
+        v23 = *(v29 + 1);
+        if (v20)
         {
 LABEL_44:
-          v40 = *v38;
-          v41 = v39 + v28;
-          v42 = v47;
+          v24 = *v22;
+          v25 = v23 + v12;
+          v26 = v30;
           do
           {
-            *v31 = sub_1B684(*(v41 + v42), v40);
-            v31 += (*algn_1C65AC * v15) + dword_1C65A8;
-            --v42;
+            *v15 = sub_1B684(*(v25 + v26), v24);
+            v15 += (*algn_1C65AC * v6) + dword_1C65A8;
+            --v26;
           }
 
-          while (v42);
+          while (v26);
         }
 
 LABEL_46:
-        v23 = &v45[4 * *algn_1C65B4 * v15 + 4 * dword_1C65B0];
-        ++v26;
-        v27 = v47;
-        v25 += v47;
-        v28 += v47;
-        if (v26 == v44)
+        v7 = &v28[4 * *algn_1C65B4 * v6 + 4 * dword_1C65B0];
+        ++v10;
+        v11 = v30;
+        v9 += v30;
+        v12 += v30;
+        if (v10 == v27)
         {
           goto LABEL_47;
         }
       }
     }
 
-    ramrod_log_msg("Not updating screen progress since showprogress is set to false\n", v14, a4, a5, a6, a7, a8, a9, v43);
+    ramrod_log_msg("Not updating screen progress since showprogress is set to false\n");
 LABEL_47:
 
     sub_1A344();
   }
 }
 
-void sub_1B530()
+void sub_1B530(double a1)
 {
   MGGetFloat32Answer();
-  dword_1C658C = v0;
+  dword_1C658C = v1;
   MGGetFloat32Answer();
-  v2 = v1;
+  v3 = v2;
   dword_1C6590 = MGGetSInt32Answer();
-  v3 = MGGetSInt32Answer();
-  ramrod_log_msg("display-boot-rotation = %d\n", v4, v5, v6, v7, v8, v9, v10, v3);
-  v11 = v2 * 57.2957795;
-  dword_1C6588 = (v3 - llroundf(v11) + 360) % 360;
-  ramrod_log_msg("display-scale = %d\n", v12, v13, v14, v15, v16, v17, v18, dword_1C658C);
-  ramrod_log_msg("display-rotation = %d\n", v19, v20, v21, v22, v23, v24, v25, dword_1C6588);
+  v4 = MGGetSInt32Answer();
+  ramrod_log_msg("display-boot-rotation = %d\n", v4);
+  v5 = v3 * 57.2957795;
+  dword_1C6588 = (v4 - llroundf(v5) + 360) % 360;
+  ramrod_log_msg("display-scale = %d\n", dword_1C658C);
+  ramrod_log_msg("display-rotation = %d\n", dword_1C6588);
   if (dword_1C6588 > 179)
   {
     if (dword_1C6588 != 180 && dword_1C6588 != 270)
@@ -6326,7 +6667,7 @@ void sub_1B530()
   else if (dword_1C6588 && dword_1C6588 != 90)
   {
 LABEL_7:
-    ramrod_log_msg("display-rotation value (%d) unsupported, not rotating images\n", v26, v27, v28, v29, v30, v31, v32, dword_1C6588);
+    ramrod_log_msg("display-rotation value (%d) unsupported, not rotating images\n", dword_1C6588);
     dword_1C6588 = 0;
   }
 }
@@ -6345,16 +6686,16 @@ void sub_1B708()
 void sub_1B778(id a1)
 {
   sub_1B708();
-  pthread_mutex_lock(&stru_1C6538);
-  v1 = *&qword_1C46D8;
-  off_1C6630(v1);
-  v2 = 1.0;
-  if (*&qword_1C6678 == 0.0 || (v3 = *&qword_1C6678 + -1.0, v2 = 0.0, *&qword_1C6678 + -1.0 < 0.0))
+  v1 = pthread_mutex_lock(&stru_1C6538);
+  v2 = *&qword_1C46D8;
+  off_1C6630(v1, v2);
+  v3 = 1.0;
+  if (*&qword_1C6678 == 0.0 || (v4 = *&qword_1C6678 + -1.0, v3 = 0.0, *&qword_1C6678 + -1.0 < 0.0))
   {
-    v3 = v2;
+    v4 = v3;
   }
 
-  qword_1C6678 = *&v3;
+  qword_1C6678 = *&v4;
 
   pthread_mutex_unlock(&stru_1C6538);
 }
@@ -6377,110 +6718,117 @@ void sub_1B880(__IOSurface *a1, uint64_t *a2, int a3, int a4)
   v8 = xmmword_1C6578;
   BytesPerRow = IOSurfaceGetBytesPerRow(a1);
   BaseAddress = IOSurfaceGetBaseAddress(a1);
-  v18 = *a2;
+  v11 = *a2;
   if (*a2)
   {
-    v19 = a2[1];
-    if ((v19 + a4) > *(&v8 + 1) || v18 + a3 > v8)
+    v12 = a2[1];
+    if ((v12 + a4) > *(&v8 + 1) || v11 + a3 > v8)
     {
       dword_1C6680 = a3;
       dword_1C6688 = a4;
-      qword_1C6698 = v18;
-      qword_1C6690 = v19;
+      qword_1C6698 = v11;
+      qword_1C6690 = v12;
 
       pthread_once(&stru_1C46E8, sub_1B9CC);
     }
 
-    else if (v19)
+    else if (v12)
     {
-      v21 = 0;
-      v22 = a2[2];
+      v14 = 0;
+      v15 = a2[2];
       do
       {
-        v23 = &BaseAddress[4 * a3 + ((v21 + a4) * BytesPerRow)];
-        v24 = v18;
+        v16 = &BaseAddress[4 * a3 + ((v14 + a4) * BytesPerRow)];
+        v17 = v11;
         do
         {
-          v25 = *v22++;
-          *v23 = v25;
-          v23 += 4;
-          --v24;
+          v18 = *v15++;
+          *v16 = v18;
+          v16 += 4;
+          --v17;
         }
 
-        while (v24);
-        ++v21;
+        while (v17);
+        ++v14;
       }
 
-      while (v21 != v19);
+      while (v14 != v12);
     }
   }
 
   else
   {
-    ramrod_log_msg("%s: can't blit - image x offset greater that width [%d > %zu]\n", v11, v12, v13, v14, v15, v16, v17, "display_blit_raw_image_to_buffer_limit");
+    ramrod_log_msg("%s: can't blit - image x offset greater that width [%d > %zu]\n", "display_blit_raw_image_to_buffer_limit", 0, 0);
   }
 }
 
-void sub_1B9CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_1B9CC()
 {
-  ramrod_log_msg("Can't blit image into display buffer since it overflows the display size!\n", a2, a3, a4, a5, a6, a7, a8, v37);
-  ramrod_log_msg("Here is some image and display information to debug your overflow issue:\n", v9, v10, v11, v12, v13, v14, v15, v38);
-  ramrod_log_msg("Display Info: width=%zu height=%zu\n", v16, v17, v18, v19, v20, v21, v22, xmmword_1C6578);
-  ramrod_log_msg("Image Info: xoff=%d yoff=%d height=%zu width=%zu\n", v23, v24, v25, v26, v27, v28, v29, dword_1C6680);
+  ramrod_log_msg("Can't blit image into display buffer since it overflows the display size!\n");
+  ramrod_log_msg("Here is some image and display information to debug your overflow issue:\n");
+  ramrod_log_msg("Display Info: width=%zu height=%zu\n", xmmword_1C6578, *(&xmmword_1C6578 + 1));
+  ramrod_log_msg("Image Info: xoff=%d yoff=%d height=%zu width=%zu\n", dword_1C6680, dword_1C6688, qword_1C6690, qword_1C6698);
 
-  ramrod_log_msg("This message will only be logged once for all failed blits!\n", v30, v31, v32, v33, v34, v35, v36, a9);
+  ramrod_log_msg("This message will only be logged once for all failed blits!\n");
 }
 
 uint64_t sub_1BA68()
 {
   Current = CFRunLoopGetCurrent();
-  ramrod_log_msg("starting display hot plug thread\n", v1, v2, v3, v4, v5, v6, v7, v27);
+  ramrod_log_msg("starting display hot plug thread\n");
   if (dword_1C6600 < 1)
   {
-    goto LABEL_11;
+    goto LABEL_13;
   }
 
-  v15 = 0;
-  v16 = 0;
-  v17 = 0;
+  v1 = 0;
+  v2 = 0;
+  v3 = 0;
   do
   {
-    if ((*(qword_1C6610 + v15) & 1) == 0)
+    if ((*(qword_1C6610 + v1) & 1) == 0)
     {
       RunLoopSource = IOMobileFramebufferGetRunLoopSource();
       if (RunLoopSource)
       {
         CFRunLoopAddSource(Current, RunLoopSource, kCFRunLoopDefaultMode);
-        if (IOMobileFramebufferEnableHotPlugDetectNotifications())
+        v5 = IOMobileFramebufferEnableHotPlugDetectNotifications();
+        if (v5)
         {
-          ramrod_log_msg("unable to register for hot plug notifications on %s: 0x%x\n", v8, v9, v10, v11, v12, v13, v14, qword_1C6610 + v15 + 2);
+          ramrod_log_msg("unable to register for hot plug notifications on %s: 0x%x\n", (qword_1C6610 + v1 + 2), v5);
         }
 
         else
         {
-          ++v17;
+          ++v3;
         }
       }
     }
 
-    ++v16;
-    v15 += 80;
+    ++v2;
+    v1 += 80;
   }
 
-  while (v16 < dword_1C6600);
-  if (v17 <= 0)
+  while (v2 < dword_1C6600);
+  if (v3 <= 0)
   {
-LABEL_11:
-    ramrod_log_msg("no external displays registered for hot plug notifications\n", v8, v9, v10, v11, v12, v13, v14, v28);
+LABEL_13:
+    ramrod_log_msg("no external displays registered for hot plug notifications\n");
   }
 
   else
   {
-    ramrod_log_msg("listening for hot plug notifications from %d display%s\n", v8, v9, v10, v11, v12, v13, v14, v17);
+    v6 = "s";
+    if (v3 == 1)
+    {
+      v6 = "";
+    }
+
+    ramrod_log_msg("listening for hot plug notifications from %d display%s\n", v3, v6);
     CFRunLoopRun();
   }
 
-  ramrod_log_msg("display hot plug thread exiting\n", v19, v20, v21, v22, v23, v24, v25, v29);
+  ramrod_log_msg("display hot plug thread exiting\n");
   return 0;
 }
 
@@ -6488,116 +6836,112 @@ uint64_t sub_1BBC8(uint64_t a1, int a2)
 {
   if (!a2)
   {
-    v82 = 0;
-    v10 = IOMobileFramebufferSetDisplayDevice();
-    if (v10)
+    v18 = 0;
+    if (IOMobileFramebufferSetDisplayDevice())
     {
-      ramrod_log_msg("unable to set display device: 0x%x\n", v11, v12, v13, v14, v15, v16, v17, v10);
+      ramrod_log_msg("unable to set display device: 0x%x\n");
     }
 
     else
     {
-      v84 = 0;
-      v85 = 0;
-      v83 = 0;
-      SupportedDigitalOutModes = IOMobileFramebufferGetSupportedDigitalOutModes();
-      if (SupportedDigitalOutModes)
+      v20 = 0;
+      v21 = 0;
+      v19 = 0;
+      if (IOMobileFramebufferGetSupportedDigitalOutModes())
       {
-        ramrod_log_msg("unable to get color and timing modes: 0x%x\n", v62, v63, v64, v65, v66, v67, v68, SupportedDigitalOutModes);
+        ramrod_log_msg("unable to get color and timing modes: 0x%x\n");
       }
 
       else
       {
-        ramrod_log_msg("NULL timing (%p) modes\n", v62, v63, v64, v65, v66, v67, v68, 0);
+        ramrod_log_msg("NULL timing (%p) modes\n");
       }
     }
 
     return 0xFFFFFFFFLL;
   }
 
-  DisplaySize = IOMobileFramebufferGetDisplaySize();
-  if (DisplaySize)
+  if (IOMobileFramebufferGetDisplaySize())
   {
-    ramrod_log_msg("unable to get display size: 0x%x\n", v3, v4, v5, v6, v7, v8, v9, DisplaySize);
+    ramrod_log_msg("unable to get display size: 0x%x\n");
     return 0xFFFFFFFFLL;
   }
 
   xmmword_1C6578 = vcvtq_u64_f64(0);
   byte_1C65FC = 1;
-  ramrod_log_msg("display: %zu x %zu\n", v3, v4, v5, v6, v7, v8, v9, xmmword_1C6578);
-  off_1C6628();
+  ramrod_log_msg("display: %zu x %zu\n", xmmword_1C6578, *(&xmmword_1C6578 + 1));
+  off_1C6628(v2);
   for (i = 0; i != 3; ++i)
   {
-    v19 = xmmword_1C6578;
+    v4 = xmmword_1C6578;
     Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (!Mutable)
     {
-      *(&unk_1C6538 + i + 20) = 0;
+      *(&stru_1C6538 + i + 20) = 0;
 LABEL_20:
-      ramrod_log_msg("unable to create display buffer %i\n", v21, v22, v23, v24, v25, v26, v27, i);
+      ramrod_log_msg("unable to create display buffer %i\n");
       return 0xFFFFFFFFLL;
     }
 
-    v28 = Mutable;
-    sub_1CA58(Mutable, kIOSurfaceBytesPerRow, (4 * v19 + 63) & 0xFFFFFFC0);
-    sub_1CA58(v28, kIOSurfaceWidth, v19);
-    sub_1CA58(v28, kIOSurfaceHeight, SDWORD2(v19));
-    sub_1CA58(v28, kIOSurfacePixelFormat, 1111970369);
-    sub_1CA58(v28, kIOSurfaceBytesPerElement, 4);
+    v6 = Mutable;
+    sub_1CA58(Mutable, kIOSurfaceBytesPerRow, (4 * v4 + 63) & 0xFFFFFFC0);
+    sub_1CA58(v6, kIOSurfaceWidth, v4);
+    sub_1CA58(v6, kIOSurfaceHeight, SDWORD2(v4));
+    sub_1CA58(v6, kIOSurfacePixelFormat, 1111970369);
+    sub_1CA58(v6, kIOSurfaceBytesPerElement, 4);
     if ((_get_cpu_capabilities() & 0x800) != 0)
     {
-      v29 = 1792;
+      v7 = 1792;
     }
 
     else
     {
-      v29 = 1024;
+      v7 = 1024;
     }
 
-    sub_1CA58(v28, kIOSurfaceCacheMode, v29);
-    v30 = IOSurfaceCreate(v28);
-    CFRelease(v28);
-    *(&unk_1C6538 + i + 20) = v30;
-    if (!v30)
+    sub_1CA58(v6, kIOSurfaceCacheMode, v7);
+    v8 = IOSurfaceCreate(v6);
+    CFRelease(v6);
+    *(&stru_1C6538 + i + 20) = v8;
+    if (!v8)
     {
       goto LABEL_20;
     }
 
-    if (IOSurfaceLock(v30, 0, 0))
+    if (IOSurfaceLock(v8, 0, 0))
     {
-      ramrod_log_msg("unable to lock display buffer %i: 0x%x\n", v31, v32, v33, v34, v35, v36, v37, i);
+      ramrod_log_msg("unable to lock display buffer %i: 0x%x\n");
       return 0xFFFFFFFFLL;
     }
   }
 
   sub_1B808(qword_1C65E8);
   sub_1A5C8();
-  v81[0] = 128;
-  v38 = sysctlbyname("hw.target", &unk_1C66A0, v81, 0, 0);
-  ramrod_log_msg("%s: HW.target returned: %s\n", v39, v40, v41, v42, v43, v44, v45, "skip_display_poweron_for_device");
-  if (!v38)
+  v17[0] = 128;
+  v9 = sysctlbyname("hw.target", byte_1C66A0, v17, 0, 0);
+  ramrod_log_msg("%s: HW.target returned: %s\n", "skip_display_poweron_for_device", byte_1C66A0);
+  if (!v9)
   {
-    v69 = MGCopyAnswer();
-    if (v69)
+    v10 = MGCopyAnswer();
+    if (v10)
     {
-      v70 = v69;
-      CFStringGetCStringPtr(v69, 0x8000100u);
-      ramrod_log_msg("%s: DeviceName is: %s\n", v71, v72, v73, v74, v75, v76, v77, "skip_display_poweron_for_device");
-      v78 = CFStringCompare(@"Apple Display", v70, 1uLL);
-      CFRelease(v70);
-      if (v78 == kCFCompareEqualTo)
+      v11 = v10;
+      CStringPtr = CFStringGetCStringPtr(v10, 0x8000100u);
+      ramrod_log_msg("%s: DeviceName is: %s\n", "skip_display_poweron_for_device", CStringPtr);
+      v13 = CFStringCompare(@"Apple Display", v11, 1uLL);
+      CFRelease(v11);
+      if (v13 == kCFCompareEqualTo)
       {
-        ramrod_log_msg("Display-less device detected. Skipping poweron entirely\n", v46, v47, v48, v49, v50, v51, v52, v80);
+        ramrod_log_msg("Display-less device detected. Skipping poweron entirely\n", v15, v16);
         return 0xFFFFFFFFLL;
       }
     }
   }
 
-  ramrod_log_msg("powering on display\n", v46, v47, v48, v49, v50, v51, v52, v80);
-  v53 = IOMobileFramebufferRequestPowerChange();
-  if (v53)
+  ramrod_log_msg("powering on display\n");
+  if (IOMobileFramebufferRequestPowerChange())
   {
-    ramrod_log_msg("IOMobileFramebufferRequestPowerChange failed: %x\n", v54, v55, v56, v57, v58, v59, v60, v53);
+    ramrod_log_msg("IOMobileFramebufferRequestPowerChange failed: %x\n");
     return 0xFFFFFFFFLL;
   }
 
@@ -6613,8 +6957,8 @@ void sub_1C314()
   xmmword_1C6578 = 0uLL;
   do
   {
-    v1 = (&unk_1C6538 + v0);
-    v2 = *(&unk_1C6538 + v0 + 160);
+    v1 = (&stru_1C6538 + v0);
+    v2 = *(&stru_1C6538 + v0 + 160);
     if (v2)
     {
       IOSurfaceUnlock(v2, 0, 0);
@@ -6645,11 +6989,10 @@ CFIndex sub_1C38C(const __CFArray *a1, int a2)
           __strlcpy_chk();
         }
 
-        ramrod_log_msg("found display: %s\n", v8, v9, v10, v11, v12, v13, v14, v7 + 2);
-        v15 = IOMobileFramebufferOpenByName();
-        if (v15)
+        ramrod_log_msg("found display: %s\n", v7 + 2);
+        if (IOMobileFramebufferOpenByName())
         {
-          ramrod_log_msg("unable to open framebuffer: 0x%x\n", v16, v17, v18, v19, v20, v21, v22, v15);
+          ramrod_log_msg("unable to open framebuffer: 0x%x\n");
         }
 
         else
@@ -6657,32 +7000,30 @@ CFIndex sub_1C38C(const __CFArray *a1, int a2)
           ++dword_1C6600;
           v7[1] = 0;
           *v7 = a2 == 0;
-          v31 = 0;
           if (!a2)
           {
-            v30 = 1;
-            v31 = 1;
+            v9 = 1;
 LABEL_13:
-            v7[1] = v30 == 1;
-            if (v30 == 1 && !qword_1C6608)
+            v7[1] = v9 == 1;
+            if (v9 == 1 && !qword_1C6608)
             {
               qword_1C6608 = v7;
-              ramrod_log_msg("Will use display %s\n", v16, v17, v18, v19, v20, v21, v22, v7 + 2);
-              LOBYTE(v30) = v31;
+              ramrod_log_msg("Will use display %s\n", v7 + 2);
             }
 
-            ramrod_log_msg("Display state is %d\n", v16, v17, v18, v19, v20, v21, v22, v30);
+            ramrod_log_msg("Display state is %d\n");
             goto LABEL_17;
           }
 
-          if (!IOMobileFramebufferGetDigitalOutState())
+          DigitalOutState = IOMobileFramebufferGetDigitalOutState();
+          if (!DigitalOutState)
           {
-            v30 = 0;
+            v9 = 0;
             goto LABEL_13;
           }
 
-          ramrod_log_msg("%s: Failed to query digital out state %08x\n", v16, v17, v18, v19, v20, v21, v22, "get_display_state");
-          ramrod_log_msg("Unable to get state of %s\n", v23, v24, v25, v26, v27, v28, v29, v7 + 2);
+          ramrod_log_msg("%s: Failed to query digital out state %08x\n", "get_display_state", DigitalOutState);
+          ramrod_log_msg("Unable to get state of %s\n");
         }
       }
 
@@ -6694,74 +7035,83 @@ LABEL_17:
   return result;
 }
 
-uint64_t sub_1C554(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1C554(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = a3;
-  ramrod_log_msg("%s: display %s %s\n", a2, a3, a4, a5, a6, a7, a8, "display_hot_plug");
-  v11 = pthread_mutex_lock(&unk_1C6538);
-  v19 = qword_1C6608;
+  v3 = a3;
+  v6 = (a3 + 2);
+  v7 = "attached";
   if (!a2)
   {
-    *(v8 + 1) = 0;
-    if (v19 == v8)
+    v7 = "detached";
+  }
+
+  ramrod_log_msg("%s: display %s %s\n", "display_hot_plug", (a3 + 2), v7);
+  v8 = pthread_mutex_lock(&stru_1C6538);
+  v9 = qword_1C6608;
+  if (!a2)
+  {
+    *(v3 + 1) = 0;
+    if (v9 == v3)
     {
-      ramrod_log_msg("%s: %s was active", v12, v13, v14, v15, v16, v17, v18, "display_hot_plug");
+      ramrod_log_msg("%s: %s was active", "display_hot_plug", v6);
     }
 
-    else if (v19)
+    else if (v9)
     {
-      goto LABEL_17;
+      goto LABEL_20;
     }
 
-    v20 = dword_1C6600;
-    v8 = qword_1C6610;
+    v10 = dword_1C6600;
+    v3 = qword_1C6610;
     if (dword_1C6600 < 1)
     {
-LABEL_13:
+LABEL_15:
       if (*qword_1C6610 != 1)
       {
-        v19 = 0;
-        goto LABEL_17;
+        v9 = 0;
+        goto LABEL_20;
       }
+
+      v6 = (qword_1C6610 + 2);
     }
 
     else
     {
-      v21 = qword_1C6610 + 2;
-      while (*(v21 - 1) != 1)
+      v6 = (qword_1C6610 + 2);
+      while (*(v6 - 1) != 1)
       {
-        v21 += 80;
-        if (!--v20)
+        v6 += 80;
+        if (!--v10)
         {
-          goto LABEL_13;
+          goto LABEL_15;
         }
       }
 
-      v8 = v21 - 2;
+      v3 = (v6 - 2);
     }
 
-    goto LABEL_16;
+    goto LABEL_19;
   }
 
-  *(v8 + 1) = 1;
-  if (!v19 || (v19[1] & 1) == 0)
+  *(v3 + 1) = 1;
+  if (!v9 || (v9[1] & 1) == 0)
   {
-LABEL_16:
-    ramrod_log_msg("%s: Will use %s\n", v12, v13, v14, v15, v16, v17, v18, "display_hot_plug");
-    v19 = v8;
+LABEL_19:
+    ramrod_log_msg("%s: Will use %s\n", "display_hot_plug", v6);
+    v9 = v3;
   }
 
-LABEL_17:
-  if (qword_1C6608 != v19)
+LABEL_20:
+  if (qword_1C6608 != v9)
   {
     if (qword_1C6608)
     {
       if (*qword_1C6608 == 1 && dword_1C46E0 != -1)
       {
-        v23 = *(&unk_1C6538 + dword_1C46E0 + 20);
-        if (v23)
+        v12 = *(&stru_1C6538 + dword_1C46E0 + 20);
+        if (v12)
         {
-          sub_1B808(v23);
+          sub_1B808(v12);
           sub_1A344();
         }
       }
@@ -6769,30 +7119,30 @@ LABEL_17:
       sub_1C314();
     }
 
-    qword_1C6608 = v19;
-    if (v19)
+    qword_1C6608 = v9;
+    if (v9)
     {
-      v24 = *v19;
-      if (v24 == 1)
+      v13 = *v9;
+      if (v13 == 1)
       {
-        off_1C6638(v11);
-        v24 = *qword_1C6608;
+        off_1C6638(v8);
+        v13 = *qword_1C6608;
       }
 
-      if (!sub_1BBC8(a1, v24))
+      if (!sub_1BBC8(a1, v13))
       {
-        v25 = off_1C6618(dword_1C658C, dword_1C6588);
-        off_1C6628(v25);
+        v14 = off_1C6618(dword_1C658C, dword_1C6588);
+        off_1C6628(v14);
         sub_1A5C8();
         if (*&qword_1C46D8 != -1.0)
         {
-          off_1C6630(*&qword_1C46D8);
+          off_1C6630(v15, *&qword_1C46D8);
         }
       }
     }
   }
 
-  return pthread_mutex_unlock(&unk_1C6538);
+  return pthread_mutex_unlock(&stru_1C6538);
 }
 
 const __CFNumber *sub_1C764(const __CFDictionary *a1, _DWORD *a2, _DWORD *a3, _DWORD *a4, _DWORD *a5)
@@ -6859,78 +7209,80 @@ const __CFNumber *sub_1C764(const __CFDictionary *a1, _DWORD *a2, _DWORD *a3, _D
   return result;
 }
 
-uint64_t sub_1C90C(uint64_t a1, SInt32 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1C90C(const __CFString *a1, SInt32 *a2)
 {
-  if (!a1)
+  if (a1)
   {
-    v13 = "can't fetch NVRAM value with NULL key\n";
-LABEL_8:
-    ramrod_log_msg(v13, a2, a3, a4, a5, a6, a7, a8, v28);
-    return 2;
-  }
-
-  if (!a2)
-  {
-    v13 = "can't load nil pointer with NVRAM value\n";
-    goto LABEL_8;
-  }
-
-  v9 = ramrod_copy_NVRAM_variable(a1, 0);
-  if (v9)
-  {
-    v10 = v9;
-    valuePtr = -1;
-    v11 = CFGetTypeID(v9);
-    if (v11 == CFStringGetTypeID())
+    if (a2)
     {
-      IntValue = CFStringGetIntValue(v10);
-    }
+      v3 = ramrod_copy_NVRAM_variable(a1);
+      if (v3)
+      {
+        v4 = v3;
+        valuePtr = -1;
+        v5 = CFGetTypeID(v3);
+        if (v5 == CFStringGetTypeID())
+        {
+          IntValue = CFStringGetIntValue(v4);
+        }
 
-    else if (v11 == CFNumberGetTypeID())
-    {
-      CFNumberGetValue(v10, kCFNumberIntType, &valuePtr);
-      IntValue = valuePtr;
+        else if (v5 == CFNumberGetTypeID())
+        {
+          CFNumberGetValue(v4, kCFNumberIntType, &valuePtr);
+          IntValue = valuePtr;
+        }
+
+        else
+        {
+          if (v5 != CFDataGetTypeID())
+          {
+            ramrod_log_msg("can't convert unsupported CFType to int\n");
+            goto LABEL_18;
+          }
+
+          BytePtr = CFDataGetBytePtr(v4);
+          if (!BytePtr)
+          {
+            goto LABEL_18;
+          }
+
+          v9 = BytePtr;
+          Length = CFDataGetLength(v4);
+          v11 = CFStringCreateWithBytes(kCFAllocatorDefault, v9, Length, 0x8000100u, 0);
+          if (!v11)
+          {
+            goto LABEL_18;
+          }
+
+          v12 = v11;
+          IntValue = CFStringGetIntValue(v11);
+          CFRelease(v12);
+        }
+
+        if (IntValue != -1)
+        {
+          v7 = 0;
+          *a2 = IntValue;
+LABEL_19:
+          CFRelease(v4);
+          return v7;
+        }
+
+LABEL_18:
+        v7 = 3;
+        goto LABEL_19;
+      }
     }
 
     else
     {
-      if (v11 != CFDataGetTypeID())
-      {
-        ramrod_log_msg("can't convert unsupported CFType to int\n", v15, v16, v17, v18, v19, v20, v21, v28);
-        goto LABEL_19;
-      }
-
-      BytePtr = CFDataGetBytePtr(v10);
-      if (!BytePtr)
-      {
-        goto LABEL_19;
-      }
-
-      v23 = BytePtr;
-      Length = CFDataGetLength(v10);
-      v25 = CFStringCreateWithBytes(kCFAllocatorDefault, v23, Length, 0x8000100u, 0);
-      if (!v25)
-      {
-        goto LABEL_19;
-      }
-
-      v26 = v25;
-      IntValue = CFStringGetIntValue(v25);
-      CFRelease(v26);
+      ramrod_log_msg("can't load nil pointer with NVRAM value\n", 0);
     }
+  }
 
-    if (IntValue != -1)
-    {
-      v14 = 0;
-      *a2 = IntValue;
-LABEL_20:
-      CFRelease(v10);
-      return v14;
-    }
-
-LABEL_19:
-    v14 = 3;
-    goto LABEL_20;
+  else
+  {
+    ramrod_log_msg("can't fetch NVRAM value with NULL key\n", a2);
   }
 
   return 2;
@@ -6986,12 +7338,12 @@ uint64_t create_listen_socket_sigpipe(_WORD *a1, int a2)
 {
   v4 = *a1;
   v5 = *a1 != 0;
-  v19 = 0;
-  v18 = 0;
-  v20 = 0;
-  v16 = 7708;
-  v17 = __rev16(v4);
-  bound_socket = create_bound_socket(&v16, 1, 0, v5, v4 == 0);
+  v12 = 0;
+  v11 = 0;
+  v13 = 0;
+  v9 = 7708;
+  v10 = __rev16(v4);
+  bound_socket = create_bound_socket(&v9, 1, 0, v5, v4 == 0);
   if (bound_socket == -1)
   {
     return 0xFFFFFFFFLL;
@@ -7012,12 +7364,12 @@ uint64_t create_listen_socket_sigpipe(_WORD *a1, int a2)
 
   ramrod_socket_set_idle_timeouts_passive(v7, qword_1C6760);
   ramrod_socket_set_nosigpipe(v7, a2 ^ 1);
-  bzero(v21, 0x401uLL);
-  ramrod_socket_sockaddr_to_string(v21, 0x401uLL, &v16, "<unknown>");
-  ramrod_log_msg("sock %3d: listening on %s\n", v8, v9, v10, v11, v12, v13, v14, v7);
+  bzero(v14, 0x401uLL);
+  ramrod_socket_sockaddr_to_string(v14, 0x401uLL, &v9, "<unknown>");
+  ramrod_log_msg("sock %3d: listening on %s\n", v7, v14);
   if (!v4)
   {
-    *a1 = bswap32(v17) >> 16;
+    *a1 = bswap32(v10) >> 16;
   }
 
   return v7;
@@ -7025,86 +7377,86 @@ uint64_t create_listen_socket_sigpipe(_WORD *a1, int a2)
 
 uint64_t accept_socket_connection(int a1, char a2, void *a3)
 {
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0;
-  v51 = 0u;
-  v39 = 128;
-  v5 = accept(a1, &v50, &v39);
-  if (v5 == -1)
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0;
+  v24 = 0u;
+  v12 = 128;
+  v6 = accept(a1, &v23, &v12);
+  if (v6 == -1)
   {
     perror("accept failed");
-    return v5;
+    return v6;
   }
 
   if (a3)
   {
     arc4random_buf(a3, 8uLL);
-    resume_socket_guard(v5, a3);
+    resume_socket_guard(v6, a3);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0;
-  v43 = 0u;
-  v38 = 128;
-  getsockname(v5, &v42, &v38);
-  bzero(v41, 0x401uLL);
-  bzero(v40, 0x401uLL);
-  ramrod_socket_sockaddr_to_string(v41, 0x401uLL, &v50, "<unknown>");
-  ramrod_socket_sockaddr_to_string(v40, 0x401uLL, &v42, "<unknown>");
-  ramrod_log_msg("sock %3d: accepted %s <- %s (from %d)\n", v6, v7, v8, v9, v10, v11, v12, v5);
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0;
+  v16 = 0u;
+  v11 = 128;
+  getsockname(v6, &v15, &v11);
+  bzero(v14, 0x401uLL);
+  bzero(v13, 0x401uLL);
+  ramrod_socket_sockaddr_to_string(v14, 0x401uLL, &v23, "<unknown>");
+  ramrod_socket_sockaddr_to_string(v13, 0x401uLL, &v15, "<unknown>");
+  ramrod_log_msg("sock %3d: accepted %s <- %s (from %d)\n", v6, v13, v14, a1);
   if (qword_1C6768 != -1)
   {
     sub_D64AC();
   }
 
-  ramrod_socket_set_idle_timeouts_active(v5, qword_1C6760);
-  v13 = a2 & 3;
-  if (v13 > 1)
+  ramrod_socket_set_idle_timeouts_active(v6, qword_1C6760);
+  v7 = a2 & 3;
+  if (v7 > 1)
   {
-    if (v13 == 2)
+    if (v7 == 2)
     {
-      return v5;
+      return v6;
     }
 
-    v14 = 2;
+    v8 = 2;
   }
 
   else
   {
-    v14 = v13 == 0;
+    v8 = v7 == 0;
   }
 
-  if (sub_1E490(&v50))
+  if (sub_1E490(&v23))
   {
-    ramrod_log_msg("sock %3d: shutdown(%s) skipped for loopback address\n", v15, v16, v17, v18, v19, v20, v21, v5);
+    ramrod_log_msg("sock %3d: shutdown(%s) skipped for loopback address\n");
   }
 
-  else if (shutdown(v5, v14))
+  else if (shutdown(v6, v8))
   {
-    v29 = __error();
-    strerror(*v29);
-    ramrod_log_msg("sock %3d: shutdown(%s) failed: %s (%d)\n", v30, v31, v32, v33, v34, v35, v36, v5);
+    v9 = __error();
+    strerror(*v9);
+    ramrod_log_msg("sock %3d: shutdown(%s) failed: %s (%d)\n");
   }
 
   else
   {
-    ramrod_log_msg("sock %3d: shutdown(%s) complete\n", v22, v23, v24, v25, v26, v27, v28, v5);
+    ramrod_log_msg("sock %3d: shutdown(%s) complete\n");
   }
 
-  return v5;
+  return v6;
 }
 
-void resume_socket_guard(uint64_t a1, uint64_t a2)
+void resume_socket_guard(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
@@ -7120,21 +7472,21 @@ unint64_t register_main_connection(dispatch_source_t source)
   v1 = source;
   if (source)
   {
-    handle = dispatch_source_get_handle(source);
-    v10 = 0;
-    atomic_compare_exchange_strong(&qword_1C6720, &v10, v1);
-    if (v10)
+    dispatch_source_get_handle(source);
+    v2 = 0;
+    atomic_compare_exchange_strong(&qword_1C6720, &v2, v1);
+    if (v2)
     {
-      v12 = v10 == v1;
-      v1 = v10 == v1;
-      if (v12)
+      v3 = v2 == v1;
+      v1 = v2 == v1;
+      if (v3)
       {
-        v11 = "sock %3d: already main connection\n";
+        ramrod_log_msg("sock %3d: already main connection\n");
       }
 
       else
       {
-        v11 = "sock %3d: rejected duplicate main connection\n";
+        ramrod_log_msg("sock %3d: rejected duplicate main connection\n");
       }
     }
 
@@ -7142,16 +7494,14 @@ unint64_t register_main_connection(dispatch_source_t source)
     {
       dispatch_retain(v1);
       v1 = 1;
-      v11 = "sock %3d: became main connection\n";
+      ramrod_log_msg("sock %3d: became main connection\n");
     }
-
-    ramrod_log_msg(v11, v2, v3, v4, v5, v6, v7, v8, handle);
   }
 
   return v1;
 }
 
-void suspend_socket_guard(uint64_t a1, uint64_t a2)
+void suspend_socket_guard(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
@@ -7162,14 +7512,15 @@ void suspend_socket_guard(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t close_socket_with_message(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t close_socket_with_message(uint64_t a1, uint64_t a2, const char *a3, int a4)
 {
+  v6 = a1;
   if (a4)
   {
     ramrod_socket_log_statistics(a1);
   }
 
-  ramrod_log_msg("sock %3d: %s\n", a2, a3, a4, a5, a6, a7, a8, a1);
+  ramrod_log_msg("sock %3d: %s\n", v6, a3);
   if (a2)
   {
     result = guarded_close_np();
@@ -7183,33 +7534,33 @@ uint64_t close_socket_with_message(int a1, uint64_t a2, uint64_t a3, uint64_t a4
   else
   {
 
-    return close(a1);
+    return close(v6);
   }
 
   return result;
 }
 
-uint64_t close_socket_with_result(int a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t close_socket_with_result(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
     ramrod_socket_reset_on_close(a1);
-    v10 = "closed with explicit RST";
+    v5 = "closed with explicit RST";
   }
 
   else
   {
-    v10 = "closed";
+    v5 = "closed";
   }
 
-  return close_socket_with_message(a1, a2, v10, 1, a5, a6, a7, a8);
+  return close_socket_with_message(a1, a2, v5, 1);
 }
 
 uint64_t init_ramdisk_sysctls()
 {
   if (sub_1D284("vm.shared_region_trace_level", 0))
   {
-    checkpoint_monitor_step(517, "region_spew_failed", 0xFFFFFFFFLL, 0, v0, v1, v2, v3);
+    checkpoint_monitor_step(517, "region_spew_failed", 0xFFFFFFFFLL, 0);
   }
 
   sub_1D284("net.inet.log_restricted", 1);
@@ -7219,69 +7570,67 @@ uint64_t init_ramdisk_sysctls()
     sub_D64F4();
   }
 
-  v4 = qword_1C6760;
+  v0 = qword_1C6760;
   sub_1D284("net.inet.tcp.keepinit", 1000 * *qword_1C6760);
-  sub_1D284("net.inet.tcp.keepidle", 1000 * v4[1]);
-  sub_1D284("net.inet.tcp.keepintvl", 1000 * v4[2]);
-  sub_1D284("net.inet.tcp.keepcnt", v4[3]);
+  sub_1D284("net.inet.tcp.keepidle", 1000 * v0[1]);
+  sub_1D284("net.inet.tcp.keepintvl", 1000 * v0[2]);
+  sub_1D284("net.inet.tcp.keepcnt", v0[3]);
   sub_1D284("net.inet.tcp.always_keepalive", 1);
   return 0;
 }
 
 uint64_t sub_1D284(const char *a1, int a2)
 {
-  v2 = a1;
-  v21 = 0;
-  v22 = a2;
-  v20 = 4;
-  if (sysctlbyname(a1, &v21, &v20, &v22, 4uLL))
+  v8 = 0;
+  v9 = a2;
+  v7 = 4;
+  if (sysctlbyname(a1, &v8, &v7, &v9, 4uLL))
   {
-    v10 = __error();
-    v11 = *v10;
-    strerror(*v10);
-    ramrod_log_msg("%s: %s (%d)\n", v12, v13, v14, v15, v16, v17, v18, v2);
+    v3 = __error();
+    v4 = *v3;
+    v5 = strerror(*v3);
+    ramrod_log_msg("%s: %s (%d)\n", a1, v5, v4);
   }
 
   else
   {
-    ramrod_log_msg("%s: %d -> %d\n", v3, v4, v5, v6, v7, v8, v9, v2);
+    ramrod_log_msg("%s: %d -> %d\n", a1, v8, v9);
     return 0;
   }
 
-  return v11;
+  return v4;
 }
 
 void log_ramdisk_network_stats()
 {
-  bzero(v24, 0x390uLL);
-  v23 = 912;
-  if (sysctlbyname("net.inet.tcp.stats", v24, &v23, 0, 0))
+  bzero(v2, 0x390uLL);
+  v1 = 912;
+  if (sysctlbyname("net.inet.tcp.stats", v2, &v1, 0, 0))
   {
-    v7 = __error();
-    strerror(*v7);
-    ramrod_log_msg("%s: %s (%d)", v8, v9, v10, v11, v12, v13, v14, "net.inet.tcp.stats");
+    v0 = __error();
+    strerror(*v0);
+    ramrod_log_msg("%s: %s (%d)");
   }
 
   else
   {
-    ramrod_log_msg("\n", v0, v1, v2, v3, v4, v5, v6, v22);
-    ramrod_log_msg("TCP connection statistics:\n    connected: %u\n    accepted: %u\n    dropped: %u\n    rxmit timeouts: %u\n    keepalive timeouts: %u\n\n", v15, v16, v17, v18, v19, v20, v21, v24[8]);
-    ramrod_log_msg("TCP packet statistics:\n    total pkts in/out: %u/%u\n    seq pkts in/out: %u/%u\n    ack pkts in/out: %u/%u\n    ooo pkts in: %u (%u bytes)\n    rxmit pkts out: %u (%u bytes)\n    rcvbadsum: %u\n    rcvbadoff: %u\n    rcvmemdrop: %u\n    rcvshort: %u\n    rcvduppack: %u\n    rcvpartduppack: %u\n    fcholdpacket: %u\n    reordered_pkts: %u\n    recovered_pkts: %u\n\n", v25, v26, v27, v29, v28, v30, v31, v24[100]);
+    ramrod_log_msg("\n");
+    ramrod_log_msg("TCP connection statistics:\n    connected: %u\n    accepted: %u\n    dropped: %u\n    rxmit timeouts: %u\n    keepalive timeouts: %u\n\n", v4, v3, v5, v6, v7);
+    ramrod_log_msg("TCP packet statistics:\n    total pkts in/out: %u/%u\n    seq pkts in/out: %u/%u\n    ack pkts in/out: %u/%u\n    ooo pkts in: %u (%u bytes)\n    rxmit pkts out: %u (%u bytes)\n    rcvbadsum: %u\n    rcvbadoff: %u\n    rcvmemdrop: %u\n    rcvshort: %u\n    rcvduppack: %u\n    rcvpartduppack: %u\n    fcholdpacket: %u\n    reordered_pkts: %u\n    recovered_pkts: %u\n\n", v11, v8, v12, v9, v13, v10);
   }
 }
 
-uint64_t sub_1D4C4(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1D4C4(const char **a1, const char *a2)
 {
-  v8 = a2;
-  ramrod_kickstart_usbcretimer(a1, a2, a3, a4, a5, a6, a7, a8, v26);
-  ramrod_kickstart_aces(v10, v11, v12, v13, v14, v15, v16, v17, v27);
+  ramrod_kickstart_usbcretimer();
+  ramrod_kickstart_aces();
   if (ramrod_execute_command(a1))
   {
-    ramrod_log_msg("unable to %s - exiting\n", v18, v19, v20, v21, v22, v23, v24, v8);
+    ramrod_log_msg("unable to %s - exiting\n", a2);
     exit(1);
   }
 
-  ramrod_log_msg("%s in progress, hanging\n", v18, v19, v20, v21, v22, v23, v24, v8);
+  ramrod_log_msg("%s in progress, hanging\n", a2);
 
   return select(0, 0, 0, 0, 0);
 }
@@ -7407,9 +7756,9 @@ void sub_1D94C(uint64_t a1, io_iterator_t a2)
   }
 
   dispatch_assert_queue_V2(qword_1C6770);
-  v32 = qword_1C6758;
+  v22 = qword_1C6758;
   v3 = +[NSMutableArray array];
-  v33 = +[NSMutableArray array];
+  v23 = +[NSMutableArray array];
   v4 = IOIteratorNext(a2);
   if (v4)
   {
@@ -7421,37 +7770,39 @@ void sub_1D94C(uint64_t a1, io_iterator_t a2)
       v7 = IOUSBDeviceControllerCreateWithService();
       if (v7)
       {
-        mach_error_string(v7);
-        ramrod_log_msg("[%#llx] unable to create USB device controller: %s (%#x)\n", v8, v9, v10, v11, v12, v13, v14, v6);
+        v8 = v7;
+        v9 = mach_error_string(v7);
+        ramrod_log_msg("[%#llx] unable to create USB device controller: %s (%#x)\n", v6, v9, v8);
       }
 
       else
       {
         ramrod_log_msg_cf(@"[%#llx] created %@\n", v6, refCon);
         notification = 0;
-        v15 = IOServiceAddInterestNotification(qword_1C6728, v5, "IOGeneralInterest", sub_1EBEC, refCon, &notification);
-        if (v15)
+        v10 = IOServiceAddInterestNotification(qword_1C6728, v5, "IOGeneralInterest", sub_1EBEC, refCon, &notification);
+        if (v10)
         {
-          mach_error_string(v15);
-          ramrod_log_msg("[%#llx] unable to register for terminate events: %s (%#x)\n", v16, v17, v18, v19, v20, v21, v22, v6);
+          v11 = v10;
+          v12 = mach_error_string(v10);
+          ramrod_log_msg("[%#llx] unable to register for terminate events: %s (%#x)\n", v6, v12, v11);
         }
 
         else
         {
-          v23 = refCon;
-          [v32 addObject:refCon];
+          v13 = refCon;
+          [v22 addObject:refCon];
           Service = IOUSBDeviceControllerGetService();
           if (IOObjectConformsTo(Service, "AppleUSBVHCIDeviceController"))
           {
-            v25 = v33;
+            v15 = v23;
           }
 
           else
           {
-            v25 = v3;
+            v15 = v3;
           }
 
-          [v25 addObject:v23];
+          [v15 addObject:v13];
         }
 
         CFRelease(refCon);
@@ -7464,31 +7815,31 @@ void sub_1D94C(uint64_t a1, io_iterator_t a2)
     while (v5);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v26 = [v3 countByEnumeratingWithState:&v35 objects:v41 count:16];
-  if (v26)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v16 = [v3 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  if (v16)
   {
-    v27 = v26;
-    v28 = *v36;
+    v17 = v16;
+    v18 = *v26;
     do
     {
-      for (i = 0; i != v27; i = i + 1)
+      for (i = 0; i != v17; i = i + 1)
       {
-        if (*v36 != v28)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(v3);
         }
 
-        sub_1EC98(*(*(&v35 + 1) + 8 * i));
+        sub_1EC98(*(*(&v25 + 1) + 8 * i));
       }
 
-      v27 = [v3 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v17 = [v3 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
-    while (v27);
+    while (v17);
   }
 
   if (qword_1C6778 != -1)
@@ -7496,20 +7847,20 @@ void sub_1D94C(uint64_t a1, io_iterator_t a2)
     sub_D6508();
   }
 
-  v30 = qword_1C6770;
-  v31 = qword_1C6780;
+  v20 = qword_1C6770;
+  v21 = qword_1C6780;
   if ([v3 count])
   {
-    v31 = dispatch_time(0, 10000000000);
-    qword_1C6780 = v31;
+    v21 = dispatch_time(0, 10000000000);
+    qword_1C6780 = v21;
   }
 
   block[0] = _NSConcreteStackBlock;
   block[1] = 3254779904;
   block[2] = sub_1EF64;
   block[3] = &unk_1AD6B8;
-  block[4] = v33;
-  dispatch_after(v31, v30, block);
+  block[4] = v23;
+  dispatch_after(v21, v20, block);
 }
 
 uint64_t set_usb_forced_off_bus(char a1)
@@ -7578,8 +7929,9 @@ id sub_1DD74(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1DE80(uint64_t a1, int a2)
+uint64_t sub_1DE80(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   Service = IOUSBDeviceControllerGetService();
   entryID = 0;
   IORegistryEntryGetRegistryEntryID(Service, &entryID);
@@ -7588,7 +7940,7 @@ uint64_t sub_1DE80(uint64_t a1, int a2)
   v6 = v5;
   if (v5)
   {
-    if (a2)
+    if (v2)
     {
       v7 = "force off";
     }
@@ -7676,7 +8028,7 @@ char *sub_1DFDC(uint64_t a1)
   return result;
 }
 
-uint64_t wait_for_physical_disconnect()
+const void *wait_for_physical_disconnect()
 {
   result = sub_1E180(0);
   if (result)
@@ -7729,8 +8081,9 @@ uint64_t sub_1E180(_DWORD *a1)
   return v2;
 }
 
-id bus_speed_in_mbps_for_socket(int a1)
+unint64_t bus_speed_in_mbps_for_socket(uint64_t a1)
 {
+  v1 = a1;
   if (!ramrod_getsockopt_int(a1, 6, 516, 0xFFFFFFFF))
   {
     *&v15.sa_len = 0;
@@ -7753,7 +8106,7 @@ id bus_speed_in_mbps_for_socket(int a1)
   v17 = 0u;
   v15 = 0;
   v11 = 128;
-  if (getsockname(a1, &v15, &v11) || sub_1E490(&v15))
+  if (getsockname(v1, &v15, &v11) || sub_1E490(&v15))
   {
     return 0;
   }
@@ -7774,7 +8127,7 @@ id bus_speed_in_mbps_for_socket(int a1)
   {
     v5 = 41;
 LABEL_12:
-    v2 = ramrod_getsockopt_int(a1, v5, 9696, 0);
+    v2 = ramrod_getsockopt_int(v1, v5, 9696, 0);
     *bsdName = 0;
     v13 = 0;
     v14 = 0;
@@ -7798,9 +8151,9 @@ LABEL_13:
   v23 = 0u;
   v24 = 0u;
   __strlcpy_chk();
-  if (ioctl(a1, 0xC02069DEuLL, &v23) || !v24 || ioctl(a1, 0xC020699FuLL, &v23) || v24 != 6 || DWORD2(v24) != 1 || (v7 = IOBSDNameMatching(kIOMasterPortDefault, 0, bsdName), (MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v7)) == 0) || (v9 = MatchingService, v4 = usb_speed_in_mbps_for_service(MatchingService), IOObjectRelease(v9), !v4))
+  if (ioctl(v1, 0xC02069DEuLL, &v23) || !v24 || ioctl(v1, 0xC020699FuLL, &v23) || v24 != 6 || DWORD2(v24) != 1 || (v7 = IOBSDNameMatching(kIOMasterPortDefault, 0, bsdName), (MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v7)) == 0) || (v9 = MatchingService, v4 = usb_speed_in_mbps_for_service(MatchingService), IOObjectRelease(v9), !v4))
   {
-    v10 = sub_1E50C(a1);
+    v10 = sub_1E50C(v1, bsdName);
     if (v10)
     {
       return v10;
@@ -7864,84 +8217,83 @@ LABEL_15:
   return 1;
 }
 
-unint64_t sub_1E50C(int a1)
+unint64_t sub_1E50C(int a1, uint64_t a2)
 {
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  v6 = 0u;
+  v10 = 0u;
   v7 = 0u;
-  memset(v5, 0, sizeof(v5));
+  v8 = 0u;
+  memset(v6, 0, sizeof(v6));
   __strlcpy_chk();
-  if (ioctl(a1, 0xC0F06992uLL, v5))
+  if (ioctl(a1, 0xC0F06992uLL, v6))
   {
     return 0;
   }
 
-  v3 = *(&v7 + 1);
-  if (*(&v7 + 1) && *(&v6 + 1))
+  v4 = *(&v8 + 1);
+  if (*(&v8 + 1) && *(&v7 + 1))
   {
-    if (*(&v7 + 1) >= *(&v6 + 1))
+    if (*(&v8 + 1) >= *(&v7 + 1))
     {
-      v3 = *(&v6 + 1);
+      v4 = *(&v7 + 1);
     }
   }
 
   else
   {
-    if (*(&v6 + 1))
+    if (*(&v7 + 1))
     {
-      v4 = 0;
+      v5 = 0;
+    }
+
+    else
+    {
+      v5 = *(&v8 + 1);
+    }
+
+    if (*(&v8 + 1))
+    {
+      v4 = v5;
     }
 
     else
     {
       v4 = *(&v7 + 1);
     }
-
-    if (*(&v7 + 1))
-    {
-      v3 = v4;
-    }
-
-    else
-    {
-      v3 = *(&v6 + 1);
-    }
   }
 
-  return v3 / 0xF4240;
+  return v4 / 0xF4240;
 }
 
 CFPropertyListRef create_dictionary_from_plist(const char *a1, CFErrorRef *a2)
 {
-  v3 = a1;
-  v4 = open(a1, 0);
+  v4 = open(a1, 0, 0);
   if (v4 != -1)
   {
     v5 = v4;
-    memset(&v79, 0, sizeof(v79));
-    if (fstat(v4, &v79) == -1)
+    memset(&v38, 0, sizeof(v38));
+    if (fstat(v4, &v38) == -1)
     {
-      v38 = __error();
-      v39 = strerror(*v38);
-      ramrod_log_msg("unable get plist stat information: %s\n", v40, v41, v42, v43, v44, v45, v46, v39);
-      v47 = kCFErrorDomainPOSIX;
-      v48 = *__error();
-      v52 = @"%s: unable to stat plist";
+      v18 = __error();
+      v19 = strerror(*v18);
+      ramrod_log_msg("unable get plist stat information: %s\n", v19);
+      v20 = kCFErrorDomainPOSIX;
+      v21 = *__error();
+      v25 = @"%s: unable to stat plist";
     }
 
     else
     {
-      st_size = v79.st_size;
-      v7 = malloc(v79.st_size);
+      st_size = v38.st_size;
+      v7 = malloc(v38.st_size);
       if (v7)
       {
         v8 = v7;
@@ -7950,56 +8302,56 @@ CFPropertyListRef create_dictionary_from_plist(const char *a1, CFErrorRef *a2)
           v9 = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, v8, st_size, kCFAllocatorNull);
           if (v9)
           {
-            v17 = v9;
-            v25 = CFPropertyListCreateWithData(kCFAllocatorDefault, v9, 0, 0, a2);
-            if (!v25)
+            v10 = v9;
+            v11 = CFPropertyListCreateWithData(kCFAllocatorDefault, v9, 0, 0, a2);
+            if (!v11)
             {
-              ramrod_log_msg("plist is not valid\n", v18, v19, v20, v21, v22, v23, v24, 0);
+              ramrod_log_msg("plist is not valid\n");
             }
 
-            CFRelease(v17);
+            CFRelease(v10);
             goto LABEL_16;
           }
 
-          ramrod_log_msg("unable to create data from plist bytes\n", v10, v11, v12, v13, v14, v15, v16, 0);
-          ramrod_create_error_cf(a2, @"RamrodErrorDomain", 6, 0, @"%s: unable to create CFData from plist bytes", v75, v76, v77, "create_dictionary_from_plist");
+          ramrod_log_msg("unable to create data from plist bytes\n");
+          ramrod_create_error_cf(a2, @"RamrodErrorDomain", 6, 0, @"%s: unable to create CFData from plist bytes", v34, v35, v36, "create_dictionary_from_plist");
         }
 
         else
         {
-          v62 = __error();
-          v63 = strerror(*v62);
-          ramrod_log_msg("unable to read plist contents from file: %s\n", v64, v65, v66, v67, v68, v69, v70, v63);
-          v71 = *__error();
-          ramrod_create_error_cf(a2, kCFErrorDomainPOSIX, v71, 0, @"%s: plist read failed", v72, v73, v74, "create_dictionary_from_plist");
+          v28 = __error();
+          v29 = strerror(*v28);
+          ramrod_log_msg("unable to read plist contents from file: %s\n", v29);
+          v30 = *__error();
+          ramrod_create_error_cf(a2, kCFErrorDomainPOSIX, v30, 0, @"%s: plist read failed", v31, v32, v33, "create_dictionary_from_plist");
         }
 
-        v25 = 0;
+        v11 = 0;
 LABEL_16:
         free(v8);
         goto LABEL_17;
       }
 
-      v53 = __error();
-      v54 = strerror(*v53);
-      ramrod_log_msg("unable to malloc buffer for plist contents: %s\n", v55, v56, v57, v58, v59, v60, v61, v54);
-      v47 = kCFErrorDomainPOSIX;
-      v48 = *__error();
-      v52 = @"%s: malloc failed plist (size = %zd)";
+      v26 = __error();
+      v27 = strerror(*v26);
+      ramrod_log_msg("unable to malloc buffer for plist contents: %s\n", v27);
+      v20 = kCFErrorDomainPOSIX;
+      v21 = *__error();
+      v25 = @"%s: malloc failed plist (size = %zd)";
     }
 
-    ramrod_create_error_cf(a2, v47, v48, 0, v52, v49, v50, v51, "create_dictionary_from_plist");
-    v25 = 0;
+    ramrod_create_error_cf(a2, v20, v21, 0, v25, v22, v23, v24, "create_dictionary_from_plist");
+    v11 = 0;
 LABEL_17:
     close(v5);
-    return v25;
+    return v11;
   }
 
-  v26 = __error();
-  strerror(*v26);
-  ramrod_log_msg("unable to open %s: %s\n", v27, v28, v29, v30, v31, v32, v33, v3);
-  v34 = __error();
-  ramrod_create_error_cf(a2, kCFErrorDomainPOSIX, *v34, 0, @"%s: unable to open plist", v35, v36, v37, "create_dictionary_from_plist");
+  v12 = __error();
+  v13 = strerror(*v12);
+  ramrod_log_msg("unable to open %s: %s\n", a1, v13);
+  v14 = __error();
+  ramrod_create_error_cf(a2, kCFErrorDomainPOSIX, *v14, 0, @"%s: unable to open plist", v15, v16, v17, "create_dictionary_from_plist");
   return 0;
 }
 
@@ -8031,24 +8383,24 @@ uint64_t get_BOOLean_option(const __CFDictionary *a1, const __CFString *a2, uint
 
     else
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      *buffer = 0u;
+      v22 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
+      *buffer = 0u;
+      v12 = 0u;
       CFStringGetCString(a2, buffer, 255, 0x8000100u);
-      ramrod_log_msg("%s: option '%s' has non-BOOLean value, using default\n", v10, v11, v12, v13, v14, v15, v16, "get_BOOLean_option");
+      ramrod_log_msg("%s: option '%s' has non-BOOLean value, using default\n", "get_BOOLean_option", buffer);
     }
 
     return v3;
@@ -8150,8 +8502,8 @@ void sub_1EC98(uint64_t a1)
     v5 = v11;
     if (v11)
     {
-      mach_error_string(v11);
-      ramrod_log_msg("[%llx] unable to set USB description: %s (%#x)\n", v12, v13, v14, v15, v16, v17, v18, v7);
+      v12 = mach_error_string(v11);
+      ramrod_log_msg("[%llx] unable to set USB description: %s (%#x)\n", v7, v12, v5);
     }
 
     else
@@ -8168,39 +8520,40 @@ void sub_1EC98(uint64_t a1)
     v5 = 3758097090;
   }
 
-  v19 = IOUSBDeviceControllerGetService();
+  v13 = IOUSBDeviceControllerGetService();
   entryID[0] = 0;
-  IORegistryEntryGetRegistryEntryID(v19, entryID);
-  v20 = entryID[0];
-  v43[0] = @"IOParentMatch";
-  v43[1] = @"IOProviderClass";
+  IORegistryEntryGetRegistryEntryID(v13, entryID);
+  v14 = entryID[0];
+  v25[0] = @"IOParentMatch";
+  v25[1] = @"IOProviderClass";
   entryID[0] = [NSNumber numberWithUnsignedLongLong:entryID[0]];
   entryID[1] = @"AppleUSBDeviceMux";
-  v21 = [NSDictionary dictionaryWithObjects:entryID forKeys:v43 count:2];
-  if (v21)
+  v15 = [NSDictionary dictionaryWithObjects:entryID forKeys:v25 count:2];
+  if (v15)
   {
-    v22 = CFRetain(v21);
+    v16 = CFRetain(v15);
   }
 
   else
   {
-    v22 = 0;
+    v16 = 0;
   }
 
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v22);
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v16);
   if (MatchingService)
   {
-    v31 = MatchingService;
-    v41 = @"DebugLevel";
-    v42 = [NSNumber numberWithInt:7];
-    v32 = IORegistryEntrySetCFProperties(v31, [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1]);
-    if (v32)
+    v18 = MatchingService;
+    v23 = @"DebugLevel";
+    v24 = [NSNumber numberWithInt:7];
+    v19 = IORegistryEntrySetCFProperties(v18, [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1]);
+    if (v19)
     {
-      mach_error_string(v32);
-      ramrod_log_msg("[%#llx] unable to set mux debug level: %s (%#x)\n", v33, v34, v35, v36, v37, v38, v39, v20);
+      v20 = v19;
+      v21 = mach_error_string(v19);
+      ramrod_log_msg("[%#llx] unable to set mux debug level: %s (%#x)\n", v14, v21, v20);
     }
 
-    IOObjectRelease(v31);
+    IOObjectRelease(v18);
 LABEL_17:
     if (!v4)
     {
@@ -8210,7 +8563,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  ramrod_log_msg("[%#llx] unable to find AppleUSBDeviceMux service\n", v24, v25, v26, v27, v28, v29, v30, v20);
+  ramrod_log_msg("[%#llx] unable to find AppleUSBDeviceMux service\n", v14);
   if (v4)
   {
 LABEL_18:
@@ -8221,15 +8574,15 @@ LABEL_19:
   if (v5)
   {
     dword_1C6740 = v5;
-    v40 = mach_error_string(v5);
+    v22 = mach_error_string(v5);
   }
 
   else
   {
-    v40 = "success";
+    v22 = "success";
   }
 
-  ramrod_log_msg_cf(@"[%#llx] enabling USB finished: %s (%#x)\n", v3, v40, v5);
+  ramrod_log_msg_cf(@"[%#llx] enabling USB finished: %s (%#x)\n", v3, v22, v5);
   dispatch_activate(qword_1C6748);
 }
 
@@ -8403,68 +8756,67 @@ void ramrod_execute_config_set_log_output(const void **a1)
   a1[2] = v3;
 }
 
-uint64_t ramrod_execute_command_with_config(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_execute_command_with_config(const char **a1, void *a2)
 {
-  v125 = 0;
-  ramrod_log_msg("entering ramrod_execute_command_with_config: %s\n", a2, a3, a4, a5, a6, a7, a8, *a1);
-  *v131 = -1;
-  *v132 = -1;
-  ramrod_log_msg("executing %s", v10, v11, v12, v13, v14, v15, v16, *a1);
-  v24 = a1[1];
-  if (v24)
+  v37 = 0;
+  ramrod_log_msg("entering ramrod_execute_command_with_config: %s\n", *a1);
+  *v43 = -1;
+  *v44 = -1;
+  ramrod_log_msg("executing %s", *a1);
+  v4 = a1[1];
+  if (v4)
   {
-    v25 = a1 + 2;
-    v26 = 1;
+    v5 = a1 + 2;
+    v6 = 1;
     do
     {
-      ramrod_log_msg(" %s", v17, v18, v19, v20, v21, v22, v23, v24);
-      if (v26 > 8)
+      ramrod_log_msg(" %s", v4);
+      if (v6 > 8)
       {
         break;
       }
 
-      ++v26;
-      v27 = *v25++;
-      LOBYTE(v24) = v27;
+      ++v6;
+      v7 = *v5++;
+      v4 = v7;
     }
 
-    while (v27);
+    while (v7);
   }
 
-  ramrod_log_msg("\n", v17, v18, v19, v20, v21, v22, v23, v122);
-  if (pipe(v132) == -1)
+  ramrod_log_msg("\n");
+  if (pipe(v44) == -1)
   {
-    v39 = *a1;
-    v40 = __error();
-    strerror(*v40);
-    ramrod_log_msg("pipe failed while preparing to execute %s: %s\n", v41, v42, v43, v44, v45, v46, v47, v39);
-    v48 = 0;
-    v49 = -1;
+    v13 = *a1;
+    v14 = __error();
+    v15 = strerror(*v14);
+    ramrod_log_msg("pipe failed while preparing to execute %s: %s\n", v13, v15);
+    v16 = 0;
+    v17 = -1;
     goto LABEL_46;
   }
 
-  if (pipe(v131) == -1)
+  if (pipe(v43) == -1)
   {
-    v50 = *a1;
-    v51 = __error();
-    strerror(*v51);
-    ramrod_log_msg("pipe failed while preparing to execute %s: %s\n", v52, v53, v54, v55, v56, v57, v58, v50);
-    v37 = 0xFFFFFFFFLL;
-    v38 = -1;
+    v18 = *a1;
+    v19 = __error();
+    v20 = strerror(*v19);
+    ramrod_log_msg("pipe failed while preparing to execute %s: %s\n", v18, v20);
+    v11 = 0xFFFFFFFFLL;
+    v12 = -1;
   }
 
   else
   {
-    v123 = 1;
-    fcntl(v131[1], 73);
-    v127 = 0;
-    posix_spawn_file_actions_init(&v127);
-    posix_spawn_file_actions_adddup2(&v127, v131[0], 0);
-    posix_spawn_file_actions_adddup2(&v127, v132[1], 1);
-    posix_spawn_file_actions_adddup2(&v127, 2, 2);
-    v126 = 0;
-    posix_spawnattr_init(&v126);
-    posix_spawnattr_setflags(&v126, 0x4000);
+    fcntl(v43[1], 73, 1);
+    v39 = 0;
+    posix_spawn_file_actions_init(&v39);
+    posix_spawn_file_actions_adddup2(&v39, v43[0], 0);
+    posix_spawn_file_actions_adddup2(&v39, v44[1], 1);
+    posix_spawn_file_actions_adddup2(&v39, 2, 2);
+    v38 = 0;
+    posix_spawnattr_init(&v38);
+    posix_spawnattr_setflags(&v38, 0x4000);
     if (dword_1C6A38 == 2 && sub_D5200(2, 16, 0, 0))
     {
       posix_spawnattr_set_crash_behavior_np();
@@ -8478,153 +8830,153 @@ uint64_t ramrod_execute_command_with_config(uint64_t *a1, void *a2, uint64_t a3,
 
     if (*a2)
     {
-      (*(*a2 + 16))(*a2, &v127);
+      (*(*a2 + 16))(*a2, &v39);
     }
 
-    v28 = posix_spawn(&v125, *a1, &v127, &v126, a1, 0);
-    if (v28)
+    v8 = posix_spawn(&v37, *a1, &v39, &v38, a1, 0);
+    if (v8)
     {
-      v29 = *a1;
-      strerror(v28);
-      ramrod_log_msg("posix_spawn %s failed: %s\n", v30, v31, v32, v33, v34, v35, v36, v29);
-      close(v132[0]);
-      close(v131[1]);
-      v37 = 0xFFFFFFFFLL;
-      v38 = -1;
+      v9 = *a1;
+      v10 = strerror(v8);
+      ramrod_log_msg("posix_spawn %s failed: %s\n", v9, v10);
+      close(v44[0]);
+      close(v43[1]);
+      v11 = 0xFFFFFFFFLL;
+      v12 = -1;
     }
 
     else
     {
-      v37 = v131[1];
-      v38 = v132[0];
-      v60 = v125;
-      if (v125 != -1)
+      v11 = v43[1];
+      v12 = v44[0];
+      v22 = v37;
+      if (v37 != -1)
       {
-        v61 = realpath_DARWIN_EXTSN(*a1, 0);
-        if (v61)
+        v23 = realpath_DARWIN_EXTSN(*a1, 0);
+        if (v23)
         {
-          v62 = v61;
-          bzero(v134, 0x400uLL);
-          v63 = basename_r(v62, v134);
-          if (v63 && ((v64 = v63, v130 = 256, byte_1C6A3C) || !sysctlbyname("kern.bootargs", &byte_1C6A3C, &v130, 0, 0)) && (bzero(__str, 0x400uLL), v128 = 0, v129 = 0, snprintf(__str, 0x3FFuLL, "\\bramrod_exec-\\Q%s\\E=((0[0-7]+)|(([+-])?[[:digit:]]+)|(0[xX][[:xdigit:]]+))", v64), sub_25A70(&byte_1C6A3C, v130, __str, &v129, &v128)))
+          v24 = v23;
+          bzero(v46, 0x400uLL);
+          v25 = basename_r(v24, v46);
+          if (v25 && ((v26 = v25, v42 = 256, byte_1C6A3C) || !sysctlbyname("kern.bootargs", &byte_1C6A3C, &v42, 0, 0)) && (bzero(__str, 0x400uLL), v40 = 0, v41 = 0, snprintf(__str, 0x3FFuLL, "\\bramrod_exec-\\Q%s\\E=((0[0-7]+)|(([+-])?[[:digit:]]+)|(0[xX][[:xdigit:]]+))", v26), sub_25A70(&byte_1C6A3C, v42, __str, &v41, &v40)))
           {
-            ramrod_log_msg("found ramrod_execute_command option in boot-args: ramrod_exec-%s=%.*s\n", v65, v66, v67, v68, v69, v70, v71, v64);
-            v72 = strtol(v129, 0, 0);
-            free(v62);
-            v80 = v72 & 0x1F;
-            if ((v72 & 0x1F) != 0)
+            ramrod_log_msg("found ramrod_execute_command option in boot-args: ramrod_exec-%s=%.*s\n", v26, v40, v41);
+            v27 = strtol(v41, 0, 0);
+            free(v24);
+            v28 = v27 & 0x1F;
+            if ((v27 & 0x1F) != 0)
             {
-              ramrod_log_msg("sending signal %d to process %d in %d millisecond(s)...\n", v73, v74, v75, v76, v77, v78, v79, v80);
-              usleep(1000 * (v72 >> 8));
-              if (kill(v60, v80) == -1)
+              v29 = (v27 >> 8);
+              ramrod_log_msg("sending signal %d to process %d in %d millisecond(s)...\n", v28, v22, v29);
+              usleep(1000 * v29);
+              if (kill(v22, v28) == -1)
               {
-                __error();
-                ramrod_log_msg("could not send signal %d to process %d: error %d\n", v81, v82, v83, v84, v85, v86, v87, v80);
+                v30 = __error();
+                ramrod_log_msg("could not send signal %d to process %d: error %d\n", v28, v22, *v30);
               }
             }
           }
 
           else
           {
-            free(v62);
+            free(v24);
           }
         }
 
-        v121 = a2[3];
-        if (v121)
+        v36 = a2[3];
+        if (v36)
         {
-          (*(v121 + 16))(v121, v125);
+          (*(v36 + 16))(v36, v37);
         }
       }
     }
 
-    posix_spawnattr_destroy(&v126);
-    posix_spawn_file_actions_destroy(&v127);
-    close(v131[0]);
+    posix_spawnattr_destroy(&v38);
+    posix_spawn_file_actions_destroy(&v39);
+    close(v43[0]);
   }
 
-  close(v132[1]);
-  v48 = 0;
-  v49 = -1;
-  if (v38 != -1 && v37 != -1)
+  close(v44[1]);
+  v16 = 0;
+  v17 = -1;
+  if (v12 != -1 && v11 != -1)
   {
-    bzero(v134, 0x400uLL);
-    v59 = a2[1];
-    if (v59)
+    bzero(v46, 0x400uLL);
+    v21 = a2[1];
+    if (v21)
     {
-      v48 = (*(v59 + 16))(v59, v37) != 0;
+      v16 = (*(v21 + 16))(v21, v11) != 0;
     }
 
     else
     {
-      v48 = 0;
+      v16 = 0;
     }
 
-    close(v37);
-    v88 = read(v38, v134, 0x3FFuLL);
-    if (v88 >= 1)
+    close(v11);
+    v31 = read(v12, v46, 0x3FFuLL);
+    if (v31 >= 1)
     {
-      for (i = v88; i > 0; i = read(v38, v134, 0x3FFuLL))
+      for (i = v31; i > 0; i = read(v12, v46, 0x3FFuLL))
       {
-        v134[i] = 0;
-        v96 = a2[2];
-        if (v96)
+        v46[i] = 0;
+        v33 = a2[2];
+        if (v33)
         {
-          (*(v96 + 16))(v96, v134);
+          (*(v33 + 16))(v33, v46);
         }
       }
     }
 
-    ramrod_log_msg("waiting for child to exit\n", v89, i, v91, v92, v93, v94, v95, v123);
+    ramrod_log_msg("waiting for child to exit\n");
     *__str = 0;
-    if (waitpid(v125, __str, 0) == -1)
+    if (waitpid(v37, __str, 0) == -1)
     {
-      v111 = *a1;
-      v112 = __error();
-      strerror(*v112);
-      ramrod_log_msg("waitpid failed for %s: %s\n", v113, v114, v115, v116, v117, v118, v119, v111);
+      v34 = __error();
+      strerror(*v34);
+      ramrod_log_msg("waitpid failed for %s: %s\n");
     }
 
     else
     {
-      ramrod_log_msg("child exited\n", v97, v98, v99, v100, v101, v102, v103, v124);
+      ramrod_log_msg("child exited\n");
       if ((__str[0] & 0x7F) == 0x7F)
       {
-        ramrod_log_msg("%s was stopped by signal %d\n", v104, v105, v106, v107, v108, v109, v110, *a1);
+        ramrod_log_msg("%s was stopped by signal %d\n");
       }
 
       else
       {
         if ((__str[0] & 0x7F) == 0)
         {
-          ramrod_log_msg("exit status: %d\n", v104, v105, v106, v107, v108, v109, v110, __str[1]);
-          v49 = __str[1];
+          ramrod_log_msg("exit status: %d\n", __str[1]);
+          v17 = __str[1];
 LABEL_45:
-          close(v38);
+          close(v12);
           goto LABEL_46;
         }
 
-        ramrod_log_msg("%s was terminated by signal %d\n", v104, v105, v106, v107, v108, v109, v110, *a1);
+        ramrod_log_msg("%s was terminated by signal %d\n");
       }
     }
 
-    v49 = -1;
+    v17 = -1;
     goto LABEL_45;
   }
 
 LABEL_46:
-  if (v49 == 0 && v48)
+  if (v17 == 0 && v16)
   {
     return 0xFFFFFFFFLL;
   }
 
   else
   {
-    return v49;
+    return v17;
   }
 }
 
-uint64_t ramrod_execute_command_with_callback(uint64_t *a1, uint64_t a2, char a3, uint64_t a4)
+uint64_t ramrod_execute_command_with_callback(const char **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
@@ -8635,7 +8987,7 @@ uint64_t ramrod_execute_command_with_callback(uint64_t *a1, uint64_t a2, char a3
   return sub_1FA58(a1, 0, 0, a3, v5);
 }
 
-uint64_t sub_1FA58(uint64_t *a1, uint64_t a2, uint64_t a3, char a4, const void *a5)
+uint64_t sub_1FA58(const char **a1, uint64_t a2, uint64_t a3, char a4, const void *a5)
 {
   v10 = calloc(1uLL, 0x30uLL);
   *(v10 + 18) = 0;
@@ -8644,28 +8996,28 @@ uint64_t sub_1FA58(uint64_t *a1, uint64_t a2, uint64_t a3, char a4, const void *
   aBlock[1] = 3221225472;
   aBlock[2] = sub_28164;
   aBlock[3] = &unk_1A9340;
-  v24 = a4;
+  v18 = a4;
   v11 = _Block_copy(aBlock);
   _Block_release(*v10);
   *v10 = v11;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_2819C;
-  v22[3] = &unk_1A9360;
-  v22[4] = a2;
-  v22[5] = a3;
-  v12 = _Block_copy(v22);
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_2819C;
+  v16[3] = &unk_1A9360;
+  v16[4] = a2;
+  v16[5] = a3;
+  v12 = _Block_copy(v16);
   _Block_release(v10[1]);
   v10[1] = v12;
   v13 = _Block_copy(a5);
   _Block_release(v10[2]);
   v10[2] = v13;
-  v20 = ramrod_execute_command_with_config(a1, v10, v14, v15, v16, v17, v18, v19);
+  v14 = ramrod_execute_command_with_config(a1, v10);
   ramrod_execute_config_free(v10);
-  return v20;
+  return v14;
 }
 
-uint64_t ramrod_execute_command_with_input_data_callback(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
+uint64_t ramrod_execute_command_with_input_data_callback(const char **a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
 {
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
@@ -8676,7 +9028,7 @@ uint64_t ramrod_execute_command_with_input_data_callback(uint64_t *a1, uint64_t 
   return sub_1FA58(a1, a2, a3, a5, v7);
 }
 
-uint64_t ramrod_execute_command(uint64_t *a1)
+uint64_t ramrod_execute_command(const char **a1)
 {
   v2[0] = _NSConcreteStackBlock;
   v2[1] = 3221225472;
@@ -8687,7 +9039,7 @@ uint64_t ramrod_execute_command(uint64_t *a1)
   return sub_1FA58(a1, 0, 0, 1, v2);
 }
 
-uint64_t ramrod_execute_command_with_input_data(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t ramrod_execute_command_with_input_data(const char **a1, uint64_t a2, uint64_t a3)
 {
   v4[0] = _NSConcreteStackBlock;
   v4[1] = 3221225472;
@@ -8698,7 +9050,7 @@ uint64_t ramrod_execute_command_with_input_data(uint64_t *a1, uint64_t a2, uint6
   return sub_1FA58(a1, a2, a3, 1, v4);
 }
 
-uint64_t sub_1FD94(uint64_t *a1, uint64_t a2, uint64_t a3, char a4, unint64_t a5, uint64_t a6)
+uint64_t sub_1FD94(const char **a1, uint64_t a2, uint64_t a3, char a4, unint64_t a5, uint64_t a6)
 {
   v16 = 0;
   v17 = &v16;
@@ -8738,11 +9090,11 @@ uint64_t sub_1FD94(uint64_t *a1, uint64_t a2, uint64_t a3, char a4, unint64_t a5
   return v8;
 }
 
-void sub_1FEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1FEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8751,15 +9103,15 @@ CFTypeRef copy_property_from_registry_defaults(const __CFString *a1)
   v2 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/defaults");
   if (v2)
   {
-    v10 = v2;
+    v3 = v2;
     CFProperty = IORegistryEntryCreateCFProperty(v2, a1, kCFAllocatorDefault, 0);
-    IOObjectRelease(v10);
+    IOObjectRelease(v3);
     return CFProperty;
   }
 
   else
   {
-    ramrod_log_msg("unable to find /defaults node\n", v3, v4, v5, v6, v7, v8, v9, v13);
+    ramrod_log_msg("unable to find /defaults node\n");
     return 0;
   }
 }
@@ -8817,17 +9169,17 @@ id has_non_restore_bundle_overrides(const __CFDictionary *a1, uint64_t a2)
   return result;
 }
 
-uint64_t ramrod_wait_for_internal_media(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_wait_for_internal_media()
 {
   iterator = 0;
   memset(name, 0, 128);
-  memset(v84, 0, sizeof(v84));
-  ramrod_log_msg("Searching for NAND service\n", a2, a3, a4, a5, a6, a7, a8, v78);
+  memset(v12, 0, sizeof(v12));
+  ramrod_log_msg("Searching for NAND service\n");
   if (IORegistryCreateIterator(kIOMasterPortDefault, "IOService", 1u, &iterator))
   {
-    ramrod_log_msg("Failed to create registry iterator\n", v8, v9, v10, v11, v12, v13, v14, v79);
-    v21 = 0;
-    v22 = 0;
+    ramrod_log_msg("Failed to create registry iterator\n");
+    v0 = 0;
+    v1 = 0;
   }
 
   else
@@ -8835,86 +9187,85 @@ uint64_t ramrod_wait_for_internal_media(uint64_t a1, uint64_t a2, uint64_t a3, u
     while (1)
     {
       IOIteratorReset(iterator);
-      v23 = IOIteratorNext(iterator);
-      if (v23)
+      v2 = IOIteratorNext(iterator);
+      if (v2)
       {
         break;
       }
 
 LABEL_7:
-      ramrod_log_msg("Waiting for NAND service to publish\n", v24, v25, v26, v27, v28, v29, v30, v79);
+      ramrod_log_msg("Waiting for NAND service to publish\n");
       sleep(3u);
     }
 
-    v21 = v23;
+    v0 = v2;
     while (1)
     {
-      CFProperty = IORegistryEntryCreateCFProperty(v21, @"AppleNANDStatus", kCFAllocatorDefault, 0);
+      CFProperty = IORegistryEntryCreateCFProperty(v0, @"AppleNANDStatus", kCFAllocatorDefault, 0);
       if (CFProperty)
       {
         break;
       }
 
-      IOObjectRelease(v21);
-      v21 = IOIteratorNext(iterator);
-      if (!v21)
+      IOObjectRelease(v0);
+      v0 = IOIteratorNext(iterator);
+      if (!v0)
       {
         goto LABEL_7;
       }
     }
 
-    v22 = CFProperty;
-    IORegistryEntryGetName(v21, name);
-    ramrod_log_msg("Found NAND service: %s\n", v32, v33, v34, v35, v36, v37, v38, name);
-    while (CFStringCompare(v22, @"Ready", 0) && CFStringCompare(v22, @"Error", 0))
+    v1 = CFProperty;
+    IORegistryEntryGetName(v0, name);
+    ramrod_log_msg("Found NAND service: %s\n", name);
+    while (CFStringCompare(v1, @"Ready", 0) && CFStringCompare(v1, @"Error", 0))
     {
-      CStringPtr = CFStringGetCStringPtr(v22, 0);
-      ramrod_log_msg("NAND Status: %s. Waiting...\n", v40, v41, v42, v43, v44, v45, v46, CStringPtr);
+      CStringPtr = CFStringGetCStringPtr(v1, 0);
+      ramrod_log_msg("NAND Status: %s. Waiting...\n", CStringPtr);
       sleep(3u);
-      CFRelease(v22);
-      v22 = IORegistryEntryCreateCFProperty(v21, @"AppleNANDStatus", kCFAllocatorDefault, 0);
-      if (!v22)
+      CFRelease(v1);
+      v1 = IORegistryEntryCreateCFProperty(v0, @"AppleNANDStatus", kCFAllocatorDefault, 0);
+      if (!v1)
       {
-        v48 = "NAND status property missing\n";
-LABEL_20:
-        ramrod_log_msg(v48, v47, v15, v16, v17, v18, v19, v20, v81);
+        ramrod_log_msg("NAND status property missing\n", v9);
+        goto LABEL_20;
+      }
+    }
+
+    if (CFStringCompare(v1, @"Error", 0))
+    {
+      ramrod_log_msg("NAND initialized. Waiting for devnode.\n");
+      if (wait_for_device("EmbeddedDeviceTypeRoot", v12, 0x20uLL, 0))
+      {
+        v5 = 0;
         goto LABEL_21;
       }
+
+      ramrod_log_msg("Unable to find storage device node for service named: %s");
     }
 
-    if (CFStringCompare(v22, @"Error", 0))
+    else
     {
-      ramrod_log_msg("NAND initialized. Waiting for devnode.\n", v49, v50, v51, v52, v53, v54, v55, v81);
-      if (wait_for_device("EmbeddedDeviceTypeRoot", v84, 0x20uLL, 0, v56, v57, v58, v59))
+      memcpy(__dst, "No additional error message.", sizeof(__dst));
+      v6 = IORegistryEntryCreateCFProperty(v0, @"AppleNANDFailureData", kCFAllocatorDefault, 0);
+      if (v6)
       {
-        v60 = 0;
-        goto LABEL_22;
+        v7 = v6;
+        CFStringGetCString(v6, __dst, 1024, 0x8000100u);
+        CFRelease(v7);
       }
 
-      v81 = "EmbeddedDeviceTypeRoot";
-      v48 = "Unable to find storage device node for service named: %s";
-      goto LABEL_20;
+      ramrod_log_msg("NAND failed to initialize: %s\n");
     }
-
-    memcpy(__dst, "No additional error message.", sizeof(__dst));
-    v61 = IORegistryEntryCreateCFProperty(v21, @"AppleNANDFailureData", kCFAllocatorDefault, 0);
-    if (v61)
-    {
-      v69 = v61;
-      CFStringGetCString(v61, __dst, 1024, 0x8000100u);
-      CFRelease(v69);
-    }
-
-    ramrod_log_msg("NAND failed to initialize: %s\n", v62, v63, v64, v65, v66, v67, v68, __dst);
   }
 
+LABEL_20:
+  v5 = 1;
 LABEL_21:
-  v60 = 1;
-LABEL_22:
   off_1C6788 = ramrod_probe_media;
-  if (!sub_208DC(3, 0, v15, v16, v17, v18, v19, v20))
+  if (!sub_208DC(3, 0))
   {
-    ramrod_log_msg("ramrod_probe_media failed!\n", v70, v71, v72, v73, v74, v75, v76, v80);
+    ramrod_log_msg("ramrod_probe_media failed!\n");
   }
 
   if (iterator)
@@ -8922,77 +9273,75 @@ LABEL_22:
     IOObjectRelease(iterator);
   }
 
-  if (v21)
+  if (v0)
   {
-    IOObjectRelease(v21);
+    IOObjectRelease(v0);
   }
 
-  if (v22)
+  if (v1)
   {
-    CFRelease(v22);
+    CFRelease(v1);
   }
 
-  return v60;
+  return v5;
 }
 
-uint64_t wait_for_device(char *a1, char *a2, size_t a3, CFErrorRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t wait_for_device(char *a1, char *a2, size_t a3, CFErrorRef *a4)
 {
-  ramrod_log_msg("entering %s: '%s'\n", a2, a3, a4, a5, a6, a7, a8, "wait_for_device");
+  ramrod_log_msg("entering %s: '%s'\n", "wait_for_device", a1);
   if (!a1)
   {
-    sub_D6614(a4, v12, v13, v14, v15, v16, v17, v18);
+    sub_D6614(a4, v8, v9, v10, v11, v12, v13, v14);
     return 0;
   }
 
   if (!a2)
   {
-    sub_D65CC(a4, v12, v13, v14, v15, v16, v17, v18);
+    sub_D65CC(a4, v8, v9, v10, v11, v12, v13, v14);
     return 0;
   }
 
   embedded_storage_service_query_dict = create_embedded_storage_service_query_dict(a1);
   if (!embedded_storage_service_query_dict)
   {
-    sub_D6590(a4, v20, v21, v22, v23, v24, v25, v26);
+    sub_D6590(a4, v16, v17, v18, v19, v20, v21, v22);
     return 0;
   }
 
-  v27 = wait_for_io_service_matching_dict(embedded_storage_service_query_dict, 0x1Eu);
-  if (!v27)
+  v23 = wait_for_io_service_matching_dict(embedded_storage_service_query_dict, 0x1Eu);
+  if (!v23)
   {
-    sub_D6544(a4, a1, v28, v29, v30, v31, v32, v33);
+    sub_D6544(a4, a1, v24, v25, v26, v27, v28, v29);
     return 0;
   }
 
-  v34 = v27;
-  v99 = a4;
-  IOObjectRetain(v27);
-  v35 = v34;
+  v30 = v23;
+  v68 = a4;
+  IOObjectRetain(v23);
+  v31 = v30;
   do
   {
     iterator.st_dev = 0;
-    if (IORegistryEntryGetChildIterator(v35, "IOService", &iterator))
+    if (IORegistryEntryGetChildIterator(v31, "IOService", &iterator))
     {
-      v78 = "Could not create child iterator\n";
+      ramrod_log_msg("Could not create child iterator\n");
 LABEL_30:
-      ramrod_log_msg(v78, v36, v37, v38, v39, v40, v41, v42, v98);
-      st_dev = v35;
+      st_dev = v31;
 LABEL_35:
       IOObjectRelease(st_dev);
-      ramrod_create_error_cf(v99, @"RamrodErrorDomain", 4, 0, @"%s: failed to lookup whole node for IO service for %s", v80, v81, v82, "wait_for_device");
-      v83 = 0;
+      ramrod_create_error_cf(v68, @"RamrodErrorDomain", 4, 0, @"%s: failed to lookup whole node for IO service for %s", v56, v57, v58, "wait_for_device");
+      v59 = 0;
       goto LABEL_36;
     }
 
-    v43 = IOIteratorNext(iterator.st_dev);
-    v44 = 0;
-    if (!v43)
+    v32 = IOIteratorNext(iterator.st_dev);
+    v33 = 0;
+    if (!v32)
     {
       st_dev = iterator.st_dev;
 LABEL_29:
       IOObjectRelease(st_dev);
-      v98 = v44;
-      v78 = "Found %d child nodes (expected 1)\n";
+      ramrod_log_msg("Found %d child nodes (expected 1)\n");
       goto LABEL_30;
     }
 
@@ -9001,74 +9350,73 @@ LABEL_29:
     {
       if (st_dev)
       {
-        IOObjectRelease(v43);
+        IOObjectRelease(v32);
       }
 
       else
       {
-        st_dev = v43;
+        st_dev = v32;
       }
 
-      v43 = IOIteratorNext(iterator.st_dev);
-      ++v44;
+      v32 = IOIteratorNext(iterator.st_dev);
+      ++v33;
     }
 
-    while (v43);
+    while (v32);
     IOObjectRelease(iterator.st_dev);
-    if (v44 != 1)
+    if (v33 != 1)
     {
       goto LABEL_29;
     }
 
-    IOObjectRelease(v35);
-    v35 = st_dev;
+    IOObjectRelease(v31);
+    v31 = st_dev;
   }
 
   while (!IOObjectConformsTo(st_dev, "IOMedia"));
   CFProperty = IORegistryEntryCreateCFProperty(st_dev, @"Whole", kCFAllocatorDefault, 0);
-  v54 = CFProperty;
+  v36 = CFProperty;
   if (!CFProperty)
   {
-    v79 = "Did not find Whole property on IOMedia class\n";
+    ramrod_log_msg("Did not find Whole property on IOMedia class\n");
 LABEL_34:
-    ramrod_log_msg(v79, v47, v48, v49, v50, v51, v52, v53, v98);
-    CFRelease(v54);
+    CFRelease(v36);
     goto LABEL_35;
   }
 
-  v55 = CFGetTypeID(CFProperty);
-  if (v55 != CFBooleanGetTypeID())
+  v37 = CFGetTypeID(CFProperty);
+  if (v37 != CFBooleanGetTypeID())
   {
-    v79 = "Expected Whole to be BOOLean\n";
+    ramrod_log_msg("Expected Whole to be BOOLean\n");
     goto LABEL_34;
   }
 
-  if (!CFBooleanGetValue(v54))
+  if (!CFBooleanGetValue(v36))
   {
-    v79 = "Expected Whole=true\n";
+    ramrod_log_msg("Expected Whole=true\n");
     goto LABEL_34;
   }
 
-  CFRelease(v54);
-  v56 = IORegistryEntryCreateCFProperty(st_dev, @"BSD Name", kCFAllocatorDefault, 0);
-  if (v56)
+  CFRelease(v36);
+  v38 = IORegistryEntryCreateCFProperty(st_dev, @"BSD Name", kCFAllocatorDefault, 0);
+  if (v38)
   {
-    v60 = v56;
-    v61 = CFGetTypeID(v56);
-    if (v61 == CFStringGetTypeID())
+    v42 = v38;
+    v43 = CFGetTypeID(v38);
+    if (v43 == CFStringGetTypeID())
     {
       strlcpy(a2, "/dev/", a3);
-      v65 = strlen(a2);
-      if (CFStringGetCString(v60, &a2[v65], a3 - v65, 0x8000100u))
+      v47 = strlen(a2);
+      if (CFStringGetCString(v42, &a2[v47], a3 - v47, 0x8000100u))
       {
-        ramrod_log_msg("Using device path %s for %s\n", v66, v67, v68, v69, v70, v71, v72, a2);
-        v73 = -10;
+        ramrod_log_msg("Using device path %s for %s\n", a2, a1);
+        v51 = -10;
         while (1)
         {
           memset(&iterator, 0, sizeof(iterator));
           if (!stat(a2, &iterator))
           {
-            v83 = 1;
+            v59 = 1;
             goto LABEL_45;
           }
 
@@ -9078,56 +9426,56 @@ LABEL_34:
           }
 
           sleep(3u);
-          if (__CFADD__(v73++, 1))
+          if (__CFADD__(v51++, 1))
           {
             goto LABEL_43;
           }
         }
 
-        v85 = __error();
-        strerror(*v85);
-        ramrod_log_msg("stat error while waiting for device '%s': %s\n", v86, v87, v88, v89, v90, v91, v92, a2);
-        v93 = *__error();
-        v94 = __error();
-        strerror(*v94);
-        ramrod_create_error_cf(v99, kCFErrorDomainPOSIX, v93, 0, @"%s: stat error while waiting for device '%s': %s", v95, v96, v97, "wait_for_device");
+        v61 = __error();
+        v62 = strerror(*v61);
+        ramrod_log_msg("stat error while waiting for device '%s': %s\n", a2, v62);
+        v63 = *__error();
+        v64 = __error();
+        strerror(*v64);
+        ramrod_create_error_cf(v68, kCFErrorDomainPOSIX, v63, 0, @"%s: stat error while waiting for device '%s': %s", v65, v66, v67, "wait_for_device");
 LABEL_43:
-        ramrod_create_error_cf(v99, @"RamrodErrorDomain", 4, 0, @"%s: timeout waiting for %s", v74, v75, v76, "wait_for_device");
+        ramrod_create_error_cf(v68, @"RamrodErrorDomain", 4, 0, @"%s: timeout waiting for %s", v52, v53, v54, "wait_for_device");
       }
 
       else
       {
-        ramrod_create_error_cf(v99, @"RamrodErrorDomain", 5, 0, @"%s: failed to create C string from BSD name", v70, v71, v72, "wait_for_device");
+        ramrod_create_error_cf(v68, @"RamrodErrorDomain", 5, 0, @"%s: failed to create C string from BSD name", v48, v49, v50, "wait_for_device");
       }
     }
 
     else
     {
-      ramrod_create_error_cf(v99, @"RamrodErrorDomain", 3, 0, @"%s: returnbed BSD device name for service %s is wrong type", v62, v63, v64, "wait_for_device");
+      ramrod_create_error_cf(v68, @"RamrodErrorDomain", 3, 0, @"%s: returnbed BSD device name for service %s is wrong type", v44, v45, v46, "wait_for_device");
     }
 
-    v83 = 0;
+    v59 = 0;
 LABEL_45:
-    CFRelease(v60);
+    CFRelease(v42);
   }
 
   else
   {
-    ramrod_create_error_cf(v99, @"RamrodErrorDomain", 4, 0, @"%s: no BSD device name for service %s", v57, v58, v59, "wait_for_device");
-    v83 = 0;
+    ramrod_create_error_cf(v68, @"RamrodErrorDomain", 4, 0, @"%s: no BSD device name for service %s", v39, v40, v41, "wait_for_device");
+    v59 = 0;
   }
 
   IOObjectRelease(st_dev);
 LABEL_36:
-  IOObjectRelease(v34);
-  return v83;
+  IOObjectRelease(v30);
+  return v59;
 }
 
-uint64_t sub_208DC(uint64_t a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_208DC(uint64_t a1, CFTypeRef *a2)
 {
   cf = 0;
   iterator = 0;
-  ramrod_log_msg("entering %s\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_probe_media_internal");
+  ramrod_log_msg("entering %s\n", "ramrod_probe_media_internal");
   byte_1C6790 = 0;
   byte_1C67B0 = 0;
   byte_1C6910 = 0;
@@ -9162,110 +9510,110 @@ uint64_t sub_208DC(uint64_t a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_
   Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
   if (!Mutable)
   {
-    sub_D6698(&cf, v10, v11, v12, v13, v14, v15, v16);
-    v25 = 0;
+    sub_D6698(&cf, v4, v5, v6, v7, v8, v9, v10);
+    v19 = 0;
     goto LABEL_12;
   }
 
-  v25 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-  if (!v25)
+  v19 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+  if (!v19)
   {
-    sub_D665C(&cf, v18, v19, v20, v21, v22, v23, v24);
+    sub_D665C(&cf, v12, v13, v14, v15, v16, v17, v18);
     goto LABEL_12;
   }
 
-  if (!wait_for_device("EmbeddedDeviceTypeRoot", &byte_1C6790, 0x20uLL, &cf, v21, v22, v23, v24))
+  if (!wait_for_device("EmbeddedDeviceTypeRoot", &byte_1C6790, 0x20uLL, &cf))
   {
-    ramrod_log_msg("Unable to find storage device node for service named: %s", v26, v27, v28, v29, v30, v31, v32, "EmbeddedDeviceTypeRoot");
+    ramrod_log_msg("Unable to find storage device node for service named: %s", "EmbeddedDeviceTypeRoot");
 LABEL_12:
-    v47 = 0;
-    v42 = 0;
+    v27 = 0;
+    v22 = 0;
     goto LABEL_13;
   }
 
-  v33 = IOBSDNameMatching(kIOMasterPortDefault, 0, byte_1C6795);
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v33);
-  v42 = MatchingService;
+  v20 = IOBSDNameMatching(kIOMasterPortDefault, 0, byte_1C6795);
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v20);
+  v22 = MatchingService;
   if (!MatchingService)
   {
-    ramrod_log_msg("unable to find service for %s\n", v35, v36, v37, v38, v39, v40, v41, byte_1C6795);
+    ramrod_log_msg("unable to find service for %s\n", byte_1C6795);
 LABEL_19:
-    v47 = 0;
+    v27 = 0;
     goto LABEL_20;
   }
 
   IOServiceWaitQuiet(MatchingService, 0);
-  v43 = IORegistryEntryCreateIterator(v42, "IOService", 1u, &iterator);
-  if (v43)
+  v23 = IORegistryEntryCreateIterator(v22, "IOService", 1u, &iterator);
+  if (v23)
   {
-    ramrod_create_error_cf(&cf, kCFErrorDomainMach, v43, 0, @"%s: unable to create child iterator", v44, v45, v46, "ramrod_probe_media_internal");
-    v47 = 0;
+    ramrod_create_error_cf(&cf, kCFErrorDomainMach, v23, 0, @"%s: unable to create child iterator", v24, v25, v26, "ramrod_probe_media_internal");
+    v27 = 0;
 LABEL_13:
-    v48 = 0;
+    v28 = 0;
     goto LABEL_14;
   }
 
-  v160 = a1;
-  v51 = IOIteratorNext(iterator);
-  if (v51)
+  v95 = a1;
+  v31 = IOIteratorNext(iterator);
+  if (v31)
   {
-    v47 = v51;
-    LOBYTE(v52) = 0;
-    v161 = 0;
-    v53 = 0;
-    v148 = 0;
-    v149 = 0;
-    v150 = 0;
-    v151 = 0;
-    v152 = 0;
-    v153 = 0;
-    v154 = 0;
-    v155 = 0;
-    v156 = 0;
-    v157 = 0;
-    v158 = 0;
+    v27 = v31;
+    LOBYTE(v32) = 0;
+    v96 = 0;
+    v33 = 0;
+    v83 = 0;
+    v84 = 0;
+    v85 = 0;
+    v86 = 0;
+    v87 = 0;
+    v88 = 0;
+    v89 = 0;
+    v90 = 0;
+    v91 = 0;
+    v92 = 0;
+    v93 = 0;
     __s2 = 0;
     do
     {
-      if (!IOObjectConformsTo(v47, "IOMedia"))
+      if (!IOObjectConformsTo(v27, "IOMedia"))
       {
-        if (IOObjectConformsTo(v47, "IOPartitionScheme"))
+        if (IOObjectConformsTo(v27, "IOPartitionScheme"))
         {
-          if (IOObjectConformsTo(v47, "IOGUIDPartitionScheme"))
+          if (IOObjectConformsTo(v27, "IOGUIDPartitionScheme"))
           {
-            ramrod_log_msg("device partitioning scheme is GPT\n", v102, v103, v104, v105, v106, v107, v108, v144);
-            v158 = "Data";
+            ramrod_log_msg("device partitioning scheme is GPT\n");
+            v93 = "Data";
             __s2 = "System";
-            v156 = "Update";
-            v157 = "User";
-            v154 = "Logs";
-            v155 = "Baseband Data";
-            v152 = "Hardware";
-            v153 = "xART";
-            v151 = "Scratch";
+            v91 = "Update";
+            v92 = "User";
+            v89 = "Logs";
+            v90 = "Baseband Data";
+            v87 = "Hardware";
+            v88 = "xART";
+            v86 = "Scratch";
           }
 
           else
           {
-            if (!IOObjectConformsTo(v47, "AppleAPFSContainer"))
+            if (!IOObjectConformsTo(v27, "AppleAPFSContainer"))
             {
-              ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870201, 0, @"%s: unrecognized partitioning scheme", v124, v125, v126, "ramrod_probe_media_internal");
+              ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870201, 0, @"%s: unrecognized partitioning scheme", v61, v62, v63, "ramrod_probe_media_internal");
               goto LABEL_13;
             }
 
-            ramrod_log_msg("device is APFS formatted\n", v120, v121, v122, v123, v124, v125, v126, v144);
-            v158 = "Data";
+            ramrod_log_msg("device is APFS formatted\n");
+            v93 = "Data";
             __s2 = "System";
-            v156 = "Update";
-            v157 = "User";
-            v154 = "Logs";
-            v155 = "Baseband Data";
-            v152 = "Hardware";
-            v153 = "xART";
-            v150 = "Preboot";
-            v151 = "Scratch";
-            v148 = "Recovery";
-            v149 = "iSCPreboot";
+            v91 = "Update";
+            v92 = "User";
+            v89 = "Logs";
+            v90 = "Baseband Data";
+            v87 = "Hardware";
+            v88 = "xART";
+            v85 = "Preboot";
+            v86 = "Scratch";
+            v83 = "Recovery";
+            v84 = "iSCPreboot";
           }
         }
 
@@ -9274,112 +9622,111 @@ LABEL_13:
 
       properties = 0;
       memset(name, 0, sizeof(name));
-      v54 = IORegistryEntryGetName(v47, name);
-      if (v54)
+      v34 = IORegistryEntryGetName(v27, name);
+      if (v34)
       {
-        v138 = kCFErrorDomainMach;
-        v139 = v54;
-        v140 = @"%s: unable to get name for media registry entry";
+        v75 = kCFErrorDomainMach;
+        v76 = v34;
+        v77 = @"%s: unable to get name for media registry entry";
 LABEL_169:
-        ramrod_create_error_cf(&cf, v138, v139, 0, v140, v55, v56, v57, "ramrod_probe_media_internal");
+        ramrod_create_error_cf(&cf, v75, v76, 0, v77, v35, v36, v37, "ramrod_probe_media_internal");
         goto LABEL_170;
       }
 
-      v58 = IORegistryEntryCreateCFProperties(v47, &properties, kCFAllocatorDefault, 0);
-      if (v58)
+      v38 = IORegistryEntryCreateCFProperties(v27, &properties, kCFAllocatorDefault, 0);
+      if (v38)
       {
-        v138 = kCFErrorDomainMach;
-        v139 = v58;
-        v140 = @"%s: unable to get properties for media registry entry";
+        v75 = kCFErrorDomainMach;
+        v76 = v38;
+        v77 = @"%s: unable to get properties for media registry entry";
         goto LABEL_169;
       }
 
-      if (v52)
+      if (v32)
       {
-        v52 = 1;
+        v32 = 1;
       }
 
       else
       {
         *buffer = 0u;
-        v166 = 0u;
+        v101 = 0u;
         Value = CFDictionaryGetValue(properties, @"BSD Name");
-        v52 = Value && (v60 = Value, v61 = CFGetTypeID(Value), v61 == CFStringGetTypeID()) && CFStringGetCString(v60, buffer, 32, 0x600u) && (v62 = strlen(byte_1C6795), !strncmp(buffer, byte_1C6795, v62)) && strcmp("s1s1", &buffer[v62]) == 0;
+        v32 = Value && (v40 = Value, v41 = CFGetTypeID(Value), v41 == CFStringGetTypeID()) && CFStringGetCString(v40, buffer, 32, 0x600u) && (v42 = strlen(byte_1C6795), !strncmp(buffer, byte_1C6795, v42)) && strcmp("s1s1", &buffer[v42]) == 0;
       }
 
-      v63 = CFDictionaryGetValue(properties, @"Content Hint");
-      if (!v63 || (v71 = v63, !CFEqual(v63, @"7C3457EF-0000-11AA-AA11-00306543ECAC")) && !CFEqual(v71, @"52637672-7900-11AA-AA11-00306543ECAC") && !CFEqual(v71, @"69646961-6700-11AA-AA11-00306543ECAC") && !CFEqual(v71, @"EF57347C-0000-11AA-AA11-00306543ECAC"))
+      v43 = CFDictionaryGetValue(properties, @"Content Hint");
+      if (!v43 || (v44 = v43, !CFEqual(v43, @"7C3457EF-0000-11AA-AA11-00306543ECAC")) && !CFEqual(v44, @"52637672-7900-11AA-AA11-00306543ECAC") && !CFEqual(v44, @"69646961-6700-11AA-AA11-00306543ECAC") && !CFEqual(v44, @"EF57347C-0000-11AA-AA11-00306543ECAC"))
       {
         if (__s2 && (!strcmp(name, __s2) || strstr(name, "OS") || strstr(name, "System")))
         {
-          if (!v52)
+          if (!v32)
           {
-            v145 = name;
-            ramrod_log_msg("found system volume not at %ss1s1: %s\n", v64, v65, v66, v67, v68, v69, v70, &byte_1C6790);
+            ramrod_log_msg("found system volume not at %ss1s1: %s\n");
           }
 
           goto LABEL_84;
         }
 
-        if (v158 && !strcmp(name, v158))
+        if (v93 && !strcmp(name, v93))
         {
-          v109 = &byte_1C67F0;
+          v50 = &byte_1C67F0;
           goto LABEL_85;
         }
 
-        if (v157 && !strcmp(name, v157))
+        if (v92 && !strcmp(name, v92))
         {
-          v109 = &byte_1C6810;
+          v50 = &byte_1C6810;
           goto LABEL_85;
         }
 
-        if (v156 && !strcmp(name, v156))
+        if (v91 && !strcmp(name, v91))
         {
-          v109 = &byte_1C6830;
+          v50 = &byte_1C6830;
           goto LABEL_85;
         }
 
-        if (v155 && !strcmp(name, v155))
+        if (v90 && !strcmp(name, v90))
         {
-          v109 = &byte_1C6850;
+          v50 = &byte_1C6850;
           goto LABEL_85;
         }
 
-        if (v154 && !strcmp(name, v154))
+        if (v89 && !strcmp(name, v89))
         {
-          v109 = &byte_1C6870;
+          v50 = &byte_1C6870;
           goto LABEL_85;
         }
 
-        if (v153 && !strcmp(name, v153))
+        if (v88 && !strcmp(name, v88))
         {
           if (!byte_1C6890 || !ramrod_should_have_xart_partition())
           {
-            v110 = 0;
+            v51 = 0;
             theArray = &byte_1C6890;
             goto LABEL_87;
           }
 
-          v142 = kCFErrorDomainMach;
+          v79 = kCFErrorDomainMach;
 LABEL_178:
-          v143 = @"%s: encountered second '%s' partition; original was '%s'";
+          v80 = @"%s: encountered second '%s' partition; original was '%s'";
 LABEL_179:
-          ramrod_create_error_cf(&cf, v142, -536870911, 0, v143, v68, v69, v70, "ramrod_probe_media_internal");
+          ramrod_create_error_cf(&cf, v79, -536870911, 0, v80, v47, v48, v49, "ramrod_probe_media_internal");
 LABEL_173:
-          v141 = 0;
+          v78 = 0;
 LABEL_174:
-          v48 = 0;
-          if (v160 >= 1 && v141)
+          v28 = 0;
+          if (v95 >= 1 && v78)
           {
             sleep(1u);
-            v48 = sub_208DC(v160 - 1, 0);
+            v28 = sub_208DC(v95 - 1, 0);
           }
 
 LABEL_14:
-          v49 = cf;
-          if (a2 && !v48 && cf)
+          v29 = cf;
+          if (a2 && !v28 && cf)
           {
-            v48 = 0;
+            v28 = 0;
             *a2 = CFRetain(cf);
             goto LABEL_21;
           }
@@ -9387,295 +9734,291 @@ LABEL_14:
           goto LABEL_22;
         }
 
-        if (v152 && !strcmp(name, v152))
+        if (v87 && !strcmp(name, v87))
         {
-          v109 = &byte_1C68B0;
+          v50 = &byte_1C68B0;
           goto LABEL_85;
         }
 
-        if (v151 && !strcmp(name, v151))
+        if (v86 && !strcmp(name, v86))
         {
-          v109 = &byte_1C68D0;
+          v50 = &byte_1C68D0;
           goto LABEL_85;
         }
 
-        if (v150 && !strcmp(name, v150))
+        if (v85 && !strcmp(name, v85))
         {
-          if (v161 != 1)
+          if (v96 != 1)
           {
-            if (v161 == 2)
+            if (v96 == 2)
             {
-              ramrod_log_msg("Captured preboot partition on main OS container %d\n", v64, v65, v66, v67, v68, v69, v70, 2);
-              v109 = &byte_1C68F0;
+              ramrod_log_msg("Captured preboot partition on main OS container %d\n", 2);
+              v50 = &byte_1C68F0;
             }
 
             else
             {
-              if (v161 != 3)
+              if (v96 != 3)
               {
                 goto LABEL_155;
               }
 
-              ramrod_log_msg("Captured preboot partition on recovery container %d\n", v64, v65, v66, v67, v68, v69, v70, 3);
-              v109 = &byte_1C6950;
+              ramrod_log_msg("Captured preboot partition on recovery container %d\n", 3);
+              v50 = &byte_1C6950;
             }
 
             goto LABEL_85;
           }
 
-          v134 = 1;
+          v71 = 1;
         }
 
         else
         {
-          if (!v149 || strcmp(name, v149))
+          if (!v84 || strcmp(name, v84))
           {
-            if (v148 && !strcmp(name, v148))
+            if (v83 && !strcmp(name, v83))
             {
-              v109 = &byte_1C6930;
+              v50 = &byte_1C6930;
             }
 
             else
             {
-              if (!v52 || byte_1C67D0)
+              if (!v32 || byte_1C67D0)
               {
-                ramrod_log_msg("unexpected partition '%s' - skipping\n", v64, v65, v66, v67, v68, v69, v70, name);
+                ramrod_log_msg("unexpected partition '%s' - skipping\n", name);
 LABEL_155:
                 theArray = 0;
-                v110 = 1;
+                v51 = 1;
                 goto LABEL_87;
               }
 
-              ramrod_log_msg("looking for a system volume, and found unknown volume '%s'. using it as the system volume.\n", v64, v65, v66, v67, v68, v69, v70, name);
+              ramrod_log_msg("looking for a system volume, and found unknown volume '%s'. using it as the system volume.\n");
 LABEL_84:
-              LOBYTE(v52) = 1;
-              v109 = &byte_1C67D0;
+              LOBYTE(v32) = 1;
+              v50 = &byte_1C67D0;
             }
 
 LABEL_85:
-            if (*v109)
+            if (*v50)
             {
-              v142 = kCFErrorDomainMach;
+              v79 = kCFErrorDomainMach;
               goto LABEL_178;
             }
 
-            theArray = v109;
-            v110 = 0;
+            theArray = v50;
+            v51 = 0;
 LABEL_87:
             while (1)
             {
-              v111 = CFDictionaryGetValue(properties, @"Leaf");
-              if (v111)
+              v52 = CFDictionaryGetValue(properties, @"Leaf");
+              if (v52)
               {
-                if (CFBooleanGetValue(v111) == 1)
+                if (CFBooleanGetValue(v52) == 1)
                 {
                   break;
                 }
               }
 
-              IOObjectRelease(v47);
+              IOObjectRelease(v27);
               CFRelease(properties);
-              v112 = IOIteratorNext(iterator);
-              if (!v112)
+              v53 = IOIteratorNext(iterator);
+              if (!v53)
               {
 LABEL_172:
-                ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870911, 0, @"%s: ran out of registry entries without finding a leaf media object", v113, v114, v115, "ramrod_probe_media_internal");
-                v47 = 0;
+                ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870911, 0, @"%s: ran out of registry entries without finding a leaf media object", v54, v55, v56, "ramrod_probe_media_internal");
+                v27 = 0;
                 goto LABEL_173;
               }
 
-              v47 = v112;
-              while (!IOObjectConformsTo(v47, "IOMedia"))
+              v27 = v53;
+              while (!IOObjectConformsTo(v27, "IOMedia"))
               {
-                IOObjectRelease(v47);
-                v47 = IOIteratorNext(iterator);
-                if (!v47)
+                IOObjectRelease(v27);
+                v27 = IOIteratorNext(iterator);
+                if (!v27)
                 {
                   goto LABEL_172;
                 }
               }
 
-              v116 = IORegistryEntryCreateCFProperties(v47, &properties, kCFAllocatorDefault, 0);
-              if (v116)
+              v57 = IORegistryEntryCreateCFProperties(v27, &properties, kCFAllocatorDefault, 0);
+              if (v57)
               {
-                ramrod_create_error_cf(&cf, kCFErrorDomainMach, v116, 0, @"%s: unable to get properties for media registry entry", v117, v118, v119, "ramrod_probe_media_internal");
+                ramrod_create_error_cf(&cf, kCFErrorDomainMach, v57, 0, @"%s: unable to get properties for media registry entry", v58, v59, v60, "ramrod_probe_media_internal");
                 goto LABEL_173;
               }
             }
 
-            if (v110)
+            if (v51)
             {
               if (CFDictionaryGetValue(properties, @"Encrypted") == kCFBooleanTrue)
               {
-                v127 = CFDictionaryGetValue(properties, @"BSD Name");
-                if (v127)
+                v64 = CFDictionaryGetValue(properties, @"BSD Name");
+                if (v64)
                 {
-                  v128 = v127;
+                  v65 = v64;
                   *buffer = 0;
-                  v129 = CFDictionaryGetValue(properties, @"RoleValue");
-                  if (v129)
+                  v66 = CFDictionaryGetValue(properties, @"RoleValue");
+                  if (v66)
                   {
-                    CFNumberGetValue(v129, kCFNumberSInt16Type, buffer);
+                    CFNumberGetValue(v66, kCFNumberSInt16Type, buffer);
                   }
 
                   if (*buffer == 576)
                   {
-                    v130 = @"Found additional enterprise volume at %@\n";
+                    v67 = @"Found additional enterprise volume at %@\n";
                   }
 
                   else
                   {
-                    v130 = @"Found additional encrypted volume at %@\n";
+                    v67 = @"Found additional encrypted volume at %@\n";
                   }
 
                   if (*buffer == 576)
                   {
-                    v131 = Mutable;
+                    v68 = Mutable;
                   }
 
                   else
                   {
-                    v131 = v25;
+                    v68 = v19;
                   }
 
-                  theArraya = v131;
-                  ramrod_log_msg_cf(v130, v128, v145);
-                  v144 = "/dev/";
-                  v145 = v128;
-                  v132 = CFStringCreateWithFormat(0, 0, @"%s%@");
-                  CFArrayAppendValue(theArraya, v132);
-                  CFRelease(v132);
+                  theArraya = v68;
+                  ramrod_log_msg_cf(v67, v65);
+                  v69 = CFStringCreateWithFormat(0, 0, @"%s%@", "/dev/", v65);
+                  CFArrayAppendValue(theArraya, v69);
+                  CFRelease(v69);
                 }
               }
             }
 
             else
             {
-              v133 = CFDictionaryGetValue(properties, @"BSD Name");
-              if (!v133)
+              v70 = CFDictionaryGetValue(properties, @"BSD Name");
+              if (!v70)
               {
-                v142 = kCFErrorDomainMach;
-                v143 = @"%s: leaf media object with no bsd name";
+                v79 = kCFErrorDomainMach;
+                v80 = @"%s: leaf media object with no bsd name";
                 goto LABEL_179;
               }
 
               *buffer = 0u;
-              v166 = 0u;
-              CFStringGetCString(v133, buffer, 32, 0x8000100u);
+              v101 = 0u;
+              CFStringGetCString(v70, buffer, 32, 0x8000100u);
               snprintf(theArray, 0x20uLL, "%s%s", "/dev/", buffer);
             }
 
             CFRelease(properties);
 LABEL_124:
-            IOObjectRelease(v47);
+            IOObjectRelease(v27);
             goto LABEL_73;
           }
 
-          v134 = v161;
+          v71 = v96;
         }
 
-        ramrod_log_msg("Captured preboot partition on ISC %d\n", v64, v65, v66, v67, v68, v69, v70, v134);
-        v109 = &byte_1C6990;
+        ramrod_log_msg("Captured preboot partition on ISC %d\n", v71);
+        v50 = &byte_1C6990;
         goto LABEL_85;
       }
 
-      v72 = CFDictionaryGetValue(properties, @"BSD Name");
-      if (!v72)
+      v45 = CFDictionaryGetValue(properties, @"BSD Name");
+      if (!v45)
       {
-        ramrod_log_msg("APFS Container object with no bsd name", v73, v74, v75, v76, v77, v78, v79, v144);
+        ramrod_log_msg("APFS Container object with no bsd name");
         goto LABEL_173;
       }
 
       *buffer = 0u;
-      v166 = 0u;
-      CFStringGetCString(v72, buffer, 32, 0x8000100u);
-      if (CFEqual(v71, @"7C3457EF-0000-11AA-AA11-00306543ECAC") == 1)
+      v101 = 0u;
+      CFStringGetCString(v45, buffer, 32, 0x8000100u);
+      if (CFEqual(v44, @"7C3457EF-0000-11AA-AA11-00306543ECAC") == 1)
       {
         if (strstr(name, "RecoveryOSContainer"))
         {
-          v161 = 3;
-          v53 = &byte_1C6910;
+          v96 = 3;
+          v33 = &byte_1C6910;
         }
 
         else
         {
           if (*name ^ 0x737953746F6F4269 | *&name[8] ^ 0x61746E6F436D6574 | *&name[13] ^ 0x72656E6961746ELL)
           {
-            v53 = &byte_1C67B0;
+            v33 = &byte_1C67B0;
           }
 
           else
           {
-            v53 = &byte_1C6970;
+            v33 = &byte_1C6970;
           }
 
           if (*name ^ 0x737953746F6F4269 | *&name[8] ^ 0x61746E6F436D6574 | *&name[13] ^ 0x72656E6961746ELL)
           {
-            v87 = 2;
+            v46 = 2;
           }
 
           else
           {
-            v87 = 1;
+            v46 = 1;
           }
 
-          v161 = v87;
+          v96 = v46;
         }
 
-        snprintf(v53, 0x20uLL, "%s%s", "/dev/", buffer);
-        v145 = v53;
-        ramrod_log_msg("APFS Container '%s' %s\n", v88, v89, v90, v91, v92, v93, v94, name);
+        snprintf(v33, 0x20uLL, "%s%s", "/dev/", buffer);
+        ramrod_log_msg("APFS Container '%s' %s\n", name, v33);
 LABEL_70:
-        if (!*v53)
+        if (!*v33)
         {
-          snprintf(v53, 0x20uLL, "%s%s", "/dev/", buffer);
-          v145 = v53;
-          ramrod_log_msg("APFS Container '%s' %s\n", v95, v96, v97, v98, v99, v100, v101, name);
+          snprintf(v33, 0x20uLL, "%s%s", "/dev/", buffer);
+          ramrod_log_msg("APFS Container '%s' %s\n", name, v33);
         }
 
         goto LABEL_72;
       }
 
-      if (CFEqual(v71, @"EF57347C-0000-11AA-AA11-00306543ECAC") == 1)
+      if (CFEqual(v44, @"EF57347C-0000-11AA-AA11-00306543ECAC") == 1)
       {
-        if (v53 && *v53)
+        if (v33 && *v33)
         {
-          ramrod_log_msg("Found synthesized APFS container. Using %s instead of %s\n", v80, v81, v82, v83, v84, v85, v86, buffer);
-          snprintf(v53, 0x20uLL, "%s%s", "/dev/", buffer);
-          v53 = 0;
+          ramrod_log_msg("Found synthesized APFS container. Using %s instead of %s\n", buffer, v33);
+          snprintf(v33, 0x20uLL, "%s%s", "/dev/", buffer);
+          v33 = 0;
           goto LABEL_72;
         }
 
-        ramrod_log_msg("found synthesized container without original device node\n", v80, v81, v82, v83, v84, v85, v86, v144);
+        ramrod_log_msg("found synthesized container without original device node\n");
       }
 
-      if (v53)
+      if (v33)
       {
         goto LABEL_70;
       }
 
 LABEL_72:
-      IOObjectRelease(v47);
+      IOObjectRelease(v27);
       CFRelease(properties);
 LABEL_73:
-      v47 = IOIteratorNext(iterator);
+      v27 = IOIteratorNext(iterator);
     }
 
-    while (v47);
+    while (v27);
   }
 
   if (!IOIteratorIsValid(iterator))
   {
-    ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870165, 0, @"%s: media iterator invalidated", v135, v136, v137, "ramrod_probe_media_internal");
-    v47 = 0;
+    ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870165, 0, @"%s: media iterator invalidated", v72, v73, v74, "ramrod_probe_media_internal");
+    v27 = 0;
 LABEL_170:
-    v141 = 1;
+    v78 = 1;
     goto LABEL_174;
   }
 
-  if (CFArrayGetCount(v25) >= 1)
+  if (CFArrayGetCount(v19) >= 1)
   {
-    qword_1C69F8 = CFRetain(v25);
+    qword_1C69F8 = CFRetain(v19);
   }
 
   if (CFArrayGetCount(Mutable) < 1)
@@ -9683,21 +10026,21 @@ LABEL_170:
     goto LABEL_19;
   }
 
-  v47 = 0;
+  v27 = 0;
   qword_1C69F0 = CFRetain(Mutable);
 LABEL_20:
-  v48 = 1;
+  v28 = 1;
 LABEL_21:
-  v49 = cf;
+  v29 = cf;
 LABEL_22:
-  if (v49)
+  if (v29)
   {
-    CFRelease(v49);
+    CFRelease(v29);
   }
 
-  if (v47)
+  if (v27)
   {
-    IOObjectRelease(v47);
+    IOObjectRelease(v27);
   }
 
   if (iterator)
@@ -9705,14 +10048,14 @@ LABEL_22:
     IOObjectRelease(iterator);
   }
 
-  if (v42)
+  if (v22)
   {
-    IOObjectRelease(v42);
+    IOObjectRelease(v22);
   }
 
-  if (v25)
+  if (v19)
   {
-    CFRelease(v25);
+    CFRelease(v19);
   }
 
   if (Mutable)
@@ -9720,77 +10063,5 @@ LABEL_22:
     CFRelease(Mutable);
   }
 
-  return v48;
-}
-
-uint64_t ramrod_reprobe_media(CFErrorRef *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = off_1C6788;
-  if (off_1C6788)
-  {
-
-    return v9();
-  }
-
-  else
-  {
-    ramrod_log_msg("%s() called without probing media first\n", 0, a3, a4, a5, a6, a7, a8, "ramrod_reprobe_media");
-    ramrod_create_error_internal(a1, @"RamrodErrorDomain", 8, 0, "%s() called without probing media first", "ramrod_reprobe_media");
-    return 0;
-  }
-}
-
-uint64_t ramrod_get_storage_media_device_node(char *a1, size_t __size)
-{
-  if (!byte_1C6790)
-  {
-    return 0;
-  }
-
-  strlcpy(a1, &byte_1C6790, __size);
-  return 1;
-}
-
-uint64_t ramrod_get_apfs_container_device_node(char *a1, size_t __size)
-{
-  if (!byte_1C67B0)
-  {
-    return 0;
-  }
-
-  strlcpy(a1, &byte_1C67B0, __size);
-  return 1;
-}
-
-uint64_t ramrod_get_system_partition_device_node(char *a1, size_t __size)
-{
-  if (!byte_1C67D0)
-  {
-    return 0;
-  }
-
-  strlcpy(a1, &byte_1C67D0, __size);
-  return 1;
-}
-
-uint64_t ramrod_get_data_partition_device_node(char *a1, size_t __size)
-{
-  if (!byte_1C67F0)
-  {
-    return 0;
-  }
-
-  strlcpy(a1, &byte_1C67F0, __size);
-  return 1;
-}
-
-uint64_t ramrod_get_user_partition_device_node(char *a1, size_t __size)
-{
-  if (!byte_1C6810)
-  {
-    return 0;
-  }
-
-  strlcpy(a1, &byte_1C6810, __size);
-  return 1;
+  return v28;
 }

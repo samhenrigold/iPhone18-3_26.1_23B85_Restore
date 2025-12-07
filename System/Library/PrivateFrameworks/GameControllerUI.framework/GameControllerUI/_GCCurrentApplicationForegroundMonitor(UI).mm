@@ -14,7 +14,7 @@
   v4[3] = &unk_277E1DD30;
   v4[4] = self;
   v4[5] = a3;
-  v3 = MEMORY[0x20F32E600](v4);
+  v3 = MEMORY[0x20F32E600](v4, a2);
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
     v3[2](v3);

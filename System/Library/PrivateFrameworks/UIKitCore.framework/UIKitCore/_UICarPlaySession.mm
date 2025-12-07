@@ -17,9 +17,9 @@
     dispatch_once(&qword_1ED4A08F0, &__block_literal_global_514);
   }
 
-  v0 = _MergedGlobals_1278;
+  v1 = _MergedGlobals_1278;
 
-  return v0;
+  return v1;
 }
 
 - (os_unfair_lock_s)currentSession

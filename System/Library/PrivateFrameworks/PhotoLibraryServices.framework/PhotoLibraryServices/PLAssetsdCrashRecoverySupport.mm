@@ -14,7 +14,7 @@
   jobCopy = job;
   dateCopy = date;
   writerCopy = writer;
-  if ([jobCopy count])
+  if (objc_msgSend_count(jobCopy))
   {
     incomingDirectoryPath = PLAssetImportGetLog();
     if (os_log_type_enabled(incomingDirectoryPath, OS_LOG_TYPE_DEFAULT))
@@ -23,7 +23,7 @@
       v21 = 138543618;
       v22 = v12;
       v23 = 1024;
-      LODWORD(v24) = [jobCopy count];
+      LODWORD(v24) = objc_msgSend_count(jobCopy);
       _os_log_impl(&dword_19BF1F000, incomingDirectoryPath, OS_LOG_TYPE_DEFAULT, "[%{public}@] passed %d incoming files", &v21, 0x12u);
     }
 
@@ -43,12 +43,12 @@
       v21 = 138543618;
       v22 = v16;
       v23 = 1024;
-      LODWORD(v24) = [v13 count];
+      LODWORD(v24) = objc_msgSend_count(v13);
       _os_log_impl(&dword_19BF1F000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] found %d incoming files", &v21, 0x12u);
     }
   }
 
-  if ([v13 count])
+  if (objc_msgSend_count(v13))
   {
     v17 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:2];
     v18 = *MEMORY[0x1E69C0438];
@@ -262,7 +262,7 @@ void __73__PLAssetsdCrashRecoverySupport_recoverFromCrashIfNeededWithImageWriter
 
   if ((v3 & 1) == 0)
   {
-    v2 = [*(*(*(a1 + 56) + 8) + 40) count] != 0;
+    v2 = objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40)) != 0;
   }
 
   *(*(*(a1 + 64) + 8) + 24) = v2;

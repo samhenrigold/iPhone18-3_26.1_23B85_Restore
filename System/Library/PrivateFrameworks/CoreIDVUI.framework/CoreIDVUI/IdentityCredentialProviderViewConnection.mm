@@ -11,7 +11,7 @@
 
 - (void)dismissWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -36,7 +36,7 @@
 
 - (void)presentAuthorizationViewFromSelectionViewWithRequest:(_TtC13CoreIDVShared43XPCMobileDocumentProviderPresentmentRequest *)request completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -63,7 +63,7 @@
 
 - (void)presentScannableCodeViewWithPayload:(NSURL *)payload completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -90,7 +90,7 @@
 
 - (void)presentAuxiliaryView:(_TtC13CoreIDVShared38XPCMobileDocumentProviderAuxiliaryView *)view completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -117,7 +117,7 @@
 
 - (void)presentSelectionViewFromAuxiliaryViewWithConfiguration:(_TtC13CoreIDVShared51XPCMobileDocumentProviderLocalOptionUIConfiguration *)configuration completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -144,7 +144,7 @@
 
 - (void)presentAuthorizationViewFromAuxiliaryViewWithRequest:(_TtC13CoreIDVShared43XPCMobileDocumentProviderPresentmentRequest *)request completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

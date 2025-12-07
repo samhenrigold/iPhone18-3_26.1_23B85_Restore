@@ -30,9 +30,9 @@
       if ([v12 BOOLValue])
       {
         v13 = 1;
-LABEL_15:
+LABEL_14:
 
-        goto LABEL_16;
+        goto LABEL_15;
       }
 
       v14 = MBGetDefaultLog();
@@ -41,7 +41,7 @@ LABEL_15:
         *buf = 138543362;
         v18 = keyCopy;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Skipping status reporting for %{public}@ because it's explicitly disabled", buf, 0xCu);
-        goto LABEL_13;
+        _MBLog(@"I ", "Skipping status reporting for %{public}@ because it's explicitly disabled", keyCopy);
       }
     }
 
@@ -53,13 +53,12 @@ LABEL_15:
         *buf = 138543362;
         v18 = keyCopy;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Skipping status reporting for %{public}@ because it's disabled by default", buf, 0xCu);
-LABEL_13:
-        _MBLog();
+        _MBLog(@"I ", "Skipping status reporting for %{public}@ because it's disabled by default", keyCopy);
       }
     }
 
     v13 = 0;
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   v10 = MBGetDefaultLog();
@@ -68,11 +67,11 @@ LABEL_13:
     *buf = 138543362;
     v18 = keyCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Skipping status reporting for %{public}@ because it's totally disabled", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Skipping status reporting for %{public}@ because it's totally disabled", keyCopy);
   }
 
   v13 = 0;
-LABEL_16:
+LABEL_15:
 
   return v13;
 }
@@ -91,9 +90,9 @@ LABEL_16:
 
   v18 = valuesCopy;
   v19 = +[MBManagedPolicy sharedPolicy];
-  v62 = 0;
-  v20 = [v19 checkIfDiagnosticTelemetryIsAllowed:&v62];
-  v21 = v62;
+  v63 = 0;
+  v20 = [v19 checkIfDiagnosticTelemetryIsAllowed:&v63];
+  v21 = v63;
 
   if ((v20 & 1) == 0)
   {
@@ -101,9 +100,9 @@ LABEL_16:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v64 = v21;
+      v65 = v21;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Not sending telemetry: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "Not sending telemetry: %@", v21);
     }
 
     goto LABEL_27;
@@ -116,7 +115,7 @@ LABEL_16:
 
   if (qword_100421A58 && [self _isEnabledForKey:keyCopy account:accountCopy])
   {
-    v53 = a2;
+    v54 = a2;
     ckOperationPolicy = [engineCopy ckOperationPolicy];
     v23 = [ckOperationPolicy copy];
     v24 = v23;
@@ -136,17 +135,17 @@ LABEL_16:
     [v26 setCellularAccess:v27];
 
     databaseManager = [managerCopy databaseManager];
-    v61 = v21;
-    v29 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v26 error:&v61];
-    v55 = v61;
+    v62 = v21;
+    v29 = [MBCKOperationTracker operationTrackerWithAccount:accountCopy databaseManager:databaseManager policy:v26 error:&v62];
+    v56 = v62;
 
     if (v29)
     {
-      v54 = v29;
+      v55 = v29;
       ckOperationTracker = [engineCopy ckOperationTracker];
       ckOperationGroup = [ckOperationTracker ckOperationGroup];
       v32 = ckOperationGroup;
-      v52 = engineCopy;
+      v53 = engineCopy;
       if (ckOperationGroup)
       {
         v33 = ckOperationGroup;
@@ -158,33 +157,33 @@ LABEL_16:
       }
 
       v34 = v33;
-      v51 = managerCopy;
+      v52 = managerCopy;
 
-      [v54 setCkOperationGroup:v34];
+      [v55 setCkOperationGroup:v34];
       v35 = objc_alloc_init(BackupStatusMessage);
-      v50 = keyCopy;
+      v51 = keyCopy;
       [(BackupStatusMessage *)v35 setKey:keyCopy];
-      v59 = 0u;
       v60 = 0u;
-      v57 = 0u;
+      v61 = 0u;
       v58 = 0u;
-      v49 = v18;
+      v59 = 0u;
+      v50 = v18;
       v36 = v18;
-      v37 = [v36 countByEnumeratingWithState:&v57 objects:v69 count:16];
+      v37 = [v36 countByEnumeratingWithState:&v58 objects:v70 count:16];
       if (v37)
       {
         v38 = v37;
-        v39 = *v58;
+        v39 = *v59;
         do
         {
           for (i = 0; i != v38; i = i + 1)
           {
-            if (*v58 != v39)
+            if (*v59 != v39)
             {
               objc_enumerationMutation(v36);
             }
 
-            v41 = *(*(&v57 + 1) + 8 * i);
+            v41 = *(*(&v58 + 1) + 8 * i);
             v42 = objc_alloc_init(BackupStatusKeyAndValue);
             [(BackupStatusKeyAndValue *)v42 setKey:v41];
             v43 = [v36 objectForKeyedSubscript:v41];
@@ -193,7 +192,7 @@ LABEL_16:
             [(BackupStatusMessage *)v35 addKeysAndValues:v42];
           }
 
-          v38 = [v36 countByEnumeratingWithState:&v57 objects:v69 count:16];
+          v38 = [v36 countByEnumeratingWithState:&v58 objects:v70 count:16];
         }
 
         while (v38);
@@ -203,39 +202,39 @@ LABEL_16:
       [v44 addMessages:v35];
       v45 = [qword_100421A58 longLivedOperationForRequest:v44];
       v46 = +[MBDaemon sharedDaemon];
-      [v46 holdWorkAssertion:v53];
+      [v46 holdWorkAssertion:v54];
 
-      v56[0] = _NSConcreteStackBlock;
-      v56[1] = 3221225472;
-      v56[2] = sub_1002033F0;
-      v56[3] = &unk_1003BBFE8;
-      v56[4] = v53;
-      [v45 setCompletionBlock:v56];
+      v57[0] = _NSConcreteStackBlock;
+      v57[1] = 3221225472;
+      v57[2] = sub_1002033F0;
+      v57[3] = &unk_1003BBFE8;
+      v57[4] = v54;
+      [v45 setCompletionBlock:v57];
       v47 = MBGetDefaultLog();
-      keyCopy = v50;
+      keyCopy = v51;
       if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         v48 = objc_opt_class();
         *buf = 138543874;
-        v64 = v48;
-        v65 = 2114;
-        v66 = v50;
-        v67 = 2114;
-        v68 = v36;
+        v65 = v48;
+        v66 = 2114;
+        v67 = v51;
+        v68 = 2114;
+        v69 = v36;
         _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Sending %{public}@ status, key:%{public}@, values:%{public}@", buf, 0x20u);
-        objc_opt_class();
-        _MBLog();
+        v49 = objc_opt_class();
+        _MBLog(@"Df", "Sending %{public}@ status, key:%{public}@, values:%{public}@", v49, v51, v36);
       }
 
-      v29 = v54;
-      [v54 addDatabaseOperation:v45];
+      v29 = v55;
+      [v55 addDatabaseOperation:v45];
 
-      managerCopy = v51;
-      engineCopy = v52;
-      v18 = v49;
+      managerCopy = v52;
+      engineCopy = v53;
+      v18 = v50;
     }
 
-    v21 = v55;
+    v21 = v56;
 LABEL_27:
   }
 }

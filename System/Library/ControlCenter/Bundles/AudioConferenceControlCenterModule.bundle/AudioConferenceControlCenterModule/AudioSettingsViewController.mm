@@ -39,7 +39,7 @@
 
   if (v3)
   {
-    sub_19F68(0, &qword_34F80);
+    sub_19F68(0, &qword_34F80, UIView_ptr);
     v4.super.isa = sub_1F5D4().super.isa;
   }
 

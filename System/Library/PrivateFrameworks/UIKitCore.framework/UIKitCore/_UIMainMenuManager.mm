@@ -934,9 +934,9 @@ LABEL_31:
 
   if (_localCache2 && v15)
   {
-    v17 = [_localCache2 isEqual:v15];
+    isEqual = objc_msgSend_isEqual_(_localCache2);
 
-    if (v17)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -968,7 +968,7 @@ LABEL_31:
     goto LABEL_15;
   }
 
-  v21 = [v12 isEqual:v20];
+  v21 = objc_msgSend_isEqual_(v12);
 
   if ((v21 & 1) == 0)
   {
@@ -994,7 +994,7 @@ LABEL_15:
 
       if (v16 && v24)
       {
-        v27 = [v24 isEqual:v25];
+        v27 = objc_msgSend_isEqual_(v24);
 
         if (v27)
         {
@@ -1354,9 +1354,9 @@ LABEL_17:
     {
       if (v11 && v12)
       {
-        v13 = [v12 isEqual:v11];
+        isEqual = objc_msgSend_isEqual_(v12);
 
-        if (v13)
+        if (isEqual)
         {
           v28 = 1;
           goto LABEL_21;
@@ -1684,7 +1684,7 @@ LABEL_21:
       uncategorizedMenu = [parentIdentifiersForIdentifiers objectForKeyedSubscript:i];
 
       identifier = [(_UIMainMenu *)self->_cachedBaseMainMenu identifier];
-      LODWORD(elementBookkeeping) = [uncategorizedMenu isEqual:identifier];
+      LODWORD(elementBookkeeping) = objc_msgSend_isEqual_(uncategorizedMenu);
 
       if (elementBookkeeping)
       {

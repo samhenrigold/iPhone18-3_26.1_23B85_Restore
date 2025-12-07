@@ -70,7 +70,8 @@
     JreThrowNullPointerException();
   }
 
-  result = JavaNetURLConnection_guessContentTypeFromNameWithNSString_([(JavaNetURL *)url getFile]);
+  getFile = [(JavaNetURL *)url getFile];
+  result = JavaNetURLConnection_guessContentTypeFromNameWithNSString_(getFile, v6);
   if (!result)
   {
     result = JavaNetURLConnection_guessContentTypeFromStreamWithJavaIoInputStream_(self->is_);

@@ -2,7 +2,6 @@
 + (BOOL)isABCEnabled;
 + (id)newXPCConnection;
 + (void)initialize;
-+ (void)isABCEnabled;
 - (BOOL)addSignatureContentForSession:(id)session key:(id)key content:(id)content reply:(id)reply;
 - (BOOL)addToSession:(id)session event:(id)event payload:(id)payload reply:(id)reply;
 - (BOOL)addToSession:(id)session events:(id)events payload:(id)payload reply:(id)reply;
@@ -524,7 +523,7 @@ void __63__SDRDiagnosticReporter_groupCaseIdentifierForSignature_reply___block_i
 
 - (id)_payloadAugmentedWithSandboxExtensionTokensDict:(id)dict
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v4 = dictCopy;
   if (dictCopy)
@@ -532,110 +531,107 @@ void __63__SDRDiagnosticReporter_groupCaseIdentifierForSignature_reply___block_i
     v5 = [dictCopy objectForKeyedSubscript:@"path"];
     if ([v5 count])
     {
-      v27 = v4;
+      v25 = v4;
       dictionary = [MEMORY[0x277CBEB38] dictionary];
+      v26 = 0u;
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v26 = v5;
+      v24 = v5;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v29;
-        v11 = *MEMORY[0x277D861E8];
+        v10 = *v27;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v29 != v10)
+            if (*v27 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v13 = *(*(&v28 + 1) + 8 * i);
-            [v13 UTF8String];
-            v14 = sandbox_extension_issue_file();
-            v15 = logHandle;
-            if (v14)
+            v12 = *(*(&v26 + 1) + 8 * i);
+            [v12 UTF8String];
+            v13 = sandbox_extension_issue_file();
+            v14 = logHandle;
+            if (v13)
             {
-              v16 = v14;
+              v15 = v13;
               if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
               {
                 *buf = 138543362;
-                v33 = v13;
-                _os_log_impl(&dword_26C35F000, v15, OS_LOG_TYPE_INFO, "SDRDiagnosticReporter: Granted Read sandbox extension for payload path '%{public}@'.", buf, 0xCu);
+                v31 = v12;
+                _os_log_impl(&dword_26C35F000, v14, OS_LOG_TYPE_INFO, "SDRDiagnosticReporter: Granted Read sandbox extension for payload path '%{public}@'.", buf, 0xCu);
               }
 
-              v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v16, v26}];
-              [dictionary setObject:v17 forKeyedSubscript:v13];
+              v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v15, v24}];
+              [dictionary setObject:v16 forKeyedSubscript:v12];
 
-              free(v16);
+              free(v15);
             }
 
             else if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
             {
-              v18 = v15;
-              v19 = __error();
-              v20 = strerror(*v19);
+              v17 = v14;
+              v18 = __error();
+              v19 = strerror(*v18);
               *buf = 138543618;
-              v33 = v13;
-              v34 = 2080;
-              v35 = v20;
-              _os_log_error_impl(&dword_26C35F000, v18, OS_LOG_TYPE_ERROR, "SDRDiagnosticReporter: Failed to grant Read sandbox extension for payload path '%{public}@' with error: %s.", buf, 0x16u);
+              v31 = v12;
+              v32 = 2080;
+              v33 = v19;
+              _os_log_error_impl(&dword_26C35F000, v17, OS_LOG_TYPE_ERROR, "SDRDiagnosticReporter: Failed to grant Read sandbox extension for payload path '%{public}@' with error: %s.", buf, 0x16u);
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
         }
 
         while (v9);
       }
 
-      v21 = [dictionary count];
-      if (v21 == [v7 count])
+      v20 = [dictionary count];
+      if (v20 == [v7 count])
       {
-        v4 = v27;
-        v22 = [v27 mutableCopy];
-        [v22 setObject:dictionary forKeyedSubscript:@"sandbox_ext_token_dict"];
+        v4 = v25;
+        v21 = [v25 mutableCopy];
+        [v21 setObject:dictionary forKeyedSubscript:@"sandbox_ext_token_dict"];
       }
 
       else
       {
-        v23 = logHandle;
-        v4 = v27;
+        v22 = logHandle;
+        v4 = v25;
         if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
         {
-          [(SDRDiagnosticReporter *)v23 _payloadAugmentedWithSandboxExtensionTokensDict:v7, dictionary];
+          [(SDRDiagnosticReporter *)v22 _payloadAugmentedWithSandboxExtensionTokensDict:v7, dictionary];
         }
 
-        v22 = 0;
+        v21 = 0;
       }
 
-      v5 = v26;
+      v5 = v24;
     }
 
     else
     {
-      v22 = v4;
+      v21 = v4;
     }
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (void)commonPreflightChecksForSignature:(id)signature payload:(id)payload callback:(id)callback
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   payloadCopy = payload;
   callbackCopy = callback;
@@ -664,8 +660,8 @@ LABEL_16:
           v17 = logHandle;
           if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v24) = 0;
-            _os_log_impl(&dword_26C35F000, v17, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: Signature matches dampening exception, will permit XPC call", &v24, 2u);
+            LOWORD(v23) = 0;
+            _os_log_impl(&dword_26C35F000, v17, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: Signature matches dampening exception, will permit XPC call", &v23, 2u);
           }
         }
 
@@ -673,16 +669,16 @@ LABEL_16:
         {
           date = [MEMORY[0x277CBEAA8] date];
           [date timeIntervalSince1970];
-          v21 = v20;
+          v20 = v19;
 
-          if (v21 < *&_dailyCaseLimitActiveUntil)
+          if (v20 < *&_dailyCaseLimitActiveUntil)
           {
-            v22 = logHandle;
+            v21 = logHandle;
             if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = 134217984;
-              v25 = _dailyCaseLimitActiveUntil;
-              _os_log_impl(&dword_26C35F000, v22, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: A daily rate limit is in effect until %.0f. Rejecting case", &v24, 0xCu);
+              v23 = 134217984;
+              v24 = _dailyCaseLimitActiveUntil;
+              _os_log_impl(&dword_26C35F000, v21, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: A daily rate limit is in effect until %.0f. Rejecting case", &v23, 0xCu);
             }
 
             if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
@@ -700,14 +696,14 @@ LABEL_16:
             [(SDRDiagnosticReporter *)self resetDailyCaseLimit];
           }
 
-          if (v21 < *&_apiRateLimitActiveUntil)
+          if (v20 < *&_apiRateLimitActiveUntil)
           {
-            v23 = logHandle;
+            v22 = logHandle;
             if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = 134217984;
-              v25 = _apiRateLimitActiveUntil;
-              _os_log_impl(&dword_26C35F000, v23, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: An API rate limit is in effect until %.0f. Rejecting case", &v24, 0xCu);
+              v23 = 134217984;
+              v24 = _apiRateLimitActiveUntil;
+              _os_log_impl(&dword_26C35F000, v22, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: An API rate limit is in effect until %.0f. Rejecting case", &v23, 0xCu);
             }
 
             if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
@@ -733,9 +729,9 @@ LABEL_16:
       v16 = logHandle;
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 138477827;
-        v25 = signatureCopy;
-        _os_log_impl(&dword_26C35F000, v16, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: Failed signature validation check for %{private}@", &v24, 0xCu);
+        v23 = 138477827;
+        v24 = signatureCopy;
+        _os_log_impl(&dword_26C35F000, v16, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: Failed signature validation check for %{private}@", &v23, 0xCu);
       }
 
       v11[2](v11, v12, 0);
@@ -748,13 +744,11 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseCaseTriggerResponse:(id)response
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v4 = [responseCopy objectForKeyedSubscript:@"success"];
   bOOLValue = [v4 BOOLValue];
@@ -775,9 +769,9 @@ LABEL_17:
       v13 = logHandle;
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 134217984;
-        v21 = _dailyCaseLimitActiveUntil;
-        _os_log_impl(&dword_26C35F000, v13, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: Received 'daily limit exceeded' response. Will reject all cases until %.0f", &v20, 0xCu);
+        v19 = 134217984;
+        v20 = _dailyCaseLimitActiveUntil;
+        _os_log_impl(&dword_26C35F000, v13, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: Received 'daily limit exceeded' response. Will reject all cases until %.0f", &v19, 0xCu);
       }
     }
 
@@ -794,17 +788,15 @@ LABEL_17:
         v18 = logHandle;
         if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = 134218240;
-          v21 = _apiRateLimitActiveUntil;
-          v22 = 2048;
-          v23 = v16;
-          _os_log_impl(&dword_26C35F000, v18, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: Received 'API rate limit exceeded' response. Will reject all cases until %.0f (in %.0f s)", &v20, 0x16u);
+          v19 = 134218240;
+          v20 = _apiRateLimitActiveUntil;
+          v21 = 2048;
+          v22 = v16;
+          _os_log_impl(&dword_26C35F000, v18, OS_LOG_TYPE_DEFAULT, "SDRDiagnosticReporter: Received 'API rate limit exceeded' response. Will reject all cases until %.0f (in %.0f s)", &v19, 0x16u);
         }
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetDailyCaseLimit
@@ -848,7 +840,7 @@ LABEL_17:
 
 id __113__SDRDiagnosticReporter_submitDiagnosticIncidentEventForCaseSignature_handledResult_dampeningResult_closureType___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = logHandle;
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
@@ -858,19 +850,18 @@ id __113__SDRDiagnosticReporter_submitDiagnosticIncidentEventForCaseSignature_ha
     v6 = [*(a1 + 32) objectForKeyedSubscript:@"type"];
     v7 = [*(a1 + 32) objectForKeyedSubscript:@"subtype"];
     v8 = [*(a1 + 32) objectForKeyedSubscript:@"detected"];
-    v12 = 138544130;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v7;
-    v18 = 2114;
-    v19 = v8;
-    _os_log_impl(&dword_26C35F000, v4, OS_LOG_TYPE_INFO, "Submitting analytics for case domain=%{public}@ type=%{public}@ subtype=%{public}@ process=%{public}@ to CoreAnalytics", &v12, 0x2Au);
+    v11 = 138544130;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v6;
+    v15 = 2114;
+    v16 = v7;
+    v17 = 2114;
+    v18 = v8;
+    _os_log_impl(&dword_26C35F000, v4, OS_LOG_TYPE_INFO, "Submitting analytics for case domain=%{public}@ type=%{public}@ subtype=%{public}@ process=%{public}@ to CoreAnalytics", &v11, 0x2Au);
   }
 
   v9 = *(a1 + 40);
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -916,7 +907,7 @@ id __113__SDRDiagnosticReporter_submitDiagnosticIncidentEventForCaseSignature_ha
 
 - (BOOL)snapshotWithSignature:(id)signature duration:(double)duration event:(id)event payload:(id)payload reply:(id)reply
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   eventCopy = event;
   payloadCopy = payload;
@@ -926,8 +917,8 @@ id __113__SDRDiagnosticReporter_submitDiagnosticIncidentEventForCaseSignature_ha
   {
     if (eventCopy)
     {
-      v24[0] = eventCopy;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v23[0] = eventCopy;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
     }
 
     else
@@ -951,14 +942,13 @@ id __113__SDRDiagnosticReporter_submitDiagnosticIncidentEventForCaseSignature_ha
     block[1] = 3221225472;
     block[2] = __76__SDRDiagnosticReporter_snapshotWithSignature_duration_event_payload_reply___block_invoke;
     block[3] = &unk_279D2CE10;
-    v23 = replyCopy;
+    v22 = replyCopy;
     dispatch_async(queue, block);
     v19 = 0;
-    v17 = v23;
+    v17 = v22;
   }
 
 LABEL_9:
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1010,7 +1000,7 @@ void __98__SDRDiagnosticReporter_snapshotWithSignature_delay_events_payload_acti
   {
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
     {
-      __98__SDRDiagnosticReporter_snapshotWithSignature_delay_events_payload_actions_wantsRemoteCase_reply___block_invoke_cold_1(a1);
+      __98__SDRDiagnosticReporter_snapshotWithSignature_delay_events_payload_actions_wantsRemoteCase_reply___block_invoke_cold_1();
     }
 
     v6 = [*(*(a1 + 32) + 8) remoteObjectProxy];
@@ -1172,7 +1162,7 @@ void __111__SDRDiagnosticReporter_snapshotWithSignature_withIDSDestinations_vali
 
 - (BOOL)startSessionWithSignature:(id)signature duration:(double)duration event:(id)event payload:(id)payload reply:(id)reply
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   eventCopy = event;
   payloadCopy = payload;
@@ -1182,8 +1172,8 @@ void __111__SDRDiagnosticReporter_snapshotWithSignature_withIDSDestinations_vali
   {
     if (eventCopy)
     {
-      v24[0] = eventCopy;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v23[0] = eventCopy;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
     }
 
     else
@@ -1207,14 +1197,13 @@ void __111__SDRDiagnosticReporter_snapshotWithSignature_withIDSDestinations_vali
     block[1] = 3221225472;
     block[2] = __80__SDRDiagnosticReporter_startSessionWithSignature_duration_event_payload_reply___block_invoke;
     block[3] = &unk_279D2CE10;
-    v23 = replyCopy;
+    v22 = replyCopy;
     dispatch_async(queue, block);
     v19 = 0;
-    v17 = v23;
+    v17 = v22;
   }
 
 LABEL_9:
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1516,7 +1505,7 @@ void __39__SDRDiagnosticReporter_cancelSession___block_invoke(uint64_t a1, void 
 
 - (BOOL)addToSession:(id)session event:(id)event payload:(id)payload reply:(id)reply
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   payloadCopy = payload;
   replyCopy = reply;
@@ -1528,9 +1517,8 @@ void __39__SDRDiagnosticReporter_cancelSession___block_invoke(uint64_t a1, void 
     event = [v13 arrayWithObjects:&eventCopy count:1];
   }
 
-  v15 = [(SDRDiagnosticReporter *)self addToSession:sessionCopy events:event payload:payloadCopy reply:replyCopy, eventCopy, v19];
+  v15 = [(SDRDiagnosticReporter *)self addToSession:sessionCopy events:event payload:payloadCopy reply:replyCopy, eventCopy, v18];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2684,14 +2672,6 @@ void __56__SDRDiagnosticReporter_getAutoBugCaptureConfiguration___block_invoke_1
   return WeakRetained;
 }
 
-+ (void)isABCEnabled
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x14u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __42__SDRDiagnosticReporter_setupXPCInterface__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
@@ -2708,24 +2688,20 @@ void __42__SDRDiagnosticReporter_setupXPCInterface__block_invoke_2_cold_1()
 
 void __63__SDRDiagnosticReporter_groupCaseIdentifierForSignature_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_payloadAugmentedWithSandboxExtensionTokensDict:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v7 = 134218240;
-  v8 = [a2 count];
-  v9 = 2048;
-  v10 = [a3 count];
-  _os_log_error_impl(&dword_26C35F000, v5, OS_LOG_TYPE_ERROR, "SDRDiagnosticReporter: Failed to grant sandbox extensions for all payloads (%ld required, %ld granted)", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218240;
+  v7 = [a2 count];
+  v8 = 2048;
+  v9 = [a3 count];
+  _os_log_error_impl(&dword_26C35F000, v5, OS_LOG_TYPE_ERROR, "SDRDiagnosticReporter: Failed to grant sandbox extensions for all payloads (%ld required, %ld granted)", &v6, 0x16u);
 }
 
 - (void)commonPreflightChecksForSignature:payload:callback:.cold.1()
@@ -2744,118 +2720,86 @@ void __63__SDRDiagnosticReporter_groupCaseIdentifierForSignature_reply___block_i
 
 - (void)buildDiagnosticIncidentEventForCaseSignature:handledResult:dampeningResult:closureType:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __98__SDRDiagnosticReporter_snapshotWithSignature_delay_events_payload_actions_wantsRemoteCase_reply___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*(a1 + 32) + 8);
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __98__SDRDiagnosticReporter_snapshotWithSignature_delay_events_payload_actions_wantsRemoteCase_reply___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __105__SDRDiagnosticReporter_startSessionWithSignature_duration_events_payload_actions_wantsRemoteCase_reply___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_26C35F000, v0, OS_LOG_TYPE_ERROR, "SDRDiagnosticReporter: (startSessionWithSignature:) Remote XPC error %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26C35F000, v0, OS_LOG_TYPE_ERROR, "SDRDiagnosticReporter: (startSessionWithSignature:) Remote XPC error %@", v1, 0xCu);
 }
 
 void __36__SDRDiagnosticReporter_endSession___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __39__SDRDiagnosticReporter_cancelSession___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __59__SDRDiagnosticReporter_addToSession_events_payload_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SDRDiagnosticReporter_addSignatureContentForSession_key_content_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SDRDiagnosticReporter_getDiagnosticPayloadsForSignatures_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SDRDiagnosticReporter_triggerRemoteSessionForSignature_caseGroupID_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SDRDiagnosticReporter_getAllDiagnosticCasesWithReply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SDRDiagnosticReporter_getDiagnosticCaseSummariesOfType_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SDRDiagnosticReporter_getDiagnosticCaseSummariesWithIdentifiers_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeAutoBugCaptureFilesWithSubPaths:reply:.cold.1()
@@ -2867,11 +2811,9 @@ void __73__SDRDiagnosticReporter_getDiagnosticCaseSummariesWithIdentifiers_reply
 
 void __68__SDRDiagnosticReporter_purgeAutoBugCaptureFilesWithSubPaths_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAutoBugCaptureConfiguration:.cold.1()
@@ -2890,11 +2832,9 @@ void __68__SDRDiagnosticReporter_purgeAutoBugCaptureFilesWithSubPaths_reply___bl
 
 void __56__SDRDiagnosticReporter_getAutoBugCaptureConfiguration___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

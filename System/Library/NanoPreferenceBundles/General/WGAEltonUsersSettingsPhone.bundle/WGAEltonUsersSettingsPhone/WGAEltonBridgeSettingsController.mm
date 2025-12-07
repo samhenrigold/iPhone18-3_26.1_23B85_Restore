@@ -19,8 +19,12 @@
 - (void)_openTipsPage:(id)page;
 - (void)_setAllGesturesToggleEnabled:(id)enabled specifier:(id)specifier;
 - (void)_setCoverToMuteEnabled:(id)enabled specifier:(id)specifier;
+- (void)_setCurrentCachedCoverToMuteEnablement:(BOOL)enablement;
 - (void)_setFlickEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WGAEltonBridgeSettingsController
@@ -41,6 +45,61 @@
   self->_cslAccessor = v7;
 
   synchronize2 = [(NPSDomainAccessor *)self->_cslAccessor synchronize];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v18.receiver = self;
+  v18.super_class = WGAEltonBridgeSettingsController;
+  [(WGAEltonBridgeSettingsController *)&v18 viewWillAppear:appear];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  v6 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"ELTON_TITLE" table:@"Localizable-elton" locale:v5 bundleURL:bundleURL];
+
+  v9 = [NSURL URLWithString:@"bridge:root=ELTON_SETTINGS_ID"];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ELTON_SETTINGS_ID" title:v8 localizedNavigationComponents:&__NSArray0__struct deepLink:v9];
+
+  [(WGAEltonBridgeSettingsController *)self reloadSpecifiers];
+  objc_initWeak(&location, self);
+  uTF8String = [@"WAGPreferencesSyncDidChangeInternalNotification" UTF8String];
+  v11 = &_dispatch_main_q;
+  handler[0] = _NSConcreteStackBlock;
+  handler[1] = 3221225472;
+  handler[2] = sub_11D0;
+  handler[3] = &unk_8308;
+  objc_copyWeak(&v16, &location);
+  notify_register_dispatch(uTF8String, &self->_eltonPreferencesSyncToken, &_dispatch_main_q, handler);
+
+  uTF8String2 = [@"CSLCoverToMuteChangedNotification" UTF8String];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1250;
+  v13[3] = &unk_8308;
+  objc_copyWeak(&v14, &location);
+  notify_register_dispatch(uTF8String2, &self->_cslPreferencesSyncToken, &_dispatch_main_q, v13);
+
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WGAEltonBridgeSettingsController;
+  [(WGAEltonBridgeSettingsController *)&v4 viewDidAppear:appear];
+  [(WGAEltonBridgeSettingsController *)self reloadSpecifiers];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WGAEltonBridgeSettingsController;
+  [(WGAEltonBridgeSettingsController *)&v4 viewWillDisappear:disappear];
+  notify_cancel(self->_eltonPreferencesSyncToken);
+  notify_cancel(self->_cslPreferencesSyncToken);
 }
 
 - (id)specifiers
@@ -441,6 +500,17 @@ LABEL_11:
   v4 = [NSNumber numberWithBool:v3 & 1u | ((v6 & 1) == 0)];
 
   return v4;
+}
+
+- (void)_setCurrentCachedCoverToMuteEnablement:(BOOL)enablement
+{
+  [(NPSDomainAccessor *)self->_cslAccessor setBool:enablement forKey:@"WatchGestureCoverToMuteKey"];
+  synchronize = [(NPSDomainAccessor *)self->_cslAccessor synchronize];
+  v5 = objc_opt_new();
+  v8 = @"WatchGestureCoverToMuteKey";
+  v6 = [NSArray arrayWithObjects:&v8 count:1];
+  v7 = [NSSet setWithArray:v6];
+  [v5 synchronizeNanoDomain:@"com.apple.Carousel" keys:v7];
 }
 
 - (BOOL)_getCurrentCachedLocalCoverToMuteEnablement

@@ -131,7 +131,7 @@
   _Block_object_dispose(v17, 8);
 }
 
-void __37__CRKComposedStackView__updateLayout__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __37__CRKComposedStackView__updateLayout__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v8 = a2;
   v5 = 0.0;

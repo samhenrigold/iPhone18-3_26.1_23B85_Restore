@@ -22,34 +22,32 @@
 
 - (void)_setAssertionActive:(void *)active
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   if (active)
   {
     v4 = objc_alloc(MEMORY[0x1E69A2A00]);
     messageTargetUUID = [active messageTargetUUID];
     v6 = [v4 initWithTarget:messageTargetUUID];
 
-    v16[0] = @"HMAA.mk.state";
+    v15[0] = @"HMAA.mk.state";
     v7 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-    v16[1] = @"HMAA.mk.uuid";
-    v17[0] = v7;
+    v15[1] = @"HMAA.mk.uuid";
+    v16[0] = v7;
     uUID = [active UUID];
-    v17[1] = uUID;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v16[1] = uUID;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
     v10 = [objc_alloc(MEMORY[0x1E69A2A10]) initWithName:@"HMAA.m.updateState" destination:v6 payload:v9];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __43____HMActiveAssertion__setAssertionActive___block_invoke;
-    v14[3] = &__block_descriptor_33_e34_v24__0__NSError_8__NSDictionary_16l;
-    v15 = a2;
-    [v10 setResponseHandler:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __43____HMActiveAssertion__setAssertionActive___block_invoke;
+    v13[3] = &__block_descriptor_33_e34_v24__0__NSError_8__NSDictionary_16l;
+    v14 = a2;
+    [v10 setResponseHandler:v13];
     context = [active context];
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v10];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)acquire:(id *)acquire
@@ -75,7 +73,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ([(HMFAssertion *)self isValid])
   {
     v3 = objc_autoreleasePoolPush();
@@ -85,19 +83,18 @@
     {
       v6 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v10 = v6;
-      v11 = 2112;
-      v12 = selfCopy;
+      v9 = v6;
+      v10 = 2112;
+      v11 = selfCopy;
       _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_FAULT, "%{public}@Active assertion unexpectedly deallocated: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
 
-  v8.receiver = self;
-  v8.super_class = __HMActiveAssertion;
-  [(HMFAssertion *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = __HMActiveAssertion;
+  [(HMFAssertion *)&v7 dealloc];
 }
 
 - (__HMActiveAssertion)initWithName:(id)name context:(id)context messageTargetUUID:(id)d

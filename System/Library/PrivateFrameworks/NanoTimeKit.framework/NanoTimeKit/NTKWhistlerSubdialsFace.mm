@@ -51,8 +51,8 @@
 + (id)_complicationSlotDescriptors
 {
   v18[3] = *MEMORY[0x277D85DE8];
-  v2 = NTKAllSignatureCircularTypes();
-  v3 = NTKAllSignatureRectangularTypes();
+  v2 = NTKAllSignatureCircularTypes(self);
+  v3 = NTKAllSignatureRectangularTypes(v2);
   v4 = NTKComplicationTypeRankedListWithDefaultTypes(&unk_28418B7E8);
   currentDevice = [MEMORY[0x277CBBAE8] currentDevice];
   isRunningNapiliGMOrLater = [currentDevice isRunningNapiliGMOrLater];

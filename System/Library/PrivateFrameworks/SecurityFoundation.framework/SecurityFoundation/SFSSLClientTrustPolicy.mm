@@ -50,10 +50,7 @@
 
 - (void)setClientName:(id)name
 {
-  v4 = [name copy];
-  sslClientTrustPolicyInternal = self->_sslClientTrustPolicyInternal;
-  v6 = sslClientTrustPolicyInternal[1];
-  sslClientTrustPolicyInternal[1] = v4;
+  *(self->_sslClientTrustPolicyInternal + 1) = [name copy];
 
   MEMORY[0x2821F96F8]();
 }

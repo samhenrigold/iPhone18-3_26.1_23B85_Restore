@@ -18,13 +18,13 @@
 
 + (unint64_t)itfmModelTypeForSNLPComponent:(const int *)component
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   result = *component;
   if (result != 1)
   {
     if (result == 4)
     {
-      result = 2;
+      return 2;
     }
 
     else
@@ -36,25 +36,24 @@
         v7 = SNLPOSLoggerForCategory(4);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          v9 = 136315394;
-          v10 = "<UNDEFINED_COMPONENT>";
-          v11 = 2048;
-          v12 = v6;
-          _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", &v9, 0x16u);
+          v8 = 136315394;
+          v9 = "<UNDEFINED_COMPONENT>";
+          v10 = 2048;
+          v11 = v6;
+          _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", &v8, 0x16u);
         }
       }
 
-      result = 0;
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (BOOL)_insertToFeatureStoreWithJSONString:(id)string interactionIdentifier:(id)identifier streamIdentifier:(id)streamIdentifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   identifierCopy = identifier;
   streamIdentifierCopy = streamIdentifier;
@@ -64,17 +63,17 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v22 = identifierCopy;
-      v23 = 2112;
-      v24 = streamIdentifierCopy;
+      v21 = identifierCopy;
+      v22 = 2112;
+      v23 = streamIdentifierCopy;
       _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_DEBUG, "Inserting FeatureStore entry with interactionIdentifier=%@, streamIdentifier=%@", buf, 0x16u);
     }
 
     v11 = [MEMORY[0x277D08440] getWithStreamId:streamIdentifierCopy];
     v12 = [objc_alloc(MEMORY[0x277D08438]) initWithJsonStr:stringCopy interactionId:identifierCopy dataVersion:1];
-    v20 = 0;
-    v13 = [v11 insert:v12 error:&v20];
-    v14 = v20;
+    v19 = 0;
+    v13 = [v11 insert:v12 error:&v19];
+    v14 = v19;
     if ((v13 & 1) == 0)
     {
       v15 = SNLPOSLoggerForCategory(0);
@@ -88,7 +87,6 @@
     v13 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

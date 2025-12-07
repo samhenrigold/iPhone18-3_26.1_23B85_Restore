@@ -4,6 +4,8 @@
 + (id)openDatabaseAt:(id)at restoreSnapshotsDir:(id)dir snapshotUUID:(id)d error:(id *)error;
 - (BOOL)_addRemainingProgress:(id)progress forDomainID:(unint64_t)d domainName:(id)name readOnlyDB:(id)b error:(id *)error;
 - (BOOL)_ingest:(id)_ingest into:(id)into error:(id *)error;
+- (BOOL)_recordAssetState:(unint64_t)state inode:(unint64_t)inode domainID:(unint64_t)d failure:(id)failure restoreType:(int)type error:(id *)error;
+- (BOOL)_recordRestorableState:(unint64_t)state restorableID:(unint64_t)d domainID:(unint64_t)iD inode:(unint64_t)inode restoreType:(int)type error:(id *)error;
 - (BOOL)_skipDomainID:(unint64_t)d into:(id)into error:(id *)error;
 - (BOOL)_withReadOnlyDB:(id *)b accessor:(id)accessor;
 - (BOOL)_writeRestoreFailuresTo:(id *)to sortedNewLineSeparatedDomainNamesOut:(id *)out error:(id *)error;
@@ -13,16 +15,19 @@
 - (BOOL)enumerateBundleIDsWithPlaceholderIPAsWithError:(id *)error enumerator:(id)enumerator;
 - (BOOL)enumerateDomainNamesPendingRestoreWithError:(id *)error enumerator:(id)enumerator;
 - (BOOL)enumerateDomainsAndAttributes:(id *)attributes enumerator:(id)enumerator;
+- (BOOL)enumerateRestoreFailuresOfType:(int)type isFatal:(BOOL)fatal error:(id *)error enumerator:(id)enumerator;
 - (BOOL)fetchPendingRestoreSize:(int64_t *)size remainingFileCount:(int64_t *)count totalFileCount:(int64_t *)fileCount error:(id *)error;
 - (BOOL)incrementPriorityOfRestorableForDomain:(id)domain relativePath:(id)path error:(id *)error;
 - (BOOL)ingestFileListForDomainNamed:(id)named error:(id *)error;
 - (BOOL)skipDomains:(id)domains error:(id *)error;
 - (id)_atcPathsByDomainNameForPaths:(id)paths error:(id *)error;
 - (id)_domainSummary:(id *)summary fromReadOnly:(id)only;
+- (id)_failuresFor:(int)for isFatal:(BOOL)fatal domainsNamesOut:(id)out error:(id *)error;
 - (id)_initWithPath:(id)path restoreSnapshotsDir:(id)dir snapshotUUID:(id)d error:(id *)error;
 - (id)_upgradeFileListDBForDomainName:(id)name error:(id *)error;
 - (id)_validRWDatabase:(id *)database;
 - (id)atcRestorePlansForAbsolutePaths:(id)paths domainProvider:(id)provider error:(id *)error;
+- (id)planForDomain:(id)domain restoreType:(int)type error:(id *)error;
 - (id)restoreVerificationSummary:(id *)summary;
 - (id)topDomainsByAssetBytes:(unint64_t)bytes error:(id *)error;
 - (id)topDomainsByItemCount:(unint64_t)count error:(id *)error;
@@ -104,6 +109,34 @@
   }
 
   return v20;
+}
+
+- (id)_failuresFor:(int)for isFatal:(BOOL)fatal domainsNamesOut:(id)out error:(id *)error
+{
+  fatalCopy = fatal;
+  v8 = *&for;
+  outCopy = out;
+  +[NSMutableArray array];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10013CBBC;
+  v15[3] = &unk_1003BD4F0;
+  v11 = v16 = outCopy;
+  v17 = v11;
+  v12 = outCopy;
+  LODWORD(error) = [(MBRestorePlanDB *)self enumerateRestoreFailuresOfType:v8 isFatal:fatalCopy error:error enumerator:v15];
+
+  if (error)
+  {
+    v13 = v11;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 + (id)createDatabaseAt:(id)at restoreSnapshotsDir:(id)dir snapshotUUID:(id)d error:(id *)error
@@ -274,18 +307,17 @@
     {
       path = self->_path;
       *buf = 138412290;
-      v8 = path;
+      v7 = path;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "=plan= Database (%@) was not closed before dealloc", buf, 0xCu);
-      v5 = self->_path;
-      _MBLog();
+      _MBLog(@"E ", "=plan= Database (%@) was not closed before dealloc", self->_path);
     }
 
     [(MBRestorePlanDB *)self close:0];
   }
 
-  v6.receiver = self;
-  v6.super_class = MBRestorePlanDB;
-  [(MBRestorePlanDB *)&v6 dealloc];
+  v5.receiver = self;
+  v5.super_class = MBRestorePlanDB;
+  [(MBRestorePlanDB *)&v5 dealloc];
 }
 
 - (BOOL)close:(id *)close
@@ -312,7 +344,7 @@
         v15 = 2112;
         v16 = v8;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "=plan= Error closing %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=plan= Error closing %@: %@", selfCopy, v8);
       }
 
       if (close)
@@ -354,10 +386,9 @@
     {
       v7 = *database;
       *buf = 138412290;
-      v11 = v7;
+      v10 = v7;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "=plan= Restore plan is unexpectedly closed: %@", buf, 0xCu);
-      v9 = *database;
-      _MBLog();
+      _MBLog(@"E ", "=plan= Restore plan is unexpectedly closed: %@", *database);
     }
   }
 
@@ -386,7 +417,7 @@
     v24 = 2112;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=plan= Ingesting file list for %@ into %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"I ", "=plan= Ingesting file list for %@ into %@", v7, self);
   }
 
   v9 = [(MBRestorePlanDB *)self _validRWDatabase:error];
@@ -418,7 +449,7 @@
           *buf = 138412290;
           v23 = v15;
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=plan= Error detaching file list database: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "=plan= Error detaching file list database: %@", v15);
         }
       }
     }
@@ -533,7 +564,7 @@ LABEL_16:
         v19 = 2112;
         v20 = v12;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=plan= Error closing file list database %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=plan= Error closing file list database %@: %@", v9, v12);
       }
 
       v13 = 0;
@@ -546,6 +577,111 @@ LABEL_16:
   }
 
   return v13;
+}
+
+- (BOOL)_recordRestorableState:(unint64_t)state restorableID:(unint64_t)d domainID:(unint64_t)iD inode:(unint64_t)inode restoreType:(int)type error:(id *)error
+{
+  if (!d)
+  {
+    __assert_rtn("[MBRestorePlanDB _recordRestorableState:restorableID:domainID:inode:restoreType:error:]", "MBRestorePlanDB.m", 726, "restorableID");
+  }
+
+  if (!error)
+  {
+    __assert_rtn("[MBRestorePlanDB _recordRestorableState:restorableID:domainID:inode:restoreType:error:]", "MBRestorePlanDB.m", 727, "error");
+  }
+
+  if (!state)
+  {
+    return 1;
+  }
+
+  v10 = *&type;
+  v14 = [(MBRestorePlanDB *)self _validRWDatabase:error];
+  v15 = v14;
+  if (v14)
+  {
+    v25 = 0;
+    v16 = [v14 executeWithError:&v25 sql:{@"\n UPDATE Restorables\n    SET restoreState = %u\n  WHERE restorableID = %llu;", state, d}];
+    v17 = v25;
+    v18 = v17;
+    if (state == 6)
+    {
+      if (*error)
+      {
+        v19 = *error;
+        v20 = [NSNumber numberWithUnsignedLongLong:inode];
+        v21 = [NSNumber numberWithUnsignedLongLong:d];
+        [v15 _recordFailure:v19 domainID:iD restoreType:v10 inode:v20 restorableID:v21 error:error];
+      }
+
+      v22 = 0;
+    }
+
+    else
+    {
+      if ((v16 & 1) == 0)
+      {
+        v23 = v17;
+        *error = v18;
+      }
+
+      v22 = (state != 1) & v16;
+    }
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  return v22;
+}
+
+- (BOOL)_recordAssetState:(unint64_t)state inode:(unint64_t)inode domainID:(unint64_t)d failure:(id)failure restoreType:(int)type error:(id *)error
+{
+  v9 = *&type;
+  failureCopy = failure;
+  if (!inode)
+  {
+    __assert_rtn("[MBRestorePlanDB _recordAssetState:inode:domainID:failure:restoreType:error:]", "MBRestorePlanDB.m", 769, "inode");
+  }
+
+  if (!d)
+  {
+    __assert_rtn("[MBRestorePlanDB _recordAssetState:inode:domainID:failure:restoreType:error:]", "MBRestorePlanDB.m", 770, "domainID");
+  }
+
+  if (!error)
+  {
+    __assert_rtn("[MBRestorePlanDB _recordAssetState:inode:domainID:failure:restoreType:error:]", "MBRestorePlanDB.m", 771, "error");
+  }
+
+  v15 = failureCopy;
+  if (state)
+  {
+    v16 = [(MBRestorePlanDB *)self _validRWDatabase:error];
+    v17 = v16;
+    if (v16 && [v16 executeWithError:error sql:{@"\n UPDATE RestorableAssets\n    SET assetState = %u\n  WHERE domainID = %llu\n    AND inode = %llu", state, d, inode}])
+    {
+      if (state != 3 || !v15 || (+[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", inode), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v17 _recordFailure:v15 domainID:d restoreType:v9 inode:v18 restorableID:0 error:error], v18, v19))
+      {
+        LOBYTE(v19) = 1;
+      }
+    }
+
+    else
+    {
+      LOBYTE(v19) = 0;
+    }
+  }
+
+  else
+  {
+    LOBYTE(v19) = 1;
+  }
+
+  return v19;
 }
 
 - (BOOL)atcRestorableForAbsolutePath:(id)path error:(id *)error domainProvider:(id)provider restorableAccessor:(id)accessor
@@ -852,94 +988,88 @@ LABEL_18:
     __assert_rtn("[MBRestorePlanDB _addRemainingProgress:forDomainID:domainName:readOnlyDB:error:]", "MBRestorePlanDB.m", 1067, "error");
   }
 
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2020000000;
-  v58 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
   v15 = [bCopy fetchSQL:{@"\nSELECT assetSize\n FROM  RestorableAssets\n JOIN  Restorables ON\n      (RestorableAssets.inode = Restorables.inode\n   AND RestorableAssets.domainID = Restorables.domainID\n     )\n WHERE RestorableAssets.assetState = %u\n   AND Restorables.restoreState != %u\n   AND Restorables.restoreState != %u\n   AND RestorableAssets.domainID = %llu\n GROUP BY RestorableAssets.inode", 1, 2, 5, d}];;
-  v50[0] = _NSConcreteStackBlock;
-  v50[1] = 3221225472;
-  v50[2] = sub_10026D078;
-  v50[3] = &unk_1003C2B48;
-  v50[4] = &v55;
-  v50[5] = &v51;
-  v16 = [v15 enumerateWithError:error block:v50];
+  v44[0] = _NSConcreteStackBlock;
+  v44[1] = 3221225472;
+  v44[2] = sub_10026D078;
+  v44[3] = &unk_1003C2B48;
+  v44[4] = &v49;
+  v44[5] = &v45;
+  v16 = [v15 enumerateWithError:error block:v44];
 
   if (v16)
   {
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x2020000000;
-    v49 = 0;
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2020000000;
-    v45 = 0;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2020000000;
-    v37 = 0;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = 0;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v39 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2020000000;
+    v31 = 0;
     v17 = [v14 fetchSQL:{@"\n SELECT \n    IFNULL(SUM(IIF(type == %u, 1, 0)), 0), \n    IFNULL(SUM(IIF(type == %u, 1, 0)), 0), \n    IFNULL(SUM(IIF(type == %u AND restoreState == %u, 1, 0)), 0), \n    IFNULL(SUM(IIF(type == %u AND restoreState == %u, 1, 0)), 0)\n FROM   Restorables\n WHERE (restoreState = %u\n     OR restoreState = %u\n      )\n    AND domainID = %llu", 0x8000, 40960, 0x4000, 1, 0x4000, 4, 1, 4, d}];;
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_10026D12C;
-    v33[3] = &unk_1003C2B70;
-    v33[4] = &v46;
-    v33[5] = &v42;
-    v33[6] = &v38;
-    v33[7] = &v34;
-    v18 = [v17 enumerateWithError:error block:v33];
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_10026D12C;
+    v27[3] = &unk_1003C2B70;
+    v27[4] = &v40;
+    v27[5] = &v36;
+    v27[6] = &v32;
+    v27[7] = &v28;
+    v18 = [v17 enumerateWithError:error block:v27];
 
     if (v18)
     {
       v19 = MBGetDefaultLog();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v20 = v52[3];
-        v21 = v56[3];
-        v22 = v47[3];
-        v23 = v43[3];
-        v24 = v39[3];
-        v25 = v35[3];
+        v20 = v46[3];
+        v21 = v50[3];
+        v22 = v41[3];
+        v23 = v37[3];
+        v24 = v33[3];
+        v25 = v29[3];
         *buf = 134219522;
-        v60 = v20;
+        v54 = v20;
+        v55 = 2048;
+        v56 = v21;
+        v57 = 2048;
+        v58 = v22;
+        v59 = 2048;
+        v60 = v23;
         v61 = 2048;
-        v62 = v21;
+        v62 = v24;
         v63 = 2048;
-        v64 = v22;
-        v65 = 2048;
-        v66 = v23;
-        v67 = 2048;
-        v68 = v24;
-        v69 = 2048;
-        v70 = v25;
-        v71 = 2112;
-        v72 = nameCopy;
+        v64 = v25;
+        v65 = 2112;
+        v66 = nameCopy;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "=plan= Notifying progressModel of pending assetCount %llu assetSize %llu regCount %llu symlink %llu dir (%llu + %llu) for domain %@", buf, 0x48u);
-        v32 = v35[3];
-        v30 = v43[3];
-        v31 = v39[3];
-        v28 = v56[3];
-        v29 = v47[3];
-        v27 = v52[3];
-        _MBLog();
+        _MBLog(@"I ", "=plan= Notifying progressModel of pending assetCount %llu assetSize %llu regCount %llu symlink %llu dir (%llu + %llu) for domain %@", v46[3], v50[3], v41[3], v37[3], v33[3], v29[3], nameCopy);
       }
 
-      [progressCopy willTransferItemsWithSize:v56[3] count:v47[3] + v52[3] + v43[3] + 2 * v39[3] + v35[3]];
+      [progressCopy willTransferItemsWithSize:v50[3] count:v41[3] + v46[3] + v37[3] + 2 * v33[3] + v29[3]];
     }
 
-    _Block_object_dispose(&v34, 8);
-    _Block_object_dispose(&v38, 8);
-    _Block_object_dispose(&v42, 8);
-    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v40, 8);
   }
 
   else
@@ -947,8 +1077,8 @@ LABEL_18:
     v18 = 0;
   }
 
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v49, 8);
 
   return v18;
 }
@@ -971,6 +1101,50 @@ LABEL_18:
   v10 = [bCopy fetchCountWithError:error sql:{@"\n SELECT domainID\n   FROM Domains\n  WHERE domain = %@;", nameCopy}];
 
   return v10;
+}
+
+- (id)planForDomain:(id)domain restoreType:(int)type error:(id *)error
+{
+  v6 = *&type;
+  domainCopy = domain;
+  if (!domainCopy)
+  {
+    __assert_rtn("[MBRestorePlanDB planForDomain:restoreType:error:]", "MBRestorePlanDB.m", 1158, "domain");
+  }
+
+  if (!error)
+  {
+    __assert_rtn("[MBRestorePlanDB planForDomain:restoreType:error:]", "MBRestorePlanDB.m", 1159, "error");
+  }
+
+  v9 = domainCopy;
+  v10 = [(MBRestorePlanDB *)self _validRWDatabase:error];
+  if (v10)
+  {
+    name = [v9 name];
+    v18 = 0;
+    v12 = [(MBRestorePlanDB *)self _domainIDForDomainName:name inDB:v10 error:&v18];
+    v13 = v18;
+
+    if (v12 == 0x7FFFFFFFFFFFFFFFLL && ([v13 excludingNotFound], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
+    {
+      v15 = v13;
+      v16 = 0;
+      *error = v13;
+    }
+
+    else
+    {
+      v16 = [(_RestoreDomainPlanBase *)[_RestoreDomainPlanStandard alloc] _initWithParentPlan:self domain:v9 domainID:v12 restoreType:v6];
+    }
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
 }
 
 - (BOOL)_withReadOnlyDB:(id *)b accessor:(id)accessor
@@ -1042,6 +1216,40 @@ LABEL_18:
   v7[5] = count;
   v7[6] = fileCount;
   return [(MBRestorePlanDB *)self _withReadOnlyDB:error accessor:v7];
+}
+
+- (BOOL)enumerateRestoreFailuresOfType:(int)type isFatal:(BOOL)fatal error:(id *)error enumerator:(id)enumerator
+{
+  v8 = *&type;
+  enumeratorCopy = enumerator;
+  if (!v8)
+  {
+    __assert_rtn("[MBRestorePlanDB enumerateRestoreFailuresOfType:isFatal:error:enumerator:]", "MBRestorePlanDB.m", 1259, "restoreType");
+  }
+
+  if (!error)
+  {
+    __assert_rtn("[MBRestorePlanDB enumerateRestoreFailuresOfType:isFatal:error:enumerator:]", "MBRestorePlanDB.m", 1260, "error");
+  }
+
+  v11 = enumeratorCopy;
+  if (!enumeratorCopy)
+  {
+    __assert_rtn("[MBRestorePlanDB enumerateRestoreFailuresOfType:isFatal:error:enumerator:]", "MBRestorePlanDB.m", 1261, "enumerator");
+  }
+
+  [NSNumber numberWithUnsignedInt:v8];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10026DBF0;
+  v16[3] = &unk_1003C2BB8;
+  v17 = v19 = fatal;
+  v18 = v11;
+  v12 = v11;
+  v13 = v17;
+  v14 = [(MBRestorePlanDB *)self _withReadOnlyDB:error accessor:v16];
+
+  return v14;
 }
 
 - (unint64_t)fatalErrorCount:(id *)count

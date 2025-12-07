@@ -12,6 +12,7 @@
 - (id)tapToRadarMetadata;
 - (void)_contentSizeDidChange;
 - (void)_determinePresentationContextIfNeededWithHealthStore:(id)store;
+- (void)_endEditingAndDiscardChanges:(BOOL)changes;
 - (void)_requestWheelchairDiagnosticsSubmissionIfNecessary;
 - (void)_startEdit;
 - (void)didTapEditPregnancy;
@@ -321,9 +322,7 @@ LABEL_21:
 
 - (void)_contentSizeDidChange
 {
-  _makeFooterView = [(CHASActivitySetupMetricsCollectionViewController *)self _makeFooterView];
-  footerView = self->_footerView;
-  self->_footerView = _makeFooterView;
+  self->_footerView = [(CHASActivitySetupMetricsCollectionViewController *)self _makeFooterView];
 
   _objc_release_x1();
 }
@@ -500,6 +499,32 @@ LABEL_21:
   [navigationItem2 setLeftBarButtonItem:v11];
 
   [(FIUIHealthSettingsDataSource *)self->_healthSettingsDataSource startEditing];
+}
+
+- (void)_endEditingAndDiscardChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  if (self->_isNavigationBarHidden)
+  {
+    navigationController = [(CHASActivitySetupMetricsCollectionViewController *)self navigationController];
+    [navigationController setNavigationBarHidden:1 animated:0];
+  }
+
+  selectedCell = self->_selectedCell;
+  self->_selectedCell = 0;
+
+  view = [(CHASActivitySetupMetricsCollectionViewController *)self view];
+  [view endEditing:1];
+
+  navigationItem = [(CHASActivitySetupMetricsCollectionViewController *)self navigationItem];
+  [navigationItem setRightBarButtonItem:0];
+
+  navigationItem2 = [(CHASActivitySetupMetricsCollectionViewController *)self navigationItem];
+  [navigationItem2 setLeftBarButtonItem:0];
+
+  healthSettingsDataSource = self->_healthSettingsDataSource;
+
+  [(FIUIHealthSettingsDataSource *)healthSettingsDataSource endEditingAndDiscardChanges:changesCopy];
 }
 
 - (void)_requestWheelchairDiagnosticsSubmissionIfNecessary

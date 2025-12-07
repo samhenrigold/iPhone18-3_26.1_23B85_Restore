@@ -112,7 +112,7 @@ uint64_t __81__SBPosterBoardModalEditingManager_sendRequestDismissalActionWithEd
   animatedCopy = animated;
   controllerCopy = controller;
   completionCopy = completion;
-  if (([(NSMutableArray *)self->_presentedTransientOverlayControllers containsObject:controllerCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_presentedTransientOverlayControllers) & 1) == 0)
   {
     objc_initWeak(&location, self);
     v10 = +[SBWorkspace mainWorkspace];
@@ -154,7 +154,7 @@ void __95__SBPosterBoardModalEditingManager__presentTransientOverlayViewControll
   animatedCopy = animated;
   presentingCopy = presenting;
   completionCopy = completion;
-  if ([(NSMutableArray *)self->_presentedTransientOverlayControllers containsObject:presentingCopy])
+  if (objc_msgSend_containsObject_(self->_presentedTransientOverlayControllers))
   {
     objc_initWeak(&location, self);
     v10 = +[SBWorkspace mainWorkspace];

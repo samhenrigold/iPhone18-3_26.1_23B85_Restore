@@ -4,11 +4,13 @@
 - (void)clearInAppInterfaceForSkeletonPeerPaymentQuote:(id)quote withError:(id)error;
 - (void)presentContactlessInterfaceForPassWithUniqueIdentifier:(id)identifier fromSource:(int64_t)source completion:(id)completion;
 - (void)presentContinuityPaymentInterfaceWithRemotePaymentRequest:(id)request completion:(id)completion;
+- (void)presentInAppPaymentInterfaceWithPaymentRequest:(id)request awaitingRemoteNetworkPaymentRequest:(BOOL)paymentRequest forHostApplicationName:(id)name hostBundleIdentifier:(id)identifier hostProcessIdentifier:(int)processIdentifier hostIdentifier:(id)hostIdentifier orientation:(id)orientation completion:(id)self0;
 - (void)presentPasscodeUpgradeRequestWithChangeType:(unint64_t)type completion:(id)completion;
 - (void)presentProvisioningContinuityInterfaceForPassWithUniqueIdentifier:(id)identifier continuityType:(id)type transferToken:(id)token completion:(id)completion;
 - (void)presentSetupApplePayAlert:(id)alert;
 - (void)presentTransitTopUpValueSelectionForPassWithUniqueIdentifier:(id)identifier balanceField:(id)field completion:(id)completion;
 - (void)showInAppInterfaceWithSkeletonPeerPaymentQuote:(id)quote completion:(id)completion;
+- (void)tearDownPasscodeUpgradeRequestWithPasscodeChanged:(BOOL)changed error:(id)error;
 @end
 
 @implementation NPKRemoteInterfacePresenter
@@ -53,40 +55,40 @@
 
 void __35__NPKRemoteInterfacePresenter_init__block_invoke(uint64_t a1)
 {
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Remote interface presenter connection interrupted", v8, 2u);
+      v9[0] = 0;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Remote interface presenter connection interrupted", v9, 2u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v6 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = objc_loadWeakRetained(WeakRetained + 1);
-    [v7 remoteInterfacePresenterConnectionInterrupted:v6];
+    v8 = objc_loadWeakRetained(WeakRetained + 1);
+    [v8 remoteInterfacePresenterConnectionInterrupted:v7];
   }
 }
 
 void __35__NPKRemoteInterfacePresenter_init__block_invoke_85(uint64_t a1)
 {
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Remote interface presenter connection invalidated", buf, 2u);
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Remote interface presenter connection invalidated", buf, 2u);
     }
   }
 
@@ -94,9 +96,9 @@ void __35__NPKRemoteInterfacePresenter_init__block_invoke_85(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __35__NPKRemoteInterfacePresenter_init__block_invoke_86;
   block[3] = &unk_279945030;
-  objc_copyWeak(&v6, (a1 + 32));
+  objc_copyWeak(&v7, (a1 + 32));
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v6);
+  objc_destroyWeak(&v7);
 }
 
 void __35__NPKRemoteInterfacePresenter_init__block_invoke_86(uint64_t a1)
@@ -105,31 +107,66 @@ void __35__NPKRemoteInterfacePresenter_init__block_invoke_86(uint64_t a1)
   [WeakRetained setXpcConnection:0];
 }
 
+- (void)presentInAppPaymentInterfaceWithPaymentRequest:(id)request awaitingRemoteNetworkPaymentRequest:(BOOL)paymentRequest forHostApplicationName:(id)name hostBundleIdentifier:(id)identifier hostProcessIdentifier:(int)processIdentifier hostIdentifier:(id)hostIdentifier orientation:(id)orientation completion:(id)self0
+{
+  paymentRequestCopy = paymentRequest;
+  v35 = *MEMORY[0x277D85DE8];
+  requestCopy = request;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  orientationCopy = orientation;
+  hostIdentifierCopy = hostIdentifier;
+  nameCopy = name;
+  v21 = pk_General_log(nameCopy);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+
+  if (v22)
+  {
+    v24 = pk_General_log(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v32 = identifierCopy;
+      v33 = 2112;
+      v34 = requestCopy;
+      _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Notice: Request to present in-app payment interface for host application: %@ payment request: %@", buf, 0x16u);
+    }
+  }
+
+  xpcConnection = self->_xpcConnection;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __218__NPKRemoteInterfacePresenter_presentInAppPaymentInterfaceWithPaymentRequest_awaitingRemoteNetworkPaymentRequest_forHostApplicationName_hostBundleIdentifier_hostProcessIdentifier_hostIdentifier_orientation_completion___block_invoke;
+  v29[3] = &unk_279945218;
+  v30 = completionCopy;
+  v26 = completionCopy;
+  v27 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v29];
+  [v27 showInAppInterfaceWithPaymentRequest:requestCopy awaitingRemoteNetworkPaymentRequest:paymentRequestCopy forHostApplicationName:nameCopy hostBundleIdentifier:identifierCopy hostProcessIdentifier:processIdentifier hostIdentifier:hostIdentifierCopy orientation:orientationCopy activationHandler:v26];
+}
+
 void __218__NPKRemoteInterfacePresenter_presentInAppPaymentInterfaceWithPaymentRequest_awaitingRemoteNetworkPaymentRequest_forHostApplicationName_hostBundleIdentifier_hostProcessIdentifier_hostIdentifier_orientation_completion___block_invoke(uint64_t a1, void *a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = 138412290;
       v10 = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present in-app payment interface invoked: %@", &v9, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present in-app payment interface invoked: %@", &v9, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, 0, v3);
+    (*(v8 + 16))(v8, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentContinuityPaymentInterfaceWithRemotePaymentRequest:(id)request completion:(id)completion
@@ -137,17 +174,17 @@ void __218__NPKRemoteInterfacePresenter_presentInAppPaymentInterfaceWithPaymentR
   v19 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
-  v8 = pk_General_log();
+  v8 = pk_General_log(completionCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v18 = requestCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Request to present continuity payment interface for remote payment request: %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Request to present continuity payment interface for remote payment request: %@", buf, 0xCu);
     }
   }
 
@@ -157,38 +194,34 @@ void __218__NPKRemoteInterfacePresenter_presentInAppPaymentInterfaceWithPaymentR
   v15[2] = __100__NPKRemoteInterfacePresenter_presentContinuityPaymentInterfaceWithRemotePaymentRequest_completion___block_invoke;
   v15[3] = &unk_279945218;
   v16 = completionCopy;
-  v12 = completionCopy;
-  v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v15];
-  [v13 showInAppInterfaceWithRemotePaymentRequest:requestCopy activationHandler:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = completionCopy;
+  v14 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v15];
+  [v14 showInAppInterfaceWithRemotePaymentRequest:requestCopy activationHandler:v13];
 }
 
 void __100__NPKRemoteInterfacePresenter_presentContinuityPaymentInterfaceWithRemotePaymentRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = 138412290;
       v10 = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present continuity payment interface invoked: %@", &v9, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present continuity payment interface invoked: %@", &v9, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, 0);
+    (*(v8 + 16))(v8, 0);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showInAppInterfaceWithSkeletonPeerPaymentQuote:(id)quote completion:(id)completion
@@ -196,17 +229,17 @@ void __100__NPKRemoteInterfacePresenter_presentContinuityPaymentInterfaceWithRem
   v19 = *MEMORY[0x277D85DE8];
   quoteCopy = quote;
   completionCopy = completion;
-  v8 = pk_General_log();
+  v8 = pk_General_log(completionCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v18 = quoteCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Request to present in-app interface for skeleton peer payment quote: %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Request to present in-app interface for skeleton peer payment quote: %@", buf, 0xCu);
     }
   }
 
@@ -216,38 +249,34 @@ void __100__NPKRemoteInterfacePresenter_presentContinuityPaymentInterfaceWithRem
   v15[2] = __89__NPKRemoteInterfacePresenter_showInAppInterfaceWithSkeletonPeerPaymentQuote_completion___block_invoke;
   v15[3] = &unk_279945218;
   v16 = completionCopy;
-  v12 = completionCopy;
-  v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v15];
-  [v13 showInAppInterfaceWithSkeletonPeerPaymentQuote:quoteCopy activationHandler:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = completionCopy;
+  v14 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v15];
+  [v14 showInAppInterfaceWithSkeletonPeerPaymentQuote:quoteCopy activationHandler:v13];
 }
 
 void __89__NPKRemoteInterfacePresenter_showInAppInterfaceWithSkeletonPeerPaymentQuote_completion___block_invoke(uint64_t a1, void *a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = 138412290;
       v10 = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present in-app interface for skeleton peer payment quote invoked: %@", &v9, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present in-app interface for skeleton peer payment quote invoked: %@", &v9, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, 0);
+    (*(v8 + 16))(v8, 0);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearInAppInterfaceForSkeletonPeerPaymentQuote:(id)quote withError:(id)error
@@ -255,47 +284,43 @@ void __89__NPKRemoteInterfacePresenter_showInAppInterfaceWithSkeletonPeerPayment
   v17 = *MEMORY[0x277D85DE8];
   quoteCopy = quote;
   errorCopy = error;
-  v8 = pk_General_log();
+  v8 = pk_General_log(errorCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138412546;
       v14 = quoteCopy;
       v15 = 2112;
       v16 = errorCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Request to clear skeleton peer payment quote: %@ error: %@", &v13, 0x16u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Request to clear skeleton peer payment quote: %@ error: %@", &v13, 0x16u);
     }
   }
 
-  v11 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_16];
-  [v11 clearInAppInterfaceForSkeletonPeerPaymentQuote:quoteCopy withError:errorCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_16];
+  [v12 clearInAppInterfaceForSkeletonPeerPaymentQuote:quoteCopy withError:errorCopy];
 }
 
 void __88__NPKRemoteInterfacePresenter_clearInAppInterfaceForSkeletonPeerPaymentQuote_withError___block_invoke(uint64_t a1, void *a2)
 {
   v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = 138412290;
       v8 = v2;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for clear peer payment quote invoked: %@", &v7, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for clear peer payment quote invoked: %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentSetupApplePayAlert:(id)alert
@@ -306,27 +331,25 @@ void __88__NPKRemoteInterfacePresenter_clearInAppInterfaceForSkeletonPeerPayment
   v5 = dictionary;
   if (alertCopy)
   {
-    [dictionary setObject:alertCopy forKey:@"AppName"];
+    dictionary = [dictionary setObject:alertCopy forKey:@"AppName"];
   }
 
-  v6 = pk_General_log();
+  v6 = pk_General_log(dictionary);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = alertCopy;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Request to present set up Apple Pay alert for %@", &v11, 0xCu);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Request to present set up Apple Pay alert for %@", &v11, 0xCu);
     }
   }
 
   defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
   [defaultCenter postNotificationName:@"com.apple.NanoPassKit.PresentApplePaySetupAlert" object:0 userInfo:v5];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentPasscodeUpgradeRequestWithChangeType:(unint64_t)type completion:(id)completion
@@ -341,42 +364,47 @@ void __86__NPKRemoteInterfacePresenter_presentPasscodeUpgradeRequestWithChangeTy
 {
   v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = 138412290;
       v8 = v2;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present passcode upgrade request invoked: %@", &v7, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present passcode upgrade request invoked: %@", &v7, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)tearDownPasscodeUpgradeRequestWithPasscodeChanged:(BOOL)changed error:(id)error
+{
+  changedCopy = changed;
+  xpcConnection = self->_xpcConnection;
+  errorCopy = error;
+  v7 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_94];
+  [v7 tearDownPasscodeUpgradeRequestWithPasscodeChanged:changedCopy error:errorCopy];
 }
 
 void __87__NPKRemoteInterfacePresenter_tearDownPasscodeUpgradeRequestWithPasscodeChanged_error___block_invoke(uint64_t a1, void *a2)
 {
   v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = 138412290;
       v8 = v2;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for tear down passcode upgrade request invoked: %@", &v7, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for tear down passcode upgrade request invoked: %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentContactlessInterfaceForPassWithUniqueIdentifier:(id)identifier fromSource:(int64_t)source completion:(id)completion
@@ -392,21 +420,19 @@ void __108__NPKRemoteInterfacePresenter_presentContactlessInterfaceForPassWithUn
 {
   v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = 138412290;
       v8 = v2;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present contactless interface upgrade request invoked: %@", &v7, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present contactless interface upgrade request invoked: %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentProvisioningContinuityInterfaceForPassWithUniqueIdentifier:(id)identifier continuityType:(id)type transferToken:(id)token completion:(id)completion
@@ -424,21 +450,19 @@ void __137__NPKRemoteInterfacePresenter_presentProvisioningContinuityInterfaceFo
 {
   v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = 138412290;
       v8 = v2;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present provisioning continuity car key interface invoked: %@", &v7, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present provisioning continuity car key interface invoked: %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentTransitTopUpValueSelectionForPassWithUniqueIdentifier:(id)identifier balanceField:(id)field completion:(id)completion
@@ -455,21 +479,19 @@ void __116__NPKRemoteInterfacePresenter_presentTransitTopUpValueSelectionForPass
 {
   v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = 138412290;
       v8 = v2;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present top up value selection interface invoked: %@", &v7, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present top up value selection interface invoked: %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NPKRemoteInterfacePresenterDelegate)delegate

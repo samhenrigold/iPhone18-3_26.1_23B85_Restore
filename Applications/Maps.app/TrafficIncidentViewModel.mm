@@ -28,7 +28,7 @@
 
 - (void)incidentsReportingEnablementDidUpdate
 {
-  v3 = sub_1000CE6B8(&unk_10190BA50);
+  v3 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v3 - 8);
   v5 = &v11 - v4;
   v6 = type metadata accessor for TaskPriority();

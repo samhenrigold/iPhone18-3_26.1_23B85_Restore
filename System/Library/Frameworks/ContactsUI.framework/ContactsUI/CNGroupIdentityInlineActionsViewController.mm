@@ -217,8 +217,8 @@
 {
   itemCopy = item;
   group = [(CNGroupIdentityInlineActionsViewController *)self group];
-  contacts = [group contacts];
-  v7 = [contacts count];
+  v6 = objc_msgSend_contacts(group);
+  v7 = [v6 count];
 
   allActionTypes = [MEMORY[0x1E6996BE8] allActionTypes];
   actionType = [itemCopy actionType];
@@ -298,16 +298,16 @@
 - (void)setGroup:(id)group
 {
   groupCopy = group;
-  contacts = [(CNGroupIdentity *)self->_group contacts];
-  contacts2 = [groupCopy contacts];
-  v7 = [contacts _cn_isIdenticalToArray:contacts2];
+  v5 = objc_msgSend_contacts(self->_group);
+  v6 = objc_msgSend_contacts(groupCopy);
+  v7 = [v5 _cn_isIdenticalToArray:v6];
 
   if ((v7 & 1) == 0)
   {
     objc_storeStrong(&self->_group, group);
-    contacts3 = [groupCopy contacts];
+    v8 = objc_msgSend_contacts(groupCopy);
     inlineActionsViewController = [(CNGroupIdentityInlineActionsViewController *)self inlineActionsViewController];
-    [inlineActionsViewController setContacts:contacts3];
+    [inlineActionsViewController setContacts:v8];
   }
 }
 
@@ -357,8 +357,8 @@
     [(CNContactInlineActionsViewController *)v10->_inlineActionsViewController setSupportedActionTypes:v19];
     [(CNContactInlineActionsViewController *)v10->_inlineActionsViewController setObjectViewControllerDelegate:v10];
     [(CNContactInlineActionsViewController *)v10->_inlineActionsViewController setDisplaysTitles:1];
-    contacts = [identityCopy contacts];
-    [(CNContactInlineActionsViewController *)v10->_inlineActionsViewController setContacts:contacts];
+    v20 = objc_msgSend_contacts(identityCopy);
+    [(CNContactInlineActionsViewController *)v10->_inlineActionsViewController setContacts:v20];
 
     actionsPerType = [configurationCopy actionsPerType];
     allValues = [actionsPerType allValues];

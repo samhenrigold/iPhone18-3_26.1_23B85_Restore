@@ -234,7 +234,7 @@
         v43 = v42;
         if (v95)
         {
-          [v95 targetInverseTransformInRoot];
+          objc_msgSend_targetInverseTransformInRoot(v95);
         }
 
         else
@@ -715,7 +715,7 @@ LABEL_17:
     ty = self->_wrapSpaceToCanvasSpace.ty;
     if (v72)
     {
-      [v72 targetInverseTransformInRoot];
+      objc_msgSend_targetInverseTransformInRoot(v72);
       v50 = v78.b;
       v49 = v78.d;
       v48 = v78.ty;

@@ -380,7 +380,7 @@ void __28__CKMediaObjectManager_init__block_invoke_3(uint64_t a1, void *a2)
 
 - (id)mediaObjectWithTransferGUID:(id)d imMessage:(id)message chatContext:(id)context
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dCopy = d;
   messageCopy = message;
   contextCopy = context;
@@ -412,7 +412,7 @@ void __28__CKMediaObjectManager_init__block_invoke_3(uint64_t a1, void *a2)
     {
       localURL = [v13 localURL];
       *buf = 138412290;
-      v39 = localURL;
+      v45 = localURL;
       _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_INFO, "imFileTransfer localURL: %@, transfer fileURL: NULL", buf, 0xCu);
     }
   }
@@ -497,9 +497,9 @@ LABEL_17:
     {
       guid = [v11 guid];
       *buf = 138412546;
-      v39 = v32;
-      v40 = 2112;
-      v41 = guid;
+      v45 = v32;
+      v46 = 2112;
+      v47 = guid;
       _os_log_impl(&dword_19020E000, v33, OS_LOG_TYPE_DEBUG, "Create mediaObject %@ for transfer %@.", buf, 0x16u);
     }
   }
@@ -507,7 +507,7 @@ LABEL_17:
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
     guid2 = [v11 guid];
-    _CKLog();
+    _CKLog(0x2Eu, @"Create mediaObject %@ for transfer %@.", v35, v36, v37, v38, v39, v40, v32);
   }
 
   return v32;
@@ -515,7 +515,7 @@ LABEL_17:
 
 - (id)mediaObjectWithData:(id)data UTIType:(id)type filename:(id)filename transcoderUserInfo:(id)info
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   typeCopy = type;
   filenameCopy = filename;
@@ -539,25 +539,24 @@ LABEL_17:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v37 = v16;
+        v53 = v16;
         _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_DEBUG, "No filename. Generated filename: %@.", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v33 = v16;
-      _CKLog();
+      _CKLog(0x2Eu, @"No filename. Generated filename: %@.", v21, v22, v23, v24, v25, v26, v16);
     }
   }
 
-  if ([(CKMediaObjectManager *)self _attachmentDataTooLargeToSend:dataCopy utiType:typeCopy, v33])
+  if ([(CKMediaObjectManager *)self _attachmentDataTooLargeToSend:dataCopy utiType:typeCopy])
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter postNotificationName:@"CKTransferFileTooLargeNotification" object:0 userInfo:0];
 
 LABEL_13:
-    v22 = 0;
+    v28 = 0;
     goto LABEL_25;
   }
 
@@ -566,71 +565,70 @@ LABEL_13:
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(46);
-      v32 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v44 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v37 = v16;
-        v38 = 2112;
-        v39 = typeCopy;
-        _os_log_impl(&dword_19020E000, v32, OS_LOG_TYPE_INFO, "No data for media %@ of type %@", buf, 0x16u);
+        v53 = v16;
+        v54 = 2112;
+        v55 = typeCopy;
+        _os_log_impl(&dword_19020E000, v44, OS_LOG_TYPE_INFO, "No data for media %@ of type %@", buf, 0x16u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(0x2Eu, @"No data for media %@ of type %@", v45, v46, v47, v48, v49, v50, v16);
     }
 
     goto LABEL_13;
   }
 
-  v23 = CKAttachmentTmpFileURL(v16);
+  v29 = CKAttachmentTmpFileURL(v16);
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(46);
-    v24 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v30 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v37 = v23;
-      _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_DEBUG, "Write media data to %@ for transfer.", buf, 0xCu);
+      v53 = v29;
+      _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_DEBUG, "Write media data to %@ for transfer.", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v34 = v23;
-    _CKLog();
+    _CKLog(0x2Eu, @"Write media data to %@ for transfer.", v31, v32, v33, v34, v35, v36, v29);
   }
 
   fileManager = [(CKMediaObjectManager *)self fileManager];
-  uRLByDeletingLastPathComponent = [v23 URLByDeletingLastPathComponent];
+  uRLByDeletingLastPathComponent = [v29 URLByDeletingLastPathComponent];
   [fileManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
 
-  CKFreeSpaceWriteDataToURL(dataCopy, v23, 1);
-  v27 = IMIsScreenshotURL();
-  if (v27)
+  CKFreeSpaceWriteDataToURL(dataCopy, v29, 1);
+  v39 = IMIsScreenshotURL();
+  if (v39)
   {
-    LOBYTE(v27) = [MEMORY[0x1E69A80C0] isCroppingAvoidanceEnabled];
+    LOBYTE(v39) = [MEMORY[0x1E69A80C0] isCroppingAvoidanceEnabled];
   }
 
-  LOBYTE(v35) = v27;
-  v28 = [(CKMediaObjectManager *)self transferWithFileURL:v23 transcoderUserInfo:infoCopy attributionInfo:0 adaptiveImageGlyphContentIdentifier:0 adaptiveImageGlyphContentDescription:0 hideAttachment:0 isScreenshot:v35];
-  guid = [v28 guid];
+  LOBYTE(v51) = v39;
+  v40 = [(CKMediaObjectManager *)self transferWithFileURL:v29 transcoderUserInfo:infoCopy attributionInfo:0 adaptiveImageGlyphContentIdentifier:0 adaptiveImageGlyphContentDescription:0 hideAttachment:0 isScreenshot:v51];
+  guid = [v40 guid];
   transfers = [(CKMediaObjectManager *)self transfers];
-  [transfers setObject:v28 forKey:guid];
+  [transfers setObject:v40 forKey:guid];
 
-  v22 = [(CKMediaObjectManager *)self mediaObjectWithTransferGUID:guid imMessage:0];
+  v28 = [(CKMediaObjectManager *)self mediaObjectWithTransferGUID:guid imMessage:0];
 
 LABEL_25:
 
-  return v22;
+  return v28;
 }
 
 - (id)mediaObjectWithFileURL:(id)l filename:(id)filename fileIsResolved:(BOOL)resolved transcoderUserInfo:(id)info attributionInfo:(id)attributionInfo adaptiveImageGlyphContentIdentifier:(id)identifier adaptiveImageGlyphContentDescription:(id)description hideAttachment:(BOOL)self0 isScreenshot:(BOOL)self1
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   lCopy = l;
   filenameCopy = filename;
   infoCopy = info;
@@ -656,89 +654,87 @@ LABEL_25:
       if (IMOSLoggingEnabled())
       {
         CKLogCStringForType(46);
-        v28 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v34 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v50 = filenameCopy;
-          _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_DEBUG, "No filename given, extracting the filename %@ from fileURL.", buf, 0xCu);
+          v73 = filenameCopy;
+          _os_log_impl(&dword_19020E000, v34, OS_LOG_TYPE_DEBUG, "No filename given, extracting the filename %@ from fileURL.", buf, 0xCu);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        v44 = filenameCopy;
-        _CKLog();
+        _CKLog(0x2Eu, @"No filename given, extracting the filename %@ from fileURL.", v35, v36, v37, v38, v39, v40, filenameCopy);
       }
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(46);
-      v29 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v41 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         uRLByResolvingSymlinksInPath = [lCopy URLByResolvingSymlinksInPath];
         *buf = 138412546;
-        v50 = lCopy;
-        v51 = 2112;
-        v52 = uRLByResolvingSymlinksInPath;
-        _os_log_impl(&dword_19020E000, v29, OS_LOG_TYPE_DEBUG, "Resolving %@ to %@.", buf, 0x16u);
+        v73 = lCopy;
+        v74 = 2112;
+        v75 = uRLByResolvingSymlinksInPath;
+        _os_log_impl(&dword_19020E000, v41, OS_LOG_TYPE_DEBUG, "Resolving %@ to %@.", buf, 0x16u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      [lCopy URLByResolvingSymlinksInPath];
-      v46 = v44 = lCopy;
-      _CKLog();
+      uRLByResolvingSymlinksInPath2 = [lCopy URLByResolvingSymlinksInPath];
+      _CKLog(0x2Eu, @"Resolving %@ to %@.", v43, v44, v45, v46, v47, v48, lCopy);
     }
 
     if (!resolved)
     {
-      uRLByResolvingSymlinksInPath2 = [lCopy URLByResolvingSymlinksInPath];
+      uRLByResolvingSymlinksInPath3 = [lCopy URLByResolvingSymlinksInPath];
 
-      lCopy = uRLByResolvingSymlinksInPath2;
+      lCopy = uRLByResolvingSymlinksInPath3;
     }
 
     path2 = [lCopy path];
-    v33 = [fileManager fileExistsAtPath:path2];
+    v51 = [fileManager fileExistsAtPath:path2];
 
-    if (v33)
+    if (v51)
     {
-      v34 = CKAttachmentTmpFileURL(filenameCopy);
-      path3 = [v34 path];
-      v36 = [fileManager fileExistsAtPath:path3];
+      v52 = CKAttachmentTmpFileURL(filenameCopy);
+      path3 = [v52 path];
+      v54 = [fileManager fileExistsAtPath:path3];
 
-      if ((v36 & 1) == 0)
+      if ((v54 & 1) == 0)
       {
-        uRLByDeletingLastPathComponent = [v34 URLByDeletingLastPathComponent];
+        uRLByDeletingLastPathComponent = [v52 URLByDeletingLastPathComponent];
         [fileManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
 
         if (resolved)
         {
-          [(CKMediaObjectManager *)self _copyResolvedFileURL:lCopy toURL:v34];
+          [(CKMediaObjectManager *)self _copyResolvedFileURL:lCopy toURL:v52];
         }
 
         else
         {
-          [fileManager copyItemAtURL:lCopy toURL:v34 error:0];
+          [fileManager copyItemAtURL:lCopy toURL:v52 error:0];
         }
       }
 
-      v39 = IMIsScreenshotURL();
-      if (v39)
+      v63 = IMIsScreenshotURL();
+      if (v63)
       {
-        LOBYTE(v39) = [MEMORY[0x1E69A80C0] isCroppingAvoidanceEnabled];
+        LOBYTE(v63) = [MEMORY[0x1E69A80C0] isCroppingAvoidanceEnabled];
       }
 
-      LOBYTE(v45) = v39;
-      v40 = [(CKMediaObjectManager *)self transferWithFileURL:v34 transcoderUserInfo:infoCopy attributionInfo:attributionInfoCopy adaptiveImageGlyphContentIdentifier:identifierCopy adaptiveImageGlyphContentDescription:descriptionCopy hideAttachment:attachment isScreenshot:v45];
-      guid = [v40 guid];
+      LOBYTE(v68) = v63;
+      v64 = [(CKMediaObjectManager *)self transferWithFileURL:v52 transcoderUserInfo:infoCopy attributionInfo:attributionInfoCopy adaptiveImageGlyphContentIdentifier:identifierCopy adaptiveImageGlyphContentDescription:descriptionCopy hideAttachment:attachment isScreenshot:v68, uRLByResolvingSymlinksInPath2];
+      guid = [v64 guid];
       transfers = [(CKMediaObjectManager *)self transfers];
-      [transfers setObject:v40 forKey:guid];
+      [transfers setObject:v64 forKey:guid];
 
-      v26 = [(CKMediaObjectManager *)self mediaObjectWithTransferGUID:guid imMessage:0];
+      v32 = [(CKMediaObjectManager *)self mediaObjectWithTransferGUID:guid imMessage:0];
     }
 
     else
@@ -746,21 +742,21 @@ LABEL_25:
       if (IMOSLoggingEnabled())
       {
         CKLogCStringForType(46);
-        v38 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+        v56 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v50 = lCopy;
-          _os_log_impl(&dword_19020E000, v38, OS_LOG_TYPE_INFO, "No file for media at %@", buf, 0xCu);
+          v73 = lCopy;
+          _os_log_impl(&dword_19020E000, v56, OS_LOG_TYPE_INFO, "No file for media at %@", buf, 0xCu);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
       {
-        _CKLogExternal();
+        _CKLogExternal(0x2Eu, @"No file for media at %@", v57, v58, v59, v60, v61, v62, lCopy);
       }
 
-      v26 = 0;
+      v32 = 0;
     }
   }
 
@@ -779,13 +775,13 @@ LABEL_25:
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x2Eu, @"fileURL is NIL can't create media object", v26, v27, v28, v29, v30, v31, v68);
     }
 
-    v26 = 0;
+    v32 = 0;
   }
 
-  return v26;
+  return v32;
 }
 
 - (void)_copyResolvedFileURL:(id)l toURL:(id)rL
@@ -1434,7 +1430,7 @@ LABEL_49:
 
 - (void)_previewGenerationSucceededNotification:(id)notification
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   if ([MEMORY[0x1E69A7FF8] ignorePreviewGenerationNotifications])
@@ -1453,38 +1449,38 @@ LABEL_49:
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x2Eu, @"Preview generation succeeded for transfer %@, but ignoring due to override", v6, v7, v8, v9, v10, v11, object);
     }
   }
 
   else
   {
     userInfo = [notificationCopy userInfo];
-    v7 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69A8470]];
-    v8 = v7;
+    v13 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69A8470]];
+    v14 = v13;
     *buf = 0uLL;
-    if (v7)
+    if (v13)
     {
-      [v7 getValue:buf size:16];
-      v9 = *&buf[8];
-      v10 = *buf;
+      [v13 getValue:buf size:16];
+      v15 = *&buf[8];
+      v16 = *buf;
     }
 
     else
     {
-      v9 = 0.0;
-      v10 = 0.0;
+      v15 = 0.0;
+      v16 = 0.0;
     }
 
     mEMORY[0x1E69A5B50] = [MEMORY[0x1E69A5B50] sharedInstance];
     remoteDaemon = [mEMORY[0x1E69A5B50] remoteDaemon];
-    [remoteDaemon successfullyGeneratedPreviewForTransfer:object withPreviewSize:{v10, v9}];
+    [remoteDaemon successfullyGeneratedPreviewForTransfer:object withPreviewSize:{v16, v15}];
   }
 }
 
 - (void)_previewGenerationFailedNotification:(id)notification
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   if ([MEMORY[0x1E69A7FF8] ignorePreviewGenerationNotifications])
@@ -1496,14 +1492,14 @@ LABEL_49:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v9 = object;
+        v15 = object;
         _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_DEBUG, "Preview generation failed for transfer %@, but ignoring due to override", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x2Eu, @"Preview generation failed for transfer %@, but ignoring due to override", v6, v7, v8, v9, v10, v11, object);
     }
   }
 

@@ -1,9 +1,9 @@
-void sub_2434D3D04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2434D3D04(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = VCProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -746,8 +746,9 @@ void _estimateGaussianWeights(int a1, float *a2, float a3)
   }
 }
 
-void _getLineToRectIntersectionPoints(int8x8_t *a1, float32x2_t a2, int32x2_t a3, double a4, double a5, double a6, double a7)
+void _getLineToRectIntersectionPoints(int8x8_t *a1, float32x2_t a2, __n128 a3, double a4, double a5, double a6, double a7)
 {
+  v10 = a3.n128_u64[0];
   v12.f32[0] = a4;
   v21 = v12.i32[0];
   *&v13 = a5;
@@ -757,14 +758,14 @@ void _getLineToRectIntersectionPoints(int8x8_t *a1, float32x2_t a2, int32x2_t a3
   v19 = v14.i32[0];
   v14.i32[1] = v13;
   v17 = v14;
-  *a1 = _getlineToLineIntersectionPoint(a2, a3, v12, v14);
+  *a1 = _getlineToLineIntersectionPoint(a2, a3.n128_u64[0], v12, v14);
   *&v15 = a5 + a7;
   v16 = v15;
   v20 = __PAIR64__(v15, v19);
-  a1[1] = _getlineToLineIntersectionPoint(a2, a3, v17, v20);
+  a1[1] = _getlineToLineIntersectionPoint(a2, v10, v17, v20);
   v22 = __PAIR64__(v16, v21);
-  a1[2] = _getlineToLineIntersectionPoint(a2, a3, v20, v22);
-  a1[3] = _getlineToLineIntersectionPoint(a2, a3, v22, v18);
+  a1[2] = _getlineToLineIntersectionPoint(a2, v10, v20, v22);
+  a1[3] = _getlineToLineIntersectionPoint(a2, v10, v22, v18);
 }
 
 double simd_matrix3x3(float32x4_t a1)
@@ -802,7 +803,7 @@ int8x8_t _getlineToLineIntersectionPoint(float32x2_t a1, int32x2_t a2, float32x2
   *v5.f32 = vsub_f32(vzip1_s32(a3, a1), vzip1_s32(a4, a2));
   v6 = vzip2_s32(a4, a2);
   *v7.f32 = vsub_f32(vzip2_s32(a3, a1), v6);
-  v6.f32[0] = (-v7.f32[1] * v5.f32[0]) + (v5.f32[1] * v7.f32[0]);
+  *v6.i32 = (-v7.f32[1] * v5.f32[0]) + (v5.f32[1] * v7.f32[0]);
   v7.i64[1] = v7.i64[0];
   v5.i64[1] = v5.i64[0];
   v8 = vmlaq_n_f32(vmulq_n_f32(v5, -*&v4.i32[1]), v7, *v4.i32);
@@ -888,7 +889,7 @@ float ComputeSizeToFitSubjectsInDeadband(float result, double a2, double _D2, do
   v9 = *(&_D2 + 1);
   __asm { FMLS            S5, S0, V2.S[1] }
 
-  v13.f32[0] = fmaxf(*&a2, *&a7);
+  *v13.i32 = fmaxf(*&a2, *&a7);
   v13.i32[1] = fminf(*(&a2 + 1), *&_D5);
   _NF = *&_D5 < *&a2;
   v14 = vdup_lane_s32(*&_D5, 0);
@@ -911,7 +912,7 @@ float ComputeSizeToFitSubjectsInDeadband(float result, double a2, double _D2, do
     __asm { FMLS            S7, S0, V2.S[1] }
 
     _NF = *&_D7 < *&a2;
-    v18.f32[0] = fmaxf(*&a2, *&a7);
+    *v18.i32 = fmaxf(*&a2, *&a7);
     v18.i32[1] = fminf(*(&a2 + 1), *&_D7);
     v19 = COERCE_DOUBLE(vdup_lane_s32(*&_D7, 0));
     v20 = COERCE_DOUBLE(vdup_lane_s32(*&a7, 0));
@@ -1148,7 +1149,7 @@ uint64_t cachedTexturesFromPixelBuffer(__CVBuffer *a1, uint64_t a2, __CVMetalTex
   image = 0;
   if (!a1)
   {
-    cachedTexturesFromPixelBuffer_cold_6();
+    cachedTexturesFromPixelBuffer_cold_6(0, a2, a3);
 LABEL_76:
     v7 = 0;
     v8 = 4294954516;
@@ -1749,10 +1750,10 @@ float32x2_t undistortPoint(float32x2_t *a1, float32x2_t a2)
   v7 = a1[16].i32[1];
   v8 = vmul_f32(vcvt_f32_s32(v6), 0x3F0000003F000000);
   v9 = vmul_f32(v8, v8);
-  v9.f32[0] = sqrtf(vaddv_f32(v9));
-  v10 = (v9.f32[0] - v7);
+  *v9.i32 = sqrtf(vaddv_f32(v9));
+  v10 = (*v9.i32 - v7);
   v11 = COERCE_FLOAT(*a1) / 2;
-  if (v9.f32[0] <= v7)
+  if (*v9.i32 <= v7)
   {
     v10 = 0;
   }
@@ -1787,8 +1788,8 @@ float32x2_t undistortPoint(float32x2_t *a1, float32x2_t a2)
   }
 
   v16 = vaddv_f32(vmul_f32(v4, v4));
-  v9.f32[0] = sqrtf(v16);
-  if (v9.f32[0] > v15)
+  *v9.i32 = sqrtf(v16);
+  if (*v9.i32 > v15)
   {
     v4 = vmul_n_f32(vdiv_f32(v4, vdup_lane_s32(v9, 0)), v15);
     v16 = vaddv_f32(vmul_f32(v4, v4));
@@ -1848,24 +1849,24 @@ uint64_t isDeskCamAllowedCamera(void *a1)
 
 BOOL _isRectAlmostEqual(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, float a9)
 {
-  v27 = CGRectIntersection(*&a1, *&a5);
-  v24 = v27.size.width * v27.size.height;
-  if (v24 == 0.0)
+  v19 = CGRectIntersection(*&a1, *&a5);
+  v16 = v19.size.width * v19.size.height;
+  if (v16 == 0.0)
   {
     return 0;
   }
 
-  v28.origin.x = a1;
-  v28.origin.y = a2;
-  v28.size.width = a3;
-  v28.size.height = a4;
-  v30.origin.x = a5;
-  v30.origin.y = a6;
-  v30.size.width = a7;
-  v30.size.height = a8;
-  v29 = CGRectUnion(v28, v30);
-  *&v29.origin.x = v29.size.width * v29.size.height;
-  return (v24 / *&v29.origin.x) >= a9;
+  v20.origin.x = a1;
+  v20.origin.y = a2;
+  v20.size.width = a3;
+  v20.size.height = a4;
+  v22.origin.x = a5;
+  v22.origin.y = a6;
+  v22.size.width = a7;
+  v22.size.height = a8;
+  v21 = CGRectUnion(v20, v22);
+  *&v21.origin.x = v21.size.width * v21.size.height;
+  return (v16 / *&v21.origin.x) >= a9;
 }
 
 id getVisionCoreProcessingDescriptorClass()
@@ -1892,9 +1893,9 @@ id getVisionCoreProcessingDescriptorClass()
   return v1;
 }
 
-void sub_2434E81C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2434E81C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1925,14 +1926,14 @@ id getVisionCoreInferenceNetworkIdentifierCamGaze()
   return v2;
 }
 
-void sub_2434E82C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2434E82C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t VisionCoreLibraryCore()
+uint64_t VisionCoreLibraryCore(uint64_t a1)
 {
   if (!VisionCoreLibraryCore_frameworkLibrary)
   {
@@ -1942,7 +1943,7 @@ uint64_t VisionCoreLibraryCore()
   return VisionCoreLibraryCore_frameworkLibrary;
 }
 
-uint64_t __VisionCoreLibraryCore_block_invoke()
+uint64_t __VisionCoreLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionCoreLibraryCore_frameworkLibrary = result;
@@ -1973,9 +1974,9 @@ id getVisionCoreResourceVersionClass()
   return v1;
 }
 
-void sub_2434E88F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2434E88F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1996,14 +1997,20 @@ Class __getVisionCoreResourceVersionClass_block_invoke(uint64_t a1)
 
 uint64_t VisionCoreLibrary()
 {
-  v1 = 0;
-  result = VisionCoreLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = VisionCoreLibraryCore(&v3);
+  if (!v0)
   {
-    VisionCoreLibrary_cold_1(&v1);
+    VisionCoreLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 Class __getVisionCoreProcessingDescriptorClass_block_invoke(uint64_t a1)
@@ -2254,7 +2261,8 @@ void SpringAnimation<double,4ul>::update(uint64_t a1, __n128 a2)
     do
     {
       v20 = a2;
-      SpringAnimation<double,4ul>::update(a1, 0.00833333333);
+      a2.n128_u64[0] = 0x3F81111111111111;
+      SpringAnimation<double,4ul>::update(a1, a2);
       a2.n128_u64[1] = v20.n128_u64[1];
       a2.n128_f64[0] = v20.n128_f64[0] + -0.00833333333;
     }
@@ -2369,16 +2377,16 @@ void CGRectGetVerticalRightMargin(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4
   }
 }
 
-id defaultCalibrationDictionaryForPennsylvania()
+id defaultCalibrationDictionaryForPennsylvania(uint64_t a1)
 {
   if (defaultCalibrationDictionaryForPennsylvania_onceToken != -1)
   {
     defaultCalibrationDictionaryForPennsylvania_cold_1();
   }
 
-  v1 = defaultCalibrationDictionaryForPennsylvania_paCalibrationDictionary;
+  v2 = defaultCalibrationDictionaryForPennsylvania_paCalibrationDictionary;
 
-  return v1;
+  return v2;
 }
 
 void __defaultCalibrationDictionaryForPennsylvania_block_invoke()
@@ -2401,16 +2409,16 @@ void __defaultCalibrationDictionaryForPennsylvania_block_invoke()
   defaultCalibrationDictionaryForPennsylvania_paCalibrationDictionary = v3;
 }
 
-id defaultCalibrationDictionaryForPictou()
+id defaultCalibrationDictionaryForPictou(uint64_t a1)
 {
   if (defaultCalibrationDictionaryForPictou_onceToken != -1)
   {
     defaultCalibrationDictionaryForPictou_cold_1();
   }
 
-  v1 = defaultCalibrationDictionaryForPictou_ptCalibrationDictionary;
+  v2 = defaultCalibrationDictionaryForPictou_ptCalibrationDictionary;
 
-  return v1;
+  return v2;
 }
 
 void __defaultCalibrationDictionaryForPictou_block_invoke()
@@ -2431,48 +2439,6 @@ void __defaultCalibrationDictionaryForPictou_block_invoke()
   v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:7];
   v4 = defaultCalibrationDictionaryForPictou_ptCalibrationDictionary;
   defaultCalibrationDictionaryForPictou_ptCalibrationDictionary = v3;
-}
-
-uint64_t cachedTexturesFromPixelBuffer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t cachedTexturesFromPixelBuffer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t cachedTexturesFromPixelBuffer_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t cachedTexturesFromPixelBuffer_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t cachedTexturesFromPixelBuffer_cold_5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t cachedTexturesFromPixelBuffer_cold_6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 void getVisionCoreInferenceNetworkIdentifierCamGaze_cold_1()

@@ -8,6 +8,7 @@
 - (void)addAttachmentWithName:(id)name contentType:(id)type URL:(id)l toObjectWithIdentifier:(id)identifier schemaIdentifier:(id)schemaIdentifier attachmentMetadata:(id)metadata referenceMetadata:(id)referenceMetadata completion:(id)self0;
 - (void)addReferenceWithAttachment:(id)attachment toObjectWithIdentifier:(id)identifier schemaIdentifier:(id)schemaIdentifier metadata:(id)metadata completion:(id)completion;
 - (void)attachmentReferencesForObjectIdentifier:(id)identifier schemaIdentifier:(id)schemaIdentifier completion:(id)completion;
+- (void)clientRemote_streamDataForAttachment:(id)attachment dataChunk:(id)chunk error:(id)error done:(BOOL)done;
 - (void)getAttachmentsForObject:(HKObject *)object completion:(void *)completion;
 - (void)getDataChunkForAttachment:(id)attachment chunkSize:(unint64_t)size offset:(unint64_t)offset completion:(id)completion;
 - (void)removeAttachment:(HKAttachment *)attachment fromObject:(HKObject *)object completion:(void *)completion;
@@ -18,11 +19,11 @@
 
 - (HKAttachmentStore)initWithHealthStore:(HKHealthStore *)healthStore
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = healthStore;
-  v19.receiver = self;
-  v19.super_class = HKAttachmentStore;
-  v6 = [(HKAttachmentStore *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = HKAttachmentStore;
+  v6 = [(HKAttachmentStore *)&v20 init];
   v7 = v6;
   if (v6)
   {
@@ -42,18 +43,17 @@
     v7->_dataStreamProgressByIdentifier = v14;
 
     v7->_lock._os_unfair_lock_opaque = 0;
-    [(HKProxyProvider *)v7->_proxyProvider setShouldRetryOnInterruption:1];
-    _HKInitializeLogging();
-    v16 = HKLogDefault;
+    v16 = [(HKProxyProvider *)v7->_proxyProvider setShouldRetryOnInterruption:1];
+    _HKInitializeLogging(v16, v17);
+    v18 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = v7;
-      _os_log_impl(&dword_19197B000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Created new attachment store", buf, 0xCu);
+      v22 = v7;
+      _os_log_impl(&dword_19197B000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: Created new attachment store", buf, 0xCu);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -603,6 +603,64 @@ LABEL_32:
 LABEL_33:
 
   return v24;
+}
+
+- (void)clientRemote_streamDataForAttachment:(id)attachment dataChunk:(id)chunk error:(id)error done:(BOOL)done
+{
+  doneCopy = done;
+  attachmentCopy = attachment;
+  chunkCopy = chunk;
+  errorCopy = error;
+  os_unfair_lock_lock(&self->_lock);
+  attachmentDataHandlersByIdentifier = self->_attachmentDataHandlersByIdentifier;
+  identifier = [attachmentCopy identifier];
+  v14 = [(NSMutableDictionary *)attachmentDataHandlersByIdentifier objectForKeyedSubscript:identifier];
+
+  dataStreamProgressByIdentifier = self->_dataStreamProgressByIdentifier;
+  identifier2 = [attachmentCopy identifier];
+  v17 = [(NSMutableDictionary *)dataStreamProgressByIdentifier objectForKeyedSubscript:identifier2];
+
+  os_unfair_lock_unlock(&self->_lock);
+  if ([v17 isFinished])
+  {
+    if (!doneCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    [v17 setCompletedUnitCount:{objc_msgSend(v17, "totalUnitCount")}];
+    if (!doneCopy)
+    {
+LABEL_3:
+      if (!v14)
+      {
+        goto LABEL_5;
+      }
+
+      goto LABEL_4;
+    }
+  }
+
+  os_unfair_lock_lock(&self->_lock);
+  v18 = self->_attachmentDataHandlersByIdentifier;
+  identifier3 = [attachmentCopy identifier];
+  [(NSMutableDictionary *)v18 setObject:0 forKeyedSubscript:identifier3];
+
+  v20 = self->_dataStreamProgressByIdentifier;
+  identifier4 = [attachmentCopy identifier];
+  [(NSMutableDictionary *)v20 setObject:0 forKeyedSubscript:identifier4];
+
+  os_unfair_lock_unlock(&self->_lock);
+  if (v14)
+  {
+LABEL_4:
+    (v14)[2](v14, chunkCopy, errorCopy, doneCopy);
+  }
+
+LABEL_5:
 }
 
 @end

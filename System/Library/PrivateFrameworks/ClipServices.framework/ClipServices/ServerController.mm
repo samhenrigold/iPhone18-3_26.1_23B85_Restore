@@ -21,9 +21,9 @@
 
 - (ServerController)init
 {
-  v23.receiver = self;
-  v23.super_class = ServerController;
-  v2 = [(ServerController *)&v23 init];
+  v25.receiver = self;
+  v25.super_class = ServerController;
+  v2 = [(ServerController *)&v25 init];
   if (v2)
   {
     +[MaintenanceActivity checkInActivities];
@@ -54,21 +54,21 @@
       v15 = +[CPSSessionManager sharedManager];
       [v15 setLegacyInstaller:v14];
 
-      v16 = sub_100004064();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_100004064(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "ServerController: Use legacy app download flow.", v22, 2u);
+        *v24 = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "ServerController: Use legacy app download flow.", v24, 2u);
       }
     }
 
-    v17 = [NSXPCListener alloc];
-    v18 = [v17 initWithMachServiceName:CPSDaemonMachServiceName];
+    v19 = [NSXPCListener alloc];
+    v20 = [v19 initWithMachServiceName:CPSDaemonMachServiceName];
     listener = v2->_listener;
-    v2->_listener = v18;
+    v2->_listener = v20;
 
     [(NSXPCListener *)v2->_listener setDelegate:v2];
-    v20 = v2;
+    v22 = v2;
   }
 
   return v2;
@@ -76,7 +76,7 @@
 
 - (void)start
 {
-  v3 = sub_100004064();
+  v3 = sub_100004064(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -90,17 +90,18 @@
 {
   connectionCopy = connection;
   v6 = +[CPSClipURL isSupported];
+  v8 = v6;
   if (v6)
   {
-    v7 = [[RemoteClient alloc] initWithConnection:connectionCopy appManager:self->_appManager clipMetadataManager:self->_clipMetadataManager];
-    v8 = sub_100004064();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = [[RemoteClient alloc] initWithConnection:connectionCopy appManager:self->_appManager clipMetadataManager:self->_clipMetadataManager];
+    v11 = sub_100004064(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = 134218242;
-      v12 = v7;
-      v13 = 2112;
-      v14 = connectionCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Created RemoteClient %p for new connection request %@", &v11, 0x16u);
+      v14 = 134218242;
+      v15 = v9;
+      v16 = 2112;
+      v17 = connectionCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Created RemoteClient %p for new connection request %@", &v14, 0x16u);
     }
 
     [connectionCopy resume];
@@ -108,14 +109,14 @@
 
   else
   {
-    v9 = sub_100004064();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = sub_100004064(v6, v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_10000B4C8(v9, connectionCopy);
+      sub_10000B4C8(v12, connectionCopy);
     }
   }
 
-  return v6;
+  return v8;
 }
 
 @end

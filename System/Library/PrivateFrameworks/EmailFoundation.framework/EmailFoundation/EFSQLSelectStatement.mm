@@ -18,6 +18,8 @@
 - (void)ef_renderSQLExpressionInto:(id)into;
 - (void)groupByColumn:(id)column;
 - (void)groupByColumn:(id)column fromTable:(id)table;
+- (void)orderBy:(id)by ascending:(BOOL)ascending;
+- (void)orderByColumn:(id)column ascending:(BOOL)ascending;
 - (void)orderByColumn:(id)column fromTable:(id)table ascending:(BOOL)ascending;
 @end
 
@@ -248,15 +250,30 @@
 
 - (void)groupByColumn:(id)column fromTable:(id)table
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   columnCopy = column;
   tableCopy = table;
   v8 = [EFSQLColumnExpression table:tableCopy column:columnCopy];
-  v11[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   [(EFSQLSelectStatement *)self setGroupExpressions:v9];
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)orderBy:(id)by ascending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  byCopy = by;
+  v6 = [[EFSQLOrderExpression alloc] initWithExpression:byCopy ascending:ascendingCopy];
+  orderExpressions = [(EFSQLSelectStatement *)self orderExpressions];
+  [orderExpressions addObject:v6];
+}
+
+- (void)orderByColumn:(id)column ascending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  columnCopy = column;
+  tableName = [(EFSQLSelectStatement *)self tableName];
+  [(EFSQLSelectStatement *)self orderByColumn:columnCopy fromTable:tableName ascending:ascendingCopy];
 }
 
 - (void)orderByColumn:(id)column fromTable:(id)table ascending:(BOOL)ascending

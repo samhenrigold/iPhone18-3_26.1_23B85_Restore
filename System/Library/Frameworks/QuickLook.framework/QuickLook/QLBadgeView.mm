@@ -158,30 +158,30 @@
 
 - (void)setupAppearance
 {
-  v29[4] = *MEMORY[0x277D85DE8];
-  v28 = [MEMORY[0x277D75210] effectWithStyle:9];
-  v3 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:v28];
+  v28[4] = *MEMORY[0x277D85DE8];
+  v27 = [MEMORY[0x277D75210] effectWithStyle:9];
+  v3 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:v27];
   [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
   [(QLBadgeView *)self insertSubview:v3 atIndex:0];
-  v22 = MEMORY[0x277CCAAD0];
+  v21 = MEMORY[0x277CCAAD0];
   topAnchor = [v3 topAnchor];
   topAnchor2 = [(QLBadgeView *)self topAnchor];
-  v25 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v29[0] = v25;
+  v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v28[0] = v24;
   leadingAnchor = [v3 leadingAnchor];
   leadingAnchor2 = [(QLBadgeView *)self leadingAnchor];
   v4 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v29[1] = v4;
+  v28[1] = v4;
   trailingAnchor = [v3 trailingAnchor];
   trailingAnchor2 = [(QLBadgeView *)self trailingAnchor];
   v7 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v29[2] = v7;
+  v28[2] = v7;
   bottomAnchor = [v3 bottomAnchor];
   bottomAnchor2 = [(QLBadgeView *)self bottomAnchor];
   v10 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v29[3] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
-  [v22 activateConstraints:v11];
+  v28[3] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+  [v21 activateConstraints:v11];
 
   [(QLBadgeView *)self setClipsToBounds:1];
   quaternaryLabelColor = [MEMORY[0x277D75348] quaternaryLabelColor];
@@ -202,42 +202,39 @@
 
   imageView2 = [(QLBadgeView *)self imageView];
   [imageView2 setHidden:1];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupLayout
 {
-  v23[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   stackView = [(QLBadgeView *)self stackView];
   leadingAnchor = [stackView leadingAnchor];
   leadingAnchor2 = [(QLBadgeView *)self leadingAnchor];
   v6 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:0.0];
   [(QLBadgeView *)self setStackViewLeadingConstraint:v6];
 
-  v17 = MEMORY[0x277CCAAD0];
+  v16 = MEMORY[0x277CCAAD0];
   stackViewLeadingConstraint = [(QLBadgeView *)self stackViewLeadingConstraint];
-  v23[0] = stackViewLeadingConstraint;
+  v22[0] = stackViewLeadingConstraint;
   stackView2 = [(QLBadgeView *)self stackView];
   trailingAnchor = [stackView2 trailingAnchor];
   trailingAnchor2 = [(QLBadgeView *)self trailingAnchor];
-  v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-6.0];
-  v23[1] = v18;
+  v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-6.0];
+  v22[1] = v17;
   stackView3 = [(QLBadgeView *)self stackView];
   topAnchor = [stackView3 topAnchor];
   topAnchor2 = [(QLBadgeView *)self topAnchor];
   v10 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:3.0];
-  v23[2] = v10;
+  v22[2] = v10;
   stackView4 = [(QLBadgeView *)self stackView];
   bottomAnchor = [stackView4 bottomAnchor];
   bottomAnchor2 = [(QLBadgeView *)self bottomAnchor];
   v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-3.0];
-  v23[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
-  [v17 activateConstraints:v15];
+  v22[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+  [v16 activateConstraints:v15];
 
   [(QLBadgeView *)self updateStackViewConstraints];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStackViewConstraints

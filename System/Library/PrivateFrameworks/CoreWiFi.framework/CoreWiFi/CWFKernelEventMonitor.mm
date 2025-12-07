@@ -46,13 +46,13 @@
 
 - (CWFKernelEventMonitor)init
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v39.receiver = self;
-  v39.super_class = CWFKernelEventMonitor;
-  v2 = [(CWFKernelEventMonitor *)&v39 init];
+  v49 = *MEMORY[0x1E69E9840];
+  v38.receiver = self;
+  v38.super_class = CWFKernelEventMonitor;
+  v2 = [(CWFKernelEventMonitor *)&v38 init];
   if (!v2)
   {
-    goto LABEL_29;
+    goto LABEL_28;
   }
 
   v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -62,7 +62,7 @@
 
   if (!*(v2 + 1))
   {
-    goto LABEL_29;
+    goto LABEL_28;
   }
 
   v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -72,85 +72,85 @@
 
   if (!*(v2 + 2))
   {
-    goto LABEL_29;
+    goto LABEL_28;
   }
 
   v9 = socket(32, 3, 1);
   v10 = v9;
   if (v9 < 0)
   {
-    v18 = CWFGetOSLog();
-    if (v18)
+    v17 = CWFGetOSLog();
+    if (v17)
     {
-      v19 = CWFGetOSLog();
+      v18 = CWFGetOSLog();
     }
 
     else
     {
-      v19 = MEMORY[0x1E69E9C10];
-      v23 = MEMORY[0x1E69E9C10];
+      v18 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v24 = *__error();
-      v25 = __error();
-      v26 = strerror(*v25);
-      v40 = 136447234;
-      v41 = "[CWFKernelEventMonitor init]";
-      v42 = 2082;
-      v43 = "CWFKernelEventMonitor.m";
-      v44 = 1024;
-      v45 = 185;
-      v46 = 1024;
-      v47 = v24;
-      v48 = 2082;
-      v49 = v26;
-      _os_log_send_and_compose_impl();
+      v23 = *__error();
+      v24 = __error();
+      v25 = strerror(*v24);
+      v39 = 136447234;
+      v40 = "[CWFKernelEventMonitor init]";
+      v41 = 2082;
+      v42 = "CWFKernelEventMonitor.m";
+      v43 = 1024;
+      v44 = 185;
+      v45 = 1024;
+      v46 = v23;
+      v47 = 2082;
+      v48 = v25;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 16, "[corewifi] %{public}s (%{public}s:%u) event socket() failed, %d (%{public}s)", &v39, 44);
     }
 
     if (v10 == -1)
     {
-      goto LABEL_29;
+      goto LABEL_28;
     }
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-  v38 = 2;
-  v37 = 0x100000001;
-  if (ioctl(v9, 0x800C6502uLL, &v37))
+  v37 = 2;
+  v36 = 0x100000001;
+  if (ioctl(v9, 0x800C6502uLL, &v36))
   {
-    v20 = CWFGetOSLog();
-    if (v20)
+    v19 = CWFGetOSLog();
+    if (v19)
     {
-      v21 = CWFGetOSLog();
+      v20 = CWFGetOSLog();
     }
 
     else
     {
-      v21 = MEMORY[0x1E69E9C10];
-      v27 = MEMORY[0x1E69E9C10];
+      v20 = MEMORY[0x1E69E9C10];
+      v26 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_27;
+      v27 = *__error();
+      v28 = __error();
+      v29 = strerror(*v28);
+      v39 = 136447234;
+      v40 = "[CWFKernelEventMonitor init]";
+      v41 = 2082;
+      v42 = "CWFKernelEventMonitor.m";
+      v43 = 1024;
+      v44 = 188;
+      v45 = 1024;
+      v46 = v27;
+      v47 = 2082;
+      v48 = v29;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 16, "[corewifi] %{public}s (%{public}s:%u) SIOCSKEVFILT failed, %d (%{public}s)", &v39, 44);
     }
 
-    v28 = *__error();
-    v29 = __error();
-    v30 = strerror(*v29);
-    v40 = 136447234;
-    v41 = "[CWFKernelEventMonitor init]";
-    v42 = 2082;
-    v43 = "CWFKernelEventMonitor.m";
-    v44 = 1024;
-    v45 = 188;
-    v46 = 1024;
-    v47 = v28;
-    v48 = 2082;
-    v49 = v30;
     goto LABEL_26;
   }
 
@@ -161,60 +161,55 @@
   v13 = *(v2 + 3);
   if (!v13)
   {
-    v22 = CWFGetOSLog();
-    if (v22)
+    v21 = CWFGetOSLog();
+    if (v21)
     {
-      v21 = CWFGetOSLog();
+      v20 = CWFGetOSLog();
     }
 
     else
     {
-      v21 = MEMORY[0x1E69E9C10];
-      v31 = MEMORY[0x1E69E9C10];
+      v20 = MEMORY[0x1E69E9C10];
+      v30 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_27;
+      v39 = 136446722;
+      v40 = "[CWFKernelEventMonitor init]";
+      v41 = 2082;
+      v42 = "CWFKernelEventMonitor.m";
+      v43 = 1024;
+      v44 = 191;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 16, "[corewifi] %{public}s (%{public}s:%u) dispatch_source_create failed", &v39, 28);
     }
 
-    v40 = 136446722;
-    v41 = "[CWFKernelEventMonitor init]";
-    v42 = 2082;
-    v43 = "CWFKernelEventMonitor.m";
-    v44 = 1024;
-    v45 = 191;
 LABEL_26:
-    _os_log_send_and_compose_impl();
+
 LABEL_27:
-
-LABEL_28:
     close(v10);
-LABEL_29:
+LABEL_28:
 
-    v15 = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   handler[0] = MEMORY[0x1E69E9820];
   handler[1] = 3221225472;
   handler[2] = sub_1E0C26594;
   handler[3] = &unk_1E86E6750;
-  v36 = v10;
+  v35 = v10;
   dispatch_source_set_cancel_handler(v13, handler);
   v14 = *(v2 + 3);
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = sub_1E0BD476C;
-  v32[3] = &unk_1E86E6778;
-  v34 = v10;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = sub_1E0BD476C;
+  v31[3] = &unk_1E86E6778;
+  v33 = v10;
   v15 = v2;
-  v33 = v15;
-  dispatch_source_set_event_handler(v14, v32);
+  v32 = v15;
+  dispatch_source_set_event_handler(v14, v31);
 
   dispatch_activate(*(v2 + 3));
-LABEL_8:
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -255,21 +250,21 @@ LABEL_8:
 
 - (unint64_t)interfaceFlagsWithInterfaceName:(id)name
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v4 = nameCopy;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   if (nameCopy && [nameCopy length] && objc_msgSend(v4, "length") <= 0x10 && (v5 = socket(30, 2, 0), v5 != -1))
   {
     v6 = v5;
-    if ([v4 getCString:&v10 maxLength:16 encoding:4])
+    if ([v4 getCString:&v9 maxLength:16 encoding:4])
     {
-      ioctl(v6, 0xC0206911uLL, &v10);
+      ioctl(v6, 0xC0206911uLL, &v9);
     }
 
     close(v6);
-    v7 = v11;
+    v7 = v10;
   }
 
   else
@@ -277,7 +272,6 @@ LABEL_8:
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

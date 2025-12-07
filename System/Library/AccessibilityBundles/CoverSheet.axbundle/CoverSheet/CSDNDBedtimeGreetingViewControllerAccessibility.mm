@@ -34,10 +34,9 @@
 
 uint64_t __93__CSDNDBedtimeGreetingViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  objc_copyWeak(&v3, (a1 + 40));
+  objc_copyWeak(&v2, (a1 + 40));
   AXPerformSafeBlock();
-  objc_destroyWeak(&v3);
+  objc_destroyWeak(&v2);
   return 1;
 }
 

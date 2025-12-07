@@ -11,7 +11,7 @@ void __74___TVMLShelfViewLayout__animationForReusableView_toLayoutAttributes_typ
   v5 = *(a1 + 40);
   if (v5)
   {
-    [v5 cellMetrics];
+    objc_msgSend_cellMetrics(v5);
     v8 = *(&v24 + 1);
     v7 = *&v24;
     v10 = *(&v25 + 1);
@@ -56,7 +56,7 @@ void __74___TVMLShelfViewLayout__animationForReusableView_toLayoutAttributes_typ
   v22 = *(a1 + 48);
   if (v22)
   {
-    [v22 transform3D];
+    objc_msgSend_transform3D(v22);
   }
 
   else

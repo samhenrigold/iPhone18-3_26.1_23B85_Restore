@@ -12,12 +12,14 @@
 - (void)logMHASRAudioConfigureStartedWithMHUUID:(id)d withAudioCodecString:(id)string withAudioSkippedNumSamples:(unint64_t)samples;
 - (void)logMHASRAudioConfigureStartedWithMHUUID:(id)d withAudioCodecString:(id)string withAudioSkippedTimeInNs:(unint64_t)ns;
 - (void)logMHApplicationPlaybackAttemptedWithMHUUID:(id)d withAppBundleName:(id)name withAppBundleVersion:(id)version;
+- (void)logMHAssistantDaemonAudioBluetoothInfoWithMHUUID:(id)d withWirelessSplitterSessionState:(int)state withAudioDeviceCategory:(id)category;
 - (void)logMHAssistantDaemonAudioConfigureContextWithMHUUID:(id)d withConfigureStarted:(BOOL)started;
 - (void)logMHAssistantDaemonAudioFetchRouteContextWithMHUUID:(id)d withFetchRouteContextStarted:(BOOL)started;
 - (void)logMHAssistantDaemonAudioInitContextWithMHUUID:(id)d withInitStarted:(BOOL)started;
 - (void)logMHAssistantDaemonAudioLateBufferDetectedWithMHUUID:(id)d withBufferReceiptTimeInNs:(unint64_t)ns;
 - (void)logMHAssistantDaemonAudioPrepareContextWithMHUUID:(id)d withPrepareStarted:(BOOL)started;
 - (void)logMHAssistantDaemonAudioPrewarmContextWithMHUUID:(id)d withPrewarmStarted:(BOOL)started;
+- (void)logMHAssistantDaemonAudioRecordingContextWithMHUUID:(id)d withAudioRecordingStarted:(BOOL)started withAudioInputRoute:(int)route withAudioSource:(int)source withAudioInterfaceVendorId:(id)id withAudioInterfaceProductId:(id)productId;
 - (void)logMHAssistantDaemonAudioRecordingFailedWithMHUUID:(id)d withReason:(int64_t)reason vendorId:(id)id productId:(id)productId;
 - (void)logMHAssistantDaemonAudioRecordingFirstBufferWithMHUUID:(id)d withStartEvent:(BOOL)event withFirstBufferStartTimeOffsetNs:(unint64_t)ns withFirstBufferReceiptTimeOffsetNs:(unint64_t)offsetNs;
 - (void)logMHAssistantDaemonAudioRecordingInterruptionContextWithMHUUID:(id)d withStartEvent:(BOOL)event withLinkID:(id)iD withAvAudioSessionInterruptorName:(id)name withAVAudioSessionInterrupterType:(id)type;
@@ -28,6 +30,7 @@
 - (void)logMHAssistantDaemonAudioSessionSetActivateContextWithMHUUID:(id)d withSetActivateStarted:(BOOL)started;
 - (void)logMHAssistantDaemonAudioSessionSetInactiveWithMHUUID:(id)d withSetInactiveStarted:(BOOL)started;
 - (void)logMHAssistantDaemonAudioStartRecordingContextWithMHUUID:(id)d withStartRecordingContext:(BOOL)context withFanInfoArray:(id)array withActiveSessionDisplayIDs:(id)ds;
+- (void)logMHAssistantDaemonAudioStopRecordingContextWithMHUUID:(id)d withStopRecordingStarted:(BOOL)started withADStopRecordingEvent:(unsigned __int16)event;
 @end
 
 @implementation CSFAudioMetricsSelfLogger
@@ -394,9 +397,31 @@
   [mEMORY[0x1E69CE1F0] emitMessage:v11];
 }
 
+- (void)logMHAssistantDaemonAudioBluetoothInfoWithMHUUID:(id)d withWirelessSplitterSessionState:(int)state withAudioDeviceCategory:(id)category
+{
+  v5 = *&state;
+  v8 = MEMORY[0x1E69CED70];
+  categoryCopy = category;
+  dCopy = d;
+  v16 = objc_alloc_init(v8);
+  v11 = [(CSFAudioMetricsSelfLogger *)self _getMHBluetoothAudioDeviceCategoryFromString:categoryCopy];
+
+  [v16 setState:v5];
+  [v16 setBluetoothAudioDeviceCategory:v11];
+  v12 = objc_alloc_init(MEMORY[0x1E69CEEF8]);
+  v13 = objc_alloc_init(MEMORY[0x1E69CEF00]);
+  v14 = [objc_alloc(MEMORY[0x1E69CF638]) initWithNSUUID:dCopy];
+
+  [v13 setMhId:v14];
+  [v12 setEventMetadata:v13];
+  [v12 setAssistantDaemonAudioBluetoothInfo:v16];
+  mEMORY[0x1E69CE1F0] = [MEMORY[0x1E69CE1F0] sharedStream];
+  [mEMORY[0x1E69CE1F0] emitMessage:v12];
+}
+
 - (void)logMHAssistantDaemonAudioRecordingInterruptionStartedTier1WithMHUUID:(id)d withLinkID:(id)iD withActiveSessionDisplayIDs:(id)ds audioSessionCategory:(id)category audioSessionMode:(id)mode
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   modeCopy = mode;
   v14 = MEMORY[0x1E69CEE50];
@@ -414,17 +439,17 @@
   v22 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 136316162;
-    v29 = "[CSFAudioMetricsSelfLogger logMHAssistantDaemonAudioRecordingInterruptionStartedTier1WithMHUUID:withLinkID:withActiveSessionDisplayIDs:audioSessionCategory:audioSessionMode:]";
-    v30 = 2112;
-    v31 = categoryCopy;
-    v32 = 1024;
-    v33 = v20;
-    v34 = 2112;
-    v35 = modeCopy;
-    v36 = 1024;
-    v37 = v21;
-    _os_log_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_DEFAULT, "%s Currently Active Category: %@[%d]. Mode: %@[%d]", &v28, 0x2Cu);
+    v27 = 136316162;
+    v28 = "[CSFAudioMetricsSelfLogger logMHAssistantDaemonAudioRecordingInterruptionStartedTier1WithMHUUID:withLinkID:withActiveSessionDisplayIDs:audioSessionCategory:audioSessionMode:]";
+    v29 = 2112;
+    v30 = categoryCopy;
+    v31 = 1024;
+    v32 = v20;
+    v33 = 2112;
+    v34 = modeCopy;
+    v35 = 1024;
+    v36 = v21;
+    _os_log_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_DEFAULT, "%s Currently Active Category: %@[%d]. Mode: %@[%d]", &v27, 0x2Cu);
   }
 
   [v18 setAudioSessionCategory:v20];
@@ -438,8 +463,6 @@
   [v23 setAssistantDaemonAudioRecordingInterruptionStartedTier1:v18];
   mEMORY[0x1E69CE1F0] = [MEMORY[0x1E69CE1F0] sharedStream];
   [mEMORY[0x1E69CE1F0] emitMessage:v23];
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logMHAssistantDaemonAudioRecordingInterruptionContextWithMHUUID:(id)d withStartEvent:(BOOL)event withLinkID:(id)iD withAvAudioSessionInterruptorName:(id)name withAVAudioSessionInterrupterType:(id)type
@@ -580,6 +603,46 @@
   [mEMORY[0x1E69CE1F0] emitMessage:v5];
 }
 
+- (void)logMHAssistantDaemonAudioRecordingContextWithMHUUID:(id)d withAudioRecordingStarted:(BOOL)started withAudioInputRoute:(int)route withAudioSource:(int)source withAudioInterfaceVendorId:(id)id withAudioInterfaceProductId:(id)productId
+{
+  v9 = *&source;
+  v10 = *&route;
+  startedCopy = started;
+  idCopy = id;
+  productIdCopy = productId;
+  v14 = MEMORY[0x1E69CEE08];
+  dCopy = d;
+  v16 = objc_alloc_init(v14);
+  if (startedCopy)
+  {
+    v17 = objc_alloc_init(MEMORY[0x1E69CEE78]);
+    [v17 setAudioInputRoute:v10];
+    [v17 setSource:v9];
+    [v17 setAudioInterfaceVendorId:idCopy];
+    [v17 setAudioInterfaceProductId:productIdCopy];
+    [v16 setStartedOrChanged:v17];
+    [v16 setHasStartedOrChanged:1];
+  }
+
+  else
+  {
+    v17 = objc_alloc_init(MEMORY[0x1E69CEE10]);
+    [v17 setExists:1];
+    [v16 setEnded:v17];
+    [v16 setHasEnded:1];
+  }
+
+  v18 = objc_alloc_init(MEMORY[0x1E69CEEF8]);
+  v19 = objc_alloc_init(MEMORY[0x1E69CEF00]);
+  v20 = [objc_alloc(MEMORY[0x1E69CF638]) initWithNSUUID:dCopy];
+
+  [v19 setMhId:v20];
+  [v18 setEventMetadata:v19];
+  [v18 setAssistantDaemonAudioRecordingContext:v16];
+  mEMORY[0x1E69CE1F0] = [MEMORY[0x1E69CE1F0] sharedStream];
+  [mEMORY[0x1E69CE1F0] emitMessage:v18];
+}
+
 - (void)logMHAssistantDaemonAudioFetchRouteContextWithMHUUID:(id)d withFetchRouteContextStarted:(BOOL)started
 {
   startedCopy = started;
@@ -679,10 +742,43 @@
   [mEMORY[0x1E69CE1F0] emitMessage:v8];
 }
 
+- (void)logMHAssistantDaemonAudioStopRecordingContextWithMHUUID:(id)d withStopRecordingStarted:(BOOL)started withADStopRecordingEvent:(unsigned __int16)event
+{
+  eventCopy = event;
+  startedCopy = started;
+  v8 = MEMORY[0x1E69CEEC8];
+  dCopy = d;
+  v15 = objc_alloc_init(v8);
+  if (startedCopy)
+  {
+    v10 = objc_alloc_init(MEMORY[0x1E69CEED8]);
+    [v10 setStopReason:{-[CSFAudioMetricsSelfLogger _getSelfStopRecordingReasonWithADStopRecordingEvent:](self, "_getSelfStopRecordingReasonWithADStopRecordingEvent:", eventCopy)}];
+    [v15 setStartedOrChanged:v10];
+    [v15 setHasStartedOrChanged:1];
+  }
+
+  else
+  {
+    v10 = objc_alloc_init(MEMORY[0x1E69CEED0]);
+    [v15 setEnded:v10];
+    [v15 setHasEnded:1];
+  }
+
+  v11 = objc_alloc_init(MEMORY[0x1E69CEEF8]);
+  v12 = objc_alloc_init(MEMORY[0x1E69CEF00]);
+  v13 = [objc_alloc(MEMORY[0x1E69CF638]) initWithNSUUID:dCopy];
+
+  [v12 setMhId:v13];
+  [v11 setEventMetadata:v12];
+  [v11 setAssistantDaemonAudioStopRecordingContext:v15];
+  mEMORY[0x1E69CE1F0] = [MEMORY[0x1E69CE1F0] sharedStream];
+  [mEMORY[0x1E69CE1F0] emitMessage:v11];
+}
+
 - (void)logMHAssistantDaemonAudioStartRecordingContextWithMHUUID:(id)d withStartRecordingContext:(BOOL)context withFanInfoArray:(id)array withActiveSessionDisplayIDs:(id)ds
 {
   contextCopy = context;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   arrayCopy = array;
   dsCopy = ds;
@@ -700,31 +796,31 @@
     v14 = objc_alloc_init(MEMORY[0x1E69CEEB8]);
     if (arrayCopy)
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v15 = [(CSFAudioMetricsSelfLogger *)self _getSelfFanWithCSSiriFanInfo:arrayCopy, 0];
-      v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v26;
+        v18 = *v25;
         do
         {
           v19 = 0;
           do
           {
-            if (*v26 != v18)
+            if (*v25 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            [v14 addFanInfo:*(*(&v25 + 1) + 8 * v19++)];
+            [v14 addFanInfo:*(*(&v24 + 1) + 8 * v19++)];
           }
 
           while (v17 != v19);
-          v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v17);
@@ -745,8 +841,6 @@
   [v20 setAssistantDaemonAudioStartRecordingContext:v13];
   mEMORY[0x1E69CE1F0] = [MEMORY[0x1E69CE1F0] sharedStream];
   [mEMORY[0x1E69CE1F0] emitMessage:v20];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logMHAssistantDaemonAudioPrewarmContextWithMHUUID:(id)d withPrewarmStarted:(BOOL)started
@@ -883,21 +977,21 @@
 
 - (void)logMHASRAudioConfigureStartedWithMHUUID:(id)d withAudioCodecString:(id)string withAudioSkippedTimeInNs:(unint64_t)ns
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   stringCopy = string;
   v9 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315906;
-    v17 = "[CSFAudioMetricsSelfLogger logMHASRAudioConfigureStartedWithMHUUID:withAudioCodecString:withAudioSkippedTimeInNs:]";
-    v18 = 2112;
-    v19 = dCopy;
-    v20 = 2112;
-    v21 = stringCopy;
-    v22 = 2048;
+    v15 = 136315906;
+    v16 = "[CSFAudioMetricsSelfLogger logMHASRAudioConfigureStartedWithMHUUID:withAudioCodecString:withAudioSkippedTimeInNs:]";
+    v17 = 2112;
+    v18 = dCopy;
+    v19 = 2112;
+    v20 = stringCopy;
+    v21 = 2048;
     nsCopy = ns;
-    _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s logMHASRAudioConfigureStartedWithMHUUID: %@, CodeC: %@, SkippedTimeInNs:%llu", &v16, 0x2Au);
+    _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s logMHASRAudioConfigureStartedWithMHUUID: %@, CodeC: %@, SkippedTimeInNs:%llu", &v15, 0x2Au);
   }
 
   v10 = objc_alloc_init(MEMORY[0x1E69CED60]);
@@ -912,8 +1006,6 @@
   [v11 setAsrAudioConfigureStarted:v10];
   mEMORY[0x1E69CE1F0] = [MEMORY[0x1E69CE1F0] sharedStream];
   [mEMORY[0x1E69CE1F0] emitMessage:v11];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logMHASRAudioConfigureStartedWithMHUUID:(id)d withAudioCodecString:(id)string withAudioSkippedNumSamples:(unint64_t)samples
@@ -1020,29 +1112,29 @@
 
 - (id)_getRunPairs:(id)pairs
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pairsCopy = pairs;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = pairsCopy;
-  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = objc_alloc_init(MEMORY[0x1E69CEF10]);
         v11 = [v9 objectForKey:@"start"];
         [v10 setZeroRunStartingSample:{objc_msgSend(v11, "intValue")}];
@@ -1053,14 +1145,13 @@
         [v4 addObject:v10];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
 
   v13 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v4];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1116,29 +1207,29 @@
 
 - (id)_getSelfFanWithCSSiriFanInfo:(id)info
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = infoCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if ([v10 count] == 3)
         {
           v11 = objc_alloc_init(MEMORY[0x1E69CED90]);
@@ -1155,13 +1246,11 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1186,9 +1275,11 @@
 
 uint64_t __41__CSFAudioMetricsSelfLogger_sharedLogger__block_invoke()
 {
-  sharedLogger_sharedAudioMetricsSelfLogger = objc_alloc_init(CSFAudioMetricsSelfLogger);
+  v0 = objc_alloc_init(CSFAudioMetricsSelfLogger);
+  v1 = sharedLogger_sharedAudioMetricsSelfLogger;
+  sharedLogger_sharedAudioMetricsSelfLogger = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

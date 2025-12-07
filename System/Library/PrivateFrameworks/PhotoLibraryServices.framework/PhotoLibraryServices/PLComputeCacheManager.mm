@@ -1625,7 +1625,7 @@ LABEL_9:
 
     v38 = objc_alloc(MEMORY[0x1E695DF70]);
     v39 = +[PLComputeCacheManager restorePayloadClasses];
-    v40 = [v38 initWithCapacity:{objc_msgSend(v39, "count")}];
+    v40 = [v38 initWithCapacity:objc_msgSend_count(v39)];
 
     *&buf = 0;
     *(&buf + 1) = &buf;
@@ -2366,7 +2366,7 @@ LABEL_13:
   return v4;
 }
 
-uint64_t __48__PLComputeCacheManager_createArchiveWithError___block_invoke(uint64_t a1)
+void *__48__PLComputeCacheManager_createArchiveWithError___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _createArchiveWithError:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3266,9 +3266,9 @@ LABEL_22:
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v5 = [domain isEqualToString:*MEMORY[0x1E69BFF48]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (!v5 || ((v6 = [errorCopy code], v7 = 0, (v6 - 52001) > 6) || ((1 << (v6 - 33)) & 0x59) == 0) && v6 != 45999)
+  if (!isEqualToString || ((v6 = [errorCopy code], v7 = 0, (v6 - 52001) > 6) || ((1 << (v6 - 33)) & 0x59) == 0) && v6 != 45999)
   {
     v7 = 1;
   }

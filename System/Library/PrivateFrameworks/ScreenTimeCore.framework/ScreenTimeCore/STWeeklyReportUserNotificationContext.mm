@@ -63,7 +63,7 @@
 
 - (void)setDeltaScreenTimeUsage:(double)usage totalUsage:(id)totalUsage
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   totalUsageCopy = totalUsage;
   [(STWeeklyReportUserNotificationContext *)self setDeltaScreenTimeUsage:usage];
   [(STWeeklyReportUserNotificationContext *)self setTotalUsage:totalUsageCopy];
@@ -85,10 +85,10 @@
     v18 = [MEMORY[0x1E696AD98] numberWithDouble:usage];
     v19 = [v17 localizedStringFromNumber:v18 numberStyle:3];
 
-    v27[0] = v19;
-    v27[1] = v11;
+    v26[0] = v19;
+    v26[1] = v11;
     v20 = MEMORY[0x1E695DEC8];
-    v21 = v27;
+    v21 = v26;
 LABEL_9:
     v22 = [v20 arrayWithObjects:v21 count:2];
     [(STUserNotificationContext *)self setLocalizedUserNotificationBodyArguments:v22];
@@ -105,14 +105,14 @@ LABEL_9:
     v15 = [MEMORY[0x1E696AD98] numberWithDouble:-usage];
     v19 = [v14 localizedStringFromNumber:v15 numberStyle:3];
 
-    v26[0] = v19;
-    v26[1] = v11;
+    v25[0] = v19;
+    v25[1] = v11;
     v20 = MEMORY[0x1E695DEC8];
-    v21 = v26;
+    v21 = v25;
     goto LABEL_9;
   }
 
-  v24 = self->_notificationBodyKey;
+  v23 = self->_notificationBodyKey;
   if ((v9 / 7.0) <= 59)
   {
     self->_notificationBodyKey = @"WeeklyReportNotificationLessThanOneMinute";
@@ -122,13 +122,12 @@ LABEL_9:
 
   self->_notificationBodyKey = @"WeeklyReportNotificationDefaultBody";
 
-  v25 = v11;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+  v24 = v11;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
   [(STUserNotificationContext *)self setLocalizedUserNotificationBodyArguments:v19];
 LABEL_10:
 
 LABEL_11:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)customizeNotificationContent:(id)content withCompletionBlock:(id)block
@@ -151,7 +150,7 @@ LABEL_11:
 
 uint64_t __90__STWeeklyReportUserNotificationContext_customizeNotificationContent_withCompletionBlock___block_invoke(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] localizedUserNotificationStringForKey:@"WeeklyReportNotificationTitle" arguments:0];
   [*(a1 + 32) setTitle:v2];
 
@@ -166,10 +165,10 @@ uint64_t __90__STWeeklyReportUserNotificationContext_customizeNotificationConten
 
   if (v7)
   {
-    v14 = @"weeklyReportData";
+    v13 = @"weeklyReportData";
     v8 = [*(a1 + 40) weeklyReportData];
-    v15[0] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     [*(a1 + 32) setUserInfo:v9];
   }
 
@@ -180,9 +179,7 @@ uint64_t __90__STWeeklyReportUserNotificationContext_customizeNotificationConten
   v11 = [v10 URL];
 
   [*(a1 + 32) setDefaultActionURL:v11];
-  result = (*(*(a1 + 48) + 16))();
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 @end

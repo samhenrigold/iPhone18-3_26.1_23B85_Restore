@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)phaseDescriptionAsString:(int)string;
 - (int)StringAsPhaseDescription:(id)description;
 - (int)phaseDescription;
 - (unint64_t)hash;
@@ -41,6 +42,26 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)phaseDescriptionAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"First";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"Second";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPhaseDescription:(id)description
@@ -153,46 +174,43 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 4) != 0)
   {
-    phaseDescription = self->_phaseDescription;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_phaseType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    numStartingCandidates = self->_numStartingCandidates;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    numEndingCandidates = self->_numEndingCandidates;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_anchorType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -287,7 +305,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 48);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 48) & 4) == 0 || self->_phaseDescription != *(equalCopy + 8))
@@ -307,14 +324,13 @@
     if (![(NSString *)phaseType isEqual:?])
     {
 LABEL_24:
-      v11 = 0;
+      v9 = 0;
       goto LABEL_25;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 48);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_numStartingCandidates != *(equalCopy + 7))
@@ -350,17 +366,17 @@ LABEL_24:
   abGroup = self->_abGroup;
   if (abGroup | *(equalCopy + 1))
   {
-    v11 = [(NSString *)abGroup isEqual:?];
+    v9 = [(NSString *)abGroup isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_25:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

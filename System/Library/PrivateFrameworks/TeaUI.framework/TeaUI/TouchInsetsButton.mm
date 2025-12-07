@@ -19,7 +19,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1D7FED1C8();
+  sub_1D7FED1C8(selfCopy);
 }
 
 @end

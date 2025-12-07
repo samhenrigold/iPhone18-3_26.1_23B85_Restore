@@ -6,6 +6,7 @@
 + (NSString)key;
 + (id)retentionDate;
 - (BOOL)hidden;
+- (MSVisit)initWithHidden:(BOOL)hidden startDate:(id)date visitClassification:(signed __int16)classification;
 - (MSVisit)initWithObject:(id)object store:(id)store lazyLoad:(BOOL)load parent:(BOOL)parent;
 - (MSVisit)initWithStore:(id)store hidden:(BOOL)hidden startDate:(id)date visitClassification:(signed __int16)classification;
 - (MSVisitedLocation)location;
@@ -21,27 +22,70 @@
 
 @implementation MSVisit
 
-- (MSVisit)initWithStore:(id)store hidden:(BOOL)hidden startDate:(id)date visitClassification:(signed __int16)classification
+- (MSVisit)initWithHidden:(BOOL)hidden startDate:(id)date visitClassification:(signed __int16)classification
 {
   classificationCopy = classification;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v17 - v12;
+  hiddenCopy = hidden;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
+  v10 = MEMORY[0x1EEE9AC00](v9 - 8);
+  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v14 = &v23 - v13;
   if (date)
   {
     sub_1B63BE974();
-    v14 = sub_1B63BE994();
-    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
+    v15 = sub_1B63BE994();
+    (*(*(v15 - 8) + 56))(v14, 0, 1, v15);
   }
 
   else
   {
-    v15 = sub_1B63BE994();
-    (*(*(v15 - 8) + 56))(v13, 1, 1, v15);
+    v16 = sub_1B63BE994();
+    (*(*(v16 - 8) + 56))(v14, 1, 1, v16);
   }
 
-  return Visit.init(store:hidden:startDate:visitClassification:)(store, hidden, v13, classificationCopy);
+  if (qword_1EDB0F2A0 != -1)
+  {
+    swift_once();
+  }
+
+  v17 = qword_1EDB0F2A8;
+  sub_1B628C510(v14, v12, &unk_1EB943210, &unk_1B63C3F50);
+  v18 = sub_1B63BE994();
+  v19 = *(v18 - 8);
+  v20 = 0;
+  if ((*(v19 + 48))(v12, 1, v18) != 1)
+  {
+    v20 = sub_1B63BE954();
+    (*(v19 + 8))(v12, v18);
+  }
+
+  v21 = [(MSVisit *)self initWithStore:v17 hidden:hiddenCopy startDate:v20 visitClassification:classificationCopy];
+
+  sub_1B6284EAC(v14, &unk_1EB943210, &unk_1B63C3F50);
+  return v21;
+}
+
+- (MSVisit)initWithStore:(id)store hidden:(BOOL)hidden startDate:(id)date visitClassification:(signed __int16)classification
+{
+  classificationCopy = classification;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v16 - v11;
+  if (date)
+  {
+    sub_1B63BE974();
+    v13 = sub_1B63BE994();
+    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
+  }
+
+  else
+  {
+    v14 = sub_1B63BE994();
+    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
+  }
+
+  return Visit.init(store:hidden:startDate:visitClassification:)(store, hidden, v12, classificationCopy);
 }
 
 + (Class)managedClass
@@ -79,47 +123,45 @@
 - (NSDate)startDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_1B633B278(v6);
+  sub_1B633B278(v5);
 
-  v8 = sub_1B63BE994();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_1B63BE994();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1B63BE954();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1B63BE954();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setStartDate:(id)date
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (date)
   {
     sub_1B63BE974();
-    v9 = sub_1B63BE994();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1B63BE994();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1B63BE994();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1B63BE994();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
-  sub_1B633B878(v8);
+  sub_1B633B878(v7);
 }
 
 - (signed)visitClassification
@@ -178,7 +220,7 @@
 + (BOOL)mergeDuplicatesWithStore:(id)store context:(id)context error:(id *)error
 {
   v7 = objc_allocWithZone(type metadata accessor for VisitRequest());
-  v8 = type metadata accessor for Visit();
+  v8 = type metadata accessor for Visit(0);
   *&v7[OBJC_IVAR____TtC8MapsSync15MapsSyncRequest__store] = store;
   *&v7[OBJC_IVAR____TtC8MapsSync15MapsSyncRequest__type] = v8;
   v14.receiver = v7;
@@ -196,14 +238,13 @@
 {
   v2 = sub_1B63BE994();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B6394008();
-  v7 = sub_1B63BE954();
-  (*(v3 + 8))(v6, v2);
+  v6 = sub_1B63BE954();
+  (*(v3 + 8))(v5, v2);
 
-  return v7;
+  return v6;
 }
 
 + (BOOL)pruneVisitsWithContext:(id)context error:(id *)error
@@ -228,14 +269,13 @@
 - (void)removeVisit
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v9 - v5;
+  v5 = &v8 - v4;
   selfCopy = self;
   sub_1B633AEA4(1);
-  v8 = sub_1B63BE994();
-  (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
-  sub_1B633B878(v6);
+  v7 = sub_1B63BE994();
+  (*(*(v7 - 8) + 56))(v5, 1, 1, v7);
+  sub_1B633B878(v5);
   sub_1B633D0DC(0);
   sub_1B633C204(4);
 }

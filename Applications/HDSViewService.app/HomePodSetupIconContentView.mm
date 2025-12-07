@@ -8,7 +8,7 @@
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_100047FCC();
+  sub_100047FCC(selfCopy);
 }
 
 - (_TtC14HDSViewService27HomePodSetupIconContentView)initWithFrame:(CGRect)frame

@@ -62,83 +62,87 @@ LABEL_6:
   v4 = serviceCopy;
   if (!serviceCopy)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Setting default subtitle.", v16, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Setting default subtitle.", v20, 2u);
     }
 
     goto LABEL_8;
   }
 
-  if ([serviceCopy isEqualToString:*MEMORY[0x1E698C218]])
+  v5 = [serviceCopy isEqualToString:*MEMORY[0x1E698C218]];
+  if (v5)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Setting iCloud subtitle.", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Setting iCloud subtitle.", buf, 2u);
     }
 
-    v6 = @"SIGN_IN_SUBTITLE_ICLOUD";
+    v7 = @"SIGN_IN_SUBTITLE_ICLOUD";
     goto LABEL_21;
   }
 
-  if ([v4 isEqualToString:*MEMORY[0x1E698C230]])
+  v8 = [v4 isEqualToString:*MEMORY[0x1E698C230]];
+  if (v8)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Setting iMessage subtitle.", v14, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Setting iMessage subtitle.", v18, 2u);
     }
 
-    v6 = @"SIGN_IN_SUBTITLE_IMESSAGE";
+    v7 = @"SIGN_IN_SUBTITLE_IMESSAGE";
     goto LABEL_21;
   }
 
-  if ([v4 isEqualToString:*MEMORY[0x1E698C220]])
+  v9 = [v4 isEqualToString:*MEMORY[0x1E698C220]];
+  if (v9)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Setting FaceTime subtitle.", v13, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Setting FaceTime subtitle.", v17, 2u);
     }
 
-    v6 = @"SIGN_IN_SUBTITLE_FACETIME";
+    v7 = @"SIGN_IN_SUBTITLE_FACETIME";
     goto LABEL_21;
   }
 
-  v7 = [v4 isEqualToString:*MEMORY[0x1E698C228]];
-  v8 = _AAUILogSystem();
-  v5 = v8;
-  if (!v7)
+  v10 = [v4 isEqualToString:*MEMORY[0x1E698C228]];
+  v11 = v10;
+  v12 = _AAUILogSystem(v10);
+  v6 = v12;
+  if (!v11)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(AAUIServiceSignInMessageProvider *)v4 _messageStringForService:v5];
+      [(AAUIServiceSignInMessageProvider *)v4 _messageStringForService:v6];
     }
 
 LABEL_8:
-    v6 = @"SIGN_IN_SUBTITLE";
+    v7 = @"SIGN_IN_SUBTITLE";
     goto LABEL_21;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Setting GameCenter subtitle.", v12, 2u);
+    *v16 = 0;
+    _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Setting GameCenter subtitle.", v16, 2u);
   }
 
-  v6 = @"SIGN_IN_SUBTITLE_GAMECENTER";
+  v7 = @"SIGN_IN_SUBTITLE_GAMECENTER";
 LABEL_21:
 
-  v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v10 = [v9 localizedStringForKey:v6 value:&stru_1F447F790 table:@"Localizable"];
+  v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v14 = [v13 localizedStringForKey:v7 value:&stru_1F447F790 table:@"Localizable"];
 
-  return v10;
+  return v14;
 }
 
 + (id)_messageStringForAMPService:(unint64_t)service
@@ -149,7 +153,7 @@ LABEL_21:
     {
       if (service == 1)
       {
-        v4 = _AAUILogSystem();
+        v4 = _AAUILogSystem(self);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           *v13 = 0;
@@ -166,7 +170,7 @@ LABEL_21:
           goto LABEL_31;
         }
 
-        v4 = _AAUILogSystem();
+        v4 = _AAUILogSystem(self);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           *v12 = 0;
@@ -179,7 +183,7 @@ LABEL_21:
 
     else
     {
-      v4 = _AAUILogSystem();
+      v4 = _AAUILogSystem(self);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *v14 = 0;
@@ -194,7 +198,7 @@ LABEL_21:
   {
     if (service == 5)
     {
-      v4 = _AAUILogSystem();
+      v4 = _AAUILogSystem(self);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *v9 = 0;
@@ -211,7 +215,7 @@ LABEL_21:
         goto LABEL_31;
       }
 
-      v4 = _AAUILogSystem();
+      v4 = _AAUILogSystem(self);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *v8 = 0;
@@ -224,7 +228,7 @@ LABEL_21:
 
   else if (service == 3)
   {
-    v4 = _AAUILogSystem();
+    v4 = _AAUILogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v11 = 0;
@@ -236,7 +240,7 @@ LABEL_21:
 
   else
   {
-    v4 = _AAUILogSystem();
+    v4 = _AAUILogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;

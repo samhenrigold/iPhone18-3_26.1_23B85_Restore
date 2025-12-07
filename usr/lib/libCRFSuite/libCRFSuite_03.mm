@@ -59,112 +59,106 @@ void nlp::trieCompletionRelease(nlp *this, const __CFAllocator *a2, const void *
 
 uint64_t nlp::BurstTrieContains(nlp *a1, const void *a2, uint64_t a3, _DWORD *a4, _DWORD *a5)
 {
-  v13[4] = *MEMORY[0x29EDCA608];
-  if (a3)
+  v12[4] = *MEMORY[0x29EDCA608];
+  if (!a3)
   {
-    v10 = 0xFFFFFFFF00000000;
-    v11 = 0;
-    v12 = 0;
-    v13[3] = 0;
-    nlp::searchWithContext(a1, a2, a3, 1, &v10);
-    if ((v10 & 0x8000000000000000) != 0)
-    {
-      v7 = 0;
-    }
-
-    else
-    {
-      if (a4)
-      {
-        *a4 = HIDWORD(v10);
-      }
-
-      if (a5)
-      {
-        *a5 = v11;
-      }
-
-      v7 = 1;
-    }
-
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v13);
+    return 0;
   }
 
-  else
+  v9 = 0xFFFFFFFF00000000;
+  v10 = 0;
+  v11 = 0;
+  v12[3] = 0;
+  nlp::searchWithContext(a1, a2, a3, 1, &v9);
+  if ((v9 & 0x8000000000000000) != 0)
   {
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
+  else
+  {
+    if (a4)
+    {
+      *a4 = HIDWORD(v9);
+    }
+
+    if (a5)
+    {
+      *a5 = v10;
+    }
+
+    v7 = 1;
+  }
+
+  std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v12);
   return v7;
 }
 
 nlp *nlp::searchWithContext(nlp *result, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v19[4] = *MEMORY[0x29EDCA608];
+  v18[4] = *MEMORY[0x29EDCA608];
   if (a3 <= 0x3FF)
   {
     v9 = result;
     v10 = nlp::sharedBuffer(result);
     memcpy(v10, a2, a3);
     *(v10 + a3) = 0;
-    v11 = *(v9 + 2080);
-    v12 = *(v9 + 2064);
+    v11 = *(v9 + 260);
+    v12 = *(v9 + 516);
     if (v11)
     {
       v13 = *(v11 + 4) & 0xFFFFFFFC;
       if (v12)
       {
-        v14 = v19;
-        v19[0] = &unk_2A1E51CC8;
-        v19[1] = nlp::containsKey;
-        v19[3] = v19;
-        nlp::searchDiskLevelRanked(v9, v13 + v11, v10, a3, 0, a4, a5, v19);
-      }
-
-      else
-      {
         v14 = v18;
         v18[0] = &unk_2A1E51CC8;
         v18[1] = nlp::containsKey;
         v18[3] = v18;
-        nlp::searchDiskLevel(v9, v13 + v11, v10, a3, 0, a4, a5, v18);
+        nlp::searchDiskLevelRanked(v9, v13 + v11, v10, a3, 0, a4, a5, v18);
+      }
+
+      else
+      {
+        v14 = v17;
+        v17[0] = &unk_2A1E51CC8;
+        v17[1] = nlp::containsKey;
+        v17[3] = v17;
+        nlp::searchDiskLevel(v9, v13 + v11, v10, a3, 0, a4, a5, v17);
       }
     }
 
     else if (v12)
     {
-      v14 = v17;
-      v17[0] = &unk_2A1E51CC8;
-      v17[1] = nlp::containsKey;
-      v17[3] = v17;
-      nlp::searchLevelRanked(v9, v10, a3, 0, a4, a5, v17);
-    }
-
-    else
-    {
       v14 = v16;
       v16[0] = &unk_2A1E51CC8;
       v16[1] = nlp::containsKey;
       v16[3] = v16;
-      nlp::searchLevel(v9, v10, a3, 0, a4, a5, v16);
+      nlp::searchLevelRanked(v9, v10, a3, 0, a4, a5, v16);
     }
 
-    result = std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v14);
+    else
+    {
+      v14 = v15;
+      v15[0] = &unk_2A1E51CC8;
+      v15[1] = nlp::containsKey;
+      v15[3] = v15;
+      nlp::searchLevel(v9, v10, a3, 0, a4, a5, v15);
+    }
+
+    return std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v14);
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_2977273F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2977273F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *nlp::BurstTrieCreateCursorWithBytes(uint64_t a1, unsigned __int8 *a2, unsigned int a3)
+void *nlp::BurstTrieCreateCursorWithBytes(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
   v6 = malloc_type_calloc(0x28uLL, 1uLL, 0x1060040A6619778uLL);
   if (!nlp::BurstTrieSetCursorWithBytes(a1, v6, a2, a3) && v6)
@@ -176,48 +170,52 @@ void *nlp::BurstTrieCreateCursorWithBytes(uint64_t a1, unsigned __int8 *a2, unsi
   return v6;
 }
 
-nlp *nlp::BurstTrieTraverseFromCursor(nlp *result, uint64_t a2, uint64_t a3, int a4)
+nlp *nlp::BurstTrieTraverseFromCursor(nlp *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   if (result)
   {
+    v4 = a4;
     v7 = result;
     result = nlp::sharedBuffer(result);
     v8 = result;
-    v17 = 0;
+    v16 = 0;
     v9 = *(v7 + 7);
-    if (!v9)
+    if (v9)
     {
-      v14 = *v7;
-      v15 = *(v7 + 2);
-      v16 = *(v7 + 6);
-      v12 = *(v7 + 4);
+      if (v9 != 1)
+      {
+        return result;
+      }
+
+      v13 = *v7;
+      v14 = *(v7 + 2);
+      v10 = *(v7 + 4);
       std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v18, a3);
-      nlp::traverseFromMapCursor(v12, &v14, v8, 0, &v17, a4, a2, v18);
+      nlp::traverseFromCompactMapCursor(v10, &v13, v8, 4096, 0, &v16, a2, v18);
       v11 = v18;
-      goto LABEL_6;
     }
 
-    if (v9 == 1)
+    else
     {
-      v14 = *v7;
-      v15 = *(v7 + 2);
-      v10 = *(v7 + 4);
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v19, a3);
-      nlp::traverseFromCompactMapCursor(v10, &v14, v8, 0x1000u, 0, &v17, a2, v19);
-      v11 = v19;
-LABEL_6:
-      result = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v11);
+      v13 = *v7;
+      v14 = *(v7 + 2);
+      v15 = *(v7 + 6);
+      v12 = *(v7 + 4);
+      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v17, a3);
+      nlp::traverseFromMapCursor(v12, &v13, v8, 0, &v16, v4, a2, v17);
+      v11 = v17;
     }
+
+    return std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v11);
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_2977275EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2977275EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -247,21 +245,23 @@ uint64_t std::function<void ()(void *,unsigned char const*,unsigned int,unsigned
   return (*(*v7 + 48))(v7, &v14, &v13, &v12, &v11, &v10, &v9);
 }
 
-uint64_t nlp::traverseFromCompactMapCursor(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, _BYTE *a6, uint64_t a7, uint64_t a8)
+uint64_t nlp::traverseFromCompactMapCursor(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6, uint64_t a7, uint64_t a8)
 {
+  v9 = a5;
+  v10 = a4;
   v13 = result;
-  v67 = *MEMORY[0x29EDCA608];
+  v66 = *MEMORY[0x29EDCA608];
   v14 = *a2 & 3;
   if (v14 > 1)
   {
     if (v14 == 2)
     {
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v63, a8);
+      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v62, a8);
       v16 = *(v13 + 2064);
       v17 = ((*a2 & 0xFFFFFFFFFFFFFFFCLL) + *(v13 + 2080));
       if (v16)
       {
-        v18 = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v66, v63);
+        v18 = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v65, v62);
         v27 = *v17 - 8;
         if (*v17 != 8)
         {
@@ -274,9 +274,9 @@ uint64_t nlp::traverseFromCompactMapCursor(uint64_t result, uint64_t a2, uint64_
             if (v30 >= v31)
             {
               v32 = v30 - v31;
-              memcpy((a3 + a5), (v29 + v31 + 10), v30 - v31);
-              *(a3 + v32 + a5) = 0;
-              std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v66, a7, a3, *(v29 + 8), *(v29 + 4), a6, *v29);
+              memcpy((a3 + v9), (v29 + v31 + 10), v30 - v31);
+              *(a3 + v32 + v9) = 0;
+              std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v65, a7, a3, *(v29 + 8), *(v29 + 4), a6, *v29);
               LODWORD(v30) = *(v29 + 8);
             }
 
@@ -290,7 +290,7 @@ uint64_t nlp::traverseFromCompactMapCursor(uint64_t result, uint64_t a2, uint64_
 
       else if ((v16 & 4) != 0)
       {
-        v18 = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v66, v63);
+        v18 = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v65, v62);
         v33 = *v17 - 4;
         v34 = *(a2 + 8);
         if (v34 < v33)
@@ -304,9 +304,9 @@ uint64_t nlp::traverseFromCompactMapCursor(uint64_t result, uint64_t a2, uint64_
             if (v37 >= v38)
             {
               v40 = v37 - v38;
-              memcpy((a3 + a5 + v36[6]), &v36[v38 + 7], v37 - v38);
-              *(a3 + v40 + a5 + v36[6]) = 0;
-              std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v66, a7, a3, *(v36 + 2), *v36, a6, 0.0);
+              memcpy((a3 + v9 + v36[6]), &v36[v38 + 7], v37 - v38);
+              *(a3 + v40 + v9 + v36[6]) = 0;
+              std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v65, a7, a3, *(v36 + 2), *v36, a6, 0.0);
               v39 = *(v36 + 2) + *(a2 + 8);
             }
 
@@ -326,7 +326,7 @@ uint64_t nlp::traverseFromCompactMapCursor(uint64_t result, uint64_t a2, uint64_
 
       else
       {
-        v18 = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v66, v63);
+        v18 = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v65, v62);
         v19 = *v17 - 4;
         v20 = *(a2 + 8);
         if (v20 < v19)
@@ -339,9 +339,9 @@ uint64_t nlp::traverseFromCompactMapCursor(uint64_t result, uint64_t a2, uint64_
             if (v22 >= v23)
             {
               v25 = v22 - v23;
-              memcpy((a3 + a5), (v21 + v23 + 6), v22 - v23);
-              *(a3 + v25 + a5) = 0;
-              std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v66, a7, a3, *(v21 + 4), *v21, a6, *v21);
+              memcpy((a3 + v9), (v21 + v23 + 6), v22 - v23);
+              *(a3 + v25 + v9) = 0;
+              std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v65, a7, a3, *(v21 + 4), *v21, a6, *v21);
               v24 = *(v21 + 4) + *(a2 + 8);
             }
 
@@ -356,34 +356,34 @@ uint64_t nlp::traverseFromCompactMapCursor(uint64_t result, uint64_t a2, uint64_
 
           while (v20 < v19);
 LABEL_36:
-          v18 = v66;
+          v18 = v65;
         }
       }
 
       std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v18);
-      v15 = v63;
-      goto LABEL_63;
+      v15 = v62;
+      return std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v15);
     }
 
-    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v64, a8);
+    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v63, a8);
     v26 = (*a2 & 0xFFFFFFFFFFFFFFFCLL) + *(v13 + 2080);
     if ((*(v13 + 2064) & 1) == 0)
     {
       if (*(v26 + 32))
       {
-        *(a3 + a5) = 0;
-        std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v64, a7, a3, a5, *(v26 + 32), a6, 0.0);
-        if (a5 >= a4 || (*a6 & 1) != 0)
+        *(a3 + v9) = 0;
+        std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v63, a7, a3, v9, *(v26 + 32), a6, 0.0);
+        if (v9 >= v10 || (*a6 & 1) != 0)
         {
           goto LABEL_62;
         }
 
 LABEL_39:
         v41 = 0;
-        v42 = a4 - 1;
+        v42 = v10 - 1;
         while (1)
         {
-          *(a3 + a5) = v41;
+          *(a3 + v9) = v41;
           v43 = *(v26 + 8 * (v41 >> 6));
           if ((v43 & (1 << v41)) != 0)
           {
@@ -414,9 +414,9 @@ LABEL_39:
             *a2 = *(v26 + 36 + 4 * (v44 + v49.i32[0]));
             *(a2 + 8) = 0;
             *(a2 + 16) = 0;
-            std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v66, v64);
-            nlp::traverseFromCompactMapCursor(v13, a2, a3, v42, a5 + 1, a6, a7, v66);
-            std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v66);
+            std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v65, v63);
+            nlp::traverseFromCompactMapCursor(v13, a2, a3, v42, v9 + 1, a6, a7, v65);
+            std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v65);
             if (v41 > 0xFE || (*a6 & 1) != 0)
             {
               goto LABEL_62;
@@ -432,36 +432,36 @@ LABEL_39:
         }
       }
 
-      if (a5 < a4)
+      if (v9 < v10)
       {
         goto LABEL_39;
       }
 
 LABEL_62:
-      v15 = v64;
-      goto LABEL_63;
+      v15 = v63;
+      return std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v15);
     }
 
     if (*(v26 + 40))
     {
-      *(a3 + a5) = 0;
-      std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v64, a7, a3, a5, *(v26 + 40), a6, *(v26 + 36));
-      if (a5 >= a4 || (*a6 & 1) != 0)
+      *(a3 + v9) = 0;
+      std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v63, a7, a3, v9, *(v26 + 40), a6, *(v26 + 36));
+      if (v9 >= v10 || (*a6 & 1) != 0)
       {
         goto LABEL_62;
       }
     }
 
-    else if (a5 >= a4)
+    else if (v9 >= v10)
     {
       goto LABEL_62;
     }
 
     v50 = 0;
-    v51 = a4 - 1;
+    v51 = v10 - 1;
     while (1)
     {
-      *(a3 + a5) = v50;
+      *(a3 + v9) = v50;
       v52 = *(v26 + 8 * (v50 >> 6));
       if ((v52 & (1 << v50)) != 0)
       {
@@ -493,9 +493,9 @@ LABEL_62:
         *(a2 + 8) = 0;
         *(a2 + 16) = 0;
         *a2 = v59;
-        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v66, v64);
-        nlp::traverseFromCompactMapCursor(v13, a2, a3, v51, a5 + 1, a6, a7, v66);
-        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v66);
+        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v65, v63);
+        nlp::traverseFromCompactMapCursor(v13, a2, a3, v51, v9 + 1, a6, a7, v65);
+        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v65);
         if (v50 > 0xFE || (*a6 & 1) != 0)
         {
           goto LABEL_62;
@@ -513,28 +513,29 @@ LABEL_62:
 
   if (v14)
   {
-    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v65, a8);
-    v15 = v65;
-    nlp::traverseFromCompactMapCursorMappedLevel(v13, a2, a3, a4, a5, a6, a7, v65);
-    goto LABEL_63;
+    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v64, a8);
+    v15 = v64;
+    nlp::traverseFromCompactMapCursorMappedLevel(v13, a2, a3, v10, v9, a6, a7, v64);
   }
 
-  if (*a2 == *(*(result + 2080) + 4))
+  else
   {
-    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v62, a8);
-    v15 = v62;
-    nlp::traverseFromCompactMapCursorMappedLevel(v13, a2, a3, a4, a5, a6, a7, v62);
-LABEL_63:
-    result = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v15);
+    if (*a2 != *(*(result + 2080) + 4))
+    {
+      return result;
+    }
+
+    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v61, a8);
+    v15 = v61;
+    nlp::traverseFromCompactMapCursorMappedLevel(v13, a2, a3, v10, v9, a6, a7, v61);
   }
 
-  v60 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v15);
 }
 
-void sub_297727C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_297727C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -542,7 +543,7 @@ void sub_297727C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 uint64_t nlp::traverseFromCompactMapCursorMappedLevel(uint64_t result, void *a2, uint64_t a3, unsigned int a4, unsigned int a5, _BYTE *a6, uint64_t a7, uint64_t a8)
 {
   v12 = result;
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v13 = (*a2 & 0xFFFFFFFFFFFFFFFCLL) + *(result + 2080);
   v14 = *(v13 + 1024);
   if (*(result + 2064))
@@ -553,13 +554,13 @@ uint64_t nlp::traverseFromCompactMapCursorMappedLevel(uint64_t result, void *a2,
       result = std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(a8, a7, a3, 0, *(v13 + 1024), a6, *(v13 + 1032));
       if (a5 >= a4 || (*a6 & 1) != 0)
       {
-        goto LABEL_27;
+        return result;
       }
     }
 
     else if (a5 >= a4)
     {
-      goto LABEL_27;
+      return result;
     }
 
     v18 = 0;
@@ -580,9 +581,9 @@ uint64_t nlp::traverseFromCompactMapCursorMappedLevel(uint64_t result, void *a2,
       a2[1] = 0;
       a2[2] = 0;
       *a2 = v19;
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v26, a8);
-      nlp::traverseFromCompactMapCursor(v12, a2, a3, a4 - (v18 != 0), v20, a6, a7, v26);
-      result = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v26);
+      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v25, a8);
+      nlp::traverseFromCompactMapCursor(v12, a2, a3, a4 - (v18 != 0), v20, a6, a7, v25);
+      result = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v25);
       if (*a6)
       {
         break;
@@ -602,13 +603,13 @@ uint64_t nlp::traverseFromCompactMapCursorMappedLevel(uint64_t result, void *a2,
       result = std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(a8, a7, a3, 0, *(v13 + 1024), a6, 0.0);
       if (a5 >= a4 || (*a6 & 1) != 0)
       {
-        goto LABEL_27;
+        return result;
       }
     }
 
     else if (a5 >= a4)
     {
-      goto LABEL_27;
+      return result;
     }
 
     v15 = 0;
@@ -628,9 +629,9 @@ uint64_t nlp::traverseFromCompactMapCursorMappedLevel(uint64_t result, void *a2,
         v16 = a5;
       }
 
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v25, a8);
-      nlp::traverseFromCompactMapCursor(v12, a2, a3, a4 - (v15 != 0), v16, a6, a7, v25);
-      result = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v25);
+      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v24, a8);
+      nlp::traverseFromCompactMapCursor(v12, a2, a3, a4 - (v15 != 0), v16, a6, a7, v24);
+      result = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v24);
       if (*a6)
       {
         break;
@@ -642,19 +643,17 @@ uint64_t nlp::traverseFromCompactMapCursorMappedLevel(uint64_t result, void *a2,
     while (!v17);
   }
 
-LABEL_27:
-  v21 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_297727F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_297727F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlp::BurstTrieSetCursorWithBytes(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unsigned int a4)
+uint64_t nlp::BurstTrieSetCursorWithBytes(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
   if (!a1 || !a2 || !nlp::burstTrieSetCursor(a1, a2))
   {
@@ -695,7 +694,7 @@ uint64_t nlp::burstTrieSetCursor(uint64_t a1, uint64_t a2)
   return 1;
 }
 
-uint64_t nlp::BurstTrieCursorAdvanceWithBytes(uint64_t result, unsigned __int8 *a2, unsigned int a3)
+uint64_t nlp::BurstTrieCursorAdvanceWithBytes(uint64_t result, unsigned __int8 *a2, uint64_t a3)
 {
   if (result)
   {
@@ -747,8 +746,9 @@ uint64_t nlp::BurstTrieCursorAdvanceWithBytes(uint64_t result, unsigned __int8 *
   return result;
 }
 
-uint64_t nlp::advanceCompactMapCursor(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unsigned int a4)
+uint64_t nlp::advanceCompactMapCursor(uint64_t a1, uint64_t *a2, unsigned __int8 *a3, uint64_t a4)
 {
+  v4 = a4;
   v8 = *a2;
   v9 = *a2 & 3;
   if (v9 <= 1)
@@ -813,8 +813,8 @@ LABEL_23:
         goto LABEL_43;
       }
 
-      *(a2 + 16) = v21[5].i32[0];
-      *(a2 + 20) = v21[4].i32[1];
+      *(a2 + 4) = v21[5].i32[0];
+      *(a2 + 5) = v21[4].i32[1];
     }
 
     else
@@ -853,7 +853,7 @@ LABEL_23:
           v56 = v21[4].u32[v26 + v55.i32[0] + 1];
 LABEL_69:
           nlp::updateCompactMapCursorPointer(a1, a2, v56);
-          v20 = nlp::advanceCompactMapCursor(a1, a2, a3 + 1, a4 - 1);
+          v20 = nlp::advanceCompactMapCursor(a1, a2, a3 + 1, v4 - 1);
           goto LABEL_70;
         }
 
@@ -866,7 +866,7 @@ LABEL_71:
         return v10 & 1;
       }
 
-      *(a2 + 16) = v21[4].i32[0];
+      *(a2 + 4) = v21[4].i32[0];
     }
 
     v20 = 1;
@@ -888,7 +888,7 @@ LABEL_71:
     {
       if (a4)
       {
-        v44 = *(a2 + 8);
+        v44 = *(a2 + 2);
         if (v44 >= v14)
         {
           goto LABEL_23;
@@ -916,7 +916,7 @@ LABEL_71:
             v50 = v47[6];
             while (v49 != v50)
             {
-              if (v47[(v50 + *(a2 + 12)) + 7] != a3[v45 + v50])
+              if (v47[(v50 + *(a2 + 3)) + 7] != a3[v45 + v50])
               {
                 LODWORD(v49) = v50;
                 break;
@@ -939,28 +939,28 @@ LABEL_71:
 
           v10 = 0;
           v44 += v51 + 7;
-          *(a2 + 8) = v44;
+          *(a2 + 2) = v44;
           if (v44 >= v14)
           {
             return v10 & 1;
           }
         }
 
-        v64 = *(a2 + 12) + a4;
-        *(a2 + 16) = 0;
+        v64 = *(a2 + 3) + a4;
+        *(a2 + 4) = 0;
         if (v51 + v48 == v64)
         {
-          *(a2 + 16) = *v47;
+          *(a2 + 4) = *v47;
         }
 
         goto LABEL_87;
       }
 
-      v63 = v12 + *(a2 + 8);
+      v63 = v12 + *(a2 + 2);
       if (*(v63 + 4) | v63[10])
       {
 LABEL_78:
-        *(a2 + 16) = 0;
+        *(a2 + 4) = 0;
         goto LABEL_88;
       }
     }
@@ -969,53 +969,53 @@ LABEL_78:
     {
       if (a4)
       {
-        v15 = *(a2 + 8);
+        v15 = *(a2 + 2);
         if (v15 >= v14)
         {
           goto LABEL_23;
         }
 
         v16 = v12 + 1;
-        v17 = *(a2 + 12);
+        v17 = *(a2 + 3);
         while (1)
         {
           v18 = v16 + v15;
           v19 = *(v18 + 2);
-          if (v19 >= v17 && !memcmp(&v18[v17 + 6], a3, a4))
+          if (v19 >= v17 && !memcmp(&v18[v17 + 6], a3, v4))
           {
             break;
           }
 
           v10 = 0;
           v15 += v19 + 6;
-          *(a2 + 8) = v15;
+          *(a2 + 2) = v15;
           if (v15 >= v14)
           {
             return v10 & 1;
           }
         }
 
-        *(a2 + 16) = 0;
-        if (v19 - v17 == a4)
+        *(a2 + 4) = 0;
+        if (v19 - v17 == v4)
         {
-          *(a2 + 16) = *v18;
+          *(a2 + 4) = *v18;
         }
 
-        v64 = v17 + a4;
+        v64 = v17 + v4;
 LABEL_87:
-        *(a2 + 12) = v64;
+        *(a2 + 3) = v64;
         goto LABEL_88;
       }
 
-      v63 = v12 + *(a2 + 8);
+      v63 = v12 + *(a2 + 2);
       if (*(v63 + 4))
       {
         goto LABEL_78;
       }
     }
 
-    *(a2 + 16) = 0;
-    *(a2 + 16) = *(v63 + 1);
+    *(a2 + 4) = 0;
+    *(a2 + 4) = *(v63 + 1);
     goto LABEL_88;
   }
 
@@ -1024,26 +1024,26 @@ LABEL_87:
     goto LABEL_23;
   }
 
-  v32 = *(a2 + 8);
-  v33 = *(a2 + 12);
-  v34 = *(a2 + 16);
-  v35 = *(a2 + 20);
+  v32 = *(a2 + 2);
+  v33 = *(a2 + 3);
+  v34 = *(a2 + 4);
+  v35 = *(a2 + 5);
   v36 = v13 - 8;
   if (v13 == 8)
   {
     v38 = 0;
 LABEL_76:
-    *(a2 + 8) = v32;
-    *(a2 + 12) = v33;
-    *(a2 + 16) = v34;
-    *(a2 + 20) = v35;
+    *(a2 + 2) = v32;
+    *(a2 + 3) = v33;
+    *(a2 + 4) = v34;
+    *(a2 + 5) = v35;
     v61 = v38 == 0;
     goto LABEL_71;
   }
 
   v37 = 0;
   v38 = 0;
-  v39 = *(a2 + 12);
+  v39 = *(a2 + 3);
   v40 = v12 + 2;
   v41 = v33 + a4;
   while (1)
@@ -1069,7 +1069,7 @@ LABEL_76:
     v68 = v33;
     v69 = v32;
     v65 = v39;
-    if (!memcmp(&v42[v39 + 10], a3, a4))
+    if (!memcmp(&v42[v39 + 10], a3, v4))
     {
       break;
     }
@@ -1094,7 +1094,7 @@ LABEL_41:
     if (!v66)
     {
       v34 = 0;
-      v33 = v68 + a4;
+      v33 = v68 + v4;
     }
 
     v32 = v69;
@@ -1108,18 +1108,19 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  *(a2 + 16) = 0;
-  *(a2 + 16) = *(v42 + 1);
-  *(a2 + 20) = *v42;
-  *(a2 + 8) = v37;
-  *(a2 + 12) = v41;
+  *(a2 + 4) = 0;
+  *(a2 + 4) = *(v42 + 1);
+  *(a2 + 5) = *v42;
+  *(a2 + 2) = v37;
+  *(a2 + 3) = v41;
 LABEL_88:
   v10 = 1;
   return v10 & 1;
 }
 
-uint64_t nlp::advanceMapCursor(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unsigned int a4)
+uint64_t nlp::advanceMapCursor(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
+  v4 = a4;
   v8 = *(a2 + 8);
   if ((v8 & 3) == 2)
   {
@@ -1150,7 +1151,7 @@ uint64_t nlp::advanceMapCursor(uint64_t a1, uint64_t a2, unsigned __int8 *a3, un
           v10 = 1;
 LABEL_10:
           nlp::updateMapCursorPointer(a1, a2, *&v9[2 * *a3 + v10]);
-          v11 = nlp::advanceMapCursor(a1, a2, a3 + 1, a4 - 1);
+          v11 = nlp::advanceMapCursor(a1, a2, a3 + 1, (v4 - 1));
           return v11 & 1;
         }
 
@@ -1185,179 +1186,26 @@ void *nlp::sharedBuffer(nlp *this)
   return v1;
 }
 
-uint64_t nlp::traverseFromMapCursor(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, _BYTE *a5, int a6, uint64_t a7, uint64_t a8)
+uint64_t nlp::traverseFromMapCursor(uint64_t result, uint64_t a2, uint64_t a3, int a4, _BYTE *a5, int a6, uint64_t a7, uint64_t a8)
 {
-  v64 = *MEMORY[0x29EDCA608];
+  v63 = *MEMORY[0x29EDCA608];
   LODWORD(v14) = *(result + 2064);
   v15 = *(a2 + 8) & 3;
-  if (v15 > 1)
+  if (v15 <= 1)
   {
-    if (v15 != 2)
+    if (!v15)
     {
-      goto LABEL_55;
+      return result;
     }
 
-    if (v14)
-    {
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v60, a8);
-      v36 = *a2 & 0xFFFFFFFFFFFFFFFCLL;
-      if (!v36)
-      {
-        goto LABEL_41;
-      }
-
-      __dst = (v36 + 22);
-      v37 = *(a2 + 16);
-      do
-      {
-        v38 = *(v36 + 20);
-        if (v38 >= v37)
-        {
-          v39 = v38 - v37;
-          if (a6 < 0 || v39 <= a6)
-          {
-            if (v37)
-            {
-              v40 = (v36 + 22);
-              v41 = __dst;
-              v42 = v37;
-              while (1)
-              {
-                v44 = *v40++;
-                v43 = v44;
-                v45 = *v41++;
-                if (v43 != v45)
-                {
-                  break;
-                }
-
-                if (!--v42)
-                {
-                  goto LABEL_37;
-                }
-              }
-            }
-
-            else
-            {
-LABEL_37:
-              v46 = v39 + a4;
-              memcpy((a3 + a4), (v36 + v37 + 22), v39);
-              *(a3 + v46) = 0;
-              std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v60, a7, a3, v46, *(v36 + 16), a5, *(v36 + 12));
-            }
-          }
-        }
-
-        v36 = *v36;
-      }
-
-      while (v36);
-    }
-
-    else
-    {
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v59, a8);
-      v18 = *(a2 + 8) & 0xFFFFFFFFFFFFFFFCLL;
-      v19 = *(a2 + 16);
-      if (v19 > *(v18 + 12))
-      {
-        __assert_rtn("traverseFromMapCursorTrieList", "BurstTrie.cpp", 1957, "cursor.prfxlen <= head->restlen");
-      }
-
-      if (v18)
-      {
-        v56 = (v18 + 14);
-        v20 = *(a2 + 16);
-        v21 = *(a2 + 8) & 0xFFFFFFFFFFFFFFFCLL;
-        v57 = v14;
-        while (1)
-        {
-          v22 = *(v21 + 12);
-          if (v21 != v18)
-          {
-            if (v22 <= v20)
-            {
-              goto LABEL_39;
-            }
-
-            if (v19)
-            {
-              break;
-            }
-          }
-
-LABEL_19:
-          v29 = v22 - v19;
-          if (a6 < 0 || v29 <= a6)
-          {
-            v14 = v20;
-            v30 = v18;
-            v31 = v29 + a4;
-            v32 = v19;
-            memcpy((a3 + a4), (v21 + v19 + 14), v29);
-            *(a3 + v31) = 0;
-            v33 = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v63, v59);
-            std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v33, a7, a3, v31, *(v21 + 8), a5, 0.0);
-            std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v63);
-            v18 = v30;
-            v20 = v14;
-            LOBYTE(v14) = v57;
-            v19 = v32;
-          }
-
-          v21 = *v21;
-          if (!v21)
-          {
-            goto LABEL_39;
-          }
-        }
-
-        v23 = (v21 + 14);
-        v24 = v56;
-        v25 = v19;
-        while (1)
-        {
-          v27 = *v23++;
-          v26 = v27;
-          v28 = *v24++;
-          if (v26 != v28)
-          {
-            break;
-          }
-
-          if (!--v25)
-          {
-            goto LABEL_19;
-          }
-        }
-      }
-    }
-
-LABEL_39:
-    if ((v14 & 1) == 0)
-    {
-      v47 = v59;
-LABEL_54:
-      result = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v47);
-      goto LABEL_55;
-    }
-
-LABEL_41:
-    v47 = v60;
-    goto LABEL_54;
-  }
-
-  if (v15)
-  {
     v16 = result;
     if ((v14 & 1) == 0)
     {
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v61, a8);
+      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v60, a8);
       v17 = (*(a2 + 8) & 0xFFFFFFFFFFFFFFFCLL);
       if (*v17)
       {
-        std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v61, a7, a3, a4, *v17, a5, *(a2 + 24));
+        std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v60, a7, a3, a4, *v17, a5, *(a2 + 24));
         if (!a6 || (*a5 & 1) != 0)
         {
           goto LABEL_47;
@@ -1367,20 +1215,20 @@ LABEL_41:
       else if (!a6)
       {
 LABEL_47:
-        v47 = v61;
-        goto LABEL_54;
+        v47 = v60;
+        return std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v47);
       }
 
       v48 = 0;
       v49 = v17 + 1;
-      v50 = (a6 - 1);
+      v50 = a6 - 1;
       do
       {
         *(a3 + a4) = v48;
         nlp::updateMapCursorPointer(v16, a2, *&v49[2 * v48]);
-        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v63, v61);
-        nlp::traverseFromMapCursor(v16, a2, a3, a4 + 1, a5, v50, a7, v63);
-        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v63);
+        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v62, v60);
+        nlp::traverseFromMapCursor(v16, a2, a3, a4 + 1, a5, v50, a7, v62);
+        std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v62);
         if (*a5)
         {
           break;
@@ -1393,12 +1241,12 @@ LABEL_47:
       goto LABEL_47;
     }
 
-    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v62, a8);
+    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v61, a8);
     v34 = *(a2 + 8) & 0xFFFFFFFFFFFFFFFCLL;
     v35 = *(v34 + 8);
     if (v35)
     {
-      std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v62, a7, a3, a4, v35, a5, *(a2 + 24));
+      std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v61, a7, a3, a4, v35, a5, *(a2 + 24));
       if (!a6 || (*a5 & 1) != 0)
       {
         goto LABEL_53;
@@ -1408,20 +1256,20 @@ LABEL_47:
     else if (!a6)
     {
 LABEL_53:
-      v47 = v62;
-      goto LABEL_54;
+      v47 = v61;
+      return std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v47);
     }
 
     v52 = 0;
     v53 = v34 + 12;
-    v54 = (a6 - 1);
+    v54 = a6 - 1;
     do
     {
       *(a3 + a4) = v52;
       nlp::updateMapCursorPointer(v16, a2, *(v53 + 8 * v52));
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v63, v62);
-      nlp::traverseFromMapCursor(v16, a2, a3, a4 + 1, a5, v54, a7, v63);
-      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v63);
+      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v62, v61);
+      nlp::traverseFromMapCursor(v16, a2, a3, a4 + 1, a5, v54, a7, v62);
+      std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v62);
       if (*a5)
       {
         break;
@@ -1434,14 +1282,163 @@ LABEL_53:
     goto LABEL_53;
   }
 
-LABEL_55:
-  v55 = *MEMORY[0x29EDCA608];
-  return result;
+  if (v15 != 2)
+  {
+    return result;
+  }
+
+  if (v14)
+  {
+    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v59, a8);
+    v36 = *a2 & 0xFFFFFFFFFFFFFFFCLL;
+    if (!v36)
+    {
+LABEL_41:
+      v47 = v59;
+      return std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v47);
+    }
+
+    __dst = (v36 + 22);
+    v37 = *(a2 + 16);
+    do
+    {
+      v38 = *(v36 + 20);
+      if (v38 >= v37)
+      {
+        v39 = v38 - v37;
+        if (a6 < 0 || v39 <= a6)
+        {
+          if (v37)
+          {
+            v40 = (v36 + 22);
+            v41 = __dst;
+            v42 = v37;
+            while (1)
+            {
+              v44 = *v40++;
+              v43 = v44;
+              v45 = *v41++;
+              if (v43 != v45)
+              {
+                break;
+              }
+
+              if (!--v42)
+              {
+                goto LABEL_37;
+              }
+            }
+          }
+
+          else
+          {
+LABEL_37:
+            v46 = v39 + a4;
+            memcpy((a3 + a4), (v36 + v37 + 22), v39);
+            *(a3 + v46) = 0;
+            std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v59, a7, a3, v46, *(v36 + 16), a5, *(v36 + 12));
+          }
+        }
+      }
+
+      v36 = *v36;
+    }
+
+    while (v36);
+  }
+
+  else
+  {
+    std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v58, a8);
+    v18 = *(a2 + 8) & 0xFFFFFFFFFFFFFFFCLL;
+    v19 = *(a2 + 16);
+    if (v19 > *(v18 + 12))
+    {
+      __assert_rtn("traverseFromMapCursorTrieList", "BurstTrie.cpp", 1957, "cursor.prfxlen <= head->restlen");
+    }
+
+    if (v18)
+    {
+      v55 = (v18 + 14);
+      v20 = *(a2 + 16);
+      v21 = *(a2 + 8) & 0xFFFFFFFFFFFFFFFCLL;
+      v56 = v14;
+      while (1)
+      {
+        v22 = *(v21 + 12);
+        if (v21 != v18)
+        {
+          if (v22 <= v20)
+          {
+            goto LABEL_39;
+          }
+
+          if (v19)
+          {
+            break;
+          }
+        }
+
+LABEL_19:
+        v29 = v22 - v19;
+        if (a6 < 0 || v29 <= a6)
+        {
+          v14 = v20;
+          v30 = v18;
+          v31 = v29 + a4;
+          v32 = v19;
+          memcpy((a3 + a4), (v21 + v19 + 14), v29);
+          *(a3 + v31) = 0;
+          v33 = std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::__value_func[abi:ne200100](v62, v58);
+          std::function<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(v33, a7, a3, v31, *(v21 + 8), a5, 0.0);
+          std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v62);
+          v18 = v30;
+          v20 = v14;
+          LOBYTE(v14) = v56;
+          v19 = v32;
+        }
+
+        v21 = *v21;
+        if (!v21)
+        {
+          goto LABEL_39;
+        }
+      }
+
+      v23 = (v21 + 14);
+      v24 = v55;
+      v25 = v19;
+      while (1)
+      {
+        v27 = *v23++;
+        v26 = v27;
+        v28 = *v24++;
+        if (v26 != v28)
+        {
+          break;
+        }
+
+        if (!--v25)
+        {
+          goto LABEL_19;
+        }
+      }
+    }
+  }
+
+LABEL_39:
+  if (v14)
+  {
+    goto LABEL_41;
+  }
+
+  v47 = v58;
+  return std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](v47);
 }
 
-void sub_297728BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_297728BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   std::__function::__value_func<void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1702,7 +1699,7 @@ LABEL_14:
   }
 }
 
-void nlp::BurstTrieRankedSearchWithSelection(unint64_t a1, void *a2, unsigned __int8 *a3, unsigned int a4, uint64_t a5, __CFBinaryHeap *a6, __CFBinaryHeap *a7)
+void nlp::BurstTrieRankedSearchWithSelection(unint64_t a1, void *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, __CFBinaryHeap *a6, __CFBinaryHeap *a7)
 {
   if (*(a1 + 2064))
   {
@@ -1898,21 +1895,23 @@ LABEL_11:
   }
 }
 
-uint64_t nlp::rankSearchLevel(nlp *a1, unint64_t a2, unsigned __int8 *a3, unsigned int a4, unsigned int a5, __CFBinaryHeap *a6, __CFBinaryHeap *a7, unsigned int a8, void *a9)
+BOOL nlp::rankSearchLevel(nlp *a1, unint64_t a2, unsigned __int8 *a3, uint64_t a4, unsigned int a5, __CFBinaryHeap *a6, __CFBinaryHeap *a7, uint64_t a8, void *a9)
 {
+  v10 = a4;
   v14 = a4 - a5;
   if (a4 <= a5)
   {
 LABEL_5:
+    v28 = a8;
     v17 = nlp::sharedBuffer(a1);
-    memcpy(v17, a3, a4);
+    memcpy(v17, a3, v10);
     v18 = 0;
-    *(v17 + (a4 + 1)) = 0;
+    *(v17 + (v10 + 1)) = 0;
     do
     {
       v19 = *(a2 + 12 + 8 * v18);
-      *(v17 + a4) = v18;
-      nlp::rankSearchGetCursor(a1, v19, v17, a4 + 1, a6);
+      *(v17 + v10) = v18;
+      nlp::rankSearchGetCursor(a1, v19, v17, v10 + 1, a6);
       ++v18;
     }
 
@@ -1921,14 +1920,14 @@ LABEL_5:
     if (v20)
     {
       v21 = *(a2 + 4);
-      v22 = malloc_type_malloc(a4 + 21, 0x1000040A86A77D5uLL);
-      v22[4] = a4;
-      *(v22 + a4 + 20) = 0;
-      memcpy(v22 + 5, a3, a4);
+      v22 = malloc_type_malloc(v10 + 21, 0x1000040A86A77D5uLL);
+      v22[4] = v10;
+      *(v22 + v10 + 20) = 0;
+      memcpy(v22 + 5, a3, v10);
       *v22 = v21;
       v22[2] = v20;
       v22[3] = 1;
-      updated = nlp::updateCompletions(v22, a9, a6, a7, a8);
+      updated = nlp::updateCompletions(v22, a9, a6, a7, v28);
       v24 = updated;
       v25 = v22[3] - 1;
       v22[3] = v25;
@@ -1954,7 +1953,7 @@ LABEL_5:
 
 LABEL_10:
 
-    return nlp::rankSearchCursors(a1, a6);
+    return nlp::rankSearchCursors(a1, a6, a7, v28, a9);
   }
 
   v15 = a5;
@@ -2069,7 +2068,7 @@ BOOL nlp::rankSearchCursors(nlp *a1, CFBinaryHeapRef heap, __CFBinaryHeap *a3, u
 
       else if (v14 == 1)
       {
-        v18 = nlp::rankSearchDiskLevel(a1, v16 + v15);
+        v18 = nlp::rankSearchDiskLevel(a1, v16 + v15, v12 + 28, v17, v17, heap, a3, a4, a5);
       }
 
       else
@@ -2149,12 +2148,12 @@ uint64_t nlp::BurstTrieWriteToFileDescriptor(uint64_t a1, uint64_t a2, _DWORD *a
     pwrite(a2, __buf, 4uLL, v8 + 4);
     if (*(a1 + 2064))
     {
-      nlp::serializeLevelsRanked(a1, v8, a2, 0, 1, __buf);
+      nlp::serializeLevelsRanked(a1, v8, a2, 0, 1u, __buf);
     }
 
     else
     {
-      nlp::serializeLevels(a1, v8, a2, 0, 1, __buf);
+      nlp::serializeLevels(a1, v8, a2, 0, 1u, __buf);
     }
 
     pwrite(a2, __buf, 4uLL, v8 + 8);
@@ -2194,27 +2193,22 @@ uint64_t nlp::BurstTrieWriteToFileDescriptor(uint64_t a1, uint64_t a2, _DWORD *a
 
 uint64_t nlp::BurstTrieWriteToFile(uint64_t a1, CFStringRef theString)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   usedBufLen = 0;
-  v13.length = CFStringGetLength(theString);
-  v13.location = 0;
-  CFStringGetBytes(theString, v13, 0x8000100u, 0x2Du, 0, buffer, 1024, &usedBufLen);
+  v12.length = CFStringGetLength(theString);
+  v12.location = 0;
+  CFStringGetBytes(theString, v12, 0x8000100u, 0x2Du, 0, buffer, 1024, &usedBufLen);
   buffer[usedBufLen] = 0;
   v4 = open(buffer, 1538, 384);
   if ((v4 & 0x80000000) != 0)
   {
-    v6 = 0;
+    return 0;
   }
 
-  else
-  {
-    v5 = v4;
-    v9 = -1;
-    v6 = nlp::BurstTrieWriteToFileDescriptor(a1, v4, &v9);
-    close(v5);
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
+  v5 = v4;
+  v8 = -1;
+  v6 = nlp::BurstTrieWriteToFileDescriptor(a1, v4, &v8);
+  close(v5);
   return v6;
 }
 
@@ -2587,7 +2581,7 @@ LABEL_18:
 
 float *nlp::burstLevelRanked(uint64_t a1, unsigned __int16 *a2, float *a3, int *a4)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v8 = malloc_type_calloc(1uLL, 0x80CuLL, 0x10000408B9410F9uLL);
   v9 = v8;
   *a3 = 0.0;
@@ -2596,24 +2590,24 @@ float *nlp::burstLevelRanked(uint64_t a1, unsigned __int16 *a2, float *a3, int *
     v10 = v8 + 12;
     do
     {
-      v25 = 0.0;
+      v24 = 0.0;
       v11 = a2[10];
       v12 = *(a2 + 4);
       v13 = *(a2 + 3);
-      v28 = 0;
+      v27 = 0;
       if (v11)
       {
         v14 = *&v10[8 * *(a2 + 22)];
         if (v14)
         {
-          v26 = (v14 & 0xFFFFFFFFFFFFFFFCLL);
-          v30 = 0;
-          v15 = nlp::addListNodeRanked(a1, &v26, (a2 + 11), v11, 1u, v12, &v25, a4, v13, 0, v29);
-          std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v29);
-          v16 = v26;
+          v25 = (v14 & 0xFFFFFFFFFFFFFFFCLL);
+          v29 = 0;
+          v15 = nlp::addListNodeRanked(a1, &v25, (a2 + 11), v11, 1u, v12, &v24, a4, v13, 0, v28);
+          std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v28);
+          v16 = v25;
           if (v15 >= *(a1 + 2088))
           {
-            v16 = nlp::burstLevelRanked(a1, v26, &v25, a4);
+            v16 = nlp::burstLevelRanked(a1, v25, &v24, a4);
             v17 = 1;
           }
 
@@ -2623,7 +2617,7 @@ float *nlp::burstLevelRanked(uint64_t a1, unsigned __int16 *a2, float *a3, int *
           }
 
           *&v10[8 * *(a2 + 22)] = v17 | v16;
-          v13 = v25;
+          v13 = v24;
         }
 
         else
@@ -2647,7 +2641,7 @@ float *nlp::burstLevelRanked(uint64_t a1, unsigned __int16 *a2, float *a3, int *
         *(v9 + 2) = v12;
       }
 
-      std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v27);
+      std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](v26);
       v20 = *a3;
       if (v13 > *a3)
       {
@@ -2666,22 +2660,21 @@ float *nlp::burstLevelRanked(uint64_t a1, unsigned __int16 *a2, float *a3, int *
 
   else
   {
-    v22 = 0.0;
+    v22 = 0;
   }
 
   *v9 = v22;
-  v23 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
-void sub_29772A5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29772A5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](va1);
   std::__function::__value_func<float ()(void *,float,float)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -2752,35 +2745,34 @@ void std::__throw_bad_function_call[abi:ne200100]()
 uint64_t nlp::searchDiskLevelRanked(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v10 = a6;
-  v42 = *MEMORY[0x29EDCA608];
-  v35 = 0;
+  v41 = *MEMORY[0x29EDCA608];
+  v34 = 0;
   if (a5 >= a4)
   {
     v18 = *(a2 + 1024);
     if (v18)
     {
       v19 = *(a2 + 1032);
-      v34 = a6;
+      v33 = a6;
       v20 = malloc_type_malloc(a4 + 21, 0x1000040A86A77D5uLL);
       v20[4] = a4;
       *(v20 + a4 + 20) = 0;
-      LOBYTE(v10) = v34;
+      LOBYTE(v10) = v33;
       memcpy(v20 + 5, a3, a4);
       v20[2] = v18;
       *v20 = v19;
       v20[3] = 1;
-      std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v20, 1, &v35);
+      std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v20, 1, &v34);
       v21 = v20[3]-- == 1;
       if (v21)
       {
         free(v20);
       }
 
-      v17 = v35;
-      if (v35)
+      v17 = v34;
+      if (v34)
       {
-        v17 = 1;
-        goto LABEL_30;
+        return 1;
       }
     }
 
@@ -2791,7 +2783,7 @@ uint64_t nlp::searchDiskLevelRanked(uint64_t a1, uint64_t a2, unsigned __int8 *a
 
     if (v10)
     {
-      goto LABEL_30;
+      return v17;
     }
 
     v25 = 0;
@@ -2804,16 +2796,16 @@ uint64_t nlp::searchDiskLevelRanked(uint64_t a1, uint64_t a2, unsigned __int8 *a
         v29 = *(a1 + 2080);
         if ((v26 & 3) == 2)
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v36, a8);
-          v35 = nlp::searchDiskPageRanked(((v26 & 0xFFFFFFFC) + v29), a3, a4 + 1, a5 + 1, 0, a7, v36);
-          v28 = v36;
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v35, a8);
+          v34 = nlp::searchDiskPageRanked(((v26 & 0xFFFFFFFC) + v29), a3, a4 + 1, a5 + 1, 0, a7, v35);
+          v28 = v35;
         }
 
         else
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v37, a8);
-          v35 = nlp::searchCompactDiskLevelRanked(a1, ((v26 & 0xFFFFFFFC) + v29), a3, (a4 + 1), a5 + 1, 0, a7, v37);
-          v28 = v37;
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v36, a8);
+          v34 = nlp::searchCompactDiskLevelRanked(a1, ((v26 & 0xFFFFFFFC) + v29), a3, (a4 + 1), a5 + 1, 0, a7, v36);
+          v28 = v36;
         }
       }
 
@@ -2825,15 +2817,15 @@ uint64_t nlp::searchDiskLevelRanked(uint64_t a1, uint64_t a2, unsigned __int8 *a
         }
 
         v27 = *(a1 + 2080);
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v38, a8);
-        v35 = nlp::searchDiskLevelRanked(a1, (v26 & 0xFFFFFFFC) + v27, a3, (a4 + 1), a5 + 1, 0, a7, v38);
-        v28 = v38;
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v37, a8);
+        v34 = nlp::searchDiskLevelRanked(a1, (v26 & 0xFFFFFFFC) + v27, a3, (a4 + 1), a5 + 1, 0, a7, v37);
+        v28 = v37;
       }
 
       std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v28);
 LABEL_23:
-      v17 = v35;
-      if ((v35 & 1) == 0)
+      v17 = v34;
+      if ((v34 & 1) == 0)
       {
         v21 = v25++ == 255;
         if (!v21)
@@ -2842,7 +2834,7 @@ LABEL_23:
         }
       }
 
-      goto LABEL_30;
+      return v17;
     }
   }
 
@@ -2852,17 +2844,17 @@ LABEL_23:
     if ((v16 & 3) == 2)
     {
       v22 = *(a1 + 2080);
-      std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v39, a8);
-      v23 = v39;
-      v24 = nlp::searchDiskPageRanked(((v16 & 0xFFFFFFFC) + v22), a3, a4, a5 + 1, v10, a7, v39);
+      std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v38, a8);
+      v23 = v38;
+      v24 = nlp::searchDiskPageRanked(((v16 & 0xFFFFFFFC) + v22), a3, a4, a5 + 1, v10, a7, v38);
     }
 
     else
     {
       v31 = *(a1 + 2080);
-      std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v40, a8);
-      v23 = v40;
-      v24 = nlp::searchCompactDiskLevelRanked(a1, ((v16 & 0xFFFFFFFC) + v31), a3, a4, a5 + 1, v10, a7, v40);
+      std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v39, a8);
+      v23 = v39;
+      v24 = nlp::searchCompactDiskLevelRanked(a1, ((v16 & 0xFFFFFFFC) + v31), a3, a4, a5 + 1, v10, a7, v39);
     }
 
     goto LABEL_29;
@@ -2871,19 +2863,23 @@ LABEL_23:
   if ((v16 & 3) != 0)
   {
     v30 = *(a1 + 2080);
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v41, a8);
-    v23 = v41;
-    v24 = nlp::searchDiskLevelRanked(a1, (v16 & 0xFFFFFFFC) + v30, a3, a4, a5 + 1, v10, a7, v41);
+    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v40, a8);
+    v23 = v40;
+    v24 = nlp::searchDiskLevelRanked(a1, (v16 & 0xFFFFFFFC) + v30, a3, a4, a5 + 1, v10, a7, v40);
 LABEL_29:
     v17 = v24;
     std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v23);
-    goto LABEL_30;
+    return v17;
   }
 
-  v17 = 0;
-LABEL_30:
-  v32 = *MEMORY[0x29EDCA608];
-  return v17;
+  return 0;
+}
+
+void sub_29772A9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
 }
 
 uint64_t nlp::containsKey(uint64_t result, _DWORD *a2, int a3, _BYTE *a4)
@@ -2927,34 +2923,33 @@ LABEL_6:
 uint64_t nlp::searchDiskLevel(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v10 = a6;
-  v40 = *MEMORY[0x29EDCA608];
-  v33 = 0;
+  v39 = *MEMORY[0x29EDCA608];
+  v32 = 0;
   if (a5 >= a4)
   {
     v18 = *(a2 + 1024);
     if (v18)
     {
-      v32 = a6;
+      v31 = a6;
       v19 = malloc_type_malloc(a4 + 21, 0x1000040A86A77D5uLL);
       v19[4] = a4;
       *(v19 + a4 + 20) = 0;
-      LOBYTE(v10) = v32;
+      LOBYTE(v10) = v31;
       memcpy(v19 + 5, a3, a4);
       v19[2] = v18;
       *v19 = 0;
       v19[3] = 1;
-      std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v19, 1, &v33);
+      std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v19, 1, &v32);
       v20 = v19[3]-- == 1;
       if (v20)
       {
         free(v19);
       }
 
-      v17 = v33;
-      if (v33)
+      v17 = v32;
+      if (v32)
       {
-        v17 = 1;
-        goto LABEL_30;
+        return 1;
       }
     }
 
@@ -2965,7 +2960,7 @@ uint64_t nlp::searchDiskLevel(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uin
 
     if (v10)
     {
-      goto LABEL_30;
+      return v17;
     }
 
     v24 = 0;
@@ -2978,16 +2973,16 @@ uint64_t nlp::searchDiskLevel(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uin
         v28 = *(a1 + 2080);
         if ((v25 & 3) == 2)
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v34, a8);
-          v33 = nlp::searchDiskPage(a1, ((v25 & 0xFFFFFFFC) + v28), a3, a4 + 1, a5 + 1, 0, a7, v34);
-          v27 = v34;
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v33, a8);
+          v32 = nlp::searchDiskPage(a1, ((v25 & 0xFFFFFFFC) + v28), a3, a4 + 1, a5 + 1, 0, a7, v33);
+          v27 = v33;
         }
 
         else
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v35, a8);
-          v33 = nlp::searchCompactDiskLevel(a1, ((v25 & 0xFFFFFFFC) + v28), a3, (a4 + 1), a5 + 1, 0, a7, v35);
-          v27 = v35;
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v34, a8);
+          v32 = nlp::searchCompactDiskLevel(a1, ((v25 & 0xFFFFFFFC) + v28), a3, (a4 + 1), a5 + 1, 0, a7, v34);
+          v27 = v34;
         }
       }
 
@@ -2999,15 +2994,15 @@ uint64_t nlp::searchDiskLevel(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uin
         }
 
         v26 = *(a1 + 2080);
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v36, a8);
-        v33 = nlp::searchDiskLevel(a1, (v25 & 0xFFFFFFFC) + v26, a3, (a4 + 1), a5 + 1, 0, a7, v36);
-        v27 = v36;
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v35, a8);
+        v32 = nlp::searchDiskLevel(a1, (v25 & 0xFFFFFFFC) + v26, a3, (a4 + 1), a5 + 1, 0, a7, v35);
+        v27 = v35;
       }
 
       std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v27);
 LABEL_23:
-      v17 = v33;
-      if ((v33 & 1) == 0)
+      v17 = v32;
+      if ((v32 & 1) == 0)
       {
         v20 = v24++ == 255;
         if (!v20)
@@ -3016,7 +3011,7 @@ LABEL_23:
         }
       }
 
-      goto LABEL_30;
+      return v17;
     }
   }
 
@@ -3026,16 +3021,16 @@ LABEL_23:
     v21 = *(a1 + 2080);
     if ((v16 & 3) == 2)
     {
-      std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v37, a8);
-      v22 = v37;
-      v23 = nlp::searchDiskPage(a1, ((v16 & 0xFFFFFFFC) + v21), a3, a4, a5 + 1, v10, a7, v37);
+      std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v36, a8);
+      v22 = v36;
+      v23 = nlp::searchDiskPage(a1, ((v16 & 0xFFFFFFFC) + v21), a3, a4, a5 + 1, v10, a7, v36);
     }
 
     else
     {
-      std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v38, a8);
-      v22 = v38;
-      v23 = nlp::searchCompactDiskLevel(a1, ((v16 & 0xFFFFFFFC) + v21), a3, a4, a5 + 1, v10, a7, v38);
+      std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v37, a8);
+      v22 = v37;
+      v23 = nlp::searchCompactDiskLevel(a1, ((v16 & 0xFFFFFFFC) + v21), a3, a4, a5 + 1, v10, a7, v37);
     }
 
     goto LABEL_29;
@@ -3044,25 +3039,29 @@ LABEL_23:
   if ((v16 & 3) != 0)
   {
     v29 = *(a1 + 2080);
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v39, a8);
-    v22 = v39;
-    v23 = nlp::searchDiskLevel(a1, (v16 & 0xFFFFFFFC) + v29, a3, a4, a5 + 1, v10, a7, v39);
+    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v38, a8);
+    v22 = v38;
+    v23 = nlp::searchDiskLevel(a1, (v16 & 0xFFFFFFFC) + v29, a3, a4, a5 + 1, v10, a7, v38);
 LABEL_29:
     v17 = v23;
     std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v22);
-    goto LABEL_30;
+    return v17;
   }
 
-  v17 = 0;
-LABEL_30:
-  v30 = *MEMORY[0x29EDCA608];
-  return v17;
+  return 0;
+}
+
+void sub_29772AE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
 }
 
 uint64_t nlp::searchLevelRanked(uint64_t a1, unsigned __int8 *a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v34 = *MEMORY[0x29EDCA608];
-  v29 = 0;
+  v33 = *MEMORY[0x29EDCA608];
+  v28 = 0;
   if (a4 >= a3)
   {
     v17 = *(a1 + 8);
@@ -3076,18 +3075,17 @@ uint64_t nlp::searchLevelRanked(uint64_t a1, unsigned __int8 *a2, uint64_t a3, u
       v19[2] = v17;
       *v19 = v18;
       v19[3] = 1;
-      std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a7, a6, v19, 1, &v29);
+      std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a7, a6, v19, 1, &v28);
       v20 = v19[3]-- == 1;
       if (v20)
       {
         free(v19);
       }
 
-      v21 = v29;
-      if (v29)
+      v21 = v28;
+      if (v28)
       {
-        v21 = 1;
-        goto LABEL_26;
+        return 1;
       }
     }
 
@@ -3098,7 +3096,7 @@ uint64_t nlp::searchLevelRanked(uint64_t a1, unsigned __int8 *a2, uint64_t a3, u
 
     if (a5)
     {
-      goto LABEL_26;
+      return v21;
     }
 
     v22 = 0;
@@ -3109,9 +3107,9 @@ uint64_t nlp::searchLevelRanked(uint64_t a1, unsigned __int8 *a2, uint64_t a3, u
       a2[a4] = v22;
       if ((v24 & 3) == 2)
       {
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v30, a7);
-        v25 = v30;
-        v26 = nlp::searchListRanked((v24 & 0xFFFFFFFFFFFFFFFCLL), a2, a3 + 1, a4 + 1, 0, a6, v30);
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v29, a7);
+        v25 = v29;
+        v26 = nlp::searchListRanked((v24 & 0xFFFFFFFFFFFFFFFCLL), a2, a3 + 1, a4 + 1, 0, a6, v29);
       }
 
       else
@@ -3121,16 +3119,16 @@ uint64_t nlp::searchLevelRanked(uint64_t a1, unsigned __int8 *a2, uint64_t a3, u
           goto LABEL_19;
         }
 
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v31, a7);
-        v25 = v31;
-        v26 = nlp::searchLevelRanked(v24 & 0xFFFFFFFFFFFFFFFCLL, a2, (a3 + 1), a4 + 1, 0, a6, v31);
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v30, a7);
+        v25 = v30;
+        v26 = nlp::searchLevelRanked(v24 & 0xFFFFFFFFFFFFFFFCLL, a2, (a3 + 1), a4 + 1, 0, a6, v30);
       }
 
-      v29 = v26;
+      v28 = v26;
       std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v25);
 LABEL_19:
-      v21 = v29;
-      if ((v29 & 1) == 0)
+      v21 = v28;
+      if ((v28 & 1) == 0)
       {
         v20 = v22++ == 255;
         if (!v20)
@@ -3139,49 +3137,46 @@ LABEL_19:
         }
       }
 
-      goto LABEL_26;
+      return v21;
     }
   }
 
   v14 = *(a1 + 8 * a2[a4] + 12);
   if ((v14 & 3) == 2)
   {
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v32, a7);
-    v15 = v32;
-    v16 = nlp::searchListRanked((v14 & 0xFFFFFFFFFFFFFFFCLL), a2, a3, a4 + 1, a5, a6, v32);
+    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v31, a7);
+    v15 = v31;
+    v16 = nlp::searchListRanked((v14 & 0xFFFFFFFFFFFFFFFCLL), a2, a3, a4 + 1, a5, a6, v31);
   }
 
   else
   {
     if ((v14 & 3) != 1)
     {
-      v21 = 0;
-      goto LABEL_26;
+      return 0;
     }
 
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v33, a7);
-    v15 = v33;
-    v16 = nlp::searchLevelRanked(v14 & 0xFFFFFFFFFFFFFFFCLL, a2, a3, a4 + 1, a5, a6, v33);
+    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v32, a7);
+    v15 = v32;
+    v16 = nlp::searchLevelRanked(v14 & 0xFFFFFFFFFFFFFFFCLL, a2, a3, a4 + 1, a5, a6, v32);
   }
 
   v21 = v16;
   std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v15);
-LABEL_26:
-  v27 = *MEMORY[0x29EDCA608];
   return v21;
 }
 
-void sub_29772B104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29772B104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t nlp::searchLevel(int *a1, unsigned __int8 *a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v33 = *MEMORY[0x29EDCA608];
-  v28 = 0;
+  v32 = *MEMORY[0x29EDCA608];
+  v27 = 0;
   if (a4 >= a3)
   {
     v17 = *a1;
@@ -3194,18 +3189,17 @@ uint64_t nlp::searchLevel(int *a1, unsigned __int8 *a2, uint64_t a3, unsigned in
       v18[2] = v17;
       *v18 = 0;
       v18[3] = 1;
-      std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a7, a6, v18, 1, &v28);
+      std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a7, a6, v18, 1, &v27);
       v19 = v18[3]-- == 1;
       if (v19)
       {
         free(v18);
       }
 
-      v20 = v28;
-      if (v28)
+      v20 = v27;
+      if (v27)
       {
-        v20 = 1;
-        goto LABEL_26;
+        return 1;
       }
     }
 
@@ -3216,7 +3210,7 @@ uint64_t nlp::searchLevel(int *a1, unsigned __int8 *a2, uint64_t a3, unsigned in
 
     if (a5)
     {
-      goto LABEL_26;
+      return v20;
     }
 
     v21 = 0;
@@ -3227,9 +3221,9 @@ uint64_t nlp::searchLevel(int *a1, unsigned __int8 *a2, uint64_t a3, unsigned in
       a2[a4] = v21;
       if ((v23 & 3) == 2)
       {
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v29, a7);
-        v24 = v29;
-        v25 = nlp::searchList((v23 & 0xFFFFFFFFFFFFFFFCLL), a2, a3 + 1, a4 + 1, 0, a6, v29);
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v28, a7);
+        v24 = v28;
+        v25 = nlp::searchList((v23 & 0xFFFFFFFFFFFFFFFCLL), a2, a3 + 1, a4 + 1, 0, a6, v28);
       }
 
       else
@@ -3239,16 +3233,16 @@ uint64_t nlp::searchLevel(int *a1, unsigned __int8 *a2, uint64_t a3, unsigned in
           goto LABEL_19;
         }
 
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v30, a7);
-        v24 = v30;
-        v25 = nlp::searchLevel(v23 & 0xFFFFFFFFFFFFFFFCLL, a2, (a3 + 1), a4 + 1, 0, a6, v30);
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v29, a7);
+        v24 = v29;
+        v25 = nlp::searchLevel((v23 & 0xFFFFFFFFFFFFFFFCLL), a2, (a3 + 1), a4 + 1, 0, a6, v29);
       }
 
-      v28 = v25;
+      v27 = v25;
       std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v24);
 LABEL_19:
-      v20 = v28;
-      if ((v28 & 1) == 0)
+      v20 = v27;
+      if ((v27 & 1) == 0)
       {
         v19 = v21++ == 255;
         if (!v19)
@@ -3257,49 +3251,46 @@ LABEL_19:
         }
       }
 
-      goto LABEL_26;
+      return v20;
     }
   }
 
   v14 = *&a1[2 * a2[a4] + 1];
   if ((v14 & 3) == 2)
   {
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v31, a7);
-    v15 = v31;
-    v16 = nlp::searchList((v14 & 0xFFFFFFFFFFFFFFFCLL), a2, a3, a4 + 1, a5, a6, v31);
+    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v30, a7);
+    v15 = v30;
+    v16 = nlp::searchList((v14 & 0xFFFFFFFFFFFFFFFCLL), a2, a3, a4 + 1, a5, a6, v30);
   }
 
   else
   {
     if ((v14 & 3) != 1)
     {
-      v20 = 0;
-      goto LABEL_26;
+      return 0;
     }
 
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v32, a7);
-    v15 = v32;
-    v16 = nlp::searchLevel(v14 & 0xFFFFFFFFFFFFFFFCLL, a2, a3, a4 + 1, a5, a6, v32);
+    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v31, a7);
+    v15 = v31;
+    v16 = nlp::searchLevel((v14 & 0xFFFFFFFFFFFFFFFCLL), a2, a3, a4 + 1, a5, a6, v31);
   }
 
   v20 = v16;
   std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v15);
-LABEL_26:
-  v26 = *MEMORY[0x29EDCA608];
   return v20;
 }
 
-void sub_29772B3C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_29772B3C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlp::searchCompactDiskLevelRanked(uint64_t a1, int8x8_t *a2, _BYTE *a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t nlp::searchCompactDiskLevelRanked(uint64_t a1, int8x8_t *a2, unsigned __int8 *a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v57 = *MEMORY[0x29EDCA608];
-  v50 = 0;
+  v56 = *MEMORY[0x29EDCA608];
+  v49 = 0;
   if (a5 < a4)
   {
     v14 = a3[a5];
@@ -3337,17 +3328,17 @@ uint64_t nlp::searchCompactDiskLevelRanked(uint64_t a1, int8x8_t *a2, _BYTE *a3,
         if ((v40 & 3) == 2)
         {
           v41 = *(a1 + 2080);
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v54, a8);
-          v42 = v54;
-          v43 = nlp::searchDiskPageRanked(((v40 & 0xFFFFFFFC) + v41), a3, a4, a5 + 1, a6, a7, v54);
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v53, a8);
+          v42 = v53;
+          v43 = nlp::searchDiskPageRanked(((v40 & 0xFFFFFFFC) + v41), a3, a4, a5 + 1, a6, a7, v53);
         }
 
         else
         {
           v45 = *(a1 + 2080);
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v55, a8);
-          v42 = v55;
-          v43 = nlp::searchCompactDiskLevelRanked(a1, (v40 & 0xFFFFFFFC) + v45, a3, a4, a5 + 1, a6, a7, v55);
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v54, a8);
+          v42 = v54;
+          v43 = nlp::searchCompactDiskLevelRanked(a1, ((v40 & 0xFFFFFFFC) + v45), a3, a4, a5 + 1, a6, a7, v54);
         }
       }
 
@@ -3355,23 +3346,21 @@ uint64_t nlp::searchCompactDiskLevelRanked(uint64_t a1, int8x8_t *a2, _BYTE *a3,
       {
         if ((v40 & 3) == 0)
         {
-          goto LABEL_36;
+          return 0;
         }
 
         v44 = *(a1 + 2080);
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v56, a8);
-        v42 = v56;
-        v43 = nlp::searchDiskLevelRanked(a1, (v40 & 0xFFFFFFFC) + v44, a3, a4, a5 + 1, a6, a7, v56);
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v55, a8);
+        v42 = v55;
+        v43 = nlp::searchDiskLevelRanked(a1, (v40 & 0xFFFFFFFC) + v44, a3, a4, a5 + 1, a6, a7, v55);
       }
 
       v23 = v43;
       std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v42);
-      goto LABEL_42;
+      return v23;
     }
 
-LABEL_36:
-    v23 = 0;
-    goto LABEL_42;
+    return 0;
   }
 
   v19 = a2[5].i32[0];
@@ -3381,7 +3370,7 @@ LABEL_36:
 LABEL_12:
     if (a6)
     {
-      goto LABEL_42;
+      return v23;
     }
 
     v24 = 0;
@@ -3433,16 +3422,16 @@ LABEL_12:
         v35 = *(a1 + 2080);
         if ((v32 & 3) == 2)
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v51, a8);
-          v50 = nlp::searchDiskPageRanked((v35 + (v32 & 0xFFFFFFFC)), a3, a4 + 1, a5 + 1, 0, a7, v51);
-          v34 = v51;
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v50, a8);
+          v49 = nlp::searchDiskPageRanked((v35 + (v32 & 0xFFFFFFFC)), a3, a4 + 1, a5 + 1, 0, a7, v50);
+          v34 = v50;
         }
 
         else
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v52, a8);
-          v50 = nlp::searchCompactDiskLevelRanked(a1, v35 + (v32 & 0xFFFFFFFC), a3, (a4 + 1), a5 + 1, 0, a7, v52);
-          v34 = v52;
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v51, a8);
+          v49 = nlp::searchCompactDiskLevelRanked(a1, (v35 + (v32 & 0xFFFFFFFC)), a3, (a4 + 1), a5 + 1, 0, a7, v51);
+          v34 = v51;
         }
       }
 
@@ -3454,20 +3443,20 @@ LABEL_12:
         }
 
         v33 = *(a1 + 2080);
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v53, a8);
-        v50 = nlp::searchDiskLevelRanked(a1, v33 + (v32 & 0xFFFFFFFC), a3, (a4 + 1), a5 + 1, 0, a7, v53);
-        v34 = v53;
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v52, a8);
+        v49 = nlp::searchDiskLevelRanked(a1, v33 + (v32 & 0xFFFFFFFC), a3, (a4 + 1), a5 + 1, 0, a7, v52);
+        v34 = v52;
       }
 
       std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v34);
 LABEL_29:
-      v23 = v50;
-      if ((v50 & 1) == 0 && ++v24 != 256)
+      v23 = v49;
+      if ((v49 & 1) == 0 && ++v24 != 256)
       {
         continue;
       }
 
-      goto LABEL_42;
+      return v23;
     }
   }
 
@@ -3479,22 +3468,26 @@ LABEL_29:
   v21[2] = v19;
   *v21 = v20;
   v21[3] = 1;
-  std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v21, 1, &v50);
+  std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v21, 1, &v49);
   if (v21[3]-- == 1)
   {
     free(v21);
   }
 
-  v23 = v50;
-  if ((v50 & 1) == 0)
+  v23 = v49;
+  if ((v49 & 1) == 0)
   {
     goto LABEL_12;
   }
 
-  v23 = 1;
-LABEL_42:
-  v46 = *MEMORY[0x29EDCA608];
-  return v23;
+  return 1;
+}
+
+void sub_29772B818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
 }
 
 uint64_t nlp::searchDiskPageRanked(unsigned int *a1, _BYTE *a2, unsigned int a3, int a4, char a5, uint64_t a6, uint64_t a7)
@@ -3537,7 +3530,7 @@ uint64_t nlp::searchDiskPageRanked(unsigned int *a1, _BYTE *a2, unsigned int a3,
     }
 
     v17 = (v15 + v8);
-    v18 = (v17 - v9);
+    v18 = v17 - v9;
     v19 = v26;
     if (v18 >= 1)
     {
@@ -3674,8 +3667,8 @@ uint64_t std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOO
 
 uint64_t nlp::searchCompactDiskLevel(uint64_t a1, int8x8_t *a2, char *a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v55 = *MEMORY[0x29EDCA608];
-  v48 = 0;
+  v54 = *MEMORY[0x29EDCA608];
+  v47 = 0;
   if (a5 < a4)
   {
     v14 = a3[a5];
@@ -3713,16 +3706,16 @@ uint64_t nlp::searchCompactDiskLevel(uint64_t a1, int8x8_t *a2, char *a3, uint64
         v40 = *(a1 + 2080);
         if ((v39 & 3) == 2)
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v52, a8);
-          v41 = v52;
-          v42 = nlp::searchDiskPage(a1, ((v39 & 0xFFFFFFFC) + v40), a3, a4, a5 + 1, a6, a7, v52);
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v51, a8);
+          v41 = v51;
+          v42 = nlp::searchDiskPage(a1, ((v39 & 0xFFFFFFFC) + v40), a3, a4, a5 + 1, a6, a7, v51);
         }
 
         else
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v53, a8);
-          v41 = v53;
-          v42 = nlp::searchCompactDiskLevel(a1, (v39 & 0xFFFFFFFC) + v40, a3, a4, a5 + 1, a6, a7, v53);
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v52, a8);
+          v41 = v52;
+          v42 = nlp::searchCompactDiskLevel(a1, ((v39 & 0xFFFFFFFC) + v40), a3, a4, a5 + 1, a6, a7, v52);
         }
       }
 
@@ -3730,23 +3723,21 @@ uint64_t nlp::searchCompactDiskLevel(uint64_t a1, int8x8_t *a2, char *a3, uint64
       {
         if ((v39 & 3) == 0)
         {
-          goto LABEL_36;
+          return 0;
         }
 
         v43 = *(a1 + 2080);
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v54, a8);
-        v41 = v54;
-        v42 = nlp::searchDiskLevel(a1, (v39 & 0xFFFFFFFC) + v43, a3, a4, a5 + 1, a6, a7, v54);
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v53, a8);
+        v41 = v53;
+        v42 = nlp::searchDiskLevel(a1, (v39 & 0xFFFFFFFC) + v43, a3, a4, a5 + 1, a6, a7, v53);
       }
 
       v22 = v42;
       std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v41);
-      goto LABEL_42;
+      return v22;
     }
 
-LABEL_36:
-    v22 = 0;
-    goto LABEL_42;
+    return 0;
   }
 
   v19 = a2[4].i32[0];
@@ -3756,7 +3747,7 @@ LABEL_36:
 LABEL_12:
     if (a6)
     {
-      goto LABEL_42;
+      return v22;
     }
 
     v23 = 0;
@@ -3808,16 +3799,16 @@ LABEL_12:
         v34 = *(a1 + 2080);
         if ((v31 & 3) == 2)
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v49, a8);
-          v48 = nlp::searchDiskPage(a1, (v34 + (v31 & 0xFFFFFFFC)), a3, a4 + 1, a5 + 1, 0, a7, v49);
-          v33 = v49;
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v48, a8);
+          v47 = nlp::searchDiskPage(a1, (v34 + (v31 & 0xFFFFFFFC)), a3, a4 + 1, a5 + 1, 0, a7, v48);
+          v33 = v48;
         }
 
         else
         {
-          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v50, a8);
-          v48 = nlp::searchCompactDiskLevel(a1, v34 + (v31 & 0xFFFFFFFC), a3, (a4 + 1), a5 + 1, 0, a7, v50);
-          v33 = v50;
+          std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v49, a8);
+          v47 = nlp::searchCompactDiskLevel(a1, (v34 + (v31 & 0xFFFFFFFC)), a3, (a4 + 1), a5 + 1, 0, a7, v49);
+          v33 = v49;
         }
       }
 
@@ -3829,20 +3820,20 @@ LABEL_12:
         }
 
         v32 = *(a1 + 2080);
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v51, a8);
-        v48 = nlp::searchDiskLevel(a1, v32 + (v31 & 0xFFFFFFFC), a3, (a4 + 1), a5 + 1, 0, a7, v51);
-        v33 = v51;
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::__value_func[abi:ne200100](v50, a8);
+        v47 = nlp::searchDiskLevel(a1, v32 + (v31 & 0xFFFFFFFC), a3, (a4 + 1), a5 + 1, 0, a7, v50);
+        v33 = v50;
       }
 
       std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](v33);
 LABEL_29:
-      v22 = v48;
-      if ((v48 & 1) == 0 && ++v23 != 256)
+      v22 = v47;
+      if ((v47 & 1) == 0 && ++v23 != 256)
       {
         continue;
       }
 
-      goto LABEL_42;
+      return v22;
     }
   }
 
@@ -3853,30 +3844,34 @@ LABEL_29:
   v20[2] = v19;
   *v20 = 0;
   v20[3] = 1;
-  std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v20, 1, &v48);
+  std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v20, 1, &v47);
   if (v20[3]-- == 1)
   {
     free(v20);
   }
 
-  v22 = v48;
-  if ((v48 & 1) == 0)
+  v22 = v47;
+  if ((v47 & 1) == 0)
   {
     goto LABEL_12;
   }
 
-  v22 = 1;
-LABEL_42:
-  v44 = *MEMORY[0x29EDCA608];
-  return v22;
+  return 1;
+}
+
+void sub_29772C11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
 }
 
 uint64_t nlp::searchDiskPage(uint64_t a1, unsigned int *a2, char *a3, unsigned int a4, int a5, char a6, uint64_t a7, uint64_t a8)
 {
   v8 = a5;
   v9 = a4;
-  v66 = *MEMORY[0x29EDCA608];
-  v64 = 0;
+  v65 = *MEMORY[0x29EDCA608];
+  v63 = 0;
   v10 = a4 - a5;
   v11 = *a2;
   if ((*(a1 + 2064) & 4) != 0)
@@ -3887,10 +3882,10 @@ uint64_t nlp::searchDiskPage(uint64_t a1, unsigned int *a2, char *a3, unsigned i
       v26 = 0;
       v27 = 0;
       v28 = a2 + 1;
-      v53 = a5 - a4;
+      v52 = a5 - a4;
       __s2 = &a3[a5];
-      v51 = &a3[a4];
-      v54 = a2 + 1;
+      v50 = &a3[a4];
+      v53 = a2 + 1;
       do
       {
         v29 = v27;
@@ -3932,12 +3927,12 @@ uint64_t nlp::searchDiskPage(uint64_t a1, unsigned int *a2, char *a3, unsigned i
 
                 else
                 {
-                  memcpy(v51, __s1 + v30 - v40, v40);
+                  memcpy(v50, __s1 + v30 - v40, v40);
                   v32 = *(v27 + 2);
                   LODWORD(v30) = v27[6];
                 }
 
-                v41 = v53 + v32 + v30;
+                v41 = v52 + v32 + v30;
                 if (v41 < 1)
                 {
                   v43 = a3;
@@ -3960,7 +3955,7 @@ uint64_t nlp::searchDiskPage(uint64_t a1, unsigned int *a2, char *a3, unsigned i
                 *v45 = 0;
                 v45[2] = v44;
                 v45[3] = 1;
-                std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v45, v10 == v33, &v64);
+                std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v45, v10 == v33, &v63);
                 v46 = v45[3] - 1;
                 v45[3] = v46;
                 if (!v46)
@@ -3969,12 +3964,10 @@ uint64_t nlp::searchDiskPage(uint64_t a1, unsigned int *a2, char *a3, unsigned i
                 }
 
                 v9 = a4;
-                v28 = v54;
-                if (v64)
+                v28 = v53;
+                if (v63)
                 {
-LABEL_50:
-                  result = 1;
-                  goto LABEL_49;
+                  return 1;
                 }
 
                 v32 = *(v27 + 2);
@@ -3999,8 +3992,8 @@ LABEL_50:
     v15 = a2 + 1;
     v16 = a6;
     __dst = &a3[a4];
-    v50 = a4;
-    v55 = v13;
+    v49 = a4;
+    v54 = v13;
     do
     {
       v17 = v15 + v12;
@@ -4012,7 +4005,7 @@ LABEL_50:
         {
           v20 = a4;
           v21 = v18 + a5 - a4;
-          v22 = v50;
+          v22 = v49;
           if (v21 >= 1)
           {
             memcpy(__dst, &v17[v18 - v21 + 6], v21);
@@ -4029,7 +4022,7 @@ LABEL_50:
           *v24 = 0;
           v24[2] = v23;
           v24[3] = 1;
-          std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v24, v10 == v18, &v64);
+          std::function<void ()(void *,nlp::_TrieCompletion *,BOOL,BOOL *)>::operator()(a8, a7, v24, v10 == v18, &v63);
           v25 = v24[3] - 1;
           v24[3] = v25;
           if (!v25)
@@ -4038,11 +4031,11 @@ LABEL_50:
           }
 
           v14 = v10;
-          v13 = v55;
+          v13 = v54;
           v16 = a6;
-          if (v64)
+          if (v63)
           {
-            goto LABEL_50;
+            return 1;
           }
 
           LODWORD(v18) = *(v17 + 2);
@@ -4055,10 +4048,7 @@ LABEL_50:
     while (v12 < v11);
   }
 
-  result = 0;
-LABEL_49:
-  v48 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 uint64_t nlp::searchListRanked(uint64_t *a1, _BYTE *a2, unsigned int a3, int a4, char a5, uint64_t a6, uint64_t a7)
@@ -4315,7 +4305,7 @@ LABEL_17:
 
 uint64_t nlp::advanceMapCursorTrieList(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unsigned int a4)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   v7 = *(a2 + 8);
   if ((*(a1 + 2064) & 1) == 0)
   {
@@ -4329,7 +4319,7 @@ uint64_t nlp::advanceMapCursorTrieList(uint64_t a1, uint64_t a2, unsigned __int8
     if (!v8)
     {
       LOBYTE(v10) = 0;
-      goto LABEL_46;
+      return v10;
     }
 
     v10 = v8;
@@ -4406,71 +4396,71 @@ uint64_t nlp::advanceMapCursorTrieList(uint64_t a1, uint64_t a2, unsigned __int8
         }
 
         LOBYTE(v10) = 1;
-        goto LABEL_46;
+        return v10;
       }
 
 LABEL_18:
       v10 = *v10;
       if (!v10)
       {
-        goto LABEL_46;
+        return v10;
       }
     }
   }
 
-  v36[1] = v36;
-  v36[0] = *a2;
+  v35[1] = v35;
+  v35[0] = *a2;
   v21 = *(a2 + 16);
-  v39 = *(a2 + 20);
-  v40 = v7;
+  v38 = *(a2 + 20);
+  v39 = v7;
   v22 = *(a2 + 24);
   MEMORY[0x2A1C7C4A8]();
-  v23 = v36 - ((v21 + 15) & 0x1FFFFFFF0);
+  v23 = v35 - ((v21 + 15) & 0x1FFFFFFF0);
   v24 = *(a2 + 16);
   memcpy(v23, (v25 + 22), v24);
   v26 = *a2 & 0xFFFFFFFFFFFFFFFCLL;
   if (v26)
   {
-    v38 = 0;
+    v37 = 0;
     v27 = v24 + a4;
-    v37 = a4;
+    v36 = a4;
     do
     {
       v28 = *(v26 + 20);
-      if (v27 <= v28 && !memcmp((v26 + 22), v23, v24) && !memcmp((v26 + 22 + v24), a3, v37))
+      if (v27 <= v28 && !memcmp((v26 + 22), v23, v24) && !memcmp((v26 + 22 + v24), a3, v36))
       {
         if (v27 == v28)
         {
           *(a2 + 8) = v26 | 2;
-          v35 = *(v26 + 16);
+          v34 = *(v26 + 16);
           *(a2 + 24) = *(v26 + 12);
           *(a2 + 16) = v27;
-          *(a2 + 20) = v35;
+          *(a2 + 20) = v34;
           LOBYTE(v10) = 1;
-          goto LABEL_46;
+          return v10;
         }
 
-        v29 = v39;
-        if (!v38)
+        v29 = v38;
+        if (!v37)
         {
           v29 = 0;
           LODWORD(v21) = v21 + a4;
         }
 
-        v30 = v40;
-        if (!v38)
+        v30 = v39;
+        if (!v37)
         {
           v30 = v26 | 2;
         }
 
-        v40 = v30;
-        if (!v38)
+        v39 = v30;
+        if (!v37)
         {
           v22 = 0.0;
         }
 
-        v38 = 1;
-        v39 = v29;
+        v37 = 1;
+        v38 = v29;
       }
 
       v26 = *v26;
@@ -4481,19 +4471,17 @@ LABEL_18:
 
   else
   {
-    v38 = 0;
+    v37 = 0;
   }
 
-  v31 = v40;
-  *a2 = v36[0];
+  v31 = v39;
+  *a2 = v35[0];
   *(a2 + 8) = v31;
-  LOBYTE(v10) = v38;
-  v32 = v39;
+  LOBYTE(v10) = v37;
+  v32 = v38;
   *(a2 + 16) = v21;
   *(a2 + 20) = v32;
   *(a2 + 24) = v22;
-LABEL_46:
-  v33 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -4557,12 +4545,13 @@ LABEL_15:
   return result;
 }
 
-uint64_t nlp::rankSearchCompactDiskLevel(uint64_t result, int8x8_t *a2, unsigned __int8 *a3, unsigned int a4, unsigned int a5, __CFBinaryHeap *a6, __CFBinaryHeap *a7, unsigned int a8, void *a9)
+uint64_t nlp::rankSearchCompactDiskLevel(uint64_t result, int8x8_t *a2, unsigned __int8 *a3, unsigned int a4, unsigned int a5, __CFBinaryHeap *a6, __CFBinaryHeap *a7, uint64_t a8, void *a9)
 {
   v12 = result;
   if (a5 >= a4)
   {
 LABEL_9:
+    v45 = a8;
     v23 = nlp::sharedBuffer(result);
     if ((a4 + 1) <= 1023)
     {
@@ -4633,7 +4622,7 @@ LABEL_9:
     *v36 = v35;
     v36[2] = v34;
     v36[3] = 1;
-    updated = nlp::updateCompletions(v36, a9, a6, a7, a8);
+    updated = nlp::updateCompletions(v36, a9, a6, a7, v45);
     v38 = updated;
     v39 = v36[3] - 1;
     v36[3] = v39;
@@ -4643,7 +4632,7 @@ LABEL_9:
       {
 LABEL_24:
 
-        return nlp::rankSearchCursors(v12, a6);
+        return nlp::rankSearchCursors(v12, a6, a7, v45, a9);
       }
     }
 
@@ -4705,16 +4694,17 @@ LABEL_24:
       if ((v22 & 3) == 1)
       {
         v40 = (v22 & 0xFFFFFFFC) + *(v12 + 260);
+        v41 = a5 + 1;
 
-        return nlp::rankSearchDiskLevel(v12, v40);
+        return nlp::rankSearchDiskLevel(v12, v40, a3, a4, v41, a6, a7, a8, a9);
       }
 
       else
       {
-        v41 = ((v22 & 0xFFFFFFFC) + *(v12 + 260));
-        v42 = a5 + 1;
+        v42 = ((v22 & 0xFFFFFFFC) + *(v12 + 260));
+        v43 = a5 + 1;
 
-        return nlp::rankSearchDiskPage(v12, v41, a3, a4, v42, a6, a7, a8, a9);
+        return nlp::rankSearchDiskPage(v12, v42, a3, a4, v43, a6, a7, a8, a9);
       }
     }
 
@@ -4726,11 +4716,12 @@ LABEL_24:
   }
 }
 
-BOOL nlp::rankSearchDiskPage(nlp *a1, unsigned int *a2, char *a3, unsigned int a4, unsigned int a5, __CFBinaryHeap *a6, __CFBinaryHeap *a7, unsigned int a8, void *a9)
+BOOL nlp::rankSearchDiskPage(nlp *a1, unsigned int *a2, char *a3, unsigned int a4, unsigned int a5, __CFBinaryHeap *a6, __CFBinaryHeap *a7, uint64_t a8, void *a9)
 {
+  v60 = a8;
   v9 = a5;
   v10 = a4;
-  v63 = *MEMORY[0x29EDCA608];
+  v62 = *MEMORY[0x29EDCA608];
   v14 = a4 - a5;
   v15 = *a2;
   v16 = nlp::sharedBuffer(a1);
@@ -4750,8 +4741,8 @@ BOOL nlp::rankSearchDiskPage(nlp *a1, unsigned int *a2, char *a3, unsigned int a
         v30 = a2 + 2;
         __n = v9 - v10;
         __s2a = &a3[v9];
-        v56 = v10;
-        v51 = v30;
+        v55 = v10;
+        v50 = v30;
         while (1)
         {
           v31 = v15;
@@ -4829,7 +4820,7 @@ LABEL_30:
             *v45 = v44;
             v45[2] = v43;
             v45[3] = 1;
-            updated = nlp::updateCompletions(v45, a9, a6, a7, a8);
+            updated = nlp::updateCompletions(v45, a9, a6, a7, v60);
             v47 = v45[3] - 1;
             v45[3] = v47;
             if (!v47)
@@ -4837,15 +4828,15 @@ LABEL_30:
               free(v45);
             }
 
-            v10 = v56;
+            v10 = v55;
             if (!updated)
             {
-              goto LABEL_13;
+              return 0;
             }
 
             v15 = v31;
             v35 = *(v29 + 4);
-            v30 = v51;
+            v30 = v50;
           }
 
           else
@@ -4857,22 +4848,20 @@ LABEL_29:
           v28 += v35 + 11;
           if (v28 >= v15)
           {
-            goto LABEL_40;
+            return 1;
           }
         }
       }
 
-      goto LABEL_40;
+      return 1;
     }
 
-LABEL_13:
-    v21 = 0;
-    goto LABEL_41;
+    return 0;
   }
 
   if (v9 > 0x3FF)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   __s2 = v9;
@@ -4881,24 +4870,22 @@ LABEL_13:
   *v18 = 0;
   if (!v15)
   {
-LABEL_40:
-    v21 = 1;
-    goto LABEL_41;
+    return 1;
   }
 
-  v55 = a3;
+  v54 = a3;
   v19 = 0;
   v20 = a2 + 2;
   v21 = 1;
-  v52 = v9;
-  v53 = v15;
+  v51 = v9;
+  v52 = v15;
   do
   {
     v22 = v20 + v19;
     memcpy(v18, v22 + 10, *(v22 + 4));
     v23 = *(v22 + 4) + v9;
     v17[v23] = 0;
-    if (v14 <= *(v22 + 4) && !memcmp(v22 + 10, &__s2[v55], v14))
+    if (v14 <= *(v22 + 4) && !memcmp(v22 + 10, &__s2[v54], v14))
     {
       v24 = *(v22 + 1);
       v25 = *v22;
@@ -4909,7 +4896,7 @@ LABEL_40:
       *v26 = v25;
       v26[2] = v24;
       v26[3] = 1;
-      v21 = nlp::updateCompletions(v26, a9, a6, a7, a8);
+      v21 = nlp::updateCompletions(v26, a9, a6, a7, v60);
       v27 = v26[3] - 1;
       v26[3] = v27;
       if (!v27)
@@ -4917,16 +4904,14 @@ LABEL_40:
         free(v26);
       }
 
-      v9 = v52;
-      LODWORD(v15) = v53;
+      v9 = v51;
+      LODWORD(v15) = v52;
     }
 
     v19 += *(v22 + 4) + 10;
   }
 
   while (v19 < v15);
-LABEL_41:
-  v48 = *MEMORY[0x29EDCA608];
   return v21;
 }
 
@@ -5044,12 +5029,12 @@ LABEL_27:
       v27 = *(value + 4);
       v28 = *value;
       v29 = malloc_type_malloc(v27 + 4125, 0x1000040CE2BBAF2uLL);
-      *(v29 + 1) = v26;
-      v29[4] = v28;
+      v29[1] = v26;
+      *(v29 + 4) = v28;
       *(v29 + 5) = 1;
       *(v29 + 6) = v27;
       *(v29 + v27 + 28) = 0;
-      memcpy(v29 + 7, value + 5, v27);
+      memcpy(v29 + 28, value + 5, v27);
       CFBinaryHeapAddValue(a3, v29);
       v30 = *(v29 + 5) - 1;
       *(v29 + 5) = v30;
@@ -5468,144 +5453,12 @@ void nlp::serializeLists(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   while (v7 != 256);
 }
 
-uint64_t nlp::serializeLevelsRanked(_DWORD *a1, uint64_t a2, uint64_t a3, int a4, int a5, int *a6)
+uint64_t nlp::serializeLevelsRanked(_DWORD *a1, uint64_t a2, uint64_t a3, int a4, unsigned int a5, unsigned int *a6)
 {
   v7 = a4;
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   v11 = 0uLL;
   for (i = 3; i != 515; i += 8)
-  {
-    v11 = vsubq_s32(v11, vmvnq_s8(vuzp1q_s32(vceqzq_s64(*&a1[i]), vceqzq_s64(*&a1[i + 4]))));
-  }
-
-  v13 = vaddvq_s32(v11);
-  if (v13 > 0xC7)
-  {
-    a5 = 1;
-  }
-
-  v41 = a5;
-  if (a5)
-  {
-    v15 = 0;
-    v16 = *a6;
-    *a6 = v16 + 1036;
-    do
-    {
-      v17 = *&a1[2 * v15 + 3];
-      if ((v17 & 3) == 1)
-      {
-        v18 = *a6;
-        if (nlp::serializeLevelsRanked(v17 & 0xFFFFFFFFFFFFFFFCLL, a2, a3, 1, 0, a6))
-        {
-          v19 = v18 | 1;
-        }
-
-        else
-        {
-          v19 = v18 | 3;
-        }
-
-        v42[v15] = v19;
-      }
-
-      else
-      {
-        v42[v15] = v17;
-      }
-
-      ++v15;
-    }
-
-    while (v15 != 256);
-    v42[256] = a1[2];
-    v43 = *a1;
-    v20 = v42;
-    v21 = v16 + a2;
-    v22 = a3;
-    v23 = 1036;
-  }
-
-  else
-  {
-    v39 = v13;
-    v40 = a4;
-    v24 = 4 * v13 + 44;
-    v25 = *a6;
-    MEMORY[0x2A1C7C4A8]();
-    v27 = (&v36 - v26);
-    bzero(&v36 - v26, v24);
-    bzero(v27, v24);
-    v28 = 0;
-    v29 = 0;
-    v37 = v25;
-    v38 = v24;
-    *a6 = v25 + v24;
-    v30 = &v27[2].i8[12];
-    do
-    {
-      v31 = *&a1[2 * v28 + 3];
-      if (v31)
-      {
-        v27->i64[v28 >> 6] |= 1 << v28;
-        if ((v31 & 3) == 1)
-        {
-          v32 = *a6;
-          if (nlp::serializeLevelsRanked(v31 & 0xFFFFFFFFFFFFFFFCLL, a2, a3, 1, 0, a6))
-          {
-            v33 = v32 | 1;
-          }
-
-          else
-          {
-            v33 = v32 | 3;
-          }
-
-          *&v30[4 * v29] = v33;
-        }
-
-        else
-        {
-          *&v30[4 * v29] = v31;
-        }
-
-        ++v29;
-      }
-
-      ++v28;
-    }
-
-    while (v28 != 256);
-    v7 = v40;
-    if (vaddvq_s32(vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(*v27)))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(v27[1])))))) != v39)
-    {
-      nlp::serializeLevelsRanked();
-    }
-
-    v27[2].i32[2] = a1[2];
-    v27[2].i64[0] = *a1;
-    v23 = v38;
-    v21 = v37 + a2;
-    v22 = a3;
-    v20 = v27;
-  }
-
-  pwrite(v22, v20, v23, v21);
-  if (v7)
-  {
-    free(a1);
-  }
-
-  v34 = *MEMORY[0x29EDCA608];
-  return v41;
-}
-
-uint64_t nlp::serializeLevels(_DWORD *a1, uint64_t a2, uint64_t a3, int a4, int a5, int *a6)
-{
-  v7 = a4;
-  v42 = *MEMORY[0x29EDCA608];
-  v11 = 0uLL;
-  for (i = 1; i != 513; i += 8)
   {
     v11 = vsubq_s32(v11, vmvnq_s8(vuzp1q_s32(vceqzq_s64(*&a1[i]), vceqzq_s64(*&a1[i + 4]))));
   }
@@ -5621,14 +5474,14 @@ uint64_t nlp::serializeLevels(_DWORD *a1, uint64_t a2, uint64_t a3, int a4, int 
   {
     v15 = 0;
     v16 = *a6;
-    *a6 = v16 + 1028;
+    *a6 = v16 + 1036;
     do
     {
-      v17 = *&a1[2 * v15 + 1];
+      v17 = *&a1[2 * v15 + 3];
       if ((v17 & 3) == 1)
       {
         v18 = *a6;
-        if (nlp::serializeLevels(v17 & 0xFFFFFFFFFFFFFFFCLL, a2, a3, 1, 0, a6))
+        if (nlp::serializeLevelsRanked((v17 & 0xFFFFFFFFFFFFFFFCLL), a2, a3, 1, 0, a6))
         {
           v19 = v18 | 1;
         }
@@ -5650,39 +5503,40 @@ uint64_t nlp::serializeLevels(_DWORD *a1, uint64_t a2, uint64_t a3, int a4, int 
     }
 
     while (v15 != 256);
-    v41[256] = *a1;
+    v41[256] = a1[2];
+    v42 = *a1;
     v20 = v41;
     v21 = v16 + a2;
     v22 = a3;
-    v23 = 1028;
+    v23 = 1036;
   }
 
   else
   {
     v38 = v13;
     v39 = a4;
-    v24 = 4 * v13 + 36;
+    v24 = 4 * v13 + 44;
     v25 = *a6;
     MEMORY[0x2A1C7C4A8]();
-    v27 = (&v36 - v26);
-    bzero(&v36 - v26, v24);
+    v27 = (&v35 - v26);
+    bzero(&v35 - v26, v24);
     bzero(v27, v24);
     v28 = 0;
     v29 = 0;
     v36 = v25;
     v37 = v24;
     *a6 = v25 + v24;
-    v30 = &v27[2].i8[4];
+    v30 = &v27[2].i8[12];
     do
     {
-      v31 = *&a1[2 * v28 + 1];
+      v31 = *&a1[2 * v28 + 3];
       if (v31)
       {
         v27->i64[v28 >> 6] |= 1 << v28;
         if ((v31 & 3) == 1)
         {
           v32 = *a6;
-          if (nlp::serializeLevels(v31 & 0xFFFFFFFFFFFFFFFCLL, a2, a3, 1, 0, a6))
+          if (nlp::serializeLevelsRanked((v31 & 0xFFFFFFFFFFFFFFFCLL), a2, a3, 1, 0, a6))
           {
             v33 = v32 | 1;
           }
@@ -5710,10 +5564,11 @@ uint64_t nlp::serializeLevels(_DWORD *a1, uint64_t a2, uint64_t a3, int a4, int 
     v7 = v39;
     if (vaddvq_s32(vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(*v27)))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(v27[1])))))) != v38)
     {
-      nlp::serializeLevels();
+      nlp::serializeLevelsRanked();
     }
 
-    v27[2].i32[0] = *a1;
+    v27[2].i32[2] = a1[2];
+    v27[2].i64[0] = *a1;
     v23 = v37;
     v21 = v36 + a2;
     v22 = a3;
@@ -5726,8 +5581,136 @@ uint64_t nlp::serializeLevels(_DWORD *a1, uint64_t a2, uint64_t a3, int a4, int 
     free(a1);
   }
 
-  v34 = *MEMORY[0x29EDCA608];
   return v40;
+}
+
+uint64_t nlp::serializeLevels(_DWORD *a1, uint64_t a2, uint64_t a3, int a4, unsigned int a5, unsigned int *a6)
+{
+  v7 = a4;
+  v41 = *MEMORY[0x29EDCA608];
+  v11 = 0uLL;
+  for (i = 1; i != 513; i += 8)
+  {
+    v11 = vsubq_s32(v11, vmvnq_s8(vuzp1q_s32(vceqzq_s64(*&a1[i]), vceqzq_s64(*&a1[i + 4]))));
+  }
+
+  v13 = vaddvq_s32(v11);
+  if (v13 > 0xC7)
+  {
+    a5 = 1;
+  }
+
+  v39 = a5;
+  if (a5)
+  {
+    v15 = 0;
+    v16 = *a6;
+    *a6 = v16 + 1028;
+    do
+    {
+      v17 = *&a1[2 * v15 + 1];
+      if ((v17 & 3) == 1)
+      {
+        v18 = *a6;
+        if (nlp::serializeLevels((v17 & 0xFFFFFFFFFFFFFFFCLL), a2, a3, 1, 0, a6))
+        {
+          v19 = v18 | 1;
+        }
+
+        else
+        {
+          v19 = v18 | 3;
+        }
+
+        v40[v15] = v19;
+      }
+
+      else
+      {
+        v40[v15] = v17;
+      }
+
+      ++v15;
+    }
+
+    while (v15 != 256);
+    v40[256] = *a1;
+    v20 = v40;
+    v21 = v16 + a2;
+    v22 = a3;
+    v23 = 1028;
+  }
+
+  else
+  {
+    v37 = v13;
+    v38 = a4;
+    v24 = 4 * v13 + 36;
+    v25 = *a6;
+    MEMORY[0x2A1C7C4A8]();
+    v27 = (&v35 - v26);
+    bzero(&v35 - v26, v24);
+    bzero(v27, v24);
+    v28 = 0;
+    v29 = 0;
+    v35 = v25;
+    v36 = v24;
+    *a6 = v25 + v24;
+    v30 = &v27[2].i8[4];
+    do
+    {
+      v31 = *&a1[2 * v28 + 1];
+      if (v31)
+      {
+        v27->i64[v28 >> 6] |= 1 << v28;
+        if ((v31 & 3) == 1)
+        {
+          v32 = *a6;
+          if (nlp::serializeLevels((v31 & 0xFFFFFFFFFFFFFFFCLL), a2, a3, 1, 0, a6))
+          {
+            v33 = v32 | 1;
+          }
+
+          else
+          {
+            v33 = v32 | 3;
+          }
+
+          *&v30[4 * v29] = v33;
+        }
+
+        else
+        {
+          *&v30[4 * v29] = v31;
+        }
+
+        ++v29;
+      }
+
+      ++v28;
+    }
+
+    while (v28 != 256);
+    v7 = v38;
+    if (vaddvq_s32(vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(*v27)))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(v27[1])))))) != v37)
+    {
+      nlp::serializeLevels();
+    }
+
+    v27[2].i32[0] = *a1;
+    v23 = v36;
+    v21 = v35 + a2;
+    v22 = a3;
+    v20 = v27;
+  }
+
+  pwrite(v22, v20, v23, v21);
+  if (v7)
+  {
+    free(a1);
+  }
+
+  return v39;
 }
 
 uint64_t std::__function::__value_func<float ()(void *,float,float)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -5755,7 +5738,7 @@ uint64_t std::__function::__value_func<float ()(void *,float,float)>::__value_fu
   return a1;
 }
 
-uint64_t std::vector<nlp::_RankedTrieLevel *>::__init_with_size[abi:ne200100]<nlp::_RankedTrieLevel * const*,nlp::_RankedTrieLevel * const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<nlp::_RankedTrieLevel *>::__init_with_size[abi:ne200100]<nlp::_RankedTrieLevel * const*,nlp::_RankedTrieLevel * const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5777,7 +5760,7 @@ void sub_29772E644(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<nlp::_RankedTrieLevel *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<nlp::_RankedTrieLevel *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -5825,14 +5808,12 @@ void *nlp::burstTrieCreateCursorWithTrieLevelRef<nlp::_RankedTrieLevel *>(uint64
   return v2;
 }
 
-void *std::vector<std::tuple<std::string,unsigned int,float>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::tuple<std::string,unsigned int,float>>::reserve(const void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string,double>>>(result, a2);
     }
 
@@ -5973,7 +5954,7 @@ uint64_t std::__function::__func<void nlp::reverseBurst<nlp::_RankedTrieLevel *,
   }
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -5985,17 +5966,17 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
-uint64_t std::vector<nlp::_TrieLevel *>::__init_with_size[abi:ne200100]<nlp::_TrieLevel * const*,nlp::_TrieLevel * const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<nlp::_TrieLevel *>::__init_with_size[abi:ne200100]<nlp::_TrieLevel * const*,nlp::_TrieLevel * const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6207,16 +6188,6 @@ __n128 std::__function::__func<nlp::BurstTrieSearch(nlp::_BurstTrie const*,unsig
   *(a2 + 24) = *(a1 + 24);
   *(a2 + 8) = result;
   return result;
-}
-
-void std::__function::__func<nlp::BurstTrieSearch(nlp::_BurstTrie const*,unsigned char const*,unsigned int,void *,std::function<void ()(void *,nlp::_TrieCompletion *,BOOL *)>,int)::$_0,std::allocator<nlp::BurstTrieSearch(nlp::_BurstTrie const*,unsigned char const*,unsigned int,void *,std::function<void ()(void *,nlp::_TrieCompletion *,BOOL *)>,int)::$_0>,void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::operator()(uint64_t a1, uint64_t a2, uint64_t *a3, _DWORD *a4, unsigned int *a5, int *a6, uint64_t *a7)
-{
-  v7 = *a3;
-  v8 = *a5;
-  v9 = *a6;
-  v10 = *a7;
-  v11 = (*(a1 + 16) + *a4);
-  operator new[]();
 }
 
 uint64_t std::__function::__func<nlp::BurstTrieSearch(nlp::_BurstTrie const*,unsigned char const*,unsigned int,void *,std::function<void ()(void *,nlp::_TrieCompletion *,BOOL *)>,int)::$_0,std::allocator<nlp::BurstTrieSearch(nlp::_BurstTrie const*,unsigned char const*,unsigned int,void *,std::function<void ()(void *,nlp::_TrieCompletion *,BOOL *)>,int)::$_0>,void ()(void *,unsigned char const*,unsigned int,unsigned int,float,BOOL *)>::target(uint64_t a1, uint64_t a2)

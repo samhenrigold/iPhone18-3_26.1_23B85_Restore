@@ -1,12 +1,12 @@
 @interface NSMigrationContext
 - (NSMigrationContext)initWithMigrationManager:(id)manager;
+- (id)_createAssociationsByDestination:(uint64_t)destination fromSource:(void *)source forEntityMapping:;
+- (id)_createAssociationsBySource:(uint64_t)source withDestination:(void *)destination forEntityMapping:;
+- (id)associateSourceInstance:(const void *)instance withDestinationInstance:(void *)destinationInstance forEntityMapping:;
 - (id)destinationInstancesForEntityMapping:(uint64_t)mapping sourceInstance:;
+- (id)setCurrentEntityMapping:(id *)result;
+- (id)setCurrentPropertyMapping:(id *)result;
 - (id)sourceInstancesForEntityMapping:(uint64_t)mapping destinationInstance:;
-- (uint64_t)_createAssociationsByDestination:(uint64_t)destination fromSource:(void *)source forEntityMapping:;
-- (uint64_t)_createAssociationsBySource:(uint64_t)source withDestination:(void *)destination forEntityMapping:;
-- (uint64_t)associateSourceInstance:(const void *)instance withDestinationInstance:(void *)destinationInstance forEntityMapping:;
-- (uint64_t)setCurrentEntityMapping:(uint64_t)result;
-- (uint64_t)setCurrentPropertyMapping:(uint64_t)result;
 - (void)clearAssociationTables;
 - (void)dealloc;
 @end
@@ -63,23 +63,23 @@
   }
 }
 
-- (uint64_t)setCurrentEntityMapping:(uint64_t)result
+- (id)setCurrentEntityMapping:(id *)result
 {
   if (result)
   {
     v3 = result;
-    if (*(result + 48) != a2)
+    if (result[6] != a2)
     {
-      [*(result + 40) willChangeValueForKey:@"currentEntityMapping"];
+      [result[5] willChangeValueForKey:@"currentEntityMapping"];
 
-      *(v3 + 48) = a2;
-      [*(v3 + 40) didChangeValueForKey:@"currentEntityMapping"];
+      v3[6] = a2;
+      [v3[5] didChangeValueForKey:@"currentEntityMapping"];
     }
 
-    v4 = *(v3 + 56) + 1;
-    [*(v3 + 40) willChangeValueForKey:@"migrationProgress"];
-    *(v3 + 56) = v4;
-    v5 = *(v3 + 40);
+    v4 = v3[7] + 1;
+    [v3[5] willChangeValueForKey:@"migrationProgress"];
+    v3[7] = v4;
+    v5 = v3[5];
 
     return [v5 didChangeValueForKey:@"migrationProgress"];
   }
@@ -87,17 +87,17 @@
   return result;
 }
 
-- (uint64_t)setCurrentPropertyMapping:(uint64_t)result
+- (id)setCurrentPropertyMapping:(id *)result
 {
   if (result)
   {
     v3 = result;
-    if (*(result + 64) != a2)
+    if (result[8] != a2)
     {
-      [*(result + 40) willChangeValueForKey:@"currentPropertyMapping"];
+      [result[5] willChangeValueForKey:@"currentPropertyMapping"];
 
-      *(v3 + 64) = a2;
-      v4 = *(v3 + 40);
+      v3[8] = a2;
+      v4 = v3[5];
 
       return [v4 didChangeValueForKey:@"currentPropertyMapping"];
     }
@@ -106,16 +106,16 @@
   return result;
 }
 
-- (uint64_t)_createAssociationsBySource:(uint64_t)source withDestination:(void *)destination forEntityMapping:
+- (id)_createAssociationsBySource:(uint64_t)source withDestination:(void *)destination forEntityMapping:
 {
   if (result)
   {
     v7 = result;
-    Mutable = [*(result + 24) objectForKey:{objc_msgSend(destination, "name")}];
+    Mutable = [result[3] objectForKey:{objc_msgSend(destination, "name")}];
     if (!Mutable)
     {
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      [*(v7 + 24) setObject:Mutable forKey:{objc_msgSend(destination, "name")}];
+      [v7[3] setObject:Mutable forKey:{objc_msgSend(destination, "name")}];
     }
 
     v9 = [(__CFDictionary *)Mutable objectForKey:a2];
@@ -126,11 +126,11 @@
     }
 
     [v9 addObject:source];
-    v10 = [*(v7 + 8) objectForKey:a2];
+    v10 = [v7[1] objectForKey:a2];
     if (!v10)
     {
       v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      CFDictionarySetValue(*(v7 + 8), a2, v10);
+      CFDictionarySetValue(v7[1], a2, v10);
     }
 
     return [v10 addObject:source];
@@ -139,16 +139,16 @@
   return result;
 }
 
-- (uint64_t)_createAssociationsByDestination:(uint64_t)destination fromSource:(void *)source forEntityMapping:
+- (id)_createAssociationsByDestination:(uint64_t)destination fromSource:(void *)source forEntityMapping:
 {
   if (result)
   {
     v7 = result;
-    Mutable = [*(result + 32) objectForKey:{objc_msgSend(source, "name")}];
+    Mutable = [result[4] objectForKey:{objc_msgSend(source, "name")}];
     if (!Mutable)
     {
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      [*(v7 + 32) setObject:Mutable forKey:{objc_msgSend(source, "name")}];
+      [v7[4] setObject:Mutable forKey:{objc_msgSend(source, "name")}];
     }
 
     v9 = [(__CFDictionary *)Mutable objectForKey:a2];
@@ -159,11 +159,11 @@
     }
 
     [v9 addObject:destination];
-    v10 = [*(v7 + 16) objectForKey:a2];
+    v10 = [v7[2] objectForKey:a2];
     if (!v10)
     {
       v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      CFDictionarySetValue(*(v7 + 16), a2, v10);
+      CFDictionarySetValue(v7[2], a2, v10);
     }
 
     return [v10 addObject:destination];
@@ -172,7 +172,7 @@
   return result;
 }
 
-- (uint64_t)associateSourceInstance:(const void *)instance withDestinationInstance:(void *)destinationInstance forEntityMapping:
+- (id)associateSourceInstance:(const void *)instance withDestinationInstance:(void *)destinationInstance forEntityMapping:
 {
   if (result)
   {
@@ -187,7 +187,7 @@
 
 - (id)destinationInstancesForEntityMapping:(uint64_t)mapping sourceInstance:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v5 = result;
@@ -196,32 +196,32 @@
       if (!mapping)
       {
         v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v9 = [objc_msgSend(v5[3] objectForKey:{objc_msgSend(a2, "name")), "allValues"}];
+        v8 = [objc_msgSend(v5[3] objectForKey:{objc_msgSend(a2, "name")), "allValues"}];
+        v13 = 0u;
         v14 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v17 = 0u;
-        v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v10)
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v9)
         {
-          v11 = v10;
-          v12 = *v15;
+          v10 = v9;
+          v11 = *v14;
           do
           {
-            for (i = 0; i != v11; ++i)
+            for (i = 0; i != v10; ++i)
             {
-              if (*v15 != v12)
+              if (*v14 != v11)
               {
-                objc_enumerationMutation(v9);
+                objc_enumerationMutation(v8);
               }
 
-              [v7 addObjectsFromArray:*(*(&v14 + 1) + 8 * i)];
+              [v7 addObjectsFromArray:*(*(&v13 + 1) + 8 * i)];
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
           }
 
-          while (v11);
+          while (v10);
         }
 
         goto LABEL_7;
@@ -239,22 +239,21 @@
 LABEL_7:
     if (v7)
     {
-      result = v7;
+      return v7;
     }
 
     else
     {
-      result = NSArray_EmptyArray;
+      return NSArray_EmptyArray;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)sourceInstancesForEntityMapping:(uint64_t)mapping destinationInstance:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v5 = result;
@@ -263,32 +262,32 @@ LABEL_7:
       if (!mapping)
       {
         v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v9 = [objc_msgSend(v5[4] objectForKey:{objc_msgSend(a2, "name")), "allValues"}];
+        v8 = [objc_msgSend(v5[4] objectForKey:{objc_msgSend(a2, "name")), "allValues"}];
+        v13 = 0u;
         v14 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v17 = 0u;
-        v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v10)
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v9)
         {
-          v11 = v10;
-          v12 = *v15;
+          v10 = v9;
+          v11 = *v14;
           do
           {
-            for (i = 0; i != v11; ++i)
+            for (i = 0; i != v10; ++i)
             {
-              if (*v15 != v12)
+              if (*v14 != v11)
               {
-                objc_enumerationMutation(v9);
+                objc_enumerationMutation(v8);
               }
 
-              [v7 addObjectsFromArray:*(*(&v14 + 1) + 8 * i)];
+              [v7 addObjectsFromArray:*(*(&v13 + 1) + 8 * i)];
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
           }
 
-          while (v11);
+          while (v10);
         }
 
         goto LABEL_7;
@@ -306,16 +305,15 @@ LABEL_7:
 LABEL_7:
     if (v7)
     {
-      result = v7;
+      return v7;
     }
 
     else
     {
-      result = NSArray_EmptyArray;
+      return NSArray_EmptyArray;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 

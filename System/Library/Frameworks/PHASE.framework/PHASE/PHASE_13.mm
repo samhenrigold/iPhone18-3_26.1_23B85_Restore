@@ -1,6 +1,6 @@
-void sub_23A3F4EB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3F4EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -15,7 +15,7 @@ uint64_t Phase::Geometry::DataStream::operator=(uint64_t a1, uint64_t a2)
   v6 = *(a2 + 32);
   *(a1 + 32) = v6;
   v7 = v6 * v5;
-  Phase::Geometry::DataStream::Alloc(v4, v6 * v5, &v12);
+  Phase::Geometry::DataStream::Alloc(&v12, v4, v6 * v5);
   v8 = v12;
   v12 = 0;
   v9 = *(a1 + 8);
@@ -45,7 +45,7 @@ void Phase::Geometry::GenerateProjectedTriangleWeights(void *a1, uint64_t a2, ui
   if (a7)
   {
     v39 = a7;
-    *v38 = 4;
+    v38[0] = 4;
     *&v36 = a2;
     *(&v36 + 1) = &v39;
     v37 = v38;
@@ -75,18 +75,18 @@ void Phase::Geometry::GenerateProjectedTriangleWeights(void *a1, uint64_t a2, ui
       v41 = v22;
       v42 = v24;
       v43 = *(v23 + 8);
-      if (!a8 || (v39 = *(v17 - 1), v40 = *v17, Phase::operator*<float>(a3, &v39, v38), Phase::operator*<float>(a3, &v41, &v36), v25 = *(a3 + 28), v26 = (v25 * *&v36) + *(a3 + 16), v27 = vmul_f32(vadd_f32(vmul_n_f32(*(&v36 + 4), v25), *(a3 + 20)), *&v38[4]), (((v26 * *v38) + v27.f32[0]) + v27.f32[1]) <= 0.0))
+      if (!a8 || (v39 = *(v17 - 1), v40 = *v17, Phase::operator*<float>(a3, &v39, v38), Phase::operator*<float>(a3, &v41, &v36), v25 = *(a3 + 28), v26 = (v25 * *&v36) + *(a3 + 16), v27 = vmul_f32(vadd_f32(vmul_n_f32(*(&v36 + 4), v25), *(a3 + 20)), *(v38 + 4)), (((v26 * v38[0].f32[0]) + v27.f32[0]) + v27.f32[1]) <= 0.0))
       {
         Phase::Geometry::sProjectPointOntoSphere(&v36, &v41, a3);
         Phase::Geometry::sProjectPointOntoSphere(&v39, (&v41 | 0xC), a3);
         Phase::Geometry::sProjectPointOntoSphere(v38, &v42 + 2, a3);
         v28 = vsub_f32(v39, *&v36);
-        v29 = vsub_f32(*&v38[4], *(&v36 + 4));
-        v30 = vmuls_lane_f32(-v28.f32[0], v29, 1) + ((v40 - *(&v36 + 2)) * (*v38 - *&v36));
+        v29 = vsub_f32(*(v38 + 4), *(&v36 + 4));
+        v30 = vmuls_lane_f32(-*v28.i32, v29, 1) + ((v40 - *(&v36 + 2)) * (v38[0].f32[0] - *&v36));
         v31.i32[0] = vdup_lane_s32(v28, 1).u32[0];
         v31.f32[1] = v40 - *(&v36 + 2);
         v32 = vdup_lane_s32(v29, 0);
-        v32.f32[0] = *v38 - *&v36;
+        v32.f32[0] = v38[0].f32[0] - *&v36;
         v33 = vmul_f32(vmla_f32(vmul_f32(v32, vneg_f32(v31)), v29, v28), 0x3F0000003F000000);
         v34 = vmul_f32(v33, v33);
         v19 = v19 + sqrtf(v34.f32[0] + (v34.f32[1] + ((v30 * 0.5) * (v30 * 0.5))));
@@ -526,7 +526,7 @@ void sub_23A3F58D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Geometry::GeneratePoints(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, int *a6, uint64_t *a7)
+float **Phase::Geometry::GeneratePoints(float **result, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, int *a6, uint64_t *a7)
 {
   v12 = result;
   v101[5] = *MEMORY[0x277D85DE8];
@@ -788,7 +788,7 @@ LABEL_9:
           v50 = v46;
           if (v14 > v46)
           {
-            v56 = (*v12 + 12 * v46 + 8);
+            v56 = &(*v12)[3 * v46 + 2];
             while (1)
             {
               v57 = *(v54 + 4 * v50);
@@ -899,15 +899,15 @@ LABEL_9:
   return std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](v101);
 }
 
-void sub_23A3F605C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23A3F605C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v6);
+  std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](v11);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Geometry::CreatePointCloudLoD@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t *a5@<X5>, void *a6@<X8>)
+uint64_t Phase::Geometry::CreatePointCloudLoD@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t *a5@<X5>, float **a6@<X8>)
 {
   v55 = *MEMORY[0x277D85DE8];
   if (*(a4 + 20) != 1)
@@ -1096,11 +1096,11 @@ LABEL_9:
   return result;
 }
 
-void sub_23A3F6590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23A3F6590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
   std::unique_ptr<float [],std::function<void ()(void *)>>::reset[abi:ne200100](va);
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -1199,9 +1199,9 @@ void Phase::Geometry::sProjectPointOntoSphere(float32x2_t *a1, float *a2, float3
   {
 LABEL_11:
     v11 = vmul_f32(v6, v6);
-    v11.f32[0] = sqrtf(vaddv_f32(v11) + (v7 * v7));
+    *v11.i32 = sqrtf(vaddv_f32(v11) + (v7 * v7));
     v6 = vdiv_f32(v6, vdup_lane_s32(v11, 0));
-    v7 = v7 / v11.f32[0];
+    v7 = v7 / *v11.i32;
   }
 
   *a1 = v6;
@@ -1816,19 +1816,19 @@ LABEL_13:
   }
 }
 
-void Phase::Geometry::MpsCpuSceneBuilder::ProcessFinishedBuild(unsigned __int8 *a1, uint64_t a2)
+void Phase::Geometry::MpsCpuSceneBuilder::ProcessFinishedBuild(uint64_t **result, uint64_t a2)
 {
   v41 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 7))
+  if (result[7])
   {
-    v3 = atomic_load(a1 + 160);
+    v3 = atomic_load(result + 160);
     if (v3)
     {
-      v5 = *(*a1 + 2856);
-      v6 = **(Phase::Logger::GetInstance(a1) + 432);
+      v5 = (*result)[357];
+      v6 = **(Phase::Logger::GetInstance(result) + 432);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 12);
+        v7 = result[12];
         v33 = 136315906;
         v34 = "GeoMpsCpuSceneBuilder.cpp";
         v35 = 1024;
@@ -1840,17 +1840,17 @@ void Phase::Geometry::MpsCpuSceneBuilder::ProcessFinishedBuild(unsigned __int8 *
         _os_log_impl(&dword_23A302000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Integrating built MPS Scenes from cycle: %llu, current cycle: %llu", &v33, 0x26u);
       }
 
-      v8 = *(a1 + 9);
-      for (i = *(a1 + 10); v8 != i; v8 += 8)
+      v8 = result[9];
+      for (i = result[10]; v8 != i; v8 += 8)
       {
         v10 = *v8;
         if (*v8)
         {
-          v11 = *(a1 + 1);
-          v12 = *(a1 + 2);
+          v11 = result[1];
+          v12 = result[2];
           if (v11 != v12)
           {
-            v13 = *(a1 + 1);
+            v13 = result[1];
             while (1)
             {
               v14 = std::__equal_aligned[abi:ne200100]<std::__bitset<1ul,32ul>,true,true>(v11, 0, v11, 0x20u, (v10 + 32));
@@ -1860,7 +1860,7 @@ void Phase::Geometry::MpsCpuSceneBuilder::ProcessFinishedBuild(unsigned __int8 *
                 break;
               }
 
-              v13 += 24;
+              v13 += 3;
               v11 += 3;
               if (v13 == v12)
               {
@@ -1968,8 +1968,8 @@ LABEL_38:
         ;
       }
 
-      *(a1 + 19) = *(a1 + 12);
-      Phase::Geometry::MpsCpuSceneBuilder::ResetBuildTask(a1);
+      result[19] = result[12];
+      Phase::Geometry::MpsCpuSceneBuilder::ResetBuildTask(result);
     }
   }
 }
@@ -2133,7 +2133,7 @@ BOOL Phase::Geometry::MpsCpuSceneBuilder::StartNewBuild(unsigned __int8 *a1, uin
     goto LABEL_53;
   }
 
-  v44 = (a1 + 72);
+  v44 = a1 + 72;
   v4 = *(a1 + 4);
   v5 = *(a1 + 5);
   if (v4 != v5)
@@ -2248,8 +2248,8 @@ LABEL_13:
 
               v26[2] = 0;
               v26[3] = 0;
-              v28 = (v26 + 2);
-              *(v28 + 16) = 0;
+              v28 = v26 + 2;
+              v28[2] = 0;
               std::vector<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>>::__init_with_size[abi:ne200100]<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*,std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*>(v28, *(v25 + 2), *(v25 + 3), 0x6DB6DB6DB6DB6DB7 * ((*(v25 + 3) - *(v25 + 2)) >> 3));
               v29 = v23 + v24;
               *(v29 + 40) = *(v25 + 40);
@@ -2297,7 +2297,7 @@ LABEL_13:
     while (v11 != v12);
   }
 
-  v31 = v13[1];
+  v31 = *(v13 + 1);
   v32 = *v13;
   if (v31 != *v13)
   {
@@ -2752,7 +2752,7 @@ uint64_t Phase::Geometry::MpsCpuSceneBuilder::BuildEntry::BuildEntry(uint64_t a1
   *(a1 + 32) = 0;
   *a1 = 0u;
   *(a1 + 16) = 0u;
-  std::vector<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>>::__init_with_size[abi:ne200100]<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*,std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*>(a1 + 16, *a2, *(a2 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3));
+  std::vector<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>>::__init_with_size[abi:ne200100]<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*,std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*>((a1 + 16), *a2, *(a2 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3));
   *(a1 + 40) = *(a2 + 24);
   *(a1 + 56) = *(a2 + 40);
   return a1;
@@ -2769,7 +2769,7 @@ void sub_23A3F8604(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>>::__init_with_size[abi:ne200100]<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*,std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>>::__init_with_size[abi:ne200100]<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*,std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2792,7 +2792,7 @@ void sub_23A3F8674(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::tuple<Phase::Affine<float>,Phase::Handle64,Phase::Handle64,Phase::Geometry::Shape *>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -3138,7 +3138,7 @@ LABEL_17:
   std::vector<MPSCPUAccelerationStructureTriangleGeometryDescriptor * {__strong}>::__destroy_vector::operator()[abi:ne200100](buf);
 }
 
-void sub_23A3F93C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, void **a14)
+void sub_23A3F93C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, char *a14)
 {
   a14 = &a11;
   std::vector<MPSCPUAccelerationStructureTriangleGeometryDescriptor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a14);
@@ -3349,7 +3349,7 @@ uint64_t Phase::Geometry::RunSingleHitVsMpsSceneV2(Phase::Geometry *this, Phase:
   return 0;
 }
 
-uint64_t Phase::Geometry::GetOrAddMpsCpuSceneDescriptor(uint64_t *a1, uint64_t a2, uint64_t a3)
+unint64_t Phase::Geometry::GetOrAddMpsCpuSceneDescriptor(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   *&v11 = a2;
   *(&v11 + 1) = a3;
@@ -3514,7 +3514,7 @@ void std::vector<MPSCPUAccelerationStructureTriangleGeometryDescriptor * {__stro
   }
 }
 
-uint64_t std::vector<Phase::Geometry::MpsCpuSceneDescriptor>::__emplace_back_slow_path<Phase::Geometry::MpsCpuGroupParams &>(uint64_t *a1, _OWORD *a2)
+uint64_t std::vector<Phase::Geometry::MpsCpuSceneDescriptor>::__emplace_back_slow_path<Phase::Geometry::MpsCpuGroupParams &>(unint64_t *a1, _OWORD *a2)
 {
   v3 = *a1;
   v2 = a1[1];
@@ -3620,15 +3620,15 @@ uint64_t std::vector<Phase::Geometry::MpsCpuSceneDescriptor>::__emplace_back_slo
   return v16;
 }
 
-void sub_23A3F9D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A3F9D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<Phase::Geometry::MpsCpuSceneDescriptor>,Phase::Geometry::MpsCpuSceneDescriptor*>>::~__exception_guard_exceptions[abi:ne200100](va1);
   std::__split_buffer<Phase::Geometry::MpsCpuSceneDescriptor>::~__split_buffer(va);
   _Unwind_Resume(a1);
@@ -3871,11 +3871,11 @@ LABEL_37:
   return v35;
 }
 
-void Phase::Geometry::AddMpsMesh(uint64_t a1)
+void Phase::Geometry::AddMpsMesh(const void **a1)
 {
   v2 = *MEMORY[0x277D85DE8];
-  v1 = (*(a1 + 104) - *(a1 + 96)) >> 4;
-  std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(a1 + 96, 7uLL);
+  v1 = (a1[13] - a1[12]) >> 4;
+  std::vector<std::shared_ptr<Phase::Geometry::SharedDataStream>>::resize(a1 + 12, 7uLL);
   if (v1 <= 6)
   {
     operator new();
@@ -3884,7 +3884,7 @@ void Phase::Geometry::AddMpsMesh(uint64_t a1)
   operator new();
 }
 
-void sub_23A3FB0DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26)
+void sub_23A3FB0DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26)
 {
   if (__p)
   {
@@ -3922,7 +3922,7 @@ uint64_t _ZN5Phase8Geometry19DataStreamReferenceIDv3_fE6ResizeEm(uint64_t result
     *(v4 + 8) = 0;
     if (a3)
     {
-      Phase::Geometry::DataStream::Alloc(*(v4 + 16), *(v4 + 32) * a3, &v10);
+      Phase::Geometry::DataStream::Alloc(&v10, *(v4 + 16), *(v4 + 32) * a3);
       v7 = v10;
       v10 = 0;
       result = *(v4 + 8);
@@ -3999,7 +3999,7 @@ uint64_t Phase::Geometry::DataStreamReference<int>::Resize(uint64_t result, uint
     *(v4 + 8) = 0;
     if (a3)
     {
-      Phase::Geometry::DataStream::Alloc(*(v4 + 16), *(v4 + 32) * a3, &v10);
+      Phase::Geometry::DataStream::Alloc(&v10, *(v4 + 16), *(v4 + 32) * a3);
       v7 = v10;
       v10 = 0;
       result = *(v4 + 8);
@@ -4055,12 +4055,12 @@ void sub_23A3FB3AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Phase::Geometry::CreateMpsMeshFromShape(int a1, _DWORD *a2, void *a3)
+void Phase::Geometry::CreateMpsMeshFromShape(void x0_0, _DWORD *a1, void *a2)
 {
   v4[9] = *MEMORY[0x277D85DE8];
-  if (*a2 == 3)
+  if (*a1 == 3)
   {
-    Phase::Geometry::ForcedCopyTagsIncludingMaterialListFromOptions(1uLL, a3, &__p);
+    Phase::Geometry::ForcedCopyTagsIncludingMaterialListFromOptions(&__p, 1uLL, a2);
     LODWORD(v4[0]) = 15;
     std::vector<unsigned int>::push_back[abi:ne200100](&__p.__begin_, v4);
     LODWORD(v4[0]) = 16;
@@ -4091,7 +4091,7 @@ void Phase::Geometry::GetNormals(_BOOL8 a1, unsigned int *a2, int a3, uint64_t a
     v9 = a2;
     v10 = a1;
     v11 = a5;
-    v12 = a2 + v7;
+    v12 = (a2 + v7);
     do
     {
       v13 = *(**(v10 + 48) + 16 * *(v10 + 56));
@@ -4321,10 +4321,10 @@ double *Phase::Geometry::SingleHitRaycastVsMeshV2(uint64_t a1, uint64_t a2, floa
   return result;
 }
 
-void Phase::Geometry::MultiHitRaycastVsMesh(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void Phase::Geometry::MultiHitRaycastVsMesh(uint64_t a1, uint64_t a2, float32x2_t *a3, void *a4)
 {
-  std::unique_ptr<Phase::Geometry::RaycastHit [],std::function<void ()(void *)>>::reset[abi:ne200100]((a3 + 32));
-  *(a3 + 72) = 0;
+  std::unique_ptr<Phase::Geometry::RaycastHit [],std::function<void ()(void *)>>::reset[abi:ne200100](&a3[4]);
+  a3[9] = 0;
   __p = 0;
   v31 = 0;
   v32 = 0;
@@ -4332,11 +4332,11 @@ void Phase::Geometry::MultiHitRaycastVsMesh(uint64_t a1, uint64_t a2, uint64_t a
   v29 = a4;
   v7 = **(v28 + 120);
   v8 = *(*(**(v7 + 16) + 16 * *(v7 + 24)) + 8);
-  v9 = *(a3 + 8);
-  v10 = *(a3 + 24);
+  v9 = a3[1].f32[0];
+  v10 = a3[3].f32[0];
   v41 = vcvtq_f64_f32(*a3);
   v42 = v9;
-  v43 = vcvtq_f64_f32(*(a3 + 16));
+  v43 = vcvtq_f64_f32(a3[2]);
   v44 = v10;
   v11 = *(v7 + 56);
   v27 = v7;
@@ -4371,7 +4371,7 @@ void Phase::Geometry::MultiHitRaycastVsMesh(uint64_t a1, uint64_t a2, uint64_t a
           v37 = vcvtq_f64_f32(*v22);
           v38 = v22[1].f32[0];
           Phase::Intersection<double>(v33.f64, v41.f64, v39);
-          if (v40 == 1 && v39[0] < *(a3 + 28) && v39[0] > *(a3 + 12))
+          if (v40 == 1 && v39[0] < a3[3].f32[1] && v39[0] > a3[1].f32[1])
           {
             if (v14 >= 0x100)
             {
@@ -4415,7 +4415,7 @@ void Phase::Geometry::MultiHitRaycastVsMesh(uint64_t a1, uint64_t a2, uint64_t a
     v26 = 0;
   }
 
-  Phase::Geometry::MergeRaycastQueryHits<Phase::Geometry::RaycastHit,std::vector<Phase::Geometry::RaycastHit>>(a1, (a3 + 32), &__p, v26);
+  Phase::Geometry::MergeRaycastQueryHits<Phase::Geometry::RaycastHit,std::vector<Phase::Geometry::RaycastHit>>(a1, &a3[4], &__p, v26);
   if (__p)
   {
     v31 = __p;
@@ -4510,10 +4510,10 @@ uint64_t Phase::Geometry::MergeRaycastQueryHits<Phase::Geometry::RaycastHit,std:
   return result;
 }
 
-void Phase::Geometry::MultiHitRaycastVsMeshV2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void Phase::Geometry::MultiHitRaycastVsMeshV2(uint64_t a1, uint64_t a2, float32x2_t *a3, void *a4)
 {
-  std::unique_ptr<Phase::Geometry::RaycastHitV2 [],std::function<void ()(void *)>>::reset[abi:ne200100]((a3 + 32));
-  *(a3 + 72) = 0;
+  std::unique_ptr<Phase::Geometry::RaycastHitV2 [],std::function<void ()(void *)>>::reset[abi:ne200100](&a3[4]);
+  a3[9] = 0;
   v40 = 0;
   v41 = 0;
   __src = 0;
@@ -4521,11 +4521,11 @@ void Phase::Geometry::MultiHitRaycastVsMeshV2(uint64_t a1, uint64_t a2, uint64_t
   v38 = a4[1];
   v7 = **(v38 + 120);
   v8 = *(*(**(v7 + 16) + 16 * *(v7 + 24)) + 8);
-  v9 = *(a3 + 8);
-  v10 = *(a3 + 24);
+  v9 = a3[1].f32[0];
+  v10 = a3[3].f32[0];
   v50 = vcvtq_f64_f32(*a3);
   v51 = v9;
-  v52 = vcvtq_f64_f32(*(a3 + 16));
+  v52 = vcvtq_f64_f32(a3[2]);
   v53 = v10;
   v11 = *(v7 + 56);
   v36 = v7;
@@ -4560,7 +4560,7 @@ void Phase::Geometry::MultiHitRaycastVsMeshV2(uint64_t a1, uint64_t a2, uint64_t
           v46 = vcvtq_f64_f32(*v21);
           v47 = v21[1].f32[0];
           Phase::Intersection<double>(v42.f64, v50.f64, v48);
-          if (v49 == 1 && v48[0] < *(a3 + 28) && v48[0] > *(a3 + 12))
+          if (v49 == 1 && v48[0] < a3[3].f32[1] && v48[0] > a3[1].f32[1])
           {
             if (v14 >= 0x100)
             {
@@ -4650,7 +4650,7 @@ void Phase::Geometry::MultiHitRaycastVsMeshV2(uint64_t a1, uint64_t a2, uint64_t
     v34 = 0;
   }
 
-  Phase::Geometry::MergeRaycastQueryHits<Phase::Geometry::RaycastHitV2,std::vector<Phase::Geometry::RaycastHitV2>>(a1, (a3 + 32), &__src, v34);
+  Phase::Geometry::MergeRaycastQueryHits<Phase::Geometry::RaycastHitV2,std::vector<Phase::Geometry::RaycastHitV2>>(a1, &a3[4], &__src, v34);
   if (__src)
   {
     v40 = __src;
@@ -5081,11 +5081,9 @@ uint64_t Phase::Geometry::SingleHitRaycastVsScene(uint64_t result, uint64_t a2, 
   if (a5)
   {
     *(a3 + 8) = 2139095039;
-    *(a3 + 44) = 0;
-    *(a3 + 36) = 0;
+    *(a3 + 36) = 0uLL;
     *(a3 + 13) = 0;
-    *(a3 + 7) = 0xFFFFFFFFLL;
-    *(a3 + 8) = 0;
+    *(a3 + 56) = 0xFFFFFFFFuLL;
   }
 
   v7 = *(result + 168);
@@ -5248,8 +5246,7 @@ uint64_t Phase::Geometry::SingleHitRaycastVsSceneV2(uint64_t result, uint64_t a2
   v6 = result;
   if (a5)
   {
-    *(a3 + 5) = 0;
-    *(a3 + 6) = 0;
+    *(a3 + 40) = 0uLL;
     *(a3 + 4) = -2155872257;
   }
 
@@ -5636,11 +5633,11 @@ LABEL_44:
   return result;
 }
 
-void sub_23A3FDE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23A3FDE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va1, a15);
-  va_start(va, a15);
-  v16 = va_arg(va1, void);
+  va_start(va1, a22);
+  va_start(va, a22);
+  v23 = va_arg(va1, void);
   std::unique_ptr<Phase::Geometry::RaycastHit [],std::function<void ()(void *)>>::reset[abi:ne200100](va);
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -5873,33 +5870,33 @@ LABEL_44:
   return result;
 }
 
-void sub_23A3FE2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23A3FE2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va1, a15);
-  va_start(va, a15);
-  v16 = va_arg(va1, void);
+  va_start(va1, a22);
+  va_start(va, a22);
+  v23 = va_arg(va1, void);
   std::unique_ptr<Phase::Geometry::RaycastHitV2 [],std::function<void ()(void *)>>::reset[abi:ne200100](va);
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void Phase::Geometry::SingleHitRaycastVsVoxelTree(double a1, double a2, double a3, double a4, double a5, float64x2_t a6, uint64_t a7, uint64_t a8, __int128 *a9, uint64_t *a10)
+void Phase::Geometry::SingleHitRaycastVsVoxelTree(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t *a4, double a5, double a6, double a7, double a8, double a9, float64x2_t a10)
 {
-  *(a9 + 8) = 2139095039;
-  *(a9 + 36) = 0;
-  v10 = a9 + 36;
-  *(a9 + 44) = 0;
-  *(a9 + 13) = 0;
-  *(a9 + 7) = 0xFFFFFFFFLL;
-  *(a9 + 8) = 0;
-  v11 = a9 + 4;
-  v12 = a10[1];
+  *(a3 + 8) = 2139095039;
+  *(a3 + 36) = 0;
+  v10 = a3 + 36;
+  *(a3 + 44) = 0;
+  *(a3 + 13) = 0;
+  *(a3 + 7) = 0xFFFFFFFFLL;
+  *(a3 + 8) = 0;
+  v11 = a3 + 4;
+  v12 = a4[1];
   v13 = **(v12 + 120);
   v14 = vdupq_n_s64(0x47EFFFFFE0000000uLL);
   v32 = -1;
-  v15 = *a9;
-  v16 = a9[1];
-  v30[0] = *a9;
+  v15 = *a3;
+  v16 = a3[1];
+  v30[0] = *a3;
   v30[1] = v16;
   v31 = v14;
   v29[0] = &v31;
@@ -5915,7 +5912,7 @@ void Phase::Geometry::SingleHitRaycastVsVoxelTree(double a1, double a2, double a
       v23 = v19[1] + v19[4] * v22;
       if (*(*(**(v23 + 40) + 16 * *(v23 + 48)) + 24))
       {
-        _ZN5Phase8Geometry7details21RaycastVsVoxelSubtreeILb1ERKZNS0_18RaycastVsVoxelTreeILb1ERZNS0_27SingleHitRaycastVsVoxelTreeERNS0_11SystemStateERNS0_15SceneQueryBatchERNS0_10SceneQueryERNS0_20SceneQueryShapeStateEE3__0EEvS5_RNS0_12RaycastInputERKNS0_5ShapeEOT0_EUlT_SJ_T1_E_EEvS5_SF_RKNS0_12VoxelSubtreeESK_(v30, v23, v29, *&v15, *&v16, *v14.i64, a4, a5, a6);
+        _ZN5Phase8Geometry7details21RaycastVsVoxelSubtreeILb1ERKZNS0_18RaycastVsVoxelTreeILb1ERZNS0_27SingleHitRaycastVsVoxelTreeERNS0_11SystemStateERNS0_15SceneQueryBatchERNS0_10SceneQueryERNS0_20SceneQueryShapeStateEE3__0EEvS5_RNS0_12RaycastInputERKNS0_5ShapeEOT0_EUlT_SJ_T1_E_EEvS5_SF_RKNS0_12VoxelSubtreeESK_(v30, v23, v29, *&v15, *&v16, *v14.i64, a8, a9, a10);
         v17 = *(v13 + 48);
         v18 = **(v13 + 40);
       }
@@ -5931,30 +5928,29 @@ void Phase::Geometry::SingleHitRaycastVsVoxelTree(double a1, double a2, double a
       v25 = *(v12 + 8);
       v33 = v32;
       v26 = *v31.i64;
-      *(a9 + 8) = v26;
-      *(a9 + 6) = v25;
-      *(a9 + 14) = v24;
-      v27 = *a10;
-      v28 = **(a10[1] + 120);
+      *(a3 + 8) = v26;
+      *(a3 + 6) = v25;
+      *(a3 + 14) = v24;
+      v27 = *a4;
+      v28 = **(a4[1] + 120);
       Phase::Geometry::GetNormals(v28, (v27 + 48), &v33, 1, v10, 1, 1);
       Phase::Geometry::GetMaterials(v28, &v33, 1, v11, 1, 1);
     }
   }
 }
 
-float Phase::Geometry::SingleHitRaycastVsVoxelTreeV2(double a1, double a2, double a3, double a4, double a5, float64x2_t a6, uint64_t a7, uint64_t a8, __int128 *a9, void *a10)
+float Phase::Geometry::SingleHitRaycastVsVoxelTreeV2(uint64_t a1, uint64_t a2, __int128 *a3, void *a4, double a5, double a6, double a7, double a8, double a9, float64x2_t a10)
 {
-  *(a9 + 5) = 0;
-  *(a9 + 6) = 0;
-  *(a9 + 4) = -2155872257;
-  v10 = a10[1];
-  v11 = *(*a10 + 8);
+  *(a3 + 40) = 0uLL;
+  *(a3 + 4) = -2155872257;
+  v10 = a4[1];
+  v11 = *(*a4 + 8);
   v12 = **(v10 + 120);
   v13 = vdupq_n_s64(0x47EFFFFFE0000000uLL);
   v28 = -1;
-  v14 = *a9;
-  v15 = a9[1];
-  v26[0] = *a9;
+  v14 = *a3;
+  v15 = a3[1];
+  v26[0] = *a3;
   v26[1] = v15;
   v27 = v13;
   v25[0] = &v27;
@@ -5970,7 +5966,7 @@ float Phase::Geometry::SingleHitRaycastVsVoxelTreeV2(double a1, double a2, doubl
       v21 = v18[1] + v18[4] * v20;
       if (*(*(**(v21 + 40) + 16 * *(v21 + 48)) + 24))
       {
-        _ZN5Phase8Geometry7details21RaycastVsVoxelSubtreeILb1ERKZNS0_18RaycastVsVoxelTreeILb1ERZNS0_27SingleHitRaycastVsVoxelTreeERNS0_11SystemStateERNS0_15SceneQueryBatchERNS0_10SceneQueryERNS0_20SceneQueryShapeStateEE3__0EEvS5_RNS0_12RaycastInputERKNS0_5ShapeEOT0_EUlT_SJ_T1_E_EEvS5_SF_RKNS0_12VoxelSubtreeESK_(v26, v21, v25, *&v14, *&v15, *v13.i64, a4, a5, a6);
+        _ZN5Phase8Geometry7details21RaycastVsVoxelSubtreeILb1ERKZNS0_18RaycastVsVoxelTreeILb1ERZNS0_27SingleHitRaycastVsVoxelTreeERNS0_11SystemStateERNS0_15SceneQueryBatchERNS0_10SceneQueryERNS0_20SceneQueryShapeStateEE3__0EEvS5_RNS0_12RaycastInputERKNS0_5ShapeEOT0_EUlT_SJ_T1_E_EEvS5_SF_RKNS0_12VoxelSubtreeESK_(v26, v21, v25, *&v14, *&v15, *v13.i64, a8, a9, a10);
         v16 = *(v12 + 48);
         v17 = **(v12 + 40);
       }
@@ -5985,10 +5981,10 @@ float Phase::Geometry::SingleHitRaycastVsVoxelTreeV2(double a1, double a2, doubl
     {
       v23 = *(v10 + 8);
       *&v14 = *v27.i64;
-      *(a9 + 8) = v14;
-      *(a9 + 9) = v22;
-      *(a9 + 5) = v23;
-      *(a9 + 6) = v11;
+      *(a3 + 8) = v14;
+      *(a3 + 9) = v22;
+      *(a3 + 5) = v23;
+      *(a3 + 6) = v11;
     }
   }
 
@@ -7642,14 +7638,14 @@ uint64_t Phase::Geometry::SceneQueryTypeRegistry::RegisterNewType(void *a1, uint
   return v7;
 }
 
-void sub_23A400F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A400F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   Phase::Geometry::SceneQueryTypeDefinition::~SceneQueryTypeDefinition(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<Phase::Geometry::SceneQueryTypeDefinition>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<Phase::Geometry::SceneQueryTypeDefinition>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -7704,26 +7700,26 @@ unint64_t Phase::Geometry::SceneQueryTypeRegistry::DeriveNewType(Phase::Geometry
   return v4;
 }
 
-void sub_23A401158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A401158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   Phase::Geometry::SceneQueryTypeDefinition::~SceneQueryTypeDefinition(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<Phase::Geometry::SceneQueryTypeDefinition>::resize(void *a1, unint64_t a2)
+void std::vector<Phase::Geometry::SceneQueryTypeDefinition>::resize(void *result, unint64_t a2)
 {
-  v2 = 0x86BCA1AF286BCA1BLL * ((a1[1] - *a1) >> 3);
+  v2 = 0x86BCA1AF286BCA1BLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<Phase::Geometry::SceneQueryTypeDefinition>::__append(a1, v4);
+    std::vector<Phase::Geometry::SceneQueryTypeDefinition>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    std::vector<Phase::Geometry::SceneQueryTypeDefinition>::__base_destruct_at_end[abi:ne200100](a1, *a1 + 152 * a2);
+    std::vector<Phase::Geometry::SceneQueryTypeDefinition>::__base_destruct_at_end[abi:ne200100](result, *result + 152 * a2);
   }
 }
 
@@ -7814,7 +7810,7 @@ uint64_t *std::vector<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase
   return result;
 }
 
-uint64_t std::vector<Phase::Geometry::SceneQueryTypeDefinition>::__emplace_back_slow_path<Phase::Geometry::SceneQueryTypeDefinition>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<Phase::Geometry::SceneQueryTypeDefinition>::__emplace_back_slow_path<Phase::Geometry::SceneQueryTypeDefinition>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0x86BCA1AF286BCA1BLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -7864,9 +7860,9 @@ uint64_t std::vector<Phase::Geometry::SceneQueryTypeDefinition>::__emplace_back_
   return v12;
 }
 
-void sub_23A401474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A401474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Phase::Geometry::SceneQueryTypeDefinition>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8116,20 +8112,20 @@ uint64_t std::__split_buffer<Phase::Geometry::SceneQueryTypeDefinition>::__destr
   return result;
 }
 
-void *std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -8190,17 +8186,17 @@ uint64_t std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Ph
   return a1;
 }
 
-void *std::vector<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void std::vector<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -8252,25 +8248,25 @@ void *Phase::Geometry::SceneQueryFunctionTable::SceneQueryFunctionTable(void *a1
   a1[12] = 0;
   a1[13] = 0;
   a1[14] = 0;
-  std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__init_with_size[abi:ne200100]<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>*,std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>*>((a1 + 12), a2[12], a2[13], (a2[13] - a2[12]) >> 5);
+  std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__init_with_size[abi:ne200100]<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>*,std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>*>(a1 + 12, a2[12], a2[13], (a2[13] - a2[12]) >> 5);
   a1[15] = 0;
   a1[16] = 0;
   a1[17] = 0;
-  std::vector<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>>::__init_with_size[abi:ne200100]<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>*,std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>*>((a1 + 15), a2[15], a2[16], (a2[16] - a2[15]) >> 5);
+  std::vector<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>>::__init_with_size[abi:ne200100]<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>*,std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>*>(a1 + 15, a2[15], a2[16], (a2[16] - a2[15]) >> 5);
   return a1;
 }
 
-void sub_23A401D84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A401D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>> const&,BOOL)>::~__value_func[abi:ne200100](v2 + 64);
-  std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQueryFunctionTable const&)>::~__value_func[abi:ne200100](v2 + 32);
-  std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQueryFunctionTable const&)>::~__value_func[abi:ne200100](v2);
+  std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>> const&,BOOL)>::~__value_func[abi:ne200100](v3 + 64);
+  std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQueryFunctionTable const&)>::~__value_func[abi:ne200100](v3 + 32);
+  std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQueryFunctionTable const&)>::~__value_func[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__init_with_size[abi:ne200100]<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>*,std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>>::__init_with_size[abi:ne200100]<std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>*,std::function<void ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,Phase::Geometry::SceneQuery &,Phase::Geometry::SceneQueryShapeState &)>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8349,7 +8345,7 @@ uint64_t std::__function::__value_func<void ()(Phase::Geometry::SystemState &,Ph
   return a1;
 }
 
-uint64_t std::vector<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>>::__init_with_size[abi:ne200100]<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>*,std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>>::__init_with_size[abi:ne200100]<std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>*,std::function<BOOL ()(Phase::Geometry::SystemState &,Phase::Geometry::SceneQueryBatch &,int,int)>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8495,9 +8491,9 @@ void std::vector<Phase::Geometry::SceneQueryTypeDefinition>::__append(uint64_t a
   }
 }
 
-void sub_23A402354(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A402354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::Geometry::SceneQueryTypeDefinition>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9156,7 +9152,7 @@ void sub_23A403398(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void Phase::Geometry::RunSceneQueriesOnRange(Phase::Logger *a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
+void Phase::Geometry::RunSceneQueriesOnRange(Phase::Logger *a1, uint64_t a2, uint64_t a3, int a4, int a5)
 {
   v30 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -9214,7 +9210,7 @@ void Phase::Geometry::RunSceneQueriesOnRange(Phase::Logger *a1, uint64_t a2, uin
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      v15 = (*(*v19 + 48))(v19, a1, a2, v17 + v18 * a4++, a3 + 96, buf);
+      v15 = (*(*v19 + 48))(v19, a1, a2, v17 + (v18 * a4++), a3 + 96, buf);
     }
 
     while (a5 != a4);
@@ -9243,17 +9239,17 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
   v3 = (*this)[119].__vftable;
   if ((*this)[112].__vftable == -1)
   {
-    v2[112].__vftable = v3;
+    v2[336] = v3;
   }
 
-  if (v2[112].__shared_owners_ == -1)
+  if (v2[337] == -1)
   {
-    v2[112].__shared_owners_ = v3;
+    v2[337] = v3;
   }
 
-  if (v2[112].__shared_weak_owners_ == -1)
+  if (v2[338] == -1)
   {
-    v2[112].__shared_weak_owners_ = v3;
+    v2[338] = v3;
   }
 
   v4 = this[26];
@@ -9271,14 +9267,14 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
   std::__shared_mutex_base::__shared_mutex_base(&v74);
   v5 = *this;
   shared_weak_owners = (*this)[67].__shared_weak_owners_;
-  Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::Resize(&v71, v5[60].__vftable);
+  Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::Resize(&v71, *(v5 + 1440));
   v77 = 0;
   v76 = 0u;
   v78 = 0xFFFFFFFFLL;
   std::__shared_mutex_base::__shared_mutex_base(&v79);
   v6 = *this;
   v80 = (*this)[78].__vftable;
-  Phase::details::SharedSlotMap<Phase::Geometry::Entity,Phase::Handle64>::Resize(&v76, v6[70].__shared_owners_);
+  Phase::details::SharedSlotMap<Phase::Geometry::Entity,Phase::Handle64>::Resize(&v76, *(v6 + 1688));
   std::vector<Phase::Geometry::MpsCpuSceneDescriptor>::clear[abi:ne200100](this + 33);
   this[31] = 0;
   v61 = this + 31;
@@ -9289,8 +9285,8 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
   v66 = 0;
   v67 = 0;
   v68 = 0;
-  v8 = v7[78].__shared_weak_owners_;
-  if (LODWORD(v7[70].__shared_owners_) <= v8 || (p_shared_weak_owners = &v7[69].__shared_weak_owners_, v10 = (v7[69].__shared_weak_owners_ + 24 * v8), *(v10 + 5) != HIDWORD(v8)) || !*v10)
+  v8 = *(v7 + 1888);
+  if (*(v7 + 1688) <= v8 || (v9 = (v7 + 1672), v10 = (*(v7 + 1672) + 24 * v8), *(v10 + 5) != HIDWORD(v8)) || !*v10)
   {
     __assert_rtn("UpdateAndCopyScene", "GeoSceneState.cpp", 36, "nullptr != pRootPtr && nullptr != pRootPtr->get()");
   }
@@ -9298,12 +9294,12 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
   v69 = *v10;
   LOBYTE(v70) = 0;
   std::vector<std::tuple<Phase::Geometry::Entity const&,unsigned long,BOOL>>::push_back[abi:ne200100](&v66, v69.i8);
-  Phase::SharedSlotMapState<Phase::Geometry::Entity,Phase::Handle64>::ForceSet(v76, v77, v7[78].__shared_weak_owners_, *v10, v10[1]);
-  v7[111].__shared_weak_owners_ = 0;
-  v14 = v7[70].__vftable;
+  Phase::SharedSlotMapState<Phase::Geometry::Entity,Phase::Handle64>::ForceSet(v76, v77, *(v7 + 1888), *v10, v10[1]);
+  *(v7 + 2680) = 0;
+  v14 = *(v7 + 1680);
   if (v14)
   {
-    v15 = v14->~__shared_weak_count_0 < 1;
+    v15 = *(v14 + 8) < 1;
   }
 
   else
@@ -9332,9 +9328,9 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
         v21 = *(v17 - 8);
         v22 = *(*&v20 + 8 * v18);
         *(v17 - 2) = v18 + 1;
-        if (LODWORD(v7[70].__shared_owners_) > v22)
+        if (*(v7 + 1688) > v22)
         {
-          v23 = *p_shared_weak_owners + 24 * v22;
+          v23 = *v9 + 24 * v22;
           if (*(v23 + 20) == HIDWORD(v22))
           {
             v24 = *v23;
@@ -9343,7 +9339,7 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
             {
               if ((v62 & 1) == 0 || (v25 = *(v23 + 8)) != 0 && *(v25 + 8) >= 1)
               {
-                UniqueSlot = Phase::details::SharedSlotMap<Phase::Geometry::Entity,Phase::Handle64>::GetUniqueSlot(p_shared_weak_owners, v22);
+                UniqueSlot = Phase::details::SharedSlotMap<Phase::Geometry::Entity,Phase::Handle64>::GetUniqueSlot(v9, v22);
                 v23 = UniqueSlot;
                 if (UniqueSlot)
                 {
@@ -9352,7 +9348,7 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
                   {
                     if (*(v27 + 8) >= 1)
                     {
-                      if (!v7[78].__vftable)
+                      if (!*(v7 + 1872))
                       {
                         std::terminate();
                       }
@@ -9397,10 +9393,10 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
             while (v31 != v32)
             {
               v33 = *v31;
-              if (LODWORD(v7[60].__vftable) > *v31)
+              if (*(v7 + 1440) > *v31)
               {
                 v34 = *v31;
-                v35 = v7[59].__shared_owners_ + 24 * v33;
+                v35 = *(v7 + 1424) + 24 * v33;
                 v36 = *(v35 + 20);
                 if (v36 == HIDWORD(v33))
                 {
@@ -9438,7 +9434,7 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
                         v43 = Phase::Geometry::GetOrAddMpsCpuSceneDescriptor(v64 + 33, *(v37 + 16) & *(v24 + 144), v63);
                         v44 = v43;
                         *(v43 + 40) |= v65;
-                        *(v64 + 32) |= v42;
+                        v64[32] = (v64[32] | v42);
                         v45 = *v23;
                         v47 = *(v43 + 8);
                         v46 = *(v43 + 16);
@@ -9543,11 +9539,11 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
 
                       else
                       {
-                        *v61 |= v42;
+                        *v61 = (*v61 | v42);
                       }
                     }
 
-                    v7[111].__shared_weak_owners_ += *(v37 + 160);
+                    *(v7 + 2680) += *(v37 + 160);
                   }
                 }
               }
@@ -9562,7 +9558,7 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
               std::vector<std::tuple<Phase::Geometry::Entity const&,unsigned long,BOOL>>::push_back[abi:ne200100](&v66, v69.i8);
             }
 
-            p_shared_weak_owners = &v7[69].__shared_weak_owners_;
+            v9 = (v7 + 1672);
           }
         }
 
@@ -9586,8 +9582,8 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
     atomic_fetch_add_explicit((*(&v76 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  v58 = *(v64 + 26);
-  *(v64 + 200) = v57;
+  v58 = v64[26];
+  *(v64 + 25) = v57;
   if (v58)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v58);
@@ -9602,11 +9598,11 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
     std::__shared_weak_count::__release_shared[abi:ne200100](*(&v76 + 1));
   }
 
-  Phase::Geometry::MpsCpuSceneBuilder::Update(v64 + 32, v64 + 33, v64 + 1, &v71, v64 + 224);
+  Phase::Geometry::MpsCpuSceneBuilder::Update((v64 + 4), v64 + 33, v64 + 1, &v71, (v64 + 28));
   std::vector<Phase::Geometry::MpsCpuSceneDescriptor>::clear[abi:ne200100](v64 + 33);
-  if (*(v64 + 11))
+  if (v64[11])
   {
-    Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::MergeFrom(&v71, v64 + 160);
+    Phase::details::SharedSlotMap<Phase::Geometry::Shape,Phase::Handle64>::MergeFrom(&v71, (v64 + 20));
   }
 
   v59 = v71;
@@ -9615,7 +9611,7 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
     atomic_fetch_add_explicit((*(&v71 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  v60 = *(v64 + 29);
+  v60 = v64[29];
   *(v64 + 14) = v59;
   if (v60)
   {
@@ -9632,7 +9628,7 @@ void Phase::Geometry::SceneState::Update(std::__shared_weak_count **this)
   }
 }
 
-void sub_23A403E58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50)
+void sub_23A403E58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50)
 {
   if (__p)
   {

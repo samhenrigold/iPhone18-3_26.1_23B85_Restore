@@ -8,13 +8,14 @@
 
 - (MPSAccelerationStructureGroup)initWithDevice:(id)device storageMode:(unint64_t)mode
 {
-  v7.receiver = self;
-  v7.super_class = MPSAccelerationStructureGroup;
-  if ([(MPSAccelerationStructureGroup *)&v7 init])
+  v9.receiver = self;
+  v9.super_class = MPSAccelerationStructureGroup;
+  v5 = [(MPSAccelerationStructureGroup *)&v9 init];
+  if (v5)
   {
     if ((mode & 0xFFFFFFFFFFFFFFFDLL) != 0)
     {
-      sub_239E24918();
+      sub_239E24918(v5, v6);
     }
 
     MPSDevice = MPSDevice::GetMPSDevice();
@@ -29,20 +30,17 @@
 {
   if (!device)
   {
-    sub_239E249C0(self);
+    sub_239E249C0(self, a2);
     return 0;
   }
 
-  MPSDevice = MPSDevice::GetMPSDevice();
-  if (!MPSDevice)
+  if (!MPSDevice::GetMPSDevice())
   {
-    sub_239E24954(self);
+    sub_239E24954(self, v5);
     return 0;
   }
 
-  v7 = ~(*(MPSDevice + 1476) >> 9) & 2;
-
-  return MEMORY[0x2821F9670](self, sel_initWithDevice_storageMode_, device, v7, v6);
+  return MEMORY[0x2821F9670](self, sel_initWithDevice_storageMode_, device);
 }
 
 - (void)dealloc

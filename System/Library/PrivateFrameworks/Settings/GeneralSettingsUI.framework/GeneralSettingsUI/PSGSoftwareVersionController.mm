@@ -17,6 +17,7 @@
 - (void)removeSecurityResponse;
 - (void)setPreparingRollback:(BOOL)rollback;
 - (void)splatLearnMoreTapped;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -69,6 +70,27 @@ void __43__PSGSoftwareVersionController_viewDidLoad__block_invoke(uint64_t a1)
   [v1 reloadData];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = PSGSoftwareVersionController;
+  [(PSGSoftwareVersionController *)&v13 viewDidAppear:appear];
+  v4 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/About/SW_VERSION_SPECIFIER"];
+  v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v7 = PSG_BundleForGeneralSettingsUIFramework(currentLocale);
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"OS Version" table:0 locale:currentLocale bundleURL:bundleURL];
+
+  general_rootPaneComponent = [MEMORY[0x277CCAEB8] general_rootPaneComponent];
+  v14[0] = general_rootPaneComponent;
+  general_aboutPaneComponent = [MEMORY[0x277CCAEB8] general_aboutPaneComponent];
+  v14[1] = general_aboutPaneComponent;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  [(PSGSoftwareVersionController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.about-current-device" title:v9 localizedNavigationComponents:v12 deepLink:v4];
+}
+
 - (id)specifiers
 {
   v3 = *MEMORY[0x277D3FC48];
@@ -98,11 +120,12 @@ void __43__PSGSoftwareVersionController_viewDidLoad__block_invoke(uint64_t a1)
       [v10 addObject:osUpdateLearnMoreButton];
     }
 
-    if ([(SUManagerClient *)self->_suClient isSplatOnlyUpdateInstalled])
+    isSplatOnlyUpdateInstalled = [(SUManagerClient *)self->_suClient isSplatOnlyUpdateInstalled];
+    if (isSplatOnlyUpdateInstalled)
     {
-      v14 = [MEMORY[0x277D64908] documentationDataForInstalledUpdateType:1 error:0];
+      v15 = [MEMORY[0x277D64908] documentationDataForInstalledUpdateType:1 error:0];
       splatDocumentationData = self->_splatDocumentationData;
-      self->_splatDocumentationData = v14;
+      self->_splatDocumentationData = v15;
 
       splatUpdateDetailGroup = [(PSGSoftwareVersionController *)self splatUpdateDetailGroup];
       [v10 addObject:splatUpdateDetailGroup];
@@ -128,15 +151,15 @@ void __43__PSGSoftwareVersionController_viewDidLoad__block_invoke(uint64_t a1)
 
     else
     {
-      splatUpdateLearnMoreButton = _PSGLoggingFacility();
+      splatUpdateLearnMoreButton = _PSGLoggingFacility(isSplatOnlyUpdateInstalled);
       if (os_log_type_enabled(splatUpdateLearnMoreButton, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_21CF20000, splatUpdateLearnMoreButton, OS_LOG_TYPE_DEFAULT, "Cryptex-only content not installed", v22, 2u);
+        *v23 = 0;
+        _os_log_impl(&dword_21CF20000, splatUpdateLearnMoreButton, OS_LOG_TYPE_DEFAULT, "Cryptex-only content not installed", v23, 2u);
       }
     }
 
-    v20 = *(&self->super.super.super.super.super.isa + v3);
+    v21 = *(&self->super.super.super.super.super.isa + v3);
     *(&self->super.super.super.super.super.isa + v3) = v10;
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
@@ -241,39 +264,38 @@ void __43__PSGSoftwareVersionController_viewDidLoad__block_invoke(uint64_t a1)
   v14 = 0;
   v4 = [(SUManagerClient *)suClient isSplatOnlyUpdateRollbackAllowed:&v14];
   v5 = v14;
+  v6 = v5;
   if (v4)
   {
-    v6 = MEMORY[0x277D3FAD8];
-    v7 = PSG_LocalizedStringForGeneral(@"REMOVE_SECURITY_RESPONSE");
-    v8 = [v6 deleteButtonSpecifierWithName:v7 target:self action:sel_removeSecurityResponse];
+    v7 = MEMORY[0x277D3FAD8];
+    v8 = PSG_LocalizedStringForGeneral(@"REMOVE_SECURITY_RESPONSE");
+    v9 = [v7 deleteButtonSpecifierWithName:v8 target:self action:sel_removeSecurityResponse];
 
-    [v8 setProperty:&unk_282E8FF50 forKey:*MEMORY[0x277D3FD78]];
-    [v8 setProperty:@"ROLLBACK_BUTTON" forKey:*MEMORY[0x277D3FFB8]];
-    v9 = self->_suClient;
+    [v9 setProperty:&unk_282E8FF50 forKey:*MEMORY[0x277D3FD78]];
+    [v9 setProperty:@"ROLLBACK_BUTTON" forKey:*MEMORY[0x277D3FFB8]];
+    v10 = self->_suClient;
     v13[0] = MEMORY[0x277D85DD0];
     v13[1] = 3221225472;
     v13[2] = __51__PSGSoftwareVersionController_splatRollbackButton__block_invoke;
     v13[3] = &unk_2783255A0;
     v13[4] = self;
-    [(SUManagerClient *)v9 isRollingBack:v13];
+    [(SUManagerClient *)v10 isRollingBack:v13];
   }
 
   else
   {
-    v10 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _PSGLoggingFacility(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v5;
-      _os_log_impl(&dword_21CF20000, v10, OS_LOG_TYPE_DEFAULT, "Rollback not allowed: %@", buf, 0xCu);
+      v16 = v6;
+      _os_log_impl(&dword_21CF20000, v11, OS_LOG_TYPE_DEFAULT, "Rollback not allowed: %@", buf, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 void __51__PSGSoftwareVersionController_splatRollbackButton__block_invoke(uint64_t a1, int a2)
@@ -295,7 +317,7 @@ void __51__PSGSoftwareVersionController_splatRollbackButton__block_invoke(uint64
   v5 = [(PSGSoftwareVersionController *)self specifierForID:@"ROLLBACK_BUTTON"];
   if (!v5)
   {
-    v6 = _PSGLoggingFacility();
+    v6 = _PSGLoggingFacility(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -324,7 +346,7 @@ void __51__PSGSoftwareVersionController_splatRollbackButton__block_invoke(uint64
 
 - (void)osLearnMoreTapped
 {
-  v3 = _PSGLoggingFacility();
+  v3 = _PSGLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -336,7 +358,7 @@ void __51__PSGSoftwareVersionController_splatRollbackButton__block_invoke(uint64
 
 - (void)splatLearnMoreTapped
 {
-  v3 = _PSGLoggingFacility();
+  v3 = _PSGLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -357,31 +379,31 @@ void __51__PSGSoftwareVersionController_splatRollbackButton__block_invoke(uint64
 
     if (v7)
     {
-      v8 = objc_alloc_init(MEMORY[0x277D64AB0]);
-      [v8 setReleaseNotes:v7];
-      v9 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v8];
-      [v9 setModalPresentationStyle:2];
-      v10 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:self action:sel_releaseNotesDonePressed_];
-      navigationItem = [v8 navigationItem];
-      [navigationItem setRightBarButtonItem:v10];
+      v9 = objc_alloc_init(MEMORY[0x277D64AB0]);
+      [v9 setReleaseNotes:v7];
+      v10 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v9];
+      [v10 setModalPresentationStyle:2];
+      v11 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:self action:sel_releaseNotesDonePressed_];
+      navigationItem = [v9 navigationItem];
+      [navigationItem setRightBarButtonItem:v11];
 
-      [(PSGSoftwareVersionController *)self presentViewController:v9 animated:1 completion:0];
+      [(PSGSoftwareVersionController *)self presentViewController:v10 animated:1 completion:0];
     }
 
     else
     {
-      v12 = _PSGLoggingFacility();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = _PSGLoggingFacility(v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_21CF20000, v12, OS_LOG_TYPE_DEFAULT, "Failed to create release notes string", v13, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_21CF20000, v13, OS_LOG_TYPE_DEFAULT, "Failed to create release notes string", v14, 2u);
       }
     }
   }
 
   else
   {
-    v7 = _PSGLoggingFacility();
+    v7 = _PSGLoggingFacility(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -392,7 +414,7 @@ void __51__PSGSoftwareVersionController_splatRollbackButton__block_invoke(uint64
 
 - (void)removeSecurityResponse
 {
-  v3 = _PSGLoggingFacility();
+  v3 = _PSGLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -417,36 +439,35 @@ void __54__PSGSoftwareVersionController_removeSecurityResponse__block_invoke(uin
   v16 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
+  v9 = v8;
   if (a2)
   {
-    v9 = objc_alloc(MEMORY[0x277D64868]);
-    v10 = [v9 initWithEventName:*MEMORY[0x277D64958]];
-    [v10 setEventPayloadEntry:*MEMORY[0x277D64960] stringValue:@"PreferencesiOSVersionRemoveSecurityResponseTapped"];
-    [*(*(a1 + 32) + 1456) submitSUAnalyticsEvent:v10];
+    v10 = objc_alloc(MEMORY[0x277D64868]);
+    v11 = [v10 initWithEventName:*MEMORY[0x277D64958]];
+    [v11 setEventPayloadEntry:*MEMORY[0x277D64960] stringValue:@"PreferencesiOSVersionRemoveSecurityResponseTapped"];
+    [*(*(a1 + 32) + 1456) submitSUAnalyticsEvent:v11];
   }
 
-  v11 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _PSGLoggingFacility(v8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     if (a2)
     {
-      v12 = @"completed successfully";
+      v13 = @"completed successfully";
     }
 
     else
     {
-      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"failed. Error: %@", v8];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"failed. Error: %@", v9];
     }
 
     *buf = 138412290;
-    v15 = v12;
-    _os_log_impl(&dword_21CF20000, v11, OS_LOG_TYPE_DEFAULT, "rollback update %@", buf, 0xCu);
+    v15 = v13;
+    _os_log_impl(&dword_21CF20000, v12, OS_LOG_TYPE_DEFAULT, "rollback update %@", buf, 0xCu);
     if ((a2 & 1) == 0)
     {
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client rollbackDidStart:(id)start
@@ -462,21 +483,19 @@ void __54__PSGSoftwareVersionController_removeSecurityResponse__block_invoke(uin
   dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
-uint64_t __56__PSGSoftwareVersionController_client_rollbackDidStart___block_invoke(uint64_t a1)
+uint64_t __56__PSGSoftwareVersionController_client_rollbackDidStart___block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _PSGLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_21CF20000, v2, OS_LOG_TYPE_DEFAULT, "Prefereces: rollback started: %@", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_21CF20000, v3, OS_LOG_TYPE_DEFAULT, "Prefereces: rollback started: %@", &v6, 0xCu);
   }
 
-  result = [*(a1 + 40) setPreparingRollback:1];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) setPreparingRollback:1];
 }
 
 - (void)client:(id)client rollbackDidFinish:(id)finish
@@ -492,21 +511,19 @@ uint64_t __56__PSGSoftwareVersionController_client_rollbackDidStart___block_invo
   dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
-uint64_t __57__PSGSoftwareVersionController_client_rollbackDidFinish___block_invoke(uint64_t a1)
+uint64_t __57__PSGSoftwareVersionController_client_rollbackDidFinish___block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _PSGLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_21CF20000, v2, OS_LOG_TYPE_DEFAULT, "Prefereces: rollback finished: %@", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_21CF20000, v3, OS_LOG_TYPE_DEFAULT, "Prefereces: rollback finished: %@", &v6, 0xCu);
   }
 
-  result = [*(a1 + 40) setPreparingRollback:0];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) setPreparingRollback:0];
 }
 
 - (void)client:(id)client rollbackDidFail:(id)fail withError:(id)error
@@ -522,21 +539,19 @@ uint64_t __57__PSGSoftwareVersionController_client_rollbackDidFinish___block_inv
   dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
-uint64_t __65__PSGSoftwareVersionController_client_rollbackDidFail_withError___block_invoke(uint64_t a1)
+uint64_t __65__PSGSoftwareVersionController_client_rollbackDidFail_withError___block_invoke(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _PSGLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_21CF20000, v2, OS_LOG_TYPE_DEFAULT, "Prefereces: rollback failed: %@", &v6, 0xCu);
+    v7 = v4;
+    _os_log_impl(&dword_21CF20000, v3, OS_LOG_TYPE_DEFAULT, "Prefereces: rollback failed: %@", &v6, 0xCu);
   }
 
-  result = [*(a1 + 40) setPreparingRollback:0];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) setPreparingRollback:0];
 }
 
 - (double)tableView:(id)view heightForRowAtIndexPath:(id)path

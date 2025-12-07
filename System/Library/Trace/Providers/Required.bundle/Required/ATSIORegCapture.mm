@@ -6,6 +6,7 @@
 - (id)_removeSetsFromArray:(id)array;
 - (id)_removeSetsFromDict:(id)dict;
 - (id)_serializeFullIOKitPlane:(const char *)plane;
+- (id)_serializeServicePlaneRecursively:(unsigned int)recursively planeName:(const char *)name;
 - (id)describeChunkWithTag:(unsigned int)tag;
 - (void)_mergeIOServicePropertiesIntoDictionary:(__CFDictionary *)dictionary name:(const char *)name;
 - (void)addChunksToFile:(ktrace_file *)file;
@@ -273,6 +274,44 @@ LABEL_15:
   }
 
   return v6;
+}
+
+- (id)_serializeServicePlaneRecursively:(unsigned int)recursively planeName:(const char *)name
+{
+  v5 = *&recursively;
+  iterator = 0;
+  if (IORegistryEntryGetChildIterator(recursively, name, &iterator))
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v8 = IOIteratorNext(iterator);
+    v7 = [(ATSIORegCapture *)self _fullySerializeService:v5 planeName:name];
+    if (v8)
+    {
+      v9 = +[NSMutableArray array];
+      do
+      {
+        v10 = objc_autoreleasePoolPush();
+        v11 = [(ATSIORegCapture *)self _serializeServicePlaneRecursively:v8 planeName:name];
+        [v9 addObject:v11];
+
+        v12 = IOIteratorNext(iterator);
+        IOObjectRelease(v8);
+        objc_autoreleasePoolPop(v10);
+        v8 = v12;
+      }
+
+      while (v12);
+      [v7 setObject:v9 forKeyedSubscript:@"IORegistryEntryChildren"];
+    }
+
+    IOObjectRelease(iterator);
+  }
+
+  return v7;
 }
 
 - (id)_serializeFullIOKitPlane:(const char *)plane

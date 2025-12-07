@@ -27,6 +27,8 @@
 - (void)enumerateResourceURLReferences:(id)references;
 - (void)enumerateResourceURLs:(id)ls;
 - (void)setResourceURL:(id)l forRole:(id)role;
+- (void)setResourceURL:(id)l forRole:(id)role deleteOnDeallocation:(BOOL)deallocation;
+- (void)setShouldDeleteURLOnDeallocation:(BOOL)deallocation forRole:(id)role;
 @end
 
 @implementation PAMediaConversionServiceResourceURLCollection
@@ -646,6 +648,20 @@ LABEL_13:
   return v12;
 }
 
+- (void)setShouldDeleteURLOnDeallocation:(BOOL)deallocation forRole:(id)role
+{
+  deallocationCopy = deallocation;
+  roleCopy = role;
+  v7 = [(NSMutableDictionary *)self->_urlReferencesByRole objectForKeyedSubscript:?];
+  if (!v7)
+  {
+    v8 = +[NSAssertionHandler currentHandler];
+    [v8 handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceResourceURLCollection.m" lineNumber:277 description:{@"No URL is currently set for role %@", roleCopy}];
+  }
+
+  [v7 setShouldDeleteOnDeallocation:deallocationCopy];
+}
+
 - (id)resourceURLForRole:(id)role
 {
   roleCopy = role;
@@ -669,6 +685,14 @@ LABEL_13:
   }
 
   return v7;
+}
+
+- (void)setResourceURL:(id)l forRole:(id)role deleteOnDeallocation:(BOOL)deallocation
+{
+  deallocationCopy = deallocation;
+  roleCopy = role;
+  [(PAMediaConversionServiceResourceURLCollection *)self setResourceURL:l forRole:roleCopy];
+  [(PAMediaConversionServiceResourceURLCollection *)self setShouldDeleteURLOnDeallocation:deallocationCopy forRole:roleCopy];
 }
 
 - (void)setResourceURL:(id)l forRole:(id)role

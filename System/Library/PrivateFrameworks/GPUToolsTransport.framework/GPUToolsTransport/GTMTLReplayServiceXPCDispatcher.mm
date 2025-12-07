@@ -112,29 +112,27 @@
 
 void __63__GTMTLReplayServiceXPCDispatcher_load_error__replyConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = *(*(a1 + 32) + 16);
-    v9 = 0;
-    [v3 load:a2 error:&v9];
-    v4 = v9;
+    v8 = 0;
+    [v3 load:a2 error:&v8];
+    v4 = v8;
   }
 
   else
   {
     v5 = MEMORY[0x277CCA9B8];
-    v10 = *MEMORY[0x277CCA450];
+    v9 = *MEMORY[0x277CCA450];
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"File transfer failed in %@: %@", @"GTReplayService", @"loading GPU trace"];
-    v11[0] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v4 = [v5 errorWithDomain:@"com.apple.gputools.transport" code:8 userInfo:v7];
   }
 
   xpc_dictionary_set_nserror(*(a1 + 40), "error", v4);
   [*(a1 + 48) sendMessage:*(a1 + 40)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetch_:(id)fetch_ replyConnection:(id)connection
@@ -145,7 +143,7 @@ void __63__GTMTLReplayServiceXPCDispatcher_load_error__replyConnection___block_i
 
 - (void)fetchInto_:(id)into_ replyConnection:(id)connection
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   into_Copy = into_;
   connectionCopy = connection;
   if (xpc_dictionary_get_flag(into_Copy, "_flags", 6))
@@ -168,10 +166,10 @@ void __63__GTMTLReplayServiceXPCDispatcher_load_error__replyConnection___block_i
 
     v13 = gt_xpc_dictionary_create_reply(into_Copy);
     v14 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
+    v18 = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"API unavailable"];
-    v20[0] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v17 = [v14 errorWithDomain:@"com.apple.gputools.transport" code:12 userInfo:v16];
 
     xpc_dictionary_set_nserror(v13, "_error", v17);
@@ -183,8 +181,6 @@ void __63__GTMTLReplayServiceXPCDispatcher_load_error__replyConnection___block_i
     v9 = DispatchReplayerBatchRequest(connectionCopy, into_Copy, self->_bulkDataService, 0);
     v10 = [(GTMTLReplayService *)self->_implInstance fetchInto:v9];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)query_:(id)query_ replyConnection:(id)connection
@@ -420,18 +416,18 @@ LABEL_13:
 
 - (void)shaderdebug_:(id)shaderdebug_ replyConnection:(id)connection
 {
-  v25[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   shaderdebug_Copy = shaderdebug_;
   connectionCopy = connection;
   v8 = MEMORY[0x277CBEB98];
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v25[2] = objc_opt_class();
-  v25[3] = objc_opt_class();
-  v25[4] = objc_opt_class();
-  v25[5] = objc_opt_class();
-  v25[6] = objc_opt_class();
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:7];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v24[2] = objc_opt_class();
+  v24[3] = objc_opt_class();
+  v24[4] = objc_opt_class();
+  v24[5] = objc_opt_class();
+  v24[6] = objc_opt_class();
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:7];
   v10 = [v8 setWithArray:v9];
 
   nsobject_classes = xpc_dictionary_get_nsobject_classes(shaderdebug_Copy, "request", v10);
@@ -443,18 +439,16 @@ LABEL_13:
   }
 
   v14 = gt_xpc_dictionary_create_reply(shaderdebug_Copy);
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __64__GTMTLReplayServiceXPCDispatcher_shaderdebug__replyConnection___block_invoke;
-  v22 = &unk_279661780;
-  v23 = v14;
-  v24 = connectionCopy;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __64__GTMTLReplayServiceXPCDispatcher_shaderdebug__replyConnection___block_invoke;
+  v21 = &unk_279661780;
+  v22 = v14;
+  v23 = connectionCopy;
   v15 = connectionCopy;
   v16 = v14;
-  [nsobject_classes setCompletionHandler:&v19];
-  v17 = [(GTMTLReplayService *)self->_implInstance shaderdebug:nsobject_classes, v19, v20, v21, v22];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [nsobject_classes setCompletionHandler:&v18];
+  v17 = [(GTMTLReplayService *)self->_implInstance shaderdebug:nsobject_classes, v18, v19, v20, v21];
 }
 
 uint64_t __64__GTMTLReplayServiceXPCDispatcher_shaderdebug__replyConnection___block_invoke(uint64_t a1, uint64_t a2)

@@ -1,8 +1,24 @@
 @interface GTTransportMessage_capture
++ (id)messageWithKind:(int)kind;
++ (id)messageWithKind:(int)kind BOOLPayload:(BOOL)payload;
++ (id)messageWithKind:(int)kind attributes:(id)attributes;
++ (id)messageWithKind:(int)kind attributes:(id)attributes BOOLPayload:(BOOL)payload;
++ (id)messageWithKind:(int)kind attributes:(id)attributes objectPayload:(id)payload;
++ (id)messageWithKind:(int)kind attributes:(id)attributes payload:(id)payload;
++ (id)messageWithKind:(int)kind attributes:(id)attributes plistPayload:(id)payload;
++ (id)messageWithKind:(int)kind attributes:(id)attributes stringPayload:(id)payload;
++ (id)messageWithKind:(int)kind objectPayload:(id)payload;
++ (id)messageWithKind:(int)kind payload:(id)payload;
++ (id)messageWithKind:(int)kind plistPayload:(id)payload;
++ (id)messageWithKind:(int)kind stringPayload:(id)payload;
 - (BOOL)BOOLForKey:(id)key;
 - (BOOL)BOOLPayload;
 - (GTTransportMessage_capture)init;
+- (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes BOOLPayload:(BOOL)payload;
+- (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes objectPayload:(id)payload;
 - (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes payload:(id)payload;
+- (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes plistPayload:(id)payload;
+- (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes stringPayload:(id)payload;
 - (double)doubleForKey:(id)key;
 - (id)attributeForKey:(id)key;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -273,6 +289,95 @@ LABEL_11:
   return [v4 initWithKind:kind attributes:attributes payload:payload];
 }
 
+- (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes objectPayload:(id)payload
+{
+  payloadCopy = payload;
+  v7 = *&kind;
+  if (payload)
+  {
+    v9 = objc_autoreleasePoolPush();
+    v10 = [[NSKeyedArchiver alloc] initRequiringSecureCoding:1];
+    [v10 encodeObject:payloadCopy forKey:@"root"];
+    payloadCopy = [v10 encodedData];
+
+    objc_autoreleasePoolPop(v9);
+  }
+
+  v11 = [(GTTransportMessage_capture *)self initWithKind:v7 attributes:attributes payload:payloadCopy];
+
+  return v11;
+}
+
+- (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes stringPayload:(id)payload
+{
+  v6 = *&kind;
+  if (!payload)
+  {
+    ExternalRepresentation = 0;
+    goto LABEL_5;
+  }
+
+  ExternalRepresentation = CFStringCreateExternalRepresentation(kCFAllocatorDefault, payload, 0x8000100u, 0);
+  if (ExternalRepresentation)
+  {
+LABEL_5:
+    v9 = [(GTTransportMessage_capture *)self initWithKind:v6 attributes:attributes payload:ExternalRepresentation];
+    self = ExternalRepresentation;
+    goto LABEL_6;
+  }
+
+  v9 = 0;
+LABEL_6:
+
+  return v9;
+}
+
+- (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes plistPayload:(id)payload
+{
+  v6 = *&kind;
+  if (payload)
+  {
+    error = 0;
+    v8 = CFPropertyListCreateData(kCFAllocatorDefault, payload, kCFPropertyListBinaryFormat_v1_0, 0, &error);
+    if (!v8)
+    {
+
+      return 0;
+    }
+
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = [(GTTransportMessage_capture *)self initWithKind:v6 attributes:attributes payload:v9];
+
+  return v10;
+}
+
+- (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes BOOLPayload:(BOOL)payload
+{
+  v6 = *&kind;
+  payloadCopy = payload;
+  v8 = [[NSData alloc] initWithBytes:&payloadCopy length:1];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = [(GTTransportMessage_capture *)self initWithKind:v6 attributes:attributes payload:v8];
+  }
+
+  else
+  {
+
+    return 0;
+  }
+
+  return v10;
+}
+
 - (GTTransportMessage_capture)initWithKind:(int)kind attributes:(id)attributes payload:(id)payload
 {
   v11.receiver = self;
@@ -295,6 +400,90 @@ LABEL_11:
   [(GTTransportMessage_capture *)self doesNotRecognizeSelector:a2];
 
   return 0;
+}
+
++ (id)messageWithKind:(int)kind attributes:(id)attributes objectPayload:(id)payload
+{
+  v5 = [[self alloc] initWithKind:*&kind attributes:attributes objectPayload:payload];
+
+  return v5;
+}
+
++ (id)messageWithKind:(int)kind objectPayload:(id)payload
+{
+  v4 = [[self alloc] initWithKind:*&kind attributes:0 objectPayload:payload];
+
+  return v4;
+}
+
++ (id)messageWithKind:(int)kind attributes:(id)attributes stringPayload:(id)payload
+{
+  v5 = [[self alloc] initWithKind:*&kind attributes:attributes stringPayload:payload];
+
+  return v5;
+}
+
++ (id)messageWithKind:(int)kind stringPayload:(id)payload
+{
+  v4 = [[self alloc] initWithKind:*&kind attributes:0 stringPayload:payload];
+
+  return v4;
+}
+
++ (id)messageWithKind:(int)kind attributes:(id)attributes plistPayload:(id)payload
+{
+  v5 = [[self alloc] initWithKind:*&kind attributes:attributes plistPayload:payload];
+
+  return v5;
+}
+
++ (id)messageWithKind:(int)kind plistPayload:(id)payload
+{
+  v4 = [[self alloc] initWithKind:*&kind attributes:0 plistPayload:payload];
+
+  return v4;
+}
+
++ (id)messageWithKind:(int)kind attributes:(id)attributes BOOLPayload:(BOOL)payload
+{
+  v5 = [[self alloc] initWithKind:*&kind attributes:attributes BOOLPayload:payload];
+
+  return v5;
+}
+
++ (id)messageWithKind:(int)kind BOOLPayload:(BOOL)payload
+{
+  v4 = [[self alloc] initWithKind:*&kind attributes:0 BOOLPayload:payload];
+
+  return v4;
+}
+
++ (id)messageWithKind:(int)kind attributes:(id)attributes payload:(id)payload
+{
+  v5 = [[self alloc] initWithKind:*&kind attributes:attributes payload:payload];
+
+  return v5;
+}
+
++ (id)messageWithKind:(int)kind payload:(id)payload
+{
+  v4 = [[self alloc] initWithKind:*&kind attributes:0 payload:payload];
+
+  return v4;
+}
+
++ (id)messageWithKind:(int)kind attributes:(id)attributes
+{
+  v4 = [[self alloc] initWithKind:*&kind attributes:attributes payload:0];
+
+  return v4;
+}
+
++ (id)messageWithKind:(int)kind
+{
+  v3 = [[self alloc] initWithKind:*&kind attributes:0 payload:0];
+
+  return v3;
 }
 
 @end

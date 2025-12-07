@@ -114,7 +114,7 @@
 
 - (id)_cn_diff:()ContactsFoundation
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = MEMORY[0x1E695DFA0];
   allKeys = [self allKeys];
@@ -124,36 +124,36 @@
   v9 = MEMORY[0x1E695DFA0];
   allKeys2 = [v4 allKeys];
   v11 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
-  v45 = [v9 orderedSetWithArray:v11];
+  v44 = [v9 orderedSetWithArray:v11];
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v44 = v8;
+  v43 = v8;
   array = [v8 array];
   v14 = [array copy];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v54 objects:v60 count:16];
-  v43 = v15;
+  v16 = [v15 countByEnumeratingWithState:&v53 objects:v59 count:16];
+  v42 = v15;
   if (v16)
   {
     v17 = v16;
-    v18 = *v55;
+    v18 = *v54;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v55 != v18)
+        if (*v54 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v54 + 1) + 8 * i);
+        v20 = *(*(&v53 + 1) + 8 * i);
+        [v43 removeObject:v20];
         [v44 removeObject:v20];
-        [v45 removeObject:v20];
         v21 = [self objectForKeyedSubscript:v20];
         v22 = v4;
         v23 = [v4 objectForKeyedSubscript:v20];
@@ -162,88 +162,86 @@
           v24 = [CNPair pairWithFirst:v21 second:v23];
           [dictionary setObject:v24 forKeyedSubscript:v20];
 
-          v15 = v43;
+          v15 = v42;
         }
 
         v4 = v22;
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v54 objects:v60 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v53 objects:v59 count:16];
     }
 
     while (v17);
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
-  v25 = v44;
-  v26 = [v25 countByEnumeratingWithState:&v50 objects:v59 count:16];
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v25 = v43;
+  v26 = [v25 countByEnumeratingWithState:&v49 objects:v58 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v51;
+    v28 = *v50;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v51 != v28)
+        if (*v50 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v50 + 1) + 8 * j);
+        v30 = *(*(&v49 + 1) + 8 * j);
         v31 = [self objectForKeyedSubscript:v30];
         v32 = [CNPair pairWithFirst:v31 second:0];
         [dictionary setObject:v32 forKeyedSubscript:v30];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v50 objects:v59 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v49 objects:v58 count:16];
     }
 
     while (v27);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v33 = v45;
-  v34 = [v33 countByEnumeratingWithState:&v46 objects:v58 count:16];
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v33 = v44;
+  v34 = [v33 countByEnumeratingWithState:&v45 objects:v57 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v47;
+    v36 = *v46;
     do
     {
       for (k = 0; k != v35; ++k)
       {
-        if (*v47 != v36)
+        if (*v46 != v36)
         {
           objc_enumerationMutation(v33);
         }
 
-        v38 = *(*(&v46 + 1) + 8 * k);
+        v38 = *(*(&v45 + 1) + 8 * k);
         v39 = [v4 objectForKeyedSubscript:v38];
         v40 = [CNPair pairWithFirst:0 second:v39];
         [dictionary setObject:v40 forKeyedSubscript:v38];
       }
 
-      v35 = [v33 countByEnumeratingWithState:&v46 objects:v58 count:16];
+      v35 = [v33 countByEnumeratingWithState:&v45 objects:v57 count:16];
     }
 
     while (v35);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 - (id)_cn_objectForKey:()ContactsFoundation ofClass:
 {
-  v5 = [self objectForKey:?];
+  v5 = [self objectForKey:a3];
   if (v5)
   {
     if (objc_opt_isKindOfClass())

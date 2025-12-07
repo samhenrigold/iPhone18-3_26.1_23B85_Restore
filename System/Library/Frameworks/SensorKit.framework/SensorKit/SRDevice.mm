@@ -59,7 +59,7 @@
   return _MergedGlobals_1;
 }
 
-SRDevice *__25__SRDevice_currentDevice__block_invoke()
+SRDevice *__25__SRDevice_currentDevice__block_invoke(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
   v3[0] = [objc_msgSend(getUIDeviceClass() currentDevice];
@@ -77,24 +77,21 @@ SRDevice *__25__SRDevice_currentDevice__block_invoke()
   v3[5] = [MEMORY[0x1E696AEC0] stringWithCString:v4.machine encoding:4];
   result = -[SRDevice initWithDeviceDetails:]([SRDevice alloc], "initWithDeviceDetails:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:6]);
   _MergedGlobals_1 = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)sr_dictionaryRepresentation
 {
-  v6[4] = *MEMORY[0x1E69E9840];
-  v5[0] = 0x1F48BF380;
-  v6[0] = [(SRDevice *)self name];
-  v5[1] = 0x1F48BF320;
-  v6[1] = [(SRDevice *)self model];
-  v5[2] = 0x1F48BF340;
-  v6[2] = [(SRDevice *)self systemName];
-  v5[3] = 0x1F48BF360;
-  v6[3] = [(SRDevice *)self systemVersion];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:4];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[4] = *MEMORY[0x1E69E9840];
+  v4[0] = 0x1F48BF380;
+  v5[0] = [(SRDevice *)self name];
+  v4[1] = 0x1F48BF320;
+  v5[1] = [(SRDevice *)self model];
+  v4[2] = 0x1F48BF340;
+  v5[2] = [(SRDevice *)self systemName];
+  v4[3] = 0x1F48BF360;
+  v5[3] = [(SRDevice *)self systemVersion];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:4];
 }
 
 - (BOOL)isEqual:(id)equal

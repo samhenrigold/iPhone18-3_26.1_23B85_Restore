@@ -33,11 +33,11 @@
 
 - (RKRankingDataManager)initWithDatabaseFilename:(id)filename
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   filenameCopy = filename;
-  v23.receiver = self;
-  v23.super_class = RKRankingDataManager;
-  v5 = [(RKRankingDataManager *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = RKRankingDataManager;
+  v5 = [(RKRankingDataManager *)&v22 init];
   if (!v5)
   {
     goto LABEL_8;
@@ -73,12 +73,12 @@
   [(NSManagedObjectContext *)v5->_managedObjectContext setPersistentStoreCoordinator:v5->_persistentStoreCoordinator];
   v13 = v5->_persistentStoreCoordinator;
   v14 = *MEMORY[0x277CBE2E8];
-  v24 = *MEMORY[0x277CBE2B0];
-  v25[0] = MEMORY[0x277CBEC28];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-  v22 = 0;
-  v16 = [(NSPersistentStoreCoordinator *)v13 addPersistentStoreWithType:v14 configuration:0 URL:filenameCopy options:v15 error:&v22];
-  v17 = v22;
+  v23 = *MEMORY[0x277CBE2B0];
+  v24[0] = MEMORY[0x277CBEC28];
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v21 = 0;
+  v16 = [(NSPersistentStoreCoordinator *)v13 addPersistentStoreWithType:v14 configuration:0 URL:filenameCopy options:v15 error:&v21];
+  v17 = v21;
   persistentStore = v5->_persistentStore;
   v5->_persistentStore = v16;
 
@@ -98,7 +98,6 @@ LABEL_8:
   v19 = v5;
 LABEL_15:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -167,7 +166,7 @@ LABEL_15:
 
 - (id)fetchRankingInfoForCategory:(id)category
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   if ([categoryCopy isEqualToString:@"Unknown"])
   {
@@ -186,9 +185,9 @@ LABEL_15:
     [v6 setPredicate:categoryCopy];
 
     managedObjectContext = [(RKRankingDataManager *)self managedObjectContext];
-    v12[0] = 0;
-    v5 = [managedObjectContext executeFetchRequest:v6 error:v12];
-    v9 = v12[0];
+    v11[0] = 0;
+    v5 = [managedObjectContext executeFetchRequest:v6 error:v11];
+    v9 = v11[0];
 
     if (!v5)
     {
@@ -200,8 +199,6 @@ LABEL_15:
       v5 = 0;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -271,44 +268,36 @@ LABEL_15:
 
 - (void)initWithDatabaseFilename:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_2620A2000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to initialize mom from URL: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_2620A2000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to initialize mom from URL: %@", &v1, 0xCu);
 }
 
 - (void)initWithDatabaseFilename:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   [a1 localizedDescription];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_2() userInfo];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2620A2000, MEMORY[0x277D86220], v3, "Failed to initalize persistent store: %@\n%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2620A2000, MEMORY[0x277D86220], v3, "Failed to initalize persistent store: %@\n%@", v4, v5, v6, v7);
 }
 
 - (void)initWithDatabaseFilename:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 138412290;
-  v2 = 0;
-  _os_log_error_impl(&dword_2620A2000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to locate momd bundle in application : %@", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 138412290;
+  v1 = 0;
+  _os_log_error_impl(&dword_2620A2000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to locate momd bundle in application : %@", &v0, 0xCu);
 }
 
 - (void)fetchRankingInfoFromDB
 {
-  v10 = *MEMORY[0x277D85DE8];
   [self localizedDescription];
   objc_claimAutoreleasedReturnValue();
   userInfo = [OUTLINED_FUNCTION_2() userInfo];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2620A2000, MEMORY[0x277D86220], v3, "Error fetching RankingInfo objects: %@\n%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2620A2000, MEMORY[0x277D86220], v3, "Error fetching RankingInfo objects: %@\n%@", v4, v5, v6, v7);
 }
 
 - (void)fetchRankingInfoForCategory:(void *)a1 .cold.1(void *a1, uint8_t *buf)
@@ -320,12 +309,13 @@ LABEL_15:
 
 - (void)fetchRankingInfoForCategory:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a1 localizedDescription];
-  v9 = [a1 userInfo];
-  OUTLINED_FUNCTION_1(&dword_2620A2000, MEMORY[0x277D86220], v3, "Error fetching RankingInfo objects: %@\n%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v3 = [a1 userInfo];
+  *v9 = 138412546;
+  *&v9[4] = v2;
+  *&v9[12] = 2112;
+  *&v9[14] = v3;
+  OUTLINED_FUNCTION_1(&dword_2620A2000, MEMORY[0x277D86220], v4, "Error fetching RankingInfo objects: %@\n%@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 @end

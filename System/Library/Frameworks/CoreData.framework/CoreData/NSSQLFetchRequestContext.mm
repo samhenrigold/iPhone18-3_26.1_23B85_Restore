@@ -8,11 +8,11 @@
 - (id)inverseIsToOnePrefetchRequestForRelationshipNamed:(id)named onEntity:(id)entity;
 - (id)manyToManyPrefetchRequestsForRelationshipNamed:(id)named onEntity:(id)entity;
 - (id)manyToOnePrefetchRequestForRelationshipNamed:(id)named onEntity:(id)entity;
-- (uint64_t)_fireFaultsForValue:(uint64_t)result;
-- (uint64_t)addObjectIDsToRegister:(uint64_t)result;
-- (uint64_t)addObjectsToAwaken:(uint64_t)result;
+- (void)_fireFaultsForValue:(void *)result;
 - (void)_setupBindVariablesForCachedStatement:(void *)statement usingValues:;
 - (void)addFaultsThatWereFired:(void *)result;
+- (void)addObjectIDsToRegister:(void *)result;
+- (void)addObjectsToAwaken:(void *)result;
 - (void)dealloc;
 - (void)executeEpilogue;
 - (void)executePrologue;
@@ -196,7 +196,7 @@ LABEL_32:
 
 - (void)executeEpilogue
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self && [(NSMutableSet *)self->_objectIDsToRegister allObjects])
   {
     [(NSSQLCore *)self->super._sqlCore managedObjectContextDidRegisterObjectsWithIDs:[(NSMutableSet *)self->_objectIDsToRegister allObjects] generation:[(NSManagedObjectContext *)self->super._context _queryGenerationToken]];
@@ -222,27 +222,27 @@ LABEL_32:
     while (v3 < [-[NSSQLStoreRequestContext result](self "result")]);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   objectsToAwaken = self->_objectsToAwaken;
-  v6 = [(NSMutableSet *)objectsToAwaken countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableSet *)objectsToAwaken countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(objectsToAwaken);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         v10[4] |= 0x1000u;
         [v10 awakeFromFetch];
         v10[4] &= ~0x1000u;
@@ -250,13 +250,11 @@ LABEL_32:
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableSet *)objectsToAwaken countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableSet *)objectsToAwaken countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -294,7 +292,7 @@ LABEL_32:
 - (NSSQLFetchRequestContext)initWithRequest:(id)request context:(id)context sqlCore:(id)core
 {
   requestCopy = request;
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   if (BYTE1(dword_1ED4BEEC8) != 1)
   {
     goto LABEL_6;
@@ -321,20 +319,20 @@ LABEL_32:
     goto LABEL_6;
   }
 
-  v26 = returnsDistinctResults;
+  v25 = returnsDistinctResults;
   if (![objc_msgSend(requestCopy "propertiesToFetch")])
   {
     v10 = 1;
     goto LABEL_7;
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = [requestCopy propertiesToFetch];
-  v27 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
-  if (!v27)
+  v26 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+  if (!v26)
   {
 LABEL_56:
     if ([_PFRoutines BOOLValueForOverride:?])
@@ -343,118 +341,118 @@ LABEL_56:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v57 = requestCopy;
+        v56 = requestCopy;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch does not include required 'self' or 'objectID' property: %@\n", buf, 0xCu);
       }
 
-      v35 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+      v34 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v57 = requestCopy;
-        v36 = "CoreData: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch does not include required 'self' or 'objectID' property: %@";
+        v56 = requestCopy;
+        v35 = "CoreData: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch does not include required 'self' or 'objectID' property: %@";
 LABEL_71:
-        _os_log_fault_impl(&dword_18565F000, v35, OS_LOG_TYPE_FAULT, v36, buf, 0xCu);
+        _os_log_fault_impl(&dword_18565F000, v34, OS_LOG_TYPE_FAULT, v35, buf, 0xCu);
       }
 
       goto LABEL_6;
     }
 
-    v42 = objc_autoreleasePoolPush();
+    v41 = objc_autoreleasePoolPush();
     if (!_NSCoreDataIsOSLogEnabled(1))
     {
       goto LABEL_83;
     }
 
-    v43 = _pflogging_catastrophic_mode;
-    v44 = _PFLogGetLogStream(1);
-    v45 = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
-    if (v43)
+    v42 = _pflogging_catastrophic_mode;
+    v43 = _PFLogGetLogStream(1);
+    v44 = os_log_type_enabled(v43, OS_LOG_TYPE_ERROR);
+    if (v42)
     {
-      if (v45)
+      if (v44)
       {
         *buf = 138412290;
-        v57 = requestCopy;
+        v56 = requestCopy;
 LABEL_90:
-        _os_log_error_impl(&dword_18565F000, v44, OS_LOG_TYPE_ERROR, "CoreData: error: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch does not include required 'self' or 'objectID' property: %@\n", buf, 0xCu);
+        _os_log_error_impl(&dword_18565F000, v43, OS_LOG_TYPE_ERROR, "CoreData: error: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch does not include required 'self' or 'objectID' property: %@\n", buf, 0xCu);
       }
     }
 
-    else if (v45)
+    else if (v44)
     {
       *buf = 138412290;
-      v57 = requestCopy;
+      v56 = requestCopy;
       goto LABEL_90;
     }
 
 LABEL_83:
     _NSCoreDataLog_console(1, "Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch does not include required 'self' or 'objectID' property: %@", requestCopy);
 LABEL_86:
-    objc_autoreleasePoolPop(v42);
+    objc_autoreleasePoolPop(v41);
     goto LABEL_6;
   }
 
-  v28 = v27;
-  v29 = 0;
-  v10 = v26 ^ 1;
-  v30 = *v53;
+  v27 = v26;
+  v28 = 0;
+  v10 = v25 ^ 1;
+  v29 = *v52;
 LABEL_40:
-  v31 = 0;
+  v30 = 0;
   while (1)
   {
-    if (*v53 != v30)
+    if (*v52 != v29)
     {
       objc_enumerationMutation(obj);
     }
 
-    v32 = *(*(&v52 + 1) + 8 * v31);
+    v31 = *(*(&v51 + 1) + 8 * v30);
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && ([objc_msgSend(v32 "expression")] == 14 || objc_msgSend(objc_msgSend(v32, "expression"), "expressionType") == 4))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && ([objc_msgSend(v31 "expression")] == 14 || objc_msgSend(objc_msgSend(v31, "expression"), "expressionType") == 4))
     {
-      v37 = objc_autoreleasePoolPush();
+      v36 = objc_autoreleasePoolPush();
       if (_NSCoreDataIsOSLogEnabled(1))
       {
-        v38 = _pflogging_catastrophic_mode;
-        v39 = _PFLogGetLogStream(1);
-        v40 = os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
-        if (v38)
+        v37 = _pflogging_catastrophic_mode;
+        v38 = _PFLogGetLogStream(1);
+        v39 = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
+        if (v37)
         {
-          if (v40)
+          if (v39)
           {
             *buf = 138412290;
-            v57 = v32;
+            v56 = v31;
             goto LABEL_88;
           }
         }
 
-        else if (v40)
+        else if (v39)
         {
           *buf = 138412290;
-          v57 = v32;
+          v56 = v31;
 LABEL_88:
-          _os_log_error_impl(&dword_18565F000, v39, OS_LOG_TYPE_ERROR, "CoreData: error: Returning unbatched results for unsupported NSExpression in propertiesToFetch: %@\n", buf, 0xCu);
+          _os_log_error_impl(&dword_18565F000, v38, OS_LOG_TYPE_ERROR, "CoreData: error: Returning unbatched results for unsupported NSExpression in propertiesToFetch: %@\n", buf, 0xCu);
         }
       }
 
-      _NSCoreDataLog_console(1, "Returning unbatched results for unsupported NSExpression in propertiesToFetch: %@", v32);
-      objc_autoreleasePoolPop(v37);
+      _NSCoreDataLog_console(1, "Returning unbatched results for unsupported NSExpression in propertiesToFetch: %@", v31);
+      objc_autoreleasePoolPop(v36);
       [requestCopy setFetchBatchSize:0];
       goto LABEL_6;
     }
 
-    v29 = v29 || ([objc_msgSend(v32 "name")] & 1) != 0 || objc_msgSend(objc_msgSend(v32, "name"), "isEqualToString:", @"self");
-    if ([objc_msgSend(v32 "name")])
+    v28 = v28 || ([objc_msgSend(v31 "name")] & 1) != 0 || objc_msgSend(objc_msgSend(v31, "name"), "isEqualToString:", @"self");
+    if ([objc_msgSend(v31 "name")])
     {
       break;
     }
 
-    if (v28 == ++v31)
+    if (v27 == ++v30)
     {
-      v33 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
-      v28 = v33;
-      if (!v33)
+      v32 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+      v27 = v32;
+      if (!v32)
       {
-        if (v29)
+        if (v28)
         {
           goto LABEL_7;
         }
@@ -468,27 +466,27 @@ LABEL_88:
 
   if (![_PFRoutines BOOLValueForOverride:?])
   {
-    v42 = objc_autoreleasePoolPush();
+    v41 = objc_autoreleasePoolPush();
     if (_NSCoreDataIsOSLogEnabled(1))
     {
-      v46 = _pflogging_catastrophic_mode;
-      v47 = _PFLogGetLogStream(1);
-      v48 = os_log_type_enabled(v47, OS_LOG_TYPE_ERROR);
-      if (v46)
+      v45 = _pflogging_catastrophic_mode;
+      v46 = _PFLogGetLogStream(1);
+      v47 = os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
+      if (v45)
       {
-        if (v48)
+        if (v47)
         {
           *buf = 138412290;
-          v57 = requestCopy;
+          v56 = requestCopy;
 LABEL_92:
-          _os_log_error_impl(&dword_18565F000, v47, OS_LOG_TYPE_ERROR, "CoreData: error: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch includes sentinel value 'isDeleted' property: %@\n", buf, 0xCu);
+          _os_log_error_impl(&dword_18565F000, v46, OS_LOG_TYPE_ERROR, "CoreData: error: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch includes sentinel value 'isDeleted' property: %@\n", buf, 0xCu);
         }
       }
 
-      else if (v48)
+      else if (v47)
       {
         *buf = 138412290;
-        v57 = requestCopy;
+        v56 = requestCopy;
         goto LABEL_92;
       }
     }
@@ -497,20 +495,20 @@ LABEL_92:
     goto LABEL_86;
   }
 
-  v41 = _PFLogGetLogStream(17);
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+  v40 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v57 = requestCopy;
-    _os_log_error_impl(&dword_18565F000, v41, OS_LOG_TYPE_ERROR, "CoreData: fault: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch includes sentinel value 'isDeleted' property: %@\n", buf, 0xCu);
+    v56 = requestCopy;
+    _os_log_error_impl(&dword_18565F000, v40, OS_LOG_TYPE_ERROR, "CoreData: fault: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch includes sentinel value 'isDeleted' property: %@\n", buf, 0xCu);
   }
 
-  v35 = _PFLogGetLogStream(17);
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+  v34 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v57 = requestCopy;
-    v36 = "CoreData: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch includes sentinel value 'isDeleted' property: %@";
+    v56 = requestCopy;
+    v35 = "CoreData: Returning unbatched results for NSFetchRequest with NSDictionaryResultType and fetchBatchSize > 0 however propertiesToFetch includes sentinel value 'isDeleted' property: %@";
     goto LABEL_71;
   }
 
@@ -525,12 +523,12 @@ LABEL_7:
 
   else
   {
-    v25 = [requestCopy copy];
+    v24 = [requestCopy copy];
     v11 = 1;
-    [v25 setResultType:1];
-    [v25 setIncludesPropertyValues:0];
+    [v24 setResultType:1];
+    [v24 setIncludesPropertyValues:0];
     v12 = requestCopy;
-    requestCopy = v25;
+    requestCopy = v24;
   }
 
   if ([requestCopy resultType] == 1)
@@ -544,9 +542,9 @@ LABEL_7:
     [requestCopy setPropertiesToFetch:0];
   }
 
-  v51.receiver = self;
-  v51.super_class = NSSQLFetchRequestContext;
-  v13 = [(NSSQLStoreRequestContext *)&v51 initWithRequest:requestCopy context:context sqlCore:core];
+  v50.receiver = self;
+  v50.super_class = NSSQLFetchRequestContext;
+  v13 = [(NSSQLStoreRequestContext *)&v50 initWithRequest:requestCopy context:context sqlCore:core];
   if (v13)
   {
     if (!core)
@@ -627,7 +625,6 @@ LABEL_22:
     v13->_fetchPlan->flags = (*&v13->_fetchPlan->flags & 0xFFFFFFE3 | v20);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -702,16 +699,16 @@ LABEL_3:
   return [(NSSQLitePrefetchRequestCache *)prefetchRequestCache manyToManyPrefetchRequestsForRelationshipNamed:named onEntity:entity];
 }
 
-- (uint64_t)addObjectIDsToRegister:(uint64_t)result
+- (void)addObjectIDsToRegister:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 152);
+    v4 = result[19];
     if (!v4)
     {
       v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      *(v3 + 152) = v4;
+      v3[19] = v4;
     }
 
     return [v4 addObjectsFromArray:a2];
@@ -720,16 +717,16 @@ LABEL_3:
   return result;
 }
 
-- (uint64_t)addObjectsToAwaken:(uint64_t)result
+- (void)addObjectsToAwaken:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 160);
+    v4 = result[20];
     if (!v4)
     {
       v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      *(v3 + 160) = v4;
+      v3[20] = v4;
     }
 
     return [v4 addObjectsFromArray:a2];
@@ -740,54 +737,52 @@ LABEL_3:
 
 - (void)_setupBindVariablesForCachedStatement:(void *)statement usingValues:
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   if (a2 && (v4 = a2[7]) != 0)
   {
     v5 = *(v4 + 8);
-    v54 = *(v4 + 16);
+    v49 = *(v4 + 16);
   }
 
   else
   {
     v5 = 0;
-    v54 = 0;
+    v49 = 0;
   }
 
   bindVariables = [a2 bindVariables];
-  v55 = [v5 count];
-  if (v55)
+  v50 = [v5 count];
+  if (v50)
   {
     v7 = 0;
-    v52 = v5;
+    v47 = v5;
     do
     {
       v8 = [v5 objectAtIndex:v7];
       v9 = v7 + 1;
       v10 = [v5 objectAtIndex:v9];
-      v11 = [statement valueForKey:v8];
+      v11 = objc_msgSend_valueForKey_(statement);
       if (!v11)
       {
-        v45 = MEMORY[0x1E695DF30];
-        v46 = *MEMORY[0x1E695D930];
-        v48 = MEMORY[0x1E696AEC0];
-        v50 = v8;
-        goto LABEL_73;
+        v43 = MEMORY[0x1E695DF30];
+        v44 = *MEMORY[0x1E695D930];
+        v45 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v8);
+        goto LABEL_74;
       }
 
       v12 = v11;
       if ([v11 expressionType])
       {
-        v45 = MEMORY[0x1E695DF30];
-        v46 = *MEMORY[0x1E695D940];
-        v48 = MEMORY[0x1E696AEC0];
-        v50 = v8;
-        goto LABEL_75;
+        v43 = MEMORY[0x1E695DF30];
+        v44 = *MEMORY[0x1E695D940];
+        v45 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v8);
+        goto LABEL_74;
       }
 
       constantValue = [v12 constantValue];
       if (([constantValue isNSArray] & 1) != 0 || (objc_msgSend(constantValue, "isNSSet") & 1) != 0 || objc_msgSend(constantValue, "isNSOrderedSet"))
       {
-        goto LABEL_69;
+        goto LABEL_68;
       }
 
       v14 = [bindVariables objectAtIndex:{objc_msgSend(v10, "unsignedIntegerValue")}];
@@ -805,7 +800,7 @@ LABEL_3:
         selfCopy = self;
         if (self)
         {
-          self = *(self + 8);
+          self = self[1];
         }
 
         if (self == [objectID persistentStore])
@@ -820,7 +815,7 @@ LABEL_3:
 
         self = selfCopy;
         bindVariables = v15;
-        v5 = v52;
+        v5 = v47;
       }
 
       else
@@ -836,7 +831,7 @@ LABEL_26:
 
         if (self)
         {
-          v20 = *(self + 8);
+          v20 = self[1];
         }
 
         else
@@ -866,177 +861,153 @@ LABEL_30:
       v7 = v9 + 1;
     }
 
-    while (v7 < v55);
+    while (v7 < v50);
   }
 
   bindIntarrays = [a2 bindIntarrays];
-  v53 = [bindIntarrays count];
-  if (v53)
+  v48 = [bindIntarrays count];
+  if (!v48)
   {
-    v22 = 0;
-    while (1)
+    return;
+  }
+
+  for (i = 0; i < v48; i += 3)
+  {
+    v23 = [v49 objectAtIndex:i];
+    v24 = [v49 objectAtIndex:i + 1];
+    v25 = [v49 objectAtIndex:i + 2];
+    v26 = objc_msgSend_valueForKey_(statement);
+    if (!v26)
     {
-      v23 = [v54 objectAtIndex:v22];
-      v24 = [v54 objectAtIndex:v22 + 1];
-      v25 = [v54 objectAtIndex:v22 + 2];
-      v26 = [statement valueForKey:v23];
-      if (!v26)
-      {
-        break;
-      }
+      v43 = MEMORY[0x1E695DF30];
+      v44 = *MEMORY[0x1E695D930];
+      v45 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v23);
+      goto LABEL_74;
+    }
 
-      v27 = v26;
-      if ([v26 expressionType])
-      {
-        v45 = MEMORY[0x1E695DF30];
-        v46 = *MEMORY[0x1E695D940];
-        v48 = MEMORY[0x1E696AEC0];
-        v50 = v23;
+    v27 = v26;
+    if ([v26 expressionType])
+    {
+      v43 = MEMORY[0x1E695DF30];
+      v44 = *MEMORY[0x1E695D940];
+      v45 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v23);
+      goto LABEL_74;
+    }
+
+    constantValue2 = [v27 constantValue];
+    if (([constantValue2 isNSArray] & 1) == 0 && (objc_msgSend(constantValue2, "isNSSet") & 1) == 0 && (objc_msgSend(constantValue2, "isNSOrderedSet") & 1) == 0)
+    {
 LABEL_75:
-        v49 = @"bad substitution variable for %@, must be a constant value";
-LABEL_76:
-        v47 = [v48 stringWithFormat:v49, v50];
-        goto LABEL_77;
-      }
+      v43 = MEMORY[0x1E695DF30];
+      v44 = *MEMORY[0x1E695D940];
+      v45 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v23);
+      goto LABEL_74;
+    }
 
-      constantValue2 = [v27 constantValue];
-      if (([constantValue2 isNSArray] & 1) == 0 && (objc_msgSend(constantValue2, "isNSSet") & 1) == 0 && (objc_msgSend(constantValue2, "isNSOrderedSet") & 1) == 0)
+    v29 = [bindIntarrays objectAtIndex:{objc_msgSend(v25, "unsignedIntegerValue")}];
+    if ([constantValue2 count])
+    {
+      memset(v57, 0, sizeof(v57));
+      [constantValue2 countByEnumeratingWithState:v57 objects:v65 count:16];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
       {
-        v45 = MEMORY[0x1E695DF30];
-        v46 = *MEMORY[0x1E695D940];
-        v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"bad substitution variable for %@, must be a collection", v23];
-        goto LABEL_77;
-      }
-
-      v29 = [bindIntarrays objectAtIndex:{objc_msgSend(v25, "unsignedIntegerValue")}];
-      if ([constantValue2 count])
-      {
-        memset(v62, 0, sizeof(v62));
-        if ([constantValue2 countByEnumeratingWithState:v62 objects:v70 count:16])
-        {
-          v30 = **(&v62[0] + 1);
-        }
-
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v32 = [_PFRoutines newArrayOfObjectIDsFromCollection:constantValue2];
-        }
-
-        else
-        {
-          objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
-          {
-            v45 = MEMORY[0x1E695DF30];
-            v46 = *MEMORY[0x1E695D940];
-            v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"bad substitution variable for %@, must be a collection of objects or objectIDs", v23];
-            goto LABEL_77;
-          }
-
-          v32 = constantValue2;
-        }
-
-        v31 = v32;
+        v31 = [_PFRoutines newArrayOfObjectIDsFromCollection:constantValue2];
       }
 
       else
       {
-        v31 = 0;
-      }
-
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
-      v59 = 0u;
-      v33 = [v31 countByEnumeratingWithState:&v58 objects:v69 count:16];
-      if (!v33)
-      {
-        goto LABEL_60;
-      }
-
-      v8 = v33;
-      v34 = *v59;
-      do
-      {
-        for (i = 0; i != v8; i = i + 1)
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          if (*v59 != v34)
-          {
-            objc_enumerationMutation(v31);
-          }
+          goto LABEL_75;
+        }
 
-          v36 = *(*(&v58 + 1) + 8 * i);
-          objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ([objc_msgSend(v36 "entity")] & 1) == 0)
+        v31 = constantValue2;
+      }
+
+      v30 = v31;
+    }
+
+    else
+    {
+      v30 = 0;
+    }
+
+    v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v32 = [v30 countByEnumeratingWithState:&v53 objects:v64 count:16];
+    if (!v32)
+    {
+      goto LABEL_59;
+    }
+
+    v8 = v32;
+    v33 = *v54;
+    do
+    {
+      for (j = 0; j != v8; j = j + 1)
+      {
+        if (*v54 != v33)
+        {
+          objc_enumerationMutation(v30);
+        }
+
+        v35 = *(*(&v53 + 1) + 8 * j);
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ([objc_msgSend(v35 "entity")] & 1) == 0)
+        {
+          v36 = objc_autoreleasePoolPush();
+          if (_NSCoreDataIsOSLogEnabled(1))
           {
-            v38 = objc_autoreleasePoolPush();
-            if (_NSCoreDataIsOSLogEnabled(1))
+            v37 = _pflogging_catastrophic_mode;
+            LogStream = _PFLogGetLogStream(1);
+            v39 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
+            if (v37)
             {
-              v39 = _pflogging_catastrophic_mode;
-              LogStream = _PFLogGetLogStream(1);
-              v41 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
               if (v39)
               {
-                if (v41)
-                {
-                  goto LABEL_67;
-                }
-              }
-
-              else if (v41)
-              {
-LABEL_67:
-                ClassName = object_getClassName(v36);
-                name = [v24 name];
-                *buf = 138412802;
-                v64 = v36;
-                v65 = 2080;
-                v66 = ClassName;
-                v67 = 2112;
-                v68 = name;
-                _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: oid = %@ [oid class] = %s expecting entity %@\n", buf, 0x20u);
+                goto LABEL_66;
               }
             }
 
-            v44 = object_getClassName(v36);
-            _NSCoreDataLog_console(1, "oid = %@ [oid class] = %s expecting entity %@", v36, v44, [v24 name]);
-            objc_autoreleasePoolPop(v38);
-            __break(1u);
-LABEL_69:
-            v45 = MEMORY[0x1E695DF30];
-            v46 = *MEMORY[0x1E695D940];
-            v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"bad substitution variable for %@, must not be a collection", v8];
-LABEL_77:
-            objc_exception_throw([v45 exceptionWithName:v46 reason:v47 userInfo:statement]);
+            else if (v39)
+            {
+LABEL_66:
+              ClassName = object_getClassName(v35);
+              name = [v24 name];
+              *buf = 138412802;
+              v59 = v35;
+              v60 = 2080;
+              v61 = ClassName;
+              v62 = 2112;
+              v63 = name;
+              _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: oid = %@ [oid class] = %s expecting entity %@\n", buf, 0x20u);
+            }
           }
+
+          v42 = object_getClassName(v35);
+          _NSCoreDataLog_console(1, "oid = %@ [oid class] = %s expecting entity %@", v35, v42, [v24 name]);
+          objc_autoreleasePoolPop(v36);
+          __break(1u);
+LABEL_68:
+          v43 = MEMORY[0x1E695DF30];
+          v44 = *MEMORY[0x1E695D940];
+          v45 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v8);
+LABEL_74:
+          objc_exception_throw([v43 exceptionWithName:v44 reason:v45 userInfo:statement]);
         }
-
-        v8 = [v31 countByEnumeratingWithState:&v58 objects:v69 count:16];
       }
 
-      while (v8);
-LABEL_60:
-      [v29 setValue:v31];
-
-      v22 += 3;
-      if (v22 >= v53)
-      {
-        goto LABEL_61;
-      }
+      v8 = [v30 countByEnumeratingWithState:&v53 objects:v64 count:16];
     }
 
-    v45 = MEMORY[0x1E695DF30];
-    v46 = *MEMORY[0x1E695D930];
-    v48 = MEMORY[0x1E696AEC0];
-    v50 = v23;
-LABEL_73:
-    v49 = @"missing variable binding for %@";
-    goto LABEL_76;
+    while (v8);
+LABEL_59:
+    [v29 setValue:v30];
   }
-
-LABEL_61:
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setFetchStatement:(id)statement
@@ -1045,7 +1016,7 @@ LABEL_61:
   self->_statement = statement;
 }
 
-- (uint64_t)_fireFaultsForValue:(uint64_t)result
+- (void)_fireFaultsForValue:(void *)result
 {
   if (result)
   {

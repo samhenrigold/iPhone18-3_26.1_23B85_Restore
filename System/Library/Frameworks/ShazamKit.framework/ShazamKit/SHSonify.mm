@@ -6,16 +6,16 @@
 
 + (id)audioRepresentationOfSignature:(id)signature
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CB83A8];
   signatureCopy = signature;
   v5 = [[v3 alloc] initWithCommonFormat:3 sampleRate:1 channels:1 interleaved:48000.0];
   spectralPeaksData = [signatureCopy spectralPeaksData];
 
   [v5 sampleRate];
-  v14 = 0;
-  v8 = [SigSonify sonifySignature:spectralPeaksData withSampleRate:v7 error:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [SigSonify sonifySignature:spectralPeaksData withSampleRate:v7 error:&v13];
+  v9 = v13;
 
   if ([v8 length])
   {
@@ -24,18 +24,16 @@
 
   else
   {
-    v11 = sh_log_object();
+    v11 = sh_log_object(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_230F52000, v11, OS_LOG_TYPE_ERROR, "Unable to generate audio representation of signature with error %@", buf, 0xCu);
     }
 
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

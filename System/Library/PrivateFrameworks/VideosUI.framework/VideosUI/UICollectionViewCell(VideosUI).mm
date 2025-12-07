@@ -6,10 +6,10 @@
 
 + (id)makePrototypeCellWithFrame:()VideosUI
 {
-  v8 = objc_alloc_init(objc_opt_class());
-  [v8 setFrame:{self, a2, a3, a4}];
+  v9 = objc_alloc_init(objc_opt_class());
+  [v9 setFrame:{a2, a3, a4, a5}];
 
-  return v8;
+  return v9;
 }
 
 @end

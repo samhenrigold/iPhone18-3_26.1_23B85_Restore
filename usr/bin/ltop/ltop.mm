@@ -577,7 +577,7 @@ uint64_t sub_1000010BC(uint64_t a1, uint64_t a2)
 
   if (a1 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    return printf("%10s  ");
+    return printf("%10s  ", a2);
   }
 
   if (a1 >= 0)
@@ -612,5 +612,5 @@ uint64_t sub_1000010BC(uint64_t a1, uint64_t a2)
   }
 
   strlen(v6);
-  return printf("%*lld%s%c ");
+  return printf("%*lld%s%c ", v7);
 }

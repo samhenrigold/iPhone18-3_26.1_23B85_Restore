@@ -23,84 +23,84 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphSingleGateRNNOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRNNOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphSingleGateRNNOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRNNOps.mm");
   v12 = nameCopy;
-  v53 = 260;
-  v52[0] = __p;
-  StringAttr = mlir::Builder::getStringAttr(builder, v52);
-  v15 = mlir::FileLineColLoc::get(StringAttr, 0x110u, 0);
+  v52 = 260;
+  v51[0] = __p;
+  StringAttr = mlir::Builder::getStringAttr(builder, v51);
+  v16 = mlir::FileLineColLoc::get(StringAttr, 0x110u, 0);
   if (v12)
   {
-    v16 = v12;
+    v17 = v12;
     uTF8String = [v12 UTF8String];
-    v18 = strlen(uTF8String);
-    if (v18 >= 0x7FFFFFFFFFFFFFF8)
+    v19 = strlen(uTF8String);
+    if (v19 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v18;
-    if (v18 >= 0x17)
+    v20 = v19;
+    if (v19 >= 0x17)
     {
       operator new();
     }
 
-    v51[5] = v18;
-    if (v18)
+    *(&__dst[0].__r_.__value_.__s + 23) = v19;
+    if (v19)
     {
-      memmove(&__dst, uTF8String, v18);
+      memmove(__dst, uTF8String, v19);
     }
 
-    v20 = &__dst + v19;
+    v21 = __dst + v20;
   }
 
   else
   {
-    v51[5] = 18;
-    v50 = 28270;
-    __dst = *"mps.singlegate_rnn";
-    v20 = v51;
+    *(&__dst[0].__r_.__value_.__s + 23) = 18;
+    LOWORD(__dst[0].__r_.__value_.__r.__words[2]) = 28270;
+    *&__dst[0].__r_.__value_.__l.__data_ = *"mps.singlegate_rnn";
+    v21 = &__dst[0].__r_.__value_.__s.__data_[18];
   }
 
-  *v20 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v14, &v46);
-  v21 = v46.__r_.__value_.__r.__words[0];
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v21 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, __dst, &v47, v14, v15);
+  v22 = v47.__r_.__value_.__r.__words[0];
+  if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = &v46;
+    v22 = &v47;
   }
 
-  v22 = 1;
-  HIBYTE(v53) = 1;
-  if (v21->__r_.__value_.__s.__data_[0])
+  v23 = 1;
+  HIBYTE(v52) = 1;
+  if (v22->__r_.__value_.__s.__data_[0])
   {
-    v52[0] = v21;
-    v22 = 3;
+    v51[0] = v22;
+    v23 = 3;
   }
 
-  LOBYTE(v53) = v22;
-  v23 = mlir::Builder::getStringAttr(builder, v52);
-  v24 = mlir::NameLoc::get(v23, v15);
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v52) = v23;
+  v24 = mlir::Builder::getStringAttr(builder, v51);
+  v25 = mlir::NameLoc::get(v24, v16);
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v46.__r_.__value_.__l.__data_);
-    if ((v51[5] & 0x80000000) == 0)
+    operator delete(v47.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((v51[5] & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(__dst);
+  operator delete(__dst[0].__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v42 < 0)
+  if (v43 < 0)
   {
     operator delete(__p[0]);
   }
@@ -109,21 +109,21 @@ LABEL_16:
   activation = [(MPSGraphSingleGateRNNDescriptor *)self->super._desc activation];
   if (activation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu))
   {
-    v27 = 1;
+    v28 = 1;
   }
 
   else
   {
-    v27 = activation;
+    v28 = activation;
   }
 
   desc = self->super._desc;
-  v30 = *values;
-  v29 = *(values + 1);
+  v31 = *values;
+  v30 = *(values + 1);
   if (!desc->_hasInitState)
   {
-    v31 = 0;
-    v32 = 2;
+    v32 = 0;
+    v33 = 2;
     if (!desc->_hasMask)
     {
       goto LABEL_24;
@@ -132,20 +132,20 @@ LABEL_16:
     goto LABEL_26;
   }
 
-  if ((v29 - v30) < 0x11)
+  if ((v30 - v31) < 0x11)
   {
     goto LABEL_37;
   }
 
-  v31 = v30[2];
-  v32 = 3;
+  v32 = v31[2];
+  v33 = 3;
   if (desc->_hasMask)
   {
 LABEL_26:
-    v34 = v29 - v30;
-    if (v32 < v29 - v30)
+    v35 = v30 - v31;
+    if (v33 < v30 - v31)
     {
-      v33 = v30[v32];
+      v34 = v31[v33];
       goto LABEL_28;
     }
 
@@ -154,38 +154,38 @@ LABEL_37:
   }
 
 LABEL_24:
-  v33 = 0;
-  v34 = v29 - v30;
+  v34 = 0;
+  v35 = v30 - v31;
 LABEL_28:
-  if (v29 == v30 || v34 <= 8)
+  if (v30 == v31 || v35 <= 8)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v43 = v24;
-  Context = mlir::Attribute::getContext(&v43);
-  v36 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::SingleGateRNNOp,void>::id, Context);
-  if ((v37 & 1) == 0)
+  v44 = v25;
+  Context = mlir::Attribute::getContext(&v44);
+  v37 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::SingleGateRNNOp,void>::id, Context);
+  if ((v38 & 1) == 0)
   {
-    v48 = 1283;
-    v46.__r_.__value_.__r.__words[2] = "mps.singlegate_rnn";
-    v47 = 18;
-    v45 = 259;
-    llvm::operator+(&v46, &v44, &__dst);
-    llvm::report_fatal_error(&__dst, 1);
+    v49 = 1283;
+    v47.__r_.__value_.__r.__words[2] = "mps.singlegate_rnn";
+    v48 = 18;
+    v46 = 259;
+    llvm::operator+(&v47, &v45, __dst);
+    llvm::report_fatal_error(__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v52, v24, v36);
-  mlir::mps::SingleGateRNNOp::build(builder, v52, *v30, v30[1], v27, training, v31, v33);
-  v38 = mlir::OpBuilder::create(builder, v52);
-  v39 = *(v38[6] + 16);
-  mlir::OperationState::~OperationState(v52);
-  if (v39 != &mlir::detail::TypeIDResolver<mlir::mps::SingleGateRNNOp,void>::id)
+  mlir::OperationState::OperationState(v51, v25, v37);
+  mlir::mps::SingleGateRNNOp::build(builder, v51, *v31, v31[1], v28, training, v32, v34);
+  v39 = mlir::OpBuilder::create(builder, v51);
+  v40 = *(*(v39 + 6) + 16);
+  mlir::OperationState::~OperationState(v51);
+  if (v40 != &mlir::detail::TypeIDResolver<mlir::mps::SingleGateRNNOp,void>::id)
   {
-    v38 = 0;
+    v39 = 0;
   }
 
-  return v38;
+  return v39;
 }
 
 - (id)partialDerivativesForInputTensors:(id)tensors incomingGradients:(id)gradients name:(id)name

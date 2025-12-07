@@ -118,7 +118,7 @@ uint64_t __56__EMFEmojiPreferencesService_sharedServiceWithMachName___block_invo
   v4 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
     v5 = SecTaskCreateWithAuditToken(0, &token);
     v6 = v5;
     v11 = v5;
@@ -177,24 +177,24 @@ uint64_t __56__EMFEmojiPreferencesService_sharedServiceWithMachName___block_invo
 
   v5 = [(EMFEmojiPreferencesService *)self obtainApplicationIdentifierFromConnection:connectionCopy];
   v6 = [(EMFEmojiPreferencesService *)self obtainBundleIdentifierFromConnection:connectionCopy];
-  if ([v5 hasPrefix:@"com.apple."] & 1) != 0 || (objc_msgSend(v6, "hasPrefix:", @"com.apple."))
+  if ([v5 hasPrefix:@"com.apple."] & 1) != 0 || (v7 = objc_msgSend(v6, "hasPrefix:", @"com.apple."), (v7))
   {
 
 LABEL_6:
-    v7 = 1;
+    v8 = 1;
     goto LABEL_7;
   }
 
-  v9 = emf_logging_get_default_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = emf_logging_get_default_log(v7);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    [(EMFEmojiPreferencesService *)v5 allowsConnection:v6, v9];
+    [(EMFEmojiPreferencesService *)v5 allowsConnection:v6, v10];
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_7:
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection

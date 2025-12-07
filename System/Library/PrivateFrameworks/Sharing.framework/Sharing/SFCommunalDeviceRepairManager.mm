@@ -51,7 +51,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1A967C46C(v8);
+  sub_1A967C46C(v8, v9);
 }
 
 - (void)handleBLEDeviceFound:(id)found

@@ -74,7 +74,7 @@
 - (NSArray)storeSubscriptionTypes
 {
 
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -82,7 +82,7 @@
 
 - (void)setStoreSubscriptionTypes:(id)types
 {
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   *(self + OBJC_IVAR____TtC4Maps20MapsFavoritesManager_storeSubscriptionTypes) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
@@ -153,7 +153,7 @@
 
 - (void)proposePlacesForTypeWithType:(int64_t)type completionHandler:(id)handler
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -188,7 +188,7 @@
 
 - (void)getShortcutsCountWithIncludeNearbyTransit:(BOOL)transit completionHandler:(id)handler
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -214,7 +214,7 @@
 
 - (void)loadAllShortcutsWithCompletionHandler:(id)handler
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -247,7 +247,7 @@
 
 - (void)storeDidChange:(id)change
 {
-  v4 = sub_1000CE6B8(&unk_10190BA50);
+  v4 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   v7 = type metadata accessor for TaskPriority();
@@ -262,7 +262,7 @@
 
 - (void)migrateFavoritesIfNeededWithCompletionHandler:(id)handler
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

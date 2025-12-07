@@ -319,24 +319,30 @@
 
 uint64_t __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v7 = a3;
-  if (gLogCategory_CLISetupInteractor <= 30 && (gLogCategory_CLISetupInteractor != -1 || _LogCategory_Initialize()))
+  v5 = a3;
+  v9 = v5;
+  if (gLogCategory_CLISetupInteractor <= 30)
   {
-    __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_cold_1(a2);
+    if (gLogCategory_CLISetupInteractor != -1 || (v6 = _LogCategory_Initialize(), v5 = v9, v6))
+    {
+      __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_cold_1(a2);
+      v5 = v9;
+    }
   }
 
-  v5 = *(a1 + 32);
-  if (v5[12])
+  v7 = *(a1 + 32);
+  if (v7[12])
   {
-    [v5 sessionHandleProgress:a2 inInfo:v7 session:?];
+    v7 = [v7 sessionHandleProgress:a2 inInfo:v9 session:?];
+    v5 = v9;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7, v5);
 }
 
 void __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (gLogCategory_CLISetupInteractor <= 30 && (gLogCategory_CLISetupInteractor != -1 || _LogCategory_Initialize()))
   {
@@ -361,12 +367,12 @@ LABEL_10:
 
   if ([*(*(a1 + 32) + 24) length])
   {
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_3;
-    v39[3] = &unk_279713F78;
-    v39[4] = *(a1 + 32);
-    v8 = [v6 indexOfObjectPassingTest:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_3;
+    v38[3] = &unk_279713F78;
+    v38[4] = *(a1 + 32);
+    v8 = [v6 indexOfObjectPassingTest:v38];
     if (v8 == 0x7FFFFFFFFFFFFFFFLL)
     {
       v9 = 0;
@@ -409,50 +415,50 @@ LABEL_17:
   NSLog(&cfstr_Cmdhomedevices_1.isa, v11);
 
   [v7 homeKitSelectHome:v9];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v12 = v6;
-  v29 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
-  if (v29)
+  v28 = [v12 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  if (v28)
   {
-    v13 = *v36;
+    v13 = *v35;
     v14 = *MEMORY[0x277CCE8B0];
-    v27 = v7;
-    v28 = v5;
-    v30 = v12;
-    v26 = *v36;
+    v26 = v7;
+    v27 = v5;
+    v29 = v12;
+    v25 = *v35;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v35 + 1) + 8 * i);
+        v16 = *(*(&v34 + 1) + 8 * i);
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         v17 = [v16 accessories];
-        v18 = [v17 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v30 objects:v39 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v32;
+          v20 = *v31;
           while (2)
           {
             for (j = 0; j != v19; ++j)
             {
-              if (*v32 != v20)
+              if (*v31 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v22 = [*(*(&v31 + 1) + 8 * j) category];
+              v22 = [*(*(&v30 + 1) + 8 * j) category];
               v23 = [v22 categoryType];
 
               if (v23 == v14)
@@ -463,14 +469,14 @@ LABEL_17:
                 }
 
                 v24 = 1;
-                v7 = v27;
-                v5 = v28;
-                v12 = v30;
+                v7 = v26;
+                v5 = v27;
+                v12 = v29;
                 goto LABEL_41;
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v31 objects:v40 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v30 objects:v39 count:16];
             if (v19)
             {
               continue;
@@ -480,17 +486,17 @@ LABEL_17:
           }
         }
 
-        v12 = v30;
-        v13 = v26;
+        v12 = v29;
+        v13 = v25;
       }
 
       v24 = 0;
-      v7 = v27;
-      v5 = v28;
-      v29 = [v30 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v7 = v26;
+      v5 = v27;
+      v28 = [v29 countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
   else
@@ -502,8 +508,6 @@ LABEL_41:
 
   [v7 setHasExistingHomePodInAccount:v24];
 LABEL_42:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_3(uint64_t a1, void *a2)
@@ -716,7 +720,7 @@ uint64_t __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_8(uint64_
         }
       }
 
-      [v4 runPersonalRequestsAgreedCLI:*(*(a1 + 32) + 11) makeActiveDevice:*(*(a1 + 32) + 12)];
+      v3 = [v4 runPersonalRequestsAgreedCLI:*(*(a1 + 32) + 11) makeActiveDevice:*(*(a1 + 32) + 12)];
     }
 
     else
@@ -730,11 +734,13 @@ uint64_t __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_8(uint64_
         }
       }
 
-      [v4 personalRequestsEnabled:*(*(a1 + 32) + 10)];
+      v3 = [v4 personalRequestsEnabled:*(*(a1 + 32) + 10)];
     }
+
+    v4 = v8;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 void *__44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_9(uint64_t a1)
@@ -802,15 +808,16 @@ uint64_t __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_11(uint64
     {
       if (gLogCategory_CLISetupInteractor != -1 || (v6 = _LogCategory_Initialize(), v5 = v8, v6))
       {
-        __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_11_cold_2(v2);
+        __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_11_cold_2();
         v5 = v8;
       }
     }
 
-    [v5 tvAudioEnabled:*(*v2 + 13)];
+    v4 = [v5 tvAudioEnabled:*(*v2 + 13)];
+    v5 = v8;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v5);
 }
 
 void *__44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_12(uint64_t a1)
@@ -898,34 +905,42 @@ void __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_15()
 
 uint64_t __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_16(uint64_t a1, void *a2)
 {
-  v10 = a2;
-  if (gLogCategory_CLISetupInteractor <= 30 && (gLogCategory_CLISetupInteractor != -1 || _LogCategory_Initialize()))
+  v3 = a2;
+  v4 = v3;
+  v12 = v3;
+  if (gLogCategory_CLISetupInteractor <= 30)
   {
-    __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_16_cold_1();
+    if (gLogCategory_CLISetupInteractor != -1 || (v3 = _LogCategory_Initialize(), v4 = v12, v3))
+    {
+      v3 = __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_16_cold_1();
+      v4 = v12;
+    }
   }
 
-  v3 = *(*(a1 + 32) + 96);
-  if (v3)
+  v5 = *(*(a1 + 32) + 96);
+  if (v5)
   {
-    v4 = v3;
-    v5 = [v10 firstObject];
+    v6 = v5;
+    v7 = [v12 firstObject];
     CFStringGetTypeID();
-    v6 = CFDictionaryGetTypedValue();
-    v7 = v6;
-    if (v6)
+    v8 = CFDictionaryGetTypedValue();
+    v9 = v8;
+    if (v8)
     {
-      v8 = v6;
+      v10 = v8;
     }
 
     else
     {
-      v8 = @"?";
+      v10 = @"?";
     }
 
-    [v4 wiFiSelected:v8];
+    [v6 wiFiSelected:v10];
+
+    v4 = v12;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 void __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_17(uint64_t a1, void *a2)
@@ -1028,191 +1043,164 @@ void __44__CLISetupInteractor_setCLIPromptsForStates__block_invoke_21(uint64_t a
 {
   infoCopy = info;
   sessionCopy = session;
-  if (progress > 123)
+  if (progress <= 123)
   {
-    if (progress <= 229)
+    if (progress > 79)
     {
-      if (progress > 199)
+      if (progress > 119)
       {
-        if (progress == 200)
+        if (progress == 120)
         {
-          v21 = *MEMORY[0x277D85E08];
+          FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runPreflightiCloud\n");
         }
 
-        else
+        else if (progress == 122)
         {
-          if (progress != 210)
-          {
-            goto LABEL_55;
-          }
-
-          v11 = *MEMORY[0x277D85E08];
+          FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runPreflightiTunes\n");
         }
       }
 
-      else
+      else if (progress == 80)
       {
-        if (progress != 124)
+        if (self->_delayTime)
         {
-          if (progress == 140)
+          if (gLogCategory_CLISetupInteractor <= 30 && (gLogCategory_CLISetupInteractor != -1 || _LogCategory_Initialize()))
           {
-            if (self->_recognizeVoiceEnabled)
-            {
-              v9 = "yes";
-            }
-
-            else
-            {
-              v9 = "no";
-            }
-
-            NSLog(&cfstr_Cmdhomedevices_22.isa, v9);
-            [sessionCopy siriForiCloudRecognizeAnswered:self->_siriForICloudEnabled];
-            [sessionCopy recognizeVoiceAnswered:self->_recognizeVoiceEnabled];
+            [CLISetupInteractor sessionHandleProgress:inInfo:session:];
           }
 
-          goto LABEL_55;
+          v11 = dispatch_semaphore_create(0);
+          v12 = dispatch_time(0, 1000000000 * self->_delayTime);
+          dispatch_semaphore_wait(v11, v12);
         }
 
-        v15 = *MEMORY[0x277D85E08];
+        FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runBasicConfig\n");
       }
 
-LABEL_54:
-      FPrintF();
-      goto LABEL_55;
-    }
-
-    if (progress > 235)
-    {
-      if (progress != 236)
+      else if (progress == 96)
       {
-        if (progress != 250)
-        {
-          goto LABEL_55;
-        }
-
         goto LABEL_37;
       }
-
-      v23 = *MEMORY[0x277D85E08];
-      FPrintF();
     }
 
     else
     {
-      if (progress == 230)
+      if (progress <= 34)
       {
-        v19 = *MEMORY[0x277D85E08];
-        goto LABEL_54;
-      }
-
-      if (progress != 234)
-      {
-        goto LABEL_55;
-      }
-    }
-
-    v24 = *MEMORY[0x277D85E08];
-    goto LABEL_54;
-  }
-
-  if (progress <= 79)
-  {
-    if (progress <= 34)
-    {
-      if (progress != 20)
-      {
-        if (progress != 30)
+        if (progress != 20)
         {
-          goto LABEL_55;
+          if (progress != 30)
+          {
+            goto LABEL_54;
+          }
+
+          NSLog(&cfstr_Cmdhomedevices_36.isa);
+          if (gLogCategory_CLISetupInteractor <= 90 && (gLogCategory_CLISetupInteractor != -1 || _LogCategory_Initialize()))
+          {
+            [CLISetupInteractor sessionHandleProgress:inInfo:session:];
+          }
+
+          goto LABEL_40;
         }
 
-        NSLog(&cfstr_Cmdhomedevices_36.isa);
-        if (gLogCategory_CLISetupInteractor <= 90 && (gLogCategory_CLISetupInteractor != -1 || _LogCategory_Initialize()))
+LABEL_37:
+        FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI Finished Successfully, cleanup called\n");
+        if (gLogCategory_CLISetupInteractor <= 30 && (gLogCategory_CLISetupInteractor != -1 || _LogCategory_Initialize()))
         {
           [CLISetupInteractor sessionHandleProgress:inInfo:session:];
         }
 
-        goto LABEL_40;
-      }
-
-LABEL_37:
-      v13 = *MEMORY[0x277D85E08];
-      FPrintF();
-      if (gLogCategory_CLISetupInteractor <= 30 && (gLogCategory_CLISetupInteractor != -1 || _LogCategory_Initialize()))
-      {
-        [CLISetupInteractor sessionHandleProgress:inInfo:session:];
-      }
-
 LABEL_40:
-      promptForSetupCompletionHandler = [(HDSSetupSession *)self->_setupSession promptForSetupCompletionHandler];
-      promptForSetupCompletionHandler[2]();
+        promptForSetupCompletionHandler = [(HDSSetupSession *)self->_setupSession promptForSetupCompletionHandler];
+        promptForSetupCompletionHandler[2]();
 
-      goto LABEL_55;
-    }
-
-    if (progress == 35)
-    {
-      v20 = *MEMORY[0x277D85E08];
-    }
-
-    else
-    {
-      if (progress != 40)
-      {
-        goto LABEL_55;
+        goto LABEL_54;
       }
 
-      v10 = *MEMORY[0x277D85E08];
+      if (progress == 35)
+      {
+        FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runSFSessionStart\n");
+      }
+
+      else if (progress == 40)
+      {
+        FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runPreAuth\n");
+      }
     }
 
     goto LABEL_54;
   }
 
-  if (progress > 119)
+  if (progress <= 229)
   {
-    if (progress == 120)
+    if (progress > 199)
     {
-      v22 = *MEMORY[0x277D85E08];
-    }
-
-    else
-    {
-      if (progress != 122)
+      if (progress == 200)
       {
-        goto LABEL_55;
+        FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI Reachability succeeded, _runWiFiSetup\n");
       }
 
-      v12 = *MEMORY[0x277D85E08];
+      else if (progress == 210)
+      {
+        FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runTRActivation\n");
+      }
+    }
+
+    else if (progress == 124)
+    {
+      FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runCheckAccount\n");
+    }
+
+    else if (progress == 140)
+    {
+      if (self->_recognizeVoiceEnabled)
+      {
+        v9 = "yes";
+      }
+
+      else
+      {
+        v9 = "no";
+      }
+
+      NSLog(&cfstr_Cmdhomedevices_22.isa, v9);
+      [sessionCopy siriForiCloudRecognizeAnswered:self->_siriForICloudEnabled];
+      [sessionCopy recognizeVoiceAnswered:self->_recognizeVoiceEnabled];
     }
 
     goto LABEL_54;
   }
 
-  if (progress == 80)
+  if (progress > 235)
   {
-    if (self->_delayTime)
+    if (progress != 236)
     {
-      if (gLogCategory_CLISetupInteractor <= 30 && (gLogCategory_CLISetupInteractor != -1 || _LogCategory_Initialize()))
+      if (progress != 250)
       {
-        [CLISetupInteractor sessionHandleProgress:inInfo:session:];
+        goto LABEL_54;
       }
 
-      v16 = dispatch_semaphore_create(0);
-      v17 = dispatch_time(0, 1000000000 * self->_delayTime);
-      dispatch_semaphore_wait(v16, v17);
+      goto LABEL_37;
     }
 
-    v18 = *MEMORY[0x277D85E08];
+    FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runCDPSetup\n");
+LABEL_53:
+    FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runHomeKitSetup\n");
     goto LABEL_54;
   }
 
-  if (progress == 96)
+  if (progress == 230)
   {
-    goto LABEL_37;
+    FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _runHomeKitUserInput\n");
+    goto LABEL_54;
   }
 
-LABEL_55:
+  if (progress == 234)
+  {
+    goto LABEL_53;
+  }
+
+LABEL_54:
 }
 
 - (void)invalidate

@@ -1,6 +1,6 @@
-uint64_t filterRegistryIsolationQueue(void)
+uint64_t filterRegistryIsolationQueue(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1ED7C44B0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED7C44B0, memory_order_acquire) & 1) == 0)
   {
     filterRegistryIsolationQueue();
   }
@@ -10,12 +10,12 @@ uint64_t filterRegistryIsolationQueue(void)
 
 void filterRegistryIsolationQueue()
 {
-  if (__cxa_guard_acquire(&qword_1ED7C44B0))
+  if (__cxa_guard_acquire(byte_1ED7C44B0))
   {
     v0 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     _MergedGlobals_1 = dispatch_queue_create("com.apple.coreimage.CIFilterRegistryIsolation", v0);
 
-    __cxa_guard_release(&qword_1ED7C44B0);
+    __cxa_guard_release(byte_1ED7C44B0);
   }
 }
 
@@ -42,7 +42,7 @@ CI::FillImage *CI::FillImage::FillImage(CI::FillImage *this)
 {
   CI::Image::Image(this);
   v2[15] = &unk_1F10359E8;
-  atomic_fetch_add(&dword_1ED7C47BC[7], 1u);
+  atomic_fetch_add(dword_1ED7C47D8, 1u);
   *v2 = &unk_1F1035848;
   v2[15] = &unk_1F10359C0;
   v2[16] = 0;
@@ -185,10 +185,10 @@ unint64_t XXH64_digest(uint64_t a1)
   return v10 ^ HIDWORD(v10);
 }
 
-void CI::Object::unref(CI::Object *this)
+void CI::Object::unref(uint64_t this)
 {
-  atomic_load(this + 2);
-  if (atomic_fetch_add(this + 2, 0xFFFFFFFF) == 1)
+  atomic_load((this + 8));
+  if (atomic_fetch_add((this + 8), 0xFFFFFFFF) == 1)
   {
     v3[5] = v1;
     v3[6] = v2;
@@ -201,59 +201,60 @@ void CI::Object::unref(CI::Object *this)
   }
 }
 
-NSUInteger getCustomAttributes(objc_class *a1)
+NSMutableDictionary *getCustomAttributes(objc_class *a1, uint64_t a2)
 {
-  if (![(objc_class *)a1 isSubclassOfClass:objc_opt_class()])
+  v3 = [(objc_class *)a1 isSubclassOfClass:objc_opt_class()];
+  if (!v3)
   {
     return 0;
   }
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3052000000;
-  v16 = __Block_byref_object_copy__8;
-  v17 = __Block_byref_object_dispose__8;
-  v18 = 0;
-  v2 = filterRegistryIsolationQueue();
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3052000000;
+  v19 = __Block_byref_object_copy__8;
+  v20 = __Block_byref_object_dispose__8;
+  v21 = 0;
+  v5 = filterRegistryIsolationQueue(v3, v4);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = ___ZL19getCustomAttributesP10objc_class_block_invoke;
   block[3] = &unk_1E75C2AF0;
   block[4] = a1;
-  block[5] = &v13;
-  dispatch_sync(v2, block);
-  v3 = NSSelectorFromString(&cfstr_Customattribut.isa);
-  v4 = [(objc_class *)a1 methodForSelector:v3];
-  v5 = [CIFilter methodForSelector:v3];
-  v6 = [(objc_class *)a1 instanceMethodForSelector:v3];
-  v7 = [CIFilter instanceMethodForSelector:v3];
-  if (v4 == v5)
+  block[5] = &v16;
+  dispatch_sync(v5, block);
+  v6 = NSSelectorFromString(&cfstr_Customattribut.isa);
+  v7 = [(objc_class *)a1 methodForSelector:v6];
+  v8 = [CIFilter methodForSelector:v6];
+  v9 = [(objc_class *)a1 instanceMethodForSelector:v6];
+  v10 = [CIFilter instanceMethodForSelector:v6];
+  if (v7 == v8)
   {
-    if (v6 != v7)
+    if (v9 != v10)
     {
-      v10 = NSStringFromClass(a1);
-      NSLog(&cfstr_Customattribut_0.isa, v10);
+      v13 = NSStringFromClass(a1);
+      NSLog(&cfstr_Customattribut_0.isa, v13);
     }
 
-    v8 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v8 = [(objc_class *)a1 customAttributes];
+    v11 = [(objc_class *)a1 customAttributes];
   }
 
-  v9 = [MEMORY[0x1E695DF90] dictionary];
-  mergeDictionaries(v9, v8);
-  mergeDictionaries(v9, v14[5]);
+  v12 = [MEMORY[0x1E695DF90] dictionary];
+  mergeDictionaries(v12, v11);
+  mergeDictionaries(v12, v17[5]);
 
-  _Block_object_dispose(&v13, 8);
-  return v9;
+  _Block_object_dispose(&v16, 8);
+  return v12;
 }
 
-void sub_19CC386DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19CC386DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -686,29 +687,30 @@ double CI::sw_narrowBlur15(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   {
     v49 = v20;
     v22 = vmul_n_f32(v11, v21);
-    v23 = vadd_f32(v19, v22);
+    v20.n128_u64[0] = vadd_f32(v19, v22);
     LODWORD(v13) = *(v10 + 24);
     v16.i32[0] = *(v10 + 36);
-    *v15.i32 = vmuls_lane_f32(*(v10 + 32), v23, 1);
-    *&v14 = *v15.i32 + (v23.f32[0] * *(v10 + 28));
-    v23.f32[0] = *&v13 + (vmuls_lane_f32(*(v10 + 20), v23, 1) + (v23.f32[0] * *(v10 + 16)));
+    *v15.i32 = vmuls_lane_f32(*(v10 + 32), v20.n128_u64[0], 1);
+    *&v14 = *v15.i32 + (v20.n128_f32[0] * *(v10 + 28));
+    v20.n128_f32[0] = *&v13 + (vmuls_lane_f32(*(v10 + 20), v20.n128_u64[0], 1) + (v20.n128_f32[0] * *(v10 + 16)));
     *v12.f64 = *v16.i32 + *&v14;
-    v23.f32[1] = *v16.i32 + *&v14;
-    *v24.i64 = CI::BitmapSampler::read(*(v10 + 8), *&v23, v12, v13, v14, v15, v16, v17, v18);
-    *&v25.f64[0] = vsub_f32(v19, v22);
-    *&v26 = vmuls_lane_f32(*(v10 + 20), *&v25.f64[0], 1) + (*v25.f64 * *(v10 + 16));
-    LODWORD(v27) = *(v10 + 24);
-    v28.i32[0] = *(v10 + 36);
-    *v29.i32 = vmuls_lane_f32(*(v10 + 32), *&v25.f64[0], 1);
-    LODWORD(v30) = *(v52 + v21);
-    v48 = v30;
-    v31 = vmulq_n_f32(v24, *&v30);
-    v32 = v49;
-    v50 = vaddq_f32(v49, v31);
-    v31.f32[0] = *&v27 + *&v26;
-    *v25.f64 = *v28.i32 + (*v29.i32 + (*v25.f64 * *(v10 + 28)));
-    v31.i32[1] = LODWORD(v25.f64[0]);
-    *v35.i64 = CI::BitmapSampler::read(*(v10 + 8), *v31.i64, v25, v26, v27, v32, v29, v28, v33);
+    v20.n128_f32[1] = *v16.i32 + *&v14;
+    *v23.i64 = CI::BitmapSampler::read(*(v10 + 8), v20, v12, v13, v14, v15, v16, v17, v18);
+    *&v24.f64[0] = vsub_f32(v19, v22);
+    *&v25 = vmuls_lane_f32(*(v10 + 20), *&v24.f64[0], 1) + (*v24.f64 * *(v10 + 16));
+    LODWORD(v26) = *(v10 + 24);
+    v27.i32[0] = *(v10 + 36);
+    *v28.i32 = vmuls_lane_f32(*(v10 + 32), *&v24.f64[0], 1);
+    LODWORD(v29) = *(v52 + v21);
+    v48 = v29;
+    v30 = vmulq_n_f32(v23, *&v29);
+    v31 = v49;
+    v32 = vaddq_f32(v49, v30);
+    v50 = v32;
+    v32.n128_f32[0] = *&v26 + *&v25;
+    *v24.f64 = *v27.i32 + (*v28.i32 + (*v24.f64 * *(v10 + 28)));
+    v32.n128_u32[1] = LODWORD(v24.f64[0]);
+    *v35.i64 = CI::BitmapSampler::read(*(v10 + 8), v32, v24, v25, v26, v31, v28, v27, v33);
     HIDWORD(v13) = HIDWORD(v48);
     v12 = v50;
     v20 = vaddq_f32(v50, vmulq_n_f32(v35, *&v48));
@@ -721,9 +723,9 @@ double CI::sw_narrowBlur15(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v39.i32[0] = *(v10 + 36);
   *v40.i32 = vmuls_lane_f32(*(v10 + 32), *DC, 1);
   *&v41 = *v40.i32 + (COERCE_FLOAT(*DC) * *(v10 + 28));
-  *&v42 = *&v38 + (vmuls_lane_f32(*(v10 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v10 + 16)));
+  v42.n128_f32[0] = *&v38 + (vmuls_lane_f32(*(v10 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v10 + 16)));
   *v43.f64 = *v39.i32 + *&v41;
-  *(&v42 + 1) = *v39.i32 + *&v41;
+  v42.n128_f32[1] = *v39.i32 + *&v41;
   *v46.i64 = CI::BitmapSampler::read(*(v10 + 8), v42, v43, v38, v41, v40, v39, v44, v45);
   *&result = vaddq_f32(v51, vmulq_f32(v46, vdupq_n_s32(0x3DF10A9Au))).u64[0];
   return result;
@@ -736,13 +738,13 @@ void CI::GeneralKernel::~GeneralKernel(CI::GeneralKernel *this)
   JUMPOUT(0x19EAF5590);
 }
 
-double CI::BitmapSampler::read(uint64x2_t *a1, double a2, float64x2_t a3, double a4, double a5, int8x16_t a6, int8x16_t a7, int8x16_t a8, int8x16_t a9)
+double CI::BitmapSampler::read(uint64x2_t *a1, __n128 a2, float64x2_t a3, double a4, double a5, int8x16_t a6, int8x16_t a7, int8x16_t a8, int8x16_t a9)
 {
   if (a1[8].i8[11] == 1)
   {
     a3 = vcvtq_f64_u64(a1[5]);
     *&a3.f64[0] = vcvt_f32_f64(a3);
-    a2 = COERCE_DOUBLE(vmul_f32(*&a2, *&a3.f64[0]));
+    a2.n128_u64[0] = vmul_f32(a2.n128_u64[0], *&a3.f64[0]);
   }
 
   if (a1[8].i8[10] == 1)
@@ -759,8 +761,8 @@ double CI::BitmapSampler::read(uint64x2_t *a1, double a2, float64x2_t a3, double
         {
           if (a1[7].i64[0] && a1[7].i64[1])
           {
-            v14 = *&a2;
-            LODWORD(a2) = HIDWORD(a2);
+            v14 = a2.n128_f32[0];
+            a2.n128_u32[0] = a2.n128_u32[1];
             v15 = v14 & ~(v14 >> 31);
             v16 = v10 - 1;
             if (v15 >= v16)
@@ -774,12 +776,12 @@ double CI::BitmapSampler::read(uint64x2_t *a1, double a2, float64x2_t a3, double
             }
 
             v18 = v12 - 1;
-            if ((*(&a2 + 1) & ~(*(&a2 + 1) >> 31)) < v12 - 1)
+            if ((a2.n128_f32[1] & ~(a2.n128_f32[1] >> 31)) < v12 - 1)
             {
-              v18 = *(&a2 + 1) & ~(*(&a2 + 1) >> 31);
+              v18 = a2.n128_f32[1] & ~(a2.n128_f32[1] >> 31);
             }
 
-            return CI::BitmapSampler::read(a1, (v13 + a1[6].i64[0] * v18), v17, a2, a3);
+            return CI::BitmapSampler::read(a1, (v13 + a1[6].i64[0] * v18), v17, a2.n128_f64[0], a3);
           }
         }
       }
@@ -789,52 +791,62 @@ double CI::BitmapSampler::read(uint64x2_t *a1, double a2, float64x2_t a3, double
   }
 
   HIDWORD(a3.f64[0]) = -1090519040;
-  *v19.f32 = vadd_f32(*&a2, 0xBF000000BF000000);
-  v20 = vcvtms_s32_f32(v19.f32[0]);
-  v21 = vcvtms_s32_f32(v19.f32[1]);
-  *a3.f64 = v19.f32[1] - floorf(v19.f32[1]);
-  v22 = a1[5].i64[0];
-  v23 = a1[5].i64[1];
-  v24 = v22 - 1;
+  a2.n128_u64[0] = vadd_f32(a2.n128_u64[0], 0xBF000000BF000000);
+  v19 = vcvtms_s32_f32(a2.n128_f32[0]);
+  v20 = vcvtms_s32_f32(a2.n128_f32[1]);
+  *a3.f64 = a2.n128_f32[1] - floorf(a2.n128_f32[1]);
+  v21 = a1[5].i64[0];
+  v22 = a1[5].i64[1];
+  v23 = v21 - 1;
+  if ((v19 & ~(v19 >> 31)) >= v21 - 1)
+  {
+    v24 = v21 - 1;
+  }
+
+  else
+  {
+    v24 = v19 & ~(v19 >> 31);
+  }
+
+  v25 = v22 - 1;
   if ((v20 & ~(v20 >> 31)) >= v22 - 1)
   {
-    v25 = v22 - 1;
+    v26 = v22 - 1;
   }
 
   else
   {
-    v25 = v20 & ~(v20 >> 31);
+    v26 = v20 & ~(v20 >> 31);
   }
 
-  v26 = v23 - 1;
-  if ((v21 & ~(v21 >> 31)) >= v23 - 1)
+  if (v19 < 0)
   {
-    v27 = v23 - 1;
+    v27 = -1;
   }
 
   else
   {
-    v27 = v21 & ~(v21 >> 31);
+    v27 = v19;
   }
 
   if (v20 < 0)
   {
-    v28 = -1;
+    v20 = -1;
+  }
+
+  if (v27 + 1 < v23)
+  {
+    v28 = v27 + 1;
   }
 
   else
   {
-    v28 = v20;
+    v28 = v21 - 1;
   }
 
-  if (v21 < 0)
+  if (v20 + 1 < v25)
   {
-    v21 = -1;
-  }
-
-  if (v28 + 1 < v24)
-  {
-    v29 = v28 + 1;
+    v29 = v20 + 1;
   }
 
   else
@@ -842,101 +854,91 @@ double CI::BitmapSampler::read(uint64x2_t *a1, double a2, float64x2_t a3, double
     v29 = v22 - 1;
   }
 
-  if (v21 + 1 < v26)
+  if (v24 + 1 != v28)
   {
-    v30 = v21 + 1;
-  }
-
-  else
-  {
-    v30 = v23 - 1;
-  }
-
-  if (v25 + 1 != v29)
-  {
-    v35 = 0uLL;
-    if (v22 && v23)
+    v34 = 0uLL;
+    if (v21 && v22)
     {
-      v36 = a1[4].i64[1];
-      v37 = 0uLL;
-      if (!v36 || !a1[7].i64[0] || !a1[7].i64[1])
+      v35 = a1[4].i64[1];
+      v36 = 0uLL;
+      if (!v35 || !a1[7].i64[0] || !a1[7].i64[1])
       {
         goto LABEL_50;
       }
 
-      v38 = v27 & ~(v27 >> 31);
-      if ((v25 & ~(v25 >> 31)) >= v24)
+      v37 = v26 & ~(v26 >> 31);
+      if ((v24 & ~(v24 >> 31)) >= v23)
+      {
+        v38 = v21 - 1;
+      }
+
+      else
+      {
+        v38 = v24 & ~(v24 >> 31);
+      }
+
+      if (v37 >= v25)
       {
         v39 = v22 - 1;
       }
 
       else
       {
-        v39 = v25 & ~(v25 >> 31);
+        v39 = v37;
       }
 
-      if (v38 >= v26)
-      {
-        v40 = v23 - 1;
-      }
-
-      else
-      {
-        v40 = v38;
-      }
-
-      v48 = a3;
-      *v19.i64 = CI::BitmapSampler::read(a1, (v36 + a1[6].i64[0] * v40), v39, *v19.i64, a3);
-      v35 = 0uLL;
-      a3 = v48;
-      v37 = v19;
-      v22 = a1[5].i64[0];
+      v47 = a3;
+      a2.n128_f64[0] = CI::BitmapSampler::read(a1, (v35 + a1[6].i64[0] * v39), v38, a2.n128_f64[0], a3);
+      v34 = 0uLL;
+      a3 = v47;
+      v36 = a2;
+      v21 = a1[5].i64[0];
     }
 
     else
     {
-      v37 = 0uLL;
+      v36 = 0uLL;
     }
 
-    if (!v22)
+    if (!v21)
     {
 LABEL_60:
-      *&v11 = vmlaq_n_f32(vmulq_n_f32(v37, 1.0 - *a3.f64), v35, *a3.f64).u64[0];
+      *&v11 = vmlaq_n_f32(vmulq_n_f32(v36, 1.0 - *a3.f64), v34, *a3.f64).u64[0];
       return v11;
     }
 
 LABEL_50:
-    v41 = a1[5].i64[1];
-    if (v41)
+    v40 = a1[5].i64[1];
+    if (v40)
     {
-      v42 = a1[4].i64[1];
-      if (v42)
+      v41 = a1[4].i64[1];
+      if (v41)
       {
         if (a1[7].i64[0] && a1[7].i64[1])
         {
-          v43 = v22 - 1;
-          if ((v25 & ~(v25 >> 31)) >= v43)
+          v42 = v21 - 1;
+          if ((v24 & ~(v24 >> 31)) >= v42)
           {
-            v44 = v43;
+            v43 = v42;
           }
 
           else
           {
-            v44 = v25 & ~(v25 >> 31);
+            v43 = v24 & ~(v24 >> 31);
           }
 
-          v45 = v41 - 1;
-          if ((v30 & ~(v30 >> 31)) < v41 - 1)
+          v44 = v40 - 1;
+          if ((v29 & ~(v29 >> 31)) < v40 - 1)
           {
-            v45 = v30 & ~(v30 >> 31);
+            v44 = v29 & ~(v29 >> 31);
           }
 
-          v47 = v37;
-          v49 = LODWORD(a3.f64[0]);
-          *v46.i64 = CI::BitmapSampler::read(a1, (v42 + a1[6].i64[0] * v45), v44, *v19.i64, a3);
-          v37 = v47;
-          LODWORD(a3.f64[0]) = v49;
-          v35 = v46;
+          v46 = v36;
+          v48 = LODWORD(a3.f64[0]);
+          *v45.i64 = CI::BitmapSampler::read(a1, (v41 + a1[6].i64[0] * v44), v43, a2.n128_f64[0], a3);
+          v36 = v46;
+          LODWORD(a3.f64[0]) = v48;
+          v34 = v45;
         }
       }
     }
@@ -944,16 +946,16 @@ LABEL_50:
     goto LABEL_60;
   }
 
-  v19.f32[0] = v19.f32[0] - v20;
-  v31 = a1[4].i64[1];
-  v32 = v27;
-  v33 = a1[6].i64[0];
+  a2.n128_f32[0] = a2.n128_f32[0] - v19;
+  v30 = a1[4].i64[1];
+  v31 = v26;
+  v32 = a1[6].i64[0];
 
-  *&a4 = v20;
-  return CI::BitmapSampler::bilinear_read(a1, (v31 + v33 * v32), (v31 + v33 * v30), v25, v25, *v19.i64, a3.f64[0], a4, a5, a6, a7, a8, a9);
+  *&a4 = v19;
+  return CI::BitmapSampler::bilinear_read(a1, (v30 + v32 * v31), (v30 + v32 * v29), v24, v24, a2, a3, a4, a5, a6, a7, a8, a9);
 }
 
-double CI::BitmapSampler::bilinear_read(float32x4_t *this, int32x2_t *a2, unsigned __int8 *a3, int a4, int a5, double a6, double a7, double a8, double a9, int8x16_t a10, int8x16_t a11, int8x16_t a12, int8x16_t a13)
+double CI::BitmapSampler::bilinear_read(float32x4_t *this, int32x2_t *a2, unsigned __int8 *a3, int a4, int a5, __n128 a6, __n128 a7, double a8, double a9, int8x16_t a10, int8x16_t a11, int8x16_t a12, int8x16_t a13)
 {
   v16 = a3;
   v17 = this[6].i32[2];
@@ -974,29 +976,29 @@ double CI::BitmapSampler::bilinear_read(float32x4_t *this, int32x2_t *a2, unsign
       switch(v17)
       {
         case 257:
-          CI::bilinear_single_component(a2, v16, *&a6, a7, this[10]);
+          CI::bilinear_single_component(a2, v16, a6.n128_f32[0], a7.n128_f64[0], this[10]);
           v19.i64[0] = 0;
           return *v19.i64;
         case 258:
         case 259:
         case 261:
-          v26.f32[0] = 1.0 - *&a6;
-          v26.i32[1] = LODWORD(a6);
-          v26.f32[2] = 1.0 - *&a6;
-          v26.i32[3] = LODWORD(a6);
-          v27.f32[0] = 1.0 - *&a7;
-          v27.i32[1] = LODWORD(a7);
-          LOWORD(a7) = a2->i16[0];
-          WORD1(a7) = *v16;
+          v26.f32[0] = 1.0 - a6.n128_f32[0];
+          v26.i32[1] = a6.n128_u32[0];
+          v26.f32[2] = 1.0 - a6.n128_f32[0];
+          v26.i32[3] = a6.n128_u32[0];
+          v27.f32[0] = 1.0 - a7.n128_f32[0];
+          v27.i32[1] = a7.n128_u32[0];
+          a7.n128_u16[0] = a2->i16[0];
+          a7.n128_u16[1] = *v16;
           v28.i64[0] = 0xFF000000FFLL;
           v28.i64[1] = 0xFF000000FFLL;
-          v29 = vmulq_f32(v26, vmulq_f32(this[10], vaddq_f32(vorrq_s8(vandq_s8(vmovl_u16(vzip1_s8(*&a7, v27)), v28), vdupq_n_s32(0x4B400000u)), vdupq_n_s32(0xCB400000))));
+          v29 = vmulq_f32(v26, vmulq_f32(this[10], vaddq_f32(vorrq_s8(vandq_s8(vmovl_u16(vzip1_s8(a7.n128_u64[0], v27)), v28), vdupq_n_s32(0x4B400000u)), vdupq_n_s32(0xCB400000))));
           goto LABEL_72;
         case 260:
         case 262:
-          *&a9 = 1.0 - *&a6;
+          *&a9 = 1.0 - a6.n128_f32[0];
           *v131.f32 = vdup_lane_s32(*&a9, 0);
-          *&v131.u32[2] = vdup_lane_s32(*&a6, 0);
+          *&v131.u32[2] = vdup_lane_s32(a6.n128_u64[0], 0);
           v132.i32[0] = a2->i32[0];
           v132.i32[1] = *v16;
           v133 = vmovl_u8(v132);
@@ -1005,7 +1007,7 @@ double CI::BitmapSampler::bilinear_read(float32x4_t *this, int32x2_t *a2, unsign
           v136 = vorrq_s8(vmovl_u16(*v133.i8), v135);
           v137 = vorrq_s8(v134, v135);
           v138 = vdupq_n_s32(0xCB400000);
-          v93 = 1.0 - *&a7;
+          v93 = 1.0 - a7.n128_f32[0];
           v94 = vmulq_f32(v131, vmulq_f32(this[12], vaddq_f32(v137, v138)));
           v95 = vmulq_f32(v131, vmulq_f32(this[11], vaddq_f32(v136, v138)));
           goto LABEL_76;
@@ -1017,7 +1019,7 @@ double CI::BitmapSampler::bilinear_read(float32x4_t *this, int32x2_t *a2, unsign
           v201 = v196;
           v198 = v194;
           v199 = v195;
-          v114 = CI::bilinear_three_components(a2, v16, &v198, *&a6, *&a7);
+          v114 = CI::bilinear_three_components(a2, v16, &v198, a6.n128_f32[0], a7.n128_f32[0]);
           goto LABEL_90;
         case 264:
         case 268:
@@ -1026,7 +1028,7 @@ double CI::BitmapSampler::bilinear_read(float32x4_t *this, int32x2_t *a2, unsign
           v33 = this[13];
           v32 = this[14];
           v34 = 1.0;
-          v35 = 1.0 - *&a6;
+          v35 = 1.0 - a6.n128_f32[0];
           v150 = vmovl_u8(*v16);
           v37 = vmovl_high_u16(v150);
           v38 = vmovl_u16(*v150.i8);
@@ -1047,7 +1049,7 @@ double CI::BitmapSampler::bilinear_read(float32x4_t *this, int32x2_t *a2, unsign
           v166 = vorrq_s8(vmovl_u16(*v159.i8), v163);
           v167 = vorrq_s8(v160, v163);
           v168 = vdupq_n_s32(0xCB400000);
-          v169 = vrev64q_s32(vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[13], vaddq_f32(v164, v168)), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(this[14], vaddq_f32(v165, v168)), *&a6)), 1.0 - *&a7), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[15], vaddq_f32(v166, v168)), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(this[16], vaddq_f32(v167, v168)), *&a6)), *&a7)));
+          v169 = vrev64q_s32(vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[13], vaddq_f32(v164, v168)), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(this[14], vaddq_f32(v165, v168)), a6.n128_f32[0])), 1.0 - a7.n128_f32[0]), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[15], vaddq_f32(v166, v168)), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(this[16], vaddq_f32(v167, v168)), a6.n128_f32[0])), a7.n128_f32[0])));
           v19.i64[0] = vextq_s8(v169, v169, 0xCuLL).u64[0];
           return *v19.i64;
         case 267:
@@ -1062,7 +1064,7 @@ double CI::BitmapSampler::bilinear_read(float32x4_t *this, int32x2_t *a2, unsign
           v146 = vorrq_s8(vmovl_u16(*v139.i8), v143);
           v147 = vorrq_s8(v140, v143);
           v148 = vdupq_n_s32(0xCB400000);
-          v149 = vrev64q_s32(vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[13], vaddq_f32(v144, v148)), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(this[14], vaddq_f32(v145, v148)), *&a6)), 1.0 - *&a7), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[15], vaddq_f32(v146, v148)), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(this[16], vaddq_f32(v147, v148)), *&a6)), *&a7)));
+          v149 = vrev64q_s32(vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[13], vaddq_f32(v144, v148)), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(this[14], vaddq_f32(v145, v148)), a6.n128_f32[0])), 1.0 - a7.n128_f32[0]), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[15], vaddq_f32(v146, v148)), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(this[16], vaddq_f32(v147, v148)), a6.n128_f32[0])), a7.n128_f32[0])));
           v19.i64[0] = vextq_s8(v149, v149, 8uLL).u64[0];
           return *v19.i64;
         default:
@@ -1079,7 +1081,7 @@ LABEL_85:
             v177 = vorrq_s8(vmovl_u16(*v170.i8), v174);
             v178 = vorrq_s8(v171, v174);
             v179 = vdupq_n_s32(0xCB400000);
-            v180 = vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[13], vaddq_f32(v175, v179)), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(this[14], vaddq_f32(v176, v179)), *&a6)), 1.0 - *&a7), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[15], vaddq_f32(v177, v179)), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(this[16], vaddq_f32(v178, v179)), *&a6)), *&a7));
+            v180 = vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[13], vaddq_f32(v175, v179)), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(this[14], vaddq_f32(v176, v179)), a6.n128_f32[0])), 1.0 - a7.n128_f32[0]), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(this[15], vaddq_f32(v177, v179)), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(this[16], vaddq_f32(v178, v179)), a6.n128_f32[0])), a7.n128_f32[0]));
             v19.i64[0] = vextq_s8(v180, v180, 4uLL).u64[0];
           }
 
@@ -1100,8 +1102,8 @@ LABEL_85:
             return *v19.i64;
           }
 
-          *&a9 = 1.0 - *&a6;
-          v89 = vdup_lane_s32(*&a6, 0);
+          *&a9 = 1.0 - a6.n128_f32[0];
+          v89 = vdup_lane_s32(a6.n128_u64[0], 0);
           *v90.f32 = vdup_lane_s32(*&a9, 0);
           *&v90.u32[2] = v89;
           v91.f32[0] = ((a2->i32[2 * a4 / 3] >> (10 * (2 * a4 % 3))) & 0x3FF);
@@ -1112,7 +1114,7 @@ LABEL_85:
           v91.f32[1] = ((a2->i32[((2 * a4) | 1) / 3] >> (10 * (((2 * a4) | 1) % 3))) & 0x3FF);
           v91.f32[2] = ((a2->i32[(2 * a4 + 2) / 3] >> (10 * ((2 * a4 + 2) % 3))) & 0x3FF);
           v91.f32[3] = ((a2->i32[(2 * a4 + 3) / 3] >> (10 * ((2 * a4 + 3) % 3))) & 0x3FF);
-          v93 = 1.0 - *&a7;
+          v93 = 1.0 - a7.n128_f32[0];
           v94 = vmulq_f32(v90, vmulq_f32(this[28], v92));
           v95 = vmulq_f32(v90, vmulq_f32(this[27], v91));
 LABEL_76:
@@ -1121,12 +1123,12 @@ LABEL_76:
           goto LABEL_77;
         }
 
-        v181.f32[0] = 1.0 - *&a6;
-        v181.i32[1] = LODWORD(a6);
-        v181.f32[2] = 1.0 - *&a6;
-        v181.i32[3] = LODWORD(a6);
-        v27.f32[0] = 1.0 - *&a7;
-        v27.i32[1] = LODWORD(a7);
+        v181.f32[0] = 1.0 - a6.n128_f32[0];
+        v181.i32[1] = a6.n128_u32[0];
+        v181.f32[2] = 1.0 - a6.n128_f32[0];
+        v181.i32[3] = a6.n128_u32[0];
+        v27.f32[0] = 1.0 - a7.n128_f32[0];
+        v27.i32[1] = a7.n128_u32[0];
         v182.f32[0] = ((a2->i32[a4 / 3] >> (10 * (a4 % 3))) & 0x3FF);
         v182.f32[1] = ((a2->i32[(a4 + 1) / 3] >> (10 * ((a4 + 1) % 3))) & 0x3FF);
         v182.f32[2] = ((*&v16[4 * (a5 / 3)] >> (10 * (a5 % 3))) & 0x3FF);
@@ -1164,12 +1166,12 @@ LABEL_72:
       {
         if (v17 == 774)
         {
-          *&a9 = 1.0 - *&a6;
+          *&a9 = 1.0 - a6.n128_f32[0];
           *v39.f32 = vdup_lane_s32(*&a9, 0);
-          *&v39.u32[2] = vdup_lane_s32(*&a6, 0);
-          v40 = vdup_lane_s32(*&a7, 0);
-          *&a7 = 1.0 - *&a7;
-          *v41.f32 = vdup_lane_s32(*&a7, 0);
+          *&v39.u32[2] = vdup_lane_s32(a6.n128_u64[0], 0);
+          v40 = vdup_lane_s32(a7.n128_u64[0], 0);
+          a7.n128_f32[0] = 1.0 - a7.n128_f32[0];
+          *v41.f32 = vdup_lane_s32(a7.n128_u64[0], 0);
           *&v41.u32[2] = v40;
           *v42.i8 = *a2;
           v42.i64[1] = *v16;
@@ -1191,12 +1193,12 @@ LABEL_72:
         return *v19.i64;
       }
 
-      v55.f32[0] = 1.0 - *&a6;
-      v55.i32[1] = LODWORD(a6);
-      v55.f32[2] = 1.0 - *&a6;
-      v55.i32[3] = LODWORD(a6);
-      v27.f32[0] = 1.0 - *&a7;
-      v27.i32[1] = LODWORD(a7);
+      v55.f32[0] = 1.0 - a6.n128_f32[0];
+      v55.i32[1] = a6.n128_u32[0];
+      v55.f32[2] = 1.0 - a6.n128_f32[0];
+      v55.i32[3] = a6.n128_u32[0];
+      v27.f32[0] = 1.0 - a7.n128_f32[0];
+      v27.i32[1] = a7.n128_u32[0];
       v96.i32[0] = a2->i32[0];
       v96.i32[1] = *v16;
       v56 = vmulq_f32(this[26], vaddq_f32(vorrq_s8(vmovl_u16(vshr_n_u16(v96, 6uLL)), vdupq_n_s32(0x4B400000u)), vdupq_n_s32(0xCB400000)));
@@ -1207,7 +1209,7 @@ LABEL_72:
     {
       if (v17 == 785)
       {
-        v21 = 1.0 - *&a7;
+        v21 = 1.0 - a7.n128_f32[0];
         *a10.i8 = vshl_u32(vdup_n_s32(a2->u32[1]), 0xFFFFFFECFFFFFFF6);
         v58 = *v16;
         v57 = *(v16 + 1);
@@ -1238,9 +1240,9 @@ LABEL_72:
         v69.i32[3] = vshrq_n_u32(v65, 0x1EuLL).i32[3];
         v68.i32[3] = vshrq_n_u32(v66, 0x1EuLL).i32[3];
         v71.i32[3] = vshrq_n_u32(vdupq_n_s32(*a2), 0x1EuLL).i32[3];
-        v72 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v68), xmmword_19CF226A0), *&a6);
-        v73 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v69), xmmword_19CF226A0), 1.0 - *&a6);
-        v24 = vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v71), xmmword_19CF226A0), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v70), xmmword_19CF226A0), *&a6));
+        v72 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v68), xmmword_19CF226A0), a6.n128_f32[0]);
+        v73 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v69), xmmword_19CF226A0), 1.0 - a6.n128_f32[0]);
+        v24 = vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v71), xmmword_19CF226A0), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v70), xmmword_19CF226A0), a6.n128_f32[0]));
         v25 = vaddq_f32(v73, v72);
         goto LABEL_58;
       }
@@ -1248,8 +1250,8 @@ LABEL_72:
       return *v19.i64;
     }
 
-    v97 = 1.0 - *&a6;
-    v21 = 1.0 - *&a7;
+    v97 = 1.0 - a6.n128_f32[0];
+    v21 = 1.0 - a7.n128_f32[0];
     *a10.i8 = vshl_u32(vdup_n_s32(a2->i32[0]), 0xFFFFFFF6FFFFFFECLL);
     *a12.i8 = vshl_u32(vdup_n_s32(a2->u32[1]), 0xFFFFFFF6FFFFFFECLL);
     v99 = *v16;
@@ -1274,9 +1276,9 @@ LABEL_72:
     v107.i32[3] = vshrq_n_u32(v101, 0x1EuLL).i32[3];
     v106.i32[3] = vshrq_n_u32(v102, 0x1EuLL).i32[3];
     v105.i32[3] = vshrq_n_u32(v103, 0x1EuLL).i32[3];
-    v75 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v105), xmmword_19CF226A0), *&a6);
-    v76 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v106), xmmword_19CF226A0), 1.0 - *&a6);
-    v77 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v107), xmmword_19CF226A0), *&a6);
+    v75 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v105), xmmword_19CF226A0), a6.n128_f32[0]);
+    v76 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v106), xmmword_19CF226A0), 1.0 - a6.n128_f32[0]);
+    v77 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v107), xmmword_19CF226A0), a6.n128_f32[0]);
     v78 = vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v108), xmmword_19CF226A0), v97);
     goto LABEL_57;
   }
@@ -1306,7 +1308,7 @@ LABEL_72:
           v201 = v113;
           v198 = v111;
           v199 = v112;
-          v114 = CI::bilinear_three_components(a2, v16, &v198, *&a6, *&a7);
+          v114 = CI::bilinear_three_components(a2, v16, &v198, a6.n128_f32[0], a7.n128_f32[0]);
 LABEL_90:
           *v19.i64 = v114;
           return *v19.i64;
@@ -1319,12 +1321,12 @@ LABEL_90:
       }
 
 LABEL_63:
-      v55.f32[0] = 1.0 - *&a6;
-      v55.i32[1] = LODWORD(a6);
-      v55.f32[2] = 1.0 - *&a6;
-      v55.i32[3] = LODWORD(a6);
-      v27.f32[0] = 1.0 - *&a7;
-      v27.i32[1] = LODWORD(a7);
+      v55.f32[0] = 1.0 - a6.n128_f32[0];
+      v55.i32[1] = a6.n128_u32[0];
+      v55.f32[2] = 1.0 - a6.n128_f32[0];
+      v55.i32[3] = a6.n128_u32[0];
+      v27.f32[0] = 1.0 - a7.n128_f32[0];
+      v27.i32[1] = a7.n128_u32[0];
       v115.i32[0] = a2->i32[0];
       v115.i32[1] = *v16;
       v56 = vcvtq_f32_f16(v115);
@@ -1337,10 +1339,10 @@ LABEL_71:
     {
       if (v17 != 2053)
       {
-        *&a9 = 1.0 - *&a6;
+        *&a9 = 1.0 - a6.n128_f32[0];
         *v51.f32 = vdup_lane_s32(*&a9, 0);
-        *&v51.u32[2] = vdup_lane_s32(*&a6, 0);
-        v52 = 1.0 - *&a7;
+        *&v51.u32[2] = vdup_lane_s32(a6.n128_u64[0], 0);
+        v52 = 1.0 - a7.n128_f32[0];
         v53 = vcvtq_f32_f16(*a2);
         v54 = vcvtq_f32_f16(*v16);
 LABEL_74:
@@ -1349,7 +1351,7 @@ LABEL_74:
         v130 = vadd_f32(*v128.i8, *&vextq_s8(v128, v128, 8uLL));
         v123 = vmul_n_f32(vadd_f32(*v129.i8, *&vextq_s8(v129, v129, 8uLL)), v52);
 LABEL_77:
-        v124 = vmul_n_f32(v130, *&a7);
+        v124 = vmul_n_f32(v130, a7.n128_f32[0]);
         goto LABEL_78;
       }
 
@@ -1358,7 +1360,7 @@ LABEL_77:
 
     if (v17 == 2055)
     {
-      v114 = CI::bilinear_three_components(a2, v16, *&a6, *&a7);
+      v114 = CI::bilinear_three_components(a2, v16, a6.n128_f32[0], a7.n128_f32[0]);
       goto LABEL_90;
     }
 
@@ -1367,11 +1369,11 @@ LABEL_77:
       return *v19.i64;
     }
 
-    v74 = 1.0 - *&a6;
-    v21 = 1.0 - *&a7;
-    v75 = vmulq_n_f32(vcvt_hight_f32_f16(*v16), *&a6);
-    v76 = vmulq_n_f32(vcvtq_f32_f16(*v16), 1.0 - *&a6);
-    v77 = vmulq_n_f32(vcvt_hight_f32_f16(*a2->i8), *&a6);
+    v74 = 1.0 - a6.n128_f32[0];
+    v21 = 1.0 - a7.n128_f32[0];
+    v75 = vmulq_n_f32(vcvt_hight_f32_f16(*v16), a6.n128_f32[0]);
+    v76 = vmulq_n_f32(vcvtq_f32_f16(*v16), 1.0 - a6.n128_f32[0]);
+    v77 = vmulq_n_f32(vcvt_hight_f32_f16(*a2->i8), a6.n128_f32[0]);
     v78 = vmulq_n_f32(vcvtq_f32_f16(*a2), v74);
 LABEL_57:
     v24 = vaddq_f32(v78, v77);
@@ -1409,7 +1411,7 @@ LABEL_57:
         v192.i32[3] = vshrq_n_u32(v186, 0x1EuLL).i32[3];
         v191.i32[3] = vshrq_n_u32(v187, 0x1EuLL).i32[3];
         v190.i32[3] = vshrq_n_u32(v188, 0x1EuLL).i32[3];
-        v114 = srgb_to_linear(vmulq_f32(vaddq_f32(vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v193), xmmword_19CF226A0), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v192), xmmword_19CF226A0), *&a6)), 1.0 - *&a7), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v191), xmmword_19CF226A0), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v190), xmmword_19CF226A0), *&a6)), *&a7)), vdupq_n_s32(0xBEC0300C)), vdupq_n_s32(0x40006060u)));
+        v114 = srgb_to_linear(vmulq_f32(vaddq_f32(vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v193), xmmword_19CF226A0), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v192), xmmword_19CF226A0), a6.n128_f32[0])), 1.0 - a7.n128_f32[0]), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v191), xmmword_19CF226A0), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v190), xmmword_19CF226A0), a6.n128_f32[0])), a7.n128_f32[0])), vdupq_n_s32(0xBEC0300C)), vdupq_n_s32(0x40006060u)));
         goto LABEL_90;
       }
 
@@ -1441,7 +1443,7 @@ LABEL_57:
           v88.i32[3] = vshrq_n_u32(v82, 0x1EuLL).i32[3];
           v87.i32[3] = vshrq_n_u32(v83, 0x1EuLL).i32[3];
           v86.i32[3] = vshrq_n_u32(v84, 0x1EuLL).i32[3];
-          v19.i64[0] = vmulq_f32(vaddq_f32(vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v19), xmmword_19CF226A0), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v88), xmmword_19CF226A0), *&a6)), 1.0 - *&a7), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v87), xmmword_19CF226A0), 1.0 - *&a6), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v86), xmmword_19CF226A0), *&a6)), *&a7)), vdupq_n_s32(0xBEC0300C)), vdupq_n_s32(0x40006060u)).u64[0];
+          v19.i64[0] = vmulq_f32(vaddq_f32(vaddq_f32(vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v19), xmmword_19CF226A0), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v88), xmmword_19CF226A0), a6.n128_f32[0])), 1.0 - a7.n128_f32[0]), vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v87), xmmword_19CF226A0), 1.0 - a6.n128_f32[0]), vmulq_n_f32(vmulq_f32(vcvtq_f32_u32(v86), xmmword_19CF226A0), a6.n128_f32[0])), a7.n128_f32[0])), vdupq_n_s32(0xBEC0300C)), vdupq_n_s32(0x40006060u)).u64[0];
         }
 
         return *v19.i64;
@@ -1468,7 +1470,7 @@ LABEL_16:
       v33 = this[21];
       v32 = this[22];
       v34 = 1.0;
-      v35 = 1.0 - *&a6;
+      v35 = 1.0 - a6.n128_f32[0];
       v36 = *a2->i8;
       v37 = vmovl_high_u16(*v16);
       v38 = vmovl_u16(*v16);
@@ -1480,21 +1482,21 @@ LABEL_81:
       v155 = vorrq_s8(v38, v152);
       v156 = vorrq_s8(v37, v152);
       v157 = vdupq_n_s32(0xCB400000);
-      v158 = v34 - *&a7;
-      v109 = vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(v31, vaddq_f32(v155, v157)), v35), vmulq_n_f32(vmulq_f32(v30, vaddq_f32(v156, v157)), *&a6)), *&a7);
-      v110 = vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(v33, vaddq_f32(v153, v157)), v35), vmulq_n_f32(vmulq_f32(v32, vaddq_f32(v154, v157)), *&a6)), v158);
+      v158 = v34 - a7.n128_f32[0];
+      v109 = vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(v31, vaddq_f32(v155, v157)), v35), vmulq_n_f32(vmulq_f32(v30, vaddq_f32(v156, v157)), a6.n128_f32[0])), a7.n128_f32[0]);
+      v110 = vmulq_n_f32(vaddq_f32(vmulq_n_f32(vmulq_f32(v33, vaddq_f32(v153, v157)), v35), vmulq_n_f32(vmulq_f32(v32, vaddq_f32(v154, v157)), a6.n128_f32[0])), v158);
       goto LABEL_82;
     }
 
     if (v17 == 3333)
     {
 LABEL_70:
-      v55.f32[0] = 1.0 - *&a6;
-      v55.i32[1] = LODWORD(a6);
-      v55.f32[2] = 1.0 - *&a6;
-      v55.i32[3] = LODWORD(a6);
-      v27.f32[0] = 1.0 - *&a7;
-      v27.i32[1] = LODWORD(a7);
+      v55.f32[0] = 1.0 - a6.n128_f32[0];
+      v55.i32[1] = a6.n128_u32[0];
+      v55.f32[2] = 1.0 - a6.n128_f32[0];
+      v55.i32[3] = a6.n128_u32[0];
+      v27.f32[0] = 1.0 - a7.n128_f32[0];
+      v27.i32[1] = a7.n128_u32[0];
       v125.i32[0] = a2->i32[0];
       v125.i32[1] = *v16;
       v56 = vmulq_f32(this[18], vaddq_f32(vorrq_s8(vmovl_u16(v125), vdupq_n_s32(0x4B400000u)), vdupq_n_s32(0xCB400000)));
@@ -1507,17 +1509,17 @@ LABEL_70:
     }
 
 LABEL_69:
-    *a11.i32 = 1.0 - *&a6;
+    *a11.i32 = 1.0 - a6.n128_f32[0];
     *v116.f32 = vdup_lane_s32(*a11.i8, 0);
-    *&v116.u32[2] = vdup_lane_s32(*&a6, 0);
+    *&v116.u32[2] = vdup_lane_s32(a6.n128_u64[0], 0);
     v117 = vdupq_n_s32(0x4B400000u);
     v118 = vorrq_s8(vmovl_u16(*a2), v117);
     v119 = vorrq_s8(vmovl_u16(*v16), v117);
     v120 = vdupq_n_s32(0xCB400000);
     v121 = vmulq_f32(v116, vmulq_f32(this[20], vaddq_f32(v119, v120)));
     v122 = vmulq_f32(v116, vmulq_f32(this[19], vaddq_f32(v118, v120)));
-    v123 = vmul_n_f32(vadd_f32(*v122.i8, *&vextq_s8(v122, v122, 8uLL)), 1.0 - *&a7);
-    v124 = vmul_n_f32(vadd_f32(*v121.i8, *&vextq_s8(v121, v121, 8uLL)), *&a7);
+    v123 = vmul_n_f32(vadd_f32(*v122.i8, *&vextq_s8(v122, v122, 8uLL)), 1.0 - a7.n128_f32[0]);
+    v124 = vmul_n_f32(vadd_f32(*v121.i8, *&vextq_s8(v121, v121, 8uLL)), a7.n128_f32[0]);
 LABEL_78:
     *v19.i8 = vadd_f32(v123, v124);
     return *v19.i64;
@@ -1530,10 +1532,10 @@ LABEL_78:
       if (v17 == 2308)
       {
 LABEL_73:
-        *&a9 = 1.0 - *&a6;
+        *&a9 = 1.0 - a6.n128_f32[0];
         *v51.f32 = vdup_lane_s32(*&a9, 0);
-        *&v51.u32[2] = vdup_lane_s32(*&a6, 0);
-        v52 = 1.0 - *&a7;
+        *&v51.u32[2] = vdup_lane_s32(a6.n128_u64[0], 0);
+        v52 = 1.0 - a7.n128_f32[0];
         v53 = *a2->i8;
         v54 = *v16;
         goto LABEL_74;
@@ -1545,12 +1547,12 @@ LABEL_73:
       }
     }
 
-    v55.f32[0] = 1.0 - *&a6;
-    v55.i32[1] = LODWORD(a6);
-    v55.f32[2] = 1.0 - *&a6;
-    v55.i32[3] = LODWORD(a6);
-    v27.f32[0] = 1.0 - *&a7;
-    v27.i32[1] = LODWORD(a7);
+    v55.f32[0] = 1.0 - a6.n128_f32[0];
+    v55.i32[1] = a6.n128_u32[0];
+    v55.f32[2] = 1.0 - a6.n128_f32[0];
+    v55.i32[3] = a6.n128_u32[0];
+    v27.f32[0] = 1.0 - a7.n128_f32[0];
+    v27.i32[1] = a7.n128_u32[0];
     *v56.f32 = *a2;
     v56.i64[1] = *v16;
     goto LABEL_71;
@@ -1564,13 +1566,13 @@ LABEL_73:
 
   if (((1 << v20) & 0xCC) != 0)
   {
-    v21 = 1.0 - *&a7;
-    v22 = vmulq_n_f32(*(v16 + 1), *&a6);
-    v23 = vmulq_n_f32(*v16, 1.0 - *&a6);
-    v24 = vaddq_f32(vmulq_n_f32(*a2->i8, 1.0 - *&a6), vmulq_n_f32(*a2[2].i8, *&a6));
+    v21 = 1.0 - a7.n128_f32[0];
+    v22 = vmulq_n_f32(*(v16 + 1), a6.n128_f32[0]);
+    v23 = vmulq_n_f32(*v16, 1.0 - a6.n128_f32[0]);
+    v24 = vaddq_f32(vmulq_n_f32(*a2->i8, 1.0 - a6.n128_f32[0]), vmulq_n_f32(*a2[2].i8, a6.n128_f32[0]));
     v25 = vaddq_f32(v23, v22);
 LABEL_58:
-    v109 = vmulq_n_f32(v25, *&a7);
+    v109 = vmulq_n_f32(v25, a7.n128_f32[0]);
     v110 = vmulq_n_f32(v24, v21);
 LABEL_82:
     v19.i64[0] = vaddq_f32(v110, v109).u64[0];
@@ -1584,7 +1586,7 @@ LABEL_82:
 
   if (v20 == 1)
   {
-    v114 = CI::bilinear_three_components(a2, v16, *&a6, *&a7);
+    v114 = CI::bilinear_three_components(a2, v16, a6.n128_f32[0], a7.n128_f32[0]);
     goto LABEL_90;
   }
 
@@ -2047,45 +2049,45 @@ double CI::sw_fwidth(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a4 + 80 * *(*(a1 + 5) + 8);
   v5 = *CI::getDC(a1);
-  v6 = vadd_f32(v5, 1065353216);
+  v6.n128_u64[0] = vadd_f32(v5, 1065353216);
   LODWORD(v7) = *(v4 + 24);
   v8.i32[0] = *(v4 + 36);
-  *v9.i32 = vmuls_lane_f32(*(v4 + 32), v6, 1);
-  *&v10 = *v9.i32 + (v6.f32[0] * *(v4 + 28));
-  v6.f32[0] = *&v7 + (vmuls_lane_f32(*(v4 + 20), v6, 1) + (v6.f32[0] * *(v4 + 16)));
+  *v9.i32 = vmuls_lane_f32(*(v4 + 32), v6.n128_u64[0], 1);
+  *&v10 = *v9.i32 + (v6.n128_f32[0] * *(v4 + 28));
+  v6.n128_f32[0] = *&v7 + (vmuls_lane_f32(*(v4 + 20), v6.n128_u64[0], 1) + (v6.n128_f32[0] * *(v4 + 16)));
   *v11.f64 = *v8.i32 + *&v10;
-  v6.f32[1] = *v8.i32 + *&v10;
-  *v14.i64 = CI::BitmapSampler::read(*(v4 + 8), *&v6, v11, v7, v10, v9, v8, v12, v13);
+  v6.n128_f32[1] = *v8.i32 + *&v10;
+  v14.n128_f64[0] = CI::BitmapSampler::read(*(v4 + 8), v6, v11, v7, v10, v9, v8, v12, v13);
   v43 = v14;
-  *v14.f32 = vadd_f32(v5, 0x80000000BF800000);
+  v14.n128_u64[0] = vadd_f32(v5, 0x80000000BF800000);
   LODWORD(v15) = *(v4 + 24);
   v16.i32[0] = *(v4 + 36);
-  *v17.i32 = vmuls_lane_f32(*(v4 + 32), *v14.f32, 1);
-  *&v18 = *v17.i32 + (v14.f32[0] * *(v4 + 28));
-  v14.f32[0] = *&v15 + (vmuls_lane_f32(*(v4 + 20), *v14.f32, 1) + (v14.f32[0] * *(v4 + 16)));
+  *v17.i32 = vmuls_lane_f32(*(v4 + 32), v14.n128_u64[0], 1);
+  *&v18 = *v17.i32 + (v14.n128_f32[0] * *(v4 + 28));
+  v14.n128_f32[0] = *&v15 + (vmuls_lane_f32(*(v4 + 20), v14.n128_u64[0], 1) + (v14.n128_f32[0] * *(v4 + 16)));
   *v19.f64 = *v16.i32 + *&v18;
-  v14.f32[1] = *v16.i32 + *&v18;
-  *v22.i64 = CI::BitmapSampler::read(*(v4 + 8), *v14.i64, v19, v15, v18, v17, v16, v20, v21);
+  v14.n128_f32[1] = *v16.i32 + *&v18;
+  v22.n128_f64[0] = CI::BitmapSampler::read(*(v4 + 8), v14, v19, v15, v18, v17, v16, v20, v21);
   v42 = v22;
-  *v22.f32 = vadd_f32(v5, 0x3F80000000000000);
+  v22.n128_u64[0] = vadd_f32(v5, 0x3F80000000000000);
   LODWORD(v23) = *(v4 + 24);
   v24.i32[0] = *(v4 + 36);
-  *v25.i32 = vmuls_lane_f32(*(v4 + 32), *v22.f32, 1);
-  *&v26 = *v25.i32 + (v22.f32[0] * *(v4 + 28));
-  v22.f32[0] = *&v23 + (vmuls_lane_f32(*(v4 + 20), *v22.f32, 1) + (v22.f32[0] * *(v4 + 16)));
+  *v25.i32 = vmuls_lane_f32(*(v4 + 32), v22.n128_u64[0], 1);
+  *&v26 = *v25.i32 + (v22.n128_f32[0] * *(v4 + 28));
+  v22.n128_f32[0] = *&v23 + (vmuls_lane_f32(*(v4 + 20), v22.n128_u64[0], 1) + (v22.n128_f32[0] * *(v4 + 16)));
   *v27.f64 = *v24.i32 + *&v26;
-  v22.f32[1] = *v24.i32 + *&v26;
-  *v30.i64 = CI::BitmapSampler::read(*(v4 + 8), *v22.i64, v27, v23, v26, v25, v24, v28, v29);
+  v22.n128_f32[1] = *v24.i32 + *&v26;
+  v30.n128_f64[0] = CI::BitmapSampler::read(*(v4 + 8), v22, v27, v23, v26, v25, v24, v28, v29);
   v41 = v30;
-  *v30.f32 = vadd_f32(v5, 0xBF80000080000000);
+  v30.n128_u64[0] = vadd_f32(v5, 0xBF80000080000000);
   LODWORD(v31) = *(v4 + 24);
   v32.i32[0] = *(v4 + 36);
-  *v33.i32 = vmuls_lane_f32(*(v4 + 32), *v30.f32, 1);
-  *&v34 = *v33.i32 + (v30.f32[0] * *(v4 + 28));
-  v30.f32[0] = *&v31 + (vmuls_lane_f32(*(v4 + 20), *v30.f32, 1) + (v30.f32[0] * *(v4 + 16)));
+  *v33.i32 = vmuls_lane_f32(*(v4 + 32), v30.n128_u64[0], 1);
+  *&v34 = *v33.i32 + (v30.n128_f32[0] * *(v4 + 28));
+  v30.n128_f32[0] = *&v31 + (vmuls_lane_f32(*(v4 + 20), v30.n128_u64[0], 1) + (v30.n128_f32[0] * *(v4 + 16)));
   *v35.f64 = *v32.i32 + *&v34;
-  v30.f32[1] = *v32.i32 + *&v34;
-  *v38.i64 = CI::BitmapSampler::read(*(v4 + 8), *v30.i64, v35, v31, v34, v33, v32, v36, v37);
+  v30.n128_f32[1] = *v32.i32 + *&v34;
+  *v38.i64 = CI::BitmapSampler::read(*(v4 + 8), v30, v35, v31, v34, v33, v32, v36, v37);
   v39.i64[0] = 0x3F0000003F000000;
   v39.i64[1] = 0x3F0000003F000000;
   *&result = vaddq_f32(vabsq_f32(vmulq_f32(vsubq_f32(v43, v42), v39)), vabsq_f32(vmulq_f32(vsubq_f32(v41, v38), v39))).u64[0];
@@ -2098,45 +2100,45 @@ uint64_t CI::sw_dfdxdfdyChannel(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v5 = a4 + 80 * *(v4 + 8);
   v6 = *(a2 + (*(v4 + 32) << 6));
   v7 = *CI::getDC(a1);
-  v8 = vadd_f32(v7, 1065353216);
+  v8.n128_u64[0] = vadd_f32(v7, 1065353216);
   LODWORD(v9) = *(v5 + 24);
   v10.i32[0] = *(v5 + 36);
-  *v11.i32 = vmuls_lane_f32(*(v5 + 32), v8, 1);
-  *&v12 = *v11.i32 + (v8.f32[0] * *(v5 + 28));
-  v8.f32[0] = *&v9 + (vmuls_lane_f32(*(v5 + 20), v8, 1) + (v8.f32[0] * *(v5 + 16)));
+  *v11.i32 = vmuls_lane_f32(*(v5 + 32), v8.n128_u64[0], 1);
+  *&v12 = *v11.i32 + (v8.n128_f32[0] * *(v5 + 28));
+  v8.n128_f32[0] = *&v9 + (vmuls_lane_f32(*(v5 + 20), v8.n128_u64[0], 1) + (v8.n128_f32[0] * *(v5 + 16)));
   *v13.f64 = *v10.i32 + *&v12;
-  v8.f32[1] = *v10.i32 + *&v12;
-  *&v16 = CI::BitmapSampler::read(*(v5 + 8), *&v8, v13, v9, v12, v11, v10, v14, v15);
+  v8.n128_f32[1] = *v10.i32 + *&v12;
+  v16.n128_f64[0] = CI::BitmapSampler::read(*(v5 + 8), v8, v13, v9, v12, v11, v10, v14, v15);
   v48 = v16;
-  *&v16 = vadd_f32(v7, 0x80000000BF800000);
+  v16.n128_u64[0] = vadd_f32(v7, 0x80000000BF800000);
   LODWORD(v17) = *(v5 + 24);
   v18.i32[0] = *(v5 + 36);
-  *v19.i32 = vmuls_lane_f32(*(v5 + 32), *&v16, 1);
-  *&v20 = *v19.i32 + (*&v16 * *(v5 + 28));
-  *&v16 = *&v17 + (vmuls_lane_f32(*(v5 + 20), *&v16, 1) + (*&v16 * *(v5 + 16)));
+  *v19.i32 = vmuls_lane_f32(*(v5 + 32), v16.n128_u64[0], 1);
+  *&v20 = *v19.i32 + (v16.n128_f32[0] * *(v5 + 28));
+  v16.n128_f32[0] = *&v17 + (vmuls_lane_f32(*(v5 + 20), v16.n128_u64[0], 1) + (v16.n128_f32[0] * *(v5 + 16)));
   *v21.f64 = *v18.i32 + *&v20;
-  *(&v16 + 1) = *v18.i32 + *&v20;
-  *&v24 = CI::BitmapSampler::read(*(v5 + 8), *&v16, v21, v17, v20, v19, v18, v22, v23);
+  v16.n128_f32[1] = *v18.i32 + *&v20;
+  v24.n128_f64[0] = CI::BitmapSampler::read(*(v5 + 8), v16, v21, v17, v20, v19, v18, v22, v23);
   v47 = v24;
-  *&v24 = vadd_f32(v7, 0x3F80000000000000);
+  v24.n128_u64[0] = vadd_f32(v7, 0x3F80000000000000);
   LODWORD(v25) = *(v5 + 24);
   v26.i32[0] = *(v5 + 36);
-  *v27.i32 = vmuls_lane_f32(*(v5 + 32), *&v24, 1);
-  *&v28 = *v27.i32 + (*&v24 * *(v5 + 28));
-  *&v24 = *&v25 + (vmuls_lane_f32(*(v5 + 20), *&v24, 1) + (*&v24 * *(v5 + 16)));
+  *v27.i32 = vmuls_lane_f32(*(v5 + 32), v24.n128_u64[0], 1);
+  *&v28 = *v27.i32 + (v24.n128_f32[0] * *(v5 + 28));
+  v24.n128_f32[0] = *&v25 + (vmuls_lane_f32(*(v5 + 20), v24.n128_u64[0], 1) + (v24.n128_f32[0] * *(v5 + 16)));
   *v29.f64 = *v26.i32 + *&v28;
-  *(&v24 + 1) = *v26.i32 + *&v28;
-  *&v32 = CI::BitmapSampler::read(*(v5 + 8), *&v24, v29, v25, v28, v27, v26, v30, v31);
+  v24.n128_f32[1] = *v26.i32 + *&v28;
+  v32.n128_f64[0] = CI::BitmapSampler::read(*(v5 + 8), v24, v29, v25, v28, v27, v26, v30, v31);
   v46 = v32;
-  *&v32 = vadd_f32(v7, 0xBF80000080000000);
+  v32.n128_u64[0] = vadd_f32(v7, 0xBF80000080000000);
   LODWORD(v33) = *(v5 + 24);
   v34.i32[0] = *(v5 + 36);
-  *v35.i32 = vmuls_lane_f32(*(v5 + 32), *&v32, 1);
-  *&v36 = *v35.i32 + (*&v32 * *(v5 + 28));
-  *&v32 = *&v33 + (vmuls_lane_f32(*(v5 + 20), *&v32, 1) + (*&v32 * *(v5 + 16)));
+  *v35.i32 = vmuls_lane_f32(*(v5 + 32), v32.n128_u64[0], 1);
+  *&v36 = *v35.i32 + (v32.n128_f32[0] * *(v5 + 28));
+  v32.n128_f32[0] = *&v33 + (vmuls_lane_f32(*(v5 + 20), v32.n128_u64[0], 1) + (v32.n128_f32[0] * *(v5 + 16)));
   *v37.f64 = *v34.i32 + *&v36;
-  *(&v32 + 1) = *v34.i32 + *&v36;
-  *&v40 = CI::BitmapSampler::read(*(v5 + 8), *&v32, v37, v33, v36, v35, v34, v38, v39);
+  v32.n128_f32[1] = *v34.i32 + *&v36;
+  *&v40 = CI::BitmapSampler::read(*(v5 + 8), v32, v37, v33, v36, v35, v34, v38, v39);
   if (v6 >= 4)
   {
     CI::sw_dfdxdfdyChannel();
@@ -2195,26 +2197,27 @@ double CI::sw_glassHighlight(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v19 = a4 + 80 * v5;
-  v86 = *v9;
-  v87 = *v13;
+  v90 = *v9;
+  v91 = *v13;
   v20 = *(a2 + (v14 << 6));
-  v85 = *v18;
+  v89 = *v18;
   DC = CI::getDC(a1);
   *&v22 = *DC;
-  v82 = v22;
+  *v86[0].i8 = v22;
   v23 = CI::getDC(DC);
   LODWORD(v24) = *(v19 + 24);
   v25.i32[0] = *(v19 + 36);
   *v26.i32 = vmuls_lane_f32(*(v19 + 32), *v23, 1);
   *&v27 = *v26.i32 + (COERCE_FLOAT(*v23) * *(v19 + 28));
-  *&v28 = *&v24 + (vmuls_lane_f32(*(v19 + 20), *v23, 1) + (COERCE_FLOAT(*v23) * *(v19 + 16)));
+  v28.n128_f32[0] = *&v24 + (vmuls_lane_f32(*(v19 + 20), *v23, 1) + (COERCE_FLOAT(*v23) * *(v19 + 16)));
   *v29.f64 = *v25.i32 + *&v27;
-  *(&v28 + 1) = *v25.i32 + *&v27;
+  v28.n128_f32[1] = *v25.i32 + *&v27;
   *v32.i64 = CI::BitmapSampler::read(*(v19 + 8), v28, v29, v24, v27, v26, v25, v30, v31);
-  _Q4 = v87;
-  HIDWORD(v34) = DWORD1(v86);
-  _D2 = COERCE_DOUBLE(vext_s8(*v87.i8, *&vextq_s8(_Q4, _Q4, 8uLL), 4uLL));
-  v84 = *&_D2;
+  _Q4 = v91;
+  HIDWORD(v34) = DWORD1(v90);
+  _D2 = COERCE_DOUBLE(vext_s8(*v91.i8, *&vextq_s8(_Q4, _Q4, 8uLL), 4uLL));
+  v88 = *&_D2;
+  v36 = *&v91.i32[3];
   *&_D2 = *v32.i32 - v20;
   __asm { FMLS            S12, S2, V4.S[3] }
 
@@ -2222,54 +2225,61 @@ double CI::sw_glassHighlight(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   *v32.i8 = vext_s8(*v32.i8, *&_Q1.f64[0], 4uLL);
   __asm { FMOV            V1.2S, #-1.0 }
 
-  v42 = vneg_f32(vadd_f32(vadd_f32(*v32.i8, *v32.i8), *&_Q1.f64[0]));
-  v83 = (1.0 - *v87.i32) + ((1.0 - fmaxf(fminf(_S12 / *&v86, 1.0), 0.0)) * *v87.i32);
+  v43 = vneg_f32(vadd_f32(vadd_f32(*v32.i8, *v32.i8), *&_Q1.f64[0]));
+  v87 = (1.0 - *v91.i32) + ((1.0 - fmaxf(fminf(_S12 / *&v90, 1.0), 0.0)) * *v91.i32);
   v32.i32[0] = *(v19 + 16);
   LODWORD(_Q1.f64[0]) = *(v19 + 20);
-  v43.i64[1] = *(&v82 + 1);
+  v44.u64[1] = v86[1];
   LODWORD(v34) = *(v19 + 24);
   _Q4.i32[0] = *(v19 + 28);
-  v44.f32[0] = *&v34 + (vmuls_lane_f32(*_Q1.f64, *&v82, 1) + (*&v82 * *v32.i32));
+  *&v45 = *&v34 + (vmuls_lane_f32(*_Q1.f64, v86[0], 1) + (*v86[0].i32 * *v32.i32));
   LODWORD(_D2) = *(v19 + 32);
-  v45.i32[0] = *(v19 + 36);
-  v44.f32[1] = *v45.i32 + (vmuls_lane_f32(*&_D2, *&v82, 1) + (*&v82 * *_Q4.i32));
-  v46 = vadd_f32(*&v82, 1065353216);
-  *v43.i32 = *&v34 + (vmuls_lane_f32(*_Q1.f64, v46, 1) + (v46.f32[0] * *v32.i32));
-  *&v43.i32[1] = *v45.i32 + (vmuls_lane_f32(*&_D2, v46, 1) + (v46.f32[0] * *_Q4.i32));
-  v47 = vsub_f32(*v43.i8, v44);
-  *v48.i8 = vadd_f32(*&v82, 0x3F80000000000000);
-  *v32.i32 = *&v34 + (vmuls_lane_f32(*_Q1.f64, *v48.i8, 1) + (*v48.i32 * *v32.i32));
-  *_Q1.f64 = *v45.i32 + (vmuls_lane_f32(*&_D2, *v48.i8, 1) + (*v48.i32 * *_Q4.i32));
+  v46.i32[0] = *(v19 + 36);
+  *(&v45 + 1) = *v46.i32 + (vmuls_lane_f32(*&_D2, v86[0], 1) + (*v86[0].i32 * *_Q4.i32));
+  v47 = vadd_f32(v86[0], 1065353216);
+  *v44.i32 = *&v34 + (vmuls_lane_f32(*_Q1.f64, v47, 1) + (v47.f32[0] * *v32.i32));
+  *&v44.i32[1] = *v46.i32 + (vmuls_lane_f32(*&_D2, v47, 1) + (v47.f32[0] * *_Q4.i32));
+  v48 = vsub_f32(*v44.i8, *&v45);
+  *v49.i8 = vadd_f32(v86[0], 0x3F80000000000000);
+  *v32.i32 = *&v34 + (vmuls_lane_f32(*_Q1.f64, *v49.i8, 1) + (*v49.i32 * *v32.i32));
+  *_Q1.f64 = *v46.i32 + (vmuls_lane_f32(*&_D2, *v49.i8, 1) + (*v49.i32 * *_Q4.i32));
   v32.i32[1] = LODWORD(_Q1.f64[0]);
-  *v87.i8 = v44;
-  v49 = vsub_f32(*v32.i8, v44);
-  *&v82 = CI::BitmapSampler::read(*(v19 + 8), COERCE_DOUBLE(vsub_f32(v44, v47)), _Q1, _D2, v34, _Q4, v45, v48, v43);
-  v81 = CI::BitmapSampler::read(*(v19 + 8), COERCE_DOUBLE(vadd_f32(*v87.i8, v47)), v50, v51, v52, v53, v54, v55, v56);
-  v80 = CI::BitmapSampler::read(*(v19 + 8), COERCE_DOUBLE(vsub_f32(*v87.i8, v49)), v57, v58, v59, v60, v61, v62, v63);
-  v71 = vaddv_f32(vabs_f32(vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(vsub_f32(vzip1_s32(*&v81, COERCE_INT32X2_T(CI::BitmapSampler::read(*(v19 + 8), COERCE_DOUBLE(vadd_f32(*v87.i8, v49)), v64, v65, v66, v67, v68, v69, v70))), vzip1_s32(*&v82, *&v80))), *&v87.i32[3] * 0.5))));
-  v72 = 2.0;
-  if (v71 <= 2.0)
+  v92 = v45;
+  v50 = vsub_f32(*v32.i8, *&v45);
+  *v32.i8 = vsub_f32(*&v45, v48);
+  v86[0] = COERCE_INT32X2_T(CI::BitmapSampler::read(*(v19 + 8), v32, _Q1, _D2, v34, _Q4, v46, v49, v44));
+  v51.n128_u64[1] = *(&v92 + 1);
+  v51.n128_u64[0] = vadd_f32(*&v92, v48);
+  v85 = CI::BitmapSampler::read(*(v19 + 8), v51, v52, v53, v54, v55, v56, v57, v58);
+  v59.n128_u64[1] = *(&v92 + 1);
+  v59.n128_u64[0] = vsub_f32(*&v92, v50);
+  v84 = CI::BitmapSampler::read(*(v19 + 8), v59, v60, v61, v62, v63, v64, v65, v66);
+  v67.n128_u64[1] = *(&v92 + 1);
+  v67.n128_u64[0] = vadd_f32(*&v92, v50);
+  v75 = vaddv_f32(vabs_f32(vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(vsub_f32(vzip1_s32(*&v85, COERCE_INT32X2_T(CI::BitmapSampler::read(*(v19 + 8), v67, v68, v69, v70, v71, v72, v73, v74))), vzip1_s32(v86[0], *&v84))), v36 * 0.5))));
+  v76 = 2.0;
+  if (v75 <= 2.0)
   {
-    v72 = v71;
+    v76 = v75;
   }
 
-  if (v71 >= 0.0001)
+  if (v75 >= 0.0001)
   {
-    v73 = v72;
+    v77 = v76;
   }
 
   else
   {
-    v73 = 0.0001;
+    v77 = 0.0001;
   }
 
-  v74 = v73 * 0.8333333;
-  _V4.S[3] = HIDWORD(v86);
-  v76 = fmaxf(fminf((vaddv_f32(vmul_f32(v84, v42)) - *(&v86 + 2)) / fmaxf(1.0 - *(&v86 + 2), 0.0001), 1.0), 0.0);
-  _S3 = 1.0 - v76;
+  v78 = v77 * 0.8333333;
+  _V4.S[3] = HIDWORD(v90);
+  v80 = fmaxf(fminf((vaddv_f32(vmul_f32(v88, v43)) - *(&v90 + 2)) / fmaxf(1.0 - *(&v90 + 2), 0.0001), 1.0), 0.0);
+  _S3 = 1.0 - v80;
   __asm { FMLA            S10, S3, V4.S[3] }
 
-  *&result = vmulq_n_f32(v85, v83 * ((v76 / fmaxf(_S10, 0.0001)) * (fmaxf(fminf(((*&v86 - _S12) / v74) + 0.5, 1.0), 0.0) * fmaxf(fminf((_S12 / v74) + 0.5, 1.0), 0.0)))).u64[0];
+  *&result = vmulq_n_f32(v89, v87 * ((v80 / fmaxf(_S10, 0.0001)) * (fmaxf(fminf(((*&v90 - _S12) / v78) + 0.5, 1.0), 0.0) * fmaxf(fminf((_S12 / v78) + 0.5, 1.0), 0.0)))).u64[0];
   return result;
 }
 
@@ -2340,14 +2350,14 @@ double CI::sw_glassHighlightFromAlpha(CI *a1, uint64_t a2, uint64_t a3, uint64_t
   v30.i32[0] = *(v23 + 36);
   *v31.i32 = vmuls_lane_f32(*(v23 + 32), *v28, 1);
   *&v32 = *v31.i32 + (COERCE_FLOAT(*v28) * *(v23 + 28));
-  *&v33 = *&v29 + (vmuls_lane_f32(*(v23 + 20), *v28, 1) + (COERCE_FLOAT(*v28) * *(v23 + 16)));
+  v33.n128_f32[0] = *&v29 + (vmuls_lane_f32(*(v23 + 20), *v28, 1) + (COERCE_FLOAT(*v28) * *(v23 + 16)));
   *v34.f64 = *v30.i32 + *&v32;
-  *(&v33 + 1) = *v30.i32 + *&v32;
+  v33.n128_f32[1] = *v30.i32 + *&v32;
   CI::BitmapSampler::read(*(v23 + 8), v33, v34, v29, v32, v31, v30, v35, v36);
   v37 = v99;
   HIDWORD(v38) = DWORD1(v100);
   _S11 = v99.i32[3];
-  _S0 = v40 - v24;
+  _S0 = v40.n128_f32[3] - v24;
   __asm { FMLA            S9, S0, V1.S[3] }
 
   v47 = *(v23 + 16);
@@ -2355,27 +2365,34 @@ double CI::sw_glassHighlightFromAlpha(CI *a1, uint64_t a2, uint64_t a3, uint64_t
   v48.i64[1] = *(&v98 + 1);
   LODWORD(v49) = *(v23 + 24);
   v50.i32[0] = *(v23 + 28);
-  v51.f32[0] = *&v49 + (vmuls_lane_f32(*v37.f64, *&v98, 1) + (*&v98 * v47));
+  *&v51 = *&v49 + (vmuls_lane_f32(*v37.f64, *&v98, 1) + (*&v98 * v47));
   LODWORD(v38) = *(v23 + 32);
   v52.i32[0] = *(v23 + 36);
-  v51.f32[1] = *v52.i32 + (vmuls_lane_f32(*&v38, *&v98, 1) + (*&v98 * *v50.i32));
+  *(&v51 + 1) = *v52.i32 + (vmuls_lane_f32(*&v38, *&v98, 1) + (*&v98 * *v50.i32));
   v53 = vadd_f32(*&v98, 1065353216);
   *v48.i32 = *&v49 + (vmuls_lane_f32(*v37.f64, v53, 1) + (v53.f32[0] * v47));
   *&v48.i32[1] = *v52.i32 + (vmuls_lane_f32(*&v38, v53, 1) + (v53.f32[0] * *v50.i32));
-  v54 = vsub_f32(*v48.i8, v51);
+  v54 = vsub_f32(*v48.i8, *&v51);
   *v55.i8 = vadd_f32(*&v98, 0x3F80000000000000);
   v56.f32[0] = *&v49 + (vmuls_lane_f32(*v37.f64, *v55.i8, 1) + (*v55.i32 * v47));
   *v37.f64 = *v52.i32 + (vmuls_lane_f32(*&v38, *v55.i8, 1) + (*v55.i32 * *v50.i32));
   v56.i32[1] = LODWORD(v37.f64[0]);
   v101 = v51;
-  v57 = vsub_f32(v56, v51);
-  *v58.i64 = CI::BitmapSampler::read(*(v23 + 8), COERCE_DOUBLE(vsub_f32(v51, v54)), v37, v38, v49, v50, v52, v55, v48);
+  v57 = vsub_f32(v56, *&v51);
+  v40.n128_u64[0] = vsub_f32(*&v51, v54);
+  v58.n128_f64[0] = CI::BitmapSampler::read(*(v23 + 8), v40, v37, v38, v49, v50, v52, v55, v48);
   v96 = v58;
-  *v66.i64 = CI::BitmapSampler::read(*(v23 + 8), COERCE_DOUBLE(vadd_f32(v101, v54)), v59, v60, v61, v62, v63, v64, v65);
+  v58.n128_u64[1] = *(&v101 + 1);
+  v58.n128_u64[0] = vadd_f32(*&v101, v54);
+  v66.n128_f64[0] = CI::BitmapSampler::read(*(v23 + 8), v58, v59, v60, v61, v62, v63, v64, v65);
   v95 = v66;
-  *v74.i64 = CI::BitmapSampler::read(*(v23 + 8), COERCE_DOUBLE(vsub_f32(v101, v57)), v67, v68, v69, v70, v71, v72, v73);
+  v66.n128_u64[1] = *(&v101 + 1);
+  v66.n128_u64[0] = vsub_f32(*&v101, v57);
+  v74.n128_f64[0] = CI::BitmapSampler::read(*(v23 + 8), v66, v67, v68, v69, v70, v71, v72, v73);
   v94 = v74;
-  *v82.i64 = CI::BitmapSampler::read(*(v23 + 8), COERCE_DOUBLE(vadd_f32(v101, v57)), v75, v76, v77, v78, v79, v80, v81);
+  v74.n128_u64[1] = *(&v101 + 1);
+  v74.n128_u64[0] = vadd_f32(*&v101, v57);
+  *v82.i64 = CI::BitmapSampler::read(*(v23 + 8), v74, v75, v76, v77, v78, v79, v80, v81);
   v83 = vaddv_f32(vabs_f32(vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(vsub_f32(vzip2_s32(*&vextq_s8(v95, v95, 8uLL), *&vextq_s8(v82, v82, 8uLL)), vzip2_s32(*&vextq_s8(v96, v96, 8uLL), *&vextq_s8(v94, v94, 8uLL)))), *&v99.i32[3] * 0.5))));
   if (v83 <= 2.0)
   {
@@ -2434,20 +2451,20 @@ double CI::sw_glow(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v9 = a4 + 80 * *(v4 + 8);
   v10 = *(a2 + (*(v4 + 32) << 6));
   v11 = *(a2 + (*(v4 + 56) << 6));
-  v72 = *v8;
+  v76 = *v8;
   v12 = *(a2 + (*(v4 + 104) << 6));
   v13 = *(a2 + (*(v4 + 128) << 6));
   DC = CI::getDC(a1);
   *&v15 = *DC;
-  v71 = v15;
+  v75 = v15;
   v16 = CI::getDC(DC);
   LODWORD(v17) = *(v9 + 24);
   v18.i32[0] = *(v9 + 36);
   *v19.i32 = vmuls_lane_f32(*(v9 + 32), *v16, 1);
   *&v20 = *v19.i32 + (COERCE_FLOAT(*v16) * *(v9 + 28));
-  *&v21 = *&v17 + (vmuls_lane_f32(*(v9 + 20), *v16, 1) + (COERCE_FLOAT(*v16) * *(v9 + 16)));
+  v21.n128_f32[0] = *&v17 + (vmuls_lane_f32(*(v9 + 20), *v16, 1) + (COERCE_FLOAT(*v16) * *(v9 + 16)));
   *v22.f64 = *v18.i32 + *&v20;
-  *(&v21 + 1) = *v18.i32 + *&v20;
+  v21.n128_f32[1] = *v18.i32 + *&v20;
   v25 = CI::BitmapSampler::read(*(v9 + 8), v21, v22, v17, v20, v19, v18, v23, v24);
   v26 = (v12 * (*&v25 - v13)) / v10;
   v27 = expf(v26 * (v26 * -0.5));
@@ -2459,45 +2476,52 @@ double CI::sw_glow(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v32 = v12 / v10;
   v33 = *(v9 + 16);
   LODWORD(v30.f64[0]) = *(v9 + 20);
-  v34.i64[1] = *(&v71 + 1);
+  v34.i64[1] = *(&v75 + 1);
   LODWORD(v28) = *(v9 + 24);
   v35.i32[0] = *(v9 + 28);
-  v36.f32[0] = *&v28 + (vmuls_lane_f32(*v30.f64, *&v71, 1) + (*&v71 * v33));
+  *&v36 = *&v28 + (vmuls_lane_f32(*v30.f64, *&v75, 1) + (*&v75 * v33));
   LODWORD(v29) = *(v9 + 32);
   v37.i32[0] = *(v9 + 36);
-  v36.f32[1] = *v37.i32 + (vmuls_lane_f32(*&v29, *&v71, 1) + (*&v71 * *v35.i32));
-  v38 = vadd_f32(*&v71, 1065353216);
+  *(&v36 + 1) = *v37.i32 + (vmuls_lane_f32(*&v29, *&v75, 1) + (*&v75 * *v35.i32));
+  v38 = vadd_f32(*&v75, 1065353216);
   *v34.i32 = *&v28 + (vmuls_lane_f32(*v30.f64, v38, 1) + (v38.f32[0] * v33));
   *&v34.i32[1] = *v37.i32 + (vmuls_lane_f32(*&v29, v38, 1) + (v38.f32[0] * *v35.i32));
-  v39 = vsub_f32(*v34.i8, v36);
-  *v40.i8 = vadd_f32(*&v71, 0x3F80000000000000);
+  v39 = vsub_f32(*v34.i8, *&v36);
+  *v40.i8 = vadd_f32(*&v75, 0x3F80000000000000);
   v41.f32[0] = *&v28 + (vmuls_lane_f32(*v30.f64, *v40.i8, 1) + (*v40.i32 * v33));
   *v30.f64 = *v37.i32 + (vmuls_lane_f32(*&v29, *v40.i8, 1) + (*v40.i32 * *v35.i32));
   v41.i32[1] = LODWORD(v30.f64[0]);
-  v73 = v36;
-  v42 = vsub_f32(v41, v36);
-  *&v71 = CI::BitmapSampler::read(*(v9 + 8), COERCE_DOUBLE(vsub_f32(v36, v39)), v30, v29, v28, v35, v37, v40, v34);
-  v70 = CI::BitmapSampler::read(*(v9 + 8), COERCE_DOUBLE(vadd_f32(v73, v39)), v43, v44, v45, v46, v47, v48, v49);
-  v69 = CI::BitmapSampler::read(*(v9 + 8), COERCE_DOUBLE(vsub_f32(v73, v42)), v50, v51, v52, v53, v54, v55, v56);
-  v64 = vaddv_f32(vabs_f32(vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(vsub_f32(vzip1_s32(*&v70, COERCE_INT32X2_T(CI::BitmapSampler::read(*(v9 + 8), COERCE_DOUBLE(vadd_f32(v73, v42)), v57, v58, v59, v60, v61, v62, v63))), vzip1_s32(*&v71, *&v69))), v32 * 0.5))));
-  v65 = 2.0;
-  if (v64 <= 2.0)
+  v77 = v36;
+  v42 = vsub_f32(v41, *&v36);
+  v43.n128_u64[0] = vsub_f32(*&v36, v39);
+  *&v75 = CI::BitmapSampler::read(*(v9 + 8), v43, v30, v29, v28, v35, v37, v40, v34);
+  v44.n128_u64[1] = *(&v77 + 1);
+  v44.n128_u64[0] = vadd_f32(*&v77, v39);
+  v74 = CI::BitmapSampler::read(*(v9 + 8), v44, v45, v46, v47, v48, v49, v50, v51);
+  v52.n128_u64[1] = *(&v77 + 1);
+  v52.n128_u64[0] = vsub_f32(*&v77, v42);
+  v73 = CI::BitmapSampler::read(*(v9 + 8), v52, v53, v54, v55, v56, v57, v58, v59);
+  v60.n128_u64[1] = *(&v77 + 1);
+  v60.n128_u64[0] = vadd_f32(*&v77, v42);
+  v68 = vaddv_f32(vabs_f32(vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(vsub_f32(vzip1_s32(*&v74, COERCE_INT32X2_T(CI::BitmapSampler::read(*(v9 + 8), v60, v61, v62, v63, v64, v65, v66, v67))), vzip1_s32(*&v75, *&v73))), v32 * 0.5))));
+  v69 = 2.0;
+  if (v68 <= 2.0)
   {
-    v65 = v64;
+    v69 = v68;
   }
 
-  if (v64 >= 0.0001)
+  if (v68 >= 0.0001)
   {
-    v66 = v65;
+    v70 = v69;
   }
 
   else
   {
-    v66 = 0.0001;
+    v70 = 0.0001;
   }
 
-  v67 = v66 * 0.8333333;
-  *&result = vmulq_n_f32(v72, v31 * fmaxf(fminf((v26 / v67) + 0.5, 1.0), 0.0)).u64[0];
+  v71 = v70 * 0.8333333;
+  *&result = vmulq_n_f32(v76, v31 * fmaxf(fminf((v26 / v71) + 0.5, 1.0), 0.0)).u64[0];
   return result;
 }
 
@@ -2570,9 +2594,9 @@ double CI::sw_fallbackComputeNormals(uint64_t a1, uint64_t a2, uint64_t a3)
   v13.f32[0] = -COERCE_FLOAT(*v11);
   v13.i32[1] = HIDWORD(*v11);
   v14 = vmul_f32(v13, v13);
-  v14.f32[0] = sqrtf(vaddv_f32(v14));
+  *v14.i32 = sqrtf(vaddv_f32(v14));
   v15 = 0.0;
-  if (v14.f32[0] <= 0.0001)
+  if (*v14.i32 <= 0.0001)
   {
     v15 = 1.0;
   }
@@ -2652,15 +2676,15 @@ double CI::sw_clampToFrame(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v12 = v21;
   v13 = vextq_s8(v12, v12, 8uLL);
   *&v13.f64[0] = vadd_f32(*&v13.f64[0], *v21.i8);
-  v14 = vminnm_f32(vmaxnm_f32(*DC, *v21.i8), *&v13.f64[0]);
+  v14.n128_u64[0] = vminnm_f32(vmaxnm_f32(*DC, *v21.i8), *&v13.f64[0]);
   v12.i32[0] = *(v10 + 24);
   v15.i32[0] = *(v10 + 36);
-  *v16.i32 = vmuls_lane_f32(*(v10 + 32), v14, 1);
-  *&v17 = *v16.i32 + (v14.f32[0] * *(v10 + 28));
-  v14.f32[0] = *v12.i32 + (vmuls_lane_f32(*(v10 + 20), v14, 1) + (v14.f32[0] * *(v10 + 16)));
+  *v16.i32 = vmuls_lane_f32(*(v10 + 32), v14.n128_u64[0], 1);
+  *&v17 = *v16.i32 + (v14.n128_f32[0] * *(v10 + 28));
+  v14.n128_f32[0] = *v12.i32 + (vmuls_lane_f32(*(v10 + 20), v14.n128_u64[0], 1) + (v14.n128_f32[0] * *(v10 + 16)));
   *v13.f64 = *v15.i32 + *&v17;
-  v14.f32[1] = *v15.i32 + *&v17;
-  return CI::BitmapSampler::read(*(v10 + 8), *&v14, v13, *v12.i64, v17, v16, v15, v18, v19);
+  v14.n128_f32[1] = *v15.i32 + *&v17;
+  return CI::BitmapSampler::read(*(v10 + 8), v14, v13, *v12.i64, v17, v16, v15, v18, v19);
 }
 
 float CI::sw_sdfFill(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2671,76 +2695,83 @@ float CI::sw_sdfFill(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v7 = *(a2 + (v4[7] << 6));
   DC = CI::getDC(a1);
   *&v9 = *DC;
-  v65 = v9;
+  v69 = v9;
   v10 = CI::getDC(DC);
   LODWORD(v11) = *(v5 + 24);
   v12.i32[0] = *(v5 + 36);
   *v13.i32 = vmuls_lane_f32(*(v5 + 32), *v10, 1);
   *&v14 = *v13.i32 + (COERCE_FLOAT(*v10) * *(v5 + 28));
-  *&v15 = *&v11 + (vmuls_lane_f32(*(v5 + 20), *v10, 1) + (COERCE_FLOAT(*v10) * *(v5 + 16)));
+  v15.n128_f32[0] = *&v11 + (vmuls_lane_f32(*(v5 + 20), *v10, 1) + (COERCE_FLOAT(*v10) * *(v5 + 16)));
   *v16.f64 = *v12.i32 + *&v14;
-  *(&v15 + 1) = *v12.i32 + *&v14;
+  v15.n128_f32[1] = *v12.i32 + *&v14;
   v19 = CI::BitmapSampler::read(*(v5 + 8), v15, v16, v11, v14, v13, v12, v17, v18);
   v20 = v7 + (*&v19 * v6);
   LODWORD(v19) = *(v5 + 16);
   v21 = *(v5 + 20);
-  v22.i64[1] = *(&v65 + 1);
+  v22.i64[1] = *(&v69 + 1);
   LODWORD(v23) = *(v5 + 24);
   v24.i32[0] = *(v5 + 28);
-  v25.f32[0] = *&v23 + (vmuls_lane_f32(v21, *&v65, 1) + (*&v65 * *&v19));
+  *&v25 = *&v23 + (vmuls_lane_f32(v21, *&v69, 1) + (*&v69 * *&v19));
   LODWORD(v26) = *(v5 + 32);
   v27.i32[0] = *(v5 + 36);
-  v25.f32[1] = *v27.i32 + (vmuls_lane_f32(*&v26, *&v65, 1) + (*&v65 * *v24.i32));
-  v28 = vadd_f32(*&v65, 1065353216);
+  *(&v25 + 1) = *v27.i32 + (vmuls_lane_f32(*&v26, *&v69, 1) + (*&v69 * *v24.i32));
+  v28 = vadd_f32(*&v69, 1065353216);
   *v22.i32 = *&v23 + (vmuls_lane_f32(v21, v28, 1) + (v28.f32[0] * *&v19));
   *&v22.i32[1] = *v27.i32 + (vmuls_lane_f32(*&v26, v28, 1) + (v28.f32[0] * *v24.i32));
-  v29 = vsub_f32(*v22.i8, v25);
-  *v30.i8 = vadd_f32(*&v65, 0x3F80000000000000);
+  v29 = vsub_f32(*v22.i8, *&v25);
+  *v30.i8 = vadd_f32(*&v69, 0x3F80000000000000);
   *&v19 = *&v23 + (vmuls_lane_f32(v21, *v30.i8, 1) + (*v30.i32 * *&v19));
   *v31.f64 = *v27.i32 + (vmuls_lane_f32(*&v26, *v30.i8, 1) + (*v30.i32 * *v24.i32));
   HIDWORD(v19) = LODWORD(v31.f64[0]);
-  v66 = v25;
-  v32 = vsub_f32(*&v19, v25);
-  *&v65 = CI::BitmapSampler::read(*(v5 + 8), COERCE_DOUBLE(vsub_f32(v25, v29)), v31, v26, v23, v24, v27, v30, v22);
-  v64 = CI::BitmapSampler::read(*(v5 + 8), COERCE_DOUBLE(vadd_f32(v66, v29)), v33, v34, v35, v36, v37, v38, v39);
-  v63 = CI::BitmapSampler::read(*(v5 + 8), COERCE_DOUBLE(vsub_f32(v66, v32)), v40, v41, v42, v43, v44, v45, v46);
-  v54 = vaddv_f32(vabs_f32(vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(vsub_f32(vzip1_s32(*&v64, COERCE_INT32X2_T(CI::BitmapSampler::read(*(v5 + 8), COERCE_DOUBLE(vadd_f32(v66, v32)), v47, v48, v49, v50, v51, v52, v53))), vzip1_s32(*&v65, *&v63))), v6 * 0.5))));
-  v55 = 2.0;
-  if (v54 <= 2.0)
-  {
-    v55 = v54;
-  }
-
-  if (v54 >= 0.0001)
-  {
-    v56 = v55;
-  }
-
-  else
-  {
-    v56 = 0.0001;
-  }
-
-  v57 = v56 * 0.8333333;
-  v58 = (v20 + (v57 * 0.5)) / ((v57 * 0.5) + (v57 * 0.5));
-  if (v58 <= 1.0)
+  v70 = v25;
+  v32 = vsub_f32(*&v19, *&v25);
+  v33.n128_u64[0] = vsub_f32(*&v25, v29);
+  *&v69 = CI::BitmapSampler::read(*(v5 + 8), v33, v31, v26, v23, v24, v27, v30, v22);
+  v34.n128_u64[1] = *(&v70 + 1);
+  v34.n128_u64[0] = vadd_f32(*&v70, v29);
+  v68 = CI::BitmapSampler::read(*(v5 + 8), v34, v35, v36, v37, v38, v39, v40, v41);
+  v42.n128_u64[1] = *(&v70 + 1);
+  v42.n128_u64[0] = vsub_f32(*&v70, v32);
+  v67 = CI::BitmapSampler::read(*(v5 + 8), v42, v43, v44, v45, v46, v47, v48, v49);
+  v50.n128_u64[1] = *(&v70 + 1);
+  v50.n128_u64[0] = vadd_f32(*&v70, v32);
+  v58 = vaddv_f32(vabs_f32(vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(vsub_f32(vzip1_s32(*&v68, COERCE_INT32X2_T(CI::BitmapSampler::read(*(v5 + 8), v50, v51, v52, v53, v54, v55, v56, v57))), vzip1_s32(*&v69, *&v67))), v6 * 0.5))));
+  v59 = 2.0;
+  if (v58 <= 2.0)
   {
     v59 = v58;
   }
 
+  if (v58 >= 0.0001)
+  {
+    v60 = v59;
+  }
+
   else
   {
-    v59 = 1.0;
+    v60 = 0.0001;
   }
 
-  v60 = v58 < 0.0;
-  v61 = 0.0;
-  if (!v60)
+  v61 = v60 * 0.8333333;
+  v62 = (v20 + (v61 * 0.5)) / ((v61 * 0.5) + (v61 * 0.5));
+  if (v62 <= 1.0)
   {
-    v61 = v59;
+    v63 = v62;
   }
 
-  return (v61 * v61) * ((v61 * -2.0) + 3.0);
+  else
+  {
+    v63 = 1.0;
+  }
+
+  v64 = v62 < 0.0;
+  v65 = 0.0;
+  if (!v64)
+  {
+    v65 = v63;
+  }
+
+  return (v65 * v65) * ((v65 * -2.0) + 3.0);
 }
 
 double CI::sw_shapeAwareGradientMask(CI *a1, uint64_t a2, uint64_t a3)
@@ -2776,12 +2807,12 @@ double CI::sw_shapeAwareGradientMask(CI *a1, uint64_t a2, uint64_t a3)
   v13 = *(a2 + (*(v3 + 104) << 6));
   v14 = fmaxf(fminf(-((*v7 - *(a2 + (*(v3 + 176) << 6))) * *(a2 + (*(v3 + 152) << 6))) / *(a2 + (*(v3 + 32) << 6)), 1.0), 0.0);
   v15 = vmul_f32(*(a2 + (*(v3 + 128) << 6)), vsub_f32(*v11, *CI::getDC(a1)));
-  v15.f32[0] = fmaxf(fminf(vaddv_f32(v15) / v13, 1.0), 0.0);
-  v15.f32[0] = (v14 * v15.f32[0]) + ((1.0 - v15.f32[0]) * (1.0 - v14));
-  v15.f32[0] = (1.0 - v15.f32[0]) + (v12 * v15.f32[0]);
-  if (v15.f32[0] <= 1.0)
+  *v15.i32 = fmaxf(fminf(vaddv_f32(v15) / v13, 1.0), 0.0);
+  *v15.i32 = (v14 * *v15.i32) + ((1.0 - *v15.i32) * (1.0 - v14));
+  *v15.i32 = (1.0 - *v15.i32) + (v12 * *v15.i32);
+  if (*v15.i32 <= 1.0)
   {
-    v16 = v15.f32[0];
+    v16 = *v15.i32;
   }
 
   else
@@ -2789,17 +2820,17 @@ double CI::sw_shapeAwareGradientMask(CI *a1, uint64_t a2, uint64_t a3)
     v16 = 1.0;
   }
 
-  if (v15.f32[0] >= 0.0)
+  if (*v15.i32 >= 0.0)
   {
-    v15.f32[0] = v16;
+    *v15.i32 = v16;
   }
 
   else
   {
-    v15.f32[0] = 0.0;
+    *v15.i32 = 0.0;
   }
 
-  v15.f32[0] = (v15.f32[0] * v15.f32[0]) * ((v15.f32[0] * -2.0) + 3.0);
+  *v15.i32 = (*v15.i32 * *v15.i32) * ((*v15.i32 * -2.0) + 3.0);
   *&result = vdupq_lane_s32(v15, 0).u64[0];
   return result;
 }
@@ -2849,39 +2880,39 @@ double CI::sw_simplifiedShapeAwareGradientMask(CI *a1, uint64_t a2, uint64_t a3,
   v22 = a4 + 80 * v6;
   v23 = *(a2 + (v7 << 6));
   a5.n128_u64[0] = *v11;
-  v90 = a5;
-  v93 = HIDWORD(*v15);
+  v89 = a5;
+  v92 = HIDWORD(*v15);
   v24 = *(a2 + (v16 << 6));
   v25 = *(a2 + (v17 << 6));
-  v88 = *v21;
+  v87 = *v21;
   DC = CI::getDC(a1);
   v27.i64[0] = *DC;
-  v86 = v27;
+  v85 = v27;
   v28 = CI::getDC(DC);
   LODWORD(v29) = *(v22 + 24);
   v30.i32[0] = *(v22 + 36);
   *v31.i32 = vmuls_lane_f32(*(v22 + 32), *v28, 1);
   *&v32 = *v31.i32 + (COERCE_FLOAT(*v28) * *(v22 + 28));
-  *&v33 = *&v29 + (vmuls_lane_f32(*(v22 + 20), *v28, 1) + (COERCE_FLOAT(*v28) * *(v22 + 16)));
+  v33.n128_f32[0] = *&v29 + (vmuls_lane_f32(*(v22 + 20), *v28, 1) + (COERCE_FLOAT(*v28) * *(v22 + 16)));
   *v34.f64 = *v30.i32 + *&v32;
-  *(&v33 + 1) = *v30.i32 + *&v32;
-  _D0 = CI::BitmapSampler::read(*(v22 + 8), v33, v34, v29, v32, v31, v30, v35, v36);
-  v40 = fmaxf(fminf(-((*&_D0 - v25) * v24) / v23, 1.0), 0.0);
-  v41 = v86;
-  HIDWORD(_D2) = DWORD1(v88);
-  *_Q1.f64 = 1.0 - fmaxf(fminf((*&v86.i32[1] - *(&v88 + 1)) / *(&v88 + 3), 1.0), 0.0);
-  _Q5 = v90;
-  _V3.S[1] = v93;
+  v33.n128_f32[1] = *v30.i32 + *&v32;
+  _Q0.n128_f64[0] = CI::BitmapSampler::read(*(v22 + 8), v33, v34, v29, v32, v31, v30, v35, v36);
+  v40 = fmaxf(fminf(-((_Q0.n128_f32[0] - v25) * v24) / v23, 1.0), 0.0);
+  v41 = v85;
+  HIDWORD(_D2) = DWORD1(v87);
+  *_Q1.f64 = 1.0 - fmaxf(fminf((*&v85.i32[1] - *(&v87 + 1)) / *(&v87 + 3), 1.0), 0.0);
+  _Q5 = v89;
+  _V3.S[1] = v92;
   __asm
   {
     FMLA            S2, S1, V5.S[1]
     FMLA            S0, S1, V3.S[1]
   }
 
-  v50 = (*&_D2 * v40) + (*&_D0 * (1.0 - v40));
-  if (v50 <= 1.0)
+  _Q0.n128_f32[0] = (*&_D2 * v40) + (_Q0.n128_f32[0] * (1.0 - v40));
+  if (_Q0.n128_f32[0] <= 1.0)
   {
-    v51 = v50;
+    v51 = _Q0.n128_f32[0];
   }
 
   else
@@ -2889,108 +2920,115 @@ double CI::sw_simplifiedShapeAwareGradientMask(CI *a1, uint64_t a2, uint64_t a3,
     v51 = 1.0;
   }
 
-  if (v50 >= 0.0)
+  if (_Q0.n128_f32[0] >= 0.0)
   {
-    v52 = v51;
+    _Q0.n128_f32[0] = v51;
   }
 
   else
   {
-    v52 = 0.0;
+    _Q0.n128_f32[0] = 0.0;
   }
 
-  v53 = (v52 * v52) * ((v52 * -2.0) + 3.0);
-  v54 = *(v22 + 16);
+  v52 = (_Q0.n128_f32[0] * _Q0.n128_f32[0]) * ((_Q0.n128_f32[0] * -2.0) + 3.0);
+  _Q0.n128_u32[0] = *(v22 + 16);
   LODWORD(_Q1.f64[0]) = *(v22 + 20);
-  HIDWORD(v55) = v86.i32[1];
-  LODWORD(v55) = *(v22 + 24);
+  HIDWORD(v53) = v85.i32[1];
+  LODWORD(v53) = *(v22 + 24);
   v41.i32[0] = *(v22 + 28);
-  v56.f32[0] = *&v55 + (vmuls_lane_f32(*_Q1.f64, *v86.i8, 1) + (*v86.i32 * v54));
+  *&v39 = *&v53 + (vmuls_lane_f32(*_Q1.f64, *v85.i8, 1) + (*v85.i32 * _Q0.n128_f32[0]));
   LODWORD(_D2) = *(v22 + 32);
   _Q5.i32[0] = *(v22 + 36);
-  v56.f32[1] = *_Q5.i32 + (vmuls_lane_f32(*&_D2, *v86.i8, 1) + (*v86.i32 * *v41.i32));
-  *v38.i8 = vadd_f32(*v86.i8, 1065353216);
-  *v39.i32 = *&v55 + (vmuls_lane_f32(*_Q1.f64, *v38.i8, 1) + (*v38.i32 * v54));
-  *&v39.i32[1] = *_Q5.i32 + (vmuls_lane_f32(*&_D2, *v38.i8, 1) + (*v38.i32 * *v41.i32));
-  v57 = vsub_f32(*v39.i8, v56);
-  *v38.i8 = vadd_f32(*v86.i8, 0x3F80000000000000);
-  v58.f32[0] = *&v55 + (vmuls_lane_f32(*_Q1.f64, *v38.i8, 1) + (*v38.i32 * v54));
-  *_Q1.f64 = *_Q5.i32 + (vmuls_lane_f32(*&_D2, *v38.i8, 1) + (*v38.i32 * *v41.i32));
-  v58.i32[1] = LODWORD(_Q1.f64[0]);
-  v92 = v56;
-  v59 = vsub_f32(v58, v56);
-  v91 = CI::BitmapSampler::read(*(v22 + 8), COERCE_DOUBLE(vsub_f32(v56, v57)), _Q1, _D2, v55, v41, _Q5, v38, v39);
-  v89 = CI::BitmapSampler::read(*(v22 + 8), COERCE_DOUBLE(vadd_f32(v92, v57)), v60, v61, v62, v63, v64, v65, v66);
-  v87 = CI::BitmapSampler::read(*(v22 + 8), COERCE_DOUBLE(vsub_f32(v92, v59)), v67, v68, v69, v70, v71, v72, v73);
-  v81 = vaddv_f32(vabs_f32(vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(vsub_f32(vzip1_s32(*&v89, COERCE_INT32X2_T(CI::BitmapSampler::read(*(v22 + 8), COERCE_DOUBLE(vadd_f32(v92, v59)), v74, v75, v76, v77, v78, v79, v80))), vzip1_s32(*&v91, *&v87))), v24 * 0.5))));
-  v82 = 2.0;
-  if (v81 <= 2.0)
+  *(&v39 + 1) = *_Q5.i32 + (vmuls_lane_f32(*&_D2, *v85.i8, 1) + (*v85.i32 * *v41.i32));
+  *v37.i8 = vadd_f32(*v85.i8, 1065353216);
+  *v38.i32 = *&v53 + (vmuls_lane_f32(*_Q1.f64, *v37.i8, 1) + (*v37.i32 * _Q0.n128_f32[0]));
+  *&v38.i32[1] = *_Q5.i32 + (vmuls_lane_f32(*&_D2, *v37.i8, 1) + (*v37.i32 * *v41.i32));
+  v54 = vsub_f32(*v38.i8, *&v39);
+  *v37.i8 = vadd_f32(*v85.i8, 0x3F80000000000000);
+  _Q0.n128_f32[0] = *&v53 + (vmuls_lane_f32(*_Q1.f64, *v37.i8, 1) + (*v37.i32 * _Q0.n128_f32[0]));
+  *_Q1.f64 = *_Q5.i32 + (vmuls_lane_f32(*&_D2, *v37.i8, 1) + (*v37.i32 * *v41.i32));
+  _Q0.n128_u32[1] = LODWORD(_Q1.f64[0]);
+  v91 = v39;
+  v55 = vsub_f32(_Q0.n128_u64[0], *&v39);
+  _Q0.n128_u64[0] = vsub_f32(*&v39, v54);
+  v90 = CI::BitmapSampler::read(*(v22 + 8), _Q0, _Q1, _D2, v53, v41, _Q5, v37, v38);
+  v56.n128_u64[1] = *(&v91 + 1);
+  v56.n128_u64[0] = vadd_f32(*&v91, v54);
+  v88 = CI::BitmapSampler::read(*(v22 + 8), v56, v57, v58, v59, v60, v61, v62, v63);
+  v64.n128_u64[1] = *(&v91 + 1);
+  v64.n128_u64[0] = vsub_f32(*&v91, v55);
+  v86 = CI::BitmapSampler::read(*(v22 + 8), v64, v65, v66, v67, v68, v69, v70, v71);
+  v72.n128_u64[1] = *(&v91 + 1);
+  v72.n128_u64[0] = vadd_f32(*&v91, v55);
+  v80 = vaddv_f32(vabs_f32(vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(vsub_f32(vzip1_s32(*&v88, COERCE_INT32X2_T(CI::BitmapSampler::read(*(v22 + 8), v72, v73, v74, v75, v76, v77, v78, v79))), vzip1_s32(*&v90, *&v86))), v24 * 0.5))));
+  v81 = 2.0;
+  if (v80 <= 2.0)
+  {
+    v81 = v80;
+  }
+
+  if (v80 >= 0.0001)
   {
     v82 = v81;
   }
 
-  if (v81 >= 0.0001)
-  {
-    v83 = v82;
-  }
-
   else
   {
-    v83 = 0.0001;
+    v82 = 0.0001;
   }
 
-  v84 = v83 * 0.8333333;
-  *&v84 = v84;
-  *&v84 = fmaxf(fminf((v40 / *&v84) + 0.5, 1.0), 0.0);
-  *&v84 = (1.0 - *&v84) + (v53 * *&v84);
-  *&result = vdupq_lane_s32(*&v84, 0).u64[0];
+  v83 = v82 * 0.8333333;
+  *&v83 = v83;
+  *&v83 = fmaxf(fminf((v40 / *&v83) + 0.5, 1.0), 0.0);
+  *&v83 = (1.0 - *&v83) + (v52 * *&v83);
+  *&result = vdupq_lane_s32(*&v83, 0).u64[0];
   return result;
 }
 
-void calcUniforms(float a1@<S0>, float a2@<S1>, float a3@<S2>, float a4@<S3>, float a5@<S4>, float a6@<S5>, float a7@<S6>, float a8@<S7>, NSString *a9@<X0>, uint64_t a10@<X8>)
+void calcUniforms(uint64_t *__return_ptr a1@<X8>, float a2@<S0>, float a3@<S1>, float a4@<S2>, float a5@<S3>, float a6@<S4>, float a7@<S5>, float a8@<S6>, float a9@<S7>, NSString *a10@<X0>)
 {
-  v13 = (LODWORD(a2) & 0x7FFFFFFFu) - 1 < 0x7FFFFF;
-  v14 = ((LODWORD(a2) & 0x7FFFFFFFu) - 0x800000) >> 24 < 0x7F;
-  if (a2 >= 0.0)
+  v13 = (LODWORD(a3) & 0x7FFFFFFFu) - 1 < 0x7FFFFF;
+  v14 = ((LODWORD(a3) & 0x7FFFFFFFu) - 0x800000) >> 24 < 0x7F;
+  if (a3 >= 0.0)
   {
     v14 = 0;
     v13 = 0;
   }
 
-  if ((LODWORD(a2) & 0x7FFFFFFF) == 0)
+  if ((LODWORD(a3) & 0x7FFFFFFF) == 0)
   {
     v13 = 1;
   }
 
-  v15 = (LODWORD(a2) & 0x7FFFFFFF) == 0x7F800000 || v13;
+  v15 = (LODWORD(a3) & 0x7FFFFFFF) == 0x7F800000 || v13;
   v16 = v15 | v14;
-  v17 = fabsf(a1) == INFINITY;
+  v17 = fabsf(a2) == INFINITY;
   if ((v16 & 1) != 0 || v17)
   {
-    *(a10 + 44) = 0u;
-    *(a10 + 16) = 0u;
-    *(a10 + 32) = 0u;
-    *a10 = 0u;
+    *(a1 + 44) = 0u;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *a1 = 0u;
   }
 
   else
   {
-    if (a1 > 0.0)
-    {
-      v19 = a1;
-    }
-
-    else
+    if (a2 > 0.0)
     {
       v19 = a2;
     }
 
-    v20 = [(NSString *)a9 isEqual:@"kCIDynamicRangeStandard"];
+    else
+    {
+      v19 = a3;
+    }
+
+    v20 = [(NSString *)a10 isEqual:@"kCIDynamicRangeStandard"];
     v21 = 0.0;
     v22 = 0.0;
     if ((v20 & 1) == 0)
     {
-      v23 = [(NSString *)a9 isEqual:@"kCIDynamicRangeConstrainedHigh", 0.0, 0.0];
+      v23 = [(NSString *)a10 isEqual:@"kCIDynamicRangeConstrainedHigh", 0.0, 0.0];
       v22 = 0.0;
       v21 = v23 ? 1.0 : 0.0;
       if (!v23)
@@ -3002,7 +3040,7 @@ void calcUniforms(float a1@<S0>, float a2@<S1>, float a3@<S2>, float a4@<S3>, fl
     v24 = 1.0;
     v25 = fminf(fmaxf(v22, 0.0), 1.0);
     v26 = fminf(fminf(fmaxf(v21, 0.0), 1.0), 1.0 - v25);
-    v27 = fminf(fmaxf(a3, 0.0), fminf(v19, 2.0));
+    v27 = fminf(fmaxf(a4, 0.0), fminf(v19, 2.0));
     v28 = 1.0;
     if (v27 > 0.0769)
     {
@@ -3010,7 +3048,7 @@ void calcUniforms(float a1@<S0>, float a2@<S1>, float a3@<S2>, float a4@<S3>, fl
       v28 = fminf(fmaxf(v29 + ((1.0 - v29) * (1.0 - fminf(fmaxf((v19 + -1.0) / 1.6667, 0.0), 1.0))), 2.0 / v19), 1.0);
     }
 
-    v30 = fminf(a2, 2.0);
+    v30 = fminf(a3, 2.0);
     v31 = (v25 + v26) / 1.4142;
     if (fabsf(v31) > 0.0000001)
     {
@@ -3018,7 +3056,7 @@ void calcUniforms(float a1@<S0>, float a2@<S1>, float a3@<S2>, float a4@<S3>, fl
     }
 
     v32 = v19 * v28;
-    v33 = fminf(fminf(v19 * v28, v30), a2);
+    v33 = fminf(fminf(v19 * v28, v30), a3);
     v34 = v19;
     v35 = v33 + -1.0;
     v87 = v34;
@@ -3108,13 +3146,13 @@ void calcUniforms(float a1@<S0>, float a2@<S1>, float a3@<S2>, float a4@<S3>, fl
       }
     }
 
-    v50 = log2f(fminf(v87, a2));
+    v50 = log2f(fminf(v87, a3));
     v51 = exp2f(v50 * v88);
     v52 = ((fminf(v40, 1.0) + -1.0) * v24) + 1.0;
-    v53 = fminf(v51 + ((v39 - v51) * v24), a2);
-    if (a1 > 0.0)
+    v53 = fminf(v51 + ((v39 - v51) * v24), a3);
+    if (a2 > 0.0)
     {
-      v54 = v52 * a1;
+      v54 = v52 * a2;
     }
 
     else
@@ -3124,31 +3162,31 @@ void calcUniforms(float a1@<S0>, float a2@<S1>, float a3@<S2>, float a4@<S3>, fl
 
     if (v54 <= v53)
     {
-      *a10 = 2;
-      *(a10 + 4) = v54;
-      *(a10 + 8) = v54;
+      *a1 = 2;
+      *(a1 + 1) = v54;
+      *(a1 + 2) = v54;
       __asm { FMOV            V0.2S, #1.0 }
 
-      *(a10 + 12) = _D0;
-      *(a10 + 20) = v54;
-      *(a10 + 24) = v54;
-      *(a10 + 28) = 0;
-      *(a10 + 32) = 0;
-      *(a10 + 36) = v54;
-      *(a10 + 40) = v54;
-      *(a10 + 44) = 0;
-      *(a10 + 48) = v54;
-      *(a10 + 52) = 1065353216;
+      *(a1 + 12) = _D0;
+      *(a1 + 5) = v54;
+      *(a1 + 6) = v54;
+      *(a1 + 7) = 0;
+      *(a1 + 8) = 0;
+      *(a1 + 9) = v54;
+      *(a1 + 10) = v54;
+      *(a1 + 11) = 0;
+      *(a1 + 12) = v54;
+      *(a1 + 13) = 1065353216;
     }
 
     else
     {
       v55 = logf(v54);
-      v56 = fminf((1.0 - ((1.0 - a4) * fminf(v55 / logf(a8), 1.0))) + (((1.0 - a4) / (a5 + -1.0)) * (v53 + -1.0)), 1.0);
-      v57 = fmaxf(fminf((v56 - a4) / (1.0 - a4), 1.0), 0.0);
+      v56 = fminf((1.0 - ((1.0 - a5) * fminf(v55 / logf(a9), 1.0))) + (((1.0 - a5) / (a6 + -1.0)) * (v53 + -1.0)), 1.0);
+      v57 = fmaxf(fminf((v56 - a5) / (1.0 - a5), 1.0), 0.0);
       if (v57 <= 0.0)
       {
-        v58 = a7;
+        v58 = a8;
       }
 
       else
@@ -3156,12 +3194,12 @@ void calcUniforms(float a1@<S0>, float a2@<S1>, float a3@<S2>, float a4@<S3>, fl
         v58 = 1.0;
         if (v57 < 1.0)
         {
-          v58 = a7 + ((1.0 - a7) * v57);
+          v58 = a8 + ((1.0 - a8) * v57);
         }
       }
 
       v64 = v53 * powf(v56 / v53, 1.0 / v58);
-      v65 = v53 - (a6 * (v53 - v64));
+      v65 = v53 - (a7 * (v53 - v64));
       v66 = v65 / v64;
       v67 = (v53 * 0.001) / 3.0;
       v68 = (v54 + 1.0) + ((v65 / v64) * -2.0);
@@ -3183,22 +3221,22 @@ void calcUniforms(float a1@<S0>, float a2@<S1>, float a3@<S2>, float a4@<S3>, fl
         v68 = (v70 + 1.0) + ((v65 / v64) * -2.0);
       }
 
-      *a10 = 2;
-      *(a10 + 4) = v54;
-      *(a10 + 8) = v53;
-      *(a10 + 12) = v64;
-      *(a10 + 16) = v68;
-      *(a10 + 20) = -(v72 - (v66 * v66));
-      *(a10 + 24) = 1.0 - v66;
-      *(a10 + 28) = v64;
-      *(a10 + 32) = v65;
-      *(a10 + 36) = v53;
-      *(a10 + 40) = 1065353216;
-      *(a10 + 48) = v53;
-      *(a10 + 52) = v58;
+      *a1 = 2;
+      *(a1 + 1) = v54;
+      *(a1 + 2) = v53;
+      *(a1 + 3) = v64;
+      *(a1 + 4) = v68;
+      *(a1 + 5) = -(v72 - (v66 * v66));
+      *(a1 + 6) = 1.0 - v66;
+      *(a1 + 7) = v64;
+      *(a1 + 8) = v65;
+      *(a1 + 9) = v53;
+      a1[5] = 1065353216;
+      *(a1 + 12) = v53;
+      *(a1 + 13) = v58;
     }
 
-    *(a10 + 56) = v52;
+    *(a1 + 14) = v52;
   }
 }
 
@@ -3345,42 +3383,42 @@ uint64_t CI::sw_distanceMask(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   v9 = a4 + 80 * *(v4 + 8);
   v10 = (a2 + (*(v4 + 56) << 6));
-  v31 = *v8;
+  v30 = *v8;
   v11 = vld1_dup_f32(v10);
   v17 = *CI::getDC(a1);
-  v18 = v31;
-  v30 = vextq_s8(v18, v18, 8uLL).u64[0];
-  v19 = vadd_f32(*v31.i8, vmul_f32(v30, vdiv_f32(vsub_f32(v17, *v31.i8), v30)));
+  v18 = v30;
+  v29 = vextq_s8(v18, v18, 8uLL).u64[0];
+  v19 = vadd_f32(*v30.i8, vmul_f32(v29, vdiv_f32(vsub_f32(v17, *v30.i8), v29)));
   v20 = xmmword_19CF22C10;
-  v29 = 0x7F8000007F800000;
+  v28 = 0x7F8000007F800000;
   v21 = -1;
   v22 = 1000000000.0;
   do
   {
-    *&v20 = v21;
-    v32 = v20;
+    v20.n128_f32[0] = v21;
+    v31 = v20;
     for (i = -1; i != 2; ++i)
     {
-      v24 = v32;
+      v24 = v31;
       *(v24.f64 + 1) = i;
-      v25 = vadd_f32(v17, vmul_f32(v11, *&v24.f64[0]));
+      v20.n128_u64[0] = vadd_f32(v17, vmul_f32(v11, *&v24.f64[0]));
       v18.i32[0] = *(v9 + 24);
       v14.i32[0] = *(v9 + 36);
-      *v13.i32 = vmuls_lane_f32(*(v9 + 32), v25, 1);
-      *&v12 = *v13.i32 + (v25.f32[0] * *(v9 + 28));
-      v25.f32[0] = *v18.i32 + (vmuls_lane_f32(*(v9 + 20), v25, 1) + (v25.f32[0] * *(v9 + 16)));
+      *v13.i32 = vmuls_lane_f32(*(v9 + 32), v20.n128_u64[0], 1);
+      *&v12 = *v13.i32 + (v20.n128_f32[0] * *(v9 + 28));
+      v20.n128_f32[0] = *v18.i32 + (vmuls_lane_f32(*(v9 + 20), v20.n128_u64[0], 1) + (v20.n128_f32[0] * *(v9 + 16)));
       *v24.f64 = *v14.i32 + *&v12;
-      v25.f32[1] = *v14.i32 + *&v12;
-      *&v20 = CI::BitmapSampler::read(*(v9 + 8), *&v25, v24, *v18.i64, v12, v13, v14, v15, v16);
-      if (*&v20 != INFINITY)
+      v20.n128_f32[1] = *v14.i32 + *&v12;
+      v20.n128_f64[0] = CI::BitmapSampler::read(*(v9 + 8), v20, v24, *v18.i64, v12, v13, v14, v15, v16);
+      if (v20.n128_f32[0] != INFINITY)
       {
-        v18.i32[1] = v31.i32[1];
-        v26 = vsub_f32(v19, vadd_f32(*v31.i8, vmul_f32(v30, *&v20)));
-        v27 = sqrtf(vaddv_f32(vmul_f32(v26, v26)));
-        if (v27 < v22)
+        v18.i32[1] = v30.i32[1];
+        v25 = vsub_f32(v19, vadd_f32(*v30.i8, vmul_f32(v29, v20.n128_u64[0])));
+        v26 = sqrtf(vaddv_f32(vmul_f32(v25, v25)));
+        if (v26 < v22)
         {
-          v29 = v20;
-          v22 = v27;
+          v28 = v20.n128_u64[0];
+          v22 = v26;
         }
       }
     }
@@ -3389,7 +3427,7 @@ uint64_t CI::sw_distanceMask(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   while (v21 != 2);
-  return v29;
+  return v28;
 }
 
 float CI::sw_distanceMaskPost(CI *a1, uint64_t a2, uint64_t a3)
@@ -3506,7 +3544,7 @@ double CI::sw_signedDistanceMaskPrep(CI *a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t CI::sw_signedDistanceMask(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t CI::sw_signedDistanceMask(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = *(a1 + 5);
   v5 = *(v4 + 32);
@@ -3524,64 +3562,64 @@ uint64_t CI::sw_signedDistanceMask(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4
 
   v9 = a4 + 80 * *(v4 + 8);
   v10 = (a2 + (*(v4 + 56) << 6));
-  v37 = *v8;
+  v36 = *v8;
   v11 = vld1_dup_f32(v10);
   v17 = *CI::getDC(a1);
-  v18 = v37;
+  v18 = v36;
   v19 = vextq_s8(v18, v18, 8uLL).u64[0];
-  v20 = vadd_f32(*v37.i8, vmul_f32(v19, vdiv_f32(vsub_f32(v17, *v37.i8), v19)));
+  v20 = vadd_f32(*v36.i8, vmul_f32(v19, vdiv_f32(vsub_f32(v17, *v36.i8), v19)));
   v21.i64[0] = 0x7F0000007FLL;
   v21.i64[1] = 0x7F0000007FLL;
   v22 = vnegq_f32(v21);
-  v35 = v19;
-  v36 = v22;
+  v34 = v19;
+  v35 = v22;
   v23 = -1;
   v24 = 1000000000.0;
   v25 = 1000000000.0;
   do
   {
-    *v22.i32 = v23;
-    v34 = v22;
+    v22.n128_f32[0] = v23;
+    v33 = v22;
     for (i = -1; i != 2; ++i)
     {
-      v27 = v34;
+      v27 = v33;
       *(v27.f64 + 1) = i;
-      v28 = vadd_f32(v17, vmul_f32(v11, *&v27.f64[0]));
+      v22.n128_u64[0] = vadd_f32(v17, vmul_f32(v11, *&v27.f64[0]));
       v18.i32[0] = *(v9 + 24);
       v14.i32[0] = *(v9 + 36);
-      *v13.i32 = vmuls_lane_f32(*(v9 + 32), v28, 1);
-      *&v12 = *v13.i32 + (v28.f32[0] * *(v9 + 28));
-      v28.f32[0] = *v18.i32 + (vmuls_lane_f32(*(v9 + 20), v28, 1) + (v28.f32[0] * *(v9 + 16)));
+      *v13.i32 = vmuls_lane_f32(*(v9 + 32), v22.n128_u64[0], 1);
+      *&v12 = *v13.i32 + (v22.n128_f32[0] * *(v9 + 28));
+      v22.n128_f32[0] = *v18.i32 + (vmuls_lane_f32(*(v9 + 20), v22.n128_u64[0], 1) + (v22.n128_f32[0] * *(v9 + 16)));
       *v27.f64 = *v14.i32 + *&v12;
-      v28.f32[1] = *v14.i32 + *&v12;
-      *v22.i64 = CI::BitmapSampler::read(*(v9 + 8), *&v28, v27, *v18.i64, v12, v13, v14, v15, v16);
-      if (*v22.i32 != INFINITY)
+      v22.n128_f32[1] = *v14.i32 + *&v12;
+      v22.n128_f64[0] = CI::BitmapSampler::read(*(v9 + 8), v22, v27, *v18.i64, v12, v13, v14, v15, v16);
+      if (v22.n128_f32[0] != INFINITY)
       {
-        v18.i32[1] = v37.i32[1];
-        v29 = vsub_f32(v20, vadd_f32(*v37.i8, vmul_f32(v35, *v22.i8)));
-        v30 = sqrtf(vaddv_f32(vmul_f32(v29, v29)));
-        if (v30 < v24)
+        v18.i32[1] = v36.i32[1];
+        v28 = vsub_f32(v20, vadd_f32(*v36.i8, vmul_f32(v34, v22.n128_u64[0])));
+        v29 = sqrtf(vaddv_f32(vmul_f32(v28, v28)));
+        if (v29 < v24)
         {
-          v18.i64[0] = v22.i64[0];
-          HIDWORD(v12) = v36.i32[1];
-          v18.i64[1] = v36.i64[1];
-          v36 = v18;
-          v24 = v30;
+          v18.i64[0] = v22.n128_u64[0];
+          HIDWORD(v12) = v35.n128_u32[1];
+          v18.i64[1] = v35.n128_i64[1];
+          v35 = v18;
+          v24 = v29;
         }
       }
 
-      if (*&v22.i32[2] != INFINITY)
+      if (v22.n128_f32[2] != INFINITY)
       {
         v22 = vextq_s8(v22, v22, 8uLL);
-        v18.i32[1] = v37.i32[1];
-        v31 = vsub_f32(v20, vadd_f32(*v37.i8, vmul_f32(v35, *v22.i8)));
-        v32 = sqrtf(vaddv_f32(vmul_f32(v31, v31)));
-        if (v32 < v25)
+        v18.i32[1] = v36.i32[1];
+        v30 = vsub_f32(v20, vadd_f32(*v36.i8, vmul_f32(v34, v22.n128_u64[0])));
+        v31 = sqrtf(vaddv_f32(vmul_f32(v30, v30)));
+        if (v31 < v25)
         {
-          v18.i64[0] = v36.i64[0];
-          v18.i64[1] = v22.i64[0];
-          v36 = v18;
-          v25 = v32;
+          v18.i64[0] = v35.n128_u64[0];
+          v18.i64[1] = v22.n128_u64[0];
+          v35 = v18;
+          v25 = v31;
         }
       }
     }
@@ -3590,7 +3628,7 @@ uint64_t CI::sw_signedDistanceMask(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4
   }
 
   while (v23 != 2);
-  return v36.i64[0];
+  return v35.n128_u64[0];
 }
 
 float32_t CI::sw_signedDistanceMaskPost(CI *a1, uint64_t a2, uint64_t a3)
@@ -3694,11 +3732,11 @@ double CI::sw_holeFillRefine(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   DC = CI::getDC(a1);
   *v8.i8 = *DC;
   LODWORD(v9) = *(v5 + 28);
-  *&v10 = *(v5 + 24) + (vmuls_lane_f32(*(v5 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v5 + 16)));
+  v10.n128_f32[0] = *(v5 + 24) + (vmuls_lane_f32(*(v5 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v5 + 16)));
   LODWORD(v11) = *(v5 + 36);
-  v42 = *DC;
+  v42 = v8;
   *v12.f64 = *&v11 + (vmuls_lane_f32(*(v5 + 32), *DC, 1) + (COERCE_FLOAT(*DC) * *&v9));
-  HIDWORD(v10) = LODWORD(v12.f64[0]);
+  v10.n128_u32[1] = LODWORD(v12.f64[0]);
   result = CI::BitmapSampler::read(*(v5 + 8), v10, v12, v9, v11, v8, v13, v14, v15);
   if (*&result > 0.001)
   {
@@ -3729,31 +3767,33 @@ double CI::sw_holeFillRefine(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       {
         v21 = __sincosf_stret(v19);
         *&v20.f64[0] = __PAIR64__(LODWORD(v21.__sinval), LODWORD(v21.__cosval));
-        HIDWORD(v22) = HIDWORD(v41);
-        v23 = vmul_n_f32(__PAIR64__(LODWORD(v21.__sinval), LODWORD(v21.__cosval)), *&v41);
-        v24 = vadd_f32(v42, v23);
-        LODWORD(v22) = *(v5 + 24);
+        HIDWORD(v23) = HIDWORD(v41);
+        v22.n128_u64[1] = v42.u64[1];
+        v24 = vmul_n_f32(__PAIR64__(LODWORD(v21.__sinval), LODWORD(v21.__cosval)), *&v41);
+        v22.n128_u64[0] = vadd_f32(*v42.i8, v24);
+        LODWORD(v23) = *(v5 + 24);
         v25.i32[0] = *(v5 + 36);
-        *v26.i32 = vmuls_lane_f32(*(v5 + 32), v24, 1);
-        *&v27 = *v26.i32 + (v24.f32[0] * *(v5 + 28));
-        v24.f32[0] = *&v22 + (vmuls_lane_f32(*(v5 + 20), v24, 1) + (v24.f32[0] * *(v5 + 16)));
+        *v26.i32 = vmuls_lane_f32(*(v5 + 32), v22.n128_u64[0], 1);
+        *&v27 = *v26.i32 + (v22.n128_f32[0] * *(v5 + 28));
+        v22.n128_f32[0] = *&v23 + (vmuls_lane_f32(*(v5 + 20), v22.n128_u64[0], 1) + (v22.n128_f32[0] * *(v5 + 16)));
         *v20.f64 = *v25.i32 + *&v27;
-        v24.f32[1] = *v25.i32 + *&v27;
-        v30 = CI::BitmapSampler::read(*(v5 + 8), *&v24, v20, v22, v27, v26, v25, v28, v29);
+        v22.n128_f32[1] = *v25.i32 + *&v27;
+        v30 = CI::BitmapSampler::read(*(v5 + 8), v22, v20, v23, v27, v26, v25, v28, v29);
         if (*(&v30 + 1) > 0.5)
         {
           break;
         }
 
-        v38 = vsub_f32(v42, v23);
+        v38.n128_u64[1] = v42.u64[1];
+        v38.n128_u64[0] = vsub_f32(*v42.i8, v24);
         LODWORD(v32) = *(v5 + 24);
         v35.i32[0] = *(v5 + 36);
-        *v34.i32 = vmuls_lane_f32(*(v5 + 32), v38, 1);
-        *&v33 = *v34.i32 + (v38.f32[0] * *(v5 + 28));
-        v38.f32[0] = *&v32 + (vmuls_lane_f32(*(v5 + 20), v38, 1) + (v38.f32[0] * *(v5 + 16)));
+        *v34.i32 = vmuls_lane_f32(*(v5 + 32), v38.n128_u64[0], 1);
+        *&v33 = *v34.i32 + (v38.n128_f32[0] * *(v5 + 28));
+        v38.n128_f32[0] = *&v32 + (vmuls_lane_f32(*(v5 + 20), v38.n128_u64[0], 1) + (v38.n128_f32[0] * *(v5 + 16)));
         *v31.f64 = *v35.i32 + *&v33;
-        v38.f32[1] = *v35.i32 + *&v33;
-        v39 = CI::BitmapSampler::read(*(v5 + 8), *&v38, v31, v32, v33, v34, v35, v36, v37);
+        v38.n128_f32[1] = *v35.i32 + *&v33;
+        v39 = CI::BitmapSampler::read(*(v5 + 8), v38, v31, v32, v33, v34, v35, v36, v37);
         if (*(&v39 + 1) > 0.5)
         {
           break;
@@ -3799,10 +3839,11 @@ uint64_t CI::sw_holeFillPost(uint64_t a1, uint64_t a2, uint64_t a3)
   return LODWORD(v8);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t CI::SoftwareDAGDescriptor::print(CI::SoftwareDAGDescriptor *this, __sFILE *__stream)
@@ -4100,9 +4141,9 @@ LABEL_69:
   return fputc(10, __stream);
 }
 
-void sub_19CC43D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19CC43D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::vector<CI::SWRendererFunctionInputNode>::__destroy_vector::operator()[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -4285,7 +4326,7 @@ LABEL_20:
     }
   }
 
-  CI::SoftwareDAGDescriptor::execute(*(v2 + 13), &v27[-64 * v4], *(a1 + 80), v10, v11, v12, *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
+  CI::SoftwareDAGDescriptor::execute(*(v2 + 13), &v27[-64 * v4], *(a1 + 80), *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72), v10, v11, v12);
   v26 = *(a1 + 80);
   if (v26)
   {
@@ -4293,10 +4334,10 @@ LABEL_20:
   }
 }
 
-void CI::SoftwareDAGDescriptor::execute(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10)
+void CI::SoftwareDAGDescriptor::execute(void *a1, uint64_t a2, uint64_t a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v49 = *MEMORY[0x1E69E9840];
-  v17 = MEMORY[0x1EEE9AC00](a1, a2, a3, a4, a5, a6);
+  v17 = MEMORY[0x1EEE9AC00](a1, a2, a3, a8, a9, a10);
   v24 = (&v46 - v23);
   v27 = v25 - v26;
   if (v27)
@@ -4337,10 +4378,10 @@ void CI::SoftwareDAGDescriptor::execute(void *a1, uint64_t a2, uint64_t a3, uint
   v34 = a1[1];
   v47 = v29;
   CI::SWRendererPipeline::initSamplers(v34, a2, v31);
-  v50.origin.x = a7;
-  v50.origin.y = a8;
-  v50.size.width = a9;
-  v50.size.height = a10;
+  v50.origin.x = a4;
+  v50.origin.y = a5;
+  v50.size.width = a6;
+  v50.size.height = a7;
   if (CGRectIsNull(v50))
   {
     width = 0;
@@ -4351,10 +4392,10 @@ void CI::SoftwareDAGDescriptor::execute(void *a1, uint64_t a2, uint64_t a3, uint
 
   else
   {
-    v51.origin.x = a7;
-    v51.origin.y = a8;
-    v51.size.width = a9;
-    v51.size.height = a10;
+    v51.origin.x = a4;
+    v51.origin.y = a5;
+    v51.size.width = a6;
+    v51.size.height = a7;
     if (CGRectIsInfinite(v51))
     {
       x = -2147483647;
@@ -4365,10 +4406,10 @@ void CI::SoftwareDAGDescriptor::execute(void *a1, uint64_t a2, uint64_t a3, uint
 
     else
     {
-      v52.origin.x = a7;
-      v52.origin.y = a8;
-      v52.size.width = a9;
-      v52.size.height = a10;
+      v52.origin.x = a4;
+      v52.origin.y = a5;
+      v52.size.width = a6;
+      v52.size.height = a7;
       v53 = CGRectInset(v52, 0.000001, 0.000001);
       v54 = CGRectIntegral(v53);
       width = v54.size.width;
@@ -4486,7 +4527,7 @@ void sub_19CC44610(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -4500,13 +4541,13 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -4574,18 +4615,18 @@ uint64_t CI::SerialObjectPtrArray::append(uint64_t this, CI::Object *a2)
   return this;
 }
 
-uint64_t *CI::DAGHelper::add_init_destcoord_function_info(uint64_t *this)
+void *CI::DAGHelper::add_init_destcoord_function_info(void *this)
 {
   if (this[5])
   {
     v1 = this;
     argument_info = CI::SoftwareDAGDescriptor::create_argument_info(this[1], 1);
     v3 = argument_info;
-    v4 = *(*(v1 + 8) + 88);
+    v4 = *(v1[1] + 88);
     v6 = 0;
     v5 = 4;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v4 + 32 * argument_info + 8, &v5, &v6);
-    return CI::SoftwareDAGDescriptor::create_function_info(*(v1 + 8), v3);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v4 + 32 * argument_info + 8), &v5, &v6);
+    return CI::SoftwareDAGDescriptor::create_function_info(v1[1], v3);
   }
 
   return this;
@@ -4597,7 +4638,7 @@ uint64_t CI::SoftwareDAGDescriptor::create_argument_info(CI::SoftwareDAGDescript
   v3 = *(this + 12);
   if (v3 >= *(this + 13))
   {
-    v4 = std::vector<CI::SoftwareDAGDescriptor::ArgumentInfo>::__emplace_back_slow_path<unsigned long &>(this + 88, &v6);
+    v4 = std::vector<CI::SoftwareDAGDescriptor::ArgumentInfo>::__emplace_back_slow_path<unsigned long &>(this + 11, &v6);
   }
 
   else
@@ -4613,7 +4654,7 @@ uint64_t CI::SoftwareDAGDescriptor::create_argument_info(CI::SoftwareDAGDescript
   return ((v4 - *(this + 11)) >> 5) - 1;
 }
 
-uint64_t CI::SoftwareDAGDescriptor::ArgumentInfo::add(uint64_t result, int a2, uint64_t a3)
+char *CI::SoftwareDAGDescriptor::ArgumentInfo::add(char *result, unsigned int a2, uint64_t a3)
 {
   v3 = result;
   v14 = a3;
@@ -4622,7 +4663,7 @@ uint64_t CI::SoftwareDAGDescriptor::ArgumentInfo::add(uint64_t result, int a2, u
     if (a2 < 3)
     {
       LODWORD(v15[0]) = 0;
-      return std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(result + 8, v15, &v14);
+      return std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(result + 1, v15, &v14);
     }
 
     goto LABEL_25;
@@ -4650,18 +4691,18 @@ uint64_t CI::SoftwareDAGDescriptor::ArgumentInfo::add(uint64_t result, int a2, u
       v4 = 5;
 LABEL_11:
       LODWORD(v15[0]) = v4;
-      return std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(result + 8, v15, &v14);
+      return std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(result + 1, v15, &v14);
     }
 
 LABEL_25:
     abort();
   }
 
-  v5 = *(result + 16);
-  v6 = *(result + 24);
+  v5 = *(result + 2);
+  v6 = *(result + 3);
   if (v5 >= v6)
   {
-    v8 = *(result + 8);
+    v8 = *(result + 1);
     v9 = 0xAAAAAAAAAAAAAAABLL * ((v5 - v8) >> 3);
     v10 = v9 + 1;
     if (v9 + 1 > 0xAAAAAAAAAAAAAAALL)
@@ -4688,7 +4729,7 @@ LABEL_25:
     v15[4] = result + 8;
     if (v12)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<CI::SWRendererFunctionInputNode>>(result + 8, v12);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<CI::SWRendererFunctionInputNode>>((result + 8), v12);
     }
 
     v13 = 24 * v9;
@@ -4699,8 +4740,8 @@ LABEL_25:
     *(v13 + 8) = 0;
     *(v13 + 16) = 7;
     v15[2] = 24 * v9 + 24;
-    std::vector<CI::SWRendererFunctionInputNode>::__swap_out_circular_buffer((result + 8), v15);
-    v7 = *(v3 + 16);
+    std::vector<CI::SWRendererFunctionInputNode>::__swap_out_circular_buffer(result + 1, v15);
+    v7 = *(v3 + 2);
     result = std::__split_buffer<CI::SWRendererFunctionInputNode>::~__split_buffer(v15);
   }
 
@@ -4712,18 +4753,18 @@ LABEL_25:
     v7 = v5 + 24;
   }
 
-  *(v3 + 16) = v7;
+  *(v3 + 2) = v7;
   return result;
 }
 
-void sub_19CC44E08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19CC44E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<CI::SWRendererFunctionInputNode>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *CI::SoftwareDAGDescriptor::create_function_info(uint64_t *this, unsigned int a2)
+void *CI::SoftwareDAGDescriptor::create_function_info(void *this, unsigned int a2)
 {
   if ((a2 & 0x80000000) == 0)
   {
@@ -4733,7 +4774,7 @@ uint64_t *CI::SoftwareDAGDescriptor::create_function_info(uint64_t *this, unsign
     v4 = this[3];
     if (v4 >= this[4])
     {
-      this = std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::SWFunction &,std::vector<CI::SWRendererFunctionInputNode> *&>((this + 2), this + 14, &v5);
+      this = std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::SWFunction &,std::vector<CI::SWRendererFunctionInputNode> *&>(this + 2, this + 14, &v5);
     }
 
     else
@@ -4749,132 +4790,132 @@ uint64_t *CI::SoftwareDAGDescriptor::create_function_info(uint64_t *this, unsign
   return this;
 }
 
-uint64_t *CI::DAGHelper::add_read_pixel_function_info(uint64_t *this, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+void *CI::DAGHelper::add_read_pixel_function_info(void *this, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (this[5])
   {
     v8 = this;
     argument_info = CI::SoftwareDAGDescriptor::create_argument_info(this[1], 3);
-    v10 = *(*(v8 + 8) + 88);
+    v10 = *(v8[1] + 88);
     v14 = a2;
     v13 = 0;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v10 + 32 * argument_info + 8, &v13, &v14);
-    v11 = *(*(v8 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v10 + 32 * argument_info + 8), &v13, &v14);
+    v11 = *(v8[1] + 88);
     v14 = a5;
     v13 = 4;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v11 + 32 * argument_info + 8, &v13, &v14);
-    v12 = *(*(v8 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v11 + 32 * argument_info + 8), &v13, &v14);
+    v12 = *(v8[1] + 88);
     v14 = a4;
     v13 = 5;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v12 + 32 * argument_info + 8, &v13, &v14);
-    return CI::SoftwareDAGDescriptor::create_function_info(*(v8 + 8), argument_info);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v12 + 32 * argument_info + 8), &v13, &v14);
+    return CI::SoftwareDAGDescriptor::create_function_info(v8[1], argument_info);
   }
 
   return this;
 }
 
-uint64_t *CI::DAGHelper::add_read_pixel_420_function_info(uint64_t *this, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8)
+void *CI::DAGHelper::add_read_pixel_420_function_info(void *this, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8)
 {
   if (this[5])
   {
     v13 = this;
     argument_info = CI::SoftwareDAGDescriptor::create_argument_info(this[1], 5);
-    v15 = *(*(v13 + 8) + 88);
+    v15 = *(v13[1] + 88);
     v21 = a2;
     v20 = 0;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v15 + 32 * argument_info + 8, &v20, &v21);
-    v16 = *(*(v13 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v15 + 32 * argument_info + 8), &v20, &v21);
+    v16 = *(v13[1] + 88);
     v21 = a5;
     v20 = 4;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v16 + 32 * argument_info + 8, &v20, &v21);
-    v17 = *(*(v13 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v16 + 32 * argument_info + 8), &v20, &v21);
+    v17 = *(v13[1] + 88);
     v21 = a6;
     v20 = 0;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v17 + 32 * argument_info + 8, &v20, &v21);
-    v18 = *(*(v13 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v17 + 32 * argument_info + 8), &v20, &v21);
+    v18 = *(v13[1] + 88);
     v21 = a8;
     v20 = 4;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v18 + 32 * argument_info + 8, &v20, &v21);
-    v19 = *(*(v13 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v18 + 32 * argument_info + 8), &v20, &v21);
+    v19 = *(v13[1] + 88);
     v21 = a4;
     v20 = 5;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v19 + 32 * argument_info + 8, &v20, &v21);
-    return CI::SoftwareDAGDescriptor::create_function_info(*(v13 + 8), argument_info);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v19 + 32 * argument_info + 8), &v20, &v21);
+    return CI::SoftwareDAGDescriptor::create_function_info(v13[1], argument_info);
   }
 
   return this;
 }
 
-uint64_t *CI::DAGHelper::add_read_pixel_rgb_a_function_info(uint64_t *this, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *CI::DAGHelper::add_read_pixel_rgb_a_function_info(void *this, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (this[5])
   {
     v10 = this;
     argument_info = CI::SoftwareDAGDescriptor::create_argument_info(this[1], 4);
-    v12 = *(*(v10 + 8) + 88);
+    v12 = *(v10[1] + 88);
     v17 = a2;
     v16 = 0;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v12 + 32 * argument_info + 8, &v16, &v17);
-    v13 = *(*(v10 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v12 + 32 * argument_info + 8), &v16, &v17);
+    v13 = *(v10[1] + 88);
     v17 = a5;
     v16 = 4;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v13 + 32 * argument_info + 8, &v16, &v17);
-    v14 = *(*(v10 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v13 + 32 * argument_info + 8), &v16, &v17);
+    v14 = *(v10[1] + 88);
     v17 = a6;
     v16 = 0;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v14 + 32 * argument_info + 8, &v16, &v17);
-    v15 = *(*(v10 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v14 + 32 * argument_info + 8), &v16, &v17);
+    v15 = *(v10[1] + 88);
     v17 = a4;
     v16 = 5;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v15 + 32 * argument_info + 8, &v16, &v17);
-    return CI::SoftwareDAGDescriptor::create_function_info(*(v10 + 8), argument_info);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v15 + 32 * argument_info + 8), &v16, &v17);
+    return CI::SoftwareDAGDescriptor::create_function_info(v10[1], argument_info);
   }
 
   return this;
 }
 
-uint64_t *CI::DAGHelper::add_colour_inout_function_info(uint64_t *this, uint64_t a2)
+void *CI::DAGHelper::add_colour_inout_function_info(void *this, uint64_t a2)
 {
   if (this[5])
   {
     v3 = this;
     argument_info = CI::SoftwareDAGDescriptor::create_argument_info(this[1], 1);
     v5 = argument_info;
-    v6 = *(*(v3 + 8) + 88);
+    v6 = *(v3[1] + 88);
     v8 = a2;
     v7 = 5;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v6 + 32 * argument_info + 8, &v7, &v8);
-    return CI::SoftwareDAGDescriptor::create_function_info(*(v3 + 8), v5);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v6 + 32 * argument_info + 8), &v7, &v8);
+    return CI::SoftwareDAGDescriptor::create_function_info(v3[1], v5);
   }
 
   return this;
 }
 
-uint64_t *CI::DAGHelper::add_write_pixel_function_info(uint64_t *this, uint64_t a2)
+void *CI::DAGHelper::add_write_pixel_function_info(void *this, uint64_t a2)
 {
   if (this[5])
   {
     v3 = this;
     argument_info = CI::SoftwareDAGDescriptor::create_argument_info(this[1], 3);
-    v5 = *(*(v3 + 8) + 88);
+    v5 = *(v3[1] + 88);
     v8 = 0;
     v7 = 0;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v5 + 32 * argument_info + 8, &v7, &v8);
-    v6 = *(*(v3 + 8) + 88);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v5 + 32 * argument_info + 8), &v7, &v8);
+    v6 = *(v3[1] + 88);
     v8 = a2;
     v7 = 5;
-    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v6 + 32 * argument_info + 8, &v7, &v8);
-    CI::SoftwareDAGDescriptor::ArgumentInfo::add(*(*(v3 + 8) + 88) + 32 * argument_info, 7, 0);
-    return CI::SoftwareDAGDescriptor::create_function_info(*(v3 + 8), argument_info);
+    std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v6 + 32 * argument_info + 8), &v7, &v8);
+    CI::SoftwareDAGDescriptor::ArgumentInfo::add((*(v3[1] + 88) + 32 * argument_info), 7u, 0);
+    return CI::SoftwareDAGDescriptor::create_function_info(v3[1], argument_info);
   }
 
   return this;
 }
 
-uint64_t *CI::DAGHelper::add_function_info(uint64_t a1, uint64_t a2, CI::ColorKernelNode *a3, uint64_t a4, uint64_t a5)
+void *CI::DAGHelper::add_function_info(uint64_t a1, uint64_t a2, CI::ColorKernelNode *a3, uint64_t a4, uint64_t a5)
 {
   v9 = *(a3 + 6);
-  if ((*(*v9 + 16))(v9) != 70)
+  if ((*(*v9 + 16))(v9, a2) != 70)
   {
     (*(*v9 + 16))(v9);
   }
@@ -4986,7 +5027,7 @@ LABEL_37:
 LABEL_41:
           v30 = 0;
 LABEL_42:
-          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v18 + 8, &v30, &v31);
+          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v18 + 8), &v30, &v31);
           goto LABEL_43;
         }
 
@@ -5018,7 +5059,7 @@ LABEL_42:
         v21 = *(*(a1 + 8) + 88);
         v31 = v20;
         v30 = 4;
-        std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v21 + 32 * v13 + 8, &v30, &v31);
+        std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v21 + 32 * v13 + 8), &v30, &v31);
       }
     }
 
@@ -5032,7 +5073,7 @@ LABEL_43:
   }
 }
 
-uint64_t *CI::DAGHelper::add_function_info(uint64_t a1, CI::SerialStringArray **a2, CI::ColorKernelNode *a3, uint64_t a4, std::string::size_type a5, uint64_t a6, uint64_t a7, char *a8, unsigned __int8 a9, void *a10)
+void *CI::DAGHelper::add_function_info(uint64_t a1, CI::SerialStringArray **a2, CI::ColorKernelNode *a3, uint64_t a4, std::string::size_type a5, uint64_t a6, uint64_t a7, char *a8, unsigned __int8 a9, void *a10)
 {
   v13 = a3;
   v16 = *(a3 + 6);
@@ -5095,15 +5136,15 @@ LABEL_36:
           {
             (*(*argument + 240))(argument);
             CI::Node::rois_count(v38);
-            v86[0] = CI::hash_image_node_id(v38, 0);
-            v83.__r_.__value_.__r.__words[0] = v86;
-            v39 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 136, v86);
+            v87[0] = CI::hash_image_node_id(v38, 0);
+            v83.__r_.__value_.__r.__words[0] = v87;
+            v39 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 136, v87, &std::piecewise_construct, &v83);
             if (*(a1 + 40))
             {
               v40 = *(*(a1 + 8) + 88);
               v83.__r_.__value_.__r.__words[0] = v39[5];
               LODWORD(v82) = 0;
-              std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v40 + 32 * v20 + 8, &v82, &v83);
+              std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v40 + 32 * v20 + 8), &v82, &v83);
             }
 
             a4 = v35;
@@ -5159,8 +5200,8 @@ LABEL_97:
           {
 LABEL_57:
             v82 = v44;
-            v86[0] = &v82;
-            v53 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 112, &v82);
+            v87[0] = &v82;
+            v53 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 112, &v82, &std::piecewise_construct, v87, &v86);
             v54 = v53;
             if (*(v53 + 63) < 0)
             {
@@ -5239,23 +5280,23 @@ LABEL_99:
 
             v66 = (*a10)++;
             v82 = v44;
-            v86[0] = &v82;
-            *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v82) + 20) = v66;
+            v87[0] = &v82;
+            *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v82, &std::piecewise_construct, v87) + 20) = v66;
             if (v85 == 1)
             {
               CI::DAGHelper::add_function_with_name(a1, "_ci_srgb_to_linear");
               v82 = v44;
-              v86[0] = &v82;
-              v67 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v82);
+              v87[0] = &v82;
+              v67 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v82, &std::piecewise_construct, v87);
               CI::DAGHelper::add_colour_inout_function_info(a1, *(v67 + 20));
               v68 = (*a10)++;
               v82 = v44;
-              v86[0] = &v82;
-              *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v82) + 20) = v68;
+              v87[0] = &v82;
+              *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v82, &std::piecewise_construct, v87) + 20) = v68;
             }
 
-            v86[0] = v44;
-            std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__erase_unique<unsigned long long>((a1 + 112), v86);
+            v87[0] = v44;
+            std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__erase_unique<unsigned long long>((a1 + 112), v87);
             a4 = v78;
             if (__p[0])
             {
@@ -5269,15 +5310,15 @@ LABEL_99:
             }
           }
 
-          v86[0] = v44;
-          v83.__r_.__value_.__r.__words[0] = v86;
-          v69 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, v86);
+          v87[0] = v44;
+          v83.__r_.__value_.__r.__words[0] = v87;
+          v69 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, v87, &std::piecewise_construct, &v83);
           if (*(a1 + 40))
           {
             v70 = *(*(a1 + 8) + 88);
             v83.__r_.__value_.__r.__words[0] = *(v69 + a9 + 20);
-            LODWORD(v86[0]) = 5;
-            std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v70 + 32 * v74 + 8, v86, &v83);
+            LODWORD(v87[0]) = 5;
+            std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v70 + 32 * v74 + 8), v87, &v83);
           }
 
           a8[v79] = 0;
@@ -5296,9 +5337,9 @@ LABEL_99:
           v28 = v27 + 32 * v20;
           v29 = 5;
 LABEL_42:
-          LODWORD(v86[0]) = v29;
+          LODWORD(v87[0]) = v29;
 LABEL_45:
-          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v28 + 8, v86, &v83);
+          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v28 + 8), v87, &v83);
           goto LABEL_98;
         }
       }
@@ -5331,7 +5372,7 @@ LABEL_45:
         v42 = *(*(a1 + 8) + 88);
         v83.__r_.__value_.__r.__words[0] = 0;
         v28 = v42 + 32 * v20;
-        LODWORD(v86[0]) = 0;
+        LODWORD(v87[0]) = 0;
         goto LABEL_45;
       }
 
@@ -5354,8 +5395,8 @@ LABEL_32:
         {
           v34 = *(*(a1 + 8) + 88);
           v83.__r_.__value_.__r.__words[0] = v33;
-          LODWORD(v86[0]) = 4;
-          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v34 + 32 * v20 + 8, v86, &v83);
+          LODWORD(v87[0]) = 4;
+          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v34 + 32 * v20 + 8), v87, &v83);
         }
 
         a4 = v32;
@@ -5387,8 +5428,8 @@ LABEL_32:
       {
         v26 = *(*(a1 + 8) + 88);
         v83.__r_.__value_.__r.__words[0] = v25;
-        LODWORD(v86[0]) = 4;
-        std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v26 + 32 * v20 + 8, v86, &v83);
+        LODWORD(v87[0]) = 4;
+        std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v26 + 32 * v20 + 8), v87, &v83);
       }
     }
 
@@ -5437,7 +5478,7 @@ void CI::DAGHelper::TextureReadFunction::~TextureReadFunction(CI::DAGHelper::Tex
   }
 }
 
-uint64_t *CI::DAGHelper::add_function_info(CI::SoftwareDAGDescriptor **this, const CI::ProgramNode *a2, const CI::GeneralKernelNode *a3, CI::Object **a4, uint64_t a5, unint64_t a6)
+void *CI::DAGHelper::add_function_info(CI::SoftwareDAGDescriptor **this, const CI::ProgramNode *a2, const CI::GeneralKernelNode *a3, CI::Object **a4, uint64_t a5, size_t a6)
 {
   v10 = *(a3 + 6);
   (*(*v10 + 16))(v10);
@@ -5496,7 +5537,7 @@ uint64_t *CI::DAGHelper::add_function_info(CI::SoftwareDAGDescriptor **this, con
 LABEL_57:
           v45[0] = v25;
 LABEL_58:
-          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v24 + 8, v45, &v46);
+          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v24 + 8), v45, &v46);
           goto LABEL_61;
         }
       }
@@ -5662,7 +5703,7 @@ LABEL_56:
         v22 = *(this[1] + 11);
         v46.f64[0] = v21;
         v45[0] = 4;
-        std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v22 + 32 * v14 + 8, v45, &v46);
+        std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v22 + 32 * v14 + 8), v45, &v46);
       }
     }
 
@@ -5676,7 +5717,7 @@ LABEL_61:
   }
 }
 
-int8x16_t CI::Affine::inverse@<Q0>(CI::Affine *this@<X0>, uint64_t a2@<X8>)
+int8x16_t CI::Affine::inverse@<Q0>(int8x16_t *__return_ptr a1@<X8>, CI::Affine *this@<X0>)
 {
   v3 = *this;
   v4.f64[0] = *(this + 3);
@@ -5685,27 +5726,27 @@ int8x16_t CI::Affine::inverse@<Q0>(CI::Affine *this@<X0>, uint64_t a2@<X8>)
   if (fabs(v6) >= 1.0e-10)
   {
     v8 = 1.0 / v6;
-    *(a2 + 8) = v8 * -v5.f64[0];
-    *(a2 + 16) = -(v5.f64[1] * v8);
+    *&a1->i64[1] = v8 * -v5.f64[0];
+    *a1[1].i64 = -(v5.f64[1] * v8);
     v4.f64[1] = v3;
     v9 = vmulq_n_f64(v4, v8);
     v10 = *(this + 2);
     v11 = vmulq_n_f64(v5, v8);
     v12 = vmulq_f64(v10, vnegq_f64(v9));
     v13 = vmlaq_f64(vextq_s8(v12, v12, 8uLL), v10, v11);
-    *a2 = v9.f64[0];
-    *(a2 + 24) = v9.f64[1];
+    a1->i64[0] = *&v9.f64[0];
+    a1[1].i64[1] = *&v9.f64[1];
     result = vextq_s8(v13, v13, 8uLL);
-    *(a2 + 32) = result;
+    a1[2] = result;
   }
 
   else
   {
     x_log("Singular matrix cannot be inverted!\n");
     result.i64[0] = 0;
-    *(a2 + 16) = 0u;
-    *(a2 + 32) = 0u;
-    *a2 = 0u;
+    a1[1] = 0u;
+    a1[2] = 0u;
+    *a1 = 0u;
   }
 
   return result;
@@ -5737,7 +5778,7 @@ uint64_t CI::SoftwareDAGDescriptor::create_sampler_builder_function_info(CI::Sof
   return ((v5 - *(this + 8)) >> 6) - 1;
 }
 
-uint64_t *CI::DAGHelper::add_function_info(uint64_t a1, CI::SerialStringArray **a2, CI::ColorKernelNode *a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, unsigned __int8 a9, void *a10)
+void *CI::DAGHelper::add_function_info(uint64_t a1, CI::SerialStringArray **a2, CI::ColorKernelNode *a3, uint64_t a4, uint64_t a5, size_t a6, uint64_t a7, char *a8, unsigned __int8 a9, void *a10)
 {
   v11 = a3;
   v14 = *(a3 + 6);
@@ -5807,13 +5848,13 @@ LABEL_35:
             CI::Node::rois_count(v37);
             v91[0] = CI::hash_image_node_id(v37, 0);
             *v93 = v91;
-            v38 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 136, v91);
+            v38 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 136, v91, &std::piecewise_construct, v93);
             if (*(a1 + 40))
             {
               v39 = *(*(a1 + 8) + 88);
               *v93 = v38[5];
               LODWORD(v92) = 0;
-              std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v39 + 32 * *v90 + 8, &v92, v93);
+              std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v39 + 32 * *v90 + 8), &v92, v93);
             }
 
 LABEL_121:
@@ -5867,7 +5908,7 @@ LABEL_121:
 LABEL_58:
             v92 = v41;
             v91[0] = &v92;
-            v50 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 112, &v92);
+            v50 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 112, &v92, &std::piecewise_construct, v91, v96);
             v51 = v50;
             if (*(v50 + 63) < 0)
             {
@@ -5948,18 +5989,18 @@ LABEL_123:
             v77 = (*a10)++;
             v92 = v41;
             v91[0] = &v92;
-            *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v92) + 20) = v77;
+            *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v92, &std::piecewise_construct, v91) + 20) = v77;
             if (v95 == 1)
             {
               CI::DAGHelper::add_function_with_name(a1, "_ci_srgb_to_linear");
               v92 = v41;
               v91[0] = &v92;
-              v78 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v92);
+              v78 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v92, &std::piecewise_construct, v91);
               CI::DAGHelper::add_colour_inout_function_info(a1, *(v78 + 20));
               v79 = (*a10)++;
               v92 = v41;
               v91[0] = &v92;
-              *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v92) + 20) = v79;
+              *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, &v92, &std::piecewise_construct, v91) + 20) = v79;
             }
 
             v91[0] = v41;
@@ -5978,13 +6019,13 @@ LABEL_123:
 
           v91[0] = v41;
           *v93 = v91;
-          v80 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, v91);
+          v80 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 88, v91, &std::piecewise_construct, v93);
           if (*(a1 + 40))
           {
             v81 = *(*(a1 + 8) + 88);
             *v93 = *(v80 + a9 + 20);
             LODWORD(v91[0]) = 5;
-            std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v81 + 32 * *v90 + 8, v91, v93);
+            std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v81 + 32 * *v90 + 8), v91, v93);
           }
 
           a8[v87] = 0;
@@ -6005,7 +6046,7 @@ LABEL_123:
 LABEL_39:
           LODWORD(v91[0]) = v30;
 LABEL_42:
-          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v29 + 8, v91, v93);
+          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v29 + 8), v91, v93);
           goto LABEL_122;
         }
       }
@@ -6031,8 +6072,9 @@ LABEL_42:
           }
 
           v52 = *v24;
+          *&v93[8] = 0;
           *&v93[16] = 0;
-          *v93 = 0x3FF0000000000000uLL;
+          *v93 = 0x3FF0000000000000;
           *&v93[24] = 0x3FF0000000000000;
           v94 = 0uLL;
           v53 = CI::ProgramNode::child_depth(a2, v18);
@@ -6141,7 +6183,7 @@ LABEL_33:
           v62 = *(*(a1 + 8) + 88);
           *v93 = v61;
           LODWORD(v91[0]) = 4;
-          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v62 + 32 * *v90 + 8, v91, v93);
+          std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v62 + 32 * *v90 + 8), v91, v93);
         }
 
         v11 = v60;
@@ -6174,7 +6216,7 @@ LABEL_33:
         v27 = *(*(a1 + 8) + 88);
         *v93 = v26;
         LODWORD(v91[0]) = 4;
-        std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(v27 + 32 * *v90 + 8, v91, v93);
+        std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>((v27 + 32 * *v90 + 8), v91, v93);
       }
     }
 
@@ -6225,201 +6267,202 @@ uint64_t CI::DAGHelper::color_output_for_kernel(CI::DAGHelper *this, const CI::K
 
 uint64_t CI::DAGHelper::build_dag(CI::DAGHelper *this, const CI::Node *a2, const CI::ProgramNode *a3, CI::SerialObjectPtrArray *a4, uint64_t a5)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v10 = CI_VERBOSE_SIGNPOSTS();
+  if (v10)
   {
-    v10 = ci_signpost_log_render();
-    v11 = *(a3 + 9) | ((*(**(this + 2) + 280))(*(this + 2)) << 32);
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v12 = ci_signpost_log_render(v10, v11);
+    v13 = *(a3 + 9) | ((*(**(this + 2) + 280))(*(this + 2)) << 32);
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "build_dag", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v13, "build_dag", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  v12 = (*(**(this + 2) + 280))(*(this + 2));
-  TimerBase::TimerBase(buf, v12, *(a3 + 9), "build_dag", 5);
+  v14 = (*(**(this + 2) + 280))(*(this + 2));
+  TimerBase::TimerBase(buf, v14, *(a3 + 9), "build_dag", 5u);
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = a5 + 1;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke;
+  v49[3] = &unk_1E75C15A8;
+  v49[6] = a5;
+  v49[7] = a3;
+  v49[8] = a4;
+  v49[4] = &v50;
+  v49[5] = this;
+  CI::ProgramNode::traverse_dag_preorder(a3, a2, v49, &__block_literal_global_0);
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3812000000;
+  v45 = __Block_byref_object_copy_;
+  v46 = __Block_byref_object_dispose_;
+  v47 = &unk_19D0E11CF;
   v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = a5 + 1;
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke;
-  v47[3] = &unk_1E75C15A8;
-  v47[6] = a5;
-  v47[7] = a3;
-  v47[8] = a4;
-  v47[4] = &v48;
-  v47[5] = this;
-  CI::ProgramNode::traverse_dag_preorder(a3, a2, v47, &__block_literal_global_0);
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3812000000;
-  v43 = __Block_byref_object_copy_;
-  v44 = __Block_byref_object_dispose_;
-  v45 = &unk_19D0E11CF;
-  v46 = 0;
   if (*(a3 + 136) == 1)
   {
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_22;
-    v39[3] = &unk_1E75C15F0;
-    v39[6] = this;
-    v39[7] = a5;
-    v39[8] = a3;
-    v39[9] = a4;
-    v39[4] = &v48;
-    v39[5] = &v40;
-    CI::ProgramNode::traverse_dag_preorder(a3, a2, v39, 0);
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_22;
+    v41[3] = &unk_1E75C15F0;
+    v41[6] = this;
+    v41[7] = a5;
+    v41[8] = a3;
+    v41[9] = a4;
+    v41[4] = &v50;
+    v41[5] = &v42;
+    CI::ProgramNode::traverse_dag_preorder(a3, a2, v41, 0);
   }
 
   else
   {
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_2_23;
-    v38[3] = &__block_descriptor_56_e33_v60__0_v8r_v16i24i28_v32Q40_48i56l;
-    v38[4] = this;
-    v38[5] = a3;
-    v38[6] = a4;
-    CI::ProgramNode::traverse_dag_preorder(a3, a2, v38, &__block_literal_global_26);
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_4;
-    v37[3] = &__block_descriptor_48_e33_v60__0_v8r_v16i24i28_v32Q40_48i56l;
-    v37[4] = this;
-    v37[5] = a5;
-    CI::ProgramNode::traverse_dag_preorder(a3, a2, v37, &__block_literal_global_30);
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_2_23;
+    v40[3] = &__block_descriptor_56_e33_v60__0_v8r_v16i24i28_v32Q40_48i56l;
+    v40[4] = this;
+    v40[5] = a3;
+    v40[6] = a4;
+    CI::ProgramNode::traverse_dag_preorder(a3, a2, v40, &__block_literal_global_26);
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_4;
+    v39[3] = &__block_descriptor_48_e33_v60__0_v8r_v16i24i28_v32Q40_48i56l;
+    v39[4] = this;
+    v39[5] = a5;
+    CI::ProgramNode::traverse_dag_preorder(a3, a2, v39, &__block_literal_global_30);
   }
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_6;
-  v36[3] = &unk_1E75C15F0;
-  v36[6] = this;
-  v36[7] = a5;
-  v36[8] = a3;
-  v36[9] = a4;
-  v36[4] = &v48;
-  v36[5] = &v40;
-  CI::ProgramNode::traverse_dag(a3, a2, v36, &__block_literal_global_32);
-  v13 = v41;
-  if (!*(v41 + 24) && *(this + 16))
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_6;
+  v38[3] = &unk_1E75C15F0;
+  v38[6] = this;
+  v38[7] = a5;
+  v38[8] = a3;
+  v38[9] = a4;
+  v38[4] = &v50;
+  v38[5] = &v42;
+  CI::ProgramNode::traverse_dag(a3, a2, v38, &__block_literal_global_32);
+  v15 = v43;
+  if (!*(v43 + 24) && *(this + 16))
   {
-    v14 = *(this + 14);
-    v35 = *(v14 + 32);
-    if (*(v14 + 63) < 0)
+    v16 = *(this + 14);
+    v37 = *(v16 + 32);
+    if (*(v16 + 63) < 0)
     {
-      std::string::__init_copy_ctor_external(&v32, *(v14 + 40), *(v14 + 48));
+      std::string::__init_copy_ctor_external(&v34, *(v16 + 40), *(v16 + 48));
     }
 
     else
     {
-      v32 = *(v14 + 40);
+      v34 = *(v16 + 40);
     }
 
-    std::vector<unsigned long>::vector[abi:nn200100](__p, (v14 + 64));
-    v34 = *(v14 + 88);
-    if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::vector<unsigned long>::vector[abi:nn200100](__p, (v16 + 64));
+    v36 = *(v16 + 88);
+    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v15 = &v32;
+      v17 = &v34;
     }
 
     else
     {
-      v15 = v32.__r_.__value_.__r.__words[0];
+      v17 = v34.__r_.__value_.__r.__words[0];
     }
 
-    CI::DAGHelper::add_function_with_name(this, v15);
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    CI::DAGHelper::add_function_with_name(this, v17);
+    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
     {
-      if (v32.__r_.__value_.__l.__size_ != 14 || (*v32.__r_.__value_.__l.__data_ == 0x646165725F69635FLL ? (v19 = *(v32.__r_.__value_.__r.__words[0] + 6) == 0x6C657869705F6461) : (v19 = 0), !v19))
+      if (v34.__r_.__value_.__l.__size_ != 14 || (*v34.__r_.__value_.__l.__data_ == 0x646165725F69635FLL ? (v21 = *(v34.__r_.__value_.__r.__words[0] + 6) == 0x6C657869705F6461) : (v21 = 0), !v21))
       {
-        if (v32.__r_.__value_.__l.__size_ != 20)
+        if (v34.__r_.__value_.__l.__size_ != 20)
         {
           goto LABEL_40;
         }
 
-        v18 = v32.__r_.__value_.__r.__words[0];
+        v20 = v34.__r_.__value_.__r.__words[0];
         goto LABEL_27;
       }
     }
 
     else
     {
-      if (HIBYTE(v32.__r_.__value_.__r.__words[2]) != 14)
+      if (HIBYTE(v34.__r_.__value_.__r.__words[2]) != 14)
       {
-        if (HIBYTE(v32.__r_.__value_.__r.__words[2]) != 20)
+        if (HIBYTE(v34.__r_.__value_.__r.__words[2]) != 20)
         {
           goto LABEL_40;
         }
 
-        v18 = &v32;
+        v20 = &v34;
 LABEL_27:
-        v20 = v18->__r_.__value_.__r.__words[0];
-        size = v18->__r_.__value_.__l.__size_;
-        v22 = v18->__r_.__value_.__r.__words[2];
-        if (v20 == 0x646165725F69635FLL && size == 0x725F6C657869705FLL && v22 == 1633641063)
+        v22 = v20->__r_.__value_.__r.__words[0];
+        size = v20->__r_.__value_.__l.__size_;
+        v24 = v20->__r_.__value_.__r.__words[2];
+        if (v22 == 0x646165725F69635FLL && size == 0x725F6C657869705FLL && v24 == 1633641063)
         {
-          CI::DAGHelper::add_read_pixel_rgb_a_function_info(this, *__p[0], v16, *(__p[0] + 2), *(__p[0] + 3), *(__p[0] + 4));
+          CI::DAGHelper::add_read_pixel_rgb_a_function_info(this, *__p[0], v18, *(__p[0] + 2), *(__p[0] + 3), *(__p[0] + 4));
 LABEL_41:
-          v26 = v49[3];
-          v49[3] = v26 + 1;
-          v53 = &v35;
-          *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 88, &v35) + 20) = v26;
-          if (v34 == 1)
+          v28 = v51[3];
+          v51[3] = v28 + 1;
+          v55 = &v37;
+          *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 88, &v37, &std::piecewise_construct, &v55) + 20) = v28;
+          if (v36 == 1)
           {
             CI::DAGHelper::add_function_with_name(this, "_ci_srgb_to_linear");
-            v53 = &v35;
-            v27 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 88, &v35);
-            CI::DAGHelper::add_colour_inout_function_info(this, *(v27 + 20));
-            v28 = v49[3];
-            v49[3] = v28 + 1;
-            v53 = &v35;
-            *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 88, &v35) + 20) = v28;
+            v55 = &v37;
+            v29 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 88, &v37, &std::piecewise_construct, &v55);
+            CI::DAGHelper::add_colour_inout_function_info(this, *(v29 + 20));
+            v30 = v51[3];
+            v51[3] = v30 + 1;
+            v55 = &v37;
+            *(std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 88, &v37, &std::piecewise_construct, &v55) + 20) = v30;
           }
 
-          std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__erase_unique<unsigned long long>(this + 14, &v35);
-          v53 = &v35;
-          v29 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 88, &v35);
-          v41[6] = v29[5];
+          std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__erase_unique<unsigned long long>(this + 14, &v37);
+          v55 = &v37;
+          v31 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 88, &v37, &std::piecewise_construct, &v55);
+          v43[6] = v31[5];
           if (__p[0])
           {
             __p[1] = __p[0];
             operator delete(__p[0]);
           }
 
-          if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v32.__r_.__value_.__l.__data_);
+            operator delete(v34.__r_.__value_.__l.__data_);
           }
 
-          v13 = v41;
+          v15 = v43;
           goto LABEL_48;
         }
 
 LABEL_40:
-        CI::DAGHelper::add_read_pixel_420_function_info(this, *__p[0], v16, *(__p[0] + 2), *(__p[0] + 3), *(__p[0] + 4), v17, *(__p[0] + 6));
+        CI::DAGHelper::add_read_pixel_420_function_info(this, *__p[0], v18, *(__p[0] + 2), *(__p[0] + 3), *(__p[0] + 4), v19, *(__p[0] + 6));
         goto LABEL_41;
       }
 
-      if (v32.__r_.__value_.__r.__words[0] != 0x646165725F69635FLL || *(v32.__r_.__value_.__r.__words + 6) != 0x6C657869705F6461)
+      if (v34.__r_.__value_.__r.__words[0] != 0x646165725F69635FLL || *(v34.__r_.__value_.__r.__words + 6) != 0x6C657869705F6461)
       {
         goto LABEL_40;
       }
     }
 
-    CI::DAGHelper::add_read_pixel_function_info(this, *__p[0], v16, *(__p[0] + 2), *(__p[0] + 3));
+    CI::DAGHelper::add_read_pixel_function_info(this, *__p[0], v18, *(__p[0] + 2), *(__p[0] + 3));
     goto LABEL_41;
   }
 
 LABEL_48:
-  v30 = v13[6];
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v48, 8);
+  v32 = v15[6];
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v50, 8);
   CI::DAGHelper::build_dag(CI::Node const*,CI::ProgramNode const*,CI::SerialObjectPtrArray *,unsigned long)::SignpostTimer::~SignpostTimer(buf);
-  return v30;
+  return v32;
 }
 
 void sub_19CC47CFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
@@ -6430,7 +6473,7 @@ void sub_19CC47CFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke(void *a1, CI::Object *this, int a3, int a4, int a5, unint64_t a6, uint64_t a7, char *a8, int a9)
+void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke(void *a1, CI::Object *this, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, int a9)
 {
   if (a9 == -1)
   {
@@ -6442,7 +6485,7 @@ void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObje
       CI::Object::ref(this);
     }
 
-    v15 = (*(*this + 336))(this, *(v14 + 16));
+    v15 = (*(*this + 336))(this, *(v14 + 16), a3, a4, a5);
     v27 = v15;
     if (v15)
     {
@@ -6461,7 +6504,7 @@ void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObje
       {
         v25 = CI::hash_dag_node_id(a6, a7, 0);
         v28 = &v25;
-        v19 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 64, &v25) + 5;
+        v19 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 64, &v25, &std::piecewise_construct, &v28) + 5;
       }
 
       else
@@ -6483,16 +6526,16 @@ void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObje
       *(v23 + 24) = v24 + 1;
       v25 = v22;
       v28 = &v25;
-      std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 64, &v25)[5] = v24;
+      std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14 + 64, &v25, &std::piecewise_construct, &v28)[5] = v24;
     }
 
     CI::ConvertedNodeRAII::~ConvertedNodeRAII(&v26);
   }
 }
 
-void sub_19CC47F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19CC47F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CI::ConvertedNodeRAII::~ConvertedNodeRAII(va);
   _Unwind_Resume(a1);
 }
@@ -6515,7 +6558,7 @@ uint64_t ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Serial
         {
           v21 = CI::hash_dag_node_id(a6, a7, 0);
           v22 = &v21;
-          v18 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 64, &v21) + 5;
+          v18 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 64, &v21, &std::piecewise_construct, &v22) + 5;
         }
 
         else
@@ -6533,10 +6576,10 @@ uint64_t ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Serial
         v20 = CI::DAGHelper::color_output_for_kernel(v15, v17, (*(*(v14 + 32) + 8) + 24));
         v21 = v16;
         v22 = &v21;
-        std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v21)[5] = v20;
+        std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v21, &std::piecewise_construct, &v22)[5] = v20;
         v21 = v16;
         v22 = &v21;
-        result = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v21);
+        result = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v21, &std::piecewise_construct, &v22);
         *(*(*(v14 + 40) + 8) + 48) = *(result + 40);
       }
     }
@@ -6545,12 +6588,12 @@ uint64_t ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Serial
   return result;
 }
 
-unint64_t ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_2_23(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+double ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_2_23(uint64_t a1, CI *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   if (a9 != -1)
   {
-    v12 = *(result + 32);
-    (*(**(result + 40) + 48))(*(result + 40), a9);
+    v12 = *(a1 + 32);
+    (*(**(a1 + 40) + 48))(*(a1 + 40), a9, a3, a4, a5, a6, a7, a8);
     if (a3 && !(*(*a3 + 200))(a3, a5))
     {
       v13 = 0;
@@ -6561,29 +6604,29 @@ unint64_t ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seria
       v13 = a9;
     }
 
-    result = CI::hash_image_node_id(a2, v13);
-    v14 = *(v12 + 144);
-    if (!v14)
+    v14 = CI::hash_image_node_id(a2, v13);
+    v16 = v12[9].i64[0];
+    if (!v16)
     {
       goto LABEL_14;
     }
 
-    v15 = v12 + 144;
+    v17 = v12 + 9;
     do
     {
-      v16 = *(v14 + 32);
-      v17 = v16 >= result;
-      v18 = v16 < result;
-      if (v17)
+      v18 = *(v16 + 32);
+      v19 = v18 >= v14;
+      v20 = v18 < v14;
+      if (v19)
       {
-        v15 = v14;
+        v17 = v16;
       }
 
-      v14 = *(v14 + 8 * v18);
+      v16 = *(v16 + 8 * v20);
     }
 
-    while (v14);
-    if (v15 == v12 + 144 || result < *(v15 + 32))
+    while (v16);
+    if (v17 == &v12[9] || v14 < v17[2].i64[0])
     {
 LABEL_14:
       CI::DAGHelper::add_arguments_for_image_node(v12);
@@ -6593,9 +6636,9 @@ LABEL_14:
   return result;
 }
 
-unint64_t ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_4(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, int a9)
+unint64_t ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_4(unint64_t result, CI **a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, int a9)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   if (a9 != -1)
   {
     v13 = result;
@@ -6628,34 +6671,34 @@ unint64_t ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20Seria
       if (v17 == v14 + 96 || result < *(v17 + 32))
       {
 LABEL_12:
-        v21 = (*(*a2 + 16))(a2);
+        v21 = (*(*a2 + 2))(a2);
         v22 = *a2;
         if (v21 == 54)
         {
-          v23 = (*(v22 + 216))(a2);
-          v25 = CI::format_from_IOSurface(*(a2 + 56), v24);
+          v23 = (*(v22 + 27))(a2);
+          v25 = CI::format_from_IOSurface(a2[7], v24);
         }
 
         else
         {
-          if ((*(v22 + 16))(a2) != 52)
+          if ((*(v22 + 2))(a2) != 52)
           {
             is_ycc_biplanar = 0;
             v26 = 0;
             goto LABEL_18;
           }
 
-          v23 = (*(*a2 + 216))(a2);
-          v25 = *(a2 + 152);
+          v23 = (*(*a2 + 27))(a2);
+          v25 = *(a2 + 38);
         }
 
         v26 = v23;
         is_ycc_biplanar = CI::format_is_ycc_biplanar(v25);
 LABEL_18:
         v44 = CI::hash_image_node_id(a2, a9);
-        v46.__r_.__value_.__r.__words[0] = &v44;
+        v47.__r_.__value_.__r.__words[0] = &v44;
         v39 = v14;
-        v28 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v14 + 136, &v44);
+        v28 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v14 + 136, &v44, &std::piecewise_construct, &v47);
         v30 = v28[5];
         v29 = v28[6];
         v31 = v28[7];
@@ -6665,66 +6708,66 @@ LABEL_18:
         if (a6)
         {
           v43[0] = CI::hash_dag_node_id(a6, a7, 0);
-          v46.__r_.__value_.__r.__words[0] = v43;
-          v13 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v39 + 64, v43);
+          v47.__r_.__value_.__r.__words[0] = v43;
+          v13 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v39 + 64, v43, &std::piecewise_construct, &v47);
         }
 
         v33 = v13[5];
         if ((v26 != 2) | is_ycc_biplanar & 1)
         {
-          v46.__r_.__value_.__r.__words[0] = v30;
-          v46.__r_.__value_.__l.__size_ = v29;
-          v46.__r_.__value_.__r.__words[2] = v33;
+          v47.__r_.__value_.__r.__words[0] = v30;
+          v47.__r_.__value_.__l.__size_ = v29;
+          v47.__r_.__value_.__r.__words[2] = v33;
           __p = v31;
           if (v26 >= 2)
           {
-            v48 = v32;
-            v49 = v37;
-            std::vector<unsigned long>::vector[abi:nn200100](v43, &v46, 7uLL);
+            v49 = v32;
+            v50 = v37;
+            std::vector<unsigned long>::vector[abi:nn200100](v43, &v47, 7uLL);
             std::string::basic_string[abi:nn200100]<0>(v41, "_ci_read_pixel_420");
           }
 
           else
           {
-            std::vector<unsigned long>::vector[abi:nn200100](v43, &v46, 4uLL);
+            std::vector<unsigned long>::vector[abi:nn200100](v43, &v47, 4uLL);
             std::string::basic_string[abi:nn200100]<0>(v41, "_ci_read_pixel");
           }
 
-          CI::DAGHelper::TextureReadFunction::TextureReadFunction(&v46, v41, v43);
+          CI::DAGHelper::TextureReadFunction::TextureReadFunction(&v47, v41, v43);
           v35 = v39;
           v40 = v15;
-          v45 = &v40;
-          v36 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v39 + 112, &v40);
-          CI::DAGHelper::TextureReadFunction::operator=((v36 + 5), &v46);
+          v46 = &v40;
+          v36 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v39 + 112, &v40, &std::piecewise_construct, &v46, &v45);
+          CI::DAGHelper::TextureReadFunction::operator=((v36 + 5), &v47);
         }
 
         else
         {
-          v46.__r_.__value_.__r.__words[0] = v30;
-          v46.__r_.__value_.__l.__size_ = v29;
-          v46.__r_.__value_.__r.__words[2] = v33;
+          v47.__r_.__value_.__r.__words[0] = v30;
+          v47.__r_.__value_.__l.__size_ = v29;
+          v47.__r_.__value_.__r.__words[2] = v33;
           __p = v31;
-          v48 = v32;
-          *&v49 = v37;
-          std::vector<unsigned long>::vector[abi:nn200100](v43, &v46, 6uLL);
+          v49 = v32;
+          *&v50 = v37;
+          std::vector<unsigned long>::vector[abi:nn200100](v43, &v47, 6uLL);
           std::string::basic_string[abi:nn200100]<0>(v41, "_ci_read_pixel_rgb_a");
-          CI::DAGHelper::TextureReadFunction::TextureReadFunction(&v46, v41, v43);
+          CI::DAGHelper::TextureReadFunction::TextureReadFunction(&v47, v41, v43);
           v35 = v39;
           v40 = v15;
-          v45 = &v40;
-          v34 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v39 + 112, &v40);
-          CI::DAGHelper::TextureReadFunction::operator=((v34 + 5), &v46);
+          v46 = &v40;
+          v34 = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v39 + 112, &v40, &std::piecewise_construct, &v46, &v45);
+          CI::DAGHelper::TextureReadFunction::operator=((v34 + 5), &v47);
         }
 
         if (__p)
         {
-          v48 = __p;
+          v49 = __p;
           operator delete(__p);
         }
 
-        if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v46.__r_.__value_.__l.__data_);
+          operator delete(v47.__r_.__value_.__l.__data_);
         }
 
         if (v42 < 0)
@@ -6739,8 +6782,8 @@ LABEL_18:
         }
 
         v43[0] = v15;
-        v46.__r_.__value_.__r.__words[0] = v43;
-        result = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v35 + 112, v43);
+        v47.__r_.__value_.__r.__words[0] = v43;
+        result = std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v35 + 112, v43, &std::piecewise_construct, &v47, v41);
         *(result + 88) = v38 & 1;
       }
     }
@@ -6764,21 +6807,22 @@ void sub_19CC487EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *CI::DAGHelper::TextureReadFunction::operator=(std::string *a1, uint64_t a2)
+std::string *CI::DAGHelper::TextureReadFunction::operator=(std::string *a1, const std::string *a2)
 {
   std::string::operator=(a1, a2);
   if (a1 != a2)
   {
-    std::vector<unsigned long>::__assign_with_size[abi:nn200100]<unsigned long *,unsigned long *>(a1[1].__r_.__value_.__r.__words, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
+    std::vector<unsigned long>::__assign_with_size[abi:nn200100]<unsigned long *,unsigned long *>(&a1[1], a2[1].__r_.__value_.__l.__data_, a2[1].__r_.__value_.__l.__size_, (a2[1].__r_.__value_.__l.__size_ - a2[1].__r_.__value_.__r.__words[0]) >> 3);
   }
 
   return a1;
 }
 
-void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_6(uint64_t a1, CI::Object *this, int a3, int a4, int a5, unint64_t a6, uint64_t a7, char *a8, int a9)
+void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObjectPtrArrayEm_block_invoke_6(uint64_t a1, CI::Object *this, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, char *a8, int a9)
 {
   if (a9 == -1)
   {
+    v12 = a4;
     v15 = *(a1 + 48);
     v40 = this;
     v41 = 0;
@@ -6787,7 +6831,7 @@ void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObje
       CI::Object::ref(this);
     }
 
-    v16 = (*(*this + 336))(this, *(v15 + 2));
+    v16 = (*(*this + 336))(this, *(v15 + 2), a3, a4, a5);
     v41 = v16;
     if (!v16)
     {
@@ -6802,7 +6846,7 @@ void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObje
       {
         v39 = CI::hash_dag_node_id(a6, a7, 0);
         v42 = &v39;
-        v18 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 64, &v39) + 5;
+        v18 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 64, &v39, &std::piecewise_construct, &v42) + 5;
       }
 
       else
@@ -6812,23 +6856,23 @@ void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObje
 
       v21 = *v18;
       v22 = CI::hash_dag_node_id(this, a7, a8);
-      CI::DAGHelper::add_function_info(v15, *(a1 + 64), v38, *(a1 + 72), v21, a4, a7, a8, 0, (*(*(a1 + 32) + 8) + 24));
+      CI::DAGHelper::add_function_info(v15, *(a1 + 64), v38, *(a1 + 72), v21, v12, a7, a8, 0, (*(*(a1 + 32) + 8) + 24));
       v23 = a7;
       v24 = CI::DAGHelper::color_output_for_kernel(v15, v17, (*(*(a1 + 32) + 8) + 24));
       v25 = a8;
       v39 = v22;
       v42 = &v39;
       v26 = 0;
-      std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39)[5] = v24;
+      std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39, &std::piecewise_construct, &v42)[5] = v24;
       do
       {
         v27 = v26 + 1;
         if (*(*(*(a1 + 40) + 8) + 2 * v26 + 50))
         {
-          CI::DAGHelper::add_function_info(v15, *(a1 + 64), v38, *(a1 + 72), v21, a4, v23, v25, v27, (*(*(a1 + 32) + 8) + 24));
+          CI::DAGHelper::add_function_info(v15, *(a1 + 64), v38, *(a1 + 72), v21, v12, v23, v25, v27, (*(*(a1 + 32) + 8) + 24));
           v39 = v22;
           v42 = &v39;
-          v28 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39);
+          v28 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39, &std::piecewise_construct, &v42);
           v29 = *(*(a1 + 32) + 8);
           v30 = *(v29 + 24);
           *(v29 + 24) = v30 + 1;
@@ -6853,7 +6897,7 @@ void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObje
       {
         v39 = CI::hash_dag_node_id(a6, a7, 0);
         v42 = &v39;
-        v20 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 64, &v39) + 5;
+        v20 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 64, &v39, &std::piecewise_construct, &v42) + 5;
       }
 
       else
@@ -6863,21 +6907,21 @@ void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObje
 
       v31 = *v20;
       v22 = CI::hash_dag_node_id(this, a7, a8);
-      CI::DAGHelper::add_function_info(v15, *(a1 + 64), v38, *(a1 + 72), v31, a4, a7, a8, 0, (*(*(a1 + 32) + 8) + 24));
+      CI::DAGHelper::add_function_info(v15, *(a1 + 64), v38, *(a1 + 72), v31, v12, a7, a8, 0, (*(*(a1 + 32) + 8) + 24));
       v32 = CI::DAGHelper::color_output_for_kernel(v15, v19, (*(*(a1 + 32) + 8) + 24));
       v39 = v22;
       v42 = &v39;
       v33 = 0;
-      std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39)[5] = v32;
+      std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39, &std::piecewise_construct, &v42)[5] = v32;
       do
       {
         v34 = v33 + 1;
         if (*(*(*(a1 + 40) + 8) + 2 * v33 + 50))
         {
-          CI::DAGHelper::add_function_info(v15, *(a1 + 64), v38, *(a1 + 72), v31, a4, a7, a8, v34, (*(*(a1 + 32) + 8) + 24));
+          CI::DAGHelper::add_function_info(v15, *(a1 + 64), v38, *(a1 + 72), v31, v12, a7, a8, v34, (*(*(a1 + 32) + 8) + 24));
           v39 = v22;
           v42 = &v39;
-          v35 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39);
+          v35 = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39, &std::piecewise_construct, &v42);
           v36 = *(*(a1 + 32) + 8);
           v37 = *(v36 + 24);
           *(v36 + 24) = v37 + 1;
@@ -6892,37 +6936,38 @@ void ___ZN2CI9DAGHelper9build_dagEPKNS_4NodeEPKNS_11ProgramNodeEPNS_20SerialObje
 
     v39 = v22;
     v42 = &v39;
-    *(*(*(a1 + 40) + 8) + 48) = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39)[5];
+    *(*(*(a1 + 40) + 8) + 48) = std::__tree<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::ColorKernelOutputIdx>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v15 + 88, &v39, &std::piecewise_construct, &v42)[5];
 LABEL_19:
     CI::ConvertedNodeRAII::~ConvertedNodeRAII(&v40);
   }
 }
 
-void sub_19CC48DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_19CC48DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   CI::ConvertedNodeRAII::~ConvertedNodeRAII(va);
   _Unwind_Resume(a1);
 }
 
 void CI::DAGHelper::build_dag(CI::Node const*,CI::ProgramNode const*,CI::SerialObjectPtrArray *,unsigned long)::SignpostTimer::~SignpostTimer(TimerBase *a1)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "build_dag", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "build_dag", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 uint64_t CI::DAGHelper::analyze_kernels(CI::DAGHelper *this, const CI::ProgramNode *a2)
@@ -6970,13 +7015,13 @@ uint64_t CI::DAGHelper::analyze_kernels(CI::DAGHelper *this, const CI::ProgramNo
   return 0xFFFFFFFFLL;
 }
 
-void sub_19CC490E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19CC490E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 128), 8);
-  _Block_object_dispose((v11 - 96), 8);
-  _Block_object_dispose((v11 - 64), 8);
+  _Block_object_dispose((v18 - 128), 8);
+  _Block_object_dispose((v18 - 96), 8);
+  _Block_object_dispose((v18 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7000,7 +7045,7 @@ BOOL ___ZN2CI9DAGHelper15analyze_kernelsEPKNS_11ProgramNodeE_block_invoke(uint64
       CI::Object::ref(this);
     }
 
-    v10 = (*(*v8 + 336))(v8, *(v9 + 16));
+    v10 = (*(*v8 + 336))(v8, *(v9 + 16), a3, a4, a5);
     v19 = v10;
     if (v10)
     {
@@ -7047,7 +7092,7 @@ BOOL ___ZN2CI9DAGHelper15analyze_kernelsEPKNS_11ProgramNodeE_block_invoke(uint64
 
   else
   {
-    v7 = (*(**(a1 + 72) + 48))(*(a1 + 72), a6);
+    v7 = (*(**(a1 + 72) + 48))(*(a1 + 72), a6, a3, a4, a5);
     if (*(*v7 + 16))(v7) == 60 && (v7[144])
     {
       *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -7057,23 +7102,23 @@ BOOL ___ZN2CI9DAGHelper15analyze_kernelsEPKNS_11ProgramNodeE_block_invoke(uint64
   return (*(*(*(a1 + 48) + 8) + 24) & 1) == 0;
 }
 
-void ***CI::SoftwareDAGDescriptor::create_pipeline(void ***this)
+CI::SoftwareDAGDescriptor *CI::SoftwareDAGDescriptor::create_pipeline(CI::SoftwareDAGDescriptor *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  if (!this[1])
+  if (!*(this + 1))
   {
-    v8[1] = v2;
-    v8[2] = v1;
-    v8[3] = v3;
-    v8[4] = v4;
-    v5 = this;
-    CI::SoftwareDAGDescriptor::add_set_destcoord_nodes(this, &v6);
-    std::vector<CI::SWRendererFunctionNode>::__vdeallocate(v5 + 5);
-    *(v5 + 5) = v6;
-    v5[7] = v7;
-    v7 = 0;
-    v6 = 0uLL;
-    v8[0] = &v6;
-    std::vector<CI::SWRendererFunctionNode>::__destroy_vector::operator()[abi:nn200100](v8);
+    v13[1] = v7;
+    v13[2] = v6;
+    v13[3] = v8;
+    v13[4] = v9;
+    v10 = this;
+    CI::SoftwareDAGDescriptor::add_set_destcoord_nodes(&v11, this, a3, a4, a5, a6);
+    std::vector<CI::SWRendererFunctionNode>::__vdeallocate(v10 + 5);
+    *(v10 + 40) = v11;
+    *(v10 + 7) = v12;
+    v12 = 0;
+    v11 = 0uLL;
+    v13[0] = &v11;
+    std::vector<CI::SWRendererFunctionNode>::__destroy_vector::operator()[abi:nn200100](v13);
     operator new();
   }
 
@@ -7092,9 +7137,9 @@ uint64_t CI::create_sw_dag(CI *this, const CI::SWContext *a2, const CI::SWContex
   return 0;
 }
 
-void sub_19CC496BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19CC496BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CI::DAGHelper::~DAGHelper(va);
   _Unwind_Resume(a1);
 }
@@ -7114,14 +7159,14 @@ void CI::create_sw_args(CI *this, const CI::SWContext *a2, const CI::Node *a3, c
   CI::DAGHelper::~DAGHelper(&v8);
 }
 
-void sub_19CC49778(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19CC49778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CI::DAGHelper::~DAGHelper(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<CI::SWRendererFunctionInputNode>::__init_with_size[abi:nn200100]<CI::SWRendererFunctionInputNode*,CI::SWRendererFunctionInputNode*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CI::SWRendererFunctionInputNode>::__init_with_size[abi:nn200100]<CI::SWRendererFunctionInputNode*,CI::SWRendererFunctionInputNode*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7131,7 +7176,7 @@ uint64_t std::vector<CI::SWRendererFunctionInputNode>::__init_with_size[abi:nn20
   return result;
 }
 
-void std::vector<CI::SWRendererFunctionInputNode>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<CI::SWRendererFunctionInputNode>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7161,15 +7206,15 @@ void std::vector<CI::SWRendererFunctionInputNode>::__destroy_vector::operator()[
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 24;
-      v7 = v4 - 24;
-      v8 = v4 - 24;
+      v6 = v4 - 3;
+      v7 = v4 - 3;
+      v8 = v4 - 3;
       do
       {
         v9 = *v8;
-        v8 -= 24;
+        v8 -= 3;
         (*(v9 + 8))(v7);
-        v6 -= 24;
+        v6 -= 3;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -7184,7 +7229,7 @@ void std::vector<CI::SWRendererFunctionInputNode>::__destroy_vector::operator()[
   }
 }
 
-void CI::SWRendererFunctionInputNode::description(CI::SWRendererFunctionInputNode *this@<X0>, uint64_t a2@<X8>)
+void CI::SWRendererFunctionInputNode::description(CI::SWRendererFunctionInputNode *this@<X0>, void *a2@<X8>)
 {
   v3 = *(this + 4);
   if (v3 > 4)
@@ -7219,7 +7264,7 @@ LABEL_16:
       std::to_string(&v15, *(this + 1));
       v12 = std::string::insert(&v15, 0, "Sampler#", 8uLL);
       v13 = *&v12->__r_.__value_.__l.__data_;
-      *(a2 + 16) = *(&v12->__r_.__value_.__l + 2);
+      a2[2] = *(&v12->__r_.__value_.__l + 2);
       *a2 = v13;
       v12->__r_.__value_.__l.__size_ = 0;
       v12->__r_.__value_.__r.__words[2] = 0;
@@ -7261,7 +7306,7 @@ LABEL_16:
   v6 = std::string::append(&v15, "]", 1uLL);
 LABEL_11:
   v10 = *&v6->__r_.__value_.__l.__data_;
-  *(a2 + 16) = *(&v6->__r_.__value_.__l + 2);
+  a2[2] = *(&v6->__r_.__value_.__l + 2);
   *a2 = v10;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
@@ -7315,16 +7360,16 @@ void SamplerObj::~SamplerObj(SamplerObj *this)
   JUMPOUT(0x19EAF5590);
 }
 
-uint64_t std::vector<CI::SoftwareDAGDescriptor::ArgumentInfo>::__emplace_back_slow_path<unsigned long &>(uint64_t a1, void *a2)
+uint64_t std::vector<CI::SoftwareDAGDescriptor::ArgumentInfo>::__emplace_back_slow_path<unsigned long &>(void *a1, void *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -7355,14 +7400,14 @@ uint64_t std::vector<CI::SoftwareDAGDescriptor::ArgumentInfo>::__emplace_back_sl
   v8[2] = 0;
   v8[3] = 0;
   *&v17 = 32 * v2 + 32;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = (32 * v2 + *a1 - v9);
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<CI::SoftwareDAGDescriptor::ArgumentInfo>,CI::SoftwareDAGDescriptor::ArgumentInfo*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -7371,9 +7416,9 @@ uint64_t std::vector<CI::SoftwareDAGDescriptor::ArgumentInfo>::__emplace_back_sl
   return v14;
 }
 
-void sub_19CC49D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19CC49D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CI::SoftwareDAGDescriptor::ArgumentInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7402,7 +7447,7 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<CI::So
       a4[1] = 0;
       a4[2] = 0;
       a4[3] = 0;
-      std::vector<CI::SWRendererFunctionInputNode>::__init_with_size[abi:nn200100]<CI::SWRendererFunctionInputNode*,CI::SWRendererFunctionInputNode*>((a4 + 1), v9[1], v9[2], 0xAAAAAAAAAAAAAAABLL * ((v9[2] - v9[1]) >> 3));
+      std::vector<CI::SWRendererFunctionInputNode>::__init_with_size[abi:nn200100]<CI::SWRendererFunctionInputNode*,CI::SWRendererFunctionInputNode*>(a4 + 1, v9[1], v9[2], 0xAAAAAAAAAAAAAAABLL * ((v9[2] - v9[1]) >> 3));
       v9 += 4;
       a4 += 4;
     }
@@ -7439,10 +7484,10 @@ void std::__split_buffer<CI::SoftwareDAGDescriptor::ArgumentInfo>::clear[abi:nn2
   }
 }
 
-unint64_t std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(uint64_t a1, int *a2, uint64_t *a3)
+char *std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgumentInfoType,unsigned long &>(char **a1, int *a2, uint64_t *a3)
 {
-  v5 = *(a1 + 8);
-  v6 = *(a1 + 16);
+  v5 = a1[1];
+  v6 = a1[2];
   if (v5 >= v6)
   {
     v10 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 3);
@@ -7485,7 +7530,7 @@ unint64_t std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgum
     *(v14 + 16) = v15;
     v18[2] = 24 * v10 + 24;
     std::vector<CI::SWRendererFunctionInputNode>::__swap_out_circular_buffer(a1, v18);
-    v9 = *(a1 + 8);
+    v9 = a1[1];
     std::__split_buffer<CI::SWRendererFunctionInputNode>::~__split_buffer(v18);
   }
 
@@ -7494,19 +7539,19 @@ unint64_t std::vector<CI::SWRendererFunctionInputNode>::emplace_back<CI::SWArgum
     v7 = *a2;
     v8 = *a3;
     *v5 = &unk_1F1030290;
-    *(v5 + 8) = v8;
-    *(v5 + 16) = v7;
+    *(v5 + 1) = v8;
+    *(v5 + 4) = v7;
     v9 = v5 + 24;
-    *(a1 + 8) = v5 + 24;
+    a1[1] = v5 + 24;
   }
 
-  *(a1 + 8) = v9;
+  a1[1] = v9;
   return v9 - 24;
 }
 
-void sub_19CC4A068(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19CC4A068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<CI::SWRendererFunctionInputNode>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7581,16 +7626,16 @@ uint64_t std::__split_buffer<CI::SWRendererFunctionInputNode>::~__split_buffer(u
   return a1;
 }
 
-uint64_t std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::SWFunction &,std::vector<CI::SWRendererFunctionInputNode> *&>(uint64_t a1, uint64_t *a2, uint64_t **a3)
+uint64_t std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::SWFunction &,std::vector<CI::SWRendererFunctionInputNode> *&>(uint64_t *a1, uint64_t *a2, uint64_t **a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 6;
+  v3 = (a1[1] - *a1) >> 6;
   v4 = v3 + 1;
   if ((v3 + 1) >> 58)
   {
     std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
   }
 
-  v7 = *(a1 + 16) - *a1;
+  v7 = a1[2] - *a1;
   if (v7 >> 5 > v4)
   {
     v4 = v7 >> 5;
@@ -7617,14 +7662,14 @@ uint64_t std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::S
   v17 = (v3 << 6);
   CI::SWRendererFunctionNode::SWRendererFunctionNode(v3 << 6, *a2, a2[1], *a3);
   *&v17 = (v3 << 6) + 64;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = (v3 << 6) + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<CI::SWRendererFunctionNode>,CI::SWRendererFunctionNode*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -7633,9 +7678,9 @@ uint64_t std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::S
   return v14;
 }
 
-void sub_19CC4A308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19CC4A308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CI::SWRendererFunctionNode>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7760,21 +7805,21 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void *std::vector<unsigned long>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<unsigned long>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<unsigned long>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<unsigned long>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7846,52 +7891,53 @@ uint64_t std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::S
   return v14;
 }
 
-void sub_19CC4A814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19CC4A814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CI::SWRendererFunctionNode>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TimerBase::TimerBase(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+unsigned int *TimerBase::TimerBase(unsigned int *a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5)
 {
   *a1 = a2;
-  *(a1 + 4) = a3;
-  *(a1 + 8) = a3 | (a2 << 32);
-  *(a1 + 16) = a4;
-  if (CI_KDEBUG())
+  a1[1] = a3;
+  *(a1 + 1) = a3 | (a2 << 32);
+  *(a1 + 2) = a4;
+  v7 = CI_KDEBUG();
+  if (v7)
   {
-    v7 = a5;
+    v9 = a5;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  *(a1 + 24) = v7;
-  *(a1 + 28) = 0;
-  *(a1 + 44) = 0;
-  *(a1 + 36) = 0;
-  *(a1 + 52) = 0;
-  if ((v7 - 29) < 2 || v7 == 6 || (v7 - 25) <= 3 || v7)
+  a1[6] = v9;
+  *(a1 + 7) = 0;
+  *(a1 + 11) = 0;
+  *(a1 + 9) = 0;
+  a1[13] = 0;
+  if (v9 - 29 < 2 || v9 == 6 || v9 - 25 <= 3 || v9)
   {
-    kdebug_trace();
+    v7 = kdebug_trace();
   }
 
-  if (CI_PRINT_TIME())
+  if (CI_PRINT_TIME(v7, v8))
   {
-    *(a1 + 48) = CFAbsoluteTimeGetCurrent();
-    *(a1 + 32) = dispatch_get_current_queue();
-    v8 = TimerBase::get_and_increment_queue_level(a1);
-    *(a1 + 28) = v8;
-    v9 = *(a1 + 32);
-    if (v9)
+    *(a1 + 6) = CFAbsoluteTimeGetCurrent();
+    *(a1 + 4) = dispatch_get_current_queue();
+    v10 = TimerBase::get_and_increment_queue_level(a1);
+    a1[7] = v10;
+    v11 = *(a1 + 4);
+    if (v11)
     {
-      dispatch_queue_set_specific(v9, (v8 + 0x6369746C1), 0, 0);
+      dispatch_queue_set_specific(v11, (v10 + 0x6369746C1), 0, 0);
     }
 
-    *(a1 + 40) = CFAbsoluteTimeGetCurrent();
+    *(a1 + 5) = CFAbsoluteTimeGetCurrent();
   }
 
   return a1;
@@ -7924,17 +7970,17 @@ void CI::ConvertedNodeRAII::~ConvertedNodeRAII(CI::ConvertedNodeRAII *this)
   }
 }
 
-void *std::vector<unsigned long>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<unsigned long>::vector[abi:nn200100](uint64_t *a1, uint64_t *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<unsigned long>::__vallocate[abi:nn200100](result, a3);
+    std::vector<unsigned long>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
 std::string *CI::DAGHelper::TextureReadFunction::TextureReadFunction(std::string *this, __int128 *a2, void *a3)
@@ -7951,7 +7997,7 @@ std::string *CI::DAGHelper::TextureReadFunction::TextureReadFunction(std::string
     *&this->__r_.__value_.__l.__data_ = v5;
   }
 
-  std::vector<unsigned long>::vector[abi:nn200100](this[1].__r_.__value_.__r.__words, a3);
+  std::vector<unsigned long>::vector[abi:nn200100](&this[1], a3);
   this[2].__r_.__value_.__s.__data_[0] = 0;
   return this;
 }
@@ -7966,7 +8012,7 @@ void sub_19CC4AABC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned long>::__assign_with_size[abi:nn200100]<unsigned long *,unsigned long *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__assign_with_size[abi:nn200100]<unsigned long *,unsigned long *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8041,28 +8087,29 @@ void *std::vector<unsigned long>::__assign_with_size[abi:nn200100]<unsigned long
   return result;
 }
 
-void TimerBase::~TimerBase(TimerBase *this)
+void TimerBase::~TimerBase(TimerBase *this, uint64_t a2)
 {
-  v2 = *(this + 6);
-  if ((v2 - 29) < 2 || v2 == 6 || (v2 - 25) <= 3 || v2)
+  v2 = this;
+  v3 = *(this + 6);
+  if ((v3 - 29) < 2 || v3 == 6 || (v3 - 25) <= 3 || v3)
   {
-    kdebug_trace();
+    this = kdebug_trace();
   }
 
-  if (CI_PRINT_TIME())
+  if (CI_PRINT_TIME(this, a2))
   {
-    v3 = CFAbsoluteTimeGetCurrent() - *(this + 5);
-    if (v3 >= 0.000005)
+    v6 = CFAbsoluteTimeGetCurrent() - *(v2 + 5);
+    if (v6 >= 0.000005)
     {
-      v4 = *(this + 7);
-      if (v4)
+      v7 = *(v2 + 7);
+      if (v7)
       {
-        if (v4 < CI_PRINT_TIME())
+        if (v7 < CI_PRINT_TIME(v4, v5))
         {
-          v5 = *(this + 4);
-          if (v5)
+          v8 = *(v2 + 4);
+          if (v8)
           {
-            label = dispatch_queue_get_label(*(this + 4));
+            label = dispatch_queue_get_label(*(v2 + 4));
           }
 
           else
@@ -8072,110 +8119,110 @@ void TimerBase::~TimerBase(TimerBase *this)
 
           if (!strncmp(label, "CI::", 4uLL))
           {
-            v7 = label;
+            v10 = label;
           }
 
           else
           {
-            v7 = "";
+            v10 = "";
           }
 
-          v8 = *(this + 7);
-          if (*v7)
+          v11 = *(v2 + 7);
+          if (*v10)
           {
-            v9 = 2 * v8 + 16;
+            v12 = 2 * v11 + 16;
           }
 
           else
           {
-            v9 = 2 * v8;
+            v12 = 2 * v11;
           }
 
-          v10 = MEMORY[0x1E69E9848];
-          if (v5)
+          v13 = MEMORY[0x1E69E9848];
+          if (v8)
           {
-            v11 = dispatch_queue_get_specific(v5, (v8 + 0x6369746C1)) / 10000000.0;
-            if (v11 > 0.0)
+            v14 = dispatch_queue_get_specific(v8, (v11 + 0x6369746C1)) / 10000000.0;
+            if (v14 > 0.0)
             {
-              v12 = v3 - v11;
-              if (v12 >= 0.000001)
+              v15 = v6 - v14;
+              if (v15 >= 0.000001)
               {
-                v13 = v12 * 100.0 / v3;
-                if (v13 >= 10.0 && v13 <= 90.0)
+                v16 = v15 * 100.0 / v6;
+                if (v16 >= 10.0 && v16 <= 90.0)
                 {
-                  v15 = v13;
-                  if (v12 <= 1.5)
+                  v18 = v16;
+                  if (v15 <= 1.5)
                   {
-                    v16 = "ms";
+                    v19 = "ms";
                   }
 
                   else
                   {
-                    v16 = "s ";
+                    v19 = "s ";
                   }
 
-                  v17 = 1000.0;
-                  if (v12 > 1.5)
+                  v20 = 1000.0;
+                  if (v15 > 1.5)
                   {
-                    v17 = 1.0;
+                    v20 = 1.0;
                   }
 
-                  v18 = v12 * v17;
-                  v19 = *v10;
-                  v20 = _indent_str();
-                  fprintf(v19, "CI_PRINT_TIME %9.3f%s %.*s unaccounted(%.1f%%) %s\n", v18, v16, v9 + 2, v20, v15, v7);
+                  v21 = v15 * v20;
+                  v22 = *v13;
+                  v23 = _indent_str();
+                  fprintf(v22, "CI_PRINT_TIME %9.3f%s %.*s unaccounted(%.1f%%) %s\n", v21, v19, v12 + 2, v23, v18, v10);
                 }
               }
             }
           }
 
-          v21 = 1000.0;
-          if (v3 > 1.5)
+          v24 = 1000.0;
+          if (v6 > 1.5)
           {
-            v21 = 1.0;
+            v24 = 1.0;
           }
 
-          v22 = v3 * v21;
-          if (*(this + 1))
+          v25 = v6 * v24;
+          if (*(v2 + 1))
           {
-            v23 = *v10;
+            v26 = *v13;
             _indent_str();
-            fprintf(v23, "CI_PRINT_TIME %9.3f%s %.*s %s(c:%u, n:%u)  %s\n", *&v22);
+            fprintf(v26, "CI_PRINT_TIME %9.3f%s %.*s %s(c:%u, n:%u)  %s\n", *&v25);
           }
 
           else
           {
-            v24 = *this;
-            v25 = *v10;
+            v27 = *v2;
+            v28 = *v13;
             _indent_str();
-            if (v24)
+            if (v27)
             {
-              fprintf(v25, "CI_PRINT_TIME %9.3f%s %.*s %s(c:%u)  %s\n");
+              fprintf(v28, "CI_PRINT_TIME %9.3f%s %.*s %s(c:%u)  %s\n");
             }
 
             else
             {
-              fprintf(v25, "CI_PRINT_TIME %9.3f%s %.*s %s  %s\n");
+              fprintf(v28, "CI_PRINT_TIME %9.3f%s %.*s %s  %s\n");
             }
           }
 
-          fflush(*v10);
+          fflush(*v13);
         }
       }
     }
 
     Current = CFAbsoluteTimeGetCurrent();
-    TimerBase::add_time_at_level(this, *(this + 7), Current - *(this + 6));
-    v27 = *(this + 4);
-    if (v27)
+    TimerBase::add_time_at_level(v2, *(v2 + 7), Current - *(v2 + 6));
+    v30 = *(v2 + 4);
+    if (v30)
     {
-      v28 = *(this + 7);
-      if (v28 <= 1)
+      v31 = *(v2 + 7);
+      if (v31 <= 1)
       {
-        v28 = 1;
+        v31 = 1;
       }
 
-      dispatch_queue_set_specific(v27, "com.apple.coreimage.TimerBase.dispatchQueueKey", (v28 - 1), 0);
+      dispatch_queue_set_specific(v30, "com.apple.coreimage.TimerBase.dispatchQueueKey", (v31 - 1), 0);
     }
   }
 }
@@ -8275,7 +8322,7 @@ void std::vector<CI::SoftwareDAGDescriptor::ArgumentInfo>::__destroy_vector::ope
   }
 }
 
-void std::vector<CI::SWRendererFunctionNode>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+void std::vector<CI::SWRendererFunctionNode>::__destroy_vector::operator()[abi:nn200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -8301,225 +8348,226 @@ void std::vector<CI::SWRendererFunctionNode>::__destroy_vector::operator()[abi:n
   }
 }
 
-void CI::SoftwareDAGDescriptor::add_set_destcoord_nodes(CI::SoftwareDAGDescriptor *this@<X0>, void *a2@<X8>)
+void CI::SoftwareDAGDescriptor::add_set_destcoord_nodes(uint64_t *__return_ptr a1@<X8>, CI::SoftwareDAGDescriptor *this@<X0>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>)
 {
-  v3 = a2;
-  v59 = *MEMORY[0x1E69E9840];
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  MEMORY[0x1EEE9AC00]();
-  v5 = &v38 - v4;
-  *(&v38 - v4) = 0;
-  std::vector<CI::SWRendererFunctionNode>::push_back[abi:nn200100](v3, v6);
-  v7 = *(this + 2);
-  if ((*(this + 3) - v7) >= 0x41)
+  v6 = this;
+  v7 = a1;
+  v63 = *MEMORY[0x1E69E9840];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  MEMORY[0x1EEE9AC00](this, *(this + 2), a3, a4, a5, a6);
+  v9 = &v42 - v8;
+  *(&v42 - v8) = 0;
+  std::vector<CI::SWRendererFunctionNode>::push_back[abi:nn200100](v7, v10);
+  v11 = *(v6 + 2);
+  if ((*(v6 + 3) - v11) >= 0x41)
   {
-    v41 = 0;
-    v40 = -1;
-    v8 = 1;
-    v39 = v3;
-    v38 = this;
+    v45 = 0;
+    v44 = -1;
+    v12 = 1;
+    v43 = v7;
+    v42 = v6;
     while (1)
     {
-      v53 = 0;
-      v54 = 0;
-      v55 = 0;
-      std::vector<CI::SWRendererFunctionInputNode>::__init_with_size[abi:nn200100]<CI::SWRendererFunctionInputNode*,CI::SWRendererFunctionInputNode*>(&v53, *(v7 + (v8 << 6)), *(v7 + (v8 << 6) + 8), 0xAAAAAAAAAAAAAAABLL * ((*(v7 + (v8 << 6) + 8) - *(v7 + (v8 << 6))) >> 3));
-      v9 = *(this + 2);
-      if (((*(this + 3) - v9) >> 6) - 1 != v8)
+      v57 = 0;
+      v58 = 0;
+      v59 = 0;
+      std::vector<CI::SWRendererFunctionInputNode>::__init_with_size[abi:nn200100]<CI::SWRendererFunctionInputNode*,CI::SWRendererFunctionInputNode*>(&v57, *(v11 + (v12 << 6)), *(v11 + (v12 << 6) + 8), 0xAAAAAAAAAAAAAAABLL * ((*(v11 + (v12 << 6) + 8) - *(v11 + (v12 << 6))) >> 3));
+      v13 = *(v6 + 2);
+      if (((*(v6 + 3) - v13) >> 6) - 1 != v12)
       {
-        v50 = &unk_1F1030290;
-        v10 = *(v54 - 16);
-        LODWORD(v52) = *(v54 - 8);
-        v51 = v10;
-        if (v10 != v40)
+        v54 = &unk_1F1030290;
+        v14 = *(v58 - 16);
+        LODWORD(v56) = *(v58 - 8);
+        v55 = v14;
+        if (v14 != v44)
         {
-          v11 = *&v5[8 * v10];
-          v56 = &unk_1F1030290;
-          v57 = v11;
-          v58 = 5;
-          v43 = 0;
-          v44 = 0;
-          v42 = 0;
+          v15 = *&v9[8 * v14];
+          v60 = &unk_1F1030290;
+          v61 = v15;
+          v62 = 5;
+          v47 = 0;
+          v48 = 0;
+          v46 = 0;
           operator new();
         }
       }
 
-      v12 = (v9 + (v8 << 6));
-      v50 = 0;
-      v51 = 0;
-      v52 = 0;
-      v13 = *v12;
-      if (v12[1] != *v12)
+      v16 = (v13 + (v12 << 6));
+      v54 = 0;
+      v55 = 0;
+      v56 = 0;
+      v17 = *v16;
+      if (v16[1] != *v16)
       {
         break;
       }
 
 LABEL_35:
-      v32 = v9 + (v8 << 6);
-      v33 = *(v3 + 8);
-      if (v33 >= *(v3 + 16))
+      v36 = v13 + (v12 << 6);
+      v37 = v7[1];
+      if (v37 >= v7[2])
       {
-        v37 = std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::SWFunction const&,std::vector<CI::SWRendererFunctionInputNode> &>(v3, (v32 + 24), &v50);
+        v41 = std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::SWFunction const&,std::vector<CI::SWRendererFunctionInputNode> &>(v7, (v36 + 24), &v54);
       }
 
       else
       {
-        v34 = *(v32 + 24);
-        v35 = *(v32 + 32);
-        *v33 = 0;
-        *(v33 + 8) = 0;
-        *(v33 + 16) = 0;
-        std::vector<CI::SWRendererFunctionInputNode>::__init_with_size[abi:nn200100]<CI::SWRendererFunctionInputNode*,CI::SWRendererFunctionInputNode*>(v33, v50, v51, 0xAAAAAAAAAAAAAAABLL * ((v51 - v50) >> 3));
-        *(v33 + 24) = v34;
-        *(v33 + 32) = v35;
-        v36 = 0xAAAAAAAAAAAAAAABLL * ((*(v33 + 8) - *v33) >> 3);
-        *(v33 + 40) = *v33;
-        *(v33 + 48) = v36;
-        *(v33 + 56) = 0;
-        v37 = v33 + 64;
+        v38 = *(v36 + 24);
+        v39 = *(v36 + 32);
+        *v37 = 0;
+        *(v37 + 8) = 0;
+        *(v37 + 16) = 0;
+        std::vector<CI::SWRendererFunctionInputNode>::__init_with_size[abi:nn200100]<CI::SWRendererFunctionInputNode*,CI::SWRendererFunctionInputNode*>(v37, v54, v55, 0xAAAAAAAAAAAAAAABLL * ((v55 - v54) >> 3));
+        *(v37 + 24) = v38;
+        *(v37 + 32) = v39;
+        v40 = 0xAAAAAAAAAAAAAAABLL * ((*(v37 + 8) - *v37) >> 3);
+        *(v37 + 40) = *v37;
+        *(v37 + 48) = v40;
+        *(v37 + 56) = 0;
+        v41 = v37 + 64;
       }
 
-      *(v3 + 8) = v37;
-      *&v5[8 * v8] = v41 + v8;
-      v45 = &v50;
-      std::vector<CI::SWRendererFunctionInputNode>::__destroy_vector::operator()[abi:nn200100](&v45);
-      v45 = &v53;
-      std::vector<CI::SWRendererFunctionInputNode>::__destroy_vector::operator()[abi:nn200100](&v45);
-      ++v8;
-      v7 = *(this + 2);
-      if (v8 >= (*(this + 3) - v7) >> 6)
+      v7[1] = v41;
+      *&v9[8 * v12] = v45 + v12;
+      v49 = &v54;
+      std::vector<CI::SWRendererFunctionInputNode>::__destroy_vector::operator()[abi:nn200100](&v49);
+      v49 = &v57;
+      std::vector<CI::SWRendererFunctionInputNode>::__destroy_vector::operator()[abi:nn200100](&v49);
+      ++v12;
+      v11 = *(v6 + 2);
+      if (v12 >= (*(v6 + 3) - v11) >> 6)
       {
         return;
       }
     }
 
-    v14 = 0;
-    v15 = 0;
-    v16 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
     while (1)
     {
-      v17 = v13 + v14;
-      if (*(v13 + v14 + 16) == 5)
+      v21 = v17 + v18;
+      if (*(v17 + v18 + 16) == 5)
       {
-        v18 = *(v17 + 8);
-        if (v15 >= v52)
+        v22 = *(v21 + 8);
+        if (v19 >= v56)
         {
-          v21 = 0xAAAAAAAAAAAAAAABLL * ((v15 - v50) >> 3);
-          v22 = v21 + 1;
-          if (v21 + 1 > 0xAAAAAAAAAAAAAAALL)
+          v25 = 0xAAAAAAAAAAAAAAABLL * ((v19 - v54) >> 3);
+          v26 = v25 + 1;
+          if (v25 + 1 > 0xAAAAAAAAAAAAAAALL)
           {
             goto LABEL_40;
           }
 
-          if (0x5555555555555556 * ((v52 - v50) >> 3) > v22)
+          if (0x5555555555555556 * ((v56 - v54) >> 3) > v26)
           {
-            v22 = 0x5555555555555556 * ((v52 - v50) >> 3);
+            v26 = 0x5555555555555556 * ((v56 - v54) >> 3);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((v52 - v50) >> 3) >= 0x555555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * ((v56 - v54) >> 3) >= 0x555555555555555)
           {
-            v23 = 0xAAAAAAAAAAAAAAALL;
+            v27 = 0xAAAAAAAAAAAAAAALL;
           }
 
           else
           {
-            v23 = v22;
+            v27 = v26;
           }
 
-          v49 = &v50;
-          if (v23)
+          v53 = &v54;
+          if (v27)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<CI::SWRendererFunctionInputNode>>(&v50, v23);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<CI::SWRendererFunctionInputNode>>(&v54, v27);
           }
 
-          v27 = 24 * v21;
-          v45 = 0;
-          v46 = v27;
-          v48 = 0;
-          v28 = *(v17 + 16);
-          v29 = *&v5[8 * v18];
-          *v27 = &unk_1F1030290;
-          *(v27 + 8) = v29;
-          *(v27 + 16) = v28;
-          v47 = 24 * v21 + 24;
-          std::vector<CI::SWRendererFunctionInputNode>::__swap_out_circular_buffer(&v50, &v45);
+          v31 = 24 * v25;
+          v49 = 0;
+          v50 = v31;
+          v52 = 0;
+          v32 = *(v21 + 16);
+          v33 = *&v9[8 * v22];
+          *v31 = &unk_1F1030290;
+          *(v31 + 8) = v33;
+          *(v31 + 16) = v32;
+          v51 = 24 * v25 + 24;
+          std::vector<CI::SWRendererFunctionInputNode>::__swap_out_circular_buffer(&v54, &v49);
 LABEL_32:
-          v15 = v51;
-          std::__split_buffer<CI::SWRendererFunctionInputNode>::~__split_buffer(&v45);
+          v19 = v55;
+          std::__split_buffer<CI::SWRendererFunctionInputNode>::~__split_buffer(&v49);
           goto LABEL_33;
         }
 
-        v19 = *&v5[8 * v18];
-        *v15 = &unk_1F1030290;
-        *(v15 + 8) = v19;
-        *(v15 + 16) = 5;
+        v23 = *&v9[8 * v22];
+        *v19 = &unk_1F1030290;
+        *(v19 + 8) = v23;
+        *(v19 + 16) = 5;
       }
 
       else
       {
-        if (v15 >= v52)
+        if (v19 >= v56)
         {
-          v24 = 0xAAAAAAAAAAAAAAABLL * ((v15 - v50) >> 3);
-          v25 = v24 + 1;
-          if (v24 + 1 > 0xAAAAAAAAAAAAAAALL)
+          v28 = 0xAAAAAAAAAAAAAAABLL * ((v19 - v54) >> 3);
+          v29 = v28 + 1;
+          if (v28 + 1 > 0xAAAAAAAAAAAAAAALL)
           {
 LABEL_40:
             std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
           }
 
-          if (0x5555555555555556 * ((v52 - v50) >> 3) > v25)
+          if (0x5555555555555556 * ((v56 - v54) >> 3) > v29)
           {
-            v25 = 0x5555555555555556 * ((v52 - v50) >> 3);
+            v29 = 0x5555555555555556 * ((v56 - v54) >> 3);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((v52 - v50) >> 3) >= 0x555555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * ((v56 - v54) >> 3) >= 0x555555555555555)
           {
-            v26 = 0xAAAAAAAAAAAAAAALL;
+            v30 = 0xAAAAAAAAAAAAAAALL;
           }
 
           else
           {
-            v26 = v25;
+            v30 = v29;
           }
 
-          v49 = &v50;
-          if (v26)
+          v53 = &v54;
+          if (v30)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<CI::SWRendererFunctionInputNode>>(&v50, v26);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<CI::SWRendererFunctionInputNode>>(&v54, v30);
           }
 
-          v30 = 8 * ((v15 - v50) >> 3);
-          v45 = 0;
-          v46 = v30;
-          v48 = 0;
-          *v30 = &unk_1F1030290;
-          v31 = *(v13 + v14 + 8);
-          *(v30 + 16) = *(v13 + v14 + 16);
-          *(v30 + 8) = v31;
-          v47 = 24 * v24 + 24;
-          std::vector<CI::SWRendererFunctionInputNode>::__swap_out_circular_buffer(&v50, &v45);
+          v34 = 8 * ((v19 - v54) >> 3);
+          v49 = 0;
+          v50 = v34;
+          v52 = 0;
+          *v34 = &unk_1F1030290;
+          v35 = *(v17 + v18 + 8);
+          *(v34 + 16) = *(v17 + v18 + 16);
+          *(v34 + 8) = v35;
+          v51 = 24 * v28 + 24;
+          std::vector<CI::SWRendererFunctionInputNode>::__swap_out_circular_buffer(&v54, &v49);
           goto LABEL_32;
         }
 
-        *v15 = &unk_1F1030290;
-        v20 = *(v13 + v14 + 8);
-        *(v15 + 16) = *(v13 + v14 + 16);
-        *(v15 + 8) = v20;
+        *v19 = &unk_1F1030290;
+        v24 = *(v17 + v18 + 8);
+        *(v19 + 16) = *(v17 + v18 + 16);
+        *(v19 + 8) = v24;
       }
 
-      v15 += 24;
+      v19 += 24;
 LABEL_33:
-      v51 = v15;
-      ++v16;
-      v13 = *v12;
-      v14 += 24;
-      if (0xAAAAAAAAAAAAAAABLL * ((v12[1] - *v12) >> 3) <= v16)
+      v55 = v19;
+      ++v20;
+      v17 = *v16;
+      v18 += 24;
+      if (0xAAAAAAAAAAAAAAABLL * ((v16[1] - *v16) >> 3) <= v20)
       {
-        this = v38;
-        v9 = *(v38 + 2);
-        v3 = v39;
+        v6 = v42;
+        v13 = *(v42 + 2);
+        v7 = v43;
         goto LABEL_35;
       }
     }
@@ -8629,9 +8677,9 @@ uint64_t std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::S
   return v15;
 }
 
-void sub_19CC4BAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19CC4BAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CI::SWRendererFunctionNode>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8688,9 +8736,9 @@ uint64_t std::vector<CI::SWRendererFunctionNode>::__emplace_back_slow_path<CI::S
   return v14;
 }
 
-void sub_19CC4BBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19CC4BBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CI::SWRendererFunctionNode>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8725,7 +8773,7 @@ void std::vector<CI::SWRendererFunctionNode>::__vdeallocate(void ***a1)
 
 CI::DAGHelper *CI::DAGHelper::DAGHelper(CI::DAGHelper *this, const CI::SWContext *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   *this = &unk_1F1030300;
   *(this + 2) = a2;
   *(this + 5) = 0;
@@ -8746,23 +8794,23 @@ CI::DAGHelper *CI::DAGHelper::DAGHelper(CI::DAGHelper *this, const CI::SWContext
   v5[3] = CI::_sw_ci_read_pixel;
   v5[4] = "_ci_read_pixel";
   std::string::basic_string[abi:nn200100]<0>(v6, "_ci_read_pixel_420");
-  v7 = CI::_sw_ci_read_pixel_420;
-  v8 = "_ci_read_pixel_420";
-  std::string::basic_string[abi:nn200100]<0>(v9, "_ci_read_pixel_rgb_a");
-  v10 = CI::_sw_ci_read_pixel_rgb_a;
-  v11 = "_ci_read_pixel_rgb_a";
-  std::string::basic_string[abi:nn200100]<0>(v12, "_ci_srgb_to_linear");
-  v13 = CI::_sw_ci_srgb_to_linear;
-  v14 = "_ci_srgb_to_linear";
-  std::string::basic_string[abi:nn200100]<0>(v15, "_ci_init_destcoord");
-  v16 = _ci_init_destcoord;
-  v17 = "_ci_init_destcoord";
-  std::string::basic_string[abi:nn200100]<0>(v18, "_ci_write_pixel");
-  v19 = CI::_sw_ci_write_pixel;
-  v20 = "_ci_write_pixel";
-  std::string::basic_string[abi:nn200100]<0>(v21, "_ci_linear_to_srgb");
-  v22 = CI::_sw_ci_linear_to_srgb;
-  v23 = "_ci_linear_to_srgb";
+  v6[3] = CI::_sw_ci_read_pixel_420;
+  v6[4] = "_ci_read_pixel_420";
+  std::string::basic_string[abi:nn200100]<0>(v7, "_ci_read_pixel_rgb_a");
+  v7[3] = CI::_sw_ci_read_pixel_rgb_a;
+  v7[4] = "_ci_read_pixel_rgb_a";
+  std::string::basic_string[abi:nn200100]<0>(v8, "_ci_srgb_to_linear");
+  v8[3] = CI::_sw_ci_srgb_to_linear;
+  v8[4] = "_ci_srgb_to_linear";
+  std::string::basic_string[abi:nn200100]<0>(v9, "_ci_init_destcoord");
+  v9[3] = _ci_init_destcoord;
+  v9[4] = "_ci_init_destcoord";
+  std::string::basic_string[abi:nn200100]<0>(v10, "_ci_write_pixel");
+  v10[3] = CI::_sw_ci_write_pixel;
+  v10[4] = "_ci_write_pixel";
+  std::string::basic_string[abi:nn200100]<0>(v11, "_ci_linear_to_srgb");
+  v11[3] = CI::_sw_ci_linear_to_srgb;
+  v11[4] = "_ci_linear_to_srgb";
   std::map<std::string,CI::SWFunction>::map[abi:nn200100](this + 20, v5, 7);
   v3 = 35;
   do
@@ -8806,23 +8854,23 @@ void sub_19CC4BECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-double CI::_sw_ci_read_pixel(uint64_t a1, uint64_t a2, uint64_t a3, double a4, float64x2_t a5, double a6, double a7, int8x16_t a8, int8x16_t a9, int8x16_t a10, int8x16_t a11)
+double CI::_sw_ci_read_pixel(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4, float64x2_t a5, double a6, double a7, int8x16_t a8, int8x16_t a9, int8x16_t a10, int8x16_t a11)
 {
   v11 = *(a1 + 40);
   v12 = *(a2 + (v11[1] << 6));
   v13 = a2 + (v11[4] << 6);
-  v14 = *(a3 + 16 * v11[7]);
-  v15 = *(v13 + 36);
-  if (v15 != 2)
+  a4.n128_u64[0] = *(a3 + 16 * v11[7]);
+  v14 = *(v13 + 36);
+  if (v14 != 2)
   {
-    if (v15 == 1)
+    if (v14 == 1)
     {
       LODWORD(a5.f64[0]) = *v13;
-      v16.i32[0] = *(v13 + 8);
+      v15.i32[0] = *(v13 + 8);
       HIDWORD(a5.f64[0]) = *(v13 + 16);
-      v16.i32[1] = *(v13 + 20);
-      a6 = COERCE_DOUBLE(vmla_f32(v16, *&a5.f64[0], *&v14));
-      v14 = a6;
+      v15.i32[1] = *(v13 + 20);
+      a6 = COERCE_DOUBLE(vmla_f32(v15, *&a5.f64[0], a4.n128_u64[0]));
+      a4.n128_f64[0] = a6;
     }
 
     else
@@ -8830,63 +8878,24 @@ double CI::_sw_ci_read_pixel(uint64_t a1, uint64_t a2, uint64_t a3, double a4, f
       LODWORD(a6) = *(v13 + 8);
       LODWORD(a7) = *(v13 + 12);
       a9.i32[0] = *(v13 + 20);
-      *a8.i32 = vmuls_lane_f32(*(v13 + 16), *&v14, 1);
-      *a5.f64 = *&a6 + (vmuls_lane_f32(*(v13 + 4), *&v14, 1) + (*&v14 * *v13));
-      *(a5.f64 + 1) = *a9.i32 + (*a8.i32 + (*&v14 * *&a7));
-      v14 = a5.f64[0];
+      *a8.i32 = vmuls_lane_f32(*(v13 + 16), a4.n128_u64[0], 1);
+      *a5.f64 = *&a6 + (vmuls_lane_f32(*(v13 + 4), a4.n128_u64[0], 1) + (a4.n128_f32[0] * *v13));
+      *(a5.f64 + 1) = *a9.i32 + (*a8.i32 + (a4.n128_f32[0] * *&a7));
+      a4.n128_u64[0] = *&a5.f64[0];
     }
   }
 
-  return CI::BitmapSampler::read(v12, v14, a5, a6, a7, a8, a9, a10, a11);
+  return CI::BitmapSampler::read(v12, a4, a5, a6, a7, a8, a9, a10, a11);
 }
 
-unint64_t CI::_sw_ci_read_pixel_420(uint64_t a1, uint64_t a2, uint64_t a3, double a4, float64x2_t a5, double a6, double a7, int8x16_t a8, int8x16_t a9, int8x16_t a10, int8x16_t a11)
+unint64_t CI::_sw_ci_read_pixel_420(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4, float64x2_t a5, double a6, double a7, int8x16_t a8, int8x16_t a9, int8x16_t a10, int8x16_t a11)
 {
   v11 = *(a1 + 40);
   v12 = *(a2 + (v11[1] << 6));
   v13 = a2 + (v11[4] << 6);
   v14 = *(a2 + (v11[7] << 6));
   v15 = *(a2 + (v11[10] << 6));
-  v16 = *(a3 + 16 * v11[13]);
-  v17 = *(v13 + 36);
-  if (v17 != 2)
-  {
-    if (v17 == 1)
-    {
-      LODWORD(a6) = *v13;
-      v18.i32[0] = *(v13 + 8);
-      HIDWORD(a6) = *(v13 + 16);
-      v18.i32[1] = *(v13 + 20);
-      *&a5.f64[0] = vmla_f32(v18, *&a6, v16);
-      v16 = *&a5.f64[0];
-    }
-
-    else
-    {
-      *a9.i32 = vmuls_lane_f32(*(v13 + 4), v16, 1) + (v16.f32[0] * *v13);
-      a8.i32[0] = *(v13 + 20);
-      *&a7 = vmuls_lane_f32(*(v13 + 16), v16, 1);
-      *&a6 = *&a7 + (v16.f32[0] * *(v13 + 12));
-      v16.f32[0] = *(v13 + 8) + *a9.i32;
-      *a5.f64 = *a8.i32 + *&a6;
-      v16.f32[1] = *a8.i32 + *&a6;
-    }
-  }
-
-  v29 = v16;
-  v19 = CI::BitmapSampler::read(v12, *&v16, a5, a6, a7, a8, a9, a10, a11);
-  v30 = LODWORD(v19);
-  v27 = CI::BitmapSampler::read(v14, COERCE_DOUBLE(vmul_f32(v15, v29)), v20, v21, v22, v23, v24, v25, v26);
-  return __PAIR64__(LODWORD(v27), v30);
-}
-
-uint64_t CI::_sw_ci_read_pixel_rgb_a(uint64_t a1, uint64_t a2, uint64_t a3, double a4, float64x2_t a5, double a6, double a7, int8x16_t a8, int8x16_t a9, int8x16_t a10, int8x16_t a11)
-{
-  v11 = *(a1 + 40);
-  v12 = *(a2 + (v11[1] << 6));
-  v13 = a2 + (v11[4] << 6);
-  v14 = *(a2 + (v11[7] << 6));
-  v15 = *(a3 + 16 * v11[10]);
+  a4.n128_u64[0] = *(a3 + 16 * v11[13]);
   v16 = *(v13 + 36);
   if (v16 != 2)
   {
@@ -8896,26 +8905,67 @@ uint64_t CI::_sw_ci_read_pixel_rgb_a(uint64_t a1, uint64_t a2, uint64_t a3, doub
       v17.i32[0] = *(v13 + 8);
       HIDWORD(a6) = *(v13 + 16);
       v17.i32[1] = *(v13 + 20);
-      *&a5.f64[0] = vmla_f32(v17, *&a6, v15);
-      v15 = *&a5.f64[0];
+      *&a5.f64[0] = vmla_f32(v17, *&a6, a4.n128_u64[0]);
+      a4.n128_u64[0] = *&a5.f64[0];
     }
 
     else
     {
-      *a9.i32 = vmuls_lane_f32(*(v13 + 4), v15, 1) + (v15.f32[0] * *v13);
+      *a9.i32 = vmuls_lane_f32(*(v13 + 4), a4.n128_u64[0], 1) + (a4.n128_f32[0] * *v13);
       a8.i32[0] = *(v13 + 20);
-      *&a7 = vmuls_lane_f32(*(v13 + 16), v15, 1);
-      *&a6 = *&a7 + (v15.f32[0] * *(v13 + 12));
-      v15.f32[0] = *(v13 + 8) + *a9.i32;
+      *&a7 = vmuls_lane_f32(*(v13 + 16), a4.n128_u64[0], 1);
+      *&a6 = *&a7 + (a4.n128_f32[0] * *(v13 + 12));
+      a4.n128_f32[0] = *(v13 + 8) + *a9.i32;
       *a5.f64 = *a8.i32 + *&a6;
-      v15.f32[1] = *a8.i32 + *&a6;
+      a4.n128_f32[1] = *a8.i32 + *&a6;
     }
   }
 
-  v26 = *&v15;
-  v27 = CI::BitmapSampler::read(v12, *&v15, a5, a6, a7, a8, a9, a10, a11);
-  CI::BitmapSampler::read(v14, v26, v18, v19, v20, v21, v22, v23, v24);
-  return *&v27;
+  v29 = a4;
+  v18 = CI::BitmapSampler::read(v12, a4, a5, a6, a7, a8, a9, a10, a11);
+  v30 = LODWORD(v18);
+  v19.n128_u64[1] = v29.n128_u64[1];
+  v19.n128_u64[0] = vmul_f32(v15, v29.n128_u64[0]);
+  v27 = CI::BitmapSampler::read(v14, v19, v20, v21, v22, v23, v24, v25, v26);
+  return __PAIR64__(LODWORD(v27), v30);
+}
+
+uint64_t CI::_sw_ci_read_pixel_rgb_a(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4, float64x2_t a5, double a6, double a7, int8x16_t a8, int8x16_t a9, int8x16_t a10, int8x16_t a11)
+{
+  v11 = *(a1 + 40);
+  v12 = *(a2 + (v11[1] << 6));
+  v13 = a2 + (v11[4] << 6);
+  v14 = *(a2 + (v11[7] << 6));
+  a4.n128_u64[0] = *(a3 + 16 * v11[10]);
+  v15 = *(v13 + 36);
+  if (v15 != 2)
+  {
+    if (v15 == 1)
+    {
+      LODWORD(a6) = *v13;
+      v16.i32[0] = *(v13 + 8);
+      HIDWORD(a6) = *(v13 + 16);
+      v16.i32[1] = *(v13 + 20);
+      *&a5.f64[0] = vmla_f32(v16, *&a6, a4.n128_u64[0]);
+      a4.n128_u64[0] = *&a5.f64[0];
+    }
+
+    else
+    {
+      *a9.i32 = vmuls_lane_f32(*(v13 + 4), a4.n128_u64[0], 1) + (a4.n128_f32[0] * *v13);
+      a8.i32[0] = *(v13 + 20);
+      *&a7 = vmuls_lane_f32(*(v13 + 16), a4.n128_u64[0], 1);
+      *&a6 = *&a7 + (a4.n128_f32[0] * *(v13 + 12));
+      a4.n128_f32[0] = *(v13 + 8) + *a9.i32;
+      *a5.f64 = *a8.i32 + *&a6;
+      a4.n128_f32[1] = *a8.i32 + *&a6;
+    }
+  }
+
+  v25 = a4;
+  v26 = CI::BitmapSampler::read(v12, a4, a5, a6, a7, a8, a9, a10, a11);
+  CI::BitmapSampler::read(v14, v25, v17, v18, v19, v20, v21, v22, v23);
+  return *&v26;
 }
 
 double CI::_sw_ci_srgb_to_linear(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -9021,15 +9071,15 @@ void CI::DAGHelper::~DAGHelper(char **this)
 
 float32_t CI::BitmapSampler::write(CI::BitmapSampler *this, IPoint a2, const vec4 *a3)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v5 = (this + 80);
   v4 = *(this + 10);
   if (!v4 || (v6 = *(this + 11)) == 0)
   {
-    v49 = ci_logger_render();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v52 = ci_logger_render(this, *&a2);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      CI::BitmapSampler::write(v5, this, v49);
+      CI::BitmapSampler::write(v5, this, v52);
     }
 
     goto LABEL_87;
@@ -9040,21 +9090,21 @@ float32_t CI::BitmapSampler::write(CI::BitmapSampler *this, IPoint a2, const vec
   v9 = a2.var0;
   if (a2.var1 >= v6 || a2.var0 >= v4 || (*&a2 & 0x8000000080000000) != 0)
   {
-    v50 = ci_logger_render();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    v53 = ci_logger_render(this, *&a2);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
 LABEL_91:
-      v52 = *(this + 10);
-      v53 = *(this + 11);
-      v55[0] = 67109888;
-      v55[1] = var0;
-      v56 = 1024;
-      v57 = var1;
-      v58 = 2048;
-      v59 = v52;
-      v60 = 2048;
-      v61 = v53;
-      _os_log_error_impl(&dword_19CC36000, v50, OS_LOG_TYPE_ERROR, "Bitmap write error: Writing to point (%d,%d) out of bounds (%zux%zu)", v55, 0x22u);
+      v55 = *(this + 10);
+      v56 = *(this + 11);
+      v58[0] = 67109888;
+      v58[1] = var0;
+      v59 = 1024;
+      v60 = var1;
+      v61 = 2048;
+      v62 = v55;
+      v63 = 2048;
+      v64 = v56;
+      _os_log_error_impl(&dword_19CC36000, v53, OS_LOG_TYPE_ERROR, "Bitmap write error: Writing to point (%d,%d) out of bounds (%zux%zu)", v58, 0x22u);
       abort();
     }
 
@@ -9065,11 +9115,13 @@ LABEL_87:
   v13 = *(this + 15);
   v14 = *(this + 16);
   v15 = *(this + 12);
-  v16 = v15 * a2.var1;
-  if (CI::format_bytes_per_row(*(this + 26), a2.var0) + v16 > v15 * v6)
+  v16 = v15 * v6;
+  v17 = v15 * a2.var1;
+  v18 = CI::format_bytes_per_row(*(this + 26), a2.var0);
+  if (v18 + v17 > v16)
   {
-    v50 = ci_logger_render();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    v53 = ci_logger_render(v18, v19);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_91;
     }
@@ -9077,19 +9129,19 @@ LABEL_87:
     goto LABEL_87;
   }
 
-  v18 = *(this + 9) + v13 * v9 + v16;
-  v19 = *(this + 26);
-  if ((v19 | 4) == 0x10E)
+  v21 = *(this + 9) + v13 * v9 + v17;
+  v22 = *(this + 26);
+  if ((v22 | 4) == 0x10E)
   {
     _Q0 = vdupq_n_s32(0x437F0000u);
-    v20.i64[0] = 0x3F0000003F000000;
-    v20.i64[1] = 0x3F0000003F000000;
-    *_Q0.f32 = vrev32_s16(vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v20, _Q0, *a3), 0), _Q0))));
+    v23.i64[0] = 0x3F0000003F000000;
+    v23.i64[1] = 0x3F0000003F000000;
+    *_Q0.f32 = vrev32_s16(vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v23, _Q0, *a3), 0), _Q0))));
     *_Q0.f32 = vext_s8(*_Q0.f32, *_Q0.f32, 6uLL);
 LABEL_14:
     _Q0.i32[0] = vuzp1_s8(*_Q0.f32, *_Q0.f32).u32[0];
 LABEL_15:
-    *v18 = _Q0.i32[0];
+    *v21 = _Q0.i32[0];
     return _Q0.f32[0];
   }
 
@@ -9101,21 +9153,21 @@ LABEL_15:
       {
         if (v13 == 2)
         {
-          v40 = 65535.0;
-          v41 = (*a3 * 65535.0) + 0.5;
-          if (v41 <= 65535.0)
+          v43 = 65535.0;
+          v44 = (*a3 * 65535.0) + 0.5;
+          if (v44 <= 65535.0)
           {
-            v40 = (*a3 * 65535.0) + 0.5;
+            v43 = (*a3 * 65535.0) + 0.5;
           }
 
-          _NF = v41 < 0.0;
+          _NF = v44 < 0.0;
           _Q0.i32[0] = 0;
           if (!_NF)
           {
-            _Q0.f32[0] = v40;
+            _Q0.f32[0] = v43;
           }
 
-          v24 = _Q0.f32[0];
+          v27 = _Q0.f32[0];
         }
 
         else
@@ -9125,13 +9177,13 @@ LABEL_15:
             return _Q0.f32[0];
           }
 
-          v23 = vdup_n_s32(0x477FFF00u);
-          *_Q0.f32 = vcvt_s32_f32(vminnm_f32(vmaxnm_f32(vmla_f32(0x3F0000003F000000, v23, *a3), 0), v23));
-          *(v18 + 2) = _Q0.i16[2];
-          LOWORD(v24) = _Q0.i16[0];
+          v26 = vdup_n_s32(0x477FFF00u);
+          *_Q0.f32 = vcvt_s32_f32(vminnm_f32(vmaxnm_f32(vmla_f32(0x3F0000003F000000, v26, *a3), 0), v26));
+          *(v21 + 2) = _Q0.i16[2];
+          LOWORD(v27) = _Q0.i16[0];
         }
 
-        *v18 = v24;
+        *v21 = v27;
         return _Q0.f32[0];
       }
 
@@ -9143,22 +9195,22 @@ LABEL_15:
         }
 
 LABEL_46:
-        v28 = vdupq_n_s32(0x477FFF00u);
-        v29.i64[0] = 0x3F0000003F000000;
-        v29.i64[1] = 0x3F0000003F000000;
-        *_Q0.f32 = vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v29, v28, *a3), 0), v28)));
+        v31 = vdupq_n_s32(0x477FFF00u);
+        v32.i64[0] = 0x3F0000003F000000;
+        v32.i64[1] = 0x3F0000003F000000;
+        *_Q0.f32 = vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v32, v31, *a3), 0), v31)));
 LABEL_62:
-        *v18 = _Q0.i64[0];
+        *v21 = _Q0.i64[0];
         return _Q0.f32[0];
       }
 
-      v42 = vdupq_n_s32(0x477FFF00u);
-      v43.i64[0] = 0x3F0000003F000000;
-      v43.i64[1] = 0x3F0000003F000000;
-      *_Q0.f32 = vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v43, v42, *a3), 0), v42)));
+      v45 = vdupq_n_s32(0x477FFF00u);
+      v46.i64[0] = 0x3F0000003F000000;
+      v46.i64[1] = 0x3F0000003F000000;
+      *_Q0.f32 = vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v46, v45, *a3), 0), v45)));
 LABEL_79:
-      *v18 = _Q0.i32[0];
-      *(v18 + 4) = _Q0.i16[2];
+      *v21 = _Q0.i32[0];
+      *(v21 + 4) = _Q0.i16[2];
       return _Q0.f32[0];
     }
 
@@ -9180,7 +9232,7 @@ LABEL_79:
         _Q0.i32[0] = *a3;
         __asm { FCVT            H0, S0 }
 
-        *v18 = _Q0.i16[0];
+        *v21 = _Q0.i16[0];
         return _Q0.f32[0];
       }
 
@@ -9201,67 +9253,67 @@ LABEL_79:
 
     if (*(this + 136) && v14 == 32)
     {
-      v27 = __ROR8__(v13 - 4, 2);
-      if (v27 > 1)
+      v30 = __ROR8__(v13 - 4, 2);
+      if (v30 > 1)
       {
-        if (v27 == 2)
+        if (v30 == 2)
         {
-          *v18 = *a3;
-          *(v18 + 4) = *(a3 + 1);
+          *v21 = *a3;
+          *(v21 + 4) = *(a3 + 1);
           _Q0.i32[0] = *(a3 + 2);
-          *(v18 + 8) = _Q0.i32[0];
+          *(v21 + 8) = _Q0.i32[0];
         }
 
-        else if (v27 == 3)
+        else if (v30 == 3)
         {
           _Q0 = *a3;
-          *v18 = *a3;
+          *v21 = *a3;
         }
       }
 
-      else if (v27)
+      else if (v30)
       {
-        if (v27 == 1)
+        if (v30 == 1)
         {
           _Q0 = *a3;
-          *v18 = *a3;
+          *v21 = *a3;
         }
       }
 
       else
       {
         _Q0.i32[0] = *a3;
-        *v18 = *a3;
+        *v21 = *a3;
       }
 
       return _Q0.f32[0];
     }
 
-    if (v19 <= 784)
+    if (v22 <= 784)
     {
-      if (v19 != 775 && v19 != 784)
+      if (v22 != 775 && v22 != 784)
       {
         goto LABEL_82;
       }
     }
 
-    else if (v19 != 3079 && v19 != 2567)
+    else if (v22 != 3079 && v22 != 2567)
     {
-      if (v19 == 785)
+      if (v22 == 785)
       {
-        v35 = vdupq_n_s32(0x447FC000u);
-        v36.i64[0] = 0x3F0000003F000000;
-        v36.i64[1] = 0x3F0000003F000000;
-        _Q0 = vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v36, v35, *a3), 0), v35));
-        v35.i64[0] = 0xFFFF0000FFFFLL;
-        v35.i64[1] = 0xFFFF0000FFFFLL;
-        v37 = vandq_s8(_Q0, v35);
-        v38 = v37.i32[0];
-        v37.i32[0] = vextq_s8(v37, v37, 8uLL).i32[1];
-        *_Q0.f32 = vshl_u32(*v37.i8, 0xA0000001ELL);
-        v39 = v38 | (_Q0.i32[2] << 20);
+        v38 = vdupq_n_s32(0x447FC000u);
+        v39.i64[0] = 0x3F0000003F000000;
+        v39.i64[1] = 0x3F0000003F000000;
+        _Q0 = vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v39, v38, *a3), 0), v38));
+        v38.i64[0] = 0xFFFF0000FFFFLL;
+        v38.i64[1] = 0xFFFF0000FFFFLL;
+        v40 = vandq_s8(_Q0, v38);
+        v41 = v40.i32[0];
+        v40.i32[0] = vextq_s8(v40, v40, 8uLL).i32[1];
+        *_Q0.f32 = vshl_u32(*v40.i8, 0xA0000001ELL);
+        v42 = v41 | (_Q0.i32[2] << 20);
 LABEL_76:
-        *v18 = v39 | _Q0.i32[0] | _Q0.i32[1];
+        *v21 = v42 | _Q0.i32[0] | _Q0.i32[1];
         return _Q0.f32[0];
       }
 
@@ -9274,17 +9326,17 @@ LABEL_82:
       goto LABEL_46;
     }
 
-    v44 = vdupq_n_s32(0x447FC000u);
-    v45.i64[0] = 0x3F0000003F000000;
-    v45.i64[1] = 0x3F0000003F000000;
-    _Q0 = vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v45, v44, *a3), 0), v44));
-    v44.i64[0] = 0xFFFF0000FFFFLL;
-    v44.i64[1] = 0xFFFF0000FFFFLL;
-    v46 = vandq_s8(_Q0, v44);
-    v47 = _Q0.i32[0];
-    v46.i32[0] = vextq_s8(v46, v46, 8uLL).i32[1];
-    *_Q0.f32 = vshl_u32(*v46.i8, 0xA0000001ELL);
-    v39 = v46.i32[2] | (v47 << 20);
+    v47 = vdupq_n_s32(0x447FC000u);
+    v48.i64[0] = 0x3F0000003F000000;
+    v48.i64[1] = 0x3F0000003F000000;
+    _Q0 = vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v48, v47, *a3), 0), v47));
+    v47.i64[0] = 0xFFFF0000FFFFLL;
+    v47.i64[1] = 0xFFFF0000FFFFLL;
+    v49 = vandq_s8(_Q0, v47);
+    v50 = _Q0.i32[0];
+    v49.i32[0] = vextq_s8(v49, v49, 8uLL).i32[1];
+    *_Q0.f32 = vshl_u32(*v49.i8, 0xA0000001ELL);
+    v42 = v49.i32[2] | (v50 << 20);
     goto LABEL_76;
   }
 
@@ -9297,41 +9349,41 @@ LABEL_82:
         return _Q0.f32[0];
       }
 
-      v25 = vdupq_n_s32(0x437F0000u);
-      v26.i64[0] = 0x3F0000003F000000;
-      v26.i64[1] = 0x3F0000003F000000;
-      *_Q0.f32 = vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v26, v25, *a3), 0), v25)));
+      v28 = vdupq_n_s32(0x437F0000u);
+      v29.i64[0] = 0x3F0000003F000000;
+      v29.i64[1] = 0x3F0000003F000000;
+      *_Q0.f32 = vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v29, v28, *a3), 0), v28)));
       goto LABEL_14;
     }
 
-    v33 = vdupq_n_s32(0x437F0000u);
-    v34.i64[0] = 0x3F0000003F000000;
-    v34.i64[1] = 0x3F0000003F000000;
-    *_Q0.f32 = vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v34, v33, *a3), 0), v33)));
-    *v18 = _Q0.i8[0];
-    *(v18 + 1) = _Q0.i8[2];
-    *(v18 + 2) = _Q0.i8[4];
+    v36 = vdupq_n_s32(0x437F0000u);
+    v37.i64[0] = 0x3F0000003F000000;
+    v37.i64[1] = 0x3F0000003F000000;
+    *_Q0.f32 = vmovn_s32(vcvtq_s32_f32(vminnmq_f32(vmaxnmq_f32(vmlaq_f32(v37, v36, *a3), 0), v36)));
+    *v21 = _Q0.i8[0];
+    *(v21 + 1) = _Q0.i8[2];
+    *(v21 + 2) = _Q0.i8[4];
   }
 
   else
   {
     if (v13 == 1)
     {
-      v30 = 255.0;
-      v31 = (*a3 * 255.0) + 0.5;
-      if (v31 <= 255.0)
+      v33 = 255.0;
+      v34 = (*a3 * 255.0) + 0.5;
+      if (v34 <= 255.0)
       {
-        v30 = (*a3 * 255.0) + 0.5;
+        v33 = (*a3 * 255.0) + 0.5;
       }
 
-      _NF = v31 < 0.0;
+      _NF = v34 < 0.0;
       _Q0.i32[0] = 0;
       if (!_NF)
       {
-        _Q0.f32[0] = v30;
+        _Q0.f32[0] = v33;
       }
 
-      v22 = _Q0.f32[0];
+      v25 = _Q0.f32[0];
     }
 
     else
@@ -9341,22 +9393,22 @@ LABEL_82:
         return _Q0.f32[0];
       }
 
-      v21 = vdup_n_s32(0x437F0000u);
-      *_Q0.f32 = vcvt_s32_f32(vminnm_f32(vmaxnm_f32(vmla_f32(0x3F0000003F000000, v21, *a3), 0), v21));
-      *(v18 + 1) = _Q0.i8[4];
-      LOBYTE(v22) = _Q0.i8[0];
+      v24 = vdup_n_s32(0x437F0000u);
+      *_Q0.f32 = vcvt_s32_f32(vminnm_f32(vmaxnm_f32(vmla_f32(0x3F0000003F000000, v24, *a3), 0), v24));
+      *(v21 + 1) = _Q0.i8[4];
+      LOBYTE(v25) = _Q0.i8[0];
     }
 
-    *v18 = v22;
+    *v21 = v25;
   }
 
   return _Q0.f32[0];
 }
 
-void *std::map<std::string,CI::SWFunction>::map[abi:nn200100](void *a1, void **a2, uint64_t a3)
+void *std::map<std::string,CI::SWFunction>::map[abi:nn200100](void *a1, char *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = (a1 + 1);
+  v4 = a1 + 1;
   a1[2] = 0;
   *a1 = a1 + 1;
   if (a3)
@@ -9364,8 +9416,8 @@ void *std::map<std::string,CI::SWFunction>::map[abi:nn200100](void *a1, void **a
     v6 = 40 * a3;
     do
     {
-      std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,CI::SWFunction> const&>(a1, v4, a2);
-      a2 += 5;
+      std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,CI::SWFunction> const&>(a1, v4, a2, a2);
+      a2 += 40;
       v6 -= 40;
     }
 
@@ -9375,9 +9427,9 @@ void *std::map<std::string,CI::SWFunction>::map[abi:nn200100](void *a1, void **a
   return a1;
 }
 
-void *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,CI::SWFunction> const&>(void *a1, uint64_t a2, void **a3)
+uint64_t std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,CI::SWFunction> const&>(void *a1, void *a2, char *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__construct_node<std::pair<std::string const,CI::SWFunction> const&>();
@@ -9386,10 +9438,10 @@ void *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value
   return result;
 }
 
-void **std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__find_equal<std::string>(void *a1, uint64_t a2, void ***a3, uint64_t *a4, void **a5)
+uint64_t *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__find_equal<std::string>(void *a1, void *a2, char **a3, uint64_t *a4, char *a5)
 {
-  v9 = (a1 + 1);
-  if (a1 + 1 == a2 || (std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a5, (a2 + 32)) & 0x80) != 0)
+  v9 = a1 + 1;
+  if (a1 + 1 == a2 || (std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a5, a2 + 32) & 0x80) != 0)
   {
     if (*a1 == a2)
     {
@@ -9432,7 +9484,7 @@ void **std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_valu
     if (*a2)
     {
       *a3 = v12;
-      return (v12 + 1);
+      return v12 + 1;
     }
 
     else
@@ -9442,18 +9494,18 @@ void **std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_valu
     }
   }
 
-  if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>((a2 + 32), a5) & 0x80) == 0)
+  if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a2 + 4, a5) & 0x80) == 0)
   {
     *a3 = a2;
     *a4 = a2;
     return a4;
   }
 
-  a4 = (a2 + 8);
-  v13 = *(a2 + 8);
+  a4 = a2 + 1;
+  v13 = a2[1];
   if (v13)
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
     do
     {
       v15 = v14;
@@ -9493,7 +9545,7 @@ LABEL_29:
     return a4;
   }
 
-  if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 4) & 0x80) != 0)
+  if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 32) & 0x80) != 0)
   {
     v13 = *a4;
     goto LABEL_29;
@@ -9511,7 +9563,7 @@ void sub_19CC4CE54(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -9529,7 +9581,7 @@ uint64_t *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_v
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -9540,7 +9592,7 @@ void *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -9558,8 +9610,8 @@ void *std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -9575,7 +9627,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -9585,7 +9637,7 @@ uint64_t std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -9598,12 +9650,12 @@ uint64_t std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:nn200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -9654,12 +9706,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -9673,22 +9725,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -9722,13 +9774,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -9812,63 +9864,4 @@ void std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInf
 
     operator delete(a2);
   }
-}
-
-void std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::destroy(uint64_t a1, void *a2)
-{
-  if (a2)
-  {
-    std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::destroy(a1, *a2);
-    std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::TextureReadFunction>>>::destroy(a1, a2[1]);
-    std::__destroy_at[abi:nn200100]<std::pair<unsigned long long const,CI::DAGHelper::TextureReadFunction>,0>((a2 + 4));
-
-    operator delete(a2);
-  }
-}
-
-void std::__destroy_at[abi:nn200100]<std::pair<unsigned long long const,CI::DAGHelper::TextureReadFunction>,0>(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    *(a1 + 40) = v2;
-    operator delete(v2);
-  }
-
-  if (*(a1 + 31) < 0)
-  {
-    v3 = *(a1 + 8);
-
-    operator delete(v3);
-  }
-}
-
-uint64_t std::__tree<std::__value_type<std::string,CI::SWFunction>,std::__map_value_compare<std::string,std::__value_type<std::string,CI::SWFunction>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CI::SWFunction>>>::find<std::string>(uint64_t a1, void **a2)
-{
-  v2 = a1 + 8;
-  v3 = *(a1 + 8);
-  if (!v3)
-  {
-    return v2;
-  }
-
-  v5 = a1 + 8;
-  do
-  {
-    v6 = std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>((v3 + 32), a2);
-    if ((v6 & 0x80u) == 0)
-    {
-      v5 = v3;
-    }
-
-    v3 = *(v3 + ((v6 >> 4) & 8));
-  }
-
-  while (v3);
-  if (v5 == v2 || (std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (v5 + 32)) & 0x80) != 0)
-  {
-    return v2;
-  }
-
-  return v5;
 }

@@ -89,7 +89,7 @@ id __105__SBHomeGestureToMixedGridSwitcherSwitcherModifier_responseForProposedCh
     if (v4)
     {
       v5 = [[SBScrollToAppLayoutSwitcherEventResponse alloc] initWithAppLayout:v4 alignment:0 animated:0];
-      v6 = SBAppendSwitcherModifierResponse(v5, v3);
+      v6 = SBAppendSwitcherModifierResponse();
 
       v3 = v5;
     }
@@ -132,7 +132,7 @@ id __105__SBHomeGestureToMixedGridSwitcherSwitcherModifier_responseForProposedCh
   return result;
 }
 
-uint64_t __84__SBHomeGestureToMixedGridSwitcherSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(uint64_t a1)
+void *__84__SBHomeGestureToMixedGridSwitcherSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [v2 appLayouts];
@@ -216,7 +216,7 @@ uint64_t __84__SBHomeGestureToMixedGridSwitcherSwitcherModifier_contentOffsetFor
   return result;
 }
 
-uint64_t __66__SBHomeGestureToMixedGridSwitcherSwitcherModifier_frameForIndex___block_invoke(void *a1)
+void *__66__SBHomeGestureToMixedGridSwitcherSwitcherModifier_frameForIndex___block_invoke(void *a1)
 {
   [*(a1[4] + 176) frameForIndex:a1[7]];
   v2 = *(a1[5] + 8);
@@ -264,7 +264,7 @@ uint64_t __66__SBHomeGestureToMixedGridSwitcherSwitcherModifier_frameForIndex___
   return v8;
 }
 
-uint64_t __66__SBHomeGestureToMixedGridSwitcherSwitcherModifier_scaleForIndex___block_invoke(void *a1)
+void *__66__SBHomeGestureToMixedGridSwitcherSwitcherModifier_scaleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -380,7 +380,7 @@ void __72__SBHomeGestureToMixedGridSwitcherSwitcherModifier__appLayoutToScrollTo
   [v2 _performBlockWhileSimulatingPostPresentationScrollViewContentOffset:v5];
 }
 
-uint64_t __72__SBHomeGestureToMixedGridSwitcherSwitcherModifier__appLayoutToScrollTo__block_invoke_2(uint64_t a1)
+void *__72__SBHomeGestureToMixedGridSwitcherSwitcherModifier__appLayoutToScrollTo__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 40) + 176) isIndexFullyVisible:{objc_msgSend(*(a1 + 32), "indexOfObject:", *(*(a1 + 40) + 168))}];
   *(*(*(a1 + 48) + 8) + 24) = result;

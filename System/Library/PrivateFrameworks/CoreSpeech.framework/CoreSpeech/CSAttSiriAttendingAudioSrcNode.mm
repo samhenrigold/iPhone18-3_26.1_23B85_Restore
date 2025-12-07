@@ -2,6 +2,7 @@
 - (CSAttSiriAttendingAudioSrcNode)initWithAttSiriController:(id)controller;
 - (CSAttSiriAttendingAudioSrcNode)initWithAudioStreamProvider:(id)provider audioProviderSelector:(id)selector streamName:(id)name streamRequest:(id)request;
 - (CSAttSiriController)attSiriController;
+- (void)_handleDidAudioStartWithResult:(BOOL)result error:(id)error;
 - (void)_handleDidStop;
 - (void)_handleDidStopStreamUnexpectedly;
 - (void)addReceiver:(id)receiver;
@@ -23,6 +24,42 @@
   WeakRetained = objc_loadWeakRetained(&self->_attSiriController);
 
   return WeakRetained;
+}
+
+- (void)_handleDidAudioStartWithResult:(BOOL)result error:(id)error
+{
+  resultCopy = result;
+  errorCopy = error;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = self->_receivers;
+  v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v13;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v13 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v12 + 1) + 8 * v11) attSiriAudioSrcNodeDidStartRecording:self successfully:resultCopy error:{errorCopy, v12}];
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v9);
+  }
 }
 
 - (void)_handleDidStopStreamUnexpectedly

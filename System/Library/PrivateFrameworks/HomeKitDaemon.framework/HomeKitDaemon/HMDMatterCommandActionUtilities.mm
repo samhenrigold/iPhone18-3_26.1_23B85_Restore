@@ -7,30 +7,30 @@
 
 + (id)commandsInMemoryRepresentation:(id)representation
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = representationCopy;
-  v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     v8 = *MEMORY[0x277CCFC20];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         v11 = [v10 mutableCopy];
         v12 = [v11 objectForKey:v8];
         v13 = [v12 mutableCopy];
@@ -38,17 +38,17 @@
         if (v13)
         {
           v14 = [v13 mutableCopy];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __66__HMDMatterCommandActionUtilities_commandsInMemoryRepresentation___block_invoke;
-          v22[3] = &unk_27866F4E0;
-          v23 = v14;
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __66__HMDMatterCommandActionUtilities_commandsInMemoryRepresentation___block_invoke;
+          v21[3] = &unk_27866F4E0;
+          v22 = v14;
           v15 = v14;
-          [v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v22];
-          v16 = [v15 copy];
+          [v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v21];
+          v16 = objc_msgSend_copy(v15);
           [v11 setObject:v16 forKey:v8];
 
-          v17 = [v11 copy];
+          v17 = objc_msgSend_copy(v11);
           [array addObject:v17];
         }
 
@@ -58,14 +58,13 @@
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v6);
   }
 
-  v18 = [array copy];
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = objc_msgSend_copy(array);
 
   return v18;
 }
@@ -123,36 +122,36 @@ void __66__HMDMatterCommandActionUtilities_commandsInMemoryRepresentation___bloc
   }
 
   v32 = *(a1 + 32);
-  v33 = [v4 copy];
+  v33 = objc_msgSend_copy(v4);
   [v32 replaceObjectAtIndex:v35 withObject:v33];
 }
 
 + (id)commandsInStoreRepresentation:(id)representation
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = representationCopy;
-  v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     v8 = *MEMORY[0x277CCFC20];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         v11 = [v10 mutableCopy];
         v12 = [v11 objectForKey:v8];
         v13 = [v12 mutableCopy];
@@ -160,17 +159,17 @@ void __66__HMDMatterCommandActionUtilities_commandsInMemoryRepresentation___bloc
         if (v13)
         {
           v14 = [v13 mutableCopy];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __65__HMDMatterCommandActionUtilities_commandsInStoreRepresentation___block_invoke;
-          v22[3] = &unk_27866F4E0;
-          v23 = v14;
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __65__HMDMatterCommandActionUtilities_commandsInStoreRepresentation___block_invoke;
+          v21[3] = &unk_27866F4E0;
+          v22 = v14;
           v15 = v14;
-          [v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v22];
-          v16 = [v15 copy];
+          [v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v21];
+          v16 = objc_msgSend_copy(v15);
           [v11 setObject:v16 forKey:v8];
 
-          v17 = [v11 copy];
+          v17 = objc_msgSend_copy(v11);
           [array addObject:v17];
         }
 
@@ -180,21 +179,20 @@ void __66__HMDMatterCommandActionUtilities_commandsInMemoryRepresentation___bloc
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v6);
   }
 
-  v18 = [array copy];
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = objc_msgSend_copy(array);
 
   return v18;
 }
 
 void __65__HMDMatterCommandActionUtilities_commandsInStoreRepresentation___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v48[3] = *MEMORY[0x277D85DE8];
+  v47[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 mutableCopy];
   v5 = *MEMORY[0x277CD50B8];
@@ -216,16 +214,16 @@ void __65__HMDMatterCommandActionUtilities_commandsInStoreRepresentation___block
   v10 = MEMORY[0x277CCFD10];
   if (v8)
   {
-    v47[0] = *MEMORY[0x277CCF2D8];
+    v46[0] = *MEMORY[0x277CCF2D8];
     v11 = [v8 attribute];
-    v48[0] = v11;
-    v47[1] = *v9;
+    v47[0] = v11;
+    v46[1] = *v9;
     v12 = [v8 cluster];
-    v48[1] = v12;
-    v47[2] = *v10;
+    v47[1] = v12;
+    v46[2] = *v10;
     v13 = [v8 endpoint];
-    v48[2] = v13;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:3];
+    v47[2] = v13;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:3];
     v15 = v14 = v10;
 
     [v4 setObject:v15 forKey:v5];
@@ -249,21 +247,21 @@ void __65__HMDMatterCommandActionUtilities_commandsInStoreRepresentation___block
 
   if (v19)
   {
-    v45[0] = *MEMORY[0x277CCFC30];
+    v44[0] = *MEMORY[0x277CCFC30];
     v20 = [v19 command];
-    v46[0] = v20;
-    v45[1] = *v9;
+    v45[0] = v20;
+    v44[1] = *v9;
     v21 = [v19 cluster];
-    v46[1] = v21;
-    v45[2] = *v10;
+    v45[1] = v21;
+    v44[2] = *v10;
     [v19 endpoint];
     v22 = v19;
     v23 = v3;
     v24 = v8;
     v25 = v4;
     v27 = v26 = v10;
-    v46[2] = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:3];
+    v45[2] = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:3];
 
     v10 = v26;
     v4 = v25;
@@ -292,25 +290,23 @@ void __65__HMDMatterCommandActionUtilities_commandsInStoreRepresentation___block
 
   if (v32)
   {
-    v43[0] = *MEMORY[0x277CCFD30];
+    v42[0] = *MEMORY[0x277CCFD30];
     v33 = [v32 event];
-    v44[0] = v33;
-    v43[1] = *v9;
+    v43[0] = v33;
+    v42[1] = *v9;
     v34 = [v32 cluster];
-    v44[1] = v34;
-    v43[2] = *v10;
+    v43[1] = v34;
+    v42[2] = *v10;
     v35 = [v32 endpoint];
-    v44[2] = v35;
-    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:3];
+    v43[2] = v35;
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
 
     [v4 setObject:v36 forKey:v29];
   }
 
-  v37 = *(v41 + 32);
-  v38 = [v4 copy];
+  v37 = *(v40 + 32);
+  v38 = objc_msgSend_copy(v4);
   [v37 replaceObjectAtIndex:a3 withObject:v38];
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 @end

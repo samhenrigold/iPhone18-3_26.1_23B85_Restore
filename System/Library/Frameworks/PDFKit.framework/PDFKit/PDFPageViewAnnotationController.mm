@@ -631,7 +631,7 @@ uint64_t __64__PDFPageViewAnnotationController_markupAnnotationsForIndexSet___bl
   return v8;
 }
 
-uint64_t __61__PDFPageViewAnnotationController__indexSet_touchesIndexSet___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__61__PDFPageViewAnnotationController__indexSet_touchesIndexSet___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v6 = *(a1 + 32);
   v8[0] = MEMORY[0x1E69E9820];

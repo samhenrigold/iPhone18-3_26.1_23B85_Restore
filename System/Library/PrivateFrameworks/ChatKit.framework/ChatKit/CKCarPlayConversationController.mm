@@ -19,10 +19,10 @@
   v4 = sub_190D50FB0();
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_190D50F60();
   selfCopy = self;
-  sub_190AC834C(v7);
+  sub_190AC834C(v7, v9);
 
   (*(v5 + 8))(v7, v4);
 }

@@ -80,6 +80,7 @@
 - (int64_t)_getAuthorizationRecordsStatus;
 - (void)_handleAddAccountButtonAction:(id)action;
 - (void)_updateDownloadsFolderTitle;
+- (void)loadNetworkConfigurationsForceRefresh:(BOOL)refresh;
 - (void)monitoredStoreDidChange:(id)change;
 - (void)observer:(id)observer updateSectionInfo:(id)info;
 - (void)reloadSpecifiers;
@@ -99,6 +100,7 @@
 - (void)setTapToPayDiagnosticsEnabled:(id)enabled specifier:(id)specifier;
 - (void)setTapToPayScreenLockEnabled:(id)enabled specifier:(id)specifier;
 - (void)setupNetworkConfiguration;
+- (void)showController:(id)controller animate:(BOOL)animate;
 @end
 
 @implementation AUSystemSettingsSpecifiersProvider
@@ -155,74 +157,72 @@
 
 void __74__AUSystemSettingsSpecifiersProvider_initWithApplicationBundleIdentifier___block_invoke()
 {
-  v16[25] = *MEMORY[0x277D85DE8];
+  v15[25] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D6C118];
-  v15[0] = *MEMORY[0x277D6C100];
-  v15[1] = v0;
-  v16[0] = &unk_282D7F468;
-  v16[1] = &unk_282D7F480;
+  v14[0] = *MEMORY[0x277D6C100];
+  v14[1] = v0;
+  v15[0] = &unk_282D7F468;
+  v15[1] = &unk_282D7F480;
   v1 = *MEMORY[0x277D6C1D0];
-  v15[2] = *MEMORY[0x277D6C1E0];
-  v15[3] = v1;
-  v16[2] = &unk_282D7F498;
-  v16[3] = &unk_282D7F4B0;
+  v14[2] = *MEMORY[0x277D6C1E0];
+  v14[3] = v1;
+  v15[2] = &unk_282D7F498;
+  v15[3] = &unk_282D7F4B0;
   v2 = *MEMORY[0x277D6C1A8];
-  v15[4] = *MEMORY[0x277D6C110];
-  v15[5] = v2;
-  v16[4] = &unk_282D7F4C8;
-  v16[5] = &unk_282D7F4E0;
+  v14[4] = *MEMORY[0x277D6C110];
+  v14[5] = v2;
+  v15[4] = &unk_282D7F4C8;
+  v15[5] = &unk_282D7F4E0;
   v3 = *MEMORY[0x277D6C120];
-  v15[6] = *MEMORY[0x277D6C218];
-  v15[7] = v3;
-  v16[6] = &unk_282D7F4F8;
-  v16[7] = &unk_282D7F510;
+  v14[6] = *MEMORY[0x277D6C218];
+  v14[7] = v3;
+  v15[6] = &unk_282D7F4F8;
+  v15[7] = &unk_282D7F510;
   v4 = *MEMORY[0x277D6C1B0];
-  v15[8] = *MEMORY[0x277D6C168];
-  v15[9] = v4;
-  v16[8] = &unk_282D7F528;
-  v16[9] = &unk_282D7F540;
+  v14[8] = *MEMORY[0x277D6C168];
+  v14[9] = v4;
+  v15[8] = &unk_282D7F528;
+  v15[9] = &unk_282D7F540;
   v5 = *MEMORY[0x277D6C148];
-  v15[10] = *MEMORY[0x277D6C258];
-  v15[11] = v5;
-  v16[10] = &unk_282D7F558;
-  v16[11] = &unk_282D7F570;
+  v14[10] = *MEMORY[0x277D6C258];
+  v14[11] = v5;
+  v15[10] = &unk_282D7F558;
+  v15[11] = &unk_282D7F570;
   v6 = *MEMORY[0x277D6C178];
-  v15[12] = *MEMORY[0x277D6C248];
-  v15[13] = v6;
-  v16[12] = &unk_282D7F588;
-  v16[13] = &unk_282D7F5A0;
+  v14[12] = *MEMORY[0x277D6C248];
+  v14[13] = v6;
+  v15[12] = &unk_282D7F588;
+  v15[13] = &unk_282D7F5A0;
   v7 = *MEMORY[0x277D6C1A0];
-  v15[14] = *MEMORY[0x277D6C188];
-  v15[15] = v7;
-  v16[14] = &unk_282D7F5B8;
-  v16[15] = &unk_282D7F5D0;
+  v14[14] = *MEMORY[0x277D6C188];
+  v14[15] = v7;
+  v15[14] = &unk_282D7F5B8;
+  v15[15] = &unk_282D7F5D0;
   v8 = *MEMORY[0x277D6C250];
-  v15[16] = *MEMORY[0x277D6C198];
-  v15[17] = v8;
-  v16[16] = &unk_282D7F5E8;
-  v16[17] = &unk_282D7F600;
+  v14[16] = *MEMORY[0x277D6C198];
+  v14[17] = v8;
+  v15[16] = &unk_282D7F5E8;
+  v15[17] = &unk_282D7F600;
   v9 = *MEMORY[0x277D6C1C8];
-  v15[18] = *MEMORY[0x277D6C238];
-  v15[19] = v9;
-  v16[18] = &unk_282D7F618;
-  v16[19] = &unk_282D7F630;
+  v14[18] = *MEMORY[0x277D6C238];
+  v14[19] = v9;
+  v15[18] = &unk_282D7F618;
+  v15[19] = &unk_282D7F630;
   v10 = *MEMORY[0x277D6C1B8];
-  v15[20] = *MEMORY[0x277D6C180];
-  v15[21] = v10;
-  v16[20] = &unk_282D7F648;
-  v16[21] = &unk_282D7F660;
+  v14[20] = *MEMORY[0x277D6C180];
+  v14[21] = v10;
+  v15[20] = &unk_282D7F648;
+  v15[21] = &unk_282D7F660;
   v11 = *MEMORY[0x277D6C1E8];
-  v15[22] = *MEMORY[0x277D6C158];
-  v15[23] = v11;
-  v16[22] = &unk_282D7F678;
-  v16[23] = &unk_282D7F690;
-  v15[24] = *MEMORY[0x277D6C128];
-  v16[24] = &unk_282D7F6A8;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:25];
+  v14[22] = *MEMORY[0x277D6C158];
+  v14[23] = v11;
+  v15[22] = &unk_282D7F678;
+  v15[23] = &unk_282D7F690;
+  v14[24] = *MEMORY[0x277D6C128];
+  v15[24] = &unk_282D7F6A8;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:25];
   v13 = _PSServicePolicyOptions;
   _PSServicePolicyOptions = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __74__AUSystemSettingsSpecifiersProvider_initWithApplicationBundleIdentifier___block_invoke_94(uint64_t a1, void *a2, void *a3)
@@ -230,16 +230,17 @@ void __74__AUSystemSettingsSpecifiersProvider_initWithApplicationBundleIdentifie
   v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _AULoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AULoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
       v12 = "[AUSystemSettingsSpecifiersProvider initWithApplicationBundleIdentifier:]_block_invoke";
       v13 = 2114;
-      v14 = v6;
-      _os_log_impl(&dword_21BAF4000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Failed to load identity settings with error %{public}@", buf, 0x16u);
+      v14 = v7;
+      _os_log_impl(&dword_21BAF4000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: Failed to load identity settings with error %{public}@", buf, 0x16u);
     }
 
     goto LABEL_7;
@@ -254,11 +255,9 @@ void __74__AUSystemSettingsSpecifiersProvider_initWithApplicationBundleIdentifie
     block[3] = &unk_2782EF4B0;
     v10 = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    v7 = v10;
+    v8 = v10;
 LABEL_7:
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (OS_dispatch_queue)_bbObserverQueue
@@ -284,19 +283,19 @@ void __54__AUSystemSettingsSpecifiersProvider__bbObserverQueue__block_invoke()
 - (id)specifiers
 {
   v17 = *MEMORY[0x277D85DE8];
-  v3 = _AULoggingFacility();
+  v3 = _AULoggingFacility(self);
   v4 = os_signpost_id_make_with_pointer(v3, "PSSystemPolicyForApp.specifiers");
 
-  v5 = _AULoggingFacility();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = _AULoggingFacility(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
     *buf = 136315394;
     v14 = "[AUSystemSettingsSpecifiersProvider specifiers]";
     v15 = 2114;
     v16 = applicationBundleIdentifier;
-    _os_signpost_emit_with_name_impl(&dword_21BAF4000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "PSSystemPolicyForApp.specifiers", "%s: %{public}@", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_21BAF4000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "PSSystemPolicyForApp.specifiers", "%s: %{public}@", buf, 0x16u);
   }
 
   v12[0] = MEMORY[0x277D85DD0];
@@ -304,49 +303,47 @@ void __54__AUSystemSettingsSpecifiersProvider__bbObserverQueue__block_invoke()
   v12[2] = __48__AUSystemSettingsSpecifiersProvider_specifiers__block_invoke;
   v12[3] = &__block_descriptor_40_e5_v8__0l;
   v12[4] = v4;
-  v8 = MEMORY[0x21CF002C0](v12);
-  v9 = [(AUSystemSettingsSpecifiersProvider *)self specifiersForPolicyOptions:-134348801 force:0];
-  if (v8)
+  v9 = MEMORY[0x21CF002C0](v12);
+  v10 = [(AUSystemSettingsSpecifiersProvider *)self specifiersForPolicyOptions:-134348801 force:0];
+  if (v9)
   {
-    v8[2](v8);
+    v9[2](v9);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
-void __48__AUSystemSettingsSpecifiersProvider_specifiers__block_invoke(uint64_t a1)
+void __48__AUSystemSettingsSpecifiersProvider_specifiers__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _AULoggingFacility();
-  v3 = v2;
-  v4 = *(a1 + 32);
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
+  v3 = _AULoggingFacility(a1);
+  v4 = v3;
+  v5 = *(a1 + 32);
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *v5 = 0;
-    _os_signpost_emit_with_name_impl(&dword_21BAF4000, v3, OS_SIGNPOST_INTERVAL_END, v4, "PSSystemPolicyForApp.specifiers", "", v5, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_21BAF4000, v4, OS_SIGNPOST_INTERVAL_END, v5, "PSSystemPolicyForApp.specifiers", "", v6, 2u);
   }
 }
 
 - (id)specifiersForPolicyOptions:(unint64_t)options force:(BOOL)force
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   self->_policyOptions = options;
   self->_forcePolicyOptions = force;
   v5 = objc_alloc(MEMORY[0x277CC1E70]);
   applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
-  v80 = [v5 initWithBundleIdentifier:applicationBundleIdentifier allowPlaceholder:1 error:0];
+  v79 = [v5 initWithBundleIdentifier:applicationBundleIdentifier allowPlaceholder:1 error:0];
 
   array = [MEMORY[0x277CBEB18] array];
-  v8 = v80;
-  if ([v80 isWebAppPlaceholder])
+  v8 = v79;
+  if ([v79 isWebAppPlaceholder])
   {
     v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v10 = [v9 localizedStringForKey:@"Allow %@ to Access" value:&stru_282D7C630 table:0];
 
     v11 = MEMORY[0x277D3FAD8];
     v12 = MEMORY[0x277CCACA8];
-    localizedName = [v80 localizedName];
+    localizedName = [v79 localizedName];
     v14 = [v12 stringWithFormat:v10, localizedName];
     v15 = [v11 groupSpecifierWithName:v14];
 
@@ -354,67 +351,67 @@ void __48__AUSystemSettingsSpecifiersProvider_specifiers__block_invoke(uint64_t 
     notificationSpecifier = [(AUSystemSettingsSpecifiersProvider *)self notificationSpecifier];
     [array na_safeAddObject:notificationSpecifier];
 
-    v17 = v80;
+    v17 = v79;
   }
 
   else
   {
-    if (v80)
+    if (v79)
     {
-      v18 = [v80 URL];
+      v18 = [v79 URL];
       v8 = CFBundleCreate(0, v18);
 
       if (v8)
       {
-        v86[0] = MEMORY[0x277D85DD0];
-        v86[1] = 3221225472;
-        v86[2] = __71__AUSystemSettingsSpecifiersProvider_specifiersForPolicyOptions_force___block_invoke;
-        v86[3] = &__block_descriptor_40_e5_v8__0l;
-        v86[4] = v8;
-        v78 = MEMORY[0x21CF002C0](v86);
+        v85[0] = MEMORY[0x277D85DD0];
+        v85[1] = 3221225472;
+        v85[2] = __71__AUSystemSettingsSpecifiersProvider_specifiersForPolicyOptions_force___block_invoke;
+        v85[3] = &__block_descriptor_40_e5_v8__0l;
+        v85[4] = v8;
+        v77 = MEMORY[0x21CF002C0](v85);
         v19 = TCCAccessCopyInformationForBundle();
         v8 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v19, "count")}];
-        v84 = 0u;
-        v85 = 0u;
-        v82 = 0u;
         v83 = 0u;
+        v84 = 0u;
+        v81 = 0u;
+        v82 = 0u;
         v20 = v19;
-        v21 = [v20 countByEnumeratingWithState:&v82 objects:v87 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v81 objects:v86 count:16];
         if (v21)
         {
-          v22 = *v83;
+          v22 = *v82;
           v23 = MEMORY[0x277D6C0E8];
           do
           {
             for (i = 0; i != v21; ++i)
             {
-              if (*v83 != v22)
+              if (*v82 != v22)
               {
                 objc_enumerationMutation(v20);
               }
 
-              v25 = *(*(&v82 + 1) + 8 * i);
+              v25 = *(*(&v81 + 1) + 8 * i);
               v26 = [v25 objectForKeyedSubscript:*v23];
               [v8 na_safeSetObject:v25 forKey:v26];
             }
 
-            v21 = [v20 countByEnumeratingWithState:&v82 objects:v87 count:16];
+            v21 = [v20 countByEnumeratingWithState:&v81 objects:v86 count:16];
           }
 
           while (v21);
         }
 
-        v27 = v78;
-        if (v78)
+        v27 = v77;
+        if (v77)
         {
-          (*(v78 + 2))();
-          v27 = v78;
+          (*(v77 + 2))();
+          v27 = v77;
         }
       }
     }
 
-    v79 = MEMORY[0x21CEFFED0]();
-    v28 = [(AUSystemSettingsSpecifiersProvider *)self privacySpecifiersWithTCCServiceLookup:v8 tccServiceOverrides:v79];
+    v78 = MEMORY[0x21CEFFED0]();
+    v28 = [(AUSystemSettingsSpecifiersProvider *)self privacySpecifiersWithTCCServiceLookup:v8 tccServiceOverrides:v78];
     [array addObjectsFromArray:v28];
 
     calendarSpecifiers = [(AUSystemSettingsSpecifiersProvider *)self calendarSpecifiers];
@@ -438,27 +435,27 @@ void __48__AUSystemSettingsSpecifiersProvider_specifiers__block_invoke(uint64_t 
     liveActivitiesSpecifier = [(AUSystemSettingsSpecifiersProvider *)self liveActivitiesSpecifier];
     [array na_safeAddObject:liveActivitiesSpecifier];
 
-    v36 = [(AUSystemSettingsSpecifiersProvider *)self privacySpecifierForService:*MEMORY[0x277D6C188] tccServiceLookup:v8 tccServiceOverrides:v79];
+    v36 = [(AUSystemSettingsSpecifiersProvider *)self privacySpecifierForService:*MEMORY[0x277D6C188] tccServiceLookup:v8 tccServiceOverrides:v78];
     [array na_safeAddObject:v36];
 
-    v37 = [(AUSystemSettingsSpecifiersProvider *)self privacySpecifierForService:*MEMORY[0x277D6C230] tccServiceLookup:v8 tccServiceOverrides:v79];
+    v37 = [(AUSystemSettingsSpecifiersProvider *)self privacySpecifierForService:*MEMORY[0x277D6C230] tccServiceLookup:v8 tccServiceOverrides:v78];
     [array na_safeAddObject:v37];
 
     backgroundAppRefreshSpecifier = [(AUSystemSettingsSpecifiersProvider *)self backgroundAppRefreshSpecifier];
     [array na_safeAddObject:backgroundAppRefreshSpecifier];
-    localizedName2 = [v80 localizedName];
+    localizedName2 = [v79 localizedName];
     if (localizedName2)
     {
-      v73 = v80;
+      v72 = v79;
     }
 
     else
     {
       v38 = objc_alloc(MEMORY[0x277CC1E70]);
       applicationBundleIdentifier2 = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
-      v73 = [v38 initWithBundleIdentifierOfSystemPlaceholder:applicationBundleIdentifier2 error:0];
+      v72 = [v38 initWithBundleIdentifierOfSystemPlaceholder:applicationBundleIdentifier2 error:0];
 
-      localizedName2 = [v73 localizedName];
+      localizedName2 = [v72 localizedName];
     }
 
     v40 = [(AUSystemSettingsSpecifiersProvider *)self wirelessDataSpecifierWithAppName:localizedName2];
@@ -497,7 +494,7 @@ void __48__AUSystemSettingsSpecifiersProvider_specifiers__block_invoke(uint64_t 
     contactlessNFCSideButtonSpecifiers = [(AUSystemSettingsSpecifiersProvider *)self contactlessNFCSideButtonSpecifiers];
     [array na_safeAddObjectsFromArray:contactlessNFCSideButtonSpecifiers];
 
-    v47 = [(AUSystemSettingsSpecifiersProvider *)self trackingSpecifiersWithTCCServiceLookup:v8 tccServiceOverrides:v79];
+    v47 = [(AUSystemSettingsSpecifiersProvider *)self trackingSpecifiersWithTCCServiceLookup:v8 tccServiceOverrides:v78];
     if ([v47 count])
     {
       [array addObjectsFromArray:v47];
@@ -580,10 +577,8 @@ void __48__AUSystemSettingsSpecifiersProvider_specifiers__block_invoke(uint64_t 
     identityVerificationSpecifiers = [(AUSystemSettingsSpecifiersProvider *)self identityVerificationSpecifiers];
     [array addObjectsFromArray:identityVerificationSpecifiers];
 
-    v17 = v73;
+    v17 = v72;
   }
-
-  v71 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -646,7 +641,7 @@ void __48__AUSystemSettingsSpecifiersProvider_specifiers__block_invoke(uint64_t 
   return v2;
 }
 
-uint64_t __59__AUSystemSettingsSpecifiersProvider_notificationSpecifier__block_invoke()
+void *__59__AUSystemSettingsSpecifiersProvider_notificationSpecifier__block_invoke()
 {
   v0 = MEMORY[0x277CCA8D8];
   v1 = PSBundlePathForPreferenceBundle();
@@ -1204,30 +1199,30 @@ void __54__AUSystemSettingsSpecifiersProvider_searchSpecifiers__block_invoke()
 
 - (id)dataUsageWorkspaceInfo
 {
-  v13 = 0;
-  v9 = 0;
-  v11 = 0u;
   v12 = 0;
+  v8 = 0;
+  v10 = 0u;
+  v11 = 0;
   selfCopy = self;
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = _CTServerConnectionCreate();
-  if (v3)
+  v2 = _CTServerConnectionCreate();
+  if (v2)
   {
-    v4 = v3;
+    v3 = v2;
     _CTServerConnectionCopyCellularUsageWorkspaceInfo();
-    CFRelease(v4);
+    CFRelease(v3);
+    v2 = v12;
   }
 
-  v5 = _AULoggingFacility();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = _AULoggingFacility(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_21BAF4000, v5, OS_LOG_TYPE_DEFAULT, "Failed to get the data usage workspace information", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_21BAF4000, v4, OS_LOG_TYPE_DEFAULT, "Failed to get the data usage workspace information", v7, 2u);
   }
 
-  v6 = v13;
+  v5 = v12;
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)_isWirelessDataRestricted
@@ -1303,30 +1298,30 @@ LABEL_6:
 
 - (int64_t)_getAuthorizationRecordsStatus
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   mEMORY[0x277D083D8] = [MEMORY[0x277D083D8] sharedCenter];
   authorizationRecords = [mEMORY[0x277D083D8] authorizationRecords];
 
-  v5 = [authorizationRecords countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [authorizationRecords countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     status = 1;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(authorizationRecords);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         bundleIdentifier = [v10 bundleIdentifier];
         applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
         v13 = [bundleIdentifier isEqualToString:applicationBundleIdentifier];
@@ -1338,7 +1333,7 @@ LABEL_6:
         }
       }
 
-      v6 = [authorizationRecords countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [authorizationRecords countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -1355,46 +1350,45 @@ LABEL_6:
 
 LABEL_12:
 
-  v14 = *MEMORY[0x277D85DE8];
   return status;
 }
 
 - (void)setFamilyControlsEnabled:(id)enabled forSpecifier:(id)specifier
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy_;
-  v27[4] = __Block_byref_object_dispose_;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy_;
+  v26[4] = __Block_byref_object_dispose_;
   v7 = enabledCopy;
-  v28 = v7;
+  v27 = v7;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   mEMORY[0x277D083D8] = [MEMORY[0x277D083D8] sharedCenter];
   authorizationRecords = [mEMORY[0x277D083D8] authorizationRecords];
 
   recordIdentifier = 0;
-  v11 = [authorizationRecords countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v11 = [authorizationRecords countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v11)
   {
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       v13 = 0;
       v14 = recordIdentifier;
       do
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(authorizationRecords);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * v13);
+        v15 = *(*(&v22 + 1) + 8 * v13);
         bundleIdentifier = [v15 bundleIdentifier];
         applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
         if ([bundleIdentifier isEqualToString:applicationBundleIdentifier])
@@ -1412,7 +1406,7 @@ LABEL_12:
       }
 
       while (v11 != v13);
-      v11 = [authorizationRecords countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v11 = [authorizationRecords countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v11);
@@ -1421,27 +1415,26 @@ LABEL_12:
   if ([(AUSystemSettingsSpecifiersProvider *)self _getAuthorizationRecordsStatus]== 2)
   {
     mEMORY[0x277D083D8]2 = [MEMORY[0x277D083D8] sharedCenter];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __76__AUSystemSettingsSpecifiersProvider_setFamilyControlsEnabled_forSpecifier___block_invoke;
-    v22[3] = &unk_2782EF548;
-    v22[4] = v27;
-    [mEMORY[0x277D083D8]2 resetAuthorizationForRecordIdentifier:recordIdentifier completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __76__AUSystemSettingsSpecifiersProvider_setFamilyControlsEnabled_forSpecifier___block_invoke;
+    v21[3] = &unk_2782EF548;
+    v21[4] = v26;
+    [mEMORY[0x277D083D8]2 resetAuthorizationForRecordIdentifier:recordIdentifier completionHandler:v21];
   }
 
   else
   {
     mEMORY[0x277D083D8]2 = [MEMORY[0x277D083D8] sharedCenter];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __76__AUSystemSettingsSpecifiersProvider_setFamilyControlsEnabled_forSpecifier___block_invoke_2;
-    v21[3] = &unk_2782EF548;
-    v21[4] = v27;
-    [mEMORY[0x277D083D8]2 requestAuthorizationForRecordIdentifier:recordIdentifier completionHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __76__AUSystemSettingsSpecifiersProvider_setFamilyControlsEnabled_forSpecifier___block_invoke_2;
+    v20[3] = &unk_2782EF548;
+    v20[4] = v26;
+    [mEMORY[0x277D083D8]2 requestAuthorizationForRecordIdentifier:recordIdentifier completionHandler:v20];
   }
 
-  _Block_object_dispose(v27, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v26, 8);
 }
 
 void __76__AUSystemSettingsSpecifiersProvider_setFamilyControlsEnabled_forSpecifier___block_invoke(uint64_t a1, int a2)
@@ -1516,31 +1509,31 @@ void __76__AUSystemSettingsSpecifiersProvider_setFamilyControlsEnabled_forSpecif
 
 - (BOOL)_supportsBackgroundAppRefresh
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CC1E70]);
   applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
   v5 = [v3 initWithBundleIdentifier:applicationBundleIdentifier allowPlaceholder:1 error:0];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   uIBackgroundModes = [v5 UIBackgroundModes];
-  v7 = [uIBackgroundModes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [uIBackgroundModes countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(uIBackgroundModes);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if ([v11 isEqualToString:@"remote-notification"] & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"newsstand-content") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"fetch") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"processing"))
         {
           v12 = 1;
@@ -1548,7 +1541,7 @@ void __76__AUSystemSettingsSpecifiersProvider_setFamilyControlsEnabled_forSpecif
         }
       }
 
-      v8 = [uIBackgroundModes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [uIBackgroundModes countByEnumeratingWithState:&v14 objects:v18 count:16];
       v12 = 0;
       if (v8)
       {
@@ -1566,7 +1559,6 @@ void __76__AUSystemSettingsSpecifiersProvider_setFamilyControlsEnabled_forSpecif
 
 LABEL_15:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1711,27 +1703,27 @@ LABEL_15:
 
 - (BOOL)getMulticastAllowed:(BOOL *)allowed
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   copyAggregatePathRules = [MEMORY[0x277CD92C0] copyAggregatePathRules];
-  v6 = [copyAggregatePathRules countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [copyAggregatePathRules countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(copyAggregatePathRules);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         matchSigningIdentifier = [v10 matchSigningIdentifier];
         applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
         if ([matchSigningIdentifier isEqualToString:applicationBundleIdentifier])
@@ -1755,7 +1747,7 @@ LABEL_15:
         }
       }
 
-      v7 = [copyAggregatePathRules countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [copyAggregatePathRules countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -1768,7 +1760,6 @@ LABEL_15:
   LOBYTE(v14) = 0;
 LABEL_16:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1801,15 +1792,42 @@ void __63__AUSystemSettingsSpecifiersProvider_setupNetworkConfiguration__block_i
   [WeakRetained loadNetworkConfigurationsForceRefresh:1];
 }
 
+- (void)loadNetworkConfigurationsForceRefresh:(BOOL)refresh
+{
+  if (self->_pathControllerConfiguration)
+  {
+    v5 = !refresh;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (!v5)
+  {
+    v8[7] = v3;
+    v8[8] = v4;
+    mEMORY[0x277CD92B8] = [MEMORY[0x277CD92B8] sharedManagerForAllUsers];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __76__AUSystemSettingsSpecifiersProvider_loadNetworkConfigurationsForceRefresh___block_invoke;
+    v8[3] = &unk_2782EF598;
+    v8[4] = self;
+    [mEMORY[0x277CD92B8] loadConfigurationsWithCompletionQueue:MEMORY[0x277D85CD0] handler:v8];
+  }
+}
+
 void __76__AUSystemSettingsSpecifiersProvider_loadNetworkConfigurationsForceRefresh___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _AULoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AULoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __76__AUSystemSettingsSpecifiersProvider_loadNetworkConfigurationsForceRefresh___block_invoke_cold_1();
     }
@@ -1819,46 +1837,44 @@ void __76__AUSystemSettingsSpecifiersProvider_loadNetworkConfigurationsForceRefr
   v22 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v9)
+  v9 = v5;
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v20;
+    v11 = v10;
+    v12 = *v20;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v11)
+        if (*v20 != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
-        v14 = [v13 name];
-        if ([v14 isEqualToString:@"com.apple.preferences.networkprivacy"])
+        v14 = *(*(&v19 + 1) + 8 * i);
+        v15 = [v14 name];
+        if ([v15 isEqualToString:@"com.apple.preferences.networkprivacy"])
         {
-          v15 = [v13 pathController];
+          v16 = [v14 pathController];
 
-          if (!v15)
+          if (!v16)
           {
             continue;
           }
 
-          v16 = *(a1 + 32);
-          v17 = v13;
-          v14 = *(v16 + 56);
-          *(v16 + 56) = v17;
+          v17 = *(a1 + 32);
+          v18 = v14;
+          v15 = *(v17 + 56);
+          *(v17 + 56) = v18;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveNetworkConfiguration
@@ -1877,12 +1893,13 @@ void __76__AUSystemSettingsSpecifiersProvider_loadNetworkConfigurationsForceRefr
 void __62__AUSystemSettingsSpecifiersProvider_saveNetworkConfiguration__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _AULoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _AULoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __62__AUSystemSettingsSpecifiersProvider_saveNetworkConfiguration__block_invoke_cold_1(v3, a1, v4);
+      __62__AUSystemSettingsSpecifiersProvider_saveNetworkConfiguration__block_invoke_cold_1(v4, a1, v5);
     }
   }
 }
@@ -1890,29 +1907,29 @@ void __62__AUSystemSettingsSpecifiersProvider_saveNetworkConfiguration__block_in
 - (id)pathRuleForBundleID:(id)d create:(BOOL)create
 {
   createCopy = create;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   pathController = [(NEConfiguration *)self->_pathControllerConfiguration pathController];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   pathRules = [pathController pathRules];
-  v9 = [pathRules countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v9 = [pathRules countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(pathRules);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         matchSigningIdentifier = [v13 matchSigningIdentifier];
         v15 = [matchSigningIdentifier isEqualToString:dCopy];
 
@@ -1923,7 +1940,7 @@ void __62__AUSystemSettingsSpecifiersProvider_saveNetworkConfiguration__block_in
         }
       }
 
-      v10 = [pathRules countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v10 = [pathRules countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v10)
       {
         continue;
@@ -1947,8 +1964,8 @@ void __62__AUSystemSettingsSpecifiersProvider_saveNetworkConfiguration__block_in
 
     else
     {
-      v25 = v16;
-      pathRules = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+      v24 = v16;
+      pathRules = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
       [pathController setPathRules:pathRules];
     }
 
@@ -1959,8 +1976,6 @@ LABEL_13:
   {
     v16 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2067,69 +2082,68 @@ LABEL_13:
   v6 = [v4 objectForKey:applicationBundleIdentifier];
 
   v7 = [MEMORY[0x277CBFC10] entityAuthorizationForLocationDictionary:v6];
-  v13 = 0;
+  v14 = 0;
   applicationBundleIdentifier2 = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
-  v9 = [(AUSystemSettingsSpecifiersProvider *)self getLearnedRoutesAccess:&v13 visitHistoryAccess:&v13 + 4 fromDetails:v4 serviceKey:applicationBundleIdentifier2];
+  v9 = [(AUSystemSettingsSpecifiersProvider *)self getLearnedRoutesAccess:&v14 visitHistoryAccess:&v14 + 4 fromDetails:v4 serviceKey:applicationBundleIdentifier2];
 
   if (!v9)
   {
-    v10 = _AULoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _AULoggingFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [AUSystemSettingsSpecifiersProvider locationStatus:];
     }
   }
 
-  v11 = [(AUSystemSettingsSpecifiersProvider *)self authLevelStringForStatus:v7 learnedRoutesAccess:v13 visitHistoryAccess:HIDWORD(v13)];
+  v12 = [(AUSystemSettingsSpecifiersProvider *)self authLevelStringForStatus:v7 learnedRoutesAccess:v14 visitHistoryAccess:HIDWORD(v14)];
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)getLearnedRoutesAccess:(int *)access visitHistoryAccess:(int *)historyAccess fromDetails:(id)details serviceKey:(id)key
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CBFC10];
   keyCopy = key;
   v10 = [v8 getVisitHistoryAccess:historyAccess forBundleIdentifier:keyCopy];
   v11 = [MEMORY[0x277CBFC10] getLearnedRoutesAccess:access forBundleIdentifier:keyCopy];
 
-  v12 = _AULoggingFacility();
-  v13 = v12;
+  v13 = _AULoggingFacility(v12);
+  v14 = v13;
   if (v10)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *historyAccess;
-      v20 = 67109120;
-      v21 = v14;
-      _os_log_impl(&dword_21BAF4000, v13, OS_LOG_TYPE_DEFAULT, "Got visit history state: %d", &v20, 8u);
+      v15 = *historyAccess;
+      v21 = 67109120;
+      v22 = v15;
+      _os_log_impl(&dword_21BAF4000, v14, OS_LOG_TYPE_DEFAULT, "Got visit history state: %d", &v21, 8u);
     }
   }
 
-  else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     [AUSystemSettingsSpecifiersProvider getLearnedRoutesAccess:visitHistoryAccess:fromDetails:serviceKey:];
   }
 
-  v15 = _AULoggingFacility();
-  v16 = v15;
+  v17 = _AULoggingFacility(v16);
+  v18 = v17;
   if (v11)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *access;
-      v20 = 67109120;
-      v21 = v17;
-      _os_log_impl(&dword_21BAF4000, v16, OS_LOG_TYPE_DEFAULT, "Got learned routes access state: %d", &v20, 8u);
+      v19 = *access;
+      v21 = 67109120;
+      v22 = v19;
+      _os_log_impl(&dword_21BAF4000, v18, OS_LOG_TYPE_DEFAULT, "Got learned routes access state: %d", &v21, 8u);
     }
   }
 
-  else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     [AUSystemSettingsSpecifiersProvider getLearnedRoutesAccess:visitHistoryAccess:fromDetails:serviceKey:];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10 & v11;
 }
 
@@ -2373,19 +2387,8 @@ LABEL_13:
     v25 = [_TtC19AppSystemSettingsUI17AUHelperFunctions classicIconCacheKeyForTCCService:service];
     v26 = [settingsIconCache imageForKey:v25];
 
-    if (v26)
+    if (v26 || (v27 = MEMORY[0x277D755B8], +[AUHelperFunctions classicIconCacheKeyForTCCService:](_TtC19AppSystemSettingsUI17AUHelperFunctions, "classicIconCacheKeyForTCCService:", service), v28 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()], v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "imageNamed:inBundle:compatibleWithTraitCollection:", v28, v29, 0), v26 = objc_claimAutoreleasedReturnValue(), v29, v28, v26))
     {
-      goto LABEL_22;
-    }
-
-    v27 = MEMORY[0x277D755B8];
-    v28 = [_TtC19AppSystemSettingsUI17AUHelperFunctions classicIconCacheKeyForTCCService:service];
-    v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v26 = [v27 imageNamed:v28 inBundle:v29 compatibleWithTraitCollection:0];
-
-    if (v26)
-    {
-LABEL_22:
       [v23 setProperty:v26 forKey:*MEMORY[0x277D3FFC0]];
 
       v30 = 0;
@@ -2610,7 +2613,7 @@ LABEL_12:
 
 void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___block_invoke(uint64_t a1, void *a2, const __CFString *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -2622,12 +2625,12 @@ void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___bl
 
     if (v12)
     {
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___block_invoke_2;
-      v23[3] = &__block_descriptor_40_e5_v8__0l;
-      v23[4] = v12;
-      v13 = MEMORY[0x21CF002C0](v23);
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___block_invoke_2;
+      v21[3] = &__block_descriptor_40_e5_v8__0l;
+      v21[4] = v12;
+      v13 = MEMORY[0x21CF002C0](v21);
       [v7 BOOLValue];
       if (TCCAccessSetForBundle())
       {
@@ -2648,53 +2651,46 @@ void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___bl
     }
   }
 
-  v15 = *MEMORY[0x277D6C238];
-  v16 = TCCAccessCopyBundleIdentifiersForService();
-  if (![v16 count])
+  v15 = TCCAccessCopyBundleIdentifiersForService();
+  if (![v15 count])
   {
-    v17 = _AULoggingFacility();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = _AULoggingFacility(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v25 = "[AUSystemSettingsSpecifiersProvider setPrivacyAccess:forSpecifier:]_block_invoke";
-      _os_log_impl(&dword_21BAF4000, v17, OS_LOG_TYPE_DEFAULT, "%s: all apps were disabled for kTCCServiceUserTracking. Resetting ad identifier.", buf, 0xCu);
+      v23 = "[AUSystemSettingsSpecifiersProvider setPrivacyAccess:forSpecifier:]_block_invoke";
+      _os_log_impl(&dword_21BAF4000, v16, OS_LOG_TYPE_DEFAULT, "%s: all apps were disabled for kTCCServiceUserTracking. Resetting ad identifier.", buf, 0xCu);
     }
 
-    v18 = [MEMORY[0x277CC1E80] defaultWorkspace];
-    [v18 clearAdvertisingIdentifier];
+    v17 = [MEMORY[0x277CC1E80] defaultWorkspace];
+    [v17 clearAdvertisingIdentifier];
   }
 
   if ([*(a1 + 40) BOOLValue])
   {
-    v19 = 3;
+    v18 = 3;
   }
 
   else
   {
-    v19 = 2;
+    v18 = 2;
   }
 
-  [MEMORY[0x277D4D8F0] trackingStateOfRequestForSpecificApp:v19 view:@"AppSettings"];
-  v20 = _AULoggingFacility();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v19 = _AULoggingFacility([MEMORY[0x277D4D8F0] trackingStateOfRequestForSpecificApp:v18 view:@"AppSettings"]);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = [WeakRetained applicationBundleIdentifier];
+    v20 = [WeakRetained applicationBundleIdentifier];
     *buf = 138412290;
-    v25 = v21;
-    _os_log_impl(&dword_21BAF4000, v20, OS_LOG_TYPE_DEFAULT, "########### Quitting application (%@) in response to privacy settings change.", buf, 0xCu);
+    v23 = v20;
+    _os_log_impl(&dword_21BAF4000, v19, OS_LOG_TYPE_DEFAULT, "########### Quitting application (%@) in response to privacy settings change.", buf, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___block_invoke_444(uint64_t a1)
 {
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
-  v5 = [*(a1 + 48) delegate];
-  [v5 systemSettingsSpecifiersProviderDidReloadSpecifiers:*(a1 + 48)];
+  v2 = [*(a1 + 48) delegate];
+  [v2 systemSettingsSpecifiersProviderDidReloadSpecifiers:*(a1 + 48)];
 }
 
 void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___block_invoke_2_449(uint64_t a1)
@@ -2715,12 +2711,9 @@ void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___bl
 
 void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
-  v5 = [*(a1 + 48) delegate];
-  [v5 systemSettingsSpecifiersProviderDidReloadSpecifiers:*(a1 + 48)];
+  v2 = [*(a1 + 48) delegate];
+  [v2 systemSettingsSpecifiersProviderDidReloadSpecifiers:*(a1 + 48)];
 }
 
 void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___block_invoke_5(uint64_t a1)
@@ -2750,7 +2743,7 @@ void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___bl
 
 - (id)pasteboardSpecifier
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   if ((self->_policyOptions & 0x20000000000) != 0 && [(AUSystemSettingsSpecifiersProvider *)self shouldShowPasteboardSpecifier])
   {
     v3 = MEMORY[0x277D3FAD8];
@@ -2759,14 +2752,14 @@ void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___bl
 
     v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v7 = [v6 localizedStringForKey:@"Ask" value:&stru_282D7C630 table:0];
-    v15[0] = v7;
+    v14[0] = v7;
     v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v9 = [v8 localizedStringForKey:@"Deny" value:&stru_282D7C630 table:0];
-    v15[1] = v9;
+    v14[1] = v9;
     v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v11 = [v10 localizedStringForKey:@"Allow" value:&stru_282D7C630 table:0];
-    v15[2] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[2] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     [v5 setValues:&unk_282D7F768 titles:v12];
   }
 
@@ -2774,8 +2767,6 @@ void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___bl
   {
     v5 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2855,15 +2846,15 @@ void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___bl
 
       else
       {
-        v15 = _AULoggingFacility();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = _AULoggingFacility(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           applicationBundleIdentifier4 = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
           *buf = 136315394;
           v23 = "[AUSystemSettingsSpecifiersProvider pasteboardAccessForSpecifier:]";
           v24 = 2112;
           v25 = applicationBundleIdentifier4;
-          _os_log_impl(&dword_21BAF4000, v15, OS_LOG_TYPE_DEFAULT, "%s: couldn't find auth state for %@", buf, 0x16u);
+          _os_log_impl(&dword_21BAF4000, v16, OS_LOG_TYPE_DEFAULT, "%s: couldn't find auth state for %@", buf, 0x16u);
         }
 
         v10 = &unk_282D7F708;
@@ -2871,7 +2862,6 @@ void __68__AUSystemSettingsSpecifiersProvider_setPrivacyAccess_forSpecifier___bl
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -3027,7 +3017,7 @@ intptr_t __53__AUSystemSettingsSpecifiersProvider_documentSource___block_invoke(
 
 - (id)contactlessNFCSpecifiers
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if ((self->_policyOptions & 0x8000000000000) != 0)
   {
     v4 = objc_alloc(MEMORY[0x277D3FA88]);
@@ -3039,8 +3029,8 @@ intptr_t __53__AUSystemSettingsSpecifiersProvider_documentSource___block_invoke(
 
     if (applicationBundleIdentifier)
     {
-      v10[0] = v6;
-      v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v9[0] = v6;
+      v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     }
 
     else
@@ -3054,14 +3044,12 @@ intptr_t __53__AUSystemSettingsSpecifiersProvider_documentSource___block_invoke(
     v2 = MEMORY[0x277CBEBF8];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (id)contactlessNFCSideButtonSpecifiers
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   if ((self->_policyOptions & 0x10000000000000) == 0)
   {
     goto LABEL_5;
@@ -3073,12 +3061,12 @@ intptr_t __53__AUSystemSettingsSpecifiersProvider_documentSource___block_invoke(
   {
     v4 = MEMORY[0x277D49390];
     applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __72__AUSystemSettingsSpecifiersProvider_contactlessNFCSideButtonSpecifiers__block_invoke;
-    v24[3] = &unk_2782EF4B0;
-    v24[4] = self;
-    v6 = [v4 contextWithBundleId:applicationBundleIdentifier onChange:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __72__AUSystemSettingsSpecifiersProvider_contactlessNFCSideButtonSpecifiers__block_invoke;
+    v23[3] = &unk_2782EF4B0;
+    v23[4] = self;
+    v6 = [v4 contextWithBundleId:applicationBundleIdentifier onChange:v23];
     [(AUSystemSettingsSpecifiersProvider *)self setNfcContext:v6];
   }
 
@@ -3127,9 +3115,9 @@ intptr_t __53__AUSystemSettingsSpecifiersProvider_documentSource___block_invoke(
       [v19 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D3FF38]];
     }
 
-    v25[0] = v18;
-    v25[1] = v19;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[0] = v18;
+    v24[1] = v19;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   }
 
   else
@@ -3137,8 +3125,6 @@ intptr_t __53__AUSystemSettingsSpecifiersProvider_documentSource___block_invoke(
 LABEL_5:
     v9 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -3329,61 +3315,61 @@ LABEL_14:
 
 - (id)defaultAppSpecifierWithAppRecordsMatchingBlock:(id)block getter:(SEL)getter setter:(SEL)setter title:(id)title
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   titleCopy = title;
   if (blockCopy)
   {
-    v38 = objc_opt_new();
     v37 = objc_opt_new();
+    v36 = objc_opt_new();
     v12 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
     v13 = MEMORY[0x277CCAC30];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __105__AUSystemSettingsSpecifiersProvider_defaultAppSpecifierWithAppRecordsMatchingBlock_getter_setter_title___block_invoke;
-    v43[3] = &unk_2782EF688;
-    v44 = blockCopy;
-    v14 = [v13 predicateWithBlock:v43];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __105__AUSystemSettingsSpecifiersProvider_defaultAppSpecifierWithAppRecordsMatchingBlock_getter_setter_title___block_invoke;
+    v42[3] = &unk_2782EF688;
+    v43 = blockCopy;
+    v14 = [v13 predicateWithBlock:v42];
     [v12 setPredicate:v14];
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v15 = v12;
-    v16 = [v15 countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v38 objects:v44 count:16];
     if (v16)
     {
       v17 = v16;
       setterCopy = setter;
       getterCopy = getter;
-      v35 = titleCopy;
-      v36 = blockCopy;
+      v34 = titleCopy;
+      v35 = blockCopy;
       v18 = 0;
-      v19 = *v40;
+      v19 = *v39;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v40 != v19)
+          if (*v39 != v19)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = *(*(&v39 + 1) + 8 * i);
+          v21 = *(*(&v38 + 1) + 8 * i);
           bundleIdentifier = [v21 bundleIdentifier];
           applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
           v24 = [bundleIdentifier isEqualToString:applicationBundleIdentifier];
 
           v18 |= v24;
           bundleIdentifier2 = [v21 bundleIdentifier];
-          [v37 addObject:bundleIdentifier2];
+          [v36 addObject:bundleIdentifier2];
 
           localizedName = [v21 localizedName];
-          [v38 addObject:localizedName];
+          [v37 addObject:localizedName];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v17);
@@ -3393,19 +3379,19 @@ LABEL_14:
         v27 = MEMORY[0x277D3FAD8];
         v28 = objc_opt_class();
         v29 = v27;
-        titleCopy = v35;
-        v30 = [v29 preferenceSpecifierNamed:v35 target:self set:setterCopy get:getterCopy detail:v28 cell:2 edit:0];
+        titleCopy = v34;
+        v30 = [v29 preferenceSpecifierNamed:v34 target:self set:setterCopy get:getterCopy detail:v28 cell:2 edit:0];
         [v30 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D40040]];
-        [v30 setValues:v37 titles:v38];
+        [v30 setValues:v36 titles:v37];
       }
 
       else
       {
         v30 = 0;
-        titleCopy = v35;
+        titleCopy = v34;
       }
 
-      blockCopy = v36;
+      blockCopy = v35;
     }
 
     else
@@ -3419,8 +3405,6 @@ LABEL_14:
   {
     v30 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -3472,20 +3456,18 @@ LABEL_14:
   v5 = [v3 initWithURL:v4 error:&v14];
   v6 = v14;
 
-  v7 = _AULoggingFacility();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _AULoggingFacility(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     bundleRecord = [v5 bundleRecord];
     bundleIdentifier = [bundleRecord bundleIdentifier];
     *buf = 138543362;
     v16 = bundleIdentifier;
-    _os_log_impl(&dword_21BAF4000, v7, OS_LOG_TYPE_DEFAULT, "Default browser app is %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_21BAF4000, v8, OS_LOG_TYPE_DEFAULT, "Default browser app is %{public}@", buf, 0xCu);
   }
 
   bundleRecord2 = [v5 bundleRecord];
   bundleIdentifier2 = [bundleRecord2 bundleIdentifier];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return bundleIdentifier2;
 }
@@ -3514,40 +3496,38 @@ LABEL_14:
 
 void __66__AUSystemSettingsSpecifiersProvider_setDefaultBrowser_specifier___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7 = _AULoggingFacility();
+  v7 = _AULoggingFacility(WeakRetained);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v8)
     {
       v9 = *(a1 + 32);
-      v15 = 138543362;
-      v16 = v9;
+      v14 = 138543362;
+      v15 = v9;
       v10 = "Set default browser app to %{public}@";
       v11 = v7;
       v12 = 12;
 LABEL_6:
-      _os_log_impl(&dword_21BAF4000, v11, OS_LOG_TYPE_DEFAULT, v10, &v15, v12);
+      _os_log_impl(&dword_21BAF4000, v11, OS_LOG_TYPE_DEFAULT, v10, &v14, v12);
     }
   }
 
   else if (v8)
   {
     v13 = *(a1 + 32);
-    v15 = 138543618;
-    v16 = v13;
-    v17 = 2114;
-    v18 = v5;
+    v14 = 138543618;
+    v15 = v13;
+    v16 = 2114;
+    v17 = v5;
     v10 = "Error setting default browser app to %{public}@: %{public}@";
     v11 = v7;
     v12 = 22;
     goto LABEL_6;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)defaultMailAppSpecifier
@@ -3578,20 +3558,18 @@ LABEL_6:
   v5 = [v3 initWithURL:v4 error:&v14];
   v6 = v14;
 
-  v7 = _AULoggingFacility();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _AULoggingFacility(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     bundleRecord = [v5 bundleRecord];
     bundleIdentifier = [bundleRecord bundleIdentifier];
     *buf = 138543362;
     v16 = bundleIdentifier;
-    _os_log_impl(&dword_21BAF4000, v7, OS_LOG_TYPE_DEFAULT, "Default mail app is %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_21BAF4000, v8, OS_LOG_TYPE_DEFAULT, "Default mail app is %{public}@", buf, 0xCu);
   }
 
   bundleRecord2 = [v5 bundleRecord];
   bundleIdentifier2 = [bundleRecord2 bundleIdentifier];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return bundleIdentifier2;
 }
@@ -3620,45 +3598,43 @@ LABEL_6:
 
 void __66__AUSystemSettingsSpecifiersProvider_setDefaultMailApp_specifier___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7 = _AULoggingFacility();
+  v7 = _AULoggingFacility(WeakRetained);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v8)
     {
       v9 = *(a1 + 32);
-      v15 = 138543362;
-      v16 = v9;
+      v14 = 138543362;
+      v15 = v9;
       v10 = "Set default mail app to %{public}@";
       v11 = v7;
       v12 = 12;
 LABEL_6:
-      _os_log_impl(&dword_21BAF4000, v11, OS_LOG_TYPE_DEFAULT, v10, &v15, v12);
+      _os_log_impl(&dword_21BAF4000, v11, OS_LOG_TYPE_DEFAULT, v10, &v14, v12);
     }
   }
 
   else if (v8)
   {
     v13 = *(a1 + 32);
-    v15 = 138543618;
-    v16 = v13;
-    v17 = 2114;
-    v18 = v5;
+    v14 = 138543618;
+    v15 = v13;
+    v16 = 2114;
+    v17 = v5;
     v10 = "Error setting default mail app to %{public}@: %{public}@";
     v11 = v7;
     v12 = 22;
     goto LABEL_6;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)downloadsSpecifiers
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CC1E70]);
   applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
   v5 = [v3 initWithBundleIdentifier:applicationBundleIdentifier allowPlaceholder:1 error:0];
@@ -3686,9 +3662,9 @@ LABEL_6:
       v17 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v16 target:self set:0 get:sel__downloadsFolderTitle detail:NSClassFromString(&cfstr_Safaridownload.isa) cell:2 edit:0];
       [v17 setIdentifier:@"DOWNLOADS"];
       v18 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"DOWNLOADS_GROUP"];
-      v22[0] = v18;
-      v22[1] = v17;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+      v21[0] = v18;
+      v21[1] = v17;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     }
 
     else
@@ -3701,8 +3677,6 @@ LABEL_6:
   {
     v19 = MEMORY[0x277CBEBF8];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -3750,10 +3724,11 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
 {
   v5 = a2;
   v6 = a3;
-  if (v6 || ([v5 providerDomainID], v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
+  v7 = v6;
+  if (v6 || ([v5 providerDomainID], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
-    v7 = _AULoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AULoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block_invoke_cold_2();
     }
@@ -3761,13 +3736,14 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
 
   else
   {
-    v15 = 0;
-    v7 = [MEMORY[0x277CC6420] providerDomainForItem:v5 error:&v15];
-    v6 = v15;
-    if (v6)
+    v17 = 0;
+    v8 = [MEMORY[0x277CC6420] providerDomainForItem:v5 error:&v17];
+    v10 = v17;
+    v7 = v10;
+    if (v10)
     {
-      v9 = _AULoggingFacility();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = _AULoggingFacility(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block_invoke_cold_1();
       }
@@ -3779,33 +3755,32 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
       block[1] = 3221225472;
       block[2] = __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block_invoke_620;
       block[3] = &unk_2782EF6F8;
-      v10 = v7;
-      v11 = *(a1 + 32);
-      v13 = v10;
-      v14 = v11;
+      v12 = v8;
+      v13 = *(a1 + 32);
+      v15 = v12;
+      v16 = v13;
       dispatch_async(MEMORY[0x277D85CD0], block);
-      v9 = v13;
+      v11 = v15;
     }
   }
 }
 
 void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block_invoke_620(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v5 = DOCLocalizedDisplayName();
-  v3 = [*(a1 + 40) defaultDownloadsFolderTitle];
-  v4 = [v3 isEqualToString:v5];
+  v4 = DOCLocalizedDisplayName();
+  v2 = [*(a1 + 40) defaultDownloadsFolderTitle];
+  v3 = [v2 isEqualToString:v4];
 
-  if ((v4 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
-    [*(a1 + 40) setDefaultDownloadsFolderTitle:v5];
+    [*(a1 + 40) setDefaultDownloadsFolderTitle:v4];
     [*(a1 + 40) reloadSpecifiers];
   }
 }
 
 - (id)tapToPayScreenLockSpecifiers
 {
-  v36[2] = *MEMORY[0x277D85DE8];
+  v35[2] = *MEMORY[0x277D85DE8];
   if ((self->_policyOptions & 0x8000000000) != 0 && (v3 = MEMORY[0x277CD9D90], -[AUSystemSettingsSpecifiersProvider applicationBundleIdentifier](self, "applicationBundleIdentifier"), v4 = objc_claimAutoreleasedReturnValue(), LODWORD(v3) = [v3 isProximityReaderSupported:v4], v4, v3))
   {
     v5 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"TAP_TO_PAY_SCREEN_LOCK_GROUP"];
@@ -3893,17 +3868,15 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
     v33 = [MEMORY[0x277CCABB0] numberWithInt:v12 ^ 1u];
     [v32 setObject:v33 forKeyedSubscript:*MEMORY[0x277D3FF38]];
 
-    v36[0] = v9;
-    v36[1] = v32;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+    v35[0] = v9;
+    v35[1] = v32;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
   }
 
   else
   {
     v20 = MEMORY[0x277CBEBF8];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -3928,7 +3901,7 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
 
 - (id)tapToPayAlwaysPlaySoundSpecifiers
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if ((self->_policyOptions & 0x40000000000) != 0 && (v3 = MEMORY[0x277CD9D90], -[AUSystemSettingsSpecifiersProvider applicationBundleIdentifier](self, "applicationBundleIdentifier"), v4 = objc_claimAutoreleasedReturnValue(), LODWORD(v3) = [v3 isProximityReaderSupported:v4], v4, v3))
   {
     v5 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"TAP_TO_PAY_ALWAYS_PLAY_SOUND_GROUP"];
@@ -3941,17 +3914,15 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
 
     v10 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v9 target:self set:sel_setTapToPayAlwaysPlaySoundEnabled_specifier_ get:sel_isTapToPayAlwaysPlaySoundEnabled_ detail:0 cell:6 edit:0];
     [v10 setIdentifier:@"TAP_TO_PAY_ALWAYS_PLAY_SOUND"];
-    v14[0] = v5;
-    v14[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = v5;
+    v13[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   }
 
   else
   {
     v11 = MEMORY[0x277CBEBF8];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -3976,7 +3947,7 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
 
 - (id)tapToPayEnableDiagnostics
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CD9D90];
   applicationBundleIdentifier = [(AUSystemSettingsSpecifiersProvider *)self applicationBundleIdentifier];
   LODWORD(v3) = [v3 isProximityReaderSupported:applicationBundleIdentifier];
@@ -3993,17 +3964,15 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
 
     v10 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v9 target:self set:sel_setTapToPayDiagnosticsEnabled_specifier_ get:sel_getTapToPayDiagnosticsEnabled_ detail:0 cell:6 edit:0];
     [v10 setIdentifier:@"TAP_TO_PAY_ENABLE_DIAGNOSTICS"];
-    v14[0] = v5;
-    v14[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = v5;
+    v13[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   }
 
   else
   {
     v11 = MEMORY[0x277CBEBF8];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -4076,7 +4045,7 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
 
 - (id)identityVerificationSpecifiers
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   if (self->_showIdentityDocumentProviderExtension)
   {
     v3 = MEMORY[0x277D3FAD8];
@@ -4094,17 +4063,15 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
 
     v11 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v10 target:self set:sel_setIdentityVerificationAllowOnWebsitesEnabled_specifier_ get:sel_isIdentityVerificationAllowOnWebsitesEnabled_ detail:0 cell:6 edit:0];
     [v11 setIdentifier:@"IDENTITY_VERIFICATION_ALLOW_ON_WEBSITES"];
-    v15[0] = v6;
-    v15[1] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = v6;
+    v14[1] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   }
 
   else
   {
     v12 = MEMORY[0x277CBEBF8];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -4135,6 +4102,14 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
   [delegate systemSettingsSpecifiersProviderDidReloadSpecifiers:self];
 }
 
+- (void)showController:(id)controller animate:(BOOL)animate
+{
+  animateCopy = animate;
+  controllerCopy = controller;
+  delegate = [(AUSystemSettingsSpecifiersProvider *)self delegate];
+  [delegate systemSettingsSpecifiersProvider:self presentViewController:controllerCopy animated:animateCopy];
+}
+
 - (AUSystemSettingsSpecifiersProviderDelegate)delegate
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -4160,42 +4135,17 @@ void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block
   return v6;
 }
 
-void __76__AUSystemSettingsSpecifiersProvider_loadNetworkConfigurationsForceRefresh___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __62__AUSystemSettingsSpecifiersProvider_saveNetworkConfiguration__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 32);
-  v5 = 136446722;
-  v6 = "[AUSystemSettingsSpecifiersProvider saveNetworkConfiguration]_block_invoke";
-  v7 = 2114;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v3;
-  _os_log_error_impl(&dword_21BAF4000, log, OS_LOG_TYPE_ERROR, "%{public}s: Save error %{public}@ for %{public}@", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __65__AUSystemSettingsSpecifiersProvider__updateDownloadsFolderTitle__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = 136446722;
+  v5 = "[AUSystemSettingsSpecifiersProvider saveNetworkConfiguration]_block_invoke";
+  v6 = 2114;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v3;
+  _os_log_error_impl(&dword_21BAF4000, log, OS_LOG_TYPE_ERROR, "%{public}s: Save error %{public}@ for %{public}@", &v4, 0x20u);
 }
 
 @end

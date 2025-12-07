@@ -60,26 +60,27 @@ LABEL_2:
   }
 
   client = self->_client;
-  v12 = 0;
-  v6 = [(CoreTelephonyClient *)client getDescriptorsForDomain:1 error:&v12];
-  v7 = v12;
+  v14 = 0;
+  v6 = [(CoreTelephonyClient *)client getDescriptorsForDomain:1 error:&v14];
+  v7 = v14;
+  v9 = v7;
   if (!v7)
   {
-    v10 = CTLogNetworkInfo();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = CTLogNetworkInfo(0, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [CTTelephonyNetworkInfo descriptors];
     }
 
-    v11 = self->_descriptors;
+    v13 = self->_descriptors;
     self->_descriptors = v6;
 
     descriptors = self->_descriptors;
     goto LABEL_2;
   }
 
-  v8 = CTLogNetworkInfo();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = CTLogNetworkInfo(v7, v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [CTTelephonyNetworkInfo descriptors];
   }
@@ -93,13 +94,14 @@ LABEL_7:
 - (NSString)dataServiceIdentifier
 {
   client = self->_client;
-  v9 = 0;
-  v3 = [(CoreTelephonyClient *)client getCurrentDataServiceDescriptorSync:&v9];
-  v4 = v9;
+  v11 = 0;
+  v3 = [(CoreTelephonyClient *)client getCurrentDataServiceDescriptorSync:&v11];
+  v4 = v11;
+  v6 = v4;
   if (v4)
   {
-    v5 = CTLogNetworkInfo();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = CTLogNetworkInfo(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [CTTelephonyNetworkInfo dataServiceIdentifier];
     }
@@ -109,8 +111,8 @@ LABEL_7:
 
   else
   {
-    v7 = CTLogNetworkInfo();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = CTLogNetworkInfo(0, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [CTTelephonyNetworkInfo dataServiceIdentifier];
     }
@@ -125,8 +127,8 @@ LABEL_7:
 {
   v15 = *MEMORY[0x1E69E9840];
   descriptors = [(CTTelephonyNetworkInfo *)self descriptors];
-  v4 = CTLogNetworkInfo();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = CTLogNetworkInfo(descriptors, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [CTTelephonyNetworkInfo queryRat];
   }
@@ -136,31 +138,29 @@ LABEL_7:
   v10 = 0u;
   v11 = 0u;
   v3Descriptors = [descriptors descriptors];
-  v6 = [v3Descriptors countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v6)
+  v7 = [v3Descriptors countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v7)
   {
-    v7 = *v11;
+    v8 = *v11;
     do
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v3Descriptors);
         }
 
-        [(CTTelephonyNetworkInfo *)self queryRatForDescriptor:*(*(&v10 + 1) + 8 * v8++)];
+        [(CTTelephonyNetworkInfo *)self queryRatForDescriptor:*(*(&v10 + 1) + 8 * v9++)];
       }
 
-      while (v6 != v8);
-      v6 = [v3Descriptors countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v7 != v9);
+      v7 = [v3Descriptors countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)serviceCurrentRadioAccessTechnology
@@ -175,11 +175,11 @@ LABEL_7:
 
 - (CTTelephonyNetworkInfo)initWithClient:(id)client
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   clientCopy = client;
-  v31.receiver = self;
-  v31.super_class = CTTelephonyNetworkInfo;
-  v5 = [(CTTelephonyNetworkInfo *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = CTTelephonyNetworkInfo;
+  v5 = [(CTTelephonyNetworkInfo *)&v32 init];
   v6 = v5;
   v7 = v5;
   if (v5)
@@ -203,7 +203,7 @@ LABEL_7:
 
     if (v12)
     {
-      v22 = v7;
+      v24 = v7;
       v7 = 0;
     }
 
@@ -213,41 +213,42 @@ LABEL_7:
       [(CTTelephonyNetworkInfo *)v7 setCachedCurrentRadioAccessTechnology:v13];
 
       [(CTTelephonyNetworkInfo *)v7 descriptors];
-      v29 = 0u;
       v30 = 0u;
-      v27 = 0u;
-      v25 = v28 = 0u;
-      descriptors = [(CTTelephonyNetworkInfo *)v25 descriptors];
-      v15 = [descriptors countByEnumeratingWithState:&v27 objects:v34 count:16];
+      v31 = 0u;
+      v28 = 0u;
+      v26 = v29 = 0u;
+      descriptors = [(CTTelephonyNetworkInfo *)v26 descriptors];
+      v15 = [descriptors countByEnumeratingWithState:&v28 objects:v35 count:16];
       if (v15)
       {
-        v16 = *v28;
+        v16 = *v29;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v28 != v16)
+            if (*v29 != v16)
             {
               objc_enumerationMutation(descriptors);
             }
 
-            v18 = *(*(&v27 + 1) + 8 * i);
+            v18 = *(*(&v28 + 1) + 8 * i);
             instance = [v18 instance];
             v20 = +[CTXPCServiceSubscriptionContext contextWithSlot:](CTXPCServiceSubscriptionContext, "contextWithSlot:", [instance intValue]);
 
-            if (![(CTTelephonyNetworkInfo *)v7 updateNetworkInfoAndShouldNotifyClient:0 forContext:v20])
+            v21 = [(CTTelephonyNetworkInfo *)v7 updateNetworkInfoAndShouldNotifyClient:0 forContext:v20];
+            if ((v21 & 1) == 0)
             {
-              v21 = CTLogNetworkInfo();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+              v23 = CTLogNetworkInfo(v21, v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v33 = v18;
-                _os_log_debug_impl(&dword_182E9B000, v21, OS_LOG_TYPE_DEBUG, "Could not successfully update network info for descriptor %@ during initialization.", buf, 0xCu);
+                v34 = v18;
+                _os_log_debug_impl(&dword_182E9B000, v23, OS_LOG_TYPE_DEBUG, "Could not successfully update network info for descriptor %@ during initialization.", buf, 0xCu);
               }
             }
           }
 
-          v15 = [descriptors countByEnumeratingWithState:&v27 objects:v34 count:16];
+          v15 = [descriptors countByEnumeratingWithState:&v28 objects:v35 count:16];
         }
 
         while (v15);
@@ -256,11 +257,10 @@ LABEL_7:
       [(CTTelephonyNetworkInfo *)v7 queryRat];
       [(CoreTelephonyClient *)v7->_client setDelegate:v7];
       v7->_initialized = 1;
-      v22 = v25;
+      v24 = v26;
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -711,12 +711,13 @@ void __62__CTTelephonyNetworkInfo_currentDataServiceDescriptorChanged___block_in
 - (void)carrierBundleChange:(id)change
 {
   changeCopy = change;
-  v19 = 0;
-  if ([(CTTelephonyNetworkInfo *)self updateNetworkInfoAndShouldNotifyClient:&v19 forContext:changeCopy])
+  v21 = 0;
+  v5 = [(CTTelephonyNetworkInfo *)self updateNetworkInfoAndShouldNotifyClient:&v21 forContext:changeCopy];
+  if (v5)
   {
-    if (v19 == 1)
+    if (v21 == 1)
     {
-      v6 = [CTServiceDescriptor descriptorWithSubscriptionContext:changeCopy];
+      v8 = [CTServiceDescriptor descriptorWithSubscriptionContext:changeCopy];
       if (self->_serviceSubscriberCellularProvidersDidUpdateNotifier)
       {
         global_queue = dispatch_get_global_queue(0, 0);
@@ -725,36 +726,36 @@ void __62__CTTelephonyNetworkInfo_currentDataServiceDescriptorChanged___block_in
         block[2] = __46__CTTelephonyNetworkInfo_carrierBundleChange___block_invoke;
         block[3] = &unk_1E6A46298;
         block[4] = self;
-        v18 = v6;
+        v20 = v8;
         dispatch_async(global_queue, block);
       }
 
       {
-        v8 = self->_serviceSubscriberCellularProviders;
-        objc_sync_enter(v8);
+        v10 = self->_serviceSubscriberCellularProviders;
+        objc_sync_enter(v10);
         serviceSubscriberCellularProviders = [(CTTelephonyNetworkInfo *)self serviceSubscriberCellularProviders];
-        identifier = [v6 identifier];
-        v11 = [serviceSubscriberCellularProviders objectForKeyedSubscript:identifier];
+        identifier = [v8 identifier];
+        v13 = [serviceSubscriberCellularProviders objectForKeyedSubscript:identifier];
 
-        v12 = dispatch_get_global_queue(0, 0);
-        v15[0] = MEMORY[0x1E69E9820];
-        v15[1] = 3221225472;
-        v15[2] = __46__CTTelephonyNetworkInfo_carrierBundleChange___block_invoke_2;
-        v15[3] = &unk_1E6A46298;
-        v15[4] = self;
-        v16 = v11;
-        v13 = v11;
-        dispatch_async(v12, v15);
+        v14 = dispatch_get_global_queue(0, 0);
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __46__CTTelephonyNetworkInfo_carrierBundleChange___block_invoke_2;
+        v17[3] = &unk_1E6A46298;
+        v17[4] = self;
+        v18 = v13;
+        v15 = v13;
+        dispatch_async(v14, v17);
 
-        objc_sync_exit(v8);
+        objc_sync_exit(v10);
       }
     }
   }
 
   else
   {
-    v14 = CTLogNetworkInfo();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = CTLogNetworkInfo(v5, v6);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [CTTelephonyNetworkInfo carrierBundleChange:];
     }
@@ -784,27 +785,28 @@ void __46__CTTelephonyNetworkInfo_carrierBundleChange___block_invoke(uint64_t a1
   descriptorCopy = descriptor;
   v5 = [CTXPCServiceSubscriptionContext contextWithServiceDescriptor:descriptorCopy];
   client = self->_client;
-  v12 = 0;
-  v7 = [(CoreTelephonyClient *)client getDataStatus:v5 error:&v12];
-  v8 = v12;
+  v14 = 0;
+  v7 = [(CoreTelephonyClient *)client getDataStatus:v5 error:&v14];
+  v8 = v14;
+  v10 = v8;
   if (v8)
   {
-    v9 = CTLogNetworkInfo();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = CTLogNetworkInfo(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [CTTelephonyNetworkInfo queryRatForDescriptor:];
     }
   }
 
   else if (v7)
-    v10 = {;
-    [(CTTelephonyNetworkInfo *)self updateRat:v10 descriptor:descriptorCopy];
+    v12 = {;
+    [(CTTelephonyNetworkInfo *)self updateRat:v12 descriptor:descriptorCopy];
   }
 
   else
   {
-    v11 = CTLogNetworkInfo();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = CTLogNetworkInfo(0, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [CTTelephonyNetworkInfo queryRatForDescriptor:];
     }
@@ -813,7 +815,7 @@ void __46__CTTelephonyNetworkInfo_carrierBundleChange___block_invoke(uint64_t a1
 
 - (void)updateRat:(id)rat descriptor:(id)descriptor
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   ratCopy = rat;
   descriptorCopy = descriptor;
   v8 = self->_cachedCurrentRadioAccessTechnology;
@@ -822,23 +824,23 @@ void __46__CTTelephonyNetworkInfo_carrierBundleChange___block_invoke(uint64_t a1
   identifier = [descriptorCopy identifier];
   v11 = [cachedCurrentRadioAccessTechnology objectForKeyedSubscript:identifier];
 
-  if (!(ratCopy | v11) || v11 && ([v11 isEqualToString:ratCopy] & 1) != 0)
+  if (!(ratCopy | v11) || v11 && (v12 = [v11 isEqualToString:ratCopy], (v12 & 1) != 0))
   {
 
     objc_sync_exit(v8);
     goto LABEL_12;
   }
 
-  v12 = CTLogNetworkInfo();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = CTLogNetworkInfo(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138412802;
-    v19 = descriptorCopy;
-    v20 = 2112;
-    v21 = v11;
-    v22 = 2112;
-    v23 = ratCopy;
-    _os_log_debug_impl(&dword_182E9B000, v12, OS_LOG_TYPE_DEBUG, "Updating RAT for descriptor: %@, from: %@ to: %@", &v18, 0x20u);
+    v19 = 138412802;
+    v20 = descriptorCopy;
+    v21 = 2112;
+    v22 = v11;
+    v23 = 2112;
+    v24 = ratCopy;
+    _os_log_debug_impl(&dword_182E9B000, v14, OS_LOG_TYPE_DEBUG, "Updating RAT for descriptor: %@, from: %@ to: %@", &v19, 0x20u);
     if (ratCopy)
     {
       goto LABEL_7;
@@ -868,8 +870,6 @@ LABEL_10:
   }
 
 LABEL_12:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLegacyRat:(id)rat
@@ -898,7 +898,7 @@ LABEL_12:
 
 - (id)serviceSignalStrength
 {
-  v2 = CTLogNetworkInfo();
+  v2 = CTLogNetworkInfo(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [CTTelephonyNetworkInfo serviceSignalStrength];
@@ -909,7 +909,7 @@ LABEL_12:
 
 - (id)signalStrength
 {
-  v2 = CTLogNetworkInfo();
+  v2 = CTLogNetworkInfo(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [CTTelephonyNetworkInfo signalStrength];
@@ -920,7 +920,7 @@ LABEL_12:
 
 - (id)serviceCellId
 {
-  v2 = CTLogNetworkInfo();
+  v2 = CTLogNetworkInfo(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [CTTelephonyNetworkInfo serviceCellId];
@@ -931,7 +931,7 @@ LABEL_12:
 
 - (id)cellId
 {
-  v2 = CTLogNetworkInfo();
+  v2 = CTLogNetworkInfo(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [CTTelephonyNetworkInfo cellId];

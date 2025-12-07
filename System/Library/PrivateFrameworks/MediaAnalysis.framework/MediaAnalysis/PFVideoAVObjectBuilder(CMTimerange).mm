@@ -6,16 +6,15 @@
 
 - (CMTimeRange)vcp_convertToOriginalTimerangeFromScaledTimerange:()CMTimerange
 {
-  memset(&v11, 0, sizeof(v11));
+  memset(&v10, 0, sizeof(v10));
   v6 = *(a2 + 16);
   *&range.start.value = *a2;
   *&range.start.epoch = v6;
   *&range.duration.timescale = *(a2 + 32);
-  CMTimeRangeGetEnd(&v11, &range);
+  CMTimeRangeGetEnd(&v10, &range);
   end = *a2;
-  [self convertToOriginalTimeFromScaledTime:&end forExport:1];
-  v8 = v11;
-  [self convertToOriginalTimeFromScaledTime:&v8 forExport:1];
+  objc_msgSend_convertToOriginalTimeFromScaledTime_forExport_(self);
+  objc_msgSend_convertToOriginalTimeFromScaledTime_forExport_(self, v10.value, *&v10.timescale, v10.epoch);
   return CMTimeRangeFromTimeToTime(a3, &range.start, &end);
 }
 

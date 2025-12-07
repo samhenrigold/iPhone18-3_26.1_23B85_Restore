@@ -371,27 +371,21 @@ LABEL_23:
 
 - (void)setDisplayName:(id)name
 {
-  v4 = [name copy];
-  displayName = self->_displayName;
-  self->_displayName = v4;
+  self->_displayName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setProductIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  productIdentifier = self->_productIdentifier;
-  self->_productIdentifier = v4;
+  self->_productIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  identifier = self->_identifier;
-  self->_identifier = v4;
+  self->_identifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

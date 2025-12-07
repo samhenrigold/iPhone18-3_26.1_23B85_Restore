@@ -52,8 +52,7 @@
 void __48__PRUISExternallyHostedPosterEditingServer_init__block_invoke(uint64_t a1, void *a2)
 {
   v5 = a2;
-  [v5 setDomain:@"com.apple.posterboardui"];
-  v3 = PRUISExternallyHostedPosterEditingServiceInterface();
+  v3 = PRUISExternallyHostedPosterEditingServiceInterface([v5 setDomain:@"com.apple.posterboardui"]);
   v4 = [v3 identifier];
   [v5 setService:v4];
 
@@ -62,39 +61,39 @@ void __48__PRUISExternallyHostedPosterEditingServer_init__block_invoke(uint64_t 
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   mEMORY[0x1E698E730] = [MEMORY[0x1E698E730] sharedInstance];
   deviceClass = [mEMORY[0x1E698E730] deviceClass];
 
   if (deviceClass != 2)
   {
-    v14 = PRUISLogRemoteEditing();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v17 = PRUISLogRemoteEditing(v9);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      [PRUISExternallyHostedPosterEditingServer listener:connectionCopy didReceiveConnection:v14 withContext:?];
+      [PRUISExternallyHostedPosterEditingServer listener:connectionCopy didReceiveConnection:v17 withContext:?];
     }
 
     goto LABEL_10;
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnection_withContext___block_invoke;
-  v17[3] = &unk_1E83A8E50;
-  v17[4] = self;
-  [connectionCopy configureConnection:v17];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnection_withContext___block_invoke;
+  v20[3] = &unk_1E83A8E50;
+  v20[4] = self;
+  [connectionCopy configureConnection:v20];
   remoteProcess = [connectionCopy remoteProcess];
-  v10 = [remoteProcess hasEntitlement:@"com.apple.posterboardui.externalEditing"];
+  v11 = [remoteProcess hasEntitlement:@"com.apple.posterboardui.externalEditing"];
 
-  if (!v10)
+  if (!v11)
   {
-    v14 = PRUISLogRemoteEditing();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = PRUISLogRemoteEditing(v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v19 = connectionCopy;
-      _os_log_impl(&dword_1CAE63000, v14, OS_LOG_TYPE_DEFAULT, "PRUISExternallyHostedPosterEditingServer rejected connection: %{public}@", buf, 0xCu);
+      v22 = connectionCopy;
+      _os_log_impl(&dword_1CAE63000, v17, OS_LOG_TYPE_DEFAULT, "PRUISExternallyHostedPosterEditingServer rejected connection: %{public}@", buf, 0xCu);
     }
 
 LABEL_10:
@@ -109,18 +108,18 @@ LABEL_10:
   block[2] = __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnection_withContext___block_invoke_7;
   block[3] = &unk_1E83A7100;
   block[4] = self;
-  v12 = connectionCopy;
-  v16 = v12;
+  v14 = connectionCopy;
+  v19 = v14;
   dispatch_async(queue, block);
-  v13 = PRUISLogRemoteEditing();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v16 = PRUISLogRemoteEditing(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v19 = v12;
-    _os_log_impl(&dword_1CAE63000, v13, OS_LOG_TYPE_DEFAULT, "PRUISExternallyHostedPosterEditingServer received connection: %{public}@", buf, 0xCu);
+    v22 = v14;
+    _os_log_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_DEFAULT, "PRUISExternallyHostedPosterEditingServer received connection: %{public}@", buf, 0xCu);
   }
 
-  [v12 activate];
+  [v14 activate];
 LABEL_11:
 }
 
@@ -130,16 +129,16 @@ void __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnectio
   v4 = PRUISDefaultServiceQuality();
   [v3 setServiceQuality:v4];
 
-  v5 = PRUISExternallyHostedPosterEditingServiceInterface();
-  [v3 setInterface:v5];
+  v6 = PRUISExternallyHostedPosterEditingServiceInterface(v5);
+  [v3 setInterface:v6];
 
   [v3 setInterfaceTarget:*(a1 + 32)];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnection_withContext___block_invoke_2;
-  v6[3] = &unk_1E83A8E28;
-  v6[4] = *(a1 + 32);
-  [v3 setInvalidationHandler:v6];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnection_withContext___block_invoke_2;
+  v7[3] = &unk_1E83A8E28;
+  v7[4] = *(a1 + 32);
+  [v3 setInvalidationHandler:v7];
   [v3 setTargetQueue:*(*(a1 + 32) + 8)];
 }
 
@@ -147,7 +146,7 @@ void __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnectio
 {
   v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRUISLogRemoteEditing();
+  v4 = PRUISLogRemoteEditing(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
@@ -162,7 +161,7 @@ void __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnectio
 {
   v8 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v5 = PRUISLogRemoteEditing();
+  v5 = PRUISLogRemoteEditing(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;
@@ -178,7 +177,7 @@ void __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnectio
 {
   v8 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v5 = PRUISLogRemoteEditing();
+  v5 = PRUISLogRemoteEditing(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;
@@ -210,8 +209,7 @@ void __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnectio
 - (void)activate
 {
   v11 = *MEMORY[0x1E69E9840];
-  [(BSServiceConnectionListener *)self->_connectionListener activate];
-  v4 = PRUISLogRemoteEditing();
+  v4 = PRUISLogRemoteEditing([(BSServiceConnectionListener *)self->_connectionListener activate]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
@@ -230,7 +228,7 @@ void __86__PRUISExternallyHostedPosterEditingServer_listener_didReceiveConnectio
   wrapperCopy = wrapper;
   completionCopy = completion;
   v9 = wrapperCopy;
-  v10 = PRUISLogRemoteEditing();
+  v10 = PRUISLogRemoteEditing(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = NSStringFromSelector(a2);
@@ -291,7 +289,7 @@ void __89__PRUISExternallyHostedPosterEditingServer_beginEditingWithEntryPointWr
 {
   v22 = *MEMORY[0x1E69E9840];
   wrapperCopy = wrapper;
-  v6 = PRUISLogRemoteEditing();
+  v6 = PRUISLogRemoteEditing(wrapperCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
@@ -326,7 +324,7 @@ void __89__PRUISExternallyHostedPosterEditingServer_beginEditingWithEntryPointWr
   v20 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   responseCopy = response;
-  v9 = PRUISLogRemoteEditing();
+  v9 = PRUISLogRemoteEditing(responseCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSelector(a2);
@@ -350,7 +348,7 @@ void __89__PRUISExternallyHostedPosterEditingServer_beginEditingWithEntryPointWr
   v20 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   responseCopy = response;
-  v9 = PRUISLogRemoteEditing();
+  v9 = PRUISLogRemoteEditing(responseCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSelector(a2);

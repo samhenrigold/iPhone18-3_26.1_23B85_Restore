@@ -6,10 +6,12 @@
 - (id)_motionToWakeSpecifierGroup;
 - (id)_nightModeEnabled:(id)enabled;
 - (id)specifiers;
+- (void)_updateModeSelectionFromPreferencesAnimated:(BOOL)animated;
 - (void)_updateSpecifiersFromPreferences;
 - (void)dealloc;
 - (void)emitNavigationEvent;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -17,12 +19,20 @@
 
 - (void)viewDidLoad
 {
-  v5.receiver = self;
-  v5.super_class = AMAlwaysOnDisplaySettingsViewController;
-  [(AMAlwaysOnDisplaySettingsViewController *)&v5 viewDidLoad];
-  v3 = AMAmbientSettingsBundle();
-  v4 = [v3 localizedStringForKey:@"ALWAYS_ON_DISPLAY_OPTIONS" value:&stru_86A0 table:@"AmbientSettings"];
-  [(AMAlwaysOnDisplaySettingsViewController *)self setTitle:v4];
+  v6.receiver = self;
+  v6.super_class = AMAlwaysOnDisplaySettingsViewController;
+  viewDidLoad = [(AMAlwaysOnDisplaySettingsViewController *)&v6 viewDidLoad];
+  v4 = AMAmbientSettingsBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"ALWAYS_ON_DISPLAY_OPTIONS" value:&stru_86A0 table:@"AmbientSettings"];
+  [(AMAlwaysOnDisplaySettingsViewController *)self setTitle:v5];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMAlwaysOnDisplaySettingsViewController;
+  [(AMAlwaysOnDisplaySettingsViewController *)&v4 viewDidAppear:appear];
+  [(AMAlwaysOnDisplaySettingsViewController *)self emitNavigationEvent];
 }
 
 - (id)specifiers
@@ -30,89 +40,84 @@
   v3 = *&self->PSListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v39 = OBJC_IVAR___PSListController__specifiers;
+    v40 = OBJC_IVAR___PSListController__specifiers;
     v4 = +[NSMutableArray array];
-    v5 = AMAmbientSettingsBundle();
+    v5 = AMAmbientSettingsBundle(v4);
     v6 = [v5 localizedStringForKey:@"TURN_DISPLAY_OFF_GROUP_HEADER" value:&stru_86A0 table:@"AmbientSettings"];
     v7 = [PSSpecifier groupSpecifierWithID:@"ALWAYS_ON_DISPLAY_MODE" name:v6];
 
     [v7 setProperty:&__kCFBooleanTrue forKey:PSIsRadioGroupKey];
     objc_storeStrong(&self->_modeGroupSpecifier, v7);
-    v38 = v7;
-    [v4 addObject:v7];
-    v8 = AMAmbientSettingsBundle();
+    v39 = v7;
+    v8 = AMAmbientSettingsBundle([v4 addObject:v7]);
     v9 = [v8 localizedStringForKey:@"ALWAYS_ON_DISPLAY_TURN_OFF_AUTOMATICALLY" value:&stru_86A0 table:@"AmbientSettings"];
     v10 = [PSSpecifier preferenceSpecifierNamed:v9 target:0 set:0 get:0 detail:0 cell:3 edit:0];
 
     v11 = PSIDKey;
     [v10 setProperty:@"ALWAYS_ON_DISPLAY_TURN_OFF_AUTOMATICALLY" forKey:PSIDKey];
     objc_storeStrong(&self->_modeAutomaticallySpecifier, v10);
-    v37 = v10;
-    [v4 addObject:v10];
-    v12 = AMAmbientSettingsBundle();
+    v38 = v10;
+    v12 = AMAmbientSettingsBundle([v4 addObject:v10]);
     v13 = [v12 localizedStringForKey:@"ALWAYS_ON_DISPLAY_TURN_OFF_AFTER_IDLE" value:&stru_86A0 table:@"AmbientSettings"];
     v14 = [PSSpecifier preferenceSpecifierNamed:v13 target:0 set:0 get:0 detail:0 cell:3 edit:0];
 
     [v14 setProperty:@"ALWAYS_ON_DISPLAY_TURN_OFF_AFTER_IDLE" forKey:v11];
     objc_storeStrong(&self->_modeAfterIdleSpecifier, v14);
-    v36 = v14;
-    [v4 addObject:v14];
-    v15 = AMAmbientSettingsBundle();
+    v37 = v14;
+    v15 = AMAmbientSettingsBundle([v4 addObject:v14]);
     v16 = [v15 localizedStringForKey:@"ALWAYS_ON_DISPLAY_TURN_OFF_NEVER" value:&stru_86A0 table:@"AmbientSettings"];
     v17 = [PSSpecifier preferenceSpecifierNamed:v16 target:0 set:0 get:0 detail:0 cell:3 edit:0];
 
     [v17 setProperty:@"ALWAYS_ON_DISPLAY_TURN_OFF_NEVER" forKey:v11];
     objc_storeStrong(&self->_modeNeverSpecifier, v17);
-    [v4 addObject:v17];
-    v18 = AMAmbientSettingsBundle();
+    v18 = AMAmbientSettingsBundle([v4 addObject:v17]);
     v19 = [v18 localizedStringForKey:@"AT_NIGHT_GROUP_HEADER" value:&stru_86A0 table:@"AmbientSettings"];
     v20 = [PSSpecifier groupSpecifierWithID:@"AT_NIGHT" name:v19];
 
-    v21 = AMAmbientSettingsBundle();
-    v22 = [v21 localizedStringForKey:@"NIGHT_MODE_ENABLED_FOOTER" value:&stru_86A0 table:@"AmbientSettings"];
+    v22 = AMAmbientSettingsBundle(v21);
+    v23 = [v22 localizedStringForKey:@"NIGHT_MODE_ENABLED_FOOTER" value:&stru_86A0 table:@"AmbientSettings"];
     _ambientFeatureName = [(AMAlwaysOnDisplaySettingsViewController *)self _ambientFeatureName];
-    v24 = [NSString stringWithFormat:v22, _ambientFeatureName];
-    [v20 setProperty:v24 forKey:PSFooterTextGroupKey];
+    v25 = [NSString stringWithFormat:v23, _ambientFeatureName];
+    [v20 setProperty:v25 forKey:PSFooterTextGroupKey];
 
-    v35 = v20;
-    [v4 addObject:v20];
-    v25 = AMAmbientSettingsBundle();
-    v26 = [v25 localizedStringForKey:@"NIGHT_MODE_ENABLED" value:&stru_86A0 table:@"AmbientSettings"];
-    v27 = [PSSpecifier preferenceSpecifierNamed:v26 target:self set:"setPreferenceValue:specifier:" get:"_nightModeEnabled:" detail:0 cell:6 edit:0];
+    v36 = v20;
+    v26 = AMAmbientSettingsBundle([v4 addObject:v20]);
+    v27 = [v26 localizedStringForKey:@"NIGHT_MODE_ENABLED" value:&stru_86A0 table:@"AmbientSettings"];
+    v28 = [PSSpecifier preferenceSpecifierNamed:v27 target:self set:"setPreferenceValue:specifier:" get:"_nightModeEnabled:" detail:0 cell:6 edit:0];
 
-    [v27 setProperty:&__kCFBooleanTrue forKey:PSAllowMultilineTitleKey];
-    [v27 setProperty:@"NIGHT_MODE_ENABLED" forKey:v11];
-    [v27 setProperty:@"com.apple.ambient" forKey:PSDefaultsKey];
-    [v27 setProperty:@"AMNightModeEnabled" forKey:PSKeyNameKey];
-    [v27 setProperty:&__kCFBooleanTrue forKey:PSDefaultValueKey];
-    objc_storeStrong(&self->_nightModeEnabledSpecifier, v27);
-    [v4 addObject:v27];
+    [v28 setProperty:&__kCFBooleanTrue forKey:PSAllowMultilineTitleKey];
+    [v28 setProperty:@"NIGHT_MODE_ENABLED" forKey:v11];
+    [v28 setProperty:@"com.apple.ambient" forKey:PSDefaultsKey];
+    [v28 setProperty:@"AMNightModeEnabled" forKey:PSKeyNameKey];
+    [v28 setProperty:&__kCFBooleanTrue forKey:PSDefaultValueKey];
+    objc_storeStrong(&self->_nightModeEnabledSpecifier, v28);
+    [v4 addObject:v28];
     if ([(AMAlwaysOnDisplaySettingsViewController *)self _isMotionToWakeAllowed])
     {
       _motionToWakeSpecifierGroup = [(AMAlwaysOnDisplaySettingsViewController *)self _motionToWakeSpecifierGroup];
       [v4 addObjectsFromArray:_motionToWakeSpecifierGroup];
     }
 
-    objc_storeStrong(&self->PSListController_opaque[v39], v4);
+    objc_storeStrong(&self->PSListController_opaque[v40], v4);
     [(AMAlwaysOnDisplaySettingsViewController *)self _updateSpecifiersFromPreferences];
     [(BSDefaultObserver *)self->_observerToken invalidate];
     _ambientDefaults = [(AMAlwaysOnDisplaySettingsViewController *)self _ambientDefaults];
     objc_initWeak(&location, self);
-    v30 = [NSString stringWithUTF8String:"alwaysOnMode"];
-    v31 = &_dispatch_main_q;
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_1EFC;
-    v40[3] = &unk_84F0;
-    objc_copyWeak(&v41, &location);
-    v32 = [_ambientDefaults observeDefault:v30 onQueue:&_dispatch_main_q withBlock:v40];
+    v31 = [NSString stringWithUTF8String:"alwaysOnMode"];
+    v32 = &_dispatch_main_q;
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_1EFC;
+    v41[3] = &unk_84F0;
+    objc_copyWeak(&v42, &location);
+    v33 = [_ambientDefaults observeDefault:v31 onQueue:&_dispatch_main_q withBlock:v41];
     observerToken = self->_observerToken;
-    self->_observerToken = v32;
+    self->_observerToken = v33;
 
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v42);
     objc_destroyWeak(&location);
 
-    v3 = *&self->PSListController_opaque[v39];
+    v3 = *&self->PSListController_opaque[v40];
   }
 
   return v3;
@@ -130,14 +135,13 @@
 {
   v3 = +[NSMutableArray array];
   v4 = [PSSpecifier groupSpecifierWithID:@"MOTION_TO_WAKE_GROUP"];
-  v5 = AMAmbientSettingsBundle();
+  v5 = AMAmbientSettingsBundle(v4);
   v6 = [v5 localizedStringForKey:@"MOTION_TO_WAKE_ENABLED_FOOTER" value:&stru_86A0 table:@"AmbientSettings"];
   _ambientFeatureName = [(AMAlwaysOnDisplaySettingsViewController *)self _ambientFeatureName];
   v8 = [NSString stringWithFormat:v6, _ambientFeatureName];
   [v4 setProperty:v8 forKey:PSFooterTextGroupKey];
 
-  [v3 addObject:v4];
-  v9 = AMAmbientSettingsBundle();
+  v9 = AMAmbientSettingsBundle([v3 addObject:v4]);
   v10 = [v9 localizedStringForKey:@"MOTION_TO_WAKE_ENABLED" value:&stru_86A0 table:@"AmbientSettings"];
   v11 = [PSSpecifier preferenceSpecifierNamed:v10 target:self set:"setPreferenceValue:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
 
@@ -169,17 +173,86 @@
     v7 = *&self->PSListController_opaque[*v5];
   }
 
-  v14 = v7;
-  [(PSSpecifier *)self->_modeGroupSpecifier setProperty:v7 forKey:PSRadioGroupCheckedSpecifierKey];
+  v15 = v7;
+  v8 = [(PSSpecifier *)self->_modeGroupSpecifier setProperty:v7 forKey:PSRadioGroupCheckedSpecifierKey];
   modeGroupSpecifier = self->_modeGroupSpecifier;
-  v9 = AMAmbientSettingsBundle();
-  v10 = [@"ALWAYS_ON_DISPLAY_TURN_OFF_FOOTER" stringByAppendingString:v6];
-  v11 = [v9 localizedStringForKey:v10 value:&stru_86A0 table:@"AmbientSettings"];
-  [(PSSpecifier *)modeGroupSpecifier setProperty:v11 forKey:PSFooterTextGroupKey];
+  v10 = AMAmbientSettingsBundle(v8);
+  v11 = [@"ALWAYS_ON_DISPLAY_TURN_OFF_FOOTER" stringByAppendingString:v6];
+  v12 = [v10 localizedStringForKey:v11 value:&stru_86A0 table:@"AmbientSettings"];
+  [(PSSpecifier *)modeGroupSpecifier setProperty:v12 forKey:PSFooterTextGroupKey];
 
-  v12 = [(AMAlwaysOnDisplaySettingsViewController *)self specifierForID:@"NIGHT_MODE_ENABLED"];
-  v13 = [NSNumber numberWithInt:[(AMAlwaysOnDisplaySettingsViewController *)self _isNightModeRequired]^ 1];
-  [v12 setProperty:v13 forKey:PSEnabledKey];
+  v13 = [(AMAlwaysOnDisplaySettingsViewController *)self specifierForID:@"NIGHT_MODE_ENABLED"];
+  v14 = [NSNumber numberWithInt:[(AMAlwaysOnDisplaySettingsViewController *)self _isNightModeRequired]^ 1];
+  [v13 setProperty:v14 forKey:PSEnabledKey];
+}
+
+- (void)_updateModeSelectionFromPreferencesAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = [PSSpecifierUpdates updatesWithSpecifiers:*&self->PSListController_opaque[OBJC_IVAR___PSListController__specifiers]];
+  [(AMAlwaysOnDisplaySettingsViewController *)self _updateSpecifiersFromPreferences];
+  [(AMAlwaysOnDisplaySettingsViewController *)self reloadSpecifier:self->_modeGroupSpecifier];
+  _isMotionToWakeAllowed = [(AMAlwaysOnDisplaySettingsViewController *)self _isMotionToWakeAllowed];
+  _motionToWakeSpecifierGroup = [(AMAlwaysOnDisplaySettingsViewController *)self _motionToWakeSpecifierGroup];
+  firstObject = [_motionToWakeSpecifierGroup firstObject];
+  identifier = [firstObject identifier];
+  v10 = [(AMAlwaysOnDisplaySettingsViewController *)self indexOfSpecifierID:identifier];
+
+  if (_isMotionToWakeAllowed && v10 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v5 insertContiguousSpecifiers:_motionToWakeSpecifierGroup afterSpecifierWithID:@"NIGHT_MODE_ENABLED"];
+  }
+
+  else
+  {
+    if (v10 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v11 = 1;
+    }
+
+    else
+    {
+      v11 = _isMotionToWakeAllowed;
+    }
+
+    if ((v11 & 1) == 0)
+    {
+      v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v12 = _motionToWakeSpecifierGroup;
+      v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v13)
+      {
+        v14 = v13;
+        v15 = *v20;
+        do
+        {
+          for (i = 0; i != v14; i = i + 1)
+          {
+            if (*v20 != v15)
+            {
+              objc_enumerationMutation(v12);
+            }
+
+            identifier2 = [*(*(&v19 + 1) + 8 * i) identifier];
+            [v5 removeSpecifierWithID:identifier2];
+          }
+
+          v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        }
+
+        while (v14);
+      }
+    }
+  }
+
+  [v5 reloadSpecifier:{self->_nightModeEnabledSpecifier, v19}];
+  context = [v5 context];
+  [context setAnimated:animatedCopy];
+
+  [(AMAlwaysOnDisplaySettingsViewController *)self performSpecifierUpdates:v5];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -215,7 +288,7 @@ LABEL_7:
 
 - (id)_ambientFeatureName
 {
-  v2 = AMAmbientSettingsBundle();
+  v2 = AMAmbientSettingsBundle(self);
   v3 = [v2 localizedStringForKey:@"AMBIENT_FEATURE_NAME" value:&stru_86A0 table:@"AmbientSettings"];
 
   return v3;

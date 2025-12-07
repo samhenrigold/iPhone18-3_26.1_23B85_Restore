@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
+- (id)recordTypeAsString:(int)string;
 - (int)StringAsNetworkType:(id)type;
 - (int)StringAsRecordType:(id)type;
 - (int)networkType;
@@ -52,6 +54,21 @@
   {
     return 0;
   }
+}
+
+- (id)networkTypeAsString:(int)string
+{
+  if (!string)
+  {
+    return @"NonCellular";
+  }
+
+  if (string == 1)
+  {
+    return @"Cellular";
+  }
+
+  return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
 }
 
 - (int)StringAsNetworkType:(id)type
@@ -129,6 +146,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)recordTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32A08[string];
+  }
 }
 
 - (int)StringAsRecordType:(id)type
@@ -287,7 +317,6 @@
 {
   if (*&self->_has)
   {
-    networkType = self->_networkType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -301,15 +330,14 @@
     PBDataWriterPlaceMark();
     if (self->_answeredQuerySendCounts.count)
     {
-      v5 = 0;
+      v4 = 0;
       do
       {
-        v6 = self->_answeredQuerySendCounts.list[v5];
         PBDataWriterWriteUint32Field();
-        ++v5;
+        ++v4;
       }
 
-      while (v5 < self->_answeredQuerySendCounts.count);
+      while (v4 < self->_answeredQuerySendCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -320,15 +348,14 @@
     PBDataWriterPlaceMark();
     if (self->_unansweredQuerySendCounts.count)
     {
-      v7 = 0;
+      v5 = 0;
       do
       {
-        v8 = self->_unansweredQuerySendCounts.list[v7];
         PBDataWriterWriteUint32Field();
-        ++v7;
+        ++v5;
       }
 
-      while (v7 < self->_unansweredQuerySendCounts.count);
+      while (v5 < self->_unansweredQuerySendCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -339,15 +366,14 @@
     PBDataWriterPlaceMark();
     if (self->_responseLatencyMs.count)
     {
-      v9 = 0;
+      v6 = 0;
       do
       {
-        v10 = self->_responseLatencyMs.list[v9];
         PBDataWriterWriteUint32Field();
-        ++v9;
+        ++v6;
       }
 
-      while (v9 < self->_responseLatencyMs.count);
+      while (v6 < self->_responseLatencyMs.count);
     }
 
     PBDataWriterRecallMark();
@@ -355,7 +381,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    recordType = self->_recordType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -364,15 +389,14 @@
     PBDataWriterPlaceMark();
     if (self->_negAnsweredQuerySendCounts.count)
     {
-      v12 = 0;
+      v7 = 0;
       do
       {
-        v13 = self->_negAnsweredQuerySendCounts.list[v12];
         PBDataWriterWriteUint32Field();
-        ++v12;
+        ++v7;
       }
 
-      while (v12 < self->_negAnsweredQuerySendCounts.count);
+      while (v7 < self->_negAnsweredQuerySendCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -383,15 +407,14 @@
     PBDataWriterPlaceMark();
     if (self->_negResponseLatencyMs.count)
     {
-      v14 = 0;
+      v8 = 0;
       do
       {
-        v15 = self->_negResponseLatencyMs.list[v14];
         PBDataWriterWriteUint32Field();
-        ++v14;
+        ++v8;
       }
 
-      while (v14 < self->_negResponseLatencyMs.count);
+      while (v8 < self->_negResponseLatencyMs.count);
     }
 
     PBDataWriterRecallMark();
@@ -402,15 +425,14 @@
     PBDataWriterPlaceMark();
     if (self->_unansweredQueryDurationMs.count)
     {
-      v16 = 0;
+      v9 = 0;
       do
       {
-        v17 = self->_unansweredQueryDurationMs.list[v16];
         PBDataWriterWriteUint32Field();
-        ++v16;
+        ++v9;
       }
 
-      while (v16 < self->_unansweredQueryDurationMs.count);
+      while (v9 < self->_unansweredQueryDurationMs.count);
     }
 
     PBDataWriterRecallMark();
@@ -421,15 +443,14 @@
     PBDataWriterPlaceMark();
     if (self->_expiredAnswerStates.count)
     {
-      v18 = 0;
+      v10 = 0;
       do
       {
-        v19 = self->_expiredAnswerStates.list[v18];
         PBDataWriterWriteUint32Field();
-        ++v18;
+        ++v10;
       }
 
-      while (v18 < self->_expiredAnswerStates.count);
+      while (v10 < self->_expiredAnswerStates.count);
     }
 
     PBDataWriterRecallMark();
@@ -441,15 +462,14 @@
     PBDataWriterPlaceMark();
     if (p_dnsOverTCPStates->count)
     {
-      v21 = 0;
+      v12 = 0;
       do
       {
-        v22 = p_dnsOverTCPStates->list[v21];
         PBDataWriterWriteUint32Field();
-        ++v21;
+        ++v12;
       }
 
-      while (v21 < p_dnsOverTCPStates->count);
+      while (v12 < p_dnsOverTCPStates->count);
     }
 
     PBDataWriterRecallMark();
@@ -623,7 +643,6 @@
     return 0;
   }
 
-  v5 = *(equal + 216);
   if (*&self->_has)
   {
     if ((*(equal + 216) & 1) == 0 || self->_networkType != *(equal + 52))
@@ -643,7 +662,6 @@
     return 0;
   }
 
-  v7 = *(equal + 216);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equal + 216) & 2) == 0 || self->_recordType != *(equal + 53))

@@ -1,679 +1,11 @@
-char *MobileGestalt_copy_buildID()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = MGCopyAnswer(@"BuildID");
-  if (v0)
-  {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return v2;
-}
-
-id MobileGestalt_copy_buildID_obj()
-{
-  v0 = MGCopyAnswer(@"BuildID");
-
-  return v0;
-}
-
-char *MobileGestalt_copy_buildVersion()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = MGCopyAnswer(@"BuildVersion");
-  if (v0)
-  {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return v2;
-}
-
-id MobileGestalt_copy_buildVersion_obj()
-{
-  v0 = MGCopyAnswer(@"BuildVersion");
-
-  return v0;
-}
-
-char *MobileGestalt_copy_cpuArchitecture()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = MGCopyAnswer(@"CPUArchitecture");
-  if (v0)
-  {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return v2;
-}
-
-id MobileGestalt_copy_cpuArchitecture_obj()
-{
-  v0 = MGCopyAnswer(@"CPUArchitecture");
-
-  return v0;
-}
-
-uint64_t MobileGestalt_get_cpuSubType(void *a1)
-{
-  v1 = a1;
-  v2 = 0xFFFFFFFFLL;
-  valuePtr = -1;
-  v3 = MGCopyAnswer(@"CPUSubType");
-  if (v3)
-  {
-    v4 = v3;
-    v5 = CFGetTypeID(v3);
-    if (v5 == CFNumberGetTypeID())
-    {
-      if (CFNumberGetValue(v4, kCFNumberSInt32Type, &valuePtr))
-      {
-LABEL_9:
-        CFRelease(v4);
-        v2 = valuePtr;
-        goto LABEL_10;
-      }
-
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F1C2C();
-      }
-    }
-
-    else
-    {
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F24E8();
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_10:
-
-  return v2;
-}
-
-uint64_t MobileGestalt_get_cpuType(void *a1)
-{
-  v1 = a1;
-  v2 = 0xFFFFFFFFLL;
-  valuePtr = -1;
-  v3 = MGCopyAnswer(@"CPUType");
-  if (v3)
-  {
-    v4 = v3;
-    v5 = CFGetTypeID(v3);
-    if (v5 == CFNumberGetTypeID())
-    {
-      if (CFNumberGetValue(v4, kCFNumberSInt32Type, &valuePtr))
-      {
-LABEL_9:
-        CFRelease(v4);
-        v2 = valuePtr;
-        goto LABEL_10;
-      }
-
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F1C2C();
-      }
-    }
-
-    else
-    {
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F2568();
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_10:
-
-  return v2;
-}
-
-uint64_t MobileGestalt_get_cameraAppUIVersion(void *a1)
-{
-  v1 = a1;
-  v2 = 0xFFFFFFFFLL;
-  valuePtr = -1;
-  v3 = MGCopyAnswer(@"NszbG6qiAztVal4mpDQRkg");
-  if (v3)
-  {
-    v4 = v3;
-    v5 = CFGetTypeID(v3);
-    if (v5 == CFNumberGetTypeID())
-    {
-      if (CFNumberGetValue(v4, kCFNumberSInt32Type, &valuePtr))
-      {
-LABEL_9:
-        CFRelease(v4);
-        v2 = valuePtr;
-        goto LABEL_10;
-      }
-
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F1C2C();
-      }
-    }
-
-    else
-    {
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F25E8();
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_10:
-
-  return v2;
-}
-
-UInt8 *MobileGestalt_copy_cameraButtonCGRect()
-{
-  v0 = MGCopyAnswer(@"CameraButtonCGRect");
-  if (!v0)
-  {
-    return 0;
-  }
-
-  v1 = v0;
-  Length = CFDataGetLength(v0);
-  v3 = malloc_type_malloc(Length, 0xE6A40F3AuLL);
-  v5.location = 0;
-  v5.length = Length;
-  CFDataGetBytes(v1, v5, v3);
-  CFRelease(v1);
-  return v3;
-}
-
-id MobileGestalt_copy_cameraButtonCGRect_obj()
-{
-  v0 = MGCopyAnswer(@"CameraButtonCGRect");
-
-  return v0;
-}
-
-UInt8 *MobileGestalt_copy_cameraButtonNormalizedCGRect()
-{
-  v0 = MGCopyAnswer(@"CameraButtonNormalizedCGRect");
-  if (!v0)
-  {
-    return 0;
-  }
-
-  v1 = v0;
-  Length = CFDataGetLength(v0);
-  v3 = malloc_type_malloc(Length, 0x7CCABC3AuLL);
-  v5.location = 0;
-  v5.length = Length;
-  CFDataGetBytes(v1, v5, v3);
-  CFRelease(v1);
-  return v3;
-}
-
-id MobileGestalt_copy_cameraButtonNormalizedCGRect_obj()
-{
-  v0 = MGCopyAnswer(@"CameraButtonNormalizedCGRect");
-
-  return v0;
-}
-
-uint64_t MobileGestalt_get_cameraHDRVersion(void *a1)
-{
-  v1 = a1;
-  v2 = 0xFFFFFFFFLL;
-  valuePtr = -1;
-  v3 = MGCopyAnswer(@"CameraHDRVersion");
-  if (v3)
-  {
-    v4 = v3;
-    v5 = CFGetTypeID(v3);
-    if (v5 == CFNumberGetTypeID())
-    {
-      if (CFNumberGetValue(v4, kCFNumberSInt32Type, &valuePtr))
-      {
-LABEL_9:
-        CFRelease(v4);
-        v2 = valuePtr;
-        goto LABEL_10;
-      }
-
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F1C2C();
-      }
-    }
-
-    else
-    {
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F2668();
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_10:
-
-  return v2;
-}
-
-uint64_t MobileGestalt_get_cameraIMUDistanceType(void *a1)
-{
-  v1 = a1;
-  v2 = 0xFFFFFFFFLL;
-  valuePtr = -1;
-  v3 = MGCopyAnswer(@"CameraIMUDistanceType");
-  if (v3)
-  {
-    v4 = v3;
-    v5 = CFGetTypeID(v3);
-    if (v5 == CFNumberGetTypeID())
-    {
-      if (CFNumberGetValue(v4, kCFNumberSInt32Type, &valuePtr))
-      {
-LABEL_9:
-        CFRelease(v4);
-        v2 = valuePtr;
-        goto LABEL_10;
-      }
-
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F1C2C();
-      }
-    }
-
-    else
-    {
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F26E8();
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_10:
-
-  return v2;
-}
-
-id MobileGestalt_copy_cameraMaxBurstLength_obj()
-{
-  v0 = MGCopyAnswer(@"gBw7IWiBnLHaA+lBrZBgWw");
-
-  return v0;
-}
-
-id MobileGestalt_copy_carrierBundleInfoArray_obj()
-{
-  v0 = MGCopyAnswer(@"CarrierBundleInfoArray");
-
-  return v0;
-}
-
-uint64_t MobileGestalt_get_chipConfigRack(void *a1)
-{
-  v1 = a1;
-  v2 = 0xFFFFFFFFLL;
-  valuePtr = -1;
-  v3 = MGCopyAnswer(@"ChipConfigRack");
-  if (v3)
-  {
-    v4 = v3;
-    v5 = CFGetTypeID(v3);
-    if (v5 == CFNumberGetTypeID())
-    {
-      if (CFNumberGetValue(v4, kCFNumberSInt32Type, &valuePtr))
-      {
-LABEL_9:
-        CFRelease(v4);
-        v2 = valuePtr;
-        goto LABEL_10;
-      }
-
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F1C2C();
-      }
-    }
-
-    else
-    {
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F2768();
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_10:
-
-  return v2;
-}
-
-uint64_t MobileGestalt_get_chipID(void *a1)
-{
-  v1 = a1;
-  v2 = -1;
-  valuePtr = -1;
-  v3 = MGCopyAnswer(@"ChipID");
-  if (v3)
-  {
-    v4 = v3;
-    v5 = CFGetTypeID(v3);
-    if (v5 == CFNumberGetTypeID())
-    {
-      if (CFNumberGetValue(v4, kCFNumberSInt64Type, &valuePtr))
-      {
-LABEL_9:
-        CFRelease(v4);
-        v2 = valuePtr;
-        goto LABEL_10;
-      }
-
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F1C2C();
-      }
-    }
-
-    else
-    {
-      v6 = [v1 log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        sub_1B01F27E8();
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_10:
-
-  return v2;
-}
-
-char *MobileGestalt_copy_chromeIdentifier()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = MGCopyAnswer(@"ChromeIdentifier");
-  if (v0)
-  {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return v2;
-}
-
-id MobileGestalt_copy_chromeIdentifier_obj()
-{
-  v0 = MGCopyAnswer(@"ChromeIdentifier");
-
-  return v0;
-}
-
-UInt8 *MobileGestalt_copy_compassCalibration()
-{
-  v0 = MGCopyAnswer(@"CompassCalibration");
-  if (!v0)
-  {
-    return 0;
-  }
-
-  v1 = v0;
-  Length = CFDataGetLength(v0);
-  v3 = malloc_type_malloc(Length, 0x62D3473EuLL);
-  v5.location = 0;
-  v5.length = Length;
-  CFDataGetBytes(v1, v5, v3);
-  CFRelease(v1);
-  return v3;
-}
-
-id MobileGestalt_copy_compassCalibration_obj()
-{
-  v0 = MGCopyAnswer(@"CompassCalibration");
-
-  return v0;
-}
-
-id MobileGestalt_copy_compassCalibrationDictionary_obj()
-{
-  v0 = MGCopyAnswer(@"CompassCalibrationDictionary");
-
-  return v0;
-}
-
-id MobileGestalt_copy_compassType_obj()
-{
-  v0 = MGCopyAnswer(@"meLhyIpGgxiQoFZD/OGPcQ");
-
-  return v0;
-}
-
-id MobileGestalt_copy_compatibleAppVariants_obj()
-{
-  v0 = MGCopyAnswer(@"VuGdqp8UBpi9vPWHlPluVQ");
-
-  return v0;
-}
-
-char *MobileGestalt_copy_computerName()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = MGCopyAnswer(@"ComputerName");
-  if (v0)
-  {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return v2;
-}
-
-id MobileGestalt_copy_computerName_obj()
-{
-  v0 = MGCopyAnswer(@"ComputerName");
-
-  return v0;
-}
-
-char *MobileGestalt_copy_conferenceCallType()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = MGCopyAnswer(@"kConferenceCallType");
-  if (v0)
-  {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return v2;
-}
-
-id MobileGestalt_copy_conferenceCallType_obj()
-{
-  v0 = MGCopyAnswer(@"kConferenceCallType");
-
-  return v0;
-}
-
-UInt8 *MobileGestalt_copy_configNumber()
-{
-  v0 = MGCopyAnswer(@"ConfigNumber");
-  if (!v0)
-  {
-    return 0;
-  }
-
-  v1 = v0;
-  Length = CFDataGetLength(v0);
-  v3 = malloc_type_malloc(Length, 0xD08CC746uLL);
-  v5.location = 0;
-  v5.length = Length;
-  CFDataGetBytes(v1, v5, v3);
-  CFRelease(v1);
-  return v3;
-}
-
-id MobileGestalt_copy_configNumber_obj()
-{
-  v0 = MGCopyAnswer(@"ConfigNumber");
-
-  return v0;
-}
-
-char *MobileGestalt_copy_countryOfOrigin()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = MGCopyAnswer(@"CountryOfOrigin");
-  if (v0)
-  {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return v2;
-}
-
-id MobileGestalt_copy_countryOfOrigin_obj()
-{
-  v0 = MGCopyAnswer(@"CountryOfOrigin");
-
-  return v0;
-}
-
-char *MobileGestalt_copy_coverglassSerialNumber()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = MGCopyAnswer(@"OWi11Urd09rDmPVy1z5dOQ");
-  if (v0)
-  {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return v2;
-}
-
-id MobileGestalt_copy_coverglassSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_coverglassSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"OWi11Urd09rDmPVy1z5dOQ");
 
   return v0;
 }
 
-id MobileGestalt_copy_dMin_obj()
+CFNumberRef MobileGestalt_copy_dMin_obj()
 {
   v0 = MGCopyAnswer(@"DMin");
 
@@ -698,7 +30,7 @@ UInt8 *MobileGestalt_copy_debugBoardRevision()
   return v3;
 }
 
-id MobileGestalt_copy_debugBoardRevision_obj()
+CFNumberRef MobileGestalt_copy_debugBoardRevision_obj()
 {
   v0 = MGCopyAnswer(@"DebugBoardRevision");
 
@@ -839,27 +171,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_deviceClass()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"DeviceClass");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_deviceClass_obj()
+CFNumberRef MobileGestalt_copy_deviceClass_obj()
 {
   v0 = MGCopyAnswer(@"DeviceClass");
 
@@ -868,27 +195,22 @@ id MobileGestalt_copy_deviceClass_obj()
 
 char *MobileGestalt_copy_deviceColor()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"DeviceColor");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_deviceColor_obj()
+CFNumberRef MobileGestalt_copy_deviceColor_obj()
 {
   v0 = MGCopyAnswer(@"DeviceColor");
 
@@ -1159,7 +481,7 @@ LABEL_10:
   return v2;
 }
 
-id MobileGestalt_copy_deviceDBVDependentVSHCompensationTraits_obj()
+CFNumberRef MobileGestalt_copy_deviceDBVDependentVSHCompensationTraits_obj()
 {
   v0 = MGCopyAnswer(@"DeviceDBVDependentVSHCompensationTraits");
 
@@ -1168,27 +490,22 @@ id MobileGestalt_copy_deviceDBVDependentVSHCompensationTraits_obj()
 
 char *MobileGestalt_copy_deviceEnclosureColor()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"DeviceEnclosureColor");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_deviceEnclosureColor_obj()
+CFNumberRef MobileGestalt_copy_deviceEnclosureColor_obj()
 {
   v0 = MGCopyAnswer(@"DeviceEnclosureColor");
 
@@ -1389,7 +706,7 @@ UInt8 *MobileGestalt_copy_deviceHousingColorUncooked()
   return v3;
 }
 
-id MobileGestalt_copy_deviceHousingColorUncooked_obj()
+CFNumberRef MobileGestalt_copy_deviceHousingColorUncooked_obj()
 {
   v0 = MGCopyAnswer(@"0GizaJLOyfzgAbxQ/5aniA");
 
@@ -1414,14 +731,14 @@ UInt8 *MobileGestalt_copy_deviceKeyboardCalibration()
   return v3;
 }
 
-id MobileGestalt_copy_deviceKeyboardCalibration_obj()
+CFNumberRef MobileGestalt_copy_deviceKeyboardCalibration_obj()
 {
   v0 = MGCopyAnswer(@"DrrXMX9VWX7bMj0MZuhTUA");
 
   return v0;
 }
 
-id MobileGestalt_copy_deviceLaunchTimeLimitScale_obj()
+CFNumberRef MobileGestalt_copy_deviceLaunchTimeLimitScale_obj()
 {
   v0 = MGCopyAnswer(@"emXA9B552rnSoI7xXE91DA");
 
@@ -1562,27 +879,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_deviceName()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"DeviceName");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_deviceName_obj()
+CFNumberRef MobileGestalt_copy_deviceName_obj()
 {
   v0 = MGCopyAnswer(@"DeviceName");
 
@@ -1591,27 +903,22 @@ id MobileGestalt_copy_deviceName_obj()
 
 char *MobileGestalt_copy_deviceNameString()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"device-name");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_deviceNameString_obj()
+CFNumberRef MobileGestalt_copy_deviceNameString_obj()
 {
   v0 = MGCopyAnswer(@"device-name");
 
@@ -1662,7 +969,7 @@ LABEL_10:
   return v2;
 }
 
-id MobileGestalt_copy_deviceSceneUpdateTimeLimitScale_obj()
+CFNumberRef MobileGestalt_copy_deviceSceneUpdateTimeLimitScale_obj()
 {
   v0 = MGCopyAnswer(@"QbQzuIbef01P4JeoL9EmKg");
 
@@ -1863,7 +1170,7 @@ UInt8 *MobileGestalt_copy_deviceSupportsVSHCompensation()
   return v3;
 }
 
-id MobileGestalt_copy_deviceSupportsVSHCompensation_obj()
+CFNumberRef MobileGestalt_copy_deviceSupportsVSHCompensation_obj()
 {
   v0 = MGCopyAnswer(@"DeviceSupportsVSHCompensation");
 
@@ -1872,27 +1179,22 @@ id MobileGestalt_copy_deviceSupportsVSHCompensation_obj()
 
 char *MobileGestalt_copy_deviceVariant()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"DeviceVariant");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_deviceVariant_obj()
+CFNumberRef MobileGestalt_copy_deviceVariant_obj()
 {
   v0 = MGCopyAnswer(@"DeviceVariant");
 
@@ -1901,27 +1203,22 @@ id MobileGestalt_copy_deviceVariant_obj()
 
 char *MobileGestalt_copy_deviceVariantGuess()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"DeviceVariantGuess");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_deviceVariantGuess_obj()
+CFNumberRef MobileGestalt_copy_deviceVariantGuess_obj()
 {
   v0 = MGCopyAnswer(@"DeviceVariantGuess");
 
@@ -1946,7 +1243,7 @@ UInt8 *MobileGestalt_copy_diagData()
   return v3;
 }
 
-id MobileGestalt_copy_diagData_obj()
+CFNumberRef MobileGestalt_copy_diagData_obj()
 {
   v0 = MGCopyAnswer(@"DiagData");
 
@@ -1997,7 +1294,7 @@ LABEL_10:
   return v2;
 }
 
-id MobileGestalt_copy_diskUsage_obj()
+CFNumberRef MobileGestalt_copy_diskUsage_obj()
 {
   v0 = MGCopyAnswer(@"DiskUsage");
 
@@ -2066,7 +1363,7 @@ UInt8 *MobileGestalt_copy_displayDriverICChipID()
   return v3;
 }
 
-id MobileGestalt_copy_displayDriverICChipID_obj()
+CFNumberRef MobileGestalt_copy_displayDriverICChipID_obj()
 {
   v0 = MGCopyAnswer(@"DisplayDriverICChipID");
 
@@ -2163,27 +1460,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_dynamicFunctionRowSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"Bb01MNJ0ezfSmzucKZXrsg");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_dynamicFunctionRowSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_dynamicFunctionRowSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"Bb01MNJ0ezfSmzucKZXrsg");
 
@@ -2278,7 +1570,7 @@ LABEL_10:
   return v2;
 }
 
-id MobileGestalt_copy_ephemeralDataModeOverride_obj()
+CFNumberRef MobileGestalt_copy_ephemeralDataModeOverride_obj()
 {
   v0 = MGCopyAnswer(@"EphemeralDataModeOverride");
 
@@ -2287,27 +1579,22 @@ id MobileGestalt_copy_ephemeralDataModeOverride_obj()
 
 char *MobileGestalt_copy_ethernetMacAddress()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"EthernetMacAddress");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_ethernetMacAddress_obj()
+CFNumberRef MobileGestalt_copy_ethernetMacAddress_obj()
 {
   v0 = MGCopyAnswer(@"EthernetMacAddress");
 
@@ -2316,27 +1603,22 @@ id MobileGestalt_copy_ethernetMacAddress_obj()
 
 char *MobileGestalt_copy_extendedLOMMacAddress()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ExtendedLOMMacAddress");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_extendedLOMMacAddress_obj()
+CFNumberRef MobileGestalt_copy_extendedLOMMacAddress_obj()
 {
   v0 = MGCopyAnswer(@"ExtendedLOMMacAddress");
 
@@ -2607,14 +1889,14 @@ LABEL_10:
   return v2;
 }
 
-id MobileGestalt_copy_facetimeDecodings_obj()
+CFNumberRef MobileGestalt_copy_facetimeDecodings_obj()
 {
   v0 = MGCopyAnswer(@"FaceTimeDecodings");
 
   return v0;
 }
 
-id MobileGestalt_copy_facetimeEncodings_obj()
+CFNumberRef MobileGestalt_copy_facetimeEncodings_obj()
 {
   v0 = MGCopyAnswer(@"FaceTimeEncodings");
 
@@ -2665,14 +1947,14 @@ LABEL_10:
   return v2;
 }
 
-id MobileGestalt_copy_facetimePreferredDecoding_obj()
+CFNumberRef MobileGestalt_copy_facetimePreferredDecoding_obj()
 {
   v0 = MGCopyAnswer(@"FaceTimePreferredDecoding");
 
   return v0;
 }
 
-id MobileGestalt_copy_facetimePreferredEncoding_obj()
+CFNumberRef MobileGestalt_copy_facetimePreferredEncoding_obj()
 {
   v0 = MGCopyAnswer(@"FaceTimePreferredEncoding");
 
@@ -2697,14 +1979,14 @@ UInt8 *MobileGestalt_copy_firmwareNonce()
   return v3;
 }
 
-id MobileGestalt_copy_firmwareNonce_obj()
+CFNumberRef MobileGestalt_copy_firmwareNonce_obj()
 {
   v0 = MGCopyAnswer(@"FirmwareNonce");
 
   return v0;
 }
 
-id MobileGestalt_copy_firmwarePreflightInfo_obj()
+CFNumberRef MobileGestalt_copy_firmwarePreflightInfo_obj()
 {
   v0 = MGCopyAnswer(@"FirmwarePreflightInfo");
 
@@ -2713,34 +1995,29 @@ id MobileGestalt_copy_firmwarePreflightInfo_obj()
 
 char *MobileGestalt_copy_firmwareVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"FirmwareVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_firmwareVersion_obj()
+CFNumberRef MobileGestalt_copy_firmwareVersion_obj()
 {
   v0 = MGCopyAnswer(@"FirmwareVersion");
 
   return v0;
 }
 
-id MobileGestalt_copy_firstPartyLaunchTimeLimitScale_obj()
+CFNumberRef MobileGestalt_copy_firstPartyLaunchTimeLimitScale_obj()
 {
   v0 = MGCopyAnswer(@"NUYAz1eq3Flzt7ZQxXC/ng");
 
@@ -2749,34 +2026,29 @@ id MobileGestalt_copy_firstPartyLaunchTimeLimitScale_obj()
 
 char *MobileGestalt_copy_framebufferIdentifier()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"FramebufferIdentifier");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_framebufferIdentifier_obj()
+CFNumberRef MobileGestalt_copy_framebufferIdentifier_obj()
 {
   v0 = MGCopyAnswer(@"FramebufferIdentifier");
 
   return v0;
 }
 
-id MobileGestalt_copy_frontCameraOffsetFromDisplayCenter_obj()
+CFNumberRef MobileGestalt_copy_frontCameraOffsetFromDisplayCenter_obj()
 {
   v0 = MGCopyAnswer(@"FrontCameraOffsetFromDisplayCenter");
 
@@ -2827,7 +2099,7 @@ LABEL_10:
   return v2;
 }
 
-id MobileGestalt_copy_frontCameraRotationFromDisplayNormal_obj()
+CFNumberRef MobileGestalt_copy_frontCameraRotationFromDisplayNormal_obj()
 {
   v0 = MGCopyAnswer(@"FrontCameraRotationFromDisplayNormal");
 
@@ -2968,27 +2240,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_frontFacingCameraModuleSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"qlcdNkarcGLcbW3HvBhwaA");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_frontFacingCameraModuleSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_frontFacingCameraModuleSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"qlcdNkarcGLcbW3HvBhwaA");
 
@@ -3173,27 +2440,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_frontFacingIRCameraModuleSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"2kuITg6XPwXl8zbpx+hoCw");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_frontFacingIRCameraModuleSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_frontFacingIRCameraModuleSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"2kuITg6XPwXl8zbpx+hoCw");
 
@@ -3202,27 +2464,22 @@ id MobileGestalt_copy_frontFacingIRCameraModuleSerialNumber_obj()
 
 char *MobileGestalt_copy_frontFacingIRStructuredLightProjectorModuleSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"wH7fRq4TDdYG2pN1KDQW/A");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_frontFacingIRStructuredLightProjectorModuleSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_frontFacingIRStructuredLightProjectorModuleSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"wH7fRq4TDdYG2pN1KDQW/A");
 
@@ -3231,27 +2488,22 @@ id MobileGestalt_copy_frontFacingIRStructuredLightProjectorModuleSerialNumber_ob
 
 char *MobileGestalt_copy_gsDeviceName()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"GSDeviceName");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_gsDeviceName_obj()
+CFNumberRef MobileGestalt_copy_gsDeviceName_obj()
 {
   v0 = MGCopyAnswer(@"GSDeviceName");
 
@@ -3260,27 +2512,22 @@ id MobileGestalt_copy_gsDeviceName_obj()
 
 char *MobileGestalt_copy_hwModelDescriptionForAnalytics()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"uCIk6n9Am5fsV2cTjhqFQw");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_hwModelDescriptionForAnalytics_obj()
+CFNumberRef MobileGestalt_copy_hwModelDescriptionForAnalytics_obj()
 {
   v0 = MGCopyAnswer(@"uCIk6n9Am5fsV2cTjhqFQw");
 
@@ -3289,27 +2536,22 @@ id MobileGestalt_copy_hwModelDescriptionForAnalytics_obj()
 
 char *MobileGestalt_copy_hwModelDescriptionForAudio()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"dW5fpt/6HhaTbnK/UqL6cA");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_hwModelDescriptionForAudio_obj()
+CFNumberRef MobileGestalt_copy_hwModelDescriptionForAudio_obj()
 {
   v0 = MGCopyAnswer(@"dW5fpt/6HhaTbnK/UqL6cA");
 
@@ -3318,27 +2560,22 @@ id MobileGestalt_copy_hwModelDescriptionForAudio_obj()
 
 char *MobileGestalt_copy_hwModelDescriptionForAutomatedTesting()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"oQNDePXjSD1z7W0ddqt9tg");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_hwModelDescriptionForAutomatedTesting_obj()
+CFNumberRef MobileGestalt_copy_hwModelDescriptionForAutomatedTesting_obj()
 {
   v0 = MGCopyAnswer(@"oQNDePXjSD1z7W0ddqt9tg");
 
@@ -3347,49 +2584,39 @@ id MobileGestalt_copy_hwModelDescriptionForAutomatedTesting_obj()
 
 char *MobileGestalt_copy_hwModelDescriptionForCamera()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"yAfB6E2v0++rHtdW7SDg8w");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
 char *MobileGestalt_copy_hwModelDescriptionForPowerPerf()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"b4e7mEbjqfewD6oXmo9U5g");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_hwModelDescriptionForPowerPerf_obj()
+CFNumberRef MobileGestalt_copy_hwModelDescriptionForPowerPerf_obj()
 {
   v0 = MGCopyAnswer(@"b4e7mEbjqfewD6oXmo9U5g");
 
@@ -3398,27 +2625,22 @@ id MobileGestalt_copy_hwModelDescriptionForPowerPerf_obj()
 
 char *MobileGestalt_copy_hwModelDescriptionForUserVisibility()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ZGraRMW0TsxCvONeeJ5C2w");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_hwModelDescriptionForUserVisibility_obj()
+CFNumberRef MobileGestalt_copy_hwModelDescriptionForUserVisibility_obj()
 {
   v0 = MGCopyAnswer(@"ZGraRMW0TsxCvONeeJ5C2w");
 
@@ -3427,27 +2649,22 @@ id MobileGestalt_copy_hwModelDescriptionForUserVisibility_obj()
 
 char *MobileGestalt_copy_hwModelStr()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"HWModelStr");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_hwModelStr_obj()
+CFNumberRef MobileGestalt_copy_hwModelStr_obj()
 {
   v0 = MGCopyAnswer(@"HWModelStr");
 
@@ -3456,27 +2673,22 @@ id MobileGestalt_copy_hwModelStr_obj()
 
 char *MobileGestalt_copy_hwModelUniqueStr()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"HWModelUniqueStr");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_hwModelUniqueStr_obj()
+CFNumberRef MobileGestalt_copy_hwModelUniqueStr_obj()
 {
   v0 = MGCopyAnswer(@"HWModelUniqueStr");
 
@@ -3529,27 +2741,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_hardwarePlatform()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"HardwarePlatform");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_hardwarePlatform_obj()
+CFNumberRef MobileGestalt_copy_hardwarePlatform_obj()
 {
   v0 = MGCopyAnswer(@"HardwarePlatform");
 
@@ -3690,34 +2897,29 @@ LABEL_10:
 
 char *MobileGestalt_copy_humanReadableProductVersionString()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"HumanReadableProductVersionString");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_humanReadableProductVersionString_obj()
+CFNumberRef MobileGestalt_copy_humanReadableProductVersionString_obj()
 {
   v0 = MGCopyAnswer(@"HumanReadableProductVersionString");
 
   return v0;
 }
 
-id MobileGestalt_copy_iOSurfaceFormatDictionary_obj()
+CFNumberRef MobileGestalt_copy_iOSurfaceFormatDictionary_obj()
 {
   v0 = MGCopyAnswer(@"AoKnINTLPoKML3ctoP0AZg");
 
@@ -3726,27 +2928,22 @@ id MobileGestalt_copy_iOSurfaceFormatDictionary_obj()
 
 char *MobileGestalt_copy_iceFallID()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"hfs43coKE3iWlCwnqPgBpg");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_iceFallID_obj()
+CFNumberRef MobileGestalt_copy_iceFallID_obj()
 {
   v0 = MGCopyAnswer(@"hfs43coKE3iWlCwnqPgBpg");
 
@@ -3771,7 +2968,7 @@ UInt8 *MobileGestalt_copy_icefallInfo()
   return v3;
 }
 
-id MobileGestalt_copy_icefallInfo_obj()
+CFNumberRef MobileGestalt_copy_icefallInfo_obj()
 {
   v0 = MGCopyAnswer(@"MW1p1oJH8nDJc6igOb8G4g");
 
@@ -3780,27 +2977,22 @@ id MobileGestalt_copy_icefallInfo_obj()
 
 char *MobileGestalt_copy_image4CryptoHashMethod()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"Image4CryptoHashMethod");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_image4CryptoHashMethod_obj()
+CFNumberRef MobileGestalt_copy_image4CryptoHashMethod_obj()
 {
   v0 = MGCopyAnswer(@"Image4CryptoHashMethod");
 
@@ -3809,27 +3001,22 @@ id MobileGestalt_copy_image4CryptoHashMethod_obj()
 
 char *MobileGestalt_copy_integratedCircuitCardIdentifier()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"IntegratedCircuitCardIdentifier");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_integratedCircuitCardIdentifier_obj()
+CFNumberRef MobileGestalt_copy_integratedCircuitCardIdentifier_obj()
 {
   v0 = MGCopyAnswer(@"IntegratedCircuitCardIdentifier");
 
@@ -3838,27 +3025,22 @@ id MobileGestalt_copy_integratedCircuitCardIdentifier_obj()
 
 char *MobileGestalt_copy_integratedCircuitCardIdentifier2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"lHMDJnC58naUz2rOCJyVIw");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_integratedCircuitCardIdentifier2_obj()
+CFNumberRef MobileGestalt_copy_integratedCircuitCardIdentifier2_obj()
 {
   v0 = MGCopyAnswer(@"lHMDJnC58naUz2rOCJyVIw");
 
@@ -3867,27 +3049,22 @@ id MobileGestalt_copy_integratedCircuitCardIdentifier2_obj()
 
 char *MobileGestalt_copy_internationalMobileEquipmentIdentity()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"InternationalMobileEquipmentIdentity");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_internationalMobileEquipmentIdentity_obj()
+CFNumberRef MobileGestalt_copy_internationalMobileEquipmentIdentity_obj()
 {
   v0 = MGCopyAnswer(@"InternationalMobileEquipmentIdentity");
 
@@ -3896,27 +3073,22 @@ id MobileGestalt_copy_internationalMobileEquipmentIdentity_obj()
 
 char *MobileGestalt_copy_internationalMobileEquipmentIdentity2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"xRyzf9zFE/ycr/wJPweZvQ");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_internationalMobileEquipmentIdentity2_obj()
+CFNumberRef MobileGestalt_copy_internationalMobileEquipmentIdentity2_obj()
 {
   v0 = MGCopyAnswer(@"xRyzf9zFE/ycr/wJPweZvQ");
 
@@ -3925,27 +3097,22 @@ id MobileGestalt_copy_internationalMobileEquipmentIdentity2_obj()
 
 char *MobileGestalt_copy_inverseDeviceID()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"InverseDeviceID");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_inverseDeviceID_obj()
+CFNumberRef MobileGestalt_copy_inverseDeviceID_obj()
 {
   v0 = MGCopyAnswer(@"InverseDeviceID");
 
@@ -3954,27 +3121,22 @@ id MobileGestalt_copy_inverseDeviceID_obj()
 
 char *MobileGestalt_copy_jasperSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"dJvRNnysMoubdy0ZCK2aRQ");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_jasperSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_jasperSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"dJvRNnysMoubdy0ZCK2aRQ");
 
@@ -3999,7 +3161,7 @@ UInt8 *MobileGestalt_copy_liDARCalibrationPrCL()
   return v3;
 }
 
-id MobileGestalt_copy_liDARCalibrationPrCL_obj()
+CFNumberRef MobileGestalt_copy_liDARCalibrationPrCL_obj()
 {
   v0 = MGCopyAnswer(@"LiDARCalibrationPrCL");
 
@@ -4008,34 +3170,29 @@ id MobileGestalt_copy_liDARCalibrationPrCL_obj()
 
 char *MobileGestalt_copy_localizedDeviceNameString()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"device-name-localized");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_localizedDeviceNameString_obj()
+CFNumberRef MobileGestalt_copy_localizedDeviceNameString_obj()
 {
   v0 = MGCopyAnswer(@"device-name-localized");
 
   return v0;
 }
 
-id MobileGestalt_copy_lowPowerExpressModesSupported_obj()
+CFNumberRef MobileGestalt_copy_lowPowerExpressModesSupported_obj()
 {
   v0 = MGCopyAnswer(@"LowPowerExpressModesSupported");
 
@@ -4044,27 +3201,22 @@ id MobileGestalt_copy_lowPowerExpressModesSupported_obj()
 
 char *MobileGestalt_copy_lunaFlexSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"LunaFlexSerialNumber");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_lunaFlexSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_lunaFlexSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"LunaFlexSerialNumber");
 
@@ -4089,7 +3241,7 @@ UInt8 *MobileGestalt_copy_lynxPublicKey()
   return v3;
 }
 
-id MobileGestalt_copy_lynxPublicKey_obj()
+CFNumberRef MobileGestalt_copy_lynxPublicKey_obj()
 {
   v0 = MGCopyAnswer(@"HMpTbnbcAb+mQDi8O71h6Q");
 
@@ -4114,7 +3266,7 @@ UInt8 *MobileGestalt_copy_lynxSerialNumber()
   return v3;
 }
 
-id MobileGestalt_copy_lynxSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_lynxSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"r5pA2qLgR86BQKwgMjPWzg");
 
@@ -4123,27 +3275,22 @@ id MobileGestalt_copy_lynxSerialNumber_obj()
 
 char *MobileGestalt_copy_mlbSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MLBSerialNumber");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mlbSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_mlbSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"MLBSerialNumber");
 
@@ -4168,7 +3315,7 @@ UInt8 *MobileGestalt_copy_macBridgingKeys()
   return v3;
 }
 
-id MobileGestalt_copy_macBridgingKeys_obj()
+CFNumberRef MobileGestalt_copy_macBridgingKeys_obj()
 {
   v0 = MGCopyAnswer(@"VdSOpM2K054AhCKBaXuiqw");
 
@@ -4177,27 +3324,22 @@ id MobileGestalt_copy_macBridgingKeys_obj()
 
 char *MobileGestalt_copy_macFormFactor()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MacFormFactor");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_macFormFactor_obj()
+CFNumberRef MobileGestalt_copy_macFormFactor_obj()
 {
   v0 = MGCopyAnswer(@"MacFormFactor");
 
@@ -4206,27 +3348,22 @@ id MobileGestalt_copy_macFormFactor_obj()
 
 char *MobileGestalt_copy_macPrefsAssetImage()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MacPrefsAssetImage");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_macPrefsAssetImage_obj()
+CFNumberRef MobileGestalt_copy_macPrefsAssetImage_obj()
 {
   v0 = MGCopyAnswer(@"MacPrefsAssetImage");
 
@@ -4295,7 +3432,7 @@ UInt8 *MobileGestalt_copy_mainScreenCanvasSizes()
   return v3;
 }
 
-id MobileGestalt_copy_mainScreenCanvasSizes_obj()
+CFNumberRef MobileGestalt_copy_mainScreenCanvasSizes_obj()
 {
   v0 = MGCopyAnswer(@"MainScreenCanvasSizes");
 
@@ -4524,27 +3661,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_marketingDeviceFamilyName()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MarketingDeviceFamilyName");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_marketingDeviceFamilyName_obj()
+CFNumberRef MobileGestalt_copy_marketingDeviceFamilyName_obj()
 {
   v0 = MGCopyAnswer(@"MarketingDeviceFamilyName");
 
@@ -4553,27 +3685,22 @@ id MobileGestalt_copy_marketingDeviceFamilyName_obj()
 
 char *MobileGestalt_copy_marketingNameString()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"marketing-name");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_marketingNameString_obj()
+CFNumberRef MobileGestalt_copy_marketingNameString_obj()
 {
   v0 = MGCopyAnswer(@"marketing-name");
 
@@ -4582,27 +3709,22 @@ id MobileGestalt_copy_marketingNameString_obj()
 
 char *MobileGestalt_copy_marketingProductName()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"j9Th5smJpdztHwc+i39zIg");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_marketingProductName_obj()
+CFNumberRef MobileGestalt_copy_marketingProductName_obj()
 {
   v0 = MGCopyAnswer(@"j9Th5smJpdztHwc+i39zIg");
 
@@ -4611,27 +3733,22 @@ id MobileGestalt_copy_marketingProductName_obj()
 
 char *MobileGestalt_copy_marketingSOCNameString()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"marketing-soc-name");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_marketingSOCNameString_obj()
+CFNumberRef MobileGestalt_copy_marketingSOCNameString_obj()
 {
   v0 = MGCopyAnswer(@"marketing-soc-name");
 
@@ -4640,34 +3757,29 @@ id MobileGestalt_copy_marketingSOCNameString_obj()
 
 char *MobileGestalt_copy_marketingVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MarketingVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_marketingVersion_obj()
+CFNumberRef MobileGestalt_copy_marketingVersion_obj()
 {
   v0 = MGCopyAnswer(@"MarketingVersion");
 
   return v0;
 }
 
-id MobileGestalt_copy_maxH264PlaybackLevel_obj()
+CFNumberRef MobileGestalt_copy_maxH264PlaybackLevel_obj()
 {
   v0 = MGCopyAnswer(@"4W7X4OWHjri5PGaAGsCWxw");
 
@@ -4720,27 +3832,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_mesaSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MesaSerialNumber");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mesaSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_mesaSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"MesaSerialNumber");
 
@@ -4837,27 +3944,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_minimumSupportediTunesVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MinimumSupportediTunesVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_minimumSupportediTunesVersion_obj()
+CFNumberRef MobileGestalt_copy_minimumSupportediTunesVersion_obj()
 {
   v0 = MGCopyAnswer(@"MinimumSupportediTunesVersion");
 
@@ -4866,27 +3968,22 @@ id MobileGestalt_copy_minimumSupportediTunesVersion_obj()
 
 char *MobileGestalt_copy_mobileDeviceMinimumVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MobileDeviceMinimumVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mobileDeviceMinimumVersion_obj()
+CFNumberRef MobileGestalt_copy_mobileDeviceMinimumVersion_obj()
 {
   v0 = MGCopyAnswer(@"MobileDeviceMinimumVersion");
 
@@ -4895,27 +3992,22 @@ id MobileGestalt_copy_mobileDeviceMinimumVersion_obj()
 
 char *MobileGestalt_copy_mobileEquipmentIdentifier()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MobileEquipmentIdentifier");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mobileEquipmentIdentifier_obj()
+CFNumberRef MobileGestalt_copy_mobileEquipmentIdentifier_obj()
 {
   v0 = MGCopyAnswer(@"MobileEquipmentIdentifier");
 
@@ -4924,27 +4016,22 @@ id MobileGestalt_copy_mobileEquipmentIdentifier_obj()
 
 char *MobileGestalt_copy_mobileEquipmentInfoBaseId()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MobileEquipmentInfoBaseId");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mobileEquipmentInfoBaseId_obj()
+CFNumberRef MobileGestalt_copy_mobileEquipmentInfoBaseId_obj()
 {
   v0 = MGCopyAnswer(@"MobileEquipmentInfoBaseId");
 
@@ -4953,27 +4040,22 @@ id MobileGestalt_copy_mobileEquipmentInfoBaseId_obj()
 
 char *MobileGestalt_copy_mobileEquipmentInfoBaseProfile()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MobileEquipmentInfoBaseProfile");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mobileEquipmentInfoBaseProfile_obj()
+CFNumberRef MobileGestalt_copy_mobileEquipmentInfoBaseProfile_obj()
 {
   v0 = MGCopyAnswer(@"MobileEquipmentInfoBaseProfile");
 
@@ -4982,27 +4064,22 @@ id MobileGestalt_copy_mobileEquipmentInfoBaseProfile_obj()
 
 char *MobileGestalt_copy_mobileEquipmentInfoBaseVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MobileEquipmentInfoBaseVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mobileEquipmentInfoBaseVersion_obj()
+CFNumberRef MobileGestalt_copy_mobileEquipmentInfoBaseVersion_obj()
 {
   v0 = MGCopyAnswer(@"MobileEquipmentInfoBaseVersion");
 
@@ -5011,27 +4088,22 @@ id MobileGestalt_copy_mobileEquipmentInfoBaseVersion_obj()
 
 char *MobileGestalt_copy_mobileEquipmentInfoCSN()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MobileEquipmentInfoCSN");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mobileEquipmentInfoCSN_obj()
+CFNumberRef MobileGestalt_copy_mobileEquipmentInfoCSN_obj()
 {
   v0 = MGCopyAnswer(@"MobileEquipmentInfoCSN");
 
@@ -5040,27 +4112,22 @@ id MobileGestalt_copy_mobileEquipmentInfoCSN_obj()
 
 char *MobileGestalt_copy_mobileEquipmentInfoDisplayCSN()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MobileEquipmentInfoDisplayCSN");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mobileEquipmentInfoDisplayCSN_obj()
+CFNumberRef MobileGestalt_copy_mobileEquipmentInfoDisplayCSN_obj()
 {
   v0 = MGCopyAnswer(@"MobileEquipmentInfoDisplayCSN");
 
@@ -5069,27 +4136,22 @@ id MobileGestalt_copy_mobileEquipmentInfoDisplayCSN_obj()
 
 char *MobileGestalt_copy_mobileSubscriberCountryCode()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MobileSubscriberCountryCode");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mobileSubscriberCountryCode_obj()
+CFNumberRef MobileGestalt_copy_mobileSubscriberCountryCode_obj()
 {
   v0 = MGCopyAnswer(@"MobileSubscriberCountryCode");
 
@@ -5098,27 +4160,22 @@ id MobileGestalt_copy_mobileSubscriberCountryCode_obj()
 
 char *MobileGestalt_copy_mobileSubscriberNetworkCode()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MobileSubscriberNetworkCode");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_mobileSubscriberNetworkCode_obj()
+CFNumberRef MobileGestalt_copy_mobileSubscriberNetworkCode_obj()
 {
   v0 = MGCopyAnswer(@"MobileSubscriberNetworkCode");
 
@@ -5127,41 +4184,36 @@ id MobileGestalt_copy_mobileSubscriberNetworkCode_obj()
 
 char *MobileGestalt_copy_modelNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ModelNumber");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_modelNumber_obj()
+CFNumberRef MobileGestalt_copy_modelNumber_obj()
 {
   v0 = MGCopyAnswer(@"ModelNumber");
 
   return v0;
 }
 
-id MobileGestalt_copy_multiLynxPublicKeyArray_obj()
+CFNumberRef MobileGestalt_copy_multiLynxPublicKeyArray_obj()
 {
   v0 = MGCopyAnswer(@"niQFEBBY7JaauAIosAyQQg");
 
   return v0;
 }
 
-id MobileGestalt_copy_multiLynxSerialNumberArray_obj()
+CFNumberRef MobileGestalt_copy_multiLynxSerialNumberArray_obj()
 {
   v0 = MGCopyAnswer(@"juE6wCsjVG4bfAhgHcUVcQ");
 
@@ -5214,34 +4266,29 @@ LABEL_10:
 
 char *MobileGestalt_copy_nfcUniqueChipID()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"NFCUniqueChipID");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_nfcUniqueChipID_obj()
+CFNumberRef MobileGestalt_copy_nfcUniqueChipID_obj()
 {
   v0 = MGCopyAnswer(@"NFCUniqueChipID");
 
   return v0;
 }
 
-id MobileGestalt_copy_nVRAMDictionary_obj()
+CFNumberRef MobileGestalt_copy_nVRAMDictionary_obj()
 {
   v0 = MGCopyAnswer(@"NVRAMDictionary");
 
@@ -5250,27 +4297,22 @@ id MobileGestalt_copy_nVRAMDictionary_obj()
 
 char *MobileGestalt_copy_nandControllerUID()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"PcQWbThCb7iLEW+EoqZdEQ");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_nandControllerUID_obj()
+CFNumberRef MobileGestalt_copy_nandControllerUID_obj()
 {
   v0 = MGCopyAnswer(@"PcQWbThCb7iLEW+EoqZdEQ");
 
@@ -5321,14 +4363,14 @@ LABEL_10:
   return v2;
 }
 
-id MobileGestalt_copy_oceanComputeCarrierID_obj()
+CFNumberRef MobileGestalt_copy_oceanComputeCarrierID_obj()
 {
   v0 = MGCopyAnswer(@"OceanComputeCarrierID");
 
   return v0;
 }
 
-id MobileGestalt_copy_oceanComputeCarrierSlot_obj()
+CFNumberRef MobileGestalt_copy_oceanComputeCarrierSlot_obj()
 {
   v0 = MGCopyAnswer(@"OceanComputeCarrierSlot");
 
@@ -5381,27 +4423,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_panelSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"YVNo6vlMjhgQ9yGYV8gatw");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_panelSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_panelSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"YVNo6vlMjhgQ9yGYV8gatw");
 
@@ -5410,27 +4447,22 @@ id MobileGestalt_copy_panelSerialNumber_obj()
 
 char *MobileGestalt_copy_partitionStyle()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"PartitionStyle");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_partitionStyle_obj()
+CFNumberRef MobileGestalt_copy_partitionStyle_obj()
 {
   v0 = MGCopyAnswer(@"PartitionStyle");
 
@@ -5439,27 +4471,22 @@ id MobileGestalt_copy_partitionStyle_obj()
 
 char *MobileGestalt_copy_partitionType()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"PartitionType");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_partitionType_obj()
+CFNumberRef MobileGestalt_copy_partitionType_obj()
 {
   v0 = MGCopyAnswer(@"PartitionType");
 
@@ -5556,27 +4583,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_phoneNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"PhoneNumber");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_phoneNumber_obj()
+CFNumberRef MobileGestalt_copy_phoneNumber_obj()
 {
   v0 = MGCopyAnswer(@"PhoneNumber");
 
@@ -5585,27 +4607,22 @@ id MobileGestalt_copy_phoneNumber_obj()
 
 char *MobileGestalt_copy_phoneNumber2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"SZy8T5ma/+a0wJc0ntiaaA");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_phoneNumber2_obj()
+CFNumberRef MobileGestalt_copy_phoneNumber2_obj()
 {
   v0 = MGCopyAnswer(@"SZy8T5ma/+a0wJc0ntiaaA");
 
@@ -5614,27 +4631,22 @@ id MobileGestalt_copy_phoneNumber2_obj()
 
 char *MobileGestalt_copy_physicalHardwareNameString()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"PhysicalHardwareNameString");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_physicalHardwareNameString_obj()
+CFNumberRef MobileGestalt_copy_physicalHardwareNameString_obj()
 {
   v0 = MGCopyAnswer(@"PhysicalHardwareNameString");
 
@@ -5659,7 +4671,7 @@ UInt8 *MobileGestalt_copy_pintoMacAddress()
   return v3;
 }
 
-id MobileGestalt_copy_pintoMacAddress_obj()
+CFNumberRef MobileGestalt_copy_pintoMacAddress_obj()
 {
   v0 = MGCopyAnswer(@"PintoMacAddress");
 
@@ -5684,7 +4696,7 @@ UInt8 *MobileGestalt_copy_productHash()
   return v3;
 }
 
-id MobileGestalt_copy_productHash_obj()
+CFNumberRef MobileGestalt_copy_productHash_obj()
 {
   v0 = MGCopyAnswer(@"ProductHash");
 
@@ -5693,27 +4705,22 @@ id MobileGestalt_copy_productHash_obj()
 
 char *MobileGestalt_copy_productName()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ProductName");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productName_obj()
+CFNumberRef MobileGestalt_copy_productName_obj()
 {
   v0 = MGCopyAnswer(@"ProductName");
 
@@ -5722,27 +4729,22 @@ id MobileGestalt_copy_productName_obj()
 
 char *MobileGestalt_copy_productType()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ProductType");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productType_obj()
+CFNumberRef MobileGestalt_copy_productType_obj()
 {
   v0 = MGCopyAnswer(@"ProductType");
 
@@ -5751,27 +4753,22 @@ id MobileGestalt_copy_productType_obj()
 
 char *MobileGestalt_copy_productTypeDescForAnalytics()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"xNN67KktpWp7syTT3S1BFA");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productTypeDescForAnalytics_obj()
+CFNumberRef MobileGestalt_copy_productTypeDescForAnalytics_obj()
 {
   v0 = MGCopyAnswer(@"xNN67KktpWp7syTT3S1BFA");
 
@@ -5780,27 +4777,22 @@ id MobileGestalt_copy_productTypeDescForAnalytics_obj()
 
 char *MobileGestalt_copy_productTypeDescForAudio()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"+1TeoctsaQC55zwHZ6MESg");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productTypeDescForAudio_obj()
+CFNumberRef MobileGestalt_copy_productTypeDescForAudio_obj()
 {
   v0 = MGCopyAnswer(@"+1TeoctsaQC55zwHZ6MESg");
 
@@ -5809,27 +4801,22 @@ id MobileGestalt_copy_productTypeDescForAudio_obj()
 
 char *MobileGestalt_copy_productTypeDescForAutomatedTesting()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"MKE8hwsOxxRCtwBk2aDBZA");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productTypeDescForAutomatedTesting_obj()
+CFNumberRef MobileGestalt_copy_productTypeDescForAutomatedTesting_obj()
 {
   v0 = MGCopyAnswer(@"MKE8hwsOxxRCtwBk2aDBZA");
 
@@ -5838,27 +4825,22 @@ id MobileGestalt_copy_productTypeDescForAutomatedTesting_obj()
 
 char *MobileGestalt_copy_productTypeDescForCamera()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"myx96YOqBSDzLwljSYWBiQ");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productTypeDescForCamera_obj()
+CFNumberRef MobileGestalt_copy_productTypeDescForCamera_obj()
 {
   v0 = MGCopyAnswer(@"myx96YOqBSDzLwljSYWBiQ");
 
@@ -5867,27 +4849,22 @@ id MobileGestalt_copy_productTypeDescForCamera_obj()
 
 char *MobileGestalt_copy_productTypeDescForPowerPerf()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"GEsznZwAYGOa1a67QU1Uew");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productTypeDescForPowerPerf_obj()
+CFNumberRef MobileGestalt_copy_productTypeDescForPowerPerf_obj()
 {
   v0 = MGCopyAnswer(@"GEsznZwAYGOa1a67QU1Uew");
 
@@ -5896,27 +4873,22 @@ id MobileGestalt_copy_productTypeDescForPowerPerf_obj()
 
 char *MobileGestalt_copy_productTypeDescForUserVisibility()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"G91h5IuJvXISeyngNFqEpg");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productTypeDescForUserVisibility_obj()
+CFNumberRef MobileGestalt_copy_productTypeDescForUserVisibility_obj()
 {
   v0 = MGCopyAnswer(@"G91h5IuJvXISeyngNFqEpg");
 
@@ -5925,27 +4897,22 @@ id MobileGestalt_copy_productTypeDescForUserVisibility_obj()
 
 char *MobileGestalt_copy_productVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ProductVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productVersion_obj()
+CFNumberRef MobileGestalt_copy_productVersion_obj()
 {
   v0 = MGCopyAnswer(@"ProductVersion");
 
@@ -5954,27 +4921,22 @@ id MobileGestalt_copy_productVersion_obj()
 
 char *MobileGestalt_copy_productVersionExtra()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ProductVersionExtra");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_productVersionExtra_obj()
+CFNumberRef MobileGestalt_copy_productVersionExtra_obj()
 {
   v0 = MGCopyAnswer(@"ProductVersionExtra");
 
@@ -5983,27 +4945,22 @@ id MobileGestalt_copy_productVersionExtra_obj()
 
 char *MobileGestalt_copy_provisioningUniqueDeviceID()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ProvisioningUniqueDeviceID");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_provisioningUniqueDeviceID_obj()
+CFNumberRef MobileGestalt_copy_provisioningUniqueDeviceID_obj()
 {
   v0 = MGCopyAnswer(@"ProvisioningUniqueDeviceID");
 
@@ -6028,14 +4985,14 @@ UInt8 *MobileGestalt_copy_proximitySensorCalibration()
   return v3;
 }
 
-id MobileGestalt_copy_proximitySensorCalibration_obj()
+CFNumberRef MobileGestalt_copy_proximitySensorCalibration_obj()
 {
   v0 = MGCopyAnswer(@"ProximitySensorCalibration");
 
   return v0;
 }
 
-id MobileGestalt_copy_proximitySensorCalibrationDictionary_obj()
+CFNumberRef MobileGestalt_copy_proximitySensorCalibrationDictionary_obj()
 {
   v0 = MGCopyAnswer(@"ProximitySensorCalibrationDictionary");
 
@@ -6104,14 +5061,14 @@ UInt8 *MobileGestalt_copy_rawPanelSerialNumber()
   return v3;
 }
 
-id MobileGestalt_copy_rawPanelSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_rawPanelSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"PxEDp0oOasJ92F/V7YBa8A");
 
   return v0;
 }
 
-id MobileGestalt_copy_rearCameraOffsetFromDisplayCenter_obj()
+CFNumberRef MobileGestalt_copy_rearCameraOffsetFromDisplayCenter_obj()
 {
   v0 = MGCopyAnswer(@"RearCameraOffsetFromDisplayCenter");
 
@@ -6252,27 +5209,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_rearFacingCameraModuleSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"nWFV2qG2TjSuH7vZFCdi4w");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_rearFacingCameraModuleSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_rearFacingCameraModuleSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"nWFV2qG2TjSuH7vZFCdi4w");
 
@@ -6501,27 +5453,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_rearFacingSuperWideCameraModuleSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"UZfUiD1Aqy3GOwg72SQcLQ");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_rearFacingSuperWideCameraModuleSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_rearFacingSuperWideCameraModuleSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"UZfUiD1Aqy3GOwg72SQcLQ");
 
@@ -6530,27 +5477,22 @@ id MobileGestalt_copy_rearFacingSuperWideCameraModuleSerialNumber_obj()
 
 char *MobileGestalt_copy_rearFacingTelephotoCameraModuleSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"cm399FbDqnv8IOFoeBLWYg");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_rearFacingTelephotoCameraModuleSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_rearFacingTelephotoCameraModuleSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"cm399FbDqnv8IOFoeBLWYg");
 
@@ -6559,27 +5501,22 @@ id MobileGestalt_copy_rearFacingTelephotoCameraModuleSerialNumber_obj()
 
 char *MobileGestalt_copy_recoveryOSVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"RecoveryOSVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_recoveryOSVersion_obj()
+CFNumberRef MobileGestalt_copy_recoveryOSVersion_obj()
 {
   v0 = MGCopyAnswer(@"RecoveryOSVersion");
 
@@ -6588,27 +5525,22 @@ id MobileGestalt_copy_recoveryOSVersion_obj()
 
 char *MobileGestalt_copy_regionCode()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"RegionCode");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_regionCode_obj()
+CFNumberRef MobileGestalt_copy_regionCode_obj()
 {
   v0 = MGCopyAnswer(@"RegionCode");
 
@@ -6617,34 +5549,29 @@ id MobileGestalt_copy_regionCode_obj()
 
 char *MobileGestalt_copy_regionInfo()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"RegionInfo");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_regionInfo_obj()
+CFNumberRef MobileGestalt_copy_regionInfo_obj()
 {
   v0 = MGCopyAnswer(@"RegionInfo");
 
   return v0;
 }
 
-id MobileGestalt_copy_regionalBehaviorAll_obj()
+CFNumberRef MobileGestalt_copy_regionalBehaviorAll_obj()
 {
   v0 = MGCopyAnswer(@"RegionalBehaviorAll");
 
@@ -6653,27 +5580,22 @@ id MobileGestalt_copy_regionalBehaviorAll_obj()
 
 char *MobileGestalt_copy_regulatoryModelNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"RegulatoryModelNumber");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_regulatoryModelNumber_obj()
+CFNumberRef MobileGestalt_copy_regulatoryModelNumber_obj()
 {
   v0 = MGCopyAnswer(@"RegulatoryModelNumber");
 
@@ -6682,27 +5604,22 @@ id MobileGestalt_copy_regulatoryModelNumber_obj()
 
 char *MobileGestalt_copy_releaseType()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ReleaseType");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_releaseType_obj()
+CFNumberRef MobileGestalt_copy_releaseType_obj()
 {
   v0 = MGCopyAnswer(@"ReleaseType");
 
@@ -6727,7 +5644,7 @@ UInt8 *MobileGestalt_copy_remoteBluetoothAddress()
   return v3;
 }
 
-id MobileGestalt_copy_remoteBluetoothAddress_obj()
+CFNumberRef MobileGestalt_copy_remoteBluetoothAddress_obj()
 {
   v0 = MGCopyAnswer(@"RemoteBluetoothAddress");
 
@@ -6778,7 +5695,7 @@ LABEL_11:
   return v6;
 }
 
-id MobileGestalt_copy_restrictedCountryCodes_obj()
+CFNumberRef MobileGestalt_copy_restrictedCountryCodes_obj()
 {
   v0 = MGCopyAnswer(@"RestrictedCountryCodes");
 
@@ -6803,7 +5720,7 @@ UInt8 *MobileGestalt_copy_ringerButtonCGRect()
   return v3;
 }
 
-id MobileGestalt_copy_ringerButtonCGRect_obj()
+CFNumberRef MobileGestalt_copy_ringerButtonCGRect_obj()
 {
   v0 = MGCopyAnswer(@"RingerButtonCGRect");
 
@@ -6828,7 +5745,7 @@ UInt8 *MobileGestalt_copy_ringerButtonNormalizedCGRect()
   return v3;
 }
 
-id MobileGestalt_copy_ringerButtonNormalizedCGRect_obj()
+CFNumberRef MobileGestalt_copy_ringerButtonNormalizedCGRect_obj()
 {
   v0 = MGCopyAnswer(@"RingerButtonNormalizedCGRect");
 
@@ -6837,27 +5754,22 @@ id MobileGestalt_copy_ringerButtonNormalizedCGRect_obj()
 
 char *MobileGestalt_copy_rosalineSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"O8mk69g6k/CbfeET9LtqQA");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_rosalineSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_rosalineSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"O8mk69g6k/CbfeET9LtqQA");
 
@@ -6882,14 +5794,14 @@ UInt8 *MobileGestalt_copy_roswellChipID()
   return v3;
 }
 
-id MobileGestalt_copy_roswellChipID_obj()
+CFNumberRef MobileGestalt_copy_roswellChipID_obj()
 {
   v0 = MGCopyAnswer(@"RoswellChipID");
 
   return v0;
 }
 
-id MobileGestalt_copy_runnableArchitectures_obj()
+CFNumberRef MobileGestalt_copy_runnableArchitectures_obj()
 {
   v0 = MGCopyAnswer(@"RunnableArchitectures");
 
@@ -6914,7 +5826,7 @@ UInt8 *MobileGestalt_copy_sEInfo()
   return v3;
 }
 
-id MobileGestalt_copy_sEInfo_obj()
+CFNumberRef MobileGestalt_copy_sEInfo_obj()
 {
   v0 = MGCopyAnswer(@"atOCpGf+lHCxgJ9GElef8Q");
 
@@ -6939,7 +5851,7 @@ UInt8 *MobileGestalt_copy_sEPNonce()
   return v3;
 }
 
-id MobileGestalt_copy_sEPNonce_obj()
+CFNumberRef MobileGestalt_copy_sEPNonce_obj()
 {
   v0 = MGCopyAnswer(@"SEPNonce");
 
@@ -6948,27 +5860,22 @@ id MobileGestalt_copy_sEPNonce_obj()
 
 char *MobileGestalt_copy_simStatus()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"SIMStatus");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_simStatus_obj()
+CFNumberRef MobileGestalt_copy_simStatus_obj()
 {
   v0 = MGCopyAnswer(@"SIMStatus");
 
@@ -6977,27 +5884,22 @@ id MobileGestalt_copy_simStatus_obj()
 
 char *MobileGestalt_copy_simStatus2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"b2BKAEe88VRfp2WXEjJOyA");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_simStatus2_obj()
+CFNumberRef MobileGestalt_copy_simStatus2_obj()
 {
   v0 = MGCopyAnswer(@"b2BKAEe88VRfp2WXEjJOyA");
 
@@ -7006,27 +5908,22 @@ id MobileGestalt_copy_simStatus2_obj()
 
 char *MobileGestalt_copy_simTrayStatus()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"SIMTrayStatus");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_simTrayStatus_obj()
+CFNumberRef MobileGestalt_copy_simTrayStatus_obj()
 {
   v0 = MGCopyAnswer(@"SIMTrayStatus");
 
@@ -7035,27 +5932,22 @@ id MobileGestalt_copy_simTrayStatus_obj()
 
 char *MobileGestalt_copy_simTrayStatus2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"sHiXbHqHvvRS3I/qo/rH2Q");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_simTrayStatus2_obj()
+CFNumberRef MobileGestalt_copy_simTrayStatus2_obj()
 {
   v0 = MGCopyAnswer(@"sHiXbHqHvvRS3I/qo/rH2Q");
 
@@ -7080,14 +5972,14 @@ UInt8 *MobileGestalt_copy_savageChipID()
   return v3;
 }
 
-id MobileGestalt_copy_savageChipID_obj()
+CFNumberRef MobileGestalt_copy_savageChipID_obj()
 {
   v0 = MGCopyAnswer(@"m9OWD0Y4Br0TZHUl6rGcOg");
 
   return v0;
 }
 
-id MobileGestalt_copy_savageInfo_obj()
+CFNumberRef MobileGestalt_copy_savageInfo_obj()
 {
   v0 = MGCopyAnswer(@"SavageInfo");
 
@@ -7112,7 +6004,7 @@ UInt8 *MobileGestalt_copy_savageSerialNumber()
   return v3;
 }
 
-id MobileGestalt_copy_savageSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_savageSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"LE2kQ7U1iM32AmlhYvlagg");
 
@@ -7137,7 +6029,7 @@ UInt8 *MobileGestalt_copy_savageUID()
   return v3;
 }
 
-id MobileGestalt_copy_savageUID_obj()
+CFNumberRef MobileGestalt_copy_savageUID_obj()
 {
   v0 = MGCopyAnswer(@"FNvQ6lBvJIUcYBzQ8ggOUQ");
 
@@ -7232,7 +6124,7 @@ LABEL_10:
   return v2;
 }
 
-id MobileGestalt_copy_screenDimensionsCapability_obj()
+CFNumberRef MobileGestalt_copy_screenDimensionsCapability_obj()
 {
   v0 = MGCopyAnswer(@"screen-dimensions");
 
@@ -7241,27 +6133,22 @@ id MobileGestalt_copy_screenDimensionsCapability_obj()
 
 char *MobileGestalt_copy_screenSerialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ScreenSerialNumber");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_screenSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_screenSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"ScreenSerialNumber");
 
@@ -7270,27 +6157,22 @@ id MobileGestalt_copy_screenSerialNumber_obj()
 
 char *MobileGestalt_copy_secondaryBluetoothMacAddress()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"SecondaryBluetoothMacAddress");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_secondaryBluetoothMacAddress_obj()
+CFNumberRef MobileGestalt_copy_secondaryBluetoothMacAddress_obj()
 {
   v0 = MGCopyAnswer(@"SecondaryBluetoothMacAddress");
 
@@ -7315,7 +6197,7 @@ UInt8 *MobileGestalt_copy_secondaryEthernetMacAddress()
   return v3;
 }
 
-id MobileGestalt_copy_secondaryEthernetMacAddress_obj()
+CFNumberRef MobileGestalt_copy_secondaryEthernetMacAddress_obj()
 {
   v0 = MGCopyAnswer(@"SecondaryEthernetMacAddress");
 
@@ -7340,7 +6222,7 @@ UInt8 *MobileGestalt_copy_secondaryWifiMacAddress()
   return v3;
 }
 
-id MobileGestalt_copy_secondaryWifiMacAddress_obj()
+CFNumberRef MobileGestalt_copy_secondaryWifiMacAddress_obj()
 {
   v0 = MGCopyAnswer(@"SecondaryWifiMacAddress");
 
@@ -7349,27 +6231,22 @@ id MobileGestalt_copy_secondaryWifiMacAddress_obj()
 
 char *MobileGestalt_copy_secureElementID()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"nZUUCFZgomfWUIPGGzNAqg");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_secureElementID_obj()
+CFNumberRef MobileGestalt_copy_secureElementID_obj()
 {
   v0 = MGCopyAnswer(@"nZUUCFZgomfWUIPGGzNAqg");
 
@@ -7422,27 +6299,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_serialNumber()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"SerialNumber");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_serialNumber_obj()
+CFNumberRef MobileGestalt_copy_serialNumber_obj()
 {
   v0 = MGCopyAnswer(@"SerialNumber");
 
@@ -7511,7 +6383,7 @@ UInt8 *MobileGestalt_copy_softwareBehavior()
   return v3;
 }
 
-id MobileGestalt_copy_softwareBehavior_obj()
+CFNumberRef MobileGestalt_copy_softwareBehavior_obj()
 {
   v0 = MGCopyAnswer(@"SoftwareBehavior");
 
@@ -7520,27 +6392,22 @@ id MobileGestalt_copy_softwareBehavior_obj()
 
 char *MobileGestalt_copy_softwareBundleVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"SoftwareBundleVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_softwareBundleVersion_obj()
+CFNumberRef MobileGestalt_copy_softwareBundleVersion_obj()
 {
   v0 = MGCopyAnswer(@"SoftwareBundleVersion");
 
@@ -7609,7 +6476,7 @@ UInt8 *MobileGestalt_copy_speakerCalibrationMiGa()
   return v3;
 }
 
-id MobileGestalt_copy_speakerCalibrationMiGa_obj()
+CFNumberRef MobileGestalt_copy_speakerCalibrationMiGa_obj()
 {
   v0 = MGCopyAnswer(@"jxx29Cq5bGHDnkcha4y/Rw");
 
@@ -7634,7 +6501,7 @@ UInt8 *MobileGestalt_copy_speakerCalibrationSpGa()
   return v3;
 }
 
-id MobileGestalt_copy_speakerCalibrationSpGa_obj()
+CFNumberRef MobileGestalt_copy_speakerCalibrationSpGa_obj()
 {
   v0 = MGCopyAnswer(@"meicxSe0OZJaae1hEiOV5Q");
 
@@ -7659,21 +6526,21 @@ UInt8 *MobileGestalt_copy_speakerCalibrationSpTS()
   return v3;
 }
 
-id MobileGestalt_copy_speakerCalibrationSpTS_obj()
+CFNumberRef MobileGestalt_copy_speakerCalibrationSpTS_obj()
 {
   v0 = MGCopyAnswer(@"Wr2SycNVQwBrdup3ok+LxQ");
 
   return v0;
 }
 
-id MobileGestalt_copy_stockholmJcopInfo_obj()
+CFNumberRef MobileGestalt_copy_stockholmJcopInfo_obj()
 {
   v0 = MGCopyAnswer(@"RgoxDxYGuZ0GzijFt6kSQQ");
 
   return v0;
 }
 
-id MobileGestalt_copy_strictWakeKeyboardCases_obj()
+CFNumberRef MobileGestalt_copy_strictWakeKeyboardCases_obj()
 {
   v0 = MGCopyAnswer(@"StrictWakeKeyboardCases");
 
@@ -7682,27 +6549,22 @@ id MobileGestalt_copy_strictWakeKeyboardCases_obj()
 
 char *MobileGestalt_copy_subProductType()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"SubProductType");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_subProductType_obj()
+CFNumberRef MobileGestalt_copy_subProductType_obj()
 {
   v0 = MGCopyAnswer(@"SubProductType");
 
@@ -7711,41 +6573,36 @@ id MobileGestalt_copy_subProductType_obj()
 
 char *MobileGestalt_copy_supplementalBuildVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"SupplementalBuildVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_supplementalBuildVersion_obj()
+CFNumberRef MobileGestalt_copy_supplementalBuildVersion_obj()
 {
   v0 = MGCopyAnswer(@"SupplementalBuildVersion");
 
   return v0;
 }
 
-id MobileGestalt_copy_supportedDeviceFamilies_obj()
+CFNumberRef MobileGestalt_copy_supportedDeviceFamilies_obj()
 {
   v0 = MGCopyAnswer(@"SupportedDeviceFamilies");
 
   return v0;
 }
 
-id MobileGestalt_copy_supportedKeyboards_obj()
+CFNumberRef MobileGestalt_copy_supportedKeyboards_obj()
 {
   v0 = MGCopyAnswer(@"SupportedKeyboards");
 
@@ -7770,14 +6627,14 @@ UInt8 *MobileGestalt_copy_sysCfg()
   return v3;
 }
 
-id MobileGestalt_copy_sysCfg_obj()
+CFNumberRef MobileGestalt_copy_sysCfg_obj()
 {
   v0 = MGCopyAnswer(@"SysCfg");
 
   return v0;
 }
 
-id MobileGestalt_copy_sysCfgDict_obj()
+CFNumberRef MobileGestalt_copy_sysCfgDict_obj()
 {
   v0 = MGCopyAnswer(@"SysCfgDict");
 
@@ -7786,34 +6643,29 @@ id MobileGestalt_copy_sysCfgDict_obj()
 
 char *MobileGestalt_copy_systemImageID()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"SystemImageID");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_systemImageID_obj()
+CFNumberRef MobileGestalt_copy_systemImageID_obj()
 {
   v0 = MGCopyAnswer(@"SystemImageID");
 
   return v0;
 }
 
-id MobileGestalt_copy_tVOutSettingsCapability_obj()
+CFNumberRef MobileGestalt_copy_tVOutSettingsCapability_obj()
 {
   v0 = MGCopyAnswer(@"tv-out-settings");
 
@@ -7822,27 +6674,22 @@ id MobileGestalt_copy_tVOutSettingsCapability_obj()
 
 char *MobileGestalt_copy_targetSubType()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"TargetSubType");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_targetSubType_obj()
+CFNumberRef MobileGestalt_copy_targetSubType_obj()
 {
   v0 = MGCopyAnswer(@"TargetSubType");
 
@@ -7895,27 +6742,22 @@ LABEL_11:
 
 char *MobileGestalt_copy_thinningProductType()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ThinningProductType");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_thinningProductType_obj()
+CFNumberRef MobileGestalt_copy_thinningProductType_obj()
 {
   v0 = MGCopyAnswer(@"ThinningProductType");
 
@@ -7924,27 +6766,22 @@ id MobileGestalt_copy_thinningProductType_obj()
 
 char *MobileGestalt_copy_threadRadioMacAddress()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ThreadRadioMacAddress");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_threadRadioMacAddress_obj()
+CFNumberRef MobileGestalt_copy_threadRadioMacAddress_obj()
 {
   v0 = MGCopyAnswer(@"ThreadRadioMacAddress");
 
@@ -7953,27 +6790,22 @@ id MobileGestalt_copy_threadRadioMacAddress_obj()
 
 char *MobileGestalt_copy_threadRadioMacAddress64Bit()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ThreadRadioMacAddress64Bit");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_threadRadioMacAddress64Bit_obj()
+CFNumberRef MobileGestalt_copy_threadRadioMacAddress64Bit_obj()
 {
   v0 = MGCopyAnswer(@"ThreadRadioMacAddress64Bit");
 
@@ -7982,27 +6814,22 @@ id MobileGestalt_copy_threadRadioMacAddress64Bit_obj()
 
 char *MobileGestalt_copy_threadRadioMacAddressForProvisioning()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"ThreadRadioMacAddressForProvisioning");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_threadRadioMacAddressForProvisioning_obj()
+CFNumberRef MobileGestalt_copy_threadRadioMacAddressForProvisioning_obj()
 {
   v0 = MGCopyAnswer(@"ThreadRadioMacAddressForProvisioning");
 
@@ -8027,14 +6854,14 @@ UInt8 *MobileGestalt_copy_topModuleAuthChipID()
   return v3;
 }
 
-id MobileGestalt_copy_topModuleAuthChipID_obj()
+CFNumberRef MobileGestalt_copy_topModuleAuthChipID_obj()
 {
   v0 = MGCopyAnswer(@"TopModuleAuthChipID");
 
   return v0;
 }
 
-id MobileGestalt_copy_tribecaSettings_obj()
+CFNumberRef MobileGestalt_copy_tribecaSettings_obj()
 {
   v0 = MGCopyAnswer(@"TribecaSettings");
 
@@ -8059,7 +6886,7 @@ UInt8 *MobileGestalt_copy_tristarID()
   return v3;
 }
 
-id MobileGestalt_copy_tristarID_obj()
+CFNumberRef MobileGestalt_copy_tristarID_obj()
 {
   v0 = MGCopyAnswer(@"o60T6wXe1DDaO4a4gw10TA");
 
@@ -8156,27 +6983,22 @@ LABEL_10:
 
 char *MobileGestalt_copy_uniqueChipIDString()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"6WdGcQGw4VLzrgxJo+bcrw");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_uniqueChipIDString_obj()
+CFNumberRef MobileGestalt_copy_uniqueChipIDString_obj()
 {
   v0 = MGCopyAnswer(@"6WdGcQGw4VLzrgxJo+bcrw");
 
@@ -8185,23 +7007,18 @@ id MobileGestalt_copy_uniqueChipIDString_obj()
 
 char *MobileGestalt_copy_uniqueDeviceID()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"UniqueDeviceID");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
@@ -8223,7 +7040,7 @@ UInt8 *MobileGestalt_copy_uniqueDeviceIDData()
   return v3;
 }
 
-id MobileGestalt_copy_uniqueDeviceIDData_obj()
+CFNumberRef MobileGestalt_copy_uniqueDeviceIDData_obj()
 {
   v0 = MGCopyAnswer(@"UniqueDeviceIDData");
 
@@ -8232,27 +7049,22 @@ id MobileGestalt_copy_uniqueDeviceIDData_obj()
 
 char *MobileGestalt_copy_userAssignedDeviceName()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"UserAssignedDeviceName");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_userAssignedDeviceName_obj()
+CFNumberRef MobileGestalt_copy_userAssignedDeviceName_obj()
 {
   v0 = MGCopyAnswer(@"UserAssignedDeviceName");
 
@@ -8277,7 +7089,7 @@ UInt8 *MobileGestalt_copy_userIntentPhysicalButtonCGRect()
   return v3;
 }
 
-id MobileGestalt_copy_userIntentPhysicalButtonCGRect_obj()
+CFNumberRef MobileGestalt_copy_userIntentPhysicalButtonCGRect_obj()
 {
   v0 = MGCopyAnswer(@"UserIntentPhysicalButtonCGRect");
 
@@ -8286,27 +7098,22 @@ id MobileGestalt_copy_userIntentPhysicalButtonCGRect_obj()
 
 char *MobileGestalt_copy_userIntentPhysicalButtonCGRectString()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"UserIntentPhysicalButtonCGRectString");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_userIntentPhysicalButtonCGRectString_obj()
+CFNumberRef MobileGestalt_copy_userIntentPhysicalButtonCGRectString_obj()
 {
   v0 = MGCopyAnswer(@"UserIntentPhysicalButtonCGRectString");
 
@@ -8331,7 +7138,7 @@ UInt8 *MobileGestalt_copy_userIntentPhysicalButtonNormalizedCGRect()
   return v3;
 }
 
-id MobileGestalt_copy_userIntentPhysicalButtonNormalizedCGRect_obj()
+CFNumberRef MobileGestalt_copy_userIntentPhysicalButtonNormalizedCGRect_obj()
 {
   v0 = MGCopyAnswer(@"UserIntentPhysicalButtonNormalizedCGRect");
 
@@ -8356,14 +7163,14 @@ UInt8 *MobileGestalt_copy_vMUniqueDeviceIDData()
   return v3;
 }
 
-id MobileGestalt_copy_vMUniqueDeviceIDData_obj()
+CFNumberRef MobileGestalt_copy_vMUniqueDeviceIDData_obj()
 {
   v0 = MGCopyAnswer(@"VMUniqueDeviceIDData");
 
   return v0;
 }
 
-id MobileGestalt_copy_vSHCompensationMinimumNits_obj()
+CFNumberRef MobileGestalt_copy_vSHCompensationMinimumNits_obj()
 {
   v0 = MGCopyAnswer(@"VSHCompensationMinimumNits");
 
@@ -8388,7 +7195,7 @@ UInt8 *MobileGestalt_copy_volumeDownButtonCGRect()
   return v3;
 }
 
-id MobileGestalt_copy_volumeDownButtonCGRect_obj()
+CFNumberRef MobileGestalt_copy_volumeDownButtonCGRect_obj()
 {
   v0 = MGCopyAnswer(@"VolumeDownButtonCGRect");
 
@@ -8413,7 +7220,7 @@ UInt8 *MobileGestalt_copy_volumeDownButtonNormalizedCGRect()
   return v3;
 }
 
-id MobileGestalt_copy_volumeDownButtonNormalizedCGRect_obj()
+CFNumberRef MobileGestalt_copy_volumeDownButtonNormalizedCGRect_obj()
 {
   v0 = MGCopyAnswer(@"VolumeDownButtonNormalizedCGRect");
 
@@ -8438,7 +7245,7 @@ UInt8 *MobileGestalt_copy_volumeUpButtonCGRect()
   return v3;
 }
 
-id MobileGestalt_copy_volumeUpButtonCGRect_obj()
+CFNumberRef MobileGestalt_copy_volumeUpButtonCGRect_obj()
 {
   v0 = MGCopyAnswer(@"VolumeUpButtonCGRect");
 
@@ -8463,7 +7270,7 @@ UInt8 *MobileGestalt_copy_volumeUpButtonNormalizedCGRect()
   return v3;
 }
 
-id MobileGestalt_copy_volumeUpButtonNormalizedCGRect_obj()
+CFNumberRef MobileGestalt_copy_volumeUpButtonNormalizedCGRect_obj()
 {
   v0 = MGCopyAnswer(@"VolumeUpButtonNormalizedCGRect");
 
@@ -8576,7 +7383,7 @@ UInt8 *MobileGestalt_copy_wSKU()
   return v3;
 }
 
-id MobileGestalt_copy_wSKU_obj()
+CFNumberRef MobileGestalt_copy_wSKU_obj()
 {
   v0 = MGCopyAnswer(@"gD8SNRcHQeIxCAvsp+2vjA");
 
@@ -8585,27 +7392,22 @@ id MobileGestalt_copy_wSKU_obj()
 
 char *MobileGestalt_copy_wifiChipsetRevision()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"WiFiChipsetRevision");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_wifiChipsetRevision_obj()
+CFNumberRef MobileGestalt_copy_wifiChipsetRevision_obj()
 {
   v0 = MGCopyAnswer(@"WiFiChipsetRevision");
 
@@ -8614,27 +7416,22 @@ id MobileGestalt_copy_wifiChipsetRevision_obj()
 
 char *MobileGestalt_copy_wifiAddress()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"WifiAddress");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_wifiAddress_obj()
+CFNumberRef MobileGestalt_copy_wifiAddress_obj()
 {
   v0 = MGCopyAnswer(@"WifiAddress");
 
@@ -8659,7 +7456,7 @@ UInt8 *MobileGestalt_copy_wifiAntennaSKUVersion()
   return v3;
 }
 
-id MobileGestalt_copy_wifiAntennaSKUVersion_obj()
+CFNumberRef MobileGestalt_copy_wifiAntennaSKUVersion_obj()
 {
   v0 = MGCopyAnswer(@"WifiAntennaSKUVersion");
 
@@ -8668,27 +7465,22 @@ id MobileGestalt_copy_wifiAntennaSKUVersion_obj()
 
 char *MobileGestalt_copy_wifiChipset()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"WifiChipset");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_wifiChipset_obj()
+CFNumberRef MobileGestalt_copy_wifiChipset_obj()
 {
   v0 = MGCopyAnswer(@"WifiChipset");
 
@@ -8697,27 +7489,22 @@ id MobileGestalt_copy_wifiChipset_obj()
 
 char *MobileGestalt_copy_wifiFirmwareVersion()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"WifiFirmwareVersion");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_wifiFirmwareVersion_obj()
+CFNumberRef MobileGestalt_copy_wifiFirmwareVersion_obj()
 {
   v0 = MGCopyAnswer(@"WifiFirmwareVersion");
 
@@ -8726,27 +7513,22 @@ id MobileGestalt_copy_wifiFirmwareVersion_obj()
 
 char *MobileGestalt_copy_wifiVendor()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"WifiVendor");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_wifiVendor_obj()
+CFNumberRef MobileGestalt_copy_wifiVendor_obj()
 {
   v0 = MGCopyAnswer(@"WifiVendor");
 
@@ -8755,27 +7537,22 @@ id MobileGestalt_copy_wifiVendor_obj()
 
 char *MobileGestalt_copy_wirelessBoardSnum()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer(@"WirelessBoardSnum");
-  if (v0)
+  if (!v0)
   {
-    v1 = v0;
-    bzero(buffer, 0x400uLL);
-    CFStringGetCString(v1, buffer, 1024, 0x8000100u);
-    v2 = strdup(buffer);
-    CFRelease(v1);
+    return 0;
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  bzero(buffer, 0x400uLL);
+  CFStringGetCString(v1, buffer, 1024, 0x8000100u);
+  v2 = strdup(buffer);
+  CFRelease(v1);
   return v2;
 }
 
-id MobileGestalt_copy_wirelessBoardSnum_obj()
+CFNumberRef MobileGestalt_copy_wirelessBoardSnum_obj()
 {
   v0 = MGCopyAnswer(@"WirelessBoardSnum");
 
@@ -8800,7 +7577,7 @@ UInt8 *MobileGestalt_copy_yonkersChipID()
   return v3;
 }
 
-id MobileGestalt_copy_yonkersChipID_obj()
+CFNumberRef MobileGestalt_copy_yonkersChipID_obj()
 {
   v0 = MGCopyAnswer(@"2/q9qmqGigMfkzY830Zf2g");
 
@@ -8825,7 +7602,7 @@ UInt8 *MobileGestalt_copy_yonkersSerialNumber()
   return v3;
 }
 
-id MobileGestalt_copy_yonkersSerialNumber_obj()
+CFNumberRef MobileGestalt_copy_yonkersSerialNumber_obj()
 {
   v0 = MGCopyAnswer(@"67Dsh4G8EGQp4WbPDfS/Xw");
 
@@ -8850,7 +7627,7 @@ UInt8 *MobileGestalt_copy_yonkersUID()
   return v3;
 }
 
-id MobileGestalt_copy_yonkersUID_obj()
+CFNumberRef MobileGestalt_copy_yonkersUID_obj()
 {
   v0 = MGCopyAnswer(@"bwLsbkp4shhHuNB5VpRa8w");
 
@@ -9018,8 +7795,9 @@ void _MGWaitForDevices(int a1, char *a2, int a3, uint64_t a4, uint64_t a5)
   }
 }
 
-__CFDictionary *_MGCopyDeviceDescription(uint64_t a1, const __CFArray *a2, int a3, const char *a4, int a5)
+__CFDictionary *_MGCopyDeviceDescription(uint64_t a1, const __CFArray *a2, int a3, const char *a4, uint64_t a5)
 {
+  v5 = a5;
   if (a3 == 1)
   {
     v6 = 0;
@@ -9041,24 +7819,24 @@ __CFDictionary *_MGCopyDeviceDescription(uint64_t a1, const __CFArray *a2, int a
     v7 = 0;
   }
 
-  return sub_1B01D8450(a1, a2, 1, a4, v7, a5, 0);
+  return sub_1B01D8450(a1, a2, 1, a4, v7, v5, 0);
 }
 
 __CFDictionary *sub_1B01D8450(uint64_t a1, const __CFArray *a2, int a3, const char *a4, char a5, int a6, void *a7)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v35 = a7;
+  v44 = *MEMORY[0x1E69E9840];
+  v34 = a7;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  *cStr = 0u;
+  v41 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  *cStr = 0u;
+  v37 = 0u;
   memset(className, 0, sizeof(className));
-  v34 = 0;
+  v33 = 0;
   if (!MEMORY[0x1B2720D90](a1, cStr))
   {
     v14 = CFStringCreateWithCString(0, cStr, 0x8000100u);
@@ -9073,12 +7851,12 @@ __CFDictionary *sub_1B01D8450(uint64_t a1, const __CFArray *a2, int a3, const ch
     CFRelease(v15);
   }
 
-  sub_1B01D8AD0(a1, Mutable, @"2:IOService Path", "IOService", a4, &v35, &v34);
-  sub_1B01D8AD0(a1, Mutable, @"2:IODeviceTree Path", "IODeviceTree", a4, &v35, &v34);
+  sub_1B01D8AD0(a1, Mutable, @"2:IOService Path", "IOService", a4, &v34, &v33);
+  sub_1B01D8AD0(a1, Mutable, @"2:IODeviceTree Path", "IODeviceTree", a4, &v34, &v33);
   if (a4 && strcmp(a4, "IOService") && strcmp(a4, "IODeviceTree"))
   {
     v16 = CFStringCreateWithFormat(0, 0, @"2:%s Path", a4);
-    sub_1B01D8AD0(a1, Mutable, v16, a4, a4, &v35, &v34);
+    sub_1B01D8AD0(a1, Mutable, v16, a4, a4, &v34, &v33);
     CFRelease(v16);
   }
 
@@ -9089,24 +7867,24 @@ __CFDictionary *sub_1B01D8450(uint64_t a1, const __CFArray *a2, int a3, const ch
     {
       v17 = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       cf = v17;
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 0x40000000;
-      v32[2] = sub_1B01D8CA0;
-      v32[3] = &unk_1E7A93288;
-      v33 = a1;
-      v32[4] = v17;
-      sub_1B01A1B38(a2, v32);
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 0x40000000;
+      v31[2] = sub_1B01D8CA0;
+      v31[3] = &unk_1E7A93288;
+      v32 = a1;
+      v31[4] = v17;
+      sub_1B01A1B38(a2, v31);
       if (v17)
       {
 LABEL_12:
         if (a6)
         {
-          v31[0] = MEMORY[0x1E69E9820];
-          v31[1] = 0x40000000;
-          v31[2] = sub_1B01D8D34;
-          v31[3] = &unk_1E7A932A8;
-          v31[4] = v17;
-          sub_1B0192BA4(v17, v31);
+          v30[0] = MEMORY[0x1E69E9820];
+          v30[1] = 0x40000000;
+          v30[2] = sub_1B01D8D34;
+          v30[3] = &unk_1E7A932A8;
+          v30[4] = v17;
+          sub_1B0192BA4(v17, v30);
           v17 = cf;
         }
 
@@ -9144,25 +7922,25 @@ LABEL_15:
 LABEL_16:
   cf = 0;
   p_cf = &cf;
-  v29 = 0x2000000000;
-  v30 = 0;
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x2000000000;
-  v26 = 0;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 0x40000000;
-  v21[2] = sub_1B01D8DF8;
-  v21[3] = &unk_1E7A932D0;
-  v22 = a3 & a5;
-  v21[6] = a2;
-  v21[7] = a4;
-  v23 = a5;
-  v24 = a6;
-  v21[8] = v35;
-  v21[4] = v25;
-  v21[5] = &cf;
-  sub_1B01BD00C(a1, a4, v21);
+  v28 = 0x2000000000;
+  v29 = 0;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x2000000000;
+  v25 = 0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 0x40000000;
+  v20[2] = sub_1B01D8DF8;
+  v20[3] = &unk_1E7A932D0;
+  v21 = a3 & a5;
+  v20[6] = a2;
+  v20[7] = a4;
+  v22 = a5;
+  v23 = a6;
+  v20[8] = v34;
+  v20[4] = v24;
+  v20[5] = &cf;
+  sub_1B01BD00C(a1, a4, v20);
   v18 = p_cf[3];
   if (v18)
   {
@@ -9170,15 +7948,14 @@ LABEL_16:
     CFRelease(p_cf[3]);
   }
 
-  _Block_object_dispose(v25, 8);
+  _Block_object_dispose(v24, 8);
   _Block_object_dispose(&cf, 8);
 LABEL_19:
-  if (v34 == 1)
+  if (v33 == 1)
   {
-    free(v35);
+    free(v34);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -9256,41 +8033,41 @@ LABEL_12:
   return v21;
 }
 
-void sub_1B01D8AD0(uint64_t a1, __CFDictionary *a2, const void *a3, const char *a4, const char *a5, const char **a6, _BYTE *a7)
+void sub_1B01D8AD0(uint64_t a1, __CFDictionary *a2, const void *a3, const char *a4, const char *a5, char **a6, _BYTE *a7)
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
+  v52 = *MEMORY[0x1E69E9840];
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  *__s = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  *__s = 0u;
+  v21 = 0u;
   if (!MEMORY[0x1B2720DA0](a1, a4, __s))
   {
     if (!a5 || strcmp(a5, a4))
@@ -9301,32 +8078,29 @@ LABEL_5:
       v15 = v14;
       CFDictionarySetValue(a2, a3, v14);
       CFRelease(v15);
-      goto LABEL_6;
+      return;
     }
 
     if (*a6)
     {
-      v17 = strlen(*a6);
-      v14 = CFStringCreateWithFormat(0, 0, @".../%s", &__s[v17 + 1]);
+      v16 = strlen(*a6);
+      v14 = CFStringCreateWithFormat(0, 0, @".../%s", &__s[v16 + 1]);
       goto LABEL_5;
     }
 
-    v18 = strlen(a4);
-    v19 = CFStringCreateWithCString(0, &__s[v18 + 1], 0x8000100u);
-    CFDictionarySetValue(a2, a3, v19);
-    CFRelease(v19);
-    v20 = strlen(__s) - 1;
-    if (__s[v20] == 47)
+    v17 = strlen(a4);
+    v18 = CFStringCreateWithCString(0, &__s[v17 + 1], 0x8000100u);
+    CFDictionarySetValue(a2, a3, v18);
+    CFRelease(v18);
+    v19 = strlen(__s) - 1;
+    if (__s[v19] == 47)
     {
-      __s[v20] = 0;
+      __s[v19] = 0;
     }
 
     *a6 = strdup(__s);
     *a7 = 1;
   }
-
-LABEL_6:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B01D8CA0(uint64_t a1, const __CFString *a2)
@@ -9368,43 +8142,43 @@ void sub_1B01D8D34(uint64_t a1, const void *a2, CFTypeRef cf)
 
 void sub_1B01D8DF8(uint64_t a1, uint64_t a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v4 = sub_1B01D8450(a2, *(a1 + 48), *(a1 + 72), *(a1 + 56), *(a1 + 73), *(a1 + 74), *(a1 + 64));
   if (v4)
   {
     v5 = v4;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    v37 = 0u;
+    v41 = 0u;
     v38 = 0u;
-    v35 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    *cStr = 0u;
+    v15 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    *cStr = 0u;
+    v11 = 0u;
     if (MEMORY[0x1B2720DA0](a2, *(a1 + 56), cStr))
     {
       v6 = CFStringCreateWithFormat(0, 0, @"Unknown Child %d", *(*(*(a1 + 32) + 8) + 24));
@@ -9437,81 +8211,75 @@ void sub_1B01D8DF8(uint64_t a1, uint64_t a2)
     CFRelease(v5);
     CFRelease(v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B01D8FB4(uint64_t a1, uint64_t a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v30 = time(0);
-  v37 = 0;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v19 = *MEMORY[0x1E69E9840];
+  v11 = time(0);
+  v18 = 0;
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   *__s = 0u;
-  v32 = 0u;
-  ctime_r(&v30, __s);
+  v13 = 0u;
+  ctime_r(&v11, __s);
   __s[strlen(__s) - 1] = 0;
   v4 = *(a1 + 72);
-  v5 = *(a1 + 48);
   if (v4 == 1)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = *(a1 + 48);
+    v5 = *(a1 + 48);
   }
 
   if (v4 == 3)
   {
-    v7 = *(a1 + 48);
+    v6 = *(a1 + 48);
   }
 
   else
   {
-    v7 = v6;
+    v6 = v5;
   }
 
-  v8 = sub_1B01D8450(a2, *(a1 + 40), 1, v7, v4 == 3, *(a1 + 84), 0);
-  if (v8)
+  v7 = sub_1B01D8450(a2, *(a1 + 40), 1, v6, v4 == 3, *(a1 + 84), 0);
+  if (v7)
   {
-    v9 = v8;
-    v27 = *(*(*(a1 + 32) + 8) + 24);
-    v15 = CFStringCreateWithFormat(0, 0, @"%5d: %s");
-    v16 = *(a1 + 56);
-    if (v16)
+    v8 = v7;
+    v9 = CFStringCreateWithFormat(0, 0, @"%5d: %s", *(*(*(a1 + 32) + 8) + 24), __s);
+    v10 = *(a1 + 56);
+    if (v10)
     {
       if (*(*(*(a1 + 32) + 8) + 24))
       {
-        sub_1B01DA170(v16, *(a1 + 76), "\n--------------\n", v10, v11, v12, v13, v14, v27);
-        v16 = *(a1 + 56);
+        sub_1B01DA170(v10, *(a1 + 76), "\n--------------\n");
+        v10 = *(a1 + 56);
       }
 
-      sub_1B01DA170(v16, *(a1 + 76), "%@\n", v10, v11, v12, v13, v14, v15);
-      sub_1B01DA19C(*(a1 + 56), v9, 0, *(a1 + 80), v17, v18, v19, v20, v28);
-      sub_1B01DA170(*(a1 + 56), *(a1 + 76), "\n", v21, v22, v23, v24, v25, v29);
+      sub_1B01DA170(v10, *(a1 + 76), "%@\n", v9);
+      sub_1B01DA19C(*(a1 + 56), v8, 0, *(a1 + 80));
+      sub_1B01DA170(*(a1 + 56), *(a1 + 76), "\n");
     }
 
     else
     {
-      CFDictionarySetValue(*(a1 + 64), v15, v9);
+      CFDictionarySetValue(*(a1 + 64), v9, v8);
     }
 
-    CFRelease(v15);
     CFRelease(v9);
+    CFRelease(v8);
     ++*(*(*(a1 + 32) + 8) + 24);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void _MGWriteCache()
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   if (sub_1B01C5104())
   {
     _MGClearInProcessCache();
@@ -9532,11 +8300,11 @@ void _MGWriteCache()
     CFRelease(v4);
     theDict = v3;
     CFRelease(v3);
-    v101 = -1;
-    v6 = sub_1B01A32F0(&v101);
-    v7 = v101;
-    v97 = v6;
-    if (v101 < 1)
+    v99 = -1;
+    v6 = sub_1B01A32F0(&v99);
+    v7 = v99;
+    v95 = v6;
+    if (v99 < 1)
     {
       v13 = 0;
       v12 = 0;
@@ -9559,12 +8327,8 @@ void _MGWriteCache()
         v15 = *(v14 - 39);
         if (v15)
         {
-          ++v9;
-          if (*(v14 - 1) != -1)
-          {
-            ++v10;
-          }
-
+          v9 = (v9 + 1);
+          v10 = *(v14 - 1) == -1 ? v10 : (v10 + 1);
           if ((*(v14 - 1) & 0x10) != 0)
           {
             v16 = CFStringCreateWithCString(0, v15, 0x8000100u);
@@ -9583,7 +8347,7 @@ void _MGWriteCache()
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *v105 = v16;
+              *v103 = v16;
               _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "MGCache: Invoking %@", buf, 0xCu);
             }
 
@@ -9594,7 +8358,7 @@ void _MGWriteCache()
               if (*v14 > 0xBu || ((1 << *v14) & 0x8E0) == 0)
               {
                 CFDictionarySetValue(theDict, v16, v24);
-                ++v12;
+                v12 = (v12 + 1);
               }
 
               CFRelease(v25);
@@ -9602,12 +8366,12 @@ void _MGWriteCache()
 
             else
             {
-              ++v13;
+              v13 = (v13 + 1);
             }
 
-            ++v11;
+            v11 = (v11 + 1);
             CFRelease(v16);
-            v7 = v101;
+            v7 = v99;
           }
         }
 
@@ -9619,15 +8383,15 @@ void _MGWriteCache()
     }
 
     os_unfair_lock_lock(&unk_1ED446D88);
-    v33 = v101;
-    if (v101 < 1)
+    v33 = v99;
+    if (v99 < 1)
     {
       v35 = v13;
     }
 
     else
     {
-      v34 = v97 + 156;
+      v34 = v95 + 156;
       v35 = v13;
       do
       {
@@ -9638,7 +8402,7 @@ void _MGWriteCache()
           {
             *&MutableBytePtr[8 * v36] = qword_1ED4471E0[v36];
             MutableBytePtr[*(v34 - 1) + 5520] = 1;
-            ++v12;
+            v12 = (v12 + 1);
           }
         }
 
@@ -9661,24 +8425,24 @@ void _MGWriteCache()
       v44 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c";
     }
 
-    _MGLog(v44, 532, @"%d total, %d cacheable, %d precacheable, %d precached, %d null", v39, v40, v41, v42, v43, v9);
+    _MGLog(v44, 532, @"%d total, %d cacheable, %d precacheable, %d precached, %d null", v39, v40, v41, v42, v43, v9, v10, v11, v12, v35);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67110144;
-      *v105 = v9;
-      *&v105[4] = 1024;
-      *&v105[6] = v10;
-      LOWORD(v106) = 1024;
-      *(&v106 + 2) = v11;
-      HIWORD(v106) = 1024;
-      v107 = v12;
-      v108 = 1024;
-      v109 = v35;
+      *v103 = v9;
+      *&v103[4] = 1024;
+      *&v103[6] = v10;
+      LOWORD(v104) = 1024;
+      *(&v104 + 2) = v11;
+      HIWORD(v104) = 1024;
+      v105 = v12;
+      v106 = 1024;
+      v107 = v35;
       _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%d total, %d cacheable, %d precacheable, %d precached, %d null", buf, 0x20u);
     }
 
     error = 0;
-    v103 = 1;
+    v101 = 1;
     v45 = container_system_group_path_for_identifier();
     if (!v45)
     {
@@ -9693,16 +8457,16 @@ void _MGWriteCache()
         v69 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c";
       }
 
-      _MGLog(v69, 350, @"Failed to look up system group container path: %llu", v64, v65, v66, v67, v68, v103);
+      _MGLog(v69, 350, @"Failed to look up system group container path: %llu", v64, v65, v66, v67, v68, v101);
       v47 = cf;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v105 = v103;
+        *v103 = v101;
         _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to look up system group container path: %llu", buf, 0xCu);
       }
 
-      goto LABEL_87;
+      goto LABEL_88;
     }
 
     v46 = v45;
@@ -9722,7 +8486,7 @@ void _MGWriteCache()
           v54 = 1;
           if (CFURLSetResourcePropertyForKey(v52, *MEMORY[0x1E695EB30], *MEMORY[0x1E695E4D0], &error) || !error)
           {
-            goto LABEL_80;
+            goto LABEL_81;
           }
 
           v55 = CFErrorCopyDescription(error);
@@ -9741,7 +8505,7 @@ void _MGWriteCache()
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *v105 = v53;
+            *v103 = v53;
             _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to set backup exclusion for path: %@", buf, 0xCu);
           }
 
@@ -9766,16 +8530,16 @@ void _MGWriteCache()
           v54 = 0;
           if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_80;
+            goto LABEL_81;
           }
 
           *buf = 138412290;
-          *v105 = v51;
+          *v103 = v51;
           _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to allocate container backup exclusion URL from %@", buf, 0xCu);
         }
 
         v54 = 0;
-LABEL_80:
+LABEL_81:
         free(v46);
         CFRelease(v51);
         if (v53)
@@ -9783,28 +8547,28 @@ LABEL_80:
           CFRelease(v53);
           if ((v54 & 1) == 0)
           {
-            goto LABEL_87;
+            goto LABEL_88;
           }
 
-LABEL_84:
+LABEL_85:
           v94 = *(off_1EB6CFEC0 + 51);
           if (!v94)
           {
             v94 = sub_1B0193150(51, 2);
           }
 
-          v94(cf, "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist");
-          goto LABEL_87;
+          (v94)(cf, "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist");
+          goto LABEL_88;
         }
 
         if (v54)
         {
-          goto LABEL_84;
+          goto LABEL_85;
         }
 
-LABEL_87:
+LABEL_88:
         CFRelease(v47);
-        goto LABEL_88;
+        return;
       }
 
       v80 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c", 47);
@@ -9821,13 +8585,13 @@ LABEL_87:
       _MGLog(v86, 364, @"Failed to allocate container URL from %s", v81, v82, v83, v84, v85, v46);
       if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-LABEL_73:
+LABEL_74:
         free(v46);
-        goto LABEL_87;
+        goto LABEL_88;
       }
 
       *buf = 136315138;
-      *v105 = v46;
+      *v103 = v46;
       v77 = MEMORY[0x1E69E9C10];
       v78 = "Failed to allocate container URL from %s";
       v79 = 12;
@@ -9846,23 +8610,23 @@ LABEL_73:
         v76 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c";
       }
 
-      _MGLog(v76, 358, @"System group container path: %s should match expected gestalt cache path: %s", v71, v72, v73, v74, v75, v46);
+      _MGLog(v76, 358, @"System group container path: %s should match expected gestalt cache path: %s", v71, v72, v73, v74, v75, v46, "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist");
       if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_73;
+        goto LABEL_74;
       }
 
       *buf = 136315394;
-      *v105 = v46;
-      *&v105[8] = 2080;
-      v106 = "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist";
+      *v103 = v46;
+      *&v103[8] = 2080;
+      v104 = "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist";
       v77 = MEMORY[0x1E69E9C10];
       v78 = "System group container path: %s should match expected gestalt cache path: %s";
       v79 = 22;
     }
 
     _os_log_impl(&dword_1B0190000, v77, OS_LOG_TYPE_DEFAULT, v78, buf, v79);
-    goto LABEL_73;
+    goto LABEL_74;
   }
 
   v26 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c", 47);
@@ -9876,13 +8640,1099 @@ LABEL_73:
     v32 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c";
   }
 
-  _MGLog(v32, 411, @"IOKit is still busy, don't build cache", v27, v28, v29, v30, v31, v96);
+  _MGLog(v32, 411, @"IOKit is still busy, don't build cache", v27, v28, v29, v30, v31);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "IOKit is still busy, don't build cache", buf, 2u);
   }
+}
 
-LABEL_88:
-  v95 = *MEMORY[0x1E69E9840];
+void _MGClearInProcessCache()
+{
+  os_unfair_lock_lock(&unk_1ED446D88);
+  v10 = -1;
+  v0 = sub_1B01A32F0(&v10);
+  v1 = v10;
+  if (v10 >= 1)
+  {
+    v2 = 0;
+    v3 = (v0 + 154);
+    do
+    {
+      v4 = *v3;
+      if (v4 != -1 && *(&qword_1ED4471E0[690] + v4) == 1)
+      {
+        v5 = *(v3 + 1);
+        v6 = v5 > 0xB;
+        v7 = (1 << v5) & 0x8E0;
+        if (v6 || v7 == 0)
+        {
+          v9 = qword_1ED4471E0[v4];
+          if (v9)
+          {
+            CFRelease(v9);
+            qword_1ED4471E0[*v3] = 0;
+            v1 = v10;
+          }
+        }
+      }
+
+      ++v2;
+      v3 += 80;
+    }
+
+    while (v2 < v1);
+  }
+
+  bzero(qword_1ED4471E0, 0x1842uLL);
+  os_unfair_lock_unlock(&unk_1ED446D88);
+}
+
+uint64_t _MGRebuildCache()
+{
+  sub_1B01D9BD0();
+  if ((_MGCacheValid() & 1) == 0)
+  {
+    v0 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c", 47);
+    if (v0)
+    {
+      v6 = v0 + 1;
+    }
+
+    else
+    {
+      v6 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c";
+    }
+
+    _MGLog(v6, 592, @"Waiting for IOKit to quiesce", v1, v2, v3, v4, v5);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Waiting for IOKit to quiesce", buf, 2u);
+    }
+
+    if (sub_1B01C5104())
+    {
+      _MGWriteCache();
+    }
+
+    else
+    {
+      v7 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c", 47);
+      if (v7)
+      {
+        v13 = v7 + 1;
+      }
+
+      else
+      {
+        v13 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c";
+      }
+
+      _MGLog(v13, 596, @"No cache generated", v8, v9, v10, v11, v12);
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      {
+        *v15 = 0;
+        _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "No cache generated", v15, 2u);
+      }
+    }
+  }
+
+  return _MGCacheValid();
+}
+
+uint64_t sub_1B01D9BD0()
+{
+  v30 = *MEMORY[0x1E69E9840];
+  if (!unlink("/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist"))
+  {
+    v10 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c", 47);
+    if (v10)
+    {
+      v16 = v10 + 1;
+    }
+
+    else
+    {
+      v16 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c";
+    }
+
+    _MGLog(v16, 615, @"Successfully deleted gestalt cache", v11, v12, v13, v14, v15);
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_13;
+    }
+
+    *buf = 0;
+    v8 = MEMORY[0x1E69E9C10];
+    v9 = "Successfully deleted gestalt cache";
+    goto LABEL_12;
+  }
+
+  v0 = *__error();
+  v1 = "/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c";
+  v2 = rindex("/Library/Caches/com.apple.xbs/Sources/MobileGestalt/libMobileGestalt/MobileGestaltCache.c", 47);
+  if (v2)
+  {
+    v1 = v2 + 1;
+  }
+
+  if (v0 == 2)
+  {
+    _MGLog(v1, 612, @"Cache file did not exist. Rebuilding.", v3, v4, v5, v6, v7);
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+LABEL_13:
+      _MGClearInProcessCache();
+      _MGWriteCache();
+      return _MGCacheValid();
+    }
+
+    *buf = 0;
+    v8 = MEMORY[0x1E69E9C10];
+    v9 = "Cache file did not exist. Rebuilding.";
+LABEL_12:
+    _os_log_impl(&dword_1B0190000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 2u);
+    goto LABEL_13;
+  }
+
+  v18 = __error();
+  v19 = strerror(*v18);
+  _MGLog(v1, 609, @"Failed to delete gestalt cache: %s", v20, v21, v22, v23, v24, v19);
+  v25 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+  result = 0;
+  if (v25)
+  {
+    v26 = __error();
+    v27 = strerror(*v26);
+    *buf = 136315138;
+    v29 = v27;
+    _os_log_impl(&dword_1B0190000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to delete gestalt cache: %s", buf, 0xCu);
+    return 0;
+  }
+
+  return result;
+}
+
+const __CFString *_MGCacheCopyValueForKey(const __CFString *a1)
+{
+  result = sub_1B0192C7C(a1);
+  if (result)
+  {
+
+    return sub_1B0191A80(result);
+  }
+
+  return result;
+}
+
+void sub_1B01D9DDC(FILE *a1, int a2, char *cStr, va_list a4)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v7 = CFStringCreateWithCString(0, cStr, 0x8000100u);
+  bzero(buffer, 0x400uLL);
+  if (v7)
+  {
+    v8 = CFStringCreateWithFormatAndArguments(0, 0, v7, a4);
+    if (v8)
+    {
+      v9 = v8;
+      if (CFStringGetCString(v8, buffer, 1024, 0x8000100u))
+      {
+        if (a2)
+        {
+          v10 = strlen(buffer);
+          if (v10)
+          {
+            v11 = v10;
+            for (i = 0; i < v11; ++i)
+            {
+              v13 = buffer[i];
+              if ((v13 - 92) <= 0x21 && ((1 << (v13 - 92)) & 0x280000001) != 0)
+              {
+                goto LABEL_14;
+              }
+
+              if (v13 == 27)
+              {
+                v16 = -1;
+                if (sscanf(&buffer[i], "\x1B[%dm", &v16) == 1)
+                {
+                  do
+                  {
+                    v15 = buffer[i++];
+                  }
+
+                  while (v15 != 109);
+                  --i;
+                  if (v16)
+                  {
+                    v16 -= 30;
+                    fprintf(a1, "\\cf%d ");
+                  }
+
+                  else
+                  {
+                    fwrite("\\cf0 ", 5uLL, 1uLL, a1);
+                  }
+                }
+
+                continue;
+              }
+
+              if (v13 != 10)
+              {
+                fputc(v13, a1);
+              }
+
+              else
+              {
+LABEL_14:
+                fprintf(a1, "\\%c");
+              }
+            }
+          }
+        }
+
+        else
+        {
+          fputs(buffer, a1);
+        }
+      }
+
+      CFRelease(v7);
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    CFRelease(v9);
+  }
+}
+
+size_t sub_1B01D9FE4(FILE *__stream)
+{
+  fwrite("{\\rtf1\\ansi\\ansicpg1252\\cocoartf1183\n", 0x25uLL, 1uLL, __stream);
+  fwrite("{\\fonttbl\\f0\\fnil\\fcharset0 Menlo-Regular;}\n", 0x2CuLL, 1uLL, __stream);
+  fwrite("{\\colortbl;", 0xBuLL, 1uLL, __stream);
+  fwrite("\\red194\\green54\\blue33;", 0x17uLL, 1uLL, __stream);
+  fwrite("\\red37\\green188\\blue36;", 0x17uLL, 1uLL, __stream);
+  fwrite("\\red128\\green128\\blue0;", 0x17uLL, 1uLL, __stream);
+  fwrite("\\red73\\green46\\blue225;", 0x17uLL, 1uLL, __stream);
+  fwrite("\\red211\\green56\\blue211;", 0x18uLL, 1uLL, __stream);
+  fwrite("\\red51\\green187\\blue200;", 0x18uLL, 1uLL, __stream);
+  fwrite("}\n", 2uLL, 1uLL, __stream);
+  fwrite("\\margl1440\\margr1440\\vieww16420\\viewh18180\\viewkind0\n", 0x35uLL, 1uLL, __stream);
+
+  return fwrite("\\pard\\tx720\\tx1440\\tx2160\\tx2880\\tx3600\\tx4320\\tx5040\\tx5760\\tx6480\\tx7200\\tx7920\\tx8640\\pardirnatural\n\n\\f0\\fs24 ", 0x71uLL, 1uLL, __stream);
+}
+
+uint64_t sub_1B01DA130(FILE *a1)
+{
+  fputc(125, a1);
+
+  return fflush(a1);
+}
+
+void sub_1B01DA19C(FILE *a1, const void *a2, int a3, uint64_t a4)
+{
+  v5 = a4 & 4;
+  if ((a4 & 4) != 0)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = a4 & 2;
+  }
+
+  if ((a4 & 4) != 0)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = a4 & 1;
+  }
+
+  if (a2)
+  {
+    v11 = CFGetTypeID(a2);
+    if (v11 == CFBooleanGetTypeID())
+    {
+      goto LABEL_10;
+    }
+
+    v12 = CFGetTypeID(a2);
+    if (v12 == CFNumberGetTypeID())
+    {
+      goto LABEL_10;
+    }
+
+    v13 = CFGetTypeID(a2);
+    if (v13 == CFStringGetTypeID())
+    {
+      sub_1B01DA170(a1, v5, "%@", a2);
+      return;
+    }
+
+    v14 = CFGetTypeID(a2);
+    if (v14 == CFDataGetTypeID())
+    {
+      Length = CFDataGetLength(a2);
+      Mutable = CFStringCreateMutable(0, 0);
+      BytePtr = CFDataGetBytePtr(a2);
+      v18 = BytePtr;
+      if (Length < 25)
+      {
+        if (Length < 1)
+        {
+          goto LABEL_46;
+        }
+
+        v46 = v7;
+        v31 = BytePtr;
+        v32 = Length;
+        do
+        {
+          v33 = *v31++;
+          CFStringAppendFormat(Mutable, 0, @"%02x", v33);
+          --v32;
+        }
+
+        while (v32);
+      }
+
+      else
+      {
+        v46 = v7;
+        v19 = 0;
+        do
+        {
+          CFStringAppendFormat(Mutable, 0, @"%02x%02x%02x%02x", v18[v19], v18[v19 + 1], v18[v19 + 2], v18[v19 + 3]);
+          v20 = v19 >= 0xC;
+          v19 += 4;
+        }
+
+        while (!v20);
+        CFStringAppend(Mutable, @" ... ");
+        v21 = Length - 8;
+        do
+        {
+          CFStringAppendFormat(Mutable, 0, @"%02x%02x%02x%02x", v18[v21], v18[v21 + 1], v18[v21 + 2], v18[v21 + 3]);
+          v21 += 4;
+        }
+
+        while (v21 < Length);
+      }
+
+      v7 = v46;
+      if ((a4 & 8) != 0 && Length >= 32)
+      {
+        sub_1B01DA170(a1, v5, "{ x: %f, y: %f, width: %f, height: %f }");
+        goto LABEL_47;
+      }
+
+LABEL_46:
+      sub_1B01DA170(a1, v5, "Data[%llu] (%@)", Length, Mutable, v43, v44);
+LABEL_47:
+      if (v7)
+      {
+        if (Length)
+        {
+          v34 = sub_1B01A1BE8(a2);
+          if (v34)
+          {
+            v35 = v34;
+            sub_1B01DA170(a1, v5, " (%@)", v34);
+            CFRelease(v35);
+          }
+        }
+      }
+
+      CFRelease(Mutable);
+      return;
+    }
+
+    v22 = CFGetTypeID(a2);
+    if (v22 == CFDictionaryGetTypeID())
+    {
+      v47 = v7;
+      Count = CFDictionaryGetCount(a2);
+      v24 = Count;
+      if (v6)
+      {
+        sub_1B01DA170(a1, v5, "Dictionary[%lld]", Count);
+      }
+
+      v25 = malloc_type_calloc(v24, 8uLL, 0xC0040B8AA526DuLL);
+      CFDictionaryGetKeysAndValues(a2, v25, 0);
+      qsort_b(v25, v24, 8uLL, &unk_1F2637500);
+      if (v24 >= 1)
+      {
+        v26 = 0;
+        v27 = a3 + 1;
+        v45 = (a3 % 6 + 31);
+        do
+        {
+          v28 = v24;
+          sub_1B01DA170(a1, v5, "\n");
+          if (v27)
+          {
+            v29 = v27;
+            do
+            {
+              --v29;
+              fwrite("   ", 3uLL, 1uLL, a1);
+            }
+
+            while (v29);
+          }
+
+          if (v47)
+          {
+            sub_1B01DA170(a1, v5, "\x1B[%dm%@\x1B[0m => ", v45, v25[v26]);
+          }
+
+          else
+          {
+            sub_1B01DA170(a1, v5, "%@ => ", v25[v26], v42);
+          }
+
+          v24 = v28;
+          Value = CFDictionaryGetValue(a2, v25[v26]);
+          sub_1B01DA19C(a1, Value, v27, a4);
+          ++v26;
+        }
+
+        while (v26 != v28);
+      }
+
+      free(v25);
+    }
+
+    else
+    {
+      v36 = CFGetTypeID(a2);
+      if (v36 != CFArrayGetTypeID())
+      {
+LABEL_10:
+        sub_1B01DA170(a1, v5, "%@", a2);
+        return;
+      }
+
+      v37 = CFArrayGetCount(a2);
+      v38 = v37;
+      if (v6)
+      {
+        sub_1B01DA170(a1, v5, "Array[%lld]", v37);
+      }
+
+      if (v38 >= 1)
+      {
+        for (i = 0; i != v38; ++i)
+        {
+          sub_1B01DA170(a1, v5, "\n");
+          if (a3 != -1)
+          {
+            v40 = a3 + 1;
+            do
+            {
+              --v40;
+              fwrite("   ", 3uLL, 1uLL, a1);
+            }
+
+            while (v40);
+          }
+
+          if (v7)
+          {
+            sub_1B01DA170(a1, v5, "\x1B[%dm[%lld]\x1B[0m: ");
+          }
+
+          else
+          {
+            sub_1B01DA170(a1, v5, "[%lld]: ");
+          }
+
+          ValueAtIndex = CFArrayGetValueAtIndex(a2, i);
+          sub_1B01DA19C(a1, ValueAtIndex, a3 + 1, a4);
+        }
+      }
+    }
+  }
+
+  else
+  {
+
+    sub_1B01DA170(a1, a4 & 4, "NULL");
+  }
+}
+
+CFComparisonResult sub_1B01DA760(uint64_t a1, CFTypeRef *a2, const __CFNumber **a3)
+{
+  TypeID = CFNumberGetTypeID();
+  v6 = CFGetTypeID(*a2);
+  v7 = *a2;
+  v8 = *a3;
+  if (TypeID == v6)
+  {
+    return CFNumberCompare(v7, v8, 0);
+  }
+
+  else
+  {
+    return CFStringCompare(v7, v8, 0);
+  }
+}
+
+uint64_t sub_1B01DA7C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 *a5, uint64_t a6, unsigned __int8 *a7, unint64_t a8)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v28 = 0;
+  v14 = sub_1B01DF3DC(a2);
+  if (!sub_1B01DD624(v14))
+  {
+    return 13;
+  }
+
+  v15 = sub_1B01DD5D8(v14);
+  MEMORY[0x1EEE9AC00](v15, (24 * *v15 + 31) & 0xFFFFFFFFFFFFFFF0, v16, v17, v18, v19, v20, v21);
+  v23 = &v27[-v22];
+  bzero(&v27[-v22], v22);
+  *v23 = v15;
+  result = 1;
+  if (a1 && a5 && a7)
+  {
+    v25 = sub_1B01DD954(v15, a2, a1, v23);
+    if (v25 == -13)
+    {
+      return 2;
+    }
+
+    if (v25)
+    {
+      return 6;
+    }
+
+    v26 = sub_1B01DF0D8(v23, a8, a7, a6, a5, &v28);
+    if (v26 == -13)
+    {
+      return 2;
+    }
+
+    if (v26)
+    {
+      return 6;
+    }
+
+    else if (v28)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return 6;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1B01DA968(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va2, a4);
+  va_start(va1, a4);
+  va_start(va, a4);
+  v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v9 = va_arg(va2, unsigned __int8 *);
+  v11 = va_arg(va2, void);
+
+  return sub_1B01DA984(va2, a2, va, va1);
+}
+
+uint64_t sub_1B01DA984(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned __int8 **a4)
+{
+  v18[2] = *MEMORY[0x1E69E9840];
+  v18[0] = 0;
+  v18[1] = 0;
+  bzero(&v17, 0x638uLL);
+  v16 = 64;
+  v8 = *(a1 + 8);
+  v15[0] = *a1;
+  v15[1] = v8;
+  v13 = 0u;
+  v14 = 0u;
+  if (sub_1B01E7954(v15, 2u, &unk_1B01FF580, &v13, 0x20uLL))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v9 = *(&v13 + 1);
+  v10 = v13;
+  if (*(&v13 + 1))
+  {
+    v11 = 7;
+    while (!*v10)
+    {
+      ++v10;
+      if (!--v9)
+      {
+        v10 = (v13 + *(&v13 + 1));
+        goto LABEL_10;
+      }
+    }
+
+    v11 = v9 + 7;
+    if (v9 + 7 >= 0x208)
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  else
+  {
+    v11 = 7;
+  }
+
+LABEL_10:
+  v16 = v11 >> 3;
+  result = sub_1B01E4CBC(&v16, *(&v14 + 1), v14, v9, v10);
+  if (!result)
+  {
+    if (&unk_1B01FF190 && qword_1F25E30A0)
+    {
+      result = sub_1B01E2610(&v16, a2, a3[1], *a3, a4[1], *a4, v18);
+      if (result)
+      {
+        return result;
+      }
+
+      sub_1B01DF37C(16, &unk_1B01FF190, v18);
+      return 0;
+    }
+
+    LOBYTE(v13) = 0;
+    result = sub_1B01E24D0(&v16, a2, a3[1], *a3, a4[1], *a4, &v13);
+    if (!result && (v13 & 1) != 0)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_1B01DAB2C(CFTypeRef cf)
+{
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+void sub_1B01DAB38(void *a1)
+{
+  if (a1)
+  {
+    free(a1);
+  }
+}
+
+uint64_t sub_1B01DAB58(const __CFAllocator *a1, CFTypeRef *a2, CFTypeRef cf, int a4)
+{
+  cfa[1] = *MEMORY[0x1E69E9840];
+  cfa[0] = 0;
+  v4 = 1;
+  if (a2 && cf)
+  {
+    v8 = sub_1B01F5498(a1, cf, cfa, 0);
+    if (v8)
+    {
+      v4 = v8;
+      sub_1B01DAC6C(3, "_AMSupportCreateDataFromFileURLInternal", "AMSupportCopyPreserveFileURL failed.", v9, v10, v11, v12, v13);
+    }
+
+    else
+    {
+      if (a4)
+      {
+        v14 = sub_1B01F58D8(a1, a2, cfa[0]);
+      }
+
+      else
+      {
+        v14 = sub_1B01F56BC(a1, a2, cfa[0]);
+      }
+
+      v4 = v14;
+    }
+
+    if (cfa[0])
+    {
+      CFRelease(cfa[0]);
+    }
+  }
+
+  return v4;
+}
+
+void sub_1B01DAC6C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  v8 = MEMORY[0x1EEE9AC00](a1, a2, a3, a4, a5, a6, a7, a8);
+  v10 = v9;
+  v12 = v11;
+  v13 = v8;
+  v30 = *MEMORY[0x1E69E9840];
+  bzero(__str, 0x1000uLL);
+  v14 = "";
+  if (v12)
+  {
+    v14 = v12;
+  }
+
+  v15 = snprintf(__str, 0x1000uLL, "%s: ", v14);
+  v16 = *MEMORY[0x1E695E480];
+  v17 = CFStringCreateWithCStringNoCopy(*MEMORY[0x1E695E480], v10, 0x8000100u, *MEMORY[0x1E695E498]);
+  if (!v17)
+  {
+    v19 = 0;
+    goto LABEL_9;
+  }
+
+  v18 = CFStringCreateWithFormatAndArguments(v16, 0, v17, va);
+  v19 = v18;
+  if (!v18)
+  {
+LABEL_9:
+    v27 = 0;
+    v26 = 0;
+    goto LABEL_14;
+  }
+
+  v20 = v15;
+  v21 = 4096 - v15;
+  Length = CFStringGetLength(v18);
+  v23 = Length;
+  if (4096 - v15 < Length && (v24 = malloc_type_malloc(v15 + Length + 1, 0x100004077774924uLL)) != 0)
+  {
+    v25 = v24;
+    v21 = v23 + 1;
+    memcpy(v24, __str, v15);
+    v26 = v25;
+  }
+
+  else
+  {
+    v26 = 0;
+    v25 = __str;
+  }
+
+  if (CFStringGetCString(v19, &v25[v20], v21, 0x8000100u))
+  {
+    v27 = v25;
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+LABEL_14:
+  if (v27)
+  {
+    v28 = v27;
+  }
+
+  else
+  {
+    v28 = "failed to format log message";
+  }
+
+  off_1EE812408(v13, v28);
+  sub_1B01DAB2C(v17);
+  sub_1B01DAB2C(v19);
+  sub_1B01DAB38(v26);
+}
+
+uint64_t sub_1B01DAE64(char *__format, ...)
+{
+  va_start(va, __format);
+  v18 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v4 = 0u;
+  v5 = 0u;
+  *__str = 0u;
+  v3 = 0u;
+  vsnprintf(__str, 0x100uLL, __format, va);
+  return fprintf(*MEMORY[0x1E69E9848], "%s\n", __str);
+}
+
+FILE *sub_1B01DAF14(const __CFURL *a1, const char *a2)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  bzero(buffer, 0x400uLL);
+  if (CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
+  {
+    return fopen(buffer, a2);
+  }
+
+  sub_1B01DAC6C(3, "AMSupportPlatformOpenFileStreamWithURL", "failed to convert url to file system representation", v4, v5, v6, v7, v8);
+  sub_1B01DAC6C(8, "AMSupportPlatformOpenFileStreamWithURL", "%@", v10, v11, v12, v13, v14, a1);
+  return 0;
+}
+
+uint64_t sub_1B01DAFE0(void *a1, size_t a2)
+{
+  result = munmap(a1, a2);
+  if (result == -1)
+  {
+    return sub_1B01DB008();
+  }
+
+  return result;
+}
+
+int8x16_t *sub_1B01DB030(int8x16_t *result, int8x16_t *a2, uint64_t a3, uint64_t a4, int8x16_t *a5)
+{
+  if (a3)
+  {
+    v5 = result[15].u32[0];
+    if (v5 == 160 || v5 == 192 || v5 == 224)
+    {
+      do
+      {
+        v6 = v5 - 16;
+        a4 += 16;
+        _Q2 = *result;
+        v7 = result + 1;
+        do
+        {
+          __asm
+          {
+            AESE            V0.16B, V2.16B
+            AESMC           V0.16B, V0.16B
+          }
+
+          _Q2 = *v7++;
+          v15 = v6 <= 16;
+          v6 -= 16;
+        }
+
+        while (!v15);
+        __asm { AESE            V0.16B, V2.16B }
+
+        v17 = veorq_s8(_Q0, *v7);
+        result = (v7 - v5);
+        *a5++ = v17;
+        v15 = a3-- <= 1;
+      }
+
+      while (!v15);
+      result = 0;
+      *a2 = v17;
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+
+  return result;
+}
+
+unint64_t sub_1B01DB0B0(uint64_t a1, char a2, unint64_t *a3, unint64_t *a4)
+{
+  result = sub_1B01E07C8();
+  for (i = __ROR8__(0x5555555555555555, a2 | (2 * result)); a1; --a1)
+  {
+    v10 = *a4 ^ *a3;
+    *a3 ^= result;
+    v11 = *a4 ^ result;
+    *a4 = v11;
+    v12 = *a3 ^ v10 & 0x5555555555555555;
+    v13 = v11 ^ v10 & 0x5555555555555555;
+    v14 = v10 & i;
+    *a3++ = v12 ^ v14 ^ result;
+    *a4++ = v13 ^ v14 ^ result;
+  }
+
+  return result;
+}
+
+uint64_t sub_1B01DB150(uint64_t a1, uint64_t a2, void *a3, void *a4)
+{
+  v8 = sub_1B01DFC00(a2);
+  v9 = *(a1 + 16);
+  v10 = (*(a1 + 24))(a1, v8);
+  v11 = sub_1B01E6C58(a2);
+  if (sub_1B01E1880(v8, v10, v11, 2uLL))
+  {
+    result = 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+    result = sub_1B01E07E4(a1, a2, a3, a4, v10);
+  }
+
+  *(a1 + 16) = v9;
+  return result;
+}
+
+uint64_t sub_1B01DB1F8(unsigned __int8 **a1, uint64_t a2, unsigned __int8 **a3)
+{
+  v8 = 0;
+  result = sub_1B01DB488(a1, a2, &v8, 0);
+  v6 = 0;
+  v7 = 0;
+  if (result)
+  {
+    v6 = *a1;
+    v7 = &(*a1)[v8];
+    *a1 = v7;
+  }
+
+  *a3 = v6;
+  a3[1] = v7;
+  return result;
+}
+
+uint64_t sub_1B01DB25C(uint64_t a1, unint64_t *a2, int a3)
+{
+  v4 = *a1;
+  v3 = *(a1 + 8);
+  if (*a1)
+  {
+    v5 = v4 >= v3;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    goto LABEL_7;
+  }
+
+  v6 = v4 + 1;
+  v7 = *v4;
+  if ((v7 & 0x8000000000000000) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  v9 = *v4;
+  if (v9 > 0x82)
+  {
+    if (v9 == 131)
+    {
+      if ((v3 - v6) < 3)
+      {
+        goto LABEL_7;
+      }
+
+      v10 = v4[1];
+      v6 = v4 + 4;
+      v7 = v4[3] | (v10 << 16) | (v4[2] << 8);
+      if (!a3)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    else
+    {
+      if (v9 != 132 || (v3 - v6) < 4)
+      {
+        goto LABEL_7;
+      }
+
+      LODWORD(v10) = v4[1];
+      v6 = v4 + 5;
+      v7 = (v4[1] << 24) | (v4[2] << 16) | v4[4] | (v4[3] << 8);
+      if (!a3)
+      {
+        goto LABEL_6;
+      }
+    }
+
+LABEL_26:
+    if (!v10)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+  if (v9 == 129)
+  {
+    if ((v3 - v6) < 1)
+    {
+      goto LABEL_7;
+    }
+
+    v6 = v4 + 2;
+    v11 = v4[1];
+    v7 = v11;
+    if (a3)
+    {
+      if ((v11 & 0x80000000) == 0)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    goto LABEL_6;
+  }
+
+  if (v9 != 130 || (v3 - v6) < 2)
+  {
+    goto LABEL_7;
+  }
+
+  v10 = v4[1];
+  v6 = v4 + 3;
+  v7 = v4[2] | (v10 << 8);
+  if (a3)
+  {
+    goto LABEL_26;
+  }
+
+LABEL_6:
+  if (v3 - v6 < v7)
+  {
+LABEL_7:
+    result = 0;
+    *a2 = 0;
+    return result;
+  }
+
+  *a2 = v7;
+  *a1 = v6;
+  return 1;
 }

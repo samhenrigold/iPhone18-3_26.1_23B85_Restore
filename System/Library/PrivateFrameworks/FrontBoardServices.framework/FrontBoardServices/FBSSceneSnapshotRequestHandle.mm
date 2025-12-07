@@ -32,11 +32,11 @@
 
 - (void)performRequestForScene:(id)scene
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   if (!sceneCopy)
   {
-    [FBSSceneSnapshotRequestHandle performRequestForScene:a2];
+    [(FBSSceneSnapshotRequestHandle *)a2 performRequestForScene:?];
   }
 
   v6 = sceneCopy;
@@ -46,7 +46,7 @@
 
   if ((v9 & 1) == 0)
   {
-    [FBSSceneSnapshotRequestHandle performRequestForScene:a2];
+    [(FBSSceneSnapshotRequestHandle *)a2 performRequestForScene:?];
   }
 
   if (self->_responder)
@@ -55,39 +55,39 @@
   }
 
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v11 = objc_sync_enter(selfCopy);
   if (!selfCopy->_canceled)
   {
-    v11 = FBLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = FBLogCommon(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       type = selfCopy->_type;
       *buf = 134218240;
-      v18 = selfCopy;
-      v19 = 2048;
-      v20 = type;
-      _os_log_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_DEFAULT, "Performing snapshot request %p (type %lu)", buf, 0x16u);
+      v19 = selfCopy;
+      v20 = 2048;
+      v21 = type;
+      _os_log_impl(&dword_1A2DBB000, v12, OS_LOG_TYPE_DEFAULT, "Performing snapshot request %p (type %lu)", buf, 0x16u);
     }
 
     if (selfCopy->_type == 1)
     {
-      v13 = dispatch_semaphore_create(0);
+      v14 = dispatch_semaphore_create(0);
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __56__FBSSceneSnapshotRequestHandle_performRequestForScene___block_invoke;
-    v16[3] = &unk_1E76BF4E8;
-    v16[4] = selfCopy;
-    v16[5] = v13;
-    v14 = [off_1E76BC978 responderWithHandler:v16];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __56__FBSSceneSnapshotRequestHandle_performRequestForScene___block_invoke;
+    v17[3] = &unk_1E76BF4E8;
+    v17[4] = selfCopy;
+    v17[5] = v14;
+    v15 = [off_1E76BC978 responderWithHandler:v17];
     responder = self->_responder;
-    self->_responder = v14;
+    self->_responder = v15;
 
     BSDispatchQueueCreateSerialWithQoS();
   }
@@ -97,51 +97,51 @@
 
 void __56__FBSSceneSnapshotRequestHandle_performRequestForScene___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = (a1 + 32);
   v3 = *(a1 + 32);
   v5 = a2;
   [v3 _clearAction];
   v6 = [v5 error];
 
-  v7 = FBLogCommon();
-  v8 = v7;
+  v8 = FBLogCommon(v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __56__FBSSceneSnapshotRequestHandle_performRequestForScene___block_invoke_cold_1(v4, v6, v8);
+      __56__FBSSceneSnapshotRequestHandle_performRequestForScene___block_invoke_cold_1(v4, v6, v9);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *v4;
-    v11 = 134217984;
-    v12 = v9;
-    _os_log_impl(&dword_1A2DBB000, v8, OS_LOG_TYPE_DEFAULT, "Snapshot request %p complete", &v11, 0xCu);
+    v10 = *v4;
+    v12 = 134217984;
+    v13 = v10;
+    _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "Snapshot request %p complete", &v12, 0xCu);
   }
 
-  v10 = *(a1 + 40);
-  if (v10)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    dispatch_semaphore_signal(v10);
+    dispatch_semaphore_signal(v11);
   }
 }
 
 - (void)cancelRequest
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (!selfCopy->_canceled)
   {
-    v3 = FBLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = FBLogCommon(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 134217984;
-      v5 = selfCopy;
-      _os_log_impl(&dword_1A2DBB000, v3, OS_LOG_TYPE_DEFAULT, "Snapshot request %p canceled", &v4, 0xCu);
+      v5 = 134217984;
+      v6 = selfCopy;
+      _os_log_impl(&dword_1A2DBB000, v4, OS_LOG_TYPE_DEFAULT, "Snapshot request %p canceled", &v5, 0xCu);
     }
 
     selfCopy->_canceled = 1;
@@ -162,26 +162,26 @@ void __56__FBSSceneSnapshotRequestHandle_performRequestForScene___block_invoke(u
   objc_sync_exit(obj);
 }
 
-- (void)performRequestForScene:(const char *)a1 .cold.1(const char *a1)
+- (void)performRequestForScene:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[[scene identifier] isEqualToString:[_context sceneID]]"];
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[[scene identifier] isEqualToString:[_context sceneID]]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    v9 = @"FBSSceneSnapshotRequestHandle.m";
-    v10 = 1024;
-    v11 = 35;
-    v12 = v6;
-    v13 = v2;
+    v10 = @"FBSSceneSnapshotRequestHandle.m";
+    v11 = 1024;
+    v12 = 35;
+    v13 = v7;
+    v14 = v3;
     _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  v7 = v2;
-  [v2 UTF8String];
+  v8 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -214,26 +214,26 @@ void __56__FBSSceneSnapshotRequestHandle_performRequestForScene___block_invoke(u
   _bs_set_crash_log_message();
 }
 
-- (void)performRequestForScene:(const char *)a1 .cold.3(const char *a1)
+- (void)performRequestForScene:(const char *)a1 .cold.3(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"scene"];
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"scene"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    v9 = @"FBSSceneSnapshotRequestHandle.m";
-    v10 = 1024;
-    v11 = 34;
-    v12 = v6;
-    v13 = v2;
+    v10 = @"FBSSceneSnapshotRequestHandle.m";
+    v11 = 1024;
+    v12 = 34;
+    v13 = v7;
+    v14 = v3;
     _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  v7 = v2;
-  [v2 UTF8String];
+  v8 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 

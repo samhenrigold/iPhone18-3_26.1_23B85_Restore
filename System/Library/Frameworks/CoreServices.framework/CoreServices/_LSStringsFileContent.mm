@@ -115,68 +115,68 @@
                 v51 = [v54 stringByAppendingString:{enumerateProductPlatformKeySuffixes<NSString * {__strong}, checkPlatformKeysForKeysForSubscriptedLoctable(NSSet<NSString *> *, NSDictionary<NSString *, objc_object *> *)::$_0>(NSString *, checkPlatformKeysForKeysForSubscriptedLoctable(NSSet<NSString *> *, NSDictionary<NSString *, objc_object *> *)::$_0 const&)::productThenPlatformSuffix}];
                 v52 = [v54 stringByAppendingString:{enumerateProductPlatformKeySuffixes<NSString * {__strong}, checkPlatformKeysForKeysForSubscriptedLoctable(NSSet<NSString *> *, NSDictionary<NSString *, objc_object *> *)::$_0>(NSString *, checkPlatformKeysForKeysForSubscriptedLoctable(NSSet<NSString *> *, NSDictionary<NSString *, objc_object *> *)::$_0 const&)::platformThenProductSuffix}];
                 v21 = [v54 stringByAppendingString:_LSGetPlatformNameSuffix()];
-                v22 = [v54 stringByAppendingString:_LSGetProductNameSuffix()];
+                v23 = [v54 stringByAppendingString:{_LSGetProductNameSuffix(v21, v22)}];
                 v48 = v51;
                 v64[0] = v48;
-                v23 = v52;
-                v64[1] = v23;
-                v24 = v21;
-                v64[2] = v24;
-                v50 = v22;
+                v24 = v52;
+                v64[1] = v24;
+                v25 = v21;
+                v64[2] = v25;
+                v50 = v23;
                 v64[3] = v50;
-                v25 = 0;
+                v26 = 0;
                 v53 = v54;
                 v64[4] = v53;
                 do
                 {
-                  v26 = v64[v25];
-                  v27 = [v20 objectForKey:v26];
-                  v28 = v27;
-                  if (v27)
+                  v27 = v64[v26];
+                  v28 = [v20 objectForKey:v27];
+                  v29 = v28;
+                  if (v28)
                   {
-                    v61 = v27;
-                    v29 = 1;
+                    v61 = v28;
+                    v30 = 1;
                   }
 
                   else
                   {
-                    v29 = 0;
+                    v30 = 0;
                     LOBYTE(v61) = 0;
                   }
 
-                  v62 = v29;
+                  v62 = v30;
 
                   std::__optional_storage_base<NSString * {__strong},false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<NSString * {__strong},false>>(&v55, &v61);
                   if (v62 == 1)
                   {
                   }
 
-                  v30 = v56;
+                  v31 = v56;
 
-                  v32 = v25++ == 4;
+                  v33 = v26++ == 4;
                 }
 
-                while (((v30 | v32) & 1) == 0);
+                while (((v31 | v33) & 1) == 0);
                 for (j = 4; j != -1; --j)
                 {
                 }
 
                 objc_autoreleasePoolPop(context);
-                v34 = v56;
-                v35 = v55;
+                v35 = v56;
+                v36 = v55;
                 if (!v56)
                 {
-                  v35 = 0;
+                  v36 = 0;
                 }
 
-                v36 = v35;
-                if (v34 == 1)
+                v37 = v36;
+                if (v35 == 1)
                 {
                 }
 
-                if (v36)
+                if (v37)
                 {
-                  [v44 setObject:v36 forKey:v53];
+                  [v44 setObject:v37 forKey:v53];
                 }
               }
 
@@ -219,8 +219,6 @@
     v44 = 0;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
-
   return v44;
 }
 
@@ -232,26 +230,27 @@
   if (self)
   {
     v12 = [(_LSStringsFileContent *)self stringsFileContentFromBundle:locale forLocaleCode:stringCopy cacheLocalizations:bundleCopy];
+    v14 = v12;
     if (v12)
     {
-      if (![__LSDefaultsGetSharedInstance() isRegionChina] || (objc_msgSend(v9, "stringByAppendingString:", @"#CH"), v13 = objc_claimAutoreleasedReturnValue(), -[_LSStringsFileContent _queryLoadedPlist:forRawKey:locale:](self, v12, v13, stringCopy), v14 = objc_claimAutoreleasedReturnValue(), v13, !v14))
+      if (![__LSDefaultsGetSharedInstance(v12 v13)] || (objc_msgSend(v9, "stringByAppendingString:", @"#CH"), v15 = objc_claimAutoreleasedReturnValue(), -[_LSStringsFileContent _queryLoadedPlist:forRawKey:locale:](self, v14, v15, stringCopy), v16 = objc_claimAutoreleasedReturnValue(), v15, !v16))
       {
-        v14 = [(_LSStringsFileContent *)self _queryLoadedPlist:v12 forRawKey:v9 locale:stringCopy];
+        v16 = [(_LSStringsFileContent *)self _queryLoadedPlist:v14 forRawKey:v9 locale:stringCopy];
       }
     }
 
     else
     {
-      v14 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v14 = 0;
+    v16 = 0;
   }
 
-  return v14;
+  return v16;
 }
 
 + (id)IOQueue
@@ -303,32 +302,31 @@
   if (self)
   {
     v8 = CFBundleCopyResourceURLForLocalization(a2, *(self + 8), locale, 0, bundleCopy);
+    v9 = v8;
     if (v8)
     {
-      v9 = _LSDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = _LSDefaultLog(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        lastPathComponent = [(__CFURL *)v8 lastPathComponent];
-        [(_LSStringsFileContent *)lastPathComponent getStringsFileContentInBundle:bundleCopy forLocale:v14 withExtension:v9];
+        lastPathComponent = [(__CFURL *)v9 lastPathComponent];
+        [(_LSStringsFileContent *)lastPathComponent getStringsFileContentInBundle:bundleCopy forLocale:v14 withExtension:v10];
       }
 
-      v11 = [_LSLazyPropertyList lazyPropertyListWithPropertyListURL:v8];
+      v12 = [_LSLazyPropertyList lazyPropertyListWithPropertyListURL:v9];
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v12;
 }
 
 - (id)getStringsFileContentAfterLocTableLoadedInBundle:(void *)bundle forLocale:
@@ -504,74 +502,72 @@ LABEL_8:
     v26 = [v4 stringByAppendingString:{enumerateProductPlatformKeySuffixes<NSDictionary<NSString *, objc_object *> * {__strong}, -[_LSStringsFileContent subscriptLoctableWithLocale:]::$_1>(NSString *, -[_LSStringsFileContent subscriptLoctableWithLocale:]::$_1 const&)::platformThenProductSuffix}];
     v6 = [v4 stringByAppendingString:_LSGetPlatformNameSuffix()];
     context = v5;
-    v7 = [v4 stringByAppendingString:{_LSGetProductNameSuffix(), v6}];
+    v8 = [v4 stringByAppendingString:{_LSGetProductNameSuffix(v6, v7), v6}];
     v27 = v25;
     v35[0] = v27;
-    v8 = v26;
-    v35[1] = v8;
-    v9 = v6;
-    v35[2] = v9;
-    v30 = v7;
+    v9 = v26;
+    v35[1] = v9;
+    v10 = v6;
+    v35[2] = v10;
+    v30 = v8;
     v35[3] = v30;
-    v10 = v4;
-    v11 = 0;
-    v35[4] = v10;
+    v11 = v4;
+    v12 = 0;
+    v35[4] = v11;
     do
     {
-      v12 = v35[v11];
-      v13 = [*(locale + 24) objectForKey:v12 ofClass:objc_opt_class()];
-      v14 = v13;
-      if (v13)
+      v13 = v35[v12];
+      v14 = [*(locale + 24) objectForKey:v13 ofClass:objc_opt_class()];
+      v15 = v14;
+      if (v14)
       {
-        v33 = v13;
-        v15 = 1;
+        v33 = v14;
+        v16 = 1;
       }
 
       else
       {
-        v15 = 0;
+        v16 = 0;
         LOBYTE(v33) = 0;
       }
 
-      v34 = v15;
+      v34 = v16;
 
       std::__optional_storage_base<NSString * {__strong},false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<NSString * {__strong},false>>(&v31, &v33);
       if (v34 == 1)
       {
       }
 
-      v16 = v32;
+      v17 = v32;
 
-      v18 = v11++ == 4;
+      v19 = v12++ == 4;
     }
 
-    while (((v16 | v18) & 1) == 0);
+    while (((v17 | v19) & 1) == 0);
     for (i = 4; i != -1; --i)
     {
     }
 
     objc_autoreleasePoolPop(context);
-    v20 = v32;
-    v21 = v31;
+    v21 = v32;
+    v22 = v31;
     if (!v32)
     {
-      v21 = 0;
+      v22 = 0;
     }
 
-    v22 = v21;
-    if (v20 == 1)
+    v23 = v22;
+    if (v21 == 1)
     {
     }
   }
 
   else
   {
-    v22 = 0;
+    v23 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v23;
 }
 
 - (id)_queryLoadedPlist:(void *)plist forRawKey:(void *)key locale:
@@ -622,37 +618,37 @@ LABEL_8:
   v33 = [v43 stringByAppendingString:{enumerateProductPlatformKeySuffixes<NSString * {__strong}, -[_LSStringsFileContent _queryLoadedPlist:forRawKey:locale:]::$_2>(NSString *, -[_LSStringsFileContent _queryLoadedPlist:forRawKey:locale:]::$_2 const&)::productThenPlatformSuffix}];
   v34 = [v43 stringByAppendingString:{enumerateProductPlatformKeySuffixes<NSString * {__strong}, -[_LSStringsFileContent _queryLoadedPlist:forRawKey:locale:]::$_2>(NSString *, -[_LSStringsFileContent _queryLoadedPlist:forRawKey:locale:]::$_2 const&)::platformThenProductSuffix}];
   v32 = [v43 stringByAppendingString:_LSGetPlatformNameSuffix()];
-  v15 = [v43 stringByAppendingString:_LSGetProductNameSuffix()];
+  v16 = [v43 stringByAppendingString:{_LSGetProductNameSuffix(v32, v15)}];
   v36 = v33;
   v48[0] = v36;
   v37 = v34;
   v48[1] = v37;
   v38 = v32;
   v48[2] = v38;
-  v41 = v15;
+  v41 = v16;
   v48[3] = v41;
-  v16 = 0;
+  v17 = 0;
   v35 = v43;
   v48[4] = v35;
   do
   {
-    v17 = v48[v16];
-    v18 = objc_opt_class();
-    v19 = [v14 objectForKey:v17];
-    v20 = v19;
-    if (v18)
+    v18 = v48[v17];
+    v19 = objc_opt_class();
+    v20 = [v14 objectForKey:v18];
+    v21 = v20;
+    if (v19)
     {
-      v21 = v19 == 0;
+      v22 = v20 == 0;
     }
 
     else
     {
-      v21 = 1;
+      v22 = 1;
     }
 
-    if (v21)
+    if (v22)
     {
-      if (v19)
+      if (v20)
       {
         goto LABEL_21;
       }
@@ -663,46 +659,46 @@ LABEL_8:
       isKindOfClass = objc_opt_isKindOfClass();
       if (isKindOfClass)
       {
-        v23 = v20;
+        v24 = v21;
 LABEL_21:
-        v46 = v20;
+        v46 = v21;
 
-        v24 = 1;
+        v25 = 1;
         goto LABEL_24;
       }
     }
 
-    v24 = 0;
+    v25 = 0;
     LOBYTE(v46) = 0;
 LABEL_24:
-    v47 = v24;
+    v47 = v25;
 
     std::__optional_storage_base<NSString * {__strong},false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<NSString * {__strong},false>>(&v44, &v46);
     if (v47 == 1)
     {
     }
 
-    v25 = v45;
+    v26 = v45;
 
-    v21 = v16++ == 4;
-    v26 = v21;
+    v22 = v17++ == 4;
+    v27 = v22;
   }
 
-  while (((v25 | v26) & 1) == 0);
+  while (((v26 | v27) & 1) == 0);
   for (i = 4; i != -1; --i)
   {
   }
 
   objc_autoreleasePoolPop(context);
-  v28 = v45;
-  v29 = v44;
+  v29 = v45;
+  v30 = v44;
   if (!v45)
   {
-    v29 = 0;
+    v30 = 0;
   }
 
-  self = v29;
-  if (v28 == 1)
+  self = v30;
+  if (v29 == 1)
   {
   }
 
@@ -711,8 +707,6 @@ LABEL_37:
 
   keyCopy = v42;
 LABEL_38:
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return self;
 }

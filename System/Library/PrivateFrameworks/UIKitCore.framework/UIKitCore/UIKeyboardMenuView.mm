@@ -963,7 +963,7 @@ LABEL_15:
   v7 = v6;
   v9 = v8;
   _UIGraphicsBeginImageContextWithOptions(0, 0, v6, v8, v5);
-  v10 = +[UIColor blackColor];
+  v10 = objc_msgSend_blackColor(UIColor);
   [v10 set];
 
   v11 = *MEMORY[0x1E695EFF8];
@@ -1181,11 +1181,11 @@ LABEL_15:
   }
 }
 
-uint64_t __34__UIKeyboardMenuView__delayedFade__block_invoke_2(uint64_t result, int a2)
+id *__34__UIKeyboardMenuView__delayedFade__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) removeFromSuperview];
+    return [result[4] removeFromSuperview];
   }
 
   return result;
@@ -1447,7 +1447,7 @@ uint64_t __34__UIKeyboardMenuView__delayedFade__block_invoke_2(uint64_t result, 
     [(UIView *)self->m_selExtraView removeFromSuperview];
     v30 = [(UITableView *)self->m_table indexPathForRowAtPoint:v11, v22];
     indexPathForSelectedRow = [(UITableView *)self->m_table indexPathForSelectedRow];
-    if (([v30 isEqual:indexPathForSelectedRow] & 1) == 0)
+    if ((objc_msgSend_isEqual_(v30) & 1) == 0)
     {
       m_table = self->m_table;
       indexPathForSelectedRow2 = [(UITableView *)m_table indexPathForSelectedRow];
@@ -1874,7 +1874,7 @@ LABEL_39:
 
       else
       {
-        +[UIColor blackColor];
+        objc_msgSend_blackColor(UIColor);
       }
       v16 = ;
       textLabel2 = [v6 textLabel];
@@ -1888,7 +1888,7 @@ LABEL_39:
 
       else
       {
-        +[UIColor blackColor];
+        objc_msgSend_blackColor(UIColor);
       }
       v19 = ;
       detailTextLabel2 = [v6 detailTextLabel];
@@ -2017,7 +2017,7 @@ LABEL_9:
 
   else
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
   v25 = ;
   [textLabel setTextColor:v25];
@@ -2049,7 +2049,7 @@ LABEL_9:
 
     else
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
     v33 = ;
     [detailTextLabel setTextColor:v33];

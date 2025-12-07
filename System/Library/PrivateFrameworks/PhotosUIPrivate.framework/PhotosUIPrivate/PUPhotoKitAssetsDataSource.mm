@@ -262,7 +262,7 @@ LABEL_9:
   v6 = referenceCopy;
   if (!referenceCopy || ([referenceCopy dataSourceIdentifier], v7 = objc_claimAutoreleasedReturnValue(), -[PUTilingDataSource identifier](self, "identifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqual:", v8), v8, v7, v9))
   {
-    indexPath = [v6 indexPath];
+    v10 = objc_msgSend_indexPath(v6);
     goto LABEL_26;
   }
 
@@ -279,9 +279,9 @@ LABEL_14:
     {
       photosDataSource = [(PUPhotoKitAssetsDataSource *)self photosDataSource];
       asset2 = [v6 asset];
-      indexPath2 = [v6 indexPath];
+      burstIdentifier = objc_msgSend_indexPath(v6);
       assetCollection = [v6 assetCollection];
-      indexPath = [photosDataSource indexPathForAsset:asset2 hintIndexPath:indexPath2 hintCollection:assetCollection];
+      v10 = [photosDataSource indexPathForAsset:asset2 hintIndexPath:burstIdentifier hintCollection:assetCollection];
     }
 
     else
@@ -291,7 +291,7 @@ LABEL_14:
 
       if (!uuid)
       {
-        indexPath = 0;
+        v10 = 0;
         goto LABEL_26;
       }
 
@@ -301,26 +301,26 @@ LABEL_14:
 
       if (objc_opt_respondsToSelector())
       {
-        indexPath2 = [photosDataSource burstIdentifier];
+        burstIdentifier = [photosDataSource burstIdentifier];
       }
 
       else
       {
-        indexPath2 = 0;
+        burstIdentifier = 0;
       }
 
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
 
-        indexPath2 = 0;
+        burstIdentifier = 0;
       }
 
       photosDataSource2 = [(PUPhotoKitAssetsDataSource *)self photosDataSource];
       assetCollection = [photosDataSource2 indexPathForLastAsset];
 
       photosDataSource3 = [(PUPhotoKitAssetsDataSource *)self photosDataSource];
-      indexPath = [photosDataSource3 indexPathForAssetWithUUID:asset2 orBurstIdentifier:indexPath2 hintIndexPath:assetCollection hintCollection:0];
+      v10 = [photosDataSource3 indexPathForAssetWithUUID:asset2 orBurstIdentifier:burstIdentifier hintIndexPath:assetCollection hintCollection:0];
     }
 
     goto LABEL_24;
@@ -335,7 +335,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  photosDataSource = [v6 indexPath];
+  photosDataSource = objc_msgSend_indexPath(v6);
   change2 = [(PUPhotoKitAssetsDataSource *)self change];
   v17 = [change2 indexPathAfterApplyingIncrementalChangesToIndexPath:photosDataSource];
 
@@ -343,15 +343,15 @@ LABEL_14:
   asset2 = v18;
   if (!v18)
   {
-    indexPath2 = [v6 asset];
-    if ((objc_opt_respondsToSelector() & 1) == 0 || ![indexPath2 isGuestAsset])
+    burstIdentifier = [v6 asset];
+    if ((objc_opt_respondsToSelector() & 1) == 0 || ![burstIdentifier isGuestAsset])
     {
       asset2 = 0;
-      indexPath = 0;
+      v10 = 0;
       goto LABEL_25;
     }
 
-    assetCollection = indexPath2;
+    assetCollection = burstIdentifier;
     if (assetCollection)
     {
       objc_opt_class();
@@ -366,15 +366,15 @@ LABEL_33:
         if (syndicationIdentifier)
         {
           photosDataSource4 = [(PUPhotoKitAssetsDataSource *)self photosDataSource];
-          indexPath = [photosDataSource4 indexPathForAssetWithUUID:0 orSyndicationIdentifier:syndicationIdentifier hintIndexPath:currentHandler4 hintCollection:0];
+          v10 = [photosDataSource4 indexPathForAssetWithUUID:0 orSyndicationIdentifier:syndicationIdentifier hintIndexPath:currentHandler4 hintCollection:0];
         }
 
         else
         {
-          indexPath = 0;
+          v10 = 0;
         }
 
-        indexPath2 = assetCollection;
+        burstIdentifier = assetCollection;
         goto LABEL_38;
       }
 
@@ -418,28 +418,28 @@ LABEL_33:
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"PUPhotoKitAssetsDataSource.m" lineNumber:129 description:{@"Index path %@ converted using change %@ is invalid, outside section bounds: %@", photosDataSource, change4, asset2}];
   }
 
-  indexPath2 = [v6 asset];
+  burstIdentifier = [v6 asset];
   photosDataSource7 = [(PUPhotoKitAssetsDataSource *)self photosDataSource];
   assetCollection = [photosDataSource7 assetAtIndexPath:asset2];
 
-  if (([indexPath2 isEqual:assetCollection] & 1) == 0)
+  if (([burstIdentifier isEqual:assetCollection] & 1) == 0)
   {
     currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
     syndicationIdentifier = [(PUPhotoKitAssetsDataSource *)self change];
-    [currentHandler4 handleFailureInMethod:a2 object:self file:@"PUPhotoKitAssetsDataSource.m" lineNumber:132 description:{@"Index path %@ converted using change %@ is invalid:%@ asset does not match: %@!=%@", photosDataSource, syndicationIdentifier, asset2, indexPath2, assetCollection}];
-    indexPath = asset2;
+    [currentHandler4 handleFailureInMethod:a2 object:self file:@"PUPhotoKitAssetsDataSource.m" lineNumber:132 description:{@"Index path %@ converted using change %@ is invalid:%@ asset does not match: %@!=%@", photosDataSource, syndicationIdentifier, asset2, burstIdentifier, assetCollection}];
+    v10 = asset2;
 LABEL_38:
 
     goto LABEL_24;
   }
 
-  indexPath = asset2;
+  v10 = asset2;
 LABEL_24:
 
 LABEL_25:
 LABEL_26:
 
-  return indexPath;
+  return v10;
 }
 
 - (id)assetReferenceAtIndexPath:(id)path
@@ -819,7 +819,7 @@ uint64_t __98__PUPhotoKitAssetsDataSource_badgeInfoPromiseForAsset_assetCollecti
   return v8;
 }
 
-uint64_t __98__PUPhotoKitAssetsDataSource_badgeInfoPromiseForAsset_assetCollection_spatialPresentationEnabled___block_invoke_3(void *a1)
+void *__98__PUPhotoKitAssetsDataSource_badgeInfoPromiseForAsset_assetCollection_spatialPresentationEnabled___block_invoke_3(void *a1)
 {
   result = [MEMORY[0x1E69BE2B0] countForAssetsWithAvalancheUUID:a1[4] sourceType:a1[7] inLibrary:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

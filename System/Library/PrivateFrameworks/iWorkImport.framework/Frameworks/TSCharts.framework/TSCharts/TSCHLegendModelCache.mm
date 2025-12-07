@@ -270,35 +270,35 @@ LABEL_23:
     v287 = objc_msgSend_countByEnumeratingWithState_objects_count_(v282, v283, v284, v285, v286, &v306, v311, 16);
     if (v287)
     {
-      v292 = v287;
-      v293 = *v307;
+      v291 = v287;
+      v292 = *v307;
       pairCopy = v298;
       sourceCopy = v304;
       do
       {
-        for (i = 0; i != v292; ++i)
+        for (i = 0; i != v291; ++i)
         {
-          if (*v307 != v293)
+          if (*v307 != v292)
           {
             objc_enumerationMutation(v282);
           }
 
-          objc_msgSend_size(*(*(&v306 + 1) + 8 * i), v288, v289, v290, v291);
-          if (v280 < v289)
+          objc_msgSend_size(*(*(&v306 + 1) + 8 * i), v288, v289, v290);
+          if (v280 < v288)
           {
-            v280 = v289;
+            v280 = v288;
           }
 
-          if (v281 < v290)
+          if (v281 < v289)
           {
-            v281 = v290;
+            v281 = v289;
           }
         }
 
-        v292 = objc_msgSend_countByEnumeratingWithState_objects_count_(v282, v288, v289, v290, v291, &v306, v311, 16);
+        v291 = objc_msgSend_countByEnumeratingWithState_objects_count_(v282, v294, v288, v289, v290, &v306, v311, 16);
       }
 
-      while (v292);
+      while (v291);
     }
 
     else

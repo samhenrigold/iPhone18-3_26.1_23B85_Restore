@@ -7,11 +7,10 @@
 
 + (id)deviceName
 {
-  v6 = *MEMORY[0x29EDCA608];
-  memset(&v5, 0, 512);
-  uname(&v5);
-  v2 = [MEMORY[0x29EDBA0F8] stringWithCString:v5.machine encoding:4];
-  v3 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
+  memset(&v4, 0, 512);
+  uname(&v4);
+  v2 = [MEMORY[0x29EDBA0F8] stringWithCString:v4.machine encoding:4];
 
   return v2;
 }

@@ -23,7 +23,7 @@
 
 - (void)setDisplayDate:(id)date
 {
-  sub_2186DCF58();
+  sub_2186DCF58(0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (date)

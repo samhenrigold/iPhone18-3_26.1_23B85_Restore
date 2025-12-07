@@ -35,7 +35,7 @@
       }
 
       v9 = ARShouldUseLogTypeError_internalOSVersion_10;
-      v10 = _ARLogTechnique_5();
+      v10 = _ARLogTechnique_5(vtPixelTransferSession);
       v11 = v10;
       if (v9 == 1)
       {
@@ -89,7 +89,7 @@ LABEL_24:
       }
 
       v18 = ARShouldUseLogTypeError_internalOSVersion_10;
-      v19 = _ARLogTechnique_5();
+      v19 = _ARLogTechnique_5(v17);
       v11 = v19;
       if (v18 == 1)
       {
@@ -175,7 +175,7 @@ LABEL_26:
 
 - (__CVBuffer)scalePixelBuffer:(__CVBuffer *)buffer
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   conversionPixelFormatType = self->_conversionPixelFormatType;
   if (!conversionPixelFormatType)
   {
@@ -197,42 +197,42 @@ LABEL_26:
       [ARImageScalePass scalePixelBuffer:];
     }
 
-    v10 = ARShouldUseLogTypeError_internalOSVersion_10;
-    v11 = _ARLogTechnique_5();
-    v12 = v11;
-    if (v10 == 1)
+    v11 = ARShouldUseLogTypeError_internalOSVersion_10;
+    v12 = _ARLogTechnique_5(v10);
+    v13 = v12;
+    if (v11 == 1)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v20 = 138543874;
-        v21 = v14;
-        v22 = 2048;
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v21 = 138543874;
+        v22 = v15;
+        v23 = 2048;
         selfCopy2 = self;
-        v24 = 1024;
-        v25 = v9;
-        v15 = "%{public}@ <%p>: Unable to scale image with error %d";
-        v16 = v12;
-        v17 = OS_LOG_TYPE_ERROR;
+        v25 = 1024;
+        v26 = v9;
+        v16 = "%{public}@ <%p>: Unable to scale image with error %d";
+        v17 = v13;
+        v18 = OS_LOG_TYPE_ERROR;
 LABEL_11:
-        _os_log_impl(&dword_1C241C000, v16, v17, v15, &v20, 0x1Cu);
+        _os_log_impl(&dword_1C241C000, v17, v18, v16, &v21, 0x1Cu);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v18 = objc_opt_class();
-      v14 = NSStringFromClass(v18);
-      v20 = 138543874;
-      v21 = v14;
-      v22 = 2048;
+      v19 = objc_opt_class();
+      v15 = NSStringFromClass(v19);
+      v21 = 138543874;
+      v22 = v15;
+      v23 = 2048;
       selfCopy2 = self;
-      v24 = 1024;
-      v25 = v9;
-      v15 = "Error: %{public}@ <%p>: Unable to scale image with error %d";
-      v16 = v12;
-      v17 = OS_LOG_TYPE_INFO;
+      v25 = 1024;
+      v26 = v9;
+      v16 = "Error: %{public}@ <%p>: Unable to scale image with error %d";
+      v17 = v13;
+      v18 = OS_LOG_TYPE_INFO;
       goto LABEL_11;
     }
 

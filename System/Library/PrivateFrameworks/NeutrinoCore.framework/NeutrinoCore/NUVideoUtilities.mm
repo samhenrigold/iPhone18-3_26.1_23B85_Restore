@@ -122,7 +122,7 @@
         memset(&time1, 0, sizeof(time1));
         if (v11)
         {
-          [v11 timeRange];
+          objc_msgSend_timeRange(v11);
         }
 
         v12 = *&range->var0.var3;
@@ -131,10 +131,10 @@
         *&v26.duration.timescale = *&range->var1.var1;
         memset(&time2, 0, sizeof(time2));
         otherRange = time1;
-        [NUVideoUtilities convertTimeRange:&v26 toMaximumTimeScaleOfRange:&otherRange];
+        objc_msgSend_convertTimeRange_toMaximumTimeScaleOfRange_(NUVideoUtilities);
         if (v11)
         {
-          [v11 timeRange];
+          objc_msgSend_timeRange(v11);
         }
 
         else
@@ -197,9 +197,9 @@ void __56__NUVideoUtilities_trimCompositionTracks_toRange_error___block_invoke_2
   v4 = v3;
   if (v3)
   {
-    [v3 timeMapping];
+    objc_msgSend_timeMapping(v3);
     v32 = v28;
-    [v4 timeMapping];
+    objc_msgSend_timeMapping(v4);
   }
 
   else
@@ -254,7 +254,7 @@ void __56__NUVideoUtilities_trimCompositionTracks_toRange_error___block_invoke_2
       v8 = v7;
       if (v7)
       {
-        [v7 timeMapping];
+        objc_msgSend_timeMapping(v7);
       }
 
       else
@@ -1046,7 +1046,7 @@ __n128 __75__NUVideoUtilities_validateMainVideoTrack_potentiallyCorruptedRange_e
   {
     if (v3)
     {
-      [v3 time];
+      objc_msgSend_time(v3);
     }
 
     else
@@ -1065,7 +1065,7 @@ __n128 __75__NUVideoUtilities_validateMainVideoTrack_potentiallyCorruptedRange_e
   {
     if (v3)
     {
-      [v3 time];
+      objc_msgSend_time(v3);
       v14 = *(*(a1 + 32) + 8);
     }
 
@@ -2254,7 +2254,7 @@ void __78__NUVideoUtilities_compositionInstructions_areEqualToCompositionInstruc
         v12 = v11;
         if (v11)
         {
-          [v11 timeRange];
+          objc_msgSend_timeRange(v11);
         }
 
         else
@@ -2296,11 +2296,11 @@ void __78__NUVideoUtilities_compositionInstructions_areEqualToCompositionInstruc
         v20 = *(*(&v26 + 1) + 8 * j);
         if (v20)
         {
-          [*(*(&v26 + 1) + 8 * j) timeRange];
+          objc_msgSend_timeRange(*(*(&v26 + 1) + 8 * j));
           *&range.start.value = v24;
           range.start.epoch = v25;
           Seconds = CMTimeGetSeconds(&range.start);
-          [v20 timeRange];
+          objc_msgSend_timeRange(v20);
         }
 
         else
@@ -2356,7 +2356,7 @@ void __78__NUVideoUtilities_compositionInstructions_areEqualToCompositionInstruc
         mediaType = [v11 mediaType];
         if (v11)
         {
-          [v11 timeRange];
+          objc_msgSend_timeRange(v11);
         }
 
         else
@@ -2529,7 +2529,7 @@ void __78__NUVideoUtilities_compositionInstructions_areEqualToCompositionInstruc
       v12 = [v11 objectAtIndexedSubscript:0];
       v13 = v12;
       memset(buf, 0, sizeof(buf));
-      if (v12 && ([v12 timeRange], (buf[0].flags & 1) != 0) && (buf[1].flags & 1) != 0 && !buf[1].epoch && (buf[1].value & 0x8000000000000000) == 0)
+      if (v12 && (objc_msgSend_timeRange(v12), (buf[0].flags & 1) != 0) && (buf[1].flags & 1) != 0 && !buf[1].epoch && (buf[1].value & 0x8000000000000000) == 0)
       {
         v96 = buf[1];
         v95 = buf[0];
@@ -2565,7 +2565,7 @@ void __78__NUVideoUtilities_compositionInstructions_areEqualToCompositionInstruc
 
               if (v20)
               {
-                [v20 preferredTransform];
+                objc_msgSend_preferredTransform(v20);
               }
 
               else
@@ -2585,7 +2585,7 @@ void __78__NUVideoUtilities_compositionInstructions_areEqualToCompositionInstruc
               memset(&v85, 0, sizeof(v85));
               if (v20)
               {
-                [v20 timeRange];
+                objc_msgSend_timeRange(v20);
               }
 
               else
@@ -2604,7 +2604,7 @@ void __78__NUVideoUtilities_compositionInstructions_areEqualToCompositionInstruc
               {
                 if (v20)
                 {
-                  [v20 timeRange];
+                  objc_msgSend_timeRange(v20);
                 }
 
                 else
@@ -3092,7 +3092,7 @@ LABEL_40:
             v17 = *(*(&v96 + 1) + 8 * i);
             if (v17)
             {
-              [v17 timeRange];
+              objc_msgSend_timeRange(v17);
             }
 
             else
@@ -3148,7 +3148,7 @@ LABEL_40:
               memset(&v88, 0, sizeof(v88));
               if (v26)
               {
-                [v26 timeRange];
+                objc_msgSend_timeRange(v26);
               }
 
               else
@@ -3164,7 +3164,7 @@ LABEL_40:
               CMTimeAdd(&v88, &rhs.start, &start);
               if (v26)
               {
-                [v26 timeRange];
+                objc_msgSend_timeRange(v26);
               }
 
               else
@@ -3250,7 +3250,7 @@ LABEL_40:
   *&otherRange.start.value = *&a5->var0.var0;
   *&otherRange.start.epoch = v8;
   *&otherRange.duration.timescale = *&a5->var1.var1;
-  [a2 convertTimeRange:&range toMaximumTimeScaleOfRange:&otherRange];
+  objc_msgSend_convertTimeRange_toMaximumTimeScaleOfRange_(a2, range, &range, &otherRange);
   v9 = *&a5->var0.var3;
   *&range.start.value = *&a5->var0.var0;
   *&range.start.epoch = v9;
@@ -3349,7 +3349,7 @@ LABEL_40:
     v15 = v14;
     if (orientedCopy)
     {
-      [orientedCopy preferredTransform];
+      objc_msgSend_preferredTransform(orientedCopy);
     }
 
     else
@@ -3399,7 +3399,7 @@ LABEL_40:
 
   if (trackCopy)
   {
-    [trackCopy preferredTransform];
+    objc_msgSend_preferredTransform(trackCopy);
   }
 
   else
@@ -3445,7 +3445,7 @@ LABEL_7:
 
   if (trackCopy)
   {
-    [trackCopy preferredTransform];
+    objc_msgSend_preferredTransform(trackCopy);
   }
 
   else
@@ -3477,7 +3477,7 @@ LABEL_7:
   v7 = v10;
   if (v6)
   {
-    [v6 preferredTransform];
+    objc_msgSend_preferredTransform(v6);
     v4 = [self videoOrientationForAssetPreferredTransform:buf];
   }
 
@@ -3573,10 +3573,10 @@ LABEL_7:
   }
 
   memset(&v44, 0, sizeof(v44));
-  [NUVideoUtilities minimumFrameDurationForAsset:asset];
+  objc_msgSend_minimumFrameDurationForAsset_(NUVideoUtilities);
   if (trackCopy)
   {
-    [trackCopy timeRange];
+    objc_msgSend_timeRange(trackCopy);
   }
 
   else
@@ -3661,7 +3661,8 @@ LABEL_6:
 
   duration.start.value = 0;
   *&duration.start.timescale = &duration;
-  *&duration.start.epoch = 0x2020000000uLL;
+  duration.start.epoch = 0x2020000000;
+  duration.duration.value = 0;
   v17 = MEMORY[0x1E69E9820];
   v18 = 3221225472;
   v19 = __77__NUVideoUtilities_readVideoFrameAtTime_fromAsset_reader_readerOutput_error___block_invoke;
@@ -3706,7 +3707,7 @@ void __77__NUVideoUtilities_readVideoFrameAtTime_fromAsset_reader_readerOutput_e
     v12 = *(a1 + 32);
     if (v12)
     {
-      [v12 duration];
+      objc_msgSend_duration(v12);
     }
 
     else
@@ -4387,7 +4388,7 @@ LABEL_30:
         v29 = asset;
         if (asset)
         {
-          [asset duration];
+          objc_msgSend_duration(asset);
         }
 
         else
@@ -5293,15 +5294,15 @@ LABEL_20:
   }
 
   memset(&buf, 0, sizeof(buf));
-  [trackCopy timeRange];
+  objc_msgSend_timeRange(trackCopy);
   v58 = 0u;
   v59 = 0u;
   v57 = 0u;
-  [v7 timeRange];
+  objc_msgSend_timeRange(v7);
   v54 = 0;
   v55 = 0;
   v56 = 0;
-  [v7 minFrameDuration];
+  objc_msgSend_minFrameDuration(v7);
   memset(&range, 0, sizeof(range));
   memset(&otherRange, 0, sizeof(otherRange));
   CMTimeRangeGetUnion(&range2, &range, &otherRange);
@@ -5790,7 +5791,7 @@ LABEL_11:
   if (v6)
   {
     memset(&v18, 0, sizeof(v18));
-    [v5 minFrameDuration];
+    objc_msgSend_minFrameDuration(v5);
     if (0 >> 96)
     {
       *&v15.start.value = *MEMORY[0x1E6960CC0];
@@ -6565,7 +6566,7 @@ void __53__NUVideoUtilities_readNextPixelBuffer_output_block___block_invoke(uint
   memset(&v9, 0, sizeof(v9));
   if (v5)
   {
-    [v5 minFrameDuration];
+    objc_msgSend_minFrameDuration(v5);
     if (v9.flags)
     {
       time1 = v9;
@@ -6644,18 +6645,18 @@ void __53__NUVideoUtilities_readNextPixelBuffer_output_block___block_invoke(uint
     if (sourceTrackIDForFrameTiming)
     {
       v11 = [MEMORY[0x1E69C0708] trackWithTrackID:sourceTrackIDForFrameTiming forAsset:compositionCopy];
-      [a2 minimumFrameDurationForAssetTrack:v11];
+      objc_msgSend_minimumFrameDurationForAssetTrack_(a2);
     }
 
     else
     {
-      [v8 frameDuration];
+      objc_msgSend_frameDuration(v8);
     }
   }
 
   else
   {
-    [a2 minimumFrameDurationForAsset:compositionCopy];
+    objc_msgSend_minimumFrameDurationForAsset_(a2);
   }
 
   return result;
@@ -6670,7 +6671,7 @@ void __53__NUVideoUtilities_readNextPixelBuffer_output_block___block_invoke(uint
   v8 = v11;
   if (v7)
   {
-    [a2 minimumFrameDurationForAssetTrack:v7];
+    objc_msgSend_minimumFrameDurationForAssetTrack_(a2);
   }
 
   else

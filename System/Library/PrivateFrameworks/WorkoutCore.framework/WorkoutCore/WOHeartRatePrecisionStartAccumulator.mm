@@ -39,8 +39,7 @@
   sessionCopy = session;
   v5 = type metadata accessor for Date();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](v5, v7);
   v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = OBJC_IVAR___WOHeartRatePrecisionStartAccumulator_disabledForSession;
   swift_beginAccess();
@@ -68,7 +67,7 @@
 {
   storeCopy = store;
   swift_unknownObjectRetain();
-  v10 = specialized HeartRatePrecisionStartAccumulator.init(healthStore:staleTimeout:delegate:heartRateSupported:)(storeCopy, timeout, delegate, supported);
+  v10 = specialized HeartRatePrecisionStartAccumulator.init(healthStore:staleTimeout:delegate:heartRateSupported:)(storeCopy, delegate, supported, timeout);
 
   swift_unknownObjectRelease();
   return v10;
@@ -77,28 +76,27 @@
 - (void)accumulatorDidStartWithStartDate:(id)date handler:(id)handler
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v6 - 8);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v16 - v11;
+  v8 = MEMORY[0x28223BE20](v6 - 8, v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8, v11);
+  v13 = &v17 - v12;
   if (date)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v13 = type metadata accessor for Date();
-    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
+    v14 = type metadata accessor for Date();
+    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
   }
 
   else
   {
-    v13 = type metadata accessor for Date();
-    (*(*(v13 - 8) + 56))(v12, 1, 1, v13);
+    v14 = type metadata accessor for Date();
+    (*(*(v14 - 8) + 56))(v13, 1, 1, v14);
   }
 
-  outlined init with copy of Date?(v12, v10);
+  outlined init with copy of Date?(v13, v10);
   type metadata accessor for Date();
-  v14 = *(v13 - 8);
-  if ((*(v14 + 48))(v10, 1, v13) == 1)
+  v15 = *(v14 - 8);
+  if ((*(v15 + 48))(v10, 1, v14) == 1)
   {
     __break(1u);
   }
@@ -108,8 +106,8 @@
     selfCopy = self;
     HeartRatePrecisionStartAccumulator.startQuery(startDate:)();
 
-    outlined destroy of Date?(v12);
-    (*(v14 + 8))(v10, v13);
+    outlined destroy of Date?(v13);
+    (*(v15 + 8))(v10, v14);
   }
 }
 

@@ -8,9 +8,7 @@ void __PFUserInsertRule_S_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = PFManagerCheckUserExists(*(a1 + 48));
   if (*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = *(a1 + 48);
-    v5 = *(a1 + 56);
-    PFManagerInfoLog();
+    PFManagerInfoLog("user %p xpc send -> insert %p", *(a1 + 48), *(a1 + 56));
     *(*(*(a1 + 32) + 8) + 24) = PFManagerSendMessage(*(a1 + 56), *(*(a1 + 48) + 24), *(*(a1 + 48) + 32), 1001, *(a1 + 64), 0);
     if (*(*(*(a1 + 32) + 8) + 24) == 1)
     {
@@ -25,7 +23,7 @@ void __PFUserInsertRule_S_block_invoke(uint64_t a1)
   else
   {
 
-    PFManagerErrorLog();
+    PFManagerErrorLog("incorrect user");
   }
 }
 

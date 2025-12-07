@@ -3,11 +3,11 @@
 
 @implementation MKPuckAnnotationView
 
-uint64_t __37___MKPuckAnnotationView__removePulse__block_invoke(uint64_t result, int a2)
+void *__37___MKPuckAnnotationView__removePulse__block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 1224) removeFromSuperlayer];
+    return [*(result[4] + 1224) removeFromSuperlayer];
   }
 
   return result;
@@ -97,7 +97,7 @@ id __80___MKPuckAnnotationView__updatePuckVisibilityForRadius_previousRadius_dur
   v8 = *(v7 + 1024);
   if (v8)
   {
-    [v8 transform];
+    objc_msgSend_transform(v8);
     v7 = *(a1 + 32);
   }
 
@@ -126,7 +126,7 @@ id __80___MKPuckAnnotationView__updatePuckVisibilityForRadius_previousRadius_dur
   v10 = *(*(a1 + 32) + 1096);
   if (v10)
   {
-    [v10 transform];
+    objc_msgSend_transform(v10);
   }
 
   else

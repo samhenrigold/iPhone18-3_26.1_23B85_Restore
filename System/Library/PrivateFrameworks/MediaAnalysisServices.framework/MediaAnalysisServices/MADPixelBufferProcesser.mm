@@ -243,23 +243,23 @@ LABEL_22:
   y = interest.origin.y;
   x = interest.origin.x;
   v16 = *&orientation;
-  v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@][processPixelBuffer]", objc_opt_class()];
-  v19 = MADSignpostLog();
+  v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@][processPixelBuffer]", objc_opt_class()];
+  v19 = MADSignpostLog(v51);
   v20 = os_signpost_id_generate(v19);
 
-  v21 = MADSignpostLog();
-  v22 = v21;
-  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  v22 = MADSignpostLog(v21);
+  v23 = v22;
+  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C972C000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "MADPixelBufferProcesser_processPixelBuffer", &unk_1C977645E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C972C000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v20, "MADPixelBufferProcesser_processPixelBuffer", &unk_1C977645E, buf, 2u);
   }
 
   p_rotationSession = &self->_rotationSession;
-  if (self->_rotationSession.value_ || (v24 = VTPixelRotationSessionCreate(0, &self->_rotationSession.value_)) == 0)
+  if (self->_rotationSession.value_ || (LODWORD(v25) = VTPixelRotationSessionCreate(0, &self->_rotationSession.value_), !v25))
   {
-    v24 = [(MADPixelBufferProcesser *)self _configurePixelRotationSessionWithOrientation:v16];
-    if (v24)
+    LODWORD(v25) = [(MADPixelBufferProcesser *)self _configurePixelRotationSessionWithOrientation:v16];
+    if (v25)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
@@ -269,13 +269,13 @@ LABEL_22:
 
     else
     {
-      v25 = CVPixelBufferGetWidth(buffer);
-      v26 = CVPixelBufferGetHeight(buffer);
-      v50.origin.x = x;
-      v50.origin.y = y;
-      v50.size.width = width;
-      v50.size.height = height;
-      if (CGRectIsEmpty(v50) || (v54.size.width = v25, v54.size.height = v26, v54.origin.x = 0.0, v54.origin.y = 0.0, v51.origin.x = x, v51.origin.y = y, v51.size.width = width, v51.size.height = height, CGRectEqualToRect(v51, v54)))
+      v26 = CVPixelBufferGetWidth(buffer);
+      v27 = CVPixelBufferGetHeight(buffer);
+      v54.origin.x = x;
+      v54.origin.y = y;
+      v54.size.width = width;
+      v54.size.height = height;
+      if (CGRectIsEmpty(v54) || (v58.size.width = v26, v58.size.height = v27, v58.origin.x = 0.0, v58.origin.y = 0.0, v55.origin.x = x, v55.origin.y = y, v55.size.width = width, v55.size.height = height, CGRectEqualToRect(v55, v58)))
       {
         VTSessionSetProperty(p_rotationSession->value_, *MEMORY[0x1E6983E40], 0);
         VTSessionSetProperty(p_rotationSession->value_, *MEMORY[0x1E6983DD0], 0);
@@ -283,26 +283,26 @@ LABEL_22:
 
       else
       {
-        v52.origin.x = x;
-        v52.origin.y = y;
-        v52.size.width = width;
-        v52.size.height = height;
-        DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v52);
-        v53.size.height = height;
-        v53.size.width = width;
+        v56.origin.x = x;
+        v56.origin.y = y;
+        v56.size.width = width;
+        v56.size.height = height;
+        DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v56);
+        v57.size.height = height;
+        v57.size.width = width;
         *buf = DictionaryRepresentation;
-        v53.origin.x = 0.0;
-        v53.origin.y = 0.0;
-        propertyValue[0] = CGRectCreateDictionaryRepresentation(v53);
+        v57.origin.x = 0.0;
+        v57.origin.y = 0.0;
+        propertyValue[0] = CGRectCreateDictionaryRepresentation(v57);
         VTSessionSetProperty(p_rotationSession->value_, *MEMORY[0x1E6983E40], *buf);
         VTSessionSetProperty(p_rotationSession->value_, *MEMORY[0x1E6983DD0], propertyValue[0]);
         CF<CGColorSpace *>::~CF(propertyValue);
         CF<CGColorSpace *>::~CF(buf);
       }
 
-      v28 = *MEMORY[0x1E695E4D0];
+      v29 = *MEMORY[0x1E695E4D0];
       VTSessionSetProperty(p_rotationSession->value_, *MEMORY[0x1E6983E38], *MEMORY[0x1E695E4D0]);
-      VTSessionSetProperty(p_rotationSession->value_, *MEMORY[0x1E6983DA0], v28);
+      v30 = VTSessionSetProperty(p_rotationSession->value_, *MEMORY[0x1E6983DA0], v29);
       if (v16 <= 4)
       {
         heightCopy = width;
@@ -319,15 +319,15 @@ LABEL_22:
       }
 
       *buf = 0;
-      v30 = MADSignpostLog();
-      v31 = os_signpost_id_generate(v30);
+      v32 = MADSignpostLog(v30);
+      v33 = os_signpost_id_generate(v32);
 
-      v32 = MADSignpostLog();
-      v33 = v32;
-      if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+      v35 = MADSignpostLog(v34);
+      v36 = v35;
+      if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
       {
         LOWORD(propertyValue[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C972C000, v33, OS_SIGNPOST_INTERVAL_BEGIN, v31, "MADPixelBufferProcesser_CreatePixelBuffer", &unk_1C977645E, propertyValue, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C972C000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v33, "MADPixelBufferProcesser_CreatePixelBuffer", &unk_1C977645E, propertyValue, 2u);
       }
 
       if (*buf)
@@ -336,16 +336,16 @@ LABEL_22:
         *buf = 0;
       }
 
-      v24 = [(MADPixelBufferProcesser *)self _createPixelBuffer:buf width:heightCopy height:width format:v9];
-      v34 = MADSignpostLog();
-      v35 = v34;
-      if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+      v25 = [(MADPixelBufferProcesser *)self _createPixelBuffer:buf width:heightCopy height:width format:v9];
+      v37 = MADSignpostLog(v25);
+      v38 = v37;
+      if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
       {
         LOWORD(propertyValue[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C972C000, v35, OS_SIGNPOST_INTERVAL_END, v31, "MADPixelBufferProcesser_CreatePixelBuffer", &unk_1C977645E, propertyValue, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C972C000, v38, OS_SIGNPOST_INTERVAL_END, v33, "MADPixelBufferProcesser_CreatePixelBuffer", &unk_1C977645E, propertyValue, 2u);
       }
 
-      if (v24)
+      if (v25)
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
@@ -355,27 +355,27 @@ LABEL_22:
 
       else
       {
-        v36 = MADSignpostLog();
-        v37 = os_signpost_id_generate(v36);
+        v40 = MADSignpostLog(v39);
+        v41 = os_signpost_id_generate(v40);
 
-        v38 = MADSignpostLog();
-        v39 = v38;
-        if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+        v43 = MADSignpostLog(v42);
+        v44 = v43;
+        if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
         {
           LOWORD(propertyValue[0]) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C972C000, v39, OS_SIGNPOST_INTERVAL_BEGIN, v37, "MADPixelBufferProcesser_ScaleRotate", &unk_1C977645E, propertyValue, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C972C000, v44, OS_SIGNPOST_INTERVAL_BEGIN, v41, "MADPixelBufferProcesser_ScaleRotate", &unk_1C977645E, propertyValue, 2u);
         }
 
-        v24 = VTPixelRotationSessionRotateImage(p_rotationSession->value_, buffer, *buf);
-        v40 = MADSignpostLog();
-        v41 = v40;
-        if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
+        v25 = VTPixelRotationSessionRotateImage(p_rotationSession->value_, buffer, *buf);
+        v45 = MADSignpostLog(v25);
+        v46 = v45;
+        if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
         {
           LOWORD(propertyValue[0]) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C972C000, v41, OS_SIGNPOST_INTERVAL_END, v37, "MADPixelBufferProcesser_ScaleRotate", &unk_1C977645E, propertyValue, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C972C000, v46, OS_SIGNPOST_INTERVAL_END, v41, "MADPixelBufferProcesser_ScaleRotate", &unk_1C977645E, propertyValue, 2u);
         }
 
-        if (v24)
+        if (v25)
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
@@ -385,22 +385,22 @@ LABEL_22:
 
         else
         {
-          v42 = *buf;
+          v47 = *buf;
           if (*buf)
           {
-            v42 = CFRetain(*buf);
+            v47 = CFRetain(*buf);
           }
 
-          *output = v42;
-          v43 = MADSignpostLog();
-          v44 = v43;
-          if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+          *output = v47;
+          v48 = MADSignpostLog(v47);
+          v25 = v48;
+          if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
           {
             LOWORD(propertyValue[0]) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C972C000, v44, OS_SIGNPOST_INTERVAL_END, v20, "MADPixelBufferProcesser_processPixelBuffer", &unk_1C977645E, propertyValue, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C972C000, v25, OS_SIGNPOST_INTERVAL_END, v20, "MADPixelBufferProcesser_processPixelBuffer", &unk_1C977645E, propertyValue, 2u);
           }
 
-          v24 = 0;
+          LODWORD(v25) = 0;
         }
       }
 
@@ -413,7 +413,7 @@ LABEL_22:
     [MADPixelBufferProcesser processPixelBuffer:orientation:regionOfInterest:scaledWidth:scaledHeight:pixelFormat:output:];
   }
 
-  return v24;
+  return v25;
 }
 
 - (id).cxx_construct

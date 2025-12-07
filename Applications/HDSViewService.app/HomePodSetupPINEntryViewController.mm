@@ -37,7 +37,7 @@
   v7 = type metadata accessor for HomePodSetupViewModel(0);
   (*(*(v7 - 8) + 56))(&self->PRXPasscodeEntryViewController_opaque[v6], 1, 1, v7);
   v9.receiver = self;
-  v9.super_class = type metadata accessor for HomePodSetupPINEntryViewController();
+  v9.super_class = type metadata accessor for HomePodSetupPINEntryViewController(0);
   return [(HomePodSetupPINEntryViewController *)&v9 initWithContentView:view];
 }
 

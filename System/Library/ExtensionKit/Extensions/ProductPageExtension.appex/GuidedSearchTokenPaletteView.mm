@@ -35,25 +35,26 @@
   v5 = sub_10075E11C();
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075E06C();
   v9 = *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension28GuidedSearchTokenPaletteView_onSelect);
   if (v9)
   {
+    v10 = *&self->onSelect[OBJC_IVAR____TtC20ProductPageExtension28GuidedSearchTokenPaletteView_onSelect];
     selfCopy = self;
-    sub_10001CE50(v9);
-    v11 = sub_10075E07C();
-    v9(v11);
-    sub_1000167E0(v9);
+    sub_10001CE50(v9, v10);
+    v12 = sub_10075E07C();
+    v9(v12);
+    sub_1000167E0(v9, v10);
 
     (*(v6 + 8))(v8, v5);
   }
 
   else
   {
-    v12 = *(v6 + 8);
+    v13 = *(v6 + 8);
     selfCopy2 = self;
-    v12(v8, v5);
+    v13(v8, v5);
   }
 }
 
@@ -66,7 +67,7 @@
   sub_10075E06C();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_10024FF24(viewCopy);
+  v12 = sub_10024FF24(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -78,36 +79,36 @@
   v7 = sub_10075E11C();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075E06C();
   viewCopy = view;
   selfCopy = self;
-  sub_10025004C(&v19);
-  if (*(&v20 + 1))
+  sub_10025004C(&v21);
+  if (*(&v22 + 1))
   {
-    v22 = v19;
-    v23 = v20;
     v24 = v21;
-    [viewCopy bounds];
-    v13 = sub_100250938(&v22, viewCopy);
-    v15 = v14;
     v25 = v22;
-    sub_10000CFBC(&v25, &unk_100943470);
     v26 = v23;
-    sub_1000B8AFC(&v26);
+    [viewCopy bounds];
+    v15 = sub_100250938(&v24, viewCopy, v13, v14);
+    v17 = v16;
+    v27 = v24;
+    sub_10000CFBC(&v27, &unk_100943470, &qword_10078C740);
+    v28 = v25;
+    sub_1000B8AFC(&v28);
   }
 
   else
   {
-    v13 = 0.0;
     v15 = 0.0;
+    v17 = 0.0;
   }
 
   (*(v8 + 8))(v10, v7);
-  v16 = v13;
-  v17 = v15;
-  result.height = v17;
-  result.width = v16;
+  v18 = v15;
+  v19 = v17;
+  result.height = v19;
+  result.width = v18;
   return result;
 }
 
@@ -155,7 +156,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_1002520F8(cellCopy);
+  sub_1002520F8(cellCopy, v11);
 
   (*(v9 + 8))(v11, v8);
 }

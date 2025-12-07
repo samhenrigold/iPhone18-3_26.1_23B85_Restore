@@ -28,6 +28,7 @@
 - (void)_relayCurrentSMSFilteringSettings;
 - (void)_relaySMSFilteringSettingsForFilterState:(int64_t)state;
 - (void)_removeAppliedPriorityMessages:(id)messages;
+- (void)_smsSpamCheck:(id)check withMessageBody:(id)body withGuid:(id)guid sender:(id)sender receiverISOCountryCode:(id)code receivedViaRelay:(BOOL)relay containsOneTimeCode:(BOOL)timeCode;
 - (void)_updateFilterParamsForFilterExtension;
 - (void)_updateSpamFilteringState:(int64_t)state;
 - (void)categorizeIncomingMessage:(id)message deviceID:(id)d category:(int64_t)category subCategory:(int64_t)subCategory messageGUID:(id)iD sender:(id)sender wasRelayed:(BOOL)relayed chatIdentifier:(id)self0 participants:(id)self1 checkingForSpam:(BOOL *)self2 trustIndicator:(id)self3 myReceiverISOCountryCode:(id)self4 messageBody:(id)self5 foundChat:(id)self6 service:(id)self7 containsOneTimeCode:(BOOL)self8 completion:(id)self9;
@@ -231,7 +232,7 @@ LABEL_28:
 
 - (void)_processReceivedSMSFilteringSettingsDictionaryInBlastDoor:(id)door deviceID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   doorCopy = door;
   dCopy = d;
   if ([dCopy length])
@@ -239,13 +240,13 @@ LABEL_28:
     if ([MEMORY[0x277D1AB70] supportsIncomingSMSRelayFiltering])
     {
       untrustedContext = [MEMORY[0x277D1AB80] untrustedContext];
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = sub_22B6CED44;
-      v11[3] = &unk_2787083D8;
-      v11[4] = self;
-      v12 = dCopy;
-      [IMBlastdoor sendDictionary:doorCopy senderContext:untrustedContext withCompletionBlock:v11];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = sub_22B6CED44;
+      v10[3] = &unk_2787083D8;
+      v10[4] = self;
+      v11 = dCopy;
+      [IMBlastdoor sendDictionary:doorCopy senderContext:untrustedContext withCompletionBlock:v10];
     }
   }
 
@@ -255,17 +256,15 @@ LABEL_28:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = dCopy;
+      v13 = dCopy;
       _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Received invalid deviceID:%@. Not checking if we need to update filterCapabilities", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processReceivedSMSFilteringSettingsMessage:(id)message deviceID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dCopy = d;
   if ([MEMORY[0x277D1AB70] supportsIncomingSMSRelayFiltering])
@@ -275,8 +274,8 @@ LABEL_28:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Device is supporting incoming sms relay filtering. Checking if we need to update filterCapbilities from relayed message", &v13, 2u);
+        LOWORD(v12) = 0;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Device is supporting incoming sms relay filtering. Checking if we need to update filterCapbilities from relayed message", &v12, 2u);
       }
     }
 
@@ -287,20 +286,18 @@ LABEL_28:
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412802;
-        v14 = filterExtensionName;
-        v15 = 2048;
-        v16 = smsFilterCapabilitiesOptions;
-        v17 = 2112;
-        v18 = dCopy;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received filterExtensionName: %@, smsFilterCapabilitiesOptions: %lu from deviceID:%@. Checking if we need to update filterCapabilities", &v13, 0x20u);
+        v12 = 138412802;
+        v13 = filterExtensionName;
+        v14 = 2048;
+        v15 = smsFilterCapabilitiesOptions;
+        v16 = 2112;
+        v17 = dCopy;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received filterExtensionName: %@, smsFilterCapabilitiesOptions: %lu from deviceID:%@. Checking if we need to update filterCapabilities", &v12, 0x20u);
       }
     }
 
     [(IMDFilteringController *)self _checkAndUpdateSMSFilteringSettingsForDeviceID:dCopy smsFilterCapabilitiesOptions:smsFilterCapabilitiesOptions filterExtensionName:filterExtensionName];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (IMDFilteringController)sharedInstance
@@ -379,7 +376,7 @@ LABEL_28:
 
 - (void)_categorizeRelayMessageWithCategory:(int64_t)category subCategory:(int64_t)subCategory deviceID:(id)d completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   if ([dCopy length] && -[IMDFilteringController _isMessageCategorized:](self, "_isMessageCategorized:", category))
@@ -389,11 +386,11 @@ LABEL_28:
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v18 = 134218240;
+        v17 = 134218240;
         subCategoryCopy2 = category;
-        v20 = 2048;
+        v19 = 2048;
         categoryCopy2 = subCategory;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Relayed message was categorized on iPhone. Received category: %ld and subCategory: %ld.", &v18, 0x16u);
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Relayed message was categorized on iPhone. Received category: %ld and subCategory: %ld.", &v17, 0x16u);
       }
     }
 
@@ -404,11 +401,11 @@ LABEL_28:
         v13 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v18 = 134218240;
+          v17 = 134218240;
           subCategoryCopy2 = subCategory;
-          v20 = 2048;
+          v19 = 2048;
           categoryCopy2 = category;
-          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "%ld is not a valid subAction for category: %ld. Resetting subCategory to None", &v18, 0x16u);
+          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "%ld is not a valid subAction for category: %ld. Resetting subCategory to None", &v17, 0x16u);
         }
       }
 
@@ -425,8 +422,8 @@ LABEL_28:
       v15 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Relayed message was not categorized on iPhone or device ID is invalid.", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Relayed message was not categorized on iPhone or device ID is invalid.", &v17, 2u);
       }
     }
 
@@ -442,8 +439,8 @@ LABEL_28:
       v16 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Received Device ID has no extension Name. Resetting category and subCategory to None", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Received Device ID has no extension Name. Resetting category and subCategory to None", &v17, 2u);
       }
     }
 
@@ -452,13 +449,22 @@ LABEL_28:
   }
 
   (*(completionCopy + 2))(completionCopy, category, subCategory, v14, 0, 0, 0);
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (void)_smsSpamCheck:(id)check withMessageBody:(id)body withGuid:(id)guid sender:(id)sender receiverISOCountryCode:(id)code receivedViaRelay:(BOOL)relay containsOneTimeCode:(BOOL)timeCode
+{
+  relayCopy = relay;
+  codeCopy = code;
+  senderCopy = sender;
+  guidCopy = guid;
+  bodyCopy = body;
+  [(IMDFilteringController *)self _storeSpamCompletionBlock:check forMessageGUID:guidCopy];
+  [(IMDFilteringController *)self _checkIfMessageIsSpam:bodyCopy fromSender:senderCopy withGuid:guidCopy receiverISOCountryCode:codeCopy receivedViaRelay:relayCopy containsOneTimeCode:timeCode];
 }
 
 - (BOOL)_shouldCheckChatForSMSSpam:(id)spam participants:(id)participants sender:(id)sender chat:(id)chat fallbackFilterCategory:(int64_t *)category fallbackFilterSubCategory:(int64_t *)subCategory
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   spamCopy = spam;
   participantsCopy = participants;
   senderCopy = sender;
@@ -493,13 +499,13 @@ LABEL_13:
           if (chatCopy)
           {
             chatProperties = [chatCopy chatProperties];
-            v27 = *MEMORY[0x277D19848];
-            v28 = [chatProperties objectForKeyedSubscript:*MEMORY[0x277D19848]];
-            if (v28)
+            v26 = *MEMORY[0x277D19848];
+            v27 = [chatProperties objectForKeyedSubscript:*MEMORY[0x277D19848]];
+            if (v27)
             {
               chatProperties2 = [chatCopy chatProperties];
-              v30 = [chatProperties2 objectForKeyedSubscript:v27];
-              longLongValue = [v30 longLongValue];
+              v29 = [chatProperties2 objectForKeyedSubscript:v26];
+              longLongValue = [v29 longLongValue];
 
               if (!longLongValue)
               {
@@ -511,9 +517,9 @@ LABEL_13:
                 v23 = OSLogHandleForIMFoundationCategory();
                 if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
                 {
-                  v32 = 138412290;
-                  v33 = spamCopy;
-                  _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: not checking sms spam, chat is not filtered: %@", &v32, 0xCu);
+                  v31 = 138412290;
+                  v32 = spamCopy;
+                  _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: not checking sms spam, chat is not filtered: %@", &v31, 0xCu);
                 }
 
                 goto LABEL_29;
@@ -533,9 +539,9 @@ LABEL_13:
           v21 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v32 = 138412290;
-            v33 = spamCopy;
-            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: checking SMS spam for chatid %@", &v32, 0xCu);
+            v31 = 138412290;
+            v32 = spamCopy;
+            _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: checking SMS spam for chatid %@", &v31, 0xCu);
           }
 
           goto LABEL_11;
@@ -546,9 +552,9 @@ LABEL_13:
           v23 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
-            v32 = 138412290;
-            v33 = spamCopy;
-            _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: not checking sms spam, chatid %@ has 3 replies or more", &v32, 0xCu);
+            v31 = 138412290;
+            v32 = spamCopy;
+            _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: not checking sms spam, chatid %@ has 3 replies or more", &v31, 0xCu);
           }
 
 LABEL_29:
@@ -560,9 +566,9 @@ LABEL_29:
         v23 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v32 = 138412290;
-          v33 = spamCopy;
-          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: not checking sms spam, chatid %@ has known participants", &v32, 0xCu);
+          v31 = 138412290;
+          v32 = spamCopy;
+          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: not checking sms spam, chatid %@ has known participants", &v31, 0xCu);
         }
 
         goto LABEL_29;
@@ -574,8 +580,8 @@ LABEL_29:
       v23 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v32) = 0;
-        _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: not checking for sms spam, filter is off", &v32, 2u);
+        LOWORD(v31) = 0;
+        _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: not checking for sms spam, filter is off", &v31, 2u);
       }
 
       goto LABEL_29;
@@ -591,11 +597,11 @@ LABEL_30:
     v21 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v32 = 138412546;
-      v33 = @"IncomingMessageAlertSpamForcedCategory";
-      v34 = 2048;
-      v35 = v18;
-      _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: default %@ set, forcing category %ld", &v32, 0x16u);
+      v31 = 138412546;
+      v32 = @"IncomingMessageAlertSpamForcedCategory";
+      v33 = 2048;
+      v34 = v18;
+      _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: default %@ set, forcing category %ld", &v31, 0x16u);
     }
 
 LABEL_11:
@@ -605,7 +611,6 @@ LABEL_12:
   v22 = 1;
 LABEL_31:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -613,38 +618,38 @@ LABEL_31:
 {
   categoryCopy = category;
   subCategoryCopy = subCategory;
-  v48[4] = *MEMORY[0x277D85DE8];
+  v47[4] = *MEMORY[0x277D85DE8];
   forCopy = for;
-  v48[0] = &stru_283F23018;
-  v48[1] = @"smsft";
-  v48[2] = @"smsfp";
-  v48[3] = @"filtered";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:4];
+  v47[0] = &stru_283F23018;
+  v47[1] = @"smsft";
+  v47[2] = @"smsfp";
+  v47[3] = @"filtered";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:4];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  obj = v45 = 0u;
-  v35 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+  obj = v44 = 0u;
+  v34 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
   v6 = 0;
   subCategoryCopy = 0;
   v8 = 0;
   action = 0;
-  if (v35)
+  if (v34)
   {
-    v33 = *v43;
+    v32 = *v42;
     do
     {
-      for (i = 0; i != v35; ++i)
+      for (i = 0; i != v34; ++i)
       {
         v11 = action;
         v12 = subCategoryCopy;
         v13 = v6;
-        if (*v43 != v33)
+        if (*v42 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v42 + 1) + 8 * i);
+        v14 = *(*(&v41 + 1) + 8 * i);
         subCategoryCopy = [(IMDFilteringController *)self _createNewChatIdentifierFromChatIdentifier:forCopy andCategoryLabel:v14, categoryCopy, subCategoryCopy];
 
         v15 = +[IMDChatRegistry sharedInstance];
@@ -688,32 +693,32 @@ LABEL_31:
         v8 += [v6 getNumberOfTimesRespondedToThread];
       }
 
-      v35 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v34 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
-    while (v35);
+    while (v34);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   fetchSMSFilterExtensionParams = [MEMORY[0x277D1AB70] fetchSMSFilterExtensionParams];
-  v36 = [fetchSMSFilterExtensionParams countByEnumeratingWithState:&v38 objects:v46 count:16];
-  if (v36)
+  v35 = [fetchSMSFilterExtensionParams countByEnumeratingWithState:&v37 objects:v45 count:16];
+  if (v35)
   {
     subAction = 0;
-    v34 = *v39;
+    v33 = *v38;
     do
     {
-      for (j = 0; j != v36; ++j)
+      for (j = 0; j != v35; ++j)
       {
-        if (*v39 != v34)
+        if (*v38 != v33)
         {
           objc_enumerationMutation(fetchSMSFilterExtensionParams);
         }
 
-        v19 = *(*(&v38 + 1) + 8 * j);
+        v19 = *(*(&v37 + 1) + 8 * j);
         if ([v19 subAction])
         {
           label = [v19 label];
@@ -745,10 +750,10 @@ LABEL_31:
         }
       }
 
-      v36 = [fetchSMSFilterExtensionParams countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v35 = [fetchSMSFilterExtensionParams countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
 
   else
@@ -762,13 +767,12 @@ LABEL_31:
     *subCategoryCopy = subAction;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_areAllParticipantsUnknown:(id)unknown fromSender:(id)sender
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   v6 = senderCopy;
   if (unknown)
@@ -778,12 +782,11 @@ LABEL_31:
 
   else
   {
-    v11[0] = senderCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = senderCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v7 = IMDAreAllAliasesUnknown();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -958,7 +961,7 @@ LABEL_10:
 {
   timeCodeCopy = timeCode;
   relayCopy = relay;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   spamCopy = spam;
   senderCopy = sender;
   guidCopy = guid;
@@ -992,13 +995,13 @@ LABEL_13:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         *buf = 138413058;
-        v52 = guidCopy;
-        v53 = 2112;
-        v54 = _getSpamExtensionID;
-        v55 = 1024;
-        *v56 = v22;
-        *&v56[4] = 1024;
-        *&v56[6] = timeCodeCopy;
+        v51 = guidCopy;
+        v52 = 2112;
+        v53 = _getSpamExtensionID;
+        v54 = 1024;
+        *v55 = v22;
+        *&v55[4] = 1024;
+        *&v55[6] = timeCodeCopy;
         _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Guid: %@, Checking for spam using spamExtensionID: %@, isUsingFirstPartyFilter: %{BOOL}d, containsOneTimeCode: %{BOOL}d", buf, 0x22u);
       }
     }
@@ -1016,26 +1019,26 @@ LABEL_13:
         goto LABEL_36;
       }
 
-      v40 = MEMORY[0x277D85DD0];
-      v41 = 3221225472;
-      v42 = sub_22B6D15A4;
-      v43 = &unk_278706650;
+      v39 = MEMORY[0x277D85DD0];
+      v40 = 3221225472;
+      v41 = sub_22B6D15A4;
+      v42 = &unk_278706650;
       selfCopy = self;
-      v45 = guidCopy;
-      v46 = relayCopy;
+      v44 = guidCopy;
+      v45 = relayCopy;
       im_dispatch_after();
       identityLookupDecisioningManager = [(IMDFilteringController *)self identityLookupDecisioningManager];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = sub_22B6D15C4;
-      v34[3] = &unk_2787084C0;
-      v35 = _getSpamExtensionID;
-      v38 = v22;
-      v28 = v45;
-      v36 = v28;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = sub_22B6D15C4;
+      v33[3] = &unk_2787084C0;
+      v34 = _getSpamExtensionID;
+      v37 = v22;
+      v28 = v44;
+      v35 = v28;
       selfCopy2 = self;
-      v39 = relayCopy;
-      v29 = [identityLookupDecisioningManager filterMessage:spamCopy fromSender:senderCopy receiverISOCountryCode:codeCopy extensionID:v35 withCompletion:v34];
+      v38 = relayCopy;
+      v29 = [identityLookupDecisioningManager filterMessage:spamCopy fromSender:senderCopy receiverISOCountryCode:codeCopy extensionID:v34 withCompletion:v33];
 
       if ((v29 & 1) == 0)
       {
@@ -1045,7 +1048,7 @@ LABEL_13:
           if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v52 = v28;
+            v51 = v28;
             _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "IdentityLookup framework not found, guid: %@", buf, 0xCu);
           }
         }
@@ -1053,7 +1056,7 @@ LABEL_13:
         [(IMDFilteringController *)self _executeSpamCompletionBlockForMessageGuid:v28 category:0 subCategory:0 filterExtensionMetadata:0 receivedViaRelay:relayCopy spamDetectionSource:0];
       }
 
-      v26 = &v45;
+      v26 = &v44;
     }
 
     else
@@ -1064,11 +1067,11 @@ LABEL_13:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           *buf = 138412802;
-          v52 = guidCopy;
-          v53 = 2048;
-          v54 = 4;
-          v55 = 2048;
-          *v56 = 0;
+          v51 = guidCopy;
+          v52 = 2048;
+          v53 = 4;
+          v54 = 2048;
+          *v55 = 0;
           _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Found one time code in message guid: %@, forcing category %ld sub category %ld", buf, 0x20u);
         }
       }
@@ -1078,10 +1081,10 @@ LABEL_13:
       block[2] = sub_22B6D1588;
       block[3] = &unk_278708448;
       block[4] = self;
-      v26 = &v48;
-      v48 = guidCopy;
-      v49 = xmmword_22B7F87F0;
-      v50 = relayCopy;
+      v26 = &v47;
+      v47 = guidCopy;
+      v48 = xmmword_22B7F87F0;
+      v49 = relayCopy;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
 
@@ -1096,27 +1099,25 @@ LABEL_36:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138413058;
-      v52 = guidCopy;
-      v53 = 2112;
-      v54 = @"IncomingMessageAlertSpamForcedCategory";
-      v55 = 2048;
-      *v56 = v16;
-      *&v56[8] = 2048;
-      v57 = v19;
+      v51 = guidCopy;
+      v52 = 2112;
+      v53 = @"IncomingMessageAlertSpamForcedCategory";
+      v54 = 2048;
+      *v55 = v16;
+      *&v55[8] = 2048;
+      v56 = v19;
       _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "_shouldCheckForSMSSpam: message.guid: %@ default %@ set, forcing category %ld sub category %ld", buf, 0x2Au);
     }
   }
 
   [(IMDFilteringController *)self _executeSpamCompletionBlockForMessageGuid:guidCopy category:v16 subCategory:v19 filterExtensionMetadata:0 receivedViaRelay:relayCopy spamDetectionSource:0];
 LABEL_37:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkAndUpdateSMSSpamFilterExtensionForUnregisteredOrUpdatedPlugins:(id)plugins arePluginsRegistered:(BOOL)registered
 {
   registeredCopy = registered;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pluginsCopy = plugins;
   if (pluginsCopy)
   {
@@ -1133,25 +1134,25 @@ LABEL_37:
     _getSpamExtensionID = [(IMDFilteringController *)self _getSpamExtensionID];
     if (_getSpamExtensionID)
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v8 = pluginsCopy;
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:16];
       if (v9)
       {
-        v10 = *v24;
+        v10 = *v23;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v24 != v10)
+            if (*v23 != v10)
             {
               objc_enumerationMutation(v8);
             }
 
-            v12 = [v8 objectForKey:*(*(&v23 + 1) + 8 * i)];
+            v12 = [v8 objectForKey:*(*(&v22 + 1) + 8 * i)];
             v13 = [v12 objectForKey:@"NSExtensionIdentifier"];
 
             if (v13 && [_getSpamExtensionID isEqualToString:v13])
@@ -1165,13 +1166,13 @@ LABEL_37:
                   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412290;
-                    v28 = _getSpamExtensionID;
+                    v27 = _getSpamExtensionID;
                     _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Spam extension installed matches current spam extension %@. Checking for new spam filter capabilities", buf, 0xCu);
                   }
                 }
 
-                v20[8] = 1;
-                [v20 _updateFilterParamsForFilterExtension];
+                v19[8] = 1;
+                [v19 _updateFilterParamsForFilterExtension];
               }
 
               else
@@ -1182,13 +1183,13 @@ LABEL_37:
                   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412290;
-                    v28 = _getSpamExtensionID;
+                    v27 = _getSpamExtensionID;
                     _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Spam extension deleted matches current spam extension %@.", buf, 0xCu);
                   }
                 }
 
-                v21 = _getSpamExtensionID;
-                v22 = v13;
+                v20 = _getSpamExtensionID;
+                v21 = v13;
                 im_dispatch_after();
               }
 
@@ -1196,7 +1197,7 @@ LABEL_37:
             }
           }
 
-          v9 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:16];
           if (v9)
           {
             continue;
@@ -1219,13 +1220,11 @@ LABEL_33:
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_relaySMSFilteringSettingsForFilterState:(int64_t)state
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ((IMSharedHelperDeviceIsiPad() & 1) == 0)
   {
     if (IMOSLoggingEnabled())
@@ -1282,8 +1281,6 @@ LABEL_33:
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newSMSFilteringSettingsDictForFilterState:(int64_t)state
@@ -1366,7 +1363,7 @@ LABEL_15:
 
 - (void)_checkAndUpdateSMSFilteringSettingsForDeviceID:(id)d smsFilterCapabilitiesOptions:(unint64_t)options filterExtensionName:(id)name
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   if (![dCopy length] || !objc_msgSend(MEMORY[0x277D1AB70], "supportsIncomingSMSRelayFiltering"))
@@ -1380,15 +1377,15 @@ LABEL_15:
     v11 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v18 = 138413058;
-      v19 = dCopy;
-      v20 = 2048;
-      v21 = (options >> 1) & 1;
-      v22 = 2048;
+      v17 = 138413058;
+      v18 = dCopy;
+      v19 = 2048;
+      v20 = (options >> 1) & 1;
+      v21 = 2048;
       optionsCopy = options;
-      v24 = 2112;
-      v25 = nameCopy;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received SMSFilteringSettings from iPhone:%@ with filterState: %ld, smsFilterCapabilitiesOptions:%lu, filterExtensionName:%@. Checking if we need to update filter params.", &v18, 0x2Au);
+      v23 = 2112;
+      v24 = nameCopy;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received SMSFilteringSettings from iPhone:%@ with filterState: %ld, smsFilterCapabilitiesOptions:%lu, filterExtensionName:%@. Checking if we need to update filter params.", &v17, 0x2Au);
     }
   }
 
@@ -1398,7 +1395,7 @@ LABEL_15:
     {
       if (_isSpamFilteringEnabled)
       {
-        v15 = [MEMORY[0x277D1AB68] shouldUpdateSMSFilterSyncDeviceParamsForDeviceID:dCopy smsFilterCapabilitiesOptions:options filterExtensionName:nameCopy];
+        v14 = [MEMORY[0x277D1AB68] shouldUpdateSMSFilterSyncDeviceParamsForDeviceID:dCopy smsFilterCapabilitiesOptions:options filterExtensionName:nameCopy];
       }
 
       else
@@ -1406,33 +1403,33 @@ LABEL_15:
         [(IMDFilteringController *)self _enableSpamFiltering];
         if (IMOSLoggingEnabled())
         {
-          v16 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          v15 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v18) = 0;
-            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "SMS Filtering state changed from disabled to enabled. Need to update filter params.", &v18, 2u);
+            LOWORD(v17) = 0;
+            _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "SMS Filtering state changed from disabled to enabled. Need to update filter params.", &v17, 2u);
           }
         }
 
-        v15 = 1;
+        v14 = 1;
       }
 
       if (IMOSLoggingEnabled())
       {
-        v17 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v16 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v18) = 0;
-          _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Received values not present in SMSFilterSyncDeviceParams array. Need to update filter params.", &v18, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Received values not present in SMSFilterSyncDeviceParams array. Need to update filter params.", &v17, 2u);
         }
 
-        if ((v15 & 1) == 0)
+        if ((v14 & 1) == 0)
         {
           goto LABEL_16;
         }
       }
 
-      else if (!v15)
+      else if (!v14)
       {
         goto LABEL_16;
       }
@@ -1450,8 +1447,8 @@ LABEL_15:
         v12 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v18) = 0;
-          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "SMS Filtering state changed from enabled to disabled. Need to update filter params.", &v18, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "SMS Filtering state changed from enabled to disabled. Need to update filter params.", &v17, 2u);
         }
       }
     }
@@ -1471,8 +1468,8 @@ LABEL_16:
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "SMS Filtering state changed from enabled to disabled. Need to update filter params.", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "SMS Filtering state changed from enabled to disabled. Need to update filter params.", &v17, 2u);
       }
     }
 
@@ -1480,8 +1477,6 @@ LABEL_16:
   }
 
 LABEL_23:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enableSpamFiltering
@@ -1543,7 +1538,7 @@ LABEL_23:
 
 - (void)handler:(id)handler incomingSMSFilteringSettingsMessage:(id)message fromToken:(id)token
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   messageCopy = message;
   tokenCopy = token;
@@ -1562,22 +1557,20 @@ LABEL_23:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         name = [v14 name];
-        v19 = 138412290;
-        v20 = name;
-        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Incoming SMSFilteringSettings message from %@", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = name;
+        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Incoming SMSFilteringSettings message from %@", &v18, 0xCu);
       }
     }
 
     uniqueIDOverride = [v14 uniqueIDOverride];
     [(IMDFilteringController *)self _processReceivedSMSFilteringSettingsDictionary:messageCopy deviceID:uniqueIDOverride];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_storeSpamCompletionBlock:(id)block forMessageGUID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   dCopy = d;
   v8 = [dCopy length];
@@ -1600,11 +1593,11 @@ LABEL_23:
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v22 = 138412546;
-        v23 = dCopy;
-        v24 = 2112;
-        v25 = v11;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Using existing mapping mapping from %@ to %@", &v22, 0x16u);
+        v21 = 138412546;
+        v22 = dCopy;
+        v23 = 2112;
+        v24 = v11;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Using existing mapping mapping from %@ to %@", &v21, 0x16u);
       }
     }
 
@@ -1628,11 +1621,11 @@ LABEL_23:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = _Block_copy(blockCopy);
-        v22 = 138412546;
-        v23 = dCopy;
-        v24 = 2112;
-        v25 = v19;
-        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Generated mapping from %@ to %@", &v22, 0x16u);
+        v21 = 138412546;
+        v22 = dCopy;
+        v23 = 2112;
+        v24 = v19;
+        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Generated mapping from %@ to %@", &v21, 0x16u);
       }
     }
 
@@ -1646,8 +1639,8 @@ LABEL_23:
     v11 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Cannot store completion block for guid as either guid or completion block is invalid", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Cannot store completion block for guid as either guid or completion block is invalid", &v21, 2u);
     }
 
     goto LABEL_23;
@@ -1655,13 +1648,12 @@ LABEL_23:
 
 LABEL_24:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_executeSpamCompletionBlockForMessageGuid:(id)guid category:(int64_t)category subCategory:(int64_t)subCategory filterExtensionMetadata:(id)metadata receivedViaRelay:(BOOL)relay spamDetectionSource:(int64_t)source
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   guidCopy = guid;
   metadataCopy = metadata;
   v15 = [(NSMutableDictionary *)self->_spamBlockMap objectForKey:guidCopy];
@@ -1686,27 +1678,25 @@ LABEL_24:
     v17 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v19 = 138412290;
-      v20 = guidCopy;
-      _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "executeSpamCompletionBlockForMessageGuid: %@ Aready ran completion block, not doing anything", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = guidCopy;
+      _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "executeSpamCompletionBlockForMessageGuid: %@ Aready ran completion block, not doing anything", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearSpamMapForMessageGUID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Clearing spam block mapping for %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Clearing spam block mapping for %@", &v7, 0xCu);
     }
   }
 
@@ -1719,8 +1709,6 @@ LABEL_24:
       self->_spamBlockMap = 0;
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)categorizeIncomingSMSMessage:(id)message messageGUID:(id)d sender:(id)sender wasRelayed:(BOOL)relayed chatIdentifier:(id)identifier participants:(id)participants checkingForSpam:(BOOL *)spam myReceiverISOCountryCode:(id)self0 messageBody:(id)self1 foundChat:(id)self2 service:(id)self3 containsOneTimeCode:(BOOL)self4 completion:(id)self5
@@ -1772,7 +1760,7 @@ LABEL_24:
 
 - (void)categorizeIncomingMessage:(id)message deviceID:(id)d category:(int64_t)category subCategory:(int64_t)subCategory messageGUID:(id)iD sender:(id)sender wasRelayed:(BOOL)relayed chatIdentifier:(id)self0 participants:(id)self1 checkingForSpam:(BOOL *)self2 trustIndicator:(id)self3 myReceiverISOCountryCode:(id)self4 messageBody:(id)self5 foundChat:(id)self6 service:(id)self7 containsOneTimeCode:(BOOL)self8 completion:(id)self9
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dCopy = d;
   iDCopy = iD;
@@ -1802,47 +1790,47 @@ LABEL_24:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v106 = 0;
-  v104[0] = 0;
-  v104[1] = v104;
-  v104[2] = 0x2020000000;
-  v104[3] = 0;
+  v105 = 0;
+  v103[0] = 0;
+  v103[1] = v103;
+  v103[2] = 0x2020000000;
+  v103[3] = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = sub_22B6D3BD4;
   aBlock[3] = &unk_278708510;
-  v60 = completionCopy;
-  v96 = v60;
-  v44 = dCopy;
-  v86 = v44;
-  v43 = messageCopy;
-  v87 = v43;
+  v59 = completionCopy;
+  v95 = v59;
+  v43 = dCopy;
+  v85 = v43;
+  v42 = messageCopy;
+  v86 = v42;
   selfCopy = self;
   categoryCopy = category;
   subCategoryCopy2 = subCategory;
-  v47 = identifierCopy;
-  v89 = v47;
-  v51 = participantsCopy;
-  v90 = v51;
-  v55 = senderCopy;
-  v91 = v55;
+  v46 = identifierCopy;
+  v88 = v46;
+  v50 = participantsCopy;
+  v89 = v50;
+  v54 = senderCopy;
+  v90 = v54;
   v29 = chatCopy;
-  v92 = v29;
-  v97 = buf;
-  v98 = v104;
+  v91 = v29;
+  v96 = buf;
+  v97 = v103;
   spamCopy = spam;
   v30 = bodyCopy;
-  v93 = v30;
-  v58 = iDCopy;
-  v94 = v58;
+  v92 = v30;
+  v57 = iDCopy;
+  v93 = v57;
   v31 = codeCopy;
-  v95 = v31;
+  v94 = v31;
   relayedCopy = relayed;
   timeCodeCopy = timeCode;
   v32 = _Block_copy(aBlock);
   if (category == 2)
   {
-    (*(v60 + 2))(v60, 2, subCategoryCopy, 0, 0, 0, 0);
+    (*(v59 + 2))(v59, 2, subCategoryCopy, 0, 0, 0, 0);
   }
 
   else
@@ -1852,27 +1840,27 @@ LABEL_24:
 
     if (isIntroductionsEnabled)
     {
-      v73[0] = MEMORY[0x277D85DD0];
-      v73[1] = 3221225472;
-      v73[2] = sub_22B6D3F48;
-      v73[3] = &unk_278708538;
-      v73[4] = self;
-      v53 = v55;
-      v74 = v53;
-      v75 = serviceCopy;
-      v76 = indicatorCopy;
-      v77 = v30;
-      v78 = v31;
+      v72[0] = MEMORY[0x277D85DD0];
+      v72[1] = 3221225472;
+      v72[2] = sub_22B6D3F48;
+      v72[3] = &unk_278708538;
+      v72[4] = self;
+      v52 = v54;
+      v73 = v52;
+      v74 = serviceCopy;
+      v75 = indicatorCopy;
+      v76 = v30;
+      v77 = v31;
       timeCodeCopy2 = timeCode;
       v35 = v29;
-      v79 = v35;
-      v82 = buf;
-      v83 = v104;
+      v78 = v35;
+      v81 = buf;
+      v82 = v103;
       v36 = v32;
-      v80 = v36;
-      v49 = v60;
-      v81 = v49;
-      v62 = _Block_copy(v73);
+      v79 = v36;
+      v48 = v59;
+      v80 = v48;
+      v61 = _Block_copy(v72);
       trustKitDecisioningManager = [(IMDFilteringController *)self trustKitDecisioningManager];
       isJunkFilteringEnabled = [trustKitDecisioningManager isJunkFilteringEnabled];
 
@@ -1880,7 +1868,7 @@ LABEL_24:
       {
         if (v35 && (![v35 isFiltered] || objc_msgSend(v35, "isFiltered") == 2))
         {
-          v62[2]();
+          v61[2]();
         }
 
         else
@@ -1890,29 +1878,29 @@ LABEL_24:
             v40 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
             {
-              *v69 = 0;
-              _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "Calling Communication Trust", v69, 2u);
+              *v68 = 0;
+              _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "Calling Communication Trust", v68, 2u);
             }
           }
 
           communicationTrustManager = [(IMDFilteringController *)self communicationTrustManager];
-          *v69 = 0;
-          v70 = v69;
-          v71 = 0x2020000000;
-          v72 = *(*&buf[8] + 24);
+          *v68 = 0;
+          v69 = v68;
+          v70 = 0x2020000000;
+          v71 = *(*&buf[8] + 24);
           *spam = 1;
-          v63[0] = MEMORY[0x277D85DD0];
-          v63[1] = 3221225472;
-          v63[2] = sub_22B6D3FA4;
-          v63[3] = &unk_278708588;
-          v64 = v35;
-          v67 = v69;
-          v65 = v49;
-          v68 = v104;
-          v66 = v62;
-          [communicationTrustManager requestDecisionForSender:v53 completion:v63];
+          v62[0] = MEMORY[0x277D85DD0];
+          v62[1] = 3221225472;
+          v62[2] = sub_22B6D3FA4;
+          v62[3] = &unk_278708588;
+          v63 = v35;
+          v66 = v68;
+          v64 = v48;
+          v67 = v103;
+          v65 = v61;
+          [communicationTrustManager requestDecisionForSender:v52 completion:v62];
 
-          _Block_object_dispose(v69, 8);
+          _Block_object_dispose(v68, 8);
         }
       }
 
@@ -1923,8 +1911,8 @@ LABEL_24:
           v39 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
           {
-            *v69 = 0;
-            _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Junk filtering disabled", v69, 2u);
+            *v68 = 0;
+            _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Junk filtering disabled", v68, 2u);
           }
         }
 
@@ -1938,10 +1926,8 @@ LABEL_24:
     }
   }
 
-  _Block_object_dispose(v104, 8);
+  _Block_object_dispose(v103, 8);
   _Block_object_dispose(buf, 8);
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableFilteringIfNeeded
@@ -1994,28 +1980,28 @@ LABEL_24:
 
 - (void)_removeAppliedPriorityMessages:(id)messages
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [messagesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [messagesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(messagesCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
+        v9 = *(*(&v11 + 1) + 8 * v8);
         pendingPriorityMessageGUIDs = [(IMDFilteringController *)self pendingPriorityMessageGUIDs];
         [pendingPriorityMessageGUIDs removeObject:v9];
 
@@ -2023,47 +2009,45 @@ LABEL_24:
       }
 
       while (v6 != v8);
-      v6 = [messagesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [messagesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relayPriorityMessageFor:(id)for
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   forCopy = for;
   v4 = objc_opt_new();
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = sub_22B6D48CC;
-  v21[3] = &unk_278706590;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = sub_22B6D48CC;
+  v20[3] = &unk_278706590;
   v5 = v4;
-  v22 = v5;
-  v16 = forCopy;
-  [forCopy enumerateObjectsUsingBlock:v21];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v21 = v5;
+  v15 = forCopy;
+  [forCopy enumerateObjectsUsingBlock:v20];
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   allKeys = [v5 allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [v5 objectForKeyedSubscript:v10];
         v12 = +[IMDAccountController sharedInstance];
         v13 = [v12 anySessionForServiceName:v10];
@@ -2076,9 +2060,9 @@ LABEL_24:
             if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v24 = v10;
-              v25 = 2112;
-              v26 = v11;
+              v23 = v10;
+              v24 = 2112;
+              v25 = v11;
               _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Relaying priority messages to peers with %@: %@", buf, 0x16u);
             }
           }
@@ -2087,18 +2071,16 @@ LABEL_24:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v17 objects:v27 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v16 objects:v26 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureSyncedDefaultsWithOverride:(BOOL)override
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ((IMSharedHelperDeviceIsiPad() & 1) == 0 && (override || ([(IMSyncedSettingsManaging *)self->_syncedSettingsManager settingExplicitlySetForKey:12]& 1) == 0))
   {
     relayController = [(IMDFilteringController *)self relayController];
@@ -2128,11 +2110,11 @@ LABEL_24:
           v12 = @"YES";
         }
 
-        v16 = 138412546;
-        v17 = v12;
-        v18 = 2048;
-        v19 = v9;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Updating FirstPartyTextMessageFilterAvailable to %@, numberOfOtherPhonesOnAccount=%lu", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v12;
+        v17 = 2048;
+        v18 = v9;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Updating FirstPartyTextMessageFilterAvailable to %@, numberOfOtherPhonesOnAccount=%lu", &v15, 0x16u);
       }
     }
 
@@ -2140,8 +2122,6 @@ LABEL_24:
     v14 = [MEMORY[0x277CCABB0] numberWithBool:receiverIsCandidateForAppleSMSFilter];
     [(IMSyncedSettingsManaging *)syncedSettingsManager setSettingValue:v14 forKey:12];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

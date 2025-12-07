@@ -50,7 +50,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  CAFUIDevicePickerDetailViewController.tableView(_:didSelectRowAt:)(viewCopy);
+  CAFUIDevicePickerDetailViewController.tableView(_:didSelectRowAt:)(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

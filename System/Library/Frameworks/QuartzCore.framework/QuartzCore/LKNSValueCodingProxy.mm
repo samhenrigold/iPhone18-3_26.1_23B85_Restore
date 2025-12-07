@@ -661,7 +661,7 @@ LABEL_12:
           v4->_kind = 3;
           if (object)
           {
-            [object CATransform3DValue];
+            objc_msgSend_CATransform3DValue(object);
           }
 
           else
@@ -708,7 +708,7 @@ LABEL_12:
           v4->_kind = 11;
           if (object)
           {
-            [object CACornerRadiiValue];
+            objc_msgSend_CACornerRadiiValue(object);
           }
 
           else
@@ -738,7 +738,7 @@ LABEL_12:
             *p_kind = 10;
             if (object)
             {
-              [object CA_CGAffineTransformValue];
+              objc_msgSend_CA_CGAffineTransformValue(object);
             }
 
             else
@@ -763,7 +763,7 @@ LABEL_20:
         v4->_kind = 9;
         if (object)
         {
-          [object CAColorMatrixValue];
+          objc_msgSend_CAColorMatrixValue(object);
         }
 
         else

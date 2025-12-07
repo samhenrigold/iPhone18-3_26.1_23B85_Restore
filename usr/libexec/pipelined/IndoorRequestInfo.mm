@@ -20,7 +20,7 @@
   if (!v4)
   {
     sub_1000474A4(v22, "");
-    sub_1001CCEE8("No indoor request information in NSURLRequest: ", &v24);
+    sub_1001CCEE8(&v24, "No indoor request information in NSURLRequest: ");
     sub_1002C60F8(&uTF8String, &v25);
     sub_1000E661C(v22, &v24, 2);
     if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
@@ -63,7 +63,7 @@ LABEL_11:
   if ((isKindOfClass & 1) == 0)
   {
     sub_1000474A4(v22, "");
-    sub_10020E0B8("Invalid indoor request information in NSURLRequest. Type = ", &v24);
+    sub_10020E0B8(&v24, "Invalid indoor request information in NSURLRequest. Type = ");
     sub_1002C60F8(&uTF8String, &v25);
     sub_1000E661C(v22, &v24, 2);
     if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
@@ -107,7 +107,7 @@ LABEL_15:
   if (!v9)
   {
     sub_1000474A4(v22, "");
-    sub_1000D36B0("Hit an error while unarchiving: %s", &v24);
+    sub_1000D36B0(&v24, "Hit an error while unarchiving: %s");
     sub_1002C60F8(&uTF8String, &v25);
     sub_1000E661C(v22, &v24, 2);
     if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
@@ -154,7 +154,7 @@ LABEL_19:
   if ((v15 & 1) == 0)
   {
     sub_1000474A4(v22, "");
-    sub_10020E0B8("Invalid indoor request information in NSURLRequest. Type = ", &v24);
+    sub_10020E0B8(&v24, "Invalid indoor request information in NSURLRequest. Type = ");
     sub_1002C60F8(&uTF8String, &v25);
     sub_1000E661C(v22, &v24, 2);
     if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
@@ -270,7 +270,7 @@ LABEL_23:
   if (!v6)
   {
     sub_1000474A4(v8, "");
-    sub_100259F9C("Couldn't serialize self", &__p);
+    sub_100259F9C(&__p, "Couldn't serialize self");
     sub_1000E661C(v8, &__p, 1);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {

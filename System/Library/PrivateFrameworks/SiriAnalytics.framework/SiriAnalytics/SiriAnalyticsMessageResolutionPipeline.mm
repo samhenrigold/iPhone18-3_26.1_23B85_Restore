@@ -23,7 +23,7 @@
 
 uint64_t __66__SiriAnalyticsMessageResolutionPipeline_registerMessageResolver___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -33,11 +33,11 @@ uint64_t __66__SiriAnalyticsMessageResolutionPipeline_registerMessageResolver___
   if (os_log_type_enabled(SiriAnalyticsLogContextResolution, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v10 = 136315394;
-    v11 = "[SiriAnalyticsMessageResolutionPipeline registerMessageResolver:]_block_invoke";
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_1D9863000, v2, OS_LOG_TYPE_INFO, "%s Registering message resolver: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SiriAnalyticsMessageResolutionPipeline registerMessageResolver:]_block_invoke";
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_1D9863000, v2, OS_LOG_TYPE_INFO, "%s Registering message resolver: %@", &v9, 0x16u);
   }
 
   v4 = *(*(a1 + 40) + 16);
@@ -51,14 +51,12 @@ uint64_t __66__SiriAnalyticsMessageResolutionPipeline_registerMessageResolver___
     v4 = *(*(a1 + 40) + 16);
   }
 
-  result = [v4 addObject:*(a1 + 32)];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v4 addObject:*(a1 + 32)];
 }
 
 - (void)resolveMessage:(id)message completion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   completionCopy = completion;
   allObjects = [(NSHashTable *)self->_resolvers allObjects];
@@ -76,24 +74,24 @@ uint64_t __66__SiriAnalyticsMessageResolutionPipeline_registerMessageResolver___
     *&buf[12] = 2112;
     *&buf[14] = messageCopy;
     *&buf[22] = 2048;
-    v31 = [allObjects count];
+    v30 = [allObjects count];
     _os_log_impl(&dword_1D9863000, v10, OS_LOG_TYPE_INFO, "%s Resolving message: %@ with %lu resolvers", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v31 = __Block_byref_object_copy__865;
-  v32 = __Block_byref_object_dispose__866;
-  v33 = 0;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __68__SiriAnalyticsMessageResolutionPipeline_resolveMessage_completion___block_invoke;
-  v21[3] = &unk_1E8587820;
+  v30 = __Block_byref_object_copy__865;
+  v31 = __Block_byref_object_dispose__866;
+  v32 = 0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __68__SiriAnalyticsMessageResolutionPipeline_resolveMessage_completion___block_invoke;
+  v20[3] = &unk_1E8587820;
   v11 = messageCopy;
-  v22 = v11;
-  v23 = buf;
-  [allObjects enumerateObjectsUsingBlock:v21];
+  v21 = v11;
+  v22 = buf;
+  [allObjects enumerateObjectsUsingBlock:v20];
   if (*(*&buf[8] + 40))
   {
     if (SiriAnalyticsLoggingInit_once != -1)
@@ -104,25 +102,25 @@ uint64_t __66__SiriAnalyticsMessageResolutionPipeline_registerMessageResolver___
     v12 = SiriAnalyticsLogContextResolution;
     if (os_log_type_enabled(SiriAnalyticsLogContextResolution, OS_LOG_TYPE_DEBUG))
     {
-      v16 = *(*&buf[8] + 40);
-      *v24 = 136315650;
-      v25 = "[SiriAnalyticsMessageResolutionPipeline resolveMessage:completion:]";
-      v26 = 2112;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v11;
-      _os_log_debug_impl(&dword_1D9863000, v12, OS_LOG_TYPE_DEBUG, "%s Using resolver: %@ for message: %@", v24, 0x20u);
+      v15 = *(*&buf[8] + 40);
+      *v23 = 136315650;
+      v24 = "[SiriAnalyticsMessageResolutionPipeline resolveMessage:completion:]";
+      v25 = 2112;
+      v26 = v15;
+      v27 = 2112;
+      v28 = v11;
+      _os_log_debug_impl(&dword_1D9863000, v12, OS_LOG_TYPE_DEBUG, "%s Using resolver: %@ for message: %@", v23, 0x20u);
     }
 
     v13 = *(*&buf[8] + 40);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __68__SiriAnalyticsMessageResolutionPipeline_resolveMessage_completion___block_invoke_3;
-    v17[3] = &unk_1E8587848;
-    v20 = buf;
-    v18 = v11;
-    v19 = completionCopy;
-    [v13 resolveMessage:v18 completion:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __68__SiriAnalyticsMessageResolutionPipeline_resolveMessage_completion___block_invoke_3;
+    v16[3] = &unk_1E8587848;
+    v19 = buf;
+    v17 = v11;
+    v18 = completionCopy;
+    [v13 resolveMessage:v17 completion:v16];
   }
 
   else
@@ -135,18 +133,17 @@ uint64_t __66__SiriAnalyticsMessageResolutionPipeline_registerMessageResolver___
     v14 = SiriAnalyticsLogContextResolution;
     if (os_log_type_enabled(SiriAnalyticsLogContextResolution, OS_LOG_TYPE_ERROR))
     {
-      *v24 = 136315394;
-      v25 = "[SiriAnalyticsMessageResolutionPipeline resolveMessage:completion:]";
-      v26 = 2112;
-      v27 = v11;
-      _os_log_error_impl(&dword_1D9863000, v14, OS_LOG_TYPE_ERROR, "%s No applicable resolvers found for message: %@, dropping.", v24, 0x16u);
+      *v23 = 136315394;
+      v24 = "[SiriAnalyticsMessageResolutionPipeline resolveMessage:completion:]";
+      v25 = 2112;
+      v26 = v11;
+      _os_log_error_impl(&dword_1D9863000, v14, OS_LOG_TYPE_ERROR, "%s No applicable resolvers found for message: %@, dropping.", v23, 0x16u);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
 
   _Block_object_dispose(buf, 8);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __68__SiriAnalyticsMessageResolutionPipeline_resolveMessage_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -161,7 +158,7 @@ void __68__SiriAnalyticsMessageResolutionPipeline_resolveMessage_completion___bl
 
 void __68__SiriAnalyticsMessageResolutionPipeline_resolveMessage_completion___block_invoke_3(void *a1, void *a2, int a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -176,32 +173,30 @@ void __68__SiriAnalyticsMessageResolutionPipeline_resolveMessage_completion___bl
     {
       v8 = *(*(a1[6] + 8) + 40);
       v9 = a1[4];
-      v13 = 136315650;
-      v14 = "[SiriAnalyticsMessageResolutionPipeline resolveMessage:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Resolver: %@ resolved message: %@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "[SiriAnalyticsMessageResolutionPipeline resolveMessage:completion:]_block_invoke";
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Resolver: %@ resolved message: %@", &v12, 0x20u);
     }
   }
 
   else if (v7)
   {
-    v11 = *(*(a1[6] + 8) + 40);
-    v12 = a1[4];
-    v13 = 136315650;
-    v14 = "[SiriAnalyticsMessageResolutionPipeline resolveMessage:completion:]_block_invoke";
-    v15 = 2112;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v12;
-    _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Resolver: %@ did not resolve message: %@, dropping.", &v13, 0x20u);
+    v10 = *(*(a1[6] + 8) + 40);
+    v11 = a1[4];
+    v12 = 136315650;
+    v13 = "[SiriAnalyticsMessageResolutionPipeline resolveMessage:completion:]_block_invoke";
+    v14 = 2112;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Resolver: %@ did not resolve message: %@, dropping.", &v12, 0x20u);
   }
 
   (*(a1[5] + 16))();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveAndEmitMessage:(id)message isolatedStreamUUID:(id)d

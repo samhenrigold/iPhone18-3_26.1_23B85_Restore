@@ -54,11 +54,9 @@ uint64_t __41__CalSuggestionsProvider_defaultProvider__block_invoke()
 
 - (void)_loadSuggestionsFramework
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)sgEventFromUniqueID:(id)d error:(id *)error
@@ -151,7 +149,7 @@ void __55__CalSuggestionsProvider_confirmEventWithSuggestionID___block_invoke(ui
         v9 = +[CalFoundationLogSubsystem suggestions];
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          __55__CalSuggestionsProvider_confirmEventWithSuggestionID___block_invoke_cold_1(a1);
+          __55__CalSuggestionsProvider_confirmEventWithSuggestionID___block_invoke_cold_1();
         }
       }
     }
@@ -254,23 +252,13 @@ void __55__CalSuggestionsProvider_confirmEventWithSuggestionID___block_invoke(ui
   return v3 ^ 1;
 }
 
-- (void)sgEventFromUniqueID:error:.cold.1()
+void __55__CalSuggestionsProvider_confirmEventWithSuggestionID___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __55__CalSuggestionsProvider_confirmEventWithSuggestionID___block_invoke_cold_1(uint64_t a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  v5[0] = 138412546;
-  OUTLINED_FUNCTION_0_5();
-  v6 = v2;
-  _os_log_error_impl(&dword_1B990D000, v3, OS_LOG_TYPE_ERROR, "confirmEventWithSuggestionID: %@ failed with error %@", v5, 0x16u);
   v4 = *MEMORY[0x1E69E9840];
+  v2[0] = 138412546;
+  OUTLINED_FUNCTION_0_5();
+  v3 = v0;
+  _os_log_error_impl(&dword_1B990D000, v1, OS_LOG_TYPE_ERROR, "confirmEventWithSuggestionID: %@ failed with error %@", v2, 0x16u);
 }
 
 @end

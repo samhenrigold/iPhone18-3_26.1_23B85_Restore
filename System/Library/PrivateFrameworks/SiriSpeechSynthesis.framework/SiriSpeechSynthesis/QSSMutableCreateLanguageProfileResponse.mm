@@ -4,7 +4,10 @@
 - (QSSMutableCreateLanguageProfileResponse)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)error_code;
+- (void)setError_code:(int)error_code;
 - (void)setError_str:(id)error_str;
+- (void)setIncomplete_profile:(BOOL)incomplete_profile;
+- (void)setRecreate_apg_prons:(BOOL)recreate_apg_prons;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
 - (void)setUser_language_profile:(id)user_language_profile;
@@ -12,12 +15,24 @@
 
 @implementation QSSMutableCreateLanguageProfileResponse
 
+- (void)setRecreate_apg_prons:(BOOL)recreate_apg_prons
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:recreate_apg_prons];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (BOOL)recreate_apg_prons
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"recreate_apg_prons"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIncomplete_profile:(BOOL)incomplete_profile
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:incomplete_profile];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (BOOL)incomplete_profile
@@ -37,6 +52,12 @@
 - (void)setError_str:(id)error_str
 {
   v4 = [error_str copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setError_code:(int)error_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&error_code];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

@@ -107,14 +107,14 @@ LABEL_5:
     return CMTimeCompare(&time1, &v5);
   }
 
-  [a2 CMTimeValue];
+  objc_msgSend_CMTimeValue(a2);
   if (!a3)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  [a3 CMTimeValue];
+  objc_msgSend_CMTimeValue(a3);
   return CMTimeCompare(&time1, &v5);
 }
 
@@ -194,7 +194,7 @@ void __67__AVOccasionalTimebaseObserver_initWithTimebase_times_queue_block___blo
     result = [(NSArray *)self->_times objectAtIndex:result];
     if (result)
     {
-      return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result CMTimeValue];
+      return objc_msgSend_CMTimeValue(result);
     }
 
     else
@@ -213,7 +213,7 @@ uint64_t __62__AVOccasionalTimebaseObserver__previousFiringTimeBeforeTime___bloc
   memset(&v11, 0, sizeof(v11));
   if (a2)
   {
-    [a2 CMTimeValue];
+    objc_msgSend_CMTimeValue(a2);
   }
 
   time1 = v11;
@@ -228,7 +228,7 @@ uint64_t __62__AVOccasionalTimebaseObserver__previousFiringTimeBeforeTime___bloc
     v8 = [*(*(a1 + 32) + 72) objectAtIndex:?];
     if (v8)
     {
-      [v8 CMTimeValue];
+      objc_msgSend_CMTimeValue(v8);
     }
 
     else
@@ -269,7 +269,7 @@ uint64_t __62__AVOccasionalTimebaseObserver__previousFiringTimeBeforeTime___bloc
     result = [(NSArray *)self->_times objectAtIndex:result];
     if (result)
     {
-      return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result CMTimeValue];
+      return objc_msgSend_CMTimeValue(result);
     }
 
     else
@@ -288,7 +288,7 @@ BOOL __57__AVOccasionalTimebaseObserver__nextFiringTimeAfterTime___block_invoke(
   memset(&v10, 0, sizeof(v10));
   if (a2)
   {
-    [a2 CMTimeValue];
+    objc_msgSend_CMTimeValue(a2);
   }
 
   time1 = v10;
@@ -304,13 +304,13 @@ BOOL __57__AVOccasionalTimebaseObserver__nextFiringTimeAfterTime___block_invoke(
 
 - (void)_resetNextFireTime
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E6960C70];
   value = *MEMORY[0x1E6960C70];
   timescale = *(MEMORY[0x1E6960C70] + 8);
-  v12 = 0uLL;
-  v13 = 0;
-  AVTimebaseObserver_figTimebaseGetTime(&v12);
+  v10 = 0uLL;
+  v11 = 0;
+  AVTimebaseObserver_figTimebaseGetTime(&v10);
   currentRate = self->super._currentRate;
   if (currentRate <= 0.0)
   {
@@ -320,9 +320,7 @@ BOOL __57__AVOccasionalTimebaseObserver__nextFiringTimeAfterTime___block_invoke(
 
   else
   {
-    v9 = v12;
-    v10 = v13;
-    [(AVOccasionalTimebaseObserver *)self _nextFiringTimeAfterTime:&v9];
+    objc_msgSend__nextFiringTimeAfterTime_(self, *&v10, v11);
     value = fireTime.value;
     flags = fireTime.flags;
     timescale = fireTime.timescale;
@@ -332,9 +330,7 @@ BOOL __57__AVOccasionalTimebaseObserver__nextFiringTimeAfterTime___block_invoke(
 
   if (currentRate < 0.0)
   {
-    v9 = v12;
-    v10 = v13;
-    [(AVOccasionalTimebaseObserver *)self _previousFiringTimeBeforeTime:&v9];
+    objc_msgSend__previousFiringTimeBeforeTime_(self, *&v10, v11);
     value = fireTime.value;
     flags = fireTime.flags;
     timescale = fireTime.timescale;

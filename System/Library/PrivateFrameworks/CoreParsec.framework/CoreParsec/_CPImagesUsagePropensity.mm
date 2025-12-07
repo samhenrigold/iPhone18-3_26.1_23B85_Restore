@@ -58,28 +58,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_7;
-  }
-
-  zkw = self->_zkw;
-  [equalCopy zkw];
-  if (zkw != v6)
-  {
-    goto LABEL_7;
-  }
-
-  recentResult = self->_recentResult;
-  [equalCopy recentResult];
-  if (recentResult != v8)
-  {
-    goto LABEL_7;
-  }
-
-  other = self->_other;
-  [equalCopy other];
-  if (other == v10 && (querySuggestion = self->_querySuggestion, [equalCopy querySuggestion], querySuggestion == v12) && (image = self->_image, objc_msgSend(equalCopy, "image"), image == v14))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && (zkw = self->_zkw, objc_msgSend(equalCopy, "zkw"), zkw == v6) && (recentResult = self->_recentResult, objc_msgSend(equalCopy, "recentResult"), recentResult == v8) && (other = self->_other, objc_msgSend(equalCopy, "other"), other == v10) && (querySuggestion = self->_querySuggestion, objc_msgSend(equalCopy, "querySuggestion"), querySuggestion == v12) && (image = self->_image, objc_msgSend(equalCopy, "image"), image == v14))
   {
     totalEngagements = self->_totalEngagements;
     v15 = totalEngagements == [equalCopy totalEngagements];
@@ -87,7 +66,6 @@
 
   else
   {
-LABEL_7:
     v15 = 0;
   }
 
@@ -100,41 +78,35 @@ LABEL_7:
   [(_CPImagesUsagePropensity *)self zkw];
   if (v4 != 0.0)
   {
-    zkw = self->_zkw;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPImagesUsagePropensity *)self recentResult];
-  if (v6 != 0.0)
+  if (v5 != 0.0)
   {
-    recentResult = self->_recentResult;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPImagesUsagePropensity *)self other];
-  if (v8 != 0.0)
+  if (v6 != 0.0)
   {
-    other = self->_other;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPImagesUsagePropensity *)self querySuggestion];
-  if (v10 != 0.0)
+  if (v7 != 0.0)
   {
-    querySuggestion = self->_querySuggestion;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPImagesUsagePropensity *)self image];
-  if (v12 != 0.0)
+  if (v8 != 0.0)
   {
-    image = self->_image;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPImagesUsagePropensity *)self totalEngagements])
   {
-    totalEngagements = self->_totalEngagements;
     PBDataWriterWriteInt32Field();
   }
 

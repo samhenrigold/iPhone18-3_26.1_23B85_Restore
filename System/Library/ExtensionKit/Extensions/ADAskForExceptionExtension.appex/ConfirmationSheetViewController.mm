@@ -20,14 +20,14 @@
   [defaultCenter removeObserver:selfCopy name:STRestrictionsPINControllerDidFinishNotification object:0];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for ConfirmationSheetViewController();
+  v6.super_class = type metadata accessor for ConfirmationSheetViewController(0);
   [(ConfirmationSheetViewController *)&v6 dealloc];
 }
 
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ConfirmationSheetViewController();
+  v3.super_class = type metadata accessor for ConfirmationSheetViewController(0);
   v2 = v3.receiver;
   [(ConfirmationSheetViewController *)&v3 viewDidLoad];
   sub_100004874();
@@ -43,19 +43,18 @@
 - (void)primaryButtonPressed
 {
   v3 = sub_100003360(&qword_100025A30, &qword_1000194F0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v11 - v5;
-  v7 = sub_100017DC0();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v5 = &v10 - v4;
+  v6 = sub_100017DC0();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
   sub_100017DA0();
   selfCopy = self;
-  v9 = sub_100017D90();
-  v10 = swift_allocObject();
-  v10[2] = v9;
-  v10[3] = &protocol witness table for MainActor;
-  v10[4] = selfCopy;
-  sub_1000080E4(0, 0, v6, &unk_100019218, v10);
+  v8 = sub_100017D90();
+  v9 = swift_allocObject();
+  v9[2] = v8;
+  v9[3] = &protocol witness table for MainActor;
+  v9[4] = selfCopy;
+  sub_1000080E4(0, 0, v5, &unk_100019218, v9);
 }
 
 - (void)secondaryButtonPressed

@@ -820,7 +820,7 @@ LABEL_48:
         v35 = v55;
         if (v56)
         {
-          [v56 _centerWindowSizeForPreviousFullscreenWindow];
+          objc_msgSend__centerWindowSizeForPreviousFullscreenWindow(v56);
         }
 
         v66[0] = v68;

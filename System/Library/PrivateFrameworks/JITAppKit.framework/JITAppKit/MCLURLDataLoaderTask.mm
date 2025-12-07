@@ -71,18 +71,17 @@
 
 - (BOOL)responseOk
 {
-  response = self->_response;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return [(NSHTTPURLResponse *)self->_response expectedContentLength]!= 0;
   }
 
-  v5 = [(NSHTTPURLResponse *)self->_response statusCode]/ 100;
+  v4 = [(NSHTTPURLResponse *)self->_response statusCode]/ 100;
   v3 = 1;
-  if (v5 != 2)
+  if (v4 != 2)
   {
-    return v5 == 3;
+    return v4 == 3;
   }
 
   return v3;
@@ -90,7 +89,6 @@
 
 - (BOOL)responseClientError
 {
-  response = self->_response;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -218,18 +216,17 @@
 - (id)contentType
 {
   selfCopy = self;
-  v7[1] = a2;
-  response = self->_response;
+  v6[1] = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     allHeaderFields = [(NSHTTPURLResponse *)selfCopy->_response allHeaderFields];
-    v7[0] = [(NSDictionary *)allHeaderFields objectForKeyedSubscript:@"Content-Type"];
+    v6[0] = [(NSDictionary *)allHeaderFields objectForKeyedSubscript:@"Content-Type"];
     MEMORY[0x277D82BD8](allHeaderFields);
-    v5 = [v7[0] componentsSeparatedByString:@";"];
+    v5 = [v6[0] componentsSeparatedByString:@";"];
     firstObject = [v5 firstObject];
     MEMORY[0x277D82BD8](v5);
-    objc_storeStrong(v7, 0);
+    objc_storeStrong(v6, 0);
   }
 
   else

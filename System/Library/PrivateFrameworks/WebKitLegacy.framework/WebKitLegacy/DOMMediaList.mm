@@ -106,43 +106,46 @@
 
 - (NSString)item:(unsigned int)index
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v12);
-  WebCore::MediaList::item(self->super._internal);
-  if (v10)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v14);
+  WebCore::MediaList::item(&v12, self->super._internal);
+  v4 = v12;
+  if (v12)
   {
-    atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
-    MEMORY[0x1CCA63450](&v11);
-    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v12, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v13, v4);
+    if (atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v10, v4);
+      WTF::StringImpl::destroy(v4, v5);
     }
   }
 
   else
   {
+    v13 = &stru_1F472E7E8;
     v11 = &stru_1F472E7E8;
-    v9 = &stru_1F472E7E8;
   }
 
-  v5 = v11;
-  v11 = 0;
-  if (v5)
+  v6 = v13;
+  v13 = 0;
+  if (v6)
   {
-    v6 = v5;
-    v7 = v11;
-    v11 = 0;
-    if (v7)
+    v7 = v6;
+    v8 = v13;
+    v13 = 0;
+    if (v8)
     {
     }
   }
 
-  if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v9 = v12;
+  v12 = 0;
+  if (v9 && atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v10, v4);
+    WTF::StringImpl::destroy(v9, v5);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v12, v4);
-  return v5;
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v14, v5);
+  return v6;
 }
 
 - (void)deleteMedium:(NSString *)oldMedium

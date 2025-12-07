@@ -465,15 +465,15 @@
 
 - (void)_legacyCardSectionViewController
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 136315394;
-  v5 = "[SiriUILegacyCardSnippetViewController _legacyCardSectionViewController]";
-  v6 = 2112;
-  v7 = v3;
-  _os_log_error_impl(&dword_26948D000, selfCopy, OS_LOG_TYPE_ERROR, "%s #cards The card view controller in this legacy snippet is not a CRKCardViewController, but instead a %@. This is a bug and we can't get a legacy card section view controller in this case.", &v4, 0x16u);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 136315394;
+  v6 = "[SiriUILegacyCardSnippetViewController _legacyCardSectionViewController]";
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_26948D000, selfCopy, OS_LOG_TYPE_ERROR, "%s #cards The card view controller in this legacy snippet is not a CRKCardViewController, but instead a %@. This is a bug and we can't get a legacy card section view controller in this case.", &v5, 0x16u);
 }
 
 - (void)setSnippet:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

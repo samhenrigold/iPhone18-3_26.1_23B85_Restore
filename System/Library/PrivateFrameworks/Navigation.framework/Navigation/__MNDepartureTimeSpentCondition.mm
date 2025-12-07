@@ -7,7 +7,7 @@
 
 - (double)scoreForLocation:(id)location
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   WeakRetained = objc_loadWeakRetained(&self->_updater);
 
@@ -34,19 +34,19 @@
           threshold = self->_threshold;
           if (threshold <= -v9)
           {
-            v21 = MNGetMNDepartureUpdaterLog();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v20 = MNGetMNDepartureUpdaterLog();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              v22 = objc_loadWeakRetained(&self->_updater);
-              arrivalWaypointLegIndex2 = [v22 arrivalWaypointLegIndex];
-              v24 = self->_threshold;
-              v25[0] = 67109632;
-              v25[1] = arrivalWaypointLegIndex2;
-              v26 = 2048;
-              v27 = -v9;
-              v28 = 2048;
-              v29 = v24;
-              _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_DEFAULT, "Minimum time spent at intermediary waypoint arrival point completed. Leg: %d. Time (%0.1fm) > Required time (%0.1fm).", v25, 0x1Cu);
+              v21 = objc_loadWeakRetained(&self->_updater);
+              arrivalWaypointLegIndex2 = [v21 arrivalWaypointLegIndex];
+              v23 = self->_threshold;
+              v24[0] = 67109632;
+              v24[1] = arrivalWaypointLegIndex2;
+              v25 = 2048;
+              v26 = -v9;
+              v27 = 2048;
+              v28 = v23;
+              _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_DEFAULT, "Minimum time spent at intermediary waypoint arrival point completed. Leg: %d. Time (%0.1fm) > Required time (%0.1fm).", v24, 0x1Cu);
             }
 
             v6 = 1.0;
@@ -68,7 +68,6 @@
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

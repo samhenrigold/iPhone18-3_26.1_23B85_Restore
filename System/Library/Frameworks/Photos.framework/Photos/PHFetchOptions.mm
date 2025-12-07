@@ -281,65 +281,83 @@
 
 - (void)setReverseDefaultSortDescriptors:(BOOL)descriptors
 {
-  self->_reverseDefaultSortDescriptorsNumber = [MEMORY[0x1E696AD98] numberWithBool:descriptors];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:descriptors];
+  reverseDefaultSortDescriptorsNumber = self->_reverseDefaultSortDescriptorsNumber;
+  self->_reverseDefaultSortDescriptorsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, reverseDefaultSortDescriptorsNumber);
 }
 
 - (void)setSuppressSlowFetchReports:(BOOL)reports
 {
-  self->_suppressSlowFetchReportsNumber = [MEMORY[0x1E696AD98] numberWithBool:reports];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:reports];
+  suppressSlowFetchReportsNumber = self->_suppressSlowFetchReportsNumber;
+  self->_suppressSlowFetchReportsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, suppressSlowFetchReportsNumber);
 }
 
 - (void)setUseNoIndexOnSharingFilter:(BOOL)filter
 {
-  self->_useNoIndexOnSharingFilter = [MEMORY[0x1E696AD98] numberWithBool:filter];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:filter];
+  useNoIndexOnSharingFilter = self->_useNoIndexOnSharingFilter;
+  self->_useNoIndexOnSharingFilter = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, useNoIndexOnSharingFilter);
 }
 
 - (void)setSharingFilter:(unsigned __int16)filter
 {
-  self->_sharingFilterNumber = [MEMORY[0x1E696AD98] numberWithUnsignedShort:filter];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:filter];
+  sharingFilterNumber = self->_sharingFilterNumber;
+  self->_sharingFilterNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, sharingFilterNumber);
 }
 
 - (void)setIncludeBothPrivateAssetsAndSharedContentContributedByCurrentUser:(BOOL)user
 {
-  self->_includeBothPrivateAssetsAndSharedContentContributedByCurrentUserNumber = [MEMORY[0x1E696AD98] numberWithBool:user];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:user];
+  includeBothPrivateAssetsAndSharedContentContributedByCurrentUserNumber = self->_includeBothPrivateAssetsAndSharedContentContributedByCurrentUserNumber;
+  self->_includeBothPrivateAssetsAndSharedContentContributedByCurrentUserNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeBothPrivateAssetsAndSharedContentContributedByCurrentUserNumber);
 }
 
 - (void)setIncludeOnlyContentContributedByCurrentUser:(BOOL)user
 {
-  self->_includeOnlyContentContributedByCurrentUserNumber = [MEMORY[0x1E696AD98] numberWithBool:user];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:user];
+  includeOnlyContentContributedByCurrentUserNumber = self->_includeOnlyContentContributedByCurrentUserNumber;
+  self->_includeOnlyContentContributedByCurrentUserNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeOnlyContentContributedByCurrentUserNumber);
 }
 
 - (void)setIncludeOnlyAssetsAllowedForAnalysis:(BOOL)analysis
 {
-  self->_includeOnlyAssetsAllowedForAnalysisNumber = [MEMORY[0x1E696AD98] numberWithBool:analysis];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:analysis];
+  includeOnlyAssetsAllowedForAnalysisNumber = self->_includeOnlyAssetsAllowedForAnalysisNumber;
+  self->_includeOnlyAssetsAllowedForAnalysisNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeOnlyAssetsAllowedForAnalysisNumber);
 }
 
 - (void)setIncludeUserSmartAlbums:(BOOL)albums
 {
-  self->_includeUserSmartAlbumsNumber = [MEMORY[0x1E696AD98] numberWithBool:albums];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:albums];
+  includeUserSmartAlbumsNumber = self->_includeUserSmartAlbumsNumber;
+  self->_includeUserSmartAlbumsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeUserSmartAlbumsNumber);
 }
 
 - (void)setSharingStream:(unint64_t)stream
 {
-  self->_sharingStreamNumber = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:stream];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:stream];
+  sharingStreamNumber = self->_sharingStreamNumber;
+  self->_sharingStreamNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, sharingStreamNumber);
 }
 
 - (unint64_t)sharingStream
@@ -358,296 +376,380 @@
 
 - (void)setHighlightCurationType:(unsigned __int16)type
 {
-  self->_highlightCurationTypeNumber = [MEMORY[0x1E696AD98] numberWithUnsignedShort:type];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:type];
+  highlightCurationTypeNumber = self->_highlightCurationTypeNumber;
+  self->_highlightCurationTypeNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, highlightCurationTypeNumber);
 }
 
 - (void)setIsExclusivePredicate:(BOOL)predicate
 {
-  self->_isExclusivePredicateNumber = [MEMORY[0x1E696AD98] numberWithBool:predicate];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:predicate];
+  isExclusivePredicateNumber = self->_isExclusivePredicateNumber;
+  self->_isExclusivePredicateNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, isExclusivePredicateNumber);
 }
 
 - (void)setShouldPrefetchCount:(BOOL)count
 {
-  self->_shouldPrefetchCountNumber = [MEMORY[0x1E696AD98] numberWithBool:count];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:count];
+  shouldPrefetchCountNumber = self->_shouldPrefetchCountNumber;
+  self->_shouldPrefetchCountNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, shouldPrefetchCountNumber);
 }
 
 - (void)setIncludeMediaAnalysisProcessingRangeTypes:(int64_t)types
 {
-  self->_includeMediaAnalysisProcessingRangeTypesNumber = [MEMORY[0x1E696AD98] numberWithInteger:types];
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:types];
+  includeMediaAnalysisProcessingRangeTypesNumber = self->_includeMediaAnalysisProcessingRangeTypesNumber;
+  self->_includeMediaAnalysisProcessingRangeTypesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeMediaAnalysisProcessingRangeTypesNumber);
 }
 
 - (void)setIncludeOnlyFacesInFaceGroups:(BOOL)groups
 {
-  self->_includeOnlyFacesInFaceGroupsNumber = [MEMORY[0x1E696AD98] numberWithBool:groups];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:groups];
+  includeOnlyFacesInFaceGroupsNumber = self->_includeOnlyFacesInFaceGroupsNumber;
+  self->_includeOnlyFacesInFaceGroupsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeOnlyFacesInFaceGroupsNumber);
 }
 
 - (void)setIncludeOnlyFacesWithFaceprints:(BOOL)faceprints
 {
-  self->_includeOnlyFacesWithFaceprintsNumber = [MEMORY[0x1E696AD98] numberWithBool:faceprints];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:faceprints];
+  includeOnlyFacesWithFaceprintsNumber = self->_includeOnlyFacesWithFaceprintsNumber;
+  self->_includeOnlyFacesWithFaceprintsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeOnlyFacesWithFaceprintsNumber);
 }
 
 - (void)setIncludeOnlyFacesNeedingFaceCrop:(BOOL)crop
 {
-  self->_includeOnlyFacesNeedingFaceCropNumber = [MEMORY[0x1E696AD98] numberWithBool:crop];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:crop];
+  includeOnlyFacesNeedingFaceCropNumber = self->_includeOnlyFacesNeedingFaceCropNumber;
+  self->_includeOnlyFacesNeedingFaceCropNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeOnlyFacesNeedingFaceCropNumber);
 }
 
 - (void)setIncludeTorsoOnlyPerson:(BOOL)person
 {
-  self->_includeTorsoOnlyPersonNumber = [MEMORY[0x1E696AD98] numberWithBool:person];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:person];
+  includeTorsoOnlyPersonNumber = self->_includeTorsoOnlyPersonNumber;
+  self->_includeTorsoOnlyPersonNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeTorsoOnlyPersonNumber);
 }
 
 - (void)setExcludeSensitiveAndUnprocessedAssets:(BOOL)assets
 {
-  self->_excludeSensitiveAndUnprocessedAssets = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  excludeSensitiveAndUnprocessedAssets = self->_excludeSensitiveAndUnprocessedAssets;
+  self->_excludeSensitiveAndUnprocessedAssets = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, excludeSensitiveAndUnprocessedAssets);
 }
 
 - (void)setIncludeDuplicatesAlbums:(BOOL)albums
 {
-  self->_includeDuplicatesAlbumsNumber = [MEMORY[0x1E696AD98] numberWithBool:albums];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:albums];
+  includeDuplicatesAlbumsNumber = self->_includeDuplicatesAlbumsNumber;
+  self->_includeDuplicatesAlbumsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeDuplicatesAlbumsNumber);
 }
 
 - (void)setIncludeOnlyTorsoDetectionData:(BOOL)data
 {
-  self->_includeOnlyTorsoDetectionDataNumber = [MEMORY[0x1E696AD98] numberWithBool:data];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:data];
+  includeOnlyTorsoDetectionDataNumber = self->_includeOnlyTorsoDetectionDataNumber;
+  self->_includeOnlyTorsoDetectionDataNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeOnlyTorsoDetectionDataNumber);
 }
 
 - (void)setIncludeTorsoAndFaceDetectionData:(BOOL)data
 {
-  self->_includeTorsoAndFaceDetectionDataNumber = [MEMORY[0x1E696AD98] numberWithBool:data];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:data];
+  includeTorsoAndFaceDetectionDataNumber = self->_includeTorsoAndFaceDetectionDataNumber;
+  self->_includeTorsoAndFaceDetectionDataNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeTorsoAndFaceDetectionDataNumber);
 }
 
 - (void)setIncludeOnlyPersonsWithVisibleKeyFaces:(BOOL)faces
 {
-  self->_includeOnlyPersonsWithVisibleKeyFacesNumber = [MEMORY[0x1E696AD98] numberWithBool:faces];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:faces];
+  includeOnlyPersonsWithVisibleKeyFacesNumber = self->_includeOnlyPersonsWithVisibleKeyFacesNumber;
+  self->_includeOnlyPersonsWithVisibleKeyFacesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeOnlyPersonsWithVisibleKeyFacesNumber);
 }
 
 - (void)setIncludeNonvisibleFaces:(BOOL)faces
 {
-  self->_includeNonvisibleFacesNumber = [MEMORY[0x1E696AD98] numberWithBool:faces];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:faces];
+  includeNonvisibleFacesNumber = self->_includeNonvisibleFacesNumber;
+  self->_includeNonvisibleFacesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeNonvisibleFacesNumber);
 }
 
 - (void)setMinimumUnverifiedFaceCount:(unint64_t)count
 {
-  self->_minimumUnverifiedFaceCountNumber = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:count];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:count];
+  minimumUnverifiedFaceCountNumber = self->_minimumUnverifiedFaceCountNumber;
+  self->_minimumUnverifiedFaceCountNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, minimumUnverifiedFaceCountNumber);
 }
 
 - (void)setMinimumVerifiedFaceCount:(unint64_t)count
 {
-  self->_minimumVerifiedFaceCountNumber = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:count];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:count];
+  minimumVerifiedFaceCountNumber = self->_minimumVerifiedFaceCountNumber;
+  self->_minimumVerifiedFaceCountNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, minimumVerifiedFaceCountNumber);
 }
 
 - (void)setExcludeScreenshotAssets:(BOOL)assets
 {
-  self->_excludeScreenshotAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  excludeScreenshotAssetsNumber = self->_excludeScreenshotAssetsNumber;
+  self->_excludeScreenshotAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, excludeScreenshotAssetsNumber);
 }
 
 - (void)setExcludeMontageAssets:(BOOL)assets
 {
-  self->_excludeMontageAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  excludeMontageAssetsNumber = self->_excludeMontageAssetsNumber;
+  self->_excludeMontageAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, excludeMontageAssetsNumber);
 }
 
 - (void)setIncludeRootFolder:(BOOL)folder
 {
-  self->_includeRootFolderNumber = [MEMORY[0x1E696AD98] numberWithBool:folder];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:folder];
+  includeRootFolderNumber = self->_includeRootFolderNumber;
+  self->_includeRootFolderNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeRootFolderNumber);
 }
 
 - (void)setIncludeTrashBinAlbum:(BOOL)album
 {
-  self->_includeTrashBinAlbumNumber = [MEMORY[0x1E696AD98] numberWithBool:album];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:album];
+  includeTrashBinAlbumNumber = self->_includeTrashBinAlbumNumber;
+  self->_includeTrashBinAlbumNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeTrashBinAlbumNumber);
 }
 
 - (void)setIncludeProResSmartAlbum:(BOOL)album
 {
-  self->_includeProResSmartAlbumNumber = [MEMORY[0x1E696AD98] numberWithBool:album];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:album];
+  includeProResSmartAlbumNumber = self->_includeProResSmartAlbumNumber;
+  self->_includeProResSmartAlbumNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeProResSmartAlbumNumber);
 }
 
 - (void)setIncludeActionCamVideoSmartAlbum:(BOOL)album
 {
-  self->_includeActionCamVideoSmartAlbumNumber = [MEMORY[0x1E696AD98] numberWithBool:album];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:album];
+  includeActionCamVideoSmartAlbumNumber = self->_includeActionCamVideoSmartAlbumNumber;
+  self->_includeActionCamVideoSmartAlbumNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeActionCamVideoSmartAlbumNumber);
 }
 
 - (void)setIncludeSharedLibrarySharingSuggestionsSmartAlbum:(BOOL)album
 {
-  self->_includeSharedLibrarySharingSuggestionsSmartAlbumNumber = [MEMORY[0x1E696AD98] numberWithBool:album];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:album];
+  includeSharedLibrarySharingSuggestionsSmartAlbumNumber = self->_includeSharedLibrarySharingSuggestionsSmartAlbumNumber;
+  self->_includeSharedLibrarySharingSuggestionsSmartAlbumNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeSharedLibrarySharingSuggestionsSmartAlbumNumber);
 }
 
 - (void)setIncludeScreenRecordingsSmartAlbum:(BOOL)album
 {
-  self->_includeScreenRecordingsSmartAlbumNumber = [MEMORY[0x1E696AD98] numberWithBool:album];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:album];
+  includeScreenRecordingsSmartAlbumNumber = self->_includeScreenRecordingsSmartAlbumNumber;
+  self->_includeScreenRecordingsSmartAlbumNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeScreenRecordingsSmartAlbumNumber);
 }
 
 - (void)setIncludeRecentlyEditedSmartAlbum:(BOOL)album
 {
-  self->_includeRecentlyEditedSmartAlbumNumber = [MEMORY[0x1E696AD98] numberWithBool:album];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:album];
+  includeRecentlyEditedSmartAlbumNumber = self->_includeRecentlyEditedSmartAlbumNumber;
+  self->_includeRecentlyEditedSmartAlbumNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeRecentlyEditedSmartAlbumNumber);
 }
 
 - (void)setIncludeAllPhotosSmartAlbum:(BOOL)album
 {
-  self->_includeAllPhotosSmartAlbumNumber = [MEMORY[0x1E696AD98] numberWithBool:album];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:album];
+  includeAllPhotosSmartAlbumNumber = self->_includeAllPhotosSmartAlbumNumber;
+  self->_includeAllPhotosSmartAlbumNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeAllPhotosSmartAlbumNumber);
 }
 
 - (void)setIncludePlacesSmartAlbum:(BOOL)album
 {
-  self->_includePlacesSmartAlbumNumber = [MEMORY[0x1E696AD98] numberWithBool:album];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:album];
+  includePlacesSmartAlbumNumber = self->_includePlacesSmartAlbumNumber;
+  self->_includePlacesSmartAlbumNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includePlacesSmartAlbumNumber);
 }
 
 - (void)setIncludeFavoriteMemoriesCollectionList:(BOOL)list
 {
-  self->_includeFavoriteMemoriesCollectionListNumber = [MEMORY[0x1E696AD98] numberWithBool:list];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:list];
+  includeFavoriteMemoriesCollectionListNumber = self->_includeFavoriteMemoriesCollectionListNumber;
+  self->_includeFavoriteMemoriesCollectionListNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeFavoriteMemoriesCollectionListNumber);
 }
 
 - (void)setIncludePendingShares:(BOOL)shares
 {
-  self->_includePendingSharesNumber = [MEMORY[0x1E696AD98] numberWithBool:shares];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:shares];
+  includePendingSharesNumber = self->_includePendingSharesNumber;
+  self->_includePendingSharesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includePendingSharesNumber);
 }
 
 - (void)setIncludeExitingShares:(BOOL)shares
 {
-  self->_includeExitingSharesNumber = [MEMORY[0x1E696AD98] numberWithBool:shares];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:shares];
+  includeExitingSharesNumber = self->_includeExitingSharesNumber;
+  self->_includeExitingSharesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeExitingSharesNumber);
 }
 
 - (void)setIncludeExpiredShares:(BOOL)shares
 {
-  self->_includeExpiredSharesNumber = [MEMORY[0x1E696AD98] numberWithBool:shares];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:shares];
+  includeExpiredSharesNumber = self->_includeExpiredSharesNumber;
+  self->_includeExpiredSharesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeExpiredSharesNumber);
 }
 
 - (void)setIncludeTrashedShares:(BOOL)shares
 {
-  self->_includeTrashedSharesNumber = [MEMORY[0x1E696AD98] numberWithBool:shares];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:shares];
+  includeTrashedSharesNumber = self->_includeTrashedSharesNumber;
+  self->_includeTrashedSharesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeTrashedSharesNumber);
 }
 
 - (void)setIncludeTrashedAssets:(BOOL)assets
 {
-  self->_includeTrashedAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  includeTrashedAssetsNumber = self->_includeTrashedAssetsNumber;
+  self->_includeTrashedAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeTrashedAssetsNumber);
 }
 
 - (void)setSocialGroupContext:(int64_t)context
 {
-  self->_socialGroupContextNumber = [MEMORY[0x1E696AD98] numberWithInteger:context];
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:context];
+  socialGroupContextNumber = self->_socialGroupContextNumber;
+  self->_socialGroupContextNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, socialGroupContextNumber);
 }
 
 - (void)setPersonContext:(int64_t)context
 {
-  self->_personContextNumber = [MEMORY[0x1E696AD98] numberWithInteger:context];
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:context];
+  personContextNumber = self->_personContextNumber;
+  self->_personContextNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, personContextNumber);
 }
 
 - (void)setCurationType:(int64_t)type
 {
-  self->_curationTypeNumber = [MEMORY[0x1E696AD98] numberWithInteger:type];
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+  curationTypeNumber = self->_curationTypeNumber;
+  self->_curationTypeNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, curationTypeNumber);
 }
 
 - (void)setIncludeSourceMemories:(BOOL)memories
 {
-  self->_includeSourceMemoriesNumber = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  includeSourceMemoriesNumber = self->_includeSourceMemoriesNumber;
+  self->_includeSourceMemoriesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeSourceMemoriesNumber);
 }
 
 - (void)setIncludeStoryMemories:(BOOL)memories
 {
-  self->_includeStoryMemoriesNumber = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  includeStoryMemoriesNumber = self->_includeStoryMemoriesNumber;
+  self->_includeStoryMemoriesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeStoryMemoriesNumber);
 }
 
 - (void)setIncludeLocalMemories:(BOOL)memories
 {
-  self->_includeLocalMemoriesNumber = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  includeLocalMemoriesNumber = self->_includeLocalMemoriesNumber;
+  self->_includeLocalMemoriesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeLocalMemoriesNumber);
 }
 
 - (void)setIncludeRejectedMemories:(BOOL)memories
 {
-  self->_includeRejectedMemoriesNumber = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  includeRejectedMemoriesNumber = self->_includeRejectedMemoriesNumber;
+  self->_includeRejectedMemoriesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeRejectedMemoriesNumber);
 }
 
 - (void)setIncludePendingMemories:(BOOL)memories
 {
-  self->_includePendingMemoriesNumber = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:memories];
+  includePendingMemoriesNumber = self->_includePendingMemoriesNumber;
+  self->_includePendingMemoriesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includePendingMemoriesNumber);
 }
 
 - (void)setIncludePlaceholderAssets:(BOOL)assets
 {
-  self->_includePlaceholderAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  includePlaceholderAssetsNumber = self->_includePlaceholderAssetsNumber;
+  self->_includePlaceholderAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includePlaceholderAssetsNumber);
 }
 
 - (BOOL)includePlaceholderAssets
@@ -665,107 +767,137 @@
 
 - (void)setIncludeCollectionShareAssets:(BOOL)assets
 {
-  self->_includeCollectionShareAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  includeCollectionShareAssetsNumber = self->_includeCollectionShareAssetsNumber;
+  self->_includeCollectionShareAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeCollectionShareAssetsNumber);
 }
 
 - (void)setIncludeGuestAssets:(BOOL)assets
 {
-  self->_includeGuestAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  includeGuestAssetsNumber = self->_includeGuestAssetsNumber;
+  self->_includeGuestAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeGuestAssetsNumber);
 }
 
 - (void)setExcludeNonVisibleStackedAssets:(BOOL)assets
 {
-  self->_excludeNonVisibleStackedAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  excludeNonVisibleStackedAssetsNumber = self->_excludeNonVisibleStackedAssetsNumber;
+  self->_excludeNonVisibleStackedAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, excludeNonVisibleStackedAssetsNumber);
 }
 
 - (void)setIncludeDuplicateAssetVisibilityStateMostRelevant:(BOOL)relevant
 {
-  self->_includeDuplicateAssetVisibilityStateMostRelevantNumber = [MEMORY[0x1E696AD98] numberWithBool:relevant];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:relevant];
+  includeDuplicateAssetVisibilityStateMostRelevantNumber = self->_includeDuplicateAssetVisibilityStateMostRelevantNumber;
+  self->_includeDuplicateAssetVisibilityStateMostRelevantNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeDuplicateAssetVisibilityStateMostRelevantNumber);
 }
 
 - (void)setExcludeDuplicateAssetVisibilityStateHidden:(BOOL)hidden
 {
-  self->_excludeDuplicateAssetVisibilityStateHiddenNumber = [MEMORY[0x1E696AD98] numberWithBool:hidden];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:hidden];
+  excludeDuplicateAssetVisibilityStateHiddenNumber = self->_excludeDuplicateAssetVisibilityStateHiddenNumber;
+  self->_excludeDuplicateAssetVisibilityStateHiddenNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, excludeDuplicateAssetVisibilityStateHiddenNumber);
 }
 
 - (void)setIncludeDuplicateAssets:(BOOL)assets
 {
-  self->_includeDuplicateAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:assets];
+  includeDuplicateAssetsNumber = self->_includeDuplicateAssetsNumber;
+  self->_includeDuplicateAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeDuplicateAssetsNumber);
 }
 
 - (void)setReverseSortOrder:(BOOL)order
 {
-  self->_reverseSortOrderNumber = [MEMORY[0x1E696AD98] numberWithBool:order];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:order];
+  reverseSortOrderNumber = self->_reverseSortOrderNumber;
+  self->_reverseSortOrderNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, reverseSortOrderNumber);
 }
 
 - (void)setCacheSizeForFetch:(int64_t)fetch
 {
-  self->_cacheSizeForFetchNumber = [MEMORY[0x1E696AD98] numberWithInteger:fetch];
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:fetch];
+  cacheSizeForFetchNumber = self->_cacheSizeForFetchNumber;
+  self->_cacheSizeForFetchNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, cacheSizeForFetchNumber);
 }
 
 - (void)setChunkSizeForFetch:(int64_t)fetch
 {
-  self->_chunkSizeForFetchNumber = [MEMORY[0x1E696AD98] numberWithInteger:fetch];
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:fetch];
+  chunkSizeForFetchNumber = self->_chunkSizeForFetchNumber;
+  self->_chunkSizeForFetchNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, chunkSizeForFetchNumber);
 }
 
 - (void)setWantsIncrementalChangeDetails:(BOOL)wantsIncrementalChangeDetails
 {
-  self->_wantsIncrementalChangeDetailsNumber = [MEMORY[0x1E696AD98] numberWithBool:wantsIncrementalChangeDetails];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:wantsIncrementalChangeDetails];
+  wantsIncrementalChangeDetailsNumber = self->_wantsIncrementalChangeDetailsNumber;
+  self->_wantsIncrementalChangeDetailsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, wantsIncrementalChangeDetailsNumber);
 }
 
 - (void)setFetchOffset:(unint64_t)offset
 {
-  self->_fetchOffsetNumber = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:offset];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:offset];
+  fetchOffsetNumber = self->_fetchOffsetNumber;
+  self->_fetchOffsetNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, fetchOffsetNumber);
 }
 
 - (void)setFetchLimit:(NSUInteger)fetchLimit
 {
-  self->_fetchLimitNumber = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:fetchLimit];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:fetchLimit];
+  fetchLimitNumber = self->_fetchLimitNumber;
+  self->_fetchLimitNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, fetchLimitNumber);
 }
 
 - (void)setIncludeAssetSourceTypes:(PHAssetSourceType)includeAssetSourceTypes
 {
-  self->_includeAssetSourceTypesNumber = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:includeAssetSourceTypes];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:includeAssetSourceTypes];
+  includeAssetSourceTypesNumber = self->_includeAssetSourceTypesNumber;
+  self->_includeAssetSourceTypesNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeAssetSourceTypesNumber);
 }
 
 - (void)setIncludeAllBurstAssets:(BOOL)includeAllBurstAssets
 {
-  self->_includeAllBurstAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:includeAllBurstAssets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:includeAllBurstAssets];
+  includeAllBurstAssetsNumber = self->_includeAllBurstAssetsNumber;
+  self->_includeAllBurstAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeAllBurstAssetsNumber);
 }
 
 - (void)setIncludeHiddenAssets:(BOOL)includeHiddenAssets
 {
-  self->_includeHiddenAssetsNumber = [MEMORY[0x1E696AD98] numberWithBool:includeHiddenAssets];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:includeHiddenAssets];
+  includeHiddenAssetsNumber = self->_includeHiddenAssetsNumber;
+  self->_includeHiddenAssetsNumber = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, includeHiddenAssetsNumber);
 }
 
 - (void)addFetchPropertySets:(id)sets

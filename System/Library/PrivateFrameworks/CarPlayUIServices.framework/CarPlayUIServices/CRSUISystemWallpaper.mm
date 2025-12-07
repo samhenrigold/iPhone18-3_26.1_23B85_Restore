@@ -46,29 +46,27 @@
 
 void __34__CRSUISystemWallpaper_wallpapers__block_invoke()
 {
-  v12[9] = *MEMORY[0x277D85DE8];
+  v11[9] = *MEMORY[0x277D85DE8];
   v0 = [CRSUISystemWallpaper wallpaperWithIdentifier:@"CARWallpaperBlue"];
   v1 = [CRSUISystemWallpaper wallpaperWithIdentifier:@"CARWallpaperPurple", v0];
-  v12[1] = v1;
+  v11[1] = v1;
   v2 = [CRSUISystemWallpaper wallpaperWithIdentifier:@"CARWallpaperGray"];
-  v12[2] = v2;
+  v11[2] = v2;
   v3 = [CRSUISystemWallpaper wallpaperWithIdentifier:@"CARWallpaperGreen"];
-  v12[3] = v3;
+  v11[3] = v3;
   v4 = [CRSUISystemWallpaper wallpaperWithIdentifier:@"CARWallpaperBrown"];
-  v12[4] = v4;
+  v11[4] = v4;
   v5 = [CRSUISystemWallpaper wallpaperWithIdentifier:@"CARWallpaperRed"];
-  v12[5] = v5;
+  v11[5] = v5;
   v6 = [CRSUISystemWallpaper wallpaperWithIdentifier:@"CARWallpaperSolidBlack"];
-  v12[6] = v6;
+  v11[6] = v6;
   v7 = [CRSUISystemWallpaper wallpaperWithIdentifier:@"CARWallpaperSolidBlue"];
-  v12[7] = v7;
+  v11[7] = v7;
   v8 = [CRSUISystemWallpaper wallpaperWithIdentifier:@"CARWallpaperSolidGray"];
-  v12[8] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:9];
+  v11[8] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:9];
   v10 = wallpapers__systemWallpapers;
   wallpapers__systemWallpapers = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resolveWallpaper
@@ -308,21 +306,21 @@ id __29__CRSUISystemWallpaper_color__block_invoke_3(uint64_t a1, void *a2)
 
 - (CRSUISystemWallpaper)initWithIdentifier:(id)identifier
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = +[CRSUISystemWallpaper _wallpaperInfo];
   v7 = [v6 objectForKey:identifierCopy];
 
   if (v7)
   {
-    v28.receiver = self;
-    v28.super_class = CRSUISystemWallpaper;
-    v8 = [(CRSUISystemWallpaper *)&v28 init];
+    v27.receiver = self;
+    v27.super_class = CRSUISystemWallpaper;
+    v8 = [(CRSUISystemWallpaper *)&v27 init];
     v9 = v8;
     if (v8)
     {
       objc_storeStrong(&v8->_systemIdentifier, identifier);
-      v27 = [CRSUIWallpaperTraits alloc];
+      v26 = [CRSUIWallpaperTraits alloc];
       v10 = [v7 objectForKeyedSubscript:@"dynamicAppearance"];
       bOOLValue = [v10 BOOLValue];
       v11 = [v7 objectForKeyedSubscript:@"dashboardPlatterMaterials"];
@@ -330,7 +328,7 @@ id __29__CRSUISystemWallpaper_color__block_invoke_3(uint64_t a1, void *a2)
       v13 = [v7 objectForKeyedSubscript:@"iconLabelsBackground"];
       bOOLValue3 = [v13 BOOLValue];
       v15 = [v7 objectForKeyedSubscript:@"hideRoundedCorners"];
-      v16 = -[CRSUIWallpaperTraits initWithSupportsDynamicAppearance:supportsDashboardPlatterMaterials:iconLabelsRequireBackground:hideRoundedCorners:black:](v27, "initWithSupportsDynamicAppearance:supportsDashboardPlatterMaterials:iconLabelsRequireBackground:hideRoundedCorners:black:", bOOLValue, bOOLValue2, bOOLValue3, [v15 BOOLValue], -[NSString isEqualToString:](v9->_systemIdentifier, "isEqualToString:", @"CARWallpaperSolidBlack"));
+      v16 = -[CRSUIWallpaperTraits initWithSupportsDynamicAppearance:supportsDashboardPlatterMaterials:iconLabelsRequireBackground:hideRoundedCorners:black:](v26, "initWithSupportsDynamicAppearance:supportsDashboardPlatterMaterials:iconLabelsRequireBackground:hideRoundedCorners:black:", bOOLValue, bOOLValue2, bOOLValue3, [v15 BOOLValue], -[NSString isEqualToString:](v9->_systemIdentifier, "isEqualToString:", @"CARWallpaperSolidBlack"));
       traits = v9->_traits;
       v9->_traits = v16;
 
@@ -353,14 +351,13 @@ id __29__CRSUISystemWallpaper_color__block_invoke_3(uint64_t a1, void *a2)
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v30 = identifierCopy;
+      v29 = identifierCopy;
       _os_log_impl(&dword_243218000, v23, OS_LOG_TYPE_DEFAULT, "[CRSUIWallpaperPreferences] Unknown wallpaper: %{public}@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -427,143 +424,141 @@ id __29__CRSUISystemWallpaper_color__block_invoke_3(uint64_t a1, void *a2)
 
 void __38__CRSUISystemWallpaper__wallpaperInfo__block_invoke()
 {
-  v33[9] = *MEMORY[0x277D85DE8];
-  v32[0] = @"CARWallpaperBlue";
+  v32[9] = *MEMORY[0x277D85DE8];
+  v31[0] = @"CARWallpaperBlue";
   v0 = MEMORY[0x277CBEC38];
-  v30[0] = @"dynamicAppearance";
-  v30[1] = @"dashboardPlatterMaterials";
-  v31[0] = MEMORY[0x277CBEC38];
-  v31[1] = MEMORY[0x277CBEC38];
-  v30[2] = @"iconLabelsBackground";
-  v30[3] = @"wallpaperAssetCatalogName";
-  v31[2] = MEMORY[0x277CBEC38];
-  v31[3] = @"WallpaperBlue";
-  v30[4] = @"thumbnailAssetCatalogName";
-  v30[5] = @"hideRoundedCorners";
+  v29[0] = @"dynamicAppearance";
+  v29[1] = @"dashboardPlatterMaterials";
+  v30[0] = MEMORY[0x277CBEC38];
+  v30[1] = MEMORY[0x277CBEC38];
+  v29[2] = @"iconLabelsBackground";
+  v29[3] = @"wallpaperAssetCatalogName";
+  v30[2] = MEMORY[0x277CBEC38];
+  v30[3] = @"WallpaperBlue";
+  v29[4] = @"thumbnailAssetCatalogName";
+  v29[5] = @"hideRoundedCorners";
   v1 = MEMORY[0x277CBEC28];
-  v31[4] = @"WallpaperCellBlue";
-  v31[5] = MEMORY[0x277CBEC28];
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:6];
-  v33[0] = v13;
-  v32[1] = @"CARWallpaperBrown";
-  v28[0] = @"dynamicAppearance";
-  v28[1] = @"dashboardPlatterMaterials";
-  v29[0] = v0;
-  v29[1] = v0;
-  v29[2] = v0;
-  v29[3] = @"WallpaperBrown";
-  v28[2] = @"iconLabelsBackground";
-  v28[3] = @"wallpaperAssetCatalogName";
-  v28[4] = @"thumbnailAssetCatalogName";
-  v28[5] = @"hideRoundedCorners";
-  v29[4] = @"WallpaperCellBrown";
-  v29[5] = v1;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
-  v33[1] = v12;
-  v32[2] = @"CARWallpaperGray";
-  v26[0] = @"dynamicAppearance";
-  v26[1] = @"dashboardPlatterMaterials";
-  v27[0] = v0;
-  v27[1] = v0;
-  v27[2] = v0;
-  v27[3] = @"WallpaperGray";
-  v26[2] = @"iconLabelsBackground";
-  v26[3] = @"wallpaperAssetCatalogName";
-  v26[4] = @"thumbnailAssetCatalogName";
-  v26[5] = @"hideRoundedCorners";
-  v27[4] = @"WallpaperCellGray";
-  v27[5] = v1;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:6];
-  v33[2] = v11;
-  v32[3] = @"CARWallpaperGreen";
-  v24[0] = @"dynamicAppearance";
-  v24[1] = @"dashboardPlatterMaterials";
-  v25[0] = v0;
-  v25[1] = v0;
-  v25[2] = v0;
-  v25[3] = @"WallpaperGreen";
-  v24[2] = @"iconLabelsBackground";
-  v24[3] = @"wallpaperAssetCatalogName";
-  v24[4] = @"thumbnailAssetCatalogName";
-  v24[5] = @"hideRoundedCorners";
-  v25[4] = @"WallpaperCellGreen";
-  v25[5] = v1;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:6];
-  v33[3] = v10;
-  v32[4] = @"CARWallpaperPurple";
-  v22[0] = @"dynamicAppearance";
-  v22[1] = @"dashboardPlatterMaterials";
-  v23[0] = v0;
-  v23[1] = v0;
-  v23[2] = v0;
-  v23[3] = @"WallpaperPurple";
-  v22[2] = @"iconLabelsBackground";
-  v22[3] = @"wallpaperAssetCatalogName";
-  v22[4] = @"thumbnailAssetCatalogName";
-  v22[5] = @"hideRoundedCorners";
-  v23[4] = @"WallpaperCellPurple";
-  v23[5] = v1;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:6];
-  v33[4] = v9;
-  v32[5] = @"CARWallpaperRed";
-  v20[0] = @"dynamicAppearance";
-  v20[1] = @"dashboardPlatterMaterials";
-  v21[0] = v0;
-  v21[1] = v0;
-  v20[2] = @"iconLabelsBackground";
-  v20[3] = @"wallpaperAssetCatalogName";
-  v21[2] = v0;
-  v21[3] = @"WallpaperRed";
-  v20[4] = @"thumbnailAssetCatalogName";
-  v20[5] = @"hideRoundedCorners";
-  v21[4] = @"WallpaperCellRed";
-  v21[5] = v1;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
-  v33[5] = v8;
-  v32[6] = @"CARWallpaperSolidBlack";
-  v18[0] = @"dynamicAppearance";
-  v18[1] = @"dashboardPlatterMaterials";
-  v19[0] = v0;
-  v19[1] = v1;
-  v18[2] = @"iconLabelsBackground";
-  v18[3] = @"thumbnailAssetCatalogName";
-  v19[2] = v1;
-  v19[3] = @"WallpaperCellSolidBlack";
-  v18[4] = @"hideRoundedCorners";
-  v19[4] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
-  v33[6] = v2;
-  v32[7] = @"CARWallpaperSolidBlue";
-  v16[0] = @"dynamicAppearance";
-  v16[1] = @"dashboardPlatterMaterials";
-  v17[0] = v0;
-  v17[1] = v1;
-  v16[2] = @"iconLabelsBackground";
-  v16[3] = @"thumbnailAssetCatalogName";
-  v17[2] = v1;
-  v17[3] = @"WallpaperCellSolidBlue";
-  v16[4] = @"hideRoundedCorners";
-  v17[4] = v1;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
-  v33[7] = v3;
-  v32[8] = @"CARWallpaperSolidGray";
-  v14[0] = @"dynamicAppearance";
-  v14[1] = @"dashboardPlatterMaterials";
-  v15[0] = v0;
-  v15[1] = v1;
-  v14[2] = @"iconLabelsBackground";
-  v14[3] = @"thumbnailAssetCatalogName";
-  v15[2] = v1;
-  v15[3] = @"WallpaperCellSolidGray";
-  v14[4] = @"hideRoundedCorners";
-  v15[4] = v1;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
-  v33[8] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:9];
+  v30[4] = @"WallpaperCellBlue";
+  v30[5] = MEMORY[0x277CBEC28];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
+  v32[0] = v12;
+  v31[1] = @"CARWallpaperBrown";
+  v27[0] = @"dynamicAppearance";
+  v27[1] = @"dashboardPlatterMaterials";
+  v28[0] = v0;
+  v28[1] = v0;
+  v28[2] = v0;
+  v28[3] = @"WallpaperBrown";
+  v27[2] = @"iconLabelsBackground";
+  v27[3] = @"wallpaperAssetCatalogName";
+  v27[4] = @"thumbnailAssetCatalogName";
+  v27[5] = @"hideRoundedCorners";
+  v28[4] = @"WallpaperCellBrown";
+  v28[5] = v1;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:6];
+  v32[1] = v11;
+  v31[2] = @"CARWallpaperGray";
+  v25[0] = @"dynamicAppearance";
+  v25[1] = @"dashboardPlatterMaterials";
+  v26[0] = v0;
+  v26[1] = v0;
+  v26[2] = v0;
+  v26[3] = @"WallpaperGray";
+  v25[2] = @"iconLabelsBackground";
+  v25[3] = @"wallpaperAssetCatalogName";
+  v25[4] = @"thumbnailAssetCatalogName";
+  v25[5] = @"hideRoundedCorners";
+  v26[4] = @"WallpaperCellGray";
+  v26[5] = v1;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:6];
+  v32[2] = v10;
+  v31[3] = @"CARWallpaperGreen";
+  v23[0] = @"dynamicAppearance";
+  v23[1] = @"dashboardPlatterMaterials";
+  v24[0] = v0;
+  v24[1] = v0;
+  v24[2] = v0;
+  v24[3] = @"WallpaperGreen";
+  v23[2] = @"iconLabelsBackground";
+  v23[3] = @"wallpaperAssetCatalogName";
+  v23[4] = @"thumbnailAssetCatalogName";
+  v23[5] = @"hideRoundedCorners";
+  v24[4] = @"WallpaperCellGreen";
+  v24[5] = v1;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:6];
+  v32[3] = v9;
+  v31[4] = @"CARWallpaperPurple";
+  v21[0] = @"dynamicAppearance";
+  v21[1] = @"dashboardPlatterMaterials";
+  v22[0] = v0;
+  v22[1] = v0;
+  v22[2] = v0;
+  v22[3] = @"WallpaperPurple";
+  v21[2] = @"iconLabelsBackground";
+  v21[3] = @"wallpaperAssetCatalogName";
+  v21[4] = @"thumbnailAssetCatalogName";
+  v21[5] = @"hideRoundedCorners";
+  v22[4] = @"WallpaperCellPurple";
+  v22[5] = v1;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
+  v32[4] = v8;
+  v31[5] = @"CARWallpaperRed";
+  v19[0] = @"dynamicAppearance";
+  v19[1] = @"dashboardPlatterMaterials";
+  v20[0] = v0;
+  v20[1] = v0;
+  v19[2] = @"iconLabelsBackground";
+  v19[3] = @"wallpaperAssetCatalogName";
+  v20[2] = v0;
+  v20[3] = @"WallpaperRed";
+  v19[4] = @"thumbnailAssetCatalogName";
+  v19[5] = @"hideRoundedCorners";
+  v20[4] = @"WallpaperCellRed";
+  v20[5] = v1;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
+  v32[5] = v7;
+  v31[6] = @"CARWallpaperSolidBlack";
+  v17[0] = @"dynamicAppearance";
+  v17[1] = @"dashboardPlatterMaterials";
+  v18[0] = v0;
+  v18[1] = v1;
+  v17[2] = @"iconLabelsBackground";
+  v17[3] = @"thumbnailAssetCatalogName";
+  v18[2] = v1;
+  v18[3] = @"WallpaperCellSolidBlack";
+  v17[4] = @"hideRoundedCorners";
+  v18[4] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v32[6] = v2;
+  v31[7] = @"CARWallpaperSolidBlue";
+  v15[0] = @"dynamicAppearance";
+  v15[1] = @"dashboardPlatterMaterials";
+  v16[0] = v0;
+  v16[1] = v1;
+  v15[2] = @"iconLabelsBackground";
+  v15[3] = @"thumbnailAssetCatalogName";
+  v16[2] = v1;
+  v16[3] = @"WallpaperCellSolidBlue";
+  v15[4] = @"hideRoundedCorners";
+  v16[4] = v1;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v32[7] = v3;
+  v31[8] = @"CARWallpaperSolidGray";
+  v13[0] = @"dynamicAppearance";
+  v13[1] = @"dashboardPlatterMaterials";
+  v14[0] = v0;
+  v14[1] = v1;
+  v13[2] = @"iconLabelsBackground";
+  v13[3] = @"thumbnailAssetCatalogName";
+  v14[2] = v1;
+  v14[3] = @"WallpaperCellSolidGray";
+  v13[4] = @"hideRoundedCorners";
+  v14[4] = v1;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:5];
+  v32[8] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:9];
   v6 = _wallpaperInfo__wallpaperInfo;
   _wallpaperInfo__wallpaperInfo = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

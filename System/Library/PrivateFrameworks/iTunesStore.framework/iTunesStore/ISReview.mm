@@ -17,7 +17,7 @@
 
 - (ISReview)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISReview.m", 51, a2);
   v4.receiver = self;
   v4.super_class = ISReview;
   return [(ISReview *)&v4 init];
@@ -341,135 +341,153 @@ LABEL_26:
 
 - (BOOL)removeDraft
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = [-[ISReview _draftsDirectoryPath](self "_draftsDirectoryPath")];
-  if (v4 && (v5 = v4, [defaultManager fileExistsAtPath:v4]))
+  if (!v4)
   {
-    v16 = 0;
-    v6 = [defaultManager removeItemAtPath:v5 error:&v16];
-    if ((v6 & 1) == 0)
+    return 1;
+  }
+
+  v5 = v4;
+  if (![defaultManager fileExistsAtPath:v4])
+  {
+    return 1;
+  }
+
+  v15 = 0;
+  v6 = [defaultManager removeItemAtPath:v5 error:&v15];
+  if ((v6 & 1) == 0)
+  {
+    mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
+    if (!mEMORY[0x277D69B38])
     {
-      mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
-      if (!mEMORY[0x277D69B38])
-      {
-        mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
-      }
+      mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
+    }
 
-      shouldLog = [mEMORY[0x277D69B38] shouldLog];
-      if ([mEMORY[0x277D69B38] shouldLogToDisk])
-      {
-        v9 = shouldLog | 2;
-      }
+    shouldLog = [mEMORY[0x277D69B38] shouldLog];
+    if ([mEMORY[0x277D69B38] shouldLogToDisk])
+    {
+      LODWORD(v9) = shouldLog | 2;
+    }
 
-      else
-      {
-        v9 = shouldLog;
-      }
+    else
+    {
+      LODWORD(v9) = shouldLog;
+    }
 
-      if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_ERROR))
-      {
-        v9 &= 2u;
-      }
+    oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
 
-      if (v9)
+    else
+    {
+      v9 &= 2u;
+    }
+
+    if (v9)
+    {
+      v11 = objc_opt_class();
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v15;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%@: Could not remove draft: %@", &v16, 22);
+      if (v12)
       {
-        v10 = objc_opt_class();
-        v17 = 138412546;
-        v18 = v10;
-        v19 = 2112;
-        v20 = v16;
-        LODWORD(v15) = 22;
-        v11 = _os_log_send_and_compose_impl();
-        if (v11)
-        {
-          v12 = v11;
-          [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:{4, &v17, v15}];
-          free(v12);
-          SSFileLog();
-        }
+        v13 = v12;
+        [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:4];
+        free(v13);
+        SSFileLog();
       }
     }
   }
 
-  else
-  {
-    v6 = 1;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)restoreFromDraft
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = [-[ISReview _draftsDirectoryPath](self "_draftsDirectoryPath")];
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    if ([defaultManager fileExistsAtPath:v4])
+    goto LABEL_6;
+  }
+
+  v5 = v4;
+  if (![defaultManager fileExistsAtPath:v4])
+  {
+    goto LABEL_6;
+  }
+
+  v17 = 0;
+  v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v5];
+  if (v6)
+  {
+    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v17];
+    if (v7)
     {
-      v18 = 0;
-      v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v5];
-      if (!v6 || (v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v18]) == 0)
-      {
-        mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
-        if (!mEMORY[0x277D69B38])
-        {
-          mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
-        }
-
-        shouldLog = [mEMORY[0x277D69B38] shouldLog];
-        if ([mEMORY[0x277D69B38] shouldLogToDisk])
-        {
-          v13 = shouldLog | 2;
-        }
-
-        else
-        {
-          v13 = shouldLog;
-        }
-
-        if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_DEFAULT))
-        {
-          v13 &= 2u;
-        }
-
-        if (v13)
-        {
-          v14 = objc_opt_class();
-          v19 = 138412546;
-          v20 = v14;
-          v21 = 2114;
-          v22 = v18;
-          LODWORD(v17) = 22;
-          v9 = _os_log_send_and_compose_impl();
-          if (!v9)
-          {
-            goto LABEL_7;
-          }
-
-          v15 = v9;
-          [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:{4, &v19, v17}];
-          free(v15);
-          SSFileLog();
-        }
-
-        LOBYTE(v9) = 0;
-        goto LABEL_7;
-      }
-
       v8 = v7;
       [v7 setSubmitURL:0];
       [(ISReview *)self mergeWithReview:v8 preferLocalValues:0];
+LABEL_6:
+      LOBYTE(v9) = 1;
+      return v9;
     }
   }
 
-  LOBYTE(v9) = 1;
-LABEL_7:
-  v10 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
+  if (!mEMORY[0x277D69B38])
+  {
+    mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
+  }
+
+  shouldLog = [mEMORY[0x277D69B38] shouldLog];
+  if ([mEMORY[0x277D69B38] shouldLogToDisk])
+  {
+    LODWORD(v12) = shouldLog | 2;
+  }
+
+  else
+  {
+    LODWORD(v12) = shouldLog;
+  }
+
+  oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = v12;
+  }
+
+  else
+  {
+    v12 &= 2u;
+  }
+
+  if (v12)
+  {
+    v14 = objc_opt_class();
+    v18 = 138412546;
+    v19 = v14;
+    v20 = 2114;
+    v21 = v17;
+    v9 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: Could not open draft. Error = %{public}@", &v18, 22);
+    if (!v9)
+    {
+      return v9;
+    }
+
+    v15 = v9;
+    [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:4];
+    free(v15);
+    SSFileLog();
+  }
+
+  LOBYTE(v9) = 0;
   return v9;
 }
 
@@ -488,39 +506,44 @@ LABEL_7:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v18) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v18) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v17 &= 2u;
+      v18 = v18;
     }
 
-    if (!v17)
+    else
     {
-      goto LABEL_30;
+      v18 &= 2u;
+    }
+
+    if (!v18)
+    {
+      return 0;
     }
 
     v24 = 138412546;
     v25 = objc_opt_class();
     v26 = 2112;
     v27 = _draftsDirectoryPath;
-    LODWORD(v22) = 22;
-    v18 = _os_log_send_and_compose_impl();
-    if (!v18)
+    v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%@: Could not create directory: %@", &v24, 22);
+    if (!v20)
     {
-      goto LABEL_30;
+      return 0;
     }
 
-    v19 = v18;
-    [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:{4, &v24, v22}];
-    free(v19);
-    goto LABEL_29;
+    v21 = v20;
+    [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:4];
+    free(v21);
+    goto LABEL_31;
   }
 
   v23 = 0;
@@ -546,46 +569,49 @@ LABEL_7:
     shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
     if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
     {
-      v11 = shouldLog2 | 2;
+      LODWORD(v11) = shouldLog2 | 2;
     }
 
     else
     {
-      v11 = shouldLog2;
+      LODWORD(v11) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x277D69B38]2 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (!v11)
     {
-      goto LABEL_30;
+      return 0;
     }
 
-    v12 = objc_opt_class();
+    v13 = objc_opt_class();
     v24 = 138543618;
-    v25 = v12;
+    v25 = v13;
     v26 = 2114;
     v27 = v23;
-    LODWORD(v22) = 22;
-    v13 = _os_log_send_and_compose_impl();
-    if (!v13)
+    v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%{public}@: Could not save draft: %{public}@", &v24, 22);
+    if (!v14)
     {
-      goto LABEL_30;
+      return 0;
     }
 
-    v14 = v13;
-    [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{4, &v24, v22}];
-    free(v14);
-LABEL_29:
+    v15 = v14;
+    [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:4];
+    free(v15);
+LABEL_31:
     SSFileLog();
-LABEL_30:
-    v8 = 0;
+    return 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

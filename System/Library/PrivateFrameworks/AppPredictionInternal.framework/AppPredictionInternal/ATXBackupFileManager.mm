@@ -21,6 +21,7 @@
 - (id)pathForFile:(id)file;
 - (id)readBackupData:(id)data;
 - (id)writeBackupData:(id)data toPath:(id)path;
+- (id)writeBackupFileForDeviceID:(id)d pareDown:(BOOL)down;
 - (void)restoreFromD2D;
 @end
 
@@ -41,6 +42,22 @@
   }
 
   return v10;
+}
+
+- (id)writeBackupFileForDeviceID:(id)d pareDown:(BOOL)down
+{
+  downCopy = down;
+  dCopy = d;
+  v7 = os_transaction_create();
+  deviceID = self->_deviceID;
+  self->_deviceID = dCopy;
+
+  WeakRetained = objc_loadWeakRetained(&self->_dataProviderDelegate);
+  v10 = [WeakRetained filenamesAndDataForBackupShouldPareDown:downCopy transport:0];
+
+  v11 = [(ATXBackupFileManager *)self writeBackupData:v10 toPath:@"ATXBackupData"];
+
+  return v11;
 }
 
 - (BOOL)commitWithContainerIdentifier:(id)identifier
@@ -86,16 +103,16 @@
   [defaultManager removeItemAtPath:v5 error:0];
 
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  v14 = 0;
-  [defaultManager2 copyItemAtPath:v6 toPath:v5 error:&v14];
-  v9 = v14;
+  v15 = 0;
+  [defaultManager2 copyItemAtPath:v6 toPath:v5 error:&v15];
+  v9 = v15;
 
   if (v9)
   {
-    v10 = __atxlog_handle_backup();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_backup(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(ATXBackupFileManager *)v9 restoreFromBackup:v10];
+      [(ATXBackupFileManager *)v9 restoreFromBackup:v11];
     }
   }
 
@@ -103,25 +120,25 @@
   {
     if (!backupCopy)
     {
-      v11 = 0;
+      v12 = 0;
       goto LABEL_6;
     }
 
-    v10 = [(ATXBackupFileManager *)self readBackupData:backupCopy];
-    if (v10)
+    v11 = [(ATXBackupFileManager *)self readBackupData:backupCopy];
+    if (v11)
     {
       WeakRetained = objc_loadWeakRetained(&self->_dataProviderDelegate);
-      v11 = [WeakRetained restoreFromBackup:v10];
+      v12 = [WeakRetained restoreFromBackup:v11];
 
       goto LABEL_5;
     }
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_5:
 
 LABEL_6:
-  return v11;
+  return v12;
 }
 
 - (BOOL)isRestoreNeeded
@@ -133,8 +150,8 @@ LABEL_6:
 
   if ((v6 & 1) == 0)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager isRestoreNeeded];
     }
@@ -143,25 +160,25 @@ LABEL_6:
   }
 
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  v8 = [defaultManager2 fileExistsAtPath:v4];
+  v9 = [defaultManager2 fileExistsAtPath:v4];
 
-  if (v8)
+  if (v9)
   {
     defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-    v10 = [defaultManager3 contentsEqualAtPath:v3 andPath:v4];
+    v11 = [defaultManager3 contentsEqualAtPath:v3 andPath:v4];
 
-    if (v10)
+    if (v11)
     {
 LABEL_8:
-      v11 = 0;
+      v12 = 0;
       goto LABEL_9;
     }
   }
 
-  v11 = 1;
+  v12 = 1;
 LABEL_9:
 
-  return v11;
+  return v12;
 }
 
 - (id)containerIDForCloudKitRestore
@@ -172,21 +189,21 @@ LABEL_9:
 
   if (v4)
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v2 encoding:4 error:0];
+    v6 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v2 encoding:4 error:0];
   }
 
   else
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager containerIDForCloudKitRestore];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)writeBackupFileForD2D
@@ -217,56 +234,53 @@ LABEL_9:
 
 - (BOOL)restoreFromD2D
 {
-  v17 = *MEMORY[0x277D85DE8];
-  LODWORD(v16) = 0;
-  v3 = [(ATXBackupFileManager *)self pathForFile:@"/D2DBackups/ATXBackupData", 0, 0, v16, v17];
+  v18 = *MEMORY[0x277D85DE8];
+  LODWORD(v17) = 0;
+  v3 = [(ATXBackupFileManager *)self pathForFile:@"/D2DBackups/ATXBackupData", 0, 0, v17, v18];
   v4 = fopen([v3 UTF8String], "r");
 
   if (!v4)
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager restoreFromD2D];
     }
 
-    goto LABEL_11;
+    return 0;
   }
 
-  if (fread(&v15, 0x14uLL, 1uLL, v4) != 1)
+  v6 = fread(&v16, 0x14uLL, 1uLL, v4);
+  if (v6 != 1)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager restoreFromD2D];
     }
 
     fclose(v4);
-LABEL_11:
-    v10 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   fclose(v4);
-  v5 = [(ATXBackupFileManager *)self pathForFile:@"ATXD2DLastBackupVersion"];
-  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v15 length:16];
-  [(ATXBackupFileManager *)self writeData:v6 toPath:v5];
-  v7 = [(ATXBackupFileManager *)self pathForFile:@"/D2DBackups/ATXBackupData"];
-  v8 = [(ATXBackupFileManager *)self readBackupData:v7];
-  if (v8)
+  v7 = [(ATXBackupFileManager *)self pathForFile:@"ATXD2DLastBackupVersion"];
+  v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v16 length:16];
+  [(ATXBackupFileManager *)self writeData:v8 toPath:v7];
+  v9 = [(ATXBackupFileManager *)self pathForFile:@"/D2DBackups/ATXBackupData"];
+  v10 = [(ATXBackupFileManager *)self readBackupData:v9];
+  if (v10)
   {
     WeakRetained = objc_loadWeakRetained(&self->_dataProviderDelegate);
-    v10 = [WeakRetained restoreFromBackup:v8];
+    v12 = [WeakRetained restoreFromBackup:v10];
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-LABEL_14:
-  v13 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v12;
 }
 
 - (BOOL)isD2DRestoreNeeded
@@ -281,56 +295,53 @@ LABEL_14:
 
 - (BOOL)restoreFromMobileBackup
 {
-  v17 = *MEMORY[0x277D85DE8];
-  LODWORD(v16) = 0;
-  v3 = [(ATXBackupFileManager *)self pathForFile:@"/Backups/ATXBackupData", 0, 0, v16, v17];
+  v18 = *MEMORY[0x277D85DE8];
+  LODWORD(v17) = 0;
+  v3 = [(ATXBackupFileManager *)self pathForFile:@"/Backups/ATXBackupData", 0, 0, v17, v18];
   v4 = fopen([v3 UTF8String], "r");
 
   if (!v4)
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager restoreFromD2D];
     }
 
-    goto LABEL_11;
+    return 0;
   }
 
-  if (fread(&v15, 0x14uLL, 1uLL, v4) != 1)
+  v6 = fread(&v16, 0x14uLL, 1uLL, v4);
+  if (v6 != 1)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager restoreFromD2D];
     }
 
     fclose(v4);
-LABEL_11:
-    v10 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   fclose(v4);
-  v5 = [(ATXBackupFileManager *)self pathForFile:@"ATXLastBackupVersion"];
-  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v15 length:16];
-  [(ATXBackupFileManager *)self writeData:v6 toPath:v5];
-  v7 = [(ATXBackupFileManager *)self pathForFile:@"/Backups/ATXBackupData"];
-  v8 = [(ATXBackupFileManager *)self readBackupData:v7];
-  if (v8)
+  v7 = [(ATXBackupFileManager *)self pathForFile:@"ATXLastBackupVersion"];
+  v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v16 length:16];
+  [(ATXBackupFileManager *)self writeData:v8 toPath:v7];
+  v9 = [(ATXBackupFileManager *)self pathForFile:@"/Backups/ATXBackupData"];
+  v10 = [(ATXBackupFileManager *)self readBackupData:v9];
+  if (v10)
   {
     WeakRetained = objc_loadWeakRetained(&self->_dataProviderDelegate);
-    v10 = [WeakRetained restoreFromBackup:v8];
+    v12 = [WeakRetained restoreFromBackup:v10];
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-LABEL_14:
-  v13 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v12;
 }
 
 - (BOOL)isMobileBackupRestoreNeeded
@@ -373,7 +384,7 @@ LABEL_14:
 
   else
   {
-    v8 = __atxlog_handle_backup();
+    v8 = __atxlog_handle_backup(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager writeDeviceID:];
@@ -397,7 +408,7 @@ LABEL_14:
 
   else
   {
-    v8 = __atxlog_handle_backup();
+    v8 = __atxlog_handle_backup(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager writeContainerID:];
@@ -411,24 +422,25 @@ LABEL_14:
 
 - (BOOL)compareBackupIDFromBackupWithPath:(id)path toMarkerWithPath:(id)withPath
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   withPathCopy = withPath;
   v6 = fopen([path UTF8String], "r");
   if (v6)
   {
     v7 = v6;
     __ptr = 0;
+    v21 = 0;
+    v22 = 0;
     v19 = 0;
-    v20 = 0;
-    v17 = 0;
-    v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:withPathCopy options:0 error:&v17];
-    v9 = v17;
-    if (fread(&__ptr, 0x14uLL, 1uLL, v7) == 1)
+    v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:withPathCopy options:0 error:&v19];
+    v9 = v19;
+    v10 = fread(&__ptr, 0x14uLL, 1uLL, v7);
+    if (v10 == 1)
     {
       if (!v8)
       {
 LABEL_9:
-        v12 = 1;
+        v14 = 1;
 LABEL_22:
         fclose(v7);
 
@@ -436,10 +448,11 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      if ([v8 length] == 16)
+      v11 = [v8 length];
+      if (v11 == 16)
       {
         bytes = [v8 bytes];
-        if (*bytes != __ptr || bytes[1] != v19)
+        if (*bytes != __ptr || bytes[1] != v21)
         {
           goto LABEL_9;
         }
@@ -447,8 +460,8 @@ LABEL_23:
 
       else
       {
-        v14 = __atxlog_handle_default();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v17 = __atxlog_handle_default(v11);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           [ATXBackupFileManager compareBackupIDFromBackupWithPath:toMarkerWithPath:];
         }
@@ -459,39 +472,39 @@ LABEL_23:
 
     else
     {
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = __atxlog_handle_default(v10);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [ATXBackupFileManager restoreFromD2D];
       }
     }
 
-    v12 = 0;
+    v14 = 0;
     goto LABEL_22;
   }
 
-  if (*__error() != 2)
+  v15 = __error();
+  if (*v15 != 2)
   {
-    v9 = __atxlog_handle_backup();
+    v9 = __atxlog_handle_backup(v15);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager compareBackupIDFromBackupWithPath:toMarkerWithPath:];
     }
 
-    v12 = 0;
+    v14 = 0;
     goto LABEL_23;
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_24:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 - (id)writeBackupData:(id)data toPath:(id)path
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   pathCopy = path;
   if (dataCopy)
@@ -507,59 +520,60 @@ LABEL_24:
       aBlock[1] = 3221225472;
       aBlock[2] = __47__ATXBackupFileManager_writeBackupData_toPath___block_invoke;
       aBlock[3] = &unk_278598278;
-      v39 = v9;
+      v40 = v9;
       v11 = v8;
-      v38 = v11;
+      v39 = v11;
       v12 = _Block_copy(aBlock);
-      if (fwrite(&self->_hdr, 0x14uLL, 1uLL, v10) == 1)
+      v13 = fwrite(&self->_hdr, 0x14uLL, 1uLL, v10);
+      if (v13 == 1)
       {
-        v30 = v11;
-        v31 = v12;
-        v32 = v8;
-        v35 = 0u;
+        v31 = v11;
+        v32 = v12;
+        v33 = v8;
         v36 = 0u;
-        v33 = 0u;
+        v37 = 0u;
         v34 = 0u;
+        v35 = 0u;
         allKeys = [dataCopy allKeys];
-        v14 = [allKeys sortedArrayUsingSelector:sel_compare_];
+        v15 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-        v15 = [v14 countByEnumeratingWithState:&v33 objects:v40 count:16];
-        if (v15)
+        v16 = [v15 countByEnumeratingWithState:&v34 objects:v41 count:16];
+        if (v16)
         {
-          v16 = v15;
-          v17 = *v34;
+          v17 = v16;
+          v18 = *v35;
           while (2)
           {
-            for (i = 0; i != v16; ++i)
+            for (i = 0; i != v17; ++i)
             {
-              if (*v34 != v17)
+              if (*v35 != v18)
               {
-                objc_enumerationMutation(v14);
+                objc_enumerationMutation(v15);
               }
 
-              v19 = *(*(&v33 + 1) + 8 * i);
-              v20 = [dataCopy objectForKeyedSubscript:v19];
-              LOBYTE(v19) = [(ATXBackupFileManager *)self writeChunk:v20 withFilename:v19 toBackupFile:v10];
+              v20 = *(*(&v34 + 1) + 8 * i);
+              v21 = [dataCopy objectForKeyedSubscript:v20];
+              LOBYTE(v20) = [(ATXBackupFileManager *)self writeChunk:v21 withFilename:v20 toBackupFile:v10];
 
-              if ((v19 & 1) == 0)
+              if ((v20 & 1) == 0)
               {
-                v27 = __atxlog_handle_backup();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v29 = __atxlog_handle_backup(v22);
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                 {
                   [ATXBackupFileManager writeBackupData:toPath:];
                 }
 
-                v12 = v31;
-                v31[2](v31);
+                v12 = v32;
+                v32[2](v32);
 
-                v25 = 0;
-                v8 = v32;
+                v27 = 0;
+                v8 = v33;
                 goto LABEL_21;
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v33 objects:v40 count:16];
-            if (v16)
+            v17 = [v15 countByEnumeratingWithState:&v34 objects:v41 count:16];
+            if (v17)
             {
               continue;
             }
@@ -570,28 +584,28 @@ LABEL_24:
 
         fclose(v10);
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v22 = [(ATXBackupFileManager *)self pathForFile:@"Backups/AppPredictionExpert"];
-        [defaultManager removeItemAtPath:v22 error:0];
+        v24 = [(ATXBackupFileManager *)self pathForFile:@"Backups/AppPredictionExpert"];
+        [defaultManager removeItemAtPath:v24 error:0];
 
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v24 = [(ATXBackupFileManager *)self pathForFile:@"Backups/backup_version"];
-        [defaultManager2 removeItemAtPath:v24 error:0];
+        v26 = [(ATXBackupFileManager *)self pathForFile:@"Backups/backup_version"];
+        [defaultManager2 removeItemAtPath:v26 error:0];
 
-        v25 = v30;
-        v12 = v31;
-        v8 = v32;
+        v27 = v31;
+        v12 = v32;
+        v8 = v33;
       }
 
       else
       {
-        v26 = __atxlog_handle_backup();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v28 = __atxlog_handle_backup(v13);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           [ATXBackupFileManager writeBackupData:toPath:];
         }
 
         v12[2](v12);
-        v25 = 0;
+        v27 = 0;
       }
 
 LABEL_21:
@@ -599,18 +613,16 @@ LABEL_21:
 
     else
     {
-      v25 = 0;
+      v27 = 0;
     }
   }
 
   else
   {
-    v25 = 0;
+    v27 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v27;
 }
 
 uint64_t __47__ATXBackupFileManager_writeBackupData_toPath___block_invoke(uint64_t a1)
@@ -661,7 +673,7 @@ uint64_t __47__ATXBackupFileManager_writeBackupData_toPath___block_invoke(uint64
   v4 = fdopen(v3, "w");
   if (!v4)
   {
-    v5 = __atxlog_handle_default();
+    v5 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [ATXBackupFileManager openBackupFileForWriting:];
@@ -781,10 +793,10 @@ uint64_t __39__ATXBackupFileManager_readBackupData___block_invoke(uint64_t a1)
   v1 = *(a1 + 32);
   if (v1)
   {
-    fclose(v1);
+    v1 = fclose(v1);
   }
 
-  v2 = __atxlog_handle_backup();
+  v2 = __atxlog_handle_backup(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [ATXBackupFileManager restoreFromD2D];
@@ -795,15 +807,16 @@ uint64_t __39__ATXBackupFileManager_readBackupData___block_invoke(uint64_t a1)
 
 - (BOOL)writeData:(id)data toPath:(id)path
 {
-  v8 = 0;
-  v4 = [data writeToFile:path options:0 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [data writeToFile:path options:0 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if ((v4 & 1) == 0)
   {
-    v6 = __atxlog_handle_backup();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_backup(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [ATXBackupFileManager writeData:v5 toPath:v6];
+      [ATXBackupFileManager writeData:v6 toPath:v7];
     }
   }
 
@@ -828,64 +841,54 @@ uint64_t __39__ATXBackupFileManager_readBackupData___block_invoke(uint64_t a1)
 
 - (void)restoreFromBackup:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Error occurred while writing marker file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Error occurred while writing marker file: %@", &v2, 0xCu);
 }
 
 - (void)restoreFromD2D
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_14(&dword_2263AA000, v2, v3, "Error opening backup file [%i]: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_14(&dword_2263AA000, v1, v2, "Error opening backup file [%i]: %s", v3, v4, v5, v6);
 }
 
 - (void)compareBackupIDFromBackupWithPath:toMarkerWithPath:.cold.3()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_14(&dword_2263AA000, v2, v3, "Error opening backup file %i: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_14(&dword_2263AA000, v1, v2, "Error opening backup file %i: %s", v3, v4, v5, v6);
 }
 
 - (void)writeBackupData:toPath:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_14(&dword_2263AA000, v2, v3, "Error writing to backup file [%i]: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_14(&dword_2263AA000, v1, v2, "Error writing to backup file [%i]: %s", v3, v4, v5, v6);
 }
 
 - (void)openBackupFileForWriting:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_14(&dword_2263AA000, v2, v3, "Could not fdopen backup fd [%i]: %s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_14(&dword_2263AA000, v1, v2, "Could not fdopen backup fd [%i]: %s", v3, v4, v5, v6);
 }
 
 - (void)writeData:(uint64_t)a1 toPath:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Could not write data to file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Could not write data to file: %@", &v2, 0xCu);
 }
 
 @end

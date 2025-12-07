@@ -234,12 +234,12 @@ LABEL_14:
 
 - (LKClass)initWithClassDictionary:(id)dictionary usersByUserIdentifier:(id)identifier
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   identifierCopy = identifier;
-  v46.receiver = self;
-  v46.super_class = LKClass;
-  v8 = [(LKClass *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = LKClass;
+  v8 = [(LKClass *)&v45 init];
   if (v8)
   {
     v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -263,27 +263,27 @@ LABEL_14:
     v8->_classID = v17;
 
     v19 = objc_opt_new();
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     v20 = [dictionaryCopy objectForKeyedSubscript:@"LeaderIdentifiers"];
-    v21 = [v20 countByEnumeratingWithState:&v42 objects:v48 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v41 objects:v47 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v43;
+      v23 = *v42;
       do
       {
         v24 = 0;
         do
         {
-          if (*v43 != v23)
+          if (*v42 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = [identifierCopy objectForKey:*(*(&v42 + 1) + 8 * v24)];
+          v25 = [identifierCopy objectForKey:*(*(&v41 + 1) + 8 * v24)];
           if (v25)
           {
             [v19 addObject:v25];
@@ -293,7 +293,7 @@ LABEL_14:
         }
 
         while (v22 != v24);
-        v22 = [v20 countByEnumeratingWithState:&v42 objects:v48 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v41 objects:v47 count:16];
       }
 
       while (v22);
@@ -301,28 +301,28 @@ LABEL_14:
 
     objc_storeStrong(&v8->_instructors, v19);
     v26 = objc_opt_new();
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v37 = dictionaryCopy;
+    v36 = dictionaryCopy;
     v27 = [dictionaryCopy objectForKeyedSubscript:@"MemberIdentifiers"];
-    v28 = [v27 countByEnumeratingWithState:&v38 objects:v47 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v37 objects:v46 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v39;
+      v30 = *v38;
       do
       {
         v31 = 0;
         do
         {
-          if (*v39 != v30)
+          if (*v38 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = [identifierCopy objectForKey:*(*(&v38 + 1) + 8 * v31)];
+          v32 = [identifierCopy objectForKey:*(*(&v37 + 1) + 8 * v31)];
           username = [v32 username];
 
           if (username)
@@ -335,7 +335,7 @@ LABEL_14:
         }
 
         while (v29 != v31);
-        v29 = [v27 countByEnumeratingWithState:&v38 objects:v47 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v37 objects:v46 count:16];
       }
 
       while (v29);
@@ -344,10 +344,9 @@ LABEL_14:
     students = v8->_students;
     v8->_students = v26;
 
-    dictionaryCopy = v37;
+    dictionaryCopy = v36;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

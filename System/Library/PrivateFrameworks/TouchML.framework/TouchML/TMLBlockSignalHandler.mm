@@ -26,15 +26,15 @@
   argumentsCopy = arguments;
   if ((atomic_fetch_or(&self->_flags, 0x40u) & 0x40) != 0)
   {
-    v9 = MEMORY[0x277CBEAD8];
-    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, v6, @"Nested signal triggered '%@'", @"<block>");
-    v13 = objc_msgSend_exceptionWithName_reason_userInfo_(v9, v11, v12, @"TMLRuntimeException", v10, 0);
-    v14 = v13;
+    v7 = MEMORY[0x277CBEAD8];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Nested signal triggered '%@'", @"<block>"];
+    v9 = [v7 exceptionWithName:@"TMLRuntimeException" reason:v8 userInfo:0];
+    v10 = v9;
 
-    objc_exception_throw(v13);
+    objc_exception_throw(v9);
   }
 
-  v7 = argumentsCopy;
+  v5 = argumentsCopy;
   (*(self->_block + 2))();
   atomic_fetch_and_explicit(&self->_flags, 0xBFu, memory_order_relaxed);
 

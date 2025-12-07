@@ -42,7 +42,7 @@ void sub_1C659B09C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__CFString *QP::DateFormatter::copyDisplayForDate(CFDateFormatterRef *a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6)
+__CFString *QP::DateFormatter::copyDisplayForDate(CFDateFormatterRef *a1, uint64_t a2, int a3, unsigned int a4, uint64_t a5, uint64_t a6)
 {
   v6 = *a2;
   v7 = *(a2 + 8);
@@ -73,7 +73,7 @@ void sub_1C659B124(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__CFDictionary *QP::DateFormatter::copyStartComponentsForDate(uint64_t *a1, uint64_t *a2)
+CFMutableDictionaryRef QP::DateFormatter::copyStartComponentsForDate(uint64_t *a1, uint64_t *a2)
 {
   v4 = *a2;
   v5 = *(*a2 + 24);
@@ -336,9 +336,9 @@ __CFDictionary *QP::copyDateComponentsDictionary(QP *this, __CFCalendar *a2, con
   return Mutable;
 }
 
-void sub_1C659B710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1C659B710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -548,22 +548,22 @@ CFStringRef QP::DateFormatter::copyDisplayStringWithStartAndEndDateForRange(QP::
   return v5;
 }
 
-void sub_1C659BBBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C659BBBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
-  v6 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, const void *);
+  v9 = va_arg(va2, const void *);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va2, 0);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -577,13 +577,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -610,31 +610,31 @@ void QP::DateComponents::enumerate(unsigned int *a1, uint64_t a2)
 {
   if ((a1[3] & 0x80000000) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v31, "d");
-    (*(a2 + 16))(a2, v31, a1[3]);
+    std::string::basic_string[abi:ne200100]<0>(v33, "d");
+    (*(a2 + 16))(a2, v33, a1[3]);
+    if (v34 < 0)
+    {
+      operator delete(v33[0]);
+    }
+  }
+
+  if ((a1[4] & 0x80000000) == 0)
+  {
+    std::string::basic_string[abi:ne200100]<0>(v31, "MMMM");
+    (*(a2 + 16))(a2, v31, a1[4]);
     if (v32 < 0)
     {
       operator delete(v31[0]);
     }
   }
 
-  if ((a1[4] & 0x80000000) == 0)
+  if ((a1[5] & 0x80000000) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v29, "MMMM");
-    (*(a2 + 16))(a2, v29, a1[4]);
+    std::string::basic_string[abi:ne200100]<0>(v29, "y");
+    (*(a2 + 16))(a2, v29, a1[5]);
     if (v30 < 0)
     {
       operator delete(v29[0]);
-    }
-  }
-
-  if ((a1[5] & 0x80000000) == 0)
-  {
-    std::string::basic_string[abi:ne200100]<0>(v27, "y");
-    (*(a2 + 16))(a2, v27, a1[5]);
-    if (v28 < 0)
-    {
-      operator delete(v27[0]);
     }
   }
 
@@ -644,23 +644,23 @@ void QP::DateComponents::enumerate(unsigned int *a1, uint64_t a2)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "H");
       (*(a2 + 16))(a2, __p, a1[2] & ~(a1[2] >> 31));
-      if (v19 < 0)
+      if (v20 < 0)
       {
         operator delete(__p[0]);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v16, "m");
-      (*(a2 + 16))(a2, v16, a1[1] & ~(a1[1] >> 31));
-      if (v17 < 0)
+      std::string::basic_string[abi:ne200100]<0>(v17, "m");
+      (*(a2 + 16))(a2, v17, a1[1] & ~(a1[1] >> 31));
+      if (v18 < 0)
       {
-        operator delete(v16[0]);
+        operator delete(v17[0]);
       }
 
       if ((*a1 & 0x80000000) == 0)
       {
         std::string::basic_string[abi:ne200100]<0>(v15, "s");
         (*(a2 + 16))(a2, v15, *a1);
-        if ((v15[23] & 0x80000000) != 0)
+        if (v16 < 0)
         {
           v6 = v15;
 LABEL_34:
@@ -671,37 +671,37 @@ LABEL_34:
 
     else
     {
-      std::string::basic_string[abi:ne200100]<0>(v25, "h");
-      (*(a2 + 16))(a2, v25, a1[2] & ~(a1[2] >> 31));
+      std::string::basic_string[abi:ne200100]<0>(v27, "h");
+      (*(a2 + 16))(a2, v27, a1[2] & ~(a1[2] >> 31));
+      if (v28 < 0)
+      {
+        operator delete(v27[0]);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(v25, "m");
+      (*(a2 + 16))(a2, v25, a1[1] & ~(a1[1] >> 31));
       if (v26 < 0)
       {
         operator delete(v25[0]);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v23, "m");
-      (*(a2 + 16))(a2, v23, a1[1] & ~(a1[1] >> 31));
-      if (v24 < 0)
-      {
-        operator delete(v23[0]);
-      }
-
       if ((*a1 & 0x80000000) == 0)
       {
-        std::string::basic_string[abi:ne200100]<0>(v21, "s");
-        (*(a2 + 16))(a2, v21, *a1);
-        if (v22 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v23, "s");
+        (*(a2 + 16))(a2, v23, *a1);
+        if (v24 < 0)
         {
-          operator delete(v21[0]);
+          operator delete(v23[0]);
         }
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v20, "a");
+      std::string::basic_string[abi:ne200100]<0>(v21, "a");
       v4 = a1[7];
       v5 = v4 > 8 || ((1 << v4) & 0x10A) == 0;
-      (*(a2 + 16))(a2, v20, v5);
-      if ((v20[23] & 0x80000000) != 0)
+      (*(a2 + 16))(a2, v21, v5);
+      if (v22 < 0)
       {
-        v6 = v20;
+        v6 = v21;
         goto LABEL_34;
       }
     }
@@ -1126,11 +1126,11 @@ void std::__shared_ptr_emplace<QP::DatePeriod>::~__shared_ptr_emplace(std::__sha
   JUMPOUT(0x1C695B850);
 }
 
-void sub_1C659DE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C659DE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1141,9 +1141,9 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C659E078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C659E078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1156,10 +1156,11 @@ void __ecrClientLogger_block_invoke()
   ecrClientLogger_log = v1;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t QP::Embedder::Embedder(uint64_t a1, void *a2)
@@ -1260,15 +1261,13 @@ CFErrorRef QP::Embedder::copyEmbeddingError(QP::Embedder *this)
       v3 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"Safety Error: Query is blocked for presence of sensitive or photo-sensitive term", 0);
       break;
     default:
-LABEL_9:
-      v6 = 0;
-      goto LABEL_10;
+      return 0;
   }
 
   v4 = v3;
   if (!v3)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   v5 = *MEMORY[0x1E695E620];
@@ -1276,8 +1275,6 @@ LABEL_9:
   userInfoKeys[0] = v5;
   v6 = CFErrorCreateWithUserInfoKeysAndValues(v2, @"PhotoSearchSafetyDomainError", -8008, userInfoKeys, &userInfoValues, 1);
   CFRelease(v4);
-LABEL_10:
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1402,12 +1399,12 @@ const __CFAttributedString *hasAttributes(const __CFAttributedString *result)
   return result;
 }
 
-uint64_t languageSupportedForEmbedding(const __CFDictionary *a1, char *a2)
+uint64_t languageSupportedForEmbedding(const __CFDictionary *a1, unsigned __int8 *a2)
 {
   v48 = *MEMORY[0x1E69E9840];
   if (!systemListenerIsSemanticSearchEnabled())
   {
-    goto LABEL_81;
+    return 0;
   }
 
   valuePtr = -1;
@@ -1426,7 +1423,7 @@ uint64_t languageSupportedForEmbedding(const __CFDictionary *a1, char *a2)
       _os_log_impl(&dword_1C6584000, v6, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] parse option information that includes both keyboard language and locale language is missing. Semantic search is not supported", buf, 0xCu);
     }
 
-    goto LABEL_81;
+    return 0;
   }
 
   if (CFDictionaryContainsKey(a1, @"queryID"))
@@ -1435,9 +1432,7 @@ uint64_t languageSupportedForEmbedding(const __CFDictionary *a1, char *a2)
     CFNumberGetValue(Value, kCFNumberCFIndexType, &valuePtr);
     if (valuePtr == -1)
     {
-LABEL_81:
-      v24 = 0;
-      goto LABEL_87;
+      return 0;
     }
   }
 
@@ -1468,15 +1463,15 @@ LABEL_81:
       languageSupportedForEmbedding_cold_1();
     }
 
-    v27 = embeddingGenerationLogger(void)::log;
+    v28 = embeddingGenerationLogger(void)::log;
     if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
       v41 = valuePtr;
-      _os_log_impl(&dword_1C6584000, v27, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Both keyboard language and locale are missing. Semantic search is not supported", buf, 0xCu);
+      _os_log_impl(&dword_1C6584000, v28, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Both keyboard language and locale are missing. Semantic search is not supported", buf, 0xCu);
     }
 
-    goto LABEL_81;
+    return 0;
   }
 
   if ([v5 length])
@@ -1538,18 +1533,18 @@ LABEL_81:
                 languageSupportedForEmbedding_cold_1();
               }
 
-              v26 = embeddingGenerationLogger(void)::log;
+              v27 = embeddingGenerationLogger(void)::log;
               if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_INFO))
               {
                 *buf = 134218242;
                 v41 = valuePtr;
                 v42 = 2112;
                 v43 = v5;
-                _os_log_impl(&dword_1C6584000, v26, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Semantic search is supported for keyboard language %@", buf, 0x16u);
+                _os_log_impl(&dword_1C6584000, v27, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Semantic search is supported for keyboard language %@", buf, 0x16u);
               }
 
 LABEL_85:
-              v24 = 1;
+              v25 = 1;
               goto LABEL_86;
             }
           }
@@ -1613,16 +1608,17 @@ LABEL_85:
               objc_enumerationMutation(v18);
             }
 
-            if ([v7 hasPrefix:{*(*(&v31 + 1) + 8 * j), v31}])
+            v22 = [v7 hasPrefix:{*(*(&v31 + 1) + 8 * j), v31}];
+            if (v22)
             {
-              v28 = embeddingGenerationLogger();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+              v29 = embeddingGenerationLogger(v22);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
               {
                 *buf = 134218242;
                 v41 = valuePtr;
                 v42 = 2112;
                 v43 = v7;
-                _os_log_impl(&dword_1C6584000, v28, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Semantic search is supported for locale %@", buf, 0x16u);
+                _os_log_impl(&dword_1C6584000, v29, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Semantic search is supported for locale %@", buf, 0x16u);
               }
 
               goto LABEL_85;
@@ -1644,14 +1640,14 @@ LABEL_85:
         languageSupportedForEmbedding_cold_1();
       }
 
-      v22 = embeddingGenerationLogger(void)::log;
+      v23 = embeddingGenerationLogger(void)::log;
       if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_INFO))
       {
         *buf = 134218242;
         v41 = valuePtr;
         v42 = 2112;
         v43 = v7;
-        _os_log_impl(&dword_1C6584000, v22, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Semantic search is not supported for locale language %@", buf, 0x16u);
+        _os_log_impl(&dword_1C6584000, v23, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Semantic search is not supported for locale language %@", buf, 0x16u);
       }
     }
 
@@ -1660,7 +1656,7 @@ LABEL_85:
       languageSupportedForEmbedding_cold_1();
     }
 
-    v23 = embeddingGenerationLogger(void)::log;
+    v24 = embeddingGenerationLogger(void)::log;
     if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_INFO))
     {
       *buf = 134218498;
@@ -1669,10 +1665,10 @@ LABEL_85:
       v43 = v5;
       v44 = 2112;
       v45 = v7;
-      _os_log_impl(&dword_1C6584000, v23, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Semantic search is not supported for this keyboard (%@) and locale languge (%@)", buf, 0x20u);
+      _os_log_impl(&dword_1C6584000, v24, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Semantic search is not supported for this keyboard (%@) and locale languge (%@)", buf, 0x20u);
     }
 
-    v24 = 0;
+    v25 = 0;
   }
 
   else
@@ -1682,38 +1678,36 @@ LABEL_85:
       languageSupportedForEmbedding_cold_1();
     }
 
-    v25 = embeddingGenerationLogger(void)::log;
-    v24 = 1;
+    v26 = embeddingGenerationLogger(void)::log;
+    v25 = 1;
     if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
       v41 = valuePtr;
-      _os_log_impl(&dword_1C6584000, v25, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Missing resources for supported languages, skipping language check", buf, 0xCu);
+      _os_log_impl(&dword_1C6584000, v26, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Missing resources for supported languages, skipping language check", buf, 0xCu);
     }
   }
 
 LABEL_86:
 
-LABEL_87:
-  v29 = *MEMORY[0x1E69E9840];
-  return v24;
+  return v25;
 }
 
-id embeddingGenerationLogger(void)
+id embeddingGenerationLogger(uint64_t a1)
 {
   if (embeddingGenerationLogger(void)::token != -1)
   {
     languageSupportedForEmbedding_cold_8();
   }
 
-  v1 = embeddingGenerationLogger(void)::log;
+  v2 = embeddingGenerationLogger(void)::log;
 
-  return v1;
+  return v2;
 }
 
 void *copyEmbeddingDataForS3RTestID(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v1 = a1;
@@ -1732,9 +1726,9 @@ void *copyEmbeddingDataForS3RTestID(void *a1)
       v6 = embeddingGenerationLogger(void)::log;
       if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412290;
-        v11 = v1;
-        _os_log_impl(&dword_1C6584000, v6, OS_LOG_TYPE_INFO, "[QPNLU] Embedding loaded for testID:%@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v1;
+        _os_log_impl(&dword_1C6584000, v6, OS_LOG_TYPE_INFO, "[QPNLU] Embedding loaded for testID:%@", &v9, 0xCu);
       }
 
       v7 = v5;
@@ -1766,10 +1760,9 @@ void *copyEmbeddingDataForS3RTestID(void *a1)
       copyEmbeddingDataForS3RTestID_cold_5();
     }
 
-    v5 = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1780,7 +1773,7 @@ void sub_1C659F5F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id copyEmbeddingDataForInputs(CFArrayRef theArray, const __CFArray *a2, CFDictionaryRef theDict, const __CFBoolean *a4, uint64_t a5, int a6, void *a7)
+id copyEmbeddingDataForInputs(const __CFArray *theArray, const __CFArray *a2, CFDictionaryRef theDict, const __CFBoolean *a4, uint64_t a5, int a6, void *a7)
 {
   v91 = *MEMORY[0x1E69E9840];
   valuePtr = -1;
@@ -1793,7 +1786,7 @@ id copyEmbeddingDataForInputs(CFArrayRef theArray, const __CFArray *a2, CFDictio
 
     if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_ERROR))
     {
-      copyEmbeddingDataForInputs_cold_2(&valuePtr);
+      copyEmbeddingDataForInputs_cold_2();
     }
   }
 
@@ -1928,7 +1921,7 @@ LABEL_47:
 
         if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_ERROR))
         {
-          copyEmbeddingDataForInputs_cold_19(&valuePtr);
+          copyEmbeddingDataForInputs_cold_19();
         }
 
         v25 = 0;
@@ -2108,7 +2101,7 @@ LABEL_67:
                   v53 = [v47 encodedData];
                   if (v53)
                   {
-                    v54 = [(__CFBoolean *)BOOLeana objectAtIndexedSubscript:i];
+                    v54 = [(__CFArray *)BOOLeana objectAtIndexedSubscript:i];
                     [(__CFArray *)theArrayb setObject:v53 forKeyedSubscript:v54];
                   }
 
@@ -2134,12 +2127,13 @@ LABEL_67:
               v77 = 0;
               v57 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:theArrayb requiringSecureCoding:1 error:&v77];
               v58 = v77;
+              v59 = v58;
               if (v58)
               {
-                v59 = embeddingGenerationLogger();
-                if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+                v60 = embeddingGenerationLogger(v58);
+                if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
                 {
-                  copyEmbeddingDataForInputs_cold_15(&valuePtr);
+                  copyEmbeddingDataForInputs_cold_15();
                 }
 
                 v25 = 0;
@@ -2147,21 +2141,21 @@ LABEL_67:
 
               else
               {
-                v60 = dispatch_time(0, 0);
-                v61 = embeddingGenerationLogger();
-                if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+                v61 = dispatch_time(0, 0);
+                v62 = embeddingGenerationLogger(v61);
+                if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
                 {
                   *buf = 134218240;
                   v86 = valuePtr;
                   v87 = 2048;
-                  v88 = (v60 - v70) / 1000000.0;
-                  _os_log_impl(&dword_1C6584000, v61, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Generated embedding data (time=%.6fms)", buf, 0x16u);
+                  v88 = (v61 - v70) / 1000000.0;
+                  _os_log_impl(&dword_1C6584000, v62, OS_LOG_TYPE_INFO, "[QPNLU][qid=%ld] Generated embedding data (time=%.6fms)", buf, 0x16u);
                 }
 
                 v25 = v57;
               }
 
-              if (!v58)
+              if (!v59)
               {
                 goto LABEL_137;
               }
@@ -2180,7 +2174,7 @@ LABEL_67:
 
                 if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_ERROR))
                 {
-                  copyEmbeddingDataForInputs_cold_14(&valuePtr);
+                  copyEmbeddingDataForInputs_cold_14();
                 }
               }
 
@@ -2191,8 +2185,8 @@ LABEL_67:
                   languageSupportedForEmbedding_cold_1();
                 }
 
-                v62 = embeddingGenerationLogger(void)::log;
-                if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+                v63 = embeddingGenerationLogger(void)::log;
+                if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
                 {
                   v65 = valuePtr;
                   v66 = [v32 count];
@@ -2202,7 +2196,7 @@ LABEL_67:
                   v88 = *&v66;
                   v89 = 2048;
                   v90 = Count;
-                  _os_log_error_impl(&dword_1C6584000, v62, OS_LOG_TYPE_ERROR, "[QPNLU][qid=%ld] Embeddings count (%lu) does not match the inputs count (%lu)", buf, 0x20u);
+                  _os_log_error_impl(&dword_1C6584000, v63, OS_LOG_TYPE_ERROR, "[QPNLU][qid=%ld] Embeddings count (%lu) does not match the inputs count (%lu)", buf, 0x20u);
                 }
               }
 
@@ -2217,7 +2211,7 @@ LABEL_67:
 
           if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_ERROR))
           {
-            copyEmbeddingDataForInputs_cold_11(&valuePtr);
+            copyEmbeddingDataForInputs_cold_11();
           }
 
 LABEL_136:
@@ -2225,7 +2219,7 @@ LABEL_136:
 LABEL_137:
 
 LABEL_138:
-          goto LABEL_139;
+          return v25;
         }
       }
 
@@ -2269,14 +2263,11 @@ LABEL_138:
 
     if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_ERROR))
     {
-      copyEmbeddingDataForInputs_cold_4(&valuePtr);
+      copyEmbeddingDataForInputs_cold_4();
     }
   }
 
-  v25 = 0;
-LABEL_139:
-  v63 = *MEMORY[0x1E69E9840];
-  return v25;
+  return 0;
 }
 
 void embeddingGeneratorPreheatAsync()
@@ -2298,9 +2289,9 @@ void embeddingGeneratorPreheatAsync()
   _Block_object_dispose(v3, 8);
 }
 
-void sub_1C65A0484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C65A0484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -2308,7 +2299,7 @@ void sub_1C65A0484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void __embeddingGeneratorPreheatAsync_block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = dispatch_time(0, 0);
   v5 = *(a1 + 32);
@@ -2340,45 +2331,43 @@ void __embeddingGeneratorPreheatAsync_block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_INFO))
     {
       v10 = *(*(*v7 + 8) + 24) / 1000000.0;
-      v12 = 134217984;
-      v13 = v10;
-      _os_log_impl(&dword_1C6584000, v9, OS_LOG_TYPE_INFO, "[QPNLU] Embedding preheat succeeded (time=%.6fms)", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v10;
+      _os_log_impl(&dword_1C6584000, v9, OS_LOG_TYPE_INFO, "[QPNLU] Embedding preheat succeeded (time=%.6fms)", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void embeddingGeneratorPreheatSync()
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v0 = dispatch_time(0, 0);
   v1 = dispatch_group_create();
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__2;
+  v19 = __Block_byref_object_dispose__2;
+  v20 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__2;
-  v18 = __Block_byref_object_dispose__2;
-  v19 = 0;
-  v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x2020000000;
-  v13[2] = 0;
   dispatch_group_enter(v1);
   v2 = [MEMORY[0x1E69D3DC8] sharedInstance];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __embeddingGeneratorPreheatSync_block_invoke;
-  v7[3] = &unk_1E82668A0;
-  v9 = &v14;
-  v10 = &v12;
-  v11 = v0;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __embeddingGeneratorPreheatSync_block_invoke;
+  v6[3] = &unk_1E82668A0;
+  v8 = &v15;
+  v9 = &v11;
+  v10 = v0;
   v3 = v1;
-  v8 = v3;
-  [v2 preheatWithCompletionHandler:v7];
+  v7 = v3;
+  [v2 preheatWithCompletionHandler:v6];
 
   dispatch_group_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
-  if (v15[5])
+  if (v16[5])
   {
     if (embeddingGenerationLogger(void)::token != -1)
     {
@@ -2387,7 +2376,7 @@ void embeddingGeneratorPreheatSync()
 
     if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_ERROR))
     {
-      embeddingGeneratorPreheatSync_cold_2(v13);
+      embeddingGeneratorPreheatSync_cold_2();
     }
   }
 
@@ -2401,20 +2390,18 @@ void embeddingGeneratorPreheatSync()
     v4 = embeddingGenerationLogger(void)::log;
     if (os_log_type_enabled(embeddingGenerationLogger(void)::log, OS_LOG_TYPE_INFO))
     {
-      v5 = *(v13[0] + 24) / 1000000.0;
+      v5 = v12[3] / 1000000.0;
       *buf = 134217984;
-      v21 = v5;
+      v22 = v5;
       _os_log_impl(&dword_1C6584000, v4, OS_LOG_TYPE_INFO, "[QPNLU] Embedding preheat succeeded (time=time=%.6fms)", buf, 0xCu);
     }
   }
 
-  _Block_object_dispose(&v12, 8);
-  _Block_object_dispose(&v14, 8);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v15, 8);
 }
 
-void sub_1C65A0830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_1C65A0830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a21, 8);
@@ -2487,13 +2474,6 @@ void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t *OUTLINED_FUNCTION_2@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
 void __entityResolutionPrefixCacheLogger_block_invoke()
 {
   v0 = _nlpLoggingSubsystem();
@@ -2528,7 +2508,7 @@ CFStringRef QP::copyActionComponentWithModifier(const __CFString *a1, uint64_t a
   return CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, v9, a1, a2, v10, a4);
 }
 
-void QP::enumerateQueryWithAction(__CFCalendar *a1, const __CFDate *a2, const __CFString *key, CFDictionaryRef theDict, int a5, unsigned int *a6, unsigned int *a7, uint64_t a8)
+void QP::enumerateQueryWithAction(__CFCalendar *a1, const __CFDate *a2, const __CFString *key, CFDictionaryRef theDict, int a5, unsigned int *a6, QP::DateComponents *a7, uint64_t a8)
 {
   if ((a5 - 5) > 3u)
   {
@@ -2973,7 +2953,7 @@ LABEL_214:
   CFArrayAppendValue(Mutable, v35);
 LABEL_38:
   v36 = a6[1];
-  v37 = a7[1];
+  v37 = *(a7 + 1);
   if ((v36 & 0x80000000) != 0)
   {
     if ((v37 & 0x80000000) != 0)
@@ -2981,7 +2961,7 @@ LABEL_38:
       goto LABEL_48;
     }
 
-    v38 = QP::copyActionComponentWithModifier(key, @"Minute", a5, a7[1]);
+    v38 = QP::copyActionComponentWithModifier(key, @"Minute", a5, *(a7 + 1));
     v39 = value;
     if (value)
     {
@@ -3014,7 +2994,7 @@ LABEL_46:
   CFArrayAppendValue(Mutable, v38);
 LABEL_48:
   v40 = a6[2];
-  v41 = a7[2];
+  v41 = *(a7 + 2);
   if ((v40 & 0x80000000) != 0)
   {
     if ((v41 & 0x80000000) != 0)
@@ -3022,7 +3002,7 @@ LABEL_48:
       goto LABEL_58;
     }
 
-    v42 = QP::copyActionComponentWithModifier(key, @"Hour", a5, a7[2]);
+    v42 = QP::copyActionComponentWithModifier(key, @"Hour", a5, *(a7 + 2));
     v43 = value;
     if (value)
     {
@@ -3055,7 +3035,7 @@ LABEL_56:
   CFArrayAppendValue(Mutable, v42);
 LABEL_58:
   v44 = a6[3];
-  v45 = a7[3];
+  v45 = *(a7 + 3);
   if ((v44 & 0x80000000) != 0)
   {
     if ((v45 & 0x80000000) != 0)
@@ -3063,7 +3043,7 @@ LABEL_58:
       goto LABEL_68;
     }
 
-    v46 = QP::copyActionComponentWithModifier(key, @"Day", a5, a7[3]);
+    v46 = QP::copyActionComponentWithModifier(key, @"Day", a5, *(a7 + 3));
     v47 = value;
     if (value)
     {
@@ -3096,7 +3076,7 @@ LABEL_66:
   CFArrayAppendValue(Mutable, v46);
 LABEL_68:
   v48 = a6[4];
-  v49 = a7[4];
+  v49 = *(a7 + 4);
   if ((v48 & 0x80000000) != 0)
   {
     if ((v49 & 0x80000000) != 0)
@@ -3104,7 +3084,7 @@ LABEL_68:
       goto LABEL_78;
     }
 
-    v50 = QP::copyActionComponentWithModifier(key, @"Month", a5, a7[4]);
+    v50 = QP::copyActionComponentWithModifier(key, @"Month", a5, *(a7 + 4));
     v51 = value;
     if (value)
     {
@@ -3137,7 +3117,7 @@ LABEL_76:
   CFArrayAppendValue(Mutable, v50);
 LABEL_78:
   v52 = a6[5];
-  v53 = a7[5];
+  v53 = *(a7 + 5);
   if ((v52 & 0x80000000) != 0)
   {
     if ((v53 & 0x80000000) != 0)
@@ -3145,7 +3125,7 @@ LABEL_78:
       goto LABEL_88;
     }
 
-    v54 = QP::copyActionComponentWithModifier(key, @"Year", a5, a7[5]);
+    v54 = QP::copyActionComponentWithModifier(key, @"Year", a5, *(a7 + 5));
     v55 = value;
     if (value)
     {
@@ -3178,7 +3158,7 @@ LABEL_86:
   CFArrayAppendValue(Mutable, v54);
 LABEL_88:
   v56 = a6[8];
-  v57 = a7[8];
+  v57 = *(a7 + 8);
   if ((v56 & 0x80000000) != 0)
   {
     if ((v57 & 0x80000000) != 0)
@@ -3186,7 +3166,7 @@ LABEL_88:
       goto LABEL_98;
     }
 
-    v58 = QP::copyActionComponentWithModifier(key, @"Weekday", a5, a7[8]);
+    v58 = QP::copyActionComponentWithModifier(key, @"Weekday", a5, *(a7 + 8));
     v59 = value;
     if (value)
     {
@@ -3219,7 +3199,7 @@ LABEL_96:
   CFArrayAppendValue(Mutable, v58);
 LABEL_98:
   v60 = a6[10];
-  v61 = a7[10];
+  v61 = *(a7 + 10);
   if ((v60 & 0x80000000) != 0)
   {
     if ((v61 & 0x80000000) != 0)
@@ -3227,7 +3207,7 @@ LABEL_98:
       goto LABEL_108;
     }
 
-    v62 = QP::copyActionComponentWithModifier(key, @"WeekOfMonth", a5, a7[10]);
+    v62 = QP::copyActionComponentWithModifier(key, @"WeekOfMonth", a5, *(a7 + 10));
     v63 = value;
     if (value)
     {
@@ -3260,7 +3240,7 @@ LABEL_106:
   CFArrayAppendValue(Mutable, v62);
 LABEL_108:
   v64 = a6[11];
-  v65 = a7[11];
+  v65 = *(a7 + 11);
   if ((v64 & 0x80000000) != 0)
   {
     if ((v65 & 0x80000000) != 0)
@@ -3268,7 +3248,7 @@ LABEL_108:
       goto LABEL_118;
     }
 
-    v66 = QP::copyActionComponentWithModifier(key, @"WeekOfYear", a5, a7[11]);
+    v66 = QP::copyActionComponentWithModifier(key, @"WeekOfYear", a5, *(a7 + 11));
     v67 = value;
     if (value)
     {
@@ -3301,7 +3281,7 @@ LABEL_116:
   CFArrayAppendValue(Mutable, v66);
 LABEL_118:
   v68 = a6[12];
-  v69 = a7[12];
+  v69 = *(a7 + 12);
   if ((v68 & 0x80000000) != 0)
   {
     if ((v69 & 0x80000000) != 0)
@@ -3309,7 +3289,7 @@ LABEL_118:
       goto LABEL_128;
     }
 
-    v70 = QP::copyActionComponentWithModifier(key, @"Year", a5, a7[12]);
+    v70 = QP::copyActionComponentWithModifier(key, @"Year", a5, *(a7 + 12));
     v71 = value;
     if (value)
     {
@@ -3342,7 +3322,7 @@ LABEL_126:
   CFArrayAppendValue(Mutable, v70);
 LABEL_128:
   v72 = a6[9];
-  v73 = a7[9];
+  v73 = *(a7 + 9);
   if ((v72 & 0x80000000) == 0)
   {
     if ((v73 & 0x80000000) != 0)
@@ -3374,7 +3354,7 @@ LABEL_137:
 
   if ((v73 & 0x80000000) == 0)
   {
-    v74 = QP::copyActionComponentWithModifier(key, @"WeekdayOrdinal", a5, a7[9]);
+    v74 = QP::copyActionComponentWithModifier(key, @"WeekdayOrdinal", a5, *(a7 + 9));
     v75 = value;
     if (value)
     {
@@ -3426,22 +3406,22 @@ LABEL_247:
   }
 }
 
-void sub_1C65A2208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1C65A2208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va3, a10);
-  va_start(va2, a10);
-  va_start(va1, a10);
-  va_start(va, a10);
-  v12 = va_arg(va1, const void *);
+  va_start(va3, a17);
+  va_start(va2, a17);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v19 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v14 = va_arg(va2, const void *);
+  v21 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v16 = va_arg(va3, const void *);
+  v23 = va_arg(va3, const void *);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFArray *>::reset(va1, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va2, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va3, 0);
-  nlp::CFScopedPtr<__CFArray *>::reset((v10 - 88), 0);
+  nlp::CFScopedPtr<__CFArray *>::reset((v17 - 88), 0);
   _Unwind_Resume(a1);
 }
 
@@ -3551,43 +3531,49 @@ void nlp::CFScopedPtr<__CFAttributedString *>::reset(const void **a1, const void
 
 void QP::Formatter::setParseAttribute(QP::Formatter *this, const __CFString *a2, const void *a3, CFRange a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if ((*(*(this + 1) + 22) & 1) != 0 || !a3 || !a2 || (v8 = *(this + 9)) == 0)
+  v18 = *MEMORY[0x1E69E9840];
+  if ((*(*(this + 1) + 22) & 1) == 0)
   {
-LABEL_2:
-    v4 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  length = a4.length;
-  location = a4.location;
-  v11 = CFAttributedStringGetLength(v8);
-  if (location == -1 || length < 0 || location < 0 || v11 < location || length > v11 - location)
-  {
-    if (formatterLogger(void)::token != -1)
+    if (a3)
     {
-      QP::Formatter::loadFormatterResource();
-    }
+      if (a2)
+      {
+        v7 = *(this + 9);
+        if (v7)
+        {
+          length = a4.length;
+          location = a4.location;
+          v10 = CFAttributedStringGetLength(v7);
+          if (location == -1 || length < 0 || location < 0 || v10 < location || length > v10 - location)
+          {
+            if (formatterLogger(void)::token != -1)
+            {
+              QP::Formatter::loadFormatterResource();
+            }
 
-    v15 = formatterLogger(void)::log;
-    if (os_log_type_enabled(formatterLogger(void)::log, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = 134218240;
-      v17 = location;
-      v18 = 2048;
-      v19 = length;
-      _os_log_impl(&dword_1C6584000, v15, OS_LOG_TYPE_DEFAULT, "invalid parse attribute range (%ld,%ld)", &v16, 0x16u);
-    }
+            v13 = formatterLogger(void)::log;
+            if (os_log_type_enabled(formatterLogger(void)::log, OS_LOG_TYPE_DEFAULT))
+            {
+              v14 = 134218240;
+              v15 = location;
+              v16 = 2048;
+              v17 = length;
+              _os_log_impl(&dword_1C6584000, v13, OS_LOG_TYPE_DEFAULT, "invalid parse attribute range (%ld,%ld)", &v14, 0x16u);
+            }
+          }
 
-    goto LABEL_2;
+          else
+          {
+            v11 = *(this + 9);
+            v12.location = location;
+            v12.length = length;
+
+            CFAttributedStringSetAttribute(v11, v12, a2, a3);
+          }
+        }
+      }
+    }
   }
-
-  v12 = *(this + 9);
-  v13 = *MEMORY[0x1E69E9840];
-  v14.location = location;
-  v14.length = length;
-
-  CFAttributedStringSetAttribute(v12, v14, a2, a3);
 }
 
 void QP::Formatter::removeParseAttribute(QP::Formatter *this, CFStringRef attrName, CFRange range)
@@ -3630,7 +3616,7 @@ CFTypeRef QP::Formatter::getParseAttribute(QP::Formatter *this, CFStringRef attr
   return v3;
 }
 
-void QP::Formatter::setDefaultParse(uint64_t a1, const __CFString ***a2)
+void QP::Formatter::setDefaultParse(const void **a1, const __CFString ***a2)
 {
   QP::Formatter::clear(a1);
   v4 = &stru_1F45E9EA0;
@@ -3639,7 +3625,7 @@ void QP::Formatter::setDefaultParse(uint64_t a1, const __CFString ***a2)
     v4 = **a2;
   }
 
-  v5 = *(a1 + 72);
+  v5 = a1[9];
   v11.length = CFAttributedStringGetLength(v5);
   v11.location = 0;
   CFAttributedStringReplaceString(v5, v11, v4);
@@ -3656,7 +3642,7 @@ void QP::Formatter::setDefaultParse(uint64_t a1, const __CFString ***a2)
     v8 = v7;
     if (kQPParseResultTokenCountKey)
     {
-      v9 = *(a1 + 56);
+      v9 = a1[7];
       if (v9)
       {
         CFDictionarySetValue(v9, kQPParseResultTokenCountKey, v8);
@@ -3763,7 +3749,7 @@ uint64_t QP::ParseAttribute::flag(QP::ParseAttribute *this)
   return v5;
 }
 
-uint64_t QP::Formatter::setParse(uint64_t a1, uint64_t a2)
+uint64_t QP::Formatter::setParse(const void **a1, uint64_t a2)
 {
   QP::Formatter::clear(a1);
   v4 = &stru_1F45E9EA0;
@@ -3772,7 +3758,7 @@ uint64_t QP::Formatter::setParse(uint64_t a1, uint64_t a2)
     v4 = **a2;
   }
 
-  v5 = *(a1 + 72);
+  v5 = a1[9];
   v19.length = CFAttributedStringGetLength(v5);
   v19.location = 0;
   CFAttributedStringReplaceString(v5, v19, v4);
@@ -3788,7 +3774,7 @@ uint64_t QP::Formatter::setParse(uint64_t a1, uint64_t a2)
   {
     if (kQPParseResultTokenCountKey)
     {
-      v8 = *(a1 + 56);
+      v8 = a1[7];
       if (v8)
       {
         CFDictionarySetValue(v8, kQPParseResultTokenCountKey, v7);
@@ -3804,7 +3790,7 @@ uint64_t QP::Formatter::setParse(uint64_t a1, uint64_t a2)
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v6 = (*(*a1 + 16))(a1, &v15);
+  v6 = (*(*a1 + 2))(a1, &v15);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v16);
@@ -3905,7 +3891,7 @@ void QP::Formatter::setSuggestionValue(QP::Formatter *this, const __CFString *a2
   }
 }
 
-void QP::Formatter::updateParseWithAttribute(uint64_t *a1, uint64_t a2, CFRange **a3)
+void QP::Formatter::updateParseWithAttribute(QP::Formatter *a1, uint64_t a2, CFRange **a3)
 {
   v23 = 0;
   v24 = &v23;
@@ -3914,29 +3900,29 @@ void QP::Formatter::updateParseWithAttribute(uint64_t *a1, uint64_t a2, CFRange 
   v27 = __Block_byref_object_dispose__3;
   Mutable = 0;
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-  if (QP::ParserGrammar::hasTranslations(a1[3], &(*a3)[3]))
+  if (QP::ParserGrammar::hasTranslations(*(a1 + 3), &(*a3)[3]))
   {
     v16 = 0;
     v17 = &v16;
     v18 = 0x3802000000;
     v19 = __Block_byref_object_copy__122;
     v6 = *a3;
-    location = 0;
+    v21 = 0;
     v22 = 0;
     v20 = __Block_byref_object_dispose__123;
-    length = v6[11].length;
-    if (length)
+    v7 = *(v6 + 184);
+    if (v7)
     {
-      v22 = std::__shared_weak_count::lock(length);
+      v22 = std::__shared_weak_count::lock(v7);
       if (v22)
       {
-        location = v6[11].location;
+        v21 = *(v6 + 176);
       }
     }
 
     if (v17[5])
     {
-      v8 = a1[3];
+      v8 = *(a1 + 3);
       v14[0] = MEMORY[0x1E69E9820];
       v14[1] = 1174405120;
       v14[2] = ___ZN2QP9Formatter24updateParseWithAttributeEPK10__CFStringNSt3__110shared_ptrINS_14ParseAttributeEEE_block_invoke;
@@ -3954,7 +3940,7 @@ void QP::Formatter::updateParseWithAttribute(uint64_t *a1, uint64_t a2, CFRange 
         atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      QP::ParserGrammar::translations(v8, &v9[3], v14);
+      QP::ParserGrammar::translations(v8, v9 + 48, v14);
       if (v15)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v15);
@@ -3997,12 +3983,12 @@ void QP::Formatter::updateParseWithAttribute(uint64_t *a1, uint64_t a2, CFRange 
   }
 }
 
-void sub_1C65A3020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1C65A3020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
-  _Block_object_dispose((v13 - 96), 8);
-  nlp::CFScopedPtr<__CFArray *>::reset((v12 + 40), 0);
+  _Block_object_dispose((v20 - 96), 8);
+  nlp::CFScopedPtr<__CFArray *>::reset((v19 + 40), 0);
   _Unwind_Resume(a1);
 }
 
@@ -4091,10 +4077,10 @@ void ___ZN2QP9Formatter24updateParseWithAttributeEPK10__CFStringNSt3__110shared_
   }
 }
 
-void sub_1C65A32D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65A32D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  va_start(va, a3);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4118,9 +4104,9 @@ void ___ZN2QP9Formatter24updateParseWithAttributeEPK10__CFStringNSt3__110shared_
   }
 }
 
-void sub_1C65A33CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65A33CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4144,9 +4130,9 @@ void ___ZN2QP9Formatter24updateParseWithAttributeEPK10__CFStringNSt3__110shared_
   }
 }
 
-void sub_1C65A34B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65A34B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4173,41 +4159,39 @@ void __destroy_helper_block_e8_64c47_ZTSNSt3__110shared_ptrIN2QP14ParseAttribute
   }
 }
 
-void QP::Formatter::updateParseWithDateAttribute(QP::Formatter *a1, uint64_t a2, CFRange **a3)
+void QP::Formatter::updateParseWithDateAttribute(CFDateFormatterRef **a1, uint64_t a2, CFRange **a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a3[1];
-  v5[0] = *a3;
-  v5[1] = v3;
+  v4[0] = *a3;
+  v4[1] = v3;
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->length, 1uLL, memory_order_relaxed);
   }
 
-  v7 = 0;
-  QP::Formatter::updateParseWithDateAttribute(a1, a2, v5, v6);
-  std::__function::__value_func<void ()(__CFDictionary const*)>::~__value_func[abi:ne200100](v6);
+  v6 = 0;
+  QP::Formatter::updateParseWithDateAttribute(a1, a2, v4, v5);
+  std::__function::__value_func<void ()(__CFDictionary const*)>::~__value_func[abi:ne200100](v5);
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1C65A359C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65A359C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(__CFDictionary const*)>::~__value_func[abi:ne200100](va);
-  if (v4)
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   _Unwind_Resume(a1);
 }
 
-void QP::Formatter::updateParseWithDateAttribute(QP::Formatter *a1, uint64_t a2, CFRange **a3, uint64_t a4)
+void QP::Formatter::updateParseWithDateAttribute(CFDateFormatterRef **a1, uint64_t a2, CFRange **a3, uint64_t a4)
 {
   v7 = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -4226,11 +4210,11 @@ void QP::Formatter::updateParseWithDateAttribute(QP::Formatter *a1, uint64_t a2,
   }
 
   v12 = v11;
-  location = v9[11].location;
-  if (location)
+  v13 = *(v9 + 176);
+  if (v13)
   {
-    v15 = *(location + 120);
-    v14 = *(location + 128);
+    v15 = *(v13 + 120);
+    v14 = *(v13 + 128);
     if (v14)
     {
       atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -4252,7 +4236,7 @@ void QP::Formatter::updateParseWithDateAttribute(QP::Formatter *a1, uint64_t a2,
       }
 
       QP::Formatter::setParseAttribute(a1, kQPParseAttributeDateExtensionKey, Mutable, (*a3)[1]);
-      ++*(a1 + 10);
+      a1[10] = (a1[10] + 1);
       if (v16)
       {
         CFRelease(v16);
@@ -4267,7 +4251,7 @@ LABEL_60:
       goto LABEL_62;
     }
 
-    v17 = *(a1 + 5);
+    v17 = a1[5];
     v42 = v15;
     v43 = v14;
     if (v14)
@@ -4287,7 +4271,7 @@ LABEL_60:
       CFDictionarySetValue(Mutable, kQPParseAttributeValueDateDisplayKey, value);
     }
 
-    v18 = *(a1 + 5);
+    v18 = a1[5];
     v39 = v15;
     v40 = v14;
     if (v14)
@@ -4302,7 +4286,7 @@ LABEL_60:
       std::__shared_weak_count::__release_shared[abi:ne200100](v40);
     }
 
-    v19 = *(a1 + 5);
+    v19 = a1[5];
     v36 = v15;
     v37 = v14;
     if (v14)
@@ -4335,7 +4319,7 @@ LABEL_60:
       if (!v29)
       {
 LABEL_34:
-        v22 = *(a1 + 5);
+        v22 = a1[5];
         v33 = v15;
         v34 = v14;
         if (v14)
@@ -4379,7 +4363,7 @@ LABEL_34:
         {
           CFStringFromString = QP::createCFStringFromString(&(*a3)[3]);
           QP::Formatter::setParseAttribute(a1, CFStringFromString, Mutable, (*a3)[1]);
-          ++*(a1 + 10);
+          a1[10] = (a1[10] + 1);
           if (CFStringFromString)
           {
             CFRelease(CFStringFromString);
@@ -4437,45 +4421,45 @@ LABEL_63:
   }
 }
 
-void sub_1C65A39B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65A39B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va5, a4);
-  va_start(va4, a4);
-  va_start(va3, a4);
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v8 = va_arg(va1, const void *);
+  va_start(va5, a7);
+  va_start(va4, a7);
+  va_start(va3, a7);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v11 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v10 = va_arg(va2, const void *);
-  v12 = va_arg(va2, void);
+  v13 = va_arg(va2, const void *);
+  v15 = va_arg(va2, void);
   va_copy(va3, va2);
-  v13 = va_arg(va3, const void *);
-  v15 = va_arg(va3, void);
-  v16 = va_arg(va3, void);
-  v17 = va_arg(va3, void);
+  v16 = va_arg(va3, const void *);
+  v18 = va_arg(va3, void);
+  v19 = va_arg(va3, void);
+  v20 = va_arg(va3, void);
   va_copy(va4, va3);
-  v18 = va_arg(va4, const void *);
-  v20 = va_arg(va4, void);
-  v21 = va_arg(va4, void);
+  v21 = va_arg(va4, const void *);
+  v23 = va_arg(va4, void);
+  v24 = va_arg(va4, void);
   va_copy(va5, va4);
-  v22 = va_arg(va5, const void *);
-  v24 = va_arg(va5, void);
-  v25 = va_arg(va5, void);
+  v25 = va_arg(va5, const void *);
+  v27 = va_arg(va5, void);
+  v28 = va_arg(va5, void);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va2, 0);
   nlp::CFScopedPtr<__CFDictionary const*>::reset(va3, 0);
   nlp::CFScopedPtr<__CFDictionary const*>::reset(va4, 0);
   nlp::CFScopedPtr<__CFDictionary const*>::reset(va5, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset((v6 - 104), 0);
-  if (v5)
+  nlp::CFScopedPtr<__CFString const*>::reset((v9 - 104), 0);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  nlp::CFScopedPtr<__CFDictionary *>::reset((v6 - 96), 0);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  nlp::CFScopedPtr<__CFDictionary *>::reset((v9 - 96), 0);
   _Unwind_Resume(a1);
 }
 
@@ -4621,9 +4605,9 @@ void QP::GeoReference::load(QP::GeoReference *this, const __CFURL *a2)
   }
 }
 
-void sub_1C65A3E60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65A3E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFURL const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4645,181 +4629,180 @@ void QP::GeoReference::~GeoReference(QP::GeoReference *this)
 
 void QP::GeoReference::lookup(uint64_t *a1, CFStringRef theString, const __CFLocale *a3, uint64_t a4)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   if (theString && *a1 && CFStringGetLength(theString))
   {
     MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, theString);
-    v54[8] = MutableCopy;
-    v69.length = CFStringGetLength(MutableCopy);
-    v69.location = 0;
-    CFStringFindAndReplace(MutableCopy, @"-", @" ", v69, 0);
-    v70.length = CFStringGetLength(MutableCopy);
-    v70.location = 0;
-    CFStringFindAndReplace(MutableCopy, @".", &stru_1F45E9EA0, v70, 0);
+    v52[8] = MutableCopy;
+    v67.length = CFStringGetLength(MutableCopy);
+    v67.location = 0;
+    CFStringFindAndReplace(MutableCopy, @"-", @" ", v67, 0);
+    v68.length = CFStringGetLength(MutableCopy);
+    v68.location = 0;
+    CFStringFindAndReplace(MutableCopy, @".", &stru_1F45E9EA0, v68, 0);
     CFStringLowercase(MutableCopy, a3);
-    v61 = 0;
-    v62 = &v61;
-    v63 = 0x4802000000;
-    v64 = __Block_byref_object_copy__4;
-    v65 = __Block_byref_object_dispose__4;
-    v66 = 0u;
-    v67 = 0u;
-    v9 = *a1;
-    v54[2] = MEMORY[0x1E69E9820];
-    v54[3] = 0x40000000;
-    v54[4] = ___ZN2QP12GeoReference6lookupEPK10__CFStringPK10__CFLocaleU13block_pointerFvP11_SIGeoEntrydE_block_invoke;
-    v54[5] = &unk_1E8266978;
-    v54[6] = &v61;
-    v54[7] = a1;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x4802000000;
+    v62 = __Block_byref_object_copy__4;
+    v63 = __Block_byref_object_dispose__4;
+    v64 = 0u;
+    v65 = 0u;
+    v52[2] = MEMORY[0x1E69E9820];
+    v52[3] = 0x40000000;
+    v52[4] = ___ZN2QP12GeoReference6lookupEPK10__CFStringPK10__CFLocaleU13block_pointerFvP11_SIGeoEntrydE_block_invoke;
+    v52[5] = &unk_1E8266978;
+    v52[6] = &v59;
+    v52[7] = a1;
     SIGeoIndexEnumerateGeoIDForString();
-    v54[0] = 0;
-    v54[1] = 0;
-    v53 = v54;
-    v10 = v62 + 6;
-    v11 = v62 + 5;
-    if (v62[5] == v62[6])
+    v52[0] = 0;
+    v52[1] = 0;
+    v51 = v52;
+    v9 = v60 + 6;
+    v10 = v60 + 5;
+    if (v60[5] == v60[6])
     {
-      v46 = 0;
+      v45 = 0;
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        v52 = 0.0;
-        v50 = 0u;
-        v51 = 0u;
+        v50 = 0.0;
         v48 = 0u;
         v49 = 0u;
-        v13 = *v11;
-        v14 = *(*v11 + 16);
-        v15 = *(*v11 + 32);
-        v16 = *(*v11 + 48);
-        v52 = *(*v11 + 64);
-        v50 = v15;
-        v51 = v16;
-        v48 = *v13;
-        v49 = v14;
-        v17 = *v11;
-        v18 = *v10;
-        v19 = *v10 - v17;
-        if (v19 >= 73)
+        v46 = 0u;
+        v47 = 0u;
+        v12 = *v10;
+        v13 = *(*v10 + 16);
+        v14 = *(*v10 + 32);
+        v15 = *(*v10 + 48);
+        v50 = *(*v10 + 64);
+        v48 = v14;
+        v49 = v15;
+        v46 = *v12;
+        v47 = v13;
+        v16 = *v10;
+        v17 = *v9;
+        v18 = *v9 - v16;
+        if (v18 >= 73)
         {
-          v20 = 0;
-          v21 = 0x8E38E38E38E38E39 * (v19 >> 3);
-          v22 = *(v17 + 48);
-          v58 = *(v17 + 32);
-          v59 = v22;
-          v60 = *(v17 + 64);
-          v23 = *(v17 + 16);
-          v56 = *v17;
-          v57 = v23;
-          v24 = v17;
+          v19 = 0;
+          v20 = 0x8E38E38E38E38E39 * (v18 >> 3);
+          v21 = *(v16 + 48);
+          v56 = *(v16 + 32);
+          v57 = v21;
+          v58 = *(v16 + 64);
+          v22 = *(v16 + 16);
+          v54 = *v16;
+          v55 = v22;
+          v23 = v16;
           do
           {
-            v25 = v24;
-            v24 += 72 * v20 + 72;
-            v26 = 2 * v20;
-            v20 = (2 * v20) | 1;
-            v27 = v26 + 2;
-            if (v27 < v21 && *(v24 + 64) < *(v24 + 136))
+            v24 = v23;
+            v23 += 72 * v19 + 72;
+            v25 = 2 * v19;
+            v19 = (2 * v19) | 1;
+            v26 = v25 + 2;
+            if (v26 < v20 && *(v23 + 64) < *(v23 + 136))
             {
-              v24 += 72;
-              v20 = v27;
+              v23 += 72;
+              v19 = v26;
             }
 
-            *v25 = *v24;
-            v28 = *(v24 + 16);
-            v29 = *(v24 + 32);
-            v30 = *(v24 + 48);
-            *(v25 + 64) = *(v24 + 64);
-            *(v25 + 32) = v29;
-            *(v25 + 48) = v30;
-            *(v25 + 16) = v28;
+            *v24 = *v23;
+            v27 = *(v23 + 16);
+            v28 = *(v23 + 32);
+            v29 = *(v23 + 48);
+            *(v24 + 64) = *(v23 + 64);
+            *(v24 + 32) = v28;
+            *(v24 + 48) = v29;
+            *(v24 + 16) = v27;
           }
 
-          while (v20 <= ((v21 - 2) >> 1));
-          v31 = v18 - 72;
-          if (v24 == v31)
+          while (v19 <= ((v20 - 2) >> 1));
+          v30 = v17 - 72;
+          if (v23 == v30)
           {
-            *v24 = v56;
-            v37 = v57;
-            v38 = v58;
-            v39 = v59;
-            *(v24 + 64) = v60;
-            *(v24 + 32) = v38;
-            *(v24 + 48) = v39;
-            *(v24 + 16) = v37;
+            *v23 = v54;
+            v36 = v55;
+            v37 = v56;
+            v38 = v57;
+            *(v23 + 64) = v58;
+            *(v23 + 32) = v37;
+            *(v23 + 48) = v38;
+            *(v23 + 16) = v36;
           }
 
           else
           {
-            *v24 = *v31;
-            v32 = *(v31 + 16);
-            v33 = *(v31 + 32);
-            v34 = *(v31 + 48);
-            *(v24 + 64) = *(v31 + 64);
-            *(v24 + 32) = v33;
-            *(v24 + 48) = v34;
-            *(v24 + 16) = v32;
-            v35 = v59;
-            *(v31 + 32) = v58;
-            *(v31 + 48) = v35;
-            *(v31 + 64) = v60;
-            v36 = v57;
-            *v31 = v56;
-            *(v31 + 16) = v36;
-            std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,QP::GeoCompareScore &,std::__wrap_iter<QP::GeoLocation *>>(v17, v24 + 72, &v55, 0x8E38E38E38E38E39 * ((v24 + 72 - v17) >> 3));
+            *v23 = *v30;
+            v31 = *(v30 + 16);
+            v32 = *(v30 + 32);
+            v33 = *(v30 + 48);
+            *(v23 + 64) = *(v30 + 64);
+            *(v23 + 32) = v32;
+            *(v23 + 48) = v33;
+            *(v23 + 16) = v31;
+            v34 = v57;
+            *(v30 + 32) = v56;
+            *(v30 + 48) = v34;
+            *(v30 + 64) = v58;
+            v35 = v55;
+            *v30 = v54;
+            *(v30 + 16) = v35;
+            std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,QP::GeoCompareScore &,std::__wrap_iter<QP::GeoLocation *>>(v16, v23 + 72, &v53, 0x8E38E38E38E38E39 * ((v23 + 72 - v16) >> 3));
           }
 
-          v18 = *v10;
+          v17 = *v9;
         }
 
-        *v10 = v18 - 72;
-        v40 = v54[0];
-        if (!v54[0])
+        *v9 = v17 - 72;
+        v39 = v52[0];
+        if (!v52[0])
         {
           goto LABEL_24;
         }
 
-        v41 = v54;
+        v40 = v52;
         do
         {
-          v42 = *(v40 + 28);
-          v43 = v42 >= DWORD2(v48);
-          v44 = v42 < DWORD2(v48);
-          if (v43)
+          v41 = *(v39 + 28);
+          v42 = v41 >= DWORD2(v46);
+          v43 = v41 < DWORD2(v46);
+          if (v42)
           {
-            v41 = v40;
+            v40 = v39;
           }
 
-          v40 = *(v40 + 8 * v44);
+          v39 = *(v39 + 8 * v43);
         }
 
-        while (v40);
-        if (v41 == v54 || DWORD2(v48) < *(v41 + 7))
+        while (v39);
+        if (v40 == v52 || DWORD2(v46) < *(v40 + 7))
         {
 LABEL_24:
-          (*(a4 + 16))(a4, &v48, v52);
-          std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v53, &v48 + 2);
-          ++v12;
+          (*(a4 + 16))(a4, &v46, v50);
+          std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v51, &v46 + 2, &v46 + 2);
+          ++v11;
         }
 
-        v10 = v62 + 6;
-        v11 = v62 + 5;
+        v9 = v60 + 6;
+        v10 = v60 + 5;
       }
 
-      while (v62[5] != v62[6] && v12 < 5);
-      v46 = v54[0];
+      while (v60[5] != v60[6] && v11 < 5);
+      v45 = v52[0];
     }
 
-    std::__tree<unsigned int>::destroy(&v53, v46);
-    _Block_object_dispose(&v61, 8);
-    if (v66)
+    std::__tree<unsigned int>::destroy(&v51, v45);
+    _Block_object_dispose(&v59, 8);
+    if (v64)
     {
-      *(&v66 + 1) = v66;
-      operator delete(v66);
+      *(&v64 + 1) = v64;
+      operator delete(v64);
     }
 
     if (MutableCopy)
@@ -4827,8 +4810,6 @@ LABEL_24:
       CFRelease(MutableCopy);
     }
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65A4308(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
@@ -4865,9 +4846,8 @@ void __Block_byref_object_dispose__4(uint64_t a1)
   }
 }
 
-uint64_t ___ZN2QP12GeoReference6lookupEPK10__CFStringPK10__CFLocaleU13block_pointerFvP11_SIGeoEntrydE_block_invoke(uint64_t a1, double a2)
+uint64_t ___ZN2QP12GeoReference6lookupEPK10__CFStringPK10__CFLocaleU13block_pointerFvP11_SIGeoEntrydE_block_invoke(uint64_t a1, uint64_t a2, double a3)
 {
-  v4 = **(a1 + 40);
   result = SIGeoIndexLookupEntry();
   if (result)
   {
@@ -4910,7 +4890,7 @@ uint64_t ___ZN2QP12GeoReference6lookupEPK10__CFStringPK10__CFLocaleU13block_poin
       *(v15 + 16) = 0u;
       *(v15 + 32) = 0u;
       *(v15 + 48) = 0u;
-      *(v15 + 64) = a2;
+      *(v15 + 64) = a3;
       v9 = 72 * v11 + 72;
       v16 = v6[5];
       v17 = v6[6] - v16;
@@ -4932,7 +4912,7 @@ uint64_t ___ZN2QP12GeoReference6lookupEPK10__CFStringPK10__CFLocaleU13block_poin
       *(v7 + 48) = 0u;
       *v7 = 0u;
       *(v7 + 16) = 0u;
-      *(v7 + 64) = a2;
+      *(v7 + 64) = a3;
       v9 = v7 + 72;
     }
 
@@ -4974,22 +4954,21 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,QP::GeoCompareScore
     if (*(v5 + 64) < v6)
     {
       v7 = a2 - 72;
-      v13 = *(a2 - 72);
-      v14 = *(a2 - 56);
-      v8 = *(a2 - 40);
-      v15 = v8;
-      v16 = *(a2 - 24);
+      v12 = *(a2 - 72);
+      v13 = *(a2 - 56);
+      v14 = *(a2 - 40);
+      v15 = *(a2 - 24);
       do
       {
-        v9 = v5;
+        v8 = v5;
         *v7 = *v5;
-        v10 = *(v5 + 16);
-        v11 = *(v5 + 32);
-        v12 = *(v5 + 48);
+        v9 = *(v5 + 16);
+        v10 = *(v5 + 32);
+        v11 = *(v5 + 48);
         *(v7 + 64) = *(v5 + 64);
-        *(v7 + 32) = v11;
-        *(v7 + 48) = v12;
-        *(v7 + 16) = v10;
+        *(v7 + 32) = v10;
+        *(v7 + 48) = v11;
+        *(v7 + 16) = v9;
         if (!v4)
         {
           break;
@@ -4997,15 +4976,15 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,QP::GeoCompareScore
 
         v4 = (v4 - 1) >> 1;
         v5 = result + 72 * v4;
-        v7 = v9;
+        v7 = v8;
       }
 
       while (*(v5 + 64) < v6);
-      *v9 = v13;
-      *(v9 + 16) = v14;
-      *(v9 + 32) = v15;
-      *(v9 + 48) = v16;
-      *(v9 + 64) = v6;
+      *v8 = v12;
+      *(v8 + 16) = v13;
+      *(v8 + 32) = v14;
+      *(v8 + 48) = v15;
+      *(v8 + 64) = v6;
     }
   }
 
@@ -5023,48 +5002,48 @@ void std::__tree<unsigned int>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<unsigned int>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<unsigned int>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -5090,12 +5069,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -5109,22 +5088,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -5158,13 +5137,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -5206,7 +5185,7 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t QP::GraphStructureStack::Node::reduce(unsigned __int16 *a1, __int128 *a2)
+uint64_t QP::GraphStructureStack::Node::reduce(unsigned __int16 *a1, unsigned __int16 **a2)
 {
   v4 = *(a1 + 1);
   if (v4 == -1)
@@ -5214,11 +5193,11 @@ uint64_t QP::GraphStructureStack::Node::reduce(unsigned __int16 *a1, __int128 *a
     v5 = *a2;
     if (**a2 == *a1)
     {
-      *(a1 + 4) = *(v5 + 8);
-      *(a1 + 3) = *(v5 + 24);
-      *(a1 + 2) = *(v5 + 32);
-      v7 = *(v5 + 48);
-      v6 = *(v5 + 56);
+      *(a1 + 4) = *(v5 + 4);
+      *(a1 + 3) = *(v5 + 3);
+      *(a1 + 2) = *(v5 + 2);
+      v7 = *(v5 + 6);
+      v6 = *(v5 + 7);
       if (v6)
       {
         atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -5235,7 +5214,7 @@ uint64_t QP::GraphStructureStack::Node::reduce(unsigned __int16 *a1, __int128 *a
       v9 = *a2;
       v43 = 0;
       v42 = 0uLL;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(&v42, *(v9 + 64), *(v9 + 72), (*(v9 + 72) - *(v9 + 64)) >> 4);
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(&v42, *(v9 + 8), *(v9 + 9), (*(v9 + 9) - *(v9 + 8)) >> 4);
       std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__vdeallocate(a1 + 8);
       *(a1 + 4) = v42;
       *(a1 + 10) = v43;
@@ -5243,7 +5222,7 @@ uint64_t QP::GraphStructureStack::Node::reduce(unsigned __int16 *a1, __int128 *a
       v42 = 0uLL;
       v39 = &v42;
       std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v39);
-      a1[44] = *(*a2 + 88);
+      a1[44] = (*a2)[44];
       v10 = 0;
       goto LABEL_8;
     }
@@ -5304,7 +5283,7 @@ LABEL_22:
   if (v20)
   {
     atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-    v22 = *(v21 + 8) + 1 == *(*a2 + 8);
+    v22 = *(v21 + 8) + 1 == *(*a2 + 1);
     std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     if (v19)
     {
@@ -5316,7 +5295,7 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v22 = *(v21 + 8) + 1 == *(*a2 + 8);
+  v22 = *(v21 + 8) + 1 == *(*a2 + 1);
   if ((v19 & 1) == 0)
   {
     goto LABEL_27;
@@ -5351,7 +5330,7 @@ LABEL_28:
   if (v27)
   {
     atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
-    v25 = *(v28 + 8) < *(*a2 + 8);
+    v25 = *(v28 + 8) < *(*a2 + 1);
     std::__shared_weak_count::__release_shared[abi:ne200100](v27);
     if (!v24)
     {
@@ -5361,7 +5340,7 @@ LABEL_28:
     goto LABEL_38;
   }
 
-  v25 = *(v28 + 8) < *(*a2 + 8);
+  v25 = *(v28 + 8) < *(*a2 + 1);
   if (v24)
   {
 LABEL_38:
@@ -5401,10 +5380,10 @@ LABEL_40:
   v33 = *(v32 + 1);
   if (v33 == -1)
   {
-    v37 = *(a2 + 1);
+    v37 = a2[1];
     if (v37)
     {
-      atomic_fetch_add_explicit((v37 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v37 + 1, 1uLL, memory_order_relaxed);
     }
 
     v38 = v30[1];
@@ -5454,7 +5433,7 @@ LABEL_8:
     v11 = *a2;
     if (*(a1 + 94) == 1)
     {
-      v12 = *(*a2 + 32);
+      v12 = *(*a2 + 4);
       v13 = *(a1 + 4) - v12 + *(a1 + 5);
       *(a1 + 4) = v12;
       *(a1 + 5) = v13;
@@ -5462,7 +5441,7 @@ LABEL_8:
 
     else
     {
-      *(a1 + 5) = *(*a2 + 32) - *(a1 + 4) + *(*a2 + 40);
+      *(a1 + 5) = *(*a2 + 4) - *(a1 + 4) + *(*a2 + 5);
     }
   }
 
@@ -5476,9 +5455,9 @@ LABEL_8:
   return 1;
 }
 
-void sub_1C65A4D90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65A4D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5529,7 +5508,7 @@ void **std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[ab
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -5582,11 +5561,11 @@ double QP::GraphStructureStack::GraphStructureStack(uint64_t a1, void *a2)
   return result;
 }
 
-void QP::GraphStructureStack::addNodeIdToNode(QP::GraphStructureStack *a1@<X0>, CFRange **a2@<X1>, unsigned __int16 a3@<W2>, BOOL a4@<W3>, void *a5@<X8>)
+void QP::GraphStructureStack::addNodeIdToNode(QP::ParserGrammar **a1@<X0>, CFRange **a2@<X1>, int a3@<W2>, char a4@<W3>, uint64_t *a5@<X8>)
 {
   *a5 = 0;
   a5[1] = 0;
-  QP::GraphStructureStack::nodeFromNodeId(a1, a3, *(&(*a2)->location + 1), a4, (*a2)->length, (*a2)[1].location, (*a2)[2]);
+  QP::GraphStructureStack::nodeFromNodeId(a1, a3, a4, (*a2)->length, (*a2)[1].location, (*a2)[2]);
 }
 
 void QP::GraphStructureStack::shift(uint64_t *a1, unsigned __int16 **a2, char a3, uint64_t a4)
@@ -5626,20 +5605,20 @@ void sub_1C65A51B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN2QP19GraphStructureStack5shiftENSt3__110shared_ptrINS0_4NodeEEEbU13block_pointerFvS4_bPbE_block_invoke(uint64_t a1, unsigned __int16 a2)
+void ___ZN2QP19GraphStructureStack5shiftENSt3__110shared_ptrINS0_4NodeEEEbU13block_pointerFvS4_bPbE_block_invoke(uint64_t a1, int a2, void *a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 56);
-  v4[0] = *(a1 + 48);
-  v4[1] = v3;
-  if (v3)
+  v4 = *(a1 + 40);
+  v5 = *(a1 + 56);
+  v6[0] = *(a1 + 48);
+  v6[1] = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit(&v3->length, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v5->length, 1uLL, memory_order_relaxed);
   }
 
-  v5[0] = 0;
-  v5[1] = 0;
-  QP::GraphStructureStack::addNodeIdToNode(v2, v4, a2, 0, v5);
+  v7[0] = 0;
+  v7[1] = 0;
+  QP::GraphStructureStack::addNodeIdToNode(v4, v6, a2, 0, v7);
 }
 
 void sub_1C65A5380(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
@@ -5705,35 +5684,35 @@ void QP::GraphStructureStack::shiftReduce(uint64_t a1, __int128 *a2, int a3, uin
 
   if (*(v12 + 93) == 1)
   {
+    v76 = 0;
     v77 = 0;
     v78 = 0;
-    v79 = 0;
-    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(&v77, 0, v8, v9, v10);
+    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(&v76, 0, v8, v9, v10);
     if (*(a1 + 24) != *(a1 + 16))
     {
-      v13 = v77;
-      v14 = v78;
-      if (v77 != v78)
+      v13 = v76;
+      v14 = v77;
+      if (v76 != v77)
       {
         do
         {
           v15 = v13[1];
-          v97[0] = *v13;
-          v97[1] = v15;
+          v96[0] = *v13;
+          v96[1] = v15;
           if (v15)
           {
             atomic_fetch_add_explicit(v15 + 1, 1uLL, memory_order_relaxed);
           }
 
           v16 = *(v11 + 1);
-          v96[0] = *v11;
-          v96[1] = v16;
+          v95[0] = *v11;
+          v95[1] = v16;
           if (v16)
           {
             atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          QP::GraphStructureStack::reduce(a1, v97, v96, a4);
+          QP::GraphStructureStack::reduce(a1, v96, v95, a4);
           if (v16)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v16);
@@ -5751,17 +5730,17 @@ void QP::GraphStructureStack::shiftReduce(uint64_t a1, __int128 *a2, int a3, uin
       }
     }
 
-    v92 = &v77;
-    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v92);
+    v91 = &v76;
+    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v91);
     return;
   }
 
   if (*(v12 + 91) != 1)
   {
-    v92 = 0;
-    v93 = &v92;
-    v94 = 0x2000000000;
-    v95 = 0;
+    v91 = 0;
+    v92 = &v91;
+    v93 = 0x2000000000;
+    v94 = 0;
     v20 = (a1 + 40);
     v19 = *(a1 + 40);
     v21 = *(a1 + 104);
@@ -5769,22 +5748,22 @@ void QP::GraphStructureStack::shiftReduce(uint64_t a1, __int128 *a2, int a3, uin
     if (v22 != v19 && *(v12 + 8) == v21 + 1 && *(v12 + 88) == 1)
     {
       v58 = a3;
+      v88 = 0;
       v89 = 0;
       v90 = 0;
-      v91 = 0;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(&v89, 0, v19, v22, (v22 - v19) >> 4);
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(&v88, 0, v19, v22, (v22 - v19) >> 4);
+      v85 = 0;
       v86 = 0;
       v87 = 0;
-      v88 = 0;
+      v82 = 0;
       v83 = 0;
       v84 = 0;
-      v85 = 0;
-      v77 = 0;
-      v78 = &v77;
-      v79 = 0x4002000000;
-      v80 = __Block_byref_object_copy__5;
-      v81 = __Block_byref_object_dispose__5;
-      memset(v82, 0, sizeof(v82));
+      v76 = 0;
+      v77 = &v76;
+      v78 = 0x4002000000;
+      v79 = __Block_byref_object_copy__5;
+      v80 = __Block_byref_object_dispose__5;
+      memset(v81, 0, sizeof(v81));
       v23 = *v20;
       while (1)
       {
@@ -5799,8 +5778,8 @@ void QP::GraphStructureStack::shiftReduce(uint64_t a1, __int128 *a2, int a3, uin
               if (QP::ParserGrammar::hasExpansions(*a1, **v25))
               {
                 v26 = *(v25 + 1);
-                v76[0] = *v25;
-                v76[1] = v26;
+                v75[0] = *v25;
+                v75[1] = v26;
                 if (v26)
                 {
                   atomic_fetch_add_explicit(v26 + 1, 1uLL, memory_order_relaxed);
@@ -5811,28 +5790,28 @@ void QP::GraphStructureStack::shiftReduce(uint64_t a1, __int128 *a2, int a3, uin
                 v72[2] = ___ZN2QP19GraphStructureStack11shiftReduceENSt3__110shared_ptrINS0_4NodeEEEbU13block_pointerFvS4_bPbE_block_invoke;
                 v72[3] = &unk_1F45E8330;
                 v72[7] = a1;
-                memset(v73, 0, sizeof(v73));
-                std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(v73, v83, v84, (v84 - v83) >> 4);
+                memset(v73, 0, 24);
+                std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(v73, v82, v83, v83 - v82);
                 v72[4] = a4;
-                v72[5] = &v92;
+                v72[5] = &v91;
                 v27 = *(v11 + 1);
-                v74 = *v11;
-                v75 = v27;
+                v73[3] = *v11;
+                v74 = v27;
                 if (v27)
                 {
                   atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                v72[6] = &v77;
-                QP::GraphStructureStack::shift(a1, v76, 1, v72);
+                v72[6] = &v76;
+                QP::GraphStructureStack::shift(a1, v75, 1, v72);
                 if (v26)
                 {
                   std::__shared_weak_count::__release_shared[abi:ne200100](v26);
                 }
 
-                if (v75)
+                if (v74)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v75);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v74);
                 }
 
                 v69 = v73;
@@ -5842,7 +5821,7 @@ void QP::GraphStructureStack::shiftReduce(uint64_t a1, __int128 *a2, int a3, uin
 
             else
             {
-              std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](&v86, v25);
+              std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](&v85, v25);
             }
 
             ++v25;
@@ -5853,8 +5832,8 @@ void QP::GraphStructureStack::shiftReduce(uint64_t a1, __int128 *a2, int a3, uin
         }
 
         std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(v20, v23, *(&v23 + 1));
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(v20, *(a1 + 48), v86, v87, (v87 - v86) >> 4);
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(&v86, v86, v87);
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(v20, *(a1 + 48), v85, v86, (v86 - v85) >> 4);
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(&v85, v85, v86);
         v28 = *(a1 + 40);
         v29 = *(a1 + 48);
         if (v29 == v28)
@@ -5862,7 +5841,7 @@ void QP::GraphStructureStack::shiftReduce(uint64_t a1, __int128 *a2, int a3, uin
           break;
         }
 
-        if (v78[6] == v78[5])
+        if (v77[6] == v77[5])
         {
           std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(v20, v28, v29);
 LABEL_80:
@@ -5871,9 +5850,9 @@ LABEL_80:
         }
 
         v21 = *(*(v29 - 2) + 8);
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(&v83, v83, v84);
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(&v83, v84, v78[5], v78[6], (v78[6] - v78[5]) >> 4);
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase((v78 + 5), v78[5], v78[6]);
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(&v82, v82, v83);
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(&v82, v83, v77[5], v77[6], (v77[6] - v77[5]) >> 4);
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase((v77 + 5), v77[5], v77[6]);
 LABEL_81:
         v23 = *v20;
         v42 = *v20;
@@ -5881,24 +5860,24 @@ LABEL_81:
         {
           std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(v20, *(&v42 + 1), *(&v42 + 1));
           a3 = v58;
-          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(v20, *(a1 + 48), v89, v90, (v90 - v89) >> 4);
-          _Block_object_dispose(&v77, 8);
-          v69 = v82;
+          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(v20, *(a1 + 48), v88, v89, (v89 - v88) >> 4);
+          _Block_object_dispose(&v76, 8);
+          v69 = v81;
           std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v69);
-          v77 = &v83;
-          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v77);
-          v77 = &v86;
-          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v77);
-          v77 = &v89;
-          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v77);
+          v76 = &v82;
+          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v76);
+          v76 = &v85;
+          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v76);
+          v76 = &v88;
+          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v76);
           v12 = *v11;
           v21 = *(a1 + 104);
           goto LABEL_83;
         }
       }
 
-      v30 = v78[5];
-      v60 = v78[6];
+      v30 = v77[5];
+      v60 = v77[6];
       if (v30 != v60)
       {
         do
@@ -5962,7 +5941,7 @@ LABEL_81:
               }
 
               v33 = 1;
-              *(v93 + 24) = 1;
+              *(v92 + 24) = 1;
               v31 += 2;
               if (v31 == v32)
               {
@@ -5995,14 +5974,14 @@ LABEL_132:
 
               if ((v70 - v69) < *(a1 + 24) - *(a1 + 16))
               {
-                *(v93 + 24) = 1;
+                *(v92 + 24) = 1;
               }
             }
           }
 
 LABEL_77:
-          v98 = &v69;
-          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v98);
+          v97 = &v69;
+          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v97);
           v30 += 2;
         }
 
@@ -6028,18 +6007,18 @@ LABEL_83:
       }
     }
 
-    if (a3 && (v93[3] & 1) == 0)
+    if (a3 && (v92[3] & 1) == 0)
     {
+      v76 = 0;
       v77 = 0;
       v78 = 0;
-      v79 = 0;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(&v77, 0, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 4);
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(&v76, 0, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 4);
       v45 = *v11;
       if (*(a1 + 24) != *(a1 + 16) && *(v45 + 1))
       {
-        v46 = v77;
-        v47 = v78;
-        if (v77 == v78)
+        v46 = v76;
+        v47 = v77;
+        if (v76 == v77)
         {
           goto LABEL_122;
         }
@@ -6073,7 +6052,7 @@ LABEL_122:
                   v62[1] = v57;
                   if (v57)
                   {
-                    atomic_fetch_add_explicit(v57 + 1, 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit((v57 + 8), 1uLL, memory_order_relaxed);
                   }
 
                   QP::GraphStructureStack::shift(a1, v62, 1, a4);
@@ -6122,7 +6101,7 @@ LABEL_122:
               v63[1] = v56;
               if (v56)
               {
-                atomic_fetch_add_explicit(v56 + 1, 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit((v56 + 8), 1uLL, memory_order_relaxed);
               }
 
               QP::GraphStructureStack::shift(a1, v63, 0, a4);
@@ -6151,7 +6130,7 @@ LABEL_122:
         v61[1] = v57;
         if (v57)
         {
-          atomic_fetch_add_explicit(v57 + 1, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v57 + 8), 1uLL, memory_order_relaxed);
         }
 
         QP::GraphStructureStack::shift(a1, v61, 1, a4);
@@ -6163,11 +6142,11 @@ LABEL_126:
       }
 
 LABEL_128:
-      v89 = &v77;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v89);
+      v88 = &v76;
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v88);
     }
 
-    _Block_object_dispose(&v92, 8);
+    _Block_object_dispose(&v91, 8);
     return;
   }
 
@@ -6199,10 +6178,10 @@ void sub_1C65A5CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t QP::GraphStructureStack::reduce(uint64_t a1, unsigned __int16 **a2, void *a3, uint64_t a4)
+uint64_t QP::GraphStructureStack::reduce(uint64_t a1, unsigned __int16 ***a2, uint64_t a3, uint64_t a4)
 {
   v5 = *a2;
-  if (!*a2 || *(v5 + 1) == -1 || (v5[44] & 1) != 0)
+  if (!*a2 || v5[1] == -1 || (v5[11] & 1) != 0)
   {
     return 0;
   }
@@ -6210,18 +6189,18 @@ uint64_t QP::GraphStructureStack::reduce(uint64_t a1, unsigned __int16 **a2, voi
   v6 = 0;
   if (a4 && *a3)
   {
-    v11 = a3[1];
-    *&v34 = *a3;
-    *(&v34 + 1) = v11;
+    v11 = *(a3 + 8);
+    v34 = *a3;
+    v35 = v11;
     if (v11)
     {
-      atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     v12 = QP::GraphStructureStack::Node::reduce(v5, &v34);
-    if (*(&v34 + 1))
+    if (v35)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v34 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](v35);
     }
 
     if (v12)
@@ -6233,13 +6212,13 @@ uint64_t QP::GraphStructureStack::reduce(uint64_t a1, unsigned __int16 **a2, voi
     v32 = 0;
     v33 = 0;
     v31 = 0;
-    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(&v31, *(v13 + 8), *(v13 + 9), (*(v13 + 9) - *(v13 + 8)) >> 4);
+    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(&v31, v13[8], v13[9], (v13[9] - v13[8]) >> 4);
     v14 = v31;
     v15 = v32;
     if (v31 == v32)
     {
-      v35 = &v31;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v35);
+      v36 = &v31;
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v36);
     }
 
     else
@@ -6248,7 +6227,7 @@ uint64_t QP::GraphStructureStack::reduce(uint64_t a1, unsigned __int16 **a2, voi
       do
       {
         v17 = *v14;
-        v18 = v14[1];
+        v18 = *(v14 + 8);
         if (v18)
         {
           atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6263,7 +6242,7 @@ uint64_t QP::GraphStructureStack::reduce(uint64_t a1, unsigned __int16 **a2, voi
           v30 = 0;
         }
 
-        v19 = a3[1];
+        v19 = *(a3 + 8);
         v28[0] = *a3;
         v28[1] = v19;
         if (v19)
@@ -6289,12 +6268,12 @@ uint64_t QP::GraphStructureStack::reduce(uint64_t a1, unsigned __int16 **a2, voi
           v16 |= v20;
         }
 
-        v14 += 2;
+        v14 += 16;
       }
 
       while (v14 != v15);
-      v35 = &v31;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v35);
+      v36 = &v31;
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v36);
       if (v16)
       {
 LABEL_38:
@@ -6302,23 +6281,23 @@ LABEL_38:
         v25 = *a3;
         if (*(*a2 + 92) == 1)
         {
-          *(v24 + 5) = v25[4] - *(v24 + 4) + v25[5];
+          v24[5] = (*(v25 + 4) - v24[4] + *(v25 + 5));
         }
 
-        *(v24 + 3) = v25[3];
+        v24[3] = *(v25 + 3);
         return 1;
       }
     }
 
-    v21 = *(*a2 + 7);
-    v27[0] = *(*a2 + 6);
+    v21 = (*a2)[7];
+    v27[0] = (*a2)[6];
     v27[1] = v21;
     if (v21)
     {
-      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v21 + 1, 1uLL, memory_order_relaxed);
     }
 
-    v22 = a3[1];
+    v22 = *(a3 + 8);
     v26[0] = *a3;
     v26[1] = v22;
     if (v22)
@@ -6363,7 +6342,7 @@ void sub_1C65A60EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -6676,15 +6655,15 @@ void __destroy_helper_block_e8_56c57_ZTSNSt3__110shared_ptrIN2QP19GraphStructure
   }
 }
 
-uint64_t __copy_helper_block_e8_64c89_ZTSNSt3__16vectorINS_10shared_ptrIN2QP19GraphStructureStack4NodeEEENS_9allocatorIS5_EEEE88c57_ZTSNSt3__110shared_ptrIN2QP19GraphStructureStack4NodeEEE(void *a1, uint64_t *a2)
+uint64_t *__copy_helper_block_e8_64c89_ZTSNSt3__16vectorINS_10shared_ptrIN2QP19GraphStructureStack4NodeEEENS_9allocatorIS5_EEEE88c57_ZTSNSt3__110shared_ptrIN2QP19GraphStructureStack4NodeEEE(void *a1, uint64_t a2)
 {
   a1[8] = 0;
   a1[9] = 0;
   v3 = a1 + 8;
   a1[10] = 0;
-  result = std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>((a1 + 8), a2[8], a2[9], (a2[9] - a2[8]) >> 4);
-  v5 = a2[12];
-  v3[3] = a2[11];
+  result = std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(a1 + 8, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
+  v5 = *(a2 + 96);
+  v3[3] = *(a2 + 88);
   v3[4] = v5;
   if (v5)
   {
@@ -6706,36 +6685,34 @@ void __destroy_helper_block_e8_64c89_ZTSNSt3__16vectorINS_10shared_ptrIN2QP19Gra
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v3);
 }
 
-void *QP::GraphStructureStack::add(void *this, int a2, uint64_t a3, uint64_t a4, CFRange a5)
+void QP::GraphStructureStack::add(QP::GraphStructureStack *this, int a2, uint64_t a3, uint64_t a4, CFRange a5, char a6)
 {
   if (a2 && *this)
   {
-    if (this[11] + 1 < a3)
+    if (*(this + 11) + 1 < a3)
     {
-      this[11] = a3;
+      *(this + 11) = a3;
     }
 
     operator new();
   }
-
-  return this;
 }
 
-void sub_1C65A6938(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C65A6938(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  if (a3)
+  va_start(va, a16);
+  if (a10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
   _Block_object_dispose(va, 8);
-  if (v10)
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   _Unwind_Resume(a1);
 }
 
@@ -6772,7 +6749,7 @@ void QP::GraphStructureStack::close(QP::GraphStructureStack *this)
   v3 = *(this + 2);
   v4 = *(this + 3);
   v5 = (this + 16);
-  v6 = 126 - 2 * __clz((v4 - v3) >> 4);
+  v6 = 126 - 2 * __clz(v4 - v3);
   v14 = 0;
   v15 = 0;
   v16 = 0;
@@ -6818,7 +6795,7 @@ void QP::GraphStructureStack::close(QP::GraphStructureStack *this)
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v18);
 }
 
-void sub_1C65A6B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14)
+void sub_1C65A6B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char *a14)
 {
   a14 = &a10;
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&a14);
@@ -6890,7 +6867,7 @@ BOOL QP::GraphStructureStack::state_greater_than_span(uint64_t *a1, uint64_t *a2
   return !(v9 ^ v10 | v8);
 }
 
-void QP::GraphStructureStack::traverse(QP::ParserGrammar **a1, __int128 *a2, uint64_t *a3, uint64_t a4)
+void QP::GraphStructureStack::traverse(QP::ParserGrammar **result, unsigned __int16 **a2, unsigned __int16 ***a3, uint64_t a4)
 {
   v4 = *a2;
   if (!*a2)
@@ -6914,23 +6891,23 @@ void QP::GraphStructureStack::traverse(QP::ParserGrammar **a1, __int128 *a2, uin
     return;
   }
 
-  v10 = QP::ParserGrammar::requiresComplement(*a1, v6);
+  v10 = QP::ParserGrammar::requiresComplement(*result, v6);
   if (!v10)
   {
 LABEL_11:
-    v40 = v10;
+    v35 = v10;
     v15 = *a3;
     v14 = a3[1];
-    v41 = a3;
+    v36 = a3;
     if (v14 != *a3)
     {
       v16 = 0.0;
       do
       {
         v16 = v16 + *(*v15 + 1);
-        if (QP::ParserGrammar::hasAttribute(*a1, **v15, **a2))
+        if (QP::ParserGrammar::hasAttribute(*result, **v15, **a2))
         {
-          v17 = *(*a1 + 5);
+          v17 = *(*result + 5);
           v18 = v15;
           if (v17)
           {
@@ -6945,43 +6922,37 @@ LABEL_11:
             }
           }
 
-          v20 = *v18;
-          v19 = *(v18 + 1);
+          v19 = v18[1];
           if (v19)
           {
-            atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
-            v17 = *(*a1 + 5);
+            atomic_fetch_add_explicit(v19 + 1, 1uLL, memory_order_relaxed);
+            v17 = *(*result + 5);
           }
 
-          v21 = a2;
+          v20 = a2;
           if (v17)
           {
             if (*(v17 + 31))
             {
-              v21 = v15;
+              v20 = v15;
             }
 
             else
             {
-              v21 = a2;
+              v20 = a2;
             }
           }
 
-          v22 = *(v21 + 1);
-          v42 = *v21;
-          if (v22)
+          v21 = v20[1];
+          if (v21)
           {
-            atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(v21 + 1, 1uLL, memory_order_relaxed);
           }
 
-          v23 = v20[1];
-          v24 = v20[4];
-          v25 = v20[5];
-          v50 = 0;
-          v51 = 0;
-          v49 = 0;
-          v26 = *(*a2 + 16);
-          std::__allocate_at_least[abi:ne200100]<std::allocator<long>>(&v49, 1uLL);
+          v44 = 0;
+          v45 = 0;
+          v43 = 0;
+          std::__allocate_at_least[abi:ne200100]<std::allocator<long>>(&v43, 1uLL);
         }
 
         v15 += 2;
@@ -6991,129 +6962,137 @@ LABEL_11:
     }
 
     std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::push_back[abi:ne200100](a3, a2);
-    v28 = *(*a2 + 48);
-    v27 = *(*a2 + 56);
-    if (v27)
+    v23 = *(*a2 + 6);
+    v22 = *(*a2 + 7);
+    if (v22)
     {
-      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
-      v29 = *(v28 + 88);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-      if ((v29 & 1) == 0)
+      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+      v24 = *(v23 + 88);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+      if ((v24 & 1) == 0)
       {
-        v30 = *(*a2 + 56);
-        v47 = *(*a2 + 48);
-        v48 = v30;
-        if (v30)
+        v25 = *(*a2 + 7);
+        v41 = *(*a2 + 6);
+        v42 = v25;
+        if (v25)
         {
-          atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
         goto LABEL_34;
       }
     }
 
-    else if ((*(v28 + 88) & 1) == 0)
+    else if ((*(v23 + 88) & 1) == 0)
     {
-      v47 = *(*a2 + 48);
-      v48 = 0;
+      v41 = *(*a2 + 6);
+      v42 = 0;
 LABEL_34:
-      memset(v46, 0, sizeof(v46));
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(v46, *v41, v41[1], (v41[1] - *v41) >> 4);
-      QP::GraphStructureStack::traverse(a1, &v47, v46, a4);
-      v49 = v46;
-      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v49);
-      if (v48)
+      memset(v40, 0, sizeof(v40));
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(v40, *v36, v36[1], (v36[1] - *v36) >> 4);
+      QP::GraphStructureStack::traverse(result, &v41, v40, a4);
+      v43 = v40;
+      std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v43);
+      if (v42)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v48);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v42);
       }
     }
 
-    v32 = *(*a2 + 48);
-    v31 = *(*a2 + 56);
-    if (v31)
+    v27 = *(*a2 + 6);
+    v26 = *(*a2 + 7);
+    if (v26)
     {
-      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    if (*(v32 + 88) & 1) != 0 || (*(*a2 + 92))
+    if (*(v27 + 88) & 1) != 0 || ((*a2)[46])
     {
-      if (v31)
+      if (v26)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v26);
       }
     }
 
     else
     {
-      if (v31)
+      if (v26)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v26);
       }
 
-      if (!v40)
+      if (!v35)
       {
-        v33 = v41[1];
-        v34 = *(v33 - 8);
+        v28 = v36[1];
+        v29 = *(v28 - 1);
+        if (v29)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+        }
+
+        v36[1] = v28 - 2;
+      }
+    }
+
+    v30 = *a2;
+    v44 = 0;
+    v45 = 0;
+    v43 = 0;
+    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(&v43, *(v30 + 8), *(v30 + 9), (*(v30 + 9) - *(v30 + 8)) >> 4);
+    v31 = v43;
+    v32 = v44;
+    if (v43 != v44)
+    {
+      do
+      {
+        v33 = *v31;
+        v34 = v31[1];
+        if (v34)
+        {
+          atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+        }
+
+        if ((*(v33 + 1) & 0x8000000000000000) == 0 && (v33[44] & 1) == 0)
+        {
+          v38 = v33;
+          v39 = v34;
+          if (v34)
+          {
+            atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+          }
+
+          memset(v37, 0, sizeof(v37));
+          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(v37, *v36, v36[1], (v36[1] - *v36) >> 4);
+          QP::GraphStructureStack::traverse(result, &v38, v37, a4);
+          v46[0] = v37;
+          std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v46);
+          if (v39)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+          }
+        }
+
         if (v34)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v34);
         }
 
-        v41[1] = v33 - 16;
+        v31 += 2;
       }
+
+      while (v31 != v32);
     }
 
-    v35 = *a2;
-    v50 = 0;
-    v51 = 0;
-    v49 = 0;
-    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(&v49, *(v35 + 64), *(v35 + 72), (*(v35 + 72) - *(v35 + 64)) >> 4);
-    v36 = v49;
-    for (i = v50; v36 != i; v36 += 2)
-    {
-      v38 = *v36;
-      v39 = v36[1];
-      if (v39)
-      {
-        atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      if ((v38[1] & 0x8000000000000000) == 0 && (v38[11] & 1) == 0)
-      {
-        v44 = v38;
-        v45 = v39;
-        if (v39)
-        {
-          atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        memset(v43, 0, sizeof(v43));
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(v43, *v41, v41[1], (v41[1] - *v41) >> 4);
-        QP::GraphStructureStack::traverse(a1, &v44, v43, a4);
-        v52[0] = v43;
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v52);
-        if (v45)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v45);
-        }
-      }
-
-      if (v39)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v39);
-      }
-    }
-
-    v52[0] = &v49;
-    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v52);
+    v46[0] = &v43;
+    std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](v46);
     return;
   }
 
   v11 = *a2;
-  if (*(*a2 + 48))
+  if (*(*a2 + 6))
   {
-    v12 = *(v11 + 64);
-    v13 = *(v11 + 72);
+    v12 = *(v11 + 8);
+    v13 = *(v11 + 9);
     while (v12 != v13)
     {
       if ((*(*v12 + 8) & 0x8000000000000000) == 0)
@@ -7147,40 +7126,40 @@ void QP::GraphStructureStack::enumerateBranchesAtStateIndex(uint64_t a1, unint64
       v5 = *(a1 + 16);
       if ((*(a1 + 24) - v5) >> 4 > a2)
       {
-        v6 = (v5 + 16 * a2);
+        v6 = v5 + 16 * a2;
         v7 = *v6;
-        v8 = v6[1];
+        v8 = *(v6 + 8);
         if (v8)
         {
           atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-          v11 = 0;
           v12 = 0;
           v13 = 0;
-          *(&v10 + 1) = v8;
+          v14 = 0;
+          v11 = v8;
           atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
         else
         {
-          v11 = 0;
           v12 = 0;
           v13 = 0;
-          *(&v10 + 1) = 0;
+          v14 = 0;
+          v11 = 0;
         }
 
-        *&v10 = v7;
+        v10 = v7;
         memset(v9, 0, sizeof(v9));
         std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(v9, 0, 0, 0);
         QP::GraphStructureStack::traverse(a1, &v10, v9, a3);
-        v14 = v9;
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v14);
-        if (*(&v10 + 1))
+        v15 = v9;
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v15);
+        if (v11)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
+          std::__shared_weak_count::__release_shared[abi:ne200100](v11);
         }
 
-        v14 = &v11;
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v14);
+        v15 = &v12;
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](&v15);
         if (v8)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v8);
@@ -7209,10 +7188,10 @@ void sub_1C65A73FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t QP::GraphStructureStack::clear(QP::GraphStructureStack *this)
+__int128 *QP::GraphStructureStack::clear(__int128 **this)
 {
   v1 = this;
-  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(this + 64, *(this + 8), *(this + 9));
+  std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase((this + 8), this[8], this[9]);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::erase(v1 + 16, *(v1 + 2), *(v1 + 3));
   v2 = *(v1 + 5);
   v3 = *(v1 + 6);
@@ -7305,7 +7284,7 @@ void std::__split_buffer<std::shared_ptr<QP::GraphStructureStack::Node>>::clear[
   }
 }
 
-void *std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(void *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
+char *std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>,std::__wrap_iter<std::shared_ptr<QP::GraphStructureStack::Node>*>>(void *a1, char *a2, uint64_t *a3, void *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -7319,7 +7298,7 @@ void *std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with
       v18 = (v10 - a2) >> 4;
       if (v18 >= a5)
       {
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__move_range(a1, a2, a1[1], &a2[2 * a5]);
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__move_range(a1, a2, a1[1], &a2[16 * a5]);
         v19 = &v7[2 * a5];
       }
 
@@ -7331,7 +7310,7 @@ void *std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with
           return v5;
         }
 
-        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__move_range(a1, v5, v10, &v5[2 * a5]);
+        std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__move_range(a1, v5, v10, &v5[16 * a5]);
         v19 = (v7 + v17);
       }
 
@@ -7347,7 +7326,7 @@ void *std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__insert_with
       std::vector<QP::GeoLocation>::__throw_length_error[abi:ne200100]();
     }
 
-    v13 = a2 - v11;
+    v13 = &a2[-v11];
     v14 = v9 - v11;
     v15 = v14 >> 3;
     if (v14 >> 3 <= v12)
@@ -7426,8 +7405,8 @@ void *std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__move_range(
     {
       *v8++ = *v9;
       *v9 = 0;
-      v9[1] = 0;
-      v9 += 2;
+      *(v9 + 8) = 0;
+      v9 += 16;
     }
 
     while (v9 < a3);
@@ -7523,7 +7502,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return a3;
 }
 
-uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node> *,std::shared_ptr<QP::GraphStructureStack::Node> *,std::shared_ptr<QP::GraphStructureStack::Node> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node> *,std::shared_ptr<QP::GraphStructureStack::Node> *,std::shared_ptr<QP::GraphStructureStack::Node> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -7584,7 +7563,7 @@ __int128 *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std
   return v5;
 }
 
-uint64_t std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__init_with_size[abi:ne200100]<std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7601,7 +7580,7 @@ void sub_1C65A7B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7611,21 +7590,21 @@ void std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__vallocate[ab
   std::vector<QP::GeoLocation>::__throw_length_error[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*,false>(uint64_t *a1, __int128 *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*,false>(__int128 *result, __int128 *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
 {
 LABEL_1:
   v8 = (a2 - 1);
   v95 = a2 - 1;
   v97 = (a2 - 3);
   v98 = (a2 - 2);
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
-    v12 = (a2 - v9) >> 4;
+    v12 = a2 - v9;
     if (v12 <= 2)
     {
       if (v12 < 2)
@@ -7640,8 +7619,8 @@ LABEL_2:
           v88 = *v9;
           *v9 = *(a2 - 2);
           *(a2 - 2) = v88;
-          v89 = v9[1];
-          v9[1] = *(a2 - 1);
+          v89 = *(v9 + 1);
+          *(v9 + 1) = *(a2 - 1);
           *(a2 - 1) = v89;
         }
 
@@ -7666,18 +7645,18 @@ LABEL_2:
 
         else
         {
-          v93 = *(v9 + 1);
-          v9[3] = v9[1];
+          v93 = v9[1];
+          *(v9 + 3) = *(v9 + 1);
           v81 = v9 + 3;
-          v9[2] = v80;
+          *(v9 + 2) = v80;
           *v9 = v93;
           if (!(*a3)(v8, v9 + 2))
           {
             return;
           }
 
-          v80 = v9[2];
-          v9[2] = *(a2 - 2);
+          v80 = *(v9 + 2);
+          *(v9 + 2) = *(a2 - 2);
         }
 
         *(a2 - 2) = v80;
@@ -7690,12 +7669,12 @@ LABEL_2:
           return;
         }
 
-        v90 = v9[2];
-        v9[2] = *(a2 - 2);
+        v90 = *(v9 + 2);
+        *(v9 + 2) = *(a2 - 2);
         *(a2 - 2) = v90;
-        v91 = v9[3];
+        v91 = *(v9 + 3);
         v95 = v9 + 3;
-        v9[3] = *(a2 - 1);
+        *(v9 + 3) = *(a2 - 1);
         *(a2 - 1) = v91;
         if (!(*a3)(v9 + 2, v9))
         {
@@ -7703,8 +7682,8 @@ LABEL_2:
         }
 
         v92 = *v9;
-        *v9 = v9[2];
-        v9[2] = v92;
+        *v9 = *(v9 + 2);
+        *(v9 + 2) = v92;
         v81 = v9 + 1;
       }
 
@@ -7724,27 +7703,27 @@ LABEL_2:
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*,0>(v9, v9 + 2, v9 + 4, v9 + 6, a3);
       if ((*a3)(v8, v9 + 6))
       {
-        v82 = v9[6];
-        v9[6] = *(a2 - 2);
+        v82 = *(v9 + 6);
+        *(v9 + 6) = *(a2 - 2);
         *(a2 - 2) = v82;
-        v83 = v9[7];
-        v9[7] = *(a2 - 1);
+        v83 = *(v9 + 7);
+        *(v9 + 7) = *(a2 - 1);
         *(a2 - 1) = v83;
         if ((*a3)(v9 + 6, v9 + 4))
         {
-          v84 = *(v9 + 2);
-          *(v9 + 2) = *(v9 + 3);
-          *(v9 + 3) = v84;
+          v84 = v9[2];
+          v9[2] = v9[3];
+          v9[3] = v84;
           if ((*a3)(v9 + 4, v9 + 2))
           {
-            v85 = *(v9 + 1);
-            *(v9 + 1) = *(v9 + 2);
-            *(v9 + 2) = v85;
+            v85 = v9[1];
+            v9[1] = v9[2];
+            v9[2] = v85;
             if ((*a3)(v9 + 2, v9))
             {
               v86 = *v9;
-              *v9 = *(v9 + 1);
-              *(v9 + 1) = v86;
+              *v9 = v9[1];
+              v9[1] = v86;
             }
           }
         }
@@ -7783,26 +7762,26 @@ LABEL_10:
     }
 
     v13 = v12 >> 1;
-    v14 = &v9[2 * (v12 >> 1)];
+    v14 = &v9[v12 >> 1];
     v15 = *a3;
     v100 = v11;
     if (v12 >= 0x81)
     {
-      v16 = v15(&v9[2 * (v12 >> 1)], v9);
+      v16 = v15(&v9[v12 >> 1], v9);
       v17 = (*a3)(v8, v14);
       v96 = v13;
       if (v16)
       {
-        v19 = a1 + 1;
-        v18 = *a1;
+        v19 = result + 1;
+        v18 = *result;
         if (v17)
         {
-          *a1 = *v8;
+          *result = *v8;
           goto LABEL_27;
         }
 
-        v32 = a1[1];
-        *a1 = *v14;
+        v32 = *(result + 1);
+        *result = *v14;
         v14[1] = v32;
         v19 = v14 + 1;
         *v14 = v18;
@@ -7829,26 +7808,26 @@ LABEL_28:
         v25 = v14[1];
         v14[1] = *(a2 - 1);
         *(a2 - 1) = v25;
-        if ((*a3)(v14, a1))
+        if ((*a3)(v14, result))
         {
-          v27 = *a1;
-          *a1 = *v14;
-          v19 = a1 + 1;
+          v27 = *result;
+          *result = *v14;
+          v19 = result + 1;
           *v14 = v27;
           goto LABEL_28;
         }
       }
 
-      v34 = v14 - 2;
-      v35 = (*a3)(v14 - 2, a1 + 2);
+      v34 = (v14 - 2);
+      v35 = (*a3)(v14 - 2, result + 2);
       v36 = (*a3)(v98, v14 - 2);
       if (v35)
       {
-        v37 = a1[2];
-        v38 = a1 + 3;
+        v37 = *(result + 2);
+        v38 = result + 3;
         if (v36)
         {
-          a1[2] = *v98;
+          *(result + 2) = *v98;
           *v98 = v37;
           v39 = a2 - 3;
           v40 = v96;
@@ -7856,7 +7835,7 @@ LABEL_28:
         }
 
         v45 = *v38;
-        *(a1 + 1) = *v34;
+        result[1] = *v34;
         *(v14 - 1) = v45;
         v38 = v14 - 1;
         *v34 = v37;
@@ -7886,35 +7865,35 @@ LABEL_40:
           v42 = *(v14 - 1);
           *(v14 - 1) = *(a2 - 3);
           *(a2 - 3) = v42;
-          if ((*a3)(v14 - 2, a1 + 2))
+          if ((*a3)(v14 - 2, result + 2))
           {
-            v43 = a1[2];
-            a1[2] = *v34;
+            v43 = *(result + 2);
+            *(result + 2) = *v34;
             *v34 = v43;
-            v38 = a1 + 3;
+            v38 = result + 3;
             goto LABEL_40;
           }
         }
       }
 
       v48 = v40 + 1;
-      v49 = &a1[2 * v40 + 2];
-      v50 = (*a3)(v49, a1 + 4);
+      v49 = &result[v40 + 1];
+      v50 = (*a3)(v49, result + 4);
       v51 = (*a3)(v97, v49);
       v52 = v8;
       if (v50)
       {
-        v53 = a1[4];
-        v54 = a1 + 5;
+        v53 = *(result + 4);
+        v54 = result + 5;
         if (v51)
         {
           v55 = a2 - 3;
-          a1[4] = *v97;
+          *(result + 4) = *v97;
           goto LABEL_49;
         }
 
         v60 = *v54;
-        *(a1 + 2) = *v49;
+        result[2] = *v49;
         v49[1] = v60;
         v54 = v49 + 1;
         *v49 = v53;
@@ -7942,12 +7921,12 @@ LABEL_50:
         v57 = v49[1];
         v49[1] = *(a2 - 5);
         *(a2 - 5) = v57;
-        if ((*a3)(v49, a1 + 4))
+        if ((*a3)(v49, result + 4))
         {
-          v59 = a1[4];
-          a1[4] = *v49;
+          v59 = *(result + 4);
+          *(result + 4) = *v49;
           *v49 = v59;
-          v54 = a1 + 5;
+          v54 = result + 5;
           goto LABEL_50;
         }
       }
@@ -7977,10 +7956,10 @@ LABEL_50:
           *v49 = v69;
           v65 = v14 + 1;
 LABEL_59:
-          v70 = &a1[2 * v48];
+          v70 = &result[v48];
           v71 = *v65;
-          *v65 = v70[1];
-          v70[1] = v71;
+          *v65 = *(v70 + 1);
+          *(v70 + 1) = v71;
         }
       }
 
@@ -8004,9 +7983,9 @@ LABEL_59:
         }
       }
 
-      v72 = *a1;
-      *a1 = *v14;
-      v23 = a1 + 1;
+      v72 = *result;
+      *result = *v14;
+      v23 = result + 1;
       *v14 = v72;
       v31 = v14 + 1;
 LABEL_61:
@@ -8016,7 +7995,7 @@ LABEL_61:
       goto LABEL_62;
     }
 
-    v20 = v15(v9, &v9[2 * (v12 >> 1)]);
+    v20 = v15(v9, &v9[v12 >> 1]);
     v21 = (*a3)(v8, v9);
     if (v20)
     {
@@ -8033,7 +8012,7 @@ LABEL_37:
 
       v44 = v14[1];
       *v14 = *v9;
-      v9[1] = v44;
+      *(v9 + 1) = v44;
       v23 = v9 + 1;
       *v9 = v22;
       if ((*a3)(v8, v9))
@@ -8049,8 +8028,8 @@ LABEL_37:
       v28 = *v9;
       *v9 = *(a2 - 2);
       *(a2 - 2) = v28;
-      v29 = v9[1];
-      v9[1] = *(a2 - 1);
+      v29 = *(v9 + 1);
+      *(v9 + 1) = *(a2 - 1);
       *(a2 - 1) = v29;
       if ((*a3)(v9, v14))
       {
@@ -8064,22 +8043,22 @@ LABEL_37:
     }
 
 LABEL_62:
-    if ((a5 & 1) == 0 && ((*a3)(a1 - 2, a1) & 1) == 0)
+    if ((a5 & 1) == 0 && ((*a3)(result - 2, result) & 1) == 0)
     {
-      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::GraphStructureStack::Node> *,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node>&,std::shared_ptr<QP::GraphStructureStack::Node>&)>(a1, a2, a3);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::GraphStructureStack::Node> *,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node>&,std::shared_ptr<QP::GraphStructureStack::Node>&)>(result, a2, a3);
       v75 = v100;
       goto LABEL_69;
     }
 
-    v74 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::GraphStructureStack::Node> *,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node>&,std::shared_ptr<QP::GraphStructureStack::Node>&)>(a1, a2, a3);
+    v74 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::GraphStructureStack::Node> *,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node>&,std::shared_ptr<QP::GraphStructureStack::Node>&)>(result, a2, a3);
     v75 = v100;
     if ((v76 & 1) == 0)
     {
       goto LABEL_67;
     }
 
-    v77 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(a1, v74, a3);
-    v9 = v74 + 2;
+    v77 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(result, v74, a3);
+    v9 = v74 + 1;
     if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(v74 + 2, a2, a3))
     {
       a4 = -v100;
@@ -8096,8 +8075,8 @@ LABEL_62:
     if (!v77)
     {
 LABEL_67:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*,false>(a1, v74, a3, -v100, a5 & 1);
-      v9 = v74 + 2;
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*,false>(result, v74, a3, -v100, a5 & 1);
+      v9 = v74 + 1;
 LABEL_69:
       a5 = 0;
       a4 = -v75;
@@ -8346,18 +8325,17 @@ void sub_1C65A88B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::GraphStructureStack::Node> *,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node>&,std::shared_ptr<QP::GraphStructureStack::Node>&)>(__int128 *a1, void *a2, uint64_t (**a3)(__int128 *, void *))
+__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::GraphStructureStack::Node> *,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node>&,std::shared_ptr<QP::GraphStructureStack::Node>&)>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v4 = a2;
   v17 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
-  if ((*a3)(&v17, a2 - 2))
+  *a1 = 0uLL;
+  if ((*a3)(&v17, a2 - 1))
   {
     v6 = a1;
     do
     {
-      v6 += 2;
+      ++v6;
     }
 
     while (((*a3)(&v17, v6) & 1) == 0);
@@ -8375,7 +8353,7 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
       }
 
       v8 = (*a3)(&v17, v7);
-      v7 = v6 + 2;
+      v7 = v6 + 1;
     }
 
     while (!v8);
@@ -8385,7 +8363,7 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
   {
     do
     {
-      v4 -= 2;
+      --v4;
     }
 
     while (((*a3)(&v17, v4) & 1) != 0);
@@ -8396,25 +8374,25 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
     v9 = *v6;
     *v6 = *v4;
     *v4 = v9;
-    v10 = v6[1];
-    v6[1] = v4[1];
-    v4[1] = v10;
+    v10 = *(v6 + 1);
+    *(v6 + 1) = *(v4 + 1);
+    *(v4 + 1) = v10;
     do
     {
-      v6 += 2;
+      ++v6;
     }
 
     while (!(*a3)(&v17, v6));
     do
     {
-      v4 -= 2;
+      --v4;
     }
 
     while (((*a3)(&v17, v4) & 1) != 0);
   }
 
-  v11 = (v6 - 2);
-  if (v6 - 2 != a1)
+  v11 = v6 - 1;
+  if (v6 - 1 != a1)
   {
     v12 = *v11;
     *v11 = 0;
@@ -8458,8 +8436,7 @@ __int128 *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
 {
   v6 = 0;
   v19 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
+  *a1 = 0uLL;
   do
   {
     v7 = (*a3)(&a1[++v6], &v19);
@@ -8786,7 +8763,7 @@ LABEL_35:
         v37 -= 16;
         if ((v41 & 1) == 0)
         {
-          v42 = a1 + v37 + 48;
+          v42 = (a1 + v37 + 48);
           goto LABEL_45;
         }
       }
@@ -8795,7 +8772,7 @@ LABEL_35:
 LABEL_45:
       v43 = v46;
       v46 = 0uLL;
-      v44 = *(v42 + 8);
+      v44 = v42[1];
       *v42 = v43;
       if (v44)
       {
@@ -8833,7 +8810,7 @@ void sub_1C65A9010(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(uint64_t a1, uint64_t a2, __int128 *a3, unsigned int (**a4)(__int128 *, uint64_t))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*,std::shared_ptr<QP::GraphStructureStack::Node>*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t, __int128 *))
 {
   if (a1 != a2)
   {
@@ -8843,7 +8820,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 16 * v9);
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(a1, a4, v8, v11--);
@@ -8865,12 +8842,12 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
           *v12 = *a1;
           *a1 = v13;
           v14 = *(v12 + 1);
-          *(v12 + 1) = *(a1 + 8);
-          *(a1 + 8) = v14;
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(a1, a4, v8, a1);
         }
 
-        ++v12;
+        v12 += 16;
       }
 
       while (v12 != a3);
@@ -8893,7 +8870,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
   return a3;
 }
 
-void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(uint64_t a1, unsigned int (**a2)(__int128 *, uint64_t), uint64_t a3, __int128 *a4)
+void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(uint64_t a1, uint64_t (**a2)(uint64_t, __int128 *), uint64_t a3, __int128 *a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -8904,11 +8881,11 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
     {
       v10 = (a4 - a1) >> 3;
       v11 = v10 + 1;
-      v12 = (a1 + 16 * (v10 + 1));
+      v12 = a1 + 16 * (v10 + 1);
       v13 = v10 + 2;
-      if (v10 + 2 < a3 && (*a2)(v12, (v12 + 1)))
+      if (v10 + 2 < a3 && (*a2)(v12, (v12 + 16)))
       {
-        ++v12;
+        v12 += 16;
         v11 = v13;
       }
 
@@ -8922,7 +8899,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
           v14 = v12;
           v15 = *v12;
           *v12 = 0;
-          *(v12 + 1) = 0;
+          *(v12 + 8) = 0;
           v16 = *(v5 + 1);
           *v5 = v15;
           if (v16)
@@ -8936,16 +8913,16 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
           }
 
           v17 = (2 * v11) | 1;
-          v12 = (a1 + 16 * v17);
+          v12 = a1 + 16 * v17;
           v11 = 2 * v11 + 2;
           if (v11 >= a3)
           {
             v11 = v17;
           }
 
-          else if ((*a2)((a1 + 16 * v17), (v12 + 1)))
+          else if ((*a2)(a1 + 16 * v17, (v12 + 16)))
           {
-            ++v12;
+            v12 += 16;
           }
 
           else
@@ -8959,7 +8936,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
         while (!(*a2)(v12, &v20));
         v18 = v20;
         v20 = 0uLL;
-        v19 = *(v14 + 1);
+        v19 = *(v14 + 8);
         *v14 = v18;
         if (v19)
         {
@@ -8985,14 +8962,14 @@ void sub_1C65A92B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(uint64_t a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(char *a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 1);
     *a1 = 0;
-    *(a1 + 8) = 0;
+    *(a1 + 1) = 0;
     v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(a1, a3, a4);
     v10 = v9;
     if (v9 == (a2 - 16))
@@ -9195,7 +9172,7 @@ void QP::HolidayReference::load(QP::HolidayReference *this, const __CFURL *a2)
     v2 = 0;
     v3 = 0;
     v4 = 0;
-    QP::getFileSystemRepresentationFromCFURL(a2, a2);
+    QP::getFileSystemRepresentationFromCFURL();
   }
 }
 
@@ -9236,102 +9213,99 @@ void QP::HolidayReference::~HolidayReference(QP::HolidayReference *this)
 BOOL QP::HolidayReference::containsLookupKey(QP::HolidayReference *this, CFStringRef theString)
 {
   result = 0;
-  v12[1] = *MEMORY[0x1E69E9840];
-  if (theString && *(this + 2))
+  v10[1] = *MEMORY[0x1E69E9840];
+  if (theString)
   {
-    Length = CFStringGetLength(theString);
-    v12[0] = Length;
-    MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-    MEMORY[0x1EEE9AC00](MaximumSizeForEncoding);
-    v8 = &v11[-v7];
-    bzero(&v11[-v7], MaximumSizeForEncoding);
-    v13.location = 0;
-    v13.length = Length;
-    CFStringGetBytes(theString, v13, 0x8000100u, 0x2Du, 0, v8, MaximumSizeForEncoding, v12);
-    v8[v12[0]] = 0;
-    memset(&v11[8], 0, 24);
-    v9 = *(this + 2);
-    result = _MDPlistContainerGetPlistObjectAtKeyPath() != 0;
+    if (*(this + 2))
+    {
+      Length = CFStringGetLength(theString);
+      v10[0] = Length;
+      MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+      MEMORY[0x1EEE9AC00](MaximumSizeForEncoding);
+      v8 = &v9[-v7];
+      bzero(&v9[-v7], MaximumSizeForEncoding);
+      v11.location = 0;
+      v11.length = Length;
+      CFStringGetBytes(theString, v11, 0x8000100u, 0x2Du, 0, v8, MaximumSizeForEncoding, v10);
+      v8[v10[0]] = 0;
+      memset(&v9[8], 0, 24);
+      return _MDPlistContainerGetPlistObjectAtKeyPath() != 0;
+    }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CFStringRef QP::HolidayReference::copyStringForLookupKey(QP::HolidayReference *this, CFStringRef theString)
 {
   result = 0;
-  v17[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (theString && *(this + 2))
   {
     Length = CFStringGetLength(theString);
-    v17[0] = Length;
+    v15[0] = Length;
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
     MEMORY[0x1EEE9AC00](MaximumSizeForEncoding);
-    v8 = &v12 - v7;
-    bzero(&v12 - v7, MaximumSizeForEncoding);
-    v18.location = 0;
-    v18.length = Length;
-    CFStringGetBytes(theString, v18, 0x8000100u, 0x2Du, 0, v8, MaximumSizeForEncoding, v17);
-    v8[v17[0]] = 0;
-    v15 = 0uLL;
-    v16 = 0;
-    v9 = *(this + 2);
+    v8 = &v10 - v7;
+    bzero(&v10 - v7, MaximumSizeForEncoding);
+    v16.location = 0;
+    v16.length = Length;
+    CFStringGetBytes(theString, v16, 0x8000100u, 0x2Du, 0, v8, MaximumSizeForEncoding, v15);
+    v8[v15[0]] = 0;
+    v13 = 0uLL;
+    v14 = 0;
     if (_MDPlistContainerGetPlistObjectAtKeyPath())
     {
-      v14 = 0;
-      v12 = v15;
-      v13 = v16;
+      v12 = 0;
+      v10 = v13;
+      v11 = v14;
       Value = _MDPlistStringGetValue();
-      result = CFStringCreateWithBytes(*MEMORY[0x1E695E480], Value, v14, 0x8000100u, 0);
+      return CFStringCreateWithBytes(*MEMORY[0x1E695E480], Value, v12, 0x8000100u, 0);
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 BOOL QP::HolidayReference::getIntegerForLookupKey(QP::HolidayReference *this, CFStringRef theString, uint64_t *a3)
 {
   v3 = 0;
-  v19[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (theString)
   {
     if (*(this + 2))
     {
       Length = CFStringGetLength(theString);
-      v19[0] = Length;
+      v16[0] = Length;
       MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
       MEMORY[0x1EEE9AC00](MaximumSizeForEncoding);
-      v10 = &v15 - v9;
-      bzero(&v15 - v9, MaximumSizeForEncoding);
-      v20.location = 0;
-      v20.length = Length;
-      CFStringGetBytes(theString, v20, 0x8000100u, 0x2Du, 0, v10, MaximumSizeForEncoding, v19);
-      v10[v19[0]] = 0;
-      v17 = 0uLL;
-      v18 = 0;
-      v11 = *(this + 2);
+      v9 = &v12 - v8;
+      bzero(&v12 - v8, MaximumSizeForEncoding);
+      v17.location = 0;
+      v17.length = Length;
+      CFStringGetBytes(theString, v17, 0x8000100u, 0x2Du, 0, v9, MaximumSizeForEncoding, v16);
+      v9[v16[0]] = 0;
+      v14 = 0uLL;
+      v15 = 0;
       PlistObjectAtKeyPath = _MDPlistContainerGetPlistObjectAtKeyPath();
       v3 = PlistObjectAtKeyPath != 0;
       if (a3)
       {
         if (PlistObjectAtKeyPath)
         {
-          v15 = v17;
-          v16 = v18;
+          v12 = v14;
+          v13 = v15;
           *a3 = _MDPlistNumberGetIntValue();
         }
       }
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -9530,16 +9504,16 @@ LABEL_40:
   }
 }
 
-void sub_1C65AA384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C65AA384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va2, a7);
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, const void *);
+  va_start(va2, a13);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v10 = va_arg(va2, const void *);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
+  v16 = va_arg(va2, const void *);
+  v18 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFCalendar *>::reset(va2, 0);
@@ -9548,61 +9522,67 @@ void sub_1C65AA384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void QP::HolidayReference::updateDateValuesForLookupKey(QP::HolidayReference *this, __CFDictionary *a2, const __CFString *a3, unsigned int a4)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v43 = a4;
-  if (!a3 || !*(this + 2))
+  v42 = *MEMORY[0x1E69E9840];
+  v41 = a4;
+  if (a3 && *(this + 2))
   {
-    goto LABEL_64;
-  }
+    v40 = 0;
+    v7 = *MEMORY[0x1E695E480];
+    v40 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%@/Type", a3);
+    if (!QP::HolidayReference::containsLookupKey(this, v40))
+    {
+LABEL_62:
+      if (v40)
+      {
+        CFRelease(v40);
+      }
 
-  v42 = 0;
-  v7 = *MEMORY[0x1E695E480];
-  v42 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%@/Type", a3);
-  if (QP::HolidayReference::containsLookupKey(this, v42))
-  {
-    v8 = QP::HolidayReference::copyStringForLookupKey(this, v42);
-    v41[1] = v8;
+      return;
+    }
+
+    v8 = QP::HolidayReference::copyStringForLookupKey(this, v40);
+    v39[1] = v8;
     if (CFStringsAreEqual(v8, @"AbsoluteDate"))
     {
       *&valuePtr = 0;
-      v33[0] = 0;
+      v31[0] = 0;
       v9 = CFStringCreateWithFormat(v7, 0, @"%@/Day", a3);
-      if (v42)
+      if (v40)
       {
-        CFRelease(v42);
+        CFRelease(v40);
       }
 
-      v42 = v9;
+      v40 = v9;
       QP::HolidayReference::getIntegerForLookupKey(this, v9, &valuePtr);
       v10 = CFStringCreateWithFormat(v7, 0, @"%@/Month", a3);
-      if (v42)
+      if (v40)
       {
-        CFRelease(v42);
+        CFRelease(v40);
       }
 
-      v42 = v10;
-      QP::HolidayReference::getIntegerForLookupKey(this, v10, v33);
-      if ((valuePtr & 0x8000000000000000) != 0 || v33[0] < 0)
+      v40 = v10;
+      QP::HolidayReference::getIntegerForLookupKey(this, v10, v31);
+      if ((valuePtr & 0x8000000000000000) != 0 || v31[0] < 0)
       {
         goto LABEL_60;
       }
 
       v11 = CFNumberCreate(v7, kCFNumberIntType, &valuePtr);
-      v41[0] = v11;
+      v39[0] = v11;
       if (v11)
       {
         CFDictionarySetValue(a2, @"Day", v11);
       }
 
-      v12 = CFNumberCreate(v7, kCFNumberIntType, v33);
-      *v40 = v12;
+      v12 = CFNumberCreate(v7, kCFNumberIntType, v31);
+      *v38 = v12;
       if (v12)
       {
         CFDictionarySetValue(a2, @"Month", v12);
       }
 
-      v13 = CFNumberCreate(v7, kCFNumberIntType, &v43);
-      v39 = v13;
+      v13 = CFNumberCreate(v7, kCFNumberIntType, &v41);
+      v37 = v13;
       if (v13)
       {
         CFDictionarySetValue(a2, @"Year", v13);
@@ -9625,39 +9605,39 @@ void QP::HolidayReference::updateDateValuesForLookupKey(QP::HolidayReference *th
     if (CFStringsAreEqual(v8, @"MonthRelativeWeekDay"))
     {
       *&valuePtr = 0;
-      v33[0] = 0;
-      v41[0] = 0;
+      v31[0] = 0;
+      v39[0] = 0;
       v14 = CFStringCreateWithFormat(v7, 0, @"%@/WeekDay", a3);
-      if (v42)
+      if (v40)
       {
-        CFRelease(v42);
+        CFRelease(v40);
       }
 
-      v42 = v14;
+      v40 = v14;
       QP::HolidayReference::getIntegerForLookupKey(this, v14, &valuePtr);
       v15 = CFStringCreateWithFormat(v7, 0, @"%@/Month", a3);
-      if (v42)
+      if (v40)
       {
-        CFRelease(v42);
+        CFRelease(v40);
       }
 
-      v42 = v15;
-      QP::HolidayReference::getIntegerForLookupKey(this, v15, v33);
+      v40 = v15;
+      QP::HolidayReference::getIntegerForLookupKey(this, v15, v31);
       v16 = CFStringCreateWithFormat(v7, 0, @"%@/WeekDayNumberInMonth", a3);
-      if (v42)
+      if (v40)
       {
-        CFRelease(v42);
+        CFRelease(v40);
       }
 
-      v42 = v16;
-      QP::HolidayReference::getIntegerForLookupKey(this, v16, v41);
-      if ((valuePtr & 0x8000000000000000) != 0 || v33[0] < 0)
+      v40 = v16;
+      QP::HolidayReference::getIntegerForLookupKey(this, v16, v39);
+      if ((valuePtr & 0x8000000000000000) != 0 || v31[0] < 0)
       {
         goto LABEL_60;
       }
 
       v11 = CFCalendarCreateWithIdentifier(v7, @"gregorian");
-      *v40 = v11;
+      *v38 = v11;
       if (MEMORY[0x1C695AA20]() == 1)
       {
         if (valuePtr == 7)
@@ -9673,36 +9653,36 @@ void QP::HolidayReference::updateDateValuesForLookupKey(QP::HolidayReference *th
         *&valuePtr = v17;
       }
 
-      v24 = CFNumberCreate(v7, kCFNumberIntType, &valuePtr);
-      v39 = v24;
+      v23 = CFNumberCreate(v7, kCFNumberIntType, &valuePtr);
+      v37 = v23;
+      if (v23)
+      {
+        CFDictionarySetValue(a2, @"Weekday", v23);
+      }
+
+      v24 = CFNumberCreate(v7, kCFNumberIntType, v31);
+      v36 = v24;
       if (v24)
       {
-        CFDictionarySetValue(a2, @"Weekday", v24);
+        CFDictionarySetValue(a2, @"Month", v24);
       }
 
-      v25 = CFNumberCreate(v7, kCFNumberIntType, v33);
-      v38 = v25;
+      v25 = CFNumberCreate(v7, kCFNumberIntType, v39);
+      v35 = v25;
       if (v25)
       {
-        CFDictionarySetValue(a2, @"Month", v25);
-      }
-
-      v26 = CFNumberCreate(v7, kCFNumberIntType, v41);
-      v37 = v26;
-      if (v26)
-      {
-        CFDictionarySetValue(a2, @"WeekdayOrdinal", v26);
-        CFRelease(v26);
-      }
-
-      if (v25)
-      {
+        CFDictionarySetValue(a2, @"WeekdayOrdinal", v25);
         CFRelease(v25);
       }
 
       if (v24)
       {
         CFRelease(v24);
+      }
+
+      if (v23)
+      {
+        CFRelease(v23);
       }
 
       if (!v11)
@@ -9717,44 +9697,43 @@ LABEL_20:
 
     if (CFStringsAreEqual(v8, @"DateList"))
     {
-      v18 = CFStringCreateWithFormat(v7, 0, @"%@/%d", a3, v43);
-      if (v42)
+      v18 = CFStringCreateWithFormat(v7, 0, @"%@/%d", a3, v41);
+      if (v40)
       {
-        CFRelease(v42);
+        CFRelease(v40);
       }
 
-      v42 = v18;
+      v40 = v18;
       Length = CFStringGetLength(v18);
-      v41[0] = Length;
+      v39[0] = Length;
       MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-      v21 = v31 - ((MEMORY[0x1EEE9AC00](MaximumSizeForEncoding) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v21 = v29 - ((MEMORY[0x1EEE9AC00](MaximumSizeForEncoding) + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v21, MaximumSizeForEncoding);
-      v45.location = 0;
-      v45.length = Length;
-      CFStringGetBytes(v42, v45, 0x8000100u, 0x2Du, 0, v21, MaximumSizeForEncoding, v41);
-      v21[v41[0]] = 0;
+      v43.location = 0;
+      v43.length = Length;
+      CFStringGetBytes(v40, v43, 0x8000100u, 0x2Du, 0, v21, MaximumSizeForEncoding, v39);
+      v21[v39[0]] = 0;
       valuePtr = 0uLL;
-      v36 = 0;
-      v22 = *(this + 2);
+      v34 = 0;
       if (_MDPlistContainerGetPlistObjectAtKeyPath())
       {
-        *v33 = valuePtr;
-        v34 = v36;
+        *v31 = valuePtr;
+        v32 = v34;
         PlistObjectType = _MDPlistGetPlistObjectType();
         if (PlistObjectType == 241)
         {
-          *v33 = valuePtr;
-          v34 = v36;
+          *v31 = valuePtr;
+          v32 = v34;
           if (_MDPlistDictionaryGetCount())
           {
-            *v33 = valuePtr;
-            v34 = v36;
-            v31[0] = MEMORY[0x1E69E9820];
-            v31[1] = 0x40000000;
-            v31[2] = ___ZNK2QP16HolidayReference28updateDateValuesForLookupKeyEP14__CFDictionaryPK10__CFStringi_block_invoke;
-            v31[3] = &__block_descriptor_tmp_3;
-            v31[4] = a2;
-            v32 = v43;
+            *v31 = valuePtr;
+            v32 = v34;
+            v29[0] = MEMORY[0x1E69E9820];
+            v29[1] = 0x40000000;
+            v29[2] = ___ZNK2QP16HolidayReference28updateDateValuesForLookupKeyEP14__CFDictionaryPK10__CFStringi_block_invoke;
+            v29[3] = &__block_descriptor_tmp_3;
+            v29[4] = a2;
+            v30 = v41;
             _MDPlistDictionaryIterate();
           }
         }
@@ -9772,23 +9751,23 @@ LABEL_20:
     {
       if (!CFStringHasPrefix(a3, @"/easter"))
       {
-        v28 = CFStringCreateWithFormat(v7, 0, @"%@/SpecialDate", a3);
-        nlp::CFScopedPtr<__CFString const*>::reset(&v42, v28);
-        *&valuePtr = QP::HolidayReference::copyStringForLookupKey(this, v42);
+        v26 = CFStringCreateWithFormat(v7, 0, @"%@/SpecialDate", a3);
+        nlp::CFScopedPtr<__CFString const*>::reset(&v40, v26);
+        *&valuePtr = QP::HolidayReference::copyStringForLookupKey(this, v40);
         if (valuePtr)
         {
-          v29 = CFStringCreateWithFormat(v7, 0, @"%@/RelativeDays", a3);
-          nlp::CFScopedPtr<__CFString const*>::reset(&v42, v29);
-          v33[0] = 0;
-          QP::HolidayReference::getIntegerForLookupKey(this, v42, v33);
-          v41[0] = CFNumberCreate(v7, kCFNumberIntType, v33);
-          if (v41[0])
+          v27 = CFStringCreateWithFormat(v7, 0, @"%@/RelativeDays", a3);
+          nlp::CFScopedPtr<__CFString const*>::reset(&v40, v27);
+          v31[0] = 0;
+          QP::HolidayReference::getIntegerForLookupKey(this, v40, v31);
+          v39[0] = CFNumberCreate(v7, kCFNumberIntType, v31);
+          if (v39[0])
           {
             CFDictionarySetValue(a2, @"RootHoliday", valuePtr);
-            CFDictionarySetValue(a2, @"DayOffset", v41[0]);
+            CFDictionarySetValue(a2, @"DayOffset", v39[0]);
           }
 
-          nlp::CFScopedPtr<__CFNumber const*>::reset(v41, 0);
+          nlp::CFScopedPtr<__CFNumber const*>::reset(v39, 0);
         }
 
         else
@@ -9800,32 +9779,32 @@ LABEL_20:
         goto LABEL_60;
       }
 
-      v40[0] = 1;
-      LODWORD(v39) = 1;
+      v38[0] = 1;
+      LODWORD(v37) = 1;
       if (CFStringHasSuffix(a3, @"JULIAN"))
       {
-        QP::extractJulianEasterInYear(&v39, v40, v43);
+        QP::extractJulianEasterInYear(&v37, v38, v41);
 LABEL_71:
-        *&valuePtr = CFNumberCreate(v7, kCFNumberIntType, &v39);
+        *&valuePtr = CFNumberCreate(v7, kCFNumberIntType, &v37);
         CFDictionarySetValue(a2, @"Day", valuePtr);
-        v33[0] = CFNumberCreate(v7, kCFNumberIntType, v40);
-        CFDictionarySetValue(a2, @"Month", v33[0]);
-        v30 = CFNumberCreate(v7, kCFNumberIntType, &v43);
-        v41[0] = v30;
-        if (v30)
+        v31[0] = CFNumberCreate(v7, kCFNumberIntType, v38);
+        CFDictionarySetValue(a2, @"Month", v31[0]);
+        v28 = CFNumberCreate(v7, kCFNumberIntType, &v41);
+        v39[0] = v28;
+        if (v28)
         {
-          CFDictionarySetValue(a2, @"Year", v30);
+          CFDictionarySetValue(a2, @"Year", v28);
         }
 
-        nlp::CFScopedPtr<__CFNumber const*>::reset(v41, 0);
-        nlp::CFScopedPtr<__CFNumber const*>::reset(v33, 0);
+        nlp::CFScopedPtr<__CFNumber const*>::reset(v39, 0);
+        nlp::CFScopedPtr<__CFNumber const*>::reset(v31, 0);
         nlp::CFScopedPtr<__CFNumber const*>::reset(&valuePtr, 0);
         goto LABEL_60;
       }
 
       if (CFStringHasSuffix(a3, @"GREGORIAN"))
       {
-        QP::extractGregorianEasterInYear(&v39, v40, v43);
+        QP::extractGregorianEasterInYear(&v37, v38, v41);
         goto LABEL_71;
       }
 
@@ -9837,13 +9816,7 @@ LABEL_60:
     {
       CFRelease(v8);
     }
-  }
 
-  if (v42)
-  {
-    CFRelease(v42);
+    goto LABEL_62;
   }
-
-LABEL_64:
-  v27 = *MEMORY[0x1E69E9840];
 }

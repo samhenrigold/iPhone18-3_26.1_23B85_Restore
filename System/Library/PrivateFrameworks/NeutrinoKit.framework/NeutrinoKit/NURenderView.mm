@@ -93,40 +93,40 @@
   NUPixelSizeFromCGSize();
   NUPixelSizeFromCGSize();
   v14 = *(MEMORY[0x277CD9DE8] + 80);
-  *&v30.m31 = *(MEMORY[0x277CD9DE8] + 64);
-  *&v30.m33 = v14;
+  *&v29.m31 = *(MEMORY[0x277CD9DE8] + 64);
+  *&v29.m33 = v14;
   v15 = *(MEMORY[0x277CD9DE8] + 112);
-  *&v30.m41 = *(MEMORY[0x277CD9DE8] + 96);
-  *&v30.m43 = v15;
+  *&v29.m41 = *(MEMORY[0x277CD9DE8] + 96);
+  *&v29.m43 = v15;
   v16 = *(MEMORY[0x277CD9DE8] + 16);
-  *&v30.m11 = *MEMORY[0x277CD9DE8];
-  *&v30.m13 = v16;
+  *&v29.m11 = *MEMORY[0x277CD9DE8];
+  *&v29.m13 = v16;
   v17 = *(MEMORY[0x277CD9DE8] + 48);
-  *&v30.m21 = *(MEMORY[0x277CD9DE8] + 32);
-  *&v30.m23 = v17;
+  *&v29.m21 = *(MEMORY[0x277CD9DE8] + 32);
+  *&v29.m23 = v17;
   if ((NUPixelSizeIsEmpty() & 1) == 0 && (NUPixelSizeIsEmpty() & 1) == 0)
   {
     NUScaleToFitSizeInSize();
     NUScaleToDouble();
     v19 = v18;
-    [(NURenderView *)self transform];
+    objc_msgSend_transform(self);
     v20 = 1.0;
-    if (v29 != 0.0)
+    if (v28[6] != 0.0)
     {
-      [(NURenderView *)self transform];
-      v20 = v28;
+      objc_msgSend_transform(self, 1.0);
+      v20 = v28[0];
     }
 
-    CATransform3DMakeTranslation(&v30, x * (1.0 / v20), y * (1.0 / v20), 0.0);
-    v26 = v30;
+    CATransform3DMakeTranslation(&v29, x * (1.0 / v20), y * (1.0 / v20), 0.0);
+    v26 = v29;
     CATransform3DScale(&v27, &v26, v19, v19, 1.0);
-    v30 = v27;
+    v29 = v27;
   }
 
   if (duration <= 0.0)
   {
     [(CALayer *)self->_geometryAnimationLayer removeAllAnimations];
-    v27 = v30;
+    v27 = v29;
     [(CALayer *)self->_geometryAnimationLayer setSublayerTransform:&v27];
     if (completionCopy)
     {
@@ -139,7 +139,7 @@
     v21 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"sublayerTransform"];
     [v21 setDuration:duration];
     [v21 setTimingFunction:curveCopy];
-    v27 = v30;
+    v27 = v29;
     v22 = [MEMORY[0x277CCAE60] valueWithCATransform3D:&v27];
     [v21 setToValue:v22];
 
@@ -239,7 +239,7 @@ uint64_t __75__NURenderView_transitionToSize_offset_duration_animationCurve_comp
   geometryAnimationLayer = self->_geometryAnimationLayer;
   if (geometryAnimationLayer)
   {
-    [(CALayer *)geometryAnimationLayer sublayerTransform];
+    objc_msgSend_sublayerTransform(geometryAnimationLayer);
   }
 
   else
@@ -377,7 +377,7 @@ LABEL_16:
     v15 = v9 * v13;
     [(NURenderView *)self setBounds:0.0, 0.0, v14, v15];
     memset(&v17[1], 0, sizeof(CGAffineTransform));
-    [(NURenderView *)self transform];
+    objc_msgSend_transform(self);
     v17[0] = v17[1];
     v18.origin.x = 0.0;
     v18.origin.y = 0.0;

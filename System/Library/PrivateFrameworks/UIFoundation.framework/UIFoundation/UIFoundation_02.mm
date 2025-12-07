@@ -10,7 +10,7 @@ uint64_t _NSGlyphTreeGlyphAtIndex(uint64_t a1, unint64_t a2, _BYTE *a3)
   v15 = *(*(a1 + 240) + 216);
   if (!*(v15 + 59) || (v16 = *(v15 + 24)) == 0)
   {
-    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGlyphAtIndex missing glyphs", v7, v8, v9, v10, v11, v12, v13, v22);
+    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGlyphAtIndex missing glyphs", v7, v8, v9, v10, v11, v12, v13);
     result = 0;
     goto LABEL_8;
   }
@@ -650,15 +650,15 @@ LABEL_37:
   return v5;
 }
 
-unint64_t _NSGlyphTreeGetCGGlyphsInRange(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t *a5, void *a6, _BYTE *a7)
+unint64_t _NSGlyphTreeGetCGGlyphsInRange(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5, void *a6, _BYTE *a7)
 {
-  v60 = a2 + a3;
+  v59 = a2 + a3;
   if (a2 < a2 + a3)
   {
     v12 = 0;
     while (1)
     {
-      v61 = a2;
+      v60 = a2;
       if (!_NSGlyphTreeMoveToGlyphIndex(a1, a2))
       {
         return v12;
@@ -666,9 +666,9 @@ unint64_t _NSGlyphTreeGetCGGlyphsInRange(uint64_t a1, unint64_t a2, uint64_t a3,
 
       v20 = *(*(a1 + 240) + 216);
       v21 = *(v20 + 8) + *(*(a1 + 240) + 232);
-      if (v21 >= v60)
+      if (v21 >= v59)
       {
-        v22 = v60;
+        v22 = v59;
       }
 
       else
@@ -679,7 +679,7 @@ unint64_t _NSGlyphTreeGetCGGlyphsInRange(uint64_t a1, unint64_t a2, uint64_t a3,
       if (!*(v20 + 59) || !*(v20 + 24))
       {
         v23 = *(v20 + 8) + *(*(a1 + 240) + 232);
-        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGetGlyphsInRange missing glyphs", v13, v14, v15, v16, v17, v18, v19, v58);
+        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGetGlyphsInRange missing glyphs", v13, v14, v15, v16, v17, v18, v19);
         v21 = v23;
       }
 
@@ -687,20 +687,20 @@ unint64_t _NSGlyphTreeGetCGGlyphsInRange(uint64_t a1, unint64_t a2, uint64_t a3,
       {
         a5 = 0;
         a4 = 0;
-        v24 = v61;
+        v24 = v60;
         goto LABEL_76;
       }
 
-      v24 = v61;
+      v24 = v60;
       if (!*(*(*(a1 + 240) + 216) + 57))
       {
         break;
       }
 
-      if (v22 > v61)
+      if (v22 > v60)
       {
-        v25 = 24 * v61;
-        for (i = v61; v22 != i; ++i)
+        v25 = 24 * v60;
+        for (i = v60; v22 != i; ++i)
         {
           v27 = *(*(a1 + 240) + 216);
           v28 = *(v27 + 59);
@@ -880,7 +880,8 @@ LABEL_66:
                 if ((*(v37 - 2 * v38 + 2 * i) & 1) == 0)
                 {
 LABEL_70:
-                  *a5++ = v35;
+                  *a5 = v35;
+                  a5 += 8;
                   goto LABEL_71;
                 }
 
@@ -1026,10 +1027,10 @@ LABEL_95:
           v49 = v22 - v24;
           if (v22 > v24)
           {
-            v59 = v21;
+            v58 = v21;
             bzero(a7, v22 - v24);
-            v21 = v59;
-            v24 = v61;
+            v21 = v58;
+            v24 = v60;
             a7 += v49;
           }
 
@@ -1039,18 +1040,18 @@ LABEL_95:
 
       v12 = v12 - v24 + v22;
       a2 = v22;
-      if (v21 >= v60)
+      if (v21 >= v59)
       {
         return v12;
       }
     }
 
-    if (v22 <= v61)
+    if (v22 <= v60)
     {
       goto LABEL_76;
     }
 
-    v50 = v61;
+    v50 = v60;
     while (1)
     {
       v51 = *(*(a1 + 240) + 216);
@@ -1124,7 +1125,8 @@ LABEL_116:
           v56 = v55;
         }
 
-        *a5++ = v56;
+        *a5 = v56;
+        a5 += 8;
       }
 
       if (v22 == ++v50)
@@ -1637,7 +1639,7 @@ uint64_t _NSGlyphTreeGetShownGlyphsInRange(uint64_t a1, unint64_t a2, uint64_t a
 
       if (!*(v17 + 59) || !*(v17 + 24))
       {
-        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGetShownGlyphsInRange missing glyphs", v9, v10, v11, v12, v13, v14, v15, v33);
+        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGetShownGlyphsInRange missing glyphs", v9, v10, v11, v12, v13, v14, v15);
       }
 
       if (v6 < v20)
@@ -1825,7 +1827,7 @@ uint64_t _NSGlyphTreeGetPackedGlyphsInRange(uint64_t a1, unint64_t a2, uint64_t 
 
       if (!*(v17 + 59) || !*(v17 + 24))
       {
-        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGetShownGlyphsInRange missing glyphs", v9, v10, v11, v12, v13, v14, v15, v34);
+        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeGetShownGlyphsInRange missing glyphs", v9, v10, v11, v12, v13, v14, v15);
       }
 
       if (v6 < v20)
@@ -2084,7 +2086,7 @@ void _NSGlyphTreeInvalidateGlyphsForCharacterRange(uint64_t a1, unint64_t a2, ui
 
               if (!_NSGlyphTreeMoveToCharacterIndex(v12, v11 - 1))
               {
-                _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInvalidateGlyphsForCharacterRange found invalid char index", v62, v63, v64, v65, v66, v67, v68, v128);
+                _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInvalidateGlyphsForCharacterRange found invalid char index", v62, v63, v64, v65, v66, v67, v68);
 LABEL_61:
                 v133 = 1;
                 goto LABEL_62;
@@ -2260,7 +2262,7 @@ LABEL_37:
 
       else
       {
-        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInvalidateGlyphsForCharacterRange invalid char range 1", v17, v18, v19, v20, v21, v22, v23, v128);
+        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInvalidateGlyphsForCharacterRange invalid char range 1", v17, v18, v19, v20, v21, v22, v23);
       }
 
 LABEL_62:
@@ -2450,7 +2452,7 @@ LABEL_107:
   v126 = *(v12 + 240);
   if (v129 + v130 != **(v126 + *v13))
   {
-    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInvalidateGlyphsForCharacterRange character count mismatch", v17, v18, v19, v20, v21, v22, v23, v128);
+    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInvalidateGlyphsForCharacterRange character count mismatch", v17, v18, v19, v20, v21, v22, v23);
     v126 = *(v12 + 240);
   }
 
@@ -2494,7 +2496,7 @@ void _NSGlyphTreeInsertNodeAfterCurrentNode(uint64_t a1, uint64_t a2, uint64_t a
       v24[1].i64[1] = v8;
       v24[2].i64[0] = v10;
       v8[1].i64[0] = v24;
-      v10[1].i64[0] = v24;
+      *(v10 + 16) = v24;
       _NSGlyphNodeSetInvariants(v24);
       *(*(a1 + 240) + 208) = v24;
       return;
@@ -2524,7 +2526,7 @@ void _NSGlyphTreeInsertNodeAfterCurrentNode(uint64_t a1, uint64_t a2, uint64_t a
 
     if (v8 != v14)
     {
-      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInsertNodeAfterCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8, v25);
+      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInsertNodeAfterCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8);
       v12 = v8;
       v15 = v10;
       if (!v8)
@@ -2593,7 +2595,7 @@ LABEL_23:
   }
 
   v12[2].i64[v13] = v10;
-  v10[1].i64[0] = v12;
+  *(v10 + 16) = v12;
 
   _NSGlyphNodeSetInvariants(v12);
 }
@@ -3113,7 +3115,7 @@ uint64_t _NSGlyphTreeDeleteCurrentNode(uint64_t a1, uint64_t a2, uint64_t a3, ui
       if (*(*(a1 + 240) + 216))
       {
 LABEL_12:
-        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeDeleteCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8, v25);
+        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeDeleteCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8);
         break;
       }
 
@@ -3259,7 +3261,7 @@ void _NSGlyphTreeInsertNodeBeforeCurrentNode(uint64_t a1, int64x2_t *a2, uint64_
 
     if (v11 != v15)
     {
-      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInsertNodeBeforeCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8, v31);
+      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInsertNodeBeforeCurrentNode found broken link", a2, a3, a4, a5, a6, a7, a8);
       v13 = v11;
       v16 = v12;
       goto LABEL_20;
@@ -3345,7 +3347,7 @@ LABEL_27:
   *(*(a1 + 240) + 232) += v30;
 }
 
-void _NSGlyphTreeInsertGlyphs(uint64_t a1, unint64_t a2, unint64_t a3, size_t a4, unsigned int *a5)
+void _NSGlyphTreeInsertGlyphs(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, unsigned int *a5)
 {
   if (a5)
   {
@@ -3357,7 +3359,7 @@ void _NSGlyphTreeInsertGlyphs(uint64_t a1, unint64_t a2, unint64_t a3, size_t a4
       {
         if (!_NSGlyphTreeMoveToCharacterIndex(a1, a2))
         {
-          _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInsertGlyphs invalid char index", v10, v11, v12, v13, v14, v15, v16, v97);
+          _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeInsertGlyphs invalid char index", v10, v11, v12, v13, v14, v15, v16);
           v20 = v5;
           goto LABEL_44;
         }
@@ -4244,7 +4246,7 @@ void _NSGlyphTreeDeleteGlyphsInRange(uint64_t a1, unint64_t a2, uint64_t a3, uin
 {
   if (a3)
   {
-    v32 = a2 - 1;
+    v31 = a2 - 1;
     v12 = a3;
     do
     {
@@ -4267,7 +4269,7 @@ void _NSGlyphTreeDeleteGlyphsInRange(uint64_t a1, unint64_t a2, uint64_t a3, uin
         {
           v22 = @"!!! _NSGlyphTreeDeleteGlyphsInRange missing glyphs";
 LABEL_14:
-          _NSGlyphTreeLogDebug(v22, v13, v14, v15, a5, a6, a7, a8, v31);
+          _NSGlyphTreeLogDebug(v22, v13, v14, v15, a5, a6, a7, a8);
           goto LABEL_15;
         }
 
@@ -4329,7 +4331,7 @@ LABEL_14:
             }
           }
 
-          if (!a2 || !_NSGlyphTreeMoveToGlyphIndex(a1, v32))
+          if (!a2 || !_NSGlyphTreeMoveToGlyphIndex(a1, v31))
           {
             v22 = @"!!! _NSGlyphTreeDeleteGlyphsInRange invalid glyph range";
             goto LABEL_14;
@@ -4351,7 +4353,7 @@ LABEL_14:
 
       else
       {
-        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeDeleteGlyphsInRange invalid glyph range", v13, v14, v15, a5, a6, a7, a8, v31);
+        _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeDeleteGlyphsInRange invalid glyph range", v13, v14, v15, a5, a6, a7, a8);
         v19 = v12;
       }
 
@@ -4616,7 +4618,7 @@ void _NSGlyphTreeReplaceGlyphAtIndex(uint64_t a1, unint64_t a2, unsigned int a3)
 
     else
     {
-      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeReplaceGlyphAtIndex missing glyphs", v6, v7, v8, v9, v10, v11, v12, v26);
+      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeReplaceGlyphAtIndex missing glyphs", v6, v7, v8, v9, v10, v11, v12);
     }
 
     v24 = *(*(a1 + 240) + 216);
@@ -5265,9 +5267,9 @@ LABEL_68:
     {
       if (!v82[2].i64[1])
       {
-        v96 = v44;
+        v95 = v44;
         v86 = malloc_type_calloc(v85, 1uLL, 0x49F3590AuLL);
-        v44 = v96;
+        v44 = v95;
         v82[2].i64[1] = v86;
         v80 = *(a1 + 240);
         v82 = v80[27];
@@ -5356,7 +5358,7 @@ LABEL_72:
     v63 = @"!!! _NSGlyphTreeSetCharacterIndexForGlyphAtIndex invalid char index 1";
 LABEL_85:
 
-    _NSGlyphTreeLogDebug(v63, v47, v48, v49, v50, v51, v52, v53, a9);
+    _NSGlyphTreeLogDebug(v63, v47, v48, v49, v50, v51, v52, v53);
     return;
   }
 
@@ -5490,7 +5492,7 @@ LABEL_85:
 
   else
   {
-    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetCharacterIndexForGlyphAtIndex missing glyphs", v72, v48, v49, v50, v51, v52, v53, v95);
+    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetCharacterIndexForGlyphAtIndex missing glyphs", v72, v48, v49, v50, v51, v52, v53);
   }
 
   v73 = *(*(a1 + 240) + 216);
@@ -5618,7 +5620,7 @@ void _NSGlyphTreeSetIntAttributeForGlyphAtIndex(uint64_t a1, unint64_t a2, uint6
     if (a4)
     {
 
-      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetIntAttributeForGlyphAtIndex missing glyphs", v13, v14, v15, v16, v17, v18, v19, a9);
+      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetIntAttributeForGlyphAtIndex missing glyphs", v13, v14, v15, v16, v17, v18, v19);
     }
 
     return;
@@ -5915,7 +5917,7 @@ void _NSGlyphTreeSetNotShownAttributeForGlyphAtIndex(uint64_t a1, unint64_t a2, 
   else if (a3)
   {
 
-    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetNotShownAttributeForGlyphAtIndex missing glyphs", v12, v13, v14, v15, v16, v17, v18, a9);
+    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetNotShownAttributeForGlyphAtIndex missing glyphs", v12, v13, v14, v15, v16, v17, v18);
   }
 }
 
@@ -5984,7 +5986,7 @@ void _NSGlyphTreeSetDrawsOutsideLineFragmentForGlyphAtIndex(uint64_t a1, unint64
     else if (a3)
     {
 
-      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetDrawsOutsideLineFragmentForGlyphAtIndex missing glyphs", v12, v13, v14, v15, v16, v17, v18, a9);
+      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetDrawsOutsideLineFragmentForGlyphAtIndex missing glyphs", v12, v13, v14, v15, v16, v17, v18);
     }
   }
 
@@ -6059,7 +6061,7 @@ void _NSGlyphTreeSetEllipsisAttributeForGlyphAtIndex(uint64_t a1, unint64_t a2, 
     else if (a3)
     {
 
-      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetEllipsisAttributeForGlyphAtIndex missing glyphs", v12, v13, v14, v15, v16, v17, v18, a9);
+      _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeSetEllipsisAttributeForGlyphAtIndex missing glyphs", v12, v13, v14, v15, v16, v17, v18);
     }
   }
 
@@ -6166,7 +6168,7 @@ LABEL_27:
       }
     }
 
-    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeResetNotShownAttributeAndDrawsOutsideLineFragmentForGlyphsInRange invalid glyph range", v12, v13, v14, v15, v16, v17, v18, a9);
+    _NSGlyphTreeLogDebug(@"!!! _NSGlyphTreeResetNotShownAttributeAndDrawsOutsideLineFragmentForGlyphsInRange invalid glyph range", v12, v13, v14, v15, v16, v17, v18);
   }
 }
 
@@ -6279,16 +6281,30 @@ uint64_t charIsNormalWhitespace(uint64_t a1)
   return [v2 characterIsMember:a1];
 }
 
-void sub_18E7803BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E77FD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
-  va_start(va, a7);
+  va_start(va, a35);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E78062C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18E7803BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a9);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18E78062C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18E781268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
+{
+  va_start(va, a37);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6737,7 +6753,7 @@ LABEL_40:
   }
 }
 
-uint64_t _NSRemoveDirtyLayoutManager(uint64_t a1)
+char *_NSRemoveDirtyLayoutManager(char *a1)
 {
   result = _dirtyLMs;
   if (_dirtyLMs)
@@ -6749,11 +6765,11 @@ uint64_t _NSRemoveDirtyLayoutManager(uint64_t a1)
       v4 = 0;
       for (i = 0; i != v3; ++i)
       {
-        result = [_dirtyLMs pointerAtIndex:v4 + i];
+        result = [_dirtyLMs pointerAtIndex:&i[v4]];
         if (result == a1 || result == 0)
         {
           v7 = result;
-          result = [_dirtyLMs removePointerAtIndex:v4 + i];
+          result = [_dirtyLMs removePointerAtIndex:&i[v4]];
           if (v7)
           {
             break;
@@ -6765,11 +6781,11 @@ uint64_t _NSRemoveDirtyLayoutManager(uint64_t a1)
     }
   }
 
-  *(a1 + 64) &= ~0x100u;
+  *(a1 + 16) &= ~0x100u;
   return result;
 }
 
-void _NSFastFillAllGlyphHolesForCharacterRange(uint64_t a1, unint64_t a2, unint64_t a3)
+void _NSFastFillAllGlyphHolesForCharacterRange(uint64_t a1, char *a2, unint64_t a3)
 {
   v36 = *MEMORY[0x1E69E9840];
   v33 = 0;
@@ -6822,7 +6838,7 @@ void _NSFastFillAllGlyphHolesForCharacterRange(uint64_t a1, unint64_t a2, unint6
   if (*(*(*(a1 + 240) + 208) + 56))
   {
     v12 = 0;
-    v13 = a3 + a2;
+    v13 = &a2[a3];
     do
     {
       v26 = 0;
@@ -6878,9 +6894,9 @@ void _NSFastFillAllGlyphHolesForCharacterRange(uint64_t a1, unint64_t a2, unint6
 
       _NSGlyphTreeGetFirstHoleAfterCharacterIndex(a1, v16, v21, &v34, &v26, &v33);
       v22 = v34;
-      if (v34 + v19 < v16)
+      if (&v34[v19] < v16)
       {
-        v23 = __NSGetClusterHeadWithLimit(v9, v16 - v19, v28, &cf, v35);
+        v23 = __NSGetClusterHeadWithLimit(v9, &v16[-v19], v28, &cf, v35);
         v26 += v34 - v23;
         v34 = v23;
         v33 = _NSGlyphTreeGlyphIndexForCharacterAtIndex(a1, v23);
@@ -7113,7 +7129,7 @@ double NSLMUnionRect(double a1, double a2, double a3, double a4, double a5, doub
   return a5;
 }
 
-unint64_t _NSFastFillAllLayoutHolesForGlyphRange(uint64_t a1, unint64_t a2, unint64_t a3)
+char *_NSFastFillAllLayoutHolesForGlyphRange(uint64_t a1, unint64_t a2, unint64_t a3)
 {
   v62 = -1;
   v6 = [*(a1 + 8) length];
@@ -7344,7 +7360,7 @@ LABEL_36:
           if (v63 < v34)
           {
             v37 = [objc_msgSend(*(a1 + 8) "string")];
-            if (v34 > v37 && v37 >= v63 && v34 - v37 < v38)
+            if (v34 > v37 && v37 >= v63 && &v34[-v37] < v38)
             {
               v34 = v37;
             }
@@ -7732,7 +7748,7 @@ void sub_18E791A10(uint64_t a1, int a2)
   JUMPOUT(0x18E791924);
 }
 
-uint64_t __NSGetClusterHeadWithLimit(__CFString *a1, unint64_t a2, uint64_t a3, CFMutableStringRef *a4, UniChar *a5)
+char *__NSGetClusterHeadWithLimit(__CFString *a1, unint64_t a2, uint64_t a3, CFMutableStringRef *a4, UniChar *a5)
 {
   v9 = a1;
   if ([(__CFString *)a1 length]< 0x101)
@@ -8063,10 +8079,10 @@ uint64_t __NSGetClusterHeadWithLimit(__CFString *a1, unint64_t a2, uint64_t a3, 
     v9 = *a4;
   }
 
-  return [(__CFString *)v9 rangeOfComposedCharacterSequenceAtIndex:a2 - v10]+ v10;
+  return ([(__CFString *)v9 rangeOfComposedCharacterSequenceAtIndex:a2 - v10]+ v10);
 }
 
-uint64_t _NSFastFillAllLayoutHolesUpToEndOfContainerForGlyphIndex(uint64_t a1, unint64_t a2)
+_BYTE *_NSFastFillAllLayoutHolesUpToEndOfContainerForGlyphIndex(uint64_t a1, unint64_t a2)
 {
   v41 = -1;
   v4 = &OBJC_IVAR___NSLayoutManager__extraData;
@@ -8260,7 +8276,7 @@ LABEL_51:
           for (i = 0; i != v33; ++i)
           {
             result = CFStorageGetValueAtIndex();
-            if (*(result + 64))
+            if (result[64])
             {
               result = [a1 _recalculateUsageForTextContainerAtIndex:i];
             }
@@ -8272,7 +8288,7 @@ LABEL_51:
           for (j = 0; j != v32; ++j)
           {
             result = CFStorageGetValueAtIndex();
-            if ((*(result + 64) & 2) != 0)
+            if ((result[64] & 2) != 0)
             {
               result = [a1 _resizeTextViewForTextContainer:{objc_msgSend(*(a1 + 32), "objectAtIndex:", j)}];
             }
@@ -8411,7 +8427,7 @@ uint64_t initUIRectIntegralWithScale(double a1, double a2, double a3, double a4,
 {
   v10 = __NSGetFrameworkReference(0, 0);
   v11 = dlsym(v10, "UIRectIntegralWithScale");
-  softLinkUIRectIntegralWithScale[0] = v11;
+  softLinkUIRectIntegralWithScale = v11;
   if (!v11)
   {
     initUIRectIntegralWithScale_cold_1();
@@ -8426,12 +8442,12 @@ uint64_t initUIRectIntegralWithScale(double a1, double a2, double a3, double a4,
   return (v11)(v12, v13, v14, v15, v16);
 }
 
-uint64_t __NSRunGetBidiLevels(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__NSRunGetBidiLevels(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = [*(a3 + 80) _bidiLevels];
   if (v4)
   {
-    return v4 + a1;
+    return (v4 + a1);
   }
 
   else
@@ -8495,7 +8511,7 @@ uint64_t __NSCleanCopyRun(const __CTRun *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-BOOL __NSJustifyLine(CFTypeRef *a1)
+BOOL __NSJustifyLine(CFTypeRef *a1, uint64_t a2, double a3, double a4)
 {
   JustifiedLineWithOptions = CTLineCreateJustifiedLineWithOptions();
   if (JustifiedLineWithOptions)
@@ -8541,7 +8557,7 @@ uint64_t __NSATSLineFragmentRunCompare(const __CTRun *a1, const __CTRun *a2)
   }
 }
 
-void __NSDoReordants(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8, uint64_t *a9)
+void __NSDoReordants(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char **a8, uint64_t *a9)
 {
   v37 = *MEMORY[0x1E69E9840];
   v12 = (a7 >> 63) | 1;
@@ -8703,10 +8719,10 @@ uint64_t OUTLINED_FUNCTION_11_0(uint64_t a1)
 
 double OUTLINED_FUNCTION_14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, double a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55)
 {
-  result = v48 - a27 - v47;
+  result = v56 - a27 - v55;
   if (a55 != 1)
   {
-    return v47;
+    return v55;
   }
 
   return result;
@@ -8726,17 +8742,18 @@ uint64_t OUTLINED_FUNCTION_26(void *a1, const char *a2, uint64_t a3, uint64_t a4
   return [a1 setLocation:0 withAdvancements:a4 forStartOfGlyphRange:{1, v6, v8}];
 }
 
-uint64_t OUTLINED_FUNCTION_27(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+uint64_t OUTLINED_FUNCTION_27(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
-  v55 = *(v53 - 8) + a23;
+  va_start(va, a52);
+  v54 = *(v52 - 8) + a23;
 
-  return [a1 glyphRangeForCharacterRange:v55 actualCharacterRange:{1, &a53}];
+  return [a1 glyphRangeForCharacterRange:v54 actualCharacterRange:{1, va, a6, a7, a8}];
 }
 
-void OUTLINED_FUNCTION_28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void OUTLINED_FUNCTION_28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, int a25)
 {
 
-  bzero(&a25 + 4 * a4, 4 * (128 - a4));
+  bzero(&a25 + a4, 4 * (128 - a4));
 }
 
 uint64_t OUTLINED_FUNCTION_40()
@@ -8792,62 +8809,66 @@ uint64_t UIAppendVInt32ToData(void *a1, unsigned int a2)
   return [a1 appendBytes:v6 length:v4];
 }
 
-void sub_18E79E2A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18E79E2A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E79E674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_18E79E674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 176), 8);
-  _Block_object_dispose((v33 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 176), 8);
+  _Block_object_dispose((v32 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E79ED94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_18E79ED94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E79FAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E79FAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7A1070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_18E7A1070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v6 - 96), 8);
+  _Block_object_dispose((v11 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7A22E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_18E7A22E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7A2EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
+void sub_18E7A2EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
 {
+  va_start(va, a58);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a59, 8);
-  _Block_object_dispose((v59 - 240), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v58 - 240), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7A3830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18E7A3830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8860,14 +8881,14 @@ uint64_t __normalizeTextRanges_block_invoke(uint64_t a1, void *a2, void *a3)
   return [v4 compare:v5];
 }
 
-uint64_t __visualBidiSelectionEnabled_block_invoke()
+void *__visualBidiSelectionEnabled_block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   visualBidiSelectionEnabled_result = result;
   return result;
 }
 
-void NSTextLayoutManagerBreakOnNilContentManager()
+void NSTextLayoutManagerBreakOnNilContentManager(uint64_t result, uint64_t a2)
 {
   if (NSTextLayoutManagerBreakOnNilContentManager_onceToken != -1)
   {
@@ -8875,29 +8896,31 @@ void NSTextLayoutManagerBreakOnNilContentManager()
   }
 }
 
-void sub_18E7A4180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_18E7A4180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
-  _Block_object_dispose((v27 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18E7A5834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v7);
+  _Block_object_dispose((v26 - 128), 8);
+  _Block_object_dispose((v26 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7A5F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_18E7A5834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  objc_sync_exit(v13);
+  _Unwind_Resume(a1);
+}
+
+void sub_18E7A5F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63, ...)
+{
+  va_start(va, a63);
   _Block_object_dispose(&a58, 8);
-  _Block_object_dispose(&a64, 8);
-  _Block_object_dispose((v64 - 248), 8);
-  _Block_object_dispose((v64 - 200), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v63 - 248), 8);
+  _Block_object_dispose((v63 - 200), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8916,16 +8939,17 @@ void sub_18E7A8038(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18E7A8324(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_18E7A8324(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  objc_sync_exit(v15);
-  _Block_object_dispose(&a15, 8);
+  va_start(va, a14);
+  objc_sync_exit(v14);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7A8428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E7A8428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8937,68 +8961,72 @@ void sub_18E7A8B28(void *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7
   objc_exception_rethrow();
 }
 
-void sub_18E7A8B78(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, id location, char a59)
+void sub_18E7A8B78(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, id location, ...)
 {
+  va_start(va, location);
   objc_end_catch();
   objc_destroyWeak(&a55);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a59, 8);
-  _Block_object_dispose((v59 - 224), 8);
-  _Block_object_dispose((v59 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v58 - 224), 8);
+  _Block_object_dispose((v58 - 192), 8);
   JUMPOUT(0x18E7A8BB8);
 }
 
-void sub_18E7A91F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_18E7A91F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a45, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18E7A9E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
-  _Block_object_dispose((v15 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18E7AA1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7AAAEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
+void sub_18E7A9E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v22 - 128), 8);
+  _Block_object_dispose((v22 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18E7AA1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18E7AAAEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, ...)
+{
+  va_start(va, a53);
   _Block_object_dispose(&a28, 8);
   _Block_object_dispose(&a48, 8);
-  _Block_object_dispose(&a54, 8);
-  _Block_object_dispose((v54 - 184), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v53 - 184), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7AB1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
+void sub_18E7AB1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, ...)
 {
-  _Block_object_dispose(&a54, 8);
-  _Block_object_dispose((v54 - 248), 8);
-  _Block_object_dispose((v54 - 200), 8);
+  va_start(va, a53);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v53 - 248), 8);
+  _Block_object_dispose((v53 - 200), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7AC054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18E7AC054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  if (v10)
+  va_start(va, a16);
+  if (v17)
   {
     objc_end_catch();
   }
 
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v9);
+  objc_sync_exit(v16);
   _Unwind_Resume(a1);
 }
 
@@ -9058,43 +9086,43 @@ void sub_18E7AC774(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18E7AD460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E7AD460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7AD63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18E7AD63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7AD860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E7AD860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7ADBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_18E7ADBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7AE494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18E7AE494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9106,45 +9134,46 @@ void sub_18E7AE700(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_18E7AF214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18E7AF954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18E7B0204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_18E7B0858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18E7AF214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18E7B0D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E7AF954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v7);
   _Unwind_Resume(a1);
 }
 
-void __UIFoundationWriteLog(uint64_t a1, os_log_type_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_18E7B0204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18E7B0858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18E7B0D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  objc_sync_exit(v13);
+  _Unwind_Resume(a1);
+}
+
+void __UIFoundationWriteLog(uint64_t a1, os_log_type_t a2, const char *a3, ...)
+{
+  va_start(va, a3);
+  v11 = *MEMORY[0x1E69E9840];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = ____UIFoundationWriteLog_block_invoke;
@@ -9155,18 +9184,18 @@ void __UIFoundationWriteLog(uint64_t a1, os_log_type_t a2, uint64_t a3, uint64_t
     dispatch_once(&__UIFoundationWriteLog_onceToken, block);
   }
 
-  v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:a3];
-  v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v11 arguments:&a9];
-  v13 = __UIFoundationWriteLog_uifoundationLog;
+  v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:a3];
+  v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v5 arguments:va];
+  v7 = __UIFoundationWriteLog_uifoundationLog;
   if (os_log_type_enabled(__UIFoundationWriteLog_uifoundationLog, a2))
   {
     *buf = 138543362;
-    v16 = v12;
-    _os_log_impl(&dword_18E741000, v13, a2, "%{public}@", buf, 0xCu);
+    v10 = v6;
+    _os_log_impl(&dword_18E741000, v7, a2, "%{public}@", buf, 0xCu);
   }
 }
 
-double __NSTruncationTokenAttachmentGetWidth(void *a1)
+CGFloat __NSTruncationTokenAttachmentGetWidth(void *a1)
 {
   [a1 bounds];
 
@@ -9295,7 +9324,7 @@ unint64_t _NSXMLEncoding(const UInt8 *a1, unint64_t a2)
   }
 
   v8 = 0;
-  v9 = (a1 + 9);
+  v9 = a1 + 9;
   v10 = -1;
   do
   {
@@ -9369,7 +9398,7 @@ unint64_t _NSHTMLEncoding(const UInt8 *a1, unint64_t a2)
   }
 
   v8 = 0;
-  v9 = (a1 + 7);
+  v9 = a1 + 7;
   v10 = -1;
   do
   {
@@ -9411,14 +9440,14 @@ unint64_t _NSHTMLEncoding(const UInt8 *a1, unint64_t a2)
   return CFStringConvertEncodingToNSStringEncoding(v15);
 }
 
-void sub_18E7B6CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E7B6CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-_NSAttributedStringAsyncReadReply *_NSReadAttributedStringFromURLOrDataAsync(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+_NSAttributedStringAsyncReadReply *_NSReadAttributedStringFromURLOrDataAsync(unint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
   if (!(a1 | a2))
   {

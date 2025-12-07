@@ -2,7 +2,9 @@
 + (void)initialize;
 - (DTTapMessage)init;
 - (DTTapMessage)initWithCoder:(id)coder;
+- (id)initAsKind:(int)kind;
 - (int)kind;
+- (void)setKind:(int)kind;
 @end
 
 @implementation DTTapMessage
@@ -39,6 +41,24 @@
   return v2;
 }
 
+- (id)initAsKind:(int)kind
+{
+  v3 = *&kind;
+  v8.receiver = self;
+  v8.super_class = DTTapMessage;
+  v4 = [(DTTapMessage *)&v8 init];
+  if (v4)
+  {
+    v5 = objc_opt_new();
+    plist = v4->_plist;
+    v4->_plist = v5;
+
+    [(DTTapMessage *)v4 setKind:v3];
+  }
+
+  return v4;
+}
+
 - (DTTapMessage)initWithCoder:(id)coder
 {
   coderCopy = coder;
@@ -68,6 +88,14 @@
   intValue = [v3 intValue];
 
   return intValue;
+}
+
+- (void)setKind:(int)kind
+{
+  v3 = *&kind;
+  plist = [(DTTapMessage *)self plist];
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  [plist setObject:v4 forKey:@"k"];
 }
 
 @end

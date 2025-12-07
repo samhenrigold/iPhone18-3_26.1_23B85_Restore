@@ -359,31 +359,31 @@ LABEL_32:
 
 - (UNNotificationCategory)initWithCoder:(id)coder
 {
-  v44[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v44[0] = objc_opt_class();
-  v44[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
-  v6 = [v3 setWithArray:v5];
-  v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"actions"];
-  v40 = [v7 copy];
-
-  v8 = MEMORY[0x1E695DFD8];
   v43[0] = objc_opt_class();
   v43[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
-  v10 = [v8 setWithArray:v9];
-  v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"minimalActions"];
-  v39 = [v11 copy];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+  v6 = [v3 setWithArray:v5];
+  v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"actions"];
+  v39 = [v7 copy];
 
-  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"alternateAction"];
-  v38 = [v12 copy];
-
-  v13 = MEMORY[0x1E695DFD8];
+  v8 = MEMORY[0x1E695DFD8];
   v42[0] = objc_opt_class();
   v42[1] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
+  v10 = [v8 setWithArray:v9];
+  v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"minimalActions"];
+  v38 = [v11 copy];
+
+  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"alternateAction"];
+  v37 = [v12 copy];
+
+  v13 = MEMORY[0x1E695DFD8];
+  v41[0] = objc_opt_class();
+  v41[1] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
   v15 = [v13 setWithArray:v14];
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"intentIdentifiers"];
   v17 = [v16 copy];
@@ -410,8 +410,7 @@ LABEL_32:
   v33 = [coderCopy decodeIntegerForKey:@"backgroundStyle"];
   v34 = [coderCopy decodeIntegerForKey:@"listPriority"];
 
-  v35 = [(UNNotificationCategory *)self _initWithIdentifier:v19 actions:v40 minimalActions:v39 alternateAction:v38 intentIdentifiers:v17 hiddenPreviewsBodyPlaceholder:v24 categorySummaryFormat:v28 actionsMenuTitle:v32 options:v20 backgroundStyle:v33 listPriority:v34];
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = [(UNNotificationCategory *)self _initWithIdentifier:v19 actions:v39 minimalActions:v38 alternateAction:v37 intentIdentifiers:v17 hiddenPreviewsBodyPlaceholder:v24 categorySummaryFormat:v28 actionsMenuTitle:v32 options:v20 backgroundStyle:v33 listPriority:v34];
   return v35;
 }
 

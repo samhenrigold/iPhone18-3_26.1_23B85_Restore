@@ -38,8 +38,8 @@
 
 - (MPSNNPermuteGradient)initWithCoder:(id)coder device:(id)device
 {
-  v16.receiver = self;
-  v16.super_class = MPSNNPermuteGradient;
+  v20.receiver = self;
+  v20.super_class = MPSNNPermuteGradient;
   v6 = [MPSCNNGradientKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v7 = v6;
   if (!v6)
@@ -59,7 +59,7 @@
   {
     v15 = objc_opt_class();
     NSStringFromClass(v15);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNPermute.mm", 0x41B, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v16, v17, v18, v19);
   }
 
   return 0;

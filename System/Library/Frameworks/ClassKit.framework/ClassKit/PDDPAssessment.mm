@@ -1,5 +1,6 @@
 @interface PDDPAssessment
 - (BOOL)isEqual:(id)equal;
+- (id)assessmentModeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -57,6 +58,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)assessmentModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100205700[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAssessmentMode:(id)mode
@@ -317,7 +333,6 @@ LABEL_23:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    allowLateSubmissions = self->_allowLateSubmissions;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -337,12 +352,10 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  takerTimeLimitInSeconds = self->_takerTimeLimitInSeconds;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_16:
-    assessmentMode = self->_assessmentMode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -377,33 +390,32 @@ LABEL_17:
     PBDataWriterWriteSubmessage();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v7 = self->_instructionAssets;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_instructionAssets;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 }
 
@@ -704,7 +716,6 @@ LABEL_5:
     }
   }
 
-  v11 = *(equalCopy + 132);
   if ((*&self->_has & 4) == 0)
   {
     if ((*(equalCopy + 132) & 4) == 0)
@@ -713,7 +724,7 @@ LABEL_5:
     }
 
 LABEL_46:
-    v20 = 0;
+    v18 = 0;
     goto LABEL_47;
   }
 
@@ -722,7 +733,6 @@ LABEL_46:
     goto LABEL_46;
   }
 
-  v12 = *(equalCopy + 128);
   if (self->_allowLateSubmissions)
   {
     if ((*(equalCopy + 128) & 1) == 0)
@@ -817,17 +827,17 @@ LABEL_16:
   instructionAssets = self->_instructionAssets;
   if (instructionAssets | *(equalCopy + 11))
   {
-    v20 = [(NSMutableArray *)instructionAssets isEqual:?];
+    v18 = [(NSMutableArray *)instructionAssets isEqual:?];
   }
 
   else
   {
-    v20 = 1;
+    v18 = 1;
   }
 
 LABEL_47:
 
-  return v20;
+  return v18;
 }
 
 - (unint64_t)hash

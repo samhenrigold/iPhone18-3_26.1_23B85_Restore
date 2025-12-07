@@ -2,7 +2,7 @@
 + (id)bimiInfoForHeaders:(id)headers;
 - (BOOL)isEqual:(id)equal;
 - (ECBIMIInfo)initWithIndicator:(id)indicator location:(id)location evidenceLocation:(id)evidenceLocation indicatorHash:(id)hash hashAlgorithm:(id)algorithm;
-- (uint64_t)_calculateHash;
+- (id)_calculateHash;
 @end
 
 @implementation ECBIMIInfo
@@ -32,7 +32,7 @@
     objc_storeStrong(&v17->_evidenceLocation, evidenceLocation);
     objc_storeStrong(&v17->_indicatorHash, hash);
     objc_storeStrong(&v17->_hashAlgorithm, algorithm);
-    [(ECBIMIInfo *)v17 _calculateHash];
+    [(ECBIMIInfo *)&v17->super.isa _calculateHash];
   }
 
   return v17;
@@ -102,17 +102,17 @@
   return v12;
 }
 
-- (uint64_t)_calculateHash
+- (id)_calculateHash
 {
   if (result)
   {
     v1 = result;
-    v2 = [*(result + 16) hash];
-    v3 = [*(v1 + 24) hash];
-    v4 = [*(v1 + 32) hash];
-    v5 = [*(v1 + 40) hash];
-    result = [*(v1 + 48) hash];
-    *(v1 + 8) = 33 * (33 * (33 * (33 * v2 + v3) + v4) + v5) + result + 0x3107FF0025;
+    v2 = [result[2] hash];
+    v3 = [v1[3] hash];
+    v4 = [v1[4] hash];
+    v5 = [v1[5] hash];
+    result = [v1[6] hash];
+    v1[1] = result + 1185921 * v2 + 35937 * v3 + 1089 * v4 + 33 * v5 + 0x3107FF0025;
   }
 
   return result;

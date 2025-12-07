@@ -14,7 +14,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
-  v9 = sub_10002849C(&qword_100975330);
+  v9 = sub_10002849C(&qword_100975330, &unk_1007B7440);
   __chkstk_darwin(v9);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore24MultiAppFallbackIconView_iconViews) = _swiftEmptyArrayStorage;
   type metadata accessor for ArtworkView();
@@ -32,7 +32,7 @@
 
 - (_TtC8AppStore24MultiAppFallbackIconView)initWithCoder:(id)coder
 {
-  v4 = sub_10002849C(&qword_100975330);
+  v4 = sub_10002849C(&qword_100975330, &unk_1007B7440);
   __chkstk_darwin(v4);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore24MultiAppFallbackIconView_iconViews) = _swiftEmptyArrayStorage;
   type metadata accessor for ArtworkView();

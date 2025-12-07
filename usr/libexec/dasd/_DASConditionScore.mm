@@ -79,8 +79,8 @@
   [policyResponseMetadata2 removeAllObjects];
 
   objc_sync_exit(obj);
-  v74 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v7 count]);
-  v79 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v7 count]);
+  v74 = [NSMutableArray arrayWithCapacity:objc_msgSend_count(v7)];
+  v79 = [NSMutableArray arrayWithCapacity:objc_msgSend_count(v7)];
   v87 = 0u;
   v88 = 0u;
   v85 = 0u;
@@ -436,7 +436,7 @@ LABEL_58:
   v60 = v5;
   v13 = +[_DASPolicyManager allPoliciesForPlatform];
   v14 = +[_DASPolicyManager allPoliciesForPlatform];
-  v15 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v14 count]);
+  v15 = [NSMutableArray arrayWithCapacity:objc_msgSend_count(v14)];
 
   v72 = 0u;
   v73 = 0u;
@@ -513,7 +513,7 @@ LABEL_58:
 
   startAfter2 = v27;
 
-  if (![v15 count])
+  if (!objc_msgSend_count(v15))
   {
     [activityCopy setPredictedOptimalStartDate:startAfter2];
     v33 = v20 / v19;

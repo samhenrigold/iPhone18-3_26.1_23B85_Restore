@@ -52,14 +52,14 @@
 
 - (void)noteItemProcessed:(id)processed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   processedCopy = processed;
   if (processedCopy)
   {
     messageTracker = [(IMBatchMessageTrackingContext *)self messageTracker];
-    v10 = 0;
-    [messageTracker trackPacket:objc_msgSend(processedCopy packetsExpected:"longLongValue") error:{-[IMBatchMessageTrackingContext totalMessagesExpected](self, "totalMessagesExpected"), &v10}];
-    v6 = v10;
+    v9 = 0;
+    [messageTracker trackPacket:objc_msgSend(processedCopy packetsExpected:"longLongValue") error:{-[IMBatchMessageTrackingContext totalMessagesExpected](self, "totalMessagesExpected"), &v9}];
+    v6 = v9;
 
     if (v6 && IMOSLoggingEnabled())
     {
@@ -68,17 +68,15 @@
       {
         totalMessagesExpected = [(IMBatchMessageTrackingContext *)self totalMessagesExpected];
         *buf = 138412802;
-        v12 = processedCopy;
-        v13 = 2048;
-        v14 = totalMessagesExpected;
-        v15 = 2112;
-        v16 = v6;
+        v11 = processedCopy;
+        v12 = 2048;
+        v13 = totalMessagesExpected;
+        v14 = 2112;
+        v15 = v6;
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Error tracking message index %@ in batch (size %ld): error %@", buf, 0x20u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isComplete

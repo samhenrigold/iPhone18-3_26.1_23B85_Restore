@@ -26,20 +26,19 @@
   v3 = MEMORY[0x277CCACA8];
   _typeDescription = [(TVPMediaItemRollInfo *)self _typeDescription];
   v5 = _typeDescription;
-  adamID = self->_adamID;
   if (self->_skippable)
   {
-    v7 = @"YES";
+    v6 = @"YES";
   }
 
   else
   {
-    v7 = @"NO";
+    v6 = @"NO";
   }
 
-  v8 = [v3 stringWithFormat:@"type - %@, start - %f, duration - %f, adamID - %@, skippable - %@", _typeDescription, *&self->_start, *&self->_duration, self->_adamID, v7];
+  v7 = [v3 stringWithFormat:@"type - %@, start - %f, duration - %f, adamID - %@, skippable - %@", _typeDescription, *&self->_start, *&self->_duration, self->_adamID, v6];
 
-  return v8;
+  return v7;
 }
 
 - (id)_typeDescription

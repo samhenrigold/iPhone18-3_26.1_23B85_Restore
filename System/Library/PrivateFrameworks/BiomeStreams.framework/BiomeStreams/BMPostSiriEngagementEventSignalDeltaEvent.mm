@@ -210,26 +210,23 @@ LABEL_42:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v5 = toCopy;
   if (self->_hasDuration)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_hasSinceUIEnd)
   {
-    sinceUIEnd = self->_sinceUIEnd;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_hasSinceUIStart)
   {
-    sinceUIStart = self->_sinceUIStart;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v5;
   }
 }
 

@@ -90,7 +90,7 @@ LABEL_9:
   v15 = dataSource2;
   if (dataSource2)
   {
-    [dataSource2 indexPathForAssetReference:v12];
+    objc_msgSend_indexPathForAssetReference_(dataSource2);
   }
 
   else

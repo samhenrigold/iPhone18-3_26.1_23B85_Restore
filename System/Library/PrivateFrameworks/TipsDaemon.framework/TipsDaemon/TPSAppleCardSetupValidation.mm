@@ -43,27 +43,27 @@
 
 void __54__TPSAppleCardSetupValidation_validateWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         if ([v8 type] == 1 && objc_msgSend(v8, "feature") == 2)
         {
           *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -71,7 +71,7 @@ void __54__TPSAppleCardSetupValidation_validateWithCompletion___block_invoke(uin
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -95,8 +95,6 @@ LABEL_12:
   v12 = *(*(a1 + 56) + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -364,7 +364,7 @@ uint64_t __80__ImageReg_asyncRansacFromMatchedPair_matchCount_homography_index_h
       [(SIFTFeatureExtraction *)self->_featureExtractor setRefreshCalculation:1];
     }
 
-    v11 = [(ImageReg *)self extractHomographyFromPrev:self->_grayBuf0Texture ToCurr:self->_grayBuf1Texture calculateIndex:LODWORD(self->_processedFrameNum)];
+    HomographyFromPrev_ToCurr_calculateIndex = objc_msgSend_extractHomographyFromPrev_ToCurr_calculateIndex_(self);
     v13 = *buf;
     v14 = v28;
     v15 = v29;
@@ -380,7 +380,7 @@ uint64_t __80__ImageReg_asyncRansacFromMatchedPair_matchCount_homography_index_h
     goto LABEL_12;
   }
 
-  v11 = [(ImageReg *)self extractHomographyFromPrev:self->_grayBuf0Texture ToCurr:self->_grayBuf1Texture];
+  HomographyFromPrev_ToCurr_calculateIndex = objc_msgSend_extractHomographyFromPrev_ToCurr_(self);
   v13 = *buf;
   v14 = v28;
   v15 = v29;
@@ -394,15 +394,15 @@ LABEL_12:
     v25 = *&v13;
     v21 = *&v15;
     Width = CVPixelBufferGetWidth(image0);
-    v11 = [(ImageReg *)self normalizeHomography:Width width:CVPixelBufferGetHeight(image0) height:v25, v23, v21];
+    HomographyFromPrev_ToCurr_calculateIndex = [(ImageReg *)self normalizeHomography:Width width:CVPixelBufferGetHeight(image0) height:v25, v23, v21];
     if ((global_logLevel & 4) != 0)
     {
       v22 = v15;
       v24 = v14;
       v26 = v13;
       v20 = global_logger;
-      v11 = os_log_type_enabled(global_logger, OS_LOG_TYPE_INFO);
-      if (v11)
+      HomographyFromPrev_ToCurr_calculateIndex = os_log_type_enabled(global_logger, OS_LOG_TYPE_INFO);
+      if (HomographyFromPrev_ToCurr_calculateIndex)
       {
         *buf = 0;
         _os_log_impl(&dword_24874B000, v20, OS_LOG_TYPE_INFO, "Normalize homography matrix .\n", buf, 2u);
@@ -424,8 +424,8 @@ LABEL_16:
 LABEL_18:
   result.width = v12;
   result.height = HIDWORD(v12);
-  result.confidence = *&v11;
-  result.inlierCnt = HIDWORD(v11);
+  result.confidence = *&HomographyFromPrev_ToCurr_calculateIndex;
+  result.inlierCnt = HIDWORD(HomographyFromPrev_ToCurr_calculateIndex);
   return result;
 }
 
@@ -436,9 +436,9 @@ LABEL_18:
   currCopy = curr;
   v10 = currCopy;
   v11 = 0;
-  v26 = *MEMORY[0x277D860B0];
-  v27 = *(MEMORY[0x277D860B0] + 16);
-  v28 = *(MEMORY[0x277D860B0] + 32);
+  v25 = *MEMORY[0x277D860B0];
+  v26 = *(MEMORY[0x277D860B0] + 16);
+  v27 = *(MEMORY[0x277D860B0] + 32);
   v12 = 0;
   v13 = 0;
   if (prevCopy && currCopy)
@@ -449,7 +449,7 @@ LABEL_18:
       goto LABEL_13;
     }
 
-    v14 = [self->_SIFTMatcher findMatchesBetweenDescriptorEarlyExist:self->_descriptors[0] objectCount:self->count[0] keypt1:self->_keyPoints[0] toTargetDescriptor:self->_descriptors[1] targetCount:self->count[1] keypt2:self->_keyPoints[1] filteredIndex:self->_closeDesIndex matches:self->_matches];
+    [self->_SIFTMatcher findMatchesBetweenDescriptorEarlyExist:self->_descriptors[0] objectCount:self->count[0] keypt1:self->_keyPoints[0] toTargetDescriptor:self->_descriptors[1] targetCount:self->count[1] keypt2:self->_keyPoints[1] filteredIndex:self->_closeDesIndex matches:self->_matches];
     contents = [(MTLBuffer *)self->_keyPoints[0] contents];
     contents2 = [(MTLBuffer *)self->_keyPoints[1] contents];
     contents3 = [(MTLBuffer *)self->_matches contents];
@@ -457,28 +457,30 @@ LABEL_18:
     v12 = 0;
     if (contents && contents2 && contents3)
     {
-      -[ImageReg getHomographyWithMatches:matchCount:keypoints1:Keypoints2:imageDim:imageDim:](self, "getHomographyWithMatches:matchCount:keypoints1:Keypoints2:imageDim:imageDim:", contents3, v14, contents, contents2, [prevCopy width], objc_msgSend(prevCopy, "height"));
+      [prevCopy width];
+      [prevCopy height];
+      objc_msgSend_getHomographyWithMatches_matchCount_keypoints1_Keypoints2_imageDim_imageDim_(self);
+      v25 = v19;
       v26 = v20;
       v27 = v21;
-      v28 = v22;
-      v13 = v23;
-      v12 = v24;
-      v11 = v25;
+      v13 = v22;
+      v12 = v23;
+      v11 = v24;
     }
   }
 
-  *v7 = v26;
-  *(v7 + 16) = v27;
-  *(v7 + 32) = v28;
+  *v7 = v25;
+  *(v7 + 16) = v26;
+  *(v7 + 32) = v27;
   *(v7 + 48) = v13;
   *(v7 + 52) = v12;
   *(v7 + 60) = v11;
 LABEL_13:
 
-  result.width = v19;
-  result.height = HIDWORD(v19);
-  result.confidence = *&v18;
-  result.inlierCnt = HIDWORD(v18);
+  result.width = v18;
+  result.height = HIDWORD(v18);
+  result.confidence = *&v17;
+  result.inlierCnt = HIDWORD(v17);
   return result;
 }
 
@@ -780,7 +782,13 @@ LABEL_43:
       goto LABEL_14;
     }
 
-    -[ImageReg getHomographyWithMatches:matchCount:keypoints1:Keypoints2:imageDim:imageDim:](self, "getHomographyWithMatches:matchCount:keypoints1:Keypoints2:imageDim:imageDim:", -[MTLBuffer contents](self->_matches, "contents"), -[SIFTMatcher findMatchesBetweenDescriptorEarlyExist:objectCount:keypt1:toTargetDescriptor:targetCount:keypt2:filteredIndex:matches:](self->_SIFTMatcher, "findMatchesBetweenDescriptorEarlyExist:objectCount:keypt1:toTargetDescriptor:targetCount:keypt2:filteredIndex:matches:", self->_descriptors[v15], *v19, keyPoints[v15], self->_descriptors[indexCopy], *v20, keyPoints[indexCopy], self->_closeDesIndex, self->_matches), -[MTLBuffer contents](keyPoints[v15], "contents"), -[MTLBuffer contents](keyPoints[indexCopy], "contents"), [prevCopy width], objc_msgSend(prevCopy, "height"));
+    [self->_SIFTMatcher findMatchesBetweenDescriptorEarlyExist:self->_descriptors[v15] objectCount:*v19 keypt1:keyPoints[v15] toTargetDescriptor:self->_descriptors[indexCopy] targetCount:*v20 keypt2:keyPoints[indexCopy] filteredIndex:self->_closeDesIndex matches:self->_matches];
+    [(MTLBuffer *)self->_matches contents];
+    [(MTLBuffer *)keyPoints[v15] contents];
+    [(MTLBuffer *)keyPoints[indexCopy] contents];
+    [prevCopy width];
+    [prevCopy height];
+    objc_msgSend_getHomographyWithMatches_matchCount_keypoints1_Keypoints2_imageDim_imageDim_(self);
     v29 = v23;
     v30 = v24;
     v31 = v25;

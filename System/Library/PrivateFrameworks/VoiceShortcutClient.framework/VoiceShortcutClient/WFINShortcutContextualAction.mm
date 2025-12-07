@@ -115,11 +115,11 @@
 
 - (id)uniqueIdentifier
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695DF70]);
   identifier = [(WFContextualAction *)self identifier];
-  v14[0] = identifier;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = identifier;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v6 = [v3 initWithArray:v5];
 
   intent = [(INShortcut *)self->_shortcut intent];
@@ -133,8 +133,6 @@
   }
 
   v11 = [v6 componentsJoinedByString:@"."];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -161,11 +159,11 @@
 
 - (WFINShortcutContextualAction)initWithINShortcut:(id)shortcut
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   shortcutCopy = shortcut;
   v6 = objc_alloc(MEMORY[0x1E695DF70]);
-  v31[0] = @"com.apple.shortcuts.contextual-actions.inshortcut";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+  v30[0] = @"com.apple.shortcuts.contextual-actions.inshortcut";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
   v8 = [v6 initWithArray:v7];
 
   intent = [(INShortcut *)self->_shortcut intent];
@@ -230,7 +228,6 @@
     v28 = v27;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v27;
 }
 

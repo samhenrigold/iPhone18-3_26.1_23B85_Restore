@@ -315,44 +315,4 @@ uint64_t __79__CNLaunchServices_openSensitiveURLInBackground_withOptions_complet
   return result;
 }
 
-void __62__CNLaunchServices_applicationsAvailableForHandlingURLScheme___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, v0, v1, "Error fetching applicationsAvailableForHandlingURLScheme, %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __52__CNLaunchServices_applicationsForUserActivityType___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, v0, v1, "Error fetching applicationsForUserActivityType, %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __63__CNLaunchServices_applicationsAvailableForDefaultAppCategory___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, v0, v1, "Error fetching applicationsAvailableForDefaultAppCategory, %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __60__CNLaunchServices_defaultApplicationForDefaultAppCategory___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, v0, v1, "Error fetching defaultApplicationForDefaultAppCategory, %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __51__CNLaunchServices_applicationForBundleIdentifier___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, v0, v1, "Error fetching applicationForBundleIdentifier, %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 @end

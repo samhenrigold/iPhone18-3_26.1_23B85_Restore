@@ -33,6 +33,7 @@
 - (id)advertisementCountsByTemporaryKeyDatasWithError:(id *)error;
 - (int64_t)_updateExistingPersistentKeyIfNecessary:(id)necessary replacementKey:(id)key existingKeyID:(int64_t)d connection:(id)connection error:(id *)error;
 - (int64_t)insertMatchedAdvertisements:(id)advertisements forKey:(id)key error:(id *)error;
+- (void)_reportErrorMetric:(unsigned int)metric;
 - (void)_reportSQLiteResult:(int)result;
 - (void)close;
 - (void)purgeAllAndCloseWithReason:(id)reason;
@@ -75,6 +76,15 @@
   }
 
   return v5;
+}
+
+- (void)_reportErrorMetric:(unsigned int)metric
+{
+  errorMetricReporter = self->_errorMetricReporter;
+  if (errorMetricReporter)
+  {
+    errorMetricReporter[2](errorMetricReporter, *&metric);
+  }
 }
 
 - (void)_reportSQLiteResult:(int)result
@@ -123,8 +133,8 @@ LABEL_7:
         return v5;
       }
 
-      v14 = 0;
-      if ([(ENSQLiteConnection *)self->_connection getUserVersion:&v14 error:error]&& [(ENExposureDatabase *)self _createOrMigrateSchemaFromVersion:v14 error:error])
+      v12 = 0;
+      if ([(ENSQLiteConnection *)self->_connection getUserVersion:&v12 error:error]&& [(ENExposureDatabase *)self _createOrMigrateSchemaFromVersion:v12 error:error])
       {
         if (gLogCategory_ENExposureDatabase <= 30 && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
         {
@@ -157,8 +167,7 @@ LABEL_27:
       }
 
       path = [uRLByDeletingLastPathComponent path];
-      v12 = path;
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENExposureDatabase, "[ENExposureDatabase openWithError:]", 90, "Failed to exclude %@ from backup", path);
       v10 = 4005;
     }
 
@@ -172,14 +181,12 @@ LABEL_27:
 
       v8 = objc_opt_class();
       path = [uRLByDeletingLastPathComponent absoluteString];
-      v12 = v8;
-      v13 = path;
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENExposureDatabase, "[ENExposureDatabase openWithError:]", 90, "%@: Failed to create directory '%@'", v8, path);
       v10 = 4004;
     }
 
 LABEL_26:
-    [(ENExposureDatabase *)self _reportErrorMetric:v10, v12, v13];
+    [(ENExposureDatabase *)self _reportErrorMetric:v10];
 
     goto LABEL_27;
   }
@@ -243,7 +250,7 @@ LABEL_2:
     {
       if (gLogCategory_ENExposureDatabase <= 115 && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
       {
-        [ENExposureDatabase _reallyOpenDatabaseWithError:?];
+        [(ENExposureDatabase *)&self->_databaseURL _reallyOpenDatabaseWithError:v9];
       }
 
       [(ENExposureDatabase *)self _reportSQLiteResult:v9];
@@ -259,7 +266,7 @@ LABEL_2:
   v5 = isOpen;
   if (error && !isOpen)
   {
-    *error = ENErrorF();
+    *error = ENErrorF(16, "Exposure database closed");
   }
 
   return v5;
@@ -273,26 +280,27 @@ LABEL_2:
     return v8;
   }
 
-  v26[5] = v7;
-  v26[6] = v6;
-  v26[17] = v4;
-  v26[18] = v5;
+  v28[5] = v7;
+  v28[6] = v6;
+  v28[17] = v4;
+  v28[18] = v5;
   if ((version - 9) < 0xFFFFFFFFFFFFFFF9)
   {
     if (gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
     {
-      [ENExposureDatabase _createOrMigrateSchemaFromVersion:error:];
+      [ENExposureDatabase _createOrMigrateSchemaFromVersion:version error:?];
     }
 
-    if ([(ENSQLiteConnection *)self->_connection truncateWithError:error])
+    v8 = [(ENSQLiteConnection *)self->_connection truncateWithError:error];
+    if (v8)
     {
       connection = self->_connection;
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __62__ENExposureDatabase__createOrMigrateSchemaFromVersion_error___block_invoke;
-      v26[3] = &unk_278FD2BD8;
-      v26[4] = self;
-      LOBYTE(v8) = [(ENSQLiteConnection *)connection performTransactionWithType:1 error:error usingBlock:v26];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __62__ENExposureDatabase__createOrMigrateSchemaFromVersion_error___block_invoke;
+      v28[3] = &unk_278FD2BD8;
+      v28[4] = self;
+      LOBYTE(v8) = [(ENSQLiteConnection *)connection performTransactionWithType:1 error:error usingBlock:v28];
     }
 
     else
@@ -302,9 +310,9 @@ LABEL_2:
         goto LABEL_29;
       }
 
-      if (gLogCategory__ENExposureDatabase != -1 || (v8 = _LogCategory_Initialize()) != 0)
+      if (gLogCategory__ENExposureDatabase != -1 || (v8 = _LogCategory_Initialize(), v8))
       {
-        [ENExposureDatabase _createOrMigrateSchemaFromVersion:error:];
+        [(ENExposureDatabase *)v8 _createOrMigrateSchemaFromVersion:v12 error:v13];
         goto LABEL_29;
       }
     }
@@ -312,43 +320,43 @@ LABEL_2:
     return v8;
   }
 
-  v13 = &off_285D61698;
-  v14 = 6;
+  v15 = &off_285D61698;
+  v16 = 6;
   while (1)
   {
-    v15 = *(v13 - 1);
-    if (v15 > version)
+    v17 = *(v15 - 1);
+    if (v17 > version)
     {
       break;
     }
 
 LABEL_16:
-    v13 += 2;
-    if (!--v14)
+    v15 += 2;
+    if (!--v16)
     {
       LOBYTE(v8) = 1;
       return v8;
     }
   }
 
-  v16 = *v13;
+  v18 = *v15;
   if (gLogCategory_ENExposureDatabase <= 50 && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
   {
-    [ENExposureDatabase _createOrMigrateSchemaFromVersion:error:];
+    [ENExposureDatabase _createOrMigrateSchemaFromVersion:v17 error:?];
   }
 
-  v17 = self->_connection;
-  v24[5] = v16;
-  v25 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __62__ENExposureDatabase__createOrMigrateSchemaFromVersion_error___block_invoke_2;
-  v24[3] = &__block_descriptor_48_e32_B24__0__ENSQLiteConnection_8__16l;
-  v24[4] = v15;
-  v18 = [(ENSQLiteConnection *)v17 performTransactionWithType:1 error:&v25 usingBlock:v24];
-  v19 = v25;
-  v20 = v19;
-  if (v18)
+  v19 = self->_connection;
+  v26[5] = v18;
+  v27 = 0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __62__ENExposureDatabase__createOrMigrateSchemaFromVersion_error___block_invoke_2;
+  v26[3] = &__block_descriptor_48_e32_B24__0__ENSQLiteConnection_8__16l;
+  v26[4] = v17;
+  v20 = [(ENSQLiteConnection *)v19 performTransactionWithType:1 error:&v27 usingBlock:v26];
+  v21 = v27;
+  v22 = v21;
+  if (v20)
   {
 
     goto LABEL_16;
@@ -356,14 +364,14 @@ LABEL_16:
 
   if (gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
   {
-    [ENExposureDatabase _createOrMigrateSchemaFromVersion:error:];
+    [ENExposureDatabase _createOrMigrateSchemaFromVersion:v22 error:v17];
   }
 
   [(ENExposureDatabase *)self _reportErrorMetric:4003];
   if (error)
   {
-    v21 = v20;
-    *error = v20;
+    v23 = v22;
+    *error = v22;
   }
 
 LABEL_29:
@@ -393,7 +401,7 @@ uint64_t __62__ENExposureDatabase__createOrMigrateSchemaFromVersion_error___bloc
   if (![connectionCopy executeUncachedSQLStatements:&unk_285D6E138 error:error])
   {
 LABEL_7:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_8;
   }
 
@@ -401,16 +409,16 @@ LABEL_7:
   {
     if (gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
     {
-      [ENExposureDatabase _createSchemaWithConnection:error:];
+      [ENExposureDatabase _createSchemaWithConnection:? error:?];
     }
 
     goto LABEL_7;
   }
 
-  v6 = 1;
+  v7 = 1;
 LABEL_8:
 
-  return v6;
+  return v7;
 }
 
 - (int64_t)insertMatchedAdvertisements:(id)advertisements forKey:(id)key error:(id *)error
@@ -455,15 +463,15 @@ LABEL_8:
 
 uint64_t __63__ENExposureDatabase_insertMatchedAdvertisements_forKey_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v24 = 0;
-  v25 = -1;
+  v23 = 0;
+  v24 = -1;
   v6 = *(a1 + 32);
   v7 = [*(a1 + 40) key];
   v8 = [v7 keyData];
-  v9 = [v6 _getExistingPersistentTemporaryExposureKey:&v24 rowID:&v25 keyData:v8 connection:v5 error:a3];
-  v10 = v24;
+  v9 = [v6 _getExistingPersistentTemporaryExposureKey:&v23 rowID:&v24 keyData:v8 connection:v5 error:a3];
+  v10 = v23;
 
   if ((v9 & 1) == 0)
   {
@@ -487,7 +495,7 @@ uint64_t __63__ENExposureDatabase_insertMatchedAdvertisements_forKey_error___blo
 
     if ([*(a1 + 32) _insertPersistentTemporaryExposureKey:*(a1 + 40) connection:v5 error:a3])
     {
-      v25 = [v5 lastInsertedRowID];
+      v24 = [v5 lastInsertedRowID];
       goto LABEL_13;
     }
 
@@ -501,7 +509,7 @@ LABEL_9:
     goto LABEL_24;
   }
 
-  *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) _updateExistingPersistentKeyIfNecessary:v10 replacementKey:*(a1 + 40) existingKeyID:v25 connection:v5 error:a3];
+  *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) _updateExistingPersistentKeyIfNecessary:v10 replacementKey:*(a1 + 40) existingKeyID:v24 connection:v5 error:a3];
   if (!*(*(*(a1 + 56) + 8) + 24))
   {
     goto LABEL_9;
@@ -515,33 +523,33 @@ LABEL_9:
   }
 
 LABEL_13:
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v13 = *v11;
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        if (![*(a1 + 32) _insertAdvertisement:*(*(&v20 + 1) + 8 * i) keyRowID:v25 connection:v5 error:{a3, v20}])
+        if (![*(a1 + 32) _insertAdvertisement:*(*(&v19 + 1) + 8 * i) keyRowID:v24 connection:v5 error:{a3, v19}])
         {
           v12 = 0;
           goto LABEL_23;
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v15)
       {
         continue;
@@ -555,7 +563,6 @@ LABEL_13:
 LABEL_23:
 
 LABEL_24:
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -696,9 +703,15 @@ uint64_t __108__ENExposureDatabase__updateExistingPersistentKeyIfNecessary_repla
     v23 = +[ENLoggingPrefs sharedENLoggingPrefs];
     isSensitiveLoggingAllowed = [v23 isSensitiveLoggingAllowed];
 
-    if (isSensitiveLoggingAllowed && gLogCategory_ENExposureDatabase <= 90 && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
+    if (isSensitiveLoggingAllowed)
     {
-      [ENExposureDatabase _persistentTemporaryExposureKeyWithKeyData:appBundleIdentifier:regionCountryCode:rollingStartNumber:rollingPeriod:daysSinceOnsetOfSymptoms:diagnosisReportType:originalReportType:transmissionRiskLevel:variantOfConcernType:originalVariantOfConcernType:];
+      if (gLogCategory_ENExposureDatabase <= 90)
+      {
+        if (gLogCategory_ENExposureDatabase != -1 || (v25 = _LogCategory_Initialize(), v25))
+        {
+          [ENExposureDatabase _persistentTemporaryExposureKeyWithKeyData:v25 appBundleIdentifier:v26 regionCountryCode:v27 rollingStartNumber:? rollingPeriod:? daysSinceOnsetOfSymptoms:? diagnosisReportType:? originalReportType:? transmissionRiskLevel:? variantOfConcernType:? originalVariantOfConcernType:?];
+        }
+      }
     }
 
     v22 = 0;
@@ -797,7 +810,7 @@ uint64_t __70__ENExposureDatabase_enumerateMatchedAdvertisementsWithError_handle
 
         if (v22 && gLogCategory_ENExposureDatabase <= 90 && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
         {
-          __70__ENExposureDatabase_enumerateMatchedAdvertisementsWithError_handler___block_invoke_2_cold_1();
+          __70__ENExposureDatabase_enumerateMatchedAdvertisementsWithError_handler___block_invoke_2_cold_1(v29);
         }
       }
     }
@@ -809,7 +822,7 @@ uint64_t __70__ENExposureDatabase_enumerateMatchedAdvertisementsWithError_handle
 
       if (v20 && gLogCategory_ENExposureDatabase <= 90 && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
       {
-        __70__ENExposureDatabase_enumerateMatchedAdvertisementsWithError_handler___block_invoke_2_cold_2();
+        __70__ENExposureDatabase_enumerateMatchedAdvertisementsWithError_handler___block_invoke_2_cold_2(v29);
       }
     }
   }
@@ -821,7 +834,7 @@ uint64_t __70__ENExposureDatabase_enumerateMatchedAdvertisementsWithError_handle
 
     if (v18 && gLogCategory_ENExposureDatabase <= 90 && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
     {
-      __70__ENExposureDatabase_enumerateMatchedAdvertisementsWithError_handler___block_invoke_2_cold_3();
+      __70__ENExposureDatabase_enumerateMatchedAdvertisementsWithError_handler___block_invoke_2_cold_3(v29);
     }
   }
 
@@ -922,7 +935,7 @@ uint64_t __83__ENExposureDatabase__advertisementsForTemporaryExposureKeyRowID_co
 
     if (v14 && gLogCategory_ENExposureDatabase <= 90 && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
     {
-      __83__ENExposureDatabase__advertisementsForTemporaryExposureKeyRowID_connection_error___block_invoke_2_cold_1();
+      __83__ENExposureDatabase__advertisementsForTemporaryExposureKeyRowID_connection_error___block_invoke_2_cold_1(v4);
     }
   }
 
@@ -1075,7 +1088,7 @@ LABEL_6:
 
   if (error)
   {
-    ENErrorF();
+    ENErrorF(11, "Session not found");
     *error = v11 = 0;
   }
 
@@ -1242,73 +1255,72 @@ uint64_t __52__ENExposureDatabase_getValue_forKey_ofClass_error___block_invoke(u
 {
   keyCopy = key;
   connectionCopy = connection;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__9;
-  v41 = __Block_byref_object_dispose__9;
-  v42 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 3;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __63__ENExposureDatabase_getValue_forKey_ofClass_connection_error___block_invoke;
-  v31[3] = &unk_278FD2C70;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__9;
+  v39 = __Block_byref_object_dispose__9;
+  v40 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 3;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __63__ENExposureDatabase_getValue_forKey_ofClass_connection_error___block_invoke;
+  v29[3] = &unk_278FD2C70;
   v13 = keyCopy;
-  v32 = v13;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __63__ENExposureDatabase_getValue_forKey_ofClass_connection_error___block_invoke_2;
-  v30[3] = &unk_278FD2EB8;
-  v30[4] = &v33;
-  v30[5] = &v37;
-  if ([connectionCopy executeSQL:@"SELECT type error:value FROM kvs WHERE key LIKE ?" bindingHandler:error enumerationHandler:{v31, v30}])
+  v30 = v13;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __63__ENExposureDatabase_getValue_forKey_ofClass_connection_error___block_invoke_2;
+  v28[3] = &unk_278FD2EB8;
+  v28[4] = &v31;
+  v28[5] = &v35;
+  if ([connectionCopy executeSQL:@"SELECT type error:value FROM kvs WHERE key LIKE ?" bindingHandler:error enumerationHandler:{v29, v28}])
   {
-    if (v38[5])
+    if (v36[5])
     {
       v14 = objc_autoreleasePoolPush();
-      v15 = v34[3];
+      v15 = v32[3];
       if (v15 == 1)
       {
-        v19 = v38[5];
-        v29 = 0;
-        v20 = [MEMORY[0x277CCAAC0] unarchivedObjectOfClass:class fromData:v19 error:&v29];
-        v21 = v29;
+        v18 = v36[5];
+        v27 = 0;
+        v19 = [MEMORY[0x277CCAAC0] unarchivedObjectOfClass:class fromData:v18 error:&v27];
+        v20 = v27;
       }
 
       else
       {
         if (v15 != 2)
         {
-          if (v15 != 3 || (v16 = v38[5], (objc_opt_isKindOfClass() & 1) != 0))
+          if (v15 != 3 || (objc_opt_isKindOfClass() & 1) != 0)
           {
-            v17 = 0;
-            v18 = 1;
+            v16 = 0;
+            v17 = 1;
             goto LABEL_14;
           }
 
-          v25 = v38[5];
-          v26 = objc_opt_class();
-          v19 = NSStringFromClass(v26);
-          v27 = NSStringFromClass(class);
-          v17 = ENErrorF();
+          v24 = objc_opt_class();
+          v18 = NSStringFromClass(v24);
+          v25 = NSStringFromClass(class);
+          v16 = ENErrorF(15, "Unexpected %@ value (expected %@)", v18, v25);
 
-          v18 = 0;
+          v17 = 0;
 LABEL_13:
 
 LABEL_14:
           objc_autoreleasePoolPop(v14);
-          if (v18)
+          if (v17)
           {
-            v23 = v38[5];
+            v22 = v36[5];
             error = value;
           }
 
           else
           {
-            v23 = v17;
+            v22 = v16;
             if (!error)
             {
 LABEL_18:
@@ -1317,39 +1329,39 @@ LABEL_18:
             }
           }
 
-          *error = v23;
+          *error = v22;
           goto LABEL_18;
         }
 
-        v19 = v38[5];
-        v28 = 0;
-        v20 = [MEMORY[0x277CCAC50] propertyListWithData:v19 options:0 format:0 error:&v28];
-        v21 = v28;
+        v18 = v36[5];
+        v26 = 0;
+        v19 = [MEMORY[0x277CCAC50] propertyListWithData:v18 options:0 format:0 error:&v26];
+        v20 = v26;
       }
 
-      v17 = v21;
-      v22 = v38[5];
-      v38[5] = v20;
+      v16 = v20;
+      v21 = v36[5];
+      v36[5] = v19;
 
-      v18 = v38[5] != 0;
+      v17 = v36[5] != 0;
       goto LABEL_13;
     }
 
     *value = 0;
-    LOBYTE(v18) = 1;
+    LOBYTE(v17) = 1;
   }
 
   else
   {
-    LOBYTE(v18) = 0;
+    LOBYTE(v17) = 0;
   }
 
 LABEL_19:
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v35, 8);
 
-  return v18;
+  return v17;
 }
 
 uint64_t __63__ENExposureDatabase_getValue_forKey_ofClass_connection_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -1546,7 +1558,7 @@ uint64_t __61__ENExposureDatabase_purgeRecordsWithInterval_nowDate_error___block
   reasonCopy = reason;
   if (gLogCategory_ENExposureDatabase <= 50 && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
   {
-    [ENExposureDatabase purgeAllAndCloseWithReason:?];
+    [(ENExposureDatabase *)self purgeAllAndCloseWithReason:reasonCopy];
   }
 
   connection = self->_connection;
@@ -1563,7 +1575,7 @@ uint64_t __61__ENExposureDatabase_purgeRecordsWithInterval_nowDate_error___block
   {
     if (gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
     {
-      [ENExposureDatabase purgeAllAndCloseWithReason:];
+      [ENExposureDatabase purgeAllAndCloseWithReason:v8];
     }
 
 LABEL_11:
@@ -1579,7 +1591,7 @@ LABEL_12:
 + (void)_obliterateDatabaseAtURL:(id)l reason:(id)reason generateStackshot:(BOOL)stackshot
 {
   stackshotCopy = stackshot;
-  v43[3] = *MEMORY[0x277D85DE8];
+  v40[3] = *MEMORY[0x277D85DE8];
   lCopy = l;
   reasonCopy = reason;
   if (!lCopy)
@@ -1599,52 +1611,52 @@ LABEL_12:
 
   if (v11 >= gLogCategory_ENExposureDatabase && (gLogCategory_ENExposureDatabase != -1 || _LogCategory_Initialize()))
   {
-    [ENExposureDatabase _obliterateDatabaseAtURL:lCopy reason:? generateStackshot:?];
+    [ENExposureDatabase _obliterateDatabaseAtURL:lCopy reason:v11 generateStackshot:reasonCopy];
   }
 
-  v35 = reasonCopy;
-  v36 = lCopy;
-  v43[0] = [lCopy path];
-  v12 = [v43[0] stringByAppendingString:@"-wal"];
-  v43[1] = v12;
-  v34 = v43[0];
-  v13 = [v43[0] stringByAppendingString:@"-shm"];
-  v43[2] = v13;
-  v14 = [MEMORY[0x277CBEA68] arrayWithObjects:v43 count:3];
+  v32 = reasonCopy;
+  v33 = lCopy;
+  v40[0] = [lCopy path];
+  v12 = [v40[0] stringByAppendingString:@"-wal"];
+  v40[1] = v12;
+  v31 = v40[0];
+  v13 = [v40[0] stringByAppendingString:@"-shm"];
+  v40[2] = v13;
+  v14 = [MEMORY[0x277CBEA68] arrayWithObjects:v40 count:3];
 
   v15 = objc_alloc_init(MEMORY[0x277CCAA08]);
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   v16 = v14;
-  v17 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
   v18 = &unk_281346000;
   if (v17)
   {
     v19 = v17;
-    v20 = *v39;
+    v20 = *v36;
     v21 = *MEMORY[0x277CCA048];
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v39 != v20)
+        if (*v36 != v20)
         {
           objc_enumerationMutation(v16);
         }
 
-        v23 = *(*(&v38 + 1) + 8 * i);
-        v37 = 0;
-        v24 = [v15 removeItemAtPath:v23 error:{&v37, v32, v33}];
-        v25 = v37;
+        v23 = *(*(&v35 + 1) + 8 * i);
+        v34 = 0;
+        v24 = [v15 removeItemAtPath:v23 error:&v34];
+        v25 = v34;
         v26 = v25;
         if (v24)
         {
           v27 = v18[126];
           if (v27 <= 50 && (v27 != -1 || _LogCategory_Initialize()))
           {
-            +[ENExposureDatabase _obliterateDatabaseAtURL:reason:generateStackshot:];
+            [ENExposureDatabase _obliterateDatabaseAtURL:v23 reason:? generateStackshot:?];
           }
 
           goto LABEL_30;
@@ -1657,9 +1669,7 @@ LABEL_12:
 LABEL_23:
           if (gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
           {
-            v32 = v23;
-            v33 = v26;
-            LogPrintF_safe();
+            LogPrintF_safe(&gLogCategory__ENExposureDatabase, "+[ENExposureDatabase _obliterateDatabaseAtURL:reason:generateStackshot:]", 90, "Failed to delete file at URL %@: %@", v23, v26);
           }
 
           goto LABEL_30;
@@ -1683,13 +1693,11 @@ LABEL_23:
 LABEL_30:
       }
 
-      v19 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v19 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v19);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_updateExistingPersistentKeyIfNecessary:(id)necessary replacementKey:(id)key existingKeyID:(int64_t)d connection:(id)connection error:(id *)error
@@ -1876,41 +1884,39 @@ uint64_t __81__ENExposureDatabase_enumerateExposureDetectionHistorySessionsWithE
   sessionCopy = session;
   if ([(ENExposureDatabase *)self _checkDatabaseOpenWithError:error])
   {
-    connection = self->_connection;
     OUTLINED_FUNCTION_0_9();
-    v13 = sessionCopy;
-    v14 = fileCopy;
-    v11 = OUTLINED_FUNCTION_8_0();
+    v12 = sessionCopy;
+    v13 = fileCopy;
+    v10 = OUTLINED_FUNCTION_8_0();
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 uint64_t __64__ENExposureDatabase_insertExposureDetectionFile_session_error___block_invoke()
 {
   OUTLINED_FUNCTION_5_2();
   v4 = v3;
-  v5 = *(v1 + 32);
   [*(v1 + 40) UUID];
   objc_claimAutoreleasedReturnValue();
-  v6 = [OUTLINED_FUNCTION_2_5() _sessionIDForUUID:? connection:? error:?];
+  v5 = [OUTLINED_FUNCTION_2_5() _sessionIDForUUID:? connection:? error:?];
 
-  if (v6)
+  if (v5)
   {
-    v7 = [*(v1 + 32) _insertExposureDetectionFile:*(v1 + 48) sessionID:v6 connection:v4 error:v0];
+    v6 = [*(v1 + 32) _insertExposureDetectionFile:*(v1 + 48) sessionID:v5 connection:v4 error:v0];
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)enumerateExposureDetectionHistoryFilesForSessionUUID:(id)d error:(id *)error handler:(id)handler
@@ -1919,19 +1925,18 @@ uint64_t __64__ENExposureDatabase_insertExposureDetectionFile_session_error___bl
   handlerCopy = handler;
   if ([(ENExposureDatabase *)self _checkDatabaseOpenWithError:error])
   {
-    connection = self->_connection;
     OUTLINED_FUNCTION_0_9();
-    v13 = dCopy;
-    v14 = handlerCopy;
-    v11 = OUTLINED_FUNCTION_8_0();
+    v12 = dCopy;
+    v13 = handlerCopy;
+    v10 = OUTLINED_FUNCTION_8_0();
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 uint64_t __89__ENExposureDatabase_enumerateExposureDetectionHistoryFilesForSessionUUID_error_handler___block_invoke()
@@ -1999,44 +2004,33 @@ uint64_t __89__ENExposureDatabase_enumerateExposureDetectionHistoryFilesForSessi
     }
 
     v11 = ENSQLiteColumnAsData(a2, 7);
-    if (!v11)
+    if (v11)
     {
-      goto LABEL_21;
-    }
-
-    v15 = 0;
-    v12 = [MEMORY[0x277CCAC50] propertyListWithData:v11 options:0 format:0 error:&v15];
-    v13 = v15;
-    if (v12)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v15 = 0;
+      v12 = [MEMORY[0x277CCAC50] propertyListWithData:v11 options:0 format:0 error:&v15];
+      v13 = v15;
+      if (v12)
       {
-        [v7 setMetadata:v12];
-LABEL_20:
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          [v7 setMetadata:v12];
+        }
 
-LABEL_21:
-        (*(*(a1 + 32) + 16))(*(a1 + 32));
-
-        goto LABEL_22;
+        else if (gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF_safe(&gLogCategory__ENExposureDatabase, "[ENExposureDatabase enumerateExposureDetectionHistoryFilesForSessionUUID:error:handler:]_block_invoke_3", 90, "Invalid file history metadata %@", v12);
+        }
       }
 
-      if (gLogCategory__ENExposureDatabase > 90 || gLogCategory__ENExposureDatabase == -1 && !_LogCategory_Initialize())
+      else if (gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_20;
+        LogPrintF_safe(&gLogCategory__ENExposureDatabase, "[ENExposureDatabase enumerateExposureDetectionHistoryFilesForSessionUUID:error:handler:]_block_invoke_3", 90, "Failed to deserialize file history metadata: %@", v13);
       }
     }
 
-    else if (gLogCategory__ENExposureDatabase > 90 || gLogCategory__ENExposureDatabase == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_20;
-    }
-
-    LogPrintF_safe();
-    goto LABEL_20;
+    (*(*(a1 + 32) + 16))();
   }
-
-LABEL_22:
 
   return 1;
 }
@@ -2055,7 +2049,7 @@ LABEL_22:
   v8 = v10;
   if (!v7 && gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory__ENExposureDatabase, "[ENExposureDatabase deleteExposureDetectionHistoryWithError:]", 90, "Failed to checkpoint after purging keys: %@", v8);
   }
 
   return v5;
@@ -2069,32 +2063,31 @@ LABEL_22:
     v9 = [dateCopy dateByAddingTimeInterval:-interval];
     [v9 timeIntervalSinceReferenceDate];
     v11 = ((v10 + *MEMORY[0x277CBECD8]) / 600.0);
-    connection = self->_connection;
     v18[1] = MEMORY[0x277D85DD0];
     v18[2] = 3221225472;
     v18[3] = __61__ENExposureDatabase_purgeRecordsWithInterval_nowDate_error___block_invoke;
     v18[4] = &unk_278FD2F78;
     v21 = v11;
     v19 = dateCopy;
-    v13 = v9;
-    v20 = v13;
-    v14 = OUTLINED_FUNCTION_8_0();
-    v15 = self->_connection;
+    v12 = v9;
+    v20 = v12;
+    v13 = OUTLINED_FUNCTION_8_0();
+    connection = self->_connection;
     v18[0] = 0;
-    LOBYTE(connection) = [(ENSQLiteConnection *)v15 executeUncachedSQL:@"PRAGMA wal_checkpoint(TRUNCATE)" error:v18];
+    v15 = [(ENSQLiteConnection *)connection executeUncachedSQL:@"PRAGMA wal_checkpoint(TRUNCATE)" error:v18];
     v16 = v18[0];
-    if ((connection & 1) == 0 && gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
+    if (!v15 && gLogCategory__ENExposureDatabase <= 90 && (gLogCategory__ENExposureDatabase != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENExposureDatabase, "[ENExposureDatabase purgeRecordsWithInterval:nowDate:error:]", 90, "Failed to checkpoint after purging keys: %@", v16);
     }
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 uint64_t __61__ENExposureDatabase_purgeRecordsWithInterval_nowDate_error___block_invoke()
@@ -2150,28 +2143,28 @@ uint64_t __61__ENExposureDatabase_purgeRecordsWithInterval_nowDate_error___block
   [v4 handleFailureInMethod:a1 object:a2 file:@"ENExposureDatabase.m" lineNumber:158 description:{@"Invalid parameter not satisfying: %@", @"_connection == nil"}];
 }
 
-- (void)_reallyOpenDatabaseWithError:(id *)a1 .cold.2(id *a1)
+- (void)_reallyOpenDatabaseWithError:(id *)a1 .cold.2(id *a1, uint64_t a2)
 {
-  v1 = [*a1 path];
-  LogPrintF_safe();
+  v3 = [*a1 path];
+  LogPrintF_safe(&gLogCategory_ENExposureDatabase, "[ENExposureDatabase _reallyOpenDatabaseWithError:]", 115, "Failed to open database at %@ (%d)", v3, a2);
 }
 
 - (void)_reallyOpenDatabaseWithError:(id *)a1 .cold.3(id *a1)
 {
   v1 = [*a1 path];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENExposureDatabase, "[ENExposureDatabase _reallyOpenDatabaseWithError:]", 50, "Database inaccessible at %@ (%d)", v1, 23);
 }
 
-- (void)_createOrMigrateSchemaFromVersion:error:.cold.2()
+- (void)_createOrMigrateSchemaFromVersion:(uint64_t)a1 error:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v3 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory__ENExposureDatabase, "[ENExposureDatabase _createOrMigrateSchemaFromVersion:error:]", 90, "Migrating to version %ld failed: %@", a2, v3);
 }
 
-- (void)purgeAllAndCloseWithReason:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)purgeAllAndCloseWithReason:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v1 = [*(a1 + 8) path];
-  LogPrintF_safe();
+  v3 = [*(a1 + 8) path];
+  LogPrintF_safe(&gLogCategory_ENExposureDatabase, "[ENExposureDatabase purgeAllAndCloseWithReason:]", 50, "Purging %@: %@", v3, a2);
 }
 
 + (void)_obliterateDatabaseAtURL:(uint64_t)a1 reason:(uint64_t)a2 generateStackshot:.cold.1(uint64_t a1, uint64_t a2)
@@ -2180,10 +2173,10 @@ uint64_t __61__ENExposureDatabase_purgeRecordsWithInterval_nowDate_error___block
   [v4 handleFailureInMethod:a1 object:a2 file:@"ENExposureDatabase.m" lineNumber:1211 description:{@"Invalid parameter not satisfying: %@", @"databaseURL != nil"}];
 }
 
-+ (void)_obliterateDatabaseAtURL:(void *)a1 reason:generateStackshot:.cold.2(void *a1)
++ (void)_obliterateDatabaseAtURL:(void *)a1 reason:(uint64_t)a2 generateStackshot:(uint64_t)a3 .cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = [a1 path];
-  LogPrintF_safe();
+  v5 = [a1 path];
+  LogPrintF_safe(&gLogCategory_ENExposureDatabase, "+[ENExposureDatabase _obliterateDatabaseAtURL:reason:generateStackshot:]", a2, "Obliterating database at %@: %@", v5, a3);
 }
 
 @end

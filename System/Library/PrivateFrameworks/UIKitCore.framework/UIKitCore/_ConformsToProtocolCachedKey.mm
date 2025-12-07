@@ -43,7 +43,8 @@
   else
   {
     v5 = objc_opt_class();
-    if ([v5 isEqual:objc_opt_class()])
+    objc_opt_class();
+    if (objc_msgSend_isEqual_(v5))
     {
       WeakRetained = objc_loadWeakRetained(&self->_object);
       if (WeakRetained)

@@ -397,7 +397,7 @@ LABEL_8:
     v10 = *(*(&buf + 1) + 24);
     if (v9 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      if (v10 >= [albums count])
+      if (v10 >= objc_msgSend_count(albums))
       {
         [albums addObject:v8];
       }
@@ -580,7 +580,7 @@ uint64_t __45__PLManagedAlbumList_albumsSortingComparator__block_invoke(uint64_t
   else
   {
     _albumsCountFetchRequest = [(PLManagedAlbumList *)self albums];
-    v6 = [_albumsCountFetchRequest count] == 0;
+    v6 = objc_msgSend_count(_albumsCountFetchRequest) == 0;
   }
 
   v7 = !v6;
@@ -721,7 +721,7 @@ LABEL_14:
 
     else
     {
-      if (![v16 count])
+      if (!objc_msgSend_count(v16))
       {
 LABEL_13:
 
@@ -816,9 +816,9 @@ uint64_t __70__PLManagedAlbumList_restoreAlbumListFromPersistedDataAtPath_librar
 + (BOOL)isValidPathForPersistence:(id)persistence
 {
   pathExtension = [persistence pathExtension];
-  v4 = [pathExtension isEqualToString:@"albumlistmetadata"];
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-  return v4;
+  return isEqualToString;
 }
 
 + (void)pushChangesFromAlbumContainer:(id)container toAlbumContainer:(id)albumContainer
@@ -1574,9 +1574,9 @@ void __51__PLManagedAlbumList_addSingletonObjectsToContext___block_invoke(uint64
   v9.super_class = &OBJC_METACLASS___PLManagedAlbumList;
   keyCopy = key;
   v4 = objc_msgSendSuper2(&v9, sel_keyPathsForValuesAffectingValueForKey_, keyCopy);
-  v5 = [keyCopy isEqualToString:{@"adjustmentFormatIdentifier", v9.receiver, v9.super_class}];
+  isEqualToString = objc_msgSend_isEqualToString_(keyCopy, v9.receiver, v9.super_class);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = [MEMORY[0x1E695DFD8] setWithObject:@"identifier"];
     v7 = [v4 setByAddingObjectsFromSet:v6];

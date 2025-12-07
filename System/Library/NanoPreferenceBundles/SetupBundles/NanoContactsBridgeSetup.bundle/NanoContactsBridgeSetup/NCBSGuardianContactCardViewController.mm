@@ -33,86 +33,90 @@
 - (id)titleString
 {
   hasMeCard = [(NCBSGuardianContactCardViewController *)self hasMeCard];
-  v3 = NanoContactsBridgeSetupBundle();
-  v4 = v3;
-  if (hasMeCard)
+  v3 = hasMeCard;
+  v4 = NanoContactsBridgeSetupBundle(hasMeCard);
+  v5 = v4;
+  if (v3)
   {
-    v5 = @"TK_CONTACTS_GUARDIAN_ME_TITLE_UPDATE";
+    v6 = @"TK_CONTACTS_GUARDIAN_ME_TITLE_UPDATE";
   }
 
   else
   {
-    v5 = @"TK_CONTACTS_GUARDIAN_ME_TITLE_CREATE";
+    v6 = @"TK_CONTACTS_GUARDIAN_ME_TITLE_CREATE";
   }
 
-  v6 = [v3 localizedStringForKey:v5 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [v4 localizedStringForKey:v6 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
-  return v6;
+  return v7;
 }
 
 - (id)detailString
 {
   hasMeCard = [(NCBSGuardianContactCardViewController *)self hasMeCard];
-  v4 = NanoContactsBridgeSetupBundle();
-  v5 = v4;
-  if (hasMeCard)
+  v4 = hasMeCard;
+  v5 = NanoContactsBridgeSetupBundle(hasMeCard);
+  v6 = v5;
+  if (v4)
   {
-    v6 = @"TK_CONTACTS_GUARDIAN_ME_DETAIL_UPDATE";
+    v7 = @"TK_CONTACTS_GUARDIAN_ME_DETAIL_UPDATE";
   }
 
   else
   {
-    v6 = @"TK_CONTACTS_GUARDIAN_ME_DETAIL_CREATE";
+    v7 = @"TK_CONTACTS_GUARDIAN_ME_DETAIL_CREATE";
   }
 
-  v7 = [v4 localizedStringForKey:v6 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v8 = [v5 localizedStringForKey:v7 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
   miniFlowDelegate = [(NCBSGuardianContactCardViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v10 = [NSString stringWithValidatedFormat:v7 validFormatSpecifiers:@"%@%@" error:0, familyMemberFirstName, familyMemberFirstName];
+  v11 = [NSString stringWithValidatedFormat:v8 validFormatSpecifiers:@"%@%@" error:0, familyMemberFirstName, familyMemberFirstName];
 
-  return v10;
+  return v11;
 }
 
 - (id)suggestedButtonTitle
 {
   hasMeCard = [(NCBSGuardianContactCardViewController *)self hasMeCard];
-  v3 = NanoContactsBridgeSetupBundle();
-  v4 = v3;
-  if (hasMeCard)
+  v3 = hasMeCard;
+  v4 = NanoContactsBridgeSetupBundle(hasMeCard);
+  v5 = v4;
+  if (v3)
   {
-    v5 = @"TK_CONTACTS_GUARDIAN_ME_BUTTON_UPDATE";
+    v6 = @"TK_CONTACTS_GUARDIAN_ME_BUTTON_UPDATE";
   }
 
   else
   {
-    v5 = @"TK_CONTACTS_GUARDIAN_ME_BUTTON_CREATE";
+    v6 = @"TK_CONTACTS_GUARDIAN_ME_BUTTON_CREATE";
   }
 
-  v6 = [v3 localizedStringForKey:v5 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [v4 localizedStringForKey:v6 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
-  return v6;
+  return v7;
 }
 
 - (id)alternateButtonTitle
 {
   hasMeCard = [(NCBSGuardianContactCardViewController *)self hasMeCard];
-  v3 = NanoContactsBridgeSetupBundle();
-  v4 = v3;
-  if (hasMeCard)
+  v3 = hasMeCard;
+  v4 = NanoContactsBridgeSetupBundle(hasMeCard);
+  v5 = v4;
+  if (v3)
   {
-    v5 = @"TK_CONTACTS_GUARDIAN_ME_BUTTON_SKIP";
+    v6 = @"TK_CONTACTS_GUARDIAN_ME_BUTTON_SKIP";
   }
 
   else
   {
-    v5 = @"TK_CONTACTS_GUARDIAN_ME_BUTTON_LATER";
+    v6 = @"TK_CONTACTS_GUARDIAN_ME_BUTTON_LATER";
   }
 
-  v6 = [v3 localizedStringForKey:v5 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [v4 localizedStringForKey:v6 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
-  return v6;
+  return v7;
 }
 
 - (void)alternateButtonPressed:(id)pressed
@@ -130,33 +134,33 @@
     v5 = self->_guardianContactStore;
     self->_guardianContactStore = v4;
 
-    v6 = self->_guardianContactStore;
-    if (v6)
+    v7 = self->_guardianContactStore;
+    if (v7)
     {
-      v7 = +[CNContactViewController descriptorForRequiredKeys];
-      v23 = v7;
-      v8 = [NSArray arrayWithObjects:&v23 count:1];
-      v14 = 0;
-      v9 = [(CNContactStore *)v6 _ios_meContactWithKeysToFetch:v8 error:&v14];
-      v6 = v14;
+      v8 = +[CNContactViewController descriptorForRequiredKeys];
+      v24 = v8;
+      v9 = [NSArray arrayWithObjects:&v24 count:1];
+      v15 = 0;
+      v10 = [(CNContactStore *)v7 _ios_meContactWithKeysToFetch:v9 error:&v15];
+      v7 = v15;
 
-      self->_hasMeCard = v9 != 0;
+      self->_hasMeCard = v10 != 0;
     }
 
-    v10 = NCBS_Tinker_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = NCBS_Tinker_log(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = self->_guardianContactStore;
+      v12 = self->_guardianContactStore;
       hasMeCard = self->_hasMeCard;
       *buf = 136446978;
-      v16 = "[NCBSGuardianContactCardViewController guardianContactStore]";
-      v17 = 2112;
-      v18 = v11;
-      v19 = 1024;
-      v20 = hasMeCard;
-      v21 = 2114;
-      v22 = v6;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%{public}s - OPENED guardianContactStore: %@, hasMeCard: %d (error: %{public}@)", buf, 0x26u);
+      v17 = "[NCBSGuardianContactCardViewController guardianContactStore]";
+      v18 = 2112;
+      v19 = v12;
+      v20 = 1024;
+      v21 = hasMeCard;
+      v22 = 2114;
+      v23 = v7;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}s - OPENED guardianContactStore: %@, hasMeCard: %d (error: %{public}@)", buf, 0x26u);
     }
 
     guardianContactStore = self->_guardianContactStore;
@@ -212,99 +216,99 @@
   miniFlowDelegate = [(NCBSGuardianContactCardViewController *)self miniFlowDelegate];
   setupGuardian = [miniFlowDelegate setupGuardian];
 
-  v5 = NCBS_Tinker_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = NCBS_Tinker_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     guardianContactStore = [(NCBSGuardianContactCardViewController *)self guardianContactStore];
     *buf = 136446722;
-    v23 = "[NCBSGuardianContactCardViewController _visitMeCard]";
-    v24 = 2112;
-    v25 = guardianContactStore;
+    v25 = "[NCBSGuardianContactCardViewController _visitMeCard]";
     v26 = 2112;
-    v27 = setupGuardian;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - guardianContactStore: %@, guardianFamilyMember: %@", buf, 0x20u);
+    v27 = guardianContactStore;
+    v28 = 2112;
+    v29 = setupGuardian;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%{public}s - guardianContactStore: %@, guardianFamilyMember: %@", buf, 0x20u);
   }
 
   guardianContactStore2 = [(NCBSGuardianContactCardViewController *)self guardianContactStore];
-  v8 = +[CNContactViewController descriptorForRequiredKeys];
-  v21 = v8;
-  v9 = [NSArray arrayWithObjects:&v21 count:1];
-  v20 = 0;
-  v10 = [guardianContactStore2 _ios_meContactWithKeysToFetch:v9 error:&v20];
-  v11 = v20;
+  v9 = +[CNContactViewController descriptorForRequiredKeys];
+  v23 = v9;
+  v10 = [NSArray arrayWithObjects:&v23 count:1];
+  v22 = 0;
+  v11 = [guardianContactStore2 _ios_meContactWithKeysToFetch:v10 error:&v22];
+  v12 = v22;
 
-  v12 = NCBS_Tinker_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = NCBS_Tinker_log(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v23 = "[NCBSGuardianContactCardViewController _visitMeCard]";
-    v24 = 2112;
-    v25 = v10;
-    v26 = 2114;
+    v25 = "[NCBSGuardianContactCardViewController _visitMeCard]";
+    v26 = 2112;
     v27 = v11;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}s - _ios_meContactWithKeysToFetch result: %@, error: %{public}@", buf, 0x20u);
+    v28 = 2114;
+    v29 = v12;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%{public}s - _ios_meContactWithKeysToFetch result: %@, error: %{public}@", buf, 0x20u);
   }
 
-  if (v10)
+  if (v11)
   {
-    v13 = [CNContactViewController viewControllerForUpdatingContact:v10 withPropertiesFromContact:0];
+    v15 = [CNContactViewController viewControllerForUpdatingContact:v11 withPropertiesFromContact:0];
   }
 
   else
   {
-    v14 = [(NCBSGuardianContactCardViewController *)self _newMeContactForGuardian:setupGuardian];
-    v13 = [CNContactViewController viewControllerForNewContact:v14];
+    v16 = [(NCBSGuardianContactCardViewController *)self _newMeContactForGuardian:setupGuardian];
+    v15 = [CNContactViewController viewControllerForNewContact:v16];
   }
 
   guardianContactStore3 = [(NCBSGuardianContactCardViewController *)self guardianContactStore];
-  [v13 setContactStore:guardianContactStore3];
+  [v15 setContactStore:guardianContactStore3];
 
-  [v13 setDisplayMode:2];
-  [v13 setDelegate:self];
-  v16 = [[UINavigationController alloc] initWithRootViewController:v13];
+  [v15 setDisplayMode:2];
+  [v15 setDelegate:self];
+  v18 = [[UINavigationController alloc] initWithRootViewController:v15];
   view = [(NCBSGuardianContactCardViewController *)self view];
   tintColor = [view tintColor];
-  view2 = [v16 view];
+  view2 = [v18 view];
   [view2 setTintColor:tintColor];
 
-  [(NCBSGuardianContactCardViewController *)self presentViewController:v16 animated:1 completion:0];
+  [(NCBSGuardianContactCardViewController *)self presentViewController:v18 animated:1 completion:0];
 }
 
 - (void)_setGuardianMeContact:(id)contact
 {
   contactCopy = contact;
   guardianContactStore = [(NCBSGuardianContactCardViewController *)self guardianContactStore];
-  v11 = 0;
-  v6 = [guardianContactStore setMeContact:contactCopy error:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [guardianContactStore setMeContact:contactCopy error:&v12];
+  v7 = v12;
 
-  v8 = self->_hasMeCard | v6;
+  v9 = self->_hasMeCard | v6;
   self->_hasMeCard |= v6;
-  if (v8)
+  if (v9)
   {
     miniFlowDelegate = [(NCBSGuardianContactCardViewController *)self miniFlowDelegate];
     [miniFlowDelegate setSetupGuardianHasContactsToDonate:1];
   }
 
-  v10 = NCBS_Tinker_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = NCBS_Tinker_log(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v13 = "[NCBSGuardianContactCardViewController _setGuardianMeContact:]";
-    v14 = 1024;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v7;
-    v18 = 2112;
-    v19 = contactCopy;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%{public}s - setMeContact result: %d, error: %{public}@, contact: %@", buf, 0x26u);
+    v14 = "[NCBSGuardianContactCardViewController _setGuardianMeContact:]";
+    v15 = 1024;
+    v16 = v6;
+    v17 = 2114;
+    v18 = v7;
+    v19 = 2112;
+    v20 = contactCopy;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}s - setMeContact result: %d, error: %{public}@, contact: %@", buf, 0x26u);
   }
 }
 
 - (void)contactViewController:(id)controller didCompleteWithContact:(id)contact
 {
   contactCopy = contact;
-  [(NCBSGuardianContactCardViewController *)self dismissViewControllerAnimated:1 completion:0];
+  v6 = [(NCBSGuardianContactCardViewController *)self dismissViewControllerAnimated:1 completion:0];
   if (contactCopy)
   {
     [(NCBSGuardianContactCardViewController *)self _setGuardianMeContact:contactCopy];
@@ -314,12 +318,12 @@
 
   else
   {
-    v7 = NCBS_Tinker_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = NCBS_Tinker_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136446210;
-      v9 = "[NCBSGuardianContactCardViewController contactViewController:didCompleteWithContact:]";
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "%{public}s - setMeContact canceled (no contact)", &v8, 0xCu);
+      v9 = 136446210;
+      v10 = "[NCBSGuardianContactCardViewController contactViewController:didCompleteWithContact:]";
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%{public}s - setMeContact canceled (no contact)", &v9, 0xCu);
     }
   }
 }

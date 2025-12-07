@@ -22,7 +22,7 @@
 
 - (void)_updateImage
 {
-  if ((~[(CarMoreButton *)self options]& 6) == 0)
+  if ((~objc_msgSend_options(self, a2) & 6) == 0)
   {
     v3 = UIFontTextStyleFootnote;
     v4 = @"ellipsis";
@@ -31,14 +31,14 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if (([(CarMoreButton *)self options]& 2) != 0)
+  if ((objc_msgSend_options(self) & 2) != 0)
   {
     v3 = UIFontTextStyleFootnote;
     v4 = @"phone.fill";
     goto LABEL_7;
   }
 
-  if (([(CarMoreButton *)self options]& 4) == 0)
+  if ((objc_msgSend_options(self) & 4) == 0)
   {
     v5 = 0;
     goto LABEL_9;

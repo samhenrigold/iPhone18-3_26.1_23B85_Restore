@@ -60,9 +60,10 @@
 
 uint64_t __43__ICCollaborationController_sharedInstance__block_invoke()
 {
-  sharedInstance_instance = [[ICCollaborationController alloc] initWithDelegate:0];
+  v0 = [[ICCollaborationController alloc] initWithDelegate:0];
+  sharedInstance_instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (ICCollaborationController)initWithDelegate:(id)delegate
@@ -462,7 +463,7 @@ void __108__ICCollaborationController_registerShareForObject_itemProvider_genera
   return v7;
 }
 
-uint64_t __74__ICCollaborationController_shareStatusOfFolder_objectsForMakingDecision___block_invoke(uint64_t a1)
+void *__74__ICCollaborationController_shareStatusOfFolder_objectsForMakingDecision___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isSharedViaICloud];
   if (result)
@@ -1745,7 +1746,7 @@ void __116__ICCollaborationController_saveShare_withRootRecord_object_accountID_
       [v19 performBlockAndWait:v42];
 
       v20 = [*(a1 + 32) userInfo];
-      v21 = [v20 objectForKeyedSubscript:*MEMORY[0x1E695B798]];
+      v21 = objc_msgSend_objectForKeyedSubscript_(v20);
 
       v36[0] = MEMORY[0x1E69E9820];
       v36[1] = 3221225472;
@@ -1946,7 +1947,7 @@ void __116__ICCollaborationController_saveShare_withRootRecord_object_accountID_
 {
   v27 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
-  v3 = [v2 objectForKeyedSubscript:*MEMORY[0x1E695B7C0]];
+  v3 = objc_msgSend_objectForKeyedSubscript_(v2);
 
   if (!v3)
   {
@@ -2190,7 +2191,7 @@ void __78__ICCollaborationController_fetchShareIfNecessaryForObject_completionHa
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  v7 = [v5 objectForKeyedSubscript:*(a1 + 32)];
+  v7 = objc_msgSend_objectForKeyedSubscript_(v5);
   v8 = ICDynamicCast();
 
   v9 = os_log_create("com.apple.notes", "Collaboration");
@@ -2381,11 +2382,11 @@ void __80__ICCollaborationController_saveServerShare_persistParticipantEvents_ac
   shareCopy = share;
   dCopy = d;
   contextCopy = context;
-  v11 = [shareCopy objectForKeyedSubscript:*MEMORY[0x1E69B7598]];
+  v11 = objc_msgSend_objectForKeyedSubscript_(shareCopy);
   recordID = [v11 recordID];
   if (recordID)
   {
-    v13 = [shareCopy objectForKeyedSubscript:*MEMORY[0x1E69B75A0]];
+    v13 = objc_msgSend_objectForKeyedSubscript_(shareCopy);
     if (!v13)
     {
       v14 = os_log_create("com.apple.notes", "Collaboration");
@@ -2824,14 +2825,14 @@ void __63__ICCollaborationController_didStopSharing_recordID_accountID___block_i
   {
     objc_opt_class();
     userInfo = [changeCopy userInfo];
-    v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E695D328]];
+    v8 = objc_msgSend_objectForKeyedSubscript_(userInfo);
     v9 = ICCheckedDynamicCast();
     v10 = [v9 ic_objectsOfClass:objc_opt_class()];
 
     objc_opt_class();
     v35 = changeCopy;
     userInfo2 = [changeCopy userInfo];
-    v12 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E695D4D0]];
+    v12 = objc_msgSend_objectForKeyedSubscript_(userInfo2);
     v13 = ICCheckedDynamicCast();
     v14 = [v13 ic_objectsOfClass:objc_opt_class()];
 
@@ -3244,7 +3245,7 @@ LABEL_11:
   {
     cloudContext = [(ICCollaborationController *)self cloudContext];
     containersByAccountID = [cloudContext containersByAccountID];
-    v7 = [containersByAccountID objectForKeyedSubscript:dCopy];
+    v7 = objc_msgSend_objectForKeyedSubscript_(containersByAccountID);
   }
 
   else
@@ -3629,7 +3630,7 @@ void __120__ICCollaborationController_acceptShareWithMetadata_attemptNumber_cont
   v4 = *(a1 + 40);
   v5 = [*(a1 + 32) share];
   v6 = [v5 recordID];
-  v7 = [v4 objectForKeyedSubscript:v6];
+  v7 = objc_msgSend_objectForKeyedSubscript_(v4);
 
   v8 = os_log_create("com.apple.notes", "Collaboration");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
@@ -3714,12 +3715,12 @@ void __112__ICCollaborationController_fetchAndAcceptShareMetadataWithURL_managed
   performBlockOnMainThread();
 }
 
-void __112__ICCollaborationController_fetchAndAcceptShareMetadataWithURL_managedObjectContext_alertBlock_showObjectBlock___block_invoke_2(uint64_t a1)
+void __112__ICCollaborationController_fetchAndAcceptShareMetadataWithURL_managedObjectContext_alertBlock_showObjectBlock___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = os_log_create("com.apple.notes", "Collaboration");
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = os_log_create("com.apple.notes", "Collaboration");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __112__ICCollaborationController_fetchAndAcceptShareMetadataWithURL_managedObjectContext_alertBlock_showObjectBlock___block_invoke_2_cold_1();
     }
@@ -3729,20 +3730,20 @@ void __112__ICCollaborationController_fetchAndAcceptShareMetadataWithURL_managed
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = [*(a1 + 48) objectForKeyedSubscript:*(a1 + 56)];
-    v5 = *(a1 + 64);
-    v6 = *(a1 + 72);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __112__ICCollaborationController_fetchAndAcceptShareMetadataWithURL_managedObjectContext_alertBlock_showObjectBlock___block_invoke_155;
-    v8[3] = &unk_1E846CDD8;
-    v7 = *(a1 + 48);
-    v8[4] = *(a1 + 40);
-    v9 = v7;
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 80);
-    [v3 processShareAcceptanceWithMetadata:v4 managedObjectContext:v5 alertBlock:v6 showObjectBlock:v8];
+    v4 = *(a1 + 40);
+    v5 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 48), a2, *(a1 + 56));
+    v6 = *(a1 + 64);
+    v7 = *(a1 + 72);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __112__ICCollaborationController_fetchAndAcceptShareMetadataWithURL_managedObjectContext_alertBlock_showObjectBlock___block_invoke_155;
+    v9[3] = &unk_1E846CDD8;
+    v8 = *(a1 + 48);
+    v9[4] = *(a1 + 40);
+    v10 = v8;
+    v11 = *(a1 + 56);
+    v12 = *(a1 + 80);
+    [v4 processShareAcceptanceWithMetadata:v5 managedObjectContext:v6 alertBlock:v7 showObjectBlock:v9];
   }
 }
 
@@ -3752,7 +3753,7 @@ void __112__ICCollaborationController_fetchAndAcceptShareMetadataWithURL_managed
   v7 = a2;
   v4 = [v3 collaborationControllerDelegate];
   v5 = *(a1 + 32);
-  v6 = [*(a1 + 40) objectForKeyedSubscript:*(a1 + 48)];
+  v6 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 40));
   [v4 collaborationController:v5 userAcceptedInvitationWithShareMetadata:v6 associatedObjectID:v7];
 
   (*(*(a1 + 56) + 16))();
@@ -4013,7 +4014,7 @@ LABEL_6:
   v18 = 0x2020000000;
   v19 = 0;
   userInfo = [errorCopy userInfo];
-  v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E695B798]];
+  v10 = objc_msgSend_objectForKeyedSubscript_(userInfo);
 
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
@@ -4232,15 +4233,16 @@ void __83__ICCollaborationController_updatePendingInvitationsInAccountWithID_rec
       v21 = v5;
       do
       {
-        for (i = 0; i != v8; ++i)
+        v11 = 0;
+        do
         {
           if (*v23 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
-          v13 = [*(a1 + 48) objectForKeyedSubscript:{v12, v20}];
+          v12 = *(*(&v22 + 1) + 8 * v11);
+          v13 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 48), v20);
           v14 = [v13 share];
 
           v15 = [*(v10 + 1936) invitationWithShareURL:v12 context:*(a1 + 56)];
@@ -4259,8 +4261,11 @@ void __83__ICCollaborationController_updatePendingInvitationsInAccountWithID_rec
             v10 = 0x1E69B7000;
             v5 = v21;
           }
+
+          ++v11;
         }
 
+        while (v8 != v11);
         v8 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
@@ -4303,7 +4308,7 @@ void __83__ICCollaborationController_updatePendingInvitationsInAccountWithID_rec
   {
     dCopy = d;
     ckShareIDToRootRecordID = [(ICCollaborationController *)self ckShareIDToRootRecordID];
-    v12 = [ckShareIDToRootRecordID objectForKeyedSubscript:dCopy];
+    v12 = objc_msgSend_objectForKeyedSubscript_(ckShareIDToRootRecordID);
 
     if (v12)
     {
@@ -4331,7 +4336,7 @@ void __83__ICCollaborationController_updatePendingInvitationsInAccountWithID_rec
   if (shareCopy)
   {
     v13 = shareCopy;
-    v5 = [shareCopy objectForKeyedSubscript:*MEMORY[0x1E69B7598]];
+    v5 = objc_msgSend_objectForKeyedSubscript_(shareCopy);
     recordID = [v5 recordID];
     recordID2 = [v13 recordID];
     if (recordID2 && recordID)
@@ -4486,7 +4491,7 @@ void __116__ICCollaborationController_saveShare_withRootRecord_object_accountID_
   v2 = [*(v1 + 40) shortLoggingDescription];
   v3 = [*(v0 + 56) ic_loggingDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "No CKShare or error returned for %@ %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "No CKShare or error returned for %@ %@", v6, v7, v8, v9);
 }
 
 void __116__ICCollaborationController_saveShare_withRootRecord_object_accountID_container_qualityOfService_completionHandler___block_invoke_3_cold_1(id *a1)
@@ -4597,7 +4602,7 @@ void __120__ICCollaborationController_acceptShareWithMetadata_attemptNumber_cont
 {
   v1 = [OUTLINED_FUNCTION_8(a1) ic_loggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_1D4171000, v2, v3, "Error fetching record from share %@: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_4(&dword_1D4171000, v2, v3, "Error fetching record from share %@: %@", v4, v5, v6, v7);
 }
 
 void __120__ICCollaborationController_acceptShareWithMetadata_attemptNumber_container_accountID_fetchObjectWithCompletionHandler___block_invoke_148_cold_1()

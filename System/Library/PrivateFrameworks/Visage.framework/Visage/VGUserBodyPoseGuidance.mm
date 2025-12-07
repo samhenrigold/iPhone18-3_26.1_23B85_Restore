@@ -1,7 +1,7 @@
 @interface VGUserBodyPoseGuidance
 - (VGUserBodyPoseGuidance)initWithOptions:(id)options;
+- (VGUserBodyPoseGuidanceResult)calculatePoseGuidanceFromSkeleton:(simd_float4)skeleton andAtlasToDeviceTransform:(simd_float4)transform atTimestamp:(simd_float4)timestamp;
 - (float)calculateAggregatedScoreFromScores:(id)scores;
-- (id)calculatePoseGuidanceFromSkeleton:(float32x4_t)skeleton andAtlasToDeviceTransform:(float32x4_t)transform atTimestamp:(simd_float4)timestamp;
 - (id)evaluatePoseValues:(id)values atTimestamp:(double)timestamp;
 @end
 
@@ -9,11 +9,11 @@
 
 - (VGUserBodyPoseGuidance)initWithOptions:(id)options
 {
-  v98[7] = *MEMORY[0x277D85DE8];
+  v97[7] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v97.receiver = self;
-  v97.super_class = VGUserBodyPoseGuidance;
-  v6 = [(VGUserBodyPoseGuidance *)&v97 init];
+  v96.receiver = self;
+  v96.super_class = VGUserBodyPoseGuidance;
+  v6 = [(VGUserBodyPoseGuidance *)&v96 init];
   v7 = v6;
   if (v6)
   {
@@ -30,7 +30,7 @@
     LODWORD(v17) = v11;
     LODWORD(v18) = v13;
     v19 = [VGUserBodyPoseTarget targetWithIdentifier:2 targetDescription:@"torso - up aligned with head" targetMin:1 targetMax:1 marginMin:30 marginMax:30 feedbackTooSmall:v16 feedbackTooLarge:v17 rejectionReasonTooSmall:v18 rejectionReasonTooLarge:v15];
-    v98[0] = v19;
+    v97[0] = v19;
     [(VGBodyPoseGuidanceOptions *)v7->_options shouldersTwistTargetMin];
     v21 = v20;
     [(VGBodyPoseGuidanceOptions *)v7->_options shouldersTwistTargetMax];
@@ -43,7 +43,7 @@
     LODWORD(v29) = v23;
     LODWORD(v30) = v25;
     v31 = [VGUserBodyPoseTarget targetWithIdentifier:3 targetDescription:@"shoulders - twist relative to head" targetMin:2 targetMax:2 marginMin:31 marginMax:31 feedbackTooSmall:v28 feedbackTooLarge:v29 rejectionReasonTooSmall:v30 rejectionReasonTooLarge:v27];
-    v98[1] = v31;
+    v97[1] = v31;
     [(VGBodyPoseGuidanceOptions *)v7->_options leftElbowTargetMin];
     v33 = v32;
     [(VGBodyPoseGuidanceOptions *)v7->_options leftElbowTargetMax];
@@ -56,7 +56,7 @@
     LODWORD(v41) = v35;
     LODWORD(v42) = v37;
     v43 = [VGUserBodyPoseTarget targetWithIdentifier:0 targetDescription:@"elbows - left arm" targetMin:3 targetMax:4 marginMin:33 marginMax:32 feedbackTooSmall:v40 feedbackTooLarge:v41 rejectionReasonTooSmall:v42 rejectionReasonTooLarge:v39];
-    v98[2] = v43;
+    v97[2] = v43;
     [(VGBodyPoseGuidanceOptions *)v7->_options rightElbowTargetMin];
     v45 = v44;
     [(VGBodyPoseGuidanceOptions *)v7->_options rightElbowTargetMax];
@@ -69,7 +69,7 @@
     LODWORD(v53) = v47;
     LODWORD(v54) = v49;
     v55 = [VGUserBodyPoseTarget targetWithIdentifier:1 targetDescription:@"elbows - right arm" targetMin:4 targetMax:3 marginMin:34 marginMax:35 feedbackTooSmall:v52 feedbackTooLarge:v53 rejectionReasonTooSmall:v54 rejectionReasonTooLarge:v51];
-    v98[3] = v55;
+    v97[3] = v55;
     [(VGBodyPoseGuidanceOptions *)v7->_options shouldersHeightAsymmetryTargetMin];
     v57 = v56;
     [(VGBodyPoseGuidanceOptions *)v7->_options shouldersHeightAsymmetryTargetMax];
@@ -82,7 +82,7 @@
     LODWORD(v65) = v59;
     LODWORD(v66) = v61;
     v67 = [VGUserBodyPoseTarget targetWithIdentifier:4 targetDescription:@"shoulders - height asymmetry (degree)" targetMin:5 targetMax:5 marginMin:36 marginMax:36 feedbackTooSmall:v64 feedbackTooLarge:v65 rejectionReasonTooSmall:v66 rejectionReasonTooLarge:v63];
-    v98[4] = v67;
+    v97[4] = v67;
     [(VGBodyPoseGuidanceOptions *)v7->_options leftShoulderForwardTargetMin];
     v69 = v68;
     [(VGBodyPoseGuidanceOptions *)v7->_options leftShoulderForwardTargetMax];
@@ -95,7 +95,7 @@
     LODWORD(v77) = v71;
     LODWORD(v78) = v73;
     v79 = [VGUserBodyPoseTarget targetWithIdentifier:5 targetDescription:@"shoulders - left_shoulder_pos_atlas_space z" targetMin:6 targetMax:7 marginMin:37 marginMax:38 feedbackTooSmall:v76 feedbackTooLarge:v77 rejectionReasonTooSmall:v78 rejectionReasonTooLarge:v75];
-    v98[5] = v79;
+    v97[5] = v79;
     [(VGBodyPoseGuidanceOptions *)v7->_options rightShoulderForwardTargetMin];
     v81 = v80;
     [(VGBodyPoseGuidanceOptions *)v7->_options rightShoulderForwardTargetMax];
@@ -108,15 +108,14 @@
     LODWORD(v89) = v83;
     LODWORD(v90) = v85;
     v91 = [VGUserBodyPoseTarget targetWithIdentifier:6 targetDescription:@"shoulders - right_shoulder_pos_atlas_space z" targetMin:6 targetMax:7 marginMin:39 marginMax:40 feedbackTooSmall:v88 feedbackTooLarge:v89 rejectionReasonTooSmall:v90 rejectionReasonTooLarge:v87];
-    v98[6] = v91;
-    v92 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:7];
+    v97[6] = v91;
+    v92 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:7];
     poseTargets = v7->_poseTargets;
     v7->_poseTargets = v92;
 
     v94 = v7;
   }
 
-  v95 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -150,35 +149,35 @@ void __61__VGUserBodyPoseGuidance_calculateAggregatedScoreFromScores___block_inv
 
 - (id)evaluatePoseValues:(id)values atTimestamp:(double)timestamp
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
-  v74 = objc_opt_new();
-  v77 = objc_opt_new();
+  v73 = objc_opt_new();
   v76 = objc_opt_new();
-  v87 = vg::shared::VisualLogger::sharedLogger(v76);
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
+  v75 = objc_opt_new();
+  v86 = vg::shared::VisualLogger::sharedLogger(v75);
   v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   obj = self->_poseTargets;
   selfCopy = self;
-  v80 = [(NSArray *)obj countByEnumeratingWithState:&v93 objects:v103 count:16];
+  v79 = [(NSArray *)obj countByEnumeratingWithState:&v92 objects:v102 count:16];
   v6 = 0;
-  if (v80)
+  if (v79)
   {
-    v78 = *v94;
+    v77 = *v93;
     v7 = 0.0;
     do
     {
-      for (i = 0; i != v80; ++i)
+      for (i = 0; i != v79; ++i)
       {
-        if (*v94 != v78)
+        if (*v93 != v77)
         {
           objc_enumerationMutation(obj);
         }
 
         rejectionReasonTooSmall = v6;
-        v8 = *(*(&v93 + 1) + 8 * i);
+        v8 = *(*(&v92 + 1) + 8 * i);
         v9 = objc_opt_new();
         [v8 targetMin];
         [v9 setRawValueTargetMin:?];
@@ -189,11 +188,11 @@ void __61__VGUserBodyPoseGuidance_calculateAggregatedScoreFromScores___block_inv
         [v8 marginMax];
         [v9 setRawValueMarginMax:?];
         v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "identifier")}];
-        v85 = [valuesCopy objectForKeyedSubscript:v10];
+        v84 = [valuesCopy objectForKeyedSubscript:v10];
 
-        if (v85)
+        if (v84)
         {
-          [v85 floatValue];
+          [v84 floatValue];
           v12 = v11;
           [v9 setRawValue:?];
           [v8 targetMax];
@@ -238,80 +237,80 @@ void __61__VGUserBodyPoseGuidance_calculateAggregatedScoreFromScores___block_inv
           }
 
           v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "identifier")}];
-          [v77 setObject:v9 forKey:v23];
+          [v76 setObject:v9 forKey:v23];
 
-          v101[0] = @"id";
-          v82 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "identifier")}];
-          v102[0] = v82;
-          v101[1] = @"description";
+          v100[0] = @"id";
+          v81 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "identifier")}];
+          v101[0] = v81;
+          v100[1] = @"description";
           targetDescription = [v8 targetDescription];
-          v102[1] = targetDescription;
-          v101[2] = @"rawValueTargetMin";
+          v101[1] = targetDescription;
+          v100[2] = @"rawValueTargetMin";
           v24 = MEMORY[0x277CCABB0];
           [v8 targetMin];
-          v81 = [v24 numberWithFloat:?];
-          v102[2] = v81;
-          v101[3] = @"rawValueTargetMax";
+          v80 = [v24 numberWithFloat:?];
+          v101[2] = v80;
+          v100[3] = @"rawValueTargetMax";
           v25 = MEMORY[0x277CCABB0];
           [v8 targetMax];
           v26 = [v25 numberWithFloat:?];
-          v102[3] = v26;
-          v101[4] = @"rawValueMarginMin";
+          v101[3] = v26;
+          v100[4] = @"rawValueMarginMin";
           v27 = MEMORY[0x277CCABB0];
           [v8 marginMin];
           v28 = [v27 numberWithFloat:?];
-          v102[4] = v28;
-          v101[5] = @"rawValueMarginMax";
+          v101[4] = v28;
+          v100[5] = @"rawValueMarginMax";
           v29 = MEMORY[0x277CCABB0];
           [v8 marginMax];
           v30 = [v29 numberWithFloat:?];
-          v102[5] = v30;
-          v101[6] = @"rawValue";
+          v101[5] = v30;
+          v100[6] = @"rawValue";
           *&v31 = v12;
           v32 = [MEMORY[0x277CCABB0] numberWithFloat:v31];
-          v102[6] = v32;
-          v101[7] = @"value";
+          v101[6] = v32;
+          v100[7] = @"value";
           v33 = MEMORY[0x277CCABB0];
           [v9 value];
           v34 = [v33 numberWithFloat:?];
-          v102[7] = v34;
-          v101[8] = @"feedback";
+          v101[7] = v34;
+          v100[8] = @"feedback";
           v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "feedback")}];
-          v102[8] = v35;
-          v101[9] = @"feedbackStr";
+          v101[8] = v35;
+          v100[9] = @"feedbackStr";
           v36 = +[VGBodyPoseFeedbackHelper feedbackToString:](VGBodyPoseFeedbackHelper, "feedbackToString:", [v9 feedback]);
-          v102[9] = v36;
-          v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:v101 count:10];
-          [(vg::shared::VisualLogger *)v76 addObject:v37];
+          v101[9] = v36;
+          v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:v100 count:10];
+          [(vg::shared::VisualLogger *)v75 addObject:v37];
 
           v38 = MEMORY[0x277CCACA8];
           targetDescription2 = [v8 targetDescription];
           v40 = [v38 stringWithFormat:@"visage.userbodyposeguidance.rawValues.%@", targetDescription2];
 
           targetDescription3 = [v8 targetDescription];
-          vg::shared::VisualLogger::logFloat(v87, v12, timestamp, v40, targetDescription3);
+          vg::shared::VisualLogger::logFloat(v86, v12, timestamp, v40, targetDescription3);
 
           [v8 targetMin];
-          vg::shared::VisualLogger::logFloat(v87, v42, timestamp, v40, &cfstr_Min.isa);
+          vg::shared::VisualLogger::logFloat(v86, v42, timestamp, v40, &cfstr_Min.isa);
           [v8 targetMax];
-          vg::shared::VisualLogger::logFloat(v87, v43, timestamp, v40, &cfstr_Max.isa);
+          vg::shared::VisualLogger::logFloat(v86, v43, timestamp, v40, &cfstr_Max.isa);
           [v8 targetMin];
           v45 = v44;
           [v8 marginMin];
-          vg::shared::VisualLogger::logFloat(v87, v45 - v46, timestamp, v40, &cfstr_Minmargin.isa);
+          vg::shared::VisualLogger::logFloat(v86, v45 - v46, timestamp, v40, &cfstr_Minmargin.isa);
           [v8 targetMax];
           v48 = v47;
           [v8 marginMax];
-          vg::shared::VisualLogger::logFloat(v87, v48 + v49, timestamp, v40, &cfstr_Maxmargin.isa);
+          vg::shared::VisualLogger::logFloat(v86, v48 + v49, timestamp, v40, &cfstr_Maxmargin.isa);
           [v9 value];
           v51 = v50;
           targetDescription4 = [v8 targetDescription];
-          vg::shared::VisualLogger::logFloat(v87, v51, timestamp, &cfstr_VisageUserbody_0.isa, targetDescription4);
+          vg::shared::VisualLogger::logFloat(v86, v51, timestamp, &cfstr_VisageUserbody_0.isa, targetDescription4);
 
           [v9 value];
           v54 = v53;
           targetDescription5 = [v8 targetDescription];
-          vg::shared::VisualLogger::logFloat(v87, v7 + v54, timestamp, &cfstr_VisageUserbody_1.isa, targetDescription5);
+          vg::shared::VisualLogger::logFloat(v86, v7 + v54, timestamp, &cfstr_VisageUserbody_1.isa, targetDescription5);
 
           v7 = v7 + 1.0;
         }
@@ -319,27 +318,27 @@ void __61__VGUserBodyPoseGuidance_calculateAggregatedScoreFromScores___block_inv
         v6 = rejectionReasonTooSmall;
       }
 
-      v80 = [(NSArray *)obj countByEnumeratingWithState:&v93 objects:v103 count:16];
+      v79 = [(NSArray *)obj countByEnumeratingWithState:&v92 objects:v102 count:16];
     }
 
-    while (v80);
+    while (v79);
   }
 
   v56 = objc_opt_new();
-  [v56 setScores:v77];
-  [(VGUserBodyPoseGuidance *)selfCopy calculateAggregatedScoreFromScores:v77];
+  [v56 setScores:v76];
+  [(VGUserBodyPoseGuidance *)selfCopy calculateAggregatedScoreFromScores:v76];
   [v56 setAggregatedScore:?];
   [v56 aggregatedScore];
-  vg::shared::VisualLogger::logFloat(v87, v57, timestamp, &cfstr_VisageUserbody_0.isa, &cfstr_Aggregatedscor.isa);
-  v99[0] = @"aggregatedScore";
+  vg::shared::VisualLogger::logFloat(v86, v57, timestamp, &cfstr_VisageUserbody_0.isa, &cfstr_Aggregatedscor.isa);
+  v98[0] = @"aggregatedScore";
   v58 = MEMORY[0x277CCABB0];
   [v56 aggregatedScore];
   v59 = [v58 numberWithFloat:?];
-  v99[1] = @"poseValues";
-  v100[0] = v59;
-  v60 = [(vg::shared::VisualLogger *)v76 copy];
-  v100[1] = v60;
-  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:v99 count:2];
+  v98[1] = @"poseValues";
+  v99[0] = v59;
+  v60 = [(vg::shared::VisualLogger *)v75 copy];
+  v99[1] = v60;
+  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:v98 count:2];
 
   if (v6)
   {
@@ -367,192 +366,190 @@ void __61__VGUserBodyPoseGuidance_calculateAggregatedScoreFromScores___block_inv
     v64 = 0;
   }
 
-  v88 = v6;
+  v87 = v6;
   v65 = v64;
-  v89 = v65;
-  v90 = 0;
+  v88 = v65;
+  v89 = 0;
   v66 = v61;
-  v91 = v66;
-  if (v74)
+  v90 = v66;
+  if (v73)
   {
-    [v74 setRejection:&v88];
+    [v73 setRejection:&v87];
   }
 
   else
   {
   }
 
-  [v74 setFrameState:v56];
-  if (vg::shared::VisualLogger::isLoggerEnabled(v87, &cfstr_VisageUserbody_2.isa))
+  [v73 setFrameState:v56];
+  if (vg::shared::VisualLogger::isLoggerEnabled(v86, &cfstr_VisageUserbody_2.isa))
   {
-    v97[0] = @"aggregatedScore";
+    v96[0] = @"aggregatedScore";
     v67 = MEMORY[0x277CCABB0];
     [v56 aggregatedScore];
     v68 = [v67 numberWithFloat:?];
-    v97[1] = @"poseValues";
-    v98[0] = v68;
-    v69 = [(vg::shared::VisualLogger *)v76 copy];
-    v98[1] = v69;
-    v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:v97 count:2];
+    v96[1] = @"poseValues";
+    v97[0] = v68;
+    v69 = [(vg::shared::VisualLogger *)v75 copy];
+    v97[1] = v69;
+    v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:2];
 
-    vg::shared::VisualLogger::logDictionary(v87, v70, timestamp, &cfstr_VisageUserbody_2.isa, 0);
+    vg::shared::VisualLogger::logDictionary(v86, v70, timestamp, &cfstr_VisageUserbody_2.isa, 0);
   }
 
-  v71 = *MEMORY[0x277D85DE8];
-
-  return v74;
+  return v73;
 }
 
-- (id)calculatePoseGuidanceFromSkeleton:(float32x4_t)skeleton andAtlasToDeviceTransform:(float32x4_t)transform atTimestamp:(simd_float4)timestamp
+- (VGUserBodyPoseGuidanceResult)calculatePoseGuidanceFromSkeleton:(simd_float4)skeleton andAtlasToDeviceTransform:(simd_float4)transform atTimestamp:(simd_float4)timestamp
 {
-  v103[7] = *MEMORY[0x277D85DE8];
+  v90[7] = *MEMORY[0x277D85DE8];
   v10 = a8;
   v11 = objc_opt_new();
-  v105.columns[1] = skeleton;
-  v105.columns[0] = a2;
-  v105.columns[3] = timestamp;
-  v105.columns[2] = transform;
-  v106 = __invert_f4(v105);
-  v67 = v106.columns[0];
-  v68 = v106.columns[1];
-  v69 = v106.columns[3];
-  v71 = v106.columns[2];
-  v101.i32[2] = 0;
-  v101.i64[0] = 0;
-  if (!device_space_joint_pos(&v101, v10, 19))
+  v92.columns[1] = skeleton;
+  v92.columns[0] = a2;
+  v92.columns[3] = timestamp;
+  v92.columns[2] = transform;
+  v93 = __invert_f4(v92);
+  v66 = v93.columns[0];
+  v67 = v93.columns[1];
+  v68 = v93.columns[3];
+  v70 = v93.columns[2];
+  v88.i32[2] = 0;
+  v88.i64[0] = 0;
+  if (!device_space_joint_pos(&v88, v10, 19))
   {
-    missing_joint(&cfstr_Leftshoulder.isa, v98);
+    missing_joint(v87, &cfstr_Leftshoulder.isa);
     if (!v11)
     {
 
-      v55 = v99;
+      v55 = v87[1];
       goto LABEL_31;
     }
 
-    [v11 setRejection:v98];
+    [v11 setRejection:v87];
 LABEL_32:
     v54 = v11;
     goto LABEL_33;
   }
 
-  v97.i32[2] = 0;
-  v97.i64[0] = 0;
-  if (!device_space_joint_pos(&v97, v10, 15))
+  v86.i32[2] = 0;
+  v86.i64[0] = 0;
+  if (!device_space_joint_pos(&v86, v10, 15))
   {
-    missing_joint(&cfstr_Rightshoulder.isa, v94);
+    missing_joint(v85, &cfstr_Rightshoulder.isa);
     if (!v11)
     {
 
-      v55 = v95;
+      v55 = v85[1];
       goto LABEL_31;
     }
 
-    [v11 setRejection:v94];
+    [v11 setRejection:v85];
     goto LABEL_32;
   }
 
-  v93.i32[2] = 0;
-  v93.i64[0] = 0;
-  if (!device_space_joint_pos(&v93, v10, 20))
+  v84.i32[2] = 0;
+  v84.i64[0] = 0;
+  if (!device_space_joint_pos(&v84, v10, 20))
   {
-    missing_joint(&cfstr_Leftelbow.isa, v90);
+    missing_joint(v83, &cfstr_Leftelbow.isa);
     if (!v11)
     {
 
-      v55 = v91;
+      v55 = v83[1];
       goto LABEL_31;
     }
 
-    [v11 setRejection:v90];
+    [v11 setRejection:v83];
     goto LABEL_32;
   }
 
-  v89.i32[2] = 0;
-  v89.i64[0] = 0;
-  if (!device_space_joint_pos(&v89, v10, 16))
+  v82.i32[2] = 0;
+  v82.i64[0] = 0;
+  if (!device_space_joint_pos(&v82, v10, 16))
   {
-    missing_joint(&cfstr_Rightelbow.isa, v86);
+    missing_joint(v81, &cfstr_Rightelbow.isa);
     if (!v11)
     {
 
-      v55 = v87;
+      v55 = v81[1];
       goto LABEL_31;
     }
 
-    [v11 setRejection:v86];
+    [v11 setRejection:v81];
     goto LABEL_32;
   }
 
-  v85.i32[2] = 0;
-  v85.i64[0] = 0;
-  if (!device_space_joint_pos(&v85, v10, 0))
+  v80.i32[2] = 0;
+  v80.i64[0] = 0;
+  if (!device_space_joint_pos(&v80, v10, 0))
   {
-    missing_joint(&cfstr_Midshoulder.isa, v82);
+    missing_joint(v79, &cfstr_Midshoulder.isa);
     if (!v11)
     {
 
-      v55 = v83;
+      v55 = v79[1];
       goto LABEL_31;
     }
 
-    [v11 setRejection:v82];
+    [v11 setRejection:v79];
     goto LABEL_32;
   }
 
-  v81.i32[2] = 0;
-  v81.i64[0] = 0;
-  if (!device_space_joint_pos(&v81, v10, 1))
+  v78.i32[2] = 0;
+  v78.i64[0] = 0;
+  if (!device_space_joint_pos(&v78, v10, 1))
   {
-    missing_joint(&cfstr_Spine3.isa, v78);
+    missing_joint(v77, &cfstr_Spine3.isa);
     if (v11)
     {
-      [v11 setRejection:v78];
+      [v11 setRejection:v77];
       goto LABEL_32;
     }
 
-    v55 = v79;
+    v55 = v77[1];
 LABEL_31:
 
     goto LABEL_32;
   }
 
-  v12 = vsubq_f32(v93, v101);
+  v12 = vsubq_f32(v84, v88);
   v13 = vmulq_f32(v12, v12);
   v13.f32[0] = sqrtf(v13.f32[2] + vaddv_f32(*v13.f32)) + 1.0e-16;
-  v14 = vsubq_f32(v89, v97);
+  v14 = vsubq_f32(v82, v86);
   v15 = vmulq_f32(v14, v14);
   v15.f32[0] = sqrtf(v15.f32[2] + vaddv_f32(*v15.f32)) + 1.0e-16;
-  v64 = vdivq_f32(v12, vdupq_lane_s32(*v13.f32, 0));
-  v65 = vdivq_f32(v14, vdupq_lane_s32(*v15.f32, 0));
-  v58 = v97;
-  v59 = v101;
-  v16 = vsubq_f32(v97, v101);
+  v63 = vdivq_f32(v12, vdupq_lane_s32(*v13.f32, 0));
+  v64 = vdivq_f32(v14, vdupq_lane_s32(*v15.f32, 0));
+  v57 = v86;
+  v58 = v88;
+  v16 = vsubq_f32(v86, v88);
   v17 = vmulq_f32(v16, v16);
   v17.f32[0] = sqrtf(v17.f32[2] + vaddv_f32(*v17.f32)) + 1.0e-16;
   v18 = vdivq_f32(v16, vdupq_lane_s32(*v17.f32, 0));
-  v19 = vsubq_f32(v81, v85);
+  v19 = vsubq_f32(v78, v80);
   v20 = vmulq_f32(v19, v19);
   v20.f32[0] = sqrtf(v20.f32[2] + vaddv_f32(*v20.f32)) + 1.0e-16;
-  v66 = vdivq_f32(v19, vdupq_lane_s32(*v20.f32, 0));
-  v62 = v18;
-  v63 = vnegq_f32(v18);
-  v61 = angle_deg_in_2d_plane(v63, a2, transform);
-  v60 = angle_deg_in_2d_plane(v63, a2, skeleton);
-  v21 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v66, v66), v66, 0xCuLL), v63), v66, vextq_s8(vuzp1q_s32(v62, v62), v62, 0xCuLL));
+  v65 = vdivq_f32(v19, vdupq_lane_s32(*v20.f32, 0));
+  v61 = v18;
+  v62 = vnegq_f32(v18);
+  v60 = angle_deg_in_2d_plane(v62, a2, transform);
+  v59 = angle_deg_in_2d_plane(v62, a2, skeleton);
+  v21 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v65, v65), v65, 0xCuLL), v62), v65, vextq_s8(vuzp1q_s32(v61, v61), v61, 0xCuLL));
   v22 = vextq_s8(vuzp1q_s32(v21, v21), v21, 0xCuLL);
   v23 = vmulq_f32(v21, v21);
   v23.f32[0] = sqrtf(v23.f32[1] + (v23.f32[2] + v23.f32[0])) + 1.0e-16;
-  v76 = vdivq_f32(v22, vdupq_lane_s32(*v23.f32, 0));
-  v24 = vnegq_f32(v66);
-  v25 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v76, v76), v76, 0xCuLL), v66), v76, vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL));
+  v75 = vdivq_f32(v22, vdupq_lane_s32(*v23.f32, 0));
+  v24 = vnegq_f32(v65);
+  v25 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v75, v75), v75, 0xCuLL), v65), v75, vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL));
   v26 = vextq_s8(vuzp1q_s32(v25, v25), v25, 0xCuLL);
   v27 = vmulq_f32(v25, v25);
   v27.f32[0] = sqrtf(v27.f32[1] + (v27.f32[2] + v27.f32[0])) + 1.0e-16;
-  v73 = vdivq_f32(v26, vdupq_lane_s32(*v27.f32, 0));
-  v28 = angle_deg_in_2d_plane(v64, v66, v73);
-  v29 = angle_deg_in_2d_plane(v65, v66, v73);
-  v30 = deg_angle_between(v76, v64);
-  v31 = deg_angle_between(v76, v65);
+  v72 = vdivq_f32(v26, vdupq_lane_s32(*v27.f32, 0));
+  v28 = angle_deg_in_2d_plane(v63, v65, v72);
+  v29 = angle_deg_in_2d_plane(v64, v65, v72);
+  v30 = deg_angle_between(v75, v63);
+  v31 = deg_angle_between(v75, v64);
   v32 = v28;
   if (v30 < 25.0)
   {
@@ -572,38 +569,38 @@ LABEL_31:
     v36 = v29;
   }
 
-  v37 = deg_angle_between(v66, vnegq_f32(skeleton));
-  v102[0] = &unk_2880F5EF0;
+  v37 = deg_angle_between(v65, vnegq_f32(skeleton));
+  v89[0] = &unk_2880F5EF0;
   *&v38 = v32;
-  v103[0] = [MEMORY[0x277CCABB0] numberWithFloat:v38];
-  v102[1] = &unk_2880F5F08;
+  v90[0] = [MEMORY[0x277CCABB0] numberWithFloat:v38];
+  v89[1] = &unk_2880F5F08;
   *&v39 = v36;
-  v77 = v103[0];
+  v76 = v90[0];
   v40 = [MEMORY[0x277CCABB0] numberWithFloat:v39];
-  v103[1] = v40;
-  v102[2] = &unk_2880F5F20;
+  v90[1] = v40;
+  v89[2] = &unk_2880F5F20;
   *&v41 = v37;
   v42 = [MEMORY[0x277CCABB0] numberWithFloat:v41];
-  v103[2] = v42;
-  v102[3] = &unk_2880F5F38;
-  *&v43 = v61;
+  v90[2] = v42;
+  v89[3] = &unk_2880F5F38;
+  *&v43 = v60;
   v44 = [MEMORY[0x277CCABB0] numberWithFloat:v43];
-  v103[3] = v44;
-  v102[4] = &unk_2880F5F50;
-  *&v45 = v60;
+  v90[3] = v44;
+  v89[4] = &unk_2880F5F50;
+  *&v45 = v59;
   v46 = [MEMORY[0x277CCABB0] numberWithFloat:v45];
-  v47 = vaddq_f32(v69, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v67, v59.f32[0]), v68, *v59.f32, 1), v71, v59, 2));
-  v103[4] = v46;
-  v102[5] = &unk_2880F5F68;
+  v47 = vaddq_f32(v68, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v66, v58.f32[0]), v67, *v58.f32, 1), v70, v58, 2));
+  v90[4] = v46;
+  v89[5] = &unk_2880F5F68;
   v47.i32[0] = v47.i32[2];
   v48 = [MEMORY[0x277CCABB0] numberWithFloat:*v47.i64];
-  v49 = vaddq_f32(v69, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v67, v58.f32[0]), v68, *v58.f32, 1), v71, v58, 2));
-  v103[5] = v48;
-  v102[6] = &unk_2880F5F80;
+  v49 = vaddq_f32(v68, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v66, v57.f32[0]), v67, *v57.f32, 1), v70, v57, 2));
+  v90[5] = v48;
+  v89[6] = &unk_2880F5F80;
   v49.i32[0] = v49.i32[2];
   v50 = [MEMORY[0x277CCABB0] numberWithFloat:*v49.i64];
-  v103[6] = v50;
-  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:v102 count:7];
+  v90[6] = v50;
+  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:7];
 
   v53 = vg::shared::VisualLogger::sharedLogger(v52);
   vg::shared::VisualLogger::logFloat(v53, v28, a6, &cfstr_VisageUserbody_3.isa, &cfstr_Leftelbowraw.isa);
@@ -613,7 +610,6 @@ LABEL_31:
   v54 = [self evaluatePoseValues:v51 atTimestamp:a6];
 
 LABEL_33:
-  v56 = *MEMORY[0x277D85DE8];
 
   return v54;
 }

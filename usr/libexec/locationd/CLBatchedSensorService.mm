@@ -124,15 +124,16 @@
 
     v7 = [(NSMutableSet *)self->_clients count];
     *buf = 136446722;
-    v23 = p_info;
-    v24 = 2050;
+    v27 = p_info;
+    v28 = 2050;
     dataCopy = data;
-    v26 = 1026;
-    v27 = v7;
+    v30 = 1026;
+    v31 = v7;
     _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "[service-base-%{public}s] added client %{public}p, num clients %{public}d", buf, 0x1Cu);
   }
 
-  if (sub_10000A100(121, 2))
+  v8 = sub_10000A100(121, 2);
+  if (v8)
   {
     bzero(buf, 0x65CuLL);
     if (qword_1025D4540 != -1)
@@ -146,37 +147,39 @@
       data = data->name.__rep_.__l.__data_;
     }
 
-    v11 = [(NSMutableSet *)self->_clients count];
-    v16 = 136446722;
+    v13 = qword_1025D4548;
+    v14 = [(NSMutableSet *)self->_clients count];
+    v20 = 136446722;
     dataCopy2 = data;
-    v18 = 2050;
+    v22 = 2050;
     dataCopy3 = data;
-    v20 = 1026;
-    v21 = v11;
-    v12 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLBatchedSensorService registerForData:]", "%s\n", v12);
-    if (v12 != buf)
+    v24 = 1026;
+    v25 = v14;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v13, 0, "[service-base-%{public}s] added client %{public}p, num clients %{public}d", &v20, 28);
+    v16 = v15;
+    v8 = sub_100152C7C("Generic", 1, 0, 2, "[CLBatchedSensorService registerForData:]", "%s\n", v15);
+    if (v16 != buf)
     {
-      free(v12);
+      free(v16);
     }
   }
 
-  v8 = sub_1000A23E0();
-  v9 = &self->_info;
-  if (*(&v9->name.__rep_.__l + 23) < 0)
+  v10 = sub_1000A23E0(v8, v9);
+  v11 = &self->_info;
+  if (*(&v11->name.__rep_.__l + 23) < 0)
   {
-    sub_100007244(__p, v9->name.__rep_.__l.__data_, v9->name.__rep_.__l.__size_);
+    sub_100007244(__p, v11->name.__rep_.__l.__data_, v11->name.__rep_.__l.__size_);
   }
 
   else
   {
-    *__p = *v9->name.__rep_.__s.__data_;
-    v14 = *(&v9->name.__rep_.__l + 2);
+    *__p = *v11->name.__rep_.__s.__data_;
+    v18 = *(&v11->name.__rep_.__l + 2);
   }
 
-  var0 = v9->var0;
-  sub_100E044BC(v8, __p);
-  if (SHIBYTE(v14) < 0)
+  var0 = v11->var0;
+  sub_100E044BC(v10, __p);
+  if (SHIBYTE(v18) < 0)
   {
     operator delete(__p[0]);
   }
@@ -201,11 +204,11 @@
 
     v7 = [(NSMutableSet *)self->_clients count];
     *buf = 136446722;
-    v10 = p_info;
-    v11 = 2050;
+    v20 = p_info;
+    v21 = 2050;
     dataCopy = data;
-    v13 = 1026;
-    v14 = v7;
+    v23 = 1026;
+    v24 = v7;
     _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "[service-base-%{public}s] removed client %{public}p, num clients left %{public}d", buf, 0x1Cu);
   }
 
@@ -217,12 +220,26 @@
       sub_10195A1C0();
     }
 
-    [(NSMutableSet *)self->_clients count];
-    v8 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLBatchedSensorService unregisterForData:]", "%s\n", v8);
-    if (v8 != buf)
+    v8 = qword_1025D4548;
+    data = &self->_info;
+    if (*(&self->_info.name.__rep_.__l + 23) < 0)
     {
-      free(v8);
+      data = data->name.__rep_.__l.__data_;
+    }
+
+    v10 = [(NSMutableSet *)self->_clients count];
+    v13 = 136446722;
+    dataCopy2 = data;
+    v15 = 2050;
+    dataCopy3 = data;
+    v17 = 1026;
+    v18 = v10;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v8, 0, "[service-base-%{public}s] removed client %{public}p, num clients left %{public}d", &v13, 28);
+    v12 = v11;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLBatchedSensorService unregisterForData:]", "%s\n", v11);
+    if (v12 != buf)
+    {
+      free(v12);
     }
   }
 }
@@ -257,22 +274,22 @@
     }
   }
 
-  v8 = qword_1025D91C0;
+  v9 = qword_1025D91C0;
   if (byte_1025D91CF >= 0)
   {
-    v8 = byte_1025D91CF;
+    v9 = byte_1025D91CF;
   }
 
-  if (size == v8)
+  if (size == v9)
   {
-    v9 = v3 >= 0 ? p_info : p_info->name.__rep_.__l.__data_;
-    v10 = byte_1025D91CF >= 0 ? aDmfp_3 : *aDmfp_3;
-    if (!memcmp(v9, v10, size))
+    v10 = v3 >= 0 ? p_info : p_info->name.__rep_.__l.__data_;
+    v11 = byte_1025D91CF >= 0 ? aDmfp_3 : *aDmfp_3;
+    if (!memcmp(v10, v11, size))
     {
 LABEL_25:
-      v11 = *(*sub_100023ED4(0) + 176);
+      v12 = *(*sub_100023ED4(0, v8) + 176);
 
-      v11();
+      v12();
     }
   }
 }
@@ -307,22 +324,22 @@ LABEL_25:
     }
   }
 
-  v8 = qword_1025D91C0;
+  v9 = qword_1025D91C0;
   if (byte_1025D91CF >= 0)
   {
-    v8 = byte_1025D91CF;
+    v9 = byte_1025D91CF;
   }
 
-  if (size == v8)
+  if (size == v9)
   {
-    v9 = v3 >= 0 ? p_info : p_info->name.__rep_.__l.__data_;
-    v10 = byte_1025D91CF >= 0 ? aDmfp_3 : *aDmfp_3;
-    if (!memcmp(v9, v10, size))
+    v10 = v3 >= 0 ? p_info : p_info->name.__rep_.__l.__data_;
+    v11 = byte_1025D91CF >= 0 ? aDmfp_3 : *aDmfp_3;
+    if (!memcmp(v10, v11, size))
     {
 LABEL_25:
-      v11 = *(*sub_100023ED4(0) + 176);
+      v12 = *(*sub_100023ED4(0, v8) + 176);
 
-      v11();
+      v12();
     }
   }
 }

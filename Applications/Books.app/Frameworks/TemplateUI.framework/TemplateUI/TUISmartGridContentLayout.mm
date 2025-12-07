@@ -20,13 +20,13 @@
 {
   nameCopy = name;
   descdendentCopy = descdendent;
-  if ([nameCopy isEqualToString:@"cell"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
-    model = [descdendentCopy model];
-    parentModel = [model parentModel];
+    v8 = objc_msgSend_model(descdendentCopy);
+    parentModel = [v8 parentModel];
 
     v10 = objc_opt_class();
-    model2 = [(TUILayout *)self model];
+    v11 = objc_msgSend_model(self);
     if (parentModel)
     {
       do
@@ -36,7 +36,7 @@
           break;
         }
 
-        if (parentModel == model2)
+        if (parentModel == v11)
         {
           break;
         }
@@ -50,7 +50,7 @@
     }
 
     v13 = 0;
-    if (parentModel != model2 && parentModel)
+    if (parentModel != v11 && parentModel)
     {
       v14 = parentModel;
       v15 = [TUIHoverIdentifier alloc];
@@ -80,7 +80,7 @@
   v13 = 0u;
   v14 = 0u;
   v12 = 0u;
-  [(TUILayout *)self computedTransformInAncestorLayout:layoutCopy];
+  objc_msgSend_computedTransformInAncestorLayout_(self);
 
   v11[0] = v12;
   v11[1] = v13;
@@ -155,7 +155,7 @@
   *&t1.c = v25;
   *&t1.tx = *&transform->tx;
   CGAffineTransformConcat(&v31, &t1, &t2);
-  v26 = [v12LayoutAncestor box];
+  v26 = objc_msgSend_box(v12LayoutAncestor);
   t2 = v31;
   [layoutManager appendAdornmentRenderModelsCompatibleWithKind:kind transform:&t2 context:contextCopy box:v26 toModels:modelsCopy];
 }
@@ -177,8 +177,8 @@
 
   else
   {
-    v10 = [v5LayoutAncestor box];
-    [v10 height];
+    v10 = objc_msgSend_box(v5LayoutAncestor);
+    objc_msgSend_height(v10);
     if ((v11 & 0x6000000000000) == 0x2000000000000)
     {
       [layoutManager contentLayoutSize];
@@ -365,8 +365,8 @@
   layoutAncestor = [(TUILayout *)self layoutAncestor];
   v2LayoutAncestor = [layoutAncestor layoutAncestor];
 
-  v4 = [v2LayoutAncestor box];
-  [v4 height];
+  v4 = objc_msgSend_box(v2LayoutAncestor);
+  objc_msgSend_height(v4);
   v6 = (v5 & 0x6000000000000) != 0x2000000000000;
 
   return v6;

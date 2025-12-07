@@ -105,7 +105,7 @@
 
   [v3 setRequestProperties:v7];
 
-  v17 = 0;
+  v18 = 0;
   v8 = +[SSLogConfig sharedDaemonConfig];
   if (!v8)
   {
@@ -115,48 +115,53 @@
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v8 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (v10)
   {
-    v18 = 138412546;
-    v19 = objc_opt_class();
-    v20 = 2112;
+    v19 = 138412546;
+    v20 = objc_opt_class();
+    v21 = 2112;
     transactionIdentifier = [(FinishMicroPaymentOperation *)self transactionIdentifier];
-    LODWORD(v16) = 22;
-    v15 = &v18;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    LODWORD(v17) = 22;
+    v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Finishing payment: %@", &v19, v17);
+    if (v12)
     {
-      v12 = v11;
-      v13 = [NSString stringWithCString:v11 encoding:4, &v18, v16];
-      free(v12);
-      v15 = v13;
+      v13 = v12;
+      v14 = [NSString stringWithCString:v12 encoding:4];
+      free(v13);
+      v16 = v14;
       SSFileLog();
     }
   }
 
-  if (([(FinishMicroPaymentOperation *)self runSubOperation:v3 returningError:&v17, v15]& 1) != 0)
+  if (([(FinishMicroPaymentOperation *)self runSubOperation:v3 returningError:&v18, v16]& 1) != 0)
   {
-    v14 = [(FinishMicroPaymentOperation *)self _parseResponse:[(DaemonProtocolDataProvider *)v4 output] returningError:&v17];
-    [(FinishMicroPaymentOperation *)self setError:v17];
-    [(FinishMicroPaymentOperation *)self setSuccess:v14];
+    v15 = [(FinishMicroPaymentOperation *)self _parseResponse:[(DaemonProtocolDataProvider *)v4 output] returningError:&v18];
+    [(FinishMicroPaymentOperation *)self setError:v18];
+    [(FinishMicroPaymentOperation *)self setSuccess:v15];
   }
 
   else
   {
-    [(FinishMicroPaymentOperation *)self setError:v17];
+    [(FinishMicroPaymentOperation *)self setError:v18];
   }
 }
 
@@ -165,53 +170,58 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v11 = +[SSLogConfig sharedDaemonConfig];
-    if (!v11)
+    v13 = +[SSLogConfig sharedDaemonConfig];
+    if (!v13)
     {
-      v11 = +[SSLogConfig sharedConfig];
+      v13 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v11 shouldLog];
-    if ([v11 shouldLogToDisk])
+    shouldLog = [v13 shouldLog];
+    if ([v13 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v13 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v13 &= 2u;
+      v15 = v15;
     }
 
-    if (v13)
+    else
     {
-      *v19 = 138412290;
-      *&v19[4] = objc_opt_class();
-      LODWORD(v18) = 12;
-LABEL_21:
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      v15 &= 2u;
+    }
+
+    if (v15)
+    {
+      *v20 = 138412290;
+      *&v20[4] = objc_opt_class();
+      v12 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Failed with non-dictionary response", v20, 12, *v20, *&v20[8]);
+LABEL_23:
+      if (v12)
       {
-        v15 = v14;
-        [NSString stringWithCString:v14 encoding:4, v19, v18, *v19];
-        free(v15);
+        v17 = v12;
+        [NSString stringWithCString:v12 encoding:4];
+        free(v17);
         SSFileLog();
       }
     }
 
-LABEL_23:
-    v16 = ISError();
+LABEL_25:
+    v18 = ISError();
     result = 0;
     if (!error)
     {
       return result;
     }
 
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   v6 = [response objectForKey:kISFailureTypeKey];
@@ -227,41 +237,47 @@ LABEL_23:
     shouldLog2 = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog2 | 2;
+      LODWORD(v10) = shouldLog2 | 2;
     }
 
     else
     {
-      v10 = shouldLog2;
+      LODWORD(v10) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v8 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      *v19 = 138412546;
-      *&v19[4] = objc_opt_class();
-      *&v19[12] = 2112;
-      *&v19[14] = v7;
-      LODWORD(v18) = 22;
-      goto LABEL_21;
+      *v20 = 138412546;
+      *&v20[4] = objc_opt_class();
+      *&v20[12] = 2112;
+      *&v20[14] = v7;
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Failed with failureType: %@", v20, 22, *v20, *&v20[8]);
+      goto LABEL_23;
     }
 
-    goto LABEL_23;
+    goto LABEL_25;
   }
 
-  v16 = 0;
+  v18 = 0;
   result = 1;
   if (!error)
   {
     return result;
   }
 
-LABEL_24:
-  *error = v16;
+LABEL_26:
+  *error = v18;
   return result;
 }
 

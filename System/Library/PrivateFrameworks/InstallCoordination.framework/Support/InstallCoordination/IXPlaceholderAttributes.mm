@@ -192,39 +192,8 @@ LABEL_20:
     dtPlatformName = bundleVersion;
     v11 = bundleVersion2;
     dtPlatformName2 = v11;
-    if ((dtPlatformName != 0) != (v11 != 0) || dtPlatformName && v11 && ![dtPlatformName isEqual:v11])
+    if ((dtPlatformName != 0) != (v11 != 0) || dtPlatformName && v11 && ![dtPlatformName isEqual:v11] || (dtPlatformName2, dtPlatformName, dtPlatformName2, dtPlatformName, -[IXPlaceholderAttributes bundleShortVersionString](self, "bundleShortVersionString"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "bundleShortVersionString"), v14 = objc_claimAutoreleasedReturnValue(), dtPlatformName = v13, v15 = v14, dtPlatformName2 = v15, (dtPlatformName != 0) ^ (v15 != 0)) || dtPlatformName && v15 && !objc_msgSend(dtPlatformName, "isEqual:", v15) || (dtPlatformName2, dtPlatformName, dtPlatformName2, dtPlatformName, -[IXPlaceholderAttributes extensionDictionary](self, "extensionDictionary"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "extensionDictionary"), v17 = objc_claimAutoreleasedReturnValue(), dtPlatformName = v16, v18 = v17, dtPlatformName2 = v18, (dtPlatformName != 0) ^ (v18 != 0)) || dtPlatformName && v18 && !objc_msgSend(dtPlatformName, "isEqual:", v18) || (dtPlatformName2, dtPlatformName, dtPlatformName2, dtPlatformName, -[IXPlaceholderAttributes exAppExtensionAttributes](self, "exAppExtensionAttributes"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "exAppExtensionAttributes"), v20 = objc_claimAutoreleasedReturnValue(), dtPlatformName = v19, v21 = v20, dtPlatformName2 = v21, (dtPlatformName != 0) ^ (v21 != 0)) || dtPlatformName && v21 && !objc_msgSend(dtPlatformName, "isEqual:", v21))
     {
-      goto LABEL_18;
-    }
-
-    bundleShortVersionString = [(IXPlaceholderAttributes *)self bundleShortVersionString];
-    bundleShortVersionString2 = [v5 bundleShortVersionString];
-    dtPlatformName = bundleShortVersionString;
-    v15 = bundleShortVersionString2;
-    dtPlatformName2 = v15;
-    if ((dtPlatformName != 0) != (v15 != 0) || dtPlatformName && v15 && ![dtPlatformName isEqual:v15])
-    {
-      goto LABEL_18;
-    }
-
-    extensionDictionary = [(IXPlaceholderAttributes *)self extensionDictionary];
-    extensionDictionary2 = [v5 extensionDictionary];
-    dtPlatformName = extensionDictionary;
-    v18 = extensionDictionary2;
-    dtPlatformName2 = v18;
-    if ((dtPlatformName != 0) != (v18 != 0) || dtPlatformName && v18 && ![dtPlatformName isEqual:v18])
-    {
-      goto LABEL_18;
-    }
-
-    exAppExtensionAttributes = [(IXPlaceholderAttributes *)self exAppExtensionAttributes];
-    exAppExtensionAttributes2 = [v5 exAppExtensionAttributes];
-    dtPlatformName = exAppExtensionAttributes;
-    v21 = exAppExtensionAttributes2;
-    dtPlatformName2 = v21;
-    if ((dtPlatformName != 0) != (v21 != 0) || dtPlatformName && v21 && ![dtPlatformName isEqual:v21])
-    {
-LABEL_18:
 
       v7 = 0;
     }
@@ -629,272 +598,272 @@ LABEL_21:
     v24 = 0;
   }
 
-  objc_opt_class();
-  v25 = sub_10008F1F8(v24);
-  [(IXPlaceholderAttributes *)v5 setSbAppTags:v25];
+  v25 = objc_opt_class();
+  v26 = sub_10008F1F8(v24, v25);
+  [(IXPlaceholderAttributes *)v5 setSbAppTags:v26];
 
-  v26 = [dictionaryCopy objectForKeyedSubscript:@"LSCounterpartIdentifiers"];
+  v27 = [dictionaryCopy objectForKeyedSubscript:@"LSCounterpartIdentifiers"];
   objc_opt_class();
-  v27 = v26;
+  v28 = v27;
   if (objc_opt_isKindOfClass())
   {
-    v28 = v27;
+    v29 = v28;
   }
 
   else
   {
-    v28 = 0;
+    v29 = 0;
   }
 
-  objc_opt_class();
-  v29 = sub_10008F1F8(v28);
-  [(IXPlaceholderAttributes *)v5 setLsCounterpartIdentifiers:v29];
+  v30 = objc_opt_class();
+  v31 = sub_10008F1F8(v29, v30);
+  [(IXPlaceholderAttributes *)v5 setLsCounterpartIdentifiers:v31];
 
-  v30 = [dictionaryCopy objectForKeyedSubscript:@"LSRequiresPostProcessing"];
-  [(IXPlaceholderAttributes *)v5 setLsRequiresPostProcessing:sub_10008F068(v30, 0)];
+  v32 = [dictionaryCopy objectForKeyedSubscript:@"LSRequiresPostProcessing"];
+  [(IXPlaceholderAttributes *)v5 setLsRequiresPostProcessing:sub_10008F068(v32, 0)];
 
-  v31 = [dictionaryCopy objectForKeyedSubscript:@"SBIconMasqueradeIdentifier"];
+  v33 = [dictionaryCopy objectForKeyedSubscript:@"SBIconMasqueradeIdentifier"];
   objc_opt_class();
-  v32 = v31;
+  v34 = v33;
   if (objc_opt_isKindOfClass())
   {
-    v33 = v32;
+    v35 = v34;
   }
 
   else
   {
-    v33 = 0;
+    v35 = 0;
   }
 
-  [(IXPlaceholderAttributes *)v5 setSbIconMasqueradeIdentifier:v33];
-  v34 = [dictionaryCopy objectForKeyedSubscript:@"WKCompanionAppBundleIdentifier"];
+  [(IXPlaceholderAttributes *)v5 setSbIconMasqueradeIdentifier:v35];
+  v36 = [dictionaryCopy objectForKeyedSubscript:@"WKCompanionAppBundleIdentifier"];
   objc_opt_class();
-  v35 = v34;
+  v37 = v36;
   if (objc_opt_isKindOfClass())
   {
-    v36 = v35;
+    v38 = v37;
   }
 
   else
   {
-    v36 = 0;
+    v38 = 0;
   }
 
-  [(IXPlaceholderAttributes *)v5 setCompanionBundleIdentifierForWatchApp:v36];
-  v37 = [dictionaryCopy objectForKeyedSubscript:@"UIRequiredDeviceCapabilities"];
+  [(IXPlaceholderAttributes *)v5 setCompanionBundleIdentifierForWatchApp:v38];
+  v39 = [dictionaryCopy objectForKeyedSubscript:@"UIRequiredDeviceCapabilities"];
   objc_opt_class();
-  v38 = v37;
+  v40 = v39;
   if (objc_opt_isKindOfClass())
   {
-    v39 = v38;
+    v41 = v40;
   }
 
   else
   {
-    v39 = 0;
+    v41 = 0;
   }
 
-  if (v39)
+  if (v41)
   {
-    v40 = v38;
-    v41 = objc_opt_class();
-    v42 = objc_opt_class();
-    v43 = sub_10008F36C(v40, v41, v42);
+    v42 = v40;
+    v43 = objc_opt_class();
+    v44 = objc_opt_class();
+    v45 = sub_10008F36C(v42, v43, v44);
 
-    [(IXPlaceholderAttributes *)v5 setRequiredDeviceCapabilities:v43];
+    [(IXPlaceholderAttributes *)v5 setRequiredDeviceCapabilities:v45];
   }
 
   else
   {
     objc_opt_class();
-    v44 = v38;
+    v46 = v40;
     if (objc_opt_isKindOfClass())
     {
-      v45 = v44;
+      v47 = v46;
     }
 
     else
     {
-      v45 = 0;
+      v47 = 0;
     }
 
-    if (v45)
+    if (v47)
     {
-      [(IXPlaceholderAttributes *)v5 setRequiredDeviceCapabilitiesWithArray:v44];
+      [(IXPlaceholderAttributes *)v5 setRequiredDeviceCapabilitiesWithArray:v46];
     }
   }
 
-  v46 = [dictionaryCopy objectForKeyedSubscript:@"WKWatchOnly"];
-  [(IXPlaceholderAttributes *)v5 setWatchOnlyApp:sub_10008F068(v46, 0)];
+  v48 = [dictionaryCopy objectForKeyedSubscript:@"WKWatchOnly"];
+  [(IXPlaceholderAttributes *)v5 setWatchOnlyApp:sub_10008F068(v48, 0)];
 
-  v47 = [dictionaryCopy objectForKeyedSubscript:@"WKRunsIndependentlyOfCompanionApp"];
-  [(IXPlaceholderAttributes *)v5 setRunsIndependentlyOfCompanionApp:sub_10008F068(v47, 0)];
+  v49 = [dictionaryCopy objectForKeyedSubscript:@"WKRunsIndependentlyOfCompanionApp"];
+  [(IXPlaceholderAttributes *)v5 setRunsIndependentlyOfCompanionApp:sub_10008F068(v49, 0)];
 
-  v48 = [dictionaryCopy objectForKeyedSubscript:@"NSApplicationRequiresArcade"];
-  [(IXPlaceholderAttributes *)v5 setArcadeApp:sub_10008F068(v48, 0)];
+  v50 = [dictionaryCopy objectForKeyedSubscript:@"NSApplicationRequiresArcade"];
+  [(IXPlaceholderAttributes *)v5 setArcadeApp:sub_10008F068(v50, 0)];
 
-  v49 = [dictionaryCopy objectForKeyedSubscript:@"WKPushBundleMetadata"];
+  v51 = [dictionaryCopy objectForKeyedSubscript:@"WKPushBundleMetadata"];
   objc_opt_class();
-  v50 = v49;
+  v52 = v51;
   if (objc_opt_isKindOfClass())
   {
-    v51 = v50;
+    v53 = v52;
   }
 
   else
   {
-    v51 = 0;
+    v53 = 0;
   }
 
-  [(IXPlaceholderAttributes *)v5 setWebKitPushBundleMetadata:v51];
-  v52 = [dictionaryCopy objectForKeyedSubscript:@"NSAccentColorName"];
+  [(IXPlaceholderAttributes *)v5 setWebKitPushBundleMetadata:v53];
+  v54 = [dictionaryCopy objectForKeyedSubscript:@"NSAccentColorName"];
   objc_opt_class();
-  v53 = v52;
+  v55 = v54;
   if (objc_opt_isKindOfClass())
   {
-    v54 = v53;
+    v56 = v55;
   }
 
   else
   {
-    v54 = 0;
+    v56 = 0;
   }
 
-  [(IXPlaceholderAttributes *)v5 setAccentColorName:v54];
-  v55 = [dictionaryCopy objectForKeyedSubscript:@"UILaunchScreen"];
+  [(IXPlaceholderAttributes *)v5 setAccentColorName:v56];
+  v57 = [dictionaryCopy objectForKeyedSubscript:@"UILaunchScreen"];
   objc_opt_class();
-  v56 = v55;
+  v58 = v57;
   if (objc_opt_isKindOfClass())
   {
-    v57 = v56;
+    v59 = v58;
   }
 
   else
   {
-    v57 = 0;
+    v59 = 0;
   }
 
-  [(IXPlaceholderAttributes *)v5 setUiLaunchScreen:v57];
-  v58 = [dictionaryCopy objectForKeyedSubscript:@"UIDeviceFamily"];
+  [(IXPlaceholderAttributes *)v5 setUiLaunchScreen:v59];
+  v60 = [dictionaryCopy objectForKeyedSubscript:@"UIDeviceFamily"];
   objc_opt_class();
-  v59 = v58;
+  v61 = v60;
   if (objc_opt_isKindOfClass())
   {
-    v60 = v59;
+    v62 = v61;
   }
 
   else
   {
-    v60 = 0;
+    v62 = 0;
   }
 
-  if (v60)
+  if (v62)
   {
-    v82 = v38;
-    v83 = dictionaryCopy;
-    v61 = objc_opt_new();
-    v84 = 0u;
-    v85 = 0u;
-    v86 = 0u;
+    v85 = v40;
+    v86 = dictionaryCopy;
+    v63 = objc_opt_new();
     v87 = 0u;
-    v62 = v60;
-    v63 = [v62 countByEnumeratingWithState:&v84 objects:v89 count:16];
-    if (v63)
+    v88 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v64 = v62;
+    v65 = [v64 countByEnumeratingWithState:&v87 objects:v92 count:16];
+    if (v65)
     {
-      v64 = v63;
-      v65 = *v85;
+      v66 = v65;
+      v67 = *v88;
       do
       {
-        for (i = 0; i != v64; i = i + 1)
+        for (i = 0; i != v66; i = i + 1)
         {
-          if (*v85 != v65)
+          if (*v88 != v67)
           {
-            objc_enumerationMutation(v62);
+            objc_enumerationMutation(v64);
           }
 
-          v67 = *(*(&v84 + 1) + 8 * i);
+          v69 = *(*(&v87 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
-            v68 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v67 intValue]);
-            [v61 addObject:v68];
+            v70 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v69 intValue]);
+            [v63 addObject:v70];
           }
         }
 
-        v64 = [v62 countByEnumeratingWithState:&v84 objects:v89 count:16];
+        v66 = [v64 countByEnumeratingWithState:&v87 objects:v92 count:16];
       }
 
-      while (v64);
+      while (v66);
     }
 
-    v69 = [v61 copy];
-    [(IXPlaceholderAttributes *)v5 setUiDeviceFamily:v69];
+    v71 = [v63 copy];
+    [(IXPlaceholderAttributes *)v5 setUiDeviceFamily:v71];
 
-    v38 = v82;
-    dictionaryCopy = v83;
+    v40 = v85;
+    dictionaryCopy = v86;
   }
 
-  v70 = [dictionaryCopy objectForKeyedSubscript:@"LSRequiresIPhoneOS"];
-  [(IXPlaceholderAttributes *)v5 setLsRequiresIPhoneOS:sub_10008F068(v70, 0)];
+  v72 = [dictionaryCopy objectForKeyedSubscript:@"LSRequiresIPhoneOS"];
+  [(IXPlaceholderAttributes *)v5 setLsRequiresIPhoneOS:sub_10008F068(v72, 0)];
 
-  v71 = [dictionaryCopy objectForKeyedSubscript:_kCFBundleSupportedPlatformsKey];
+  v73 = [dictionaryCopy objectForKeyedSubscript:_kCFBundleSupportedPlatformsKey];
   objc_opt_class();
-  v72 = v71;
+  v74 = v73;
   if (objc_opt_isKindOfClass())
   {
-    v73 = v72;
+    v75 = v74;
   }
 
   else
   {
-    v73 = 0;
+    v75 = 0;
   }
 
-  objc_opt_class();
-  if (v73)
+  v76 = objc_opt_class();
+  if (v75)
   {
-    v74 = sub_10008F1F8(v72);
+    v77 = sub_10008F1F8(v74, v76);
   }
 
   else
   {
-    v75 = v72;
+    v78 = v74;
     if (objc_opt_isKindOfClass())
     {
-      v76 = v75;
+      v79 = v78;
     }
 
     else
     {
-      v76 = 0;
+      v79 = 0;
     }
 
-    if (!v76)
+    if (!v79)
     {
       goto LABEL_73;
     }
 
-    v88 = v75;
-    v77 = v75;
-    v74 = [NSArray arrayWithObjects:&v88 count:1];
+    v91 = v78;
+    v80 = v78;
+    v77 = [NSArray arrayWithObjects:&v91 count:1];
   }
 
-  [(IXPlaceholderAttributes *)v5 setCfBundleSupportedPlatforms:v74];
+  [(IXPlaceholderAttributes *)v5 setCfBundleSupportedPlatforms:v77];
 
 LABEL_73:
-  v78 = [dictionaryCopy objectForKeyedSubscript:@"DTPlatformName"];
+  v81 = [dictionaryCopy objectForKeyedSubscript:@"DTPlatformName"];
   objc_opt_class();
-  v79 = v78;
+  v82 = v81;
   if (objc_opt_isKindOfClass())
   {
-    v80 = v79;
+    v83 = v82;
   }
 
   else
   {
-    v80 = 0;
+    v83 = 0;
   }
 
-  [(IXPlaceholderAttributes *)v5 setDtPlatformName:v80];
+  [(IXPlaceholderAttributes *)v5 setDtPlatformName:v83];
 LABEL_77:
 
   return v5;

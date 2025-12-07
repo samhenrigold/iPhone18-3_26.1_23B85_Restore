@@ -62,14 +62,14 @@
   if (![(SBDockView *)self isDockInset]&& BSFloatGreaterThanFloat())
   {
     dockEdge = [(SBDockView *)self dockEdge];
-    [(SBDockView *)self bounds];
+    objc_msgSend_bounds(self);
     v11 = v10;
     rect = v10;
     v13 = v12;
     v15 = v14;
     rect_16 = v16;
     _screen = [(SBDockView *)self _screen];
-    [_screen bounds];
+    objc_msgSend_bounds(_screen);
     rect_24 = v19;
     v34 = v18;
 
@@ -255,7 +255,7 @@
 
 - (void)getDockViewMetrics:(id *)metrics
 {
-  [(SBDockView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   x = v49.origin.x;
   y = v49.origin.y;
   width = v49.size.width;
@@ -401,7 +401,7 @@
 - (double)_layoutScale
 {
   _listLayout = [(SBDockView *)self _listLayout];
-  [_listLayout iconImageInfo];
+  objc_msgSend_iconImageInfo(_listLayout);
   v4 = v3;
 
   return v4;

@@ -1470,8 +1470,8 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  [fromCopy searchRegion];
-  if (fabs(v10) > 180.0 || fabs(v7) > 90.0 || v8 < 0.0 || v8 > 180.0 || v9 < 0.0 || v9 > 360.0 || (v11 = objc_loadWeakRetained(&self->_delegate), [fromCopy searchRegion], v12 = objc_msgSend(v11, "URLHandler:setRegion:", self), v11, (v12 & 1) == 0))
+  objc_msgSend_searchRegion(fromCopy);
+  if (fabs(v10) > 180.0 || fabs(v7) > 90.0 || v8 < 0.0 || v8 > 180.0 || v9 < 0.0 || v9 > 360.0 || (v11 = objc_loadWeakRetained(&self->_delegate), objc_msgSend_searchRegion(fromCopy), v12 = [v11 URLHandler:self setRegion:?], v11, (v12 & 1) == 0))
   {
     [fromCopy searchCoordinate];
     if (fabs(v14) > 180.0 || fabs(v13) > 90.0 || (v15 = objc_loadWeakRetained(&self->_delegate), [fromCopy searchCoordinate], v16 = objc_msgSend(v15, "URLHandler:setRegionWithCenter:", self), v15, (v16 & 1) == 0))

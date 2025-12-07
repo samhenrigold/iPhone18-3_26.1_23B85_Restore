@@ -10,18 +10,17 @@
 
 - (SFSiriWordTimingPlayer)init
 {
-  v7.receiver = self;
-  v7.super_class = SFSiriWordTimingPlayer;
-  v2 = [(SFSiriWordTimingPlayer *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFSiriWordTimingPlayer;
+  v2 = [(SFSiriWordTimingPlayer *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)activate
@@ -35,21 +34,25 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __34__SFSiriWordTimingPlayer_activate__block_invoke(uint64_t a1)
+uint64_t __34__SFSiriWordTimingPlayer_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFSiriClient <= 30 && (gLogCategory_SFSiriClient != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFSiriClient <= 30)
   {
-    __34__SFSiriWordTimingPlayer_activate__block_invoke_cold_1();
+    if (gLogCategory_SFSiriClient != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __34__SFSiriWordTimingPlayer_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
-  if (v2[6] == 0.0)
+  v4 = *(v3 + 32);
+  if (v4[6] == 0.0)
   {
-    *(*(a1 + 32) + 48) = CFAbsoluteTimeGetCurrent();
-    v2 = *(a1 + 32);
+    *(*(v3 + 32) + 48) = CFAbsoluteTimeGetCurrent();
+    v4 = *(v3 + 32);
   }
 
-  return [v2 _processNextWord];
+  return [v4 _processNextWord];
 }
 
 - (void)invalidate
@@ -63,58 +66,66 @@ uint64_t __34__SFSiriWordTimingPlayer_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-void __36__SFSiriWordTimingPlayer_invalidate__block_invoke(uint64_t a1)
+void __36__SFSiriWordTimingPlayer_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFSiriClient <= 30 && (gLogCategory_SFSiriClient != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFSiriClient <= 30)
   {
-    __36__SFSiriWordTimingPlayer_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFSiriClient != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __36__SFSiriWordTimingPlayer_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(*(a1 + 32) + 8);
-  if (v2)
+  v4 = *(*(v3 + 32) + 8);
+  if (v4)
   {
-    v3 = v2;
-    dispatch_source_cancel(v3);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 8);
-    *(v4 + 8) = 0;
+    v5 = v4;
+    dispatch_source_cancel(v5);
+    v6 = *(v3 + 32);
+    v7 = *(v6 + 8);
+    *(v6 + 8) = 0;
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 64);
-  if (v7)
+  v8 = *(v3 + 32);
+  v9 = *(v8 + 64);
+  if (v9)
   {
-    v8 = NSErrorWithOSStatusF();
-    (*(v7 + 16))(v7, 0, 0, 4, v8);
+    v10 = NSErrorWithOSStatusF(4294960573, "Invalidated");
+    (*(v9 + 16))(v9, 0, 0, 4, v10);
 
-    v6 = *(a1 + 32);
-    v9 = *(v6 + 64);
+    v8 = *(v3 + 32);
+    v11 = *(v8 + 64);
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  *(v6 + 64) = 0;
+  *(v8 + 64) = 0;
 }
 
 - (void)_processNextWord
 {
   wordIndex = self->_wordIndex;
-  if (wordIndex >= [(NSArray *)self->_wordTimings count])
+  v4 = [(NSArray *)self->_wordTimings count];
+  if (wordIndex >= v4)
   {
-    if (gLogCategory_SFSiriClient <= 30 && (gLogCategory_SFSiriClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFSiriClient <= 30)
     {
-      [SFSiriWordTimingPlayer _processNextWord];
+      if (gLogCategory_SFSiriClient != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        [(SFSiriWordTimingPlayer *)v4 _processNextWord];
+      }
     }
 
     timer = self->_timer;
     if (timer)
     {
-      v9 = timer;
-      dispatch_source_cancel(v9);
-      v10 = self->_timer;
+      v11 = timer;
+      dispatch_source_cancel(v11);
+      v12 = self->_timer;
       self->_timer = 0;
     }
 
@@ -132,11 +143,10 @@ void __36__SFSiriWordTimingPlayer_invalidate__block_invoke(uint64_t a1)
   {
     wordTimings = self->_wordTimings;
     ++self->_wordIndex;
-    v5 = [(NSArray *)wordTimings objectAtIndexedSubscript:?];
+    v8 = [(NSArray *)wordTimings objectAtIndexedSubscript:?];
     wordInfo = self->_wordInfo;
-    self->_wordInfo = v5;
+    self->_wordInfo = v8;
 
-    startTime = self->_startTime;
     [(SFSiriWordTimingInfo *)self->_wordInfo timeOffset];
     CFAbsoluteTimeGetCurrent();
     if (self->_timer)
@@ -147,18 +157,17 @@ void __36__SFSiriWordTimingPlayer_invalidate__block_invoke(uint64_t a1)
 
     else
     {
-      v12 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
-      v13 = self->_timer;
-      self->_timer = v12;
+      v14 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+      v15 = self->_timer;
+      self->_timer = v14;
 
-      v14 = self->_timer;
+      v16 = self->_timer;
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __42__SFSiriWordTimingPlayer__processNextWord__block_invoke;
       handler[3] = &unk_1E788B198;
       handler[4] = self;
-      dispatch_source_set_event_handler(v14, handler);
-      v15 = self->_timer;
+      dispatch_source_set_event_handler(v16, handler);
       CUDispatchTimerSet();
       dispatch_activate(self->_timer);
     }
@@ -196,10 +205,7 @@ void __36__SFSiriWordTimingPlayer_invalidate__block_invoke(uint64_t a1)
         goto LABEL_18;
       }
 
-      v18 = textRange;
-      v19 = v11;
-      v17 = v12;
-      localizedText = NSErrorWithOSStatusF();
+      localizedText = NSErrorWithOSStatusF(4294960586, "Timing info out-of-rage (%d, %d, %d)", v12, textRange, v11);
       (*(v14 + 2))(v14, &stru_1F1D30528, 0, 0, localizedText);
       goto LABEL_17;
     }
@@ -236,7 +242,7 @@ void __36__SFSiriWordTimingPlayer_invalidate__block_invoke(uint64_t a1)
 LABEL_17:
 
 LABEL_18:
-  [(SFSiriWordTimingPlayer *)self _processNextWord:v17];
+  [(SFSiriWordTimingPlayer *)self _processNextWord];
 }
 
 @end

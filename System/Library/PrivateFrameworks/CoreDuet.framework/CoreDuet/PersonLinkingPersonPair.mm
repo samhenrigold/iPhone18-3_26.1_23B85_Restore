@@ -84,39 +84,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_sourcePerson)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_targetPerson)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    grade = self->_grade;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteFloatField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_reason)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -215,7 +213,6 @@
     }
   }
 
-  v7 = *(equalCopy + 44);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 44) & 2) == 0)
@@ -224,7 +221,7 @@
     }
 
 LABEL_20:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_21;
   }
 
@@ -233,7 +230,6 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v8 = *(equalCopy + 40);
   if (self->_grade)
   {
     if ((*(equalCopy + 40) & 1) == 0)
@@ -264,17 +260,17 @@ LABEL_8:
   reason = self->_reason;
   if (reason | *(equalCopy + 2))
   {
-    v10 = [(NSString *)reason isEqual:?];
+    v8 = [(NSString *)reason isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_21:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

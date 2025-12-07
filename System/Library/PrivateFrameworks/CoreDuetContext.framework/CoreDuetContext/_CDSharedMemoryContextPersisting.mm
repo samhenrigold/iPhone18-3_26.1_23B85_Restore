@@ -190,56 +190,56 @@ LABEL_8:
 - (id)loadValues
 {
   selfCopy = self;
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   allKeysForContextStore = [(_CDSharedMemoryContextPersisting *)self allKeysForContextStore];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v4 = allKeysForContextStore;
-  v5 = [v4 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = @"context.keyPath";
-    v9 = *v33;
+    v9 = *v32;
     *&v6 = 138412546;
-    v28 = v6;
+    v27 = v6;
     do
     {
       v10 = 0;
       do
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * v10);
-        if ([v11 hasPrefix:{v8, v28}])
+        v11 = *(*(&v31 + 1) + 8 * v10);
+        if ([v11 hasPrefix:{v8, v27}])
         {
           v12 = [(_CDSharedMemoryKeyValueStore *)selfCopy->_store dataForKey:v11];
           if (v12)
           {
             v13 = MEMORY[0x1E696ACD0];
             v14 = objc_opt_class();
-            v31 = 0;
-            v15 = [v13 unarchivedObjectOfClass:v14 fromData:v12 error:&v31];
-            v16 = v31;
+            v30 = 0;
+            v15 = [v13 unarchivedObjectOfClass:v14 fromData:v12 error:&v30];
+            v16 = v30;
             if (v16 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              *buf = v28;
-              v37 = v11;
-              v38 = 2112;
-              v39 = v16;
+              *buf = v27;
+              v36 = v11;
+              v37 = 2112;
+              v38 = v16;
               _os_log_error_impl(&dword_1A9611000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error unarchiving contextual keypath and value for %@: %@", buf, 0x16u);
               if (v15)
               {
 LABEL_11:
                 value = [v15 value];
                 [v15 keyPath];
-                v30 = v16;
+                v29 = v16;
                 v18 = v7;
                 v19 = v9;
                 v20 = v8;
@@ -252,7 +252,7 @@ LABEL_11:
                 v8 = v20;
                 v9 = v19;
                 v7 = v18;
-                v16 = v30;
+                v16 = v29;
               }
             }
 
@@ -267,7 +267,7 @@ LABEL_11:
       }
 
       while (v7 != v10);
-      v24 = [v4 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v24 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
       v7 = v24;
     }
 
@@ -276,55 +276,53 @@ LABEL_11:
 
   v25 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (id)loadRegistrations
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   allKeysForContextStore = [(_CDSharedMemoryContextPersisting *)self allKeysForContextStore];
   array = [MEMORY[0x1E695DF70] array];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v4 = allKeysForContextStore;
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v24;
+    v8 = *v23;
     *&v6 = 138412546;
-    v20 = v6;
+    v19 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
-        if ([v10 hasPrefix:{@"context.registration", v20}])
+        v10 = *(*(&v22 + 1) + 8 * v9);
+        if ([v10 hasPrefix:{@"context.registration", v19}])
         {
           v11 = [(_CDSharedMemoryKeyValueStore *)self->_store dataForKey:v10];
           if (v11)
           {
             v12 = MEMORY[0x1E696ACD0];
             v13 = objc_opt_class();
-            v22 = 0;
-            v14 = [v12 unarchivedObjectOfClass:v13 fromData:v11 error:&v22];
-            v15 = v22;
+            v21 = 0;
+            v14 = [v12 unarchivedObjectOfClass:v13 fromData:v11 error:&v21];
+            v15 = v21;
             if (v15 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              *buf = v20;
-              v28 = v10;
-              v29 = 2112;
-              v30 = v15;
+              *buf = v19;
+              v27 = v10;
+              v28 = 2112;
+              v29 = v15;
               _os_log_error_impl(&dword_1A9611000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error unarchiving contextual keypath registration for %@: %@", buf, 0x16u);
               if (v14)
               {
@@ -344,7 +342,7 @@ LABEL_11:
       }
 
       while (v7 != v9);
-      v16 = [v4 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v16 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
       v7 = v16;
     }
 
@@ -352,8 +350,6 @@ LABEL_11:
   }
 
   v17 = [MEMORY[0x1E695DEC8] arrayWithArray:array];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

@@ -107,22 +107,22 @@ void __50__AXGestureDistancePreviewView_initWithSpecifier___block_invoke(uint64_
 
 - (double)circleRadius
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_0(v2);
   return 0.0;
 }
 
 - (double)maximumCircleRadius
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_0(v2);
   return 0.0;
 }
 
 - (SEL)settingsGetter
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_0(v2);
   return 0;
 }
 

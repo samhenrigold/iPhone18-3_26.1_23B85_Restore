@@ -61,9 +61,9 @@ void __85___UICAPackageView_loadPackageViewWithObject_publishedObjectViewClassMa
   else
   {
     v8 = [v5 domain];
-    v9 = [v8 isEqual:@"CAARFileLoadingDomain"];
+    isEqual = objc_msgSend_isEqual_(v8);
 
-    if (v9)
+    if (isEqual)
     {
       v10 = v5;
     }
@@ -122,7 +122,7 @@ id __85___UICAPackageView_loadPackageViewWithObject_publishedObjectViewClassMap_
       {
         v7 = [v5 pathExtension];
         v8 = *MEMORY[0x1E6979EF0];
-        if (v7 && [v7 isEqualToString:@"ca"])
+        if (v7 && objc_msgSend_isEqualToString_(v7))
         {
           v9 = *MEMORY[0x1E6979EF8];
 

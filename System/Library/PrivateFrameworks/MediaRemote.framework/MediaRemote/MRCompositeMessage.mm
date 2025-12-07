@@ -36,7 +36,7 @@
 
 - (id)transportOptions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   transportOptions = selfCopy->_transportOptions;
@@ -48,27 +48,27 @@
 
   else
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v5 = selfCopy->_messages;
     v6 = 0;
     v7 = 0;
-    v8 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
+          v11 = *(*(&v19 + 1) + 8 * i);
           transportOptions = [v11 transportOptions];
           if ([transportOptions priority] < 1)
           {
@@ -92,7 +92,7 @@
           v6 |= isWaking;
         }
 
-        v8 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v8);
@@ -112,8 +112,6 @@
   }
 
   objc_sync_exit(obj);
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -146,28 +144,28 @@
 
 - (id)description
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"<%@, Messages:\n", objc_opt_class()];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = self->_messages;
-  v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [*(*(&v15 + 1) + 8 * i) description];
+        v8 = [*(*(&v14 + 1) + 8 * i) description];
         v9 = [v8 componentsSeparatedByString:@"\n"];
 
         v10 = [v9 mr_map:&__block_literal_global_66];
@@ -176,14 +174,13 @@
         [v3 appendFormat:@"%@\n", v11];
       }
 
-      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
 
   [v3 appendString:@">"];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

@@ -9,11 +9,11 @@
 
 - (_LTTextLanguageDetectorScorer)initWithSupportedLocales:(id)locales
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   localesCopy = locales;
-  v24.receiver = self;
-  v24.super_class = _LTTextLanguageDetectorScorer;
-  v6 = [(_LTTextLanguageDetectorScorer *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = _LTTextLanguageDetectorScorer;
+  v6 = [(_LTTextLanguageDetectorScorer *)&v25 init];
   if (v6)
   {
     v7 = objc_opt_new();
@@ -21,69 +21,67 @@
     v6->_items = v7;
 
     objc_storeStrong(&v6->_supportedLocales, locales);
-    v9 = _LTOSLogLID();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = _LTOSLogLID(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v10 = v6->_supportedLocales;
+      v12 = v6->_supportedLocales;
       array = [MEMORY[0x277CBEB18] array];
-      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v12 = v10;
-      v13 = [(NSArray *)v12 countByEnumeratingWithState:&v25 objects:buf count:16];
-      if (v13)
+      v29 = 0u;
+      v14 = v12;
+      v15 = [(NSArray *)v14 countByEnumeratingWithState:&v26 objects:buf count:16];
+      if (v15)
       {
-        v14 = v13;
-        v15 = *v26;
+        v16 = v15;
+        v17 = *v27;
         do
         {
-          v16 = 0;
+          v18 = 0;
           do
           {
-            if (*v26 != v15)
+            if (*v27 != v17)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v14);
             }
 
-            localeIdentifier = [*(*(&v25 + 1) + 8 * v16) localeIdentifier];
+            localeIdentifier = [*(*(&v26 + 1) + 8 * v18) localeIdentifier];
             [array addObject:localeIdentifier];
 
-            ++v16;
+            ++v18;
           }
 
-          while (v14 != v16);
-          v14 = [(NSArray *)v12 countByEnumeratingWithState:&v25 objects:buf count:16];
+          while (v16 != v18);
+          v16 = [(NSArray *)v14 countByEnumeratingWithState:&v26 objects:buf count:16];
         }
 
-        while (v14);
+        while (v16);
       }
 
-      v18 = MEMORY[0x277CCACA8];
-      v19 = [array componentsJoinedByString:{@", \n"}];
-      v20 = [v18 stringWithFormat:@"[ %@ ]", v19];
+      v20 = MEMORY[0x277CCACA8];
+      v21 = [array componentsJoinedByString:{@", \n"}];
+      v22 = [v20 stringWithFormat:@"[ %@ ]", v21];
 
       *buf = 138543362;
-      v30 = v20;
-      _os_log_impl(&dword_232E53000, v9, OS_LOG_TYPE_INFO, "supported locales for scoring: %{public}@", buf, 0xCu);
+      v31 = v22;
+      _os_log_impl(&dword_232E53000, v11, OS_LOG_TYPE_INFO, "supported locales for scoring: %{public}@", buf, 0xCu);
     }
 
-    v21 = v6;
+    v23 = v6;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)append:(id)append recognizer:(id)recognizer
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   appendCopy = append;
   recognizerCopy = recognizer;
   dominantLanguage = [recognizerCopy dominantLanguage];
   if (dominantLanguage)
   {
-    supportedLocales = self->_supportedLocales;
     v10 = _LTLanguageCodeToSupportedLocale();
     v11 = [recognizerCopy languageHypothesesWithMaximum:4];
     v12 = [v11 objectForKeyedSubscript:dominantLanguage];
@@ -99,17 +97,15 @@
 
   else
   {
-    v16 = _LTOSLogLID();
+    v16 = _LTOSLogLID(0, v8);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = v16;
-      v19 = 134217984;
-      v20 = [appendCopy length];
-      _os_log_impl(&dword_232E53000, v17, OS_LOG_TYPE_INFO, "no scorable dominant language for text length: %zu", &v19, 0xCu);
+      v18 = 134217984;
+      v19 = [appendCopy length];
+      _os_log_impl(&dword_232E53000, v17, OS_LOG_TYPE_INFO, "no scorable dominant language for text length: %zu", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)append:(id)append
@@ -122,8 +118,8 @@
 
 - (id)weightedLocaleWithStrategy:(unint64_t)strategy
 {
-  v62 = *MEMORY[0x277D85DE8];
-  v5 = _LTOSLogLID();
+  v67 = *MEMORY[0x277D85DE8];
+  v5 = _LTOSLogLID(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(_LTTextLanguageDetectorScorer *)self weightedLocaleWithStrategy:v5];
@@ -138,167 +134,167 @@
   else
   {
     v6 = _LTPreferencesTextLIDScorerConfidenceThreshold();
-    v7 = _LTOSLogLID();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = _LTOSLogLID(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v54 = v6;
-      _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "weightedLocale confidence threshold from preferences: %f", buf, 0xCu);
+      v59 = v6;
+      _os_log_impl(&dword_232E53000, v9, OS_LOG_TYPE_INFO, "weightedLocale confidence threshold from preferences: %f", buf, 0xCu);
     }
   }
 
-  v8 = objc_opt_new();
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v10 = objc_opt_new();
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   obj = self->_items;
-  v9 = [(NSMutableArray *)obj countByEnumeratingWithState:&v49 objects:v61 count:16];
-  if (v9)
+  v11 = [(NSMutableArray *)obj countByEnumeratingWithState:&v54 objects:v66 count:16];
+  if (v11)
   {
-    v11 = v9;
-    v47 = 0;
-    v12 = 0;
-    v13 = 0;
-    v14 = *v50;
-    v15 = 0.0;
-    *&v10 = 134218240;
-    v45 = v10;
+    v13 = v11;
+    v52 = 0;
+    v14 = 0;
+    v15 = 0;
+    v16 = *v55;
+    v17 = 0.0;
+    *&v12 = 134218240;
+    v50 = v12;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v50 != v14)
+        if (*v55 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v49 + 1) + 8 * i);
-        wordCount = [v17 wordCount];
-        [v17 confidence];
-        if (v19 >= v6)
+        v19 = *(*(&v54 + 1) + 8 * i);
+        wordCount = [v19 wordCount];
+        confidence = [v19 confidence];
+        if (v23 >= v6)
         {
-          locale = [v17 locale];
-          v24 = [v8 objectForKeyedSubscript:locale];
-          [v24 doubleValue];
-          v26 = v25;
+          locale = [v19 locale];
+          v28 = [v10 objectForKeyedSubscript:locale];
+          [v28 doubleValue];
+          v30 = v29;
           if (strategyCopy == 3)
           {
-            wordCount2 = [v17 wordCount];
+            wordCount2 = [v19 wordCount];
           }
 
           else
           {
-            [v17 score];
+            [v19 score];
           }
 
-          v28 = v26 + wordCount2;
+          v32 = v30 + wordCount2;
 
-          v29 = [MEMORY[0x277CCABB0] numberWithDouble:v28];
-          locale2 = [v17 locale];
-          [v8 setObject:v29 forKeyedSubscript:locale2];
+          v33 = [MEMORY[0x277CCABB0] numberWithDouble:v32];
+          locale2 = [v19 locale];
+          [v10 setObject:v33 forKeyedSubscript:locale2];
 
-          v12 += [v17 wordCount];
-          if (v28 > v15)
+          v14 += [v19 wordCount];
+          if (v32 > v17)
           {
-            locale3 = [v17 locale];
+            locale3 = [v19 locale];
 
-            v47 = locale3;
-            v15 = v28;
+            v52 = locale3;
+            v17 = v32;
           }
         }
 
         else
         {
-          v20 = _LTOSLogLID();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+          v24 = _LTOSLogLID(confidence, v22);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
-            v21 = v20;
-            [v17 confidence];
-            *buf = v45;
-            v54 = v22;
-            v55 = 2048;
-            v56 = v6;
-            _os_log_debug_impl(&dword_232E53000, v21, OS_LOG_TYPE_DEBUG, "weightedLocale item confidence %f < confidence threshold %f, skipping", buf, 0x16u);
+            v25 = v24;
+            [v19 confidence];
+            *buf = v50;
+            v59 = v26;
+            v60 = 2048;
+            v61 = v6;
+            _os_log_debug_impl(&dword_232E53000, v25, OS_LOG_TYPE_DEBUG, "weightedLocale item confidence %f < confidence threshold %f, skipping", buf, 0x16u);
           }
         }
 
-        v13 += wordCount;
+        v15 += wordCount;
       }
 
-      v11 = [(NSMutableArray *)obj countByEnumeratingWithState:&v49 objects:v61 count:16];
+      v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v54 objects:v66 count:16];
     }
 
-    while (v11);
+    while (v13);
   }
 
   else
   {
-    v47 = 0;
-    v12 = 0;
-    v13 = 0;
-    v15 = 0.0;
+    v52 = 0;
+    v14 = 0;
+    v15 = 0;
+    v17 = 0.0;
   }
 
   if (strategyCopy != 3)
   {
-    v38 = _LTOSLogLID();
-    v32 = v47;
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v44 = _LTOSLogLID(v36, v37);
+    v38 = v52;
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
-      if (v12 <= 1)
+      if (v14 <= 1)
       {
-        v42 = 1;
+        v47 = 1;
       }
 
       else
       {
-        v42 = v12;
+        v47 = v14;
       }
 
-      v43 = v15 / v42;
-      v34 = v38;
-      [v47 localeIdentifier];
-      v35 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      v44 = [v8 count];
+      v48 = v17 / v47;
+      v40 = v44;
+      [v52 localeIdentifier];
+      v41 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v49 = [v10 count];
       *buf = 138544130;
-      v54 = v35;
-      v55 = 2048;
-      v56 = v43;
-      v57 = 2048;
-      v58 = v12;
-      v59 = 2048;
-      v60 = v44;
-      v37 = "weightedLocale is %{public}@ with score %f on %zd words from %zu locales";
+      v59 = v41;
+      v60 = 2048;
+      v61 = v48;
+      v62 = 2048;
+      v63 = v14;
+      v64 = 2048;
+      v65 = v49;
+      v43 = "weightedLocale is %{public}@ with score %f on %zd words from %zu locales";
       goto LABEL_38;
     }
 
 LABEL_29:
-    v39 = v32;
+    v45 = v38;
     goto LABEL_31;
   }
 
-  v32 = v47;
-  if (v15 > (v13 / 2))
+  v38 = v52;
+  if (v17 > (v15 / 2))
   {
-    v33 = _LTOSLogLID();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+    v39 = _LTOSLogLID(v36, v37);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      v34 = v33;
-      [v47 localeIdentifier];
-      v35 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      v36 = [v8 count];
+      v40 = v39;
+      [v52 localeIdentifier];
+      v41 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v42 = [v10 count];
       *buf = 138544130;
-      v54 = v35;
-      v55 = 2048;
-      v56 = v15;
-      v57 = 2048;
-      v58 = v13;
-      v59 = 2048;
-      v60 = v36;
-      v37 = "weightedLocale for messages is %{public}@ with count %f on %zd words from %zu locales";
+      v59 = v41;
+      v60 = 2048;
+      v61 = v17;
+      v62 = 2048;
+      v63 = v15;
+      v64 = 2048;
+      v65 = v42;
+      v43 = "weightedLocale for messages is %{public}@ with count %f on %zd words from %zu locales";
 LABEL_38:
-      _os_log_debug_impl(&dword_232E53000, v34, OS_LOG_TYPE_DEBUG, v37, buf, 0x2Au);
+      _os_log_debug_impl(&dword_232E53000, v40, OS_LOG_TYPE_DEBUG, v43, buf, 0x2Au);
 
       goto LABEL_29;
     }
@@ -306,24 +302,20 @@ LABEL_38:
     goto LABEL_29;
   }
 
-  v39 = 0;
+  v45 = 0;
 LABEL_31:
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v39;
+  return v45;
 }
 
 - (void)weightedLocaleWithStrategy:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
   v3 = a2;
-  v5 = 134217984;
-  v6 = [v2 count];
-  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "weightedLocale for %zu items", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134217984;
+  v5 = [v2 count];
+  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "weightedLocale for %zu items", &v4, 0xCu);
 }
 
 @end

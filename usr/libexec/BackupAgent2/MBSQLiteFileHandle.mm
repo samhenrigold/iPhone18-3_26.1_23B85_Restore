@@ -30,7 +30,7 @@
       *buf = 138412290;
       v15 = pathCopy;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "File path too long to handle as a SQLite file: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "File path too long to handle as a SQLite file: %@", pathCopy);
     }
 
     if (!result)
@@ -75,11 +75,11 @@ LABEL_14:
 {
   handleCopy = handle;
   *result = 0;
-  v30 = xmmword_1000B7458;
-  v31 = 0;
-  v29 = 0;
+  v31 = xmmword_1000B7458;
+  v32 = 0;
+  v30 = 0;
   v8 = [handleCopy fd];
-  if (fgetattrlist(v8, &v30, &v29, 8uLL, 0))
+  if (fgetattrlist(v8, &v31, &v30, 8uLL, 0))
   {
     path = [handleCopy path];
     v10 = [MBError posixErrorWithPath:path format:@"fgetattrlist failed"];
@@ -89,60 +89,60 @@ LABEL_14:
     {
       path2 = [handleCopy path];
       *buf = 138412546;
-      v35 = path2;
-      v36 = 2112;
-      v37 = v10;
+      v36 = path2;
+      v37 = 2112;
+      v38 = v10;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "fgetattrlist failed at %@: %@", buf, 0x16u);
 
       path3 = [handleCopy path];
-      _MBLog();
+      _MBLog(@"E ", "fgetattrlist failed at %@: %@", path3, v10);
     }
 
     if (error)
     {
-      v13 = v10;
+      v14 = v10;
       *error = v10;
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  else if (HIDWORD(v29) == 1)
+  else if (HIDWORD(v30) == 1)
   {
     __buf = 0;
-    v33 = 0;
-    v15 = pread(v8, &__buf, 0x10uLL, 0);
-    v14 = v15 >= 0;
-    if (v15 < 0)
+    v34 = 0;
+    v16 = pread(v8, &__buf, 0x10uLL, 0);
+    v15 = v16 >= 0;
+    if (v16 < 0)
     {
-      v20 = *__error();
+      v23 = *__error();
       path4 = [handleCopy path];
-      v22 = MBGetDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v25 = MBGetDefaultLog();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v35 = path4;
-        v36 = 1024;
-        LODWORD(v37) = v20;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "pread failed at %@: %{errno}d", buf, 0x12u);
-        _MBLog();
+        v36 = path4;
+        v37 = 1024;
+        LODWORD(v38) = v23;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "pread failed at %@: %{errno}d", buf, 0x12u);
+        _MBLog(@"E ", "pread failed at %@: %{errno}d", path4, v23);
       }
 
-      v23 = [MBError errorWithErrno:v20 path:path4 format:@"pread error"];
-      v24 = v23;
+      v26 = [MBError errorWithErrno:v23 path:path4 format:@"pread error"];
+      v27 = v26;
       if (error)
       {
-        v25 = v23;
-        *error = v24;
+        v28 = v26;
+        *error = v27;
       }
 
-      if ((v20 - 34) <= 0x3A && ((1 << (v20 - 34)) & 0x400000000000801) != 0 || v20 == 22)
+      if ((v23 - 34) <= 0x3A && ((1 << (v23 - 34)) & 0x400000000000801) != 0 || v23 == 22)
       {
-        sub_10000D2DC(path4, v20, "pread");
+        sub_10000D2DC(path4, v23, "pread");
       }
     }
 
-    else if (v15 == 16 && __buf == 0x66206574694C5153 && v33 == 0x332074616D726FLL)
+    else if (v16 == 16 && __buf == 0x66206574694C5153 && v34 == 0x332074616D726FLL)
     {
       *result = 1;
     }
@@ -150,25 +150,26 @@ LABEL_14:
 
   else
   {
-    v17 = MBGetDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = MBGetDefaultLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v18 = HIDWORD(v29);
+      v19 = HIDWORD(v30);
       path5 = [handleCopy path];
       *buf = 134218242;
-      v35 = v18;
-      v36 = 2112;
-      v37 = path5;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Not a regular file (%ld) at %@", buf, 0x16u);
+      v36 = v19;
+      v37 = 2112;
+      v38 = path5;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Not a regular file (%ld) at %@", buf, 0x16u);
 
+      v21 = HIDWORD(v30);
       path6 = [handleCopy path];
-      _MBLog();
+      _MBLog(@"Db", "Not a regular file (%ld) at %@", v21, path6);
     }
 
-    v14 = 1;
+    v15 = 1;
   }
 
-  return v14;
+  return v15;
 }
 
 + (BOOL)compactSQLiteDatabaseAtPath:(id)path toPath:(id)toPath error:(id *)error
@@ -184,49 +185,43 @@ LABEL_14:
   fileSystemRepresentation = [pathCopy fileSystemRepresentation];
   fileSystemRepresentation2 = [v9 fileSystemRepresentation];
   ppDb = 0;
-  memset(&v65, 0, sizeof(v65));
-  if (stat(fileSystemRepresentation, &v65))
+  memset(&v64, 0, sizeof(v64));
+  if (stat(fileSystemRepresentation, &v64))
   {
-    *&v12 = *__error();
-    [MBError posixErrorWithPath:pathCopy format:@"stat error"];
-    v13 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v12 = *__error();
+    v13 = [MBError posixErrorWithPath:pathCopy format:@"stat error"];
     v14 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_6;
+      *buf = 138412546;
+      *v67 = pathCopy;
+      *&v67[8] = 1024;
+      *&v67[10] = v12;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "stat failed at %@: %{errno}d", buf, 0x12u);
+      _MBLog(@"E ", "stat failed at %@: %{errno}d", pathCopy, v12);
     }
 
-    *buf = 138412546;
-    *v68 = pathCopy;
-    *&v68[8] = 1024;
-    *&v68[10] = LODWORD(v12);
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "stat failed at %@: %{errno}d", buf, 0x12u);
-    v57 = pathCopy;
-    v58 = v12;
     goto LABEL_5;
   }
 
-  st_size = v65.st_size;
+  st_size = v64.st_size;
   v28 = MBGetDefaultLog();
   if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    *v68 = pathCopy;
-    *&v68[8] = 2112;
-    *&v68[10] = v9;
-    *&v68[18] = 2048;
-    *&v68[20] = st_size;
+    *v67 = pathCopy;
+    *&v67[8] = 2112;
+    *&v67[10] = v9;
+    *&v67[18] = 2048;
+    *&v67[20] = st_size;
     _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Compacting SQLite database at %@ to %@ (%lld bytes)", buf, 0x20u);
-    v58 = *&v9;
-    v59 = *&st_size;
-    v57 = pathCopy;
-    _MBLog();
+    _MBLog(@"I ", "Compacting SQLite database at %@ to %@ (%lld bytes)", pathCopy, v9, st_size);
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
   v30 = v29;
-  *&v31 = sqlite3_open_v2(fileSystemRepresentation, &ppDb, 1, 0);
-  if (LODWORD(v31))
+  v31 = sqlite3_open_v2(fileSystemRepresentation, &ppDb, 1, 0);
+  if (v31)
   {
     v32 = v31;
     v33 = ppDb;
@@ -238,45 +233,41 @@ LABEL_14:
     v57 = v33;
     v58 = v32;
     v34 = @"Error opening SQLite file: %s (%d)";
-LABEL_28:
+LABEL_27:
     v35 = 16;
+LABEL_28:
+    v36 = [MBError errorWithCode:v35 path:pathCopy format:v34, v57, v58];
 LABEL_29:
-    [MBError errorWithCode:v35 path:pathCopy format:v34, v57, *&v58, *&v59];
-    *&v36 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-LABEL_30:
-    v13 = *&v36;
-    if (*&v36 != 0.0)
+    v13 = v36;
+    if (v36)
     {
-      goto LABEL_7;
+      goto LABEL_6;
     }
 
-    goto LABEL_31;
+    goto LABEL_30;
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
   v40 = v39;
   [MBSQLiteFileHandle removeAllSQLiteFilesAtPath:v9];
-  *&v41 = COERCE_DOUBLE(_sqlite3_db_copy_compact());
+  v41 = _sqlite3_db_copy_compact();
   if (v41)
   {
     v42 = v41;
     while (1)
     {
-      *&v43 = sqlite3_extended_errcode(ppDb);
+      v43 = sqlite3_extended_errcode(ppDb);
       v44 = MBGetDefaultLog();
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        *v68 = pathCopy;
-        *&v68[8] = 1024;
-        *&v68[10] = v42;
-        *&v68[14] = 1024;
-        *&v68[16] = LODWORD(v43);
+        *v67 = pathCopy;
+        *&v67[8] = 1024;
+        *&v67[10] = v42;
+        *&v67[14] = 1024;
+        *&v67[16] = v43;
         _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "_sqlite3_db_copy_compact failed at %@: %d/0x%x", buf, 0x18u);
-        v58 = *&v42;
-        v59 = v43;
-        v57 = pathCopy;
-        _MBLog();
+        _MBLog(@"E ", "_sqlite3_db_copy_compact failed at %@: %d/0x%x", pathCopy, v42, v43);
       }
 
       if (v42 != 5)
@@ -289,25 +280,24 @@ LABEL_30:
       {
         v34 = @"SQLite file is locked";
         v35 = 13;
-        goto LABEL_29;
+        goto LABEL_28;
       }
 
       v46 = MBGetDefaultLog();
       if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v68 = pathCopy;
+        *v67 = pathCopy;
         _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "Waiting for busy SQLite database at %@", buf, 0xCu);
-        v57 = pathCopy;
-        _MBLog();
+        _MBLog(@"I ", "Waiting for busy SQLite database at %@", pathCopy);
       }
 
       [NSThread sleepForTimeInterval:0.1];
       [MBSQLiteFileHandle removeAllSQLiteFilesAtPath:v9];
-      *&v42 = COERCE_DOUBLE(_sqlite3_db_copy_compact());
+      v42 = _sqlite3_db_copy_compact();
       if (!v42)
       {
-        goto LABEL_45;
+        goto LABEL_44;
       }
     }
 
@@ -315,103 +305,93 @@ LABEL_30:
     {
       v34 = @"Can't open SQLite file";
       v35 = 100;
-      goto LABEL_29;
+      goto LABEL_28;
     }
 
     v57 = v42;
     v34 = @"Can't compact SQLite file (%d)";
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-LABEL_45:
+LABEL_44:
   v47 = MBGetDefaultLog();
   if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    *v68 = pathCopy;
-    *&v68[8] = 2112;
-    *&v68[10] = v9;
+    *v67 = pathCopy;
+    *&v67[8] = 2112;
+    *&v67[10] = v9;
     _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEBUG, "Created compacted SQLite file from %@ to %@", buf, 0x16u);
-    v57 = pathCopy;
-    v58 = *&v9;
-    _MBLog();
+    _MBLog(@"Db", "Created compacted SQLite file from %@ to %@", pathCopy, v9);
   }
 
-  memset(&v64, 0, sizeof(v64));
-  if (!lstat(fileSystemRepresentation2, &v64) && ((v64.st_mode & 0xF000) != 0x8000 || v64.st_nlink >= 2u))
+  memset(&v63, 0, sizeof(v63));
+  if (!lstat(fileSystemRepresentation2, &v63) && ((v63.st_mode & 0xF000) != 0x8000 || v63.st_nlink >= 2u))
   {
-    [MBError errorWithCode:1 format:@"not a regular file", v57, *&v58, *&v59];
-    *&v36 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    goto LABEL_30;
+    v36 = [MBError errorWithCode:1 format:@"not a regular file"];
+    goto LABEL_29;
   }
 
-  if (lchown(fileSystemRepresentation2, v65.st_uid, v65.st_gid))
+  if (lchown(fileSystemRepresentation2, v64.st_uid, v64.st_gid))
   {
     v48 = @"chown error";
-LABEL_56:
-    [MBError posixErrorWithPath:v9 format:v48, v57, *&v58, *&v59];
-    *&v36 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    goto LABEL_30;
+LABEL_55:
+    v36 = [MBError posixErrorWithPath:v9 format:v48];
+    goto LABEL_29;
   }
 
-  if (lchmod(fileSystemRepresentation2, v65.st_mode))
+  if (lchmod(fileSystemRepresentation2, v64.st_mode))
   {
     v48 = @"chmod error";
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
-  v63 = 0;
-  v49 = [MBProtectionClassUtils getWithPathFSR:fileSystemRepresentation error:&v63];
-  v13 = COERCE_DOUBLE(v63);
+  v62 = 0;
+  v49 = [MBProtectionClassUtils getWithPathFSR:fileSystemRepresentation error:&v62];
+  v13 = v62;
   if ((v49 + 1) <= 1u)
   {
     v14 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-LABEL_6:
-
-      if (v13 != 0.0)
-      {
-LABEL_7:
-        v15 = MBGetDefaultLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138412546;
-          *v68 = pathCopy;
-          *&v68[8] = 2112;
-          *&v68[10] = v13;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to compact SQLite database at %@: %@", buf, 0x16u);
-          v57 = pathCopy;
-          v58 = v13;
-          _MBLog();
-        }
-
-        v16 = *&v13;
-        v17 = 0;
-        *error = v13;
-        v18 = v13;
-        goto LABEL_10;
-      }
-
-LABEL_31:
-      sub_1000A04B0();
+      *buf = 138412546;
+      *v67 = pathCopy;
+      *&v67[8] = 2112;
+      *&v67[10] = v13;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to fetch the protection class for %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to fetch the protection class for %@: %@", pathCopy, v13);
     }
 
-    *buf = 138412546;
-    *v68 = pathCopy;
-    *&v68[8] = 2112;
-    *&v68[10] = v13;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to fetch the protection class for %@: %@", buf, 0x16u);
-    v57 = pathCopy;
-    v58 = v13;
 LABEL_5:
-    _MBLog();
-    goto LABEL_6;
+
+    if (v13)
+    {
+LABEL_6:
+      v15 = MBGetDefaultLog();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412546;
+        *v67 = pathCopy;
+        *&v67[8] = 2112;
+        *&v67[10] = v13;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to compact SQLite database at %@: %@", buf, 0x16u);
+        _MBLog(@"E ", "Failed to compact SQLite database at %@: %@", pathCopy, v13);
+      }
+
+      v16 = v13;
+      v17 = 0;
+      *error = v13;
+      v18 = v13;
+      goto LABEL_9;
+    }
+
+LABEL_30:
+    sub_1000A04B0();
   }
 
-  v62 = v13;
-  v50 = [MBProtectionClassUtils setWithPathFSR:fileSystemRepresentation2 value:v49 error:&v62];
-  v18 = COERCE_DOUBLE(*&v62);
+  v61 = v13;
+  v50 = [MBProtectionClassUtils setWithPathFSR:fileSystemRepresentation2 value:v49 error:&v61];
+  v18 = v61;
 
   if ((v50 & 1) == 0)
   {
@@ -419,65 +399,57 @@ LABEL_5:
     if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109634;
-      *v68 = v49;
-      *&v68[4] = 2112;
-      *&v68[6] = v9;
-      *&v68[14] = 2112;
-      *&v68[16] = v18;
+      *v67 = v49;
+      *&v67[4] = 2112;
+      *&v67[6] = v9;
+      *&v67[14] = 2112;
+      *&v67[16] = v18;
       _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "Failed to set the protection class (%d) for %@: %@", buf, 0x1Cu);
-      v58 = *&v9;
-      v59 = v18;
-      v57 = v49;
-      _MBLog();
+      _MBLog(@"E ", "Failed to set the protection class (%d) for %@: %@", v49, v9, v18);
     }
   }
 
-  [NSDate timeIntervalSinceReferenceDate:v57];
+  +[NSDate timeIntervalSinceReferenceDate];
   v53 = v52;
-  v54 = v64.st_size;
+  v54 = v63.st_size;
   v55 = MBGetDefaultLog();
   if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
   {
     v56 = v53 - v30;
     *buf = 138412802;
-    *v68 = pathCopy;
-    *&v68[8] = 2048;
-    *&v68[10] = v56;
-    *&v68[18] = 2048;
-    *&v68[20] = v54;
+    *v67 = pathCopy;
+    *&v67[8] = 2048;
+    *&v67[10] = v56;
+    *&v67[18] = 2048;
+    *&v67[20] = v54;
     _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "Finished compacting SQLite database at %@ in %0.3fs (%lld bytes)", buf, 0x20u);
-    v59 = *&v54;
-    v58 = v56;
-    v57 = pathCopy;
-    _MBLog();
+    _MBLog(@"I ", "Finished compacting SQLite database at %@ in %0.3fs (%lld bytes)", pathCopy, *&v56, v54);
   }
 
   v17 = 1;
-LABEL_10:
+LABEL_9:
   if (ppDb)
   {
-    *&v19 = sqlite3_close(ppDb);
-    if (LODWORD(v19))
+    v19 = sqlite3_close(ppDb);
+    if (v19)
     {
       v20 = v19;
       v21 = MBGetDefaultLog();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        *v68 = pathCopy;
-        *&v68[8] = 1024;
-        *&v68[10] = LODWORD(v20);
+        *v67 = pathCopy;
+        *&v67[8] = 1024;
+        *&v67[10] = v20;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to close SQLite database at %@: %d", buf, 0x12u);
-        v57 = pathCopy;
-        v58 = v20;
-        _MBLog();
+        _MBLog(@"E ", "Failed to close SQLite database at %@: %d", pathCopy, v20);
       }
     }
   }
 
-  v61 = v18;
-  v22 = [MBSQLiteFileHandle removeJournalsForSQLiteFileAtPath:v9 error:&v61, v57, *&v58, *&v59];
-  v23 = *&v61;
+  v60 = v18;
+  v22 = [MBSQLiteFileHandle removeJournalsForSQLiteFileAtPath:v9 error:&v60];
+  v23 = v60;
 
   if ((v22 & 1) == 0)
   {
@@ -485,11 +457,11 @@ LABEL_10:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      *v68 = v9;
-      *&v68[8] = 2112;
-      *&v68[10] = v23;
+      *v67 = v9;
+      *&v67[8] = 2112;
+      *&v67[10] = v23;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to remove SQLite files for %@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to remove SQLite files for %@: %@", v9, v23);
     }
 
     v23 = 0;
@@ -497,9 +469,9 @@ LABEL_10:
 
   if (!v17)
   {
-    v60 = v23;
-    v25 = [MBSQLiteFileHandle removeSQLiteFileAtPath:v9 error:&v60];
-    v26 = v60;
+    v59 = v23;
+    v25 = [MBSQLiteFileHandle removeSQLiteFileAtPath:v9 error:&v59];
+    v26 = v59;
 
     if (v25)
     {
@@ -512,11 +484,11 @@ LABEL_10:
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        *v68 = v9;
-        *&v68[8] = 2112;
-        *&v68[10] = v26;
+        *v67 = v9;
+        *&v67[8] = 2112;
+        *&v67[10] = v26;
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to remove SQLite database at %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to remove SQLite database at %@: %@", v9, v26);
       }
 
       v23 = 0;
@@ -529,9 +501,9 @@ LABEL_10:
 + (BOOL)copySQLiteFileAtPath:(id)path toPath:(id)toPath timeout:(double)timeout error:(id *)error
 {
   pathCopy = path;
-  v10 = COERCE_DOUBLE(toPath);
+  toPathCopy = toPath;
   fileSystemRepresentation = [pathCopy fileSystemRepresentation];
-  fileSystemRepresentation2 = [*&v10 fileSystemRepresentation];
+  fileSystemRepresentation2 = [toPathCopy fileSystemRepresentation];
   v82 = 0;
   ppDb = 0;
   memset(&v81, 0, sizeof(v81));
@@ -547,124 +519,117 @@ LABEL_10:
     {
       v14 = *__error();
       *buf = 138412546;
-      v85 = *&pathCopy;
+      v85 = pathCopy;
       v86 = 1024;
       *v87 = v14;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "stat failed at %@: %{errno}d", buf, 0x12u);
-      v75 = *&pathCopy;
-      *&v76 = *__error();
-      _MBLog();
+      v15 = __error();
+      _MBLog(@"E ", "stat failed at %@: %{errno}d", pathCopy, *v15);
     }
 
     goto LABEL_7;
   }
 
   st_size = v81.st_size;
-  v29 = MBGetDefaultLog();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+  v30 = MBGetDefaultLog();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v85 = *&pathCopy;
+    v85 = pathCopy;
     v86 = 2112;
-    *v87 = v10;
+    *v87 = toPathCopy;
     *&v87[8] = 2048;
     v88 = st_size;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Copying SQLite database at %@ to %@ (%lld bytes)", buf, 0x20u);
-    v76 = v10;
-    v77 = st_size;
-    v75 = *&pathCopy;
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Copying SQLite database at %@ to %@ (%lld bytes)", buf, 0x20u);
+    _MBLog(@"I ", "Copying SQLite database at %@ to %@ (%lld bytes)", pathCopy, toPathCopy, st_size);
   }
 
-  v30 = [MBProtectionClassUtils getWithPath:pathCopy error:error];
-  if ((v30 + 1) < 2u)
+  v31 = [MBProtectionClassUtils getWithPath:pathCopy error:error];
+  if ((v31 + 1) < 2u)
   {
-    v23 = 0;
+    v24 = 0;
 LABEL_36:
-    v25 = 0;
+    v26 = 0;
     goto LABEL_37;
   }
 
-  v34 = v30;
+  v35 = v31;
   +[NSDate timeIntervalSinceReferenceDate];
-  v36 = v35;
-  *&v37 = sqlite3_open_v2(fileSystemRepresentation, &ppDb, 1, 0);
-  if (LODWORD(v37))
+  v37 = v36;
+  v38 = sqlite3_open_v2(fileSystemRepresentation, &ppDb, 1, 0);
+  if (v38)
   {
     if (error)
     {
-      v38 = v37;
-      v39 = ppDb;
+      v39 = v38;
+      v40 = ppDb;
       if (ppDb)
       {
-        v39 = sqlite3_errmsg(ppDb);
+        v40 = sqlite3_errmsg(ppDb);
       }
 
-      v75 = *&v39;
-      v76 = v38;
-      v40 = @"Error opening SQLite file: %s (%d)";
+      v76 = v40;
+      v77 = v39;
+      v41 = @"Error opening SQLite file: %s (%d)";
 LABEL_43:
-      v41 = 16;
+      v42 = 16;
 LABEL_44:
-      v42 = *&pathCopy;
+      v43 = pathCopy;
       goto LABEL_52;
     }
 
 LABEL_7:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_8;
   }
 
-  v43 = MBGetDefaultLog();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+  v44 = MBGetDefaultLog();
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v85 = *&pathCopy;
-    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEBUG, "Opened SQLite database at %@", buf, 0xCu);
-    v75 = *&pathCopy;
-    _MBLog();
+    v85 = pathCopy;
+    _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEBUG, "Opened SQLite database at %@", buf, 0xCu);
+    _MBLog(@"Db", "Opened SQLite database at %@", pathCopy);
   }
 
-  *&v44 = [MBProtectionClassUtils sqliteOpenFlagForProtectionClass:v34]| 6;
-  *&v45 = sqlite3_open_v2(fileSystemRepresentation2, &v82, SLODWORD(v44), 0);
-  if (LODWORD(v45))
+  v45 = [MBProtectionClassUtils sqliteOpenFlagForProtectionClass:v35]| 6;
+  v46 = sqlite3_open_v2(fileSystemRepresentation2, &v82, v45, 0);
+  if (v46)
   {
     if (error)
     {
-      v46 = v45;
-      v47 = v82;
+      v47 = v46;
+      v48 = v82;
       if (v82)
       {
-        v47 = sqlite3_errmsg(v82);
+        v48 = sqlite3_errmsg(v82);
       }
 
-      v75 = *&v47;
-      v76 = v46;
-      v40 = @"Error opening SQLite file: %s (%d)";
-      v41 = 16;
-      v42 = v10;
+      v76 = v48;
+      v77 = v47;
+      v41 = @"Error opening SQLite file: %s (%d)";
+      v42 = 16;
+      v43 = toPathCopy;
 LABEL_52:
-      v48 = [MBError errorWithCode:v41 path:*&v42 format:v40, *&v75, *&v76, v77];
+      v49 = [MBError errorWithCode:v42 path:v43 format:v41, v76, v77];
 LABEL_53:
-      v15 = 0;
-      *error = v48;
+      v16 = 0;
+      *error = v49;
       goto LABEL_8;
     }
 
     goto LABEL_7;
   }
 
-  v49 = MBGetDefaultLog();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+  v50 = MBGetDefaultLog();
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v85 = v10;
+    v85 = toPathCopy;
     v86 = 1024;
-    *v87 = LODWORD(v44);
-    _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "Opened SQLite file for copying at %@ with flags 0x%x", buf, 0x12u);
-    v75 = v10;
-    v76 = v44;
-    _MBLog();
+    *v87 = v45;
+    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "Opened SQLite file for copying at %@ with flags 0x%x", buf, 0x12u);
+    _MBLog(@"Db", "Opened SQLite file for copying at %@ with flags 0x%x", toPathCopy, v45);
   }
 
   memset(&v80, 0, sizeof(v80));
@@ -672,7 +637,7 @@ LABEL_53:
   {
     if (error)
     {
-      v48 = [MBError errorWithCode:1 format:@"not a regular file"];
+      v49 = [MBError errorWithCode:1 format:@"not a regular file"];
       goto LABEL_53;
     }
 
@@ -686,9 +651,9 @@ LABEL_53:
       goto LABEL_7;
     }
 
-    v50 = @"chown error";
+    v51 = @"chown error";
 LABEL_65:
-    v48 = [MBError posixErrorWithPath:*&v10 format:v50, *&v75, *&v76, v77];
+    v49 = [MBError posixErrorWithPath:toPathCopy format:v51];
     goto LABEL_53;
   }
 
@@ -699,80 +664,76 @@ LABEL_65:
       goto LABEL_7;
     }
 
-    v50 = @"chmod error";
+    v51 = @"chmod error";
     goto LABEL_65;
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
-  v52 = v51;
-  *&v53 = sqlite3_file_control(v82, 0, 102, ppDb);
-  if (LODWORD(v53))
+  v53 = v52;
+  v54 = sqlite3_file_control(v82, 0, 102, ppDb);
+  if (v54)
   {
-    v54 = v53;
+    v55 = v54;
     while (1)
     {
-      v55 = sqlite3_extended_errcode(v82);
-      v56 = MBGetDefaultLog();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+      v56 = sqlite3_extended_errcode(v82);
+      v57 = MBGetDefaultLog();
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v85 = *&pathCopy;
+        v85 = pathCopy;
         v86 = 1024;
-        *v87 = LODWORD(v54);
+        *v87 = v55;
         *&v87[4] = 1024;
-        *&v87[6] = v55;
-        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "sqlite3_file_control(SQLITE_REPLACE_DATABASE) failed at %@: %d/0x%x", buf, 0x18u);
-        v76 = v54;
-        v77 = v55;
-        v75 = *&pathCopy;
-        _MBLog();
+        *&v87[6] = v56;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "sqlite3_file_control(SQLITE_REPLACE_DATABASE) failed at %@: %d/0x%x", buf, 0x18u);
+        _MBLog(@"E ", "sqlite3_file_control(SQLITE_REPLACE_DATABASE) failed at %@: %d/0x%x", pathCopy, v55, v56);
       }
 
-      if (LODWORD(v54) != 5)
+      if (v55 != 5)
       {
         break;
       }
 
       +[NSDate timeIntervalSinceReferenceDate];
-      if (v57 - v52 >= timeout)
+      if (v58 - v53 >= timeout)
       {
         if (!error)
         {
           goto LABEL_7;
         }
 
-        v40 = @"SQLite file is locked";
-        v41 = 13;
+        v41 = @"SQLite file is locked";
+        v42 = 13;
         goto LABEL_44;
       }
 
-      v58 = MBGetDefaultLog();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+      v59 = MBGetDefaultLog();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v85 = *&pathCopy;
-        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEBUG, "Waiting for busy SQLite database at %@", buf, 0xCu);
-        v75 = *&pathCopy;
-        _MBLog();
+        v85 = pathCopy;
+        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEBUG, "Waiting for busy SQLite database at %@", buf, 0xCu);
+        _MBLog(@"Db", "Waiting for busy SQLite database at %@", pathCopy);
       }
 
       [NSThread sleepForTimeInterval:0.1];
-      *&v54 = sqlite3_file_control(v82, 0, 102, ppDb);
-      if (!LODWORD(v54))
+      v55 = sqlite3_file_control(v82, 0, 102, ppDb);
+      if (!v55)
       {
         goto LABEL_77;
       }
     }
 
-    if (LODWORD(v54) == 14)
+    if (v55 == 14)
     {
       if (!error)
       {
         goto LABEL_7;
       }
 
-      v40 = @"Can't open SQLite file";
-      v41 = 100;
+      v41 = @"Can't open SQLite file";
+      v42 = 100;
       goto LABEL_44;
     }
 
@@ -781,43 +742,38 @@ LABEL_65:
       goto LABEL_7;
     }
 
-    v40 = @"Can't copy SQLite file";
+    v41 = @"Can't copy SQLite file";
     goto LABEL_43;
   }
 
 LABEL_77:
-  v59 = MBGetDefaultLog();
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+  v60 = MBGetDefaultLog();
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v85 = *&pathCopy;
+    v85 = pathCopy;
     v86 = 2112;
-    *v87 = v10;
-    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEBUG, "Copied SQLite file from %@ to %@", buf, 0x16u);
-    v75 = *&pathCopy;
-    v76 = v10;
-    _MBLog();
+    *v87 = toPathCopy;
+    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEBUG, "Copied SQLite file from %@ to %@", buf, 0x16u);
+    _MBLog(@"Db", "Copied SQLite file from %@ to %@", pathCopy, toPathCopy);
   }
 
-  *&v60 = sqlite3_wal_checkpoint_v2(v82, 0, 2, 0, 0);
-  if (LODWORD(v60))
+  v61 = sqlite3_wal_checkpoint_v2(v82, 0, 2, 0, 0);
+  if (v61)
   {
-    v61 = v60;
-    v62 = sqlite3_extended_errcode(v82);
-    v63 = MBGetDefaultLog();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+    v62 = v61;
+    v63 = sqlite3_extended_errcode(v82);
+    v64 = MBGetDefaultLog();
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v85 = *&pathCopy;
+      v85 = pathCopy;
       v86 = 1024;
-      *v87 = LODWORD(v61);
+      *v87 = v62;
       *&v87[4] = 1024;
-      *&v87[6] = v62;
-      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Failed to checkpoint copied SQLite database at %@ (%d/0x%x)", buf, 0x18u);
-      v76 = v61;
-      v77 = v62;
-      v75 = *&pathCopy;
-      _MBLog();
+      *&v87[6] = v63;
+      _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "Failed to checkpoint copied SQLite database at %@ (%d/0x%x)", buf, 0x18u);
+      _MBLog(@"E ", "Failed to checkpoint copied SQLite database at %@ (%d/0x%x)", pathCopy, v62, v63);
     }
 
     if (!error)
@@ -825,39 +781,35 @@ LABEL_77:
       goto LABEL_7;
     }
 
-    v40 = @"Can't checkpoint copied SQLite file";
+    v41 = @"Can't checkpoint copied SQLite file";
     goto LABEL_43;
   }
 
-  v64 = MBGetDefaultLog();
-  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+  v65 = MBGetDefaultLog();
+  if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v85 = *&pathCopy;
+    v85 = pathCopy;
     v86 = 2112;
-    *v87 = v10;
-    _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEBUG, "Checkpointed copied SQLite file from %@ to %@", buf, 0x16u);
-    v75 = *&pathCopy;
-    v76 = v10;
-    _MBLog();
+    *v87 = toPathCopy;
+    _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEBUG, "Checkpointed copied SQLite file from %@ to %@", buf, 0x16u);
+    _MBLog(@"Db", "Checkpointed copied SQLite file from %@ to %@", pathCopy, toPathCopy);
   }
 
-  *&v65 = sqlite3_close(v82);
+  v66 = sqlite3_close(v82);
   v82 = 0;
-  if (LODWORD(v65))
+  if (v66)
   {
-    v66 = v65;
-    v67 = MBGetDefaultLog();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+    v67 = v66;
+    v68 = MBGetDefaultLog();
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v85 = v10;
+      v85 = toPathCopy;
       v86 = 1024;
-      *v87 = LODWORD(v66);
-      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "Failed to close copied SQLite database at %@: %d", buf, 0x12u);
-      v75 = v10;
-      v76 = v66;
-      _MBLog();
+      *v87 = v67;
+      _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "Failed to close copied SQLite database at %@: %d", buf, 0x12u);
+      _MBLog(@"E ", "Failed to close copied SQLite database at %@: %d", toPathCopy, v67);
     }
 
     if (!error)
@@ -865,149 +817,142 @@ LABEL_77:
       goto LABEL_7;
     }
 
-    v40 = @"Can't close copied SQLite file";
+    v41 = @"Can't close copied SQLite file";
     goto LABEL_43;
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
-  v69 = v68;
-  v70 = lstat(fileSystemRepresentation2, &v80);
-  v71 = v80.st_size;
-  v72 = MBGetDefaultLog();
-  if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+  v70 = v69;
+  v71 = lstat(fileSystemRepresentation2, &v80);
+  v72 = v80.st_size;
+  v73 = MBGetDefaultLog();
+  if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
   {
-    if (v70)
+    if (v71)
     {
-      v73 = -1;
+      v74 = -1;
     }
 
     else
     {
-      v73 = v71;
+      v74 = v72;
     }
 
     *buf = 138412802;
-    v74 = v69 - v36;
-    v85 = *&pathCopy;
+    v75 = v70 - v37;
+    v85 = pathCopy;
     v86 = 2048;
-    *v87 = v74;
+    *v87 = v75;
     *&v87[8] = 2048;
-    v88 = v73;
-    _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_INFO, "Finished copying SQLite database at %@ in %0.3fs (%lld bytes)", buf, 0x20u);
-    v77 = v73;
-    v76 = v74;
-    v75 = *&pathCopy;
-    _MBLog();
+    v88 = v74;
+    _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "Finished copying SQLite database at %@ in %0.3fs (%lld bytes)", buf, 0x20u);
+    _MBLog(@"I ", "Finished copying SQLite database at %@ in %0.3fs (%lld bytes)", pathCopy, *&v75, v74);
   }
 
-  v15 = 1;
+  v16 = 1;
 LABEL_8:
   if (ppDb)
   {
-    *&v16 = sqlite3_close(ppDb);
-    if (LODWORD(v16))
+    v17 = sqlite3_close(ppDb);
+    if (v17)
     {
-      v17 = v16;
-      v18 = MBGetDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v18 = v17;
+      v19 = MBGetDefaultLog();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v85 = *&pathCopy;
+        v85 = pathCopy;
         v86 = 1024;
-        *v87 = LODWORD(v17);
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to close the SQLite database at %@: %d", buf, 0x12u);
-        v75 = *&pathCopy;
-        v76 = v17;
-        _MBLog();
+        *v87 = v18;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to close the SQLite database at %@: %d", buf, 0x12u);
+        _MBLog(@"E ", "Failed to close the SQLite database at %@: %d", pathCopy, v18);
       }
     }
   }
 
   if (v82)
   {
-    *&v19 = sqlite3_close(v82);
-    if (LODWORD(v19))
+    v20 = sqlite3_close(v82);
+    if (v20)
     {
-      v20 = v19;
-      v21 = MBGetDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v21 = v20;
+      v22 = MBGetDefaultLog();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v85 = v10;
+        v85 = toPathCopy;
         v86 = 1024;
-        *v87 = LODWORD(v20);
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to close the SQLite database at %@: %d", buf, 0x12u);
-        v75 = v10;
-        v76 = v20;
-        _MBLog();
+        *v87 = v21;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to close the SQLite database at %@: %d", buf, 0x12u);
+        _MBLog(@"E ", "Failed to close the SQLite database at %@: %d", toPathCopy, v21);
       }
     }
   }
 
   v79 = 0;
-  v22 = [MBSQLiteFileHandle removeJournalsForSQLiteFileAtPath:*&v10 error:&v79, *&v75, *&v76, v77];
-  v23 = v79;
-  if ((v22 & 1) == 0)
+  v23 = [MBSQLiteFileHandle removeJournalsForSQLiteFileAtPath:toPathCopy error:&v79];
+  v24 = v79;
+  if ((v23 & 1) == 0)
   {
-    v24 = MBGetDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = MBGetDefaultLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v85 = v10;
+      v85 = toPathCopy;
       v86 = 2112;
-      *v87 = v23;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to remove the journals for the database at %@: %@", buf, 0x16u);
-      _MBLog();
+      *v87 = v24;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to remove the journals for the database at %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to remove the journals for the database at %@: %@", toPathCopy, v24);
     }
 
-    v23 = 0;
+    v24 = 0;
   }
 
-  if ((v15 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
-    v78 = v23;
-    v26 = [MBSQLiteFileHandle removeSQLiteFileAtPath:*&v10 error:&v78];
-    v27 = v78;
+    v78 = v24;
+    v27 = [MBSQLiteFileHandle removeSQLiteFileAtPath:toPathCopy error:&v78];
+    v28 = v78;
 
-    if (v26)
+    if (v27)
     {
-      v23 = v27;
+      v24 = v28;
     }
 
     else
     {
-      v31 = MBGetDefaultLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = MBGetDefaultLog();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v85 = v10;
+        v85 = toPathCopy;
         v86 = 2112;
-        *v87 = v27;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Failed to remove the SQLite database at %@: %@", buf, 0x16u);
-        _MBLog();
+        *v87 = v28;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to remove the SQLite database at %@: %@", buf, 0x16u);
+        _MBLog(@"E ", "Failed to remove the SQLite database at %@: %@", toPathCopy, v28);
       }
 
-      v23 = 0;
+      v24 = 0;
     }
 
-    v32 = MBGetDefaultLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v33 = MBGetDefaultLog();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v85 = *&pathCopy;
+      v85 = pathCopy;
       v86 = 2112;
-      *v87 = v23;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to copy SQLite database at %@: %@", buf, 0x16u);
-      _MBLog();
+      *v87 = v24;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Failed to copy SQLite database at %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to copy SQLite database at %@: %@", pathCopy, v24);
     }
 
     goto LABEL_36;
   }
 
-  v25 = 1;
+  v26 = 1;
 LABEL_37:
 
-  return v25;
+  return v26;
 }
 
 + (BOOL)lastModifiedForSQLiteFileAtPath:(id)path time:(int64_t *)time error:(id *)error
@@ -1028,7 +973,7 @@ LABEL_37:
         *buf = 138412290;
         v22 = v8;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "WAL file name too long: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "WAL file name too long: %@", v8);
       }
     }
 
@@ -1043,12 +988,10 @@ LABEL_37:
         v23 = 2112;
         v24 = v15;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "stat failed at %@: %@", buf, 0x16u);
-        goto LABEL_21;
+        _MBLog(@"E ", "stat failed at %@: %@", v8, v15, *&v20.st_dev, v20.st_ino, *&v20.st_uid, *&v20.st_rdev, v20.st_atimespec.tv_sec, v20.st_atimespec.tv_nsec);
       }
 
-LABEL_22:
-
-      goto LABEL_23;
+      goto LABEL_20;
     }
   }
 
@@ -1063,15 +1006,10 @@ LABEL_22:
       v23 = 2112;
       v24 = v8;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Using last modified time (%lu) of WAL at %@", buf, 0x16u);
-LABEL_17:
-      _MBLog();
+      _MBLog(@"I ", "Using last modified time (%lu) of WAL at %@", tv_sec, v8, *&v20.st_dev, v20.st_ino, *&v20.st_uid, *&v20.st_rdev, v20.st_atimespec.tv_sec, v20.st_atimespec.tv_nsec);
     }
 
-LABEL_18:
-
-    *time = tv_sec;
-    v17 = 1;
-    goto LABEL_26;
+    goto LABEL_17;
   }
 
   if (!stat([pathCopy fileSystemRepresentation], &v20))
@@ -1085,10 +1023,14 @@ LABEL_18:
       v23 = 2112;
       v24 = pathCopy;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Using last modified time (%lu) of db at %@", buf, 0x16u);
-      goto LABEL_17;
+      _MBLog(@"I ", "Using last modified time (%lu) of db at %@", tv_sec, pathCopy, *&v20.st_dev, v20.st_ino, *&v20.st_uid, *&v20.st_rdev, v20.st_atimespec.tv_sec, v20.st_atimespec.tv_nsec);
     }
 
-    goto LABEL_18;
+LABEL_17:
+
+    *time = tv_sec;
+    v17 = 1;
+    goto LABEL_24;
   }
 
   v14 = *__error();
@@ -1103,15 +1045,12 @@ LABEL_18:
       v23 = 2112;
       v24 = v15;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "stat failed at %@: %@", buf, 0x16u);
-LABEL_21:
-      _MBLog();
-      goto LABEL_22;
+      _MBLog(@"E ", "stat failed at %@: %@", pathCopy, v15, *&v20.st_dev, v20.st_ino, *&v20.st_uid, *&v20.st_rdev, v20.st_atimespec.tv_sec, v20.st_atimespec.tv_nsec);
     }
 
-    goto LABEL_22;
+LABEL_20:
   }
 
-LABEL_23:
   if (error)
   {
     v18 = v15;
@@ -1119,7 +1058,7 @@ LABEL_23:
   }
 
   v17 = 0;
-LABEL_26:
+LABEL_24:
 
   return v17;
 }
@@ -1142,7 +1081,7 @@ LABEL_26:
       *buf = 67109120;
       v14 = v7;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "sqlite3_prepare returned %d!", buf, 8u);
-      _MBLog();
+      _MBLog(@"E ", "sqlite3_prepare returned %d!", v7);
     }
 
     v9 = 0;
@@ -1208,7 +1147,7 @@ LABEL_26:
       WORD2(buf.st_ino) = 2112;
       *(&buf.st_ino + 6) = v11;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "No uid or gid: %@, %@", &buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "No uid or gid: %@, %@", v10, v11);
     }
 
     goto LABEL_9;
@@ -1340,33 +1279,33 @@ LABEL_41:
 {
   pathCopy = path;
   v6 = +[NSFileManager defaultManager];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = MBSQLiteJournalSuffixes();
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
     errorCopy = error;
     v10 = 0;
-    v11 = *v23;
+    v11 = *v22;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = [pathCopy stringByAppendingString:{*(*(&v22 + 1) + 8 * i), v19}];
+        v13 = [pathCopy stringByAppendingString:*(*(&v21 + 1) + 8 * i)];
         if ([v6 fileExistsAtPath:v13])
         {
-          v21 = v10;
-          v14 = [v6 removeItemAtPath:v13 error:&v21];
-          v15 = v21;
+          v20 = v10;
+          v14 = [v6 removeItemAtPath:v13 error:&v20];
+          v15 = v20;
 
           if (!v14)
           {
@@ -1383,17 +1322,16 @@ LABEL_41:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v27 = v13;
+            v26 = v13;
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Removed copied SQLite file journal at %@", buf, 0xCu);
-            v19 = v13;
-            _MBLog();
+            _MBLog(@"Db", "Removed copied SQLite file journal at %@", v13);
           }
 
           v10 = v15;
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
       if (v9)
       {
         continue;

@@ -364,7 +364,7 @@ LABEL_11:
     return;
   }
 
-  _CUILog(4, "couldn't allocate memory!", v15, v16, v17, v18, v19, v20, v22);
+  _CUILog(4, "couldn't allocate memory!");
 }
 
 - (void)copyValuesFromKeyList:(const _renditionkeytoken *)list
@@ -396,7 +396,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  _CUILog(4, "couldn't allocate memory!", v8, v9, v10, v11, v12, v13, v15);
+  _CUILog(4, "couldn't allocate memory!");
 }
 
 - (void)removeValueForKeyTokenIdentifier:(int64_t)identifier

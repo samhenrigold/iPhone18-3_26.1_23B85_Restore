@@ -52,7 +52,7 @@
 
       _clearImage = [(WatermarkView *)self _clearImage];
       topMostPresentedViewController = imageView3;
-      if (sub_100B8C280())
+      if (sub_100B8C280(0))
       {
         sub_100B8C3AC();
         if (objc_opt_class())
@@ -223,7 +223,7 @@ LABEL_28:
   self->_configListener = v4;
 
   [(WatermarkView *)self setUserInteractionEnabled:0, _NSConcreteStackBlock, 3221225472, sub_100B8CC8C, &unk_101657B58];
-  if (sub_100B8C280())
+  if (sub_100B8C280(0))
   {
     sub_100B8C3AC();
     if (objc_opt_class())

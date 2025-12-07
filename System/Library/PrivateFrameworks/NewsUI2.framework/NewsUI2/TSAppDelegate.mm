@@ -38,7 +38,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_2187A5670(&qword_27CC0A758, type metadata accessor for LaunchOptionsKey);
+    sub_2187A5670(&qword_27CC0A758, type metadata accessor for LaunchOptionsKey, &unk_219C096C0);
     sub_219BF5214();
   }
 
@@ -55,7 +55,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_2187A5670(&qword_27CC0A758, type metadata accessor for LaunchOptionsKey);
+    sub_2187A5670(&qword_27CC0A758, type metadata accessor for LaunchOptionsKey, &unk_219C096C0);
     optionsCopy = sub_219BF5214();
   }
 
@@ -133,7 +133,7 @@
   v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_219BDB8B4();
   type metadata accessor for OpenURLOptionsKey(0);
-  sub_2187A5670(&unk_280E8DC50, type metadata accessor for OpenURLOptionsKey);
+  sub_2187A5670(&unk_280E8DC50, type metadata accessor for OpenURLOptionsKey, &unk_219C098B0);
   v11 = sub_219BF5214();
   applicationCopy = application;
   selfCopy = self;
@@ -180,27 +180,27 @@
 - (id)forwardingTargetForSelector:(SEL)selector
 {
   selfCopy = self;
-  AppDelegate.forwardingTarget(for:)(selector, v12);
+  AppDelegate.forwardingTarget(for:)(selector, v13);
 
-  v5 = v13;
-  if (v13)
+  v5 = v14;
+  if (v14)
   {
-    v6 = __swift_project_boxed_opaque_existential_1(v12, v13);
+    v6 = __swift_project_boxed_opaque_existential_1(v13, v14);
     v7 = *(v5 - 8);
-    MEMORY[0x28223BE20](v6);
-    v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v7 + 16))(v9);
-    v10 = sub_219BF78D4();
-    (*(v7 + 8))(v9, v5);
-    __swift_destroy_boxed_opaque_existential_1(v12);
+    v8 = MEMORY[0x28223BE20](v6);
+    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v7 + 16))(v10, v8);
+    v11 = sub_219BF78D4();
+    (*(v7 + 8))(v10, v5);
+    __swift_destroy_boxed_opaque_existential_1(v13);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)buildMenuWithBuilder:(id)builder
@@ -218,16 +218,16 @@
   commandCopy = command;
   selfCopy = self;
   v6 = sub_219114120();
-  swift_getObjectType();
-  sub_219114200();
-  v7 = sub_2191142D8();
-  v8[3] = sub_219BDD274();
-  v8[4] = sub_2187A5670(&qword_280EE8EE0, MEMORY[0x277CEAEA8]);
-  v8[0] = v7;
+  ObjectType = swift_getObjectType();
+  sub_219114200(ObjectType, v8);
+  v9 = sub_2191142D8();
+  v10[3] = sub_219BDD274();
+  v10[4] = sub_2187A5670(&qword_280EE8EE0, MEMORY[0x277CEAEA8], MEMORY[0x277D319D8]);
+  v10[0] = v9;
   sub_219BE6734();
 
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_1(v8);
+  __swift_destroy_boxed_opaque_existential_1(v10);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender

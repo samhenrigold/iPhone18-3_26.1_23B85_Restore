@@ -44,29 +44,29 @@ void __32__WBSMemoryPressureMonitor_init__block_invoke(uint64_t a1)
   if (WeakRetained)
   {
     data = dispatch_source_get_data(WeakRetained[1]);
-    v4 = WBS_LOG_CHANNEL_PREFIXMemory();
-    v5 = v4;
+    v5 = WBS_LOG_CHANNEL_PREFIXMemory(data, v4);
+    v6 = v5;
     if (data <= 3)
     {
       if (data == 1)
       {
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "The system memory pressure condition has returned to normal", buf, 2u);
+          _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "The system memory pressure condition has returned to normal", buf, 2u);
         }
 
-        v27 = v2;
-        v28 = 0;
+        v28 = v2;
+        v29 = 0;
         goto LABEL_17;
       }
 
       if (data == 2)
       {
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          v29[0] = 0;
-          _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_DEFAULT, "The system memory pressure condition has changed to warning", v29, 2u);
+          v30[0] = 0;
+          _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEFAULT, "The system memory pressure condition has changed to warning", v30, 2u);
         }
 
         goto LABEL_16;
@@ -78,37 +78,37 @@ void __32__WBSMemoryPressureMonitor_init__block_invoke(uint64_t a1)
       switch(data)
       {
         case 4:
-          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
           {
-            __32__WBSMemoryPressureMonitor_init__block_invoke_cold_3(v5, v13, v14, v15, v16, v17, v18, v19);
+            __32__WBSMemoryPressureMonitor_init__block_invoke_cold_3(v6, v14, v15, v16, v17, v18, v19, v20);
           }
 
           goto LABEL_16;
         case 16:
-          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
           {
-            __32__WBSMemoryPressureMonitor_init__block_invoke_cold_2(v5, v20, v21, v22, v23, v24, v25, v26);
+            __32__WBSMemoryPressureMonitor_init__block_invoke_cold_2(v6, v21, v22, v23, v24, v25, v26, v27);
           }
 
           goto LABEL_16;
         case 32:
-          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
           {
-            __32__WBSMemoryPressureMonitor_init__block_invoke_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+            __32__WBSMemoryPressureMonitor_init__block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
           }
 
 LABEL_16:
-          v27 = v2;
-          v28 = 1;
+          v28 = v2;
+          v29 = 1;
 LABEL_17:
-          [(dispatch_source_t *)v27 setPressured:v28];
+          [(dispatch_source_t *)v28 setPressured:v29];
           goto LABEL_18;
       }
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __32__WBSMemoryPressureMonitor_init__block_invoke_cold_4(data, v5);
+      __32__WBSMemoryPressureMonitor_init__block_invoke_cold_4(data, v6);
     }
   }
 

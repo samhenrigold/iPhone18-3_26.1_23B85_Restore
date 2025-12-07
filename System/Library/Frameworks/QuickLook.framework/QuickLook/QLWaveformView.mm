@@ -23,7 +23,7 @@
 
 - (void)updateImage
 {
-  v37[4] = *MEMORY[0x277D85DE8];
+  v36[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D43EF8];
   v4 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
@@ -48,9 +48,9 @@
   {
     if (!self->_lineView)
     {
-      v9 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{0.0, self->_waveSize.height * 0.5 + -0.5, p_waveSize->width, 1.0}];
+      v8 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{0.0, self->_waveSize.height * 0.5 + -0.5, p_waveSize->width, 1.0}];
       lineView = self->_lineView;
-      self->_lineView = v9;
+      self->_lineView = v8;
 
       secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
       [(UIView *)self->_lineView setBackgroundColor:secondaryLabelColor];
@@ -61,58 +61,56 @@
     waveView = self->_waveView;
     if (!waveView)
     {
-      v13 = objc_alloc(MEMORY[0x277D755E8]);
-      v14 = [v13 initWithFrame:{*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
-      v15 = self->_waveView;
-      self->_waveView = v14;
+      v12 = objc_alloc(MEMORY[0x277D755E8]);
+      v13 = [v12 initWithFrame:{*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
+      v14 = self->_waveView;
+      self->_waveView = v13;
 
       [(UIImageView *)self->_waveView setTranslatesAutoresizingMaskIntoConstraints:0];
       [(QLWaveformView *)self addSubview:self->_waveView];
       leftAnchor = [(UIImageView *)self->_waveView leftAnchor];
       leftAnchor2 = [(QLWaveformView *)self leftAnchor];
-      v29 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-      v37[0] = v29;
+      v28 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+      v36[0] = v28;
       rightAnchor = [(UIImageView *)self->_waveView rightAnchor];
       rightAnchor2 = [(QLWaveformView *)self rightAnchor];
-      v26 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-      v37[1] = v26;
+      v25 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
+      v36[1] = v25;
       bottomAnchor = [(UIImageView *)self->_waveView bottomAnchor];
       bottomAnchor2 = [(QLWaveformView *)self bottomAnchor];
-      v18 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v37[2] = v18;
+      v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+      v36[2] = v17;
       topAnchor = [(UIImageView *)self->_waveView topAnchor];
       topAnchor2 = [(QLWaveformView *)self topAnchor];
-      v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v37[3] = v21;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
-      [(QLWaveformView *)self addConstraints:v22];
+      v20 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v36[3] = v20;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:4];
+      [(QLWaveformView *)self addConstraints:v21];
 
       waveView = self->_waveView;
     }
 
     image = [(UIImageView *)waveView image];
-    v24 = image == 0;
+    v23 = image == 0;
 
-    if (v24)
+    if (v23)
     {
       *buf = 0;
-      v34 = buf;
-      v35 = 0x2020000000;
-      v36 = 1;
+      v33 = buf;
+      v34 = 0x2020000000;
+      v35 = 1;
       asset = [(QLWaveformView *)self asset];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __29__QLWaveformView_updateImage__block_invoke;
-      v32[3] = &unk_278B57F90;
-      v32[4] = self;
-      v32[5] = buf;
-      [QLWaveformScrubberViewProvider generateWaveformForSize:asset asset:v32 updateHandler:p_waveSize->width, self->_waveSize.height];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __29__QLWaveformView_updateImage__block_invoke;
+      v31[3] = &unk_278B57F90;
+      v31[4] = self;
+      v31[5] = buf;
+      [QLWaveformScrubberViewProvider generateWaveformForSize:asset asset:v31 updateHandler:p_waveSize->width, self->_waveSize.height];
 
       _Block_object_dispose(buf, 8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __29__QLWaveformView_updateImage__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)

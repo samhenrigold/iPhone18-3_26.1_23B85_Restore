@@ -135,7 +135,7 @@ BOOL __108__HDUserDomainConceptSyncEntity_generateSyncObjectsForSession_syncAnch
 
 BOOL __108__HDUserDomainConceptSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7, uint64_t a8)
 {
-  v10 = [*(a1 + 32) codableRepresentationForPersistentID:objc_msgSend(a2 row:"persistentID") error:{a4, a8}];
+  v10 = [*(a1 + 32) codableRepresentationForPersistentID:objc_msgSend(a2 row:"persistentID" error:{a3, a4, a5, a6), a4, a8}];
   if (v10)
   {
     [*(a1 + 40) addObject:v10];
@@ -192,7 +192,7 @@ uint64_t __123__HDUserDomainConceptSyncEntity_enumerateCodableObjectsForPredicat
 
 + (int64_t)receiveSyncObjects:(id)objects version:(id)version syncStore:(id)store profile:(id)profile error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   storeCopy = store;
   profileCopy = profile;
@@ -210,23 +210,22 @@ uint64_t __123__HDUserDomainConceptSyncEntity_enumerateCodableObjectsForPredicat
       v16 = [objectsCopy count];
       v17 = HDSyncVersionRangeToString(*&version);
       v18 = HDSyncVersionRangeToString(0x400000000uLL);
-      v22 = 138413314;
+      v21 = 138413314;
       selfCopy = self;
-      v24 = 2048;
-      v25 = v16;
-      v26 = 2112;
-      v27 = storeCopy;
-      v28 = 2112;
-      v29 = v17;
-      v30 = 2112;
-      v31 = v18;
-      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%@: Ignoring %lu sync objects from sync store %@ with version %@ because our current version is %@", &v22, 0x34u);
+      v23 = 2048;
+      v24 = v16;
+      v25 = 2112;
+      v26 = storeCopy;
+      v27 = 2112;
+      v28 = v17;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%@: Ignoring %lu sync objects from sync store %@ with version %@ because our current version is %@", &v21, 0x34u);
     }
 
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -297,30 +296,30 @@ uint64_t __123__HDUserDomainConceptSyncEntity_enumerateCodableObjectsForPredicat
 
 uint64_t __89__HDUserDomainConceptSyncEntity_receiveSyncObjects_version_syncProvenance_profile_error___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v22 = a2;
+  v33 = *MEMORY[0x277D85DE8];
+  v21 = a2;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v3 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v28;
+    v5 = *v27;
     do
     {
       v6 = 0;
-      v23 = v4;
+      v22 = v4;
       do
       {
-        if (*v28 != v5)
+        if (*v27 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v27 + 1) + 8 * v6);
+        v7 = *(*(&v26 + 1) + 8 * v6);
         v8 = [*(a1 + 40) syncIdentityManager];
         v9 = [v8 legacySyncIdentity];
 
@@ -328,9 +327,9 @@ uint64_t __89__HDUserDomainConceptSyncEntity_receiveSyncObjects_version_syncProv
         {
           v10 = v5;
           v11 = [v7 syncIdentity];
-          v26 = 0;
-          v12 = [HDSyncIdentity syncIdentityWithCodable:v11 error:&v26];
-          v13 = v26;
+          v25 = 0;
+          v12 = [HDSyncIdentity syncIdentityWithCodable:v11 error:&v25];
+          v13 = v25;
 
           if (!v12)
           {
@@ -339,7 +338,7 @@ uint64_t __89__HDUserDomainConceptSyncEntity_receiveSyncObjects_version_syncProv
             if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
             {
               *buf = 138543362;
-              v32 = v13;
+              v31 = v13;
               _os_log_fault_impl(&dword_228986000, v18, OS_LOG_TYPE_FAULT, "HDUserDomainConcept SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
             }
 
@@ -348,9 +347,9 @@ uint64_t __89__HDUserDomainConceptSyncEntity_receiveSyncObjects_version_syncProv
           }
 
           v14 = [*(a1 + 40) syncIdentityManager];
-          v25 = v13;
-          v15 = [v14 concreteIdentityForIdentity:v12 shouldCreate:1 transaction:v22 error:&v25];
-          v16 = v25;
+          v24 = v13;
+          v15 = [v14 concreteIdentityForIdentity:v12 shouldCreate:1 transaction:v21 error:&v24];
+          v16 = v24;
 
           if (!v15)
           {
@@ -359,7 +358,7 @@ uint64_t __89__HDUserDomainConceptSyncEntity_receiveSyncObjects_version_syncProv
             if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
             {
               *buf = 138543362;
-              v32 = v16;
+              v31 = v16;
               _os_log_fault_impl(&dword_228986000, v19, OS_LOG_TYPE_FAULT, "HDUserDomainConcept ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
             }
 
@@ -367,13 +366,13 @@ uint64_t __89__HDUserDomainConceptSyncEntity_receiveSyncObjects_version_syncProv
             v13 = v16;
 LABEL_20:
             v5 = v10;
-            v4 = v23;
+            v4 = v22;
             goto LABEL_21;
           }
 
           v9 = v15;
           v5 = v10;
-          v4 = v23;
+          v4 = v22;
         }
 
         v13 = [MEMORY[0x277CCDAF0] createWithCodableConcept:v7 profile:*(a1 + 40)];
@@ -403,40 +402,39 @@ LABEL_22:
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v4 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v4);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __89__HDUserDomainConceptSyncEntity_receiveSyncObjects_version_syncProvenance_profile_error___block_invoke_305(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = *(*(*(a1 + 40) + 8) + 40);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * v8);
+        v9 = *(*(&v16 + 1) + 8 * v8);
         v10 = [*(a1 + 32) userDomainConceptManager];
         v11 = [*(*(*(a1 + 40) + 8) + 40) objectForKeyedSubscript:v9];
         v12 = *(a1 + 48);
@@ -453,7 +451,7 @@ uint64_t __89__HDUserDomainConceptSyncEntity_receiveSyncObjects_version_syncProv
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -466,20 +464,19 @@ uint64_t __89__HDUserDomainConceptSyncEntity_receiveSyncObjects_version_syncProv
   v14 = 1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (id)pruneSyncedObjectsThroughAnchor:(id)anchor limit:(unint64_t)limit nowDate:(id)date profile:(id)profile error:(id *)error
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   dateCopy = date;
   profileCopy = profile;
   v11 = anchorCopy;
   v12 = dateCopy;
   objc_opt_self();
-  v39 = v12;
+  v38 = v12;
   v13 = [v12 dateByAddingTimeInterval:-31536000.0];
 
   v14 = [MEMORY[0x277D10B18] predicateWithProperty:@"modification_date" lessThanValue:v13];
@@ -487,53 +484,53 @@ LABEL_11:
   if (v11)
   {
     v16 = MEMORY[0x277D10B20];
-    v50[0] = v14;
+    v49[0] = v14;
     v17 = [MEMORY[0x277D10B18] predicateWithProperty:@"sync_anchor" lessThanOrEqualToValue:v11];
-    v50[1] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
+    v49[1] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
     v19 = [v16 predicateMatchingAnyPredicates:v18];
 
     v15 = v19;
   }
 
   v20 = MEMORY[0x277D10B20];
-  v44 = v15;
+  v43 = v15;
   objc_opt_self();
   v21 = objc_alloc(MEMORY[0x277CCACA8]);
   v22 = [v21 initWithFormat:@"%@(%@)", *MEMORY[0x277D10A90], @"sync_anchor"];
   v23 = objc_alloc_init(MEMORY[0x277D10B80]);
   [v23 setEntityClass:objc_opt_class()];
   v24 = MEMORY[0x277D10B18];
-  v51[0] = v22;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
+  v50[0] = v22;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
   v26 = [v24 predicateWithProperty:@"sync_anchor" comparisonType:2 subqueryDescriptor:v23 subqueryProperties:v25];
 
-  v45 = v26;
+  v44 = v26;
   v27 = [MEMORY[0x277D10B18] predicateWithProperty:@"deleted" equalToValue:MEMORY[0x277CBEC38]];
-  v46 = v27;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:3];
+  v45 = v27;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:3];
   v29 = [v20 predicateMatchingAllPredicates:v28];
 
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__200;
-  v48 = __Block_byref_object_dispose__200;
-  v49 = &unk_283CB40B0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__200;
+  v47 = __Block_byref_object_dispose__200;
+  v48 = &unk_283CB40B0;
   database = [profileCopy database];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __93__HDUserDomainConceptSyncEntity_pruneSyncedObjectsThroughAnchor_limit_nowDate_profile_error___block_invoke;
-  v40[3] = &unk_278616AA0;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __93__HDUserDomainConceptSyncEntity_pruneSyncedObjectsThroughAnchor_limit_nowDate_profile_error___block_invoke;
+  v39[3] = &unk_278616AA0;
   v31 = v29;
-  v42 = &v44;
+  v41 = &v43;
   limitCopy = limit;
-  v41 = v31;
-  LODWORD(v28) = [(HDHealthEntity *)HDUserDomainConceptEntity performWriteTransactionWithHealthDatabase:database error:error block:v40];
+  v40 = v31;
+  LODWORD(v28) = [(HDHealthEntity *)HDUserDomainConceptEntity performWriteTransactionWithHealthDatabase:database error:error block:v39];
 
   if (v28)
   {
-    v32 = v45[5];
+    v32 = v44[5];
   }
 
   else
@@ -543,8 +540,7 @@ LABEL_11:
 
   v33 = v32;
 
-  _Block_object_dispose(&v44, 8);
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v43, 8);
 
   return v33;
 }

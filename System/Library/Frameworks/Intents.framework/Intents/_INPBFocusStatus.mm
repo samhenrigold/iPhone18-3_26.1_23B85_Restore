@@ -94,7 +94,6 @@
   toCopy = to;
   if ([(_INPBFocusStatus *)self hasIsFocused])
   {
-    isFocused = self->_isFocused;
     PBDataWriterWriteBOOLField();
   }
 }

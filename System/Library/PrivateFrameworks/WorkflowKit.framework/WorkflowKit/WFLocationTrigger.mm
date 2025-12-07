@@ -111,7 +111,7 @@ LABEL_10:
 
 - (BOOL)isDateWithinTimeRange:(id)range
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
   startTime = [(WFLocationTrigger *)self startTime];
@@ -140,9 +140,9 @@ LABEL_10:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v28 = "[WFLocationTrigger isDateWithinTimeRange:]";
-      v29 = 2114;
-      v30 = v14;
+      v27 = "[WFLocationTrigger isDateWithinTimeRange:]";
+      v28 = 2114;
+      v29 = v14;
       v16 = "%s %{public}@";
       v17 = v15;
       v18 = OS_LOG_TYPE_ERROR;
@@ -156,11 +156,11 @@ LABEL_8:
   {
     if ([v8 isEqualToDate:v11])
     {
-      v24 = [currentCalendar components:96 fromDate:rangeCopy];
+      v23 = [currentCalendar components:96 fromDate:rangeCopy];
       startTime2 = [(WFLocationTrigger *)self startTime];
-      v26 = [currentCalendar components:96 fromDate:startTime2];
+      v25 = [currentCalendar components:96 fromDate:startTime2];
 
-      LOBYTE(startTime2) = [v24 isEqual:v26];
+      LOBYTE(startTime2) = [v23 isEqual:v25];
       if (startTime2)
       {
         v20 = 1;
@@ -174,11 +174,11 @@ LABEL_8:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315650;
-        v28 = "[WFLocationTrigger isDateWithinTimeRange:]";
-        v29 = 2114;
-        v30 = v8;
-        v31 = 2114;
-        v32 = v12;
+        v27 = "[WFLocationTrigger isDateWithinTimeRange:]";
+        v28 = 2114;
+        v29 = v8;
+        v30 = 2114;
+        v31 = v12;
         _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_FAULT, "%s Today start %{public}@ should not be after today end %{public}@", buf, 0x20u);
       }
 
@@ -196,7 +196,7 @@ LABEL_8:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v28 = "[WFLocationTrigger isDateWithinTimeRange:]";
+      v27 = "[WFLocationTrigger isDateWithinTimeRange:]";
       v16 = "%s Not running location trigger due to start/end time";
       v17 = v15;
       v18 = OS_LOG_TYPE_DEBUG;
@@ -210,7 +210,6 @@ LABEL_10:
 LABEL_11:
 
 LABEL_12:
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

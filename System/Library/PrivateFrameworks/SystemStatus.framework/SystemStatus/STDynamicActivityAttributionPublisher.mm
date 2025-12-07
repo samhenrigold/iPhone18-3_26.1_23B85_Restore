@@ -21,9 +21,9 @@
     dispatch_once(&qword_1ED7F5D18, &__block_literal_global_11);
   }
 
-  v0 = _MergedGlobals_11;
+  v1 = _MergedGlobals_11;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invoke()
@@ -37,7 +37,7 @@ uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invok
 
 + (void)setCurrentAttributionKey:(id)key andApp:(id)app
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   appCopy = app;
   if (STSystemStatusIsInternalLoggingEnabled_onceToken != -1)
@@ -50,11 +50,11 @@ uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invok
     v7 = STSystemStatusLogDynamicAttribution();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 138543618;
-      *&v13[4] = keyCopy;
-      *&v13[12] = 2114;
-      *&v13[14] = appCopy;
-      _os_log_impl(&dword_1DA9C2000, v7, OS_LOG_TYPE_DEFAULT, "setCurrentAttributionKey: %{public}@, andApp: %{public}@", v13, 0x16u);
+      *v12 = 138543618;
+      *&v12[4] = keyCopy;
+      *&v12[12] = 2114;
+      *&v12[14] = appCopy;
+      _os_log_impl(&dword_1DA9C2000, v7, OS_LOG_TYPE_DEFAULT, "setCurrentAttributionKey: %{public}@, andApp: %{public}@", v12, 0x16u);
     }
   }
 
@@ -64,22 +64,20 @@ uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invok
   if (v8)
   {
     v11 = v8[1];
-    *v13 = MEMORY[0x1E69E9820];
-    *&v13[8] = 3221225472;
-    *&v13[16] = __78__STDynamicActivityAttributionPublisher_setCurrentAttributionKey_application___block_invoke;
-    v14 = &unk_1E85DE268;
-    v15 = v8;
-    v16 = v9;
-    v17 = v10;
-    dispatch_sync(v11, v13);
+    *v12 = MEMORY[0x1E69E9820];
+    *&v12[8] = 3221225472;
+    *&v12[16] = __78__STDynamicActivityAttributionPublisher_setCurrentAttributionKey_application___block_invoke;
+    v13 = &unk_1E85DE268;
+    v14 = v8;
+    v15 = v9;
+    v16 = v10;
+    dispatch_sync(v11, v12);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setCurrentAttributionLocalizableKey:(id)key auditToken:(id *)token
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (STSystemStatusIsInternalLoggingEnabled_onceToken != -1)
   {
@@ -100,8 +98,8 @@ uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invok
   }
 
   v7 = +[STDynamicActivityAttributionPublisher sharedInstance];
-  v12 = *token->var0;
-  v13 = *&token->var0[4];
+  v11 = *token->var0;
+  v12 = *&token->var0[4];
   v8 = keyCopy;
   v9 = v8;
   if (v7)
@@ -110,20 +108,18 @@ uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invok
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __101__STDynamicActivityAttributionPublisher_setCurrentAttributionLocalizableKey_maskingClientAuditToken___block_invoke;
-    v15 = &unk_1E85DE8E8;
-    v16 = v7;
-    v17 = v8;
+    v14 = &unk_1E85DE8E8;
+    v15 = v7;
+    v16 = v8;
+    v17 = v11;
     v18 = v12;
-    v19 = v13;
     dispatch_sync(v10, buf);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setCurrentAttributionStringWithFormat:(id)format auditToken:(id *)token
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   formatCopy = format;
   if (STSystemStatusIsInternalLoggingEnabled_onceToken != -1)
   {
@@ -144,8 +140,8 @@ uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invok
   }
 
   v7 = +[STDynamicActivityAttributionPublisher sharedInstance];
-  v12 = *token->var0;
-  v13 = *&token->var0[4];
+  v11 = *token->var0;
+  v12 = *&token->var0[4];
   v8 = formatCopy;
   v9 = v8;
   if (v7)
@@ -154,20 +150,18 @@ uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invok
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __103__STDynamicActivityAttributionPublisher_setCurrentAttributionStringWithFormat_maskingClientAuditToken___block_invoke;
-    v15 = &unk_1E85DE8E8;
-    v16 = v7;
-    v17 = v8;
+    v14 = &unk_1E85DE8E8;
+    v15 = v7;
+    v16 = v8;
+    v17 = v11;
     v18 = v12;
-    v19 = v13;
     dispatch_sync(v10, buf);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setCurrentAttributionWebsiteString:(id)string auditToken:(id *)token
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (STSystemStatusIsInternalLoggingEnabled_onceToken != -1)
   {
@@ -198,8 +192,8 @@ uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invok
   }
 
   v8 = +[STDynamicActivityAttributionPublisher sharedInstance];
-  v13 = *token->var0;
-  v14 = *&token->var0[4];
+  v12 = *token->var0;
+  v13 = *&token->var0[4];
   v9 = stringCopy;
   v10 = v9;
   if (v8)
@@ -208,15 +202,13 @@ uint64_t __55__STDynamicActivityAttributionPublisher_sharedInstance__block_invok
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __100__STDynamicActivityAttributionPublisher_setCurrentAttributionWebsiteString_maskingClientAuditToken___block_invoke;
-    v16 = &unk_1E85DE8E8;
-    v17 = v8;
-    v18 = v9;
+    v15 = &unk_1E85DE8E8;
+    v16 = v8;
+    v17 = v9;
+    v18 = v12;
     v19 = v13;
-    v20 = v14;
     dispatch_sync(v11, buf);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (STDynamicActivityAttributionPublisher)init
@@ -324,12 +316,12 @@ void __78__STDynamicActivityAttributionPublisher_setCurrentAttributionKey_applic
 
 void __101__STDynamicActivityAttributionPublisher_setCurrentAttributionLocalizableKey_maskingClientAuditToken___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
   v3 = *(a1 + 64);
-  v9 = *(a1 + 48);
-  v10 = v3;
+  v8 = *(a1 + 48);
+  v9 = v3;
   if (v2)
   {
     v4 = v1;
@@ -343,29 +335,27 @@ void __101__STDynamicActivityAttributionPublisher_setCurrentAttributionLocalizab
       v5 = STSystemStatusLogDynamicAttribution();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "_internalQueue_sendAttributionLocalizableKey:maskingClientAuditToken:", v8, 2u);
+        LOWORD(v7[0]) = 0;
+        _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "_internalQueue_sendAttributionLocalizableKey:maskingClientAuditToken:", v7, 2u);
       }
     }
 
     [(STDynamicActivityAttributionPublisher *)v2 _internalQueue_setupXPCConnectionIfNecessary];
     v6 = [*(v2 + 16) synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_23];
-    v8[0] = v9;
-    v8[1] = v10;
-    [v6 setCurrentAttributionLocalizableKey:v4 maskingClientAuditToken:v8 reply:&__block_literal_global_26];
+    v7[0] = v8;
+    v7[1] = v9;
+    [v6 setCurrentAttributionLocalizableKey:v4 maskingClientAuditToken:v7 reply:&__block_literal_global_26];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __103__STDynamicActivityAttributionPublisher_setCurrentAttributionStringWithFormat_maskingClientAuditToken___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
   v3 = *(a1 + 64);
-  v9 = *(a1 + 48);
-  v10 = v3;
+  v8 = *(a1 + 48);
+  v9 = v3;
   if (v2)
   {
     v4 = v1;
@@ -379,29 +369,27 @@ void __103__STDynamicActivityAttributionPublisher_setCurrentAttributionStringWit
       v5 = STSystemStatusLogDynamicAttribution();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "_internalQueue_sendAttributionStringWithFormat:maskingClientAuditToken:", v8, 2u);
+        LOWORD(v7[0]) = 0;
+        _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "_internalQueue_sendAttributionStringWithFormat:maskingClientAuditToken:", v7, 2u);
       }
     }
 
     [(STDynamicActivityAttributionPublisher *)v2 _internalQueue_setupXPCConnectionIfNecessary];
     v6 = [*(v2 + 16) synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_28];
-    v8[0] = v9;
-    v8[1] = v10;
-    [v6 setCurrentAttributionStringWithFormat:v4 maskingClientAuditToken:v8 reply:&__block_literal_global_31];
+    v7[0] = v8;
+    v7[1] = v9;
+    [v6 setCurrentAttributionStringWithFormat:v4 maskingClientAuditToken:v7 reply:&__block_literal_global_31];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __100__STDynamicActivityAttributionPublisher_setCurrentAttributionWebsiteString_maskingClientAuditToken___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
   v3 = *(a1 + 64);
-  v9 = *(a1 + 48);
-  v10 = v3;
+  v8 = *(a1 + 48);
+  v9 = v3;
   if (v2)
   {
     v4 = v1;
@@ -415,19 +403,17 @@ void __100__STDynamicActivityAttributionPublisher_setCurrentAttributionWebsiteSt
       v5 = STSystemStatusLogDynamicAttribution();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "_internalQueue_sendAttributionWebsiteString:maskingClientAuditToken:", v8, 2u);
+        LOWORD(v7[0]) = 0;
+        _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "_internalQueue_sendAttributionWebsiteString:maskingClientAuditToken:", v7, 2u);
       }
     }
 
     [(STDynamicActivityAttributionPublisher *)v2 _internalQueue_setupXPCConnectionIfNecessary];
     v6 = [*(v2 + 16) synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_33];
-    v8[0] = v9;
-    v8[1] = v10;
-    [v6 setCurrentAttributionWebsiteString:v4 maskingClientAuditToken:v8 reply:&__block_literal_global_36];
+    v7[0] = v8;
+    v7[1] = v9;
+    [v6 setCurrentAttributionWebsiteString:v4 maskingClientAuditToken:v7 reply:&__block_literal_global_36];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_internalQueue_setupXPCConnectionIfNecessary
@@ -508,62 +494,54 @@ void __63__STDynamicActivityAttributionPublisher__tearDownXPCConnection__block_i
 
 void __82__STDynamicActivityAttributionPublisher__internalQueue_sendAttributionKey_andApp___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = STSystemStatusLogDynamicAttribution();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_ERROR, "Failed to setCurrentAttributionKey with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_ERROR, "Failed to setCurrentAttributionKey with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __110__STDynamicActivityAttributionPublisher__internalQueue_sendAttributionLocalizableKey_maskingClientAuditToken___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = STSystemStatusLogDynamicAttribution();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_ERROR, "Failed to setCurrentAttributionLocalizableKey with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_ERROR, "Failed to setCurrentAttributionLocalizableKey with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __112__STDynamicActivityAttributionPublisher__internalQueue_sendAttributionStringWithFormat_maskingClientAuditToken___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = STSystemStatusLogDynamicAttribution();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_ERROR, "Failed to setCurrentAttributionStringWithFormat with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_ERROR, "Failed to setCurrentAttributionStringWithFormat with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __109__STDynamicActivityAttributionPublisher__internalQueue_sendAttributionWebsiteString_maskingClientAuditToken___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = STSystemStatusLogDynamicAttribution();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_ERROR, "Failed to setCurrentAttributionWebsiteString with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_ERROR, "Failed to setCurrentAttributionWebsiteString with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

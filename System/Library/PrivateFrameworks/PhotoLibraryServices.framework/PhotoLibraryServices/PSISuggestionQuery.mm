@@ -28,10 +28,10 @@
   v49 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   completionCopy = completion;
-  if ([categoryCopy count])
+  if (objc_msgSend_count(categoryCopy))
   {
     suggestionComponents = [completionCopy suggestionComponents];
-    v9 = [suggestionComponents count];
+    v9 = objc_msgSend_count(suggestionComponents);
 
     if (v9 >= 2)
     {
@@ -173,7 +173,7 @@ LABEL_22:
   }
 
   suggestionComponents = [completionCopy suggestionComponents];
-  v7 = [suggestionComponents count];
+  v7 = objc_msgSend_count(suggestionComponents);
 
   if (v7 >= 2)
   {
@@ -295,7 +295,7 @@ LABEL_13:
   {
     if (v35)
     {
-      v37 = [v43 count];
+      v37 = objc_msgSend_count(v43);
       formattedSearchText4 = [(PSISuggestionQuery *)self formattedSearchText];
       *buf = 134218498;
       v50 = v37;
@@ -377,7 +377,7 @@ LABEL_32:
     v28[5] = v9;
   }
 
-  if (![v28[5] count])
+  if (!objc_msgSend_count(v28[5]))
   {
     goto LABEL_18;
   }
@@ -392,12 +392,12 @@ LABEL_32:
   v26[5] = buf;
   v26[6] = &v27;
   [v11 _pairLocationCompletionSuggestionsIfPossible:v12 completion:v26];
-  v13 = [*(v34 + 5) count];
+  v13 = objc_msgSend_count(*(v34 + 5));
   if (v13 != [suggestionOptions searchSuggestionLimit])
   {
     searchSuggestionLimit = [suggestionOptions searchSuggestionLimit];
-    v16 = searchSuggestionLimit - [*(v34 + 5) count];
-    if (v16 < [v28[5] count])
+    v16 = searchSuggestionLimit - objc_msgSend_count(*(v34 + 5));
+    if (v16 < objc_msgSend_count(v28[5]))
     {
       v17 = [PSISuggestionQueryUtilities sortLocationSuggestions:v28[5]];
       v18 = [v17 subarrayWithRange:{0, v16}];
@@ -443,7 +443,7 @@ void __64__PSISuggestionQuery__performQueryForPairedLocationSuggestions___block_
   v7 = PLSearchBackendQueryGetLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v8 = [v5 count];
+    v8 = objc_msgSend_count(v5);
     v9 = [*(a1 + 32) formattedSearchText];
     v12 = 134218242;
     v13 = v8;
@@ -500,35 +500,35 @@ void __64__PSISuggestionQuery__performQueryForPairedLocationSuggestions___block_
 
 - (id)_generateNextTokenSuggestionsForAssetUUIDs:(id)ds collectionUUIDs:(id)iDs suggestionLimit:(unint64_t)limit
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v114 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   iDsCopy = iDs;
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v74 = dsCopy;
+  v75 = dsCopy;
   [v9 addObjectsFromArray:dsCopy];
-  v72 = v9;
-  v70 = iDsCopy;
+  v73 = v9;
+  v71 = iDsCopy;
   [v9 addObjectsFromArray:iDsCopy];
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x2020000000;
+  v101 = 0;
+  v94 = 0;
+  v95 = &v94;
+  v96 = 0x2020000000;
   v97 = 0;
-  v98 = &v97;
-  v99 = 0x2020000000;
-  v100 = 0;
-  v93 = 0;
-  v94 = &v93;
-  v95 = 0x2020000000;
-  v96 = 0;
   suggestionOptions = [(PSISuggestionQuery *)self suggestionOptions];
   v11 = [MEMORY[0x1E695DFD8] setWithArray:v9];
   suggestionResultTypes = [suggestionOptions suggestionResultTypes];
   photosEntityStore = [(PSISuggestionQuery *)self photosEntityStore];
-  v92[0] = MEMORY[0x1E69E9820];
-  v92[1] = 3221225472;
-  v92[2] = __97__PSISuggestionQuery__generateNextTokenSuggestionsForAssetUUIDs_collectionUUIDs_suggestionLimit___block_invoke;
-  v92[3] = &unk_1E7569CF8;
-  v92[4] = &v97;
-  v92[5] = &v93;
-  [PLScopedSearchUtilities searchIndexIdsFromUUIDs:v11 searchResultTypes:suggestionResultTypes psiDatabase:photosEntityStore completion:v92];
-  v71 = suggestionOptions;
+  v93[0] = MEMORY[0x1E69E9820];
+  v93[1] = 3221225472;
+  v93[2] = __97__PSISuggestionQuery__generateNextTokenSuggestionsForAssetUUIDs_collectionUUIDs_suggestionLimit___block_invoke;
+  v93[3] = &unk_1E7569CF8;
+  v93[4] = &v98;
+  v93[5] = &v94;
+  [PLScopedSearchUtilities searchIndexIdsFromUUIDs:v11 searchResultTypes:suggestionResultTypes psiDatabase:photosEntityStore completion:v93];
+  v72 = suggestionOptions;
 
   if ([(PSISuggestionQuery *)self cancelled])
   {
@@ -546,42 +546,42 @@ void __64__PSISuggestionQuery__performQueryForPairedLocationSuggestions___block_
 
   else
   {
-    v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v70 = objc_alloc_init(MEMORY[0x1E695DF70]);
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v109 = 0x3032000000;
-    v110 = __Block_byref_object_copy__24343;
-    v111 = __Block_byref_object_dispose__24344;
-    v112 = 0;
-    v86 = 0;
-    v87 = &v86;
-    v88 = 0x3032000000;
-    v89 = __Block_byref_object_copy__24343;
-    v90 = __Block_byref_object_dispose__24344;
-    v91 = 0;
+    v110 = 0x3032000000;
+    v111 = __Block_byref_object_copy__24343;
+    v112 = __Block_byref_object_dispose__24344;
+    v113 = 0;
+    v87 = 0;
+    v88 = &v87;
+    v89 = 0x3032000000;
+    v90 = __Block_byref_object_copy__24343;
+    v91 = __Block_byref_object_dispose__24344;
+    v92 = 0;
     photosEntityStore2 = [(PSISuggestionQuery *)self photosEntityStore];
-    v17 = v98[3];
+    v17 = v99[3];
     if (v17)
     {
-      v83[0] = MEMORY[0x1E69E9820];
-      v83[1] = 3221225472;
-      v83[2] = __97__PSISuggestionQuery__generateNextTokenSuggestionsForAssetUUIDs_collectionUUIDs_suggestionLimit___block_invoke_40;
-      v83[3] = &unk_1E7569D20;
-      v84 = v69;
+      v84[0] = MEMORY[0x1E69E9820];
+      v84[1] = 3221225472;
+      v84[2] = __97__PSISuggestionQuery__generateNextTokenSuggestionsForAssetUUIDs_collectionUUIDs_suggestionLimit___block_invoke_40;
+      v84[3] = &unk_1E7569D20;
+      v85 = v70;
       p_buf = &buf;
-      [photosEntityStore2 groupsForAssetIds:v17 completion:v83];
+      [photosEntityStore2 groupsForAssetIds:v17 completion:v84];
     }
 
-    v18 = v94[3];
+    v18 = v95[3];
     if (v18)
     {
-      v80[0] = MEMORY[0x1E69E9820];
-      v80[1] = 3221225472;
-      v80[2] = __97__PSISuggestionQuery__generateNextTokenSuggestionsForAssetUUIDs_collectionUUIDs_suggestionLimit___block_invoke_2;
-      v80[3] = &unk_1E7569D20;
-      v81 = v69;
-      v82 = &v86;
-      v19 = [photosEntityStore2 groupsForCollectionIds:v18 completion:v80];
+      v81[0] = MEMORY[0x1E69E9820];
+      v81[1] = 3221225472;
+      v81[2] = __97__PSISuggestionQuery__generateNextTokenSuggestionsForAssetUUIDs_collectionUUIDs_suggestionLimit___block_invoke_2;
+      v81[3] = &unk_1E7569D20;
+      v82 = v70;
+      v83 = &v87;
+      v19 = [photosEntityStore2 groupsForCollectionIds:v18 completion:v81];
     }
 
     if ([(PSISuggestionQuery *)self cancelled])
@@ -590,9 +590,9 @@ void __64__PSISuggestionQuery__performQueryForPairedLocationSuggestions___block_
       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
       {
         formattedSearchText2 = [(PSISuggestionQuery *)self formattedSearchText];
-        *v101 = 138412290;
-        v102 = formattedSearchText2;
-        _os_log_impl(&dword_19BF1F000, log, OS_LOG_TYPE_INFO, "Next Token suggestions query for %@ aborted because query was cancelled", v101, 0xCu);
+        *v102 = 138412290;
+        v103 = formattedSearchText2;
+        _os_log_impl(&dword_19BF1F000, log, OS_LOG_TYPE_INFO, "Next Token suggestions query for %@ aborted because query was cancelled", v102, 0xCu);
       }
 
       v16 = MEMORY[0x1E695E0F0];
@@ -601,29 +601,29 @@ void __64__PSISuggestionQuery__performQueryForPairedLocationSuggestions___block_
     else
     {
       log = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v66 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v67 = objc_alloc_init(MEMORY[0x1E695DF70]);
       optionsWantSuggestionsForAssets = [suggestionOptions optionsWantSuggestionsForAssets];
       optionsWantSuggestionsForCollections = [suggestionOptions optionsWantSuggestionsForCollections];
-      v78 = 0u;
       v79 = 0u;
-      v76 = 0u;
+      v80 = 0u;
       v77 = 0u;
-      obj = v69;
+      v78 = 0u;
+      obj = v70;
       v21 = off_1E7561000;
-      v75 = [obj countByEnumeratingWithState:&v76 objects:v107 count:16];
-      if (v75)
+      v76 = [obj countByEnumeratingWithState:&v77 objects:v108 count:16];
+      if (v76)
       {
-        v22 = *v77;
+        v22 = *v78;
 LABEL_16:
         v23 = 0;
         while (1)
         {
-          if (*v77 != v22)
+          if (*v78 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v76 + 1) + 8 * v23);
+          v24 = *(*(&v77 + 1) + 8 * v23);
           if ([(PSISuggestionQuery *)self cancelled])
           {
             break;
@@ -631,16 +631,16 @@ LABEL_16:
 
           if (-[__objc2_class groupIsValidForSuggestionGeneration:suggestionType:allowedIndexCategories:suggestionQuery:](v21[72], "groupIsValidForSuggestionGeneration:suggestionType:allowedIndexCategories:suggestionQuery:", v24, 2, 0, self) && (PLSearchIndexCategoryIsSynonym([v24 category]) & 1) == 0)
           {
-            v25 = v98[3];
+            v25 = v99[3];
             v26 = v25 ? CFArrayGetCount(v25) : 0;
             v27 = v22;
             v28 = *(*(&buf + 1) + 40);
             v29 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v24, "groupId")}];
             v30 = [v28 countForObject:v29];
 
-            v31 = v94[3];
+            v31 = v95[3];
             v32 = v31 ? CFArrayGetCount(v31) : 0;
-            v33 = v87[5];
+            v33 = v88[5];
             v34 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v24, "groupId")}];
             v35 = [v33 countForObject:v34];
 
@@ -658,7 +658,7 @@ LABEL_16:
               v39 = optionsWantSuggestionsForAssets ? v36 : v40;
             }
 
-            v41 = v39 & +[PSISuggestionQueryUtilities groupWithAssetCountMeetsAssetMatchThreshold:assetSearchResultsCount:](PSISuggestionQueryUtilities, "groupWithAssetCountMeetsAssetMatchThreshold:assetSearchResultsCount:", v30, [v74 count]);
+            v41 = v39 & [PSISuggestionQueryUtilities groupWithAssetCountMeetsAssetMatchThreshold:v30 assetSearchResultsCount:objc_msgSend_count(v75)];
             v21 = off_1E7561000;
             v22 = v27;
             if (v41)
@@ -690,15 +690,15 @@ LABEL_16:
               contentString = [v24 contentString];
               v48 = [v46 stringWithFormat:@"%@-%hd", contentString, objc_msgSend(v24, "category")];
 
-              [v66 addObject:v48];
+              [v67 addObject:v48];
               v22 = v27;
             }
           }
 
-          if (v75 == ++v23)
+          if (v76 == ++v23)
           {
-            v75 = [obj countByEnumeratingWithState:&v76 objects:v107 count:16];
-            if (v75)
+            v76 = [obj countByEnumeratingWithState:&v77 objects:v108 count:16];
+            if (v76)
             {
               goto LABEL_16;
             }
@@ -714,9 +714,9 @@ LABEL_16:
         if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
         {
           formattedSearchText3 = [(PSISuggestionQuery *)self formattedSearchText];
-          *v101 = 138412290;
-          v102 = formattedSearchText3;
-          _os_log_impl(&dword_19BF1F000, v49, OS_LOG_TYPE_INFO, "Next Token suggestions query for %@ aborted because query was cancelled", v101, 0xCu);
+          *v102 = 138412290;
+          v103 = formattedSearchText3;
+          _os_log_impl(&dword_19BF1F000, v49, OS_LOG_TYPE_INFO, "Next Token suggestions query for %@ aborted because query was cancelled", v102, 0xCu);
         }
 
         v16 = MEMORY[0x1E695E0F0];
@@ -727,42 +727,43 @@ LABEL_16:
         v51 = PLSearchBackendQueryGetLog();
         if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
         {
-          v52 = [v66 count];
+          v52 = objc_msgSend_count(v67);
           formattedSearchText4 = [(PSISuggestionQuery *)self formattedSearchText];
-          *v101 = 134218498;
-          v102 = v52;
-          v103 = 2112;
-          v104 = formattedSearchText4;
-          v105 = 2112;
-          v106 = v66;
-          _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_INFO, "Generated %tu next token candidates for query: %@: %@", v101, 0x20u);
+          *v102 = 134218498;
+          v103 = v52;
+          v104 = 2112;
+          v105 = formattedSearchText4;
+          v106 = 2112;
+          v107 = v67;
+          _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_INFO, "Generated %tu next token candidates for query: %@: %@", v102, 0x20u);
         }
 
-        v49 = [PSISuggestionQueryUtilities suggestionCandidatesBySuggestionCategoriesTypeFromSuggestionComponents:log assetIds:v98[3] collectionIds:v94[3] wantsSuggestionCounts:1];
-        v54 = +[PSISuggestionRanker rankedSearchSuggestionsFromSuggestionCandidates:suggestionType:queryAssetCount:queryCollectionCount:suggestionLimit:suggestionQuery:](PSISuggestionRanker, "rankedSearchSuggestionsFromSuggestionCandidates:suggestionType:queryAssetCount:queryCollectionCount:suggestionLimit:suggestionQuery:", v49, 2, [v74 count], objc_msgSend(v70, "count"), limit, self);
-        v55 = v98[3];
-        if (v55)
-        {
-          CFRelease(v55);
-          v98[3] = 0;
-        }
-
-        v56 = v94[3];
+        v49 = [PSISuggestionQueryUtilities suggestionCandidatesBySuggestionCategoriesTypeFromSuggestionComponents:log assetIds:v99[3] collectionIds:v95[3] wantsSuggestionCounts:1];
+        v54 = objc_msgSend_count(v75);
+        v55 = [PSISuggestionRanker rankedSearchSuggestionsFromSuggestionCandidates:v49 suggestionType:2 queryAssetCount:v54 queryCollectionCount:objc_msgSend_count(v71) suggestionLimit:limit suggestionQuery:self];
+        v56 = v99[3];
         if (v56)
         {
           CFRelease(v56);
-          v94[3] = 0;
+          v99[3] = 0;
+        }
+
+        v57 = v95[3];
+        if (v57)
+        {
+          CFRelease(v57);
+          v95[3] = 0;
         }
 
         if ([(PSISuggestionQuery *)self cancelled])
         {
-          v57 = PLSearchBackendQueryGetLog();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+          v58 = PLSearchBackendQueryGetLog();
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
           {
             formattedSearchText5 = [(PSISuggestionQuery *)self formattedSearchText];
-            *v101 = 138412290;
-            v102 = formattedSearchText5;
-            _os_log_impl(&dword_19BF1F000, v57, OS_LOG_TYPE_INFO, "Next Token suggestions query for %@ aborted because query was cancelled", v101, 0xCu);
+            *v102 = 138412290;
+            v103 = formattedSearchText5;
+            _os_log_impl(&dword_19BF1F000, v58, OS_LOG_TYPE_INFO, "Next Token suggestions query for %@ aborted because query was cancelled", v102, 0xCu);
           }
 
           v16 = MEMORY[0x1E695E0F0];
@@ -770,31 +771,31 @@ LABEL_16:
 
         else
         {
-          v59 = PLSearchBackendQueryGetLog();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+          v60 = PLSearchBackendQueryGetLog();
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
           {
-            v60 = [v54 count];
+            v61 = objc_msgSend_count(v55);
             formattedSearchText6 = [(PSISuggestionQuery *)self formattedSearchText];
-            *v101 = 134218242;
-            v102 = v60;
-            v103 = 2112;
-            v104 = formattedSearchText6;
-            _os_log_impl(&dword_19BF1F000, v59, OS_LOG_TYPE_INFO, "Generated %tu next token suggestions for query: %@", v101, 0x16u);
+            *v102 = 134218242;
+            v103 = v61;
+            v104 = 2112;
+            v105 = formattedSearchText6;
+            _os_log_impl(&dword_19BF1F000, v60, OS_LOG_TYPE_INFO, "Generated %tu next token suggestions for query: %@", v102, 0x16u);
           }
 
-          v16 = v54;
+          v16 = v55;
         }
       }
     }
 
-    _Block_object_dispose(&v86, 8);
+    _Block_object_dispose(&v87, 8);
     _Block_object_dispose(&buf, 8);
 
-    v14 = v69;
+    v14 = v70;
   }
 
-  _Block_object_dispose(&v93, 8);
-  _Block_object_dispose(&v97, 8);
+  _Block_object_dispose(&v94, 8);
+  _Block_object_dispose(&v98, 8);
 
   return v16;
 }
@@ -827,7 +828,7 @@ void __97__PSISuggestionQuery__generateNextTokenSuggestionsForAssetUUIDs_collect
 - (id)_generateCompletionSuggestionsForAssetUUIDs:(id)ds collectionUUIDs:(id)iDs restrictedIndexCategories:(id)categories shouldFoldSuggestions:(BOOL)suggestions suggestionLimit:(unint64_t)limit completionSuggestionDateComponents:(id)components completionTextForDateComponents:(id)dateComponents
 {
   suggestionsCopy = suggestions;
-  v237 = *MEMORY[0x1E69E9840];
+  v238 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   iDsCopy = iDs;
   categoriesCopy = categories;
@@ -836,7 +837,7 @@ void __97__PSISuggestionQuery__generateNextTokenSuggestionsForAssetUUIDs_collect
   selfCopy = self;
   formattedSearchText = [(PSISuggestionQuery *)self formattedSearchText];
   completionSuggestionTexts = [(PSISuggestionQuery *)self completionSuggestionTexts];
-  LODWORD(components) = [completionSuggestionTexts count] == 0;
+  LODWORD(components) = objc_msgSend_count(completionSuggestionTexts) == 0;
   v13 = PLSearchBackendQueryGetLog();
   if (components)
   {
@@ -878,11 +879,11 @@ LABEL_13:
   }
 
   suggestionOptions = [(PSISuggestionQuery *)self suggestionOptions];
-  v154 = [PSISuggestionQueryUtilities suggestionPairingTypeForSuggestionOptions:suggestionOptions];
-  if (v154 == 1)
+  v155 = [PSISuggestionQueryUtilities suggestionPairingTypeForSuggestionOptions:suggestionOptions];
+  if (v155 == 1)
   {
-    v159 = +[PSISuggestionQueryUtilities excludedLocationCategoriesForPairedLocationPrimarySuggestions];
-    if (![categoriesCopy count])
+    v160 = +[PSISuggestionQueryUtilities excludedLocationCategoriesForPairedLocationPrimarySuggestions];
+    if (!objc_msgSend_count(categoriesCopy))
     {
       goto LABEL_18;
     }
@@ -890,7 +891,7 @@ LABEL_13:
     v15 = +[PSISuggestionQueryUtilities allowedIndexCategoriesForPairedLocationPrimarySuggestions];
     v16 = [categoriesCopy mutableCopy];
     [v16 addIndexes:v15];
-    [v16 removeIndexes:v159];
+    [v16 removeIndexes:v160];
     v17 = [v16 copy];
 
     categoriesCopy = v17;
@@ -898,21 +899,21 @@ LABEL_13:
 
   else
   {
-    v159 = 0;
-    if (![categoriesCopy count])
+    v160 = 0;
+    if (!objc_msgSend_count(categoriesCopy))
     {
       goto LABEL_18;
     }
   }
 
   v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v219[0] = MEMORY[0x1E69E9820];
-  v219[1] = 3221225472;
-  v219[2] = __213__PSISuggestionQuery__generateCompletionSuggestionsForAssetUUIDs_collectionUUIDs_restrictedIndexCategories_shouldFoldSuggestions_suggestionLimit_completionSuggestionDateComponents_completionTextForDateComponents___block_invoke;
-  v219[3] = &unk_1E7576338;
+  v220[0] = MEMORY[0x1E69E9820];
+  v220[1] = 3221225472;
+  v220[2] = __213__PSISuggestionQuery__generateCompletionSuggestionsForAssetUUIDs_collectionUUIDs_restrictedIndexCategories_shouldFoldSuggestions_suggestionLimit_completionSuggestionDateComponents_completionTextForDateComponents___block_invoke;
+  v220[3] = &unk_1E7576338;
   v22 = v21;
-  v220 = v22;
-  [categoriesCopy enumerateIndexesUsingBlock:v219];
+  v221 = v22;
+  [categoriesCopy enumerateIndexesUsingBlock:v220];
   v23 = PLSearchBackendQueryGetLog();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
@@ -947,16 +948,16 @@ LABEL_18:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v236 = 0;
-  v215 = 0;
-  v216 = &v215;
-  v217 = 0x2020000000;
-  v218 = 0;
+  v237 = 0;
+  v216 = 0;
+  v217 = &v216;
+  v218 = 0x2020000000;
+  v219 = 0;
   if ((wantsUnscopedSuggestions & 1) == 0)
   {
     if (optionsWantSuggestionsForAssets)
     {
-      LOBYTE(optionsWantSuggestionsForAssets) = [dsCopy count] != 0;
+      LOBYTE(optionsWantSuggestionsForAssets) = objc_msgSend_count(dsCopy) != 0;
     }
 
     else
@@ -966,7 +967,7 @@ LABEL_18:
 
     if (optionsWantSuggestionsForCollections)
     {
-      LOBYTE(optionsWantSuggestionsForCollections) = [iDsCopy count] != 0;
+      LOBYTE(optionsWantSuggestionsForCollections) = objc_msgSend_count(iDsCopy) != 0;
     }
 
     else
@@ -977,65 +978,65 @@ LABEL_18:
     v25 = [MEMORY[0x1E695DFD8] setWithArray:oslog];
     suggestionResultTypes = [suggestionOptions suggestionResultTypes];
     photosEntityStore = [(PSISuggestionQuery *)selfCopy photosEntityStore];
-    v214[0] = MEMORY[0x1E69E9820];
-    v214[1] = 3221225472;
-    v214[2] = __213__PSISuggestionQuery__generateCompletionSuggestionsForAssetUUIDs_collectionUUIDs_restrictedIndexCategories_shouldFoldSuggestions_suggestionLimit_completionSuggestionDateComponents_completionTextForDateComponents___block_invoke_18;
-    v214[3] = &unk_1E7569CF8;
-    v214[4] = buf;
-    v214[5] = &v215;
-    [PLScopedSearchUtilities searchIndexIdsFromUUIDs:v25 searchResultTypes:suggestionResultTypes psiDatabase:photosEntityStore completion:v214];
+    v215[0] = MEMORY[0x1E69E9820];
+    v215[1] = 3221225472;
+    v215[2] = __213__PSISuggestionQuery__generateCompletionSuggestionsForAssetUUIDs_collectionUUIDs_restrictedIndexCategories_shouldFoldSuggestions_suggestionLimit_completionSuggestionDateComponents_completionTextForDateComponents___block_invoke_18;
+    v215[3] = &unk_1E7569CF8;
+    v215[4] = buf;
+    v215[5] = &v216;
+    [PLScopedSearchUtilities searchIndexIdsFromUUIDs:v25 searchResultTypes:suggestionResultTypes psiDatabase:photosEntityStore completion:v215];
   }
 
   if ([(PSISuggestionQuery *)selfCopy cancelled])
   {
     v28 = PLSearchBackendQueryGetLog();
-    v155 = v28;
+    v156 = v28;
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      *v224 = 138412290;
-      v225 = formattedSearchText;
-      _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query string: %@", v224, 0xCu);
+      *v225 = 138412290;
+      v226 = formattedSearchText;
+      _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query string: %@", v225, 0xCu);
     }
 
     v20 = MEMORY[0x1E695E0F0];
     goto LABEL_174;
   }
 
-  v155 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v150 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v146 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v142 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v152 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v156 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v151 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v147 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v143 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v153 = objc_alloc_init(MEMORY[0x1E695DF70]);
   suggestionOptions2 = [(PSISuggestionQuery *)selfCopy suggestionOptions];
   limitSuggestionsToExactTextMatches = [suggestionOptions2 limitSuggestionsToExactTextMatches];
 
   photosEntityStore2 = [(PSISuggestionQuery *)selfCopy photosEntityStore];
-  v212 = 0u;
   v213 = 0u;
-  v210 = 0u;
+  v214 = 0u;
   v211 = 0u;
+  v212 = 0u;
   obj = completionSuggestionTexts;
-  v141 = [obj countByEnumeratingWithState:&v210 objects:v234 count:16];
-  if (v141)
+  v142 = [obj countByEnumeratingWithState:&v211 objects:v235 count:16];
+  if (v142)
   {
-    v153 = wantsUnscopedSuggestions ^ 1;
-    v143 = *v211;
+    v154 = wantsUnscopedSuggestions ^ 1;
+    v144 = *v212;
     do
     {
-      for (i = 0; i != v141; ++i)
+      for (i = 0; i != v142; ++i)
       {
-        if (*v211 != v143)
+        if (*v212 != v144)
         {
           objc_enumerationMutation(obj);
         }
 
-        v170 = *(*(&v210 + 1) + 8 * i);
+        v171 = *(*(&v211 + 1) + 8 * i);
         if (_os_feature_enabled_impl())
         {
           substringMatchedCategories = [suggestionOptions substringMatchedCategories];
           v31 = [PSISuggestionQueryUtilities searchIndexCategoriesIndexSetFromPLSearchSuggestionCategoriesTypeIndexSet:substringMatchedCategories];
 
-          v32 = [v159 mutableCopy];
+          v32 = [v160 mutableCopy];
           v33 = v32;
           if (v32)
           {
@@ -1048,7 +1049,7 @@ LABEL_18:
           }
 
           [v34 addIndexes:v31];
-          v36 = [PSISuggestionQueryUtilities suggestionGroupsForSearchText:v170 requireExactMatches:limitSuggestionsToExactTextMatches leadingAnchored:1 restrictedIndexCategories:categoriesCopy excludedIndexCategories:v34 suggestionResultTypes:[suggestionOptions suggestionResultTypes] psiQueryDelegate:photosEntityStore2];
+          v36 = [PSISuggestionQueryUtilities suggestionGroupsForSearchText:v171 requireExactMatches:limitSuggestionsToExactTextMatches leadingAnchored:1 restrictedIndexCategories:categoriesCopy excludedIndexCategories:v34 suggestionResultTypes:[suggestionOptions suggestionResultTypes] psiQueryDelegate:photosEntityStore2];
           v37 = [categoriesCopy mutableCopy];
           v38 = v37;
           if (v37)
@@ -1062,51 +1063,51 @@ LABEL_18:
           }
 
           [v39 addIndexes:v31];
-          v40 = [PSISuggestionQueryUtilities suggestionGroupsForSearchText:v170 requireExactMatches:limitSuggestionsToExactTextMatches leadingAnchored:0 restrictedIndexCategories:v39 excludedIndexCategories:v159 suggestionResultTypes:[suggestionOptions suggestionResultTypes] psiQueryDelegate:photosEntityStore2];
+          v40 = [PSISuggestionQueryUtilities suggestionGroupsForSearchText:v171 requireExactMatches:limitSuggestionsToExactTextMatches leadingAnchored:0 restrictedIndexCategories:v39 excludedIndexCategories:v160 suggestionResultTypes:[suggestionOptions suggestionResultTypes] psiQueryDelegate:photosEntityStore2];
           v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
           [v41 addObjectsFromArray:v36];
           [v41 addObjectsFromArray:v40];
-          v149 = v41;
+          v150 = v41;
 
-          v35 = [v149 count];
+          v35 = objc_msgSend_count(v150);
         }
 
         else
         {
-          v149 = [PSISuggestionQueryUtilities suggestionGroupsForSearchText:v170 requireExactMatches:limitSuggestionsToExactTextMatches leadingAnchored:1 restrictedIndexCategories:categoriesCopy excludedIndexCategories:v159 suggestionResultTypes:[suggestionOptions suggestionResultTypes] psiQueryDelegate:photosEntityStore2];
-          v35 = [v149 count];
+          v150 = [PSISuggestionQueryUtilities suggestionGroupsForSearchText:v171 requireExactMatches:limitSuggestionsToExactTextMatches leadingAnchored:1 restrictedIndexCategories:categoriesCopy excludedIndexCategories:v160 suggestionResultTypes:[suggestionOptions suggestionResultTypes] psiQueryDelegate:photosEntityStore2];
+          v35 = objc_msgSend_count(v150);
         }
 
         if (v35)
         {
-          v208 = 0u;
           v209 = 0u;
-          v206 = 0u;
+          v210 = 0u;
           v207 = 0u;
-          v160 = v149;
-          v163 = [v160 countByEnumeratingWithState:&v206 objects:v233 count:16];
-          if (v163)
+          v208 = 0u;
+          v161 = v150;
+          v164 = [v161 countByEnumeratingWithState:&v207 objects:v234 count:16];
+          if (v164)
           {
-            v162 = *v207;
+            v163 = *v208;
             while (2)
             {
-              for (j = 0; j != v163; ++j)
+              for (j = 0; j != v164; ++j)
               {
-                if (*v207 != v162)
+                if (*v208 != v163)
                 {
-                  objc_enumerationMutation(v160);
+                  objc_enumerationMutation(v161);
                 }
 
-                v173 = *(*(&v206 + 1) + 8 * j);
+                v174 = *(*(&v207 + 1) + 8 * j);
                 if ([(PSISuggestionQuery *)selfCopy cancelled])
                 {
                   v83 = PLSearchBackendQueryGetLog();
                   if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
                   {
                     formattedSearchText2 = [(PSISuggestionQuery *)selfCopy formattedSearchText];
-                    *v224 = 138412290;
-                    v225 = formattedSearchText2;
-                    _os_log_impl(&dword_19BF1F000, v83, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query: %@.", v224, 0xCu);
+                    *v225 = 138412290;
+                    v226 = formattedSearchText2;
+                    _os_log_impl(&dword_19BF1F000, v83, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query: %@.", v225, 0xCu);
                   }
 
                   goto LABEL_110;
@@ -1114,7 +1115,7 @@ LABEL_18:
 
                 originalSearchText = [(PSISuggestionQuery *)selfCopy originalSearchText];
                 string = [originalSearchText string];
-                v44 = [string rangeOfString:v170 options:133];
+                v44 = [string rangeOfString:v171 options:133];
                 v46 = v45;
 
                 if (v44 == 0x7FFFFFFFFFFFFFFFLL)
@@ -1122,27 +1123,27 @@ LABEL_18:
                   v47 = PLSearchBackendQueryGetLog();
                   if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                   {
-                    *v224 = 138412546;
-                    v225 = v170;
-                    v226 = 2112;
-                    v227 = formattedSearchText;
-                    _os_log_impl(&dword_19BF1F000, v47, OS_LOG_TYPE_ERROR, "Suggestion text (%@) not found in completion text (%@). Skipping suggestion text.", v224, 0x16u);
+                    *v225 = 138412546;
+                    v226 = v171;
+                    v227 = 2112;
+                    v228 = formattedSearchText;
+                    _os_log_impl(&dword_19BF1F000, v47, OS_LOG_TYPE_ERROR, "Suggestion text (%@) not found in completion text (%@). Skipping suggestion text.", v225, 0x16u);
                   }
                 }
 
                 else
                 {
-                  BYTE2(v140) = optionsWantSuggestionsForCollections;
-                  BYTE1(v140) = optionsWantSuggestionsForAssets;
-                  LOBYTE(v140) = v153;
-                  v47 = [PSISuggestionQueryUtilities suggestionComponentFromGroup:v173 completionText:v170 suggestionQuery:selfCopy suggestionOptions:suggestionOptions matchRange:v44 requiresScopedUUIDs:v46 generateAssetSuggestions:v140 generateCollectionSuggestions:*(*&buf[8] + 24) searchQueryAssetIds:v216[3] searchQueryCollectionIds:?];
+                  BYTE2(v141) = optionsWantSuggestionsForCollections;
+                  BYTE1(v141) = optionsWantSuggestionsForAssets;
+                  LOBYTE(v141) = v154;
+                  v47 = [PSISuggestionQueryUtilities suggestionComponentFromGroup:v174 completionText:v171 suggestionQuery:selfCopy suggestionOptions:suggestionOptions matchRange:v44 requiresScopedUUIDs:v46 generateAssetSuggestions:v141 generateCollectionSuggestions:*(*&buf[8] + 24) searchQueryAssetIds:v217[3] searchQueryCollectionIds:?];
                   if (v47)
                   {
-                    v165 = v47;
+                    v166 = v47;
                     if (_os_feature_enabled_impl())
                     {
-                      v48 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v173, "groupId")}];
-                      v49 = [v150 objectForKeyedSubscript:v48];
+                      v48 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v174, "groupId")}];
+                      v49 = [v151 objectForKeyedSubscript:v48];
                       v50 = v49;
                       if (v49)
                       {
@@ -1154,29 +1155,29 @@ LABEL_18:
                         v51 = objc_alloc_init(MEMORY[0x1E695DF70]);
                       }
 
-                      [v51 addObject:v165];
-                      v182 = [v51 mutableCopy];
-                      [v165 matchRangeOfSearchText];
+                      [v51 addObject:v166];
+                      v183 = [v51 mutableCopy];
+                      [v166 matchRangeOfSearchText];
                       v53 = v52;
-                      v204 = 0u;
                       v205 = 0u;
-                      v202 = 0u;
+                      v206 = 0u;
                       v203 = 0u;
-                      v180 = v51;
-                      v54 = [v180 countByEnumeratingWithState:&v202 objects:v232 count:16];
+                      v204 = 0u;
+                      v181 = v51;
+                      v54 = [v181 countByEnumeratingWithState:&v203 objects:v233 count:16];
                       if (v54)
                       {
-                        v55 = *v203;
+                        v55 = *v204;
                         do
                         {
                           for (k = 0; k != v54; ++k)
                           {
-                            if (*v203 != v55)
+                            if (*v204 != v55)
                             {
-                              objc_enumerationMutation(v180);
+                              objc_enumerationMutation(v181);
                             }
 
-                            v57 = *(*(&v202 + 1) + 8 * k);
+                            v57 = *(*(&v203 + 1) + 8 * k);
                             [v57 matchRangeOfSearchText];
                             if (v58 >= v53)
                             {
@@ -1186,21 +1187,21 @@ LABEL_18:
 
                             else
                             {
-                              [v182 removeObject:v57];
+                              [v183 removeObject:v57];
                             }
                           }
 
-                          v54 = [v180 countByEnumeratingWithState:&v202 objects:v232 count:16];
+                          v54 = [v181 countByEnumeratingWithState:&v203 objects:v233 count:16];
                         }
 
                         while (v54);
                       }
 
-                      v60 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v173, "groupId")}];
-                      [v150 setObject:v182 forKeyedSubscript:v60];
+                      v60 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v174, "groupId")}];
+                      [v151 setObject:v183 forKeyedSubscript:v60];
 
-                      v151 = [PSISuggestionQueryUtilities mapKeyForSuggestionComponent:v165];
-                      v61 = [v155 objectForKeyedSubscript:v151];
+                      v152 = [PSISuggestionQueryUtilities mapKeyForSuggestionComponent:v166];
+                      v61 = [v156 objectForKeyedSubscript:v152];
                       v62 = v61;
                       if (v61)
                       {
@@ -1212,47 +1213,47 @@ LABEL_18:
                         v63 = objc_alloc_init(MEMORY[0x1E695DF70]);
                       }
 
-                      [v63 addObject:v165];
+                      [v63 addObject:v166];
                       v64 = [v63 mutableCopy];
-                      v200 = 0u;
                       v201 = 0u;
-                      v198 = 0u;
+                      v202 = 0u;
                       v199 = 0u;
-                      v179 = v63;
-                      v65 = [v179 countByEnumeratingWithState:&v198 objects:v231 count:16];
-                      v178 = v64;
+                      v200 = 0u;
+                      v180 = v63;
+                      v65 = [v180 countByEnumeratingWithState:&v199 objects:v232 count:16];
+                      v179 = v64;
                       if (v65)
                       {
-                        v66 = *v199;
+                        v66 = *v200;
                         do
                         {
                           for (m = 0; m != v65; ++m)
                           {
-                            if (*v199 != v66)
+                            if (*v200 != v66)
                             {
-                              objc_enumerationMutation(v179);
+                              objc_enumerationMutation(v180);
                             }
 
-                            v68 = *(*(&v198 + 1) + 8 * m);
-                            v194 = 0u;
+                            v68 = *(*(&v199 + 1) + 8 * m);
                             v195 = 0u;
                             v196 = 0u;
                             v197 = 0u;
-                            v69 = v182;
-                            v70 = [v69 countByEnumeratingWithState:&v194 objects:v230 count:16];
+                            v198 = 0u;
+                            v69 = v183;
+                            v70 = [v69 countByEnumeratingWithState:&v195 objects:v231 count:16];
                             if (v70)
                             {
-                              v71 = *v195;
+                              v71 = *v196;
                               while (2)
                               {
                                 for (n = 0; n != v70; ++n)
                                 {
-                                  if (*v195 != v71)
+                                  if (*v196 != v71)
                                   {
                                     objc_enumerationMutation(v69);
                                   }
 
-                                  v73 = *(*(&v194 + 1) + 8 * n);
+                                  v73 = *(*(&v195 + 1) + 8 * n);
                                   psiGroupId = [v73 psiGroupId];
                                   if (psiGroupId == [v68 psiGroupId])
                                   {
@@ -1267,7 +1268,7 @@ LABEL_18:
                                   }
                                 }
 
-                                v70 = [v69 countByEnumeratingWithState:&v194 objects:v230 count:16];
+                                v70 = [v69 countByEnumeratingWithState:&v195 objects:v231 count:16];
                                 if (v70)
                                 {
                                   continue;
@@ -1277,37 +1278,37 @@ LABEL_18:
                               }
                             }
 
-                            [v178 removeObject:v68];
+                            [v179 removeObject:v68];
 LABEL_93:
                             ;
                           }
 
-                          v65 = [v179 countByEnumeratingWithState:&v198 objects:v231 count:16];
+                          v65 = [v180 countByEnumeratingWithState:&v199 objects:v232 count:16];
                         }
 
                         while (v65);
                       }
 
-                      [v155 setObject:v178 forKeyedSubscript:v151];
+                      [v156 setObject:v179 forKeyedSubscript:v152];
                     }
 
                     else
                     {
-                      [v146 addObject:v47];
+                      [v147 addObject:v47];
                     }
 
                     v78 = MEMORY[0x1E696AEC0];
-                    contentString = [v173 contentString];
-                    v80 = [v78 stringWithFormat:@"%@-%hd", contentString, objc_msgSend(v173, "category")];
+                    contentString = [v174 contentString];
+                    v80 = [v78 stringWithFormat:@"%@-%hd", contentString, objc_msgSend(v174, "category")];
 
-                    [v152 addObject:v80];
-                    v47 = v165;
+                    [v153 addObject:v80];
+                    v47 = v166;
                   }
                 }
               }
 
-              v163 = [v160 countByEnumeratingWithState:&v206 objects:v233 count:16];
-              if (v163)
+              v164 = [v161 countByEnumeratingWithState:&v207 objects:v234 count:16];
+              if (v164)
               {
                 continue;
               }
@@ -1319,21 +1320,21 @@ LABEL_93:
 
         else
         {
-          v160 = PLSearchBackendQueryGetLog();
-          if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
+          v161 = PLSearchBackendQueryGetLog();
+          if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
           {
             formattedSearchText3 = [(PSISuggestionQuery *)selfCopy formattedSearchText];
-            *v224 = 138412290;
-            v225 = formattedSearchText3;
-            _os_log_impl(&dword_19BF1F000, v160, OS_LOG_TYPE_DEFAULT, "Found no filtered groups for query: %@.", v224, 0xCu);
+            *v225 = 138412290;
+            v226 = formattedSearchText3;
+            _os_log_impl(&dword_19BF1F000, v161, OS_LOG_TYPE_DEFAULT, "Found no filtered groups for query: %@.", v225, 0xCu);
           }
         }
       }
 
-      v141 = [obj countByEnumeratingWithState:&v210 objects:v234 count:16];
+      v142 = [obj countByEnumeratingWithState:&v211 objects:v235 count:16];
     }
 
-    while (v141);
+    while (v142);
   }
 
   if ([(PSISuggestionQuery *)selfCopy cancelled])
@@ -1342,9 +1343,9 @@ LABEL_93:
     if (os_log_type_enabled(obj, OS_LOG_TYPE_INFO))
     {
       formattedSearchText4 = [(PSISuggestionQuery *)selfCopy formattedSearchText];
-      *v224 = 138412290;
-      v225 = formattedSearchText4;
-      _os_log_impl(&dword_19BF1F000, obj, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query: %@.", v224, 0xCu);
+      *v225 = 138412290;
+      v226 = formattedSearchText4;
+      _os_log_impl(&dword_19BF1F000, obj, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query: %@.", v225, 0xCu);
     }
 
 LABEL_110:
@@ -1352,7 +1353,7 @@ LABEL_110:
     goto LABEL_173;
   }
 
-  v85 = [componentsCopy count];
+  v85 = objc_msgSend_count(componentsCopy);
   if ([dateComponentsCopy length])
   {
     originalSearchText2 = [(PSISuggestionQuery *)selfCopy originalSearchText];
@@ -1379,32 +1380,32 @@ LABEL_110:
 
     if (v96)
     {
-      [v142 addObject:v96];
+      [v143 addObject:v96];
       v97 = MEMORY[0x1E696AEC0];
       contentString2 = [v96 contentString];
       1102 = [v97 stringWithFormat:@"%@-%lu", contentString2, 1102];
 
-      [v152 addObject:1102];
+      [v153 addObject:1102];
     }
   }
 
-  obj = v146;
-  v100 = v152;
+  obj = v147;
+  v100 = v153;
   if (_os_feature_enabled_impl())
   {
-    v101 = [PSISuggestionQueryUtilities dedupedSuggestionComponentsFromSuggestionComponentsMap:v155];
+    v101 = [PSISuggestionQueryUtilities dedupedSuggestionComponentsFromSuggestionComponentsMap:v156];
     v102 = [v101 mutableCopy];
 
-    [v102 addObjectsFromArray:v142];
+    [v102 addObjectsFromArray:v143];
     v103 = v102;
 
     obj = v103;
-    v100 = v152;
+    v100 = v153;
   }
 
   else
   {
-    [obj addObjectsFromArray:v142];
+    [obj addObjectsFromArray:v143];
   }
 
   if (![(PSISuggestionQuery *)selfCopy cancelled])
@@ -1412,40 +1413,40 @@ LABEL_110:
     v105 = PLSearchBackendQueryGetLog();
     if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
     {
-      v106 = [v100 count];
-      *v224 = 134218498;
-      v225 = v106;
-      v226 = 2112;
-      v227 = formattedSearchText;
-      v228 = 2112;
-      v229 = v100;
-      _os_log_impl(&dword_19BF1F000, v105, OS_LOG_TYPE_DEFAULT, "Generated %tu completion candidates for query %@: %@", v224, 0x20u);
+      v106 = objc_msgSend_count(v100);
+      *v225 = 134218498;
+      v226 = v106;
+      v227 = 2112;
+      v228 = formattedSearchText;
+      v229 = 2112;
+      v230 = v100;
+      _os_log_impl(&dword_19BF1F000, v105, OS_LOG_TYPE_DEFAULT, "Generated %tu completion candidates for query %@: %@", v225, 0x20u);
     }
 
     if (suggestionsCopy)
     {
-      [PSISuggestionQueryUtilities suggestionCandidatesBySuggestionCategoriesTypeFromSuggestionComponents:obj assetIds:*(*&buf[8] + 24) collectionIds:v216[3] wantsSuggestionCounts:1];
+      [PSISuggestionQueryUtilities suggestionCandidatesBySuggestionCategoriesTypeFromSuggestionComponents:obj assetIds:*(*&buf[8] + 24) collectionIds:v217[3] wantsSuggestionCounts:1];
     }
 
     else
     {
       [PSISuggestionQueryUtilities suggestionCandidatesByIndexCategoryFromSuggestionComponents:obj suggestionType:1];
     }
-    v181 = ;
+    v182 = ;
 
     if (limitSuggestionsToExactTextMatches)
     {
       v107 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v108 = v193;
-      v193[0] = MEMORY[0x1E69E9820];
-      v193[1] = 3221225472;
-      v193[2] = __213__PSISuggestionQuery__generateCompletionSuggestionsForAssetUUIDs_collectionUUIDs_restrictedIndexCategories_shouldFoldSuggestions_suggestionLimit_completionSuggestionDateComponents_completionTextForDateComponents___block_invoke_32;
-      v193[3] = &unk_1E756E150;
+      v108 = v194;
+      v194[0] = MEMORY[0x1E69E9820];
+      v194[1] = 3221225472;
+      v194[2] = __213__PSISuggestionQuery__generateCompletionSuggestionsForAssetUUIDs_collectionUUIDs_restrictedIndexCategories_shouldFoldSuggestions_suggestionLimit_completionSuggestionDateComponents_completionTextForDateComponents___block_invoke_32;
+      v194[3] = &unk_1E756E150;
       v109 = v107;
-      v193[4] = v109;
-      [v181 enumerateKeysAndObjectsUsingBlock:v193];
+      v194[4] = v109;
+      [v182 enumerateKeysAndObjectsUsingBlock:v194];
       v110 = [PSISuggestionRanker sortedSuggestionsFromSuggestions:v109];
-      v111 = [v109 count];
+      v111 = objc_msgSend_count(v109);
       if (v111 >= limit)
       {
         limitCopy = limit;
@@ -1461,27 +1462,28 @@ LABEL_110:
 
     else
     {
-      if ([categoriesCopy count] != 1)
+      if (objc_msgSend_count(categoriesCopy) != 1)
       {
-        v118 = +[PSISuggestionRanker rankedSearchSuggestionsFromSuggestionCandidates:suggestionType:queryAssetCount:queryCollectionCount:suggestionLimit:suggestionQuery:](PSISuggestionRanker, "rankedSearchSuggestionsFromSuggestionCandidates:suggestionType:queryAssetCount:queryCollectionCount:suggestionLimit:suggestionQuery:", v181, 1, [dsCopy count], objc_msgSend(iDsCopy, "count"), limit, selfCopy);
+        v119 = objc_msgSend_count(dsCopy);
+        v118 = [PSISuggestionRanker rankedSearchSuggestionsFromSuggestionCandidates:v182 suggestionType:1 queryAssetCount:v119 queryCollectionCount:objc_msgSend_count(iDsCopy) suggestionLimit:limit suggestionQuery:selfCopy];
         goto LABEL_142;
       }
 
       v114 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v108 = v192;
-      v192[0] = MEMORY[0x1E69E9820];
-      v192[1] = 3221225472;
-      v192[2] = __213__PSISuggestionQuery__generateCompletionSuggestionsForAssetUUIDs_collectionUUIDs_restrictedIndexCategories_shouldFoldSuggestions_suggestionLimit_completionSuggestionDateComponents_completionTextForDateComponents___block_invoke_2;
-      v192[3] = &unk_1E756E150;
+      v108 = v193;
+      v193[0] = MEMORY[0x1E69E9820];
+      v193[1] = 3221225472;
+      v193[2] = __213__PSISuggestionQuery__generateCompletionSuggestionsForAssetUUIDs_collectionUUIDs_restrictedIndexCategories_shouldFoldSuggestions_suggestionLimit_completionSuggestionDateComponents_completionTextForDateComponents___block_invoke_2;
+      v193[3] = &unk_1E756E150;
       v109 = v114;
-      v192[4] = v109;
-      [v181 enumerateKeysAndObjectsUsingBlock:v192];
+      v193[4] = v109;
+      [v182 enumerateKeysAndObjectsUsingBlock:v193];
       v110 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"score" ascending:0];
-      v223 = v110;
-      v115 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v223 count:1];
+      v224 = v110;
+      v115 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v224 count:1];
       [v109 sortUsingDescriptors:v115];
 
-      v116 = [v109 count];
+      v116 = objc_msgSend_count(v109);
       if (v116 >= limit)
       {
         limitCopy2 = limit;
@@ -1498,100 +1500,100 @@ LABEL_110:
     v118 = v113;
 
 LABEL_142:
-    if (v154 == 1)
+    if (v155 == 1)
     {
-      v119 = +[PSISuggestionQueryUtilities allowedIndexCategoriesForPairedLocationPrimarySuggestions];
-      v183 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v120 = [v118 mutableCopy];
-      v190 = 0u;
+      v120 = +[PSISuggestionQueryUtilities allowedIndexCategoriesForPairedLocationPrimarySuggestions];
+      v184 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v121 = [v118 mutableCopy];
       v191 = 0u;
-      v188 = 0u;
+      v192 = 0u;
       v189 = 0u;
-      v121 = v118;
-      v122 = [v121 countByEnumeratingWithState:&v188 objects:v222 count:16];
-      if (v122)
+      v190 = 0u;
+      v122 = v118;
+      v123 = [v122 countByEnumeratingWithState:&v189 objects:v223 count:16];
+      if (v123)
       {
-        v123 = *v189;
+        v124 = *v190;
         do
         {
-          for (ii = 0; ii != v122; ++ii)
+          for (ii = 0; ii != v123; ++ii)
           {
-            if (*v189 != v123)
+            if (*v190 != v124)
             {
-              objc_enumerationMutation(v121);
+              objc_enumerationMutation(v122);
             }
 
-            v125 = *(*(&v188 + 1) + 8 * ii);
-            suggestionComponents = [v125 suggestionComponents];
+            v126 = *(*(&v189 + 1) + 8 * ii);
+            suggestionComponents = [v126 suggestionComponents];
             firstObject = [suggestionComponents firstObject];
             indexCategory = [firstObject indexCategory];
 
-            if ([v119 containsIndex:indexCategory])
+            if ([v120 containsIndex:indexCategory])
             {
-              [v183 addObject:v125];
-              [v120 removeObject:v125];
+              [v184 addObject:v126];
+              [v121 removeObject:v126];
             }
           }
 
-          v122 = [v121 countByEnumeratingWithState:&v188 objects:v222 count:16];
+          v123 = [v122 countByEnumeratingWithState:&v189 objects:v223 count:16];
         }
 
-        while (v122);
+        while (v123);
       }
 
-      [(PSISuggestionQuery *)selfCopy _performQueryForPairedLocationSuggestions:v183];
-      v186 = 0u;
+      [(PSISuggestionQuery *)selfCopy _performQueryForPairedLocationSuggestions:v184];
       v187 = 0u;
-      v184 = 0u;
-      v129 = v185 = 0u;
-      v130 = [v129 countByEnumeratingWithState:&v184 objects:v221 count:16];
-      if (v130)
+      v188 = 0u;
+      v185 = 0u;
+      v130 = v186 = 0u;
+      v131 = [v130 countByEnumeratingWithState:&v185 objects:v222 count:16];
+      if (v131)
       {
-        v131 = *v185;
+        v132 = *v186;
         do
         {
-          for (jj = 0; jj != v130; ++jj)
+          for (jj = 0; jj != v131; ++jj)
           {
-            if (*v185 != v131)
+            if (*v186 != v132)
             {
-              objc_enumerationMutation(v129);
+              objc_enumerationMutation(v130);
             }
 
-            [v120 addObject:*(*(&v184 + 1) + 8 * jj)];
+            [v121 addObject:*(*(&v185 + 1) + 8 * jj)];
           }
 
-          v130 = [v129 countByEnumeratingWithState:&v184 objects:v221 count:16];
+          v131 = [v130 countByEnumeratingWithState:&v185 objects:v222 count:16];
         }
 
-        while (v130);
+        while (v131);
       }
 
-      v118 = [v120 copy];
+      v118 = [v121 copy];
     }
 
-    v133 = *(*&buf[8] + 24);
-    if (v133)
-    {
-      CFRelease(v133);
-      *(*&buf[8] + 24) = 0;
-    }
-
-    v134 = v216[3];
+    v134 = *(*&buf[8] + 24);
     if (v134)
     {
       CFRelease(v134);
-      v216[3] = 0;
+      *(*&buf[8] + 24) = 0;
+    }
+
+    v135 = v217[3];
+    if (v135)
+    {
+      CFRelease(v135);
+      v217[3] = 0;
     }
 
     if ([(PSISuggestionQuery *)selfCopy cancelled])
     {
-      v135 = PLSearchBackendQueryGetLog();
-      if (os_log_type_enabled(v135, OS_LOG_TYPE_INFO))
+      v136 = PLSearchBackendQueryGetLog();
+      if (os_log_type_enabled(v136, OS_LOG_TYPE_INFO))
       {
         formattedSearchText5 = [(PSISuggestionQuery *)selfCopy formattedSearchText];
-        *v224 = 138412290;
-        v225 = formattedSearchText5;
-        _os_log_impl(&dword_19BF1F000, v135, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query: %@.", v224, 0xCu);
+        *v225 = 138412290;
+        v226 = formattedSearchText5;
+        _os_log_impl(&dword_19BF1F000, v136, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query: %@.", v225, 0xCu);
       }
 
       v20 = MEMORY[0x1E695E0F0];
@@ -1599,15 +1601,15 @@ LABEL_142:
 
     else
     {
-      v137 = PLSearchBackendQueryGetLog();
-      if (os_log_type_enabled(v137, OS_LOG_TYPE_INFO))
+      v138 = PLSearchBackendQueryGetLog();
+      if (os_log_type_enabled(v138, OS_LOG_TYPE_INFO))
       {
-        v138 = [v118 count];
-        *v224 = 134218242;
-        v225 = v138;
-        v226 = 2112;
-        v227 = formattedSearchText;
-        _os_log_impl(&dword_19BF1F000, v137, OS_LOG_TYPE_INFO, "Generated %tu completion suggestions for query: %@", v224, 0x16u);
+        v139 = objc_msgSend_count(v118);
+        *v225 = 134218242;
+        v226 = v139;
+        v227 = 2112;
+        v228 = formattedSearchText;
+        _os_log_impl(&dword_19BF1F000, v138, OS_LOG_TYPE_INFO, "Generated %tu completion suggestions for query: %@", v225, 0x16u);
       }
 
       v20 = v118;
@@ -1616,13 +1618,13 @@ LABEL_142:
     goto LABEL_172;
   }
 
-  v181 = PLSearchBackendQueryGetLog();
-  if (os_log_type_enabled(v181, OS_LOG_TYPE_INFO))
+  v182 = PLSearchBackendQueryGetLog();
+  if (os_log_type_enabled(v182, OS_LOG_TYPE_INFO))
   {
     formattedSearchText6 = [(PSISuggestionQuery *)selfCopy formattedSearchText];
-    *v224 = 138412290;
-    v225 = formattedSearchText6;
-    _os_log_impl(&dword_19BF1F000, v181, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query: %@.", v224, 0xCu);
+    *v225 = 138412290;
+    v226 = formattedSearchText6;
+    _os_log_impl(&dword_19BF1F000, v182, OS_LOG_TYPE_INFO, "Completion suggestions aborted because query was cancelled. Query: %@.", v225, 0xCu);
   }
 
   v20 = MEMORY[0x1E695E0F0];
@@ -1631,7 +1633,7 @@ LABEL_172:
 LABEL_173:
 LABEL_174:
 
-  _Block_object_dispose(&v215, 8);
+  _Block_object_dispose(&v216, 8);
   _Block_object_dispose(buf, 8);
 LABEL_175:
 
@@ -1706,13 +1708,13 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     [suggestionOptions wantsUnscopedSuggestions];
     goto LABEL_5;
   }
 
-  v30 = [iDsCopy count];
+  v30 = objc_msgSend_count(iDsCopy);
   if (([suggestionOptions wantsUnscopedSuggestions] & 1) == 0 && !v30)
   {
     v28 = PLSearchBackendQueryGetLog();
@@ -1811,7 +1813,7 @@ LABEL_25:
 
         v46 = v26;
 
-        if ([dsCopy count] >= minNumberOfResultsForNextTokenGeneration)
+        if (objc_msgSend_count(dsCopy) >= minNumberOfResultsForNextTokenGeneration)
         {
           suggestionOptions6 = [(PSISuggestionQuery *)self suggestionOptions];
           v18 = -[PSISuggestionQuery _generateNextTokenSuggestionsForAssetUUIDs:collectionUUIDs:suggestionLimit:](self, "_generateNextTokenSuggestionsForAssetUUIDs:collectionUUIDs:suggestionLimit:", dsCopy, iDsCopy, [suggestionOptions6 searchSuggestionLimit]);
@@ -1961,13 +1963,13 @@ LABEL_17:
   possibleCopy = possible;
   completionCopy = completion;
   v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if ([possibleCopy count])
+  if (objc_msgSend_count(possibleCopy))
   {
     v6 = 0;
     do
     {
       v7 = [possibleCopy objectAtIndexedSubscript:v6];
-      if (++v6 < [possibleCopy count])
+      if (++v6 < objc_msgSend_count(possibleCopy))
       {
         v8 = 0;
         v9 = -1;
@@ -2014,7 +2016,7 @@ LABEL_17:
           ++v10;
         }
 
-        while (v10 < [possibleCopy count]);
+        while (v10 < objc_msgSend_count(possibleCopy));
         if (v9 != -1)
         {
           v15 = [possibleCopy objectAtIndexedSubscript:v9];
@@ -2024,7 +2026,7 @@ LABEL_17:
       }
     }
 
-    while (v6 < [possibleCopy count]);
+    while (v6 < objc_msgSend_count(possibleCopy));
   }
 
   v39 = objc_alloc_init(MEMORY[0x1E695DF70]);

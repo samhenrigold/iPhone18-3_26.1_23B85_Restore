@@ -16,6 +16,7 @@
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)performAction;
 - (void)prepareForInvalidationWithCompletionHandler:(id)handler;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)userDidEnterPassword:(id)password forPasswordView:(id)view;
 - (void)viewDidLoad;
 @end
@@ -84,6 +85,34 @@
   v8 = handlerCopy;
   v9 = contentsCopy;
   [(QLZipItemViewController *)&v10 loadPreviewControllerWithContents:v9 context:context completionHandler:v11];
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  v9.receiver = self;
+  v9.super_class = QLZipItemViewController;
+  [(QLZipItemViewController *)&v9 setAppearance:appearance animated:animated];
+  [(QLZipItemViewController *)self loadViewIfNeeded];
+  appearance = [(QLZipItemViewController *)self appearance];
+  if ([appearance presentationMode] == 1)
+  {
+  }
+
+  else
+  {
+    appearance2 = [(QLZipItemViewController *)self appearance];
+    presentationMode = [appearance2 presentationMode];
+
+    if (presentationMode != 2)
+    {
+      v8 = &OBJC_IVAR___QLZipItemViewController__unableToUnzipState;
+      goto LABEL_6;
+    }
+  }
+
+  v8 = &OBJC_IVAR___QLZipItemViewController__readyToUnzipState;
+LABEL_6:
+  [(QLZipItemViewController *)self setState:*&self->QLDetailItemViewController_opaque[*v8]];
 }
 
 - (void)performAction

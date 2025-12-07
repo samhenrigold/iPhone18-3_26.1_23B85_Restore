@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10020F784();
+  sub_10020F784(selfCopy, v2, v3);
 }
 
 - (_TtC7Journal31MacSettingsTabHostingController)initWithNibName:(id)name bundle:(id)bundle

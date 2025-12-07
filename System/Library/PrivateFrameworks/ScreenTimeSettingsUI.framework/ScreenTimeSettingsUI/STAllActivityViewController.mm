@@ -46,7 +46,7 @@ LABEL_5:
 
 - (void)updateWithUserAltDSID:(id)d deviceIdentifier:(id)identifier
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FFA9528);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FFA9528, &qword_264CD2880);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v12 - v8;
   if (!d)

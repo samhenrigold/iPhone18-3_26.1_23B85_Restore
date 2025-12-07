@@ -2198,9 +2198,9 @@ void __65___UISplitViewControllerAdaptiveImpl__prepareTransitionToLayout___block
     {
       if (v11 && v10)
       {
-        v13 = [v10 isEqual:v11];
+        isEqual = objc_msgSend_isEqual_(v10);
 
-        if (v13)
+        if (isEqual)
         {
           goto LABEL_14;
         }

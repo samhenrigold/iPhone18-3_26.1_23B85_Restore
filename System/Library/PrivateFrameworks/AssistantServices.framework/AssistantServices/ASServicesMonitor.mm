@@ -41,19 +41,18 @@
 {
   if (self->_abortMethod)
   {
-    abortMethod = self->_abortMethod;
-    v8[7] = v2;
-    v8[8] = v3;
+    v7[7] = v2;
+    v7[8] = v3;
     if (!self->_keepAliveCount)
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       stuckPluginPath = self->_stuckPluginPath;
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_100005950;
-      v8[3] = &unk_1000146A8;
-      v8[4] = self;
-      [WeakRetained serviceMonitorWillCrashAssistantServiceDueToPluginAtPath:stuckPluginPath reply:v8];
+      v7[0] = _NSConcreteStackBlock;
+      v7[1] = 3221225472;
+      v7[2] = sub_100005950;
+      v7[3] = &unk_1000146A8;
+      v7[4] = self;
+      [WeakRetained serviceMonitorWillCrashAssistantServiceDueToPluginAtPath:stuckPluginPath reply:v7];
     }
   }
 }

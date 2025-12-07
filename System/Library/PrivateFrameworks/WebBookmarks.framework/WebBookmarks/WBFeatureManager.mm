@@ -20,9 +20,11 @@
 
 uint64_t __40__WBFeatureManager_sharedFeatureManager__block_invoke()
 {
-  sharedFeatureManager_sharedFeatureManager = objc_alloc_init(WBFeatureManager);
+  v0 = objc_alloc_init(WBFeatureManager);
+  v1 = sharedFeatureManager_sharedFeatureManager;
+  sharedFeatureManager_sharedFeatureManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WBFeatureManager)init

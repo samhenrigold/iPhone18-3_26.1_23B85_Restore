@@ -530,28 +530,29 @@ LABEL_13:
   {
     v7 = v6;
     err = 0;
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
     v8 = getMAImageCaptioningCopyCaptionWithSourceSymbolLoc_ptr;
-    v18 = getMAImageCaptioningCopyCaptionWithSourceSymbolLoc_ptr;
+    v19 = getMAImageCaptioningCopyCaptionWithSourceSymbolLoc_ptr;
     if (!getMAImageCaptioningCopyCaptionWithSourceSymbolLoc_ptr)
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __getMAImageCaptioningCopyCaptionWithSourceSymbolLoc_block_invoke;
-      v14[3] = &unk_27986E268;
-      v14[4] = &v15;
-      __getMAImageCaptioningCopyCaptionWithSourceSymbolLoc_block_invoke(v14);
-      v8 = v16[3];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __getMAImageCaptioningCopyCaptionWithSourceSymbolLoc_block_invoke;
+      v15[3] = &unk_27986E268;
+      v15[4] = &v16;
+      __getMAImageCaptioningCopyCaptionWithSourceSymbolLoc_block_invoke(v15);
+      v8 = v17[3];
     }
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v16, 8);
     if (!v8)
     {
-      v12 = +[MUImageReader imageDescriptionFromSourceContent:];
-      _Block_object_dispose(&v15, 8);
-      _Unwind_Resume(v12);
+      +[MUImageReader imageDescriptionFromSourceContent:];
+      v13 = v12;
+      _Block_object_dispose(&v16, 8);
+      _Unwind_Resume(v13);
     }
 
     v9 = v8(v7, &err);
@@ -585,11 +586,11 @@ LABEL_19:
   return v9;
 }
 
-+ (uint64_t)imageDescriptionFromSourceContent:.cold.1()
++ (void)imageDescriptionFromSourceContent:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [(MUQuickLookContentEditorViewController *)v0 sharedSerialPagesEditionQueue];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [MUQuickLookContentEditorViewController sharedSerialPagesEditionQueue];
 }
 
 @end

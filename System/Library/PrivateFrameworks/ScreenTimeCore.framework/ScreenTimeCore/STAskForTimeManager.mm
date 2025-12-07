@@ -898,7 +898,7 @@ LABEL_22:
           v24 = +[STLog ask];
           if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
           {
-            sub_100111EC0(v18, &v72);
+            sub_100111EC0();
           }
 
           firstObject = 0;

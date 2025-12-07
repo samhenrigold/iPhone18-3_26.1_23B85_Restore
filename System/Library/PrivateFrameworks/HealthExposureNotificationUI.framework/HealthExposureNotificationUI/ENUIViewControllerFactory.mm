@@ -58,35 +58,34 @@
 {
   screenCopy = screen;
   v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F454000, &unk_251708500);
-  v16 = *(*(v15 - 8) + 64);
   MEMORY[0x28223BE20](v15 - 8);
-  v18 = &v27 - v17;
-  v19 = _Block_copy(completion);
+  v17 = &v26 - v16;
+  v18 = _Block_copy(completion);
   if (identifier)
   {
     sub_251702E54();
-    v20 = sub_251702E64();
-    (*(*(v20 - 8) + 56))(v18, 0, 1, v20);
+    v19 = sub_251702E64();
+    (*(*(v19 - 8) + 56))(v17, 0, 1, v19);
   }
 
   else
   {
-    v21 = sub_251702E64();
-    (*(*(v21 - 8) + 56))(v18, 1, 1, v21);
+    v20 = sub_251702E64();
+    (*(*(v20 - 8) + 56))(v17, 1, 1, v20);
   }
 
-  v22 = swift_allocObject();
-  *(v22 + 16) = v19;
+  v21 = swift_allocObject();
+  *(v21 + 16) = v18;
   modelCopy = model;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v25 = ViewControllerFactory.createVerificationStack(forAgencyModel:exposureManager:sessionIdentifier:reportType:enteredFromMainScreen:completion:)(modelCopy, manager, v18, type, screenCopy, sub_2516CFC54, v22);
+  v24 = ViewControllerFactory.createVerificationStack(forAgencyModel:exposureManager:sessionIdentifier:reportType:enteredFromMainScreen:completion:)(modelCopy, manager, v17, type, screenCopy, sub_2516CFC54, v21);
 
   swift_unknownObjectRelease();
 
-  sub_2516F7958(v18);
+  sub_2516F7958(v17);
 
-  return v25;
+  return v24;
 }
 
 - (id)createPreAuthorizationStackForAgencyModel:(id)model exposureManager:(id)manager completion:(id)completion
@@ -127,7 +126,7 @@
   regionCopy = region;
 
   sub_2516E4F44(v16);
-  objc_allocWithZone(type metadata accessor for KeyReleaseAuthorizationViewController());
+  objc_allocWithZone(type metadata accessor for KeyReleaseAuthorizationViewController(0));
   v13 = regionCopy;
 
   v14 = _s28HealthExposureNotificationUI37KeyReleaseAuthorizationViewControllerC4with16bundleIdentifier6region17completionHandlerAcA0eF8DialogueV_SSSgSo8ENRegionCSgySbcSgtcfc_0(v16, v7, v9, region, sub_2516F79DC, v11);
@@ -149,7 +148,7 @@
   regionCopy = region;
 
   sub_25168D904(v16);
-  objc_allocWithZone(type metadata accessor for PreApprovalViewController());
+  objc_allocWithZone(type metadata accessor for PreApprovalViewController(0));
   v13 = regionCopy;
 
   v14 = sub_25168D49C(v16, v7, v9, region, sub_2516F79DC, v11);

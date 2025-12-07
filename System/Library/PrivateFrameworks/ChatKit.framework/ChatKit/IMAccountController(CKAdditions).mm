@@ -11,7 +11,7 @@
 - (id)__ck_defaultAccountForService:()CKAdditions
 {
   v3 = a3;
-  if (CKIsRunningUITests())
+  if (CKIsRunningUITests(v3, v4))
   {
     mEMORY[0x1E69A5AF8] = [MEMORY[0x1E69A5AF8] sharedRegistry];
     simulatedChats = [mEMORY[0x1E69A5AF8] simulatedChats];
@@ -70,76 +70,76 @@ LABEL_7:
 
 - (id)__ck_bestAccountForAddresses:()CKAdditions withFallbackService:
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  if (CKIsRunningUITests())
+  if (CKIsRunningUITests(v7, v8))
   {
-    v28 = v7;
-    v38 = 0u;
+    v29 = v7;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
+    v38 = 0u;
     mEMORY[0x1E69A5AF8] = [MEMORY[0x1E69A5AF8] sharedRegistry];
     simulatedChats = [mEMORY[0x1E69A5AF8] simulatedChats];
 
     obj = simulatedChats;
-    v31 = [simulatedChats countByEnumeratingWithState:&v36 objects:v41 count:16];
-    if (v31)
+    v32 = [simulatedChats countByEnumeratingWithState:&v37 objects:v42 count:16];
+    if (v32)
     {
-      v30 = *v37;
+      v31 = *v38;
 LABEL_4:
-      v10 = 0;
+      v11 = 0;
       while (1)
       {
-        v11 = v6;
-        if (*v37 != v30)
+        v12 = v6;
+        if (*v38 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * v10);
+        v13 = *(*(&v37 + 1) + 8 * v11);
         array = [MEMORY[0x1E695DF70] array];
-        v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        participants = [v12 participants];
-        v15 = [participants countByEnumeratingWithState:&v32 objects:v40 count:16];
-        if (v15)
+        v36 = 0u;
+        participants = [v13 participants];
+        v16 = [participants countByEnumeratingWithState:&v33 objects:v41 count:16];
+        if (v16)
         {
-          v16 = v15;
-          v17 = *v33;
+          v17 = v16;
+          v18 = *v34;
           do
           {
-            for (i = 0; i != v16; ++i)
+            for (i = 0; i != v17; ++i)
             {
-              if (*v33 != v17)
+              if (*v34 != v18)
               {
                 objc_enumerationMutation(participants);
               }
 
-              v19 = [*(*(&v32 + 1) + 8 * i) ID];
-              v20 = IMStripFormattingFromAddress();
-              [array addObject:v20];
+              v20 = [*(*(&v33 + 1) + 8 * i) ID];
+              v21 = IMStripFormattingFromAddress();
+              [array addObject:v21];
             }
 
-            v16 = [participants countByEnumeratingWithState:&v32 objects:v40 count:16];
+            v17 = [participants countByEnumeratingWithState:&v33 objects:v41 count:16];
           }
 
-          while (v16);
+          while (v17);
         }
 
-        v6 = v11;
-        if ([array isEqualToArray:v11])
+        v6 = v12;
+        if ([array isEqualToArray:v12])
         {
           break;
         }
 
-        if (++v10 == v31)
+        if (++v11 == v32)
         {
-          v31 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-          if (v31)
+          v32 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+          if (v32)
           {
             goto LABEL_4;
           }
@@ -148,9 +148,9 @@ LABEL_4:
         }
       }
 
-      account = [v12 account];
+      account = [v13 account];
 
-      v7 = v28;
+      v7 = v29;
       if (account)
       {
         goto LABEL_24;
@@ -161,7 +161,7 @@ LABEL_4:
     {
 LABEL_17:
 
-      v7 = v28;
+      v7 = v29;
     }
 
     mEMORY[0x1E69A5AF8]2 = [MEMORY[0x1E69A5AF8] sharedRegistry];
@@ -182,8 +182,8 @@ LABEL_17:
     firstObject = [MEMORY[0x1E69A5CA0] smsService];
     if (firstObject)
     {
-      v25 = [self accountsForService:firstObject];
-      __imFirstObject = [v25 __imFirstObject];
+      v26 = [self accountsForService:firstObject];
+      __imFirstObject = [v26 __imFirstObject];
 
       account = __imFirstObject;
     }

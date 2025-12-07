@@ -176,23 +176,25 @@ LABEL_9:
 
 - (DOMNode)item:(unsigned int)index
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v8);
-  WebCore::NamedNodeMap::item(self->super._internal);
-  v5 = kit(v7);
-  if (v7)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::NamedNodeMap::item(&v8, self->super._internal);
+  v5 = kit(v8);
+  v6 = v8;
+  v8 = 0;
+  if (v6)
   {
-    if (*(v7 + 7) == 2)
+    if (*(v6 + 7) == 2)
     {
-      WebCore::Node::removedLastRef(v7);
+      WebCore::Node::removedLastRef(v6);
     }
 
     else
     {
-      *(v7 + 7) -= 2;
+      *(v6 + 7) -= 2;
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v8, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
   return v5;
 }
 

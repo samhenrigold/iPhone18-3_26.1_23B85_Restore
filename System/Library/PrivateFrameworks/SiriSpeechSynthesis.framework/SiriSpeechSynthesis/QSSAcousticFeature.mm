@@ -39,52 +39,52 @@ flatbuffers::DetachedBuffer *__34__QSSAcousticFeature_flatbuffData__block_invoke
 
 - (Offset<siri::speech::schema_fb::AcousticFeature>)addObjectToBuffer:(void *)buffer
 {
-  v29 = *MEMORY[0x277D85DE8];
-  memset(&v27, 0, sizeof(v27));
+  v28 = *MEMORY[0x277D85DE8];
+  memset(&v26, 0, sizeof(v26));
   acoustic_feature_per_frame = [(QSSAcousticFeature *)self acoustic_feature_per_frame];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v27, [acoustic_feature_per_frame count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v26, [acoustic_feature_per_frame count]);
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   acoustic_feature_per_frame2 = [(QSSAcousticFeature *)self acoustic_feature_per_frame];
-  v7 = [acoustic_feature_per_frame2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v7 = [acoustic_feature_per_frame2 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v7)
   {
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(acoustic_feature_per_frame2);
         }
 
-        [*(*(&v23 + 1) + 8 * i) floatValue];
-        v22 = v10;
-        std::vector<float>::push_back[abi:ne200100](&v27, &v22);
+        [*(*(&v22 + 1) + 8 * i) floatValue];
+        v21 = v10;
+        std::vector<float>::push_back[abi:ne200100](&v26, &v21);
       }
 
-      v7 = [acoustic_feature_per_frame2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [acoustic_feature_per_frame2 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
   }
 
-  begin = v27.__begin_;
-  if (v27.__end_ == v27.__begin_)
+  begin = v26.__begin_;
+  if (v26.__end_ == v26.__begin_)
   {
     v12 = &flatbuffers::data<float,std::allocator<float>>(std::vector<float> const&)::t;
   }
 
   else
   {
-    v12 = v27.__begin_;
+    v12 = v26.__begin_;
   }
 
-  v13 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, v12, v27.__end_ - v27.__begin_);
+  v13 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, v12, v26.__end_ - v26.__begin_);
   [(QSSAcousticFeature *)self frame_duration];
   v15 = v14;
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
@@ -100,7 +100,6 @@ flatbuffers::DetachedBuffer *__34__QSSAcousticFeature_flatbuffData__block_invoke
     operator delete(begin);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

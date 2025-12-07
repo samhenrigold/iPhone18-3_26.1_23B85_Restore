@@ -1,29 +1,3 @@
-__CFString *NSStringWithNPKPeerPaymentStatus(uint64_t a1)
-{
-  if ((a1 - 1) > 0xA)
-  {
-    return @"Unknown";
-  }
-
-  else
-  {
-    return off_2799459A8[a1 - 1];
-  }
-}
-
-__CFString *NSStringWithNPKPeerPaymentMessageDirection(uint64_t a1)
-{
-  if (a1)
-  {
-    return @"Outbound";
-  }
-
-  else
-  {
-    return @"Inbound";
-  }
-}
-
 uint64_t NPK_PKPeerPaymentStatusWithNPKPeerPaymentStatus(uint64_t a1)
 {
   if ((a1 - 2) > 9)
@@ -39,7 +13,6 @@ uint64_t NPK_PKPeerPaymentStatusWithNPKPeerPaymentStatus(uint64_t a1)
 
 uint64_t NPKShouldHonorUserPreferenceTransactionStatus()
 {
-  v0 = *MEMORY[0x277D38650];
   result = os_variant_has_internal_ui();
   if (result)
   {
@@ -55,14 +28,13 @@ uint64_t NPKShouldHonorUserPreferenceTransactionStatus()
 
 uint64_t NPKSetShouldHonorUserPreferenceTransactionStatus(int a1)
 {
-  v2 = *MEMORY[0x277D38650];
   result = os_variant_has_internal_ui();
   if (result)
   {
     NPKGlobalDomainPreferencesSetBooleanValue(@"kNPKIgnoreUserPreferenceTransactionsStatus", a1 ^ 1u);
-    v4 = *MEMORY[0x277CBF008];
+    v3 = *MEMORY[0x277CBF008];
 
-    return CFPreferencesAppSynchronize(v4);
+    return CFPreferencesAppSynchronize(v3);
   }
 
   return result;
@@ -964,16 +936,16 @@ void sub_25B356CF8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25B35796C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B35796C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B357CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B357CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6351,10 +6323,11 @@ void sub_25B374778(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25B375A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60)
+void sub_25B375A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, ...)
 {
+  va_start(va, a59);
   _Block_object_dispose(&a54, 8);
-  _Block_object_dispose(&a60, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7277,182 +7250,184 @@ LABEL_15:
 
 id NPKGetPDFImageFromBundle(void *a1, void *a2, double a3, double a4, double a5)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = COERCE_DOUBLE(a2);
-  v11 = pk_General_log();
+  v11 = pk_General_log(*&v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = pk_General_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_General_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v58 = 138413314;
-      v59 = *&v9;
-      v60 = 2112;
-      v61 = v10;
-      v62 = 2048;
-      v63 = a3;
-      v64 = 2048;
-      v65 = a4;
-      v66 = 2048;
-      v67 = a5;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Get PDF image from bundle: %@ prefix: %@ taragetSize:{%f,%f} scale:%f", &v58, 0x34u);
+      v70 = 138413314;
+      v71 = *&v9;
+      v72 = 2112;
+      v73 = v10;
+      v74 = 2048;
+      v75 = a3;
+      v76 = 2048;
+      v77 = a4;
+      v78 = 2048;
+      v79 = a5;
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Get PDF image from bundle: %@ prefix: %@ taragetSize:{%f,%f} scale:%f", &v70, 0x34u);
     }
   }
 
-  v14 = [v9 pathForResource:*&v10 ofType:@"pdf"];
-  if (![v14 length])
+  v15 = [v9 pathForResource:*&v10 ofType:@"pdf"];
+  v16 = [v15 length];
+  if (!v16)
   {
-    v36 = 0;
+    v42 = 0;
     goto LABEL_38;
   }
 
-  v15 = pk_General_log();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v17 = pk_General_log(v16);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-  if (v16)
+  if (v18)
   {
-    v17 = pk_General_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = pk_General_log(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v58 = 138412802;
-      v59 = *&v14;
-      v60 = 2048;
-      v61 = a3;
-      v62 = 2048;
-      v63 = a4;
-      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Get PDF image from path: %@ taragetSize:{%f,%f}", &v58, 0x20u);
+      v70 = 138412802;
+      v71 = *&v15;
+      v72 = 2048;
+      v73 = a3;
+      v74 = 2048;
+      v75 = a4;
+      _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: Get PDF image from path: %@ taragetSize:{%f,%f}", &v70, 0x20u);
     }
   }
 
-  v18 = [MEMORY[0x277CCAA00] defaultManager];
-  if ([v18 fileExistsAtPath:v14])
+  v21 = [MEMORY[0x277CCAA00] defaultManager];
+  v22 = [v21 fileExistsAtPath:v15];
+  if (v22)
   {
-    v19 = [MEMORY[0x277CBEBC0] fileURLWithPath:v14];
-    v20 = CGPDFDocumentCreateWithURL(v19);
-    if (v20)
+    v23 = [MEMORY[0x277CBEBC0] fileURLWithPath:v15];
+    v24 = CGPDFDocumentCreateWithURL(v23);
+    if (v24)
     {
-      v21 = v20;
-      if (CGPDFDocumentGetNumberOfPages(v20))
+      v25 = v24;
+      if (CGPDFDocumentGetNumberOfPages(v24))
       {
-        Page = CGPDFDocumentGetPage(v21, 1uLL);
+        Page = CGPDFDocumentGetPage(v25, 1uLL);
         if (Page)
         {
-          v23 = Page;
-          v24 = fmax(a5, 1.0);
-          v25 = a3 * v24;
-          v26 = a4 * v24;
+          v27 = Page;
+          v28 = fmax(a5, 1.0);
+          v29 = a3 * v28;
+          v30 = a4 * v28;
           BoxRect = CGPDFPageGetBoxRect(Page, kCGPDFCropBox);
           x = BoxRect.origin.x;
           y = BoxRect.origin.y;
           width = BoxRect.size.width;
           height = BoxRect.size.height;
-          if (v25 == *MEMORY[0x277CBF3A8] && v26 == *(MEMORY[0x277CBF3A8] + 8))
+          if (v29 == *MEMORY[0x277CBF3A8] && v30 == *(MEMORY[0x277CBF3A8] + 8))
           {
-            v31 = pk_General_log();
-            v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+            v36 = pk_General_log(v31);
+            v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
 
-            if (v32)
+            if (v37)
             {
-              v33 = pk_General_log();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+              v39 = pk_General_log(v38);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
               {
-                LOWORD(v58) = 0;
-                _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Notice: No target size provided we will not scale down the given PDF resource", &v58, 2u);
+                LOWORD(v70) = 0;
+                _os_log_impl(&dword_25B300000, v39, OS_LOG_TYPE_DEFAULT, "Notice: No target size provided we will not scale down the given PDF resource", &v70, 2u);
               }
             }
 
-            v34 = width;
-            v35 = height;
+            v40 = width;
+            v41 = height;
           }
 
           else
           {
             PKSizeAspectFit();
-            PKSizeCeilToPixelWithScale();
-            v34 = v49;
-            v35 = v50;
+            v38 = PKSizeCeilToPixelWithScale();
+            v40 = v58;
+            v41 = v59;
           }
 
-          v51 = pk_General_log();
-          v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT);
+          v60 = pk_General_log(v38);
+          v61 = os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT);
 
-          if (v52)
+          if (v61)
           {
-            v53 = pk_General_log();
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+            v63 = pk_General_log(v62);
+            if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
             {
-              v58 = 134218240;
-              v59 = v34;
-              v60 = 2048;
-              v61 = v35;
-              _os_log_impl(&dword_25B300000, v53, OS_LOG_TYPE_DEFAULT, "Notice: target size to create PDF:{%fx%f}", &v58, 0x16u);
+              v70 = 134218240;
+              v71 = v40;
+              v72 = 2048;
+              v73 = v41;
+              _os_log_impl(&dword_25B300000, v63, OS_LOG_TYPE_DEFAULT, "Notice: target size to create PDF:{%fx%f}", &v70, 0x16u);
             }
           }
 
-          v54 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF4B8]);
-          v55 = CGBitmapContextCreate(0, v34, v35, 8uLL, 0, v54, 0xA001u);
-          CGContextScaleCTM(v55, v34 / width, v35 / height);
-          v71.origin.x = 0.0;
-          v71.origin.y = 0.0;
-          v71.size.width = v34;
-          v71.size.height = v35;
-          CGContextClearRect(v55, v71);
-          v72.origin.x = *MEMORY[0x277CBF348];
-          v72.origin.y = *(MEMORY[0x277CBF348] + 8);
-          v72.size.width = width;
-          v72.size.height = height;
-          CGPDFPageGetDrawingTransform(&v58, v23, kCGPDFMediaBox, v72, 0, 1);
-          CGContextConcatCTM(v55, &v58);
-          v73.origin.x = x;
-          v73.origin.y = y;
-          v73.size.width = width;
-          v73.size.height = height;
-          CGContextClipToRect(v55, v73);
-          CGContextDrawPDFPage(v55, v23);
-          Image = CGBitmapContextCreateImage(v55);
-          v36 = [objc_alloc(MEMORY[0x277D37F10]) initWithCGImage:Image scale:1 orientation:v24];
+          v64 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF4B8]);
+          v65 = CGBitmapContextCreate(0, v40, v41, 8uLL, 0, v64, 0xA001u);
+          CGContextScaleCTM(v65, v40 / width, v41 / height);
+          v83.origin.x = 0.0;
+          v83.origin.y = 0.0;
+          v83.size.width = v40;
+          v83.size.height = v41;
+          CGContextClearRect(v65, v83);
+          v84.origin.x = *MEMORY[0x277CBF348];
+          v84.origin.y = *(MEMORY[0x277CBF348] + 8);
+          v84.size.width = width;
+          v84.size.height = height;
+          CGPDFPageGetDrawingTransform(&v70, v27, kCGPDFMediaBox, v84, 0, 1);
+          CGContextConcatCTM(v65, &v70);
+          v85.origin.x = x;
+          v85.origin.y = y;
+          v85.size.width = width;
+          v85.size.height = height;
+          CGContextClipToRect(v65, v85);
+          CGContextDrawPDFPage(v65, v27);
+          Image = CGBitmapContextCreateImage(v65);
+          v42 = [objc_alloc(MEMORY[0x277D37F10]) initWithCGImage:Image scale:1 orientation:v28];
           CGImageRelease(Image);
-          CGColorSpaceRelease(v54);
-          CGPDFDocumentRelease(v21);
-          CGContextRelease(v55);
-          v57 = pk_General_log();
-          LODWORD(v54) = os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT);
+          CGColorSpaceRelease(v64);
+          CGPDFDocumentRelease(v25);
+          CGContextRelease(v65);
+          v68 = pk_General_log(v67);
+          LODWORD(v64) = os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT);
 
-          if (!v54)
+          if (!v64)
           {
             goto LABEL_36;
           }
 
-          v41 = pk_General_log();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+          v50 = pk_General_log(v69);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
-            v58 = 138412290;
-            v59 = *&v36;
-            _os_log_impl(&dword_25B300000, v41, OS_LOG_TYPE_DEFAULT, "Notice: returning PDF image %@", &v58, 0xCu);
+            v70 = 138412290;
+            v71 = *&v42;
+            _os_log_impl(&dword_25B300000, v50, OS_LOG_TYPE_DEFAULT, "Notice: returning PDF image %@", &v70, 0xCu);
           }
 
           goto LABEL_34;
         }
       }
 
-      CGPDFDocumentRelease(v21);
-      v39 = pk_General_log();
-      v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
+      CGPDFDocumentRelease(v25);
+      v47 = pk_General_log(v46);
+      v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
 
-      if (v40)
+      if (v48)
       {
-        v41 = pk_General_log();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v50 = pk_General_log(v49);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v58) = 0;
-          v42 = "Notice: PDF document is empty";
-          v43 = v41;
-          v44 = 2;
+          LOWORD(v70) = 0;
+          v51 = "Notice: PDF document is empty";
+          v52 = v50;
+          v53 = 2;
 LABEL_32:
-          _os_log_impl(&dword_25B300000, v43, OS_LOG_TYPE_DEFAULT, v42, &v58, v44);
+          _os_log_impl(&dword_25B300000, v52, OS_LOG_TYPE_DEFAULT, v51, &v70, v53);
           goto LABEL_33;
         }
 
@@ -7462,24 +7437,24 @@ LABEL_32:
 
     else
     {
-      v45 = pk_General_log();
-      v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
+      v54 = pk_General_log(0);
+      v55 = os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT);
 
-      if (v46)
+      if (v55)
       {
-        v41 = pk_General_log();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v50 = pk_General_log(v56);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          v58 = 138412290;
-          v59 = *&v14;
-          v42 = "Notice: Could not find PDF document at path: %@";
-          v43 = v41;
-          v44 = 12;
+          v70 = 138412290;
+          v71 = *&v15;
+          v51 = "Notice: Could not find PDF document at path: %@";
+          v52 = v50;
+          v53 = 12;
           goto LABEL_32;
         }
 
 LABEL_33:
-        v36 = 0;
+        v42 = 0;
 LABEL_34:
 
 LABEL_36:
@@ -7488,33 +7463,32 @@ LABEL_36:
     }
 
 LABEL_35:
-    v36 = 0;
+    v42 = 0;
     goto LABEL_36;
   }
 
-  v37 = pk_General_log();
-  v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+  v43 = pk_General_log(v22);
+  v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
 
-  if (v38)
+  if (v44)
   {
-    v19 = pk_General_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v23 = pk_General_log(v45);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v58 = 138412290;
-      v59 = *&v14;
-      _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: unable to find resource at path %@", &v58, 0xCu);
+      v70 = 138412290;
+      v71 = *&v15;
+      _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: unable to find resource at path %@", &v70, 0xCu);
     }
 
     goto LABEL_35;
   }
 
-  v36 = 0;
+  v42 = 0;
 LABEL_37:
 
 LABEL_38:
-  v47 = *MEMORY[0x277D85DE8];
 
-  return v36;
+  return v42;
 }
 
 uint64_t NPKIDVRemoteDeviceProtoPrearmCredentialRequestReadFrom(uint64_t a1, void *a2)
@@ -9273,23 +9247,23 @@ void sub_25B39666C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25B396C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B396C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B397230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B397230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B397700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B397700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

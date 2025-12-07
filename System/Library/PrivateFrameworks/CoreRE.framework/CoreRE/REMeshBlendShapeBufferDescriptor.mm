@@ -21,10 +21,8 @@
   {
     v7 = 2;
   }
-  v21 = ;
-  v8 = v20 = objc_claimAutoreleasedReturnValue();
-  v10 = v9 = objc_claimAutoreleasedReturnValue();
-  v11 = objc_claimAutoreleasedReturnValue();
+  v8 = v20 = v21 = ;
+  v11 = v10 = v9 = objc_claimAutoreleasedReturnValue();
   v12 = objc_opt_new();
   v13 = *(payload + 3);
   if (v13)
@@ -53,10 +51,10 @@
 - (void)addToBlendShapeModelBuilder:(BlendShapeModelBuilder *)builder blendShapeIndex:(unint64_t)index blendShapeGroupName:(const StringID *)name payloadBuffers:(const void *)buffers
 {
   v9 = 0;
-  v52 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   do
   {
-    v10 = &v41[v9];
+    v10 = &v44[v9];
     *v10 = 0;
     *(v10 + 6) = 0;
     *(v10 + 4) = 0;
@@ -78,13 +76,13 @@
 
   blendShapeNames = [(REMeshBlendShapeBufferDescriptor *)self blendShapeNames];
   v19 = [blendShapeNames count];
-  re::StringID::invalid(&v51);
-  v38 = 0;
-  v39 = 0;
-  v40 = 0;
-  if (*&v51.var0)
+  re::StringID::invalid(&v54);
+  v41 = 0;
+  v42 = 0;
+  v43 = 0;
+  if (*&v54.var0)
   {
-    if (*&v51.var0)
+    if (*&v54.var0)
     {
     }
   }
@@ -101,51 +99,62 @@
       v26 = [blendShapeNames3 objectAtIndexedSubscript:i];
       v27 = v26;
       uTF8String = [v26 UTF8String];
-      v36 = 0;
-      v37 = &str_67;
-      v29 = v39;
-      if (v39 <= i)
+      v39 = 0;
+      v40 = &str_67;
+      v29 = v42;
+      if (v42 <= i)
       {
-        v42 = 0;
-        memset(&v51, 0, 80);
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v43 = 136315906;
-        v44 = "operator[]";
-        v45 = 1024;
-        v46 = 468;
-        v47 = 2048;
-        v48 = i;
-        v49 = 2048;
-        v50 = v29;
-        _os_log_send_and_compose_impl();
+        v45 = 0;
+        memset(&v54, 0, 80);
+        v34 = MEMORY[0x1E69E9C10];
+        v35 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v46 = 136315906;
+        v47 = "operator[]";
+        v48 = 1024;
+        if (v35)
+        {
+          v36 = 3;
+        }
+
+        else
+        {
+          v36 = 2;
+        }
+
+        v49 = 468;
+        v50 = 2048;
+        v51 = i;
+        v52 = 2048;
+        v53 = v29;
+        _os_log_send_and_compose_impl(v36, &v45, &v54, 80, &dword_1E1C61000, v34, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v46, 38, index, name);
         _os_crash_msg();
         __break(1u);
       }
 
-      v30 = re::StringID::operator=((v40 + v23), &v36);
-      if (v36)
+      v30 = re::StringID::operator=((v43 + v23), &v39);
+      if (v39)
       {
-        if (v36)
+        if (v39)
         {
         }
       }
 
-      v36 = 0;
-      v37 = &str_67;
+      v39 = 0;
+      v40 = &str_67;
 
       v23 += 16;
     }
   }
 
-  re::BlendShapeModelBuilder::addBlendShapeGroup(builder, index, v41, name, &v38, [(REMeshBlendShapeBufferDescriptor *)self hasNormals], [(REMeshBlendShapeBufferDescriptor *)self hasTangents], [(REMeshBlendShapeBufferDescriptor *)self hasBitangents]);
-  re::FixedArray<re::StringID>::deinit(&v38);
+  re::BlendShapeModelBuilder::addBlendShapeGroup(builder, index, v44, name, &v41, [(REMeshBlendShapeBufferDescriptor *)self hasNormals], [(REMeshBlendShapeBufferDescriptor *)self hasTangents], [(REMeshBlendShapeBufferDescriptor *)self hasBitangents]);
+  re::FixedArray<re::StringID>::deinit(&v41);
   for (j = 0; j != -240; j -= 40)
   {
-    v32 = &v41[j];
-    v33 = *&v41[j + 224];
+    v32 = &v44[j];
+    v33 = *&v44[j + 224];
     if (v33 != -1)
     {
-      (off_1F5CC8DB0[v33])(&v51, v32 + 200);
+      (off_1F5CC8DB0[v33])(&v54, v32 + 200);
     }
 
     *(v32 + 56) = -1;

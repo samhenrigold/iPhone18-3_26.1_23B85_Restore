@@ -6,11 +6,12 @@
 
 - (void)lock
 {
-  if ([(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self compareAndSetStateWithInt:0 withInt:1])
+  v3 = [(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self compareAndSetStateWithInt:0 withInt:1];
+  if (v3)
   {
-    v3 = JavaLangThread_currentThread();
+    v5 = JavaLangThread_currentThread(v3, v4);
 
-    [(JavaUtilConcurrentLocksAbstractOwnableSynchronizer *)self setExclusiveOwnerThreadWithJavaLangThread:v3];
+    [(JavaUtilConcurrentLocksAbstractOwnableSynchronizer *)self setExclusiveOwnerThreadWithJavaLangThread:v5];
   }
 
   else

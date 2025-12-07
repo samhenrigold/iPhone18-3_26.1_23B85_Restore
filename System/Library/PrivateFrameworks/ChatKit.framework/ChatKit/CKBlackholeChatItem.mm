@@ -9,7 +9,7 @@
 - (id)loadTranscriptText
 {
   v2 = objc_alloc(MEMORY[0x1E696AD40]);
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(v2);
   v4 = [v3 localizedStringForKey:@"HAWKING_WARNING_NON_CELLULAR" value:&stru_1F04268F8 table:@"ChatKit"];
   v5 = [v2 initWithString:v4 attributes:0];
 

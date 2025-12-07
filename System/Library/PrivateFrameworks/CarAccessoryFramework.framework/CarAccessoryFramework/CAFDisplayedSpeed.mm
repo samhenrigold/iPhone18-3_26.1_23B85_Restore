@@ -14,6 +14,7 @@
 - (CAFUInt32Range)speedMaxMPHRange;
 - (NSMeasurement)speedMaxKMH;
 - (NSMeasurement)speedMaxMPH;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -209,6 +210,79 @@
   v3 = showSecondarySpeedCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000048"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    speedMaxKMHCharacteristic = [(CAFDisplayedSpeed *)self speedMaxKMHCharacteristic];
+    uniqueIdentifier2 = [speedMaxKMHCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      speedMaxKMH = [(CAFDisplayedSpeed *)self speedMaxKMH];
+      [observers displayedSpeedService:self didUpdateSpeedMaxKMH:speedMaxKMH];
+LABEL_8:
+
+LABEL_13:
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000049"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    speedMaxMPHCharacteristic = [(CAFDisplayedSpeed *)self speedMaxMPHCharacteristic];
+    uniqueIdentifier4 = [speedMaxMPHCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      speedMaxKMH = [(CAFDisplayedSpeed *)self speedMaxMPH];
+      [observers displayedSpeedService:self didUpdateSpeedMaxMPH:speedMaxKMH];
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000046000002"])
+  {
+    goto LABEL_13;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  showSecondarySpeedCharacteristic = [(CAFDisplayedSpeed *)self showSecondarySpeedCharacteristic];
+  uniqueIdentifier6 = [showSecondarySpeedCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    [observers displayedSpeedService:self didUpdateShowSecondarySpeed:{-[CAFDisplayedSpeed showSecondarySpeed](self, "showSecondarySpeed")}];
+    goto LABEL_13;
+  }
+
+LABEL_14:
+  v23.receiver = self;
+  v23.super_class = CAFDisplayedSpeed;
+  [(CAFSpeedDisplay *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForSpeedMaxKMH

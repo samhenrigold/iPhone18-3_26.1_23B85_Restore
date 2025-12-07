@@ -121,34 +121,34 @@
 
 void __86__WFAppPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v29 = objc_opt_new();
+  v41 = *MEMORY[0x1E69E9840];
+  v28 = objc_opt_new();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v2 = [*(a1 + 32) appEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v34 objects:v41 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v33 objects:v40 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v35;
+    v6 = *v34;
     v7 = 0x1E695E000;
     v8 = @"WFShowInternalAppsInOpenApp";
     *&v4 = 136315138;
-    v27 = v4;
+    v26 = v4;
     do
     {
       v9 = 0;
-      v28 = v5;
+      v27 = v5;
       do
       {
-        if (*v35 != v6)
+        if (*v34 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v10 = *(*(&v34 + 1) + 8 * v9);
+        v10 = *(*(&v33 + 1) + 8 * v9);
         v11 = [*v7 workflowUserDefaults];
         v12 = [v11 BOOLForKey:v8];
 
@@ -157,8 +157,8 @@ void __86__WFAppPickerParameter_loadPossibleStatesForEnumeration_searchTerm_comp
           v13 = getWFGeneralLogObject();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v27;
-            v40 = "[WFAppPickerParameter loadPossibleStatesForEnumeration:searchTerm:completionHandler:]_block_invoke";
+            *buf = v26;
+            v39 = "[WFAppPickerParameter loadPossibleStatesForEnumeration:searchTerm:completionHandler:]_block_invoke";
             _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEFAULT, "%s Showing internal apps in WFAppPickerParameter because the Show Internal Apps in Open App default is on", buf, 0xCu);
           }
 
@@ -189,7 +189,7 @@ void __86__WFAppPickerParameter_loadPossibleStatesForEnumeration_searchTerm_comp
               v2 = v17;
               v7 = v16;
               v8 = v15;
-              v5 = v28;
+              v5 = v27;
               goto LABEL_18;
             }
 
@@ -197,10 +197,10 @@ void __86__WFAppPickerParameter_loadPossibleStatesForEnumeration_searchTerm_comp
             v2 = v17;
             v7 = v16;
             v8 = v15;
-            v5 = v28;
+            v5 = v27;
           }
 
-          [v29 addObject:v10];
+          [v28 addObject:v10];
         }
 
 LABEL_18:
@@ -208,33 +208,31 @@ LABEL_18:
       }
 
       while (v5 != v9);
-      v5 = [v2 countByEnumeratingWithState:&v34 objects:v41 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v33 objects:v40 count:16];
     }
 
     while (v5);
   }
 
   v22 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"localizedName" ascending:1 selector:sel_localizedStandardCompare_];
-  v38 = v22;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
-  [v29 sortUsingDescriptors:v23];
+  v37 = v22;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+  [v28 sortUsingDescriptors:v23];
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __86__WFAppPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_2;
-  v33[3] = &unk_1E83781B0;
-  v33[4] = *(a1 + 32);
-  v24 = [v29 if_map:v33];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __86__WFAppPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_2;
+  v32[3] = &unk_1E83781B0;
+  v32[4] = *(a1 + 32);
+  v24 = [v28 if_map:v32];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __86__WFAppPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_3;
   block[3] = &unk_1E837E1F8;
-  v31 = v24;
-  v32 = *(a1 + 40);
+  v30 = v24;
+  v31 = *(a1 + 40);
   v25 = v24;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __86__WFAppPickerParameter_loadPossibleStatesForEnumeration_searchTerm_completionHandler___block_invoke_3(uint64_t a1)
@@ -268,14 +266,14 @@ void __86__WFAppPickerParameter_loadPossibleStatesForEnumeration_searchTerm_comp
     v7 = objc_opt_class();
     v8 = WFEnforceClass_29964(v6, v7);
 
-    if ([v8 isEqualToString:@"OpenApp"])
+    if (objc_msgSend_isEqualToString_(v8))
     {
       v9 = 0;
     }
 
     else
     {
-      if (![v8 isEqualToString:@"OpenIn"])
+      if (!objc_msgSend_isEqualToString_(v8))
       {
 LABEL_7:
         v10 = [definitionCopy objectForKey:@"UseLegacyIdentifiers"];

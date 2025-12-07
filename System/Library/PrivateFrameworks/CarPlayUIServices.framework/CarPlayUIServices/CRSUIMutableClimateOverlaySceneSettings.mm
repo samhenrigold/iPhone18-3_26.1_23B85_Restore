@@ -4,6 +4,7 @@
 - (CGRect)secondaryDockFrame;
 - (NSNumber)persistentElements;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setHasPhysicalControlBars:(BOOL)bars;
 - (void)setPersistentElements:(id)elements;
 - (void)setPrimaryDockFrame:(CGRect)frame;
 - (void)setSecondaryDockFrame:(CGRect)frame;
@@ -39,6 +40,14 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setHasPhysicalControlBars:(BOOL)bars
+{
+  barsCopy = bars;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:barsCopy];
+  [otherSettings setObject:v4 forSetting:141334465];
 }
 
 - (NSNumber)persistentElements

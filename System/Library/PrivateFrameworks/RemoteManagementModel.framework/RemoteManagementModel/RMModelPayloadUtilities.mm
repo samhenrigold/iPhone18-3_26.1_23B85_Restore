@@ -108,7 +108,7 @@
 
 + (id)_walkObject:(id)object keyPath:(id)path fullKeyPath:(id)keyPath
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   pathCopy = path;
   keyPathCopy = keyPath;
@@ -148,41 +148,41 @@
       else
       {
         v13 = objc_opt_new();
-        v26 = pathCopy;
-        v19 = [pathCopy subarrayWithRange:{1, objc_msgSend(pathCopy, "count") - 1}];
+        v25 = pathCopy;
+        v18 = [pathCopy subarrayWithRange:{1, objc_msgSend(pathCopy, "count") - 1}];
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
-        v20 = objectCopy;
-        v21 = [v20 countByEnumeratingWithState:&v27 objects:v31 count:16];
-        if (v21)
+        v19 = objectCopy;
+        v20 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        if (v20)
         {
-          v22 = v21;
-          v23 = *v28;
+          v21 = v20;
+          v22 = *v27;
           do
           {
-            for (i = 0; i != v22; ++i)
+            for (i = 0; i != v21; ++i)
             {
-              if (*v28 != v23)
+              if (*v27 != v22)
               {
-                objc_enumerationMutation(v20);
+                objc_enumerationMutation(v19);
               }
 
-              v25 = [self _walkObject:*(*(&v27 + 1) + 8 * i) keyPath:v19 fullKeyPath:keyPathCopy];
-              if (v25)
+              v24 = [self _walkObject:*(*(&v26 + 1) + 8 * i) keyPath:v18 fullKeyPath:keyPathCopy];
+              if (v24)
               {
-                [v13 addObject:v25];
+                [v13 addObject:v24];
               }
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v27 objects:v31 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
           }
 
-          while (v22);
+          while (v21);
         }
 
-        pathCopy = v26;
+        pathCopy = v25;
       }
     }
 
@@ -197,20 +197,17 @@
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (void)_walkObject:(uint64_t)a1 keyPath:(uint64_t)a2 fullKeyPath:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138543618;
-  v4 = a1;
-  v5 = 2114;
-  v6 = a2;
-  _os_log_error_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Key path lookup failed: %{public}@ at %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138543618;
+  v3 = a1;
+  v4 = 2114;
+  v5 = a2;
+  _os_log_error_impl(&dword_261DAE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Key path lookup failed: %{public}@ at %{public}@", &v2, 0x16u);
 }
 
 @end

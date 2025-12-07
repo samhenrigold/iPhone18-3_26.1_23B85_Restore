@@ -1008,35 +1008,35 @@ void __69__PKPassShareInitiationNavigationController__sendOverSelectedChannel__b
   [(PKPassShareInitiationNavigationController *)self _revokeCreatedShareWithCompletion:v4];
 }
 
-void __59__PKPassShareInitiationNavigationController__flowDidCancel__block_invoke(uint64_t a1)
+void __59__PKPassShareInitiationNavigationController__flowDidCancel__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "ShareInitiation: Flow did cancel", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "ShareInitiation: Flow did cancel", v9, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 1624));
-  v4 = *(a1 + 32);
+  v5 = *(a1 + 32);
   if (WeakRetained)
   {
-    v5 = objc_loadWeakRetained(v4 + 203);
-    [v5 didFinishShareWithDidUserShare:0 error:0];
+    v6 = objc_loadWeakRetained(v5 + 203);
+    [v6 didFinishShareWithDidUserShare:0 error:0];
   }
 
   else
   {
-    v6 = [v4 presentingViewController];
-    v7 = v6;
-    if (!v6)
+    v7 = [v5 presentingViewController];
+    v8 = v7;
+    if (!v7)
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
     }
 
-    v5 = v7;
+    v6 = v8;
 
-    [v5 dismissViewControllerAnimated:1 completion:0];
+    [v6 dismissViewControllerAnimated:1 completion:0];
   }
 }
 

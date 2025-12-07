@@ -25,10 +25,10 @@
   primaryAccountIdentifier = [(PKAddPaymentPassRequestConfiguration *)self primaryAccountIdentifier];
   paymentNetwork = [(PKAddPaymentPassRequestConfiguration *)self paymentNetwork];
   requiresFelicaSecureElement = [(PKAddPaymentPassRequestConfiguration *)self requiresFelicaSecureElement];
-  v11 = [paymentNetwork isEqualToString:@"HID"];
-  if (([paymentNetwork isEqualToString:@"BMAC"] & 1) == 0)
+  isEqualToString = objc_msgSend_isEqualToString_(paymentNetwork);
+  if ((objc_msgSend_isEqualToString_(paymentNetwork) & 1) == 0)
   {
-    v12 = [paymentNetwork isEqualToString:@"SPTCC"];
+    v12 = objc_msgSend_isEqualToString_(paymentNetwork);
     if (primaryAccountIdentifier)
     {
       goto LABEL_4;
@@ -48,7 +48,7 @@ LABEL_6:
 LABEL_4:
   v13 = [primaryAccountIdentifier length] != 0;
 LABEL_7:
-  if ((((v13 || requiresFelicaSecureElement) | v12 | v11) & 1) == 0)
+  if ((((v13 || requiresFelicaSecureElement) | v12 | isEqualToString) & 1) == 0)
   {
     servicesCopy = servicesCopy;
     goto LABEL_49;
@@ -59,7 +59,7 @@ LABEL_7:
   v41 = v12;
   v39 = paymentNetwork;
   v37 = requiredCopy;
-  if (((requiresFelicaSecureElement | v12 | v11) & 1) == 0)
+  if (((requiresFelicaSecureElement | v12 | isEqualToString) & 1) == 0)
   {
     goto LABEL_34;
   }
@@ -107,7 +107,7 @@ LABEL_7:
         felicaSecureElementIsAvailable = 1;
       }
 
-      if ((felicaSecureElementIsAvailable & v11) == 1)
+      if ((felicaSecureElementIsAvailable & isEqualToString) == 1)
       {
         if ((objc_opt_respondsToSelector() & 1) == 0)
         {
@@ -342,16 +342,16 @@ LABEL_6:
 
     v5->_requiresFelicaSecureElement = [coderCopy decodeBoolForKey:@"requiresFelicaSecureElement"];
     v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"allowManagedAppleID"];
-    if ([v30 isEqualToString:@"true"])
+    if (objc_msgSend_isEqualToString_(v30))
     {
       v31 = 1;
     }
 
     else
     {
-      v32 = [v30 isEqualToString:@"false"];
+      isEqualToString = objc_msgSend_isEqualToString_(v30);
       v31 = 2;
-      if (!v32)
+      if (!isEqualToString)
       {
         v31 = 0;
       }

@@ -25,39 +25,39 @@
 
 - (void)enumerateAppNames:(id)names
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   if (namesCopy)
   {
     [(TILaunchServicesLookup *)self appNames];
-    v15 = 0;
+    v14 = 0;
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
-    v5 = v14 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+    v5 = v13 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        namesCopy[2](namesCopy, *(*(&v11 + 1) + 8 * v9), &v15);
-        if (v15)
+        namesCopy[2](namesCopy, *(*(&v10 + 1) + 8 * v9), &v14);
+        if (v14)
         {
           break;
         }
 
         if (v7 == ++v9)
         {
-          v7 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -68,21 +68,19 @@ LABEL_4:
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)appNames
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   tryCache = [(TILaunchServicesLookup *)self tryCache];
   if (!tryCache)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[TILaunchServicesLookup appNames]";
-      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Requesting installed app names from LaunchServices.", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[TILaunchServicesLookup appNames]";
+      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Requesting installed app names from LaunchServices.", &v6, 0xCu);
     }
 
     tryCache = +[TILaunchServicesLookup lookupAppNames];
@@ -92,14 +90,12 @@ LABEL_4:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v4 = [tryCache count];
-    v7 = 136315394;
-    v8 = "[TILaunchServicesLookup appNames]";
-    v9 = 2048;
-    v10 = v4;
-    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Got installed app names (count = %lu).", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[TILaunchServicesLookup appNames]";
+    v8 = 2048;
+    v9 = v4;
+    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Got installed app names (count = %lu).", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return tryCache;
 }
@@ -186,7 +182,7 @@ LABEL_4:
 
 + (id)genreIDsForApplicationIdentifier:(id)identifier
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (__disableForTesting)
   {
@@ -195,24 +191,24 @@ LABEL_4:
 
   else
   {
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2050000000;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2050000000;
     v5 = getLSApplicationProxyClass_softClass_9054;
-    v40 = getLSApplicationProxyClass_softClass_9054;
+    v39 = getLSApplicationProxyClass_softClass_9054;
     if (!getLSApplicationProxyClass_softClass_9054)
     {
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __getLSApplicationProxyClass_block_invoke_9055;
-      v36[3] = &unk_278733760;
-      v36[4] = &v37;
-      __getLSApplicationProxyClass_block_invoke_9055(v36);
-      v5 = v38[3];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __getLSApplicationProxyClass_block_invoke_9055;
+      v35[3] = &unk_278733760;
+      v35[4] = &v36;
+      __getLSApplicationProxyClass_block_invoke_9055(v35);
+      v5 = v37[3];
     }
 
     v6 = v5;
-    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v36, 8);
     v7 = [v5 applicationProxyForIdentifier:identifierCopy];
     bundleContainerURL = [v7 bundleContainerURL];
     path = [bundleContainerURL path];
@@ -224,30 +220,30 @@ LABEL_4:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v29 = v11;
-      v30 = v10;
-      v31 = identifierCopy;
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
+      v28 = v11;
+      v29 = v10;
+      v30 = identifierCopy;
       v33 = 0u;
-      v28 = v12;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v27 = v12;
       v14 = v12;
-      v15 = [v14 countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v31 objects:v40 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v33;
+        v17 = *v32;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v33 != v17)
+            if (*v32 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v32 + 1) + 8 * i);
+            v19 = *(*(&v31 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -268,16 +264,16 @@ LABEL_4:
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v32 objects:v41 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v31 objects:v40 count:16];
         }
 
         while (v16);
       }
 
-      identifierCopy = v31;
-      v11 = v29;
-      v10 = v30;
-      v12 = v28;
+      identifierCopy = v30;
+      v11 = v28;
+      v10 = v29;
+      v12 = v27;
     }
 
     v23 = [v11 objectForKey:@"genreId"];
@@ -304,8 +300,6 @@ LABEL_4:
       v4 = 0;
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -354,13 +348,13 @@ void __40__TILaunchServicesLookup_lookupAppNames__block_invoke(uint64_t a1, void
 
   v5 = v12;
   v6 = [v5 applicationType];
-  if ([v6 isEqualToString:@"Internal"])
+  if (objc_msgSend_isEqualToString_(v6))
   {
     goto LABEL_8;
   }
 
   v7 = [v5 applicationType];
-  if ([v7 isEqualToString:@"Hidden"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     goto LABEL_7;
   }
@@ -374,9 +368,9 @@ LABEL_7:
   }
 
   v9 = [v5 bundleIdentifier];
-  v10 = [v9 isEqualToString:@"com.apple.webapp1"];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-  if (v10)
+  if (isEqualToString)
   {
     goto LABEL_9;
   }

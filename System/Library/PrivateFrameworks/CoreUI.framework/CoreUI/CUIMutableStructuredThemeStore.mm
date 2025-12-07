@@ -34,7 +34,7 @@
 
   if (deploymentPlatform == 5)
   {
-    v11 = 4;
+    v5 = 4;
   }
 
   else
@@ -43,16 +43,16 @@
     {
       [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:a2 file:self lineNumber:@"CUIMutableStructuredThemeStore.m" description:64, @"Unknown platform kCUIThemeSchemaPlatformUnknown."];
 LABEL_2:
-      v11 = 2;
+      v5 = 2;
       goto LABEL_3;
     }
 
-    v11 = 1;
+    v5 = 1;
   }
 
 LABEL_3:
 
-  return CUIDefaultThemeRenditionKeyFormat(v11, 0xFFFFFFFF, v5, v6, v7, v8, v9, v10);
+  return CUIDefaultThemeRenditionKeyFormat(v5, 0xFFFFFFFF);
 }
 
 - (id)defaultAppearanceName
@@ -209,12 +209,11 @@ void __49__CUIMutableStructuredThemeStore_imagesWithName___block_invoke(uint64_t
   }
 
   subtype = [description subtype];
-  idiom = [description idiom];
-  CUIValidateIdiomSubtypes(idiom, &subtype, v15, v16, v17, v18, v19, v20);
+  CUIValidateIdiomSubtypes([description idiom], &subtype);
   CUIRenditionKeySetValueForAttribute(&v9->identifier, 17, [(NSNumber *)v7 integerValue], v8);
   CUIRenditionKeySetValueForAttribute(&v9->identifier, 15, [description idiom], v8);
   [description scale];
-  CUIRenditionKeySetValueForAttribute(&v9->identifier, 12, v21, v8);
+  CUIRenditionKeySetValueForAttribute(&v9->identifier, 12, v14, v8);
   CUIRenditionKeySetValueForAttribute(&v9->identifier, 16, subtype, v8);
   CUIRenditionKeySetValueForAttribute(&v9->identifier, 24, [description displayGamut], v8);
   CUIRenditionKeySetValueForAttribute(&v9->identifier, 4, [description layoutDirection], v8);

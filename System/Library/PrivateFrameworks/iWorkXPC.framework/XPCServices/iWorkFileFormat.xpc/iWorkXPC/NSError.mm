@@ -1,4 +1,5 @@
 @interface NSError
++ (id)tsp_dataCorruptionErrorWithError:(id)error reason:(id)reason data:(id)data dataProperties:(DataProperties *)properties actualDataDigest:(id)digest isLikelyOSCorruption:(BOOL)corruption isLikelyZeroBytesCorruption:(BOOL)bytesCorruption;
 + (id)tsp_ensureCorruptedDocumentErrorWithError:(id)error;
 + (id)tsp_ensureReadErrorWithError:(id)error;
 + (id)tsp_ensureSaveErrorWithError:(id)error;
@@ -7,6 +8,7 @@
 + (id)tsp_errorWithError:(id)error hints:(id)hints;
 + (id)tsp_readCorruptZipOfPackageErrorWithUserInfo:(id)info;
 + (id)tsp_readCorruptedDocumentErrorWithUserInfo:(id)info;
++ (id)tsp_readPOSIXErrorWithNumber:(int)number userInfo:(id)info;
 + (id)tsp_recoverableErrorWithError:(id)error;
 + (id)tsp_saveDocumentErrorWithUserInfo:(id)info;
 + (id)tsp_storageSpaceErrorWithUserInfo:(id)info;
@@ -14,6 +16,7 @@
 + (id)tsp_unknownWriteErrorWithUserInfo:(id)info;
 + (id)tsp_unsupportedVersionErrorWithUserInfo:(id)info;
 + (id)tsp_userInfoWithUserInfo:(id)info additionalUserInfo:(id)userInfo;
++ (id)tsp_writePOSIXErrorWithNumber:(int)number userInfo:(id)info;
 + (id)tsu_errorWithCode:(int64_t)code userInfo:(id)info;
 + (id)tsu_errorWithDomain:(id)domain code:(int64_t)code alertTitle:(id)title alertMessage:(id)message userInfo:(id)info;
 + (id)tsu_errorWithDomain:(id)domain code:(int64_t)code description:(id)description recoverySuggestion:(id)suggestion;
@@ -262,6 +265,15 @@ LABEL_12:
   return v5;
 }
 
++ (id)tsp_readPOSIXErrorWithNumber:(int)number userInfo:(id)info
+{
+  v4 = *&number;
+  v6 = [self tsp_userInfoWithUserInfo:info additionalUserInfo:0];
+  v7 = [self tsu_fileReadPOSIXErrorWithNumber:v4 userInfo:v6];
+
+  return v7;
+}
+
 + (id)tsp_unsupportedVersionErrorWithUserInfo:(id)info
 {
   infoCopy = info;
@@ -312,6 +324,15 @@ LABEL_12:
 
   [v6 setObject:&__kCFBooleanTrue forKeyedSubscript:@"TSPIsCorruptZipOfPackageError"];
   v7 = [self tsp_readCorruptedDocumentErrorWithUserInfo:v6];
+
+  return v7;
+}
+
++ (id)tsp_writePOSIXErrorWithNumber:(int)number userInfo:(id)info
+{
+  v4 = *&number;
+  v6 = [self tsp_userInfoWithUserInfo:info additionalUserInfo:0];
+  v7 = [self tsu_fileWritePOSIXErrorWithNumber:v4 userInfo:v6];
 
   return v7;
 }
@@ -693,6 +714,91 @@ LABEL_10:
   _Block_object_dispose(&v5, 8);
 
   return v2;
+}
+
++ (id)tsp_dataCorruptionErrorWithError:(id)error reason:(id)reason data:(id)data dataProperties:(DataProperties *)properties actualDataDigest:(id)digest isLikelyOSCorruption:(BOOL)corruption isLikelyZeroBytesCorruption:(BOOL)bytesCorruption
+{
+  corruptionCopy = corruption;
+  errorCopy = error;
+  reasonCopy = reason;
+  dataCopy = data;
+  digestCopy = digest;
+  v18 = [[NSMutableDictionary alloc] initWithCapacity:14];
+  [v18 setObject:&__kCFBooleanTrue forKeyedSubscript:@"TSPIsDataCorruptionError"];
+  v19 = [NSNumber numberWithBool:properties->var0 == 1];
+  [v18 setObject:v19 forKeyedSubscript:@"TSPExpectedDataDigestMatch"];
+
+  v20 = [NSNumber numberWithBool:corruptionCopy];
+  [v18 setObject:v20 forKeyedSubscript:@"TSPIsLikelyOSCorruption"];
+
+  v21 = [NSNumber numberWithBool:bytesCorruption];
+  [v18 setObject:v21 forKeyedSubscript:@"TSPIsLikelyZeroBytesCorruption"];
+
+  if (reasonCopy)
+  {
+    [v18 setObject:reasonCopy forKeyedSubscript:@"TSPDataValidationReason"];
+  }
+
+  v22 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [dataCopy identifier]);
+  [v18 setObject:v22 forKeyedSubscript:@"TSPDataIdentifier"];
+
+  digest = [dataCopy digest];
+  v24 = digest;
+  if (digest)
+  {
+    digestString = [digest digestString];
+    [v18 setObject:digestString forKeyedSubscript:@"TSPExpectedDataDigest"];
+  }
+
+  if (digestCopy)
+  {
+    digestString2 = [digestCopy digestString];
+    [v18 setObject:digestString2 forKeyedSubscript:@"TSPActualDataDigest"];
+
+    if (v24)
+    {
+      v27 = [v24 isEqual:digestCopy] ^ 1;
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    v28 = [NSNumber numberWithBool:v27];
+    [v18 setObject:v28 forKeyedSubscript:@"TSPIsDataDigestMismatchError"];
+  }
+
+  v29 = properties->var1;
+  if (v29)
+  {
+    [v18 setObject:v29 forKeyedSubscript:@"TSPDataCreationTime"];
+  }
+
+  var2 = properties->var2;
+  if (var2)
+  {
+    v31 = NSStringFromTSPVersion(var2);
+    [v18 setObject:v31 forKeyedSubscript:@"TSPDataCreationVersion"];
+  }
+
+  v32 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [dataCopy length]);
+  [v18 setObject:v32 forKeyedSubscript:@"TSPDataLength"];
+
+  type = [dataCopy type];
+  if (type)
+  {
+    [v18 setObject:type forKeyedSubscript:@"TSPDataType"];
+  }
+
+  if (errorCopy)
+  {
+    [v18 setObject:errorCopy forKeyedSubscript:NSUnderlyingErrorKey];
+  }
+
+  v34 = [self tsp_readCorruptedDocumentErrorWithUserInfo:v18];
+
+  return v34;
 }
 
 - (NSString)tsu_zipArchiveErrorDescription

@@ -8,8 +8,8 @@
 
 - (id)creditcardResultsFromImage:(id)image
 {
-  [(CRMLModel *)self activationsFromImage:image];
-  v4 = [(CRMLModel *)self decodeActivations:v6];
+  [v6 activationsFromImage:?];
+  v4 = [(CRMLModel *)self decodeActivations:?];
   v7 = v6;
   std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&v7);
 
@@ -18,7 +18,7 @@
 
 - (id)creditcardResultsFromImage:(id)image textFeatures:(id)features invert:(BOOL)invert tryPatternMatch:(BOOL)match
 {
-  v6 = [(CRMLCCModel *)self creditcardMLResultsFromImage:image textFeatures:features invert:invert tryPatternMatch:match];
+  v6 = [CRMLCCModel creditcardMLResultsFromImage:"creditcardMLResultsFromImage:textFeatures:invert:tryPatternMatch:" textFeatures:? invert:? tryPatternMatch:?];
 
   return v6;
 }
@@ -29,130 +29,122 @@
   invertCopy = invert;
   imageCopy = image;
   featuresCopy = features;
-  if ([featuresCopy shouldExpandToFullWidth])
-  {
-    v12 = INFINITY;
-  }
-
-  else
-  {
-    v12 = 9.0;
-  }
-
+  [featuresCopy shouldExpandToFullWidth];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v13 = +[GeometricCutTools findCorrectedBoundingBoxOfTextFeature:inImageWithSize:](GeometricCutTools, "findCorrectedBoundingBoxOfTextFeature:inImageWithSize:", featuresCopy, [imageCopy width], objc_msgSend(imageCopy, "height"));
-  v14 = [imageCopy imageByCroppingTextFeature:featuresCopy correctedBoundingBox:v13 padding:v12 networkInputSize:{6.0, 18.0, 28.0}];
-  v15 = v14;
-  if (v14)
+  [imageCopy width];
+  [imageCopy height];
+  v12 = [GeometricCutTools findCorrectedBoundingBoxOfTextFeature:"findCorrectedBoundingBoxOfTextFeature:inImageWithSize:" inImageWithSize:?];
+  v13 = [imageCopy imageByCroppingTextFeature:? correctedBoundingBox:? padding:? networkInputSize:?];
+  v14 = v13;
+  if (v13)
   {
-    imageByApplyingHistogramCorrection = [v14 imageByApplyingHistogramCorrection];
-    [featuresCopy setImageCut:imageByApplyingHistogramCorrection];
-    v17 = +[CRInsights sharedInsights];
-    [v17 provideInsightValue:featuresCopy forKey:@"CRInsightsCardImageCutBufferKey"];
+    imageByApplyingHistogramCorrection = [v13 imageByApplyingHistogramCorrection];
+    [featuresCopy setImageCut:?];
+    sharedInsights = [off_278EAA000 sharedInsights];
+    [sharedInsights provideInsightValue:? forKey:?];
 
-    v44 = 0uLL;
-    v45 = 0;
+    v36 = 0uLL;
+    v37 = 0;
     if (invertCopy)
     {
       imageByRotating180 = [imageByApplyingHistogramCorrection imageByRotating180];
-      [(CRMLModel *)self activationsFromImage:imageByRotating180];
-      std::vector<std::vector<std::vector<float>>>::__vdeallocate(&v44);
-      v44 = v42;
-      v45 = v43;
-      *&v43 = 0;
-      v42 = 0uLL;
-      v46[0] = &v42;
-      std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v46);
+      [&v34 activationsFromImage:?];
+      std::vector<std::vector<std::vector<float>>>::__vdeallocate(&v36);
+      v36 = v34;
+      v37 = v35;
+      *&v35 = 0;
+      v34 = 0uLL;
+      v38[0] = &v34;
+      std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v38);
     }
 
     else
     {
-      [(CRMLModel *)self activationsFromImage:imageByApplyingHistogramCorrection];
-      std::vector<std::vector<std::vector<float>>>::__vdeallocate(&v44);
-      v44 = v42;
-      v45 = v43;
-      *&v43 = 0;
-      v42 = 0uLL;
-      v46[0] = &v42;
-      std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v46);
+      [&v34 activationsFromImage:?];
+      std::vector<std::vector<std::vector<float>>>::__vdeallocate(&v36);
+      v36 = v34;
+      v37 = v35;
+      *&v35 = 0;
+      v34 = 0uLL;
+      v38[0] = &v34;
+      std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v38);
     }
 
-    if (*(&v44 + 1) != v44)
+    if (*(&v36 + 1) != v36)
     {
-      v35 = matchCopy;
-      v37 = v13;
+      v28 = matchCopy;
       if (imageByApplyingHistogramCorrection)
       {
-        [imageByApplyingHistogramCorrection vImage];
+        [&v34 vImage];
       }
 
       else
       {
-        v42 = 0u;
-        v43 = 0u;
+        v34 = 0u;
+        v35 = 0u;
       }
 
-      width = [imageCopy width];
-      height = [imageCopy height];
-      codeMap = [(CRMLModel *)self codeMap];
-      memset(v41, 0, sizeof(v41));
-      std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v41, v44, *(&v44 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v44 + 1) - v44) >> 3));
-      v22 = [GeometricCutTools geometricRecognitionOf:featuresCopy inDerotatedRegion:&v42 withPadding:v37 fromCorrectedBoundingBox:codeMap inImageWithSize:v41 withCodeMap:invertCopy activations:v12 invert:6.0 networkInputSize:width, height, self->super._modelWidth, self->super._modelHeight];
-      v36 = [v22 mutableCopy];
+      [imageCopy width];
+      [imageCopy height];
+      [(CRMLModel *)self codeMap];
+      memset(v33, 0, sizeof(v33));
+      std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v33, v36, *(&v36 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v36 + 1) - v36) >> 3));
+      v18 = [GeometricCutTools geometricRecognitionOf:"geometricRecognitionOf:inDerotatedRegion:withPadding:fromCorrectedBoundingBox:inImageWithSize:withCodeMap:activations:invert:networkInputSize:" inDerotatedRegion:? withPadding:? fromCorrectedBoundingBox:? inImageWithSize:? withCodeMap:? activations:? invert:? networkInputSize:?];
+      v29 = [v18 mutableCopy];
 
-      *&v42 = v41;
-      std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&v42);
+      *&v34 = v33;
+      std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&v34);
       subFeatures = [featuresCopy subFeatures];
-      v24 = [subFeatures count];
+      v20 = [subFeatures count];
 
-      if (v24 == 10)
+      if (v20 == 10)
       {
         [featuresCopy addKohlsDigitProjection];
         if (imageByApplyingHistogramCorrection)
         {
-          [imageByApplyingHistogramCorrection vImage];
+          [&v34 vImage];
         }
 
         else
         {
-          v42 = 0u;
-          v43 = 0u;
+          v34 = 0u;
+          v35 = 0u;
         }
 
-        width2 = [imageCopy width];
-        height2 = [imageCopy height];
-        codeMap2 = [(CRMLModel *)self codeMap];
-        memset(v40, 0, sizeof(v40));
-        std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v40, v44, *(&v44 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v44 + 1) - v44) >> 3));
-        v28 = [GeometricCutTools geometricRecognitionOf:featuresCopy inDerotatedRegion:&v42 withPadding:v37 fromCorrectedBoundingBox:codeMap2 inImageWithSize:v40 withCodeMap:invertCopy activations:v12 invert:6.0 networkInputSize:width2, height2, self->super._modelWidth, self->super._modelHeight];
-        *&v42 = v40;
-        std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&v42);
-        v29 = [v28 objectForKey:@"CardNumber"];
-        [v36 setObject:v29 forKey:@"CardNumber"];
+        [imageCopy width];
+        [imageCopy height];
+        [(CRMLModel *)self codeMap];
+        memset(v32, 0, sizeof(v32));
+        std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v32, v36, *(&v36 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v36 + 1) - v36) >> 3));
+        v21 = [GeometricCutTools geometricRecognitionOf:"geometricRecognitionOf:inDerotatedRegion:withPadding:fromCorrectedBoundingBox:inImageWithSize:withCodeMap:activations:invert:networkInputSize:" inDerotatedRegion:? withPadding:? fromCorrectedBoundingBox:? inImageWithSize:? withCodeMap:? activations:? invert:? networkInputSize:?];
+        *&v34 = v32;
+        std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&v34);
+        v22 = [v21 objectForKey:?];
+        [v29 setObject:? forKey:?];
       }
 
-      [dictionary setObject:v36 forKey:@"FastScanningGeometricKey"];
-      codeMap3 = [(CRMLModel *)self codeMap];
+      [dictionary setObject:? forKey:?];
+      codeMap = [(CRMLModel *)self codeMap];
       classCount = [(CRMLModel *)self classCount];
-      memset(v39, 0, sizeof(v39));
-      std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v39, v44, *(&v44 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v44 + 1) - v44) >> 3));
-      v32 = _creditCardImage2stringCTCSegment(featuresCopy, codeMap3, classCount, v39);
-      *&v42 = v39;
-      std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&v42);
-      [dictionary setObject:v32 forKey:@"FastScanningCTCSegmentKey"];
-      v13 = v37;
-      if (v35)
+      memset(v31, 0, sizeof(v31));
+      std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v31, v36, *(&v36 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v36 + 1) - v36) >> 3));
+      v25 = _creditCardImage2stringCTCSegment(featuresCopy, codeMap, classCount, v31);
+      *&v34 = v31;
+      std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&v34);
+      [dictionary setObject:? forKey:?];
+      if (v28)
       {
-        v33 = [ActivationMapTools textFromActivationMap:&v44 codeMap:[(CRMLModel *)self codeMap] invert:invertCopy];
-        if (v33)
+        [(CRMLModel *)self codeMap];
+        v26 = [ActivationMapTools textFromActivationMap:"textFromActivationMap:codeMap:invert:" codeMap:? invert:?];
+        if (v26)
         {
-          [dictionary setObject:v33 forKey:@"FastScanningPatternSearchKey"];
+          [dictionary setObject:? forKey:?];
         }
       }
     }
 
-    *&v42 = &v44;
-    std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&v42);
+    *&v34 = &v36;
+    std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&v34);
   }
 
   return dictionary;

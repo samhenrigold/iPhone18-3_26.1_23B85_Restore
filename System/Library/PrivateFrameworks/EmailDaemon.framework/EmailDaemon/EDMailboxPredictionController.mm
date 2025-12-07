@@ -115,7 +115,7 @@ void __84__EDMailboxPredictionController_predictMailboxForMovingObjectIDs_comple
 
 - (void)_predictMailboxForMovingMessages:(id)messages cancelationToken:(id)token completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   tokenCopy = token;
   handlerCopy = handler;
@@ -131,7 +131,7 @@ void __84__EDMailboxPredictionController_predictMailboxForMovingObjectIDs_comple
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v23 = v12;
+    v22 = v12;
     _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Predicting move mailbox for messages: %{public}@", buf, 0xCu);
   }
 
@@ -148,13 +148,13 @@ void __84__EDMailboxPredictionController_predictMailboxForMovingObjectIDs_comple
       }
 
       mailboxPersistence = [(EDMailboxPredictionController *)self mailboxPersistence];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __101__EDMailboxPredictionController__predictMailboxForMovingMessages_cancelationToken_completionHandler___block_invoke_6;
-      v19[3] = &unk_1E8253398;
-      v20 = v14;
-      v21 = handlerCopy;
-      [mailboxPersistence allMailboxesWithCompletionHandler:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __101__EDMailboxPredictionController__predictMailboxForMovingMessages_cancelationToken_completionHandler___block_invoke_6;
+      v18[3] = &unk_1E8253398;
+      v19 = v14;
+      v20 = handlerCopy;
+      [mailboxPersistence allMailboxesWithCompletionHandler:v18];
     }
 
     else
@@ -168,8 +168,6 @@ void __84__EDMailboxPredictionController_predictMailboxForMovingObjectIDs_comple
       (*(handlerCopy + 2))(handlerCopy, 0);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 id __101__EDMailboxPredictionController__predictMailboxForMovingMessages_cancelationToken_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -182,25 +180,24 @@ id __101__EDMailboxPredictionController__predictMailboxForMovingMessages_cancela
 
 void __101__EDMailboxPredictionController__predictMailboxForMovingMessages_cancelationToken_completionHandler___block_invoke_6(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __101__EDMailboxPredictionController__predictMailboxForMovingMessages_cancelationToken_completionHandler___block_invoke_2;
-  v8[3] = &unk_1E8253370;
-  v9 = *(a1 + 32);
-  v4 = [v3 ef_firstObjectPassingTest:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __101__EDMailboxPredictionController__predictMailboxForMovingMessages_cancelationToken_completionHandler___block_invoke_2;
+  v7[3] = &unk_1E8253370;
+  v8 = *(a1 + 32);
+  v4 = [v3 ef_firstObjectPassingTest:v7];
   v5 = +[EDMailboxPredictionController log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v4 ef_publicDescription];
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Found mailbox '%{public}@'.", buf, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __101__EDMailboxPredictionController__predictMailboxForMovingMessages_cancelationToken_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -213,7 +210,7 @@ uint64_t __101__EDMailboxPredictionController__predictMailboxForMovingMessages_c
 
 - (id)_processPredictionForMessages:(id)messages
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   processingQueue = [(EDMailboxPredictionController *)self processingQueue];
   dispatch_assert_queue_V2(processingQueue);
@@ -230,21 +227,21 @@ uint64_t __101__EDMailboxPredictionController__predictMailboxForMovingMessages_c
       anyObject = [v9 anyObject];
       identifier = [anyObject identifier];
 
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __63__EDMailboxPredictionController__processPredictionForMessages___block_invoke_14;
-      v19[3] = &unk_1E82533C0;
-      v19[4] = identifier;
-      v12 = [v8 ef_filter:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __63__EDMailboxPredictionController__processPredictionForMessages___block_invoke_14;
+      v18[3] = &unk_1E82533C0;
+      v18[4] = identifier;
+      v12 = [v8 ef_filter:v18];
       v13 = +[EDMailboxPredictionController log];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = [v12 count];
         v15 = [v8 count];
         *buf = 67109376;
-        v21 = v14;
-        v22 = 1024;
-        v23 = v15;
+        v20 = v14;
+        v21 = 1024;
+        v22 = v15;
         _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Found %u mailbox(es) for moving message(s). Filtered from %u.", buf, 0xEu);
       }
 
@@ -257,7 +254,7 @@ uint64_t __101__EDMailboxPredictionController__predictMailboxForMovingMessages_c
       if (os_log_type_enabled(identifier, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v21 = [v9 count];
+        v20 = [v9 count];
         _os_log_impl(&dword_1C61EF000, identifier, OS_LOG_TYPE_DEFAULT, "%u accounts. No prediction for moving message(s).", buf, 8u);
       }
 
@@ -276,8 +273,6 @@ uint64_t __101__EDMailboxPredictionController__predictMailboxForMovingMessages_c
 
     firstObject = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -309,41 +304,39 @@ uint64_t __63__EDMailboxPredictionController__processPredictionForMessages___blo
 
 - (id)_accountsForMessages:(id)messages
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v4 = [MEMORY[0x1E695DFA8] set];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = messagesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        account = [*(*(&v12 + 1) + 8 * i) account];
+        account = [*(*(&v11 + 1) + 8 * i) account];
         if (account)
         {
           [v4 addObject:account];
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

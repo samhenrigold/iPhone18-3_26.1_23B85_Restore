@@ -2,6 +2,7 @@
 + (void)load;
 - (NSArray)mediaSourceServices;
 - (void)registerObserver:(id)observer;
+- (void)tuneToFrequency:(unsigned int)frequency inSourceWithIdentifier:(id)identifier completion:(id)completion;
 - (void)tuneToMediaItem:(id)item inSource:(id)source completion:(id)completion;
 - (void)tuneToMediaItemIdentifier:(id)identifier inSourceWithIdentifier:(id)withIdentifier completion:(id)completion;
 - (void)unregisterObserver:(id)observer;
@@ -14,7 +15,7 @@
   itemCopy = item;
   sourceCopy = source;
   completionCopy = completion;
-  v11 = CAFGeneralLogging();
+  v11 = CAFGeneralLogging(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CAFMedia(Utilties) tuneToMediaItem:inSource:completion:];
@@ -23,6 +24,84 @@
   identifier = [itemCopy identifier];
   identifier2 = [sourceCopy identifier];
   [(CAFMedia *)self tuneToMediaItemIdentifier:identifier inSourceWithIdentifier:identifier2 completion:completionCopy];
+}
+
+- (void)tuneToFrequency:(unsigned int)frequency inSourceWithIdentifier:(id)identifier completion:(id)completion
+{
+  v6 = *&frequency;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  v10 = CAFGeneralLogging(completionCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    [CAFMedia(Utilties) tuneToFrequency:v6 inSourceWithIdentifier:identifierCopy completion:v10];
+  }
+
+  v11 = [(CAFAccessory *)self car];
+  v12 = [v11 mediaSourceWithIdentifier:identifierCopy];
+
+  if (!v12)
+  {
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __72__CAFMedia_Utilties__tuneToFrequency_inSourceWithIdentifier_completion___block_invoke;
+    block[3] = &unk_27890D5E8;
+    v44 = completionCopy;
+    dispatch_async(MEMORY[0x277D85CD0], block);
+    nowPlaying = v44;
+    goto LABEL_15;
+  }
+
+  v13 = [(CAFAccessory *)self car];
+  nowPlayingInformation = [v13 nowPlayingInformation];
+  nowPlaying = [nowPlayingInformation nowPlaying];
+
+  if (!nowPlaying)
+  {
+    v22 = CAFGeneralLogging(v16);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      [(CAFMedia(Utilties) *)v22 tuneToFrequency:v23 inSourceWithIdentifier:v24 completion:v25, v26, v27, v28, v29];
+    }
+
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __72__CAFMedia_Utilties__tuneToFrequency_inSourceWithIdentifier_completion___block_invoke_21;
+    v41[3] = &unk_27890D5E8;
+    v42 = completionCopy;
+    dispatch_async(MEMORY[0x277D85CD0], v41);
+    v30 = v42;
+    goto LABEL_14;
+  }
+
+  currentFrequencyRange = [v12 currentFrequencyRange];
+  v18 = [currentFrequencyRange valueRoundedToNearestStepValue:v6];
+
+  currentFrequencyRange2 = [v12 currentFrequencyRange];
+  v20 = [currentFrequencyRange2 valueIsInRange:v18];
+
+  if ((v20 & 1) == 0)
+  {
+    v31 = CAFGeneralLogging(v21);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      [(CAFMedia(Utilties) *)v31 tuneToFrequency:v32 inSourceWithIdentifier:v33 completion:v34, v35, v36, v37, v38];
+    }
+
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __72__CAFMedia_Utilties__tuneToFrequency_inSourceWithIdentifier_completion___block_invoke_22;
+    v39[3] = &unk_27890D5E8;
+    v40 = completionCopy;
+    dispatch_async(MEMORY[0x277D85CD0], v39);
+    v30 = v40;
+LABEL_14:
+
+    goto LABEL_15;
+  }
+
+  [nowPlaying tuneToFrequency:v18 sourceIdentifier:identifierCopy completion:completionCopy];
+LABEL_15:
 }
 
 void __72__CAFMedia_Utilties__tuneToFrequency_inSourceWithIdentifier_completion___block_invoke(uint64_t a1)
@@ -60,7 +139,7 @@ void __72__CAFMedia_Utilties__tuneToFrequency_inSourceWithIdentifier_completion_
   identifierCopy = identifier;
   withIdentifierCopy = withIdentifier;
   completionCopy = completion;
-  v11 = CAFGeneralLogging();
+  v11 = CAFGeneralLogging(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CAFMedia(Utilties) tuneToMediaItemIdentifier:inSourceWithIdentifier:completion:];
@@ -77,17 +156,17 @@ void __72__CAFMedia_Utilties__tuneToFrequency_inSourceWithIdentifier_completion_
 
   else
   {
-    v15 = CAFGeneralLogging();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = CAFGeneralLogging(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(CAFMedia(Utilties) *)v15 tuneToFrequency:v16 inSourceWithIdentifier:v17 completion:v18, v19, v20, v21, v22];
+      [(CAFMedia(Utilties) *)v16 tuneToFrequency:v17 inSourceWithIdentifier:v18 completion:v19, v20, v21, v22, v23];
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __82__CAFMedia_Utilties__tuneToMediaItemIdentifier_inSourceWithIdentifier_completion___block_invoke;
     block[3] = &unk_27890D5E8;
-    v24 = completionCopy;
+    v25 = completionCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 }

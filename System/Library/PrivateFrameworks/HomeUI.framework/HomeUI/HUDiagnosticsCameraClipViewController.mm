@@ -86,7 +86,7 @@
 
         v12 = MEMORY[0x277CCACA8];
         cameraClip = [(HUDiagnosticsCameraClipViewController *)self cameraClip];
-        [cameraClip duration];
+        objc_msgSend_duration(cameraClip);
         [v12 stringWithFormat:@"Duration: %.2f", v13];
         goto LABEL_18;
       }

@@ -111,10 +111,9 @@
 - (BOOL)respondsToSelector:(SEL)selector
 {
   [(NSLock *)self->_lock lock];
-  delegate = self->_delegate;
-  v5 = objc_opt_respondsToSelector();
+  v4 = objc_opt_respondsToSelector();
   [(NSLock *)self->_lock unlock];
-  return v5 & 1;
+  return v4 & 1;
 }
 
 @end

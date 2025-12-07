@@ -9561,14 +9561,14 @@ LABEL_5:
 
 void AriSdk::ARI_IBISimExtendedAuthReq_SDK::ARI_IBISimExtendedAuthReq_SDK(AriSdk::ARI_IBISimExtendedAuthReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 813924352, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x30838000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 813924352, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x30838000u, 0);
 }
 
-void AriSdk::ARI_IBISimExtendedAuthReq_SDK::ARI_IBISimExtendedAuthReq_SDK(AriSdk::ARI_IBISimExtendedAuthReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBISimExtendedAuthReq_SDK::ARI_IBISimExtendedAuthReq_SDK(AriSdk::ARI_IBISimExtendedAuthReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9666,14 +9666,14 @@ uint64_t AriSdk::ARI_IBISimExtendedAuthReq_SDK::pack(AriSdk::ARI_IBISimExtendedA
 
 void AriSdk::ARI_IBISimExtendedAuthRspCb_SDK::ARI_IBISimExtendedAuthRspCb_SDK(AriSdk::ARI_IBISimExtendedAuthRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 822312960, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x31038000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 822312960, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x31038000u, 0);
 }
 
-void AriSdk::ARI_IBISimExtendedAuthRspCb_SDK::ARI_IBISimExtendedAuthRspCb_SDK(AriSdk::ARI_IBISimExtendedAuthRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBISimExtendedAuthRspCb_SDK::ARI_IBISimExtendedAuthRspCb_SDK(AriSdk::ARI_IBISimExtendedAuthRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }

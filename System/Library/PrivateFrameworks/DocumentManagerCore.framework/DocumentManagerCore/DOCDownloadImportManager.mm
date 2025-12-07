@@ -421,14 +421,6 @@ void __59__DOCDownloadImportManager__doc_destinationLocationExists___block_invok
   [v4 handleFailureInMethod:a1 object:a2 file:@"DOCDownloadImportManager.m" lineNumber:30 description:{@"Invalid parameter not satisfying: %@", @"placeholderDocumentURL"}];
 }
 
-void __82__DOCDownloadImportManager_importPlaceholderAtURLToDownloadsDirectory_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_249340000, v0, v1, "Remote object proxy error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_doc_destinationLocationExists:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x277CCA890] currentHandler];
@@ -437,10 +429,9 @@ void __82__DOCDownloadImportManager_importPlaceholderAtURLToDownloadsDirectory_c
 
 void __59__DOCDownloadImportManager__doc_destinationLocationExists___block_invoke_39_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_249340000, v0, OS_LOG_TYPE_ERROR, "Named location error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_249340000, v0, OS_LOG_TYPE_ERROR, "Named location error: %@", v1, 0xCu);
 }
 
 @end

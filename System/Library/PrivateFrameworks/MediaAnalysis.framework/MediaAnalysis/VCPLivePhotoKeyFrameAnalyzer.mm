@@ -454,7 +454,7 @@ LABEL_32:
           {
             v181 = [vcp_results objectForKeyedSubscript:@"MetaMotionResults"];
             *&v182 = sec;
-            [(VCPLivePhotoKeyFrameAnalyzer *)self selectKeyFrameRangeWithMotion:v181 stillTimestamp:1 isMetaMotion:v182];
+            objc_msgSend_selectKeyFrameRangeWithMotion_stillTimestamp_isMetaMotion_(self, v182);
             v241 = time;
 
             goto LABEL_40;
@@ -474,7 +474,7 @@ LABEL_32:
 
   v65 = [vcp_results objectForKeyedSubscript:@"CameraMotionResults"];
   *&v66 = sec;
-  [(VCPLivePhotoKeyFrameAnalyzer *)self selectKeyFrameRangeWithMotion:v65 stillTimestamp:0 isMetaMotion:v66];
+  objc_msgSend_selectKeyFrameRangeWithMotion_stillTimestamp_isMetaMotion_(self, v66);
   v241 = time;
 
 LABEL_40:
@@ -658,7 +658,7 @@ LABEL_60:
     if (v83)
     {
       v92 = v220;
-      [(VCPVideoKeyFrame *)v83 timestamp];
+      objc_msgSend_timestamp(v83);
     }
 
     else
@@ -740,7 +740,7 @@ LABEL_60:
         time = v241;
         if (v83)
         {
-          [(VCPVideoKeyFrame *)v83 timestamp];
+          objc_msgSend_timestamp(v83);
         }
 
         else
@@ -763,7 +763,7 @@ LABEL_60:
 
           if (v83)
           {
-            [(VCPVideoKeyFrame *)v83 timestamp];
+            objc_msgSend_timestamp(v83);
           }
 
           else
@@ -781,7 +781,7 @@ LABEL_60:
           {
             if (v83)
             {
-              [(VCPVideoKeyFrame *)v83 timestamp];
+              objc_msgSend_timestamp(v83);
             }
 
             else
@@ -818,7 +818,7 @@ LABEL_183:
                 {
                   if (v83)
                   {
-                    [(VCPVideoKeyFrame *)v83 timestamp];
+                    objc_msgSend_timestamp(v83);
                     v217 = time.start.value;
                     v221 = *&time.start.timescale;
                     v82 = time.start.epoch;
@@ -848,7 +848,7 @@ LABEL_183:
               {
                 if (v83)
                 {
-                  [(VCPVideoKeyFrame *)v83 timestamp];
+                  objc_msgSend_timestamp(v83);
                   v196 = time.start.value;
                   v190 = *&time.start.timescale;
                   v191 = time.start.epoch;
@@ -1203,7 +1203,7 @@ LABEL_165:
       v35 = MEMORY[0x1E696AD98];
       if (frameCopy)
       {
-        [frameCopy timestamp];
+        objc_msgSend_timestamp(frameCopy);
       }
 
       else
@@ -1285,7 +1285,7 @@ LABEL_165:
       v50 = MEMORY[0x1E696AD98];
       if (keyFrameCopy)
       {
-        [keyFrameCopy timestamp];
+        objc_msgSend_timestamp(keyFrameCopy);
       }
 
       else

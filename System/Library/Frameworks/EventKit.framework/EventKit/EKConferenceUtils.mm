@@ -42,31 +42,31 @@ uint64_t __31__EKConferenceUtils__workQueue__block_invoke()
 
 + (void)virtualConference:(id)conference likelyCameFromRoomTypes:(id)types completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   conferenceCopy = conference;
   typesCopy = types;
   handlerCopy = handler;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v9 = typesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v33;
+    v12 = *v32;
     while (2)
     {
       v13 = 0;
       do
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * v13);
+        v14 = *(*(&v31 + 1) + 8 * v13);
         title = [conferenceCopy title];
         if (title)
         {
@@ -88,7 +88,7 @@ uint64_t __31__EKConferenceUtils__workQueue__block_invoke()
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v11)
       {
         continue;
@@ -101,48 +101,46 @@ uint64_t __31__EKConferenceUtils__workQueue__block_invoke()
   joinMethods = [conferenceCopy joinMethods];
   firstObject = [joinMethods firstObject];
   v22 = [firstObject URL];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __81__EKConferenceUtils_virtualConference_likelyCameFromRoomTypes_completionHandler___block_invoke;
-  v28[3] = &unk_1E78011C0;
-  v29 = v9;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __81__EKConferenceUtils_virtualConference_likelyCameFromRoomTypes_completionHandler___block_invoke;
+  v27[3] = &unk_1E78011C0;
+  v28 = v9;
   v23 = handlerCopy;
   selfCopy = self;
-  v30 = handlerCopy;
-  [self applicationRecordForURL:v22 completionHandler:v28];
+  v29 = handlerCopy;
+  [self applicationRecordForURL:v22 completionHandler:v27];
 
-  v24 = v29;
+  v24 = v28;
 LABEL_12:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __81__EKConferenceUtils_virtualConference_likelyCameFromRoomTypes_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [a2 bundleIdentifier];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v9 = *(a1 + 48);
-        v10 = [*(*(&v13 + 1) + 8 * v8) extensionBundleIdentifier];
+        v10 = [*(*(&v12 + 1) + 8 * v8) extensionBundleIdentifier];
         v11 = [v9 parentAppBundleIdentifierForExtensionBundleIdentifier:v10];
 
         if ([v3 isEqual:v11])
@@ -156,7 +154,7 @@ void __81__EKConferenceUtils_virtualConference_likelyCameFromRoomTypes_completio
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -168,8 +166,6 @@ void __81__EKConferenceUtils_virtualConference_likelyCameFromRoomTypes_completio
 
   (*(*(a1 + 40) + 16))();
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)synchronousAppTitleOnlyForURL:(id)l incomplete:(BOOL *)incomplete
@@ -180,12 +176,13 @@ LABEL_11:
   {
     bundleIdentifier = [v4 bundleIdentifier];
     localizedName = [v5 localizedName];
-    if ([bundleIdentifier isEqualToString:@"com.microsoft.lync2013.iphone"])
+    v8 = [bundleIdentifier isEqualToString:@"com.microsoft.lync2013.iphone"];
+    if (v8)
     {
-      v8 = EKBundle();
-      v9 = [v8 localizedStringForKey:@"Skype" value:&stru_1F1B49D68 table:0];
+      v9 = EKBundle(v8);
+      v10 = [v9 localizedStringForKey:@"Skype" value:&stru_1F1B49D68 table:0];
 
-      localizedName = v9;
+      localizedName = v10;
     }
   }
 
@@ -241,27 +238,27 @@ void __63__EKConferenceUtils_applicationRecordForURL_completionHandler___block_i
 
 void __63__EKConferenceUtils_applicationRecordForURL_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = [v7 targetApplicationRecord];
         v9 = [v8 bundleIdentifier];
         v10 = [v9 containsString:@"com.apple.internal"];
@@ -274,7 +271,7 @@ void __63__EKConferenceUtils_applicationRecordForURL_completionHandler___block_i
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -289,8 +286,6 @@ LABEL_11:
 
   v12 = [*(a1 + 64) _applicationRecordFromAppLink:v11 appLinkError:*(a1 + 40) orCustomScheme:*(a1 + 48)];
   (*(*(a1 + 56) + 16))();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)clearAppRecordCache
@@ -606,7 +601,7 @@ LABEL_15:
 
 + (void)invalidateConferenceURLIfNeeded:(id)needed inEventStore:(id)store
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   storeCopy = store;
   if (neededCopy && [MEMORY[0x1E6992F40] isTUConversationLink:neededCopy])
@@ -661,30 +656,28 @@ LABEL_15:
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v32 = neededCopy;
+        v31 = neededCopy;
         _os_log_impl(&dword_1A805E000, logHandle, OS_LOG_TYPE_INFO, "Checking if we need to invalidate URL %@", buf, 0xCu);
       }
 
       v23 = dispatch_time(0, 500000000);
       v24 = _invalidationQueue;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __66__EKConferenceUtils_invalidateConferenceURLIfNeeded_inEventStore___block_invoke;
-      v26[3] = &unk_1E7801260;
-      v27 = neededCopy;
-      v29 = a2;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __66__EKConferenceUtils_invalidateConferenceURLIfNeeded_inEventStore___block_invoke;
+      v25[3] = &unk_1E7801260;
+      v26 = neededCopy;
+      v28 = a2;
       selfCopy = self;
-      v28 = storeCopy;
-      dispatch_after(v23, v24, v26);
+      v27 = storeCopy;
+      dispatch_after(v23, v24, v25);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __66__EKConferenceUtils_invalidateConferenceURLIfNeeded_inEventStore___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&_invalidationLock);
   v2 = [_urlsAwaitingInvalidation objectForKeyedSubscript:*(a1 + 32)];
   v3 = [v2 integerValue];
@@ -694,8 +687,8 @@ void __66__EKConferenceUtils_invalidateConferenceURLIfNeeded_inEventStore___bloc
       [_urlsAwaitingInvalidation removeObjectForKey:*(a1 + 32)];
       break;
     case 2:
-      v14 = [MEMORY[0x1E696AAA8] currentHandler];
-      [v14 handleFailureInMethod:*(a1 + 48) object:*(a1 + 56) file:@"EKConferenceUtils.m" lineNumber:419 description:@"invalidation state before search already set to checking"];
+      v13 = [MEMORY[0x1E696AAA8] currentHandler];
+      [v13 handleFailureInMethod:*(a1 + 48) object:*(a1 + 56) file:@"EKConferenceUtils.m" lineNumber:419 description:@"invalidation state before search already set to checking"];
 
       break;
     case 1:
@@ -710,17 +703,16 @@ void __66__EKConferenceUtils_invalidateConferenceURLIfNeeded_inEventStore___bloc
       v9 = v8;
       if (v6 || (v8 - 1) >= 2)
       {
-        v17 = *(a1 + 56);
-        v18 = [objc_opt_class() logHandle];
-        v19 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
+        v15 = [objc_opt_class() logHandle];
+        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
         if (v9 == 2)
         {
-          if (v19)
+          if (v16)
           {
-            v20 = *(a1 + 32);
-            v22 = 138412290;
-            v23 = v20;
-            _os_log_impl(&dword_1A805E000, v18, OS_LOG_TYPE_INFO, "Found uses of %@", &v22, 0xCu);
+            v17 = *(a1 + 32);
+            v18 = 138412290;
+            v19 = v17;
+            _os_log_impl(&dword_1A805E000, v15, OS_LOG_TYPE_INFO, "Found uses of %@", &v18, 0xCu);
           }
 
           [_urlsAwaitingInvalidation removeObjectForKey:*(a1 + 32)];
@@ -728,11 +720,11 @@ void __66__EKConferenceUtils_invalidateConferenceURLIfNeeded_inEventStore___bloc
 
         else
         {
-          if (v19)
+          if (v16)
           {
-            v22 = 134217984;
-            v23 = v9;
-            _os_log_impl(&dword_1A805E000, v18, OS_LOG_TYPE_INFO, "Not invalidating because state changed to %li while checking", &v22, 0xCu);
+            v18 = 134217984;
+            v19 = v9;
+            _os_log_impl(&dword_1A805E000, v15, OS_LOG_TYPE_INFO, "Not invalidating because state changed to %li while checking", &v18, 0xCu);
           }
         }
 
@@ -741,19 +733,18 @@ void __66__EKConferenceUtils_invalidateConferenceURLIfNeeded_inEventStore___bloc
 
       else
       {
-        v10 = *(a1 + 56);
-        v11 = [objc_opt_class() logHandle];
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v10 = [objc_opt_class() logHandle];
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v12 = *(a1 + 32);
-          v22 = 138412290;
-          v23 = v12;
-          _os_log_impl(&dword_1A805E000, v11, OS_LOG_TYPE_INFO, "No uses found of %@", &v22, 0xCu);
+          v11 = *(a1 + 32);
+          v18 = 138412290;
+          v19 = v11;
+          _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_INFO, "No uses found of %@", &v18, 0xCu);
         }
 
         [_urlsAwaitingInvalidation removeObjectForKey:*(a1 + 32)];
-        v13 = objc_alloc_init(EKConferenceInvalidationRecord);
-        [_invalidatedURLs setObject:v13 forKeyedSubscript:*(a1 + 32)];
+        v12 = objc_alloc_init(EKConferenceInvalidationRecord);
+        [_invalidatedURLs setObject:v12 forKeyedSubscript:*(a1 + 32)];
 
         os_unfair_lock_unlock(&_invalidationLock);
         [EKConferenceUtils invalidateConferenceURL:*(a1 + 32)];
@@ -763,24 +754,21 @@ void __66__EKConferenceUtils_invalidateConferenceURLIfNeeded_inEventStore___bloc
   }
 
   os_unfair_lock_unlock(&_invalidationLock);
-  v15 = *(a1 + 56);
   v4 = [objc_opt_class() logHandle];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v16 = *(a1 + 32);
-    v22 = 138412290;
-    v23 = v16;
-    _os_log_impl(&dword_1A805E000, v4, OS_LOG_TYPE_INFO, "No need to check URL %@", &v22, 0xCu);
+    v14 = *(a1 + 32);
+    v18 = 138412290;
+    v19 = v14;
+    _os_log_impl(&dword_1A805E000, v4, OS_LOG_TYPE_INFO, "No need to check URL %@", &v18, 0xCu);
   }
 
 LABEL_22:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)invalidateConferenceURL:(id)l
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (lCopy && [MEMORY[0x1E6992F40] isTUConversationLink:lCopy])
   {
@@ -788,31 +776,29 @@ LABEL_22:
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = lCopy;
+      v10 = lCopy;
       _os_log_impl(&dword_1A805E000, logHandle, OS_LOG_TYPE_DEFAULT, "Going to invalidate the URL %@", buf, 0xCu);
     }
 
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __45__EKConferenceUtils_invalidateConferenceURL___block_invoke;
-    v7[3] = &unk_1E78012B0;
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __45__EKConferenceUtils_invalidateConferenceURL___block_invoke;
+    v6[3] = &unk_1E78012B0;
     selfCopy = self;
-    v8 = lCopy;
-    [self _findExtensionIdentifierForURL:v8 completionHandler:v7];
+    v7 = lCopy;
+    [self _findExtensionIdentifierForURL:v7 completionHandler:v6];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __45__EKConferenceUtils_invalidateConferenceURL___block_invoke(uint64_t a1, void *a2)
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
-    v24 = 0;
-    v4 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:v3 error:&v24];
-    v5 = v24;
+    v20 = 0;
+    v4 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:v3 error:&v20];
+    v5 = v20;
     if (v5)
     {
       v6 = 1;
@@ -825,10 +811,9 @@ void __45__EKConferenceUtils_invalidateConferenceURL___block_invoke(uint64_t a1,
 
     if (v6)
     {
-      v16 = v5;
-      v7 = *(a1 + 40);
-      v8 = [objc_opt_class() logHandle];
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v14 = v5;
+      v7 = [objc_opt_class() logHandle];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_cold_1();
       }
@@ -836,93 +821,85 @@ void __45__EKConferenceUtils_invalidateConferenceURL___block_invoke(uint64_t a1,
 
     else
     {
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_69;
-      v22[3] = &unk_1E7801288;
-      v20 = *(a1 + 32);
-      v10 = v20;
-      v23 = v20;
-      [v4 setRequestCompletionBlock:v22];
-      v11 = objc_alloc_init(MEMORY[0x1E696ABE0]);
-      v32[0] = @"_EKVirtualConferenceRequestTypeKey";
-      v32[1] = @"_EKVirtualConferenceRequestURLParameterForInvalidation";
-      v12 = *(a1 + 32);
-      v33[0] = @"_EKVirtualConferenceRequestTypeURLInvalidate";
-      v33[1] = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
-      [v11 setUserInfo:v13];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_69;
+      v18[3] = &unk_1E7801288;
+      v16 = *(a1 + 32);
+      v8 = v16;
+      v19 = v16;
+      [v4 setRequestCompletionBlock:v18];
+      v9 = objc_alloc_init(MEMORY[0x1E696ABE0]);
+      v28[0] = @"_EKVirtualConferenceRequestTypeKey";
+      v28[1] = @"_EKVirtualConferenceRequestURLParameterForInvalidation";
+      v10 = *(a1 + 32);
+      v29[0] = @"_EKVirtualConferenceRequestTypeURLInvalidate";
+      v29[1] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
+      [v9 setUserInfo:v11];
 
-      v31 = v11;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
-      v21 = 0;
-      v15 = [v4 beginExtensionRequestWithOptions:1 inputItems:v14 error:&v21];
-      v16 = v21;
+      v27 = v9;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+      v17 = 0;
+      v13 = [v4 beginExtensionRequestWithOptions:1 inputItems:v12 error:&v17];
+      v14 = v17;
 
-      if (v16)
+      if (v14)
       {
-        v17 = *(a1 + 40);
-        v18 = [objc_opt_class() logHandle];
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v15 = [objc_opt_class() logHandle];
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v26 = v4;
-          v27 = 2112;
-          v28 = v15;
-          v29 = 2112;
-          v30 = v16;
-          _os_log_error_impl(&dword_1A805E000, v18, OS_LOG_TYPE_ERROR, "Failed to invalidate virtual conference URL, extension = %@ request = %@ error = %@", buf, 0x20u);
+          v22 = v4;
+          v23 = 2112;
+          v24 = v13;
+          v25 = 2112;
+          v26 = v14;
+          _os_log_error_impl(&dword_1A805E000, v15, OS_LOG_TYPE_ERROR, "Failed to invalidate virtual conference URL, extension = %@ request = %@ error = %@", buf, 0x20u);
         }
       }
 
-      v8 = v23;
+      v7 = v19;
     }
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v16 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v14 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_cold_2(a1);
+      __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_cold_2();
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_69(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = [a3 firstObject];
   v5 = [v4 userInfo];
   v6 = [v5 objectForKey:@"_EKVirtualConferenceInvalidationResultKey"];
 
   if (v6 && [v6 isEqualToString:@"_EKVirtualConferenceInvalidationResultSucceeded"])
   {
-    v7 = *(a1 + 40);
-    v8 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_INFO, "URL invalidated successfully: %@", &v12, 0xCu);
+      v8 = *(a1 + 32);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_INFO, "URL invalidated successfully: %@", &v9, 0xCu);
     }
   }
 
   else
   {
-    v10 = *(a1 + 40);
-    v8 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_69_cold_1(a1);
+      __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_69_cold_1();
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_validURLForConferenceURL:(id)l previousURLs:(id)ls completion:(id)completion
@@ -1033,16 +1010,16 @@ LABEL_11:
 
 + (void)renewConferenceURL:(id)l toDate:(id)date
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dateCopy = date;
   logHandle = [objc_opt_class() logHandle];
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v16 = lCopy;
-    v17 = 2112;
-    v18 = dateCopy;
+    v15 = lCopy;
+    v16 = 2112;
+    v17 = dateCopy;
     _os_log_impl(&dword_1A805E000, logHandle, OS_LOG_TYPE_INFO, "ConferenceRenewal: Attempting to extend expiration of URL: %@ to date: %@", buf, 0x16u);
   }
 
@@ -1050,16 +1027,16 @@ LABEL_11:
   {
     if ([MEMORY[0x1E6992F40] isTUConversationLink:lCopy])
     {
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke;
-      v11[3] = &unk_1E78012D8;
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke;
+      v10[3] = &unk_1E78012D8;
       selfCopy = self;
-      v12 = lCopy;
-      v13 = dateCopy;
-      [self _findExtensionIdentifierForURL:v12 completionHandler:v11];
+      v11 = lCopy;
+      v12 = dateCopy;
+      [self _findExtensionIdentifierForURL:v11 completionHandler:v10];
 
-      logHandle2 = v12;
+      logHandle2 = v11;
     }
 
     else
@@ -1080,19 +1057,17 @@ LABEL_11:
       +[EKConferenceUtils renewConferenceURL:toDate:];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke(uint64_t a1, void *a2)
 {
-  v33[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
-    v24 = 0;
-    v4 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:v3 error:&v24];
-    v5 = v24;
+    v20 = 0;
+    v4 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:v3 error:&v20];
+    v5 = v20;
     if (v5)
     {
       v6 = 1;
@@ -1105,10 +1080,9 @@ void __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke(uint64_t a
 
     if (v6)
     {
-      v16 = v5;
-      v7 = *(a1 + 48);
-      v8 = [objc_opt_class() logHandle];
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v14 = v5;
+      v7 = [objc_opt_class() logHandle];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_cold_1();
       }
@@ -1116,97 +1090,89 @@ void __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke(uint64_t a
 
     else
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_79;
-      v21[3] = &unk_1E7801288;
-      v23 = *(a1 + 48);
-      v22 = *(a1 + 32);
-      [v4 setRequestCompletionBlock:v21];
-      v10 = objc_alloc_init(MEMORY[0x1E696ABE0]);
-      v32[0] = @"_EKVirtualConferenceRequestTypeKey";
-      v32[1] = @"_EKVirtualConferenceRequestURLParameterForRenewal";
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
-      v33[0] = @"_EKVirtualConferenceRequestTypeURLRenew";
-      v33[1] = v11;
-      v32[2] = @"_EKVirtualConferenceRequestDateParameterForRenewal";
-      v33[2] = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:3];
-      [v10 setUserInfo:v13];
-      v31 = v10;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
-      v20 = 0;
-      v15 = [v4 beginExtensionRequestWithOptions:1 inputItems:v14 error:&v20];
-      v16 = v20;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_79;
+      v17[3] = &unk_1E7801288;
+      v19 = *(a1 + 48);
+      v18 = *(a1 + 32);
+      [v4 setRequestCompletionBlock:v17];
+      v8 = objc_alloc_init(MEMORY[0x1E696ABE0]);
+      v28[0] = @"_EKVirtualConferenceRequestTypeKey";
+      v28[1] = @"_EKVirtualConferenceRequestURLParameterForRenewal";
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v29[0] = @"_EKVirtualConferenceRequestTypeURLRenew";
+      v29[1] = v9;
+      v28[2] = @"_EKVirtualConferenceRequestDateParameterForRenewal";
+      v29[2] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
+      [v8 setUserInfo:v11];
+      v27 = v8;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+      v16 = 0;
+      v13 = [v4 beginExtensionRequestWithOptions:1 inputItems:v12 error:&v16];
+      v14 = v16;
 
-      if (v16)
+      if (v14)
       {
-        v17 = *(a1 + 48);
-        v18 = [objc_opt_class() logHandle];
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v15 = [objc_opt_class() logHandle];
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v26 = v4;
-          v27 = 2112;
-          v28 = v15;
-          v29 = 2112;
-          v30 = v16;
-          _os_log_error_impl(&dword_1A805E000, v18, OS_LOG_TYPE_ERROR, "ConferenceRenewal: Request to renew conference URL failed, extension = %@ request = %@ error = %@", buf, 0x20u);
+          v22 = v4;
+          v23 = 2112;
+          v24 = v13;
+          v25 = 2112;
+          v26 = v14;
+          _os_log_error_impl(&dword_1A805E000, v15, OS_LOG_TYPE_ERROR, "ConferenceRenewal: Request to renew conference URL failed, extension = %@ request = %@ error = %@", buf, 0x20u);
         }
       }
 
-      v8 = v22;
+      v7 = v18;
     }
   }
 
   else
   {
-    v9 = *(a1 + 48);
-    v16 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v14 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_cold_2(a1);
+      __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_cold_2();
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_79(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = [a3 firstObject];
   v5 = [v4 userInfo];
   v6 = [v5 objectForKey:@"_EKVirtualConferenceRenewalResultKey"];
 
   if (v6 && [v6 isEqualToString:@"_EKVirtualConferenceRenewalResultSucceeded"])
   {
-    v7 = *(a1 + 40);
-    v8 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = *(a1 + 32);
-      v14 = 138412290;
-      v15 = v9;
-      _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_INFO, "ConferenceRenewal: URL renewed successfully: %@", &v14, 0xCu);
+      v8 = *(a1 + 32);
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_INFO, "ConferenceRenewal: URL renewed successfully: %@", &v11, 0xCu);
     }
   }
 
   else
   {
-    v10 = [v4 userInfo];
-    v8 = [v10 objectForKey:@"_EKVirtualConferenceErrorResultKey"];
+    v9 = [v4 userInfo];
+    v7 = [v9 objectForKey:@"_EKVirtualConferenceErrorResultKey"];
 
-    v11 = *(a1 + 40);
-    v12 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_79_cold_1(a1);
+      __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_79_cold_1();
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_findExtensionIdentifierForURL:(id)l completionHandler:(id)handler
@@ -1258,9 +1224,9 @@ void __65__EKConferenceUtils__findRoomTypeForURL_queue_completionHandler___block
   v3 = a2;
   if (v3)
   {
-    v16 = 0;
-    v4 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:v3 error:&v16];
-    v5 = v16;
+    v14 = 0;
+    v4 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:v3 error:&v14];
+    v5 = v14;
     if (v5)
     {
       v6 = 1;
@@ -1273,42 +1239,40 @@ void __65__EKConferenceUtils__findRoomTypeForURL_queue_completionHandler___block
 
     if (v6)
     {
-      v7 = *(a1 + 56);
-      v8 = [objc_opt_class() logHandle];
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = [objc_opt_class() logHandle];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_cold_1();
       }
 
-      v9 = *(a1 + 48);
-      v13 = [MEMORY[0x1E696ABC0] errorWithDomain:EKConferenceValidationErrorDomain code:1 userInfo:0];
-      (*(v9 + 16))(v9, 0, v13);
+      v8 = *(a1 + 48);
+      v11 = [MEMORY[0x1E696ABC0] errorWithDomain:EKConferenceValidationErrorDomain code:1 userInfo:0];
+      (*(v8 + 16))(v8, 0, v11);
     }
 
     else
     {
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __65__EKConferenceUtils__findRoomTypeForURL_queue_completionHandler___block_invoke_82;
-      v14[3] = &unk_1E7801300;
-      v15 = *(a1 + 48);
-      [EKVirtualConferenceRoomType virtualConferenceRoomTypesWithCompletion:v14 queue:*(a1 + 40)];
-      v13 = v15;
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __65__EKConferenceUtils__findRoomTypeForURL_queue_completionHandler___block_invoke_82;
+      v12[3] = &unk_1E7801300;
+      v13 = *(a1 + 48);
+      [EKVirtualConferenceRoomType virtualConferenceRoomTypesWithCompletion:v12 queue:*(a1 + 40)];
+      v11 = v13;
     }
   }
 
   else
   {
-    v10 = *(a1 + 56);
-    v11 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __65__EKConferenceUtils__findRoomTypeForURL_queue_completionHandler___block_invoke_cold_2(a1);
+      __65__EKConferenceUtils__findRoomTypeForURL_queue_completionHandler___block_invoke_cold_2();
     }
 
-    v12 = *(a1 + 48);
+    v10 = *(a1 + 48);
     v5 = [MEMORY[0x1E696ABC0] errorWithDomain:EKConferenceValidationErrorDomain code:1 userInfo:0];
-    (*(v12 + 16))(v12, 0, v5);
+    (*(v10 + 16))(v10, 0, v5);
   }
 }
 
@@ -1329,100 +1293,46 @@ void __65__EKConferenceUtils__findRoomTypeForURL_queue_completionHandler___block
   }
 }
 
-+ (void)_applicationRecordFromAppLink:appLinkError:orCustomScheme:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "URL should be opened with the FaceTime app, but there was an error fetching FaceTime's application record: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)_applicationRecordFromAppLink:appLinkError:orCustomScheme:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1A805E000, v0, OS_LOG_TYPE_DEBUG, "Couldn't find out what app opens URL as a universal link, trying to see what opens it as a custom URL scheme: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_applicationRecordFromAppLink:appLinkError:orCustomScheme:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Error getting claim binding for URL, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)parentAppBundleIdentifierForExtensionBundleIdentifier:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Failed to find app extension record for extension bundle identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "Could not load extension for extensionIdentifier: %@, error = %@");
   v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(&dword_1A805E000, v0, OS_LOG_TYPE_DEBUG, "Couldn't find out what app opens URL as a universal link, trying to see what opens it as a custom URL scheme: %@", v1, 0xCu);
 }
 
-void __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_cold_2(uint64_t a1)
+void __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_4_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v1, v2, "Unable to find application record for URL %@, not invalidating.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Unable to find application record for URL %@, not invalidating.", v2, v3, v4, v5);
 }
 
-void __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_69_cold_1(uint64_t a1)
+void __45__EKConferenceUtils_invalidateConferenceURL___block_invoke_69_cold_1()
 {
-  OUTLINED_FUNCTION_4_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v1, v2, "Unable to invalidate URL: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Unable to invalidate URL: %@", v2, v3, v4, v5);
 }
 
-+ (void)renewConferenceURL:toDate:.cold.2()
+void __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "ConferenceRenewal: Didn't receive required arguments. URL = %@, expirationDate = %@. Stopping.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "ConferenceRenewal: Could not load extension for extensionIdentifier: %@, error = %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_4_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v1, v2, "ConferenceRenewal: Unable to find application record for URL %@, not invalidating.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "ConferenceRenewal: Unable to find application record for URL %@, not invalidating.", v2, v3, v4, v5);
 }
 
-void __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_79_cold_1(uint64_t a1)
+void __47__EKConferenceUtils_renewConferenceURL_toDate___block_invoke_79_cold_1()
 {
-  OUTLINED_FUNCTION_4_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v1, v2, "ConferenceRenewal: Unable to renew URL: %@, error = %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "ConferenceRenewal: Unable to renew URL: %@, error = %@");
 }
 
-void __65__EKConferenceUtils__findRoomTypeForURL_queue_completionHandler___block_invoke_cold_2(uint64_t a1)
+void __65__EKConferenceUtils__findRoomTypeForURL_queue_completionHandler___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_4_6(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_6(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v1, v2, "Unable to find application record for URL %@, not generating a new URL.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Unable to find application record for URL %@, not generating a new URL.", v2, v3, v4, v5);
 }
 
 @end

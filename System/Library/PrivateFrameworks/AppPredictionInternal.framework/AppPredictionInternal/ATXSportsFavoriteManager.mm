@@ -22,18 +22,17 @@ uint64_t __52__ATXSportsFavoriteManager_favoritesWithCompletion___block_invoke(u
 {
   if (a2 | a4)
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    return v6();
+    return v5();
   }
 
   else
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = __atxlog_handle_default(a1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      __52__ATXSportsFavoriteManager_favoritesWithCompletion___block_invoke_cold_1(v8);
+      __52__ATXSportsFavoriteManager_favoritesWithCompletion___block_invoke_cold_1(v7);
     }
 
     return (*(*(a1 + 32) + 16))();

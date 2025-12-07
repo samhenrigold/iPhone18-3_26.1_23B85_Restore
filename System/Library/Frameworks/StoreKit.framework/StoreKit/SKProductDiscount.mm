@@ -43,9 +43,12 @@
 
 - (void)_setIdentifier:(id)identifier
 {
-  *(self->_internal + 7) = [identifier copy];
+  v4 = [identifier copy];
+  internal = self->_internal;
+  v6 = internal[7];
+  internal[7] = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 @end

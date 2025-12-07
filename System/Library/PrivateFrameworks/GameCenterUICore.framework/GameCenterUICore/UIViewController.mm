@@ -67,7 +67,7 @@ void __69__UIViewController_GKAdditions___gkSetContentsNeedUpdateWithHandler___b
 
 void __69__UIViewController_GKAdditions___gkSetContentsNeedUpdateWithHandler___block_invoke_5(id *a1)
 {
-  v2 = (a1 + 4);
+  v2 = a1 + 4;
   v3 = objc_getAssociatedObject(a1[4], @"_gkContentRecentlyUpdated");
   v4 = [v3 BOOLValue];
 
@@ -132,7 +132,7 @@ void __69__UIViewController_GKAdditions___gkSetContentsNeedUpdateWithHandler___b
 
 void __69__UIViewController_GKAdditions___gkSetContentsNeedUpdateWithHandler___block_invoke_24(uint64_t a1)
 {
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   v3 = *(a1 + 32);
   v4 = [MEMORY[0x277CCABB0] numberWithBool:1];
   objc_setAssociatedObject(v3, @"_gkContentRecentlyUpdated", v4, 0x301);
@@ -249,6 +249,27 @@ uint64_t __103__UIViewController_GKRestrictionAlerts___gkInGameUIUnavailableAler
   }
 
   return result;
+}
+
+void __69__UIViewController_GKAdditions___gkSetContentsNeedUpdateWithHandler___block_invoke_5_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_24E4A8000, a2, a3, "Coalesced content update %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __69__UIViewController_GKAdditions___gkSetContentsNeedUpdateWithHandler___block_invoke_5_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_24E4A8000, a2, a3, "Skipped content update due to recent load %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __69__UIViewController_GKAdditions___gkSetContentsNeedUpdateWithHandler___block_invoke_24_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_24E4A8000, a2, a3, "Updating contents for %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -59,45 +59,46 @@ void __64__AMUIProactiveUsageObserver_pushStackConfigurationsToProactive__block_
 void __64__AMUIProactiveUsageObserver_pushStackConfigurationsToProactive__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = AMUILogProactive();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = AMUILogProactive(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __64__AMUIProactiveUsageObserver_pushStackConfigurationsToProactive__block_invoke_2_cold_1(v2, v3);
+      __64__AMUIProactiveUsageObserver_pushStackConfigurationsToProactive__block_invoke_2_cold_1(v3, v4);
     }
   }
 }
 
 - (id)_proactiveWidgetStackForWidgetIcon:(id)icon
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   iconCopy = icon;
   v5 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   widgets = [iconCopy widgets];
-  v7 = [widgets countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [widgets countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(widgets);
         }
 
-        v11 = [(AMUIProactiveUsageObserver *)self _proactiveWidgetForWidget:*(*(&v19 + 1) + 8 * i) ofIcon:iconCopy];
+        v11 = [(AMUIProactiveUsageObserver *)self _proactiveWidgetForWidget:*(*(&v18 + 1) + 8 * i) ofIcon:iconCopy];
         [v5 addObject:v11];
       }
 
-      v8 = [widgets countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [widgets countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -108,8 +109,6 @@ void __64__AMUIProactiveUsageObserver_pushStackConfigurationsToProactive__block_
   activeWidget = [iconCopy activeWidget];
   uniqueIdentifier2 = [activeWidget uniqueIdentifier];
   v16 = [v12 initWithIdentifier:uniqueIdentifier widgets:v5 topWidgetIdentifier:uniqueIdentifier2 family:1 allowsNewWidget:objc_msgSend(iconCopy allowsSmartRotate:{"allowsExternalSuggestions"), objc_msgSend(iconCopy, "allowsSuggestions")}];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -179,23 +178,29 @@ void __64__AMUIProactiveUsageObserver_pushStackConfigurationsToProactive__block_
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteDataSourceDidAppear:(id)appear forWidgetIcon:(id)icon
 {
   v6 = [(AMUIProactiveUsageObserver *)self _proactiveWidgetForIconDataSource:appear ofIcon:icon];
+  v7 = v6;
   if (v6)
   {
-    [(ATXAmbientSuggestionProvider *)self->_proactiveClient logWidgetDidAppear:v6];
+    v8 = v6;
+    v6 = [(ATXAmbientSuggestionProvider *)self->_proactiveClient logWidgetDidAppear:v6];
+    v7 = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v6, v7);
 }
 
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteDataSourceDidDisappear:(id)disappear forWidgetIcon:(id)icon
 {
   v6 = [(AMUIProactiveUsageObserver *)self _proactiveWidgetForIconDataSource:disappear ofIcon:icon];
+  v7 = v6;
   if (v6)
   {
-    [(ATXAmbientSuggestionProvider *)self->_proactiveClient logWidgetDidDisappear:v6];
+    v8 = v6;
+    v6 = [(ATXAmbientSuggestionProvider *)self->_proactiveClient logWidgetDidDisappear:v6];
+    v7 = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v6, v7);
 }
 
 - (void)homeScreenUsageAggregator:(id)aggregator didNoteUserTappedWidgetIcon:(id)icon withURL:(id)l
@@ -244,11 +249,10 @@ LABEL_7:
 
 void __64__AMUIProactiveUsageObserver_pushStackConfigurationsToProactive__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Could not write stack configurations: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Could not write stack configurations: %@", &v2, 0xCu);
 }
 
 @end

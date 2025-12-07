@@ -82,12 +82,12 @@
 {
   nameCopy = name;
   v8 = DMTDetailTextAddingDeviceBodyFor(class);
-  v9 = DMTFormattedEnrollmentOrganizationNameFrom(nameCopy);
+  v10 = DMTFormattedEnrollmentOrganizationNameFrom(nameCopy, v9);
 
-  v10 = DMTLocalizedOrganizationMarketingNameForOrganizationType(type);
-  v11 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v8 validFormatSpecifiers:@"%@%@" error:0, v9, v10];
+  v12 = DMTLocalizedOrganizationMarketingNameForOrganizationType(type, v11);
+  v13 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v8 validFormatSpecifiers:@"%@%@" error:0, v10, v12];
 
-  return v11;
+  return v13;
 }
 
 + (id)statusMessageForEnrollmentState:(int64_t)state networkName:(id)name

@@ -15,38 +15,38 @@
 
 - (id)safari_arrayByMappingObjectsUsingBlock:()SafariCoreExtras
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([self count])
   {
     v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(self, "count")}];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     selfCopy = self;
-    v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(selfCopy);
           }
 
-          v11 = v4[2](v4, *(*(&v14 + 1) + 8 * i));
+          v11 = v4[2](v4, *(*(&v13 + 1) + 8 * i));
           if (v11)
           {
-            [v5 addObject:{v11, v14}];
+            [v5 addObject:{v11, v13}];
           }
         }
 
-        v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -58,66 +58,16 @@
     v5 = MEMORY[0x1E695E0F0];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)safari_dictionaryByMappingObjectsToValuesUsingBlock:()SafariCoreExtras
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v4 = a3;
-  if ([self count])
-  {
-    v5 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(self, "count")}];
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    selfCopy = self;
-    v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v16;
-      do
-      {
-        for (i = 0; i != v8; ++i)
-        {
-          if (*v16 != v9)
-          {
-            objc_enumerationMutation(selfCopy);
-          }
-
-          v11 = *(*(&v15 + 1) + 8 * i);
-          v12 = v4[2](v4, v11);
-          [v5 setObject:v12 forKeyedSubscript:{v11, v15}];
-        }
-
-        v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
-      }
-
-      while (v8);
-    }
-  }
-
-  else
-  {
-    v5 = MEMORY[0x1E695E0F8];
-  }
-
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v5;
-}
-
-- (id)safari_mapAndFilterObjectsUsingBlock:()SafariCoreExtras
-{
   v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([self count])
   {
-    v5 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(self, "count")}];
+    v5 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(self, "count")}];
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
@@ -137,11 +87,9 @@
             objc_enumerationMutation(selfCopy);
           }
 
-          v11 = v4[2](v4, *(*(&v14 + 1) + 8 * i));
-          if (v11)
-          {
-            [v5 addObject:{v11, v14}];
-          }
+          v11 = *(*(&v14 + 1) + 8 * i);
+          v12 = v4[2](v4, v11);
+          [v5 setObject:v12 forKeyedSubscript:{v11, v14}];
         }
 
         v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
@@ -153,44 +101,90 @@
 
   else
   {
-    v5 = [MEMORY[0x1E695DFD8] set];
+    v5 = MEMORY[0x1E695E0F8];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
+  return v5;
+}
+
+- (id)safari_mapAndFilterObjectsUsingBlock:()SafariCoreExtras
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v4 = a3;
+  if ([self count])
+  {
+    v5 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(self, "count")}];
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    selfCopy = self;
+    v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v14;
+      do
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v14 != v9)
+          {
+            objc_enumerationMutation(selfCopy);
+          }
+
+          v11 = v4[2](v4, *(*(&v13 + 1) + 8 * i));
+          if (v11)
+          {
+            [v5 addObject:{v11, v13}];
+          }
+        }
+
+        v8 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      }
+
+      while (v8);
+    }
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E695DFD8] set];
+  }
 
   return v5;
 }
 
 - (id)safari_smallestObject:()SafariCoreExtras
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([self count] > 1)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     selfCopy = self;
-    v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
       anyObject = 0;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(selfCopy);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           if (anyObject)
           {
-            if (v4[2](v4, anyObject, *(*(&v15 + 1) + 8 * i)) >= 1)
+            if (v4[2](v4, anyObject, *(*(&v14 + 1) + 8 * i)) >= 1)
             {
               v12 = v11;
 
@@ -204,7 +198,7 @@
           }
         }
 
-        v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -221,34 +215,32 @@
     anyObject = [self anyObject];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return anyObject;
 }
 
 - (id)safari_anyObjectPassingTest:()SafariCoreExtras
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (v4[2](v4, v9))
         {
           v6 = v9;
@@ -256,7 +248,7 @@
         }
       }
 
-      v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -267,8 +259,6 @@
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -310,14 +300,12 @@ LABEL_11:
 
 - (id)safari_sortedArrayUsingFinderLikeSorting
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"self" ascending:1 selector:sel_localizedStandardCompare_];
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   v4 = [self sortedArrayUsingDescriptors:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

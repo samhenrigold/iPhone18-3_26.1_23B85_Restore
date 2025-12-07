@@ -566,7 +566,7 @@ LABEL_5:
   return v10;
 }
 
-uint64_t __55__HKHistogramChartDataSource__normalBinIndexForSample___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__55__HKHistogramChartDataSource__normalBinIndexForSample___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 containsIndex:*(a1 + 40)];
   if (result)

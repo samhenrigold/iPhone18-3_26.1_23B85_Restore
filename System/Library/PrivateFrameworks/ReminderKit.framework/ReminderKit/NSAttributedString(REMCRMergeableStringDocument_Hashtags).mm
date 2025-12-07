@@ -76,13 +76,10 @@
 
 - (void)rem_hashtagAtIndex:()REMCRMergeableStringDocument_Hashtags effectiveRange:wantsLongestEffectiveRange:inRange:.cold.1(uint64_t a1, NSRange *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = NSStringFromRange(*a2);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

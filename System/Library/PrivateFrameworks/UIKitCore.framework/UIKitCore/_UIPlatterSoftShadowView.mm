@@ -43,7 +43,7 @@
 - (void)setShadowPath:(id)path
 {
   pathCopy = path;
-  if (([pathCopy isEqual:self->_shadowPath] & 1) == 0)
+  if ((objc_msgSend_isEqual_(pathCopy) & 1) == 0)
   {
     v4 = [pathCopy copy];
     shadowPath = self->_shadowPath;

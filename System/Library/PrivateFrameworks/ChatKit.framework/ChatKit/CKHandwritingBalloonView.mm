@@ -25,7 +25,7 @@
 - (CGRect)maskFrame
 {
   v3 = +[CKUIBehavior sharedBehaviors];
-  [(CKHandwritingBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   [v3 extensionBalloonContentInsetsForOrientation:2 * (v21 != 0)];
   v5 = v4;
   v7 = v6;

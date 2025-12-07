@@ -287,7 +287,7 @@ LABEL_41:
   return 0;
 }
 
-uint64_t ____NSStringDrawingEngine_block_invoke_2_377(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *____NSStringDrawingEngine_block_invoke_2_377(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 intValue];
   if (result >= 1)

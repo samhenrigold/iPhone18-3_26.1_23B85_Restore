@@ -1,5 +1,7 @@
 @interface SFAppAutoFillOneTimeCodeProvider
 + (BOOL)enableCodesFromNotifications;
++ (void)setEnableCodesFromNotifications:(BOOL)notifications;
++ (void)setUseUserNotificationsOneTimeCodeSupport:(BOOL)support;
 - (BOOL)_appWithAppIdentifierIsWebBrowser:(id)browser;
 - (BOOL)isOneTimeCodeAutoDeletionEnabled;
 - (SFAppAutoFillOneTimeCodeProvider)initWithOptions:(unint64_t)options;
@@ -32,6 +34,7 @@
 - (void)oneTimeCodeClient:(id)client detectedOneTimeCodes:(id)codes;
 - (void)removeObserver:(id)observer;
 - (void)removeObserverForOneTimeCode:(id)code;
+- (void)setIsOneTimeCodeAutoDeletionEnabled:(BOOL)enabled;
 - (void)test_deliverOneTimeCode:(id)code fromSource:(int64_t)source;
 @end
 
@@ -194,20 +197,20 @@ void __52__SFAppAutoFillOneTimeCodeProvider_initWithOptions___block_invoke_3(uin
 {
   websiteCopy = website;
   hintCopy = hint;
-  v23 = *token;
-  v12 = WBSApplicationIdentifierFromAuditToken();
-  if (!v12)
+  v24 = *token;
+  v13 = WBSApplicationIdentifierFromAuditToken();
+  if (!v13)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(SFAppAutoFillOneTimeCodeProvider *)v13 currentOneTimeCodesWithAuditToken:v14 website:v15 usernameHint:v16 fieldClassification:v17, v18, v19, v20];
+      [(SFAppAutoFillOneTimeCodeProvider *)v14 currentOneTimeCodesWithAuditToken:v15 website:v16 usernameHint:v17 fieldClassification:v18, v19, v20, v21];
     }
   }
 
-  v21 = [(SFAppAutoFillOneTimeCodeProvider *)self currentOneTimeCodesWithAppIdentifier:v12 website:websiteCopy usernameHint:hintCopy fieldClassification:classification, *v23.var0, *&v23.var0[4]];
+  v22 = [(SFAppAutoFillOneTimeCodeProvider *)self currentOneTimeCodesWithAppIdentifier:v13 website:websiteCopy usernameHint:hintCopy fieldClassification:classification, *v24.var0, *&v24.var0[4]];
 
-  return v21;
+  return v22;
 }
 
 - (id)currentOneTimeCodesWithAppIdentifier:(id)identifier website:(id)website usernameHint:(id)hint fieldClassification:(int64_t)classification
@@ -259,134 +262,138 @@ void __114__SFAppAutoFillOneTimeCodeProvider_currentOneTimeCodesWithAppIdentifie
 
 void __114__SFAppAutoFillOneTimeCodeProvider_currentOneTimeCodesWithAppIdentifier_website_usernameHint_fieldClassification___block_invoke_2(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _validateCurrentOneTimeCodes];
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
   v44 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = *(v3 + 16);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __114__SFAppAutoFillOneTimeCodeProvider_currentOneTimeCodesWithAppIdentifier_website_usernameHint_fieldClassification___block_invoke_3;
-  v32[3] = &unk_279B61278;
-  v32[4] = v3;
-  v33 = v2;
-  v34 = *(a1 + 48);
-  v35 = &v37;
-  v36 = &v41;
-  v5 = [v4 safari_mapAndFilterKeysAndObjectsUsingBlock:v32];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __114__SFAppAutoFillOneTimeCodeProvider_currentOneTimeCodesWithAppIdentifier_website_usernameHint_fieldClassification___block_invoke_3;
+  v39[3] = &unk_279B61278;
+  v39[4] = v3;
+  v40 = v2;
+  v41 = *(a1 + 48);
+  v42 = &v44;
+  v43 = &v48;
+  v5 = [v4 safari_mapAndFilterKeysAndObjectsUsingBlock:v39];
   v6 = *(a1 + 56);
   v7 = [*(a1 + 32) _orderedCodesFromOneTimeCodesAndDomainBindingResultsBySource:v5];
   [v6 addObjectsFromArray:v7];
 
-  if (*(v38 + 24) != 1 || (v42[3] & 1) == 0)
+  if (*(v45 + 24) != 1 || (v49[3] & 1) == 0)
   {
-    if ([*(a1 + 56) count])
+    v8 = [*(a1 + 56) count];
+    if (v8)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_26450F000, v8, OS_LOG_TYPE_INFO, "Will return at least the currently available one-time code.", buf, 2u);
+        _os_log_impl(&dword_26450F000, v10, OS_LOG_TYPE_INFO, "Will return at least the currently available one-time code.", buf, 2u);
       }
     }
 
-    v9 = +[SFAutoFillFeatureManager sharedFeatureManager];
-    v10 = [v9 shouldAutoFillPasswordsFromKeychain];
+    v11 = +[SFAutoFillFeatureManager sharedFeatureManager];
+    v12 = [v11 shouldAutoFillPasswordsFromKeychain];
 
-    if (v10)
+    if (v12)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v15 = WBS_LOG_CHANNEL_PREFIXAutoFill(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v12 = *(a1 + 72);
+        v16 = *(a1 + 72);
         *buf = 67109120;
-        LODWORD(v46) = v12;
-        _os_log_impl(&dword_26450F000, v11, OS_LOG_TYPE_INFO, "Attempting to return a TOTP generated code. classification:%d", buf, 8u);
+        LODWORD(v53) = v16;
+        _os_log_impl(&dword_26450F000, v15, OS_LOG_TYPE_INFO, "Attempting to return a TOTP generated code. classification:%d", buf, 8u);
       }
 
-      if (*(a1 + 72) == 2 && [*(a1 + 40) length])
+      if (*(a1 + 72) == 2)
       {
-        if (*(a1 + 48) && [*(a1 + 32) _appWithAppIdentifierIsWebBrowser:*(a1 + 40)])
+        v17 = [*(a1 + 40) length];
+        if (v17)
         {
-          v13 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          if (*(a1 + 48) && (v17 = [*(a1 + 32) _appWithAppIdentifierIsWebBrowser:*(a1 + 40)], v17))
           {
-            v14 = *(a1 + 40);
-            v15 = *(a1 + 48);
-            *buf = 138412803;
-            v46 = v14;
-            v47 = 2160;
-            v48 = 1752392040;
-            v49 = 2117;
-            v50 = v15;
-            _os_log_impl(&dword_26450F000, v13, OS_LOG_TYPE_DEFAULT, "App %@ has web browser entitlement. Getting passwords for website URL %{sensitive, mask.hash}@.", buf, 0x20u);
+            v19 = WBS_LOG_CHANNEL_PREFIXAutoFill(v17, v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            {
+              v20 = *(a1 + 40);
+              v21 = *(a1 + 48);
+              *buf = 138412803;
+              v53 = v20;
+              v54 = 2160;
+              v55 = 1752392040;
+              v56 = 2117;
+              v57 = v21;
+              _os_log_impl(&dword_26450F000, v19, OS_LOG_TYPE_DEFAULT, "App %@ has web browser entitlement. Getting passwords for website URL %{sensitive, mask.hash}@.", buf, 0x20u);
+            }
+
+            v22 = [*(a1 + 32) _savedAccountsWithPasswordsForURL:*(a1 + 48) inContext:0];
           }
 
-          v16 = [*(a1 + 32) _savedAccountsWithPasswordsForURL:*(a1 + 48) inContext:0];
-        }
-
-        else
-        {
-          v17 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          else
           {
-            v18 = *(a1 + 40);
-            *buf = 141558275;
-            v46 = 1752392040;
-            v47 = 2117;
-            v48 = v18;
-            _os_log_impl(&dword_26450F000, v17, OS_LOG_TYPE_DEFAULT, "Fetching passwords for associated domains for app %{sensitive, mask.hash}@.", buf, 0x16u);
+            v23 = WBS_LOG_CHANNEL_PREFIXAutoFill(v17, v18);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            {
+              v24 = *(a1 + 40);
+              *buf = 141558275;
+              v53 = 1752392040;
+              v54 = 2117;
+              v55 = v24;
+              _os_log_impl(&dword_26450F000, v23, OS_LOG_TYPE_DEFAULT, "Fetching passwords for associated domains for app %{sensitive, mask.hash}@.", buf, 0x16u);
+            }
+
+            v25 = [*(a1 + 32) _associatedDomainEntriesForAppWithIdentifier:*(a1 + 40)];
+            v37[0] = MEMORY[0x277D85DD0];
+            v37[1] = 3221225472;
+            v37[2] = __114__SFAppAutoFillOneTimeCodeProvider_currentOneTimeCodesWithAppIdentifier_website_usernameHint_fieldClassification___block_invoke_58;
+            v37[3] = &unk_279B612C8;
+            v37[4] = *(a1 + 32);
+            v38 = *(a1 + 64);
+            v26 = [v25 safari_mapAndFilterObjectsUsingBlock:v37];
+            v22 = [v26 safari_flattenedArray];
           }
 
-          v19 = [*(a1 + 32) _associatedDomainEntriesForAppWithIdentifier:*(a1 + 40)];
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __114__SFAppAutoFillOneTimeCodeProvider_currentOneTimeCodesWithAppIdentifier_website_usernameHint_fieldClassification___block_invoke_58;
-          v30[3] = &unk_279B612C8;
-          v30[4] = *(a1 + 32);
-          v31 = *(a1 + 64);
-          v20 = [v19 safari_mapAndFilterObjectsUsingBlock:v30];
-          v16 = [v20 safari_flattenedArray];
-        }
+          v27 = *(a1 + 56);
+          v28 = *(a1 + 32);
+          v29 = [MEMORY[0x277D49B30] defaultContext];
+          v30 = [v28 _sortedOneTimeCodesFromSavedAccounts:v22 context:v29];
+          [v27 addObjectsFromArray:v30];
 
-        v21 = *(a1 + 56);
-        v22 = *(a1 + 32);
-        v23 = [MEMORY[0x277D49B30] defaultContext];
-        v24 = [v22 _sortedOneTimeCodesFromSavedAccounts:v16 context:v23];
-        [v21 addObjectsFromArray:v24];
-
-        v25 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-        {
-          v26 = [*(a1 + 56) count];
-          v27 = [*(a1 + 56) count];
-          v28 = "s";
-          if (v27 == 1)
+          v33 = WBS_LOG_CHANNEL_PREFIXAutoFill(v31, v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
-            v28 = "";
-          }
+            v34 = [*(a1 + 56) count];
+            v35 = [*(a1 + 56) count];
+            v36 = "s";
+            if (v35 == 1)
+            {
+              v36 = "";
+            }
 
-          *buf = 134218242;
-          v46 = v26;
-          v47 = 2080;
-          v48 = v28;
-          _os_log_impl(&dword_26450F000, v25, OS_LOG_TYPE_DEFAULT, "Returning %ld available one-time code%s", buf, 0x16u);
+            *buf = 134218242;
+            v53 = v34;
+            v54 = 2080;
+            v55 = v36;
+            _os_log_impl(&dword_26450F000, v33, OS_LOG_TYPE_DEFAULT, "Returning %ld available one-time code%s", buf, 0x16u);
+          }
         }
       }
     }
   }
 
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v41, 8);
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v48, 8);
 }
 
 id __114__SFAppAutoFillOneTimeCodeProvider_currentOneTimeCodesWithAppIdentifier_website_usernameHint_fieldClassification___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
@@ -534,33 +541,31 @@ id __119__SFAppAutoFillOneTimeCodeProvider_currentOneTimeCodesForWebBrowserWithW
   v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 matchBoundDomainsWithFrameURLs:*(a1 + 32)];
-  v6 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = &stru_2875FD420;
-    v8 = *(a1 + 32);
+    v8 = &stru_2875FD420;
+    v9 = *(a1 + 32);
     v13 = 138412803;
     if (!v5)
     {
-      v7 = @"NOT ";
+      v8 = @"NOT ";
     }
 
-    v14 = v7;
+    v14 = v8;
     v15 = 2160;
     v16 = 1752392040;
     v17 = 2117;
-    v18 = v8;
-    _os_log_impl(&dword_26450F000, v6, OS_LOG_TYPE_DEFAULT, "Domain-bound verification code is %@valid for frame URLs from web browser: %{sensitive, mask.hash}@", &v13, 0x20u);
+    v18 = v9;
+    _os_log_impl(&dword_26450F000, v7, OS_LOG_TYPE_DEFAULT, "Domain-bound verification code is %@valid for frame URLs from web browser: %{sensitive, mask.hash}@", &v13, 0x20u);
   }
 
   if (v5)
   {
-    v9 = objc_alloc(MEMORY[0x277D49A80]);
-    v10 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
-    v5 = [v9 initWithFirst:v4 second:v10];
+    v10 = objc_alloc(MEMORY[0x277D49A80]);
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
+    v5 = [v10 initWithFirst:v4 second:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -611,7 +616,7 @@ uint64_t __97__SFAppAutoFillOneTimeCodeProvider__orderedCodesFromOneTimeCodesAnd
 
 - (int64_t)_domainBindingForRecievedOneTimeCode:(id)code forAppWithIdentifier:(id)identifier websiteURL:(id)l hasDomainBinding:(BOOL *)binding
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   lCopy = l;
   codeCopy = code;
@@ -625,86 +630,88 @@ uint64_t __97__SFAppAutoFillOneTimeCodeProvider__orderedCodesFromOneTimeCodesAnd
       *binding = 1;
     }
 
-    v15 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = WBS_LOG_CHANNEL_PREFIXAutoFill(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 141558275;
-      v41 = 1752392040;
-      v42 = 2117;
-      v43 = domain;
-      _os_log_impl(&dword_26450F000, v15, OS_LOG_TYPE_DEFAULT, "Current verification code is domain-bound to %{sensitive, mask.hash}@.", buf, 0x16u);
+      v47 = 1752392040;
+      v48 = 2117;
+      v49 = domain;
+      _os_log_impl(&dword_26450F000, v17, OS_LOG_TYPE_DEFAULT, "Current verification code is domain-bound to %{sensitive, mask.hash}@.", buf, 0x16u);
     }
 
     if ([identifierCopy length])
     {
-      v16 = [(SFAppAutoFillOneTimeCodeProvider *)self _secureURLWithDomain:domain];
-      if (lCopy && [(SFAppAutoFillOneTimeCodeProvider *)self _appWithAppIdentifierIsWebBrowser:identifierCopy])
+      v19 = [(SFAppAutoFillOneTimeCodeProvider *)self _secureURLWithDomain:domain];
+      v21 = v19;
+      if (lCopy && (v19 = [(SFAppAutoFillOneTimeCodeProvider *)self _appWithAppIdentifierIsWebBrowser:identifierCopy], v19))
       {
-        v17 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v22 = WBS_LOG_CHANNEL_PREFIXAutoFill(v19, v20);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 141558787;
-          v41 = 1752392040;
-          v42 = 2117;
-          v43 = identifierCopy;
-          v44 = 2160;
-          v45 = 1752392040;
-          v46 = 2117;
-          v47 = lCopy;
-          _os_log_impl(&dword_26450F000, v17, OS_LOG_TYPE_INFO, "App %{sensitive, mask.hash}@ has web browser entitlement. Checking domain against website URL %{sensitive, mask.hash}@.", buf, 0x2Au);
+          v47 = 1752392040;
+          v48 = 2117;
+          v49 = identifierCopy;
+          v50 = 2160;
+          v51 = 1752392040;
+          v52 = 2117;
+          v53 = lCopy;
+          _os_log_impl(&dword_26450F000, v22, OS_LOG_TYPE_INFO, "App %{sensitive, mask.hash}@ has web browser entitlement. Checking domain against website URL %{sensitive, mask.hash}@.", buf, 0x2Au);
         }
 
-        integerValue = [(SFAppAutoFillOneTimeCodeProvider *)self _url:lCopy matchesURLFromOriginBoundCode:v16];
+        v23 = [(SFAppAutoFillOneTimeCodeProvider *)self _url:lCopy matchesURLFromOriginBoundCode:v21];
+        integerValue = v23;
       }
 
       else
       {
-        v19 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v26 = WBS_LOG_CHANNEL_PREFIXAutoFill(v19, v20);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
           *buf = 141558275;
-          v41 = 1752392040;
-          v42 = 2117;
-          v43 = identifierCopy;
-          _os_log_impl(&dword_26450F000, v19, OS_LOG_TYPE_INFO, "Checking domain against associated domains for app %{sensitive, mask.hash}@.", buf, 0x16u);
+          v47 = 1752392040;
+          v48 = 2117;
+          v49 = identifierCopy;
+          _os_log_impl(&dword_26450F000, v26, OS_LOG_TYPE_INFO, "Checking domain against associated domains for app %{sensitive, mask.hash}@.", buf, 0x16u);
         }
 
-        v20 = [(SFAppAutoFillOneTimeCodeProvider *)self _associatedDomainEntriesForAppWithIdentifier:identifierCopy];
-        v34 = MEMORY[0x277D85DD0];
-        v35 = 3221225472;
-        v36 = __122__SFAppAutoFillOneTimeCodeProvider__domainBindingForRecievedOneTimeCode_forAppWithIdentifier_websiteURL_hasDomainBinding___block_invoke;
-        v37 = &unk_279B61388;
+        v27 = [(SFAppAutoFillOneTimeCodeProvider *)self _associatedDomainEntriesForAppWithIdentifier:identifierCopy];
+        v40 = MEMORY[0x277D85DD0];
+        v41 = 3221225472;
+        v42 = __122__SFAppAutoFillOneTimeCodeProvider__domainBindingForRecievedOneTimeCode_forAppWithIdentifier_websiteURL_hasDomainBinding___block_invoke;
+        v43 = &unk_279B61388;
         selfCopy = self;
-        v39 = v16;
-        v21 = [v20 safari_reduceObjectsWithInitialValue:&unk_2876020D0 usingBlock:&v34];
-        integerValue = [v21 integerValue];
+        v45 = v21;
+        v28 = [v27 safari_reduceObjectsWithInitialValue:&unk_2876020D0 usingBlock:&v40];
+        integerValue = [v28 integerValue];
       }
 
-      v22 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v29 = WBS_LOG_CHANNEL_PREFIXAutoFill(v23, v24);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = &stru_2875FD420;
+        v30 = &stru_2875FD420;
         *buf = 138412803;
         if (!integerValue)
         {
-          v23 = @"NOT ";
+          v30 = @"NOT ";
         }
 
-        v41 = v23;
-        v42 = 2160;
-        v43 = 1752392040;
-        v44 = 2117;
-        v45 = identifierCopy;
-        _os_log_impl(&dword_26450F000, v22, OS_LOG_TYPE_DEFAULT, "Domain-bound verification code is %@valid for app %{sensitive, mask.hash}@.", buf, 0x20u);
+        v47 = v30;
+        v48 = 2160;
+        v49 = 1752392040;
+        v50 = 2117;
+        v51 = identifierCopy;
+        _os_log_impl(&dword_26450F000, v29, OS_LOG_TYPE_DEFAULT, "Domain-bound verification code is %@valid for app %{sensitive, mask.hash}@.", buf, 0x20u);
       }
     }
 
     else
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v31 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v18);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        [(SFAppAutoFillOneTimeCodeProvider *)v24 _domainBindingForRecievedOneTimeCode:v25 forAppWithIdentifier:v26 websiteURL:v27 hasDomainBinding:v28, v29, v30, v31];
+        [(SFAppAutoFillOneTimeCodeProvider *)v31 _domainBindingForRecievedOneTimeCode:v32 forAppWithIdentifier:v33 websiteURL:v34 hasDomainBinding:v35, v36, v37, v38];
       }
 
       integerValue = 0;
@@ -721,7 +728,6 @@ uint64_t __97__SFAppAutoFillOneTimeCodeProvider__orderedCodesFromOneTimeCodesAnd
     integerValue = 2;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
@@ -1013,7 +1019,7 @@ void __63__SFAppAutoFillOneTimeCodeProvider_addObserver_forOneTimeCode___block_i
   dispatch_async(internalQueue, v7);
 }
 
-uint64_t __65__SFAppAutoFillOneTimeCodeProvider_removeObserverForOneTimeCode___block_invoke(uint64_t a1)
+void *__65__SFAppAutoFillOneTimeCodeProvider_removeObserverForOneTimeCode___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 56) removeObjectForKey:*(a1 + 40)];
   result = [*(*(a1 + 32) + 56) count];
@@ -1044,6 +1050,20 @@ uint64_t __65__SFAppAutoFillOneTimeCodeProvider_removeObserverForOneTimeCode___b
   v3 = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
   return v3;
+}
+
+- (void)setIsOneTimeCodeAutoDeletionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  internalQueue = self->_internalQueue;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __72__SFAppAutoFillOneTimeCodeProvider_setIsOneTimeCodeAutoDeletionEnabled___block_invoke;
+  v6[3] = &unk_279B61470;
+  v6[4] = self;
+  enabledCopy2 = enabled;
+  dispatch_async(internalQueue, v6);
+  [(IMOneTimeCodeAccelerator *)self->_messagesOneTimeCodeAccelerator setAutoDeletionPreference:enabledCopy];
 }
 
 - (void)_fetchOneTimeCodeAutoDeletionPreference
@@ -1085,54 +1105,53 @@ void __75__SFAppAutoFillOneTimeCodeProvider__fetchOneTimeCodeAutoDeletionPrefere
 
 void __62__SFAppAutoFillOneTimeCodeProvider__notifyOneTimeCodeObserver__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v12 = 0u;
+  v20 = *MEMORY[0x277D85DE8];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v13;
+    v6 = *v14;
     *&v4 = 138412290;
-    v11 = v4;
+    v12 = v4;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
-        if (objc_opt_respondsToSelector())
+        v8 = *(*(&v13 + 1) + 8 * v7);
+        v9 = objc_opt_respondsToSelector();
+        if (v9)
         {
-          v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+          v11 = WBS_LOG_CHANNEL_PREFIXAutoFill(v9, v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
-            *buf = v11;
-            v17 = v8;
-            _os_log_impl(&dword_26450F000, v9, OS_LOG_TYPE_INFO, "Notifying observer %@ of new one-time code", buf, 0xCu);
+            *buf = v12;
+            v18 = v8;
+            _os_log_impl(&dword_26450F000, v11, OS_LOG_TYPE_INFO, "Notifying observer %@ of new one-time code", buf, 0xCu);
           }
 
-          [v8 oneTimeCodeProviderReceivedCode:{*(a1 + 40), v11, v12}];
+          [v8 oneTimeCodeProviderReceivedCode:{*(a1 + 40), v12, v13}];
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processOneTimeCodeFromMessages:(id)messages
@@ -1141,29 +1160,27 @@ void __62__SFAppAutoFillOneTimeCodeProvider__notifyOneTimeCodeObserver__block_in
   if (messages)
   {
     messagesCopy = messages;
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = WBS_LOG_CHANNEL_PREFIXAutoFill(messagesCopy, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = v5;
+      v7 = v6;
       code = [0 code];
       v10 = 141558275;
       v11 = 1752392040;
       v12 = 2117;
       v13 = code;
-      _os_log_impl(&dword_26450F000, v6, OS_LOG_TYPE_DEFAULT, "Received verification code from Messages: %{sensitive, mask.hash}@", &v10, 0x16u);
+      _os_log_impl(&dword_26450F000, v7, OS_LOG_TYPE_DEFAULT, "Received verification code from Messages: %{sensitive, mask.hash}@", &v10, 0x16u);
     }
 
-    v8 = [[SFAutoFillOneTimeCode alloc] initWithIMCoreDictionary:messagesCopy];
+    v9 = [[SFAutoFillOneTimeCode alloc] initWithIMCoreDictionary:messagesCopy];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  [(SFAppAutoFillOneTimeCodeProvider *)self _processReceivedOneTimeCode:v8 fromSource:0];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(SFAppAutoFillOneTimeCodeProvider *)self _processReceivedOneTimeCode:v9 fromSource:0];
 }
 
 - (void)_processOneTimeCodeFromMail:(id)mail withTimestamp:(id)timestamp andMessageID:(int64_t)d
@@ -1173,10 +1190,10 @@ void __62__SFAppAutoFillOneTimeCodeProvider__notifyOneTimeCodeObserver__block_in
   {
     timestampCopy = timestamp;
     mailCopy = mail;
-    v10 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = WBS_LOG_CHANNEL_PREFIXAutoFill(mailCopy, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v10;
+      v12 = v11;
       code = [0 code];
       v15 = 141558531;
       v16 = 1752392040;
@@ -1184,20 +1201,18 @@ void __62__SFAppAutoFillOneTimeCodeProvider__notifyOneTimeCodeObserver__block_in
       v18 = code;
       v19 = 2048;
       messageID = [0 messageID];
-      _os_log_impl(&dword_26450F000, v11, OS_LOG_TYPE_DEFAULT, "Received verification code from Mail: %{sensitive, mask.hash}@ and MessageID: %ld", &v15, 0x20u);
+      _os_log_impl(&dword_26450F000, v12, OS_LOG_TYPE_DEFAULT, "Received verification code from Mail: %{sensitive, mask.hash}@ and MessageID: %ld", &v15, 0x20u);
     }
 
-    v13 = [[SFAutoFillOneTimeCode alloc] initWithMailOneTimeCode:mailCopy timestamp:timestampCopy messageID:d];
+    v14 = [[SFAutoFillOneTimeCode alloc] initWithMailOneTimeCode:mailCopy timestamp:timestampCopy messageID:d];
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  [(SFAppAutoFillOneTimeCodeProvider *)self _processReceivedOneTimeCode:v13 fromSource:1];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(SFAppAutoFillOneTimeCodeProvider *)self _processReceivedOneTimeCode:v14 fromSource:1];
 }
 
 - (void)_processReceivedOneTimeCode:(id)code fromSource:(int64_t)source
@@ -1240,34 +1255,32 @@ void __62__SFAppAutoFillOneTimeCodeProvider__notifyOneTimeCodeObserver__block_in
 
 id __64__SFAppAutoFillOneTimeCodeProvider__validateCurrentOneTimeCodes__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 timestamp];
   LODWORD(a1) = [v5 safari_isEarlierThanDate:*(a1 + 32)];
 
   if (a1)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = WBS_LOG_CHANNEL_PREFIXAutoFill(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = 141558275;
-      v11 = 1752392040;
-      v12 = 2117;
-      v13 = v4;
-      _os_log_impl(&dword_26450F000, v6, OS_LOG_TYPE_INFO, "%{sensitive, mask.hash}@ is expired; removing from cache", &v10, 0x16u);
+      v11 = 141558275;
+      v12 = 1752392040;
+      v13 = 2117;
+      v14 = v4;
+      _os_log_impl(&dword_26450F000, v8, OS_LOG_TYPE_INFO, "%{sensitive, mask.hash}@ is expired; removing from cache", &v11, 0x16u);
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v7 = v4;
+    v9 = v4;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v9;
 }
 
 - (int64_t)_url:(id)_url matchesURLFromOriginBoundCode:(id)code
@@ -1290,22 +1303,23 @@ id __64__SFAppAutoFillOneTimeCodeProvider__validateCurrentOneTimeCodes__block_in
 - (BOOL)_appWithAppIdentifierIsWebBrowser:(id)browser
 {
   browserCopy = browser;
-  v11 = 0;
-  v4 = [MEMORY[0x277CC1E90] bundleRecordWithApplicationIdentifier:browserCopy error:&v11];
-  v5 = v11;
+  v13 = 0;
+  v4 = [MEMORY[0x277CC1E90] bundleRecordWithApplicationIdentifier:browserCopy error:&v13];
+  v5 = v13;
+  v7 = v5;
   if (v4)
   {
     entitlements = [v4 entitlements];
-    v7 = [entitlements objectForKey:@"com.apple.developer.web-browser" ofClass:objc_opt_class()];
-    bOOLValue = [v7 BOOLValue];
+    v9 = [entitlements objectForKey:@"com.apple.developer.web-browser" ofClass:objc_opt_class()];
+    bOOLValue = [v9 BOOLValue];
   }
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(SFAppAutoFillOneTimeCodeProvider *)browserCopy _appWithAppIdentifierIsWebBrowser:v9];
+      [(SFAppAutoFillOneTimeCodeProvider *)browserCopy _appWithAppIdentifierIsWebBrowser:v11];
     }
 
     bOOLValue = 0;
@@ -1511,42 +1525,43 @@ uint64_t __81__SFAppAutoFillOneTimeCodeProvider__sortedOneTimeCodesFromSavedAcco
 - (id)_associatedDomainEntriesForAppWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
   v4 = dispatch_group_create();
   dispatch_group_enter(v4);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __81__SFAppAutoFillOneTimeCodeProvider__associatedDomainEntriesForAppWithIdentifier___block_invoke;
-  v17[3] = &unk_279B61588;
-  v19 = &v20;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __81__SFAppAutoFillOneTimeCodeProvider__associatedDomainEntriesForAppWithIdentifier___block_invoke;
+  v19[3] = &unk_279B61588;
+  v21 = &v22;
   v5 = v4;
-  v18 = v5;
-  [SFSafariCredentialStore getApprovedSharedWebCredentialsEntriesForAppWithAppID:identifierCopy completionHandler:v17];
+  v20 = v5;
+  [SFSafariCredentialStore getApprovedSharedWebCredentialsEntriesForAppWithAppID:identifierCopy completionHandler:v19];
   v6 = dispatch_time(0, 5);
-  if (dispatch_group_wait(v5, v6))
+  v7 = dispatch_group_wait(v5, v6);
+  if (v7)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(SFAppAutoFillOneTimeCodeProvider *)v7 _associatedDomainEntriesForAppWithIdentifier:v8, v9, v10, v11, v12, v13, v14];
+      [(SFAppAutoFillOneTimeCodeProvider *)v9 _associatedDomainEntriesForAppWithIdentifier:v10, v11, v12, v13, v14, v15, v16];
     }
 
-    v15 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v15 = v21[5];
+    v17 = v23[5];
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v15;
+  return v17;
 }
 
 void __81__SFAppAutoFillOneTimeCodeProvider__associatedDomainEntriesForAppWithIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -1590,28 +1605,28 @@ void __56__SFAppAutoFillOneTimeCodeProvider__startGeneratorTimer__block_invoke(u
 
 void __56__SFAppAutoFillOneTimeCodeProvider__startGeneratorTimer__block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = [*(*(a1 + 32) + 56) keyEnumerator];
-  v1 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v1 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v1)
   {
     v2 = v1;
-    v3 = *v18;
+    v3 = *v17;
     do
     {
       v4 = 0;
       do
       {
-        if (*v18 != v3)
+        if (*v17 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v17 + 1) + 8 * v4);
+        v5 = *(*(&v16 + 1) + 8 * v4);
         if (objc_opt_respondsToSelector())
         {
           v6 = [*(*(a1 + 32) + 56) objectForKey:v5];
@@ -1636,23 +1651,21 @@ void __56__SFAppAutoFillOneTimeCodeProvider__startGeneratorTimer__block_invoke_2
       }
 
       while (v2 != v4);
-      v2 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v2 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v2);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopGeneratorTimer
 {
   dispatch_assert_queue_V2(self->_internalQueue);
-  v3 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXAutoFill(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_26450F000, v3, OS_LOG_TYPE_INFO, "Stopping generator observer timer.", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_26450F000, v5, OS_LOG_TYPE_INFO, "Stopping generator observer timer.", v7, 2u);
   }
 
   [(NSTimer *)self->_generatorTimer invalidate];
@@ -1662,7 +1675,7 @@ void __56__SFAppAutoFillOneTimeCodeProvider__startGeneratorTimer__block_invoke_2
 
 - (void)oneTimeCodeClient:(id)client detectedOneTimeCodes:(id)codes
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   allObjects = [codes allObjects];
   v6 = [allObjects sortedArrayUsingSelector:sel_timestamp];
   firstObject = [v6 firstObject];
@@ -1673,12 +1686,12 @@ void __56__SFAppAutoFillOneTimeCodeProvider__startGeneratorTimer__block_invoke_2
     code = [firstObject code];
     if (![code length])
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v14 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138477827;
-        v30 = applicationIdentifier;
-        _os_log_impl(&dword_26450F000, v12, OS_LOG_TYPE_INFO, "Ignoring OTC from notification from %{private}@ because code string was nil or empty.", buf, 0xCu);
+        v36 = applicationIdentifier;
+        _os_log_impl(&dword_26450F000, v14, OS_LOG_TYPE_INFO, "Ignoring OTC from notification from %{private}@ because code string was nil or empty.", buf, 0xCu);
       }
 
       goto LABEL_24;
@@ -1694,61 +1707,67 @@ void __56__SFAppAutoFillOneTimeCodeProvider__startGeneratorTimer__block_invoke_2
       displayCode = code;
     }
 
-    v13 = displayCode;
+    v15 = displayCode;
     if ([displayCode length])
     {
-      if (([applicationIdentifier isEqualToString:@"com.apple.MobileSMS"] & 1) == 0 && !objc_msgSend(applicationIdentifier, "isEqualToString:", @"com.apple.mail"))
+      v17 = [applicationIdentifier isEqualToString:@"com.apple.MobileSMS"];
+      if ((v17 & 1) == 0)
       {
-        v28 = 0;
-        v16 = [MEMORY[0x277CC1E90] bundleRecordWithApplicationIdentifier:applicationIdentifier error:&v28];
-        v17 = v28;
-        if (v16)
+        v17 = [applicationIdentifier isEqualToString:@"com.apple.mail"];
+        if (!v17)
         {
-          internalQueue = self->_internalQueue;
-          block[0] = MEMORY[0x277D85DD0];
-          block[1] = 3221225472;
-          block[2] = __75__SFAppAutoFillOneTimeCodeProvider_oneTimeCodeClient_detectedOneTimeCodes___block_invoke;
-          block[3] = &unk_279B615D8;
-          v22 = code;
-          v23 = v13;
-          v24 = firstObject;
-          v25 = v16;
-          v26 = applicationIdentifier;
-          selfCopy = self;
-          dispatch_async(internalQueue, block);
-        }
-
-        else
-        {
-          v19 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v34 = 0;
+          v21 = [MEMORY[0x277CC1E90] bundleRecordWithApplicationIdentifier:applicationIdentifier error:&v34];
+          v22 = v34;
+          v24 = v22;
+          if (v21)
           {
-            [(SFAppAutoFillOneTimeCodeProvider *)applicationIdentifier oneTimeCodeClient:v19 detectedOneTimeCodes:v17];
+            internalQueue = self->_internalQueue;
+            block[0] = MEMORY[0x277D85DD0];
+            block[1] = 3221225472;
+            block[2] = __75__SFAppAutoFillOneTimeCodeProvider_oneTimeCodeClient_detectedOneTimeCodes___block_invoke;
+            block[3] = &unk_279B615D8;
+            v28 = code;
+            v29 = v15;
+            v30 = firstObject;
+            v31 = v21;
+            v32 = applicationIdentifier;
+            selfCopy = self;
+            dispatch_async(internalQueue, block);
           }
-        }
 
-        goto LABEL_23;
+          else
+          {
+            v26 = WBS_LOG_CHANNEL_PREFIXAutoFill(v22, v23);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            {
+              [(SFAppAutoFillOneTimeCodeProvider *)applicationIdentifier oneTimeCodeClient:v26 detectedOneTimeCodes:v24];
+            }
+          }
+
+          goto LABEL_23;
+        }
       }
 
-      v14 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v19 = WBS_LOG_CHANNEL_PREFIXAutoFill(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138477827;
-        v30 = applicationIdentifier;
-        v15 = "Ignoring OTC from notification from %{private}@ because it's already covered by other support.";
+        v36 = applicationIdentifier;
+        v20 = "Ignoring OTC from notification from %{private}@ because it's already covered by other support.";
 LABEL_17:
-        _os_log_impl(&dword_26450F000, v14, OS_LOG_TYPE_INFO, v15, buf, 0xCu);
+        _os_log_impl(&dword_26450F000, v19, OS_LOG_TYPE_INFO, v20, buf, 0xCu);
       }
     }
 
     else
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v19 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v16);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138477827;
-        v30 = applicationIdentifier;
-        v15 = "Ignoring OTC from notification from %{private}@ because displayCode string was nil or empty.";
+        v36 = applicationIdentifier;
+        v20 = "Ignoring OTC from notification from %{private}@ because displayCode string was nil or empty.";
         goto LABEL_17;
       }
     }
@@ -1759,16 +1778,14 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v9);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_26450F000, v11, OS_LOG_TYPE_INFO, "Ignoring OTC from notification from app with nil or empty appIdentifier.", buf, 2u);
+    _os_log_impl(&dword_26450F000, v13, OS_LOG_TYPE_INFO, "Ignoring OTC from notification from app with nil or empty appIdentifier.", buf, 2u);
   }
 
 LABEL_25:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SFAppAutoFillOneTimeCodeProvider_oneTimeCodeClient_detectedOneTimeCodes___block_invoke(uint64_t a1)
@@ -1801,6 +1818,20 @@ void __75__SFAppAutoFillOneTimeCodeProvider_oneTimeCodeClient_detectedOneTimeCod
   return bOOLValue;
 }
 
++ (void)setEnableCodesFromNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
+  [safari_browserDefaults setBool:notificationsCopy forKey:*MEMORY[0x277D49C00]];
+}
+
++ (void)setUseUserNotificationsOneTimeCodeSupport:(BOOL)support
+{
+  supportCopy = support;
+  safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
+  [safari_browserDefaults setBool:supportCopy forKey:*MEMORY[0x277D49DB0]];
+}
+
 - (void)test_deliverOneTimeCode:(id)code fromSource:(int64_t)source
 {
   codeCopy = code;
@@ -1818,27 +1849,24 @@ void __75__SFAppAutoFillOneTimeCodeProvider_oneTimeCodeClient_detectedOneTimeCod
 
 - (void)_appWithAppIdentifierIsWebBrowser:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 141558275;
-  v4 = 1752392040;
-  v5 = 2117;
-  v6 = a1;
-  _os_log_error_impl(&dword_26450F000, a2, OS_LOG_TYPE_ERROR, "Could not fetch application record for application identifier: %{sensitive, mask.hash}@.", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 141558275;
+  v3 = 1752392040;
+  v4 = 2117;
+  v5 = a1;
+  _os_log_error_impl(&dword_26450F000, a2, OS_LOG_TYPE_ERROR, "Could not fetch application record for application identifier: %{sensitive, mask.hash}@.", &v2, 0x16u);
 }
 
 - (void)oneTimeCodeClient:(void *)a3 detectedOneTimeCodes:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 safari_privacyPreservingDescription];
-  v8 = 138478083;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_26450F000, v5, OS_LOG_TYPE_ERROR, "Ignoring OTC from notification from %{private}@ because we failed to look up an LSBundleRecord for it, with error: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138478083;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_26450F000, v5, OS_LOG_TYPE_ERROR, "Ignoring OTC from notification from %{private}@ because we failed to look up an LSBundleRecord for it, with error: %@", &v7, 0x16u);
 }
 
 @end

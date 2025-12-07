@@ -89,29 +89,27 @@ void __56__SASCloudKitClient_fetchCurrentDeviceIDWithCompletion___block_invoke(u
 
 - (void)fetchRecordZone:(id)zone group:(id)group completion:(id)completion
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   completionCopy = completion;
   v10 = MEMORY[0x277CBC3D0];
   groupCopy = group;
   v12 = [v10 alloc];
-  v24[0] = zoneCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = zoneCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   v14 = [v12 initWithRecordZoneIDs:v13];
 
   [v14 setGroup:groupCopy];
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __54__SASCloudKitClient_fetchRecordZone_group_completion___block_invoke;
-  v21 = &unk_278846178;
-  v22 = zoneCopy;
-  v23 = completionCopy;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __54__SASCloudKitClient_fetchRecordZone_group_completion___block_invoke;
+  v20 = &unk_278846178;
+  v21 = zoneCopy;
+  v22 = completionCopy;
   v15 = zoneCopy;
   v16 = completionCopy;
-  [v14 setFetchRecordZonesCompletionBlock:&v18];
-  [(SASCloudKitClient *)self _scheduleDatabaseOperation:v14, v18, v19, v20, v21];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v14 setFetchRecordZonesCompletionBlock:&v17];
+  [(SASCloudKitClient *)self _scheduleDatabaseOperation:v14, v17, v18, v19, v20];
 }
 
 void __54__SASCloudKitClient_fetchRecordZone_group_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -127,29 +125,27 @@ void __54__SASCloudKitClient_fetchRecordZone_group_completion___block_invoke(uin
 
 - (void)saveRecordZone:(id)zone group:(id)group completion:(id)completion
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   completionCopy = completion;
   v10 = MEMORY[0x277CBC490];
   groupCopy = group;
   v12 = [v10 alloc];
-  v24[0] = zoneCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = zoneCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   v14 = [v12 initWithRecordZonesToSave:v13 recordZoneIDsToDelete:0];
 
   [v14 setGroup:groupCopy];
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __53__SASCloudKitClient_saveRecordZone_group_completion___block_invoke;
-  v21 = &unk_2788461A0;
-  v22 = zoneCopy;
-  v23 = completionCopy;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __53__SASCloudKitClient_saveRecordZone_group_completion___block_invoke;
+  v20 = &unk_2788461A0;
+  v21 = zoneCopy;
+  v22 = completionCopy;
   v15 = zoneCopy;
   v16 = completionCopy;
-  [v14 setModifyRecordZonesCompletionBlock:&v18];
-  [(SASCloudKitClient *)self _scheduleDatabaseOperation:v14, v18, v19, v20, v21];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v14 setModifyRecordZonesCompletionBlock:&v17];
+  [(SASCloudKitClient *)self _scheduleDatabaseOperation:v14, v17, v18, v19, v20];
 }
 
 void __53__SASCloudKitClient_saveRecordZone_group_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -218,29 +214,27 @@ void __58__SASCloudKitClient_fetchRecords_inZone_group_completion___block_invoke
 
 - (void)saveRecord:(id)record group:(id)group completion:(id)completion
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   completionCopy = completion;
   v10 = MEMORY[0x277CBC4A0];
   groupCopy = group;
   v12 = [v10 alloc];
-  v24[0] = recordCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = recordCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   v14 = [v12 initWithRecordsToSave:v13 recordIDsToDelete:0];
 
   [v14 setGroup:groupCopy];
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __49__SASCloudKitClient_saveRecord_group_completion___block_invoke;
-  v21 = &unk_2788461A0;
-  v22 = recordCopy;
-  v23 = completionCopy;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __49__SASCloudKitClient_saveRecord_group_completion___block_invoke;
+  v20 = &unk_2788461A0;
+  v21 = recordCopy;
+  v22 = completionCopy;
   v15 = recordCopy;
   v16 = completionCopy;
-  [v14 setModifyRecordsCompletionBlock:&v18];
-  [(SASCloudKitClient *)self _scheduleDatabaseOperation:v14, v18, v19, v20, v21];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v14 setModifyRecordsCompletionBlock:&v17];
+  [(SASCloudKitClient *)self _scheduleDatabaseOperation:v14, v17, v18, v19, v20];
 }
 
 void __49__SASCloudKitClient_saveRecord_group_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -270,15 +264,13 @@ void __49__SASCloudKitClient_saveRecord_group_completion___block_invoke(uint64_t
 
 void __58__SASCloudKitClient_fetchRecords_inZone_group_completion___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 recordName];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_22E4D7000, a3, OS_LOG_TYPE_ERROR, "Failed to match record:%@ error:%@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_22E4D7000, a3, OS_LOG_TYPE_ERROR, "Failed to match record:%@ error:%@", &v6, 0x16u);
 }
 
 @end

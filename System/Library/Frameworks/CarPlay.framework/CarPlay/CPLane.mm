@@ -170,43 +170,41 @@ LABEL_5:
 
 void __42__CPLane_CPAccNavUpdate__accNavParameters__block_invoke()
 {
-  v30[4] = *MEMORY[0x277D85DE8];
-  v23 = NSStringFromSelector(sel_index);
-  v25 = [CPAccNavParamKey paramKey:0];
-  v24 = [v25 copySettingIsIntegerValue:1];
-  v29 = v24;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-  v21 = [CPAccNavParam paramWithProperty:v23 keys:v22];
-  v30[0] = v21;
-  v18 = NSStringFromSelector(sel_status);
-  v20 = [CPAccNavParamKey paramKey:1];
-  v19 = [v20 copySettingEnumType:4];
-  v28 = v19;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
-  v16 = [CPAccNavParam paramWithProperty:v18 keys:v17];
-  v30[1] = v16;
-  v13 = NSStringFromSelector(sel_angles);
-  v15 = [CPAccNavParamKey paramKey:2];
-  v14 = [MEMORY[0x277CCADA8] degrees];
-  v12 = [v15 copySettingDimension:v14];
-  v27 = v12;
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
-  v1 = [CPAccNavParam paramWithProperty:v13 keys:v0];
+  v29[4] = *MEMORY[0x277D85DE8];
+  v22 = NSStringFromSelector(sel_index);
+  v24 = [CPAccNavParamKey paramKey:0];
+  v23 = [v24 copySettingIsIntegerValue:1];
+  v28 = v23;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v20 = [CPAccNavParam paramWithProperty:v22 keys:v21];
+  v29[0] = v20;
+  v17 = NSStringFromSelector(sel_status);
+  v19 = [CPAccNavParamKey paramKey:1];
+  v18 = [v19 copySettingEnumType:4];
+  v27 = v18;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v15 = [CPAccNavParam paramWithProperty:v17 keys:v16];
+  v29[1] = v15;
+  v12 = NSStringFromSelector(sel_angles);
+  v14 = [CPAccNavParamKey paramKey:2];
+  v13 = [MEMORY[0x277CCADA8] degrees];
+  v11 = [v14 copySettingDimension:v13];
+  v26 = v11;
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v1 = [CPAccNavParam paramWithProperty:v12 keys:v0];
   v2 = [v1 copySettingCollectionGeneric:objc_opt_class()];
-  v30[2] = v2;
+  v29[2] = v2;
   v3 = NSStringFromSelector(sel_highlightedAngle);
   v4 = [CPAccNavParamKey paramKey:3];
   v5 = [MEMORY[0x277CCADA8] degrees];
   v6 = [v4 copySettingDimension:v5];
-  v26 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v25 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
   v8 = [CPAccNavParam paramWithProperty:v3 keys:v7];
-  v30[3] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+  v29[3] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
   v10 = accNavParameters__accNavParameters_1;
   accNavParameters__accNavParameters_1 = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (NSDictionary)accNavParametersIndexed

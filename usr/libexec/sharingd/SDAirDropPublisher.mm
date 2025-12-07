@@ -88,9 +88,9 @@
   var1 = back->var1;
   if (back->var0 == kCFStreamErrorDomainNetServices && var1 == -72001)
   {
-    v10 = sub_10008FA28(0, 0);
-    v14 = airdrop_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v9 = sub_10008FA28(0, 0);
+    v13 = airdrop_log();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1000749C4();
     }
@@ -98,25 +98,25 @@
     self->_bonjourNameConflictDetected = 1;
     sub_10008FCB8();
     restartTimer = self->_restartTimer;
-    v16 = sub_1001F0530(1.0);
-    sub_1001F05F0(restartTimer, v16);
+    v15 = sub_1001F0530(1.0);
+    sub_1001F05F0(restartTimer, v15);
     goto LABEL_20;
   }
 
   if (!var1)
   {
     self->_retryCount = 0;
-    v10 = airdrop_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = airdrop_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       Name = CFNetServiceGetName(self->_service);
-      *v21 = 138412290;
-      *&v21[4] = Name;
-      v18 = "Bonjour advertise %@ started";
-      v19 = v10;
-      v20 = 12;
+      *v20 = 138412290;
+      *&v20[4] = Name;
+      v17 = "Bonjour advertise %@ started";
+      v18 = v9;
+      v19 = 12;
 LABEL_19:
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, v21, v20);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, v17, v20, v19);
     }
 
 LABEL_20:
@@ -124,41 +124,41 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v8 = airdrop_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v7 = airdrop_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_100074944(&back->var0, p_var1);
+    sub_100074944();
   }
 
   retryCount = self->_retryCount;
   self->_retryCount = retryCount + 1;
-  v10 = airdrop_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v9 = airdrop_log();
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (retryCount > 8)
   {
-    if (v11)
+    if (v10)
     {
-      *v21 = 0;
-      v18 = "Giving up trying to advertise with Bonjour";
-      v19 = v10;
-      v20 = 2;
+      *v20 = 0;
+      v17 = "Giving up trying to advertise with Bonjour";
+      v18 = v9;
+      v19 = 2;
       goto LABEL_19;
     }
 
     goto LABEL_20;
   }
 
-  if (v11)
+  if (v10)
   {
-    *v21 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Retrying Bonjour advertise in 3 seconds...", v21, 2u);
+    *v20 = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Retrying Bonjour advertise in 3 seconds...", v20, 2u);
   }
 
-  v12 = self->_restartTimer;
-  v13 = sub_1001F0530(3.0);
-  sub_1001F05F0(v12, v13);
+  v11 = self->_restartTimer;
+  v12 = sub_1001F0530(3.0);
+  sub_1001F05F0(v11, v12);
 LABEL_21:
-  [(SDStatusMonitor *)self->_monitor setAirDropPublished:*p_var1 == 0, *v21];
+  [(SDStatusMonitor *)self->_monitor setAirDropPublished:*p_var1 == 0, *v20, *&v20[8]];
 }
 
 - (void)updateTXTRecordAndNotify
@@ -236,7 +236,7 @@ LABEL_21:
       v15 = airdrop_log();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_100074A78(&self->_txtRecord);
+        sub_100074A78();
       }
     }
 
@@ -321,7 +321,7 @@ LABEL_21:
           v14 = airdrop_log();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            sub_100074AF0(&error.domain);
+            sub_100074AF0();
           }
         }
 

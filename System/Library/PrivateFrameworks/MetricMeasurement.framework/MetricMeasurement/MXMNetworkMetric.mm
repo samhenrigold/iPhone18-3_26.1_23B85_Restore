@@ -2,6 +2,7 @@
 + (MXMNetworkMetric)currentProcess;
 - (MXMNetworkMetric)initWithBundleIdentifier:(id)identifier;
 - (MXMNetworkMetric)initWithIdentifier:(id)identifier filter:(id)filter;
+- (MXMNetworkMetric)initWithProcessIdentifier:(int)identifier;
 - (MXMNetworkMetric)initWithProcessName:(id)name;
 - (NSNumber)processIdentifier;
 - (NSString)processName;
@@ -15,6 +16,23 @@
   v2 = [[self alloc] initWithProcessIdentifier:getpid()];
 
   return v2;
+}
+
+- (MXMNetworkMetric)initWithProcessIdentifier:(int)identifier
+{
+  v3 = *&identifier;
+  v5 = [MXMSampleTagFilter alloc];
+  v6 = +[MXMUtilizationSampleTag network];
+  v7 = [(MXMSampleTagFilter *)v5 initWithTag:v6 allowDescendents:1];
+
+  v8 = [MXMSampleAttributeFilter alloc];
+  v9 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  v10 = [(MXMSampleAttributeFilter *)v8 initWithAttributeName:@"Process Identifier" numericValue:v9];
+
+  v11 = [MXMSampleFilter filterWithAttributeFilter:v10 tagFilter:v7];
+  v12 = [(MXMNetworkMetric *)self initWithIdentifier:@"com.apple.metricmeasurement.metric.network" filter:v11];
+
+  return v12;
 }
 
 - (MXMNetworkMetric)initWithProcessName:(id)name

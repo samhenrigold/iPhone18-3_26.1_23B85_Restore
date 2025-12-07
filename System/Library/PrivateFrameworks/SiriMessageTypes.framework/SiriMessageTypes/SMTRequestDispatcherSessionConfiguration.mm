@@ -150,7 +150,7 @@ void __58__SMTRequestDispatcherSessionConfiguration_initWithCoder___block_invoke
 
     if (v7)
     {
-      [(SMTRequestDispatcherSessionConfigurationMutating *)v7 clientAuditToken];
+      objc_msgSend_clientAuditToken(v7);
     }
 
     else

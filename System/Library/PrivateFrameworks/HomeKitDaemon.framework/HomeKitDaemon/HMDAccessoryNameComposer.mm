@@ -80,7 +80,7 @@ LABEL_15:
 
 - (NSString)composedString
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   accessoryName = [(HMDAccessoryNameComposer *)self accessoryName];
   accessoryName2 = [(HMDAccessoryNameComposer *)self accessoryName];
   if ([accessoryName2 length])
@@ -95,11 +95,11 @@ LABEL_15:
       v9 = HMDLocalizedStringForKey(@"ACCESSORY_NAME_COMPOSER_FORMAT");
       if (roomNameAtEndSeparatedByWhitespace)
       {
-        v26 = 0;
+        v25 = 0;
         accessoryName3 = [(HMDAccessoryNameComposer *)self accessoryName];
         roomName2 = [(HMDAccessoryNameComposer *)self roomName];
-        v12 = [v8 localizedStringWithValidatedFormat:v9 validFormatSpecifiers:@"%1$@ %2$@" error:&v26, accessoryName3, roomName2];
-        v13 = v26;
+        v12 = [v8 localizedStringWithValidatedFormat:v9 validFormatSpecifiers:@"%1$@ %2$@" error:&v25, accessoryName3, roomName2];
+        v13 = v25;
 
         v14 = v12;
         if (!v12)
@@ -110,13 +110,13 @@ LABEL_15:
           {
             v17 = HMFGetLogIdentifier();
             *buf = 138544130;
-            v28 = v17;
-            v29 = 2112;
-            v30 = @"ACCESSORY_NAME_COMPOSER_FORMAT";
-            v31 = 2112;
-            v32 = @"%1$@ %2$@";
-            v33 = 2112;
-            v34 = v13;
+            v27 = v17;
+            v28 = 2112;
+            v29 = @"ACCESSORY_NAME_COMPOSER_FORMAT";
+            v30 = 2112;
+            v31 = @"%1$@ %2$@";
+            v32 = 2112;
+            v33 = v13;
 LABEL_13:
             _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
@@ -129,11 +129,11 @@ LABEL_13:
 
       else
       {
-        v25 = 0;
+        v24 = 0;
         roomName3 = [(HMDAccessoryNameComposer *)self roomName];
         accessoryName4 = [(HMDAccessoryNameComposer *)self accessoryName];
-        v12 = [v8 localizedStringWithValidatedFormat:v9 validFormatSpecifiers:@"%1$@ %2$@" error:&v25, roomName3, accessoryName4];
-        v13 = v25;
+        v12 = [v8 localizedStringWithValidatedFormat:v9 validFormatSpecifiers:@"%1$@ %2$@" error:&v24, roomName3, accessoryName4];
+        v13 = v24;
 
         v14 = v12;
         if (!v12)
@@ -144,13 +144,13 @@ LABEL_13:
           {
             v17 = HMFGetLogIdentifier();
             *buf = 138544130;
-            v28 = v17;
-            v29 = 2112;
-            v30 = @"ACCESSORY_NAME_COMPOSER_FORMAT";
-            v31 = 2112;
-            v32 = @"%1$@ %2$@";
-            v33 = 2112;
-            v34 = v13;
+            v27 = v17;
+            v28 = 2112;
+            v29 = @"ACCESSORY_NAME_COMPOSER_FORMAT";
+            v30 = 2112;
+            v31 = @"%1$@ %2$@";
+            v32 = 2112;
+            v33 = v13;
             goto LABEL_13;
           }
 
@@ -184,7 +184,6 @@ LABEL_16:
 
   accessoryName = roomName5;
 LABEL_17:
-  v23 = *MEMORY[0x277D85DE8];
 
   return accessoryName;
 }
@@ -198,14 +197,14 @@ LABEL_17:
   v8 = [(HMDAccessoryNameComposer *)&v42 init];
   if (v8)
   {
-    v9 = [nameCopy copy];
+    v9 = objc_msgSend_copy(nameCopy);
     [(HMDAccessoryNameComposer *)v8 setRawAccessoryName:v9];
 
     whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
     v11 = [nameCopy stringByTrimmingCharactersInSet:whitespaceCharacterSet];
     [(HMDAccessoryNameComposer *)v8 setAccessoryName:v11];
 
-    v12 = [roomNameCopy copy];
+    v12 = objc_msgSend_copy(roomNameCopy);
     [(HMDAccessoryNameComposer *)v8 setRawRoomName:v12];
 
     whitespaceCharacterSet2 = [MEMORY[0x277CCA900] whitespaceCharacterSet];

@@ -56,12 +56,11 @@ LABEL_8:
   {
     v19 = *a7;
     *buf = 138412546;
-    v26 = l28BackupTelemetryPlistPath;
-    v27 = 2112;
-    v28 = v19;
+    v25 = l28BackupTelemetryPlistPath;
+    v26 = 2112;
+    v27 = v19;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Error deserializing plist %@ : %@", buf, 0x16u);
-    v24 = *a7;
-    _MBLog();
+    _MBLog(@"Df", "Error deserializing plist %@ : %@", l28BackupTelemetryPlistPath, *a7);
   }
 
   v20 = 0;
@@ -147,7 +146,7 @@ LABEL_12:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Error writing plist to file", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Error writing plist to file");
       }
     }
   }
@@ -160,10 +159,9 @@ LABEL_12:
     {
       v27 = *a8;
       *buf = 138412290;
-      v35 = v27;
+      v34 = v27;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Error serializing dictionary: %@", buf, 0xCu);
-      v31 = *a8;
-      _MBLog();
+      _MBLog(@"Df", "Error serializing dictionary: %@", *a8);
     }
   }
 

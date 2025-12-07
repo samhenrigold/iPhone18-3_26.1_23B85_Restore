@@ -106,11 +106,11 @@ uint64_t sub_100000E68(uint64_t result)
     return result;
   }
 
-  memset(v39, 170, sizeof(v39));
-  sub_100000CC0(v39, result);
-  v1 = sub_100000DF0(v39);
-  v2 = v39[0];
-  if (!v39[0])
+  memset(v38, 170, sizeof(v38));
+  sub_100000CC0(v38, result);
+  v1 = sub_100000DF0(v38);
+  v2 = v38[0];
+  if (!v38[0])
   {
     v2 = "command";
   }
@@ -120,7 +120,7 @@ uint64_t sub_100000E68(uint64_t result)
   {
     v3 = 0;
     v4 = v1;
-    while (!*(v39[2] + v3))
+    while (!*(v38[2] + v3))
     {
 LABEL_17:
       v3 += 104;
@@ -130,16 +130,16 @@ LABEL_17:
         v8 = v1;
         while (2)
         {
-          if (!*(v39[2] + v7 + 8) || *(v39[2] + v7))
+          if (!*(v38[2] + v7 + 8) || *(v38[2] + v7))
           {
             goto LABEL_31;
           }
 
-          printf(" [--%s", *(v39[2] + v7 + 8));
-          if (v39[2])
+          printf(" [--%s", *(v38[2] + v7 + 8));
+          if (v38[2])
           {
-            v9 = *(v39[2] + v7 + 48);
-            if (*(v39[2] + v7 + 56))
+            v9 = *(v38[2] + v7 + 48);
+            if (*(v38[2] + v7 + 56))
             {
               if (!v9)
               {
@@ -147,7 +147,7 @@ LABEL_17:
               }
 
 LABEL_27:
-              v10 = *(v39[2] + v7 + 40);
+              v10 = *(v38[2] + v7 + 40);
               if (!v10)
               {
                 v10 = "arg";
@@ -156,7 +156,7 @@ LABEL_27:
               printf(" %s", v10);
             }
 
-            else if (v9 || *(v39[2] + v7 + 88))
+            else if (v9 || *(v38[2] + v7 + 88))
             {
               goto LABEL_27;
             }
@@ -172,9 +172,9 @@ LABEL_31:
             v12 = v1;
             do
             {
-              if (*(v39[2] + v11))
+              if (*(v38[2] + v11))
               {
-                printf(" [%s]", *(v39[2] + v11));
+                printf(" [%s]", *(v38[2] + v11));
               }
 
               v11 += 104;
@@ -186,9 +186,9 @@ LABEL_31:
             v14 = v1;
             do
             {
-              if (*(v39[2] + v13 + 24))
+              if (*(v38[2] + v13 + 24))
               {
-                if (*(v39[2] + v13 + 32))
+                if (*(v38[2] + v13 + 32))
                 {
                   printf(" [<%s>]");
                 }
@@ -212,11 +212,11 @@ LABEL_31:
       }
     }
 
-    printf(" [-%c", *(v39[2] + v3));
-    if (v39[2])
+    printf(" [-%c", *(v38[2] + v3));
+    if (v38[2])
     {
-      v5 = *(v39[2] + v3 + 48);
-      if (*(v39[2] + v3 + 56))
+      v5 = *(v38[2] + v3 + 48);
+      if (*(v38[2] + v3 + 56))
       {
         if (!v5)
         {
@@ -224,12 +224,12 @@ LABEL_31:
         }
       }
 
-      else if (!v5 && !*(v39[2] + v3 + 88))
+      else if (!v5 && !*(v38[2] + v3 + 88))
       {
         goto LABEL_16;
       }
 
-      v6 = *(v39[2] + v3 + 40);
+      v6 = *(v38[2] + v3 + 40);
       if (!v6)
       {
         v6 = "arg";
@@ -245,9 +245,9 @@ LABEL_16:
 
 LABEL_42:
   putchar(10);
-  if (v39[1])
+  if (v38[1])
   {
-    printf("\n%s\n", v39[1]);
+    printf("\n%s\n", v38[1]);
   }
 
   puts("\npositional arguments:");
@@ -262,9 +262,9 @@ LABEL_42:
   v16 = v1;
   do
   {
-    if (*(v39[2] + v15 + 24))
+    if (*(v38[2] + v15 + 24))
     {
-      printf("  %-31s %s\n", *(v39[2] + v15 + 24), *(v39[2] + v15 + 72));
+      printf("  %-31s %s\n", *(v38[2] + v15 + 24), *(v38[2] + v15 + 72));
     }
 
     v15 += 104;
@@ -277,22 +277,22 @@ LABEL_42:
   v18 = v1;
   do
   {
-    if (!*(v39[2] + v17 - 88))
+    if (!*(v38[2] + v17 - 88))
     {
       goto LABEL_81;
     }
 
-    if (*(v39[2] + v17 - 80))
+    if (*(v38[2] + v17 - 80))
     {
-      printf("  -%c", *(v39[2] + v17 - 88));
-      v19 = v39[2];
-      if (!v39[2])
+      printf("  -%c", *(v38[2] + v17 - 88));
+      v19 = v38[2];
+      if (!v38[2])
       {
         goto LABEL_64;
       }
 
-      v20 = *(v39[2] + v17 - 40);
-      if (*(v39[2] + v17 - 32))
+      v20 = *(v38[2] + v17 - 40);
+      if (*(v38[2] + v17 - 32))
       {
         if (!v20)
         {
@@ -300,19 +300,19 @@ LABEL_42:
         }
       }
 
-      else if (!v20 && !*(v39[2] + v17))
+      else if (!v20 && !*(v38[2] + v17))
       {
         goto LABEL_64;
       }
 
-      v22 = *(v39[2] + v17 - 48);
+      v22 = *(v38[2] + v17 - 48);
       if (!v22)
       {
         v22 = "arg";
       }
 
       printf(" %s", v22);
-      v19 = v39[2];
+      v19 = v38[2];
 LABEL_64:
       v23 = v19 + v17;
       if (*(v19 + v17 - 80))
@@ -330,18 +330,18 @@ LABEL_64:
         else if (v24 || *(v19 + v17))
         {
 LABEL_73:
-          v27 = strlen(*(v19 + v17 - 80));
+          strlen(*(v19 + v17 - 80));
           if (*(v19 + v17 - 48))
           {
-            v28 = *(v19 + v17 - 48);
+            v27 = *(v19 + v17 - 48);
           }
 
           else
           {
-            v28 = "arg";
+            v27 = "arg";
           }
 
-          strlen(v28);
+          strlen(v27);
           printf(", --%s %-*s");
           goto LABEL_80;
         }
@@ -363,8 +363,8 @@ LABEL_73:
       goto LABEL_80;
     }
 
-    v21 = *(v39[2] + v17 - 40);
-    if (*(v39[2] + v17 - 32))
+    v21 = *(v38[2] + v17 - 40);
+    if (*(v38[2] + v17 - 32))
     {
       if (v21)
       {
@@ -372,7 +372,7 @@ LABEL_73:
       }
     }
 
-    else if (v21 || *(v39[2] + v17))
+    else if (v21 || *(v38[2] + v17))
     {
 LABEL_79:
       printf("  -%c %-*s");
@@ -381,87 +381,87 @@ LABEL_79:
 
     printf("  -%-30c");
 LABEL_80:
-    puts(*(v39[2] + v17 - 16));
+    puts(*(v38[2] + v17 - 16));
 LABEL_81:
     v17 += 104;
     --v18;
   }
 
   while (v18);
-  v29 = v1;
+  v28 = v1;
   while (2)
   {
-    v30 = v39[2] + v18;
-    if (*(v39[2] + v18 + 8) && !*v30)
+    v29 = v38[2] + v18;
+    if (*(v38[2] + v18 + 8) && !*v29)
     {
-      v31 = *(v39[2] + v18 + 48);
-      if (*(v39[2] + v18 + 56))
+      v30 = *(v38[2] + v18 + 48);
+      if (*(v38[2] + v18 + 56))
       {
-        if (!v31)
+        if (!v30)
         {
           goto LABEL_87;
         }
 
 LABEL_90:
-        memset(v49, 170, 22);
+        memset(v48, 170, 22);
         *__str = 0xAAAAAAAAAAAAAAAALL;
-        *&v32 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v47 = v32;
-        v45 = v32;
-        v46 = v32;
-        v43 = v32;
-        v44 = v32;
-        v41 = v32;
-        v42 = v32;
-        *v40 = v32;
-        v33 = *(v39[2] + v18 + 88);
-        v34 = *(v30 + 8);
-        v35 = *(v39[2] + v18 + 40);
-        if (!v35)
+        *&v31 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v31 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v46 = v31;
+        v44 = v31;
+        v45 = v31;
+        v42 = v31;
+        v43 = v31;
+        v40 = v31;
+        v41 = v31;
+        *v39 = v31;
+        v32 = *(v38[2] + v18 + 88);
+        v33 = *(v29 + 8);
+        v34 = *(v38[2] + v18 + 40);
+        if (!v34)
         {
-          v35 = "arg";
+          v34 = "arg";
         }
 
-        if (v33)
+        if (v32)
         {
-          v36 = "%s %s...";
-        }
-
-        else
-        {
-          v36 = "%s %s";
-        }
-
-        if (v33)
-        {
-          v37 = "%s [repeatable]";
+          v35 = "%s %s...";
         }
 
         else
         {
-          v37 = "%s";
+          v35 = "%s %s";
         }
 
-        snprintf(__str, 0x1EuLL, v36, v34, v35);
-        snprintf(v40, 0x80uLL, v37, *(v39[2] + v18 + 72));
-        printf("  --%-28s %s\n", __str, v40);
+        if (v32)
+        {
+          v36 = "%s [repeatable]";
+        }
+
+        else
+        {
+          v36 = "%s";
+        }
+
+        snprintf(__str, 0x1EuLL, v35, v33, v34);
+        snprintf(v39, 0x80uLL, v36, *(v38[2] + v18 + 72));
+        printf("  --%-28s %s\n", __str, v39);
       }
 
       else
       {
-        if (v31 || *(v39[2] + v18 + 88))
+        if (v30 || *(v38[2] + v18 + 88))
         {
           goto LABEL_90;
         }
 
 LABEL_87:
-        printf("  --%-28s %s\n", *(v39[2] + v18 + 8), *(v39[2] + v18 + 72));
+        printf("  --%-28s %s\n", *(v38[2] + v18 + 8), *(v38[2] + v18 + 72));
       }
     }
 
     v18 += 104;
-    if (--v29)
+    if (--v28)
     {
       continue;
     }
@@ -470,15 +470,15 @@ LABEL_87:
   }
 
   puts("\noptional commands:");
-  v38 = 0;
+  v37 = 0;
   do
   {
-    if (*(v39[2] + v38 + 16))
+    if (*(v38[2] + v37 + 16))
     {
-      printf("  %-30s %s\n", *(v39[2] + v38 + 16), *(v39[2] + v38 + 72));
+      printf("  %-30s %s\n", *(v38[2] + v37 + 16), *(v38[2] + v37 + 72));
     }
 
-    v38 += 104;
+    v37 += 104;
     --v1;
   }
 
@@ -512,9 +512,9 @@ char **sub_100001438(uint64_t a1, const char *a2)
   return result;
 }
 
-void sub_100001638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -548,9 +548,9 @@ intptr_t sub_100001650(uint64_t a1, int a2, void *a3)
   return dispatch_semaphore_signal(v6);
 }
 
-void sub_100001880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -574,6 +574,13 @@ intptr_t sub_10000189C(uint64_t a1, void *a2)
   return dispatch_semaphore_signal(v4);
 }
 
+void sub_100001CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 intptr_t sub_100001D48(uint64_t a1, void *a2)
 {
   if (a2)
@@ -593,9 +600,9 @@ intptr_t sub_100001D48(uint64_t a1, void *a2)
   return dispatch_semaphore_signal(v4);
 }
 
-void sub_100001F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -710,8 +717,9 @@ id sub_100002214(void *a1)
   return v3;
 }
 
-void sub_100002380(void *a1, int a2)
+void sub_100002380(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = a1;
   v4 = [v3 allKeys];
   v5 = [v4 sortedArrayUsingSelector:"localizedCaseInsensitiveCompare:"];
@@ -737,7 +745,7 @@ void sub_100002380(void *a1, int a2)
 
         v11 = *(*(&v13 + 1) + 8 * i);
         v12 = [v3 objectForKeyedSubscript:{v11, v13}];
-        sub_1000024D4(v11, v12, a2);
+        sub_1000024D4(v11, v12, v2);
       }
 
       v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
@@ -931,6 +939,13 @@ LABEL_17:
   return v6;
 }
 
+void sub_100002E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 intptr_t sub_100002E90(uint64_t a1, void *a2)
 {
   if (a2)
@@ -950,9 +965,9 @@ intptr_t sub_100002E90(uint64_t a1, void *a2)
   return dispatch_semaphore_signal(v4);
 }
 
-void sub_100003238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -987,9 +1002,9 @@ void sub_100003254(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_100003488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1024,9 +1039,9 @@ void sub_1000034A4(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_1000036D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000036D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1076,12 +1091,12 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
   v10 = [v9 mutableCopy];
 
   v11 = &SecIsInternalRelease_ptr;
-  v174 = v10;
-  v172 = v7;
+  v158 = v10;
+  v156 = v7;
   if (v10)
   {
     v12 = [v10 objectForKeyedSubscript:@"reachability"];
-    [v174 setObject:0 forKeyedSubscript:@"reachability"];
+    [v158 setObject:0 forKeyedSubscript:@"reachability"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1093,10 +1108,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v13 = 0;
     }
 
-    v206 = v13;
+    v190 = v13;
 
-    v14 = [v174 objectForKeyedSubscript:@"ckdeviceID"];
-    [v174 setObject:0 forKeyedSubscript:@"ckdeviceID"];
+    v14 = [v158 objectForKeyedSubscript:@"ckdeviceID"];
+    [v158 setObject:0 forKeyedSubscript:@"ckdeviceID"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1108,10 +1123,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v15 = 0;
     }
 
-    v204 = v15;
+    v188 = v15;
 
-    v16 = [v174 objectForKeyedSubscript:@"ckdeviceIDError"];
-    [v174 setObject:0 forKeyedSubscript:@"ckdeviceIDError"];
+    v16 = [v158 objectForKeyedSubscript:@"ckdeviceIDError"];
+    [v158 setObject:0 forKeyedSubscript:@"ckdeviceIDError"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1123,10 +1138,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v17 = 0;
     }
 
-    v202 = v17;
+    v186 = v17;
 
-    v18 = [v174 objectForKeyedSubscript:@"lockstatetracker"];
-    [v174 setObject:0 forKeyedSubscript:@"lockstatetracker"];
+    v18 = [v158 objectForKeyedSubscript:@"lockstatetracker"];
+    [v158 setObject:0 forKeyedSubscript:@"lockstatetracker"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1138,10 +1153,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v19 = 0;
     }
 
-    v200 = v19;
+    v184 = v19;
 
-    v20 = [v174 objectForKeyedSubscript:@"cloudkitRetryAfter"];
-    [v174 setObject:0 forKeyedSubscript:@"cloudkitRetryAfter"];
+    v20 = [v158 objectForKeyedSubscript:@"cloudkitRetryAfter"];
+    [v158 setObject:0 forKeyedSubscript:@"cloudkitRetryAfter"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1153,10 +1168,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v21 = 0;
     }
 
-    v198 = v21;
+    v182 = v21;
 
-    v22 = [v174 objectForKeyedSubscript:@"lastCKKSPush"];
-    [v174 setObject:0 forKeyedSubscript:@"lastCKKSPush"];
+    v22 = [v158 objectForKeyedSubscript:@"lastCKKSPush"];
+    [v158 setObject:0 forKeyedSubscript:@"lastCKKSPush"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1168,10 +1183,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v23 = 0;
     }
 
-    v196 = v23;
+    v180 = v23;
 
-    v24 = [v174 objectForKeyedSubscript:@"policy"];
-    [v174 setObject:0 forKeyedSubscript:@"policy"];
+    v24 = [v158 objectForKeyedSubscript:@"policy"];
+    [v158 setObject:0 forKeyedSubscript:@"policy"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1183,10 +1198,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v25 = 0;
     }
 
-    v214 = v25;
+    v198 = v25;
 
-    v26 = [v174 objectForKeyedSubscript:@"viewsFromPolicy"];
-    [v174 setObject:0 forKeyedSubscript:@"viewsFromPolicy"];
+    v26 = [v158 objectForKeyedSubscript:@"viewsFromPolicy"];
+    [v158 setObject:0 forKeyedSubscript:@"viewsFromPolicy"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1198,10 +1213,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v27 = 0;
     }
 
-    v212 = v27;
+    v196 = v27;
 
-    v28 = [v174 objectForKeyedSubscript:@"activeAccount"];
-    [v174 setObject:0 forKeyedSubscript:@"activeAccount"];
+    v28 = [v158 objectForKeyedSubscript:@"activeAccount"];
+    [v158 setObject:0 forKeyedSubscript:@"activeAccount"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1213,10 +1228,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v29 = 0;
     }
 
-    v210 = v29;
+    v194 = v29;
 
-    v30 = [v174 objectForKeyedSubscript:@"ckaccountstatus"];
-    [v174 setObject:0 forKeyedSubscript:@"ckaccountstatus"];
+    v30 = [v158 objectForKeyedSubscript:@"ckaccountstatus"];
+    [v158 setObject:0 forKeyedSubscript:@"ckaccountstatus"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1228,10 +1243,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v31 = 0;
     }
 
-    v208 = v31;
+    v192 = v31;
 
-    v32 = [v174 objectForKeyedSubscript:@"accounttracker"];
-    [v174 setObject:0 forKeyedSubscript:@"accounttracker"];
+    v32 = [v158 objectForKeyedSubscript:@"accounttracker"];
+    [v158 setObject:0 forKeyedSubscript:@"accounttracker"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1245,8 +1260,8 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
 
     v34 = v33;
 
-    v35 = [v174 objectForKeyedSubscript:@"fetcher"];
-    [v174 setObject:0 forKeyedSubscript:@"fetcher"];
+    v35 = [v158 objectForKeyedSubscript:@"fetcher"];
+    [v158 setObject:0 forKeyedSubscript:@"fetcher"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1258,10 +1273,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v36 = 0;
     }
 
-    v194 = v36;
+    v178 = v36;
 
-    v37 = [v174 objectForKeyedSubscript:@"ckksstate"];
-    [v174 setObject:0 forKeyedSubscript:@"ckksstate"];
+    v37 = [v158 objectForKeyedSubscript:@"ckksstate"];
+    [v158 setObject:0 forKeyedSubscript:@"ckksstate"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1275,8 +1290,8 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
 
     v39 = v38;
 
-    v40 = [v174 objectForKeyedSubscript:@"lastIncomingQueueOperation"];
-    [v174 setObject:0 forKeyedSubscript:@"lastIncomingQueueOperation"];
+    v40 = [v158 objectForKeyedSubscript:@"lastIncomingQueueOperation"];
+    [v158 setObject:0 forKeyedSubscript:@"lastIncomingQueueOperation"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1288,10 +1303,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v41 = 0;
     }
 
-    v192 = v41;
+    v176 = v41;
 
-    v42 = [v174 objectForKeyedSubscript:@"lastNewTLKOperation"];
-    [v174 setObject:0 forKeyedSubscript:@"lastNewTLKOperation"];
+    v42 = [v158 objectForKeyedSubscript:@"lastNewTLKOperation"];
+    [v158 setObject:0 forKeyedSubscript:@"lastNewTLKOperation"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1303,10 +1318,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v43 = 0;
     }
 
-    v190 = v43;
+    v174 = v43;
 
-    v44 = [v174 objectForKeyedSubscript:@"lastOutgoingQueueOperation"];
-    [v174 setObject:0 forKeyedSubscript:@"lastOutgoingQueueOperation"];
+    v44 = [v158 objectForKeyedSubscript:@"lastOutgoingQueueOperation"];
+    [v158 setObject:0 forKeyedSubscript:@"lastOutgoingQueueOperation"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1318,10 +1333,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v45 = 0;
     }
 
-    v188 = v45;
+    v172 = v45;
 
-    v46 = [v174 objectForKeyedSubscript:@"lastProcessReceivedKeysOperation"];
-    [v174 setObject:0 forKeyedSubscript:@"lastProcessReceivedKeysOperation"];
+    v46 = [v158 objectForKeyedSubscript:@"lastProcessReceivedKeysOperation"];
+    [v158 setObject:0 forKeyedSubscript:@"lastProcessReceivedKeysOperation"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1333,10 +1348,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       v47 = 0;
     }
 
-    v186 = v47;
+    v170 = v47;
 
-    v48 = [v174 objectForKeyedSubscript:@"lastReencryptOutgoingItemsOperation"];
-    [v174 setObject:0 forKeyedSubscript:@"lastReencryptOutgoingItemsOperation"];
+    v48 = [v158 objectForKeyedSubscript:@"lastReencryptOutgoingItemsOperation"];
+    [v158 setObject:0 forKeyedSubscript:@"lastReencryptOutgoingItemsOperation"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1350,8 +1365,8 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
 
     v50 = v49;
 
-    v51 = [v174 objectForKeyedSubscript:@"launchSequence"];
-    [v174 setObject:0 forKeyedSubscript:@"launchSequence"];
+    v51 = [v158 objectForKeyedSubscript:@"launchSequence"];
+    [v158 setObject:0 forKeyedSubscript:@"launchSequence"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1372,43 +1387,43 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
     }
 
     printf("CKKS state machine:   %s\n", [v39 UTF8String]);
-    printf("Active account:       %s\n", [v210 UTF8String]);
-    printf("CloudKit account:     %s\n", [v208 UTF8String]);
+    printf("Active account:       %s\n", [v194 UTF8String]);
+    printf("CloudKit account:     %s\n", [v192 UTF8String]);
     printf("Account tracker:      %s\n", [v34 UTF8String]);
-    v54 = [v214 description];
+    v54 = [v198 description];
     printf("Syncing Policy:       %s\n", [v54 UTF8String]);
 
-    v55 = [v212 description];
+    v55 = [v196 description];
     printf("Views from policy:    %s\n", [v55 UTF8String]);
 
     if ((*(a1 + 40) & 1) == 0)
     {
-      v184 = v50;
-      v56 = [v206 description];
+      v168 = v50;
+      v56 = [v190 description];
       printf("Reachability:         %s\n", [v56 UTF8String]);
 
-      v57 = [v198 description];
+      v57 = [v182 description];
       printf("Retry:                %s\n", [v57 UTF8String]);
 
-      v58 = [v204 description];
+      v58 = [v188 description];
       printf("CK DeviceID:          %s\n", [v58 UTF8String]);
 
-      v59 = [v202 description];
+      v59 = [v186 description];
       printf("CK DeviceID Error:    %s\n", [v59 UTF8String]);
 
-      v60 = [v200 description];
+      v60 = [v184 description];
       printf("Lock state:           %s\n", [v60 UTF8String]);
 
-      v61 = [v196 description];
+      v61 = [v180 description];
       printf("Last CKKS push:       %s\n", [v61 UTF8String]);
 
       putchar(10);
-      v62 = [v194 description];
+      v62 = [v178 description];
       printf("zone change fetcher:                 %s\n", [v62 UTF8String]);
 
-      if (v192)
+      if (v176)
       {
-        v63 = [v192 UTF8String];
+        v63 = [v176 UTF8String];
       }
 
       else
@@ -1417,9 +1432,9 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       }
 
       printf("lastIncomingQueueOperation:          %s\n", v63);
-      if (v190)
+      if (v174)
       {
-        v64 = [v190 UTF8String];
+        v64 = [v174 UTF8String];
       }
 
       else
@@ -1428,9 +1443,9 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       }
 
       printf("lastNewTLKOperation:                 %s\n", v64);
-      if (v188)
+      if (v172)
       {
-        v65 = [v188 UTF8String];
+        v65 = [v172 UTF8String];
       }
 
       else
@@ -1439,10 +1454,10 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
       }
 
       printf("lastOutgoingQueueOperation:          %s\n", v65);
-      v181 = v34;
-      if (v186)
+      v165 = v34;
+      if (v170)
       {
-        v66 = [v186 UTF8String];
+        v66 = [v170 UTF8String];
       }
 
       else
@@ -1452,9 +1467,9 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
 
       v67 = v5;
       printf("lastProcessReceivedKeysOperation:    %s\n", v66);
-      if (v184)
+      if (v168)
       {
-        v68 = [v184 UTF8String];
+        v68 = [v168 UTF8String];
       }
 
       else
@@ -1464,30 +1479,30 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
 
       printf("lastReencryptOutgoingItemsOperation: %s\n", v68);
       puts("Launch sequence:");
-      v224 = 0u;
-      v225 = 0u;
-      v226 = 0u;
-      v227 = 0u;
+      v208 = 0u;
+      v209 = 0u;
+      v210 = 0u;
+      v211 = 0u;
       v69 = v53;
-      v70 = [v69 countByEnumeratingWithState:&v224 objects:v230 count:16];
+      v70 = [v69 countByEnumeratingWithState:&v208 objects:v214 count:16];
       if (v70)
       {
         v71 = v70;
-        v72 = *v225;
+        v72 = *v209;
         do
         {
           for (i = 0; i != v71; i = i + 1)
           {
-            if (*v225 != v72)
+            if (*v209 != v72)
             {
               objc_enumerationMutation(v69);
             }
 
-            v74 = [*(*(&v224 + 1) + 8 * i) description];
+            v74 = [*(*(&v208 + 1) + 8 * i) description];
             printf("\t%s\n", [v74 UTF8String]);
           }
 
-          v71 = [v69 countByEnumeratingWithState:&v224 objects:v230 count:16];
+          v71 = [v69 countByEnumeratingWithState:&v208 objects:v214 count:16];
         }
 
         while (v71);
@@ -1495,8 +1510,8 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
 
       v5 = v67;
       v11 = &SecIsInternalRelease_ptr;
-      v34 = v181;
-      v50 = v184;
+      v34 = v165;
+      v50 = v168;
     }
 
     putchar(10);
@@ -1512,97 +1527,123 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
     v75 = [v5 subarrayWithRange:{1, objc_msgSend(v5, "count") - 1}];
   }
 
-  v173 = v5;
+  v157 = v5;
   if (![v75 count])
   {
     puts("No CKKS views are active.");
   }
 
-  v222 = 0u;
-  v223 = 0u;
-  v220 = 0u;
-  v221 = 0u;
+  v206 = 0u;
+  v207 = 0u;
+  v204 = 0u;
+  v205 = 0u;
   obj = v75;
-  v180 = [obj countByEnumeratingWithState:&v220 objects:v229 count:16];
-  if (v180)
+  v164 = [obj countByEnumeratingWithState:&v204 objects:v213 count:16];
+  if (v164)
   {
-    v179 = *v221;
-    v175 = a1;
+    v163 = *v205;
+    v159 = a1;
     do
     {
-      for (j = 0; j != v180; j = j + 1)
+      for (j = 0; j != v164; j = j + 1)
       {
-        if (*v221 != v179)
+        if (*v205 != v163)
         {
           objc_enumerationMutation(obj);
         }
 
         v77 = *(a1 + 40);
-        v78 = [*(*(&v220 + 1) + 8 * j) mutableCopy];
+        v78 = [*(*(&v204 + 1) + 8 * j) mutableCopy];
         v79 = [v78 objectForKeyedSubscript:@"view"];
         [v78 setObject:0 forKeyedSubscript:@"view"];
-        v80 = v11[77];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v81 = v79;
+          v80 = v79;
         }
 
         else
         {
-          v81 = 0;
+          v80 = 0;
         }
 
-        v82 = v81;
+        v81 = v80;
 
         if (v77 == 1)
         {
-          v83 = [v78 objectForKeyedSubscript:@"keystate"];
+          v82 = [v78 objectForKeyedSubscript:@"keystate"];
           [v78 setObject:0 forKeyedSubscript:@"keystate"];
-          v84 = v11[77];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v85 = v83;
+            v83 = v82;
           }
 
           else
           {
-            v85 = 0;
+            v83 = 0;
           }
 
-          v86 = v85;
+          v84 = v83;
 
-          v87 = [v82 UTF8String];
-          v88 = [v86 UTF8String];
+          v85 = [v81 UTF8String];
+          v86 = [v84 UTF8String];
 
-          printf("%-25s: %s\n", v87, v88);
+          printf("%-25s: %s\n", v85, v86);
           goto LABEL_198;
         }
 
-        v89 = [v78 objectForKeyedSubscript:@"ckksManaged"];
+        v87 = [v78 objectForKeyedSubscript:@"ckksManaged"];
         [v78 setObject:0 forKeyedSubscript:@"ckksManaged"];
-        v90 = v11[77];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v91 = v89;
+          v88 = v87;
         }
 
         else
         {
-          v91 = 0;
+          v88 = 0;
         }
 
-        v211 = v91;
+        v195 = v88;
 
-        v92 = [v78 objectForKeyedSubscript:@"zoneCreated"];
+        v89 = [v78 objectForKeyedSubscript:@"zoneCreated"];
         [v78 setObject:0 forKeyedSubscript:@"zoneCreated"];
-        v93 = v11[77];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v94 = v92;
+          v90 = v89;
+        }
+
+        else
+        {
+          v90 = 0;
+        }
+
+        v199 = v90;
+
+        v91 = [v78 objectForKeyedSubscript:@"zoneSubscribed"];
+        [v78 setObject:0 forKeyedSubscript:@"zoneSubscribed"];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v92 = v91;
+        }
+
+        else
+        {
+          v92 = 0;
+        }
+
+        v197 = v92;
+
+        v93 = [v78 objectForKeyedSubscript:@"initialSyncFinished"];
+        [v78 setObject:0 forKeyedSubscript:@"initialSyncFinished"];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v94 = v93;
         }
 
         else
@@ -1610,31 +1651,44 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
           v94 = 0;
         }
 
-        v215 = v94;
+        v187 = v94;
 
-        v95 = [v78 objectForKeyedSubscript:@"zoneSubscribed"];
-        [v78 setObject:0 forKeyedSubscript:@"zoneSubscribed"];
-        v96 = v11[77];
+        v95 = [v78 objectForKeyedSubscript:@"zoneInitializeScheduler"];
+        [v78 setObject:0 forKeyedSubscript:@"zoneInitializeScheduler"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v97 = v95;
+          v96 = v95;
         }
 
         else
         {
-          v97 = 0;
+          v96 = 0;
         }
 
-        v213 = v97;
+        v191 = v96;
 
-        v98 = [v78 objectForKeyedSubscript:@"initialSyncFinished"];
-        [v78 setObject:0 forKeyedSubscript:@"initialSyncFinished"];
-        v99 = v11[77];
+        v97 = [v78 objectForKeyedSubscript:@"keystate"];
+        [v78 setObject:0 forKeyedSubscript:@"keystate"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v100 = v98;
+          v98 = v97;
+        }
+
+        else
+        {
+          v98 = 0;
+        }
+
+        v193 = v98;
+
+        v99 = [v78 objectForKeyedSubscript:@"statusError"];
+        [v78 setObject:0 forKeyedSubscript:@"statusError"];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v100 = v99;
         }
 
         else
@@ -1642,15 +1696,14 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
           v100 = 0;
         }
 
-        v203 = v100;
+        v101 = v100;
 
-        v101 = [v78 objectForKeyedSubscript:@"zoneInitializeScheduler"];
-        [v78 setObject:0 forKeyedSubscript:@"zoneInitializeScheduler"];
-        v102 = v11[77];
+        v102 = [v78 objectForKeyedSubscript:@"itemsyncing"];
+        [v78 setObject:0 forKeyedSubscript:@"itemsyncing"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v103 = v101;
+          v103 = v102;
         }
 
         else
@@ -1658,31 +1711,44 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
           v103 = 0;
         }
 
-        v207 = v103;
+        v185 = v103;
 
-        v104 = [v78 objectForKeyedSubscript:@"keystate"];
-        [v78 setObject:0 forKeyedSubscript:@"keystate"];
-        v105 = v11[77];
+        v104 = [v78 objectForKeyedSubscript:@"currentTLK"];
+        [v78 setObject:0 forKeyedSubscript:@"currentTLK"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v106 = v104;
+          v105 = v104;
         }
 
         else
         {
-          v106 = 0;
+          v105 = 0;
         }
 
-        v209 = v106;
+        v183 = v105;
 
-        v107 = [v78 objectForKeyedSubscript:@"statusError"];
-        [v78 setObject:0 forKeyedSubscript:@"statusError"];
-        v108 = v11[77];
+        v106 = [v78 objectForKeyedSubscript:@"currentClassA"];
+        [v78 setObject:0 forKeyedSubscript:@"currentClassA"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v109 = v107;
+          v107 = v106;
+        }
+
+        else
+        {
+          v107 = 0;
+        }
+
+        v181 = v107;
+
+        v108 = [v78 objectForKeyedSubscript:@"currentClassC"];
+        [v78 setObject:0 forKeyedSubscript:@"currentClassC"];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v109 = v108;
         }
 
         else
@@ -1690,15 +1756,29 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
           v109 = 0;
         }
 
-        v110 = v109;
+        v179 = v109;
 
-        v111 = [v78 objectForKeyedSubscript:@"itemsyncing"];
-        [v78 setObject:0 forKeyedSubscript:@"itemsyncing"];
-        v112 = v11[77];
+        v110 = [v78 objectForKeyedSubscript:@"currentTLKPtr"];
+        [v78 setObject:0 forKeyedSubscript:@"currentTLKPtr"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v113 = v111;
+          v111 = v110;
+        }
+
+        else
+        {
+          v111 = 0;
+        }
+
+        v189 = v111;
+
+        v112 = [v78 objectForKeyedSubscript:@"currentClassAPtr"];
+        [v78 setObject:0 forKeyedSubscript:@"currentClassAPtr"];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v113 = v112;
         }
 
         else
@@ -1706,31 +1786,44 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
           v113 = 0;
         }
 
-        v201 = v113;
+        v167 = v113;
 
-        v114 = [v78 objectForKeyedSubscript:@"currentTLK"];
-        [v78 setObject:0 forKeyedSubscript:@"currentTLK"];
-        v115 = v11[77];
+        v114 = [v78 objectForKeyedSubscript:@"currentClassCPtr"];
+        [v78 setObject:0 forKeyedSubscript:@"currentClassCPtr"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v116 = v114;
+          v115 = v114;
         }
 
         else
         {
-          v116 = 0;
+          v115 = 0;
         }
 
-        v199 = v116;
+        v166 = v115;
 
-        v117 = [v78 objectForKeyedSubscript:@"currentClassA"];
-        [v78 setObject:0 forKeyedSubscript:@"currentClassA"];
-        v118 = v11[77];
+        v116 = [v78 objectForKeyedSubscript:@"launchSequence"];
+        [v78 setObject:0 forKeyedSubscript:@"launchSequence"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v119 = v117;
+          v117 = v116;
+        }
+
+        else
+        {
+          v117 = 0;
+        }
+
+        v161 = v117;
+
+        v118 = [v78 objectForKeyedSubscript:@"oqe"];
+        [v78 setObject:0 forKeyedSubscript:@"oqe"];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v119 = v118;
         }
 
         else
@@ -1738,31 +1831,44 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
           v119 = 0;
         }
 
-        v197 = v119;
+        v177 = v119;
 
-        v120 = [v78 objectForKeyedSubscript:@"currentClassC"];
-        [v78 setObject:0 forKeyedSubscript:@"currentClassC"];
-        v121 = v11[77];
+        v120 = [v78 objectForKeyedSubscript:@"iqe"];
+        [v78 setObject:0 forKeyedSubscript:@"iqe"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v122 = v120;
+          v121 = v120;
         }
 
         else
         {
-          v122 = 0;
+          v121 = 0;
         }
 
-        v195 = v122;
+        v175 = v121;
 
-        v123 = [v78 objectForKeyedSubscript:@"currentTLKPtr"];
-        [v78 setObject:0 forKeyedSubscript:@"currentTLKPtr"];
-        v124 = v11[77];
+        v122 = [v78 objectForKeyedSubscript:@"keys"];
+        [v78 setObject:0 forKeyedSubscript:@"keys"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v125 = v123;
+          v123 = v122;
+        }
+
+        else
+        {
+          v123 = 0;
+        }
+
+        v173 = v123;
+
+        v124 = [v78 objectForKeyedSubscript:@"ckmirror"];
+        [v78 setObject:0 forKeyedSubscript:@"ckmirror"];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v125 = v124;
         }
 
         else
@@ -1770,290 +1876,183 @@ void sub_1000038F4(uint64_t a1, void *a2, void *a3)
           v125 = 0;
         }
 
-        v205 = v125;
+        v171 = v125;
 
-        v126 = [v78 objectForKeyedSubscript:@"currentClassAPtr"];
-        [v78 setObject:0 forKeyedSubscript:@"currentClassAPtr"];
-        v127 = v11[77];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v128 = v126;
-        }
-
-        else
-        {
-          v128 = 0;
-        }
-
-        v183 = v128;
-
-        v129 = [v78 objectForKeyedSubscript:@"currentClassCPtr"];
-        [v78 setObject:0 forKeyedSubscript:@"currentClassCPtr"];
-        v130 = v11[77];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v131 = v129;
-        }
-
-        else
-        {
-          v131 = 0;
-        }
-
-        v182 = v131;
-
-        v132 = [v78 objectForKeyedSubscript:@"launchSequence"];
-        [v78 setObject:0 forKeyedSubscript:@"launchSequence"];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v133 = v132;
-        }
-
-        else
-        {
-          v133 = 0;
-        }
-
-        v177 = v133;
-
-        v134 = [v78 objectForKeyedSubscript:@"oqe"];
-        [v78 setObject:0 forKeyedSubscript:@"oqe"];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v135 = v134;
-        }
-
-        else
-        {
-          v135 = 0;
-        }
-
-        v193 = v135;
-
-        v136 = [v78 objectForKeyedSubscript:@"iqe"];
-        [v78 setObject:0 forKeyedSubscript:@"iqe"];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v137 = v136;
-        }
-
-        else
-        {
-          v137 = 0;
-        }
-
-        v191 = v137;
-
-        v138 = [v78 objectForKeyedSubscript:@"keys"];
-        [v78 setObject:0 forKeyedSubscript:@"keys"];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v139 = v138;
-        }
-
-        else
-        {
-          v139 = 0;
-        }
-
-        v189 = v139;
-
-        v140 = [v78 objectForKeyedSubscript:@"ckmirror"];
-        [v78 setObject:0 forKeyedSubscript:@"ckmirror"];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v141 = v140;
-        }
-
-        else
-        {
-          v141 = 0;
-        }
-
-        v187 = v141;
-
-        v142 = [v78 objectForKeyedSubscript:@"devicestates"];
+        v126 = [v78 objectForKeyedSubscript:@"devicestates"];
         [v78 setObject:0 forKeyedSubscript:@"devicestates"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v143 = v142;
+          v127 = v126;
         }
 
         else
         {
-          v143 = 0;
+          v127 = 0;
         }
 
-        v185 = v143;
+        v169 = v127;
 
-        v144 = [v78 objectForKeyedSubscript:@"tlkshares"];
+        v128 = [v78 objectForKeyedSubscript:@"tlkshares"];
         [v78 setObject:0 forKeyedSubscript:@"tlkshares"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v145 = v144;
+          v129 = v128;
         }
 
         else
         {
-          v145 = 0;
+          v129 = 0;
         }
 
-        v146 = v145;
+        v130 = v129;
 
         puts("================================================================================\n");
-        printf("View: %s\n\n", [v82 UTF8String]);
-        if (v110)
+        printf("View: %s\n\n", [v81 UTF8String]);
+        if (v101)
         {
-          printf("ERROR FETCHING STATUS: %s\n\n", [v110 UTF8String]);
+          printf("ERROR FETCHING STATUS: %s\n\n", [v101 UTF8String]);
         }
 
-        v178 = v110;
-        if (![v215 isEqualToString:@"yes"] || (objc_msgSend(v213, "isEqualToString:", @"yes") & 1) == 0)
+        v162 = v101;
+        if (![v199 isEqualToString:@"yes"] || (objc_msgSend(v197, "isEqualToString:", @"yes") & 1) == 0)
         {
-          v147 = [v215 description];
-          printf("CK Zone Created:            %s\n", [v147 UTF8String]);
+          v131 = [v199 description];
+          printf("CK Zone Created:            %s\n", [v131 UTF8String]);
 
-          v148 = [v213 description];
-          printf("CK Zone Subscribed:         %s\n", [v148 UTF8String]);
+          v132 = [v197 description];
+          printf("CK Zone Subscribed:         %s\n", [v132 UTF8String]);
 
-          v149 = [v207 description];
-          printf("CK Zone initialize retry:   %s\n", [v149 UTF8String]);
+          v133 = [v191 description];
+          printf("CK Zone initialize retry:   %s\n", [v133 UTF8String]);
 
           putchar(10);
         }
 
-        printf("Key state:            %s\n", [v209 UTF8String]);
-        printf("CKKS managed view:    %s\n", [v211 UTF8String]);
-        v150 = [v211 isEqualToString:@"yes"];
-        if (!v150)
+        printf("Key state:            %s\n", [v193 UTF8String]);
+        printf("CKKS managed view:    %s\n", [v195 UTF8String]);
+        v134 = [v195 isEqualToString:@"yes"];
+        if (!v134)
         {
-          v151 = [v205 description];
-          [v151 UTF8String];
+          v135 = [v189 description];
+          [v135 UTF8String];
           printf("Current TLK:          %s\n");
 LABEL_185:
 
           goto LABEL_186;
         }
 
-        if (v199)
+        if (v183)
         {
-          printf("Current TLK:          %s\n", [v199 UTF8String]);
+          printf("Current TLK:          %s\n", [v183 UTF8String]);
         }
 
         else
         {
-          v152 = [v11[77] stringWithFormat:@"missing pointer is %@", v205];;
-          printf("Current TLK:          %s\n", [v152 UTF8String]);
+          v136 = [v11[77] stringWithFormat:@"missing pointer is %@", v189];;
+          printf("Current TLK:          %s\n", [v136 UTF8String]);
         }
 
-        if (v197)
+        if (v181)
         {
-          printf("Current ClassA:       %s\n", [v197 UTF8String]);
+          printf("Current ClassA:       %s\n", [v181 UTF8String]);
         }
 
         else
         {
-          v153 = [v11[77] stringWithFormat:@"missing pointer is %@", v183];;
-          printf("Current ClassA:       %s\n", [v153 UTF8String]);
+          v137 = [v11[77] stringWithFormat:@"missing pointer is %@", v167];;
+          printf("Current ClassA:       %s\n", [v137 UTF8String]);
         }
 
-        if (!v195)
+        if (!v179)
         {
-          v151 = [v11[77] stringWithFormat:@"missing pointer is %@", v182];;
-          [v151 UTF8String];
+          v135 = [v11[77] stringWithFormat:@"missing pointer is %@", v166];;
+          [v135 UTF8String];
           printf("Current ClassC:       %s\n");
           goto LABEL_185;
         }
 
-        printf("Current ClassC:       %s\n", [v195 UTF8String]);
+        printf("Current ClassC:       %s\n", [v179 UTF8String]);
 LABEL_186:
-        v154 = [v146 description];
-        printf("TLK shares:           %s\n", [v154 UTF8String]);
+        v138 = [v130 description];
+        printf("TLK shares:           %s\n", [v138 UTF8String]);
 
-        if (v150)
+        if (v134)
         {
-          v155 = [v201 description];
-          printf("Item syncing:          %s\n", [v155 UTF8String]);
+          v139 = [v185 description];
+          printf("Item syncing:          %s\n", [v139 UTF8String]);
 
-          v156 = [v203 description];
-          printf("Initial sync finished: %s\n", [v156 UTF8String]);
+          v140 = [v187 description];
+          printf("Initial sync finished: %s\n", [v140 UTF8String]);
 
-          v157 = [v193 description];
-          printf("Outgoing Queue counts: %s\n", [v157 UTF8String]);
+          v141 = [v177 description];
+          printf("Outgoing Queue counts: %s\n", [v141 UTF8String]);
 
-          v158 = [v191 description];
-          printf("Incoming Queue counts: %s\n", [v158 UTF8String]);
+          v142 = [v175 description];
+          printf("Incoming Queue counts: %s\n", [v142 UTF8String]);
 
-          v159 = [v189 description];
-          printf("Key counts: %s\n", [v159 UTF8String]);
+          v143 = [v173 description];
+          printf("Key counts: %s\n", [v143 UTF8String]);
 
-          v160 = [v187 description];
-          printf("Item counts (by key):  %s\n", [v160 UTF8String]);
+          v144 = [v171 description];
+          printf("Item counts (by key):  %s\n", [v144 UTF8String]);
 
-          v161 = [v185 description];
-          printf("Peer states:           %s\n", [v161 UTF8String]);
+          v145 = [v169 description];
+          printf("Peer states:           %s\n", [v145 UTF8String]);
         }
 
-        v162 = v146;
+        v146 = v130;
         puts("Launch sequence:");
-        v216 = 0u;
-        v217 = 0u;
-        v218 = 0u;
-        v219 = 0u;
-        v163 = v177;
-        v164 = [v163 countByEnumeratingWithState:&v216 objects:v228 count:16];
-        if (v164)
+        v200 = 0u;
+        v201 = 0u;
+        v202 = 0u;
+        v203 = 0u;
+        v147 = v161;
+        v148 = [v147 countByEnumeratingWithState:&v200 objects:v212 count:16];
+        if (v148)
         {
-          v165 = v164;
-          v166 = *v217;
+          v149 = v148;
+          v150 = *v201;
           do
           {
-            for (k = 0; k != v165; k = k + 1)
+            for (k = 0; k != v149; k = k + 1)
             {
-              if (*v217 != v166)
+              if (*v201 != v150)
               {
-                objc_enumerationMutation(v163);
+                objc_enumerationMutation(v147);
               }
 
-              v168 = [*(*(&v216 + 1) + 8 * k) description];
-              printf("\t%s\n", [v168 UTF8String]);
+              v152 = [*(*(&v200 + 1) + 8 * k) description];
+              printf("\t%s\n", [v152 UTF8String]);
             }
 
-            v165 = [v163 countByEnumeratingWithState:&v216 objects:v228 count:16];
+            v149 = [v147 countByEnumeratingWithState:&v200 objects:v212 count:16];
           }
 
-          while (v165);
+          while (v149);
         }
 
-        v169 = [v78 allKeys];
-        v170 = [v169 count];
+        v153 = [v78 allKeys];
+        v154 = [v153 count];
 
-        if (v170)
+        if (v154)
         {
-          v171 = [v78 description];
-          printf("\nExtra information: %s\n", [v171 UTF8String]);
+          v155 = [v78 description];
+          printf("\nExtra information: %s\n", [v155 UTF8String]);
         }
 
         putchar(10);
 
-        a1 = v175;
+        a1 = v159;
         v11 = &SecIsInternalRelease_ptr;
 LABEL_198:
       }
 
-      v180 = [obj countByEnumeratingWithState:&v220 objects:v229 count:16];
+      v164 = [obj countByEnumeratingWithState:&v204 objects:v213 count:16];
     }
 
-    while (v180);
+    while (v164);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));

@@ -31,9 +31,10 @@
     }
 
     objc_storeStrong(&self->_netDiags, diags);
+    diagsCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](netDiags, diagsCopy);
 }
 
 - (NetDiagnosticsShim)netDiags
@@ -121,13 +122,13 @@ void __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke(uint64_t a1
       goto LABEL_13;
     }
 
-    v18 = symptomsLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = symptomsLogHandle(v6);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v19 = [v7 userInfo];
+      v20 = [v7 userInfo];
       *buf = 138412290;
-      v25 = v19;
-      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_ERROR, "Error: %@", buf, 0xCu);
+      v25 = v20;
+      _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_ERROR, "Error: %@", buf, 0xCu);
     }
 
     goto LABEL_11;
@@ -145,30 +146,30 @@ void __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke(uint64_t a1
   {
     if (v12 != -1)
     {
-      v13 = symptomsLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = symptomsLogHandle(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v14 = [*(a1 + 32) taskName];
-        v15 = *(a1 + 32);
+        v15 = [*(a1 + 32) taskName];
+        v16 = *(a1 + 32);
         *buf = 138412802;
-        v25 = v14;
+        v25 = v15;
         v26 = 2048;
-        v27 = v15;
+        v27 = v16;
         v28 = 2048;
         v29 = v12;
-        _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "%@ (%p) Unknown kNetDiagStatus %lld\n", buf, 0x20u);
+        _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "%@ (%p) Unknown kNetDiagStatus %lld\n", buf, 0x20u);
       }
 
-      v16 = *(a1 + 32);
-      v17 = 0xFFFFFFFFLL;
+      v17 = *(a1 + 32);
+      v18 = 0xFFFFFFFFLL;
       goto LABEL_12;
     }
 
 LABEL_11:
-    v16 = *(a1 + 32);
-    v17 = 3;
+    v17 = *(a1 + 32);
+    v18 = 3;
 LABEL_12:
-    [v16 setStatus:v17];
+    [v17 setStatus:v18];
     goto LABEL_13;
   }
 
@@ -185,13 +186,11 @@ LABEL_12:
   }
 
 LABEL_13:
-  v20 = *(a1 + 40);
-  if (v20)
+  v21 = *(a1 + 40);
+  if (v21)
   {
-    (*(v20 + 16))(v20, [*(a1 + 32) status]);
+    (*(v21 + 16))(v21, [*(a1 + 32) status]);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke_2(uint64_t a1)
@@ -227,7 +226,7 @@ uint64_t __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke_2(uint6
   }
 }
 
-uint64_t __33__NetDiagnosticProbe_cancelTest___block_invoke(uint64_t a1)
+void *__33__NetDiagnosticProbe_cancelTest___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setStatus:4];
   [*(a1 + 32) removeProbeOutputFiles];
@@ -275,23 +274,23 @@ void __45__NetDiagnosticProbe_stopNetDiagnosticsTask___block_invoke(uint64_t a1,
 
     if (!v10)
     {
-      v12 = *(a1 + 32);
-      v13 = 2;
+      v13 = *(a1 + 32);
+      v14 = 2;
       goto LABEL_13;
     }
 
     if (v10 != -1)
     {
-      v11 = symptomsLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = symptomsLogHandle(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v18 = 134217984;
         v19 = v10;
-        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_INFO, "Unknown kNetDiagStatus %lld\n", &v18, 0xCu);
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "Unknown kNetDiagStatus %lld\n", &v18, 0xCu);
       }
 
-      v12 = *(a1 + 32);
-      v13 = 0xFFFFFFFFLL;
+      v13 = *(a1 + 32);
+      v14 = 0xFFFFFFFFLL;
       goto LABEL_13;
     }
   }
@@ -303,28 +302,26 @@ void __45__NetDiagnosticProbe_stopNetDiagnosticsTask___block_invoke(uint64_t a1,
       goto LABEL_14;
     }
 
-    v14 = symptomsLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = symptomsLogHandle(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v15 = [v7 userInfo];
+      v16 = [v7 userInfo];
       v18 = 138412290;
-      v19 = v15;
-      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_ERROR, "Error: %@", &v18, 0xCu);
+      v19 = v16;
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_ERROR, "Error: %@", &v18, 0xCu);
     }
   }
 
-  v12 = *(a1 + 32);
-  v13 = 3;
+  v13 = *(a1 + 32);
+  v14 = 3;
 LABEL_13:
-  [v12 setStatus:v13];
+  [v13 setStatus:v14];
 LABEL_14:
-  v16 = *(a1 + 40);
-  if (v16)
+  v17 = *(a1 + 40);
+  if (v17)
   {
-    (*(v16 + 16))(v16, [*(a1 + 32) status]);
+    (*(v17 + 16))(v17, [*(a1 + 32) status]);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)netDiagnosticsTaskInProgress:(id)progress
@@ -345,10 +342,11 @@ LABEL_14:
 
 void __51__NetDiagnosticProbe_netDiagnosticsTaskInProgress___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  if ([*(a1 + 32) status] != 5)
+  v7 = [*(a1 + 32) status];
+  if (v7 != 5)
   {
     if (!v5)
     {
@@ -357,36 +355,36 @@ void __51__NetDiagnosticProbe_netDiagnosticsTaskInProgress___block_invoke(uint64
         goto LABEL_25;
       }
 
-      v10 = symptomsLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = symptomsLogHandle(v7);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v12 = *(*(a1 + 32) + 64);
-        v13 = [v6 userInfo];
-        v24 = 138412546;
-        v25 = v12;
-        v26 = 2112;
-        v27 = v13;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "%@ kNetDiagCmdTasksStatus %@", &v24, 0x16u);
+        v14 = *(*(a1 + 32) + 64);
+        v15 = [v6 userInfo];
+        v26 = 138412546;
+        v27 = v14;
+        v28 = 2112;
+        v29 = v15;
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "%@ kNetDiagCmdTasksStatus %@", &v26, 0x16u);
       }
 
       goto LABEL_9;
     }
 
-    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:kNetDiagStatus[0]];
-    v8 = [v5 objectForKeyedSubscript:v7];
-    v9 = [v8 longLongValue];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:kNetDiagStatus[0]];
+    v9 = [v5 objectForKeyedSubscript:v8];
+    v10 = [v9 longLongValue];
 
-    if (v9)
+    if (v10)
     {
-      v10 = symptomsLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = symptomsLogHandle(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v11 = *(*(a1 + 32) + 64);
-        v24 = 138412546;
-        v25 = v11;
-        v26 = 2048;
-        v27 = v9;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "%@ kNetDiagStatus is %lld\n", &v24, 0x16u);
+        v13 = *(*(a1 + 32) + 64);
+        v26 = 138412546;
+        v27 = v13;
+        v28 = 2048;
+        v29 = v10;
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "%@ kNetDiagStatus is %lld\n", &v26, 0x16u);
       }
 
 LABEL_9:
@@ -395,44 +393,44 @@ LABEL_9:
       goto LABEL_25;
     }
 
-    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:kNetDiagKeyValues[0]];
-    v15 = [v5 objectForKeyedSubscript:v14];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:kNetDiagKeyValues[0]];
+    v17 = [v5 objectForKeyedSubscript:v16];
 
-    if (!v15)
+    if (!v17)
     {
       goto LABEL_24;
     }
 
-    v16 = [v15 objectForKeyedSubscript:*(*(a1 + 32) + 64)];
-    v17 = [v16 longLongValue];
+    v18 = [v17 objectForKeyedSubscript:*(*(a1 + 32) + 64)];
+    v19 = [v18 longLongValue];
 
-    if (v17 > 1)
+    if (v19 > 1)
     {
-      if (v17 != 2)
+      if (v19 != 2)
       {
-        if (v17 != 3)
+        if (v19 != 3)
         {
 LABEL_19:
-          v20 = symptomsLogHandle();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          v23 = symptomsLogHandle(v20);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
-            v21 = *(*(a1 + 32) + 64);
-            v24 = 138412546;
-            v25 = v21;
-            v26 = 2048;
-            v27 = v17;
-            _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_INFO, "%@  UNEXPECTED status %lld", &v24, 0x16u);
+            v24 = *(*(a1 + 32) + 64);
+            v26 = 138412546;
+            v27 = v24;
+            v28 = 2048;
+            v29 = v19;
+            _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_INFO, "%@  UNEXPECTED status %lld", &v26, 0x16u);
           }
 
-          v18 = *(a1 + 32);
-          v19 = 0xFFFFFFFFLL;
+          v21 = *(a1 + 32);
+          v22 = 0xFFFFFFFFLL;
           goto LABEL_23;
         }
 
-        v18 = *(a1 + 32);
-        v19 = 2;
+        v21 = *(a1 + 32);
+        v22 = 2;
 LABEL_23:
-        [v18 setStatus:v19];
+        [v21 setStatus:v22];
 LABEL_24:
 
         goto LABEL_25;
@@ -441,32 +439,30 @@ LABEL_24:
 
     else
     {
-      if (!v17)
+      if (!v19)
       {
-        v18 = *(a1 + 32);
-        v19 = 0;
+        v21 = *(a1 + 32);
+        v22 = 0;
         goto LABEL_23;
       }
 
-      if (v17 != 1)
+      if (v19 != 1)
       {
         goto LABEL_19;
       }
     }
 
-    v18 = *(a1 + 32);
-    v19 = 1;
+    v21 = *(a1 + 32);
+    v22 = 1;
     goto LABEL_23;
   }
 
 LABEL_25:
-  v22 = *(a1 + 40);
-  if (v22)
+  v25 = *(a1 + 40);
+  if (v25)
   {
-    (*(v22 + 16))(v22, [*(a1 + 32) status]);
+    (*(v25 + 16))(v25, [*(a1 + 32) status]);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -3,6 +3,7 @@
 - (void)_connectToAuthenticationDialogManager;
 - (void)_disconnectFromAuthenticationDialogManager;
 - (void)_remoteSheetDidEnd;
+- (void)webViewController:(id)controller didFinishWithSuccess:(BOOL)success response:(id)response;
 @end
 
 @implementation OOPADAppDelegate
@@ -59,6 +60,28 @@
   v4 = UIApp;
 
   [v4 terminateWithSuccess];
+}
+
+- (void)webViewController:(id)controller didFinishWithSuccess:(BOOL)success response:(id)response
+{
+  successCopy = success;
+  responseCopy = response;
+  v8 = _ACLogSystem();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = [NSNumber numberWithBool:successCopy];
+    v13 = 138412290;
+    v14 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "AADWebViewController reports finishing with result %@", &v13, 0xCu);
+  }
+
+  v10 = UIApp;
+  view = [(UINavigationController *)self->_navViewController view];
+  [v10 endRemoteSheet:view];
+
+  self->_cachedSuccess = successCopy;
+  cachedResponse = self->_cachedResponse;
+  self->_cachedResponse = responseCopy;
 }
 
 - (void)_connectToAuthenticationDialogManager

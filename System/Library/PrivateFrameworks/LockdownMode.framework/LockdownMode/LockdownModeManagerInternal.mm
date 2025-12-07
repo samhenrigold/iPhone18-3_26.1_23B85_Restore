@@ -6,6 +6,7 @@
 - (void)notifyRestrictionChanged:(id)changed;
 - (void)rebootIfNeeded;
 - (void)setEnabled:(BOOL)enabled options:(id)options completion:(id)completion;
+- (void)setManagedConfigurationState:(BOOL)state completion:(id)completion;
 @end
 
 @implementation LockdownModeManagerInternal
@@ -92,6 +93,39 @@
     swift_unknownObjectRelease();
 
     _Block_release(v4);
+  }
+
+  else
+  {
+  }
+}
+
+- (void)setManagedConfigurationState:(BOOL)state completion:(id)completion
+{
+  stateCopy = state;
+  v6 = _Block_copy(completion);
+  v7 = swift_allocObject();
+  *(v7 + 16) = v6;
+  selfCopy = self;
+  v8 = sub_1DA9BD558(sub_1DA9BD660, &block_descriptor_94, &selRef_synchronousRemoteObjectProxyWithErrorHandler_);
+  if (v8)
+  {
+    v9 = v8;
+    v10 = swift_allocObject();
+    *(v10 + 16) = sub_1DA9BF814;
+    *(v10 + 24) = v7;
+    aBlock[4] = sub_1DA9BFD7C;
+    aBlock[5] = v10;
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 1107296256;
+    aBlock[2] = sub_1DA9BDCC8;
+    aBlock[3] = &block_descriptor_60;
+    v11 = _Block_copy(aBlock);
+
+    [v9 setManagedConfigurationStateWithEnabled:stateCopy completion:v11];
+    swift_unknownObjectRelease();
+
+    _Block_release(v11);
   }
 
   else

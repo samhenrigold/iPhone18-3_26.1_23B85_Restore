@@ -29,7 +29,8 @@
 
   infoCopy = info;
   queueCopy = queue;
-  return sub_19A74561C(info, queue, v9, v10, &block_descriptor_52_1, type metadata accessor for StickerEffectEditorViewControllerConfigurationClientToHostAction, timeout);
+  v13.n128_f64[0] = timeout;
+  return sub_19A74561C(info, queue, v9, v10, &block_descriptor_52_1, type metadata accessor for StickerEffectEditorViewControllerConfigurationClientToHostAction, v13);
 }
 
 @end

@@ -26,56 +26,56 @@
 
 - (void)_processMetricsOfAssetClustersInMoment:(id)moment
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = moment;
-  v28 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v27)
   {
-    v27 = *v36;
+    v26 = *v35;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v36 != v27)
+        if (*v35 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v35 + 1) + 8 * i);
+        v5 = *(*(&v34 + 1) + 8 * i);
         assets = [v5 assets];
         v7 = [assets count];
 
         region = [v5 region];
+        v32 = 0;
         v33 = 0;
-        v34 = 0;
         [region center];
-        v33 = v9;
-        v34 = v10;
+        v32 = v9;
+        v33 = v10;
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         assets2 = [v5 assets];
-        v12 = [assets2 countByEnumeratingWithState:&v29 objects:v39 count:16];
+        v12 = [assets2 countByEnumeratingWithState:&v28 objects:v38 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v30;
+          v14 = *v29;
           v15 = 0.0;
 LABEL_8:
           v16 = 0;
           while (1)
           {
-            if (*v30 != v14)
+            if (*v29 != v14)
             {
               objc_enumerationMutation(assets2);
             }
 
-            location = [*(*(&v29 + 1) + 8 * v16) location];
+            location = [*(*(&v28 + 1) + 8 * v16) location];
             [location coordinate];
 
             CLLocationCoordinate2DGetDistanceFrom();
@@ -91,7 +91,7 @@ LABEL_8:
 
             if (v13 == ++v16)
             {
-              v13 = [assets2 countByEnumeratingWithState:&v29 objects:v39 count:16];
+              v13 = [assets2 countByEnumeratingWithState:&v28 objects:v38 count:16];
               if (v13)
               {
                 goto LABEL_8;
@@ -136,10 +136,10 @@ LABEL_8:
         self->_sumSquareNumberOfAssetsPerCluster = v21;
       }
 
-      v28 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v27 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
   v22 = [obj count];
@@ -149,34 +149,32 @@ LABEL_8:
   v24.i64[0] = vdupq_n_s64(1uLL).u64[0];
   v24.i64[1] = v22;
   *&self->_numberOfMomentsRevGeocoded = vaddq_s64(*&self->_numberOfMomentsRevGeocoded, v24);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMetricsForGeocodeProcesssor:(id)processsor toAnalytics:(id)analytics progressBlock:(id)block
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   processsorCopy = processsor;
   analyticsCopy = analytics;
   blockCopy = block;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2020000000;
-  v63 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
   v59 = 0;
-  v49 = _Block_copy(blockCopy);
-  if (!v49 || (v8 = CFAbsoluteTimeGetCurrent(), v8 - v57[3] < 0.01) || (v57[3] = v8, v55 = 0, (*(v49 + 2))(v49, &v55, 0.0), v9 = *(v61 + 24) | v55, *(v61 + 24) = v9, (v9 & 1) == 0))
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v62 = 0;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 0;
+  v48 = _Block_copy(blockCopy);
+  if (!v48 || (v8 = CFAbsoluteTimeGetCurrent(), v8 - v56[3] < 0.01) || (v56[3] = v8, v54 = 0, (*(v48 + 2))(v48, &v54, 0.0), v9 = *(v60 + 24) | v54, *(v60 + 24) = v9, (v9 & 1) == 0))
   {
     [processsorCopy sumNumberOfAssetClustersPerMoment];
-    v46 = v10;
+    v45 = v10;
     numberOfMomentsRevGeocoded = [processsorCopy numberOfMomentsRevGeocoded];
     [processsorCopy sumNumberOfAssetClustersPerMoment];
-    v45 = v12;
+    v44 = v12;
     [processsorCopy sumSquareNumberOfAssetClustersPerMoment];
-    v44 = v13;
+    v43 = v13;
     numberOfMomentsRevGeocoded2 = [processsorCopy numberOfMomentsRevGeocoded];
     [processsorCopy sumNumberOfAssetsPerCluster];
     v16 = v15;
@@ -199,18 +197,18 @@ LABEL_8:
     v33 = v32;
     numberOfAssetClustersRevGeocoded6 = [processsorCopy numberOfAssetClustersRevGeocoded];
     [processsorCopy numberOfAssetClusters100mPlusFromCenter];
-    v36 = -[PGRevGeoMetricEvent initWithNumberOfAssetClustersPerMomentMean:numberOfAssetClustersPerMomentStdDev:numberOfAssetsPerClusterMean:numberOfAssetsPerClusterStdDev:ratioAssetClustersWithin10mOfCenter:ratioAssetClustersWithin20mOfCenter:ratioAssetClustersWithin50mOfCenter:ratioAssetClustersWithin100mOfCenter:ratioAssetClusters100mPlusFromCenter:]([PGRevGeoMetricEvent alloc], "initWithNumberOfAssetClustersPerMomentMean:numberOfAssetClustersPerMomentStdDev:numberOfAssetsPerClusterMean:numberOfAssetsPerClusterStdDev:ratioAssetClustersWithin10mOfCenter:ratioAssetClustersWithin20mOfCenter:ratioAssetClustersWithin50mOfCenter:ratioAssetClustersWithin100mOfCenter:ratioAssetClusters100mPlusFromCenter:", v46 / numberOfMomentsRevGeocoded, sqrt(numberOfMomentsRevGeocoded2 * v44 - v45 * v45) / numberOfMomentsRevGeocoded2, v16 / numberOfAssetClustersRevGeocoded, sqrt(numberOfAssetClustersRevGeocoded2 * v21 - v19 * v19) / numberOfAssetClustersRevGeocoded2, v24 / numberOfAssetClustersRevGeocoded3, v27 / numberOfAssetClustersRevGeocoded4, v30 / numberOfAssetClustersRevGeocoded5, v33 / numberOfAssetClustersRevGeocoded6, v35 / [processsorCopy numberOfAssetClustersRevGeocoded]);
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __103__PGGraphAssetRevGeocodeEnrichmentProcessor_sendMetricsForGeocodeProcesssor_toAnalytics_progressBlock___block_invoke;
-    v50[3] = &unk_27888A188;
-    v37 = v49;
-    v51 = v37;
-    v52 = &v56;
-    v53 = &v60;
-    v54 = 0x3F847AE147AE147BLL;
-    [(PGAbstractMetricEvent *)v36 gatherMetricsWithProgressBlock:v50];
-    if (*(v61 + 24) == 1)
+    v36 = -[PGRevGeoMetricEvent initWithNumberOfAssetClustersPerMomentMean:numberOfAssetClustersPerMomentStdDev:numberOfAssetsPerClusterMean:numberOfAssetsPerClusterStdDev:ratioAssetClustersWithin10mOfCenter:ratioAssetClustersWithin20mOfCenter:ratioAssetClustersWithin50mOfCenter:ratioAssetClustersWithin100mOfCenter:ratioAssetClusters100mPlusFromCenter:]([PGRevGeoMetricEvent alloc], "initWithNumberOfAssetClustersPerMomentMean:numberOfAssetClustersPerMomentStdDev:numberOfAssetsPerClusterMean:numberOfAssetsPerClusterStdDev:ratioAssetClustersWithin10mOfCenter:ratioAssetClustersWithin20mOfCenter:ratioAssetClustersWithin50mOfCenter:ratioAssetClustersWithin100mOfCenter:ratioAssetClusters100mPlusFromCenter:", v45 / numberOfMomentsRevGeocoded, sqrt(numberOfMomentsRevGeocoded2 * v43 - v44 * v44) / numberOfMomentsRevGeocoded2, v16 / numberOfAssetClustersRevGeocoded, sqrt(numberOfAssetClustersRevGeocoded2 * v21 - v19 * v19) / numberOfAssetClustersRevGeocoded2, v24 / numberOfAssetClustersRevGeocoded3, v27 / numberOfAssetClustersRevGeocoded4, v30 / numberOfAssetClustersRevGeocoded5, v33 / numberOfAssetClustersRevGeocoded6, v35 / [processsorCopy numberOfAssetClustersRevGeocoded]);
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __103__PGGraphAssetRevGeocodeEnrichmentProcessor_sendMetricsForGeocodeProcesssor_toAnalytics_progressBlock___block_invoke;
+    v49[3] = &unk_27888A188;
+    v37 = v48;
+    v50 = v37;
+    v51 = &v55;
+    v52 = &v59;
+    v53 = 0x3F847AE147AE147BLL;
+    [(PGAbstractMetricEvent *)v36 gatherMetricsWithProgressBlock:v49];
+    if (*(v60 + 24) == 1)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -220,9 +218,9 @@ LABEL_15:
       }
 
       *buf = 67109378;
-      v65 = 305;
-      v66 = 2080;
-      v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+      v64 = 305;
+      v65 = 2080;
+      v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
       v38 = MEMORY[0x277D86220];
     }
 
@@ -232,31 +230,31 @@ LABEL_15:
       payload = [(PGRevGeoMetricEvent *)v36 payload];
       [analyticsCopy sendEvent:identifier withPayload:payload];
 
-      if (!v49)
+      if (!v48)
       {
         goto LABEL_15;
       }
 
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v57[3] < 0.01)
+      if (Current - v56[3] < 0.01)
       {
         goto LABEL_15;
       }
 
-      v57[3] = Current;
-      v55 = 0;
-      (*(v37 + 2))(v37, &v55, 1.0);
-      v42 = *(v61 + 24) | v55;
-      *(v61 + 24) = v42;
+      v56[3] = Current;
+      v54 = 0;
+      (*(v37 + 2))(v37, &v54, 1.0);
+      v42 = *(v60 + 24) | v54;
+      *(v60 + 24) = v42;
       if ((v42 & 1) == 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_15;
       }
 
       *buf = 67109378;
-      v65 = 308;
-      v66 = 2080;
-      v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+      v64 = 308;
+      v65 = 2080;
+      v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
       v38 = MEMORY[0x277D86220];
     }
 
@@ -267,17 +265,15 @@ LABEL_15:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v65 = 287;
-    v66 = 2080;
-    v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+    v64 = 287;
+    v65 = 2080;
+    v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_16:
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(&v60, 8);
-
-  v43 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v59, 8);
 }
 
 void __103__PGGraphAssetRevGeocodeEnrichmentProcessor_sendMetricsForGeocodeProcesssor_toAnalytics_progressBlock___block_invoke(uint64_t a1, _BYTE *a2, double a3)
@@ -301,24 +297,24 @@ void __103__PGGraphAssetRevGeocodeEnrichmentProcessor_sendMetricsForGeocodeProce
 
 - (void)enrichDataModelWithManager:(id)manager curationContext:(id)context graphUpdateInventory:(id)inventory progressReporter:(id)reporter
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   contextCopy = context;
   inventoryCopy = inventory;
   reporterCopy = reporter;
-  v91 = 0;
-  v92 = &v91;
-  v93 = 0x2020000000;
-  v94 = 0;
+  v90 = 0;
+  v91 = &v90;
+  v92 = 0x2020000000;
+  v93 = 0;
   v12 = [reporterCopy isCancelledWithProgress:0.0];
-  *(v92 + 24) = v12;
+  *(v91 + 24) = v12;
   if (!v12)
   {
     enrichmentLoggingConnection = [managerCopy enrichmentLoggingConnection];
     v14 = os_signpost_id_generate(enrichmentLoggingConnection);
     v15 = enrichmentLoggingConnection;
     v16 = v15;
-    v72 = v14 - 1;
+    v71 = v14 - 1;
     spid = v14;
     if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
@@ -328,7 +324,7 @@ void __103__PGGraphAssetRevGeocodeEnrichmentProcessor_sendMetricsForGeocodeProce
 
     info = 0;
     mach_timebase_info(&info);
-    v71 = mach_absolute_time();
+    v70 = mach_absolute_time();
     if (-[PGGraphAssetRevGeocodeEnrichmentProcessor _allowReverseGeocodingWithUpdateType:](self, "_allowReverseGeocodingWithUpdateType:", [inventoryCopy updateType]))
     {
       photoLibrary = [managerCopy photoLibrary];
@@ -344,15 +340,15 @@ void __103__PGGraphAssetRevGeocodeEnrichmentProcessor_sendMetricsForGeocodeProce
           _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "AssetsRevGeocoding: nil graph application data URL", buf, 2u);
         }
 
-        if (v92[3])
+        if (v91[3])
         {
-          *(v92 + 24) = 1;
+          *(v91 + 24) = 1;
         }
 
         else
         {
           v30 = [reporterCopy isCancelledWithProgress:1.0];
-          *(v92 + 24) = v30;
+          *(v91 + 24) = v30;
           if ((v30 & 1) == 0)
           {
             v42 = mach_absolute_time();
@@ -360,7 +356,7 @@ void __103__PGGraphAssetRevGeocodeEnrichmentProcessor_sendMetricsForGeocodeProce
             denom = info.denom;
             v45 = v16;
             v46 = v45;
-            if (v72 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+            if (v71 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
             {
               *buf = 0;
               _os_signpost_emit_with_name_impl(&dword_22F0FC000, v46, OS_SIGNPOST_INTERVAL_END, v14, "PGGraphAssetRevGeocodeEnrichmentProcessor", "", buf, 2u);
@@ -372,9 +368,9 @@ void __103__PGGraphAssetRevGeocodeEnrichmentProcessor_sendMetricsForGeocodeProce
             }
 
             *buf = 136315394;
-            *v97 = "PGGraphAssetRevGeocodeEnrichmentProcessor";
-            *&v97[8] = 2048;
-            *&v97[10] = ((((v42 - v71) * numer) / denom) / 1000000.0);
+            *v96 = "PGGraphAssetRevGeocodeEnrichmentProcessor";
+            *&v96[8] = 2048;
+            *&v96[10] = ((((v42 - v70) * numer) / denom) / 1000000.0);
             v32 = "[Performance] %s: %f ms";
             v31 = v46;
             v34 = 22;
@@ -385,9 +381,9 @@ void __103__PGGraphAssetRevGeocodeEnrichmentProcessor_sendMetricsForGeocodeProce
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v97 = 220;
-          *&v97[4] = 2080;
-          *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+          *v96 = 220;
+          *&v96[4] = 2080;
+          *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
           v31 = MEMORY[0x277D86220];
           v32 = "Cancelled at line %d in file %s";
 LABEL_40:
@@ -403,21 +399,21 @@ LABEL_83:
 
       if ([(PGGraphAssetRevGeocodeEnrichmentProcessor *)self revGeoProviderDidChangeForGraphApplicationDataURL:?])
       {
-        v87[0] = MEMORY[0x277D85DD0];
-        v87[1] = 3221225472;
-        v87[2] = __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke;
-        v87[3] = &unk_278889448;
-        v89 = &v91;
-        v88 = reporterCopy;
-        [(PGGraphAssetRevGeocodeEnrichmentProcessor *)self invalidateReverseLocationDataForRevGeoProviderChangeUsingManager:managerCopy progressBlock:v87];
-        if (*(v92 + 24) == 1)
+        v86[0] = MEMORY[0x277D85DD0];
+        v86[1] = 3221225472;
+        v86[2] = __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke;
+        v86[3] = &unk_278889448;
+        v88 = &v90;
+        v87 = reporterCopy;
+        [(PGGraphAssetRevGeocodeEnrichmentProcessor *)self invalidateReverseLocationDataForRevGeoProviderChangeUsingManager:managerCopy progressBlock:v86];
+        if (*(v91 + 24) == 1)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v97 = 230;
-            *&v97[4] = 2080;
-            *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+            *v96 = 230;
+            *&v96[4] = 2080;
+            *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -427,23 +423,23 @@ LABEL_83:
         [(PGGraphAssetRevGeocodeEnrichmentProcessor *)self setCurrentGeoProviderInGraphApplicationDataURL:pg_urlForGraphApplicationData];
       }
 
-      if (v92[3])
+      if (v91[3])
       {
-        *(v92 + 24) = 1;
+        *(v91 + 24) = 1;
         goto LABEL_38;
       }
 
       v33 = [reporterCopy isCancelledWithProgress:0.2];
-      *(v92 + 24) = v33;
+      *(v91 + 24) = v33;
       if (v33)
       {
 LABEL_38:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v97 = 235;
-          *&v97[4] = 2080;
-          *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+          *v96 = 235;
+          *&v96[4] = 2080;
+          *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
           v31 = MEMORY[0x277D86220];
           v32 = "Cancelled at line %d in file %s";
           goto LABEL_40;
@@ -457,28 +453,28 @@ LABEL_38:
       if ((isResumingFullAnalysis & 1) == 0)
       {
         [inventoryCopy momentsToProcessForMomentUpdateTypes:20 includeMomentsToIngest:1];
+        v84 = 0u;
         v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
-        v36 = v84 = 0u;
-        v37 = [v36 countByEnumeratingWithState:&v83 objects:v95 count:16];
+        v82 = 0u;
+        v36 = v83 = 0u;
+        v37 = [v36 countByEnumeratingWithState:&v82 objects:v94 count:16];
         if (v37)
         {
-          v38 = *v84;
+          v38 = *v83;
           do
           {
             for (i = 0; i != v37; ++i)
             {
-              if (*v84 != v38)
+              if (*v83 != v38)
               {
                 objc_enumerationMutation(v36);
               }
 
-              uuid = [*(*(&v83 + 1) + 8 * i) uuid];
+              uuid = [*(*(&v82 + 1) + 8 * i) uuid];
               [v35 addObject:uuid];
             }
 
-            v37 = [v36 countByEnumeratingWithState:&v83 objects:v95 count:16];
+            v37 = [v36 countByEnumeratingWithState:&v82 objects:v94 count:16];
           }
 
           while (v37);
@@ -486,23 +482,23 @@ LABEL_38:
       }
 
       v41 = [PGRevGeocodeProcessor momentsRequiringRevGeocodingWithUUIDs:v35 inPhotoLibrary:photoLibrary defaultToAllAssets:isResumingFullAnalysis loggingConnection:v16];
-      if (v92[3])
+      if (v91[3])
       {
-        *(v92 + 24) = 1;
+        *(v91 + 24) = 1;
         goto LABEL_59;
       }
 
       v47 = [reporterCopy isCancelledWithProgress:0.3];
-      *(v92 + 24) = v47;
+      *(v91 + 24) = v47;
       if (v47)
       {
 LABEL_59:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v97 = 252;
-          *&v97[4] = 2080;
-          *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+          *v96 = 252;
+          *&v96[4] = 2080;
+          *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -520,24 +516,24 @@ LABEL_59:
       locationCache = [managerCopy locationCache];
       v55 = [(PGRevGeocodeProcessor *)v52 initWithPhotoLibrary:photoLibrary homeLocations:v53 loggingConnection:v16 locationCache:locationCache];
 
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke_269;
-      v80[3] = &unk_278889448;
-      v82 = &v91;
+      v79[0] = MEMORY[0x277D85DD0];
+      v79[1] = 3221225472;
+      v79[2] = __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke_269;
+      v79[3] = &unk_278889448;
+      v81 = &v90;
       v56 = reporterCopy;
-      v81 = v56;
-      v57 = [(PGRevGeocodeProcessor *)v55 revGeocodeMoments:v41 progressBlock:v80];
-      if (v92[3])
+      v80 = v56;
+      v57 = [(PGRevGeocodeProcessor *)v55 revGeocodeMoments:v41 progressBlock:v79];
+      if (v91[3])
       {
-        *(v92 + 24) = 1;
+        *(v91 + 24) = 1;
       }
 
       else
       {
         v58 = v57;
         v59 = [v56 isCancelledWithProgress:0.7];
-        *(v92 + 24) = v59;
+        *(v91 + 24) = v59;
         if ((v59 & 1) == 0)
         {
           if (!v58)
@@ -548,13 +544,13 @@ LABEL_59:
           if ([(PGRevGeocodeProcessor *)v55 numberOfMomentsRevGeocoded]&& [(PGRevGeocodeProcessor *)v55 numberOfAssetClustersRevGeocoded])
           {
             analytics = [managerCopy analytics];
-            v77[0] = MEMORY[0x277D85DD0];
-            v77[1] = 3221225472;
-            v77[2] = __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke_270;
-            v77[3] = &unk_278889448;
-            v79 = &v91;
-            v78 = v56;
-            [(PGGraphAssetRevGeocodeEnrichmentProcessor *)self sendMetricsForGeocodeProcesssor:v55 toAnalytics:analytics progressBlock:v77];
+            v76[0] = MEMORY[0x277D85DD0];
+            v76[1] = 3221225472;
+            v76[2] = __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke_270;
+            v76[3] = &unk_278889448;
+            v78 = &v90;
+            v77 = v56;
+            [(PGGraphAssetRevGeocodeEnrichmentProcessor *)self sendMetricsForGeocodeProcesssor:v55 toAnalytics:analytics progressBlock:v76];
           }
 
           v62 = mach_absolute_time();
@@ -562,7 +558,7 @@ LABEL_59:
           v64 = info.denom;
           v65 = v16;
           v66 = v65;
-          if (v72 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v65))
+          if (v71 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v65))
           {
             *buf = 0;
             _os_signpost_emit_with_name_impl(&dword_22F0FC000, v66, OS_SIGNPOST_INTERVAL_END, spid, "PGGraphAssetRevGeocodeEnrichmentProcessor", "", buf, 2u);
@@ -571,21 +567,21 @@ LABEL_59:
           if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            *v97 = "PGGraphAssetRevGeocodeEnrichmentProcessor";
-            *&v97[8] = 2048;
-            *&v97[10] = ((((v62 - v71) * v63) / v64) / 1000000.0);
+            *v96 = "PGGraphAssetRevGeocodeEnrichmentProcessor";
+            *&v96[8] = 2048;
+            *&v96[10] = ((((v62 - v70) * v63) / v64) / 1000000.0);
             _os_log_impl(&dword_22F0FC000, v66, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
           }
 
-          if (v92[3])
+          if (v91[3])
           {
-            *(v92 + 24) = 1;
+            *(v91 + 24) = 1;
           }
 
           else
           {
             v67 = [v56 isCancelledWithProgress:1.0];
-            *(v92 + 24) = v67;
+            *(v91 + 24) = v67;
             if ((v67 & 1) == 0)
             {
               goto LABEL_81;
@@ -598,9 +594,9 @@ LABEL_59:
           }
 
           *buf = 67109378;
-          *v97 = 270;
-          *&v97[4] = 2080;
-          *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+          *v96 = 270;
+          *&v96[4] = 2080;
+          *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
           v60 = MEMORY[0x277D86220];
           goto LABEL_66;
         }
@@ -615,9 +611,9 @@ LABEL_82:
       }
 
       *buf = 67109378;
-      *v97 = 258;
-      *&v97[4] = 2080;
-      *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+      *v96 = 258;
+      *&v96[4] = 2080;
+      *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
       v60 = MEMORY[0x277D86220];
 LABEL_66:
       _os_log_impl(&dword_22F0FC000, v60, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -633,15 +629,15 @@ LABEL_66:
       _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, "AssetsRevGeocoding: reverse geocoding not allowed", buf, 2u);
     }
 
-    if (v92[3])
+    if (v91[3])
     {
-      *(v92 + 24) = 1;
+      *(v91 + 24) = 1;
     }
 
     else
     {
       v19 = [reporterCopy isCancelledWithProgress:1.0];
-      *(v92 + 24) = v19;
+      *(v91 + 24) = v19;
       if ((v19 & 1) == 0)
       {
         v25 = mach_absolute_time();
@@ -649,7 +645,7 @@ LABEL_66:
         v27 = info.denom;
         v28 = v16;
         v29 = v28;
-        if (v72 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+        if (v71 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
         {
           *buf = 0;
           _os_signpost_emit_with_name_impl(&dword_22F0FC000, v29, OS_SIGNPOST_INTERVAL_END, v14, "PGGraphAssetRevGeocodeEnrichmentProcessor", "", buf, 2u);
@@ -661,9 +657,9 @@ LABEL_66:
         }
 
         *buf = 136315394;
-        *v97 = "PGGraphAssetRevGeocodeEnrichmentProcessor";
-        *&v97[8] = 2048;
-        *&v97[10] = ((((v25 - v71) * v26) / v27) / 1000000.0);
+        *v96 = "PGGraphAssetRevGeocodeEnrichmentProcessor";
+        *&v96[8] = 2048;
+        *&v96[10] = ((((v25 - v70) * v26) / v27) / 1000000.0);
         v21 = "[Performance] %s: %f ms";
         v20 = v29;
         v22 = 22;
@@ -679,9 +675,9 @@ LABEL_84:
     }
 
     *buf = 67109378;
-    *v97 = 209;
-    *&v97[4] = 2080;
-    *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+    *v96 = 209;
+    *&v96[4] = 2080;
+    *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
     v20 = MEMORY[0x277D86220];
     v21 = "Cancelled at line %d in file %s";
     v22 = 18;
@@ -693,16 +689,14 @@ LABEL_30:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v97 = 199;
-    *&v97[4] = 2080;
-    *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+    *v96 = 199;
+    *&v96[4] = 2080;
+    *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_85:
-  _Block_object_dispose(&v91, 8);
-
-  v68 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v90, 8);
 }
 
 uint64_t __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke(uint64_t a1, _BYTE *a2, double a3)
@@ -776,14 +770,14 @@ uint64_t __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithMan
 
 - (void)invalidateReverseLocationDataForRevGeoProviderChangeUsingManager:(id)manager progressBlock:(id)block
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   blockCopy = block;
   enrichmentLoggingConnection = [managerCopy enrichmentLoggingConnection];
   v8 = os_signpost_id_generate(enrichmentLoggingConnection);
   v9 = enrichmentLoggingConnection;
   v10 = v9;
-  v45 = v8 - 1;
+  v44 = v8 - 1;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -791,25 +785,25 @@ uint64_t __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithMan
   }
 
   spid = v8;
-  v48 = v10;
+  v47 = v10;
 
   info = 0;
   mach_timebase_info(&info);
-  v44 = mach_absolute_time();
-  v49 = blockCopy;
+  v43 = mach_absolute_time();
+  v48 = blockCopy;
   v11 = _Block_copy(blockCopy);
-  v50 = managerCopy;
+  v49 = managerCopy;
   photoLibrary = [managerCopy photoLibrary];
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
-  v63[0] = *MEMORY[0x277CD9AF8];
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:1];
+  v62[0] = *MEMORY[0x277CD9AF8];
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
   [librarySpecificFetchOptions addFetchPropertySets:v14];
 
   [librarySpecificFetchOptions setIncludeGuestAssets:1];
   v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"additionalAttributes.reverseLocationDataIsValid == YES"];
   [librarySpecificFetchOptions setInternalPredicate:v15];
 
-  v47 = librarySpecificFetchOptions;
+  v46 = librarySpecificFetchOptions;
   v16 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
   v17 = dispatch_group_create();
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -817,15 +811,15 @@ uint64_t __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithMan
   aBlock[2] = __124__PGGraphAssetRevGeocodeEnrichmentProcessor_invalidateReverseLocationDataForRevGeoProviderChangeUsingManager_progressBlock___block_invoke;
   aBlock[3] = &unk_278884D60;
   group = v17;
-  v56 = group;
-  v46 = photoLibrary;
-  v57 = v46;
+  v55 = group;
+  v45 = photoLibrary;
+  v56 = v45;
   v18 = _Block_copy(aBlock);
   array = [MEMORY[0x277CBEB18] array];
-  v51 = v18;
+  v50 = v18;
   if ([v16 count])
   {
-    v53 = 0;
+    v52 = 0;
     v20 = 0;
     v21 = 0.0;
     while (1)
@@ -850,9 +844,9 @@ uint64_t __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithMan
         {
           dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
           v29 = [array copy];
-          v51[2](v51, v29);
+          v50[2](v50, v29);
 
-          v53 += [array count];
+          v52 += [array count];
           [array removeAllObjects];
         }
 
@@ -861,22 +855,22 @@ uint64_t __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithMan
           Current = CFAbsoluteTimeGetCurrent();
           if (Current - v21 >= 0.01)
           {
-            v54 = 0;
-            v11[2](v11, &v54, 0.5);
-            if (v54)
+            v53 = 0;
+            v11[2](v11, &v53, 0.5);
+            if (v53)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                *v60 = 183;
-                *&v60[4] = 2080;
-                *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
+                *v59 = 183;
+                *&v59[4] = 2080;
+                *&v59[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphAssetRevGeocodeEnrichmentProcessor.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
               objc_autoreleasePoolPop(v22);
-              v33 = v48;
-              v31 = v51;
+              v33 = v47;
+              v31 = v50;
               goto LABEL_28;
             }
 
@@ -893,21 +887,21 @@ uint64_t __126__PGGraphAssetRevGeocodeEnrichmentProcessor_enrichDataModelWithMan
     }
   }
 
-  v53 = 0;
+  v52 = 0;
 LABEL_19:
   if ([array count])
   {
-    v31 = v51;
-    v51[2](v51, array);
-    v32 = [array count] + v53;
-    v33 = v48;
+    v31 = v50;
+    v50[2](v50, array);
+    v32 = [array count] + v52;
+    v33 = v47;
   }
 
   else
   {
-    v33 = v48;
-    v31 = v51;
-    v32 = v53;
+    v33 = v47;
+    v31 = v50;
+    v32 = v52;
   }
 
   dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
@@ -916,29 +910,28 @@ LABEL_19:
   denom = info.denom;
   v37 = v33;
   v38 = v37;
-  if (v45 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+  if (v44 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
   {
     *buf = 134217984;
-    *v60 = v32;
+    *v59 = v32;
     _os_signpost_emit_with_name_impl(&dword_22F0FC000, v38, OS_SIGNPOST_INTERVAL_END, spid, "InvalidReverseLocationRevGeoProviderChange", "%ld assets invalidated", buf, 0xCu);
   }
 
   v39 = v38;
   if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
   {
-    v40 = (((v34 - v44) * numer) / denom) / 1000000.0;
+    v40 = (((v34 - v43) * numer) / denom) / 1000000.0;
     v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld assets invalidated", v32];
     *buf = 136315650;
-    *v60 = "InvalidReverseLocationRevGeoProviderChange";
-    *&v60[8] = 2112;
-    *&v60[10] = v41;
-    v61 = 2048;
-    v62 = v40;
+    *v59 = "InvalidReverseLocationRevGeoProviderChange";
+    *&v59[8] = 2112;
+    *&v59[10] = v41;
+    v60 = 2048;
+    v61 = v40;
     _os_log_impl(&dword_22F0FC000, v39, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
   }
 
 LABEL_28:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __124__PGGraphAssetRevGeocodeEnrichmentProcessor_invalidateReverseLocationDataForRevGeoProviderChangeUsingManager_progressBlock___block_invoke(uint64_t a1, void *a2)
@@ -962,28 +955,28 @@ void __124__PGGraphAssetRevGeocodeEnrichmentProcessor_invalidateReverseLocationD
 
 void __124__PGGraphAssetRevGeocodeEnrichmentProcessor_invalidateReverseLocationDataForRevGeoProviderChangeUsingManager_progressBlock___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = [MEMORY[0x277CD97B0] changeRequestForAsset:{*(*(&v8 + 1) + 8 * v5), v8}];
+        v6 = [MEMORY[0x277CD97B0] changeRequestForAsset:{*(*(&v7 + 1) + 8 * v5), v7}];
         [v6 setReverseLocationData:0];
         [v6 setReverseLocationDataIsValid:0];
 
@@ -991,18 +984,16 @@ void __124__PGGraphAssetRevGeocodeEnrichmentProcessor_invalidateReverseLocationD
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __124__PGGraphAssetRevGeocodeEnrichmentProcessor_invalidateReverseLocationDataForRevGeoProviderChangeUsingManager_progressBlock___block_invoke_3(uint64_t a1, char a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1011,28 +1002,26 @@ void __124__PGGraphAssetRevGeocodeEnrichmentProcessor_invalidateReverseLocationD
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_error_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_ERROR, "Cannot reset the reverse location information with error %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_error_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_ERROR, "Cannot reset the reverse location information with error %@", &v8, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentGeoProviderInGraphApplicationDataURL:(id)l
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = [l URLByAppendingPathComponent:@"revgeoprovider.plist"];
   currentRevGeoProvider = [MEMORY[0x277D3AD60] currentRevGeoProvider];
-  v14 = @"revgeoprovider";
-  v15[0] = currentRevGeoProvider;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-  v11 = 0;
-  v6 = [v5 writeToURL:v3 error:&v11];
-  v7 = v11;
+  v13 = @"revgeoprovider";
+  v14[0] = currentRevGeoProvider;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v10 = 0;
+  v6 = [v5 writeToURL:v3 error:&v10];
+  v7 = v10;
   if ((v6 & 1) == 0)
   {
     v8 = +[PGLogging sharedLogging];
@@ -1041,12 +1030,10 @@ void __124__PGGraphAssetRevGeocodeEnrichmentProcessor_invalidateReverseLocationD
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "AssetsRevGeocoding: Could not save the new rev geo provider with error (%@)", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)revGeoProviderDidChangeForGraphApplicationDataURL:(id)l

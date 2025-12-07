@@ -7,60 +7,60 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v59 = 0;
-  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v59);
-  v10 = v59;
-  v15 = objc_msgSend_trunc(v9, v11, v12, v13, v14);
+  v51 = 0;
+  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v51);
+  v10 = v51;
+  v14 = objc_msgSend_trunc(v9, v11, v12, v13);
 
   if (v10)
   {
-    v20 = objc_msgSend_raiseErrorOrConvert_(context, v16, v10, v18, v19);
+    v18 = objc_msgSend_raiseErrorOrConvert_(context, v15, v10, v17);
   }
 
   else
   {
-    v54._decimal.w[0] = objc_msgSend_decimalRepresentation(v15, v16, v17, v18, v19);
-    v54._decimal.w[1] = v21;
-    TSUDecimal::doubleValue(&v54);
-    if (v26 < -2147483650.0 || v26 > 2147483650.0)
+    v46._decimal.w[0] = objc_msgSend_decimalRepresentation(v14, v15, v16, v17);
+    v46._decimal.w[1] = v19;
+    TSUDecimal::doubleValue(&v46);
+    if (v23 < -2147483650.0 || v23 > 2147483650.0)
     {
-      v37 = objc_msgSend_functionName(spec, v22, v23, v24, v25);
-      v47 = objc_msgSend_outOfBoundsArgumentErrorForArgument_functionName_lowerBound_lowerBoundInclusive_upperBound_upperBoundInclusive_(TSCEError, v48, 1, v37, 1, 1, -2147483650.0, 2147483650.0);
-      v52 = objc_msgSend_raiseErrorOrConvert_(context, v49, v47, v50, v51);
+      v32 = objc_msgSend_functionName(spec, v20, v21, v22);
+      v40 = objc_msgSend_outOfBoundsArgumentErrorForArgument_functionName_lowerBound_lowerBoundInclusive_upperBound_upperBoundInclusive_(TSCEError, v41, 1, v32, 1, 1, -2147483650.0, 2147483650.0);
+      v44 = objc_msgSend_raiseErrorOrConvert_(context, v42, v40, v43);
     }
 
     else
     {
-      v27 = objc_msgSend_integer(v15, v22, v23, v24, v25);
-      v32 = objc_msgSend_locale(context, v28, v29, v30, v31);
-      v37 = objc_msgSend_standaloneMonthSymbols(v32, v33, v34, v35, v36);
+      v24 = objc_msgSend_integer(v14, v20, v21, v22);
+      v28 = objc_msgSend_locale(context, v25, v26, v27);
+      v32 = objc_msgSend_standaloneMonthSymbols(v28, v29, v30, v31);
 
-      v42 = objc_msgSend_count(v37, v38, v39, v40, v41);
-      v46 = v27 - 1;
-      if (v42 <= v46)
+      v36 = objc_msgSend_count(v32, v33, v34, v35);
+      v39 = v24 - 1;
+      if (v36 <= v39)
       {
-        v47 = 0;
+        v40 = 0;
       }
 
       else
       {
-        v47 = objc_msgSend_objectAtIndex_(v37, v43, v46, v44, v45);
+        v40 = objc_msgSend_objectAtIndex_(v32, v37, v39, v38);
       }
 
-      v54._decimal.w[0] = 0;
-      LODWORD(v54._decimal.w[1]) = 0;
-      BYTE4(v54._decimal.w[1]) = 0;
-      v55 = 1057;
-      v56 = 1;
-      v57 = -50266102;
-      v58 = 253;
-      v52 = objc_msgSend_stringValue_format_(TSCEStringValue, v43, v47, &v54, v45);
+      v46._decimal.w[0] = 0;
+      LODWORD(v46._decimal.w[1]) = 0;
+      BYTE4(v46._decimal.w[1]) = 0;
+      v47 = 1057;
+      v48 = 1;
+      v49 = -50266102;
+      v50 = 253;
+      v44 = objc_msgSend_stringValue_format_(TSCEStringValue, v37, v40, &v46);
     }
 
-    v20 = v52;
+    v18 = v44;
   }
 
-  return v20;
+  return v18;
 }
 
 @end

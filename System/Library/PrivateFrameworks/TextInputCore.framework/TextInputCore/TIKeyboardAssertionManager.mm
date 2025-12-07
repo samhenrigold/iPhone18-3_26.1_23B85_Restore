@@ -67,7 +67,7 @@
 
 - (void)releaseBackgroundActivityAssertion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
     if ([(TIKeyboardAssertionManager *)self backgroundActivityAssertions]>= 1)
@@ -86,19 +86,16 @@
       v4 = TIOSLogFacility();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s decrement background activity assertions (count=%ld)", "-[TIKeyboardAssertionManager releaseBackgroundActivityAssertion]", -[TIKeyboardAssertionManager backgroundActivityAssertions](self, "backgroundActivityAssertions")];
+        v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s decrement background activity assertions (count=%ld)", "-[TIKeyboardAssertionManager releaseBackgroundActivityAssertion]", -[TIKeyboardAssertionManager backgroundActivityAssertions](self, "backgroundActivityAssertions")];
         *buf = 138412290;
-        v9 = v7;
+        v7 = v5;
         _os_log_debug_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     [(TIKeyboardAssertionManager *)self performSelectorOnMainThread:a2 withObject:0 waitUntilDone:0];
   }
@@ -106,7 +103,7 @@
 
 - (void)retainBackgroundActivityAssertion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
     [(TIKeyboardAssertionManager *)self setBackgroundActivityAssertions:[(TIKeyboardAssertionManager *)self backgroundActivityAssertions]+ 1];
@@ -121,19 +118,16 @@
       v4 = TIOSLogFacility();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s increment background activity assertions (count=%ld)", "-[TIKeyboardAssertionManager retainBackgroundActivityAssertion]", -[TIKeyboardAssertionManager backgroundActivityAssertions](self, "backgroundActivityAssertions")];
+        v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s increment background activity assertions (count=%ld)", "-[TIKeyboardAssertionManager retainBackgroundActivityAssertion]", -[TIKeyboardAssertionManager backgroundActivityAssertions](self, "backgroundActivityAssertions")];
         *buf = 138412290;
-        v9 = v7;
+        v7 = v5;
         _os_log_debug_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     [(TIKeyboardAssertionManager *)self performSelectorOnMainThread:a2 withObject:0 waitUntilDone:1];
   }

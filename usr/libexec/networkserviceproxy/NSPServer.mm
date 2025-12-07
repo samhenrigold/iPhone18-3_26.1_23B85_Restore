@@ -22,9 +22,11 @@
 - (void)didUpdateGeohash:(id)geohash;
 - (void)didUpdateSignificantLocation;
 - (void)disableCellularNetwork:(id)network;
+- (void)disableInterface:(id)interface displayName:(id)name type:(int)type;
 - (void)disableWiFiNetwork:(id)network;
 - (void)effectiveUserTierChanged:(id)changed;
 - (void)geohashSettingsChanged:(id)changed;
+- (void)handleDNSAgentErrorReport:(id)report error:(int)error;
 - (void)multiHopProxyAgentRegistered:(BOOL)registered;
 - (void)networkDiscoveredProxyPaths:(id)paths registeredForAgentUUID:(id)d;
 - (void)networkSignatureChanged;
@@ -868,7 +870,7 @@ LABEL_51:
 
   sub_10004B988(odohManager);
   sub_10001FD68(self, 0);
-  sub_10004D8DC();
+  sub_10004D8DC(NSPServerODoH);
   v11 = +[NSPPrivacyProxyLocationMonitor sharedMonitor];
   [v11 stop];
 
@@ -883,7 +885,7 @@ LABEL_51:
     CNPluginMonitorStop();
     sub_1000675F4(self);
     sub_1000676C8(self);
-    sub_10006770C();
+    sub_10006770C(NSPServer);
     sub_1000677BC(self);
     if (self->_userActivityNotificationHandle)
     {
@@ -901,7 +903,7 @@ LABEL_51:
 
   else
   {
-    sub_10006770C();
+    sub_10006770C(NSPServer);
     [0 resetStats];
   }
 }
@@ -2834,6 +2836,16 @@ LABEL_23:
 LABEL_34:
 }
 
+- (void)handleDNSAgentErrorReport:(id)report error:(int)error
+{
+  if (self)
+  {
+    self = self->_privacyProxyAgentManager;
+  }
+
+  [(NSPServer *)self sendRTCReportWithFailureType:1002 errorCode:*&error url:report ingressProxy:0 egressProxy:0 tokenServer:0];
+}
+
 - (void)reportPrivacyProxySuccessOnInterface:(id)interface
 {
   interfaceCopy = interface;
@@ -3258,10 +3270,10 @@ LABEL_60:
 
     if (port)
     {
-      v34 = 0u;
-      v35 = 0u;
       v32 = 0u;
       v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       if (self)
       {
         configuration = self->_configuration;
@@ -3275,54 +3287,52 @@ LABEL_60:
       proxyConfiguration = [(NSPConfiguration *)configuration proxyConfiguration];
       trustedNetworkDiscoveredProxies = [proxyConfiguration trustedNetworkDiscoveredProxies];
 
-      v10 = [trustedNetworkDiscoveredProxies countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v10 = [trustedNetworkDiscoveredProxies countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v33;
+        v12 = *v31;
         v13 = @":";
-        v14 = NEPolicySession_ptr;
         do
         {
-          v15 = 0;
-          v31 = v11;
+          v14 = 0;
+          v29 = v11;
           do
           {
-            if (*v33 != v12)
+            if (*v31 != v12)
             {
               objc_enumerationMutation(trustedNetworkDiscoveredProxies);
             }
 
-            v16 = [*(*(&v32 + 1) + 8 * v15) componentsSeparatedByString:v13];
-            if ([v16 count] >= 2)
+            v15 = [*(*(&v30 + 1) + 8 * v14) componentsSeparatedByString:v13];
+            if ([v15 count] >= 2)
             {
-              v17 = [v16 objectAtIndex:0];
-              v18 = v14[36];
+              v16 = [v15 objectAtIndex:0];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
 
               if (isKindOfClass)
               {
-                v20 = [v16 objectAtIndex:0];
-                v21 = [v16 objectAtIndex:1];
-                v22 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v21 integerValue]);
+                v18 = [v15 objectAtIndex:0];
+                v19 = [v15 objectAtIndex:1];
+                v20 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v19 integerValue]);
 
                 host2 = [listCopy host];
-                if ([host2 isEqualToString:v20])
+                if ([host2 isEqualToString:v18])
                 {
                   [listCopy port];
-                  v24 = v12;
-                  v25 = v13;
-                  v26 = trustedNetworkDiscoveredProxies;
-                  v28 = v27 = listCopy;
+                  v22 = v12;
+                  v23 = v13;
+                  v24 = trustedNetworkDiscoveredProxies;
+                  v26 = v25 = listCopy;
 
-                  v29 = v28 == v22;
-                  listCopy = v27;
-                  trustedNetworkDiscoveredProxies = v26;
-                  v13 = v25;
-                  v12 = v24;
-                  v11 = v31;
-                  if (v29)
+                  v27 = v26 == v20;
+                  listCopy = v25;
+                  trustedNetworkDiscoveredProxies = v24;
+                  v13 = v23;
+                  v12 = v22;
+                  v11 = v29;
+                  if (v27)
                   {
 
                     LOBYTE(host) = 1;
@@ -3333,16 +3343,14 @@ LABEL_60:
                 else
                 {
                 }
-
-                v14 = NEPolicySession_ptr;
               }
             }
 
-            v15 = v15 + 1;
+            v14 = v14 + 1;
           }
 
-          while (v11 != v15);
-          v11 = [trustedNetworkDiscoveredProxies countByEnumeratingWithState:&v32 objects:v36 count:16];
+          while (v11 != v14);
+          v11 = [trustedNetworkDiscoveredProxies countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v11);
@@ -3649,6 +3657,220 @@ LABEL_22:
   v13 = networkCopy;
   v11 = networkCopy;
   [(CoreTelephonyClient *)cellularClient getCurrentDataSubscriptionContext:v12];
+}
+
+- (void)disableInterface:(id)interface displayName:(id)name type:(int)type
+{
+  v5 = *&type;
+  interfaceCopy = interface;
+  nameCopy = name;
+  v10 = nplog_obj();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v46 = interfaceCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Saving preference to disable on interface %@", buf, 0xCu);
+  }
+
+  v11 = interfaceCopy;
+  v12 = v11;
+  if (!self)
+  {
+
+    serviceStatusManager = 0;
+    goto LABEL_32;
+  }
+
+  v13 = SCPreferencesCreateWithAuthorization(kCFAllocatorDefault, @"networkserviceproxy", 0, kSCPreferencesUseEntitlementAuthorization);
+  if (!v13)
+  {
+    v27 = nplog_obj();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      v37 = nameCopy;
+      Error = SCCopyLastError();
+      *buf = 138412290;
+      v46 = Error;
+      _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to create SCPreferences: %@", buf, 0xCu);
+
+      nameCopy = v37;
+    }
+
+    goto LABEL_31;
+  }
+
+  v14 = v13;
+  v15 = v12;
+  v16 = SCNetworkSetCopyCurrent(v14);
+  if (!v16)
+  {
+    v28 = nplog_obj();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      v39 = nameCopy;
+      v40 = SCCopyLastError();
+      *buf = 138412290;
+      v46 = v40;
+      _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to get current set: %@", buf, 0xCu);
+
+      nameCopy = v39;
+    }
+
+    goto LABEL_26;
+  }
+
+  v17 = v16;
+  v18 = SCNetworkSetCopyServices(v16);
+  if (!v18)
+  {
+    v29 = nplog_obj();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      v41 = nameCopy;
+      v42 = SCCopyLastError();
+      *buf = 138412290;
+      v46 = v42;
+      _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to copy services: %@", buf, 0xCu);
+
+      nameCopy = v41;
+    }
+
+    CFRelease(v17);
+LABEL_26:
+
+    goto LABEL_27;
+  }
+
+  v19 = v18;
+  v44 = v5;
+  Count = CFArrayGetCount(v18);
+  if (Count < 1)
+  {
+    v25 = 0;
+    goto LABEL_34;
+  }
+
+  v21 = Count;
+  v43 = nameCopy;
+  v22 = 0;
+  while (1)
+  {
+    ValueAtIndex = CFArrayGetValueAtIndex(v19, v22);
+    if (!SCNetworkServiceGetEnabled(ValueAtIndex))
+    {
+      goto LABEL_14;
+    }
+
+    Interface = SCNetworkServiceGetInterface(ValueAtIndex);
+    if (!Interface)
+    {
+      goto LABEL_14;
+    }
+
+    v25 = Interface;
+    v26 = SCNetworkInterfaceGetBSDName(Interface);
+    if (v26)
+    {
+      if (([(__CFError *)v15 isEqualToString:v26]& 1) != 0)
+      {
+        break;
+      }
+    }
+
+LABEL_14:
+    if (v21 == ++v22)
+    {
+      v25 = 0;
+      goto LABEL_16;
+    }
+  }
+
+  CFRetain(v25);
+
+LABEL_16:
+  nameCopy = v43;
+LABEL_34:
+  CFRelease(v17);
+  CFRelease(v19);
+
+  v5 = v44;
+  if (!v25)
+  {
+LABEL_27:
+    v30 = nplog_obj();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Failed to get interface from preferences", buf, 2u);
+    }
+
+    goto LABEL_29;
+  }
+
+  if (SCNetworkInterfaceSetDisablePrivateRelay())
+  {
+    CFRelease(v25);
+    if (SCPreferencesCommitChanges(v14))
+    {
+      if (!SCPreferencesApplyChanges(v14))
+      {
+        v30 = nplog_obj();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        {
+          v33 = nameCopy;
+          v34 = SCCopyLastError();
+          *buf = 138412290;
+          v46 = v34;
+          v35 = "Failed to apply SCPreferences: %@";
+          goto LABEL_45;
+        }
+
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+      v30 = nplog_obj();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      {
+        v33 = nameCopy;
+        v34 = SCCopyLastError();
+        *buf = 138412290;
+        v46 = v34;
+        v35 = "Failed to commit SCPreferences: %@";
+LABEL_45:
+        _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, v35, buf, 0xCu);
+
+        nameCopy = v33;
+      }
+
+LABEL_29:
+    }
+  }
+
+  else
+  {
+    v36 = nplog_obj();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543362;
+      v46 = v15;
+      _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Failed to disable private relay on %{public}@", buf, 0xCu);
+    }
+
+    CFRelease(v25);
+  }
+
+  CFRelease(v14);
+LABEL_31:
+
+  serviceStatusManager = self->_serviceStatusManager;
+LABEL_32:
+  [(NSPServiceStatusManager *)serviceStatusManager reportDisabledOnInterfaceName:v12 displayName:nameCopy type:v5, v43];
+
+  v32 = +[NSPPrivacyProxyPolicyHandler sharedHandler];
+  [v32 interface:v12 disabled:1];
 }
 
 - (id)getSavedPrivateCloudComputeEnvironment

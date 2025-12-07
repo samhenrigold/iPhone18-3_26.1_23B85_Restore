@@ -1,7293 +1,6 @@
-uint64_t LongPrnIdx_To_Prn(unsigned int a1, int *a2)
-{
-  v7 = *MEMORY[0x29EDCA608];
-  v3 = __OFSUB__(a1, 31);
-  result = a1 - 31;
-  if ((result < 0) ^ v3 | (result == 0))
-  {
-    if (a2)
-    {
-      *a2 = 1;
-    }
-
-    result = a1 + 1;
-  }
-
-  else if (a1 > 0x37)
-  {
-    result = a1 - 91;
-    if (a1 > 0x5B)
-    {
-      if (a1 <= 0x9A)
-      {
-        if (!a2)
-        {
-          goto LABEL_14;
-        }
-
-        v5 = 4;
-        goto LABEL_9;
-      }
-
-      result = a1 - 164;
-      if (a1 > 0xA4)
-      {
-        if (a1 <= 0xB2)
-        {
-          if (!a2)
-          {
-            goto LABEL_14;
-          }
-
-          v5 = 6;
-          goto LABEL_9;
-        }
-
-        if (a1 > 0xD9)
-        {
-          if (a2)
-          {
-            *a2 = 0;
-          }
-
-          gn_report_assertion_failure("LPrn_2_Prn:");
-          result = 0;
-        }
-
-        else
-        {
-          if (a2)
-          {
-            *a2 = 7;
-          }
-
-          result = a1 - 59;
-        }
-      }
-
-      else
-      {
-        if (a2)
-        {
-          *a2 = 5;
-        }
-
-        result = a1 + 38;
-      }
-    }
-
-    else
-    {
-      if (a2)
-      {
-        *a2 = 3;
-      }
-
-      result = a1 - 55;
-    }
-  }
-
-  else if (a2)
-  {
-    v5 = 2;
-LABEL_9:
-    *a2 = v5;
-  }
-
-LABEL_14:
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t LongPrnIdx_To_ShortPrnIdx(uint64_t result, _DWORD *a2)
-{
-  v3 = *MEMORY[0x29EDCA608];
-  if ((result & 0x80000000) != 0)
-  {
-    if (a2)
-    {
-      result = 0;
-      *a2 = 0;
-      goto LABEL_35;
-    }
-
-LABEL_34:
-    result = 0;
-    goto LABEL_35;
-  }
-
-  if (result <= 0x1F)
-  {
-    if (a2)
-    {
-      *a2 = 1;
-    }
-
-    goto LABEL_35;
-  }
-
-  if (result <= 0x37)
-  {
-    if (a2)
-    {
-      *a2 = 2;
-    }
-
-    result = (result - 32);
-    goto LABEL_35;
-  }
-
-  if (result <= 0x5B)
-  {
-    if (a2)
-    {
-      *a2 = 3;
-    }
-
-    result = (result - 56);
-    goto LABEL_35;
-  }
-
-  if (result <= 0x9A)
-  {
-    if (a2)
-    {
-      *a2 = 4;
-    }
-
-    result = (result - 92);
-    goto LABEL_35;
-  }
-
-  if (result <= 0xA4)
-  {
-    if (a2)
-    {
-      *a2 = 5;
-    }
-
-    result = (result - 155);
-    goto LABEL_35;
-  }
-
-  if (result <= 0xB2)
-  {
-    if (a2)
-    {
-      *a2 = 6;
-    }
-
-    result = (result - 165);
-    goto LABEL_35;
-  }
-
-  if (result > 0xD9)
-  {
-    if (a2)
-    {
-      *a2 = 0;
-    }
-
-    gn_report_assertion_failure("LPrn_2_SPrn:");
-    goto LABEL_34;
-  }
-
-  if (a2)
-  {
-    *a2 = 7;
-  }
-
-  result = (result - 179);
-LABEL_35:
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t GNSS_Id_To_Num_Prn_Idx(int a1)
-{
-  v1 = a1;
-  v10 = *MEMORY[0x29EDCA608];
-  v2 = a1;
-  v3 = BYTE2(a1);
-  if (!BYTE2(a1))
-  {
-    gn_report_assertion_failure("Id_2_NPrn: 0");
-  }
-
-  if ((v2 - 1) > 6)
-  {
-    v6 = 0;
-    v7 = "Id_2_NPrn: 1";
-    goto LABEL_9;
-  }
-
-  v4 = v3 - Prn_Offset[v1];
-  v5 = Num_Prn[v2 - 1];
-  v6 = (v4 + v5);
-  if (v4 + v5 < 0)
-  {
-    v6 = 0;
-    v7 = "Id_2_NPrn: 2";
-    goto LABEL_9;
-  }
-
-  if (v6 >= 0xDA)
-  {
-    v6 = 217;
-    v7 = "Id_2_NPrn: 3";
-LABEL_9:
-    gn_report_assertion_failure(v7);
-  }
-
-  v8 = *MEMORY[0x29EDCA608];
-  return v6;
-}
-
-uint64_t Num_Prn_Idx_To_GNSS_Id(int a1)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  Constell_Prn = Get_Constell_Prn(a1);
-  if (!Constell_Prn)
-  {
-    v5 = 0;
-    v6 = "NPrn_2_Id: 1";
-    goto LABEL_7;
-  }
-
-  v3 = Prn_Offset[Constell_Prn] + a1;
-  v4 = Num_Prn[Constell_Prn - 1];
-  v5 = (v3 - v4);
-  if (v3 - v4 < 0)
-  {
-    v5 = 0;
-    v6 = "NPrn_2_Id: 2";
-    goto LABEL_7;
-  }
-
-  if (v5 >= 0x100)
-  {
-    v5 = 255;
-    v6 = "NPrn_2_Id: 3";
-LABEL_7:
-    gn_report_assertion_failure(v6);
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return v5;
-}
-
-uint64_t GNSS_Id_To_Num_Pos_Idx(int a1)
-{
-  v1 = a1;
-  v10 = *MEMORY[0x29EDCA608];
-  v2 = a1;
-  v3 = BYTE2(a1);
-  if (!BYTE2(a1))
-  {
-    gn_report_assertion_failure("Id_2_NPos: 0");
-  }
-
-  if ((v2 - 1) > 6)
-  {
-    v6 = 0;
-    v7 = "Id_2_NPos: 1";
-    goto LABEL_9;
-  }
-
-  v4 = v3 - Prn_Offset[v1];
-  v5 = Num_Pos[v2 - 1];
-  v6 = (v4 + v5);
-  if (v4 + v5 < 0)
-  {
-    v6 = 0;
-    v7 = "Id_2_NPos: 2";
-    goto LABEL_9;
-  }
-
-  if (v6 >= 0xC5)
-  {
-    v6 = 196;
-    v7 = "Id_2_NPos: 3";
-LABEL_9:
-    gn_report_assertion_failure(v7);
-  }
-
-  v8 = *MEMORY[0x29EDCA608];
-  return v6;
-}
-
-uint64_t Num_Pos_Idx_To_GNSS_Id(int a1)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  Constell_Pos = Get_Constell_Pos(a1);
-  if (!Constell_Pos)
-  {
-    v5 = 0;
-    v6 = "NPos_2_Id: 1";
-    goto LABEL_7;
-  }
-
-  v3 = Prn_Offset[Constell_Pos] + a1;
-  v4 = Num_Pos[Constell_Pos - 1];
-  v5 = (v3 - v4);
-  if (v3 - v4 < 0)
-  {
-    v5 = 0;
-    v6 = "NPos_2_Id: 2";
-    goto LABEL_7;
-  }
-
-  if (v5 >= 0x100)
-  {
-    v5 = 255;
-    v6 = "NPos_2_Id: 3";
-LABEL_7:
-    gn_report_assertion_failure(v6);
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return v5;
-}
-
-uint64_t GNSS_SVId_Constell_To_Num_Pos_Idx(int a1, int a2)
-{
-  v8 = *MEMORY[0x29EDCA608];
-  if (a2 < 1)
-  {
-    v4 = 0;
-    v5 = "Id&C_2_NPos: 1";
-    goto LABEL_7;
-  }
-
-  v2 = a1 - Prn_Offset[a2];
-  v3 = Num_Pos[a2 - 1];
-  v4 = (v2 + v3);
-  if (v2 + v3 < 0)
-  {
-    v4 = 0;
-    v5 = "Id&C_2_NPos: 2";
-    goto LABEL_7;
-  }
-
-  if (v4 >= 0xC5)
-  {
-    v4 = 196;
-    v5 = "Id&C_2_NPos: 3";
-LABEL_7:
-    gn_report_assertion_failure(v5);
-  }
-
-  v6 = *MEMORY[0x29EDCA608];
-  return v4;
-}
-
-uint64_t Num_Pos_Idx_To_Num_Prn_Idx(int a1)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  Constell_Pos = Get_Constell_Pos(a1);
-  if (!Constell_Pos)
-  {
-    v5 = 0;
-    v6 = "NPos_2_NPrn: 1";
-    goto LABEL_7;
-  }
-
-  v3 = a1 - Num_Pos[Constell_Pos - 1];
-  v4 = Num_Prn[Constell_Pos - 1];
-  v5 = (v3 + v4);
-  if (v3 + v4 < 0)
-  {
-    v5 = 0;
-    v6 = "NPos_2_NPrn: 2";
-    goto LABEL_7;
-  }
-
-  if (v5 >= 0xDA)
-  {
-    v5 = 217;
-    v6 = "NPos_2_NPrn: 3";
-LABEL_7:
-    gn_report_assertion_failure(v6);
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return v5;
-}
-
-uint64_t Num_Prn_Idx_To_Num_Pos_Idx(int a1)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  Constell_Prn = Get_Constell_Prn(a1);
-  if (!Constell_Prn)
-  {
-    v5 = 0;
-    v6 = "NPrn_2_NPos: 1";
-    goto LABEL_7;
-  }
-
-  v3 = a1 - Num_Prn[Constell_Prn - 1];
-  v4 = Num_Pos[Constell_Prn - 1];
-  v5 = (v3 + v4);
-  if (v3 + v4 < 0)
-  {
-    v5 = 0;
-    v6 = "NPrn_2_NPos: 2";
-    goto LABEL_7;
-  }
-
-  if (v5 >= 0xC5)
-  {
-    v5 = 196;
-    v6 = "NPrn_2_NPos: 3";
-LABEL_7:
-    gn_report_assertion_failure(v6);
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return v5;
-}
-
-char **STEU_Encode(char **a1, char a2, unsigned __int8 *a3, unint64_t *a4)
-{
-  v18 = *MEMORY[0x29EDCA608];
-  v5 = *a4;
-  v6 = (*a4 - a3) % 3;
-  if (v6)
-  {
-    if (v6 == 1)
-    {
-      *v5 = 0;
-      v5 = (*a4 + 1);
-      *a4 = v5;
-    }
-
-    *v5 = 0;
-    ++*a4;
-  }
-
-  v7 = (*a1)++;
-  *v7 = 123;
-  v8 = *a1;
-  if (*a1 >= a1[3])
-  {
-    v8 = a1[2];
-  }
-
-  *a1 = v8 + 1;
-  *v8 = a2;
-  v9 = *a1;
-  if (*a1 >= a1[3])
-  {
-    v9 = a1[2];
-    *a1 = v9;
-  }
-
-  v17[4] = 0;
-  v10 = *a4;
-  do
-  {
-    v11 = *a3;
-    v12 = (v11 >> 2) + 48;
-    v13 = a3[1];
-    v17[1] = ((v13 >> 4) & 0xCF | (16 * (v11 & 3))) + 48;
-    LOBYTE(v11) = a3[2];
-    v17[2] = ((v11 >> 6) & 0xC3 | (4 * (v13 & 0xF))) + 48;
-    v17[3] = (v11 & 0x3F) + 48;
-    v14 = 1;
-    do
-    {
-      *a1 = v9 + 1;
-      *v9 = v12;
-      v9 = *a1;
-      if (*a1 >= a1[3])
-      {
-        v9 = a1[2];
-        *a1 = v9;
-      }
-
-      v12 = v17[v14++];
-    }
-
-    while (v12);
-    a3 += 3;
-  }
-
-  while (a3 < v10);
-  *a4 = a3;
-  v15 = *MEMORY[0x29EDCA608];
-
-  return STEU_Add_Checksum_LF(a1, v8);
-}
-
-char **STEU_Add_Checksum_LF(uint64_t a1, char *a2)
-{
-  v11 = *MEMORY[0x29EDCA608];
-  v3 = *a1;
-  if (*a1 == a2)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v4 = 0;
-    do
-    {
-      v6 = *a2++;
-      v5 = v6;
-      if (a2 >= *(a1 + 24))
-      {
-        a2 = *(a1 + 16);
-      }
-
-      v4 += v5;
-    }
-
-    while (a2 != v3);
-    v7 = v4;
-  }
-
-  *a1 = v3 + 1;
-  *v3 = 125;
-  if (*a1 >= *(a1 + 24))
-  {
-    *a1 = *(a1 + 16);
-  }
-
-  result = sprintf_02x(a1, v7);
-  v9 = (*a1)++;
-  *v9 = 10;
-  if (*a1 >= *(a1 + 24))
-  {
-    *a1 = *(a1 + 16);
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-char **STEU_Encode_c(char **a1, char a2, int a3, unsigned __int8 *a4)
-{
-  v17 = *MEMORY[0x29EDCA608];
-  v5 = (*a1)++;
-  *v5 = 123;
-  v6 = *a1;
-  if (*a1 >= a1[3])
-  {
-    v6 = a1[2];
-  }
-
-  *a1 = v6 + 1;
-  *v6 = 99;
-  v7 = *a1;
-  if (*a1 >= a1[3])
-  {
-    v7 = a1[2];
-  }
-
-  *a1 = v7 + 1;
-  *v7 = a2;
-  v8 = *a1;
-  if (*a1 >= a1[3])
-  {
-    v8 = a1[2];
-    *a1 = v8;
-  }
-
-  v16[4] = 0;
-  v9 = &a4[a3];
-  do
-  {
-    v10 = *a4;
-    v11 = (v10 >> 2) + 48;
-    v12 = a4[1];
-    v16[1] = ((v12 >> 4) & 0xCF | (16 * (v10 & 3))) + 48;
-    LOBYTE(v10) = a4[2];
-    v16[2] = ((v10 >> 6) & 0xC3 | (4 * (v12 & 0xF))) + 48;
-    v16[3] = (v10 & 0x3F) + 48;
-    v13 = 1;
-    do
-    {
-      *a1 = v8 + 1;
-      *v8 = v11;
-      v8 = *a1;
-      if (*a1 >= a1[3])
-      {
-        v8 = a1[2];
-        *a1 = v8;
-      }
-
-      v11 = v16[v13++];
-    }
-
-    while (v11);
-    a4 += 3;
-  }
-
-  while (a4 < v9);
-  v14 = *MEMORY[0x29EDCA608];
-
-  return STEU_Add_Checksum_LF(a1, v6);
-}
-
-void *GNSS_Write_NMEA(void *result)
-{
-  v11 = *MEMORY[0x29EDCA608];
-  if (result)
-  {
-    v1 = result;
-    v3 = *result;
-    v2 = result[1];
-    if (v2 != *result)
-    {
-      if (v2 > *result)
-      {
-        v3 = result[3];
-      }
-
-      v4 = v3 - v2;
-      result = GN_GPS_Write_NMEA((v3 - v2), v2);
-      v5 = result;
-      if (g_Logging_Cfg >= 7)
-      {
-        result = GN_GPS_Write_Nav_Debug(result, v1[1]);
-      }
-
-      v6 = (v1[1] + v5);
-      v1[1] = v6;
-      if (v6 >= v1[3])
-      {
-        v6 = v1[2];
-        v1[1] = v6;
-        if (v5 == v4)
-        {
-          v7 = (*v1 - v6);
-          result = GN_GPS_Write_NMEA((*v1 - v6), v6);
-          v8 = result;
-          if (g_Logging_Cfg >= 8)
-          {
-            result = GN_GPS_Write_Nav_Debug(result, v1[1]);
-          }
-
-          v6 = (v1[1] + v8);
-          v1[1] = v6;
-        }
-      }
-
-      if (v6 == *v1)
-      {
-        v9 = v1[2];
-        *v1 = v9;
-        v1[1] = v9;
-      }
-    }
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-char **NMEA_Encode(char **result, uint64_t a2, uint64_t a3)
-{
-  v912 = *MEMORY[0x29EDCA608];
-  if (!result || !a2)
-  {
-LABEL_662:
-    v326 = *MEMORY[0x29EDCA608];
-    return result;
-  }
-
-  v5 = result;
-  v6 = (*result)++;
-  *v6 = 36;
-  v7 = *result;
-  if (*result >= result[3])
-  {
-    v7 = result[2];
-  }
-
-  v895 = result + 2;
-  v8 = 71;
-  v9 = 1u;
-  v10 = v7;
-  do
-  {
-    *result = v10 + 1;
-    *v10 = v8;
-    v10 = *result;
-    if (*result >= result[3])
-    {
-      v10 = result[2];
-      *result = v10;
-    }
-
-    v8 = aGpgga[v9++];
-  }
-
-  while (v9 != 7);
-  sprintf_HHMMSS(result, a2);
-  v11 = *(a2 + 308);
-  v12 = *(a2 + 334) != 1 || v11 == 0;
-  v894 = a2;
-  if (v12)
-  {
-    v13 = 0;
-    v14 = *v5;
-    v15 = 44;
-    do
-    {
-      *v5 = v14 + 1;
-      *v14 = v15;
-      v14 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v14 = *(v5 + 16);
-        *v5 = v14;
-      }
-
-      v15 = a00MM[++v13];
-    }
-
-    while (v13 != 16);
-  }
-
-  else
-  {
-    sprintf_LatLon(v5, *(a2 + 104), *(a2 + 112));
-    v16 = 0x323132313630uLL >> (8 * v11);
-    if (v11 >= 6)
-    {
-      LOBYTE(v16) = 48;
-    }
-
-    v17 = (*v5)++;
-    *v17 = v16;
-    v18 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v18 = *v895;
-    }
-
-    *v5 = v18 + 1;
-    *v18 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(a2 + 345), v911, 0, 0);
-    v19 = (*v5)++;
-    *v19 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_DOP(v5, *(a2 + 272));
-    v20 = (*v5)++;
-    *v20 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v21 = *(a2 + 128) * 1000.0;
-    v22 = -0.5;
-    if (v21 > 0.0)
-    {
-      v22 = 0.5;
-    }
-
-    v23 = v21 + v22;
-    if (v23 <= 2147483650.0)
-    {
-      if (v23 >= -2147483650.0)
-      {
-        v24 = v23;
-      }
-
-      else
-      {
-        v24 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v24 = 0x7FFFFFFF;
-    }
-
-    sprintf_4f(v5, v24, 4);
-    v25 = *v5;
-    v26 = 44;
-    v27 = 1u;
-    do
-    {
-      *v5 = v25 + 1;
-      *v25 = v26;
-      v25 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v25 = *(v5 + 16);
-        *v5 = v25;
-      }
-
-      v26 = aM_0[v27++];
-    }
-
-    while (v27 != 4);
-    v28 = (*(a2 + 120) - *(a2 + 128)) * 1000.0;
-    v29 = -0.5;
-    if (v28 > 0.0)
-    {
-      v29 = 0.5;
-    }
-
-    v30 = v28 + v29;
-    if (v30 <= 2147483650.0)
-    {
-      if (v30 >= -2147483650.0)
-      {
-        v31 = v30;
-      }
-
-      else
-      {
-        v31 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v31 = 0x7FFFFFFF;
-    }
-
-    sprintf_4f(v5, v31, 4);
-    v32 = *v5;
-    v33 = 44;
-    v34 = 1u;
-    do
-    {
-      *v5 = v32 + 1;
-      *v32 = v33;
-      v32 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v32 = *(v5 + 16);
-        *v5 = v32;
-      }
-
-      v33 = aM_0[v34++];
-    }
-
-    while (v34 != 4);
-    *v5 = v32 + 1;
-    *v32 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-  }
-
-  NMEA_Add_checksum(v5, v7);
-  v35 = (*v5)++;
-  *v35 = 36;
-  v36 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v36 = *v895;
-  }
-
-  v37 = 71;
-  v38 = 1u;
-  v39 = v36;
-  do
-  {
-    *v5 = v39 + 1;
-    *v39 = v37;
-    v39 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v39 = *(v5 + 16);
-      *v5 = v39;
-    }
-
-    v37 = aGpgll[v38++];
-  }
-
-  while (v38 != 7);
-  v40 = *(a2 + 308);
-  if (*(a2 + 334) != 1 || v40 == 0)
-  {
-    v42 = 0;
-    v43 = 44;
-    v44 = a2;
-    do
-    {
-      *v5 = v39 + 1;
-      *v39 = v43;
-      v39 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v39 = *(v5 + 16);
-        *v5 = v39;
-      }
-
-      v43 = asc_29906A308[++v42];
-    }
-
-    while (v42 != 4);
-    sprintf_HHMMSS(v5, a2);
-    v45 = "V,N";
-  }
-
-  else
-  {
-    sprintf_LatLon(v5, *(a2 + 104), *(a2 + 112));
-    sprintf_HHMMSS(v5, a2);
-    if (v40 > 5)
-    {
-      v45 = "V,N";
-    }
-
-    else
-    {
-      v45 = off_29EF064B8[v40 - 1];
-    }
-
-    v44 = a2;
-  }
-
-  v46 = *v45;
-  if (*v45)
-  {
-    v47 = *v5;
-    v48 = (v45 + 1);
-    do
-    {
-      *v5 = v47 + 1;
-      *v47 = v46;
-      v47 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v47 = *(v5 + 16);
-        *v5 = v47;
-      }
-
-      v49 = *v48++;
-      v46 = v49;
-    }
-
-    while (v49);
-  }
-
-  NMEA_Add_checksum(v5, v36);
-  v910 = 0;
-  v909 = 0;
-  v908 = 0;
-  v907 = 0;
-  v906 = 0;
-  v905 = 0;
-  v904 = 0;
-  v903 = 0;
-  v902 = 0;
-  v901 = 0;
-  v900 = 0;
-  v899 = 0;
-  v50 = *(v44 + 344);
-  if (*(v44 + 344))
-  {
-    v51 = 0;
-    v52 = 0;
-    v53 = 0;
-    v54 = 0;
-    v55 = 0;
-    v56 = 0;
-    v57 = 0;
-    v58 = 0;
-    v59 = (v44 + 348);
-    v60 = v44;
-    while (1)
-    {
-      if (*(v60 + 6112) == 1 && (v61 = *(v60 + 1756), *(v60 + 1756)) && ((v62 = *v59, v61 == v55) ? (v63 = v62 == v54) : (v63 = 0), !v63))
-      {
-        if (v62 > 3)
-        {
-          switch(v62)
-          {
-            case 4:
-              if (v58 <= 11)
-              {
-                *(&v903 + v58++) = v61;
-              }
-
-              v54 = 4;
-              goto LABEL_94;
-            case 5:
-              if (v57 <= 11)
-              {
-                *(&v901 + v57++) = v61;
-              }
-
-              v54 = 5;
-              goto LABEL_94;
-            case 6:
-              if (v56 <= 11)
-              {
-                *(&v899 + v56++) = v61;
-              }
-
-              v54 = 6;
-              goto LABEL_94;
-          }
-        }
-
-        else
-        {
-          switch(v62)
-          {
-            case 1:
-              if (v51 <= 11)
-              {
-                *(&v909 + v51++) = v61;
-              }
-
-              v54 = 1;
-              goto LABEL_94;
-            case 2:
-              if (v52 <= 11)
-              {
-                *(&v907 + v52++) = v61;
-              }
-
-              v54 = 2;
-              goto LABEL_94;
-            case 3:
-              if (v53 <= 11)
-              {
-                *(&v905 + v53++) = v61;
-              }
-
-              v54 = 3;
-              goto LABEL_94;
-          }
-        }
-
-        v54 = *v59;
-      }
-
-      else
-      {
-        v61 = v55;
-      }
-
-LABEL_94:
-      ++v59;
-      ++v60;
-      v55 = v61;
-      if (!--v50)
-      {
-        goto LABEL_116;
-      }
-    }
-  }
-
-  v58 = 0;
-  v57 = 0;
-  v56 = 0;
-  v53 = 0;
-  v52 = 0;
-  v51 = 0;
-LABEL_116:
-  v876 = v58;
-  v878 = v56;
-  v881 = v53;
-  v883 = v52;
-  v874 = a3;
-  v896 = 0;
-  if (*(v44 + 332) == 1)
-  {
-    v64 = 77;
-  }
-
-  else
-  {
-    v64 = 65;
-  }
-
-  v65 = *(v44 + 308);
-  if (!*(v44 + 334))
-  {
-    v65 = 0;
-  }
-
-  v890 = v65;
-  v892 = v64;
-  v66 = v65 & 0xFFFFFFFE;
-  if (v66 == 2)
-  {
-    v67 = 50;
-  }
-
-  else
-  {
-    v67 = 49;
-  }
-
-  if (v66 == 4)
-  {
-    v68 = 51;
-  }
-
-  else
-  {
-    v68 = v67;
-  }
-
-  v888 = v68;
-  v885 = v51;
-  v875 = v51 > 0;
-  v69 = 1;
-  do
-  {
-    v70 = v69;
-    v12 = (v69 & 1) == 0;
-    v71 = "GP";
-    if (v12)
-    {
-      v71 = "GN";
-    }
-
-    v897 = *v71;
-    v886 = v71 + 1;
-    v72 = 1;
-    v893 = v70;
-    do
-    {
-      if ((v70 & (v72 != 1)) != 0)
-      {
-        goto LABEL_209;
-      }
-
-      if (v72 > 3)
-      {
-        switch(v72)
-        {
-          case 4:
-            v73 = &v903;
-            v74 = 4;
-            v75 = v876;
-            break;
-          case 5:
-            v73 = &v905;
-            v74 = 3;
-            v75 = v881;
-            break;
-          case 6:
-            v73 = &v899;
-            v74 = 6;
-            v75 = v878;
-            break;
-          default:
-LABEL_144:
-            EvCrt_Illegal_switch_default("NMEA_Encode_GSA", 0x279u);
-            goto LABEL_209;
-        }
-      }
-
-      else
-      {
-        switch(v72)
-        {
-          case 1:
-            v73 = &v909;
-            v76 = v875;
-            v75 = v885;
-            v74 = 1;
-            goto LABEL_149;
-          case 2:
-            v73 = &v907;
-            v74 = 2;
-            v75 = v883;
-            break;
-          case 3:
-            v73 = &v901;
-            v74 = 5;
-            v75 = v57;
-            break;
-          default:
-            goto LABEL_144;
-        }
-      }
-
-      if (v75 < 1)
-      {
-        goto LABEL_209;
-      }
-
-      v76 = 1;
-LABEL_149:
-      v77 = (*v5)++;
-      *v77 = 36;
-      v78 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v78 = *v895;
-      }
-
-      v79 = v78;
-      if (v897)
-      {
-        v80 = v886;
-        v79 = v78;
-        v81 = v897;
-        do
-        {
-          *v5 = v79 + 1;
-          *v79 = v81;
-          v79 = *v5;
-          if (*v5 >= *(v5 + 24))
-          {
-            v79 = *(v5 + 16);
-            *v5 = v79;
-          }
-
-          v82 = *v80++;
-          v81 = v82;
-        }
-
-        while (v82);
-      }
-
-      v83 = 0;
-      v84 = 71;
-      do
-      {
-        *v5 = v79 + 1;
-        *v79 = v84;
-        v79 = *v5;
-        if (*v5 >= *(v5 + 24))
-        {
-          v79 = *(v5 + 16);
-          *v5 = v79;
-        }
-
-        v84 = aGsa[++v83];
-      }
-
-      while (v83 != 4);
-      *v5 = v79 + 1;
-      *v79 = v892;
-      v85 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v85 = *v895;
-      }
-
-      *v5 = v85 + 1;
-      *v85 = 44;
-      v86 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v86 = *v895;
-      }
-
-      *v5 = v86 + 1;
-      *v86 = v888;
-      v87 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v87 = *v895;
-      }
-
-      *v5 = v87 + 1;
-      *v87 = 44;
-      v88 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v88 = *(v5 + 16);
-        *v5 = v88;
-      }
-
-      if (v890)
-      {
-        if (v75 <= 0)
-        {
-          goto LABEL_183;
-        }
-
-        v89 = v75;
-        do
-        {
-          v91 = *v73;
-          v73 = (v73 + 1);
-          v90 = v91;
-          if (v91)
-          {
-            v92 = v90 + 64;
-            if (v74 != 2)
-            {
-              v92 = v90 - 192;
-            }
-
-            if (v74 == 1)
-            {
-              v92 = v90;
-            }
-
-            if (v74 <= 3)
-            {
-              v93 = v92;
-            }
-
-            else
-            {
-              v93 = v90;
-            }
-
-            sprintf_02d(v5, v93);
-            v94 = (*v5)++;
-            *v94 = 44;
-            v88 = *v5;
-            if (*v5 >= *(v5 + 24))
-            {
-              v88 = *(v5 + 16);
-              *v5 = v88;
-            }
-          }
-
-          --v89;
-        }
-
-        while (v89);
-        v44 = v894;
-        if (v75 < 12)
-        {
-LABEL_183:
-          v95 = v75 - 12;
-          do
-          {
-            *v5 = v88 + 1;
-            *v88 = 44;
-            v88 = *v5;
-            if (*v5 >= *(v5 + 24))
-            {
-              v88 = *(v5 + 16);
-              *v5 = v88;
-            }
-          }
-
-          while (!__CFADD__(v95++, 1));
-        }
-      }
-
-      else
-      {
-        for (i = 15; i > 1; --i)
-        {
-          *v5 = v88 + 1;
-          *v88 = 44;
-          v88 = *v5;
-          if (*v5 >= *(v5 + 24))
-          {
-            v88 = *(v5 + 16);
-            *v5 = v88;
-          }
-        }
-      }
-
-      if (v76 && *(v44 + 272) < 99.99)
-      {
-        sprintf_DOP(v5, *(v44 + 288));
-        v98 = (*v5)++;
-        *v98 = 44;
-        if (*v5 >= *(v5 + 24))
-        {
-          *v5 = *(v5 + 16);
-        }
-
-        sprintf_DOP(v5, *(v44 + 272));
-        v99 = (*v5)++;
-        *v99 = 44;
-        if (*v5 >= *(v5 + 24))
-        {
-          *v5 = *(v5 + 16);
-        }
-
-        sprintf_DOP(v5, *(v44 + 280));
-      }
-
-      else
-      {
-        *v5 = v88 + 1;
-        *v88 = 44;
-        v100 = *v5;
-        if (*v5 >= *(v5 + 24))
-        {
-          v100 = *v895;
-        }
-
-        *v5 = v100 + 1;
-        *v100 = 44;
-        if (*v5 >= *(v5 + 24))
-        {
-          *v5 = *(v5 + 16);
-        }
-      }
-
-      if (v896)
-      {
-        v101 = (*v5)++;
-        *v101 = 44;
-        if (*v5 >= *(v5 + 24))
-        {
-          *v5 = *(v5 + 16);
-        }
-
-        sprintf1da(v5, v72, v911, 0, 0);
-      }
-
-      NMEA_Add_checksum(v5, v78);
-      v70 = v893;
-LABEL_209:
-      ++v72;
-    }
-
-    while (v72 != 7);
-    v69 = 0;
-    v896 = 1;
-  }
-
-  while ((v70 & 1) != 0);
-  v102 = (*v5)++;
-  *v102 = 36;
-  v103 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v103 = *v895;
-  }
-
-  v104 = 0;
-  v105 = 71;
-  v106 = v103;
-  do
-  {
-    *v5 = v106 + 1;
-    *v106 = v105;
-    v106 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v106 = *(v5 + 16);
-      *v5 = v106;
-    }
-
-    v105 = aGn[++v104];
-  }
-
-  while (v104 != 2);
-  v107 = 0;
-  v108 = 71;
-  do
-  {
-    *v5 = v106 + 1;
-    *v106 = v108;
-    v106 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v106 = *(v5 + 16);
-      *v5 = v106;
-    }
-
-    v108 = aGst[++v107];
-  }
-
-  while (v107 != 4);
-  sprintf_HHMMSS(v5, v44);
-  if (*(v44 + 345))
-  {
-    v109 = *(v44 + 256);
-    if (v109 > 0.0)
-    {
-      sprintf_AccEst(v5, v109);
-    }
-  }
-
-  v110 = (*v5)++;
-  *v110 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_AccEst(v5, *(v894 + 208));
-  v111 = (*v5)++;
-  *v111 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_AccEst(v5, *(v894 + 216));
-  v112 = (*v5)++;
-  *v112 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v113 = *(v894 + 224);
-  if (v113 >= 0)
-  {
-    v114 = *(v894 + 224);
-  }
-
-  else
-  {
-    v114 = -v113;
-  }
-
-  sprintf1da(v5, v114, v911, 0, v113 >> 31);
-  v115 = (*v5)++;
-  *v115 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_AccEst(v5, *(v894 + 184));
-  v116 = (*v5)++;
-  *v116 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_AccEst(v5, *(v894 + 192));
-  v117 = (*v5)++;
-  *v117 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v118 = v894;
-  sprintf_AccEst(v5, *(v894 + 200));
-  NMEA_Add_checksum(v5, v103);
-  v119 = 0;
-  v120 = v894 + 1756;
-  v121 = v894 + 348;
-  while (2)
-  {
-    v122 = &NMEA_Encode_GSV(Cyc_buffer *,GN_GPS_Nav_Data const*)::GSV_Types[2 * v119];
-    v123 = *v122;
-    v898 = v122[1];
-    v877 = v119;
-    if (*v122 > 2)
-    {
-      v124 = &unk_299066A3A;
-      v125 = "GI";
-      if (v123 != 6)
-      {
-        v125 = &unk_299066A3A;
-      }
-
-      if (v123 == 5)
-      {
-        v125 = "GA";
-      }
-
-      if (v123 == 4)
-      {
-        v124 = "GB";
-      }
-
-      if (v123 == 3)
-      {
-        v124 = "GQ";
-      }
-
-      if (v123 <= 4)
-      {
-        v125 = v124;
-      }
-
-      goto LABEL_257;
-    }
-
-    if (v123)
-    {
-      v125 = &unk_299066A3A;
-      if (v123 == 2)
-      {
-        v125 = "GL";
-      }
-
-      if (v123 == 1)
-      {
-        v125 = "GP";
-      }
-
-LABEL_257:
-      v879 = v125;
-      v126 = *(v118 + 344);
-      if (*(v118 + 344))
-      {
-        v127 = 0;
-        v128 = (v894 + 1756);
-        v129 = v118;
-        do
-        {
-          v130 = *v128++;
-          if (v130 && *(v129 + 348) == v123 && *(v129 + 860) == v898)
-          {
-            ++v127;
-          }
-
-          v129 += 4;
-          --v126;
-        }
-
-        while (v126);
-        if (v127 > 0)
-        {
-          v131 = 0;
-          v132 = ((v127 - 1) >> 2) + 1;
-          v887 = *v879;
-          v880 = (v879 + 1);
-          v133 = 1;
-          v882 = v132;
-          v884 = v127;
-          while (1)
-          {
-            v134 = (*v5)++;
-            *v134 = 36;
-            v135 = *v5;
-            if (*v5 >= *(v5 + 24))
-            {
-              v135 = *v895;
-            }
-
-            v136 = v135;
-            if (v887)
-            {
-              v137 = v880;
-              v136 = v135;
-              v138 = v887;
-              do
-              {
-                *v5 = v136 + 1;
-                *v136 = v138;
-                v136 = *v5;
-                if (*v5 >= *(v5 + 24))
-                {
-                  v136 = *(v5 + 16);
-                  *v5 = v136;
-                }
-
-                v139 = *v137++;
-                v138 = v139;
-              }
-
-              while (v139);
-            }
-
-            v140 = 0;
-            v141 = 71;
-            do
-            {
-              *v5 = v136 + 1;
-              *v136 = v141;
-              v136 = *v5;
-              if (*v5 >= *(v5 + 24))
-              {
-                v136 = *(v5 + 16);
-                *v5 = v136;
-              }
-
-              v141 = aGsv[++v140];
-            }
-
-            while (v140 != 4);
-            v889 = v135;
-            sprintf1da(v5, v132, v911, 0, 0);
-            v142 = (*v5)++;
-            *v142 = 44;
-            if (*v5 >= *(v5 + 24))
-            {
-              *v5 = *(v5 + 16);
-            }
-
-            sprintf1da(v5, v133, v911, 0, 0);
-            v143 = (*v5)++;
-            *v143 = 44;
-            if (*v5 >= *(v5 + 24))
-            {
-              *v5 = *(v5 + 16);
-            }
-
-            v891 = v133;
-            sprintf_02d(v5, v127);
-            v144 = *(v118 + 344);
-            if (v131 < v144)
-            {
-              v145 = 0;
-              v146 = v131;
-              v147 = v898;
-              while (1)
-              {
-                if (!*(v120 + v131) || *(v121 + 4 * v131) != v123 || *(v894 + 860 + 4 * v131) != v147)
-                {
-                  ++v131;
-                  goto LABEL_294;
-                }
-
-                v148 = (*v5)++;
-                *v148 = 44;
-                if (*v5 >= *(v5 + 24))
-                {
-                  *v5 = *(v5 + 16);
-                }
-
-                v149 = *(v120 + v131);
-                v150 = *(v121 + 4 * v131);
-                if (v150 > 3)
-                {
-                  if (v150 == 6)
-                  {
-                    v151 = *(v120 + v131);
-                  }
-
-                  else
-                  {
-                    v151 = 0;
-                  }
-
-                  if (v150 != 4 && v150 != 5)
-                  {
-                    v149 = v151;
-                  }
-                }
-
-                else if (v150 != 1)
-                {
-                  if (v150 == 2)
-                  {
-                    v149 += 64;
-                  }
-
-                  else if (v150 == 3)
-                  {
-                    v149 -= 192;
-                  }
-
-                  else
-                  {
-                    v149 = 0;
-                  }
-                }
-
-                sprintf_02d(v5, v149);
-                v153 = (*v5)++;
-                *v153 = 44;
-                v154 = *v5;
-                if (*v5 >= *(v5 + 24))
-                {
-                  v154 = *(v5 + 16);
-                  *v5 = v154;
-                }
-
-                v155 = *(v894 + 5088 + 8 * v131);
-                if (v155 >= -5.0)
-                {
-                  v158 = v155 * 10.0;
-                  if (v158 <= 0.0)
-                  {
-                    v159 = -0.5;
-                  }
-
-                  else
-                  {
-                    v159 = 0.5;
-                  }
-
-                  v160 = v158 + v159;
-                  if (v160 <= 2147483650.0)
-                  {
-                    if (v160 >= -2147483650.0)
-                    {
-                      v161 = v160;
-                    }
-
-                    else
-                    {
-                      v161 = 0x80000000;
-                    }
-                  }
-
-                  else
-                  {
-                    v161 = 0x7FFFFFFF;
-                  }
-
-                  sprintf_2f(v5, v161);
-                  v162 = (*v5)++;
-                  *v162 = 44;
-                  if (*v5 >= *(v5 + 24))
-                  {
-                    *v5 = *(v5 + 16);
-                  }
-
-                  v163 = *(v894 + 4064 + 8 * v131) * 10.0;
-                  if (v163 <= 0.0)
-                  {
-                    v164 = -0.5;
-                  }
-
-                  else
-                  {
-                    v164 = 0.5;
-                  }
-
-                  v165 = v163 + v164;
-                  if (v165 <= 2147483650.0)
-                  {
-                    if (v165 >= -2147483650.0)
-                    {
-                      v166 = v165;
-                    }
-
-                    else
-                    {
-                      v166 = 0x80000000;
-                    }
-                  }
-
-                  else
-                  {
-                    v166 = 0x7FFFFFFF;
-                  }
-
-                  sprintf_2f(v5, v166);
-                  v157 = v5;
-                  v147 = v898;
-                }
-
-                else
-                {
-                  *v5 = v154 + 1;
-                  *v154 = 44;
-                  v156 = *v5;
-                  v157 = v895;
-                  v147 = v898;
-                  if (*v5 < *(v5 + 24))
-                  {
-                    goto LABEL_331;
-                  }
-                }
-
-                v156 = *v157;
-LABEL_331:
-                *v5 = v156 + 1;
-                *v156 = 44;
-                if (*v5 >= *(v5 + 24))
-                {
-                  *v5 = *(v5 + 16);
-                }
-
-                v167 = *(v894 + 2016 + 8 * v131);
-                if (v167 > 0.0)
-                {
-                  v168 = v167 * 10.0;
-                  if (v168 <= 0.0)
-                  {
-                    v169 = -0.5;
-                  }
-
-                  else
-                  {
-                    v169 = 0.5;
-                  }
-
-                  v170 = v168 + v169;
-                  if (v170 <= 2147483650.0)
-                  {
-                    if (v170 >= -2147483650.0)
-                    {
-                      v171 = v170;
-                    }
-
-                    else
-                    {
-                      v171 = 0x80000000;
-                    }
-                  }
-
-                  else
-                  {
-                    v171 = 0x7FFFFFFF;
-                  }
-
-                  sprintf_2f(v5, v171);
-                  v147 = v898;
-                }
-
-                ++v131;
-                if (v145 > 2)
-                {
-                  goto LABEL_346;
-                }
-
-                ++v145;
-                v144 = *(v894 + 344);
-LABEL_294:
-                if (++v146 >= v144)
-                {
-                  goto LABEL_346;
-                }
-              }
-            }
-
-            v147 = v898;
-LABEL_346:
-            v172 = (*v5)++;
-            *v172 = 44;
-            v173 = *v5;
-            if (*v5 >= *(v5 + 24))
-            {
-              v173 = *(v5 + 16);
-              *v5 = v173;
-            }
-
-            v174 = 48;
-            v118 = v894;
-            if (v147 > 50)
-            {
-              break;
-            }
-
-            if (v147 > 32)
-            {
-              v127 = v884;
-              if (v147 > 35)
-              {
-                if (v147 == 36)
-                {
-                  goto LABEL_383;
-                }
-
-                if (v147 == 49)
-                {
-                  goto LABEL_379;
-                }
-
-                if (v147 != 50)
-                {
-                  goto LABEL_387;
-                }
-              }
-
-              else if (v147 == 33 || v147 == 34)
-              {
-LABEL_379:
-                v174 = 49;
-                goto LABEL_387;
-              }
-
-              goto LABEL_372;
-            }
-
-            v127 = v884;
-            if (v147 > 17)
-            {
-              if (v147 != 18)
-              {
-                if (v147 != 19)
-                {
-                  if (v147 != 20)
-                  {
-                    goto LABEL_387;
-                  }
-
-LABEL_382:
-                  v174 = 56;
-                  goto LABEL_387;
-                }
-
-                goto LABEL_383;
-              }
-
-              goto LABEL_372;
-            }
-
-            if (v147)
-            {
-              if (v147 == 17)
-              {
-                goto LABEL_379;
-              }
-
-LABEL_387:
-              *v5 = v173 + 1;
-              *v173 = v174;
-              if (*v5 >= *(v5 + 24))
-              {
-                *v5 = *(v5 + 16);
-              }
-            }
-
-            NMEA_Add_checksum(v5, v889);
-            v132 = v882;
-            v133 = v891 + 1;
-            if (v891 == v882)
-            {
-              goto LABEL_392;
-            }
-          }
-
-          if (v147 > 67)
-          {
-            v127 = v884;
-            if (v147 > 82)
-            {
-              if (v147 == 83 || v147 == 97)
-              {
-                v174 = 50;
-              }
-
-              else if (v147 == 98)
-              {
-                goto LABEL_379;
-              }
-            }
-
-            else
-            {
-              switch(v147)
-              {
-                case 'D':
-                  v174 = 54;
-                  break;
-                case 'Q':
-                  v174 = 55;
-                  break;
-                case 'R':
-                  goto LABEL_379;
-              }
-            }
-
-            goto LABEL_387;
-          }
-
-          v127 = v884;
-          if (v147 <= 64)
-          {
-            if (v147 != 51)
-            {
-              if (v147 != 52)
-              {
-                goto LABEL_387;
-              }
-
-              goto LABEL_382;
-            }
-
-LABEL_383:
-            v174 = 53;
-            goto LABEL_387;
-          }
-
-          if (v147 == 65)
-          {
-            goto LABEL_379;
-          }
-
-          if (v147 != 66)
-          {
-            goto LABEL_383;
-          }
-
-LABEL_372:
-          v174 = 51;
-          goto LABEL_387;
-        }
-      }
-    }
-
-    else
-    {
-      EvCrt_Illegal_switch_case("NMEA_Encode_GSV", 0x328u);
-    }
-
-LABEL_392:
-    v119 = v877 + 1;
-    if (v877 != 10)
-    {
-      continue;
-    }
-
-    break;
-  }
-
-  v175 = (*v5)++;
-  *v175 = 36;
-  v176 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v176 = *v895;
-  }
-
-  v177 = 71;
-  v178 = 1u;
-  v179 = v176;
-  do
-  {
-    *v5 = v179 + 1;
-    *v179 = v177;
-    v179 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v179 = *(v5 + 16);
-      *v5 = v179;
-    }
-
-    v177 = aGprmc[v178++];
-  }
-
-  while (v178 != 7);
-  sprintf_HHMMSS(v5, v118);
-  if (*(v118 + 334))
-  {
-    v180 = *(v118 + 308);
-  }
-
-  else
-  {
-    v180 = 0;
-  }
-
-  if (v180)
-  {
-    if (v180 <= 0)
-    {
-      v181 = 86;
-    }
-
-    else
-    {
-      v181 = 65;
-    }
-
-    v182 = (*v5)++;
-    *v182 = v181;
-    v183 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v183 = *v895;
-    }
-
-    *v5 = v183 + 1;
-    *v183 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_LatLon(v5, *(v894 + 104), *(v894 + 112));
-    v184 = *(v894 + 136) * 1.94279547 * 1000.0;
-    v185 = -0.5;
-    if (v184 > 0.0)
-    {
-      v185 = 0.5;
-    }
-
-    v186 = v184 + v185;
-    if (v186 <= 2147483650.0)
-    {
-      if (v186 >= -2147483650.0)
-      {
-        v187 = v186;
-      }
-
-      else
-      {
-        v187 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v187 = 0x7FFFFFFF;
-    }
-
-    sprintf_4f(v5, v187, 4);
-    v191 = (*v5)++;
-    *v191 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v192 = *(v894 + 144) * 10.0;
-    v193 = -0.5;
-    if (v192 > 0.0)
-    {
-      v193 = 0.5;
-    }
-
-    v194 = v192 + v193;
-    if (v194 <= 2147483650.0)
-    {
-      if (v194 >= -2147483650.0)
-      {
-        v195 = v194;
-      }
-
-      else
-      {
-        v195 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v195 = 0x7FFFFFFF;
-    }
-
-    sprintf_2f(v5, v195);
-    v196 = (*v5)++;
-    *v196 = 44;
-    v189 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v189 = *(v5 + 16);
-      *v5 = v189;
-    }
-  }
-
-  else
-  {
-    v188 = 0;
-    v189 = *v5;
-    v190 = 86;
-    do
-    {
-      *v5 = v189 + 1;
-      *v189 = v190;
-      v189 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v189 = *(v5 + 16);
-        *v5 = v189;
-      }
-
-      v190 = aV[++v188];
-    }
-
-    while (v188 != 8);
-  }
-
-  if (*(v894 + 17) == 1)
-  {
-    sprintf_02d(v5, *(v894 + 22));
-    sprintf_02d(v5, *(v894 + 20));
-    sprintf_02d(v5, *(v894 + 18) - 2000);
-    v189 = *v5;
-  }
-
-  *v5 = v189 + 1;
-  *v189 = 44;
-  v197 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v197 = *v895;
-  }
-
-  *v5 = v197 + 1;
-  *v197 = 44;
-  v198 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v198 = *v895;
-  }
-
-  *v5 = v198 + 1;
-  *v198 = 44;
-  v199 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v199 = *v895;
-  }
-
-  v200 = 0x44414441454EuLL >> (8 * v180);
-  if (v180 >= 6)
-  {
-    LOBYTE(v200) = 78;
-  }
-
-  *v5 = v199 + 1;
-  *v199 = v200;
-  v201 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v201 = *v895;
-  }
-
-  v202 = 0;
-  v203 = 44;
-  do
-  {
-    *v5 = v201 + 1;
-    *v201 = v203;
-    v201 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v201 = *(v5 + 16);
-      *v5 = v201;
-    }
-
-    v203 = aV_0[++v202];
-  }
-
-  while (v202 != 2);
-  NMEA_Add_checksum(v5, v176);
-  v204 = (*v5)++;
-  *v204 = 36;
-  v205 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v205 = *v895;
-  }
-
-  v206 = 71;
-  v207 = 1u;
-  v208 = v205;
-  do
-  {
-    *v5 = v208 + 1;
-    *v208 = v206;
-    v208 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v208 = *(v5 + 16);
-      *v5 = v208;
-    }
-
-    v206 = aGpvtg[v207++];
-  }
-
-  while (v207 != 7);
-  v209 = *(v894 + 308);
-  if (*(v894 + 334) != 1 || v209 == 0)
-  {
-    v211 = 44;
-    v212 = 1u;
-    v213 = v894;
-    do
-    {
-      *v5 = v208 + 1;
-      *v208 = v211;
-      v208 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v208 = *(v5 + 16);
-        *v5 = v208;
-      }
-
-      v211 = aTMNKN[v212++];
-    }
-
-    while (v212 != 14);
-  }
-
-  else
-  {
-    v214 = *(v894 + 144) * 10.0;
-    v215 = -0.5;
-    if (v214 > 0.0)
-    {
-      v215 = 0.5;
-    }
-
-    v216 = v214 + v215;
-    if (v216 <= 2147483650.0)
-    {
-      if (v216 >= -2147483650.0)
-      {
-        v217 = v216;
-      }
-
-      else
-      {
-        v217 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v217 = 0x7FFFFFFF;
-    }
-
-    sprintf_2f(v5, v217);
-    v218 = *v5;
-    v219 = 44;
-    v220 = 1u;
-    do
-    {
-      *v5 = v218 + 1;
-      *v218 = v219;
-      v218 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v218 = *(v5 + 16);
-        *v5 = v218;
-      }
-
-      v219 = aT_2[v220++];
-    }
-
-    while (v220 != 4);
-    v221 = 44;
-    v222 = 1u;
-    do
-    {
-      *v5 = v218 + 1;
-      *v218 = v221;
-      v218 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v218 = *(v5 + 16);
-        *v5 = v218;
-      }
-
-      v221 = aM_0[v222++];
-    }
-
-    while (v222 != 4);
-    v223 = *(v894 + 136) * 1.94279547 * 1000.0;
-    v224 = -0.5;
-    if (v223 > 0.0)
-    {
-      v224 = 0.5;
-    }
-
-    v225 = v223 + v224;
-    if (v225 <= 2147483650.0)
-    {
-      if (v225 >= -2147483650.0)
-      {
-        v226 = v225;
-      }
-
-      else
-      {
-        v226 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v226 = 0x7FFFFFFF;
-    }
-
-    v213 = v894;
-    sprintf_4f(v5, v226, 4);
-    v227 = *v5;
-    v228 = 44;
-    v229 = 1u;
-    do
-    {
-      *v5 = v227 + 1;
-      *v227 = v228;
-      v227 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v227 = *(v5 + 16);
-        *v5 = v227;
-      }
-
-      v228 = aN_2[v229++];
-    }
-
-    while (v229 != 4);
-    v230 = *(v894 + 136) * 3.6 * 1000.0;
-    v231 = -0.5;
-    if (v230 > 0.0)
-    {
-      v231 = 0.5;
-    }
-
-    v232 = v230 + v231;
-    if (v232 <= 2147483650.0)
-    {
-      if (v232 >= -2147483650.0)
-      {
-        v233 = v232;
-      }
-
-      else
-      {
-        v233 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v233 = 0x7FFFFFFF;
-    }
-
-    sprintf_4f(v5, v233, 4);
-    v234 = *v5;
-    v235 = 44;
-    v236 = 1u;
-    do
-    {
-      *v5 = v234 + 1;
-      *v234 = v235;
-      v234 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v234 = *(v5 + 16);
-        *v5 = v234;
-      }
-
-      v235 = aK[v236++];
-    }
-
-    while (v236 != 4);
-    if (v209 <= 2)
-    {
-      if (v209 == 1)
-      {
-        *v5 = v234 + 1;
-        v237 = 69;
-      }
-
-      else
-      {
-        if (v209 != 2)
-        {
-          goto LABEL_509;
-        }
-
-LABEL_506:
-        *v5 = v234 + 1;
-        v237 = 65;
-      }
-    }
-
-    else if (v209 == 3 || v209 == 5)
-    {
-      *v5 = v234 + 1;
-      v237 = 68;
-    }
-
-    else
-    {
-      if (v209 == 4)
-      {
-        goto LABEL_506;
-      }
-
-LABEL_509:
-      *v5 = v234 + 1;
-      v237 = 78;
-    }
-
-    *v234 = v237;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-  }
-
-  NMEA_Add_checksum(v5, v205);
-  v238 = (*v5)++;
-  *v238 = 36;
-  v239 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v239 = *v895;
-  }
-
-  v240 = 0;
-  v241 = 71;
-  v242 = v239;
-  do
-  {
-    *v5 = v242 + 1;
-    *v242 = v241;
-    v242 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v242 = *(v5 + 16);
-      *v5 = v242;
-    }
-
-    v241 = aGn[++v240];
-  }
-
-  while (v240 != 2);
-  v243 = 0;
-  v244 = 90;
-  do
-  {
-    *v5 = v242 + 1;
-    *v242 = v244;
-    v242 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v242 = *(v5 + 16);
-      *v5 = v242;
-    }
-
-    v244 = aZcd[++v243];
-  }
-
-  while (v243 != 4);
-  v245 = *(v213 + 4);
-  v246 = v245 % 0x3E8;
-  sprintf1da(v5, v245 / 0x3E8, v911, 0, 0);
-  v247 = (*v5)++;
-  *v247 = 46;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_03d(v5, v246);
-  v248 = 0;
-  v249 = *v5;
-  v250 = 44;
-  do
-  {
-    *v5 = v249 + 1;
-    *v249 = v250;
-    v249 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v249 = *(v5 + 16);
-      *v5 = v249;
-    }
-
-    v250 = asc_29906A3B6[++v248];
-  }
-
-  while (v248 != 2);
-  NMEA_Add_checksum(v5, v239);
-  v251 = (*v5)++;
-  *v251 = 36;
-  v252 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v252 = *v895;
-  }
-
-  v253 = 0;
-  v254 = 71;
-  v255 = v252;
-  do
-  {
-    *v5 = v255 + 1;
-    *v255 = v254;
-    v255 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v255 = *(v5 + 16);
-      *v5 = v255;
-    }
-
-    v254 = aGn[++v253];
-  }
-
-  while (v253 != 2);
-  v256 = 0;
-  v257 = 90;
-  do
-  {
-    *v5 = v255 + 1;
-    *v255 = v257;
-    v255 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v255 = *(v5 + 16);
-      *v5 = v255;
-    }
-
-    v257 = aZda[++v256];
-  }
-
-  while (v256 != 4);
-  sprintf_HHMMSS(v5, v213);
-  if (*(v213 + 17) == 1)
-  {
-    sprintf_02d(v5, *(v213 + 22));
-    v258 = (*v5)++;
-    *v258 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_02d(v5, *(v894 + 20));
-    v259 = (*v5)++;
-    *v259 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v213 = v894;
-    sprintf_02d(v5, *(v894 + 18));
-    v260 = *v5;
-  }
-
-  else
-  {
-    v261 = 0;
-    v260 = *v5;
-    v262 = 44;
-    do
-    {
-      *v5 = v260 + 1;
-      *v260 = v262;
-      v260 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v260 = *(v5 + 16);
-        *v5 = v260;
-      }
-
-      v262 = asc_29906A3BE[++v261];
-    }
-
-    while (v261 != 2);
-  }
-
-  v263 = 0;
-  v264 = 44;
-  do
-  {
-    *v5 = v260 + 1;
-    *v260 = v264;
-    v260 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v260 = *(v5 + 16);
-      *v5 = v260;
-    }
-
-    v264 = asc_29906A3BE[++v263];
-  }
-
-  while (v263 != 2);
-  NMEA_Add_checksum(v5, v252);
-  v265 = (*v5)++;
-  *v265 = 36;
-  v266 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v266 = *v895;
-  }
-
-  v267 = 80;
-  v268 = 1u;
-  v269 = v266;
-  do
-  {
-    *v5 = v269 + 1;
-    *v269 = v267;
-    v269 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v269 = *(v5 + 16);
-      *v5 = v269;
-    }
-
-    v267 = aPdbga[v268++];
-  }
-
-  while (v268 != 7);
-  sprintf_HHMMSS(v5, v213);
-  v270 = *(v213 + 304);
-  if (v270 >= 0)
-  {
-    v271 = *(v213 + 304);
-  }
-
-  else
-  {
-    v271 = -v270;
-  }
-
-  sprintf1da(v5, v271, v911, 0, v270 >> 31);
-  v272 = (*v5)++;
-  *v272 = 44;
-  v273 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v273 = *(v5 + 16);
-    *v5 = v273;
-  }
-
-  v274 = *(v213 + 308);
-  if (v274)
-  {
-    if (v274 >= 0)
-    {
-      v275 = *(v213 + 308);
-    }
-
-    else
-    {
-      v275 = -v274;
-    }
-
-    sprintf1da(v5, v275, v911, 0, v274 >> 31);
-    v276 = (*v5)++;
-    *v276 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v894 + 333), v911, 0, 0);
-    v277 = (*v5)++;
-    *v277 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v894 + 334), v911, 0, 0);
-    v278 = (*v5)++;
-    *v278 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_AccEst(v5, *(v894 + 208));
-    v279 = (*v5)++;
-    *v279 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_AccEst(v5, *(v894 + 216));
-    v280 = (*v5)++;
-    *v280 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v281 = *(v894 + 224);
-    if (v281 >= 0)
-    {
-      v282 = *(v894 + 224);
-    }
-
-    else
-    {
-      v282 = -v281;
-    }
-
-    sprintf1da(v5, v282, v911, 0, v281 >> 31);
-    v283 = (*v5)++;
-    *v283 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_AccEst(v5, *(v894 + 200));
-    v284 = (*v5)++;
-    *v284 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_AccEst(v5, *(v894 + 232));
-    v285 = (*v5)++;
-    *v285 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_AccEst(v5, *(v894 + 240));
-    v286 = (*v5)++;
-    *v286 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_AccEst(v5, *(v894 + 248));
-    v287 = (*v5)++;
-    *v287 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_AccEst(v5, *(v894 + 160) * 1000.0);
-    v288 = (*v5)++;
-    *v288 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_AccEst(v5, *(v894 + 168) * 1000000000.0);
-    v289 = (*v5)++;
-    *v289 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_AccEst(v5, *(v894 + 176) * 1000000000.0);
-    v290 = (*v5)++;
-    *v290 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v291 = *(v894 + 152) * 1000.0;
-    v292 = -0.5;
-    if (v291 > 0.0)
-    {
-      v292 = 0.5;
-    }
-
-    v293 = v291 + v292;
-    if (v293 <= 2147483650.0)
-    {
-      if (v293 >= -2147483650.0)
-      {
-        v294 = v293;
-      }
-
-      else
-      {
-        v294 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v294 = 0x7FFFFFFF;
-    }
-
-    sprintf_4f(v5, v294, 4);
-    v297 = (*v5)++;
-    *v297 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v298 = *(v894 + 312);
-    if (v298 >= 0)
-    {
-      v299 = *(v894 + 312);
-    }
-
-    else
-    {
-      v299 = -v298;
-    }
-
-    sprintf1da(v5, v299, v911, 0, v298 >> 31);
-    v300 = (*v5)++;
-    *v300 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v301 = *(v894 + 316);
-    if (v301 >= 0)
-    {
-      v302 = *(v894 + 316);
-    }
-
-    else
-    {
-      v302 = -v301;
-    }
-
-    sprintf1da(v5, v302, v911, 0, v301 >> 31);
-    v303 = (*v5)++;
-    *v303 = 44;
-    v304 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v304 = *v895;
-    }
-
-    v305 = 0;
-    v306 = 48;
-    do
-    {
-      *v5 = v304 + 1;
-      *v304 = v306;
-      v304 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v304 = *(v5 + 16);
-        *v5 = v304;
-      }
-
-      v306 = a0x_0[++v305];
-    }
-
-    while (v305 != 2);
-    sprintf_08x(v5, *(v894 + 328));
-    v307 = (*v5)++;
-    *v307 = 44;
-    v308 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v308 = *v895;
-    }
-
-    v309 = 0;
-    v310 = 48;
-    do
-    {
-      *v5 = v308 + 1;
-      *v308 = v310;
-      v308 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v308 = *(v5 + 16);
-        *v5 = v308;
-      }
-
-      v310 = a0x_0[++v309];
-    }
-
-    while (v309 != 2);
-    v213 = v894;
-    sprintf_03x(v5, *(v894 + 296));
-    v311 = (*v5)++;
-    *v311 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v312 = *(v894 + 320);
-    if (v312 >= 0)
-    {
-      v313 = *(v894 + 320);
-    }
-
-    else
-    {
-      v313 = -v312;
-    }
-
-    sprintf1da(v5, v313, v911, 0, v312 >> 31);
-  }
-
-  else
-  {
-    v295 = 48;
-    v296 = 1u;
-    do
-    {
-      *v5 = v273 + 1;
-      *v273 = v295;
-      v273 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v273 = *(v5 + 16);
-        *v5 = v273;
-      }
-
-      v295 = a0_1[v296++];
-    }
-
-    while (v296 != 20);
-  }
-
-  result = NMEA_Add_checksum(v5, v266);
-  if (!v874 || *v874 != *v213 || *(v874 + 4) != *(v213 + 4))
-  {
-    goto LABEL_662;
-  }
-
-  v314 = (*v5)++;
-  *v314 = 36;
-  v315 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v315 = *v895;
-  }
-
-  v316 = 80;
-  v317 = 1u;
-  v318 = v315;
-  do
-  {
-    *v5 = v318 + 1;
-    *v318 = v316;
-    v318 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v318 = *(v5 + 16);
-      *v5 = v318;
-    }
-
-    v316 = aPdbgc[v317++];
-  }
-
-  while (v317 != 7);
-  sprintf_HHMMSS(v5, v213);
-  v319 = *v5;
-  if (*(v874 + 16))
-  {
-    *v5 = v319 + 1;
-    *v319 = 65;
-    v320 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v320 = *v895;
-    }
-
-    *v5 = v320 + 1;
-    *v320 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 17), v911, 0, 0);
-    v321 = (*v5)++;
-    *v321 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 18), v911, 0, 0);
-    v322 = (*v5)++;
-    *v322 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_3f(v5, *(v874 + 20) / 10, 3);
-    v323 = (*v5)++;
-    *v323 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 24), v911, 0, 0);
-    v324 = (*v5)++;
-    *v324 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 25), v911, 0, 0);
-    v325 = (*v5)++;
-    *v325 = 44;
-    v319 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v319 = *v895;
-    }
-  }
-
-  else
-  {
-    v327 = 78;
-    v328 = 1u;
-    do
-    {
-      *v5 = v319 + 1;
-      *v319 = v327;
-      v319 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v319 = *(v5 + 16);
-        *v5 = v319;
-      }
-
-      v327 = aN_4[v328++];
-    }
-
-    while (v328 != 8);
-  }
-
-  if (*(v874 + 26))
-  {
-    *v5 = v319 + 1;
-    *v319 = 65;
-    v329 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v329 = *v895;
-    }
-
-    *v5 = v329 + 1;
-    *v329 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 27), v911, 0, 0);
-    v330 = (*v5)++;
-    *v330 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 28), v911, 0, 0);
-    v331 = (*v5)++;
-    *v331 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_3f(v5, *(v874 + 32) / 10, 3);
-    v332 = (*v5)++;
-    *v332 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 36), v911, 0, 0);
-    v333 = (*v5)++;
-    *v333 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 37), v911, 0, 0);
-    v334 = (*v5)++;
-    *v334 = 44;
-    v319 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v319 = *v895;
-    }
-  }
-
-  else
-  {
-    v335 = 78;
-    v336 = 1u;
-    do
-    {
-      *v5 = v319 + 1;
-      *v319 = v335;
-      v319 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v319 = *(v5 + 16);
-        *v5 = v319;
-      }
-
-      v335 = aN_4[v336++];
-    }
-
-    while (v336 != 8);
-  }
-
-  if (*(v874 + 38))
-  {
-    *v5 = v319 + 1;
-    *v319 = 65;
-    v337 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v337 = *v895;
-    }
-
-    *v5 = v337 + 1;
-    *v337 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 39), v911, 0, 0);
-    v338 = (*v5)++;
-    *v338 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 40), v911, 0, 0);
-    v339 = (*v5)++;
-    *v339 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_3f(v5, *(v874 + 44) / 10, 3);
-    v340 = (*v5)++;
-    *v340 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 48), v911, 0, 0);
-    v341 = (*v5)++;
-    *v341 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 49), v911, 0, 0);
-  }
-
-  else
-  {
-    v342 = 78;
-    v343 = 1u;
-    do
-    {
-      *v5 = v319 + 1;
-      *v319 = v342;
-      v319 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v319 = *(v5 + 16);
-        *v5 = v319;
-      }
-
-      v342 = aN_5[v343++];
-    }
-
-    while (v343 != 7);
-  }
-
-  NMEA_Add_checksum(v5, v315);
-  v344 = (*v5)++;
-  *v344 = 36;
-  v345 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v345 = *v895;
-  }
-
-  v346 = 80;
-  v347 = 1u;
-  v348 = v345;
-  do
-  {
-    *v5 = v348 + 1;
-    *v348 = v346;
-    v348 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v348 = *(v5 + 16);
-      *v5 = v348;
-    }
-
-    v346 = aPdbgd[v347++];
-  }
-
-  while (v347 != 7);
-  sprintf_HHMMSS(v5, v894);
-  v349 = *v5;
-  if (*(v874 + 50))
-  {
-    *v5 = v349 + 1;
-    *v349 = 65;
-    v350 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v350 = *v895;
-    }
-
-    *v5 = v350 + 1;
-    *v350 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 51), v911, 0, 0);
-    v351 = (*v5)++;
-    *v351 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 52), v911, 0, 0);
-    v352 = (*v5)++;
-    *v352 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_3f(v5, *(v874 + 56) / 10, 3);
-    v353 = (*v5)++;
-    *v353 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v354 = *(v874 + 64) * 100.0;
-    v355 = -0.5;
-    if (v354 > 0.0)
-    {
-      v355 = 0.5;
-    }
-
-    v356 = v354 + v355;
-    if (v356 <= 2147483650.0)
-    {
-      if (v356 >= -2147483650.0)
-      {
-        v357 = v356;
-      }
-
-      else
-      {
-        v357 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v357 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v357, 3);
-    v360 = (*v5)++;
-    *v360 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v361 = *(v874 + 72) * 100.0;
-    v362 = -0.5;
-    if (v361 > 0.0)
-    {
-      v362 = 0.5;
-    }
-
-    v363 = v361 + v362;
-    if (v363 <= 2147483650.0)
-    {
-      if (v363 >= -2147483650.0)
-      {
-        v364 = v363;
-      }
-
-      else
-      {
-        v364 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v364 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v364, 3);
-    v365 = (*v5)++;
-    *v365 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 80), v911, 0, 0);
-  }
-
-  else
-  {
-    v358 = 78;
-    v359 = 1u;
-    do
-    {
-      *v5 = v349 + 1;
-      *v349 = v358;
-      v349 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v349 = *(v5 + 16);
-        *v5 = v349;
-      }
-
-      v358 = aN_4[v359++];
-    }
-
-    while (v359 != 8);
-  }
-
-  NMEA_Add_checksum(v5, v345);
-  v366 = (*v5)++;
-  *v366 = 36;
-  v367 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v367 = *v895;
-  }
-
-  v368 = 80;
-  v369 = 1u;
-  v370 = v367;
-  do
-  {
-    *v5 = v370 + 1;
-    *v370 = v368;
-    v370 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v370 = *(v5 + 16);
-      *v5 = v370;
-    }
-
-    v368 = aPdbge[v369++];
-  }
-
-  while (v369 != 7);
-  sprintf_HHMMSS(v5, v894);
-  v371 = 0;
-  v372 = *v5;
-  v373 = 65;
-  do
-  {
-    *v5 = v372 + 1;
-    *v372 = v373;
-    v372 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v372 = *(v5 + 16);
-      *v5 = v372;
-    }
-
-    v373 = aA[++v371];
-  }
-
-  while (v371 != 2);
-  sprintf1da(v5, *(v874 + 81), v911, 0, 0);
-  v374 = (*v5)++;
-  *v374 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 82), v911, 0, 0);
-  v375 = (*v5)++;
-  *v375 = 44;
-  v376 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v376 = *v895;
-  }
-
-  *v5 = v376 + 1;
-  *v376 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 84), v911, 0, 0);
-  v377 = (*v5)++;
-  *v377 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 86), v911, 0, 0);
-  v378 = (*v5)++;
-  *v378 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 90), v911, 0, 0);
-  v379 = (*v5)++;
-  *v379 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 92), v911, 0, 0);
-  v380 = (*v5)++;
-  *v380 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 93), v911, 0, 0);
-  v381 = (*v5)++;
-  *v381 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 95), v911, 0, 0);
-  v382 = (*v5)++;
-  *v382 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 96), v911, 0, 0);
-  v383 = (*v5)++;
-  *v383 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v384 = *(v874 + 97);
-  if (v384 >= 0)
-  {
-    v385 = *(v874 + 97);
-  }
-
-  else
-  {
-    v385 = -v384;
-  }
-
-  sprintf1da(v5, v385, v911, 0, (v384 >> 7) & 1);
-  v386 = (*v5)++;
-  *v386 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 98), v911, 0, 0);
-  v387 = (*v5)++;
-  *v387 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 99), v911, 0, 0);
-  v388 = (*v5)++;
-  *v388 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 100), v911, 0, 0);
-  v389 = (*v5)++;
-  *v389 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 102), v911, 0, 0);
-  v390 = (*v5)++;
-  *v390 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 104), v911, 0, 0);
-  v391 = (*v5)++;
-  *v391 = 44;
-  v392 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v392 = *v895;
-  }
-
-  v393 = 0;
-  v394 = 82;
-  do
-  {
-    *v5 = v392 + 1;
-    *v392 = v394;
-    v392 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v392 = *(v5 + 16);
-      *v5 = v392;
-    }
-
-    v394 = aR_0[++v393];
-  }
-
-  while (v393 != 2);
-  sprintf1da(v5, *(v874 + 106), v911, 0, 0);
-  v395 = (*v5)++;
-  *v395 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 108), v911, 0, 0);
-  v396 = (*v5)++;
-  *v396 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 110), v911, 0, 0);
-  v397 = (*v5)++;
-  *v397 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 112), v911, 0, 0);
-  v398 = (*v5)++;
-  *v398 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 113), v911, 0, 0);
-  v399 = (*v5)++;
-  *v399 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 114), v911, 0, 0);
-  v400 = (*v5)++;
-  *v400 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 115), v911, 0, 0);
-  v401 = (*v5)++;
-  *v401 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 116), v911, 0, 0);
-  v402 = (*v5)++;
-  *v402 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v403 = *(v874 + 120) * 10.0;
-  v404 = -0.5;
-  if (v403 > 0.0)
-  {
-    v404 = 0.5;
-  }
-
-  v405 = v403 + v404;
-  if (v405 <= 2147483650.0)
-  {
-    if (v405 >= -2147483650.0)
-    {
-      v406 = v405;
-    }
-
-    else
-    {
-      v406 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v406 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v406);
-  v407 = (*v5)++;
-  *v407 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v408 = *(v874 + 128) * 10.0;
-  v409 = -0.5;
-  if (v408 > 0.0)
-  {
-    v409 = 0.5;
-  }
-
-  v410 = v408 + v409;
-  if (v410 <= 2147483650.0)
-  {
-    if (v410 >= -2147483650.0)
-    {
-      v411 = v410;
-    }
-
-    else
-    {
-      v411 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v411 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v411);
-  v412 = (*v5)++;
-  *v412 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v413 = *(v874 + 136) * 10.0;
-  v414 = -0.5;
-  if (v413 > 0.0)
-  {
-    v414 = 0.5;
-  }
-
-  v415 = v413 + v414;
-  if (v415 <= 2147483650.0)
-  {
-    if (v415 >= -2147483650.0)
-    {
-      v416 = v415;
-    }
-
-    else
-    {
-      v416 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v416 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v416);
-  v417 = (*v5)++;
-  *v417 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v418 = *(v874 + 144) * 10.0;
-  v419 = -0.5;
-  if (v418 > 0.0)
-  {
-    v419 = 0.5;
-  }
-
-  v420 = v418 + v419;
-  if (v420 <= 2147483650.0)
-  {
-    if (v420 >= -2147483650.0)
-    {
-      v421 = v420;
-    }
-
-    else
-    {
-      v421 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v421 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v421);
-  v422 = (*v5)++;
-  *v422 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 152), v911, 0, 0);
-  v423 = (*v5)++;
-  *v423 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 153), v911, 0, 0);
-  v424 = (*v5)++;
-  *v424 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 154), v911, 0, 0);
-  v425 = (*v5)++;
-  *v425 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 155), v911, 0, 0);
-  v426 = (*v5)++;
-  *v426 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 156), v911, 0, 0);
-  v427 = (*v5)++;
-  *v427 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 157), v911, 0, 0);
-  v428 = (*v5)++;
-  *v428 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 158), v911, 0, 0);
-  v429 = (*v5)++;
-  *v429 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 159), v911, 0, 0);
-  NMEA_Add_checksum(v5, v367);
-  if (*(v874 + 160) == 1)
-  {
-    NMEA_Encode_PDBGE_Constell(v5, 1, v894, v874);
-  }
-
-  if (*(v874 + 200) == 1)
-  {
-    NMEA_Encode_PDBGE_Constell(v5, 5, v894, v874);
-  }
-
-  if (*(v874 + 240) == 1)
-  {
-    NMEA_Encode_PDBGE_Constell(v5, 2, v894, v874);
-  }
-
-  if (*(v874 + 280) == 1)
-  {
-    NMEA_Encode_PDBGE_Constell(v5, 3, v894, v874);
-  }
-
-  if (*(v874 + 320) == 1)
-  {
-    NMEA_Encode_PDBGE_Constell(v5, 4, v894, v874);
-  }
-
-  if (*(v874 + 360) == 1)
-  {
-    NMEA_Encode_PDBGE_Constell(v5, 6, v894, v874);
-  }
-
-  if (*(v874 + 400) == 1)
-  {
-    NMEA_Encode_PDBGE_Constell(v5, 7, v894, v874);
-  }
-
-  v430 = (*v5)++;
-  *v430 = 36;
-  v431 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v431 = *v895;
-  }
-
-  v432 = 80;
-  v433 = 1u;
-  v434 = v431;
-  do
-  {
-    *v5 = v434 + 1;
-    *v434 = v432;
-    v434 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v434 = *(v5 + 16);
-      *v5 = v434;
-    }
-
-    v432 = aPdbgi[v433++];
-  }
-
-  while (v433 != 7);
-  sprintf_HHMMSS(v5, v894);
-  v435 = 0;
-  v436 = *v5;
-  v437 = 65;
-  do
-  {
-    *v5 = v436 + 1;
-    *v436 = v437;
-    v436 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v436 = *(v5 + 16);
-      *v5 = v436;
-    }
-
-    v437 = aA[++v435];
-  }
-
-  while (v435 != 2);
-  v438 = *(v874 + 440);
-  if (v438 >= 0)
-  {
-    v439 = *(v874 + 440);
-  }
-
-  else
-  {
-    v439 = -v438;
-  }
-
-  sprintf1da(v5, v439, v911, 0, v438 >> 31);
-  v440 = (*v5)++;
-  *v440 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 444), v911, 0, 0);
-  v441 = (*v5)++;
-  *v441 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 446), v911, 0, 0);
-  v442 = (*v5)++;
-  *v442 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_2d(v5, *(v874 + 448));
-  v443 = (*v5)++;
-  *v443 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  for (j = 452; j != 458; ++j)
-  {
-    sprintf1da(v5, *(v874 + j), v911, 0, 0);
-  }
-
-  v445 = (*v5)++;
-  *v445 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 458), v911, 0, 0);
-  v446 = (*v5)++;
-  *v446 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v447 = *(v874 + 464) * 10.0;
-  v448 = -0.5;
-  if (v447 > 0.0)
-  {
-    v448 = 0.5;
-  }
-
-  v449 = v447 + v448;
-  if (v449 <= 2147483650.0)
-  {
-    if (v449 >= -2147483650.0)
-    {
-      v450 = v449;
-    }
-
-    else
-    {
-      v450 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v450 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v450);
-  v451 = (*v5)++;
-  *v451 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_AccEst(v5, *(v874 + 472));
-  v452 = (*v5)++;
-  *v452 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_AccEst(v5, *(v874 + 480));
-  v453 = (*v5)++;
-  *v453 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_AccEst(v5, *(v874 + 488));
-  v454 = (*v5)++;
-  *v454 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 496), v911, 0, 0);
-  v455 = (*v5)++;
-  *v455 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 497), v911, 0, 0);
-  NMEA_Add_checksum(v5, v431);
-  if (*(v874 + 504) == 1)
-  {
-    NMEA_Encode_PDBGI_Constell(v5, 1, v894, v874);
-  }
-
-  if (*(v874 + 600) == 1)
-  {
-    NMEA_Encode_PDBGI_Constell(v5, 5, v894, v874);
-  }
-
-  if (*(v874 + 696) == 1)
-  {
-    NMEA_Encode_PDBGI_Constell(v5, 2, v894, v874);
-  }
-
-  if (*(v874 + 792) == 1)
-  {
-    NMEA_Encode_PDBGI_Constell(v5, 3, v894, v874);
-  }
-
-  if (*(v874 + 888) == 1)
-  {
-    NMEA_Encode_PDBGI_Constell(v5, 4, v894, v874);
-  }
-
-  if (*(v874 + 984) == 1)
-  {
-    NMEA_Encode_PDBGI_Constell(v5, 6, v894, v874);
-  }
-
-  if (*(v874 + 1080) == 1)
-  {
-    NMEA_Encode_PDBGI_Constell(v5, 7, v894, v874);
-  }
-
-  v456 = (*v5)++;
-  *v456 = 36;
-  v457 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v457 = *v895;
-  }
-
-  v458 = 80;
-  v459 = 1u;
-  v460 = v457;
-  do
-  {
-    *v5 = v460 + 1;
-    *v460 = v458;
-    v460 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v460 = *(v5 + 16);
-      *v5 = v460;
-    }
-
-    v458 = aPdbgm[v459++];
-  }
-
-  while (v459 != 7);
-  sprintf_HHMMSS(v5, v894);
-  v461 = *v5;
-  if (*(v874 + 1176))
-  {
-    *v5 = v461 + 1;
-    *v461 = 65;
-    v462 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v462 = *v895;
-    }
-
-    *v5 = v462 + 1;
-    *v462 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1177), v911, 0, 0);
-    v463 = (*v5)++;
-    *v463 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1178), v911, 0, 0);
-    v464 = (*v5)++;
-    *v464 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_3f(v5, *(v874 + 1180) / 10, 3);
-    v465 = (*v5)++;
-    *v465 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1184), v911, 0, 0);
-    v466 = (*v5)++;
-    *v466 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v467 = *(v874 + 1192) * 10.0;
-    v468 = -0.5;
-    if (v467 > 0.0)
-    {
-      v468 = 0.5;
-    }
-
-    v469 = v467 + v468;
-    if (v469 <= 2147483650.0)
-    {
-      if (v469 >= -2147483650.0)
-      {
-        v470 = v469;
-      }
-
-      else
-      {
-        v470 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v470 = 0x7FFFFFFF;
-    }
-
-    sprintf_2f(v5, v470);
-    v473 = (*v5)++;
-    *v473 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v474 = *(v874 + 1200) * 10.0;
-    v475 = -0.5;
-    if (v474 > 0.0)
-    {
-      v475 = 0.5;
-    }
-
-    v476 = v474 + v475;
-    if (v476 <= 2147483650.0)
-    {
-      if (v476 >= -2147483650.0)
-      {
-        v477 = v476;
-      }
-
-      else
-      {
-        v477 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v477 = 0x7FFFFFFF;
-    }
-
-    sprintf_2f(v5, v477);
-    v478 = (*v5)++;
-    *v478 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v479 = *(v874 + 1208) * 10.0;
-    v480 = -0.5;
-    if (v479 > 0.0)
-    {
-      v480 = 0.5;
-    }
-
-    v481 = v479 + v480;
-    if (v481 <= 2147483650.0)
-    {
-      if (v481 >= -2147483650.0)
-      {
-        v482 = v481;
-      }
-
-      else
-      {
-        v482 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v482 = 0x7FFFFFFF;
-    }
-
-    sprintf_2f(v5, v482);
-    v483 = (*v5)++;
-    *v483 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1216), v911, 0, 0);
-    v484 = (*v5)++;
-    *v484 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1218), v911, 0, 0);
-    v485 = (*v5)++;
-    *v485 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1220), v911, 0, 0);
-    v486 = (*v5)++;
-    *v486 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1221), v911, 0, 0);
-    v487 = (*v5)++;
-    *v487 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1222), v911, 0, 0);
-    v488 = (*v5)++;
-    *v488 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1223), v911, 0, 0);
-    v489 = (*v5)++;
-    *v489 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1224), v911, 0, 0);
-    v490 = (*v5)++;
-    *v490 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1225), v911, 0, 0);
-  }
-
-  else
-  {
-    v471 = 78;
-    v472 = 1u;
-    do
-    {
-      *v5 = v461 + 1;
-      *v461 = v471;
-      v461 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v461 = *(v5 + 16);
-        *v5 = v461;
-      }
-
-      v471 = aN_6[v472++];
-    }
-
-    while (v472 != 15);
-  }
-
-  NMEA_Add_checksum(v5, v457);
-  if (*(v874 + 1232) == 1)
-  {
-    NMEA_Encode_PDBGO(v5, 1, v894, v874);
-  }
-
-  if (*(v874 + 1288) == 1)
-  {
-    NMEA_Encode_PDBGO(v5, 5, v894, v874);
-  }
-
-  if (*(v874 + 1344) == 1)
-  {
-    NMEA_Encode_PDBGO(v5, 2, v894, v874);
-  }
-
-  if (*(v874 + 1400) == 1)
-  {
-    NMEA_Encode_PDBGO(v5, 3, v894, v874);
-  }
-
-  if (*(v874 + 1456) == 1)
-  {
-    NMEA_Encode_PDBGO(v5, 4, v894, v874);
-  }
-
-  if (*(v874 + 1512) == 1)
-  {
-    NMEA_Encode_PDBGO(v5, 6, v894, v874);
-  }
-
-  if (*(v874 + 1568) == 1)
-  {
-    NMEA_Encode_PDBGO(v5, 7, v894, v874);
-  }
-
-  v491 = (*v5)++;
-  *v491 = 36;
-  v492 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v492 = *v895;
-  }
-
-  v493 = 80;
-  v494 = 1u;
-  v495 = v492;
-  do
-  {
-    *v5 = v495 + 1;
-    *v495 = v493;
-    v495 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v495 = *(v5 + 16);
-      *v5 = v495;
-    }
-
-    v493 = aPdbgp[v494++];
-  }
-
-  while (v494 != 7);
-  sprintf_HHMMSS(v5, v894);
-  v496 = *v5;
-  if (*(v874 + 1624))
-  {
-    *v5 = v496 + 1;
-    *v496 = 65;
-    v497 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v497 = *v895;
-    }
-
-    *v5 = v497 + 1;
-    *v497 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1625), v911, 0, 0);
-    v498 = (*v5)++;
-    *v498 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1627), v911, 0, 0);
-    v499 = (*v5)++;
-    *v499 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_3f(v5, *(v874 + 1628) / 10, 3);
-    v500 = (*v5)++;
-    *v500 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1632), v911, 0, 0);
-    v501 = (*v5)++;
-    *v501 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1633), v911, 0, 0);
-    v502 = (*v5)++;
-    *v502 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1634), v911, 0, 0);
-    v503 = (*v5)++;
-    *v503 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v504 = *(v874 + 1640) * 10.0;
-    v505 = -0.5;
-    if (v504 > 0.0)
-    {
-      v505 = 0.5;
-    }
-
-    v506 = v504 + v505;
-    if (v506 <= 2147483650.0)
-    {
-      if (v506 >= -2147483650.0)
-      {
-        v507 = v506;
-      }
-
-      else
-      {
-        v507 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v507 = 0x7FFFFFFF;
-    }
-
-    sprintf_2f(v5, v507);
-    v510 = (*v5)++;
-    *v510 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v511 = *(v874 + 1648) * 10.0;
-    v512 = -0.5;
-    if (v511 > 0.0)
-    {
-      v512 = 0.5;
-    }
-
-    v513 = v511 + v512;
-    if (v513 <= 2147483650.0)
-    {
-      if (v513 >= -2147483650.0)
-      {
-        v514 = v513;
-      }
-
-      else
-      {
-        v514 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v514 = 0x7FFFFFFF;
-    }
-
-    sprintf_2f(v5, v514);
-    v515 = (*v5)++;
-    *v515 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v516 = *(v874 + 1656) * 10.0;
-    v517 = -0.5;
-    if (v516 > 0.0)
-    {
-      v517 = 0.5;
-    }
-
-    v518 = v516 + v517;
-    if (v518 <= 2147483650.0)
-    {
-      if (v518 >= -2147483650.0)
-      {
-        v519 = v518;
-      }
-
-      else
-      {
-        v519 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v519 = 0x7FFFFFFF;
-    }
-
-    sprintf_2f(v5, v519);
-    v520 = (*v5)++;
-    *v520 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v521 = *(v874 + 1664);
-    if (v521 >= 0)
-    {
-      v522 = *(v874 + 1664);
-    }
-
-    else
-    {
-      v522 = -v521;
-    }
-
-    sprintf1da(v5, v522, v911, 0, v521 >> 31);
-    v523 = (*v5)++;
-    *v523 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v524 = *(v874 + 1668);
-    if (v524 >= 0)
-    {
-      v525 = *(v874 + 1668);
-    }
-
-    else
-    {
-      v525 = -v524;
-    }
-
-    sprintf1da(v5, v525, v911, 0, v524 >> 31);
-    v526 = (*v5)++;
-    *v526 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1672), v911, 0, 0);
-    v527 = (*v5)++;
-    *v527 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1674), v911, 0, 0);
-    v528 = (*v5)++;
-    *v528 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1626), v911, 0, 0);
-  }
-
-  else
-  {
-    v508 = 78;
-    v509 = 1u;
-    do
-    {
-      *v5 = v496 + 1;
-      *v496 = v508;
-      v496 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v496 = *(v5 + 16);
-        *v5 = v496;
-      }
-
-      v508 = aN_6[v509++];
-    }
-
-    while (v509 != 15);
-  }
-
-  NMEA_Add_checksum(v5, v492);
-  v529 = (*v5)++;
-  *v529 = 36;
-  v530 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v530 = *v895;
-  }
-
-  v531 = 80;
-  v532 = 1u;
-  v533 = v530;
-  v534 = v894;
-  do
-  {
-    *v5 = v533 + 1;
-    *v533 = v531;
-    v533 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v533 = *(v5 + 16);
-      *v5 = v533;
-    }
-
-    v531 = aPdbgs[v532++];
-  }
-
-  while (v532 != 7);
-  sprintf_HHMMSS(v5, v894);
-  v535 = *v5;
-  if (*(v874 + 1676))
-  {
-    *v5 = v535 + 1;
-    *v535 = 65;
-    v536 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v536 = *v895;
-    }
-
-    *v5 = v536 + 1;
-    *v536 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1677), v911, 0, 0);
-    v537 = (*v5)++;
-    *v537 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1678), v911, 0, 0);
-    v538 = (*v5)++;
-    *v538 = 44;
-    v534 = v894;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1679), v911, 0, 0);
-  }
-
-  else
-  {
-    v539 = 0;
-    v540 = 78;
-    do
-    {
-      *v5 = v535 + 1;
-      *v535 = v540;
-      v535 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v535 = *(v5 + 16);
-        *v5 = v535;
-      }
-
-      v540 = aN_7[++v539];
-    }
-
-    while (v539 != 4);
-  }
-
-  NMEA_Add_checksum(v5, v530);
-  v541 = (*v5)++;
-  *v541 = 36;
-  v542 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v542 = *v895;
-  }
-
-  v543 = 80;
-  v544 = 1u;
-  v545 = v542;
-  do
-  {
-    *v5 = v545 + 1;
-    *v545 = v543;
-    v545 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v545 = *(v5 + 16);
-      *v5 = v545;
-    }
-
-    v543 = aPdbgf[v544++];
-  }
-
-  while (v544 != 7);
-  sprintf_HHMMSS(v5, v534);
-  v546 = *v5;
-  if (*(v874 + 1680))
-  {
-    *v5 = v546 + 1;
-    *v546 = 65;
-    v547 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v547 = *v895;
-    }
-
-    *v5 = v547 + 1;
-    *v547 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1681), v911, 0, 0);
-    v548 = (*v5)++;
-    *v548 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1682), v911, 0, 0);
-    v549 = (*v5)++;
-    *v549 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v550 = *(v874 + 1684);
-    if (v550 >= 0)
-    {
-      v551 = *(v874 + 1684);
-    }
-
-    else
-    {
-      v551 = -v550;
-    }
-
-    sprintf1da(v5, v551, v911, 0, v550 >> 31);
-    v552 = (*v5)++;
-    *v552 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v553 = *(v874 + 1688) * 100.0;
-    v554 = -0.5;
-    if (v553 > 0.0)
-    {
-      v554 = 0.5;
-    }
-
-    v555 = v553 + v554;
-    v534 = v894;
-    if (v555 <= 2147483650.0)
-    {
-      if (v555 >= -2147483650.0)
-      {
-        v556 = v555;
-      }
-
-      else
-      {
-        v556 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v556 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v556, 3);
-    v559 = (*v5)++;
-    *v559 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v560 = *(v874 + 1696) * 100.0;
-    v561 = -0.5;
-    if (v560 > 0.0)
-    {
-      v561 = 0.5;
-    }
-
-    v562 = v560 + v561;
-    if (v562 <= 2147483650.0)
-    {
-      if (v562 >= -2147483650.0)
-      {
-        v563 = v562;
-      }
-
-      else
-      {
-        v563 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v563 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v563, 3);
-  }
-
-  else
-  {
-    v557 = 78;
-    v558 = 1u;
-    do
-    {
-      *v5 = v546 + 1;
-      *v546 = v557;
-      v546 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v546 = *(v5 + 16);
-        *v5 = v546;
-      }
-
-      v557 = aN_5[v558++];
-    }
-
-    while (v558 != 7);
-  }
-
-  NMEA_Add_checksum(v5, v542);
-  v564 = (*v5)++;
-  *v564 = 36;
-  v565 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v565 = *v895;
-  }
-
-  v566 = 80;
-  v567 = 1u;
-  v568 = v565;
-  do
-  {
-    *v5 = v568 + 1;
-    *v568 = v566;
-    v568 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v568 = *(v5 + 16);
-      *v5 = v568;
-    }
-
-    v566 = aPdbgt[v567++];
-  }
-
-  while (v567 != 7);
-  sprintf_HHMMSS(v5, v534);
-  sprintf_1u(v5, *(v874 + 1776));
-  v569 = (*v5)++;
-  *v569 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_1u(v5, *(v874 + 1780));
-  v570 = (*v5)++;
-  *v570 = 44;
-  v571 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v571 = *(v5 + 16);
-    *v5 = v571;
-  }
-
-  if (*(v874 + 1792))
-  {
-    v572 = *(v874 + 1794);
-    if (v572 >= 0)
-    {
-      v573 = *(v874 + 1794);
-    }
-
-    else
-    {
-      v573 = -v572;
-    }
-
-    sprintf1da(v5, v573, v911, 0, (v572 >> 15) & 1);
-    v574 = (*v5)++;
-    *v574 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v575 = *(v874 + 1800) * 1000.0;
-    v576 = -0.5;
-    if (v575 > 0.0)
-    {
-      v576 = 0.5;
-    }
-
-    v577 = v575 + v576;
-    if (v577 <= 2147483650.0)
-    {
-      if (v577 >= -2147483650.0)
-      {
-        v578 = v577;
-      }
-
-      else
-      {
-        v578 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v578 = 0x7FFFFFFF;
-    }
-
-    sprintf_4f(v5, v578, 4);
-    v581 = (*v5)++;
-    *v581 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v582 = *(v874 + 1808) * 1000.0;
-    v583 = -0.5;
-    if (v582 > 0.0)
-    {
-      v583 = 0.5;
-    }
-
-    v584 = v582 + v583;
-    if (v584 <= 2147483650.0)
-    {
-      if (v584 >= -2147483650.0)
-      {
-        v585 = v584;
-      }
-
-      else
-      {
-        v585 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v585 = 0x7FFFFFFF;
-    }
-
-    sprintf_4f(v5, v585, 4);
-    v586 = (*v5)++;
-    *v586 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_1u(v5, *(v874 + 1816));
-    v587 = (*v5)++;
-    *v587 = 44;
-    v571 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v571 = *(v5 + 16);
-      *v5 = v571;
-    }
-  }
-
-  else
-  {
-    v579 = 0;
-    v580 = 44;
-    do
-    {
-      *v5 = v571 + 1;
-      *v571 = v580;
-      v571 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v571 = *(v5 + 16);
-        *v5 = v571;
-      }
-
-      v580 = asc_29906A308[++v579];
-    }
-
-    while (v579 != 4);
-  }
-
-  if (*(v874 + 1820))
-  {
-    v588 = *(v874 + 1824);
-    if (v588 >= 0)
-    {
-      v589 = *(v874 + 1824);
-    }
-
-    else
-    {
-      v589 = -v588;
-    }
-
-    sprintf1da(v5, v589, v911, 0, v588 >> 31);
-    v590 = (*v5)++;
-    *v590 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf_1u(v5, *(v874 + 1828));
-    v591 = (*v5)++;
-    *v591 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-  }
-
-  else
-  {
-    v592 = 0;
-    v593 = 44;
-    do
-    {
-      *v5 = v571 + 1;
-      *v571 = v593;
-      v571 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v571 = *(v5 + 16);
-        *v5 = v571;
-      }
-
-      v593 = asc_29906A3BE[++v592];
-    }
-
-    while (v592 != 2);
-  }
-
-  sprintf1da(v5, *(v874 + 1832), v911, 0, 0);
-  v594 = (*v5)++;
-  *v594 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 1833), v911, 0, 0);
-  v595 = (*v5)++;
-  *v595 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v596 = *(v874 + 1840) * 1000.0;
-  v597 = -0.5;
-  if (v596 > 0.0)
-  {
-    v597 = 0.5;
-  }
-
-  v598 = v596 + v597;
-  if (v598 <= 2147483650.0)
-  {
-    if (v598 >= -2147483650.0)
-    {
-      v599 = v598;
-    }
-
-    else
-    {
-      v599 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v599 = 0x7FFFFFFF;
-  }
-
-  sprintf_4f(v5, v599, 4);
-  v600 = (*v5)++;
-  *v600 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v601 = *(v874 + 1848);
-  if (v601 >= 0)
-  {
-    v602 = *(v874 + 1848);
-  }
-
-  else
-  {
-    v602 = -v601;
-  }
-
-  sprintf1da(v5, v602, v911, 0, (v601 >> 15) & 1);
-  v603 = (*v5)++;
-  *v603 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 1850), v911, 0, 0);
-  v604 = (*v5)++;
-  *v604 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v605 = *(v874 + 1856) * 1000.0;
-  v606 = -0.5;
-  if (v605 > 0.0)
-  {
-    v606 = 0.5;
-  }
-
-  v607 = v605 + v606;
-  if (v607 <= 2147483650.0)
-  {
-    if (v607 >= -2147483650.0)
-    {
-      v608 = v607;
-    }
-
-    else
-    {
-      v608 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v608 = 0x7FFFFFFF;
-  }
-
-  sprintf_4f(v5, v608, 4);
-  v609 = (*v5)++;
-  *v609 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v610 = *(v874 + 1864);
-  if (v610 >= 0)
-  {
-    v611 = *(v874 + 1864);
-  }
-
-  else
-  {
-    v611 = -v610;
-  }
-
-  sprintf1da(v5, v611, v911, 0, (v610 >> 15) & 1);
-  v612 = (*v5)++;
-  *v612 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v613 = *(v874 + 1866);
-  if (v613 >= 0)
-  {
-    v614 = *(v874 + 1866);
-  }
-
-  else
-  {
-    v614 = -v613;
-  }
-
-  sprintf1da(v5, v614, v911, 0, (v613 >> 15) & 1);
-  v615 = (*v5)++;
-  *v615 = 44;
-  v616 = *v5;
-  v617 = v894;
-  if (*v5 >= *(v5 + 24))
-  {
-    v616 = *(v5 + 16);
-    *v5 = v616;
-  }
-
-  if (*(v874 + 1868))
-  {
-    v618 = *(v874 + 1869);
-    if (v618 >= 0)
-    {
-      v619 = *(v874 + 1869);
-    }
-
-    else
-    {
-      v619 = -v618;
-    }
-
-    sprintf1da(v5, v619, v911, 0, (v618 >> 7) & 1);
-    v620 = (*v5)++;
-    *v620 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v621 = *(v874 + 1870);
-    if (v621 >= 0)
-    {
-      v622 = *(v874 + 1870);
-    }
-
-    else
-    {
-      v622 = -v621;
-    }
-
-    sprintf1da(v5, v622, v911, 0, (v621 >> 7) & 1);
-    v623 = (*v5)++;
-    *v623 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v624 = *(v874 + 1872);
-    if (v624 >= 0)
-    {
-      v625 = *(v874 + 1872);
-    }
-
-    else
-    {
-      v625 = -v624;
-    }
-
-    sprintf1da(v5, v625, v911, 0, (v624 >> 15) & 1);
-    v626 = (*v5)++;
-    *v626 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v627 = *(v874 + 1874);
-    if (v627 >= 0)
-    {
-      v628 = *(v874 + 1874);
-    }
-
-    else
-    {
-      v628 = -v627;
-    }
-
-    sprintf1da(v5, v628, v911, 0, (v627 >> 7) & 1);
-    v629 = (*v5)++;
-    *v629 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v630 = *(v874 + 1875);
-    if (v630 >= 0)
-    {
-      v631 = *(v874 + 1875);
-    }
-
-    else
-    {
-      v631 = -v630;
-    }
-
-    sprintf1da(v5, v631, v911, 0, (v630 >> 7) & 1);
-    v632 = (*v5)++;
-    *v632 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v633 = *(v874 + 1876);
-    if (v633 >= 0)
-    {
-      v634 = *(v874 + 1876);
-    }
-
-    else
-    {
-      v634 = -v633;
-    }
-
-    sprintf1da(v5, v634, v911, 0, (v633 >> 15) & 1);
-    v635 = (*v5)++;
-    *v635 = 44;
-    v616 = *v5;
-    v617 = v894;
-    if (*v5 >= *(v5 + 24))
-    {
-      v616 = *(v5 + 16);
-      *v5 = v616;
-    }
-  }
-
-  else
-  {
-    v636 = 44;
-    v637 = 1u;
-    do
-    {
-      *v5 = v616 + 1;
-      *v616 = v636;
-      v616 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v616 = *(v5 + 16);
-        *v5 = v616;
-      }
-
-      v636 = asc_29906A416[v637++];
-    }
-
-    while (v637 != 7);
-  }
-
-  v638 = *(v874 + 1880);
-  if (v638)
-  {
-    if (v638 >= 0)
-    {
-      v639 = *(v874 + 1880);
-    }
-
-    else
-    {
-      v639 = -v638;
-    }
-
-    sprintf1da(v5, v639, v911, 0, v638 >> 31);
-    v616 = *v5;
-  }
-
-  *v5 = v616 + 1;
-  *v616 = 44;
-  v640 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v640 = *(v5 + 16);
-    *v5 = v640;
-  }
-
-  v641 = *(v874 + 1884);
-  if (v641)
-  {
-    if (v641 >= 0)
-    {
-      v642 = *(v874 + 1884);
-    }
-
-    else
-    {
-      v642 = -v641;
-    }
-
-    sprintf1da(v5, v642, v911, 0, v641 >> 31);
-    v640 = *v5;
-  }
-
-  *v5 = v640 + 1;
-  *v640 = 44;
-  v643 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v643 = *(v5 + 16);
-    *v5 = v643;
-  }
-
-  v644 = *(v874 + 1888);
-  if (v644)
-  {
-    if (v644 >= 0)
-    {
-      v645 = *(v874 + 1888);
-    }
-
-    else
-    {
-      v645 = -v644;
-    }
-
-    sprintf1da(v5, v645, v911, 0, v644 >> 31);
-    v643 = *v5;
-  }
-
-  *v5 = v643 + 1;
-  *v643 = 44;
-  v646 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v646 = *(v5 + 16);
-    *v5 = v646;
-  }
-
-  v647 = *(v874 + 1892);
-  if (v647)
-  {
-    if (v647 >= 0)
-    {
-      v648 = *(v874 + 1892);
-    }
-
-    else
-    {
-      v648 = -v647;
-    }
-
-    sprintf1da(v5, v648, v911, 0, v647 >> 31);
-    v646 = *v5;
-  }
-
-  *v5 = v646 + 1;
-  *v646 = 44;
-  v649 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v649 = *(v5 + 16);
-    *v5 = v649;
-  }
-
-  v650 = *(v874 + 1896);
-  if (v650)
-  {
-    if (v650 >= 0)
-    {
-      v651 = *(v874 + 1896);
-    }
-
-    else
-    {
-      v651 = -v650;
-    }
-
-    sprintf1da(v5, v651, v911, 0, v650 >> 31);
-    v649 = *v5;
-  }
-
-  *v5 = v649 + 1;
-  *v649 = 44;
-  v652 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v652 = *(v5 + 16);
-    *v5 = v652;
-  }
-
-  v653 = *(v874 + 1900);
-  if (v653)
-  {
-    if (v653 >= 0)
-    {
-      v654 = *(v874 + 1900);
-    }
-
-    else
-    {
-      v654 = -v653;
-    }
-
-    sprintf1da(v5, v654, v911, 0, v653 >> 31);
-    v652 = *v5;
-  }
-
-  *v5 = v652 + 1;
-  *v652 = 44;
-  v655 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v655 = *(v5 + 16);
-    *v5 = v655;
-  }
-
-  v656 = *(v874 + 1784);
-  if (v656)
-  {
-    sprintf_1U(v5, v656);
-    v655 = *v5;
-  }
-
-  *v5 = v655 + 1;
-  *v655 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 1904), v911, 0, 0);
-  NMEA_Add_checksum(v5, v565);
-  v657 = (*v5)++;
-  *v657 = 36;
-  v658 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v658 = *v895;
-  }
-
-  v659 = 80;
-  v660 = 1u;
-  v661 = v658;
-  do
-  {
-    *v5 = v661 + 1;
-    *v661 = v659;
-    v661 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v661 = *(v5 + 16);
-      *v5 = v661;
-    }
-
-    v659 = aPdbgv[v660++];
-  }
-
-  while (v660 != 7);
-  sprintf_HHMMSS(v5, v617);
-  v662 = *v5;
-  if (*(v874 + 1704))
-  {
-    *v5 = v662 + 1;
-    *v662 = 65;
-    v663 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v663 = *v895;
-    }
-
-    *v5 = v663 + 1;
-    *v663 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1705), v911, 0, 0);
-    v664 = (*v5)++;
-    *v664 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1706), v911, 0, 0);
-    v665 = (*v5)++;
-    *v665 = 44;
-    v617 = v894;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v666 = *(v874 + 1712) * 100.0;
-    v667 = -0.5;
-    if (v666 > 0.0)
-    {
-      v667 = 0.5;
-    }
-
-    v668 = v666 + v667;
-    if (v668 <= 2147483650.0)
-    {
-      if (v668 >= -2147483650.0)
-      {
-        v669 = v668;
-      }
-
-      else
-      {
-        v669 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v669 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v669, 3);
-    v672 = (*v5)++;
-    *v672 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v673 = *(v874 + 1720) * 100.0;
-    v674 = -0.5;
-    if (v673 > 0.0)
-    {
-      v674 = 0.5;
-    }
-
-    v675 = v673 + v674;
-    if (v675 <= 2147483650.0)
-    {
-      if (v675 >= -2147483650.0)
-      {
-        v676 = v675;
-      }
-
-      else
-      {
-        v676 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v676 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v676, 3);
-    v677 = (*v5)++;
-    *v677 = 44;
-    v662 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v662 = *v895;
-    }
-  }
-
-  else
-  {
-    v670 = 78;
-    v671 = 1u;
-    do
-    {
-      *v5 = v662 + 1;
-      *v662 = v670;
-      v662 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v662 = *(v5 + 16);
-        *v5 = v662;
-      }
-
-      v670 = aN_5[v671++];
-    }
-
-    while (v671 != 7);
-  }
-
-  if (*(v874 + 1728))
-  {
-    *v5 = v662 + 1;
-    *v662 = 65;
-    v678 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v678 = *v895;
-    }
-
-    *v5 = v678 + 1;
-    *v678 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1729), v911, 0, 0);
-    v679 = (*v5)++;
-    *v679 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1730), v911, 0, 0);
-    v680 = (*v5)++;
-    *v680 = 44;
-    v617 = v894;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v681 = *(v874 + 1736) * 100.0;
-    v682 = -0.5;
-    if (v681 > 0.0)
-    {
-      v682 = 0.5;
-    }
-
-    v683 = v681 + v682;
-    if (v683 <= 2147483650.0)
-    {
-      if (v683 >= -2147483650.0)
-      {
-        v684 = v683;
-      }
-
-      else
-      {
-        v684 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v684 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v684, 3);
-    v687 = (*v5)++;
-    *v687 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v688 = *(v874 + 1744) * 100.0;
-    v689 = -0.5;
-    if (v688 > 0.0)
-    {
-      v689 = 0.5;
-    }
-
-    v690 = v688 + v689;
-    if (v690 <= 2147483650.0)
-    {
-      if (v690 >= -2147483650.0)
-      {
-        v691 = v690;
-      }
-
-      else
-      {
-        v691 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v691 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v691, 3);
-    v692 = (*v5)++;
-    *v692 = 44;
-    v662 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v662 = *v895;
-    }
-  }
-
-  else
-  {
-    v685 = 78;
-    v686 = 1u;
-    do
-    {
-      *v5 = v662 + 1;
-      *v662 = v685;
-      v662 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v662 = *(v5 + 16);
-        *v5 = v662;
-      }
-
-      v685 = aN_5[v686++];
-    }
-
-    while (v686 != 7);
-  }
-
-  if (*(v874 + 1752))
-  {
-    *v5 = v662 + 1;
-    *v662 = 65;
-    v693 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v693 = *v895;
-    }
-
-    *v5 = v693 + 1;
-    *v693 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1753), v911, 0, 0);
-    v694 = (*v5)++;
-    *v694 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    sprintf1da(v5, *(v874 + 1754), v911, 0, 0);
-    v695 = (*v5)++;
-    *v695 = 44;
-    v617 = v894;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v696 = *(v874 + 1760) * 100.0;
-    v697 = -0.5;
-    if (v696 > 0.0)
-    {
-      v697 = 0.5;
-    }
-
-    v698 = v696 + v697;
-    if (v698 <= 2147483650.0)
-    {
-      if (v698 >= -2147483650.0)
-      {
-        v699 = v698;
-      }
-
-      else
-      {
-        v699 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v699 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v699, 3);
-    v702 = (*v5)++;
-    *v702 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v703 = *(v874 + 1768) * 100.0;
-    v704 = -0.5;
-    if (v703 > 0.0)
-    {
-      v704 = 0.5;
-    }
-
-    v705 = v703 + v704;
-    if (v705 <= 2147483650.0)
-    {
-      if (v705 >= -2147483650.0)
-      {
-        v706 = v705;
-      }
-
-      else
-      {
-        v706 = 0x80000000;
-      }
-    }
-
-    else
-    {
-      v706 = 0x7FFFFFFF;
-    }
-
-    sprintf_3f(v5, v706, 3);
-    v707 = (*v5)++;
-    *v707 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-  }
-
-  else
-  {
-    v700 = 78;
-    v701 = 1u;
-    do
-    {
-      *v5 = v662 + 1;
-      *v662 = v700;
-      v662 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v662 = *(v5 + 16);
-        *v5 = v662;
-      }
-
-      v700 = aN_8[v701++];
-    }
-
-    while (v701 != 6);
-  }
-
-  NMEA_Add_checksum(v5, v658);
-  v708 = (*v5)++;
-  *v708 = 36;
-  v709 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v709 = *v895;
-  }
-
-  v710 = 80;
-  v711 = 1u;
-  v712 = v709;
-  do
-  {
-    *v5 = v712 + 1;
-    *v712 = v710;
-    v712 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v712 = *(v5 + 16);
-      *v5 = v712;
-    }
-
-    v710 = aPdbgx[v711++];
-  }
-
-  while (v711 != 7);
-  sprintf_HHMMSS(v5, v617);
-  v713 = *(v874 + 1912) * 100.0;
-  v714 = -0.5;
-  if (v713 > 0.0)
-  {
-    v714 = 0.5;
-  }
-
-  v715 = v713 + v714;
-  if (v715 <= 2147483650.0)
-  {
-    if (v715 >= -2147483650.0)
-    {
-      v716 = v715;
-    }
-
-    else
-    {
-      v716 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v716 = 0x7FFFFFFF;
-  }
-
-  sprintf_3f(v5, v716, 3);
-  v717 = (*v5)++;
-  *v717 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v718 = *(v874 + 1920) * 100.0;
-  v719 = -0.5;
-  if (v718 > 0.0)
-  {
-    v719 = 0.5;
-  }
-
-  v720 = v718 + v719;
-  if (v720 <= 2147483650.0)
-  {
-    if (v720 >= -2147483650.0)
-    {
-      v721 = v720;
-    }
-
-    else
-    {
-      v721 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v721 = 0x7FFFFFFF;
-  }
-
-  sprintf_3f(v5, v721, 3);
-  v722 = (*v5)++;
-  *v722 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v723 = *(v874 + 1928) * 100.0;
-  v724 = -0.5;
-  if (v723 > 0.0)
-  {
-    v724 = 0.5;
-  }
-
-  v725 = v723 + v724;
-  if (v725 <= 2147483650.0)
-  {
-    if (v725 >= -2147483650.0)
-    {
-      v726 = v725;
-    }
-
-    else
-    {
-      v726 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v726 = 0x7FFFFFFF;
-  }
-
-  sprintf_3f(v5, v726, 3);
-  v727 = (*v5)++;
-  *v727 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v728 = *(v874 + 1936) * 100.0;
-  v729 = -0.5;
-  if (v728 > 0.0)
-  {
-    v729 = 0.5;
-  }
-
-  v730 = v728 + v729;
-  if (v730 <= 2147483650.0)
-  {
-    if (v730 >= -2147483650.0)
-    {
-      v731 = v730;
-    }
-
-    else
-    {
-      v731 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v731 = 0x7FFFFFFF;
-  }
-
-  sprintf_3f(v5, v731, 3);
-  v732 = (*v5)++;
-  *v732 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v733 = *(v874 + 1944) * 1000.0;
-  v734 = -0.5;
-  if (v733 > 0.0)
-  {
-    v734 = 0.5;
-  }
-
-  v735 = v733 + v734;
-  if (v735 <= 2147483650.0)
-  {
-    if (v735 >= -2147483650.0)
-    {
-      v736 = v735;
-    }
-
-    else
-    {
-      v736 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v736 = 0x7FFFFFFF;
-  }
-
-  sprintf_4f(v5, v736, 4);
-  v737 = (*v5)++;
-  *v737 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v738 = *(v874 + 1952) * 1000.0;
-  v739 = -0.5;
-  if (v738 > 0.0)
-  {
-    v739 = 0.5;
-  }
-
-  v740 = v738 + v739;
-  if (v740 <= 2147483650.0)
-  {
-    if (v740 >= -2147483650.0)
-    {
-      v741 = v740;
-    }
-
-    else
-    {
-      v741 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v741 = 0x7FFFFFFF;
-  }
-
-  sprintf_4f(v5, v741, 4);
-  v742 = (*v5)++;
-  *v742 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v743 = *(v874 + 1960) * 1000.0;
-  v744 = -0.5;
-  if (v743 > 0.0)
-  {
-    v744 = 0.5;
-  }
-
-  v745 = v743 + v744;
-  if (v745 <= 2147483650.0)
-  {
-    if (v745 >= -2147483650.0)
-    {
-      v746 = v745;
-    }
-
-    else
-    {
-      v746 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v746 = 0x7FFFFFFF;
-  }
-
-  sprintf_4f(v5, v746, 4);
-  v747 = (*v5)++;
-  *v747 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v748 = *(v874 + 1968) * 1000.0;
-  v749 = -0.5;
-  if (v748 > 0.0)
-  {
-    v749 = 0.5;
-  }
-
-  v750 = v748 + v749;
-  if (v750 <= 2147483650.0)
-  {
-    if (v750 >= -2147483650.0)
-    {
-      v751 = v750;
-    }
-
-    else
-    {
-      v751 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v751 = 0x7FFFFFFF;
-  }
-
-  sprintf_4f(v5, v751, 4);
-  v752 = (*v5)++;
-  *v752 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v753 = *(v874 + 1976) * 1000.0;
-  v754 = -0.5;
-  if (v753 > 0.0)
-  {
-    v754 = 0.5;
-  }
-
-  v755 = v753 + v754;
-  if (v755 <= 2147483650.0)
-  {
-    if (v755 >= -2147483650.0)
-    {
-      v756 = v755;
-    }
-
-    else
-    {
-      v756 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v756 = 0x7FFFFFFF;
-  }
-
-  sprintf_4f(v5, v756, 4);
-  v757 = (*v5)++;
-  *v757 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v758 = *(v874 + 1984) * 10.0;
-  v759 = -0.5;
-  if (v758 > 0.0)
-  {
-    v759 = 0.5;
-  }
-
-  v760 = v758 + v759;
-  if (v760 <= 2147483650.0)
-  {
-    if (v760 >= -2147483650.0)
-    {
-      v761 = v760;
-    }
-
-    else
-    {
-      v761 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v761 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v761);
-  v762 = (*v5)++;
-  *v762 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v763 = *(v874 + 1992) * 10.0;
-  v764 = -0.5;
-  if (v763 > 0.0)
-  {
-    v764 = 0.5;
-  }
-
-  v765 = v763 + v764;
-  if (v765 <= 2147483650.0)
-  {
-    if (v765 >= -2147483650.0)
-    {
-      v766 = v765;
-    }
-
-    else
-    {
-      v766 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v766 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v766);
-  v767 = (*v5)++;
-  *v767 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v768 = *(v874 + 2000) * 10.0;
-  v769 = -0.5;
-  if (v768 > 0.0)
-  {
-    v769 = 0.5;
-  }
-
-  v770 = v768 + v769;
-  if (v770 <= 2147483650.0)
-  {
-    if (v770 >= -2147483650.0)
-    {
-      v771 = v770;
-    }
-
-    else
-    {
-      v771 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v771 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v771);
-  v772 = (*v5)++;
-  *v772 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v773 = *(v874 + 2008) * 10.0;
-  v774 = -0.5;
-  if (v773 > 0.0)
-  {
-    v774 = 0.5;
-  }
-
-  v775 = v773 + v774;
-  if (v775 <= 2147483650.0)
-  {
-    if (v775 >= -2147483650.0)
-    {
-      v776 = v775;
-    }
-
-    else
-    {
-      v776 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v776 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v776);
-  v777 = (*v5)++;
-  *v777 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v778 = *(v874 + 2016) * 10.0;
-  v779 = -0.5;
-  if (v778 > 0.0)
-  {
-    v779 = 0.5;
-  }
-
-  v780 = v778 + v779;
-  if (v780 <= 2147483650.0)
-  {
-    if (v780 >= -2147483650.0)
-    {
-      v781 = v780;
-    }
-
-    else
-    {
-      v781 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v781 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v781);
-  v782 = (*v5)++;
-  *v782 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v783 = *(v874 + 2024) * 10.0;
-  v784 = -0.5;
-  if (v783 > 0.0)
-  {
-    v784 = 0.5;
-  }
-
-  v785 = v783 + v784;
-  if (v785 <= 2147483650.0)
-  {
-    if (v785 >= -2147483650.0)
-    {
-      v786 = v785;
-    }
-
-    else
-    {
-      v786 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v786 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v786);
-  v787 = (*v5)++;
-  *v787 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v788 = *(v874 + 2032) * 10.0;
-  v789 = -0.5;
-  if (v788 > 0.0)
-  {
-    v789 = 0.5;
-  }
-
-  v790 = v788 + v789;
-  if (v790 <= 2147483650.0)
-  {
-    if (v790 >= -2147483650.0)
-    {
-      v791 = v790;
-    }
-
-    else
-    {
-      v791 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v791 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v791);
-  v792 = (*v5)++;
-  *v792 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 2040), v911, 0, 0);
-  v793 = (*v5)++;
-  *v793 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v794 = *(v874 + 2048) * 10.0;
-  v795 = -0.5;
-  if (v794 > 0.0)
-  {
-    v795 = 0.5;
-  }
-
-  v796 = v794 + v795;
-  if (v796 <= 2147483650.0)
-  {
-    if (v796 >= -2147483650.0)
-    {
-      v797 = v796;
-    }
-
-    else
-    {
-      v797 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v797 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v797);
-  v798 = (*v5)++;
-  *v798 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v799 = *(v874 + 2056) * 10.0;
-  v800 = -0.5;
-  if (v799 > 0.0)
-  {
-    v800 = 0.5;
-  }
-
-  v801 = v799 + v800;
-  if (v801 <= 2147483650.0)
-  {
-    if (v801 >= -2147483650.0)
-    {
-      v802 = v801;
-    }
-
-    else
-    {
-      v802 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v802 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v802);
-  v803 = (*v5)++;
-  *v803 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v804 = *(v874 + 2064) * 10.0;
-  v805 = -0.5;
-  if (v804 > 0.0)
-  {
-    v805 = 0.5;
-  }
-
-  v806 = v804 + v805;
-  if (v806 <= 2147483650.0)
-  {
-    if (v806 >= -2147483650.0)
-    {
-      v807 = v806;
-    }
-
-    else
-    {
-      v807 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v807 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v807);
-  v808 = (*v5)++;
-  *v808 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v809 = *(v874 + 2072) * 10.0;
-  v810 = -0.5;
-  if (v809 > 0.0)
-  {
-    v810 = 0.5;
-  }
-
-  v811 = v809 + v810;
-  if (v811 <= 2147483650.0)
-  {
-    if (v811 >= -2147483650.0)
-    {
-      v812 = v811;
-    }
-
-    else
-    {
-      v812 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v812 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v812);
-  v813 = (*v5)++;
-  *v813 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v814 = *(v894 + 56) * 1000000000.0 * 10.0;
-  v815 = -0.5;
-  if (v814 > 0.0)
-  {
-    v815 = 0.5;
-  }
-
-  v816 = v814 + v815;
-  if (v816 <= 2147483650.0)
-  {
-    if (v816 >= -2147483650.0)
-    {
-      v817 = v816;
-    }
-
-    else
-    {
-      v817 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v817 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v817);
-  v818 = (*v5)++;
-  *v818 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_AccEst(v5, *(v894 + 168) * 1000000000.0);
-  v819 = (*v5)++;
-  *v819 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v820 = *(v894 + 64) * 1000000000.0 * 10.0;
-  v821 = -0.5;
-  if (v820 > 0.0)
-  {
-    v821 = 0.5;
-  }
-
-  v822 = v820 + v821;
-  if (v822 <= 2147483650.0)
-  {
-    if (v822 >= -2147483650.0)
-    {
-      v823 = v822;
-    }
-
-    else
-    {
-      v823 = 0x80000000;
-    }
-  }
-
-  else
-  {
-    v823 = 0x7FFFFFFF;
-  }
-
-  sprintf_2f(v5, v823);
-  v824 = (*v5)++;
-  *v824 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_AccEst(v5, *(v894 + 176) * 1000000000.0);
-  NMEA_Add_checksum(v5, v709);
-  v825 = (*v5)++;
-  *v825 = 36;
-  v826 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v826 = *v895;
-  }
-
-  v827 = 80;
-  v828 = 1u;
-  v829 = v826;
-  do
-  {
-    *v5 = v829 + 1;
-    *v829 = v827;
-    v829 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v829 = *(v5 + 16);
-      *v5 = v829;
-    }
-
-    v827 = aPdbgy[v828++];
-  }
-
-  while (v828 != 7);
-  sprintf_HHMMSS(v5, v894);
-  v830 = *(v874 + 2082);
-  v831 = *v5;
-  if (v830)
-  {
-    v832 = (v874 + 2083);
-    do
-    {
-      *v5 = v831 + 1;
-      *v831 = v830;
-      v831 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v831 = *(v5 + 16);
-        *v5 = v831;
-      }
-
-      v833 = *v832++;
-      v830 = v833;
-    }
-
-    while (v833);
-  }
-
-  *v5 = v831 + 1;
-  *v831 = 58;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_04x(v5, *(v874 + 2086));
-  v834 = (*v5)++;
-  *v834 = 45;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_08x(v5, *(v874 + 2088));
-  v835 = (*v5)++;
-  *v835 = 45;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 2089), v911, 0, 0);
-  v836 = (*v5)++;
-  *v836 = 46;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_02d(v5, *(v874 + 2090));
-  v837 = (*v5)++;
-  *v837 = 46;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 2091), v911, 0, 0);
-  v838 = (*v5)++;
-  *v838 = 46;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 2092), v911, 0, 0);
-  v839 = (*v5)++;
-  *v839 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 2094), v911, 0, 0);
-  v840 = (*v5)++;
-  *v840 = 46;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf_2d(v5, *(v874 + 2096));
-  v841 = (*v5)++;
-  *v841 = 46;
-  v842 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v842 = *v895;
-  }
-
-  v843 = *(v874 + 2097);
-  *v5 = v842 + 1;
-  *v842 = v843;
-  v844 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v844 = *v895;
-  }
-
-  *v5 = v844 + 1;
-  *v844 = 46;
-  v845 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v845 = *(v5 + 16);
-    *v5 = v845;
-  }
-
-  v846 = *(v874 + 2098);
-  if (v846)
-  {
-    v847 = (v874 + 2099);
-    do
-    {
-      *v5 = v845 + 1;
-      *v845 = v846;
-      v845 = *v5;
-      if (*v5 >= *(v5 + 24))
-      {
-        v845 = *(v5 + 16);
-        *v5 = v845;
-      }
-
-      v848 = *v847++;
-      v846 = v848;
-    }
-
-    while (v848);
-  }
-
-  *v5 = v845 + 1;
-  *v845 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v849 = *(v874 + 2108);
-  if (v849 >= 0)
-  {
-    v850 = *(v874 + 2108);
-  }
-
-  else
-  {
-    v850 = -v849;
-  }
-
-  sprintf1da(v5, v850, v911, 0, v849 >> 31);
-  v851 = (*v5)++;
-  *v851 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v852 = *(v874 + 2112);
-  if (v852 >= 0)
-  {
-    v853 = *(v874 + 2112);
-  }
-
-  else
-  {
-    v853 = -v852;
-  }
-
-  sprintf1da(v5, v853, v911, 0, v852 >> 31);
-  v854 = (*v5)++;
-  *v854 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 2116), v911, 0, 0);
-  v855 = (*v5)++;
-  *v855 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 2117), v911, 0, 0);
-  v856 = (*v5)++;
-  *v856 = 44;
-  v857 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v857 = *v895;
-  }
-
-  v858 = 0;
-  v859 = 48;
-  do
-  {
-    *v5 = v857 + 1;
-    *v857 = v859;
-    v857 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v857 = *(v5 + 16);
-      *v5 = v857;
-    }
-
-    v859 = a0x_0[++v858];
-  }
-
-  while (v858 != 2);
-  sprintf_1X(v5, *(v874 + 2118));
-  v860 = (*v5)++;
-  *v860 = 44;
-  v861 = *v5;
-  if (*v5 >= *(v5 + 24))
-  {
-    v861 = *v895;
-  }
-
-  v862 = 0;
-  v863 = 48;
-  do
-  {
-    *v5 = v861 + 1;
-    *v861 = v863;
-    v861 = *v5;
-    if (*v5 >= *(v5 + 24))
-    {
-      v861 = *(v5 + 16);
-      *v5 = v861;
-    }
-
-    v863 = a0x_0[++v862];
-  }
-
-  while (v862 != 2);
-  sprintf_1X(v5, *(v874 + 2119));
-  v864 = (*v5)++;
-  *v864 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  sprintf1da(v5, *(v874 + 2120), v911, 0, 0);
-  v865 = (*v5)++;
-  *v865 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  nzet(v5, 0xAu, v911, 0, 0, 0);
-  v866 = (*v5)++;
-  *v866 = 44;
-  if (*v5 >= *(v5 + 24))
-  {
-    *v5 = *(v5 + 16);
-  }
-
-  v867 = *(v874 + 2128) - *(v874 + 2124);
-  if (v867 >= 0)
-  {
-    v868 = *(v874 + 2128) - *(v874 + 2124);
-  }
-
-  else
-  {
-    v868 = *(v874 + 2124) - *(v874 + 2128);
-  }
-
-  sprintf1da(v5, v868, v911, 0, v867 >> 31);
-  for (k = 0; k != 36; k += 4)
-  {
-    v870 = (*v5)++;
-    *v870 = 44;
-    if (*v5 >= *(v5 + 24))
-    {
-      *v5 = *(v5 + 16);
-    }
-
-    v871 = *(v874 + 2132 + k) - *(v874 + 2124);
-    if (v871 >= 0)
-    {
-      v872 = *(v874 + 2132 + k) - *(v874 + 2124);
-    }
-
-    else
-    {
-      v872 = *(v874 + 2124) - *(v874 + 2132 + k);
-    }
-
-    sprintf1da(v5, v872, v911, 0, v871 >> 31);
-  }
-
-  v873 = *MEMORY[0x29EDCA608];
-
-  return NMEA_Add_checksum(v5, v826);
-}
-
 char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v58 = *MEMORY[0x29EDCA608];
+  v57 = *MEMORY[0x29EDCA608];
   v7 = (*a1)++;
   *v7 = 36;
   v8 = *a1;
@@ -7336,7 +49,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
   v30 = *(a4 + v17);
   v31 = *(a4 + v18);
   v32 = *(a4 + v19);
-  v56 = *(a4 + v20);
+  v55 = *(a4 + v20);
   v33 = *(a4 + v21);
   v34 = *(a4 + v22);
   if (*v23)
@@ -7361,7 +74,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     while (v37);
   }
 
-  sprintf1da(a1, v24, v57, 0, 0);
+  sprintf1da(a1, v24, v56, 0, 0);
   v38 = (*a1)++;
   *v38 = 44;
   if (*a1 >= a1[3])
@@ -7369,7 +82,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, v26, v57, 0, 0);
+  sprintf1da(a1, v26, v56, 0, 0);
   v39 = (*a1)++;
   *v39 = 44;
   if (*a1 >= a1[3])
@@ -7377,7 +90,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, v27, v57, 0, 0);
+  sprintf1da(a1, v27, v56, 0, 0);
   v40 = (*a1)++;
   *v40 = 44;
   if (*a1 >= a1[3])
@@ -7385,7 +98,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, v28, v57, 0, 0);
+  sprintf1da(a1, v28, v56, 0, 0);
   v41 = (*a1)++;
   *v41 = 44;
   if (*a1 >= a1[3])
@@ -7393,7 +106,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, v29, v57, 0, 0);
+  sprintf1da(a1, v29, v56, 0, 0);
   v42 = (*a1)++;
   *v42 = 44;
   if (*a1 >= a1[3])
@@ -7401,7 +114,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, v30, v57, 0, 0);
+  sprintf1da(a1, v30, v56, 0, 0);
   v43 = (*a1)++;
   *v43 = 44;
   if (*a1 >= a1[3])
@@ -7409,7 +122,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, v31, v57, 0, 0);
+  sprintf1da(a1, v31, v56, 0, 0);
   v44 = (*a1)++;
   *v44 = 44;
   if (*a1 >= a1[3])
@@ -7417,7 +130,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, v32, v57, 0, 0);
+  sprintf1da(a1, v32, v56, 0, 0);
   v45 = (*a1)++;
   *v45 = 44;
   if (*a1 >= a1[3])
@@ -7425,7 +138,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, v56, v57, 0, 0);
+  sprintf1da(a1, v55, v56, 0, 0);
   v46 = (*a1)++;
   *v46 = 44;
   if (*a1 >= a1[3])
@@ -7455,7 +168,7 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v49 = 0x7FFFFFFF;
+    v49 = 0x7FFFFFFFLL;
   }
 
   sprintf_3f(a1, v49, 3);
@@ -7488,18 +201,17 @@ char **NMEA_Encode_PDBGE_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v53 = 0x7FFFFFFF;
+    v53 = 0x7FFFFFFFLL;
   }
 
   sprintf_3f(a1, v53, 3);
-  v54 = *MEMORY[0x29EDCA608];
 
   return NMEA_Add_checksum(a1, v8);
 }
 
 char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v74 = *MEMORY[0x29EDCA608];
+  v73 = *MEMORY[0x29EDCA608];
   v7 = (*a1)++;
   *v7 = 36;
   v8 = *a1;
@@ -7532,14 +244,14 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
   v14 = off_29EF064E0[v12];
   v15 = (a4 + v13);
   v16 = v15[3];
-  v69 = v15[2];
-  v70 = v16;
+  v68 = v15[2];
+  v69 = v16;
   v17 = v15[5];
-  v71 = v15[4];
-  v72 = v17;
+  v70 = v15[4];
+  v71 = v17;
   v18 = v15[1];
-  v68[0] = *v15;
-  v68[1] = v18;
+  v67[0] = *v15;
+  v67[1] = v18;
   v19 = *v14;
   if (*v14)
   {
@@ -7563,7 +275,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     while (v22);
   }
 
-  sprintf1da(a1, BYTE1(v68[0]), v73, 0, 0);
+  sprintf1da(a1, BYTE1(v67[0]), v72, 0, 0);
   v23 = (*a1)++;
   *v23 = 44;
   if (*a1 >= a1[3])
@@ -7571,7 +283,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, BYTE2(v68[0]), v73, 0, 0);
+  sprintf1da(a1, BYTE2(v67[0]), v72, 0, 0);
   v24 = (*a1)++;
   *v24 = 44;
   if (*a1 >= a1[3])
@@ -7579,7 +291,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, BYTE3(v68[0]), v73, 0, 0);
+  sprintf1da(a1, BYTE3(v67[0]), v72, 0, 0);
   v25 = (*a1)++;
   *v25 = 44;
   if (*a1 >= a1[3])
@@ -7587,7 +299,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, BYTE4(v68[0]), v73, 0, 0);
+  sprintf1da(a1, BYTE4(v67[0]), v72, 0, 0);
   v26 = (*a1)++;
   *v26 = 44;
   if (*a1 >= a1[3])
@@ -7595,7 +307,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, BYTE6(v68[0]), v73, 0, 0);
+  sprintf1da(a1, BYTE6(v67[0]), v72, 0, 0);
   v27 = (*a1)++;
   *v27 = 44;
   if (*a1 >= a1[3])
@@ -7603,7 +315,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, BYTE7(v68[0]), v73, 0, 0);
+  sprintf1da(a1, BYTE7(v67[0]), v72, 0, 0);
   v28 = (*a1)++;
   *v28 = 44;
   if (*a1 >= a1[3])
@@ -7611,7 +323,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, BYTE8(v68[0]), v73, 0, 0);
+  sprintf1da(a1, BYTE8(v67[0]), v72, 0, 0);
   v29 = (*a1)++;
   *v29 = 44;
   v30 = *a1;
@@ -7622,7 +334,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   for (i = 9; i != 17; ++i)
   {
-    v32 = *(v68 + i);
+    v32 = *(v67 + i);
     if (v32)
     {
       *a1 = v30 + 1;
@@ -7646,7 +358,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   for (j = 17; j != 25; ++j)
   {
-    v35 = *(v68 + j);
+    v35 = *(v67 + j);
     if (v35)
     {
       *a1 = v33 + 1;
@@ -7670,7 +382,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   for (k = 25; k != 33; ++k)
   {
-    v38 = *(v68 + k);
+    v38 = *(v67 + k);
     if (v38)
     {
       *a1 = v36 + 1;
@@ -7692,12 +404,12 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
   }
 
   v39 = -0.5;
-  if (*(&v69 + 1) * 10.0 > 0.0)
+  if (*(&v68 + 1) * 10.0 > 0.0)
   {
     v39 = 0.5;
   }
 
-  v40 = *(&v69 + 1) * 10.0 + v39;
+  v40 = *(&v68 + 1) * 10.0 + v39;
   if (v40 <= 2147483650.0)
   {
     if (v40 >= -2147483650.0)
@@ -7713,7 +425,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v41 = 0x7FFFFFFF;
+    v41 = 0x7FFFFFFFLL;
   }
 
   sprintf_2f(a1, v41);
@@ -7725,12 +437,12 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
   }
 
   v43 = -0.5;
-  if (*&v70 * 10.0 > 0.0)
+  if (*&v69 * 10.0 > 0.0)
   {
     v43 = 0.5;
   }
 
-  v44 = *&v70 * 10.0 + v43;
+  v44 = *&v69 * 10.0 + v43;
   if (v44 <= 2147483650.0)
   {
     if (v44 >= -2147483650.0)
@@ -7746,7 +458,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v45 = 0x7FFFFFFF;
+    v45 = 0x7FFFFFFFLL;
   }
 
   sprintf_2f(a1, v45);
@@ -7758,12 +470,12 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
   }
 
   v47 = -0.5;
-  if (*(&v70 + 1) * 10.0 > 0.0)
+  if (*(&v69 + 1) * 10.0 > 0.0)
   {
     v47 = 0.5;
   }
 
-  v48 = *(&v70 + 1) * 10.0 + v47;
+  v48 = *(&v69 + 1) * 10.0 + v47;
   if (v48 <= 2147483650.0)
   {
     if (v48 >= -2147483650.0)
@@ -7779,7 +491,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v49 = 0x7FFFFFFF;
+    v49 = 0x7FFFFFFFLL;
   }
 
   sprintf_2f(a1, v49);
@@ -7791,12 +503,12 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
   }
 
   v51 = -0.5;
-  if (*&v71 * 10.0 > 0.0)
+  if (*&v70 * 10.0 > 0.0)
   {
     v51 = 0.5;
   }
 
-  v52 = *&v71 * 10.0 + v51;
+  v52 = *&v70 * 10.0 + v51;
   if (v52 <= 2147483650.0)
   {
     if (v52 >= -2147483650.0)
@@ -7812,7 +524,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v53 = 0x7FFFFFFF;
+    v53 = 0x7FFFFFFFLL;
   }
 
   sprintf_2f(a1, v53);
@@ -7824,12 +536,12 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
   }
 
   v55 = -0.5;
-  if (*(&v71 + 1) * 10.0 > 0.0)
+  if (*(&v70 + 1) * 10.0 > 0.0)
   {
     v55 = 0.5;
   }
 
-  v56 = *(&v71 + 1) * 10.0 + v55;
+  v56 = *(&v70 + 1) * 10.0 + v55;
   if (v56 <= 2147483650.0)
   {
     if (v56 >= -2147483650.0)
@@ -7845,7 +557,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v57 = 0x7FFFFFFF;
+    v57 = 0x7FFFFFFFLL;
   }
 
   sprintf_2f(a1, v57);
@@ -7857,12 +569,12 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
   }
 
   v59 = -0.5;
-  if (*&v72 * 10.0 > 0.0)
+  if (*&v71 * 10.0 > 0.0)
   {
     v59 = 0.5;
   }
 
-  v60 = *&v72 * 10.0 + v59;
+  v60 = *&v71 * 10.0 + v59;
   if (v60 <= 2147483650.0)
   {
     if (v60 >= -2147483650.0)
@@ -7878,7 +590,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v61 = 0x7FFFFFFF;
+    v61 = 0x7FFFFFFFLL;
   }
 
   sprintf_2f(a1, v61);
@@ -7889,7 +601,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, BYTE8(v72), v73, 0, 0);
+  sprintf1da(a1, BYTE8(v71), v72, 0, 0);
   v63 = (*a1)++;
   *v63 = 44;
   if (*a1 >= a1[3])
@@ -7897,7 +609,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, BYTE9(v72), v73, 0, 0);
+  sprintf1da(a1, BYTE9(v71), v72, 0, 0);
   v64 = (*a1)++;
   *v64 = 44;
   if (*a1 >= a1[3])
@@ -7905,7 +617,7 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  sprintf1da(a1, BYTE10(v72), v73, 0, 0);
+  sprintf1da(a1, BYTE10(v71), v72, 0, 0);
   v65 = (*a1)++;
   *v65 = 44;
   if (*a1 >= a1[3])
@@ -7913,14 +625,11 @@ char **NMEA_Encode_PDBGI_Constell(char **a1, int a2, uint64_t a3, uint64_t a4)
     *a1 = a1[2];
   }
 
-  v66 = *MEMORY[0x29EDCA608];
-
   return NMEA_Add_checksum(a1, v8);
 }
 
 char **NMEA_Encode_PDBGO(char **a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v49 = *MEMORY[0x29EDCA608];
   v7 = (*a1)++;
   *v7 = 36;
   v8 = *a1;
@@ -8208,14 +917,11 @@ char **NMEA_Encode_PDBGO(char **a1, int a2, uint64_t a3, uint64_t a4)
     sprintf_1X(a1, v19);
   }
 
-  v47 = *MEMORY[0x29EDCA608];
-
   return NMEA_Add_checksum(a1, v8);
 }
 
 uint64_t sprintf_LatLon(char **a1, double a2, double a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
   v6 = a2;
   v7 = fabs((a2 - a2) * 60.0);
   if (v6 >= 0)
@@ -8239,7 +945,7 @@ uint64_t sprintf_LatLon(char **a1, double a2, double a3)
   if (v11 > 2147483650.0)
   {
     sprintf_02d(a1, v8);
-    v12 = 0x7FFFFFFF;
+    v12 = 0x7FFFFFFFLL;
     goto LABEL_13;
   }
 
@@ -8297,37 +1003,38 @@ LABEL_13:
     while (v18);
   }
 
-  v19 = fabs((a3 - a3) * 60.0);
+  v19 = a3;
+  v20 = fabs((a3 - a3) * 60.0);
   if (a3 >= 0)
   {
-    v20 = a3;
+    v21 = v19;
   }
 
   else
   {
-    v20 = -a3;
+    v21 = -v19;
   }
 
-  v21 = v19 * 1000000.0;
-  v22 = -0.5;
-  if (v21 > 0.0)
+  v22 = v20 * 1000000.0;
+  v23 = -0.5;
+  if (v22 > 0.0)
   {
-    v22 = 0.5;
+    v23 = 0.5;
   }
 
-  v23 = v21 + v22;
-  if (v23 > 2147483650.0)
+  v24 = v22 + v23;
+  if (v24 > 2147483650.0)
   {
-    sprintf_03d(a1, v20);
-    v24 = 0x7FFFFFFF;
+    sprintf_03d(a1, v21);
+    v25 = 0x7FFFFFFFLL;
     goto LABEL_32;
   }
 
-  if (v23 >= -2147483650.0)
+  if (v24 >= -2147483650.0)
   {
-    v24 = v23;
-    sprintf_03d(a1, v20);
-    if (v24 >= 10000000)
+    v25 = v24;
+    sprintf_03d(a1, v21);
+    if (v25 >= 10000000)
     {
       goto LABEL_32;
     }
@@ -8335,56 +1042,54 @@ LABEL_13:
 
   else
   {
-    sprintf_03d(a1, v20);
-    v24 = 0x80000000;
+    sprintf_03d(a1, v21);
+    v25 = 0x80000000;
   }
 
-  v25 = (*a1)++;
-  *v25 = 48;
+  v26 = (*a1)++;
+  *v26 = 48;
   if (*a1 >= a1[3])
   {
     *a1 = a1[2];
   }
 
 LABEL_32:
-  result = sprintf_7f(a1, v24, 7);
-  v27 = ",E,";
+  result = sprintf_7f(a1, v25, 7);
+  v28 = ",E,";
   if (a3 < 0.0)
   {
-    v27 = ",W,";
+    v28 = ",W,";
   }
 
-  v28 = *v27;
-  if (*v27)
+  v29 = *v28;
+  if (*v28)
   {
-    v29 = *a1;
-    v30 = (v27 + 1);
+    v30 = *a1;
+    v31 = (v28 + 1);
     do
     {
-      *a1 = v29 + 1;
-      *v29 = v28;
-      v29 = *a1;
+      *a1 = v30 + 1;
+      *v30 = v29;
+      v30 = *a1;
       if (*a1 >= a1[3])
       {
-        v29 = a1[2];
-        *a1 = v29;
+        v30 = a1[2];
+        *a1 = v30;
       }
 
-      v31 = *v30++;
-      v28 = v31;
+      v32 = *v31++;
+      v29 = v32;
     }
 
-    while (v31);
+    while (v32);
   }
 
-  v32 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void *sprintf_HHMMSS(void *result, uint64_t a2)
+char **sprintf_HHMMSS(char **result, uint64_t a2)
 {
   v2 = result;
-  v7 = *MEMORY[0x29EDCA608];
   if (*(a2 + 16) == 1)
   {
     sprintf_02d(result, *(a2 + 24));
@@ -8392,9 +1097,9 @@ void *sprintf_HHMMSS(void *result, uint64_t a2)
     sprintf_02d(v2, *(a2 + 28));
     v4 = (*v2)++;
     *v4 = 46;
-    if (*v2 >= v2[3])
+    if (*v2 >= *(v2 + 24))
     {
-      *v2 = v2[2];
+      *v2 = *(v2 + 16);
     }
 
     result = sprintf_03d(v2, *(a2 + 30));
@@ -8402,18 +1107,16 @@ void *sprintf_HHMMSS(void *result, uint64_t a2)
 
   v5 = (*v2)++;
   *v5 = 44;
-  if (*v2 >= v2[3])
+  if (*v2 >= *(v2 + 24))
   {
-    *v2 = v2[2];
+    *v2 = *(v2 + 16);
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 char **NMEA_Add_checksum(uint64_t a1, _BYTE *a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
   v3 = *a1;
   if (*a1 == a2)
   {
@@ -8460,20 +1163,12 @@ char **NMEA_Add_checksum(uint64_t a1, _BYTE *a2)
     *a1 = *(a1 + 16);
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t sprintf_DOP(uint64_t result, double a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
-  if (a2 >= 99.0)
-  {
-    v6 = *MEMORY[0x29EDCA608];
-    v7 = *MEMORY[0x29EDCA608];
-  }
-
-  else
+  if (a2 < 99.0)
   {
     v2 = a2 * 100.0;
     v3 = -0.5;
@@ -8498,11 +1193,8 @@ uint64_t sprintf_DOP(uint64_t result, double a2)
 
     else
     {
-      v5 = 0x7FFFFFFF;
+      v5 = 0x7FFFFFFFLL;
     }
-
-    v8 = *MEMORY[0x29EDCA608];
-    v9 = *MEMORY[0x29EDCA608];
 
     return sprintf_3f(result, v5, 3);
   }
@@ -8510,145 +1202,139 @@ uint64_t sprintf_DOP(uint64_t result, double a2)
   return result;
 }
 
-void *sprintf_AccEst(void *result, double a2)
+double sprintf_AccEst(char **a1, double result)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  if (a2 >= 99999.0)
+  v18 = *MEMORY[0x29EDCA608];
+  if (result < 99999.0)
   {
-LABEL_9:
-    v5 = *MEMORY[0x29EDCA608];
-    return result;
-  }
-
-  if (a2 > 9.9)
-  {
-    v2 = a2 + 0.5;
-    if (v2 >= 2147483650.0)
+    if (result <= 9.9)
     {
-      v2 = 2147483650.0;
-    }
-
-    v3 = v2;
-    if (v2 >= 0)
-    {
-      v4 = v2;
-    }
-
-    else
-    {
-      v4 = -v3;
-    }
-
-    result = sprintf1da(result, v4, v21, 0, v3 >> 31);
-    goto LABEL_9;
-  }
-
-  if (a2 <= 0.99)
-  {
-    if (a2 <= 0.099)
-    {
-      v14 = a2 * 1000.0;
-      v15 = -0.5;
-      if (v14 > 0.0)
+      if (result <= 0.99)
       {
-        v15 = 0.5;
-      }
-
-      v16 = v14 + v15;
-      if (v16 <= 2147483650.0)
-      {
-        if (v16 >= -2147483650.0)
+        if (result <= 0.099)
         {
-          v17 = v16;
+          v13 = result * 1000.0;
+          v14 = -0.5;
+          if (v13 > 0.0)
+          {
+            v14 = 0.5;
+          }
+
+          v15 = v13 + v14;
+          if (v15 <= 2147483650.0)
+          {
+            if (v15 >= -2147483650.0)
+            {
+              v16 = v15;
+            }
+
+            else
+            {
+              v16 = 0x80000000;
+            }
+          }
+
+          else
+          {
+            v16 = 0x7FFFFFFFLL;
+          }
+
+          sprintf_4f(a1, v16, 4);
         }
 
         else
         {
-          v17 = 0x80000000;
+          v9 = result * 100.0;
+          v10 = -0.5;
+          if (v9 > 0.0)
+          {
+            v10 = 0.5;
+          }
+
+          v11 = v9 + v10;
+          if (v11 <= 2147483650.0)
+          {
+            if (v11 >= -2147483650.0)
+            {
+              v12 = v11;
+            }
+
+            else
+            {
+              v12 = 0x80000000;
+            }
+          }
+
+          else
+          {
+            v12 = 0x7FFFFFFFLL;
+          }
+
+          sprintf_3f(a1, v12, 3);
         }
       }
 
       else
       {
-        v17 = 0x7FFFFFFF;
-      }
-
-      v20 = *MEMORY[0x29EDCA608];
-
-      return sprintf_4f(result, v17, 4);
-    }
-
-    else
-    {
-      v10 = a2 * 100.0;
-      v11 = -0.5;
-      if (v10 > 0.0)
-      {
-        v11 = 0.5;
-      }
-
-      v12 = v10 + v11;
-      if (v12 <= 2147483650.0)
-      {
-        if (v12 >= -2147483650.0)
+        v5 = result * 10.0;
+        v6 = -0.5;
+        if (v5 > 0.0)
         {
-          v13 = v12;
+          v6 = 0.5;
+        }
+
+        v7 = v5 + v6;
+        if (v7 <= 2147483650.0)
+        {
+          if (v7 >= -2147483650.0)
+          {
+            v8 = v7;
+          }
+
+          else
+          {
+            v8 = 0x80000000;
+          }
         }
 
         else
         {
-          v13 = 0x80000000;
+          v8 = 0x7FFFFFFFLL;
         }
-      }
 
-      else
-      {
-        v13 = 0x7FFFFFFF;
-      }
-
-      v19 = *MEMORY[0x29EDCA608];
-
-      return sprintf_3f(result, v13, 3);
-    }
-  }
-
-  else
-  {
-    v6 = a2 * 10.0;
-    v7 = -0.5;
-    if (v6 > 0.0)
-    {
-      v7 = 0.5;
-    }
-
-    v8 = v6 + v7;
-    if (v8 <= 2147483650.0)
-    {
-      if (v8 >= -2147483650.0)
-      {
-        v9 = v8;
-      }
-
-      else
-      {
-        v9 = 0x80000000;
+        sprintf_2f(a1, v8);
       }
     }
 
     else
     {
-      v9 = 0x7FFFFFFF;
+      v2 = result + 0.5;
+      if (v2 >= 2147483650.0)
+      {
+        v2 = 2147483650.0;
+      }
+
+      v3 = v2;
+      if (v2 >= 0)
+      {
+        v4 = v3;
+      }
+
+      else
+      {
+        v4 = -v3;
+      }
+
+      sprintf1da(a1, v4, v17, 0, v3 >> 31);
     }
-
-    v18 = *MEMORY[0x29EDCA608];
-
-    return sprintf_2f(result, v9);
   }
+
+  return result;
 }
 
 void ECEF2Geo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v5 = *a1;
   if (*a2)
   {
@@ -8664,13 +1350,13 @@ void ECEF2Geo(uint64_t a1, uint64_t a2, uint64_t a3)
         v11 = v7.f64[0] * *(v10 - 1) + *(v10 - 2) * v5;
         v12 = *v10;
         v10 += 3;
-        *(&v24 + v9) = v11 + v12 * v7.f64[1];
+        *(&v23 + v9) = v11 + v12 * v7.f64[1];
         v9 += 8;
       }
 
       while (v9 != 24);
-      v5 = v6 + v24;
-      v8 = vaddq_f64(v8, v25);
+      v5 = v6 + v23;
+      v8 = vaddq_f64(v8, v24);
     }
 
     else
@@ -8720,14 +1406,13 @@ void ECEF2Geo(uint64_t a1, uint64_t a2, uint64_t a3)
 LABEL_16:
   *a3 = v8.f64[0];
   *(a3 + 16) = *(a2 + 8) * (sqrt(v18 + v16 / (v22 * v22)) * (1.0 - v14 * *(a2 + 40) / *(a2 + 24)));
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 BOOL NK_Body_Frame_Meas(unsigned int a1, double *a2, const double *a3, const double (*a4)[3], double a5, unsigned int a6, double *a7)
 {
-  v30[33] = *MEMORY[0x29EDCA608];
-  v12 = &v28[2];
-  ECEF2FSD_RotM(a4, a5, v28);
+  v29[33] = *MEMORY[0x29EDCA608];
+  v12 = &v27[2];
+  ECEF2FSD_RotM(a4, a5, v27);
   v13 = 0;
   v14 = *a2;
   v15 = a2[1];
@@ -8737,36 +1422,35 @@ BOOL NK_Body_Frame_Meas(unsigned int a1, double *a2, const double *a3, const dou
     v17 = *(v12 - 1) * v15 + *(v12 - 2) * v14;
     v18 = *v12;
     v12 += 3;
-    v28[v13 + 9] = v17 + v18 * v16;
+    v27[v13 + 9] = v17 + v18 * v16;
     ++v13;
   }
 
   while (v13 != 3);
   v19 = 0;
-  v25 = 0.0;
-  v20 = &v28[2];
+  v24 = 0.0;
+  v20 = &v27[2];
   do
   {
-    v27 = 0;
-    memset(v26, 0, sizeof(v26));
+    v26 = 0;
+    memset(v25, 0, sizeof(v25));
     v21 = *(v20 - 1);
-    *(v26 + a1) = *(v20 - 2);
-    *(v26 + a1 + 1) = v21;
+    *(v25 + a1) = *(v20 - 2);
+    *(v25 + a1 + 1) = v21;
     v22 = *v20;
     v20 += 3;
-    *(&v26[1] + a1) = v22;
-    *(v26 + a6) = v28[v19 + 9];
-    result = umeas(a7, a6, a3[v19++], v26, v30, v29, &v25, 1.0e20);
+    *(&v25[1] + a1) = v22;
+    *(v25 + a6) = v27[v19 + 9];
+    result = umeas(a7, a6, a3[v19++], v25, v29, v28, &v24, 1.0e20);
   }
 
   while (v19 != 3);
-  v24 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t NK_Static_Filter(uint64_t a1, uint64_t a2, uint64_t a3)
+void NK_Static_Filter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v123[3] = *MEMORY[0x29EDCA608];
+  v121[3] = *MEMORY[0x29EDCA608];
   v5 = a2 + 59944;
   v6 = a1 + 24576;
   v7 = *(a1 + 27120);
@@ -8783,12 +1467,12 @@ uint64_t NK_Static_Filter(uint64_t a1, uint64_t a2, uint64_t a3)
       v8 = *(a1 + 156);
     }
 
-    v111 = v8 > 0xA;
+    v109 = v8 > 0xA;
   }
 
   else
   {
-    v111 = 0;
+    v109 = 0;
   }
 
   memcpy(__dst, (a1 + 976), sizeof(__dst));
@@ -8802,12 +1486,12 @@ uint64_t NK_Static_Filter(uint64_t a1, uint64_t a2, uint64_t a3)
     v14 = v11 * *(v13 - 1) + *(v13 - 2) * v10;
     v15 = *v13;
     v13 += 3;
-    *&v123[v9++] = v14 + v15 * v12;
+    *&v121[v9++] = v14 + v15 * v12;
   }
 
   while (v9 != 3);
-  v17 = *v123;
-  v16 = *&v123[1];
+  v17 = *v121;
+  v16 = *&v121[1];
   v18 = sqrt(v16 * v16 + v17 * v17);
   v19 = *(v5 + 1560);
   v20 = *(v5 + 1568);
@@ -8958,261 +1642,261 @@ LABEL_57:
   v37 = v36 + 1;
   *(v6 + 2780) = v36 + 1;
   v38 = *(a1 + 27472);
-  v121[6] = *(a1 + 27456);
-  v121[7] = v38;
+  v119[6] = *(a1 + 27456);
+  v119[7] = v38;
   v39 = *(a1 + 27504);
-  v121[8] = *(a1 + 27488);
-  v121[9] = v39;
+  v119[8] = *(a1 + 27488);
+  v119[9] = v39;
   v40 = *(a1 + 27408);
-  v121[2] = *(a1 + 27392);
-  v121[3] = v40;
+  v119[2] = *(a1 + 27392);
+  v119[3] = v40;
   v41 = *(a1 + 27440);
-  v121[4] = *(a1 + 27424);
-  v121[5] = v41;
+  v119[4] = *(a1 + 27424);
+  v119[5] = v41;
   v42 = *(a1 + 27376);
-  v121[0] = *(a1 + 27360);
-  v121[1] = v42;
-  result = VecSortAscR8(v121, 0, v36);
-  v44 = (v36 + 1) >> 1;
+  v119[0] = *(a1 + 27360);
+  v119[1] = v42;
+  VecSortAscR8(v119, 0, v36);
+  v43 = (v36 + 1) >> 1;
   if (v36)
   {
     if (v36 == -1)
     {
-      v47 = 0.0;
+      v46 = 0.0;
       goto LABEL_71;
     }
 
-    v45 = (*(v121 + v44 - 1) + *(v121 + v44)) * 0.5;
+    v44 = (*(v119 + v43 - 1) + *(v119 + v43)) * 0.5;
   }
 
   else
   {
-    v45 = *(v121 + v44);
+    v44 = *(v119 + v43);
   }
 
-  v46 = (a1 + 27360);
-  v47 = 0.0;
-  v48 = v36 + 1;
+  v45 = (a1 + 27360);
+  v46 = 0.0;
+  v47 = v36 + 1;
   do
   {
-    v49 = *v46++;
-    v50 = v49;
-    if (v49 > v45 * 4.3512 && v45 > 1.0 && v37 == 20)
+    v48 = *v45++;
+    v49 = v48;
+    if (v48 > v44 * 4.3512 && v44 > 1.0 && v37 == 20)
     {
-      v50 = v45;
+      v49 = v44;
     }
 
-    v47 = v47 + v50;
-    --v48;
+    v46 = v46 + v49;
+    --v47;
   }
 
-  while (v48);
+  while (v47);
 LABEL_71:
-  v53 = v34 * 1.5;
-  *(a1 + 27520) = v47 / v37;
-  if (v18 >= 3.0 || v22 >= v53 * 3.0 * (v53 * 3.0))
+  v52 = v34 * 1.5;
+  *(a1 + 27520) = v46 / v37;
+  if (v18 >= 3.0 || v22 >= v52 * 3.0 * (v52 * 3.0))
   {
     *(v6 + 2676) = 0;
     goto LABEL_134;
   }
 
-  v54 = *(v6 + 2676);
-  if (v54 == 5)
+  v53 = *(v6 + 2676);
+  if (v53 == 5)
   {
-    v56 = 4;
+    v55 = 4;
     *(v6 + 2676) = 4;
     goto LABEL_80;
   }
 
   if (!*(v6 + 2676))
   {
-    v55 = 0;
+    v54 = 0;
     *(a1 + 27272) = 0;
     *(a1 + 27256) = 0u;
     goto LABEL_82;
   }
 
-  v56 = *(v6 + 2676);
-  if (v54 >= 1)
+  v55 = *(v6 + 2676);
+  if (v53 >= 1)
   {
 LABEL_80:
-    v55 = 0;
     v54 = 0;
-    v57 = v56 + 1;
-    v58 = (a1 + 2 * v56 + 27262);
+    v53 = 0;
+    v56 = v55 + 1;
+    v57 = (a1 + 2 * v55 + 27262);
     do
     {
-      v59 = *(v58 - 5);
-      *(v58 - 4) = *(v58 - 5);
-      v60 = *v58;
-      v58[1] = *v58;
+      v58 = *(v57 - 5);
+      *(v57 - 4) = *(v57 - 5);
+      v59 = *v57;
+      v57[1] = *v57;
+      v53 += v58;
       v54 += v59;
-      v55 += v60;
+      --v56;
       --v57;
-      --v58;
     }
 
-    while (v57 > 1);
+    while (v56 > 1);
     goto LABEL_82;
   }
 
+  v53 = 0;
   v54 = 0;
-  v55 = 0;
 LABEL_82:
-  v61 = -0.5;
+  v60 = -0.5;
   if (v17 * 1000.0 <= 0.0)
   {
-    v62 = -0.5;
+    v61 = -0.5;
   }
 
   else
-  {
-    v62 = 0.5;
-  }
-
-  v63 = v17 * 1000.0 + v62;
-  if (v63 <= 2147483650.0)
-  {
-    if (v63 >= -2147483650.0)
-    {
-      v64 = v63;
-    }
-
-    else
-    {
-      LOWORD(v64) = 0;
-    }
-  }
-
-  else
-  {
-    LOWORD(v64) = -1;
-  }
-
-  *(v6 + 2678) = v64;
-  if (v16 * 1000.0 > 0.0)
   {
     v61 = 0.5;
   }
 
-  v65 = v16 * 1000.0 + v61;
-  if (v65 <= 2147483650.0)
+  v62 = v17 * 1000.0 + v61;
+  if (v62 <= 2147483650.0)
   {
-    if (v65 >= -2147483650.0)
+    if (v62 >= -2147483650.0)
     {
-      v66 = v65;
+      v63 = v62;
     }
 
     else
     {
-      LOWORD(v66) = 0;
+      LOWORD(v63) = 0;
     }
   }
 
   else
   {
-    LOWORD(v66) = -1;
+    LOWORD(v63) = -1;
   }
 
-  *(v6 + 2688) = v66;
-  v67 = *(v6 + 2676) + 1;
-  *(v6 + 2676) = v67;
+  *(v6 + 2678) = v63;
+  if (v16 * 1000.0 > 0.0)
+  {
+    v60 = 0.5;
+  }
+
+  v64 = v16 * 1000.0 + v60;
+  if (v64 <= 2147483650.0)
+  {
+    if (v64 >= -2147483650.0)
+    {
+      v65 = v64;
+    }
+
+    else
+    {
+      LOWORD(v65) = 0;
+    }
+  }
+
+  else
+  {
+    LOWORD(v65) = -1;
+  }
+
+  *(v6 + 2688) = v65;
+  v66 = *(v6 + 2676) + 1;
+  *(v6 + 2676) = v66;
   if ((v35 & 1) == 0)
   {
-    v68 = ((v54 + v64) * (v54 + v64) + (v55 + v66) * (v55 + v66)) / (v67 * v67);
-    if (v67 < 5)
+    v67 = ((v53 + v63) * (v53 + v63) + (v54 + v65) * (v54 + v65)) / (v66 * v66);
+    if (v66 < 5)
     {
-      if (v67 < 3)
+      if (v66 < 3)
       {
-        v73 = 0;
+        v72 = 0;
 LABEL_124:
-        v80 = 0.01;
+        v79 = 0.01;
         if (v32)
         {
-          v80 = 0.09;
+          v79 = 0.09;
         }
 
-        v35 = v18 * v18 <= v22 * 9.0 && (v22 * 9.0 + v18 * v18 < v80 || v73);
+        v35 = v18 * v18 <= v22 * 9.0 && (v22 * 9.0 + v18 * v18 < v79 || v72);
         goto LABEL_129;
       }
     }
 
     else
     {
-      v69 = -0.5;
-      if (v53 * 1000.0 > 0.0)
+      v68 = -0.5;
+      if (v52 * 1000.0 > 0.0)
       {
-        v69 = 0.5;
+        v68 = 0.5;
       }
 
-      v70 = v53 * 1000.0 + v69;
-      if (v70 <= 2147483650.0)
+      v69 = v52 * 1000.0 + v68;
+      if (v69 <= 2147483650.0)
       {
-        v74 = -2147483650.0;
-        if (v70 > -2147483650.0)
+        v73 = -2147483650.0;
+        if (v69 > -2147483650.0)
         {
-          v74 = v70;
+          v73 = v69;
         }
 
-        v71 = v74;
-        if (v70 < -2147483650.0)
+        v70 = v73;
+        if (v69 < -2147483650.0)
         {
-          v72 = 0x80000000;
+          v71 = 0x80000000;
         }
 
         else
         {
-          v72 = v70;
+          v71 = v69;
         }
       }
 
       else
       {
+        v70 = 0x7FFFFFFF;
         v71 = 0x7FFFFFFF;
-        v72 = 0x7FFFFFFF;
       }
 
-      if (v68 < v72 * v71)
+      if (v67 < v71 * v70)
       {
-        v73 = 1;
+        v72 = 1;
         goto LABEL_124;
       }
     }
 
-    v75 = -0.5;
+    v74 = -0.5;
     if (v34 * 1000.0 > 0.0)
     {
-      v75 = 0.5;
+      v74 = 0.5;
     }
 
-    v76 = v34 * 1000.0 + v75;
-    if (v76 <= 2147483650.0)
+    v75 = v34 * 1000.0 + v74;
+    if (v75 <= 2147483650.0)
     {
-      v79 = -2147483650.0;
-      if (v76 > -2147483650.0)
+      v78 = -2147483650.0;
+      if (v75 > -2147483650.0)
       {
-        v79 = v34 * 1000.0 + v75;
+        v78 = v34 * 1000.0 + v74;
       }
 
-      v77 = v79;
-      if (v76 < -2147483650.0)
+      v76 = v78;
+      if (v75 < -2147483650.0)
       {
-        v78 = 0x80000000;
+        v77 = 0x80000000;
       }
 
       else
       {
-        v78 = v76;
+        v77 = v75;
       }
     }
 
     else
     {
+      v76 = 0x7FFFFFFF;
       v77 = 0x7FFFFFFF;
-      v78 = 0x7FFFFFFF;
     }
 
-    v73 = v68 < v78 * v77;
+    v72 = v67 < v77 * v76;
     goto LABEL_124;
   }
 
@@ -9222,33 +1906,33 @@ LABEL_129:
   {
     if (v35)
     {
-      v81 = 2;
+      v80 = 2;
     }
 
     else
     {
-      v81 = 3;
+      v80 = 3;
     }
 
-    *v5 = v81;
+    *v5 = v80;
     *(v5 + 4) = 0;
   }
 
 LABEL_134:
-  v82 = (v6 + 2628);
-  v83 = *(v6 + 2628);
-  if (v83 > 1)
+  v81 = (v6 + 2628);
+  v82 = *(v6 + 2628);
+  if (v82 > 1)
   {
-    if (v83 != 3)
+    if (v82 != 3)
     {
-      if (v83 == 2)
+      if (v82 == 2)
       {
-        v86 = v7 != 0;
-        v85 = v111;
+        v85 = v7 != 0;
+        v84 = v109;
 LABEL_144:
-        if (v18 > 3.0 || v86)
+        if (v18 > 3.0 || v85)
         {
-          *v82 = 0;
+          *v81 = 0;
           goto LABEL_163;
         }
 
@@ -9262,26 +1946,26 @@ LABEL_144:
       }
 
 LABEL_148:
-      result = gn_report_assertion_failure("switch/case error NK_Static_Filter.c");
+      gn_report_assertion_failure("switch/case error NK_Static_Filter.c");
 LABEL_159:
-      v85 = v111;
+      v84 = v109;
       goto LABEL_163;
     }
 
     if (v7 || v18 > 3.0)
     {
 LABEL_158:
-      *v82 = 0;
+      *v81 = 0;
       goto LABEL_159;
     }
 
-    if (v18 > v53)
+    if (v18 > v52)
     {
-      *v82 = 2;
+      *v81 = 2;
       goto LABEL_159;
     }
 
-    v85 = v111;
+    v84 = v109;
     if (v35 & 1 | (v18 <= v34))
     {
 LABEL_162:
@@ -9289,28 +1973,28 @@ LABEL_162:
       goto LABEL_163;
     }
 
-    v88 = 2;
+    v87 = 2;
 LABEL_153:
-    *v82 = v88;
+    *v81 = v87;
     goto LABEL_163;
   }
 
-  if (v83)
+  if (v82)
   {
-    if (v83 == 1)
+    if (v82 == 1)
     {
-      v84 = *(v6 + 2632);
-      *(v6 + 2632) = v84 + 1;
+      v83 = *(v6 + 2632);
+      *(v6 + 2632) = v83 + 1;
       if (!v7 && v18 <= 3.0)
       {
-        v85 = v111;
-        if (v84 < 1)
+        v84 = v109;
+        if (v83 < 1)
         {
           goto LABEL_163;
         }
 
-        v86 = 0;
-        *v82 = 2;
+        v85 = 0;
+        *v81 = 2;
         goto LABEL_144;
       }
 
@@ -9320,37 +2004,36 @@ LABEL_153:
     goto LABEL_148;
   }
 
-  v85 = v111;
-  v87 = !v111;
+  v84 = v109;
+  v86 = !v109;
   if (v18 > 2.0)
   {
-    v87 = 1;
+    v86 = 1;
   }
 
-  if ((v87 & 1) == 0)
+  if ((v86 & 1) == 0)
   {
-    v88 = 1;
+    v87 = 1;
     goto LABEL_153;
   }
 
 LABEL_163:
   if (((*(v6 + 2673) | v35) & 1) != 0 || *(v6 + 2674) == 1 && v18 < 3.0 && v22 < 4.0 && *(v6 + 2540) >= 3u)
   {
-    LOBYTE(v114.f64[0]) = 0;
-    LODWORD(v116) = 0;
-    LOBYTE(v112) = 0;
-    if (Core_Get_Static_Status(&v112) && !(v35 & 1 | (v112 < 0xAu)))
+    LOBYTE(v112.f64[0]) = 0;
+    LODWORD(v114) = 0;
+    LOBYTE(v110) = 0;
+    if (Core_Get_Static_Status(&v110) && !(v35 & 1 | (v110 < 0xAu)))
     {
-      EvLog_nd("NKSF:  Static override", 2, v89, v112, *(v6 + 2628));
+      EvLog_nd("NKSF:  Static override", 2, v88, v110, *(v6 + 2628));
       *(v6 + 2628) = 3;
       *(v6 + 2648) = *a2;
     }
 
-    result = Core_Get_Ped_Status(&v116, &v114);
-    if (result)
+    if (Core_Get_Ped_Status(&v114, &v112))
     {
-      v91 = v112;
-      if (LODWORD(v116) == 2 && v112 > 2u)
+      v90 = v110;
+      if (LODWORD(v114) == 2 && v110 > 2u)
       {
 LABEL_170:
         if (*(v6 + 2674) == 1)
@@ -9358,7 +2041,7 @@ LABEL_170:
           *(v6 + 2673) = 1;
           *(a1 + 27232) = v18;
           *(a1 + 20) = 2;
-          result = EvLog_nd("NK_Static_Filter:  PED_STOPPED:  Car -> Ped override", 2, v90, v91, LOBYTE(v114.f64[0]));
+          EvLog_nd("NK_Static_Filter:  PED_STOPPED:  Car -> Ped override", 2, v89, v90, LOBYTE(v112.f64[0]));
         }
 
         *(v6 + 2628) = 3;
@@ -9366,12 +2049,12 @@ LABEL_170:
         goto LABEL_187;
       }
 
-      switch(LODWORD(v116))
+      switch(LODWORD(v114))
       {
         case 3:
           if (*(v6 + 2673) == 1)
           {
-            result = EvLog_nd("NK_Static_Filter:  PED_NOT_PED:  Ped -> Car indication", 2, v90, v112, LOBYTE(v114.f64[0]));
+            EvLog_nd("NK_Static_Filter:  PED_NOT_PED:  Ped -> Car indication", 2, v89, v110, LOBYTE(v112.f64[0]));
           }
 
           break;
@@ -9381,10 +2064,10 @@ LABEL_170:
             *(v6 + 2673) = 1;
             *(a1 + 27232) = v18;
             *(a1 + 20) = 2;
-            result = EvLog_nd("NK_Static_Filter:  PED_WALKING:  Car -> Ped override", 2, v90, v91, LOBYTE(v114.f64[0]));
+            EvLog_nd("NK_Static_Filter:  PED_WALKING:  Car -> Ped override", 2, v89, v90, LOBYTE(v112.f64[0]));
           }
 
-          *v82 = 2;
+          *v81 = 2;
           break;
         case 1:
           goto LABEL_170;
@@ -9395,155 +2078,180 @@ LABEL_170:
   }
 
 LABEL_187:
-  if (v85 && (*v82 == 3 || *v82 == 2 && *(v6 + 2674) == 1))
+  if (v84 && (*v81 == 3 || *v81 == 2 && *(v6 + 2674) == 1))
   {
-    LOWORD(v114.f64[0]) = 0;
-    v118[0] = 0;
-    v117 = 0;
-    memset(&v118[4], 0, 32);
-    v119 = 0u;
-    v120 = 0;
-    *&v118[8] = *(a2 + 1720);
-    *&v118[16] = 0x4010000000000000;
-    HIDWORD(v116) = 2;
-    LOBYTE(v116) = 1;
-    *(&v119 + 4) = 0x412E848000000000;
-    result = Vert_Meas_Update(6u, (a2 + 1736), 0xCu, &v116, __dst, &v114, *&v118[8]);
-    v92 = *(v6 + 2760);
-    if (v92 && *(v6 + 2674) == 1 && *(v6 + 2540))
+    LOWORD(v112.f64[0]) = 0;
+    v116[0] = 0;
+    v115 = 0;
+    memset(&v116[4], 0, 32);
+    v117 = 0u;
+    v118 = 0;
+    *&v116[8] = *(a2 + 1720);
+    *&v116[16] = 0x4010000000000000;
+    HIDWORD(v114) = 2;
+    LOBYTE(v114) = 1;
+    *(&v117 + 4) = 0x412E848000000000;
+    Vert_Meas_Update(6u, (a2 + 1736), 0xCu, &v114, __dst, &v112, *&v116[8]);
+    v91 = *(v6 + 2760);
+    if (v91 && *(v6 + 2674) == 1 && *(v6 + 2540))
     {
-      v92 += *(a2 + 16);
-      *(v6 + 2760) = v92;
+      v91 += *(a2 + 16);
+      *(v6 + 2760) = v91;
     }
 
     if ((*(v5 + 36) & 1) == 0)
     {
-      v116 = 0.0;
-      v117 = 0;
-      *v118 = 0;
+      v114 = 0.0;
+      v115 = 0;
+      *v116 = 0;
       __asm { FMOV            V0.2D, #4.0 }
 
-      v112 = _Q0;
-      v113 = 0x4010000000000000;
-      if (v92 && *a2 - v92 <= 30000)
+      v110 = _Q0;
+      v111 = 0x4010000000000000;
+      if (v91 && *a2 - v91 <= 30000)
       {
-        v96 = (a1 + 27328);
-        v97 = 1;
-        v98 = a3;
+        v95 = (a1 + 27328);
+        v96 = 1;
+        v97 = a3;
       }
 
       else
       {
-        v98 = a3;
+        v97 = a3;
         if (*(v6 + 2700) < 2 || *a2 - *(v6 + 2720) > 30000)
         {
-          v97 = 0;
-          v96 = (a2 + 1856);
+          v96 = 0;
+          v95 = (a2 + 1856);
         }
 
         else
         {
-          v96 = (a1 + 27280);
-          v97 = 1;
+          v95 = (a1 + 27280);
+          v96 = 1;
         }
       }
 
-      v99 = 0;
-      v100 = *v96;
-      *(v6 + 2672) = v97;
-      v101 = *(a2 + 1584);
-      v114 = vsubq_f64(v101, *&__dst[696]);
-      v102 = *(a2 + 1600);
-      v115 = v102 - *&__dst[712];
+      v98 = 0;
+      v99 = *v95;
+      *(v6 + 2672) = v96;
+      v100 = *(a2 + 1584);
+      v112 = vsubq_f64(v100, *&__dst[696]);
+      v101 = *(a2 + 1600);
+      v113 = v101 - *&__dst[712];
       do
       {
-        *&v118[8 * v99] = *(&v114 + v99 + 2) - *(v98 + 120 + 8 * v99);
-        v103 = v99 + 3;
-        --v99;
+        *&v116[8 * v98] = *(&v112 + v98 + 2) - *(v97 + 120 + 8 * v98);
+        v102 = v98 + 3;
+        --v98;
       }
 
-      while (v103 > 1);
-      v104 = 0;
-      v114 = v101;
-      v115 = v102;
+      while (v102 > 1);
+      v103 = 0;
+      v112 = v100;
+      v113 = v101;
       do
       {
-        *&v118[8 * v104] = *(&v114 + v104 + 2) - *(v98 + 120 + 8 * v104);
-        v105 = v104 + 3;
-        --v104;
+        *&v116[8 * v103] = *(&v112 + v103 + 2) - *(v97 + 120 + 8 * v103);
+        v104 = v103 + 3;
+        --v103;
       }
 
-      while (v105 > 1);
-      result = NK_Body_Frame_Meas(9u, &v116, &v112, (a2 + 1736), v100 * 0.0174532925, 0xCu, __dst);
+      while (v104 > 1);
+      NK_Body_Frame_Meas(9u, &v114, &v110, (a2 + 1736), v99 * 0.0174532925, 0xCu, __dst);
     }
 
-    v106 = *&__dst[672];
+    v105 = *&__dst[672];
     *(a1 + 1632) = *&__dst[656];
-    *(a1 + 1648) = v106;
-    v107 = *&__dst[704];
+    *(a1 + 1648) = v105;
+    v106 = *&__dst[704];
     *(a1 + 1664) = *&__dst[688];
-    *(a1 + 1680) = v107;
-    v108 = *&__dst[640];
+    *(a1 + 1680) = v106;
+    v107 = *&__dst[640];
     *(a1 + 1600) = *&__dst[624];
-    *(a1 + 1616) = v108;
+    *(a1 + 1616) = v107;
   }
 
   else
   {
     *(v6 + 2672) = 0;
   }
-
-  v109 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 BOOL Is_Eph_Kep_Real(const double *a1)
 {
-  v15[1] = *MEMORY[0x29EDCA608];
-  v15[0] = 0.0;
-  if (!R8_EQ(a1 + 24, v15))
+  v14[1] = *MEMORY[0x29EDCA608];
+  v14[0] = 0.0;
+  if (!R8_EQ(a1 + 24, v14))
   {
-    goto LABEL_13;
-  }
-
-  v14 = 0.0;
-  if (!R8_EQ(a1 + 29, &v14))
-  {
-    goto LABEL_13;
+    return 1;
   }
 
   v13 = 0.0;
-  if (!R8_EQ(a1 + 21, &v13))
+  if (!R8_EQ(a1 + 29, &v13))
   {
-    goto LABEL_13;
+    return 1;
   }
 
   v12 = 0.0;
-  if (!R8_EQ(a1 + 14, &v12))
+  if (!R8_EQ(a1 + 21, &v12))
   {
-    goto LABEL_13;
+    return 1;
   }
 
   v11 = 0.0;
-  if (R8_EQ(a1 + 13, &v11) && (v10 = 0.0, R8_EQ(a1 + 17, &v10)) && (v9 = 0.0, R8_EQ(a1 + 18, &v9)) && (v8 = 0.0, R8_EQ(a1 + 19, &v8)) && (v7 = 0.0, R8_EQ(a1 + 20, &v7)) && (v6 = 0.0, R8_EQ(a1 + 15, &v6)) && (v5 = 0.0, R8_EQ(a1 + 16, &v5)))
+  if (!R8_EQ(a1 + 14, &v11))
   {
-    v4 = 0.0;
-    result = !R8_EQ(a1 + 7, &v4);
+    return 1;
   }
 
-  else
+  v10 = 0.0;
+  if (!R8_EQ(a1 + 13, &v10))
   {
-LABEL_13:
-    result = 1;
+    return 1;
   }
 
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  v9 = 0.0;
+  if (!R8_EQ(a1 + 17, &v9))
+  {
+    return 1;
+  }
+
+  v8 = 0.0;
+  if (!R8_EQ(a1 + 18, &v8))
+  {
+    return 1;
+  }
+
+  v7 = 0.0;
+  if (!R8_EQ(a1 + 19, &v7))
+  {
+    return 1;
+  }
+
+  v6 = 0.0;
+  if (!R8_EQ(a1 + 20, &v6))
+  {
+    return 1;
+  }
+
+  v5 = 0.0;
+  if (!R8_EQ(a1 + 15, &v5))
+  {
+    return 1;
+  }
+
+  v4 = 0.0;
+  if (!R8_EQ(a1 + 16, &v4))
+  {
+    return 1;
+  }
+
+  v3 = 0.0;
+  return !R8_EQ(a1 + 7, &v3);
 }
 
 double *Comp_GSpeed_Partial(double a1, double a2, double *result, double *a4)
 {
-  v12 = *MEMORY[0x29EDCA608];
   if (fabs(a1) > 0.0001 || fabs(a2) > 0.0001)
   {
     v10 = 1.0 / sqrt(a1 * a1 + a2 * a2);
@@ -9561,13 +2269,11 @@ double *Comp_GSpeed_Partial(double a1, double a2, double *result, double *a4)
   }
 
   a4[2] = v9;
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void AzEl_RadDeg(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
   v4 = asin(*(a2 + 8));
   *(a2 + 24) = v4;
   *(a2 + 32) = v4 * 57.2957795;
@@ -9600,38 +2306,37 @@ void AzEl_RadDeg(uint64_t a1, uint64_t a2)
   }
 
   *a1 = v7;
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void Hal02_RouteZxPkt(unsigned __int8 *a1, size_t a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
     if (!g_LbsOsaTrace_Config)
     {
-      goto LABEL_46;
+      return;
     }
 
     bzero(__str, 0x3C6uLL);
     mach_continuous_time();
     snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx data\n");
-LABEL_22:
-    gnssOsa_PrintLog(__str, 1, 1, 0);
-    goto LABEL_46;
+    goto LABEL_22;
   }
 
   if (!a2)
   {
     if (!g_LbsOsaTrace_Config)
     {
-      goto LABEL_46;
+      return;
     }
 
     bzero(__str, 0x3C6uLL);
     mach_continuous_time();
     snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx len\n");
-    goto LABEL_22;
+LABEL_22:
+    gnssOsa_PrintLog(__str, 1, 1, 0);
+    return;
   }
 
   if (g_LbsOsaTrace_Config >= 4)
@@ -9662,46 +2367,41 @@ LABEL_22:
   {
     if (a1[2] > 0x55u)
     {
-      if (v6 != 86 && v6 != 88)
+      if (v6 == 86 || v6 == 88)
       {
-        goto LABEL_39;
+        goto LABEL_44;
       }
     }
 
-    else
+    else if (v6 == 79)
     {
-      if (v6 == 79)
+      v9 = a1[3];
+      if (v9 != 66 && v9 != 84)
       {
-        v9 = a1[3];
-        if (v9 != 66 && v9 != 84)
+        if (v9 == 80)
         {
-          if (v9 == 80)
-          {
-            Hal32_HandlePowerReportData(a1, a2);
-          }
-
-          goto LABEL_46;
+          Hal32_HandlePowerReportData(a1, a2);
         }
 
-        goto LABEL_39;
-      }
-
-      if (v6 != 84)
-      {
-        goto LABEL_39;
+        return;
       }
     }
 
-LABEL_44:
-    v10 = g_CbList;
-    if (!g_CbList)
+    else if (v6 == 84)
     {
-      goto LABEL_46;
+      goto LABEL_44;
+    }
+
+LABEL_39:
+    v10 = off_2A13EC488;
+    if (!off_2A13EC488)
+    {
+      return;
     }
 
 LABEL_45:
     v10(a2, a1);
-    goto LABEL_46;
+    return;
   }
 
   if (a1[2] > 0x48u)
@@ -9709,7 +2409,7 @@ LABEL_45:
     if (v6 == 73)
     {
       Hal29_HandleProxyResponse(a1, a2);
-      goto LABEL_46;
+      return;
     }
 
     goto LABEL_39;
@@ -9723,20 +2423,13 @@ LABEL_45:
       if (v8 != 89)
       {
         Hal02_HandleResp(a1, a2);
-        goto LABEL_46;
+        return;
       }
 
       goto LABEL_44;
     }
 
-LABEL_39:
-    v10 = off_2A13EC488;
-    if (!off_2A13EC488)
-    {
-      goto LABEL_46;
-    }
-
-    goto LABEL_45;
+    goto LABEL_39;
   }
 
   if (v6 != 68)
@@ -9748,54 +2441,56 @@ LABEL_39:
   if (v7 == 69)
   {
     Hal_HandleGenericMEEvent(a1, a2);
-    goto LABEL_46;
+    return;
   }
 
   if (v7 == 67)
   {
     Hal_GetMEAnalyticsDataResponse(a1, a2);
-    goto LABEL_46;
+    return;
   }
 
   if (Hal02_CheckDebugConfigMsg(v7))
   {
-    goto LABEL_44;
+LABEL_44:
+    v10 = g_CbList;
+    if (!g_CbList)
+    {
+      return;
+    }
+
+    goto LABEL_45;
   }
 
   if (((*(*gp_Logger + 72))(gp_Logger) & 1) == 0)
   {
     GnssDbgMgr_WriteLog(a2, a1);
   }
-
-LABEL_46:
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void Hal02_HandleResp(unsigned __int8 *a1, unsigned int a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
     if (!g_LbsOsaTrace_Config)
     {
-      goto LABEL_16;
+      return;
     }
 
     bzero(__str, 0x3C6uLL);
     mach_continuous_time();
     snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx data\n");
 LABEL_14:
-    v5 = 1;
-LABEL_15:
-    gnssOsa_PrintLog(__str, v5, 1, 0);
-    goto LABEL_16;
+    v4 = 1;
+    goto LABEL_15;
   }
 
   if (!a2)
   {
     if (!g_LbsOsaTrace_Config)
     {
-      goto LABEL_16;
+      return;
     }
 
     bzero(__str, 0x3C6uLL);
@@ -9806,39 +2501,34 @@ LABEL_15:
 
   if (Hal11_HandleEvent(a1[3], a1, a2))
   {
-    goto LABEL_16;
+    return;
   }
 
   if (g_HalState <= 3)
   {
-    if (g_HalState >= 2)
+    if (g_HalState < 2)
     {
-      if ((g_HalState - 2) < 2)
-      {
-        v4 = *MEMORY[0x29EDCA608];
-
-        Hal15_HandleRevResp(a1);
-        return;
-      }
-
-      goto LABEL_26;
+      return;
     }
 
-LABEL_16:
-    v6 = *MEMORY[0x29EDCA608];
-    return;
+    if ((g_HalState - 2) < 2)
+    {
+
+      Hal15_HandleRevResp(a1);
+      return;
+    }
+
+    goto LABEL_26;
   }
 
   if ((g_HalState - 6) < 2)
   {
-    v8 = *MEMORY[0x29EDCA608];
 
     Hal_CoexConfigRespone(a1);
   }
 
   else if (g_HalState == 5)
   {
-    v10 = *MEMORY[0x29EDCA608];
 
     Hal32_HandlePowerReportRsp(a1);
   }
@@ -9850,18 +2540,7617 @@ LABEL_16:
 LABEL_26:
       if (g_LbsOsaTrace_Config < 2)
       {
-        goto LABEL_16;
+        return;
       }
 
       bzero(__str, 0x3C6uLL);
-      v9 = mach_continuous_time();
-      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx State,%u,MC,%c,MID,%c,MIDE,%c\n", (*&g_MacClockTicksToMsRelation * v9), "HAL", 87, "Hal02_HandleResp", 262, g_HalState, a1[2], a1[3], a1[4]);
-      v5 = 2;
-      goto LABEL_15;
+      v5 = mach_continuous_time();
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx State,%u,MC,%c,MID,%c,MIDE,%c\n", (*&g_MacClockTicksToMsRelation * v5), "HAL", 87, "Hal02_HandleResp", 262, g_HalState, a1[2], a1[3], a1[4]);
+      v4 = 2;
+LABEL_15:
+      gnssOsa_PrintLog(__str, v4, 1, 0);
+      return;
     }
 
-    v7 = *MEMORY[0x29EDCA608];
-
     Hal29_HandleProxyResponse(a1, a2);
+  }
+}
+
+void Hal02_07ChipRead(void)
+{
+  v8 = *MEMORY[0x29EDCA608];
+  if (g_LbsOsaTrace_Config >= 5)
+  {
+    bzero(__str, 0x3C6uLL);
+    v0 = mach_continuous_time();
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: transPrep success\n", (*&g_MacClockTicksToMsRelation * v0), "HAL", 68, "Hal02_07ChipRead");
+    gnssOsa_PrintLog(__str, 5, 1, 0);
+  }
+
+  if ((*(*gp_Comm + 48))(gp_Comm))
+  {
+    do
+    {
+      Data = Hal_CommsItfReadData(g_ReadBuffer, 0x3000u);
+      if (Data)
+      {
+        v3 = Data;
+        if ((Data & 0x80000000) != 0)
+        {
+          goto LABEL_14;
+        }
+
+        if (Data > 0x3000)
+        {
+          if (g_LbsOsaTrace_Config)
+          {
+            bzero(__str, 0x3C6uLL);
+            v4 = mach_continuous_time();
+            snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx NumOfBytesRead,%u,Maxbufsize,%u\n", (*&g_MacClockTicksToMsRelation * v4), "HAL", 69, "Hal02_07ChipRead", 772, v3, 12288);
+            gnssOsa_PrintLog(__str, 1, 1, 0);
+          }
+
+          memset_s(g_ReadBuffer, 0x3000uLL, 0, 0x3000uLL);
+        }
+
+        else
+        {
+          Hal02_06ParsezxPacket(g_ReadBuffer, Data, v2);
+        }
+      }
+    }
+
+    while (((*(*gp_Comm + 48))(gp_Comm) & 1) != 0);
+  }
+
+  if (g_LbsOsaTrace_Config)
+  {
+    bzero(__str, 0x3C6uLL);
+    v5 = mach_continuous_time();
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v5), "HAL", 69, "Hal02_07ChipRead", 1281);
+    gnssOsa_PrintLog(__str, 1, 1, 0);
+LABEL_14:
+    if (g_LbsOsaTrace_Config >= 4)
+    {
+      bzero(__str, 0x3C6uLL);
+      v6 = mach_continuous_time();
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: RdrThrd exit\n", (*&g_MacClockTicksToMsRelation * v6), "HAL", 73, "Hal02_07ChipRead");
+      gnssOsa_PrintLog(__str, 4, 1, 0);
+    }
+  }
+}
+
+void Hal02_06ParsezxPacket(unsigned __int8 *a1, size_t a2, uint8x8_t a3)
+{
+  v33 = *MEMORY[0x29EDCA608];
+  if (!a1)
+  {
+    if (!g_LbsOsaTrace_Config)
+    {
+      return;
+    }
+
+    bzero(__str, 0x3C6uLL);
+    mach_continuous_time();
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx data\n");
+    goto LABEL_9;
+  }
+
+  if (!a2)
+  {
+    if (!g_LbsOsaTrace_Config)
+    {
+      return;
+    }
+
+    bzero(__str, 0x3C6uLL);
+    mach_continuous_time();
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx len\n");
+LABEL_9:
+    gnssOsa_PrintLog(__str, 1, 1, 0);
+    return;
+  }
+
+  v4 = a1;
+  if (_MergedGlobals_3)
+  {
+    memcpy_s("Hal02_06ParsezxPacket", 284, &g_ProccessBuff, 0x4000u, &g_PrevBuff, _MergedGlobals_3);
+    memcpy_s("Hal02_06ParsezxPacket", 285, &g_ProccessBuff + _MergedGlobals_3, 0x4000 - _MergedGlobals_3, v4, a2);
+    v5 = _MergedGlobals_3;
+    v4 = &g_ProccessBuff;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = 0;
+  v7 = v5 + a2;
+  _MergedGlobals_3 = 0;
+  v8 = &unk_2A13EC000;
+  v9 = "HAL";
+  v10 = &unk_2A145C000;
+  while (1)
+  {
+    v11 = v7;
+    v12 = &v4[v6];
+    if (v7 <= 7u)
+    {
+      v31 = 304;
+      goto LABEL_48;
+    }
+
+    if (*v12 != 122 || v12[1] != 120)
+    {
+      ++v6;
+      --v7;
+      v18 = v10[316] + 1;
+      v10[316] = v18;
+      HIDWORD(v19) = 652835029 * v18;
+      LODWORD(v19) = 652835029 * v18;
+      if ((v19 >> 3) <= 0x418937 && g_LbsOsaTrace_Config >= 2)
+      {
+        bzero(__str, 0x3C6uLL);
+        v21 = mach_continuous_time();
+        snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx Err,%u\n", (v8[140] * v21), v9, 87, "Hal02_06ParsezxPacket", 770, v10[316]);
+        gnssOsa_PrintLog(__str, 2, 1, 0);
+      }
+
+      goto LABEL_45;
+    }
+
+    a3.i32[0] = *(v12 + 2);
+    a3 = vmovl_u8(a3).u64[0];
+    v13 = v12[6];
+    v14 = vaddv_s16(a3) + v13;
+    if (v12[7] != v14)
+    {
+      if (g_LbsOsaTrace_Config >= 2)
+      {
+        v22 = v14;
+        bzero(__str, 0x3C6uLL);
+        v23 = v8[140] * mach_continuous_time();
+        v24 = v12[7];
+        snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx rcvd,0x%02x,computed,0x%02x,Pktloss,%u\n", v23, v9, 87, "Hal02_06ParsezxPacket", 781, v24, v22, ++dword_2A145C4EC);
+        gnssOsa_PrintLog(__str, 2, 1, 0);
+      }
+
+      ++v6;
+      --v7;
+      goto LABEL_45;
+    }
+
+    v15 = v9;
+    v16 = a3.u16[3] | (v13 << 8);
+    if (v16 >= 0xFF8)
+    {
+      if (g_LbsOsaTrace_Config >= 2)
+      {
+        bzero(__str, 0x3C6uLL);
+        v17 = v8[140] * mach_continuous_time();
+        snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx len,%u,Pktloss,%u\n", v17, v15, 87, "Hal02_06ParsezxPacket", 783, v16, ++dword_2A145C4EC);
+        gnssOsa_PrintLog(__str, 2, 1, 0);
+      }
+
+      ++v6;
+      --v7;
+      v9 = v15;
+      goto LABEL_41;
+    }
+
+    v25 = v16 + 9;
+    v11 = v7;
+    if (v7 < (v16 + 9))
+    {
+      break;
+    }
+
+    if (v4[v6 + 8 + v16] == 10)
+    {
+      v8 = &unk_2A13EC000;
+      v9 = v15;
+      v10 = &unk_2A145C000;
+      if (dword_2A145C4F0)
+      {
+        if (dword_2A145C4F0 >= 0x41 && g_LbsOsaTrace_Config >= 5)
+        {
+          bzero(__str, 0x3C6uLL);
+          v26 = mach_continuous_time();
+          snprintf(__str, 0x3C5uLL, "%10u %s%c %s: zx pkt recd ,prev invalid data,%u\n", (*&g_MacClockTicksToMsRelation * v26), v9, 68, "Hal02_06ParsezxPacket", dword_2A145C4F0);
+          gnssOsa_PrintLog(__str, 5, 1, 0);
+        }
+
+        dword_2A145C4F0 = 0;
+      }
+
+      if (g_RouteZxData)
+      {
+        g_RouteZxData(&v4[v6], v25);
+      }
+
+      else if (g_LbsOsaTrace_Config >= 2)
+      {
+        bzero(__str, 0x3C6uLL);
+        v30 = mach_continuous_time();
+        snprintf(__str, 0x3C5uLL, "%10u %s%c %s: RouteZxData is NULL\n", (*&g_MacClockTicksToMsRelation * v30), v9, 87, "Hal02_06ParsezxPacket");
+        gnssOsa_PrintLog(__str, 2, 1, 0);
+      }
+
+      v7 -= v25;
+      v6 += v25;
+      goto LABEL_45;
+    }
+
+    v9 = v15;
+    if (g_LbsOsaTrace_Config >= 2)
+    {
+      bzero(__str, 0x3C6uLL);
+      v27 = mach_continuous_time();
+      v28 = &v4[v6];
+      v29 = v28[2];
+      LODWORD(v28) = v28[3];
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx MC,%u,MID,%u,Pktloss,%u\n", (*&g_MacClockTicksToMsRelation * v27), v15, 87, "Hal02_06ParsezxPacket", 782, v29, v28, ++dword_2A145C4EC);
+      gnssOsa_PrintLog(__str, 2, 1, 0);
+    }
+
+    ++v6;
+    --v7;
+    v8 = &unk_2A13EC000;
+LABEL_41:
+    v10 = &unk_2A145C000;
+LABEL_45:
+    if (!v7)
+    {
+      return;
+    }
+  }
+
+  v31 = 354;
+LABEL_48:
+  memcpy_s("Hal02_06ParsezxPacket", v31, &g_PrevBuff, 0x1000u, &v4[v6], v11);
+  _MergedGlobals_3 = v7;
+}
+
+void Hal02_AsyncReadCb(unsigned __int8 *a1, size_t a2, uint8x8_t a3)
+{
+  v3 = a2;
+  v4 = a1;
+  v7 = *MEMORY[0x29EDCA608];
+  if (a2 > 0x3000)
+  {
+    if (g_LbsOsaTrace_Config >= 2)
+    {
+      bzero(__str, 0x3C6uLL);
+      v5 = mach_continuous_time();
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx v_RxBufferSize %u,processing %u bytes\n", (*&g_MacClockTicksToMsRelation * v5), "HAL", 87, "Hal02_AsyncReadCb", 772, v3, 12288);
+      gnssOsa_PrintLog(__str, 2, 1, 0);
+    }
+
+    a1 = v4;
+    a2 = 12288;
+  }
+
+  else
+  {
+    a2 = a2;
+  }
+
+  Hal02_06ParsezxPacket(a1, a2, a3);
+  if (v4)
+  {
+    free(v4);
+  }
+}
+
+void Hal02_SPI_ReadCb(unsigned __int8 *a1, unsigned int a2, uint8x8_t a3)
+{
+  v6 = *MEMORY[0x29EDCA608];
+  if (a2 > 0x3000)
+  {
+    if (g_LbsOsaTrace_Config)
+    {
+      bzero(__str, 0x3C6uLL);
+      v4 = mach_continuous_time();
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: v_RxBufferSize %u - out of range error\n", (*&g_MacClockTicksToMsRelation * v4), "HAL", 69, "Hal02_SPI_ReadCb", a2);
+      gnssOsa_PrintLog(__str, 1, 1, 0);
+    }
+  }
+
+  else
+  {
+
+    Hal02_06ParsezxPacket(a1, a2, a3);
+  }
+}
+
+uint64_t Hal02_DeInitParser(void)
+{
+  result = memset_s(&g_PrevBuff, 0x1000uLL, 0, 0x1000uLL);
+  _MergedGlobals_3 = 0;
+  g_RouteZxData = Hal02_RouteZxPkt;
+  return result;
+}
+
+BOOL Hal02_CheckDebugConfigMsg(int a1)
+{
+  v5 = *MEMORY[0x29EDCA608];
+  if (word_2A13EC520 == 3599)
+  {
+    return a1 == 77 || a1 == 70;
+  }
+
+  if (g_LbsOsaTrace_Config >= 2)
+  {
+    bzero(__str, 0x3C6uLL);
+    v3 = mach_continuous_time();
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: #%04hx GnssHw\n", (*&g_MacClockTicksToMsRelation * v3), "HAL", 87, "Hal02_CheckDebugConfigMsg", 515);
+    gnssOsa_PrintLog(__str, 2, 1, 0);
+  }
+
+  return 0;
+}
+
+uint64_t GN_AGLON_Set_Eph_El(char *a1)
+{
+  v59 = *MEMORY[0x29EDCA608];
+  result = Is_GN_API_Set_Allowed("GN_AGLON_Set_Eph_El");
+  if (result)
+  {
+    v3 = *a1;
+    if (g_Logging_Cfg < 5)
+    {
+      EvLog_d("GN_AGLON_Set_Eph_El: ", v3);
+    }
+
+    else
+    {
+      EvLog_v("GN_AGLON_Set_Eph_El: %2d %2d %2d %4d %d %2d  %2d %d %d %d  %9d %9d %9d  %8d %8d %8d  %3d %3d %3d  %3d %8d %5d  %d", v3, a1[1], a1[2], *(a1 + 2), a1[6], a1[7], a1[8], a1[9], a1[10], a1[11], *(a1 + 3), *(a1 + 4), *(a1 + 5), *(a1 + 6), *(a1 + 7), *(a1 + 8), a1[36], a1[37], a1[38], a1[39], *(a1 + 10), *(a1 + 22), a1[46]);
+    }
+
+    v4 = *a1;
+    if ((*a1 - 25) <= 0xE7u)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloN = %d <%d or >%d, Out of range!");
+      return 0;
+    }
+
+    v5 = a1[2];
+    if (v5 - 96 <= 0xFFFFFFA0)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloTb = %d <1 or >95, Out of range!");
+      return 0;
+    }
+
+    v6 = *(a1 + 2);
+    if (v6 >= 0x5B6)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloNT = %d >%d, Out of range!");
+      return 0;
+    }
+
+    v7 = a1[6];
+    if (v7 >= 2)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloLn = %d >1, Out of range!");
+      return 0;
+    }
+
+    v8 = a1[7];
+    if (v8 >= 0x10)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloFT = %d >15, Out of range!");
+      return 0;
+    }
+
+    v9 = a1[8];
+    if (v9 >= 0x20)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloEn = %d >31, Out of range!");
+      return 0;
+    }
+
+    v10 = a1[9];
+    if (v10 >= 4)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloP1 = %d <0 or >3, Out of range!");
+      return 0;
+    }
+
+    v11 = a1[11];
+    if (v11 >= 4)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloM = %d <0 or >3, Out of range!");
+      return 0;
+    }
+
+    v12 = *(a1 + 3);
+    if ((v12 - 0x4000000) >> 27 != 31)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloX = %d <-2^26 or >=2^26, Out of range!");
+      return 0;
+    }
+
+    v13 = *(a1 + 4);
+    if ((v13 - 0x4000000) >> 27 != 31)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloY = %d <-2^26 or >=2^26, Out of range!");
+      return 0;
+    }
+
+    v14 = *(a1 + 5);
+    if ((v14 - 0x4000000) >> 27 != 31)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloZ = %d <-2^26 or >=2^26, Out of range!");
+      return 0;
+    }
+
+    v15 = *(a1 + 6);
+    if ((v15 - 0x800000) >> 24 != 255)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloXdot = %d <-2^23 or >=2^23, Out of range!");
+      return 0;
+    }
+
+    v16 = *(a1 + 7);
+    if ((v16 - 0x800000) >> 24 != 255)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloYdot = %d <-2^23 or >=2^23, Out of range!");
+      return 0;
+    }
+
+    v17 = *(a1 + 8);
+    if ((v17 - 0x800000) >> 24 != 255)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloZdot = %d <-2^23 or >=2^23, Out of range!");
+      return 0;
+    }
+
+    v18 = a1[36];
+    if ((v18 - 16) <= 0xDFu)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloXdotdot = %d <-2^4 or >=2^4, Out of range!");
+      return 0;
+    }
+
+    v19 = a1[37];
+    if ((v19 - 16) <= 0xDFu)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloYdotdot = %d <-2^4 or >=2^4, Out of range!");
+      return 0;
+    }
+
+    v20 = a1[38];
+    if ((v20 - 16) <= 0xDFu)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloZdotdot = %d <-2^4 or >=2^4, Out of range!");
+      return 0;
+    }
+
+    v21 = a1[39];
+    if ((v21 - 16) <= 0xDFu)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloDeltaTau = %d <-2^4 or >=2^4, Out of range!");
+      return 0;
+    }
+
+    v22 = *(a1 + 10);
+    if ((v22 - 0x200000) >> 22 != 1023)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloDeltaTau = %d <-2^21 or >=2^21, Out of range!");
+      return 0;
+    }
+
+    v23 = *(a1 + 22);
+    if (((v23 - 1024) >> 11) <= 0x1Eu)
+    {
+      EvCrt_v("GN_AGLON_Set_Eph_El: FAILED: gloGamma = %d <-2^10 or >=2^10, Out of range!");
+      return 0;
+    }
+
+    v24 = a1[1];
+    if ((a1[1] - 7) < 0xF2u)
+    {
+      v24 = 2139062143;
+    }
+
+    v28 = v24;
+    if (a1[46])
+    {
+      v25 = 5;
+    }
+
+    else
+    {
+      v25 = 3;
+    }
+
+    v26 = 0;
+    v27 = v25;
+    v29 = v4;
+    v30 = v5;
+    v32 = v6;
+    v35 = v7;
+    v37 = v8;
+    v38 = v9;
+    v39 = v10;
+    v40 = a1[10];
+    v41 = v11;
+    v42 = v12;
+    v43 = v13;
+    v44 = v14;
+    v45 = v15;
+    v46 = v16;
+    v47 = v17;
+    v48 = v18;
+    v49 = v19;
+    v50 = v20;
+    v51 = v21;
+    v52 = v22;
+    v53 = v23;
+    v34 = 0;
+    v36 = 0;
+    v33 = v7;
+    v31 = 1500 * (v5 & 3) + 10000 * (v5 >> 2);
+    memset(v58, 0, 62);
+    GLON_EphInt2Bin(&v26, v58);
+    v54 = 0;
+    *&v57[4] = 0u;
+    BYTE4(v54) = BYTE8(v58[0]);
+    v55 = *(v58 + 12);
+    v56 = *(&v58[1] + 12);
+    *v57 = *(&v58[2] + 12);
+    v57[16] = v27 == 5;
+    return GN_AGLON_Set_Eph(*a1, &v54);
+  }
+
+  return result;
+}
+
+double BDS_AlmInt2Real(uint64_t a1, uint64_t a2)
+{
+  *a2 = *a1;
+  *(a2 + 12) = *(a1 + 11) << 12;
+  v2 = *(a1 + 12);
+  v3.i64[0] = v2;
+  v3.i64[1] = HIDWORD(v2);
+  v4 = vmulq_f64(vcvtq_f64_u64(v3), xmmword_299051670);
+  v5 = *(a1 + 20);
+  v3.i64[0] = v5;
+  v3.i64[1] = SHIDWORD(v5);
+  *(a2 + 8) = *(a1 + 8);
+  *(a2 + 10) = *(a1 + 42);
+  *(a2 + 11) = *(a1 + 10);
+  *(a2 + 16) = v4;
+  *(a2 + 32) = vmulq_f64(vcvtq_f64_s64(v3), vdupq_n_s64(0x3E9921FB54442D28uLL));
+  v4.f64[0] = *(a1 + 28);
+  v3.i64[0] = SLODWORD(v4.f64[0]);
+  v3.i64[1] = SHIDWORD(v4.f64[0]);
+  *(a2 + 48) = vmulq_f64(vcvtq_f64_s64(v3), xmmword_299051680);
+  v6 = vcvtd_n_f64_s32(*(a1 + 38), 0x14uLL);
+  *(a2 + 64) = *(a1 + 36) * 0.00000599211245;
+  *(a2 + 72) = v6;
+  result = *(a1 + 40) * 3.63797881e-12;
+  *(a2 + 80) = result;
+  return result;
+}
+
+double XofGpsQzssEphemeris::XofGpsQzssEphemeris(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 7) = 0;
+  *a1 = 0;
+  result = 0.0;
+  *(a1 + 28) = 0u;
+  *(a1 + 44) = 0u;
+  *(a1 + 56) = 0u;
+  *a1 = *(a2 + 3);
+  *(a1 + 1) = *(a2 + 35);
+  *(a1 + 2) = *(a2 + 67);
+  *(a1 + 3) = *(a2 + 99);
+  *(a1 + 4) = *(a2 + 134);
+  *(a1 + 6) = *(a2 + 166);
+  *(a1 + 8) = *(a2 + 204);
+  *(a1 + 12) = *(a2 + 238);
+  *(a1 + 14) = *(a2 + 267);
+  *(a1 + 16) = *(a2 + 334);
+  *(a1 + 18) = *(a2 + 366);
+  *(a1 + 20) = *(a2 + 398);
+  *(a1 + 22) = *(a2 + 459);
+  *(a1 + 23) = *(a2 + 491);
+  *(a1 + 24) = *(a2 + 526);
+  v3 = *(a2 + 604);
+  *(a1 + 28) = *(a2 + 564);
+  *(a1 + 32) = v3;
+  v4 = *(a2 + 684);
+  *(a1 + 36) = *(a2 + 644);
+  *(a1 + 40) = v4;
+  v5 = *(a2 + 764);
+  *(a1 + 44) = *(a2 + 724);
+  *(a1 + 48) = v5;
+  *(a1 + 52) = *(a2 + 804);
+  *(a1 + 56) = *(a2 + 838);
+  *(a1 + 58) = *(a2 + 870);
+  *(a1 + 60) = *(a2 + 902);
+  *(a1 + 62) = *(a2 + 934);
+  *(a1 + 64) = *(a2 + 966);
+  *(a1 + 66) = *(a2 + 998);
+  *(a1 + 68) = *(a2 + 1030);
+  *(a1 + 70) = *(a2 + 1062);
+  return result;
+}
+
+BOOL XofGpsQzssEphemerisCodec::Decode(uint64_t a1, void *a2, _DWORD *a3)
+{
+  if (XofIntegralType<unsigned char>::DecodeFromHexData(a1, a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 32), a2, a3) != 1 || XofIntegralType<signed char>::DecodeFromHexData((a1 + 64), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 96), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 128), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 160), a2, a3) != 1)
+  {
+    return 0;
+  }
+
+  return XofGenericCodec::Decode<6ul,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>(a1, a2, a3);
+}
+
+double XofBeidouEphemeris::XofBeidouEphemeris(uint64_t a1, uint64_t a2)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 14) = 0;
+  result = 0.0;
+  *(a1 + 24) = 0u;
+  *(a1 + 40) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 0u;
+  *(a1 + 104) = 0u;
+  *(a1 + 119) = 0;
+  *(a1 + 128) = 0;
+  *(a1 + 132) = 0;
+  *a1 = *(a2 + 3);
+  *(a1 + 1) = *(a2 + 35);
+  *(a1 + 2) = *(a2 + 70);
+  *(a1 + 4) = *(a2 + 108);
+  *(a1 + 8) = *(a2 + 139);
+  *(a1 + 9) = *(a2 + 171);
+  *(a1 + 10) = *(a2 + 203);
+  *(a1 + 11) = *(a2 + 235);
+  *(a1 + 12) = *(a2 + 267);
+  *(a1 + 13) = *(a2 + 299);
+  *(a1 + 14) = *(a2 + 331);
+  *(a1 + 15) = *(a2 + 363);
+  *(a1 + 16) = *(a2 + 398);
+  *(a1 + 18) = *(a2 + 430);
+  *(a1 + 20) = *(a2 + 459);
+  *(a1 + 21) = *(a2 + 491);
+  v3 = *(a2 + 636);
+  *(a1 + 24) = *(a2 + 596);
+  *(a1 + 28) = v3;
+  v4 = *(a2 + 716);
+  *(a1 + 32) = *(a2 + 676);
+  *(a1 + 36) = v4;
+  v5 = *(a2 + 824);
+  *(a1 + 40) = *(a2 + 768);
+  *(a1 + 48) = v5;
+  v6 = *(a2 + 936);
+  *(a1 + 56) = *(a2 + 880);
+  *(a1 + 64) = v6;
+  *(a1 + 72) = *(a2 + 992);
+  *(a1 + 80) = *(a2 + 1036);
+  *(a1 + 84) = *(a2 + 1070);
+  *(a1 + 86) = *(a2 + 1102);
+  *(a1 + 88) = *(a2 + 1134);
+  *(a1 + 90) = *(a2 + 1166);
+  LODWORD(v6) = *(a2 + 1244);
+  *(a1 + 92) = *(a2 + 1204);
+  *(a1 + 96) = v6;
+  LODWORD(v6) = *(a2 + 1324);
+  *(a1 + 100) = *(a2 + 1284);
+  *(a1 + 104) = v6;
+  LODWORD(v6) = *(a2 + 1404);
+  *(a1 + 108) = *(a2 + 1364);
+  *(a1 + 112) = v6;
+  *(a1 + 116) = *(a2 + 1438);
+  *(a1 + 118) = *(a2 + 1470);
+  *(a1 + 120) = *(a2 + 1502);
+  *(a1 + 122) = *(a2 + 1534);
+  *(a1 + 124) = *(a2 + 1566);
+  *(a1 + 126) = *(a2 + 523);
+  *(a1 + 128) = *(a2 + 1598);
+  *(a1 + 130) = *(a2 + 1627);
+  *(a1 + 131) = *(a2 + 1659);
+  *(a1 + 132) = *(a2 + 1691);
+  *(a1 + 133) = *(a2 + 1723);
+  return result;
+}
+
+BOOL XofBeidouEphemerisCodec::Decode(uint64_t a1, void *a2, _DWORD *a3)
+{
+  if (XofIntegralType<unsigned char>::DecodeFromHexData(a1, a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 32), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 64), a2, a3) != 1 || XofIntegralType<unsigned int>::DecodeFromHexData((a1 + 96), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 136), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 168), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 200), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 232), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 264), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 296), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 328), a2, a3) != 1 || XofIntegralType<signed char>::DecodeFromHexData((a1 + 360), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 392), a2, a3) != 1)
+  {
+    return 0;
+  }
+
+  return XofGenericCodec::Decode<13ul,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>>(a1, a2, a3);
+}
+
+double XofGalileoEphemeris::XofGalileoEphemeris(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 4) = 0;
+  *a1 = 0;
+  result = 0.0;
+  *(a1 + 12) = 0u;
+  *(a1 + 28) = 0u;
+  *(a1 + 44) = 0u;
+  *(a1 + 56) = 0u;
+  *a1 = *(a2 + 3);
+  *(a1 + 1) = *(a2 + 35);
+  *(a1 + 2) = *(a2 + 67);
+  *(a1 + 3) = *(a2 + 163);
+  *(a1 + 4) = *(a2 + 195);
+  *(a1 + 6) = *(a2 + 230);
+  *(a1 + 8) = *(a2 + 262);
+  v3 = *(a2 + 340);
+  *(a1 + 12) = *(a2 + 300);
+  *(a1 + 16) = v3;
+  *(a1 + 20) = *(a2 + 371);
+  *(a1 + 21) = *(a2 + 403);
+  *(a1 + 22) = *(a2 + 438);
+  *(a1 + 24) = *(a2 + 470);
+  *(a1 + 26) = *(a2 + 502);
+  v4 = *(a2 + 580);
+  *(a1 + 28) = *(a2 + 540);
+  *(a1 + 32) = v4;
+  v5 = *(a2 + 660);
+  *(a1 + 36) = *(a2 + 620);
+  *(a1 + 40) = v5;
+  v6 = *(a2 + 740);
+  *(a1 + 44) = *(a2 + 700);
+  *(a1 + 48) = v6;
+  *(a1 + 52) = *(a2 + 780);
+  *(a1 + 56) = *(a2 + 814);
+  *(a1 + 58) = *(a2 + 846);
+  *(a1 + 60) = *(a2 + 878);
+  *(a1 + 62) = *(a2 + 910);
+  *(a1 + 64) = *(a2 + 942);
+  *(a1 + 66) = *(a2 + 974);
+  *(a1 + 68) = *(a2 + 1006);
+  *(a1 + 70) = *(a2 + 1038);
+  return result;
+}
+
+BOOL XofGalileoEphemerisCodec::Decode(uint64_t a1, void *a2, _DWORD *a3)
+{
+  if (XofIntegralType<unsigned char>::DecodeFromHexData(a1, a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 32), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 64), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 96), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 128), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 160), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 192), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 224), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 256), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a1 + 288), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a1 + 328), a2, a3) != 1 || XofIntegralType<signed char>::DecodeFromHexData((a1 + 368), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 400), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 432), a2, a3) != 1 || XofIntegralType<short>::DecodeFromHexData((a1 + 464), a2, a3) != 1)
+  {
+    return 0;
+  }
+
+  return XofGenericCodec::Decode<15ul,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>(a1, a2, a3);
+}
+
+double XofNavicEphemeris::XofNavicEphemeris(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 18) = 0;
+  *(a1 + 10) = 0;
+  *(a1 + 2) = 0;
+  result = 0.0;
+  *(a1 + 20) = 0u;
+  *(a1 + 36) = 0u;
+  *(a1 + 52) = 0u;
+  *a1 = *(a2 + 3);
+  *(a1 + 2) = *(a2 + 38);
+  *(a1 + 4) = *(a2 + 70);
+  *(a1 + 6) = *(a2 + 99);
+  *(a1 + 7) = *(a2 + 131);
+  *(a1 + 8) = *(a2 + 163);
+  *(a1 + 9) = *(a2 + 195);
+  *(a1 + 10) = *(a2 + 227);
+  *(a1 + 11) = *(a2 + 331);
+  *(a1 + 12) = *(a2 + 372);
+  *(a1 + 16) = *(a2 + 406);
+  *(a1 + 18) = *(a2 + 435);
+  *(a1 + 20) = *(a2 + 470);
+  *(a1 + 22) = *(a2 + 502);
+  v3 = *(a2 + 580);
+  *(a1 + 24) = *(a2 + 540);
+  *(a1 + 28) = v3;
+  v4 = *(a2 + 660);
+  *(a1 + 32) = *(a2 + 620);
+  *(a1 + 36) = v4;
+  v5 = *(a2 + 740);
+  *(a1 + 40) = *(a2 + 700);
+  *(a1 + 44) = v5;
+  v6 = *(a2 + 820);
+  *(a1 + 48) = *(a2 + 780);
+  *(a1 + 52) = v6;
+  *(a1 + 56) = *(a2 + 854);
+  *(a1 + 58) = *(a2 + 886);
+  *(a1 + 60) = *(a2 + 982);
+  *(a1 + 62) = *(a2 + 1014);
+  *(a1 + 64) = *(a2 + 918);
+  *(a1 + 66) = *(a2 + 950);
+  return result;
+}
+
+BOOL XofNavicEphemerisCodec::Decode(uint64_t a1, void *a2, _DWORD *a3)
+{
+  if (XofIntegralType<unsigned char>::DecodeFromHexData(a1, a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 32), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 64), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 96), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 128), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 160), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 192), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a1 + 224), a2, a3) != 1 || XofIntegralType<unsigned int>::DecodeFromHexData((a1 + 256), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a1 + 296), a2, a3) != 1 || XofIntegralType<signed char>::DecodeFromHexData((a1 + 328), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a1 + 360), a2, a3) != 1 || XofIntegralType<short>::DecodeFromHexData((a1 + 400), a2, a3) != 1 || XofIntegralType<signed char>::DecodeFromHexData((a1 + 432), a2, a3) != 1)
+  {
+    return 0;
+  }
+
+  return XofGenericCodec::Decode<14ul,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>(a1, a2, a3);
+}
+
+uint64_t XofBrdcstEph::Decode(uint64_t a1)
+{
+  v1 = MEMORY[0x2A1C7C4A8](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v8 = v1;
+  v23[136] = *MEMORY[0x29EDCA608];
+  bzero(v23, 0x440uLL);
+  XofGpsQzssEphemerisCodec::XofGpsQzssEphemerisCodec(v23);
+  v9 = XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofGpsQzssEphemeris>,XofGpsQzssEphemerisCodec>(v8, v7, v3, v5, v23, 0, v8);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(v23);
+  if (v9 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v22, 0x250uLL);
+  XofSbasEphemerisCodec::XofSbasEphemerisCodec(v22);
+  v10 = XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofSbasEphemeris>,XofSbasEphemerisCodec>(v8, v7, v3, v5, v22, 1u, (v8 + 120));
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>>::~__tuple_impl(v22);
+  if (v10 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v21, 0x440uLL);
+  XofGpsQzssEphemerisCodec::XofGpsQzssEphemerisCodec(v21);
+  v11 = XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofGpsQzssEphemeris>,XofGpsQzssEphemerisCodec>(v8, v7, v3, v5, v21, 2u, v8 + 72);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(v21);
+  if (v11 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v20, 0x428uLL);
+  XofGalileoEphemerisCodec::XofGalileoEphemerisCodec(v20);
+  v12 = XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofGalileoEphemeris>,XofGalileoEphemerisCodec>(v8, v7, v3, v5, v20, 3u, v8 + 48);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(v20);
+  if (v12 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v19, 0x2D8uLL);
+  XofGlonassBrdcastEphemerisCodec::XofGlonassBrdcastEphemerisCodec(v19);
+  v13 = XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofGlonassBrdcastEphemeris>,XofGlonassBrdcastEphemerisCodec>(v8, v7, v3, v5, v19, 4u, (v8 + 24));
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>>::~__tuple_impl(v19);
+  if (v13 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v18, 0x700uLL);
+  XofBeidouEphemerisCodec::XofBeidouEphemerisCodec(v18);
+  v14 = XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofBeidouEphemeris>,XofBeidouEphemerisCodec>(v8, v7, v3, v5, v18, 5u, v8 + 96);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul,32ul,33ul,34ul,35ul,36ul,37ul,38ul,39ul,40ul,41ul,42ul,43ul,44ul,45ul,46ul,47ul,48ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>>::~__tuple_impl(v18);
+  if (v14 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v17, 0x410uLL);
+  XofNavicEphemerisCodec::XofNavicEphemerisCodec(v17);
+  v15 = XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofNavicEphemeris>,XofNavicEphemerisCodec>(v8, v7, v3, v5, v17, 6u, v8 + 144);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(v17);
+  if (v15 == 1)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return 5;
+  }
+}
+
+void sub_298F9A134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofGpsQzssEphemeris>,XofGpsQzssEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7)
+{
+  v43 = *MEMORY[0x29EDCA608];
+  v7 = a4 + 48 * a6;
+  v9 = *(v7 + 18);
+  v8 = (v7 + 18);
+  if (!v9)
+  {
+    return 1;
+  }
+
+  v15 = 0;
+  v16 = (a7 + 8);
+  while (1)
+  {
+    bzero(__str, 0x440uLL);
+    XofGpsQzssEphemerisCodec::XofGpsQzssEphemerisCodec(__str);
+    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>(a5, __str);
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(__str);
+    if (!XofGpsQzssEphemerisCodec::Decode(a5, a2, a3))
+    {
+      if (g_LbsOsaTrace_Config < 2)
+      {
+        return 5;
+      }
+
+      bzero(__str, 0x3C6uLL);
+      v24 = mach_continuous_time();
+      if (a6 > 7)
+      {
+        v25 = "   ";
+      }
+
+      else
+      {
+        v25 = off_29EF06518[a6];
+      }
+
+      v28 = *&g_MacClockTicksToMsRelation;
+      std::string::basic_string[abi:ne200100]<0>(__p, v25);
+      if ((SBYTE7(v33) & 0x80u) == 0)
+      {
+        v29 = __p;
+      }
+
+      else
+      {
+        v29 = __p[0];
+      }
+
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Broadcast Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ]\n", (v28 * v24), "GNC", 87, "DecodeSVs", v29, v15 + 1);
+      if (SBYTE7(v33) < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      goto LABEL_33;
+    }
+
+    v17 = *(a5 + 3);
+    v18 = *v16;
+    if (*v16)
+    {
+      v19 = v16;
+      do
+      {
+        v20 = *(v18 + 28);
+        v21 = v20 >= v17;
+        v22 = v20 < v17;
+        if (v21)
+        {
+          v19 = v18;
+        }
+
+        v18 = *(v18 + 8 * v22);
+      }
+
+      while (v18);
+      if (v19 != v16 && v17 >= *(v19 + 28))
+      {
+        break;
+      }
+    }
+
+    XofGpsQzssEphemeris::XofGpsQzssEphemeris(__p, a5);
+    __str[0] = v17;
+    v39 = v33;
+    v40 = v34;
+    v41 = v35;
+    v42 = v36;
+    v38 = *__p;
+    std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofGpsQzssEphemeris>>(a7, v17, __str);
+    if (++v15 >= *v8)
+    {
+      return 1;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config < 2)
+  {
+    return 5;
+  }
+
+  bzero(__str, 0x3C6uLL);
+  v26 = mach_continuous_time();
+  if (a6 > 7)
+  {
+    v27 = "   ";
+  }
+
+  else
+  {
+    v27 = off_29EF06518[a6];
+  }
+
+  v30 = *&g_MacClockTicksToMsRelation;
+  std::string::basic_string[abi:ne200100]<0>(__p, v27);
+  if ((SBYTE7(v33) & 0x80u) == 0)
+  {
+    v31 = __p;
+  }
+
+  else
+  {
+    v31 = __p[0];
+  }
+
+  snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Broadcast Ephemeris data: Satellite Id = [ %s ]\n", (v30 * v26), "GNC", 87, "DecodeSVs", v31);
+  if (SBYTE7(v33) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+LABEL_33:
+  gnssOsa_PrintLog(__str, 2, 1, 0);
+  return 5;
+}
+
+uint64_t XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofSbasEphemeris>,XofSbasEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t **a7)
+{
+  v99 = *MEMORY[0x29EDCA608];
+  v34 = (a4 + 48 * a6 + 18);
+  if (!*v34)
+  {
+    return 1;
+  }
+
+  v10 = 0;
+  v36 = a7 + 1;
+  v45 = (a5 + 312);
+  v42 = a5 + 408;
+  v43 = a5 + 328;
+  v35 = (a5 + 392);
+  v40 = a5 + 472;
+  v41 = a5 + 440;
+  v38 = a5 + 536;
+  v39 = a5 + 504;
+  v37 = a5 + 568;
+  while (1)
+  {
+    v44 = v10;
+    bzero(__str, 0x250uLL);
+    XofSbasEphemerisCodec::XofSbasEphemerisCodec(__str);
+    *a5 = *__str;
+    if (*(a5 + 31) < 0)
+    {
+      operator delete(*(a5 + 8));
+    }
+
+    *(a5 + 8) = v49;
+    *(a5 + 24) = v50;
+    HIBYTE(v50) = 0;
+    LOBYTE(v49) = 0;
+    *(a5 + 32) = v51;
+    if (*(a5 + 63) < 0)
+    {
+      operator delete(*(a5 + 40));
+    }
+
+    *(a5 + 40) = v52;
+    v11 = v53;
+    HIBYTE(v53) = 0;
+    LOBYTE(v52) = 0;
+    v12 = v54;
+    *(a5 + 56) = v11;
+    *(a5 + 64) = v12;
+    if (*(a5 + 95) < 0)
+    {
+      operator delete(*(a5 + 72));
+    }
+
+    *(a5 + 72) = v55;
+    v13 = v56;
+    HIBYTE(v56) = 0;
+    LOBYTE(v55) = 0;
+    v14 = v57;
+    *(a5 + 88) = v13;
+    *(a5 + 96) = v14;
+    if (*(a5 + 127) < 0)
+    {
+      operator delete(*(a5 + 104));
+    }
+
+    *(a5 + 104) = v58;
+    *(a5 + 120) = v59;
+    HIBYTE(v59) = 0;
+    LOBYTE(v58) = 0;
+    *(a5 + 128) = v60;
+    if (*(a5 + 159) < 0)
+    {
+      operator delete(*(a5 + 136));
+    }
+
+    *(a5 + 136) = v61;
+    *(a5 + 152) = v62;
+    HIBYTE(v62) = 0;
+    LOBYTE(v61) = 0;
+    *(a5 + 160) = v63;
+    if (*(a5 + 191) < 0)
+    {
+      operator delete(*(a5 + 168));
+    }
+
+    *(a5 + 168) = v64;
+    *(a5 + 184) = v65;
+    HIBYTE(v65) = 0;
+    LOBYTE(v64) = 0;
+    *(a5 + 192) = v66;
+    if (*(a5 + 231) < 0)
+    {
+      operator delete(*(a5 + 208));
+    }
+
+    *(a5 + 208) = v67;
+    *(a5 + 224) = v68;
+    HIBYTE(v68) = 0;
+    LOBYTE(v67) = 0;
+    *(a5 + 232) = v69;
+    if (*(a5 + 271) < 0)
+    {
+      operator delete(*(a5 + 248));
+    }
+
+    *(a5 + 248) = v70;
+    *(a5 + 264) = v71;
+    HIBYTE(v71) = 0;
+    LOBYTE(v70) = 0;
+    *(a5 + 272) = v72;
+    if (*(a5 + 311) < 0)
+    {
+      operator delete(*(a5 + 288));
+    }
+
+    *(a5 + 288) = v73;
+    *(a5 + 304) = v74;
+    HIBYTE(v74) = 0;
+    LOBYTE(v73) = 0;
+    *v45 = v75;
+    if (*(a5 + 351) < 0)
+    {
+      operator delete(*v43);
+    }
+
+    *v43 = v76;
+    *(v43 + 16) = v77;
+    HIBYTE(v77) = 0;
+    LOBYTE(v76) = 0;
+    *(a5 + 352) = v78;
+    if (*(a5 + 391) < 0)
+    {
+      operator delete(*(a5 + 368));
+    }
+
+    *(a5 + 368) = v79;
+    *(a5 + 384) = v80;
+    HIBYTE(v80) = 0;
+    LOBYTE(v79) = 0;
+    *v35 = v81;
+    if (*(a5 + 431) < 0)
+    {
+      operator delete(*v42);
+    }
+
+    *v42 = v82;
+    *(v42 + 16) = v83;
+    HIBYTE(v83) = 0;
+    LOBYTE(v82) = 0;
+    *(a5 + 432) = v84;
+    if (*(a5 + 463) < 0)
+    {
+      operator delete(*v41);
+    }
+
+    *v41 = v85;
+    *(v41 + 16) = v86;
+    HIBYTE(v86) = 0;
+    LOBYTE(v85) = 0;
+    *(a5 + 464) = v87;
+    if (*(a5 + 495) < 0)
+    {
+      operator delete(*v40);
+    }
+
+    *v40 = v88;
+    *(v40 + 16) = v89;
+    HIBYTE(v89) = 0;
+    LOBYTE(v88) = 0;
+    *(a5 + 496) = v90;
+    if (*(a5 + 527) < 0)
+    {
+      operator delete(*v39);
+    }
+
+    *v39 = v91;
+    *(v39 + 16) = v92;
+    HIBYTE(v92) = 0;
+    LOBYTE(v91) = 0;
+    *(a5 + 528) = v93;
+    if (*(a5 + 559) < 0)
+    {
+      operator delete(*v38);
+    }
+
+    *v38 = v94;
+    *(v38 + 16) = v95;
+    HIBYTE(v95) = 0;
+    LOBYTE(v94) = 0;
+    *(a5 + 560) = v96;
+    if (*(a5 + 591) < 0)
+    {
+      operator delete(*v37);
+    }
+
+    *v37 = v97;
+    *(v37 + 16) = v98;
+    HIBYTE(v98) = 0;
+    LOBYTE(v97) = 0;
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>>::~__tuple_impl(__str);
+    if (XofIntegralType<unsigned char>::DecodeFromHexData(a5, a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a5 + 32), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a5 + 64), a2, a3) != 1 || XofIntegralType<short>::DecodeFromHexData((a5 + 96), a2, a3) != 1 || XofIntegralType<signed char>::DecodeFromHexData((a5 + 128), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a5 + 160), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a5 + 192), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a5 + 232), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a5 + 272), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData(v45, a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a5 + 352), a2, a3) != 1 || !XofGenericCodec::Decode<11ul,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>>(a5, a2, a3))
+    {
+      if (g_LbsOsaTrace_Config < 2)
+      {
+        return 5;
+      }
+
+      bzero(__str, 0x3C6uLL);
+      v25 = mach_continuous_time();
+      if (a6 > 7)
+      {
+        v26 = "   ";
+      }
+
+      else
+      {
+        v26 = off_29EF06518[a6];
+      }
+
+      v27 = *&g_MacClockTicksToMsRelation;
+      std::string::basic_string[abi:ne200100]<0>(__p, v26);
+      if (v47 >= 0)
+      {
+        v28 = __p;
+      }
+
+      else
+      {
+        v28 = __p[0];
+      }
+
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Broadcast Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ]\n", (v27 * v25), "GNC", 87, "DecodeSVs", v28, v44 + 1);
+      if (v47 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      goto LABEL_75;
+    }
+
+    v15 = *(a5 + 3);
+    v16 = *v36;
+    if (*v36)
+    {
+      v17 = v36;
+      v18 = *v36;
+      do
+      {
+        v19 = *(v18 + 28);
+        v20 = v19 >= v15;
+        v21 = v19 < v15;
+        if (v20)
+        {
+          v17 = v18;
+        }
+
+        v18 = v18[v21];
+      }
+
+      while (v18);
+      if (v17 != v36 && v15 >= *(v17 + 28))
+      {
+        break;
+      }
+    }
+
+    if (!v16)
+    {
+LABEL_63:
+      operator new();
+    }
+
+    while (1)
+    {
+      while (1)
+      {
+        v22 = v16;
+        v23 = *(v16 + 28);
+        if (v23 <= v15)
+        {
+          break;
+        }
+
+        v16 = *v22;
+        if (!*v22)
+        {
+          goto LABEL_63;
+        }
+      }
+
+      if (v23 >= v15)
+      {
+        break;
+      }
+
+      v16 = v22[1];
+      if (!v16)
+      {
+        goto LABEL_63;
+      }
+    }
+
+    v10 = v44 + 1;
+    if (v44 + 1 >= *v34)
+    {
+      return 1;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config >= 2)
+  {
+    bzero(__str, 0x3C6uLL);
+    v29 = mach_continuous_time();
+    if (a6 > 7)
+    {
+      v30 = "   ";
+    }
+
+    else
+    {
+      v30 = off_29EF06518[a6];
+    }
+
+    v31 = *&g_MacClockTicksToMsRelation;
+    std::string::basic_string[abi:ne200100]<0>(__p, v30);
+    if (v47 >= 0)
+    {
+      v32 = __p;
+    }
+
+    else
+    {
+      v32 = __p[0];
+    }
+
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Broadcast Ephemeris data: Satellite Id = [ %s ]\n", (v31 * v29), "GNC", 87, "DecodeSVs", v32);
+    if (v47 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+LABEL_75:
+    gnssOsa_PrintLog(__str, 2, 1, 0);
+  }
+
+  return 5;
+}
+
+uint64_t XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofGalileoEphemeris>,XofGalileoEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7)
+{
+  v43 = *MEMORY[0x29EDCA608];
+  v7 = a4 + 48 * a6;
+  v9 = *(v7 + 18);
+  v8 = (v7 + 18);
+  if (!v9)
+  {
+    return 1;
+  }
+
+  v15 = 0;
+  v16 = (a7 + 8);
+  while (1)
+  {
+    bzero(__str, 0x428uLL);
+    XofGalileoEphemerisCodec::XofGalileoEphemerisCodec(__str);
+    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(a5, __str);
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(__str);
+    if (!XofGalileoEphemerisCodec::Decode(a5, a2, a3))
+    {
+      if (g_LbsOsaTrace_Config < 2)
+      {
+        return 5;
+      }
+
+      bzero(__str, 0x3C6uLL);
+      v24 = mach_continuous_time();
+      if (a6 > 7)
+      {
+        v25 = "   ";
+      }
+
+      else
+      {
+        v25 = off_29EF06518[a6];
+      }
+
+      v28 = *&g_MacClockTicksToMsRelation;
+      std::string::basic_string[abi:ne200100]<0>(__p, v25);
+      if ((SBYTE7(v33) & 0x80u) == 0)
+      {
+        v29 = __p;
+      }
+
+      else
+      {
+        v29 = __p[0];
+      }
+
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Broadcast Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ]\n", (v28 * v24), "GNC", 87, "DecodeSVs", v29, v15 + 1);
+      if (SBYTE7(v33) < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      goto LABEL_33;
+    }
+
+    v17 = *(a5 + 3);
+    v18 = *v16;
+    if (*v16)
+    {
+      v19 = v16;
+      do
+      {
+        v20 = *(v18 + 28);
+        v21 = v20 >= v17;
+        v22 = v20 < v17;
+        if (v21)
+        {
+          v19 = v18;
+        }
+
+        v18 = *(v18 + 8 * v22);
+      }
+
+      while (v18);
+      if (v19 != v16 && v17 >= *(v19 + 28))
+      {
+        break;
+      }
+    }
+
+    XofGalileoEphemeris::XofGalileoEphemeris(__p, a5);
+    __str[0] = v17;
+    v39 = v33;
+    v40 = v34;
+    v41 = v35;
+    v42 = v36;
+    v38 = *__p;
+    std::__tree<std::__value_type<unsigned char,XofGalileoEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGalileoEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGalileoEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofGalileoEphemeris>>(a7, v17, __str);
+    if (++v15 >= *v8)
+    {
+      return 1;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config < 2)
+  {
+    return 5;
+  }
+
+  bzero(__str, 0x3C6uLL);
+  v26 = mach_continuous_time();
+  if (a6 > 7)
+  {
+    v27 = "   ";
+  }
+
+  else
+  {
+    v27 = off_29EF06518[a6];
+  }
+
+  v30 = *&g_MacClockTicksToMsRelation;
+  std::string::basic_string[abi:ne200100]<0>(__p, v27);
+  if ((SBYTE7(v33) & 0x80u) == 0)
+  {
+    v31 = __p;
+  }
+
+  else
+  {
+    v31 = __p[0];
+  }
+
+  snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Broadcast Ephemeris data: Satellite Id = [ %s ]\n", (v30 * v26), "GNC", 87, "DecodeSVs", v31);
+  if (SBYTE7(v33) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+LABEL_33:
+  gnssOsa_PrintLog(__str, 2, 1, 0);
+  return 5;
+}
+
+uint64_t XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofGlonassBrdcastEphemeris>,XofGlonassBrdcastEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t **a7)
+{
+  v114 = *MEMORY[0x29EDCA608];
+  v34 = (a4 + 48 * a6 + 18);
+  if (!*v34)
+  {
+    return 1;
+  }
+
+  v10 = 0;
+  v35 = a7 + 1;
+  v46 = a5 + 376;
+  v47 = (a5 + 440);
+  v48 = (a5 + 360);
+  v44 = a5 + 496;
+  v45 = a5 + 456;
+  v36 = (a5 + 520);
+  v42 = a5 + 576;
+  v43 = a5 + 536;
+  v40 = a5 + 640;
+  v41 = a5 + 608;
+  v38 = a5 + 704;
+  v39 = a5 + 672;
+  while (1)
+  {
+    v37 = v10;
+    bzero(__str, 0x2D8uLL);
+    XofGlonassBrdcastEphemerisCodec::XofGlonassBrdcastEphemerisCodec(__str);
+    *a5 = *__str;
+    if (*(a5 + 31) < 0)
+    {
+      operator delete(*(a5 + 8));
+    }
+
+    *(a5 + 8) = v52;
+    *(a5 + 24) = v53;
+    HIBYTE(v53) = 0;
+    LOBYTE(v52) = 0;
+    *(a5 + 32) = v54;
+    if (*(a5 + 63) < 0)
+    {
+      operator delete(*(a5 + 40));
+    }
+
+    *(a5 + 40) = v55;
+    v11 = v56;
+    HIBYTE(v56) = 0;
+    LOBYTE(v55) = 0;
+    v12 = v57;
+    *(a5 + 56) = v11;
+    *(a5 + 64) = v12;
+    if (*(a5 + 95) < 0)
+    {
+      operator delete(*(a5 + 72));
+    }
+
+    *(a5 + 72) = v58;
+    *(a5 + 88) = v59;
+    HIBYTE(v59) = 0;
+    LOBYTE(v58) = 0;
+    *(a5 + 96) = v60;
+    if (*(a5 + 135) < 0)
+    {
+      operator delete(*(a5 + 112));
+    }
+
+    *(a5 + 112) = v61;
+    v13 = v62;
+    HIBYTE(v62) = 0;
+    LOBYTE(v61) = 0;
+    v14 = v63;
+    *(a5 + 128) = v13;
+    *(a5 + 136) = v14;
+    if (*(a5 + 167) < 0)
+    {
+      operator delete(*(a5 + 144));
+    }
+
+    *(a5 + 144) = v64;
+    *(a5 + 160) = v65;
+    HIBYTE(v65) = 0;
+    LOBYTE(v64) = 0;
+    *(a5 + 168) = v66;
+    if (*(a5 + 199) < 0)
+    {
+      operator delete(*(a5 + 176));
+    }
+
+    *(a5 + 176) = v67;
+    *(a5 + 192) = v68;
+    HIBYTE(v68) = 0;
+    LOBYTE(v67) = 0;
+    *(a5 + 200) = v69;
+    if (*(a5 + 231) < 0)
+    {
+      operator delete(*(a5 + 208));
+    }
+
+    *(a5 + 208) = v70;
+    *(a5 + 224) = v71;
+    HIBYTE(v71) = 0;
+    LOBYTE(v70) = 0;
+    *(a5 + 232) = v72;
+    if (*(a5 + 263) < 0)
+    {
+      operator delete(*(a5 + 240));
+    }
+
+    *(a5 + 240) = v73;
+    *(a5 + 256) = v74;
+    HIBYTE(v74) = 0;
+    LOBYTE(v73) = 0;
+    *(a5 + 264) = v75;
+    if (*(a5 + 295) < 0)
+    {
+      operator delete(*(a5 + 272));
+    }
+
+    *(a5 + 272) = v76;
+    *(a5 + 288) = v77;
+    HIBYTE(v77) = 0;
+    LOBYTE(v76) = 0;
+    *(a5 + 296) = v78;
+    if (*(a5 + 327) < 0)
+    {
+      operator delete(*(a5 + 304));
+    }
+
+    *(a5 + 304) = v79;
+    *(a5 + 320) = v80;
+    HIBYTE(v80) = 0;
+    LOBYTE(v79) = 0;
+    *(a5 + 328) = v81;
+    if (*(a5 + 359) < 0)
+    {
+      operator delete(*(a5 + 336));
+    }
+
+    *(a5 + 336) = v82;
+    *(a5 + 352) = v83;
+    HIBYTE(v83) = 0;
+    LOBYTE(v82) = 0;
+    *v48 = v84;
+    if (*(a5 + 399) < 0)
+    {
+      operator delete(*v46);
+    }
+
+    *v46 = v85;
+    *(v46 + 16) = v86;
+    HIBYTE(v86) = 0;
+    LOBYTE(v85) = 0;
+    *(a5 + 400) = v87;
+    if (*(a5 + 439) < 0)
+    {
+      operator delete(*(a5 + 416));
+    }
+
+    *(a5 + 416) = v88;
+    *(a5 + 432) = v89;
+    HIBYTE(v89) = 0;
+    LOBYTE(v88) = 0;
+    *v47 = v90;
+    if (*(a5 + 479) < 0)
+    {
+      operator delete(*v45);
+    }
+
+    *v45 = v91;
+    *(v45 + 16) = v92;
+    HIBYTE(v92) = 0;
+    LOBYTE(v91) = 0;
+    *(a5 + 480) = v93;
+    if (*(a5 + 519) < 0)
+    {
+      operator delete(*v44);
+    }
+
+    *v44 = v94;
+    *(v44 + 16) = v95;
+    HIBYTE(v95) = 0;
+    LOBYTE(v94) = 0;
+    *v36 = v96;
+    if (*(a5 + 559) < 0)
+    {
+      operator delete(*v43);
+    }
+
+    *v43 = v97;
+    *(v43 + 16) = v98;
+    HIBYTE(v98) = 0;
+    LOBYTE(v97) = 0;
+    *(a5 + 560) = v99;
+    if (*(a5 + 599) < 0)
+    {
+      operator delete(*v42);
+    }
+
+    *v42 = v100;
+    *(v42 + 16) = v101;
+    HIBYTE(v101) = 0;
+    LOBYTE(v100) = 0;
+    *(a5 + 600) = v102;
+    if (*(a5 + 631) < 0)
+    {
+      operator delete(*v41);
+    }
+
+    *v41 = v103;
+    *(v41 + 16) = v104;
+    HIBYTE(v104) = 0;
+    LOBYTE(v103) = 0;
+    *(a5 + 632) = v105;
+    if (*(a5 + 663) < 0)
+    {
+      operator delete(*v40);
+    }
+
+    *v40 = v106;
+    *(v40 + 16) = v107;
+    HIBYTE(v107) = 0;
+    LOBYTE(v106) = 0;
+    *(a5 + 664) = v108;
+    if (*(a5 + 695) < 0)
+    {
+      operator delete(*v39);
+    }
+
+    *v39 = v109;
+    *(v39 + 16) = v110;
+    HIBYTE(v110) = 0;
+    LOBYTE(v109) = 0;
+    *(a5 + 696) = v111;
+    if (*(a5 + 727) < 0)
+    {
+      operator delete(*v38);
+    }
+
+    *v38 = v112;
+    *(v38 + 16) = v113;
+    HIBYTE(v113) = 0;
+    LOBYTE(v112) = 0;
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>>::~__tuple_impl(__str);
+    if (XofIntegralType<unsigned char>::DecodeFromHexData(a5, a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a5 + 32), a2, a3) != 1 || XofIntegralType<unsigned short>::DecodeFromHexData((a5 + 64), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a5 + 96), a2, a3) != 1 || XofIntegralType<short>::DecodeFromHexData((a5 + 136), a2, a3) != 1 || XofIntegralType<signed char>::DecodeFromHexData((a5 + 168), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a5 + 200), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a5 + 232), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a5 + 264), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a5 + 296), a2, a3) != 1 || XofIntegralType<unsigned char>::DecodeFromHexData((a5 + 328), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData(v48, a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a5 + 400), a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData(v47, a2, a3) != 1 || XofIntegralType<int>::DecodeFromHexData((a5 + 480), a2, a3) != 1 || !XofGenericCodec::Decode<15ul,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>>(a5, a2, a3))
+    {
+      if (g_LbsOsaTrace_Config < 2)
+      {
+        return 5;
+      }
+
+      bzero(__str, 0x3C6uLL);
+      v25 = mach_continuous_time();
+      if (a6 > 7)
+      {
+        v26 = "   ";
+      }
+
+      else
+      {
+        v26 = off_29EF06518[a6];
+      }
+
+      v27 = *&g_MacClockTicksToMsRelation;
+      std::string::basic_string[abi:ne200100]<0>(__p, v26);
+      if (v50 >= 0)
+      {
+        v28 = __p;
+      }
+
+      else
+      {
+        v28 = __p[0];
+      }
+
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Broadcast Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ]\n", (v27 * v25), "GNC", 87, "DecodeSVs", v28, v37 + 1);
+      if (v50 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      goto LABEL_87;
+    }
+
+    v15 = *(a5 + 3);
+    v16 = *v35;
+    if (*v35)
+    {
+      v17 = v35;
+      v18 = *v35;
+      do
+      {
+        v19 = *(v18 + 28);
+        v20 = v19 >= v15;
+        v21 = v19 < v15;
+        if (v20)
+        {
+          v17 = v18;
+        }
+
+        v18 = v18[v21];
+      }
+
+      while (v18);
+      if (v17 != v35 && v15 >= *(v17 + 28))
+      {
+        break;
+      }
+    }
+
+    if (!v16)
+    {
+LABEL_75:
+      operator new();
+    }
+
+    while (1)
+    {
+      while (1)
+      {
+        v22 = v16;
+        v23 = *(v16 + 28);
+        if (v23 <= v15)
+        {
+          break;
+        }
+
+        v16 = *v22;
+        if (!*v22)
+        {
+          goto LABEL_75;
+        }
+      }
+
+      if (v23 >= v15)
+      {
+        break;
+      }
+
+      v16 = v22[1];
+      if (!v16)
+      {
+        goto LABEL_75;
+      }
+    }
+
+    v10 = v37 + 1;
+    if (v37 + 1 >= *v34)
+    {
+      return 1;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config >= 2)
+  {
+    bzero(__str, 0x3C6uLL);
+    v29 = mach_continuous_time();
+    if (a6 > 7)
+    {
+      v30 = "   ";
+    }
+
+    else
+    {
+      v30 = off_29EF06518[a6];
+    }
+
+    v31 = *&g_MacClockTicksToMsRelation;
+    std::string::basic_string[abi:ne200100]<0>(__p, v30);
+    if (v50 >= 0)
+    {
+      v32 = __p;
+    }
+
+    else
+    {
+      v32 = __p[0];
+    }
+
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Broadcast Ephemeris data: Satellite Id = [ %s ]\n", (v31 * v29), "GNC", 87, "DecodeSVs", v32);
+    if (v50 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+LABEL_87:
+    gnssOsa_PrintLog(__str, 2, 1, 0);
+  }
+
+  return 5;
+}
+
+uint64_t XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofBeidouEphemeris>,XofBeidouEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7)
+{
+  v51 = *MEMORY[0x29EDCA608];
+  v7 = a4 + 48 * a6;
+  v9 = *(v7 + 18);
+  v8 = (v7 + 18);
+  if (!v9)
+  {
+    return 1;
+  }
+
+  v15 = 0;
+  v16 = (a7 + 8);
+  while (1)
+  {
+    bzero(__str, 0x700uLL);
+    XofBeidouEphemerisCodec::XofBeidouEphemerisCodec(__str);
+    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>>,std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul,32ul,33ul,34ul,35ul,36ul,37ul,38ul,39ul,40ul,41ul,42ul,43ul,44ul,45ul,46ul,47ul,48ul>( a5,  __str);
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul,32ul,33ul,34ul,35ul,36ul,37ul,38ul,39ul,40ul,41ul,42ul,43ul,44ul,45ul,46ul,47ul,48ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>>::~__tuple_impl(__str);
+    if (!XofBeidouEphemerisCodec::Decode(a5, a2, a3))
+    {
+      if (g_LbsOsaTrace_Config < 2)
+      {
+        return 5;
+      }
+
+      bzero(__str, 0x3C6uLL);
+      v24 = mach_continuous_time();
+      if (a6 > 7)
+      {
+        v25 = "   ";
+      }
+
+      else
+      {
+        v25 = off_29EF06518[a6];
+      }
+
+      v28 = *&g_MacClockTicksToMsRelation;
+      std::string::basic_string[abi:ne200100]<0>(__p, v25);
+      if ((SBYTE7(v33) & 0x80u) == 0)
+      {
+        v29 = __p;
+      }
+
+      else
+      {
+        v29 = __p[0];
+      }
+
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Broadcast Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ]\n", (v28 * v24), "GNC", 87, "DecodeSVs", v29, v15 + 1);
+      if (SBYTE7(v33) < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      goto LABEL_33;
+    }
+
+    v17 = *(a5 + 3);
+    v18 = *v16;
+    if (*v16)
+    {
+      v19 = v16;
+      do
+      {
+        v20 = *(v18 + 32);
+        v21 = v20 >= v17;
+        v22 = v20 < v17;
+        if (v21)
+        {
+          v19 = v18;
+        }
+
+        v18 = *(v18 + 8 * v22);
+      }
+
+      while (v18);
+      if (v19 != v16 && v17 >= *(v19 + 32))
+      {
+        break;
+      }
+    }
+
+    XofBeidouEphemeris::XofBeidouEphemeris(__p, a5);
+    v47 = v37;
+    v48 = v38;
+    v49 = v39;
+    v43 = v33;
+    v44 = v34;
+    v45 = v35;
+    v46 = v36;
+    __str[0] = v17;
+    v50 = v40;
+    v42 = *__p;
+    std::__tree<std::__value_type<unsigned char,XofBeidouEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofBeidouEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofBeidouEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofBeidouEphemeris>>(a7, v17, __str);
+    if (++v15 >= *v8)
+    {
+      return 1;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config < 2)
+  {
+    return 5;
+  }
+
+  bzero(__str, 0x3C6uLL);
+  v26 = mach_continuous_time();
+  if (a6 > 7)
+  {
+    v27 = "   ";
+  }
+
+  else
+  {
+    v27 = off_29EF06518[a6];
+  }
+
+  v30 = *&g_MacClockTicksToMsRelation;
+  std::string::basic_string[abi:ne200100]<0>(__p, v27);
+  if ((SBYTE7(v33) & 0x80u) == 0)
+  {
+    v31 = __p;
+  }
+
+  else
+  {
+    v31 = __p[0];
+  }
+
+  snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Broadcast Ephemeris data: Satellite Id = [ %s ]\n", (v30 * v26), "GNC", 87, "DecodeSVs", v31);
+  if (SBYTE7(v33) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+LABEL_33:
+  gnssOsa_PrintLog(__str, 2, 1, 0);
+  return 5;
+}
+
+uint64_t XofBrdcstEph::DecodeSVs<std::map<unsigned char,XofNavicEphemeris>,XofNavicEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7)
+{
+  v43 = *MEMORY[0x29EDCA608];
+  v7 = a4 + 48 * a6;
+  v9 = *(v7 + 18);
+  v8 = (v7 + 18);
+  if (!v9)
+  {
+    return 1;
+  }
+
+  v15 = 0;
+  v16 = (a7 + 8);
+  while (1)
+  {
+    bzero(__str, 0x410uLL);
+    XofNavicEphemerisCodec::XofNavicEphemerisCodec(__str);
+    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul>(a5, __str);
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(__str);
+    if (!XofNavicEphemerisCodec::Decode(a5, a2, a3))
+    {
+      if (g_LbsOsaTrace_Config < 2)
+      {
+        return 5;
+      }
+
+      bzero(__str, 0x3C6uLL);
+      v24 = mach_continuous_time();
+      if (a6 > 7)
+      {
+        v25 = "   ";
+      }
+
+      else
+      {
+        v25 = off_29EF06518[a6];
+      }
+
+      v28 = *&g_MacClockTicksToMsRelation;
+      std::string::basic_string[abi:ne200100]<0>(__p, v25);
+      if ((SBYTE7(v33) & 0x80u) == 0)
+      {
+        v29 = __p;
+      }
+
+      else
+      {
+        v29 = __p[0];
+      }
+
+      snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Broadcast Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ]\n", (v28 * v24), "GNC", 87, "DecodeSVs", v29, v15 + 1);
+      if (SBYTE7(v33) < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      goto LABEL_33;
+    }
+
+    v17 = *(a5 + 3);
+    v18 = *v16;
+    if (*v16)
+    {
+      v19 = v16;
+      do
+      {
+        v20 = *(v18 + 28);
+        v21 = v20 >= v17;
+        v22 = v20 < v17;
+        if (v21)
+        {
+          v19 = v18;
+        }
+
+        v18 = *(v18 + 8 * v22);
+      }
+
+      while (v18);
+      if (v19 != v16 && v17 >= *(v19 + 28))
+      {
+        break;
+      }
+    }
+
+    XofNavicEphemeris::XofNavicEphemeris(__p, a5);
+    __str[0] = v17;
+    v39 = v33;
+    v40 = v34;
+    v41 = v35;
+    v42 = v36;
+    v38 = *__p;
+    std::__tree<std::__value_type<unsigned char,XofNavicEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofNavicEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofNavicEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofNavicEphemeris>>(a7, v17, __str);
+    if (++v15 >= *v8)
+    {
+      return 1;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config < 2)
+  {
+    return 5;
+  }
+
+  bzero(__str, 0x3C6uLL);
+  v26 = mach_continuous_time();
+  if (a6 > 7)
+  {
+    v27 = "   ";
+  }
+
+  else
+  {
+    v27 = off_29EF06518[a6];
+  }
+
+  v30 = *&g_MacClockTicksToMsRelation;
+  std::string::basic_string[abi:ne200100]<0>(__p, v27);
+  if ((SBYTE7(v33) & 0x80u) == 0)
+  {
+    v31 = __p;
+  }
+
+  else
+  {
+    v31 = __p[0];
+  }
+
+  snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Broadcast Ephemeris data: Satellite Id = [ %s ]\n", (v30 * v26), "GNC", 87, "DecodeSVs", v31);
+  if (SBYTE7(v33) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+LABEL_33:
+  gnssOsa_PrintLog(__str, 2, 1, 0);
+  return 5;
+}
+
+uint64_t XofExtEph::Decode(uint64_t a1)
+{
+  v1 = MEMORY[0x2A1C7C4A8](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v8 = v1;
+  v21[136] = *MEMORY[0x29EDCA608];
+  bzero(v21, 0x440uLL);
+  XofGpsQzssEphemerisCodec::XofGpsQzssEphemerisCodec(v21);
+  v9 = XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofGpsQzssEphemeris>>,XofGpsQzssEphemerisCodec>(v8, v7, v3, v5, v21, 0, v8);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(v21);
+  if (v9 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v20, 0x440uLL);
+  XofGpsQzssEphemerisCodec::XofGpsQzssEphemerisCodec(v20);
+  v10 = XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofGpsQzssEphemeris>>,XofGpsQzssEphemerisCodec>(v8, v7, v3, v5, v20, 2u, v8 + 9);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(v20);
+  if (v10 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v19, 0x428uLL);
+  XofGalileoEphemerisCodec::XofGalileoEphemerisCodec(v19);
+  v11 = XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofGalileoEphemeris>>,XofGalileoEphemerisCodec>(v8, v7, v3, v5, v19, 3u, v8 + 6);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(v19);
+  if (v11 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v18, 0x440uLL);
+  XofGpsQzssEphemerisCodec::XofGpsQzssEphemerisCodec(v18);
+  v12 = XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofGpsQzssEphemeris>>,XofGpsQzssEphemerisCodec>(v8, v7, v3, v5, v18, 4u, v8 + 3);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(v18);
+  if (v12 != 1)
+  {
+    return 5;
+  }
+
+  bzero(v17, 0x700uLL);
+  XofBeidouEphemerisCodec::XofBeidouEphemerisCodec(v17);
+  v13 = XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofBeidouEphemeris>>,XofBeidouEphemerisCodec>(v8, v7, v3, v5, v17, 5u, v8 + 12);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul,32ul,33ul,34ul,35ul,36ul,37ul,38ul,39ul,40ul,41ul,42ul,43ul,44ul,45ul,46ul,47ul,48ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>>::~__tuple_impl(v17);
+  if (v13 != 1)
+  {
+    return 5;
+  }
+
+  bzero(&v16, 0x410uLL);
+  XofNavicEphemerisCodec::XofNavicEphemerisCodec(&v16);
+  v14 = XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofNavicEphemeris>>,XofNavicEphemerisCodec>(v8, v7, v3, v5, &v16, 6u, v8 + 15);
+  std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(&v16);
+  if (v14 == 1)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return 5;
+  }
+}
+
+uint64_t XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofGpsQzssEphemeris>>,XofGpsQzssEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t **a7)
+{
+  v50 = *MEMORY[0x29EDCA608];
+  v7 = (a4 + 48 * a6);
+  v8 = v7[20];
+  if (!v7[20])
+  {
+    return 1;
+  }
+
+  v10 = 0;
+  v11 = a7 + 1;
+  v12 = v7[19];
+  while (1)
+  {
+    ++v10;
+    if (v12)
+    {
+      break;
+    }
+
+LABEL_33:
+    if (v10 >= v8)
+    {
+      return 1;
+    }
+  }
+
+  v13 = 0;
+  v41 = v10;
+  v14 = v10;
+  while (1)
+  {
+    bzero(__str, 0x440uLL);
+    XofGpsQzssEphemerisCodec::XofGpsQzssEphemerisCodec(__str);
+    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>(a5, __str);
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(__str);
+    if (!XofGpsQzssEphemerisCodec::Decode(a5, a2, a3))
+    {
+      break;
+    }
+
+    v15 = *(a5 + 3);
+    v16 = *v11;
+    if (!*v11)
+    {
+      goto LABEL_14;
+    }
+
+    v17 = v11;
+    do
+    {
+      v18 = *(v16 + 32);
+      v19 = v18 >= v14;
+      v20 = v18 < v14;
+      if (v19)
+      {
+        v17 = v16;
+      }
+
+      v16 = v16[v20];
+    }
+
+    while (v16);
+    if (v17 != v11 && *(v17 + 32) <= v14)
+    {
+      v26 = v17[6];
+      v24 = v17 + 6;
+      v25 = v26;
+      if (v26)
+      {
+        v27 = v24;
+        do
+        {
+          v28 = *(v25 + 28);
+          v19 = v28 >= v15;
+          v29 = v28 < v15;
+          if (v19)
+          {
+            v27 = v25;
+          }
+
+          v25 = v25[v29];
+        }
+
+        while (v25);
+        if (v27 != v24 && v15 >= *(v27 + 28))
+        {
+          if (g_LbsOsaTrace_Config >= 2)
+          {
+            bzero(__str, 0x3C6uLL);
+            v36 = mach_continuous_time();
+            if (a6 > 7)
+            {
+              v37 = "   ";
+            }
+
+            else
+            {
+              v37 = off_29EF06518[a6];
+            }
+
+            v38 = *&g_MacClockTicksToMsRelation;
+            std::string::basic_string[abi:ne200100]<0>(__p, v37);
+            if (v47[7] >= 0)
+            {
+              v39 = __p;
+            }
+
+            else
+            {
+              v39 = __p[0];
+            }
+
+            snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Extended Ephemeris data, constellation Id = [ %s ], satellite Id = [ %d ], block number = [ %d ]\n", (v38 * v36), "GNC", 87, "DecodeSVs", v39, v15, v41);
+            if ((v47[7] & 0x80000000) != 0)
+            {
+              operator delete(__p[0]);
+            }
+
+            gnssOsa_PrintLog(__str, 2, 1, 0);
+          }
+
+          return 5;
+        }
+      }
+
+      v30 = (v24 - 1);
+      XofGpsQzssEphemeris::XofGpsQzssEphemeris(__p, a5);
+      v44 = *__p;
+      *&v49[26] = *&v47[10];
+      *&v49[42] = *&v47[26];
+      *&v49[56] = *&v47[40];
+      __str[0] = v15;
+      *v49 = *__p;
+      *&v49[16] = *v47;
+      *&v49[24] = *&v47[8];
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofGpsQzssEphemeris>>(v30, v15, __str);
+    }
+
+    else
+    {
+LABEL_14:
+      *(&v44 + 1) = 0;
+      v45 = 0;
+      *&v44 = &v44 + 8;
+      XofGpsQzssEphemeris::XofGpsQzssEphemeris(__p, a5);
+      v7[21] = BYTE3(__p[0]);
+      __str[0] = v15;
+      *&v49[16] = *v47;
+      *&v49[32] = *&v47[16];
+      *&v49[48] = *&v47[32];
+      *&v49[64] = *&v47[48];
+      *v49 = *__p;
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofGpsQzssEphemeris>>(&v44, v15, __str);
+      __str[0] = v14;
+      std::map<unsigned char,XofGpsQzssEphemeris>::map[abi:ne200100](&v49[4], &v44);
+      v21 = *v11;
+      if (!*v11)
+      {
+LABEL_20:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v22 = v21;
+          v23 = *(v21 + 32);
+          if (v23 <= __str[0])
+          {
+            break;
+          }
+
+          v21 = *v22;
+          if (!*v22)
+          {
+            goto LABEL_20;
+          }
+        }
+
+        if (v23 >= __str[0])
+        {
+          break;
+        }
+
+        v21 = v22[1];
+        if (!v21)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&v49[4], *&v49[12]);
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&v44, *(&v44 + 1));
+    }
+
+    ++v13;
+    v12 = v7[19];
+    if (v13 >= v12)
+    {
+      v8 = v7[20];
+      v10 = v41;
+      goto LABEL_33;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config >= 5)
+  {
+    bzero(__str, 0x3C6uLL);
+    v32 = mach_continuous_time();
+    if (a6 > 7)
+    {
+      v33 = "   ";
+    }
+
+    else
+    {
+      v33 = off_29EF06518[a6];
+    }
+
+    v34 = *&g_MacClockTicksToMsRelation;
+    std::string::basic_string[abi:ne200100]<0>(__p, v33);
+    if (v47[7] >= 0)
+    {
+      v35 = __p;
+    }
+
+    else
+    {
+      v35 = __p[0];
+    }
+
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Extended Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ], block number = [ %d ]\n", (v34 * v32), "GNC", 68, "DecodeSVs", v35, v13 + 1, v41);
+    if ((v47[7] & 0x80000000) != 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    gnssOsa_PrintLog(__str, 5, 1, 0);
+  }
+
+  return 5;
+}
+
+void sub_298F9C9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35)
+{
+  std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(v35 + 8, a35);
+  std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&a21, a22);
+  _Unwind_Resume(a1);
+}
+
+uint64_t XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofGalileoEphemeris>>,XofGalileoEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t **a7)
+{
+  v49 = *MEMORY[0x29EDCA608];
+  v7 = (a4 + 48 * a6);
+  v8 = v7[20];
+  if (!v7[20])
+  {
+    return 1;
+  }
+
+  v10 = 0;
+  v11 = a7 + 1;
+  v12 = v7[19];
+  while (1)
+  {
+    ++v10;
+    if (v12)
+    {
+      break;
+    }
+
+LABEL_33:
+    if (v10 >= v8)
+    {
+      return 1;
+    }
+  }
+
+  v13 = 0;
+  v41 = v10;
+  v14 = v10;
+  while (1)
+  {
+    bzero(__str, 0x428uLL);
+    XofGalileoEphemerisCodec::XofGalileoEphemerisCodec(__str);
+    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>(a5, __str);
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(__str);
+    if (!XofGalileoEphemerisCodec::Decode(a5, a2, a3))
+    {
+      break;
+    }
+
+    v15 = *(a5 + 3);
+    v16 = *v11;
+    if (!*v11)
+    {
+      goto LABEL_14;
+    }
+
+    v17 = v11;
+    do
+    {
+      v18 = *(v16 + 32);
+      v19 = v18 >= v14;
+      v20 = v18 < v14;
+      if (v19)
+      {
+        v17 = v16;
+      }
+
+      v16 = v16[v20];
+    }
+
+    while (v16);
+    if (v17 != v11 && *(v17 + 32) <= v14)
+    {
+      v26 = v17[6];
+      v24 = v17 + 6;
+      v25 = v26;
+      if (v26)
+      {
+        v27 = v24;
+        do
+        {
+          v28 = *(v25 + 28);
+          v19 = v28 >= v15;
+          v29 = v28 < v15;
+          if (v19)
+          {
+            v27 = v25;
+          }
+
+          v25 = v25[v29];
+        }
+
+        while (v25);
+        if (v27 != v24 && v15 >= *(v27 + 28))
+        {
+          if (g_LbsOsaTrace_Config >= 2)
+          {
+            bzero(__str, 0x3C6uLL);
+            v36 = mach_continuous_time();
+            if (a6 > 7)
+            {
+              v37 = "   ";
+            }
+
+            else
+            {
+              v37 = off_29EF06518[a6];
+            }
+
+            v38 = *&g_MacClockTicksToMsRelation;
+            std::string::basic_string[abi:ne200100]<0>(__p, v37);
+            if (__p[23] >= 0)
+            {
+              v39 = __p;
+            }
+
+            else
+            {
+              v39 = *__p;
+            }
+
+            snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Extended Ephemeris data, constellation Id = [ %s ], satellite Id = [ %d ], block number = [ %d ]\n", (v38 * v36), "GNC", 87, "DecodeSVs", v39, v15, v41);
+            if ((__p[23] & 0x80000000) != 0)
+            {
+              operator delete(*__p);
+            }
+
+            gnssOsa_PrintLog(__str, 2, 1, 0);
+          }
+
+          return 5;
+        }
+      }
+
+      v30 = (v24 - 1);
+      XofGalileoEphemeris::XofGalileoEphemeris(__p, a5);
+      *v48 = *__p;
+      *&v48[4] = *&__p[4];
+      *&v48[10] = *&__p[10];
+      *&v48[26] = *&__p[26];
+      *&v48[42] = *&__p[42];
+      *&v48[56] = *&__p[56];
+      __str[0] = v15;
+      *&v48[6] = *&__p[6];
+      std::__tree<std::__value_type<unsigned char,XofGalileoEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGalileoEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGalileoEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofGalileoEphemeris>>(v30, v15, __str);
+    }
+
+    else
+    {
+LABEL_14:
+      v45[0] = 0;
+      v45[1] = 0;
+      v44 = v45;
+      XofGalileoEphemeris::XofGalileoEphemeris(__p, a5);
+      v7[21] = __p[21];
+      __str[0] = v15;
+      *&v48[16] = *&__p[16];
+      *&v48[32] = *&__p[32];
+      *&v48[48] = *&__p[48];
+      *&v48[64] = *&__p[64];
+      *v48 = *__p;
+      std::__tree<std::__value_type<unsigned char,XofGalileoEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGalileoEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGalileoEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofGalileoEphemeris>>(&v44, v15, __str);
+      __str[0] = v14;
+      std::map<unsigned char,XofGalileoEphemeris>::map[abi:ne200100](&v48[4], &v44);
+      v21 = *v11;
+      if (!*v11)
+      {
+LABEL_20:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v22 = v21;
+          v23 = *(v21 + 32);
+          if (v23 <= __str[0])
+          {
+            break;
+          }
+
+          v21 = *v22;
+          if (!*v22)
+          {
+            goto LABEL_20;
+          }
+        }
+
+        if (v23 >= __str[0])
+        {
+          break;
+        }
+
+        v21 = v22[1];
+        if (!v21)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&v48[4], *&v48[12]);
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&v44, v45[0]);
+    }
+
+    ++v13;
+    v12 = v7[19];
+    if (v13 >= v12)
+    {
+      v8 = v7[20];
+      v10 = v41;
+      goto LABEL_33;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config >= 5)
+  {
+    bzero(__str, 0x3C6uLL);
+    v32 = mach_continuous_time();
+    if (a6 > 7)
+    {
+      v33 = "   ";
+    }
+
+    else
+    {
+      v33 = off_29EF06518[a6];
+    }
+
+    v34 = *&g_MacClockTicksToMsRelation;
+    std::string::basic_string[abi:ne200100]<0>(__p, v33);
+    if (__p[23] >= 0)
+    {
+      v35 = __p;
+    }
+
+    else
+    {
+      v35 = *__p;
+    }
+
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Extended Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ], block number = [ %d ]\n", (v34 * v32), "GNC", 68, "DecodeSVs", v35, v13 + 1, v41);
+    if ((__p[23] & 0x80000000) != 0)
+    {
+      operator delete(*__p);
+    }
+
+    gnssOsa_PrintLog(__str, 5, 1, 0);
+  }
+
+  return 5;
+}
+
+void sub_298F9CEE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36)
+{
+  std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(v36 + 8, a36);
+  std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&a22, a23);
+  _Unwind_Resume(a1);
+}
+
+uint64_t XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofBeidouEphemeris>>,XofBeidouEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t **a7)
+{
+  v64 = *MEMORY[0x29EDCA608];
+  v7 = (a4 + 48 * a6);
+  v8 = v7[20];
+  if (!v7[20])
+  {
+    return 1;
+  }
+
+  v10 = 0;
+  v11 = a7 + 1;
+  v12 = v7[19];
+  while (1)
+  {
+    ++v10;
+    if (v12)
+    {
+      break;
+    }
+
+LABEL_33:
+    if (v10 >= v8)
+    {
+      return 1;
+    }
+  }
+
+  v13 = 0;
+  v42 = v10;
+  v14 = v10;
+  while (1)
+  {
+    bzero(__str, 0x700uLL);
+    XofBeidouEphemerisCodec::XofBeidouEphemerisCodec(__str);
+    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>>,std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul,32ul,33ul,34ul,35ul,36ul,37ul,38ul,39ul,40ul,41ul,42ul,43ul,44ul,45ul,46ul,47ul,48ul>( a5,  __str);
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul,32ul,33ul,34ul,35ul,36ul,37ul,38ul,39ul,40ul,41ul,42ul,43ul,44ul,45ul,46ul,47ul,48ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<long long>,XofIntegralType<unsigned long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<long long>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>>::~__tuple_impl(__str);
+    if (!XofBeidouEphemerisCodec::Decode(a5, a2, a3))
+    {
+      break;
+    }
+
+    v15 = *(a5 + 3);
+    v16 = *v11;
+    if (!*v11)
+    {
+      goto LABEL_14;
+    }
+
+    v17 = v11;
+    do
+    {
+      v18 = *(v16 + 32);
+      v19 = v18 >= v14;
+      v20 = v18 < v14;
+      if (v19)
+      {
+        v17 = v16;
+      }
+
+      v16 = v16[v20];
+    }
+
+    while (v16);
+    if (v17 != v11 && *(v17 + 32) <= v14)
+    {
+      v27 = v17[6];
+      v25 = v17 + 6;
+      v26 = v27;
+      if (v27)
+      {
+        v28 = v25;
+        do
+        {
+          v29 = *(v26 + 32);
+          v19 = v29 >= v15;
+          v30 = v29 < v15;
+          if (v19)
+          {
+            v28 = v26;
+          }
+
+          v26 = v26[v30];
+        }
+
+        while (v26);
+        if (v28 != v25 && v15 >= *(v28 + 32))
+        {
+          if (g_LbsOsaTrace_Config >= 2)
+          {
+            bzero(__str, 0x3C6uLL);
+            v37 = mach_continuous_time();
+            if (a6 > 7)
+            {
+              v38 = "   ";
+            }
+
+            else
+            {
+              v38 = off_29EF06518[a6];
+            }
+
+            v39 = *&g_MacClockTicksToMsRelation;
+            std::string::basic_string[abi:ne200100]<0>(__p, v38);
+            if ((SBYTE7(v48) & 0x80u) == 0)
+            {
+              v40 = __p;
+            }
+
+            else
+            {
+              v40 = __p[0];
+            }
+
+            snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Extended Ephemeris data, constellation Id = [ %s ], satellite Id = [ %d ], block number = [ %d ]\n", (v39 * v37), "GNC", 87, "DecodeSVs", v40, v15, v42);
+            if (SBYTE7(v48) < 0)
+            {
+              operator delete(__p[0]);
+            }
+
+            gnssOsa_PrintLog(__str, 2, 1, 0);
+          }
+
+          return 5;
+        }
+      }
+
+      v31 = (v25 - 1);
+      XofBeidouEphemeris::XofBeidouEphemeris(__p, a5);
+      v61 = v52;
+      v62 = v53;
+      v63[0] = *v54;
+      v57 = v48;
+      v58 = v49;
+      v59 = v50;
+      v60 = v51;
+      *(v63 + 14) = *&v54[14];
+      v56 = *__p;
+      __str[0] = v15;
+      std::__tree<std::__value_type<unsigned char,XofBeidouEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofBeidouEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofBeidouEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofBeidouEphemeris>>(v31, v15, __str);
+    }
+
+    else
+    {
+LABEL_14:
+      v46[0] = 0;
+      v46[1] = 0;
+      v45 = v46;
+      XofBeidouEphemeris::XofBeidouEphemeris(__p, a5);
+      v61 = v52;
+      v62 = v53;
+      v63[0] = *v54;
+      v21 = *__p;
+      v57 = v48;
+      v58 = v49;
+      v59 = v50;
+      v60 = v51;
+      v7[21] = BYTE5(v48);
+      __str[0] = v15;
+      *&v63[1] = *&v54[16];
+      v56 = v21;
+      std::__tree<std::__value_type<unsigned char,XofBeidouEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofBeidouEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofBeidouEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofBeidouEphemeris>>(&v45, v15, __str);
+      __str[0] = v14;
+      std::map<unsigned char,XofBeidouEphemeris>::map[abi:ne200100](&v56, &v45);
+      v22 = *v11;
+      if (!*v11)
+      {
+LABEL_20:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v23 = v22;
+          v24 = *(v22 + 32);
+          if (v24 <= __str[0])
+          {
+            break;
+          }
+
+          v22 = *v23;
+          if (!*v23)
+          {
+            goto LABEL_20;
+          }
+        }
+
+        if (v24 >= __str[0])
+        {
+          break;
+        }
+
+        v22 = v23[1];
+        if (!v22)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&v56, *(&v56 + 1));
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&v45, v46[0]);
+    }
+
+    ++v13;
+    v12 = v7[19];
+    if (v13 >= v12)
+    {
+      v8 = v7[20];
+      v10 = v42;
+      goto LABEL_33;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config >= 5)
+  {
+    bzero(__str, 0x3C6uLL);
+    v33 = mach_continuous_time();
+    if (a6 > 7)
+    {
+      v34 = "   ";
+    }
+
+    else
+    {
+      v34 = off_29EF06518[a6];
+    }
+
+    v35 = *&g_MacClockTicksToMsRelation;
+    std::string::basic_string[abi:ne200100]<0>(__p, v34);
+    if ((SBYTE7(v48) & 0x80u) == 0)
+    {
+      v36 = __p;
+    }
+
+    else
+    {
+      v36 = __p[0];
+    }
+
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Extended Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ], block number = [ %d ]\n", (v35 * v33), "GNC", 68, "DecodeSVs", v36, v13 + 1, v42);
+    if (SBYTE7(v48) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    gnssOsa_PrintLog(__str, 5, 1, 0);
+  }
+
+  return 5;
+}
+
+void sub_298F9D440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45)
+{
+  std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(v45 + 8, a45);
+  std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&a23, a24);
+  _Unwind_Resume(a1);
+}
+
+uint64_t XofExtEph::DecodeSVs<std::map<unsigned char,std::map<unsigned char,XofNavicEphemeris>>,XofNavicEphemerisCodec>(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t **a7)
+{
+  v49 = *MEMORY[0x29EDCA608];
+  v7 = (a4 + 48 * a6);
+  v8 = v7[20];
+  if (!v7[20])
+  {
+    return 1;
+  }
+
+  v10 = 0;
+  v11 = a7 + 1;
+  v12 = v7[19];
+  while (1)
+  {
+    ++v10;
+    if (v12)
+    {
+      break;
+    }
+
+LABEL_33:
+    if (v10 >= v8)
+    {
+      return 1;
+    }
+  }
+
+  v13 = 0;
+  v41 = v10;
+  v14 = v10;
+  while (1)
+  {
+    bzero(__str, 0x410uLL);
+    XofNavicEphemerisCodec::XofNavicEphemerisCodec(__str);
+    std::__memberwise_forward_assign[abi:ne200100]<std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,std::tuple<XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul>(a5, __str);
+    std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned int>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(__str);
+    if (!XofNavicEphemerisCodec::Decode(a5, a2, a3))
+    {
+      break;
+    }
+
+    v15 = *(a5 + 3);
+    v16 = *v11;
+    if (!*v11)
+    {
+      goto LABEL_14;
+    }
+
+    v17 = v11;
+    do
+    {
+      v18 = *(v16 + 32);
+      v19 = v18 >= v14;
+      v20 = v18 < v14;
+      if (v19)
+      {
+        v17 = v16;
+      }
+
+      v16 = v16[v20];
+    }
+
+    while (v16);
+    if (v17 != v11 && *(v17 + 32) <= v14)
+    {
+      v26 = v17[6];
+      v24 = v17 + 6;
+      v25 = v26;
+      if (v26)
+      {
+        v27 = v24;
+        do
+        {
+          v28 = *(v25 + 28);
+          v19 = v28 >= v15;
+          v29 = v28 < v15;
+          if (v19)
+          {
+            v27 = v25;
+          }
+
+          v25 = v25[v29];
+        }
+
+        while (v25);
+        if (v27 != v24 && v15 >= *(v27 + 28))
+        {
+          if (g_LbsOsaTrace_Config >= 2)
+          {
+            bzero(__str, 0x3C6uLL);
+            v36 = mach_continuous_time();
+            if (a6 > 7)
+            {
+              v37 = "   ";
+            }
+
+            else
+            {
+              v37 = off_29EF06518[a6];
+            }
+
+            v38 = *&g_MacClockTicksToMsRelation;
+            std::string::basic_string[abi:ne200100]<0>(__p, v37);
+            if (__p[23] >= 0)
+            {
+              v39 = __p;
+            }
+
+            else
+            {
+              v39 = *__p;
+            }
+
+            snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Duplicate entry found for Extended Ephemeris data, constellation Id = [ %s ], satellite Id = [ %d ], block number = [ %d ]\n", (v38 * v36), "GNC", 87, "DecodeSVs", v39, v15, v41);
+            if ((__p[23] & 0x80000000) != 0)
+            {
+              operator delete(*__p);
+            }
+
+            gnssOsa_PrintLog(__str, 2, 1, 0);
+          }
+
+          return 5;
+        }
+      }
+
+      v30 = (v24 - 1);
+      XofNavicEphemeris::XofNavicEphemeris(__p, a5);
+      *&v48[1] = *&__p[1];
+      *&v48[17] = *&__p[17];
+      *&v48[19] = *&__p[19];
+      *&v48[35] = *&__p[35];
+      *&v48[51] = *&__p[51];
+      v48[67] = __p[67];
+      __str[0] = v15;
+      v48[0] = __p[0];
+      std::__tree<std::__value_type<unsigned char,XofNavicEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofNavicEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofNavicEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofNavicEphemeris>>(v30, v15, __str);
+    }
+
+    else
+    {
+LABEL_14:
+      v45[0] = 0;
+      v45[1] = 0;
+      v44 = v45;
+      XofNavicEphemeris::XofNavicEphemeris(__p, a5);
+      v7[21] = __p[10];
+      __str[0] = v15;
+      *&v48[16] = *&__p[16];
+      *&v48[32] = *&__p[32];
+      *&v48[48] = *&__p[48];
+      *&v48[64] = *&__p[64];
+      *v48 = *__p;
+      std::__tree<std::__value_type<unsigned char,XofNavicEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofNavicEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofNavicEphemeris>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char,XofNavicEphemeris>>(&v44, v15, __str);
+      __str[0] = v14;
+      std::map<unsigned char,XofNavicEphemeris>::map[abi:ne200100](&v48[4], &v44);
+      v21 = *v11;
+      if (!*v11)
+      {
+LABEL_20:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v22 = v21;
+          v23 = *(v21 + 32);
+          if (v23 <= __str[0])
+          {
+            break;
+          }
+
+          v21 = *v22;
+          if (!*v22)
+          {
+            goto LABEL_20;
+          }
+        }
+
+        if (v23 >= __str[0])
+        {
+          break;
+        }
+
+        v21 = v22[1];
+        if (!v21)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&v48[4], *&v48[12]);
+      std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&v44, v45[0]);
+    }
+
+    ++v13;
+    v12 = v7[19];
+    if (v13 >= v12)
+    {
+      v8 = v7[20];
+      v10 = v41;
+      goto LABEL_33;
+    }
+  }
+
+  if (g_LbsOsaTrace_Config >= 5)
+  {
+    bzero(__str, 0x3C6uLL);
+    v32 = mach_continuous_time();
+    if (a6 > 7)
+    {
+      v33 = "   ";
+    }
+
+    else
+    {
+      v33 = off_29EF06518[a6];
+    }
+
+    v34 = *&g_MacClockTicksToMsRelation;
+    std::string::basic_string[abi:ne200100]<0>(__p, v33);
+    if (__p[23] >= 0)
+    {
+      v35 = __p;
+    }
+
+    else
+    {
+      v35 = *__p;
+    }
+
+    snprintf(__str, 0x3C5uLL, "%10u %s%c %s: Extended Ephemeris decode failure, constellation Id = [ %s ], sequence Id = [ %d ], block number = [ %d ]\n", (v34 * v32), "GNC", 68, "DecodeSVs", v35, v13 + 1, v41);
+    if ((__p[23] & 0x80000000) != 0)
+    {
+      operator delete(*__p);
+    }
+
+    gnssOsa_PrintLog(__str, 5, 1, 0);
+  }
+
+  return 5;
+}
+
+void sub_298F9D96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37)
+{
+  std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(v37 + 8, a37);
+  std::__tree<std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::__map_value_compare<unsigned char,std::__value_type<unsigned char,XofGpsQzssEphemeris>,std::less<unsigned char>,true>,std::allocator<std::__value_type<unsigned char,XofGpsQzssEphemeris>>>::destroy(&a23, a24);
+  _Unwind_Resume(a1);
+}
+
+void XofGpsQzssEphemerisCodec::XofGpsQzssEphemerisCodec(XofGpsQzssEphemerisCodec *this)
+{
+  v181 = *MEMORY[0x29EDCA608];
+  std::string::basic_string[abi:ne200100]<0>(&v177, "satID");
+  XofIntegralType<unsigned char>::XofIntegralType(&v178, &v177, 1, 202, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v173, "health");
+  XofIntegralType<unsigned char>::XofIntegralType(&v174, &v173, 0, 63, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v169, "URAI");
+  XofIntegralType<signed char>::XofIntegralType(&v170, &v169, -16, 15, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v165, "fitHours");
+  XofIntegralType<unsigned char>::XofIntegralType(&v166, &v165, 0, 6, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v161, "gpsWeek");
+  XofIntegralType<unsigned short>::XofIntegralType(&v162, &v161, 0, 0x1FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v157, "sTOC");
+  XofIntegralType<unsigned short>::XofIntegralType(&v158, &v157, 0, 37799, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v153, "sAf0");
+  XofIntegralType<int>::XofIntegralType(&v154, &v153, -2097152, 0x1FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v149, "sAf1");
+  XofIntegralType<short>::XofIntegralType(&v150, &v149, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v145, "sAf2");
+  XofIntegralType<signed char>::XofIntegralType(&v146, &v145, -128, 127, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v141, "reserved1");
+  XofIntegralType<unsigned char>::XofIntegralType(&v142, &v141, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v137, "sTGD");
+  XofIntegralType<short>::XofIntegralType(&v138, &v137, -4096, 4095, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v133, "sISC_L1_CA");
+  XofIntegralType<short>::XofIntegralType(&v134, &v133, -4096, 4095, 0x7FFF);
+  std::string::basic_string[abi:ne200100]<0>(&v129, "sISC_L5_Q5");
+  XofIntegralType<short>::XofIntegralType(&v130, &v129, -4096, 4095, 0x7FFF);
+  std::string::basic_string[abi:ne200100]<0>(&v125, "reserved2");
+  XofIntegralType<unsigned short>::XofIntegralType(&v126, &v125, 0, 0xFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v121, "l5Health");
+  XofIntegralType<signed char>::XofIntegralType(&v122, &v121, 0, 1, -1);
+  std::string::basic_string[abi:ne200100]<0>(&v117, "integrityFlag");
+  XofIntegralType<signed char>::XofIntegralType(&v118, &v117, 0, 1, -1);
+  std::string::basic_string[abi:ne200100]<0>(&v113, "IODC");
+  XofIntegralType<unsigned short>::XofIntegralType(&v114, &v113, 0, 1023, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v109, "sE");
+  XofIntegralType<unsigned int>::XofIntegralType(&v110, &v109, 0, -1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v105, "sAPowerHalf");
+  XofIntegralType<unsigned int>::XofIntegralType(&v106, &v105, 0, -1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v101, "sM0");
+  XofIntegralType<int>::XofIntegralType(&v102, &v101, 0x80000000, 0x7FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v97, "sOmega0");
+  XofIntegralType<int>::XofIntegralType(&v98, &v97, 0x80000000, 0x7FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v93, "sI0");
+  XofIntegralType<int>::XofIntegralType(&v94, &v93, 0x80000000, 0x7FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v89, "sW");
+  XofIntegralType<int>::XofIntegralType(&v90, &v89, 0x80000000, 0x7FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v85, "sOmegaDot");
+  XofIntegralType<int>::XofIntegralType(&v86, &v85, 0x80000000, 0x7FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v81, "sDeltaN");
+  XofIntegralType<short>::XofIntegralType(&v82, &v81, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v77, "sIDOT");
+  XofIntegralType<short>::XofIntegralType(&v78, &v77, -8192, 0x1FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v73, "sCuc");
+  XofIntegralType<short>::XofIntegralType(&v74, &v73, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v69, "sCus");
+  XofIntegralType<short>::XofIntegralType(&v70, &v69, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v65, "sCrc");
+  XofIntegralType<short>::XofIntegralType(&v66, &v65, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v61, "sCrs");
+  XofIntegralType<short>::XofIntegralType(&v62, &v61, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v57, "sCic");
+  XofIntegralType<short>::XofIntegralType(&v58, &v57, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "sCis");
+  XofIntegralType<short>::XofIntegralType(&v54, &__p, -32768, 0x7FFF, 0);
+  *this = v178;
+  *(this + 8) = v179;
+  *(this + 3) = v180;
+  v179 = 0uLL;
+  v180 = 0;
+  *(this + 8) = v174;
+  *(this + 40) = v175;
+  *(this + 7) = v176;
+  v176 = 0;
+  v175 = 0uLL;
+  *(this + 16) = v170;
+  v2 = v171;
+  *(this + 11) = v172;
+  *(this + 72) = v2;
+  v171 = 0uLL;
+  v172 = 0;
+  *(this + 24) = v166;
+  v3 = v168;
+  *(this + 104) = v167;
+  v167 = 0uLL;
+  v168 = 0;
+  v4 = v162;
+  v5 = v164;
+  *(this + 15) = v3;
+  *(this + 16) = v4;
+  *(this + 136) = v163;
+  v163 = 0uLL;
+  v164 = 0;
+  v6 = v158;
+  v7 = v160;
+  *(this + 19) = v5;
+  *(this + 20) = v6;
+  v8 = v159;
+  *(this + 23) = v7;
+  *(this + 168) = v8;
+  v159 = 0uLL;
+  v160 = 0;
+  v9 = v155;
+  v10 = v156;
+  *(this + 12) = v154;
+  *(this + 13) = v9;
+  v155 = 0uLL;
+  v156 = 0;
+  v11 = v150;
+  v12 = v152;
+  *(this + 28) = v10;
+  *(this + 29) = v11;
+  v13 = v151;
+  *(this + 32) = v12;
+  *(this + 15) = v13;
+  v151 = 0uLL;
+  v152 = 0;
+  *(this + 66) = v146;
+  v14 = v147;
+  *(this + 36) = v148;
+  *(this + 17) = v14;
+  v147 = 0uLL;
+  v148 = 0;
+  *(this + 74) = v142;
+  v15 = v144;
+  *(this + 19) = v143;
+  v143 = 0uLL;
+  v144 = 0;
+  v16 = v138;
+  v17 = v140;
+  *(this + 40) = v15;
+  *(this + 41) = v16;
+  *(this + 21) = v139;
+  v139 = 0uLL;
+  v140 = 0;
+  v18 = v134;
+  v19 = v136;
+  *(this + 44) = v17;
+  *(this + 45) = v18;
+  *(this + 23) = v135;
+  v135 = 0uLL;
+  v136 = 0;
+  v20 = v130;
+  v21 = v132;
+  *(this + 48) = v19;
+  *(this + 49) = v20;
+  *(this + 25) = v131;
+  v131 = 0uLL;
+  v132 = 0;
+  v22 = v126;
+  v23 = v128;
+  *(this + 52) = v21;
+  *(this + 53) = v22;
+  v24 = v127;
+  *(this + 56) = v23;
+  *(this + 27) = v24;
+  v127 = 0uLL;
+  v128 = 0;
+  *(this + 114) = v122;
+  v25 = v123;
+  *(this + 60) = v124;
+  *(this + 29) = v25;
+  v123 = 0uLL;
+  v124 = 0;
+  *(this + 122) = v118;
+  v26 = v119;
+  *(this + 64) = v120;
+  *(this + 31) = v26;
+  v119 = 0uLL;
+  v120 = 0;
+  v27 = v116;
+  *(this + 65) = v114;
+  v28 = v115;
+  *(this + 68) = v27;
+  *(this + 33) = v28;
+  v115 = 0uLL;
+  v116 = 0;
+  v29 = v111;
+  *(this + 552) = v110;
+  *(this + 73) = v112;
+  *(this + 568) = v29;
+  v111 = 0uLL;
+  v112 = 0;
+  v30 = v106;
+  v31 = v107;
+  *(this + 78) = v108;
+  *(this + 37) = v30;
+  *(this + 38) = v31;
+  v107 = 0uLL;
+  v108 = 0;
+  v32 = v103;
+  *(this + 632) = v102;
+  *(this + 83) = v104;
+  *(this + 648) = v32;
+  v103 = 0uLL;
+  v104 = 0;
+  v33 = v98;
+  v34 = v99;
+  *(this + 88) = v100;
+  *(this + 42) = v33;
+  *(this + 43) = v34;
+  v99 = 0uLL;
+  v100 = 0;
+  *(this + 712) = v94;
+  v35 = v95;
+  *(this + 93) = v96;
+  *(this + 728) = v35;
+  v95 = 0uLL;
+  v96 = 0;
+  v36 = v90;
+  v37 = v91;
+  *(this + 98) = v92;
+  *(this + 47) = v36;
+  *(this + 48) = v37;
+  v91 = 0uLL;
+  v92 = 0;
+  *(this + 792) = v86;
+  v38 = v87;
+  *(this + 103) = v88;
+  *(this + 808) = v38;
+  v87 = 0uLL;
+  v88 = 0;
+  v39 = v84;
+  *(this + 104) = v82;
+  v40 = v83;
+  *(this + 107) = v39;
+  *(this + 840) = v40;
+  v83 = 0uLL;
+  v84 = 0;
+  v41 = v80;
+  *(this + 108) = v78;
+  v42 = v79;
+  *(this + 111) = v41;
+  *(this + 872) = v42;
+  v79 = 0uLL;
+  v80 = 0;
+  v43 = v76;
+  *(this + 112) = v74;
+  v44 = v75;
+  *(this + 115) = v43;
+  *(this + 904) = v44;
+  v75 = 0uLL;
+  v76 = 0;
+  v45 = v72;
+  *(this + 116) = v70;
+  v46 = v71;
+  *(this + 119) = v45;
+  *(this + 936) = v46;
+  v71 = 0uLL;
+  v72 = 0;
+  v47 = v68;
+  *(this + 120) = v66;
+  v48 = v67;
+  *(this + 123) = v47;
+  *(this + 968) = v48;
+  v67 = 0uLL;
+  v68 = 0;
+  v49 = v64;
+  *(this + 124) = v62;
+  v50 = v63;
+  *(this + 127) = v49;
+  *(this + 1000) = v50;
+  v63 = 0uLL;
+  v64 = 0;
+  *(this + 128) = v58;
+  v51 = *v59;
+  *(this + 131) = v60;
+  *(this + 1032) = v51;
+  v59[0] = 0;
+  v59[1] = 0;
+  v60 = 0;
+  *(this + 132) = v54;
+  v52 = v55;
+  *(this + 135) = v56;
+  *(this + 1064) = v52;
+  v55 = 0uLL;
+  v56 = 0;
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v60) < 0)
+    {
+      operator delete(v59[0]);
+    }
+  }
+
+  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v57.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v64) < 0)
+  {
+    operator delete(v63);
+  }
+
+  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v61.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v68) < 0)
+  {
+    operator delete(v67);
+  }
+
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v65.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v72) < 0)
+  {
+    operator delete(v71);
+  }
+
+  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v69.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v76) < 0)
+  {
+    operator delete(v75);
+  }
+
+  if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v73.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v80) < 0)
+  {
+    operator delete(v79);
+  }
+
+  if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v77.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v84) < 0)
+  {
+    operator delete(v83);
+  }
+
+  if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v81.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v88) < 0)
+  {
+    operator delete(v87);
+  }
+
+  if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v85.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v92) < 0)
+  {
+    operator delete(v91);
+  }
+
+  if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v89.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v96) < 0)
+  {
+    operator delete(v95);
+  }
+
+  if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v93.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v100) < 0)
+  {
+    operator delete(v99);
+  }
+
+  if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v97.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v104) < 0)
+  {
+    operator delete(v103);
+  }
+
+  if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v101.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v108) < 0)
+  {
+    operator delete(v107);
+  }
+
+  if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v105.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v112) < 0)
+  {
+    operator delete(v111);
+  }
+
+  if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v109.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v116) < 0)
+  {
+    operator delete(v115);
+  }
+
+  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v113.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v120) < 0)
+  {
+    operator delete(v119);
+  }
+
+  if (SHIBYTE(v117.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v117.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v124) < 0)
+  {
+    operator delete(v123);
+  }
+
+  if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v121.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v128) < 0)
+  {
+    operator delete(v127);
+  }
+
+  if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v125.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v132) < 0)
+  {
+    operator delete(v131);
+  }
+
+  if (SHIBYTE(v129.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v129.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v136) < 0)
+  {
+    operator delete(v135);
+  }
+
+  if (SHIBYTE(v133.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v133.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v140) < 0)
+  {
+    operator delete(v139);
+  }
+
+  if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v137.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v144) < 0)
+  {
+    operator delete(v143);
+  }
+
+  if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v141.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v148) < 0)
+  {
+    operator delete(v147);
+  }
+
+  if (SHIBYTE(v145.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v145.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v152) < 0)
+  {
+    operator delete(v151);
+  }
+
+  if (SHIBYTE(v149.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v149.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v156) < 0)
+  {
+    operator delete(v155);
+  }
+
+  if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v153.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v160) < 0)
+  {
+    operator delete(v159);
+  }
+
+  if (SHIBYTE(v157.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v157.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v164) < 0)
+  {
+    operator delete(v163);
+  }
+
+  if (SHIBYTE(v161.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v161.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v168) < 0)
+  {
+    operator delete(v167);
+  }
+
+  if (SHIBYTE(v165.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v165.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v172) < 0)
+  {
+    operator delete(v171);
+  }
+
+  if (SHIBYTE(v169.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v169.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v176) < 0)
+  {
+    operator delete(v175);
+  }
+
+  if (SHIBYTE(v173.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v173.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v180) < 0)
+  {
+    operator delete(v179);
+  }
+
+  if (SHIBYTE(v177.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v177.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_298F9E758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a32 < 0)
+  {
+    operator delete(a27);
+  }
+
+  if (a25 < 0)
+  {
+    operator delete(a20);
+  }
+
+  if (a45 < 0)
+  {
+    operator delete(a40);
+  }
+
+  if (a38 < 0)
+  {
+    operator delete(a33);
+  }
+
+  if (a58 < 0)
+  {
+    operator delete(a53);
+  }
+
+  if (a51 < 0)
+  {
+    operator delete(a46);
+  }
+
+  if (a66 < 0)
+  {
+    operator delete(a65);
+  }
+
+  if (a64 < 0)
+  {
+    operator delete(a59);
+  }
+
+  if (a70 < 0)
+  {
+    operator delete(a69);
+  }
+
+  if (a68 < 0)
+  {
+    operator delete(a67);
+  }
+
+  if (a74 < 0)
+  {
+    operator delete(a73);
+  }
+
+  if (a72 < 0)
+  {
+    operator delete(a71);
+  }
+
+  if (a78 < 0)
+  {
+    operator delete(a77);
+  }
+
+  if (a76 < 0)
+  {
+    operator delete(a75);
+  }
+
+  if (SLOBYTE(STACK[0x207]) < 0)
+  {
+    operator delete(a81);
+  }
+
+  if (a80 < 0)
+  {
+    operator delete(a79);
+  }
+
+  if (SLOBYTE(STACK[0x247]) < 0)
+  {
+    operator delete(STACK[0x230]);
+  }
+
+  if (SLOBYTE(STACK[0x21F]) < 0)
+  {
+    operator delete(STACK[0x208]);
+  }
+
+  if (SLOBYTE(STACK[0x287]) < 0)
+  {
+    operator delete(STACK[0x270]);
+  }
+
+  if (SLOBYTE(STACK[0x25F]) < 0)
+  {
+    operator delete(STACK[0x248]);
+  }
+
+  if (SLOBYTE(STACK[0x2C7]) < 0)
+  {
+    operator delete(STACK[0x2B0]);
+  }
+
+  if (SLOBYTE(STACK[0x29F]) < 0)
+  {
+    operator delete(STACK[0x288]);
+  }
+
+  if (SLOBYTE(STACK[0x307]) < 0)
+  {
+    operator delete(STACK[0x2F0]);
+  }
+
+  if (SLOBYTE(STACK[0x2DF]) < 0)
+  {
+    operator delete(STACK[0x2C8]);
+  }
+
+  if (SLOBYTE(STACK[0x347]) < 0)
+  {
+    operator delete(STACK[0x330]);
+  }
+
+  if (SLOBYTE(STACK[0x31F]) < 0)
+  {
+    operator delete(STACK[0x308]);
+  }
+
+  if (SLOBYTE(STACK[0x387]) < 0)
+  {
+    operator delete(STACK[0x370]);
+  }
+
+  if (SLOBYTE(STACK[0x35F]) < 0)
+  {
+    operator delete(STACK[0x348]);
+  }
+
+  if (SLOBYTE(STACK[0x3BF]) < 0)
+  {
+    operator delete(STACK[0x3A8]);
+  }
+
+  if (SLOBYTE(STACK[0x39F]) < 0)
+  {
+    operator delete(STACK[0x388]);
+  }
+
+  if (SLOBYTE(STACK[0x3F7]) < 0)
+  {
+    operator delete(STACK[0x3E0]);
+  }
+
+  if (SLOBYTE(STACK[0x3D7]) < 0)
+  {
+    operator delete(STACK[0x3C0]);
+  }
+
+  if (SLOBYTE(STACK[0x42F]) < 0)
+  {
+    operator delete(STACK[0x418]);
+  }
+
+  if (SLOBYTE(STACK[0x40F]) < 0)
+  {
+    operator delete(STACK[0x3F8]);
+  }
+
+  if (SLOBYTE(STACK[0x467]) < 0)
+  {
+    operator delete(STACK[0x450]);
+  }
+
+  if (SLOBYTE(STACK[0x447]) < 0)
+  {
+    operator delete(STACK[0x430]);
+  }
+
+  if (SLOBYTE(STACK[0x49F]) < 0)
+  {
+    operator delete(STACK[0x488]);
+  }
+
+  if (SLOBYTE(STACK[0x47F]) < 0)
+  {
+    operator delete(STACK[0x468]);
+  }
+
+  if (SLOBYTE(STACK[0x4D7]) < 0)
+  {
+    operator delete(STACK[0x4C0]);
+  }
+
+  if (SLOBYTE(STACK[0x4B7]) < 0)
+  {
+    operator delete(STACK[0x4A0]);
+  }
+
+  if (SLOBYTE(STACK[0x50F]) < 0)
+  {
+    operator delete(STACK[0x4F8]);
+  }
+
+  if (SLOBYTE(STACK[0x4EF]) < 0)
+  {
+    operator delete(STACK[0x4D8]);
+  }
+
+  if (SLOBYTE(STACK[0x547]) < 0)
+  {
+    operator delete(STACK[0x530]);
+  }
+
+  if (SLOBYTE(STACK[0x527]) < 0)
+  {
+    operator delete(STACK[0x510]);
+  }
+
+  if (SLOBYTE(STACK[0x57F]) < 0)
+  {
+    operator delete(STACK[0x568]);
+  }
+
+  if (SLOBYTE(STACK[0x55F]) < 0)
+  {
+    operator delete(STACK[0x548]);
+  }
+
+  if (SLOBYTE(STACK[0x5B7]) < 0)
+  {
+    operator delete(STACK[0x5A0]);
+  }
+
+  if (SLOBYTE(STACK[0x597]) < 0)
+  {
+    operator delete(STACK[0x580]);
+  }
+
+  if (SLOBYTE(STACK[0x5F7]) < 0)
+  {
+    operator delete(STACK[0x5E0]);
+  }
+
+  if (SLOBYTE(STACK[0x5CF]) < 0)
+  {
+    operator delete(STACK[0x5B8]);
+  }
+
+  if (SLOBYTE(STACK[0x62F]) < 0)
+  {
+    operator delete(STACK[0x618]);
+  }
+
+  if (SLOBYTE(STACK[0x60F]) < 0)
+  {
+    operator delete(STACK[0x5F8]);
+  }
+
+  if (SLOBYTE(STACK[0x667]) < 0)
+  {
+    operator delete(STACK[0x650]);
+  }
+
+  if (SLOBYTE(STACK[0x647]) < 0)
+  {
+    operator delete(STACK[0x630]);
+  }
+
+  if (*(v81 - 193) < 0)
+  {
+    operator delete(*(v81 - 216));
+  }
+
+  if (*(v81 - 225) < 0)
+  {
+    operator delete(*(v81 - 248));
+  }
+
+  if (*(v81 - 137) < 0)
+  {
+    operator delete(*(v81 - 160));
+  }
+
+  if (*(v81 - 169) < 0)
+  {
+    operator delete(*(v81 - 192));
+  }
+
+  if (*(v81 - 81) < 0)
+  {
+    operator delete(*(v81 - 104));
+  }
+
+  if (*(v81 - 113) < 0)
+  {
+    operator delete(*(v81 - 136));
+  }
+
+  if (*(v81 - 25) < 0)
+  {
+    operator delete(*(v81 - 48));
+  }
+
+  if (*(v81 - 57) < 0)
+  {
+    operator delete(*(v81 - 80));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned short>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(uint64_t a1)
+{
+  if (*(a1 + 1087) < 0)
+  {
+    operator delete(*(a1 + 1064));
+  }
+
+  if (*(a1 + 1055) < 0)
+  {
+    operator delete(*(a1 + 1032));
+  }
+
+  if (*(a1 + 1023) < 0)
+  {
+    operator delete(*(a1 + 1000));
+  }
+
+  if (*(a1 + 991) < 0)
+  {
+    operator delete(*(a1 + 968));
+  }
+
+  if (*(a1 + 959) < 0)
+  {
+    operator delete(*(a1 + 936));
+  }
+
+  if (*(a1 + 927) < 0)
+  {
+    operator delete(*(a1 + 904));
+  }
+
+  if (*(a1 + 895) < 0)
+  {
+    operator delete(*(a1 + 872));
+  }
+
+  if (*(a1 + 863) < 0)
+  {
+    operator delete(*(a1 + 840));
+  }
+
+  if (*(a1 + 831) < 0)
+  {
+    operator delete(*(a1 + 808));
+  }
+
+  if (*(a1 + 791) < 0)
+  {
+    operator delete(*(a1 + 768));
+  }
+
+  if (*(a1 + 751) < 0)
+  {
+    operator delete(*(a1 + 728));
+  }
+
+  if (*(a1 + 711) < 0)
+  {
+    operator delete(*(a1 + 688));
+  }
+
+  if (*(a1 + 671) < 0)
+  {
+    operator delete(*(a1 + 648));
+  }
+
+  if (*(a1 + 631) < 0)
+  {
+    operator delete(*(a1 + 608));
+  }
+
+  if (*(a1 + 591) < 0)
+  {
+    operator delete(*(a1 + 568));
+  }
+
+  if (*(a1 + 551) < 0)
+  {
+    operator delete(*(a1 + 528));
+  }
+
+  if (*(a1 + 519) < 0)
+  {
+    operator delete(*(a1 + 496));
+  }
+
+  if (*(a1 + 487) < 0)
+  {
+    operator delete(*(a1 + 464));
+  }
+
+  if (*(a1 + 455) < 0)
+  {
+    operator delete(*(a1 + 432));
+  }
+
+  if (*(a1 + 423) < 0)
+  {
+    operator delete(*(a1 + 400));
+  }
+
+  if (*(a1 + 391) < 0)
+  {
+    operator delete(*(a1 + 368));
+  }
+
+  if (*(a1 + 359) < 0)
+  {
+    operator delete(*(a1 + 336));
+  }
+
+  if (*(a1 + 327) < 0)
+  {
+    operator delete(*(a1 + 304));
+  }
+
+  if (*(a1 + 295) < 0)
+  {
+    operator delete(*(a1 + 272));
+  }
+
+  if (*(a1 + 263) < 0)
+  {
+    operator delete(*(a1 + 240));
+  }
+
+  if (*(a1 + 231) < 0)
+  {
+    operator delete(*(a1 + 208));
+  }
+
+  if (*(a1 + 191) < 0)
+  {
+    operator delete(*(a1 + 168));
+  }
+
+  if (*(a1 + 159) < 0)
+  {
+    operator delete(*(a1 + 136));
+  }
+
+  if (*(a1 + 127) < 0)
+  {
+    operator delete(*(a1 + 104));
+  }
+
+  if (*(a1 + 95) < 0)
+  {
+    operator delete(*(a1 + 72));
+  }
+
+  if (*(a1 + 63) < 0)
+  {
+    operator delete(*(a1 + 40));
+  }
+
+  if (*(a1 + 31) < 0)
+  {
+    operator delete(*(a1 + 8));
+  }
+
+  return a1;
+}
+
+void XofSbasEphemerisCodec::XofSbasEphemerisCodec(XofSbasEphemerisCodec *this)
+{
+  v91 = *MEMORY[0x29EDCA608];
+  std::string::basic_string[abi:ne200100]<0>(&v87, "satID");
+  XofIntegralType<unsigned char>::XofIntegralType(&v88, &v87, 120, 158, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v83, "health");
+  XofIntegralType<unsigned char>::XofIntegralType(&v84, &v83, 0, 1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v79, "st0");
+  XofIntegralType<unsigned short>::XofIntegralType(&v80, &v79, 0, 5399, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v75, "saGfo");
+  XofIntegralType<short>::XofIntegralType(&v76, &v75, -2048, 2047, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v71, "saGf1");
+  XofIntegralType<signed char>::XofIntegralType(&v72, &v71, -128, 127, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v67, "Accuracy");
+  XofIntegralType<unsigned char>::XofIntegralType(&v68, &v67, 0, 15, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v63, "sXG");
+  XofIntegralType<int>::XofIntegralType(&v64, &v63, -536870912, 0x1FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v59, "sYG");
+  XofIntegralType<int>::XofIntegralType(&v60, &v59, -536870912, 0x1FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v55, "sZG");
+  XofIntegralType<int>::XofIntegralType(&v56, &v55, -16777216, 0xFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v51, "sXG_Rate_of_Change");
+  XofIntegralType<int>::XofIntegralType(&v52, &v51, -65536, 0xFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v47, "sYG_Rate_of_Change");
+  XofIntegralType<int>::XofIntegralType(&v48, &v47, -65536, 0xFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v43, "sZG_Rate_of_Change");
+  XofIntegralType<int>::XofIntegralType(&v44, &v43, -131072, 0x1FFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v39, "sXG_Acceleration");
+  XofIntegralType<short>::XofIntegralType(&v40, &v39, -512, 511, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v35, "sYG_Acceleration");
+  XofIntegralType<short>::XofIntegralType(&v36, &v35, -512, 511, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v31, "sZG_Acceleration");
+  XofIntegralType<short>::XofIntegralType(&v32, &v31, -512, 511, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v27, "iod");
+  XofIntegralType<unsigned char>::XofIntegralType(&v28, &v27, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "reserved");
+  XofIntegralType<unsigned char>::XofIntegralType(&v24, &__p, 0, 255, 0);
+  *(this + 8) = v89;
+  *(this + 40) = v85;
+  *(this + 72) = v81;
+  *(this + 104) = v77;
+  *(this + 136) = v73;
+  *(this + 168) = v69;
+  v2 = *v65;
+  *(this + 12) = v64;
+  *(this + 13) = v2;
+  v3 = *v61;
+  *(this + 232) = v60;
+  *(this + 248) = v3;
+  v4 = *v57;
+  *(this + 17) = v56;
+  *(this + 18) = v4;
+  v5 = *v53;
+  *(this + 312) = v52;
+  *(this + 328) = v5;
+  v6 = *v49;
+  *(this + 22) = v48;
+  *(this + 23) = v6;
+  v7 = *v45;
+  *(this + 392) = v44;
+  *this = v88;
+  *(this + 3) = v90;
+  v89 = 0uLL;
+  v90 = 0;
+  *(this + 8) = v84;
+  v8 = v86;
+  v86 = 0;
+  v85 = 0uLL;
+  v9 = v80;
+  v10 = v82;
+  *(this + 7) = v8;
+  *(this + 8) = v9;
+  v81 = 0uLL;
+  v82 = 0;
+  v11 = v76;
+  v12 = v78;
+  *(this + 11) = v10;
+  *(this + 12) = v11;
+  *(this + 15) = v12;
+  v77 = 0uLL;
+  v78 = 0;
+  *(this + 32) = v72;
+  *(this + 19) = v74;
+  v73 = 0uLL;
+  v74 = 0;
+  *(this + 40) = v68;
+  *(this + 23) = v70;
+  v69 = 0uLL;
+  v70 = 0;
+  *(this + 28) = v66;
+  v65[1] = 0;
+  v65[0] = 0;
+  v66 = 0;
+  *(this + 33) = v62;
+  v61[1] = 0;
+  v61[0] = 0;
+  v62 = 0;
+  *(this + 38) = v58;
+  v57[1] = 0;
+  v57[0] = 0;
+  v58 = 0;
+  *(this + 43) = v54;
+  v53[0] = 0;
+  v53[1] = 0;
+  v54 = 0;
+  *(this + 48) = v50;
+  v49[0] = 0;
+  v49[1] = 0;
+  v50 = 0;
+  v13 = v46;
+  *(this + 408) = v7;
+  v45[0] = 0;
+  v45[1] = 0;
+  v46 = 0;
+  v14 = v40;
+  v15 = v42;
+  *(this + 53) = v13;
+  *(this + 54) = v14;
+  *(this + 440) = v41;
+  v41 = 0uLL;
+  v42 = 0;
+  v16 = v36;
+  v17 = v38;
+  *(this + 57) = v15;
+  *(this + 58) = v16;
+  *(this + 472) = v37;
+  v37 = 0uLL;
+  v38 = 0;
+  v18 = v32;
+  v19 = v34;
+  *(this + 61) = v17;
+  *(this + 62) = v18;
+  v20 = v33;
+  *(this + 65) = v19;
+  *(this + 504) = v20;
+  v33 = 0uLL;
+  v34 = 0;
+  *(this + 132) = v28;
+  v21 = *v29;
+  *(this + 69) = v30;
+  *(this + 536) = v21;
+  v29[0] = 0;
+  v29[1] = 0;
+  v30 = 0;
+  *(this + 140) = v24;
+  v22 = v25;
+  *(this + 73) = v26;
+  *(this + 568) = v22;
+  v25 = 0uLL;
+  v26 = 0;
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v30) < 0)
+    {
+      operator delete(v29[0]);
+    }
+  }
+
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v27.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v34) < 0)
+  {
+    operator delete(v33);
+  }
+
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v31.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v38) < 0)
+  {
+    operator delete(v37);
+  }
+
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v35.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v42) < 0)
+  {
+    operator delete(v41);
+  }
+
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v39.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v46) < 0)
+  {
+    operator delete(v45[0]);
+  }
+
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v43.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v50) < 0)
+  {
+    operator delete(v49[0]);
+  }
+
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v47.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v54) < 0)
+  {
+    operator delete(v53[0]);
+  }
+
+  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v51.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v58) < 0)
+  {
+    operator delete(v57[0]);
+  }
+
+  if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v55.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v62) < 0)
+  {
+    operator delete(v61[0]);
+  }
+
+  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v59.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v66) < 0)
+  {
+    operator delete(v65[0]);
+  }
+
+  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v63.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v70) < 0)
+  {
+    operator delete(v69);
+  }
+
+  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v67.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v74) < 0)
+  {
+    operator delete(v73);
+  }
+
+  if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v71.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v78) < 0)
+  {
+    operator delete(v77);
+  }
+
+  if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v75.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v82) < 0)
+  {
+    operator delete(v81);
+  }
+
+  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v79.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v86) < 0)
+  {
+    operator delete(v85);
+  }
+
+  if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v83.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v90) < 0)
+  {
+    operator delete(v89);
+  }
+
+  if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v87.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_298F9F6DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a31 < 0)
+  {
+    operator delete(a26);
+  }
+
+  if (a24 < 0)
+  {
+    operator delete(a19);
+  }
+
+  if (a44 < 0)
+  {
+    operator delete(a39);
+  }
+
+  if (a37 < 0)
+  {
+    operator delete(a32);
+  }
+
+  if (a57 < 0)
+  {
+    operator delete(a52);
+  }
+
+  if (a50 < 0)
+  {
+    operator delete(a45);
+  }
+
+  if (a66 < 0)
+  {
+    operator delete(a65);
+  }
+
+  if (a63 < 0)
+  {
+    operator delete(a58);
+  }
+
+  if (a70 < 0)
+  {
+    operator delete(a69);
+  }
+
+  if (a68 < 0)
+  {
+    operator delete(a67);
+  }
+
+  if (a74 < 0)
+  {
+    operator delete(a73);
+  }
+
+  if (a72 < 0)
+  {
+    operator delete(a71);
+  }
+
+  if (a78 < 0)
+  {
+    operator delete(a77);
+  }
+
+  if (a76 < 0)
+  {
+    operator delete(a75);
+  }
+
+  if (SLOBYTE(STACK[0x217]) < 0)
+  {
+    operator delete(STACK[0x200]);
+  }
+
+  if (a80 < 0)
+  {
+    operator delete(a79);
+  }
+
+  if (SLOBYTE(STACK[0x257]) < 0)
+  {
+    operator delete(STACK[0x240]);
+  }
+
+  if (SLOBYTE(STACK[0x22F]) < 0)
+  {
+    operator delete(STACK[0x218]);
+  }
+
+  if (SLOBYTE(STACK[0x297]) < 0)
+  {
+    operator delete(STACK[0x280]);
+  }
+
+  if (SLOBYTE(STACK[0x26F]) < 0)
+  {
+    operator delete(STACK[0x258]);
+  }
+
+  if (SLOBYTE(STACK[0x2CF]) < 0)
+  {
+    operator delete(STACK[0x2B8]);
+  }
+
+  if (SLOBYTE(STACK[0x2AF]) < 0)
+  {
+    operator delete(STACK[0x298]);
+  }
+
+  if (SLOBYTE(STACK[0x307]) < 0)
+  {
+    operator delete(STACK[0x2F0]);
+  }
+
+  if (SLOBYTE(STACK[0x2E7]) < 0)
+  {
+    operator delete(STACK[0x2D0]);
+  }
+
+  if (*(v80 - 193) < 0)
+  {
+    operator delete(*(v80 - 216));
+  }
+
+  if (*(v80 - 225) < 0)
+  {
+    operator delete(*(v80 - 248));
+  }
+
+  if (*(v80 - 137) < 0)
+  {
+    operator delete(*(v80 - 160));
+  }
+
+  if (*(v80 - 169) < 0)
+  {
+    operator delete(*(v80 - 192));
+  }
+
+  if (*(v80 - 81) < 0)
+  {
+    operator delete(*(v80 - 104));
+  }
+
+  if (*(v80 - 113) < 0)
+  {
+    operator delete(*(v80 - 136));
+  }
+
+  if (*(v80 - 25) < 0)
+  {
+    operator delete(*(v80 - 48));
+  }
+
+  if (*(v80 - 57) < 0)
+  {
+    operator delete(*(v80 - 80));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>>::~__tuple_impl(uint64_t a1)
+{
+  if (*(a1 + 591) < 0)
+  {
+    operator delete(*(a1 + 568));
+  }
+
+  if (*(a1 + 559) < 0)
+  {
+    operator delete(*(a1 + 536));
+  }
+
+  if (*(a1 + 527) < 0)
+  {
+    operator delete(*(a1 + 504));
+  }
+
+  if (*(a1 + 495) < 0)
+  {
+    operator delete(*(a1 + 472));
+  }
+
+  if (*(a1 + 463) < 0)
+  {
+    operator delete(*(a1 + 440));
+  }
+
+  if (*(a1 + 431) < 0)
+  {
+    operator delete(*(a1 + 408));
+  }
+
+  if (*(a1 + 391) < 0)
+  {
+    operator delete(*(a1 + 368));
+  }
+
+  if (*(a1 + 351) < 0)
+  {
+    operator delete(*(a1 + 328));
+  }
+
+  if (*(a1 + 311) < 0)
+  {
+    operator delete(*(a1 + 288));
+  }
+
+  if (*(a1 + 271) < 0)
+  {
+    operator delete(*(a1 + 248));
+  }
+
+  if (*(a1 + 231) < 0)
+  {
+    operator delete(*(a1 + 208));
+  }
+
+  if (*(a1 + 191) < 0)
+  {
+    operator delete(*(a1 + 168));
+  }
+
+  if (*(a1 + 159) < 0)
+  {
+    operator delete(*(a1 + 136));
+  }
+
+  if (*(a1 + 127) < 0)
+  {
+    operator delete(*(a1 + 104));
+  }
+
+  if (*(a1 + 95) < 0)
+  {
+    operator delete(*(a1 + 72));
+  }
+
+  if (*(a1 + 63) < 0)
+  {
+    operator delete(*(a1 + 40));
+  }
+
+  if (*(a1 + 31) < 0)
+  {
+    operator delete(*(a1 + 8));
+  }
+
+  return a1;
+}
+
+void XofGalileoEphemerisCodec::XofGalileoEphemerisCodec(XofGalileoEphemerisCodec *this)
+{
+  v175 = *MEMORY[0x29EDCA608];
+  std::string::basic_string[abi:ne200100]<0>(&v171, "satID");
+  XofIntegralType<unsigned char>::XofIntegralType(&v172, &v171, 0, 36, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v167, "navDVS");
+  XofIntegralType<unsigned char>::XofIntegralType(&v168, &v167, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v163, "sigHs");
+  XofIntegralType<unsigned char>::XofIntegralType(&v164, &v163, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v159, "reserved1");
+  XofIntegralType<unsigned char>::XofIntegralType(&v160, &v159, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v155, "reserved2");
+  XofIntegralType<unsigned short>::XofIntegralType(&v156, &v155, 0, 0xFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v151, "modelId");
+  XofIntegralType<unsigned char>::XofIntegralType(&v152, &v151, 0, 1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v147, "SISA");
+  XofIntegralType<unsigned char>::XofIntegralType(&v148, &v147, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v143, "galWeek");
+  XofIntegralType<unsigned short>::XofIntegralType(&v144, &v143, 0, 0x1FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v139, "sTOE");
+  XofIntegralType<unsigned short>::XofIntegralType(&v140, &v139, 0, 10079, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v135, "sAf0");
+  XofIntegralType<int>::XofIntegralType(&v136, &v135, -1073741824, 0x3FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v131, "sAf1");
+  XofIntegralType<int>::XofIntegralType(&v132, &v131, -1048576, 0xFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v127, "sAf2");
+  XofIntegralType<signed char>::XofIntegralType(&v128, &v127, -32, 31, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v123, "fitHours");
+  XofIntegralType<unsigned char>::XofIntegralType(&v124, &v123, 0, 6, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v119, "IODNav");
+  XofIntegralType<unsigned short>::XofIntegralType(&v120, &v119, 0, 0xFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v115, "sBGDE1E5a");
+  XofIntegralType<short>::XofIntegralType(&v116, &v115, -512, 511, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v111, "sBGDE1E5b");
+  XofIntegralType<short>::XofIntegralType(&v112, &v111, -512, 511, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v107, "sE");
+  XofIntegralType<unsigned int>::XofIntegralType(&v108, &v107, 0, -1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v103, "sAPowerHalf");
+  XofIntegralType<unsigned int>::XofIntegralType(&v104, &v103, 0, -1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v99, "sM0");
+  XofIntegralType<int>::XofIntegralType(&v100, &v99, 0x80000000, 0x7FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v95, "sOmega0");
+  XofIntegralType<int>::XofIntegralType(&v96, &v95, 0x80000000, 0x7FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v91, "sI0");
+  XofIntegralType<int>::XofIntegralType(&v92, &v91, 0x80000000, 0x7FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v87, "sW");
+  XofIntegralType<int>::XofIntegralType(&v88, &v87, 0x80000000, 0x7FFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v83, "sOmegaDot");
+  XofIntegralType<int>::XofIntegralType(&v84, &v83, -8388608, 0x7FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v79, "sDeltaN");
+  XofIntegralType<short>::XofIntegralType(&v80, &v79, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v75, "sIDOT");
+  XofIntegralType<short>::XofIntegralType(&v76, &v75, -8192, 0x1FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v71, "sCuc");
+  XofIntegralType<short>::XofIntegralType(&v72, &v71, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v67, "sCus");
+  XofIntegralType<short>::XofIntegralType(&v68, &v67, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v63, "sCrc");
+  XofIntegralType<short>::XofIntegralType(&v64, &v63, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v59, "sCrs");
+  XofIntegralType<short>::XofIntegralType(&v60, &v59, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v55, "sCic");
+  XofIntegralType<short>::XofIntegralType(&v56, &v55, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "sCis");
+  XofIntegralType<short>::XofIntegralType(&v52, &__p, -32768, 0x7FFF, 0);
+  *this = v172;
+  *(this + 8) = v173;
+  *(this + 3) = v174;
+  v173 = 0uLL;
+  v174 = 0;
+  *(this + 8) = v168;
+  *(this + 40) = v169;
+  *(this + 7) = v170;
+  v170 = 0;
+  v169 = 0uLL;
+  *(this + 16) = v164;
+  v2 = v165;
+  *(this + 11) = v166;
+  *(this + 72) = v2;
+  v165 = 0uLL;
+  v166 = 0;
+  *(this + 24) = v160;
+  v3 = v162;
+  *(this + 104) = v161;
+  v161 = 0uLL;
+  v162 = 0;
+  v4 = v156;
+  v5 = v158;
+  *(this + 15) = v3;
+  *(this + 16) = v4;
+  v6 = v157;
+  *(this + 19) = v5;
+  *(this + 136) = v6;
+  v157 = 0uLL;
+  v158 = 0;
+  *(this + 40) = v152;
+  v7 = v153;
+  *(this + 23) = v154;
+  *(this + 168) = v7;
+  v153 = 0uLL;
+  v154 = 0;
+  *(this + 48) = v148;
+  v8 = v150;
+  *(this + 200) = v149;
+  v149 = 0uLL;
+  v150 = 0;
+  v9 = v144;
+  v10 = v146;
+  *(this + 27) = v8;
+  *(this + 28) = v9;
+  *(this + 232) = v145;
+  v145 = 0uLL;
+  v146 = 0;
+  v11 = v140;
+  v12 = v142;
+  *(this + 31) = v10;
+  *(this + 32) = v11;
+  v13 = v141;
+  *(this + 35) = v12;
+  *(this + 264) = v13;
+  v141 = 0uLL;
+  v142 = 0;
+  v14 = v136;
+  v15 = v137;
+  *(this + 40) = v138;
+  *(this + 18) = v14;
+  *(this + 19) = v15;
+  v137 = 0uLL;
+  v138 = 0;
+  v16 = v133;
+  *(this + 328) = v132;
+  *(this + 45) = v134;
+  *(this + 344) = v16;
+  v133 = 0uLL;
+  v134 = 0;
+  *(this + 92) = v128;
+  v17 = v129;
+  *(this + 49) = v130;
+  *(this + 376) = v17;
+  v129 = 0uLL;
+  v130 = 0;
+  *(this + 100) = v124;
+  v18 = v126;
+  *(this + 408) = v125;
+  v125 = 0uLL;
+  v126 = 0;
+  v19 = v120;
+  v20 = v122;
+  *(this + 53) = v18;
+  *(this + 54) = v19;
+  *(this + 440) = v121;
+  v121 = 0uLL;
+  v122 = 0;
+  v21 = v116;
+  v22 = v118;
+  *(this + 57) = v20;
+  *(this + 58) = v21;
+  *(this + 472) = v117;
+  v117 = 0uLL;
+  v118 = 0;
+  v23 = v112;
+  v24 = v114;
+  *(this + 61) = v22;
+  *(this + 62) = v23;
+  v25 = v113;
+  *(this + 65) = v24;
+  *(this + 504) = v25;
+  v113 = 0uLL;
+  v114 = 0;
+  v26 = v108;
+  v27 = v109;
+  *(this + 70) = v110;
+  *(this + 33) = v26;
+  *(this + 34) = v27;
+  v109 = 0uLL;
+  v110 = 0;
+  v28 = v105;
+  *(this + 568) = v104;
+  *(this + 75) = v106;
+  *(this + 584) = v28;
+  v105 = 0uLL;
+  v106 = 0;
+  v29 = v100;
+  v30 = v101;
+  *(this + 80) = v102;
+  *(this + 38) = v29;
+  *(this + 39) = v30;
+  v101 = 0uLL;
+  v102 = 0;
+  *(this + 648) = v96;
+  v31 = v97;
+  *(this + 85) = v98;
+  *(this + 664) = v31;
+  v97 = 0uLL;
+  v98 = 0;
+  v32 = v92;
+  v33 = v93;
+  *(this + 90) = v94;
+  *(this + 43) = v32;
+  *(this + 44) = v33;
+  v93 = 0uLL;
+  v94 = 0;
+  *(this + 728) = v88;
+  v34 = v89;
+  *(this + 95) = v90;
+  *(this + 744) = v34;
+  v89 = 0uLL;
+  v90 = 0;
+  v35 = v84;
+  v36 = v85;
+  *(this + 100) = v86;
+  *(this + 48) = v35;
+  *(this + 49) = v36;
+  v85 = 0uLL;
+  v86 = 0;
+  v37 = v82;
+  *(this + 101) = v80;
+  v38 = v81;
+  *(this + 104) = v37;
+  *(this + 51) = v38;
+  v81 = 0uLL;
+  v82 = 0;
+  v39 = v78;
+  *(this + 105) = v76;
+  v40 = v77;
+  *(this + 108) = v39;
+  *(this + 53) = v40;
+  v77 = 0uLL;
+  v78 = 0;
+  v41 = v74;
+  *(this + 109) = v72;
+  v42 = v73;
+  *(this + 112) = v41;
+  *(this + 55) = v42;
+  v73 = 0uLL;
+  v74 = 0;
+  v43 = v70;
+  *(this + 113) = v68;
+  v44 = v69;
+  *(this + 116) = v43;
+  *(this + 57) = v44;
+  v69 = 0uLL;
+  v70 = 0;
+  v45 = v66;
+  *(this + 117) = v64;
+  v46 = v65;
+  *(this + 120) = v45;
+  *(this + 59) = v46;
+  v65 = 0uLL;
+  v66 = 0;
+  v47 = v62;
+  *(this + 121) = v60;
+  v48 = v61;
+  *(this + 124) = v47;
+  *(this + 61) = v48;
+  v61 = 0uLL;
+  v62 = 0;
+  *(this + 125) = v56;
+  v49 = *v57;
+  *(this + 128) = v58;
+  *(this + 63) = v49;
+  v57[0] = 0;
+  v57[1] = 0;
+  v58 = 0;
+  *(this + 129) = v52;
+  v50 = v53;
+  *(this + 132) = v54;
+  *(this + 65) = v50;
+  v53 = 0uLL;
+  v54 = 0;
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v58) < 0)
+    {
+      operator delete(v57[0]);
+    }
+  }
+
+  if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v55.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v62) < 0)
+  {
+    operator delete(v61);
+  }
+
+  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v59.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v66) < 0)
+  {
+    operator delete(v65);
+  }
+
+  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v63.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v70) < 0)
+  {
+    operator delete(v69);
+  }
+
+  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v67.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v74) < 0)
+  {
+    operator delete(v73);
+  }
+
+  if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v71.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v78) < 0)
+  {
+    operator delete(v77);
+  }
+
+  if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v75.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v82) < 0)
+  {
+    operator delete(v81);
+  }
+
+  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v79.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v86) < 0)
+  {
+    operator delete(v85);
+  }
+
+  if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v83.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v90) < 0)
+  {
+    operator delete(v89);
+  }
+
+  if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v87.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v94) < 0)
+  {
+    operator delete(v93);
+  }
+
+  if (SHIBYTE(v91.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v91.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v98) < 0)
+  {
+    operator delete(v97);
+  }
+
+  if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v95.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v102) < 0)
+  {
+    operator delete(v101);
+  }
+
+  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v99.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v106) < 0)
+  {
+    operator delete(v105);
+  }
+
+  if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v103.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v110) < 0)
+  {
+    operator delete(v109);
+  }
+
+  if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v107.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v114) < 0)
+  {
+    operator delete(v113);
+  }
+
+  if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v111.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v118) < 0)
+  {
+    operator delete(v117);
+  }
+
+  if (SHIBYTE(v115.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v115.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v122) < 0)
+  {
+    operator delete(v121);
+  }
+
+  if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v119.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v126) < 0)
+  {
+    operator delete(v125);
+  }
+
+  if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v123.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v130) < 0)
+  {
+    operator delete(v129);
+  }
+
+  if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v127.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v134) < 0)
+  {
+    operator delete(v133);
+  }
+
+  if (SHIBYTE(v131.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v131.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v138) < 0)
+  {
+    operator delete(v137);
+  }
+
+  if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v135.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v142) < 0)
+  {
+    operator delete(v141);
+  }
+
+  if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v139.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v146) < 0)
+  {
+    operator delete(v145);
+  }
+
+  if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v143.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v150) < 0)
+  {
+    operator delete(v149);
+  }
+
+  if (SHIBYTE(v147.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v147.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v154) < 0)
+  {
+    operator delete(v153);
+  }
+
+  if (SHIBYTE(v151.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v151.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v158) < 0)
+  {
+    operator delete(v157);
+  }
+
+  if (SHIBYTE(v155.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v155.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v162) < 0)
+  {
+    operator delete(v161);
+  }
+
+  if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v159.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v166) < 0)
+  {
+    operator delete(v165);
+  }
+
+  if (SHIBYTE(v163.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v163.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v170) < 0)
+  {
+    operator delete(v169);
+  }
+
+  if (SHIBYTE(v167.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v167.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v174) < 0)
+  {
+    operator delete(v173);
+  }
+
+  if (SHIBYTE(v171.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v171.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_298FA08B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a32 < 0)
+  {
+    operator delete(a27);
+  }
+
+  if (a25 < 0)
+  {
+    operator delete(a20);
+  }
+
+  if (a45 < 0)
+  {
+    operator delete(a40);
+  }
+
+  if (a38 < 0)
+  {
+    operator delete(a33);
+  }
+
+  if (a58 < 0)
+  {
+    operator delete(a53);
+  }
+
+  if (a51 < 0)
+  {
+    operator delete(a46);
+  }
+
+  if (a66 < 0)
+  {
+    operator delete(a65);
+  }
+
+  if (a64 < 0)
+  {
+    operator delete(a59);
+  }
+
+  if (a70 < 0)
+  {
+    operator delete(a69);
+  }
+
+  if (a68 < 0)
+  {
+    operator delete(a67);
+  }
+
+  if (a74 < 0)
+  {
+    operator delete(a73);
+  }
+
+  if (a72 < 0)
+  {
+    operator delete(a71);
+  }
+
+  if (a78 < 0)
+  {
+    operator delete(a77);
+  }
+
+  if (a76 < 0)
+  {
+    operator delete(a75);
+  }
+
+  if (SLOBYTE(STACK[0x207]) < 0)
+  {
+    operator delete(a81);
+  }
+
+  if (a80 < 0)
+  {
+    operator delete(a79);
+  }
+
+  if (SLOBYTE(STACK[0x247]) < 0)
+  {
+    operator delete(STACK[0x230]);
+  }
+
+  if (SLOBYTE(STACK[0x21F]) < 0)
+  {
+    operator delete(STACK[0x208]);
+  }
+
+  if (SLOBYTE(STACK[0x287]) < 0)
+  {
+    operator delete(STACK[0x270]);
+  }
+
+  if (SLOBYTE(STACK[0x25F]) < 0)
+  {
+    operator delete(STACK[0x248]);
+  }
+
+  if (SLOBYTE(STACK[0x2C7]) < 0)
+  {
+    operator delete(STACK[0x2B0]);
+  }
+
+  if (SLOBYTE(STACK[0x29F]) < 0)
+  {
+    operator delete(STACK[0x288]);
+  }
+
+  if (SLOBYTE(STACK[0x307]) < 0)
+  {
+    operator delete(STACK[0x2F0]);
+  }
+
+  if (SLOBYTE(STACK[0x2DF]) < 0)
+  {
+    operator delete(STACK[0x2C8]);
+  }
+
+  if (SLOBYTE(STACK[0x347]) < 0)
+  {
+    operator delete(STACK[0x330]);
+  }
+
+  if (SLOBYTE(STACK[0x31F]) < 0)
+  {
+    operator delete(STACK[0x308]);
+  }
+
+  if (SLOBYTE(STACK[0x387]) < 0)
+  {
+    operator delete(STACK[0x370]);
+  }
+
+  if (SLOBYTE(STACK[0x35F]) < 0)
+  {
+    operator delete(STACK[0x348]);
+  }
+
+  if (SLOBYTE(STACK[0x3BF]) < 0)
+  {
+    operator delete(STACK[0x3A8]);
+  }
+
+  if (SLOBYTE(STACK[0x39F]) < 0)
+  {
+    operator delete(STACK[0x388]);
+  }
+
+  if (SLOBYTE(STACK[0x3F7]) < 0)
+  {
+    operator delete(STACK[0x3E0]);
+  }
+
+  if (SLOBYTE(STACK[0x3D7]) < 0)
+  {
+    operator delete(STACK[0x3C0]);
+  }
+
+  if (SLOBYTE(STACK[0x42F]) < 0)
+  {
+    operator delete(STACK[0x418]);
+  }
+
+  if (SLOBYTE(STACK[0x40F]) < 0)
+  {
+    operator delete(STACK[0x3F8]);
+  }
+
+  if (SLOBYTE(STACK[0x467]) < 0)
+  {
+    operator delete(STACK[0x450]);
+  }
+
+  if (SLOBYTE(STACK[0x447]) < 0)
+  {
+    operator delete(STACK[0x430]);
+  }
+
+  if (SLOBYTE(STACK[0x49F]) < 0)
+  {
+    operator delete(STACK[0x488]);
+  }
+
+  if (SLOBYTE(STACK[0x47F]) < 0)
+  {
+    operator delete(STACK[0x468]);
+  }
+
+  if (SLOBYTE(STACK[0x4DF]) < 0)
+  {
+    operator delete(STACK[0x4C8]);
+  }
+
+  if (SLOBYTE(STACK[0x4B7]) < 0)
+  {
+    operator delete(STACK[0x4A0]);
+  }
+
+  if (SLOBYTE(STACK[0x51F]) < 0)
+  {
+    operator delete(STACK[0x508]);
+  }
+
+  if (SLOBYTE(STACK[0x4F7]) < 0)
+  {
+    operator delete(STACK[0x4E0]);
+  }
+
+  if (SLOBYTE(STACK[0x557]) < 0)
+  {
+    operator delete(STACK[0x540]);
+  }
+
+  if (SLOBYTE(STACK[0x537]) < 0)
+  {
+    operator delete(STACK[0x520]);
+  }
+
+  if (SLOBYTE(STACK[0x58F]) < 0)
+  {
+    operator delete(STACK[0x578]);
+  }
+
+  if (SLOBYTE(STACK[0x56F]) < 0)
+  {
+    operator delete(STACK[0x558]);
+  }
+
+  if (SLOBYTE(STACK[0x5C7]) < 0)
+  {
+    operator delete(STACK[0x5B0]);
+  }
+
+  if (SLOBYTE(STACK[0x5A7]) < 0)
+  {
+    operator delete(STACK[0x590]);
+  }
+
+  if (SLOBYTE(STACK[0x5FF]) < 0)
+  {
+    operator delete(STACK[0x5E8]);
+  }
+
+  if (SLOBYTE(STACK[0x5DF]) < 0)
+  {
+    operator delete(STACK[0x5C8]);
+  }
+
+  if (SLOBYTE(STACK[0x637]) < 0)
+  {
+    operator delete(STACK[0x620]);
+  }
+
+  if (SLOBYTE(STACK[0x617]) < 0)
+  {
+    operator delete(STACK[0x600]);
+  }
+
+  if (*(v81 - 193) < 0)
+  {
+    operator delete(*(v81 - 216));
+  }
+
+  if (*(v81 - 225) < 0)
+  {
+    operator delete(*(v81 - 248));
+  }
+
+  if (*(v81 - 137) < 0)
+  {
+    operator delete(*(v81 - 160));
+  }
+
+  if (*(v81 - 169) < 0)
+  {
+    operator delete(*(v81 - 192));
+  }
+
+  if (*(v81 - 81) < 0)
+  {
+    operator delete(*(v81 - 104));
+  }
+
+  if (*(v81 - 113) < 0)
+  {
+    operator delete(*(v81 - 136));
+  }
+
+  if (*(v81 - 25) < 0)
+  {
+    operator delete(*(v81 - 48));
+  }
+
+  if (*(v81 - 57) < 0)
+  {
+    operator delete(*(v81 - 80));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<unsigned int>,XofIntegralType<unsigned int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>,XofIntegralType<short>>::~__tuple_impl(uint64_t a1)
+{
+  if (*(a1 + 1063) < 0)
+  {
+    operator delete(*(a1 + 1040));
+  }
+
+  if (*(a1 + 1031) < 0)
+  {
+    operator delete(*(a1 + 1008));
+  }
+
+  if (*(a1 + 999) < 0)
+  {
+    operator delete(*(a1 + 976));
+  }
+
+  if (*(a1 + 967) < 0)
+  {
+    operator delete(*(a1 + 944));
+  }
+
+  if (*(a1 + 935) < 0)
+  {
+    operator delete(*(a1 + 912));
+  }
+
+  if (*(a1 + 903) < 0)
+  {
+    operator delete(*(a1 + 880));
+  }
+
+  if (*(a1 + 871) < 0)
+  {
+    operator delete(*(a1 + 848));
+  }
+
+  if (*(a1 + 839) < 0)
+  {
+    operator delete(*(a1 + 816));
+  }
+
+  if (*(a1 + 807) < 0)
+  {
+    operator delete(*(a1 + 784));
+  }
+
+  if (*(a1 + 767) < 0)
+  {
+    operator delete(*(a1 + 744));
+  }
+
+  if (*(a1 + 727) < 0)
+  {
+    operator delete(*(a1 + 704));
+  }
+
+  if (*(a1 + 687) < 0)
+  {
+    operator delete(*(a1 + 664));
+  }
+
+  if (*(a1 + 647) < 0)
+  {
+    operator delete(*(a1 + 624));
+  }
+
+  if (*(a1 + 607) < 0)
+  {
+    operator delete(*(a1 + 584));
+  }
+
+  if (*(a1 + 567) < 0)
+  {
+    operator delete(*(a1 + 544));
+  }
+
+  if (*(a1 + 527) < 0)
+  {
+    operator delete(*(a1 + 504));
+  }
+
+  if (*(a1 + 495) < 0)
+  {
+    operator delete(*(a1 + 472));
+  }
+
+  if (*(a1 + 463) < 0)
+  {
+    operator delete(*(a1 + 440));
+  }
+
+  if (*(a1 + 431) < 0)
+  {
+    operator delete(*(a1 + 408));
+  }
+
+  if (*(a1 + 399) < 0)
+  {
+    operator delete(*(a1 + 376));
+  }
+
+  if (*(a1 + 367) < 0)
+  {
+    operator delete(*(a1 + 344));
+  }
+
+  if (*(a1 + 327) < 0)
+  {
+    operator delete(*(a1 + 304));
+  }
+
+  if (*(a1 + 287) < 0)
+  {
+    operator delete(*(a1 + 264));
+  }
+
+  if (*(a1 + 255) < 0)
+  {
+    operator delete(*(a1 + 232));
+  }
+
+  if (*(a1 + 223) < 0)
+  {
+    operator delete(*(a1 + 200));
+  }
+
+  if (*(a1 + 191) < 0)
+  {
+    operator delete(*(a1 + 168));
+  }
+
+  if (*(a1 + 159) < 0)
+  {
+    operator delete(*(a1 + 136));
+  }
+
+  if (*(a1 + 127) < 0)
+  {
+    operator delete(*(a1 + 104));
+  }
+
+  if (*(a1 + 95) < 0)
+  {
+    operator delete(*(a1 + 72));
+  }
+
+  if (*(a1 + 63) < 0)
+  {
+    operator delete(*(a1 + 40));
+  }
+
+  if (*(a1 + 31) < 0)
+  {
+    operator delete(*(a1 + 8));
+  }
+
+  return a1;
+}
+
+void XofGlonassBrdcastEphemerisCodec::XofGlonassBrdcastEphemerisCodec(XofGlonassBrdcastEphemerisCodec *this)
+{
+  v111 = *MEMORY[0x29EDCA608];
+  std::string::basic_string[abi:ne200100]<0>(&v107, "satID");
+  XofIntegralType<unsigned char>::XofIntegralType(&v108, &v107, 1, 24, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v103, "health");
+  XofIntegralType<unsigned char>::XofIntegralType(&v104, &v103, 0, 1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v99, "timeOfDay");
+  XofIntegralType<unsigned short>::XofIntegralType(&v100, &v99, 0, 0xFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v95, "sTn_tb");
+  XofIntegralType<int>::XofIntegralType(&v96, &v95, -2097152, 0x1FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v91, "sfn_tb");
+  XofIntegralType<short>::XofIntegralType(&v92, &v91, -1024, 1023, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v87, "sDeltaTn");
+  XofIntegralType<signed char>::XofIntegralType(&v88, &v87, -16, 15, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v83, "eN");
+  XofIntegralType<unsigned char>::XofIntegralType(&v84, &v83, 0, 31, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v79, "p1");
+  XofIntegralType<unsigned char>::XofIntegralType(&v80, &v79, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v75, "p2");
+  XofIntegralType<unsigned char>::XofIntegralType(&v76, &v75, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v71, "m");
+  XofIntegralType<unsigned char>::XofIntegralType(&v72, &v71, 0, 3, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v67, "f");
+  XofIntegralType<unsigned char>::XofIntegralType(&v68, &v67, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v63, "sXn_tb");
+  XofIntegralType<int>::XofIntegralType(&v64, &v63, -67108864, 0x3FFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v59, "sXn_Vel_tb");
+  XofIntegralType<int>::XofIntegralType(&v60, &v59, -8388608, 0x7FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v55, "sYn_tb");
+  XofIntegralType<int>::XofIntegralType(&v56, &v55, -67108864, 0x3FFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v51, "sYn_Vel_tb");
+  XofIntegralType<int>::XofIntegralType(&v52, &v51, -8388608, 0x7FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v47, "sZn_tb");
+  XofIntegralType<int>::XofIntegralType(&v48, &v47, -67108864, 0x3FFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v43, "sZn_Vel_tb");
+  XofIntegralType<int>::XofIntegralType(&v44, &v43, -8388608, 0x7FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v39, "sXn_Acc_tb");
+  XofIntegralType<signed char>::XofIntegralType(&v40, &v39, -16, 15, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v35, "sYn_Acc_tb");
+  XofIntegralType<signed char>::XofIntegralType(&v36, &v35, -16, 15, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v31, "sZn_Acc_tb");
+  XofIntegralType<signed char>::XofIntegralType(&v32, &v31, -16, 15, 0);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "reserved");
+  XofIntegralType<unsigned char>::XofIntegralType(&v28, &__p, 0, 255, 0);
+  *this = v108;
+  *(this + 3) = v110;
+  *(this + 8) = v104;
+  v2 = v100;
+  v3 = v102;
+  *(this + 7) = v106;
+  *(this + 8) = v2;
+  *(this + 11) = v3;
+  v4 = v92;
+  v5 = v94;
+  *(this + 16) = v98;
+  *(this + 17) = v4;
+  *(this + 8) = v109;
+  v109 = 0uLL;
+  v110 = 0;
+  *(this + 40) = v105;
+  v106 = 0;
+  v105 = 0uLL;
+  *(this + 72) = v101;
+  v101 = 0uLL;
+  v102 = 0;
+  v6 = v97;
+  *(this + 6) = v96;
+  *(this + 7) = v6;
+  v97 = 0uLL;
+  v98 = 0;
+  v7 = v93;
+  *(this + 20) = v5;
+  *(this + 9) = v7;
+  v93 = 0uLL;
+  v94 = 0;
+  *(this + 42) = v88;
+  v8 = v89;
+  *(this + 24) = v90;
+  *(this + 11) = v8;
+  v89 = 0uLL;
+  v90 = 0;
+  *(this + 50) = v84;
+  v9 = v85;
+  *(this + 28) = v86;
+  *(this + 13) = v9;
+  v85 = 0uLL;
+  v86 = 0;
+  *(this + 58) = v80;
+  v10 = v81;
+  *(this + 32) = v82;
+  *(this + 15) = v10;
+  v81 = 0uLL;
+  v82 = 0;
+  *(this + 66) = v76;
+  v11 = v77;
+  *(this + 36) = v78;
+  *(this + 17) = v11;
+  v77 = 0uLL;
+  v78 = 0;
+  *(this + 74) = v72;
+  v12 = v73;
+  *(this + 40) = v74;
+  *(this + 19) = v12;
+  v73 = 0uLL;
+  v74 = 0;
+  *(this + 82) = v68;
+  v13 = v69;
+  *(this + 44) = v70;
+  *(this + 21) = v13;
+  v69 = 0uLL;
+  v70 = 0;
+  v14 = v65;
+  *(this + 360) = v64;
+  *(this + 49) = v66;
+  *(this + 376) = v14;
+  v65 = 0uLL;
+  v66 = 0;
+  v15 = v60;
+  v16 = v61;
+  *(this + 54) = v62;
+  *(this + 25) = v15;
+  *(this + 26) = v16;
+  v61 = 0uLL;
+  v62 = 0;
+  v17 = v57;
+  *(this + 440) = v56;
+  *(this + 59) = v58;
+  *(this + 456) = v17;
+  v57 = 0uLL;
+  v58 = 0;
+  v18 = v52;
+  v19 = v53;
+  *(this + 64) = v54;
+  *(this + 30) = v18;
+  *(this + 31) = v19;
+  v53 = 0uLL;
+  v54 = 0;
+  v20 = v49;
+  *(this + 520) = v48;
+  *(this + 69) = v50;
+  *(this + 536) = v20;
+  v49 = 0uLL;
+  v50 = 0;
+  v21 = v44;
+  v22 = v45;
+  *(this + 74) = v46;
+  *(this + 35) = v21;
+  *(this + 36) = v22;
+  v45 = 0uLL;
+  v46 = 0;
+  *(this + 150) = v40;
+  v23 = v41;
+  *(this + 78) = v42;
+  *(this + 38) = v23;
+  v41 = 0uLL;
+  v42 = 0;
+  *(this + 158) = v36;
+  v24 = v37;
+  *(this + 82) = v38;
+  *(this + 40) = v24;
+  v37 = 0uLL;
+  v38 = 0;
+  *(this + 166) = v32;
+  v25 = *v33;
+  *(this + 86) = v34;
+  *(this + 42) = v25;
+  v33[0] = 0;
+  v33[1] = 0;
+  v34 = 0;
+  *(this + 174) = v28;
+  v26 = v29;
+  *(this + 90) = v30;
+  *(this + 44) = v26;
+  v29 = 0uLL;
+  v30 = 0;
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v34) < 0)
+    {
+      operator delete(v33[0]);
+    }
+  }
+
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v31.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v38) < 0)
+  {
+    operator delete(v37);
+  }
+
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v35.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v42) < 0)
+  {
+    operator delete(v41);
+  }
+
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v39.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v46) < 0)
+  {
+    operator delete(v45);
+  }
+
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v43.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v50) < 0)
+  {
+    operator delete(v49);
+  }
+
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v47.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v54) < 0)
+  {
+    operator delete(v53);
+  }
+
+  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v51.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v58) < 0)
+  {
+    operator delete(v57);
+  }
+
+  if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v55.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v62) < 0)
+  {
+    operator delete(v61);
+  }
+
+  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v59.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v66) < 0)
+  {
+    operator delete(v65);
+  }
+
+  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v63.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v70) < 0)
+  {
+    operator delete(v69);
+  }
+
+  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v67.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v74) < 0)
+  {
+    operator delete(v73);
+  }
+
+  if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v71.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v78) < 0)
+  {
+    operator delete(v77);
+  }
+
+  if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v75.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v82) < 0)
+  {
+    operator delete(v81);
+  }
+
+  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v79.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v86) < 0)
+  {
+    operator delete(v85);
+  }
+
+  if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v83.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v90) < 0)
+  {
+    operator delete(v89);
+  }
+
+  if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v87.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v94) < 0)
+  {
+    operator delete(v93);
+  }
+
+  if (SHIBYTE(v91.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v91.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v98) < 0)
+  {
+    operator delete(v97);
+  }
+
+  if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v95.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v102) < 0)
+  {
+    operator delete(v101);
+  }
+
+  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v99.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v106) < 0)
+  {
+    operator delete(v105);
+  }
+
+  if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v103.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v110) < 0)
+  {
+    operator delete(v109);
+  }
+
+  if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v107.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_298FA19AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a32 < 0)
+  {
+    operator delete(a27);
+  }
+
+  if (a25 < 0)
+  {
+    operator delete(a20);
+  }
+
+  if (a45 < 0)
+  {
+    operator delete(a40);
+  }
+
+  if (a38 < 0)
+  {
+    operator delete(a33);
+  }
+
+  if (a58 < 0)
+  {
+    operator delete(a53);
+  }
+
+  if (a51 < 0)
+  {
+    operator delete(a46);
+  }
+
+  if (a66 < 0)
+  {
+    operator delete(a65);
+  }
+
+  if (a64 < 0)
+  {
+    operator delete(a59);
+  }
+
+  if (a70 < 0)
+  {
+    operator delete(a69);
+  }
+
+  if (a68 < 0)
+  {
+    operator delete(a67);
+  }
+
+  if (a74 < 0)
+  {
+    operator delete(a73);
+  }
+
+  if (a72 < 0)
+  {
+    operator delete(a71);
+  }
+
+  if (a78 < 0)
+  {
+    operator delete(a77);
+  }
+
+  if (a76 < 0)
+  {
+    operator delete(a75);
+  }
+
+  if (SLOBYTE(STACK[0x227]) < 0)
+  {
+    operator delete(STACK[0x210]);
+  }
+
+  if (a80 < 0)
+  {
+    operator delete(a79);
+  }
+
+  if (SLOBYTE(STACK[0x267]) < 0)
+  {
+    operator delete(STACK[0x250]);
+  }
+
+  if (SLOBYTE(STACK[0x23F]) < 0)
+  {
+    operator delete(STACK[0x228]);
+  }
+
+  if (SLOBYTE(STACK[0x29F]) < 0)
+  {
+    operator delete(STACK[0x288]);
+  }
+
+  if (SLOBYTE(STACK[0x27F]) < 0)
+  {
+    operator delete(STACK[0x268]);
+  }
+
+  if (SLOBYTE(STACK[0x2D7]) < 0)
+  {
+    operator delete(STACK[0x2C0]);
+  }
+
+  if (SLOBYTE(STACK[0x2B7]) < 0)
+  {
+    operator delete(STACK[0x2A0]);
+  }
+
+  if (SLOBYTE(STACK[0x30F]) < 0)
+  {
+    operator delete(STACK[0x2F8]);
+  }
+
+  if (SLOBYTE(STACK[0x2EF]) < 0)
+  {
+    operator delete(STACK[0x2D8]);
+  }
+
+  if (SLOBYTE(STACK[0x347]) < 0)
+  {
+    operator delete(STACK[0x330]);
+  }
+
+  if (SLOBYTE(STACK[0x327]) < 0)
+  {
+    operator delete(STACK[0x310]);
+  }
+
+  if (SLOBYTE(STACK[0x37F]) < 0)
+  {
+    operator delete(STACK[0x368]);
+  }
+
+  if (SLOBYTE(STACK[0x35F]) < 0)
+  {
+    operator delete(STACK[0x348]);
+  }
+
+  if (SLOBYTE(STACK[0x3B7]) < 0)
+  {
+    operator delete(STACK[0x3A0]);
+  }
+
+  if (SLOBYTE(STACK[0x397]) < 0)
+  {
+    operator delete(STACK[0x380]);
+  }
+
+  if (SLOBYTE(STACK[0x3EF]) < 0)
+  {
+    operator delete(STACK[0x3D8]);
+  }
+
+  if (SLOBYTE(STACK[0x3CF]) < 0)
+  {
+    operator delete(STACK[0x3B8]);
+  }
+
+  if (*(v80 - 193) < 0)
+  {
+    operator delete(*(v80 - 216));
+  }
+
+  if (*(v80 - 233) < 0)
+  {
+    operator delete(*(v80 - 256));
+  }
+
+  if (*(v80 - 137) < 0)
+  {
+    operator delete(*(v80 - 160));
+  }
+
+  if (*(v80 - 169) < 0)
+  {
+    operator delete(*(v80 - 192));
+  }
+
+  if (*(v80 - 81) < 0)
+  {
+    operator delete(*(v80 - 104));
+  }
+
+  if (*(v80 - 113) < 0)
+  {
+    operator delete(*(v80 - 136));
+  }
+
+  if (*(v80 - 25) < 0)
+  {
+    operator delete(*(v80 - 48));
+  }
+
+  if (*(v80 - 57) < 0)
+  {
+    operator delete(*(v80 - 80));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned short>,XofIntegralType<int>,XofIntegralType<short>,XofIntegralType<signed char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<unsigned char>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<int>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<signed char>,XofIntegralType<unsigned char>>::~__tuple_impl(uint64_t a1)
+{
+  if (*(a1 + 727) < 0)
+  {
+    operator delete(*(a1 + 704));
+  }
+
+  if (*(a1 + 695) < 0)
+  {
+    operator delete(*(a1 + 672));
+  }
+
+  if (*(a1 + 663) < 0)
+  {
+    operator delete(*(a1 + 640));
+  }
+
+  if (*(a1 + 631) < 0)
+  {
+    operator delete(*(a1 + 608));
+  }
+
+  if (*(a1 + 599) < 0)
+  {
+    operator delete(*(a1 + 576));
+  }
+
+  if (*(a1 + 559) < 0)
+  {
+    operator delete(*(a1 + 536));
+  }
+
+  if (*(a1 + 519) < 0)
+  {
+    operator delete(*(a1 + 496));
+  }
+
+  if (*(a1 + 479) < 0)
+  {
+    operator delete(*(a1 + 456));
+  }
+
+  if (*(a1 + 439) < 0)
+  {
+    operator delete(*(a1 + 416));
+  }
+
+  if (*(a1 + 399) < 0)
+  {
+    operator delete(*(a1 + 376));
+  }
+
+  if (*(a1 + 359) < 0)
+  {
+    operator delete(*(a1 + 336));
+  }
+
+  if (*(a1 + 327) < 0)
+  {
+    operator delete(*(a1 + 304));
+  }
+
+  if (*(a1 + 295) < 0)
+  {
+    operator delete(*(a1 + 272));
+  }
+
+  if (*(a1 + 263) < 0)
+  {
+    operator delete(*(a1 + 240));
+  }
+
+  if (*(a1 + 231) < 0)
+  {
+    operator delete(*(a1 + 208));
+  }
+
+  if (*(a1 + 199) < 0)
+  {
+    operator delete(*(a1 + 176));
+  }
+
+  if (*(a1 + 167) < 0)
+  {
+    operator delete(*(a1 + 144));
+  }
+
+  if (*(a1 + 135) < 0)
+  {
+    operator delete(*(a1 + 112));
+  }
+
+  if (*(a1 + 95) < 0)
+  {
+    operator delete(*(a1 + 72));
+  }
+
+  if (*(a1 + 63) < 0)
+  {
+    operator delete(*(a1 + 40));
+  }
+
+  if (*(a1 + 31) < 0)
+  {
+    operator delete(*(a1 + 8));
+  }
+
+  return a1;
+}
+
+void XofBeidouEphemerisCodec::XofBeidouEphemerisCodec(XofBeidouEphemerisCodec *this)
+{
+  v269 = *MEMORY[0x29EDCA608];
+  std::string::basic_string[abi:ne200100]<0>(&v265, "satID");
+  XofIntegralType<unsigned char>::XofIntegralType(&v266, &v265, 1, 63, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v261, "hs");
+  XofIntegralType<unsigned char>::XofIntegralType(&v262, &v261, 0, 3, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v257, "wn");
+  XofIntegralType<unsigned short>::XofIntegralType(&v258, &v257, 0, 0x1FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v253, "sSOW");
+  XofIntegralType<unsigned int>::XofIntegralType(&v254, &v253, 0, 201599, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v249, "difB2a");
+  XofIntegralType<unsigned char>::XofIntegralType(&v250, &v249, 0, 1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v245, "sifB2a");
+  XofIntegralType<unsigned char>::XofIntegralType(&v246, &v245, 0, 1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v241, "aifB2a");
+  XofIntegralType<unsigned char>::XofIntegralType(&v242, &v241, 0, 1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v237, "sismai");
+  XofIntegralType<unsigned char>::XofIntegralType(&v238, &v237, 0, 15, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v233, "difB1c");
+  XofIntegralType<unsigned char>::XofIntegralType(&v234, &v233, 0, 1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v229, "sifB1c");
+  XofIntegralType<unsigned char>::XofIntegralType(&v230, &v229, 0, 1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v225, "aifB1c");
+  XofIntegralType<unsigned char>::XofIntegralType(&v226, &v225, 0, 1, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v221, "UraiEst");
+  XofIntegralType<signed char>::XofIntegralType(&v222, &v221, -16, 15, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v217, "Iodc");
+  XofIntegralType<unsigned short>::XofIntegralType(&v218, &v217, 0, 1023, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v213, "sToe");
+  XofIntegralType<unsigned short>::XofIntegralType(&v214, &v213, 0, 2016, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v209, "satType");
+  XofIntegralType<unsigned char>::XofIntegralType(&v210, &v209, 0, 3, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v205, "fitHours");
+  XofIntegralType<unsigned char>::XofIntegralType(&v206, &v205, 0, 6, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v201, "sTgdB2ap_Corr");
+  XofIntegralType<signed char>::XofIntegralType(&v202, &v201, -128, 127, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v197, "reserved1");
+  XofIntegralType<unsigned char>::XofIntegralType(&v198, &v197, 0, 255, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v193, "sDeltaA");
+  XofIntegralType<int>::XofIntegralType(&v194, &v193, -33554432, 0x1FFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v189, "sADot");
+  XofIntegralType<int>::XofIntegralType(&v190, &v189, -16777216, 0xFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v185, "sDeltaN");
+  XofIntegralType<int>::XofIntegralType(&v186, &v185, -65536, 0xFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v181, "sDeltaNDot");
+  XofIntegralType<int>::XofIntegralType(&v182, &v181, -4194304, 0x3FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v177, "sM0");
+  XofIntegralType<long long>::XofIntegralType(v178, &v177);
+  std::string::basic_string[abi:ne200100]<0>(&v173, "sE");
+  XofIntegralType<unsigned long long>::XofIntegralType(v174, &v173, 0, 0x1FFFFFFFFLL, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v169, "sW");
+  XofIntegralType<long long>::XofIntegralType(v170, &v169);
+  std::string::basic_string[abi:ne200100]<0>(&v165, "sOmega0");
+  XofIntegralType<long long>::XofIntegralType(v166, &v165);
+  std::string::basic_string[abi:ne200100]<0>(&v161, "sI0");
+  XofIntegralType<long long>::XofIntegralType(v162, &v161);
+  std::string::basic_string[abi:ne200100]<0>(&v157, "sOmegaDot");
+  XofIntegralType<int>::XofIntegralType(&v158, &v157, -262144, 0x3FFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v153, "sIDot");
+  XofIntegralType<short>::XofIntegralType(&v154, &v153, -16384, 0x3FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v149, "sToc");
+  XofIntegralType<unsigned short>::XofIntegralType(&v150, &v149, 0, 2016, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v145, "sCic");
+  XofIntegralType<short>::XofIntegralType(&v146, &v145, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v141, "sCis");
+  XofIntegralType<short>::XofIntegralType(&v142, &v141, -32768, 0x7FFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v137, "sCrc");
+  XofIntegralType<int>::XofIntegralType(&v138, &v137, -8388608, 0x7FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v133, "sCrs");
+  XofIntegralType<int>::XofIntegralType(&v134, &v133, -8388608, 0x7FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v129, "sCuc");
+  XofIntegralType<int>::XofIntegralType(&v130, &v129, -1048576, 0xFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v125, "sCus");
+  XofIntegralType<int>::XofIntegralType(&v126, &v125, -1048576, 0xFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v121, "sAf0n");
+  XofIntegralType<int>::XofIntegralType(&v122, &v121, -16777216, 0xFFFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v117, "sAf1n");
+  XofIntegralType<int>::XofIntegralType(&v118, &v117, -2097152, 0x1FFFFF, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v113, "sAf2n");
+  XofIntegralType<short>::XofIntegralType(&v114, &v113, -1024, 1023, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v109, "sTgdB2ap");
+  XofIntegralType<short>::XofIntegralType(&v110, &v109, -2048, 2047, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v105, "sIscB2ad");
+  XofIntegralType<short>::XofIntegralType(&v106, &v105, -2048, 2047, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v101, "sTgdB1cp");
+  XofIntegralType<short>::XofIntegralType(&v102, &v101, -2048, 2047, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v97, "sIscB1cd");
+  XofIntegralType<short>::XofIntegralType(&v98, &v97, -2048, 2047, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v93, "sTop");
+  XofIntegralType<unsigned short>::XofIntegralType(&v94, &v93, 0, 2016, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v89, "sisaOcb");
+  XofIntegralType<unsigned char>::XofIntegralType(&v90, &v89, 0, 31, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v85, "sisaOc1");
+  XofIntegralType<unsigned char>::XofIntegralType(&v86, &v85, 0, 7, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v81, "sisaOc2");
+  XofIntegralType<unsigned char>::XofIntegralType(&v82, &v81, 0, 7, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v77, "sisaOe");
+  XofIntegralType<unsigned char>::XofIntegralType(&v78, &v77, 0, 31, 0);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "reserved2");
+  XofIntegralType<unsigned int>::XofIntegralType(&v74, &__p, 0, -1, 0);
+  *this = v266;
+  *(this + 3) = v268;
+  *(this + 8) = v262;
+  v2 = v258;
+  v3 = v260;
+  *(this + 7) = v264;
+  *(this + 8) = v2;
+  *(this + 8) = v267;
+  v267 = 0uLL;
+  v268 = 0;
+  *(this + 40) = v263;
+  v264 = 0;
+  v263 = 0uLL;
+  v4 = v259;
+  *(this + 11) = v3;
+  *(this + 72) = v4;
+  v259 = 0uLL;
+  v260 = 0;
+  v5 = v254;
+  v6 = v255;
+  *(this + 16) = v256;
+  *(this + 6) = v5;
+  *(this + 7) = v6;
+  v255 = 0uLL;
+  v256 = 0;
+  *(this + 34) = v250;
+  v7 = v251;
+  *(this + 20) = v252;
+  *(this + 9) = v7;
+  v251 = 0uLL;
+  v252 = 0;
+  *(this + 42) = v246;
+  v8 = v247;
+  *(this + 24) = v248;
+  *(this + 11) = v8;
+  v247 = 0uLL;
+  v248 = 0;
+  *(this + 50) = v242;
+  v9 = v243;
+  *(this + 28) = v244;
+  *(this + 13) = v9;
+  v243 = 0uLL;
+  v244 = 0;
+  *(this + 58) = v238;
+  v10 = v239;
+  *(this + 32) = v240;
+  *(this + 15) = v10;
+  v239 = 0uLL;
+  v240 = 0;
+  *(this + 66) = v234;
+  v11 = v235;
+  *(this + 36) = v236;
+  *(this + 17) = v11;
+  v235 = 0uLL;
+  v236 = 0;
+  *(this + 74) = v230;
+  v12 = v231;
+  *(this + 40) = v232;
+  *(this + 19) = v12;
+  v231 = 0uLL;
+  v232 = 0;
+  *(this + 82) = v226;
+  v13 = v227;
+  *(this + 44) = v228;
+  *(this + 21) = v13;
+  v227 = 0uLL;
+  v228 = 0;
+  *(this + 90) = v222;
+  v14 = v224;
+  *(this + 23) = v223;
+  v223 = 0uLL;
+  v224 = 0;
+  v15 = v218;
+  v16 = v220;
+  *(this + 48) = v14;
+  *(this + 49) = v15;
+  *(this + 25) = v219;
+  v219 = 0uLL;
+  v220 = 0;
+  v17 = v214;
+  v18 = v216;
+  *(this + 52) = v16;
+  *(this + 53) = v17;
+  v19 = v215;
+  *(this + 56) = v18;
+  *(this + 27) = v19;
+  v215 = 0uLL;
+  v216 = 0;
+  *(this + 114) = v210;
+  v20 = v211;
+  *(this + 60) = v212;
+  *(this + 29) = v20;
+  v211 = 0uLL;
+  v212 = 0;
+  *(this + 122) = v206;
+  v21 = v207;
+  *(this + 64) = v208;
+  *(this + 31) = v21;
+  v207 = 0uLL;
+  v208 = 0;
+  *(this + 130) = v202;
+  v22 = v203;
+  *(this + 68) = v204;
+  *(this + 33) = v22;
+  v203 = 0uLL;
+  v204 = 0;
+  *(this + 138) = v198;
+  v23 = v199;
+  *(this + 72) = v200;
+  *(this + 35) = v23;
+  v199 = 0uLL;
+  v200 = 0;
+  v24 = v195;
+  *(this + 584) = v194;
+  *(this + 77) = v196;
+  *(this + 600) = v24;
+  v195 = 0uLL;
+  v196 = 0;
+  v25 = v190;
+  v26 = v191;
+  *(this + 82) = v192;
+  *(this + 39) = v25;
+  *(this + 40) = v26;
+  v191 = 0uLL;
+  v192 = 0;
+  v27 = v187;
+  *(this + 664) = v186;
+  *(this + 87) = v188;
+  *(this + 680) = v27;
+  v187 = 0uLL;
+  v188 = 0;
+  v28 = v182;
+  v29 = v183;
+  *(this + 92) = v184;
+  *(this + 44) = v28;
+  *(this + 45) = v29;
+  v183 = 0uLL;
+  v184 = 0;
+  v30 = v178[1];
+  *(this + 744) = v178[0];
+  *(this + 760) = v30;
+  v31 = v179;
+  *(this + 99) = v180;
+  *(this + 776) = v31;
+  v179 = 0uLL;
+  v180 = 0;
+  v32 = v174[1];
+  *(this + 50) = v174[0];
+  *(this + 51) = v32;
+  v33 = v175;
+  *(this + 106) = v176;
+  *(this + 52) = v33;
+  v175 = 0uLL;
+  v176 = 0;
+  v34 = v170[1];
+  *(this + 856) = v170[0];
+  *(this + 872) = v34;
+  v35 = v171;
+  *(this + 113) = v172;
+  *(this + 888) = v35;
+  v171 = 0uLL;
+  v172 = 0;
+  v36 = v166[1];
+  *(this + 57) = v166[0];
+  *(this + 58) = v36;
+  v37 = v167;
+  *(this + 120) = v168;
+  *(this + 59) = v37;
+  v167 = 0uLL;
+  v168 = 0;
+  v38 = v162[1];
+  *(this + 968) = v162[0];
+  *(this + 984) = v38;
+  v39 = v163;
+  *(this + 127) = v164;
+  *(this + 1000) = v39;
+  v163 = 0uLL;
+  v164 = 0;
+  v40 = v159;
+  *(this + 64) = v158;
+  *(this + 132) = v160;
+  *(this + 65) = v40;
+  v159 = 0uLL;
+  v160 = 0;
+  v41 = v156;
+  *(this + 133) = v154;
+  v42 = v155;
+  *(this + 136) = v41;
+  *(this + 67) = v42;
+  v155 = 0uLL;
+  v156 = 0;
+  v43 = v152;
+  *(this + 137) = v150;
+  v44 = v151;
+  *(this + 140) = v43;
+  *(this + 69) = v44;
+  v151 = 0uLL;
+  v152 = 0;
+  v45 = v148;
+  *(this + 141) = v146;
+  v46 = v147;
+  *(this + 144) = v45;
+  *(this + 71) = v46;
+  v147 = 0uLL;
+  v148 = 0;
+  v47 = v144;
+  *(this + 145) = v142;
+  v48 = v143;
+  *(this + 148) = v47;
+  *(this + 73) = v48;
+  v143 = 0uLL;
+  v144 = 0;
+  v49 = v139;
+  *(this + 1192) = v138;
+  *(this + 153) = v140;
+  *(this + 1208) = v49;
+  v139 = 0uLL;
+  v140 = 0;
+  v50 = v135;
+  *(this + 77) = v134;
+  *(this + 158) = v136;
+  *(this + 78) = v50;
+  v135 = 0uLL;
+  v136 = 0;
+  v51 = v131;
+  *(this + 1272) = v130;
+  *(this + 163) = v132;
+  *(this + 1288) = v51;
+  v131 = 0uLL;
+  v132 = 0;
+  v52 = v127;
+  *(this + 82) = v126;
+  *(this + 168) = v128;
+  *(this + 83) = v52;
+  v127 = 0uLL;
+  v128 = 0;
+  v53 = v123;
+  *(this + 1352) = v122;
+  *(this + 173) = v124;
+  *(this + 1368) = v53;
+  v123 = 0uLL;
+  v124 = 0;
+  v54 = v119;
+  *(this + 87) = v118;
+  *(this + 178) = v120;
+  *(this + 88) = v54;
+  v119 = 0uLL;
+  v120 = 0;
+  v55 = v116;
+  *(this + 179) = v114;
+  v56 = v115;
+  *(this + 182) = v55;
+  *(this + 90) = v56;
+  v115 = 0uLL;
+  v116 = 0;
+  v57 = v112;
+  *(this + 183) = v110;
+  v58 = v111;
+  *(this + 186) = v57;
+  *(this + 92) = v58;
+  v111 = 0uLL;
+  v112 = 0;
+  v59 = v108;
+  *(this + 187) = v106;
+  v60 = v107;
+  *(this + 190) = v59;
+  *(this + 94) = v60;
+  v107 = 0uLL;
+  v108 = 0;
+  v61 = v104;
+  *(this + 191) = v102;
+  v62 = v103;
+  *(this + 194) = v61;
+  *(this + 96) = v62;
+  v103 = 0uLL;
+  v104 = 0;
+  v63 = v100;
+  *(this + 195) = v98;
+  v64 = v99;
+  v65 = v94;
+  v66 = v96;
+  *(this + 198) = v63;
+  *(this + 98) = v64;
+  v99 = 0uLL;
+  v100 = 0;
+  *(this + 199) = v65;
+  v67 = v95;
+  *(this + 202) = v66;
+  *(this + 100) = v67;
+  v95 = 0uLL;
+  v96 = 0;
+  *(this + 406) = v90;
+  v68 = v91;
+  *(this + 206) = v92;
+  *(this + 102) = v68;
+  v91 = 0uLL;
+  v92 = 0;
+  *(this + 414) = v86;
+  v69 = v87;
+  *(this + 210) = v88;
+  *(this + 104) = v69;
+  v87 = 0uLL;
+  v88 = 0;
+  *(this + 422) = v82;
+  v70 = v83;
+  *(this + 214) = v84;
+  *(this + 106) = v70;
+  v83 = 0uLL;
+  v84 = 0;
+  *(this + 430) = v78;
+  v71 = *v79;
+  *(this + 218) = v80;
+  *(this + 108) = v71;
+  v79[0] = 0;
+  v79[1] = 0;
+  v80 = 0;
+  v72 = v75;
+  *(this + 1752) = v74;
+  LODWORD(v65) = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+  *(this + 223) = v76;
+  *(this + 1768) = v72;
+  v75 = 0uLL;
+  v76 = 0;
+  if ((v65 & 0x80000000) != 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v80) < 0)
+    {
+      operator delete(v79[0]);
+    }
+  }
+
+  if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v77.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v84) < 0)
+  {
+    operator delete(v83);
+  }
+
+  if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v81.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v88) < 0)
+  {
+    operator delete(v87);
+  }
+
+  if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v85.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v92) < 0)
+  {
+    operator delete(v91);
+  }
+
+  if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v89.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v96) < 0)
+  {
+    operator delete(v95);
+  }
+
+  if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v93.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v100) < 0)
+  {
+    operator delete(v99);
+  }
+
+  if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v97.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v104) < 0)
+  {
+    operator delete(v103);
+  }
+
+  if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v101.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v108) < 0)
+  {
+    operator delete(v107);
+  }
+
+  if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v105.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v112) < 0)
+  {
+    operator delete(v111);
+  }
+
+  if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v109.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v116) < 0)
+  {
+    operator delete(v115);
+  }
+
+  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v113.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v120) < 0)
+  {
+    operator delete(v119);
+  }
+
+  if (SHIBYTE(v117.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v117.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v124) < 0)
+  {
+    operator delete(v123);
+  }
+
+  if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v121.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v128) < 0)
+  {
+    operator delete(v127);
+  }
+
+  if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v125.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v132) < 0)
+  {
+    operator delete(v131);
+  }
+
+  if (SHIBYTE(v129.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v129.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v136) < 0)
+  {
+    operator delete(v135);
+  }
+
+  if (SHIBYTE(v133.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v133.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v140) < 0)
+  {
+    operator delete(v139);
+  }
+
+  if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v137.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v144) < 0)
+  {
+    operator delete(v143);
+  }
+
+  if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v141.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v148) < 0)
+  {
+    operator delete(v147);
+  }
+
+  if (SHIBYTE(v145.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v145.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v152) < 0)
+  {
+    operator delete(v151);
+  }
+
+  if (SHIBYTE(v149.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v149.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v156) < 0)
+  {
+    operator delete(v155);
+  }
+
+  if (SHIBYTE(v153.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v153.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v160) < 0)
+  {
+    operator delete(v159);
+  }
+
+  if (SHIBYTE(v157.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v157.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v164) < 0)
+  {
+    operator delete(v163);
+  }
+
+  if (SHIBYTE(v161.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v161.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v168) < 0)
+  {
+    operator delete(v167);
+  }
+
+  if (SHIBYTE(v165.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v165.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v172) < 0)
+  {
+    operator delete(v171);
+  }
+
+  if (SHIBYTE(v169.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v169.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v176) < 0)
+  {
+    operator delete(v175);
+  }
+
+  if (SHIBYTE(v173.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v173.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v180) < 0)
+  {
+    operator delete(v179);
+  }
+
+  if (SHIBYTE(v177.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v177.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v184) < 0)
+  {
+    operator delete(v183);
+  }
+
+  if (SHIBYTE(v181.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v181.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v188) < 0)
+  {
+    operator delete(v187);
+  }
+
+  if (SHIBYTE(v185.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v185.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v192) < 0)
+  {
+    operator delete(v191);
+  }
+
+  if (SHIBYTE(v189.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v189.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v196) < 0)
+  {
+    operator delete(v195);
+  }
+
+  if (SHIBYTE(v193.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v193.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v200) < 0)
+  {
+    operator delete(v199);
+  }
+
+  if (SHIBYTE(v197.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v197.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v204) < 0)
+  {
+    operator delete(v203);
+  }
+
+  if (SHIBYTE(v201.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v201.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v208) < 0)
+  {
+    operator delete(v207);
+  }
+
+  if (SHIBYTE(v205.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v205.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v212) < 0)
+  {
+    operator delete(v211);
+  }
+
+  if (SHIBYTE(v209.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v209.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v216) < 0)
+  {
+    operator delete(v215);
+  }
+
+  if (SHIBYTE(v213.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v213.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v220) < 0)
+  {
+    operator delete(v219);
+  }
+
+  if (SHIBYTE(v217.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v217.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v224) < 0)
+  {
+    operator delete(v223);
+  }
+
+  if (SHIBYTE(v221.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v221.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v228) < 0)
+  {
+    operator delete(v227);
+  }
+
+  if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v225.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v232) < 0)
+  {
+    operator delete(v231);
+  }
+
+  if (SHIBYTE(v229.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v229.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v236) < 0)
+  {
+    operator delete(v235);
+  }
+
+  if (SHIBYTE(v233.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v233.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v240) < 0)
+  {
+    operator delete(v239);
+  }
+
+  if (SHIBYTE(v237.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v237.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v244) < 0)
+  {
+    operator delete(v243);
+  }
+
+  if (SHIBYTE(v241.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v241.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v248) < 0)
+  {
+    operator delete(v247);
+  }
+
+  if (SHIBYTE(v245.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v245.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v252) < 0)
+  {
+    operator delete(v251);
+  }
+
+  if (SHIBYTE(v249.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v249.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v256) < 0)
+  {
+    operator delete(v255);
+  }
+
+  if (SHIBYTE(v253.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v253.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v260) < 0)
+  {
+    operator delete(v259);
+  }
+
+  if (SHIBYTE(v257.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v257.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v264) < 0)
+  {
+    operator delete(v263);
+  }
+
+  if (SHIBYTE(v261.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v261.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v268) < 0)
+  {
+    operator delete(v267);
+  }
+
+  if (SHIBYTE(v265.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v265.__r_.__value_.__l.__data_);
   }
 }

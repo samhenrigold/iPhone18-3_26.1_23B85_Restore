@@ -241,7 +241,7 @@
     os_unfair_lock_lock(&stru_D120);
     if (os_log_type_enabled(qword_D118, OS_LOG_TYPE_ERROR))
     {
-      sub_3E4C(v5, self);
+      sub_3E4C();
     }
 
     v6 = self->_xpcConnection;
@@ -479,7 +479,7 @@
   os_unfair_lock_lock(&stru_D120);
   if (os_log_type_enabled(qword_D118, OS_LOG_TYPE_ERROR))
   {
-    sub_3F2C(errorCopy, self);
+    sub_3F2C();
   }
 
   if (errorCopy == &_xpc_error_connection_interrupted || errorCopy == &_xpc_error_connection_invalid)

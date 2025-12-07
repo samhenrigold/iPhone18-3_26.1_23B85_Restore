@@ -387,7 +387,6 @@
 
   MEMORY[0x277D82BD8](descriptor3);
   objc_storeStrong(obj, 0);
-  *MEMORY[0x277D85DE8];
   v29 = v84;
 
   return v29;

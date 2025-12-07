@@ -1,3 +1,1947 @@
+double BlueFin::GlMeSrdSearchMgrBase::RemoveInvalidSvId(BlueFin::GlMeSrdSearchMgrBase *this, BlueFin::GlSvIdSet *a2)
+{
+  v70[0] = xmmword_298A323EC;
+  v70[1] = *algn_298A323FC;
+  v67[0] = xmmword_298A3242C;
+  v67[1] = unk_298A3243C;
+  v64[0] = BlueFin::GlSvIdSet::csm_aulBeidouGeoSvIds;
+  v64[1] = unk_298A324BC;
+  v36 = xmmword_298A3244C;
+  v68 = v70;
+  v69 = 8;
+  v65 = v67;
+  v66 = 8;
+  v62 = v64;
+  v63 = 8;
+  v34 = &v36;
+  LOBYTE(v35) = 8;
+  *v37 = unk_298A3245C;
+  BlueFin::GlSvIdSet::operator~(&v62, &v56);
+  BlueFin::GlSetBase::GlSetBase(&__src, v61, 8u, &v34);
+  v38 = &v40;
+  LOBYTE(v39) = 8;
+  v40 = 0u;
+  v41 = 0u;
+  BlueFin::GlSetBase::OperatorBinaryAnd(&__src, &v38, &v56);
+  BlueFin::GlSetBase::operator=(&__src, &v38);
+  v61[0] = v40;
+  v61[1] = v41;
+  v58[0] = xmmword_298A3246C;
+  v58[1] = unk_298A3247C;
+  v55[0] = xmmword_298A3248C;
+  v56 = v58;
+  v57 = 8;
+  v53 = v55;
+  v54 = 8;
+  v55[1] = unk_298A3249C;
+  LOBYTE(v38) = 1;
+  HIDWORD(v38) = 0;
+  LOWORD(v39) = 0;
+  if (BlueFin::GlMeSrdSearchMgrBase::GetStrategyId(this, &v38) == 250)
+  {
+    v42 = v44;
+    v43 = 8;
+    v44[0] = BlueFin::GlSvIdSet::csm_aulGlSvIdSet[0];
+    v44[1] = *algn_298A323DC;
+    BlueFin::GlSetBase::GlSetBase(&v45, v46, 8u, &v42);
+    v38 = &v40;
+    LOBYTE(v39) = 8;
+    v40 = 0u;
+    v41 = 0u;
+    BlueFin::GlSetBase::OperatorBinaryOr(&v45, &v38, &v65);
+    BlueFin::GlSetBase::operator=(&v45, &v38);
+    v46[0] = v40;
+    v46[1] = v41;
+    BlueFin::GlSetBase::GlSetBase(&v47, &v49, 8u, &v45);
+    v38 = &v40;
+    LOBYTE(v39) = 8;
+    v40 = 0u;
+    v41 = 0u;
+    BlueFin::GlSetBase::OperatorBinaryOr(&v47, &v38, &v53);
+    BlueFin::GlSetBase::operator=(&v47, &v38);
+    v49 = v40;
+    v50 = v41;
+    BlueFin::GlSvIdSet::operator~(&v47, &v51);
+    BlueFin::GlSetBase::GlSetBase(&v34, &v36, 8u, a2);
+    v38 = &v40;
+    LOBYTE(v39) = 8;
+    v40 = 0u;
+    v41 = 0u;
+    BlueFin::GlSetBase::OperatorBinaryAnd(&v34, &v38, &v51);
+    BlueFin::GlSetBase::operator=(&v34, &v38);
+    v36 = v40;
+    *v37 = v41;
+    BlueFin::GlSetBase::operator=(a2, &v34);
+    *(a2 + 12) = v36;
+    *(a2 + 28) = *v37;
+  }
+
+  LOBYTE(v38) = 52;
+  HIDWORD(v38) = 0;
+  LOWORD(v39) = 147;
+  if (BlueFin::GlMeSrdSearchMgrBase::GetStrategyId(this, &v38) == 250)
+  {
+    v47 = &v49;
+    LOBYTE(v48) = 8;
+    v49 = xmmword_298A3240C;
+    v50 = unk_298A3241C;
+    BlueFin::GlSvIdSet::operator~(&v47, &v51);
+    BlueFin::GlSetBase::GlSetBase(&v34, &v36, 8u, a2);
+    v38 = &v40;
+    LOBYTE(v39) = 8;
+    v40 = 0u;
+    v41 = 0u;
+    BlueFin::GlSetBase::OperatorBinaryAnd(&v34, &v38, &v51);
+    BlueFin::GlSetBase::operator=(&v34, &v38);
+    v36 = v40;
+    *v37 = v41;
+    BlueFin::GlSetBase::operator=(a2, &v34);
+    *(a2 + 12) = v36;
+    *(a2 + 28) = *v37;
+  }
+
+  LOBYTE(v38) = v60;
+  memcpy(&v39, __src, 4 * v60);
+  WORD1(v38) = 0;
+  BYTE1(v38) = 0;
+  HIDWORD(v38) = v39;
+  BlueFin::GlSetIterator::operator++(&v38);
+  LOBYTE(v51) = BYTE2(v38);
+  HIDWORD(v51) = 0;
+  v52 = 575;
+  if (BYTE2(v38) - 189 >= 0xFFFFFF44)
+  {
+    v4 = BlueFin::GlSvId::s_aucSvId2gnss[BYTE2(v38)];
+    if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v4] == 255)
+    {
+      HIDWORD(v51) = -1;
+    }
+
+    else
+    {
+      v52 = BlueFin::GlSignalId::s_ausGnss2signalId[v4] + BYTE2(v38) - BlueFin::GlSvId::s_aucGnss2minSvId[v4];
+    }
+  }
+
+  if (BlueFin::GlMeSrdSearchMgrBase::GetStrategyId(this, &v51) == 250)
+  {
+    v5 = *(this + 3);
+    v6 = *(v5 + 976);
+    if (!*v6)
+    {
+      v8 = *(v5 + 984);
+      if (v8 < 2)
+      {
+LABEL_22:
+        BlueFin::GlSvIdSet::operator~(&__src, &v51);
+        BlueFin::GlSetBase::GlSetBase(&v34, &v36, 8u, a2);
+        v38 = &v40;
+        LOBYTE(v39) = 8;
+        v40 = 0u;
+        v41 = 0u;
+        BlueFin::GlSetBase::OperatorBinaryAnd(&v34, &v38, &v51);
+        BlueFin::GlSetBase::operator=(&v34, &v38);
+        v36 = v40;
+        *v37 = v41;
+        BlueFin::GlSetBase::operator=(a2, &v34);
+        *(a2 + 12) = v36;
+        *(a2 + 28) = *v37;
+        goto LABEL_23;
+      }
+
+      v9 = v8 - 1;
+      v10 = v6 + 1;
+      while (!*v10++)
+      {
+        if (!--v9)
+        {
+          goto LABEL_22;
+        }
+      }
+    }
+  }
+
+  LOBYTE(v34) = v60;
+  memcpy(&v35, __src, 4 * v60);
+  WORD1(v34) = 0;
+  BYTE1(v34) = 0;
+  HIDWORD(v34) = v35;
+  BlueFin::GlSetIterator::operator++(&v34);
+  LOBYTE(v47) = BYTE2(v34);
+  HIDWORD(v47) = 3;
+  v48 = 575;
+  if (BYTE2(v34) - 189 >= 0xFFFFFF44)
+  {
+    v7 = BlueFin::GlSvId::s_aucSvId2gnss[BYTE2(v34)];
+    if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v7 + 21] == 255)
+    {
+      HIDWORD(v47) = -1;
+    }
+
+    else
+    {
+      v48 = BlueFin::GlSignalId::s_ausGnss2signalId[v7] + BYTE2(v34) - BlueFin::GlSvId::s_aucGnss2minSvId[v7] + 3 * BlueFin::GlSvId::s_aucGnss2numSvId[v7];
+    }
+  }
+
+  if (BlueFin::GlMeSrdSearchMgrBase::GetStrategyId(this, &v47) == 250)
+  {
+    v12 = *(this + 3);
+    v13 = *(v12 + 976);
+    if (*v13)
+    {
+      goto LABEL_22;
+    }
+
+    v22 = *(v12 + 984);
+    if (v22 >= 2)
+    {
+      v23 = v22 - 1;
+      v24 = v13 + 1;
+      do
+      {
+        if (*v24++)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      while (--v23);
+    }
+  }
+
+LABEL_23:
+  LOBYTE(v38) = v63;
+  memcpy(&v39, v62, 4 * v63);
+  WORD1(v38) = 0;
+  BYTE1(v38) = 0;
+  HIDWORD(v38) = v39;
+  BlueFin::GlSetIterator::operator++(&v38);
+  LOBYTE(v51) = BYTE2(v38);
+  HIDWORD(v51) = 0;
+  v52 = 575;
+  if (BYTE2(v38) - 189 >= 0xFFFFFF44)
+  {
+    v14 = BlueFin::GlSvId::s_aucSvId2gnss[BYTE2(v38)];
+    if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v14] == 255)
+    {
+      HIDWORD(v51) = -1;
+    }
+
+    else
+    {
+      v52 = BlueFin::GlSignalId::s_ausGnss2signalId[v14] + BYTE2(v38) - BlueFin::GlSvId::s_aucGnss2minSvId[v14];
+    }
+  }
+
+  if (BlueFin::GlMeSrdSearchMgrBase::GetStrategyId(this, &v51) == 250)
+  {
+    v15 = *(this + 3);
+    v16 = *(v15 + 976);
+    if (!*v16)
+    {
+      v18 = *(v15 + 984);
+      if (v18 < 2)
+      {
+LABEL_45:
+        BlueFin::GlSvIdSet::operator~(&v62, &v51);
+        BlueFin::GlSetBase::GlSetBase(&v34, &v36, 8u, a2);
+        v38 = &v40;
+        LOBYTE(v39) = 8;
+        v40 = 0u;
+        v41 = 0u;
+        BlueFin::GlSetBase::OperatorBinaryAnd(&v34, &v38, &v51);
+        BlueFin::GlSetBase::operator=(&v34, &v38);
+        v36 = v40;
+        *v37 = v41;
+        BlueFin::GlSetBase::operator=(a2, &v34);
+        *(a2 + 12) = v36;
+        *(a2 + 28) = *v37;
+        goto LABEL_46;
+      }
+
+      v19 = v18 - 1;
+      v20 = v16 + 1;
+      while (!*v20++)
+      {
+        if (!--v19)
+        {
+          goto LABEL_45;
+        }
+      }
+    }
+  }
+
+  LOBYTE(v34) = v63;
+  memcpy(&v35, v62, 4 * v63);
+  WORD1(v34) = 0;
+  BYTE1(v34) = 0;
+  HIDWORD(v34) = v35;
+  BlueFin::GlSetIterator::operator++(&v34);
+  LOBYTE(v47) = BYTE2(v34);
+  HIDWORD(v47) = 3;
+  v48 = 575;
+  if (BYTE2(v34) - 189 >= 0xFFFFFF44)
+  {
+    v17 = BlueFin::GlSvId::s_aucSvId2gnss[BYTE2(v34)];
+    if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v17 + 21] == 255)
+    {
+      HIDWORD(v47) = -1;
+    }
+
+    else
+    {
+      v48 = BlueFin::GlSignalId::s_ausGnss2signalId[v17] + BYTE2(v34) - BlueFin::GlSvId::s_aucGnss2minSvId[v17] + 3 * BlueFin::GlSvId::s_aucGnss2numSvId[v17];
+    }
+  }
+
+  if (BlueFin::GlMeSrdSearchMgrBase::GetStrategyId(this, &v47) == 250)
+  {
+    v26 = *(this + 3);
+    v27 = *(v26 + 976);
+    if (!*v27)
+    {
+      v30 = *(v26 + 984);
+      if (v30 < 2)
+      {
+        goto LABEL_46;
+      }
+
+      v31 = v30 - 1;
+      v32 = v27 + 1;
+      while (!*v32++)
+      {
+        if (!--v31)
+        {
+          goto LABEL_46;
+        }
+      }
+    }
+
+    goto LABEL_45;
+  }
+
+LABEL_46:
+  LOBYTE(v38) = -117;
+  HIDWORD(v38) = 0;
+  LOWORD(v39) = 453;
+  if (BlueFin::GlMeSrdSearchMgrBase::GetStrategyId(this, &v38) == 250 || (v28 = *(this + 4), LOBYTE(v34) = -117, ((*(*v28 + 472))(v28, &v34) & 1) == 0))
+  {
+    BlueFin::GlSvIdSet::operator~(&v56, &v51);
+    BlueFin::GlSetBase::GlSetBase(&v34, &v36, 8u, a2);
+    v38 = &v40;
+    LOBYTE(v39) = 8;
+    v40 = 0u;
+    v41 = 0u;
+    BlueFin::GlSetBase::OperatorBinaryAnd(&v34, &v38, &v51);
+    BlueFin::GlSetBase::operator=(&v34, &v38);
+    v36 = v40;
+    *v37 = v41;
+    BlueFin::GlSetBase::operator=(a2, &v34);
+    *(a2 + 12) = v36;
+    *(a2 + 28) = *v37;
+  }
+
+  LOBYTE(v38) = 33;
+  HIDWORD(v38) = 0;
+  LOWORD(v39) = 128;
+  if (BlueFin::GlMeSrdSearchMgrBase::GetStrategyId(this, &v38) == 250)
+  {
+    BlueFin::GlSvIdSet::operator~(&v68, &v51);
+    BlueFin::GlSetBase::GlSetBase(&v34, &v36, 8u, a2);
+    v38 = &v40;
+    LOBYTE(v39) = 8;
+    v40 = 0u;
+    v41 = 0u;
+    BlueFin::GlSetBase::OperatorBinaryAnd(&v34, &v38, &v51);
+    BlueFin::GlSetBase::operator=(&v34, &v38);
+    v36 = v40;
+    *v37 = v41;
+    BlueFin::GlSetBase::operator=(a2, &v34);
+    *(a2 + 12) = v36;
+    result = v37[0];
+    *(a2 + 28) = *v37;
+  }
+
+  return result;
+}
+
+uint64_t BlueFin::GlMeSrdSearchMgrBase::GetStrategyId(BlueFin::GlMeSrdSearchMgrBase *this, const BlueFin::GlSignalId *a2)
+{
+  v3 = BlueFin::GlSvId::s_aucSvId2gnss[*a2];
+  v4 = BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * *(a2 + 1) - *(a2 + 1) + v3];
+  result = 250;
+  if (v4 <= 6)
+  {
+    if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * *(a2 + 1) - *(a2 + 1) + v3] > 2u)
+    {
+      if (v4 - 4 >= 2)
+      {
+        if (v4 == 3)
+        {
+          return *(this + 11);
+        }
+
+        if (v4 == 6)
+        {
+          if (*a2 - 81 > 0x34)
+          {
+            return *(this + 13);
+          }
+
+          else
+          {
+            return *(this + 12);
+          }
+        }
+
+        return result;
+      }
+
+      return *(this + 16);
+    }
+
+    if (v4 - 1 < 2)
+    {
+      return *(this + 16);
+    }
+
+    if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * *(a2 + 1) - *(a2 + 1) + v3])
+    {
+      return result;
+    }
+
+LABEL_18:
+    if (v3 == 1)
+    {
+      return *(this + 15);
+    }
+
+    else
+    {
+      return *(this + 10);
+    }
+  }
+
+  if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * *(a2 + 1) - *(a2 + 1) + v3] >= 0xCu)
+  {
+    if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * *(a2 + 1) - *(a2 + 1) + v3] <= 0xCu)
+    {
+      goto LABEL_18;
+    }
+
+    if (v4 - 13 < 2)
+    {
+      return *(this + 17);
+    }
+
+    if (v4 == 15 || v4 == 255)
+    {
+LABEL_28:
+      DeviceFaultNotify("glmesrd_search_mgr_base.cpp", 618, "GetStrategyId", "0");
+      __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_search_mgr_base.cpp", 618, "0");
+    }
+  }
+
+  else
+  {
+    if (v4 - 7 < 2)
+    {
+      return *(this + 16);
+    }
+
+    if (v4 == 11)
+    {
+      return *(this + 14);
+    }
+
+    if (v4 - 9 < 2)
+    {
+      goto LABEL_28;
+    }
+  }
+
+  return result;
+}
+
+uint64_t BlueFin::GlMeSrdAsicConfig::IsConstellationSupported(uint64_t a1, _BYTE *a2)
+{
+  v2 = *a2;
+  if (v2 < 0xBD)
+  {
+    v3 = 6;
+  }
+
+  else
+  {
+    v3 = 7;
+  }
+
+  if (v2 >= 0xAF)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 5;
+  }
+
+  if (v2 >= 0x8B)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 4;
+  }
+
+  if (v2 >= 0x4C)
+  {
+    v6 = v5;
+  }
+
+  else
+  {
+    v6 = 3;
+  }
+
+  if (v2 >= 0x42)
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  if (v2 >= 0x34)
+  {
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  if (v2 < 0x21)
+  {
+    v8 = 0;
+  }
+
+  if (*a2)
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 7;
+  }
+
+  return (*(*a1 + 464))(a1, v9);
+}
+
+uint64_t BlueFin::GlMeSrdAidingMgr::SelectAiding2Refresh(int **this)
+{
+  BlueFin::GlMeSrdAidingMgr::SelectRefreshDue2ClockModel(this);
+  BlueFin::GlMeSrdAidingMgr::SelectRefreshDue2AidingChanges(this);
+  BlueFin::GlMeSrdAidingMgr::SelectRefreshDue2Time(this);
+  BlueFin::GlMeSrdAidingMgr::SelectRefreshDue2AidingOverride(this);
+  BlueFin::GlMeSrdAidingMgr::SelectRefreshDue2AidIdUnMap(this);
+
+  return BlueFin::GlSetBase::operator&=((this + 148), (this + 98));
+}
+
+uint64_t BlueFin::GlMeSrdAidingMgr::SelectRefreshDue2ClockModel(int **this)
+{
+  v2 = (*(**this + 64))(*this);
+  BlueFin::GlSetBase::GlSetBase(&v10, v11, 8u, v2);
+  v5 = &v6[4];
+  v6[0] = 8;
+  memset(&v6[4], 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryAnd(&v10, &v5, this + 98);
+  BlueFin::GlSetBase::operator=(&v10, &v5);
+  v11[0] = *&v6[4];
+  v11[1] = *&v6[20];
+  v5 = &unk_2A1F0E1A0;
+  *v6 = 0;
+  *&v6[8] = 0x36A7C5AC00000000;
+  *&v6[16] = 0;
+  *&v6[24] = 2139095039;
+  *&v6[32] = 0;
+  v7 = 2139095039;
+  v8 = 0;
+  v9 = 0x36A7C5AC7F7FFFFFLL;
+  result = (*(**this + 96))(*this, &v5, *(this + 6));
+  if (vabds_f32(*(this + 292), *&v6[8]) <= 0.00000001)
+  {
+    v4 = *v6;
+    if (*v6 == *(this + 293))
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    v4 = *v6;
+  }
+
+  *(this + 292) = *&v6[8];
+  *(this + 293) = v4;
+  *(this + 1176) = 1;
+  return BlueFin::GlSetBase::Add((this + 148), &v10);
+}
+
+BOOL BlueFin::GlMeSrdAidingMgr::RefreshAiding(uint64_t a1, uint64_t a2)
+{
+  v2 = MEMORY[0x2A1C7C4A8](a1, a2);
+  v4 = v3;
+  v5 = v2;
+  v26 = *MEMORY[0x29EDCA608];
+  v6 = (v2 + 784);
+  v7 = (v2 + 1432);
+  v8 = BlueFin::GlSetBase::operator&=(v2 + 1432, v2 + 784);
+  BlueFin::GlSetBase::operator|=(v8, v5 + 1184);
+  v9 = BlueFin::GlMeSrdAidingMgr::PackTcxoAiding(v5, v24, v25);
+  v12 = BlueFin::GlMeSrdAidingMgr::PackSvIdAiding(v5, &v24[v9], &v25[9 * v9], v10, v11) + v9;
+  if (v12 >= 0xCC)
+  {
+    v22 = "ulNumAiding <= _DIM(otaAiding_l)";
+    DeviceFaultNotify("glmesrd_aiding_mgr.cpp", 333, "RefreshAiding", "ulNumAiding <= _DIM(otaAiding_l)");
+    v23 = 333;
+    goto LABEL_21;
+  }
+
+  if (v12 > (*(**(v5 + 16) + 392))(*(v5 + 16)))
+  {
+    v22 = "ulNumAiding <= m_rAsicConfigIfc.GetMaxAidIndex()";
+    DeviceFaultNotify("glmesrd_aiding_mgr.cpp", 334, "RefreshAiding", "ulNumAiding <= m_rAsicConfigIfc.GetMaxAidIndex()");
+    v23 = 334;
+LABEL_21:
+    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_aiding_mgr.cpp", v23, v22);
+  }
+
+  if (v12)
+  {
+    BlueFin::GlMeSrdAidingMgr::SendAidingBatch(v4, v12, v24, v25);
+  }
+
+  if (BlueFin::GlSetBase::HasAll(v7, v6))
+  {
+    if (!**v6)
+    {
+      v13 = *(v5 + 792);
+      if (v13 < 2)
+      {
+LABEL_11:
+        if (!**v7)
+        {
+          v18 = *(v5 + 1440);
+          if (v18 < 2)
+          {
+            return v12 != 0;
+          }
+
+          v19 = v18 - 1;
+          v20 = *v7 + 1;
+          while (!*v20++)
+          {
+            if (!--v19)
+            {
+              return v12 != 0;
+            }
+          }
+        }
+      }
+
+      else
+      {
+        v14 = v13 - 1;
+        v15 = *v6 + 1;
+        while (!*v15++)
+        {
+          if (!--v14)
+          {
+            goto LABEL_11;
+          }
+        }
+      }
+    }
+
+    bzero(*(v5 + 1432), ((4 * *(v5 + 1440) + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
+  }
+
+  return v12 != 0;
+}
+
+uint64_t BlueFin::GlMeSrdAidingMgr::PackTcxoAiding(uint64_t a1, _BYTE *a2, uint64_t a3)
+{
+  if (*(a1 + 1176) != 1)
+  {
+    return 0;
+  }
+
+  *(a1 + 1176) = 0;
+  BlueFin::GlMeSrdAidingMgr::FormatGpsTcxoAidingForEsw(a1, a3);
+  *a2 = 0;
+  BlueFin::GlMeSrdAidingMgr::FormatGlnsTcxoAidingForEsw(a1, a3 + 36);
+  a2[1] = 1;
+  BlueFin::GlMeSrdAidingMgr::FormatBdsPosTcxoAidingForEsw(a1, a3 + 72);
+  a2[2] = 2;
+  *(a1 + 28) = *(a1 + 24);
+  return 3;
+}
+
+uint64_t BlueFin::GlMeAcqWindowProvider::mskfGetCbGoodQuality(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  v3 = *(a1 + 8);
+  v5 = 0x3FF0000000000000;
+  v6 = 0;
+  return BlueFin::GlMeMiniKF::mskfGetCbGoodQuality(v3 + 9344, a2, &v6, a3, &v5, 0);
+}
+
+uint64_t BlueFin::GlMeMiniKF::mskfGetCbGoodQuality(uint64_t a1, unsigned int a2, double *a3, _DWORD *a4, double *a5, unsigned int a6)
+{
+  BlueFin::GlMeMiniKF::GenerateClockModFlags(&v29, a1, -1);
+  if (a6 <= 1 && (v29 & 4) != 0)
+  {
+    LODWORD(v12) = *(a1 + 216);
+    v13 = (a2 - v12) / 1000.0;
+    if (v13 > 600.0)
+    {
+      return 0;
+    }
+
+    v28 = *(a1 + 120) - v13 * *(a1 + 24);
+    v25[0] = 1;
+    v26 = 0;
+    v27 = 0;
+    *a3 = BlueFin::GlSystemTime::getSubBitAndEpochTime(&v28, v25, 1u);
+    v14 = *(a1 + 136);
+  }
+
+  else
+  {
+    if ((a6 & 0xFFFFFFFD) != 0 || (v29 & 0x80) == 0)
+    {
+      if ((v29 & 0x400) != 0 && (a6 == 3 || !a6))
+      {
+        LODWORD(v12) = *(a1 + 484);
+        v20 = (a2 - v12) / 1000.0;
+        *a4 |= 0x400u;
+        if (v20 <= 600.0)
+        {
+          v28 = *(a1 + 376) - v20 * *(a1 + 24);
+          v25[0] = -117;
+          v26 = 0;
+          v27 = 453;
+          *a3 = BlueFin::GlSystemTime::getSubEpochTime(&v28, v25, 1u);
+          v21 = *(a1 + 392);
+          v22 = v20;
+          v23 = *(a1 + 40);
+          v24 = (sqrtf(v21) + (fabsf(v22) * sqrtf(v23)));
+          *a5 = v24;
+          if (v24 <= 0.001)
+          {
+            return 1;
+          }
+        }
+      }
+
+      return 0;
+    }
+
+    LODWORD(v12) = *(a1 + 344);
+    v13 = (a2 - v12) / 1000.0;
+    if (v13 > 600.0)
+    {
+      return 0;
+    }
+
+    v28 = *(a1 + 248) - v13 * *(a1 + 24);
+    v25[0] = 52;
+    v26 = 0;
+    v27 = 147;
+    *a3 = BlueFin::GlSystemTime::getSubBitAndEpochTime(&v28, v25, 1u);
+    v14 = *(a1 + 264);
+  }
+
+  v15 = v14;
+  v16 = v13;
+  v17 = *(a1 + 40);
+  v18 = (sqrtf(v15) + (fabsf(v16) * sqrtf(v17)));
+  *a5 = v18;
+  if (v18 < 0.001)
+  {
+    *a4 |= 0x4A6u;
+    return 1;
+  }
+
+  return 0;
+}
+
+uint64_t *BlueFin::GlMeMiniKF::GenerateClockModFlags@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, int a3@<W1>)
+{
+  *a1 = 0;
+  if (a3 == -1 || *(this + 16) == a3)
+  {
+    if (this[13])
+    {
+      v3 = 16;
+      *a1 = 16;
+    }
+
+    else
+    {
+      v3 = 0;
+    }
+
+    if (a3 == -1)
+    {
+LABEL_10:
+      v4 = *(this + 50);
+      v3 |= (4 * v4) & 8 | (v4 >> 2) & 6;
+      if ((v4 & 0x1A) != 0)
+      {
+        *a1 = v3;
+      }
+
+      if (a3 == -1)
+      {
+        goto LABEL_14;
+      }
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (*(this + 40) == a3)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_13:
+  if (*(this + 72) != a3)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_14:
+  v5 = *(this + 82);
+  v3 = v3 & 0xFFFFFE1F | (((v5 >> 1) & 1) << 8) | (32 * ((v5 >> 3) & 1)) & 0xFFFFFF3F | (((v5 >> 4) & 1) << 7) | (((v5 >> 5) & 1) << 6);
+  if ((v5 & 0x3A) != 0)
+  {
+    *a1 = v3;
+  }
+
+  if (a3 != -1)
+  {
+LABEL_17:
+    if (*(this + 104) != a3)
+    {
+      return this;
+    }
+  }
+
+  if ((~*(this + 114) & 6) == 0)
+  {
+    *a1 = v3 | 0x400;
+  }
+
+  return this;
+}
+
+BOOL BlueFin::GlMeWinMgr::GetMeAcqWindow(uint64_t a1, const BlueFin::GlSignalId *a2, uint64_t a3, _DWORD *a4, uint64_t a5, unsigned __int8 *a6, int8x16_t a7, double a8, int8x16_t a9, int8x16_t a10)
+{
+  v10 = *a9.i64;
+  v17 = a1 + 0x2000;
+  if (*a7.i64 == 0.0)
+  {
+    *a7.i64 = BlueFin::GlMeMsmtMgr::GetCurrTimeLms(*(a1 + 8), a7, a8, a9, a10);
+  }
+
+  if (*(v17 + 1664) - 1 > 3 || *(v17 + 1666) - 1 >= 4)
+  {
+    v18 = (v17 + 1667);
+    *(v17 + 1667) = 0;
+  }
+
+  else
+  {
+    v18 = (v17 + 1667);
+    *(v17 + 1667) = 1;
+    *a4 &= ~1u;
+  }
+
+  v235[0] = *a2;
+  v236 = 0;
+  v237 = 575;
+  if (v235[0] - 189 >= 0xFFFFFF44)
+  {
+    v19 = BlueFin::GlSvId::s_aucSvId2gnss[v235[0]];
+    if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v19] == 255)
+    {
+      v236 = -1;
+    }
+
+    else
+    {
+      v237 = BlueFin::GlSignalId::s_ausGnss2signalId[v19] + v235[0] - BlueFin::GlSvId::s_aucGnss2minSvId[v19];
+    }
+  }
+
+  v178 = a7;
+  if ((*a4 & 0x20) != 0)
+  {
+    v20 = v235;
+  }
+
+  else
+  {
+    v20 = a2;
+  }
+
+  SigMeas = BlueFin::GlMeMsmtMgr::GetSigMeas(*(a1 + 8), v20, *a7.i64, 0);
+  v223[0] = 0;
+  v224 = 7;
+  v225 = 0;
+  v226 = xmmword_298A31A60;
+  v227 = 0;
+  v228 = 0;
+  v233 = 0;
+  v234 = 0xBF80000000000000;
+  v231 = 0;
+  v232 = 0;
+  v229 = 0;
+  v230 = 0;
+  BlueFin::GlMeSatAidMgr::GetSatAid(a1 + 320, a2, v223, *v178.i64);
+  v25 = v22;
+  v177 = a3;
+  if (v22)
+  {
+    v26 = v22[4];
+    v27 = *(v22 + 10) < 0.001;
+  }
+
+  else
+  {
+    v27 = 0;
+    v26 = 0.0;
+  }
+
+  if (a6)
+  {
+    v28 = *a6;
+LABEL_19:
+    v176 = v28;
+    goto LABEL_32;
+  }
+
+  v203 = 0;
+  LODWORD(v214) = 0;
+  v185 = 0x3FF0000000000000;
+  *v23.i64 = *v178.i64 + trunc(*v178.i64 * 2.32830644e-10) * -4294967300.0;
+  v29.f64[0] = NAN;
+  v29.f64[1] = NAN;
+  v30 = vnegq_f64(v29);
+  v31 = vbslq_s8(v30, v23, v178);
+  if (*v178.i64 <= 4294967300.0)
+  {
+    v31.i64[0] = v178.i64[0];
+  }
+
+  if (*v31.i64 < -4294967300.0)
+  {
+    *v24.i64 = -*v31.i64;
+    *v31.i64 = -(*v31.i64 - trunc(*v31.i64 * -2.32830644e-10) * -4294967300.0);
+    *v31.i64 = -*vbslq_s8(v30, v31, v24).i64;
+  }
+
+  if (*v31.i64 < 0.0)
+  {
+    v32 = --*v31.i64;
+  }
+
+  else
+  {
+    v32 = *v31.i64;
+  }
+
+  CbGoodQuality = BlueFin::GlMeMiniKF::mskfGetCbGoodQuality(a1 + 9312, v32, &v203, &v214, &v185, 0);
+  v34 = *a2;
+  if (v34 < 0x34)
+  {
+    v176 = CbGoodQuality;
+    goto LABEL_32;
+  }
+
+  v176 = (v34 > 0x41) & CbGoodQuality;
+  if (v34 <= 0x41 && ((CbGoodQuality ^ 1) & 1) == 0)
+  {
+    v28 = v214 >> 7;
+    goto LABEL_19;
+  }
+
+LABEL_32:
+  v35 = 0.0;
+  if (!v25 || (v36 = *a2, v36 < 0x34))
+  {
+    v39 = 0;
+LABEL_45:
+    v175 = 1;
+    goto LABEL_46;
+  }
+
+  if (v36 <= 0x41 && *(v17 + 1632) == 1)
+  {
+    LOBYTE(v203) = 0;
+    HIDWORD(v203) = 7;
+    v204 = 0;
+    v205 = xmmword_298A31A60;
+    v206 = 0;
+    v207 = 0;
+    v212 = 0;
+    v213 = 0xBF80000000000000;
+    v210 = 0;
+    v211 = 0;
+    v208 = 0;
+    v209 = 0;
+    BlueFin::GlMeSatAidMgr::GetSatAid(a1 + 320, (a1 + 9808), &v203, *v178.i64);
+    if (!v37 || *(v25 + 3) == 4 || *(v37 + 12) == 4)
+    {
+      goto LABEL_89;
+    }
+
+    v38 = *(a1 + 9816) - *v178.i64;
+    if (v38 < 0.0)
+    {
+      v38 = -v38;
+    }
+
+    if (v38 >= 180000.0 || *(v37 + 40) >= 0.001 || !v27)
+    {
+LABEL_89:
+      v39 = 0;
+    }
+
+    else
+    {
+      v35 = (*(v37 + 32) - v26) * 1000.0;
+      v39 = 1;
+    }
+
+    v36 = *a2;
+  }
+
+  else
+  {
+    v39 = 0;
+  }
+
+  if (v36 - 139 > 0x23)
+  {
+    goto LABEL_45;
+  }
+
+  if (*(v17 + 1656) != 1)
+  {
+    goto LABEL_45;
+  }
+
+  LOBYTE(v203) = 0;
+  HIDWORD(v203) = 7;
+  v204 = 0;
+  v205 = xmmword_298A31A60;
+  v206 = 0;
+  v207 = 0;
+  v212 = 0;
+  v213 = 0xBF80000000000000;
+  v210 = 0;
+  v211 = 0;
+  v208 = 0;
+  v209 = 0;
+  BlueFin::GlMeSatAidMgr::GetSatAid(a1 + 320, (a1 + 9832), &v203, *v178.i64);
+  if (!v84 || *(v25 + 3) == 4 || *(v84 + 12) == 4)
+  {
+    goto LABEL_45;
+  }
+
+  v85 = *(a1 + 9840) - *v178.i64;
+  if (v85 < 0.0)
+  {
+    v85 = -v85;
+  }
+
+  if (v85 >= 180000.0 || *(v84 + 40) >= 0.001 || !v27)
+  {
+    goto LABEL_45;
+  }
+
+  v175 = 0;
+  v35 = (*(v84 + 32) - v26) * 1000.0;
+LABEL_46:
+  v214 = &unk_2A1F0E1A0;
+  v215 = 0;
+  v216 = 0x36A7C5AC00000000;
+  v217 = 0;
+  v219 = 0;
+  v218 = 3.4028e38;
+  v220 = 2139095039;
+  v221 = 0;
+  v222 = 0x36A7C5AC7F7FFFFFLL;
+  if (a5)
+  {
+    v40 = *(a5 + 16);
+    v215 = *(a5 + 8);
+    v216 = v40;
+    v217 = *(a5 + 24);
+    v41 = *(a5 + 32);
+    v219 = *(a5 + 40);
+    LODWORD(v40) = *(a5 + 48);
+    v218 = v41;
+    v220 = v40;
+    v42 = *(a5 + 64);
+    v221 = *(a5 + 56);
+    v222 = v42;
+    goto LABEL_56;
+  }
+
+  v43 = *v178.i64;
+  if (*v178.i64 > 0.0)
+  {
+    v44 = 0.5;
+LABEL_54:
+    v45 = (v43 + v44);
+    goto LABEL_55;
+  }
+
+  if (*v178.i64 < 0.0)
+  {
+    v44 = -0.5;
+    v43 = *v178.i64;
+    goto LABEL_54;
+  }
+
+  v45 = 0;
+LABEL_55:
+  BlueFin::GlMeClkModMgr::GetClkMod((a1 + 144), &v214, v45);
+LABEL_56:
+  BlueFin::GlMeAcqWinComputer::GlMeAcqWinComputer(&v203, SigMeas, v25, &v214, a1 + 16);
+  v185 = &off_2A1F0E398;
+  v186 = 0;
+  v187 = -1;
+  v188 = 575;
+  v189 = 0;
+  v190 = 0;
+  v191 = xmmword_298A339D0;
+  v192 = 2139095039;
+  v193 = 0.0;
+  v194 = 2139095039;
+  v195 = 0;
+  v196 = 1.79769313e308;
+  v197 = -1;
+  v198 = -1;
+  v200 = 0;
+  v201 = 0;
+  v199 = 0;
+  v202 = 0;
+  if ((*a4 & 0x20) != 0)
+  {
+    v46 = v235;
+  }
+
+  else
+  {
+    v46 = a2;
+  }
+
+  IsDspNavBitQuality = BlueFin::GlMeMsmtMgr::IsDspNavBitQuality(*(a1 + 8), v46);
+  v48 = v215 & 0x84;
+  if (*(v17 + 1664) - 1 > 3 || *(v17 + 1666) - 1 >= 4)
+  {
+    v49 = 0;
+    v50 = 0;
+  }
+
+  else
+  {
+    v49 = 1;
+    v50 = 1;
+  }
+
+  *v18 = v49;
+  BlueFin::GlMeAcqWinComputer::ComputeAcqWin(&v203, &v185, a4, IsDspNavBitQuality, v48 != 0, v50, a2, *v178.i64, *(a1 + 120));
+  LODWORD(v201) = *(a1 + 9120);
+  if ((*(SigMeas + 12) & 0x20) != 0)
+  {
+    v190 |= 0x100u;
+  }
+
+  v184 = 3.4028e38;
+  v53 = *a2;
+  v54 = v53 > 0x33;
+  if (v53 > 0x33)
+  {
+    v198 = -1;
+    v197 = -1;
+    if (v53 > 0x41)
+    {
+      v54 = 0;
+      v56 = &loc_298A2E000;
+      goto LABEL_119;
+    }
+
+    v183 = -1;
+    v55 = v39 & v176;
+    if ((v39 & v176) == 1)
+    {
+      BlueFin::GlMeSatAidMgr::GetSatAid(a1 + 320, (a1 + 9808), 0, *v178.i64);
+      v56 = &loc_298A2E000;
+      v57 = (v35 + *(a1 + 9816)) * 0.001;
+      v59 = 1.0 - *(v58 + 44);
+      v60 = v193 < v57;
+      *v61.i64 = (v57 - v193) * v59;
+      *v62.i64 = *v61.i64 - trunc(*v61.i64 * 0.5) * 2.0;
+      v63.f64[0] = NAN;
+      v63.f64[1] = NAN;
+      v64 = vnegq_f64(v63);
+      v65 = 2.0 - *vbslq_s8(v64, v62, v61).i64;
+      *v66.i64 = (v193 - v57) * v59;
+      *v67.i64 = *v66.i64 + trunc(*v66.i64 * 0.5) * -2.0;
+      v68 = vbslq_s8(v64, v67, v66).u64[0];
+      if (v60)
+      {
+        v69 = v65;
+      }
+
+      else
+      {
+        v69 = *&v68;
+      }
+
+      EpochPerSymbol = BlueFin::GlSignalId::GetEpochPerSymbol(a2);
+      if (*(a2 + 4) >= 0x23Fu)
+      {
+        v167 = "IsValid()";
+        v168 = 679;
+        DeviceFaultNotify("glsignalid.h", 679, "GetMsPerEpoch", "IsValid()");
+      }
+
+      else
+      {
+        if (BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * *(a2 + 1) - *(a2 + 1) + BlueFin::GlSvId::s_aucSvId2gnss[*a2]])
+        {
+          v71 = v69 / ((BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * *(a2 + 1) - *(a2 + 1) + BlueFin::GlSvId::s_aucSvId2gnss[*a2]] * EpochPerSymbol) * 0.001);
+          if (v71 <= 0.0)
+          {
+            if (v71 >= 0.0)
+            {
+              LOBYTE(v109) = 0;
+LABEL_105:
+              v83 = 0;
+              goto LABEL_106;
+            }
+
+            v72 = -0.5;
+          }
+
+          else
+          {
+            v72 = 0.5;
+          }
+
+          v109 = (v71 + v72);
+          goto LABEL_105;
+        }
+
+        v167 = "ucMsPerEpoch != 0";
+        v168 = 686;
+        DeviceFaultNotify("glsignalid.h", 686, "GetMsPerEpoch", "ucMsPerEpoch != 0");
+      }
+
+      __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glsignalid.h", v168, v167);
+    }
+
+    if ((v176 & 1) != 0 || (v180 = 0.0, AidSysTm = BlueFin::GlMeSatAidMgr::GetAidSysTm(a1 + 320, &v180, 1, a5, v193 * 1000.0, 1000.0, v52), !v25))
+    {
+      v83 = 0;
+      LOBYTE(v109) = -1;
+      v56 = &loc_298A2E000;
+      goto LABEL_106;
+    }
+
+    v74 = AidSysTm;
+    v56 = &loc_298A2E000;
+    if ((v180 + *(v25 + 10)) >= 0.005)
+    {
+      v83 = 0;
+      LOBYTE(v109) = -1;
+      goto LABEL_106;
+    }
+
+    v75 = v25[4];
+    v76 = *(v25 + *(a2 + 1) + 14);
+    v77 = BlueFin::GlSignalId::GetEpochPerSymbol(a2);
+    if (*(a2 + 4) >= 0x23Fu)
+    {
+      v173 = "IsValid()";
+      v174 = 679;
+      DeviceFaultNotify("glsignalid.h", 679, "GetMsPerEpoch", "IsValid()");
+    }
+
+    else
+    {
+      if (BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * *(a2 + 1) - *(a2 + 1) + BlueFin::GlSvId::s_aucSvId2gnss[*a2]])
+      {
+        *v78.i64 = v74 + v75 + v76 / 299792458.0;
+        v80 = 0.5;
+        *v79.i64 = *v78.i64 + trunc(*v78.i64 * 0.5) * -2.0;
+        v81.f64[0] = NAN;
+        v81.f64[1] = NAN;
+        v82 = *vbslq_s8(vnegq_f64(v81), v79, v78).i64 / ((BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * *(a2 + 1) - *(a2 + 1) + BlueFin::GlSvId::s_aucSvId2gnss[*a2]] * v77) * 0.001);
+        if (v82 <= 0.0)
+        {
+          if (v82 >= 0.0)
+          {
+            LOBYTE(v109) = 0;
+LABEL_170:
+            v83 = 1;
+LABEL_106:
+            GlnsStrPhsInSym = BlueFin::GlMeMsmtMgr::GetGlnsStrPhsInSym(*(a1 + 8), a2, &v185, &v183);
+            if ((v55 & 1) == 0)
+            {
+              if (GlnsStrPhsInSym)
+              {
+                LOBYTE(v109) = v183;
+              }
+
+              else if ((v83 & 1) == 0)
+              {
+                LOBYTE(v109) = -1;
+                LOBYTE(v197) = -1;
+                if ((v190 & 0x80) == 0)
+                {
+                  goto LABEL_116;
+                }
+
+                goto LABEL_112;
+              }
+            }
+
+            LOBYTE(v197) = v109;
+            if (v109 == 0xFF)
+            {
+              LOBYTE(v109) = -1;
+              if ((v190 & 0x80) == 0)
+              {
+                goto LABEL_116;
+              }
+            }
+
+            else
+            {
+              v190 |= 0x80u;
+              if ((v109 & 1) == 0)
+              {
+                goto LABEL_116;
+              }
+            }
+
+LABEL_112:
+            if ((v109 + 1) <= 0xC7u)
+            {
+              v87 = v109 + 1;
+            }
+
+            else
+            {
+              v87 = v109 + 57;
+            }
+
+            LOBYTE(v197) = v87;
+            v51 = v193;
+            v193 = v193 + ((1.0 - *(&v191 + 1)) * 0.01);
+LABEL_116:
+            v53 = *a2;
+            if (!*a2)
+            {
+              goto LABEL_218;
+            }
+
+            goto LABEL_117;
+          }
+
+          v80 = -0.5;
+        }
+
+        v109 = (v82 + v80);
+        goto LABEL_170;
+      }
+
+      v173 = "ucMsPerEpoch != 0";
+      v174 = 686;
+      DeviceFaultNotify("glsignalid.h", 686, "GetMsPerEpoch", "ucMsPerEpoch != 0");
+    }
+
+    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glsignalid.h", v174, v173);
+  }
+
+  v198 = -1;
+  v197 = -1;
+  v56 = &loc_298A2E000;
+  if (!v53)
+  {
+    goto LABEL_218;
+  }
+
+LABEL_117:
+  if (v53 >= 0x21)
+  {
+    if (v53 < 0x42)
+    {
+      goto LABEL_173;
+    }
+
+LABEL_119:
+    if (v53 <= 0x4B)
+    {
+      goto LABEL_120;
+    }
+
+    if (v53 - 139 > 0x23)
+    {
+      goto LABEL_173;
+    }
+
+    if ((*a4 & 0x20) != 0 && *(a2 + 1) >= 1)
+    {
+      v193 = a8 / 299792458.0 + v193;
+    }
+
+    LOBYTE(v88) = BYTE1(v197);
+    v183 = BYTE1(v197);
+    if ((v175 | v176 ^ 1))
+    {
+      goto LABEL_144;
+    }
+
+    BlueFin::GlMeSatAidMgr::GetSatAid(a1 + 320, (a1 + 9832), 0, *v178.i64);
+    v89 = v35 + *(a1 + 9840);
+    v90 = v56[54];
+    v91 = v89 * v90;
+    v93 = 1.0 - *(v92 + 44);
+    if (v193 >= v91)
+    {
+      v94 = fmod((v193 - v91) * v93, 0.1);
+    }
+
+    else
+    {
+      v94 = 0.1 - fmod((v91 - v193) * v93, 0.1);
+    }
+
+    v95 = BlueFin::GlSignalId::GetEpochPerSymbol(a2);
+    if (*(a2 + 4) >= 0x23Fu)
+    {
+      v171 = "IsValid()";
+      v172 = 679;
+      DeviceFaultNotify("glsignalid.h", 679, "GetMsPerEpoch", "IsValid()");
+    }
+
+    else
+    {
+      if (BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * *(a2 + 1) - *(a2 + 1) + BlueFin::GlSvId::s_aucSvId2gnss[*a2]])
+      {
+        v96 = v94 / ((BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * *(a2 + 1) - *(a2 + 1) + BlueFin::GlSvId::s_aucSvId2gnss[*a2]] * v95) * v90);
+        if (v96 <= 0.0)
+        {
+          if (v96 >= 0.0)
+          {
+            LOBYTE(v88) = 0;
+            goto LABEL_144;
+          }
+
+          v97 = -0.5;
+        }
+
+        else
+        {
+          v97 = 0.5;
+        }
+
+        v88 = (v96 + v97);
+LABEL_144:
+        GalSecCodePhsInSym = BlueFin::GlMeMsmtMgr::GetGalSecCodePhsInSym(*(a1 + 8), a2, &v185, &v183);
+        v100 = v183;
+        if (!GalSecCodePhsInSym)
+        {
+          v100 = -1;
+        }
+
+        if (((v175 | v176 ^ 1) & 1) == 0)
+        {
+          v100 = v88;
+        }
+
+        BYTE1(v197) = v100;
+        v101 = v193 * 1000.0;
+        v102 = BlueFin::GlMeSatAidMgr::GetAidSysTm(a1 + 320, &v184, v54, &v214, v193 * 1000.0, 1000.0, v99);
+        if (v25)
+        {
+          v103 = v25[4];
+          v104 = *(v25 + *(a2 + 1) + 14);
+          LOBYTE(v180) = *a2;
+          v181 = 0;
+          v182 = 575;
+          if (LOBYTE(v180) - 189 >= 0xFFFFFF44)
+          {
+            v105 = BlueFin::GlSvId::s_aucSvId2gnss[LOBYTE(v180)];
+            if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v105] == 255)
+            {
+              v181 = -1;
+            }
+
+            else
+            {
+              v182 = BlueFin::GlSignalId::s_ausGnss2signalId[v105] + LOBYTE(v180) - BlueFin::GlSvId::s_aucGnss2minSvId[v105];
+            }
+          }
+
+          BlueFin::GlMeMsmtMgr::GetSigMeas(*(a1 + 8), &v180, v101, 0);
+          v51 = 299792458.0;
+          v52 = v102 + v103;
+          v102 = v102 + v103 + v104 / 299792458.0;
+        }
+
+        if (BYTE1(v197) != 255)
+        {
+          v190 |= 0x400u;
+        }
+
+        if (!v25)
+        {
+          goto LABEL_172;
+        }
+
+        v51 = v218;
+        if (v218 >= 0.0005)
+        {
+          goto LABEL_172;
+        }
+
+        v51 = v184;
+        if (v184 >= 0.0005)
+        {
+          goto LABEL_172;
+        }
+
+        v106 = v102 + 604800.0;
+        if (v102 >= 0.0)
+        {
+          v106 = v102;
+        }
+
+        v107 = fmod(v106, 0.1);
+        if (*(a2 + 1))
+        {
+          v51 = v56[54];
+        }
+
+        else
+        {
+          v51 = 0.004;
+        }
+
+        v108 = v107 / v51;
+        if (v108 <= 0.0)
+        {
+          if (v108 >= 0.0)
+          {
+            LOBYTE(v110) = 0;
+LABEL_171:
+            BYTE1(v197) = v110;
+            v190 |= 0x400u;
+LABEL_172:
+            v53 = *a2;
+            goto LABEL_173;
+          }
+
+          v51 = -0.5;
+        }
+
+        else
+        {
+          v51 = 0.5;
+        }
+
+        v110 = (v108 + v51);
+        goto LABEL_171;
+      }
+
+      v171 = "ucMsPerEpoch != 0";
+      v172 = 686;
+      DeviceFaultNotify("glsignalid.h", 686, "GetMsPerEpoch", "ucMsPerEpoch != 0");
+    }
+
+    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glsignalid.h", v172, v171);
+  }
+
+LABEL_120:
+  if ((*a4 & 0x20) != 0 && *(a2 + 1) == 2)
+  {
+    v51 = v193;
+    v193 = a8 / 299792458.0 + v193;
+  }
+
+LABEL_173:
+  if (v53 - 76 > 0x3E)
+  {
+    goto LABEL_218;
+  }
+
+  v111 = *(a2 + 1);
+  if (!v111)
+  {
+    goto LABEL_218;
+  }
+
+  v112 = v193 * 1000.0;
+  v113 = BlueFin::GlMeSatAidMgr::GetAidSysTm(a1 + 320, &v184, v54, &v214, v193 * 1000.0, v51, v52);
+  if (v25)
+  {
+    v114 = v113 + -14.0;
+    v115 = v114 >= 0.0 ? v114 : v114 + 604800.0;
+    v116 = v25[4];
+    v117 = *(v25 + v111 + 14);
+    LOBYTE(v180) = v53;
+    v181 = 0;
+    v182 = 575;
+    v118 = BlueFin::GlSvId::s_aucSvId2gnss[v53];
+    if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v118] == 255)
+    {
+      v181 = -1;
+    }
+
+    else
+    {
+      v182 = BlueFin::GlSignalId::s_ausGnss2signalId[v118] + v53 - BlueFin::GlSvId::s_aucGnss2minSvId[v118];
+    }
+
+    BlueFin::GlMeMsmtMgr::GetSigMeas(*(a1 + 8), &v180, v112, 0);
+    if (v218 < 0.0005 && v184 < 0.0005)
+    {
+      v119 = 0.1;
+      if (*(a2 + 1) != 2)
+      {
+        v119 = 18.0;
+      }
+
+      v120 = dbl_298A3AD60[*(a2 + 1) == 2];
+      v121 = fmod(v115 + v116 + v117 / 299792458.0, v119) / v120;
+      if (v121 <= 0.0)
+      {
+        if (v121 >= 0.0)
+        {
+          LOWORD(v123) = 0;
+LABEL_192:
+          HIWORD(v197) = v123;
+          v190 |= 0x1000u;
+          goto LABEL_193;
+        }
+
+        v122 = -0.5;
+      }
+
+      else
+      {
+        v122 = 0.5;
+      }
+
+      v123 = (v121 + v122);
+      goto LABEL_192;
+    }
+  }
+
+LABEL_193:
+  v124 = v190;
+  if ((v190 & 0x1000) == 0 && BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * *(a2 + 1) - *(a2 + 1) + BlueFin::GlSvId::s_aucSvId2gnss[*a2]] == 13)
+  {
+    B1cL1cSecCodePhsInSym = BlueFin::GlMeMsmtMgr::GetB1cL1cSecCodePhsInSym(*(a1 + 8), a2, &v185, &v197 + 1);
+    v124 = v190;
+    if (B1cL1cSecCodePhsInSym)
+    {
+      v124 = v190 | 0x1000;
+      v190 |= 0x1000u;
+    }
+  }
+
+  if ((v124 & 0x1000) == 0)
+  {
+    LOBYTE(v180) = *a2;
+    v181 = 0;
+    v182 = 575;
+    if (LOBYTE(v180) - 189 >= 0xFFFFFF44)
+    {
+      v126 = BlueFin::GlSvId::s_aucSvId2gnss[LOBYTE(v180)];
+      if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v126] == 255)
+      {
+        v181 = -1;
+      }
+
+      else
+      {
+        v182 = BlueFin::GlSignalId::s_ausGnss2signalId[v126] + LOBYTE(v180) - BlueFin::GlSvId::s_aucGnss2minSvId[v126];
+      }
+    }
+
+    v127 = BlueFin::GlMeMsmtMgr::GetSigMeas(*(a1 + 8), &v180, v193 * 1000.0, 0);
+    if (v127)
+    {
+      if ((~*(v127 + 12) & 0x22) == 0)
+      {
+        v128 = *(a2 + 1);
+        if ((*a4 & 0x20) != 0)
+        {
+          if (v128 == 2)
+          {
+            v129 = v10 / 299792458.0;
+            v130 = a8 / 299792458.0;
+            v193 = a8 / 299792458.0 + v193 - v10 / 299792458.0;
+            goto LABEL_209;
+          }
+        }
+
+        else if (v128 == 2)
+        {
+          v129 = v10 / 299792458.0;
+          v130 = a8 / 299792458.0;
+LABEL_209:
+          v132 = *(v127 + 64);
+          v131 = (v127 + 64);
+          v133 = v129 + v132 - v130;
+          v134 = 0.1;
+          v135 = v56[54];
+          goto LABEL_211;
+        }
+
+        v136 = *(v127 + 64);
+        v131 = (v127 + 64);
+        v133 = v10 / 299792458.0 + v136;
+        v134 = 18.0;
+        v135 = 0.01;
+LABEL_211:
+        *v131 = v133;
+        v137 = fmod(v133, v134) / v135;
+        if (v137 <= 0.0)
+        {
+          if (v137 >= 0.0)
+          {
+            LOWORD(v139) = 0;
+LABEL_217:
+            HIWORD(v197) = v139;
+            v190 |= 0x1000u;
+            goto LABEL_218;
+          }
+
+          v138 = -0.5;
+        }
+
+        else
+        {
+          v138 = 0.5;
+        }
+
+        v139 = (v137 + v138);
+        goto LABEL_217;
+      }
+    }
+  }
+
+LABEL_218:
+  v140 = v193 * 1000.0;
+  v141 = BlueFin::GlMeSatAidMgr::GetAidSysTm(a1 + 320, &v184, v54, &v214, v193 * 1000.0, 1000.0, v52);
+  v196 = v141;
+  if (!v25)
+  {
+    goto LABEL_267;
+  }
+
+  v142 = *v25;
+  if (v142 >= 0x34 && v142 <= 0x41 && v184 > 0.0005)
+  {
+    HIBYTE(v195) = 0;
+  }
+
+  LODWORD(v143) = *(a2 + 1);
+  v144 = v141 + v25[4] + *(v25 + v143 + 14) / 299792458.0;
+  v196 = v144;
+  v145 = *a2;
+  if (v144 < 0.0)
+  {
+    v144 = v144 + dbl_298A3AD70[(v145 - 52) < 0xE];
+    v196 = v144;
+  }
+
+  v146 = BlueFin::GlSvId::s_aucSvId2gnss[v145];
+  if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * v143 - v143 + v146] == 1 && *(v25 + 10) < 0.0000001 && v184 < 0.0000001)
+  {
+    LOBYTE(v180) = v145;
+    v181 = 0;
+    v182 = 575;
+    if ((v145 - 189) >= 0xFFFFFF44)
+    {
+      if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v146] == 255)
+      {
+        v181 = -1;
+      }
+
+      else
+      {
+        v182 = BlueFin::GlSignalId::s_ausGnss2signalId[v146] + v145 - BlueFin::GlSvId::s_aucGnss2minSvId[v146];
+      }
+    }
+
+    BlueFin::GlMeMsmtMgr::GetSigMeas(*(a1 + 8), &v180, v140, 0);
+    if (*(a2 + 4) >= 0x23Fu)
+    {
+      v169 = "IsValid()";
+      v170 = 679;
+      DeviceFaultNotify("glsignalid.h", 679, "GetMsPerEpoch", "IsValid()");
+    }
+
+    else
+    {
+      v143 = *(a2 + 1);
+      v145 = *a2;
+      v146 = BlueFin::GlSvId::s_aucSvId2gnss[*a2];
+      if (BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * v143 - v143 + v146])
+      {
+        v147 = v56[54];
+        v148 = BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * v143 - v143 + v146] * v147;
+        v144 = v196;
+        v149 = fmod(v196, v148);
+        v152 = (1.0 - *(&v191 + 1));
+        v153 = v193 + v152 * (v148 - v149);
+        v193 = v153;
+        *v154.i64 = vabdd_f64(v153, *v178.i64 * v147);
+        if (*v154.i64 > v148 * 0.5)
+        {
+          *v154.i64 = (v148 * 0.5 + *v154.i64) / v148;
+          *v151.i64 = *v154.i64 + trunc(*v154.i64 * 2.32830644e-10) * -4294967300.0;
+          v155.f64[0] = NAN;
+          v155.f64[1] = NAN;
+          v156 = vnegq_f64(v155);
+          v151.i64[0] = vbslq_s8(v156, v151, v154).u64[0];
+          if (*v154.i64 > 4294967300.0)
+          {
+            v154.i64[0] = v151.i64[0];
+          }
+
+          if (*v154.i64 < -4294967300.0)
+          {
+            *v150.i64 = -*v154.i64;
+            *v154.i64 = -(*v154.i64 - trunc(*v154.i64 * -2.32830644e-10) * -4294967300.0);
+            *v154.i64 = -*vbslq_s8(v156, v154, v150).i64;
+          }
+
+          if (*v154.i64 < 0.0)
+          {
+            v157 = --*v154.i64;
+          }
+
+          else
+          {
+            v157 = *v154.i64;
+          }
+
+          v158 = v148 * v157 * v152;
+          v159 = 1.0;
+          if (v153 - *v178.i64 * v147 >= 0.0)
+          {
+            v159 = -1.0;
+          }
+
+          v193 = v153 + v159 * v158;
+        }
+
+        v190 |= 0x800u;
+        goto LABEL_246;
+      }
+
+      v169 = "ucMsPerEpoch != 0";
+      v170 = 686;
+      DeviceFaultNotify("glsignalid.h", 686, "GetMsPerEpoch", "ucMsPerEpoch != 0");
+    }
+
+    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glsignalid.h", v170, v169);
+  }
+
+LABEL_246:
+  if (v218 < 0.0005 && v184 < 0.0005)
+  {
+    v160 = (v145 - 1) >= 0x20 && (v145 - 66) >= 0xA;
+    v161 = !v160;
+    if (v143 == 3 && v161)
+    {
+      v162 = fmod(v144, 18.0) / 0.01;
+      if (v162 <= 0.0)
+      {
+        if (v162 >= 0.0)
+        {
+          LOWORD(v164) = 0;
+LABEL_262:
+          v198 = v164;
+          v190 |= 0x2000u;
+          goto LABEL_263;
+        }
+
+        v163 = -0.5;
+      }
+
+      else
+      {
+        v163 = 0.5;
+      }
+
+      v164 = (v162 + v163);
+      goto LABEL_262;
+    }
+  }
+
+LABEL_263:
+  if ((v190 & 0x2000) == 0 && BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * v143 - v143 + v146] == 14 && BlueFin::GlMeMsmtMgr::GetB1cL1cSecCodePhsInSym(*(a1 + 8), a2, &v185, &v198))
+  {
+    v190 |= 0x2000u;
+  }
+
+LABEL_267:
+  BlueFin::GlMeAcqWin::operator=(v177, &v185);
+  if ((v165 + 8) != a2)
+  {
+    *(v165 + 8) = *a2;
+    *(v165 + 12) = *(a2 + 1);
+    *(v165 + 16) = *(a2 + 4);
+  }
+
+  *(v165 + 24) = *v178.i64 * v56[54];
+  if ((*a4 & 4) != 0 && BlueFin::GlUtils::m_pInstance && *(BlueFin::GlUtils::m_pInstance + 1122) == 1)
+  {
+    (*(*v165 + 24))(v165, 0, 0);
+  }
+
+  return v25 != 0;
+}
+
 uint64_t BlueFin::GlSignalId::GetEpochPerBit(BlueFin::GlSignalId *this)
 {
   if (*(this + 4) >= 0x23Fu)
@@ -38,7 +1982,7 @@ LABEL_13:
   return result;
 }
 
-unint64_t BlueFin::GlMeSrdCtrlSm::SetSatAiding(BlueFin::GlMeSrdCtrlSm *this, const BlueFin::GlSatAidInfo *a2)
+uint64_t BlueFin::GlMeSrdCtrlSm::SetSatAiding(BlueFin::GlMeSrdCtrlSm *this, const BlueFin::GlSatAidInfo *a2)
 {
   v5 = 29;
   v3 = *(this + 4);
@@ -141,13 +2085,13 @@ uint64_t BlueFin::GlMeSignalAidInfo::RemoveAllNullSignals(uint64_t this)
   return this;
 }
 
-uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const BlueFin::GlMeSignalAidInfo *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, const void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char *a17, int a18, unsigned int a19, unsigned __int16 *a20, uint64_t a21, uint64_t a22, uint64_t a23, unsigned __int8 a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, unsigned int a36, char a37, unsigned __int16 a38, __int128 *a39, __int128 a40, __int128 a41, __int128 a42, __int128 a43, __int128 a44, __int128 a45, __int128 a46, __int128 a47, __int128 a48, __int128 a49, __int128 a50, __int128 a51, __int128 a52, __int128 a53, __int128 a54, __int128 a55, __int128 a56, __int128 a57)
+uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const BlueFin::GlMeSignalAidInfo *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, const void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char *a17, int a18, unsigned int a19, unsigned __int16 *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, unsigned int a36, char a37, unsigned __int16 a38, __int128 *a39, __int128 a40, __int128 a41, __int128 a42, __int128 a43, __int128 a44, __int128 a45, __int128 a46, __int128 a47, __int128 a48, __int128 a49, __int128 a50, __int128 a51, __int128 a52, __int128 a53, __int128 a54, __int128 a55, __int128 a56, __int128 a57)
 {
   STACK[0xCB8] = *MEMORY[0x29EDCA608];
   v59 = *(this + 784);
   if (*(v59 + 26342) == 1 && !*(*(this + 805) + 36))
   {
-    (*(*v59 + 1000))(*(this + 784), 1);
+    (*(*v59 + 1000))(*(this + 784), 1, a3, a4, a5, a6, a7, a8);
     (*(**(this + 39) + 776))();
     v59 = *(this + 784);
   }
@@ -187,9 +2131,9 @@ uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const Blue
     a43 = 0u;
     a40 = 0u;
     a41 = 0u;
-    v135 = &unk_2A1F09328;
-    LOBYTE(v137[0]) = -96;
-    *(v137 + 4) = &a40;
+    v133 = &unk_2A1F09328;
+    LOBYTE(v135[0]) = -96;
+    *(v135 + 4) = &a40;
     do
     {
       v61 = &a40 + v60;
@@ -199,8 +2143,8 @@ uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const Blue
     }
 
     while (v60 != 1280);
-    v136 = *(a2 + 2);
-    WORD1(v137[0]) = 0;
+    v134 = *(a2 + 2);
+    WORD1(v135[0]) = 0;
     v62 = *(a2 + 7);
     if (*(a2 + 7))
     {
@@ -215,7 +2159,7 @@ uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const Blue
           v67 = &a40 + 8 * v64;
           *v67 = *(v65 - 2);
           *(v67 + 1) = v66;
-          WORD1(v137[0]) = ++v63;
+          WORD1(v135[0]) = ++v63;
           v64 = v63;
         }
 
@@ -226,16 +2170,18 @@ uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const Blue
       while (v62);
     }
 
-    if (BlueFin::GlUtils::m_pInstance && *(BlueFin::GlUtils::m_pInstance + 1122) == 1)
+    if (BlueFin::GlUtils::m_pInstance)
     {
-      off_2A1F09340(&v135);
+      if (*(BlueFin::GlUtils::m_pInstance + 1122) == 1)
+      {
+        off_2A1F09340(&v133, 0, 0);
+      }
     }
 
-    BlueFin::GlMeSignalAidInfo::Print(&v135, 0xEu, 0);
-    BlueFin::GlMeSignalAidInfo::GetSignalIds(&v135, &a24);
+    BlueFin::GlMeSignalAidInfo::Print(&v133, 0xEu, 0);
+    BlueFin::GlMeSignalAidInfo::GetSignalIds(&a24, &v133);
     (*(**(this + 787) + 96))(*(this + 787), &a24);
-    result = (*(**(this + 39) + 232))(*(this + 39), &v135);
-    goto LABEL_124;
+    return (*(**(this + 39) + 232))(*(this + 39), &v133);
   }
 
   if (*(v59 + 26297) == 1)
@@ -291,9 +2237,9 @@ uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const Blue
       while (v71 != 1280);
       a18 = *(a2 + 2);
       v73 = *(*(this + 788) + 60928);
-      BlueFin::GlSetBase::GlSetBase(&v135, v137, 8u, (v59 + 208));
+      BlueFin::GlSetBase::GlSetBase(&v133, v135, 8u, (v59 + 208));
       v74 = 0;
-      v75 = v135 + v136 - 1;
+      v75 = v133 + v134 - 1;
       do
       {
         if (*v75)
@@ -305,7 +2251,7 @@ uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const Blue
         --v75;
       }
 
-      while (v75 >= v135);
+      while (v75 >= v133);
       if (v73 > 0x1E || v74 <= 0x20u && *(*(this + 788) + 60928) >= 2u)
       {
         if (*(a2 + 7))
@@ -315,13 +2261,13 @@ uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const Blue
           v79 = 0;
           v80 = 0;
           v81 = *(this + 789);
-          v134 = 15;
+          v132 = 15;
           v82 = 4;
           while (1)
           {
             if (v74 < 0x21u || *(*(a2 + 2) + v77) - 1 > 0x1F)
             {
-              a24 = *(*(a2 + 2) + v77);
+              LOBYTE(a24) = *(*(a2 + 2) + v77);
               AidBySvId = BlueFin::GlPeSatAidInfo::GetAidBySvId(v81 + 32, &a24);
               if (AidBySvId && *(AidBySvId + 37) >= 5 && *(AidBySvId + 3) != 4)
               {
@@ -335,13 +2281,13 @@ uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const Blue
                   *v88 = *v85;
                   *(v88 + 1) = v86;
                   v89 = (*(v85 + 4) & 0x200) == 0;
-                  v90 = v134;
+                  v90 = v132;
                   if (!v89)
                   {
                     v90 = 11;
                   }
 
-                  v134 = v90;
+                  v132 = v90;
                   if (v89)
                   {
                     v91 = 1;
@@ -387,7 +2333,7 @@ uint64_t BlueFin::GlReqSm::sendMeSignalAiding(BlueFin::GlReqSm *this, const Blue
                 {
                   LODWORD(v95) = *(a2 + 7);
 LABEL_52:
-                  if (v79 >= v134 || !v95)
+                  if (v79 >= v132 || !v95)
                   {
                     break;
                   }
@@ -396,7 +2342,7 @@ LABEL_52:
 LABEL_55:
                   if (*(*(a2 + 2) + 8 * v96) - 1 <= 0x1F)
                   {
-                    a24 = *(*(a2 + 2) + 8 * v96);
+                    LOBYTE(a24) = *(*(a2 + 2) + 8 * v96);
                     v97 = BlueFin::GlPeSatAidInfo::GetAidBySvId(v81 + 32, &a24);
                     if (v97)
                     {
@@ -442,7 +2388,7 @@ LABEL_63:
 
                           HIWORD(a19) = v99 + 1;
                           v79 = v105;
-                          if (v105 >= v134)
+                          if (v105 >= v132)
                           {
                             break;
                           }
@@ -535,10 +2481,9 @@ LABEL_72:
       }
 
       BlueFin::GlMeSignalAidInfo::Print(&a17, 0xEu, 0);
-      BlueFin::GlMeSignalAidInfo::GetSignalIds(&a17, &a24);
+      BlueFin::GlMeSignalAidInfo::GetSignalIds(&a24, &a17);
       (*(**(this + 787) + 96))(*(this + 787), &a24);
-      result = (*(**(this + 39) + 232))(*(this + 39), &a17);
-      goto LABEL_124;
+      return (*(**(this + 39) + 232))(*(this + 39), &a17);
     }
   }
 
@@ -592,13 +2537,13 @@ LABEL_72:
     a36 = *(a2 + 2);
     a38 = 0;
     BlueFin::GlReqSm::GetValidDetectedSignalIds(&a24, this);
-    BlueFin::GlSignalIdSet::GetSvIdSet(&a24, &a11);
+    BlueFin::GlSignalIdSet::GetSvIdSet(&a11, &a24);
     BlueFin::GlSetBase::GlSetBase(&a17, &a19, 8u, &a11);
-    v135 = v137;
-    LOBYTE(v136) = 8;
-    v137[0] = xmmword_298A3244C;
-    v137[1] = unk_298A3245C;
-    BlueFin::GlSetBase::operator&=(&a17, &v135);
+    v133 = v135;
+    LOBYTE(v134) = 8;
+    v135[0] = xmmword_298A3244C;
+    v135[1] = unk_298A3245C;
+    BlueFin::GlSetBase::operator&=(&a17, &v133);
     v108 = 0;
     v109 = &a17[4 * a18 - 4];
     do
@@ -622,10 +2567,10 @@ LABEL_72:
       do
       {
         v115 = *(*(a2 + 2) + v112);
-        LOBYTE(v135) = v115;
+        LOBYTE(v133) = v115;
         if (v115 - 76 <= 0x3E)
         {
-          v116 = !BlueFin::GlPeSatAidInfo::GetAidBySvId(v114 + 32, &v135) && v111 != 0;
+          v116 = !BlueFin::GlPeSatAidInfo::GetAidBySvId(v114 + 32, &v133) && v111 != 0;
           if (!v116 || ((*&a17[(v115 >> 3) & 0x1C] >> (v115 & 0x1F)) & 1) != 0)
           {
             v117 = *(a2 + 2) + v112;
@@ -654,10 +2599,9 @@ LABEL_120:
           }
 
           BlueFin::GlMeSignalAidInfo::Print(&a35, 0xEu, 0);
-          BlueFin::GlMeSignalAidInfo::GetSignalIds(&a35, &v135);
-          (*(**(this + 787) + 96))(*(this + 787), &v135);
-          result = (*(**(this + 39) + 232))(*(this + 39), &a35);
-          goto LABEL_124;
+          BlueFin::GlMeSignalAidInfo::GetSignalIds(&v133, &a35);
+          (*(**(this + 787) + 96))(*(this + 787), &v133);
+          return (*(**(this + 39) + 232))(*(this + 39), &a35);
         }
 
 LABEL_116:
@@ -704,17 +2648,13 @@ LABEL_116:
 
   if (BlueFin::GlUtils::m_pInstance && *(BlueFin::GlUtils::m_pInstance + 1122) == 1)
   {
-    (*(*a2 + 24))(a2, 0, 0);
+    (*(*a2 + 24))(a2, 0, 0, a4, a5, a6, a7, a8);
   }
 
   BlueFin::GlMeSignalAidInfo::Print(a2, 0xEu, 0);
-  BlueFin::GlMeSignalAidInfo::GetSignalIds(a2, &a40);
+  BlueFin::GlMeSignalAidInfo::GetSignalIds(&a40, a2);
   (*(**(this + 787) + 96))(*(this + 787), &a40);
-  result = (*(**(this + 39) + 232))(*(this + 39), a2);
-LABEL_124:
-  v132 = STACK[0xCB8];
-  v133 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(**(this + 39) + 232))(*(this + 39), a2);
 }
 
 uint64_t BlueFin::GlMeSignalAidInfo::Print(uint64_t this, unsigned __int8 a2, char a3)
@@ -963,7 +2903,7 @@ _BYTE *BlueFin::GlPeGnssSatPosTriplet::GlPeGnssSatPosTriplet(_BYTE *a1, uint64_t
   return a1;
 }
 
-unint64_t BlueFin::GlMeSrdCtrlSm::SetSignalAiding(BlueFin::GlMeSrdCtrlSm *this, const BlueFin::GlMeSignalAidInfo *a2)
+uint64_t BlueFin::GlMeSrdCtrlSm::SetSignalAiding(BlueFin::GlMeSrdCtrlSm *this, const BlueFin::GlMeSignalAidInfo *a2)
 {
   BlueFin::GlMeSignalAidInfo::operator=(this + 1600, a2);
   v5 = 28;
@@ -1111,8 +3051,7 @@ double BlueFin::GlPePlatfStatMgr::ResetEpoch(BlueFin::GlPePlatfStatMgr *this)
 
 BOOL BlueFin::GlPeStartupMgr::hasAssistRtoOrLtoOrbit(BlueFin::GlPeStartupMgr *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int **a24)
 {
-  v52 = *MEMORY[0x29EDCA608];
-  BlueFin::GlGnssSet::operator|(*this + 120224, *this + 120608, &v51);
+  BlueFin::GlGnssSet::operator|(*this + 120224, *this + 120608, &v50);
   v25 = *a24;
   v26 = **a24;
   if (!v26)
@@ -1157,9 +3096,7 @@ BOOL BlueFin::GlPeStartupMgr::hasAssistRtoOrLtoOrbit(BlueFin::GlPeStartupMgr *th
   v28 = a24[12];
   if (*v28)
   {
-LABEL_20:
-    result = 1;
-    goto LABEL_29;
+    return 1;
   }
 
   v29 = *(a24 + 104);
@@ -1171,7 +3108,7 @@ LABEL_20:
     {
       if (*v31++)
       {
-        goto LABEL_20;
+        return 1;
       }
     }
 
@@ -1206,7 +3143,7 @@ LABEL_19:
   v41 = *this;
   if (*(*this + 120012) == 1)
   {
-    goto LABEL_20;
+    return 1;
   }
 
 LABEL_26:
@@ -1221,10 +3158,7 @@ LABEL_26:
   }
 
   while (v49);
-  result = v47 > 3u;
-LABEL_29:
-  v50 = *MEMORY[0x29EDCA608];
-  return result;
+  return v47 > 3u;
 }
 
 float BlueFin::GlMeMiniKF::NoMsmtAvail(BlueFin::GlMeMiniKF *this, unsigned int a2, double a3, double a4)
@@ -1351,7 +3285,7 @@ BOOL BlueFin::GlMeUserDynamic::Recent(BlueFin::GlMeUserDynamic *this, unsigned i
   return result;
 }
 
-void BlueFin::GlMeSrdAcqMgr::ProcessPending(BlueFin::GlMeSrdAcqMgr *this, int a2)
+void BlueFin::GlMeSrdAcqMgr::ProcessPending(BlueFin::GlMeSrdAcqMgr *this, uint64_t a2)
 {
   if ((*(this + 104) & 1) == 0)
   {
@@ -1359,39 +3293,36 @@ void BlueFin::GlMeSrdAcqMgr::ProcessPending(BlueFin::GlMeSrdAcqMgr *this, int a2
     __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_acq_mgr.cpp", 103, "m_bAllocated");
   }
 
+  v2 = a2;
   v4 = *(this + 1);
   *(v4 + 23160) = a2;
   BlueFin::GlMeSrdAcqMgrSm::UpdateSvidControl(v4);
-  v5 = *(this + 1);
-  v6 = *(v5 + 23160);
-  BlueFin::GlMeSrdSatTrackMgr::UpdateState((v5 + 14352));
+  BlueFin::GlMeSrdSatTrackMgr::UpdateState((*(this + 1) + 14352));
   BlueFin::GlMeSrdAcqMgrSm::UpdateDeferredKill(*(this + 1));
   BlueFin::GlMeSrdAcqMgrSm::UpdateStateMachineTransitions(*(this + 1));
   BlueFin::GlMeSrdAcqMgrSm::UpdatePostSearchMgr(*(this + 1));
   BlueFin::GlMeSrdAcqMgrSm::UpdateSvidToSearchForMgrs(*(this + 1));
   BlueFin::GlMeSrdAcqMgrSm::UpdateAidingMgr(*(this + 1));
-  v7 = *(this + 1);
-  v8 = *(v7 + 23160);
-  v9 = (*(**(v7 + 48) + 80))(*(v7 + 48));
-  BlueFin::GlMeSrdSatTrackMgr::ProcessPending((v7 + 14352), v8, v9);
-  v10 = 0;
-  v11 = *(this + 1);
+  v5 = *(this + 1);
+  v6 = *(v5 + 23160);
+  v7 = (*(**(v5 + 48) + 80))(*(v5 + 48));
+  BlueFin::GlMeSrdSatTrackMgr::ProcessPending((v5 + 14352), v6, v7);
+  v8 = 0;
+  v9 = *(this + 1);
   do
   {
-    (*(**(v11 + 23080 + v10) + 56))(*(v11 + 23080 + v10), *(v11 + 23160));
-    v10 += 8;
+    (*(**(v9 + 23080 + v8) + 56))(*(v9 + 23080 + v8), *(v9 + 23160));
+    v8 += 8;
   }
 
-  while (v10 != 80);
+  while (v8 != 80);
+  v10 = *(this + 1);
+  v11 = (*(**(v10 + 48) + 80))(*(v10 + 48));
+  BlueFin::GlMeSrdSatMgr::ProcessPending(v10 + 3520, v2, v11, *(*(this + 1) + 25248));
   v12 = *(this + 1);
-  v13 = (*(**(v12 + 48) + 80))(*(v12 + 48));
-  BlueFin::GlMeSrdSatMgr::ProcessPending(v12 + 3520, a2, v13, *(*(this + 1) + 25248));
-  v14 = *(this + 1);
-  BlueFin::GlMeSrdSatMgr::GetLowLevelAllocatedSvidList((v14 + 3520), v18);
-  v15 = *(this + 1);
-  v16 = *(v15 + 48);
-  BlueFin::GlMeSrdSatMgr::GetRecentlyKilledWaiting4AckSvIdList((v15 + 3520), &v17);
-  BlueFin::GlMeSrdAidingMgr::CleanupUnusedAidIds(v14 + 240);
+  BlueFin::GlMeSrdSatMgr::GetLowLevelAllocatedSvidList(v14, (v12 + 3520));
+  BlueFin::GlMeSrdSatMgr::GetRecentlyKilledWaiting4AckSvIdList(v13, (*(this + 1) + 3520));
+  BlueFin::GlMeSrdAidingMgr::CleanupUnusedAidIds(v12 + 240, v14);
   BlueFin::GlMeSrdAcqMgrSm::UpdateResources(*(this + 1));
 }
 
@@ -1559,29 +3490,29 @@ unint64_t BlueFin::GlMeSrdSatMgr::SetL1CEnabled(BlueFin::GlMeSrdSatMgr *this, co
 
 unsigned __int8 *BlueFin::GlMeSrdAcqMgrSm::UpdateDeferredKill(BlueFin::GlMeSrdAcqMgrSm *this)
 {
-  v19 = v21;
-  v2 = (this + 23160);
-  v20 = 4;
-  v21[1] = 0;
-  v21[0] = 0;
-  v16 = v18;
-  v17 = 4;
-  v18[1] = 0;
-  v18[0] = 0;
-  LODWORD(v14) = *(this + 24928);
+  v18 = v20;
+  v2 = this + 23160;
+  v19 = 4;
+  v20[1] = 0;
+  v20[0] = 0;
+  v15 = v17;
+  v16 = 4;
+  v17[1] = 0;
+  v17[0] = 0;
+  LODWORD(v13) = *(this + 24928);
   v3 = *(this + 3115);
-  v4 = 4 * v14;
-  memcpy(v15, v3, v4);
-  HIDWORD(v14) = v15[0];
-  BlueFin::GlSetIterator::operator++(&v14);
-  if (BYTE1(v14) != v14)
+  v4 = 4 * v13;
+  memcpy(v14, v3, v4);
+  HIDWORD(v13) = v14[0];
+  BlueFin::GlSetIterator::operator++(&v13);
+  if (BYTE1(v13) != v13)
   {
     do
     {
-      v5 = BYTE2(v14);
-      if (BlueFin::GlMeSrdSatTrackMgr::HasSat((this + 14352), BYTE2(v14)))
+      v5 = BYTE2(v13);
+      if (BlueFin::GlMeSrdSatTrackMgr::HasSat((this + 14352), BYTE2(v13)))
       {
-        *(v19 + ((v5 >> 3) & 0x1C)) |= 1 << v5;
+        *(v18 + ((v5 >> 3) & 0x1C)) |= 1 << v5;
       }
 
       else
@@ -1589,7 +3520,7 @@ unsigned __int8 *BlueFin::GlMeSrdAcqMgrSm::UpdateDeferredKill(BlueFin::GlMeSrdAc
         v6 = 1 << (v5 & 0x1F);
         if ((v6 & *(*(this + 1740) + 4 * (v5 >> 5))) != 0)
         {
-          *(v16 + (v5 >> 5)) |= 1 << (v5 & 0x1F);
+          *(v15 + (v5 >> 5)) |= 1 << (v5 & 0x1F);
         }
 
         else
@@ -1616,27 +3547,26 @@ unsigned __int8 *BlueFin::GlMeSrdAcqMgrSm::UpdateDeferredKill(BlueFin::GlMeSrdAc
       }
 
 LABEL_11:
-      BlueFin::GlSetIterator::operator++(&v14);
+      BlueFin::GlSetIterator::operator++(&v13);
     }
 
-    while (BYTE1(v14) != v14);
+    while (BYTE1(v13) != v13);
     v3 = *(this + 3115);
-    v4 = 4 * *(v2 + 1768);
+    v4 = 4 * v2[1768];
   }
 
   bzero(v3, ((v4 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  BlueFin::GlMeSrdAcqMgrSm::KillAndReleaseSatInPostSearch(this, &v16);
-  v9 = *v2;
-  BlueFin::GlMeSrdSatTrackMgr::GetSetSatIdToKill((this + 14352), &v14);
-  v11 = v13;
-  v12 = 4;
-  v13[1] = 0;
-  v13[0] = 0;
-  BlueFin::GlSetBase::OperatorBinaryOr(&v19, &v11, &v14);
-  return BlueFin::GlMeSrdAcqMgrSm::KillAndReleaseSatInTrack(this, &v11);
+  BlueFin::GlMeSrdAcqMgrSm::KillAndReleaseSatInPostSearch(this, &v15);
+  BlueFin::GlMeSrdSatTrackMgr::GetSetSatIdToKill((this + 14352), &v13);
+  v10 = v12;
+  v11 = 4;
+  v12[1] = 0;
+  v12[0] = 0;
+  BlueFin::GlSetBase::OperatorBinaryOr(&v18, &v10, &v13);
+  return BlueFin::GlMeSrdAcqMgrSm::KillAndReleaseSatInTrack(this, &v10);
 }
 
-unint64_t BlueFin::GlMeSrdAcqMgrSm::UpdateStateMachineTransitions(BlueFin::GlMeSrdAcqMgrSm *this)
+uint64_t BlueFin::GlMeSrdAcqMgrSm::UpdateStateMachineTransitions(BlueFin::GlMeSrdAcqMgrSm *this)
 {
   BlueFin::GlMeSrdAcqMgrSm::UpdateParallelReAcqState(this);
   BlueFin::GlMeSrdAcqMgrSm::UpdateClockModelState(this);
@@ -1672,7 +3602,7 @@ uint64_t BlueFin::GlMeSrdAcqMgrSm::UpdateParallelReAcqState(BlueFin::GlMeSrdAcqM
   result = (*(**(this + 8) + 1008))(*(this + 8));
   if (result && (v2[1837] & 1) == 0 && *v2 >= 0x7531u)
   {
-    BlueFin::GlMeSrdSatTrackMgr::GetSetSatCarrIdValidOrAided((this + 14352), &__src);
+    BlueFin::GlMeSrdSatTrackMgr::GetSetSatCarrIdValidOrAided(&__src, (this + 14352));
     v15 = v14;
     memcpy(v19, __src, 4 * v14);
     v17 = 0;
@@ -1687,7 +3617,7 @@ uint64_t BlueFin::GlMeSrdAcqMgrSm::UpdateParallelReAcqState(BlueFin::GlMeSrdAcqM
       {
         v5 = *(this + 5);
         BlueFin::GlSatCarrId::GlSatCarrId(&v12, v17);
-        BlueFin::GlMeSrdSatMgr::GetSignalId(this + 440, &v12, &__src);
+        BlueFin::GlMeSrdSatMgr::GetSignalId(&__src, this + 440, &v12);
         v6 = (*(*v5 + 80))(v5, &__src);
         if (v6)
         {
@@ -1922,9 +3852,9 @@ LABEL_24:
           LOWORD(v25) = *v20.i64;
         }
 
-        BlueFin::GlMeSrdSearchMgr::GetGpsSatWithinZoomWindow((this + 12048), v25, v42);
+        BlueFin::GlMeSrdSearchMgr::GetGpsSatWithinZoomWindow(v42, (this + 12048), v25);
         BlueFin::GlMeSrdSearchMgrBase::RestartSATs(this + 12048, v42);
-        BlueFin::GlMeSrdSearchMgr::GetGpsSatWithinZoomWindow((this + 12360), v25, v42);
+        BlueFin::GlMeSrdSearchMgr::GetGpsSatWithinZoomWindow(v42, (this + 12360), v25);
         BlueFin::GlMeSrdSearchMgrBase::RestartSATs(this + 12360, v42);
       }
     }
@@ -1981,9 +3911,9 @@ LABEL_32:
         LOWORD(v31) = *v26.i64;
       }
 
-      BlueFin::GlMeSrdSearchMgr::GetGlnsSatWithinZoomWindow((this + 12048), v31, v42);
+      BlueFin::GlMeSrdSearchMgr::GetGlnsSatWithinZoomWindow(v42, (this + 12048), v31);
       BlueFin::GlMeSrdSearchMgrBase::RestartSATs(this + 12048, v42);
-      BlueFin::GlMeSrdSearchMgr::GetGlnsSatWithinZoomWindow((this + 12360), v31, v42);
+      BlueFin::GlMeSrdSearchMgr::GetGlnsSatWithinZoomWindow(v42, (this + 12360), v31);
       BlueFin::GlMeSrdSearchMgrBase::RestartSATs(this + 12360, v42);
     }
   }
@@ -2025,9 +3955,9 @@ LABEL_56:
           LOWORD(v37) = *v32.i64;
         }
 
-        BlueFin::GlMeSrdSearchMgr::GetGalSatWithinZoomWindow((this + 12048), v37, v42);
+        BlueFin::GlMeSrdSearchMgr::GetGalSatWithinZoomWindow(v42, (this + 12048), v37);
         BlueFin::GlMeSrdSearchMgrBase::RestartSATs(this + 12048, v42);
-        BlueFin::GlMeSrdSearchMgr::GetGalSatWithinZoomWindow((this + 12360), v37, v42);
+        BlueFin::GlMeSrdSearchMgr::GetGalSatWithinZoomWindow(v42, (this + 12360), v37);
         BlueFin::GlMeSrdSearchMgrBase::RestartSATs(this + 12360, v42);
       }
     }
@@ -2120,7 +4050,7 @@ LABEL_5:
 BOOL BlueFin::GlMeSrdAcqMgrSm::UpdateAidingMgr(BlueFin::GlMeSrdAcqMgrSm *this)
 {
   *(this + 66) = *(this + 5790);
-  BlueFin::GlSatCarrIdSet::GetSatIdSetAnyCarrier((this + 18352), &v9);
+  BlueFin::GlSatCarrIdSet::GetSatIdSetAnyCarrier(&v9, (this + 18352));
   BlueFin::GlMeSrdSatMgr::GetSvidSetFromSatidSet(*(this + 1795), &v9, v4);
   BlueFin::GlSetBase::GlSetBase(&v5, v6, 8u, v4);
   v9 = &v11;
@@ -2143,7 +4073,7 @@ BOOL BlueFin::GlMeSrdAcqMgrSm::UpdateAidingMgr(BlueFin::GlMeSrdAcqMgrSm *this)
   BlueFin::GlMeSrdAidingMgr::ForceAidingRefresh(this + 240, &v7);
   v2 = *(this + 6);
   BlueFin::GlMeSrdAidingMgr::SelectAiding2Refresh(this + 30);
-  return BlueFin::GlMeSrdAidingMgr::RefreshAiding(this + 240);
+  return BlueFin::GlMeSrdAidingMgr::RefreshAiding(this + 240, v2);
 }
 
 uint64_t BlueFin::GlMeSrdAidingMgr::ForceAidingRefresh(uint64_t a1, const void **a2)
@@ -2319,7 +4249,7 @@ void BlueFin::GlMeSrdAidingMgr::SelectRefreshDue2AidingOverride(BlueFin::GlMeSrd
   bzero(*(this + 160), ((4 * *(this + 1288) + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
 }
 
-void BlueFin::GlMeSrdAidingMgr::SelectRefreshDue2AidIdUnMap(int **this)
+void BlueFin::GlMeSrdAidingMgr::SelectRefreshDue2AidIdUnMap(const void **this)
 {
   v2 = (*(**this + 64))(*this);
   BlueFin::GlSetBase::GlSetBase(&v5, v6, 8u, v2);
@@ -5200,7 +7130,7 @@ LABEL_131:
 
       v124 = v28;
       SubBitTime = BlueFin::GlSystemTime::getSubBitTime(&v124, v125, 0);
-      v124 = *(a1 + 26);
+      *&v124 = a1[26];
       v93 = BlueFin::GlSystemTime::getSubEpochTime(&v124, v125, 1u);
       if (v127 >= 0x23Fu)
       {
@@ -5277,7 +7207,7 @@ LABEL_131:
 
         v124 = v28;
         v115 = BlueFin::GlSystemTime::getSubBitTime(&v124, v125, 0);
-        v124 = *(a1 + 26);
+        *&v124 = a1[26];
         v116 = BlueFin::GlSystemTime::getSubEpochTime(&v124, v125, 1u);
         if (v127 >= 0x23Fu)
         {
@@ -5575,7 +7505,7 @@ LABEL_14:
   return result;
 }
 
-unsigned __int8 *BlueFin::GlMeSrdSharedSatSearchMgr::StopSats(BlueFin::GlMeSrdSearchMgrBase *a1, const void *a2, unsigned __int8 a3, int a4)
+unsigned __int8 *BlueFin::GlMeSrdSharedSatSearchMgr::StopSats(uint64_t **a1, const void *a2, unsigned __int8 a3, int a4)
 {
   v9 = a3;
   memcpy(v13, a2, 4 * a3);
@@ -5591,7 +7521,7 @@ unsigned __int8 *BlueFin::GlMeSrdSharedSatSearchMgr::StopSats(BlueFin::GlMeSrdSe
     }
 
     v7 = v11;
-    BlueFin::GlMeSrdSatMgr::GetSvid(*(a1 + 2), v11, &v8);
+    BlueFin::GlMeSrdSatMgr::GetSvid(&v8, a1[2], v11);
     if (a4)
     {
       BlueFin::GlMeSrdSharedSatSearchMgr::MarkSvidAsScanned(a1, v8);
@@ -5749,7 +7679,6 @@ uint64_t BlueFin::GlMeSrdSharedSatSearchMgr::AddSvidToScan(BlueFin::GlMeSrdShare
       v37 = v36 & *(*(v33 + 976) + 4 * v35);
       if ((v30 & 0x1000000) != 0)
       {
-        *(*(v33 + 976) + 4 * v35);
         v31 = v37 != 0;
         v38 = v36 & *(*(v33 + 1024) + 4 * v35);
         v32 = v38 != 0;
@@ -5905,7 +7834,7 @@ unint64_t BlueFin::GlMeSrdSearchMgr::ProcessPending(BlueFin::GlMeSrdSearchMgr *t
     }
 
     v3 = v45[3];
-    BlueFin::GlMeSrdSatMgr::GetSvid(*(this + 2), v45[3], &__src);
+    BlueFin::GlMeSrdSatMgr::GetSvid(&__src, *(this + 2), v45[3]);
     if ((*(v53 + ((__src >> 3) & 0x1C)) >> (__src & 0x1F)))
     {
       BlueFin::GlMeSrdSearchMgrBase::StopSat(this, v3);
@@ -6242,7 +8171,7 @@ LABEL_83:
 void BlueFin::GlMeSrdSatMgr::ProcessPending(uint64_t a1, int a2, uint64_t a3, int a4)
 {
   v6 = a1;
-  v220 = *MEMORY[0x29EDCA608];
+  v219 = *MEMORY[0x29EDCA608];
   if (*(a1 + 6544) != a2)
   {
     if (BlueFin::GlUtils::m_ucEnabled)
@@ -6253,12 +8182,12 @@ void BlueFin::GlMeSrdSatMgr::ProcessPending(uint64_t a1, int a2, uint64_t a3, in
     BlueFin::GlSetBase::operator|=(v6 + 56, v6 + 248);
     BlueFin::GlSetBase::operator=(v6 + 424, v6 + 248);
     *(v6 + 436) = *(v6 + 260);
-    *v207 = v209;
-    LOBYTE(v208) = 4;
-    v209[1] = 0;
-    v209[0] = 0;
-    BlueFin::GlSetBase::OperatorBinaryInversion(v6 + 248, v207);
-    BlueFin::GlSetBase::operator&=(v6 + 216, v207);
+    *v206 = v208;
+    LOBYTE(v207) = 4;
+    v208[1] = 0;
+    v208[0] = 0;
+    BlueFin::GlSetBase::OperatorBinaryInversion(v6 + 248, v206);
+    BlueFin::GlSetBase::operator&=(v6 + 216, v206);
     BlueFin::GlSetBase::operator=(v6 + 248, v6 + 216);
     *(v6 + 260) = *(v6 + 228);
     if (BlueFin::GlUtils::m_ucEnabled)
@@ -6270,7 +8199,7 @@ void BlueFin::GlMeSrdSatMgr::ProcessPending(uint64_t a1, int a2, uint64_t a3, in
   v7 = v6 + 4096;
   v8 = *(v6 + 152);
   *(v6 + 6544) = a2;
-  v184 = v6 + 4096;
+  v183 = v6 + 4096;
   if (!*v8)
   {
     v14 = *(v6 + 160);
@@ -6304,42 +8233,42 @@ void BlueFin::GlMeSrdSatMgr::ProcessPending(uint64_t a1, int a2, uint64_t a3, in
   {
     v10 = *(v6 + 6548) + 1;
     *(v6 + 6548) = v10;
-    v210 = BlueFin::GlMeSrdSatMgr::OnReliableTransactionAck;
-    v211 = v6;
-    v212[0] = v10;
-    *&v212[1] = 1;
-    v213 = a3;
+    v209 = BlueFin::GlMeSrdSatMgr::OnReliableTransactionAck;
+    v210 = v6;
+    v211[0] = v10;
+    *&v211[1] = 1;
+    v212 = a3;
+    v213 = 0;
     v214 = 0;
-    v215 = 0;
     (*(*a3 + 16))(a3, 1);
     if (BlueFin::GlUtils::m_ucEnabled)
     {
       BlueFin::GlUtils::IsSysLogEnabledCompleteCheck(0x4F);
     }
 
-    v207[0] = *(v6 + 160);
-    memcpy(&v208, *(v6 + 152), 4 * v207[0]);
-    *&v207[2] = 0;
-    v207[1] = 0;
-    *&v207[4] = v208;
+    v206[0] = *(v6 + 160);
+    memcpy(&v207, *(v6 + 152), 4 * v206[0]);
+    *&v206[2] = 0;
+    v206[1] = 0;
+    *&v206[4] = v207;
     while (1)
     {
-      BlueFin::GlSetIterator::operator++(v207);
-      if (v207[1] == v207[0])
+      BlueFin::GlSetIterator::operator++(v206);
+      if (v206[1] == v206[0])
       {
         break;
       }
 
-      v11 = v207[2];
-      v12 = (*(*v213 + 48))(v213);
+      v11 = v206[2];
+      v12 = (*(*v212 + 48))(v212);
       v13 = (*(*v12 + 64))(v12);
-      (*(*v13 + 120))(v13, &v210, v11);
+      (*(*v13 + 120))(v13, &v209, v11);
     }
 
-    BlueFin::GlMeSrdTransaction::Complete(&v210);
+    BlueFin::GlMeSrdTransaction::Complete(&v209);
     BlueFin::GlSetBase::operator|=(v6 + 184, v6 + 152);
     bzero(*(v6 + 152), ((4 * *(v6 + 160) + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-    BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v210);
+    BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v209);
     v7 = v6 + 4096;
   }
 
@@ -6349,18 +8278,18 @@ LABEL_22:
     goto LABEL_55;
   }
 
-  v18 = v218;
-  v216 = v218;
-  LOBYTE(v217) = 4;
-  v218[1] = 0;
-  v218[0] = 0;
-  v207[0] = *(v6 + 128);
-  memcpy(&v208, *(v6 + 120), 4 * v207[0]);
-  *&v207[2] = 0;
-  v207[1] = 0;
-  *&v207[4] = v208;
-  BlueFin::GlSetIterator::operator++(v207);
-  if (v207[1] == v207[0])
+  v18 = v217;
+  v215 = v217;
+  LOBYTE(v216) = 4;
+  v217[1] = 0;
+  v217[0] = 0;
+  v206[0] = *(v6 + 128);
+  memcpy(&v207, *(v6 + 120), 4 * v206[0]);
+  *&v206[2] = 0;
+  v206[1] = 0;
+  *&v206[4] = v207;
+  BlueFin::GlSetIterator::operator++(v206);
+  if (v206[1] == v206[0])
   {
     v19 = 4;
     v20 = v6 + 4096;
@@ -6369,11 +8298,11 @@ LABEL_22:
 
   do
   {
-    v24 = v207[2];
-    BlueFin::GlMeSrdSatMgr::GetSvid(v6, v207[2], &v210);
-    v25 = v210 >> 5;
-    v26 = v210 & 0x1F;
-    if (v210 - 139 >= 0x24)
+    v24 = v206[2];
+    BlueFin::GlMeSrdSatMgr::GetSvid(&v209, v6, v206[2]);
+    v25 = v209 >> 5;
+    v26 = v209 & 0x1F;
+    if (v209 - 139 >= 0x24)
     {
       v27 = 552;
     }
@@ -6394,7 +8323,7 @@ LABEL_22:
     if (v33 != v29)
     {
       *v32 = v29;
-      *(v216 + v34) |= v35;
+      *(v215 + v34) |= v35;
     }
 
     v36 = (v28 & *(*(v6 + 600) + 4 * v25)) != 0;
@@ -6404,7 +8333,7 @@ LABEL_22:
     if (v39 != v36)
     {
       *v38 = v36;
-      *(v216 + v34) |= v35;
+      *(v215 + v34) |= v35;
     }
 
     v40 = (v28 & (*(*(v6 + 984) + 4 * v25) | *(*(v6 + 888) + 4 * v25) | *(*(v6 + 1032) + 4 * v25))) != 0;
@@ -6414,43 +8343,43 @@ LABEL_22:
     if (v43 != v40)
     {
       *v42 = v40;
-      *(v216 + v34) |= v35;
+      *(v215 + v34) |= v35;
     }
 
-    BlueFin::GlSetIterator::operator++(v207);
+    BlueFin::GlSetIterator::operator++(v206);
   }
 
-  while (v207[1] != v207[0]);
-  v18 = v216;
+  while (v206[1] != v206[0]);
+  v18 = v215;
   v20 = v6 + 4096;
-  if (*v216)
+  if (*v215)
   {
 LABEL_40:
-    *v212 = 256;
+    *v211 = 256;
+    v209 = 0;
     v210 = 0;
-    v211 = 0;
-    v212[2] = 0;
-    v213 = a3;
+    v211[2] = 0;
+    v212 = a3;
+    v213 = 0;
     v214 = 0;
-    v215 = 0;
     (*(*a3 + 16))(a3, 1);
-    v207[0] = v217;
-    memcpy(&v208, v216, 4 * v217);
-    *&v207[2] = 0;
-    v207[1] = 0;
-    *&v207[4] = v208;
-    BlueFin::GlSetIterator::operator++(v207);
-    while (v207[1] != v207[0])
+    v206[0] = v216;
+    memcpy(&v207, v215, 4 * v216);
+    *&v206[2] = 0;
+    v206[1] = 0;
+    *&v206[4] = v207;
+    BlueFin::GlSetIterator::operator++(v206);
+    while (v206[1] != v206[0])
     {
-      v44 = v207[2];
-      v198 = 0;
+      v44 = v206[2];
       v197 = 0;
-      BlueFin::GlMeSrdSatMgr::GetSvid(v6, v207[2], &v203);
-      BlueFin::GlMeSrdSatMgr::GetSatControl(v6, v44, &v203, &v197);
-      BlueFin::GlMeSrdSatMgr::GetSvid(v6, v44, &v203);
-      if (v203 - 139 <= 0x23)
+      v196 = 0;
+      BlueFin::GlMeSrdSatMgr::GetSvid(&v202, v6, v206[2]);
+      BlueFin::GlMeSrdSatMgr::GetSatControl(v6, v44, &v202, &v196);
+      BlueFin::GlMeSrdSatMgr::GetSvid(&v202, v6, v44);
+      if (v202 - 139 <= 0x23)
       {
-        v197 &= ~0x10u;
+        v196 &= ~0x10u;
       }
 
       if ((*(**(v6 + 6552) + 352))(*(v6 + 6552)))
@@ -6459,19 +8388,19 @@ LABEL_40:
         v46 = *(v45 + 5);
         if (!*(v45 + 5))
         {
-          v179 = "ucNumCarriers >= 1";
-          v180 = 1267;
+          v178 = "ucNumCarriers >= 1";
+          v179 = 1267;
           DeviceFaultNotify("glmesrd_sat_mgr.cpp", 1267, "UpdateSatControl", "ucNumCarriers >= 1");
           goto LABEL_227;
         }
 
         if (v46 > 4)
         {
-          v179 = "ucNumCarriers <= _DIM(m_aotSatData[ucSatid].aetSignalIndex)";
-          v180 = 1268;
+          v178 = "ucNumCarriers <= _DIM(m_aotSatData[ucSatid].aetSignalIndex)";
+          v179 = 1268;
           DeviceFaultNotify("glmesrd_sat_mgr.cpp", 1268, "UpdateSatControl", "ucNumCarriers <= _DIM(m_aotSatData[ucSatid].aetSignalIndex)");
 LABEL_227:
-          __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_sat_mgr.cpp", v180, v179);
+          __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_sat_mgr.cpp", v179, v178);
         }
 
         v47 = 52 * v44 + 8;
@@ -6479,16 +8408,16 @@ LABEL_227:
         {
           v48 = *(*(v6 + 6288) + v47);
           EswSignalIndex = BlueFin::GlMeSrdAsicUnitConverter::GetEswSignalIndex(v48);
-          LOWORD(v203) = v197;
-          BYTE2(v203) = v198;
+          LOWORD(v202) = v196;
+          BYTE2(v202) = v197;
           if (v48)
           {
-            LOWORD(v203) = v203 & 0xFFF7;
+            LOWORD(v202) = v202 & 0xFFF7;
           }
 
-          v50 = (*(*v213 + 48))(v213);
+          v50 = (*(*v212 + 48))(v212);
           v51 = (*(*v50 + 64))(v50);
-          (*(*v51 + 112))(v51, &v210, v44, EswSignalIndex, &v203);
+          (*(*v51 + 112))(v51, &v209, v44, EswSignalIndex, &v202);
           v47 += 4;
           --v46;
         }
@@ -6498,22 +8427,22 @@ LABEL_227:
 
       else
       {
-        v52 = (*(*v213 + 48))(v213);
+        v52 = (*(*v212 + 48))(v212);
         v53 = (*(*v52 + 64))(v52);
-        (*(*v53 + 104))(v53, &v210, v44, &v197);
+        (*(*v53 + 104))(v53, &v209, v44, &v196);
       }
 
-      BlueFin::GlSetIterator::operator++(v207);
+      BlueFin::GlSetIterator::operator++(v206);
     }
 
-    BlueFin::GlMeSrdTransaction::Complete(&v210);
-    BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v210);
+    BlueFin::GlMeSrdTransaction::Complete(&v209);
+    BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v209);
     v20 = v6 + 4096;
     goto LABEL_54;
   }
 
-  v19 = v217;
-  if (v217 >= 2u)
+  v19 = v216;
+  if (v216 >= 2u)
   {
 LABEL_25:
     v21 = v19 - 1;
@@ -6534,13 +8463,13 @@ LABEL_54:
 LABEL_55:
   v55 = (v6 + 88);
   v54 = *(v6 + 88);
-  v192 = v6;
+  v191 = v6;
   if (*v54)
   {
 LABEL_56:
-    v185 = (v6 + 840);
-    v186 = (v6 + 88);
-    v187 = (v6 + 792);
+    v184 = (v6 + 840);
+    v185 = (v6 + 88);
+    v186 = (v6 + 792);
     if (!*v54)
     {
       goto LABEL_132;
@@ -6548,27 +8477,27 @@ LABEL_56:
 
     while (1)
     {
-      *v212 = 256;
+      *v211 = 256;
+      v209 = 0;
       v210 = 0;
-      v211 = 0;
-      v212[2] = 0;
-      v213 = a3;
+      v211[2] = 0;
+      v212 = a3;
+      v213 = 0;
       v214 = 0;
-      v215 = 0;
       (*(*a3 + 16))(a3, 1);
-      v207[0] = *(v6 + 96);
-      memcpy(&v208, *(v6 + 88), 4 * v207[0]);
-      *&v207[2] = 0;
-      v207[1] = 0;
-      *&v207[4] = v208;
-      BlueFin::GlSetIterator::operator++(v207);
-      if (v207[1] != v207[0])
+      v206[0] = *(v6 + 96);
+      memcpy(&v207, *(v6 + 88), 4 * v206[0]);
+      *&v206[2] = 0;
+      v206[1] = 0;
+      *&v206[4] = v207;
+      BlueFin::GlSetIterator::operator++(v206);
+      if (v206[1] != v206[0])
       {
         v56 = 6;
         while (1)
         {
-          v57 = v207[2];
-          v58 = (*(v6 + 6288) + 52 * v207[2]);
+          v57 = v206[2];
+          v58 = (*(v6 + 6288) + 52 * v206[2]);
           v59 = *v58;
           v60 = 1 << (v59 & 0x1F);
           if ((v59 - 139) >= 0x24)
@@ -6584,25 +8513,25 @@ LABEL_56:
           v62 = (v59 >> 3) & 0x1C;
           v58[30] = (v60 & *(*(v6 + v61) + v62)) != 0;
           v58[31] = (v60 & *(*(v6 + 600) + v62)) != 0;
-          v206 = 0;
           v205 = 0;
-          BlueFin::GlMeSrdSatMgr::GetSatControl(v6, v57, v58, &v205);
+          v204 = 0;
+          BlueFin::GlMeSrdSatMgr::GetSatControl(v6, v57, v58, &v204);
           v63 = BlueFin::GlMeSrdAsicUnitConverter::Svid2SvParamType(v58);
           v64 = *v63;
-          v204 = *(v63 + 2);
-          v203 = v64;
+          v203 = *(v63 + 2);
+          v202 = v64;
           if (*v58 - 139 <= 0x23)
           {
             v65 = (*(**(v6 + 6552) + 552))(*(v6 + 6552)) && v58[44] == 1 && v58[1] != 71;
             if (((*(*(v6 + 648) + ((*v58 >> 3) & 0x1C)) >> (*v58 & 0x1F)) & 1) != 0 && !v65 && ((*(**(v6 + 6552) + 256))(*(v6 + 6552)) & 1) == 0 && ((*(**(v6 + 6552) + 264))(*(v6 + 6552)) & 1) == 0)
             {
-              LOWORD(v204) = v204 | 0xFF00;
+              LOWORD(v203) = v203 | 0xFF00;
               v66 = 2 * *v58 - 21;
-              HIDWORD(v203) = 10;
-              LOWORD(v204) = *&v66 | 0xFF00;
+              HIDWORD(v202) = 10;
+              LOWORD(v203) = *&v66 | 0xFF00;
             }
 
-            v205 &= 0xFFE7u;
+            v204 &= 0xFFE7u;
           }
 
           if (v58[44] == 1)
@@ -6618,8 +8547,8 @@ LABEL_56:
               v69 = -64;
             }
 
-            v70 = v187;
-            if (v67 - 76 < 0x3F || (v67 - 1 >= 0x20 ? (v71 = v67 - 66 > 9) : (v71 = 0), v70 = v185, !v71))
+            v70 = v186;
+            if (v67 - 76 < 0x3F || (v67 - 1 >= 0x20 ? (v71 = v67 - 66 > 9) : (v71 = 0), v70 = v184, !v71))
             {
               if ((*(*v70 + 4 * (v67 >> 5)) >> (v67 & 0x1F)))
               {
@@ -6638,7 +8567,7 @@ LABEL_56:
             break;
           }
 
-          v95 = (*(*v213 + 48))(v213);
+          v95 = (*(*v212 + 48))(v212);
           v96 = (*(*v95 + 64))(v95);
           v56 += (*(*v96 + 24))(v96) + 3;
           if (v56 > (*(**(v6 + 6552) + 416))(*(v6 + 6552)))
@@ -6648,16 +8577,16 @@ LABEL_56:
 
           if (v58[5] != 1)
           {
-            v177 = "ucNumCarriers == 1";
-            v178 = 763;
+            v176 = "ucNumCarriers == 1";
+            v177 = 763;
             DeviceFaultNotify("glmesrd_sat_mgr.cpp", 763, "CreateDeferredSat", "ucNumCarriers == 1");
             goto LABEL_221;
           }
 
           if (*(v58 + 2))
           {
-            v177 = "rotSatData.aetSignalIndex[0] == SIGNAL_INDEX_0";
-            v178 = 764;
+            v176 = "rotSatData.aetSignalIndex[0] == SIGNAL_INDEX_0";
+            v177 = 764;
             DeviceFaultNotify("glmesrd_sat_mgr.cpp", 764, "CreateDeferredSat", "rotSatData.aetSignalIndex[0] == SIGNAL_INDEX_0");
             goto LABEL_221;
           }
@@ -6665,44 +8594,44 @@ LABEL_56:
           v97 = *(v6 + 6288) + 52 * v57;
           if ((*(v97 + 34) & 1) == 0)
           {
-            v177 = "m_aotSatData[ucSatid].stAidIds.astAidId[SIGNAL_INDEX_0].bValid";
-            v178 = 765;
+            v176 = "m_aotSatData[ucSatid].stAidIds.astAidId[SIGNAL_INDEX_0].bValid";
+            v177 = 765;
             DeviceFaultNotify("glmesrd_sat_mgr.cpp", 765, "CreateDeferredSat", "m_aotSatData[ucSatid].stAidIds.astAidId[SIGNAL_INDEX_0].bValid");
 LABEL_221:
-            __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_sat_mgr.cpp", v178, v177);
+            __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_sat_mgr.cpp", v177, v176);
           }
 
           v98 = *(v6 + 6560);
           v99 = *(v6 + 6552);
           v100 = *(v97 + 1);
-          LOBYTE(v216) = *v58;
-          HIDWORD(v216) = 0;
-          v217 = 575;
-          if (v216 - 189 >= 0xFFFFFF44)
+          LOBYTE(v215) = *v58;
+          HIDWORD(v215) = 0;
+          v216 = 575;
+          if (v215 - 189 >= 0xFFFFFF44)
           {
-            v101 = BlueFin::GlSvId::s_aucSvId2gnss[v216];
+            v101 = BlueFin::GlSvId::s_aucSvId2gnss[v215];
             if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v101] == 255)
             {
-              HIDWORD(v216) = -1;
+              HIDWORD(v215) = -1;
             }
 
             else
             {
-              v217 = BlueFin::GlSignalId::s_ausGnss2signalId[v101] + v216 - BlueFin::GlSvId::s_aucGnss2minSvId[v101];
+              v216 = BlueFin::GlSignalId::s_ausGnss2signalId[v101] + v215 - BlueFin::GlSvId::s_aucGnss2minSvId[v101];
             }
           }
 
-          if (((*(*v98 + 72))(v98, v99, v100, &v216, 0) & 1) == 0)
+          if (((*(*v98 + 72))(v98, v99, v100, &v215, 0) & 1) == 0)
           {
             DeviceFaultNotify("glmesrd_sat_mgr.cpp", 769, "CreateDeferredSat", "bSearchWithinSystemLimits");
             __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_sat_mgr.cpp", 769, "bSearchWithinSystemLimits");
           }
 
-          v102 = (*(*v213 + 48))(v213);
+          v102 = (*(*v212 + 48))(v212);
           v103 = (*(*v102 + 64))(v102);
           v104 = *(v6 + 6288) + 52 * v57;
-          LOBYTE(v181) = v69;
-          (*(*v103 + 16))(v103, &v210, v57, &v203, *(v104 + 1), &v205, 1, *(v104 + 33), v181);
+          LOBYTE(v180) = v69;
+          (*(*v103 + 16))(v103, &v209, v57, &v202, *(v104 + 1), &v204, 1, *(v104 + 33), v180);
 LABEL_128:
           *(*(v6 + 120) + 4 * (v57 >> 5)) |= 1 << v57;
           BlueFin::GlSetBase::Remove(v55, v57);
@@ -6718,8 +8647,8 @@ LABEL_128:
           *(*(v6 + 6288) + 52 * v57 + 44) = 0;
           *(*(v6 + 6288) + 52 * v57 + 45) = -1;
           *(*(v6 + 6288) + 52 * v57 + 48) = 0;
-          BlueFin::GlSetIterator::operator++(v207);
-          if (v207[1] == v207[0])
+          BlueFin::GlSetIterator::operator++(v206);
+          if (v206[1] == v206[0])
           {
             goto LABEL_138;
           }
@@ -6728,54 +8657,54 @@ LABEL_128:
         v72 = v58[5];
         if (!v58[5])
         {
-          v175 = "ucNumCarriers >= 1";
-          v176 = 662;
+          v174 = "ucNumCarriers >= 1";
+          v175 = 662;
           DeviceFaultNotify("glmesrd_sat_mgr.cpp", 662, "CreateDeferredSat", "ucNumCarriers >= 1");
           goto LABEL_217;
         }
 
         if (v72 >= 4)
         {
-          v175 = "ucNumCarriers <= _DIM(sat_init_aid_array)";
-          v176 = 663;
+          v174 = "ucNumCarriers <= _DIM(sat_init_aid_array)";
+          v175 = 663;
           DeviceFaultNotify("glmesrd_sat_mgr.cpp", 663, "CreateDeferredSat", "ucNumCarriers <= _DIM(sat_init_aid_array)");
 LABEL_217:
-          __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_sat_mgr.cpp", v176, v175);
+          __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_sat_mgr.cpp", v175, v174);
         }
 
-        v73 = (*(*v213 + 48))(v213);
+        v73 = (*(*v212 + 48))(v212);
         v74 = (*(*v73 + 64))(v73);
         v75 = (*(*v74 + 56))(v74, v72);
         if (v56 + v75 + 3 <= (*(**(v6 + 6552) + 416))(*(v6 + 6552)))
         {
-          v189 = v57;
-          v190 = v56 + v75 + 3;
+          v188 = v57;
+          v189 = v56 + v75 + 3;
           v76 = 0;
           v77 = 0;
-          LOBYTE(v197) = v203;
-          if ((HIDWORD(v203) & 0xFFFFFFFE) == 4)
+          LOBYTE(v196) = v202;
+          if ((HIDWORD(v202) & 0xFFFFFFFE) == 4)
           {
-            v78 = v204;
+            v78 = v203;
           }
 
           else
           {
-            v78 = v204;
+            v78 = v203;
           }
 
-          v199 = HIDWORD(v203);
-          v200 = v78;
-          v188 = v72;
+          v198 = HIDWORD(v202);
+          v199 = v78;
+          v187 = v72;
           v79 = v58 + 33;
+          v200 = 0;
           v201 = 0;
-          v202 = 0;
           v80 = 8 * v72;
-          v81 = v219;
+          v81 = v218;
           v82 = 8;
           while (1)
           {
             v83 = *&v58[v82];
-            *(&v216 + v76) = BlueFin::GlMeSrdAsicUnitConverter::GetEswSignalIndex(v83);
+            *(&v215 + v76) = BlueFin::GlMeSrdAsicUnitConverter::GetEswSignalIndex(v83);
             v85 = &v79[2 * v83];
             if ((v85[1] & 1) == 0)
             {
@@ -6784,7 +8713,7 @@ LABEL_217:
             }
 
             v86 = *v85;
-            v87 = &v216 + v76;
+            v87 = &v215 + v76;
             v87[4] = v86;
             v87[5] = v69;
             if (v83 == 2)
@@ -6794,44 +8723,44 @@ LABEL_217:
                 v87[5] = v69 & 0x7F;
               }
 
-              *v81 = v205;
-              v81[2] = v206;
+              *v81 = v204;
+              v81[2] = v205;
               v88 = v81;
             }
 
             else
             {
-              *v81 = v205;
-              v81[2] = v206;
+              *v81 = v204;
+              v81[2] = v205;
               if (!v83)
               {
                 goto LABEL_104;
               }
 
-              v88 = &v219[3 * v77];
+              v88 = &v218[3 * v77];
             }
 
             *v88 &= 0xFFE7u;
 LABEL_104:
             v89 = *v58;
-            v194[0] = *v58;
-            v195 = v83;
-            v196 = 575;
+            v193[0] = *v58;
+            v194 = v83;
+            v195 = 575;
             if (v83 != -1 && (v89 - 189) >= 0xFFFFFF44)
             {
               v90 = BlueFin::GlSvId::s_aucSvId2gnss[v89];
               if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * v83 - v83 + v90] == 255)
               {
-                v195 = -1;
+                v194 = -1;
               }
 
               else
               {
-                v196 = BlueFin::GlSignalId::s_ausGnss2signalId[v90] + v89 - BlueFin::GlSvId::s_aucGnss2minSvId[v90] + v83 * BlueFin::GlSvId::s_aucGnss2numSvId[v90];
+                v195 = BlueFin::GlSignalId::s_ausGnss2signalId[v90] + v89 - BlueFin::GlSvId::s_aucGnss2minSvId[v90] + v83 * BlueFin::GlSvId::s_aucGnss2numSvId[v90];
               }
             }
 
-            *(&v197 + v82) = BlueFin::GlMeSrdAsicUnitConverter::SignalId2MultiCarrType(v194, v84);
+            *(&v196 + v82) = BlueFin::GlMeSrdAsicUnitConverter::SignalId2MultiCarrType(v193, v84);
             ++v77;
             v81 += 3;
             v76 += 8;
@@ -6839,53 +8768,53 @@ LABEL_104:
             if (v80 == v76)
             {
               v91 = v58[28];
-              v6 = v192;
-              v56 = v190;
-              LODWORD(v57) = v189;
+              v6 = v191;
+              v56 = v189;
+              LODWORD(v57) = v188;
               if (v79[2 * v91 + 1])
               {
                 v92 = *&v58[4 * v91 + 8];
                 v93 = *v58;
-                v194[0] = *v58;
-                v195 = v92;
-                v196 = 575;
+                v193[0] = *v58;
+                v194 = v92;
+                v195 = 575;
                 if (v92 != -1 && (v93 - 189) >= 0xFFFFFF44)
                 {
                   v94 = BlueFin::GlSvId::s_aucSvId2gnss[v93];
                   if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * v92 - v92 + v94] == 255)
                   {
-                    v195 = -1;
+                    v194 = -1;
                   }
 
                   else
                   {
-                    v196 = BlueFin::GlSignalId::s_ausGnss2signalId[v94] + v93 - BlueFin::GlSvId::s_aucGnss2minSvId[v94] + v92 * BlueFin::GlSvId::s_aucGnss2numSvId[v94];
+                    v195 = BlueFin::GlSignalId::s_ausGnss2signalId[v94] + v93 - BlueFin::GlSvId::s_aucGnss2minSvId[v94] + v92 * BlueFin::GlSvId::s_aucGnss2numSvId[v94];
                   }
                 }
 
-                if (((*(**(v192 + 6560) + 72))(*(v192 + 6560), *(v192 + 6552), *(*(v192 + 6288) + 52 * v189 + v91 + 1), v194, 0) & 1) == 0)
+                if (((*(**(v191 + 6560) + 72))(*(v191 + 6560), *(v191 + 6552), *(*(v191 + 6288) + 52 * v188 + v91 + 1), v193, 0) & 1) == 0)
                 {
                   DeviceFaultNotify("glmesrd_sat_mgr.cpp", 727, "CreateDeferredSat", "bSearchWithinSystemLimits");
                   __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_sat_mgr.cpp", 727, "bSearchWithinSystemLimits");
                 }
               }
 
-              v105 = (*(*v213 + 48))(v213);
+              v105 = (*(*v212 + 48))(v212);
               v106 = (*(*v105 + 64))(v105);
-              LOBYTE(v182) = v91;
-              (*(*v106 + 32))(v106, &v210, v189, &v197, *(v192 + 6288) + 52 * v189 + 1, 1, v188, v219, &v216, v182);
-              v55 = v186;
+              LOBYTE(v181) = v91;
+              (*(*v106 + 32))(v106, &v209, v188, &v196, *(v191 + 6288) + 52 * v188 + 1, 1, v187, v218, &v215, v181);
+              v55 = v185;
               goto LABEL_128;
             }
           }
         }
 
-        v55 = v186;
+        v55 = v185;
       }
 
 LABEL_138:
-      BlueFin::GlMeSrdTransaction::Complete(&v210);
-      BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v210);
+      BlueFin::GlMeSrdTransaction::Complete(&v209);
+      BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v209);
       v54 = *v55;
       if (!**v55)
       {
@@ -6929,26 +8858,26 @@ LABEL_144:
   v117 = *(v6 + 6384);
   if (!*v117)
   {
-    v118 = *(v184 + 2296);
+    v118 = *(v183 + 2296);
     if (v118 < 2)
     {
 LABEL_149:
       v122 = *(v6 + 6304);
       if (!*v122)
       {
-        v171 = *(v184 + 2216);
-        if (v171 < 2)
+        v170 = *(v183 + 2216);
+        if (v170 < 2)
         {
-          goto LABEL_206;
+          return;
         }
 
-        v172 = v171 - 1;
-        v173 = v122 + 1;
-        while (!*v173++)
+        v171 = v170 - 1;
+        v172 = v122 + 1;
+        while (!*v172++)
         {
-          if (!--v172)
+          if (!--v171)
           {
-            goto LABEL_206;
+            return;
           }
         }
       }
@@ -6968,46 +8897,46 @@ LABEL_149:
     }
   }
 
-  *v212 = 256;
+  *v211 = 256;
+  v209 = 0;
   v210 = 0;
-  v211 = 0;
-  v212[2] = 0;
-  v213 = a3;
+  v211[2] = 0;
+  v212 = a3;
+  v213 = 0;
   v214 = 0;
-  v215 = 0;
   (*(*a3 + 16))(a3, 1);
-  v207[0] = *(v184 + 2216);
+  v206[0] = *(v183 + 2216);
   v123 = *(v6 + 6304);
-  v124 = 4 * v207[0];
-  memcpy(&v208, v123, v124);
-  *&v207[2] = 0;
-  v207[1] = 0;
-  *&v207[4] = v208;
-  BlueFin::GlSetIterator::operator++(v207);
-  if (v207[1] == v207[0])
+  v124 = 4 * v206[0];
+  memcpy(&v207, v123, v124);
+  *&v206[2] = 0;
+  v206[1] = 0;
+  *&v206[4] = v207;
+  BlueFin::GlSetIterator::operator++(v206);
+  if (v206[1] == v206[0])
   {
-    v125 = v184;
+    v125 = v183;
   }
 
   else
   {
-    v191 = (v6 + 840);
-    v193 = (v6 + 792);
+    v190 = (v6 + 840);
+    v192 = (v6 + 792);
     do
     {
-      v126 = *&v207[2];
-      v127 = BlueFin::GlSatCarrId::GlSatCarrId(&v216, *&v207[2]);
-      v128 = v216;
+      v126 = *&v206[2];
+      v127 = BlueFin::GlSatCarrId::GlSatCarrId(&v215, *&v206[2]);
+      v128 = v215;
       if ((*(*(v6 + 360) + ((v128 >> 3) & 0x1C)) >> (v128 & 0x1F)))
       {
         BlueFin::GlSatCarrId::GlSatCarrId(v127, v126);
-        v129 = HIDWORD(v216);
-        BlueFin::GlMeSrdSatMgr::GetSvid(v6, v128, &v203);
+        v129 = HIDWORD(v215);
+        BlueFin::GlMeSrdSatMgr::GetSvid(&v202, v6, v128);
         v130 = *(v6 + 6288);
-        BlueFin::GlMeSrdSatMgr::GetSatControl(v6, v128, &v203, &v197);
-        if (v129 || v203 - 139 <= 0x23)
+        BlueFin::GlMeSrdSatMgr::GetSatControl(v6, v128, &v202, &v196);
+        if (v129 || v202 - 139 <= 0x23)
         {
-          v197 &= 0xFFE7u;
+          v196 &= 0xFFE7u;
         }
 
         v131 = v130 + 52 * v128;
@@ -7020,7 +8949,7 @@ LABEL_149:
 
         v133 = *(v132 + 33);
         v135 = BlueFin::GlMeSrdAsicUnitConverter::GetEswSignalIndex(v129);
-        if (v203 - 139 >= 0x24 && v203 - 52 >= 0xE)
+        if (v202 - 139 >= 0x24 && v202 - 52 >= 0xE)
         {
           v137 = 95;
         }
@@ -7030,10 +8959,10 @@ LABEL_149:
           v137 = -33;
         }
 
-        v138 = v193;
-        if (v203 - 76 < 0x3F || (v138 = v191, v203 - 1 < 0x20) || (v138 = v191, v203 - 66 <= 9))
+        v138 = v192;
+        if (v202 - 76 < 0x3F || (v138 = v190, v202 - 1 < 0x20) || (v138 = v190, v202 - 66 <= 9))
         {
-          if ((*(*v138 + 4 * (v203 >> 5)) >> (v203 & 0x1F)))
+          if ((*(*v138 + 4 * (v202 >> 5)) >> (v202 & 0x1F)))
           {
             v137 = -33;
           }
@@ -7065,7 +8994,7 @@ LABEL_149:
           v142 = -6;
         }
 
-        LOBYTE(v216) = v203;
+        LOBYTE(v215) = v202;
         if (v129)
         {
           v144 = v129 == 3;
@@ -7086,63 +9015,63 @@ LABEL_149:
           v145 = 1;
         }
 
-        HIDWORD(v216) = v129;
-        v217 = 575;
-        if (v129 != -1 && v203 - 189 >= 0xFFFFFF44)
+        HIDWORD(v215) = v129;
+        v216 = 575;
+        if (v129 != -1 && v202 - 189 >= 0xFFFFFF44)
         {
-          v146 = BlueFin::GlSvId::s_aucSvId2gnss[v203];
+          v146 = BlueFin::GlSvId::s_aucSvId2gnss[v202];
           if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * v129 - v129 + v146] == 255)
           {
-            HIDWORD(v216) = -1;
+            HIDWORD(v215) = -1;
           }
 
           else
           {
-            v217 = BlueFin::GlSignalId::s_ausGnss2signalId[v146] + v203 - BlueFin::GlSvId::s_aucGnss2minSvId[v146] + v129 * BlueFin::GlSvId::s_aucGnss2numSvId[v146];
+            v216 = BlueFin::GlSignalId::s_ausGnss2signalId[v146] + v202 - BlueFin::GlSvId::s_aucGnss2minSvId[v146] + v129 * BlueFin::GlSvId::s_aucGnss2numSvId[v146];
           }
         }
 
-        v147 = BlueFin::GlMeSrdAsicUnitConverter::SignalId2MultiCarrType(&v216, v134);
-        v148 = (*(*v213 + 48))(v213);
+        v147 = BlueFin::GlMeSrdAsicUnitConverter::SignalId2MultiCarrType(&v215, v134);
+        v148 = (*(*v212 + 48))(v212);
         v149 = (*(*v148 + 64))(v148);
-        v123 = v123 & 0xFFFFFFFFFF000000 | v197 | (v198 << 16);
-        (*(*v149 + 40))(v149, &v210, v128, v203, v142, v145, v123, v147, (v133 << 32) | (v137 << 40) | v135);
-        v6 = v192;
+        v123 = v123 & 0xFFFFFFFFFF000000 | v196 | (v197 << 16);
+        (*(*v149 + 40))(v149, &v209, v128, v202, v142, v145, v123, v147, (v133 << 32) | (v137 << 40) | v135);
+        v6 = v191;
       }
 
-      BlueFin::GlSetIterator::operator++(v207);
+      BlueFin::GlSetIterator::operator++(v206);
     }
 
-    while (v207[1] != v207[0]);
+    while (v206[1] != v206[0]);
     v123 = *(v6 + 6304);
-    v125 = v184;
-    v124 = 4 * *(v184 + 2216);
+    v125 = v183;
+    v124 = 4 * *(v183 + 2216);
   }
 
   bzero(v123, ((v124 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  v207[0] = *(v125 + 2296);
+  v206[0] = *(v125 + 2296);
   v150 = *(v6 + 6384);
-  v151 = 4 * v207[0];
-  memcpy(&v208, v150, v151);
-  *&v207[2] = 0;
-  v207[1] = 0;
-  *&v207[4] = v208;
-  BlueFin::GlSetIterator::operator++(v207);
-  if (v207[1] != v207[0])
+  v151 = 4 * v206[0];
+  memcpy(&v207, v150, v151);
+  *&v206[2] = 0;
+  v206[1] = 0;
+  *&v206[4] = v207;
+  BlueFin::GlSetIterator::operator++(v206);
+  if (v206[1] != v206[0])
   {
     do
     {
-      v152 = *&v207[2];
-      v153 = BlueFin::GlSatCarrId::GlSatCarrId(&v216, *&v207[2]);
-      v154 = v216;
+      v152 = *&v206[2];
+      v153 = BlueFin::GlSatCarrId::GlSatCarrId(&v215, *&v206[2]);
+      v154 = v215;
       BlueFin::GlSatCarrId::GlSatCarrId(v153, v152);
-      v155 = HIDWORD(v216);
-      v156 = BlueFin::GlMeSrdAsicUnitConverter::GetEswSignalIndex(HIDWORD(v216));
-      v157 = (*(*v213 + 48))(v213);
+      v155 = HIDWORD(v215);
+      v156 = BlueFin::GlMeSrdAsicUnitConverter::GetEswSignalIndex(HIDWORD(v215));
+      v157 = (*(*v212 + 48))(v212);
       v158 = (*(*v157 + 64))(v157);
-      (*(*v158 + 48))(v158, &v210, v154, v156);
-      BlueFin::GlSatCarrId::GlSatCarrId(&v216, v154, v155);
-      *(*(v6 + 6464) + 4 * ((v216 + 100 * BYTE4(v216)) >> 5)) |= 1 << (v216 + 100 * BYTE4(v216));
+      (*(*v158 + 48))(v158, &v209, v154, v156);
+      BlueFin::GlSatCarrId::GlSatCarrId(&v215, v154, v155);
+      *(*(v6 + 6464) + 4 * ((v215 + 100 * BYTE4(v215)) >> 5)) |= 1 << (v215 + 100 * BYTE4(v215));
       v159 = *(v6 + 6288);
       if (*(v159 + 52 * v154 + 5))
       {
@@ -7180,22 +9109,20 @@ LABEL_149:
         }
       }
 
-      BlueFin::GlSetIterator::operator++(v207);
+      BlueFin::GlSetIterator::operator++(v206);
     }
 
-    while (v207[1] != v207[0]);
+    while (v206[1] != v206[0]);
     v150 = *(v6 + 6384);
-    v151 = 4 * *(v184 + 2296);
+    v151 = 4 * *(v183 + 2296);
   }
 
   bzero(v150, ((v151 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  BlueFin::GlMeSrdTransaction::Complete(&v210);
-  BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v210);
-LABEL_206:
-  v170 = *MEMORY[0x29EDCA608];
+  BlueFin::GlMeSrdTransaction::Complete(&v209);
+  BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v209);
 }
 
-unsigned __int8 *BlueFin::GlMeSrdSatMgr::GetLowLevelAllocatedSvidList@<X0>(BlueFin::GlMeSrdSatMgr *this@<X0>, uint64_t a2@<X8>)
+unsigned __int8 *BlueFin::GlMeSrdSatMgr::GetLowLevelAllocatedSvidList@<X0>(uint64_t *__return_ptr a1@<X8>, BlueFin::GlMeSrdSatMgr *this@<X0>)
 {
   v7 = v9;
   LOBYTE(v8) = 4;
@@ -7207,10 +9134,10 @@ unsigned __int8 *BlueFin::GlMeSrdSatMgr::GetLowLevelAllocatedSvidList@<X0>(BlueF
   v12[1] = 0;
   v12[0] = 0;
   BlueFin::GlSetBase::OperatorBinaryAnd(this + 392, &v10, &v7);
-  *(a2 + 12) = 0u;
-  *a2 = a2 + 12;
-  *(a2 + 8) = 8;
-  *(a2 + 28) = 0u;
+  *(a1 + 12) = 0u;
+  *a1 = a1 + 12;
+  *(a1 + 8) = 8;
+  *(a1 + 28) = 0u;
   LOBYTE(v7) = v11;
   memcpy(&v8, v10, 4 * v11);
   WORD1(v7) = 0;
@@ -7223,7 +9150,7 @@ unsigned __int8 *BlueFin::GlMeSrdSatMgr::GetLowLevelAllocatedSvidList@<X0>(BlueF
     do
     {
       v6 = *(v5 + 52 * SWORD1(v7));
-      *(a2 + 12 + ((v6 >> 3) & 0x1C)) |= 1 << v6;
+      *(a1 + ((v6 >> 3) & 0x1C) + 12) |= 1 << v6;
       result = BlueFin::GlSetIterator::operator++(&v7);
     }
 
@@ -7233,13 +9160,13 @@ unsigned __int8 *BlueFin::GlMeSrdSatMgr::GetLowLevelAllocatedSvidList@<X0>(BlueF
   return result;
 }
 
-unsigned __int8 *BlueFin::GlMeSrdSatMgr::GetRecentlyKilledWaiting4AckSvIdList@<X0>(BlueFin::GlMeSrdSatMgr *this@<X0>, uint64_t a2@<X8>)
+unsigned __int8 *BlueFin::GlMeSrdSatMgr::GetRecentlyKilledWaiting4AckSvIdList@<X0>(uint64_t *__return_ptr a1@<X8>, BlueFin::GlMeSrdSatMgr *this@<X0>)
 {
-  *(a2 + 12) = 0u;
-  v3 = a2 + 12;
-  *a2 = a2 + 12;
-  *(a2 + 8) = 8;
-  *(a2 + 28) = 0u;
+  *(a1 + 12) = 0u;
+  v3 = a1 + 12;
+  *a1 = a1 + 12;
+  *(a1 + 8) = 8;
+  *(a1 + 28) = 0u;
   v7 = *(this + 192);
   memcpy(v11, *(this + 23), 4 * v7);
   v9 = 0;
@@ -7252,7 +9179,7 @@ unsigned __int8 *BlueFin::GlMeSrdSatMgr::GetRecentlyKilledWaiting4AckSvIdList@<X
     do
     {
       v6 = *(v5 + 52 * v9);
-      *(v3 + ((v6 >> 3) & 0x1C)) |= 1 << v6;
+      *&v3[(v6 >> 3) & 0x1C] |= 1 << v6;
       result = BlueFin::GlSetIterator::operator++(&v7);
     }
 
@@ -7262,90 +9189,87 @@ unsigned __int8 *BlueFin::GlMeSrdSatMgr::GetRecentlyKilledWaiting4AckSvIdList@<X
   return result;
 }
 
-void BlueFin::GlMeSrdAidingMgr::CleanupUnusedAidIds(uint64_t a1)
+void BlueFin::GlMeSrdAidingMgr::CleanupUnusedAidIds(uint64_t a1, uint64_t a2)
 {
-  v1 = MEMORY[0x2A1C7C4A8](a1);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v8 = v1;
-  v20 = *MEMORY[0x29EDCA608];
-  bzero(v19, 0x1C8CuLL);
-  v16 = v8 + 2632;
-  v17 = *(v8 + 2666) + 1;
-  if (*(v8 + 2664) > v17)
+  v2 = MEMORY[0x2A1C7C4A8](a1, a2);
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v9 = v2;
+  v19 = *MEMORY[0x29EDCA608];
+  bzero(v18, 0x1C8CuLL);
+  v15 = v9 + 2632;
+  v16 = *(v9 + 2666) + 1;
+  if (*(v9 + 2664) > v16)
   {
-    v9 = 0;
+    v10 = 0;
     do
     {
-      BlueFin::GlSignalIdArrayIterator::Next(&v16, v14);
-      if (((*(*v7 + ((v14[0] >> 3) & 0x1C)) >> (v14[0] & 0x1F)) & 1) == 0)
+      BlueFin::GlSignalIdArrayIterator::Next(&v13, &v15);
+      if (((*(*v8 + ((v13 >> 3) & 0x1C)) >> (v13 & 0x1F)) & 1) == 0)
       {
-        v18[v9] = *BlueFin::GlSignalIdArray::Get((v8 + 1480), v14);
-        v10 = BlueFin::GlSignalIdArray::Get((v8 + 1480), v14);
+        v17[v10] = *BlueFin::GlSignalIdArray::Get((v9 + 1480), &v13);
+        v11 = BlueFin::GlSignalIdArray::Get((v9 + 1480), &v13);
         if (BlueFin::GlUtils::m_pInstance && *(BlueFin::GlUtils::m_pInstance + 1122) == 1)
         {
-          v11 = *v10;
-          BlueFin::GlMeSrdAidingMgr::LogMappingChange(v10, 0, v14);
+          BlueFin::GlMeSrdAidingMgr::LogMappingChange(v11, 0, &v13);
         }
 
-        ++v9;
-        BlueFin::GlBigArray::Remove(v8 + 2632, v15);
-        v12 = v14[0] >> 5;
-        if ((*(*v3 + 4 * v12) >> (v14[0] & 0x1F)))
+        ++v10;
+        BlueFin::GlBigArray::Remove(v9 + 2632, v14);
+        v12 = v13 >> 5;
+        if ((*(*v4 + 4 * v12) >> (v13 & 0x1F)))
         {
-          *(*(v8 + 1376) + 4 * v12) |= 1 << (v14[0] & 0x1F);
+          *(*(v9 + 1376) + 4 * v12) |= 1 << (v13 & 0x1F);
         }
       }
     }
 
-    while (v17 < *(v16 + 32));
-    if (v9)
+    while (v16 < *(v15 + 32));
+    if (v10)
     {
-      BlueFin::GlMeSrdAidingMgr::SendAidingBatch(v5, v9, v18, v19);
+      BlueFin::GlMeSrdAidingMgr::SendAidingBatch(v6, v10, v17, v18);
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void BlueFin::GlMeSrdAcqMgrSm::UpdateResources(const void **this)
 {
-  v71 = *MEMORY[0x29EDCA608];
-  v65 = v67;
-  v66 = 8;
-  v67[0] = xmmword_298A3242C;
-  v67[1] = unk_298A3243C;
-  v62 = v64;
-  v63 = 8;
-  v64[0] = xmmword_298A3244C;
-  v64[1] = unk_298A3245C;
-  v59 = v61;
-  v60 = 8;
-  v61[0] = xmmword_298A3246C;
-  v61[1] = unk_298A3247C;
-  v51 = &v53;
-  v52 = 8;
-  v53 = BlueFin::GlSvIdSet::csm_aulGlSvIdSet[0];
-  v54 = *algn_298A323DC;
-  BlueFin::GlSetBase::GlSetBase(&v55, &v57, 8u, &v51);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryOr(&v55, &v68, &v65);
-  BlueFin::GlSetBase::operator=(&v55, &v68);
-  v57 = *(v69 + 4);
-  v58 = *(&v69[2] + 4);
-  v2 = BlueFin::GlSetBase::GlSetBase(v70, &v70[12], 8u, this + 1538);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryAnd(v2, &v68, &v55);
-  BlueFin::GlSetBase::operator=(v70, &v68);
+  v70 = *MEMORY[0x29EDCA608];
+  v64 = v66;
+  v65 = 8;
+  v66[0] = xmmword_298A3242C;
+  v66[1] = unk_298A3243C;
+  v61 = v63;
+  v62 = 8;
+  v63[0] = xmmword_298A3244C;
+  v63[1] = unk_298A3245C;
+  v58 = v60;
+  v59 = 8;
+  v60[0] = xmmword_298A3246C;
+  v60[1] = unk_298A3247C;
+  v50 = &v52;
+  v51 = 8;
+  v52 = BlueFin::GlSvIdSet::csm_aulGlSvIdSet[0];
+  v53 = *algn_298A323DC;
+  BlueFin::GlSetBase::GlSetBase(&v54, &v56, 8u, &v50);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryOr(&v54, &v67, &v64);
+  BlueFin::GlSetBase::operator=(&v54, &v67);
+  v56 = *(v68 + 4);
+  v57 = *(&v68[2] + 4);
+  v2 = BlueFin::GlSetBase::GlSetBase(v69, &v69[12], 8u, this + 1538);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryAnd(v2, &v67, &v54);
+  BlueFin::GlSetBase::operator=(v69, &v67);
   v3 = 0;
-  *&v70[12] = *(v69 + 4);
-  *&v70[28] = *(&v69[2] + 4);
-  v4 = (*v70 + 4 * v70[8] - 4);
+  *&v69[12] = *(v68 + 4);
+  *&v69[28] = *(&v68[2] + 4);
+  v4 = (*v69 + 4 * v69[8] - 4);
   do
   {
     if (*v4)
@@ -7357,29 +9281,29 @@ void BlueFin::GlMeSrdAcqMgrSm::UpdateResources(const void **this)
     --v4;
   }
 
-  while (v4 >= *v70);
-  v51 = &v53;
-  v52 = 8;
-  v53 = BlueFin::GlSvIdSet::csm_aulGlSvIdSet[0];
-  v54 = *algn_298A323DC;
-  BlueFin::GlSetBase::GlSetBase(&v55, &v57, 8u, &v51);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryOr(&v55, &v68, &v65);
-  BlueFin::GlSetBase::operator=(&v55, &v68);
-  v57 = *(v69 + 4);
-  v58 = *(&v69[2] + 4);
-  v6 = BlueFin::GlSetBase::GlSetBase(v70, &v70[12], 8u, this + 1577);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryAnd(v6, &v68, &v55);
-  BlueFin::GlSetBase::operator=(v70, &v68);
+  while (v4 >= *v69);
+  v50 = &v52;
+  v51 = 8;
+  v52 = BlueFin::GlSvIdSet::csm_aulGlSvIdSet[0];
+  v53 = *algn_298A323DC;
+  BlueFin::GlSetBase::GlSetBase(&v54, &v56, 8u, &v50);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryOr(&v54, &v67, &v64);
+  BlueFin::GlSetBase::operator=(&v54, &v67);
+  v56 = *(v68 + 4);
+  v57 = *(&v68[2] + 4);
+  v6 = BlueFin::GlSetBase::GlSetBase(v69, &v69[12], 8u, this + 1577);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryAnd(v6, &v67, &v54);
+  BlueFin::GlSetBase::operator=(v69, &v67);
   v7 = 0;
-  *&v70[12] = *(v69 + 4);
-  *&v70[28] = *(&v69[2] + 4);
-  v8 = (*v70 + 4 * v70[8] - 4);
+  *&v69[12] = *(v68 + 4);
+  *&v69[28] = *(&v68[2] + 4);
+  v8 = (*v69 + 4 * v69[8] - 4);
   do
   {
     if (*v8)
@@ -7391,29 +9315,29 @@ void BlueFin::GlMeSrdAcqMgrSm::UpdateResources(const void **this)
     --v8;
   }
 
-  while (v8 >= *v70);
-  v51 = &v53;
-  v52 = 8;
-  v53 = BlueFin::GlSvIdSet::csm_aulGlSvIdSet[0];
-  v54 = *algn_298A323DC;
-  BlueFin::GlSetBase::GlSetBase(&v55, &v57, 8u, &v51);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryOr(&v55, &v68, &v65);
-  BlueFin::GlSetBase::operator=(&v55, &v68);
-  v57 = *(v69 + 4);
-  v58 = *(&v69[2] + 4);
-  v10 = BlueFin::GlSetBase::GlSetBase(v70, &v70[12], 8u, this + 1733);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryAnd(v10, &v68, &v55);
-  BlueFin::GlSetBase::operator=(v70, &v68);
+  while (v8 >= *v69);
+  v50 = &v52;
+  v51 = 8;
+  v52 = BlueFin::GlSvIdSet::csm_aulGlSvIdSet[0];
+  v53 = *algn_298A323DC;
+  BlueFin::GlSetBase::GlSetBase(&v54, &v56, 8u, &v50);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryOr(&v54, &v67, &v64);
+  BlueFin::GlSetBase::operator=(&v54, &v67);
+  v56 = *(v68 + 4);
+  v57 = *(&v68[2] + 4);
+  v10 = BlueFin::GlSetBase::GlSetBase(v69, &v69[12], 8u, this + 1733);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryAnd(v10, &v67, &v54);
+  BlueFin::GlSetBase::operator=(v69, &v67);
   v11 = 0;
-  *&v70[12] = *(v69 + 4);
-  *&v70[28] = *(&v69[2] + 4);
-  v12 = (*v70 + 4 * v70[8] - 4);
+  *&v69[12] = *(v68 + 4);
+  *&v69[28] = *(&v68[2] + 4);
+  v12 = (*v69 + 4 * v69[8] - 4);
   do
   {
     if (*v12)
@@ -7425,35 +9349,35 @@ void BlueFin::GlMeSrdAcqMgrSm::UpdateResources(const void **this)
     --v12;
   }
 
-  while (v12 >= *v70);
-  v55 = &v57;
-  v56 = 8;
-  v57 = BlueFin::GlSvIdSet::csm_aulGlSvIdSet[0];
-  v58 = *algn_298A323DC;
-  v14 = BlueFin::GlSetBase::GlSetBase(v70, &v70[12], 8u, this + 1733);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryAnd(v14, &v68, &v55);
-  BlueFin::GlSetBase::operator=(v70, &v68);
-  *&v70[12] = *(v69 + 4);
-  *&v70[28] = *(&v69[2] + 4);
+  while (v12 >= *v69);
+  v54 = &v56;
+  v55 = 8;
+  v56 = BlueFin::GlSvIdSet::csm_aulGlSvIdSet[0];
+  v57 = *algn_298A323DC;
+  v14 = BlueFin::GlSetBase::GlSetBase(v69, &v69[12], 8u, this + 1733);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryAnd(v14, &v67, &v54);
+  BlueFin::GlSetBase::operator=(v69, &v67);
+  *&v69[12] = *(v68 + 4);
+  *&v69[28] = *(&v68[2] + 4);
   if (BlueFin::GlUtils::m_ucEnabled)
   {
     BlueFin::GlUtils::IsSysLogEnabledCompleteCheck(0x4F);
   }
 
-  v15 = BlueFin::GlSetBase::GlSetBase(v70, &v70[12], 8u, this + 1577);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryAnd(v15, &v68, &v59);
-  BlueFin::GlSetBase::operator=(v70, &v68);
+  v15 = BlueFin::GlSetBase::GlSetBase(v69, &v69[12], 8u, this + 1577);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryAnd(v15, &v67, &v58);
+  BlueFin::GlSetBase::operator=(v69, &v67);
   v16 = 0;
-  v50 = v11 + v7;
-  *&v70[12] = *(v69 + 4);
-  *&v70[28] = *(&v69[2] + 4);
-  v17 = (*v70 + 4 * v70[8] - 4);
+  v49 = v11 + v7;
+  *&v69[12] = *(v68 + 4);
+  *&v69[28] = *(&v68[2] + 4);
+  v17 = (*v69 + 4 * v69[8] - 4);
   do
   {
     if (*v17)
@@ -7465,17 +9389,17 @@ void BlueFin::GlMeSrdAcqMgrSm::UpdateResources(const void **this)
     --v17;
   }
 
-  while (v17 >= *v70);
-  v19 = BlueFin::GlSetBase::GlSetBase(v70, &v70[12], 8u, this + 1358);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryAnd(v19, &v68, &v59);
-  BlueFin::GlSetBase::operator=(v70, &v68);
+  while (v17 >= *v69);
+  v19 = BlueFin::GlSetBase::GlSetBase(v69, &v69[12], 8u, this + 1358);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryAnd(v19, &v67, &v58);
+  BlueFin::GlSetBase::operator=(v69, &v67);
   v20 = 0;
-  *&v70[12] = *(v69 + 4);
-  *&v70[28] = *(&v69[2] + 4);
-  v21 = (*v70 + 4 * v70[8] - 4);
+  *&v69[12] = *(v68 + 4);
+  *&v69[28] = *(&v68[2] + 4);
+  v21 = (*v69 + 4 * v69[8] - 4);
   do
   {
     if (*v21)
@@ -7487,17 +9411,17 @@ void BlueFin::GlMeSrdAcqMgrSm::UpdateResources(const void **this)
     --v21;
   }
 
-  while (v21 >= *v70);
-  v23 = BlueFin::GlSetBase::GlSetBase(v70, &v70[12], 8u, this + 1538);
-  v68 = v69 + 1;
-  LOBYTE(v69[0]) = 8;
-  memset(v69 + 4, 0, 32);
-  BlueFin::GlSetBase::OperatorBinaryAnd(v23, &v68, &v62);
-  BlueFin::GlSetBase::operator=(v70, &v68);
+  while (v21 >= *v69);
+  v23 = BlueFin::GlSetBase::GlSetBase(v69, &v69[12], 8u, this + 1538);
+  v67 = v68 + 1;
+  LOBYTE(v68[0]) = 8;
+  memset(v68 + 4, 0, 32);
+  BlueFin::GlSetBase::OperatorBinaryAnd(v23, &v67, &v61);
+  BlueFin::GlSetBase::operator=(v69, &v67);
   v24 = 0;
-  *&v70[12] = *(v69 + 4);
-  *&v70[28] = *(&v69[2] + 4);
-  v25 = (*v70 + 4 * v70[8] - 4);
+  *&v69[12] = *(v68 + 4);
+  *&v69[28] = *(&v68[2] + 4);
+  v25 = (*v69 + 4 * v69[8] - 4);
   do
   {
     if (*v25)
@@ -7509,10 +9433,10 @@ void BlueFin::GlMeSrdAcqMgrSm::UpdateResources(const void **this)
     --v25;
   }
 
-  while (v25 >= *v70);
-  *v70 = xmmword_298A339E0;
-  *&v70[16] = xmmword_298A339F0;
-  *&v70[32] = 268435464;
+  while (v25 >= *v69);
+  *v69 = xmmword_298A339E0;
+  *&v69[16] = xmmword_298A339F0;
+  *&v69[32] = 268435464;
   v27 = *(this + 6238);
   v28 = (*(*this[8] + 808))();
   if (v27 > 1)
@@ -7527,12 +9451,12 @@ void BlueFin::GlMeSrdAcqMgrSm::UpdateResources(const void **this)
 
   if (v29 == 1)
   {
-    v70[3] = v70[3] & 0xF0 | 4;
-    v70[11] = v70[11] & 0xF0 | 4;
-    v70[15] = v70[15] & 0xF0 | 4;
-    *&v70[9] = 12850;
-    v70[23] = v70[23] & 0xF0 | 3;
-    v70[27] = v70[27] & 0xF0 | 3;
+    v69[3] = v69[3] & 0xF0 | 4;
+    v69[11] = v69[11] & 0xF0 | 4;
+    v69[15] = v69[15] & 0xF0 | 4;
+    *&v69[9] = 12850;
+    v69[23] = v69[23] & 0xF0 | 3;
+    v69[27] = v69[27] & 0xF0 | 3;
   }
 
   if (10 * v24 >= 0xA)
@@ -7552,12 +9476,12 @@ void BlueFin::GlMeSrdAcqMgrSm::UpdateResources(const void **this)
 
   if (*(this + 25000) == 1)
   {
-    v70[6] = 0;
-    v70[14] = 0;
-    v70[26] = 0;
+    v69[6] = 0;
+    v69[14] = 0;
+    v69[26] = 0;
     v31 = 8;
 LABEL_56:
-    v70[22] = v31;
+    v69[22] = v31;
     goto LABEL_57;
   }
 
@@ -7581,11 +9505,11 @@ LABEL_56:
         v33 = 35;
       }
 
-      v70[6] = v33 + v30;
-      v70[14] = 10;
-      v70[22] = 30;
-      v70[10] = 20;
-      if (v50 < 5 || v20 || ((*(*this[8] + 1224))(this[8]) & 1) != 0)
+      v69[6] = v33 + v30;
+      v69[14] = 10;
+      v69[22] = 30;
+      v69[10] = 20;
+      if (v49 < 5 || v20 || ((*(*this[8] + 1224))(this[8]) & 1) != 0)
       {
         v34 = 108;
       }
@@ -7595,30 +9519,30 @@ LABEL_56:
         v34 = 70;
       }
 
-      v70[26] = v34;
+      v69[26] = v34;
       goto LABEL_57;
     }
 
     v31 = 108;
-    v70[14] = 108;
+    v69[14] = 108;
     goto LABEL_55;
   }
 
   if (*(this + 24992) == 1)
   {
     v31 = 108;
-    v70[14] = 108;
-    v70[6] = 108;
+    v69[14] = 108;
+    v69[6] = 108;
 LABEL_55:
-    v70[26] = 108;
+    v69[26] = 108;
     goto LABEL_56;
   }
 
   if (*(this + 25051) == 1)
   {
-    v70[14] = 60;
-    v70[10] = 5;
-    v70[6] = 0;
+    v69[14] = 60;
+    v69[10] = 5;
+    v69[6] = 0;
     v31 = 108;
     goto LABEL_55;
   }
@@ -7627,74 +9551,74 @@ LABEL_55:
   {
     if (v3 >= 9u)
     {
-      v43 = 55;
+      v42 = 55;
     }
 
     else
     {
-      v43 = 40;
+      v42 = 40;
     }
 
-    v70[6] = v43 + v30;
+    v69[6] = v42 + v30;
     if ((*(*this[8] + 264))(this[8]) && *(this + 5790) >> 4 > 0x270u)
     {
       (*(*this[8] + 264))(this[8]);
-      v44 = v50 > 7;
-      v45 = 60;
-      v46 = 70;
+      v43 = v49 > 7;
+      v44 = 60;
+      v45 = 70;
     }
 
     else
     {
-      v44 = v16 > 2u || v50 > 7;
-      v45 = 99;
-      v46 = 108;
+      v43 = v16 > 2u || v49 > 7;
+      v44 = 99;
+      v45 = 108;
     }
 
-    if (v44)
+    if (v43)
     {
-      v45 = v46;
+      v44 = v45;
     }
 
-    v70[14] = v45;
+    v69[14] = v44;
     if (v20 || (*(*this[8] + 1224))(this[8]))
     {
-      v49 = 108;
+      v48 = 108;
     }
 
     else
     {
-      v49 = 70;
+      v48 = 70;
     }
 
-    v70[26] = v49;
+    v69[26] = v48;
     v31 = 40;
     goto LABEL_56;
   }
 
   v32 = 108;
 LABEL_40:
-  v70[14] = v32;
+  v69[14] = v32;
 LABEL_57:
   v35 = (*(*this[6] + 80))(this[6]);
-  v68 = 0;
-  v69[0] = 0;
-  *(v69 + 7) = 0;
-  v69[2] = v35;
-  LODWORD(v69[3]) = 0;
-  WORD2(v69[3]) = 0;
+  v67 = 0;
+  v68[0] = 0;
+  *(v68 + 7) = 0;
+  v68[2] = v35;
+  LODWORD(v68[3]) = 0;
+  WORD2(v68[3]) = 0;
   (*(*v35 + 16))(v35, 0);
   v36 = 0;
-  v37 = v70;
+  v37 = v69;
   do
   {
     if (v36 != *v37)
     {
-      v47 = "aSmLimits[i].sm_id == i";
-      v48 = 3717;
+      v46 = "aSmLimits[i].sm_id == i";
+      v47 = 3717;
       DeviceFaultNotify("glmesrd_acq_mgr_sm.cpp", 3717, "UpdateResources", "aSmLimits[i].sm_id == i");
 LABEL_86:
-      __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_acq_mgr_sm.cpp", v48, v47);
+      __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_acq_mgr_sm.cpp", v47, v46);
     }
 
     if (v36 || (this[3156] & 1) == 0)
@@ -7702,22 +9626,22 @@ LABEL_86:
       if ((v36 & 0xE) == 2 || v36 <= 6 && ((1 << v36) & 0x72) != 0)
       {
         v37[1] = v37[2];
-        v40 = (*(*v69[2] + 48))(v69[2]);
+        v40 = (*(*v68[2] + 48))(v68[2]);
         v41 = (*(*v40 + 48))(v40);
-        (*(*v41 + 128))(v41, &v68, 1, v37);
+        (*(*v41 + 128))(v41, &v67, 1, v37);
       }
     }
 
     else
     {
       v37[1] = v37[2];
-      v38 = (*(*v69[2] + 48))(v69[2]);
+      v38 = (*(*v68[2] + 48))(v68[2]);
       v39 = (*(*v38 + 48))(v38);
-      (*(*v39 + 128))(v39, &v68, 1, v37);
+      (*(*v39 + 128))(v39, &v67, 1, v37);
       if (((*(*this[8] + 264))(this[8]) & 1) == 0)
       {
-        v47 = "m_rAsicConfigIfc.IsMinnowAsicType()";
-        v48 = 3723;
+        v46 = "m_rAsicConfigIfc.IsMinnowAsicType()";
+        v47 = 3723;
         DeviceFaultNotify("glmesrd_acq_mgr_sm.cpp", 3723, "UpdateResources", "m_rAsicConfigIfc.IsMinnowAsicType()");
         goto LABEL_86;
       }
@@ -7728,15 +9652,14 @@ LABEL_86:
   }
 
   while (v36 != 9);
-  BlueFin::GlMeSrdTransaction::Complete(&v68);
+  BlueFin::GlMeSrdTransaction::Complete(&v67);
   if (*(this + 25248) == 1)
   {
     (**this[9])(this[9], this[6], this[8]);
     *(this + 25248) = 0;
   }
 
-  BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v68);
-  v42 = *MEMORY[0x29EDCA608];
+  BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v67);
 }
 
 BOOL BlueFin::GlMeSrdAsicConfig::IsGloShortDecimatorEnabled(BlueFin::GlMeSrdAsicConfig *this)
@@ -7763,12 +9686,12 @@ BOOL BlueFin::GlMeSrdAsicConfig::IsGloShortDecimatorEnabled(BlueFin::GlMeSrdAsic
   return result;
 }
 
-unsigned __int8 *BlueFin::GlSatCarrIdSet::GetSatIdSetAnyCarrier@<X0>(BlueFin::GlSatCarrIdSet *this@<X0>, uint64_t a2@<X8>)
+unsigned __int8 *BlueFin::GlSatCarrIdSet::GetSatIdSetAnyCarrier@<X0>(uint64_t *__return_ptr a1@<X8>, BlueFin::GlSatCarrIdSet *this@<X0>)
 {
-  *(a2 + 12) = 0;
-  *a2 = a2 + 12;
-  *(a2 + 8) = 4;
-  *(a2 + 20) = 0;
+  *(a1 + 12) = 0;
+  *a1 = a1 + 12;
+  *(a1 + 8) = 4;
+  *(a1 + 20) = 0;
   v5 = *(this + 8);
   memcpy(v9, *this, 4 * v5);
   v7 = 0;
@@ -7777,15 +9700,15 @@ unsigned __int8 *BlueFin::GlSatCarrIdSet::GetSatIdSetAnyCarrier@<X0>(BlueFin::Gl
   for (result = BlueFin::GlSetIterator::operator++(&v5); v6 != v5; result = BlueFin::GlSetIterator::operator++(&v5))
   {
     BlueFin::GlSatCarrId::GlSatCarrId(v4, v7);
-    *(*a2 + ((v4[0] >> 3) & 0x1C)) |= 1 << v4[0];
+    *(*a1 + ((v4[0] >> 3) & 0x1C)) |= 1 << v4[0];
   }
 
   return result;
 }
 
-uint64_t BlueFin::GlReqSm::UpdateGrids(BlueFin::GlReqSm *this)
+uint64_t *BlueFin::GlReqSm::UpdateGrids(BlueFin::GlReqSm *this)
 {
-  result = BlueFin::GlSvIdArray::GetSvIdSet((*(this + 788) + 61664), v9);
+  result = BlueFin::GlSvIdArray::GetSvIdSet(v9, (*(this + 788) + 61664));
   if (*(this + 4942))
   {
     v3 = 0;
@@ -7816,16 +9739,16 @@ uint64_t BlueFin::GlReqSm::UpdateGrids(BlueFin::GlReqSm *this)
   return result;
 }
 
-char *BlueFin::GlMeSignalAidInfo::GetSignalIds@<X0>(char *this@<X0>, uint64_t a2@<X8>)
+char *BlueFin::GlMeSignalAidInfo::GetSignalIds@<X0>(uint64_t *__return_ptr a1@<X8>, char *this@<X0>)
 {
-  *(a2 + 12) = 0u;
-  v2 = a2 + 12;
-  *a2 = a2 + 12;
-  *(a2 + 8) = 19;
-  *(a2 + 28) = 0u;
-  *(a2 + 44) = 0u;
-  *(a2 + 60) = 0u;
-  *(a2 + 72) = 0u;
+  *(a1 + 12) = 0u;
+  v2 = a1 + 12;
+  *a1 = a1 + 12;
+  *(a1 + 8) = 19;
+  *(a1 + 28) = 0u;
+  *(a1 + 44) = 0u;
+  *(a1 + 60) = 0u;
+  *(a1 + 9) = 0u;
   v3 = *(this + 7);
   if (*(this + 7))
   {
@@ -7847,7 +9770,7 @@ char *BlueFin::GlMeSignalAidInfo::GetSignalIds@<X0>(char *this@<X0>, uint64_t a2
           v8 = (BlueFin::GlSignalId::s_ausGnss2signalId[v7] + v6 - BlueFin::GlSvId::s_aucGnss2minSvId[v7]);
         }
 
-        *(v2 + 4 * (v8 >> 5)) |= 1 << v8;
+        *&v2[4 * (v8 >> 5)] |= 1 << v8;
         v5 = *v4;
       }
 
@@ -7864,7 +9787,7 @@ char *BlueFin::GlMeSignalAidInfo::GetSignalIds@<X0>(char *this@<X0>, uint64_t a2
           v11 = (BlueFin::GlSignalId::s_ausGnss2signalId[v10] + v9 + BlueFin::GlSvId::s_aucGnss2numSvId[v10] - BlueFin::GlSvId::s_aucGnss2minSvId[v10]);
         }
 
-        *(v2 + 4 * (v11 >> 5)) |= 1 << v11;
+        *&v2[4 * (v11 >> 5)] |= 1 << v11;
         v5 = *v4;
       }
 
@@ -7881,7 +9804,7 @@ char *BlueFin::GlMeSignalAidInfo::GetSignalIds@<X0>(char *this@<X0>, uint64_t a2
           v14 = (BlueFin::GlSignalId::s_ausGnss2signalId[v13] + v12 - BlueFin::GlSvId::s_aucGnss2minSvId[v13] + 2 * BlueFin::GlSvId::s_aucGnss2numSvId[v13]);
         }
 
-        *(v2 + 4 * (v14 >> 5)) |= 1 << v14;
+        *&v2[4 * (v14 >> 5)] |= 1 << v14;
         v5 = *v4;
       }
 
@@ -7898,7 +9821,7 @@ char *BlueFin::GlMeSignalAidInfo::GetSignalIds@<X0>(char *this@<X0>, uint64_t a2
           v17 = (BlueFin::GlSignalId::s_ausGnss2signalId[v16] + v15 - BlueFin::GlSvId::s_aucGnss2minSvId[v16] + 3 * BlueFin::GlSvId::s_aucGnss2numSvId[v16]);
         }
 
-        *(v2 + 4 * (v17 >> 5)) |= 1 << v17;
+        *&v2[4 * (v17 >> 5)] |= 1 << v17;
       }
 
       v4 += 2;
@@ -7909,2419 +9832,4 @@ char *BlueFin::GlMeSignalAidInfo::GetSignalIds@<X0>(char *this@<X0>, uint64_t a2
   }
 
   return this;
-}
-
-double BlueFin::GlMeSrdAidingMgr::SetSignalAiding(BlueFin::GlMeSrdAidingMgr *this, int **a2, const void **a3, const void **a4, const void **a5, const void **a6, const void **a7)
-{
-  BlueFin::GlSvIdSet::operator~(this + 98, v21);
-  BlueFin::GlSetBase::GlSetBase(&v22, v23, 8u, v21);
-  v27 = &v29;
-  v28 = 8;
-  v29 = 0u;
-  v30 = 0u;
-  BlueFin::GlSetBase::OperatorBinaryAnd(&v22, &v27, a2);
-  BlueFin::GlSetBase::operator=(&v22, &v27);
-  v23[0] = v29;
-  v23[1] = v30;
-  BlueFin::GlSetBase::GlSetBase(&v24, &v25, 8u, &v22);
-  v27 = &v29;
-  v28 = 8;
-  v29 = 0u;
-  v30 = 0u;
-  BlueFin::GlSetBase::OperatorBinaryAnd(&v24, &v27, this + 154);
-  BlueFin::GlSetBase::operator=(&v24, &v27);
-  v25 = v29;
-  v26 = v30;
-  BlueFin::GlSetBase::Add(this + 1184, &v24);
-  BlueFin::GlSetBase::GlSetBase(&v24, &v25, 8u, a2);
-  v27 = &v29;
-  v28 = 8;
-  v29 = 0u;
-  v30 = 0u;
-  BlueFin::GlSetBase::OperatorBinaryAnd(&v24, &v27, this + 154);
-  BlueFin::GlSetBase::operator=(&v24, &v27);
-  v25 = v29;
-  v26 = v30;
-  BlueFin::GlSetBase::operator=(this + 784, &v24);
-  v13 = v26;
-  *(this + 796) = v25;
-  *(this + 812) = v13;
-  BlueFin::GlSetBase::GlSetBase(&v24, &v25, 8u, a3);
-  v27 = &v29;
-  v28 = 8;
-  v29 = 0u;
-  v30 = 0u;
-  BlueFin::GlSetBase::OperatorBinaryAnd(&v24, &v27, this + 154);
-  BlueFin::GlSetBase::operator=(&v24, &v27);
-  v25 = v29;
-  v26 = v30;
-  BlueFin::GlSetBase::operator=(this + 832, &v24);
-  v14 = v26;
-  *(this + 844) = v25;
-  *(this + 860) = v14;
-  BlueFin::GlSetBase::GlSetBase(&v24, &v25, 8u, a4);
-  v27 = &v29;
-  v28 = 8;
-  v29 = 0u;
-  v30 = 0u;
-  BlueFin::GlSetBase::OperatorBinaryAnd(&v24, &v27, this + 154);
-  BlueFin::GlSetBase::operator=(&v24, &v27);
-  v25 = v29;
-  v26 = v30;
-  BlueFin::GlSetBase::operator=(this + 880, &v24);
-  v15 = v26;
-  *(this + 892) = v25;
-  *(this + 908) = v15;
-  BlueFin::GlSetBase::GlSetBase(&v24, &v25, 8u, a5);
-  v27 = &v29;
-  v28 = 8;
-  v29 = 0u;
-  v30 = 0u;
-  BlueFin::GlSetBase::OperatorBinaryAnd(&v24, &v27, this + 154);
-  BlueFin::GlSetBase::operator=(&v24, &v27);
-  v25 = v29;
-  v26 = v30;
-  BlueFin::GlSetBase::operator=(this + 928, &v24);
-  v16 = v26;
-  *(this + 940) = v25;
-  *(this + 956) = v16;
-  BlueFin::GlSetBase::GlSetBase(&v24, &v25, 8u, a6);
-  v27 = &v29;
-  v28 = 8;
-  v29 = 0u;
-  v30 = 0u;
-  BlueFin::GlSetBase::OperatorBinaryAnd(&v24, &v27, this + 154);
-  BlueFin::GlSetBase::operator=(&v24, &v27);
-  v25 = v29;
-  v26 = v30;
-  BlueFin::GlSetBase::operator=(this + 976, &v24);
-  v17 = v26;
-  *(this + 988) = v25;
-  *(this + 1004) = v17;
-  BlueFin::GlSetBase::GlSetBase(&v24, &v25, 8u, a7);
-  v27 = &v29;
-  v28 = 8;
-  v29 = 0u;
-  v30 = 0u;
-  BlueFin::GlSetBase::OperatorBinaryAnd(&v24, &v27, this + 154);
-  BlueFin::GlSetBase::operator=(&v24, &v27);
-  v25 = v29;
-  v26 = v30;
-  BlueFin::GlSetBase::operator=(this + 1024, &v24);
-  result = *&v25;
-  v19 = v26;
-  *(this + 1036) = v25;
-  *(this + 1052) = v19;
-  return result;
-}
-
-__n128 BlueFin::GlMeSrdSatMgr::SetDataFrmsEnabled(BlueFin::GlMeSrdSatMgr *this, const BlueFin::GlSvIdSet *a2)
-{
-  if (!BlueFin::GlSetBase::operator==(a2, this + 648))
-  {
-    BlueFin::GlSetBase::operator=(this + 648, a2);
-    result = *(a2 + 12);
-    v5 = *(a2 + 28);
-    *(this + 660) = result;
-    *(this + 676) = v5;
-  }
-
-  return result;
-}
-
-void BlueFin::GlReqSm::GenerateTowAssist(BlueFin::GlReqSm *this)
-{
-  v2 = *(this + 3048);
-  v13 = &v15;
-  v14 = 3;
-  v15 = v2;
-  v16 = 0;
-  v3 = *(this + 785);
-  v4 = *(v3 + 2568);
-  if (BlueFin::GlPeTimeManager::TimeKnown(v3, 0, 0x200B20u))
-  {
-    v5 = v4 - 89;
-    v6 = v5;
-    if (v5 <= 0xFF9222FE)
-    {
-      v6 = v5;
-    }
-
-    v7.n128_f64[0] = BlueFin::GlPeTimeManager::lmsToLegacyGlStruct(*(this + 785), 0, 0, v10, v6);
-    v8 = v12;
-    if (v12 != -1)
-    {
-      v9 = *(this + 806);
-      *(v9 + 376) = v11;
-      *(v9 + 384) = v5;
-      *(v9 + 380) = v8 / 0x3E8;
-      if ((v2 & 0xC) != 0 || *(v9 + 54) != (*(v9 + 55) + 1))
-      {
-        (*(**(this + 39) + 264))(*(this + 39), v9 + 8, v7);
-      }
-    }
-  }
-}
-
-uint64_t BlueFin::GlPeRtiRequestor::OnHeartBeat(BlueFin::GlPeRtiRequestor *this)
-{
-  v2 = MEMORY[0x2A1C7C4A8](this);
-  v26 = *MEMORY[0x29EDCA608];
-  result = *(v2 + 224);
-  if (*(*(result + 6288) + 120012) != 1 && !*(result + 31648) && !*(result + 31688))
-  {
-    v4 = v1;
-    result = BlueFin::QHsm::isIn(result, BlueFin::GlReqSm::warmstandbystate);
-    if (!result && (*(*(v2 + 224) + 31744) & 1) == 0)
-    {
-      v5 = BlueFin::GlPeRtiRequestHelper::OnHeartBeat((v2 + 32), v4);
-      if (v5 == 2)
-      {
-        v16 = &unk_2A1F10900;
-        v17 = 0u;
-        v18 = 0u;
-        v19 = 0u;
-        v20 = 0u;
-        v21 = 0u;
-        v22 = 0u;
-        v23 = 0u;
-        memset(v24, 0, sizeof(v24));
-        v14 = *(v2 + 56);
-        if (v14 == 1 && (v2 + 64) != &v16)
-        {
-          v22 = *(v2 + 152);
-          v23 = *(v2 + 168);
-          *v24 = *(v2 + 184);
-          *&v24[16] = *(v2 + 200);
-          v18 = *(v2 + 88);
-          v19 = *(v2 + 104);
-          v20 = *(v2 + 120);
-          v21 = *(v2 + 136);
-          v17 = *(v2 + 72);
-          *&v24[24] = *(v2 + 208);
-        }
-
-        if (v14)
-        {
-          BlueFin::GlPeSvHealthHelper::OnNewIntegrityInfo((*(v2 + 16) + 32), &v17, v6, v7, v8, v9, v10, v11, v16, v17, *(&v17 + 1), v18, *(&v18 + 1), v19, *(&v19 + 1), v20, *(&v20 + 1), v21, *(&v21 + 1), v22, *(&v22 + 1), v23, *(&v23 + 1), *v24, *&v24[8], *&v24[16], *&v24[24], v25);
-        }
-      }
-
-      else if (v5 == 1)
-      {
-        if (*(v2 + 8))
-        {
-          GlCustomLog(14, "REQ_RTI\n");
-          bzero(&v16, 0x38A8uLL);
-          LODWORD(v16) = 32;
-          v12 = *(v2 + 8);
-          v13 = *(v12 + 128);
-          if (v13)
-          {
-            v13(*(v12 + 8), &v16);
-          }
-        }
-      }
-
-      result = BlueFin::GlPeSvHealthMgr::OnHeartBeat(*(v2 + 16), v4);
-    }
-  }
-
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t BlueFin::GlPeTimeManager::UpdateLeapSecFromSigMeas(BlueFin::GlPeTimeManager *this)
-{
-  v67 = *MEMORY[0x29EDCA608];
-  if (*(this + 2712) & 2) == 0 || (*(this + 2585))
-  {
-    goto LABEL_107;
-  }
-
-  BlueFin::GlSignalIdSet::GetPrimarySignalSvIdSet((*this + 8), &__src);
-  v2 = v65;
-  v59 = v65;
-  v3 = __src;
-  v4 = 4 * v65;
-  memcpy(v63, __src, v4);
-  v61 = 0;
-  v60 = 0;
-  v62 = v63[0];
-  BlueFin::GlSetIterator::operator++(&v59);
-  if (v60 != v59)
-  {
-    v7 = 0;
-    v8 = 0;
-    v9 = 0;
-    while (1)
-    {
-      v10 = v61;
-      v66[v7] = -1;
-      if (v10)
-      {
-        if (v10 < 0x21)
-        {
-          goto LABEL_8;
-        }
-
-        if (v10 < 0x42)
-        {
-          if (v10 >= 0x34)
-          {
-            v66[v7] = 1;
-            ++v8;
-          }
-
-          goto LABEL_9;
-        }
-
-        if (v10 <= 0x4B)
-        {
-LABEL_8:
-          v66[v7] = 0;
-          ++v9;
-        }
-      }
-
-LABEL_9:
-      v11 = v7 + 1;
-      BlueFin::GlSetIterator::operator++(&v59);
-      if (v7 <= 0x63)
-      {
-        ++v7;
-        if (v60 != v59)
-        {
-          continue;
-        }
-      }
-
-      v5 = v11;
-      v6 = v9 == 1;
-      v49 = v8 == 1;
-      goto LABEL_18;
-    }
-  }
-
-  v5 = 0;
-  v6 = 0;
-  v49 = 0;
-LABEL_18:
-  v59 = v2;
-  memcpy(v63, v3, v4);
-  v61 = 0;
-  v60 = 0;
-  v62 = v63[0];
-  BlueFin::GlSetIterator::operator++(&v59);
-  result = 0;
-  if (v60 != v59 && v5)
-  {
-    v13 = 0;
-    v50[8] = 0;
-    v51 = v5;
-    v14 = 0.0;
-    *v50 = !v6;
-    v15 = 0.0;
-    while (1)
-    {
-      v16 = v66[v13];
-      if (v16 != -1)
-      {
-        v17 = v61;
-        v56[0] = v61;
-        v57 = 0;
-        v58 = 575;
-        if (v61 - 189 >= 0xFFFFFF44)
-        {
-          v18 = BlueFin::GlSvId::s_aucSvId2gnss[v61];
-          if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v18] == 255)
-          {
-            v57 = -1;
-          }
-
-          else
-          {
-            v58 = BlueFin::GlSignalId::s_ausGnss2signalId[v18] + v61 - BlueFin::GlSvId::s_aucGnss2minSvId[v18];
-          }
-        }
-
-        MeMeas = BlueFin::GlPeMsmtMgr::GetMeMeas(*this, v56, 0, 0);
-        v20 = MeMeas;
-        if (MeMeas)
-        {
-          v21 = v50[0];
-          if (v16)
-          {
-            v21 = 1;
-          }
-
-          if (v21)
-          {
-            v22 = v16 == 1;
-            v23 = v49;
-            if (v16 != 1)
-            {
-              v23 = 0;
-            }
-
-            if (v23)
-            {
-              if (*(this + 642) >= 0xEA61u && (MeMeas[12] & 0x20) != 0)
-              {
-                v15 = *(MeMeas + 8);
-                v22 = 1;
-                v50[4] = 1;
-              }
-
-              else
-              {
-                v22 = 1;
-              }
-            }
-          }
-
-          else if (*(this + 642) >= 0xEA61u && (MeMeas[12] & 0x20) != 0)
-          {
-            v22 = 0;
-            v14 = *(MeMeas + 8);
-            v50[8] = 1;
-          }
-
-          else
-          {
-            v22 = 0;
-          }
-
-          LOBYTE(v54) = v65;
-          memcpy(v55, __src, 4 * v65);
-          WORD1(v54) = 0;
-          BYTE1(v54) = 0;
-          HIDWORD(v54) = v55[0];
-          BlueFin::GlSetIterator::operator++(&v54);
-          if (BYTE1(v54) != LOBYTE(v54))
-          {
-            v24 = v66;
-            v25 = v22 & (v50[4] ^ 1);
-            v26 = v51;
-            do
-            {
-              if (BYTE2(v54) >= v17)
-              {
-                break;
-              }
-
-              if (!v26)
-              {
-                DeviceFaultNotify("glpe_timemgr.cpp", 6012, "UpdateLeapSecFromSigMeas", "ucCurMeas2 < ucNumMeas");
-                __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glpe_timemgr.cpp", 6012, "ucCurMeas2 < ucNumMeas");
-              }
-
-              v27 = *v24;
-              if (*v24 != -1)
-              {
-                LOBYTE(v52) = BYTE2(v54);
-                HIDWORD(v52) = 0;
-                LOWORD(v53) = 575;
-                if (BYTE2(v54) - 189 >= 0xFFFFFF44)
-                {
-                  v28 = BlueFin::GlSvId::s_aucSvId2gnss[BYTE2(v54)];
-                  if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[v28] == 255)
-                  {
-                    HIDWORD(v52) = -1;
-                  }
-
-                  else
-                  {
-                    LOWORD(v53) = BlueFin::GlSignalId::s_ausGnss2signalId[v28] + BYTE2(v54) - BlueFin::GlSvId::s_aucGnss2minSvId[v28];
-                  }
-                }
-
-                v29 = BlueFin::GlPeMsmtMgr::GetMeMeas(*this, &v52, 0, 0);
-                if (v29)
-                {
-                  if ((v20[12] & 0x20) != 0 && (v29[12] & 0x20) != 0)
-                  {
-                    if ((v25 & (v27 == 1)) == 1)
-                    {
-                      v30 = *(v20 + 8);
-                      if (vabdd_f64(v30, *(v29 + 8)) < 0.1)
-                      {
-                        v50[4] = 1;
-                        goto LABEL_61;
-                      }
-                    }
-
-                    if (!(v50[8] & 1 | ((v27 | v16) != 0)) && vabdd_f64(*(v20 + 8), *(v29 + 8)) < 0.1)
-                    {
-                      v50[8] = 1;
-                      v30 = v15;
-                      v14 = *(v20 + 8);
-                      goto LABEL_61;
-                    }
-                  }
-
-                  if (v50[8] & v50[4])
-                  {
-                    *&v50[4] = 0x100000001;
-                    v30 = v15;
-LABEL_61:
-                    v15 = v30;
-                    break;
-                  }
-                }
-              }
-
-              BlueFin::GlSetIterator::operator++(&v54);
-              ++v24;
-              --v26;
-            }
-
-            while (BYTE1(v54) != LOBYTE(v54));
-          }
-
-          if (v50[8] & 1) != 0 && (v50[4])
-          {
-            v43 = v14 - floor(v14 / 86400.0) * 86400.0 + 10800.0 - v15;
-            v44 = 0.5;
-            if (v43 <= 0.0 && (v44 = -0.5, v43 >= 0.0))
-            {
-              LOBYTE(v45) = 0;
-            }
-
-            else
-            {
-              v45 = (v43 + v44);
-              if (v45 > 86399)
-              {
-                LOBYTE(v45) = v45 ^ 0x80;
-              }
-            }
-
-            v46 = *(this + 848);
-            if (v46 < *(this + 850) || v46 > *(this + 851))
-            {
-              result = BlueFin::GlPeTimeManager::updateLeapSeconds(this, v45, 8, 0, -128);
-              goto LABEL_108;
-            }
-
-            if (*(this + 3413) != 1 || (*(this + 3415) & 1) != 0)
-            {
-LABEL_107:
-              result = 0;
-              goto LABEL_108;
-            }
-
-            result = 0;
-LABEL_114:
-            *(this + 2596) = v45;
-            *(this + 648) |= 0x100u;
-            goto LABEL_108;
-          }
-
-          v31 = *(this + 848);
-          if (v31 >= *(this + 850) && v31 <= *(this + 851) && (*(this + 3413) & v50[4] & 1) != 0)
-          {
-            break;
-          }
-        }
-      }
-
-LABEL_88:
-      ++v13;
-      BlueFin::GlSetIterator::operator++(&v59);
-      if (v60 == v59 || v13 >= v51)
-      {
-        goto LABEL_107;
-      }
-    }
-
-    if (!*(this + 646))
-    {
-      goto LABEL_87;
-    }
-
-    BlueFin::GlPeTimeManager::GetTime(this, **this, 1, &v54);
-    v52 = &off_2A1F0E430;
-    v53 = 0;
-    v32.n128_f64[0] = BlueFin::GlPeGnssTime::GetGlns(&v54, &v52);
-    v33 = 0;
-    if (BlueFin::GlWeekTowTime::m_ucNextLs >= BlueFin::GlWeekTowTime::m_ucCurrentLs && BlueFin::GlWeekTowTime::m_ulCtFctOfNextLsEvent)
-    {
-      v33 = HIDWORD(v53) == BlueFin::GlWeekTowTime::m_ulCtFctOfNextLsEvent;
-    }
-
-    v34 = (v52[4])(&v52, v32);
-    v36 = 10799.0;
-    if (!v33)
-    {
-      v36 = (v34 % 0x15180);
-    }
-
-    LODWORD(v35) = v53;
-    v37 = v36 + v35 * 2.32830644e-10;
-    v54 = 0.0;
-    BlueFin::GlPeTimeManager::GetAvgFlightTimeMs(this, v56, &v54, &v52);
-    if (v37 <= 10800.0 || v37 >= 10980.0 || (v38 = v15 + v54 * 0.001, v38 <= 10800.0) || v38 >= 10980.0)
-    {
-LABEL_87:
-      v50[4] = 1;
-      goto LABEL_88;
-    }
-
-    v39 = v37 - v38;
-    v40 = v37 - v38 < 0.0;
-    if (v37 - v38 <= 0.0)
-    {
-      v41 = 0.0;
-      if (!v40)
-      {
-LABEL_84:
-        if (fabs(v41) < 0.1)
-        {
-          v48 = 0;
-          goto LABEL_113;
-        }
-
-        if (v41 > 0.9 && v41 < 1.1)
-        {
-          goto LABEL_110;
-        }
-
-        goto LABEL_87;
-      }
-
-      v41 = ceil(v39 + -0.5);
-    }
-
-    else
-    {
-      v41 = floor(v39 + 0.5);
-    }
-
-    if (v41 > -1.1 && v41 < -0.9)
-    {
-LABEL_110:
-      v48 = -1;
-LABEL_113:
-      result = 0;
-      LOBYTE(v45) = *(this + 2588) + v48;
-      goto LABEL_114;
-    }
-
-    goto LABEL_84;
-  }
-
-LABEL_108:
-  v47 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t BlueFin::GlMeMsmtMgr::MsmtsComplete(BlueFin::GlMeMsmtMgr *this, uint64_t a2)
-{
-  BlueFin::GlSetBase::operator=(this + 88, this);
-  *(this + 116) = *(this + 28);
-  *(this + 132) = *(this + 44);
-  *(this + 148) = *(this + 60);
-  *(this + 10) = *(this + 72);
-  *(this + 100) = *(this + 12);
-  *(this + 249) = -1020657664;
-  *(this + 1002) = 0;
-  *(this + 1000) = 0;
-  v4 = v33;
-  v31 = v33;
-  v5 = 19;
-  v32 = 19;
-  memset(v33, 0, sizeof(v33));
-  __src = v30;
-  v29 = 19;
-  memset(v30, 0, sizeof(v30));
-  v23 = *(this + 8);
-  memcpy(v27, *this, 4 * v23);
-  v25 = 0;
-  v24 = 0;
-  v26 = v27[0];
-  BlueFin::GlSetIterator::operator++(&v23);
-  if (v24 == v23)
-  {
-    v6 = 0;
-    goto LABEL_15;
-  }
-
-  v6 = 0;
-  do
-  {
-    v7 = v25;
-    if (v25 >= 0x23FuLL)
-    {
-      goto LABEL_27;
-    }
-
-    v8 = &BlueFin::GlSignalId::s_aotIndex2signalId + 2 * v25;
-    v9 = *v8;
-    v10 = v8[1];
-    v20[0] = *v8;
-    v21 = v10;
-    v22 = v25;
-    v11 = *(BlueFin::GlMeMsmtMgr::GetSigMeas(this, v20, a2, 1) + 116);
-    if (v11 >= 20.0)
-    {
-      if (v11 >= 30.0)
-      {
-        v12 = 1 << v7;
-        v13 = __src;
-      }
-
-      else
-      {
-        if (*(this + 904))
-        {
-          goto LABEL_13;
-        }
-
-        v12 = 1 << v7;
-        v13 = v31;
-      }
-
-      *&v13[(v7 >> 3) & 0x1FFC] |= v12;
-    }
-
-    else if ((*(this + 904) & 1) == 0)
-    {
-      v20[0] = v9;
-      v21 = v10;
-      v22 = v7;
-      v6 = BlueFin::GlMeMsmtMgr::FeedMkfMeas(this, v20, a2) | v6;
-    }
-
-LABEL_13:
-    BlueFin::GlSetIterator::operator++(&v23);
-  }
-
-  while (v24 != v23);
-  v5 = v32;
-  v4 = v31;
-LABEL_15:
-  v23 = v5;
-  memcpy(v27, v4, 4 * v5);
-  v25 = 0;
-  v24 = 0;
-  v26 = v27[0];
-  BlueFin::GlSetIterator::operator++(&v23);
-  if (v24 != v23)
-  {
-    while (v25 < 0x23FuLL)
-    {
-      v14 = &BlueFin::GlSignalId::s_aotIndex2signalId + 2 * v25;
-      v15 = *v14;
-      LODWORD(v14) = v14[1];
-      v20[0] = v15;
-      v21 = v14;
-      v22 = v25;
-      v6 = BlueFin::GlMeMsmtMgr::FeedMkfMeas(this, v20, a2) | v6;
-      BlueFin::GlSetIterator::operator++(&v23);
-      if (v24 == v23)
-      {
-        goto LABEL_18;
-      }
-    }
-
-LABEL_27:
-    DeviceFaultNotify("glsignalid.h", 578, "GetSignalIdFromIndex", "usIndex < NUM_SIGNAL_IDS");
-    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glsignalid.h", 578, "usIndex < NUM_SIGNAL_IDS");
-  }
-
-LABEL_18:
-  v23 = v29;
-  memcpy(v27, __src, 4 * v29);
-  v25 = 0;
-  v24 = 0;
-  v26 = v27[0];
-  BlueFin::GlSetIterator::operator++(&v23);
-  if (v24 != v23)
-  {
-    while (v25 < 0x23FuLL)
-    {
-      v16 = &BlueFin::GlSignalId::s_aotIndex2signalId + 2 * v25;
-      v17 = *v16;
-      LODWORD(v16) = v16[1];
-      v20[0] = v17;
-      v21 = v16;
-      v22 = v25;
-      v6 = BlueFin::GlMeMsmtMgr::FeedMkfMeas(this, v20, a2) | v6;
-      BlueFin::GlSetIterator::operator++(&v23);
-      if (v24 == v23)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    goto LABEL_27;
-  }
-
-LABEL_21:
-  bzero(*this, ((4 * *(this + 8) + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  if (!v6 || (*(*(this + 24) + 248) = a2, ((*(**(this + 23) + 32))(*(this + 23), a2, v6) & 1) == 0))
-  {
-    (*(**(this + 23) + 16))(*(this + 23), a2);
-  }
-
-  *(this + 50) = a2;
-  v18 = *(this + 24);
-  LODWORD(v31) = 0;
-  result = *(v18 + 280);
-  if (result)
-  {
-    return (*(*result + 16))(result, 2, &v31);
-  }
-
-  return result;
-}
-
-double BlueFin::GlMeAcqWinComputer::GlMeAcqWinComputer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  *a1 = a2;
-  *(a1 + 8) = a3;
-  *(a1 + 16) = a4;
-  *(a1 + 24) = a5;
-  *(a1 + 32) = &off_2A1F0E398;
-  *(a1 + 152) = &off_2A1F0E398;
-  *(a1 + 40) = 0;
-  *(a1 + 44) = -1;
-  *(a1 + 48) = 575;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *&result = 3240099840;
-  *(a1 + 68) = xmmword_298A339D0;
-  *(a1 + 84) = 2139095039;
-  *(a1 + 88) = 0;
-  *(a1 + 96) = 2139095039;
-  *(a1 + 100) = 0;
-  *(a1 + 104) = 0x7FEFFFFFFFFFFFFFLL;
-  *(a1 + 112) = -1;
-  *(a1 + 116) = -1;
-  *(a1 + 120) = 0;
-  *(a1 + 128) = 0;
-  *(a1 + 144) = 0;
-  *(a1 + 136) = 0;
-  *(a1 + 160) = 0;
-  *(a1 + 164) = -1;
-  *(a1 + 168) = 575;
-  *(a1 + 176) = 0;
-  *(a1 + 184) = 0;
-  *(a1 + 188) = xmmword_298A339D0;
-  *(a1 + 204) = 2139095039;
-  *(a1 + 208) = 0;
-  *(a1 + 216) = 2139095039;
-  *(a1 + 220) = 0;
-  *(a1 + 224) = 0x7FEFFFFFFFFFFFFFLL;
-  *(a1 + 232) = -1;
-  *(a1 + 236) = -1;
-  *(a1 + 240) = 0;
-  *(a1 + 248) = 0;
-  *(a1 + 264) = 0;
-  *(a1 + 256) = 0;
-  *(a1 + 272) = 0;
-  return result;
-}
-
-unsigned __int8 *BlueFin::GlMeSrdSatTrackMgr::ProcessPending(void *a1, int a2, uint64_t a3)
-{
-  v4 = (a1 + 521);
-  *(a1 + 1812) = a2;
-  v5 = a1[689];
-  v202 = (a1 + 521);
-  if (!*v5)
-  {
-    v6 = *(a1 + 5520);
-    if (v6 < 2)
-    {
-LABEL_6:
-      v10 = a1[678];
-      if (!*v10)
-      {
-        v146 = *(a1 + 5432);
-        if (v146 < 2)
-        {
-          goto LABEL_38;
-        }
-
-        v147 = v146 - 1;
-        v148 = v10 + 1;
-        while (!*v148++)
-        {
-          if (!--v147)
-          {
-            goto LABEL_38;
-          }
-        }
-      }
-    }
-
-    else
-    {
-      v7 = v6 - 1;
-      v8 = v5 + 1;
-      while (!*v8++)
-      {
-        if (!--v7)
-        {
-          goto LABEL_6;
-        }
-      }
-    }
-  }
-
-  LODWORD(v217) = *(a1 + 4008);
-  memcpy(v218, a1[500], 4 * v217);
-  HIDWORD(v217) = *v218;
-  BlueFin::GlSetIterator::operator++(&v217);
-  while (BYTE1(v217) != v217)
-  {
-    v11 = WORD1(v217);
-    BlueFin::GlSatCarrId::GlSatCarrId(&__src, WORD1(v217));
-    v12 = __src;
-    BlueFin::GlMeSrdSatMgr::GetSvid(a1[1], __src, &v259);
-    BlueFin::GlSatCarrId::GlSatCarrId(&__src, v11);
-    v13 = HIDWORD(__src);
-    v14 = 575;
-    if (HIDWORD(__src) != -1 && v259 - 189 >= 0xFFFFFF44)
-    {
-      v15 = BlueFin::GlSvId::s_aucSvId2gnss[v259];
-      if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * SHIDWORD(__src) - SHIDWORD(__src) + v15] != 255)
-      {
-        v14 = BlueFin::GlSignalId::s_ausGnss2signalId[v15] + v259 - BlueFin::GlSvId::s_aucGnss2minSvId[v15] + WORD2(__src) * BlueFin::GlSvId::s_aucGnss2numSvId[v15];
-      }
-    }
-
-    LOBYTE(v235) = v259;
-    BlueFin::GlSignalIdSet::GetSignalIdSetForSv(a1 + 5424, &v235, &__src);
-    LOBYTE(v235) = v226;
-    memcpy(&v236, __src, 4 * v226);
-    WORD1(v235) = 0;
-    BYTE1(v235) = 0;
-    HIDWORD(v235) = v236;
-    while (1)
-    {
-      BlueFin::GlSetIterator::operator++(&v235);
-      if (BYTE1(v235) == v235)
-      {
-        break;
-      }
-
-      v16 = WORD1(v235);
-      if (WORD1(v235) >= 0x23FuLL)
-      {
-        v191 = "usIndex < NUM_SIGNAL_IDS";
-        DeviceFaultNotify("glsignalid.h", 578, "GetSignalIdFromIndex", "usIndex < NUM_SIGNAL_IDS");
-        v192 = "glsignalid.h";
-        v193 = 578;
-LABEL_275:
-        __assert_rtn(0xFFFFFFFFFFFFFFFFLL, v192, v193, v191);
-      }
-
-      v17 = *(&BlueFin::GlSignalId::s_aotIndex2signalId + 2 * WORD1(v235) + 1);
-      BlueFin::GlSatCarrId::GlSatCarrId(&v262, v12, v17);
-      if (((*(a1[500] + 4 * ((v262 + 100 * BYTE4(v262)) >> 5)) >> ((v262 + 100 * BYTE4(v262)) & 0x1F)) & 1) == 0)
-      {
-        v18 = a1[2];
-        LOBYTE(v266) = *(&BlueFin::GlSignalId::s_aotIndex2signalId + 2 * v16);
-        v19 = v266;
-        HIDWORD(v266) = v17;
-        v267 = v16;
-        AidIdFromSignalId = BlueFin::GlMeSrdAidingMgr::GetAidIdFromSignalId(v18, &v266);
-        v21 = BlueFin::GlSvId::s_aucSvId2gnss[v19];
-        v22 = 25;
-        if (v21 > 3)
-        {
-          switch(v21)
-          {
-            case 4u:
-              if ((v19 - 134) >= 5 && (v19 - 76) >= 5)
-              {
-                v22 = 59;
-              }
-
-              else
-              {
-                v22 = 60;
-              }
-
-              break;
-            case 5u:
-              v22 = 71;
-              break;
-            case 6u:
-              break;
-            default:
-              v191 = "0";
-              DeviceFaultNotify("glmesrd_track_mgr.cpp", 549, "GetDirectToTrkBsid", "0");
-              v192 = "glmesrd_track_mgr.cpp";
-              v193 = 549;
-              goto LABEL_275;
-          }
-        }
-
-        else if (v21 == 2)
-        {
-          v22 = 46;
-        }
-
-        BlueFin::GlMeSrdSatMgr::AddCarrier(a1[1], v12, v22, AidIdFromSignalId, v17);
-        BlueFin::GlMeSrdSatTrackMgr::AddSatCarr(a1, &v262);
-      }
-
-      BlueFin::GlSetBase::Remove((a1 + 678), v16);
-    }
-
-    if ((*(a1[689] + 4 * (v14 >> 5)) >> (v14 & 0x1F)))
-    {
-      BlueFin::GlSatCarrId::GlSatCarrId(&v235, v12, v13);
-      if (((*(a1[590] + 4 * ((v235 + 100 * BYTE4(v235)) >> 5)) >> ((v235 + 100 * BYTE4(v235)) & 0x1F)) & 1) == 0)
-      {
-        BlueFin::GlSatCarrId::GlSatCarrId(&v266, v12, v13);
-        v24 = a1[1];
-        BlueFin::GlSatCarrId::GlSatCarrId(&v235, v12, v13);
-        *(*(v24 + 6384) + 4 * ((v235 + 100 * BYTE4(v235)) >> 5)) |= 1 << (v235 + 100 * BYTE4(v235));
-        BlueFin::GlMeSrdSatTrackMgr::RemoveSatCarr(a1, &v266);
-        *(a1[590] + 4 * ((v266 + 100 * BYTE4(v266)) >> 5)) |= 1 << (v266 + 100 * BYTE4(v266));
-        BlueFin::GlSetBase::Remove((a1 + 689), v14);
-      }
-    }
-
-    BlueFin::GlSetIterator::operator++(&v217);
-  }
-
-  v4 = v202;
-LABEL_38:
-  BlueFin::GlSetBase::GlSetBase(&v217, &v218[4], 0x10u, a1 + 600);
-  __src = v227;
-  LOBYTE(v226) = 16;
-  memset(v227, 0, 64);
-  BlueFin::GlSetBase::OperatorBinaryInversion(&v217, &__src);
-  BlueFin::GlSetBase::operator=(&v217, &__src);
-  *&v218[4] = *v227;
-  *&v218[20] = *&v227[16];
-  *&v218[36] = *&v227[32];
-  *&v218[52] = *&v227[48];
-  BlueFin::GlSetBase::operator&=((a1 + 590), &v217);
-  BlueFin::GlSetBase::operator=((a1 + 600), (a1 + 590));
-  v25 = *(a1 + 4780);
-  *(a1 + 4844) = *(a1 + 4764);
-  *(a1 + 4860) = v25;
-  v26 = *(a1 + 4748);
-  *(a1 + 4812) = *(a1 + 4732);
-  *(a1 + 4828) = v26;
-  v27 = a1[638];
-  v28 = 0x2A18BA000;
-  if (*v27)
-  {
-    goto LABEL_293;
-  }
-
-  v29 = v4[944];
-  if (v29 < 2)
-  {
-LABEL_43:
-    v33 = a1[658];
-    if (*v33)
-    {
-      goto LABEL_293;
-    }
-
-    v34 = v4[1104];
-    if (v34 >= 2)
-    {
-      v35 = v34 - 1;
-      v36 = v33 + 1;
-      do
-      {
-        if (*v36++)
-        {
-          goto LABEL_293;
-        }
-      }
-
-      while (--v35);
-    }
-
-    v217 = BlueFin::GlMeSrdSatTrackMgr::OnReliableTransactionAck;
-    *v218 = a1;
-    *&v218[8] = 256;
-    v218[10] = 0;
-    *&v218[16] = a3;
-    *&v218[24] = 0;
-    *&v218[28] = 0;
-    (*(*a3 + 16))(a3, 1);
-    LOBYTE(__src) = *v4;
-    v38 = a1[520];
-    v39 = 4 * __src;
-    memcpy(&v226, v38, v39);
-    WORD1(__src) = 0;
-    BYTE1(__src) = 0;
-    HIDWORD(__src) = v226;
-    BlueFin::GlSetIterator::operator++(&__src);
-    if (BYTE1(__src) != __src)
-    {
-      do
-      {
-        BlueFin::GlSatCarrId::GlSatCarrId(&v266, WORD1(__src));
-        v40 = v266;
-        EswSignalIndex = BlueFin::GlMeSrdAsicUnitConverter::GetEswSignalIndex(HIDWORD(v266));
-        v42 = a1[2];
-        BlueFin::GlMeSrdSatMgr::GetSignalId(a1[1], &v266, &v235);
-        v43 = BlueFin::GlMeSrdAidingMgr::GetAidIdFromSignalId(v42, &v235);
-        if ((*(*a1[3] + 352))(a1[3]))
-        {
-          v44 = (*(**&v218[16] + 48))(*&v218[16]);
-          v45 = (*(*v44 + 64))(v44);
-          (*(*v45 + 80))(v45, &v217, v40, EswSignalIndex, v43);
-        }
-
-        else
-        {
-          if (EswSignalIndex != 1)
-          {
-            DeviceFaultNotify("glmesrd_track_mgr.cpp", 732, "UpdateAidingId", "carrier_band == ESW_CARRIER_BAND_1");
-            __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_track_mgr.cpp", 732, "carrier_band == ESW_CARRIER_BAND_1");
-          }
-
-          v46 = (*(**&v218[16] + 48))(*&v218[16]);
-          v47 = (*(*v46 + 64))(v46);
-          (*(*v47 + 72))(v47, &v217, v40, v43);
-        }
-
-        BlueFin::GlSetIterator::operator++(&__src);
-      }
-
-      while (BYTE1(__src) != __src);
-      v38 = a1[520];
-      v39 = 4 * *v4;
-    }
-
-    bzero(v38, ((v39 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-    BlueFin::GlMeSrdTransaction::Complete(&v217);
-    BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v217);
-    v203[0] = BlueFin::GlMeSrdSatTrackMgr::OnReliableTransactionAck;
-    v203[1] = a1;
-    v204 = 256;
-    v205 = 0;
-    v206 = a3;
-    v207 = 0;
-    v208 = 0;
-    (*(*a3 + 16))(a3, 1);
-    v266 = &v268;
-    LOBYTE(v267) = 16;
-    v268 = 0u;
-    v269 = 0u;
-    v270 = 0u;
-    v271 = 0u;
-    v262 = &v263[4];
-    v263[0] = 16;
-    memset(&v263[4], 0, 32);
-    v264 = 0u;
-    v265 = 0u;
-    v259 = v261;
-    v260 = 16;
-    memset(v261, 0, 64);
-    v256 = v258;
-    v257 = 16;
-    memset(v258, 0, 64);
-    v253 = v255;
-    v254 = 16;
-    memset(v255, 0, 64);
-    BlueFin::GlSetBase::GlSetBase(&v235, &v237, 0x10u, a1 + 638);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v235, &__src, a1 + 648);
-    BlueFin::GlSetBase::operator=(&v235, &__src);
-    v237 = *v227;
-    v238 = *&v227[16];
-    v239 = *&v227[32];
-    v240 = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(&v217, &v218[4], 0x10u, &v235);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v217, &__src, a1 + 658);
-    BlueFin::GlSetBase::operator=(&v217, &__src);
-    *&v218[4] = *v227;
-    *&v218[20] = *&v227[16];
-    *&v218[36] = *&v227[32];
-    *&v218[52] = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(&v251, v252, 0x10u, &v217);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v251, &__src, a1 + 668);
-    BlueFin::GlSetBase::operator=(&v251, &__src);
-    v252[0] = *v227;
-    v252[1] = *&v227[16];
-    v252[2] = *&v227[32];
-    v252[3] = *&v227[48];
-    v242 = &unk_2A1F0E1A0;
-    v243 = 0;
-    v244 = 0x36A7C5AC00000000;
-    v245 = 0;
-    v246 = 2139095039;
-    v247 = 0;
-    v248 = 2139095039;
-    v249 = 0;
-    v250 = 0x36A7C5AC7F7FFFFFLL;
-    (*(**a1 + 96))(*a1, &v242, *(a1 + 1812));
-    v241 = 0;
-    v48 = (*(**a1 + 16))(*a1, *(a1 + 1812), &v241);
-    LOBYTE(v235) = *(a1 + 4008);
-    memcpy(&v236, a1[500], 4 * v235);
-    WORD1(v235) = 0;
-    BYTE1(v235) = 0;
-    HIDWORD(v235) = v236;
-    BlueFin::GlSetIterator::operator++(&v235);
-    v200 = a1 + 4;
-    if (BYTE1(v235) != v235)
-    {
-      v198 = v48;
-      while (1)
-      {
-        BlueFin::GlSatCarrId::GlSatCarrId(v211, WORD1(v235));
-        if ((*(a1[510] + ((v211[0] >> 3) & 0x1C)) >> (v211[0] & 0x1F)) & 1) != 0 || ((*(v251 + 4 * ((v211[0] + 100 * v211[4]) >> 5)) >> ((v211[0] + 100 * v211[4]) & 0x1F)))
-        {
-          goto LABEL_219;
-        }
-
-        BlueFin::GlMeSrdSatMgr::GetSvid(a1[1], v211[0], &v234);
-        v49 = v234;
-        LOBYTE(v213) = v234;
-        HIDWORD(v213) = *&v211[4];
-        v214 = 575;
-        if (*&v211[4] != -1 && v234 - 189 >= 0xFFFFFF44)
-        {
-          v50 = BlueFin::GlSvId::s_aucSvId2gnss[v234];
-          if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * *&v211[4] - *&v211[4] + v50] == 255)
-          {
-            HIDWORD(v213) = -1;
-          }
-
-          else
-          {
-            v214 = BlueFin::GlSignalId::s_ausGnss2signalId[v50] + v234 - BlueFin::GlSvId::s_aucGnss2minSvId[v50] + *&v211[4] * BlueFin::GlSvId::s_aucGnss2numSvId[v50];
-          }
-        }
-
-        v51 = &v200[4 * BlueFin::GlMeSrdSatMgr::GetTrackChannel(a1[1], v211)];
-        if (!*v51)
-        {
-          goto LABEL_219;
-        }
-
-        v52 = *(v51 + 2);
-        v53 = v52 > 0x11;
-        v54 = (1 << v52) & 0x21C00;
-        if (v53 || v54 == 0)
-        {
-          goto LABEL_219;
-        }
-
-        __src = &off_2A1F0E398;
-        LOBYTE(v226) = 0;
-        *v227 = -1;
-        *&v227[4] = 575;
-        *&v227[12] = 0;
-        HIDWORD(v56) = 0;
-        *&v227[24] = xmmword_298A339D0;
-        *&v227[20] = 0;
-        *&v227[40] = 2139095039;
-        *&v227[44] = 0;
-        *&v227[52] = 2139095039;
-        *&v227[56] = 0;
-        *&v227[60] = 0x7FEFFFFFFFFFFFFFLL;
-        v228 = -1;
-        v229 = -1;
-        v231 = 0;
-        v232 = 0;
-        v230 = 0;
-        v233 = 0;
-        v217 = &off_2A1F0E398;
-        v218[0] = 0;
-        *&v218[4] = -1;
-        *&v218[8] = 575;
-        *&v218[16] = 0;
-        *&v218[28] = xmmword_298A339D0;
-        *&v218[24] = 0;
-        *&v218[44] = 2139095039;
-        *&v218[48] = 0;
-        *&v218[56] = 2139095039;
-        *&v218[60] = 0;
-        *&v218[64] = 0x7FEFFFFFFFFFFFFFLL;
-        v219 = -1;
-        v220 = -1;
-        v222 = 0;
-        v223 = 0;
-        v221 = 0;
-        v224 = 0;
-        v57 = v49 - 52;
-        v216 = v48;
-        if ((v49 - 52) <= 0xD)
-        {
-          v216 = v48 & ((v241 & 0x80) >> 7);
-        }
-
-        v58 = *a1;
-        LODWORD(v56) = *(a1 + 1812);
-        LODWORD(v209) = 16;
-        v59 = (*(*v58 + 24))(v58, &v213, &__src, &v209, &v242, &v216, v56, 0.0, 0.0);
-        v59.n128_u32[0] = *(a1 + 1812);
-        AcqWindow = BlueFin::GlMeSrdAidingMgr::GetAcqWindow(a1[2], &v217, &v213, v59.n128_u64[0], &v242, &v216);
-        v61 = v227[20];
-        v62 = (*&v227[20] >> 3) & 1 | ((v218[24] & 8) >> 3);
-        v63 = v211[0] + 100 * v211[4];
-        v64 = v63 >> 5;
-        v65 = *(a1[610] + 4 * (v63 >> 5));
-        v66 = v63 & 0x1F;
-        v67 = *(a1[620] + 4 * (v63 >> 5));
-        v68.n128_u32[0] = *&v227[52];
-        if (v57 <= 0xD && *&v227[52] < 0.005)
-        {
-          break;
-        }
-
-        LODWORD(v69) = 0;
-        if ((v49 - 139) > 0x23 || *&v227[52] >= 0.005)
-        {
-          goto LABEL_74;
-        }
-
-        LODWORD(v69) = 0;
-        v199 = (*&v227[20] & 0x400) >> 10;
-        v71 = (*&v227[20] & 0x400) == 0;
-        v70 = v213;
-        if ((*&v227[20] & 0x400) != 0 && v213 - 139 < 0x24)
-        {
-          v196 = (*&v227[20] & 0x400) == 0;
-          v197 = 0;
-          LODWORD(v199) = 1;
-LABEL_93:
-          *&v259[4 * v64] |= 1 << v66;
-          goto LABEL_94;
-        }
-
-LABEL_75:
-        v197 = v69;
-        v196 = v71;
-        if ((v70 - 1) < 0x20 || (v70 - 66) <= 9)
-        {
-          if (SHIDWORD(v213) >= 1)
-          {
-            if (HIDWORD(v213) == 1)
-            {
-              if ((*&v227[20] & 0x800) == 0)
-              {
-                goto LABEL_94;
-              }
-
-              goto LABEL_93;
-            }
-
-            if (((HIDWORD(v213) == 2) & v62) != 0 || HIDWORD(v213) == 3 && (*&v227[20] & 0x2000) != 0)
-            {
-              goto LABEL_93;
-            }
-          }
-        }
-
-        else if ((*&v227[20] & 0x1000) != 0 && (v70 - 76) <= 0x3E && SHIDWORD(v213) >= 1)
-        {
-          goto LABEL_93;
-        }
-
-LABEL_94:
-        if (((*(*a1[3] + 256))(a1[3], v68) & 1) != 0 || (*(*a1[3] + 264))(a1[3]))
-        {
-          BlueFin::GlMeSrdSatTrackMgr::UpdateMPFSettings(a1, v203, v211);
-        }
-
-        v72 = v61 & 0x1A;
-        v73 = (1 << v66) & v65;
-        v74 = (1 << v66) & v67;
-        v75 = *(v51 + 2);
-        if (v75 > 11)
-        {
-          if (v75 != 12)
-          {
-            if (v75 != 17)
-            {
-              goto LABEL_213;
-            }
-
-            if (v72 && v73)
-            {
-              v86 = v196;
-              if (HIDWORD(v213))
-              {
-                v86 = 1;
-              }
-
-              if ((v86 & 1) == 0)
-              {
-                v87 = v211[0] + 100 * v211[4];
-                v88 = v87 >> 5;
-                v89 = 1 << v87;
-                v266[v88] |= v89;
-                *(v262 + v88) |= v89;
-                *(a1[570] + 4 * v88) |= v89;
-                *(a1[560] + 4 * v88) |= v89;
-              }
-            }
-
-            if (v213 - 76 >= 0x3F && (v213 - 1) >= 0x20u && (v213 - 76) < 0xF6u || !v73 || (v227[21] & 0x30) == 0)
-            {
-              goto LABEL_213;
-            }
-
-            v90 = v211[0] + 100 * v211[4];
-            v91 = v90 >> 5;
-            v92 = 1 << v90;
-            v266[v91] |= v92;
-            *(v262 + v91) |= v92;
-            *(a1[570] + 4 * v91) |= v92;
-            v93 = a1[560];
-            goto LABEL_198;
-          }
-
-          v95 = v199;
-          if (v72 && v73 && !HIDWORD(v213))
-          {
-            v96 = v211[0] + 100 * v211[4];
-            v97 = v96 >> 5;
-            v98 = 1 << v96;
-            v266[v97] |= v98;
-            if (v197)
-            {
-              *(v262 + v97) |= v98;
-            }
-
-            if (v199)
-            {
-              *(v262 + v97) |= v98;
-              *(a1[570] + 4 * v97) |= v98;
-              *(a1[560] + 4 * v97) |= v98;
-            }
-          }
-
-          v99 = HIDWORD(v213);
-          if (HIDWORD(v213))
-          {
-            v100 = 0;
-          }
-
-          else
-          {
-            v100 = v62;
-          }
-
-          if (v100 == 1)
-          {
-            if (*(v51 + 1) <= 22.0 && *(v51 + 3) != 2)
-            {
-              goto LABEL_164;
-            }
-
-            if (v74 && *(v51 + 3) != 2)
-            {
-              v101 = *(v51 + 2);
-              v102 = *&v227[44];
-              EpochPerSymbol = BlueFin::GlSignalId::GetEpochPerSymbol(&v213);
-              if (v214 > 0x23Eu)
-              {
-LABEL_380:
-                v194 = "IsValid()";
-                v195 = 679;
-                DeviceFaultNotify("glsignalid.h", 679, "GetMsPerEpoch", "IsValid()");
-                goto LABEL_382;
-              }
-
-              v104 = BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * SHIDWORD(v213) - SHIDWORD(v213) + BlueFin::GlSvId::s_aucSvId2gnss[v213]];
-              if (!v104)
-              {
-                goto LABEL_381;
-              }
-
-              v105 = BlueFin::GlMeSrdSatTrackMgr::MeasVsAidingBitTimeNotEqual((v104 * EpochPerSymbol), v101, v102);
-              v95 = v199;
-              if (v105)
-              {
-LABEL_164:
-                v266[(v211[0] + 100 * v211[4]) >> 5] |= 1 << (v211[0] + 100 * v211[4]);
-              }
-            }
-
-            v99 = HIDWORD(v213);
-          }
-
-          if ((v95 & (v99 == 0)) == 1)
-          {
-            v106 = v211[0] + 100 * v211[4];
-            v107 = v106 >> 5;
-            v108 = v266[v106 >> 5];
-            v109 = v106 & 0x1F;
-            if (((1 << v109) & v108) == 0 && ((1 << v109) & *(v262 + v107)) == 0 && *(v51 + 24) == 1)
-            {
-              v253[v107] |= 1 << v109;
-            }
-          }
-
-          if (v72)
-          {
-            v110 = 1;
-          }
-
-          else
-          {
-            v110 = v62;
-          }
-
-          if ((AcqWindow & ~*(v51 + 25) & 1) == 0 || !v110 || v99 < 1)
-          {
-            goto LABEL_213;
-          }
-
-          if (BlueFin::GlSvId::s_aucSvId2gnss[v213] != 3 && BlueFin::GlSvId::s_aucSvId2gnss[v213])
-          {
-            if (v213 - 139 <= 0x23)
-            {
-              goto LABEL_203;
-            }
-
-            v119 = v213 - 76;
-            goto LABEL_209;
-          }
-
-          if (v99 == 2)
-          {
-            v120 = v211[0] + 100 * v211[4];
-            v121 = v120 >> 5;
-            v122 = v266;
-            v123 = (1 << v120) | v266[v120 >> 5];
-            goto LABEL_212;
-          }
-
-          if (v99 == 1)
-          {
-            goto LABEL_181;
-          }
-        }
-
-        else
-        {
-          if (v75 != 10)
-          {
-            if (v75 != 11)
-            {
-              goto LABEL_213;
-            }
-
-            if (v72 && v73)
-            {
-              v266[(v211[0] + 100 * v211[4]) >> 5] |= 1 << (v211[0] + 100 * v211[4]);
-            }
-
-            v76 = v197;
-            if (v62)
-            {
-              if (*(v51 + 1) <= 22.0 && *(v51 + 3) != 2)
-              {
-                goto LABEL_111;
-              }
-
-              if (v74 && *(v51 + 3) != 2)
-              {
-                v77 = *(v51 + 2);
-                v78 = *&v227[44];
-                v79 = BlueFin::GlSignalId::GetEpochPerSymbol(&v213);
-                if (v214 >= 0x23Fu)
-                {
-                  goto LABEL_380;
-                }
-
-                v80 = BlueFin::GlSignalId::s_aucSignalIndexAndGnss2msPerEpoch[8 * SHIDWORD(v213) - SHIDWORD(v213) + BlueFin::GlSvId::s_aucSvId2gnss[v213]];
-                if (!v80)
-                {
-LABEL_381:
-                  v194 = "ucMsPerEpoch != 0";
-                  v195 = 686;
-                  DeviceFaultNotify("glsignalid.h", 686, "GetMsPerEpoch", "ucMsPerEpoch != 0");
-LABEL_382:
-                  __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glsignalid.h", v195, v194);
-                }
-
-                v81 = BlueFin::GlMeSrdSatTrackMgr::MeasVsAidingBitTimeNotEqual((v80 * v79), v77, v78);
-                v76 = v197;
-                if (v81)
-                {
-LABEL_111:
-                  v266[(v211[0] + 100 * v211[4]) >> 5] |= 1 << (v211[0] + 100 * v211[4]);
-                }
-              }
-
-              if (v73 && v213 - 81 <= 0x34 && !HIDWORD(v213))
-              {
-                v82 = v211[0] + 100 * v211[4];
-                v83 = v82 >> 5;
-                v84 = 1 << v82;
-                v266[v83] |= v84;
-                *(a1[570] + 4 * v83) |= v84;
-                *(a1[560] + 4 * v83) |= v84;
-              }
-            }
-
-            if ((v199 | v76))
-            {
-              v85 = v76 ^ 1;
-              if (v57 > 0xD)
-              {
-                v85 = 1;
-              }
-
-              if (v85)
-              {
-                v114 = v196;
-                if ((v49 - 175) < 0xFFFFFFDC)
-                {
-                  v114 = 1;
-                }
-
-                if ((v114 & 1) == 0)
-                {
-                  v115 = v211[0] + 100 * v211[4];
-                  v116 = v115 >> 5;
-                  v117 = 1 << v115;
-                  *(v262 + v116) |= v117;
-                  if ((AcqWindow & 1) != 0 || (v243 & 0x10) != 0 && *(&v244 + 1) < 0.000000016)
-                  {
-                    *&v256[4 * v116] |= v117;
-                  }
-                }
-              }
-
-              else
-              {
-                *(v262 + ((v211[0] + 100 * v211[4]) >> 5)) |= 1 << (v211[0] + 100 * v211[4]);
-              }
-            }
-
-            if ((BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * SHIDWORD(v213) - SHIDWORD(v213) + BlueFin::GlSvId::s_aucSvId2gnss[v213]] - 13) > 1 || (v227[21] & 0x30) == 0)
-            {
-              goto LABEL_213;
-            }
-
-            v118 = v211[0] + 100 * v211[4];
-            v91 = v118 >> 5;
-            v92 = 1 << v118;
-            *(v262 + v91) |= v92;
-            v93 = v266;
-LABEL_198:
-            v93[v91] |= v92;
-            goto LABEL_213;
-          }
-
-          if (v72)
-          {
-            v94 = 1;
-          }
-
-          else
-          {
-            v94 = v62;
-          }
-
-          if ((AcqWindow & ~*(v51 + 25) & 1) == 0 || !v94 || SHIDWORD(v213) < 1)
-          {
-            if (v72)
-            {
-              v111 = v211[0] + 100 * v211[4];
-              v112 = v111 >> 5;
-              v113 = 1 << v111;
-              v266[v112] |= v113;
-              *(a1[570] + 4 * v112) |= v113;
-              if ((v199 | v197))
-              {
-                *(v262 + v112) |= v113;
-              }
-
-              if (v213 - 81 <= 0x34)
-              {
-                *(a1[560] + 4 * v112) |= v113;
-              }
-            }
-
-            goto LABEL_213;
-          }
-
-          if (BlueFin::GlSvId::s_aucSvId2gnss[v213] != 3 && BlueFin::GlSvId::s_aucSvId2gnss[v213])
-          {
-            if (v213 - 139 <= 0x23)
-            {
-LABEL_203:
-              if ((v227[21] & 4) == 0)
-              {
-                goto LABEL_213;
-              }
-
-              goto LABEL_211;
-            }
-
-            v119 = v213 - 76;
-LABEL_209:
-            if (v119 > 0x3E || (v227[21] & 0x10) == 0)
-            {
-              goto LABEL_213;
-            }
-
-            goto LABEL_211;
-          }
-
-          if (HIDWORD(v213) == 2)
-          {
-            if (((*(**a1 + 128))() & 1) == 0)
-            {
-              v266[(v211[0] + 100 * v211[4]) >> 5] |= 1 << (v211[0] + 100 * v211[4]);
-            }
-
-            *(v51 + 25) = 1;
-            goto LABEL_213;
-          }
-
-          if (HIDWORD(v213) == 1)
-          {
-LABEL_181:
-            if ((v227[21] & 8) == 0)
-            {
-              goto LABEL_213;
-            }
-
-LABEL_211:
-            v124 = v211[0] + 100 * v211[4];
-            v121 = v124 >> 5;
-            v125 = 1 << v124;
-            v266[v121] |= v125;
-            v122 = v262;
-            v123 = *(v262 + v121) | v125;
-LABEL_212:
-            v122[v121] = v123;
-            *(v51 + 25) = 1;
-          }
-        }
-
-LABEL_213:
-        if ((v266[(v211[0] + 100 * v211[4]) >> 5] >> ((v211[0] + 100 * v211[4]) & 0x1F)))
-        {
-          if (v62)
-          {
-            v126 = 2;
-          }
-
-          else
-          {
-            v126 = 1;
-          }
-
-          *(v51 + 3) = v126;
-        }
-
-        v48 = v198;
-LABEL_219:
-        BlueFin::GlSetIterator::operator++(&v235);
-        if (BYTE1(v235) == v235)
-        {
-          goto LABEL_220;
-        }
-      }
-
-      v69 = (*&v227[20] >> 7) & 1;
-LABEL_74:
-      LODWORD(v199) = 0;
-      v70 = v213;
-      v71 = 1;
-      goto LABEL_75;
-    }
-
-LABEL_220:
-    BlueFin::GlSetBase::GlSetBase(&v235, &v237, 0x10u, a1 + 638);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v235, &__src, a1 + 648);
-    BlueFin::GlSetBase::operator=(&v235, &__src);
-    v237 = *v227;
-    v238 = *&v227[16];
-    v239 = *&v227[32];
-    v240 = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(&v217, &v218[4], 0x10u, &v235);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryInversion(&v217, &__src);
-    BlueFin::GlSetBase::operator=(&v217, &__src);
-    *&v218[4] = *v227;
-    *&v218[20] = *&v227[16];
-    *&v218[36] = *&v227[32];
-    *&v218[52] = *&v227[48];
-    BlueFin::GlSetBase::operator&=((a1 + 570), &v217);
-    BlueFin::GlSetBase::GlSetBase(&v235, &v237, 0x10u, a1 + 638);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v235, &__src, a1 + 648);
-    BlueFin::GlSetBase::operator=(&v235, &__src);
-    v237 = *v227;
-    v238 = *&v227[16];
-    v239 = *&v227[32];
-    v240 = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(&v217, &v218[4], 0x10u, &v235);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryInversion(&v217, &__src);
-    BlueFin::GlSetBase::operator=(&v217, &__src);
-    *&v218[4] = *v227;
-    *&v218[20] = *&v227[16];
-    *&v218[36] = *&v227[32];
-    *&v218[52] = *&v227[48];
-    BlueFin::GlSetBase::operator&=((a1 + 540), &v217);
-    BlueFin::GlSetBase::GlSetBase(&v209, v210, 0x10u, &v266);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v209, &__src, &v262);
-    BlueFin::GlSetBase::operator=(&v209, &__src);
-    v210[0] = *v227;
-    v210[1] = *&v227[16];
-    v210[2] = *&v227[32];
-    v210[3] = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(v211, v212, 0x10u, &v209);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(v211, &__src, &v253);
-    BlueFin::GlSetBase::operator=(v211, &__src);
-    v212[0] = *v227;
-    v212[1] = *&v227[16];
-    v212[2] = *&v227[32];
-    v212[3] = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(&v213, v215, 0x10u, v211);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v213, &__src, a1 + 570);
-    BlueFin::GlSetBase::operator=(&v213, &__src);
-    v215[0] = *v227;
-    v215[1] = *&v227[16];
-    v215[2] = *&v227[32];
-    v215[3] = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(&v235, &v237, 0x10u, &v213);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v235, &__src, a1 + 540);
-    BlueFin::GlSetBase::operator=(&v235, &__src);
-    v237 = *v227;
-    v238 = *&v227[16];
-    v239 = *&v227[32];
-    v240 = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(&v217, &v218[4], 0x10u, &v235);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v217, &__src, a1 + 560);
-    BlueFin::GlSetBase::operator=(&v217, &__src);
-    *&v218[4] = *v227;
-    *&v218[20] = *&v227[16];
-    *&v218[36] = *&v227[32];
-    *&v218[52] = *&v227[48];
-    LOBYTE(__src) = v218[0];
-    memcpy(&v226, v217, 4 * v218[0]);
-    WORD1(__src) = 0;
-    BYTE1(__src) = 0;
-    HIDWORD(__src) = v226;
-    BlueFin::GlSetIterator::operator++(&__src);
-    while (BYTE1(__src) != __src)
-    {
-      BlueFin::GlSatCarrId::GlSatCarrId(&v235, WORD1(__src));
-      v127 = HIDWORD(v235);
-      v128 = (v235 + 100 * BYTE4(v235)) >> 5;
-      v129 = (v235 + 100 * BYTE4(v235)) & 0x1F;
-      v130 = 1 << v129;
-      if (((1 << v129) & *(a1[540] + 4 * v128)) != 0)
-      {
-        if ((v130 & *&v259[4 * ((v235 + 100 * BYTE4(v235)) >> 5)]) != 0)
-        {
-          v131 = -33;
-        }
-
-        else
-        {
-          v131 = 95;
-        }
-      }
-
-      else
-      {
-        v131 = 0;
-      }
-
-      if ((v130 & *(a1[560] + 4 * ((v235 + 100 * BYTE4(v235)) >> 5))) != 0)
-      {
-        v131 |= 0xBu;
-      }
-
-      if ((v130 & *(a1[570] + 4 * ((v235 + 100 * BYTE4(v235)) >> 5))) != 0)
-      {
-        v131 |= 3u;
-      }
-
-      v132 = v131 | 0x40;
-      if (SHIDWORD(v235) > 0)
-      {
-        v132 = -5;
-      }
-
-      v266[v128];
-      if ((v130 & v266[(v235 + 100 * BYTE4(v235)) >> 5]) != 0)
-      {
-        v131 = v132;
-      }
-
-      if ((v130 & *(v262 + ((v235 + 100 * BYTE4(v235)) >> 5))) != 0)
-      {
-        if ((v130 & *&v256[4 * ((v235 + 100 * BYTE4(v235)) >> 5)]) != 0)
-        {
-          v133 = -53;
-        }
-
-        else
-        {
-          v133 = -64;
-        }
-
-        v131 |= v133;
-      }
-
-      if ((v130 & v253[(v235 + 100 * BYTE4(v235)) >> 5]) != 0)
-      {
-        v134 = -60;
-      }
-
-      else
-      {
-        v134 = v131;
-      }
-
-      if ((v134 & 0x40) != 0)
-      {
-        *(a1[638] + 4 * v128) |= 1 << v129;
-      }
-
-      if ((v134 & 0x80) != 0)
-      {
-        *(a1[658] + 4 * v128) |= 1 << v129;
-      }
-
-      v135 = BlueFin::GlMeSrdAsicUnitConverter::GetEswSignalIndex(v127);
-      if ((*(*a1[3] + 352))(a1[3]))
-      {
-        v136 = (*(*v206 + 48))(v206);
-        v137 = (*(*v136 + 64))(v136);
-        (*(*v137 + 96))(v137, v203, v235, v135, v134);
-      }
-
-      else
-      {
-        if (v135 != 1)
-        {
-          DeviceFaultNotify("glmesrd_track_mgr.cpp", 1333, "UpdateAidingCtrl", "carrier_band == ESW_CARRIER_BAND_1");
-          __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_track_mgr.cpp", 1333, "carrier_band == ESW_CARRIER_BAND_1");
-        }
-
-        v138 = (*(*v206 + 48))(v206);
-        v139 = (*(*v138 + 64))(v138);
-        (*(*v139 + 88))(v139, v203, v235, v134);
-      }
-
-      BlueFin::GlSetIterator::operator++(&__src);
-    }
-
-    BlueFin::GlMeSrdTransaction::Complete(v203);
-    v4 = v202;
-    v28 = 0x2A18BA000;
-    BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(v203);
-    v262 = BlueFin::GlMeSrdSatTrackMgr::OnReliableTransactionAck;
-    *v263 = a1;
-    *&v263[8] = 256;
-    v263[10] = 0;
-    *&v263[16] = a3;
-    *&v263[24] = 0;
-    *&v263[28] = 0;
-    (*(*a3 + 16))(a3, 1);
-    if (((*(*a1[3] + 248))(a1[3]) & 1) == 0 && ((*(*a1[3] + 240))(a1[3]) & 1) == 0)
-    {
-      v140 = BlueFin::GlSetBase::GlSetBase(&v266, &v268, 0x10u, a1 + 638);
-      __src = v227;
-      LOBYTE(v226) = 16;
-      memset(v227, 0, 64);
-      BlueFin::GlSetBase::OperatorBinaryOr(v140, &__src, a1 + 648);
-      BlueFin::GlSetBase::operator=(&v266, &__src);
-      v268 = *v227;
-      v269 = *&v227[16];
-      v270 = *&v227[32];
-      v271 = *&v227[48];
-      BlueFin::GlSetBase::GlSetBase(&v235, &v237, 0x10u, &v266);
-      __src = v227;
-      LOBYTE(v226) = 16;
-      memset(v227, 0, 64);
-      BlueFin::GlSetBase::OperatorBinaryOr(&v235, &__src, a1 + 658);
-      BlueFin::GlSetBase::operator=(&v235, &__src);
-      v237 = *v227;
-      v238 = *&v227[16];
-      v239 = *&v227[32];
-      v240 = *&v227[48];
-      BlueFin::GlSetBase::GlSetBase(&v217, &v218[4], 0x10u, &v235);
-      __src = v227;
-      LOBYTE(v226) = 16;
-      memset(v227, 0, 64);
-      BlueFin::GlSetBase::OperatorBinaryOr(&v217, &__src, a1 + 668);
-      BlueFin::GlSetBase::operator=(&v217, &__src);
-      *&v218[4] = *v227;
-      *&v218[20] = *&v227[16];
-      *&v218[36] = *&v227[32];
-      *&v218[52] = *&v227[48];
-      LOBYTE(__src) = *(a1 + 4008);
-      memcpy(&v226, a1[500], 4 * __src);
-      WORD1(__src) = 0;
-      BYTE1(__src) = 0;
-      HIDWORD(__src) = v226;
-      BlueFin::GlSetIterator::operator++(&__src);
-      while (BYTE1(__src) != __src)
-      {
-        BlueFin::GlSatCarrId::GlSatCarrId(&v235, WORD1(__src));
-        if (((*(a1[510] + ((v235 >> 3) & 0x1C)) >> (v235 & 0x1F)) & 1) == 0 && ((*(v217 + ((v235 + 100 * BYTE4(v235)) >> 5)) >> ((v235 + 100 * BYTE4(v235)) & 0x1F)) & 1) == 0)
-        {
-          v141 = &v200[4 * BlueFin::GlMeSrdSatMgr::GetTrackChannel(a1[1], &v235)];
-          if (*v141)
-          {
-            v142 = *(v141 + 2);
-            v53 = v142 > 0x11;
-            v143 = (1 << v142) & 0x21C00;
-            if (!v53 && v143 != 0)
-            {
-              BlueFin::GlMeSrdSatTrackMgr::UpdateMPFSettings(a1, &v262, &v235);
-            }
-          }
-        }
-
-        BlueFin::GlSetIterator::operator++(&__src);
-      }
-    }
-
-    BlueFin::GlMeSrdTransaction::Complete(&v262);
-    BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v262);
-    v262 = BlueFin::GlMeSrdSatTrackMgr::OnReliableTransactionAck;
-    *v263 = a1;
-    *&v263[8] = 256;
-    v263[10] = 0;
-    *&v263[16] = a3;
-    *&v263[24] = 0;
-    *&v263[28] = 0;
-    (*(*a3 + 16))(a3, 1);
-    if (!(*(*a1[3] + 1048))())
-    {
-LABEL_266:
-      BlueFin::GlMeSrdTransaction::Complete(&v262);
-      BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v262);
-      v217 = BlueFin::GlMeSrdSatTrackMgr::OnReliableTransactionAck;
-      *v218 = a1;
-      *&v218[8] = 256;
-      v218[10] = 0;
-      *&v218[16] = a3;
-      *&v218[24] = 0;
-      *&v218[28] = 0;
-      (*(*a3 + 16))(a3, 1);
-      __src = v227;
-      LOBYTE(v226) = 4;
-      *&v227[8] = 0;
-      *v227 = 0;
-      BlueFin::GlSetBase::OperatorBinaryInversion((a1 + 630), &__src);
-      v235 = &v237;
-      LOBYTE(v236) = 4;
-      v237 = 0uLL;
-      BlueFin::GlSetBase::OperatorBinaryAnd((a1 + 634), &v235, &__src);
-      __src = v227;
-      LOBYTE(v226) = 4;
-      *&v227[8] = 0;
-      *v227 = 0;
-      BlueFin::GlSetBase::OperatorBinaryInversion((a1 + 634), &__src);
-      v266 = &v268;
-      LOBYTE(v267) = 4;
-      v268 = 0uLL;
-      BlueFin::GlSetBase::OperatorBinaryAnd((a1 + 630), &v266, &__src);
-      if (!*v266)
-      {
-        if (v267 < 2uLL)
-        {
-          goto LABEL_280;
-        }
-
-        v150 = v267 - 1;
-        v151 = v266 + 1;
-        while (!*v151++)
-        {
-          if (!--v150)
-          {
-            goto LABEL_280;
-          }
-        }
-      }
-
-      if (*(v28 + 1024))
-      {
-        BlueFin::GlUtils::IsSysLogEnabledCompleteCheck(0x4F);
-      }
-
-LABEL_280:
-      v153 = v235;
-      if (!*v235)
-      {
-        if (v236 < 2uLL)
-        {
-LABEL_287:
-          LOBYTE(__src) = v236;
-          memcpy(&v226, v153, 4 * v236);
-          WORD1(__src) = 0;
-          BYTE1(__src) = 0;
-          HIDWORD(__src) = v226;
-          while (1)
-          {
-            BlueFin::GlSetIterator::operator++(&__src);
-            if (BYTE1(__src) == __src)
-            {
-              break;
-            }
-
-            v155 = (*(**&v218[16] + 48))(*&v218[16]);
-            v156 = (*(*v155 + 64))(v155);
-            v157 = WORD1(__src);
-            (*(*v156 + 64))(v156, &v217, BYTE2(__src), 1);
-            BlueFin::GlSetBase::Remove((a1 + 634), v157);
-          }
-
-          LOBYTE(__src) = v267;
-          memcpy(&v226, v266, 4 * v267);
-          WORD1(__src) = 0;
-          BYTE1(__src) = 0;
-          HIDWORD(__src) = v226;
-          BlueFin::GlSetIterator::operator++(&__src);
-          while (BYTE1(__src) != __src)
-          {
-            v158 = (*(**&v218[16] + 48))(*&v218[16]);
-            v159 = (*(*v158 + 64))(v158);
-            v160 = WORD1(__src);
-            (*(*v159 + 64))(v159, &v217, BYTE2(__src), 2);
-            *(a1[634] + 4 * (v160 >> 5)) |= 1 << v160;
-            BlueFin::GlSetIterator::operator++(&__src);
-          }
-
-          bzero(a1[630], ((4 * v4[880] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-          BlueFin::GlMeSrdTransaction::Complete(&v217);
-          BlueFin::GlMeSrdTransaction::~GlMeSrdTransaction(&v217);
-          goto LABEL_293;
-        }
-
-        v154 = 4;
-        while (!*(v235 + v154))
-        {
-          v154 += 4;
-          if (4 * v236 == v154)
-          {
-            goto LABEL_287;
-          }
-        }
-      }
-
-      if (*(v28 + 1024))
-      {
-        BlueFin::GlUtils::IsSysLogEnabledCompleteCheck(0x4F);
-        v153 = v235;
-      }
-
-      goto LABEL_287;
-    }
-
-    v145 = BlueFin::GlSetBase::GlSetBase(&v266, &v268, 0x10u, a1 + 638);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(v145, &__src, a1 + 648);
-    BlueFin::GlSetBase::operator=(&v266, &__src);
-    v268 = *v227;
-    v269 = *&v227[16];
-    v270 = *&v227[32];
-    v271 = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(&v235, &v237, 0x10u, &v266);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v235, &__src, a1 + 658);
-    BlueFin::GlSetBase::operator=(&v235, &__src);
-    v237 = *v227;
-    v238 = *&v227[16];
-    v239 = *&v227[32];
-    v240 = *&v227[48];
-    BlueFin::GlSetBase::GlSetBase(&v217, &v218[4], 0x10u, &v235);
-    __src = v227;
-    LOBYTE(v226) = 16;
-    memset(v227, 0, 64);
-    BlueFin::GlSetBase::OperatorBinaryOr(&v217, &__src, a1 + 668);
-    BlueFin::GlSetBase::operator=(&v217, &__src);
-    *&v218[4] = *v227;
-    *&v218[20] = *&v227[16];
-    *&v218[36] = *&v227[32];
-    *&v218[52] = *&v227[48];
-    LOBYTE(__src) = *(a1 + 4008);
-    memcpy(&v226, a1[500], 4 * __src);
-    WORD1(__src) = 0;
-    BYTE1(__src) = 0;
-    HIDWORD(__src) = v226;
-    BlueFin::GlSetIterator::operator++(&__src);
-    if (BYTE1(__src) == __src)
-    {
-LABEL_265:
-      v4 = v202;
-      v28 = 0x2A18BA000uLL;
-      goto LABEL_266;
-    }
-
-    while (1)
-    {
-      BlueFin::GlSatCarrId::GlSatCarrId(&v266, WORD1(__src));
-      v162 = v266;
-      if ((*(a1[510] + ((v162 >> 3) & 0x1C)) >> (v162 & 0x1F)))
-      {
-        goto LABEL_300;
-      }
-
-      if ((*(v217 + ((v266 + 100 * BYTE4(v266)) >> 5)) >> ((v266 + 100 * BYTE4(v266)) & 0x1F)))
-      {
-        goto LABEL_300;
-      }
-
-      v163 = &v200[4 * BlueFin::GlMeSrdSatMgr::GetTrackChannel(a1[1], &v266)];
-      if (!*v163)
-      {
-        goto LABEL_300;
-      }
-
-      v164 = *(v163 + 2);
-      v53 = v164 > 0x11;
-      v165 = (1 << v164) & 0x21800;
-      if (v53 || v165 == 0)
-      {
-        goto LABEL_300;
-      }
-
-      v167 = HIDWORD(v266);
-      if (HIDWORD(v266))
-      {
-        if (HIDWORD(v266) != 2 || *(v163 + 25) != 1)
-        {
-          goto LABEL_300;
-        }
-      }
-
-      BlueFin::GlMeSrdSatMgr::GetSvid(a1[1], v162, &v259);
-      LOBYTE(v235) = v259;
-      HIDWORD(v235) = v167;
-      LOWORD(v236) = 575;
-      if (v259 - 189 >= 0xFFFFFF44)
-      {
-        v168 = BlueFin::GlSvId::s_aucSvId2gnss[v259];
-        if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * v167 - v167 + v168] == 255)
-        {
-          HIDWORD(v235) = -1;
-        }
-
-        else
-        {
-          LOWORD(v236) = BlueFin::GlSignalId::s_ausGnss2signalId[v168] + v259 - BlueFin::GlSvId::s_aucGnss2minSvId[v168] + v167 * BlueFin::GlSvId::s_aucGnss2numSvId[v168];
-        }
-      }
-
-      v169 = (*(*a1[3] + 728))(a1[3]) == 255 ? 0 : (*(*a1[3] + 728))(a1[3]);
-      v170 = HIDWORD(v235);
-      v171 = !HIDWORD(v235) || HIDWORD(v235) == 3;
-      v172 = v171;
-      if (!(*(*a1[3] + 712))(a1[3]))
-      {
-        break;
-      }
-
-      v173 = *(a1 + 1812);
-      v174 = v235;
-      BlueFin::GlArray::EnsureValidHandle((a1 + 1080), v235);
-      v175 = v173 / 0x3E8 - 255 * ((16843010 * (v173 / 0x3E8)) >> 32);
-      v176 = *(a1[1082] + v174 - *(a1 + 8676));
-      v177 = v235;
-      if (v176 == 255)
-      {
-        BlueFin::GlArray::EnsureValidHandle((a1 + 932), v235);
-        if (*(a1[934] + v177 - v202[3324]) != 255)
-        {
-          v187 = BlueFin::GlArray::Get((a1 + 932), v235);
-          if (v162 != BYTE2(*v187))
-          {
-            *v187 = (v175 << 8) | (v162 << 16) | 0xFF;
-            goto LABEL_300;
-          }
-
-          v188 = *v187 == 14 && v172;
-          v190 = v170 == 2 && *v187 != 255;
-          if (!v188 && !v190 || v175 - BYTE1(*v187) < 5)
-          {
-            goto LABEL_300;
-          }
-
-          *v187 = (v175 << 8) | (v162 << 16) | 0xFF;
-          LOBYTE(v169) = -1;
-          goto LABEL_376;
-        }
-      }
-
-      else
-      {
-        v169 = *BlueFin::GlArray::Get((a1 + 1080), v235);
-        if ((v170 != 2 || v169 >= 0x100) && (v170 != 3 && v170 || v169 < 0x100))
-        {
-          goto LABEL_300;
-        }
-
-        v178 = BlueFin::GlArray::Get((a1 + 932), v235);
-        v179 = v178;
-        if (v178)
-        {
-          if (v175 - BYTE1(*v178) < 5)
-          {
-            goto LABEL_300;
-          }
-
-          v180 = *v178;
-          if (v180 == v169 && v162 == BYTE2(*v178))
-          {
-            goto LABEL_300;
-          }
-
-          v181 = v169;
-          v182 = v180 != 14 && v172;
-          v183 = v180 == 14 && v170 == 2;
-          if (v182 || v183)
-          {
-            if (v172)
-            {
-              v184 = 2;
-            }
-
-            else
-            {
-              v184 = 0;
-            }
-
-            if (v235 - 189 >= 0xFFFFFF44)
-            {
-              if (BlueFin::GlSignalId::s_aascSignalIndexAndGnss2signalType[8 * v184 - v184 + BlueFin::GlSvId::s_aucSvId2gnss[v235]] == 255)
-              {
-                v184 = 0xFFFFFFFFLL;
-              }
-
-              else
-              {
-                v184 = v184;
-              }
-            }
-
-            BlueFin::SendGridCtrlRpc(v184, &v262, v162, 0xFFu);
-          }
-
-LABEL_375:
-          *v179 = (v175 << 8) | (v162 << 16) | v181;
-LABEL_376:
-          BlueFin::SendGridCtrlRpc(HIDWORD(v235), &v262, v162, v169);
-          goto LABEL_300;
-        }
-
-        v179 = BlueFin::GlArray::Add((a1 + 932), v235);
-        if (v179)
-        {
-          v181 = v169;
-          goto LABEL_375;
-        }
-      }
-
-LABEL_300:
-      BlueFin::GlSetIterator::operator++(&__src);
-      if (BYTE1(__src) == __src)
-      {
-        goto LABEL_265;
-      }
-    }
-
-    v185 = v235;
-    BlueFin::GlArray::EnsureValidHandle((a1 + 932), v235);
-    if (*(a1[934] + v185 - v202[3324]) != 255 || !(*(*a1[3] + 720))(a1[3], &v235))
-    {
-      goto LABEL_300;
-    }
-
-    v186 = v169 == 14 && v172;
-    if (!v186 && v170 != 2)
-    {
-      goto LABEL_300;
-    }
-
-    *BlueFin::GlArray::Add((a1 + 932), v235) = v169;
-    goto LABEL_376;
-  }
-
-  v30 = v29 - 1;
-  v31 = v27 + 1;
-  while (!*v31++)
-  {
-    if (!--v30)
-    {
-      goto LABEL_43;
-    }
-  }
-
-LABEL_293:
-  bzero(a1[648], ((4 * v4[1024] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[668], ((4 * v4[1184] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[580], ((4 * v4[480] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[530], ((4 * v4[80] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[540], ((4 * v4[160] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[560], ((4 * v4[320] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[570], ((4 * v4[400] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[610], ((4 * v4[720] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[620], ((4 * v4[800] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[678], ((4 * v4[1264] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  bzero(a1[689], ((4 * v4[1352] + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-  BlueFin::GlSatCarrIdSet::GetSatIdSetAnyCarrier((a1 + 500), &v217);
-  BlueFin::GlMeSrdSatMgr::GetSvidSetFromSatidSet(a1[1], &v217, &__src);
-  if (*(v28 + 1024))
-  {
-    BlueFin::GlUtils::IsSysLogEnabledCompleteCheck(0x4F);
-  }
-
-  result = BlueFin::GlSatCarrIdSet::GetSatIdSetAnyCarrier((a1 + 500), &__src);
-  if (*(v28 + 1024))
-  {
-    return BlueFin::GlUtils::IsSysLogEnabledCompleteCheck(0x4F);
-  }
-
-  return result;
 }

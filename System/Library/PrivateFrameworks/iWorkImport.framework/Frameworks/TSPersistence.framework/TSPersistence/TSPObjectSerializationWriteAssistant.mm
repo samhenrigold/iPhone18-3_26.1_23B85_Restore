@@ -45,7 +45,7 @@
 
 - (void)encodeObject:(id)object options:(id)options completion:(id)completion
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   optionsCopy = options;
   completionCopy = completion;
@@ -57,129 +57,115 @@
   if (v14)
   {
     self->_serializeWeakAsStrongReferences = 1;
-    v15 = off_27A6E21C0;
   }
 
   else
   {
     objc_opt_class();
-    v17 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v16, @"TSPObjecSerialization_WeakAsStrongReferences");
-    v18 = TSUDynamicCast();
-    self->_serializeWeakAsStrongReferences = objc_msgSend_BOOLValue(v18, v19, v20);
-
-    if (self->_serializeWeakAsStrongReferences)
-    {
-      v15 = &off_27A6E2200;
-    }
-
-    else
-    {
-      v15 = off_27A6E21B8;
-    }
+    v16 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v15, @"TSPObjecSerialization_WeakAsStrongReferences");
+    v17 = TSUDynamicCast();
+    self->_serializeWeakAsStrongReferences = objc_msgSend_BOOLValue(v17, v18, v19);
   }
 
-  v21 = *v15;
-  v22 = objc_opt_class();
+  v20 = objc_opt_class();
   WeakRetained = objc_loadWeakRetained(&self->_context);
-  v58 = objc_alloc_init(TSPObjectSerializationEncoder);
-  v24 = [TSPEncoderWriteCoordinator alloc];
-  v27 = objc_msgSend_initWithEncoder_context_archiverClass_delegate_(v24, v25, v58, WeakRetained, v22, self);
+  v55 = objc_alloc_init(TSPObjectSerializationEncoder);
+  v22 = [TSPEncoderWriteCoordinator alloc];
+  v25 = objc_msgSend_initWithEncoder_context_archiverClass_delegate_(v22, v23, v55, WeakRetained, v20, self);
   if (optionsCopy)
   {
     objc_opt_class();
-    v29 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v28, @"TSPObjecSerialization_ObjectProxy");
-    v30 = TSUDynamicCast();
+    v27 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v26, @"TSPObjecSerialization_ObjectProxy");
+    v28 = TSUDynamicCast();
 
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = sub_276A607F4;
-    v72[3] = &unk_27A6E51A8;
-    v31 = v27;
-    v73 = v31;
-    v55 = v30;
-    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v30, v32, v72);
-    v70 = 0u;
-    v71 = 0u;
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = sub_276A607F4;
+    v69[3] = &unk_27A6E51A8;
+    v29 = v25;
+    v70 = v29;
+    v52 = v28;
+    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v28, v30, v69);
+    v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
+    v65 = 0u;
+    v66 = 0u;
     objc_opt_class();
-    v34 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v33, @"TSPObjecSerialization_DelayedObjects");
-    v35 = TSUDynamicCast();
+    v32 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v31, @"TSPObjecSerialization_DelayedObjects");
+    v33 = TSUDynamicCast();
 
-    v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v68, v75, 16);
-    if (v38)
+    v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v34, &v65, v72, 16);
+    if (v36)
     {
-      v39 = *v69;
+      v37 = *v66;
       do
       {
-        v40 = 0;
+        v38 = 0;
         do
         {
-          if (*v69 != v39)
+          if (*v66 != v37)
           {
-            objc_enumerationMutation(v35);
+            objc_enumerationMutation(v33);
           }
 
-          objc_msgSend_delayArchivingOfObject_(v31, v37, *(*(&v68 + 1) + 8 * v40++));
+          objc_msgSend_delayArchivingOfObject_(v29, v35, *(*(&v65 + 1) + 8 * v38++));
         }
 
-        while (v38 != v40);
-        v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v37, &v68, v75, 16);
+        while (v36 != v38);
+        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v35, &v65, v72, 16);
       }
 
-      while (v38);
+      while (v36);
     }
 
-    v66 = 0u;
-    v67 = 0u;
+    v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     objc_opt_class();
-    v42 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v41, @"TSPObjecSerialization_SkipObjects");
-    v43 = TSUDynamicCast();
+    v40 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v39, @"TSPObjecSerialization_SkipObjects");
+    v41 = TSUDynamicCast();
 
-    v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v44, &v64, v74, 16);
-    if (v46)
+    v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, &v61, v71, 16);
+    if (v44)
     {
-      v47 = *v65;
+      v45 = *v62;
       do
       {
-        v48 = 0;
+        v46 = 0;
         do
         {
-          if (*v65 != v47)
+          if (*v62 != v45)
           {
-            objc_enumerationMutation(v43);
+            objc_enumerationMutation(v41);
           }
 
-          objc_msgSend_skipArchivingObject_(v31, v45, *(*(&v64 + 1) + 8 * v48++));
+          objc_msgSend_skipArchivingObject_(v29, v43, *(*(&v61 + 1) + 8 * v46++));
         }
 
-        while (v46 != v48);
-        v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v45, &v64, v74, 16);
+        while (v44 != v46);
+        v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v43, &v61, v71, 16);
       }
 
-      while (v46);
+      while (v44);
     }
   }
 
-  objc_msgSend_addObjectModifyDelegate_(WeakRetained, v26, v27);
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = sub_276A60800;
-  v59[3] = &unk_27A6E51F8;
-  v59[4] = self;
-  v49 = v27;
-  v60 = v49;
-  v50 = optionsCopy;
-  v61 = v50;
-  v51 = v58;
-  v62 = v51;
-  v52 = completionCopy;
-  v63 = v52;
-  objc_msgSend_writeRootObject_completion_(v49, v53, objectCopy, v59);
-
-  v54 = *MEMORY[0x277D85DE8];
+  objc_msgSend_addObjectModifyDelegate_(WeakRetained, v24, v25);
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = sub_276A60800;
+  v56[3] = &unk_27A6E51F8;
+  v56[4] = self;
+  v47 = v25;
+  v57 = v47;
+  v48 = optionsCopy;
+  v58 = v48;
+  v49 = v55;
+  v59 = v49;
+  v50 = completionCopy;
+  v60 = v50;
+  objc_msgSend_writeRootObject_completion_(v47, v51, objectCopy, v56);
 }
 
 - (int64_t)componentWriterMode
@@ -197,7 +183,7 @@
 
 - (id)createMetadataForRootObject:(id)object readVersion:(unint64_t)version dataArchiver:(id)archiver archivedObjects:(id)objects componentObjectUUIDMap:(id)map externalReferences:(id)references weakExternalReferences:(id)externalReferences lazyReferences:(id)self0 dataReferences:(id)self1 error:(id *)self2
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   archiverCopy = archiver;
   objectsCopy = objects;
@@ -206,7 +192,7 @@
   externalReferencesCopy = externalReferences;
   lazyReferencesCopy = lazyReferences;
   dataReferencesCopy = dataReferences;
-  v82 = referencesCopy;
+  v81 = referencesCopy;
   if (objc_msgSend_count(referencesCopy, v19, v20))
   {
     v23 = MEMORY[0x277D81150];
@@ -224,7 +210,7 @@
   v37 = UnsafePointer();
   UnsafePointer(v37, v36 + 24);
   UnsafePointer(version, v36 + 96);
-  sub_2769C65D4(v93, self->_documentUUID);
+  sub_2769C65D4(v92, self->_documentUUID);
   *(v36 + 16) |= 1u;
   v38 = *(v36 + 120);
   if (!v38)
@@ -239,8 +225,8 @@
     *(v36 + 120) = v38;
   }
 
-  TSP::UUIDData::saveToMessage(v93, v38);
-  sub_2769C65D4(v93, self->_versionUUID);
+  TSP::UUIDData::saveToMessage(v92, v38);
+  sub_2769C65D4(v92, self->_versionUUID);
   *(v36 + 16) |= 2u;
   v40 = *(v36 + 128);
   if (!v40)
@@ -255,7 +241,7 @@
     *(v36 + 128) = v40;
   }
 
-  TSP::UUIDData::saveToMessage(v93, v40);
+  TSP::UUIDData::saveToMessage(v92, v40);
   *(v36 + 16) |= 4u;
   v44 = *(v36 + 136);
   if (!v44)
@@ -308,25 +294,25 @@ LABEL_35:
   v61 = objc_msgSend_allObjects(dataReferencesCopy, v59, v60);
   objc_msgSend_setDataReferences_(v33, v62, v61);
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
   v63 = dataReferencesCopy;
-  v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v64, &v89, v94, 16);
+  v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v64, &v88, v93, 16);
   if (v67)
   {
-    v68 = *v90;
+    v68 = *v89;
     do
     {
       for (i = 0; i != v67; ++i)
       {
-        if (*v90 != v68)
+        if (*v89 != v68)
         {
           objc_enumerationMutation(v63);
         }
 
-        v70 = *(*(&v89 + 1) + 8 * i);
+        v70 = *(*(&v88 + 1) + 8 * i);
         v73 = objc_msgSend_metadata(v70, v65, v66);
         if (v73)
         {
@@ -335,7 +321,7 @@ LABEL_35:
         }
       }
 
-      v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v65, &v89, v94, 16);
+      v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v65, &v88, v93, 16);
     }
 
     while (v67);
@@ -349,8 +335,6 @@ LABEL_32:
 
   v77 = v33;
 LABEL_36:
-
-  v78 = *MEMORY[0x277D85DE8];
 
   return v77;
 }

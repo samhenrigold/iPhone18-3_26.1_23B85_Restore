@@ -103,7 +103,6 @@ LABEL_16:
     goto LABEL_2;
   }
 
-  vendorInstance = self->_vendorInstance;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -335,7 +334,6 @@ LABEL_7:
 
 - (id)instanceWithPrivateSelector:(SEL)selector
 {
-  vendorInstance = self->_vendorInstance;
   if (objc_opt_respondsToSelector())
   {
     extension = self->_vendorInstance;
@@ -398,11 +396,36 @@ LABEL_11:
 
 - (void)retrieveUserInfoFromExtension
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  if ([(NSFileProviderReplicatedExtension *)self->_vendorInstance conformsToProtocol:&unk_1F1FF3F48])
+  {
+    v3 = fp_current_or_default_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    {
+      [FPXDomainContext retrieveUserInfoFromExtension];
+    }
+
+    userInfo = [(NSFileProviderReplicatedExtension *)self->_vendorInstance userInfo];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      objc_storeStrong(&self->_lastKnownUserInfo, userInfo);
+      v5 = fp_current_or_default_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        [FPXDomainContext retrieveUserInfoFromExtension];
+      }
+    }
+
+    else
+    {
+      v5 = fp_current_or_default_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        *v6 = 0;
+        _os_log_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Extension provided a value for the domain's userInfo which is not an NSDictionary, ignoring it", v6, 2u);
+      }
+    }
+  }
 }
 
 - (id)currentResponseWithRequest:(id)request
@@ -471,14 +494,13 @@ LABEL_11:
 
 - (void)domainVersion
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *self;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Domain version updated from %@ to %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Domain version updated from %@ to %@", &v4, 0x16u);
 }
 
 @end

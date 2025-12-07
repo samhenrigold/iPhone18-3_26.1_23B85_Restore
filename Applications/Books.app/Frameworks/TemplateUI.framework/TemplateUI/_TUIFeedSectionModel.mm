@@ -40,12 +40,12 @@
   resolverCopy = resolver;
   factoryCopy = factory;
   viewCopy = view;
-  v99 = hostCopy;
-  sub_130E34(v125, &self->_reuseSuspendedViews);
+  v102 = hostCopy;
+  sub_130E34(v128, &self->_reuseSuspendedViews);
   tui_hostingView = [hostCopy tui_hostingView];
   subviewsDelegate = [viewCopy subviewsDelegate];
   v17 = objc_opt_new();
-  v90 = v17;
+  v93 = v17;
   [(TUIRenderModelSection *)self->_renderModel appendLiveTransformLayoutAttributes:v17 forElementsInRect:resolverCopy withLiveTransformResolver:x, y, width, height];
   if (visibleCopy)
   {
@@ -61,7 +61,7 @@
     {
       renderModel = self->_renderModel;
       impressionSnapshot2 = [viewCopy impressionSnapshot];
-      [(TUIRenderModelSection *)renderModel appendImpressionLayoutAttributes:v90 forElementsInRect:impressionSnapshot2 snapshot:x, y, width, height];
+      [(TUIRenderModelSection *)renderModel appendImpressionLayoutAttributes:v93 forElementsInRect:impressionSnapshot2 snapshot:x, y, width, height];
     }
 
     overrides = [viewCopy overrides];
@@ -69,29 +69,29 @@
 
     if (!v23)
     {
-      [viewCopy _updateLayoutAttributes:v90];
+      [viewCopy _updateLayoutAttributes:v93];
     }
 
-    v123 = 0u;
+    v126 = 0u;
+    v127 = 0u;
     v124 = 0u;
-    v121 = 0u;
-    v122 = 0u;
-    obj = v90;
-    v24 = [obj countByEnumeratingWithState:&v121 objects:v140 count:16];
+    v125 = 0u;
+    obj = v93;
+    v24 = [obj countByEnumeratingWithState:&v124 objects:v143 count:16];
     if (v24)
     {
-      v101 = *v122;
+      v104 = *v125;
       do
       {
-        v104 = v24;
-        for (i = 0; i != v104; i = i + 1)
+        v107 = v24;
+        for (i = 0; i != v107; i = i + 1)
         {
-          if (*v122 != v101)
+          if (*v125 != v104)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v121 + 1) + 8 * i);
+          v26 = *(*(&v124 + 1) + 8 * i);
           indexPath = [v26 indexPath];
           tui_row = [indexPath tui_row];
           v28 = [(TUIRenderModelSection *)self->_renderModel viewModelWithIndex:tui_row];
@@ -110,100 +110,86 @@
               {
 
 LABEL_31:
-                v44 = v31[3];
+                v46 = v31[3];
                 *buf = &tui_row;
-                sub_13118C(v125, &tui_row)[3] = v44;
+                sub_13118C(v128, &tui_row, &std::piecewise_construct, buf)[3] = v46;
                 sub_34630(&self->_visibleViews.__table_.__bucket_list_.__ptr_, v31);
                 goto LABEL_32;
               }
 
               reuseIdentifier3 = [v31[3] reuseIdentifier];
-              v35 = [reuseIdentifier3 isEqualToString:reuseIdentifier];
+              v35 = objc_msgSend_isEqualToString_(reuseIdentifier3);
 
               if (v35)
               {
                 goto LABEL_31;
               }
 
-              if (_TUIDeviceHasInternalInstall())
+              if (_TUIDeviceHasInternalInstall(v36, v37))
               {
-                v56 = v31[3];
-                v91 = v56;
-                v57 = TUIDefaultLog();
-                if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+                v58 = v31[3];
+                v94 = v58;
+                v59 = TUIDefaultLog(v58);
+                if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
                 {
-                  v105 = v57;
-                  v59 = tui_row;
-                  layoutAttributes = [v56 layoutAttributes];
+                  v108 = v59;
+                  v61 = tui_row;
+                  layoutAttributes = [v58 layoutAttributes];
                   renderModel = [layoutAttributes renderModel];
                   identifier = [renderModel identifier];
                   tui_identifierToString = [identifier tui_identifierToString];
-                  reuseIdentifier4 = [v56 reuseIdentifier];
-                  v63 = [(TUIRenderModelSection *)self->_renderModel viewModelWithIndex:tui_row];
-                  identifier2 = [v63 identifier];
+                  reuseIdentifier4 = [v58 reuseIdentifier];
+                  v65 = [(TUIRenderModelSection *)self->_renderModel viewModelWithIndex:tui_row];
+                  identifier2 = [v65 identifier];
                   tui_identifierToString2 = [identifier2 tui_identifierToString];
                   *buf = 134219010;
-                  *&buf[4] = v59;
-                  v132 = 2112;
-                  v133 = tui_identifierToString;
-                  v134 = 2112;
-                  v135 = reuseIdentifier4;
-                  v136 = 2112;
-                  v137 = tui_identifierToString2;
-                  v138 = 2112;
-                  v57 = v105;
-                  v139 = reuseIdentifier;
-                  _os_log_error_impl(&dword_0, v105, OS_LOG_TYPE_ERROR, "[%lu] view re-used with mismatching reuseIdentifier (%@,%@) vs (%@,%@)", buf, 0x34u);
+                  *&buf[4] = v61;
+                  v135 = 2112;
+                  v136 = tui_identifierToString;
+                  v137 = 2112;
+                  v138 = reuseIdentifier4;
+                  v139 = 2112;
+                  v140 = tui_identifierToString2;
+                  v141 = 2112;
+                  v59 = v108;
+                  v142 = reuseIdentifier;
+                  _os_log_error_impl(&dword_0, v108, OS_LOG_TYPE_ERROR, "[%lu] view re-used with mismatching reuseIdentifier (%@,%@) vs (%@,%@)", buf, 0x34u);
                 }
 
                 for (j = self->_reuseSuspendedViews.__table_.__first_node_.__next_; j; j = *j)
                 {
-                  v82 = j[2];
-                  v83 = j[3];
-                  v84 = TUIDefaultLog();
-                  if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+                  v85 = j[2];
+                  v86 = j[3];
+                  v87 = TUIDefaultLog(v68);
+                  if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
                   {
-                    layoutAttributes2 = [v83 layoutAttributes];
+                    layoutAttributes2 = [v86 layoutAttributes];
                     renderModel2 = [layoutAttributes2 renderModel];
                     identifier3 = [renderModel2 identifier];
                     tui_identifierToString3 = [identifier3 tui_identifierToString];
-                    reuseIdentifier5 = [v83 reuseIdentifier];
+                    reuseIdentifier5 = [v86 reuseIdentifier];
                     *buf = 134218498;
-                    *&buf[4] = v82;
-                    v132 = 2112;
-                    v133 = tui_identifierToString3;
-                    v134 = 2112;
-                    v135 = reuseIdentifier5;
-                    _os_log_error_impl(&dword_0, v84, OS_LOG_TYPE_ERROR, "[%lu] suspended reuse (%@,%@)", buf, 0x20u);
+                    *&buf[4] = v85;
+                    v135 = 2112;
+                    v136 = tui_identifierToString3;
+                    v137 = 2112;
+                    v138 = reuseIdentifier5;
+                    _os_log_error_impl(&dword_0, v87, OS_LOG_TYPE_ERROR, "[%lu] suspended reuse (%@,%@)", buf, 0x20u);
                   }
                 }
 
-                v67 = [NSException alloc];
-                v130[0] = indexPath;
-                v129[0] = @"indexPath";
-                v129[1] = @"viewIdentifier";
-                layoutAttributes3 = [v91 layoutAttributes];
+                v70 = [NSException alloc];
+                v133[0] = indexPath;
+                v132[0] = @"indexPath";
+                v132[1] = @"viewIdentifier";
+                layoutAttributes3 = [v94 layoutAttributes];
                 renderModel3 = [layoutAttributes3 renderModel];
                 identifier4 = [renderModel3 identifier];
                 tui_identifierToString4 = [identifier4 tui_identifierToString];
-                v72 = tui_identifierToString4;
+                v75 = tui_identifierToString4;
                 if (tui_identifierToString4)
                 {
-                  v73 = tui_identifierToString4;
-                }
-
-                else
-                {
-                  v73 = @"nil";
-                }
-
-                v130[1] = v73;
-                v129[2] = @"viewReuseIdentifier";
-                reuseIdentifier6 = [v91 reuseIdentifier];
-                v75 = reuseIdentifier6;
-                if (reuseIdentifier6)
-                {
-                  v76 = reuseIdentifier6;
+                  v76 = tui_identifierToString4;
                 }
 
                 else
@@ -211,31 +197,45 @@ LABEL_31:
                   v76 = @"nil";
                 }
 
-                v130[2] = v76;
-                v129[3] = @"renderIdentifier";
-                v106 = [(TUIRenderModelSection *)self->_renderModel viewModelWithIndex:tui_row];
-                identifier5 = [v106 identifier];
+                v133[1] = v76;
+                v132[2] = @"viewReuseIdentifier";
+                reuseIdentifier6 = [v94 reuseIdentifier];
+                v78 = reuseIdentifier6;
+                if (reuseIdentifier6)
+                {
+                  v79 = reuseIdentifier6;
+                }
+
+                else
+                {
+                  v79 = @"nil";
+                }
+
+                v133[2] = v79;
+                v132[3] = @"renderIdentifier";
+                v109 = [(TUIRenderModelSection *)self->_renderModel viewModelWithIndex:tui_row];
+                identifier5 = [v109 identifier];
                 tui_identifierToString5 = [identifier5 tui_identifierToString];
-                v77 = tui_identifierToString5;
+                v80 = tui_identifierToString5;
                 if (!tui_identifierToString5)
                 {
-                  v77 = @"nil";
+                  v80 = @"nil";
                 }
 
-                v129[4] = @"renderReuseIdentifier";
-                v78 = reuseIdentifier;
+                v132[4] = @"renderReuseIdentifier";
+                v81 = reuseIdentifier;
                 if (!reuseIdentifier)
                 {
-                  v78 = @"nil";
+                  v81 = @"nil";
                 }
 
-                v130[3] = v77;
-                v130[4] = v78;
-                v79 = [NSDictionary dictionaryWithObjects:v130 forKeys:v129 count:5];
-                v80 = [v67 initWithName:@"InvalidReuse" reason:@"A view with the wrong identifier is being re-used" userInfo:v79];
-                v81 = v80;
+                v133[3] = v80;
+                v133[4] = v81;
+                v82 = [NSDictionary dictionaryWithObjects:v133 forKeys:v132 count:5];
+                v83 = [v70 initWithName:@"InvalidReuse" reason:@"A view with the wrong identifier is being re-used" userInfo:v82];
+                v84 = v83;
 
-                objc_exception_throw(v80);
+                objc_exception_throw(v83);
               }
             }
           }
@@ -245,107 +245,107 @@ LABEL_31:
             goto LABEL_31;
           }
 
-          v36 = v26;
-          zIndex = [v36 zIndex];
-          v38 = self->_renderModel;
+          v38 = v26;
+          zIndex = [v38 zIndex];
+          v40 = self->_renderModel;
           if (self->_previousRenderModel && sub_1310D8(&self->_invalidatedViews.__table_.__bucket_list_.__ptr_, &tui_row))
           {
-            v39 = [(TUIRenderModelSection *)self->_previousRenderModel layoutAttributesForViewAtIndexPath:indexPath withLiveTransformResolver:resolverCopy];
-            if (v39)
+            v41 = [(TUIRenderModelSection *)self->_previousRenderModel layoutAttributesForViewAtIndexPath:indexPath withLiveTransformResolver:resolverCopy];
+            if (v41)
             {
-              v40 = self->_previousRenderModel;
+              v42 = self->_previousRenderModel;
 
-              v41 = v39;
-              v38 = v40;
-              v36 = v41;
+              v43 = v41;
+              v40 = v42;
+              v38 = v43;
             }
           }
 
-          v42 = [(TUIRenderModelSection *)v38 viewAtIndexPath:indexPath factory:factoryCopy host:v99];
-          if (v42)
+          v44 = [(TUIRenderModelSection *)v40 viewAtIndexPath:indexPath factory:factoryCopy host:v102];
+          if (v44)
           {
-            v114[0] = _NSConcreteStackBlock;
-            v114[1] = 3221225472;
-            v114[2] = sub_129C60;
-            v114[3] = &unk_2621F0;
-            v115 = tui_hostingView;
-            v43 = v42;
-            v119 = zIndex;
-            v116 = v43;
+            v117[0] = _NSConcreteStackBlock;
+            v117[1] = 3221225472;
+            v117[2] = sub_129C60;
+            v117[3] = &unk_2621F0;
+            v118 = tui_hostingView;
+            v45 = v44;
+            v122 = zIndex;
+            v119 = v45;
             selfCopy = self;
-            v118 = v36;
-            [UIView performWithoutAnimation:v114];
+            v121 = v38;
+            [UIView performWithoutAnimation:v117];
             if (self->_currentViewState)
             {
-              v111[0] = _NSConcreteStackBlock;
-              v111[1] = 3221225472;
-              v111[2] = sub_129FFC;
-              v111[3] = &unk_262218;
-              v111[4] = self;
-              v113 = tui_row;
-              v112 = v43;
-              [UIView performWithoutAnimation:v111];
+              v114[0] = _NSConcreteStackBlock;
+              v114[1] = 3221225472;
+              v114[2] = sub_129FFC;
+              v114[3] = &unk_262218;
+              v114[4] = self;
+              v116 = tui_row;
+              v115 = v45;
+              [UIView performWithoutAnimation:v114];
             }
 
-            [subviewsDelegate feedView:viewCopy willDisplayView:v43 atIndexPath:indexPath];
-            [v43 viewWillDisplay];
+            [subviewsDelegate feedView:viewCopy willDisplayView:v45 atIndexPath:indexPath];
+            [v45 viewWillDisplay];
             *buf = &tui_row;
-            sub_13118C(v125, &tui_row)[3] = v43;
+            sub_13118C(v128, &tui_row, &std::piecewise_construct, buf)[3] = v45;
           }
 
 LABEL_32:
         }
 
-        v24 = [obj countByEnumeratingWithState:&v121 objects:v140 count:16];
+        v24 = [obj countByEnumeratingWithState:&v124 objects:v143 count:16];
       }
 
       while (v24);
     }
   }
 
-  sub_28FD0(&self->_visibleViews, v125);
+  sub_28FD0(&self->_visibleViews, v128);
   for (k = self->_reuseSuspendedViews.__table_.__first_node_.__next_; k; k = *k)
   {
-    v46 = sub_1310D8(v125, k + 2);
-    if (v46)
+    v48 = sub_1310D8(v128, k + 2);
+    if (v48)
     {
-      sub_34630(v125, v46);
+      sub_34630(v128, v48);
     }
   }
 
-  if (v127)
+  if (v130)
   {
-    for (m = v126; m; m = *m)
+    for (m = v129; m; m = *m)
     {
-      v48 = m[2];
-      v49 = m[3];
-      viewStateSave = [v49 viewStateSave];
+      v50 = m[2];
+      v51 = m[3];
+      viewStateSave = [v51 viewStateSave];
       if (viewStateSave)
       {
         currentViewState = self->_currentViewState;
-        v52 = [(TUIRenderModelSection *)self->_renderModel identifierForViewAtIndex:v48];
-        [(TUIMutableViewState *)currentViewState setViewState:viewStateSave forIdentifier:v52];
+        v54 = [(TUIRenderModelSection *)self->_renderModel identifierForViewAtIndex:v50];
+        [(TUIMutableViewState *)currentViewState setViewState:viewStateSave forIdentifier:v54];
       }
 
-      v53 = [NSIndexPath tui_indexPathForRow:m[2] inSection:self->_sectionIndex];
-      [subviewsDelegate feedView:viewCopy didEndDisplayView:v49 atIndexPath:v53];
+      v55 = [NSIndexPath tui_indexPathForRow:m[2] inSection:self->_sectionIndex];
+      [subviewsDelegate feedView:viewCopy didEndDisplayView:v51 atIndexPath:v55];
 
-      v109[0] = _NSConcreteStackBlock;
-      v109[1] = 3221225472;
-      v109[2] = sub_12A09C;
-      v109[3] = &unk_262240;
-      v54 = v49;
-      v110 = v54;
-      [UIView performWithoutAnimation:v109];
-      v128 = v54;
-      v55 = [NSArray arrayWithObjects:&v128 count:1];
-      [factoryCopy viewFactoryReuseSubviews:v55 host:v99];
+      v112[0] = _NSConcreteStackBlock;
+      v112[1] = 3221225472;
+      v112[2] = sub_12A09C;
+      v112[3] = &unk_262240;
+      v56 = v51;
+      v113 = v56;
+      [UIView performWithoutAnimation:v112];
+      v131 = v56;
+      v57 = [NSArray arrayWithObjects:&v131 count:1];
+      [factoryCopy viewFactoryReuseSubviews:v57 host:v102];
     }
   }
 
   self->_visible = visibleCopy;
 
-  sub_11694(v125);
+  sub_11694(v128);
 }
 
 - (void)updateInvalidatedWithHost:(id)host liveTransformResolver:(id)resolver factory:(id)factory feedView:(id)view
@@ -543,7 +543,7 @@ LABEL_32:
 {
   pathCopy = path;
   tui_row = [pathCopy tui_row];
-  sub_1313BC(&self->_invalidatedViews.__table_.__bucket_list_.__ptr_, &tui_row);
+  sub_1313BC(&self->_invalidatedViews.__table_.__bucket_list_.__ptr_, &tui_row, &tui_row);
 
   return 1;
 }
@@ -554,15 +554,15 @@ LABEL_32:
   layoutAttributes = [viewCopy layoutAttributes];
   indexPath = [layoutAttributes indexPath];
 
-  v9[0] = [indexPath tui_row];
-  if (!sub_1310D8(&self->_reuseSuspendedViews.__table_.__bucket_list_.__ptr_, v9))
+  tui_row = [indexPath tui_row];
+  if (!sub_1310D8(&self->_reuseSuspendedViews.__table_.__bucket_list_.__ptr_, &tui_row))
   {
-    v7 = sub_1310D8(&self->_visibleViews.__table_.__bucket_list_.__ptr_, v9);
+    v7 = sub_1310D8(&self->_visibleViews.__table_.__bucket_list_.__ptr_, &tui_row);
     if (v7)
     {
       v8 = v7[3];
-      v9[2] = v9;
-      sub_13118C(&self->_reuseSuspendedViews.__table_.__bucket_list_.__ptr_, v9)[3] = v8;
+      v10 = &tui_row;
+      sub_13118C(&self->_reuseSuspendedViews.__table_.__bucket_list_.__ptr_, &tui_row, &std::piecewise_construct, &v10)[3] = v8;
     }
   }
 }

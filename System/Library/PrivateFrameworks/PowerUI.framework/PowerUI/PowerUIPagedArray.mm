@@ -68,7 +68,7 @@
 
 - (void)loadChunk:(int64_t)chunk
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   chunks = self->_chunks;
   v7 = [(PowerUIPagedArray *)self keyForChunkIndex:chunk - 3];
@@ -79,64 +79,62 @@
   {
     chunkSize = self->_chunkSize;
     numberOfQueries = self->_numberOfQueries;
-    v28 = 134218496;
+    v26 = 134218496;
     chunkCopy = chunk;
+    v28 = 2048;
+    v29 = chunkSize;
     v30 = 2048;
-    v31 = chunkSize;
-    v32 = 2048;
-    v33 = numberOfQueries;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Querying for chunk at %lu of size %lu, total queries so far %lu", &v28, 0x20u);
+    v31 = numberOfQueries;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Querying for chunk at %lu of size %lu, total queries so far %lu", &v26, 0x20u);
   }
 
-  v11 = self->_chunkSize;
-  v12 = (*(self->_getChunkHandler + 2))();
-  v13 = self->_log;
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v11 = (*(self->_getChunkHandler + 2))();
+  v12 = self->_log;
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = MEMORY[0x277CCABB0];
-    v15 = v13;
-    v16 = [v14 numberWithUnsignedInteger:{objc_msgSend(v12, "count")}];
-    v28 = 138412290;
-    chunkCopy = v16;
-    _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, "Received chunk of size %@", &v28, 0xCu);
+    v13 = MEMORY[0x277CCABB0];
+    v14 = v12;
+    v15 = [v13 numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
+    v26 = 138412290;
+    chunkCopy = v15;
+    _os_log_impl(&dword_21B766000, v14, OS_LOG_TYPE_DEFAULT, "Received chunk of size %@", &v26, 0xCu);
   }
 
-  if ([v12 count])
+  if ([v11 count])
   {
     ++self->_numberOfQueries;
-    v17 = self->_chunks;
-    v18 = [(PowerUIPagedArray *)self keyForChunkIndex:chunk];
-    [(NSMutableDictionary *)v17 setObject:v12 forKeyedSubscript:v18];
+    v16 = self->_chunks;
+    v17 = [(PowerUIPagedArray *)self keyForChunkIndex:chunk];
+    [(NSMutableDictionary *)v16 setObject:v11 forKeyedSubscript:v17];
 
-    v19 = self->_chunkSize;
-    v20 = [v12 count] + v19 * chunk - 1;
-    if (self->_highestIndexInMemory < v20)
+    v18 = self->_chunkSize;
+    v19 = [v11 count] + v18 * chunk - 1;
+    if (self->_highestIndexInMemory < v19)
     {
-      self->_highestIndexInMemory = v20;
+      self->_highestIndexInMemory = v19;
     }
   }
 
-  if ([v12 count] != self->_chunkSize)
+  if ([v11 count] != self->_chunkSize)
   {
     self->_endChunkIndex = chunk;
-    v21 = self->_log;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = self->_log;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = MEMORY[0x277CCABB0];
+      v21 = MEMORY[0x277CCABB0];
       endChunkIndex = self->_endChunkIndex;
-      v24 = v21;
-      v25 = [v22 numberWithLong:endChunkIndex];
-      v26 = [MEMORY[0x277CCABB0] numberWithLong:{-[PowerUIPagedArray countDynamic](self, "countDynamic")}];
-      v28 = 138412546;
-      chunkCopy = v25;
-      v30 = 2112;
-      v31 = v26;
-      _os_log_impl(&dword_21B766000, v24, OS_LOG_TYPE_DEFAULT, "Marking chunk as end of stream, chunk: %@, countDynamic: %@", &v28, 0x16u);
+      v23 = v20;
+      v24 = [v21 numberWithLong:endChunkIndex];
+      v25 = [MEMORY[0x277CCABB0] numberWithLong:{-[PowerUIPagedArray countDynamic](self, "countDynamic")}];
+      v26 = 138412546;
+      chunkCopy = v24;
+      v28 = 2112;
+      v29 = v25;
+      _os_log_impl(&dword_21B766000, v23, OS_LOG_TYPE_DEFAULT, "Marking chunk as end of stream, chunk: %@, countDynamic: %@", &v26, 0x16u);
     }
   }
 
   objc_autoreleasePoolPop(v5);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)chunkArrayForIndex:(int64_t)index

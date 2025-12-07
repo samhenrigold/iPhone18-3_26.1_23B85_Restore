@@ -31,7 +31,9 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayFooterView:(id)footerView forSection:(int64_t)section;
 - (void)updateCleanEnergyChargingState;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation BatteryChargingController
@@ -809,6 +811,15 @@ LABEL_11:
     v13 = v12;
     AnalyticsSendEventLazy();
   }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(BatteryChargingController *)self logRecommendationAnalytics];
+  v5.receiver = self;
+  v5.super_class = BatteryChargingController;
+  [(BatteryChargingController *)&v5 viewWillDisappear:disappearCopy];
 }
 
 - (void)applicationWillSuspend
@@ -1649,6 +1660,21 @@ LABEL_33:
   [(BatteryChargingController *)&v2 viewDidLoad];
   AnalyticsSendEventLazy();
   notify_post([@"com.apple.powerlogd.logBatteryChargingUIVisit" UTF8String]);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = BatteryChargingController;
+  [(BatteryChargingController *)&v10 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Battery/CHARGING_OPTIONS_IDENTIFIER"];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"CHARGING_TITLE_CHARGING" table:@"BatteryUI" locale:v6 bundleURL:bundleURL];
+
+  [(BatteryChargingController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.battery" title:v9 localizedNavigationComponents:&__NSArray0__struct deepLink:v4];
 }
 
 @end

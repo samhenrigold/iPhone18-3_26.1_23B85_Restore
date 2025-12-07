@@ -61,45 +61,43 @@
 
 - (id)commitItem
 {
-  v23[2] = *MEMORY[0x277D85DE8];
-  home = [(HFItemBuilder *)self home];
-  hf_currentUserIsAdministrator = [home hf_currentUserIsAdministrator];
+  v22[2] = *MEMORY[0x277D85DE8];
+  v3 = objc_msgSend_home(self, a2);
+  hf_currentUserIsAdministrator = [v3 hf_currentUserIsAdministrator];
 
   if (hf_currentUserIsAdministrator)
   {
     v5 = [(HFDemoModeAccessoryBuilder *)self _lazilyUpdateValueForContextType:2];
-    v23[0] = v5;
+    v22[0] = v5;
     v6 = [(HFDemoModeAccessoryBuilder *)self _lazilyUpdateValueForContextType:3];
-    v23[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
 
     v8 = [MEMORY[0x277D2C900] combineAllFutures:v7];
     v9 = @"HFOperationEditService";
     v10 = MEMORY[0x277D2C900];
     _performValidation = [(HFDemoModeAccessoryBuilder *)self _performValidation];
-    v22[0] = _performValidation;
+    v21[0] = _performValidation;
     _lazilyUpdateName = [(HFDemoModeAccessoryBuilder *)self _lazilyUpdateName];
-    v22[1] = _lazilyUpdateName;
+    v21[1] = _lazilyUpdateName;
     _lazilyUpdateRoom = [(HFDemoModeAccessoryBuilder *)self _lazilyUpdateRoom];
-    v22[2] = _lazilyUpdateRoom;
-    v22[3] = v8;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+    v21[2] = _lazilyUpdateRoom;
+    v21[3] = v8;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
     v15 = [v10 chainFutures:v14];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __40__HFDemoModeAccessoryBuilder_commitItem__block_invoke;
-    v19[3] = &unk_277DF2D30;
-    v20 = v9;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __40__HFDemoModeAccessoryBuilder_commitItem__block_invoke;
+    v18[3] = &unk_277DF2D30;
+    v19 = v9;
     selfCopy = self;
-    futureWithNoResult = [v15 recover:v19];
+    futureWithNoResult = [v15 recover:v18];
   }
 
   else
   {
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }

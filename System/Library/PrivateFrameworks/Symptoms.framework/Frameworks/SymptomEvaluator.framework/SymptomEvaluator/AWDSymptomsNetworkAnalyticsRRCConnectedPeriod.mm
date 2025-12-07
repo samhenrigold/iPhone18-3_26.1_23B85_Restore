@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)periodTypeAsString:(int)string;
 - (int)StringAsPeriodType:(id)type;
 - (int)periodType;
 - (unint64_t)hash;
@@ -101,6 +102,26 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFFFBFFFFLL | v3);
+}
+
+- (id)periodTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"ANY";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"BACKGROUND";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPeriodType:(id)type
@@ -1610,12 +1631,11 @@ LABEL_60:
 
 - (void)writeTo:(id)to
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if ((*&has & 0x800) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x40000) == 0)
@@ -1635,7 +1655,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  periodType = self->_periodType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1650,7 +1669,6 @@ LABEL_4:
   }
 
 LABEL_68:
-  anyListener = self->_anyListener;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1665,7 +1683,6 @@ LABEL_5:
   }
 
 LABEL_69:
-  backgroundListeners = self->_backgroundListeners;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1680,7 +1697,6 @@ LABEL_6:
   }
 
 LABEL_70:
-  periodDurationUsecs = self->_periodDurationUsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1695,7 +1711,6 @@ LABEL_7:
   }
 
 LABEL_71:
-  lastDisconnectedSecs = self->_lastDisconnectedSecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1710,7 +1725,6 @@ LABEL_8:
   }
 
 LABEL_72:
-  ingressLQM = self->_ingressLQM;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1725,7 +1739,6 @@ LABEL_9:
   }
 
 LABEL_73:
-  countLQMTransitions = self->_countLQMTransitions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1740,7 +1753,6 @@ LABEL_10:
   }
 
 LABEL_74:
-  egressLQM = self->_egressLQM;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1755,7 +1767,6 @@ LABEL_11:
   }
 
 LABEL_75:
-  ingressUlThroughputBps = self->_ingressUlThroughputBps;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1770,7 +1781,6 @@ LABEL_12:
   }
 
 LABEL_76:
-  ingressDlThroughputBps = self->_ingressDlThroughputBps;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1785,7 +1795,6 @@ LABEL_13:
   }
 
 LABEL_77:
-  egressUlThroughputBps = self->_egressUlThroughputBps;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1800,7 +1809,6 @@ LABEL_14:
   }
 
 LABEL_78:
-  egressDlThroughputBps = self->_egressDlThroughputBps;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1815,7 +1823,6 @@ LABEL_15:
   }
 
 LABEL_79:
-  bytesIn = self->_bytesIn;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1830,7 +1837,6 @@ LABEL_16:
   }
 
 LABEL_80:
-  bytesOut = self->_bytesOut;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1845,7 +1851,6 @@ LABEL_17:
   }
 
 LABEL_81:
-  packetsIn = self->_packetsIn;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1860,58 +1865,54 @@ LABEL_18:
   }
 
 LABEL_82:
-  packetsOut = self->_packetsOut;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_19:
-    uniqueActiveAppCount = self->_uniqueActiveAppCount;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_20:
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v7 = self->_activeNameDuringPeriods;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v69 objects:v73 count:16];
-  if (v8)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_activeNameDuringPeriods;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v70;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v70 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v69 + 1) + 8 * v11);
         PBDataWriterWriteStringField();
-        ++v11;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v69 objects:v73 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v13 = self->_has;
-  if ((*&v13 & 0x4000000000000) != 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x4000000000000) != 0)
   {
-    tcCountFlowDispositionUndefined = self->_tcCountFlowDispositionUndefined;
     PBDataWriterWriteUint32Field();
-    v13 = self->_has;
-    if ((*&v13 & 0x40000000000) == 0)
+    v11 = self->_has;
+    if ((*&v11 & 0x40000000000) == 0)
     {
 LABEL_29:
-      if ((*&v13 & 0x20000000000) == 0)
+      if ((*&v11 & 0x20000000000) == 0)
       {
         goto LABEL_30;
       }
@@ -1920,18 +1921,17 @@ LABEL_29:
     }
   }
 
-  else if ((*&v13 & 0x40000000000) == 0)
+  else if ((*&v11 & 0x40000000000) == 0)
   {
     goto LABEL_29;
   }
 
-  tcCountFlowDispositionTCBKSYS = self->_tcCountFlowDispositionTCBKSYS;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x20000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x20000000000) == 0)
   {
 LABEL_30:
-    if ((*&v13 & 0x200000000000) == 0)
+    if ((*&v11 & 0x200000000000) == 0)
     {
       goto LABEL_31;
     }
@@ -1940,13 +1940,12 @@ LABEL_30:
   }
 
 LABEL_86:
-  tcCountFlowDispositionTCBK = self->_tcCountFlowDispositionTCBK;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x200000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x200000000000) == 0)
   {
 LABEL_31:
-    if ((*&v13 & 0x100000000000) == 0)
+    if ((*&v11 & 0x100000000000) == 0)
     {
       goto LABEL_32;
     }
@@ -1955,13 +1954,12 @@ LABEL_31:
   }
 
 LABEL_87:
-  tcCountFlowDispositionTCRD = self->_tcCountFlowDispositionTCRD;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x100000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x100000000000) == 0)
   {
 LABEL_32:
-    if ((*&v13 & 0x10000000000) == 0)
+    if ((*&v11 & 0x10000000000) == 0)
     {
       goto LABEL_33;
     }
@@ -1970,13 +1968,12 @@ LABEL_32:
   }
 
 LABEL_88:
-  tcCountFlowDispositionTCOAM = self->_tcCountFlowDispositionTCOAM;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x10000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x10000000000) == 0)
   {
 LABEL_33:
-    if ((*&v13 & 0x400000000000) == 0)
+    if ((*&v11 & 0x400000000000) == 0)
     {
       goto LABEL_34;
     }
@@ -1985,13 +1982,12 @@ LABEL_33:
   }
 
 LABEL_89:
-  tcCountFlowDispositionTCAV = self->_tcCountFlowDispositionTCAV;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x400000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x400000000000) == 0)
   {
 LABEL_34:
-    if ((*&v13 & 0x800000000000) == 0)
+    if ((*&v11 & 0x800000000000) == 0)
     {
       goto LABEL_35;
     }
@@ -2000,13 +1996,12 @@ LABEL_34:
   }
 
 LABEL_90:
-  tcCountFlowDispositionTCRV = self->_tcCountFlowDispositionTCRV;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x800000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x800000000000) == 0)
   {
 LABEL_35:
-    if ((*&v13 & 0x1000000000000) == 0)
+    if ((*&v11 & 0x1000000000000) == 0)
     {
       goto LABEL_36;
     }
@@ -2015,13 +2010,12 @@ LABEL_35:
   }
 
 LABEL_91:
-  tcCountFlowDispositionTCVI = self->_tcCountFlowDispositionTCVI;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x1000000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x1000000000000) == 0)
   {
 LABEL_36:
-    if ((*&v13 & 0x80000000000) == 0)
+    if ((*&v11 & 0x80000000000) == 0)
     {
       goto LABEL_37;
     }
@@ -2030,13 +2024,12 @@ LABEL_36:
   }
 
 LABEL_92:
-  tcCountFlowDispositionTCVO = self->_tcCountFlowDispositionTCVO;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x80000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x80000000000) == 0)
   {
 LABEL_37:
-    if ((*&v13 & 0x8000000) == 0)
+    if ((*&v11 & 0x8000000) == 0)
     {
       goto LABEL_38;
     }
@@ -2045,13 +2038,12 @@ LABEL_37:
   }
 
 LABEL_93:
-  tcCountFlowDispositionTCCTL = self->_tcCountFlowDispositionTCCTL;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x8000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x8000000) == 0)
   {
 LABEL_38:
-    if ((*&v13 & 0x4000000) == 0)
+    if ((*&v11 & 0x4000000) == 0)
     {
       goto LABEL_39;
     }
@@ -2060,13 +2052,12 @@ LABEL_38:
   }
 
 LABEL_94:
-  tcCountFlowDispositionLARGEUL = self->_tcCountFlowDispositionLARGEUL;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x4000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x4000000) == 0)
   {
 LABEL_39:
-    if ((*&v13 & 0x2000000) == 0)
+    if ((*&v11 & 0x2000000) == 0)
     {
       goto LABEL_40;
     }
@@ -2075,13 +2066,12 @@ LABEL_39:
   }
 
 LABEL_95:
-  tcCountFlowDispositionLARGEDL = self->_tcCountFlowDispositionLARGEDL;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x2000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x2000000) == 0)
   {
 LABEL_40:
-    if ((*&v13 & 0x80000) == 0)
+    if ((*&v11 & 0x80000) == 0)
     {
       goto LABEL_41;
     }
@@ -2090,13 +2080,12 @@ LABEL_40:
   }
 
 LABEL_96:
-  tcCountFlowDispositionLARGE = self->_tcCountFlowDispositionLARGE;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x80000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x80000) == 0)
   {
 LABEL_41:
-    if ((*&v13 & 0x2000000000) == 0)
+    if ((*&v11 & 0x2000000000) == 0)
     {
       goto LABEL_42;
     }
@@ -2105,13 +2094,12 @@ LABEL_41:
   }
 
 LABEL_97:
-  tcCountFlowDispositionBURST = self->_tcCountFlowDispositionBURST;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x2000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x2000000000) == 0)
   {
 LABEL_42:
-    if ((*&v13 & 0x400000000) == 0)
+    if ((*&v11 & 0x400000000) == 0)
     {
       goto LABEL_43;
     }
@@ -2120,13 +2108,12 @@ LABEL_42:
   }
 
 LABEL_98:
-  tcCountFlowDispositionSIRI = self->_tcCountFlowDispositionSIRI;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x400000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x400000000) == 0)
   {
 LABEL_43:
-    if ((*&v13 & 0x1000000) == 0)
+    if ((*&v11 & 0x1000000) == 0)
     {
       goto LABEL_44;
     }
@@ -2135,13 +2122,12 @@ LABEL_43:
   }
 
 LABEL_99:
-  tcCountFlowDispositionPUSH = self->_tcCountFlowDispositionPUSH;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x1000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x1000000) == 0)
   {
 LABEL_44:
-    if ((*&v13 & 0x2000000000000) == 0)
+    if ((*&v11 & 0x2000000000000) == 0)
     {
       goto LABEL_45;
     }
@@ -2150,13 +2136,12 @@ LABEL_44:
   }
 
 LABEL_100:
-  tcCountFlowDispositionKNOWNOTHER = self->_tcCountFlowDispositionKNOWNOTHER;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x2000000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x2000000000000) == 0)
   {
 LABEL_45:
-    if ((*&v13 & 0x200000) == 0)
+    if ((*&v11 & 0x200000) == 0)
     {
       goto LABEL_46;
     }
@@ -2165,13 +2150,12 @@ LABEL_45:
   }
 
 LABEL_101:
-  tcCountFlowDispositionUNKNOWNOTHER = self->_tcCountFlowDispositionUNKNOWNOTHER;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x200000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x200000) == 0)
   {
 LABEL_46:
-    if ((*&v13 & 0x100000) == 0)
+    if ((*&v11 & 0x100000) == 0)
     {
       goto LABEL_47;
     }
@@ -2180,13 +2164,12 @@ LABEL_46:
   }
 
 LABEL_102:
-  tcCountFlowDispositionDrop = self->_tcCountFlowDispositionDrop;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x100000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x100000) == 0)
   {
 LABEL_47:
-    if ((*&v13 & 0x40000000000000) == 0)
+    if ((*&v11 & 0x40000000000000) == 0)
     {
       goto LABEL_48;
     }
@@ -2195,13 +2178,12 @@ LABEL_47:
   }
 
 LABEL_103:
-  tcCountFlowDispositionDefault = self->_tcCountFlowDispositionDefault;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x40000000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x40000000000000) == 0)
   {
 LABEL_48:
-    if ((*&v13 & 0x20000000000000) == 0)
+    if ((*&v11 & 0x20000000000000) == 0)
     {
       goto LABEL_49;
     }
@@ -2210,13 +2192,12 @@ LABEL_48:
   }
 
 LABEL_104:
-  tcUpdates = self->_tcUpdates;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x20000000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x20000000000000) == 0)
   {
 LABEL_49:
-    if ((*&v13 & 0x400000) == 0)
+    if ((*&v11 & 0x400000) == 0)
     {
       goto LABEL_50;
     }
@@ -2225,13 +2206,12 @@ LABEL_49:
   }
 
 LABEL_105:
-  tcDampeningSuppressed = self->_tcDampeningSuppressed;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x400000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x400000) == 0)
   {
 LABEL_50:
-    if ((*&v13 & 0x800000) == 0)
+    if ((*&v11 & 0x800000) == 0)
     {
       goto LABEL_51;
     }
@@ -2240,13 +2220,12 @@ LABEL_50:
   }
 
 LABEL_106:
-  tcCountFlowDispositionFGFacetime = self->_tcCountFlowDispositionFGFacetime;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x800000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x800000) == 0)
   {
 LABEL_51:
-    if ((*&v13 & 0x10000000) == 0)
+    if ((*&v11 & 0x10000000) == 0)
     {
       goto LABEL_52;
     }
@@ -2255,13 +2234,12 @@ LABEL_51:
   }
 
 LABEL_107:
-  tcCountFlowDispositionFGIMSG = self->_tcCountFlowDispositionFGIMSG;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x10000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x10000000) == 0)
   {
 LABEL_52:
-    if ((*&v13 & 0x20000000) == 0)
+    if ((*&v11 & 0x20000000) == 0)
     {
       goto LABEL_53;
     }
@@ -2270,13 +2248,12 @@ LABEL_52:
   }
 
 LABEL_108:
-  tcCountFlowDispositionMail = self->_tcCountFlowDispositionMail;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x20000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x20000000) == 0)
   {
 LABEL_53:
-    if ((*&v13 & 0x40000000) == 0)
+    if ((*&v11 & 0x40000000) == 0)
     {
       goto LABEL_54;
     }
@@ -2285,13 +2262,12 @@ LABEL_53:
   }
 
 LABEL_109:
-  tcCountFlowDispositionMaps = self->_tcCountFlowDispositionMaps;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x40000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x40000000) == 0)
   {
 LABEL_54:
-    if ((*&v13 & 0x80000000) == 0)
+    if ((*&v11 & 0x80000000) == 0)
     {
       goto LABEL_55;
     }
@@ -2300,13 +2276,12 @@ LABEL_54:
   }
 
 LABEL_110:
-  tcCountFlowDispositionMediaserverd = self->_tcCountFlowDispositionMediaserverd;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x80000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x80000000) == 0)
   {
 LABEL_55:
-    if ((*&v13 & 0x100000000) == 0)
+    if ((*&v11 & 0x100000000) == 0)
     {
       goto LABEL_56;
     }
@@ -2315,13 +2290,12 @@ LABEL_55:
   }
 
 LABEL_111:
-  tcCountFlowDispositionMusic = self->_tcCountFlowDispositionMusic;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x100000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x100000000) == 0)
   {
 LABEL_56:
-    if ((*&v13 & 0x200000000) == 0)
+    if ((*&v11 & 0x200000000) == 0)
     {
       goto LABEL_57;
     }
@@ -2330,13 +2304,12 @@ LABEL_56:
   }
 
 LABEL_112:
-  tcCountFlowDispositionNSURLSessiond = self->_tcCountFlowDispositionNSURLSessiond;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x200000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x200000000) == 0)
   {
 LABEL_57:
-    if ((*&v13 & 0x800000000) == 0)
+    if ((*&v11 & 0x800000000) == 0)
     {
       goto LABEL_58;
     }
@@ -2345,13 +2318,12 @@ LABEL_57:
   }
 
 LABEL_113:
-  tcCountFlowDispositionNews = self->_tcCountFlowDispositionNews;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x800000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x800000000) == 0)
   {
 LABEL_58:
-    if ((*&v13 & 0x1000000000) == 0)
+    if ((*&v11 & 0x1000000000) == 0)
     {
       goto LABEL_59;
     }
@@ -2360,13 +2332,12 @@ LABEL_58:
   }
 
 LABEL_114:
-  tcCountFlowDispositionPodcasts = self->_tcCountFlowDispositionPodcasts;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x1000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x1000000000) == 0)
   {
 LABEL_59:
-    if ((*&v13 & 0x8000000000000) == 0)
+    if ((*&v11 & 0x8000000000000) == 0)
     {
       goto LABEL_60;
     }
@@ -2375,13 +2346,12 @@ LABEL_59:
   }
 
 LABEL_115:
-  tcCountFlowDispositionRTCReportingd = self->_tcCountFlowDispositionRTCReportingd;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x8000000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x8000000000000) == 0)
   {
 LABEL_60:
-    if ((*&v13 & 0x10000000000000) == 0)
+    if ((*&v11 & 0x10000000000000) == 0)
     {
       goto LABEL_61;
     }
@@ -2390,13 +2360,12 @@ LABEL_60:
   }
 
 LABEL_116:
-  tcCountFlowDispositionWeather = self->_tcCountFlowDispositionWeather;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x10000000000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x10000000000000) == 0)
   {
 LABEL_61:
-    if ((*&v13 & 0x200) == 0)
+    if ((*&v11 & 0x200) == 0)
     {
       goto LABEL_62;
     }
@@ -2405,19 +2374,17 @@ LABEL_61:
   }
 
 LABEL_117:
-  tcCountFlowDispositionWebkit = self->_tcCountFlowDispositionWebkit;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x200) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x200) == 0)
   {
 LABEL_62:
-    if ((*&v13 & 0x4000000000) == 0)
+    if ((*&v11 & 0x4000000000) == 0)
     {
       goto LABEL_63;
     }
 
 LABEL_119:
-    tcCountFlowDispositionSafari = self->_tcCountFlowDispositionSafari;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x8000000000) == 0)
     {
@@ -2428,25 +2395,21 @@ LABEL_119:
   }
 
 LABEL_118:
-  periodDurationTCEnabledUsecs = self->_periodDurationTCEnabledUsecs;
   PBDataWriterWriteUint64Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x4000000000) != 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x4000000000) != 0)
   {
     goto LABEL_119;
   }
 
 LABEL_63:
-  if ((*&v13 & 0x8000000000) != 0)
+  if ((*&v11 & 0x8000000000) != 0)
   {
 LABEL_64:
-    tcCountFlowDispositionStocks = self->_tcCountFlowDispositionStocks;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_65:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -3273,7 +3236,7 @@ LABEL_62:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -3534,34 +3497,34 @@ LABEL_19:
   }
 
 LABEL_20:
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = self->_activeNameDuringPeriods;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       v12 = 0;
       do
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v18 + 1) + 8 * v12) copyWithZone:{zone, v18}];
+        v13 = [*(*(&v17 + 1) + 8 * v12) copyWithZone:{zone, v17}];
         [v6 addActiveNameDuringPeriod:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -4112,7 +4075,6 @@ LABEL_64:
 LABEL_65:
   v15 = v6;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -5632,7 +5594,7 @@ LABEL_75:
 
 - (void)mergeFrom:(id)from
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 36);
@@ -5893,31 +5855,31 @@ LABEL_19:
   }
 
 LABEL_20:
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = *(fromCopy + 14);
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDSymptomsNetworkAnalyticsRRCConnectedPeriod *)self addActiveNameDuringPeriod:*(*(&v14 + 1) + 8 * v11++), v14];
+        [(AWDSymptomsNetworkAnalyticsRRCConnectedPeriod *)self addActiveNameDuringPeriod:*(*(&v13 + 1) + 8 * v11++), v13];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -6466,8 +6428,6 @@ LABEL_64:
   }
 
 LABEL_65:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

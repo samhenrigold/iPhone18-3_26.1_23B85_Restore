@@ -257,136 +257,130 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  version = self->_version;
   PBDataWriterWriteInt32Field();
-  headers = self->_headers;
   PBDataWriterWriteSubmessage();
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v7 = self->_playEvents;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v43 objects:v50 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v44;
-    do
-    {
-      v11 = 0;
-      do
-      {
-        if (*v44 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = *(*(&v43 + 1) + 8 * v11);
-        PBDataWriterWriteSubmessage();
-        v11 = v11 + 1;
-      }
-
-      while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v43 objects:v50 count:16];
-    }
-
-    while (v9);
-  }
-
-  v41 = 0u;
-  v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v13 = self->_optInEvents;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v39 objects:v49 count:16];
-  if (v14)
-  {
-    v15 = v14;
-    v16 = *v40;
-    do
-    {
-      v17 = 0;
-      do
-      {
-        if (*v40 != v16)
-        {
-          objc_enumerationMutation(v13);
-        }
-
-        v18 = *(*(&v39 + 1) + 8 * v17);
-        PBDataWriterWriteSubmessage();
-        v17 = v17 + 1;
-      }
-
-      while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v39 objects:v49 count:16];
-    }
-
-    while (v15);
-  }
-
   v37 = 0u;
   v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v19 = self->_optOutEvents;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v35 objects:v48 count:16];
-  if (v20)
+  v5 = self->_playEvents;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v37 objects:v44 count:16];
+  if (v6)
   {
-    v21 = v20;
-    v22 = *v36;
+    v7 = v6;
+    v8 = *v38;
     do
     {
-      v23 = 0;
+      v9 = 0;
       do
       {
-        if (*v36 != v22)
+        if (*v38 != v8)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v5);
         }
 
-        v24 = *(*(&v35 + 1) + 8 * v23);
         PBDataWriterWriteSubmessage();
-        v23 = v23 + 1;
+        ++v9;
       }
 
-      while (v21 != v23);
-      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v35 objects:v48 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
-    while (v21);
+    while (v7);
   }
 
+  v35 = 0u;
+  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v25 = self->_liveActivityEvents;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v31 objects:v47 count:16];
-  if (v26)
+  v10 = self->_optInEvents;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v43 count:16];
+  if (v11)
   {
-    v27 = v26;
-    v28 = *v32;
+    v12 = v11;
+    v13 = *v34;
     do
     {
-      v29 = 0;
+      v14 = 0;
       do
       {
-        if (*v32 != v28)
+        if (*v34 != v13)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v10);
         }
 
-        v30 = *(*(&v31 + 1) + 8 * v29);
         PBDataWriterWriteSubmessage();
-        v29 = v29 + 1;
+        ++v14;
       }
 
-      while (v27 != v29);
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v31 objects:v47 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
-    while (v27);
+    while (v12);
+  }
+
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v15 = self->_optOutEvents;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v42 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v30;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v30 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v42 count:16];
+    }
+
+    while (v17);
+  }
+
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v20 = self->_liveActivityEvents;
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v25 objects:v41 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = *v26;
+    do
+    {
+      v24 = 0;
+      do
+      {
+        if (*v26 != v23)
+        {
+          objc_enumerationMutation(v20);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v24;
+      }
+
+      while (v22 != v24);
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v25 objects:v41 count:16];
+    }
+
+    while (v22);
   }
 }
 

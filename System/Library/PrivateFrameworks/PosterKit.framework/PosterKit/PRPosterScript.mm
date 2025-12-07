@@ -40,7 +40,7 @@ void __32__PRPosterScript_gyroDemoScript__block_invoke()
   *&v23.vector.f64[2] = _Q0;
   *&v22.x = xmmword_1A8BF7FD0;
   *&v22.vector.f64[2] = 0uLL;
-  SPRotation3DMakeLookAt(&v24, &v23, &v22, &v25);
+  SPRotation3DMakeLookAt(&v25, &v24, &v23, &v22);
   *&v24.x = v25;
   *&v24.vector.f64[2] = v26;
   v6 = [PRPosterScriptStatement statementWithDeviceMotion:&v24 duration:0.0333333333];
@@ -78,7 +78,7 @@ void __32__PRPosterScript_gyroDemoScript__block_invoke()
     *&v22.vector.f64[2] = v20;
     *&v21.x = xmmword_1A8BF7FD0;
     *&v21.vector.f64[2] = 0uLL;
-    SPRotation3DMakeLookAt(&v23, &v22, &v21, &v24);
+    SPRotation3DMakeLookAt(&v24, &v23, &v22, &v21);
     *&v23.x = *&v24.x;
     v16 = [PRPosterScriptStatement statementWithDeviceMotion:&v23 duration:0.0333333333];
     [v0 addObject:v16];

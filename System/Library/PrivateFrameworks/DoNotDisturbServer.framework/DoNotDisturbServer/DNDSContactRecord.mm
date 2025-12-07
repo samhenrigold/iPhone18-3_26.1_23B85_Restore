@@ -994,7 +994,7 @@ LABEL_126:
 
 + (id)migrateDictionaryRepresentation:(id)representation fromVersionNumber:(unint64_t)number toVersionNumber:(unint64_t)versionNumber
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v8 = [representationCopy mutableCopy];
   if (number <= 1 && versionNumber >= 2)
@@ -1004,30 +1004,30 @@ LABEL_126:
     v11 = [v9 setWithArray:v10];
 
     v12 = objc_opt_new();
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v23;
+      v16 = *v22;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [MEMORY[0x277D058F0] normalizePhoneNumber:{*(*(&v22 + 1) + 8 * i), v22}];
+          v18 = [MEMORY[0x277D058F0] normalizePhoneNumber:{*(*(&v21 + 1) + 8 * i), v21}];
           [v12 addObject:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v15);
@@ -1036,8 +1036,6 @@ LABEL_126:
     allObjects = [v12 allObjects];
     [v8 bs_setSafeObject:allObjects forKey:@"phoneNumbers"];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1149,29 +1147,29 @@ LABEL_9:
 
 - (id)dictionaryRepresentationWithContext:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   arrayHealingSource = [contextCopy arrayHealingSource];
-  v7 = [arrayHealingSource countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [arrayHealingSource countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(arrayHealingSource);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         v12 = [objc_opt_class() newWithDictionaryRepresentation:v11 context:contextCopy];
         if ([(DNDSContactRecord *)self isEqual:v12])
         {
@@ -1182,7 +1180,7 @@ LABEL_9:
         }
       }
 
-      v8 = [arrayHealingSource countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [arrayHealingSource countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v8)
       {
         continue;
@@ -1222,8 +1220,6 @@ LABEL_11:
     contactIdentifier = [(DNDSContactRecord *)self contactIdentifier];
     [dictionary bs_setSafeObject:contactIdentifier forKey:@"contactIdentifier"];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

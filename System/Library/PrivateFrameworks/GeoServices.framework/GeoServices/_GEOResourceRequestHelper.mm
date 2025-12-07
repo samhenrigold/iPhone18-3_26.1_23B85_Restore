@@ -24,16 +24,14 @@
     {
 LABEL_14:
       resultQueue = self->_resultQueue;
-      voucher = self->_voucher;
-      qos = self->_qos;
-      v28 = v11;
-      v25 = errorCopy;
-      v26 = withCopy;
-      v27 = pathsCopy;
-      v24 = dispatch_block_create_with_voucher_and_qos_class();
-      dispatch_async(resultQueue, v24);
+      v26 = v11;
+      v23 = errorCopy;
+      v24 = withCopy;
+      v25 = pathsCopy;
+      v22 = dispatch_block_create_with_voucher_and_qos_class();
+      dispatch_async(resultQueue, v22);
 
-      v20 = v28;
+      v20 = v26;
       goto LABEL_15;
     }
 
@@ -62,7 +60,7 @@ LABEL_14:
       }
 
       *buf = 67109120;
-      v30 = [pathsCopy count];
+      v28 = [pathsCopy count];
       v16 = "Result=Success Count=%d";
       v17 = v14;
       v18 = signpost;

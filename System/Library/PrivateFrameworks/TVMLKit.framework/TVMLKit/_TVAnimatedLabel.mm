@@ -919,7 +919,7 @@ LABEL_10:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() text];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v4, v5, "AL(%@): starting timeout begin", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v4, v5, "AL(%@): starting timeout begin", v6, v7, v8, v9);
 }
 
 - (void)stopAnimatingWithoutResetWithDuration:(void *)a1 .cold.1(void *a1)
@@ -927,7 +927,7 @@ LABEL_10:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() text];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v4, v5, "AL(%@): stopping timeout begin", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v4, v5, "AL(%@): stopping timeout begin", v6, v7, v8, v9);
 }
 
 - (void)stopAndResetScrollWithDuration:(void *)a1 .cold.1(void *a1)
@@ -935,7 +935,7 @@ LABEL_10:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() text];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v4, v5, "AL(%@): stop-and-reset timeout begin", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_26CD9A000, v4, v5, "AL(%@): stop-and-reset timeout begin", v6, v7, v8, v9);
 }
 
 @end

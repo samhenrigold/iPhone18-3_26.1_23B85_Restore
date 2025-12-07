@@ -34,8 +34,6 @@
         tail = queueMemory->tail;
         if (tail != self->_lastTail)
         {
-          v5 = queueMemory->head - tail;
-          queueMemorySize = self->_queueMemorySize;
           IOHIDAnalyticsHistogramEventSetIntegerValue();
           self->_lastTail = tail;
         }
@@ -46,7 +44,7 @@
 
 - (void)signalQueueEmpty
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   queueHeader = self->_queueHeader;
   if (queueHeader)
   {
@@ -62,15 +60,13 @@
         v9 = _IOHIDLogCategory();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v11[0] = 67109120;
-          v11[1] = v8;
-          _os_log_impl(&dword_29D3EE000, v9, OS_LOG_TYPE_DEFAULT, "kIOHIDLibUserClientResumeReports:%#x\n", v11, 8u);
+          v10[0] = 67109120;
+          v10[1] = v8;
+          _os_log_impl(&dword_29D3EE000, v9, OS_LOG_TYPE_DEFAULT, "kIOHIDLibUserClientResumeReports:%#x\n", v10, 8u);
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (int)queryInterface:(id)interface outInterface:(void *)outInterface
@@ -139,25 +135,20 @@ LABEL_3:
   input[3] = *MEMORY[0x29EDCA608];
   input[2] = 0;
   outputCnt = 1;
-  if (element)
+  if (!element)
   {
-    queueToken = self->_queueToken;
-    output = 0xAAAAAAAAAAAAAAAALL;
-    input[0] = queueToken;
-    input[1] = IOHIDElementGetCookie(element);
-    WeakRetained = objc_loadWeakRetained(&self->_device);
-    v8 = objc_msgSend_connect(WeakRetained, v6, v7);
-    v9 = IOConnectCallScalarMethod(v8, 5u, input, 3u, &output, &outputCnt);
-
-    self->_queueSizeChanged = (output | self->_queueSizeChanged) != 0;
+    return -536870206;
   }
 
-  else
-  {
-    v9 = -536870206;
-  }
+  queueToken = self->_queueToken;
+  output = 0xAAAAAAAAAAAAAAAALL;
+  input[0] = queueToken;
+  input[1] = IOHIDElementGetCookie(element);
+  WeakRetained = objc_loadWeakRetained(&self->_device);
+  v8 = objc_msgSend_connect(WeakRetained, v6, v7);
+  v9 = IOConnectCallScalarMethod(v8, 5u, input, 3u, &output, &outputCnt);
 
-  v10 = *MEMORY[0x29EDCA608];
+  self->_queueSizeChanged = (output | self->_queueSizeChanged) != 0;
   return v9;
 }
 
@@ -165,25 +156,20 @@ LABEL_3:
 {
   input[2] = *MEMORY[0x29EDCA608];
   outputCnt = 1;
-  if (element)
+  if (!element)
   {
-    queueToken = self->_queueToken;
-    output = 0xAAAAAAAAAAAAAAAALL;
-    input[0] = queueToken;
-    input[1] = IOHIDElementGetCookie(element);
-    WeakRetained = objc_loadWeakRetained(&self->_device);
-    v8 = objc_msgSend_connect(WeakRetained, v6, v7);
-    v9 = IOConnectCallScalarMethod(v8, 6u, input, 2u, &output, &outputCnt);
-
-    self->_queueSizeChanged = (output | self->_queueSizeChanged) != 0;
+    return -536870206;
   }
 
-  else
-  {
-    v9 = -536870206;
-  }
+  queueToken = self->_queueToken;
+  output = 0xAAAAAAAAAAAAAAAALL;
+  input[0] = queueToken;
+  input[1] = IOHIDElementGetCookie(element);
+  WeakRetained = objc_loadWeakRetained(&self->_device);
+  v8 = objc_msgSend_connect(WeakRetained, v6, v7);
+  v9 = IOConnectCallScalarMethod(v8, 6u, input, 2u, &output, &outputCnt);
 
-  v10 = *MEMORY[0x29EDCA608];
+  self->_queueSizeChanged = (output | self->_queueSizeChanged) != 0;
   return v9;
 }
 
@@ -205,7 +191,6 @@ LABEL_3:
     *value = output;
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -262,34 +247,33 @@ LABEL_3:
     v9 = *v7->data;
     WeakRetained = objc_loadWeakRetained(&self->_device);
     objc_msgSend_getElement_(WeakRetained, v11, v9);
-    v12 = *MEMORY[0x29EDB8ED8];
     *value = _IOHIDValueCreateWithElementValuePtr();
 
     if (*value && (_IOHIDValueGetFlags() & 1) != 0)
     {
-      v13 = objc_loadWeakRetained(&self->_device);
-      objc_msgSend_releaseReport_(v13, v14, *&v8[3]);
+      v12 = objc_loadWeakRetained(&self->_device);
+      objc_msgSend_releaseReport_(v12, v13, *&v8[3]);
     }
 
     IODataQueueDequeue(self->_queueMemory, 0, &dataSize);
     if (*value)
     {
-      v15 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v15 = -536870212;
+      v14 = -536870212;
     }
   }
 
   else
   {
-    v15 = -536870169;
+    v14 = -536870169;
   }
 
   os_unfair_lock_unlock(&self->_queueLock);
-  return v15;
+  return v14;
 }
 
 - (void)queueCallback:(__CFMachPort *)callback msg:(id *)msg size:(int64_t)size info:(void *)info
@@ -353,16 +337,16 @@ LABEL_3:
   outputCnt = 1;
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v38 = v9;
-  v39 = v9;
-  *reference = v9;
   v37 = v9;
+  v38 = v9;
+  *reference = v9;
+  v36 = v9;
   context.version = 0;
   context.info = self;
   memset(&context.retain, 0, 24);
-  v32.receiver = self;
-  v32.super_class = IOHIDQueueClass;
-  v10 = [(IOHIDIUnknown2 *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = IOHIDQueueClass;
+  v10 = [(IOHIDIUnknown2 *)&v31 init];
   v11 = v10;
   if (!v10)
   {
@@ -454,7 +438,6 @@ LABEL_12:
   v29 = 0;
 LABEL_14:
 
-  v30 = *MEMORY[0x29EDCA608];
   return v29;
 }
 
@@ -496,13 +479,13 @@ LABEL_14:
 
 - (BOOL)setupAnalytics
 {
-  v26[2] = *MEMORY[0x29EDCA608];
-  v25[0] = @"staticSize";
+  v25[2] = *MEMORY[0x29EDCA608];
+  v24[0] = @"staticSize";
   v3 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x29EDBA070], a2, self->_queueMemorySize);
-  v25[1] = @"queueType";
-  v26[0] = v3;
-  v26[1] = @"deviceQueue";
-  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v4, v26, v25, 2);
+  v24[1] = @"queueType";
+  v25[0] = v3;
+  v25[1] = @"deviceQueue";
+  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v4, v25, v24, 2);
   v8 = objc_msgSend_mutableCopy(v5, v6, v7);
 
   WeakRetained = objc_loadWeakRetained(&self->_device);
@@ -533,11 +516,10 @@ LABEL_14:
 
   else
   {
-    v24 = _IOHIDLogCategory();
-    sub_29D3FA888(v24);
+    v23 = _IOHIDLogCategory();
+    sub_29D3FA888(v23);
   }
 
-  v22 = *MEMORY[0x29EDCA608];
   return v21 != 0;
 }
 

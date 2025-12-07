@@ -1073,26 +1073,11 @@ LABEL_114:
   transitBalanceModel = self->_transitBalanceModel;
   if (!transitBalanceModel)
   {
-    if (!transitProperties)
+    if (transitProperties && ([transitProperties balance], (v88 = objc_claimAutoreleasedReturnValue()) != 0) && (v89 = v88, objc_msgSend(transitProperties, "balanceAmount"), v90 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v90, "currency"), v91 = objc_claimAutoreleasedReturnValue(), v91, v90, v89, v91))
     {
-      goto LABEL_90;
-    }
-
-    balance = [transitProperties balance];
-    if (!balance)
-    {
-      goto LABEL_90;
-    }
-
-    v89 = balance;
-    balanceAmount = [transitProperties balanceAmount];
-    currency = [balanceAmount currency];
-
-    if (currency)
-    {
-      balance2 = [transitProperties balance];
-      balanceAmount2 = [transitProperties balanceAmount];
-      currency2 = [balanceAmount2 currency];
+      balance = [transitProperties balance];
+      balanceAmount = [transitProperties balanceAmount];
+      currency = [balanceAmount currency];
       v61 = PKFormattedCurrencyStringFromNumber();
 
       v71 = PKLocalizedPaymentString(@"NOTIFICATION_BALANCE_FORMAT", @"%@", v61);
@@ -1100,7 +1085,6 @@ LABEL_114:
 
     else
     {
-LABEL_90:
       v61 = &stru_10000C7A0;
       v71 = &stru_10000C7A0;
     }
@@ -1308,9 +1292,9 @@ LABEL_127:
     v172 = v61;
     selfCopy2 = self;
     currencyAmount = [v184 currencyAmount];
-    currency3 = [currencyAmount currency];
+    currency2 = [currencyAmount currency];
     v120 = PKNoCurrencyCode;
-    amounts = currency3;
+    amounts = currency2;
     v122 = v120;
     v123 = v122;
     if (amounts == v122)
@@ -1357,10 +1341,10 @@ LABEL_127:
           }
 
           amount2 = [*(*(&v189 + 1) + 8 * k) amount];
-          currency4 = [amount2 currency];
+          currency3 = [amount2 currency];
           v131 = v123;
           v132 = v131;
-          if (currency4 == v131)
+          if (currency3 == v131)
           {
 
 LABEL_154:
@@ -1370,9 +1354,9 @@ LABEL_154:
             goto LABEL_155;
           }
 
-          if (v123 && currency4)
+          if (v123 && currency3)
           {
-            v133 = [currency4 isEqualToString:v131];
+            v133 = [currency3 isEqualToString:v131];
 
             if (v133)
             {

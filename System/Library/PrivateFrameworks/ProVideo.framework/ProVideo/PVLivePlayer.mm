@@ -90,7 +90,8 @@ void __34__PVLivePlayer_setSource_inputID___block_invoke(uint64_t a1)
   v3 = (a1 + 48);
   if (v2)
   {
-    v4 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v1 + 16, v3);
+    v5 = (a1 + 48);
+    v4 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v1 + 16, v3, &std::piecewise_construct, &v5);
     objc_storeStrong(v4 + 5, v2);
   }
 
@@ -214,7 +215,7 @@ LABEL_7:
   dispatch_sync(*ptr, block);
 }
 
-uint64_t __38__PVLivePlayer_updateRenderQueueUnits__block_invoke(uint64_t a1)
+void *__38__PVLivePlayer_updateRenderQueueUnits__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[20];
@@ -663,7 +664,7 @@ void *__51__PVLivePlayer__dropFrameForSaturatedPrimaryPlayer__block_invoke(uint6
   return v4 & 1;
 }
 
-uint64_t __38__PVLivePlayer__dropFrameForFullQueue__block_invoke(uint64_t a1)
+void *__38__PVLivePlayer__dropFrameForFullQueue__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _throttledQueueSize_NoLock];
   v3 = *(a1 + 32);
@@ -708,7 +709,7 @@ uint64_t __38__PVLivePlayer__dropFrameForFullQueue__block_invoke(uint64_t a1)
   if (WeakRetained && (objc_opt_respondsToSelector() & 1) != 0)
   {
     v6 = [(PVLivePlayer *)self readSourceFrameSets:CACurrentMediaTime()];
-    [(PVLivePlayer *)self renderTime];
+    objc_msgSend_renderTime(self);
     [WeakRetained livePlayerDroppedFrame:v3 sources:v6 time:v7];
   }
 }
@@ -1106,7 +1107,7 @@ uint64_t __38__PVLivePlayer_renderLinkJobFinished___block_invoke(uint64_t a1)
     if ([(PVLivePlayer *)self _throttledQueueSize_NoLock]== 1)
     {
       memset(&v8, 0, sizeof(v8));
-      [(PVLivePlayer *)self renderTime];
+      objc_msgSend_renderTime(self);
       time1 = v8;
       v6 = *(*link.var0 + 80);
       if (CMTimeCompare(&time1, &v6) >= 1)
@@ -1162,7 +1163,7 @@ void __25__PVLivePlayer_addStats___block_invoke(uint64_t a1)
 
 - (void)printAndClearStats:(BOOL)stats
 {
-  if ((atomic_load_explicit(&qword_280C5CCE8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5CCE8, memory_order_acquire) & 1) == 0)
   {
     [PVLivePlayer printAndClearStats:];
   }
@@ -1230,11 +1231,11 @@ void __35__PVLivePlayer_printAndClearStats___block_invoke_3(uint64_t a1)
 
 - (void)printAndClearStats:.cold.1()
 {
-  if (__cxa_guard_acquire(&qword_280C5CCE8))
+  if (__cxa_guard_acquire(byte_280C5CCE8))
   {
     __cxa_atexit(std::unique_ptr<PVGCDLock>::~unique_ptr[abi:ne200100], &_MergedGlobals_7, &dword_25F8F0000);
 
-    __cxa_guard_release(&qword_280C5CCE8);
+    __cxa_guard_release(byte_280C5CCE8);
   }
 }
 

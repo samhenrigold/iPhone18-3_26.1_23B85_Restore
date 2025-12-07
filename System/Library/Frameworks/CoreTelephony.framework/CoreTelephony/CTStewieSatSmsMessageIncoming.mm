@@ -12,14 +12,14 @@
 
 - (CTStewieSatSmsMessageIncoming)initWithContext:(id)context timestamp:(id)timestamp pendingTotalCount:(int64_t)count pendingCount:(int64_t)pendingCount sourcePhoneNumber:(id)number codecID:(int64_t)d textPayload:(id)payload uniqueID:(id)self0 error:(id *)self1
 {
-  v68[1] = *MEMORY[0x1E69E9840];
+  v67[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   timestampCopy = timestamp;
   numberCopy = number;
   payloadCopy = payload;
   iDCopy = iD;
-  v44 = contextCopy;
-  v45 = timestampCopy;
+  v43 = contextCopy;
+  v44 = timestampCopy;
   if (contextCopy)
   {
     if (timestampCopy)
@@ -31,9 +31,9 @@
         if (error)
         {
           v26 = MEMORY[0x1E696ABC0];
-          v63 = *MEMORY[0x1E696A578];
-          v64 = @"Invalid pendingCount";
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+          v62 = *MEMORY[0x1E696A578];
+          v63 = @"Invalid pendingCount";
+          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
           *error = [v26 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v27];
         }
 
@@ -46,9 +46,9 @@
         if (error)
         {
           v31 = MEMORY[0x1E696ABC0];
-          v61 = *MEMORY[0x1E696A578];
-          v62 = @"Invalid pendingTotalCount";
-          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+          v60 = *MEMORY[0x1E696A578];
+          v61 = @"Invalid pendingTotalCount";
+          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
           *error = [v31 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v32];
         }
 
@@ -60,9 +60,9 @@
         if (error)
         {
           v29 = MEMORY[0x1E696ABC0];
-          v59 = *MEMORY[0x1E696A578];
-          v60 = @"sourcePhoneNumber is missing";
-          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+          v58 = *MEMORY[0x1E696A578];
+          v59 = @"sourcePhoneNumber is missing";
+          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
           *error = [v29 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v30];
         }
 
@@ -73,9 +73,9 @@
         if (error)
         {
           v33 = MEMORY[0x1E696ABC0];
-          v57 = *MEMORY[0x1E696A578];
-          v58 = @"sourcePhoneNumber is invalid";
-          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+          v56 = *MEMORY[0x1E696A578];
+          v57 = @"sourcePhoneNumber is invalid";
+          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
           *error = [v33 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v34];
         }
 
@@ -87,9 +87,9 @@
         if (error)
         {
           v20 = MEMORY[0x1E696ABC0];
-          v55 = *MEMORY[0x1E696A578];
-          v56 = @"Invalid codecID";
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+          v54 = *MEMORY[0x1E696A578];
+          v55 = @"Invalid codecID";
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
           *error = [v20 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v21];
         }
 
@@ -101,9 +101,9 @@
         if (error)
         {
           v37 = MEMORY[0x1E696ABC0];
-          v53 = *MEMORY[0x1E696A578];
-          v54 = @"textPayload is missing";
-          v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+          v52 = *MEMORY[0x1E696A578];
+          v53 = @"textPayload is missing";
+          v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
           *error = [v37 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v38];
         }
 
@@ -115,18 +115,18 @@
         if (error)
         {
           v39 = MEMORY[0x1E696ABC0];
-          v51 = *MEMORY[0x1E696A578];
-          v52 = @"uniqueID is missing";
-          v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+          v50 = *MEMORY[0x1E696A578];
+          v51 = @"uniqueID is missing";
+          v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
           *error = [v39 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v40];
         }
 
         goto LABEL_36;
       }
 
-      v50.receiver = self;
-      v50.super_class = CTStewieSatSmsMessageIncoming;
-      v35 = [(CTStewieSatSmsMessageIncoming *)&v50 init];
+      v49.receiver = self;
+      v49.super_class = CTStewieSatSmsMessageIncoming;
+      v35 = [(CTStewieSatSmsMessageIncoming *)&v49 init];
       v36 = v35;
       if (v35)
       {
@@ -153,10 +153,10 @@ LABEL_36:
     if (error)
     {
       v24 = MEMORY[0x1E696ABC0];
-      v65 = *MEMORY[0x1E696A578];
-      v66 = @"timestamp is missing";
+      v64 = *MEMORY[0x1E696A578];
+      v65 = @"timestamp is missing";
       v19 = numberCopy;
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
       *error = [v24 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v25];
 
       goto LABEL_36;
@@ -171,11 +171,11 @@ LABEL_36:
     if (error)
     {
       v22 = MEMORY[0x1E696ABC0];
-      v67 = *MEMORY[0x1E696A578];
-      v68[0] = @"Context is missing";
+      v66 = *MEMORY[0x1E696A578];
+      v67[0] = @"Context is missing";
       v19 = numberCopy;
       selfCopy4 = self;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:&v66 count:1];
       *error = [v22 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v23];
 
       goto LABEL_36;
@@ -188,7 +188,6 @@ LABEL_36:
 
 LABEL_37:
 
-  v41 = *MEMORY[0x1E69E9840];
   return v28;
 }
 

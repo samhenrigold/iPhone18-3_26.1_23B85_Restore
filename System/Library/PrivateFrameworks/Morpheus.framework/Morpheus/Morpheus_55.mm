@@ -1,1230 +1,15 @@
-void sub_25A56DAD4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::ArcTanh>(unsigned __int16 *a1, _WORD *a2, uint64_t a3, uint64_t a4)
-{
-  if (a3)
-  {
-    v4 = a3;
-    v7 = 2 * a4;
-    do
-    {
-      v8 = atanhf(COERCE_FLOAT(*a1 << 16));
-      *a2++ = (LODWORD(v8) + (HIWORD(LODWORD(v8)) & 1u) + 0x7FFF) >> 16;
-      a1 = (a1 + v7);
-      --v4;
-    }
-
-    while (v4);
-  }
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, __int128 *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A56DC18(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
-{
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(v8, a2);
-}
-
-void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
-  *(a1 + 24) = 0;
-  operator new();
-}
-
-void sub_25A56DDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  mlx::core::array::~array((v5 + 16));
-  mlx::core::array::~array(va);
-  _Unwind_Resume(a1);
-}
-
-void *std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286BFB900;
-  mlx::core::array::~array((a1 + 3));
-  mlx::core::array::~array((a1 + 1));
-  return a1;
-}
-
-void std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286BFB900;
-  mlx::core::array::~array((a1 + 3));
-  mlx::core::array::~array((a1 + 1));
-
-  JUMPOUT(0x25F851760);
-}
-
-void *std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::__clone(void *result, uint64_t a2)
-{
-  v3 = result[1];
-  v2 = result[2];
-  *a2 = &unk_286BFB900;
-  *(a2 + 8) = v3;
-  *(a2 + 16) = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4 = result[4];
-  *(a2 + 24) = result[3];
-  *(a2 + 32) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  *(a2 + 52) = 0;
-  *(a2 + 49) = 0;
-  return result;
-}
-
-void std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::destroy(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 24));
-
-  mlx::core::array::~array((a1 + 8));
-}
-
-void std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::destroy_deallocate(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 24));
-  mlx::core::array::~array((a1 + 8));
-
-  operator delete(a1);
-}
-
-uint64_t std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::ArcTanh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ArcTanh,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
-{
-  v16 = *MEMORY[0x277D85DE8];
-  *(a1 + 10) = (*(a1 + 10) + 1) % 10;
-  v3 = *a2;
-  v4 = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  v14 = v3;
-  v15 = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
-  if (*(a1 + 10))
-  {
-    v5 = mlx::core::scheduler::scheduler(a1);
-    mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>>(*(v5[1] + 8 * *a1), &v14);
-  }
-
-  v6 = mlx::core::scheduler::scheduler(a1);
-  mlx::core::scheduler::Scheduler::notify_new_task(v6);
-  v10 = *a1;
-  v11 = *(a1 + 2);
-  v7 = v14;
-  v14 = 0uLL;
-  v12 = v7;
-  v13 = v15;
-  v15 = 0uLL;
-  v9 = mlx::core::scheduler::scheduler(v8);
-  mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::BitwiseInvert&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
-}
-
-void sub_25A56E19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  mlx::core::array::~array((v10 + 32));
-  mlx::core::array::~array((v10 + 16));
-  mlx::core::array::~array((v9 + 16));
-  mlx::core::array::~array(va);
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::BitwiseInvert&&)::{lambda(void)#1}>(std::mutex *a1, uint64_t *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::BitwiseInvert&&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A56E270(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::BitwiseInvert&&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
-{
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::BitwiseInvert&&)::{lambda(void)#1},std::function<void ()(void)>*>(v8, a2);
-}
-
-void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::BitwiseInvert&&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = *(a2 + 2);
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  a2[2] = 0;
-  a2[3] = 0;
-  a2[4] = 0;
-  a2[5] = 0;
-  *(a1 + 24) = 0;
-  operator new();
-}
-
-void sub_25A56E454(_Unwind_Exception *a1)
-{
-  mlx::core::array::~array((v1 + 32));
-  mlx::core::array::~array((v1 + 16));
-  _Unwind_Resume(a1);
-}
-
-void *_ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_9unary_intINS3_6detail13BitwiseInvertEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEED1Ev(void *a1)
-{
-  *a1 = &unk_286BFB9F8;
-  mlx::core::array::~array((a1 + 5));
-  mlx::core::array::~array((a1 + 3));
-  return a1;
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_9unary_intINS3_6detail13BitwiseInvertEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEED0Ev(void *a1)
-{
-  *a1 = &unk_286BFB9F8;
-  mlx::core::array::~array((a1 + 5));
-  mlx::core::array::~array((a1 + 3));
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_9unary_intINS3_6detail13BitwiseInvertEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEE7__cloneEPNS0_6__baseISO_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_286BFB9F8;
-  v2 = *(result + 8);
-  *(a2 + 16) = *(result + 16);
-  *(a2 + 8) = v2;
-  v3 = *(result + 32);
-  *(a2 + 24) = *(result + 24);
-  *(a2 + 32) = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4 = *(result + 48);
-  *(a2 + 40) = *(result + 40);
-  *(a2 + 48) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_9unary_intINS3_6detail13BitwiseInvertEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEE7destroyEv(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 40));
-
-  mlx::core::array::~array((a1 + 24));
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_9unary_intINS3_6detail13BitwiseInvertEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEE18destroy_deallocateEv(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 40));
-  mlx::core::array::~array((a1 + 24));
-
-  operator delete(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_9unary_intINS3_6detail13BitwiseInvertEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEEclEv(uint64_t a1)
-{
-  mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}::operator()(a1 + 24);
-  v2 = mlx::core::scheduler::scheduler(v1);
-
-  mlx::core::scheduler::Scheduler::notify_task_completion(v2);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_9unary_intINS3_6detail13BitwiseInvertEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t a1)
-{
-  v1 = a1 + 16;
-  v2 = *(*(a1 + 16) + 56);
-  if (v2 > 4)
-  {
-    if (v2 <= 6)
-    {
-      if (v2 != 5)
-      {
-
-        goto LABEL_7;
-      }
-
-LABEL_24:
-      mlx::core::unary_op<unsigned char,unsigned char,mlx::core::detail::BitwiseInvert>(a1, v1);
-      return;
-    }
-
-    if (v2 != 7)
-    {
-      if (v2 != 8)
-      {
-        goto LABEL_34;
-      }
-
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    if (v2 <= 2)
-    {
-      if (v2 != 1)
-      {
-        if (v2 == 2)
-        {
-
-LABEL_7:
-          mlx::core::unary_op<unsigned short,unsigned short,mlx::core::detail::BitwiseInvert>(a1, v1);
-          return;
-        }
-
-LABEL_34:
-        v3 = a1 + 16;
-        std::ostringstream::basic_ostringstream[abi:ne200100](v8);
-        v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "[unary_int] Does not support ", 29);
-        v5 = *(*v3 + 56);
-        LODWORD(v7[0]) = v5;
-        BYTE4(v7[0]) = BYTE4(v5);
-        mlx::core::operator<<(v4, v7);
-        exception = __cxa_allocate_exception(0x10uLL);
-        std::ostringstream::str[abi:ne200100](v8, v7);
-        MEMORY[0x25F851100](exception, v7);
-        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      goto LABEL_24;
-    }
-
-    if (v2 != 3)
-    {
-
-LABEL_16:
-      mlx::core::unary_op<unsigned long long,unsigned long long,mlx::core::detail::BitwiseInvert>(a1, v1);
-      return;
-    }
-  }
-
-  mlx::core::unary_op<unsigned int,unsigned int,mlx::core::detail::BitwiseInvert>(a1, v1);
-}
-
-void sub_25A56E94C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((v16 & 1) == 0)
-    {
-LABEL_6:
-      std::ostringstream::~ostringstream(&a15);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v16)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v15);
-  goto LABEL_6;
-}
-
-void mlx::core::unary_op<unsigned char,unsigned char,mlx::core::detail::BitwiseInvert>(uint64_t **a1, uint64_t a2)
-{
-  v3 = *a1;
-  v4 = (*a1)[19];
-  v5 = *(*a2 + 152);
-  if ((*a1)[21])
-  {
-    v6 = v3[20];
-    if (v6 >= 0x10)
-    {
-      do
-      {
-        v7 = *v4++;
-        *v5++ = vmvnq_s8(v7);
-        v6 -= 16;
-      }
-
-      while (v6 > 0xF);
-    }
-
-    for (; v6; --v6)
-    {
-      v8 = v4->i8[0];
-      v4 = (v4 + 1);
-      v5->i8[0] = ~v8;
-      v5 = (v5 + 1);
-    }
-
-    return;
-  }
-
-  v9 = v3[1];
-  if (v9 == *v3)
-  {
-    v11 = 1;
-    v12 = 1;
-    do
-    {
-LABEL_34:
-      v5->i8[0] = ~v4->i8[0];
-      v5 = (v5 + 1);
-      v4 = (v4 + v12);
-      --v11;
-    }
-
-    while (v11);
-    return;
-  }
-
-  v10 = v9 - *v3;
-  v11 = *(v9 - 4);
-  v12 = *(v3[4] - 8);
-  if ((v10 >> 2) <= 1)
-  {
-    if (!v11)
-    {
-      return;
-    }
-
-    goto LABEL_34;
-  }
-
-  mlx::core::ContiguousIterator::ContiguousIterator(&v34, v3, v3 + 3, (v10 >> 2) - 1);
-  if ((*a1)[6])
-  {
-    v14 = 0;
-    v15 = v34;
-    do
-    {
-      if (v11)
-      {
-        v16 = &v4->i8[v15];
-        v17 = v5;
-        v18 = v11;
-        do
-        {
-          v17->i8[0] = ~*v16;
-          v17 = (v17 + 1);
-          v16 += v12;
-          --v18;
-        }
-
-        while (v18);
-      }
-
-      v19 = v36 - v35;
-      v20 = (v36 - v35) >> 2;
-      if (v20)
-      {
-        v21 = ((v19 << 30) - 0x100000000) >> 32;
-        v22 = __p;
-        v23 = v37;
-        v24 = __p + 4 * v21;
-        v25 = *v24;
-        v26 = v35 + 4 * v21;
-        if (v20 >= 2 && v25 == *v26 - 1)
-        {
-          v29 = (v19 >> 2) & 0x7FFFFFFF;
-          v28 = v29 - 1;
-          v30 = 4 * v29;
-          v31 = v35 - 8;
-          do
-          {
-            v32 = v28;
-            *v24 = 0;
-            v15 -= v23[v21] * (*v26 - 1);
-            v34 = v15;
-            --v28;
-            v24 = &v22[v30 - 8];
-            v25 = *v24;
-            v22 -= 4;
-            if (v32 < 2)
-            {
-              break;
-            }
-
-            v26 = &v31[v30];
-            v33 = *&v31[4 * v29] - 1;
-            v31 -= 4;
-            v21 = v28;
-          }
-
-          while (v25 == v33);
-          v24 = &v22[4 * v29 - 4];
-        }
-
-        else
-        {
-          v28 = ((v19 << 30) - 0x100000000) >> 32;
-        }
-
-        *v24 = v25 + 1;
-        v15 += v23[v28];
-        v34 = v15;
-      }
-
-      v14 += v11;
-      v5 = (v5 + v11);
-    }
-
-    while (v14 < (*a1)[6]);
-  }
-
-  if (__p)
-  {
-    v40 = __p;
-    operator delete(__p);
-  }
-
-  if (v37)
-  {
-    v38 = v37;
-    operator delete(v37);
-  }
-
-  if (v35)
-  {
-    v36 = v35;
-    operator delete(v35);
-  }
-}
-
-void mlx::core::unary_op<unsigned short,unsigned short,mlx::core::detail::BitwiseInvert>(uint64_t **a1, uint64_t a2)
-{
-  v3 = *a1;
-  v4 = (*a1)[19];
-  v5 = *(*a2 + 152);
-  if ((*a1)[21])
-  {
-    v6 = v3[20];
-    if (v6 >= 0x10)
-    {
-      do
-      {
-        v8 = *v4;
-        v7 = *(v4 + 1);
-        v4 += 2;
-        *v5 = vmvnq_s8(v8);
-        v5[1] = vmvnq_s8(v7);
-        v5 += 2;
-        v6 -= 16;
-      }
-
-      while (v6 > 0xF);
-    }
-
-    for (; v6; --v6)
-    {
-      v9 = *v4;
-      v4 = (v4 + 2);
-      v5->i16[0] = ~v9;
-      v5 = (v5 + 2);
-    }
-
-    return;
-  }
-
-  v10 = v3[1];
-  if (v10 == *v3)
-  {
-    v12 = 1;
-    v13 = 1;
-    do
-    {
-LABEL_32:
-      v5->i16[0] = ~*v4;
-      v5 = (v5 + 2);
-      v4 = (v4 + 2 * v13);
-      --v12;
-    }
-
-    while (v12);
-    return;
-  }
-
-  v11 = v10 - *v3;
-  v12 = *(v10 - 4);
-  v13 = *(v3[4] - 8);
-  if ((v11 >> 2) <= 1)
-  {
-    if (!v12)
-    {
-      return;
-    }
-
-    goto LABEL_32;
-  }
-
-  mlx::core::ContiguousIterator::ContiguousIterator(&v40, v3, v3 + 3, (v11 >> 2) - 1);
-  v15 = (*a1)[6];
-  if (v15)
-  {
-    v16 = 0;
-    v17 = v40;
-    v18 = v43;
-    v19 = (v42 - v41) >> 2;
-    v20 = (((v42 - v41) << 30) - 0x100000000) >> 32;
-    v21 = __p;
-    v22 = __p + 4 * v20;
-    v23 = v41 + 4 * v20;
-    v24 = 2 * v13;
-    v25 = 4 * (v19 & 0x7FFFFFFF);
-    v26 = v41 - 8;
-    do
-    {
-      if (v12)
-      {
-        v27 = v4 + v17;
-        v28 = v5;
-        v29 = v12;
-        do
-        {
-          v28->i16[0] = ~*v27;
-          v28 = (v28 + 2);
-          v27 = (v27 + v24);
-          --v29;
-        }
-
-        while (v29);
-      }
-
-      if (v19)
-      {
-        v30 = *v22;
-        if (v19 >= 2 && v30 == *v23 - 1)
-        {
-          v31 = v21;
-          v32 = v26;
-          v33 = (v19 & 0x7FFFFFFF) - 1;
-          v34 = v23;
-          v35 = v22;
-          v36 = v20;
-          do
-          {
-            v37 = v33;
-            *v35 = 0;
-            v17 -= v18[v36] * (*v34 - 1);
-            v40 = v17;
-            --v33;
-            v35 = &v31[v25 - 8];
-            v30 = *v35;
-            v31 -= 4;
-            if (v37 < 2)
-            {
-              break;
-            }
-
-            v34 = &v32[v25];
-            v38 = *&v32[4 * (v19 & 0x7FFFFFFF)] - 1;
-            v32 -= 4;
-            v36 = v33;
-          }
-
-          while (v30 == v38);
-          v39 = &v31[v25 - 4];
-        }
-
-        else
-        {
-          v33 = v20;
-          v39 = v22;
-        }
-
-        *v39 = v30 + 1;
-        v17 += v18[v33];
-        v40 = v17;
-      }
-
-      v16 += v12;
-      v5 = (v5 + 2 * v12);
-    }
-
-    while (v16 < v15);
-    if (!v21)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  else
-  {
-    v21 = __p;
-    if (!__p)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  v46 = v21;
-  operator delete(v21);
-LABEL_26:
-  if (v43)
-  {
-    v44 = v43;
-    operator delete(v43);
-  }
-
-  if (v41)
-  {
-    v42 = v41;
-    operator delete(v41);
-  }
-}
-
-void mlx::core::unary_op<unsigned int,unsigned int,mlx::core::detail::BitwiseInvert>(uint64_t **a1, uint64_t a2)
-{
-  v3 = *a1;
-  v4 = (*a1)[19];
-  v5 = *(*a2 + 152);
-  if ((*a1)[21])
-  {
-    v6 = v3[20];
-    if (v6 >= 8)
-    {
-      do
-      {
-        v8 = *v4;
-        v7 = *(v4 + 1);
-        v4 += 2;
-        *v5 = vmvnq_s8(v8);
-        v5[1] = vmvnq_s8(v7);
-        v5 += 2;
-        v6 -= 8;
-      }
-
-      while (v6 > 7);
-    }
-
-    for (; v6; --v6)
-    {
-      v9 = *v4;
-      v4 = (v4 + 4);
-      v5->i32[0] = ~v9;
-      v5 = (v5 + 4);
-    }
-
-    return;
-  }
-
-  v10 = v3[1];
-  if (v10 == *v3)
-  {
-    v12 = 1;
-    v13 = 1;
-    do
-    {
-LABEL_32:
-      v5->i32[0] = ~*v4;
-      v5 = (v5 + 4);
-      v4 = (v4 + 4 * v13);
-      --v12;
-    }
-
-    while (v12);
-    return;
-  }
-
-  v11 = v10 - *v3;
-  v12 = *(v10 - 4);
-  v13 = *(v3[4] - 8);
-  if ((v11 >> 2) <= 1)
-  {
-    if (!v12)
-    {
-      return;
-    }
-
-    goto LABEL_32;
-  }
-
-  mlx::core::ContiguousIterator::ContiguousIterator(&v40, v3, v3 + 3, (v11 >> 2) - 1);
-  v15 = (*a1)[6];
-  if (v15)
-  {
-    v16 = 0;
-    v17 = v40;
-    v18 = v43;
-    v19 = (v42 - v41) >> 2;
-    v20 = (((v42 - v41) << 30) - 0x100000000) >> 32;
-    v21 = __p;
-    v22 = __p + 4 * v20;
-    v23 = v41 + 4 * v20;
-    v24 = 4 * v13;
-    v25 = 4 * (v19 & 0x7FFFFFFF);
-    v26 = v41 - 8;
-    do
-    {
-      if (v12)
-      {
-        v27 = v4 + v17;
-        v28 = v5;
-        v29 = v12;
-        do
-        {
-          v28->i32[0] = ~*v27;
-          v28 = (v28 + 4);
-          v27 = (v27 + v24);
-          --v29;
-        }
-
-        while (v29);
-      }
-
-      if (v19)
-      {
-        v30 = *v22;
-        if (v19 >= 2 && v30 == *v23 - 1)
-        {
-          v31 = v21;
-          v32 = v26;
-          v33 = (v19 & 0x7FFFFFFF) - 1;
-          v34 = v23;
-          v35 = v22;
-          v36 = v20;
-          do
-          {
-            v37 = v33;
-            *v35 = 0;
-            v17 -= v18[v36] * (*v34 - 1);
-            v40 = v17;
-            --v33;
-            v35 = &v31[v25 - 8];
-            v30 = *v35;
-            v31 -= 4;
-            if (v37 < 2)
-            {
-              break;
-            }
-
-            v34 = &v32[v25];
-            v38 = *&v32[4 * (v19 & 0x7FFFFFFF)] - 1;
-            v32 -= 4;
-            v36 = v33;
-          }
-
-          while (v30 == v38);
-          v39 = &v31[v25 - 4];
-        }
-
-        else
-        {
-          v33 = v20;
-          v39 = v22;
-        }
-
-        *v39 = v30 + 1;
-        v17 += v18[v33];
-        v40 = v17;
-      }
-
-      v16 += v12;
-      v5 = (v5 + 4 * v12);
-    }
-
-    while (v16 < v15);
-    if (!v21)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  else
-  {
-    v21 = __p;
-    if (!__p)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  v46 = v21;
-  operator delete(v21);
-LABEL_26:
-  if (v43)
-  {
-    v44 = v43;
-    operator delete(v43);
-  }
-
-  if (v41)
-  {
-    v42 = v41;
-    operator delete(v41);
-  }
-}
-
-void mlx::core::unary_op<unsigned long long,unsigned long long,mlx::core::detail::BitwiseInvert>(uint64_t **a1, uint64_t a2)
-{
-  v3 = *a1;
-  v4 = (*a1)[19];
-  v5 = *(*a2 + 152);
-  if ((*a1)[21])
-  {
-    v6 = v3[20];
-    if (v6 >= 4)
-    {
-      do
-      {
-        v8 = *v4;
-        v7 = *(v4 + 1);
-        v4 += 2;
-        *v5 = vmvnq_s8(v8);
-        v5[1] = vmvnq_s8(v7);
-        v5 += 2;
-        v6 -= 4;
-      }
-
-      while (v6 > 3);
-    }
-
-    for (; v6; --v6)
-    {
-      v9 = *v4;
-      v4 = (v4 + 8);
-      v5->i64[0] = ~v9;
-      v5 = (v5 + 8);
-    }
-
-    return;
-  }
-
-  v10 = v3[1];
-  if (v10 == *v3)
-  {
-    v12 = 1;
-    v13 = 1;
-    do
-    {
-LABEL_32:
-      v5->i64[0] = ~*v4;
-      v5 = (v5 + 8);
-      v4 = (v4 + 8 * v13);
-      --v12;
-    }
-
-    while (v12);
-    return;
-  }
-
-  v11 = v10 - *v3;
-  v12 = *(v10 - 4);
-  v13 = *(v3[4] - 8);
-  if ((v11 >> 2) <= 1)
-  {
-    if (!v12)
-    {
-      return;
-    }
-
-    goto LABEL_32;
-  }
-
-  mlx::core::ContiguousIterator::ContiguousIterator(&v40, v3, v3 + 3, (v11 >> 2) - 1);
-  v15 = (*a1)[6];
-  if (v15)
-  {
-    v16 = 0;
-    v17 = v43;
-    v18 = v40;
-    v19 = (v42 - v41) >> 2;
-    v20 = (((v42 - v41) << 30) - 0x100000000) >> 32;
-    v21 = __p;
-    v22 = __p + 4 * v20;
-    v23 = v41 + 4 * v20;
-    v24 = 8 * v13;
-    v25 = 4 * (v19 & 0x7FFFFFFF);
-    v26 = v41 - 8;
-    do
-    {
-      if (v12)
-      {
-        v27 = v4 + v18;
-        v28 = v5;
-        v29 = v12;
-        do
-        {
-          *v28++ = ~*v27;
-          v27 = (v27 + v24);
-          --v29;
-        }
-
-        while (v29);
-      }
-
-      if (v19)
-      {
-        v30 = *v22;
-        if (v19 >= 2 && v30 == *v23 - 1)
-        {
-          v31 = v21;
-          v32 = v26;
-          v33 = (v19 & 0x7FFFFFFF) - 1;
-          v34 = v23;
-          v35 = v22;
-          v36 = v20;
-          do
-          {
-            v37 = v33;
-            *v35 = 0;
-            v18 -= v17[v36] * (*v34 - 1);
-            v40 = v18;
-            --v33;
-            v35 = &v31[v25 - 8];
-            v30 = *v35;
-            v31 -= 4;
-            if (v37 < 2)
-            {
-              break;
-            }
-
-            v34 = &v32[v25];
-            v38 = *&v32[4 * (v19 & 0x7FFFFFFF)] - 1;
-            v32 -= 4;
-            v36 = v33;
-          }
-
-          while (v30 == v38);
-          v39 = &v31[v25 - 4];
-        }
-
-        else
-        {
-          v33 = v20;
-          v39 = v22;
-        }
-
-        *v39 = v30 + 1;
-        v18 += v17[v33];
-        v40 = v18;
-      }
-
-      v16 += v12;
-      v5 = (v5 + 8 * v12);
-    }
-
-    while (v16 < v15);
-    if (!v21)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  else
-  {
-    v21 = __p;
-    if (!__p)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  v46 = v21;
-  operator delete(v21);
-LABEL_26:
-  if (v43)
-  {
-    v44 = v43;
-    operator delete(v43);
-  }
-
-  if (v41)
-  {
-    v42 = v41;
-    operator delete(v41);
-  }
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, __int128 *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A56F400(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
-{
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(v8, a2);
-}
-
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_int<mlx::core::detail::BitwiseInvert>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::BitwiseInvert,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  *a2 = 0uLL;
+  a2[1] = 0uLL;
   *(a1 + 24) = 0;
   operator new();
 }
 
-void sub_25A56F5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A56F5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  mlx::core::array::~array((v5 + 16));
+  va_start(va, a9);
+  mlx::core::array::~array((v9 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -1298,18 +83,16 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::unary_int<mlx::core
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
   v3 = *a2;
-  v4 = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  v4 = a2[1];
+  *a2 = 0uLL;
   v14 = v3;
   v15 = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
+  a2[1] = 0uLL;
   if (*(a1 + 10))
   {
     v5 = mlx::core::scheduler::scheduler(a1);
@@ -1329,12 +112,12 @@ void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core
   mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Ceil&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
 }
 
-void sub_25A56F984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A56F984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  mlx::core::array::~array((v10 + 32));
-  mlx::core::array::~array((v10 + 16));
-  mlx::core::array::~array((v9 + 16));
+  va_start(va, a16);
+  mlx::core::array::~array((v17 + 32));
+  mlx::core::array::~array((v17 + 16));
+  mlx::core::array::~array((v16 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -1344,7 +127,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Ceil&&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Ceil&&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -1359,7 +142,7 @@ void sub_25A56FA58(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Ceil&&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Ceil&&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -1392,11 +175,6 @@ void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu:
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Ceil&&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = *(a2 + 2);
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
   a2[2] = 0;
   a2[3] = 0;
   a2[4] = 0;
@@ -1471,7 +249,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail4CeilEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEEclEv(uint64_t a1)
 {
-  mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}::operator()(a1 + 24);
+  mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}::operator()((a1 + 24));
   v2 = mlx::core::scheduler::scheduler(v1);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v2);
@@ -1489,16 +267,16 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-float64_t mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t a1)
+float64_t mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t *a1)
 {
-  v1 = a1 + 16;
-  v2 = *(*(a1 + 16) + 56);
+  v1 = a1 + 2;
+  v2 = *(a1[2] + 56);
   if (v2 <= 10)
   {
     if (v2 == 9)
     {
 
-      *&result = mlx::core::unary_op<half,half,mlx::core::detail::Ceil>(a1, a1 + 16);
+      *&result = mlx::core::unary_op<half,half,mlx::core::detail::Ceil>(a1, (a1 + 2));
     }
 
     else
@@ -1508,7 +286,7 @@ float64_t mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,m
         goto LABEL_22;
       }
 
-      *&result = mlx::core::unary_op<float,float,mlx::core::detail::Ceil>(a1, a1 + 16);
+      *&result = mlx::core::unary_op<float,float,mlx::core::detail::Ceil>(a1, (a1 + 2));
     }
   }
 
@@ -1518,14 +296,14 @@ float64_t mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,m
     {
       case 11:
 
-        return mlx::core::unary_op<double,double,mlx::core::detail::Ceil>(a1, a1 + 16);
+        return mlx::core::unary_op<double,double,mlx::core::detail::Ceil>(a1, (a1 + 2));
       case 13:
 
-        *&result = mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Ceil>(a1, a1 + 16);
+        *&result = mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Ceil>(a1, (a1 + 2));
         break;
       case 12:
 
-        mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Ceil>(a1, a1 + 16);
+        mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Ceil>(a1, (a1 + 2));
         return result;
       default:
 LABEL_22:
@@ -1567,14 +345,14 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Ceil>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Ceil>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = ceilf(COERCE_FLOAT(*v4 << 16));
       *v5++ = (LODWORD(v7) + (HIWORD(LODWORD(v7)) & 1u) + 0x7FFF) >> 16;
@@ -1584,7 +362,7 @@ void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::
     return;
   }
 
-  v8 = v3[1];
+  v8 = *(v3 + 8);
   if (v8 == *v3)
   {
     v10 = 1;
@@ -1604,7 +382,7 @@ LABEL_30:
 
   v9 = v8 - *v3;
   v10 = *(v8 - 4);
-  v11 = *(v3[4] - 8);
+  v11 = *(*(v3 + 32) - 8);
   if ((v9 >> 2) <= 1)
   {
     if (!v10)
@@ -1615,8 +393,8 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v40, v3, v3 + 3, (v9 >> 2) - 1);
-  v13 = (*a1)[6];
+  mlx::core::ContiguousIterator::ContiguousIterator(&v40, v3, (v3 + 24), (v9 >> 2) - 1);
+  v13 = *(*a1 + 48);
   if (v13)
   {
     v14 = 0;
@@ -1731,14 +509,14 @@ LABEL_24:
   }
 }
 
-__int16 mlx::core::unary_op<half,half,mlx::core::detail::Ceil>@<H0>(uint64_t **a1@<X0>, uint64_t a2@<X1>)
+__int16 mlx::core::unary_op<half,half,mlx::core::detail::Ceil>@<H0>(uint64_t *a1@<X0>, uint64_t a2@<X1>)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 8)
     {
       do
@@ -1764,7 +542,7 @@ __int16 mlx::core::unary_op<half,half,mlx::core::detail::Ceil>@<H0>(uint64_t **a
     return v8.i16[0];
   }
 
-  v10 = v3[1];
+  v10 = *(v3 + 8);
   if (v10 == *v3)
   {
     v12 = 1;
@@ -1785,7 +563,7 @@ LABEL_32:
 
   v11 = v10 - *v3;
   v12 = *(v10 - 4);
-  v13 = *(v3[4] - 8);
+  v13 = *(*(v3 + 32) - 8);
   if ((v11 >> 2) <= 1)
   {
     if (!v12)
@@ -1796,8 +574,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v41, v3, v3 + 3, (v11 >> 2) - 1);
-  v15 = (*a1)[6];
+  mlx::core::ContiguousIterator::ContiguousIterator(&v41, v3, (v3 + 24), (v11 >> 2) - 1);
+  v15 = *(*a1 + 48);
   if (v15)
   {
     v16 = 0;
@@ -1915,14 +693,14 @@ LABEL_26:
   return v8.i16[0];
 }
 
-float32_t mlx::core::unary_op<float,float,mlx::core::detail::Ceil>(uint64_t **a1, uint64_t a2)
+float32_t mlx::core::unary_op<float,float,mlx::core::detail::Ceil>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 8)
     {
       do
@@ -1952,7 +730,7 @@ float32_t mlx::core::unary_op<float,float,mlx::core::detail::Ceil>(uint64_t **a1
     return v9.f32[0];
   }
 
-  v11 = v3[1];
+  v11 = *(v3 + 8);
   if (v11 == *v3)
   {
     v13 = 1;
@@ -1973,7 +751,7 @@ LABEL_32:
 
   v12 = v11 - *v3;
   v13 = *(v11 - 4);
-  v14 = *(v3[4] - 8);
+  v14 = *(*(v3 + 32) - 8);
   if ((v12 >> 2) <= 1)
   {
     if (!v13)
@@ -1984,8 +762,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v42, v3, v3 + 3, (v12 >> 2) - 1);
-  v16 = (*a1)[6];
+  mlx::core::ContiguousIterator::ContiguousIterator(&v42, v3, (v3 + 24), (v12 >> 2) - 1);
+  v16 = *(*a1 + 48);
   if (v16)
   {
     v17 = 0;
@@ -2103,14 +881,14 @@ LABEL_26:
   return v9.f32[0];
 }
 
-float64_t mlx::core::unary_op<double,double,mlx::core::detail::Ceil>(uint64_t **a1, uint64_t a2)
+float64_t mlx::core::unary_op<double,double,mlx::core::detail::Ceil>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 4)
     {
       do
@@ -2140,7 +918,7 @@ float64_t mlx::core::unary_op<double,double,mlx::core::detail::Ceil>(uint64_t **
     return v9.f64[0];
   }
 
-  v11 = v3[1];
+  v11 = *(v3 + 8);
   if (v11 == *v3)
   {
     v13 = 1;
@@ -2161,7 +939,7 @@ LABEL_32:
 
   v12 = v11 - *v3;
   v13 = *(v11 - 4);
-  v14 = *(v3[4] - 8);
+  v14 = *(*(v3 + 32) - 8);
   if ((v12 >> 2) <= 1)
   {
     if (!v13)
@@ -2172,8 +950,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v42, v3, v3 + 3, (v12 >> 2) - 1);
-  v16 = (*a1)[6];
+  mlx::core::ContiguousIterator::ContiguousIterator(&v42, v3, (v3 + 24), (v12 >> 2) - 1);
+  v16 = *(*a1 + 48);
   if (v16)
   {
     v17 = 0;
@@ -2290,14 +1068,14 @@ LABEL_26:
   return v9.f64[0];
 }
 
-float mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Ceil>(uint64_t **a1, uint64_t a2)
+float mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Ceil>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = *v4;
       v4 += 2;
@@ -2310,7 +1088,7 @@ float mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::cor
     return result;
   }
 
-  v9 = v3[1];
+  v9 = *(v3 + 8);
   if (v9 == *v3)
   {
     v11 = 1;
@@ -2333,7 +1111,7 @@ LABEL_32:
 
   v10 = v9 - *v3;
   v11 = *(v9 - 4);
-  v12 = *(v3[4] - 8);
+  v12 = *(*(v3 + 32) - 8);
   if ((v10 >> 2) <= 1)
   {
     if (!v11)
@@ -2344,8 +1122,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v36, v3, v3 + 3, (v10 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v36, v3, (v3 + 24), (v10 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v14 = 0;
     v15 = v36;
@@ -2425,7 +1203,7 @@ LABEL_32:
       v16 += 2 * v11;
     }
 
-    while (v14 < (*a1)[6]);
+    while (v14 < *(*a1 + 48));
   }
 
   if (__p)
@@ -2454,7 +1232,7 @@ void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::una
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2469,7 +1247,7 @@ void sub_25A570E5C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2502,21 +1280,16 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_fp<mlx::core::detail::Ceil>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Ceil,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  *a2 = 0uLL;
+  a2[1] = 0uLL;
   *(a1 + 24) = 0;
   operator new();
 }
 
-void sub_25A57102C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A57102C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  mlx::core::array::~array((v5 + 16));
+  va_start(va, a9);
+  mlx::core::array::~array((v9 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -2590,18 +1363,16 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core:
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
   v3 = *a2;
-  v4 = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  v4 = a2[1];
+  *a2 = 0uLL;
   v14 = v3;
   v15 = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
+  a2[1] = 0uLL;
   if (*(a1 + 10))
   {
     v5 = mlx::core::scheduler::scheduler(a1);
@@ -2621,12 +1392,12 @@ void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_complex<mlx:
   mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Conjugate&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
 }
 
-void sub_25A5713E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A5713E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  mlx::core::array::~array((v10 + 32));
-  mlx::core::array::~array((v10 + 16));
-  mlx::core::array::~array((v9 + 16));
+  va_start(va, a16);
+  mlx::core::array::~array((v17 + 32));
+  mlx::core::array::~array((v17 + 16));
+  mlx::core::array::~array((v16 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -2636,7 +1407,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Conjugate&&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Conjugate&&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2651,7 +1422,7 @@ void sub_25A5714B4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Conjugate&&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Conjugate&&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2684,11 +1455,6 @@ void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu:
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Conjugate&&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = *(a2 + 2);
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
   a2[2] = 0;
   a2[3] = 0;
   a2[4] = 0;
@@ -2781,14 +1547,14 @@ void std::__invoke_void_return_wrapper<void,true>::__call[abi:ne200100]<void mlx
   mlx::core::scheduler::Scheduler::notify_task_completion(v2);
 }
 
-float mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Conjugate>(uint64_t **a1, uint64_t a2)
+float mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Conjugate>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       result = *v4;
       v8 = v4[1];
@@ -2801,7 +1567,7 @@ float mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::cor
     return result;
   }
 
-  v9 = v3[1];
+  v9 = *(v3 + 8);
   if (v9 == *v3)
   {
     v11 = 1;
@@ -2826,7 +1592,7 @@ LABEL_32:
 
   v10 = v9 - *v3;
   v11 = *(v9 - 4);
-  v12 = *(v3[4] - 8);
+  v12 = *(*(v3 + 32) - 8);
   if ((v10 >> 2) <= 1)
   {
     if (!v11)
@@ -2837,8 +1603,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v39, v3, v3 + 3, (v10 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v39, v3, (v3 + 24), (v10 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v14 = 0;
     v15 = v39;
@@ -2919,7 +1685,7 @@ LABEL_32:
       v16 += 2 * v11;
     }
 
-    while (v14 < (*a1)[6]);
+    while (v14 < *(*a1 + 48));
   }
 
   if (__p)
@@ -2948,7 +1714,7 @@ void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::una
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2963,7 +1729,7 @@ void sub_25A571C60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2996,21 +1762,16 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_complex<mlx::core::detail::Conjugate>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Conjugate,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  *a2 = 0uLL;
+  a2[1] = 0uLL;
   *(a1 + 24) = 0;
   operator new();
 }
 
-void sub_25A571E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A571E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  mlx::core::array::~array((v5 + 16));
+  va_start(va, a9);
+  mlx::core::array::~array((v9 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -3084,18 +1845,16 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::unary_complex<mlx::
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
   v3 = *a2;
-  v4 = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  v4 = a2[1];
+  *a2 = 0uLL;
   v14 = v3;
   v15 = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
+  a2[1] = 0uLL;
   if (*(a1 + 10))
   {
     v5 = mlx::core::scheduler::scheduler(a1);
@@ -3115,12 +1874,12 @@ void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core
   mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cos&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
 }
 
-void sub_25A5721EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A5721EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  mlx::core::array::~array((v10 + 32));
-  mlx::core::array::~array((v10 + 16));
-  mlx::core::array::~array((v9 + 16));
+  va_start(va, a16);
+  mlx::core::array::~array((v17 + 32));
+  mlx::core::array::~array((v17 + 16));
+  mlx::core::array::~array((v16 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -3130,7 +1889,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cos&&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cos&&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -3145,7 +1904,7 @@ void sub_25A5722C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cos&&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cos&&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -3178,11 +1937,6 @@ void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu:
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cos&&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = *(a2 + 2);
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
   a2[2] = 0;
   a2[3] = 0;
   a2[4] = 0;
@@ -3257,7 +2011,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail3CosEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEEclEv(uint64_t a1, __n128 a2)
 {
-  mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}::operator()(a1 + 24, a2);
+  mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}::operator()((a1 + 24), a2);
   v3 = mlx::core::scheduler::scheduler(v2);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v3);
@@ -3275,16 +2029,16 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t a1, __n128 a2)
+void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t *a1, __n128 a2)
 {
-  v2 = a1 + 16;
-  v3 = *(*(a1 + 16) + 56);
+  v2 = a1 + 2;
+  v3 = *(a1[2] + 56);
   if (v3 <= 10)
   {
     if (v3 == 9)
     {
 
-      mlx::core::unary_op<half,half,mlx::core::detail::Cos>(a1, a1 + 16, a2);
+      mlx::core::unary_op<half,half,mlx::core::detail::Cos>(a1, (a1 + 2), a2);
     }
 
     else
@@ -3294,7 +2048,7 @@ void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::co
         goto LABEL_22;
       }
 
-      mlx::core::unary_op<float,float,mlx::core::detail::Cos>(a1, a1 + 16);
+      mlx::core::unary_op<float,float,mlx::core::detail::Cos>(a1, (a1 + 2));
     }
   }
 
@@ -3304,15 +2058,15 @@ void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::co
     {
       case 11:
 
-        mlx::core::unary_op<double,double,mlx::core::detail::Cos>(a1, a1 + 16);
+        mlx::core::unary_op<double,double,mlx::core::detail::Cos>(a1, (a1 + 2));
         break;
       case 13:
 
-        mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cos>(a1, a1 + 16);
+        mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cos>(a1, (a1 + 2));
         break;
       case 12:
 
-        mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Cos>(a1, a1 + 16);
+        mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Cos>(a1, (a1 + 2));
         return;
       default:
 LABEL_22:
@@ -3352,14 +2106,14 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Cos>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Cos>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = *v4++;
       *v5++ = mlx::core::simd::sincos<false,mlx::core::_MLX_BFloat16,1>(v7);
@@ -3368,7 +2122,7 @@ void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::
     return;
   }
 
-  v8 = v3[1];
+  v8 = *(v3 + 8);
   if (v8 == *v3)
   {
     v10 = 1;
@@ -3387,7 +2141,7 @@ LABEL_32:
 
   v9 = v8 - *v3;
   v10 = *(v8 - 4);
-  v11 = *(v3[4] - 8);
+  v11 = *(*(v3 + 32) - 8);
   if ((v9 >> 2) <= 1)
   {
     if (!v10)
@@ -3398,8 +2152,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v34, v3, v3 + 3, (v9 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v34, v3, (v3 + 24), (v9 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v13 = 0;
     v14 = 2 * v11;
@@ -3475,7 +2229,7 @@ LABEL_32:
       v5 += v10;
     }
 
-    while (v13 < (*a1)[6]);
+    while (v13 < *(*a1 + 48));
   }
 
   if (__p)
@@ -3497,14 +2251,14 @@ LABEL_32:
   }
 }
 
-void mlx::core::unary_op<half,half,mlx::core::detail::Cos>(uint64_t **a1, uint64_t a2, __n128 a3)
+void mlx::core::unary_op<half,half,mlx::core::detail::Cos>(uint64_t *a1, uint64_t a2, __n128 a3)
 {
   v4 = *a1;
-  v5 = (*a1)[19];
+  v5 = *(*a1 + 152);
   v6 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v7 = v4[20];
+    v7 = *(v4 + 160);
     if (v7 >= 8)
     {
       do
@@ -3530,7 +2284,7 @@ void mlx::core::unary_op<half,half,mlx::core::detail::Cos>(uint64_t **a1, uint64
     return;
   }
 
-  v10 = v4[1];
+  v10 = *(v4 + 8);
   if (v10 == *v4)
   {
     v12 = 1;
@@ -3551,7 +2305,7 @@ LABEL_34:
 
   v11 = v10 - *v4;
   v12 = *(v10 - 4);
-  v13 = *(v4[4] - 8);
+  v13 = *(*(v4 + 32) - 8);
   if ((v11 >> 2) <= 1)
   {
     if (!v12)
@@ -3562,8 +2316,8 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v37, v4, v4 + 3, (v11 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v37, v4, (v4 + 24), (v11 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v16 = 0;
     v17 = 2 * v13;
@@ -3641,7 +2395,7 @@ LABEL_34:
       v6 = (v6 + 2 * v12);
     }
 
-    while (v16 < (*a1)[6]);
+    while (v16 < *(*a1 + 48));
   }
 
   if (__p)
@@ -3663,21 +2417,21 @@ LABEL_34:
   }
 }
 
-void mlx::core::unary_op<float,float,mlx::core::detail::Cos>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<float,float,mlx::core::detail::Cos>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 8)
     {
       do
       {
         v7 = *v4;
-        v8 = *(v4 + 16);
-        v4 += 32;
+        v8 = v4[1];
+        v4 += 2;
         *v37 = v7;
         v38 = v8;
         mlx::core::simd::sincos<false,float,8>(v37, v43);
@@ -3694,7 +2448,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::Cos>(uint64_t **a1, uint
     for (; v6; --v6)
     {
       v10 = *v4;
-      v4 += 4;
+      v4 = (v4 + 4);
       *v5 = mlx::core::simd::sincos<false,float,1>(v10);
       v5 += 4;
     }
@@ -3702,7 +2456,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::Cos>(uint64_t **a1, uint
     return;
   }
 
-  v11 = v3[1];
+  v11 = *(v3 + 8);
   if (v11 == *v3)
   {
     v13 = 1;
@@ -3712,7 +2466,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::Cos>(uint64_t **a1, uint
 LABEL_34:
       *v5 = mlx::core::simd::sincos<false,float,1>(*v4);
       v5 += 4;
-      v4 += 4 * v14;
+      v4 = (v4 + 4 * v14);
       --v13;
     }
 
@@ -3722,7 +2476,7 @@ LABEL_34:
 
   v12 = v11 - *v3;
   v13 = *(v11 - 4);
-  v14 = *(v3[4] - 8);
+  v14 = *(*(v3 + 32) - 8);
   if ((v12 >> 2) <= 1)
   {
     if (!v13)
@@ -3733,8 +2487,8 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(v37, v3, v3 + 3, (v12 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(v37, v3, (v3 + 24), (v12 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v16 = 0;
     v17 = 4 * v14;
@@ -3742,7 +2496,7 @@ LABEL_34:
     {
       if (v13)
       {
-        v18 = (v4 + 4 * v37[0]);
+        v18 = v4 + v37[0];
         v19 = v5;
         v20 = v13;
         do
@@ -3810,7 +2564,7 @@ LABEL_34:
       v5 += 4 * v13;
     }
 
-    while (v16 < (*a1)[6]);
+    while (v16 < *(*a1 + 48));
   }
 
   if (__p)
@@ -3832,21 +2586,21 @@ LABEL_34:
   }
 }
 
-void mlx::core::unary_op<double,double,mlx::core::detail::Cos>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<double,double,mlx::core::detail::Cos>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 4)
     {
       do
       {
         v7 = *v4;
-        v8 = *(v4 + 16);
-        v4 += 32;
+        v8 = v4[1];
+        v4 += 2;
         *v37 = v7;
         v38 = v8;
         mlx::core::simd::sincos<false,double,4>(v37, v43);
@@ -3863,7 +2617,7 @@ void mlx::core::unary_op<double,double,mlx::core::detail::Cos>(uint64_t **a1, ui
     for (; v6; --v6)
     {
       v10 = *v4;
-      v4 += 8;
+      v4 = (v4 + 8);
       v5->f64[0] = mlx::core::simd::sincos<false,double,1>(v10);
       v5 = (v5 + 8);
     }
@@ -3871,7 +2625,7 @@ void mlx::core::unary_op<double,double,mlx::core::detail::Cos>(uint64_t **a1, ui
     return;
   }
 
-  v11 = v3[1];
+  v11 = *(v3 + 8);
   if (v11 == *v3)
   {
     v13 = 1;
@@ -3881,7 +2635,7 @@ void mlx::core::unary_op<double,double,mlx::core::detail::Cos>(uint64_t **a1, ui
 LABEL_34:
       v5->f64[0] = mlx::core::simd::sincos<false,double,1>(*v4);
       v5 = (v5 + 8);
-      v4 += 8 * v14;
+      v4 = (v4 + 8 * v14);
       --v13;
     }
 
@@ -3891,7 +2645,7 @@ LABEL_34:
 
   v12 = v11 - *v3;
   v13 = *(v11 - 4);
-  v14 = *(v3[4] - 8);
+  v14 = *(*(v3 + 32) - 8);
   if ((v12 >> 2) <= 1)
   {
     if (!v13)
@@ -3902,8 +2656,8 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(v37, v3, v3 + 3, (v12 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(v37, v3, (v3 + 24), (v12 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v16 = 0;
     v17 = 8 * v14;
@@ -3911,7 +2665,7 @@ LABEL_34:
     {
       if (v13)
       {
-        v18 = (v4 + 8 * v37[0]);
+        v18 = v4 + v37[0];
         v19 = v5;
         v20 = v13;
         do
@@ -3979,7 +2733,7 @@ LABEL_34:
       v5 = (v5 + 8 * v13);
     }
 
-    while (v16 < (*a1)[6]);
+    while (v16 < *(*a1 + 48));
   }
 
   if (__p)
@@ -4001,20 +2755,20 @@ LABEL_34:
   }
 }
 
-void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cos>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cos>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = *v4;
-      v8 = *(v4 + 4);
-      v4 += 8;
+      v8 = v4[1];
+      v4 += 2;
       *&v33 = -v8;
-      HIDWORD(v33) = v7;
+      *(&v33 + 1) = v7;
       *v5 = std::cosh[abi:ne200100]<float>(&v33);
       *(v5 + 4) = v9;
       v5 += 8;
@@ -4023,7 +2777,7 @@ void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core
     return;
   }
 
-  v10 = v3[1];
+  v10 = *(v3 + 8);
   if (v10 == *v3)
   {
     v13 = 1;
@@ -4034,16 +2788,16 @@ void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core
   {
     v11 = v10 - *v3;
     v12 = *(v10 - 4);
-    v13 = *(v3[4] - 8);
+    v13 = *(*(v3 + 32) - 8);
     if ((v11 >> 2) > 1)
     {
-      mlx::core::ContiguousIterator::ContiguousIterator(&v33, v3, v3 + 3, (v11 >> 2) - 1);
-      if ((*a1)[6])
+      mlx::core::ContiguousIterator::ContiguousIterator(&v33, v3, (v3 + 24), (v11 >> 2) - 1);
+      if (*(*a1 + 48))
       {
         v15 = 0;
         do
         {
-          mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cos>(v4 + 8 * v33, v5 + 8 * v15, v12, v13);
+          mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cos>(&v4[2 * v33], v5 + 8 * v15, v12, v13);
           v16 = v35 - v34;
           v17 = (v35 - v34) >> 2;
           if (v17)
@@ -4098,7 +2852,7 @@ void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core
           v15 += v12;
         }
 
-        while (v15 < (*a1)[6]);
+        while (v15 < *(*a1 + 48));
       }
 
       if (__p)
@@ -4123,7 +2877,7 @@ void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core
     }
   }
 
-  v32 = (*a1)[19];
+  v32 = *(*a1 + 152);
 
   mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cos>(v32, v5, v12, v13);
 }
@@ -4460,24 +3214,18 @@ float std::cosh[abi:ne200100]<float>(float *a1)
     v3 = 1.0;
     if (v4 == 0.0)
     {
-      v5 = *(a1 + 1);
       return v3;
     }
   }
 
   if ((LODWORD(v1) & 0x7FFFFFFFu) >= 0x7F800000 && v4 == 0.0)
   {
-    v6 = *(a1 + 1);
     return v2;
   }
 
-  else
-  {
-    v7 = coshf(*a1);
-    v3 = v7 * __sincosf_stret(v4).__cosval;
-    sinhf(v1);
-  }
-
+  v5 = coshf(*a1);
+  v3 = v5 * __sincosf_stret(v4).__cosval;
+  sinhf(v1);
   return v3;
 }
 
@@ -4486,7 +3234,7 @@ void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::una
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -4501,7 +3249,7 @@ void sub_25A573FF4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -4534,21 +3282,16 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cos>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cos,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  *a2 = 0uLL;
+  a2[1] = 0uLL;
   *(a1 + 24) = 0;
   operator new();
 }
 
-void sub_25A5741C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A5741C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  mlx::core::array::~array((v5 + 16));
+  va_start(va, a9);
+  mlx::core::array::~array((v9 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -4622,18 +3365,16 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core:
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
   v3 = *a2;
-  v4 = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  v4 = a2[1];
+  *a2 = 0uLL;
   v14 = v3;
   v15 = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
+  a2[1] = 0uLL;
   if (*(a1 + 10))
   {
     v5 = mlx::core::scheduler::scheduler(a1);
@@ -4653,12 +3394,12 @@ void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core
   mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cosh&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
 }
 
-void sub_25A574578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A574578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  mlx::core::array::~array((v10 + 32));
-  mlx::core::array::~array((v10 + 16));
-  mlx::core::array::~array((v9 + 16));
+  va_start(va, a16);
+  mlx::core::array::~array((v17 + 32));
+  mlx::core::array::~array((v17 + 16));
+  mlx::core::array::~array((v16 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -4668,7 +3409,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cosh&&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cosh&&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -4683,7 +3424,7 @@ void sub_25A57464C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cosh&&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cosh&&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -4716,11 +3457,6 @@ void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu:
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Cosh&&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = *(a2 + 2);
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
   a2[2] = 0;
   a2[3] = 0;
   a2[4] = 0;
@@ -4795,7 +3531,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail4CoshEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEEclEv(uint64_t a1)
 {
-  mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}::operator()(a1 + 24);
+  mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}::operator()((a1 + 24));
   v2 = mlx::core::scheduler::scheduler(v1);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v2);
@@ -4813,16 +3549,16 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-double mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t a1)
+double mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t *a1)
 {
-  v1 = a1 + 16;
-  v2 = *(*(a1 + 16) + 56);
+  v1 = a1 + 2;
+  v2 = *(a1[2] + 56);
   if (v2 <= 10)
   {
     if (v2 == 9)
     {
 
-      *&result = mlx::core::unary_op<half,half,mlx::core::detail::Cosh>(a1, a1 + 16);
+      *&result = mlx::core::unary_op<half,half,mlx::core::detail::Cosh>(a1, (a1 + 2));
     }
 
     else
@@ -4832,7 +3568,7 @@ double mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx:
         goto LABEL_22;
       }
 
-      mlx::core::unary_op<float,float,mlx::core::detail::Cosh>(a1, a1 + 16);
+      mlx::core::unary_op<float,float,mlx::core::detail::Cosh>(a1, (a1 + 2));
     }
   }
 
@@ -4842,15 +3578,15 @@ double mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx:
     {
       case 11:
 
-        mlx::core::unary_op<double,double,mlx::core::detail::Cosh>(a1, a1 + 16);
+        mlx::core::unary_op<double,double,mlx::core::detail::Cosh>(a1, (a1 + 2));
         break;
       case 13:
 
-        mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cosh>(a1, a1 + 16);
+        mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cosh>(a1, (a1 + 2));
         break;
       case 12:
 
-        mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Cosh>(a1, a1 + 16);
+        mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Cosh>(a1, (a1 + 2));
         return result;
       default:
 LABEL_22:
@@ -4892,14 +3628,14 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Cosh>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Cosh>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = coshf(COERCE_FLOAT(*v4 << 16));
       *v5++ = (LODWORD(v7) + (HIWORD(LODWORD(v7)) & 1u) + 0x7FFF) >> 16;
@@ -4909,7 +3645,7 @@ void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::
     return;
   }
 
-  v8 = v3[1];
+  v8 = *(v3 + 8);
   if (v8 == *v3)
   {
     v10 = 1;
@@ -4929,7 +3665,7 @@ LABEL_31:
 
   v9 = v8 - *v3;
   v10 = *(v8 - 4);
-  v11 = *(v3[4] - 8);
+  v11 = *(*(v3 + 32) - 8);
   if ((v9 >> 2) <= 1)
   {
     if (!v10)
@@ -4940,8 +3676,8 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v46, v3, v3 + 3, (v9 >> 2) - 1);
-  v43 = (*a1)[6];
+  mlx::core::ContiguousIterator::ContiguousIterator(&v46, v3, (v3 + 24), (v9 >> 2) - 1);
+  v43 = *(*a1 + 48);
   if (v43)
   {
     v13 = 0;
@@ -5067,14 +3803,14 @@ LABEL_25:
   }
 }
 
-__int16 mlx::core::unary_op<half,half,mlx::core::detail::Cosh>@<H0>(uint64_t **a1@<X0>, uint64_t a2@<X1>)
+__int16 mlx::core::unary_op<half,half,mlx::core::detail::Cosh>@<H0>(uint64_t *a1@<X0>, uint64_t a2@<X1>)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 8)
     {
       do
@@ -5106,7 +3842,7 @@ __int16 mlx::core::unary_op<half,half,mlx::core::detail::Cosh>@<H0>(uint64_t **a
     return _Q0.i16[0];
   }
 
-  v16 = v3[1];
+  v16 = *(v3 + 8);
   if (v16 == *v3)
   {
     v18 = 1;
@@ -5132,7 +3868,7 @@ LABEL_33:
 
   v17 = v16 - *v3;
   v18 = *(v16 - 4);
-  v19 = *(v3[4] - 8);
+  v19 = *(*(v3 + 32) - 8);
   if ((v17 >> 2) <= 1)
   {
     if (!v18)
@@ -5143,8 +3879,8 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v58, v3, v3 + 3, (v17 >> 2) - 1);
-  v54 = (*a1)[6];
+  mlx::core::ContiguousIterator::ContiguousIterator(&v58, v3, (v3 + 24), (v17 >> 2) - 1);
+  v54 = *(*a1 + 48);
   if (v54)
   {
     v21 = 0;
@@ -5278,14 +4014,14 @@ LABEL_27:
   return _Q0.i16[0];
 }
 
-void mlx::core::unary_op<float,float,mlx::core::detail::Cosh>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<float,float,mlx::core::detail::Cosh>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 8)
     {
       do
@@ -5315,7 +4051,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::Cosh>(uint64_t **a1, uin
     return;
   }
 
-  v10 = v3[1];
+  v10 = *(v3 + 8);
   if (v10 == *v3)
   {
     v12 = 1;
@@ -5335,7 +4071,7 @@ LABEL_33:
 
   v11 = v10 - *v3;
   v12 = *(v10 - 4);
-  v13 = *(v3[4] - 8);
+  v13 = *(*(v3 + 32) - 8);
   if ((v11 >> 2) <= 1)
   {
     if (!v12)
@@ -5346,8 +4082,8 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v48, v3, v3 + 3, (v11 >> 2) - 1);
-  v43 = (*a1)[6];
+  mlx::core::ContiguousIterator::ContiguousIterator(&v48, v3, (v3 + 24), (v11 >> 2) - 1);
+  v43 = *(*a1 + 48);
   if (v43)
   {
     v15 = 0;
@@ -5472,14 +4208,14 @@ LABEL_27:
   }
 }
 
-void mlx::core::unary_op<double,double,mlx::core::detail::Cosh>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<double,double,mlx::core::detail::Cosh>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 4)
     {
       do
@@ -5509,7 +4245,7 @@ void mlx::core::unary_op<double,double,mlx::core::detail::Cosh>(uint64_t **a1, u
     return;
   }
 
-  v10 = v3[1];
+  v10 = *(v3 + 8);
   if (v10 == *v3)
   {
     v12 = 1;
@@ -5529,7 +4265,7 @@ LABEL_33:
 
   v11 = v10 - *v3;
   v12 = *(v10 - 4);
-  v13 = *(v3[4] - 8);
+  v13 = *(*(v3 + 32) - 8);
   if ((v11 >> 2) <= 1)
   {
     if (!v12)
@@ -5540,8 +4276,8 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v48, v3, v3 + 3, (v11 >> 2) - 1);
-  v43 = (*a1)[6];
+  mlx::core::ContiguousIterator::ContiguousIterator(&v48, v3, (v3 + 24), (v11 >> 2) - 1);
+  v43 = *(*a1 + 48);
   if (v43)
   {
     v15 = 0;
@@ -5666,14 +4402,14 @@ LABEL_27:
   }
 }
 
-void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cosh>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Cosh>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = *v4++;
       v39 = v7;
@@ -5685,7 +4421,7 @@ void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core
     return;
   }
 
-  v9 = v3[1];
+  v9 = *(v3 + 8);
   if (v9 == *v3)
   {
     v11 = 1;
@@ -5708,7 +4444,7 @@ LABEL_32:
 
   v10 = v9 - *v3;
   v11 = *(v9 - 4);
-  v12 = *(v3[4] - 8);
+  v12 = *(*(v3 + 32) - 8);
   if ((v10 >> 2) <= 1)
   {
     if (!v11)
@@ -5719,8 +4455,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v39, v3, v3 + 3, (v10 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v39, v3, (v3 + 24), (v10 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v14 = 0;
     v15 = 8 * v12;
@@ -5800,7 +4536,7 @@ LABEL_32:
       v16 += 2 * v11;
     }
 
-    while (v14 < (*a1)[6]);
+    while (v14 < *(*a1 + 48));
   }
 
   if (__p)
@@ -5827,7 +4563,7 @@ void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::una
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -5842,7 +4578,7 @@ void sub_25A575C04(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -5875,21 +4611,16 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_fp<mlx::core::detail::Cosh>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Cosh,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  *a2 = 0uLL;
+  a2[1] = 0uLL;
   *(a1 + 24) = 0;
   operator new();
 }
 
-void sub_25A575DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A575DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  mlx::core::array::~array((v5 + 16));
+  va_start(va, a9);
+  mlx::core::array::~array((v9 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -5963,18 +4694,16 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core:
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
   v3 = *a2;
-  v4 = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  v4 = a2[1];
+  *a2 = 0uLL;
   v14 = v3;
   v15 = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
+  a2[1] = 0uLL;
   if (*(a1 + 10))
   {
     v5 = mlx::core::scheduler::scheduler(a1);
@@ -5994,12 +4723,12 @@ void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx:
   mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Erf&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
 }
 
-void sub_25A576188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A576188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  mlx::core::array::~array((v10 + 32));
-  mlx::core::array::~array((v10 + 16));
-  mlx::core::array::~array((v9 + 16));
+  va_start(va, a16);
+  mlx::core::array::~array((v17 + 32));
+  mlx::core::array::~array((v17 + 16));
+  mlx::core::array::~array((v16 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -6009,7 +4738,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Erf&&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Erf&&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -6024,7 +4753,7 @@ void sub_25A57625C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Erf&&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Erf&&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -6057,11 +4786,6 @@ void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu:
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Erf&&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = *(a2 + 2);
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
   a2[2] = 0;
   a2[3] = 0;
   a2[4] = 0;
@@ -6136,7 +4860,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_13unary_real_fpINS3_6detail3ErfEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEEclEv(uint64_t a1, __n128 a2)
 {
-  mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}::operator()(a1 + 24, a2);
+  mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}::operator()((a1 + 24), a2);
   v3 = mlx::core::scheduler::scheduler(v2);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v3);
@@ -6154,16 +4878,16 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t a1, __n128 a2)
+void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t *a1, __n128 a2)
 {
-  v2 = a1 + 16;
-  v3 = *(*(a1 + 16) + 56);
+  v2 = a1 + 2;
+  v3 = *(a1[2] + 56);
   if (v3 > 10)
   {
     if (v3 == 11)
     {
 
-      mlx::core::unary_op<double,double,mlx::core::detail::Erf>(a1, a1 + 16);
+      mlx::core::unary_op<double,double,mlx::core::detail::Erf>(a1, (a1 + 2));
     }
 
     else
@@ -6173,7 +4897,7 @@ void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,ml
         goto LABEL_18;
       }
 
-      mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Erf>(a1, a1 + 16);
+      mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Erf>(a1, (a1 + 2));
     }
   }
 
@@ -6184,7 +4908,7 @@ void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,ml
       if (v3 == 10)
       {
 
-        mlx::core::unary_op<float,float,mlx::core::detail::Erf>(a1, a1 + 16);
+        mlx::core::unary_op<float,float,mlx::core::detail::Erf>(a1, (a1 + 2));
         return;
       }
 
@@ -6201,7 +4925,7 @@ LABEL_18:
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    mlx::core::unary_op<half,half,mlx::core::detail::Erf>(a1, a1 + 16, a2);
+    mlx::core::unary_op<half,half,mlx::core::detail::Erf>(a1, (a1 + 2), a2);
   }
 }
 
@@ -6227,14 +4951,14 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Erf>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Erf>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = *v4++;
       *v5++ = mlx::core::simd::erf<mlx::core::_MLX_BFloat16,1>(v7);
@@ -6243,7 +4967,7 @@ void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::
     return;
   }
 
-  v8 = v3[1];
+  v8 = *(v3 + 8);
   if (v8 == *v3)
   {
     v10 = 1;
@@ -6262,7 +4986,7 @@ LABEL_32:
 
   v9 = v8 - *v3;
   v10 = *(v8 - 4);
-  v11 = *(v3[4] - 8);
+  v11 = *(*(v3 + 32) - 8);
   if ((v9 >> 2) <= 1)
   {
     if (!v10)
@@ -6273,8 +4997,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v34, v3, v3 + 3, (v9 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v34, v3, (v3 + 24), (v9 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v13 = 0;
     v14 = 2 * v11;
@@ -6350,7 +5074,7 @@ LABEL_32:
       v5 += v10;
     }
 
-    while (v13 < (*a1)[6]);
+    while (v13 < *(*a1 + 48));
   }
 
   if (__p)
@@ -6372,14 +5096,14 @@ LABEL_32:
   }
 }
 
-void mlx::core::unary_op<half,half,mlx::core::detail::Erf>(uint64_t **a1, uint64_t a2, __n128 a3)
+void mlx::core::unary_op<half,half,mlx::core::detail::Erf>(uint64_t *a1, uint64_t a2, __n128 a3)
 {
   v4 = *a1;
-  v5 = (*a1)[19];
+  v5 = *(*a1 + 152);
   v6 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v7 = v4[20];
+    v7 = *(v4 + 160);
     if (v7 >= 8)
     {
       do
@@ -6406,7 +5130,7 @@ void mlx::core::unary_op<half,half,mlx::core::detail::Erf>(uint64_t **a1, uint64
     return;
   }
 
-  v10 = v4[1];
+  v10 = *(v4 + 8);
   if (v10 == *v4)
   {
     v12 = 1;
@@ -6428,7 +5152,7 @@ LABEL_34:
 
   v11 = v10 - *v4;
   v12 = *(v10 - 4);
-  v13 = *(v4[4] - 8);
+  v13 = *(*(v4 + 32) - 8);
   if ((v11 >> 2) <= 1)
   {
     if (!v12)
@@ -6439,8 +5163,8 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v37, v4, v4 + 3, (v11 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v37, v4, (v4 + 24), (v11 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v16 = 0;
     v17 = 2 * v13;
@@ -6519,7 +5243,7 @@ LABEL_34:
       v6 = (v6 + 2 * v12);
     }
 
-    while (v16 < (*a1)[6]);
+    while (v16 < *(*a1 + 48));
   }
 
   if (__p)
@@ -6541,21 +5265,21 @@ LABEL_34:
   }
 }
 
-void mlx::core::unary_op<float,float,mlx::core::detail::Erf>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<float,float,mlx::core::detail::Erf>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 8)
     {
       do
       {
         v7 = *v4;
-        v8 = *(v4 + 16);
-        v4 += 32;
+        v8 = v4[1];
+        v4 += 2;
         *v40 = v7;
         v41 = v8;
         mlx::core::simd::erf<float,8>(v40, v46);
@@ -6572,7 +5296,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::Erf>(uint64_t **a1, uint
     for (; v6; --v6)
     {
       v10 = *v4;
-      v4 += 4;
+      v4 = (v4 + 4);
       mlx::core::simd::erf<float,1>(v10);
       v5->i32[0] = v11;
       v5 = (v5 + 4);
@@ -6581,7 +5305,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::Erf>(uint64_t **a1, uint
     return;
   }
 
-  v12 = v3[1];
+  v12 = *(v3 + 8);
   if (v12 == *v3)
   {
     v14 = 1;
@@ -6592,7 +5316,7 @@ LABEL_34:
       mlx::core::simd::erf<float,1>(*v4);
       v5->i32[0] = v39;
       v5 = (v5 + 4);
-      v4 += 4 * v15;
+      v4 = (v4 + 4 * v15);
       --v14;
     }
 
@@ -6602,7 +5326,7 @@ LABEL_34:
 
   v13 = v12 - *v3;
   v14 = *(v12 - 4);
-  v15 = *(v3[4] - 8);
+  v15 = *(*(v3 + 32) - 8);
   if ((v13 >> 2) <= 1)
   {
     if (!v14)
@@ -6613,8 +5337,8 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(v40, v3, v3 + 3, (v13 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(v40, v3, (v3 + 24), (v13 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v17 = 0;
     v18 = 4 * v15;
@@ -6622,7 +5346,7 @@ LABEL_34:
     {
       if (v14)
       {
-        v19 = (v4 + 4 * v40[0]);
+        v19 = v4 + v40[0];
         v20 = v5;
         v21 = v14;
         do
@@ -6692,7 +5416,7 @@ LABEL_34:
       v5 = (v5 + 4 * v14);
     }
 
-    while (v17 < (*a1)[6]);
+    while (v17 < *(*a1 + 48));
   }
 
   if (__p)
@@ -6714,21 +5438,21 @@ LABEL_34:
   }
 }
 
-void mlx::core::unary_op<double,double,mlx::core::detail::Erf>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<double,double,mlx::core::detail::Erf>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 4)
     {
       do
       {
         v7 = *v4;
-        v8 = *(v4 + 16);
-        v4 += 32;
+        v8 = v4[1];
+        v4 += 2;
         *v40 = v7;
         v41 = v8;
         mlx::core::simd::erf<double,4>(v40, v46);
@@ -6745,7 +5469,7 @@ void mlx::core::unary_op<double,double,mlx::core::detail::Erf>(uint64_t **a1, ui
     for (; v6; --v6)
     {
       v10 = *v4;
-      v4 += 8;
+      v4 = (v4 + 8);
       mlx::core::simd::erf<double,1>(v10);
       v5->i64[0] = v11;
       v5 = (v5 + 8);
@@ -6754,7 +5478,7 @@ void mlx::core::unary_op<double,double,mlx::core::detail::Erf>(uint64_t **a1, ui
     return;
   }
 
-  v12 = v3[1];
+  v12 = *(v3 + 8);
   if (v12 == *v3)
   {
     v14 = 1;
@@ -6765,7 +5489,7 @@ LABEL_34:
       mlx::core::simd::erf<double,1>(*v4);
       v5->i64[0] = v39;
       v5 = (v5 + 8);
-      v4 += 8 * v15;
+      v4 = (v4 + 8 * v15);
       --v14;
     }
 
@@ -6775,7 +5499,7 @@ LABEL_34:
 
   v13 = v12 - *v3;
   v14 = *(v12 - 4);
-  v15 = *(v3[4] - 8);
+  v15 = *(*(v3 + 32) - 8);
   if ((v13 >> 2) <= 1)
   {
     if (!v14)
@@ -6786,8 +5510,8 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(v40, v3, v3 + 3, (v13 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(v40, v3, (v3 + 24), (v13 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v17 = 0;
     v18 = 8 * v15;
@@ -6795,7 +5519,7 @@ LABEL_34:
     {
       if (v14)
       {
-        v19 = (v4 + 8 * v40[0]);
+        v19 = v4 + v40[0];
         v20 = v5;
         v21 = v14;
         do
@@ -6864,7 +5588,7 @@ LABEL_34:
       v5 = (v5 + 8 * v14);
     }
 
-    while (v17 < (*a1)[6]);
+    while (v17 < *(*a1 + 48));
   }
 
   if (__p)
@@ -7099,7 +5823,7 @@ void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::una
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -7114,7 +5838,7 @@ void sub_25A577C04(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -7147,21 +5871,16 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::Erf>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Erf,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  *a2 = 0uLL;
+  a2[1] = 0uLL;
   *(a1 + 24) = 0;
   operator new();
 }
 
-void sub_25A577DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A577DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  mlx::core::array::~array((v5 + 16));
+  va_start(va, a9);
+  mlx::core::array::~array((v9 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -7235,18 +5954,16 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::unary_real_fp<mlx::
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
   v3 = *a2;
-  v4 = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  v4 = a2[1];
+  *a2 = 0uLL;
   v14 = v3;
   v15 = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
+  a2[1] = 0uLL;
   if (*(a1 + 10))
   {
     v5 = mlx::core::scheduler::scheduler(a1);
@@ -7266,12 +5983,12 @@ void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx:
   mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::ErfInv&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
 }
 
-void sub_25A578188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A578188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  mlx::core::array::~array((v10 + 32));
-  mlx::core::array::~array((v10 + 16));
-  mlx::core::array::~array((v9 + 16));
+  va_start(va, a16);
+  mlx::core::array::~array((v17 + 32));
+  mlx::core::array::~array((v17 + 16));
+  mlx::core::array::~array((v16 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -7281,7 +5998,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::ErfInv&&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::ErfInv&&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -7296,7 +6013,7 @@ void sub_25A57825C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::ErfInv&&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::ErfInv&&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -7329,11 +6046,6 @@ void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu:
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::ErfInv&&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = *(a2 + 2);
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
   a2[2] = 0;
   a2[3] = 0;
   a2[4] = 0;
@@ -7408,7 +6120,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_13unary_real_fpINS3_6detail6ErfInvEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEEclEv(uint64_t a1, __n128 a2)
 {
-  mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}::operator()(a1 + 24, a2);
+  mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}::operator()((a1 + 24), a2);
   v3 = mlx::core::scheduler::scheduler(v2);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v3);
@@ -7426,16 +6138,16 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t a1, __n128 a2)
+void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t *a1, __n128 a2)
 {
-  v2 = a1 + 16;
-  v3 = *(*(a1 + 16) + 56);
+  v2 = a1 + 2;
+  v3 = *(a1[2] + 56);
   if (v3 > 10)
   {
     if (v3 == 11)
     {
 
-      mlx::core::unary_op<double,double,mlx::core::detail::ErfInv>(a1, a1 + 16);
+      mlx::core::unary_op<double,double,mlx::core::detail::ErfInv>(a1, (a1 + 2));
     }
 
     else
@@ -7445,7 +6157,7 @@ void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&
         goto LABEL_18;
       }
 
-      mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::ErfInv>(a1, a1 + 16);
+      mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::ErfInv>(a1, (a1 + 2));
     }
   }
 
@@ -7456,7 +6168,7 @@ void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&
       if (v3 == 10)
       {
 
-        mlx::core::unary_op<float,float,mlx::core::detail::ErfInv>(a1, a1 + 16);
+        mlx::core::unary_op<float,float,mlx::core::detail::ErfInv>(a1, (a1 + 2));
         return;
       }
 
@@ -7473,7 +6185,7 @@ LABEL_18:
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    mlx::core::unary_op<half,half,mlx::core::detail::ErfInv>(a1, a1 + 16, a2);
+    mlx::core::unary_op<half,half,mlx::core::detail::ErfInv>(a1, (a1 + 2), a2);
   }
 }
 
@@ -7499,14 +6211,14 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::ErfInv>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::ErfInv>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = *v4++;
       *v5++ = mlx::core::simd::erfinv<mlx::core::_MLX_BFloat16,1>(v7);
@@ -7515,7 +6227,7 @@ void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::
     return;
   }
 
-  v8 = v3[1];
+  v8 = *(v3 + 8);
   if (v8 == *v3)
   {
     v10 = 1;
@@ -7534,7 +6246,7 @@ LABEL_32:
 
   v9 = v8 - *v3;
   v10 = *(v8 - 4);
-  v11 = *(v3[4] - 8);
+  v11 = *(*(v3 + 32) - 8);
   if ((v9 >> 2) <= 1)
   {
     if (!v10)
@@ -7545,8 +6257,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v34, v3, v3 + 3, (v9 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v34, v3, (v3 + 24), (v9 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v13 = 0;
     v14 = 2 * v11;
@@ -7622,7 +6334,7 @@ LABEL_32:
       v5 += v10;
     }
 
-    while (v13 < (*a1)[6]);
+    while (v13 < *(*a1 + 48));
   }
 
   if (__p)
@@ -7644,14 +6356,14 @@ LABEL_32:
   }
 }
 
-void mlx::core::unary_op<half,half,mlx::core::detail::ErfInv>(uint64_t **a1, uint64_t a2, __n128 a3)
+void mlx::core::unary_op<half,half,mlx::core::detail::ErfInv>(uint64_t *a1, uint64_t a2, __n128 a3)
 {
   v4 = *a1;
-  v5 = (*a1)[19];
+  v5 = *(*a1 + 152);
   v6 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v7 = v4[20];
+    v7 = *(v4 + 160);
     if (v7 >= 8)
     {
       do
@@ -7677,7 +6389,7 @@ void mlx::core::unary_op<half,half,mlx::core::detail::ErfInv>(uint64_t **a1, uin
     return;
   }
 
-  v10 = v4[1];
+  v10 = *(v4 + 8);
   if (v10 == *v4)
   {
     v12 = 1;
@@ -7698,7 +6410,7 @@ LABEL_34:
 
   v11 = v10 - *v4;
   v12 = *(v10 - 4);
-  v13 = *(v4[4] - 8);
+  v13 = *(*(v4 + 32) - 8);
   if ((v11 >> 2) <= 1)
   {
     if (!v12)
@@ -7709,8 +6421,8 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v37, v4, v4 + 3, (v11 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v37, v4, (v4 + 24), (v11 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v16 = 0;
     v17 = 2 * v13;
@@ -7788,7 +6500,7 @@ LABEL_34:
       v6 = (v6 + 2 * v12);
     }
 
-    while (v16 < (*a1)[6]);
+    while (v16 < *(*a1 + 48));
   }
 
   if (__p)
@@ -7810,21 +6522,21 @@ LABEL_34:
   }
 }
 
-void mlx::core::unary_op<float,float,mlx::core::detail::ErfInv>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<float,float,mlx::core::detail::ErfInv>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 8)
     {
       do
       {
         v7 = *v4;
-        v8 = *(v4 + 16);
-        v4 += 32;
+        v8 = v4[1];
+        v4 += 2;
         *v37 = v7;
         v38 = v8;
         mlx::core::simd::erfinv<float,8>(v37, v43);
@@ -7841,7 +6553,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::ErfInv>(uint64_t **a1, u
     for (; v6; --v6)
     {
       v10 = *v4;
-      v4 += 4;
+      v4 = (v4 + 4);
       v5->f32[0] = mlx::core::simd::erfinv<float,1>(v10);
       v5 = (v5 + 4);
     }
@@ -7849,7 +6561,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::ErfInv>(uint64_t **a1, u
     return;
   }
 
-  v11 = v3[1];
+  v11 = *(v3 + 8);
   if (v11 == *v3)
   {
     v13 = 1;
@@ -7859,7 +6571,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::ErfInv>(uint64_t **a1, u
 LABEL_34:
       v5->f32[0] = mlx::core::simd::erfinv<float,1>(*v4);
       v5 = (v5 + 4);
-      v4 += 4 * v14;
+      v4 = (v4 + 4 * v14);
       --v13;
     }
 
@@ -7869,7 +6581,7 @@ LABEL_34:
 
   v12 = v11 - *v3;
   v13 = *(v11 - 4);
-  v14 = *(v3[4] - 8);
+  v14 = *(*(v3 + 32) - 8);
   if ((v12 >> 2) <= 1)
   {
     if (!v13)
@@ -7880,8 +6592,8 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(v37, v3, v3 + 3, (v12 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(v37, v3, (v3 + 24), (v12 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v16 = 0;
     v17 = 4 * v14;
@@ -7889,7 +6601,7 @@ LABEL_34:
     {
       if (v13)
       {
-        v18 = (v4 + 4 * v37[0]);
+        v18 = v4 + v37[0];
         v19 = v5;
         v20 = v13;
         do
@@ -7957,7 +6669,7 @@ LABEL_34:
       v5 = (v5 + 4 * v13);
     }
 
-    while (v16 < (*a1)[6]);
+    while (v16 < *(*a1 + 48));
   }
 
   if (__p)
@@ -7979,14 +6691,14 @@ LABEL_34:
   }
 }
 
-void mlx::core::unary_op<double,double,mlx::core::detail::ErfInv>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<double,double,mlx::core::detail::ErfInv>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 4)
     {
       __asm { FMOV            V1.4S, #1.0 }
@@ -8040,7 +6752,7 @@ void mlx::core::unary_op<double,double,mlx::core::detail::ErfInv>(uint64_t **a1,
     return;
   }
 
-  v16 = v3[1];
+  v16 = *(v3 + 8);
   if (v16 == *v3)
   {
     v18 = 1;
@@ -8060,7 +6772,7 @@ LABEL_35:
 
   v17 = v16 - *v3;
   v18 = *(v16 - 4);
-  v19 = *(v3[4] - 8);
+  v19 = *(*(v3 + 32) - 8);
   if ((v17 >> 2) <= 1)
   {
     if (!v18)
@@ -8071,8 +6783,8 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v64, v3, v3 + 3, (v17 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v64, v3, (v3 + 24), (v17 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v21 = 0;
     v22 = 8 * v19;
@@ -8148,7 +6860,7 @@ LABEL_35:
       v5 = (v5 + 8 * v18);
     }
 
-    while (v21 < (*a1)[6]);
+    while (v21 < *(*a1 + 48));
   }
 
   if (v69)
@@ -8366,7 +7078,7 @@ void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::una
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -8381,7 +7093,7 @@ void sub_25A579E9C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -8414,21 +7126,16 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_real_fp<mlx::core::detail::ErfInv>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::ErfInv,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  *a2 = 0uLL;
+  a2[1] = 0uLL;
   *(a1 + 24) = 0;
   operator new();
 }
 
-void sub_25A57A06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A57A06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  mlx::core::array::~array((v5 + 16));
+  va_start(va, a9);
+  mlx::core::array::~array((v9 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -8502,18 +7209,16 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::unary_real_fp<mlx::
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
   v3 = *a2;
-  v4 = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  v4 = a2[1];
+  *a2 = 0uLL;
   v14 = v3;
   v15 = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
+  a2[1] = 0uLL;
   if (*(a1 + 10))
   {
     v5 = mlx::core::scheduler::scheduler(a1);
@@ -8533,12 +7238,12 @@ void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core
   mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Exp&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
 }
 
-void sub_25A57A420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A57A420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  mlx::core::array::~array((v10 + 32));
-  mlx::core::array::~array((v10 + 16));
-  mlx::core::array::~array((v9 + 16));
+  va_start(va, a16);
+  mlx::core::array::~array((v17 + 32));
+  mlx::core::array::~array((v17 + 16));
+  mlx::core::array::~array((v16 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -8548,7 +7253,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Exp&&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Exp&&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -8563,7 +7268,7 @@ void sub_25A57A4F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Exp&&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Exp&&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -8596,11 +7301,6 @@ void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu:
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Exp&&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = *(a2 + 2);
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
   a2[2] = 0;
   a2[3] = 0;
   a2[4] = 0;
@@ -8675,7 +7375,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail3ExpEEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEEclEv(uint64_t a1, int32x4_t a2)
 {
-  mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}::operator()(a1 + 24, a2);
+  mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}::operator()((a1 + 24), a2);
   v3 = mlx::core::scheduler::scheduler(v2);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v3);
@@ -8693,16 +7393,16 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t a1, int32x4_t a2)
+void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t *a1, int32x4_t a2)
 {
-  v2 = a1 + 16;
-  v3 = *(*(a1 + 16) + 56);
+  v2 = a1 + 2;
+  v3 = *(a1[2] + 56);
   if (v3 <= 10)
   {
     if (v3 == 9)
     {
 
-      mlx::core::unary_op<half,half,mlx::core::detail::Exp>(a1, a1 + 16, a2);
+      mlx::core::unary_op<half,half,mlx::core::detail::Exp>(a1, (a1 + 2), a2);
     }
 
     else
@@ -8712,7 +7412,7 @@ void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::co
         goto LABEL_22;
       }
 
-      mlx::core::unary_op<float,float,mlx::core::detail::Exp>(a1, a1 + 16);
+      mlx::core::unary_op<float,float,mlx::core::detail::Exp>(a1, (a1 + 2));
     }
   }
 
@@ -8722,15 +7422,15 @@ void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::co
     {
       case 11:
 
-        mlx::core::unary_op<double,double,mlx::core::detail::Exp>(a1, a1 + 16);
+        mlx::core::unary_op<double,double,mlx::core::detail::Exp>(a1, (a1 + 2));
         break;
       case 13:
 
-        mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Exp>(a1, a1 + 16);
+        mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Exp>(a1, (a1 + 2));
         break;
       case 12:
 
-        mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Exp>(a1, a1 + 16);
+        mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Exp>(a1, (a1 + 2));
         return;
       default:
 LABEL_22:
@@ -8770,14 +7470,14 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Exp>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Exp>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = *v4++;
       *v5++ = mlx::core::simd::exp<mlx::core::_MLX_BFloat16,1>(v7);
@@ -8786,7 +7486,7 @@ void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::
     return;
   }
 
-  v8 = v3[1];
+  v8 = *(v3 + 8);
   if (v8 == *v3)
   {
     v10 = 1;
@@ -8805,7 +7505,7 @@ LABEL_32:
 
   v9 = v8 - *v3;
   v10 = *(v8 - 4);
-  v11 = *(v3[4] - 8);
+  v11 = *(*(v3 + 32) - 8);
   if ((v9 >> 2) <= 1)
   {
     if (!v10)
@@ -8816,8 +7516,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v34, v3, v3 + 3, (v9 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v34, v3, (v3 + 24), (v9 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v13 = 0;
     v14 = 2 * v11;
@@ -8893,7 +7593,7 @@ LABEL_32:
       v5 += v10;
     }
 
-    while (v13 < (*a1)[6]);
+    while (v13 < *(*a1 + 48));
   }
 
   if (__p)
@@ -8915,14 +7615,14 @@ LABEL_32:
   }
 }
 
-void mlx::core::unary_op<half,half,mlx::core::detail::Exp>(uint64_t **a1, uint64_t a2, int32x4_t a3)
+void mlx::core::unary_op<half,half,mlx::core::detail::Exp>(uint64_t *a1, uint64_t a2, int32x4_t a3)
 {
   v4 = *a1;
-  v5 = (*a1)[19];
+  v5 = *(*a1 + 152);
   v6 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v7 = v4[20];
+    v7 = *(v4 + 160);
     if (v7 >= 8)
     {
       a3 = vdupq_n_s32(0x3FB8AA3Bu);
@@ -8968,7 +7668,7 @@ void mlx::core::unary_op<half,half,mlx::core::detail::Exp>(uint64_t **a1, uint64
     return;
   }
 
-  v30 = v4[1];
+  v30 = *(v4 + 8);
   if (v30 == *v4)
   {
     v32 = 1;
@@ -8989,7 +7689,7 @@ LABEL_35:
 
   v31 = v30 - *v4;
   v32 = *(v30 - 4);
-  v33 = *(v4[4] - 8);
+  v33 = *(*(v4 + 32) - 8);
   if ((v31 >> 2) <= 1)
   {
     if (!v32)
@@ -9000,8 +7700,8 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v57, v4, v4 + 3, (v31 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v57, v4, (v4 + 24), (v31 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v36 = 0;
     v37 = 2 * v33;
@@ -9079,7 +7779,7 @@ LABEL_35:
       v6 = (v6 + 2 * v32);
     }
 
-    while (v36 < (*a1)[6]);
+    while (v36 < *(*a1 + 48));
   }
 
   if (__p)
@@ -9101,14 +7801,14 @@ LABEL_35:
   }
 }
 
-void mlx::core::unary_op<float,float,mlx::core::detail::Exp>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<float,float,mlx::core::detail::Exp>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 8)
     {
       v7 = vdupq_n_s32(0x3FB8AA3Bu);
@@ -9158,7 +7858,7 @@ void mlx::core::unary_op<float,float,mlx::core::detail::Exp>(uint64_t **a1, uint
     return;
   }
 
-  v32 = v3[1];
+  v32 = *(v3 + 8);
   if (v32 == *v3)
   {
     v34 = 1;
@@ -9178,7 +7878,7 @@ LABEL_35:
 
   v33 = v32 - *v3;
   v34 = *(v32 - 4);
-  v35 = *(v3[4] - 8);
+  v35 = *(*(v3 + 32) - 8);
   if ((v33 >> 2) <= 1)
   {
     if (!v34)
@@ -9189,8 +7889,8 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v58, v3, v3 + 3, (v33 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v58, v3, (v3 + 24), (v33 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v37 = 0;
     v38 = 4 * v35;
@@ -9266,7 +7966,7 @@ LABEL_35:
       v5 = (v5 + 4 * v34);
     }
 
-    while (v37 < (*a1)[6]);
+    while (v37 < *(*a1 + 48));
   }
 
   if (__p)
@@ -9288,14 +7988,14 @@ LABEL_35:
   }
 }
 
-void mlx::core::unary_op<double,double,mlx::core::detail::Exp>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<double,double,mlx::core::detail::Exp>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    v6 = v3[20];
+    v6 = *(v3 + 160);
     if (v6 >= 4)
     {
       v7 = vdupq_n_s32(0x3FB8AA3Bu);
@@ -9344,7 +8044,7 @@ void mlx::core::unary_op<double,double,mlx::core::detail::Exp>(uint64_t **a1, ui
     return;
   }
 
-  v31 = v3[1];
+  v31 = *(v3 + 8);
   if (v31 == *v3)
   {
     v33 = 1;
@@ -9364,7 +8064,7 @@ LABEL_35:
 
   v32 = v31 - *v3;
   v33 = *(v31 - 4);
-  v34 = *(v3[4] - 8);
+  v34 = *(*(v3 + 32) - 8);
   if ((v32 >> 2) <= 1)
   {
     if (!v33)
@@ -9375,8 +8075,8 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v57, v3, v3 + 3, (v32 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v57, v3, (v3 + 24), (v32 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v36 = 0;
     v37 = 8 * v34;
@@ -9452,7 +8152,7 @@ LABEL_35:
       v5 = (v5 + 8 * v33);
     }
 
-    while (v36 < (*a1)[6]);
+    while (v36 < *(*a1 + 48));
   }
 
   if (__p)
@@ -9474,14 +8174,14 @@ LABEL_35:
   }
 }
 
-void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Exp>(uint64_t **a1, uint64_t a2)
+void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Exp>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = (*a1)[19];
+  v4 = *(*a1 + 152);
   v5 = *(*a2 + 152);
-  if ((*a1)[21])
+  if (*(*a1 + 168))
   {
-    for (i = v3[20]; i; --i)
+    for (i = *(v3 + 160); i; --i)
     {
       v7 = *v4++;
       v42 = v7;
@@ -9494,7 +8194,7 @@ void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core
     return;
   }
 
-  v10 = v3[1];
+  v10 = *(v3 + 8);
   if (v10 == *v3)
   {
     v12 = 1;
@@ -9518,7 +8218,7 @@ LABEL_32:
 
   v11 = v10 - *v3;
   v12 = *(v10 - 4);
-  v13 = *(v3[4] - 8);
+  v13 = *(*(v3 + 32) - 8);
   if ((v11 >> 2) <= 1)
   {
     if (!v12)
@@ -9529,8 +8229,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  mlx::core::ContiguousIterator::ContiguousIterator(&v42, v3, v3 + 3, (v11 >> 2) - 1);
-  if ((*a1)[6])
+  mlx::core::ContiguousIterator::ContiguousIterator(&v42, v3, (v3 + 24), (v11 >> 2) - 1);
+  if (*(*a1 + 48))
   {
     v15 = 0;
     v16 = 8 * v13;
@@ -9611,7 +8311,7 @@ LABEL_32:
       v17 += 2 * v12;
     }
 
-    while (v15 < (*a1)[6]);
+    while (v15 < *(*a1 + 48));
   }
 
   if (__p)
@@ -9689,34 +8389,25 @@ void std::exp[abi:ne200100]<float>(float *a1)
     return;
   }
 
-  if (fabsf(v1) != INFINITY)
+  if (fabsf(v1) == INFINITY)
   {
-    goto LABEL_12;
-  }
+    if (v1 >= 0.0)
+    {
+      if ((LODWORD(v2) & 0x7FFFFFFFu) >= 0x7F800000)
+      {
+        return;
+      }
+    }
 
-  if (v1 < 0.0)
-  {
-    if ((LODWORD(v2) & 0x7FFFFFFFu) >= 0x7F800000)
+    else if ((LODWORD(v2) & 0x7FFFFFFFu) >= 0x7F800000)
     {
       v2 = 1.0;
     }
-
-    goto LABEL_12;
   }
 
-  if ((LODWORD(v2) & 0x7FFFFFFFu) < 0x7F800000)
-  {
-LABEL_12:
-    v4 = v2;
-    expf(v1);
-    __sincosf_stret(v4);
-    return;
-  }
-
-  if (fabsf(v2) != INFINITY)
-  {
-    v3 = *(a1 + 1);
-  }
+  v3 = v2;
+  expf(v1);
+  __sincosf_stret(v3);
 }
 
 void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, __int128 *a2)
@@ -9724,7 +8415,7 @@ void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::una
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -9739,7 +8430,7 @@ void sub_25A57BE2C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -9772,21 +8463,16 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_fp<mlx::core::detail::Exp>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Exp,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  *a2 = 0uLL;
+  a2[1] = 0uLL;
   *(a1 + 24) = 0;
   operator new();
 }
 
-void sub_25A57BFFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25A57BFFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  mlx::core::array::~array((v5 + 16));
+  va_start(va, a9);
+  mlx::core::array::~array((v9 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -9860,18 +8546,16 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core:
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
   v3 = *a2;
-  v4 = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  v4 = a2[1];
+  *a2 = 0uLL;
   v14 = v3;
   v15 = v4;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
+  a2[1] = 0uLL;
   if (*(a1 + 10))
   {
     v5 = mlx::core::scheduler::scheduler(a1);
@@ -9891,12 +8575,12 @@ void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core
   mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Expm1&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
 }
 
-void sub_25A57C3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A57C3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  mlx::core::array::~array((v10 + 32));
-  mlx::core::array::~array((v10 + 16));
-  mlx::core::array::~array((v9 + 16));
+  va_start(va, a16);
+  mlx::core::array::~array((v17 + 32));
+  mlx::core::array::~array((v17 + 16));
+  mlx::core::array::~array((v16 + 16));
   mlx::core::array::~array(va);
   _Unwind_Resume(a1);
 }
@@ -9906,10 +8590,1341 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Expm1&&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Expm1&&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
   std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A57C484(_Unwind_Exception *a1)
+{
+  __cxa_free_exception(v2);
+  std::mutex::unlock(v1);
+  _Unwind_Resume(a1);
+}
+
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Expm1&&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
+{
+  v4 = a1[1];
+  v5 = a1[2];
+  v6 = 16 * (v5 - v4) - 1;
+  if (v5 == v4)
+  {
+    v6 = 0;
+  }
+
+  if (v6 == a1[5] + a1[4])
+  {
+    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
+    v4 = a1[1];
+    v5 = a1[2];
+  }
+
+  if (v5 == v4)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v7 = a1[5] + a1[4];
+    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
+  }
+
+  std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Expm1&&)::{lambda(void)#1},std::function<void ()(void)>*>(v8, a2);
+}
+
+void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Expm1&&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
+{
+  a2[2] = 0;
+  a2[3] = 0;
+  a2[4] = 0;
+  a2[5] = 0;
+  *(a1 + 24) = 0;
+  operator new();
+}
+
+void sub_25A57C668(_Unwind_Exception *a1)
+{
+  mlx::core::array::~array((v1 + 32));
+  mlx::core::array::~array((v1 + 16));
+  _Unwind_Resume(a1);
+}
+
+void *_ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail5Expm1EEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEED1Ev(void *a1)
+{
+  *a1 = &unk_286BFC5B8;
+  mlx::core::array::~array((a1 + 5));
+  mlx::core::array::~array((a1 + 3));
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail5Expm1EEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEED0Ev(void *a1)
+{
+  *a1 = &unk_286BFC5B8;
+  mlx::core::array::~array((a1 + 5));
+  mlx::core::array::~array((a1 + 3));
+
+  JUMPOUT(0x25F851760);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail5Expm1EEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEE7__cloneEPNS0_6__baseISO_EE(uint64_t result, uint64_t a2)
+{
+  *a2 = &unk_286BFC5B8;
+  v2 = *(result + 8);
+  *(a2 + 16) = *(result + 16);
+  *(a2 + 8) = v2;
+  v3 = *(result + 32);
+  *(a2 + 24) = *(result + 24);
+  *(a2 + 32) = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(result + 48);
+  *(a2 + 40) = *(result + 40);
+  *(a2 + 48) = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail5Expm1EEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEE7destroyEv(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 40));
+
+  mlx::core::array::~array((a1 + 24));
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail5Expm1EEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEE18destroy_deallocateEv(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 40));
+  mlx::core::array::~array((a1 + 24));
+
+  operator delete(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail5Expm1EEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEEclEv(uint64_t a1)
+{
+  mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}::operator()((a1 + 24));
+  v2 = mlx::core::scheduler::scheduler(v1);
+
+  mlx::core::scheduler::Scheduler::notify_task_completion(v2);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_8unary_fpINS3_6detail5Expm1EEEvRKNS3_5arrayERSA_T_NS3_6StreamEEUlvE_JEEEvOSE_DpOT0_EUlvE_NS_9allocatorISL_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+double mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}::operator()(uint64_t *a1)
+{
+  v1 = a1 + 2;
+  v2 = *(a1[2] + 56);
+  if (v2 <= 10)
+  {
+    if (v2 == 9)
+    {
+
+      *&result = mlx::core::unary_op<half,half,mlx::core::detail::Expm1>(a1, (a1 + 2));
+    }
+
+    else
+    {
+      if (v2 != 10)
+      {
+        goto LABEL_22;
+      }
+
+      mlx::core::unary_op<float,float,mlx::core::detail::Expm1>(a1, (a1 + 2));
+    }
+  }
+
+  else
+  {
+    switch(v2)
+    {
+      case 11:
+
+        mlx::core::unary_op<double,double,mlx::core::detail::Expm1>(a1, (a1 + 2));
+        break;
+      case 13:
+
+        mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Expm1>(a1, (a1 + 2));
+        break;
+      case 12:
+
+        mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Expm1>(a1, (a1 + 2));
+        return result;
+      default:
+LABEL_22:
+        std::ostringstream::basic_ostringstream[abi:ne200100](v8);
+        v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "[unary_fp] Does not support ", 28);
+        v5 = *(*v1 + 56);
+        LODWORD(v7[0]) = v5;
+        BYTE4(v7[0]) = BYTE4(v5);
+        mlx::core::operator<<(v4, v7);
+        exception = __cxa_allocate_exception(0x10uLL);
+        std::ostringstream::str[abi:ne200100](v8, v7);
+        MEMORY[0x25F851100](exception, v7);
+        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+  }
+
+  return result;
+}
+
+void sub_25A57CADC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+    if ((v16 & 1) == 0)
+    {
+LABEL_6:
+      std::ostringstream::~ostringstream(&a15);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v16)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v15);
+  goto LABEL_6;
+}
+
+void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Expm1>(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v4 = *(*a1 + 152);
+  v5 = *(*a2 + 152);
+  if (*(*a1 + 168))
+  {
+    for (i = *(v3 + 160); i; --i)
+    {
+      v7 = expm1f(COERCE_FLOAT(*v4 << 16));
+      *v5++ = (LODWORD(v7) + (HIWORD(LODWORD(v7)) & 1u) + 0x7FFF) >> 16;
+      ++v4;
+    }
+
+    return;
+  }
+
+  v8 = *(v3 + 8);
+  if (v8 == *v3)
+  {
+    v11 = 1;
+    v10 = 1;
+  }
+
+  else
+  {
+    v9 = v8 - *v3;
+    v10 = *(v8 - 4);
+    v11 = *(*(v3 + 32) - 8);
+    if ((v9 >> 2) > 1)
+    {
+      mlx::core::ContiguousIterator::ContiguousIterator(&v31, v3, (v3 + 24), (v9 >> 2) - 1);
+      if (*(*a1 + 48))
+      {
+        v13 = 0;
+        do
+        {
+          mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Expm1>(&v4[v31], &v5[v13], v10, v11);
+          v14 = v33 - v32;
+          v15 = (v33 - v32) >> 2;
+          if (v15)
+          {
+            v16 = __p;
+            v17 = ((v14 << 30) - 0x100000000) >> 32;
+            v18 = __p + 4 * v17;
+            v19 = *v18;
+            v20 = v32 + 4 * v17;
+            v21 = v34;
+            v22 = v31;
+            if (v15 >= 2 && v19 == *v20 - 1)
+            {
+              v25 = (v14 >> 2) & 0x7FFFFFFF;
+              v24 = v25 - 1;
+              v26 = 4 * v25;
+              v27 = v32 - 8;
+              do
+              {
+                v28 = v24;
+                *v18 = 0;
+                v22 -= v21[v17] * (*v20 - 1);
+                v31 = v22;
+                --v24;
+                v18 = &v16[v26 - 8];
+                v19 = *v18;
+                v16 -= 4;
+                if (v28 < 2)
+                {
+                  break;
+                }
+
+                v20 = &v27[v26];
+                v29 = *&v27[4 * v25] - 1;
+                v27 -= 4;
+                v17 = v24;
+              }
+
+              while (v19 == v29);
+              v18 = &v16[4 * v25 - 4];
+            }
+
+            else
+            {
+              v24 = ((v14 << 30) - 0x100000000) >> 32;
+            }
+
+            *v18 = v19 + 1;
+            v31 = v21[v24] + v22;
+          }
+
+          v13 += v10;
+        }
+
+        while (v13 < *(*a1 + 48));
+      }
+
+      if (__p)
+      {
+        v37 = __p;
+        operator delete(__p);
+      }
+
+      if (v34)
+      {
+        v35 = v34;
+        operator delete(v34);
+      }
+
+      if (v32)
+      {
+        v33 = v32;
+        operator delete(v32);
+      }
+
+      return;
+    }
+  }
+
+  v30 = *(*a1 + 152);
+
+  mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Expm1>(v30, v5, v10, v11);
+}
+
+__int16 mlx::core::unary_op<half,half,mlx::core::detail::Expm1>@<H0>(uint64_t *a1@<X0>, uint64_t a2@<X1>)
+{
+  v3 = *a1;
+  v4 = *(*a1 + 152);
+  v5 = *(*a2 + 152);
+  if (*(*a1 + 168))
+  {
+    v6 = *(v3 + 160);
+    if (v6 >= 8)
+    {
+      do
+      {
+        v7 = *v4++;
+        v55 = _simd_expm1_f4(vcvtq_f32_f16(*v7.i8));
+        _Q0 = _simd_expm1_f4(vcvt_hight_f32_f16(v7));
+        *v5++ = vcvt_hight_f16_f32(vcvt_f16_f32(v55), _Q0);
+        v6 -= 8;
+      }
+
+      while (v6 > 7);
+    }
+
+    for (; v6; --v6)
+    {
+      v9 = v4->i16[0];
+      v4 = (v4 + 2);
+      _H0 = v9;
+      __asm { FCVT            S0, H0; float }
+
+      _Q0.f32[0] = expm1f(_S0);
+      __asm { FCVT            H0, S0 }
+
+      v5->i16[0] = _Q0.i16[0];
+      v5 = (v5 + 2);
+    }
+
+    return _Q0.i16[0];
+  }
+
+  v16 = *(v3 + 8);
+  if (v16 == *v3)
+  {
+    v18 = 1;
+    v19 = 1;
+    do
+    {
+LABEL_33:
+      _H0 = v4->i16[0];
+      __asm { FCVT            S0, H0; float }
+
+      _Q0.f32[0] = expm1f(_S0);
+      __asm { FCVT            H0, S0 }
+
+      v5->i16[0] = _Q0.i16[0];
+      v5 = (v5 + 2);
+      v4 = (v4 + 2 * v19);
+      --v18;
+    }
+
+    while (v18);
+    return _Q0.i16[0];
+  }
+
+  v17 = v16 - *v3;
+  v18 = *(v16 - 4);
+  v19 = *(*(v3 + 32) - 8);
+  if ((v17 >> 2) <= 1)
+  {
+    if (!v18)
+    {
+      return _Q0.i16[0];
+    }
+
+    goto LABEL_33;
+  }
+
+  mlx::core::ContiguousIterator::ContiguousIterator(&v58, v3, (v3 + 24), (v17 >> 2) - 1);
+  v54 = *(*a1 + 48);
+  if (v54)
+  {
+    v21 = 0;
+    v22 = v58;
+    v23 = v61;
+    v24 = (((v60 - v59) << 30) - 0x100000000) >> 32;
+    __p = v63;
+    v56 = &v63[4 * v24];
+    v25 = ((v60 - v59) >> 2) & 0x7FFFFFFF;
+    v49 = v25 - 1;
+    v52 = v24;
+    v26 = 2 * v19;
+    v27 = 4 * v25;
+    v48 = v59 - 8;
+    v53 = (v60 - v59) >> 2;
+    v51 = v59 + 4 * v24;
+    do
+    {
+      x = v21;
+      if (v18)
+      {
+        v28 = &v4->i16[v22];
+        v29 = v5;
+        v30 = v18;
+        do
+        {
+          _H0 = *v28;
+          __asm { FCVT            S0, H0; float }
+
+          _Q0.f32[0] = expm1f(_S0);
+          __asm { FCVT            H0, S0 }
+
+          v29->i16[0] = _Q0.i16[0];
+          v29 = (v29 + 2);
+          v28 = (v28 + v26);
+          --v30;
+        }
+
+        while (v30);
+      }
+
+      if (v53)
+      {
+        v33 = *v56;
+        v34 = x;
+        if (v53 >= 2 && v33 == *v51 - 1)
+        {
+          v35 = v49;
+          v36 = __p;
+          v37 = v48;
+          v38 = v51;
+          v39 = v56;
+          v40 = v52;
+          do
+          {
+            v41 = v35;
+            *v39 = 0;
+            v22 -= v23[v40] * (*v38 - 1);
+            v58 = v22;
+            --v35;
+            v39 = &v36[v27 - 8];
+            v33 = *v39;
+            v36 -= 4;
+            if (v41 < 2)
+            {
+              break;
+            }
+
+            v38 = &v37[v27];
+            v42 = *&v37[v27] - 1;
+            v37 -= 4;
+            v40 = v35;
+          }
+
+          while (v33 == v42);
+          v43 = &v36[v27 - 4];
+        }
+
+        else
+        {
+          v35 = v52;
+          v43 = v56;
+        }
+
+        *v43 = v33 + 1;
+        v22 += v23[v35];
+        v58 = v22;
+      }
+
+      else
+      {
+        v34 = x;
+      }
+
+      v21 = v34 + v18;
+      v5 = (v5 + 2 * v18);
+    }
+
+    while (v21 < v54);
+    v44 = __p;
+    if (!__p)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  else
+  {
+    v44 = v63;
+    if (!v63)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  v64 = v44;
+  operator delete(v44);
+LABEL_27:
+  if (v61)
+  {
+    v62 = v61;
+    operator delete(v61);
+  }
+
+  if (v59)
+  {
+    v60 = v59;
+    operator delete(v59);
+  }
+
+  return _Q0.i16[0];
+}
+
+void mlx::core::unary_op<float,float,mlx::core::detail::Expm1>(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v4 = *(*a1 + 152);
+  v5 = *(*a2 + 152);
+  if (*(*a1 + 168))
+  {
+    v6 = *(v3 + 160);
+    if (v6 >= 8)
+    {
+      do
+      {
+        v7 = *v4;
+        v8 = v4[1];
+        v4 += 2;
+        xa = v8;
+        v44 = _simd_expm1_f4(v7);
+        v5[1] = _simd_expm1_f4(xa);
+        *v5 = v44;
+        v5 += 2;
+        v6 -= 8;
+      }
+
+      while (v6 > 7);
+    }
+
+    for (; v6; --v6)
+    {
+      v9 = v4->f32[0];
+      v4 = (v4 + 4);
+      v5->f32[0] = expm1f(v9);
+      v5 = (v5 + 4);
+    }
+
+    return;
+  }
+
+  v10 = *(v3 + 8);
+  if (v10 == *v3)
+  {
+    v12 = 1;
+    v13 = 1;
+    do
+    {
+LABEL_33:
+      v5->f32[0] = expm1f(v4->f32[0]);
+      v5 = (v5 + 4);
+      v4 = (v4 + 4 * v13);
+      --v12;
+    }
+
+    while (v12);
+    return;
+  }
+
+  v11 = v10 - *v3;
+  v12 = *(v10 - 4);
+  v13 = *(*(v3 + 32) - 8);
+  if ((v11 >> 2) <= 1)
+  {
+    if (!v12)
+    {
+      return;
+    }
+
+    goto LABEL_33;
+  }
+
+  mlx::core::ContiguousIterator::ContiguousIterator(&v48, v3, (v3 + 24), (v11 >> 2) - 1);
+  v43 = *(*a1 + 48);
+  if (v43)
+  {
+    v15 = 0;
+    v16 = v48;
+    v17 = v51;
+    v18 = (((v50 - v49) << 30) - 0x100000000) >> 32;
+    __p = v53;
+    v45 = &v53[4 * v18];
+    v19 = ((v50 - v49) >> 2) & 0x7FFFFFFF;
+    v38 = v19 - 1;
+    v41 = v18;
+    v20 = 4 * v13;
+    v21 = 4 * v19;
+    v37 = v49 - 8;
+    v42 = (v50 - v49) >> 2;
+    v40 = v49 + 4 * v18;
+    do
+    {
+      x = v15;
+      if (v12)
+      {
+        v22 = &v4->f32[v16];
+        v23 = v5;
+        v24 = v12;
+        do
+        {
+          *v23++ = expm1f(*v22);
+          v22 = (v22 + v20);
+          --v24;
+        }
+
+        while (v24);
+      }
+
+      if (v42)
+      {
+        v25 = *v45;
+        v26 = x;
+        if (v42 >= 2 && v25 == *v40 - 1)
+        {
+          v27 = v38;
+          v28 = __p;
+          v29 = v37;
+          v30 = v40;
+          v31 = v45;
+          v32 = v41;
+          do
+          {
+            v33 = v27;
+            *v31 = 0;
+            v16 -= v17[v32] * (*v30 - 1);
+            v48 = v16;
+            --v27;
+            v31 = &v28[v21 - 8];
+            v25 = *v31;
+            v28 -= 4;
+            if (v33 < 2)
+            {
+              break;
+            }
+
+            v30 = &v29[v21];
+            v34 = *&v29[v21] - 1;
+            v29 -= 4;
+            v32 = v27;
+          }
+
+          while (v25 == v34);
+          v35 = &v28[v21 - 4];
+        }
+
+        else
+        {
+          v27 = v41;
+          v35 = v45;
+        }
+
+        *v35 = v25 + 1;
+        v16 += v17[v27];
+        v48 = v16;
+      }
+
+      else
+      {
+        v26 = x;
+      }
+
+      v15 = v26 + v12;
+      v5 = (v5 + 4 * v12);
+    }
+
+    while (v15 < v43);
+    v36 = __p;
+    if (!__p)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  else
+  {
+    v36 = v53;
+    if (!v53)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  v54 = v36;
+  operator delete(v36);
+LABEL_27:
+  if (v51)
+  {
+    v52 = v51;
+    operator delete(v51);
+  }
+
+  if (v49)
+  {
+    v50 = v49;
+    operator delete(v49);
+  }
+}
+
+void mlx::core::unary_op<double,double,mlx::core::detail::Expm1>(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v4 = *(*a1 + 152);
+  v5 = *(*a2 + 152);
+  if (*(*a1 + 168))
+  {
+    v6 = *(v3 + 160);
+    if (v6 >= 4)
+    {
+      do
+      {
+        v7 = *v4;
+        v8 = v4[1];
+        v4 += 2;
+        xa = v8;
+        v44 = _simd_expm1_d2(v7);
+        v5[1] = _simd_expm1_d2(xa);
+        *v5 = v44;
+        v5 += 2;
+        v6 -= 4;
+      }
+
+      while (v6 > 3);
+    }
+
+    for (; v6; --v6)
+    {
+      v9 = v4->f64[0];
+      v4 = (v4 + 8);
+      v5->f64[0] = expm1(v9);
+      v5 = (v5 + 8);
+    }
+
+    return;
+  }
+
+  v10 = *(v3 + 8);
+  if (v10 == *v3)
+  {
+    v12 = 1;
+    v13 = 1;
+    do
+    {
+LABEL_33:
+      v5->f64[0] = expm1(v4->f64[0]);
+      v5 = (v5 + 8);
+      v4 = (v4 + 8 * v13);
+      --v12;
+    }
+
+    while (v12);
+    return;
+  }
+
+  v11 = v10 - *v3;
+  v12 = *(v10 - 4);
+  v13 = *(*(v3 + 32) - 8);
+  if ((v11 >> 2) <= 1)
+  {
+    if (!v12)
+    {
+      return;
+    }
+
+    goto LABEL_33;
+  }
+
+  mlx::core::ContiguousIterator::ContiguousIterator(&v48, v3, (v3 + 24), (v11 >> 2) - 1);
+  v43 = *(*a1 + 48);
+  if (v43)
+  {
+    v15 = 0;
+    v16 = v48;
+    v17 = v51;
+    v18 = (((v50 - v49) << 30) - 0x100000000) >> 32;
+    __p = v53;
+    v45 = &v53[4 * v18];
+    v19 = ((v50 - v49) >> 2) & 0x7FFFFFFF;
+    v38 = v19 - 1;
+    v41 = v18;
+    v20 = 8 * v13;
+    v21 = 4 * v19;
+    v37 = v49 - 8;
+    v42 = (v50 - v49) >> 2;
+    v40 = v49 + 4 * v18;
+    do
+    {
+      x = v15;
+      if (v12)
+      {
+        v22 = &v4->f64[v16];
+        v23 = v5;
+        v24 = v12;
+        do
+        {
+          *v23++ = expm1(*v22);
+          v22 = (v22 + v20);
+          --v24;
+        }
+
+        while (v24);
+      }
+
+      if (v42)
+      {
+        v25 = *v45;
+        v26 = x;
+        if (v42 >= 2 && v25 == *v40 - 1)
+        {
+          v27 = v38;
+          v28 = __p;
+          v29 = v37;
+          v30 = v40;
+          v31 = v45;
+          v32 = v41;
+          do
+          {
+            v33 = v27;
+            *v31 = 0;
+            v16 -= v17[v32] * (*v30 - 1);
+            v48 = v16;
+            --v27;
+            v31 = &v28[v21 - 8];
+            v25 = *v31;
+            v28 -= 4;
+            if (v33 < 2)
+            {
+              break;
+            }
+
+            v30 = &v29[v21];
+            v34 = *&v29[v21] - 1;
+            v29 -= 4;
+            v32 = v27;
+          }
+
+          while (v25 == v34);
+          v35 = &v28[v21 - 4];
+        }
+
+        else
+        {
+          v27 = v41;
+          v35 = v45;
+        }
+
+        *v35 = v25 + 1;
+        v16 += v17[v27];
+        v48 = v16;
+      }
+
+      else
+      {
+        v26 = x;
+      }
+
+      v15 = v26 + v12;
+      v5 = (v5 + 8 * v12);
+    }
+
+    while (v15 < v43);
+    v36 = __p;
+    if (!__p)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  else
+  {
+    v36 = v53;
+    if (!v53)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  v54 = v36;
+  operator delete(v36);
+LABEL_27:
+  if (v51)
+  {
+    v52 = v51;
+    operator delete(v51);
+  }
+
+  if (v49)
+  {
+    v50 = v49;
+    operator delete(v49);
+  }
+}
+
+void mlx::core::unary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Expm1>(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v4 = *(*a1 + 152);
+  v5 = *(*a2 + 152);
+  if (*(*a1 + 168))
+  {
+    for (i = *(v3 + 160); i; --i)
+    {
+      v7 = *v4;
+      v4 += 2;
+      *v5 = expm1f(v7);
+      v5[1] = 0.0;
+      v5 += 2;
+    }
+
+    return;
+  }
+
+  v8 = *(v3 + 8);
+  if (v8 == *v3)
+  {
+    v10 = 1;
+    v11 = 1;
+LABEL_32:
+    v35 = v5 + 1;
+    do
+    {
+      *(v35 - 1) = expm1f(*v4);
+      *v35 = 0.0;
+      v35 += 2;
+      v4 += 2 * v11;
+      --v10;
+    }
+
+    while (v10);
+    return;
+  }
+
+  v9 = v8 - *v3;
+  v10 = *(v8 - 4);
+  v11 = *(*(v3 + 32) - 8);
+  if ((v9 >> 2) <= 1)
+  {
+    if (!v10)
+    {
+      return;
+    }
+
+    goto LABEL_32;
+  }
+
+  mlx::core::ContiguousIterator::ContiguousIterator(&v36, v3, (v3 + 24), (v9 >> 2) - 1);
+  if (*(*a1 + 48))
+  {
+    v13 = 0;
+    v14 = v36;
+    v15 = 8 * v11;
+    v16 = v5 + 1;
+    do
+    {
+      if (v10)
+      {
+        v17 = &v4[2 * v14];
+        v18 = v16;
+        v19 = v10;
+        do
+        {
+          *(v18 - 1) = expm1f(*v17);
+          *v18 = 0.0;
+          v18 += 2;
+          v17 = (v17 + v15);
+          --v19;
+        }
+
+        while (v19);
+      }
+
+      v20 = v38 - v37;
+      v21 = (v38 - v37) >> 2;
+      if (v21)
+      {
+        v22 = ((v20 << 30) - 0x100000000) >> 32;
+        v23 = __p;
+        v24 = v39;
+        v25 = __p + 4 * v22;
+        v26 = *v25;
+        v27 = v37 + 4 * v22;
+        if (v21 >= 2 && v26 == *v27 - 1)
+        {
+          v30 = (v20 >> 2) & 0x7FFFFFFF;
+          v29 = v30 - 1;
+          v31 = 4 * v30;
+          v32 = v37 - 8;
+          do
+          {
+            v33 = v29;
+            *v25 = 0;
+            v14 -= v24[v22] * (*v27 - 1);
+            v36 = v14;
+            --v29;
+            v25 = &v23[v31 - 8];
+            v26 = *v25;
+            v23 -= 4;
+            if (v33 < 2)
+            {
+              break;
+            }
+
+            v27 = &v32[v31];
+            v34 = *&v32[4 * v30] - 1;
+            v32 -= 4;
+            v22 = v29;
+          }
+
+          while (v26 == v34);
+          v25 = &v23[4 * v30 - 4];
+        }
+
+        else
+        {
+          v29 = ((v20 << 30) - 0x100000000) >> 32;
+        }
+
+        *v25 = v26 + 1;
+        v14 += v24[v29];
+        v36 = v14;
+      }
+
+      v13 += v10;
+      v16 += 2 * v10;
+    }
+
+    while (v13 < *(*a1 + 48));
+  }
+
+  if (__p)
+  {
+    v42 = __p;
+    operator delete(__p);
+  }
+
+  if (v39)
+  {
+    v40 = v39;
+    operator delete(v39);
+  }
+
+  if (v37)
+  {
+    v38 = v37;
+    operator delete(v37);
+  }
+}
+
+void mlx::core::unary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Expm1>(unsigned __int16 *a1, _WORD *a2, uint64_t a3, uint64_t a4)
+{
+  if (a3)
+  {
+    v4 = a3;
+    v7 = 2 * a4;
+    do
+    {
+      v8 = expm1f(COERCE_FLOAT(*a1 << 16));
+      *a2++ = (LODWORD(v8) + (HIWORD(LODWORD(v8)) & 1u) + 0x7FFF) >> 16;
+      a1 = (a1 + v7);
+      --v4;
+    }
+
+    while (v4);
+  }
+}
+
+void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, __int128 *a2)
+{
+  std::mutex::lock(a1);
+  if (a1[2].__m_.__opaque[24] != 1)
+  {
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A57D9FC(_Unwind_Exception *a1)
+{
+  __cxa_free_exception(v2);
+  std::mutex::unlock(v1);
+  _Unwind_Resume(a1);
+}
+
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, __int128 *a2)
+{
+  v4 = a1[1];
+  v5 = a1[2];
+  v6 = 16 * (v5 - v4) - 1;
+  if (v5 == v4)
+  {
+    v6 = 0;
+  }
+
+  if (v6 == a1[5] + a1[4])
+  {
+    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
+    v4 = a1[1];
+    v5 = a1[2];
+  }
+
+  if (v5 == v4)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v7 = a1[5] + a1[4];
+    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
+  }
+
+  std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(v8, a2);
+}
+
+void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
+{
+  *a2 = 0uLL;
+  a2[1] = 0uLL;
+  *(a1 + 24) = 0;
+  operator new();
+}
+
+void sub_25A57DBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  mlx::core::array::~array((v9 + 16));
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void *std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_286BFC638;
+  mlx::core::array::~array((a1 + 3));
+  mlx::core::array::~array((a1 + 1));
+  return a1;
+}
+
+void std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::~__func(void *a1)
+{
+  *a1 = &unk_286BFC638;
+  mlx::core::array::~array((a1 + 3));
+  mlx::core::array::~array((a1 + 1));
+
+  JUMPOUT(0x25F851760);
+}
+
+void *std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::__clone(void *result, uint64_t a2)
+{
+  v3 = result[1];
+  v2 = result[2];
+  *a2 = &unk_286BFC638;
+  *(a2 + 8) = v3;
+  *(a2 + 16) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v4 = result[4];
+  *(a2 + 24) = result[3];
+  *(a2 + 32) = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a2 + 52) = 0;
+  *(a2 + 49) = 0;
+  return result;
+}
+
+void std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::destroy(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 24));
+
+  mlx::core::array::~array((a1 + 8));
+}
+
+void std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::destroy_deallocate(uint64_t a1)
+{
+  mlx::core::array::~array((a1 + 24));
+  mlx::core::array::~array((a1 + 8));
+
+  operator delete(a1);
+}
+
+uint64_t std::__function::__func<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Expm1>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Expm1,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Floor>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Floor,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  *(a1 + 10) = (*(a1 + 10) + 1) % 10;
+  v3 = *a2;
+  v4 = a2[1];
+  *a2 = 0uLL;
+  v14 = v3;
+  v15 = v4;
+  a2[1] = 0uLL;
+  if (*(a1 + 10))
+  {
+    v5 = mlx::core::scheduler::scheduler(a1);
+    mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::unary_fp<mlx::core::detail::Floor>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Floor,mlx::core::Stream)::{lambda(void)#1}>>(*(v5[1] + 8 * *a1), &v14);
+  }
+
+  v6 = mlx::core::scheduler::scheduler(a1);
+  mlx::core::scheduler::Scheduler::notify_new_task(v6);
+  v10 = *a1;
+  v11 = *(a1 + 2);
+  v7 = v14;
+  v14 = 0uLL;
+  v12 = v7;
+  v13 = v15;
+  v15 = 0uLL;
+  v9 = mlx::core::scheduler::scheduler(v8);
+  mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Floor>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Floor,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Floor&&)::{lambda(void)#1}>(*(v9[1] + 8 * *a1), &v10);
+}
+
+void sub_25A57DF80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  mlx::core::array::~array((v17 + 32));
+  mlx::core::array::~array((v17 + 16));
+  mlx::core::array::~array((v16 + 16));
+  mlx::core::array::~array(va);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Floor>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Floor,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Floor&&)::{lambda(void)#1}>(std::mutex *a1, uint64_t *a2)
+{
+  std::mutex::lock(a1);
+  if (a1[2].__m_.__opaque[24] != 1)
+  {
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Floor>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Floor,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Floor&&)::{lambda(void)#1}>(&a1[1], a2);
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A57E054(_Unwind_Exception *a1)
+{
+  __cxa_free_exception(v2);
+  std::mutex::unlock(v1);
+  _Unwind_Resume(a1);
+}
+
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Floor>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Floor,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Floor&&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
+{
+  v4 = a1[1];
+  v5 = a1[2];
+  v6 = 16 * (v5 - v4) - 1;
+  if (v5 == v4)
+  {
+    v6 = 0;
+  }
+
+  if (v6 == a1[5] + a1[4])
+  {
+    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
+    v4 = a1[1];
+    v5 = a1[2];
+  }
+
+  if (v5 == v4)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v7 = a1[5] + a1[4];
+    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
+  }
+
+  std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::unary_fp<mlx::core::detail::Floor>(mlx::core::array const&,mlx::core::array&,mlx::core::detail::Floor,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::detail::Floor&&)::{lambda(void)#1},std::function<void ()(void)>*>(v8, a2);
 }

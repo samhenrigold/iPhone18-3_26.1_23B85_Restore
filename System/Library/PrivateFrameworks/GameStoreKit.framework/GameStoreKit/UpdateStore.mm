@@ -37,7 +37,7 @@
 
   selfCopy = self;
   sub_24EB9C6D8(v7, v6);
-  sub_24E824448(v7);
+  sub_24E824448(v7, v6);
 }
 
 - (void)broadcastChangeNotificationIfNotCoalescing

@@ -319,49 +319,35 @@
 - (CGRect)_monogramReferenceFrameForStyle:(unint64_t)style
 {
   device = [(NTKColorAnalogFaceView *)self device];
-  v30 = 0;
-  memset(v29, 0, sizeof(v29));
-  v28 = 0u;
-  sub_755C(device, &v28);
+  v27 = 0;
+  memset(v26, 0, sizeof(v26));
+  sub_755C(device, v26);
   [(NTKColorAnalogFaceView *)self _monogramKeylinePadding];
-  v8 = v6;
-  v10 = v9;
-  v11 = v7;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
   v13 = v12;
-  if (style)
+  if (style <= 1)
   {
-    if (style != 1)
-    {
-      goto LABEL_7;
-    }
-
-    v14 = v29 + 1;
+    [NTKAnalogUtilities dialSizeForDevice:device];
+    [(NTKColorAnalogFaceView *)self bounds];
   }
 
-  else
-  {
-    v14 = v29;
-  }
-
-  v15 = v7 + v6 + *v14 - *(&v28 + 1);
-  [NTKAnalogUtilities dialSizeForDevice:device];
-  [(NTKColorAnalogFaceView *)self bounds];
-LABEL_7:
   [(NTKColorAnalogFaceView *)self bounds];
   CLKRectCenteredXInRectForDevice();
-  v17 = v10 + v16;
-  v19 = v8 + v18;
-  v21 = v20 - (v10 + v13);
-  v23 = v22 - (v8 + v11);
+  v15 = v9 + v14;
+  v17 = v7 + v16;
+  v19 = v18 - (v9 + v13);
+  v21 = v20 - (v7 + v11);
 
-  v24 = v17;
-  v25 = v19;
-  v26 = v21;
-  v27 = v23;
-  result.size.height = v27;
-  result.size.width = v26;
-  result.origin.y = v25;
-  result.origin.x = v24;
+  v22 = v15;
+  v23 = v17;
+  v24 = v19;
+  v25 = v21;
+  result.size.height = v25;
+  result.size.width = v24;
+  result.origin.y = v23;
+  result.origin.x = v22;
   return result;
 }
 
@@ -388,28 +374,28 @@ LABEL_7:
     self->_currentStyle = style;
     [(NTKColorAnalogBackgroundView *)self->_backgroundView applyStyle:style];
     [(NTKColorAnalogFaceView *)self _monogramReferenceFrameForStyle:self->_currentStyle];
-    self->_monogramOverrideFrame.origin.x = v18;
-    self->_monogramOverrideFrame.origin.y = v19;
-    self->_monogramOverrideFrame.size.width = v20;
-    self->_monogramOverrideFrame.size.height = v21;
+    self->_monogramOverrideFrame.origin.x = v19;
+    self->_monogramOverrideFrame.origin.y = v20;
+    self->_monogramOverrideFrame.size.width = v21;
+    self->_monogramOverrideFrame.size.height = v22;
     device = [(NTKColorAnalogFaceView *)self device];
     faceColorPalette = [(NTKColorAnalogFaceView *)self faceColorPalette];
     faceColorPalette2 = [NTKFaceColorScheme colorSchemeForDevice:device withFaceColorPalette:faceColorPalette units:49];
 
     if (self->_currentStyle)
     {
-      _MonogramDarkForegroundColor();
+      _MonogramDarkForegroundColor(v25);
     }
 
     else
     {
       [faceColorPalette2 shiftedForegroundColor];
     }
-    v25 = ;
-    objc_storeStrong(&self->_monogramForegroundColor, v25);
+    v27 = ;
+    objc_storeStrong(&self->_monogramForegroundColor, v27);
 
-    v26 = [(NTKColorAnalogFaceView *)self _colorComplicationViewForSlot:NTKComplicationSlotMonogram];
-    [v26 setForegroundColor:self->_monogramForegroundColor];
+    v28 = [(NTKColorAnalogFaceView *)self _colorComplicationViewForSlot:NTKComplicationSlotMonogram];
+    [v28 setForegroundColor:self->_monogramForegroundColor];
 
     [(NTKColorAnalogFaceView *)self invalidateComplicationLayout];
     delegate = [(NTKColorAnalogFaceView *)self delegate];
@@ -435,22 +421,22 @@ LABEL_7:
 
     if (self->_currentStyle)
     {
-      _MonogramDarkForegroundColor();
+      _MonogramDarkForegroundColor(v17);
     }
 
     else
     {
       [faceColorPalette2 primaryShiftedColor];
     }
-    v24 = ;
-    objc_storeStrong(&self->_monogramForegroundColor, v24);
+    v26 = ;
+    objc_storeStrong(&self->_monogramForegroundColor, v26);
 
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_5930;
-    v28[3] = &unk_10520;
-    v28[4] = self;
-    [(NTKColorAnalogFaceView *)self enumerateComplicationDisplayWrappersWithBlock:v28];
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_5930;
+    v30[3] = &unk_10520;
+    v30[4] = self;
+    [(NTKColorAnalogFaceView *)self enumerateComplicationDisplayWrappersWithBlock:v30];
 LABEL_11:
   }
 }
@@ -479,7 +465,7 @@ LABEL_11:
 
     self->_currentStyle = v32;
     interpolatedColorPalette = [(NTKColorAnalogFaceView *)self _colorComplicationViewForSlot:NTKComplicationSlotMonogram];
-    v33 = _MonogramDarkForegroundColor();
+    v33 = _MonogramDarkForegroundColor(interpolatedColorPalette);
     faceColorPalette = [(NTKColorAnalogFaceView *)self faceColorPalette];
     primaryShiftedColor = [faceColorPalette primaryShiftedColor];
     v36 = NTKInterpolateBetweenColors();
@@ -625,8 +611,8 @@ LABEL_11:
 
 - (void)_configureForTransitionFraction:(double)fraction fromEditMode:(int64_t)mode toEditMode:(int64_t)editMode
 {
-  v25.receiver = self;
-  v25.super_class = NTKColorAnalogFaceView;
+  v26.receiver = self;
+  v26.super_class = NTKColorAnalogFaceView;
   [NTKColorAnalogFaceView _configureForTransitionFraction:"_configureForTransitionFraction:fromEditMode:toEditMode:" fromEditMode:? toEditMode:?];
   timeView = [(NTKColorAnalogFaceView *)self timeView];
   CLKInterpolateBetweenFloatsClipped();
@@ -637,8 +623,8 @@ LABEL_11:
   [(NTKColorAnalogBackgroundView *)backgroundView setAlpha:?];
   CLKInterpolateBetweenFloatsClipped();
   v11 = self->_backgroundView;
-  CGAffineTransformMakeScale(&v24, v12, v12);
-  [(NTKColorAnalogBackgroundView *)v11 setTransform:&v24];
+  CGAffineTransformMakeScale(&v25, v12, v12);
+  [(NTKColorAnalogBackgroundView *)v11 setTransform:&v25];
   device = [(NTKColorAnalogFaceView *)self device];
   faceColorPalette = [(NTKColorAnalogFaceView *)self faceColorPalette];
   v15 = [NTKFaceColorScheme colorSchemeForDevice:device withFaceColorPalette:faceColorPalette units:49];
@@ -649,40 +635,40 @@ LABEL_11:
 
   if (style)
   {
-    _MonogramDarkForegroundColor();
+    _MonogramDarkForegroundColor(v19);
   }
 
   else
   {
     [v15 shiftedForegroundColor];
   }
-  v19 = ;
-  shiftedForegroundColor = v19;
+  v20 = ;
+  shiftedForegroundColor = v20;
   if (mode == 1)
   {
     shiftedForegroundColor = [v15 shiftedForegroundColor];
   }
 
-  shiftedForegroundColor2 = v19;
+  shiftedForegroundColor2 = v20;
   if (editMode == 1)
   {
     shiftedForegroundColor2 = [v15 shiftedForegroundColor];
   }
 
-  v22 = NTKInterpolateBetweenColors();
-  [v16 setForegroundColor:v22];
+  v23 = NTKInterpolateBetweenColors();
+  [v16 setForegroundColor:v23];
 
   if (fraction <= 0.5)
   {
-    v23 = shiftedForegroundColor;
+    v24 = shiftedForegroundColor;
   }
 
   else
   {
-    v23 = shiftedForegroundColor2;
+    v24 = shiftedForegroundColor2;
   }
 
-  objc_storeStrong(&self->_monogramForegroundColor, v23);
+  objc_storeStrong(&self->_monogramForegroundColor, v24);
 }
 
 - (int64_t)_keylineStyleForComplicationSlot:(id)slot

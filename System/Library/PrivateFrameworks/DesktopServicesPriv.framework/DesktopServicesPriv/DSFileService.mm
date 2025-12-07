@@ -136,65 +136,65 @@ LABEL_10:
 
   objc_sync_exit(selfCopy);
 
-  objc_initWeak(&location, selfCopy);
-  sharedScheduler = [(objc_class *)off_10007D988() sharedScheduler];
+  inited = objc_initWeak(&location, selfCopy);
+  sharedScheduler = [off_10007D988(inited) sharedScheduler];
   backgroundProcessingQueue = [(DSFileService *)selfCopy backgroundProcessingQueue];
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3321888768;
-  v27[2] = sub_10002EC5C;
-  v27[3] = &unk_100079B30;
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3321888768;
+  v28[2] = sub_10002EC5C;
+  v28[3] = &unk_100079B30;
   objc_copyWeak(&to, &location);
-  v14 = dCopy;
-  *&to_4[4] = v14;
-  objc_copyWeak(&v28, &to);
-  v29 = *&to_4[4];
-  v15 = [sharedScheduler registerForTaskWithIdentifier:v7 usingQueue:backgroundProcessingQueue launchHandler:v27];
+  v15 = dCopy;
+  *&to_4[4] = v15;
+  objc_copyWeak(&v29, &to);
+  v30 = *&to_4[4];
+  v16 = [sharedScheduler registerForTaskWithIdentifier:v7 usingQueue:backgroundProcessingQueue launchHandler:v28];
 
   objc_destroyWeak(&to);
-  if (v15)
+  if (v16)
   {
-    v16 = LogObj(2);
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = LogObj(2);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_9;
     }
 
     to = 138543362;
-    *to_4 = v14;
-    v17 = "Continuous background task registration succeeded for id: %{public}@";
-    v18 = v16;
-    v19 = OS_LOG_TYPE_DEBUG;
+    *to_4 = v15;
+    v18 = "Continuous background task registration succeeded for id: %{public}@";
+    v19 = v17;
+    v20 = OS_LOG_TYPE_DEBUG;
   }
 
   else
   {
-    v16 = LogObj(2);
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = LogObj(2);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_9;
     }
 
     to = 138543362;
-    *to_4 = v14;
-    v17 = "Continuous background task registration failed for id: %{public}@";
-    v18 = v16;
-    v19 = OS_LOG_TYPE_ERROR;
+    *to_4 = v15;
+    v18 = "Continuous background task registration failed for id: %{public}@";
+    v19 = v17;
+    v20 = OS_LOG_TYPE_ERROR;
   }
 
-  _os_log_impl(&_mh_execute_header, v18, v19, v17, &to, 0xCu);
+  _os_log_impl(&_mh_execute_header, v19, v20, v18, &to, 0xCu);
 LABEL_9:
 
-  v20 = objc_alloc(off_10007D990());
-  v21 = +[NSBundle mainBundle];
-  v22 = [v21 localizedStringForKey:@"Copying files" value:&stru_10007A430 table:0];
-  v23 = +[NSBundle mainBundle];
-  v24 = [v23 localizedStringForKey:@"Preparing…" value:&stru_10007A430 table:0];
-  v25 = [v20 initWithIdentifier:v7 title:v22 subtitle:v24 onBehalfOf:@"com.apple.DocumentsApp"];
+  v21 = objc_alloc(off_10007D990());
+  v22 = +[NSBundle mainBundle];
+  v23 = [v22 localizedStringForKey:@"Copying files" value:&stru_10007A430 table:0];
+  v24 = +[NSBundle mainBundle];
+  v25 = [v24 localizedStringForKey:@"Preparing…" value:&stru_10007A430 table:0];
+  v26 = [v21 initWithIdentifier:v7 title:v23 subtitle:v25 onBehalfOf:@"com.apple.DocumentsApp"];
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
 
-  return v25;
+  return v26;
 }
 
 - (void)requestBGTask:(id)task
@@ -209,45 +209,45 @@ LABEL_9:
     title = [v6 title];
     subtitle = [v6 subtitle];
     *buf = 136446978;
-    v17 = "[DSFileService requestBGTask:]";
-    v18 = 2114;
-    v19 = v6;
-    v20 = 2114;
-    v21 = title;
-    v22 = 2114;
-    v23 = subtitle;
+    v18 = "[DSFileService requestBGTask:]";
+    v19 = 2114;
+    v20 = v6;
+    v21 = 2114;
+    v22 = title;
+    v23 = 2114;
+    v24 = subtitle;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%{public}s, ContinuedProcessingTaskRequest:%{public}@, Title:%{public}@, Reason:%{public}@", buf, 0x2Au);
   }
 
-  sharedScheduler = [(objc_class *)off_10007D988() sharedScheduler];
-  v15 = 0;
-  v11 = [sharedScheduler submitTaskRequest:v6 error:&v15];
-  v12 = v15;
+  sharedScheduler = [off_10007D988(v10) sharedScheduler];
+  v16 = 0;
+  v12 = [sharedScheduler submitTaskRequest:v6 error:&v16];
+  v13 = v16;
 
-  if (v11)
+  if (v12)
   {
-    v13 = LogObj(2);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = LogObj(2);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v17 = v6;
-      v18 = 2114;
-      v19 = taskCopy;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Submitted background task request with progress UI %@ for group id %{public}@", buf, 0x16u);
+      v18 = v6;
+      v19 = 2114;
+      v20 = taskCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Submitted background task request with progress UI %@ for group id %{public}@", buf, 0x16u);
     }
   }
 
   else
   {
-    v13 = LogObj(2);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = LogObj(2);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v12 localizedDescription];
+      localizedDescription = [v13 localizedDescription];
       *buf = 138543618;
-      v17 = localizedDescription;
-      v18 = 2114;
-      v19 = taskCopy;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to submit background task request: %{public}@ for group id %{public}@", buf, 0x16u);
+      v18 = localizedDescription;
+      v19 = 2114;
+      v20 = taskCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to submit background task request: %{public}@ for group id %{public}@", buf, 0x16u);
     }
   }
 

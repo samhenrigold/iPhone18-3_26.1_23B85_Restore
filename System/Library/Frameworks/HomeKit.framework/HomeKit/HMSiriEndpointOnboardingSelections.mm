@@ -4,8 +4,13 @@
 - (BOOL)isEqual:(id)equal;
 - (HMSiriEndpointOnboardingSelections)init;
 - (HMSiriEndpointOnboardingSelections)initWithPayload:(id)payload;
+- (HMSiriEndpointOnboardingSelections)initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled;
+- (HMSiriEndpointOnboardingSelections)initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled languageValue:(id)value;
+- (HMSiriEndpointOnboardingSelections)initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled playbackInfluencesForYouEnabled:(BOOL)youEnabled shareSiriAnalyticsEnabled:(BOOL)analyticsEnabled explicitContentAllowed:(BOOL)allowed;
+- (HMSiriEndpointOnboardingSelections)initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled playbackInfluencesForYouEnabled:(BOOL)youEnabled shareSiriAnalyticsEnabled:(BOOL)analyticsEnabled explicitContentAllowed:(BOOL)allowed languageValue:(id)value;
 - (NSArray)attributeDescriptions;
 - (NSString)shortDescription;
+- (id)_initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled playbackInfluencesForYouEnabled:(BOOL)youEnabled shareSiriAnalyticsEnabled:(BOOL)analyticsEnabled explicitContentAllowed:(BOOL)allowed languageValue:(id)value;
 - (id)payloadCopy;
 - (unint64_t)hash;
 @end
@@ -170,52 +175,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_19;
-    }
-
-    isSiriEnabled = [(HMSiriEndpointOnboardingSelections *)self isSiriEnabled];
-    if (isSiriEnabled != [(HMSiriEndpointOnboardingSelections *)v6 isSiriEnabled])
-    {
-      goto LABEL_19;
-    }
-
-    allowHeySiri = [(HMSiriEndpointOnboardingSelections *)self allowHeySiri];
-    if (allowHeySiri != [(HMSiriEndpointOnboardingSelections *)v6 allowHeySiri])
-    {
-      goto LABEL_19;
-    }
-
-    isAirPlayEnabled = [(HMSiriEndpointOnboardingSelections *)self isAirPlayEnabled];
-    if (isAirPlayEnabled != [(HMSiriEndpointOnboardingSelections *)v6 isAirPlayEnabled])
-    {
-      goto LABEL_19;
-    }
-
-    isExplicitContentAllowed = [(HMSiriEndpointOnboardingSelections *)self isExplicitContentAllowed];
-    if (isExplicitContentAllowed != [(HMSiriEndpointOnboardingSelections *)v6 isExplicitContentAllowed])
-    {
-      goto LABEL_19;
-    }
-
-    isShareSiriAnalyticsEnabled = [(HMSiriEndpointOnboardingSelections *)self isShareSiriAnalyticsEnabled];
-    if (isShareSiriAnalyticsEnabled != [(HMSiriEndpointOnboardingSelections *)v6 isShareSiriAnalyticsEnabled])
-    {
-      goto LABEL_19;
-    }
-
-    languageValue = [(HMSiriEndpointOnboardingSelections *)self languageValue];
-    languageValue2 = [(HMSiriEndpointOnboardingSelections *)v6 languageValue];
-    v14 = HMFEqualObjects();
-
-    if (!v14)
-    {
-      goto LABEL_19;
-    }
-
-    isAnnounceEnabled = [(HMSiriEndpointOnboardingSelections *)self isAnnounceEnabled];
-    if (isAnnounceEnabled == [(HMSiriEndpointOnboardingSelections *)v6 isAnnounceEnabled]&& (v16 = [(HMSiriEndpointOnboardingSelections *)self isDoorbellChimeEnabled], v16 == [(HMSiriEndpointOnboardingSelections *)v6 isDoorbellChimeEnabled]) && (v17 = [(HMSiriEndpointOnboardingSelections *)self isLightWhenUsingSiriEnabled], v17 == [(HMSiriEndpointOnboardingSelections *)v6 isLightWhenUsingSiriEnabled]) && (v18 = [(HMSiriEndpointOnboardingSelections *)self hasLanguageValue], v18 == [(HMSiriEndpointOnboardingSelections *)v6 hasLanguageValue]) && (v19 = [(HMSiriEndpointOnboardingSelections *)self hasSiriEnabled], v19 == [(HMSiriEndpointOnboardingSelections *)v6 hasSiriEnabled]) && (v20 = [(HMSiriEndpointOnboardingSelections *)self hasAllowHeySiri], v20 == [(HMSiriEndpointOnboardingSelections *)v6 hasAllowHeySiri]) && (v21 = [(HMSiriEndpointOnboardingSelections *)self hasExplicitContentAllowed], v21 == [(HMSiriEndpointOnboardingSelections *)v6 hasExplicitContentAllowed]))
+    if (v6 && (v7 = [(HMSiriEndpointOnboardingSelections *)self isSiriEnabled], v7 == [(HMSiriEndpointOnboardingSelections *)v6 isSiriEnabled]) && (v8 = [(HMSiriEndpointOnboardingSelections *)self allowHeySiri], v8 == [(HMSiriEndpointOnboardingSelections *)v6 allowHeySiri]) && (v9 = [(HMSiriEndpointOnboardingSelections *)self isAirPlayEnabled], v9 == [(HMSiriEndpointOnboardingSelections *)v6 isAirPlayEnabled]) && (v10 = [(HMSiriEndpointOnboardingSelections *)self isExplicitContentAllowed], v10 == [(HMSiriEndpointOnboardingSelections *)v6 isExplicitContentAllowed]) && (v11 = [(HMSiriEndpointOnboardingSelections *)self isShareSiriAnalyticsEnabled], v11 == [(HMSiriEndpointOnboardingSelections *)v6 isShareSiriAnalyticsEnabled]) && ([(HMSiriEndpointOnboardingSelections *)self languageValue], v12 = objc_claimAutoreleasedReturnValue(), [(HMSiriEndpointOnboardingSelections *)v6 languageValue], v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14) && (v15 = [(HMSiriEndpointOnboardingSelections *)self isAnnounceEnabled], v15 == [(HMSiriEndpointOnboardingSelections *)v6 isAnnounceEnabled]) && (v16 = [(HMSiriEndpointOnboardingSelections *)self isDoorbellChimeEnabled], v16 == [(HMSiriEndpointOnboardingSelections *)v6 isDoorbellChimeEnabled]) && (v17 = [(HMSiriEndpointOnboardingSelections *)self isLightWhenUsingSiriEnabled], v17 == [(HMSiriEndpointOnboardingSelections *)v6 isLightWhenUsingSiriEnabled]) && (v18 = [(HMSiriEndpointOnboardingSelections *)self hasLanguageValue], v18 == [(HMSiriEndpointOnboardingSelections *)v6 hasLanguageValue]) && (v19 = [(HMSiriEndpointOnboardingSelections *)self hasSiriEnabled], v19 == [(HMSiriEndpointOnboardingSelections *)v6 hasSiriEnabled]) && (v20 = [(HMSiriEndpointOnboardingSelections *)self hasAllowHeySiri], v20 == [(HMSiriEndpointOnboardingSelections *)v6 hasAllowHeySiri]) && (v21 = [(HMSiriEndpointOnboardingSelections *)self hasExplicitContentAllowed], v21 == [(HMSiriEndpointOnboardingSelections *)v6 hasExplicitContentAllowed]))
     {
       hasShareSiriAnalyticsEnabled = [(HMSiriEndpointOnboardingSelections *)self hasShareSiriAnalyticsEnabled];
       v22 = hasShareSiriAnalyticsEnabled ^ [(HMSiriEndpointOnboardingSelections *)v6 hasShareSiriAnalyticsEnabled]^ 1;
@@ -223,7 +183,6 @@
 
     else
     {
-LABEL_19:
       LOBYTE(v22) = 0;
     }
   }
@@ -233,54 +192,52 @@ LABEL_19:
 
 - (NSArray)attributeDescriptions
 {
-  v33[9] = *MEMORY[0x1E69E9840];
+  v32[9] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMSiriEndpointOnboardingSelections *)self isSiriEnabled];
-  v32 = HMFBooleanToString();
-  v31 = [v3 initWithName:@"siriEnabled" value:v32];
-  v33[0] = v31;
+  v31 = HMFBooleanToString();
+  v30 = [v3 initWithName:@"siriEnabled" value:v31];
+  v32[0] = v30;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMSiriEndpointOnboardingSelections *)self allowHeySiri];
-  v30 = HMFBooleanToString();
-  v29 = [v4 initWithName:@"allowHeySiri" value:v30];
-  v33[1] = v29;
+  v29 = HMFBooleanToString();
+  v28 = [v4 initWithName:@"allowHeySiri" value:v29];
+  v32[1] = v28;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMSiriEndpointOnboardingSelections *)self isAirPlayEnabled];
-  v28 = HMFBooleanToString();
-  v27 = [v5 initWithName:@"airPlayEnabled" value:v28];
-  v33[2] = v27;
+  v27 = HMFBooleanToString();
+  v26 = [v5 initWithName:@"airPlayEnabled" value:v27];
+  v32[2] = v26;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMSiriEndpointOnboardingSelections *)self isExplicitContentAllowed];
-  v26 = HMFBooleanToString();
-  v25 = [v6 initWithName:@"explicitContentAllowed" value:v26];
-  v33[3] = v25;
+  v25 = HMFBooleanToString();
+  v24 = [v6 initWithName:@"explicitContentAllowed" value:v25];
+  v32[3] = v24;
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMSiriEndpointOnboardingSelections *)self isShareSiriAnalyticsEnabled];
-  v24 = HMFBooleanToString();
-  v8 = [v7 initWithName:@"shareSiriAnalyticsEnabled" value:v24];
-  v33[4] = v8;
+  v23 = HMFBooleanToString();
+  v8 = [v7 initWithName:@"shareSiriAnalyticsEnabled" value:v23];
+  v32[4] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMSiriEndpointOnboardingSelections *)self isLightWhenUsingSiriEnabled];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"lightWhenUsingSiriEnabled" value:v10];
-  v33[5] = v11;
+  v32[5] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMSiriEndpointOnboardingSelections *)self isDoorbellChimeEnabled];
   v13 = HMFBooleanToString();
   v14 = [v12 initWithName:@"doorbellChimeEnabled" value:v13];
-  v33[6] = v14;
+  v32[6] = v14;
   v15 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMSiriEndpointOnboardingSelections *)self isAnnounceEnabled];
   v16 = HMFBooleanToString();
   v17 = [v15 initWithName:@"announceEnabled" value:v16];
-  v33[7] = v17;
+  v32[7] = v17;
   v18 = objc_alloc(MEMORY[0x1E69A29C8]);
   languageValue = [(HMSiriEndpointOnboardingSelections *)self languageValue];
   v20 = [v18 initWithName:@"languageValue" value:languageValue];
-  v33[8] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:9];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v32[8] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:9];
 
   return v21;
 }
@@ -294,11 +251,11 @@ LABEL_19:
 
 - (HMSiriEndpointOnboardingSelections)initWithPayload:(id)payload
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
-  v85 = 0;
-  v5 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsSiriEnabledPayloadKey" error:&v85];
-  v6 = v85;
+  v84 = 0;
+  v5 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsSiriEnabledPayloadKey" error:&v84];
+  v6 = v84;
   if (v6)
   {
     v7 = v6;
@@ -309,9 +266,9 @@ LABEL_19:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v11;
-      v88 = 2112;
-      v89 = v7;
+      v86 = v11;
+      v87 = 2112;
+      v88 = v7;
       v12 = "%{public}@Failed to decode isSiriEnabled due to error: %@";
 LABEL_16:
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, v12, buf, 0x16u);
@@ -322,9 +279,9 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v84 = 0;
-  v13 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsAllowHeySiriPayloadKey" error:&v84];
-  v14 = v84;
+  v83 = 0;
+  v13 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsAllowHeySiriPayloadKey" error:&v83];
+  v14 = v83;
   if (v14)
   {
     v7 = v14;
@@ -335,9 +292,9 @@ LABEL_16:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v11;
-      v88 = 2112;
-      v89 = v7;
+      v86 = v11;
+      v87 = 2112;
+      v88 = v7;
       v12 = "%{public}@Failed to decode allowHeySiri due to error: %@";
       goto LABEL_16;
     }
@@ -349,9 +306,9 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v83 = 0;
-  v15 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsAirPlayEnabledPayloadKey" error:&v83];
-  v16 = v83;
+  v82 = 0;
+  v15 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsAirPlayEnabledPayloadKey" error:&v82];
+  v16 = v82;
   if (v16)
   {
     v7 = v16;
@@ -362,9 +319,9 @@ LABEL_17:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v11;
-      v88 = 2112;
-      v89 = v7;
+      v86 = v11;
+      v87 = 2112;
+      v88 = v7;
       v12 = "%{public}@Failed to decode isAirPlayEnabled due to error: %@";
       goto LABEL_16;
     }
@@ -372,9 +329,9 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v82 = 0;
-  v69 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsExplicitContentAllowedPayloadKey" error:&v82];
-  v17 = v82;
+  v81 = 0;
+  v68 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsExplicitContentAllowedPayloadKey" error:&v81];
+  v17 = v81;
   if (v17)
   {
     v7 = v17;
@@ -385,9 +342,9 @@ LABEL_17:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v11;
-      v88 = 2112;
-      v89 = v7;
+      v86 = v11;
+      v87 = 2112;
+      v88 = v7;
       v12 = "%{public}@Failed to decode isExplicitContentAllowed due to error: %@";
       goto LABEL_16;
     }
@@ -395,9 +352,9 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v81 = 0;
-  v18 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsShareSiriAnalyticsPayloadKey" error:&v81];
-  v19 = v81;
+  v80 = 0;
+  v18 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsShareSiriAnalyticsPayloadKey" error:&v80];
+  v19 = v80;
   if (v19)
   {
     v7 = v19;
@@ -408,9 +365,9 @@ LABEL_17:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v11;
-      v88 = 2112;
-      v89 = v7;
+      v86 = v11;
+      v87 = 2112;
+      v88 = v7;
       v12 = "%{public}@Failed to decode isShareSiriAnalyticsEnabled due to error: %@";
       goto LABEL_16;
     }
@@ -418,208 +375,207 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v23 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsShouldHonorSiriAnalyticsSelectionPayloadKey"];
-  if (v18 && (v23 & 1) == 0)
+  v22 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsShouldHonorSiriAnalyticsSelectionPayloadKey"];
+  if (v18 && (v22 & 1) == 0)
   {
-    v24 = objc_autoreleasePoolPush();
+    v23 = objc_autoreleasePoolPush();
     selfCopy6 = self;
-    v26 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v25 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v27 = HMFGetLogIdentifier();
+      v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v87 = v27;
-      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_INFO, "%{public}@Blocking enabling siri analytics due to old payload with missing flag", buf, 0xCu);
+      v86 = v26;
+      _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_INFO, "%{public}@Blocking enabling siri analytics due to old payload with missing flag", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v24);
+    objc_autoreleasePoolPop(v23);
     v18 = 0;
   }
 
-  v65 = v18;
-  v80 = 0;
-  v64 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasSiriEnabledPayloadKey" error:&v80];
-  v28 = v80;
-  v79 = v28;
-  v63 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasAllowHeySiriPayloadKey" error:&v79];
-  v29 = v79;
+  v64 = v18;
+  v79 = 0;
+  v63 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasSiriEnabledPayloadKey" error:&v79];
+  v27 = v79;
+  v78 = v27;
+  v62 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasAllowHeySiriPayloadKey" error:&v78];
+  v28 = v78;
 
-  v78 = v29;
-  v62 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasAirPlayEnabledPayloadKey" error:&v78];
-  v30 = v78;
+  v77 = v28;
+  v61 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasAirPlayEnabledPayloadKey" error:&v77];
+  v29 = v77;
 
-  v77 = v30;
-  v61 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasExplicitContentAllowedPayloadKey" error:&v77];
-  v31 = v77;
+  v76 = v29;
+  v60 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasExplicitContentAllowedPayloadKey" error:&v76];
+  v30 = v76;
 
-  v76 = v31;
-  v32 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasShareSiriAnalyticsPayloadKey" error:&v76];
-  v33 = v76;
+  v75 = v30;
+  v31 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasShareSiriAnalyticsPayloadKey" error:&v75];
+  v32 = v75;
 
-  v34 = [payloadCopy hmf_dictionaryForKey:@"HMSiriEndpointOnboardingSelectionsLanguageValueKey"];
-  v35 = v34;
-  if (v34 && (v34 = [[HMSettingLanguageValue alloc] initWithPayload:v34]) == 0)
+  v33 = [payloadCopy hmf_dictionaryForKey:@"HMSiriEndpointOnboardingSelectionsLanguageValueKey"];
+  v34 = v33;
+  if (v33 && (v33 = [[HMSettingLanguageValue alloc] initWithPayload:v33]) == 0)
   {
     v7 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:2 reason:@"Unable to decode languageValue"];
 
-    v49 = objc_autoreleasePoolPush();
+    v48 = objc_autoreleasePoolPush();
     selfCopy7 = self;
-    v50 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    v49 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      v51 = HMFGetLogIdentifier();
+      v50 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v51;
-      v88 = 2112;
-      v89 = v35;
-      _os_log_impl(&dword_19BB39000, v50, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode onboarding selections due to invalid language value payload: %@", buf, 0x16u);
+      v86 = v50;
+      v87 = 2112;
+      v88 = v34;
+      _os_log_impl(&dword_19BB39000, v49, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode onboarding selections due to invalid language value payload: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v49);
+    objc_autoreleasePoolPop(v48);
     v20 = 0;
   }
 
   else
   {
-    v58 = v34;
-    v59 = v32;
-    v60 = v35;
-    v57 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasLanguageValueKey"];
-    v75 = v33;
-    v68 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasDoorbellChimeEnabledPayloadKey" error:&v75];
-    v36 = v75;
+    v57 = v33;
+    v58 = v31;
+    v59 = v34;
+    v56 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasLanguageValueKey"];
+    v74 = v32;
+    v67 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasDoorbellChimeEnabledPayloadKey" error:&v74];
+    v35 = v74;
 
-    v74 = v36;
-    v67 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasAnnounceEnabledPayloadKey" error:&v74];
-    v37 = v74;
+    v73 = v35;
+    v66 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasAnnounceEnabledPayloadKey" error:&v73];
+    v36 = v73;
 
-    v73 = v37;
-    v66 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasLightWhenUsingSiriEnabledPayloadKey" error:&v73];
-    v38 = v73;
+    v72 = v36;
+    v65 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsHasLightWhenUsingSiriEnabledPayloadKey" error:&v72];
+    v37 = v72;
 
-    v72 = v38;
-    v56 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsDoorbellChimeEnabledPayloadKey" error:&v72];
-    v39 = v72;
+    v71 = v37;
+    v55 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsDoorbellChimeEnabledPayloadKey" error:&v71];
+    v38 = v71;
 
-    v71 = v39;
-    v55 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsAnnounceEnabledPayloadKey" error:&v71];
-    v40 = v71;
+    v70 = v38;
+    v54 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsAnnounceEnabledPayloadKey" error:&v70];
+    v39 = v70;
 
-    v70 = v40;
-    v54 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsLightWhenUsingSiriEnabledPayloadKey" error:&v70];
-    v7 = v70;
+    v69 = v39;
+    v53 = [payloadCopy hmf_BOOLForKey:@"HMSiriEndpointOnboardingSelectionsLightWhenUsingSiriEnabledPayloadKey" error:&v69];
+    v7 = v69;
 
-    v41 = objc_autoreleasePoolPush();
+    v40 = objc_autoreleasePoolPush();
     selfCopy8 = self;
-    v43 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+    v42 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
     {
-      v53 = HMFGetLogIdentifier();
-      v44 = HMFBooleanToString();
+      v52 = HMFGetLogIdentifier();
+      v43 = HMFBooleanToString();
       HMFBooleanToString();
-      v45 = v52 = v41;
-      v46 = HMFBooleanToString();
+      v44 = v51 = v40;
+      v45 = HMFBooleanToString();
       *buf = 138544130;
-      v87 = v53;
-      v88 = 2112;
-      v89 = v44;
-      v90 = 2112;
-      v91 = v45;
-      v92 = 2112;
-      v93 = v46;
-      v47 = v46;
-      _os_log_impl(&dword_19BB39000, v43, OS_LOG_TYPE_INFO, "%{public}@Decoded Payload hasAnnounce = %@, hasLightWhenUsingSiri = %@, hasDoorbellChimeEnabled = %@ ", buf, 0x2Au);
+      v86 = v52;
+      v87 = 2112;
+      v88 = v43;
+      v89 = 2112;
+      v90 = v44;
+      v91 = 2112;
+      v92 = v45;
+      v46 = v45;
+      _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_INFO, "%{public}@Decoded Payload hasAnnounce = %@, hasLightWhenUsingSiri = %@, hasDoorbellChimeEnabled = %@ ", buf, 0x2Au);
 
-      v41 = v52;
+      v40 = v51;
     }
 
-    objc_autoreleasePoolPop(v41);
-    v48 = [(HMSiriEndpointOnboardingSelections *)selfCopy8 init];
-    [(HMSiriEndpointOnboardingSelections *)v48 setAllowHeySiri:v13];
-    [(HMSiriEndpointOnboardingSelections *)v48 setSiriEnabled:v5];
-    [(HMSiriEndpointOnboardingSelections *)v48 setAirPlayEnabled:v15];
-    [(HMSiriEndpointOnboardingSelections *)v48 setExplicitContentAllowed:v69];
-    [(HMSiriEndpointOnboardingSelections *)v48 setShareSiriAnalyticsEnabled:v65];
-    [(HMSiriEndpointOnboardingSelections *)v48 setLanguageValue:v58];
-    [(HMSiriEndpointOnboardingSelections *)v48 setDoorbellChimeEnabled:v56];
-    [(HMSiriEndpointOnboardingSelections *)v48 setAnnounceEnabled:v55];
-    [(HMSiriEndpointOnboardingSelections *)v48 setLightWhenUsingSiriEnabled:v54];
-    [(HMSiriEndpointOnboardingSelections *)v48 setHasAllowHeySiri:v63];
-    [(HMSiriEndpointOnboardingSelections *)v48 setHasSiriEnabled:v64];
-    [(HMSiriEndpointOnboardingSelections *)v48 setHasAirPlayEnabled:v62];
-    [(HMSiriEndpointOnboardingSelections *)v48 setHasExplicitContentAllowed:v61];
-    [(HMSiriEndpointOnboardingSelections *)v48 setHasShareSiriAnalyticsEnabled:v59];
-    [(HMSiriEndpointOnboardingSelections *)v48 setHasLanguageValue:v57];
-    [(HMSiriEndpointOnboardingSelections *)v48 setHasAnnounceEnabled:v67];
-    [(HMSiriEndpointOnboardingSelections *)v48 setHasDoorbellChimeEnabled:v68];
-    [(HMSiriEndpointOnboardingSelections *)v48 setHasLightWhenUsingSiriEnabled:v66];
-    selfCopy7 = v48;
+    objc_autoreleasePoolPop(v40);
+    v47 = [(HMSiriEndpointOnboardingSelections *)selfCopy8 init];
+    [(HMSiriEndpointOnboardingSelections *)v47 setAllowHeySiri:v13];
+    [(HMSiriEndpointOnboardingSelections *)v47 setSiriEnabled:v5];
+    [(HMSiriEndpointOnboardingSelections *)v47 setAirPlayEnabled:v15];
+    [(HMSiriEndpointOnboardingSelections *)v47 setExplicitContentAllowed:v68];
+    [(HMSiriEndpointOnboardingSelections *)v47 setShareSiriAnalyticsEnabled:v64];
+    [(HMSiriEndpointOnboardingSelections *)v47 setLanguageValue:v57];
+    [(HMSiriEndpointOnboardingSelections *)v47 setDoorbellChimeEnabled:v55];
+    [(HMSiriEndpointOnboardingSelections *)v47 setAnnounceEnabled:v54];
+    [(HMSiriEndpointOnboardingSelections *)v47 setLightWhenUsingSiriEnabled:v53];
+    [(HMSiriEndpointOnboardingSelections *)v47 setHasAllowHeySiri:v62];
+    [(HMSiriEndpointOnboardingSelections *)v47 setHasSiriEnabled:v63];
+    [(HMSiriEndpointOnboardingSelections *)v47 setHasAirPlayEnabled:v61];
+    [(HMSiriEndpointOnboardingSelections *)v47 setHasExplicitContentAllowed:v60];
+    [(HMSiriEndpointOnboardingSelections *)v47 setHasShareSiriAnalyticsEnabled:v58];
+    [(HMSiriEndpointOnboardingSelections *)v47 setHasLanguageValue:v56];
+    [(HMSiriEndpointOnboardingSelections *)v47 setHasAnnounceEnabled:v66];
+    [(HMSiriEndpointOnboardingSelections *)v47 setHasDoorbellChimeEnabled:v67];
+    [(HMSiriEndpointOnboardingSelections *)v47 setHasLightWhenUsingSiriEnabled:v65];
+    selfCopy7 = v47;
 
     v20 = selfCopy7;
-    v35 = v60;
+    v34 = v59;
   }
 
 LABEL_18:
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (id)payloadCopy
 {
-  v29[17] = *MEMORY[0x1E69E9840];
-  v24 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:19];
-  v28[0] = @"HMSiriEndpointOnboardingSelectionsSiriEnabledPayloadKey";
-  v27 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isSiriEnabled](self, "isSiriEnabled")}];
-  v29[0] = v27;
-  v28[1] = @"HMSiriEndpointOnboardingSelectionsAllowHeySiriPayloadKey";
-  v26 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections allowHeySiri](self, "allowHeySiri")}];
-  v29[1] = v26;
-  v28[2] = @"HMSiriEndpointOnboardingSelectionsAirPlayEnabledPayloadKey";
-  v25 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isAirPlayEnabled](self, "isAirPlayEnabled")}];
-  v29[2] = v25;
-  v28[3] = @"HMSiriEndpointOnboardingSelectionsExplicitContentAllowedPayloadKey";
-  v23 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isExplicitContentAllowed](self, "isExplicitContentAllowed")}];
-  v29[3] = v23;
-  v28[4] = @"HMSiriEndpointOnboardingSelectionsShareSiriAnalyticsPayloadKey";
-  v22 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isShareSiriAnalyticsEnabled](self, "isShareSiriAnalyticsEnabled")}];
-  v29[4] = v22;
-  v28[5] = @"HMSiriEndpointOnboardingSelectionsDoorbellChimeEnabledPayloadKey";
-  v21 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isDoorbellChimeEnabled](self, "isDoorbellChimeEnabled")}];
-  v29[5] = v21;
-  v28[6] = @"HMSiriEndpointOnboardingSelectionsAnnounceEnabledPayloadKey";
-  v20 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isAnnounceEnabled](self, "isAnnounceEnabled")}];
-  v29[6] = v20;
-  v28[7] = @"HMSiriEndpointOnboardingSelectionsLightWhenUsingSiriEnabledPayloadKey";
-  v19 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isLightWhenUsingSiriEnabled](self, "isLightWhenUsingSiriEnabled")}];
-  v29[7] = v19;
-  v28[8] = @"HMSiriEndpointOnboardingSelectionsHasSiriEnabledPayloadKey";
-  v18 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasSiriEnabled](self, "hasSiriEnabled")}];
-  v29[8] = v18;
-  v28[9] = @"HMSiriEndpointOnboardingSelectionsHasAllowHeySiriPayloadKey";
+  v28[17] = *MEMORY[0x1E69E9840];
+  v23 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:19];
+  v27[0] = @"HMSiriEndpointOnboardingSelectionsSiriEnabledPayloadKey";
+  v26 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isSiriEnabled](self, "isSiriEnabled")}];
+  v28[0] = v26;
+  v27[1] = @"HMSiriEndpointOnboardingSelectionsAllowHeySiriPayloadKey";
+  v25 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections allowHeySiri](self, "allowHeySiri")}];
+  v28[1] = v25;
+  v27[2] = @"HMSiriEndpointOnboardingSelectionsAirPlayEnabledPayloadKey";
+  v24 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isAirPlayEnabled](self, "isAirPlayEnabled")}];
+  v28[2] = v24;
+  v27[3] = @"HMSiriEndpointOnboardingSelectionsExplicitContentAllowedPayloadKey";
+  v22 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isExplicitContentAllowed](self, "isExplicitContentAllowed")}];
+  v28[3] = v22;
+  v27[4] = @"HMSiriEndpointOnboardingSelectionsShareSiriAnalyticsPayloadKey";
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isShareSiriAnalyticsEnabled](self, "isShareSiriAnalyticsEnabled")}];
+  v28[4] = v21;
+  v27[5] = @"HMSiriEndpointOnboardingSelectionsDoorbellChimeEnabledPayloadKey";
+  v20 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isDoorbellChimeEnabled](self, "isDoorbellChimeEnabled")}];
+  v28[5] = v20;
+  v27[6] = @"HMSiriEndpointOnboardingSelectionsAnnounceEnabledPayloadKey";
+  v19 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isAnnounceEnabled](self, "isAnnounceEnabled")}];
+  v28[6] = v19;
+  v27[7] = @"HMSiriEndpointOnboardingSelectionsLightWhenUsingSiriEnabledPayloadKey";
+  v18 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections isLightWhenUsingSiriEnabled](self, "isLightWhenUsingSiriEnabled")}];
+  v28[7] = v18;
+  v27[8] = @"HMSiriEndpointOnboardingSelectionsHasSiriEnabledPayloadKey";
+  v17 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasSiriEnabled](self, "hasSiriEnabled")}];
+  v28[8] = v17;
+  v27[9] = @"HMSiriEndpointOnboardingSelectionsHasAllowHeySiriPayloadKey";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasAllowHeySiri](self, "hasAllowHeySiri")}];
-  v29[9] = v3;
-  v28[10] = @"HMSiriEndpointOnboardingSelectionsHasAirPlayEnabledPayloadKey";
+  v28[9] = v3;
+  v27[10] = @"HMSiriEndpointOnboardingSelectionsHasAirPlayEnabledPayloadKey";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasAirPlayEnabled](self, "hasAirPlayEnabled")}];
-  v29[10] = v4;
-  v28[11] = @"HMSiriEndpointOnboardingSelectionsHasExplicitContentAllowedPayloadKey";
+  v28[10] = v4;
+  v27[11] = @"HMSiriEndpointOnboardingSelectionsHasExplicitContentAllowedPayloadKey";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasExplicitContentAllowed](self, "hasExplicitContentAllowed")}];
-  v29[11] = v5;
-  v28[12] = @"HMSiriEndpointOnboardingSelectionsHasShareSiriAnalyticsPayloadKey";
+  v28[11] = v5;
+  v27[12] = @"HMSiriEndpointOnboardingSelectionsHasShareSiriAnalyticsPayloadKey";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasShareSiriAnalyticsEnabled](self, "hasShareSiriAnalyticsEnabled")}];
-  v29[12] = v6;
-  v28[13] = @"HMSiriEndpointOnboardingSelectionsHasDoorbellChimeEnabledPayloadKey";
+  v28[12] = v6;
+  v27[13] = @"HMSiriEndpointOnboardingSelectionsHasDoorbellChimeEnabledPayloadKey";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasDoorbellChimeEnabled](self, "hasDoorbellChimeEnabled")}];
-  v29[13] = v7;
-  v28[14] = @"HMSiriEndpointOnboardingSelectionsHasAnnounceEnabledPayloadKey";
+  v28[13] = v7;
+  v27[14] = @"HMSiriEndpointOnboardingSelectionsHasAnnounceEnabledPayloadKey";
   v8 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasAnnounceEnabled](self, "hasAnnounceEnabled")}];
-  v29[14] = v8;
-  v28[15] = @"HMSiriEndpointOnboardingSelectionsHasLightWhenUsingSiriEnabledPayloadKey";
+  v28[14] = v8;
+  v27[15] = @"HMSiriEndpointOnboardingSelectionsHasLightWhenUsingSiriEnabledPayloadKey";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasLightWhenUsingSiriEnabled](self, "hasLightWhenUsingSiriEnabled")}];
-  v28[16] = @"HMSiriEndpointOnboardingSelectionsShouldHonorSiriAnalyticsSelectionPayloadKey";
-  v29[15] = v9;
-  v29[16] = MEMORY[0x1E695E118];
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:17];
-  [v24 addEntriesFromDictionary:v10];
+  v27[16] = @"HMSiriEndpointOnboardingSelectionsShouldHonorSiriAnalyticsSelectionPayloadKey";
+  v28[15] = v9;
+  v28[16] = MEMORY[0x1E695E118];
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:17];
+  [v23 addEntriesFromDictionary:v10];
 
   languageValue = [(HMSiriEndpointOnboardingSelections *)self languageValue];
 
@@ -627,14 +583,13 @@ LABEL_18:
   {
     languageValue2 = [(HMSiriEndpointOnboardingSelections *)self languageValue];
     payloadCopy = [languageValue2 payloadCopy];
-    [v24 setObject:payloadCopy forKeyedSubscript:@"HMSiriEndpointOnboardingSelectionsLanguageValueKey"];
+    [v23 setObject:payloadCopy forKeyedSubscript:@"HMSiriEndpointOnboardingSelectionsLanguageValueKey"];
   }
 
   v14 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMSiriEndpointOnboardingSelections hasLanguageValue](self, "hasLanguageValue")}];
-  [v24 setObject:v14 forKeyedSubscript:@"HMSiriEndpointOnboardingSelectionsHasLanguageValueKey"];
+  [v23 setObject:v14 forKeyedSubscript:@"HMSiriEndpointOnboardingSelectionsHasLanguageValueKey"];
 
-  v15 = [v24 copy];
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = [v23 copy];
 
   return v15;
 }
@@ -657,6 +612,59 @@ LABEL_18:
   return v3;
 }
 
+- (HMSiriEndpointOnboardingSelections)initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled playbackInfluencesForYouEnabled:(BOOL)youEnabled shareSiriAnalyticsEnabled:(BOOL)analyticsEnabled explicitContentAllowed:(BOOL)allowed
+{
+  v8 = [(HMSiriEndpointOnboardingSelections *)self _initWithSiriEnabled:enabled allowHeySiri:siri airPlayEnabled:playEnabled playbackInfluencesForYouEnabled:youEnabled shareSiriAnalyticsEnabled:analyticsEnabled explicitContentAllowed:allowed languageValue:0];
+  [(HMSiriEndpointOnboardingSelections *)v8 setHasLanguageValue:0];
+  return v8;
+}
+
+- (id)_initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled playbackInfluencesForYouEnabled:(BOOL)youEnabled shareSiriAnalyticsEnabled:(BOOL)analyticsEnabled explicitContentAllowed:(BOOL)allowed languageValue:(id)value
+{
+  allowedCopy = allowed;
+  analyticsEnabledCopy = analyticsEnabled;
+  playEnabledCopy = playEnabled;
+  siriCopy = siri;
+  enabledCopy = enabled;
+  valueCopy = value;
+  v16 = [(HMSiriEndpointOnboardingSelections *)self init];
+  [(HMSiriEndpointOnboardingSelections *)v16 setSiriEnabled:enabledCopy];
+  [(HMSiriEndpointOnboardingSelections *)v16 setAllowHeySiri:siriCopy];
+  [(HMSiriEndpointOnboardingSelections *)v16 setAirPlayEnabled:playEnabledCopy];
+  [(HMSiriEndpointOnboardingSelections *)v16 setShareSiriAnalyticsEnabled:analyticsEnabledCopy];
+  [(HMSiriEndpointOnboardingSelections *)v16 setExplicitContentAllowed:allowedCopy];
+  [(HMSiriEndpointOnboardingSelections *)v16 setLanguageValue:valueCopy];
+
+  [(HMSiriEndpointOnboardingSelections *)v16 setDoorbellChimeEnabled:1];
+  [(HMSiriEndpointOnboardingSelections *)v16 setAnnounceEnabled:1];
+  [(HMSiriEndpointOnboardingSelections *)v16 setLightWhenUsingSiriEnabled:1];
+  return v16;
+}
+
+- (HMSiriEndpointOnboardingSelections)initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled playbackInfluencesForYouEnabled:(BOOL)youEnabled shareSiriAnalyticsEnabled:(BOOL)analyticsEnabled explicitContentAllowed:(BOOL)allowed languageValue:(id)value
+{
+  allowedCopy = allowed;
+  analyticsEnabledCopy = analyticsEnabled;
+  youEnabledCopy = youEnabled;
+  playEnabledCopy = playEnabled;
+  siriCopy = siri;
+  enabledCopy = enabled;
+  valueCopy = value;
+  if (valueCopy)
+  {
+    v17 = valueCopy;
+    v18 = [(HMSiriEndpointOnboardingSelections *)self _initWithSiriEnabled:enabledCopy allowHeySiri:siriCopy airPlayEnabled:playEnabledCopy playbackInfluencesForYouEnabled:youEnabledCopy shareSiriAnalyticsEnabled:analyticsEnabledCopy explicitContentAllowed:allowedCopy languageValue:valueCopy];
+
+    return v18;
+  }
+
+  else
+  {
+    v20 = _HMFPreconditionFailure();
+    return +[(HMSiriEndpointOnboardingSelections *)v20];
+  }
+}
+
 + (id)logCategory
 {
   if (logCategory__hmf_once_t8 != -1)
@@ -671,12 +679,11 @@ LABEL_18:
 
 uint64_t __49__HMSiriEndpointOnboardingSelections_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9;
-  logCategory__hmf_once_v9 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9;
+  logCategory__hmf_once_v9 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription
@@ -684,6 +691,92 @@ uint64_t __49__HMSiriEndpointOnboardingSelections_logCategory__block_invoke()
   v2 = objc_opt_class();
 
   return NSStringFromClass(v2);
+}
+
+- (HMSiriEndpointOnboardingSelections)initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled
+{
+  playEnabledCopy = playEnabled;
+  siriCopy = siri;
+  enabledCopy = enabled;
+  v31 = *MEMORY[0x1E69E9840];
+  v9 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v11 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    v12 = HMFGetLogIdentifier();
+    v13 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    v14 = [MEMORY[0x1E696AD98] numberWithBool:siriCopy];
+    v15 = [MEMORY[0x1E696AD98] numberWithBool:playEnabledCopy];
+    v17 = 138544898;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v13;
+    v21 = 2112;
+    v22 = v14;
+    v23 = 2112;
+    v24 = v15;
+    v25 = 2112;
+    v26 = MEMORY[0x1E695E118];
+    v27 = 2112;
+    v28 = MEMORY[0x1E695E110];
+    v29 = 2112;
+    v30 = MEMORY[0x1E695E110];
+    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Deprecated API: Initializing with isSiriEnabled: %@ allowHeySiri: %@ isAirPlayEnabled: %@ playbackInfluencesForYouEnabled: %@ shareSiriAnalyticsEnabled: %@ explicitContentAllowed: %@", &v17, 0x48u);
+  }
+
+  objc_autoreleasePoolPop(v9);
+  return [(HMSiriEndpointOnboardingSelections *)selfCopy initWithSiriEnabled:enabledCopy allowHeySiri:siriCopy airPlayEnabled:playEnabledCopy playbackInfluencesForYouEnabled:1 shareSiriAnalyticsEnabled:0 explicitContentAllowed:0];
+}
+
+- (HMSiriEndpointOnboardingSelections)initWithSiriEnabled:(BOOL)enabled allowHeySiri:(BOOL)siri airPlayEnabled:(BOOL)playEnabled languageValue:(id)value
+{
+  playEnabledCopy = playEnabled;
+  siriCopy = siri;
+  enabledCopy = enabled;
+  v38 = *MEMORY[0x1E69E9840];
+  valueCopy = value;
+  if (!valueCopy)
+  {
+    _HMFPreconditionFailure();
+  }
+
+  v11 = valueCopy;
+  v12 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v14 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    v15 = HMFGetLogIdentifier();
+    v21 = v12;
+    v16 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    v17 = [MEMORY[0x1E696AD98] numberWithBool:siriCopy];
+    v18 = [MEMORY[0x1E696AD98] numberWithBool:playEnabledCopy];
+    *buf = 138545154;
+    v23 = v15;
+    v24 = 2112;
+    v25 = v16;
+    v26 = 2112;
+    v27 = v17;
+    v28 = 2112;
+    v29 = v18;
+    v30 = 2112;
+    v31 = MEMORY[0x1E695E118];
+    v32 = 2112;
+    v33 = MEMORY[0x1E695E110];
+    v34 = 2112;
+    v35 = MEMORY[0x1E695E110];
+    v36 = 2112;
+    v37 = v11;
+    _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Deprecated API: Initializing with isSiriEnabled: %@ allowHeySiri: %@ isAirPlayEnabled: %@ playbackInfluencesForYouEnabled: %@ shareSiriAnalyticsEnabled: %@ explicitContentAllowed: %@ languageValue: %@", buf, 0x52u);
+
+    v12 = v21;
+  }
+
+  objc_autoreleasePoolPop(v12);
+  v19 = [(HMSiriEndpointOnboardingSelections *)selfCopy initWithSiriEnabled:enabledCopy allowHeySiri:siriCopy airPlayEnabled:playEnabledCopy playbackInfluencesForYouEnabled:1 shareSiriAnalyticsEnabled:0 explicitContentAllowed:0 languageValue:v11];
+
+  return v19;
 }
 
 @end

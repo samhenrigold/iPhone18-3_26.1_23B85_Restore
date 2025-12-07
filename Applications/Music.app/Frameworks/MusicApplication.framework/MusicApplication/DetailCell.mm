@@ -24,9 +24,9 @@
 - (void)traitCollectionDidChange:(id)change
 {
   ObjectType = swift_getObjectType();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E09210);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E09210, &unk_B107A0);
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12[-v8];
   v15.receiver = self;
   v15.super_class = ObjectType;
@@ -35,11 +35,11 @@
   [(DetailCell *)&v15 traitCollectionDidChange:changeCopy];
   v13 = selfCopy;
   type metadata accessor for DetailCellTextStack(0);
-  sub_AF6D0(&unk_DF8680, type metadata accessor for DetailCellTextStack);
+  sub_AF6D0(&unk_DF8680, type metadata accessor for DetailCellTextStack, &unk_AFAE58);
   sub_AB6780();
   sub_AB6AA0();
   v14[3] = v6;
-  v14[4] = sub_36A00(&unk_E09220, &unk_E09210);
+  v14[4] = sub_36A00(&unk_E09220, &unk_E09210, &unk_B107A0, &protocol conformance descriptor for UIHostingConfiguration<A, B>);
   __swift_allocate_boxed_opaque_existential_0(v14);
   sub_AB6770();
   (*(v7 + 8))(v9, v6);
@@ -49,9 +49,9 @@
 - (void)music_inheritedLayoutInsetsDidChange
 {
   ObjectType = swift_getObjectType();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E09210);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E09210, &unk_B107A0);
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v9[-v6];
   v12.receiver = self;
   v12.super_class = ObjectType;
@@ -59,11 +59,11 @@
   [(DetailCell *)&v12 music_inheritedLayoutInsetsDidChange];
   v10 = selfCopy;
   type metadata accessor for DetailCellTextStack(0);
-  sub_AF6D0(&unk_DF8680, type metadata accessor for DetailCellTextStack);
+  sub_AF6D0(&unk_DF8680, type metadata accessor for DetailCellTextStack, &unk_AFAE58);
   sub_AB6780();
   sub_AB6AA0();
   v11[3] = v4;
-  v11[4] = sub_36A00(&unk_E09220, &unk_E09210);
+  v11[4] = sub_36A00(&unk_E09220, &unk_E09210, &unk_B107A0, &protocol conformance descriptor for UIHostingConfiguration<A, B>);
   __swift_allocate_boxed_opaque_existential_0(v11);
   sub_AB6770();
   (*(v5 + 8))(v7, v4);

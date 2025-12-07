@@ -54,18 +54,18 @@
 
 - (id)translateToClientChangeUsingIDMapping:(id)mapping error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   v7 = [(CPLContainerRelationChange *)self copy];
-  v28 = 0;
+  v27 = 0;
   scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
   if (scopedIdentifier)
   {
-    v27 = 0;
+    v26 = 0;
     itemScopedIdentifier = [(CPLContainerRelationChange *)self itemScopedIdentifier];
     if (itemScopedIdentifier)
     {
-      v10 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:itemScopedIdentifier isFinal:&v27];
+      v10 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:itemScopedIdentifier isFinal:&v26];
       if (v10)
       {
         [v7 setItemScopedIdentifier:v10];
@@ -85,8 +85,8 @@
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v30 = itemScopedIdentifier;
-            v31 = 2112;
+            v29 = itemScopedIdentifier;
+            v30 = 2112;
             selfCopy2 = self;
             _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Can't map cloud itemScopedIdentifier (%@) of %@", buf, 0x16u);
           }
@@ -96,11 +96,11 @@
       }
     }
 
-    v27 = 0;
+    v26 = 0;
     containerScopedIdentifier = [(CPLContainerRelationChange *)self containerScopedIdentifier];
     if (containerScopedIdentifier)
     {
-      v14 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:containerScopedIdentifier isFinal:&v27];
+      v14 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:containerScopedIdentifier isFinal:&v26];
       if (v14)
       {
         [v7 setContainerScopedIdentifier:v14];
@@ -120,8 +120,8 @@
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v30 = containerScopedIdentifier;
-            v31 = 2112;
+            v29 = containerScopedIdentifier;
+            v30 = 2112;
             selfCopy2 = self;
             _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "Can't map cloud containerScopedIdentifier (%@) of %@", buf, 0x16u);
           }
@@ -133,7 +133,7 @@
 
     if (v7)
     {
-      v17 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier isFinal:&v28];
+      v17 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier isFinal:&v27];
       if (v17)
       {
         proposedLocalScopedIdentifier = v17;
@@ -142,25 +142,15 @@
       else
       {
         itemIdentifier = [v7 itemIdentifier];
-        if (!itemIdentifier)
+        if (itemIdentifier && (v20 = itemIdentifier, [v7 relation], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "containerIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), v22, v21, v20, v22))
         {
-          goto LABEL_30;
-        }
-
-        v20 = itemIdentifier;
-        relation = [v7 relation];
-        containerIdentifier = [relation containerIdentifier];
-
-        if (containerIdentifier)
-        {
-          relation2 = [v7 relation];
+          relation = [v7 relation];
           itemScopedIdentifier2 = [v7 itemScopedIdentifier];
-          proposedLocalScopedIdentifier = [relation2 proposedScopedIdentifierForItemScopedIdentifier:itemScopedIdentifier2];
+          proposedLocalScopedIdentifier = [relation proposedScopedIdentifierForItemScopedIdentifier:itemScopedIdentifier2];
         }
 
         else
         {
-LABEL_30:
           proposedLocalScopedIdentifier = [(CPLRecordChange *)self proposedLocalScopedIdentifier];
         }
 
@@ -177,31 +167,29 @@ LABEL_33:
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)translateToCloudChangeUsingIDMapping:(id)mapping error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   v7 = [(CPLContainerRelationChange *)self copy];
-  v28 = 0;
+  v27 = 0;
   scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
   if (scopedIdentifier)
   {
-    v9 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:scopedIdentifier isFinal:&v28];
+    v9 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:scopedIdentifier isFinal:&v27];
     if (v9)
     {
       [v7 setScopedIdentifier:v9];
     }
 
-    v27 = 0;
+    v26 = 0;
     itemScopedIdentifier = [(CPLContainerRelationChange *)self itemScopedIdentifier];
     if (itemScopedIdentifier)
     {
-      v11 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:itemScopedIdentifier isFinal:&v27];
+      v11 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:itemScopedIdentifier isFinal:&v26];
       if (v11)
       {
         [v7 setItemScopedIdentifier:v11];
@@ -221,8 +209,8 @@ LABEL_33:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v30 = itemScopedIdentifier;
-            v31 = 2112;
+            v29 = itemScopedIdentifier;
+            v30 = 2112;
             selfCopy2 = self;
             _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Can't map local itemScopedIdentifier (%@) of %@", buf, 0x16u);
           }
@@ -232,11 +220,11 @@ LABEL_33:
       }
     }
 
-    v27 = 0;
+    v26 = 0;
     containerScopedIdentifier = [(CPLContainerRelationChange *)self containerScopedIdentifier];
     if (containerScopedIdentifier)
     {
-      v15 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:containerScopedIdentifier isFinal:&v27];
+      v15 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:containerScopedIdentifier isFinal:&v26];
       if (v15)
       {
         [v7 setContainerScopedIdentifier:v15];
@@ -256,8 +244,8 @@ LABEL_33:
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v30 = containerScopedIdentifier;
-            v31 = 2112;
+            v29 = containerScopedIdentifier;
+            v30 = 2112;
             selfCopy2 = self;
             _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Can't map local containerScopedIdentifier (%@) of %@", buf, 0x16u);
           }
@@ -273,20 +261,11 @@ LABEL_33:
     }
 
     itemIdentifier = [v7 itemIdentifier];
-    if (!itemIdentifier)
+    if (itemIdentifier && (v19 = itemIdentifier, [v7 relation], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "containerIdentifier"), v21 = objc_claimAutoreleasedReturnValue(), v21, v20, v19, v21))
     {
-      goto LABEL_32;
-    }
-
-    v19 = itemIdentifier;
-    relation = [v7 relation];
-    containerIdentifier = [relation containerIdentifier];
-
-    if (containerIdentifier)
-    {
-      relation2 = [v7 relation];
+      relation = [v7 relation];
       itemScopedIdentifier2 = [v7 itemScopedIdentifier];
-      proposedCloudScopedIdentifier = [relation2 proposedScopedIdentifierForItemScopedIdentifier:itemScopedIdentifier2];
+      proposedCloudScopedIdentifier = [relation proposedScopedIdentifierForItemScopedIdentifier:itemScopedIdentifier2];
 
       if (!proposedCloudScopedIdentifier)
       {
@@ -299,7 +278,6 @@ LABEL_31:
 
     else
     {
-LABEL_32:
       proposedCloudScopedIdentifier = [(CPLRecordChange *)self proposedCloudScopedIdentifier];
       if (!proposedCloudScopedIdentifier)
       {
@@ -323,8 +301,6 @@ LABEL_36:
   }
 
 LABEL_38:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -393,68 +369,6 @@ LABEL_38:
 
 - (void)setContainerScopedIdentifier:(id)identifier
 {
-  v30 = *MEMORY[0x1E69E9840];
-  identifierCopy = identifier;
-  scopeIdentifier = [identifierCopy scopeIdentifier];
-  scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
-  scopeIdentifier2 = [scopedIdentifier scopeIdentifier];
-
-  if (scopeIdentifier && scopeIdentifier2)
-  {
-    v8 = [scopeIdentifier isEqual:scopeIdentifier2];
-
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  else
-  {
-
-    if (scopeIdentifier | scopeIdentifier2)
-    {
-LABEL_4:
-      if ((_CPLSilentLogging & 1) == 0)
-      {
-        v9 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-        {
-          v10 = NSStringFromSelector(a2);
-          scopedIdentifier2 = [(CPLRecordChange *)self scopedIdentifier];
-          scopeIdentifier3 = [scopedIdentifier2 scopeIdentifier];
-          scopeIdentifier4 = [identifierCopy scopeIdentifier];
-          *buf = 138412802;
-          v25 = v10;
-          v26 = 2112;
-          v27 = scopeIdentifier3;
-          v28 = 2112;
-          v29 = scopeIdentifier4;
-          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Invalid call to %@ with mismatched scope: %@ vs. %@", buf, 0x20u);
-        }
-      }
-
-      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLContainerChange.m"];
-      v16 = NSStringFromSelector(a2);
-      scopedIdentifier3 = [(CPLRecordChange *)self scopedIdentifier];
-      scopeIdentifier5 = [scopedIdentifier3 scopeIdentifier];
-      scopeIdentifier6 = [identifierCopy scopeIdentifier];
-      [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:75 description:{@"Invalid call to %@ with mismatched scope: %@ vs. %@", v16, scopeIdentifier5, scopeIdentifier6}];
-
-      abort();
-    }
-  }
-
-  relation = [(CPLContainerRelationChange *)self relation];
-  identifier = [identifierCopy identifier];
-  [relation setContainerIdentifier:identifier];
-
-  v22 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setItemScopedIdentifier:(id)identifier
-{
   v29 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   scopeIdentifier = [identifierCopy scopeIdentifier];
@@ -502,6 +416,66 @@ LABEL_4:
       scopedIdentifier3 = [(CPLRecordChange *)self scopedIdentifier];
       scopeIdentifier5 = [scopedIdentifier3 scopeIdentifier];
       scopeIdentifier6 = [identifierCopy scopeIdentifier];
+      [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:75 description:{@"Invalid call to %@ with mismatched scope: %@ vs. %@", v16, scopeIdentifier5, scopeIdentifier6}];
+
+      abort();
+    }
+  }
+
+  relation = [(CPLContainerRelationChange *)self relation];
+  identifier = [identifierCopy identifier];
+  [relation setContainerIdentifier:identifier];
+}
+
+- (void)setItemScopedIdentifier:(id)identifier
+{
+  v28 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  scopeIdentifier = [identifierCopy scopeIdentifier];
+  scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
+  scopeIdentifier2 = [scopedIdentifier scopeIdentifier];
+
+  if (scopeIdentifier && scopeIdentifier2)
+  {
+    v8 = [scopeIdentifier isEqual:scopeIdentifier2];
+
+    if ((v8 & 1) == 0)
+    {
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+
+    if (scopeIdentifier | scopeIdentifier2)
+    {
+LABEL_4:
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v9 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          v10 = NSStringFromSelector(a2);
+          scopedIdentifier2 = [(CPLRecordChange *)self scopedIdentifier];
+          scopeIdentifier3 = [scopedIdentifier2 scopeIdentifier];
+          scopeIdentifier4 = [identifierCopy scopeIdentifier];
+          *buf = 138412802;
+          v23 = v10;
+          v24 = 2112;
+          v25 = scopeIdentifier3;
+          v26 = 2112;
+          v27 = scopeIdentifier4;
+          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Invalid call to %@ with mismatched scope: %@ vs. %@", buf, 0x20u);
+        }
+      }
+
+      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLContainerChange.m"];
+      v16 = NSStringFromSelector(a2);
+      scopedIdentifier3 = [(CPLRecordChange *)self scopedIdentifier];
+      scopeIdentifier5 = [scopedIdentifier3 scopeIdentifier];
+      scopeIdentifier6 = [identifierCopy scopeIdentifier];
       [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:66 description:{@"Invalid call to %@ with mismatched scope: %@ vs. %@", v16, scopeIdentifier5, scopeIdentifier6}];
 
       abort();
@@ -510,8 +484,6 @@ LABEL_4:
 
   identifier = [identifierCopy identifier];
   [(CPLContainerRelationChange *)self setItemIdentifier:identifier];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (id)relationWithItemScopedIdentifier:(id)identifier containerIdentifier:(id)containerIdentifier

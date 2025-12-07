@@ -69,19 +69,19 @@
   return v2;
 }
 
-void __39__MPStoreDownloadManager_sharedManager__block_invoke()
+void __39__MPStoreDownloadManager_sharedManager__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = [objc_alloc(objc_opt_class()) _init];
-  v1 = sharedManager_sharedManager;
-  sharedManager_sharedManager = v0;
+  v2 = [objc_alloc(objc_opt_class()) _init];
+  v3 = sharedManager_sharedManager;
+  sharedManager_sharedManager = v2;
 }
 
 - (id)_init
 {
-  v170 = *MEMORY[0x1E69E9840];
-  v150.receiver = self;
-  v150.super_class = MPStoreDownloadManager;
-  v2 = [(MPStoreDownloadManager *)&v150 init];
+  v171 = *MEMORY[0x1E69E9840];
+  v151.receiver = self;
+  v151.super_class = MPStoreDownloadManager;
+  v2 = [(MPStoreDownloadManager *)&v151 init];
   if (!v2)
   {
     return v2;
@@ -95,14 +95,14 @@ void __39__MPStoreDownloadManager_sharedManager__block_invoke()
   calloutSerialQueue = v2->_calloutSerialQueue;
   v2->_calloutSerialQueue = v5;
 
-  v145 = objc_alloc_init(MEMORY[0x1E696AE10]);
-  [v145 setAcquireFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionAcquire];
-  [v145 setRelinquishFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionRelinquish];
-  [v145 setHashFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionHash];
-  [v145 setIsEqualFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionIsEqual];
-  [v145 setSizeFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionSize];
-  [v145 setDescriptionFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionDescription];
-  v143 = [objc_alloc(MEMORY[0x1E696AE10]) initWithOptions:5];
+  v146 = objc_alloc_init(MEMORY[0x1E696AE10]);
+  [v146 setAcquireFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionAcquire];
+  [v146 setRelinquishFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionRelinquish];
+  [v146 setHashFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionHash];
+  [v146 setIsEqualFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionIsEqual];
+  [v146 setSizeFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionSize];
+  [v146 setDescriptionFunction:_MPStoreDownloadManagerInt64KeyPointerFunctionDescription];
+  v144 = [objc_alloc(MEMORY[0x1E696AE10]) initWithOptions:5];
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
   downloads = v2->_downloads;
   v2->_downloads = v7;
@@ -111,104 +111,104 @@ void __39__MPStoreDownloadManager_sharedManager__block_invoke()
   userDownloads = v2->_userDownloads;
   v2->_userDownloads = v9;
 
-  v11 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyPointerFunctions:v145 valuePointerFunctions:v143 capacity:0];
+  v11 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyPointerFunctions:v146 valuePointerFunctions:v144 capacity:0];
   storeIdentifiersToDownloads = v2->_storeIdentifiersToDownloads;
   v2->_storeIdentifiersToDownloads = v11;
 
-  v13 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyPointerFunctions:v145 valuePointerFunctions:v143 capacity:0];
+  v13 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyPointerFunctions:v146 valuePointerFunctions:v144 capacity:0];
   libraryIdentifiersToDownloads = v2->_libraryIdentifiersToDownloads;
   v2->_libraryIdentifiersToDownloads = v13;
 
-  v15 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyPointerFunctions:v145 valuePointerFunctions:v143 capacity:0];
+  v15 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyPointerFunctions:v146 valuePointerFunctions:v144 capacity:0];
   downloadIdentifiersToDownloads = v2->_downloadIdentifiersToDownloads;
   v2->_downloadIdentifiersToDownloads = v15;
 
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2050000000;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2050000000;
   v17 = getSSDownloadManagerOptionsClass_softClass;
-  v159 = getSSDownloadManagerOptionsClass_softClass;
+  v160 = getSSDownloadManagerOptionsClass_softClass;
   if (!getSSDownloadManagerOptionsClass_softClass)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadManagerOptionsClass_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    __getSSDownloadManagerOptionsClass_block_invoke(&v151);
-    v17 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadManagerOptionsClass_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    __getSSDownloadManagerOptionsClass_block_invoke(&v152);
+    v17 = v158[3];
   }
 
   v18 = v17;
-  _Block_object_dispose(&v156, 8);
-  v144 = objc_alloc_init(v17);
+  _Block_object_dispose(&v157, 8);
+  v145 = objc_alloc_init(v17);
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
   if ([bundleIdentifier isEqualToString:@"com.apple.Music"])
   {
-    v156 = 0;
-    v157 = &v156;
-    v158 = 0x2020000000;
+    v157 = 0;
+    v158 = &v157;
+    v159 = 0x2020000000;
     v20 = getSSDownloadKindMusicSymbolLoc_ptr_266;
-    v159 = getSSDownloadKindMusicSymbolLoc_ptr_266;
+    v160 = getSSDownloadKindMusicSymbolLoc_ptr_266;
     if (!getSSDownloadKindMusicSymbolLoc_ptr_266)
     {
-      v151 = MEMORY[0x1E69E9820];
-      v152 = 3221225472;
-      v153 = __getSSDownloadKindMusicSymbolLoc_block_invoke_267;
-      v154 = &unk_1E7680410;
-      v155 = &v156;
+      v152 = MEMORY[0x1E69E9820];
+      v153 = 3221225472;
+      v154 = __getSSDownloadKindMusicSymbolLoc_block_invoke_267;
+      v155 = &unk_1E7680410;
+      v156 = &v157;
       v21 = StoreServicesLibrary_184();
       v22 = dlsym(v21, "SSDownloadKindMusic");
-      *(v155[1] + 24) = v22;
-      getSSDownloadKindMusicSymbolLoc_ptr_266 = *(v155[1] + 24);
-      v20 = v157[3];
+      *(v156[1] + 24) = v22;
+      getSSDownloadKindMusicSymbolLoc_ptr_266 = *(v156[1] + 24);
+      v20 = v158[3];
     }
 
-    _Block_object_dispose(&v156, 8);
+    _Block_object_dispose(&v157, 8);
     if (v20)
     {
       v23 = *v20;
-      v166 = v23;
-      v156 = 0;
-      v157 = &v156;
-      v158 = 0x2020000000;
+      v167 = v23;
+      v157 = 0;
+      v158 = &v157;
+      v159 = 0x2020000000;
       v24 = getSSDownloadKindMusicVideoSymbolLoc_ptr;
-      v159 = getSSDownloadKindMusicVideoSymbolLoc_ptr;
+      v160 = getSSDownloadKindMusicVideoSymbolLoc_ptr;
       if (!getSSDownloadKindMusicVideoSymbolLoc_ptr)
       {
-        v151 = MEMORY[0x1E69E9820];
-        v152 = 3221225472;
-        v153 = __getSSDownloadKindMusicVideoSymbolLoc_block_invoke;
-        v154 = &unk_1E7680410;
-        v155 = &v156;
+        v152 = MEMORY[0x1E69E9820];
+        v153 = 3221225472;
+        v154 = __getSSDownloadKindMusicVideoSymbolLoc_block_invoke;
+        v155 = &unk_1E7680410;
+        v156 = &v157;
         v25 = StoreServicesLibrary_184();
         v26 = dlsym(v25, "SSDownloadKindMusicVideo");
-        *(v155[1] + 24) = v26;
-        getSSDownloadKindMusicVideoSymbolLoc_ptr = *(v155[1] + 24);
-        v24 = v157[3];
+        *(v156[1] + 24) = v26;
+        getSSDownloadKindMusicVideoSymbolLoc_ptr = *(v156[1] + 24);
+        v24 = v158[3];
       }
 
-      _Block_object_dispose(&v156, 8);
+      _Block_object_dispose(&v157, 8);
       if (v24)
       {
-        v167 = *v24;
-        v27 = v167;
+        v168 = *v24;
+        v27 = v168;
         v28 = getSSDownloadKindTelevisionEpisode();
-        v168 = v28;
+        v169 = v28;
         v29 = getSSDownloadKindMovie();
-        v169 = v29;
-        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v166 count:4];
-        [v144 setDownloadKinds:v30];
+        v170 = v29;
+        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v167 count:4];
+        [v145 setDownloadKinds:v30];
 
         iPodDownloadKinds = getSSDownloadKindMovie();
-        v164[0] = iPodDownloadKinds;
-        v165[0] = bundleIdentifier;
+        v165[0] = iPodDownloadKinds;
+        v166[0] = bundleIdentifier;
         v32 = getSSDownloadKindTelevisionEpisode();
-        v164[1] = v32;
-        v165[1] = bundleIdentifier;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v165 forKeys:v164 count:2];
+        v165[1] = v32;
+        v166[1] = bundleIdentifier;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v166 forKeys:v165 count:2];
         downloadKindToRequiredClientBundleIdentifiers = v2->_downloadKindToRequiredClientBundleIdentifiers;
         v2->_downloadKindToRequiredClientBundleIdentifiers = v33;
 
@@ -216,15 +216,15 @@ void __39__MPStoreDownloadManager_sharedManager__block_invoke()
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v136 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadKindMusicVideo(void)"];
-      [currentHandler handleFailureInFunction:v136 file:@"MPStoreDownloadManager.m" lineNumber:46 description:{@"%s", dlerror()}];
+      v137 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadKindMusicVideo(void)"];
+      [currentHandler handleFailureInFunction:v137 file:@"MPStoreDownloadManager.m" lineNumber:46 description:{@"%s", dlerror()}];
     }
 
     else
     {
       currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-      v134 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadKindMusic(void)"];
-      [currentHandler2 handleFailureInFunction:v134 file:@"MPStoreDownloadManager.m" lineNumber:45 description:{@"%s", dlerror()}];
+      v135 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadKindMusic(void)"];
+      [currentHandler2 handleFailureInFunction:v135 file:@"MPStoreDownloadManager.m" lineNumber:45 description:{@"%s", dlerror()}];
     }
 
 LABEL_71:
@@ -232,480 +232,480 @@ LABEL_71:
   }
 
   iPodDownloadKinds = [getSSDownloadManagerClass() IPodDownloadKinds];
-  [v144 setDownloadKinds:iPodDownloadKinds];
+  [v145 setDownloadKinds:iPodDownloadKinds];
 LABEL_13:
 
-  [v144 setPersistenceIdentifier:@"com.apple.MediaPlayer.MPStoreDownloadManager"];
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
+  [v145 setPersistenceIdentifier:@"com.apple.MediaPlayer.MPStoreDownloadManager"];
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
   v35 = getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr;
-  v159 = getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr;
+  v160 = getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr;
   if (!getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
     v36 = StoreServicesLibrary_184();
     v37 = dlsym(v36, "SSDownloadExternalPropertyBytesDownloaded");
-    *(v155[1] + 24) = v37;
-    getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr = *(v155[1] + 24);
-    v35 = v157[3];
+    *(v156[1] + 24) = v37;
+    getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr = *(v156[1] + 24);
+    v35 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
+  _Block_object_dispose(&v157, 8);
   if (!v35)
   {
     currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
-    v108 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadExternalPropertyBytesDownloaded(void)"];
-    [currentHandler3 handleFailureInFunction:v108 file:@"MPStoreDownloadManager.m" lineNumber:62 description:{@"%s", dlerror()}];
+    v109 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadExternalPropertyBytesDownloaded(void)"];
+    [currentHandler3 handleFailureInFunction:v109 file:@"MPStoreDownloadManager.m" lineNumber:62 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
   v38 = *v35;
-  v162[0] = v38;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
+  v163[0] = v38;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
   v39 = getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr;
-  v159 = getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr;
+  v160 = getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr;
   if (!getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadExternalPropertyPercentCompleteSymbolLoc_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadExternalPropertyPercentCompleteSymbolLoc_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
     v40 = StoreServicesLibrary_184();
     v41 = dlsym(v40, "SSDownloadExternalPropertyPercentComplete");
-    *(v155[1] + 24) = v41;
-    getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr = *(v155[1] + 24);
-    v39 = v157[3];
+    *(v156[1] + 24) = v41;
+    getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr = *(v156[1] + 24);
+    v39 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
+  _Block_object_dispose(&v157, 8);
   if (!v39)
   {
     currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v110 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadExternalPropertyPercentComplete(void)"];
-    [currentHandler4 handleFailureInFunction:v110 file:@"MPStoreDownloadManager.m" lineNumber:63 description:{@"%s", dlerror()}];
+    v111 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadExternalPropertyPercentComplete(void)"];
+    [currentHandler4 handleFailureInFunction:v111 file:@"MPStoreDownloadManager.m" lineNumber:63 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
   v42 = *v39;
-  v162[1] = v42;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
+  v163[1] = v42;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
   v43 = getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr;
-  v159 = getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr;
+  v160 = getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr;
   if (!getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
     v44 = StoreServicesLibrary_184();
     v45 = dlsym(v44, "SSDownloadExternalPropertyPolicySizeLimit");
-    *(v155[1] + 24) = v45;
-    getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr = *(v155[1] + 24);
-    v43 = v157[3];
+    *(v156[1] + 24) = v45;
+    getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr = *(v156[1] + 24);
+    v43 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
+  _Block_object_dispose(&v157, 8);
   if (!v43)
   {
     currentHandler5 = [MEMORY[0x1E696AAA8] currentHandler];
-    v112 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadExternalPropertyPolicySizeLimit(void)"];
-    [currentHandler5 handleFailureInFunction:v112 file:@"MPStoreDownloadManager.m" lineNumber:64 description:{@"%s", dlerror()}];
+    v113 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadExternalPropertyPolicySizeLimit(void)"];
+    [currentHandler5 handleFailureInFunction:v113 file:@"MPStoreDownloadManager.m" lineNumber:64 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
   v46 = *v43;
-  v162[2] = v46;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
+  v163[2] = v46;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
   v47 = getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr_271;
-  v159 = getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr_271;
+  v160 = getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr_271;
   if (!getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr_271)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadExternalPropertyRentalInformationSymbolLoc_block_invoke_272;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadExternalPropertyRentalInformationSymbolLoc_block_invoke_272;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
     v48 = StoreServicesLibrary_184();
     v49 = dlsym(v48, "SSDownloadExternalPropertyRentalInformation");
-    *(v155[1] + 24) = v49;
-    getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr_271 = *(v155[1] + 24);
-    v47 = v157[3];
+    *(v156[1] + 24) = v49;
+    getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr_271 = *(v156[1] + 24);
+    v47 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
+  _Block_object_dispose(&v157, 8);
   if (!v47)
   {
     currentHandler6 = [MEMORY[0x1E696AAA8] currentHandler];
-    v114 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadExternalPropertyRentalInformation(void)"];
-    [currentHandler6 handleFailureInFunction:v114 file:@"MPStoreDownloadManager.m" lineNumber:65 description:{@"%s", dlerror()}];
+    v115 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadExternalPropertyRentalInformation(void)"];
+    [currentHandler6 handleFailureInFunction:v115 file:@"MPStoreDownloadManager.m" lineNumber:65 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v163 = *v47;
+  v164 = *v47;
   v50 = MEMORY[0x1E695DEC8];
-  v51 = v163;
-  v52 = [v50 arrayWithObjects:v162 count:4];
+  v51 = v164;
+  v52 = [v50 arrayWithObjects:v163 count:4];
 
-  [v144 setPrefetchedDownloadExternalProperties:v52];
-  v53 = getSSDownloadPropertyClientBundleIdentifier();
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
-  v54 = getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr;
-  v159 = getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr;
-  v160[0] = v53;
+  [v145 setPrefetchedDownloadExternalProperties:v52];
+  v54 = getSSDownloadPropertyClientBundleIdentifier(v53);
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v55 = getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr;
+  v160 = getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr;
+  v161[0] = v54;
   if (!getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadPropertyDownloadPhaseSymbolLoc_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    v55 = StoreServicesLibrary_184();
-    v56 = dlsym(v55, "SSDownloadPropertyDownloadPhase");
-    *(v155[1] + 24) = v56;
-    getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr = *(v155[1] + 24);
-    v54 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadPropertyDownloadPhaseSymbolLoc_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    v56 = StoreServicesLibrary_184();
+    v57 = dlsym(v56, "SSDownloadPropertyDownloadPhase");
+    *(v156[1] + 24) = v57;
+    getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr = *(v156[1] + 24);
+    v55 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
-  if (!v54)
+  _Block_object_dispose(&v157, 8);
+  if (!v55)
   {
     currentHandler7 = [MEMORY[0x1E696AAA8] currentHandler];
-    v116 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyDownloadPhase(void)"];
-    [currentHandler7 handleFailureInFunction:v116 file:@"MPStoreDownloadManager.m" lineNumber:50 description:{@"%s", dlerror()}];
+    v117 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyDownloadPhase(void)"];
+    [currentHandler7 handleFailureInFunction:v117 file:@"MPStoreDownloadManager.m" lineNumber:50 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v139 = *v54;
-  v160[1] = v139;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
-  v57 = getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr;
-  v159 = getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr;
+  v140 = *v55;
+  v161[1] = v140;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v58 = getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr;
+  v160 = getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr;
   if (!getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadPropertyEncodedErrorDataSymbolLoc_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    v58 = StoreServicesLibrary_184();
-    v59 = dlsym(v58, "SSDownloadPropertyEncodedErrorData");
-    *(v155[1] + 24) = v59;
-    getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr = *(v155[1] + 24);
-    v57 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadPropertyEncodedErrorDataSymbolLoc_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    v59 = StoreServicesLibrary_184();
+    v60 = dlsym(v59, "SSDownloadPropertyEncodedErrorData");
+    *(v156[1] + 24) = v60;
+    getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr = *(v156[1] + 24);
+    v58 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
-  if (!v57)
+  _Block_object_dispose(&v157, 8);
+  if (!v58)
   {
     currentHandler8 = [MEMORY[0x1E696AAA8] currentHandler];
-    v118 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyEncodedErrorData(void)"];
-    [currentHandler8 handleFailureInFunction:v118 file:@"MPStoreDownloadManager.m" lineNumber:51 description:{@"%s", dlerror()}];
+    v119 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyEncodedErrorData(void)"];
+    [currentHandler8 handleFailureInFunction:v119 file:@"MPStoreDownloadManager.m" lineNumber:51 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v138 = *v57;
-  v160[2] = v138;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
-  v60 = getSSDownloadPropertyIsRestoreSymbolLoc_ptr_274;
-  v159 = getSSDownloadPropertyIsRestoreSymbolLoc_ptr_274;
+  v139 = *v58;
+  v161[2] = v139;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v61 = getSSDownloadPropertyIsRestoreSymbolLoc_ptr_274;
+  v160 = getSSDownloadPropertyIsRestoreSymbolLoc_ptr_274;
   if (!getSSDownloadPropertyIsRestoreSymbolLoc_ptr_274)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadPropertyIsRestoreSymbolLoc_block_invoke_275;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    v61 = StoreServicesLibrary_184();
-    v62 = dlsym(v61, "SSDownloadPropertyIsRestore");
-    *(v155[1] + 24) = v62;
-    getSSDownloadPropertyIsRestoreSymbolLoc_ptr_274 = *(v155[1] + 24);
-    v60 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadPropertyIsRestoreSymbolLoc_block_invoke_275;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    v62 = StoreServicesLibrary_184();
+    v63 = dlsym(v62, "SSDownloadPropertyIsRestore");
+    *(v156[1] + 24) = v63;
+    getSSDownloadPropertyIsRestoreSymbolLoc_ptr_274 = *(v156[1] + 24);
+    v61 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
-  if (!v60)
+  _Block_object_dispose(&v157, 8);
+  if (!v61)
   {
     currentHandler9 = [MEMORY[0x1E696AAA8] currentHandler];
-    v120 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyIsRestore(void)"];
-    [currentHandler9 handleFailureInFunction:v120 file:@"MPStoreDownloadManager.m" lineNumber:52 description:{@"%s", dlerror()}];
+    v121 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyIsRestore(void)"];
+    [currentHandler9 handleFailureInFunction:v121 file:@"MPStoreDownloadManager.m" lineNumber:52 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v137 = *v60;
-  v160[3] = v137;
-  v141 = getSSDownloadPropertyKind();
-  v160[4] = v141;
-  v140 = getSSDownloadPropertyLibraryItemIdentifier_186();
-  v160[5] = v140;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
-  v63 = getSSDownloadPropertyPreferredAssetFlavorSymbolLoc_ptr;
-  v159 = getSSDownloadPropertyPreferredAssetFlavorSymbolLoc_ptr;
+  v138 = *v61;
+  v161[3] = v138;
+  v142 = getSSDownloadPropertyKind(v138);
+  v161[4] = v142;
+  v141 = getSSDownloadPropertyLibraryItemIdentifier_186();
+  v161[5] = v141;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v64 = getSSDownloadPropertyPreferredAssetFlavorSymbolLoc_ptr;
+  v160 = getSSDownloadPropertyPreferredAssetFlavorSymbolLoc_ptr;
   if (!getSSDownloadPropertyPreferredAssetFlavorSymbolLoc_ptr)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadPropertyPreferredAssetFlavorSymbolLoc_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    v64 = StoreServicesLibrary_184();
-    v65 = dlsym(v64, "SSDownloadPropertyPreferredAssetFlavor");
-    *(v155[1] + 24) = v65;
-    getSSDownloadPropertyPreferredAssetFlavorSymbolLoc_ptr = *(v155[1] + 24);
-    v63 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadPropertyPreferredAssetFlavorSymbolLoc_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    v65 = StoreServicesLibrary_184();
+    v66 = dlsym(v65, "SSDownloadPropertyPreferredAssetFlavor");
+    *(v156[1] + 24) = v66;
+    getSSDownloadPropertyPreferredAssetFlavorSymbolLoc_ptr = *(v156[1] + 24);
+    v64 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
-  if (!v63)
+  _Block_object_dispose(&v157, 8);
+  if (!v64)
   {
     currentHandler10 = [MEMORY[0x1E696AAA8] currentHandler];
-    v122 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyPreferredAssetFlavor(void)"];
-    [currentHandler10 handleFailureInFunction:v122 file:@"MPStoreDownloadManager.m" lineNumber:55 description:{@"%s", dlerror()}];
+    v123 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyPreferredAssetFlavor(void)"];
+    [currentHandler10 handleFailureInFunction:v123 file:@"MPStoreDownloadManager.m" lineNumber:55 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v66 = *v63;
-  v160[6] = v66;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
-  v67 = getSSDownloadPropertyReasonSymbolLoc_ptr_277;
-  v159 = getSSDownloadPropertyReasonSymbolLoc_ptr_277;
+  v67 = *v64;
+  v161[6] = v67;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v68 = getSSDownloadPropertyReasonSymbolLoc_ptr_277;
+  v160 = getSSDownloadPropertyReasonSymbolLoc_ptr_277;
   if (!getSSDownloadPropertyReasonSymbolLoc_ptr_277)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadPropertyReasonSymbolLoc_block_invoke_278;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    v68 = StoreServicesLibrary_184();
-    v69 = dlsym(v68, "SSDownloadPropertyReason");
-    *(v155[1] + 24) = v69;
-    getSSDownloadPropertyReasonSymbolLoc_ptr_277 = *(v155[1] + 24);
-    v67 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadPropertyReasonSymbolLoc_block_invoke_278;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    v69 = StoreServicesLibrary_184();
+    v70 = dlsym(v69, "SSDownloadPropertyReason");
+    *(v156[1] + 24) = v70;
+    getSSDownloadPropertyReasonSymbolLoc_ptr_277 = *(v156[1] + 24);
+    v68 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
-  if (!v67)
+  _Block_object_dispose(&v157, 8);
+  if (!v68)
   {
     currentHandler11 = [MEMORY[0x1E696AAA8] currentHandler];
-    v124 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyReason(void)"];
-    [currentHandler11 handleFailureInFunction:v124 file:@"MPStoreDownloadManager.m" lineNumber:56 description:{@"%s", dlerror()}];
+    v125 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyReason(void)"];
+    [currentHandler11 handleFailureInFunction:v125 file:@"MPStoreDownloadManager.m" lineNumber:56 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v70 = *v67;
-  v160[7] = v70;
-  v71 = getSSDownloadPropertyStoreItemIdentifier_215();
-  v160[8] = v71;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
-  v72 = getSSDownloadPropertyThumbnailImageURLSymbolLoc_ptr;
-  v159 = getSSDownloadPropertyThumbnailImageURLSymbolLoc_ptr;
+  v71 = *v68;
+  v161[7] = v71;
+  v72 = getSSDownloadPropertyStoreItemIdentifier_215();
+  v161[8] = v72;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v73 = getSSDownloadPropertyThumbnailImageURLSymbolLoc_ptr;
+  v160 = getSSDownloadPropertyThumbnailImageURLSymbolLoc_ptr;
   if (!getSSDownloadPropertyThumbnailImageURLSymbolLoc_ptr)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadPropertyThumbnailImageURLSymbolLoc_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    v73 = StoreServicesLibrary_184();
-    v74 = dlsym(v73, "SSDownloadPropertyThumbnailImageURL");
-    *(v155[1] + 24) = v74;
-    getSSDownloadPropertyThumbnailImageURLSymbolLoc_ptr = *(v155[1] + 24);
-    v72 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadPropertyThumbnailImageURLSymbolLoc_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    v74 = StoreServicesLibrary_184();
+    v75 = dlsym(v74, "SSDownloadPropertyThumbnailImageURL");
+    *(v156[1] + 24) = v75;
+    getSSDownloadPropertyThumbnailImageURLSymbolLoc_ptr = *(v156[1] + 24);
+    v73 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
-  if (!v72)
+  _Block_object_dispose(&v157, 8);
+  if (!v73)
   {
     currentHandler12 = [MEMORY[0x1E696AAA8] currentHandler];
-    v126 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyThumbnailImageURL(void)"];
-    [currentHandler12 handleFailureInFunction:v126 file:@"MPStoreDownloadManager.m" lineNumber:58 description:{@"%s", dlerror()}];
+    v127 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyThumbnailImageURL(void)"];
+    [currentHandler12 handleFailureInFunction:v127 file:@"MPStoreDownloadManager.m" lineNumber:58 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v75 = *v72;
-  v160[9] = v75;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
-  v76 = getSSDownloadPropertyTitleSymbolLoc_ptr_280;
-  v159 = getSSDownloadPropertyTitleSymbolLoc_ptr_280;
+  v76 = *v73;
+  v161[9] = v76;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v77 = getSSDownloadPropertyTitleSymbolLoc_ptr_280;
+  v160 = getSSDownloadPropertyTitleSymbolLoc_ptr_280;
   if (!getSSDownloadPropertyTitleSymbolLoc_ptr_280)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadPropertyTitleSymbolLoc_block_invoke_281;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    v77 = StoreServicesLibrary_184();
-    v78 = dlsym(v77, "SSDownloadPropertyTitle");
-    *(v155[1] + 24) = v78;
-    getSSDownloadPropertyTitleSymbolLoc_ptr_280 = *(v155[1] + 24);
-    v76 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadPropertyTitleSymbolLoc_block_invoke_281;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    v78 = StoreServicesLibrary_184();
+    v79 = dlsym(v78, "SSDownloadPropertyTitle");
+    *(v156[1] + 24) = v79;
+    getSSDownloadPropertyTitleSymbolLoc_ptr_280 = *(v156[1] + 24);
+    v77 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
-  if (!v76)
+  _Block_object_dispose(&v157, 8);
+  if (!v77)
   {
     currentHandler13 = [MEMORY[0x1E696AAA8] currentHandler];
-    v128 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyTitle(void)"];
-    [currentHandler13 handleFailureInFunction:v128 file:@"MPStoreDownloadManager.m" lineNumber:59 description:{@"%s", dlerror()}];
+    v129 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyTitle(void)"];
+    [currentHandler13 handleFailureInFunction:v129 file:@"MPStoreDownloadManager.m" lineNumber:59 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v79 = *v76;
-  v160[10] = v79;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
-  v80 = getSSDownloadPropertyHandlerIDSymbolLoc_ptr_283;
-  v159 = getSSDownloadPropertyHandlerIDSymbolLoc_ptr_283;
+  v80 = *v77;
+  v161[10] = v80;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v81 = getSSDownloadPropertyHandlerIDSymbolLoc_ptr_283;
+  v160 = getSSDownloadPropertyHandlerIDSymbolLoc_ptr_283;
   if (!getSSDownloadPropertyHandlerIDSymbolLoc_ptr_283)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadPropertyHandlerIDSymbolLoc_block_invoke_284;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    v81 = StoreServicesLibrary_184();
-    v82 = dlsym(v81, "SSDownloadPropertyHandlerID");
-    *(v155[1] + 24) = v82;
-    getSSDownloadPropertyHandlerIDSymbolLoc_ptr_283 = *(v155[1] + 24);
-    v80 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadPropertyHandlerIDSymbolLoc_block_invoke_284;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    v82 = StoreServicesLibrary_184();
+    v83 = dlsym(v82, "SSDownloadPropertyHandlerID");
+    *(v156[1] + 24) = v83;
+    getSSDownloadPropertyHandlerIDSymbolLoc_ptr_283 = *(v156[1] + 24);
+    v81 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
-  if (!v80)
+  _Block_object_dispose(&v157, 8);
+  if (!v81)
   {
     currentHandler14 = [MEMORY[0x1E696AAA8] currentHandler];
-    v130 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyHandlerID(void)"];
-    [currentHandler14 handleFailureInFunction:v130 file:@"MPStoreDownloadManager.m" lineNumber:60 description:{@"%s", dlerror()}];
+    v131 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyHandlerID(void)"];
+    [currentHandler14 handleFailureInFunction:v131 file:@"MPStoreDownloadManager.m" lineNumber:60 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v83 = *v80;
-  v160[11] = v83;
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2020000000;
-  v84 = getSSDownloadPropertyCollectionNameSymbolLoc_ptr;
-  v159 = getSSDownloadPropertyCollectionNameSymbolLoc_ptr;
+  v84 = *v81;
+  v161[11] = v84;
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v85 = getSSDownloadPropertyCollectionNameSymbolLoc_ptr;
+  v160 = getSSDownloadPropertyCollectionNameSymbolLoc_ptr;
   if (!getSSDownloadPropertyCollectionNameSymbolLoc_ptr)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSDownloadPropertyCollectionNameSymbolLoc_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    v85 = StoreServicesLibrary_184();
-    v86 = dlsym(v85, "SSDownloadPropertyCollectionName");
-    *(v155[1] + 24) = v86;
-    getSSDownloadPropertyCollectionNameSymbolLoc_ptr = *(v155[1] + 24);
-    v84 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSDownloadPropertyCollectionNameSymbolLoc_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    v86 = StoreServicesLibrary_184();
+    v87 = dlsym(v86, "SSDownloadPropertyCollectionName");
+    *(v156[1] + 24) = v87;
+    getSSDownloadPropertyCollectionNameSymbolLoc_ptr = *(v156[1] + 24);
+    v85 = v158[3];
   }
 
-  _Block_object_dispose(&v156, 8);
-  if (!v84)
+  _Block_object_dispose(&v157, 8);
+  if (!v85)
   {
     currentHandler15 = [MEMORY[0x1E696AAA8] currentHandler];
-    v132 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyCollectionName(void)"];
-    [currentHandler15 handleFailureInFunction:v132 file:@"MPStoreDownloadManager.m" lineNumber:61 description:{@"%s", dlerror()}];
+    v133 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getSSDownloadPropertyCollectionName(void)"];
+    [currentHandler15 handleFailureInFunction:v133 file:@"MPStoreDownloadManager.m" lineNumber:61 description:{@"%s", dlerror()}];
 
     goto LABEL_71;
   }
 
-  v161 = *v84;
-  v87 = MEMORY[0x1E695DEC8];
-  v88 = v161;
-  v89 = [v87 arrayWithObjects:v160 count:13];
+  v162 = *v85;
+  v88 = MEMORY[0x1E695DEC8];
+  v89 = v162;
+  v90 = [v88 arrayWithObjects:v161 count:13];
 
-  [v144 setPrefetchedDownloadProperties:v89];
-  [v144 setShouldFilterExternalOriginatedDownloads:0];
-  v90 = [objc_alloc(getSSDownloadManagerClass()) initWithManagerOptions:v144];
+  [v145 setPrefetchedDownloadProperties:v90];
+  [v145 setShouldFilterExternalOriginatedDownloads:0];
+  v91 = [objc_alloc(getSSDownloadManagerClass()) initWithManagerOptions:v145];
   downloadManager = v2->_downloadManager;
-  v2->_downloadManager = v90;
+  v2->_downloadManager = v91;
 
   [(SSDownloadManager *)v2->_downloadManager addObserver:v2];
-  v92 = v2->_downloadManager;
-  v148[0] = MEMORY[0x1E69E9820];
-  v148[1] = 3221225472;
-  v148[2] = __31__MPStoreDownloadManager__init__block_invoke;
-  v148[3] = &unk_1E7676BF0;
-  v93 = v2;
-  v149 = v93;
-  [(SSDownloadManager *)v92 getDownloadsUsingBlock:v148];
-  v156 = 0;
-  v157 = &v156;
-  v158 = 0x2050000000;
-  v94 = getSSPurchaseManagerClass_softClass;
-  v159 = getSSPurchaseManagerClass_softClass;
+  v93 = v2->_downloadManager;
+  v149[0] = MEMORY[0x1E69E9820];
+  v149[1] = 3221225472;
+  v149[2] = __31__MPStoreDownloadManager__init__block_invoke;
+  v149[3] = &unk_1E7676BF0;
+  v94 = v2;
+  v150 = v94;
+  [(SSDownloadManager *)v93 getDownloadsUsingBlock:v149];
+  v157 = 0;
+  v158 = &v157;
+  v159 = 0x2050000000;
+  v95 = getSSPurchaseManagerClass_softClass;
+  v160 = getSSPurchaseManagerClass_softClass;
   if (!getSSPurchaseManagerClass_softClass)
   {
-    v151 = MEMORY[0x1E69E9820];
-    v152 = 3221225472;
-    v153 = __getSSPurchaseManagerClass_block_invoke;
-    v154 = &unk_1E7680410;
-    v155 = &v156;
-    __getSSPurchaseManagerClass_block_invoke(&v151);
-    v94 = v157[3];
+    v152 = MEMORY[0x1E69E9820];
+    v153 = 3221225472;
+    v154 = __getSSPurchaseManagerClass_block_invoke;
+    v155 = &unk_1E7680410;
+    v156 = &v157;
+    __getSSPurchaseManagerClass_block_invoke(&v152);
+    v95 = v158[3];
   }
 
-  v95 = v94;
-  _Block_object_dispose(&v156, 8);
-  v96 = [v94 alloc];
-  v97 = MEMORY[0x1E696AEC0];
+  v96 = v95;
+  _Block_object_dispose(&v157, 8);
+  v97 = [v95 alloc];
+  v98 = MEMORY[0x1E696AEC0];
   mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier2 = [mainBundle2 bundleIdentifier];
-  v100 = objc_opt_class();
-  v101 = NSStringFromClass(v100);
-  v101 = [v97 stringWithFormat:@"%@.%@", bundleIdentifier2, v101];
-  v103 = [v96 initWithManagerIdentifier:v101];
-  v104 = v93[15];
-  v93[15] = v103;
+  v101 = objc_opt_class();
+  v102 = NSStringFromClass(v101);
+  v102 = [v98 stringWithFormat:@"%@.%@", bundleIdentifier2, v102];
+  v104 = [v97 initWithManagerIdentifier:v102];
+  v105 = v94[15];
+  v94[15] = v104;
 
-  [v93[15] setDelegate:v93];
-  v105 = v93[15];
-  v146[0] = MEMORY[0x1E69E9820];
-  v146[1] = 3221225472;
-  v146[2] = __31__MPStoreDownloadManager__init__block_invoke_4;
-  v146[3] = &unk_1E767B740;
-  v147 = v93;
-  [v105 getPurchasesUsingBlock:v146];
+  [v94[15] setDelegate:v94];
+  v106 = v94[15];
+  v147[0] = MEMORY[0x1E69E9820];
+  v147[1] = 3221225472;
+  v147[2] = __31__MPStoreDownloadManager__init__block_invoke_4;
+  v147[3] = &unk_1E767B740;
+  v148 = v94;
+  [v106 getPurchasesUsingBlock:v147];
 
   return v2;
 }
@@ -1389,24 +1389,26 @@ void __51__MPStoreDownloadManager__unregisterBlockObserver___block_invoke(uint64
 - (BOOL)_shouldHideDownload:(id)download
 {
   downloadCopy = download;
+  v5 = downloadCopy;
   if (self->_downloadKindToRequiredClientBundleIdentifiers)
   {
-    v5 = getSSDownloadPropertyKind();
-    v6 = [downloadCopy valueForProperty:v5];
+    v6 = getSSDownloadPropertyKind(downloadCopy);
+    v7 = [v5 valueForProperty:v6];
 
-    v7 = [(NSDictionary *)self->_downloadKindToRequiredClientBundleIdentifiers objectForKey:v6];
-    if (v7)
+    v8 = [(NSDictionary *)self->_downloadKindToRequiredClientBundleIdentifiers objectForKey:v7];
+    if (v8)
     {
-      if (_NSIsNSString())
+      v9 = _NSIsNSString();
+      if (v9)
       {
-        v8 = getSSDownloadPropertyClientBundleIdentifier();
-        v9 = [downloadCopy valueForProperty:v8];
+        v10 = getSSDownloadPropertyClientBundleIdentifier(v9);
+        v11 = [v5 valueForProperty:v10];
 
-        if (v9)
+        if (v11)
         {
-          v10 = [v9 isEqualToString:v7];
+          v12 = [v11 isEqualToString:v8];
 LABEL_10:
-          v11 = v10 ^ 1;
+          v13 = v12 ^ 1;
 LABEL_13:
 
           goto LABEL_14;
@@ -1415,33 +1417,34 @@ LABEL_13:
         goto LABEL_12;
       }
 
-      if (_NSIsNSArray())
+      v14 = _NSIsNSArray();
+      if (v14)
       {
-        v12 = getSSDownloadPropertyClientBundleIdentifier();
-        v9 = [downloadCopy valueForProperty:v12];
+        v15 = getSSDownloadPropertyClientBundleIdentifier(v14);
+        v11 = [v5 valueForProperty:v15];
 
-        if (v9)
+        if (v11)
         {
-          v10 = [v7 containsObject:v9];
+          v12 = [v8 containsObject:v11];
           goto LABEL_10;
         }
 
 LABEL_12:
-        v11 = 0;
+        v13 = 0;
         goto LABEL_13;
       }
     }
 
-    v11 = 0;
+    v13 = 0;
 LABEL_14:
 
     goto LABEL_15;
   }
 
-  v11 = 0;
+  v13 = 0;
 LABEL_15:
 
-  return v11;
+  return v13;
 }
 
 - (void)_sendDownloadsDidProgressToObserversForDownloads:(id)downloads

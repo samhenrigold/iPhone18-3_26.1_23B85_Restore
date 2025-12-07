@@ -148,41 +148,40 @@
 
 void __45__SUDDMManager_resumeOrResetStateIfNecessary__block_invoke(uint64_t a1)
 {
-  v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"was called"];
+  v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"was called"];
   SULogInfo(@"[DDM] %s: %@", v2, v3, v4, v5, v6, v7, v8, "[SUDDMManager resumeOrResetStateIfNecessary]_block_invoke");
 
-  v9 = *(a1 + 32);
-  v48 = [objc_opt_class() statePath];
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"_ddmConfiguration persistence path: %@", v48, v45];
-  SULogInfo(@"[DDM] %s: %@", v11, v12, v13, v14, v15, v16, v17, "[SUDDMManager resumeOrResetStateIfNecessary]_block_invoke");
+  v47 = [objc_opt_class() statePath];
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"_ddmConfiguration persistence path: %@", v47, v44];
+  SULogInfo(@"[DDM] %s: %@", v10, v11, v12, v13, v14, v15, v16, "[SUDDMManager resumeOrResetStateIfNecessary]_block_invoke");
 
-  v18 = [objc_alloc(MEMORY[0x277D641B0]) initWithStatePersistencePath:v48];
-  v19 = *(a1 + 32);
-  v20 = *(v19 + 48);
-  *(v19 + 48) = v18;
+  v17 = [objc_alloc(MEMORY[0x277D641B0]) initWithStatePersistencePath:v47];
+  v18 = *(a1 + 32);
+  v19 = *(v18 + 48);
+  *(v18 + 48) = v17;
 
-  v21 = *(*(a1 + 32) + 48);
-  v22 = [v21 activeDeclarationKey];
-  v23 = [v21 declarationForKey:v22];
+  v20 = *(*(a1 + 32) + 48);
+  v21 = [v20 activeDeclarationKey];
+  v22 = [v20 declarationForKey:v21];
 
-  v24 = [*(a1 + 32) manager];
-  v25 = [v24 download];
+  v23 = [*(a1 + 32) manager];
+  v24 = [v23 download];
 
-  v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Current active declaration = %@ current download = \n%@", v23, v25];;
-  SULogInfo(@"[DDM] %s: %@", v26, v27, v28, v29, v30, v31, v32, "[SUDDMManager resumeOrResetStateIfNecessary]_block_invoke");
+  v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"Current active declaration = %@ current download = \n%@", v22, v24];;
+  SULogInfo(@"[DDM] %s: %@", v25, v26, v27, v28, v29, v30, v31, "[SUDDMManager resumeOrResetStateIfNecessary]_block_invoke");
 
-  if (v23 && ([v25 descriptor], v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "isRelevantToDeclaration:", v23), v33, v34))
+  if (v22 && ([v24 descriptor], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "isRelevantToDeclaration:", v22), v32, v33))
   {
-    objc_storeStrong((*(a1 + 32) + 72), v23);
-    v35 = [v25 descriptor];
-    v36 = *(a1 + 32);
-    v37 = *(v36 + 40);
-    *(v36 + 40) = v35;
+    objc_storeStrong((*(a1 + 32) + 72), v22);
+    v34 = [v24 descriptor];
+    v35 = *(a1 + 32);
+    v36 = *(v35 + 40);
+    *(v35 + 40) = v34;
 
-    v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"Found declaration %@ and corresponding update %@ from state", *(*(a1 + 32) + 72), *(*(a1 + 32) + 40)];
-    SULogInfo(@"[DDM] %s: %@", v38, v39, v40, v41, v42, v43, v44, "[SUDDMManager resumeOrResetStateIfNecessary]_block_invoke");
+    v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Found declaration %@ and corresponding update %@ from state", *(*(a1 + 32) + 72), *(*(a1 + 32) + 40)];
+    SULogInfo(@"[DDM] %s: %@", v37, v38, v39, v40, v41, v42, v43, "[SUDDMManager resumeOrResetStateIfNecessary]_block_invoke");
 
-    [*(a1 + 32) _notifyUI:v23];
+    [*(a1 + 32) _notifyUI:v22];
   }
 
   else
@@ -198,15 +197,14 @@ uint64_t __45__SUDDMManager_resumeOrResetStateIfNecessary__block_invoke_2(uint64
   v4 = *(v3 + 80);
   *(v3 + 80) = v2;
 
-  v5 = *(*(a1 + 32) + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 32);
-    v9 = *(v7 + 80);
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 32);
+    v8 = *(v6 + 80);
 
-    return [v8 sendDDMGlobalSettingsToUI:v9];
+    return [v7 sendDDMGlobalSettingsToUI:v8];
   }
 
   return result;
@@ -232,11 +230,10 @@ uint64_t __45__SUDDMManager_resumeOrResetStateIfNecessary__block_invoke_2(uint64
 - (void)_notifyUI:(id)i
 {
   iCopy = i;
-  managerServerDelegate = self->_managerServerDelegate;
   if (objc_opt_respondsToSelector())
   {
     iCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Sending %@ to UI", iCopy];
-    SULogInfo(@"[DDM] %s: %@", v5, v6, v7, v8, v9, v10, v11, "[SUDDMManager _notifyUI:]");
+    SULogInfo(@"[DDM] %s: %@", v4, v5, v6, v7, v8, v9, v10, "[SUDDMManager _notifyUI:]");
 
     [(SUManagerDelegate *)self->_managerServerDelegate sendDDMDeclarationToUI:iCopy];
   }
@@ -457,9 +454,9 @@ void __62__SUDDMManager__scanForUpdateForDeclaration_retryIfNecessary___block_in
 
 - (BOOL)_evaluateAllDeclarations
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_workQueue);
-  v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"Let's evaluate all declaraions!"];
+  v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Let's evaluate all declaraions!"];
   SULogInfo(@"[DDM] %s: %@", v3, v4, v5, v6, v7, v8, v9, "[SUDDMManager _evaluateAllDeclarations]");
 
   invalidateAllInvalidDeclarationsReturningAllInvalid = [(SUCorePolicyDDMConfiguration *)self->_ddmConfiguration invalidateAllInvalidDeclarationsReturningAllInvalid];
@@ -467,41 +464,41 @@ void __62__SUDDMManager__scanForUpdateForDeclaration_retryIfNecessary___block_in
   v12 = allDeclarations;
   if (allDeclarations && [allDeclarations count])
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v49 objects:v53 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v51;
+      v16 = *v50;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v51 != v16)
+          if (*v50 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v50 + 1) + 8 * i);
+          v18 = *(*(&v49 + 1) + 8 * i);
           v19 = [(SUDDMManager *)self _scanForUpdateForDeclaration:v18 retryIfNecessary:3];
           if (v19)
           {
-            v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"Update found! Let's enforce %@", v18, v47];
+            v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"Update found! Let's enforce %@", v18, v46];
             SULogInfo(@"[DDM] %s: %@", v36, v37, v38, v39, v40, v41, v42, "[SUDDMManager _evaluateAllDeclarations]");
 
             v27 = v18;
             goto LABEL_15;
           }
 
-          v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"No updates found... Let's skip %@", v18, v47];
+          v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"No updates found... Let's skip %@", v18, v46];
           SULogInfo(@"[DDM] %s: %@", v20, v21, v22, v23, v24, v25, v26, "[SUDDMManager _evaluateAllDeclarations]");
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v49 objects:v53 count:16];
         if (v15)
         {
           continue;
@@ -532,14 +529,13 @@ LABEL_15:
 
   else
   {
-    v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"No declarations in configuration %@", self->_ddmConfiguration, v47];
+    v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"No declarations in configuration %@", self->_ddmConfiguration, v46];
     SULogInfo(@"[DDM] %s: %@", v28, v29, v30, v31, v32, v33, v34, "[SUDDMManager _evaluateAllDeclarations]");
 
     [(SUDDMManager *)self _setActiveDeclaration:0];
     v35 = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
@@ -904,11 +900,11 @@ LABEL_9:
   [(SUDDMManager *)self _purgeDownloadWithHandler:v16];
 }
 
-uint64_t __50__SUDDMManager__cancelCurrentDownloadAndDownload___block_invoke(uint64_t result)
+id *__50__SUDDMManager__cancelCurrentDownloadAndDownload___block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) _initiateDownloadWithDescriptor:?];
+    return [result[5] _initiateDownloadWithDescriptor:?];
   }
 
   return result;
@@ -1033,7 +1029,7 @@ LABEL_14:
 
 - (void)_handleScanResults:(id)results
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   dispatch_assert_queue_V2(self->_workQueue);
   preferredDescriptor = [resultsCopy preferredDescriptor];
@@ -1056,43 +1052,43 @@ LABEL_14:
       v10 = allDeclarations;
       if (allDeclarations && [allDeclarations count])
       {
-        v51 = v9;
-        v56[0] = MEMORY[0x277D85DD0];
-        v56[1] = 3221225472;
-        v56[2] = __35__SUDDMManager__handleScanResults___block_invoke;
-        v56[3] = &unk_279CAAE68;
-        v56[4] = self;
-        v27 = MEMORY[0x26D668B30](v56);
+        v50 = v9;
+        v55[0] = MEMORY[0x277D85DD0];
+        v55[1] = 3221225472;
+        v55[2] = __35__SUDDMManager__handleScanResults___block_invoke;
+        v55[3] = &unk_279CAAE68;
+        v55[4] = self;
+        v27 = MEMORY[0x26D668B30](v55);
+        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
         v54 = 0u;
-        v55 = 0u;
         v28 = v10;
-        v29 = [v28 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v51 objects:v56 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v53;
-          v50 = v10;
+          v31 = *v52;
+          v49 = v10;
           while (2)
           {
             for (i = 0; i != v30; ++i)
             {
-              if (*v53 != v31)
+              if (*v52 != v31)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v33 = *(*(&v52 + 1) + 8 * i);
+              v33 = *(*(&v51 + 1) + 8 * i);
               if (v27[2](v27, v33, preferredDescriptor) & 1) != 0 || (v27[2](v27, v33, alternateDescriptor))
               {
-                v10 = v50;
+                v10 = v49;
                 goto LABEL_21;
               }
             }
 
-            v30 = [v28 countByEnumeratingWithState:&v52 objects:v57 count:16];
-            v10 = v50;
+            v30 = [v28 countByEnumeratingWithState:&v51 objects:v56 count:16];
+            v10 = v49;
             if (v30)
             {
               continue;
@@ -1106,12 +1102,12 @@ LABEL_14:
         SULogInfo(@"[DDM] %s: %@", v34, v35, v36, v37, v38, v39, v40, "[SUDDMManager _handleScanResults:]");
 LABEL_21:
 
-        v9 = v51;
+        v9 = v50;
       }
 
       else
       {
-        v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"No declarations available, nothing to do here"];
+        v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"No declarations available, nothing to do here"];
         SULogInfo(@"[DDM] %s: %@", v41, v42, v43, v44, v45, v46, v47, "[SUDDMManager _handleScanResults:]");
       }
     }
@@ -1122,8 +1118,6 @@ LABEL_21:
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"No descriptors available"];
     SULogInfo(@"[DDM] %s: %@", v18, v19, v20, v21, v22, v23, v24, "[SUDDMManager _handleScanResults:]");
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __35__SUDDMManager__handleScanResults___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1189,7 +1183,7 @@ void __46__SUDDMManager_handleDDMDeclaration_outError___block_invoke(uint64_t a1
 {
   if (!*(a1 + 32))
   {
-    v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to handle null declaration"];
+    v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to handle null declaration"];
     SULogInfo(@"[DDM] %s: %@", v10, v11, v12, v13, v14, v15, v16, "[SUDDMManager handleDDMDeclaration:outError:]_block_invoke");
 
     v9 = 22;
@@ -1198,7 +1192,7 @@ void __46__SUDDMManager_handleDDMDeclaration_outError___block_invoke(uint64_t a1
 
   if (+[SUUtility isReturnToServiceModeActive])
   {
-    v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Software Update not allowed because RRTS is on"];
+    v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Software Update not allowed because RRTS is on"];
     SULogInfo(@"[DDM] %s: %@", v2, v3, v4, v5, v6, v7, v8, "[SUDDMManager handleDDMDeclaration:outError:]_block_invoke");
 
     v9 = 106;
@@ -1208,44 +1202,43 @@ LABEL_5:
     v19 = *(v18 + 40);
     *(v18 + 40) = v17;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v17, v19);
     return;
   }
 
   v20 = *(*(a1 + 40) + 48);
   v21 = [*(a1 + 32) dictionaryRepresentation];
   v22 = *(*(a1 + 48) + 8);
-  v40 = *(v22 + 40);
-  LOBYTE(v20) = [v20 addDeclaration:v21 returningError:&v40];
-  objc_storeStrong((v22 + 40), v40);
+  v39 = *(v22 + 40);
+  LOBYTE(v20) = [v20 addDeclaration:v21 returningError:&v39];
+  objc_storeStrong((v22 + 40), v39);
   *(*(*(a1 + 56) + 8) + 24) = v20;
 
-  v23 = *(a1 + 32);
   if (*(*(*(a1 + 56) + 8) + 24))
   {
-    v24 = @"SUCCESS";
+    v23 = @"SUCCESS";
   }
 
   else
   {
-    v24 = @"FAILURE";
+    v23 = @"FAILURE";
   }
 
-  v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handled declaration %@: %@", *(a1 + 32), v24];
-  SULogInfo(@"[DDM] %s: %@", v25, v26, v27, v28, v29, v30, v31, "[SUDDMManager handleDDMDeclaration:outError:]_block_invoke");
+  v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handled declaration %@: %@", *(a1 + 32), v23];
+  SULogInfo(@"[DDM] %s: %@", v24, v25, v26, v27, v28, v29, v30, "[SUDDMManager handleDDMDeclaration:outError:]_block_invoke");
 
   if (*(*(*(a1 + 56) + 8) + 24) == 1)
   {
-    v32 = *(a1 + 32);
-    v33 = *(a1 + 40);
-    v34 = *(v33 + 8);
+    v31 = *(a1 + 32);
+    v32 = *(a1 + 40);
+    v33 = *(v32 + 8);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __46__SUDDMManager_handleDDMDeclaration_outError___block_invoke_2;
     block[3] = &unk_279CAA7C0;
-    block[4] = v33;
-    v39 = v32;
-    dispatch_async(v34, block);
+    block[4] = v32;
+    v38 = v31;
+    dispatch_async(v33, block);
   }
 }
 
@@ -1318,7 +1311,7 @@ void __52__SUDDMManager_cancelDDMDeclarationForKey_outError___block_invoke(uint6
     {
       if ([v2 isEqual:*(*(a1 + 32) + 72)])
       {
-        v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"The current active declaration was canceled, re-evaluate the declarations"];
+        v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"The current active declaration was canceled, re-evaluate the declarations"];
         SULogInfo(@"[DDM] %s: %@", v3, v4, v5, v6, v7, v8, v9, "[SUDDMManager cancelDDMDeclarationForKey:outError:]_block_invoke");
 
         [*(a1 + 32) _setActiveDeclaration:0];
@@ -1333,42 +1326,41 @@ void __52__SUDDMManager_cancelDDMDeclarationForKey_outError___block_invoke(uint6
 
         if (v15)
         {
-          v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"The current download is relevant to the canceled declaration purge it"];;
+          v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"The current download is relevant to the canceled declaration purge it"];;
           SULogInfo(@"[DDM] %s: %@", v16, v17, v18, v19, v20, v21, v22, "[SUDDMManager cancelDDMDeclarationForKey:outError:]_block_invoke");
 
           v23 = *(a1 + 32);
-          v52[0] = MEMORY[0x277D85DD0];
-          v52[1] = 3221225472;
-          v52[2] = __52__SUDDMManager_cancelDDMDeclarationForKey_outError___block_invoke_2;
-          v52[3] = &unk_279CAAEB8;
-          v52[4] = v23;
-          [v23 _purgeDownloadWithHandler:v52];
+          v51[0] = MEMORY[0x277D85DD0];
+          v51[1] = 3221225472;
+          v51[2] = __52__SUDDMManager_cancelDDMDeclarationForKey_outError___block_invoke_2;
+          v51[3] = &unk_279CAAEB8;
+          v51[4] = v23;
+          [v23 _purgeDownloadWithHandler:v51];
         }
 
         else
         {
-          v45 = *(a1 + 32);
-          v46 = *(v45 + 8);
+          v44 = *(a1 + 32);
+          v45 = *(v44 + 8);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __52__SUDDMManager_cancelDDMDeclarationForKey_outError___block_invoke_3;
           block[3] = &unk_279CAA708;
-          block[4] = v45;
-          dispatch_async(v46, block);
+          block[4] = v44;
+          dispatch_async(v45, block);
         }
       }
     }
 
     else
     {
-      v34 = *(a1 + 40);
-      v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to remove declaration for key %@ from %@", v34, *(*(a1 + 32) + 48)];
-      SULogInfo(@"[DDM] %s: %@", v35, v36, v37, v38, v39, v40, v41, "[SUDDMManager cancelDDMDeclarationForKey:outError:]_block_invoke");
+      v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to remove declaration for key %@ from %@", *(a1 + 40), *(*(a1 + 32) + 48)];
+      SULogInfo(@"[DDM] %s: %@", v34, v35, v36, v37, v38, v39, v40, "[SUDDMManager cancelDDMDeclarationForKey:outError:]_block_invoke");
 
-      v42 = [SUUtility errorWithCode:-1];
-      v43 = *(*(a1 + 48) + 8);
-      v44 = *(v43 + 40);
-      *(v43 + 40) = v42;
+      v41 = [SUUtility errorWithCode:-1];
+      v42 = *(*(a1 + 48) + 8);
+      v43 = *(v42 + 40);
+      *(v42 + 40) = v41;
     }
   }
 
@@ -1379,7 +1371,7 @@ void __52__SUDDMManager_cancelDDMDeclarationForKey_outError___block_invoke(uint6
     v26 = *(v25 + 40);
     *(v25 + 40) = v24;
 
-    v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot cancel: key is unknown"];
+    v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot cancel: key is unknown"];
     SULogInfo(@"[DDM] %s: %@", v27, v28, v29, v30, v31, v32, v33, "[SUDDMManager cancelDDMDeclarationForKey:outError:]_block_invoke");
   }
 }
@@ -1422,7 +1414,7 @@ uint64_t __31__SUDDMManager_allDeclarations__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)scanRequestDidFinishForOptions:(id)options results:(id)results error:(id)error
@@ -1813,7 +1805,7 @@ void __46__SUDDMManager_setDDMGlobalSettings_outError___block_invoke(uint64_t a1
     goto LABEL_21;
   }
 
-  v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"Successfully set global settings from %@ to %@", *(*(a1 + 40) + 80), *(a1 + 32)];
+  v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"Successfully set global settings from %@ to %@", *(*(a1 + 40) + 80), *(a1 + 32)];
   SULogInfo(@"[DDM] %s: %@", v8, v9, v10, v11, v12, v13, v14, "[SUDDMManager setDDMGlobalSettings:outError:]_block_invoke");
 
   objc_storeStrong((*(a1 + 40) + 80), *(a1 + 32));
@@ -1871,7 +1863,6 @@ LABEL_17:
     }
   }
 
-  v32 = *(*(a1 + 40) + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(*(a1 + 40) + 32) sendDDMGlobalSettingsToUI:*(*(a1 + 40) + 80)];

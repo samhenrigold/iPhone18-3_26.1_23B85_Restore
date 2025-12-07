@@ -230,39 +230,39 @@ LABEL_34:
 
 - (NSDictionary)diagnosticsJsonDictionary
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
   uriToDiagnostics = [(KTSelfValidationDiagnostics *)self uriToDiagnostics];
-  v26 = [v3 dictionaryWithCapacity:{objc_msgSend(uriToDiagnostics, "count")}];
+  v25 = [v3 dictionaryWithCapacity:{objc_msgSend(uriToDiagnostics, "count")}];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   uriToDiagnostics2 = [(KTSelfValidationDiagnostics *)self uriToDiagnostics];
-  v6 = [uriToDiagnostics2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [uriToDiagnostics2 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(uriToDiagnostics2);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         v11 = [TransparencyAnalytics privacyURI:v10];
         uriToDiagnostics3 = [(KTSelfValidationDiagnostics *)self uriToDiagnostics];
         v13 = [uriToDiagnostics3 objectForKeyedSubscript:v10];
         diagnosticsJsonDictionary = [v13 diagnosticsJsonDictionary];
-        [v26 setObject:diagnosticsJsonDictionary forKeyedSubscript:v11];
+        [v25 setObject:diagnosticsJsonDictionary forKeyedSubscript:v11];
       }
 
-      v7 = [uriToDiagnostics2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [uriToDiagnostics2 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
@@ -296,7 +296,7 @@ LABEL_34:
   pushToken = [(KTSelfValidationDiagnostics *)self pushToken];
   [dictionary setObject:pushToken forKeyedSubscript:@"pushToken"];
 
-  [dictionary setObject:v26 forKeyedSubscript:@"uriData"];
+  [dictionary setObject:v25 forKeyedSubscript:@"uriData"];
   if ([MEMORY[0x1E696ACB0] isValidJSONObject:dictionary])
   {
     v23 = dictionary;
@@ -306,8 +306,6 @@ LABEL_34:
   {
     v23 = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

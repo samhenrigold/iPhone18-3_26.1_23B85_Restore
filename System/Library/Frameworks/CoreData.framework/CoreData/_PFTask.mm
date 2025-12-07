@@ -11,25 +11,25 @@
 + (uint64_t)getNumActiveProcessors
 {
   objc_opt_self();
-  v2 = 0;
-  v1 = 4;
-  sysctlbyname("hw.activecpu", &v2, &v1, 0, 0);
-  return v2;
+  v3 = 0;
+  v2 = 4;
+  sysctlbyname("hw.activecpu", &v3, &v2, 0, 0);
+  return v3;
 }
 
 + (uint64_t)getPhysicalMemory
 {
   objc_opt_self();
-  v1 = 8;
-  v2 = 0;
-  if (sysctlbyname("hw.memsize", &v2, &v1, 0, 0))
+  v2 = 8;
+  v3 = 0;
+  if (sysctlbyname("hw.memsize", &v3, &v2, 0, 0))
   {
     return 0;
   }
 
   else
   {
-    return v2;
+    return v3;
   }
 }
 

@@ -930,69 +930,70 @@ LABEL_5:
   if (activeConversation)
   {
     v16 = [CAMAssetTransportController alloc];
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2050000000;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2050000000;
     v17 = qword_100015AF0;
-    v38 = qword_100015AF0;
+    v39 = qword_100015AF0;
     if (!qword_100015AF0)
     {
-      v30 = _NSConcreteStackBlock;
-      v31 = 3221225472;
-      v32 = sub_10000616C;
-      v33 = &unk_100010660;
-      v34 = &v35;
-      sub_10000616C(&v30);
-      v17 = v36[3];
+      v31 = _NSConcreteStackBlock;
+      v32 = 3221225472;
+      v33 = sub_10000616C;
+      v34 = &unk_100010660;
+      v35 = &v36;
+      sub_10000616C(&v31);
+      v17 = v37[3];
     }
 
     v18 = v17;
-    _Block_object_dispose(&v35, 8);
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2050000000;
+    _Block_object_dispose(&v36, 8);
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2050000000;
     v19 = qword_100015AF8;
-    v38 = qword_100015AF8;
+    v39 = qword_100015AF8;
     if (!qword_100015AF8)
     {
-      v30 = _NSConcreteStackBlock;
-      v31 = 3221225472;
-      v32 = sub_100006328;
-      v33 = &unk_100010660;
-      v34 = &v35;
-      sub_100006328(&v30);
-      v19 = v36[3];
+      v31 = _NSConcreteStackBlock;
+      v32 = 3221225472;
+      v33 = sub_100006328;
+      v34 = &unk_100010660;
+      v35 = &v36;
+      sub_100006328(&v31);
+      v19 = v37[3];
     }
 
-    v29 = completionCopy;
+    v30 = completionCopy;
     v20 = photoCopy;
     v21 = v19;
-    _Block_object_dispose(&v35, 8);
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
+    _Block_object_dispose(&v36, 8);
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
     v22 = qword_100015B00;
-    v38 = qword_100015B00;
+    v39 = qword_100015B00;
     if (!qword_100015B00)
     {
-      v30 = _NSConcreteStackBlock;
-      v31 = 3221225472;
-      v32 = sub_100006380;
-      v33 = &unk_100010660;
-      v34 = &v35;
+      v31 = _NSConcreteStackBlock;
+      v32 = 3221225472;
+      v33 = sub_100006380;
+      v34 = &unk_100010660;
+      v35 = &v36;
       v23 = sub_1000061C4();
       v24 = dlsym(v23, "kUTTypeAssetPreviewImage");
-      *(v34[1] + 24) = v24;
-      qword_100015B00 = *(v34[1] + 24);
-      v22 = v36[3];
+      *(v35[1] + 24) = v24;
+      qword_100015B00 = *(v35[1] + 24);
+      v22 = v37[3];
     }
 
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v36, 8);
     if (!v22)
     {
-      v28 = sub_1000078CC();
-      _Block_object_dispose(&v35, 8);
-      _Unwind_Resume(v28);
+      sub_1000078CC();
+      v29 = v28;
+      _Block_object_dispose(&v36, 8);
+      _Unwind_Resume(v29);
     }
 
     v25 = [(CAMAssetTransportController *)v16 initWithConversation:activeConversation packageGeneratorClass:v17 statisticsManagerClass:v19 previewImageKey:*v22];
@@ -1000,21 +1001,21 @@ LABEL_5:
     {
       CAMSignpostWithIDAndArgs();
       v27 = v20;
-      completionCopy = v29;
-      [v25 sendAsset:assetCopy suppressLivePhoto:v27 mediaOrigin:v14 completion:v29];
+      completionCopy = v30;
+      [v25 sendAsset:assetCopy suppressLivePhoto:v27 mediaOrigin:v14 completion:v30];
     }
 
     else if (action)
     {
-      completionCopy = v29;
+      completionCopy = v30;
     }
 
     else
     {
       CAMSignpostWithIDAndArgs();
       v26 = v20;
-      completionCopy = v29;
-      [v25 stageAsset:assetCopy suppressLivePhoto:v26 mediaOrigin:v14 completion:v29];
+      completionCopy = v30;
+      [v25 stageAsset:assetCopy suppressLivePhoto:v26 mediaOrigin:v14 completion:v30];
     }
   }
 

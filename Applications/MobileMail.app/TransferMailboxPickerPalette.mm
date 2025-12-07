@@ -79,60 +79,66 @@
     [viewCopy bounds];
   }
 
-  UIRoundToViewScale();
-  if (v7 <= 58.0)
+  else
   {
-    v8 = v7;
+    width = CGSizeZero.width;
+    height = CGSizeZero.height;
+  }
+
+  v9 = UIRoundToViewScale(height * (35.0 / width));
+  if (v9 <= 58.0)
+  {
+    v10 = v9;
   }
 
   else
   {
-    v8 = 58.0;
+    v10 = 58.0;
   }
 
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x2020000000;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x2020000000;
   messageCount = self->_messageCount;
-  v29 = messageCount;
+  v31 = messageCount;
   if (!messageCount)
   {
     messageCount = 1;
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   if (messageCount >= 4)
   {
     messageCount = 3;
-LABEL_12:
-    v29 = messageCount;
+LABEL_13:
+    v31 = messageCount;
   }
 
-  v10 = [UIGraphicsImageRenderer alloc];
-  v11 = +[UIGraphicsImageRendererFormat preferredFormat];
-  v12 = [v10 initWithSize:v11 format:{35.0, v8 + (messageCount - 1) * 2.5}];
+  v12 = [UIGraphicsImageRenderer alloc];
+  v13 = +[UIGraphicsImageRendererFormat preferredFormat];
+  v14 = [v12 initWithSize:v13 format:{35.0, v10 + (messageCount - 1) * 2.5}];
 
-  v18 = _NSConcreteStackBlock;
-  v19 = 3221225472;
-  v20 = sub_100256E6C;
-  v21 = &unk_100656A10;
-  v24 = v28;
-  v13 = viewCopy;
-  v25 = v8 + (messageCount - 1) * 2.5;
-  v26 = v8;
-  v27 = 0x4041800000000000;
-  v22 = v13;
+  v20 = _NSConcreteStackBlock;
+  v21 = 3221225472;
+  v22 = sub_100256E6C;
+  v23 = &unk_100656A10;
+  v26 = v30;
+  v15 = viewCopy;
+  v27 = v10 + (messageCount - 1) * 2.5;
+  v28 = v10;
+  v29 = 0x4041800000000000;
+  v24 = v15;
   selfCopy = self;
-  v14 = [v12 imageWithActions:&v18];
-  v15 = [UIImageView alloc];
-  v16 = [v15 initWithImage:{v14, v18, v19, v20, v21}];
-  v17 = self->_messageThumbnailView;
-  self->_messageThumbnailView = v16;
+  v16 = [v14 imageWithActions:&v20];
+  v17 = [UIImageView alloc];
+  v18 = [v17 initWithImage:{v16, v20, v21, v22, v23}];
+  v19 = self->_messageThumbnailView;
+  self->_messageThumbnailView = v18;
 
   [(TransferMailboxPickerPalette *)self addSubview:self->_messageThumbnailView];
   [(TransferMailboxPickerPalette *)self setNeedsLayout];
 
-  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(v30, 8);
 }
 
 - (void)_drawThumbnailInContext:(CGContext *)context view:(id)view frame:(CGRect)frame
@@ -339,15 +345,13 @@ LABEL_12:
   [(UILabel *)self->_subjectLabel setFrame:v18, 0.0, v12, v21];
   font = [(UILabel *)self->_subjectLabel font];
   [font _bodyLeading];
-  UIRoundToViewScale();
-  v24 = v23;
+  v24 = UIRoundToViewScale(v23 * 0.5);
 
   [(UILabel *)self->_sendersLabel _firstLineBaselineOffsetFromBoundsTop];
   [(UILabel *)self->_subjectLabel _setFirstLineCapFrameOriginY:v24 + v25];
   [(UILabel *)self->_subjectLabel frame];
-  CGRectGetMaxY(v46);
-  UIRoundToViewScale();
-  v27 = v26;
+  MaxY = CGRectGetMaxY(v46);
+  v27 = UIRoundToViewScale((v11 - MaxY) * 0.5);
   [(UILabel *)self->_sendersLabel frame];
   v29 = v28;
   v31 = v30;
@@ -387,34 +391,38 @@ LABEL_12:
   v23 = v18;
   if (mf_prefersRightToLeftInterfaceLayout)
   {
-    CGRectGetMaxX(*&v20);
+    MaxX = CGRectGetMaxX(*&v20);
+    v33.origin.x = v4;
+    v33.origin.y = v6;
+    v33.size.width = v8;
+    v33.size.height = v10;
+    v25 = MaxX - (CGRectGetWidth(v33) * -0.5 + 67.0);
   }
 
   else
   {
-    CGRectGetMinX(*&v20);
+    MinX = CGRectGetMinX(*&v20);
+    v34.origin.x = v4;
+    v34.origin.y = v6;
+    v34.size.width = v8;
+    v34.size.height = v10;
+    v25 = MinX + (67.0 - CGRectGetWidth(v34)) * 0.5;
   }
 
-  v30.origin.x = v4;
-  v30.origin.y = v6;
-  v30.size.width = v8;
-  v30.size.height = v10;
-  CGRectGetWidth(v30);
-  UIRoundToViewScale();
-  x = v31.origin.x;
-  v31.origin.y = v6;
-  v31.size.width = v8;
-  v31.size.height = v10;
-  CGRectGetHeight(v31);
-  UIRoundToViewScale();
-  v26 = v25;
-  v27 = x;
-  v28 = v8;
-  v29 = v10;
-  result.size.height = v29;
-  result.size.width = v28;
-  result.origin.y = v26;
-  result.origin.x = v27;
+  v35.origin.x = UIRoundToViewScale(v25);
+  x = v35.origin.x;
+  v35.origin.y = v6;
+  v35.size.width = v8;
+  v35.size.height = v10;
+  Height = CGRectGetHeight(v35);
+  v29 = UIRoundToViewScale((68.0 - Height) * 0.5);
+  v30 = x;
+  v31 = v8;
+  v32 = v10;
+  result.size.height = v32;
+  result.size.width = v31;
+  result.origin.y = v29;
+  result.origin.x = v30;
   return result;
 }
 

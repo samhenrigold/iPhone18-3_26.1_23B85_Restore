@@ -236,7 +236,7 @@ id __64__PLAlbumJournalEntryPayload_updateAlbum_includePendingChanges___block_in
   keyCopy = key;
   builderCopy = builder;
   valueCopy = value;
-  if ([keyCopy isEqualToString:@"assets"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self orderedSetForUUIDEncodedData:valueCopy];
 

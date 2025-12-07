@@ -37,7 +37,7 @@ uint64_t __60__CalAppleConferenceFormat_calConferenceSerializationHandle__block_
 
 - (id)serializeConference:(id)conference serializationBlockTitle:(id)title
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   conferenceCopy = conference;
   titleCopy = title;
   joinMethods = [conferenceCopy joinMethods];
@@ -46,8 +46,8 @@ uint64_t __60__CalAppleConferenceFormat_calConferenceSerializationHandle__block_
   if (v8)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v48 = titleCopy;
-    v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", @"----( ", titleCopy, @")----"];
+    v47 = titleCopy;
+    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", @"----( ", titleCopy, @")----"];
     [array addObject:?];
     title = [conferenceCopy title];
     v11 = [title length];
@@ -62,27 +62,27 @@ uint64_t __60__CalAppleConferenceFormat_calConferenceSerializationHandle__block_
       [array addObject:&stru_1F379FFA8];
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     joinMethods2 = [conferenceCopy joinMethods];
-    v16 = [joinMethods2 countByEnumeratingWithState:&v49 objects:v54 count:16];
+    v16 = [joinMethods2 countByEnumeratingWithState:&v48 objects:v53 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v50;
+      v18 = *v49;
       do
       {
         v19 = 0;
         do
         {
-          if (*v50 != v18)
+          if (*v49 != v18)
           {
             objc_enumerationMutation(joinMethods2);
           }
 
-          v20 = *(*(&v49 + 1) + 8 * v19);
+          v20 = *(*(&v48 + 1) + 8 * v19);
           title3 = [v20 title];
           v22 = [title3 length];
 
@@ -109,7 +109,7 @@ uint64_t __60__CalAppleConferenceFormat_calConferenceSerializationHandle__block_
           {
             v25 = MEMORY[0x1E696AEC0];
             title4 = [v20 title];
-            [v25 stringWithFormat:@"%@%@%@", @"[", title4, @"]", v44, v45, v46];
+            [v25 stringWithFormat:@"%@%@%@", @"[", title4, @"]", v43, v44, v45];
             v28 = LABEL_16:;
             [array addObject:v28];
 
@@ -142,7 +142,7 @@ LABEL_18:
         }
 
         while (v17 != v19);
-        v34 = [joinMethods2 countByEnumeratingWithState:&v49 objects:v54 count:16];
+        v34 = [joinMethods2 countByEnumeratingWithState:&v48 objects:v53 count:16];
         v17 = v34;
       }
 
@@ -168,7 +168,7 @@ LABEL_18:
     [array addObject:@"---===---"];
     v41 = [array componentsJoinedByString:@"\n"];
 
-    titleCopy = v48;
+    titleCopy = v47;
   }
 
   else
@@ -182,8 +182,6 @@ LABEL_18:
 
     v41 = 0;
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v41;
 }
@@ -242,35 +240,33 @@ void __51__CalAppleConferenceFormat_deserializeConferences___block_invoke(uint64
           if (v11 == 8)
           {
             v12 = *(a1 + 56);
-            v13 = *(a1 + 40);
-            v14 = [objc_opt_class() _buildDeserializationResultFromState:*(a1 + 32)];
-            [v12 addObject:v14];
+            v13 = [objc_opt_class() _buildDeserializationResultFromState:*(a1 + 32)];
+            [v12 addObject:v13];
           }
 
           goto LABEL_56;
         }
 
-        v40 = [v10 isEqualToString:@"---===---"];
-        v41 = [*(a1 + 32) conferenceDetails];
-        v38 = v41;
-        if (v40)
+        v32 = [v10 isEqualToString:@"---===---"];
+        v33 = [*(a1 + 32) conferenceDetails];
+        v30 = v33;
+        if (v32)
         {
-          v42 = [(CalVirtualConferenceJoinMethod *)v41 count];
+          v34 = [(CalVirtualConferenceJoinMethod *)v33 count];
 
-          if (v42)
+          if (v34)
           {
             [*(a1 + 32) setEndRange:{a5, a6}];
-            v28 = *(a1 + 32);
-            v29 = 8;
+            v23 = *(a1 + 32);
+            v24 = 8;
             goto LABEL_32;
           }
 
-          v57 = *(a1 + 40);
-          v45 = [objc_opt_class() calConferenceSerializationHandle];
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v35 = [objc_opt_class() calConferenceSerializationHandle];
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            v46 = "No conferenceDetails lines were found when end delimiter was hit, despite conferenceDetails delimiter being present";
+            v36 = "No conferenceDetails lines were found when end delimiter was hit, despite conferenceDetails delimiter being present";
             goto LABEL_54;
           }
 
@@ -280,7 +276,7 @@ LABEL_55:
           goto LABEL_56;
         }
 
-        [(CalVirtualConferenceJoinMethod *)v41 addObject:v10];
+        [(CalVirtualConferenceJoinMethod *)v33 addObject:v10];
 LABEL_43:
 
         goto LABEL_56;
@@ -288,22 +284,21 @@ LABEL_43:
 
       if ([v10 isEqualToString:&stru_1F379FFA8])
       {
-        v28 = *(a1 + 32);
-        v29 = 7;
+        v23 = *(a1 + 32);
+        v24 = 7;
         goto LABEL_32;
       }
 
-      v47 = *(a1 + 40);
-      v45 = [objc_opt_class() calConferenceSerializationHandle];
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      v35 = [objc_opt_class() calConferenceSerializationHandle];
+      if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_55;
       }
 
       *buf = 0;
-      v46 = "ConferenceDetails delimiter was not followed by an empty string";
+      v36 = "ConferenceDetails delimiter was not followed by an empty string";
 LABEL_54:
-      _os_log_impl(&dword_1B990D000, v45, OS_LOG_TYPE_DEFAULT, v46, buf, 2u);
+      _os_log_impl(&dword_1B990D000, v35, OS_LOG_TYPE_DEFAULT, v36, buf, 2u);
       goto LABEL_55;
     }
 
@@ -311,22 +306,19 @@ LABEL_54:
     {
       [*(a1 + 32) setJoinMethodTitle:0];
       [*(a1 + 32) setJoinMethodIsBroadcast:0];
-      v24 = *(a1 + 40);
-      v25 = objc_opt_class();
-      v26 = *(a1 + 40);
-      v27 = [objc_opt_class() _detailsDelimiterRegex];
-      LODWORD(v25) = [v25 _line:v10 matchesRegex:v27 outFoundRange:0];
+      v21 = objc_opt_class();
+      v22 = [objc_opt_class() _detailsDelimiterRegex];
+      LODWORD(v21) = [v21 _line:v10 matchesRegex:v22 outFoundRange:0];
 
-      if (v25)
+      if (v21)
       {
-        v28 = *(a1 + 32);
-        v29 = 6;
+        v23 = *(a1 + 32);
+        v24 = 6;
         goto LABEL_32;
       }
 
       if (([v10 hasPrefix:@"["] & 1) != 0 || objc_msgSend(v10, "hasPrefix:", @"("))
       {
-        v43 = *(a1 + 40);
         [objc_opt_class() _parseJoinMethodTitleAndFeatures:v10 state:*(a1 + 32)];
         goto LABEL_56;
       }
@@ -336,13 +328,13 @@ LABEL_54:
 
     if ([v10 isEqualToString:@"---===---"])
     {
-      v35 = [CalVirtualConferenceJoinMethod alloc];
-      v36 = [*(a1 + 32) joinMethodTitle];
-      v37 = [*(a1 + 32) joinMethodURL];
-      v38 = -[CalVirtualConferenceJoinMethod initWithTitle:URL:isBroadcast:](v35, "initWithTitle:URL:isBroadcast:", v36, v37, [*(a1 + 32) joinMethodIsBroadcast]);
+      v27 = [CalVirtualConferenceJoinMethod alloc];
+      v28 = [*(a1 + 32) joinMethodTitle];
+      v29 = [*(a1 + 32) joinMethodURL];
+      v30 = -[CalVirtualConferenceJoinMethod initWithTitle:URL:isBroadcast:](v27, "initWithTitle:URL:isBroadcast:", v28, v29, [*(a1 + 32) joinMethodIsBroadcast]);
 
-      v39 = [*(a1 + 32) joinMethods];
-      [v39 addObject:v38];
+      v31 = [*(a1 + 32) joinMethods];
+      [v31 addObject:v30];
 
       [*(a1 + 32) setEndRange:{a5, a6}];
       [*(a1 + 32) setState:8];
@@ -351,25 +343,24 @@ LABEL_54:
 
     if (![v10 isEqualToString:&stru_1F379FFA8])
     {
-      v55 = *(a1 + 40);
-      v45 = [objc_opt_class() calConferenceSerializationHandle];
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      v35 = [objc_opt_class() calConferenceSerializationHandle];
+      if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_55;
       }
 
       *buf = 0;
-      v46 = "URL was not followed by the end delimiter or an empty string";
+      v36 = "URL was not followed by the end delimiter or an empty string";
       goto LABEL_54;
     }
 
-    v48 = [CalVirtualConferenceJoinMethod alloc];
-    v49 = [*(a1 + 32) joinMethodTitle];
-    v50 = [*(a1 + 32) joinMethodURL];
-    v20 = -[CalVirtualConferenceJoinMethod initWithTitle:URL:isBroadcast:](v48, "initWithTitle:URL:isBroadcast:", v49, v50, [*(a1 + 32) joinMethodIsBroadcast]);
+    v37 = [CalVirtualConferenceJoinMethod alloc];
+    v38 = [*(a1 + 32) joinMethodTitle];
+    v39 = [*(a1 + 32) joinMethodURL];
+    v19 = -[CalVirtualConferenceJoinMethod initWithTitle:URL:isBroadcast:](v37, "initWithTitle:URL:isBroadcast:", v38, v39, [*(a1 + 32) joinMethodIsBroadcast]);
 
-    v51 = [*(a1 + 32) joinMethods];
-    [v51 addObject:v20];
+    v40 = [*(a1 + 32) joinMethods];
+    [v40 addObject:v19];
 
     [*(a1 + 32) setState:5];
 LABEL_51:
@@ -383,27 +374,25 @@ LABEL_51:
     {
       if (![v10 isEqualToString:&stru_1F379FFA8])
       {
-        v44 = *(a1 + 40);
-        v45 = [objc_opt_class() calConferenceSerializationHandle];
-        if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v35 = [objc_opt_class() calConferenceSerializationHandle];
+        if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_55;
         }
 
         *buf = 0;
-        v46 = "Conference title was not followed by an empty line";
+        v36 = "Conference title was not followed by an empty line";
         goto LABEL_54;
       }
 
-      v28 = *(a1 + 32);
-      v29 = 5;
+      v23 = *(a1 + 32);
+      v24 = 5;
 LABEL_32:
-      [v28 setState:v29];
+      [v23 setState:v24];
       goto LABEL_56;
     }
 
 LABEL_17:
-    v23 = *(a1 + 40);
     [objc_opt_class() _parseURL:v10 state:*(a1 + 32)];
     goto LABEL_56;
   }
@@ -416,46 +405,43 @@ LABEL_17:
     }
 
     [*(a1 + 32) setConferenceTitle:0];
-    v15 = [v10 hasPrefix:@"["];
-    v16 = objc_msgSend(v10, "hasPrefix:", @"(");
-    if ((v15 & 1) == 0 && !v16)
+    v14 = [v10 hasPrefix:@"["];
+    v15 = objc_msgSend(v10, "hasPrefix:", @"(");
+    if ((v14 & 1) == 0 && !v15)
     {
       goto LABEL_17;
     }
 
-    v17 = *(*(*(a1 + 64) + 8) + 24) + 1;
-    v18 = [MEMORY[0x1E695DF70] array];
-    v19 = *(a1 + 48);
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __51__CalAppleConferenceFormat_deserializeConferences___block_invoke_2;
-    v58[3] = &unk_1E7EC6900;
-    v20 = v18;
-    v59 = v20;
-    [v19 enumerateLinesUsingBlock:v58];
-    if (v17 <= [(CalVirtualConferenceJoinMethod *)v20 count]- 1)
+    v16 = *(*(*(a1 + 64) + 8) + 24) + 1;
+    v17 = [MEMORY[0x1E695DF70] array];
+    v18 = *(a1 + 48);
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __51__CalAppleConferenceFormat_deserializeConferences___block_invoke_2;
+    v43[3] = &unk_1E7EC6900;
+    v19 = v17;
+    v44 = v19;
+    [v18 enumerateLinesUsingBlock:v43];
+    if (v16 <= [(CalVirtualConferenceJoinMethod *)v19 count]- 1)
     {
-      if (v15 && (-[CalVirtualConferenceJoinMethod objectAtIndexedSubscript:](v20, "objectAtIndexedSubscript:", v17), v52 = objc_claimAutoreleasedReturnValue(), v53 = [v52 isEqualToString:&stru_1F379FFA8], v52, v53))
+      if (v14 && (-[CalVirtualConferenceJoinMethod objectAtIndexedSubscript:](v19, "objectAtIndexedSubscript:", v16), v41 = objc_claimAutoreleasedReturnValue(), v42 = [v41 isEqualToString:&stru_1F379FFA8], v41, v42))
       {
-        v54 = *(a1 + 40);
         [objc_opt_class() _parseConferenceTitle:v10 state:*(a1 + 32)];
       }
 
       else
       {
-        v56 = *(a1 + 40);
         [objc_opt_class() _parseJoinMethodTitleAndFeatures:v10 state:*(a1 + 32)];
       }
     }
 
     else
     {
-      v21 = *(a1 + 40);
-      v22 = [objc_opt_class() calConferenceSerializationHandle];
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v20 = [objc_opt_class() calConferenceSerializationHandle];
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B990D000, v22, OS_LOG_TYPE_DEFAULT, "Input does not have enough lines to be a valid section", buf, 2u);
+        _os_log_impl(&dword_1B990D000, v20, OS_LOG_TYPE_DEFAULT, "Input does not have enough lines to be a valid section", buf, 2u);
       }
 
       [*(a1 + 32) resetToNewSection];
@@ -465,18 +451,15 @@ LABEL_17:
   }
 
   *buf = 0;
-  v61 = 0;
-  v30 = *(a1 + 40);
-  v31 = objc_opt_class();
-  v32 = *(a1 + 40);
-  v33 = [objc_opt_class() _startDelimiterRegex];
-  LODWORD(v31) = [v31 _line:v10 matchesRegex:v33 outFoundRange:buf];
+  v46 = 0;
+  v25 = objc_opt_class();
+  v26 = [objc_opt_class() _startDelimiterRegex];
+  LODWORD(v25) = [v25 _line:v10 matchesRegex:v26 outFoundRange:buf];
 
-  if (v31)
+  if (v25)
   {
-    [*(a1 + 32) setStartRange:{*buf + a3, v61}];
+    [*(a1 + 32) setStartRange:{*buf + a3, v46}];
     [*(a1 + 32) setState:1];
-    v34 = *(a1 + 40);
     [objc_opt_class() _parseBlockTitle:v10 state:*(a1 + 32)];
   }
 
@@ -569,7 +552,7 @@ LABEL_56:
 
 + (void)_parseJoinMethodTitleAndFeatures:(id)features state:(id)state
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   stateCopy = state;
   _joinMethodTitleAndFeaturesRegex = [self _joinMethodTitleAndFeaturesRegex];
@@ -590,27 +573,27 @@ LABEL_56:
     {
       v19 = [featuresCopy substringWithRange:{v17, v18}];
       [v19 componentsSeparatedByString:{@", "}];
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v35 = 0u;
-      v20 = v36 = 0u;
-      v21 = [v20 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v20 = v35 = 0u;
+      v21 = [v20 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v21)
       {
         v22 = v21;
-        v31 = v19;
-        v32 = stateCopy;
-        v23 = *v34;
+        v30 = v19;
+        v31 = stateCopy;
+        v23 = *v33;
         while (2)
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v34 != v23)
+            if (*v33 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = *(*(&v33 + 1) + 8 * i);
+            v25 = *(*(&v32 + 1) + 8 * i);
             whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
             v27 = [v25 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
@@ -622,7 +605,7 @@ LABEL_56:
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v33 objects:v38 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v32 objects:v37 count:16];
           if (v22)
           {
             continue;
@@ -633,8 +616,8 @@ LABEL_56:
 
         v29 = 0;
 LABEL_19:
-        stateCopy = v32;
-        v19 = v31;
+        stateCopy = v31;
+        v19 = v30;
       }
 
       else
@@ -659,8 +642,6 @@ LABEL_19:
 
     [stateCopy resetToNewSection];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_buildDeserializationResultFromState:(id)state

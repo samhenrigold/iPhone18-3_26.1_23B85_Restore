@@ -200,7 +200,7 @@ void __21__WBSHistoryItem_url__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __41__WBSHistoryItem_lastVisitedTimeInterval__block_invoke(uint64_t a1)
+void *__41__WBSHistoryItem_lastVisitedTimeInterval__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) visitTime];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -235,7 +235,7 @@ uint64_t __41__WBSHistoryItem_lastVisitedTimeInterval__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __37__WBSHistoryItem_lastVisitWasFailure__block_invoke(uint64_t a1)
+void *__37__WBSHistoryItem_lastVisitWasFailure__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) loadWasSuccessful];
   *(*(*(a1 + 40) + 8) + 24) = result ^ 1;
@@ -280,7 +280,7 @@ uint64_t __41__WBSHistoryItem_setLastVisitWasFailure___block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __40__WBSHistoryItem_lastVisitWasHTTPNonGet__block_invoke(uint64_t a1)
+void *__40__WBSHistoryItem_lastVisitWasHTTPNonGet__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) wasHTTPNonGet];
   *(*(*(a1 + 40) + 8) + 24) = result;

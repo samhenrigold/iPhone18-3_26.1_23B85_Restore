@@ -81,7 +81,7 @@ void __56__PSUIAppDataUsageGroup_didFailToSetPolicyForSpecifier___block_invoke(u
 
 void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -98,40 +98,40 @@ void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke(uint64_t a1)
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy_;
-  v43 = __Block_byref_object_dispose_;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy_;
+  v42 = __Block_byref_object_dispose_;
   v8 = +[CTUIDataUsageSorting userSelectedComparator];
-  v44 = [(PSUIAppsAndCategoriesDataUsageSubgroup *)v7 specifiersWithSortComparator:v8];
+  v43 = [(PSUIAppsAndCategoriesDataUsageSubgroup *)v7 specifiersWithSortComparator:v8];
 
   v9 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v38 = 136315138;
-    v39 = "[PSUIAppDataUsageGroup calculateUsage]_block_invoke";
-    _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "%s prefetching policies", v38, 0xCu);
+    *v37 = 136315138;
+    v38 = "[PSUIAppDataUsageGroup calculateUsage]_block_invoke";
+    _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "%s prefetching policies", v37, 0xCu);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v10 = *(*(&buf + 1) + 40);
-  v11 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v11)
   {
-    v12 = *v33;
+    v12 = *v32;
     do
     {
       v13 = 0;
       do
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * v13);
+        v14 = *(*(&v31 + 1) + 8 * v13);
         WeakRetained = objc_loadWeakRetained((a1 + 40));
         [WeakRetained prefetchResourcesFor:v14];
 
@@ -139,7 +139,7 @@ void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke(uint64_t a1)
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v11);
@@ -147,26 +147,26 @@ void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke(uint64_t a1)
 
   if ([*(*(&buf + 1) + 40) count])
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v16 = *(*(&buf + 1) + 40);
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v36 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v35 count:16];
     if (v17)
     {
-      v18 = *v28;
+      v18 = *v27;
       do
       {
         v19 = 0;
         do
         {
-          if (*v28 != v18)
+          if (*v27 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v27 + 1) + 8 * v19);
+          v20 = *(*(&v26 + 1) + 8 * v19);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -178,7 +178,7 @@ void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke(uint64_t a1)
         }
 
         while (v17 != v19);
-        v17 = [v16 countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v26 objects:v35 count:16];
       }
 
       while (v17);
@@ -187,9 +187,9 @@ void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke(uint64_t a1)
     v22 = [*(a1 + 32) getLogger];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 136315138;
-      v39 = "[PSUIAppDataUsageGroup calculateUsage]_block_invoke_2";
-      _os_log_impl(&dword_2658DE000, v22, OS_LOG_TYPE_DEFAULT, "%s dispatching app specifiers update to main thread", v38, 0xCu);
+      *v37 = 136315138;
+      v38 = "[PSUIAppDataUsageGroup calculateUsage]_block_invoke_2";
+      _os_log_impl(&dword_2658DE000, v22, OS_LOG_TYPE_DEFAULT, "%s dispatching app specifiers update to main thread", v37, 0xCu);
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -198,9 +198,9 @@ void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke(uint64_t a1)
     block[3] = &unk_279BA9D80;
     block[4] = *(a1 + 32);
     block[5] = &buf;
-    objc_copyWeak(&v26, (a1 + 40));
+    objc_copyWeak(&v25, (a1 + 40));
     dispatch_async(MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
   }
 
   else
@@ -208,22 +208,20 @@ void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke(uint64_t a1)
     v23 = [*(a1 + 32) getLogger];
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 136315138;
-      v39 = "[PSUIAppDataUsageGroup calculateUsage]_block_invoke";
-      _os_log_impl(&dword_2658DE000, v23, OS_LOG_TYPE_DEFAULT, "%s no apps to show", v38, 0xCu);
+      *v37 = 136315138;
+      v38 = "[PSUIAppDataUsageGroup calculateUsage]_block_invoke";
+      _os_log_impl(&dword_2658DE000, v23, OS_LOG_TYPE_DEFAULT, "%s no apps to show", v37, 0xCu);
     }
 
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke_5;
-    v31[3] = &unk_279BA9D58;
-    v31[4] = *(a1 + 32);
-    dispatch_async(MEMORY[0x277D85CD0], v31);
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke_5;
+    v30[3] = &unk_279BA9D58;
+    v30[4] = *(a1 + 32);
+    dispatch_async(MEMORY[0x277D85CD0], v30);
   }
 
   _Block_object_dispose(&buf, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke_5(uint64_t a1)
@@ -231,44 +229,40 @@ void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke_5(uint64_t a1)
   v2 = [*(a1 + 32) groupSpecifier];
   [v2 setName:&stru_287733598];
 
-  v6 = [*(a1 + 32) groupSpecifier];
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"APPS_APPEAR_AFTER_WIRELESS_DATA_USAGE" value:&stru_287733598 table:@"Cellular"];
-  [v6 setProperty:v5 forKey:*MEMORY[0x277D3FF88]];
+  v5 = [*(a1 + 32) groupSpecifier];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"APPS_APPEAR_AFTER_WIRELESS_DATA_USAGE" value:&stru_287733598 table:@"Cellular"];
+  [v5 setProperty:v4 forKey:*MEMORY[0x277D3FF88]];
 }
 
 void __39__PSUIAppDataUsageGroup_calculateUsage__block_invoke_16(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Sort options" target:0 set:0 get:0 detail:0 cell:4 edit:0];
   [v2 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
-  v17[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v15[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v4 = [v3 arrayByAddingObjectsFromArray:*(*(*(a1 + 40) + 8) + 40)];
   v5 = *(*(a1 + 40) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = *(a1 + 32);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v9 = [v8 localizedStringForKey:@"USE_WIRELESS_DATA" value:&stru_287733598 table:@"Cellular"];
-  v10 = [*(a1 + 32) groupSpecifier];
-  [v10 setName:v9];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = [v7 localizedStringForKey:@"USE_WIRELESS_DATA" value:&stru_287733598 table:@"Cellular"];
+  v9 = [*(a1 + 32) groupSpecifier];
+  [v9 setName:v8];
 
-  v11 = [*(a1 + 32) getLogger];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v10 = [*(a1 + 32) getLogger];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[PSUIAppDataUsageGroup calculateUsage]_block_invoke";
-    _os_log_impl(&dword_2658DE000, v11, OS_LOG_TYPE_DEFAULT, "%s updating app specifiers on main thread", buf, 0xCu);
+    v14 = "[PSUIAppDataUsageGroup calculateUsage]_block_invoke";
+    _os_log_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEFAULT, "%s updating app specifiers on main thread", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v13 = [WeakRetained loadingGroup];
-  [v13 setSpecifiers:*(*(*(a1 + 40) + 8) + 40)];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = [WeakRetained loadingGroup];
+  [v12 setSpecifiers:*(*(*(a1 + 40) + 8) + 40)];
 }
 
 - (PSSpecifier)groupSpecifier

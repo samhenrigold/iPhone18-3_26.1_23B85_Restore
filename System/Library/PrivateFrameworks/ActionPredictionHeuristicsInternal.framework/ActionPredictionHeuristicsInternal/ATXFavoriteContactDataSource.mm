@@ -55,32 +55,32 @@
 
 void __63__ATXFavoriteContactDataSource_favoritesWithContacts_callback___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) count])
   {
     v4 = objc_opt_new();
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v5 = *(a1 + 32);
-    v6 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v28;
+      v8 = *v27;
       do
       {
         v9 = 0;
         do
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [v3 entriesForContact:*(*(&v27 + 1) + 8 * v9)];
+          v10 = [v3 entriesForContact:*(*(&v26 + 1) + 8 * v9)];
           if ([v10 count])
           {
             [v4 addObjectsFromArray:v10];
@@ -90,7 +90,7 @@ void __63__ATXFavoriteContactDataSource_favoritesWithContacts_callback___block_i
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v7);
@@ -103,27 +103,27 @@ void __63__ATXFavoriteContactDataSource_favoritesWithContacts_callback___block_i
   }
 
   v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v12 = v4;
-  v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v24;
+    v15 = *v23;
     do
     {
       v16 = 0;
       do
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [ATXFavoriteContactDataSource _entryToDict:*(*(&v23 + 1) + 8 * v16) device:*(*(a1 + 40) + 8), v23];
+        v17 = [ATXFavoriteContactDataSource _entryToDict:*(*(&v22 + 1) + 8 * v16) device:*(*(a1 + 40) + 8), v22];
         if (v17)
         {
           [v11 addObject:v17];
@@ -133,7 +133,7 @@ void __63__ATXFavoriteContactDataSource_favoritesWithContacts_callback___block_i
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v14);
@@ -149,8 +149,6 @@ void __63__ATXFavoriteContactDataSource_favoritesWithContacts_callback___block_i
   v20 = *(*(a1 + 48) + 8);
   v21 = *(v20 + 40);
   *(v20 + 40) = v19;
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_entryToDict:(id)dict device:(id)device
@@ -188,11 +186,10 @@ void __63__ATXFavoriteContactDataSource_favoritesWithContacts_callback___block_i
 
 void __63__ATXFavoriteContactDataSource_favoritesWithContacts_callback___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Found %lu favorite(s) for query", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Found %lu favorite(s) for query", &v3, 0xCu);
 }
 
 @end

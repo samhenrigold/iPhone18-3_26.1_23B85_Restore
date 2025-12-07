@@ -6,7 +6,7 @@
 
 + (BOOL)processRecord:(id)record bssid:(id)bssid ssid:(id)ssid withPersistentContainer:(id)container andRunPostprocessing:(id)postprocessing
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   containerCopy = container;
   postprocessingCopy = postprocessing;
@@ -16,9 +16,9 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446466;
-    v49 = "+[EventJoinNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
-    v50 = 1024;
-    *v51 = 31;
+    v48 = "+[EventJoinNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
+    v49 = 1024;
+    *v50 = 31;
     _os_log_impl(&dword_1C8460000, v16, OS_LOG_TYPE_DEBUG, "%{public}s::%d:", buf, 0x12u);
   }
 
@@ -36,12 +36,12 @@
     }
 
     *buf = 138412290;
-    v49 = v18;
+    v48 = v18;
     _os_signpost_emit_with_name_impl(&dword_1C8460000, v17, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "WADeviceAnalyticsEventJoinNetwork processRecord", "%@", buf, 0xCu);
   }
 
-  v47 = 0;
-  v19 = [UniqueMO getOrCreateBSS:bssidCopy andNetwork:ssidCopy withHasUpdatedNetwork:&v47 on:containerCopy];
+  v46 = 0;
+  v19 = [UniqueMO getOrCreateBSS:bssidCopy andNetwork:ssidCopy withHasUpdatedNetwork:&v46 on:containerCopy];
 
   if (v19)
   {
@@ -64,17 +64,17 @@
       ssid = [network2 ssid];
       v27 = [v19 lan];
       *buf = 136447490;
-      v49 = "+[EventJoinNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
-      v50 = 1024;
-      *v51 = 44;
-      *&v51[4] = 2112;
-      *&v51[6] = date;
-      v52 = 2112;
-      v53 = bssid;
-      v54 = 2112;
-      v55 = ssid;
-      v56 = 2112;
-      v57 = v27;
+      v48 = "+[EventJoinNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
+      v49 = 1024;
+      *v50 = 44;
+      *&v50[4] = 2112;
+      *&v50[6] = date;
+      v51 = 2112;
+      v52 = bssid;
+      v53 = 2112;
+      v54 = ssid;
+      v55 = 2112;
+      v56 = v27;
       _os_log_impl(&dword_1C8460000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Added Join at [%@] to BSS[%@][%@][%@]", buf, 0x3Au);
     }
 
@@ -115,11 +115,11 @@
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446722;
-        v49 = "+[EventJoinNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
-        v50 = 1024;
-        *v51 = 66;
-        *&v51[4] = 2112;
-        *&v51[6] = recordCopy;
+        v48 = "+[EventJoinNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
+        v49 = 1024;
+        *v50 = 66;
+        *&v50[4] = 2112;
+        *&v50[6] = recordCopy;
         _os_log_impl(&dword_1C8460000, v41, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Immediate Postprocessing of %@", buf, 0x1Cu);
       }
 
@@ -153,13 +153,12 @@
     }
 
     *buf = 138412546;
-    v49 = v44;
-    v50 = 2112;
-    *v51 = v43;
+    v48 = v44;
+    v49 = 2112;
+    *v50 = v43;
     _os_signpost_emit_with_name_impl(&dword_1C8460000, v42, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "WADeviceAnalyticsEventJoinNetwork processRecord", "%@ - %@", buf, 0x16u);
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return v39;
 }
 

@@ -1,9 +1,9 @@
-uint64_t Init(uint64_t a1)
+uint64_t Init(uint64_t a1, void *a2)
 {
   qword_8000 = *(a1 + 48);
   qword_8008 = *(a1 + 16);
-  v2 = CFRetain(qword_8008);
-  nullsub_1(v2);
+  CFRetain(qword_8008);
+  nullsub_1();
   if (!*(a1 + 2))
   {
     operator new();
@@ -16,10 +16,10 @@ uint64_t Dispose(uint64_t a1)
 {
   if (a1)
   {
-    a1 = (*(*a1 + 8))(a1);
+    (*(*a1 + 8))(a1);
   }
 
-  nullsub_1(a1);
+  nullsub_1();
   if (byte_8010 == 1)
   {
     sub_1AC0();
@@ -28,7 +28,7 @@ uint64_t Dispose(uint64_t a1)
   return 0;
 }
 
-uint64_t InteractiveUI(int *a1, int a2, void *a3, _DWORD *a4)
+uint64_t InteractiveUI(int *a1, int a2, void *a3, int *a4)
 {
   a1[48] = 0;
   if (byte_8010 != 1)
@@ -149,11 +149,10 @@ uint64_t sub_9B0(uint64_t a1)
   {
     v3 = SecDHGetMaxKeyLength();
     *(a1 + 56) = v3;
-    v5 = v3;
+    v4 = v3;
     *(a1 + 48) = malloc_type_malloc(v3, 0x100004077774924uLL);
-    v4 = *(a1 + 40);
     result = SecDHGenerateKeypair();
-    *(a1 + 56) = v5;
+    *(a1 + 56) = v4;
   }
 
   return result;
@@ -164,14 +163,11 @@ uint64_t sub_A20(uint64_t a1)
   result = *(a1 + 40);
   if (result)
   {
-    v6 = SecDHGetMaxKeyLength();
-    *(a1 + 16) = v6;
-    *(a1 + 8) = malloc_type_malloc(v6, 0x100004077774924uLL);
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 64);
-    v5 = *(a1 + 72);
+    v3 = SecDHGetMaxKeyLength();
+    *(a1 + 16) = v3;
+    *(a1 + 8) = malloc_type_malloc(v3, 0x100004077774924uLL);
     result = SecDHComputeKey();
-    *(a1 + 16) = v6;
+    *(a1 + 16) = v3;
   }
 
   return result;
@@ -343,7 +339,7 @@ LABEL_11:
 uint64_t sub_E2C(uint64_t a1, uint64_t a2)
 {
   *sub_18DC(a1, a2) = off_41C0;
-  nullsub_1("CSdClientBuf");
+  nullsub_1();
   bzero((a1 + 188), 0x4BCuLL);
   *(a1 + 192) = 1;
   v3 = *(a1 + 16);
@@ -360,7 +356,7 @@ uint64_t sub_E2C(uint64_t a1, uint64_t a2)
 void *sub_ECC(void *a1)
 {
   *a1 = off_41C0;
-  nullsub_1("~CSdClientBuf");
+  nullsub_1();
 
   return sub_1978(a1);
 }
@@ -368,7 +364,7 @@ void *sub_ECC(void *a1)
 void sub_F28(void *a1)
 {
   *a1 = off_41C0;
-  nullsub_1("~CSdClientBuf");
+  nullsub_1();
   sub_1978(a1);
 
   operator delete();
@@ -376,7 +372,7 @@ void sub_F28(void *a1)
 
 uint64_t sub_F98(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  nullsub_1("CSdClientBuf::Process");
+  nullsub_1();
   v6 = sub_1A50(a1);
   if (v6 == 1)
   {
@@ -433,7 +429,7 @@ uint64_t sub_F98(uint64_t a1, uint64_t a2, uint64_t a3)
     if (v7 == 4)
     {
       v8 = *(a2 + 16);
-      nullsub_1("CSdClientBuf::Process rcvcode= %d", *v8);
+      nullsub_1();
       v9 = *v8;
       if ((v9 - 3) < 2)
       {
@@ -470,11 +466,11 @@ LABEL_26:
       }
 
       sub_1A58(a1, v15);
-      nullsub_1("MakeMessage packetstate=%d", v19);
+      nullsub_1();
       v16 = v19;
       if (v19 > 7)
       {
-        nullsub_1("Invalid Auth State (%d)", v19);
+        nullsub_1();
         return 0;
       }
 
@@ -496,7 +492,7 @@ LABEL_23:
         v17 = v20;
         *(a1 + 208) = v21;
         *(a1 + 212) = v17;
-        nullsub_1("ACM return value (%d)", *(a1 + 384));
+        nullsub_1();
         if (*(a1 + 188) == 5)
         {
           *(a1 + 358) = *v22;
@@ -522,7 +518,7 @@ LABEL_33:
   return 0;
 }
 
-uint64_t sub_12B0(uint64_t a1, uint64_t a2)
+void sub_12B0(uint64_t a1, uint64_t a2)
 {
   *(a2 + 8) = &byte_8011;
   byte_8011 = 2;
@@ -543,67 +539,56 @@ uint64_t sub_12B0(uint64_t a1, uint64_t a2)
         v6 = sub_1764(a1, &byte_8015);
         break;
       default:
-        goto LABEL_16;
+        goto LABEL_15;
     }
 
-LABEL_15:
+LABEL_14:
     v5 = v6;
-    goto LABEL_16;
+    goto LABEL_15;
   }
 
-  switch(v4)
+  if (!v4)
   {
-    case 0:
-      v6 = sub_1598(a1, &byte_8015);
-      goto LABEL_15;
-    case 1:
-      nullsub_1("Make3PhaseCPacket");
-      goto LABEL_13;
-    case 2:
-      nullsub_1("MakeInitPacket");
-LABEL_13:
-      byte_8015 = 15;
-      byte_8016 = sub_1A60(a1);
-      v5 = 4;
-      break;
+    v6 = sub_1598(a1, &byte_8015);
+    goto LABEL_14;
   }
 
-LABEL_16:
-  v7 = byte_8012;
-  v8 = sub_1A60(a1);
-  result = nullsub_1("MakeResponseMessage: id(%d) len(%d) state(%d)", v7, v5, v8);
+  if (v4 == 1 || v4 == 2)
+  {
+    nullsub_1();
+    byte_8015 = 15;
+    byte_8016 = sub_1A60(a1);
+    v5 = 4;
+  }
+
+LABEL_15:
+  sub_1A60(a1);
+  nullsub_1();
   *(a2 + 4) = v5 + 4;
   unk_8013 = bswap32(v5 + 4) >> 16;
-  return result;
 }
 
 uint64_t sub_1410(uint64_t a1, _DWORD *a2)
 {
-  nullsub_1("ProcessRequest: State(%d)", *a2);
+  nullsub_1();
   v4 = *a2;
   if (*a2 > 1)
   {
     if (v4 == 2)
     {
-      nullsub_1("ProcessRequest: STATE_Init");
+      nullsub_1();
       sub_A98(a1 + 32);
       return 0;
     }
 
-    if (v4 == 3)
-    {
-      nullsub_1("ProcessRequest: STATE_Password");
-      return 0;
-    }
-
-LABEL_8:
-    nullsub_1("ProcessRequest: Invalid Auth State");
+LABEL_6:
+    nullsub_1();
     return 0;
   }
 
   if (!v4)
   {
-    nullsub_1("ProcessRequest: STATE_KeyEx");
+    nullsub_1();
     v7 = bswap32(sub_64C(a2[2]));
     a2[2] = v7;
     sub_924(a1 + 32, (a2 + 3), v7);
@@ -613,10 +598,10 @@ LABEL_8:
 
   if (v4 != 1)
   {
-    goto LABEL_8;
+    goto LABEL_6;
   }
 
-  nullsub_1("ProcessRequest: STATE_3Phase");
+  nullsub_1();
   v6 = a2[2];
   v5 = a2 + 2;
   *v5 = bswap32(sub_64C(v6));
@@ -627,7 +612,7 @@ LABEL_8:
 
 uint64_t sub_1518(uint64_t a1, int a2, uint64_t a3)
 {
-  nullsub_1("ProcessFinal");
+  nullsub_1();
   *(a3 + 8) = a1 + 188;
   *(a3 + 4) = 1212;
   sub_1A58(a1, 7);
@@ -640,7 +625,7 @@ uint64_t sub_1518(uint64_t a1, int a2, uint64_t a3)
 
 uint64_t sub_1598(uint64_t a1, uint64_t a2)
 {
-  nullsub_1("MakeKeyExCPacket");
+  nullsub_1();
   *a2 = 15;
   *(a2 + 1) = sub_1A60(a1);
   sub_938(a1 + 32, (a2 + 8), (a2 + 4));
@@ -653,7 +638,7 @@ uint64_t sub_1598(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1618(uint64_t a1, uint64_t a2)
 {
-  nullsub_1("MakeCheckPacket");
+  nullsub_1();
   *a2 = 15;
   *(a2 + 1) = sub_1A60(a1);
   v4 = *(a1 + 266);
@@ -664,7 +649,7 @@ uint64_t sub_1618(uint64_t a1, uint64_t a2)
   *(a2 + 54) = *(a1 + 248);
   *(a2 + 22) = v6;
   *(a2 + 38) = v5;
-  nullsub_1("MakeCheckPacket name %s", (a2 + 22));
+  nullsub_1();
   v8 = 51;
   sub_B04(a1 + 32, (a2 + 4), &v8);
   return (v8 + 4);
@@ -672,7 +657,7 @@ uint64_t sub_1618(uint64_t a1, uint64_t a2)
 
 uint64_t sub_16D4(uint64_t a1, uint64_t a2)
 {
-  nullsub_1("MakePinPacket");
+  nullsub_1();
   *a2 = 15;
   *(a2 + 1) = sub_1A60(a1);
   v4 = *(a1 + 320);
@@ -685,7 +670,7 @@ uint64_t sub_16D4(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1764(uint64_t a1, uint64_t a2)
 {
-  nullsub_1("MakeNextPacket");
+  nullsub_1();
   *a2 = 15;
   *(a2 + 1) = sub_1A60(a1);
   v4 = *(a1 + 284);
@@ -700,23 +685,17 @@ uint64_t sub_17F8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = (a2 + 4);
   v7 = (bswap32(*(a2 + 2)) >> 16) - 4;
-  v11 = 0;
-  nullsub_1("CSdEapSPacket: authState = %d, packetLen = %d", *(a2 + 5), v7);
-  if (*(a2 + 5) - 4 > 2)
-  {
-    v9 = 0;
-  }
-
-  else
+  v10 = 0;
+  nullsub_1();
+  if (*(a2 + 5) - 4 <= 2)
   {
     v8 = (a2 + 8);
-    v11 = v6 + v7 - v8;
-    sub_B5C(a3, v8, &v11);
-    v9 = v11;
-    v7 = v8 + v11 - v6;
+    v10 = v6 + v7 - v8;
+    sub_B5C(a3, v8, &v10);
+    v7 = v8 + v10 - v6;
   }
 
-  nullsub_1("SPacket decryptLen = %d adj packetLen = %d", v9, v7);
+  nullsub_1();
   memcpy((a1 + 4), v6, v7);
   *a1 = *(a1 + 5);
   return a1;
@@ -976,7 +955,7 @@ uint64_t sub_1C34(const void *a1, const void *a2, const void *a3, unsigned int a
   return v30;
 }
 
-uint64_t sub_1F60(uint64_t a1, int a2, void *a3, _DWORD *a4)
+uint64_t sub_1F60(uint64_t a1, int a2, void *a3, int *a4)
 {
   v4 = a4;
   v5 = a3;

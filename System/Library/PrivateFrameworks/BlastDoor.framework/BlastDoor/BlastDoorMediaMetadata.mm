@@ -98,30 +98,29 @@
 - (NSDate)imageDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C913090, &unk_2146E9DB0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v8 = type metadata accessor for MediaMetadata();
-  sub_213FB2E54(&v7[*(v8 + 20)], v6, &qword_27C913090, &unk_2146E9DB0);
-  v9 = sub_2146D8B08();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v6, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v5 = &v14 - v4;
+  v6 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
+  v7 = type metadata accessor for MediaMetadata(0);
+  sub_213FB2E54(&v6[*(v7 + 20)], v5, &qword_27C913090, &unk_2146E9DB0);
+  v8 = sub_2146D8B08();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v5, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    v13 = sub_2146D8AD8();
-    (*(v10 + 8))(v6, v9);
-    v12 = v13;
+    v12 = sub_2146D8AD8();
+    (*(v9 + 8))(v5, v8);
+    v11 = v12;
   }
 
-  return v12;
+  return v11;
 }
 
 - (int64_t)timezoneOffset
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 24)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 24)];
   if (v3[8])
   {
     return 0;
@@ -136,7 +135,7 @@
 - (double)subsecTimeOriginal
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 28)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 28)];
   result = *v3;
   if (v3[8])
   {
@@ -149,7 +148,7 @@
 - (unint64_t)rawPixelWidth
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 36)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 36)];
   if (v3[8])
   {
     return 0;
@@ -164,27 +163,24 @@
 - (NSString)lensMake
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 48)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 48) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (double)apertureValue
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 64)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 64)];
   result = *v3;
   if (v3[8])
   {
@@ -197,7 +193,7 @@
 - (int64_t)exposureBiasValue
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 68)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 68)];
   if (v3[8])
   {
     return 0;
@@ -212,7 +208,7 @@
 - (int64_t)flash
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 72)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 72)];
   if (v3[8])
   {
     return 0;
@@ -227,7 +223,7 @@
 - (double)focalLength
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 76)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 76)];
   result = *v3;
   if (v3[8])
   {
@@ -240,7 +236,7 @@
 - (double)focalLenIn35mmFilm
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 80)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 80)];
   result = *v3;
   if (v3[8])
   {
@@ -253,7 +249,7 @@
 - (int64_t)isoRatingValue
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 84)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 84)];
   if (v3[8])
   {
     return 0;
@@ -268,7 +264,7 @@
 - (int64_t)meteringMode
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 88)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 88)];
   if (v3[8])
   {
     return 0;
@@ -283,7 +279,7 @@
 - (double)shutterSpeed
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 92)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 92)];
   result = *v3;
   if (v3[8])
   {
@@ -296,27 +292,24 @@
 - (NSString)model
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 96)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 96) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (int64_t)whiteBalance
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 104)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 104)];
   if (v3[8])
   {
     return 0;
@@ -331,7 +324,7 @@
 - (int64_t)lightSource
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 108)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 108)];
   if (v3[8])
   {
     return 0;
@@ -346,7 +339,7 @@
 - (int64_t)ciffWhiteBalanceIndex
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 112)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 112)];
   if (v3[8])
   {
     return 0;
@@ -361,7 +354,7 @@
 - (double)hdrGain
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 120)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 120)];
   result = *v3;
   if (v3[8])
   {
@@ -374,27 +367,24 @@
 - (NSString)videoComplementMediaGroupId
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 132)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 132) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (double)gifDelayTime
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 136)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 136)];
   result = *v3;
   if (v3[8])
   {
@@ -407,7 +397,7 @@
 - (unint64_t)variationIdentifier
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 140)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 140)];
   if (v3[8])
   {
     return 0;
@@ -422,7 +412,7 @@
 - (double)videoComplementDurationValue
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 144)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 144)];
   result = *v3;
   if (v3[8])
   {
@@ -435,7 +425,7 @@
 - (double)videoComplementDurationTimescale
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 148)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 148)];
   result = *v3;
   if (v3[8])
   {
@@ -448,7 +438,7 @@
 - (double)videoComplementImageDisplayValue
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 152)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 152)];
   result = *v3;
   if (v3[8])
   {
@@ -461,7 +451,7 @@
 - (double)videoComplementImageDisplayTimescale
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 156)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 156)];
   result = *v3;
   if (v3[8])
   {
@@ -474,7 +464,7 @@
 - (double)avDuration
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 160)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 160)];
   result = *v3;
   if (v3[8])
   {
@@ -487,7 +477,7 @@
 - (double)avFPS
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 164)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 164)];
   result = *v3;
   if (v3[8])
   {
@@ -500,67 +490,58 @@
 - (NSString)codecFourCharCode
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 168)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 168) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)captureMode
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 172)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 172) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)isVideoMontage
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 176)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 176) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (double)videoDurationValue
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 184)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 184)];
   result = *v3;
   if (v3[8])
   {
@@ -573,7 +554,7 @@
 - (double)videoDurationTimescale
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 188)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 188)];
   result = *v3;
   if (v3[8])
   {
@@ -586,27 +567,24 @@
 - (NSString)originatingAssetIdentifier
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 192)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 192) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (double)longitude
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 196)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 196)];
   result = *v3;
   if (v3[8])
   {
@@ -619,7 +597,7 @@
 - (double)latitude
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 200)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 200)];
   result = *v3;
   if (v3[8])
   {
@@ -632,7 +610,7 @@
 - (double)altitude
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 204)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 204)];
   result = *v3;
   if (v3[8])
   {
@@ -645,7 +623,7 @@
 - (double)gpsSpeed
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 208)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 208)];
   result = *v3;
   if (v3[8])
   {
@@ -658,50 +636,46 @@
 - (NSString)gpsSpeedRef
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 212)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 212) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSDate)gpsTimestamp
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C913090, &unk_2146E9DB0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v8 = type metadata accessor for MediaMetadata();
-  sub_213FB2E54(&v7[*(v8 + 216)], v6, &qword_27C913090, &unk_2146E9DB0);
-  v9 = sub_2146D8B08();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v6, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v5 = &v14 - v4;
+  v6 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
+  v7 = type metadata accessor for MediaMetadata(0);
+  sub_213FB2E54(&v6[*(v7 + 216)], v5, &qword_27C913090, &unk_2146E9DB0);
+  v8 = sub_2146D8B08();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v5, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    v13 = sub_2146D8AD8();
-    (*(v10 + 8))(v6, v9);
-    v12 = v13;
+    v12 = sub_2146D8AD8();
+    (*(v9 + 8))(v5, v8);
+    v11 = v12;
   }
 
-  return v12;
+  return v11;
 }
 
 - (double)gpsHPositioningError
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 220)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 220)];
   result = *v3;
   if (v3[8])
   {
@@ -714,7 +688,7 @@
 - (double)imageDirection
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 224)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 224)];
   result = *v3;
   if (v3[8])
   {
@@ -727,47 +701,41 @@
 - (NSString)imageDirectionRef
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 228)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 228) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)uniformTypeIdentifier
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 232)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 232) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (unint64_t)fileSize
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 236)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 236)];
   if (v3[8])
   {
     return 0;
@@ -782,90 +750,80 @@
 - (NSString)originalFileName
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 240)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 240) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSUUID)burstUuid
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C904F30, &unk_2146EFA20);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v8 = type metadata accessor for MediaMetadata();
-  sub_213FB2E54(&v7[*(v8 + 248)], v6, &unk_27C904F30, &unk_2146EFA20);
-  v9 = sub_2146D8B88();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v6, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v5 = &v14 - v4;
+  v6 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
+  v7 = type metadata accessor for MediaMetadata(0);
+  sub_213FB2E54(&v6[*(v7 + 248)], v5, &unk_27C904F30, &unk_2146EFA20);
+  v8 = sub_2146D8B88();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v5, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    v13 = sub_2146D8B38();
-    (*(v10 + 8))(v6, v9);
-    v12 = v13;
+    v12 = sub_2146D8B38();
+    (*(v9 + 8))(v5, v8);
+    v11 = v12;
   }
 
-  return v12;
+  return v11;
 }
 
 - (NSString)userComment
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 252)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 252) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)spatialOverCaptureIdentifier
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 260)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 260) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (double)semanticStyleSceneBias
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 264)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 264)];
   result = *v3;
   if (v3[8])
   {
@@ -878,7 +836,7 @@
 - (double)semanticStyleWarmthBias
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 268)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 268)];
   result = *v3;
   if (v3[8])
   {
@@ -891,7 +849,7 @@
 - (int64_t)semanticStyleRenderingVersion
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 272)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 272)];
   if (v3[8])
   {
     return 0;
@@ -906,7 +864,7 @@
 - (int64_t)semanticStylePreset
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 276)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 276)];
   if (v3[8])
   {
     return 0;
@@ -921,7 +879,7 @@
 - (double)smartStyleToneBias
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 284)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 284)];
   result = *v3;
   if (v3[8])
   {
@@ -934,7 +892,7 @@
 - (double)smartStyleColorBias
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 288)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 288)];
   result = *v3;
   if (v3[8])
   {
@@ -947,7 +905,7 @@
 - (double)smartStyleIntensity
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 292)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 292)];
   result = *v3;
   if (v3[8])
   {
@@ -960,7 +918,7 @@
 - (double)smartStyleCast
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 296)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 296)];
   result = *v3;
   if (v3[8])
   {
@@ -973,7 +931,7 @@
 - (int64_t)smartStyleRenderingVersion
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 300)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 300)];
   if (v3[8])
   {
     return 0;
@@ -988,7 +946,7 @@
 - (double)smartStyleVideoCastValue
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 308)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 308)];
   result = *v3;
   if (v3[8])
   {
@@ -1001,7 +959,7 @@
 - (unint64_t)stillImageCaptureFlags
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 324)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 324)];
   if (v3[8])
   {
     return 0;
@@ -1024,7 +982,7 @@
 - (double)exifAuxFlashCompensation
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 336)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 336)];
   result = *v3;
   if (v3[8])
   {
@@ -1037,7 +995,7 @@
 - (double)generativeAIImageType
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 356)];
+  v3 = &v2[*(type metadata accessor for MediaMetadata(0) + 356)];
   result = *v3;
   if (v3[8])
   {
@@ -1050,21 +1008,18 @@
 - (NSString)IPTCCredit
 {
   v2 = self + OBJC_IVAR___BlastDoorMediaMetadata_mediaMetadata;
-  v3 = &v2[*(type metadata accessor for MediaMetadata() + 360)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for MediaMetadata(0) + 360) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (BlastDoorMediaMetadata)init

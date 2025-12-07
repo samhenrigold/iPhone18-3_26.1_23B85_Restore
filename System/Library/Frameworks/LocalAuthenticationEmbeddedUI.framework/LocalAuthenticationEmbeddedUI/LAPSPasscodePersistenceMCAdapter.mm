@@ -211,7 +211,7 @@ uint64_t __56__LAPSPasscodePersistenceMCAdapter_recoveryPasscodeType__block_invo
 - (id)setPasscodeRecoveryEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = LACLogPasscodeService();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -221,12 +221,11 @@ uint64_t __56__LAPSPasscodePersistenceMCAdapter_recoveryPasscodeType__block_invo
       v5 = "YES";
     }
 
-    v8 = 136315138;
-    v9 = v5;
-    _os_log_impl(&dword_238BCD000, v4, OS_LOG_TYPE_DEFAULT, "Ignoring request to set passcodeRecoveryEnabled = %s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = v5;
+    _os_log_impl(&dword_238BCD000, v4, OS_LOG_TYPE_DEFAULT, "Ignoring request to set passcodeRecoveryEnabled = %s", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

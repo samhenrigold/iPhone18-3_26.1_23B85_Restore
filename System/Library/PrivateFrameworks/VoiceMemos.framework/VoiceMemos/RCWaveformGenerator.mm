@@ -21,6 +21,7 @@
 - (void)_appendPowerMeterValuesFromAudioPCMBuffer:(id)buffer;
 - (void)_appendPowerMeterValuesFromSampleBuffer:(opaqueCMSampleBuffer *)buffer;
 - (void)_onQueue_appendAveragePowerLevelsByDigestingTimeRange:(id)range inAudioFile:(id)file;
+- (void)_onQueue_appendPowerMeterValuesFromRawAudioData:(void *)data frameCount:(int64_t)count format:(const AudioStreamBasicDescription *)format isPredigest:(BOOL)predigest;
 - (void)_onQueue_appendSegment:(id)segment;
 - (void)_onQueue_digestAveragePowerLevel:(float)level;
 - (void)_onQueue_flushRemainingData;
@@ -119,7 +120,7 @@
   dispatch_sync(queue, v7);
 }
 
-uint64_t __48__RCWaveformGenerator_addSegmentOutputObserver___block_invoke(uint64_t a1)
+void *__48__RCWaveformGenerator_addSegmentOutputObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) containsObject:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -190,7 +191,7 @@ uint64_t __48__RCWaveformGenerator_addSegmentOutputObserver___block_invoke(uint6
 
 - (BOOL)appendAveragePowerLevelsByDigestingContentsOfAudioFileURL:(id)l progressBlock:(id)block
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   lCopy = l;
   blockCopy = block;
   if (_checkCanAppend(self, a2))
@@ -199,7 +200,7 @@ uint64_t __48__RCWaveformGenerator_addSegmentOutputObserver___block_invoke(uint6
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       path = [lCopy path];
-      [(RCWaveformGenerator *)path appendAveragePowerLevelsByDigestingContentsOfAudioFileURL:v14 progressBlock:v9];
+      [(RCWaveformGenerator *)path appendAveragePowerLevelsByDigestingContentsOfAudioFileURL:v13 progressBlock:v9];
     }
 
     v11 = [(RCWaveformGenerator *)self _appendPowerMeterValuesFromDataInAudioFile:lCopy progressBlock:blockCopy];
@@ -210,7 +211,6 @@ uint64_t __48__RCWaveformGenerator_addSegmentOutputObserver___block_invoke(uint6
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -346,16 +346,16 @@ uint64_t __27__RCWaveformGenerator_idle__block_invoke(uint64_t result)
   _Block_object_dispose(v4, 8);
 }
 
-void __35__RCWaveformGenerator_beginLoading__block_invoke(uint64_t a1)
+void __35__RCWaveformGenerator_beginLoading__block_invoke(void *result)
 {
-  v2 = *(a1 + 32);
+  v2 = result[4];
   if (*(v2 + 8))
   {
-    *(*(*(a1 + 40) + 8) + 24) = 0;
-    v3 = *(*(a1 + 32) + 8);
+    *(*(result[5] + 8) + 24) = 0;
+    v3 = *(result[4] + 8);
     if (v3 >= 2)
     {
-      _assertInvalidStateMessage(@"begin loading", v3, *(a1 + 48));
+      _assertInvalidStateMessage(@"begin loading", v3, result[6]);
     }
   }
 
@@ -364,13 +364,13 @@ void __35__RCWaveformGenerator_beginLoading__block_invoke(uint64_t a1)
     *(v2 + 8) = 1;
   }
 
-  if (*(*(*(a1 + 40) + 8) + 24) == 1)
+  if (*(*(result[5] + 8) + 24) == 1)
   {
-    v4 = *(a1 + 32);
+    v4 = result[4];
     v5 = *(v4 + 224);
     *(v4 + 224) = 0;
 
-    v6 = *(a1 + 32);
+    v6 = result[4];
     v7[0] = MEMORY[0x277D85DD0];
     v7[1] = 3221225472;
     v7[2] = __35__RCWaveformGenerator_beginLoading__block_invoke_2;
@@ -403,7 +403,7 @@ void __35__RCWaveformGenerator_beginLoading__block_invoke_2(uint64_t a1, void *a
 
 void __33__RCWaveformGenerator_setPaused___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(v1 + 232);
   if (*(a1 + 40) == 1)
@@ -413,35 +413,29 @@ void __33__RCWaveformGenerator_setPaused___block_invoke(uint64_t a1)
     if (*(v3 + 232) == 1)
     {
       v4 = *(v3 + 16);
-      v5 = *MEMORY[0x277D85DE8];
 
       dispatch_semaphore_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
-      return;
     }
-
-LABEL_13:
-    v9 = *MEMORY[0x277D85DE8];
-    return;
   }
 
-  if (!v2)
+  else if (v2)
   {
-    v8 = OSLogForCategory(@"Default");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-    {
-      v10 = 136315138;
-      v11 = "[RCWaveformGenerator setPaused:]_block_invoke";
-      _os_log_impl(&dword_272442000, v8, OS_LOG_TYPE_INFO, "%s -- WARNING: Unbalanced setPaused: detected", &v10, 0xCu);
-    }
+    *(v1 + 232) = v2 - 1;
+    v5 = *(*(a1 + 32) + 16);
 
-    goto LABEL_13;
+    dispatch_semaphore_signal(v5);
   }
 
-  *(v1 + 232) = v2 - 1;
-  v6 = *(*(a1 + 32) + 16);
-  v7 = *MEMORY[0x277D85DE8];
-
-  dispatch_semaphore_signal(v6);
+  else
+  {
+    v6 = OSLogForCategory(@"Default");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      v7 = 136315138;
+      v8 = "[RCWaveformGenerator setPaused:]_block_invoke";
+      _os_log_impl(&dword_272442000, v6, OS_LOG_TYPE_INFO, "%s -- WARNING: Unbalanced setPaused: detected", &v7, 0xCu);
+    }
+  }
 }
 
 - (BOOL)paused
@@ -581,7 +575,7 @@ intptr_t __105__RCWaveformGenerator_async_finishLoadingByTerminating_loadingFini
 - (void)_onQueue_performLoadingFinishedBlock:(id)block internalBlockUUID:(id)d isTimeout:(BOOL)timeout
 {
   timeoutCopy = timeout;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   dCopy = d;
   v10 = [(NSMutableArray *)self->_internalFinishedLoadingBlockUUIDs indexOfObject:dCopy];
@@ -596,11 +590,11 @@ intptr_t __105__RCWaveformGenerator_async_finishLoadingByTerminating_loadingFini
     v11 = OSLogForCategory(@"Default");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v16 = 136315394;
-      v17 = "[RCWaveformGenerator _onQueue_performLoadingFinishedBlock:internalBlockUUID:isTimeout:]";
-      v18 = 2112;
+      v15 = 136315394;
+      v16 = "[RCWaveformGenerator _onQueue_performLoadingFinishedBlock:internalBlockUUID:isTimeout:]";
+      v17 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_272442000, v11, OS_LOG_TYPE_INFO, "%s -- [FinishLoading] %@ WARNING: Encountered time out while trying to finish loading", &v16, 0x16u);
+      _os_log_impl(&dword_272442000, v11, OS_LOG_TYPE_INFO, "%s -- [FinishLoading] %@ WARNING: Encountered time out while trying to finish loading", &v15, 0x16u);
     }
 
     if (!self->_canceled && ![(NSMutableArray *)self->_internalFinishedLoadingBlockUUIDs count])
@@ -616,67 +610,23 @@ intptr_t __105__RCWaveformGenerator_async_finishLoadingByTerminating_loadingFini
   {
     blockCopy[2](blockCopy, (v13 == 0) & ~canceled, v13);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueue_performInternalFinishedLoadingBlocksAndFinishObservers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_internalFinishedLoadingBlocks copy];
   allObjects = [(NSHashTable *)self->_weakObservers allObjects];
   [(NSMutableArray *)self->_internalFinishedLoadingBlocks removeAllObjects];
   [(NSMutableArray *)self->_internalFinishedLoadingBlockUUIDs removeAllObjects];
   self->_state = 3;
   [v3 enumerateObjectsUsingBlock:{&__block_literal_global, PowerMeter::Reset(&self->_samplePowerMeter)}];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
-  v5 = allObjects;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v6)
-  {
-    v7 = *v12;
-    do
-    {
-      v8 = 0;
-      do
-      {
-        if (*v12 != v7)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v9 = *(*(&v11 + 1) + 8 * v8);
-        if (objc_opt_respondsToSelector())
-        {
-          [v9 waveformGeneratorDidFinishLoading:self error:{self->_loadingError, v11}];
-        }
-
-        ++v8;
-      }
-
-      while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v6);
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_onQueue_performObserversBlock:(id)block
-{
-  v15 = *MEMORY[0x277D85DE8];
-  blockCopy = block;
+  v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v5 = self->_weakObservers;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = allObjects;
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = *v11;
@@ -690,17 +640,55 @@ intptr_t __105__RCWaveformGenerator_async_finishLoadingByTerminating_loadingFini
           objc_enumerationMutation(v5);
         }
 
-        blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v8++));
+        v9 = *(*(&v10 + 1) + 8 * v8);
+        if (objc_opt_respondsToSelector())
+        {
+          [v9 waveformGeneratorDidFinishLoading:self error:{self->_loadingError, v10}];
+        }
+
+        ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)_onQueue_performObserversBlock:(id)block
+{
+  v14 = *MEMORY[0x277D85DE8];
+  blockCopy = block;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = self->_weakObservers;
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v6)
+  {
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        blockCopy[2](blockCopy, *(*(&v9 + 1) + 8 * v8++));
+      }
+
+      while (v6 != v8);
+      v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
 }
 
 - (void)_appendAveragePowerLevel:(float)level
@@ -760,9 +748,9 @@ intptr_t __105__RCWaveformGenerator_async_finishLoadingByTerminating_loadingFini
   }
 }
 
-uint64_t __63__RCWaveformGenerator__appendPowerMeterValuesFromSampleBuffer___block_invoke(uint64_t result)
+void *__63__RCWaveformGenerator__appendPowerMeterValuesFromSampleBuffer___block_invoke(void *result)
 {
-  v1 = *(result + 40);
+  v1 = result[5];
   if (*v1)
   {
     v2 = result;
@@ -770,9 +758,9 @@ uint64_t __63__RCWaveformGenerator__appendPowerMeterValuesFromSampleBuffer___blo
     v4 = 0;
     do
     {
-      result = [*(v2 + 32) _onQueue_appendPowerMeterValuesFromRawAudioData:*&v1[v3 + 4] frameCount:v1[v3 + 2] * (v1[v3 + 3] / (*(*(v2 + 48) + 16) / *(*(v2 + 48) + 20))) format:? isPredigest:?];
+      result = [v2[4] _onQueue_appendPowerMeterValuesFromRawAudioData:*&v1[v3 + 4] frameCount:v1[v3 + 2] * (v1[v3 + 3] / (*(v2[6] + 16) / *(v2[6] + 20))) format:? isPredigest:?];
       ++v4;
-      v1 = *(v2 + 40);
+      v1 = v2[5];
       v3 += 4;
     }
 
@@ -807,7 +795,7 @@ void __65__RCWaveformGenerator__appendPowerMeterValuesFromAudioPCMBuffer___block
 
 - (BOOL)_appendPowerMeterValuesFromDataInAudioFile:(id)file progressBlock:(id)block
 {
-  v98[4] = *MEMORY[0x277D85DE8];
+  v97[4] = *MEMORY[0x277D85DE8];
   fileCopy = file;
   blockCopy = block;
   if (_checkCanAppend(self, a2))
@@ -834,39 +822,39 @@ void __65__RCWaveformGenerator__appendPowerMeterValuesFromAudioPCMBuffer___block
         block[3] = &unk_279E436F0;
         block[4] = self;
         v15 = v11;
-        v95 = v15;
+        v94 = v15;
         dispatch_sync(queue, block);
-        v92[0] = 0;
-        v92[1] = v92;
-        v92[2] = 0x2020000000;
-        v93 = 0;
         v91[0] = 0;
         v91[1] = v91;
         v91[2] = 0x2020000000;
-        v91[3] = 0;
+        v92 = 0;
         v90[0] = 0;
         v90[1] = v90;
         v90[2] = 0x2020000000;
-        [v15 duration];
-        v90[3] = CMTimeGetSeconds(&time);
+        v90[3] = 0;
+        v89[0] = 0;
+        v89[1] = v89;
+        v89[2] = 0x2020000000;
+        objc_msgSend_duration(v15);
+        v89[3] = CMTimeGetSeconds(&time);
         time.value = 0;
         *&time.timescale = &time;
         time.epoch = 0x3032000000;
-        v87 = __Block_byref_object_copy_;
-        v88 = __Block_byref_object_dispose_;
-        v89 = 0;
-        v80 = 0;
-        v81 = &v80;
-        v82 = 0x3032000000;
-        v83 = __Block_byref_object_copy_;
-        v84 = __Block_byref_object_dispose_;
+        v86 = __Block_byref_object_copy_;
+        v87 = __Block_byref_object_dispose_;
+        v88 = 0;
+        v79 = 0;
+        v80 = &v79;
+        v81 = 0x3032000000;
+        v82 = __Block_byref_object_copy_;
+        v83 = __Block_byref_object_dispose_;
         v16 = objc_alloc(MEMORY[0x277CE6410]);
         v17 = (*&time.timescale + 40);
         obj = *(*&time.timescale + 40);
         v18 = [v16 initWithAsset:v15 error:&obj];
         objc_storeStrong(v17, obj);
-        v85 = v18;
-        v19 = v81[5];
+        v84 = v18;
+        v19 = v80[5];
         if (!v19)
         {
           v22 = OSLogForCategory(@"Default");
@@ -881,57 +869,57 @@ void __65__RCWaveformGenerator__appendPowerMeterValuesFromAudioPCMBuffer___block
 
         start = **&MEMORY[0x277CC08F0];
         duration = **&MEMORY[0x277CC08B0];
-        CMTimeRangeMake(&v78, &start, &duration);
-        [v19 setTimeRange:&v78];
+        CMTimeRangeMake(&v77, &start, &duration);
+        [v19 setTimeRange:&v77];
         v20 = *MEMORY[0x277CB82A0];
-        v97[0] = *MEMORY[0x277CB8280];
-        v97[1] = v20;
-        v98[0] = &unk_2881AE010;
-        v98[1] = MEMORY[0x277CBEC38];
+        v96[0] = *MEMORY[0x277CB8280];
+        v96[1] = v20;
+        v97[0] = &unk_2881AE010;
+        v97[1] = MEMORY[0x277CBEC38];
         v21 = *MEMORY[0x277CB82E0];
-        v97[2] = *MEMORY[0x277CB8288];
-        v97[3] = v21;
-        v98[2] = &unk_2881AE028;
-        v98[3] = &unk_2881AE040;
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:v97 count:4];
+        v96[2] = *MEMORY[0x277CB8288];
+        v96[3] = v21;
+        v97[2] = &unk_2881AE028;
+        v97[3] = &unk_2881AE040;
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:4];
         if (self->_trackIndex <= v13 - 1)
         {
           v23 = [rc_audioTracks objectAtIndexedSubscript:?];
-          v96 = v23;
-          v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v96 count:1];
+          v95 = v23;
+          v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v95 count:1];
 
           rc_audioTracks = v24;
         }
 
-        v78.start.value = 0;
-        *&v78.start.timescale = &v78;
-        v78.start.epoch = 0x3032000000;
-        v78.duration.value = __Block_byref_object_copy_;
-        *&v78.duration.timescale = __Block_byref_object_dispose_;
-        v78.duration.epoch = [MEMORY[0x277CE6418] assetReaderAudioMixOutputWithAudioTracks:rc_audioTracks audioSettings:v22];
-        v25 = *(*&v78.start.timescale + 40);
+        v77.start.value = 0;
+        *&v77.start.timescale = &v77;
+        v77.start.epoch = 0x3032000000;
+        v77.duration.value = __Block_byref_object_copy_;
+        *&v77.duration.timescale = __Block_byref_object_dispose_;
+        v77.duration.epoch = [MEMORY[0x277CE6418] assetReaderAudioMixOutputWithAudioTracks:rc_audioTracks audioSettings:v22];
+        v25 = *(*&v77.start.timescale + 40);
         if (v25)
         {
           [v25 setAlwaysCopiesSampleData:0];
-          [*(*&v78.start.timescale + 40) markConfigurationAsFinal];
-          if ([v81[5] canAddOutput:*(*&v78.start.timescale + 40)])
+          [*(*&v77.start.timescale + 40) markConfigurationAsFinal];
+          if ([v80[5] canAddOutput:*(*&v77.start.timescale + 40)])
           {
-            [v81[5] addOutput:*(*&v78.start.timescale + 40)];
+            [v80[5] addOutput:*(*&v77.start.timescale + 40)];
             v26 = self->_queue;
-            v64 = MEMORY[0x277D85DD0];
-            v65 = 3221225472;
-            v66 = __80__RCWaveformGenerator__appendPowerMeterValuesFromDataInAudioFile_progressBlock___block_invoke_40;
-            v67 = &unk_279E438C8;
-            v71 = &v78;
+            v63 = MEMORY[0x277D85DD0];
+            v64 = 3221225472;
+            v65 = __80__RCWaveformGenerator__appendPowerMeterValuesFromDataInAudioFile_progressBlock___block_invoke_40;
+            v66 = &unk_279E438C8;
+            v70 = &v77;
             p_time = &time;
-            v70 = &v80;
+            v69 = &v79;
             selfCopy = self;
-            v73 = v91;
+            v72 = v90;
             v27 = blockCopy;
-            v69 = v27;
-            v74 = v90;
-            v75 = v92;
-            dispatch_sync(v26, &v64);
+            v68 = v27;
+            v73 = v89;
+            v74 = v91;
+            dispatch_sync(v26, &v63);
             if (*(*&time.timescale + 40))
             {
               v28 = OSLogForCategory(@"Default");
@@ -940,7 +928,7 @@ void __65__RCWaveformGenerator__appendPowerMeterValuesFromAudioPCMBuffer___block
                 [(RCWaveformGenerator *)&self->_activeAsset _appendPowerMeterValuesFromDataInAudioFile:v28 progressBlock:?];
               }
 
-              [(RCWaveformGenerator *)self terminateLoadingImmediately:v64];
+              [(RCWaveformGenerator *)self terminateLoadingImmediately:v63];
             }
 
             v29 = *p_activeAsset;
@@ -973,15 +961,15 @@ void __65__RCWaveformGenerator__appendPowerMeterValuesFromAudioPCMBuffer___block
 
         v30 = 0;
 LABEL_34:
-        _Block_object_dispose(&v78, 8);
+        _Block_object_dispose(&v77, 8);
 
 LABEL_35:
-        _Block_object_dispose(&v80, 8);
+        _Block_object_dispose(&v79, 8);
 
         _Block_object_dispose(&time, 8);
+        _Block_object_dispose(v89, 8);
         _Block_object_dispose(v90, 8);
         _Block_object_dispose(v91, 8);
-        _Block_object_dispose(v92, 8);
 
         goto LABEL_36;
       }
@@ -1011,13 +999,12 @@ LABEL_36:
   v30 = 0;
 LABEL_37:
 
-  v61 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 void __80__RCWaveformGenerator__appendPowerMeterValuesFromDataInAudioFile_progressBlock___block_invoke_40(uint64_t a1)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   [*(*(*(a1 + 48) + 8) + 40) startReading];
   v2 = [*(*(*(a1 + 56) + 8) + 40) copyNextSampleBuffer];
   NumSamples = CMSampleBufferGetNumSamples(v2);
@@ -1032,27 +1019,27 @@ LABEL_2:
 
   else
   {
-    v9 = NumSamples;
-    v10 = *MEMORY[0x277CCA050];
-    v11 = *MEMORY[0x277CCA450];
+    v8 = NumSamples;
+    v9 = *MEMORY[0x277CCA050];
+    v10 = *MEMORY[0x277CCA450];
     while (1)
     {
       dispatch_semaphore_wait(*(*(a1 + 32) + 16), 0xFFFFFFFFFFFFFFFFLL);
       dispatch_semaphore_signal(*(*(a1 + 32) + 16));
-      v12 = *(a1 + 32);
-      if (v12[248] == 1)
+      v11 = *(a1 + 32);
+      if (v11[248] == 1)
       {
-        v19 = [MEMORY[0x277CCA9B8] errorWithDomain:v10 code:3072 userInfo:0];
-        v20 = *(*(a1 + 64) + 8);
-        v21 = *(v20 + 40);
-        *(v20 + 40) = v19;
+        v18 = [MEMORY[0x277CCA9B8] errorWithDomain:v9 code:3072 userInfo:0];
+        v19 = *(*(a1 + 64) + 8);
+        v20 = *(v19 + 40);
+        *(v19 + 40) = v18;
 
         goto LABEL_2;
       }
 
-      if (v9 < 1)
+      if (v8 < 1)
       {
-        [v12 _onQueue_flushRemainingData];
+        [v11 _onQueue_flushRemainingData];
         goto LABEL_2;
       }
 
@@ -1062,27 +1049,27 @@ LABEL_2:
       CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(v2, 0, &bufferListOut, 0x18uLL, 0, 0, 0, &blockBufferOut);
       if (bufferListOut.mNumberBuffers)
       {
-        v15 = 0;
+        v14 = 0;
         p_mData = &bufferListOut.mBuffers[0].mData;
         do
         {
           [*(a1 + 32) _onQueue_appendPowerMeterValuesFromRawAudioData:*p_mData frameCount:*(p_mData - 1) / StreamBasicDescription->mBytesPerFrame format:StreamBasicDescription isPredigest:0];
-          ++v15;
+          ++v14;
           p_mData += 2;
         }
 
-        while (v15 < bufferListOut.mNumberBuffers);
+        while (v14 < bufferListOut.mNumberBuffers);
       }
 
-      CMSampleBufferGetDuration(&v27, v2);
-      *(*(*(a1 + 72) + 8) + 24) = CMTimeGetSeconds(&v27) + *(*(*(a1 + 72) + 8) + 24);
+      CMSampleBufferGetDuration(&v26, v2);
+      *(*(*(a1 + 72) + 8) + 24) = CMTimeGetSeconds(&v26) + *(*(*(a1 + 72) + 8) + 24);
       if (*(a1 + 40))
       {
-        v17 = *(*(*(a1 + 72) + 8) + 24) / *(*(*(a1 + 80) + 8) + 24);
-        v18 = *(*(a1 + 88) + 8);
-        if (*(v18 + 24) != v17)
+        v16 = *(*(*(a1 + 72) + 8) + 24) / *(*(*(a1 + 80) + 8) + 24);
+        v17 = *(*(a1 + 88) + 8);
+        if (*(v17 + 24) != v16)
         {
-          *(v18 + 24) = v17;
+          *(v17 + 24) = v16;
           (*(*(a1 + 40) + 16))();
         }
       }
@@ -1094,7 +1081,7 @@ LABEL_2:
       }
 
       v2 = [*(*(*(a1 + 56) + 8) + 40) copyNextSampleBuffer];
-      v9 = CMSampleBufferGetNumSamples(v2);
+      v8 = CMSampleBufferGetNumSamples(v2);
       if (!v2 && (*(*(a1 + 32) + 248) & 1) == 0)
       {
         break;
@@ -1108,14 +1095,14 @@ LABEL_2:
 
     if ([*(*(*(a1 + 48) + 8) + 40) status] != 2)
     {
-      v22 = MEMORY[0x277CCA9B8];
-      v30 = v11;
-      v31[0] = @"AVAsset reader failed to read audio track samples.";
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-      v24 = [v22 errorWithDomain:v10 code:3072 userInfo:v23];
-      v25 = *(*(a1 + 64) + 8);
-      v26 = *(v25 + 40);
-      *(v25 + 40) = v24;
+      v21 = MEMORY[0x277CCA9B8];
+      v29 = v10;
+      v30[0] = @"AVAsset reader failed to read audio track samples.";
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+      v23 = [v21 errorWithDomain:v9 code:3072 userInfo:v22];
+      v24 = *(*(a1 + 64) + 8);
+      v25 = *(v24 + 40);
+      *(v24 + 40) = v23;
     }
   }
 
@@ -1127,8 +1114,6 @@ LABEL_2:
   v6 = *(*(a1 + 56) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = 0;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_appendAveragePowerLevelsByDigestingTimeRange:(id)range inAudioFile:(id)file
@@ -1377,23 +1362,23 @@ void __106__RCWaveformGenerator_synchronouslyApproximateWaveformForAVContentURL_
   return v7 & 1;
 }
 
-uint64_t __76__RCWaveformGenerator__appendAveragePowerLevelsByDigestingWaveformSegments___block_invoke(uint64_t a1)
+void *__76__RCWaveformGenerator__appendAveragePowerLevelsByDigestingWaveformSegments___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
 LABEL_3:
     v5 = 0;
     while (1)
     {
-      if (*v10 != v4)
+      if (*v9 != v4)
       {
         objc_enumerationMutation(v2);
       }
@@ -1404,10 +1389,10 @@ LABEL_3:
         break;
       }
 
-      [v6 _onQueue_appendSegment:{*(*(&v9 + 1) + 8 * v5++), v9}];
+      [v6 _onQueue_appendSegment:{*(*(&v8 + 1) + 8 * v5++), v8}];
       if (v3 == v5)
       {
-        v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v3)
         {
           goto LABEL_3;
@@ -1420,7 +1405,6 @@ LABEL_3:
 
   result = [*(a1 + 40) _onQueue_flushRemainingData];
   *(*(*(a1 + 48) + 8) + 24) = 1;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1433,7 +1417,7 @@ LABEL_3:
     dispatch_semaphore_signal(self->_digestPausedSemaphore);
     if (!self->_canceled)
     {
-      [segmentCopy timeRange];
+      objc_msgSend_timeRange(segmentCopy);
       if (v6 >= self->_totalFlushedTime)
       {
         [(RCWaveformGenerator *)self _onQueue_flushRemainingData];
@@ -1442,12 +1426,12 @@ LABEL_3:
       else
       {
         v7 = MEMORY[0x277CBEAD8];
-        [segmentCopy timeRange];
+        objc_msgSend_timeRange(segmentCopy);
         objc_msgSend(v7, "raise:format:", *MEMORY[0x277CBE648], @"Invalid endTime (segment end time %f is less than total flushed time %f. Will regenerate waveform."), v8, *&self->_totalFlushedTime;
       }
 
       self->_framesConsumedSinceLastFlush = 0;
-      [segmentCopy timeRange];
+      objc_msgSend_timeRange(segmentCopy);
       self->_totalFlushedTime = v9;
       v10[0] = MEMORY[0x277D85DD0];
       v10[1] = 3221225472;
@@ -1473,29 +1457,28 @@ LABEL_3:
       {
         currentHandler = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler handleFailureInMethod:a2 object:self file:@"RCWaveformGenerator.mm" lineNumber:782 description:@"Invalid endTime"];
-
-        totalFlushedTime = self->_totalFlushedTime;
       }
 
-      v7 = RCTimeRangeMake();
-      v9 = v8;
+      RCTimeRangeMake();
+      v8 = v7;
+      v10 = v9;
       if (self->_powerLevelBuffer.__end_ == self->_powerLevelBuffer.__begin_)
       {
         std::vector<float>::push_back[abi:ne200100](&self->_powerLevelBuffer.__begin_, &self->_powerLevelBufferLastPushedValue);
       }
 
-      v10 = [[RCWaveformSegment alloc] initWithTimeRange:&self->_powerLevelBuffer averagePowerLevelVector:v7, v9];
+      v11 = [[RCWaveformSegment alloc] initWithTimeRange:&self->_powerLevelBuffer averagePowerLevelVector:v8, v10];
       self->_totalFlushedTime = time;
-      v11 = MEMORY[0x277D85DD0];
+      v12 = MEMORY[0x277D85DD0];
       self->_powerLevelsConsumedSinceLastFlush = 0;
       self->_framesConsumedSinceLastFlush = 0;
-      v15[0] = v11;
+      v15[0] = v12;
       v15[1] = 3221225472;
       v15[2] = __76__RCWaveformGenerator__onQueue_flushWithNextSegmentWithEndTime_isPredigest___block_invoke;
       v15[3] = &unk_279E43990;
       v15[4] = self;
-      v16 = v10;
-      v12 = v10;
+      v16 = v11;
+      v13 = v11;
       [(RCWaveformGenerator *)self _onQueue_performObserversBlock:v15];
       self->_powerLevelBuffer.__end_ = self->_powerLevelBuffer.__begin_;
     }
@@ -1569,6 +1552,185 @@ LABEL_3:
   }
 }
 
+- (void)_onQueue_appendPowerMeterValuesFromRawAudioData:(void *)data frameCount:(int64_t)count format:(const AudioStreamBasicDescription *)format isPredigest:(BOOL)predigest
+{
+  predigestCopy = predigest;
+  dataCopy = data;
+  countCopy = count;
+  v41 = *MEMORY[0x277D85DE8];
+  if (_checkCanAppend(self, a2))
+  {
+    dispatch_semaphore_wait(self->_digestPausedSemaphore, 0xFFFFFFFFFFFFFFFFLL);
+    v9 = dispatch_semaphore_signal(self->_digestPausedSemaphore);
+    if (!self->_canceled)
+    {
+      v10 = format->mChannelsPerFrame >= 2 && format->mBytesPerFrame > format->mBytesPerPacket;
+      mSampleRate = self->_samplePowerMeter.mSampleRate;
+      if (!self->_isSampleRateKnown)
+      {
+        self->_isSampleRateKnown = 1;
+        mSampleRate = format->mSampleRate;
+        PowerMeter::SetSampleRate(&self->_samplePowerMeter, format->mSampleRate);
+        v12 = (mSampleRate * self->_segmentFlushInterval);
+        self->_framesNeededForNextDB = (mSampleRate / self->_overviewUnitsPerSecond);
+        self->_framesNeededForNextFlush = v12;
+      }
+
+      if (countCopy >= 1)
+      {
+        v13 = countCopy;
+        v38 = &dataCopy[4 * countCopy];
+        while (1)
+        {
+          framesNeededForNextDB = v13;
+          if (self->_overviewUnitsPerSecond)
+          {
+            if (self->_framesNeededForNextDB >= v13)
+            {
+              framesNeededForNextDB = v13;
+            }
+
+            else
+            {
+              framesNeededForNextDB = self->_framesNeededForNextDB;
+            }
+          }
+
+          if (framesNeededForNextDB >= 1 && self->_canceled)
+          {
+            return;
+          }
+
+          mBitsPerChannel = format->mBitsPerChannel;
+          if (mBitsPerChannel == 16)
+          {
+            v18 = &dataCopy[2 * (countCopy - v13)];
+            v17 = framesNeededForNextDB << 32;
+            MEMORY[0x28223BE20](v9);
+            v16 = &v38 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+            bzero(v16, v19);
+            if (v10 || format->mChannelsPerFrame < 2)
+            {
+              if (framesNeededForNextDB >= 1)
+              {
+                v23 = 0;
+                do
+                {
+                  *&v16[4 * v23] = *&v18[2 * v23] / 32767.0;
+                  ++v23;
+                }
+
+                while ((framesNeededForNextDB & 0x7FFFFFFF) != v23);
+              }
+            }
+
+            else if (framesNeededForNextDB >= 1)
+            {
+              v20 = 0;
+              v21 = &v38[-2 * v13];
+              do
+              {
+                v22 = *&v18[2 * v20];
+                if (v22 <= *&v21[2 * v20])
+                {
+                  v22 = *&v21[2 * v20];
+                }
+
+                *&v16[4 * v20++] = v22 / 32767.0;
+              }
+
+              while ((framesNeededForNextDB & 0x7FFFFFFF) != v20);
+            }
+          }
+
+          else
+          {
+            if (mBitsPerChannel != 32)
+            {
+              v30 = OSLogForCategory(@"Default");
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+              {
+                [(RCWaveformGenerator *)v30 _onQueue_appendPowerMeterValuesFromRawAudioData:v31 frameCount:v32 format:v33 isPredigest:v34, v35, v36, v37];
+              }
+
+              return;
+            }
+
+            if (!v10 && format->mChannelsPerFrame >= 2)
+            {
+              PowerMeter::Process(&self->_samplePowerMeter, &v38[4 * (countCopy - v13)], 1, framesNeededForNextDB);
+            }
+
+            v16 = &dataCopy[4 * (countCopy - v13)];
+            v17 = framesNeededForNextDB << 32;
+          }
+
+          PowerMeter::Process(&self->_samplePowerMeter, v16, 1, framesNeededForNextDB);
+          framesConsumedSinceLastFlush = self->_framesConsumedSinceLastFlush;
+          v25 = self->_framesNeededForNextDB - (v17 >> 32);
+          framesNeededForNextFlush = self->_framesNeededForNextFlush - (v17 >> 32);
+          self->_framesNeededForNextDB = v25;
+          self->_framesNeededForNextFlush = framesNeededForNextFlush;
+          v27 = framesConsumedSinceLastFlush + (v17 >> 32);
+          self->_framesConsumedSinceLastFlush = v27;
+          v28 = 1.0;
+          if (v10)
+          {
+            LODWORD(v28) = format->mChannelsPerFrame;
+            v28 = *&v28;
+          }
+
+          self->_totalDigestedTime = self->_totalFlushedTime + v27 / mSampleRate / v28;
+          if (v25 <= 0)
+          {
+            break;
+          }
+
+LABEL_42:
+          if (framesNeededForNextFlush <= 0)
+          {
+            v9 = [(RCWaveformGenerator *)self _onQueue_flushWithNextSegmentWithEndTime:predigestCopy isPredigest:self->_totalDigestedTime];
+            self->_framesNeededForNextFlush = (mSampleRate * self->_segmentFlushInterval);
+          }
+
+          v13 -= v17 >> 32;
+          if (v13 <= 0)
+          {
+            return;
+          }
+        }
+
+        mMaxPeak = self->_samplePowerMeter.mMaxPeak;
+        if (mMaxPeak <= 0.000001)
+        {
+          LODWORD(mMaxPeak) = -1024458752;
+          if (predigestCopy)
+          {
+LABEL_41:
+            PowerMeter::Reset(&self->_samplePowerMeter);
+            self->_framesNeededForNextDB = (mSampleRate / self->_overviewUnitsPerSecond);
+            framesNeededForNextFlush = self->_framesNeededForNextFlush;
+            goto LABEL_42;
+          }
+        }
+
+        else
+        {
+          mMaxPeak = log10(mMaxPeak) * 20.0;
+          *&mMaxPeak = mMaxPeak;
+          if (predigestCopy)
+          {
+            goto LABEL_41;
+          }
+        }
+
+        [(RCWaveformGenerator *)self _onQueue_digestAveragePowerLevel:mMaxPeak, v38];
+        goto LABEL_41;
+      }
+    }
+  }
+}
+
 - (id).cxx_construct
 {
   PowerMeter::PowerMeter(&self->_samplePowerMeter);
@@ -1589,86 +1751,82 @@ LABEL_3:
 
 - (void)appendAveragePowerLevelsByDigestingWaveform:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[RCWaveformGenerator appendAveragePowerLevelsByDigestingWaveform:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_272442000, a2, OS_LOG_TYPE_DEBUG, "%s -- loading waveform data from %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[RCWaveformGenerator appendAveragePowerLevelsByDigestingWaveform:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_272442000, a2, OS_LOG_TYPE_DEBUG, "%s -- loading waveform data from %@", &v2, 0x16u);
 }
 
 - (void)_appendPowerMeterValuesFromSampleBuffer:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[RCWaveformGenerator _appendPowerMeterValuesFromSampleBuffer:]";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- ERROR:  CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer failed:  rv = %d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[RCWaveformGenerator _appendPowerMeterValuesFromSampleBuffer:]";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- ERROR:  CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer failed:  rv = %d", &v2, 0x12u);
 }
 
 - (void)_appendPowerMeterValuesFromDataInAudioFile:(uint64_t)a3 progressBlock:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- assetReader can not add readerOutput", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[RCWaveformGenerator _appendPowerMeterValuesFromDataInAudioFile:progressBlock:]";
+  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- assetReader can not add readerOutput", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_appendPowerMeterValuesFromDataInAudioFile:(os_log_t)log progressBlock:.cold.2(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *(*a2 + 40);
-  v6 = 136315650;
-  v7 = "[RCWaveformGenerator _appendPowerMeterValuesFromDataInAudioFile:progressBlock:]";
-  v8 = 2112;
-  v9 = v3;
-  v10 = 2112;
-  v11 = v4;
-  _os_log_debug_impl(&dword_272442000, log, OS_LOG_TYPE_DEBUG, "%s -- ERROR: encountered error while attempting to read from audio file %@, error = %@ canceling further operations..", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136315650;
+  v6 = "[RCWaveformGenerator _appendPowerMeterValuesFromDataInAudioFile:progressBlock:]";
+  v7 = 2112;
+  v8 = v3;
+  v9 = 2112;
+  v10 = v4;
+  _os_log_debug_impl(&dword_272442000, log, OS_LOG_TYPE_DEBUG, "%s -- ERROR: encountered error while attempting to read from audio file %@, error = %@ canceling further operations..", &v5, 0x20u);
 }
 
 - (void)_appendPowerMeterValuesFromDataInAudioFile:(uint64_t)a3 progressBlock:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- readerOutput = nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[RCWaveformGenerator _appendPowerMeterValuesFromDataInAudioFile:progressBlock:]";
+  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- readerOutput = nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_appendPowerMeterValuesFromDataInAudioFile:(uint64_t)a1 progressBlock:(NSObject *)a2 .cold.4(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 40);
-  v4 = 136315394;
-  v5 = "[RCWaveformGenerator _appendPowerMeterValuesFromDataInAudioFile:progressBlock:]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- AVAssetReader Error = %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[RCWaveformGenerator _appendPowerMeterValuesFromDataInAudioFile:progressBlock:]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- AVAssetReader Error = %@", &v3, 0x16u);
 }
 
 - (void)_appendPowerMeterValuesFromDataInAudioFile:(uint64_t)a3 progressBlock:(uint64_t)a4 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- audioTracks.count == 0", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[RCWaveformGenerator _appendPowerMeterValuesFromDataInAudioFile:progressBlock:]";
+  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- audioTracks.count == 0", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_appendPowerMeterValuesFromDataInAudioFile:(uint64_t)a3 progressBlock:(uint64_t)a4 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- audioAsset = nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[RCWaveformGenerator _appendPowerMeterValuesFromDataInAudioFile:progressBlock:]";
+  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- audioAsset = nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_onQueue_appendPowerMeterValuesFromRawAudioData:(uint64_t)a3 frameCount:(uint64_t)a4 format:(uint64_t)a5 isPredigest:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- ERROR: unable to process samples", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[RCWaveformGenerator _onQueue_appendPowerMeterValuesFromRawAudioData:frameCount:format:isPredigest:]";
+  OUTLINED_FUNCTION_0(&dword_272442000, a1, a3, "%s -- ERROR: unable to process samples", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -192,7 +192,7 @@ LABEL_15:
   }
 
 LABEL_22:
-  [(VLFSessionMonitor *)self setState:v5, *v11];
+  [(VLFSessionMonitor *)self setState:v5, *v11, *&v11[8]];
 }
 
 - (void)dealloc

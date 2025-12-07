@@ -9,9 +9,9 @@
 - (id)convert
 {
   lastSeenDate = [(IRServiceMO *)self lastSeenDate];
-  clientIdentifier = [(IRServiceMO *)self clientIdentifier];
+  v4 = objc_msgSend_clientIdentifier(self);
   serviceIdentifier = [(IRServiceMO *)self serviceIdentifier];
-  v6 = [IRServiceDO serviceDOWithLastSeenDate:lastSeenDate clientIdentifier:clientIdentifier serviceIdentifier:serviceIdentifier servicePackage:[(IRServiceMO *)self servicePackage]];
+  v6 = [IRServiceDO serviceDOWithLastSeenDate:lastSeenDate clientIdentifier:v4 serviceIdentifier:serviceIdentifier servicePackage:[(IRServiceMO *)self servicePackage]];
 
   return v6;
 }
@@ -66,8 +66,8 @@
   serviceIdentifier = [dOCopy serviceIdentifier];
   [oCopy setServiceIdentifier:serviceIdentifier];
 
-  clientIdentifier = [dOCopy clientIdentifier];
-  [oCopy setClientIdentifier:clientIdentifier];
+  v8 = objc_msgSend_clientIdentifier(dOCopy);
+  [oCopy setClientIdentifier:v8];
 
   servicePackage = [dOCopy servicePackage];
   [oCopy setServicePackage:servicePackage];

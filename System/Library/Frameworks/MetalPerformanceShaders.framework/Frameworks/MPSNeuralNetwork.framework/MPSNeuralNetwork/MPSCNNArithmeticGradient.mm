@@ -20,11 +20,11 @@
   {
     v5 = MTLReportFailureTypeEnabled();
     xCopy2 = x;
-    v7 = v5;
+    v11 = v5;
     selfCopy2 = self;
-    if (v7)
+    if (v11)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x475, @"Error: The only valid values for secondaryStrideInPixelsX (%lu) are 0 or 1.\n", v6, v7, v8, v9);
       selfCopy2 = self;
       xCopy2 = x;
     }
@@ -44,11 +44,11 @@
   {
     v5 = MTLReportFailureTypeEnabled();
     yCopy2 = y;
-    v7 = v5;
+    v11 = v5;
     selfCopy2 = self;
-    if (v7)
+    if (v11)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x47C, @"Error: The only valid values for secondaryStrideInPixelsY (%lu) are 0 or 1.\n", v6, v7, v8, v9);
       selfCopy2 = self;
       yCopy2 = y;
     }
@@ -67,17 +67,17 @@
   if (secondaryStrideInFeatureChannels >= 2)
   {
     v5 = MTLReportFailureTypeEnabled();
-    v6 = secondaryStrideInFeatureChannels;
-    v7 = v5;
+    v10 = secondaryStrideInFeatureChannels;
+    v11 = v5;
     selfCopy2 = self;
-    if (v7)
+    if (v11)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x483, @"Error: The only valid values for secondaryStrideInFeatureChannels (%lu) are 0 or 1.\n", v6, v7, v8, v9);
       selfCopy2 = self;
-      v6 = secondaryStrideInFeatureChannels;
+      v10 = secondaryStrideInFeatureChannels;
     }
 
-    selfCopy2->_secondaryStrideInFeatureChannels = v6;
+    selfCopy2->_secondaryStrideInFeatureChannels = v10;
   }
 
   else
@@ -90,7 +90,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x48D, @"Cannot directly initialize MPSCNNArithmetic. Use one of the sub-classes of MPSCNNArithmetic.\n", v3, v4, v5, v6);
   }
 
   return 0;
@@ -98,9 +98,9 @@
 
 - (MPSCNNArithmeticGradient)initWithDevice:(id)device arithmeticType:(int)type isSecondarySourceFilter:(BOOL)filter
 {
-  v33.receiver = self;
-  v33.super_class = MPSCNNArithmeticGradient;
-  result = [(MPSCNNGradientKernel *)&v33 initWithDevice:?];
+  v37.receiver = self;
+  v37.super_class = MPSCNNArithmeticGradient;
+  result = [(MPSCNNGradientKernel *)&v37 initWithDevice:?];
   if (result)
   {
     result->_primaryScale = 1.0;
@@ -117,7 +117,7 @@
       v32 = result;
       if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x4A5, @"invalid arithmetic operator type (%u)", v33, v34, v35, v36);
       }
 
       return 0;
@@ -147,8 +147,8 @@
 
 - (MPSCNNArithmeticGradient)initWithCoder:(id)coder device:(id)device
 {
-  v84.receiver = self;
-  v84.super_class = MPSCNNArithmeticGradient;
+  v88.receiver = self;
+  v88.super_class = MPSCNNArithmeticGradient;
   v6 = [MPSCNNGradientKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v13 = v6;
   if (!v6)
@@ -187,7 +187,7 @@
   {
     v83 = objc_opt_class();
     NSStringFromClass(v83);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x4CA, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v84, v85, v86, v87);
   }
 
   return 0;
@@ -280,11 +280,11 @@
   if ((*(&self->super.super.super.super.isa + *MEMORY[0x277CD7378]) & 1) == 0 && v15 <= 1 && MTLReportFailureTypeEnabled())
   {
     v66 = objc_opt_class();
-    v67 = NSStringFromClass(v66);
-    MTLReportFailure();
+    v71 = NSStringFromClass(v66);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x557, @"Error: [%@ destinationImageDescriptorForSourceImages:sourceStates:updateOffset:] called with less than two source images.", v67, v68, v69, v70);
   }
 
-  v22 = objc_msgSend_objectAtIndexedSubscript_(images, v16, 0, v17, v18, v19, v20, v21, v67);
+  v22 = objc_msgSend_objectAtIndexedSubscript_(images, v16, 0, v17, v18, v19, v20, v21, v71);
   v29 = objc_msgSend_objectAtIndexedSubscript_(images, v23, 1, v24, v25, v26, v27, v28);
   v37 = MEMORY[0x277CD72F8];
   v38 = *(v29 + *MEMORY[0x277CD72F8]);
@@ -358,9 +358,9 @@
     }
   }
 
-  v68.receiver = self;
-  v68.super_class = MPSCNNArithmeticGradient;
-  return [(MPSCNNBinaryKernel *)&v68 destinationImageDescriptorForSourceImages:images sourceStates:states paddingMethod:method primaryOffset:offset secondaryOffset:secondaryOffset kernelOffset:kernelOffset];
+  v72.receiver = self;
+  v72.super_class = MPSCNNArithmeticGradient;
+  return [(MPSCNNBinaryKernel *)&v72 destinationImageDescriptorForSourceImages:images sourceStates:states paddingMethod:method primaryOffset:offset secondaryOffset:secondaryOffset kernelOffset:kernelOffset];
 }
 
 @end

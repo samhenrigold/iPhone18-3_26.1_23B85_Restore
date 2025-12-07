@@ -76,7 +76,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __39__MCLContentSizingView_setContentView___block_invoke(id *a1, void *a2, void *a3)

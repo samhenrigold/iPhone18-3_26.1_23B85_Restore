@@ -22,6 +22,7 @@
 - (void)postRefreshTriggerAfterSettingChange;
 - (void)publishOnboardingStatusAnalytics;
 - (void)setOnboardingFlowCompletionStatus:(unint64_t)status;
+- (void)setState:(BOOL)state forSetting:(unint64_t)setting;
 @end
 
 @implementation MOOnboardingAndSettingsPersistence
@@ -923,6 +924,177 @@ LABEL_7:
   }
 }
 
+- (void)setState:(BOOL)state forSetting:(unint64_t)setting
+{
+  stateCopy = state;
+  v7 = _mo_log_facility_get_os_log(&MOLogFacilityOnboarding);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    *v26 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "setState", v26, 2u);
+  }
+
+  if (setting != 11)
+  {
+    if (setting == 8)
+    {
+      v8 = _mo_log_facility_get_os_log(&MOLogFacilityPermissions);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        [MOOnboardingAndSettingsPersistence setState:forSetting:];
+      }
+
+      goto LABEL_44;
+    }
+
+    v8 = [(MOOnboardingAndSettingsPersistence *)self _getSettingKey:setting];
+    if (!v8)
+    {
+      goto LABEL_44;
+    }
+
+    v9 = [(MOOnboardingAndSettingsPersistence *)self getStateForSetting:setting];
+    getOnboardingFlowCompletionStatus = [(MOOnboardingAndSettingsPersistence *)self getOnboardingFlowCompletionStatus];
+    if ((getOnboardingFlowCompletionStatus & 0xFFFFFFFFFFFFFFFELL) == 2)
+    {
+      v11 = v9 ^ stateCopy;
+      if (v9)
+      {
+        v11 = v9 ^ stateCopy;
+        if (!stateCopy)
+        {
+          self->_wasAnySetingDisabledAfterOnboarding = 1;
+          v11 = v9 ^ stateCopy;
+        }
+      }
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    if (setting == 6 && v9 != stateCopy)
+    {
+      v12 = 1;
+      if (!stateCopy)
+      {
+        v12 = -1;
+      }
+
+      self->_peopleAwarenessRegistrationTrigger = v12;
+    }
+
+    if (v11 && stateCopy)
+    {
+      v13 = +[NSDate date];
+      v14 = setting - 1;
+      if (setting - 1 <= 8 && ((0x13Fu >> v14) & 1) != 0)
+      {
+        v15 = *(&off_100340140 + v14);
+        v16 = *(&off_100340188 + v14);
+        defaultsManager = [(MOOnboardingAndSettingsPersistence *)self defaultsManager];
+        configManager = [(MOOnboardingAndSettingsPersistence *)self configManager];
+        [configManager getFloatSettingForKey:v15 withFallback:0.0];
+        v20 = [NSDate dateWithTimeInterval:v13 sinceDate:-v19];
+        [defaultsManager setObject:v20 forKey:v16];
+      }
+
+      goto LABEL_42;
+    }
+
+    if (stateCopy)
+    {
+      v13 = _mo_log_facility_get_os_log(&MOLogFacilityOnboarding);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      {
+        [(MOOnboardingAndSettingsPersistence *)setting setState:getOnboardingFlowCompletionStatus forSetting:v13];
+      }
+
+      goto LABEL_42;
+    }
+
+    if (setting <= 3)
+    {
+      switch(setting)
+      {
+        case 1uLL:
+          defaultsManager2 = [(MOOnboardingAndSettingsPersistence *)self defaultsManager];
+          v13 = defaultsManager2;
+          v22 = @"OnboardingEarliestCollectDateActivity";
+          goto LABEL_41;
+        case 2uLL:
+          defaultsManager2 = [(MOOnboardingAndSettingsPersistence *)self defaultsManager];
+          v13 = defaultsManager2;
+          v22 = @"OnboardingEarliestCollectDateMedia";
+          goto LABEL_41;
+        case 3uLL:
+          defaultsManager2 = [(MOOnboardingAndSettingsPersistence *)self defaultsManager];
+          v13 = defaultsManager2;
+          v22 = @"OnboardingEarliestCollectDateCommunication";
+LABEL_41:
+          [defaultsManager2 deleteObjectForKey:v22];
+LABEL_42:
+
+          break;
+      }
+    }
+
+    else
+    {
+      if (setting <= 5)
+      {
+        defaultsManager2 = [(MOOnboardingAndSettingsPersistence *)self defaultsManager];
+        v13 = defaultsManager2;
+        if (setting == 4)
+        {
+          v22 = @"OnboardingEarliestCollectDatePhoto";
+        }
+
+        else
+        {
+          v22 = @"OnboardingEarliestCollectDateLocation";
+        }
+
+        goto LABEL_41;
+      }
+
+      if (setting == 6)
+      {
+        defaultsManager2 = [(MOOnboardingAndSettingsPersistence *)self defaultsManager];
+        v13 = defaultsManager2;
+        v22 = @"OnboardingEarliestCollectDatePeople";
+        goto LABEL_41;
+      }
+
+      if (setting == 9)
+      {
+        defaultsManager2 = [(MOOnboardingAndSettingsPersistence *)self defaultsManager];
+        v13 = defaultsManager2;
+        v22 = @"OnboardingEarliestCollectDateStateOfMind";
+        goto LABEL_41;
+      }
+    }
+
+    defaultsManager3 = [(MOOnboardingAndSettingsPersistence *)self defaultsManager];
+    v24 = [NSNumber numberWithBool:stateCopy];
+    [defaultsManager3 setObject:v24 forKey:v8];
+
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.momentsd.event-streams-updated", 0, 0, 1u);
+    [(MOOnboardingAndSettingsPersistence *)self postRefreshTriggerAfterSettingChange];
+    goto LABEL_44;
+  }
+
+  v8 = _mo_log_facility_get_os_log(&MOLogFacilityPermissions);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  {
+    [MOOnboardingAndSettingsPersistence setState:forSetting:];
+  }
+
+LABEL_44:
+}
+
 - (void)postRefreshTriggerAfterSettingChange
 {
   v3 = _mo_log_facility_get_os_log(&MOLogFacilityOnboarding);
@@ -1429,11 +1601,11 @@ void __71__MOOnboardingAndSettingsPersistence_getSnapshotDictionaryForAnalytics_
 {
   v3 = dispatch_semaphore_create(0);
   v22 = 0;
-  v23[0] = &v22;
-  v23[1] = 0x3032000000;
-  v23[2] = __Block_byref_object_copy__45;
-  v23[3] = __Block_byref_object_dispose__45;
-  v24 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__45;
+  v26 = __Block_byref_object_dispose__45;
+  v27 = 0;
   v18 = 0;
   v19 = &v18;
   v20 = 0x2020000000;
@@ -1461,12 +1633,12 @@ void __71__MOOnboardingAndSettingsPersistence_getSnapshotDictionaryForAnalytics_
     }
   }
 
-  if (*(v23[0] + 40))
+  if (v23[5])
   {
     v10 = _mo_log_facility_get_os_log(&MOLogFacilitySettings);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(MOOnboardingAndSettingsPersistence *)v23 fetchScreenTimeEnablementStatus];
+      [MOOnboardingAndSettingsPersistence fetchScreenTimeEnablementStatus];
     }
 
     v11 = 0;
@@ -1579,9 +1751,9 @@ void __74__MOOnboardingAndSettingsPersistence_postRefreshTriggerAfterSettingChan
 
 - (void)fetchScreenTimeEnablementStatus
 {
-  v6 = *(*self + 40);
+  OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 @end

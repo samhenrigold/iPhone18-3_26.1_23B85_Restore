@@ -16,12 +16,13 @@
 
 - (void)setDefaultValues
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for _UIToolbarSpec();
-  v2 = v4.receiver;
-  [(PTSettings *)&v4 setDefaultValues];
-  v3 = *&v2[OBJC_IVAR____TtC5UIKit14_UIToolbarSpec_padding];
-  [v3 setDefaultValues];
+  type metadata accessor for _UIToolbarSpec();
+  v6.receiver = self;
+  v6.super_class = v3;
+  selfCopy = self;
+  [(PTSettings *)&v6 setDefaultValues];
+  v5 = *(&selfCopy->super.super.isa + OBJC_IVAR____TtC5UIKit14_UIToolbarSpec_padding);
+  [v5 setDefaultValues];
 }
 
 + (id)settingsControllerModule
@@ -36,9 +37,10 @@
   v3 = OBJC_IVAR____TtC5UIKit14_UIToolbarSpec_padding;
   type metadata accessor for _UIToolbarPaddingSpec();
   *(&self->super.super.isa + v3) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for _UIToolbarSpec();
-  return [(PTSettings *)&v5 initWithDefaultValues];
+  v4 = type metadata accessor for _UIToolbarSpec();
+  v7.receiver = self;
+  v7.super_class = v5;
+  return [(PTSettings *)&v7 initWithDefaultValues];
 }
 
 @end

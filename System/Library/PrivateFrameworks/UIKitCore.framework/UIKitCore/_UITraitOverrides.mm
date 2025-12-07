@@ -1,4 +1,6 @@
 @interface _UITraitOverrides
+- (BOOL)_hasChildTransforms;
+- (BOOL)_hasTransforms;
 - (BOOL)containsTrait:(Class)trait;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)resolvesNaturalAlignmentWithBaseWritingDirection;
@@ -26,11 +28,7 @@
 - (int64_t)tabAccessoryEnvironment;
 - (int64_t)valueForNSIntegerTrait:(Class)trait;
 - (uint64_t)_containsTraitToken:(uint64_t)token;
-- (uint64_t)_hasChildTransformWithIdentifier:(uint64_t)identifier;
-- (uint64_t)_hasTransformWithIdentifier:(uint64_t)identifier;
 - (uint64_t)_isEmpty;
-- (unint64_t)_hasChildTransforms;
-- (unint64_t)_hasTransforms;
 - (unint64_t)_valueForNSUIntegerTraitToken:(id)token;
 - (unint64_t)valueForNSUIntegerTrait:(Class)trait;
 - (void)_addChildTransformWithIdentifier:(void *)identifier transform:;
@@ -40,6 +38,8 @@
 - (void)_applyTransformsForChild:(void *)child usingTraitCollectionProvider:(void *)provider mutableTraitCollectionProvider:;
 - (void)_applyTransformsUsingTraitCollectionProvider:(void *)provider mutableTraitCollectionProvider:;
 - (void)_childTraitTransformDidChange;
+- (void)_hasChildTransformWithIdentifier:(void *)identifier;
+- (void)_hasTransformWithIdentifier:(void *)identifier;
 - (void)_overridesAppliedAfter;
 - (void)_overridesAppliedBefore;
 - (void)_removeChildTransformWithIdentifier:(uint64_t)identifier;
@@ -86,23 +86,37 @@
   return self;
 }
 
-- (unint64_t)_hasTransforms
+- (BOOL)_hasTransforms
 {
   if (result)
   {
     v1 = result;
-    return *(result + 88) && ([_UITraitOverrides _hasTransforms]& 1) != 0 || v1[12] && ([_UITraitOverrides _hasTransforms]& 1) != 0 || v1[3] != v1[4];
+    v2 = *(result + 88);
+    if (v2 && ([(_UITraitOverrides *)v2 _hasTransforms]& 1) != 0)
+    {
+      return 1;
+    }
+
+    v3 = v1[12];
+    return v3 && ([(_UITraitOverrides *)v3 _hasTransforms]& 1) != 0 || v1[3] != v1[4];
   }
 
   return result;
 }
 
-- (unint64_t)_hasChildTransforms
+- (BOOL)_hasChildTransforms
 {
   if (result)
   {
     v1 = result;
-    return *(result + 88) && ([_UITraitOverrides _hasChildTransforms]& 1) != 0 || v1[12] && ([_UITraitOverrides _hasChildTransforms]& 1) != 0 || v1[6] != v1[7];
+    v2 = *(result + 88);
+    if (v2 && ([(_UITraitOverrides *)v2 _hasChildTransforms]& 1) != 0)
+    {
+      return 1;
+    }
+
+    v3 = v1[12];
+    return v3 && ([(_UITraitOverrides *)v3 _hasChildTransforms]& 1) != 0 || v1[6] != v1[7];
   }
 
   return result;
@@ -110,45 +124,58 @@
 
 - (uint64_t)_isEmpty
 {
-  if (!self || self[11] && ![_UITraitOverrides _isEmpty])
+  if (!self)
   {
     return 0;
   }
 
-  if (self[12] && ![_UITraitOverrides _isEmpty])
-  {
-    return 0;
-  }
-
-  v2 = self[2];
+  v2 = self[11];
   if (v2)
   {
-    if (_UITraitTokenSetCount(v2 + 16))
+    if (![(_UITraitOverrides *)v2 _isEmpty])
     {
       return 0;
     }
   }
 
-  v5 = self[1];
-  v6 = +[UITraitCollection _emptyTraitCollection];
-  v7 = v5;
-  v8 = v6;
-  v9 = v8;
-  if (v7 == v8)
+  v3 = self[12];
+  if (v3)
   {
-    v3 = 1;
+    if (![(_UITraitOverrides *)v3 _isEmpty])
+    {
+      return 0;
+    }
+  }
+
+  v4 = self[2];
+  if (v4)
+  {
+    if (_UITraitTokenSetCount(v4 + 16))
+    {
+      return 0;
+    }
+  }
+
+  v7 = self[1];
+  v8 = +[UITraitCollection _emptyTraitCollection];
+  v9 = v7;
+  v10 = v8;
+  v11 = v10;
+  if (v9 == v10)
+  {
+    isEqual = 1;
   }
 
   else
   {
-    v3 = 0;
-    if (v7 && v8)
+    isEqual = 0;
+    if (v9 && v10)
     {
-      v3 = [v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v9);
     }
   }
 
-  return v3;
+  return isEqual;
 }
 
 - (void)_overridesAppliedBefore
@@ -340,9 +367,9 @@
   {
     if (v6 && v7)
     {
-      v9 = [(UITraitCollection *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (v9)
+      if (isEqual)
       {
         goto LABEL_9;
       }
@@ -497,10 +524,10 @@ LABEL_9:
       goto LABEL_14;
     }
 
-    v9 = [v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
     v4 = v15;
-    if (!v9)
+    if (!isEqual)
     {
       goto LABEL_18;
     }
@@ -514,7 +541,7 @@ LABEL_9:
   {
     if (v6 && v11)
     {
-      v12 = [v6 isEqual:v11];
+      v12 = objc_msgSend_isEqual_(v6);
 
       v4 = v15;
       if (!v12)
@@ -629,10 +656,10 @@ LABEL_19:
   }
 
   v10 = v8;
-  v9 = [v6 isEqual:v8];
+  isEqual = objc_msgSend_isEqual_(v6, v8, v8);
 
   v7 = v10;
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_6:
     v6 = +[_UITraitTokenSet emptySet];
@@ -1063,21 +1090,21 @@ LABEL_14:
   v16 = v15;
   if (v14 == v15)
   {
-    v17 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v17 = 0;
+    isEqual = 0;
     if (v15 && v14)
     {
-      v17 = [v14 isEqual:v15];
+      isEqual = objc_msgSend_isEqual_(v14);
     }
   }
 
-  if (!v12 || (v17 & 1) != 0)
+  if (!v12 || (isEqual & 1) != 0)
   {
-    if (v12 & 1 | ((v17 & 1) == 0))
+    if (v12 & 1 | ((isEqual & 1) == 0))
     {
       goto LABEL_14;
     }
@@ -1105,7 +1132,7 @@ LABEL_14:
   {
     if (v21 && v20)
     {
-      v22 = [(UITraitCollection *)v20 isEqual:v21];
+      v22 = objc_msgSend_isEqual_(v20, v21, v21);
 
       if (v22)
       {
@@ -1305,7 +1332,7 @@ LABEL_23:
   else if (equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v6 = v5;
-    if ([(UITraitCollection *)self->_overrides isEqual:v6[1]]&& [(_UITraitTokenSet *)self->_defaultValueOverrides isEqual:v6[2]]&& _UINullableTraitOverridesEqual(self->_overridesAppliedBefore, v6[11]))
+    if (objc_msgSend_isEqual_(self->_overrides) && objc_msgSend_isEqual_(self->_defaultValueOverrides) && _UINullableTraitOverridesEqual(self->_overridesAppliedBefore, v6[11]))
     {
       v7 = _UINullableTraitOverridesEqual(self->_overridesAppliedAfter, v6[12]);
     }
@@ -1375,10 +1402,10 @@ LABEL_19:
     goto LABEL_16;
   }
 
-  v12 = [v9 isEqual:v10];
+  isEqual = objc_msgSend_isEqual_(v9);
 
   v13 = v38;
-  if ((v12 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_16:
     v11 = [*(selfCopy + 8) _traitsDescriptionMatching:v13];
@@ -1433,7 +1460,7 @@ LABEL_20:
             v45 = 0u;
             v46 = 0u;
             v44 = 0u;
-            _UIGetTraitMetadata(v23, 0, &v44);
+            _UIGetTraitMetadata(0, v23, &v44);
             v24 = v45;
             v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ = (defaultValue)", v24];
             [v18 addObject:v25];
@@ -1562,13 +1589,13 @@ LABEL_54:
   return v8;
 }
 
-- (uint64_t)_hasTransformWithIdentifier:(uint64_t)identifier
+- (void)_hasTransformWithIdentifier:(void *)identifier
 {
   v3 = a2;
   if (identifier)
   {
-    v4 = *(identifier + 24);
-    v5 = *(identifier + 32);
+    v4 = identifier[3];
+    v5 = identifier[4];
     if (v4 == v5)
     {
       identifier = 0;
@@ -1579,8 +1606,8 @@ LABEL_54:
       v6 = v4 + 16;
       do
       {
-        v7 = [v3 isEqualToString:*(v6 - 16)];
-        identifier = v7;
+        isEqualToString = objc_msgSend_isEqualToString_(v3);
+        identifier = isEqualToString;
         if (v6 == v5)
         {
           v8 = 1;
@@ -1588,7 +1615,7 @@ LABEL_54:
 
         else
         {
-          v8 = v7;
+          v8 = isEqualToString;
         }
 
         v6 += 16;
@@ -1741,7 +1768,7 @@ LABEL_23:
     if (v3 != *(identifier + 32))
     {
       v4 = -v3;
-      while (![v15 isEqualToString:*v3])
+      while (!objc_msgSend_isEqualToString_(v15))
       {
         v3 += 16;
         v4 -= 16;
@@ -1819,13 +1846,13 @@ LABEL_15:
   }
 }
 
-- (uint64_t)_hasChildTransformWithIdentifier:(uint64_t)identifier
+- (void)_hasChildTransformWithIdentifier:(void *)identifier
 {
   v3 = a2;
   if (identifier)
   {
-    v4 = *(identifier + 48);
-    v5 = *(identifier + 56);
+    v4 = identifier[6];
+    v5 = identifier[7];
     if (v4 == v5)
     {
       identifier = 0;
@@ -1836,8 +1863,8 @@ LABEL_15:
       v6 = v4 + 16;
       do
       {
-        v7 = [v3 isEqualToString:*(v6 - 16)];
-        identifier = v7;
+        isEqualToString = objc_msgSend_isEqualToString_(v3);
+        identifier = isEqualToString;
         if (v6 == v5)
         {
           v8 = 1;
@@ -1845,7 +1872,7 @@ LABEL_15:
 
         else
         {
-          v8 = v7;
+          v8 = isEqualToString;
         }
 
         v6 += 16;
@@ -1998,7 +2025,7 @@ LABEL_23:
     if (v3 != *(identifier + 56))
     {
       v4 = -v3;
-      while (![v15 isEqualToString:*v3])
+      while (!objc_msgSend_isEqualToString_(v15))
       {
         v3 += 16;
         v4 -= 16;

@@ -84,8 +84,7 @@
     v3 = off_1E7CDD5E8[status];
   }
 
-  persistentID = self->_persistentID;
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@ %@", v3, persistentID, self->_bundleID];
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@ %@", v3, self->_persistentID, self->_bundleID];
 }
 
 - (ASDJobResult)initWithCoder:(id)coder

@@ -12,6 +12,7 @@
 - (unsigned)isNetworkKnown:(id)known;
 - (void)addToKnownNetworkGuessingDictionaryTheNetwork:(__WiFiNetwork *)network;
 - (void)checkForWiFiPasswordChange;
+- (void)checkIfSoftwareUpdateStateEntered:(unsigned __int16)entered;
 - (void)companionReAssociationWaitTimerFired:(id)fired;
 - (void)createKnownNetworkGuessingDictionary;
 - (void)currentNetworkChanged;
@@ -38,6 +39,7 @@
 - (void)sendCurrentCompanionNetworkWithChannelUpdate:(unsigned __int8)update;
 - (void)sendLocaleToGizmo:(id)gizmo;
 - (void)sendToGizmoOfDataType:(int64_t)type;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context;
 - (void)service:(id)service connectedDevicesChanged:(id)changed;
 - (void)service:(id)service devicesChanged:(id)changed;
@@ -201,6 +203,32 @@
   v5 = objc_autoreleasePoolPush();
   userInfo = [state userInfo];
   -[WiFiIDSSyncEngine checkIfSoftwareUpdateStateEntered:](self, "checkIfSoftwareUpdateStateEntered:", [objc_msgSend(userInfo objectForKey:{NRPairedDeviceRegistryCompatibilityStateKey), "integerValue"}]);
+
+  objc_autoreleasePoolPop(v5);
+}
+
+- (void)checkIfSoftwareUpdateStateEntered:(unsigned __int16)entered
+{
+  enteredCopy = entered;
+  v5 = objc_autoreleasePoolPush();
+  v6 = objc_autoreleasePoolPush();
+  if (off_100298C40)
+  {
+    [off_100298C40 WFLog:3 message:{"%s: Entered NR Compatibility State %d", "-[WiFiIDSSyncEngine checkIfSoftwareUpdateStateEntered:]", enteredCopy}];
+  }
+
+  objc_autoreleasePoolPop(v6);
+  if (enteredCopy == 2)
+  {
+    v7 = +[NSNotificationCenter defaultCenter];
+    [(NSNotificationCenter *)v7 removeObserver:self name:NRPairedDeviceRegistryDeviceDidEnterCompatibilityStateNotification object:0];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10011F28C;
+    block[3] = &unk_10025ED68;
+    block[4] = self;
+    dispatch_async([(WiFiIDSSyncEngine *)self managerQueue], block);
+  }
 
   objc_autoreleasePoolPop(v5);
 }
@@ -846,6 +874,173 @@ LABEL_12:
   objc_autoreleasePoolPop(v6);
 }
 
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  v11 = objc_autoreleasePoolPush();
+  [(WiFiIDSSyncEngine *)self setIsWaitingForIdsSendResponse:0];
+  v12 = [(NSString *)[(WiFiIDSSyncEngine *)self lastSyncedKnownNetworksDataGUID] isEqualToString:identifier];
+  if (v12)
+  {
+    v24 = 0;
+    v13 = 0;
+    v14 = 0;
+    v25 = 0;
+  }
+
+  else
+  {
+    if ([(NSString *)[(WiFiIDSSyncEngine *)self lastSyncedKnownNetworkPayloadDataGUID] isEqualToString:identifier])
+    {
+      v13 = 0;
+      v14 = 0;
+      v24 = 1;
+      v15 = 3;
+    }
+
+    else if ([(NSString *)[(WiFiIDSSyncEngine *)self lastSyncedCompanionAssistedAutoJoinDataGUID] isEqualToString:identifier])
+    {
+      v24 = 0;
+      v14 = 0;
+      v13 = 1;
+      v15 = 1;
+    }
+
+    else
+    {
+      if (![(NSString *)[(WiFiIDSSyncEngine *)self lastSyncedCompanionLocaleGUID] isEqualToString:identifier])
+      {
+        v21 = objc_autoreleasePoolPush();
+        if (off_100298C40)
+        {
+          [off_100298C40 WFLog:4 message:{"%s: Unrecogonized ID... success %d, error %@, id %@, KNs guid %@, AJA guid %@", "-[WiFiIDSSyncEngine service:account:identifier:didSendWithSuccess:error:]", successCopy, error, identifier, -[WiFiIDSSyncEngine lastSyncedKnownNetworksDataGUID](self, "lastSyncedKnownNetworksDataGUID"), -[WiFiIDSSyncEngine lastSyncedCompanionAssistedAutoJoinDataGUID](self, "lastSyncedCompanionAssistedAutoJoinDataGUID")}];
+        }
+
+        goto LABEL_38;
+      }
+
+      v24 = 0;
+      v13 = 0;
+      v14 = 1;
+      v15 = 2;
+    }
+
+    v25 = v15;
+  }
+
+  v16 = objc_autoreleasePoolPush();
+  if (off_100298C40)
+  {
+    [off_100298C40 WFLog:3 message:{"%s: %d, error %@, idsSendFailureCount %lu, data type <%@>", "-[WiFiIDSSyncEngine service:account:identifier:didSendWithSuccess:error:]", successCopy, error, -[WiFiIDSSyncEngine idsSendFailureCount](self, "idsSendFailureCount"), +[WiFiIDSSyncEngine getStringForDataType:](WiFiIDSSyncEngine, "getStringForDataType:", v25)}];
+  }
+
+  objc_autoreleasePoolPop(v16);
+  if (successCopy)
+  {
+    if (v12)
+    {
+      [(WiFiIDSSyncEngine *)self setLastSyncedKnownNetworksData:0];
+    }
+
+    if (v24)
+    {
+      [(WiFiIDSSyncEngine *)self setLastSyncedKnownNetworkPayloadData:0];
+      if (!v13)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else if (!v13)
+    {
+LABEL_17:
+      if (!v14)
+      {
+        goto LABEL_19;
+      }
+
+      goto LABEL_18;
+    }
+
+    [(WiFiIDSSyncEngine *)self setLastSyncedCompanionAssistedAutoJoinData:0];
+    if (!v14)
+    {
+LABEL_19:
+      if (![(WiFiIDSSyncEngine *)self lastSyncedCompanionAssistedAutoJoinData]&& ![(WiFiIDSSyncEngine *)self lastSyncedKnownNetworksData]&& ![(WiFiIDSSyncEngine *)self lastSyncedCompanionLocaleData])
+      {
+        [(WiFiIDSSyncEngine *)self setIsWaitingForIdsMessageDelivery:0];
+      }
+
+      [(WiFiIDSSyncEngine *)self setIdsSendFailureCount:0];
+      [(WiFiIDSSyncEngine *)self setReSendIdsMessageBitMap:[(WiFiIDSSyncEngine *)self reSendIdsMessageBitMap]& ~(1 << v25)];
+      if (v12)
+      {
+        v17 = objc_autoreleasePoolPush();
+        if (off_100298C40)
+        {
+          [off_100298C40 WFLog:3 message:{"%s: known networks delivered, now resend companion assist", "-[WiFiIDSSyncEngine service:account:identifier:didSendWithSuccess:error:]"}];
+        }
+
+        objc_autoreleasePoolPop(v17);
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_100120B14;
+        block[3] = &unk_10025ED68;
+        block[4] = self;
+        dispatch_async([(WiFiIDSSyncEngine *)self managerQueue], block);
+      }
+
+      goto LABEL_36;
+    }
+
+LABEL_18:
+    [(WiFiIDSSyncEngine *)self setLastSyncedCompanionLocaleData:0];
+    goto LABEL_19;
+  }
+
+  if ([(WiFiIDSSyncEngine *)self idsSendFailureCount]> 4)
+  {
+LABEL_36:
+    v21 = objc_autoreleasePoolPush();
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:3 message:{"%s: failure count %ld, reSendIdsMessageBitMap 0x%lx, is waiting for delivery %d", "-[WiFiIDSSyncEngine service:account:identifier:didSendWithSuccess:error:]", -[WiFiIDSSyncEngine idsSendFailureCount](self, "idsSendFailureCount"), -[WiFiIDSSyncEngine reSendIdsMessageBitMap](self, "reSendIdsMessageBitMap"), -[WiFiIDSSyncEngine isWaitingForIdsMessageDelivery](self, "isWaitingForIdsMessageDelivery"), v22, v23}];
+    }
+
+LABEL_38:
+    objc_autoreleasePoolPop(v21);
+    goto LABEL_39;
+  }
+
+  [(WiFiIDSSyncEngine *)self setIdsSendFailureCount:[(WiFiIDSSyncEngine *)self idsSendFailureCount]+ 1];
+  if ([(WiFiIDSSyncEngine *)self idsSendFailureCount]!= 5)
+  {
+    v18 = [error code] == 27 ? 1 : v12;
+    if ((v18 & 1) == 0)
+    {
+      v19 = objc_autoreleasePoolPush();
+      if (off_100298C40)
+      {
+        [off_100298C40 WFLog:3 message:{"%s: will retry ids send in 60secs...", "-[WiFiIDSSyncEngine service:account:identifier:didSendWithSuccess:error:]"}];
+      }
+
+      objc_autoreleasePoolPop(v19);
+      v20 = dispatch_time(0, 60000000000);
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_100120B08;
+      v27[3] = &unk_10025F5F8;
+      v27[4] = self;
+      v27[5] = v25;
+      dispatch_after(v20, [(WiFiIDSSyncEngine *)self serialIdsDispatchQ], v27);
+      goto LABEL_36;
+    }
+  }
+
+LABEL_39:
+  objc_autoreleasePoolPop(v11);
+}
+
 - (BOOL)doesNetworkContainBssidForGuessing2GhzNetwork:(__WiFiNetwork *)network
 {
   if (network)
@@ -1071,13 +1266,13 @@ LABEL_8:
           if ((valuePtr & 0xFFFFFFFB) != 1 && (!sub_10009ED84(v15) || !sub_1000A1F04(v15)))
           {
             [(WiFiIDSSyncEngine *)self removeFromKnownNetworkGuessingDictionaryTheNetwork:v15];
-            sub_100081634([(WiFiIDSSyncEngine *)self manager], v15, 21);
+            sub_100081634([(WiFiIDSSyncEngine *)self manager], v15, 0x15);
             if (![(WiFiIDSSyncEngine *)self getCorresponding5GhzSsidInPlistFor2GhzNetwork:v15])
             {
               [(WiFiIDSSyncEngine *)self removeFromKnownNetworkGuessingDictionaryTheNetwork:v15];
             }
 
-            sub_100081634([(WiFiIDSSyncEngine *)self manager], v15, 21);
+            sub_100081634([(WiFiIDSSyncEngine *)self manager], v15, 0x15);
           }
         }
       }
@@ -1374,7 +1569,7 @@ LABEL_25:
 
                 objc_autoreleasePoolPop(v13);
                 [(WiFiIDSSyncEngine *)self removeFromKnownNetworkGuessingDictionaryTheNetwork:v9];
-                sub_100081634([(WiFiIDSSyncEngine *)self manager], v9, 21);
+                sub_100081634([(WiFiIDSSyncEngine *)self manager], v9, 0x15);
               }
 
               goto LABEL_19;
@@ -1434,7 +1629,7 @@ LABEL_33:
 
                 objc_autoreleasePoolPop(v20);
                 [(WiFiIDSSyncEngine *)self removeFromKnownNetworkGuessingDictionaryTheNetwork:v9];
-                sub_100081634([(WiFiIDSSyncEngine *)self manager], v9, 21);
+                sub_100081634([(WiFiIDSSyncEngine *)self manager], v9, 0x15);
               }
             }
           }
@@ -1755,35 +1950,35 @@ LABEL_94:
   {
     if ([(WiFiIDSSyncEngine *)self pairedDeviceDestinationID])
     {
-      v29[0] = 0;
-      v29[1] = v29;
-      v29[2] = 0x3052000000;
-      v29[3] = sub_100002C00;
-      v29[4] = sub_1000067E4;
-      v29[5] = sub_10000D83C("[WiFiIDSSyncEngine syncKnownWiFiNetwork:withOperation:]");
+      v30[0] = 0;
+      v30[1] = v30;
+      v30[2] = 0x3052000000;
+      v30[3] = sub_100002C00;
+      v30[4] = sub_1000067E4;
+      v30[5] = sub_10000D83C("[WiFiIDSSyncEngine syncKnownWiFiNetwork:withOperation:]");
       v8 = +[NSMutableDictionary dictionary];
       v9 = sub_1000A6B78();
-      v27 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
-      v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v27 = 0u;
+      v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v10)
       {
-        v11 = *v26;
+        v11 = *v27;
         do
         {
           for (i = 0; i != v10; i = i + 1)
           {
-            if (*v26 != v11)
+            if (*v27 != v11)
             {
               objc_enumerationMutation(v9);
             }
 
-            [v8 setObject:*(*(&v25 + 1) + 8 * i) forKeyedSubscript:{objc_msgSend(*(*(&v25 + 1) + 8 * i), "objectForKeyedSubscript:", kSecAttrAccount)}];
+            [v8 setObject:*(*(&v26 + 1) + 8 * i) forKeyedSubscript:{objc_msgSend(*(*(&v26 + 1) + 8 * i), "objectForKeyedSubscript:", kSecAttrAccount)}];
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v10);
@@ -1811,17 +2006,16 @@ LABEL_94:
           if (!v16)
           {
 LABEL_35:
-            _Block_object_dispose(v29, 8);
+            _Block_object_dispose(v30, 8);
             goto LABEL_36;
           }
 
           [v15 setObject:v16 forKey:@"WiFiNetworkPasswordString"];
-          if (!sub_1000A13F8(network))
+          if (!sub_1000A13F8(network, v17))
           {
-            v17 = [objc_msgSend(v8 objectForKeyedSubscript:{sub_10000A878(network)), "objectForKeyedSubscript:", kSecAttrModificationDate}];
-            sub_1000A12E4(network, v17);
-            [(WiFiIDSSyncEngine *)self manager];
-            sub_10007D980();
+            v18 = [objc_msgSend(v8 objectForKeyedSubscript:{sub_10000A878(network)), "objectForKeyedSubscript:", kSecAttrModificationDate}];
+            sub_1000A12E4(network, v18);
+            sub_10007D980([(WiFiIDSSyncEngine *)self manager], network, 0);
           }
         }
 
@@ -1830,30 +2024,30 @@ LABEL_35:
           v16 = 0;
         }
 
-        v18 = sub_10000A540(network, @"NetworkOfInterestHomeState");
-        if (v18)
+        v19 = sub_10000A540(network, @"NetworkOfInterestHomeState");
+        if (v19)
         {
-          [v15 setObject:v18 forKey:@"NetworkOfInterestHomeState"];
-          v19 = objc_autoreleasePoolPush();
+          [v15 setObject:v19 forKey:@"NetworkOfInterestHomeState"];
+          v20 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
             [off_100298C40 WFLog:3 message:{"%s: WFMacRandomisation : syncing NOI for network : <%@>", "-[WiFiIDSSyncEngine syncKnownWiFiNetwork:withOperation:]", sub_10000A878(network)}];
           }
 
-          objc_autoreleasePoolPop(v19);
+          objc_autoreleasePoolPop(v20);
         }
 
-        v20 = sub_10000A540(network, @"NetworkAtLocationOfInterestType");
-        if (v20)
+        v21 = sub_10000A540(network, @"NetworkAtLocationOfInterestType");
+        if (v21)
         {
-          [v15 setObject:v20 forKey:@"NetworkAtLocationOfInterestType"];
-          v21 = objc_autoreleasePoolPush();
+          [v15 setObject:v21 forKey:@"NetworkAtLocationOfInterestType"];
+          v22 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
             [off_100298C40 WFLog:3 message:{"%s: WFMacRandomisation : syncing LOI for network : <%@>", "-[WiFiIDSSyncEngine syncKnownWiFiNetwork:withOperation:]", sub_10000A878(network)}];
           }
 
-          objc_autoreleasePoolPop(v21);
+          objc_autoreleasePoolPop(v22);
         }
 
         if (v16)
@@ -1869,7 +2063,7 @@ LABEL_35:
       operationCopy = operation;
       block[4] = v15;
       block[5] = self;
-      block[6] = v29;
+      block[6] = v30;
       dispatch_async([(WiFiIDSSyncEngine *)self serialIdsDispatchQ], block);
 
       goto LABEL_35;
@@ -1922,28 +2116,28 @@ LABEL_36:
   [(WiFiIDSSyncEngine *)self setKnownNetworks:sub_100072D44([(WiFiIDSSyncEngine *)self manager])];
   v6 = +[NSMutableDictionary dictionary];
   v7 = sub_1000A6B78();
-  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v28 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v25 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [v6 setObject:*(*(&v24 + 1) + 8 * i) forKeyedSubscript:{objc_msgSend(*(*(&v24 + 1) + 8 * i), "objectForKeyedSubscript:", kSecAttrAccount)}];
+        [v6 setObject:*(*(&v25 + 1) + 8 * i) forKeyedSubscript:{objc_msgSend(*(*(&v25 + 1) + 8 * i), "objectForKeyedSubscript:", kSecAttrAccount)}];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v9);
@@ -1951,7 +2145,7 @@ LABEL_36:
 
   if ([(NSArray *)[(WiFiIDSSyncEngine *)self knownNetworks] count])
   {
-    v23 = v5;
+    v24 = v5;
     v12 = v3;
     v13 = 0;
     v14 = 0;
@@ -1961,22 +2155,21 @@ LABEL_36:
       v16 = sub_10000A878(v15);
       if (sub_10009F418(v15))
       {
-        v17 = sub_1000A13F8(v15);
-        v18 = [objc_msgSend(v6 objectForKeyedSubscript:{v16), "objectForKeyedSubscript:", kSecAttrModificationDate}];
-        v19 = v18;
-        if (v17 && v18)
+        v18 = sub_1000A13F8(v15, v17);
+        v19 = [objc_msgSend(v6 objectForKeyedSubscript:{v16), "objectForKeyedSubscript:", kSecAttrModificationDate}];
+        v20 = v19;
+        if (v18 && v19)
         {
-          if (CFDateCompare(v17, v18, 0))
+          if (CFDateCompare(v18, v19, 0))
           {
             v14 = 1;
 LABEL_18:
-            sub_1000A12E4(v15, v19);
-            [(WiFiIDSSyncEngine *)self manager];
-            sub_10007D980();
+            sub_1000A12E4(v15, v20);
+            sub_10007D980([(WiFiIDSSyncEngine *)self manager], v15, 0);
           }
         }
 
-        else if (v18)
+        else if (v19)
         {
           goto LABEL_18;
         }
@@ -1985,21 +2178,21 @@ LABEL_18:
       if (++v13 >= [(NSArray *)[(WiFiIDSSyncEngine *)self knownNetworks] count])
       {
         v3 = v12;
-        v5 = v23;
+        v5 = v24;
         if (v14)
         {
           [(WiFiIDSSyncEngine *)self manager];
           [(WiFiIDSSyncEngine *)self knownNetworks];
           sub_10015AD08();
-          v21 = v20;
-          v22 = objc_autoreleasePoolPush();
+          v22 = v21;
+          v23 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
-            [off_100298C40 WFLog:3 message:{"%s: mod date changes saved to the plist: %d", "-[WiFiIDSSyncEngine checkForWiFiPasswordChange]", v21}];
+            [off_100298C40 WFLog:3 message:{"%s: mod date changes saved to the plist: %d", "-[WiFiIDSSyncEngine checkForWiFiPasswordChange]", v22}];
           }
 
-          objc_autoreleasePoolPop(v22);
-          if (v21)
+          objc_autoreleasePoolPop(v23);
+          if (v22)
           {
             [(WiFiIDSSyncEngine *)self knownNetworksListChanged];
           }
@@ -2364,7 +2557,7 @@ LABEL_55:
 
   else
   {
-    LODWORD(intValue2) = 0;
+    intValue2 = 0;
   }
 
   v35 = intValue;
@@ -3042,7 +3235,7 @@ LABEL_15:
         v15[0] = v8;
         v15[1] = v10;
         [(NSMutableDictionary *)[(WiFiIDSSyncEngine *)self bssidGuessingDictionary] setValue:[NSDictionary forKey:"dictionaryWithObjects:forKeys:count:" dictionaryWithObjects:v15 forKeys:v14 count:2], bssid];
-        v11 = sub_100083194([(WiFiIDSSyncEngine *)self manager], v8, bssid);
+        v11 = sub_100083194([(WiFiIDSSyncEngine *)self manager], v8, bssid, v10);
         v12 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {

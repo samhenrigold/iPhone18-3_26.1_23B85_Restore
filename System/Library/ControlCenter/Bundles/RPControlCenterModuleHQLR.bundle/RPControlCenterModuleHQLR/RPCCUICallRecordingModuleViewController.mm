@@ -7,6 +7,7 @@
 - (double)preferredExpandedContentHeight;
 - (void)acquireProcessAssertionWithHandler:(id)handler;
 - (void)addDismissalView;
+- (void)audioOnlyToggled:(BOOL)toggled;
 - (void)authenticateWithCompletionHandler:(id)handler;
 - (void)buttonTapped:(id)tapped forEvent:(id)event;
 - (void)cancelPreviousCountdownRequest;
@@ -41,6 +42,7 @@
 - (void)viewDidLoad;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
+- (void)willTransitionToExpandedContentMode:(BOOL)mode;
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -320,6 +322,15 @@
   v11[2] = sub_7870;
   v11[3] = &unk_30F78;
   [coordinatorCopy animateAlongsideTransition:v12 completion:v11];
+}
+
+- (void)willTransitionToExpandedContentMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v5.receiver = self;
+  v5.super_class = RPCCUICallRecordingModuleViewController;
+  [(RPCCUICallRecordingModuleViewController *)&v5 willTransitionToExpandedContentMode:?];
+  [(RPCCUICallRecordingView *)self->_callRecordingView setUserInteractionEnabled:modeCopy];
 }
 
 - (CGSize)sizeForChildContentContainer:(id)container withParentContainerSize:(CGSize)size
@@ -673,6 +684,24 @@ LABEL_17:
   [(BKSProcessAssertion *)self->_backgroundProcessAssertion invalidate];
   backgroundProcessAssertion = self->_backgroundProcessAssertion;
   self->_backgroundProcessAssertion = 0;
+}
+
+- (void)audioOnlyToggled:(BOOL)toggled
+{
+  toggledCopy = toggled;
+  if (__RPLogLevel <= 1u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 136446722;
+    v7 = "[RPCCUICallRecordingModuleViewController audioOnlyToggled:]";
+    v8 = 1024;
+    v9 = 424;
+    v10 = 1024;
+    v11 = toggledCopy;
+    _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d audioOnly=%d", &v6, 0x18u);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_client);
+  [WeakRetained setHqlrAudioOnly:toggledCopy];
 }
 
 - (void)acquireProcessAssertionWithHandler:(id)handler

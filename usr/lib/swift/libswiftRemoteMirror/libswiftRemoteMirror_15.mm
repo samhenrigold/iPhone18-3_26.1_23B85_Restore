@@ -1,69 +1,3 @@
-void *PrintTypeRef::visitForeignClassTypeRef(PrintTypeRef *this, const swift::reflection::ForeignClassTypeRef *a2)
-{
-  v12 = 7;
-  strcpy(__p, "foreign");
-  for (i = *(this + 2); i; --i)
-  {
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
-  }
-
-  v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, __p, 7);
-  if (v12 < 0)
-  {
-    operator delete(__p[0]);
-    v6 = *(a2 + 39);
-    if ((v6 & 0x80000000) == 0)
-    {
-LABEL_5:
-      if (v6)
-      {
-        v10 = 4;
-        strcpy(v9, "name");
-        v8 = *(a2 + 16);
-        goto LABEL_10;
-      }
-
-      return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
-    }
-  }
-
-  else
-  {
-    v6 = *(a2 + 39);
-    if ((v6 & 0x80000000) == 0)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  if (*(a2 + 3))
-  {
-    v10 = 4;
-    strcpy(v9, "name");
-    std::string::__init_copy_ctor_external(&v8, *(a2 + 2), *(a2 + 3));
-LABEL_10:
-    PrintMetadataSource::printField(this, v9, &v8);
-    if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v8.__r_.__value_.__l.__data_);
-      if ((v10 & 0x80000000) == 0)
-      {
-        return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
-      }
-    }
-
-    else if ((v10 & 0x80000000) == 0)
-    {
-      return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
-    }
-
-    operator delete(v9[0]);
-  }
-
-  return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
-}
-
 void *PrintTypeRef::visitObjCClassTypeRef(PrintTypeRef *this, const swift::reflection::ObjCClassTypeRef *a2)
 {
   v12 = 17;
@@ -217,7 +151,7 @@ void *PrintTypeRef::visitOpaqueTypeRef(PrintTypeRef *this, const swift::reflecti
 
 void *PrintTypeRef::visitOpaqueArchetypeTypeRef(PrintTypeRef *this, const swift::reflection::OpaqueArchetypeTypeRef *a2)
 {
-  v34 = 16;
+  v31 = 16;
   strcpy(__p, "opaque_archetype");
   for (i = *(this + 2); i; --i)
   {
@@ -226,13 +160,13 @@ void *PrintTypeRef::visitOpaqueArchetypeTypeRef(PrintTypeRef *this, const swift:
 
   v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
   std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, __p, 16);
-  if (v34 < 0)
+  if (v31 < 0)
   {
     operator delete(*__p);
   }
 
-  v32 = 2;
-  strcpy(v31, "id");
+  v29 = 2;
+  strcpy(v28, "id");
   v6 = *(a2 + 39);
   if (v6 >= 0)
   {
@@ -244,168 +178,165 @@ void *PrintTypeRef::visitOpaqueArchetypeTypeRef(PrintTypeRef *this, const swift:
     v7 = *(a2 + 2);
   }
 
-  v8 = *(a2 + 3);
   if (v6 >= 0)
   {
-    v9 = *(a2 + 39);
+    v8 = *(a2 + 39);
   }
 
   else
   {
-    v9 = *(a2 + 3);
+    v8 = *(a2 + 3);
   }
 
   if (v7)
   {
-    if (v9 > 0x7FFFFFFFFFFFFFF7)
+    if (v8 > 0x7FFFFFFFFFFFFFF7)
     {
       goto LABEL_53;
     }
 
-    if (v9 >= 0x17)
+    if (v8 >= 0x17)
     {
       operator new();
     }
 
-    HIBYTE(v30) = v9;
-    if (v9)
+    HIBYTE(v27) = v8;
+    if (v8)
     {
-      memmove(__dst, v7, v9);
+      memmove(__dst, v7, v8);
     }
 
-    *(__dst + v9) = 0;
+    *(__dst + v8) = 0;
   }
 
   else
   {
     __dst[0] = 0;
     __dst[1] = 0;
-    v30 = 0;
+    v27 = 0;
   }
 
-  PrintMetadataSource::printField(this, v31, __dst);
-  if (SHIBYTE(v30) < 0)
+  PrintMetadataSource::printField(this, v28, __dst);
+  if (SHIBYTE(v27) < 0)
   {
     operator delete(__dst[0]);
-    if ((v32 & 0x80000000) == 0)
+    if ((v29 & 0x80000000) == 0)
     {
       goto LABEL_22;
     }
   }
 
-  else if ((v32 & 0x80000000) == 0)
+  else if ((v29 & 0x80000000) == 0)
   {
     goto LABEL_22;
   }
 
-  operator delete(v31[0]);
+  operator delete(v28[0]);
 LABEL_22:
-  v28 = 11;
-  strcpy(v27, "description");
-  v10 = *(a2 + 63);
-  if (v10 >= 0)
+  v25 = 11;
+  strcpy(v24, "description");
+  v9 = *(a2 + 63);
+  if (v9 >= 0)
   {
-    v11 = a2 + 40;
+    v10 = a2 + 40;
   }
 
   else
   {
-    v11 = *(a2 + 5);
+    v10 = *(a2 + 5);
   }
 
-  v12 = *(a2 + 6);
-  if (v10 >= 0)
+  if (v9 >= 0)
   {
-    v13 = *(a2 + 63);
+    v11 = *(a2 + 63);
   }
 
   else
   {
-    v13 = *(a2 + 6);
+    v11 = *(a2 + 6);
   }
 
-  if (!v11)
+  if (!v10)
   {
-    v25[0] = 0;
-    v25[1] = 0;
-    v26 = 0;
+    v22[0] = 0;
+    v22[1] = 0;
+    v23 = 0;
     goto LABEL_39;
   }
 
-  if (v13 > 0x7FFFFFFFFFFFFFF7)
+  if (v11 > 0x7FFFFFFFFFFFFFF7)
   {
 LABEL_53:
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  if (v13 >= 0x17)
+  if (v11 >= 0x17)
   {
     operator new();
   }
 
-  HIBYTE(v26) = v13;
-  if (v13)
+  HIBYTE(v23) = v11;
+  if (v11)
   {
-    memmove(v25, v11, v13);
+    memmove(v22, v10, v11);
   }
 
-  *(v25 + v13) = 0;
+  *(v22 + v11) = 0;
 LABEL_39:
-  PrintMetadataSource::printField(this, v27, v25);
-  if (SHIBYTE(v26) < 0)
+  PrintMetadataSource::printField(this, v24, v22);
+  if (SHIBYTE(v23) < 0)
   {
-    operator delete(v25[0]);
-    if ((v28 & 0x80000000) == 0)
+    operator delete(v22[0]);
+    if ((v25 & 0x80000000) == 0)
     {
       goto LABEL_41;
     }
   }
 
-  else if ((v28 & 0x80000000) == 0)
+  else if ((v25 & 0x80000000) == 0)
   {
     goto LABEL_41;
   }
 
-  operator delete(v27[0]);
+  operator delete(v24[0]);
 LABEL_41:
   std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ordinal ", 9);
-  v14 = *(a2 + 16);
-  v15 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, " ", 1);
-  v16 = *(a2 + 12);
-  for (j = *(a2 + 13); v16 != j; v16 += 16)
+  v12 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v12, " ", 1);
+  v13 = *(a2 + 12);
+  for (j = *(a2 + 13); v13 != j; v13 += 16)
   {
-    v19 = *v16;
-    v18 = *(v16 + 8);
+    v16 = *v13;
+    v15 = *(v13 + 8);
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "\n", 1);
-    v20 = *(this + 2);
-    v21 = v20 + 2;
-    if (v20 != -2)
+    v17 = *(this + 2);
+    v18 = v17 + 2;
+    if (v17 != -2)
     {
       do
       {
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
-        --v21;
+        --v18;
       }
 
-      while (v21);
+      while (v18);
     }
 
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "args: <", 7);
-    if (v18)
+    if (v15)
     {
-      v22 = 8 * v18;
+      v19 = 8 * v15;
       do
       {
-        v23 = *v19++;
+        v20 = *v16++;
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "\n", 1);
         *(this + 2) += 2;
-        swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(this, v23);
+        swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(this, v20);
         *(this + 2) -= 2;
-        v22 -= 8;
+        v19 -= 8;
       }
 
-      while (v22);
+      while (v19);
     }
 
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ">", 1);
@@ -841,22 +772,22 @@ LABEL_13:
 
 uint64_t TypeRefSubstitution::visitBoundGenericTypeRef(TypeRefSubstitution *this, const swift::reflection::BoundGenericTypeRef *a2)
 {
-  if (*(a2 + 5))
+  v4 = *(a2 + 5);
+  if (v4)
   {
-    v4 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
+    v5 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, v4);
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = *(a2 + 6);
-  v6 = *(a2 + 7);
-  if (v5 != v6)
+  v6 = *(a2 + 6);
+  v7 = *(a2 + 7);
+  if (v6 != v7)
   {
-    v7 = *v5;
-    swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
+    swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, *v6);
     operator new();
   }
 
@@ -864,7 +795,7 @@ uint64_t TypeRefSubstitution::visitBoundGenericTypeRef(TypeRefSubstitution *this
   v12 = 0;
   v13 = 0;
   __p = 0;
-  v9 = swift::reflection::BoundGenericTypeRef::create<swift::reflection::TypeRefBuilder>(v8, a2 + 16, &__p, v4);
+  v9 = swift::reflection::BoundGenericTypeRef::create<swift::reflection::TypeRefBuilder>(v8, a2 + 16, &__p, v5);
   if (__p)
   {
     v12 = __p;
@@ -876,18 +807,18 @@ uint64_t TypeRefSubstitution::visitBoundGenericTypeRef(TypeRefSubstitution *this
 
 const swift::reflection::TupleTypeRef *TypeRefSubstitution::visitTupleTypeRef(TypeRefSubstitution *this, const swift::reflection::TupleTypeRef *a2)
 {
+  v54 = 0;
   v55 = 0;
   v56 = 0;
-  v57 = 0;
+  v51 = 0;
   v52 = 0;
   v53 = 0;
-  v54 = 0;
   v3 = *(a2 + 5);
   v4 = *(a2 + 6);
   if (v3 == v4)
   {
-    v33 = 0;
     v32 = 0;
+    v31 = 0;
   }
 
   else
@@ -896,8 +827,8 @@ const swift::reflection::TupleTypeRef *TypeRefSubstitution::visitTupleTypeRef(Ty
     v6 = *(a2 + 2);
     do
     {
-      v51[0] = v3;
-      v51[1] = v6;
+      v50[0] = v3;
+      v50[1] = v6;
       v7 = *v6;
       if (*v6)
       {
@@ -911,32 +842,32 @@ const swift::reflection::TupleTypeRef *TypeRefSubstitution::visitTupleTypeRef(Ty
 
       if (v8)
       {
-        v50[0] = &v55;
-        v50[1] = v51;
-        v50[2] = &v52;
-        if ((TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitTupleTypeRef(swift::reflection::TupleTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(this, v7, v50) & 1) == 0)
+        v49[0] = &v54;
+        v49[1] = v50;
+        v49[2] = &v51;
+        if ((TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitTupleTypeRef(swift::reflection::TupleTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(this, v7, v49) & 1) == 0)
         {
-          goto LABEL_66;
+          goto LABEL_67;
         }
       }
 
       else
       {
-        v9 = v56;
-        if (v56 >= v57)
+        v9 = v55;
+        if (v55 >= v56)
         {
-          v12 = 0xAAAAAAAAAAAAAAABLL * ((v56 - v55) >> 3) + 1;
+          v12 = 0xAAAAAAAAAAAAAAABLL * ((v55 - v54) >> 3) + 1;
           if (v12 > 0xAAAAAAAAAAAAAAALL)
           {
-            goto LABEL_78;
+            goto LABEL_79;
           }
 
-          if (0x5555555555555556 * ((v57 - v55) >> 3) > v12)
+          if (0x5555555555555556 * ((v56 - v54) >> 3) > v12)
           {
-            v12 = 0x5555555555555556 * ((v57 - v55) >> 3);
+            v12 = 0x5555555555555556 * ((v56 - v54) >> 3);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((v57 - v55) >> 3) >= 0x555555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * ((v56 - v54) >> 3) >= 0x555555555555555)
           {
             v13 = 0xAAAAAAAAAAAAAAALL;
           }
@@ -950,120 +881,122 @@ const swift::reflection::TupleTypeRef *TypeRefSubstitution::visitTupleTypeRef(Ty
           {
             if (v13 <= 0xAAAAAAAAAAAAAAALL)
             {
-              v14 = *v6;
               operator new();
             }
 
-LABEL_77:
+LABEL_78:
             std::string::__throw_length_error[abi:nn200100]();
           }
 
-          v16 = *v6;
-          v17 = (8 * ((v56 - v55) >> 3));
+          v15 = *v6;
+          v16 = (8 * ((v55 - v54) >> 3));
           if (*(v3 + 23) < 0)
           {
-            std::string::__init_copy_ctor_external(v17, *v3, *(v3 + 1));
+            std::string::__init_copy_ctor_external(v16, *v3, *(v3 + 1));
           }
 
           else
           {
-            v18 = *v3;
-            *&dword_10[2 * ((v56 - v55) >> 3)] = *(v3 + 2);
-            *&v17->__r_.__value_.__l.__data_ = v18;
+            v17 = *v3;
+            *&dword_10[2 * ((v55 - v54) >> 3)] = *(v3 + 2);
+            *&v16->__r_.__value_.__l.__data_ = v17;
           }
 
-          v11 = v17 + 1;
-          v19 = v55;
-          v20 = (v17 - (v56 - v55));
-          memcpy(v20, v55, v56 - v55);
-          v55 = v20;
-          v56 = v11;
-          v57 = 0;
-          if (v19)
+          v11 = v16 + 1;
+          v18 = v54;
+          v19 = (v16 - (v55 - v54));
+          memcpy(v19, v54, v55 - v54);
+          v54 = v19;
+          v55 = v11;
+          v56 = 0;
+          if (v18)
           {
-            operator delete(v19);
+            operator delete(v18);
           }
+
+          v7 = v15;
         }
 
         else
         {
           if (*(v3 + 23) < 0)
           {
-            v15 = *v6;
-            std::string::__init_copy_ctor_external(v56, *v3, *(v3 + 1));
+            v14 = *v6;
+            std::string::__init_copy_ctor_external(v55, *v3, *(v3 + 1));
+            v7 = v14;
           }
 
           else
           {
             v10 = *v3;
-            v56->__r_.__value_.__r.__words[2] = *(v3 + 2);
+            v55->__r_.__value_.__r.__words[2] = *(v3 + 2);
             *&v9->__r_.__value_.__l.__data_ = v10;
           }
 
           v11 = v9 + 1;
         }
 
-        v56 = v11;
-        v21 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
-        v22 = v53;
-        if (v53 >= v54)
+        v55 = v11;
+        v20 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, v7);
+        v21 = v52;
+        if (v52 >= v53)
         {
-          v24 = v52;
-          v25 = v53 - v52;
-          v26 = (v53 - v52) >> 3;
-          v27 = v26 + 1;
-          if ((v26 + 1) >> 61)
+          v23 = v51;
+          v24 = v52 - v51;
+          v25 = (v52 - v51) >> 3;
+          v26 = v25 + 1;
+          if ((v25 + 1) >> 61)
           {
-            goto LABEL_79;
+            goto LABEL_80;
           }
 
-          v28 = v54 - v52;
-          if ((v54 - v52) >> 2 > v27)
+          v27 = v53 - v51;
+          if ((v53 - v51) >> 2 > v26)
           {
-            v27 = v28 >> 2;
+            v26 = v27 >> 2;
           }
 
-          if (v28 >= 0x7FFFFFFFFFFFFFF8)
+          if (v27 >= 0x7FFFFFFFFFFFFFF8)
           {
-            v29 = 0x1FFFFFFFFFFFFFFFLL;
+            v28 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v29 = v27;
+            v28 = v26;
           }
 
-          if (v29)
+          if (v28)
           {
-            if (!(v29 >> 61))
+            if (!(v28 >> 61))
             {
               operator new();
             }
 
-            goto LABEL_77;
+            goto LABEL_78;
           }
 
-          v30 = (8 * v26);
-          v31 = &v30[-((v53 - v52) >> 3)];
-          *v30 = v21;
-          v23 = (v30 + 1);
-          memcpy(v31, v24, v25);
-          v52 = v31;
-          v53 = v23;
-          v54 = 0;
-          if (v24)
+          v29 = (8 * v25);
+          v30 = &v29[-((v52 - v51) >> 3)];
+          *v29 = v20;
+          v22 = (v29 + 1);
+          memcpy(v30, v23, v24);
+          v51 = v30;
+          v52 = v22;
+          v53 = 0;
+          if (v23)
           {
-            operator delete(v24);
+            operator delete(v23);
           }
         }
 
         else
         {
-          *v53 = v21;
-          v23 = v22 + 8;
+          *v52 = v20;
+          v22 = v21 + 8;
         }
 
-        v53 = v23;
+        v52 = v22;
       }
 
       v3 = (v3 + 24);
@@ -1071,38 +1004,52 @@ LABEL_77:
     }
 
     while (v4 != v3);
-    v33 = v52;
-    v32 = v53;
+    v32 = v51;
+    v31 = v52;
   }
 
-  if (v32 - v33 == 8)
+  if (v31 - v32 == 8)
   {
-    if ((SHIBYTE(v55->__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+    if ((SHIBYTE(v54->__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
     {
-      if (!v55->__r_.__value_.__l.__size_)
+      if (!v54->__r_.__value_.__l.__size_)
       {
-        goto LABEL_49;
+        goto LABEL_50;
       }
     }
 
-    else if (!*(&v55->__r_.__value_.__s + 23))
+    else if (!*(&v54->__r_.__value_.__s + 23))
     {
-LABEL_49:
-      v5 = *v33;
-      if (*(*v33 + 2) != 24)
+LABEL_50:
+      v5 = *v32;
+      if (*(*v32 + 2) != 24)
       {
-        goto LABEL_66;
+        goto LABEL_67;
       }
     }
   }
 
-  v34 = *this;
-  v48 = 0;
-  v49 = 0;
+  v33 = *this;
   v47 = 0;
-  if (v32 != v33)
+  v48 = 0;
+  v46 = 0;
+  if (v31 != v32)
   {
-    if (((v32 - v33) & 0x8000000000000000) == 0)
+    if (((v31 - v32) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+LABEL_80:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  __p = 0;
+  v44 = 0;
+  v45 = 0;
+  if (v55 != v54)
+  {
+    if (0xAAAAAAAAAAAAAAABLL * ((v55 - v54) >> 3) <= 0xAAAAAAAAAAAAAAALL)
     {
       operator new();
     }
@@ -1111,93 +1058,79 @@ LABEL_79:
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  __p = 0;
-  v45 = 0;
-  v46 = 0;
-  if (v56 != v55)
-  {
-    if (0xAAAAAAAAAAAAAAABLL * ((v56 - v55) >> 3) <= 0xAAAAAAAAAAAAAAALL)
-    {
-      operator new();
-    }
-
-LABEL_78:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  v5 = swift::reflection::TupleTypeRef::create<swift::reflection::TypeRefBuilder>(v34, &v47, &__p);
-  v35 = __p;
+  v5 = swift::reflection::TupleTypeRef::create<swift::reflection::TypeRefBuilder>(v33, &v46, &__p);
+  v34 = __p;
   if (__p)
   {
-    v36 = v45;
-    v37 = __p;
-    if (v45 != __p)
+    v35 = v44;
+    v36 = __p;
+    if (v44 != __p)
     {
       do
       {
-        v38 = *(v36 - 1);
-        v36 -= 3;
-        if (v38 < 0)
+        v37 = *(v35 - 1);
+        v35 -= 3;
+        if (v37 < 0)
         {
-          operator delete(*v36);
+          operator delete(*v35);
         }
       }
 
-      while (v36 != v35);
-      v37 = __p;
+      while (v35 != v34);
+      v36 = __p;
     }
 
-    v45 = v35;
-    operator delete(v37);
+    v44 = v34;
+    operator delete(v36);
   }
 
-  if (v47)
+  if (v46)
   {
-    v48 = v47;
-    operator delete(v47);
+    v47 = v46;
+    operator delete(v46);
   }
 
-LABEL_66:
-  if (v52)
+LABEL_67:
+  if (v51)
   {
-    v53 = v52;
-    operator delete(v52);
+    v52 = v51;
+    operator delete(v51);
   }
 
-  v39 = v55;
-  if (v55)
+  v38 = v54;
+  if (v54)
   {
-    v40 = v56;
-    v41 = v55;
-    if (v56 != v55)
+    v39 = v55;
+    v40 = v54;
+    if (v55 != v54)
     {
       do
       {
-        v42 = SHIBYTE(v40[-1].__r_.__value_.__r.__words[2]);
-        --v40;
-        if (v42 < 0)
+        v41 = SHIBYTE(v39[-1].__r_.__value_.__r.__words[2]);
+        --v39;
+        if (v41 < 0)
         {
-          operator delete(v40->__r_.__value_.__l.__data_);
+          operator delete(v39->__r_.__value_.__l.__data_);
         }
       }
 
-      while (v40 != v39);
-      v41 = v55;
+      while (v39 != v38);
+      v40 = v54;
     }
 
-    v56 = v39;
-    operator delete(v41);
+    v55 = v38;
+    operator delete(v40);
   }
 
   return v5;
 }
 
-const swift::reflection::FunctionTypeRef *TypeRefSubstitution::visitFunctionTypeRef(TypeRefSubstitution *this, __int128 **a2)
+__int128 **TypeRefSubstitution::visitFunctionTypeRef(TypeRefSubstitution *this, __int128 **a2)
 {
   v2 = a2;
-  v24 = 0;
   v25 = 0;
   v26 = 0;
+  v27 = 0;
   v4 = a2[2];
   for (i = a2[3]; v4 != i; v4 += 2)
   {
@@ -1214,10 +1147,10 @@ const swift::reflection::FunctionTypeRef *TypeRefSubstitution::visitFunctionType
 
     if (v9)
     {
-      *&v21 = &v24;
-      *(&v21 + 1) = v4;
-      v22 = this;
-      if ((TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitFunctionTypeRef(swift::reflection::FunctionTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(this, v8, &v21) & 1) == 0)
+      *&v22 = &v25;
+      *(&v22 + 1) = v4;
+      v23 = this;
+      if ((TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitFunctionTypeRef(swift::reflection::FunctionTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(this, v8, &v22) & 1) == 0)
       {
         goto LABEL_21;
       }
@@ -1225,48 +1158,50 @@ const swift::reflection::FunctionTypeRef *TypeRefSubstitution::visitFunctionType
 
     else
     {
-      v6 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
+      v6 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, v8);
       v7 = *(v4 + 6);
-      v21 = *v4;
-      v22 = v6;
-      v23 = v7;
-      std::vector<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>>::push_back[abi:nn200100](&v24, &v21);
+      v22 = *v4;
+      v23 = v6;
+      v24 = v7;
+      std::vector<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>>::push_back[abi:nn200100](&v25, &v22);
     }
   }
 
-  v10 = *(v2 + 5);
-  v11 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
-  v12 = *(v2 + 6);
-  v13 = *(v2 + 14);
-  if (!*(v2 + 9))
+  v10 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, v2[5]);
+  v11 = v2[6];
+  v12 = *(v2 + 14);
+  v13 = v2[9];
+  if (!v13)
   {
     v14 = 0;
-    if (*(v2 + 10))
+    v15 = v2[10];
+    if (v15)
     {
       goto LABEL_13;
     }
 
 LABEL_15:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_16;
   }
 
-  v14 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
-  if (!*(v2 + 10))
+  v14 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, v13);
+  v15 = v2[10];
+  if (!v15)
   {
     goto LABEL_15;
   }
 
 LABEL_13:
-  v15 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
+  v16 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, v15);
 LABEL_16:
-  v16 = *this;
-  v19 = 0;
+  v17 = *this;
   v20 = 0;
+  v21 = 0;
   __p = 0;
-  if (v25 != v24)
+  if (v26 != v25)
   {
-    if (((v25 - v24) & 0x8000000000000000) == 0)
+    if (((v26 - v25) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -1274,18 +1209,18 @@ LABEL_16:
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v2 = swift::reflection::FunctionTypeRef::create<swift::reflection::TypeRefBuilder>(v16, &__p, v11, v12, v13, *(v2 + 8), v14, v15);
+  v2 = swift::reflection::FunctionTypeRef::create<swift::reflection::TypeRefBuilder>(v17, &__p, v10, v11, v12, v2[8], v14, v16);
   if (__p)
   {
-    v19 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 
 LABEL_21:
-  if (v24)
+  if (v25)
   {
-    v25 = v24;
-    operator delete(v24);
+    v26 = v25;
+    operator delete(v25);
   }
 
   return v2;
@@ -1309,7 +1244,7 @@ uint64_t TypeRefSubstitution::visitConstrainedExistentialTypeRef(TypeRefSubstitu
     do
     {
       v5 = *v3;
-      if (swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this) && ((v5 & 7) == 3 || swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this)))
+      if (swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, *v3 & 0xFFFFFFFFFFFFFFF8) && ((v5 & 7) == 3 || swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, v5 & 0xFFFFFFFFFFFFFFF8)))
       {
         operator new();
       }
@@ -1337,119 +1272,118 @@ uint64_t TypeRefSubstitution::visitConstrainedExistentialTypeRef(TypeRefSubstitu
 
 uint64_t TypeRefSubstitution::visitDependentMemberTypeRef(swift::reflection::TypeRefBuilder **this, const swift::reflection::DependentMemberTypeRef *a2)
 {
-  v4 = *(a2 + 5);
-  v5 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
+  v4 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, *(a2 + 5));
   do
   {
-    v6 = v5;
-    if (v5 && (*(v5 + 2) - 3) >= 0xFFFFFFFE)
+    v5 = v4;
+    if (v4 && (*(v4 + 2) - 3) >= 0xFFFFFFFE)
     {
-      v7 = *(a2 + 71);
-      v8 = v7 >= 0 ? (a2 + 48) : *(a2 + 6);
-      v9 = v7 >= 0 ? *(a2 + 71) : *(a2 + 7);
-      v5 = swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::lookupTypeWitness(*this + 236, v5 + 16, a2 + 16, v8, v9);
-      if (v5)
+      v6 = *(a2 + 71);
+      v7 = v6 >= 0 ? (a2 + 48) : *(a2 + 6);
+      v8 = v6 >= 0 ? *(a2 + 71) : *(a2 + 7);
+      v4 = swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::lookupTypeWitness(*this + 236, v4 + 16, a2 + 16, v7, v8);
+      if (v4)
       {
         break;
       }
     }
 
-    v5 = swift::reflection::TypeRefBuilder::lookupSuperclass(*this, v6);
+    v4 = swift::reflection::TypeRefBuilder::lookupSuperclass(*this, v5);
   }
 
-  while (v5);
+  while (v4);
   if ((*(a2 + 71) & 0x80000000) == 0)
   {
-    v28 = *(a2 + 2);
-    v29 = 0;
-    if (v5)
+    v27 = *(a2 + 2);
+    v28 = 0;
+    if (v4)
     {
       goto LABEL_14;
     }
 
 LABEL_18:
-    v15 = *this;
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    v14 = *this;
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v25, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
-      v26 = v29;
-      v16 = 1;
-      v27 = 1;
-      if (v29)
+      std::string::__init_copy_ctor_external(&v24, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
+      v25 = v28;
+      v15 = 1;
+      v26 = 1;
+      if (v28)
       {
-        v13 = 0;
+        v12 = 0;
         goto LABEL_25;
       }
     }
 
     else
     {
-      v25 = v28;
-      v26 = 0;
-      v27 = 1;
+      v24 = v27;
+      v25 = 0;
+      v26 = 1;
     }
 
-    v13 = swift::reflection::DependentMemberTypeRef::create<swift::reflection::TypeRefBuilder>(v15, a2 + 16, v6, &v25);
-    v16 = v27;
+    v12 = swift::reflection::DependentMemberTypeRef::create<swift::reflection::TypeRefBuilder>(v14, a2 + 16, v5, &v24);
+    v15 = v26;
 LABEL_25:
-    if ((v16 & 1) == 0 || (SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((v15 & 1) == 0 || (SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_35;
     }
 
-    v17 = v25.__r_.__value_.__r.__words[0];
+    v16 = v24.__r_.__value_.__r.__words[0];
 LABEL_34:
-    operator delete(v17);
+    operator delete(v16);
     goto LABEL_35;
   }
 
-  v14 = v5;
-  std::string::__init_copy_ctor_external(&v28, *(a2 + 6), *(a2 + 7));
-  v5 = v14;
-  v29 = 0;
-  if (!v14)
+  v13 = v4;
+  std::string::__init_copy_ctor_external(&v27, *(a2 + 6), *(a2 + 7));
+  v4 = v13;
+  v28 = 0;
+  if (!v13)
   {
     goto LABEL_18;
   }
 
 LABEL_14:
-  v10 = v5;
-  swift::reflection::TypeRef::getSubstMap(v6, v22);
-  v11 = *this;
-  if (v24)
+  v9 = v4;
+  swift::reflection::TypeRef::getSubstMap(v5, v21);
+  v10 = *this;
+  if (v23)
   {
-    v12 = swift::reflection::TypeRef::subst(v10, *this, v22);
-    v30 = *this;
-    v13 = swift::reflection::TypeRefVisitor<ThickenMetatype,swift::reflection::TypeRef const*>::visit(&v30, v12);
-    if (v24)
+    v11 = swift::reflection::TypeRef::subst(v9, *this, v21);
+    v29 = *this;
+    v12 = swift::reflection::TypeRefVisitor<ThickenMetatype,swift::reflection::TypeRef const*>::visit(&v29, v11);
+    if (v23)
     {
-      __swift::__runtime::llvm::deallocate_buffer(v22[0], (16 * v23), 8uLL);
+      __swift::__runtime::llvm::deallocate_buffer(v21[0], (16 * v22), 8uLL);
     }
 
     goto LABEL_35;
   }
 
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, v28.__r_.__value_.__l.__data_, v28.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&__p, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v28;
+    __p = v27;
   }
 
-  v20 = v29;
-  v21 = 1;
-  if (v29)
+  v19 = v28;
+  v20 = 1;
+  if (v28)
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v13 = swift::reflection::DependentMemberTypeRef::create<swift::reflection::TypeRefBuilder>(v11, a2 + 16, v6, &__p);
-    if ((v21 & 1) == 0)
+    v12 = swift::reflection::DependentMemberTypeRef::create<swift::reflection::TypeRefBuilder>(v10, a2 + 16, v5, &__p);
+    if ((v20 & 1) == 0)
     {
       goto LABEL_35;
     }
@@ -1457,89 +1391,88 @@ LABEL_14:
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    v17 = __p.__r_.__value_.__r.__words[0];
+    v16 = __p.__r_.__value_.__r.__words[0];
     goto LABEL_34;
   }
 
 LABEL_35:
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
+    operator delete(v27.__r_.__value_.__l.__data_);
   }
 
-  return v13;
+  return v12;
 }
 
 uint64_t TypeRefSubstitution::visitOpaqueArchetypeTypeRef(TypeRefSubstitution *this, const swift::reflection::OpaqueArchetypeTypeRef *a2)
 {
   v2 = *(a2 + 12);
-  for (i = *(a2 + 13); v2 != i; v2 += 2)
+  for (i = *(a2 + 13); v2 != i; v2 += 16)
   {
-    if (v2[1])
+    if (*(v2 + 8))
     {
-      v4 = **v2;
-      swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
+      swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, **v2);
       operator new();
     }
   }
 
-  v5 = *(a2 + 39);
-  if (v5 >= 0)
+  v4 = *(a2 + 39);
+  if (v4 >= 0)
   {
-    v6 = a2 + 16;
+    v5 = a2 + 16;
   }
 
   else
   {
-    v6 = *(a2 + 2);
+    v5 = *(a2 + 2);
   }
 
-  if (v5 >= 0)
+  if (v4 >= 0)
   {
-    v7 = *(a2 + 39);
+    v6 = *(a2 + 39);
   }
 
   else
   {
-    v7 = *(a2 + 3);
+    v6 = *(a2 + 3);
   }
 
-  v8 = *(a2 + 63);
-  if (v8 >= 0)
+  v7 = *(a2 + 63);
+  if (v7 >= 0)
   {
-    v9 = a2 + 40;
+    v8 = a2 + 40;
   }
 
   else
   {
-    v9 = *(a2 + 5);
+    v8 = *(a2 + 5);
   }
 
-  if (v8 >= 0)
+  if (v7 >= 0)
   {
-    v10 = *(a2 + 63);
+    v9 = *(a2 + 63);
   }
 
   else
   {
-    v10 = *(a2 + 6);
+    v9 = *(a2 + 6);
   }
 
-  return swift::reflection::OpaqueArchetypeTypeRef::create<swift::reflection::TypeRefBuilder>(*this, v6, v7, v9, v10, *(a2 + 16), 0, 0);
+  return swift::reflection::OpaqueArchetypeTypeRef::create<swift::reflection::TypeRefBuilder>(*this, v5, v6, v8, v9, *(a2 + 16), 0, 0);
 }
 
 const swift::reflection::PackTypeRef *TypeRefSubstitution::visitPackTypeRef(TypeRefSubstitution *this, const swift::reflection::PackTypeRef *a2)
 {
-  v21 = 0;
   v22 = 0;
   v23 = 0;
+  v24 = 0;
   v3 = *(a2 + 2);
   v4 = *(a2 + 3);
   if (v3 == v4)
   {
-    v16 = *this;
-    v19 = 0;
+    v17 = *this;
     v20 = 0;
+    v21 = 0;
     __p = 0;
   }
 
@@ -1548,19 +1481,20 @@ const swift::reflection::PackTypeRef *TypeRefSubstitution::visitPackTypeRef(Type
     v5 = a2;
     do
     {
+      v6 = *v3;
       if (*v3)
       {
-        v6 = *(*v3 + 8) == 24;
+        v7 = *(*v3 + 8) == 24;
       }
 
       else
       {
-        v6 = 0;
+        v7 = 0;
       }
 
-      if (v6)
+      if (v7)
       {
-        if ((TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitPackTypeRef(swift::reflection::PackTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(this, *v3, &v21) & 1) == 0)
+        if ((TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitPackTypeRef(swift::reflection::PackTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(this, v6, &v22) & 1) == 0)
         {
           goto LABEL_29;
         }
@@ -1568,38 +1502,38 @@ const swift::reflection::PackTypeRef *TypeRefSubstitution::visitPackTypeRef(Type
 
       else
       {
-        v7 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this);
-        v8 = v22;
-        if (v22 >= v23)
+        v8 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(this, v6);
+        v9 = v23;
+        if (v23 >= v24)
         {
-          v10 = v21;
-          v11 = v22 - v21;
-          v12 = (v22 - v21) >> 3;
-          v13 = v12 + 1;
-          if ((v12 + 1) >> 61)
+          v11 = v22;
+          v12 = v23 - v22;
+          v13 = (v23 - v22) >> 3;
+          v14 = v13 + 1;
+          if ((v13 + 1) >> 61)
           {
             goto LABEL_32;
           }
 
-          v14 = v23 - v21;
-          if ((v23 - v21) >> 2 > v13)
+          v15 = v24 - v22;
+          if ((v24 - v22) >> 2 > v14)
           {
-            v13 = v14 >> 2;
+            v14 = v15 >> 2;
           }
 
-          if (v14 >= 0x7FFFFFFFFFFFFFF8)
+          if (v15 >= 0x7FFFFFFFFFFFFFF8)
           {
-            v15 = 0x1FFFFFFFFFFFFFFFLL;
+            v16 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v15 = v13;
+            v16 = v14;
           }
 
-          if (v15)
+          if (v16)
           {
-            if (!(v15 >> 61))
+            if (!(v16 >> 61))
             {
               operator new();
             }
@@ -1607,38 +1541,38 @@ const swift::reflection::PackTypeRef *TypeRefSubstitution::visitPackTypeRef(Type
             std::string::__throw_length_error[abi:nn200100]();
           }
 
-          *(8 * v12) = v7;
-          v9 = 8 * v12 + 8;
-          memcpy(0, v10, v11);
-          v21 = 0;
-          v22 = v9;
-          v23 = 0;
-          if (v10)
+          *(8 * v13) = v8;
+          v10 = 8 * v13 + 8;
+          memcpy(0, v11, v12);
+          v22 = 0;
+          v23 = v10;
+          v24 = 0;
+          if (v11)
           {
-            operator delete(v10);
+            operator delete(v11);
           }
         }
 
         else
         {
-          *v22 = v7;
-          v9 = (v8 + 8);
+          *v23 = v8;
+          v10 = (v9 + 8);
         }
 
-        v22 = v9;
+        v23 = v10;
       }
 
       ++v3;
     }
 
     while (v3 != v4);
-    v16 = *this;
-    v19 = 0;
+    v17 = *this;
     v20 = 0;
+    v21 = 0;
     __p = 0;
-    if (v22 != v21)
+    if (v23 != v22)
     {
-      if (((v22 - v21) & 0x8000000000000000) == 0)
+      if (((v23 - v22) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -1648,26 +1582,26 @@ LABEL_32:
     }
   }
 
-  v5 = swift::reflection::PackTypeRef::create<swift::reflection::TypeRefBuilder>(v16, &__p);
+  v5 = swift::reflection::PackTypeRef::create<swift::reflection::TypeRefBuilder>(v17, &__p);
   if (__p)
   {
-    v19 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 
 LABEL_29:
-  if (v21)
+  if (v22)
   {
-    v22 = v21;
-    operator delete(v21);
+    v23 = v22;
+    operator delete(v22);
   }
 
   return v5;
 }
 
-uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitTupleTypeRef(swift::reflection::TupleTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(void *a1, uint64_t a2, uint64_t *a3)
+uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitTupleTypeRef(swift::reflection::TupleTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
-  v6 = swift::reflection::TypeRef::subst(*(a2 + 24), *a1, a1 + 1);
+  v6 = swift::reflection::TypeRef::subst(*(a2 + 24), *a1, (a1 + 1));
   if (v6)
   {
     v7 = *(v6 + 8) == 23;
@@ -1684,43 +1618,42 @@ uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitTupl
   }
 
   v9 = v6;
-  v19 = 0;
-  std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 4), &v19);
+  v18 = 0;
+  std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 4), &v18);
   v10 = *(v9 + 16);
   v11 = *(v9 + 24);
   if (v10 != v11)
   {
     while (*(*v10 + 8) != 24)
     {
-      v14 = *(a2 + 16);
-      v20 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
-      v15 = *a3;
-      v16 = *a3[1];
-      v17 = *(*a3 + 8);
-      if (v17 >= *(*a3 + 16))
+      v19 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(a2 + 16));
+      v14 = *a3;
+      v15 = *a3[1];
+      v16 = *(*a3 + 8);
+      if (v16 >= *(*a3 + 16))
       {
-        v13 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(*a3, v16);
+        v13 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(*a3, v15);
       }
 
       else
       {
-        if (*(v16 + 23) < 0)
+        if (*(v15 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(*(*a3 + 8), *v16, *(v16 + 8));
+          std::string::__init_copy_ctor_external(*(*a3 + 8), *v15, *(v15 + 8));
         }
 
         else
         {
-          v18 = *v16;
-          *(v17 + 16) = *(v16 + 16);
-          *v17 = v18;
+          v17 = *v15;
+          *(v16 + 16) = *(v15 + 16);
+          *v16 = v17;
         }
 
-        v13 = (v17 + 24);
+        v13 = (v16 + 24);
       }
 
-      *(v15 + 8) = v13;
-      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](a3[2], &v20);
+      *(v14 + 8) = v13;
+      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](a3[2], &v19);
       v12 = a1[5];
       ++*(v12 - 4);
       v10 += 8;
@@ -1800,9 +1733,9 @@ std::string *std::vector<std::string>::__emplace_back_slow_path<std::string cons
   return v6;
 }
 
-uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitFunctionTypeRef(swift::reflection::FunctionTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(void *a1, uint64_t a2, uint64_t *a3)
+uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitFunctionTypeRef(swift::reflection::FunctionTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
-  v6 = swift::reflection::TypeRef::subst(*(a2 + 24), *a1, a1 + 1);
+  v6 = swift::reflection::TypeRef::subst(*(a2 + 24), *a1, (a1 + 1));
   if (v6)
   {
     v7 = *(v6 + 8) == 23;
@@ -1827,11 +1760,10 @@ uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitFunc
   {
     while (*(*v10 + 8) != 24)
     {
-      v12 = *(a2 + 16);
-      swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
+      v12 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(a2 + 16));
       v13 = a3[1];
       v14 = *a3;
-      v15 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a3[2]);
+      v15 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a3[2], v12);
       v16 = *(v13 + 24);
       v18 = *v13;
       v19 = v15;
@@ -1855,7 +1787,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t swift::reflection::TypeRefVisitor<ThickenMetatype,swift::reflection::TypeRef const*>::visit(ThickenMetatype *a1, uint64_t a2)
+_DWORD *swift::reflection::TypeRefVisitor<ThickenMetatype,swift::reflection::TypeRef const*>::visit(ThickenMetatype *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1995,7 +1927,7 @@ uint64_t ThickenMetatype::visitBoundGenericTypeRef(ThickenMetatype *this, const 
   return v8;
 }
 
-uint64_t ThickenMetatype::visitTupleTypeRef(ThickenMetatype *this, const swift::reflection::TupleTypeRef *a2)
+_DWORD *ThickenMetatype::visitTupleTypeRef(ThickenMetatype *this, const swift::reflection::TupleTypeRef *a2)
 {
   v2 = *(a2 + 2);
   if (v2 != *(a2 + 3))
@@ -2131,7 +2063,7 @@ uint64_t ThickenMetatype::visitFunctionTypeRef(ThickenMetatype *this, const swif
   return v16;
 }
 
-uint64_t ThickenMetatype::visitPackTypeRef(ThickenMetatype *this, const swift::reflection::PackTypeRef *a2)
+_DWORD *ThickenMetatype::visitPackTypeRef(ThickenMetatype *this, const swift::reflection::PackTypeRef *a2)
 {
   v2 = *(a2 + 2);
   if (v2 != *(a2 + 3))
@@ -2154,9 +2086,9 @@ uint64_t ThickenMetatype::visitPackTypeRef(ThickenMetatype *this, const swift::r
   return v4;
 }
 
-uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitPackTypeRef(swift::reflection::PackTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitPackTypeRef(swift::reflection::PackTypeRef const*)::{lambda(swift::reflection::TypeRef const*)#1}>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = swift::reflection::TypeRef::subst(*(a2 + 24), *a1, a1 + 1);
+  v6 = swift::reflection::TypeRef::subst(*(a2 + 24), *a1, (a1 + 1));
   if (v6)
   {
     v7 = *(v6 + 8) == 23;
@@ -2173,19 +2105,18 @@ uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitPack
   }
 
   v9 = v6;
-  v14 = 0;
-  std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 4), &v14);
+  v13 = 0;
+  std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 4), &v13);
   v11 = *(v9 + 16);
   v10 = *(v9 + 24);
   if (v11 != v10)
   {
     while (*(*v11 + 8) != 24)
     {
-      v12 = *(a2 + 16);
-      v15 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
-      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](a3, &v15);
-      v13 = a1[5];
-      ++*(v13 - 4);
+      v14 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(a2 + 16));
+      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](a3, &v14);
+      v12 = a1[5];
+      ++*(v12 - 4);
       v11 += 8;
       if (v11 == v10)
       {
@@ -2196,9 +2127,9 @@ uint64_t TypeRefSubstitution::expandPackExpansion<TypeRefSubstitution::visitPack
     return 0;
   }
 
-  v13 = a1[5];
+  v12 = a1[5];
 LABEL_11:
-  a1[5] = v13 - 4;
+  a1[5] = v12 - 4;
   return 1;
 }
 
@@ -2217,10 +2148,10 @@ _DWORD *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMa
   return v5;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::decodeMangledType(swift::reflection::TypeRefBuilder *this, swift::Demangle::__runtime::Node *a2, uint64_t a3)
+uint64_t swift::reflection::TypeRefBuilder::decodeMangledType(swift::reflection::TypeRefBuilder *this, uint64_t **a2, uint64_t a3)
 {
   v6 = this;
-  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(v4, &v6, a2, 0, a3);
+  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v6, a2, 0, a3, v4);
   if (v5 == 1)
   {
     (v4[1])(v4[0], 3, 0);
@@ -2238,9 +2169,9 @@ uint64_t swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::find
 {
   v7 = a1[4];
   v8 = a1[5];
-  v9 = (a1 + 4);
+  v9 = a1 + 4;
   v10 = v8 - v7;
-  v11 = 0x8E38E38E38E38E39 * ((*(v9 - 16) - *(v9 - 24)) >> 5);
+  v11 = 0x8E38E38E38E38E39 * ((*(v9 - 2) - *(v9 - 3)) >> 5);
   if (v10 != v11)
   {
     if (v10 < v11)
@@ -2491,7 +2422,7 @@ LABEL_20:
           v33 = v38;
           __p[0] = 0;
           __p[24] = 0;
-          std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::optional<std::string>>>(a1 + 21, &v33);
+          std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::optional<std::string>>>(a1 + 21, &v33, &v33);
           if (__p[24] == 1 && (__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -2502,13 +2433,13 @@ LABEL_20:
           goto LABEL_65;
         }
 
-        swift::Demangle::__runtime::mangleNode();
+        swift::Demangle::__runtime::mangleNode(v17, 0);
         if (v33)
         {
           v30 = v38;
           v31.__r_.__value_.__s.__data_[0] = 0;
           v32 = 0;
-          std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::optional<std::string>>>(a1 + 21, &v30);
+          std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::optional<std::string>>>(a1 + 21, &v30, &v30);
           if (v32 == 1 && SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v31.__r_.__value_.__l.__data_);
@@ -2531,7 +2462,7 @@ LABEL_20:
             v31 = *&__p[8];
           }
 
-          std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::string>>(a1 + 21, &v30);
+          std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::string>>(a1 + 21, &v30, &v30);
           if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v31.__r_.__value_.__l.__data_);
@@ -2591,7 +2522,7 @@ LABEL_20:
           std::string::__init_copy_ctor_external(__p, v30, *(&v30 + 1));
           v26 = 1;
 LABEL_45:
-          std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::string>>(a1 + 21, &v33);
+          std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::string>>(a1 + 21, &v33, &v33);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -2957,8 +2888,8 @@ LABEL_130:
       }
 
       swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::readTypeRef(a1, v32, v33, &v94);
-      v34 = *(v8 + 23);
-      v35 = v8[1];
+      v34 = v8[23];
+      v35 = *(v8 + 1);
       if ((v34 & 0x80u) == 0)
       {
         v36 = v8;
@@ -3188,7 +3119,7 @@ LABEL_88:
       v68 = v67;
       if ((v67 & 0x80u) != 0)
       {
-        v67 = v90[1];
+        v67 = *(v90 + 8);
       }
 
       if (v68 >= 0)
@@ -3284,7 +3215,7 @@ LABEL_88:
 
     v79 = (*(*v78 + 48))(v78, v91, v108);
     v108[0] = a1[40];
-    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(v91, v108, v79, 0, 1);
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(v108, v79, 0, 1, v91);
     if (v92 == 1)
     {
       (v91[1])(v91[0], 3, 0);
@@ -3314,7 +3245,7 @@ LABEL_157:
 
     v84 = v80;
     v93 = v80;
-    std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>>>::__emplace_unique_key_args<swift::reflection::TypeRefID,std::pair<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>>(a1 + 31, v91);
+    std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>>>::__emplace_unique_key_args<swift::reflection::TypeRefID,std::pair<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>>(a1 + 31, v91, v91);
     if (v91[0])
     {
       v91[1] = v91[0];
@@ -3368,36 +3299,36 @@ LABEL_151:
   return v24;
 }
 
-uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::AssociatedTypeIterator,swift::reflection::AssociatedTypeDescriptor>::operator++(uint64_t *a1)
+uint64_t swift::reflection::ReflectionSectionIteratorBase<swift::reflection::AssociatedTypeIterator,swift::reflection::AssociatedTypeDescriptor>::operator++(uint64_t a1)
 {
-  v2 = a1[3];
-  v3 = a1[4];
+  v2 = *(a1 + 24);
+  v3 = *(a1 + 32);
   v4 = (*(v2 + 12) * *(v2 + 8)) + 16;
   v5 = v4 + v2;
-  a1[1] += v4;
+  *(a1 + 8) += v4;
   v6 = v3 - v4;
-  a1[3] = v5;
-  a1[4] = v3 - v4;
+  *(a1 + 24) = v5;
+  *(a1 + 32) = v3 - v4;
   if (v3 != v4 && (*(v5 + 12) * *(v5 + 8)) + 16 > v6)
   {
     v7 = *a1 - v6;
     v8 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "!!! Reflection section too small to contain next record\n", 56);
     std::ios_base::getloc((v8 + *(*v8 - 24)));
-    v9 = std::locale::use_facet(&v38, &std::ctype<char>::id);
+    v9 = std::locale::use_facet(&v34, &std::ctype<char>::id);
     (v9->__vftable[2].~facet_0)(v9, 10);
-    std::locale::~locale(&v38);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     v10 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Section Type: ", 14);
     v11 = *(a1 + 63);
     if (v11 >= 0)
     {
-      v12 = (a1 + 5);
+      v12 = a1 + 40;
     }
 
     else
     {
-      v12 = a1[5];
+      v12 = *(a1 + 40);
     }
 
     if (v11 >= 0)
@@ -3407,97 +3338,94 @@ uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::As
 
     else
     {
-      v13 = a1[6];
+      v13 = *(a1 + 48);
     }
 
     v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v10, v12, v13);
     std::ios_base::getloc((v14 + *(*v14 - 24)));
-    v15 = std::locale::use_facet(&v38, &std::ctype<char>::id);
+    v15 = std::locale::use_facet(&v34, &std::ctype<char>::id);
     (v15->__vftable[2].~facet_0)(v15, 10);
-    std::locale::~locale(&v38);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Remaining section size: ", 24);
-    v16 = a1[4];
+    v16 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, ", total section size: ", 22);
     v17 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ", total section size: ", 22);
-    v18 = *a1;
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ", offset in section: ", 21);
+    v18 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v18, ", size of next record: ", 23);
     v19 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ", offset in section: ", 21);
-    v20 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, ", size of next record: ", 23);
-    v21 = std::ostream::operator<<();
-    std::ios_base::getloc((v21 + *(*v21 - 24)));
-    v22 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v22->__vftable[2].~facet_0)(v22, 10);
-    std::locale::~locale(&v38);
+    std::ios_base::getloc((v19 + *(*v19 - 24)));
+    v20 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v20->__vftable[2].~facet_0)(v20, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
-    v23 = a1[3];
+    v21 = *(a1 + 24);
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Last bytes of previous record: ", 31);
     if (v7 > 0)
     {
       if (v7 != 8 && -v7 >= 0xFFFFFFF8)
       {
-        v24 = -v7;
+        v22 = -v7;
       }
 
       else
       {
-        v24 = -8;
+        v22 = -8;
       }
 
-      v25 = (v23 + v24);
-      v26 = v24 + 1;
+      v23 = v21 + v22;
+      v24 = v22 + 1;
       do
       {
-        v27 = std::cerr.__vftable;
+        v25 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v27[-2].~basic_ostream_0 + 24) = 2;
-        v28 = *v25++;
-        v29 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v29, " ", 1);
+        *(&std::cerr + v25[-2].~basic_ostream_0 + 24) = 2;
+        ++v23;
+        v26 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v26, " ", 1);
       }
 
-      while (v26++);
+      while (v24++);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v31 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v31->__vftable[2].~facet_0)(v31, 10);
-    std::locale::~locale(&v38);
+    v28 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v28->__vftable[2].~facet_0)(v28, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Next bytes in section: ", 23);
-    if (a1[4])
+    if (*(a1 + 32))
     {
-      v32 = 0;
+      v29 = 0;
       do
       {
-        v33 = std::cerr.__vftable;
+        v30 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v33[-2].~basic_ostream_0 + 24) = 2;
-        v34 = *(v23 + v32);
-        v35 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v35, " ", 1);
-        if (v32 > 0xE)
+        *(&std::cerr + v30[-2].~basic_ostream_0 + 24) = 2;
+        v31 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v31, " ", 1);
+        if (v29 > 0xE)
         {
           break;
         }
 
-        ++v32;
+        ++v29;
       }
 
-      while (a1[4] > v32);
+      while (*(a1 + 32) > v29);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v36 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v36->__vftable[2].~facet_0)(v36, 10);
-    std::locale::~locale(&v38);
+    v32 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v32->__vftable[2].~facet_0)(v32, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
-    a1[4] = 0;
+    *(a1 + 32) = 0;
   }
 
   return a1;
@@ -3570,7 +3498,7 @@ LABEL_25:
   v10 = swift::Demangle::__runtime::NodeFactory::pushCheckpoint(this, &v22);
   v11 = (*(*v20 + 16))(v20, v10);
   v24 = this;
-  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(v17, &v24, v11, 0, 1);
+  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v24, v11, 0, 1, v17);
   if (v18)
   {
     if (v18 == 1)
@@ -3609,7 +3537,7 @@ LABEL_24:
   return v14;
 }
 
-void swift::reflection::TypeRefBuilder::getFieldDescriptor(swift::reflection::TypeRefBuilder *this@<X0>, const swift::reflection::TypeRef *a2@<X1>, void *a3@<X8>)
+void swift::reflection::TypeRefBuilder::getFieldDescriptor(uint64_t *__return_ptr a1@<X8>, swift::reflection::TypeRefBuilder *this@<X0>, const swift::reflection::TypeRef *a3@<X1>)
 {
   v5 = *(this + 235);
   v6 = this + 1888;
@@ -3619,9 +3547,9 @@ void swift::reflection::TypeRefBuilder::getFieldDescriptor(swift::reflection::Ty
     v6 = v5;
   }
 
-  (*(*v6 + 24))(v6, a2);
-  v7 = *a3 != 0;
-  if (*a3)
+  (*(*v6 + 24))(v6, a3);
+  v7 = *a1 != 0;
+  if (*a1)
   {
     v8 = 1;
   }
@@ -3633,20 +3561,20 @@ void swift::reflection::TypeRefBuilder::getFieldDescriptor(swift::reflection::Ty
 
   if (!v8)
   {
-    (*(*v9 + 24))(v9, a2);
-    v7 = *a3 != 0;
+    (*(*v9 + 24))(v9, a3);
+    v7 = *a1 != 0;
   }
 
   if (!v7)
   {
-    *a3 = 0;
+    *a1 = 0;
   }
 }
 
 void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::populateFieldTypeInfoCacheWithReflectionAtIndex(swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder *this, uint64_t a2)
 {
   v53 = a2;
-  v4 = this + 56;
+  v4 = (this + 56);
   v3 = *(this + 7);
   v5 = *(this + 18);
   v6 = (v3 + 8 * v5);
@@ -3810,7 +3738,7 @@ LABEL_13:
         }
 
         *&v40 = &__p;
-        v31 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 16, &__p);
+        v31 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 16, &__p, &std::piecewise_construct, &v40);
         v31[5] = v23;
         *(v31 + 48) = v24;
         v31[7] = v15;
@@ -3868,36 +3796,36 @@ LABEL_43:
   }
 }
 
-uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::FieldDescriptorIterator,swift::reflection::TargetFieldDescriptor<swift::InProcess>>::operator++(uint64_t *a1)
+uint64_t swift::reflection::ReflectionSectionIteratorBase<swift::reflection::FieldDescriptorIterator,swift::reflection::TargetFieldDescriptor<swift::InProcess>>::operator++(uint64_t a1)
 {
-  v2 = a1[3];
-  v3 = a1[4];
+  v2 = *(a1 + 24);
+  v3 = *(a1 + 32);
   v4 = *(v2 + 12) * *(v2 + 10) + 16;
   v5 = v4 + v2;
-  a1[1] += v4;
+  *(a1 + 8) += v4;
   v6 = v3 - v4;
-  a1[3] = v5;
-  a1[4] = v3 - v4;
+  *(a1 + 24) = v5;
+  *(a1 + 32) = v3 - v4;
   if (v3 != v4 && (*(v5 + 12) * *(v5 + 10)) + 16 > v6)
   {
     v7 = *a1 - v6;
     v8 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "!!! Reflection section too small to contain next record\n", 56);
     std::ios_base::getloc((v8 + *(*v8 - 24)));
-    v9 = std::locale::use_facet(&v38, &std::ctype<char>::id);
+    v9 = std::locale::use_facet(&v34, &std::ctype<char>::id);
     (v9->__vftable[2].~facet_0)(v9, 10);
-    std::locale::~locale(&v38);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     v10 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Section Type: ", 14);
     v11 = *(a1 + 63);
     if (v11 >= 0)
     {
-      v12 = (a1 + 5);
+      v12 = a1 + 40;
     }
 
     else
     {
-      v12 = a1[5];
+      v12 = *(a1 + 40);
     }
 
     if (v11 >= 0)
@@ -3907,103 +3835,100 @@ uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::Fi
 
     else
     {
-      v13 = a1[6];
+      v13 = *(a1 + 48);
     }
 
     v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v10, v12, v13);
     std::ios_base::getloc((v14 + *(*v14 - 24)));
-    v15 = std::locale::use_facet(&v38, &std::ctype<char>::id);
+    v15 = std::locale::use_facet(&v34, &std::ctype<char>::id);
     (v15->__vftable[2].~facet_0)(v15, 10);
-    std::locale::~locale(&v38);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Remaining section size: ", 24);
-    v16 = a1[4];
+    v16 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, ", total section size: ", 22);
     v17 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ", total section size: ", 22);
-    v18 = *a1;
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ", offset in section: ", 21);
+    v18 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v18, ", size of next record: ", 23);
     v19 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ", offset in section: ", 21);
-    v20 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, ", size of next record: ", 23);
-    v21 = std::ostream::operator<<();
-    std::ios_base::getloc((v21 + *(*v21 - 24)));
-    v22 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v22->__vftable[2].~facet_0)(v22, 10);
-    std::locale::~locale(&v38);
+    std::ios_base::getloc((v19 + *(*v19 - 24)));
+    v20 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v20->__vftable[2].~facet_0)(v20, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
-    v23 = a1[3];
+    v21 = *(a1 + 24);
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Last bytes of previous record: ", 31);
     if (v7 > 0)
     {
       if (v7 != 8 && -v7 >= 0xFFFFFFF8)
       {
-        v24 = -v7;
+        v22 = -v7;
       }
 
       else
       {
-        v24 = -8;
+        v22 = -8;
       }
 
-      v25 = (v23 + v24);
-      v26 = v24 + 1;
+      v23 = v21 + v22;
+      v24 = v22 + 1;
       do
       {
-        v27 = std::cerr.__vftable;
+        v25 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v27[-2].~basic_ostream_0 + 24) = 2;
-        v28 = *v25++;
-        v29 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v29, " ", 1);
+        *(&std::cerr + v25[-2].~basic_ostream_0 + 24) = 2;
+        ++v23;
+        v26 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v26, " ", 1);
       }
 
-      while (v26++);
+      while (v24++);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v31 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v31->__vftable[2].~facet_0)(v31, 10);
-    std::locale::~locale(&v38);
+    v28 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v28->__vftable[2].~facet_0)(v28, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Next bytes in section: ", 23);
-    if (a1[4])
+    if (*(a1 + 32))
     {
-      v32 = 0;
+      v29 = 0;
       do
       {
-        v33 = std::cerr.__vftable;
+        v30 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v33[-2].~basic_ostream_0 + 24) = 2;
-        v34 = *(v23 + v32);
-        v35 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v35, " ", 1);
-        if (v32 > 0xE)
+        *(&std::cerr + v30[-2].~basic_ostream_0 + 24) = 2;
+        v31 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v31, " ", 1);
+        if (v29 > 0xE)
         {
           break;
         }
 
-        ++v32;
+        ++v29;
       }
 
-      while (a1[4] > v32);
+      while (*(a1 + 32) > v29);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v36 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v36->__vftable[2].~facet_0)(v36, 10);
-    std::locale::~locale(&v38);
+    v32 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v32->__vftable[2].~facet_0)(v32, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
-    a1[4] = 0;
+    *(a1 + 32) = 0;
   }
 
   return a1;
 }
 
-uint64_t **swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::findFieldDescriptorAtIndex@<X0>(swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t **swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::findFieldDescriptorAtIndex@<X0>(swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
   swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::populateFieldTypeInfoCacheWithReflectionAtIndex(a1, a2);
   result = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(a1 + 16, a3);
@@ -4024,7 +3949,7 @@ uint64_t **swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::fi
   return result;
 }
 
-uint64_t **swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getFieldDescriptorFromExternalCache@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t **swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getFieldDescriptorFromExternalCache@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   result = a1[41];
   if (!result)
@@ -4032,57 +3957,57 @@ uint64_t **swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::ge
     goto LABEL_28;
   }
 
-  result = ((*result)[3])(v31);
-  if (v32 != 1)
+  result = ((*result)[3])(v32);
+  if (v33 != 1)
   {
     goto LABEL_28;
   }
 
   v7 = a1[1];
-  if (v31[0] >= 0x8E38E38E38E38E39 * ((a1[2] - v7) >> 5))
+  if (v32[0] >= 0x8E38E38E38E38E39 * ((a1[2] - v7) >> 5))
   {
     goto LABEL_28;
   }
 
-  v8 = (v7 + 288 * v31[0]);
+  v8 = (v7 + 288 * v32[0]);
   v9 = *v8;
   v10 = *(v8 + 8);
-  v11 = v31[1];
+  v11 = v32[1];
   *&__p.__r_.__value_.__l.__data_ = *v8;
   v12 = v8[3];
   __p.__r_.__value_.__r.__words[2] = v8[2];
-  HIBYTE(v34) = 15;
-  strcpy(&v33, "FieldDescriptor");
-  swift::reflection::ReflectionSectionIteratorBase<swift::reflection::FieldDescriptorIterator,swift::reflection::TargetFieldDescriptor<swift::InProcess>>::ReflectionSectionIteratorBase(v25, &__p, v12, &v33);
-  if (SHIBYTE(v34) < 0)
+  HIBYTE(v35) = 15;
+  strcpy(&v34, "FieldDescriptor");
+  swift::reflection::ReflectionSectionIteratorBase<swift::reflection::FieldDescriptorIterator,swift::reflection::TargetFieldDescriptor<swift::InProcess>>::ReflectionSectionIteratorBase(v25, &__p, v12, &v34);
+  if (SHIBYTE(v35) < 0)
   {
-    operator delete(v33);
+    operator delete(v34);
   }
 
-  if (v28)
+  if (v29)
   {
     v13 = (v11 + v9);
     do
     {
-      if (v25[1] == v13 && v26 == v10)
+      if (v26 == v13 && v27 == v10)
       {
-        v15 = v27;
-        v16 = *v27;
-        if (!v16 || v16 == -v27)
+        v15 = v28;
+        v16 = *v28;
+        if (!v16 || v16 == -v28)
         {
           break;
         }
 
-        swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::readTypeRef(a1, v13 + v16, v26, &v33);
-        v21 = v33;
-        v22 = v34;
+        swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::readTypeRef(a1, v13 + v16, v27, &v34);
+        v21 = v34;
+        v22 = v35;
         swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::normalizeReflectionName(a1, &v21, &__p);
         v18 = v24;
         v19 = v24;
         if (v24 == 1)
         {
           *&v21 = &__p;
-          v20 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 16, &__p);
+          v20 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 16, &__p, &std::piecewise_construct, &v21);
           v20[5] = v13;
           *(v20 + 48) = v10;
           v20[7] = v15;
@@ -4103,12 +4028,12 @@ uint64_t **swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::ge
       swift::reflection::ReflectionSectionIteratorBase<swift::reflection::FieldDescriptorIterator,swift::reflection::TargetFieldDescriptor<swift::InProcess>>::operator++(v25);
     }
 
-    while (v28);
+    while (v29);
   }
 
-  if (v30 < 0)
+  if (v31 < 0)
   {
-    operator delete(v29);
+    operator delete(v30);
   }
 
   result = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(a1 + 16, a2);
@@ -4181,7 +4106,7 @@ void *swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getFiel
   }
 
   Demangling = swift::reflection::TypeRef::getDemangling(a2, v40);
-  v7 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(this + 16, a2 + 16);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(this + 16, a2 + 2);
   if (v7)
   {
     *a3 = *(v7 + 5);
@@ -4189,7 +4114,7 @@ void *swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getFiel
     goto LABEL_6;
   }
 
-  swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getFieldDescriptorFromExternalCache(this, a2 + 16, &v80);
+  swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getFieldDescriptorFromExternalCache(this, a2 + 2, &v80);
   if (v82 == 1)
   {
     *a3 = v80;
@@ -4343,7 +4268,7 @@ LABEL_40:
             if (v29 != v26 + 16 * v27)
             {
               swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::populateFieldTypeInfoCacheWithReflectionAtIndex(this, i);
-              v30 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(this + 16, a2 + 16);
+              v30 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(this + 16, a2 + 2);
               if (v30)
               {
                 goto LABEL_76;
@@ -4378,7 +4303,7 @@ LABEL_75:
       if (!v34 || ((*(*v34 + 32))(v34, v31) & 1) == 0)
       {
         swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::populateFieldTypeInfoCacheWithReflectionAtIndex(this, v31);
-        v30 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(this + 16, a2 + 16);
+        v30 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(this + 16, a2 + 2);
         if (v30)
         {
           break;
@@ -4399,7 +4324,7 @@ LABEL_75:
         while (1)
         {
           swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::populateFieldTypeInfoCacheWithReflectionAtIndex(this, v35);
-          v30 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(this + 16, a2 + 16);
+          v30 = std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(this + 16, a2 + 2);
           if (v30)
           {
             goto LABEL_76;
@@ -4447,10 +4372,9 @@ LABEL_6:
 
 uint64_t swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getFieldDescriptor@<X0>(swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder *this@<X0>, const swift::reflection::TypeRef *a2@<X1>, void *a3@<X8>)
 {
-  swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getFieldTypeInfo(this, a2, &v7);
-  if (v8)
+  swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getFieldTypeInfo(this, a2, &v5);
+  if (v6)
   {
-    v5 = *(this + 40);
     operator new();
   }
 
@@ -4459,7 +4383,7 @@ uint64_t swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getF
   return result;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::getFieldTypeRefs(swift::Demangle::__runtime::NodeFactory *a1, swift::reflection::TypeRef *this, _WORD *a3, uint64_t a4, uint64_t *a5)
+uint64_t swift::reflection::TypeRefBuilder::getFieldTypeRefs(void *a1, swift::reflection::TypeRef *this, _WORD *a3, uint64_t a4, uint64_t a5)
 {
   swift::reflection::TypeRef::getSubstMap(this, v60);
   if (v62 != 1)
@@ -4552,12 +4476,12 @@ LABEL_44:
     v56.n128_u32[0] = v10;
     v56.n128_u64[1] = 0;
     v57 = 0;
-    v32 = a5[1];
-    if (v32 >= a5[2])
+    v32 = *(a5 + 8);
+    if (v32 >= *(a5 + 16))
     {
       v35 = std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path<swift::reflection::FieldTypeInfo>(a5, &v55);
       v36 = SHIBYTE(v55.__r_.__value_.__r.__words[2]);
-      a5[1] = v35;
+      *(a5 + 8) = v35;
       if (v36 < 0)
       {
         operator delete(v55.__r_.__value_.__l.__data_);
@@ -4587,7 +4511,7 @@ LABEL_49:
       v8 = v56;
       *(v32 + 24) = v56;
       *(v32 + 40) = v34;
-      a5[1] = v32 + 48;
+      *(a5 + 8) = v32 + 48;
       if (v31)
       {
         goto LABEL_49;
@@ -4608,7 +4532,7 @@ LABEL_5:
   v15 = swift::Demangle::__runtime::NodeFactory::pushCheckpoint(a1, &v53);
   v16 = (*(**v9 + 24))(v15);
   __dst.__r_.__value_.__r.__words[0] = a1;
-  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&__dst, v16, 0, 1, v17, &v55);
+  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&__dst, v16, 0, 1, &v55, v17);
   if (!LOWORD(v55.__r_.__value_.__r.__words[2]))
   {
     v20 = v55.__r_.__value_.__r.__words[0];
@@ -4683,9 +4607,9 @@ LABEL_28:
       HIBYTE(v57) = v25;
     }
 
-    v27 = a5[1];
+    v27 = *(a5 + 8);
     a1 = v49;
-    if (v27 >= a5[2])
+    if (v27 >= *(a5 + 16))
     {
       v29 = std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path<swift::reflection::FieldTypeInfo const&>(a5, &v55);
     }
@@ -4694,7 +4618,7 @@ LABEL_28:
     {
       if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(a5[1], v55.__r_.__value_.__l.__data_, v55.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(*(a5 + 8), v55.__r_.__value_.__l.__data_, v55.__r_.__value_.__l.__size_);
       }
 
       else
@@ -4710,7 +4634,7 @@ LABEL_28:
       v29 = v27 + 48;
     }
 
-    a5[1] = v29;
+    *(a5 + 8) = v29;
     if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v55.__r_.__value_.__l.__data_);
@@ -4784,7 +4708,7 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getBuilt
     v16.__r_.__value_.__r.__words[2] = *(v7 + 80);
     *(&__p.__r_.__value_.__s + 23) = 21;
     strcpy(&__p, "BuiltinTypeDescriptor");
-    swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::ReflectionSectionIteratorBase(&v23, &v16, v8, &__p);
+    swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::ReflectionSectionIteratorBase(v23, &v16, v8, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4820,7 +4744,7 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getBuilt
             v17 = v12;
             v18 = v13;
             v19 = v9;
-            std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>>(this + 26, &v16);
+            std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>>(this + 26, &v16, &v16);
             if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(v16.__r_.__value_.__l.__data_);
@@ -4836,7 +4760,7 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getBuilt
         }
       }
 
-      swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::operator++(&v23);
+      swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::operator++(v23);
     }
 
     if (v29 < 0)
@@ -4874,33 +4798,33 @@ LABEL_31:
   operator delete(v30.__r_.__value_.__l.__data_);
 }
 
-uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::operator++(uint64_t *a1)
+uint64_t swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::operator++(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[3] + 20;
-  a1[1] += 20;
-  a1[3] = v3;
-  a1[4] = v2 - 20;
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 24) + 20;
+  *(a1 + 8) += 20;
+  *(a1 + 24) = v3;
+  *(a1 + 32) = v2 - 20;
   if ((v2 - 21) <= 0x12)
   {
     v4 = *a1 - (v2 - 20);
     v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "!!! Reflection section too small to contain next record\n", 56);
     std::ios_base::getloc((v5 + *(*v5 - 24)));
-    v6 = std::locale::use_facet(&v35, &std::ctype<char>::id);
+    v6 = std::locale::use_facet(&v31, &std::ctype<char>::id);
     (v6->__vftable[2].~facet_0)(v6, 10);
-    std::locale::~locale(&v35);
+    std::locale::~locale(&v31);
     std::ostream::put();
     std::ostream::flush();
     v7 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Section Type: ", 14);
     v8 = *(a1 + 63);
     if (v8 >= 0)
     {
-      v9 = (a1 + 5);
+      v9 = a1 + 40;
     }
 
     else
     {
-      v9 = a1[5];
+      v9 = *(a1 + 40);
     }
 
     if (v8 >= 0)
@@ -4910,97 +4834,94 @@ uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::Bu
 
     else
     {
-      v10 = a1[6];
+      v10 = *(a1 + 48);
     }
 
     v11 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v7, v9, v10);
     std::ios_base::getloc((v11 + *(*v11 - 24)));
-    v12 = std::locale::use_facet(&v35, &std::ctype<char>::id);
+    v12 = std::locale::use_facet(&v31, &std::ctype<char>::id);
     (v12->__vftable[2].~facet_0)(v12, 10);
-    std::locale::~locale(&v35);
+    std::locale::~locale(&v31);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Remaining section size: ", 24);
-    v13 = a1[4];
+    v13 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v13, ", total section size: ", 22);
     v14 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v14, ", total section size: ", 22);
-    v15 = *a1;
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v14, ", offset in section: ", 21);
+    v15 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, ", size of next record: ", 23);
     v16 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, ", offset in section: ", 21);
-    v17 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ", size of next record: ", 23);
-    v18 = std::ostream::operator<<();
-    std::ios_base::getloc((v18 + *(*v18 - 24)));
-    v19 = std::locale::use_facet(&v35, &std::ctype<char>::id);
-    (v19->__vftable[2].~facet_0)(v19, 10);
-    std::locale::~locale(&v35);
+    std::ios_base::getloc((v16 + *(*v16 - 24)));
+    v17 = std::locale::use_facet(&v31, &std::ctype<char>::id);
+    (v17->__vftable[2].~facet_0)(v17, 10);
+    std::locale::~locale(&v31);
     std::ostream::put();
     std::ostream::flush();
-    v20 = a1[3];
+    v18 = *(a1 + 24);
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Last bytes of previous record: ", 31);
     if (v4 > 0)
     {
       if (v4 != 8 && -v4 >= 0xFFFFFFF8)
       {
-        v21 = -v4;
+        v19 = -v4;
       }
 
       else
       {
-        v21 = -8;
+        v19 = -8;
       }
 
-      v22 = (v20 + v21);
-      v23 = v21 + 1;
+      v20 = v18 + v19;
+      v21 = v19 + 1;
       do
       {
-        v24 = std::cerr.__vftable;
+        v22 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v24[-2].~basic_ostream_0 + 24) = 2;
-        v25 = *v22++;
-        v26 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v26, " ", 1);
+        *(&std::cerr + v22[-2].~basic_ostream_0 + 24) = 2;
+        ++v20;
+        v23 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v23, " ", 1);
       }
 
-      while (v23++);
+      while (v21++);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v28 = std::locale::use_facet(&v35, &std::ctype<char>::id);
-    (v28->__vftable[2].~facet_0)(v28, 10);
-    std::locale::~locale(&v35);
+    v25 = std::locale::use_facet(&v31, &std::ctype<char>::id);
+    (v25->__vftable[2].~facet_0)(v25, 10);
+    std::locale::~locale(&v31);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Next bytes in section: ", 23);
-    if (a1[4])
+    if (*(a1 + 32))
     {
-      v29 = 0;
+      v26 = 0;
       do
       {
-        v30 = std::cerr.__vftable;
+        v27 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v30[-2].~basic_ostream_0 + 24) = 2;
-        v31 = *(v20 + v29);
-        v32 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v32, " ", 1);
-        if (v29 > 0xE)
+        *(&std::cerr + v27[-2].~basic_ostream_0 + 24) = 2;
+        v28 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v28, " ", 1);
+        if (v26 > 0xE)
         {
           break;
         }
 
-        ++v29;
+        ++v26;
       }
 
-      while (a1[4] > v29);
+      while (*(a1 + 32) > v26);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v33 = std::locale::use_facet(&v35, &std::ctype<char>::id);
-    (v33->__vftable[2].~facet_0)(v33, 10);
-    std::locale::~locale(&v35);
+    v29 = std::locale::use_facet(&v31, &std::ctype<char>::id);
+    (v29->__vftable[2].~facet_0)(v29, 10);
+    std::locale::~locale(&v31);
     std::ostream::put();
     std::ostream::flush();
-    a1[4] = 0;
+    *(a1 + 32) = 0;
   }
 
   return a1;
@@ -5008,10 +4929,9 @@ uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::Bu
 
 uint64_t swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getBuiltinTypeDescriptor@<X0>(swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder *this@<X0>, const swift::reflection::TypeRef *a2@<X1>, void *a3@<X8>)
 {
-  swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getBuiltinTypeInfo(this, a2, &v7);
-  if (v8)
+  swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getBuiltinTypeInfo(this, a2, &v5);
+  if (v6)
   {
-    v5 = *(this + 40);
     operator new();
   }
 
@@ -5020,7 +4940,7 @@ uint64_t swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getB
   return result;
 }
 
-void swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(swift::reflection::TypeRefBuilder *this@<X0>, const swift::reflection::TypeRef *a2@<X1>, void *a3@<X8>)
+void swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(uint64_t *__return_ptr a1@<X8>, swift::reflection::TypeRefBuilder *this@<X0>, const swift::reflection::TypeRef *a3@<X1>)
 {
   v5 = *(this + 235);
   v6 = this + 1888;
@@ -5030,9 +4950,9 @@ void swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(swift::reflecti
     v6 = v5;
   }
 
-  (*(*v6 + 16))(v6, a2);
-  v7 = *a3 != 0;
-  if (*a3)
+  (*(*v6 + 16))(v6, a3);
+  v7 = *a1 != 0;
+  if (*a1)
   {
     v8 = 1;
   }
@@ -5044,13 +4964,13 @@ void swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(swift::reflecti
 
   if (!v8)
   {
-    (*(*v9 + 16))(v9, a2);
-    v7 = *a3 != 0;
+    (*(*v9 + 16))(v9, a3);
+    v7 = *a1 != 0;
   }
 
   if (!v7)
   {
-    *a3 = 0;
+    *a1 = 0;
   }
 }
 
@@ -5147,7 +5067,7 @@ LABEL_14:
   v75.__r_.__value_.__r.__words[2] = v15;
   BYTE7(v74[1]) = 16;
   strcpy(v74, "MultiPayloadEnum");
-  swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::ReflectionSectionIteratorBase(&v39, &v75, v14, v74);
+  swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::ReflectionSectionIteratorBase(v39, &v75, v14, v74);
   if (SBYTE7(v74[1]) < 0)
   {
     operator delete(*&v74[0]);
@@ -5197,7 +5117,7 @@ LABEL_14:
     }
 
 LABEL_17:
-    swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::operator++(&v39);
+    swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::operator++(v39);
   }
 
   if ((v25 & 0x80u) == 0)
@@ -5283,36 +5203,36 @@ LABEL_58:
   }
 }
 
-uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::operator++(uint64_t *a1)
+uint64_t swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::operator++(uint64_t a1)
 {
-  v2 = a1[3];
-  v3 = a1[4];
+  v2 = *(a1 + 24);
+  v3 = *(a1 + 32);
   v4 = 4 * *(v2 + 6) + 4;
   v5 = v4 + v2;
-  a1[1] += v4;
+  *(a1 + 8) += v4;
   v6 = v3 - v4;
-  a1[3] = v5;
-  a1[4] = v3 - v4;
+  *(a1 + 24) = v5;
+  *(a1 + 32) = v3 - v4;
   if (v3 != v4 && v6 < 4 * *(v5 + 6) + 4)
   {
     v7 = *a1 - v6;
     v8 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "!!! Reflection section too small to contain next record\n", 56);
     std::ios_base::getloc((v8 + *(*v8 - 24)));
-    v9 = std::locale::use_facet(&v38, &std::ctype<char>::id);
+    v9 = std::locale::use_facet(&v34, &std::ctype<char>::id);
     (v9->__vftable[2].~facet_0)(v9, 10);
-    std::locale::~locale(&v38);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     v10 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Section Type: ", 14);
     v11 = *(a1 + 63);
     if (v11 >= 0)
     {
-      v12 = (a1 + 5);
+      v12 = a1 + 40;
     }
 
     else
     {
-      v12 = a1[5];
+      v12 = *(a1 + 40);
     }
 
     if (v11 >= 0)
@@ -5322,97 +5242,94 @@ uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::Mu
 
     else
     {
-      v13 = a1[6];
+      v13 = *(a1 + 48);
     }
 
     v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v10, v12, v13);
     std::ios_base::getloc((v14 + *(*v14 - 24)));
-    v15 = std::locale::use_facet(&v38, &std::ctype<char>::id);
+    v15 = std::locale::use_facet(&v34, &std::ctype<char>::id);
     (v15->__vftable[2].~facet_0)(v15, 10);
-    std::locale::~locale(&v38);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Remaining section size: ", 24);
-    v16 = a1[4];
+    v16 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, ", total section size: ", 22);
     v17 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ", total section size: ", 22);
-    v18 = *a1;
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ", offset in section: ", 21);
+    v18 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v18, ", size of next record: ", 23);
     v19 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ", offset in section: ", 21);
-    v20 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, ", size of next record: ", 23);
-    v21 = std::ostream::operator<<();
-    std::ios_base::getloc((v21 + *(*v21 - 24)));
-    v22 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v22->__vftable[2].~facet_0)(v22, 10);
-    std::locale::~locale(&v38);
+    std::ios_base::getloc((v19 + *(*v19 - 24)));
+    v20 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v20->__vftable[2].~facet_0)(v20, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
-    v23 = a1[3];
+    v21 = *(a1 + 24);
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Last bytes of previous record: ", 31);
     if (v7 > 0)
     {
       if (v7 != 8 && -v7 >= 0xFFFFFFF8)
       {
-        v24 = -v7;
+        v22 = -v7;
       }
 
       else
       {
-        v24 = -8;
+        v22 = -8;
       }
 
-      v25 = (v23 + v24);
-      v26 = v24 + 1;
+      v23 = v21 + v22;
+      v24 = v22 + 1;
       do
       {
-        v27 = std::cerr.__vftable;
+        v25 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v27[-2].~basic_ostream_0 + 24) = 2;
-        v28 = *v25++;
-        v29 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v29, " ", 1);
+        *(&std::cerr + v25[-2].~basic_ostream_0 + 24) = 2;
+        ++v23;
+        v26 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v26, " ", 1);
       }
 
-      while (v26++);
+      while (v24++);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v31 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v31->__vftable[2].~facet_0)(v31, 10);
-    std::locale::~locale(&v38);
+    v28 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v28->__vftable[2].~facet_0)(v28, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Next bytes in section: ", 23);
-    if (a1[4])
+    if (*(a1 + 32))
     {
-      v32 = 0;
+      v29 = 0;
       do
       {
-        v33 = std::cerr.__vftable;
+        v30 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v33[-2].~basic_ostream_0 + 24) = 2;
-        v34 = *(v23 + v32);
-        v35 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v35, " ", 1);
-        if (v32 > 0xE)
+        *(&std::cerr + v30[-2].~basic_ostream_0 + 24) = 2;
+        v31 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v31, " ", 1);
+        if (v29 > 0xE)
         {
           break;
         }
 
-        ++v32;
+        ++v29;
       }
 
-      while (a1[4] > v32);
+      while (*(a1 + 32) > v29);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v36 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v36->__vftable[2].~facet_0)(v36, 10);
-    std::locale::~locale(&v38);
+    v32 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v32->__vftable[2].~facet_0)(v32, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
-    a1[4] = 0;
+    *(a1 + 32) = 0;
   }
 
   return a1;
@@ -5420,10 +5337,9 @@ uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::Mu
 
 uint64_t swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getMultiPayloadEnumDescriptor@<X0>(swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder *this@<X0>, const swift::reflection::TypeRef *a2@<X1>, void *a3@<X8>)
 {
-  swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getMultiPayloadEnumInfo(this, a2, &v7);
-  if (v8)
+  swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getMultiPayloadEnumInfo(this, a2, &v5);
+  if (v6)
   {
-    v5 = *(this + 40);
     operator new();
   }
 
@@ -5479,7 +5395,7 @@ __n128 swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getCap
     v19 = *(v8 + 112);
     BYTE7(v31[1]) = 17;
     strcpy(v31, "CaptureDescriptor");
-    swift::reflection::ReflectionSectionIteratorBase<swift::reflection::CaptureDescriptorIterator,swift::reflection::CaptureDescriptor>::ReflectionSectionIteratorBase(&v22, &v18, v9, v31);
+    swift::reflection::ReflectionSectionIteratorBase<swift::reflection::CaptureDescriptorIterator,swift::reflection::CaptureDescriptor>::ReflectionSectionIteratorBase(v22, &v18, v9, v31);
     if (SBYTE7(v31[1]) < 0)
     {
       operator delete(*&v31[0]);
@@ -5492,8 +5408,8 @@ __n128 swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getCap
       v19 = v23;
       v20 = v24;
       v21 = v25;
-      std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>>(&a1[10], &v18);
-      swift::reflection::ReflectionSectionIteratorBase<swift::reflection::CaptureDescriptorIterator,swift::reflection::CaptureDescriptor>::operator++(&v22);
+      std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>>(&a1[10], &v18, &v18);
+      swift::reflection::ReflectionSectionIteratorBase<swift::reflection::CaptureDescriptorIterator,swift::reflection::CaptureDescriptor>::operator++(v22);
     }
 
     if (v28 < 0)
@@ -5583,36 +5499,36 @@ LABEL_22:
   return result;
 }
 
-uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::CaptureDescriptorIterator,swift::reflection::CaptureDescriptor>::operator++(uint64_t *a1)
+uint64_t swift::reflection::ReflectionSectionIteratorBase<swift::reflection::CaptureDescriptorIterator,swift::reflection::CaptureDescriptor>::operator++(uint64_t a1)
 {
-  v2 = a1[3];
-  v3 = a1[4];
+  v2 = *(a1 + 24);
+  v3 = *(a1 + 32);
   v4 = 4 * *v2 + 8 * v2[1] + 12;
-  a1[1] += v4;
+  *(a1 + 8) += v4;
   v5 = (v2 + v4);
   v6 = v3 - v4;
-  a1[3] = v5;
-  a1[4] = v3 - v4;
+  *(a1 + 24) = v5;
+  *(a1 + 32) = v3 - v4;
   if (v3 != v4 && 4 * *v5 + 8 * v5[1] + 12 > v6)
   {
     v7 = *a1 - v6;
     v8 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "!!! Reflection section too small to contain next record\n", 56);
     std::ios_base::getloc((v8 + *(*v8 - 24)));
-    v9 = std::locale::use_facet(&v38, &std::ctype<char>::id);
+    v9 = std::locale::use_facet(&v34, &std::ctype<char>::id);
     (v9->__vftable[2].~facet_0)(v9, 10);
-    std::locale::~locale(&v38);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     v10 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Section Type: ", 14);
     v11 = *(a1 + 63);
     if (v11 >= 0)
     {
-      v12 = (a1 + 5);
+      v12 = a1 + 40;
     }
 
     else
     {
-      v12 = a1[5];
+      v12 = *(a1 + 40);
     }
 
     if (v11 >= 0)
@@ -5622,97 +5538,94 @@ uint64_t *swift::reflection::ReflectionSectionIteratorBase<swift::reflection::Ca
 
     else
     {
-      v13 = a1[6];
+      v13 = *(a1 + 48);
     }
 
     v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v10, v12, v13);
     std::ios_base::getloc((v14 + *(*v14 - 24)));
-    v15 = std::locale::use_facet(&v38, &std::ctype<char>::id);
+    v15 = std::locale::use_facet(&v34, &std::ctype<char>::id);
     (v15->__vftable[2].~facet_0)(v15, 10);
-    std::locale::~locale(&v38);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Remaining section size: ", 24);
-    v16 = a1[4];
+    v16 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, ", total section size: ", 22);
     v17 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ", total section size: ", 22);
-    v18 = *a1;
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ", offset in section: ", 21);
+    v18 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v18, ", size of next record: ", 23);
     v19 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ", offset in section: ", 21);
-    v20 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, ", size of next record: ", 23);
-    v21 = std::ostream::operator<<();
-    std::ios_base::getloc((v21 + *(*v21 - 24)));
-    v22 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v22->__vftable[2].~facet_0)(v22, 10);
-    std::locale::~locale(&v38);
+    std::ios_base::getloc((v19 + *(*v19 - 24)));
+    v20 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v20->__vftable[2].~facet_0)(v20, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
-    v23 = a1[3];
+    v21 = *(a1 + 24);
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Last bytes of previous record: ", 31);
     if (v7 > 0)
     {
       if (v7 != 8 && -v7 >= 0xFFFFFFF8)
       {
-        v24 = -v7;
+        v22 = -v7;
       }
 
       else
       {
-        v24 = -8;
+        v22 = -8;
       }
 
-      v25 = (v23 + v24);
-      v26 = v24 + 1;
+      v23 = v21 + v22;
+      v24 = v22 + 1;
       do
       {
-        v27 = std::cerr.__vftable;
+        v25 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v27[-2].~basic_ostream_0 + 24) = 2;
-        v28 = *v25++;
-        v29 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v29, " ", 1);
+        *(&std::cerr + v25[-2].~basic_ostream_0 + 24) = 2;
+        ++v23;
+        v26 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v26, " ", 1);
       }
 
-      while (v26++);
+      while (v24++);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v31 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v31->__vftable[2].~facet_0)(v31, 10);
-    std::locale::~locale(&v38);
+    v28 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v28->__vftable[2].~facet_0)(v28, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&std::cerr, "Next bytes in section: ", 23);
-    if (a1[4])
+    if (*(a1 + 32))
     {
-      v32 = 0;
+      v29 = 0;
       do
       {
-        v33 = std::cerr.__vftable;
+        v30 = std::cerr.__vftable;
         *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) = *(&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0 + 8) & 0xFFFFFFB5 | 8;
-        *(&std::cerr + v33[-2].~basic_ostream_0 + 24) = 2;
-        v34 = *(v23 + v32);
-        v35 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v35, " ", 1);
-        if (v32 > 0xE)
+        *(&std::cerr + v30[-2].~basic_ostream_0 + 24) = 2;
+        v31 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v31, " ", 1);
+        if (v29 > 0xE)
         {
           break;
         }
 
-        ++v32;
+        ++v29;
       }
 
-      while (a1[4] > v32);
+      while (*(a1 + 32) > v29);
     }
 
     std::ios_base::getloc((&std::cerr + std::cerr.__vftable[-2].~basic_ostream_0));
-    v36 = std::locale::use_facet(&v38, &std::ctype<char>::id);
-    (v36->__vftable[2].~facet_0)(v36, 10);
-    std::locale::~locale(&v38);
+    v32 = std::locale::use_facet(&v34, &std::ctype<char>::id);
+    (v32->__vftable[2].~facet_0)(v32, 10);
+    std::locale::~locale(&v34);
     std::ostream::put();
     std::ostream::flush();
-    a1[4] = 0;
+    *(a1 + 32) = 0;
   }
 
   return a1;
@@ -5793,7 +5706,7 @@ LABEL_67:
 
       v24 = (*(*v23 + 48))(v23, &v66, &v65);
       v65 = a1[40];
-      swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v65, v24, 0, 1, v25, &v66);
+      swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v65, v24, 0, 1, &v66, v25);
       if (v67 == 1)
       {
         (*(&v66 + 1))(v66, 3, 0);
@@ -5893,7 +5806,7 @@ LABEL_24:
 
             v44 = (*(*v43 + 48))(v43, &v66, &v65);
             v65 = a1[40];
-            swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v65, v44, 0, 1, v45, &v66);
+            swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v65, v44, 0, 1, &v66, v45);
             if (v67 == 1)
             {
               (*(&v66 + 1))(v66, 3, 0);
@@ -6098,7 +6011,7 @@ double swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpTy
   v40[0] = off_E0BC8;
   v40[1] = swift::Demangle::__runtime::genericParameterName;
   v41 = v40;
-  swift::Demangle::__runtime::nodeToString(v8, v37, v9, __p);
+  swift::Demangle::__runtime::nodeToString(__p, v8, v37, v9);
   if (v41 == v40)
   {
     (*(*v41 + 32))(v41);
@@ -6132,7 +6045,7 @@ double swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpTy
   v12 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a3, v10, v11);
   std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v12, "\n", 1);
   __dst = *(a1 + 320);
-  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&__dst, v8, 0, 0, v13, v37);
+  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&__dst, v8, 0, 0, v37, v13);
   if (!*&v37[16])
   {
     v21 = *v37;
@@ -6235,11 +6148,11 @@ LABEL_35:
   return result;
 }
 
-void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::collectFieldTypes(uint64_t a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::collectFieldTypes(uint64_t a1@<X0>, const void **a2@<X1>, void **a3@<X8>)
 {
   v93 = a2;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 0u;
+  *(a3 + 1) = 0u;
+  *(a3 + 2) = 0u;
   v90 = a3;
   *a3 = 0u;
   v4 = *(a1 + 8);
@@ -6270,12 +6183,12 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::collectF
         operator delete(__p[0]);
       }
 
-      while (v155)
+      while (v156)
       {
         v7 = v3;
-        v8 = v152[1];
-        v9 = v153;
-        v10 = v154;
+        v8 = v153;
+        v9 = v154;
+        v10 = v155;
         __p[0] = *(v5 + 320);
         swift::Demangle::__runtime::NodeFactory::pushCheckpoint(__p[0], &__p[1]);
         v121 = v10;
@@ -6328,7 +6241,7 @@ LABEL_183:
         v133 = off_E0BC8;
         *&v134 = swift::Demangle::__runtime::genericParameterName;
         v135 = v120;
-        swift::Demangle::__runtime::nodeToString(v17, &v130, v18, &v149);
+        swift::Demangle::__runtime::nodeToString(&v149, v17, &v130, v18);
         size = v149.__r_.__value_.__l.__size_;
         v96 = v149.__r_.__value_.__r.__words[0];
         v150[0] = v149.__r_.__value_.__r.__words[2];
@@ -6651,7 +6564,7 @@ LABEL_48:
             v133 = off_E0BC8;
             *&v134 = swift::Demangle::__runtime::genericParameterName;
             v135 = v120;
-            swift::Demangle::__runtime::nodeToString(v51, &v130, v52, &v141);
+            swift::Demangle::__runtime::nodeToString(&v141, v51, &v130, v52);
             __len = v40;
             v114 = v48;
             if (v135 == v120)
@@ -6942,26 +6855,26 @@ LABEL_184:
           else
           {
             v79 = *&v130.__r_.__value_.__l.__data_;
-            *(v78 + 16) = *(&v130.__r_.__value_.__l + 2);
+            *(v78 + 2) = *(&v130.__r_.__value_.__l + 2);
             *v78 = v79;
             memset(&v130, 0, sizeof(v130));
             v80 = *(__sb + 2);
             *(v78 + 24) = *__sb;
-            *(v78 + 40) = v80;
-            *(v78 + 48) = 0;
+            *(v78 + 5) = v80;
+            *(v78 + 6) = 0;
             *(__sb + 1) = 0;
             *(__sb + 2) = 0;
             *__sb = 0;
-            *(v78 + 56) = 0;
-            *(v78 + 64) = 0;
-            *(v78 + 48) = v134;
+            *(v78 + 7) = 0;
+            *(v78 + 8) = 0;
+            *(v78 + 3) = v134;
             v134 = 0uLL;
-            *(v78 + 64) = v135;
-            *(v78 + 72) = 0;
-            *(v78 + 80) = 0;
-            *(v78 + 88) = 0;
+            *(v78 + 8) = v135;
+            *(v78 + 9) = 0;
+            *(v78 + 10) = 0;
+            *(v78 + 11) = 0;
             *(v78 + 72) = v136;
-            *(v78 + 88) = v137;
+            *(v78 + 11) = v137;
             v135 = 0;
             v136 = 0uLL;
             *&v137 = 0;
@@ -7028,9 +6941,9 @@ LABEL_176:
         swift::reflection::ReflectionSectionIteratorBase<swift::reflection::FieldDescriptorIterator,swift::reflection::TargetFieldDescriptor<swift::InProcess>>::operator++(v152);
       }
 
-      if (v157 < 0)
+      if (v158 < 0)
       {
-        operator delete(v156);
+        operator delete(v157);
       }
 
       v4 = v89 + 288;
@@ -7300,31 +7213,31 @@ LABEL_11:
 void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpBuiltinTypeSection(void *a1, void *a2)
 {
   v2 = a1[1];
-  v34 = a1[2];
-  if (v2 != v34)
+  v29 = a1[2];
+  if (v2 != v29)
   {
-    qmemcpy(v33, "scriptorBuiltinTypeDescr", sizeof(v33));
+    qmemcpy(v28, "scriptorBuiltinTypeDescr", sizeof(v28));
     do
     {
-      *v36 = *(v2 + 64);
+      *v31 = *(v2 + 64);
       v5 = *(v2 + 88);
-      v35 = v2;
-      *&v36[16] = *(v2 + 80);
+      v30 = v2;
+      *&v31[16] = *(v2 + 80);
       __p[23] = 21;
-      *__p = *&v33[1];
-      *&__p[13] = v33[0];
+      *__p = *&v28[1];
+      *&__p[13] = v28[0];
       __p[21] = 0;
-      swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::ReflectionSectionIteratorBase(v45, v36, v5, __p);
+      swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::ReflectionSectionIteratorBase(v40, v31, v5, __p);
       if ((__p[23] & 0x80000000) != 0)
       {
         operator delete(*__p);
       }
 
-      while (v48)
+      while (v44)
       {
-        v6 = v45[1];
-        v7 = v46;
-        v8 = v47;
+        v6 = v41;
+        v7 = v42;
+        v8 = v43;
         *__p = a1[40];
         swift::Demangle::__runtime::NodeFactory::pushCheckpoint(*__p, &__p[8]);
         v9 = a1[40];
@@ -7349,105 +7262,100 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpBuil
           v12 = 0;
         }
 
-        swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::readTypeRef(a1, v11, v12, v41);
-        *v36 = *v41;
-        *&v36[16] = v42;
-        v51[0] = 1;
+        swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::readTypeRef(a1, v11, v12, v36);
+        *v31 = *v36;
+        *&v31[16] = v37;
+        v47[0] = 1;
         v13 = *(v9 + 2256);
         if (!v13)
         {
-          v32 = std::__throw_bad_function_call[abi:nn200100]();
-          swift::reflection::ClosureContextInfo::dump(v32);
+          std::__throw_bad_function_call[abi:nn200100]();
+          swift::reflection::ClosureContextInfo::dump(v27);
           return;
         }
 
-        v14 = (*(*v13 + 48))(v13, v36, v51);
-        v36[0] = 0;
-        *&v36[1] = 0x101010101010101;
-        v36[9] = 1;
-        *&v36[10] = 0x101010100000000;
-        v36[18] = 1;
-        *&v36[19] = 256;
-        v36[21] = 1;
-        v37 = 0;
-        v38 = 0;
-        v39[0] = off_E0BC8;
-        v39[1] = swift::Demangle::__runtime::genericParameterName;
-        v40 = v39;
-        swift::Demangle::__runtime::nodeToString(v14, v36, v15, v41);
-        if (v40 == v39)
+        v14 = (*(*v13 + 48))(v13, v31, v47);
+        v31[0] = 0;
+        *&v31[1] = 0x101010101010101;
+        v31[9] = 1;
+        *&v31[10] = 0x101010100000000;
+        v31[18] = 1;
+        *&v31[19] = 256;
+        v31[21] = 1;
+        v32 = 0;
+        v33 = 0;
+        v34[0] = off_E0BC8;
+        v34[1] = swift::Demangle::__runtime::genericParameterName;
+        v35 = v34;
+        swift::Demangle::__runtime::nodeToString(v36, v14, v31, v15);
+        if (v35 == v34)
         {
-          (*(*v40 + 32))(v40);
+          (*(*v35 + 32))(v35);
         }
 
-        else if (v40)
+        else if (v35)
         {
-          (*(*v40 + 40))();
+          (*(*v35 + 40))();
         }
 
         v16 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\n- ", 3);
-        if (v42 >= 0)
+        if (v37 >= 0)
         {
-          v17 = v41;
+          v17 = v36;
         }
 
         else
         {
-          v17 = v41[0];
+          v17 = v36[0];
         }
 
-        if (v42 >= 0)
+        if (v37 >= 0)
         {
-          v18 = HIBYTE(v42);
+          v18 = HIBYTE(v37);
         }
 
         else
         {
-          v18 = v41[1];
+          v18 = v36[1];
         }
 
         v19 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, v17, v18);
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ":\n", 2);
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "Size: ", 6);
-        v20 = v8[1];
-        v21 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v21, "\n", 1);
+        v20 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, "\n", 1);
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "Alignment: ", 11);
-        v22 = *(v8 + 4);
+        v21 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v21, ":\n", 2);
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "Stride: ", 8);
+        v22 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v22, ":\n", 2);
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "NumExtraInhabitants: ", 21);
         v23 = std::ostream::operator<<();
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v23, ":\n", 2);
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "Stride: ", 8);
-        v24 = v8[3];
-        v25 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v25, ":\n", 2);
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "NumExtraInhabitants: ", 21);
-        v26 = v8[4];
-        v27 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v27, ":\n", 2);
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "BitwiseTakable: ", 16);
-        v28 = v8[2];
-        v29 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v29, ":\n", 2);
-        if (SHIBYTE(v42) < 0)
+        v24 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v24, ":\n", 2);
+        if (SHIBYTE(v37) < 0)
         {
-          operator delete(v41[0]);
+          operator delete(v36[0]);
         }
 
-        *v36 = *&__p[8];
-        *&v36[16] = v44;
-        swift::Demangle::__runtime::NodeFactory::popCheckpoint(*__p, v36, v30, v31);
-        swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::operator++(v45);
+        *v31 = *&__p[8];
+        *&v31[16] = v39;
+        swift::Demangle::__runtime::NodeFactory::popCheckpoint(*__p, v31, v25, v26);
+        swift::reflection::ReflectionSectionIteratorBase<swift::reflection::BuiltinTypeDescriptorIterator,swift::reflection::BuiltinTypeDescriptor>::operator++(v40);
       }
 
-      if (v50 < 0)
+      if (v46 < 0)
       {
-        operator delete(v49);
+        operator delete(v45);
       }
 
-      v2 = v35 + 288;
+      v2 = v30 + 288;
     }
 
-    while (v35 + 288 != v34);
+    while (v30 + 288 != v29);
   }
 }
 
@@ -7515,20 +7423,20 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpCapt
     *v7 = *(v2 + 96);
     v6 = *(v2 + 120);
     v8 = *(v2 + 112);
-    BYTE7(v17[1]) = 17;
-    strcpy(v17, "CaptureDescriptor");
-    swift::reflection::ReflectionSectionIteratorBase<swift::reflection::CaptureDescriptorIterator,swift::reflection::CaptureDescriptor>::ReflectionSectionIteratorBase(v11, v7, v6, v17);
-    if (SBYTE7(v17[1]) < 0)
+    BYTE7(v18[1]) = 17;
+    strcpy(v18, "CaptureDescriptor");
+    swift::reflection::ReflectionSectionIteratorBase<swift::reflection::CaptureDescriptorIterator,swift::reflection::CaptureDescriptor>::ReflectionSectionIteratorBase(v11, v7, v6, v18);
+    if (SBYTE7(v18[1]) < 0)
     {
-      operator delete(*&v17[0]);
+      operator delete(*&v18[0]);
     }
 
-    while (v14)
+    while (v15)
     {
-      *&v17[0] = v11[1];
-      *(&v17[0] + 1) = v12;
-      *&v17[1] = v13;
-      swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getClosureContextInfo(a1, v17, v7);
+      *&v18[0] = v12;
+      *(&v18[0] + 1) = v13;
+      *&v18[1] = v14;
+      swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::getClosureContextInfo(a1, v18, v7);
       swift::reflection::ClosureContextInfo::dump(v7, a2);
       if (__p)
       {
@@ -7545,9 +7453,9 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpCapt
       swift::reflection::ReflectionSectionIteratorBase<swift::reflection::CaptureDescriptorIterator,swift::reflection::CaptureDescriptor>::operator++(v11);
     }
 
-    if (v16 < 0)
+    if (v17 < 0)
     {
-      operator delete(v15);
+      operator delete(v16);
     }
   }
 }
@@ -7555,32 +7463,32 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpCapt
 void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpMultiPayloadEnumSection(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 8);
-  v42 = *(a1 + 16);
-  if (v2 != v42)
+  v39 = *(a1 + 16);
+  if (v2 != v39)
   {
     v4 = a2 + 3;
     v5 = a2 + 1;
     v6 = "\n";
     do
     {
-      *v45 = *(v2 + 224);
+      *v42 = *(v2 + 224);
       v7 = *(v2 + 248);
-      v43 = v2;
-      *&v45[16] = *(v2 + 240);
+      v40 = v2;
+      *&v42[16] = *(v2 + 240);
       HIBYTE(__p[2]) = 16;
       strcpy(__p, "MultiPayloadEnum");
-      swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::ReflectionSectionIteratorBase(v53, v45, v7, __p);
+      swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::ReflectionSectionIteratorBase(v50, v42, v7, __p);
       if (SHIBYTE(__p[2]) < 0)
       {
         operator delete(__p[0]);
       }
 
-      while (v56)
+      while (v54)
       {
         v10 = v6;
-        v11 = v53[1];
-        v12 = v54;
-        v13 = v55;
+        v11 = v51;
+        v12 = v52;
+        v13 = v53;
         __p[0] = *(a1 + 320);
         swift::Demangle::__runtime::NodeFactory::pushCheckpoint(__p[0], &__p[1]);
         v14 = *(a1 + 320);
@@ -7605,135 +7513,133 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpMult
           v17 = 0;
         }
 
-        swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::readTypeRef(a1, v16, v17, v50);
-        *v45 = *v50;
-        *&v45[16] = v51;
-        v59[0] = 1;
+        swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::readTypeRef(a1, v16, v17, v47);
+        *v42 = *v47;
+        *&v42[16] = v48;
+        v57[0] = 1;
         v18 = *(v14 + 2256);
         if (!v18)
         {
-          v41 = std::__throw_bad_function_call[abi:nn200100]();
-          swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::~ReflectionTypeDescriptorFinder(v41);
+          std::__throw_bad_function_call[abi:nn200100]();
+          swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::~ReflectionTypeDescriptorFinder(v38);
           return;
         }
 
-        v19 = (*(*v18 + 48))(v18, v45, v59);
-        v45[0] = 0;
-        *&v45[1] = 0x101010101010101;
-        v45[9] = 1;
-        *&v45[10] = 0x101010100000000;
-        v45[18] = 1;
-        *&v45[19] = 256;
-        v45[21] = 1;
-        v46 = 0;
-        v47 = 0;
-        v48[0] = off_E0BC8;
-        v48[1] = swift::Demangle::__runtime::genericParameterName;
-        v49 = v48;
-        swift::Demangle::__runtime::nodeToString(v19, v45, v20, v50);
-        if (v49 == v48)
+        v19 = (*(*v18 + 48))(v18, v42, v57);
+        v42[0] = 0;
+        *&v42[1] = 0x101010101010101;
+        v42[9] = 1;
+        *&v42[10] = 0x101010100000000;
+        v42[18] = 1;
+        *&v42[19] = 256;
+        v42[21] = 1;
+        v43 = 0;
+        v44 = 0;
+        v45[0] = off_E0BC8;
+        v45[1] = swift::Demangle::__runtime::genericParameterName;
+        v46 = v45;
+        swift::Demangle::__runtime::nodeToString(v47, v19, v42, v20);
+        if (v46 == v45)
         {
-          (*(*v49 + 32))(v49);
+          (*(*v46 + 32))(v46);
         }
 
-        else if (v49)
+        else if (v46)
         {
-          (*(*v49 + 40))();
+          (*(*v46 + 40))();
         }
 
         v21 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\n- ", 3);
-        if (v51 >= 0)
+        if (v48 >= 0)
         {
-          v22 = v50;
+          v22 = v47;
         }
 
         else
         {
-          v22 = v50[0];
+          v22 = v47[0];
         }
 
-        if (v51 >= 0)
+        if (v48 >= 0)
         {
-          v23 = HIBYTE(v51);
+          v23 = HIBYTE(v48);
         }
 
         else
         {
-          v23 = v50[1];
+          v23 = v47[1];
         }
 
         v24 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v21, v22, v23);
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v24, ":\n", 2);
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "  Descriptor Size: ", 19);
-        v25 = 4 * *(v13 + 3);
-        v26 = std::ostream::operator<<();
+        v25 = std::ostream::operator<<();
         v6 = v10;
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v26, v10, 1);
-        v27 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "  Flags: ", 9);
-        *(v27 + *(*v27 - 24) + 8) = *(v27 + *(*v27 - 24) + 8) & 0xFFFFFFB5 | 8;
-        v29 = v13 + 1;
-        v28 = *(v13 + 2);
-        v30 = std::ostream::operator<<();
-        *(v30 + *(*v30 - 24) + 8) = *(v30 + *(*v30 - 24) + 8) & 0xFFFFFFB5 | 2;
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v25, v10, 1);
+        v26 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "  Flags: ", 9);
+        *(v26 + *(*v26 - 24) + 8) = *(v26 + *(*v26 - 24) + 8) & 0xFFFFFFB5 | 8;
+        v27 = v13 + 1;
+        v28 = std::ostream::operator<<();
+        *(v28 + *(*v28 - 24) + 8) = *(v28 + *(*v28 - 24) + 8) & 0xFFFFFFB5 | 2;
         if (v13[1])
         {
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, " usesPayloadSpareBits", 21);
         }
 
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, v10, 1);
-        if (*v29)
+        if (*v27)
         {
-          v31 = v13[2];
-          v32 = v31;
-          if (v31)
+          v29 = v13[2];
+          v30 = v29;
+          if (v29)
           {
-            if (v31 >= 0x10000)
+            if (v29 >= 0x10000)
             {
               std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "  Spare bit mask: (offset ", 26);
-              v33 = std::ostream::operator<<();
-              v34 = " bytes) 0x";
-              v35 = 10;
+              v31 = std::ostream::operator<<();
+              v32 = " bytes) 0x";
+              v33 = 10;
             }
 
             else
             {
-              v33 = a2;
-              v34 = "  Spare bit mask: 0x";
-              v35 = 20;
+              v31 = a2;
+              v32 = "  Spare bit mask: 0x";
+              v33 = 20;
             }
 
-            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v33, v34, v35);
-            if (*v29)
+            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v31, v32, v33);
+            if (*v27)
             {
-              v36 = &v29[(*v29 & 1) + 1];
+              v34 = &v27[(*v27 & 1) + 1];
             }
 
             else
             {
-              v36 = 0;
+              v34 = 0;
             }
 
             do
             {
-              v38 = *a2;
+              v35 = *a2;
               *(v5 + *(*a2 - 24)) = *(v5 + *(*a2 - 24)) & 0xFFFFFFB5 | 8;
-              *(v4 + *(v38 - 24)) = 2;
-              v39 = a2 + *(v38 - 24);
-              if (*(v39 + 36) == -1)
+              *(v4 + *(v35 - 24)) = 2;
+              v36 = a2 + *(v35 - 24);
+              if (*(v36 + 36) == -1)
               {
-                std::ios_base::getloc((a2 + *(v38 - 24)));
-                v40 = std::locale::use_facet(v45, &std::ctype<char>::id);
-                (v40->__vftable[2].~facet_0)(v40, 32);
-                std::locale::~locale(v45);
+                std::ios_base::getloc((a2 + *(v35 - 24)));
+                v37 = std::locale::use_facet(v42, &std::ctype<char>::id);
+                (v37->__vftable[2].~facet_0)(v37, 32);
+                std::locale::~locale(v42);
               }
 
-              *(v39 + 36) = 48;
-              v37 = *v36++;
+              *(v36 + 36) = 48;
+              ++v34;
               std::ostream::operator<<();
-              --v32;
+              --v30;
             }
 
-            while (v32);
+            while (v30);
             *(v5 + *(*a2 - 24)) = *(v5 + *(*a2 - 24)) & 0xFFFFFFB5 | 2;
             v6 = v10;
             std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, v10, 1);
@@ -7741,26 +7647,26 @@ void swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::dumpMult
         }
 
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, v6, 1);
-        if (SHIBYTE(v51) < 0)
+        if (SHIBYTE(v48) < 0)
         {
-          operator delete(v50[0]);
+          operator delete(v47[0]);
         }
 
-        *v45 = *&__p[1];
-        *&v45[16] = __p[3];
-        swift::Demangle::__runtime::NodeFactory::popCheckpoint(__p[0], v45, v8, v9);
-        swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::operator++(v53);
+        *v42 = *&__p[1];
+        *&v42[16] = __p[3];
+        swift::Demangle::__runtime::NodeFactory::popCheckpoint(__p[0], v42, v8, v9);
+        swift::reflection::ReflectionSectionIteratorBase<swift::reflection::MultiPayloadEnumDescriptorIterator,swift::reflection::MultiPayloadEnumDescriptor>::operator++(v50);
       }
 
-      if (v58 < 0)
+      if (v56 < 0)
       {
-        operator delete(v57);
+        operator delete(v55);
       }
 
-      v2 = v43 + 288;
+      v2 = v40 + 288;
     }
 
-    while (v43 + 288 != v42);
+    while (v40 + 288 != v39);
   }
 }
 
@@ -7811,7 +7717,7 @@ void std::allocator<swift::reflection::FieldMetadata>::destroy[abi:nn200100](uin
   operator delete(v7);
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::findReflectionInfoWithTypeRefContainingAddress(swift::remote::RemoteAddress)::$_0 &,unsigned int *,false>(unint64_t result, unsigned int *a2, uint64_t a3, uint64_t a4, char a5)
+unsigned int *std::__introsort<std::_ClassicAlgPolicy,swift::reflection::TypeRefBuilder::ReflectionTypeDescriptorFinder::findReflectionInfoWithTypeRefContainingAddress(swift::remote::RemoteAddress)::$_0 &,unsigned int *,false>(unsigned int *result, unsigned int *a2, uint64_t *a3, uint64_t a4, char a5)
 {
   v9 = result;
 LABEL_2:
@@ -7901,7 +7807,7 @@ LABEL_10:
               v283 = v273 + 288 * v277;
               v284 = *(v283 + 128);
               LODWORD(v283) = *(v283 + 136);
-              result = v281 < v284;
+              result = (v281 < v284);
               v252 = v283 == v282;
               v285 = v283 > v282;
               if (v252)
@@ -7909,7 +7815,7 @@ LABEL_10:
                 v285 = result;
               }
 
-              if (v285)
+              if (v285 == 1)
               {
                 v286 = v272;
                 do
@@ -8159,14 +8065,14 @@ LABEL_190:
           do
           {
             result = &v335[v332];
-            v346 = (result + 4);
-            v345 = *(result + 4);
+            v346 = result + 1;
+            v345 = result[1];
             v347 = (2 * v332) | 1;
             v332 = 2 * v332 + 2;
             if (v332 < v11)
             {
-              v337 = *(result + 8);
-              result += 8;
+              v337 = result[2];
+              result += 2;
               v336 = v337;
               v338 = *(v334 + 8);
               v339 = v338 + 288 * v345;
@@ -8575,7 +8481,7 @@ LABEL_80:
       v147 = *v103;
       v148 = v14 + 288 * *v103;
       v150 = *(v148 + 128);
-      result = v148 + 128;
+      result = (v148 + 128);
       v149 = v150;
       v151 = *(result + 8);
       v152 = v150 < v138;
@@ -8962,7 +8868,7 @@ LABEL_134:
 
       else
       {
-        v219 = v10 + 1;
+        v219 = (v10 + 1);
         do
         {
           v10 = v219;
@@ -8971,7 +8877,7 @@ LABEL_134:
             break;
           }
 
-          ++v219;
+          v219 += 4;
           v220 = v14 + 288 * *v10;
           v221 = *(v220 + 128);
           LODWORD(v220) = *(v220 + 136);
@@ -9753,34 +9659,34 @@ LABEL_45:
   return v74 + 1 == a2;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::optional<std::string>>>(void *a1, uint64_t a2)
+uint64_t std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::optional<std::string>>>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(a2, (a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(a2, (a2 + 8));
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_20;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v8 = v4;
-    if (v4 >= *&v6)
+    v9 = v5;
+    if (v5 >= *&v7)
     {
-      v8 = v4 % *&v6;
+      v9 = v5 % *&v7;
     }
   }
 
   else
   {
-    v8 = (*&v6 - 1) & v4;
+    v9 = (*&v7 - 1) & v5;
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (result = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (result = *v10) == 0)
   {
 LABEL_20:
     operator new();
@@ -9788,23 +9694,23 @@ LABEL_20:
 
   while (1)
   {
-    v11 = result[1];
-    if (v11 == v5)
+    v12 = *(result + 8);
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v7.u32[0] <= 1uLL)
+    if (v8.u32[0] <= 1uLL)
     {
-      v11 &= *&v6 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    else if (v11 >= *&v6)
+    else if (v12 >= *&v7)
     {
-      v11 %= *&v6;
+      v12 %= *&v7;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_20;
     }
@@ -9817,7 +9723,7 @@ LABEL_12:
     }
   }
 
-  if (result[2] != *a2 || *(result + 24) != *(a2 + 8))
+  if (*(result + 16) != *a2 || *(result + 24) != *(a2 + 8))
   {
     goto LABEL_12;
   }
@@ -9825,34 +9731,34 @@ LABEL_12:
   return result;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::string>>(void *a1, uint64_t a2)
+uint64_t std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,std::optional<std::string>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,std::string>>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(a2, (a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(a2, (a2 + 8));
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_20;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v8 = v4;
-    if (v4 >= *&v6)
+    v9 = v5;
+    if (v5 >= *&v7)
     {
-      v8 = v4 % *&v6;
+      v9 = v5 % *&v7;
     }
   }
 
   else
   {
-    v8 = (*&v6 - 1) & v4;
+    v9 = (*&v7 - 1) & v5;
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (result = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (result = *v10) == 0)
   {
 LABEL_20:
     operator new();
@@ -9860,23 +9766,23 @@ LABEL_20:
 
   while (1)
   {
-    v11 = result[1];
-    if (v11 == v5)
+    v12 = *(result + 8);
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v7.u32[0] <= 1uLL)
+    if (v8.u32[0] <= 1uLL)
     {
-      v11 &= *&v6 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    else if (v11 >= *&v6)
+    else if (v12 >= *&v7)
     {
-      v11 %= *&v6;
+      v12 %= *&v7;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_20;
     }
@@ -9889,7 +9795,7 @@ LABEL_12:
     }
   }
 
-  if (result[2] != *a2 || *(result + 24) != *(a2 + 8))
+  if (*(result + 16) != *a2 || *(result + 24) != *(a2 + 8))
   {
     goto LABEL_12;
   }
@@ -9987,15 +9893,15 @@ uint64_t swift::reflection::ReflectionSectionIteratorBase<swift::reflection::Ass
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>>>::__emplace_unique_key_args<swift::reflection::TypeRefID,std::pair<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>>(void *a1, char **a2)
+void *std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>>>::__emplace_unique_key_args<swift::reflection::TypeRefID,std::pair<swift::reflection::TypeRefID,swift::reflection::TypeRef const*>>(void *a1, char **a2, __int128 *a3)
 {
-  v3 = *a2;
-  v2 = a2[1];
-  if (*a2 == v2)
+  v4 = *a2;
+  v3 = a2[1];
+  if (*a2 == v3)
   {
-    v4 = 0;
-    v7 = a1[1];
-    if (!*&v7)
+    v5 = 0;
+    v8 = a1[1];
+    if (!*&v8)
     {
       goto LABEL_24;
     }
@@ -10003,86 +9909,86 @@ void *std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swif
 
   else
   {
-    v4 = 0;
-    v5 = *a2;
+    v5 = 0;
+    v6 = *a2;
     do
     {
-      v6 = *v5;
-      v5 += 4;
-      v4 ^= (v4 << 6) + (v4 >> 2) + 2654435769u + v6;
+      v7 = *v6;
+      v6 += 4;
+      v5 ^= (v5 << 6) + (v5 >> 2) + 2654435769u + v7;
     }
 
-    while (v5 != v2);
-    v7 = a1[1];
-    if (!*&v7)
+    while (v6 != v3);
+    v8 = a1[1];
+    if (!*&v8)
     {
       goto LABEL_24;
     }
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v10 = v4;
-    if (v4 >= *&v7)
+    v11 = v5;
+    if (v5 >= *&v8)
     {
-      v10 = v4 % *&v7;
+      v11 = v5 % *&v8;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v4;
+    v11 = (*&v8 - 1) & v5;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_24:
     operator new();
   }
 
-  v13 = v2 - v3;
+  v14 = v3 - v4;
   while (1)
   {
-    v14 = v12[1];
-    if (v14 == v4)
+    v15 = v13[1];
+    if (v15 == v5)
     {
       break;
     }
 
-    if (v9 <= 1)
+    if (v10 <= 1)
     {
-      v14 &= *&v7 - 1;
+      v15 &= *&v8 - 1;
     }
 
-    else if (v14 >= *&v7)
+    else if (v15 >= *&v8)
     {
-      v14 %= *&v7;
+      v15 %= *&v8;
     }
 
-    if (v14 != v10)
+    if (v15 != v11)
     {
       goto LABEL_24;
     }
 
 LABEL_16:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_24;
     }
   }
 
-  v15 = v12[2];
-  if (v12[3] - v15 != v13 || memcmp(v15, v3, v13))
+  v16 = v13[2];
+  if (v13[3] - v16 != v14 || memcmp(v16, v4, v14))
   {
     goto LABEL_16;
   }
 
-  return v12;
+  return v13;
 }
 
 uint64_t swift::reflection::ReflectionSectionIteratorBase<swift::reflection::FieldDescriptorIterator,swift::reflection::TargetFieldDescriptor<swift::InProcess>>::ReflectionSectionIteratorBase(uint64_t result, uint64_t a2, unint64_t a3, __int128 *a4)
@@ -10234,119 +10140,119 @@ void __swift::__runtime::llvm::SmallVectorTemplateBase<std::string,false>::grow(
   *(a1 + 12) = v14;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, unsigned __int8 *a2, uint64_t a3, __int128 **a4)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
-  if (*(a2 + 23) >= 0)
+  v4 = a2;
+  v6 = *(a2 + 1);
+  if ((a2[23] & 0x80u) == 0)
   {
-    v5 = *(a2 + 23);
+    v7 = a2[23];
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v7 = v6;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v21, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v23, a2, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_33;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v11 = v6;
-    if (v6 >= *&v8)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v11 = v6 % *&v8;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v11 = (*&v8 - 1) & v6;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v12 = *(*a1 + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_33:
     operator new();
   }
 
-  v14 = v2[23];
-  if (v14 >= 0)
+  v16 = v4[23];
+  if (v16 >= 0)
   {
-    v15 = v2[23];
+    v17 = v4[23];
   }
 
   else
   {
-    v15 = *(v2 + 1);
+    v17 = *(v4 + 1);
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    v2 = *v2;
+    v4 = *v4;
   }
 
   while (1)
   {
-    v16 = v13[1];
-    if (v16 == v7)
+    v18 = v15[1];
+    if (v18 == v9)
     {
       break;
     }
 
-    if (v10 <= 1)
+    if (v12 <= 1)
     {
-      v16 &= *&v8 - 1;
+      v18 &= *&v10 - 1;
     }
 
-    else if (v16 >= *&v8)
+    else if (v18 >= *&v10)
     {
-      v16 %= *&v8;
+      v18 %= *&v10;
     }
 
-    if (v16 != v11)
+    if (v18 != v13)
     {
       goto LABEL_33;
     }
 
 LABEL_20:
-    v13 = *v13;
-    if (!v13)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_33;
     }
   }
 
-  v17 = *(v13 + 39);
-  v18 = v17;
-  if (v17 < 0)
+  v19 = *(v15 + 39);
+  v20 = v19;
+  if (v19 < 0)
   {
-    v17 = v13[3];
+    v19 = v15[3];
   }
 
-  if (v17 != v15)
-  {
-    goto LABEL_20;
-  }
-
-  v19 = v18 >= 0 ? (v13 + 2) : v13[2];
-  if (memcmp(v19, v2, v15))
+  if (v19 != v17)
   {
     goto LABEL_20;
   }
 
-  return v13;
+  v21 = v20 >= 0 ? (v15 + 2) : v15[2];
+  if (memcmp(v21, v4, v17))
+  {
+    goto LABEL_20;
+  }
+
+  return v15;
 }
 
 unint64_t std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](uint64_t a1, uint64_t *a2, unint64_t a3)
@@ -10474,9 +10380,9 @@ LABEL_8:
   return result;
 }
 
-uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<unsigned long,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<unsigned long>,__swift::__runtime::llvm::detail::DenseSetPair<unsigned long>>,unsigned long,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<unsigned long>,__swift::__runtime::llvm::detail::DenseSetPair<unsigned long>>::try_emplace<__swift::__runtime::llvm::detail::DenseSetEmpty&>@<X0>(uint64_t result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<unsigned long,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<unsigned long>,__swift::__runtime::llvm::detail::DenseSetPair<unsigned long>>,unsigned long,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<unsigned long>,__swift::__runtime::llvm::detail::DenseSetPair<unsigned long>>::try_emplace<__swift::__runtime::llvm::detail::DenseSetEmpty&>@<X0>(uint64_t *result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = *(result + 16);
+  v4 = *(result + 4);
   if (v4)
   {
     v5 = *result;
@@ -10532,14 +10438,14 @@ LABEL_3:
   }
 
   v18 = v8;
-  v11 = *(result + 8);
+  v11 = *(result + 2);
   if (4 * v11 + 4 >= 3 * v4)
   {
     v4 *= 2;
     goto LABEL_24;
   }
 
-  if (v4 + ~v11 - *(result + 12) <= v4 >> 3)
+  if (v4 + ~v11 - *(result + 3) <= v4 >> 3)
   {
 LABEL_24:
     v16 = result;
@@ -10548,19 +10454,19 @@ LABEL_24:
     __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<unsigned long,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<unsigned long>,__swift::__runtime::llvm::detail::DenseSetPair<unsigned long>>,unsigned long,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<unsigned long>,__swift::__runtime::llvm::detail::DenseSetPair<unsigned long>>::LookupBucketFor<unsigned long>(v16, a2, &v18);
     result = v16;
     a3 = v17;
-    v11 = *(v16 + 8);
+    v11 = *(v16 + 2);
     v8 = v18;
   }
 
-  *(result + 8) = v11 + 1;
+  *(result + 2) = v11 + 1;
   if (*v8 != -1)
   {
-    --*(result + 12);
+    --*(result + 3);
   }
 
   *v8 = *a2;
   v5 = *result;
-  v4 = *(result + 16);
+  v4 = *(result + 4);
   v10 = 1;
 LABEL_10:
   *a3 = v8;
@@ -10745,10 +10651,10 @@ LABEL_16:
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::TargetFieldDescriptor<swift::InProcess>>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v5 = *(a2 + 23);
@@ -10794,15 +10700,15 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string,swift::remote::R
   v13 = *v12;
   if (*v12)
   {
-    v14 = v2[23];
+    v14 = *(v2 + 23);
     if (v14 >= 0)
     {
-      v15 = v2[23];
+      v15 = *(v2 + 23);
     }
 
     else
     {
-      v15 = *(v2 + 1);
+      v15 = v2[1];
     }
 
     if (v14 < 0)
@@ -10859,7 +10765,7 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string,swift::remote::R
   return v13;
 }
 
-uint64_t anonymous namespace::FieldDescriptorImpl::demangleSuperclass(_anonymous_namespace_::FieldDescriptorImpl *this)
+void anonymous namespace::FieldDescriptorImpl::demangleSuperclass(_anonymous_namespace_::FieldDescriptorImpl *this)
 {
   v1 = *(this + 5);
   v2 = *(*(this + 4) + 4);
@@ -10890,28 +10796,26 @@ uint64_t anonymous namespace::FieldDescriptorImpl::demangleSuperclass(_anonymous
   v5 = *(v1 + 2256);
   if (v5)
   {
-    return (*(*v5 + 48))(v5, &v10, &v12);
+    (*(*v5 + 48))(v5, &v10, &v12);
   }
 
-  v7 = std::__throw_bad_function_call[abi:nn200100]();
+  else
+  {
+    std::__throw_bad_function_call[abi:nn200100]();
+  }
 }
 
-uint64_t anonymous namespace::FieldDescriptorImpl::getFieldRecords@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+void anonymous namespace::FieldDescriptorImpl::getFieldRecords(_anonymous_namespace_::FieldDescriptorImpl *this@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  v3 = *(this + 32);
-  if (*(v3 + 12))
+  if (*(*(this + 4) + 12))
   {
-    v4 = *(this + 40);
-    v5 = v3 + 16 + *(this + 16) - *(this + 32);
-    v6 = *(this + 24);
     operator new();
   }
 
   *a2 = 0;
-  return this;
 }
 
 _BYTE *anonymous namespace::FieldRecordImpl::getFieldName(_anonymous_namespace_::FieldRecordImpl *this)
@@ -10977,25 +10881,25 @@ uint64_t anonymous namespace::FieldRecordImpl::getDemangledTypeName(_anonymous_n
     return (*(*v5 + 48))(v5, &v11, &v13);
   }
 
-  v7 = std::__throw_bad_function_call[abi:nn200100]();
+  std::__throw_bad_function_call[abi:nn200100]();
   return std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path<swift::reflection::FieldTypeInfo>(v7, v8);
 }
 
-uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path<swift::reflection::FieldTypeInfo>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path<swift::reflection::FieldTypeInfo>(__int128 **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
+  v2 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1);
   v3 = v2 + 1;
   if (v2 + 1 > 0x555555555555555)
   {
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v3)
+  if (0x5555555555555556 * (a1[2] - *a1) > v3)
   {
-    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
+    v3 = 0x5555555555555556 * (a1[2] - *a1);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x2AAAAAAAAAAAAAALL)
   {
     v5 = 0x555555555555555;
   }
@@ -11015,7 +10919,7 @@ uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v6 = 16 * ((a1[1] - *a1) >> 4);
+  v6 = 16 * (a1[1] - *a1);
   *v6 = *a2;
   *(v6 + 16) = *(a2 + 16);
   *(a2 + 8) = 0;
@@ -11026,11 +10930,11 @@ uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path
   v7 = 48 * v2 + 48;
   v8 = *a1;
   v9 = a1[1];
-  v10 = v6 + *a1 - v9;
+  v10 = &(*a1)[v6 / 0x10] - v9;
   if (*a1 != v9)
   {
     v11 = *a1;
-    v12 = v6 + *a1 - v9;
+    v12 = &(*a1)[v6 / 0x10] - v9;
     do
     {
       v13 = *v11;
@@ -11054,7 +10958,7 @@ uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path
         operator delete(*v8);
       }
 
-      v8 += 48;
+      v8 += 3;
     }
 
     while (v8 != v9);
@@ -11072,20 +10976,20 @@ uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path
   return v7;
 }
 
-uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path<swift::reflection::FieldTypeInfo const&>(uint64_t *a1, uint64_t a2)
+unint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path<swift::reflection::FieldTypeInfo const&>(__int128 **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4) + 1;
+  v2 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1) + 1;
   if (v2 > 0x555555555555555)
   {
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v2)
+  if (0x5555555555555556 * (a1[2] - *a1) > v2)
   {
-    v2 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
+    v2 = 0x5555555555555556 * (a1[2] - *a1);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x2AAAAAAAAAAAAAALL)
   {
     v5 = 0x555555555555555;
   }
@@ -11105,7 +11009,7 @@ uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v6 = 16 * ((a1[1] - *a1) >> 4);
+  v6 = 16 * (a1[1] - *a1);
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(v6, *a2, *(a2 + 8));
@@ -11122,7 +11026,7 @@ uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path
   v7 = v6 + 48;
   v8 = *a1;
   v9 = a1[1];
-  v10 = v6 + *a1 - v9;
+  v10 = &(*a1)[v6 / 0x10] - v9;
   if (*a1 != v9)
   {
     v11 = *a1;
@@ -11150,7 +11054,7 @@ uint64_t std::vector<swift::reflection::FieldTypeInfo>::__emplace_back_slow_path
         operator delete(*v8);
       }
 
-      v8 += 48;
+      v8 += 3;
     }
 
     while (v8 != v9);
@@ -11257,119 +11161,119 @@ uint64_t swift::reflection::ReflectionSectionIteratorBase<swift::reflection::Bui
   return result;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,swift::remote::RemoteRef<swift::reflection::BuiltinTypeDescriptor>>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
+  v3 = a2;
+  v5 = a2[1];
   if (*(a2 + 23) >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v6 = v5;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v21, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v22, a2, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_33;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v11 = v6;
-    if (v6 >= *&v8)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v11 = v6 % *&v8;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v11 = (*&v8 - 1) & v6;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v12 = *(*a1 + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_33:
     operator new();
   }
 
-  v14 = v2[23];
-  if (v14 >= 0)
+  v15 = *(v3 + 23);
+  if (v15 >= 0)
   {
-    v15 = v2[23];
+    v16 = *(v3 + 23);
   }
 
   else
   {
-    v15 = *(v2 + 1);
+    v16 = v3[1];
   }
 
-  if (v14 < 0)
+  if (v15 < 0)
   {
-    v2 = *v2;
+    v3 = *v3;
   }
 
   while (1)
   {
-    v16 = v13[1];
-    if (v16 == v7)
+    v17 = v14[1];
+    if (v17 == v8)
     {
       break;
     }
 
-    if (v10 <= 1)
+    if (v11 <= 1)
     {
-      v16 &= *&v8 - 1;
+      v17 &= *&v9 - 1;
     }
 
-    else if (v16 >= *&v8)
+    else if (v17 >= *&v9)
     {
-      v16 %= *&v8;
+      v17 %= *&v9;
     }
 
-    if (v16 != v11)
+    if (v17 != v12)
     {
       goto LABEL_33;
     }
 
 LABEL_20:
-    v13 = *v13;
-    if (!v13)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_33;
     }
   }
 
-  v17 = *(v13 + 39);
-  v18 = v17;
-  if (v17 < 0)
+  v18 = *(v14 + 39);
+  v19 = v18;
+  if (v18 < 0)
   {
-    v17 = v13[3];
+    v18 = v14[3];
   }
 
-  if (v17 != v15)
-  {
-    goto LABEL_20;
-  }
-
-  v19 = v18 >= 0 ? (v13 + 2) : v13[2];
-  if (memcmp(v19, v2, v15))
+  if (v18 != v16)
   {
     goto LABEL_20;
   }
 
-  return v13;
+  v20 = v19 >= 0 ? (v14 + 2) : v14[2];
+  if (memcmp(v20, v3, v16))
+  {
+    goto LABEL_20;
+  }
+
+  return v14;
 }
 
 _BYTE *anonymous namespace::BuiltinTypeDescriptorImpl::getMangledTypeName(_anonymous_namespace_::BuiltinTypeDescriptorImpl *this)
@@ -11654,34 +11558,34 @@ uint64_t swift::reflection::ReflectionSectionIteratorBase<swift::reflection::Cap
   return result;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>>(void *a1, uint64_t a2)
+uint64_t std::__hash_table<std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::__unordered_map_hasher<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::hash<swift::remote::RemoteAddress>,std::equal_to<swift::remote::RemoteAddress>,true>,std::__unordered_map_equal<swift::remote::RemoteAddress,std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>,std::equal_to<swift::remote::RemoteAddress>,std::hash<swift::remote::RemoteAddress>,true>,std::allocator<std::__hash_value_type<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>>>::__emplace_unique_key_args<swift::remote::RemoteAddress,std::pair<swift::remote::RemoteAddress,swift::remote::RemoteRef<swift::reflection::CaptureDescriptor>>>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(a2, (a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(a2, (a2 + 8));
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_20;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v8 = v4;
-    if (v4 >= *&v6)
+    v9 = v5;
+    if (v5 >= *&v7)
     {
-      v8 = v4 % *&v6;
+      v9 = v5 % *&v7;
     }
   }
 
   else
   {
-    v8 = (*&v6 - 1) & v4;
+    v9 = (*&v7 - 1) & v5;
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (result = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (result = *v10) == 0)
   {
 LABEL_20:
     operator new();
@@ -11689,23 +11593,23 @@ LABEL_20:
 
   while (1)
   {
-    v11 = result[1];
-    if (v11 == v5)
+    v12 = *(result + 8);
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v7.u32[0] <= 1uLL)
+    if (v8.u32[0] <= 1uLL)
     {
-      v11 &= *&v6 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    else if (v11 >= *&v6)
+    else if (v12 >= *&v7)
     {
-      v11 %= *&v6;
+      v12 %= *&v7;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_20;
     }
@@ -11718,7 +11622,7 @@ LABEL_12:
     }
   }
 
-  if (result[2] != *a2 || *(result + 24) != *(a2 + 8))
+  if (*(result + 16) != *a2 || *(result + 24) != *(a2 + 8))
   {
     goto LABEL_12;
   }
@@ -11726,7 +11630,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t swift::reflection::MetadataSource::decode<swift::reflection::MetadataSourceBuilder>(swift::reflection::MetadataSourceBuilder *a1, const char **a2, const char **a3)
+uint64_t swift::reflection::MetadataSource::decode<swift::reflection::MetadataSourceBuilder>(swift::reflection::MetadataSourceBuilder *a1, const char **a2, unsigned __int8 **a3)
 {
   v3 = *a2;
   if (*a2 == *a3)
@@ -11770,10 +11674,11 @@ uint64_t swift::reflection::MetadataSource::decode<swift::reflection::MetadataSo
           }
 
 LABEL_28:
-          if ((strtol(v6, 0, 10) - 0x7FFFFFFFFFFFFFFFLL) > 1 || *__error() != 34)
+          v22 = strtol(v6, 0, 10);
+          if ((v22 - 0x7FFFFFFFFFFFFFFFLL) > 1 || *__error() != 34)
           {
 
-            swift::reflection::MetadataSourceBuilder::createMetadataCapture(a1);
+            swift::reflection::MetadataSourceBuilder::createMetadataCapture(a1, v22);
           }
         }
 
@@ -11809,10 +11714,11 @@ LABEL_28:
           }
 
 LABEL_34:
-          if ((strtol(v11, 0, 10) - 0x7FFFFFFFFFFFFFFFLL) > 1 || *__error() != 34)
+          v24 = strtol(v11, 0, 10);
+          if ((v24 - 0x7FFFFFFFFFFFFFFFLL) > 1 || *__error() != 34)
           {
 
-            swift::reflection::MetadataSourceBuilder::createReferenceCapture(a1);
+            swift::reflection::MetadataSourceBuilder::createReferenceCapture(a1, v24);
           }
         }
 
@@ -11857,10 +11763,11 @@ LABEL_34:
       }
 
 LABEL_40:
-      if ((strtol(v16, 0, 10) - 0x7FFFFFFFFFFFFFFFLL) > 1 || *__error() != 34)
+      v26 = strtol(v16, 0, 10);
+      if ((v26 - 0x7FFFFFFFFFFFFFFFLL) > 1 || *__error() != 34)
       {
 
-        swift::reflection::MetadataSourceBuilder::createClosureBinding(a1);
+        swift::reflection::MetadataSourceBuilder::createClosureBinding(a1, v26);
       }
     }
 
@@ -11875,7 +11782,7 @@ LABEL_40:
   return swift::reflection::MetadataSource::decodeGenericArgument<swift::reflection::MetadataSourceBuilder>(a1, a2, a3);
 }
 
-uint64_t swift::reflection::MetadataSource::decodeGenericArgument<swift::reflection::MetadataSourceBuilder>(uint64_t a1, const char **a2, const char **a3)
+uint64_t swift::reflection::MetadataSource::decodeGenericArgument<swift::reflection::MetadataSourceBuilder>(swift::reflection::MetadataSourceBuilder *a1, const char **a2, unsigned __int8 **a3)
 {
   v5 = *a2;
   if (*a2 == *a3)
@@ -11938,7 +11845,7 @@ LABEL_10:
   return 0;
 }
 
-uint64_t std::vector<swift::reflection::PropertyTypeInfo>::__emplace_back_slow_path<swift::reflection::PropertyTypeInfo>(void **a1, uint64_t a2)
+void **std::vector<swift::reflection::PropertyTypeInfo>::__emplace_back_slow_path<swift::reflection::PropertyTypeInfo>(void ***a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5) + 1;
   if (v2 > 0x2AAAAAAAAAAAAAALL)
@@ -11993,10 +11900,10 @@ uint64_t std::vector<swift::reflection::PropertyTypeInfo>::__emplace_back_slow_p
   *(a2 + 72) = 0;
   *(a2 + 80) = 0;
   *(a2 + 88) = 0;
-  v8 = v5 + 96;
+  v8 = (v5 + 96);
   v10 = *a1;
   v9 = a1[1];
-  v11 = v5 + *a1 - v9;
+  v11 = (v5 + *a1 - v9);
   *(v5 + 72) = v7;
   if (v9 != v10)
   {
@@ -12005,25 +11912,25 @@ uint64_t std::vector<swift::reflection::PropertyTypeInfo>::__emplace_back_slow_p
     do
     {
       v14 = *v12;
-      *(v13 + 16) = v12[2];
+      *(v13 + 2) = v12[2];
       *v13 = v14;
       v12[1] = 0;
       v12[2] = 0;
       *v12 = 0;
       v15 = *(v12 + 3);
-      *(v13 + 40) = v12[5];
+      *(v13 + 5) = v12[5];
       *(v13 + 24) = v15;
       v12[4] = 0;
       v12[5] = 0;
       v12[3] = 0;
       v16 = *(v12 + 3);
-      *(v13 + 64) = v12[8];
-      *(v13 + 48) = v16;
+      *(v13 + 8) = v12[8];
+      *(v13 + 3) = v16;
       v12[7] = 0;
       v12[8] = 0;
       v12[6] = 0;
       v17 = *(v12 + 9);
-      *(v13 + 88) = v12[11];
+      *(v13 + 11) = v12[11];
       *(v13 + 72) = v17;
       v12[9] = 0;
       v12[10] = 0;
@@ -12158,7 +12065,7 @@ LABEL_9:
   std::string::__init_copy_ctor_external(this + 3, v9, v10);
 }
 
-uint64_t std::vector<swift::reflection::FieldMetadata>::__emplace_back_slow_path<swift::reflection::FieldMetadata>(uint64_t *a1, uint64_t a2)
+void *std::vector<swift::reflection::FieldMetadata>::__emplace_back_slow_path<swift::reflection::FieldMetadata>(void **a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
@@ -12214,39 +12121,39 @@ uint64_t std::vector<swift::reflection::FieldMetadata>::__emplace_back_slow_path
   *(a2 + 72) = 0;
   *(a2 + 80) = 0;
   *(a2 + 88) = 0;
-  v8 = 96 * v2 + 96;
+  v8 = (96 * v2 + 96);
   v9 = *a1;
   v10 = a1[1];
-  v11 = v6 + *a1 - v10;
+  v11 = (v6 + *a1 - v10);
   if (*a1 != v10)
   {
     v12 = *a1;
-    v13 = v6 + *a1 - v10;
+    v13 = (v6 + *a1 - v10);
     do
     {
       v14 = *v12;
-      *(v13 + 16) = *(v12 + 2);
+      *(v13 + 2) = *(v12 + 2);
       *v13 = v14;
       *(v12 + 1) = 0;
       *(v12 + 2) = 0;
       *v12 = 0;
       v15 = *(v12 + 24);
-      *(v13 + 40) = *(v12 + 5);
+      *(v13 + 5) = *(v12 + 5);
       *(v13 + 24) = v15;
       *(v12 + 4) = 0;
       *(v12 + 5) = 0;
       *(v12 + 3) = 0;
-      *(v13 + 56) = 0;
-      *(v13 + 64) = 0;
-      *(v13 + 48) = *(v12 + 3);
-      *(v13 + 64) = *(v12 + 8);
+      *(v13 + 7) = 0;
+      *(v13 + 8) = 0;
+      *(v13 + 3) = *(v12 + 3);
+      *(v13 + 8) = *(v12 + 8);
       *(v12 + 6) = 0;
       *(v12 + 7) = 0;
       *(v12 + 8) = 0;
-      *(v13 + 80) = 0;
-      *(v13 + 88) = 0;
+      *(v13 + 10) = 0;
+      *(v13 + 11) = 0;
       *(v13 + 72) = *(v12 + 72);
-      *(v13 + 88) = *(v12 + 11);
+      *(v13 + 11) = *(v12 + 11);
       *(v12 + 9) = 0;
       *(v12 + 10) = 0;
       *(v12 + 11) = 0;

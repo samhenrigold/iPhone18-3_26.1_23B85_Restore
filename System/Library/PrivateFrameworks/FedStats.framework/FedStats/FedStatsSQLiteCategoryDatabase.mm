@@ -483,33 +483,33 @@ LABEL_26:
 
 - (id)encodeCategories:(id)categories error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   categoriesCopy = categories;
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(categoriesCopy, "count")}];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v8 = categoriesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v38;
+    v11 = *v37;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v38 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", *(*(&v37 + 1) + 8 * i)];
+        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", *(*(&v36 + 1) + 8 * i)];
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v10);
@@ -525,9 +525,9 @@ LABEL_26:
   v20 = [v17 stringWithFormat:@"SELECT * FROM '%@' WHERE %@ in %@", tableName, categoryColumnName, v16];
 
   sqliteDB = [(FedStatsSQLiteCategoryDatabase *)self sqliteDB];
-  v36 = 0;
-  v22 = [sqliteDB runQuery:v20 error:&v36];
-  v23 = v36;
+  v35 = 0;
+  v22 = [sqliteDB runQuery:v20 error:&v35];
+  v23 = v35;
 
   if (v22)
   {
@@ -536,8 +536,8 @@ LABEL_26:
     if (next)
     {
       v26 = next;
-      v34 = v23;
-      v35 = v16;
+      v33 = v23;
+      v34 = v16;
       do
       {
         indexColumnName = [(FedStatsSQLiteCategoryDatabase *)self indexColumnName];
@@ -553,8 +553,8 @@ LABEL_26:
       }
 
       while (next2);
-      v23 = v34;
-      v16 = v35;
+      v23 = v33;
+      v16 = v34;
     }
   }
 
@@ -568,8 +568,6 @@ LABEL_26:
   {
     dictionary = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -621,7 +619,7 @@ LABEL_26:
 
 + (id)categoryDatabaseAt:(id)at withCategories:(id)categories tableName:(id)name categoryColumnName:(id)columnName indexColumnName:(id)indexColumnName error:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   atCopy = at;
   categoriesCopy = categories;
   nameCopy = name;
@@ -633,13 +631,13 @@ LABEL_26:
     if (error)
     {
 LABEL_23:
-      [FedStatsError errorWithCode:302 description:v35];
-      *error = v34 = 0;
+      [FedStatsError errorWithCode:302 description:v34];
+      *error = v33 = 0;
       goto LABEL_32;
     }
 
 LABEL_31:
-    v34 = 0;
+    v33 = 0;
     goto LABEL_32;
   }
 
@@ -654,28 +652,27 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v39 = indexColumnNameCopy;
-  v40 = columnNameCopy;
-  v47 = 0u;
-  v48 = 0u;
+  v37 = indexColumnNameCopy;
+  v38 = columnNameCopy;
   v45 = 0u;
   v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v18 = categoriesCopy;
-  v19 = [v18 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v46;
+    v21 = *v44;
     while (2)
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v46 != v21)
+        if (*v44 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v45 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -683,12 +680,12 @@ LABEL_31:
             *error = {;
           }
 
-          v34 = 0;
+          v33 = 0;
           goto LABEL_27;
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v43 objects:v47 count:16];
       if (v20)
       {
         continue;
@@ -698,68 +695,68 @@ LABEL_31:
     }
   }
 
-  v44 = 0;
-  v24 = [FedStatsSQLiteDatabase databaseWithURL:atCopy mode:119 error:&v44];
-  v25 = v44;
-  if (!v24)
+  v42 = 0;
+  v23 = [FedStatsSQLiteDatabase databaseWithURL:atCopy mode:119 error:&v42];
+  v24 = v42;
+  if (!v23)
   {
-    indexColumnNameCopy = v39;
-    columnNameCopy = v40;
+    indexColumnNameCopy = v37;
+    columnNameCopy = v38;
     if (error)
     {
-      *error = [FedStatsError errorWithCode:302 underlyingError:v25 description:@"Cannot create new database"];
+      *error = [FedStatsError errorWithCode:302 underlyingError:v24 description:@"Cannot create new database"];
     }
 
     goto LABEL_31;
   }
 
-  indexColumnNameCopy = v39;
-  columnNameCopy = v40;
-  v42 = nameCopy;
-  [MEMORY[0x277CCACA8] stringWithFormat:@"CREATE TABLE '%@' ('%@' INTEGER, '%@' TEXT, PRIMARY KEY('%@', '%@')) WITHOUT ROWID", nameCopy, v39, v40, v39, v40];
-  v38 = v43[1] = v25;
-  v26 = [v24 execute:? error:?];
-  v27 = v25;
+  indexColumnNameCopy = v37;
+  columnNameCopy = v38;
+  v40 = nameCopy;
+  [MEMORY[0x277CCACA8] stringWithFormat:@"CREATE TABLE '%@' ('%@' INTEGER, '%@' TEXT, PRIMARY KEY('%@', '%@')) WITHOUT ROWID", nameCopy, v37, v38, v37, v38];
+  v36 = v41[1] = v24;
+  v25 = [v23 execute:? error:?];
+  v26 = v24;
 
-  if (v26)
+  if (v25)
   {
-    v41 = v24;
-    v28 = 0;
-    v29 = 1;
+    v39 = v23;
+    v27 = 0;
+    v28 = 1;
     do
     {
-      if (v29 - 1 >= [v18 count])
+      if (v28 - 1 >= [v18 count])
       {
 
-        v34 = +[FedStatsSQLiteCategoryDatabase databaseWithFileURL:minIndex:maxIndex:checkForPrimaryKey:error:](FedStatsSQLiteCategoryDatabase, "databaseWithFileURL:minIndex:maxIndex:checkForPrimaryKey:error:", atCopy, 1, [v18 count], 1, error);
+        v33 = +[FedStatsSQLiteCategoryDatabase databaseWithFileURL:minIndex:maxIndex:checkForPrimaryKey:error:](FedStatsSQLiteCategoryDatabase, "databaseWithFileURL:minIndex:maxIndex:checkForPrimaryKey:error:", atCopy, 1, [v18 count], 1, error);
         goto LABEL_39;
       }
 
-      v30 = MEMORY[0x277CCACA8];
-      v31 = [v18 objectAtIndex:v29 - 1];
-      v32 = [v30 stringWithFormat:@"INSERT INTO '%@' VALUES (%lu, %@)", v42, v29, v31];
+      v29 = MEMORY[0x277CCACA8];
+      v30 = [v18 objectAtIndex:v28 - 1];
+      v31 = [v29 stringWithFormat:@"INSERT INTO '%@' VALUES (%lu, %@)", v40, v28, v30];
 
-      v43[0] = v27;
-      LOBYTE(v31) = [v41 execute:v32 error:v43];
-      v33 = v43[0];
+      v41[0] = v26;
+      LOBYTE(v30) = [v39 execute:v31 error:v41];
+      v32 = v41[0];
 
-      ++v29;
-      v27 = v33;
-      v28 = v32;
+      ++v28;
+      v26 = v32;
+      v27 = v31;
     }
 
-    while ((v31 & 1) != 0);
+    while ((v30 & 1) != 0);
     if (error)
     {
-      *error = [FedStatsError errorWithCode:302 underlyingError:v33 description:@"Cannot insert elements into the table"];
+      *error = [FedStatsError errorWithCode:302 underlyingError:v32 description:@"Cannot insert elements into the table"];
     }
 
-    v34 = 0;
+    v33 = 0;
 LABEL_39:
-    nameCopy = v42;
+    nameCopy = v40;
 LABEL_27:
-    indexColumnNameCopy = v39;
-    columnNameCopy = v40;
+    indexColumnNameCopy = v37;
+    columnNameCopy = v38;
   }
 
   else
@@ -768,15 +765,13 @@ LABEL_27:
       *error = {;
     }
 
-    v34 = 0;
-    nameCopy = v42;
+    v33 = 0;
+    nameCopy = v40;
   }
 
 LABEL_32:
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v33;
 }
 
 @end

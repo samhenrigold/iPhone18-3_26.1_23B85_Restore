@@ -11,9 +11,9 @@
     +[UIColor(_QLUtilities) _ql_markupBackgroundColor];
   }
 
-  v1 = _ql_markupBackgroundColor_markupBackgroundColor;
+  v2 = _ql_markupBackgroundColor_markupBackgroundColor;
 
-  return v1;
+  return v2;
 }
 
 @end

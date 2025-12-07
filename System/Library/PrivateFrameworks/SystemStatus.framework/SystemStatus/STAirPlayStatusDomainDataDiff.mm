@@ -116,17 +116,17 @@
   [(BSSettings *)v7 enumerateObjectsWithBlock:v9];
 }
 
-uint64_t __52__STAirPlayStatusDomainDataDiff_applyToMutableData___block_invoke(uint64_t result, uint64_t a2)
+void *__52__STAirPlayStatusDomainDataDiff_applyToMutableData___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   if (a2 == 1)
   {
-    v2 = result;
+    v3 = result;
     result = BSSettingFlagIsExplicitNo();
     if (result)
     {
-      v3 = *(v2 + 32);
+      v4 = v3[4];
 
-      return [v3 setBundleIdentifier:0];
+      return [v4 setBundleIdentifier:0];
     }
   }
 

@@ -23,7 +23,7 @@
 
 - (_SFPBFlight)initWithFacade:(id)facade
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBFlight *)self init];
   if (v5)
@@ -71,33 +71,33 @@
       v15 = 0;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     legs2 = [facadeCopy legs];
-    v17 = [legs2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v17 = [legs2 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v34;
+      v19 = *v33;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v34 != v19)
+          if (*v33 != v19)
           {
             objc_enumerationMutation(legs2);
           }
 
-          v21 = [[_SFPBFlightLeg alloc] initWithFacade:*(*(&v33 + 1) + 8 * i)];
+          v21 = [[_SFPBFlightLeg alloc] initWithFacade:*(*(&v32 + 1) + 8 * i)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [legs2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v18 = [legs2 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v18);
@@ -139,17 +139,16 @@
     v30 = v5;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBFlight)initWithDictionary:(id)dictionary
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v41.receiver = self;
-  v41.super_class = _SFPBFlight;
-  v5 = [(_SFPBFlight *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = _SFPBFlight;
+  v5 = [(_SFPBFlight *)&v40 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"flightID"];
@@ -176,7 +175,7 @@
       [(_SFPBFlight *)v5 setCarrierName:v11];
     }
 
-    v36 = v10;
+    v35 = v10;
     v12 = [dictionaryCopy objectForKeyedSubscript:@"flightNumber"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -185,33 +184,33 @@
       [(_SFPBFlight *)v5 setFlightNumber:v13];
     }
 
-    v35 = v12;
+    v34 = v12;
     v14 = [dictionaryCopy objectForKeyedSubscript:@"legs"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v33 = v8;
-      v34 = v6;
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
+      v32 = v8;
+      v33 = v6;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v15 = v14;
-      v16 = [v15 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v38;
+        v18 = *v37;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v38 != v18)
+            if (*v37 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v37 + 1) + 8 * i);
+            v20 = *(*(&v36 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -220,14 +219,14 @@
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
         while (v17);
       }
     }
 
-    v22 = [dictionaryCopy objectForKeyedSubscript:{@"operatorCarrierCode", v33, v34}];
+    v22 = [dictionaryCopy objectForKeyedSubscript:{@"operatorCarrierCode", v32, v33}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -262,7 +261,6 @@
     v30 = v5;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -302,7 +300,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_carrierCode)
   {
@@ -349,26 +347,26 @@
   if ([(NSArray *)self->_legs count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v17 = self->_legs;
-    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v30;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          dictionaryRepresentation = [*(*(&v30 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v29 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -381,7 +379,7 @@
           }
         }
 
-        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v19);
@@ -403,8 +401,6 @@
     v27 = [operatorFlightNumber copy];
     [dictionary setObject:v27 forKeyedSubscript:@"operatorFlightNumber"];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -668,7 +664,7 @@ LABEL_48:
 
 - (void)writeTo:(id)to
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   toCopy = to;
   flightID = [(_SFPBFlight *)self flightID];
   if (flightID)
@@ -695,32 +691,31 @@ LABEL_48:
   }
 
   legs = [(_SFPBFlight *)self legs];
+  v18 = 0u;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v10 = [legs countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [legs countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v19;
     do
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(legs);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * v13);
         PBDataWriterWriteSubmessage();
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [legs countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [legs countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
@@ -749,42 +744,32 @@ LABEL_48:
   {
     PBDataWriterWriteStringField();
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCarrierWebsite:(id)website
 {
-  v4 = [website copy];
-  carrierWebsite = self->_carrierWebsite;
-  self->_carrierWebsite = v4;
+  self->_carrierWebsite = [website copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCarrierPhoneNumber:(id)number
 {
-  v4 = [number copy];
-  carrierPhoneNumber = self->_carrierPhoneNumber;
-  self->_carrierPhoneNumber = v4;
+  self->_carrierPhoneNumber = [number copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setOperatorFlightNumber:(id)number
 {
-  v4 = [number copy];
-  operatorFlightNumber = self->_operatorFlightNumber;
-  self->_operatorFlightNumber = v4;
+  self->_operatorFlightNumber = [number copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setOperatorCarrierCode:(id)code
 {
-  v4 = [code copy];
-  operatorCarrierCode = self->_operatorCarrierCode;
-  self->_operatorCarrierCode = v4;
+  self->_operatorCarrierCode = [code copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -809,45 +794,35 @@ LABEL_48:
 
 - (void)setLegs:(id)legs
 {
-  v4 = [legs copy];
-  legs = self->_legs;
-  self->_legs = v4;
+  self->_legs = [legs copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setFlightNumber:(id)number
 {
-  v4 = [number copy];
-  flightNumber = self->_flightNumber;
-  self->_flightNumber = v4;
+  self->_flightNumber = [number copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCarrierName:(id)name
 {
-  v4 = [name copy];
-  carrierName = self->_carrierName;
-  self->_carrierName = v4;
+  self->_carrierName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCarrierCode:(id)code
 {
-  v4 = [code copy];
-  carrierCode = self->_carrierCode;
-  self->_carrierCode = v4;
+  self->_carrierCode = [code copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setFlightID:(id)d
 {
-  v4 = [d copy];
-  flightID = self->_flightID;
-  self->_flightID = v4;
+  self->_flightID = [d copy];
 
   MEMORY[0x1EEE66BB8]();
 }

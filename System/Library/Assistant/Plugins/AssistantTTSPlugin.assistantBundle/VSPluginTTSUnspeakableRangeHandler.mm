@@ -6,7 +6,7 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v4 = VSGetLogDefault();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -16,61 +16,61 @@
     _os_log_impl(&dword_2334AC000, v4, OS_LOG_TYPE_INFO, "ttsGetUnspeakableRangeOfText= %@", buf, 0xCu);
   }
 
-  v29 = objc_alloc_init(MEMORY[0x277D479A0]);
+  v28 = objc_alloc_init(MEMORY[0x277D479A0]);
   v5 = objc_alloc(MEMORY[0x277D79988]);
   locale = [(SATTSGetUnspeakableRangeOfText *)self locale];
   v7 = [v5 initWithLanguage:locale];
 
   v8 = 0x277CBE000uLL;
   array = [MEMORY[0x277CBEB18] array];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = [(SATTSGetUnspeakableRangeOfText *)self texts];
-  v10 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v10 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v41;
-    v32 = array;
-    v33 = v7;
-    v31 = *v41;
+    v12 = *v40;
+    v31 = array;
+    v32 = v7;
+    v30 = *v40;
     do
     {
       v13 = 0;
-      v34 = v11;
+      v33 = v11;
       do
       {
-        if (*v41 != v12)
+        if (*v40 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v40 + 1) + 8 * v13);
+        v14 = *(*(&v39 + 1) + 8 * v13);
         array2 = [*(v8 + 2840) array];
         if (v7)
         {
           v16 = [v7 unspeakableRangeOfText:v14];
+          v35 = 0u;
           v36 = 0u;
           v37 = 0u;
           v38 = 0u;
-          v39 = 0u;
-          v17 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v37;
+            v19 = *v36;
             do
             {
               for (i = 0; i != v18; ++i)
               {
-                if (*v37 != v19)
+                if (*v36 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                rangeValue = [*(*(&v36 + 1) + 8 * i) rangeValue];
+                rangeValue = [*(*(&v35 + 1) + 8 * i) rangeValue];
                 v23 = v22;
                 v24 = objc_alloc_init(MEMORY[0x277D476A8]);
                 [v24 setStart:rangeValue];
@@ -79,15 +79,15 @@
                 [array2 addObject:dictionary];
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
             }
 
             while (v18);
-            array = v32;
-            v7 = v33;
+            array = v31;
+            v7 = v32;
             v8 = 0x277CBE000;
-            v12 = v31;
-            v11 = v34;
+            v12 = v30;
+            v11 = v33;
           }
         }
 
@@ -105,20 +105,18 @@
       }
 
       while (v13 != v11);
-      v11 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v11 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v11);
   }
 
-  [v29 setResults:array];
+  [v28 setResults:array];
   if (completionCopy)
   {
-    dictionary3 = [v29 dictionary];
+    dictionary3 = [v28 dictionary];
     completionCopy[2](completionCopy, dictionary3);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

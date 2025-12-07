@@ -47,7 +47,7 @@
 
 - (id)runUsingContext:(id)context withTaskQueue:(id)queue
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = +[TRICKServerEnvironmentReader currentEnvironment];
   v7 = +[TRISystemConfiguration sharedInstance];
@@ -59,9 +59,9 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       experimentId = self->_experimentId;
-      v19 = 138543362;
-      v20 = experimentId;
-      _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_DEFAULT, "Skipping subscribing to cloud channel for experiment %{public}@ because it is deployed to UAT", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = experimentId;
+      _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_DEFAULT, "Skipping subscribing to cloud channel for experiment %{public}@ because it is deployed to UAT", &v18, 0xCu);
     }
 
     v11 = MEMORY[0x277CBEBF8];
@@ -80,8 +80,6 @@
   }
 
   v16 = [TRITaskRunResult resultWithRunStatus:v12 reportResultToServer:v13 nextTasks:v11 earliestRetryDate:0];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -171,17 +169,17 @@
 
 + (id)parseFromData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v3 = [(TRIPBMessage *)TRISubscribeChannelPersistedTask parseFromData:data error:&v21];
-  v4 = v21;
+  v23 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v3 = [(TRIPBMessage *)TRISubscribeChannelPersistedTask parseFromData:data error:&v20];
+  v4 = v20;
   if (!v3)
   {
     experimentId2 = TRILogCategory_Server();
     if (os_log_type_enabled(experimentId2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v23 = v4;
+      v22 = v4;
       _os_log_error_impl(&dword_26F567000, experimentId2, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRISubscribePersistedTask: %{public}@", buf, 0xCu);
     }
 
@@ -193,10 +191,10 @@
     v12 = TRILogCategory_Server();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138412290;
-      v23 = v19;
+      v22 = v18;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Cannot decode message of type %@ with missing field: experimentId", buf, 0xCu);
     }
 
@@ -209,7 +207,7 @@
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     *buf = 138412290;
-    v23 = v14;
+    v22 = v14;
     v15 = "Cannot decode message of type %@ with missing field: experimentId";
     goto LABEL_19;
   }
@@ -227,10 +225,10 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v20 = objc_opt_class();
-    v14 = NSStringFromClass(v20);
+    v19 = objc_opt_class();
+    v14 = NSStringFromClass(v19);
     *buf = 138412290;
-    v23 = v14;
+    v22 = v14;
     v15 = "Cannot decode message of type %@ with field of length 0: experimentId";
 LABEL_19:
     _os_log_error_impl(&dword_26F567000, experimentId2, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
@@ -253,8 +251,6 @@ LABEL_19:
   }
 
 LABEL_14:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

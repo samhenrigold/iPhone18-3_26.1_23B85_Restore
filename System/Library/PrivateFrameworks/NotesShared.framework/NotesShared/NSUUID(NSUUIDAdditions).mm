@@ -13,9 +13,9 @@
     +[NSUUID(NSUUIDAdditions) TTZero];
   }
 
-  v1 = TTZero_zero;
+  v2 = TTZero_zero;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)TTCompare:()NSUUIDAdditions

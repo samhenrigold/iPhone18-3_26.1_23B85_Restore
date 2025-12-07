@@ -91,39 +91,37 @@
 
 - (id)markdownTable
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   _markdownTable = [(MSVSQLRowEnumerator *)self _markdownTable];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   selfCopy = self;
-  v5 = [(MSVSQLRowEnumerator *)selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(MSVSQLRowEnumerator *)selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        [(MSVSQLRowEnumerator *)selfCopy _addRow:*(*(&v12 + 1) + 8 * i) toTable:_markdownTable, v12];
+        [(MSVSQLRowEnumerator *)selfCopy _addRow:*(*(&v11 + 1) + 8 * i) toTable:_markdownTable, v11];
       }
 
-      v6 = [(MSVSQLRowEnumerator *)selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(MSVSQLRowEnumerator *)selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   v9 = [_markdownTable renderMarkdownWithOptions:1];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

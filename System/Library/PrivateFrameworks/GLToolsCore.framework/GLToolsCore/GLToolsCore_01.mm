@@ -9755,7 +9755,7 @@ uint64_t GPUTools::GL::DYMaterialParameterComponentCount(GPUTools::GL *this)
   return result;
 }
 
-double GPUTools::GL::DYGetTextureTargetInfo(int a1, uint64_t a2)
+double GPUTools::GL::DYGetTextureTargetInfo(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -9772,16 +9772,16 @@ double GPUTools::GL::DYGetTextureTargetInfo(int a1, uint64_t a2)
       {
         switch(a1)
         {
-          case 3552:
+          case 0xDE0:
 LABEL_9:
             *&result = 0x806800000D33;
             *a2 = 0x806800000D33;
             *(a2 + 8) = 257;
             *(a2 + 14) = 1;
             return result;
-          case 3553:
+          case 0xDE1:
             goto LABEL_42;
-          case 32867:
+          case 0x8063:
             *(a2 + 13) = 1;
             goto LABEL_9;
         }

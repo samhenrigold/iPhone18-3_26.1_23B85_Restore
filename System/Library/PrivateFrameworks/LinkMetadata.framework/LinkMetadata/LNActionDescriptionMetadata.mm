@@ -253,16 +253,16 @@ LABEL_47:
 
 - (LNActionDescriptionMetadata)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"descriptionText"];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"categoryName"];
     v7 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v9 = [v7 setWithArray:v8];
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"searchKeywords"];
 
@@ -278,7 +278,6 @@ LABEL_47:
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

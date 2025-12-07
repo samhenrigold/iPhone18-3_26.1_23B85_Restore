@@ -1,7 +1,7 @@
-void sub_25FF5A590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FF5A590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C40241F72B2);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C40241F72B2, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -26,9 +26,9 @@ void virtual thunk toProShade::Func<ProShade::Func_ftransform>::~Func(void *a1)
 
 {
   v1 = a1 + *(*a1 - 24);
-  *(v1 + 72) = &unk_2872DEA38;
-  *(v1 + 88) = 0;
-  PCWeakCount::~PCWeakCount((v1 + 80));
+  *(v1 + 9) = &unk_2872DEA38;
+  v1[88] = 0;
+  PCWeakCount::~PCWeakCount(v1 + 10);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -79,7 +79,7 @@ void ProShade::func_repr(PCArray_base *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
     {
       if (v7)
       {
-        LiString::append(&v24, ", ", 2);
+        LiString::append(&v24, ", ", 2u);
         LODWORD(a3) = *(a2 + 12);
       }
 
@@ -221,7 +221,7 @@ void sub_25FF5ACDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void LiString::append(LiString *this, const char *__src, signed int a3)
+void LiString::append(LiString *this, const char *__src, unsigned int a3)
 {
   if (__src && a3)
   {
@@ -763,7 +763,7 @@ void sub_25FF5BEE0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::SubstituteVar::eval(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void ProShade::SubstituteVar::eval(uint64_t a1@<X0>, uint64_t a2@<X1>, PCSharedCount *a3@<X8>)
 {
   ProShade::VarT<ProShade::Node>::hash(a2, &v25);
   if (*(a1 + 32) == 1)
@@ -1562,7 +1562,7 @@ void PCGLSLException::report(PCString *this)
   }
 }
 
-uint64_t LiPerContext<ProShade::ProgramBase::Exe *,LiPerContextObject_Traits<ProShade::ProgramBase::Exe>,LiOpenGLContextGetter>::get(os_unfair_lock_s *a1, _BYTE *a2)
+os_unfair_lock_s *LiPerContext<ProShade::ProgramBase::Exe *,LiPerContextObject_Traits<ProShade::ProgramBase::Exe>,LiOpenGLContextGetter>::get(os_unfair_lock_s *a1, _BYTE *a2)
 {
   v4 = a1 + 6;
   v9[2] = &a1[6];
@@ -1573,20 +1573,20 @@ uint64_t LiPerContext<ProShade::ProgramBase::Exe *,LiPerContextObject_Traits<Pro
   if (&a1[2] == v6)
   {
     *a2 = 1;
-    v9[4] = v9;
-    std::__tree<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,std::__map_value_compare<LiOpenGLContextGetter::C,std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,LiOpenGLContextGetter::Compare,true>,std::allocator<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>>>::__emplace_unique_key_args<LiOpenGLContextGetter::C,std::piecewise_construct_t const&,std::tuple<LiOpenGLContextGetter::C const&>,std::tuple<>>(a1, v9);
+    v10 = v9;
+    std::__tree<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,std::__map_value_compare<LiOpenGLContextGetter::C,std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,LiOpenGLContextGetter::Compare,true>,std::allocator<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>>>::__emplace_unique_key_args<LiOpenGLContextGetter::C,std::piecewise_construct_t const&,std::tuple<LiOpenGLContextGetter::C const&>,std::tuple<>>(a1, v9, &std::piecewise_construct, &v10);
     operator new();
   }
 
   *a2 = 0;
-  v7 = v6 + 48;
+  v7 = v6 + 12;
   PCSpinLock::unlock(v4);
   return v7;
 }
 
-void sub_25FF5D8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FF5D8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   PCLockSentry<PCSpinLock>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -1656,15 +1656,15 @@ uint64_t std::__tree<std::__value_type<LiOpenGLContextGetter::C,ProShade::Progra
   return v7;
 }
 
-uint64_t std::__tree<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,std::__map_value_compare<LiOpenGLContextGetter::C,std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,LiOpenGLContextGetter::Compare,true>,std::allocator<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>>>::__emplace_unique_key_args<LiOpenGLContextGetter::C,std::piecewise_construct_t const&,std::tuple<LiOpenGLContextGetter::C const&>,std::tuple<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,std::__map_value_compare<LiOpenGLContextGetter::C,std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,LiOpenGLContextGetter::Compare,true>,std::allocator<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>>>::__emplace_unique_key_args<LiOpenGLContextGetter::C,std::piecewise_construct_t const&,std::tuple<LiOpenGLContextGetter::C const&>,std::tuple<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,std::__map_value_compare<LiOpenGLContextGetter::C,std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,LiOpenGLContextGetter::Compare,true>,std::allocator<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>>>::__find_equal<LiOpenGLContextGetter::C>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,std::__map_value_compare<LiOpenGLContextGetter::C,std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,LiOpenGLContextGetter::Compare,true>,std::allocator<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>>>::__find_equal<LiOpenGLContextGetter::C>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,std::__map_value_compare<LiOpenGLContextGetter::C,std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>,LiOpenGLContextGetter::Compare,true>,std::allocator<std::__value_type<LiOpenGLContextGetter::C,ProShade::ProgramBase::Exe *>>>::__find_equal<LiOpenGLContextGetter::C>(uint64_t a1, void *a2, uint64_t *a3)
@@ -1752,7 +1752,7 @@ void ProShade::Program::~Program(ProShade::Program *this, uint64_t *a2)
     v5 = *(this + 364);
   }
 
-  PCArray<ProShade::Sampler,PCArray_Traits<ProShade::Sampler>>::resize(this + 1448, 0, v5);
+  PCArray<ProShade::Sampler,PCArray_Traits<ProShade::Sampler>>::resize(this + 181, 0, v5);
   v6 = *(this + 183);
   if (v6)
   {
@@ -2023,7 +2023,7 @@ void PCArray<ProShade::UniformVariable,PCArray_Traits<ProShade::UniformVariable>
   JUMPOUT(0x2666E9F00);
 }
 
-PCSharedCount *ProShade::VarT<ProShade::Node>::VarT(PCSharedCount *a1, PCShared_base *a2)
+PCSharedCount *ProShade::VarT<ProShade::Node>::VarT(PCSharedCount *a1, PC_Sp_counted_base *a2)
 {
   a1->var0 = &unk_28725E328;
   a1[2].var0 = a2;
@@ -2340,15 +2340,15 @@ void *std::__tree<LiString>::__lower_bound<LiString>(uint64_t a1, const char **a
   return a4;
 }
 
-uint64_t std::__tree<LiString>::__emplace_unique_key_args<LiString,LiString const&>(uint64_t a1, const char **a2)
+void *std::__tree<LiString>::__emplace_unique_key_args<LiString,LiString const&>(uint64_t **a1, const char **a2, uint64_t *a3)
 {
-  v2 = *std::__tree<LiString>::__find_equal<LiString>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<LiString>::__find_equal<LiString>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<LiString>::__find_equal<LiString>(uint64_t a1, void *a2, const char **a3)
@@ -2434,15 +2434,15 @@ void PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProSha
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t std::__tree<std::__value_type<PCHash128,ProShade::Snippet *>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,ProShade::Snippet *>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,ProShade::Snippet *>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>(uint64_t a1, const PCHash128 *a2)
+uint64_t std::__tree<std::__value_type<PCHash128,ProShade::Snippet *>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,ProShade::Snippet *>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,ProShade::Snippet *>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>(uint64_t **a1, const PCHash128 *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::__find_equal<PCHash128>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::__find_equal<PCHash128>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void std::__tree<std::__value_type<LiString,int>,std::__map_value_compare<LiString,std::__value_type<LiString,int>,std::less<LiString>,true>,std::allocator<std::__value_type<LiString,int>>>::destroy(uint64_t a1, void *a2)
@@ -2457,15 +2457,15 @@ void std::__tree<std::__value_type<LiString,int>,std::__map_value_compare<LiStri
   }
 }
 
-uint64_t std::__tree<std::__value_type<LiString,int>,std::__map_value_compare<LiString,std::__value_type<LiString,int>,std::less<LiString>,true>,std::allocator<std::__value_type<LiString,int>>>::__emplace_unique_key_args<LiString,std::piecewise_construct_t const&,std::tuple<LiString const&>,std::tuple<>>(uint64_t a1, const char **a2)
+uint64_t std::__tree<std::__value_type<LiString,int>,std::__map_value_compare<LiString,std::__value_type<LiString,int>,std::less<LiString>,true>,std::allocator<std::__value_type<LiString,int>>>::__emplace_unique_key_args<LiString,std::piecewise_construct_t const&,std::tuple<LiString const&>,std::tuple<>>(uint64_t **a1, const char **a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *std::__tree<LiString>::__find_equal<LiString>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<LiString>::__find_equal<LiString>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void PCPtr<ProShade::Node>::reset<ProShade::Node>(PCShared_base **a1, PCShared_base *a2)
@@ -2502,7 +2502,7 @@ uint64_t *ProShade::Sampler::operator=(uint64_t *a1, const PCSharedCount *a2)
   return a1;
 }
 
-uint64_t PCArray<ProShade::Sampler,PCArray_Traits<ProShade::Sampler>>::resize(uint64_t result, int a2, int a3)
+PCSharedCount *PCArray<ProShade::Sampler,PCArray_Traits<ProShade::Sampler>>::resize(PCSharedCount *result, int a2, int a3)
 {
   if (a3 <= a2)
   {
@@ -2523,18 +2523,18 @@ uint64_t PCArray<ProShade::Sampler,PCArray_Traits<ProShade::Sampler>>::resize(ui
   }
 
   v5 = result;
-  if (v3 == *(result + 8))
+  if (v3 == LODWORD(result[1].var0))
   {
-    v6 = *(result + 12);
-    if (a2 >= v6)
+    var0_high = SHIDWORD(result[1].var0);
+    if (a2 >= var0_high)
     {
-      if (a2 > v6)
+      if (a2 > var0_high)
       {
-        v9 = 96 * v6;
-        v10 = a2 - v6;
+        v9 = 96 * var0_high;
+        v10 = a2 - var0_high;
         do
         {
-          result = ProShade::Sampler::Sampler((*(v5 + 16) + v9));
+          result = ProShade::Sampler::Sampler((v5[2].var0 + v9));
           v9 += 96;
           --v10;
         }
@@ -2549,12 +2549,12 @@ uint64_t PCArray<ProShade::Sampler,PCArray_Traits<ProShade::Sampler>>::resize(ui
       v8 = a2;
       do
       {
-        result = (*(*(*(v5 + 16) + v7) + 8))(*(v5 + 16) + v7);
+        result = (*(*(v5[2].var0 + v7) + 8))(v5[2].var0 + v7);
         v7 += 96;
         ++v8;
       }
 
-      while (*(v5 + 12) > v8);
+      while (SHIDWORD(v5[1].var0) > v8);
     }
   }
 
@@ -2565,10 +2565,10 @@ uint64_t PCArray<ProShade::Sampler,PCArray_Traits<ProShade::Sampler>>::resize(ui
       operator new[]();
     }
 
-    v11 = *(result + 12);
+    v11 = HIDWORD(result[1].var0);
     if (a2 >= v11)
     {
-      v12 = *(result + 12);
+      v12 = HIDWORD(result[1].var0);
     }
 
     else
@@ -2586,23 +2586,23 @@ uint64_t PCArray<ProShade::Sampler,PCArray_Traits<ProShade::Sampler>>::resize(ui
       v13 = 0;
       do
       {
-        v14 = *(v5 + 16);
+        var0 = v5[2].var0;
         *v13 = &unk_28725E920;
-        v15 = v14 + v13;
-        *(v13 + 8) = *(v14 + v13 + 8);
-        *(v13 + 16) = *(v14 + v13 + 16);
-        PCSharedCount::PCSharedCount((v13 + 24), (v14 + v13 + 24));
+        v15 = (var0 + v13);
+        *(v13 + 8) = *(var0 + v13 + 8);
+        *(v13 + 16) = *(var0 + v13 + 16);
+        PCSharedCount::PCSharedCount((v13 + 24), (var0 + v13 + 24));
         *v13 = &unk_28725E878;
-        ProShade::VarT<ProShade::UniformNode>::VarT((v13 + 32), *(v15 + 48));
+        ProShade::VarT<ProShade::UniformNode>::VarT((v13 + 32), v15[6]);
         *(v13 + 32) = &unk_28725EAA0;
-        ProShade::VarT<ProShade::UniformNode>::VarT((v13 + 64), *(v15 + 80));
+        ProShade::VarT<ProShade::UniformNode>::VarT((v13 + 64), v15[10]);
         *(v13 + 64) = &unk_28725EB20;
-        (*(*(*(v5 + 16) + v13) + 8))(*(v5 + 16) + v13);
+        (*(*(v5[2].var0 + v13) + 8))(v5[2].var0 + v13);
         v13 += 96;
       }
 
       while (96 * v12 != v13);
-      v11 = *(v5 + 12);
+      v11 = HIDWORD(v5[1].var0);
     }
 
     if (v12 < v11)
@@ -2610,41 +2610,41 @@ uint64_t PCArray<ProShade::Sampler,PCArray_Traits<ProShade::Sampler>>::resize(ui
       v16 = 96 * v12;
       do
       {
-        (*(*(*(v5 + 16) + v16) + 8))(*(v5 + 16) + v16);
+        (*(*(v5[2].var0 + v16) + 8))(v5[2].var0 + v16);
         v16 += 96;
         ++v12;
       }
 
-      while (*(v5 + 12) > v12);
+      while (SHIDWORD(v5[1].var0) > v12);
     }
 
     if (v12 < a2)
     {
-      v17 = 96 * v12;
+      v17 = (96 * v12);
       do
       {
-        v17 = ProShade::Sampler::Sampler(v17) + 96;
+        v17 = ProShade::Sampler::Sampler(v17) + 12;
         ++v12;
       }
 
       while (v12 < a2);
     }
 
-    result = *(v5 + 16);
+    result = v5[2].var0;
     if (result)
     {
       result = MEMORY[0x2666E9ED0](result, 0x1000C8077774924);
     }
 
-    *(v5 + 16) = 0;
+    v5[2].var0 = 0;
   }
 
-  *(v5 + 8) = v3;
-  *(v5 + 12) = a2;
+  LODWORD(v5[1].var0) = v3;
+  HIDWORD(v5[1].var0) = a2;
   return result;
 }
 
-PCSharedCount *ProShade::VarT<ProShade::UniformNode>::VarT(PCSharedCount *a1, PCShared_base *a2)
+PCSharedCount *ProShade::VarT<ProShade::UniformNode>::VarT(PCSharedCount *a1, PC_Sp_counted_base *a2)
 {
   a1->var0 = &unk_28725E8E0;
   a1[2].var0 = a2;
@@ -2709,41 +2709,41 @@ void PCArray<ProShade::Output,PCArray_Traits<ProShade::Output>>::~PCArray(uint64
   JUMPOUT(0x2666E9F00);
 }
 
-void *std::__tree<std::__value_type<ProShade::SamplerNode const*,int>,std::__map_value_compare<ProShade::SamplerNode const*,std::__value_type<ProShade::SamplerNode const*,int>,std::less<ProShade::SamplerNode const*>,true>,std::allocator<std::__value_type<ProShade::SamplerNode const*,int>>>::__emplace_unique_key_args<ProShade::SamplerNode const*,std::piecewise_construct_t const&,std::tuple<ProShade::SamplerNode const*&&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<ProShade::SamplerNode const*,int>,std::__map_value_compare<ProShade::SamplerNode const*,std::__value_type<ProShade::SamplerNode const*,int>,std::less<ProShade::SamplerNode const*>,true>,std::allocator<std::__value_type<ProShade::SamplerNode const*,int>>>::__emplace_unique_key_args<ProShade::SamplerNode const*,std::piecewise_construct_t const&,std::tuple<ProShade::SamplerNode const*&&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2818,14 +2818,14 @@ void sub_25FF5F618(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::Snippet::~Snippet(ProShade::Snippet *this)
+void ProShade::Snippet::~Snippet(PCString *this)
 {
-  *this = &unk_28725EBD8;
-  *(this + 4) = &unk_28725EC08;
+  this->var0 = &unk_28725EBD8;
+  this[4].var0 = &unk_28725EC08;
   PCString::~PCString(this + 1);
-  *(this + 4) = &unk_2872DEA38;
-  *(this + 48) = 0;
-  PCWeakCount::~PCWeakCount(this + 5);
+  this[4].var0 = &unk_2872DEA38;
+  LOBYTE(this[6].var0) = 0;
+  PCWeakCount::~PCWeakCount(&this[5]);
 }
 
 {
@@ -2908,15 +2908,15 @@ void sub_25FF5F9D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::External::operator()(uint64_t a1)
+void ProShade::External::operator()(uint64_t a1, const char *a2)
 {
   if (*(a1 + 44) == 4)
   {
     operator new();
   }
 
-  PCString::ssprintf("expected %d arguments, got 4", v2, *(a1 + 44));
-  ProShade::Error<PCIllegalArgumentException>::raise<PCString>(v2, v1);
+  PCString::ssprintf(&v7, "expected %d arguments, got 4", a2, *(a1 + 44));
+  ProShade::Error<PCIllegalArgumentException>::raise<PCString>(&v7, v6);
 }
 
 {
@@ -2925,8 +2925,8 @@ void ProShade::External::operator()(uint64_t a1)
     operator new();
   }
 
-  PCString::ssprintf("expected %d arguments, got 5", &var60, *(a1 + 44));
-  ProShade::Error<PCIllegalArgumentException>::raise<PCString>(&var60, v1);
+  PCString::ssprintf(&var60, "expected %d arguments, got 5", a2, *(a1 + 44));
+  ProShade::Error<PCIllegalArgumentException>::raise<PCString>(&var60, v7);
 }
 
 uint64_t ProShade::ExternalNode::ExternalNode(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3053,7 +3053,7 @@ void ProShade::ExternalNode::repr(ProShade::ExternalNode *this@<X0>, uint64_t a2
     {
       if (v5)
       {
-        LiString::append(&v24, ", ", 2);
+        LiString::append(&v24, ", ", 2u);
         LODWORD(a2) = *(this + 17);
       }
 
@@ -3411,10 +3411,10 @@ uint64_t ProShade::ExternalNode::apply@<X0>(uint64_t a1@<X0>, void (***a2)(PCSha
   return result;
 }
 
-void sub_25FF60C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FF60C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C4041E1679CLL);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C4041E1679CLL, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -3774,7 +3774,7 @@ void LiClipSet::removeIndex(LiClipSet *this, int a2)
   PCArray<int,PCArray_Traits<int>>::resize(this + 24, v10, v13);
 }
 
-void LiClipSet::add(uint64_t a1, double *a2, int a3)
+void LiClipSet::add(uint64_t result, double *a2, int a3)
 {
   v5 = a2[3];
   v6 = a2[4];
@@ -3788,18 +3788,18 @@ void LiClipSet::add(uint64_t a1, double *a2, int a3)
     *&v9[1] = v6;
     *&v9[2] = v7;
     *&v9[3] = v8;
-    LiClipSet::add(a1, v9, a3);
+    LiClipSet::add(result, v9, a3);
   }
 }
 
-void LiClipSet::add(uint64_t a1, uint64_t a2, int a3)
+void LiClipSet::add(uint64_t result, uint64_t a2, int a3)
 {
-  v5 = a1;
-  v6 = *(a1 + 12);
+  v5 = result;
+  v6 = *(result + 12);
   if (v6 == 1)
   {
-    a1 = PCPlaneType(*(a1 + 16));
-    if (a1 == 1)
+    result = PCPlaneType(*(result + 16));
+    if (result == 1)
     {
       return;
     }
@@ -3814,17 +3814,17 @@ void LiClipSet::add(uint64_t a1, uint64_t a2, int a3)
     {
       if (v7 < 0)
       {
-        PCArray_base::badIndex(a1);
+        PCArray_base::badIndex(result);
       }
 
-      a1 = PCComparePlanes(a2, (*(v5 + 16) + 32 * v7));
-      if (a1 > 4)
+      result = PCComparePlanes(a2, (*(v5 + 16) + 32 * v7));
+      if (result > 4)
       {
-        if (a1 > 6)
+        if (result > 6)
         {
-          if (a1 != 8)
+          if (result != 8)
           {
-            if (a1 == 7)
+            if (result == 7)
             {
 LABEL_34:
 
@@ -3833,12 +3833,12 @@ LABEL_34:
             }
 
 LABEL_24:
-            PCPrint("File %s, line %d should not have been reached:\n\t", v8, v9, v10, v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/LiClipSet.cpp");
+            PCPrint("File %s, line %d should not have been reached:\n\t", "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/LiClipSet.cpp", 85);
             pcAbortImpl();
           }
         }
 
-        else if (a1 != 6)
+        else if (result != 6)
         {
           return;
         }
@@ -3848,22 +3848,22 @@ LABEL_24:
 
       else
       {
-        if (a1 > 2)
+        if (result > 2)
         {
-          if (a1 != 4)
+          if (result != 4)
           {
             return;
           }
         }
 
-        else if (a1 != 2)
+        else if (result != 2)
         {
-          if (!a1)
+          if (!result)
           {
             return;
           }
 
-          if (a1 == 1)
+          if (result == 1)
           {
             goto LABEL_34;
           }
@@ -3882,31 +3882,31 @@ LABEL_24:
 
   if (*(v5 + 8) <= v6)
   {
-    v15 = 2 * (v6 + 1) + 1;
+    v8 = 2 * (v6 + 1) + 1;
   }
 
   else
   {
-    v15 = *(v5 + 8);
+    v8 = *(v5 + 8);
   }
 
-  PCArray<PCVector4<double>,PCArray_Traits<PCVector4<double>>>::resize(v5, v6 + 1, v15);
-  v16 = *(v5 + 16) + 32 * *(v5 + 12);
-  v17 = *(a2 + 16);
-  *(v16 - 32) = *a2;
-  *(v16 - 16) = v17;
-  v18 = *(v5 + 36);
-  if (*(v5 + 32) <= v18)
+  PCArray<PCVector4<double>,PCArray_Traits<PCVector4<double>>>::resize(v5, v6 + 1, v8);
+  v9 = *(v5 + 16) + 32 * *(v5 + 12);
+  v10 = *(a2 + 16);
+  *(v9 - 32) = *a2;
+  *(v9 - 16) = v10;
+  v11 = *(v5 + 36);
+  if (*(v5 + 32) <= v11)
   {
-    v19 = 2 * (v18 + 1) + 1;
+    v12 = 2 * (v11 + 1) + 1;
   }
 
   else
   {
-    v19 = *(v5 + 32);
+    v12 = *(v5 + 32);
   }
 
-  PCArray<int,PCArray_Traits<int>>::resize(v5 + 24, v18 + 1, v19);
+  PCArray<int,PCArray_Traits<int>>::resize(v5 + 24, v11 + 1, v12);
   *(*(v5 + 40) + 4 * *(v5 + 36) - 4) = a3;
 }
 
@@ -4003,7 +4003,7 @@ void LiClipSet::setEmpty(LiClipSet *this)
   **(this + 5) = 0;
 }
 
-void LiClipSet::add(LiClipSet *this, const LiClipSet *a2)
+void LiClipSet::add(PCArray_base *this, const LiClipSet *a2)
 {
   v2 = *(a2 + 3);
   if (v2 >= 1)
@@ -4440,77 +4440,77 @@ void LiCompositor::~LiCompositor(PCSharedCount *this)
   }
 }
 
-uint64_t cropToPolygon@<X0>(LiImagePolygon *this@<X2>, HGRenderer *a2@<X0>, void *a3@<X1>, char a4@<W4>, void *a5@<X5>, int a6@<W6>, HGCrop **a7@<X8>, double a8@<D1>, char a9)
+void cropToPolygon(LiImagePolygon *this@<X2>, HGRenderer *a2@<X0>, void *a3@<X1>, FxColorDescription *a4@<X3>, char a5@<W4>, void *a6@<X5>, int a7@<W6>, HGCrop **a8@<X8>, double a9@<D1>, char a10)
 {
-  v9 = a6;
-  if (a6)
+  v10 = a7;
+  if (a7)
   {
     goto LABEL_41;
   }
 
-  if (a8 != 1.0)
+  if (a9 != 1.0)
   {
     goto LABEL_41;
   }
 
-  v16 = **(this + 11);
-  if (((*(*(this + 11) + 8) - v16) & 0x1FFFFFFFE0) != 0x80)
+  v17 = **(this + 11);
+  if (((*(*(this + 11) + 8) - v17) & 0x1FFFFFFFE0) != 0x80)
   {
     goto LABEL_41;
   }
 
-  v17 = *v16;
-  v18 = v16[4];
-  v19 = v16[5];
-  if (vabdd_f64(*v16, v18) < 0.000001)
+  v18 = *v17;
+  v19 = v17[4];
+  v20 = v17[5];
+  if (vabdd_f64(*v17, v19) < 0.000001)
   {
-    v20 = v16[9];
-    if (vabdd_f64(v19, v20) < 0.000001)
+    v21 = v17[9];
+    if (vabdd_f64(v20, v21) < 0.000001)
     {
-      v21 = v16[8];
-      if (vabdd_f64(v21, v16[12]) < 0.000001)
+      v22 = v17[8];
+      if (vabdd_f64(v22, v17[12]) < 0.000001)
       {
-        v22 = v16[1];
-        if (vabdd_f64(v16[13], v22) < 0.000001)
+        v23 = v17[1];
+        if (vabdd_f64(v17[13], v23) < 0.000001)
         {
-          if (v17 >= v21)
+          if (v18 >= v22)
           {
-            v23 = v16[8];
+            v24 = v17[8];
           }
 
           else
           {
-            v23 = *v16;
+            v24 = *v17;
           }
 
-          if (v17 >= v21)
+          if (v18 >= v22)
           {
-            v24 = v17 - v21;
-          }
-
-          else
-          {
-            v24 = v21 - v17;
-          }
-
-          if (v22 >= v20)
-          {
-            v25 = v16[9];
+            v25 = v18 - v22;
           }
 
           else
           {
-            v25 = v16[1];
+            v25 = v22 - v18;
           }
 
-          if (v22 >= v20)
+          if (v23 >= v21)
           {
-            v26 = v22 - v20;
+            v26 = v17[9];
           }
 
           else
           {
-            v26 = v20 - v22;
+            v26 = v17[1];
+          }
+
+          if (v23 >= v21)
+          {
+            v27 = v23 - v21;
+          }
+
+          else
+          {
+            v27 = v21 - v23;
           }
 
           goto LABEL_36;
@@ -4519,23 +4519,23 @@ uint64_t cropToPolygon@<X0>(LiImagePolygon *this@<X2>, HGRenderer *a2@<X0>, void
     }
   }
 
-  v27 = v16[1];
-  if (vabdd_f64(v27, v19) >= 0.000001 || (v28 = v16[8], vabdd_f64(v18, v28) >= 0.000001) || (v29 = v16[9], vabdd_f64(v29, v16[13]) >= 0.000001) || vabdd_f64(v16[12], v17) >= 0.000001)
+  v28 = v17[1];
+  if (vabdd_f64(v28, v20) >= 0.000001 || (v29 = v17[8], vabdd_f64(v19, v29) >= 0.000001) || (v30 = v17[9], vabdd_f64(v30, v17[13]) >= 0.000001) || vabdd_f64(v17[12], v18) >= 0.000001)
   {
 LABEL_41:
-    if (!*a5)
+    if (!*a6)
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    if ((*(*a2 + 304))(a2))
+    if ((*(*a2 + 304))(a2, a3, this, a4))
     {
       LiFilteredPolygon::LiFilteredPolygon(&v34);
       v36 = 1;
       LiFilteredPolygon::setPolygon(&v34, this);
-      v35 = a4;
+      v35 = a5;
       v33[1] = 0;
-      if (v9 == 48)
+      if (v10 == 48)
       {
         OMSamplesElem::getBottom(v33);
         v32 = HGObject::operator new(0x1A0uLL);
@@ -4568,72 +4568,71 @@ LABEL_41:
         LiHeEdgeMixShader::LiHeEdgeMixShader(v32);
       }
 
-      LiFilteredPolygon::makeEdge(&v34, v33);
+      LiFilteredPolygon::makeEdge(v33, &v34);
     }
 
     LiFilteredPolygon::LiFilteredPolygon(&v34);
     v36 = 1;
     LiFilteredPolygon::setPolygon(&v34, this);
-    v35 = a4;
-    LiFilteredPolygon::makeRasterizer(&v34, 0, a2);
+    v35 = a5;
+    LiFilteredPolygon::makeRasterizer(&v34);
   }
 
-  if (v17 >= v28)
+  if (v18 >= v29)
   {
-    v23 = v16[8];
-  }
-
-  else
-  {
-    v23 = *v16;
-  }
-
-  if (v17 >= v28)
-  {
-    v24 = v17 - v28;
+    v24 = v17[8];
   }
 
   else
   {
-    v24 = v28 - v17;
+    v24 = *v17;
   }
 
-  if (v27 >= v29)
+  if (v18 >= v29)
   {
-    v25 = v16[9];
-  }
-
-  else
-  {
-    v25 = v16[1];
-  }
-
-  if (v27 >= v29)
-  {
-    v26 = v27 - v29;
+    v25 = v18 - v29;
   }
 
   else
   {
-    v26 = v29 - v27;
+    v25 = v29 - v18;
+  }
+
+  if (v28 >= v30)
+  {
+    v26 = v17[9];
+  }
+
+  else
+  {
+    v26 = v17[1];
+  }
+
+  if (v28 >= v30)
+  {
+    v27 = v28 - v30;
+  }
+
+  else
+  {
+    v27 = v30 - v28;
   }
 
 LABEL_36:
-  LiImagePolygon::getDOD(this, 0.0, &v34);
-  if (vabdd_f64(v23, SLODWORD(v34.__begin_)) >= 0.000001 || vabdd_f64(v25, SHIDWORD(v34.__begin_)) >= 0.000001 || vabdd_f64(v24, SLODWORD(v34.__end_)) >= 0.000001 || vabdd_f64(v26, SHIDWORD(v34.__end_)) >= 0.000001)
+  LiImagePolygon::getDOD(&v34, this, 0.0);
+  if (vabdd_f64(v24, SLODWORD(v34.__begin_)) >= 0.000001 || vabdd_f64(v26, SHIDWORD(v34.__begin_)) >= 0.000001 || vabdd_f64(v25, SLODWORD(v34.__end_)) >= 0.000001 || vabdd_f64(v27, SHIDWORD(v34.__end_)) >= 0.000001)
   {
     goto LABEL_41;
   }
 
-  v30 = HGObject::operator new(0x1A0uLL);
-  HGCrop::HGCrop(v30);
-  (*(*v30 + 96))(v30, 0, SLODWORD(v34.__begin_), SHIDWORD(v34.__begin_), (LODWORD(v34.__end_) + LODWORD(v34.__begin_)), (HIDWORD(v34.__end_) + HIDWORD(v34.__begin_)));
-  result = (*(*v30 + 120))(v30, 0, *a3);
-  *a7 = v30;
-  return result;
+  v31 = HGObject::operator new(0x1A0uLL);
+  HGCrop::HGCrop(v31);
+  (*(*v31 + 96))(v31, 0, SLODWORD(v34.__begin_), SHIDWORD(v34.__begin_), (LODWORD(v34.__end_) + LODWORD(v34.__begin_)), (HIDWORD(v34.__end_) + HIDWORD(v34.__begin_)));
+  (*(*v31 + 120))(v31, 0, *a3);
+  *a8 = v31;
 }
 
-CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **result@<X0>, uint64_t *a3@<X1>, int a4@<W2>, int a5@<W3>, uint64_t *a6@<X8>, float a7@<S0>, double a8@<D1>)
+CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **result@<X0>, uint64_t **a3@<X1>, int a4@<W2>, int a5@<W3>, uint64_t **a6@<X8>, float a7@<S0>, double a8@<D1>)
 {
   if (*a3)
   {
@@ -4652,7 +4651,7 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
   }
 
   v16 = result;
-  makeBlendingColorDescription(a1, &v31);
+  makeBlendingColorDescription(&v31, a1);
   if ((a4 - 25) > 1)
   {
     PCSharedCount::PCSharedCount(&v27);
@@ -4671,7 +4670,7 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
             HGStencil::HGStencil(v22);
             (*(*v22 + 96))(v22, 0, 0.0, 0.0, 0.0, 0.0);
             (*(*v22 + 96))(v22, 1, 1.0, 0.0, 0.0, 0.0);
-            conformWithToneMap(a1, v16, &v31, &v30);
+            conformWithToneMap(&v30, a1, v16, &v31);
             (*(*v22 + 120))(v22, 0, v30);
             if (v30)
             {
@@ -4680,7 +4679,7 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
 
             (*(*v22 + 120))(v22, 1, *a3);
             (*(*v22 + 16))(v22);
-            conformWithToneMap(a1, v16, &v31, &v30);
+            conformWithToneMap(&v30, a1, v16, &v31);
             v23 = v30;
             (*(*v22 + 24))(v22);
           }
@@ -4695,7 +4694,7 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
 
             else
             {
-              conformWithToneMap(a1, v16, &v31, &v30);
+              conformWithToneMap(&v30, a1, v16, &v31);
             }
 
             v22 = v30;
@@ -4708,7 +4707,7 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
               }
             }
 
-            conformWithToneMap(a1, a3, &v31, &v30);
+            conformWithToneMap(&v30, a1, a3, &v31);
             v23 = v30;
           }
 
@@ -4724,7 +4723,7 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
           (*(*v25 + 120))(v25, 1, v22);
           v30 = v25;
           (*(*v25 + 16))(v25);
-          conformWithToneMap(&v31, &v30, a1, a6);
+          conformWithToneMap(a6, &v31, &v30, a1);
           if (v30)
           {
             (*(*v30 + 24))(v30);
@@ -4762,7 +4761,7 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
   {
     v17 = HGObject::operator new(0x1C0uLL);
     HGStencil::HGStencil(v17);
-    conformWithToneMap(a1, a3, &v31, &v30);
+    conformWithToneMap(&v30, a1, a3, &v31);
     if (a4 == 25)
     {
       v18 = *v16;
@@ -4777,7 +4776,7 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
 
     else
     {
-      conformWithToneMap(a1, v16, &v31, &v29);
+      conformWithToneMap(&v29, a1, v16, &v31);
       (*(*v17 + 96))(v17, 0, 1.0, 0.0, 0.0, 0.0);
     }
 
@@ -4787,7 +4786,7 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
     (*(*v17 + 96))(v17, 1, v20, 0.0, 0.0, 0.0);
     v28 = v17;
     (*(*v17 + 16))(v17);
-    conformWithToneMap(&v31, &v28, a1, a6);
+    conformWithToneMap(a6, &v31, &v28, a1);
     if (v28)
     {
       (*(*v28 + 24))(v28);
@@ -4809,41 +4808,41 @@ CGColorSpace **blendNodes@<X0>(FxColorDescription *a1@<X4>, CGColorSpace **resul
   return PCCFRef<CGColorSpace *>::~PCCFRef(&v31._pcColorDesc._colorSpaceRef._obj);
 }
 
-void sub_25FF63878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FF63878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  if (a7)
+  va_start(va, a13);
+  if (a13)
   {
-    (*(*a7 + 24))(a7);
+    (*(*a13 + 24))(a13, a2, a3, a4, a5, a6, a7);
   }
 
-  if (v7)
+  if (v13)
   {
-    (*(*v7 + 24))(v7);
+    (*(*v13 + 24))(v13, a2, a3, a4, a5, a6, a7);
   }
 
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t cropToPolygon@<X0>(HGRenderer *a1@<X0>, void *a2@<X1>, LiImagePolygon *a3@<X2>, char a4@<W4>, char a5@<W6>, HGCrop **a6@<X8>)
+uint64_t *cropToPolygon@<X0>(HGCrop **__return_ptr a1@<X8>, HGRenderer *a2@<X0>, void *a3@<X1>, LiImagePolygon *a4@<X2>, FxColorDescription *a5@<X3>, char a6@<W4>, char a7@<W6>)
 {
-  v7 = 0;
-  cropToPolygon(a3, a1, a2, a4, &v7, 0, a6, 1.0, a5);
-  result = v7;
-  if (v7)
+  v8 = 0;
+  cropToPolygon(a4, a2, a3, a5, a6, &v8, 0, a1, 1.0, a7);
+  result = v8;
+  if (v8)
   {
-    return (*(*v7 + 24))(v7);
+    return (*(*v8 + 24))(v8);
   }
 
   return result;
 }
 
-void sub_25FF63CE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF63CE4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4885,7 +4884,7 @@ void LiMultiBlender::LiMultiBlender(LiMultiBlender *this, float a2, FxColorDescr
   *v5 = &unk_28725EF08;
   *(v5 + 88) = 0;
   *(v5 + 96) = 0;
-  makeBlendingColorDescription(a3, v5 + 104);
+  makeBlendingColorDescription((v5 + 104), a3);
   *(this + 18) = 0;
   *(this + 19) = 0;
   *(this + 17) = &unk_28725EF80;
@@ -4917,9 +4916,9 @@ void sub_25FF63F0C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void makeBlendingColorDescription(FxColorDescription *a1@<X0>, uint64_t a2@<X8>)
+void makeBlendingColorDescription(uint64_t *__return_ptr a1@<X8>, FxColorDescription *a2@<X0>)
 {
-  if (FxColorDescription::isDynamicRangeManaged(a1))
+  if (FxColorDescription::isDynamicRangeManaged(a2))
   {
     {
       makeBlendingColorDescription(FxColorDescription const&)::blendingSpace = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
@@ -4937,15 +4936,15 @@ void makeBlendingColorDescription(FxColorDescription *a1@<X0>, uint64_t a2@<X8>)
 
     v3 = makeBlendingColorDescription(FxColorDescription const&)::blendingSpace;
 
-    FxColorDescription::FxColorDescription(a2, v3, 0, &makeBlendingColorDescription(FxColorDescription const&)::toneMapMethod, 1);
+    FxColorDescription::FxColorDescription(a1, v3, 0, &makeBlendingColorDescription(FxColorDescription const&)::toneMapMethod, 1);
   }
 
   else
   {
-    *a2 = 0u;
-    *(a2 + 16) = 0u;
-    PCColorDescription::PCColorDescription(a2);
-    *(a2 + 24) = 1;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    PCColorDescription::PCColorDescription(a1);
+    *(a1 + 24) = 1;
   }
 }
 
@@ -5126,7 +5125,7 @@ HGNode *LiMultiBlender::add(uint64_t a1, HGNode **a2, int a3, char a4, char a5, 
     {
       v42 = *(a1 + 88);
       (*(*v14 + 16))(v14);
-      conformWithToneMap((a1 + 104), &v42, (a1 + 56), v41);
+      conformWithToneMap(v41, (a1 + 104), &v42, (a1 + 56));
       v15 = *(a1 + 240);
       v16 = v41[0].f64[0];
       if (v15 == *&v41[0].f64[0])
@@ -5181,7 +5180,7 @@ HGNode *LiMultiBlender::add(uint64_t a1, HGNode **a2, int a3, char a4, char a5, 
         (*(*v43 + 16))(v43);
       }
 
-      cropToPolygon(v23, &v42, *(a1 + 8), *(a1 + 16), 0, v41);
+      cropToPolygon(v41, v23, &v42, *(a1 + 8), (a1 + 56), *(a1 + 16), 0);
       v25 = v41[0].f64[0];
       if (v43 == *&v41[0].f64[0])
       {
@@ -5334,130 +5333,130 @@ HGNode *LiMultiBlender::add(uint64_t a1, HGNode **a2, int a3, char a4, char a5, 
   return result;
 }
 
-void sub_25FF64960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FF64960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   PGHelium::MetalTextureCacheEntry::~MetalTextureCacheEntry(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t conformWithToneMap@<X0>(FxColorDescription *this@<X1>, uint64_t *a2@<X0>, FxColorDescription *a3@<X2>, uint64_t *a4@<X8>)
+uint64_t *conformWithToneMap@<X0>(uint64_t **__return_ptr a1@<X8>, FxColorDescription *this@<X1>, uint64_t **a3@<X0>, FxColorDescription *a4@<X2>)
 {
-  if (FxColorDescription::isColorManaged(this) && (FxColorDescription::isColorManaged(a3) & 1) != 0)
+  if (FxColorDescription::isColorManaged(this) && FxColorDescription::isColorManaged(a4))
   {
-    if (FxColorDescription::isHDR(this) && FxColorDescription::isSDR(a3))
+    if (FxColorDescription::isHDR(this) && FxColorDescription::isSDR(a4))
     {
       v8 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
       CGColorSpace = FxColorDescription::getCGColorSpace(this);
       isPremultiplied = FxColorDescription::isPremultiplied(this);
-      FxApplyColorConform(a2, CGColorSpace, isPremultiplied, v8, 0);
-      FxApplyColorConform(&v29, &kPCNCLC_Rec2020Linear, 0, &kPCNCLC_Rec2020HLG, 0, &v28);
-      v11 = v28;
-      if (v29 == v28)
+      FxApplyColorConform(a3, CGColorSpace, isPremultiplied, v8);
+      FxApplyColorConform(&v26, &kPCNCLC_Rec2020Linear, 0, &kPCNCLC_Rec2020HLG, 0, &v25);
+      v11 = v25;
+      if (v26 == v25)
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v28 + 24))(v28);
+          (*(*v25 + 24))(v25);
         }
       }
 
       else
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v29 + 24))();
-          v11 = v28;
+          (*(*v26 + 24))();
+          v11 = v25;
         }
 
-        v29 = v11;
+        v26 = v11;
       }
 
-      FxApplyColorConform(&v29, &kPCNCLC_Rec709, 0, &kPCNCLC_Rec709Linear, 0, &v28);
-      v22 = v28;
-      if (v29 == v28)
+      FxApplyColorConform(&v26, &kPCNCLC_Rec709, 0, &kPCNCLC_Rec709Linear, 0, &v25);
+      v21 = v25;
+      if (v26 == v25)
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v28 + 24))(v28);
+          (*(*v25 + 24))(v25);
         }
       }
 
       else
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v29 + 24))();
-          v22 = v28;
+          (*(*v26 + 24))();
+          v21 = v25;
         }
 
-        v29 = v22;
+        v26 = v21;
       }
 
-      v23 = FxColorDescription::getCGColorSpace(a3);
-      v24 = FxColorDescription::isPremultiplied(a3);
-      FxApplyColorConform(&v29, v8, 0, v23, v24);
-      result = v29;
-      if (v29)
+      v22 = FxColorDescription::getCGColorSpace(a4);
+      FxColorDescription::isPremultiplied(a4);
+      FxApplyColorConform(&v26, v8, 0, v22);
+      result = v26;
+      if (v26)
       {
-        return (*(*v29 + 24))(result);
+        return (*(*v26 + 24))(result);
       }
     }
 
-    else if (FxColorDescription::isSDR(this) && FxColorDescription::isHDR(a3))
+    else if (FxColorDescription::isSDR(this) && FxColorDescription::isHDR(a4))
     {
       v14 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
       v15 = FxColorDescription::getCGColorSpace(this);
       v16 = FxColorDescription::isPremultiplied(this);
-      FxApplyColorConform(a2, v15, v16, v14, 0);
-      FxApplyColorConform(&v29, &kPCNCLC_Rec709Linear, 0, &kPCNCLC_Rec709, 0, &v28);
-      v17 = v28;
-      if (v29 == v28)
+      FxApplyColorConform(a3, v15, v16, v14);
+      FxApplyColorConform(&v26, &kPCNCLC_Rec709Linear, 0, &kPCNCLC_Rec709, 0, &v25);
+      v17 = v25;
+      if (v26 == v25)
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v28 + 24))(v28);
+          (*(*v25 + 24))(v25);
         }
       }
 
       else
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v29 + 24))();
-          v17 = v28;
+          (*(*v26 + 24))();
+          v17 = v25;
         }
 
-        v29 = v17;
+        v26 = v17;
       }
 
-      FxApplyColorConform(&v29, &kPCNCLC_Rec2020HLG, 0, &kPCNCLC_Rec2020Linear, 0, &v28);
-      v25 = v28;
-      if (v29 == v28)
+      FxApplyColorConform(&v26, &kPCNCLC_Rec2020HLG, 0, &kPCNCLC_Rec2020Linear, 0, &v25);
+      v23 = v25;
+      if (v26 == v25)
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v28 + 24))(v28);
+          (*(*v25 + 24))(v25);
         }
       }
 
       else
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v29 + 24))();
-          v25 = v28;
+          (*(*v26 + 24))();
+          v23 = v25;
         }
 
-        v29 = v25;
+        v26 = v23;
       }
 
-      v26 = FxColorDescription::getCGColorSpace(a3);
-      v27 = FxColorDescription::isPremultiplied(a3);
-      FxApplyColorConform(&v29, v14, 0, v26, v27);
-      result = v29;
-      if (v29)
+      v24 = FxColorDescription::getCGColorSpace(a4);
+      FxColorDescription::isPremultiplied(a4);
+      FxApplyColorConform(&v26, v14, 0, v24);
+      result = v26;
+      if (v26)
       {
-        return (*(*v29 + 24))(result);
+        return (*(*v26 + 24))(result);
       }
     }
 
@@ -5465,17 +5464,17 @@ uint64_t conformWithToneMap@<X0>(FxColorDescription *this@<X1>, uint64_t *a2@<X0
     {
       v18 = FxColorDescription::getCGColorSpace(this);
       v19 = FxColorDescription::isPremultiplied(this);
-      v20 = FxColorDescription::getCGColorSpace(a3);
-      v21 = FxColorDescription::isPremultiplied(a3);
+      v20 = FxColorDescription::getCGColorSpace(a4);
+      FxColorDescription::isPremultiplied(a4);
 
-      return FxApplyColorConform(a2, v18, v19, v20, v21);
+      return FxApplyColorConform(a3, v18, v19, v20);
     }
   }
 
   else
   {
-    result = *a2;
-    *a4 = *a2;
+    result = *a3;
+    *a1 = *a3;
     if (result)
     {
       v13 = *(*result + 16);
@@ -5488,121 +5487,121 @@ uint64_t conformWithToneMap@<X0>(FxColorDescription *this@<X1>, uint64_t *a2@<X0
 }
 
 {
-  if (FxColorDescription::isColorManaged(this) && (FxColorDescription::isColorManaged(a3) & 1) != 0)
+  if (FxColorDescription::isColorManaged(this) && FxColorDescription::isColorManaged(a4))
   {
-    if (FxColorDescription::isHDR(this) && FxColorDescription::isSDR(a3))
+    if (FxColorDescription::isHDR(this) && FxColorDescription::isSDR(a4))
     {
       v8 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
       CGColorSpace = FxColorDescription::getCGColorSpace(this);
       isPremultiplied = FxColorDescription::isPremultiplied(this);
-      FxApplyColorConform(a2, CGColorSpace, isPremultiplied, v8, 0);
-      FxApplyColorConform(&v29, &kPCNCLC_Rec2020Linear, 0, &kPCNCLC_Rec2020HLG, 0, &v28);
-      v11 = v28;
-      if (v29 == v28)
+      FxApplyColorConform(a3, CGColorSpace, isPremultiplied, v8);
+      FxApplyColorConform(&v26, &kPCNCLC_Rec2020Linear, 0, &kPCNCLC_Rec2020HLG, 0, &v25);
+      v11 = v25;
+      if (v26 == v25)
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v28 + 24))(v28);
+          (*(*v25 + 24))(v25);
         }
       }
 
       else
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v29 + 24))();
-          v11 = v28;
+          (*(*v26 + 24))();
+          v11 = v25;
         }
 
-        v29 = v11;
+        v26 = v11;
       }
 
-      FxApplyColorConform(&v29, &kPCNCLC_Rec709, 0, &kPCNCLC_Rec709Linear, 0, &v28);
-      v22 = v28;
-      if (v29 == v28)
+      FxApplyColorConform(&v26, &kPCNCLC_Rec709, 0, &kPCNCLC_Rec709Linear, 0, &v25);
+      v21 = v25;
+      if (v26 == v25)
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v28 + 24))(v28);
+          (*(*v25 + 24))(v25);
         }
       }
 
       else
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v29 + 24))();
-          v22 = v28;
+          (*(*v26 + 24))();
+          v21 = v25;
         }
 
-        v29 = v22;
+        v26 = v21;
       }
 
-      v23 = FxColorDescription::getCGColorSpace(a3);
-      v24 = FxColorDescription::isPremultiplied(a3);
-      FxApplyColorConform(&v29, v8, 0, v23, v24);
-      result = v29;
-      if (v29)
+      v22 = FxColorDescription::getCGColorSpace(a4);
+      FxColorDescription::isPremultiplied(a4);
+      FxApplyColorConform(&v26, v8, 0, v22);
+      result = v26;
+      if (v26)
       {
-        return (*(*v29 + 24))(result);
+        return (*(*v26 + 24))(result);
       }
     }
 
-    else if (FxColorDescription::isSDR(this) && FxColorDescription::isHDR(a3))
+    else if (FxColorDescription::isSDR(this) && FxColorDescription::isHDR(a4))
     {
       v14 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
       v15 = FxColorDescription::getCGColorSpace(this);
       v16 = FxColorDescription::isPremultiplied(this);
-      FxApplyColorConform(a2, v15, v16, v14, 0);
-      FxApplyColorConform(&v29, &kPCNCLC_Rec709Linear, 0, &kPCNCLC_Rec709, 0, &v28);
-      v17 = v28;
-      if (v29 == v28)
+      FxApplyColorConform(a3, v15, v16, v14);
+      FxApplyColorConform(&v26, &kPCNCLC_Rec709Linear, 0, &kPCNCLC_Rec709, 0, &v25);
+      v17 = v25;
+      if (v26 == v25)
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v28 + 24))(v28);
+          (*(*v25 + 24))(v25);
         }
       }
 
       else
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v29 + 24))();
-          v17 = v28;
+          (*(*v26 + 24))();
+          v17 = v25;
         }
 
-        v29 = v17;
+        v26 = v17;
       }
 
-      FxApplyColorConform(&v29, &kPCNCLC_Rec2020HLG, 0, &kPCNCLC_Rec2020Linear, 0, &v28);
-      v25 = v28;
-      if (v29 == v28)
+      FxApplyColorConform(&v26, &kPCNCLC_Rec2020HLG, 0, &kPCNCLC_Rec2020Linear, 0, &v25);
+      v23 = v25;
+      if (v26 == v25)
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v28 + 24))(v28);
+          (*(*v25 + 24))(v25);
         }
       }
 
       else
       {
-        if (v29)
+        if (v26)
         {
-          (*(*v29 + 24))();
-          v25 = v28;
+          (*(*v26 + 24))();
+          v23 = v25;
         }
 
-        v29 = v25;
+        v26 = v23;
       }
 
-      v26 = FxColorDescription::getCGColorSpace(a3);
-      v27 = FxColorDescription::isPremultiplied(a3);
-      FxApplyColorConform(&v29, v14, 0, v26, v27);
-      result = v29;
-      if (v29)
+      v24 = FxColorDescription::getCGColorSpace(a4);
+      FxColorDescription::isPremultiplied(a4);
+      FxApplyColorConform(&v26, v14, 0, v24);
+      result = v26;
+      if (v26)
       {
-        return (*(*v29 + 24))(result);
+        return (*(*v26 + 24))(result);
       }
     }
 
@@ -5610,17 +5609,17 @@ uint64_t conformWithToneMap@<X0>(FxColorDescription *this@<X1>, uint64_t *a2@<X0
     {
       v18 = FxColorDescription::getCGColorSpace(this);
       v19 = FxColorDescription::isPremultiplied(this);
-      v20 = FxColorDescription::getCGColorSpace(a3);
-      v21 = FxColorDescription::isPremultiplied(a3);
+      v20 = FxColorDescription::getCGColorSpace(a4);
+      FxColorDescription::isPremultiplied(a4);
 
-      return FxApplyColorConform(a2, v18, v19, v20, v21);
+      return FxApplyColorConform(a3, v18, v19, v20);
     }
   }
 
   else
   {
-    result = *a2;
-    *a4 = *a2;
+    result = *a3;
+    *a1 = *a3;
     if (result)
     {
       v13 = *(*result + 16);
@@ -5632,16 +5631,16 @@ uint64_t conformWithToneMap@<X0>(FxColorDescription *this@<X1>, uint64_t *a2@<X0
   return result;
 }
 
-void sub_25FF64F64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF64F64(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5661,7 +5660,7 @@ uint64_t LiMultiBlender::addStencil(uint64_t a1, uint64_t a2)
     v4 = HGObject::operator new(0x1C0uLL);
     HGStencil::HGStencil(v4);
     (*(*a1 + 24))(&v23, a1);
-    conformWithToneMap((a1 + 56), &v23, (a1 + 104), &v28);
+    conformWithToneMap(&v28, (a1 + 56), &v23, (a1 + 104));
     if (v23)
     {
       (*(*v23 + 24))(v23);
@@ -5679,7 +5678,7 @@ uint64_t LiMultiBlender::addStencil(uint64_t a1, uint64_t a2)
 
     else
     {
-      conformWithToneMap((a1 + 56), a2, (a1 + 104), &v27);
+      conformWithToneMap(&v27, (a1 + 56), a2, (a1 + 104));
     }
 
     v5.n128_u32[0] = 1.0;
@@ -5695,7 +5694,7 @@ uint64_t LiMultiBlender::addStencil(uint64_t a1, uint64_t a2)
     (*(*v4 + 96))(v4, 1, 1.0, 0.0, 0.0, 0.0);
     v26 = v4;
     (*(*v4 + 16))(v4);
-    conformWithToneMap((a1 + 104), &v26, (a1 + 56), &v23);
+    conformWithToneMap(&v23, (a1 + 104), &v26, (a1 + 56));
     v10 = *(a1 + 240);
     v11 = v23;
     if (v10 == v23)
@@ -5799,31 +5798,31 @@ uint64_t LiMultiBlender::addStencil(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_25FF65544(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_25FF65544(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
   {
-    (*(*a12 + 24))(a12);
+    (*(*a12 + 24))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a13)
   {
-    (*(*a13 + 24))(a13);
+    (*(*a13 + 24))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a14)
   {
-    (*(*a14 + 24))(a14);
+    (*(*a14 + 24))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v14)
   {
-    (*(*v14 + 24))(v14);
+    (*(*v14 + 24))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5845,7 +5844,7 @@ uint64_t LiMultiBlender::addLightWrap(uint64_t a1, uint64_t a2, uint64_t a3)
   v8 = HGObject::operator new(0x220uLL);
   HGHWBlendFlipped::HGHWBlendFlipped(v8);
   (*(*a1 + 24))(&v31, a1);
-  conformWithToneMap((a1 + 56), &v31, (a1 + 104), &v28);
+  conformWithToneMap(&v28, (a1 + 56), &v31, (a1 + 104));
   (*(*v8 + 120))(v8, 0, v28);
   if (v28)
   {
@@ -5857,7 +5856,7 @@ uint64_t LiMultiBlender::addLightWrap(uint64_t a1, uint64_t a2, uint64_t a3)
     (*(*v31 + 24))(v31);
   }
 
-  conformWithToneMap((a1 + 56), a2, (a1 + 104), &v28);
+  conformWithToneMap(&v28, (a1 + 56), a2, (a1 + 104));
   (*(*v8 + 120))(v8, 1, v28);
   if (v28)
   {
@@ -5874,7 +5873,7 @@ uint64_t LiMultiBlender::addLightWrap(uint64_t a1, uint64_t a2, uint64_t a3)
   HGHWBlendFlipped::SetLightWrapParams(v8, v13, v6, v11, v12, *(a3 + 24));
   v31 = v8;
   (*(*v8 + 16))(v8);
-  conformWithToneMap((a1 + 104), &v31, (a1 + 56), &v28);
+  conformWithToneMap(&v28, (a1 + 104), &v31, (a1 + 56));
   v14 = *(a1 + 240);
   v15 = v28;
   if (v14 == v28)
@@ -5971,15 +5970,15 @@ void sub_25FF65B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
   {
-    (*(*a12 + 24))(a12);
+    (*(*a12 + 24))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v12 + 24))(v12);
+  (*(*v12 + 24))(v12, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -5988,7 +5987,7 @@ uint64_t LiMultiBlender::addPreserveOpacity(uint64_t a1, uint64_t a2)
   v4 = HGObject::operator new(0x1C0uLL);
   HGStencil::HGStencil(v4);
   (*(*a1 + 24))(&v12, a1);
-  conformWithToneMap((a1 + 56), a2, (a1 + 104), &v11);
+  conformWithToneMap(&v11, (a1 + 56), a2, (a1 + 104));
   (*(*v4 + 120))(v4, 0, v11);
   if (v11)
   {
@@ -5998,7 +5997,7 @@ uint64_t LiMultiBlender::addPreserveOpacity(uint64_t a1, uint64_t a2)
   (*(*v4 + 120))(v4, 1, v12);
   (*(*v4 + 96))(v4, 0, 0.0, 0.0, 0.0, 0.0);
   (*(*v4 + 96))(v4, 1, 1.0, 0.0, 0.0, 0.0);
-  LiMultiBlender::makeMultiBlend(a1, &v11);
+  LiMultiBlender::makeMultiBlend(&v11, a1);
   v5 = *(a1 + 88);
   v6 = v11;
   if (v5 == v11)
@@ -6034,27 +6033,27 @@ uint64_t LiMultiBlender::addPreserveOpacity(uint64_t a1, uint64_t a2)
   return (*(*v4 + 24))(v4);
 }
 
-void sub_25FF65F54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF65F54(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (v11)
   {
-    (*(*v11 + 24))(v11);
+    (*(*v11 + 24))(v11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v10)
   {
-    (*(*v10 + 24))(v10);
+    (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-HGNode *LiMultiBlender::add(uint64_t a1, uint64_t a2)
+uint64_t LiMultiBlender::add(uint64_t a1, uint64_t a2)
 {
   v4 = *a2;
   DOD = HGRenderer::GetDOD(*(a1 + 24), *a2);
@@ -6202,7 +6201,7 @@ LABEL_24:
 void LiMultiBlender::multify(LiMultiBlender *this)
 {
   v2 = *(this + 30);
-  LiMultiBlender::makeMultiBlend(this, &v22);
+  LiMultiBlender::makeMultiBlend(&v22, this);
   v3 = *(this + 11);
   v4 = v22;
   if (v3 == v22)
@@ -6332,7 +6331,7 @@ void sub_25FF66518(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t LiMultiBlender::addToMultiBlender(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, float a7)
+uint64_t LiMultiBlender::addToMultiBlender(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, int a6, float a7)
 {
   v11 = a3;
   if (a3)
@@ -6353,7 +6352,7 @@ uint64_t LiMultiBlender::addToMultiBlender(uint64_t a1, uint64_t a2, uint64_t a3
   }
 
   v16 = v11;
-  conformWithToneMap((a1 + 56), &v16, (a1 + 104), &v17);
+  conformWithToneMap(&v17, (a1 + 56), &v16, (a1 + 104));
   v14 = v17;
   if (v17 == v11)
   {
@@ -6390,21 +6389,21 @@ LABEL_14:
   return result;
 }
 
-void sub_25FF66794(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF66794(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v10)
   {
-    (*(*v10 + 24))(v10);
+    (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6521,14 +6520,14 @@ uint64_t LiMultiBlender::flushDeferred(uint64_t this, __n128 a2)
   return this;
 }
 
-void sub_25FF66A5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FF66A5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCArray<LiMultiBlenderLayer,PCArray_Traits<LiMultiBlenderLayer>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
 
-HGHWMultiBlend *LiMultiBlender::getOutput@<X0>(LiMultiBlender *this@<X0>, uint64_t *a2@<X8>, __n128 a3@<Q0>)
+uint64_t *LiMultiBlender::getOutput@<X0>(LiMultiBlender *this@<X0>, uint64_t **a2@<X8>, __n128 a3@<Q0>)
 {
   LiMultiBlender::flushDeferred(this, a3);
   v5 = *(this + 11);
@@ -6539,7 +6538,7 @@ HGHWMultiBlend *LiMultiBlender::getOutput@<X0>(LiMultiBlender *this@<X0>, uint64
 
   if (*(this + 30) && *(this + 32) < 1.0)
   {
-    LiMultiBlender::makeMultiBlend(this, &v16);
+    LiMultiBlender::makeMultiBlend(&v16, this);
     v6 = *(this + 11);
     v7 = v16;
     if (v6 == v16)
@@ -6603,7 +6602,7 @@ LABEL_19:
     *(this + 273) = 1;
     v16 = v5;
     (*(*v5 + 16))(v5);
-    conformWithToneMap((this + 104), &v16, (this + 56), a2);
+    conformWithToneMap(a2, (this + 104), &v16, (this + 56));
     result = v16;
     if (v16)
     {
@@ -6626,64 +6625,64 @@ LABEL_19:
   return result;
 }
 
-void sub_25FF66CC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF66CC8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (v10)
   {
-    (*(*v10 + 24))(v10);
+    (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t LiMultiBlender::makeMultiBlend@<X0>(LiMultiBlender *this@<X0>, HGHWMultiBlend **a2@<X8>)
+uint64_t *LiMultiBlender::makeMultiBlend@<X0>(HGHWMultiBlend **__return_ptr a1@<X8>, LiMultiBlender *this@<X0>)
 {
   v4 = HGObject::operator new(0x280uLL);
   HGHWMultiBlend::HGHWMultiBlend(v4);
-  *a2 = v4;
+  *a1 = v4;
   return (*(*v4 + 96))(v4, 5, *(this + 13), 0.0, 0.0, 0.0);
 }
 
-void LiMultiBlender::addPatch()
+void LiMultiBlender::addPatch(uint64_t a1, void *a2, void *a3)
 {
-  v0 = HGObject::operator new(0x1A0uLL);
-  *v0 = 0u;
-  *(v0 + 1) = 0u;
-  *(v0 + 2) = 0u;
-  *(v0 + 3) = 0u;
-  *(v0 + 4) = 0u;
-  *(v0 + 5) = 0u;
-  *(v0 + 6) = 0u;
-  *(v0 + 7) = 0u;
-  *(v0 + 8) = 0u;
-  *(v0 + 9) = 0u;
-  *(v0 + 10) = 0u;
-  *(v0 + 11) = 0u;
-  *(v0 + 12) = 0u;
-  *(v0 + 13) = 0u;
-  *(v0 + 14) = 0u;
-  *(v0 + 15) = 0u;
-  *(v0 + 16) = 0u;
-  *(v0 + 17) = 0u;
-  *(v0 + 18) = 0u;
-  *(v0 + 19) = 0u;
-  *(v0 + 20) = 0u;
-  *(v0 + 21) = 0u;
-  *(v0 + 22) = 0u;
-  *(v0 + 23) = 0u;
-  *(v0 + 24) = 0u;
-  *(v0 + 25) = 0u;
-  LiHeMixShader::LiHeMixShader(v0);
+  v3 = HGObject::operator new(0x1A0uLL);
+  *v3 = 0u;
+  *(v3 + 1) = 0u;
+  *(v3 + 2) = 0u;
+  *(v3 + 3) = 0u;
+  *(v3 + 4) = 0u;
+  *(v3 + 5) = 0u;
+  *(v3 + 6) = 0u;
+  *(v3 + 7) = 0u;
+  *(v3 + 8) = 0u;
+  *(v3 + 9) = 0u;
+  *(v3 + 10) = 0u;
+  *(v3 + 11) = 0u;
+  *(v3 + 12) = 0u;
+  *(v3 + 13) = 0u;
+  *(v3 + 14) = 0u;
+  *(v3 + 15) = 0u;
+  *(v3 + 16) = 0u;
+  *(v3 + 17) = 0u;
+  *(v3 + 18) = 0u;
+  *(v3 + 19) = 0u;
+  *(v3 + 20) = 0u;
+  *(v3 + 21) = 0u;
+  *(v3 + 22) = 0u;
+  *(v3 + 23) = 0u;
+  *(v3 + 24) = 0u;
+  *(v3 + 25) = 0u;
+  LiHeMixShader::LiHeMixShader(v3);
 }
 
 void sub_25FF67134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    (*(*a12 + 24))(a12);
+    (*(*a12 + 24))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v12 + 24))(v12);
+  (*(*v12 + 24))(v12, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -6697,7 +6696,7 @@ CGColorSpace **LiCompositor::getHelium@<X0>(LiCompositor *this@<X0>, LiAgent *a2
   v23[3] = LiAgent::getHeliumRenderer(a2);
   if (LiAgent::haveROI(a2))
   {
-    LiAgent::getROI(a2, v22);
+    LiAgent::getROI(v22, a2);
     v24 = v22[0];
     v25 = 1;
   }
@@ -6719,7 +6718,7 @@ CGColorSpace **LiCompositor::getHelium@<X0>(LiCompositor *this@<X0>, LiAgent *a2
     {
       if (*(this + 48) == 1)
       {
-        LiAgent::getHelium(v22, v11, &v19);
+        LiAgent::getHelium(&v19, v22, v11);
         v17 = 0;
         PCSharedCount::PCSharedCount(&v18);
         (*(v23[0] + 16))(v23, &v19, 0, 0, 0, &v17, 1.0);
@@ -6746,7 +6745,7 @@ CGColorSpace **LiCompositor::getHelium@<X0>(LiCompositor *this@<X0>, LiAgent *a2
     {
       if ((*(this + 48) & 1) == 0)
       {
-        LiAgent::getHelium(v22, v12, &v16);
+        LiAgent::getHelium(&v16, v22, v12);
         blendNodes(&v26, a3, &v16, 0, 0, &v19, *(*(a2 + 6) + 192), 1.0);
         v13 = *a3;
         v14 = v19;
@@ -6807,27 +6806,27 @@ CGColorSpace **LiCompositor::getHelium@<X0>(LiCompositor *this@<X0>, LiAgent *a2
   return PCCFRef<CGColorSpace *>::~PCCFRef(&v26._pcColorDesc._colorSpaceRef._obj);
 }
 
-void sub_25FF67698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25FF67698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  if (a6)
+  va_start(va, a15);
+  if (a13)
   {
-    (*(*a6 + 24))(a6);
+    (*(*a13 + 24))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  if (a3)
+  if (a10)
   {
-    (*(*a3 + 24))(a3);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  if (*v8)
+  if (*v15)
   {
-    (*(**v8 + 24))(*v8);
+    (*(**v15 + 24))(*v15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   LiAgent::~LiAgent(va);
   LiMultiBlender::~LiMultiBlender(&STACK[0x208]);
-  PCCFRef<CGColorSpace *>::~PCCFRef((v9 - 80));
+  PCCFRef<CGColorSpace *>::~PCCFRef((v16 - 80));
   _Unwind_Resume(a1);
 }
 
@@ -6882,7 +6881,7 @@ void PCArray<LiDrawnRegion::Rect,PCArray_Traits<LiDrawnRegion::Rect>>::~PCArray(
   JUMPOUT(0x2666E9F00);
 }
 
-void PCArray<LiDrawnRegion::Rect,PCArray_Traits<LiDrawnRegion::Rect>>::resize(uint64_t a1, int a2, int a3, __n128 a4)
+void PCArray<LiDrawnRegion::Rect,PCArray_Traits<LiDrawnRegion::Rect>>::resize(uint64_t result, int a2, int a3, __n128 a4)
 {
   if (a3 <= a2)
   {
@@ -6902,16 +6901,16 @@ void PCArray<LiDrawnRegion::Rect,PCArray_Traits<LiDrawnRegion::Rect>>::resize(ui
     *exception = &unk_2872DE188;
   }
 
-  if (v4 == *(a1 + 8))
+  if (v4 == *(result + 8))
   {
-    v7 = *(a1 + 12);
+    v7 = *(result + 12);
     if (a2 > v7)
     {
       v8 = 20 * v7;
       v9 = a2 - v7;
       do
       {
-        LiDrawnRegion::Rect::Rect((*(a1 + 16) + v8));
+        LiDrawnRegion::Rect::Rect((*(result + 16) + v8));
         v8 += 20;
         --v9;
       }
@@ -6927,10 +6926,10 @@ void PCArray<LiDrawnRegion::Rect,PCArray_Traits<LiDrawnRegion::Rect>>::resize(ui
       operator new[]();
     }
 
-    v10 = *(a1 + 12);
+    v10 = *(result + 12);
     if (a2 >= v10)
     {
-      v11 = *(a1 + 12);
+      v11 = *(result + 12);
     }
 
     else
@@ -6948,12 +6947,12 @@ void PCArray<LiDrawnRegion::Rect,PCArray_Traits<LiDrawnRegion::Rect>>::resize(ui
       v12 = 0;
       do
       {
-        a4 = LiDrawnRegion::Rect::Rect(v12, (v12 + *(a1 + 16)));
+        a4 = LiDrawnRegion::Rect::Rect(v12, (v12 + *(result + 16)));
         v12 = (v12 + 20);
       }
 
       while ((20 * v11) != v12);
-      v10 = *(a1 + 12);
+      v10 = *(result + 12);
     }
 
     if (v11 > v10)
@@ -6975,17 +6974,17 @@ void PCArray<LiDrawnRegion::Rect,PCArray_Traits<LiDrawnRegion::Rect>>::resize(ui
       while (v14);
     }
 
-    v16 = *(a1 + 16);
+    v16 = *(result + 16);
     if (v16)
     {
       MEMORY[0x2666E9ED0](v16, 0x1000C8077774924, a4);
     }
 
-    *(a1 + 16) = 0;
+    *(result + 16) = 0;
   }
 
-  *(a1 + 8) = v4;
-  *(a1 + 12) = a2;
+  *(result + 8) = v4;
+  *(result + 12) = a2;
 }
 
 void PCPtr<LiImageSource>::reset(void *a1)
@@ -7389,22 +7388,22 @@ void LiDepthSorter::sort(LiDepthSorter *this)
   v1 = *(this + 3);
   if (v1)
   {
-    LiPlaneSplit::LiPlaneSplit(v67);
+    LiPlaneSplit::LiPlaneSplit(v60);
     v3 = 0;
-    v68 = *(this + 48);
-    v67[0] = *(this + 7);
+    v61 = *(this + 48);
+    v60[0] = *(this + 7);
     LODWORD(i) = v1 / 2;
 LABEL_3:
-    v5 = LiPlaneSplit::clear(v67);
+    v5 = LiPlaneSplit::clear(v60);
     if ((i & 0x80000000) != 0 || *(this + 3) <= i)
     {
       PCArray_base::badIndex(v5);
     }
 
     v6 = *(*(this + 2) + 8 * i);
-    v67[1] = v6;
-    v7 = (*(*v6 + 48))(&v58, v6);
-    v69 = v61[0] > 0.0;
+    v60[1] = v6;
+    v7 = (*(*v6 + 48))(&v51, v6);
+    v62 = v54[0] > 0.0;
     if (v1 >= 1)
     {
       v8 = i;
@@ -7417,276 +7416,276 @@ LABEL_3:
             PCArray_base::badIndex(v7);
           }
 
-          v67[2] = *(*(this + 2) + 8 * i);
-          LiPlaneSplit::compute(v67);
-          if (v70 == 3 && (v71 & 1) == 0 && v3 < 0xA)
+          v60[2] = *(*(this + 2) + 8 * i);
+          LiPlaneSplit::compute(v60);
+          if (v63 == 3 && (v64 & 1) == 0 && v3 < 0xA)
           {
             ++v3;
             goto LABEL_3;
           }
 
-          v7 = LiPlaneSplit::store(v67, v9, v10, v11, v12, v13, v14, v15);
+          v7 = LiPlaneSplit::store(v60);
         }
       }
     }
 
     if (*(this + 16) <= 299)
     {
-      v16 = 1;
+      v9 = 1;
       do
       {
-        v17 = v16;
-        if (v16)
+        v10 = v9;
+        if (v9)
         {
-          v18 = 364;
+          v11 = 364;
         }
 
         else
         {
-          v18 = 340;
+          v11 = 340;
         }
 
-        v19 = *(v67 + v18);
-        if (v19 >= 2)
+        v12 = *(v60 + v11);
+        if (v12 >= 2)
         {
-          v58 = &unk_28725EFF0;
-          v62 = 0;
-          v63 = 0;
-          v65 = *(this + 7);
-          v20 = *(this + 16);
-          v66[0] = v20 + 1;
-          if (v20 < 5)
+          v51 = &unk_28725EFF0;
+          v55 = 0;
+          v56 = 0;
+          v58 = *(this + 7);
+          v13 = *(this + 16);
+          v59[0] = v13 + 1;
+          if (v13 < 5)
           {
-            v21 = *(this + 48);
+            v14 = *(this + 48);
           }
 
           else
           {
-            v21 = 0;
+            v14 = 0;
           }
 
-          v64[0] = v21;
-          v22 = 42;
-          if (v17)
+          v57[0] = v14;
+          v15 = 42;
+          if (v10)
           {
-            v22 = 45;
+            v15 = 45;
           }
 
-          v23 = &v67[v22];
-          v24 = v67[v22];
-          if (v17)
+          v16 = &v60[v15];
+          v17 = v60[v15];
+          if (v10)
           {
-            v25 = 46;
-          }
-
-          else
-          {
-            v25 = 43;
-          }
-
-          v26 = *&v67[v25];
-          v59 = v24;
-          v60 = v19;
-          v61[0] = v26;
-          *&v61[1] = &unk_28725EFF0;
-          *v23 = 0;
-          v23[1] = 0;
-          LiDepthSorter::sort(&v58);
-          v27 = *v23;
-          if (*v23 < 0)
-          {
-            v28 = 1;
+            v18 = 46;
           }
 
           else
           {
-            v28 = v27 & ~(v27 >> 31);
+            v18 = 43;
           }
 
-          if (v28 == v27)
+          v19 = *&v60[v18];
+          v52 = v17;
+          v53 = v12;
+          v54[0] = v19;
+          *&v54[1] = &unk_28725EFF0;
+          *v16 = 0;
+          v16[1] = 0;
+          LiDepthSorter::sort(&v51);
+          v20 = *v16;
+          if (*v16 < 0)
           {
-            v29 = *(v67 + v18);
-            if ((v29 & 0x80000000) != 0)
+            v21 = 1;
+          }
+
+          else
+          {
+            v21 = v20 & ~(v20 >> 31);
+          }
+
+          if (v21 == v20)
+          {
+            v22 = *(v60 + v11);
+            if ((v22 & 0x80000000) != 0)
             {
               do
               {
-                *(v67[v25] + 8 * v29) = 0;
-                v30 = __CFADD__(v29++, 1);
+                *(v60[v18] + 8 * v22) = 0;
+                v23 = __CFADD__(v22++, 1);
               }
 
-              while (!v30);
+              while (!v23);
             }
 
-            v31 = v67[v25];
+            v24 = v60[v18];
           }
 
           else
           {
-            if (v28)
+            if (v21)
             {
               operator new[]();
             }
 
-            v31 = 0;
-            v32 = v67[v25];
-            if (v32)
+            v24 = 0;
+            v25 = v60[v18];
+            if (v25)
             {
-              MEMORY[0x2666E9ED0](v32, 0x1000C8077774924);
+              MEMORY[0x2666E9ED0](v25, 0x1000C8077774924);
             }
 
-            v67[v25] = 0;
+            v60[v18] = 0;
           }
 
-          *v23 = v28;
-          *(v67 + v18) = 0;
-          if (v31)
+          *v16 = v21;
+          *(v60 + v11) = 0;
+          if (v24)
           {
-            MEMORY[0x2666E9ED0](v31, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v24, 0x1000C8077774924);
           }
 
-          v33 = v62;
-          *(v67 + v18) = HIDWORD(v62);
-          *v23 = v33;
-          v67[v25] = v63;
-          v62 = 0;
-          v63 = 0;
-          LiDepthSorter::~LiDepthSorter(&v58);
+          v26 = v55;
+          *(v60 + v11) = HIDWORD(v55);
+          *v16 = v26;
+          v60[v18] = v56;
+          v55 = 0;
+          v56 = 0;
+          LiDepthSorter::~LiDepthSorter(&v51);
         }
 
-        v16 = 0;
+        v9 = 0;
       }
 
-      while ((v17 & 1) != 0);
+      while ((v10 & 1) != 0);
     }
 
-    v34 = *(this + 8);
-    if (v34 < 0)
+    v27 = *(this + 8);
+    if (v27 < 0)
     {
-      v35 = 1;
+      v28 = 1;
     }
 
     else
     {
-      v35 = v34 & ~(v34 >> 31);
+      v28 = v27 & ~(v27 >> 31);
     }
 
-    if (v35 == v34)
+    if (v28 == v27)
     {
-      v36 = *(this + 9);
-      v37 = v6;
-      if ((v36 & 0x80000000) != 0)
+      v29 = *(this + 9);
+      v30 = v6;
+      if ((v29 & 0x80000000) != 0)
       {
         do
         {
-          *(*(this + 5) + 8 * v36) = 0;
-          v30 = __CFADD__(v36++, 1);
+          *(*(this + 5) + 8 * v29) = 0;
+          v23 = __CFADD__(v29++, 1);
         }
 
-        while (!v30);
+        while (!v23);
       }
     }
 
     else
     {
-      v37 = v6;
-      if (v35)
+      v30 = v6;
+      if (v28)
       {
         operator new[]();
       }
 
-      v38 = *(this + 5);
-      if (v38)
+      v31 = *(this + 5);
+      if (v31)
       {
-        MEMORY[0x2666E9ED0](v38, 0x1000C8077774924);
+        MEMORY[0x2666E9ED0](v31, 0x1000C8077774924);
       }
 
       *(this + 5) = 0;
     }
 
-    *(this + 8) = v35;
+    *(this + 8) = v28;
     *(this + 9) = 0;
-    v39 = *(this + 5);
-    if (v39)
+    v32 = *(this + 5);
+    if (v32)
     {
-      MEMORY[0x2666E9ED0](v39, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](v32, 0x1000C8077774924);
     }
 
-    v40 = v73;
-    v41 = HIDWORD(v73);
-    *(this + 8) = v73;
-    *(this + 9) = v41;
-    *(this + 5) = v74;
-    v73 = 0;
-    v74 = 0;
+    v33 = v66;
+    v34 = HIDWORD(v66);
+    *(this + 8) = v66;
+    *(this + 9) = v34;
+    *(this + 5) = v67;
+    v66 = 0;
+    v67 = 0;
     if (__nel[0])
     {
-      if (v80 <= __nel[0])
+      if (v73 <= __nel[0])
       {
-        v42 = 2 * (__nel[0] + 1) + 1;
+        v35 = 2 * (__nel[0] + 1) + 1;
       }
 
       else
       {
-        v42 = v80;
+        v35 = v73;
       }
 
-      PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(&v79, __nel[0] + 1, v42);
-      v43 = __nel[0];
-      *(*&__nel[1] + 8 * __nel[0] - 8) = v37;
-      if (v43)
+      PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(&v72, __nel[0] + 1, v35);
+      v36 = __nel[0];
+      *(*&__nel[1] + 8 * __nel[0] - 8) = v30;
+      if (v36)
       {
-        qsort(*&__nel[1], v43, 8uLL, stackOrder);
+        qsort(*&__nel[1], v36, 8uLL, stackOrder);
       }
 
-      PCArray<LiDrawer *,PCArray_Traits_Zero<LiDrawer *>>::append(this + 24, &v79);
+      PCArray<LiDrawer *,PCArray_Traits_Zero<LiDrawer *>>::append(this + 24, &v72);
     }
 
     else
     {
-      if (v40 <= v41)
+      if (v33 <= v34)
       {
-        v44 = 2 * (v41 + 1) + 1;
+        v37 = 2 * (v34 + 1) + 1;
       }
 
       else
       {
-        v44 = v40;
+        v37 = v33;
       }
 
-      PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 24, v41 + 1, v44);
-      *(*(this + 5) + 8 * *(this + 9) - 8) = v37;
+      PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 24, v34 + 1, v37);
+      *(*(this + 5) + 8 * *(this + 9) - 8) = v30;
     }
 
-    PCArray<LiDrawer *,PCArray_Traits_Zero<LiDrawer *>>::append(this + 24, &v75);
-    v79 = &unk_28725F040;
-    if (v80 < 0)
+    PCArray<LiDrawer *,PCArray_Traits_Zero<LiDrawer *>>::append(this + 24, &v68);
+    v72 = &unk_28725F040;
+    if (v73 < 0)
     {
-      v45 = 1;
+      v38 = 1;
     }
 
     else
     {
-      v45 = v80 & ~(v80 >> 31);
+      v38 = v73 & ~(v73 >> 31);
     }
 
-    if (v45 == v80)
+    if (v38 == v73)
     {
-      v46 = __nel[0];
+      v39 = __nel[0];
       if ((__nel[0] & 0x80000000) != 0)
       {
         do
         {
-          *(*&__nel[1] + 8 * v46) = 0;
-          v30 = __CFADD__(v46++, 1);
+          *(*&__nel[1] + 8 * v39) = 0;
+          v23 = __CFADD__(v39++, 1);
         }
 
-        while (!v30);
+        while (!v23);
       }
     }
 
     else
     {
-      if (v45)
+      if (v38)
       {
         operator new[]();
       }
@@ -7699,7 +7698,7 @@ LABEL_3:
       *&__nel[1] = 0;
     }
 
-    v80 = v45;
+    v73 = v38;
     __nel[0] = 0;
     if (*&__nel[1])
     {
@@ -7707,146 +7706,146 @@ LABEL_3:
     }
 
     *&__nel[1] = 0;
-    v80 = 0;
-    v75 = &unk_28725F040;
-    if (v76 < 0)
+    v73 = 0;
+    v68 = &unk_28725F040;
+    if (v69 < 0)
     {
-      v47 = 1;
+      v40 = 1;
     }
 
     else
     {
-      v47 = v76 & ~(v76 >> 31);
+      v40 = v69 & ~(v69 >> 31);
     }
 
-    if (v47 == v76)
+    if (v40 == v69)
     {
-      v48 = v77;
-      if (v77 < 0)
+      v41 = v70;
+      if (v70 < 0)
       {
         do
         {
-          *(v78 + 8 * v48) = 0;
-          v30 = __CFADD__(v48++, 1);
+          *(v71 + 8 * v41) = 0;
+          v23 = __CFADD__(v41++, 1);
         }
 
-        while (!v30);
+        while (!v23);
       }
     }
 
     else
     {
-      if (v47)
+      if (v40)
       {
         operator new[]();
       }
 
-      if (v78)
+      if (v71)
       {
-        MEMORY[0x2666E9ED0](v78, 0x1000C8077774924);
+        MEMORY[0x2666E9ED0](v71, 0x1000C8077774924);
       }
 
-      v78 = 0;
+      v71 = 0;
     }
 
-    v76 = v47;
-    v77 = 0;
-    if (v78)
+    v69 = v40;
+    v70 = 0;
+    if (v71)
     {
-      MEMORY[0x2666E9ED0](v78, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](v71, 0x1000C8077774924);
     }
 
-    v78 = 0;
-    v76 = 0;
-    v72 = &unk_28725F040;
-    if (v73 < 0)
+    v71 = 0;
+    v69 = 0;
+    v65 = &unk_28725F040;
+    if (v66 < 0)
     {
-      v49 = 1;
+      v42 = 1;
     }
 
     else
     {
-      v49 = v73 & ~(v73 >> 31);
+      v42 = v66 & ~(v66 >> 31);
     }
 
-    if (v49 == v73)
+    if (v42 == v66)
     {
-      v50 = SHIDWORD(v73);
-      if (v73 < 0)
+      v43 = SHIDWORD(v66);
+      if (v66 < 0)
       {
         do
         {
-          *(v74 + 8 * v50) = 0;
-          v30 = __CFADD__(v50++, 1);
+          *(v67 + 8 * v43) = 0;
+          v23 = __CFADD__(v43++, 1);
         }
 
-        while (!v30);
+        while (!v23);
       }
 
-      v51 = v74;
+      v44 = v67;
     }
 
     else
     {
-      if (v49)
+      if (v42)
       {
         operator new[]();
       }
 
-      v51 = 0;
-      if (v74)
+      v44 = 0;
+      if (v67)
       {
-        MEMORY[0x2666E9ED0](v74, 0x1000C8077774924);
+        MEMORY[0x2666E9ED0](v67, 0x1000C8077774924);
       }
 
-      v74 = 0;
+      v67 = 0;
     }
 
-    v73 = v49;
-    if (v51)
+    v66 = v42;
+    if (v44)
     {
-      MEMORY[0x2666E9ED0](v51, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](v44, 0x1000C8077774924);
     }
 
-    v74 = 0;
-    LODWORD(v73) = 0;
+    v67 = 0;
+    LODWORD(v66) = 0;
     for (j = 312; j != 88; j -= 112)
     {
-      v53 = *&v66[j / 4];
-      if (v53)
+      v46 = *&v59[j / 4];
+      if (v46)
       {
-        v67[j / 8] = v53;
-        operator delete(v53);
+        v60[j / 8] = v46;
+        operator delete(v46);
       }
 
-      v54 = *&v64[j - 8];
-      if (v54)
+      v47 = *&v57[j - 8];
+      if (v47)
       {
-        *&v64[j] = v54;
-        operator delete(v54);
+        *&v57[j] = v47;
+        operator delete(v47);
       }
 
-      v55 = &v67[j / 8];
-      v56 = v61[j / 8];
-      if (v56 != 0.0)
+      v48 = &v60[j / 8];
+      v49 = v54[j / 8];
+      if (v49 != 0.0)
       {
-        *(v55 - 6) = v56;
-        operator delete(*&v56);
+        *(v48 - 6) = v49;
+        operator delete(*&v49);
       }
 
-      v57 = *(v55 - 10);
-      if (v57)
+      v50 = *(v48 - 10);
+      if (v50)
       {
-        *(&v58 + j) = v57;
-        operator delete(v57);
+        *(&v51 + j) = v50;
+        operator delete(v50);
       }
     }
   }
 }
 
-void sub_25FF68A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25FF68A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   LiPlaneSplit::~LiPlaneSplit(va);
   _Unwind_Resume(a1);
 }
@@ -8646,16 +8645,16 @@ void LiGroupDrawer::~LiGroupDrawer(LiGroupDrawer *this)
   JUMPOUT(0x2666E9F00);
 }
 
-unsigned int *LiGroupDrawer::draw(unsigned int *this, LiBlender *a2)
+PCArray_base *LiGroupDrawer::draw(PCArray_base *this, LiBlender *a2)
 {
-  v2 = this[17];
+  v2 = *(this + 17);
   if (v2 >= 1)
   {
     v4 = this;
     v5 = v2 - 1;
     do
     {
-      if (v5 < 0 || v5 >= v4[17])
+      if (v5 < 0 || v5 >= *(v4 + 17))
       {
         PCArray_base::badIndex(this);
       }
@@ -8793,16 +8792,16 @@ void bounds<LiPolygon::PosFacet,double>(uint64_t a1, uint64_t a2)
   }
 }
 
-void LiGroupDrawer::projectBoundsToPlane(float64x2_t *this)
+void LiGroupDrawer::projectBoundsToPlane(LiGroupDrawer *this)
 {
-  if ((*(*&this->f64[0] + 40))(this))
+  if ((*(*this + 40))(this))
   {
-    if (((*&this[12].f64[0] - *&this[11].f64[1]) & 0x1FFFFFFFE0) != 0)
+    if (((*(this + 24) - *(this + 23)) & 0x1FFFFFFFE0) != 0)
     {
       v2[0] = 0.0;
       v2[1] = 0.0;
       v2[2] = 1.0;
-      LiPolygon::projectToPlane(&this[7].f64[1], this + 5, v2);
+      LiPolygon::projectToPlane(this + 15, this + 5, v2);
     }
   }
 }
@@ -8816,12 +8815,12 @@ __n128 LiGroupDrawer::getPlane@<Q0>(__n128 *this@<X0>, __n128 *a2@<X8>)
   return result;
 }
 
-void LiGroupDrawer::setPlane(float64x2_t *this, float64x2_t *a2)
+void LiGroupDrawer::setPlane(LiGroupDrawer *a1, _OWORD *a2)
 {
   v2 = a2[1];
-  this[5] = *a2;
-  this[6] = v2;
-  LiGroupDrawer::projectBoundsToPlane(this);
+  *(a1 + 5) = *a2;
+  *(a1 + 6) = v2;
+  LiGroupDrawer::projectBoundsToPlane(a1);
 }
 
 void LiGroupDrawer::intersect(LiGroupDrawer *this, LiIntersection *a2)
@@ -8836,11 +8835,11 @@ void LiGroupDrawer::intersect(LiGroupDrawer *this, LiIntersection *a2)
 
   else
   {
-    LiPlaneSplit::LiPlaneSplit(v40);
+    LiPlaneSplit::LiPlaneSplit(v33);
     v7 = *a2;
-    v42 = 0;
-    v40[0] = *(a2 + 4);
-    v40[1] = v7;
+    v35 = 0;
+    v33[0] = *(a2 + 4);
+    v33[1] = v7;
     v8 = *(this + 17);
     if (v8 >= 1)
     {
@@ -8853,264 +8852,264 @@ void LiGroupDrawer::intersect(LiGroupDrawer *this, LiIntersection *a2)
           PCArray_base::badIndex(v6);
         }
 
-        v41 = *(*(this + 9) + 8 * v9);
-        (*(*v41 + 56))(v41, this + 80);
-        LiPlaneSplit::compute(v40);
-        if (!((v43 != 3) | v10 & 1))
+        v34 = *(*(this + 9) + 8 * v9);
+        (*(*v34 + 56))(v34, this + 80);
+        LiPlaneSplit::compute(v33);
+        if (!((v36 != 3) | v10 & 1))
         {
-          v18 = (*(*this + 128))(this);
-          if (PCBlend::isAssociative(v18))
+          v11 = (*(*this + 128))(this);
+          if (PCBlend::isAssociative(v11))
           {
-            LiGroupDrawer::makePrecomp(this, v18, *(a2 + 4));
+            LiGroupDrawer::makePrecomp(this, v11, *(a2 + 4));
           }
 
           v10 = 1;
         }
 
-        v6 = LiPlaneSplit::store(v40, v11, v12, v13, v14, v15, v16, v17);
+        v6 = LiPlaneSplit::store(v33);
         ++v9;
       }
 
       while (v8 != v9);
     }
 
-    v19 = 0;
-    v20 = 1;
+    v12 = 0;
+    v13 = 1;
     do
     {
-      v21 = v20;
-      if (v19 >= *(a2 + 5))
+      v14 = v13;
+      if (v12 >= *(a2 + 5))
       {
         PCArray_base::badIndex(v6);
       }
 
-      if (v20)
+      if (v13)
       {
-        v22 = 340;
+        v15 = 340;
       }
 
       else
       {
-        v22 = 364;
+        v15 = 364;
       }
 
-      v23 = *(v40 + v22);
-      if (v23)
+      v16 = *(v33 + v15);
+      if (v16)
       {
-        v24 = *(*(a2 + 3) + 8 * v19);
-        if (v23 != 1)
+        v17 = *(*(a2 + 3) + 8 * v12);
+        if (v16 != 1)
         {
           operator new();
         }
 
-        v25 = 46;
-        if (v21)
+        v18 = 46;
+        if (v14)
         {
-          v25 = 43;
+          v18 = 43;
         }
 
-        v26 = *v40[v25];
-        *(v24 + 8) = v26;
-        v6 = (*(*v26 + 56))(v26, this + 80);
+        v19 = *v33[v18];
+        *(v17 + 8) = v19;
+        v6 = (*(*v19 + 56))(v19, this + 80);
       }
 
-      v20 = 0;
-      v19 = 1;
+      v13 = 0;
+      v12 = 1;
     }
 
-    while ((v21 & 1) != 0);
-    v52 = &unk_28725F040;
-    if (v53 < 0)
+    while ((v14 & 1) != 0);
+    v45 = &unk_28725F040;
+    if (v46 < 0)
     {
-      v27 = 1;
+      v20 = 1;
     }
 
     else
     {
-      v27 = v53 & ~(v53 >> 31);
+      v20 = v46 & ~(v46 >> 31);
     }
 
-    if (v27 == v53)
+    if (v20 == v46)
     {
-      v28 = v54;
-      if (v54 < 0)
+      v21 = v47;
+      if (v47 < 0)
       {
         do
         {
-          *(v55 + 8 * v28) = 0;
-          v29 = __CFADD__(v28++, 1);
+          *(v48 + 8 * v21) = 0;
+          v22 = __CFADD__(v21++, 1);
         }
 
-        while (!v29);
+        while (!v22);
       }
     }
 
     else
     {
-      if (v27)
+      if (v20)
       {
         operator new[]();
       }
 
-      if (v55)
+      if (v48)
       {
-        MEMORY[0x2666E9ED0](v55, 0x1000C8077774924);
+        MEMORY[0x2666E9ED0](v48, 0x1000C8077774924);
       }
 
-      v55 = 0;
+      v48 = 0;
     }
 
-    v53 = v27;
-    v54 = 0;
-    if (v55)
-    {
-      MEMORY[0x2666E9ED0](v55, 0x1000C8077774924);
-    }
-
-    v55 = 0;
-    v53 = 0;
-    v48 = &unk_28725F040;
-    if (v49 < 0)
-    {
-      v30 = 1;
-    }
-
-    else
-    {
-      v30 = v49 & ~(v49 >> 31);
-    }
-
-    if (v30 == v49)
-    {
-      v31 = v50;
-      if (v50 < 0)
-      {
-        do
-        {
-          *(v51 + 8 * v31) = 0;
-          v29 = __CFADD__(v31++, 1);
-        }
-
-        while (!v29);
-      }
-    }
-
-    else
-    {
-      if (v30)
-      {
-        operator new[]();
-      }
-
-      if (v51)
-      {
-        MEMORY[0x2666E9ED0](v51, 0x1000C8077774924);
-      }
-
-      v51 = 0;
-    }
-
-    v49 = v30;
-    v50 = 0;
-    if (v51)
-    {
-      MEMORY[0x2666E9ED0](v51, 0x1000C8077774924);
-    }
-
-    v51 = 0;
-    v49 = 0;
-    v44 = &unk_28725F040;
-    if (v45 < 0)
-    {
-      v32 = 1;
-    }
-
-    else
-    {
-      v32 = v45 & ~(v45 >> 31);
-    }
-
-    if (v32 == v45)
-    {
-      v33 = v46;
-      if (v46 < 0)
-      {
-        do
-        {
-          *(v47 + 8 * v33) = 0;
-          v29 = __CFADD__(v33++, 1);
-        }
-
-        while (!v29);
-      }
-    }
-
-    else
-    {
-      if (v32)
-      {
-        operator new[]();
-      }
-
-      if (v47)
-      {
-        MEMORY[0x2666E9ED0](v47, 0x1000C8077774924);
-      }
-
-      v47 = 0;
-    }
-
-    v45 = v32;
-    v46 = 0;
-    if (v47)
-    {
-      MEMORY[0x2666E9ED0](v47, 0x1000C8077774924);
-    }
-
+    v46 = v20;
     v47 = 0;
-    v45 = 0;
+    if (v48)
+    {
+      MEMORY[0x2666E9ED0](v48, 0x1000C8077774924);
+    }
+
+    v48 = 0;
+    v46 = 0;
+    v41 = &unk_28725F040;
+    if (v42 < 0)
+    {
+      v23 = 1;
+    }
+
+    else
+    {
+      v23 = v42 & ~(v42 >> 31);
+    }
+
+    if (v23 == v42)
+    {
+      v24 = v43;
+      if (v43 < 0)
+      {
+        do
+        {
+          *(v44 + 8 * v24) = 0;
+          v22 = __CFADD__(v24++, 1);
+        }
+
+        while (!v22);
+      }
+    }
+
+    else
+    {
+      if (v23)
+      {
+        operator new[]();
+      }
+
+      if (v44)
+      {
+        MEMORY[0x2666E9ED0](v44, 0x1000C8077774924);
+      }
+
+      v44 = 0;
+    }
+
+    v42 = v23;
+    v43 = 0;
+    if (v44)
+    {
+      MEMORY[0x2666E9ED0](v44, 0x1000C8077774924);
+    }
+
+    v44 = 0;
+    v42 = 0;
+    v37 = &unk_28725F040;
+    if (v38 < 0)
+    {
+      v25 = 1;
+    }
+
+    else
+    {
+      v25 = v38 & ~(v38 >> 31);
+    }
+
+    if (v25 == v38)
+    {
+      v26 = v39;
+      if (v39 < 0)
+      {
+        do
+        {
+          *(v40 + 8 * v26) = 0;
+          v22 = __CFADD__(v26++, 1);
+        }
+
+        while (!v22);
+      }
+    }
+
+    else
+    {
+      if (v25)
+      {
+        operator new[]();
+      }
+
+      if (v40)
+      {
+        MEMORY[0x2666E9ED0](v40, 0x1000C8077774924);
+      }
+
+      v40 = 0;
+    }
+
+    v38 = v25;
+    v39 = 0;
+    if (v40)
+    {
+      MEMORY[0x2666E9ED0](v40, 0x1000C8077774924);
+    }
+
+    v40 = 0;
+    v38 = 0;
     for (i = 39; i != 11; i -= 14)
     {
-      v35 = v40[i - 1];
-      if (v35)
+      v28 = v33[i - 1];
+      if (v28)
       {
-        v40[i] = v35;
-        operator delete(v35);
+        v33[i] = v28;
+        operator delete(v28);
       }
 
-      v36 = v40[i - 4];
-      if (v36)
+      v29 = v33[i - 4];
+      if (v29)
       {
-        v40[i - 3] = v36;
-        operator delete(v36);
+        v33[i - 3] = v29;
+        operator delete(v29);
       }
 
-      v37 = &v40[i];
-      v38 = v40[i - 7];
-      if (v38)
+      v30 = &v33[i];
+      v31 = v33[i - 7];
+      if (v31)
       {
-        *(v37 - 6) = v38;
-        operator delete(v38);
+        *(v30 - 6) = v31;
+        operator delete(v31);
       }
 
-      v39 = *(v37 - 10);
-      if (v39)
+      v32 = *(v30 - 10);
+      if (v32)
       {
-        v40[i - 9] = v39;
-        operator delete(v39);
+        v33[i - 9] = v32;
+        operator delete(v32);
       }
     }
   }
 }
 
-void sub_25FF6A524(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FF6A524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   LiPlaneSplit::~LiPlaneSplit(va);
   _Unwind_Resume(a1);
 }
 
-void LiGroupDrawer::makePrecomp(uint64_t a1, uint64_t a2, uint64_t a3)
+void LiGroupDrawer::makePrecomp(void *a1, uint64_t a2, uint64_t a3)
 {
   v4 = (*(*a3 + 24))(a3);
   v5 = (*(*a3 + 48))(a3);
@@ -9118,11 +9117,11 @@ void LiGroupDrawer::makePrecomp(uint64_t a1, uint64_t a2, uint64_t a3)
   LiBlender::makeBlender(v4, v6, v5, v7);
 }
 
-void sub_25FF6A800(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF6A800(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9130,12 +9129,12 @@ void sub_25FF6A800(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void LiGroupDrawer::name(LiGroupDrawer *this@<X0>, void *a2@<X8>)
 {
-  LiString::LiString(&v24, "group");
+  LiString::LiString(&v25, "group");
   v4 = (*(*this + 72))(this);
   v5 = (v4 + 512);
   if (v4)
   {
-    v6 = v5 == &v24;
+    v6 = v5 == &v25;
   }
 
   else
@@ -9148,12 +9147,12 @@ void LiGroupDrawer::name(LiGroupDrawer *this@<X0>, void *a2@<X8>)
     goto LABEL_13;
   }
 
-  if (v24 && atomic_fetch_add(v24 - 3, 0xFFFFFFFF) == 1)
+  if (v25 && atomic_fetch_add(v25 - 3, 0xFFFFFFFF) == 1)
   {
-    *v24 = 0;
-    if (v24)
+    *v25 = 0;
+    if (v25)
     {
-      v7 = v24 - 3;
+      v7 = v25 - 3;
     }
 
     else
@@ -9165,15 +9164,15 @@ void LiGroupDrawer::name(LiGroupDrawer *this@<X0>, void *a2@<X8>)
   }
 
   v8 = *v5;
-  v24 = v8;
+  v25 = v8;
   if (v8)
   {
     atomic_fetch_add(v8 - 3, 1u);
 LABEL_13:
-    v9 = v24;
-    if (v24)
+    v9 = v25;
+    if (v25)
     {
-      LODWORD(v8) = *(v24 - 2);
+      LODWORD(v8) = *(v25 - 2);
     }
 
     else
@@ -9197,65 +9196,44 @@ LABEL_17:
   *&v12[v10] = 23328;
   v12[v10 + 2] = 0;
   atomic_fetch_add(v11, 1u);
-  LiString::format(*(this + 17), &v23);
-  v13 = v11[1];
-  v14 = v23;
-  if (v23)
+  LiString::format(&v24, *(this + 17), v13);
+  v14 = v11[1];
+  v15 = v24;
+  if (v24)
   {
-    v15 = *(v23 - 2);
+    v16 = *(v24 - 2);
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v16 = v13 + v15;
-  v17 = malloc_type_malloc(v16 + 13, 0x10000403E1C8BA9uLL);
-  v17[1] = v16;
-  v17[2] = v16 + 1;
-  atomic_store(1u, v17);
-  atomic_store(0, v17);
-  memcpy(v17 + 3, v12, v13);
-  memcpy(v17 + v13 + 12, v14, v15);
-  *(v17 + v16 + 12) = 0;
-  atomic_fetch_add(v17, 1u);
-  v18 = v17[1];
-  v19 = malloc_type_malloc(v18 + 14, 0x10000403E1C8BA9uLL);
-  atomic_store(1u, v19);
-  v20 = v19 + 3;
-  atomic_store(0, v19);
-  v19[1] = v18 + 1;
-  v19[2] = v18 + 2;
-  memcpy(v19 + 3, v17 + 3, v18);
-  *(v20 + v18) = 93;
-  *(v20 + v18 + 1) = 0;
-  *a2 = v19 + 3;
-  atomic_fetch_add(v19, 1u);
-  if (atomic_fetch_add(v17, 0xFFFFFFFF) == 1)
+  v17 = v14 + v16;
+  v18 = malloc_type_malloc(v17 + 13, 0x10000403E1C8BA9uLL);
+  v18[1] = v17;
+  v18[2] = v17 + 1;
+  atomic_store(1u, v18);
+  atomic_store(0, v18);
+  memcpy(v18 + 3, v12, v14);
+  memcpy(v18 + v14 + 12, v15, v16);
+  *(v18 + v17 + 12) = 0;
+  atomic_fetch_add(v18, 1u);
+  v19 = v18[1];
+  v20 = malloc_type_malloc(v19 + 14, 0x10000403E1C8BA9uLL);
+  atomic_store(1u, v20);
+  v21 = v20 + 3;
+  atomic_store(0, v20);
+  v20[1] = v19 + 1;
+  v20[2] = v19 + 2;
+  memcpy(v20 + 3, v18 + 3, v19);
+  *(v21 + v19) = 93;
+  *(v21 + v19 + 1) = 0;
+  *a2 = v20 + 3;
+  atomic_fetch_add(v20, 1u);
+  if (atomic_fetch_add(v18, 0xFFFFFFFF) == 1)
   {
-    free(v17);
-  }
-
-  if (v23 && atomic_fetch_add(v23 - 3, 0xFFFFFFFF) == 1)
-  {
-    *v23 = 0;
-    if (v23)
-    {
-      v21 = v23 - 12;
-    }
-
-    else
-    {
-      v21 = 0;
-    }
-
-    free(v21);
-  }
-
-  if (atomic_fetch_add(v11, 0xFFFFFFFF) == 1)
-  {
-    free(v11);
+    free(v18);
   }
 
   if (v24 && atomic_fetch_add(v24 - 3, 0xFFFFFFFF) == 1)
@@ -9263,7 +9241,7 @@ LABEL_17:
     *v24 = 0;
     if (v24)
     {
-      v22 = v24 - 3;
+      v22 = v24 - 12;
     }
 
     else
@@ -9272,6 +9250,27 @@ LABEL_17:
     }
 
     free(v22);
+  }
+
+  if (atomic_fetch_add(v11, 0xFFFFFFFF) == 1)
+  {
+    free(v11);
+  }
+
+  if (v25 && atomic_fetch_add(v25 - 3, 0xFFFFFFFF) == 1)
+  {
+    *v25 = 0;
+    if (v25)
+    {
+      v23 = v25 - 3;
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    free(v23);
   }
 }
 
@@ -9623,7 +9622,7 @@ char *___ZN15LiSolidRendererC2Ev_block_invoke()
   ProGL::Framebuffer::Framebuffer(v5, v6);
   if (gMaxSamples >= 1)
   {
-    LiSolidUtils::createMultisampleColorBuffer(v6, gMaxSamples);
+    LiSolidUtils::createMultisampleColorBuffer();
   }
 
   ProGL::Framebuffer::~Framebuffer(v5);
@@ -9634,16 +9633,16 @@ char *___ZN15LiSolidRendererC2Ev_block_invoke()
   return result;
 }
 
-void sub_25FF6B334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, ...)
+void sub_25FF6B334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, ...)
 {
-  va_start(va, a6);
-  if (a6)
+  va_start(va, a11);
+  if (a11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
   }
 
   ProGL::Framebuffer::~Framebuffer(va);
-  ProGL::GL::~GL((v6 - 56));
+  ProGL::GL::~GL((v11 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -9838,7 +9837,7 @@ LABEL_9:
   }
 
   while (v35 != 9);
-  PCMatrix33Tmpl<double>::operator*(v51, v44, &v45);
+  PCMatrix33Tmpl<double>::operator*(v51, &v45, v44);
   *&v37.f64[0] = vdupq_laneq_s64(v50, 1).u64[0];
   v37.f64[1] = v49;
   *&v38.f64[0] = vdupq_laneq_s64(v48, 1).u64[0];

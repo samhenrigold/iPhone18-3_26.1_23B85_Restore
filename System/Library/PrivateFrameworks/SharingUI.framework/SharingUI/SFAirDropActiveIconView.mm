@@ -19,17 +19,17 @@
   return v3;
 }
 
-void __36__SFAirDropActiveIconView_baseImage__block_invoke()
+void __36__SFAirDropActiveIconView_baseImage__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v6 = [v0 bundleURL];
+  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v8 = [v2 bundleURL];
 
-  v1 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:"AirDrop-active.png" isDirectory:0 relativeToURL:v6];
-  v2 = MEMORY[0x1E69DCAB8];
-  v3 = [v1 path];
-  v4 = [v2 imageWithContentsOfFile:v3];
-  v5 = baseImage_image;
-  baseImage_image = v4;
+  v3 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:"AirDrop-active.png" isDirectory:0 relativeToURL:v8];
+  v4 = MEMORY[0x1E69DCAB8];
+  v5 = [v3 path];
+  v6 = [v4 imageWithContentsOfFile:v5];
+  v7 = baseImage_image;
+  baseImage_image = v6;
 }
 
 - (SFAirDropActiveIconView)initWithFrame:(CGRect)frame grayscale:(BOOL)grayscale

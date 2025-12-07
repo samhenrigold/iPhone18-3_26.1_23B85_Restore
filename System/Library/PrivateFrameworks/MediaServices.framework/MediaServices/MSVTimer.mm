@@ -1,4 +1,5 @@
 @interface MSVTimer
++ (id)timerWithInterval:(double)interval repeats:(BOOL)repeats queue:(id)queue block:(id)block;
 - (MSVTimer)initWithInterval:(double)interval repeats:(BOOL)repeats queue:(id)queue block:(id)block;
 - (void)dealloc;
 - (void)invalidate;
@@ -72,6 +73,16 @@ void __49__MSVTimer_initWithInterval_repeats_queue_block___block_invoke(uint64_t
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     [WeakRetained invalidate];
   }
+}
+
++ (id)timerWithInterval:(double)interval repeats:(BOOL)repeats queue:(id)queue block:(id)block
+{
+  repeatsCopy = repeats;
+  blockCopy = block;
+  queueCopy = queue;
+  v12 = [[self alloc] initWithInterval:repeatsCopy repeats:queueCopy queue:blockCopy block:interval];
+
+  return v12;
 }
 
 @end

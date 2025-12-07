@@ -3,9 +3,10 @@
 
 @implementation EnsureDataChannelConfigurationIsValid
 
-void __videoReceiver_EnsureDataChannelConfigurationIsValid_block_invoke(uint64_t a1)
+void __videoReceiver_EnsureDataChannelConfigurationIsValid_block_invoke(void *a1)
 {
-  ChannelCount = FigDataChannelConfigurationGetChannelCount(*(a1 + 40));
+  v12 = *MEMORY[0x1E69E9840];
+  ChannelCount = FigDataChannelConfigurationGetChannelCount(a1[5]);
   if (ChannelCount < 1)
   {
     return;
@@ -15,7 +16,7 @@ void __videoReceiver_EnsureDataChannelConfigurationIsValid_block_invoke(uint64_t
   v4 = 0;
   while (1)
   {
-    OutputQueueTypeAtIndex = FigDataChannelConfigurationGetOutputQueueTypeAtIndex(*(a1 + 40), v4);
+    OutputQueueTypeAtIndex = FigDataChannelConfigurationGetOutputQueueTypeAtIndex(a1[5], v4);
     if (OutputQueueTypeAtIndex == 2)
     {
       break;
@@ -53,7 +54,7 @@ LABEL_10:
     }
   }
 
-  if (FigDataChannelConfigurationGetFigDataQueueAtIndex(*(a1 + 40), v4))
+  if (FigDataChannelConfigurationGetFigDataQueueAtIndex(a1[5], v4))
   {
     goto LABEL_10;
   }
@@ -67,7 +68,7 @@ LABEL_10:
 
   v11 = -15578;
 LABEL_18:
-  *(*(*(a1 + 32) + 8) + 24) = v11;
+  *(*(a1[4] + 8) + 24) = v11;
 }
 
 @end

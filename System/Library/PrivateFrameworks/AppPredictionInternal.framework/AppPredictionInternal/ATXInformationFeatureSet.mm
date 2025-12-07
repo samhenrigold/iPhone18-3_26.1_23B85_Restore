@@ -26,7 +26,7 @@
 {
   if (feature - 10 <= 0xFFFFFFFFFFFFFFF6)
   {
-    v5 = __atxlog_handle_gi();
+    v5 = __atxlog_handle_gi(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(ATXInformationFeatureSet *)feature valueForFeature:v5];
@@ -51,11 +51,10 @@
 
 - (void)valueForFeature:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXInformationFeatureSet: Unknown value passed into selector valueForFeature for ATXInfoSuggestionFeatureName %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXInformationFeatureSet: Unknown value passed into selector valueForFeature for ATXInfoSuggestionFeatureName %lu", &v2, 0xCu);
 }
 
 @end

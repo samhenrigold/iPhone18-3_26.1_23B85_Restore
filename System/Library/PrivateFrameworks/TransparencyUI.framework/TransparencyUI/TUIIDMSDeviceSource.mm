@@ -33,42 +33,42 @@
 
 - (id)mapDeviceWithMissing:(id)missing aaDevices:(id)devices
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   missingCopy = missing;
   devicesCopy = devices;
   idmsDevices = [(TUIIDMSDeviceSource *)self idmsDevices];
 
   if (!idmsDevices)
   {
-    v50 = devicesCopy;
+    v49 = devicesCopy;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     [(TUIIDMSDeviceSource *)self setIdmsDevices:dictionary];
 
     v10 = [(TUIIDMSDeviceSource *)self d];
-    v67 = 0;
-    v11 = [v10 transparencyIDMSDeviceList:&v67];
-    v12 = v67;
+    v66 = 0;
+    v11 = [v10 transparencyIDMSDeviceList:&v66];
+    v12 = v66;
 
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v63 objects:v70 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v62 objects:v69 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v64;
+      v16 = *v63;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v64 != v16)
+          if (*v63 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v63 + 1) + 8 * i);
+          v18 = *(*(&v62 + 1) + 8 * i);
           pushToken = [v18 pushToken];
 
           if (pushToken)
@@ -79,13 +79,13 @@
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v63 objects:v70 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v62 objects:v69 count:16];
       }
 
       while (v15);
     }
 
-    devicesCopy = v50;
+    devicesCopy = v49;
   }
 
   idmsDevices3 = [(TUIIDMSDeviceSource *)self idmsDevices];
@@ -95,60 +95,60 @@
   {
     array = [MEMORY[0x277CBEB18] array];
     idmsDevices4 = [(TUIIDMSDeviceSource *)self idmsDevices];
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __54__TUIIDMSDeviceSource_mapDeviceWithMissing_aaDevices___block_invoke_33;
-    v60[3] = &unk_279DDA998;
-    v61 = v23;
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = __54__TUIIDMSDeviceSource_mapDeviceWithMissing_aaDevices___block_invoke_33;
+    v59[3] = &unk_279DDA998;
+    v60 = v23;
     v26 = array;
-    v62 = v26;
-    [idmsDevices4 enumerateKeysAndObjectsUsingBlock:v60];
+    v61 = v26;
+    [idmsDevices4 enumerateKeysAndObjectsUsingBlock:v59];
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v27 = v26;
-    v46 = [v27 countByEnumeratingWithState:&v56 objects:v69 count:16];
-    if (v46)
+    v45 = [v27 countByEnumeratingWithState:&v55 objects:v68 count:16];
+    if (v45)
     {
-      v28 = *v57;
-      v49 = missingCopy;
-      v51 = devicesCopy;
-      v47 = v27;
-      v48 = v23;
-      v45 = *v57;
+      v28 = *v56;
+      v48 = missingCopy;
+      v50 = devicesCopy;
+      v46 = v27;
+      v47 = v23;
+      v44 = *v56;
       do
       {
         v29 = 0;
         do
         {
-          if (*v57 != v28)
+          if (*v56 != v28)
           {
             objc_enumerationMutation(v27);
           }
 
-          v30 = *(*(&v56 + 1) + 8 * v29);
+          v30 = *(*(&v55 + 1) + 8 * v29);
+          v51 = 0u;
           v52 = 0u;
           v53 = 0u;
           v54 = 0u;
-          v55 = 0u;
           v31 = devicesCopy;
-          v32 = [v31 countByEnumeratingWithState:&v52 objects:v68 count:16];
+          v32 = [v31 countByEnumeratingWithState:&v51 objects:v67 count:16];
           if (v32)
           {
             v33 = v32;
-            v34 = *v53;
+            v34 = *v52;
             while (2)
             {
               for (j = 0; j != v33; ++j)
               {
-                if (*v53 != v34)
+                if (*v52 != v34)
                 {
                   objc_enumerationMutation(v31);
                 }
 
-                v36 = *(*(&v52 + 1) + 8 * j);
+                v36 = *(*(&v51 + 1) + 8 * j);
                 pushToken3 = [v36 pushToken];
 
                 if (pushToken3)
@@ -161,16 +161,16 @@
                   {
                     v41 = v36;
 
-                    missingCopy = v49;
-                    devicesCopy = v51;
-                    v27 = v47;
-                    v23 = v48;
+                    missingCopy = v48;
+                    devicesCopy = v50;
+                    v27 = v46;
+                    v23 = v47;
                     goto LABEL_37;
                   }
                 }
               }
 
-              v33 = [v31 countByEnumeratingWithState:&v52 objects:v68 count:16];
+              v33 = [v31 countByEnumeratingWithState:&v51 objects:v67 count:16];
               if (v33)
               {
                 continue;
@@ -181,19 +181,19 @@
           }
 
           ++v29;
-          v27 = v47;
-          missingCopy = v49;
-          devicesCopy = v51;
-          v23 = v48;
-          v28 = v45;
+          v27 = v46;
+          missingCopy = v48;
+          devicesCopy = v50;
+          v23 = v47;
+          v28 = v44;
         }
 
-        while (v29 != v46);
+        while (v29 != v45);
         v41 = 0;
-        v46 = [v47 countByEnumeratingWithState:&v56 objects:v69 count:16];
+        v45 = [v46 countByEnumeratingWithState:&v55 objects:v68 count:16];
       }
 
-      while (v46);
+      while (v45);
     }
 
     else
@@ -220,8 +220,6 @@ LABEL_37:
     v41 = 0;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v41;
 }
 
@@ -247,15 +245,14 @@ void __54__TUIIDMSDeviceSource_mapDeviceWithMissing_aaDevices___block_invoke_33(
 
 - (void)mapDeviceWithMissing:(os_log_t)log aaDevices:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[TUIIDMSDeviceSource mapDeviceWithMissing:aaDevices:]";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2114;
-  v9 = a2;
-  _os_log_error_impl(&dword_26F50B000, log, OS_LOG_TYPE_ERROR, "%s device unknown for IDMS list too: %@ on %{public}@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[TUIIDMSDeviceSource mapDeviceWithMissing:aaDevices:]";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2114;
+  v8 = a2;
+  _os_log_error_impl(&dword_26F50B000, log, OS_LOG_TYPE_ERROR, "%s device unknown for IDMS list too: %@ on %{public}@", &v3, 0x20u);
 }
 
 @end

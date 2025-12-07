@@ -14,48 +14,49 @@ LABEL_11:
     JreThrowNullPointerException();
   }
 
-  v5 = +[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", [collection size], OrgApacheLuceneSearchTopFieldDocs_class_());
-  v14 = 0u;
-  v15 = 0u;
+  v5 = [collection size];
+  v7 = [IOSObjectArray arrayWithLength:v5 type:OrgApacheLuceneSearchTopFieldDocs_class_(v5, v6)];
   v16 = 0u;
   v17 = 0u;
-  v6 = [collection countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v6)
+  v18 = 0u;
+  v19 = 0u;
+  v8 = [collection countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v8)
   {
-    v7 = v6;
-    v8 = 0;
-    v9 = *v15;
+    v9 = v8;
+    v10 = 0;
+    v11 = *v17;
     do
     {
-      v10 = 0;
-      v11 = v8;
+      v12 = 0;
+      v13 = v10;
       do
       {
-        if (*v15 != v9)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(collection);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v10);
-        if (!v12)
+        v14 = *(*(&v16 + 1) + 8 * v12);
+        if (!v14)
         {
           goto LABEL_11;
         }
 
-        v8 = v11 + 1;
-        IOSObjectArray_Set(v5, v11, [v12 topDocs]);
-        v10 = v10 + 1;
-        ++v11;
+        v10 = v13 + 1;
+        IOSObjectArray_Set(v7, v13, [v14 topDocs]);
+        v12 = v12 + 1;
+        ++v13;
       }
 
-      while (v7 != v10);
-      v7 = [collection countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v9 != v12);
+      v9 = [collection countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v7);
+    while (v9);
   }
 
-  return OrgApacheLuceneSearchTopDocs_mergeWithOrgApacheLuceneSearchSort_withInt_withOrgApacheLuceneSearchTopFieldDocsArray_(self->val$sort_, self->val$cappedNumHits_, v5);
+  return OrgApacheLuceneSearchTopDocs_mergeWithOrgApacheLuceneSearchSort_withInt_withOrgApacheLuceneSearchTopFieldDocsArray_(self->val$sort_, self->val$cappedNumHits_, v7);
 }
 
 - (OrgApacheLuceneSearchIndexSearcher_$4)initWithOrgApacheLuceneSearchSort:(id)sort withInt:(int)int withOrgApacheLuceneSearchFieldDoc:(id)doc withBoolean:(BOOL)boolean withBoolean:(BOOL)withBoolean

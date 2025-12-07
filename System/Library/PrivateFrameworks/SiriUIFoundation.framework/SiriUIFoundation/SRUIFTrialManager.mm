@@ -26,7 +26,7 @@
 
 void __43__SRUIFTrialManager__initializeTrialClient__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -39,14 +39,12 @@ void __43__SRUIFTrialManager__initializeTrialClient__block_invoke(uint64_t a1)
       v5 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 136315138;
-        v8 = "[SRUIFTrialManager _initializeTrialClient]_block_invoke";
-        _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #trial client initializations returned nil.", &v7, 0xCu);
+        v6 = 136315138;
+        v7 = "[SRUIFTrialManager _initializeTrialClient]_block_invoke";
+        _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #trial client initializations returned nil.", &v6, 0xCu);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshTreatments
@@ -119,7 +117,7 @@ void __43__SRUIFTrialManager__initializeTrialClient__block_invoke(uint64_t a1)
 
 void __62__SRUIFTrialManager_BOOLValueForFactor_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -135,20 +133,20 @@ void __62__SRUIFTrialManager_BOOLValueForFactor_withCompletionHandler___block_in
         v8 = v5;
         v9 = [v4 BOOLeanValue];
         v10 = "FALSE";
-        *v13 = 136315906;
-        *&v13[4] = "[SRUIFTrialManager BOOLValueForFactor:withCompletionHandler:]_block_invoke";
-        *&v13[14] = v6;
-        *&v13[12] = 2112;
+        *v12 = 136315906;
+        *&v12[4] = "[SRUIFTrialManager BOOLValueForFactor:withCompletionHandler:]_block_invoke";
+        *&v12[14] = v6;
+        *&v12[12] = 2112;
         if (v9)
         {
           v10 = "TRUE";
         }
 
-        *&v13[22] = 2112;
-        v14 = v7;
-        v15 = 2080;
-        v16 = v10;
-        _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s #trial Trial factor %@ found with namespace %@, value: %s", v13, 0x2Au);
+        *&v12[22] = 2112;
+        v13 = v7;
+        v14 = 2080;
+        v15 = v10;
+        _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s #trial Trial factor %@ found with namespace %@, value: %s", v12, 0x2Au);
       }
 
       (*(*(a1 + 40) + 16))(*(a1 + 40), 0, [v4 BOOLeanValue]);
@@ -165,8 +163,6 @@ void __62__SRUIFTrialManager_BOOLValueForFactor_withCompletionHandler___block_in
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)BOOLValueForFactor:(id)factor defaultValueIfNoFactorsFilePresent:(BOOL)present withCompletionHandler:(id)handler
@@ -193,7 +189,7 @@ void __62__SRUIFTrialManager_BOOLValueForFactor_withCompletionHandler___block_in
 
 void __97__SRUIFTrialManager_BOOLValueForFactor_defaultValueIfNoFactorsFilePresent_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -210,20 +206,20 @@ void __97__SRUIFTrialManager_BOOLValueForFactor_defaultValueIfNoFactorsFilePrese
         v9 = v5;
         v10 = [v4 BOOLeanValue];
         v11 = "FALSE";
-        *v15 = 136315906;
-        *&v15[4] = "[SRUIFTrialManager BOOLValueForFactor:defaultValueIfNoFactorsFilePresent:withCompletionHandler:]_block_invoke";
-        *&v15[14] = v7;
-        *&v15[12] = 2112;
+        *v14 = 136315906;
+        *&v14[4] = "[SRUIFTrialManager BOOLValueForFactor:defaultValueIfNoFactorsFilePresent:withCompletionHandler:]_block_invoke";
+        *&v14[14] = v7;
+        *&v14[12] = 2112;
         if (v10)
         {
           v11 = "TRUE";
         }
 
-        *&v15[22] = 2112;
-        v16 = v8;
-        v17 = 2080;
-        v18 = v11;
-        _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s #trial Trial factor %@ found with namespace %@, value: %s", v15, 0x2Au);
+        *&v14[22] = 2112;
+        v15 = v8;
+        v16 = 2080;
+        v17 = v11;
+        _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s #trial Trial factor %@ found with namespace %@, value: %s", v14, 0x2Au);
       }
 
       (*(*(a1 + 40) + 16))(*(a1 + 40), [v4 BOOLeanValue]);
@@ -235,35 +231,32 @@ void __97__SRUIFTrialManager_BOOLValueForFactor_defaultValueIfNoFactorsFilePrese
       {
         v12 = *(a1 + 32);
         v13 = v3[3];
-        *v15 = 136315650;
-        *&v15[4] = "[SRUIFTrialManager BOOLValueForFactor:defaultValueIfNoFactorsFilePresent:withCompletionHandler:]_block_invoke";
-        *&v15[12] = 2112;
-        *&v15[14] = v12;
-        *&v15[22] = 2112;
-        v16 = v13;
-        _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #trial Failed to read Trial factor %@ with namespace %@ and default_factors.pb file doesn't exist.", v15, 0x20u);
+        *v14 = 136315650;
+        *&v14[4] = "[SRUIFTrialManager BOOLValueForFactor:defaultValueIfNoFactorsFilePresent:withCompletionHandler:]_block_invoke";
+        *&v14[12] = 2112;
+        *&v14[14] = v12;
+        *&v14[22] = 2112;
+        v15 = v13;
+        _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #trial Failed to read Trial factor %@ with namespace %@ and default_factors.pb file doesn't exist.", v14, 0x20u);
       }
 
       (*(*(a1 + 40) + 16))(*(a1 + 40), *(a1 + 56));
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SRUIFTrialManager_BOOLValueForFactor_withCompletionHandler___block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *(a2 + 24);
-  v6 = 136315650;
-  v7 = "[SRUIFTrialManager BOOLValueForFactor:withCompletionHandler:]_block_invoke";
-  v8 = 2112;
-  v9 = v3;
-  v10 = 2112;
-  v11 = v4;
-  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s #trial Failed to read Trial factor %@ with namespace %@ and default_factors.pb file doesn't exist.", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136315650;
+  v6 = "[SRUIFTrialManager BOOLValueForFactor:withCompletionHandler:]_block_invoke";
+  v7 = 2112;
+  v8 = v3;
+  v9 = 2112;
+  v10 = v4;
+  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s #trial Failed to read Trial factor %@ with namespace %@ and default_factors.pb file doesn't exist.", &v5, 0x20u);
 }
 
 @end

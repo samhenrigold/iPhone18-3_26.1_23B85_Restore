@@ -38,14 +38,20 @@
   v6 = _Block_copy(reply);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_100013438;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   bagCopy = bag;
   selfCopy = self;
   sub_100010344();
-  sub_100010300(v6);
+  sub_100010300(v6, v7);
 }
 
 - (void)reportFeedback:(id)feedback payloadData:(id)data queryId:(unint64_t)id
@@ -53,11 +59,11 @@
   feedbackCopy = feedback;
   dataCopy = data;
   selfCopy = self;
-  v10 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = v11;
+  v11 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
 
-  sub_10001372C(feedback);
-  sub_100014A40(v10, v12);
+  sub_10001372C(feedback, v11, v13, id);
+  sub_100014A40(v11, v13);
 }
 
 - (void)request:(id)request request:(id)a4 reply:(id)reply
@@ -121,18 +127,21 @@
   v4 = _Block_copy(feedback);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1000A5278;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1000A5278;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_10009B9C8(v5);
-  sub_100010300(v5);
+  sub_10009B9C8(v7);
+  sub_100010300(v7, v6);
 }
 
 - (void)stopSessions:(id)sessions
@@ -140,18 +149,21 @@
   v4 = _Block_copy(sessions);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1000A5278;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1000A5278;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_10009BD64(v5);
-  sub_100010300(v5);
+  sub_10009BD64(v7);
+  sub_100010300(v7, v6);
 }
 
 - (void)listSessions:(id)sessions
@@ -159,18 +171,21 @@
   v4 = _Block_copy(sessions);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1000A4964;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1000A4964;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_10009C124(v5);
-  sub_100010300(v5);
+  sub_10009C124(v7);
+  sub_100010300(v7, v6);
 }
 
 - (void)fileHandleAndAttributesForResource:(id)resource completion:(id)completion
@@ -180,13 +195,19 @@
   v8 = v7;
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
+    v9 = swift_allocObject();
+    *(v9 + 16) = v5;
     v5 = sub_1000A495C;
+  }
+
+  else
+  {
+    v9 = 0;
   }
 
   selfCopy = self;
   sub_10009C310(v6, v8, v5);
-  sub_100010300(v5);
+  sub_100010300(v5, v9);
 }
 
 - (void)fileHandleForWritingFeedbackType:(int64_t)type reply:(id)reply
@@ -194,32 +215,37 @@
   v6 = _Block_copy(reply);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_10001341C;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   selfCopy = self;
   sub_10009C66C(type, v6);
-  sub_100010300(v6);
+  sub_100010300(v6, v7);
 }
 
 - (void)clearEngagementsFromDate:(id)date toDate:(id)toDate
 {
   v5 = type metadata accessor for Date();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v12 = &v15 - v11;
+  __chkstk_darwin(v5);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v11 = &v14 - v10;
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_10009C868();
 
-  v14 = *(v6 + 8);
-  v14(v10, v5);
-  v14(v12, v5);
+  v13 = *(v6 + 8);
+  v13(v8, v5);
+  v13(v11, v5);
 }
 
 - (void)clearEngagementsWithTitle:(id)title type:(id)type
@@ -271,7 +297,7 @@
   configurationCopy = configuration;
   selfCopy = self;
   sub_10009CDAC(results, configurationCopy, v8, v9);
-  sub_100010300(v8);
+  sub_100010300(v8, v9);
 }
 
 - (void)topEncodedEngagedResultsForInput:(NSString *)input maxCount:(int64_t)count withConfiguration:(PARSessionConfiguration *)configuration completion:(id)completion
@@ -297,14 +323,20 @@
   v12 = v11;
   if (v9)
   {
-    *(swift_allocObject() + 16) = v9;
+    v13 = swift_allocObject();
+    *(v13 + 16) = v9;
     v9 = sub_1000A4898;
+  }
+
+  else
+  {
+    v13 = 0;
   }
 
   configurationCopy = configuration;
   selfCopy = self;
   sub_10009DA04(v10, v12, count, configurationCopy, v9);
-  sub_100010300(v9);
+  sub_100010300(v9, v13);
 }
 
 - (void)clearEncodedEngagedResults:(id)results withConfiguration:(id)configuration completion:(id)completion
@@ -330,7 +362,7 @@
   configurationCopy = configuration;
   selfCopy = self;
   sub_10009DD50(results, configurationCopy, v8, v9);
-  sub_100010300(v8);
+  sub_100010300(v8, v9);
 }
 
 - (void)updateParametersForSmartSearchV1:(id)v1 smartSearchV2:(id)v2
@@ -346,18 +378,21 @@
   v4 = _Block_copy(map);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1000A4888;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1000A4888;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_10009E1BC(v5);
-  sub_100010300(v5);
+  sub_10009E1BC(v7);
+  sub_100010300(v7, v6);
 }
 
 - (void)getQueryContextDataForClient:(unint64_t)client activity:(unint64_t)activity reply:(id)reply

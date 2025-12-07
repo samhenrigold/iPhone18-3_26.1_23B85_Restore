@@ -13,19 +13,17 @@
 + (id)deviceWithFMFDevice:(id)device
 {
   deviceCopy = device;
-  v4 = [IMFindMyDevice alloc];
-  v6 = objc_msgSend_initWithFMFDevice_fmlDevice_(v4, v5, deviceCopy, 0);
+  v4 = [[IMFindMyDevice alloc] initWithFMFDevice:deviceCopy fmlDevice:0];
 
-  return v6;
+  return v4;
 }
 
 + (id)deviceWithFMLDevice:(id)device
 {
   deviceCopy = device;
-  v4 = [IMFindMyDevice alloc];
-  v6 = objc_msgSend_initWithFMFDevice_fmlDevice_(v4, v5, 0, deviceCopy);
+  v4 = [[IMFindMyDevice alloc] initWithFMFDevice:0 fmlDevice:deviceCopy];
 
-  return v6;
+  return v4;
 }
 
 - (IMFindMyDevice)initWithFMFDevice:(id)device fmlDevice:(id)fmlDevice
@@ -50,7 +48,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v26 = 1;
+    v14 = 1;
   }
 
   else
@@ -59,17 +57,17 @@
     if (objc_opt_isKindOfClass())
     {
       v6 = equalCopy;
-      v11 = objc_msgSend_fmfDevice(self, v7, v8);
-      if (v11 || (objc_msgSend_fmfDevice(v6, v9, v10), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+      fmfDevice = [(IMFindMyDevice *)self fmfDevice];
+      if (fmfDevice || ([(IMFindMyDevice *)v6 fmfDevice], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v12 = objc_msgSend_fmfDevice(self, v9, v10);
-        v15 = objc_msgSend_fmfDevice(v6, v13, v14);
-        isEqual = objc_msgSend_isEqual_(v12, v16, v15);
+        fmfDevice2 = [(IMFindMyDevice *)self fmfDevice];
+        fmfDevice3 = [(IMFindMyDevice *)v6 fmfDevice];
+        v10 = [fmfDevice2 isEqual:fmfDevice3];
 
-        if (v11)
+        if (fmfDevice)
         {
 
-          if (isEqual)
+          if (v10)
           {
             goto LABEL_7;
           }
@@ -78,27 +76,27 @@
         else
         {
 
-          if (isEqual)
+          if (v10)
           {
             goto LABEL_7;
           }
         }
 
-        v26 = 0;
+        v14 = 0;
 LABEL_18:
 
         goto LABEL_19;
       }
 
 LABEL_7:
-      v20 = objc_msgSend_fmlDevice(self, v9, v10);
-      if (v20 || (objc_msgSend_fmlDevice(v6, v18, v19), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+      fmlDevice = [(IMFindMyDevice *)self fmlDevice];
+      if (fmlDevice || ([(IMFindMyDevice *)v6 fmlDevice], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v21 = objc_msgSend_fmlDevice(self, v18, v19);
-        v24 = objc_msgSend_fmlDevice(v6, v22, v23);
-        v26 = objc_msgSend_isEqual_(v21, v25, v24);
+        fmlDevice2 = [(IMFindMyDevice *)self fmlDevice];
+        fmlDevice3 = [(IMFindMyDevice *)v6 fmlDevice];
+        v14 = [fmlDevice2 isEqual:fmlDevice3];
 
-        if (v20)
+        if (fmlDevice)
         {
 LABEL_17:
 
@@ -108,41 +106,41 @@ LABEL_17:
 
       else
       {
-        v26 = 1;
+        v14 = 1;
       }
 
       goto LABEL_17;
     }
 
-    v26 = 0;
+    v14 = 0;
   }
 
 LABEL_19:
 
-  return v26;
+  return v14;
 }
 
 - (BOOL)isThisDevice
 {
-  v4 = objc_msgSend_fmlDevice(self, a2, v2);
-  v5 = objc_opt_respondsToSelector();
+  fmlDevice = [(IMFindMyDevice *)self fmlDevice];
+  v4 = objc_opt_respondsToSelector();
 
-  if (v5)
+  if (v4)
   {
-    v8 = objc_msgSend_fmlDevice(self, v6, v7);
+    fmlDevice2 = [(IMFindMyDevice *)self fmlDevice];
 LABEL_5:
-    v15 = v8;
-    isThisDevice = objc_msgSend_isThisDevice(v8, v9, v10);
+    v8 = fmlDevice2;
+    isThisDevice = [fmlDevice2 isThisDevice];
 
     return isThisDevice;
   }
 
-  v11 = objc_msgSend_fmfDevice(self, v6, v7);
-  v12 = objc_opt_respondsToSelector();
+  fmfDevice = [(IMFindMyDevice *)self fmfDevice];
+  v7 = objc_opt_respondsToSelector();
 
-  if (v12)
+  if (v7)
   {
-    v8 = objc_msgSend_fmfDevice(self, v13, v14);
+    fmlDevice2 = [(IMFindMyDevice *)self fmfDevice];
     goto LABEL_5;
   }
 
@@ -151,53 +149,53 @@ LABEL_5:
 
 - (NSString)deviceName
 {
-  v4 = objc_msgSend_fmlDevice(self, a2, v2);
-  v5 = objc_opt_respondsToSelector();
+  fmlDevice = [(IMFindMyDevice *)self fmlDevice];
+  v4 = objc_opt_respondsToSelector();
 
-  if (v5)
+  if (v4)
   {
-    v8 = objc_msgSend_fmlDevice(self, v6, v7);
+    fmlDevice2 = [(IMFindMyDevice *)self fmlDevice];
 LABEL_5:
-    v15 = v8;
-    v16 = objc_msgSend_deviceName(v8, v9, v10);
+    v8 = fmlDevice2;
+    deviceName = [fmlDevice2 deviceName];
 
     goto LABEL_7;
   }
 
-  v11 = objc_msgSend_fmfDevice(self, v6, v7);
-  v12 = objc_opt_respondsToSelector();
+  fmfDevice = [(IMFindMyDevice *)self fmfDevice];
+  v7 = objc_opt_respondsToSelector();
 
-  if (v12)
+  if (v7)
   {
-    v8 = objc_msgSend_fmfDevice(self, v13, v14);
+    fmlDevice2 = [(IMFindMyDevice *)self fmfDevice];
     goto LABEL_5;
   }
 
-  v16 = 0;
+  deviceName = 0;
 LABEL_7:
-  if (v16)
+  if (deviceName)
   {
-    v17 = v16;
+    v10 = deviceName;
   }
 
   else
   {
-    v17 = &stru_1F1B76F98;
+    v10 = &stru_1F1B76F98;
   }
 
-  v18 = v17;
+  v11 = v10;
 
-  return &v17->isa;
+  return &v10->isa;
 }
 
 - (unint64_t)hash
 {
-  v4 = objc_msgSend_fmlDevice(self, a2, v2);
-  v7 = objc_msgSend_hash(v4, v5, v6);
-  v10 = objc_msgSend_fmfDevice(self, v8, v9);
-  v13 = objc_msgSend_hash(v10, v11, v12);
+  fmlDevice = [(IMFindMyDevice *)self fmlDevice];
+  v4 = [fmlDevice hash];
+  fmfDevice = [(IMFindMyDevice *)self fmfDevice];
+  v6 = [fmfDevice hash];
 
-  return v13 ^ v7;
+  return v6 ^ v4;
 }
 
 @end

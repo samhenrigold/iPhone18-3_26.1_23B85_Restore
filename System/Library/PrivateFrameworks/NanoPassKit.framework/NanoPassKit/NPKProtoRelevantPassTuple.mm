@@ -56,7 +56,7 @@
     [NPKProtoRelevantPassTuple writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
   if (self->_relevantText)
   {
@@ -65,7 +65,6 @@
 
   if (*&self->_has)
   {
-    shouldSuppressLiveActivity = self->_shouldSuppressLiveActivity;
     PBDataWriterWriteBOOLField();
   }
 }

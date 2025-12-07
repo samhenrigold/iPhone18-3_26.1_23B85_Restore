@@ -29,7 +29,7 @@
   if (v11)
   {
     objc_storeWeak(&v11->_profile, profileCopy);
-    v13 = [typeCopy copy];
+    v13 = objc_msgSend_copy(typeCopy);
     quantityType = v12->_quantityType;
     v12->_quantityType = v13;
 

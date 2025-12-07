@@ -41,7 +41,7 @@
   {
     reuseIdentifier = [(TUIRenderModelSpinner *)self reuseIdentifier];
     reuseIdentifier2 = [v6 reuseIdentifier];
-    v9 = reuseIdentifier == reuseIdentifier2 || [reuseIdentifier isEqualToString:reuseIdentifier2];
+    v9 = reuseIdentifier == reuseIdentifier2 || objc_msgSend_isEqualToString_(reuseIdentifier);
   }
 
   else

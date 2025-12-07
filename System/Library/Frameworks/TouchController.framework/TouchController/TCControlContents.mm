@@ -502,45 +502,43 @@ LABEL_13:
 {
   height = size.height;
   width = size.width;
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   [self scaleFactor];
   v9 = width * v8;
   [self scaleFactor];
   v11 = height * v10;
-  v27.width = v9;
-  v27.height = v11;
-  UIGraphicsBeginImageContextWithOptions(v27, 0, 1.0);
+  v26.width = v9;
+  v26.height = v11;
+  UIGraphicsBeginImageContextWithOptions(v26, 0, 1.0);
   clearColor = [MEMORY[0x277D75348] clearColor];
   [clearColor setFill];
 
-  v28.origin.x = 0.0;
-  v28.origin.y = 0.0;
-  v28.size.width = v9;
-  v28.size.height = v11;
-  UIRectFill(v28);
+  v27.origin.x = 0.0;
+  v27.origin.y = 0.0;
+  v27.size.width = v9;
+  v27.size.height = v11;
+  UIRectFill(v27);
   [labelCopy length];
   v13 = [MEMORY[0x277D74300] systemFontOfSize:v11 * 0.45 weight:*MEMORY[0x277D743F8]];
   v14 = objc_alloc_init(MEMORY[0x277D74240]);
   [v14 setAlignment:1];
   v15 = *MEMORY[0x277D740A8];
-  v25[0] = v13;
+  v24[0] = v13;
   v16 = *MEMORY[0x277D740C0];
-  v24[0] = v15;
-  v24[1] = v16;
+  v23[0] = v15;
+  v23[1] = v16;
   v17 = +[TCControlContents _iconColor];
-  v24[2] = *MEMORY[0x277D74118];
-  v25[1] = v17;
-  v25[2] = v14;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+  v23[2] = *MEMORY[0x277D74118];
+  v24[1] = v17;
+  v24[2] = v14;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
 
   [labelCopy sizeWithAttributes:v18];
   [labelCopy drawInRect:v18 withAttributes:{(v9 - v19) * 0.5, (v11 - v20) * 0.5, v19}];
 
   v21 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

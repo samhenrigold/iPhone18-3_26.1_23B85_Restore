@@ -517,19 +517,7 @@
     objc_storeStrong(&v18->_topics, v135);
 
     recipesRecirculationDataURL = [recordCopy recipesRecirculationDataURL];
-    if (!recipesRecirculationDataURL)
-    {
-      goto LABEL_41;
-    }
-
-    v137 = recipesRecirculationDataURL;
-    v138 = MEMORY[0x1E695DFF8];
-    [recordCopy recipesRecirculationDataURL];
-    v140 = v139 = contentType;
-    v141 = [v138 URLWithString:v140];
-
-    contentType = v139;
-    if (v141)
+    if (recipesRecirculationDataURL && (v137 = recipesRecirculationDataURL, v138 = MEMORY[0x1E695DFF8], [recordCopy recipesRecirculationDataURL], v139 = contentType, v140 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v138, "URLWithString:", v140), v141 = objc_claimAutoreleasedReturnValue(), v140, contentType = v139, v137, v141))
     {
       v142 = [managerCopy assetHandleForURL:v141 lifetimeHint:0];
       recipeRecirculationDataAssetHandle = v18->_recipeRecirculationDataAssetHandle;
@@ -538,7 +526,6 @@
 
     else
     {
-LABEL_41:
       v141 = v18->_recipeRecirculationDataAssetHandle;
       v18->_recipeRecirculationDataAssetHandle = 0;
     }
@@ -942,7 +929,7 @@ LABEL_41:
 
 void __26__FCRecipe_contentArchive__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -983,29 +970,29 @@ void __26__FCRecipe_contentArchive__block_invoke(uint64_t a1, void *a2)
   v11 = [v10 contentArchive];
   [v3 fc_safelyAddObject:v11];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v12 = [*(a1 + 32) articles];
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * i);
+        v17 = *(*(&v21 + 1) + 8 * i);
         if (v17)
         {
-          if ([*(*(&v22 + 1) + 8 * i) conformsToProtocol:&unk_1F2E828A8])
+          if ([*(*(&v21 + 1) + 8 * i) conformsToProtocol:&unk_1F2E828A8])
           {
             v18 = v17;
           }
@@ -1026,13 +1013,11 @@ void __26__FCRecipe_contentArchive__block_invoke(uint64_t a1, void *a2)
         [v3 fc_safelyAddObject:v20];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v14);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (FCContentManifest)contentManifest
@@ -1051,7 +1036,7 @@ void __26__FCRecipe_contentArchive__block_invoke(uint64_t a1, void *a2)
 
 void __27__FCRecipe_contentManifest__block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -1093,29 +1078,29 @@ void __27__FCRecipe_contentManifest__block_invoke(uint64_t a1, void *a2)
   v12 = [v11 contentManifest];
   [v3 fc_safelyAddObject:v12];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v13 = [*(a1 + 32) articles];
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * i);
+        v18 = *(*(&v22 + 1) + 8 * i);
         if (v18)
         {
-          if ([*(*(&v23 + 1) + 8 * i) conformsToProtocol:&unk_1F2E828A8])
+          if ([*(*(&v22 + 1) + 8 * i) conformsToProtocol:&unk_1F2E828A8])
           {
             v19 = v18;
           }
@@ -1136,13 +1121,11 @@ void __27__FCRecipe_contentManifest__block_invoke(uint64_t a1, void *a2)
         [v3 fc_safelyAddObject:v21];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isLocalDraft

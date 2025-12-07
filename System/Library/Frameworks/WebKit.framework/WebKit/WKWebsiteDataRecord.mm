@@ -345,7 +345,7 @@ LABEL_7:
   v12 = v11;
   if (*p_websiteDataRecord)
   {
-    v13 = *p_websiteDataRecord + 32 * *(*p_websiteDataRecord - 4);
+    v13 = *p_websiteDataRecord + 32 * *(*p_websiteDataRecord - 1);
   }
 
   else

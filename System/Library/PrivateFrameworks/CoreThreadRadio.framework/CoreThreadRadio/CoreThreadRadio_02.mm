@@ -255,7 +255,7 @@ uint64_t ot::Mac::SubMac::CslSample(ot::Mac::SubMac *this)
   }
 }
 
-uint64_t ot::Mac::SubMac::UpdateCsl(uint64_t a1, unsigned int a2, unsigned __int8 a3, unsigned __int16 a4, uint64_t *a5, int *a6)
+uint64_t ot::Mac::SubMac::UpdateCsl(uint64_t a1, uint64_t a2, unsigned __int8 a3, unsigned __int16 a4, uint64_t *a5, int *a6)
 {
   v8 = *(a1 + 160);
   v9 = *(a1 + 162);
@@ -268,35 +268,36 @@ uint64_t ot::Mac::SubMac::UpdateCsl(uint64_t a1, unsigned int a2, unsigned __int
   v19 = !v18;
   if (!v18)
   {
+    v22 = a2;
     *(a1 + 162) = v9 & 0x81 | (2 * (a3 & 0x3F));
-    v32 = v19;
+    v31 = v19;
     if (v10 != a3)
     {
       updated = otPlatRadioUpdateCslChannel(&ot::gInstanceRaw, a3);
-      v19 = v32;
+      v19 = v31;
       if (updated)
       {
-        ot::Logger::LogAtLevel<(ot::LogLevel)2>("SubMac", "Note: running legacy RCP firmware - PAN channel change not supported while in SSED mode", v24, v25, v26, v27, v28, v29, v31);
-        v19 = v32;
+        ot::Logger::LogAtLevel<(ot::LogLevel)2>("SubMac", "Note: running legacy RCP firmware - PAN channel change not supported while in SSED mode", v24, v25, v26, v27, v28, v29);
+        v19 = v31;
       }
     }
 
-    if (v8 != a2 || v11 != a4 || v12 != v13 || v14)
+    if (v8 != v22 || v11 != a4 || v12 != v13 || v14)
     {
-      *(a1 + 160) = a2;
+      *(a1 + 160) = v22;
       *(a1 + 164) = a4;
       *(a1 + 166) = *a5;
-      otPlatRadioEnableCsl(&ot::gInstanceRaw, a2, a4, a5);
+      otPlatRadioEnableCsl(&ot::gInstanceRaw, v22, a4, a5);
       if (*(a1 + 162))
       {
-        otPlatRadioEnableCst(&ot::gInstanceRaw, a2, a4, a5);
+        otPlatRadioEnableCst(&ot::gInstanceRaw, v22, a4, a5);
       }
 
-      v19 = v32;
-      if (v8 != a2 || v14)
+      v19 = v31;
+      if (v8 != v22 || v14)
       {
         ot::TimerMicro::Stop((a1 + 200));
-        v19 = v32;
+        v19 = v31;
         *(a1 + 162) &= ~0x80u;
       }
     }
@@ -1660,130 +1661,129 @@ BOOL checkEntitlementForMachMsg(xpc_object_t *a1, const char *a2)
     goto LABEL_38;
   }
 
-  v6 = *a1;
   xpc_connection_get_audit_token();
-  v7 = xpc_copy_entitlement_for_token();
-  if (v7 || (v7 = xpc_null_create()) != 0)
+  v6 = xpc_copy_entitlement_for_token();
+  if (v6 || (v6 = xpc_null_create()) != 0)
   {
-    if (xpc_get_type(v7) == &_xpc_type_dictionary)
+    if (xpc_get_type(v6) == &_xpc_type_dictionary)
     {
-      xpc_retain(v7);
-      v8 = v7;
+      xpc_retain(v6);
+      v7 = v6;
     }
 
     else
     {
-      v8 = xpc_null_create();
+      v7 = xpc_null_create();
     }
   }
 
   else
   {
-    v8 = xpc_null_create();
-    v7 = 0;
+    v7 = xpc_null_create();
+    v6 = 0;
   }
 
-  xpc_release(v7);
+  xpc_release(v6);
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
-    v12 = xpc_copy_description(v8);
-    v13 = strlen(v12);
-    if (v13 > 0x7FFFFFFFFFFFFFF7)
+    v11 = xpc_copy_description(v7);
+    v12 = strlen(v11);
+    if (v12 > 0x7FFFFFFFFFFFFFF7)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v14 = v13;
-    if (v13 >= 0x17)
+    v13 = v12;
+    if (v12 >= 0x17)
     {
       operator new();
     }
 
-    v32 = v13;
-    if (v13)
+    v31 = v12;
+    if (v12)
     {
-      memcpy(__dst, v12, v13);
+      memcpy(__dst, v11, v12);
     }
 
-    __dst[v14] = 0;
-    free(v12);
-    v15 = __dst;
-    if (v32 < 0)
+    __dst[v13] = 0;
+    free(v11);
+    v14 = __dst;
+    if (v31 < 0)
     {
-      v15 = *__dst;
+      v14 = *__dst;
     }
 
     *buf = 136315138;
-    v34 = v15;
+    v33 = v14;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "entitlements in Server: %s", buf, 0xCu);
-    if (v32 < 0)
+    if (v31 < 0)
     {
       operator delete(*__dst);
     }
   }
 
-  if (xpc_get_type(v8) == &_xpc_type_dictionary)
+  if (xpc_get_type(v7) == &_xpc_type_dictionary)
   {
-    v17 = a2;
+    v16 = a2;
     if (a2[23] < 0)
     {
-      v17 = *a2;
+      v16 = *a2;
     }
 
-    value = xpc_dictionary_get_value(v8, v17);
+    value = xpc_dictionary_get_value(v7, v16);
     *__dst = value;
     if (value)
     {
       xpc_retain(value);
-      v19 = *__dst;
+      v18 = *__dst;
     }
 
     else
     {
-      v19 = xpc_null_create();
-      *__dst = v19;
+      v18 = xpc_null_create();
+      *__dst = v18;
     }
 
-    v16 = xpc_get_type(v19) == &_xpc_type_null ? 0 : xpc::dyn_cast_or_default(__dst, 0, v20);
+    v15 = xpc_get_type(v18) == &_xpc_type_null ? 0 : xpc::dyn_cast_or_default(__dst, 0, v19);
     xpc_release(*__dst);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  xpc_release(v8);
-  if (v16)
+  xpc_release(v7);
+  if (v15)
   {
 LABEL_38:
-    v21 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO);
+    v20 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO);
     result = 1;
-    if (v21)
+    if (v20)
     {
-      v22 = xpc_copy_description(*a1);
-      v23 = strlen(v22);
-      if (v23 > 0x7FFFFFFFFFFFFFF7)
+      v21 = xpc_copy_description(*a1);
+      v22 = strlen(v21);
+      if (v22 > 0x7FFFFFFFFFFFFFF7)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      v24 = v23;
-      if (v23 >= 0x17)
+      v23 = v22;
+      if (v22 >= 0x17)
       {
         operator new();
       }
 
-      v28 = v23;
-      if (v23)
+      v27 = v22;
+      if (v22)
       {
-        memcpy(&__p, v22, v23);
+        memcpy(&__p, v21, v22);
       }
 
-      *(&__p + v24) = 0;
-      free(v22);
+      *(&__p + v23) = 0;
+      free(v21);
       p_p = &__p;
-      if (v28 < 0)
+      if (v27 < 0)
       {
         p_p = __p;
       }
@@ -1795,10 +1795,10 @@ LABEL_38:
 
       *__dst = 136315394;
       *&__dst[4] = p_p;
-      v30 = 2080;
-      v31 = a2;
+      v29 = 2080;
+      v30 = a2;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Connection %s allowed for: %s \n", __dst, 0x16u);
-      if (v28 < 0)
+      if (v27 < 0)
       {
         operator delete(__p);
       }
@@ -1813,31 +1813,31 @@ LABEL_2:
     result = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      v9 = xpc_copy_description(*a1);
-      v10 = strlen(v9);
-      if (v10 > 0x7FFFFFFFFFFFFFF7)
+      v8 = xpc_copy_description(*a1);
+      v9 = strlen(v8);
+      if (v9 > 0x7FFFFFFFFFFFFFF7)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      v11 = v10;
-      if (v10 >= 0x17)
+      v10 = v9;
+      if (v9 >= 0x17)
       {
         operator new();
       }
 
-      v28 = v10;
-      if (v10)
+      v27 = v9;
+      if (v9)
       {
-        memcpy(&__p, v9, v10);
+        memcpy(&__p, v8, v9);
       }
 
-      *(&__p + v11) = 0;
-      free(v9);
-      v26 = &__p;
-      if (v28 < 0)
+      *(&__p + v10) = 0;
+      free(v8);
+      v25 = &__p;
+      if (v27 < 0)
       {
-        v26 = __p;
+        v25 = __p;
       }
 
       if (a2[23] < 0)
@@ -1846,11 +1846,11 @@ LABEL_2:
       }
 
       *__dst = 136315394;
-      *&__dst[4] = v26;
-      v30 = 2080;
-      v31 = a2;
+      *&__dst[4] = v25;
+      v29 = 2080;
+      v30 = a2;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Connection %s not allowed for: %s \n", __dst, 0x16u);
-      if (v28 < 0)
+      if (v27 < 0)
       {
         operator delete(__p);
       }
@@ -2120,23 +2120,23 @@ void sub_100036438(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(uint64_t **a1, uint64_t *a2, const void **a3)
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(uint64_t **a1, uint64_t *a2, const void **a3, uint64_t a4)
 {
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!*v3)
+  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v7, v6, a3);
+  if (!*v4)
   {
     operator new();
   }
 
-  return *v3;
+  return *v4;
 }
 
-void sub_100036574(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100036574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 55) < 0)
+  va_start(va, a3);
+  if (*(v3 + 55) < 0)
   {
-    operator delete(*(v2 + 32));
+    operator delete(*(v3 + 32));
     std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
     _Unwind_Resume(a1);
   }
@@ -2239,7 +2239,7 @@ LABEL_53:
       do
       {
         v21 = v20;
-        v20 = v20[1];
+        v20 = *(v20 + 8);
       }
 
       while (v20);
@@ -2396,7 +2396,7 @@ LABEL_53:
           break;
         }
 
-        v8 = v38 + 1;
+        v8 = (v38 + 1);
         v37 = v38[1];
       }
 
@@ -2468,7 +2468,7 @@ LABEL_74:
 
     if (v51 >= 0)
     {
-      v53 = (a4 + 4);
+      v53 = a4 + 4;
     }
 
     else
@@ -2736,7 +2736,7 @@ void sub_100038A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x898]);
   }
 
-  operator delete(v84);
+  operator delete(v79);
   if (a35 < 0)
   {
     operator delete(a30);
@@ -2800,7 +2800,7 @@ LABEL_57:
   if ((a65 & 0x80000000) == 0)
   {
 LABEL_9:
-    if (a72 < 0)
+    if (a67 < 0)
     {
       goto LABEL_10;
     }
@@ -2810,11 +2810,11 @@ LABEL_9:
 
 LABEL_58:
   operator delete(a60);
-  if (a72 < 0)
+  if (a67 < 0)
   {
 LABEL_10:
-    operator delete(a67);
-    if ((a74 & 0x80000000) == 0)
+    operator delete(a66);
+    if ((a69 & 0x80000000) == 0)
     {
       goto LABEL_11;
     }
@@ -2823,10 +2823,10 @@ LABEL_10:
   }
 
 LABEL_59:
-  if ((a74 & 0x80000000) == 0)
+  if ((a69 & 0x80000000) == 0)
   {
 LABEL_11:
-    if (a76 < 0)
+    if (a71 < 0)
     {
       goto LABEL_12;
     }
@@ -2835,12 +2835,12 @@ LABEL_11:
   }
 
 LABEL_60:
-  operator delete(a73);
-  if (a76 < 0)
+  operator delete(a68);
+  if (a71 < 0)
   {
 LABEL_12:
-    operator delete(a75);
-    if ((a78 & 0x80000000) == 0)
+    operator delete(a70);
+    if ((a73 & 0x80000000) == 0)
     {
       goto LABEL_13;
     }
@@ -2849,10 +2849,10 @@ LABEL_12:
   }
 
 LABEL_61:
-  if ((a78 & 0x80000000) == 0)
+  if ((a73 & 0x80000000) == 0)
   {
 LABEL_13:
-    if (a80 < 0)
+    if (a75 < 0)
     {
       goto LABEL_14;
     }
@@ -2861,12 +2861,12 @@ LABEL_13:
   }
 
 LABEL_62:
-  operator delete(a77);
-  if (a80 < 0)
+  operator delete(a72);
+  if (a75 < 0)
   {
 LABEL_14:
-    operator delete(a79);
-    if ((a82 & 0x80000000) == 0)
+    operator delete(a74);
+    if ((a77 & 0x80000000) == 0)
     {
       goto LABEL_15;
     }
@@ -2875,10 +2875,10 @@ LABEL_14:
   }
 
 LABEL_63:
-  if ((a82 & 0x80000000) == 0)
+  if ((a77 & 0x80000000) == 0)
   {
 LABEL_15:
-    if (a84 < 0)
+    if (a79 < 0)
     {
       goto LABEL_16;
     }
@@ -2887,11 +2887,11 @@ LABEL_15:
   }
 
 LABEL_64:
-  operator delete(a81);
-  if (a84 < 0)
+  operator delete(a76);
+  if (a79 < 0)
   {
 LABEL_16:
-    operator delete(a83);
+    operator delete(a78);
     if ((SLOBYTE(STACK[0x217]) & 0x80000000) == 0)
     {
       goto LABEL_17;
@@ -2975,7 +2975,7 @@ LABEL_23:
       operator delete(STACK[0x290]);
     }
 
-    v85 = a25;
+    v80 = a25;
     if (SLOBYTE(STACK[0x2BF]) < 0)
     {
       operator delete(STACK[0x2A8]);
@@ -3125,11 +3125,11 @@ LABEL_37:
       do
       {
 LABEL_38:
-        v85 -= 6;
-        std::pair<std::string const,std::string>::~pair(v85);
+        v80 -= 6;
+        std::pair<std::string const,std::string>::~pair(v80);
       }
 
-      while (v85 != &STACK[0x4D8]);
+      while (v80 != &STACK[0x4D8]);
 LABEL_39:
       _Unwind_Resume(a1);
     }
@@ -3788,7 +3788,7 @@ LABEL_64:
   return v6;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3802,17 +3802,59 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void *std::string::substr[abi:ne200100]@<X0>(void *result@<X0>, unint64_t a2@<X1>, size_t a3@<X2>, _BYTE *a4@<X8>)
+{
+  v4 = strlen(__s);
+  if (v4 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v5 = v4;
+  if (v4 >= 0x17)
+  {
+    if ((v4 | 7) == 0x17)
+    {
+      v7 = 25;
+    }
+
+    else
+    {
+      v7 = (v4 | 7) + 1;
+    }
+
+    v6 = operator new(v7);
+    a1[1] = v5;
+    a1[2] = v7 | 0x8000000000000000;
+    *a1 = v6;
+  }
+
+  else
+  {
+    *(a1 + 23) = v4;
+    v6 = a1;
+    if (!v4)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  memmove(v6, __s, v5);
+LABEL_10:
+  *(v6 + v5) = 0;
+  return a1;
+}
+
+void *std::string::substr[abi:ne200100]@<X0>(void *result@<X0>, unint64_t a2@<X1>, size_t a3@<X2>, void *a4@<X8>)
 {
   v4 = result;
   v6 = *(result + 23);
@@ -3873,11 +3915,11 @@ LABEL_7:
     operator new();
   }
 
-  a4[23] = v8;
+  *(a4 + 23) = v8;
   if (v8)
   {
     result = memmove(a4, v4 + a2, v8);
-    a4[v8] = 0;
+    *(a4 + v8) = 0;
   }
 
   else
@@ -3969,7 +4011,7 @@ LABEL_21:
   return count;
 }
 
-void sub_10003AF64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, char *a16)
+void sub_10003AF64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char *a16)
 {
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(&a15, a16);
 
@@ -4075,7 +4117,7 @@ LABEL_24:
   return count;
 }
 
-void sub_10003B2B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, char *a16)
+void sub_10003B2B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char *a16)
 {
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(&a15, a16);
 
@@ -7083,10 +7125,10 @@ uint64_t CAMetricsHandlers_handle_get_homeQuality(NSMutableDictionary *a1)
   v22 = [NSNumber numberWithUnsignedInt:dword_10052A964];
   [(NSMutableDictionary *)v1 setObject:v22 forKey:@"coex_rx_denied_requests_percentage"];
 
-  v23 = [NSNumber numberWithUnsignedInt:dword_10052A92C];
+  v23 = [NSNumber numberWithUnsignedInt:qword_10052A92C];
   [(NSMutableDictionary *)v1 setObject:v23 forKey:@"disabled_role_count"];
 
-  v24 = [NSNumber numberWithUnsignedInt:dword_10052A930];
+  v24 = [NSNumber numberWithUnsignedInt:HIDWORD(qword_10052A92C)];
   [(NSMutableDictionary *)v1 setObject:v24 forKey:@"detached_role_count"];
 
   v25 = [NSNumber numberWithUnsignedInt:dword_10052A934];

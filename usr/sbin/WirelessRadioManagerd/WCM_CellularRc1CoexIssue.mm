@@ -2,6 +2,7 @@
 - (BOOL)setIssueFrequencyRangeByIssueBand:(id)band;
 - (BOOL)uwbCoexIssueFreqRangeForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq uwbIssueFreqRange:(id *)range;
 - (WCM_CellularRc1CoexIssue)init;
+- (id)generateDynamicPolicyForCoexIssueForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq rc1NbIssueChannelBegin:(unsigned int)begin rc1NbIssueChannelEnd:(unsigned int)end;
 - (id)uwbNbDynamicCoexPolicyForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq;
 - (void)uwbNbCoexIssueChannelForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq uwbNbIssueChannelBegin:(int *)begin uwbNbIssueChannelEnd:(int *)end;
 @end
@@ -30,11 +31,11 @@
   bandCopy = band;
   if (bandCopy)
   {
-    v5 = unk_1002B9F28(off_1002B76C0, "objectForKey:", bandCopy);
+    v5 = unk_1002BA4B0(off_1002B76C0, "objectForKey:", bandCopy);
 
     if (v5)
     {
-      v6 = unk_1002B9F30(off_1002B76C0, "objectForKey:", bandCopy);
+      v6 = unk_1002BA4B8(off_1002B76C0, "objectForKey:", bandCopy);
       v7 = [v6 objectAtIndexedSubscript:0];
       self->_bandInfoType = [v7 intValue];
 
@@ -345,6 +346,29 @@ LABEL_14:
   }
 
   [WCM_Logging logLevel:4 message:v15, v17, v18];
+}
+
+- (id)generateDynamicPolicyForCoexIssueForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq rc1NbIssueChannelBegin:(unsigned int)begin rc1NbIssueChannelEnd:(unsigned int)end
+{
+  v8 = *&end;
+  v9 = *&begin;
+  v15 = objc_alloc_init(WCM_Rc1NbDynamicPolicy);
+  [(WCM_Rc1NbDynamicPolicy *)v15 setCellBand:[(WCM_CellularRc1CoexIssue *)self cellBand]];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setBandInfoType:[(WCM_CellularRc1CoexIssue *)self bandInfoType]];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setDownlinkLowFreq_Hz:freq];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setDownlinkHighFreq_Hz:highFreq];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setUplinkLowFreq_Hz:lowFreq];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setUplinkHighFreq_Hz:ulHighFreq];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setRc1IssueChannel:[(WCM_CellularRc1CoexIssue *)self Rc1IssueChannel]];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setRc1AntBitmap:[(WCM_CellularRc1CoexIssue *)self Rc1AntBitmap]];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setRc1PriorityBitmap:[(WCM_CellularRc1CoexIssue *)self Rc1PriorityBitmap]];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setCellTxPowerCap_16th_dBm:[(WCM_CellularRc1CoexIssue *)self cellTxPowerCap_16th_dBm]];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setCellAgressorAntBitmap:[(WCM_CellularRc1CoexIssue *)self cellAgressorAntBitmap]];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setMitigationType:[(WCM_CellularRc1CoexIssue *)self mitigationType]];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setNbChannelToAvoidStart:v9];
+  [(WCM_Rc1NbDynamicPolicy *)v15 setNbChannelToAvoidEnd:v8];
+
+  return v15;
 }
 
 - (id)uwbNbDynamicCoexPolicyForCellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq

@@ -178,8 +178,8 @@ void __58__MTSpringboardStartMonitor_didReceiveSpringboardStarted___block_invoke
 
 - (BOOL)_checkSpringBoardStarted
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (MTIsHorseman())
+  v8 = *MEMORY[0x1E69E9840];
+  if (MTIsHorseman(self, a2))
   {
     LOBYTE(v2) = 1;
   }
@@ -215,7 +215,6 @@ void __58__MTSpringboardStartMonitor_didReceiveSpringboardStarted___block_invoke
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

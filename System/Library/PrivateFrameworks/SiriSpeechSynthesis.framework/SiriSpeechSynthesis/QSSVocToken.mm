@@ -85,11 +85,7 @@ uint64_t __33__QSSVocToken_addObjectToBuffer___block_invoke(uint64_t a1, const v
 
 - (void)blob:(id)blob
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   blobCopy = blob;
-  v7 = *root[*v5[6].var0 + *root[*v5[6].var0].var0].var0;
-  v8 = blobCopy;
   (*(blob + 2))();
 }
 

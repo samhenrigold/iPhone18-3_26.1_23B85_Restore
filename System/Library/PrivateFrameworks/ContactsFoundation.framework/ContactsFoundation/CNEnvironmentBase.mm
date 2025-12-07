@@ -36,9 +36,11 @@
 
 uint64_t __33__CNEnvironmentBase_defaultStack__block_invoke()
 {
-  defaultStack_cn_once_object_1 = +[CNCache atomicCache];
+  v0 = +[CNCache atomicCache];
+  v1 = defaultStack_cn_once_object_1;
+  defaultStack_cn_once_object_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 CNStack *__33__CNEnvironmentBase_defaultStack__block_invoke_2()

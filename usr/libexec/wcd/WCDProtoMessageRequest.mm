@@ -132,26 +132,24 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_clientData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    expectsResponse = self->_expectsResponse;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -170,22 +168,20 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  dictionaryMessage = self->_dictionaryMessage;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_8:
-    isInUse = self->_isInUse;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_9:
   if (self->_coreLocationData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -311,7 +307,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 32);
   if (has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_version != *(equalCopy + 6))
@@ -336,7 +331,6 @@ LABEL_7:
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 32);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 32) & 4) == 0)
@@ -344,7 +338,6 @@ LABEL_7:
       goto LABEL_36;
     }
 
-    v11 = *(equalCopy + 29);
     if (self->_expectsResponse)
     {
       if ((*(equalCopy + 29) & 1) == 0)
@@ -371,7 +364,6 @@ LABEL_7:
       goto LABEL_36;
     }
 
-    v12 = *(equalCopy + 28);
     if (self->_dictionaryMessage)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -399,7 +391,7 @@ LABEL_7:
     }
 
 LABEL_36:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_37;
   }
 
@@ -408,7 +400,6 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v13 = *(equalCopy + 30);
   if (self->_isInUse)
   {
     if ((*(equalCopy + 30) & 1) == 0)
@@ -426,17 +417,17 @@ LABEL_16:
   coreLocationData = self->_coreLocationData;
   if (coreLocationData | *(equalCopy + 2))
   {
-    v10 = [(NSData *)coreLocationData isEqual:?];
+    v8 = [(NSData *)coreLocationData isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_37:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

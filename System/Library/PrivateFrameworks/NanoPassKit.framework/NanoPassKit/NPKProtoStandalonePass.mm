@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)passTypeAsString:(int)string;
 - (int)StringAsPassType:(id)type;
 - (int)passType;
 - (unint64_t)hash;
@@ -26,6 +27,34 @@
   {
     return 100;
   }
+}
+
+- (id)passTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 100)
+    {
+      v4 = @"Barcode";
+    }
+
+    else if (string == 110)
+    {
+      v4 = @"Payment";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Any";
+  }
+
+  return v4;
 }
 
 - (int)StringAsPassType:(id)type
@@ -101,7 +130,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (*&self->_has)
   {
@@ -171,30 +200,30 @@
   if ([(NSMutableArray *)self->_userInfos count])
   {
     v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_userInfos, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v13 = self->_userInfos;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           [v12 addObject:dictionaryRepresentation];
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v15);
@@ -215,18 +244,15 @@
     [dictionary setObject:deviceName forKey:@"deviceName"];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    passType = self->_passType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -260,41 +286,39 @@
     PBDataWriterWriteStringField();
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v6 = self->_userInfos;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v7)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_userInfos;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v15;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    remotePass = self->_remotePass;
     PBDataWriterWriteBOOLField();
   }
 
@@ -302,8 +326,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -377,7 +399,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -410,34 +432,34 @@
   v18 = *(v6 + 40);
   *(v6 + 40) = v17;
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v19 = self->_userInfos;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v30;
+    v22 = *v29;
     do
     {
       v23 = 0;
       do
       {
-        if (*v30 != v22)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = [*(*(&v29 + 1) + 8 * v23) copyWithZone:{zone, v29}];
+        v24 = [*(*(&v28 + 1) + 8 * v23) copyWithZone:{zone, v28}];
         [v6 addUserInfos:v24];
 
         ++v23;
       }
 
       while (v21 != v23);
-      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v21);
@@ -449,11 +471,10 @@
     *(v6 + 84) |= 2u;
   }
 
-  v25 = [(NSString *)self->_deviceName copyWithZone:zone, v29];
+  v25 = [(NSString *)self->_deviceName copyWithZone:zone, v28];
   v26 = *(v6 + 8);
   *(v6 + 8) = v25;
 
-  v27 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -465,7 +486,6 @@
     goto LABEL_26;
   }
 
-  v5 = *(equalCopy + 84);
   if (*&self->_has)
   {
     if ((*(equalCopy + 84) & 1) == 0 || self->_passType != *(equalCopy + 12))
@@ -539,7 +559,6 @@
     }
   }
 
-  v13 = *(equalCopy + 84);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 84) & 2) == 0)
@@ -548,7 +567,7 @@
     }
 
 LABEL_26:
-    v15 = 0;
+    v13 = 0;
     goto LABEL_27;
   }
 
@@ -557,7 +576,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v17 = *(equalCopy + 80);
   if (self->_remotePass)
   {
     if ((*(equalCopy + 80) & 1) == 0)
@@ -575,17 +593,17 @@ LABEL_23:
   deviceName = self->_deviceName;
   if (deviceName | *(equalCopy + 1))
   {
-    v15 = [(NSString *)deviceName isEqual:?];
+    v13 = [(NSString *)deviceName isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v13 = 1;
   }
 
 LABEL_27:
 
-  return v15;
+  return v13;
 }
 
 - (unint64_t)hash
@@ -622,7 +640,7 @@ LABEL_27:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy[21])
@@ -661,29 +679,29 @@ LABEL_27:
     [(NPKProtoStandalonePass *)self setOrganizationName:?];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(v5 + 9);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(NPKProtoStandalonePass *)self addUserInfos:*(*(&v12 + 1) + 8 * i), v12];
+        [(NPKProtoStandalonePass *)self addUserInfos:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -699,8 +717,6 @@ LABEL_27:
   {
     [(NPKProtoStandalonePass *)self setDeviceName:?];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

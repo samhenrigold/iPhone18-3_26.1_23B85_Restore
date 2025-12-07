@@ -19,7 +19,7 @@
 
 - (id)eventStreamWithName:(id)name valueType:(id)type
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   typeCopy = type;
   if (nameCopy)
@@ -42,13 +42,13 @@
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           eventValueType = [v10 eventValueType];
-          v18 = 138412802;
-          v19 = nameCopy;
-          v20 = 2112;
-          v21 = eventValueType;
-          v22 = 2112;
-          v23 = typeCopy;
-          _os_log_error_impl(&dword_191750000, v14, OS_LOG_TYPE_ERROR, "Conflicting types for event stream %@. Cached: %@ vs. New: %@.", &v18, 0x20u);
+          v17 = 138412802;
+          v18 = nameCopy;
+          v19 = 2112;
+          v20 = eventValueType;
+          v21 = 2112;
+          v22 = typeCopy;
+          _os_log_error_impl(&dword_191750000, v14, OS_LOG_TYPE_ERROR, "Conflicting types for event stream %@. Cached: %@ vs. New: %@.", &v17, 0x20u);
         }
       }
 
@@ -71,8 +71,6 @@
 
     v13 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

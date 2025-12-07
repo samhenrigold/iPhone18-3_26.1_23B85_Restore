@@ -18,24 +18,27 @@
 
   else
   {
-    NSAppendPrintF_safe();
-    v3 = 0;
+    v11 = 0;
+    NSAppendPrintF_safe(&v11, "CBStackAddressMonitor: ");
+    v3 = v11;
   }
 
+  v10 = v3;
   v4 = CUPrintNSDataAddress();
   v5 = CUPrintNSDataAddress();
-  v8 = CUPrintNSDataAddress();
-  NSAppendPrintF_safe();
-  v6 = v3;
+  v6 = CUPrintNSDataAddress();
+  NSAppendPrintF_safe(&v10, "CA %@, NC %@, NC2 %@", v4, v5, v6);
+  v7 = v10;
+  v8 = v10;
 
-  return v3;
+  return v7;
 }
 
 - (void)activate
 {
   if (!self->_addressChangedHandler)
   {
-    sub_10080F69C();
+    sub_10080F69C(self, a2);
     goto LABEL_11;
   }
 
@@ -43,7 +46,7 @@
   if (!dispatchQueue)
   {
 LABEL_11:
-    v4 = sub_10080F684();
+    v4 = sub_10080F684(dispatchQueue, a2);
     sub_10017F28C(v4, v5);
     return;
   }

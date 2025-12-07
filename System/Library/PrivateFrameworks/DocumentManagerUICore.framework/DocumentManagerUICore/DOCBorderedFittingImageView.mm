@@ -5,6 +5,7 @@
 - (void)setAddDecoration:(BOOL)decoration;
 - (void)setDecorationCornerRadius:(double)radius;
 - (void)setFittingSize:(CGSize)size;
+- (void)updateImage:(id)image addDecoration:(BOOL)decoration;
 @end
 
 @implementation DOCBorderedFittingImageView
@@ -150,6 +151,15 @@ LABEL_9:
   {
     [(DOCBorderedFittingImageView *)self setNeedsLayout];
   }
+}
+
+- (void)updateImage:(id)image addDecoration:(BOOL)decoration
+{
+  decorationCopy = decoration;
+  [(DOCFittingImageView *)self setThumbnail:image];
+  [(DOCBorderedFittingImageView *)self setAddDecoration:decorationCopy];
+
+  [(DOCBorderedFittingImageView *)self setNeedsLayout];
 }
 
 - (void)setDecorationCornerRadius:(double)radius

@@ -92,10 +92,9 @@ void __133__HKContactsPrescription_prescriptionWithRightEyeSpecification_leftEye
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  rightEye = self->_rightEye;
-  v7 = [v3 stringWithFormat:@"<%@:%p Left=%@, Right=%@, Brand=%@>", v5, self, self->_leftEye, rightEye, self->_brand];
+  v6 = [v3 stringWithFormat:@"<%@:%p Left=%@, Right=%@, Brand=%@>", v5, self, self->_leftEye, self->_rightEye, self->_brand];
 
-  return v7;
+  return v6;
 }
 
 - (void)_setRightEyeSpecification:(id)specification
@@ -104,7 +103,7 @@ void __133__HKContactsPrescription_prescriptionWithRightEyeSpecification_leftEye
   rightEye = self->_rightEye;
   self->_rightEye = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, rightEye);
 }
 
 - (void)_setLeftEyeSpecification:(id)specification
@@ -113,7 +112,7 @@ void __133__HKContactsPrescription_prescriptionWithRightEyeSpecification_leftEye
   leftEye = self->_leftEye;
   self->_leftEye = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, leftEye);
 }
 
 - (void)_setBrand:(id)brand
@@ -122,7 +121,7 @@ void __133__HKContactsPrescription_prescriptionWithRightEyeSpecification_leftEye
   brand = self->_brand;
   self->_brand = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, brand);
 }
 
 - (id)leftSphere

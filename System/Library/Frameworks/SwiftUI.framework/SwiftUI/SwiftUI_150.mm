@@ -1,3 +1,874 @@
+uint64_t initializeWithCopy for CollectionViewTableRoot(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(*(a3 + 24) - 8) + 16;
+  (*v6)();
+  v7 = *(v6 + 48);
+  v8 = *(*(a3 + 32) - 8);
+  v9 = v8 + 16;
+  v10 = *(v8 + 80);
+  v11 = v7 + v10;
+  v12 = (v11 + a1) & ~v10;
+  v13 = (v11 + a2) & ~v10;
+  (*(v8 + 16))(v12, v13);
+  v14 = *(v9 + 48) + 7;
+  v15 = (v14 + v12) & 0xFFFFFFFFFFFFFFF8;
+  v16 = (v14 + v13) & 0xFFFFFFFFFFFFFFF8;
+  if (*(v16 + 8) < 0xFFFFFFFFuLL)
+  {
+    v19 = *v16;
+    v20 = *(v16 + 16);
+    v21 = *(v16 + 32);
+    *(v15 + 48) = *(v16 + 48);
+    *(v15 + 16) = v20;
+    *(v15 + 32) = v21;
+    *v15 = v19;
+  }
+
+  else
+  {
+    *v15 = *v16;
+    *(v15 + 8) = *(v16 + 8);
+    v17 = *(v16 + 40);
+    *(v15 + 40) = v17;
+    *(v15 + 48) = *(v16 + 48);
+    v18 = **(v17 - 8);
+
+    v18(v15 + 16, v16 + 16, v17);
+  }
+
+  v22 = (v15 + 63) & 0xFFFFFFFFFFFFFFF8;
+  v23 = (v16 + 63) & 0xFFFFFFFFFFFFFFF8;
+  if (*(v23 + 8) < 0xFFFFFFFFuLL)
+  {
+    v24 = *v23;
+    *(v22 + 16) = *(v23 + 16);
+    *v22 = v24;
+  }
+
+  else
+  {
+    *v22 = *v23;
+    *(v22 + 8) = *(v23 + 8);
+    *(v22 + 16) = *(v23 + 16);
+  }
+
+  v25 = (v22 + 31) & 0xFFFFFFFFFFFFFFF8;
+  v26 = (v23 + 31) & 0xFFFFFFFFFFFFFFF8;
+  if (*(v26 + 8) < 0xFFFFFFFFuLL)
+  {
+    v27 = *(v26 + 16);
+    *v25 = *v26;
+    *(v25 + 16) = v27;
+  }
+
+  else
+  {
+    *v25 = *v26;
+    *(v25 + 8) = *(v26 + 8);
+    *(v25 + 16) = *(v26 + 16);
+    *(v25 + 24) = *(v26 + 24);
+  }
+
+  return a1;
+}
+
+uint64_t assignWithCopy for CollectionViewTableRoot(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(*(a3 + 24) - 8) + 24;
+  (*v6)();
+  v7 = *(v6 + 40);
+  v8 = *(*(a3 + 32) - 8);
+  v9 = v8 + 24;
+  v10 = *(v8 + 80);
+  v11 = v7 + v10;
+  v12 = (v11 + a1) & ~v10;
+  v13 = (v11 + a2) & ~v10;
+  (*(v8 + 24))(v12, v13);
+  v14 = *(v9 + 40) + 7;
+  v15 = (v14 + v12) & 0xFFFFFFFFFFFFFFF8;
+  v16 = (v14 + v13) & 0xFFFFFFFFFFFFFFF8;
+  v17 = *(v16 + 8);
+  if (*(v15 + 8) < 0xFFFFFFFFuLL)
+  {
+    if (v17 >= 0xFFFFFFFF)
+    {
+      *v15 = *v16;
+      *(v15 + 8) = *(v16 + 8);
+      v18 = *(v16 + 40);
+      *(v15 + 40) = v18;
+      *(v15 + 48) = *(v16 + 48);
+      v19 = **(v18 - 8);
+
+      v19(v15 + 16, v16 + 16, v18);
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    if (v17 >= 0xFFFFFFFF)
+    {
+      *v15 = *v16;
+
+      *(v15 + 8) = *(v16 + 8);
+
+      __swift_assign_boxed_opaque_existential_1((v15 + 16), (v16 + 16));
+      goto LABEL_8;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1((v15 + 16));
+  }
+
+  v20 = *v16;
+  v21 = *(v16 + 16);
+  v22 = *(v16 + 32);
+  *(v15 + 48) = *(v16 + 48);
+  *(v15 + 16) = v21;
+  *(v15 + 32) = v22;
+  *v15 = v20;
+LABEL_8:
+  v23 = ((v15 + 63) & 0xFFFFFFFFFFFFFFF8);
+  v24 = ((v16 + 63) & 0xFFFFFFFFFFFFFFF8);
+  v25 = v24[1];
+  if (v23[1] < 0xFFFFFFFFuLL)
+  {
+    if (v25 >= 0xFFFFFFFF)
+    {
+      *v23 = *v24;
+      v23[1] = v24[1];
+      v23[2] = v24[2];
+
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    if (v25 >= 0xFFFFFFFF)
+    {
+      *v23 = *v24;
+
+      v23[1] = v24[1];
+
+      v23[2] = v24[2];
+
+      goto LABEL_15;
+    }
+  }
+
+  v26 = *v24;
+  v23[2] = v24[2];
+  *v23 = v26;
+LABEL_15:
+  v27 = ((v23 + 31) & 0xFFFFFFFFFFFFFFF8);
+  v28 = ((v24 + 31) & 0xFFFFFFFFFFFFFFF8);
+  v29 = v28[1];
+  if (v27[1] < 0xFFFFFFFFuLL)
+  {
+    if (v29 >= 0xFFFFFFFF)
+    {
+      *v27 = *v28;
+      v27[1] = v28[1];
+      v27[2] = v28[2];
+      v27[3] = v28[3];
+
+      return a1;
+    }
+
+LABEL_21:
+    v30 = *(v28 + 1);
+    *v27 = *v28;
+    *(v27 + 1) = v30;
+    return a1;
+  }
+
+  if (v29 < 0xFFFFFFFF)
+  {
+
+    goto LABEL_21;
+  }
+
+  *v27 = *v28;
+
+  v27[1] = v28[1];
+
+  v27[2] = v28[2];
+
+  v27[3] = v28[3];
+
+  return a1;
+}
+
+uint64_t initializeWithTake for CollectionViewTableRoot(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(*(a3 + 24) - 8) + 32;
+  (*v6)();
+  v7 = *(v6 + 32);
+  v8 = *(*(a3 + 32) - 8);
+  v9 = v8 + 32;
+  v10 = *(v8 + 80);
+  v11 = v7 + v10;
+  v12 = (v11 + a1) & ~v10;
+  v13 = (v11 + a2) & ~v10;
+  (*(v8 + 32))(v12, v13);
+  v14 = *(v9 + 32) + 7;
+  v15 = (v14 + v12) & 0xFFFFFFFFFFFFFFF8;
+  v16 = (v14 + v13) & 0xFFFFFFFFFFFFFFF8;
+  v18 = *(v16 + 16);
+  v17 = *(v16 + 32);
+  v19 = *v16;
+  *(v15 + 48) = *(v16 + 48);
+  *(v15 + 16) = v18;
+  *(v15 + 32) = v17;
+  *v15 = v19;
+  v20 = (v15 + 63) & 0xFFFFFFFFFFFFFFF8;
+  v21 = (v16 + 63) & 0xFFFFFFFFFFFFFFF8;
+  v22 = *v21;
+  *(v20 + 16) = *(v21 + 16);
+  *v20 = v22;
+  v23 = ((v20 + 31) & 0xFFFFFFFFFFFFFFF8);
+  v24 = ((v21 + 31) & 0xFFFFFFFFFFFFFFF8);
+  v25 = v24[1];
+  *v23 = *v24;
+  v23[1] = v25;
+  return a1;
+}
+
+uint64_t assignWithTake for CollectionViewTableRoot(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(*(a3 + 24) - 8) + 40;
+  (*v6)();
+  v7 = *(v6 + 24);
+  v8 = *(*(a3 + 32) - 8);
+  v9 = v8 + 40;
+  v10 = *(v8 + 80);
+  v11 = v7 + v10;
+  v12 = (v11 + a1) & ~v10;
+  v13 = (v11 + a2) & ~v10;
+  (*(v8 + 40))(v12, v13);
+  v14 = *(v9 + 24) + 7;
+  v15 = (v14 + v12) & 0xFFFFFFFFFFFFFFF8;
+  v16 = (v14 + v13) & 0xFFFFFFFFFFFFFFF8;
+  if (*(v15 + 8) >= 0xFFFFFFFFuLL)
+  {
+    if (*(v16 + 8) >= 0xFFFFFFFFuLL)
+    {
+      *v15 = *v16;
+
+      *(v15 + 8) = *(v16 + 8);
+
+      __swift_destroy_boxed_opaque_existential_1((v15 + 16));
+      v17 = *(v16 + 16);
+      v18 = *(v16 + 32);
+      *(v15 + 48) = *(v16 + 48);
+      *(v15 + 16) = v17;
+      *(v15 + 32) = v18;
+      goto LABEL_6;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1((v15 + 16));
+  }
+
+  v19 = *v16;
+  v20 = *(v16 + 16);
+  v21 = *(v16 + 32);
+  *(v15 + 48) = *(v16 + 48);
+  *(v15 + 16) = v20;
+  *(v15 + 32) = v21;
+  *v15 = v19;
+LABEL_6:
+  v22 = ((v15 + 63) & 0xFFFFFFFFFFFFFFF8);
+  v23 = ((v16 + 63) & 0xFFFFFFFFFFFFFFF8);
+  if (v22[1] >= 0xFFFFFFFFuLL)
+  {
+    if (v23[1] >= 0xFFFFFFFFuLL)
+    {
+      *v22 = *v23;
+
+      v22[1] = v23[1];
+
+      v22[2] = v23[2];
+
+      goto LABEL_11;
+    }
+  }
+
+  v24 = *v23;
+  v22[2] = v23[2];
+  *v22 = v24;
+LABEL_11:
+  v25 = (v22 + 31) & 0xFFFFFFFFFFFFFFF8;
+  v26 = (v23 + 31) & 0xFFFFFFFFFFFFFFF8;
+  if (*(v25 + 8) < 0xFFFFFFFFuLL)
+  {
+LABEL_15:
+    v27 = *(v26 + 16);
+    *v25 = *v26;
+    *(v25 + 16) = v27;
+    return a1;
+  }
+
+  if (*(v26 + 8) < 0xFFFFFFFFuLL)
+  {
+
+    goto LABEL_15;
+  }
+
+  *v25 = *v26;
+
+  *(v25 + 8) = *(v26 + 8);
+
+  *(v25 + 16) = *(v26 + 16);
+
+  *(v25 + 24) = *(v26 + 24);
+
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for CollectionViewTableRoot(int *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 24) - 8);
+  v5 = *(v4 + 84);
+  v6 = *(a3 + 32);
+  v7 = *(v6 - 8);
+  v8 = *(v7 + 84);
+  v9 = *(v7 + 80);
+  if (v8 <= v5)
+  {
+    v10 = *(v4 + 84);
+  }
+
+  else
+  {
+    v10 = *(v7 + 84);
+  }
+
+  if (v10 <= 0x7FFFFFFE)
+  {
+    v10 = 2147483646;
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v11 = *(*(*(a3 + 24) - 8) + 64) + v9;
+  v12 = *(*(v6 - 8) + 64) + 7;
+  if (v10 >= a2)
+  {
+    goto LABEL_29;
+  }
+
+  v13 = ((((((v12 + (v11 & ~v9)) & 0xFFFFFFFFFFFFFFF8) + 63) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 32;
+  v14 = a2 - v10;
+  v15 = v13 & 0xFFFFFFF8;
+  if ((v13 & 0xFFFFFFF8) != 0)
+  {
+    v16 = 2;
+  }
+
+  else
+  {
+    v16 = v14 + 1;
+  }
+
+  if (v16 >= 0x10000)
+  {
+    v17 = 4;
+  }
+
+  else
+  {
+    v17 = 2;
+  }
+
+  if (v16 < 0x100)
+  {
+    v17 = 1;
+  }
+
+  if (v16 >= 2)
+  {
+    v18 = v17;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  if (v18 > 1)
+  {
+    if (v18 == 2)
+    {
+      v19 = *(a1 + v13);
+      if (!v19)
+      {
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+      v19 = *(a1 + v13);
+      if (!v19)
+      {
+        goto LABEL_29;
+      }
+    }
+
+LABEL_26:
+    v21 = v19 - 1;
+    if (v15)
+    {
+      v21 = 0;
+      v22 = *a1;
+    }
+
+    else
+    {
+      v22 = 0;
+    }
+
+    return v10 + (v22 | v21) + 1;
+  }
+
+  if (v18)
+  {
+    v19 = *(a1 + v13);
+    if (v19)
+    {
+      goto LABEL_26;
+    }
+  }
+
+LABEL_29:
+  if (v5 == v10)
+  {
+    return (*(v4 + 48))(a1);
+  }
+
+  v23 = (a1 + v11) & ~v9;
+  if (v8 == v10)
+  {
+    return (*(v7 + 48))(v23, v8, v6);
+  }
+
+  v24 = *(((v12 + v23) & 0xFFFFFFFFFFFFFFF8) + 8);
+  if (v24 >= 0xFFFFFFFF)
+  {
+    LODWORD(v24) = -1;
+  }
+
+  if ((v24 + 1) >= 2)
+  {
+    return v24;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+double storeEnumTagSinglePayload for CollectionViewTableRoot(unsigned int *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v5 = *(*(a4 + 24) - 8);
+  v6 = *(v5 + 84);
+  v7 = *(*(a4 + 32) - 8);
+  v8 = *(v7 + 84);
+  v9 = *(v5 + 64);
+  v10 = *(v7 + 80);
+  v11 = *(v7 + 64);
+  if (v8 <= v6)
+  {
+    v12 = *(v5 + 84);
+  }
+
+  else
+  {
+    v12 = *(v7 + 84);
+  }
+
+  if (v12 <= 0x7FFFFFFE)
+  {
+    v12 = 2147483646;
+  }
+
+  v13 = v9 + v10;
+  v14 = (v9 + v10) & ~v10;
+  v15 = v11 + 7;
+  v16 = ((((((v11 + 7 + v14) & 0xFFFFFFFFFFFFFFF8) + 63) & 0xFFFFFFFFFFFFFFF8) + 31) & 0xFFFFFFFFFFFFFFF8) + 32;
+  if (v12 >= a3)
+  {
+    v20 = 0;
+    v21 = a2 - v12;
+    if (a2 <= v12)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    v17 = a3 - v12;
+    if (((((((v11 + 7 + v14) & 0xFFFFFFF8) + 63) & 0xFFFFFFF8) + 31) & 0xFFFFFFF8) == 0xFFFFFFE0)
+    {
+      v18 = v17 + 1;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    if (v18 >= 0x10000)
+    {
+      v19 = 4;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+
+    if (v18 < 0x100)
+    {
+      v19 = 1;
+    }
+
+    if (v18 >= 2)
+    {
+      v20 = v19;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    v21 = a2 - v12;
+    if (a2 <= v12)
+    {
+LABEL_19:
+      if (v20 > 1)
+      {
+        if (v20 != 2)
+        {
+          *(a1 + v16) = 0;
+          if (!a2)
+          {
+            return result;
+          }
+
+          goto LABEL_35;
+        }
+
+        *(a1 + v16) = 0;
+      }
+
+      else if (v20)
+      {
+        *(a1 + v16) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_35;
+      }
+
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_35:
+      if (v6 == v12)
+      {
+        v26 = *(v5 + 56);
+
+        v26();
+      }
+
+      else
+      {
+        v27 = (a1 + v13) & ~v10;
+        if (v8 == v12)
+        {
+          v28 = *(v7 + 56);
+
+          v28(v27);
+        }
+
+        else
+        {
+          v29 = (v15 + v27) & 0xFFFFFFFFFFFFFFF8;
+          if (a2 > 0x7FFFFFFE)
+          {
+            *(v29 + 48) = 0;
+            result = 0.0;
+            *(v29 + 16) = 0u;
+            *(v29 + 32) = 0u;
+            *v29 = 0u;
+            *v29 = a2 - 0x7FFFFFFF;
+          }
+
+          else
+          {
+            *(v29 + 8) = a2;
+          }
+        }
+      }
+
+      return result;
+    }
+  }
+
+  if (v16)
+  {
+    v22 = 1;
+  }
+
+  else
+  {
+    v22 = v21;
+  }
+
+  if (v16)
+  {
+    v23 = ~v12 + a2;
+    v24 = a1;
+    bzero(a1, v16);
+    a1 = v24;
+    *v24 = v23;
+  }
+
+  if (v20 > 1)
+  {
+    if (v20 == 2)
+    {
+      *(a1 + v16) = v22;
+    }
+
+    else
+    {
+      *(a1 + v16) = v22;
+    }
+  }
+
+  else if (v20)
+  {
+    *(a1 + v16) = v22;
+  }
+
+  return result;
+}
+
+uint64_t _s7SwiftUI27AnyTableColumnCustomizationV15arrangedColumns_13customization13includeHidden17defaultVisibility2idSayxGq__ACSgSbAA0M0OxXEAA0deF2IDVxXEt7ElementQy_RszSlR_r0_lFZAA0D11CellFormulaV_SayARGTt4g5(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t (*a5)(char *), uint64_t a6, void (*a7)(_OWORD *__return_ptr, char *), uint64_t a8, double a9)
+{
+  v64 = a8;
+  v74 = a7;
+  v67 = a6;
+  v66 = a5;
+  v77 = a4;
+  v12 = type metadata accessor for TableCellFormula(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v80 = &v62 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)?(0, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)?, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID), type metadata accessor for TableCellFormula, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
+  MEMORY[0x1EEE9AC00](v15 - 8);
+  v17 = (&v62 - v16);
+  type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID)(0, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID), type metadata accessor for TableCellFormula);
+  v19 = v18;
+  v68 = *(v18 - 8);
+  MEMORY[0x1EEE9AC00](v18);
+  v76 = &v62 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v75 = &v62 - v22;
+  MEMORY[0x1EEE9AC00](v23);
+  v73 = &v62 - v24;
+  MEMORY[0x1EEE9AC00](v25);
+  v65 = &v62 - v26;
+  type metadata accessor for (offset: Int, element: TableColumnCollection.Entry)(0, &lazy cache variable for type metadata for (offset: Int, element: TableCellFormula), type metadata accessor for TableCellFormula);
+  v72 = v27;
+  MEMORY[0x1EEE9AC00](v27);
+  v29 = &v62 - v28;
+  v78 = a2;
+  if (!a2 || (v77 & 1) != 0 && !a3)
+  {
+
+    return a1;
+  }
+
+  v62 = a3;
+  v63 = v13;
+  v71 = *(a1 + 16);
+  if (v71)
+  {
+    v30 = 0;
+    v70 = (v68 + 56);
+    v31 = (v68 + 48);
+    v32 = a1 + ((*(v63 + 80) + 32) & ~*(v63 + 80));
+    v69 = *(v63 + 72);
+    v79 = MEMORY[0x1E69E7CC0];
+    while (1)
+    {
+      v33 = *(v72 + 48);
+      *v29 = v30;
+      _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(v32, &v29[v33], type metadata accessor for TableCellFormula);
+      v74(v83, &v29[v33]);
+      if (v77)
+      {
+        goto LABEL_14;
+      }
+
+      if (*(v78 + 16) && (v34 = specialized __RawDictionaryStorage.find<A>(_:)(v83), (v35 & 1) != 0))
+      {
+        v36 = *(*(v78 + 56) + 16 * v34 + 9);
+        v37 = v66(&v29[v33]);
+        if (v36)
+        {
+          if (v36 != 1)
+          {
+            goto LABEL_17;
+          }
+
+          goto LABEL_14;
+        }
+      }
+
+      else
+      {
+        v37 = v66(&v29[v33]);
+      }
+
+      if (v37 == 2)
+      {
+LABEL_17:
+        outlined destroy of TableColumnCustomizationID(v83);
+        v40 = 1;
+        goto LABEL_18;
+      }
+
+LABEL_14:
+      v38 = *(v19 + 48);
+      v39 = v17 + *(v19 + 64);
+      *v17 = v30;
+      _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v29[v33], v17 + v38, type metadata accessor for TableCellFormula);
+      v40 = 0;
+      v41 = v83[1];
+      *v39 = v83[0];
+      *(v39 + 1) = v41;
+      v39[32] = v84;
+LABEL_18:
+      (*v70)(v17, v40, 1, v19);
+      outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v29, &lazy cache variable for type metadata for (offset: Int, element: TableCellFormula), type metadata accessor for TableCellFormula, type metadata accessor for (offset: Int, element: TableColumnCollection.Entry));
+      if ((*v31)(v17, 1, v19) == 1)
+      {
+        outlined destroy of (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID)?(v17, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)?, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID), type metadata accessor for TableCellFormula);
+      }
+
+      else
+      {
+        v42 = v65;
+        outlined init with take of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v17, v65, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID), type metadata accessor for TableCellFormula);
+        outlined init with take of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v42, v73, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID), type metadata accessor for TableCellFormula);
+        if (swift_isUniquelyReferenced_nonNull_native())
+        {
+          v43 = v79;
+        }
+
+        else
+        {
+          v43 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v79[2] + 1, 1, v79);
+        }
+
+        v45 = v43[2];
+        v44 = v43[3];
+        if (v45 >= v44 >> 1)
+        {
+          v43 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v44 > 1), v45 + 1, 1, v43);
+        }
+
+        v43[2] = v45 + 1;
+        v46 = (*(v68 + 80) + 32) & ~*(v68 + 80);
+        v79 = v43;
+        outlined init with take of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v73, v43 + v46 + *(v68 + 72) * v45, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID), type metadata accessor for TableCellFormula);
+      }
+
+      ++v30;
+      v32 += v69;
+      if (v71 == v30)
+      {
+        goto LABEL_27;
+      }
+    }
+  }
+
+  v79 = MEMORY[0x1E69E7CC0];
+LABEL_27:
+  v47 = v79;
+  v82 = v79;
+  v48 = v62;
+  if (v62)
+  {
+
+    specialized MutableCollection<>.sort(by:)(&v82, v48, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID), type metadata accessor for TableCellFormula, specialized _ArrayBuffer._consumeAndCreateNew(), specialized UnsafeMutableBufferPointer._stableSortImpl(by:));
+
+    v47 = v82;
+  }
+
+  v49 = v47[2];
+  v50 = v63;
+  if (v49)
+  {
+    v81 = MEMORY[0x1E69E7CC0];
+    v51 = v47;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v49, 0);
+    a1 = v81;
+    v52 = *(v68 + 80);
+    v79 = v51;
+    v53 = v51 + ((v52 + 32) & ~v52);
+    v54 = *(v68 + 72);
+    v55 = v76;
+    do
+    {
+      v56 = v75;
+      outlined init with copy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v53, v75, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID), type metadata accessor for TableCellFormula);
+      outlined init with take of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v56, v55, &lazy cache variable for type metadata for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID), type metadata accessor for TableCellFormula);
+      v57 = *(v19 + 48);
+      v58 = v55 + *(v19 + 64);
+      outlined consume of TableColumnCustomizationID.Base(*v58, *(v58 + 8), *(v58 + 16), *(v58 + 24), *(v58 + 32));
+      _s7SwiftUI16TableCellFormulaVWObTm_0(v55 + v57, v80, type metadata accessor for TableCellFormula);
+      v81 = a1;
+      v60 = *(a1 + 16);
+      v59 = *(a1 + 24);
+      if (v60 >= v59 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v60 + 1, 1);
+        a1 = v81;
+      }
+
+      *(a1 + 16) = v60 + 1;
+      _s7SwiftUI16TableCellFormulaVWObTm_0(v80, a1 + ((*(v50 + 80) + 32) & ~*(v50 + 80)) + *(v50 + 72) * v60, type metadata accessor for TableCellFormula);
+      v53 += v54;
+      --v49;
+    }
+
+    while (v49);
+  }
+
+  else
+  {
+
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return a1;
+}
+
 void specialized Zip2Sequence.Iterator.next()(uint64_t a1@<X8>)
 {
   if (*(v1 + 361) == 1)
@@ -264,65 +1135,65 @@ void specialized _RowVisitationContext.selectionValue(respectSelectionDisabled:)
 
 double _s7SwiftUI19ViewTraitCollectionVAAE26listSelectionIdentityValue3for07respectG8DisabledxSgxm_SbtSHRzlFs11AnyHashableV_Tt0B5@<D0>(char a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  *&v21 = a2;
+  *&v22 = a2;
   if ((ViewTraitCollection.isAuxiliaryContent.getter() & 1) == 0)
   {
-    *&v21 = a2;
-    LOBYTE(v13[0]) = 1;
+    *&v22 = a2;
+    LOBYTE(v14[0]) = 1;
     ViewTraitCollection.value<A>(for:defaultValue:)();
-    if ((v17 & 1) != 0 || (a1 & 1) == 0)
+    if ((v18 & 1) != 0 || (a1 & 1) == 0)
     {
-      *&v17 = a2;
+      *&v18 = a2;
       ViewTraitCollection.tag<A>(for:)();
-      if (*(&v22 + 1))
+      if (*(&v23 + 1))
       {
-        result = *&v21;
-        v7 = v22;
-        *a3 = v21;
-        *(a3 + 16) = v7;
-        *(a3 + 32) = v23;
+        result = *&v22;
+        v8 = v23;
+        *a3 = v22;
+        *(a3 + 16) = v8;
+        *(a3 + 32) = v24;
         return result;
       }
 
-      v8 = MEMORY[0x1E69E6720];
-      _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v21, &lazy cache variable for type metadata for AnyHashable?, MEMORY[0x1E69E69B8], MEMORY[0x1E69E6720]);
-      v16 = a2;
-      memset(v13, 0, 24);
-      v13[3] = 1;
-      v14 = 0u;
+      v9 = MEMORY[0x1E69E6720];
+      _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v22, &lazy cache variable for type metadata for AnyHashable?, MEMORY[0x1E69E69B8], MEMORY[0x1E69E6720]);
+      v17 = a2;
+      memset(v14, 0, 24);
+      v14[3] = 1;
       v15 = 0u;
+      v16 = 0u;
       ViewTraitCollection.value<A>(for:defaultValue:)();
-      _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v13, &lazy cache variable for type metadata for NavigationLinkSelectionIdentifier?, &type metadata for NavigationLinkSelectionIdentifier, v8);
-      if (*(&v18 + 1) == 1)
+      _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v14, &lazy cache variable for type metadata for NavigationLinkSelectionIdentifier?, &type metadata for NavigationLinkSelectionIdentifier, v9);
+      if (*(&v19 + 1) == 1)
       {
-        v9 = &lazy cache variable for type metadata for NavigationLinkSelectionIdentifier?;
-        v10 = &type metadata for NavigationLinkSelectionIdentifier;
+        v10 = &lazy cache variable for type metadata for NavigationLinkSelectionIdentifier?;
+        v11 = &type metadata for NavigationLinkSelectionIdentifier;
       }
 
       else
       {
-        v21 = v17;
         v22 = v18;
         v23 = v19;
         v24 = v20;
-        outlined init with copy of Binding<AnySelectionManager>(&v21, &v17, &lazy cache variable for type metadata for AnyNavigationLinkPresentedValue?, &type metadata for AnyNavigationLinkPresentedValue, MEMORY[0x1E69E6720]);
-        v11 = *(&v18 + 1);
-        if (*(&v18 + 1))
+        v25 = v21;
+        outlined init with copy of Binding<AnySelectionManager>(&v22, &v18, &lazy cache variable for type metadata for AnyNavigationLinkPresentedValue?, &type metadata for AnyNavigationLinkPresentedValue, MEMORY[0x1E69E6720]);
+        v12 = *(&v19 + 1);
+        if (*(&v19 + 1))
         {
-          v12 = v19;
-          __swift_project_boxed_opaque_existential_1(&v17, *(&v18 + 1));
-          (*(v12 + 48))(MEMORY[0x1E69E69B8], MEMORY[0x1E69E69B8], v11, v12);
-          outlined destroy of NavigationLinkSelectionIdentifier(&v21);
-          outlined destroy of AnyNavigationLinkPresentedValue(&v17);
+          v13 = v20;
+          __swift_project_boxed_opaque_existential_1(&v18, *(&v19 + 1));
+          (*(v13 + 48))(MEMORY[0x1E69E69B8], MEMORY[0x1E69E69B8], v12, v13);
+          outlined destroy of NavigationLinkSelectionIdentifier(&v22);
+          outlined destroy of AnyNavigationLinkPresentedValue(&v18);
           return result;
         }
 
-        outlined destroy of NavigationLinkSelectionIdentifier(&v21);
-        v9 = &lazy cache variable for type metadata for AnyNavigationLinkPresentedValue?;
-        v10 = &type metadata for AnyNavigationLinkPresentedValue;
+        outlined destroy of NavigationLinkSelectionIdentifier(&v22);
+        v10 = &lazy cache variable for type metadata for AnyNavigationLinkPresentedValue?;
+        v11 = &type metadata for AnyNavigationLinkPresentedValue;
       }
 
-      _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v17, v9, v10, MEMORY[0x1E69E6720]);
+      _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v18, v10, v11, MEMORY[0x1E69E6720]);
     }
   }
 
@@ -333,7 +1204,7 @@ double _s7SwiftUI19ViewTraitCollectionVAAE26listSelectionIdentityValue3for07resp
   return result;
 }
 
-double _s7SwiftUI27CollectionViewListUtilitiesO11makeOutputs6inputs11coordinator0J4Kind14scrollGeometryAA01_dH0VAA01_D6InputsV_14AttributeGraph0O0VyAA012UICollectiondE11CoordinatorCyxq_GGAC0rK0OAM08IndirectO0VyAA06ScrollM0VGtAA0cdE14DataSourceBaseRzAA16SelectionManagerR_0X5ValueQy_A1_Rtzr0_lFZAA05TableuV7AdaptorV_AA03AnyxY0VTt4B5@<D0>(uint64_t a1@<X0>, int a2@<W1>, unsigned int a3@<W2>, int a4@<W3>, double *a5@<X8>)
+double _s7SwiftUI27CollectionViewListUtilitiesO11makeOutputs6inputs11coordinator0J4Kind14scrollGeometryAA01_dH0VAA01_D6InputsV_14AttributeGraph0O0VyAA012UICollectiondE11CoordinatorCyxq_GGAC0rK0OAM08IndirectO0VyAA06ScrollM0VGtAA0cdE14DataSourceBaseRzAA16SelectionManagerR_0X5ValueQy_A1_Rtzr0_lFZAA05TableuV7AdaptorV_AA03AnyxY0VTt4B5@<D0>(uint64_t a1@<X0>, int a2@<W1>, unsigned int a3@<W2>, unsigned int a4@<W3>, double *a5@<X8>)
 {
   v76 = a4;
   v79 = a3;
@@ -438,11 +1309,11 @@ double _s7SwiftUI27CollectionViewListUtilitiesO11makeOutputs6inputs11coordinator
   AGGraphSetFlags();
   swift_unknownObjectWeakInit();
   protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
-  type metadata accessor for UIScrollView?();
+  type metadata accessor for UIScrollView?(0);
   lazy protocol witness table accessor for type ListScrollViewProvider and conformance ListScrollViewProvider();
   v27 = Attribute.init<A>(body:value:flags:update:)();
   outlined destroy of ListScrollViewProvider(v89);
-  *&v72 = type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for Scrollable);
+  *&v72 = type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for Scrollable, MEMORY[0x1E697DAE0]);
   v28 = Attribute.init<A>(body:value:flags:update:)();
   LODWORD(v89[0]) = v78;
   BYTE4(v89[0]) = v79 & 1;
@@ -452,7 +1323,7 @@ double _s7SwiftUI27CollectionViewListUtilitiesO11makeOutputs6inputs11coordinator
   protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
   type metadata accessor for UICollectionViewListCoordinator<TableDataSourceAdaptor, AnySelectionManager>(0, &lazy cache variable for type metadata for ListRepresentable<TableDataSourceAdaptor, AnySelectionManager>, type metadata accessor for ListRepresentable);
   type metadata accessor for UICollectionViewListCoordinator<TableDataSourceAdaptor, AnySelectionManager>(0, &lazy cache variable for type metadata for MakeRepresentable<TableDataSourceAdaptor, AnySelectionManager>, type metadata accessor for MakeRepresentable);
-  lazy protocol witness table accessor for type CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager> and conformance CollectionViewListScrollable<A, B>(&lazy protocol witness table cache variable for type MakeRepresentable<TableDataSourceAdaptor, AnySelectionManager> and conformance MakeRepresentable<A, B>, &lazy cache variable for type metadata for MakeRepresentable<TableDataSourceAdaptor, AnySelectionManager>, type metadata accessor for MakeRepresentable);
+  lazy protocol witness table accessor for type CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager> and conformance CollectionViewListScrollable<A, B>(&lazy protocol witness table cache variable for type MakeRepresentable<TableDataSourceAdaptor, AnySelectionManager> and conformance MakeRepresentable<A, B>, &lazy cache variable for type metadata for MakeRepresentable<TableDataSourceAdaptor, AnySelectionManager>, type metadata accessor for MakeRepresentable, protocol conformance descriptor for MakeRepresentable<A, B>);
   v29 = Attribute.init<A>(body:value:flags:update:)();
   v30 = *(a1 + 48);
   v101 = *(a1 + 32);
@@ -513,7 +1384,7 @@ double _s7SwiftUI27CollectionViewListUtilitiesO11makeOutputs6inputs11coordinator
   *(v41 + 16) = 0;
   type metadata accessor for UICollectionViewListCoordinator<TableDataSourceAdaptor, AnySelectionManager>(0, &lazy cache variable for type metadata for CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager>, type metadata accessor for CollectionViewListScrollable);
   v95[3] = v42;
-  v95[4] = lazy protocol witness table accessor for type CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager> and conformance CollectionViewListScrollable<A, B>(&lazy protocol witness table cache variable for type CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager> and conformance CollectionViewListScrollable<A, B>, &lazy cache variable for type metadata for CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager>, type metadata accessor for CollectionViewListScrollable);
+  v95[4] = lazy protocol witness table accessor for type CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager> and conformance CollectionViewListScrollable<A, B>(&lazy protocol witness table cache variable for type CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager> and conformance CollectionViewListScrollable<A, B>, &lazy cache variable for type metadata for CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager>, type metadata accessor for CollectionViewListScrollable, protocol conformance descriptor for CollectionViewListScrollable<A, B>);
   v43 = swift_allocObject();
   v95[0] = v43;
   v44 = v78;
@@ -540,7 +1411,7 @@ double _s7SwiftUI27CollectionViewListUtilitiesO11makeOutputs6inputs11coordinator
   {
     LODWORD(v89[0]) = v47;
     protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
-    type metadata accessor for [Scrollable]();
+    type metadata accessor for [Scrollable](0);
     lazy protocol witness table accessor for type UnaryScrollablePreferenceProvider and conformance UnaryScrollablePreferenceProvider();
     v49 = Attribute.init<A>(body:value:flags:update:)();
     LOBYTE(v89[0]) = 0;
@@ -647,7 +1518,7 @@ double _s7SwiftUI27CollectionViewListUtilitiesO11makeOutputs6inputs11coordinator
   return result;
 }
 
-unint64_t _s7SwiftUI25WeakSelectionBasedStorageVyACyxGAA0deF0VyxGcfCAA04TextD0V_Tt0g5Tm(unint64_t a1, uint64_t a2)
+unint64_t _s7SwiftUI25WeakSelectionBasedStorageVyACyxGAA0deF0VyxGcfCAA04TextD0V_Tt0g5Tm(unint64_t a1, unint64_t a2)
 {
   v3 = HIDWORD(a1);
   v4 = *MEMORY[0x1E698D3F8];
@@ -836,7 +1707,7 @@ LABEL_11:
 
     v51 = v74;
     v45(v74, v50, v43);
-    lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type UICollectionLayoutListConfiguration.Appearance and conformance UICollectionLayoutListConfiguration.Appearance, MEMORY[0x1E69DC260]);
+    lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type UICollectionLayoutListConfiguration.Appearance and conformance UICollectionLayoutListConfiguration.Appearance, MEMORY[0x1E69DC260], MEMORY[0x1E69DC268]);
     v52 = dispatch thunk of static Equatable.== infix(_:_:)();
     v53 = *(v44 + 8);
     v53(v51, v43);
@@ -863,7 +1734,7 @@ LABEL_11:
         v64 = specialized UICollectionViewListCoordinator.layoutConfiguration(hasGlobalHeader:)(v71);
         [v62 setConfiguration_];
 
-        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
         v65 = static OS_dispatch_queue.main.getter();
         v66 = swift_allocObject();
         swift_unknownObjectWeakInit();
@@ -882,7 +1753,7 @@ LABEL_11:
 
         static DispatchQoS.unspecified.getter();
         v92[0] = MEMORY[0x1E69E7CC0];
-        lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60]);
+        lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
         _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0(0, &lazy cache variable for type metadata for [DispatchWorkItemFlags], MEMORY[0x1E69E7F60], MEMORY[0x1E69E62F8]);
         lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
         dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -896,7 +1767,7 @@ LABEL_11:
   }
 }
 
-uint64_t specialized ListCoreBatchUpdates.isEmpty.getter()
+uint64_t specialized ListCoreBatchUpdates.isEmpty.getter(uint64_t a1)
 {
   if ((IndexSet.isEmpty.getter() & 1) == 0)
   {
@@ -904,8 +1775,8 @@ uint64_t specialized ListCoreBatchUpdates.isEmpty.getter()
   }
 
   _s7SwiftUI33AccessibilityViewModifierAccessor33_71F62EDC1DAE3BBC7A74521E45BA5A66LLCyAA0c10AttachmentE0VGMaTm_0(0, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
-  v2 = v1;
-  if ((IndexSet.isEmpty.getter() & 1) == 0 || *(*(v0 + v2[10]) + 16) || *(*(v0 + v2[11]) + 16) || *(*(v0 + v2[12]) + 16) || *(*(v0 + v2[13]) + 16))
+  v3 = v2;
+  if ((IndexSet.isEmpty.getter() & 1) == 0 || *(*(v1 + v3[10]) + 16) || *(*(v1 + v3[11]) + 16) || *(*(v1 + v3[12]) + 16) || *(*(v1 + v3[13]) + 16))
   {
     return 0;
   }
@@ -936,33 +1807,33 @@ uint64_t specialized ListBatchUpdates.formUpdates<A>(from:to:)(uint64_t a1, uint
   if (*(v3[3] + 16))
   {
     v9 = swift_isUniquelyReferenced_nonNull_native();
-    v13[0] = v3[3];
-    type metadata accessor for _NativeDictionary<Int, (Int, CountingIndex<Int>)>();
+    v14[0] = v3[3];
+    type metadata accessor for _NativeDictionary<Int, (Int, CountingIndex<Int>)>(0);
     _NativeDictionary.removeAll(isUnique:)(v9);
-    v3[3] = v13[0];
+    v3[3] = v14[0];
   }
 
   if (*(v3[4] + 16))
   {
     v10 = swift_isUniquelyReferenced_nonNull_native();
-    v13[0] = v3[4];
-    type metadata accessor for _NativeDictionary<TableRowID, (Int, (CountingIndex<Int>, CountingIndex<Int>))>();
+    v14[0] = v3[4];
+    type metadata accessor for _NativeDictionary<TableRowID, (Int, (CountingIndex<Int>, CountingIndex<Int>))>(0);
     _NativeDictionary.removeAll(isUnique:)(v10);
-    v3[4] = v13[0];
+    v3[4] = v14[0];
   }
 
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, v13, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
-  outlined init with copy of TableDataSourceAdaptor(a2, v12);
-  specialized ListBatchUpdates.computeRemovesAndInserts<A>(from:to:)(v13, v12);
-  specialized ListBatchUpdates.computeMoves<A>(from:to:)(v13, v12);
-  outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v12, &lazy cache variable for type metadata for CountingIndexListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for CountingIndexListDataSource);
-  return outlined destroy of BridgedListState(v13, type metadata accessor for CountingIndexListDataSource<ShadowListDataSource<TableDataSourceAdaptor>>);
+  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, v14, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
+  outlined init with copy of TableDataSourceAdaptor(a2, v13);
+  specialized ListBatchUpdates.computeRemovesAndInserts<A>(from:to:)(v14, v13, v11);
+  specialized ListBatchUpdates.computeMoves<A>(from:to:)(v14, v13);
+  outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v13, &lazy cache variable for type metadata for CountingIndexListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for CountingIndexListDataSource);
+  return outlined destroy of BridgedListState(v14, type metadata accessor for CountingIndexListDataSource<ShadowListDataSource<TableDataSourceAdaptor>>);
 }
 
 uint64_t specialized ListCoreBatchUpdates.formResult<A>(_:)(uint64_t *a1)
 {
   v2 = v1;
-  type metadata accessor for (source: IndexPath, destination: IndexPath)();
+  type metadata accessor for (source: IndexPath, destination: IndexPath)(0);
   v63 = *(v4 - 8);
   v64 = v4;
   MEMORY[0x1EEE9AC00](v4);
@@ -1042,7 +1913,7 @@ LABEL_58:
           v31 = v30[3];
           if (v32 >= v31 >> 1)
           {
-            v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v31 > 1, v32 + 1, 1, v30);
+            v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v31 > 1), v32 + 1, 1, v30);
           }
 
           v30[2] = v32 + 1;
@@ -1080,7 +1951,7 @@ LABEL_58:
           v57 = v30[3];
           if (v58 >= v57 >> 1)
           {
-            v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v57 > 1, v58 + 1, 1, v30);
+            v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v57 > 1), v58 + 1, 1, v30);
           }
 
           v30[2] = v58 + 1;
@@ -1146,7 +2017,7 @@ LABEL_58:
         v44 = v30[3];
         if (v45 >= v44 >> 1)
         {
-          v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v44 > 1, v45 + 1, 1, v30);
+          v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v44 > 1), v45 + 1, 1, v30);
         }
 
         v30[2] = v45 + 1;
@@ -1374,97 +2245,98 @@ void specialized ListCoreBatchUpdates.resetAll()()
   IndexSet.removeAll()();
 }
 
-uint64_t specialized ListBatchUpdates.computeRemovesAndInserts<A>(from:to:)(uint64_t a1, uint64_t a2)
+void specialized ListBatchUpdates.computeRemovesAndInserts<A>(from:to:)(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v3 = v2;
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v132, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
-  _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v132, v154);
-  v79 = a2;
-  *&v132 = *(a2 + 40);
-  v5 = v132;
-  *(&v132 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
-  *&v133 = 0;
-  type metadata accessor for CollectionChanges<CountingIndex<Int>, CountingIndex<Int>>();
-  type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>();
-  type metadata accessor for CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>();
-  lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>> and conformance CountingIndexCollection<A>, type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>);
-  lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>> and conformance CountingIndexCollection<A>, type metadata accessor for CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>);
-  v81 = v5;
+  v4 = v3;
+  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v135, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
+  _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v135, v157);
+  v82 = a2;
+  *&v135 = *(a2 + 40);
+  v6 = v135;
+  *(&v135 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
+  *&v136 = 0;
+  type metadata accessor for CollectionChanges<CountingIndex<Int>, CountingIndex<Int>>(0);
+  type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>(0);
+  type metadata accessor for CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>(0);
+  v7 = MEMORY[0x1E69801A0];
+  lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>> and conformance CountingIndexCollection<A>, type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>, MEMORY[0x1E69801A0]);
+  lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>> and conformance CountingIndexCollection<A>, type metadata accessor for CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>, v7);
+  v84 = v6;
 
   CollectionChanges.formChanges<A, B>(from:to:)();
 
-  outlined destroy of BridgedListState(v154, type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>);
-  v6 = v3[1];
-  v7 = *(v6 + 2);
-  if (v7)
+  outlined destroy of BridgedListState(v157, type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>);
+  v8 = *(v4 + 8);
+  v9 = *(v8 + 16);
+  if (v9)
   {
-    v75 = v6 + 32;
+    v78 = v8 + 32;
 
-    v9 = 0;
-    v74 = result;
-    while (v9 < v7)
+    v11 = 0;
+    v77 = v10;
+    while (v11 < v9)
     {
-      v10 = &v75[96 * v9];
-      v11 = *v10;
-      v12 = *(v10 + 1);
-      v82 = *(v10 + 3);
-      v76 = v9;
-      v77 = *(v10 + 4);
-      v13 = v10[40];
-      v14 = v10[16];
-      if (v10[89])
+      v12 = (v78 + 96 * v11);
+      v13 = *v12;
+      v14 = v12[1];
+      v85 = v12[3];
+      v79 = v11;
+      v80 = v12[4];
+      v15 = *(v12 + 40);
+      v16 = *(v12 + 16);
+      if (*(v12 + 89))
       {
-        if (v10[89] == 1)
+        if (*(v12 + 89) == 1)
         {
-          v15 = *(v81 + 16);
-          LOBYTE(v102[0]) = v15 == 0;
-          LOBYTE(v97) = 1;
-          LOBYTE(v92[0]) = v14 & 1;
-          LOBYTE(v84) = v13 & 1;
-          *&v127 = v81;
-          *(&v127 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
-          *&v129 = 0;
-          v128 = 0uLL;
-          BYTE8(v129) = v15 == 0;
-          v130 = v15;
-          LOBYTE(v131) = 1;
+          v17 = *(v84 + 16);
+          LOBYTE(v105[0]) = v17 == 0;
+          LOBYTE(v100) = 1;
+          LOBYTE(v95[0]) = v16 & 1;
+          LOBYTE(v87) = v15 & 1;
+          *&v130 = v84;
+          *(&v130 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
+          *&v132 = 0;
+          v131 = 0uLL;
+          BYTE8(v132) = v17 == 0;
+          v133 = v17;
+          LOBYTE(v134) = 1;
           swift_bridgeObjectRetain_n();
-          outlined destroy of BridgedListState(&v127, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
-          *&v108 = v81;
-          *(&v108 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
-          *&v109 = 0;
-          *(&v109 + 1) = v11;
-          *&v110 = v12;
-          v16 = v92[0];
-          BYTE8(v110) = v92[0];
-          *&v111 = v82;
-          *(&v111 + 1) = v77;
-          v17 = v84;
-          LOBYTE(v112) = v84;
-          *&v132 = v81;
-          *(&v132 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
-          *&v133 = 0;
-          *(&v133 + 1) = v11;
-          *&v134 = v12;
-          BYTE8(v134) = v92[0];
-          *&v135 = v82;
-          *(&v135 + 1) = v77;
-          LOBYTE(v136) = v84;
-          _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v108, v154, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
-          result = outlined destroy of BridgedListState(&v132, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
+          outlined destroy of BridgedListState(&v130, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
+          *&v111 = v84;
+          *(&v111 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
+          *&v112 = 0;
+          *(&v112 + 1) = v13;
+          *&v113 = v14;
+          v18 = v95[0];
+          BYTE8(v113) = v95[0];
+          *&v114 = v85;
+          *(&v114 + 1) = v80;
+          v19 = v87;
+          LOBYTE(v115) = v87;
+          *&v135 = v84;
+          *(&v135 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
+          *&v136 = 0;
+          *(&v136 + 1) = v13;
+          *&v137 = v14;
+          BYTE8(v137) = v95[0];
+          *&v138 = v85;
+          *(&v138 + 1) = v80;
+          LOBYTE(v139) = v87;
+          _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v111, v157, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
+          outlined destroy of BridgedListState(&v135, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
           while (1)
           {
-            if (v82 == v11)
+            if (v85 == v13)
             {
-              if (v16)
+              if (v18)
               {
-                if (v17)
+                if (v19)
                 {
                   goto LABEL_3;
                 }
               }
 
-              else if ((v17 & 1) == 0 && v12 == v77)
+              else if ((v19 & 1) == 0 && v14 == v80)
               {
 LABEL_3:
 
@@ -1472,68 +2344,65 @@ LABEL_3:
               }
             }
 
-            v18 = v11 + 1;
-            if (__OFADD__(v11, 1))
+            v20 = v13 + 1;
+            if (__OFADD__(v13, 1))
             {
               break;
             }
 
-            v19 = *(v81 + 16);
-            v20 = v18 == v19;
-            if (v18 == v19)
+            v21 = *(v84 + 16);
+            v22 = v20 == v21;
+            if (v20 == v21)
             {
-              v21 = 0;
+              v23 = 0;
             }
 
             else
             {
-              if (v16)
+              if (v18)
               {
                 goto LABEL_67;
               }
 
-              v21 = v12 + 1;
-              if (__OFADD__(v12, 1))
+              v23 = v14 + 1;
+              if (__OFADD__(v14, 1))
               {
                 goto LABEL_64;
               }
             }
 
-            v22 = *v3;
-            result = swift_isUniquelyReferenced_nonNull_native();
-            if ((result & 1) == 0)
+            v24 = *v4;
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v22 + 2) + 1, 1, v22);
-              v22 = result;
+              v24 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v24 + 2) + 1, 1, v24);
             }
 
-            v24 = *(v22 + 2);
-            v23 = *(v22 + 3);
-            if (v24 >= v23 >> 1)
+            v26 = *(v24 + 2);
+            v25 = *(v24 + 3);
+            if (v26 >= v25 >> 1)
             {
-              result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v22);
-              v22 = result;
+              v24 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1, v24);
             }
 
-            LOBYTE(v92[0]) = v16 & 1;
-            *(v22 + 2) = v24 + 1;
-            v25 = &v22[96 * v24];
-            *(v25 + 4) = v11;
-            *(v25 + 5) = v12;
-            v25[48] = v92[0];
-            *(v25 + 49) = v154[0];
-            v26 = v154[1];
-            v27 = v154[2];
-            v28 = v154[3];
-            *(v25 + 113) = v155;
-            *(v25 + 97) = v28;
-            *(v25 + 81) = v27;
-            *(v25 + 65) = v26;
-            v25[121] = 1;
-            *v3 = v22;
-            ++v11;
-            v12 = v21;
-            v16 = v20;
+            LOBYTE(v95[0]) = v18 & 1;
+            *(v24 + 2) = v26 + 1;
+            v27 = &v24[96 * v26];
+            *(v27 + 4) = v13;
+            *(v27 + 5) = v14;
+            v27[48] = v95[0];
+            *(v27 + 49) = v157[0];
+            v28 = v157[1];
+            v29 = v157[2];
+            v30 = v157[3];
+            *(v27 + 113) = v158;
+            *(v27 + 97) = v30;
+            *(v27 + 81) = v29;
+            *(v27 + 65) = v28;
+            v27[121] = 1;
+            *v4 = v24;
+            ++v13;
+            v14 = v23;
+            v18 = v22;
           }
 
           __break(1u);
@@ -1546,216 +2415,216 @@ LABEL_65:
           break;
         }
 
-        v44 = v10[88];
-        v45 = v10[64];
-        v73 = *(v10 + 72);
-        v46 = *(v10 + 6);
-        v47 = *(v10 + 7);
-        outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v127, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
-        _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v127, &v108);
+        v46 = *(v12 + 88);
+        v47 = *(v12 + 64);
+        v76 = *(v12 + 9);
+        v48 = v12[6];
+        v49 = v12[7];
+        outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v130, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
+        _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v130, &v111);
+        v145 = v121;
+        v146 = v122;
+        v141 = v117;
         v142 = v118;
         v143 = v119;
+        v144 = v120;
+        v137 = v113;
         v138 = v114;
         v139 = v115;
         v140 = v116;
-        v141 = v117;
-        v134 = v110;
         v135 = v111;
         v136 = v112;
-        v137 = v113;
-        v132 = v108;
-        v133 = v109;
-        v144 = v120;
-        v145 = v11;
-        v146 = v12;
-        v147 = v14 & 1;
-        v148 = v82;
-        v149 = v77;
-        v150 = v13 & 1;
-        v48 = *(v81 + 16);
-        v107 = v48 == 0;
-        v106 = 1;
-        LOBYTE(v84) = v45 & 1;
-        v91 = v44 & 1;
-        v92[0] = v81;
-        v92[1] = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
-        memset(&v92[2], 0, 24);
-        v93 = v48 == 0;
-        v94 = v48;
-        v95 = 0;
-        v96 = 1;
+        v147 = v123;
+        v148 = v13;
+        v149 = v14;
+        v150 = v16 & 1;
+        v151 = v85;
+        v152 = v80;
+        v153 = v15 & 1;
+        v50 = *(v84 + 16);
+        v110 = v50 == 0;
+        v109 = 1;
+        LOBYTE(v87) = v47 & 1;
+        v94 = v46 & 1;
+        v95[0] = v84;
+        v95[1] = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
+        memset(&v95[2], 0, 24);
+        v96 = v50 == 0;
+        v97 = v50;
+        v98 = 0;
+        v99 = 1;
         swift_bridgeObjectRetain_n();
-        outlined destroy of BridgedListState(v92, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
-        *&v97 = v81;
-        *(&v97 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
-        *&v98 = 0;
-        *(&v98 + 1) = v46;
-        *&v99 = v47;
-        BYTE8(v99) = v84;
-        v100 = v73;
-        v101 = v91;
-        v153[32] = v91;
-        v151 = v97;
-        v152 = v98;
-        *v153 = v99;
-        *&v153[16] = v73;
-        v102[0] = v81;
-        v102[1] = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
-        v102[2] = 0;
-        v102[3] = v46;
-        v102[4] = v47;
-        v103 = v84;
-        v104 = v73;
-        v105 = v91;
-        _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v97, &v127, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
-        outlined destroy of BridgedListState(v102, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
-        _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v132, v154, type metadata accessor for DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>);
-        v49 = v145;
-        v50 = v146;
-        LOBYTE(v46) = v147;
-        outlined destroy of BridgedListState(&v132, type metadata accessor for DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>);
-        v160 = v49;
-        v161 = v50;
-        v162 = v46;
-        v163 = v151;
-        v164 = v152;
-        v165 = *v153;
-        v166 = v153[8];
-        v167 = *&v153[9];
-        v168 = *&v153[25];
-        v169 = *(&v152 + 1);
-        v170 = *v153;
-        v171 = v153[8] & 1;
-        v172 = 0;
+        outlined destroy of BridgedListState(v95, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
+        *&v100 = v84;
+        *(&v100 + 1) = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
+        *&v101 = 0;
+        *(&v101 + 1) = v48;
+        *&v102 = v49;
+        BYTE8(v102) = v87;
+        v103 = v76;
+        v104 = v94;
+        v156[32] = v94;
+        v154 = v100;
+        v155 = v101;
+        *v156 = v102;
+        *&v156[16] = v76;
+        v105[0] = v84;
+        v105[1] = protocol witness for OptionSet.init(rawValue:) in conformance MainMenuItem.Template.Options;
+        v105[2] = 0;
+        v105[3] = v48;
+        v105[4] = v49;
+        v106 = v87;
+        v107 = v76;
+        v108 = v94;
+        _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v100, &v130, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
+        outlined destroy of BridgedListState(v105, type metadata accessor for DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>);
+        _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v135, v157, type metadata accessor for DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>);
+        v51 = v148;
+        v52 = v149;
+        LOBYTE(v48) = v150;
+        outlined destroy of BridgedListState(&v135, type metadata accessor for DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>);
+        v163 = v51;
+        v164 = v52;
+        v165 = v48;
+        v166 = v154;
+        v167 = v155;
+        v168 = *v156;
+        v169 = v156[8];
+        v170 = *&v156[9];
+        v171 = *&v156[25];
+        v172 = *(&v155 + 1);
+        v173 = *v156;
+        v174 = v156[8] & 1;
+        v175 = 0;
         while (1)
         {
-          specialized Zip2Sequence.Iterator.next()(&v84);
-          if (v90)
+          specialized Zip2Sequence.Iterator.next()(&v87);
+          if (v93)
           {
             break;
           }
 
-          v51 = v84;
-          v52 = v85;
-          v53 = v86;
           v54 = v87;
-          updated = _s7SwiftUI16ListBatchUpdatesV27computeRowRemovesAndInserts33_A424F5232720E51D2A2BD1A8E90C36E84from13sourceSection2to06targetW0SayAA0C6UpdateOyAA13CountingIndexVy0W3IDs_5IndexQZGAMySiGGGAA013CountingIndexC10DataSourceAELLVyqd__G_AqVyxGAQtAA0C8DiffableRd__0G3IDs_7ElementQYd__AZ_A_RTzAN_A_QYd__AN_A_RTzAN_AOQYd__APRSlFAA22TableDataSourceAdaptorV_AA06ShadowC10DataSourceVyA6_GTt3B5(a1, v84, v85, v86, v79, v87, v88, v89);
+          v55 = v88;
+          v56 = v89;
+          v57 = v90;
+          updated = _s7SwiftUI16ListBatchUpdatesV27computeRowRemovesAndInserts33_A424F5232720E51D2A2BD1A8E90C36E84from13sourceSection2to06targetW0SayAA0C6UpdateOyAA13CountingIndexVy0W3IDs_5IndexQZGAMySiGGGAA013CountingIndexC10DataSourceAELLVyqd__G_AqVyxGAQtAA0C8DiffableRd__0G3IDs_7ElementQYd__AZ_A_RTzAN_A_QYd__AN_A_RTzAN_AOQYd__APRSlFAA22TableDataSourceAdaptorV_AA06ShadowC10DataSourceVyA6_GTt3B5(a1, v87, v88, v89, v82, v90, v91, v92, v53);
           specialized Array.append<A>(contentsOf:)(updated);
-          v56 = specialized ShadowListUpdateRecorder.initialIndex(_:)(v51);
-          v57 = TableDataSourceAdaptor.hasHeader(forSectionAt:)(v56);
-          if ((v57 ^ TableDataSourceAdaptor.hasHeader(forSectionAt:)(v54)))
+          v59 = specialized ShadowListUpdateRecorder.initialIndex(_:)(v54);
+          v60 = TableDataSourceAdaptor.hasHeader(forSectionAt:)(v59);
+          if ((v60 ^ TableDataSourceAdaptor.hasHeader(forSectionAt:)(v57)))
           {
-            v58 = *v3;
+            v61 = *v4;
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v58 + 2) + 1, 1, v58);
+              v61 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v61 + 2) + 1, 1, v61);
             }
 
-            v60 = *(v58 + 2);
-            v59 = *(v58 + 3);
-            if (v60 >= v59 >> 1)
+            v63 = *(v61 + 2);
+            v62 = *(v61 + 3);
+            if (v63 >= v62 >> 1)
             {
-              v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v60 + 1, 1, v58);
+              v61 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v62 > 1), v63 + 1, 1, v61);
             }
 
-            v91 = v53;
-            *(v58 + 2) = v60 + 1;
-            v61 = &v58[96 * v60];
-            *(v61 + 4) = v51;
-            *(v61 + 5) = v52;
-            v61[48] = v91;
-            *(v61 + 49) = v127;
-            v62 = v128;
-            v63 = v129;
-            v64 = v130;
-            *(v61 + 113) = v131;
-            *(v61 + 97) = v64;
-            *(v61 + 81) = v63;
-            *(v61 + 65) = v62;
-            v61[121] = 6;
-            *v3 = v58;
+            v94 = v56;
+            *(v61 + 2) = v63 + 1;
+            v64 = &v61[96 * v63];
+            *(v64 + 4) = v54;
+            *(v64 + 5) = v55;
+            v64[48] = v94;
+            *(v64 + 49) = v130;
+            v65 = v131;
+            v66 = v132;
+            v67 = v133;
+            *(v64 + 113) = v134;
+            *(v64 + 97) = v67;
+            *(v64 + 81) = v66;
+            *(v64 + 65) = v65;
+            v64[121] = 6;
+            *v4 = v61;
           }
 
-          if (specialized ShadowListUpdateRecorder.hasFooter(forSectionAt:)(v51))
+          if (specialized ShadowListUpdateRecorder.hasFooter(forSectionAt:)(v54))
           {
-            v65 = *v3;
+            v68 = *v4;
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v65 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v65 + 2) + 1, 1, v65);
+              v68 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v68 + 2) + 1, 1, v68);
             }
 
-            v67 = *(v65 + 2);
-            v66 = *(v65 + 3);
-            if (v67 >= v66 >> 1)
+            v70 = *(v68 + 2);
+            v69 = *(v68 + 3);
+            if (v70 >= v69 >> 1)
             {
-              v65 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v66 > 1), v67 + 1, 1, v65);
+              v68 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v69 > 1), v70 + 1, 1, v68);
             }
 
-            v91 = v53;
-            *(v65 + 2) = v67 + 1;
-            v68 = &v65[96 * v67];
-            *(v68 + 4) = v51;
-            *(v68 + 5) = v52;
-            v68[48] = v91;
-            *(v68 + 49) = v127;
-            v69 = v128;
-            v70 = v129;
-            v71 = v130;
-            *(v68 + 113) = v131;
-            *(v68 + 97) = v71;
-            *(v68 + 81) = v70;
-            *(v68 + 65) = v69;
-            v68[121] = 6;
-            *v3 = v65;
+            v94 = v56;
+            *(v68 + 2) = v70 + 1;
+            v71 = &v68[96 * v70];
+            *(v71 + 4) = v54;
+            *(v71 + 5) = v55;
+            v71[48] = v94;
+            *(v71 + 49) = v130;
+            v72 = v131;
+            v73 = v132;
+            v74 = v133;
+            *(v71 + 113) = v134;
+            *(v71 + 97) = v74;
+            *(v71 + 81) = v73;
+            *(v71 + 65) = v72;
+            v71[121] = 6;
+            *v4 = v68;
           }
         }
 
-        v72 = type metadata accessor for Zip2Sequence<DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>, DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>>.Iterator;
+        v75 = type metadata accessor for Zip2Sequence<DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>, DefaultIndices<CountingIndexCollection<LazyMapSequence<[TableSections.Item], Int>>>>.Iterator;
       }
 
       else
       {
-        outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v108, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
-        _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v108, &v132);
+        outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v111, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
+        _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v111, &v135);
+        v121 = v145;
+        v122 = v146;
+        v117 = v141;
         v118 = v142;
         v119 = v143;
+        v120 = v144;
+        v113 = v137;
         v114 = v138;
         v115 = v139;
         v116 = v140;
-        v117 = v141;
-        v110 = v134;
         v111 = v135;
         v112 = v136;
-        v113 = v137;
-        v108 = v132;
-        v109 = v133;
-        v120 = v144;
-        v121 = v11;
-        v122 = v12;
-        v123 = v14 & 1;
-        v124 = v82;
-        v125 = v77;
-        v126 = v13 & 1;
-        _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v108, v154, type metadata accessor for DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>);
-        v29 = v121;
-        v30 = v122;
-        v31 = v123;
-        result = outlined destroy of BridgedListState(&v108, type metadata accessor for DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>);
-        v160 = v29;
-        v161 = v30;
-        v162 = v31;
-        v32 = v157;
-        v78 = v158;
-        v83 = v159;
-        if (v157 != v29)
+        v123 = v147;
+        v124 = v13;
+        v125 = v14;
+        v126 = v16 & 1;
+        v127 = v85;
+        v128 = v80;
+        v129 = v15 & 1;
+        _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v111, v157, type metadata accessor for DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>);
+        v31 = v124;
+        v32 = v125;
+        v33 = v126;
+        outlined destroy of BridgedListState(&v111, type metadata accessor for DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>);
+        v163 = v31;
+        v164 = v32;
+        v165 = v33;
+        v34 = v160;
+        v81 = v161;
+        v86 = v162;
+        if (v160 != v31)
         {
           goto LABEL_32;
         }
 
 LABEL_26:
-        if (v31)
+        if (v33)
         {
-          if (!v83)
+          if (!v86)
           {
             goto LABEL_32;
           }
@@ -1763,82 +2632,79 @@ LABEL_26:
 
         else
         {
-          v33 = v83;
-          if (v30 != v78)
+          v35 = v86;
+          if (v32 != v81)
           {
-            v33 = 1;
+            v35 = 1;
           }
 
-          if (v33)
+          if (v35)
           {
 LABEL_32:
             while (1)
             {
-              v34 = v29 + 1;
-              if (__OFADD__(v29, 1))
+              v36 = v31 + 1;
+              if (__OFADD__(v31, 1))
               {
                 goto LABEL_63;
               }
 
-              v35 = v34 == v156;
-              if (v34 == v156)
+              v37 = v36 == v159;
+              if (v36 == v159)
               {
-                v36 = 0;
+                v38 = 0;
               }
 
               else
               {
-                if (v31)
+                if (v33)
                 {
                   goto LABEL_68;
                 }
 
-                v36 = v30 + 1;
-                if (__OFADD__(v30, 1))
+                v38 = v32 + 1;
+                if (__OFADD__(v32, 1))
                 {
                   goto LABEL_65;
                 }
               }
 
-              v160 = v29 + 1;
-              v161 = v36;
-              v162 = v34 == v156;
-              v37 = *v3;
-              result = swift_isUniquelyReferenced_nonNull_native();
-              if ((result & 1) == 0)
+              v163 = v31 + 1;
+              v164 = v38;
+              v165 = v36 == v159;
+              v39 = *v4;
+              if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
-                result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v37 + 16) + 1, 1, v37);
-                v37 = result;
+                v39 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v39 + 2) + 1, 1, v39);
               }
 
-              v39 = *(v37 + 16);
-              v38 = *(v37 + 24);
-              if (v39 >= v38 >> 1)
+              v41 = *(v39 + 2);
+              v40 = *(v39 + 3);
+              if (v41 >= v40 >> 1)
               {
-                result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v38 > 1), v39 + 1, 1, v37);
-                v37 = result;
+                v39 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1, v39);
               }
 
-              LOBYTE(v108) = v31;
-              *(v37 + 16) = v39 + 1;
-              v40 = v37 + 96 * v39;
-              *(v40 + 32) = v29;
-              *(v40 + 40) = v30;
-              *(v40 + 48) = v108;
-              *(v40 + 49) = v132;
-              v41 = v133;
-              v42 = v134;
-              v43 = v135;
-              *(v40 + 113) = v136;
-              *(v40 + 97) = v43;
-              *(v40 + 81) = v42;
-              *(v40 + 65) = v41;
-              *(v40 + 121) = 0;
-              *v3 = v37;
-              ++v29;
-              v30 = v36;
-              v31 = v35;
-              if (v32 == v29)
+              LOBYTE(v111) = v33;
+              *(v39 + 2) = v41 + 1;
+              v42 = &v39[96 * v41];
+              *(v42 + 4) = v31;
+              *(v42 + 5) = v32;
+              v42[48] = v111;
+              *(v42 + 49) = v135;
+              v43 = v136;
+              v44 = v137;
+              v45 = v138;
+              *(v42 + 113) = v139;
+              *(v42 + 97) = v45;
+              *(v42 + 81) = v44;
+              *(v42 + 65) = v43;
+              v42[121] = 0;
+              *v4 = v39;
+              ++v31;
+              v32 = v38;
+              v33 = v37;
+              if (v34 == v31)
               {
                 goto LABEL_26;
               }
@@ -1846,16 +2712,16 @@ LABEL_32:
           }
         }
 
-        v72 = type metadata accessor for IndexingIterator<DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>>;
+        v75 = type metadata accessor for IndexingIterator<DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>>>;
       }
 
-      outlined destroy of BridgedListState(v154, v72);
+      outlined destroy of BridgedListState(v157, v75);
 LABEL_4:
-      result = v74;
-      v9 = v76 + 1;
-      v7 = *(v74 + 16);
-      if (v76 + 1 == v7)
+      v11 = v79 + 1;
+      v9 = *(v77 + 16);
+      if (v79 + 1 == v9)
       {
+        goto LABEL_61;
       }
     }
 
@@ -1868,24 +2734,24 @@ LABEL_68:
 
   else
   {
-  }
 
-  return result;
+LABEL_61:
+  }
 }
 
 uint64_t specialized ListBatchUpdates.computeMoves<A>(from:to:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v4 = MEMORY[0x1E69E7CC0];
-  v167 = MEMORY[0x1E69E7CC0];
+  v169 = MEMORY[0x1E69E7CC0];
   v5 = *v2;
-  v6 = *(*v2 + 2);
+  v6 = *(*v2 + 16);
   if (!v6)
   {
-    v124 = 0;
+    v126 = 0;
     v7 = 0;
 LABEL_119:
-    specialized Array.replaceSubrange<A>(_:with:)(v7, v124);
+    specialized Array.replaceSubrange<A>(_:with:)(v7, v126);
     return specialized Array.append<A>(contentsOf:)(v4);
   }
 
@@ -1899,9 +2765,9 @@ LABEL_144:
   v8 = 0;
   v9 = v5 + 32;
   v10 = 32;
-  v148 = v5;
-  v149 = v6;
-  v152 = v5 + 32;
+  v150 = v5;
+  v151 = v6;
+  v154 = v5 + 32;
   while (1)
   {
     if (v6 == v8)
@@ -1938,18 +2804,18 @@ LABEL_144:
     v17 = v13[89];
     if (v17 <= 2)
     {
-      v153 = v10;
+      v155 = v10;
       if (!v13[89])
       {
         v18 = v6;
-        v143 = v13[16];
+        v145 = v13[16];
         v19 = v3;
-        outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v162, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
-        _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v162, &v159);
+        outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v164, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
+        _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v164, &v161);
         v3 = v14;
-        v20 = *&v160[24];
+        v20 = *&v162[24];
 
-        v6 = &v159;
+        v6 = &v161;
         v21 = v3;
         v22 = specialized ShadowListUpdateRecorder.initialIndex(_:)(v3);
         if ((v22 & 0x8000000000000000) != 0)
@@ -1962,33 +2828,33 @@ LABEL_144:
           goto LABEL_128;
         }
 
-        outlined init with copy of TableSections.Item(v20 + 96 * v22 + 32, &v162);
-        v3 = v162;
-        outlined destroy of TableSections.Item(&v162);
-        outlined destroy of BridgedListState(&v159, type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>);
+        outlined init with copy of TableSections.Item(v20 + 96 * v22 + 32, &v164);
+        v3 = v164;
+        outlined destroy of TableSections.Item(&v164);
+        outlined destroy of BridgedListState(&v161, type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>);
 
         v6 = v19[3];
         if (!*(v6 + 2))
         {
-          v62 = v21;
-          v63 = v19;
+          v64 = v21;
+          v65 = v19;
 LABEL_66:
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          *&v159 = v63[3];
-          specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v7, v62, v15, v143 & 1, v3, isUniquelyReferenced_nonNull_native);
-          v63[3] = v159;
-          v10 = v153;
+          *&v161 = v65[3];
+          specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v7, v64, v15, v145 & 1, v3, isUniquelyReferenced_nonNull_native);
+          v65[3] = v161;
+          v10 = v155;
           v6 = v18;
-          v9 = v152;
-          v3 = v63;
+          v9 = v154;
+          v3 = v65;
           goto LABEL_7;
         }
 
         v23 = specialized __RawDictionaryStorage.find<A>(_:)(v3);
         if ((v24 & 1) == 0)
         {
-          v62 = v21;
-          v63 = v19;
+          v64 = v21;
+          v65 = v19;
           goto LABEL_66;
         }
 
@@ -1999,62 +2865,62 @@ LABEL_66:
           goto LABEL_137;
         }
 
-        if (v26 >= *(v148 + 2))
+        if (v26 >= *(v150 + 2))
         {
           goto LABEL_139;
         }
 
-        if (v152[96 * v26 + 89] != 1)
+        if (v154[96 * v26 + 89] != 1)
         {
-          v5 = v148;
+          v5 = v150;
           v3 = v19;
-          v10 = v153;
+          v10 = v155;
           v6 = v18;
-          v9 = v152;
+          v9 = v154;
           goto LABEL_7;
         }
 
-        v135 = &v152[96 * v26];
+        v137 = &v154[96 * v26];
         v27 = *(v25 + 8);
         v28 = *(v25 + 16);
-        v140 = *(v25 + 24);
+        v142 = *(v25 + 24);
         v29 = specialized __RawDictionaryStorage.find<A>(_:)(v3);
-        if (v30)
+        if (v31)
         {
-          v132 = v29;
-          v31 = swift_isUniquelyReferenced_nonNull_native();
-          v32 = v19[3];
-          *&v159 = v32;
-          if (!v31)
+          v134 = v29;
+          v32 = swift_isUniquelyReferenced_nonNull_native();
+          v33 = v19[3];
+          *&v161 = v33;
+          if (!v32)
           {
             specialized _NativeDictionary.copy()();
-            v32 = v159;
+            v33 = v161;
           }
 
-          specialized _NativeDictionary._delete(at:)(v132, v32);
-          v19[3] = v32;
+          specialized _NativeDictionary._delete(at:)(v134, v33);
+          v19[3] = v33;
         }
 
-        LOBYTE(v159) = v143 & 1;
-        LOBYTE(v162) = v140;
-        if (v26 >= *(v148 + 2))
+        LOBYTE(v161) = v145 & 1;
+        LOBYTE(v164) = v142;
+        if (v26 >= *(v150 + 2))
         {
           goto LABEL_147;
         }
 
-        *v135 = v21;
-        *(v135 + 1) = v15;
-        v135[16] = v159;
-        *(v135 + 3) = v27;
-        *(v135 + 4) = v28;
-        v135[40] = v162;
-        v135[89] = 2;
-        updated = _s7SwiftUI16ListBatchUpdatesV27computeRowRemovesAndInserts33_A424F5232720E51D2A2BD1A8E90C36E84from13sourceSection2to06targetW0SayAA0C6UpdateOyAA13CountingIndexVy0W3IDs_5IndexQZGAMySiGGGAA013CountingIndexC10DataSourceAELLVyqd__G_AqVyxGAQtAA0C8DiffableRd__0G3IDs_7ElementQYd__AZ_A_RTzAN_A_QYd__AN_A_RTzAN_AOQYd__APRSlFAA22TableDataSourceAdaptorV_AA06ShadowC10DataSourceVyA6_GTt3B5(a1, v21, v15, v143 & 1, a2, v27, v28, v140);
+        *v137 = v21;
+        *(v137 + 1) = v15;
+        v137[16] = v161;
+        *(v137 + 3) = v27;
+        *(v137 + 4) = v28;
+        v137[40] = v164;
+        v137[89] = 2;
+        updated = _s7SwiftUI16ListBatchUpdatesV27computeRowRemovesAndInserts33_A424F5232720E51D2A2BD1A8E90C36E84from13sourceSection2to06targetW0SayAA0C6UpdateOyAA13CountingIndexVy0W3IDs_5IndexQZGAMySiGGGAA013CountingIndexC10DataSourceAELLVyqd__G_AqVyxGAQtAA0C8DiffableRd__0G3IDs_7ElementQYd__AZ_A_RTzAN_A_QYd__AN_A_RTzAN_AOQYd__APRSlFAA22TableDataSourceAdaptorV_AA06ShadowC10DataSourceVyA6_GTt3B5(a1, v21, v15, v145 & 1, a2, v27, v28, v142, v30);
         specialized Array.append<A>(contentsOf:)(updated);
         --v7;
-        v5 = v148;
-        v6 = v149;
-        v9 = v152;
+        v5 = v150;
+        v6 = v151;
+        v9 = v154;
         v3 = v19;
         goto LABEL_6;
       }
@@ -2069,170 +2935,170 @@ LABEL_66:
         goto LABEL_125;
       }
 
-      v40 = *(a2 + 40);
-      if (v14 >= *(v40 + 16))
+      v41 = *(a2 + 40);
+      if (v14 >= *(v41 + 16))
       {
         goto LABEL_127;
       }
 
-      v151 = *(v13 + 1);
-      outlined init with copy of TableSections.Item(v40 + 96 * v14 + 32, &v159);
-      v41 = v159;
-      outlined destroy of TableSections.Item(&v159);
+      v153 = *(v13 + 1);
+      outlined init with copy of TableSections.Item(v41 + 96 * v14 + 32, &v161);
+      v42 = v161;
+      outlined destroy of TableSections.Item(&v161);
       v6 = v3[3];
-      v42 = v3;
+      v43 = v3;
       if (*(v6 + 2))
       {
-        v3 = v41;
-        v43 = specialized __RawDictionaryStorage.find<A>(_:)(v41);
-        if (v44)
+        v3 = v42;
+        v44 = specialized __RawDictionaryStorage.find<A>(_:)(v42);
+        if (v45)
         {
-          v45 = *(v6 + 7) + 32 * v43;
-          v46 = *v45;
-          if ((*v45 & 0x8000000000000000) != 0)
+          v46 = *(v6 + 7) + 32 * v44;
+          v47 = *v46;
+          if ((*v46 & 0x8000000000000000) != 0)
           {
             goto LABEL_138;
           }
 
-          if (v46 >= *(v5 + 2))
+          if (v47 >= *(v5 + 2))
           {
             goto LABEL_140;
           }
 
-          v47 = v16;
-          v48 = v14;
-          v49 = &v152[96 * v46];
-          if (!v49[89])
+          v48 = v16;
+          v49 = v14;
+          v50 = &v154[96 * v47];
+          if (!v50[89])
           {
-            v142 = *(v45 + 16);
-            v144 = *(v45 + 8);
-            v50 = *(v45 + 24);
-            v51 = specialized __RawDictionaryStorage.find<A>(_:)(v3);
-            if (v52)
+            v144 = *(v46 + 16);
+            v146 = *(v46 + 8);
+            v51 = *(v46 + 24);
+            v52 = specialized __RawDictionaryStorage.find<A>(_:)(v3);
+            if (v54)
             {
-              v136 = v51;
-              v53 = swift_isUniquelyReferenced_nonNull_native();
-              v54 = v42[3];
-              *&v159 = v54;
-              if (!v53)
+              v138 = v52;
+              v55 = swift_isUniquelyReferenced_nonNull_native();
+              v56 = v43[3];
+              *&v161 = v56;
+              if (!v55)
               {
                 specialized _NativeDictionary.copy()();
-                v54 = v159;
+                v56 = v161;
               }
 
-              specialized _NativeDictionary._delete(at:)(v136, v54);
-              v42[3] = v54;
+              specialized _NativeDictionary._delete(at:)(v138, v56);
+              v43[3] = v56;
             }
 
-            LOBYTE(v159) = v50;
-            LOBYTE(v162) = v47 & 1;
-            if (v46 >= *(v148 + 2))
+            LOBYTE(v161) = v51;
+            LOBYTE(v164) = v48 & 1;
+            if (v47 >= *(v150 + 2))
             {
               goto LABEL_149;
             }
 
-            *v49 = v144;
-            *(v49 + 1) = v142;
-            v49[16] = v159;
-            *(v49 + 3) = v48;
-            *(v49 + 4) = v151;
-            v49[40] = v162;
-            v49[89] = 2;
-            v55 = _s7SwiftUI16ListBatchUpdatesV27computeRowRemovesAndInserts33_A424F5232720E51D2A2BD1A8E90C36E84from13sourceSection2to06targetW0SayAA0C6UpdateOyAA13CountingIndexVy0W3IDs_5IndexQZGAMySiGGGAA013CountingIndexC10DataSourceAELLVyqd__G_AqVyxGAQtAA0C8DiffableRd__0G3IDs_7ElementQYd__AZ_A_RTzAN_A_QYd__AN_A_RTzAN_AOQYd__APRSlFAA22TableDataSourceAdaptorV_AA06ShadowC10DataSourceVyA6_GTt3B5(a1, v144, v142, v50, a2, v48, v151, v47 & 1);
-            specialized Array.append<A>(contentsOf:)(v55);
+            *v50 = v146;
+            *(v50 + 1) = v144;
+            v50[16] = v161;
+            *(v50 + 3) = v49;
+            *(v50 + 4) = v153;
+            v50[40] = v164;
+            v50[89] = 2;
+            v57 = _s7SwiftUI16ListBatchUpdatesV27computeRowRemovesAndInserts33_A424F5232720E51D2A2BD1A8E90C36E84from13sourceSection2to06targetW0SayAA0C6UpdateOyAA13CountingIndexVy0W3IDs_5IndexQZGAMySiGGGAA013CountingIndexC10DataSourceAELLVyqd__G_AqVyxGAQtAA0C8DiffableRd__0G3IDs_7ElementQYd__AZ_A_RTzAN_A_QYd__AN_A_RTzAN_AOQYd__APRSlFAA22TableDataSourceAdaptorV_AA06ShadowC10DataSourceVyA6_GTt3B5(a1, v146, v144, v51, a2, v49, v153, v48 & 1, v53);
+            specialized Array.append<A>(contentsOf:)(v57);
             --v7;
-            v5 = v148;
+            v5 = v150;
           }
 
-          v6 = v149;
-          v9 = v152;
-          v3 = v42;
+          v6 = v151;
+          v9 = v154;
+          v3 = v43;
           goto LABEL_6;
         }
 
-        v64 = v16;
-        v65 = v42;
-        v138 = v14;
+        v66 = v16;
+        v67 = v43;
+        v140 = v14;
       }
 
       else
       {
-        v3 = v41;
-        v64 = v16;
-        v65 = v42;
-        v138 = v14;
+        v3 = v42;
+        v66 = v16;
+        v67 = v43;
+        v140 = v14;
       }
 
-      v75 = swift_isUniquelyReferenced_nonNull_native();
-      *&v159 = v65[3];
-      v6 = v159;
-      v76 = specialized __RawDictionaryStorage.find<A>(_:)(v3);
-      v78 = *(v6 + 2);
-      v79 = (v77 & 1) == 0;
-      v80 = __OFADD__(v78, v79);
-      v81 = v78 + v79;
-      if (v80)
+      v77 = swift_isUniquelyReferenced_nonNull_native();
+      *&v161 = v67[3];
+      v6 = v161;
+      v78 = specialized __RawDictionaryStorage.find<A>(_:)(v3);
+      v80 = *(v6 + 2);
+      v81 = (v79 & 1) == 0;
+      v82 = __OFADD__(v80, v81);
+      v83 = v80 + v81;
+      if (v82)
       {
         goto LABEL_129;
       }
 
-      v82 = v77;
-      if (*(v6 + 3) >= v81)
+      v84 = v79;
+      if (*(v6 + 3) >= v83)
       {
-        if ((v75 & 1) == 0)
+        if ((v77 & 1) == 0)
         {
-          v122 = v76;
+          v124 = v78;
           specialized _NativeDictionary.copy()();
-          v76 = v122;
+          v78 = v124;
         }
       }
 
       else
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v81, v75);
-        v76 = specialized __RawDictionaryStorage.find<A>(_:)(v3);
-        if ((v82 & 1) != (v83 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v83, v77);
+        v78 = specialized __RawDictionaryStorage.find<A>(_:)(v3);
+        if ((v84 & 1) != (v85 & 1))
         {
           goto LABEL_155;
         }
       }
 
-      v6 = v149;
-      v84 = v159;
-      if (v82)
+      v6 = v151;
+      v86 = v161;
+      if (v84)
       {
-        v11 = *(v159 + 56) + 32 * v76;
+        v11 = *(v161 + 56) + 32 * v78;
         *v11 = v7;
-        *(v11 + 8) = v138;
-        *(v11 + 16) = v151;
-        *(v11 + 24) = v64 & 1;
+        *(v11 + 8) = v140;
+        *(v11 + 16) = v153;
+        *(v11 + 24) = v66 & 1;
       }
 
       else
       {
-        *(v159 + 8 * (v76 >> 6) + 64) |= 1 << v76;
-        *(*(v84 + 6) + 8 * v76) = v3;
-        v85 = *(v84 + 7) + 32 * v76;
-        *v85 = v7;
-        *(v85 + 8) = v138;
-        *(v85 + 16) = v151;
-        *(v85 + 24) = v64 & 1;
-        v86 = *(v84 + 2);
-        v80 = __OFADD__(v86, 1);
-        v87 = v86 + 1;
-        if (v80)
+        *(v161 + 8 * (v78 >> 6) + 64) |= 1 << v78;
+        *(v86[6] + 8 * v78) = v3;
+        v87 = v86[7] + 32 * v78;
+        *v87 = v7;
+        *(v87 + 8) = v140;
+        *(v87 + 16) = v153;
+        *(v87 + 24) = v66 & 1;
+        v88 = v86[2];
+        v82 = __OFADD__(v88, 1);
+        v89 = v88 + 1;
+        if (v82)
         {
           goto LABEL_136;
         }
 
-        *(v84 + 2) = v87;
+        v86[2] = v89;
       }
 
-      v3 = v65;
-      v65[3] = v84;
-      v9 = v152;
+      v3 = v67;
+      v67[3] = v86;
+      v9 = v154;
 LABEL_6:
-      v10 = v153;
+      v10 = v155;
       goto LABEL_7;
     }
 
@@ -2241,10 +3107,10 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v141 = *(v13 + 3);
-    v150 = *(v13 + 1);
-    v131 = *(v13 + 4);
-    v133 = v13[40];
+    v143 = *(v13 + 3);
+    v152 = *(v13 + 1);
+    v133 = *(v13 + 4);
+    v135 = v13[40];
     if (v17 == 3)
     {
       break;
@@ -2261,170 +3127,170 @@ LABEL_6:
       goto LABEL_133;
     }
 
-    v145 = v13[16];
-    v56 = *v13;
-    v57 = &v6[96 * v14];
-    outlined init with copy of TableSections.Item((v57 + 32), &v159);
-    v5 = v159;
-    outlined destroy of TableSections.Item(&v159);
-    v137 = v56;
-    if (v56 >= *(v6 + 2))
+    v147 = v13[16];
+    v58 = *v13;
+    v59 = &v6[6 * v14];
+    outlined init with copy of TableSections.Item((v59 + 2), &v161);
+    v5 = v161;
+    outlined destroy of TableSections.Item(&v161);
+    v139 = v58;
+    if (v58 >= *(v6 + 2))
     {
       goto LABEL_134;
     }
 
-    v58 = *(v57 + 14);
-    v59 = v141 - v58;
-    if (__OFSUB__(v141, v58))
+    v60 = *(v59 + 14);
+    v61 = v143 - v60;
+    if (__OFSUB__(v143, v60))
     {
       goto LABEL_135;
     }
 
-    v60 = v3;
-    v6 = *(v57 + 12);
-    v61 = v57[104];
-    if (v61)
+    v62 = v3;
+    v6 = *(v59 + 12);
+    v63 = *(v59 + 104);
+    if (v63)
     {
-      if ((v59 & 0x8000000000000000) != 0)
+      if ((v61 & 0x8000000000000000) != 0)
       {
         goto LABEL_141;
       }
 
-      if (v59 >= *(v6 + 2))
+      if (v61 >= *(v6 + 2))
       {
         goto LABEL_142;
       }
 
-      outlined init with copy of TableRowID(&v6[48 * v59 + 32], &v162);
+      outlined init with copy of TableRowID(&v6[3 * v61 + 2], &v164);
     }
 
     else
     {
-      v88 = *(*v6 + 104);
+      v90 = *(*v6 + 104);
 
-      v88(&v162, v59);
+      v90(&v164, v61);
     }
 
-    v159 = v162;
-    *v160 = v163[0];
-    *&v160[9] = *(v163 + 9);
-    outlined consume of Environment<[SceneID : KeyboardShortcut]>.Content(v6, v61);
-    v3 = v60;
-    v9 = v152;
-    if (*(v60[3] + 2) && (specialized __RawDictionaryStorage.find<A>(_:)(v5), (v89 & 1) != 0))
+    v161 = v164;
+    *v162 = v165[0];
+    *&v162[9] = *(v165 + 9);
+    outlined consume of Environment<[SceneID : KeyboardShortcut]>.Content(v6, v63);
+    v3 = v62;
+    v9 = v154;
+    if (*(v62[3] + 16) && (specialized __RawDictionaryStorage.find<A>(_:)(v5), (v91 & 1) != 0))
     {
-      outlined destroy of TableRowID(&v159);
-      v5 = v148;
-      v6 = v149;
+      outlined destroy of TableRowID(&v161);
+      v5 = v150;
+      v6 = v151;
     }
 
     else
     {
-      v6 = v60[4];
+      v6 = v62[4];
       if (!*(v6 + 2))
       {
-        v5 = v148;
+        v5 = v150;
 LABEL_89:
-        outlined init with copy of TableRowID(&v159, &v162);
-        v99 = swift_isUniquelyReferenced_nonNull_native();
-        v161[0] = v60[4];
-        v100 = v161[0];
-        v101 = specialized __RawDictionaryStorage.find<A>(_:)(&v162);
-        v103 = *(v100 + 16);
-        v104 = (v102 & 1) == 0;
-        v80 = __OFADD__(v103, v104);
-        v105 = v103 + v104;
-        if (v80)
+        outlined init with copy of TableRowID(&v161, &v164);
+        v101 = swift_isUniquelyReferenced_nonNull_native();
+        v163[0] = v62[4];
+        v102 = v163[0];
+        v103 = specialized __RawDictionaryStorage.find<A>(_:)(&v164);
+        v105 = *(v102 + 16);
+        v106 = (v104 & 1) == 0;
+        v82 = __OFADD__(v105, v106);
+        v107 = v105 + v106;
+        if (v82)
         {
           goto LABEL_146;
         }
 
-        v106 = v102;
-        if (*(v100 + 24) >= v105)
+        v108 = v104;
+        if (*(v102 + 24) >= v107)
         {
-          if ((v99 & 1) == 0)
+          if ((v101 & 1) == 0)
           {
-            v123 = v101;
+            v125 = v103;
             specialized _NativeDictionary.copy()();
-            v101 = v123;
+            v103 = v125;
           }
         }
 
         else
         {
-          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v105, v99);
-          v101 = specialized __RawDictionaryStorage.find<A>(_:)(&v162);
-          if ((v106 & 1) != (v107 & 1))
+          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v107, v101);
+          v103 = specialized __RawDictionaryStorage.find<A>(_:)(&v164);
+          if ((v108 & 1) != (v109 & 1))
           {
             goto LABEL_154;
           }
         }
 
-        v116 = v161[0];
-        if (v106)
+        v118 = v163[0];
+        if (v108)
         {
-          v117 = *(v161[0] + 56) + 56 * v101;
-          *v117 = v7;
-          *(v117 + 8) = v137;
-          *(v117 + 16) = v150;
-          *(v117 + 24) = v145 & 1;
-          *(v117 + 32) = v141;
-          *(v117 + 40) = v131;
-          *(v117 + 48) = v133 & 1;
-          outlined destroy of TableRowID(&v162);
-          outlined destroy of TableRowID(&v159);
+          v119 = *(v163[0] + 56) + 56 * v103;
+          *v119 = v7;
+          *(v119 + 8) = v139;
+          *(v119 + 16) = v152;
+          *(v119 + 24) = v147 & 1;
+          *(v119 + 32) = v143;
+          *(v119 + 40) = v133;
+          *(v119 + 48) = v135 & 1;
+          outlined destroy of TableRowID(&v164);
+          outlined destroy of TableRowID(&v161);
         }
 
         else
         {
-          *(v161[0] + 8 * (v101 >> 6) + 64) |= 1 << v101;
-          v118 = v101;
-          outlined init with copy of TableRowID(&v162, *(v116 + 6) + 48 * v101);
-          v119 = *(v116 + 7) + 56 * v118;
-          *v119 = v7;
-          *(v119 + 8) = v137;
-          *(v119 + 16) = v150;
-          *(v119 + 24) = v145 & 1;
-          *(v119 + 32) = v141;
-          *(v119 + 40) = v131;
-          *(v119 + 48) = v133 & 1;
-          outlined destroy of TableRowID(&v162);
-          outlined destroy of TableRowID(&v159);
-          v120 = *(v116 + 2);
-          v80 = __OFADD__(v120, 1);
-          v121 = v120 + 1;
-          if (v80)
+          *(v163[0] + 8 * (v103 >> 6) + 64) |= 1 << v103;
+          v120 = v103;
+          outlined init with copy of TableRowID(&v164, v118[6] + 48 * v103);
+          v121 = v118[7] + 56 * v120;
+          *v121 = v7;
+          *(v121 + 8) = v139;
+          *(v121 + 16) = v152;
+          *(v121 + 24) = v147 & 1;
+          *(v121 + 32) = v143;
+          *(v121 + 40) = v133;
+          *(v121 + 48) = v135 & 1;
+          outlined destroy of TableRowID(&v164);
+          outlined destroy of TableRowID(&v161);
+          v122 = v118[2];
+          v82 = __OFADD__(v122, 1);
+          v123 = v122 + 1;
+          if (v82)
           {
             goto LABEL_151;
           }
 
-          *(v116 + 2) = v121;
+          v118[2] = v123;
         }
 
-        v60[4] = v116;
-        v6 = v149;
-        v9 = v152;
-        v3 = v60;
+        v62[4] = v118;
+        v6 = v151;
+        v9 = v154;
+        v3 = v62;
         goto LABEL_7;
       }
 
-      v90 = specialized __RawDictionaryStorage.find<A>(_:)(&v159);
-      v5 = v148;
-      if ((v91 & 1) == 0)
+      v92 = specialized __RawDictionaryStorage.find<A>(_:)(&v161);
+      v5 = v150;
+      if ((v93 & 1) == 0)
       {
-        LOBYTE(v162) = 1;
-        v166 = 1;
+        LOBYTE(v164) = 1;
+        v168 = 1;
         goto LABEL_89;
       }
 
-      v92 = *(v6 + 7) + 56 * v90;
-      v93 = *v92;
-      v94 = *(v92 + 8);
-      v95 = *(v92 + 24);
-      v96 = *(v92 + 32);
-      v97 = *(v92 + 48);
-      v166 = 0;
-      if ((v93 & 0x8000000000000000) != 0)
+      v94 = *(v6 + 7) + 56 * v92;
+      v95 = *v94;
+      v96 = *(v94 + 8);
+      v97 = *(v94 + 24);
+      v98 = *(v94 + 32);
+      v99 = *(v94 + 48);
+      v168 = 0;
+      if ((v95 & 0x8000000000000000) != 0)
       {
         __break(1u);
 LABEL_121:
@@ -2476,82 +3342,82 @@ LABEL_143:
         goto LABEL_144;
       }
 
-      if (v93 >= *(v148 + 2))
+      if (v95 >= *(v150 + 2))
       {
         goto LABEL_148;
       }
 
-      v109 = v3;
-      v110 = &v152[96 * v93];
-      if (v110[89] == 3)
+      v111 = v3;
+      v112 = &v154[96 * v95];
+      if (v112[89] == 3)
       {
-        v126 = v96;
-        v128 = v94;
-        v130 = v95;
-        v111 = specialized __RawDictionaryStorage.find<A>(_:)(&v159);
-        if (v112)
+        v128 = v98;
+        v130 = v96;
+        v132 = v97;
+        v113 = specialized __RawDictionaryStorage.find<A>(_:)(&v161);
+        if (v114)
         {
-          v113 = v111;
-          v114 = swift_isUniquelyReferenced_nonNull_native();
-          v115 = v109[4];
-          *&v162 = v115;
-          if (!v114)
+          v115 = v113;
+          v116 = swift_isUniquelyReferenced_nonNull_native();
+          v117 = v111[4];
+          *&v164 = v117;
+          if (!v116)
           {
             specialized _NativeDictionary.copy()();
-            v115 = v162;
+            v117 = v164;
           }
 
-          outlined destroy of TableRowID(*(v115 + 48) + 48 * v113);
-          specialized _NativeDictionary._delete(at:)(v113, v115);
-          v109[4] = v115;
+          outlined destroy of TableRowID(*(v117 + 48) + 48 * v115);
+          specialized _NativeDictionary._delete(at:)(v115, v117);
+          v111[4] = v117;
         }
 
-        LOBYTE(v162) = v130;
-        LOBYTE(v161[0]) = v97;
-        v165 = v145 & 1;
-        v164 = v133 & 1;
-        outlined destroy of TableRowID(&v159);
-        if (v93 >= *(v148 + 2))
+        LOBYTE(v164) = v132;
+        LOBYTE(v163[0]) = v99;
+        v167 = v147 & 1;
+        v166 = v135 & 1;
+        outlined destroy of TableRowID(&v161);
+        if (v95 >= *(v150 + 2))
         {
           goto LABEL_152;
         }
 
-        *v110 = v128;
-        v110[16] = v130;
-        *(v110 + 24) = v126;
-        v110[40] = v97;
-        *(v110 + 6) = v137;
-        *(v110 + 7) = v150;
-        v110[64] = v145 & 1;
-        *(v110 + 9) = v141;
-        *(v110 + 10) = v131;
-        v110[88] = v133 & 1;
+        *v112 = v130;
+        v112[16] = v132;
+        *(v112 + 24) = v128;
+        v112[40] = v99;
+        *(v112 + 6) = v139;
+        *(v112 + 7) = v152;
+        v112[64] = v147 & 1;
+        *(v112 + 9) = v143;
+        *(v112 + 10) = v133;
+        v112[88] = v135 & 1;
         --v7;
-        v110[89] = 5;
-        v5 = v148;
+        v112[89] = 5;
+        v5 = v150;
       }
 
       else
       {
-        outlined destroy of TableRowID(&v159);
+        outlined destroy of TableRowID(&v161);
       }
 
-      v6 = v149;
-      v9 = v152;
-      v3 = v109;
+      v6 = v151;
+      v9 = v154;
+      v3 = v111;
     }
 
 LABEL_7:
-    ++v8;
+    v8 = (v8 + 1);
     ++v7;
     v10 += 96;
     if (v6 == v8)
     {
       *v3 = v5;
-      v124 = *(v5 + 2);
-      if (v124 >= v7)
+      v126 = *(v5 + 2);
+      if (v126 >= v7)
       {
-        v4 = v167;
+        v4 = v169;
         goto LABEL_119;
       }
 
@@ -2559,118 +3425,118 @@ LABEL_7:
     }
   }
 
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v162, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
-  _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v162, &v159);
+  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v164, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
+  _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(&v164, &v161);
   v5 = v14;
-  v34 = *&v160[24];
+  v35 = *&v162[24];
 
-  v6 = &v159;
-  v35 = v5;
-  v36 = specialized ShadowListUpdateRecorder.initialIndex(_:)(v5);
-  if ((v36 & 0x8000000000000000) != 0)
+  v6 = &v161;
+  v36 = v5;
+  v37 = specialized ShadowListUpdateRecorder.initialIndex(_:)(v5);
+  if ((v37 & 0x8000000000000000) != 0)
   {
     goto LABEL_131;
   }
 
-  if (v36 >= *(v34 + 16))
+  if (v37 >= *(v35 + 16))
   {
     goto LABEL_132;
   }
 
-  outlined init with copy of TableSections.Item(v34 + 96 * v36 + 32, &v162);
-  v37 = v162;
-  outlined destroy of TableSections.Item(&v162);
-  outlined destroy of BridgedListState(&v159, type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>);
+  outlined init with copy of TableSections.Item(v35 + 96 * v37 + 32, &v164);
+  v38 = v164;
+  outlined destroy of TableSections.Item(&v164);
+  outlined destroy of BridgedListState(&v161, type metadata accessor for CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>);
 
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v162, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
-  v38 = specialized ShadowListUpdateRecorder.initialIndex(_:)(v35);
-  _s7SwiftUI19ShadowRowCollectionV_7sectionACyxGAA0C18ListUpdateRecorderVyxG_10SectionIDs_5IndexQZtcfCAA22TableDataSourceAdaptorV_Tt2g5(&v162, v38, &v159);
-  specialized ShadowRowCollection.subscript.getter(v141, v161);
-  outlined destroy of BridgedListState(&v159, type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>);
-  if (*(v3[3] + 2))
+  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v164, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
+  v39 = specialized ShadowListUpdateRecorder.initialIndex(_:)(v36);
+  _s7SwiftUI19ShadowRowCollectionV_7sectionACyxGAA0C18ListUpdateRecorderVyxG_10SectionIDs_5IndexQZtcfCAA22TableDataSourceAdaptorV_Tt2g5(&v164, v39, &v161);
+  specialized ShadowRowCollection.subscript.getter(v143, v163);
+  outlined destroy of BridgedListState(&v161, type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>);
+  if (*(v3[3] + 16))
   {
-    specialized __RawDictionaryStorage.find<A>(_:)(v37);
-    if (v39)
+    specialized __RawDictionaryStorage.find<A>(_:)(v38);
+    if (v40)
     {
-      outlined destroy of TableRowID(v161);
+      outlined destroy of TableRowID(v163);
 LABEL_86:
-      v5 = v148;
-      v6 = v149;
+      v5 = v150;
+      v6 = v151;
       goto LABEL_7;
     }
   }
 
-  v66 = v3[4];
-  if (!*(v66 + 2) || (v67 = specialized __RawDictionaryStorage.find<A>(_:)(v161), (v68 & 1) == 0))
+  v68 = v3[4];
+  if (!*(v68 + 16) || (v69 = specialized __RawDictionaryStorage.find<A>(_:)(v163), (v70 & 1) == 0))
   {
-    v98 = swift_isUniquelyReferenced_nonNull_native();
-    *&v159 = v3[4];
-    v154[0] = v7;
-    v154[1] = v35;
-    v154[2] = v150;
-    v155 = v16 & 1;
-    v156 = v141;
-    v157 = v131;
-    v158 = v133 & 1;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v154, v161, v98);
-    outlined destroy of TableRowID(v161);
-    v3[4] = v159;
+    v100 = swift_isUniquelyReferenced_nonNull_native();
+    *&v161 = v3[4];
+    v156[0] = v7;
+    v156[1] = v36;
+    v156[2] = v152;
+    v157 = v16 & 1;
+    v158 = v143;
+    v159 = v133;
+    v160 = v135 & 1;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v156, v163, v100);
+    outlined destroy of TableRowID(v163);
+    v3[4] = v161;
     goto LABEL_86;
   }
 
-  v69 = *(v66 + 7) + 56 * v67;
-  v70 = *v69;
-  v71 = *(v69 + 8);
-  v72 = *(v69 + 24);
-  v73 = *(v69 + 32);
-  v146 = *(v69 + 48);
-  LOBYTE(v162) = 0;
-  if ((v70 & 0x8000000000000000) == 0)
+  v71 = *(v68 + 56) + 56 * v69;
+  v72 = *v71;
+  v73 = *(v71 + 8);
+  v74 = *(v71 + 24);
+  v75 = *(v71 + 32);
+  v148 = *(v71 + 48);
+  LOBYTE(v164) = 0;
+  if ((v72 & 0x8000000000000000) == 0)
   {
-    v6 = v149;
-    if (v70 >= *(v148 + 2))
+    v6 = v151;
+    if (v72 >= *(v150 + 2))
     {
       goto LABEL_145;
     }
 
-    v108 = &v9[96 * v70];
-    if (v108[89] == 4)
+    v110 = &v9[96 * v72];
+    if (v110[89] == 4)
     {
-      v127 = v73;
-      v129 = v71;
-      v139 = v70;
-      specialized Dictionary._Variant.removeValue(forKey:)(v161, &v159);
-      LOBYTE(v159) = v16 & 1;
-      v166 = v133 & 1;
-      v165 = v72;
-      v164 = v146;
-      outlined destroy of TableRowID(v161);
-      if (v139 >= *(v148 + 2))
+      v129 = v75;
+      v131 = v73;
+      v141 = v72;
+      specialized Dictionary._Variant.removeValue(forKey:)(v163, &v161);
+      LOBYTE(v161) = v16 & 1;
+      v168 = v135 & 1;
+      v167 = v74;
+      v166 = v148;
+      outlined destroy of TableRowID(v163);
+      if (v141 >= *(v150 + 2))
       {
         goto LABEL_150;
       }
 
-      *v108 = v35;
-      *(v108 + 1) = v150;
-      v108[16] = v16 & 1;
-      *(v108 + 3) = v141;
-      *(v108 + 4) = v131;
-      v108[40] = v133 & 1;
-      *(v108 + 3) = v129;
-      v108[64] = v72;
-      *(v108 + 72) = v127;
-      v108[88] = v146;
+      *v110 = v36;
+      *(v110 + 1) = v152;
+      v110[16] = v16 & 1;
+      *(v110 + 3) = v143;
+      *(v110 + 4) = v133;
+      v110[40] = v135 & 1;
+      *(v110 + 3) = v131;
+      v110[64] = v74;
+      *(v110 + 72) = v129;
+      v110[88] = v148;
       --v7;
-      v108[89] = 5;
-      v5 = v148;
-      v6 = v149;
-      v9 = v152;
+      v110[89] = 5;
+      v5 = v150;
+      v6 = v151;
+      v9 = v154;
     }
 
     else
     {
-      outlined destroy of TableRowID(v161);
-      v5 = v148;
+      outlined destroy of TableRowID(v163);
+      v5 = v150;
     }
 
     goto LABEL_7;
@@ -2705,14 +3571,14 @@ LABEL_155:
   return result;
 }
 
-uint64_t _s7SwiftUI16ListBatchUpdatesV27computeRowRemovesAndInserts33_A424F5232720E51D2A2BD1A8E90C36E8LL4from13sourceSection2to06targetW0SayAA0C6UpdateOyAA13CountingIndexVy0W3IDs_5IndexQZGAMySiGGGAA013CountingIndexC10DataSourceAELLVyqd__G_AqVyxGAQtAA0C8DiffableRd__0G3IDs_7ElementQYd__AZ_A_RTzAN_A_QYd__AN_A_RTzAN_AOQYd__APRSlFAA22TableDataSourceAdaptorV_AA06ShadowC10DataSourceVyA6_GTt3B5(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, unint64_t a6, uint64_t a7, char a8)
+void *_s7SwiftUI16ListBatchUpdatesV27computeRowRemovesAndInserts33_A424F5232720E51D2A2BD1A8E90C36E8LL4from13sourceSection2to06targetW0SayAA0C6UpdateOyAA13CountingIndexVy0W3IDs_5IndexQZGAMySiGGGAA013CountingIndexC10DataSourceAELLVyqd__G_AqVyxGAQtAA0C8DiffableRd__0G3IDs_7ElementQYd__AZ_A_RTzAN_A_QYd__AN_A_RTzAN_AOQYd__APRSlFAA22TableDataSourceAdaptorV_AA06ShadowC10DataSourceVyA6_GTt3B5(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, unint64_t a6, uint64_t a7, char a8, __n128 a9)
 {
-  v13 = MEMORY[0x1E69E7CC0];
-  v114 = MEMORY[0x1E69E7CC0];
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v68, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
-  v43 = a2;
-  v14 = specialized ShadowListUpdateRecorder.initialIndex(_:)(a2);
-  result = _s7SwiftUI19ShadowRowCollectionV_7sectionACyxGAA0C18ListUpdateRecorderVyxG_10SectionIDs_5IndexQZtcfCAA22TableDataSourceAdaptorV_Tt2g5(&v68, v14, v108);
+  v14 = MEMORY[0x1E69E7CC0];
+  v115 = MEMORY[0x1E69E7CC0];
+  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, &v69, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
+  v44 = a2;
+  v15 = specialized ShadowListUpdateRecorder.initialIndex(_:)(a2);
+  result = _s7SwiftUI19ShadowRowCollectionV_7sectionACyxGAA0C18ListUpdateRecorderVyxG_10SectionIDs_5IndexQZtcfCAA22TableDataSourceAdaptorV_Tt2g5(&v69, v15, v109);
   if ((a6 & 0x8000000000000000) != 0)
   {
 LABEL_24:
@@ -2720,191 +3586,191 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v16 = *(a5 + 40);
-  if (*(v16 + 16) > a6)
+  v17 = *(a5 + 40);
+  if (*(v17 + 16) > a6)
   {
-    v42 = a6;
-    v17 = v16 + 96 * a6;
-    v18 = *(v17 + 96);
-    v19 = *(v17 + 104);
-    v21 = *(v17 + 112);
-    v20 = *(v17 + 120);
-    *&v68 = v18;
-    BYTE8(v68) = v19;
-    v46 = v20;
+    v43 = a6;
+    v18 = v17 + 96 * a6;
+    v19 = *(v18 + 96);
+    v20 = *(v18 + 104);
+    v22 = *(v18 + 112);
+    v21 = *(v18 + 120);
+    *&v69 = v19;
+    BYTE8(v69) = v20;
     v47 = v21;
-    *&v69 = v21;
-    *(&v69 + 1) = v20;
-    *&v54 = v13;
-    outlined copy of ResolvedTableRowIDs.Storage(v18, v19);
-    v48 = v18;
+    v48 = v22;
+    *&v70 = v22;
+    *(&v70 + 1) = v21;
+    *&v55 = v14;
+    outlined copy of ResolvedTableRowIDs.Storage(v19, v20);
     v49 = v19;
-    outlined copy of ResolvedTableRowIDs.Storage(v18, v19);
-    type metadata accessor for CollectionChanges<CountingIndex<Int>, CountingIndex<Int>>();
-    type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>();
+    v50 = v20;
+    outlined copy of ResolvedTableRowIDs.Storage(v19, v20);
+    type metadata accessor for CollectionChanges<CountingIndex<Int>, CountingIndex<Int>>(0);
+    type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>(0);
     _s7SwiftUI33AccessibilityViewModifierAccessor33_71F62EDC1DAE3BBC7A74521E45BA5A66LLCyAA0c10AttachmentE0VGMaTm_0(0, &lazy cache variable for type metadata for CountingIndexCollection<ResolvedTableRowIDs>, lazy protocol witness table accessor for type ResolvedTableRowIDs and conformance ResolvedTableRowIDs, &type metadata for ResolvedTableRowIDs, MEMORY[0x1E6980198]);
-    lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>> and conformance CountingIndexCollection<A>, type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>);
+    lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>> and conformance CountingIndexCollection<A>, type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>, MEMORY[0x1E69801A0]);
     lazy protocol witness table accessor for type CountingIndexCollection<ResolvedTableRowIDs> and conformance CountingIndexCollection<A>();
     lazy protocol witness table accessor for type TableRowID and conformance TableRowID();
     CollectionChanges.formChanges<A, B>(from:to:)();
-    result = outlined consume of Environment<[SceneID : KeyboardShortcut]>.Content(v68, SBYTE8(v68));
-    v22 = v13;
-    v53 = *(v13 + 16);
-    if (!v53)
+    result = outlined consume of Environment<[SceneID : KeyboardShortcut]>.Content(v69, SBYTE8(v69));
+    v23 = v14;
+    v54 = *(v14 + 16);
+    if (!v54)
     {
 LABEL_20:
-      outlined consume of Environment<[SceneID : KeyboardShortcut]>.Content(v48, v49);
-      outlined destroy of BridgedListState(v108, type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>);
+      outlined consume of Environment<[SceneID : KeyboardShortcut]>.Content(v49, v50);
+      outlined destroy of BridgedListState(v109, type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>);
 
-      return v114;
+      return v115;
     }
 
-    v23 = 0;
-    v40 = v47 + v46;
-    v24 = __OFADD__(v47, v46);
-    v41 = v24;
-    v25 = (v54 + 64);
-    v38 = a8 & 1;
-    v39 = a4 & 1;
-    v52 = v54;
-    while (v23 < *(v22 + 16))
+    v24 = 0;
+    v41 = v48 + v47;
+    v25 = __OFADD__(v48, v47);
+    v42 = v25;
+    v26 = (v55 + 64);
+    v39 = a8 & 1;
+    v40 = a4 & 1;
+    v53 = v55;
+    while (v24 < *(v23 + 16))
     {
-      v27 = *(v25 - 4);
-      v28 = *(v25 - 3);
-      v30 = *(v25 - 1);
-      v29 = *v25;
-      v31 = *(v25 + 8);
-      v32 = *(v25 - 16);
-      if (*(v25 + 57))
+      v28 = *(v26 - 4);
+      v29 = *(v26 - 3);
+      v31 = *(v26 - 1);
+      v30 = *v26;
+      v32 = *(v26 + 8);
+      v33 = *(v26 - 16);
+      if (*(v26 + 57))
       {
-        if (*(v25 + 57) == 1)
+        if (*(v26 + 57) == 1)
         {
-          v107 = v49;
-          if (v41)
+          v108 = v50;
+          if (v42)
           {
             goto LABEL_22;
           }
 
-          v106 = v47 == v40;
-          v105 = 1;
-          v94 = v49;
+          v107 = v48 == v41;
+          v106 = 1;
+          v95 = v50;
+          v94 = v33 & 1;
           v93 = v32 & 1;
-          v92 = v31 & 1;
-          v95 = v48;
-          v96 = v107;
-          v97 = v47;
-          v98 = v46;
+          v96 = v49;
+          v97 = v108;
+          v98 = v48;
           v99 = v47;
-          v100 = 0;
-          v101 = v47 == v40;
-          v102 = v47 + v46;
-          v103 = 0;
-          v104 = 1;
-          outlined copy of ResolvedTableRowIDs.Storage(v48, v49);
-          outlined copy of ResolvedTableRowIDs.Storage(v48, v49);
-          outlined destroy of BridgedListState(&v95, type metadata accessor for DefaultIndices<CountingIndexCollection<ResolvedTableRowIDs>>);
-          *&v54 = v48;
-          BYTE8(v54) = v94;
-          *&v55 = v47;
-          *(&v55 + 1) = v46;
-          *&v56 = v27;
-          *(&v56 + 1) = v28;
-          v57[0] = v93;
-          *&v57[8] = v30;
-          *&v57[16] = v29;
-          v57[24] = v92;
-          *&v68 = v48;
-          BYTE8(v68) = v94;
-          *&v69 = v47;
-          *(&v69 + 1) = v46;
-          *&v70 = v27;
-          *(&v70 + 1) = v28;
-          v22 = v52;
-          LOBYTE(v71) = v93;
-          *(&v71 + 1) = v30;
-          *&v72 = v29;
-          BYTE8(v72) = v92;
-          _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v54, v91, type metadata accessor for DefaultIndices<CountingIndexCollection<ResolvedTableRowIDs>>);
-          outlined destroy of BridgedListState(&v68, type metadata accessor for DefaultIndices<CountingIndexCollection<ResolvedTableRowIDs>>);
-          v91[0] = v38;
-          v33 = swift_allocObject();
-          *(v33 + 16) = v42;
-          *(v33 + 24) = a7;
-          *(v33 + 32) = v91[0];
-          v115[2] = v56;
-          v116[0] = *v57;
-          *(v116 + 9) = *&v57[9];
-          v115[0] = v54;
-          v115[1] = v55;
-          v117 = partial apply for specialized closure #2 in ListBatchUpdates.computeRowRemovesAndInserts<A>(from:sourceSection:to:targetSection:);
-          v118 = v33;
-          result = specialized Array.append<A>(contentsOf:)(v115);
+          v100 = v48;
+          v101 = 0;
+          v102 = v48 == v41;
+          v103 = v48 + v47;
+          v104 = 0;
+          v105 = 1;
+          outlined copy of ResolvedTableRowIDs.Storage(v49, v50);
+          outlined copy of ResolvedTableRowIDs.Storage(v49, v50);
+          outlined destroy of BridgedListState(&v96, type metadata accessor for DefaultIndices<CountingIndexCollection<ResolvedTableRowIDs>>);
+          *&v55 = v49;
+          BYTE8(v55) = v95;
+          *&v56 = v48;
+          *(&v56 + 1) = v47;
+          *&v57 = v28;
+          *(&v57 + 1) = v29;
+          v58[0] = v94;
+          *&v58[8] = v31;
+          *&v58[16] = v30;
+          v58[24] = v93;
+          *&v69 = v49;
+          BYTE8(v69) = v95;
+          *&v70 = v48;
+          *(&v70 + 1) = v47;
+          *&v71 = v28;
+          *(&v71 + 1) = v29;
+          v23 = v53;
+          LOBYTE(v72) = v94;
+          *(&v72 + 1) = v31;
+          *&v73 = v30;
+          BYTE8(v73) = v93;
+          _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(&v55, v92, type metadata accessor for DefaultIndices<CountingIndexCollection<ResolvedTableRowIDs>>);
+          outlined destroy of BridgedListState(&v69, type metadata accessor for DefaultIndices<CountingIndexCollection<ResolvedTableRowIDs>>);
+          v92[0] = v39;
+          v34 = swift_allocObject();
+          *(v34 + 16) = v43;
+          *(v34 + 24) = a7;
+          *(v34 + 32) = v92[0];
+          v116[2] = v57;
+          v117[0] = *v58;
+          *(v117 + 9) = *&v58[9];
+          v116[0] = v55;
+          v116[1] = v56;
+          v118 = partial apply for specialized closure #2 in ListBatchUpdates.computeRowRemovesAndInserts<A>(from:sourceSection:to:targetSection:);
+          v119 = v34;
+          result = specialized Array.append<A>(contentsOf:)(v116);
         }
       }
 
       else
       {
-        result = _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(v108, &v54, type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>);
-        v34 = v111 + v112;
-        if (__OFADD__(v111, v112))
+        result = _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(v109, &v55, type metadata accessor for CountingIndexCollection<ShadowRowCollection<TableDataSourceAdaptor>>);
+        v35 = v112 + v113;
+        if (__OFADD__(v112, v113))
         {
           goto LABEL_23;
         }
 
-        v50 = v28;
-        v51 = v30;
-        v35 = v113;
-        v36 = v110;
-        v37 = v109;
-        if (*(v110 + 16) | *(v109 + 16))
+        v51 = v29;
+        v52 = v31;
+        v36 = v114;
+        v37 = v111;
+        v38 = v110;
+        if (*(v111 + 16) | *(v110 + 16))
         {
 
-          specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(&v68, v36, v37, v35, v34);
+          specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(&v69, v37, v38, v36, v35);
         }
 
-        if (*(v36 + 16) | *(v37 + 16))
+        if (*(v37 + 16) | *(v38 + 16))
         {
 
-          specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(&v68, v36, v37, v35, v34);
+          specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(&v69, v37, v38, v36, v35);
         }
 
-        v80 = v65;
         v81 = v66;
         v82 = v67;
-        v76 = v61;
+        v83 = v68;
         v77 = v62;
         v78 = v63;
         v79 = v64;
-        v72 = *&v57[16];
-        v73 = v58;
+        v80 = v65;
+        v73 = *&v58[16];
         v74 = v59;
         v75 = v60;
-        v68 = v54;
+        v76 = v61;
         v69 = v55;
         v70 = v56;
-        v71 = *v57;
-        LOBYTE(v95) = v32 & 1;
-        v91[0] = v31 & 1;
-        v107 = v39;
-        v26 = swift_allocObject();
-        *(v26 + 16) = v43;
-        *(v26 + 24) = a3;
-        *(v26 + 32) = v107;
-        v83 = v27;
-        v84 = v50;
-        v85 = v32 & 1;
-        v86 = v51;
-        v87 = v29;
-        v88 = v31 & 1;
-        v89 = partial apply for specialized closure #1 in ListBatchUpdates.computeRowRemovesAndInserts<A>(from:sourceSection:to:targetSection:);
-        v90 = v26;
-        result = specialized Array.append<A>(contentsOf:)(&v68);
-        v22 = v52;
+        v71 = v57;
+        v72 = *v58;
+        LOBYTE(v96) = v33 & 1;
+        v92[0] = v32 & 1;
+        v108 = v40;
+        v27 = swift_allocObject();
+        *(v27 + 16) = v44;
+        *(v27 + 24) = a3;
+        *(v27 + 32) = v108;
+        v84 = v28;
+        v85 = v51;
+        v86 = v33 & 1;
+        v87 = v52;
+        v88 = v30;
+        v89 = v32 & 1;
+        v90 = partial apply for specialized closure #1 in ListBatchUpdates.computeRowRemovesAndInserts<A>(from:sourceSection:to:targetSection:);
+        v91 = v27;
+        result = specialized Array.append<A>(contentsOf:)(&v69);
+        v23 = v53;
       }
 
-      ++v23;
-      v25 += 12;
-      if (v53 == v23)
+      ++v24;
+      v26 += 12;
+      if (v54 == v24)
       {
         goto LABEL_20;
       }
@@ -3301,11 +4167,13 @@ LABEL_31:
   return 1;
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@unowned Bool) -> ()(uint64_t a1, uint64_t a2)
+double thunk for @escaping @callee_guaranteed (@unowned Bool) -> ()(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
 
   v3(a2);
+
+  return result;
 }
 
 uint64_t specialized Collection.distance(from:to:)(uint64_t result, uint64_t a2, char a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7)
@@ -3539,7 +4407,7 @@ uint64_t specialized RandomAccessCollection<>.index(after:)(uint64_t a1)
   return result;
 }
 
-void specialized UICollectionViewListCoordinator.updateLeadingHeaderMargin(collectionView:hasGlobalHeader:existingView:)(void *a1, char a2, uint64_t (*a3)(void, double, double))
+void specialized UICollectionViewListCoordinator.updateLeadingHeaderMargin(collectionView:hasGlobalHeader:existingView:)(void *a1, char a2, uint64_t (*a3)(double, double))
 {
   v74 = a1;
   v6 = type metadata accessor for IndexPath();
@@ -3623,11 +4491,11 @@ LABEL_10:
 
             v40 = static HorizontalAlignment.listRowSeparatorLeading.getter();
             a3 = *((*MEMORY[0x1E69E7D40] & *v23) + 0x68);
-            *&v41 = COERCE_DOUBLE(a3(v40, v37, v39));
+            *&v41 = COERCE_DOUBLE((a3)(v40, v37, v39));
             if (v42)
             {
               v43 = static HorizontalAlignment.leadingText.getter();
-              *&v44 = COERCE_DOUBLE(a3(v43, v37, v39));
+              *&v44 = COERCE_DOUBLE((a3)(v43, v37, v39));
               v46 = v45;
 
               v47 = 0.0;
@@ -3694,7 +4562,7 @@ LABEL_10:
   }
 
   v13 = [v74 visibleSupplementaryViewsOfKind_];
-  v73 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionReusableView);
+  v73 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionReusableView, 0x1E69DC7E8);
   v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v14 >> 62)
@@ -3739,7 +4607,7 @@ LABEL_31:
     }
 
     v53 = v52;
-    type metadata accessor for TableCollectionViewCell();
+    type metadata accessor for TableCollectionViewCell(0);
     v54 = swift_dynamicCastClass();
     if (v54)
     {
@@ -3747,8 +4615,8 @@ LABEL_31:
       v55 = *(v54 + direct field offset for ListCollectionViewCellBase.host);
       if (v55)
       {
-        type metadata accessor for _UIHostingView<ModifiedContent<TableRowView, CollectionViewCellModifier>>();
-        lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type _UIHostingView<ModifiedContent<TableRowView, CollectionViewCellModifier>> and conformance _UIHostingView<A>, type metadata accessor for _UIHostingView<ModifiedContent<TableRowView, CollectionViewCellModifier>>);
+        type metadata accessor for _UIHostingView<ModifiedContent<TableRowView, CollectionViewCellModifier>>(0);
+        lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type _UIHostingView<ModifiedContent<TableRowView, CollectionViewCellModifier>> and conformance _UIHostingView<A>, type metadata accessor for _UIHostingView<ModifiedContent<TableRowView, CollectionViewCellModifier>>, protocol conformance descriptor for _UIHostingView<A>);
         v56 = v55;
         v11 = v75;
         ViewGraphRootValueUpdater.invalidateProperties(_:mayDeferUpdate:)();
@@ -3835,248 +4703,248 @@ LABEL_40:
 uint64_t specialized UICollectionViewListCoordinatorBase.update(_:to:transaction:performDiff:)(void *a1, uint64_t a2, uint64_t a3, int a4)
 {
   v5 = v4;
-  v68 = a4;
-  v71 = a2;
+  v71 = a4;
+  v74 = a2;
   _s7SwiftUI33AccessibilityViewModifierAccessor33_71F62EDC1DAE3BBC7A74521E45BA5A66LLCyAA0c10AttachmentE0VGMaTm_0(0, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
-  v69 = v8;
+  v72 = v8;
   MEMORY[0x1EEE9AC00](v8);
-  v73 = &v65 - v9;
-  LOBYTE(v82) = 17;
-  specialized UICollectionViewListCoordinatorBase.currentSelection.getter(&v75);
-  v10 = v78;
-  if (v78)
+  v76 = &v68 - v9;
+  LOBYTE(v85) = 17;
+  specialized UICollectionViewListCoordinatorBase.currentSelection.getter(&v78);
+  v10 = v81;
+  if (v81)
   {
-    v11 = v79;
-    __swift_project_boxed_opaque_existential_1(&v75, v78);
+    v11 = v82;
+    __swift_project_boxed_opaque_existential_1(&v78, v81);
     v12 = (*(v11 + 24))(v10, v11);
-    outlined destroy of AnySelectionManager(&v75);
+    outlined destroy of AnySelectionManager(&v78);
   }
 
   else
   {
-    _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v75, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
+    _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v78, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
     v12 = 0;
   }
 
   v13 = swift_allocObject();
   *(v13 + 16) = a1;
   *(v13 + 24) = v12 & 1;
-  v70 = a1;
+  v73 = a1;
   static Update.enqueueAction(reason:_:)();
 
   v14 = MEMORY[0x1E69E7D40];
   v15 = *((*MEMORY[0x1E69E7D40] & *v5) + 0xA0);
   swift_beginAccess();
   v16 = *(v5 + v15);
-  v72 = v15;
+  v75 = v15;
   *(v5 + v15) = a3;
   outlined consume of ListItemTint?(v16);
   v17 = v5 + *((*v14 & *v5) + 0xB8);
   swift_beginAccess();
-  v18 = v73;
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v17, v73, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
+  v18 = v76;
+  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v17, v76, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
 
-  v19 = specialized ListCoreBatchUpdates.isEmpty.getter();
+  v20 = specialized ListCoreBatchUpdates.isEmpty.getter(v19);
   outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v18, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
-  v20 = *v14 & *v5;
-  if ((v19 & 1) == 0)
+  v21 = *v14 & *v5;
+  if ((v20 & 1) == 0)
   {
-    v27 = *((*v14 & *v5) + 0x88);
+    v28 = *((*v14 & *v5) + 0x88);
     swift_beginAccess();
-    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v5 + v27, &v75, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
+    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v5 + v28, &v78, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
     swift_beginAccess();
-    v28 = v17 + *(v69 + 60);
-    v29 = v71;
-    specialized ListBatchUpdates.formUpdates<A>(from:to:)(&v75, v71);
-    v30 = *(v28 + 16);
-    v82 = *v28;
-    v83 = v30;
-    v84 = *(v28 + 32);
-    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(&v82, v74, &lazy cache variable for type metadata for ListBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListBatchUpdates);
-    specialized ListCoreBatchUpdates.formResult<A>(_:)(&v82);
+    v29 = v17 + *(v72 + 60);
+    v30 = v74;
+    specialized ListBatchUpdates.formUpdates<A>(from:to:)(&v78, v74);
+    v31 = *(v29 + 16);
+    v85 = *v29;
+    v86 = v31;
+    v87 = *(v29 + 32);
+    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(&v85, v77, &lazy cache variable for type metadata for ListBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListBatchUpdates);
+    specialized ListCoreBatchUpdates.formResult<A>(_:)(&v85);
     swift_endAccess();
-    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v82, &lazy cache variable for type metadata for ListBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListBatchUpdates);
-    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v75, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
-    outlined init with copy of TableDataSourceAdaptor(v29, &v75);
-    v31 = *((*MEMORY[0x1E69E7D40] & *v5) + 0xD0);
+    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v85, &lazy cache variable for type metadata for ListBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListBatchUpdates);
+    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v78, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
+    outlined init with copy of TableDataSourceAdaptor(v30, &v78);
+    v32 = *((*MEMORY[0x1E69E7D40] & *v5) + 0xD0);
     swift_beginAccess();
-    outlined assign with take of TableHeaderView?(&v75, v5 + v31, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor);
+    outlined assign with take of TableHeaderView?(&v78, v5 + v32, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor);
     swift_endAccess();
-    v32 = v72;
+    v33 = v75;
     goto LABEL_31;
   }
 
-  v67 = v17;
-  v21 = v5 + *(v20 + 296);
-  v22 = *(v21 + 1);
-  if (v22)
+  v70 = v17;
+  v22 = v5 + *(v21 + 296);
+  v23 = *(v22 + 1);
+  if (v23)
   {
-    v23 = v21[16];
-    v75 = *v21;
-    v76 = v22;
-    v77 = v23;
+    v24 = v22[16];
+    v78 = *v22;
+    v79 = v23;
+    v80 = v24;
     type metadata accessor for MutableBox<UInt32>(0, &lazy cache variable for type metadata for Binding<EditMode>, &type metadata for EditMode, MEMORY[0x1E6981948]);
-    v25 = v24;
-    MEMORY[0x18D00ACC0](&v82);
-    if (v82 == 1)
+    v26 = v25;
+    MEMORY[0x18D00ACC0](&v85);
+    if (v85 == 1)
     {
-      v26 = 0;
+      v27 = 0;
       goto LABEL_14;
     }
 
-    v34 = *(v21 + 1);
-    if (v34)
+    v35 = *(v22 + 1);
+    if (v35)
     {
-      v35 = v21[16];
-      v75 = *v21;
-      v76 = v34;
-      v77 = v35;
-      MEMORY[0x18D00ACC0](&v82, v25);
-      v33 = v82 != 0;
+      v36 = v22[16];
+      v78 = *v22;
+      v79 = v35;
+      v80 = v36;
+      MEMORY[0x18D00ACC0](&v85, v26);
+      v34 = v85 != 0;
     }
 
     else
     {
-      v33 = 0;
+      v34 = 0;
     }
   }
 
   else
   {
-    v33 = 0;
+    v34 = 0;
   }
 
-  v26 = v33 ^ [v70 isEditing];
+  v27 = v34 ^ [v73 isEditing];
 LABEL_14:
-  v36 = *v14 & *v5;
-  v37 = *(v36 + 0xC0);
-  if (*(v5 + v37) == 1)
+  v37 = *v14 & *v5;
+  v38 = *(v37 + 0xC0);
+  if (*(v5 + v38) == 1)
   {
-    *(v5 + v37) = 0;
-    v38 = *(v21 + 1);
-    v32 = v72;
-    if (v38)
+    *(v5 + v38) = 0;
+    v39 = *(v22 + 1);
+    v33 = v75;
+    if (v39)
     {
-      v39 = v21[16];
-      v75 = *v21;
-      v76 = v38;
-      v77 = v39;
+      v40 = v22[16];
+      v78 = *v22;
+      v79 = v39;
+      v80 = v40;
       type metadata accessor for MutableBox<UInt32>(0, &lazy cache variable for type metadata for Binding<EditMode>, &type metadata for EditMode, MEMORY[0x1E6981948]);
-      MEMORY[0x18D00ACC0](&v82);
-      if (v82)
+      MEMORY[0x18D00ACC0](&v85);
+      if (v85)
       {
-        [v70 setEditing_];
+        [v73 setEditing_];
       }
     }
 
     goto LABEL_31;
   }
 
-  v66 = v26;
-  if (v68)
+  v69 = v27;
+  if (v71)
   {
-    v40 = *(v36 + 136);
+    v41 = *(v37 + 136);
     swift_beginAccess();
-    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v5 + v40, &v75, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
-    v41 = v67;
+    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v5 + v41, &v78, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
+    v42 = v70;
     swift_beginAccess();
-    v42 = v41 + *(v69 + 60);
-    specialized ListBatchUpdates.formUpdates<A>(from:to:)(&v75, v71);
-    v43 = *(v42 + 16);
-    v82 = *v42;
-    v83 = v43;
-    v84 = *(v42 + 32);
-    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(&v82, v74, &lazy cache variable for type metadata for ListBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListBatchUpdates);
-    specialized ListCoreBatchUpdates.formResult<A>(_:)(&v82);
+    v43 = v42 + *(v72 + 60);
+    specialized ListBatchUpdates.formUpdates<A>(from:to:)(&v78, v74);
+    v44 = *(v43 + 16);
+    v85 = *v43;
+    v86 = v44;
+    v87 = *(v43 + 32);
+    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(&v85, v77, &lazy cache variable for type metadata for ListBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListBatchUpdates);
+    specialized ListCoreBatchUpdates.formResult<A>(_:)(&v85);
     swift_endAccess();
-    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v82, &lazy cache variable for type metadata for ListBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListBatchUpdates);
-    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v75, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
+    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v85, &lazy cache variable for type metadata for ListBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListBatchUpdates);
+    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v78, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
   }
 
-  v44 = v67;
-  v45 = v73;
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v67, v73, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
-  v46 = specialized ListCoreBatchUpdates.isEmpty.getter();
-  outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v45, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
-  if (v46)
+  v45 = v70;
+  v46 = v76;
+  v47 = outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v70, v76, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
+  v48 = specialized ListCoreBatchUpdates.isEmpty.getter(v47);
+  outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v46, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
+  if (v48)
   {
-    v47 = v71;
-    outlined init with copy of TableDataSourceAdaptor(v71, &v75);
-    v48 = MEMORY[0x1E69E7CC0];
-    v80 = MEMORY[0x1E69E7CC0];
-    v81 = MEMORY[0x1E69E7CC0];
-    v49 = *((*v14 & *v5) + 0x88);
+    v49 = v74;
+    outlined init with copy of TableDataSourceAdaptor(v74, &v78);
+    v50 = MEMORY[0x1E69E7CC0];
+    v83 = MEMORY[0x1E69E7CC0];
+    v84 = MEMORY[0x1E69E7CC0];
+    v51 = *((*v14 & *v5) + 0x88);
     swift_beginAccess();
-    outlined assign with copy of ShadowListDataSource<TableDataSourceAdaptor>(&v75, v5 + v49);
+    outlined assign with copy of ShadowListDataSource<TableDataSourceAdaptor>(&v78, v5 + v51);
     swift_endAccess();
-    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v75, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
-    v50 = specialized UICollectionViewListCoordinatorBase.dragAndDropController.getter();
-    outlined init with copy of TableDataSourceAdaptor(v47, &v75);
-    v80 = v48;
-    v81 = v48;
-    v51 = *((*v14 & *v50) + 0x60);
+    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v78, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
+    v52 = specialized UICollectionViewListCoordinatorBase.dragAndDropController.getter();
+    outlined init with copy of TableDataSourceAdaptor(v49, &v78);
+    v83 = v50;
+    v84 = v50;
+    v53 = *((*v14 & *v52) + 0x60);
     swift_beginAccess();
-    outlined assign with take of ShadowListDataSource<TableDataSourceAdaptor>(&v75, v50 + v51);
+    outlined assign with take of ShadowListDataSource<TableDataSourceAdaptor>(&v78, v52 + v53);
     swift_endAccess();
   }
 
   else
   {
-    outlined init with copy of TableDataSourceAdaptor(v71, &v75);
-    v52 = *((*v14 & *v5) + 0xD0);
+    outlined init with copy of TableDataSourceAdaptor(v74, &v78);
+    v54 = *((*v14 & *v5) + 0xD0);
     swift_beginAccess();
-    outlined assign with take of TableHeaderView?(&v75, v5 + v52, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor);
+    outlined assign with take of TableHeaderView?(&v78, v5 + v54, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor);
     swift_endAccess();
   }
 
-  v53 = v73;
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v44, v73, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
-  v54 = specialized ListCoreBatchUpdates.isEmpty.getter();
-  outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v53, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
-  v55 = *v5;
-  v56 = *v14;
-  v32 = v72;
-  if ((v54 & 1) == 0 || (*(v5 + *((v56 & v55) + 0xD8)) & 1) == 0)
+  v55 = v76;
+  v56 = outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v45, v76, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
+  v57 = specialized ListCoreBatchUpdates.isEmpty.getter(v56);
+  outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v55, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
+  v58 = *v5;
+  v59 = *v14;
+  v33 = v75;
+  if ((v57 & 1) == 0 || (*(v5 + *((v59 & v58) + 0xD8)) & 1) == 0)
   {
-    *(v5 + *((v56 & v55) + 0xD8)) = 1;
+    *(v5 + *((v59 & v58) + 0xD8)) = 1;
     swift_beginAccess();
-    if (*(v5 + v32) == 1)
+    if (*(v5 + v33) == 1)
     {
       swift_endAccess();
     }
 
     else
     {
-      v57 = Transaction.animation.getter();
+      v60 = Transaction.animation.getter();
       swift_endAccess();
-      if (v57)
+      if (v60)
       {
 
-        v58 = 1;
+        v61 = 1;
 LABEL_30:
-        LOBYTE(v75) = 17;
-        v59 = swift_allocObject();
-        *(v59 + 16) = v58;
-        v60 = v70;
-        *(v59 + 24) = v5;
-        *(v59 + 32) = v60;
-        *(v59 + 40) = v66;
-        v61 = v60;
-        v62 = v5;
+        LOBYTE(v78) = 17;
+        v62 = swift_allocObject();
+        *(v62 + 16) = v61;
+        v63 = v73;
+        *(v62 + 24) = v5;
+        *(v62 + 32) = v63;
+        *(v62 + 40) = v69;
+        v64 = v63;
+        v65 = v5;
         static Update.enqueueAction(reason:_:)();
 
         goto LABEL_31;
       }
     }
 
-    v58 = 0;
+    v61 = 0;
     goto LABEL_30;
   }
 
 LABEL_31:
-  v63 = *(v5 + v32);
-  *(v5 + v32) = 1;
-  return outlined consume of ListItemTint?(v63);
+  v66 = *(v5 + v33);
+  *(v5 + v33) = 1;
+  return outlined consume of ListItemTint?(v66);
 }
 
 void specialized closure #3 in UICollectionViewListCoordinator.update(_:to:transaction:performDiff:)(uint64_t a1, void *a2, char a3)
@@ -4090,33 +4958,35 @@ void specialized closure #3 in UICollectionViewListCoordinator.update(_:to:trans
   }
 }
 
-void specialized UICollectionViewListCoordinatorBase.onSubviewsSizingOptionsSet()()
+double specialized UICollectionViewListCoordinatorBase.onSubviewsSizingOptionsSet()()
 {
   v1 = MEMORY[0x1E69E7D40];
-  v2 = (v0 + *((*MEMORY[0x1E69E7D40] & *v0) + 0x100));
-  v3 = v2[2];
+  v2 = v0 + *((*MEMORY[0x1E69E7D40] & *v0) + 0x100);
+  v3 = *(v2 + 2);
   v4 = v3 & 0xFFFFFFFFFFFFFFFELL;
   if ((v3 & 0xFFFFFFFFFFFFFFFELL) == 0x1FFFFFFFALL)
   {
 LABEL_8:
-    v10 = v0 + *((*v1 & *v0) + 0x108);
-    v11 = *v10;
-    v12 = v10[8];
-    *v10 = 0;
-    v10[8] = 1;
+    v12 = v0 + *((*v1 & *v0) + 0x108);
+    v13 = *v12;
+    v14 = v12[8];
+    *v12 = 0;
+    v12[8] = 1;
 
-    specialized UICollectionViewListCoordinatorBase.subviewUniformHeight.didset(v11, v12);
-    return;
+    specialized UICollectionViewListCoordinatorBase.subviewUniformHeight.didset(v13, v14);
+    return result;
   }
 
   v6 = *v2;
-  v5 = v2[1];
-  v8 = v2[3];
-  v7 = v2[4];
+  v5 = *(v2 + 1);
+  v8 = *(v2 + 3);
+  v7 = *(v2 + 4);
+  v10 = *(v2 + 5);
+  v9 = *(v2 + 6);
   if (v4 == 0x1FFFFFFFCLL || v4 == 0x1FFFFFFFELL)
   {
 LABEL_7:
-    outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v3);
+    outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v3, v8, v7, v10, v9);
     goto LABEL_8;
   }
 
@@ -4127,117 +4997,116 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    v13 = v2[2];
-    outlined copy of ResolvedSubviewsSizingOptions?(v6, v5, v3);
-    outlined copy of ResolvedSubviewsSizingOptions(v6, v5, v13);
-    v14 = Axis.Set.contains(_:)();
-    if (v14)
+    v16 = *(v2 + 2);
+    outlined copy of ResolvedSubviewsSizingOptions?(v6, v5, v3, v8, v7, v10, v9);
+    outlined copy of ResolvedSubviewsSizingOptions(v6, v5, v16, v8, v7, v10, v9);
+    v17 = Axis.Set.contains(_:)();
+    if (v17)
     {
       if (!v8)
       {
 LABEL_17:
-        v3 = v13;
+        v3 = v16;
         goto LABEL_7;
       }
 
-      if (!(v13 & 1 | (*&v5 <= 0.0)))
+      if (!(v16 & 1 | (*&v5 <= 0.0)))
       {
-        v25[1] = v25;
-        MEMORY[0x1EEE9AC00](v14);
+        v28[1] = v28;
+        MEMORY[0x1EEE9AC00](v17);
         static Update.ensure<A>(_:)();
-        v22 = v0 + *((*v1 & *v0) + 0x108);
-        v23 = *v22;
-        v24 = v22[8];
-        *v22 = v25[3];
-        v22[8] = 0;
-        specialized UICollectionViewListCoordinatorBase.subviewUniformHeight.didset(v23, v24);
-        outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v13);
-        outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v13);
-        return;
+        v25 = v0 + *((*v1 & *v0) + 0x108);
+        v26 = *v25;
+        v27 = v25[8];
+        *v25 = v28[3];
+        v25[8] = 0;
+        specialized UICollectionViewListCoordinatorBase.subviewUniformHeight.didset(v26, v27);
+        outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v16, v8, v7, v10, v9);
+        return outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v16, v8, v7, v10, v9);
       }
     }
 
-    outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v13);
+    outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v16, v8, v7, v10, v9);
     goto LABEL_17;
   }
 
-  v15 = v2[2];
-  v16 = Axis.Set.contains(_:)();
-  if (v16)
+  v18 = *(v2 + 2);
+  v19 = Axis.Set.contains(_:)();
+  if (v19)
   {
-    v17 = v8;
+    v20 = v8;
   }
 
   else
   {
-    v17 = 0;
+    v20 = 0;
   }
 
-  v18 = v7 | ~v16;
-  v19 = v0 + *((*v1 & *v0) + 0x108);
-  v20 = *v19;
-  v21 = v19[8];
-  *v19 = v17;
-  v19[8] = v18 & 1;
-  specialized UICollectionViewListCoordinatorBase.subviewUniformHeight.didset(v20, v21);
+  v21 = v7 | ~v19;
+  v22 = v0 + *((*v1 & *v0) + 0x108);
+  v23 = *v22;
+  v24 = v22[8];
+  *v22 = v20;
+  v22[8] = v21 & 1;
+  specialized UICollectionViewListCoordinatorBase.subviewUniformHeight.didset(v23, v24);
 
-  outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v15);
+  return outlined consume of ResolvedSubviewsSizingOptions?(v6, v5, v18, v8, v7, v10, v9);
 }
 
-uint64_t specialized UICollectionViewListCoordinatorBase.enqueueSelectionUpdate(_:)(void (*a1)(_OWORD *))
+uint64_t specialized UICollectionViewListCoordinatorBase.enqueueSelectionUpdate(_:)(double (*a1)(_OWORD *), double a2)
 {
-  v2 = v1;
-  specialized UICollectionViewListCoordinatorBase.currentSelection.getter(&v14);
-  if (!*(&v15 + 1))
+  v3 = v2;
+  specialized UICollectionViewListCoordinatorBase.currentSelection.getter(&v15);
+  if (!*(&v16 + 1))
   {
-    v6 = &lazy cache variable for type metadata for AnySelectionManager?;
-    v7 = MEMORY[0x1E69E6720];
+    v7 = &lazy cache variable for type metadata for AnySelectionManager?;
+    v8 = MEMORY[0x1E69E6720];
     goto LABEL_6;
   }
 
-  v19[0] = v14;
-  v19[1] = v15;
-  v20 = v16;
-  a1(v19);
+  v20[0] = v15;
+  v20[1] = v16;
+  v21 = v17;
+  a1(v20);
   if ((static CoreTesting.isRunning.getter() & 1) == 0)
   {
-    outlined init with copy of AnySelectionManager(v19, &v14);
-    v10 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x118);
+    outlined init with copy of AnySelectionManager(v20, &v15);
+    v11 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x118);
     swift_beginAccess();
-    v11 = MEMORY[0x1E69E6720];
-    outlined init with copy of Binding<AnySelectionManager>(v1 + v10, v17, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
+    v12 = MEMORY[0x1E69E6720];
+    outlined init with copy of Binding<AnySelectionManager>(v2 + v11, v18, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
     swift_beginAccess();
-    outlined assign with copy of AnySelectionManager?(&v14, v1 + v10, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, v11, type metadata accessor for MutableBox<UInt32>);
+    outlined assign with copy of AnySelectionManager?(&v15, v2 + v11, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, v12, type metadata accessor for MutableBox<UInt32>);
     swift_endAccess();
-    if (!v18)
+    if (!v19)
     {
-      *(swift_allocObject() + 16) = v1;
-      v12 = v1;
+      *(swift_allocObject() + 16) = v2;
+      v13 = v2;
       static UIHostingViewBase.UpdateCycle.addPreCommitObserverOrAsyncMain(_:)();
     }
 
-    v13 = MEMORY[0x1E69E6720];
-    _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v14, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
-    outlined destroy of AnySelectionManager(v19);
-    v9 = v17;
-    v6 = &lazy cache variable for type metadata for AnySelectionManager?;
-    v8 = v13;
-    return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v9, v6, &type metadata for AnySelectionManager, v8);
+    v14 = MEMORY[0x1E69E6720];
+    _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v15, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
+    outlined destroy of AnySelectionManager(v20);
+    v10 = v18;
+    v7 = &lazy cache variable for type metadata for AnySelectionManager?;
+    v9 = v14;
+    return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v10, v7, &type metadata for AnySelectionManager, v9);
   }
 
-  v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x110);
+  v5 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x110);
   swift_beginAccess();
-  result = outlined init with copy of Binding<AnySelectionManager>?(v2 + v4, &v14, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
-  if (*(&v14 + 1))
+  result = outlined init with copy of Binding<AnySelectionManager>?(v3 + v5, &v15, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
+  if (*(&v15 + 1))
   {
     dispatch thunk of AnyLocation.set(_:transaction:)();
-    outlined destroy of AnySelectionManager(v19);
-    v6 = &lazy cache variable for type metadata for Binding<AnySelectionManager>;
-    v7 = MEMORY[0x1E6981948];
+    outlined destroy of AnySelectionManager(v20);
+    v7 = &lazy cache variable for type metadata for Binding<AnySelectionManager>;
+    v8 = MEMORY[0x1E6981948];
 LABEL_6:
-    v8 = v7;
-    v9 = &v14;
-    return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v9, v6, &type metadata for AnySelectionManager, v8);
+    v9 = v8;
+    v10 = &v15;
+    return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v10, v7, &type metadata for AnySelectionManager, v9);
   }
 
   __break(1u);
@@ -4297,29 +5166,29 @@ id specialized UICollectionViewListCoordinatorBase.dragAndDropController.getter(
   return v4;
 }
 
-uint64_t specialized UICollectionViewListCoordinatorBase.selectionValue(forRowAt:)@<X0>(uint64_t a1@<X8>)
+void specialized UICollectionViewListCoordinatorBase.selectionValue(forRowAt:)(uint64_t a1@<X8>)
 {
   v3 = MEMORY[0x1E69E7D40];
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x110);
   swift_beginAccess();
   outlined init with copy of Binding<AnySelectionManager>?(v1 + v4, v14, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
   v5 = v14[1];
-  result = outlined destroy of Binding<AnySelectionManager>?(v14, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
+  outlined destroy of Binding<AnySelectionManager>?(v14, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
   if (v5)
   {
-    v7 = *((*v3 & *v1) + 0x88);
+    v6 = *((*v3 & *v1) + 0x88);
     swift_beginAccess();
-    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v1 + v7, v17, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
-    v8 = IndexPath.section.getter();
+    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v1 + v6, v17, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
+    v7 = IndexPath.section.getter();
     outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v17, v16, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
     _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5(v16, v14);
-    v9 = v8 & ~(v8 >> 63);
+    v8 = v7 & ~(v7 >> 63);
     outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v14, &lazy cache variable for type metadata for ShadowSectionCollection<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowSectionCollection);
     outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v17, v16, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
-    v10 = specialized ShadowListUpdateRecorder.initialIndex(_:)(v9);
-    _s7SwiftUI19ShadowRowCollectionV_7sectionACyxGAA0C18ListUpdateRecorderVyxG_10SectionIDs_5IndexQZtcfCAA22TableDataSourceAdaptorV_Tt2g5(v16, v10, v14);
-    result = IndexPath.row.getter();
-    if (result < 0)
+    v9 = specialized ShadowListUpdateRecorder.initialIndex(_:)(v8);
+    _s7SwiftUI19ShadowRowCollectionV_7sectionACyxGAA0C18ListUpdateRecorderVyxG_10SectionIDs_5IndexQZtcfCAA22TableDataSourceAdaptorV_Tt2g5(v16, v9, v14);
+    v10 = IndexPath.row.getter();
+    if (v10 < 0)
     {
       v12 = 0;
       v13 = v15;
@@ -4337,7 +5206,7 @@ uint64_t specialized UICollectionViewListCoordinatorBase.selectionValue(forRowAt
 
         --v12;
         v13 = v11;
-        if (result >= v12)
+        if (v10 >= v12)
         {
           goto LABEL_6;
         }
@@ -4349,17 +5218,18 @@ uint64_t specialized UICollectionViewListCoordinatorBase.selectionValue(forRowAt
     else
     {
       v11 = v15;
-      if (!result)
+      if (!v10)
       {
 LABEL_6:
         outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v14, &lazy cache variable for type metadata for ShadowRowCollection<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowRowCollection);
-        specialized ListCoreDataSource.selectionValue(forRowAt:)(v9, v11, a1);
-        return outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v17, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
+        specialized ListCoreDataSource.selectionValue(forRowAt:)(v8, v11, a1);
+        outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v17, &lazy cache variable for type metadata for ShadowListDataSource<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListDataSource);
+        return;
       }
 
-      if ((v15 ^ 0x7FFFFFFFFFFFFFFFLL) > result - 1)
+      if ((v15 ^ 0x7FFFFFFFFFFFFFFFLL) > v10 - 1)
       {
-        v11 = (v15 + result);
+        v11 = (v15 + v10);
         goto LABEL_6;
       }
     }
@@ -4373,8 +5243,6 @@ LABEL_6:
     *a1 = 0u;
     *(a1 + 16) = 0u;
   }
-
-  return result;
 }
 
 void specialized UICollectionViewListCoordinatorBase.mirrorSelection(collectionView:indexPath:)(void *a1, uint64_t a2)
@@ -4384,7 +5252,7 @@ void specialized UICollectionViewListCoordinatorBase.mirrorSelection(collectionV
   v108 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v101 = &v91[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  type metadata accessor for (IndexPath?, IndexPath?)();
+  type metadata accessor for (IndexPath?, IndexPath?)(0);
   v9 = v8;
   MEMORY[0x1EEE9AC00](v8);
   v11 = &v91[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -4540,7 +5408,7 @@ LABEL_17:
   v74 = &v45[v47];
   v75 = v101;
   (*(v108 + 32))(v101, v74, v72);
-  lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x1E6969C28]);
+  lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x1E6969C28], MEMORY[0x1E6969C50]);
   v92 = dispatch thunk of static Equatable.== infix(_:_:)();
   v76 = v73;
   v6 = v72;
@@ -4591,7 +5459,7 @@ LABEL_18:
       v81 = v108;
       v82 = v101;
       (*(v108 + 32))(v101, v61 + v57, v80);
-      lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x1E6969C28]);
+      lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x1E6969C28], MEMORY[0x1E6969C50]);
       v83 = dispatch thunk of static Equatable.== infix(_:_:)();
       v84 = *(v81 + 8);
       v84(v82, v80);
@@ -4662,13 +5530,13 @@ void specialized UICollectionViewListCoordinatorBase.performUpdates(collectionVi
   v3 = v2;
   _s7SwiftUI33AccessibilityViewModifierAccessor33_71F62EDC1DAE3BBC7A74521E45BA5A66LLCyAA0c10AttachmentE0VGMaTm_0(0, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v8 = &v43[-v7];
+  v8 = &v45[-v7];
   _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0(0, &lazy cache variable for type metadata for IndexPath?, MEMORY[0x1E6969C28], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v11 = &v43[-v10];
+  v11 = &v45[-v10];
   v12 = MEMORY[0x1E69E7D40];
   *(v3 + *((*MEMORY[0x1E69E7D40] & *v3) + 0xD8)) = 1;
-  v44 = a2;
+  v46 = a2;
   if (a2)
   {
     specialized UICollectionViewListCoordinatorBase.updateEditingState(_:)(a1);
@@ -4682,126 +5550,126 @@ void specialized UICollectionViewListCoordinatorBase.performUpdates(collectionVi
   swift_endAccess();
   v15 = *((*v12 & *v3) + 0xB8);
   swift_beginAccess();
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v3 + v15, v8, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
-  LOBYTE(v14) = specialized ListCoreBatchUpdates.isEmpty.getter();
+  v16 = outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v3 + v15, v8, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
+  LOBYTE(v14) = specialized ListCoreBatchUpdates.isEmpty.getter(v16);
   outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v8, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
   if ((v14 & 1) == 0)
   {
-    v16 = *((*MEMORY[0x1E69E7D40] & *v3) + 0xD0);
+    v17 = *((*MEMORY[0x1E69E7D40] & *v3) + 0xD0);
     swift_beginAccess();
-    outlined init with copy of Binding<AnySelectionManager>(v3 + v16, &v46, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor, MEMORY[0x1E69E6720]);
-    if (*(&v47 + 1))
+    outlined init with copy of Binding<AnySelectionManager>(v3 + v17, &v48, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor, MEMORY[0x1E69E6720]);
+    if (*(&v49 + 1))
     {
-      v64 = v54;
-      v65[0] = v55[0];
-      *(v65 + 11) = *(v55 + 11);
-      v60 = v50;
-      v61 = v51;
+      v66 = v56;
+      v67[0] = v57[0];
+      *(v67 + 11) = *(v57 + 11);
       v62 = v52;
       v63 = v53;
-      v56 = v46;
-      v57 = v47;
+      v64 = v54;
+      v65 = v55;
       v58 = v48;
       v59 = v49;
-      outlined init with copy of TableDataSourceAdaptor(&v56, &v46);
-      v17 = swift_allocObject();
-      v18 = v52;
-      *(v17 + 136) = v53;
-      v19 = v55[0];
-      *(v17 + 152) = v54;
-      *(v17 + 168) = v19;
-      *(v17 + 179) = *(v55 + 11);
-      v20 = v48;
-      *(v17 + 72) = v49;
-      v21 = v51;
-      *(v17 + 88) = v50;
-      *(v17 + 104) = v21;
-      *(v17 + 120) = v18;
-      v22 = v47;
-      *(v17 + 24) = v46;
-      *(v17 + 40) = v22;
-      *(v17 + 16) = v3;
-      *(v17 + 56) = v20;
-      *(v17 + 200) = a1;
-      v23 = swift_allocObject();
-      *(v23 + 16) = partial apply for specialized closure #1 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:);
-      *(v23 + 24) = v17;
-      v45[4] = closure #1 in PlatformViewCoordinator.dispatchUpdate(reason:_:)partial apply;
-      v45[5] = v23;
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 1107296256;
-      v45[2] = thunk for @escaping @callee_guaranteed () -> ();
-      v45[3] = &block_descriptor_55_0;
-      v24 = _Block_copy(v45);
-      v25 = v3;
-      v26 = a1;
+      v60 = v50;
+      v61 = v51;
+      outlined init with copy of TableDataSourceAdaptor(&v58, &v48);
+      v18 = swift_allocObject();
+      v19 = v54;
+      *(v18 + 136) = v55;
+      v20 = v57[0];
+      *(v18 + 152) = v56;
+      *(v18 + 168) = v20;
+      *(v18 + 179) = *(v57 + 11);
+      v21 = v50;
+      *(v18 + 72) = v51;
+      v22 = v53;
+      *(v18 + 88) = v52;
+      *(v18 + 104) = v22;
+      *(v18 + 120) = v19;
+      v23 = v49;
+      *(v18 + 24) = v48;
+      *(v18 + 40) = v23;
+      *(v18 + 16) = v3;
+      *(v18 + 56) = v21;
+      *(v18 + 200) = a1;
+      v24 = swift_allocObject();
+      *(v24 + 16) = partial apply for specialized closure #1 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:);
+      *(v24 + 24) = v18;
+      v47[4] = closure #1 in PlatformViewCoordinator.dispatchUpdate(reason:_:)partial apply;
+      v47[5] = v24;
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 1107296256;
+      v47[2] = thunk for @escaping @callee_guaranteed () -> ();
+      v47[3] = &block_descriptor_55_0;
+      v25 = _Block_copy(v47);
+      v26 = v3;
+      v27 = a1;
 
-      v27 = swift_allocObject();
-      *(v27 + 16) = v25;
-      *(v27 + 24) = v26;
-      *(v27 + 32) = v44 & 1;
-      *&v48 = partial apply for specialized closure #2 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:);
-      *(&v48 + 1) = v27;
-      *&v46 = MEMORY[0x1E69E9820];
-      *(&v46 + 1) = 1107296256;
-      *&v47 = thunk for @escaping @callee_guaranteed (@unowned Bool) -> ();
-      *(&v47 + 1) = &block_descriptor_61_0;
-      v28 = _Block_copy(&v46);
-      v29 = v25;
+      v28 = swift_allocObject();
+      *(v28 + 16) = v26;
+      *(v28 + 24) = v27;
+      *(v28 + 32) = v46 & 1;
+      *&v50 = partial apply for specialized closure #2 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:);
+      *(&v50 + 1) = v28;
+      *&v48 = MEMORY[0x1E69E9820];
+      *(&v48 + 1) = 1107296256;
+      *&v49 = thunk for @escaping @callee_guaranteed (@unowned Bool) -> ();
+      *(&v49 + 1) = &block_descriptor_61_0;
+      v29 = _Block_copy(&v48);
       v30 = v26;
+      v31 = v27;
 
-      [v30 performBatchUpdates:v24 completion:v28];
-      _Block_release(v28);
-      _Block_release(v24);
-      outlined destroy of TableDataSourceAdaptor(&v56);
+      [v31 performBatchUpdates:v25 completion:v29];
+      _Block_release(v29);
+      _Block_release(v25);
+      outlined destroy of TableDataSourceAdaptor(&v58);
 
       return;
     }
 
-    _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v46, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor, MEMORY[0x1E69E6720]);
+    _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v48, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor, MEMORY[0x1E69E6720]);
   }
 
-  if (v44 & 1) != 0 && (outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v3 + v15, v8, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates), v31 = specialized ListCoreBatchUpdates.isEmpty.getter(), outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v8, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates), (v31))
+  if (v46 & 1) != 0 && (v32 = outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v3 + v15, v8, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates), v33 = specialized ListCoreBatchUpdates.isEmpty.getter(v32), outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v8, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates), (v33))
   {
-    v32 = swift_allocObject();
-    *(v32 + 16) = v3;
-    *(v32 + 24) = a1;
-    *(v32 + 32) = 1;
-    *&v58 = partial apply for specialized closure #3 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:);
-    *(&v58 + 1) = v32;
-    *&v56 = MEMORY[0x1E69E9820];
-    *(&v56 + 1) = 1107296256;
-    *&v57 = thunk for @escaping @callee_guaranteed (@unowned Bool) -> ();
-    *(&v57 + 1) = &block_descriptor_45;
-    v33 = _Block_copy(&v56);
-    v34 = v3;
-    v35 = a1;
+    v34 = swift_allocObject();
+    *(v34 + 16) = v3;
+    *(v34 + 24) = a1;
+    *(v34 + 32) = 1;
+    *&v60 = partial apply for specialized closure #3 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:);
+    *(&v60 + 1) = v34;
+    *&v58 = MEMORY[0x1E69E9820];
+    *(&v58 + 1) = 1107296256;
+    *&v59 = thunk for @escaping @callee_guaranteed (@unowned Bool) -> ();
+    *(&v59 + 1) = &block_descriptor_45;
+    v35 = _Block_copy(&v58);
+    v36 = v3;
+    v37 = a1;
 
-    [v35 performBatchUpdates:0 completion:v33];
-    _Block_release(v33);
+    [v37 performBatchUpdates:0 completion:v35];
+    _Block_release(v35);
   }
 
   else
   {
-    v36 = objc_opt_self();
-    v37 = swift_allocObject();
-    *(v37 + 16) = a1;
-    *(v37 + 24) = v3;
-    v38 = swift_allocObject();
-    *(v38 + 16) = partial apply for specialized closure #4 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:);
-    *(v38 + 24) = v37;
-    *&v58 = closure #1 in PlatformViewCoordinator.dispatchUpdate(reason:_:)partial apply;
-    *(&v58 + 1) = v38;
-    *&v56 = MEMORY[0x1E69E9820];
-    *(&v56 + 1) = 1107296256;
-    *&v57 = thunk for @escaping @callee_guaranteed () -> ();
-    *(&v57 + 1) = &block_descriptor_39_2;
-    v39 = _Block_copy(&v56);
-    v40 = v3;
-    v41 = a1;
+    v38 = objc_opt_self();
+    v39 = swift_allocObject();
+    *(v39 + 16) = a1;
+    *(v39 + 24) = v3;
+    v40 = swift_allocObject();
+    *(v40 + 16) = partial apply for specialized closure #4 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:);
+    *(v40 + 24) = v39;
+    *&v60 = closure #1 in PlatformViewCoordinator.dispatchUpdate(reason:_:)partial apply;
+    *(&v60 + 1) = v40;
+    *&v58 = MEMORY[0x1E69E9820];
+    *(&v58 + 1) = 1107296256;
+    *&v59 = thunk for @escaping @callee_guaranteed () -> ();
+    *(&v59 + 1) = &block_descriptor_39_2;
+    v41 = _Block_copy(&v58);
+    v42 = v3;
+    v43 = a1;
 
-    [v36 performWithoutAnimation_];
-    _Block_release(v39);
+    [v38 performWithoutAnimation_];
+    _Block_release(v41);
     isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
     if (isEscapingClosureAtFileLocation)
@@ -4816,7 +5684,7 @@ void specialized UICollectionViewListCoordinatorBase.finishBatchUpdate(collectio
   v3 = v2;
   _s7SwiftUI33AccessibilityViewModifierAccessor33_71F62EDC1DAE3BBC7A74521E45BA5A66LLCyAA0c10AttachmentE0VGMaTm_0(0, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
   v7 = MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v18 - v8;
+  v9 = &v19 - v8;
   v10 = [a1 window];
   if (v10)
   {
@@ -4824,23 +5692,23 @@ void specialized UICollectionViewListCoordinatorBase.finishBatchUpdate(collectio
     v11 = MEMORY[0x1E69E7D40];
     v12 = *((*MEMORY[0x1E69E7D40] & *v3) + 0xB8);
     swift_beginAccess();
-    outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v3 + v12, v9, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
-    LOBYTE(v12) = specialized ListCoreBatchUpdates.isEmpty.getter();
+    v13 = outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(v3 + v12, v9, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
+    LOBYTE(v12) = specialized ListCoreBatchUpdates.isEmpty.getter(v13);
     updated = outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v9, &lazy cache variable for type metadata for ListCoreBatchUpdates<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ListCoreBatchUpdates);
     if (v12)
     {
       specialized UICollectionViewListCoordinatorBase.updateEditingState(_:)(a1);
-      v14 = v3 + *((*v11 & *v3) + 0xF0);
-      if (v14[9] != 1 || !(*v14 ^ 1 | v14[8]))
+      v15 = v3 + *((*v11 & *v3) + 0xF0);
+      if (v15[9] != 1 || !(*v15 ^ 1 | v15[8]))
       {
-        v15 = specialized UIView.firstAncestorWhere(_:)(a1);
-        if (v15)
+        v16 = specialized UIView.firstAncestorWhere(_:)(a1);
+        if (v16)
         {
           ObjectType = swift_getObjectType();
-          v17 = swift_conformsToProtocol2();
-          if (v17)
+          v18 = swift_conformsToProtocol2();
+          if (v18)
           {
-            (*(v17 + 8))(ObjectType, v17);
+            (*(v18 + 8))(ObjectType, v18);
           }
         }
       }
@@ -4851,9 +5719,9 @@ void specialized UICollectionViewListCoordinatorBase.finishBatchUpdate(collectio
     else
     {
       MEMORY[0x1EEE9AC00](updated);
-      *(&v18 - 4) = v3;
-      *(&v18 - 3) = a1;
-      *(&v18 - 16) = a2 & 1;
+      *(&v19 - 4) = v3;
+      *(&v19 - 3) = a1;
+      *(&v19 - 16) = a2 & 1;
       static Update.ensure<A>(_:)();
     }
   }
@@ -4880,7 +5748,7 @@ uint64_t specialized UICollectionViewListCoordinatorBase.disableFocusEventsForDe
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
   v13 = v59 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for IndexingIterator<IndexSet>();
+  type metadata accessor for IndexingIterator<IndexSet>(0);
   v15 = v14 - 8;
   MEMORY[0x1EEE9AC00](v14);
   v17 = v59 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -4890,10 +5758,10 @@ uint64_t specialized UICollectionViewListCoordinatorBase.disableFocusEventsForDe
   v59[1] = v18;
   v19(v13, v18, v10);
   v20 = MEMORY[0x1E6969B50];
-  lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
+  lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50], MEMORY[0x1E6969B78]);
   dispatch thunk of Sequence.makeIterator()();
   v65 = *(v15 + 44);
-  v21 = lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, v20);
+  v21 = lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, v20, MEMORY[0x1E6969B88]);
   v64 = (v8 + 8);
   v70 = MEMORY[0x1E69E7CC0];
   v68 = a1;
@@ -4904,7 +5772,7 @@ uint64_t specialized UICollectionViewListCoordinatorBase.disableFocusEventsForDe
   {
     v23 = v66;
     dispatch thunk of Collection.endIndex.getter();
-    lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexSet.Index and conformance IndexSet.Index, MEMORY[0x1E6969B18]);
+    lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexSet.Index and conformance IndexSet.Index, MEMORY[0x1E6969B18], MEMORY[0x1E6969B28]);
     v24 = v67;
     v25 = dispatch thunk of static Equatable.== infix(_:_:)();
     (*v64)(v23, v24);
@@ -4948,7 +5816,7 @@ LABEL_42:
         v33 = *(v31 + 24);
         if (v34 >= v33 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v33 > 1, v34 + 1, 1);
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1);
           v31 = v72[0];
         }
 
@@ -5056,7 +5924,7 @@ LABEL_42:
 
       if (v55)
       {
-        type metadata accessor for TableCollectionViewCell();
+        type metadata accessor for TableCollectionViewCell(0);
         v56 = swift_dynamicCastClass();
         if (v56 && (v57 = *(v56 + direct field offset for ListCollectionViewCellBase.host)) != 0)
         {
@@ -5083,7 +5951,7 @@ LABEL_42:
 
           Strong = swift_weakLoadStrong();
 
-          outlined destroy of Binding<AnySelectionManager>?(v71, &lazy cache variable for type metadata for WeakBox<FocusBridge>, type metadata accessor for FocusBridge, MEMORY[0x1E6981A78], _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0);
+          outlined destroy of Binding<AnySelectionManager>?(&v71, &lazy cache variable for type metadata for WeakBox<FocusBridge>, type metadata accessor for FocusBridge, MEMORY[0x1E6981A78], _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0);
           v51 = v60;
           if (Strong)
           {
@@ -5107,7 +5975,7 @@ LABEL_42:
   }
 }
 
-void specialized UICollectionViewListCoordinatorBase.subviewsSizingOptions.didset(uint64_t *a1)
+double specialized UICollectionViewListCoordinatorBase.subviewsSizingOptions.didset(uint64_t *a1)
 {
   v3 = (v1 + *((*MEMORY[0x1E69E7D40] & *v1) + 0x100));
   v5 = *v3;
@@ -5124,70 +5992,87 @@ void specialized UICollectionViewListCoordinatorBase.subviewsSizingOptions.didse
   v16 = a1[4];
   v15 = a1[5];
   v17 = a1[6];
+  v38 = v16;
+  v39 = v15;
+  v37 = v13;
   if (v14 >> 1 == 4294967293)
   {
-    v24 = a1[1];
-    v25 = v3[1];
-    outlined copy of ResolvedSubviewsSizingOptions?(v5, v4, v6);
+    v31 = a1[1];
+    v33 = v3[4];
+    v35 = v3[1];
+    v18 = v3[6];
+    outlined copy of ResolvedSubviewsSizingOptions?(v5, v4, v6, v7, v8, v9, v10);
     if ((v6 & 0xFFFFFFFFFFFFFFFELL) == 0x1FFFFFFFALL)
     {
-      outlined init with copy of Binding<AnySelectionManager>(a1, &v35, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
-      outlined consume of ResolvedSubviewsSizingOptions?(v12, v24, v14);
-      return;
+      outlined init with copy of Binding<AnySelectionManager>(a1, &v48, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
+      return outlined consume of ResolvedSubviewsSizingOptions?(v12, v31, v14, v37, v38, v39, v17);
     }
 
-    outlined init with copy of Binding<AnySelectionManager>(a1, &v35, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
-    v21 = v24;
-    v19 = v12;
-    v20 = v25;
+    outlined init with copy of Binding<AnySelectionManager>(a1, &v48, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
+    v27 = v31;
+    v23 = v38;
+    v21 = v39;
+    v22 = v12;
+    v30 = v18;
+    v26 = v33;
+    v25 = v35;
+    v24 = v37;
     goto LABEL_7;
   }
 
-  v35 = *a1;
-  v36 = v11;
-  v37 = v14;
-  v38 = v13;
-  v39 = v16;
-  v40 = v15;
-  v41 = v17;
+  v48 = *a1;
+  v49 = v11;
+  v50 = v14;
+  v51 = v13;
+  v52 = v16;
+  v53 = v15;
+  v54 = v17;
   if ((v6 & 0xFFFFFFFFFFFFFFFELL) == 0x1FFFFFFFALL)
   {
-    v26 = v4;
-    outlined copy of ResolvedSubviewsSizingOptions?(v5, v4, v6);
-    outlined init with copy of Binding<AnySelectionManager>(a1, &v28, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
-    v18 = v11;
-    outlined copy of ResolvedSubviewsSizingOptions?(v12, v11, v14);
-    outlined consume of ResolvedSubviewsSizingOptions(v12, v11, v14);
-    v19 = v12;
-    v20 = v26;
-    v21 = v18;
+    v34 = v8;
+    v36 = v4;
+    v30 = v10;
+    outlined copy of ResolvedSubviewsSizingOptions?(v5, v4, v6, v7, v8, v9, v10);
+    outlined init with copy of Binding<AnySelectionManager>(a1, &v41, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
+    v32 = v9;
+    v20 = v11;
+    v21 = v39;
+    outlined copy of ResolvedSubviewsSizingOptions?(v12, v11, v14, v37, v38, v39, v17);
+    outlined consume of ResolvedSubviewsSizingOptions(v12, v11, v14, v37, v38, v39, v17);
+    v22 = v12;
+    v23 = v38;
+    v24 = v37;
+    v26 = v34;
+    v25 = v36;
+    v27 = v20;
+    v9 = v32;
 LABEL_7:
-    outlined consume of ResolvedSubviewsSizingOptions?(v19, v21, v14);
-    outlined consume of ResolvedSubviewsSizingOptions?(v5, v20, v6);
-LABEL_8:
-    specialized UICollectionViewListCoordinatorBase.onSubviewsSizingOptionsSet()();
-    return;
+    outlined consume of ResolvedSubviewsSizingOptions?(v22, v27, v14, v24, v23, v21, v17);
+    outlined consume of ResolvedSubviewsSizingOptions?(v5, v25, v6, v7, v26, v9, v30);
+    return specialized UICollectionViewListCoordinatorBase.onSubviewsSizingOptionsSet()();
   }
 
-  v28 = v5;
-  v29 = v4;
-  v30 = v6;
-  v31 = v7;
-  v32 = v8;
-  v33 = v9;
-  v34 = v10;
-  outlined copy of ResolvedSubviewsSizingOptions?(v5, v4, v6);
-  outlined init with copy of Binding<AnySelectionManager>(a1, v27, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
-  outlined copy of ResolvedSubviewsSizingOptions?(v12, v11, v14);
-  v22 = v11;
-  v23 = specialized static ResolvedSubviewsSizingOptions.== infix(_:_:)(&v35, &v28);
-  outlined consume of ResolvedSubviewsSizingOptions(v28, v29, v30);
-  outlined consume of ResolvedSubviewsSizingOptions(v35, v36, v37);
-  outlined consume of ResolvedSubviewsSizingOptions?(v12, v22, v14);
-  if (!v23)
+  v41 = v5;
+  v42 = v4;
+  v43 = v6;
+  v44 = v7;
+  v45 = v8;
+  v46 = v9;
+  v47 = v10;
+  outlined copy of ResolvedSubviewsSizingOptions?(v5, v4, v6, v7, v8, v9, v10);
+  outlined init with copy of Binding<AnySelectionManager>(a1, v40, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
+  outlined copy of ResolvedSubviewsSizingOptions?(v12, v11, v14, v37, v38, v39, v17);
+  v28 = v11;
+  v29 = specialized static ResolvedSubviewsSizingOptions.== infix(_:_:)(&v48, &v41);
+  outlined consume of ResolvedSubviewsSizingOptions(v41, v42, v43, v44, v45, v46, v47);
+  outlined consume of ResolvedSubviewsSizingOptions(v48, v49, v50, v51, v52, v53, v54);
+  result = outlined consume of ResolvedSubviewsSizingOptions?(v12, v28, v14, v37, v38, v39, v17);
+  if (!v29)
   {
-    goto LABEL_8;
+    return specialized UICollectionViewListCoordinatorBase.onSubviewsSizingOptionsSet()();
   }
+
+  return result;
 }
 
 void specialized UICollectionViewListCoordinatorBase.subviewUniformHeight.didset(uint64_t a1, char a2)
@@ -5241,7 +6126,7 @@ LABEL_18:
   v37 = MEMORY[0x1E69E7CC0];
   v15 = v36;
   v16 = [v11 visibleCells];
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionViewCell);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionViewCell, 0x1E69DC7F8);
   v17 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v18 = v15;
@@ -5344,46 +6229,46 @@ uint64_t specialized closure #1 in UICollectionViewListCoordinatorBase.pendingSe
   return outlined destroy of AnySelectionManager(v13);
 }
 
-uint64_t specialized UICollectionViewListCoordinatorBase.currentSelection.getter@<X0>(uint64_t a1@<X8>)
+void specialized UICollectionViewListCoordinatorBase.currentSelection.getter(uint64_t a1@<X8>)
 {
-  v3 = static CoreTesting.isRunning.getter();
-  v4 = MEMORY[0x1E69E7D40];
-  if (v3)
+  v4 = static CoreTesting.isRunning.getter();
+  v5 = MEMORY[0x1E69E7D40];
+  if (v4)
   {
-    v5 = v1 + *((*MEMORY[0x1E69E7D40] & *v1) + 0x110);
-    result = swift_beginAccess();
-    if (!*(v5 + 8))
+    v6 = v2 + *((*MEMORY[0x1E69E7D40] & *v2) + 0x110);
+    swift_beginAccess();
+    if (!*(v6 + 8))
     {
       *(a1 + 32) = 0;
       *a1 = 0u;
       *(a1 + 16) = 0u;
-      return result;
+      return;
     }
 
     v7 = MEMORY[0x1E6981948];
-    outlined init with copy of Binding<AnySelectionManager>(v5, v15, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, MEMORY[0x1E6981948]);
+    outlined init with copy of Binding<AnySelectionManager>(v6, v15, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, MEMORY[0x1E6981948]);
     type metadata accessor for MutableBox<UInt32>(0, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, v7);
     MEMORY[0x18D00ACC0]();
     v8 = v15;
     v9 = &lazy cache variable for type metadata for Binding<AnySelectionManager>;
     v10 = v7;
-    return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v8, v9, &type metadata for AnySelectionManager, v10);
+    goto LABEL_12;
   }
 
-  v11 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x118);
+  v11 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x118);
   swift_beginAccess();
-  result = outlined init with copy of Binding<AnySelectionManager>(v1 + v11, &v16, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
+  outlined init with copy of Binding<AnySelectionManager>(v2 + v11, &v16, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
   if (*(&v17 + 1))
   {
     v12 = v17;
     *a1 = v16;
     *(a1 + 16) = v12;
     *(a1 + 32) = v18;
-    return result;
+    return;
   }
 
-  v13 = v1 + *((*v4 & *v1) + 0x110);
-  result = swift_beginAccess();
+  v13 = v2 + *((*v5 & *v2) + 0x110);
+  swift_beginAccess();
   if (!*(v13 + 8))
   {
     *(a1 + 32) = 0;
@@ -5391,7 +6276,7 @@ uint64_t specialized UICollectionViewListCoordinatorBase.currentSelection.getter
     *(a1 + 16) = 0u;
     if (!*(&v17 + 1))
     {
-      return result;
+      return;
     }
 
     goto LABEL_11;
@@ -5401,17 +6286,16 @@ uint64_t specialized UICollectionViewListCoordinatorBase.currentSelection.getter
   outlined init with copy of Binding<AnySelectionManager>(v13, v15, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, MEMORY[0x1E6981948]);
   type metadata accessor for MutableBox<UInt32>(0, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, v14);
   MEMORY[0x18D00ACC0]();
-  result = _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v15, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, v14);
+  _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v15, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, v14);
   if (*(&v17 + 1))
   {
 LABEL_11:
     v9 = &lazy cache variable for type metadata for AnySelectionManager?;
     v10 = MEMORY[0x1E69E6720];
     v8 = &v16;
-    return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v8, v9, &type metadata for AnySelectionManager, v10);
+LABEL_12:
+    _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v8, v9, &type metadata for AnySelectionManager, v10);
   }
-
-  return result;
 }
 
 void specialized closure #2 in UICollectionViewListCoordinatorBase.update(_:to:transaction:performDiff:)(char a1, void *a2, void *a3, char a4)
@@ -5457,13 +6341,13 @@ id specialized UICollectionViewListCoordinatorBase.updateEditingState(_:)(void *
   v2 = v1;
   _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0(0, &lazy cache variable for type metadata for IndexPath?, MEMORY[0x1E6969C28], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v58 = &v57 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v59 = &v58 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
-  v8 = &v57 - v7;
+  v8 = &v58 - v7;
   v9 = type metadata accessor for IndexPath();
   v10 = *(v9 - 8);
   v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = &v57 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v58 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = [a1 indexPathsForSelectedItems];
   if (v14)
   {
@@ -5491,12 +6375,12 @@ id specialized UICollectionViewListCoordinatorBase.updateEditingState(_:)(void *
 
   v20 = *v18;
   v21 = v18[16];
-  *&v59 = v20;
-  *(&v59 + 1) = v19;
-  LOBYTE(v60) = v21;
+  *&v60 = v20;
+  *(&v60 + 1) = v19;
+  LOBYTE(v61) = v21;
   type metadata accessor for MutableBox<UInt32>(0, &lazy cache variable for type metadata for Binding<EditMode>, &type metadata for EditMode, MEMORY[0x1E6981948]);
-  MEMORY[0x18D00ACC0](&v64);
-  v22 = v64;
+  MEMORY[0x18D00ACC0](&v65);
+  v22 = v65;
   result = [a1 setEditing_];
   if ((v17 & 1) == 0)
   {
@@ -5514,46 +6398,46 @@ id specialized UICollectionViewListCoordinatorBase.updateEditingState(_:)(void *
         return result;
       }
 
-      specialized UICollectionViewListCoordinatorBase.currentSelection.getter(&v59);
-      if (*(&v60 + 1))
+      specialized UICollectionViewListCoordinatorBase.currentSelection.getter(&v60);
+      if (*(&v61 + 1))
       {
-        v64 = v59;
         v65 = v60;
-        v30 = v61;
         v66 = v61;
-        v31 = *(&v60 + 1);
-        __swift_mutable_project_boxed_opaque_existential_1(&v64, *(&v60 + 1));
+        v30 = v62;
+        v67 = v62;
+        v31 = *(&v61 + 1);
+        __swift_mutable_project_boxed_opaque_existential_1(&v65, *(&v61 + 1));
         (*(v30 + 72))(v31, v30);
         if ((static CoreTesting.isRunning.getter() & 1) == 0)
         {
-          outlined init with copy of AnySelectionManager(&v64, &v59);
-          v53 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x118);
+          outlined init with copy of AnySelectionManager(&v65, &v60);
+          v54 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x118);
           swift_beginAccess();
-          v54 = MEMORY[0x1E69E6720];
-          outlined init with copy of Binding<AnySelectionManager>(v2 + v53, v62, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
+          v55 = MEMORY[0x1E69E6720];
+          outlined init with copy of Binding<AnySelectionManager>(v2 + v54, v63, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
           swift_beginAccess();
-          outlined assign with copy of AnySelectionManager?(&v59, v2 + v53, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, v54, type metadata accessor for MutableBox<UInt32>);
+          outlined assign with copy of AnySelectionManager?(&v60, v2 + v54, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, v55, type metadata accessor for MutableBox<UInt32>);
           swift_endAccess();
-          if (!v63)
+          if (!v64)
           {
             *(swift_allocObject() + 16) = v2;
-            v55 = v2;
+            v56 = v2;
             static UIHostingViewBase.UpdateCycle.addPreCommitObserverOrAsyncMain(_:)();
           }
 
-          v56 = MEMORY[0x1E69E6720];
-          _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v59, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
-          outlined destroy of AnySelectionManager(&v64);
-          v52 = v62;
+          v57 = MEMORY[0x1E69E6720];
+          _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v60, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
+          outlined destroy of AnySelectionManager(&v65);
+          v53 = v63;
           v33 = &lazy cache variable for type metadata for AnySelectionManager?;
-          v51 = v56;
-          return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v52, v33, &type metadata for AnySelectionManager, v51);
+          v52 = v57;
+          return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v53, v33, &type metadata for AnySelectionManager, v52);
         }
 
         v32 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x110);
         swift_beginAccess();
-        result = outlined init with copy of Binding<AnySelectionManager>?(v2 + v32, &v59, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
-        if (!*(&v59 + 1))
+        result = outlined init with copy of Binding<AnySelectionManager>?(v2 + v32, &v60, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
+        if (!*(&v60 + 1))
         {
 LABEL_43:
           __break(1u);
@@ -5561,7 +6445,7 @@ LABEL_43:
         }
 
         dispatch thunk of AnyLocation.set(_:transaction:)();
-        outlined destroy of AnySelectionManager(&v64);
+        outlined destroy of AnySelectionManager(&v65);
         v33 = &lazy cache variable for type metadata for Binding<AnySelectionManager>;
         v34 = MEMORY[0x1E6981948];
       }
@@ -5572,9 +6456,9 @@ LABEL_43:
         v34 = MEMORY[0x1E69E6720];
       }
 
-      v51 = v34;
-      v52 = &v59;
-      return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v52, v33, &type metadata for AnySelectionManager, v51);
+      v52 = v34;
+      v53 = &v60;
+      return _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v53, v33, &type metadata for AnySelectionManager, v52);
     }
   }
 
@@ -5584,32 +6468,32 @@ LABEL_43:
   }
 
 LABEL_10:
-  specialized UICollectionViewListCoordinatorBase.currentSelection.getter(&v59);
-  if (!*(&v60 + 1))
+  specialized UICollectionViewListCoordinatorBase.currentSelection.getter(&v60);
+  if (!*(&v61 + 1))
   {
     v27 = &lazy cache variable for type metadata for AnySelectionManager?;
     v28 = MEMORY[0x1E69E6720];
     goto LABEL_23;
   }
 
-  v64 = v59;
   v65 = v60;
-  v24 = v61;
   v66 = v61;
-  v25 = *(&v60 + 1);
-  __swift_mutable_project_boxed_opaque_existential_1(&v64, *(&v60 + 1));
+  v24 = v62;
+  v67 = v62;
+  v25 = *(&v61 + 1);
+  __swift_mutable_project_boxed_opaque_existential_1(&v65, *(&v61 + 1));
   (*(v24 + 72))(v25, v24);
   if ((static CoreTesting.isRunning.getter() & 1) == 0)
   {
-    outlined init with copy of AnySelectionManager(&v64, &v59);
+    outlined init with copy of AnySelectionManager(&v65, &v60);
     v37 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x118);
     swift_beginAccess();
     v38 = MEMORY[0x1E69E6720];
-    outlined init with copy of Binding<AnySelectionManager>(v2 + v37, v62, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
+    outlined init with copy of Binding<AnySelectionManager>(v2 + v37, v63, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
     swift_beginAccess();
-    outlined assign with copy of AnySelectionManager?(&v59, v2 + v37, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, v38, type metadata accessor for MutableBox<UInt32>);
+    outlined assign with copy of AnySelectionManager?(&v60, v2 + v37, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, v38, type metadata accessor for MutableBox<UInt32>);
     swift_endAccess();
-    if (!v63)
+    if (!v64)
     {
       *(swift_allocObject() + 16) = v2;
       v39 = v2;
@@ -5617,9 +6501,9 @@ LABEL_10:
     }
 
     v40 = MEMORY[0x1E69E6720];
-    _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v59, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
-    outlined destroy of AnySelectionManager(&v64);
-    v36 = v62;
+    _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v60, &lazy cache variable for type metadata for AnySelectionManager?, &type metadata for AnySelectionManager, MEMORY[0x1E69E6720]);
+    outlined destroy of AnySelectionManager(&v65);
+    v36 = v63;
     v27 = &lazy cache variable for type metadata for AnySelectionManager?;
     v35 = v40;
     goto LABEL_27;
@@ -5627,20 +6511,20 @@ LABEL_10:
 
   v26 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x110);
   swift_beginAccess();
-  result = outlined init with copy of Binding<AnySelectionManager>?(v2 + v26, &v59, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
-  if (!*(&v59 + 1))
+  result = outlined init with copy of Binding<AnySelectionManager>?(v2 + v26, &v60, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
+  if (!*(&v60 + 1))
   {
     __break(1u);
     goto LABEL_43;
   }
 
   dispatch thunk of AnyLocation.set(_:transaction:)();
-  outlined destroy of AnySelectionManager(&v64);
+  outlined destroy of AnySelectionManager(&v65);
   v27 = &lazy cache variable for type metadata for Binding<AnySelectionManager>;
   v28 = MEMORY[0x1E6981948];
 LABEL_23:
   v35 = v28;
-  v36 = &v59;
+  v36 = &v60;
 LABEL_27:
   _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v36, v27, &type metadata for AnySelectionManager, v35);
   v41 = *((*MEMORY[0x1E69E7D40] & *v2) + 0xE0);
@@ -5658,72 +6542,72 @@ LABEL_27:
   {
     v43 = v42;
     v44 = a1;
-    v45 = specialized UICollectionViewListCoordinatorBase.selectionValue(forRowAt:)(&v64);
-    if (*(&v65 + 1))
+    specialized UICollectionViewListCoordinatorBase.selectionValue(forRowAt:)(&v65);
+    if (*(&v66 + 1))
     {
-      v59 = v64;
       v60 = v65;
       v61 = v66;
-      MEMORY[0x1EEE9AC00](v45);
-      *(&v57 - 2) = &v59;
-      specialized UICollectionViewListCoordinatorBase.enqueueSelectionUpdate(_:)(partial apply for specialized closure #2 in UICollectionViewListCoordinatorBase.updateEditingState(_:));
-      outlined destroy of AnyHashable(&v59);
+      v62 = v67;
+      v46 = MEMORY[0x1EEE9AC00](v45);
+      *(&v58 - 2) = &v60;
+      specialized UICollectionViewListCoordinatorBase.enqueueSelectionUpdate(_:)(partial apply for specialized closure #2 in UICollectionViewListCoordinatorBase.updateEditingState(_:), v46);
+      outlined destroy of AnyHashable(&v60);
     }
 
     else
     {
-      _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v64, &lazy cache variable for type metadata for AnyHashable?, MEMORY[0x1E69E69B8], MEMORY[0x1E69E6720]);
+      _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(&v65, &lazy cache variable for type metadata for AnyHashable?, MEMORY[0x1E69E69B8], MEMORY[0x1E69E6720]);
     }
 
-    v46 = v58;
-    (*(v10 + 16))(v58, v13, v9);
-    (*(v10 + 56))(v46, 0, 1, v9);
-    v47 = OBJC_IVAR____TtC7SwiftUI30UpdateCoalescingCollectionView_pendingDeselectedItem;
+    v47 = v59;
+    (*(v10 + 16))(v59, v13, v9);
+    (*(v10 + 56))(v47, 0, 1, v9);
+    v48 = OBJC_IVAR____TtC7SwiftUI30UpdateCoalescingCollectionView_pendingDeselectedItem;
     swift_beginAccess();
-    outlined assign with take of Binding<AnySelectionManager>?(v46, v43 + v47, &lazy cache variable for type metadata for IndexPath?, MEMORY[0x1E6969C28], MEMORY[0x1E69E6720], _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0);
+    outlined assign with take of Binding<AnySelectionManager>?(v47, v43 + v48, &lazy cache variable for type metadata for IndexPath?, MEMORY[0x1E6969C28], MEMORY[0x1E69E6720], _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0);
     swift_endAccess();
-    v48 = swift_allocObject();
-    *(v48 + 16) = v43;
-    *(v48 + 24) = v2;
-    v49 = v2;
-    v50 = v44;
+    v49 = swift_allocObject();
+    *(v49 + 16) = v43;
+    *(v49 + 24) = v2;
+    v50 = v2;
+    v51 = v44;
     onNextMainRunLoop(do:)();
   }
 
   return (*(v10 + 8))(v13, v9);
 }
 
-uint64_t specialized closure #1 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:)(void *a1, uint64_t a2, void *a3)
+void specialized closure #1 in UICollectionViewListCoordinatorBase.performUpdates(collectionView:shouldSetEditing:)(void *a1, uint64_t a2, void *a3, double a4)
 {
   v131 = a3;
   v127 = a2;
-  v4 = type metadata accessor for IndexSet.Index();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v111 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for IndexSet.Index();
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v111 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v132 = type metadata accessor for IndexPath();
   v125 = *(v132 - 8);
   MEMORY[0x1EEE9AC00](v132);
-  v114 = &v111 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v129 = &v111 - v10;
-  MEMORY[0x1EEE9AC00](v11);
-  v128 = &v111 - v12;
+  v114 = &v111 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v129 = &v111 - v11;
+  MEMORY[0x1EEE9AC00](v12);
+  v128 = &v111 - v13;
   _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0(0, &lazy cache variable for type metadata for (source: IndexPath, destination: IndexPath)?, type metadata accessor for (source: IndexPath, destination: IndexPath), MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v130 = &v111 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v111 - v16;
-  v18 = type metadata accessor for IndexSet();
-  v19 = *(v18 - 8);
-  MEMORY[0x1EEE9AC00](v18);
-  v21 = &v111 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v122 = &v111 - v23;
-  v24 = MEMORY[0x1E69E7D40];
-  v25 = a1 + *((*MEMORY[0x1E69E7D40] & *a1) + 0x88);
-  result = swift_beginAccess();
-  if (*(*(v25 + 176) + 16))
+  MEMORY[0x1EEE9AC00](v14 - 8);
+  v130 = &v111 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v111 - v17;
+  v19 = type metadata accessor for IndexSet();
+  v20 = *(v19 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v22 = &v111 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v122 = &v111 - v24;
+  v25 = MEMORY[0x1E69E7D40];
+  v26 = a1 + *((*MEMORY[0x1E69E7D40] & *a1) + 0x88);
+  swift_beginAccess();
+  if (*(*(v26 + 22) + 16))
   {
 LABEL_40:
     __break(1u);
@@ -5733,13 +6617,13 @@ LABEL_41:
 
   else
   {
-    v115 = v21;
-    v123 = v18;
-    v111 = v5;
+    v115 = v22;
+    v123 = v19;
+    v111 = v6;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v28 = *(v25 + 184);
-    v112 = v4;
-    v113 = v7;
+    v28 = *(v26 + 23);
+    v112 = v5;
+    v113 = v8;
     if (isUniquelyReferenced_nonNull_native)
     {
       specialized Array.replaceSubrange<A>(_:with:)(0, *(v28 + 16));
@@ -5747,24 +6631,24 @@ LABEL_41:
 
     else
     {
-      *(v25 + 184) = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI10ListUpdateOyS2iG_Tt1g5(0, *(v28 + 24) >> 1);
+      *(v26 + 23) = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI10ListUpdateOyS2iG_Tt1g5(0, *(v28 + 24) >> 1);
     }
 
-    v29 = v19;
+    v29 = v20;
     v30 = v127;
-    outlined assign with copy of TableDataSourceAdaptor(v127, v25);
+    outlined assign with copy of TableDataSourceAdaptor(v127, v26);
     swift_endAccess();
     specialized UICollectionViewListCoordinatorBase.disableFocusEventsForDeletedCells(collectionView:)(v131);
     v31 = specialized UICollectionViewListCoordinatorBase.dragAndDropController.getter();
     outlined init with copy of TableDataSourceAdaptor(v30, v134);
     v135 = MEMORY[0x1E69E7CC0];
     v136 = MEMORY[0x1E69E7CC0];
-    v32 = *((*v24 & *v31) + 0x60);
+    v32 = *((*v25 & *v31) + 0x60);
     swift_beginAccess();
     outlined assign with take of ShadowListDataSource<TableDataSourceAdaptor>(v134, v31 + v32);
     swift_endAccess();
 
-    v33 = a1 + *((*v24 & *a1) + 0xB8);
+    v33 = a1 + *((*v25 & *a1) + 0xB8);
     swift_beginAccess();
     v34 = v29 + 16;
     v35 = *(v29 + 16);
@@ -5869,7 +6753,7 @@ LABEL_41:
       v65 = v130;
       if (v64 == v61)
       {
-        type metadata accessor for (source: IndexPath, destination: IndexPath)();
+        type metadata accessor for (source: IndexPath, destination: IndexPath)(0);
         v67 = v66;
         (*(*(v66 - 8) + 56))(v65, 1, 1, v66);
         v64 = v61;
@@ -5892,15 +6776,15 @@ LABEL_39:
 
         v68 = v61;
         v69 = v62;
-        v70 = v17;
+        v70 = v18;
         v71 = v47;
         v72 = v127;
-        type metadata accessor for (source: IndexPath, destination: IndexPath)();
+        type metadata accessor for (source: IndexPath, destination: IndexPath)(0);
         v67 = v73;
         v74 = *(v73 - 8);
         v75 = v72 + ((*(v74 + 80) + 32) & ~*(v74 + 80));
         v47 = v71;
-        v17 = v70;
+        v18 = v70;
         v62 = v69;
         v61 = v68;
         v63 = v126;
@@ -5908,9 +6792,9 @@ LABEL_39:
         (*(v74 + 56))(v65, 0, 1, v67);
       }
 
-      outlined init with take of BridgedListState.ScrollTarget?(v65, v17, &lazy cache variable for type metadata for (source: IndexPath, destination: IndexPath)?, type metadata accessor for (source: IndexPath, destination: IndexPath));
-      type metadata accessor for (source: IndexPath, destination: IndexPath)();
-      if ((*(*(v67 - 8) + 48))(v17, 1, v67) == 1)
+      outlined init with take of BridgedListState.ScrollTarget?(v65, v18, &lazy cache variable for type metadata for (source: IndexPath, destination: IndexPath)?, type metadata accessor for (source: IndexPath, destination: IndexPath));
+      type metadata accessor for (source: IndexPath, destination: IndexPath)(0);
+      if ((*(*(v67 - 8) + 48))(v18, 1, v67) == 1)
       {
         break;
       }
@@ -5918,16 +6802,16 @@ LABEL_39:
       v76 = *v62;
       v77 = v128;
       v78 = v132;
-      (*v62)(v128, &v17[*(v67 + 48)], v132);
+      (*v62)(v128, &v18[*(v67 + 48)], v132);
       v79 = v129;
-      v76(v129, v17, v78);
+      v76(v129, v18, v78);
       v80 = IndexPath._bridgeToObjectiveC()().super.isa;
       v81 = *v63;
       (*v63)(v79, v78);
       v82 = IndexPath._bridgeToObjectiveC()().super.isa;
       [v131 moveItemAtIndexPath:v80 toIndexPath:v82];
 
-      result = v81(v77, v78);
+      v81(v77, v78);
       v47 = 1;
     }
 
@@ -5948,22 +6832,22 @@ LABEL_39:
 
         [ObjCClassFromObject invalidationContextClass];
         swift_getObjCClassMetadata();
-        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionViewLayoutInvalidationContext);
+        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionViewLayoutInvalidationContext, 0x1E69DC860);
         swift_dynamicCastMetatypeUnconditional();
         v91 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
         v92 = v115;
         v85(v115, &v84[v117[14]], v83);
-        v93 = lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
+        v93 = lazy protocol witness table accessor for type DefaultIndices<CountingIndexCollection<ShadowSectionCollection<TableDataSourceAdaptor>>> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50], MEMORY[0x1E6969B88]);
         v94 = dispatch thunk of Collection.count.getter();
         if (v94)
         {
           v95 = v94;
           v129 = v91;
-          v133 = MEMORY[0x1E69E7CC0];
+          v133[0] = MEMORY[0x1E69E7CC0];
           specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v94 & ~(v94 >> 63), 0);
-          v96 = v133;
+          v96 = v133[0];
           v97 = v113;
-          result = dispatch thunk of Collection.startIndex.getter();
+          dispatch thunk of Collection.startIndex.getter();
           if (v95 < 0)
           {
             goto LABEL_41;
@@ -5976,14 +6860,14 @@ LABEL_39:
             v99 = dispatch thunk of Collection.subscript.read();
             v99(v134, 0);
             IndexPath.init(index:)();
-            v133 = v96;
+            v133[0] = v96;
             v100 = v92;
             v102 = *(v96 + 16);
             v101 = *(v96 + 24);
             if (v102 >= v101 >> 1)
             {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v101 > 1, v102 + 1, 1);
-              v96 = v133;
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v101 > 1), v102 + 1, 1);
+              v96 = v133[0];
             }
 
             *(v96 + 16) = v102 + 1;
@@ -6028,10 +6912,8 @@ LABEL_39:
     v110 = *(v109 + 208);
     swift_beginAccess();
     outlined assign with take of TableHeaderView?(v134, v108 + v110, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor);
-    return swift_endAccess();
+    swift_endAccess();
   }
-
-  return result;
 }
 
 void specialized UICollectionViewListCoordinatorBase.updateListContents(_:)(char *a1)
@@ -6065,7 +6947,7 @@ void specialized UICollectionViewListCoordinatorBase.updateListContents(_:)(char
   }
 
   v17 = v16;
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionViewCell);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionViewCell, 0x1E69DC7F8);
   v18 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v18 >> 62)
@@ -6118,7 +7000,7 @@ LABEL_8:
   v25 = v24;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
 
-  type metadata accessor for TableCollectionViewCell();
+  type metadata accessor for TableCollectionViewCell(0);
   v26 = swift_dynamicCastClass();
   if (!v26)
   {
@@ -6155,7 +7037,7 @@ LABEL_8:
         goto LABEL_69;
       }
 
-      a1 = (v32 + v127);
+      a1 = &v127[v32];
     }
 
 LABEL_18:
@@ -6305,7 +7187,7 @@ LABEL_32:
         goto LABEL_32;
       }
 
-      type metadata accessor for TableCollectionViewCell();
+      type metadata accessor for TableCollectionViewCell(0);
       v50 = swift_dynamicCastClass();
       if (v50)
       {
@@ -6390,7 +7272,7 @@ LABEL_49:
 
         if (v72)
         {
-          type metadata accessor for TableCollectionViewCell();
+          type metadata accessor for TableCollectionViewCell(0);
           v73 = swift_dynamicCastClass();
 
           if (v73)
@@ -6431,7 +7313,7 @@ LABEL_57:
   v75 = MEMORY[0x18D00C850](0xD000000000000011, 0x800000018CD4D770);
   v76 = [a1 visibleSupplementaryViewsOfKind_];
 
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionReusableView);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UICollectionReusableView, 0x1E69DC7E8);
   v19 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v19 >> 62)
@@ -6514,7 +7396,7 @@ LABEL_64:
 LABEL_72:
 }
 
-uint64_t specialized closure #3 in UICollectionViewListCoordinatorBase.updateEditingState(_:)(void *a1, void *a2)
+uint64_t specialized closure #3 in UICollectionViewListCoordinatorBase.updateEditingState(_:)(char *a1, void *a2)
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
@@ -6530,7 +7412,7 @@ uint64_t specialized closure #3 in UICollectionViewListCoordinatorBase.updateEdi
   (*(v5 + 56))(&v21 - v15, 1, 1, v4, v14);
   v17 = OBJC_IVAR____TtC7SwiftUI30UpdateCoalescingCollectionView_pendingDeselectedItem;
   swift_beginAccess();
-  outlined assign with take of Binding<AnySelectionManager>?(v16, a1 + v17, &lazy cache variable for type metadata for IndexPath?, v8, v9, _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0);
+  outlined assign with take of Binding<AnySelectionManager>?(v16, &a1[v17], &lazy cache variable for type metadata for IndexPath?, v8, v9, _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0);
   swift_endAccess();
   v18 = *((*MEMORY[0x1E69E7D40] & *a2) + 0xE0);
   swift_beginAccess();
@@ -6587,9 +7469,9 @@ uint64_t specialized ShadowListUpdateRecorder.hasFooter(forSectionAt:)(uint64_t 
   {
     MEMORY[0x1EEE9AC00](a1);
     lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor();
-    swift_getKeyPath();
+    KeyPath = swift_getKeyPath();
 
-    updated = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(v2, v3);
+    updated = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(v2, v3, KeyPath);
 
     specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(updated, a1);
   }
@@ -6606,9 +7488,9 @@ uint64_t specialized ShadowListUpdateRecorder.initialIndex(_:)(uint64_t a1)
   {
     MEMORY[0x1EEE9AC00](a1);
     lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor();
-    swift_getKeyPath();
+    KeyPath = swift_getKeyPath();
 
-    updated = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(v3, v4);
+    updated = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(v3, v4, KeyPath);
 
     v2 = specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(updated, v2);
   }
@@ -6616,7 +7498,7 @@ uint64_t specialized ShadowListUpdateRecorder.initialIndex(_:)(uint64_t a1)
   return v2;
 }
 
-uint64_t specialized ShadowListDataSource.contextForItem(index:)@<X0>(unint64_t a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+void specialized ShadowListDataSource.contextForItem(index:)(unint64_t a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v7 = outlined init with copy of TableDataSourceAdaptor(v3, &v15);
   v9 = *(v3 + 176);
@@ -6625,9 +7507,9 @@ uint64_t specialized ShadowListDataSource.contextForItem(index:)@<X0>(unint64_t 
   {
     MEMORY[0x1EEE9AC00](v7);
     lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor();
-    swift_getKeyPath();
+    KeyPath = swift_getKeyPath();
 
-    updated = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(v8, v9);
+    updated = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(v8, v9, KeyPath);
 
     a2 = specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(&v20, updated, a1, a2);
 
@@ -6635,7 +7517,7 @@ uint64_t specialized ShadowListDataSource.contextForItem(index:)@<X0>(unint64_t 
   }
 
   TableDataSourceAdaptor.contextForItem(index:)(a1, a2, v21);
-  result = outlined destroy of TableDataSourceAdaptor(&v15);
+  outlined destroy of TableDataSourceAdaptor(&v15);
   if (v22)
   {
     v16[5] = v21[6];
@@ -6658,7 +7540,7 @@ uint64_t specialized ShadowListDataSource.contextForItem(index:)@<X0>(unint64_t 
     outlined init with copy of Binding<AnySelectionManager>(v18 + 8, a3 + 160, &lazy cache variable for type metadata for AnyHashable?, MEMORY[0x1E69E69B8], MEMORY[0x1E69E6720]);
     v14 = v19[1];
 
-    result = outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v15, &lazy cache variable for type metadata for _RowVisitationContext<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for _RowVisitationContext);
+    outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v15, &lazy cache variable for type metadata for _RowVisitationContext<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for _RowVisitationContext);
     *a3 = v12;
     *(a3 + 200) = v14;
     *(a3 + 201) = 0;
@@ -6683,7 +7565,6 @@ uint64_t specialized ShadowListDataSource.contextForItem(index:)@<X0>(unint64_t 
   }
 
   *(a3 + 152) = v13;
-  return result;
 }
 
 uint64_t specialized ListCoreDataSource.selectionValue(forRowAt:)@<X0>(unint64_t a1@<X0>, unint64_t *a2@<X1>, int8x16_t *a3@<X8>)
@@ -6817,7 +7698,7 @@ uint64_t static CollectionViewTableRoot._makeView(view:inputs:)@<X0>(int *a1@<X0
   *(&v61 + 1) = a6;
   v18 = a5;
   *&v62 = v17;
-  type metadata accessor for CollectionViewTableRoot();
+  type metadata accessor for CollectionViewTableRoot(255, &v60);
   type metadata accessor for _GraphValue();
   _GraphValue.subscript.getter();
   v66 = v92;
@@ -6968,32 +7849,32 @@ LABEL_8:
 
 uint64_t closure #1 in static CollectionViewTableRoot._makeView(view:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v12 = a2;
-  v13 = a3;
-  v14 = a4;
-  v15 = a5;
-  v16 = a6;
-  v11[2] = type metadata accessor for CollectionViewTableRoot();
+  v12[0] = a2;
+  v12[1] = a3;
+  v12[2] = a4;
+  v12[3] = a5;
+  v12[4] = a6;
+  v11[2] = type metadata accessor for CollectionViewTableRoot(0, v12);
   v11[3] = a3;
   v8 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1, closure #1 in static PointerOffset.of(_:)partial apply, v11, a3, MEMORY[0x1E69E73E0], v8, MEMORY[0x1E69E7410], v9);
-  return v12;
+  return v12[0];
 }
 
 uint64_t closure #2 in static CollectionViewTableRoot._makeView(view:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v14 = a2;
-  v15 = a3;
-  v16 = a4;
-  v17 = a5;
-  v18 = a6;
-  v8 = type metadata accessor for CollectionViewTableRoot();
+  v14[0] = a2;
+  v14[1] = a3;
+  v14[2] = a4;
+  v14[3] = a5;
+  v14[4] = a6;
+  v8 = type metadata accessor for CollectionViewTableRoot(0, v14);
   v9 = *(v8 + 60);
   v13[2] = v8;
   v13[3] = a4;
   v10 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v9, partial apply for closure #1 in static PointerOffset.of(_:), v13, a4, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v11);
-  return v14;
+  return v14[0];
 }
 
 uint64_t UpdateCollectionViewTableCoordinator.init<A, B, C>(rowList:columnList:view:viewInputs:scrollGeometry:)@<X0>(int a1@<W0>, int a2@<W1>, int *a3@<X2>, __int128 *a4@<X3>, unsigned int a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11)
@@ -7044,7 +7925,7 @@ uint64_t UpdateCollectionViewTableCoordinator.init<A, B, C>(rowList:columnList:v
   *&v47 = a8;
   *(&v47 + 1) = a10;
   *&v48 = a11;
-  type metadata accessor for CollectionViewTableRoot();
+  type metadata accessor for CollectionViewTableRoot(255, &v46);
   type metadata accessor for _GraphValue();
   type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager);
   v22 = _GraphValue.subscript.getter();
@@ -7215,9 +8096,9 @@ uint64_t UpdateCollectionViewTableCoordinator.init<A, B, C>(rowList:columnList:v
   return result;
 }
 
-uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance CollectionViewTableRoot<A, B, C>()
+uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance CollectionViewTableRoot<A, B, C>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(protocol conformance descriptor for CollectionViewTableRoot<A, B, C>, a3);
 
   return static UnaryView._makeViewList(view:inputs:)();
 }
@@ -7253,125 +8134,125 @@ uint64_t UpdateCollectionViewTableCoordinator.hasMultipleSelection.getter()
 
 uint64_t closure #1 in UpdateCollectionViewTableCoordinator.init<A, B, C>(rowList:columnList:view:viewInputs:scrollGeometry:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v15 = a2;
-  v16 = a3;
-  v17 = a4;
-  v18 = a5;
-  v19 = a6;
-  v7 = type metadata accessor for CollectionViewTableRoot();
+  v15[0] = a2;
+  v15[1] = a3;
+  v15[2] = a4;
+  v15[3] = a5;
+  v15[4] = a6;
+  v7 = type metadata accessor for CollectionViewTableRoot(0, v15);
   v8 = *(v7 + 64);
   v14[2] = v7;
   type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager);
   v10 = v9;
   v11 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v8, closure #1 in static PointerOffset.of(_:)partial apply, v14, v10, MEMORY[0x1E69E73E0], v11, MEMORY[0x1E69E7410], v12);
-  return v15;
+  return v15[0];
 }
 
 uint64_t closure #2 in UpdateCollectionViewTableCoordinator.init<A, B, C>(rowList:columnList:view:viewInputs:scrollGeometry:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v15 = a2;
-  v16 = a3;
-  v17 = a4;
-  v18 = a5;
-  v19 = a6;
-  v7 = type metadata accessor for CollectionViewTableRoot();
+  v15[0] = a2;
+  v15[1] = a3;
+  v15[2] = a4;
+  v15[3] = a5;
+  v15[4] = a6;
+  v7 = type metadata accessor for CollectionViewTableRoot(0, v15);
   v8 = *(v7 + 68);
   v14[2] = v7;
   _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0(0, &lazy cache variable for type metadata for Binding<[SwiftUIAnySortComparator]>?, type metadata accessor for Binding<[SwiftUIAnySortComparator]>, MEMORY[0x1E69E6720]);
   v10 = v9;
   v11 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v8, closure #1 in static PointerOffset.of(_:)partial apply, v14, v10, MEMORY[0x1E69E73E0], v11, MEMORY[0x1E69E7410], v12);
-  return v15;
+  return v15[0];
 }
 
 uint64_t closure #3 in UpdateCollectionViewTableCoordinator.init<A, B, C>(rowList:columnList:view:viewInputs:scrollGeometry:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v15 = a2;
-  v16 = a3;
-  v17 = a4;
-  v18 = a5;
-  v19 = a6;
-  v7 = type metadata accessor for CollectionViewTableRoot();
+  v15[0] = a2;
+  v15[1] = a3;
+  v15[2] = a4;
+  v15[3] = a5;
+  v15[4] = a6;
+  v7 = type metadata accessor for CollectionViewTableRoot(0, v15);
   v8 = *(v7 + 72);
   v14[2] = v7;
   type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>?, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>, &type metadata for AnyTableColumnCustomization);
   v10 = v9;
   v11 = type metadata accessor for PointerOffset();
   _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v8, _s14AttributeGraph13PointerOffsetV2ofyACyxq_Gq_zFZAESPyq_GXEfU_TA_20, v14, v10, MEMORY[0x1E69E73E0], v11, MEMORY[0x1E69E7410], v12);
-  return v15;
+  return v15[0];
 }
 
 Swift::Void __swiftcall UpdateCollectionViewTableCoordinator.updateValue()()
 {
   v1 = v0;
-  v228 = *MEMORY[0x1E69E9840];
+  v231 = *MEMORY[0x1E69E9840];
   type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID)(0, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
-  v167 = v2;
+  v170 = v2;
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
-  v164 = v147 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v167 = v150 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v5);
-  v166 = v147 - v6;
+  v169 = v150 - v6;
   v7 = type metadata accessor for TableColumnCollection.Entry(0);
-  v165 = *(v7 - 8);
+  v168 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v158 = v147 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v161 = v150 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   Value = AGGraphGetValue();
-  v161 = v10;
-  outlined init with copy of TableRowList(Value, v227);
-  type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for TableColumnList);
+  v164 = v10;
+  outlined init with copy of TableRowList(Value, v230);
+  type metadata accessor for CVarArg(0, &lazy cache variable for type metadata for TableColumnList, &protocol descriptor for TableColumnList);
   v11 = AGGraphGetValue();
   v13 = v12;
-  outlined init with copy of _Benchmark(v11, v224);
+  outlined init with copy of _Benchmark(v11, v227);
   v14 = v13 & 1;
   v15 = AGGraphGetValue();
   v17 = v16;
-  v159 = *v15;
+  v162 = *v15;
   type metadata accessor for UICollectionViewListCoordinator<TableDataSourceAdaptor, AnySelectionManager>(0, &lazy cache variable for type metadata for UICollectionViewListCoordinator<TableDataSourceAdaptor, AnySelectionManager>, type metadata accessor for UICollectionViewListCoordinator);
   v19 = v18;
   OutputValue = AGGraphGetOutputValue();
-  v162 = v19;
-  v163 = v1;
-  if (OutputValue && (v161 & 1) == 0 && !v14 && (v17 & 1) == 0)
+  v165 = v19;
+  v166 = v1;
+  if (OutputValue && (v164 & 1) == 0 && !v14 && (v17 & 1) == 0)
   {
-    outlined init with copy of Binding<AnySelectionManager>(v1 + 96, &v210, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor, MEMORY[0x1E69E6720]);
-    if (!*(&v211 + 1))
+    outlined init with copy of Binding<AnySelectionManager>(v1 + 96, &v213, &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor, MEMORY[0x1E69E6720]);
+    if (!*(&v214 + 1))
     {
 LABEL_49:
       __break(1u);
       goto LABEL_50;
     }
 
-    v195 = v214;
-    v196 = v215;
-    v197 = v216;
-    v191 = v210;
-    v192 = v211;
+    v198 = v217;
+    v199 = v218;
+    v200 = v219;
     v194 = v213;
-    v193 = v212;
-    LODWORD(v190[0]) = *v217;
-    *(v190 + 3) = *&v217[3];
-    v21 = v218;
-    v22 = v219;
-    v165 = v221;
-    v166 = v220;
-    v164 = v222;
-    LODWORD(v167) = v223;
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v210);
+    v195 = v214;
+    v197 = v216;
+    v196 = v215;
+    LODWORD(v193[0]) = *v220;
+    *(v193 + 3) = *&v220[3];
+    v21 = v221;
+    v22 = v222;
+    v168 = v224;
+    v169 = v223;
+    v167 = v225;
+    LODWORD(v170) = v226;
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v213);
     updated = UpdateCollectionViewTableCoordinator.hasMultipleSelection.getter();
-    outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
+    outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
     v24 = updated & 1;
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v210);
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v213);
     _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0(0, &lazy cache variable for type metadata for Binding<[SwiftUIAnySortComparator]>?, type metadata accessor for Binding<[SwiftUIAnySortComparator]>, MEMORY[0x1E69E6720]);
     v25 = AGGraphGetValue();
     v26 = *v25;
     v27 = v25[1];
     v28 = v25[2];
     outlined copy of Binding<[SwiftUIAnySortComparator]>?(*v25, v27);
-    outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
+    outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
     outlined consume of Binding<[A1]>?<A, B, C><A1>(v21, v22);
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v163, &v210);
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v166, &v213);
     type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>?, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>, &type metadata for AnyTableColumnCustomization);
     v29 = AGGraphGetValue();
     v31 = *v29;
@@ -7379,200 +8260,200 @@ LABEL_49:
     v32 = v29[2];
     v33 = v29[3];
     outlined copy of Binding<AnyTableColumnCustomization>?(*v29, v30);
-    outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
-    outlined consume of Binding<AnyTableColumnCustomization>?(v166, v165);
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v163, &v210);
+    outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
+    outlined consume of Binding<AnyTableColumnCustomization>?(v169, v168);
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v166, &v213);
     v34 = *AGGraphGetValue();
-    outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
-    v159 = 0;
-    *&v186 = v197;
+    outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
+    v162 = 0;
+    *&v189 = v200;
+    v187 = v198;
+    v188 = v199;
+    v183 = v194;
     v184 = v195;
     v185 = v196;
-    v180 = v191;
-    v181 = v192;
-    v182 = v193;
-    v183 = v194;
-    BYTE8(v186) = v24;
-    HIDWORD(v186) = *(v190 + 3);
-    *(&v186 + 9) = v190[0];
-    *&v187 = v26;
-    *(&v187 + 1) = v27;
-    *&v188 = v28;
-    *(&v188 + 1) = v31;
-    *&v189[0] = v30;
-    *(&v189[0] + 1) = v32;
-    *&v189[1] = v33;
-    BYTE8(v189[1]) = v34;
-    *(&v189[1] + 9) = v167;
-    v1 = v163;
+    v186 = v197;
+    BYTE8(v189) = v24;
+    HIDWORD(v189) = *(v193 + 3);
+    *(&v189 + 9) = v193[0];
+    *&v190 = v26;
+    *(&v190 + 1) = v27;
+    *&v191 = v28;
+    *(&v191 + 1) = v31;
+    *&v192[0] = v30;
+    *(&v192[0] + 1) = v32;
+    *&v192[1] = v33;
+    BYTE8(v192[1]) = v34;
+    *(&v192[1] + 9) = v170;
+    v1 = v166;
     v35 = MEMORY[0x1E69E7D40];
 LABEL_32:
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v210);
-    v92 = AGGraphGetOutputValue();
-    if (v92)
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v213);
+    v95 = AGGraphGetOutputValue();
+    if (v95)
     {
-      v93 = *v92;
-      outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
-      outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v191);
+      v96 = *v95;
+      outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
+      outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v194);
       type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager);
-      v94 = AGGraphGetValue();
-      outlined init with copy of Binding<AnySelectionManager>?(v94, v190, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
-      outlined destroy of UpdateCollectionViewTableCoordinator(&v191);
-      v95 = *((*v35 & *v93) + 0x110);
+      v97 = AGGraphGetValue();
+      outlined init with copy of Binding<AnySelectionManager>?(v97, v193, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
+      outlined destroy of UpdateCollectionViewTableCoordinator(&v194);
+      v98 = *((*v35 & *v96) + 0x110);
       swift_beginAccess();
-      outlined assign with take of Binding<AnySelectionManager>?(v190, v93 + v95, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
+      outlined assign with take of Binding<AnySelectionManager>?(v193, v96 + v98, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
       swift_endAccess();
 
-      outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v210);
-      v96 = AGGraphGetOutputValue();
-      if (v96)
+      outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v213);
+      v99 = AGGraphGetOutputValue();
+      if (v99)
       {
-        v97 = *v96;
-        outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
-        outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v191);
+        v100 = *v99;
+        outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
+        outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v194);
         type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<EditMode>?, &lazy cache variable for type metadata for Binding<EditMode>, &type metadata for EditMode);
-        v98 = AGGraphGetValue();
-        v99 = *v98;
-        v100 = *(v98 + 8);
-        v101 = *(v98 + 16);
-        outlined copy of Binding<Int>?(*v98, v100);
-        outlined destroy of UpdateCollectionViewTableCoordinator(&v191);
-        v102 = v97 + *((*v35 & *v97) + 0x128);
-        v103 = *v102;
-        v104 = *(v102 + 1);
-        *v102 = v99;
-        *(v102 + 1) = v100;
-        v102[16] = v101;
-        outlined consume of Binding<NavigationSplitViewColumn>?(v103, v104);
+        v101 = AGGraphGetValue();
+        v102 = *v101;
+        v103 = *(v101 + 8);
+        v104 = *(v101 + 16);
+        outlined copy of Binding<Int>?(*v101, v103);
+        outlined destroy of UpdateCollectionViewTableCoordinator(&v194);
+        v105 = v100 + *((*v35 & *v100) + 0x128);
+        v106 = *v105;
+        v107 = *(v105 + 1);
+        *v105 = v102;
+        *(v105 + 1) = v103;
+        v105[16] = v104;
+        outlined consume of Binding<NavigationSplitViewColumn>?(v106, v107);
 
-        outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v210);
-        v105 = AGGraphGetOutputValue();
-        if (v105)
+        outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v213);
+        v108 = AGGraphGetOutputValue();
+        if (v108)
         {
-          v106 = *v105;
-          outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
-          outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v191);
-          v107 = *AGGraphGetValue();
-          outlined destroy of UpdateCollectionViewTableCoordinator(&v191);
-          *(v106 + *((*v35 & *v106) + 0x138)) = v107;
+          v109 = *v108;
+          outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
+          outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v194);
+          v110 = *AGGraphGetValue();
+          outlined destroy of UpdateCollectionViewTableCoordinator(&v194);
+          *(v109 + *((*v35 & *v109) + 0x138)) = v110;
 
-          outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v210);
-          v108 = AGGraphGetOutputValue();
-          if (v108)
+          outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v213);
+          v111 = AGGraphGetOutputValue();
+          if (v111)
           {
-            v109 = *v108;
-            outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
-            v110 = (v109 + *((*v35 & *v109) + 0x130));
-            v111 = *(v1 + 68);
-            *v110 = *(v1 + 52);
-            v110[1] = v111;
+            v112 = *v111;
+            outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
+            v113 = (v112 + *((*v35 & *v112) + 0x130));
+            v114 = *(v1 + 68);
+            *v113 = *(v1 + 52);
+            v113[1] = v114;
 
-            outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v191);
-            v112 = AGGraphGetOutputValue();
-            if (v112)
+            outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v194);
+            v115 = AGGraphGetOutputValue();
+            if (v115)
             {
-              v113 = v35;
-              v114 = *v112;
-              outlined destroy of UpdateCollectionViewTableCoordinator(&v191);
-              outlined init with copy of UpdateCollectionViewTableCoordinator(v1, v190);
-              v115 = AGGraphGetValue();
-              v116 = *v115;
-              v117 = v115[1];
-              v118 = v115[2];
-              v119 = v115[3];
-              v120 = v115[4];
-              v121 = v115[5];
-              v122 = v115[6];
-              outlined copy of ResolvedSubviewsSizingOptions(*v115, v117, v118);
-              outlined destroy of UpdateCollectionViewTableCoordinator(v190);
-              v123 = v114 + *((*v113 & *v114) + 0x100);
-              v124 = *(v123 + 6);
-              v125 = *(v123 + 2);
-              v126 = *v123;
-              v178[1] = *(v123 + 1);
-              v178[2] = v125;
-              v179 = v124;
-              v178[0] = v126;
-              v128 = *v123;
-              v127 = *(v123 + 1);
-              v129 = *(v123 + 3);
-              v166 = *(v123 + 2);
-              v167 = v127;
-              v165 = v129;
-              v130 = *(v123 + 5);
-              v164 = *(v123 + 4);
-              v160 = *(v123 + 6);
-              v161 = v130;
-              *v123 = v116;
-              *(v123 + 1) = v117;
-              *(v123 + 2) = v118;
-              *(v123 + 3) = v119;
-              *(v123 + 4) = v120;
-              *(v123 + 5) = v121;
-              v131 = v163;
-              *(v123 + 6) = v122;
-              v132 = MEMORY[0x1E69E6720];
-              outlined init with copy of Binding<AnySelectionManager>(v178, &v200, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
-              outlined consume of ResolvedSubviewsSizingOptions?(v128, v167, v166);
-              specialized UICollectionViewListCoordinatorBase.subviewsSizingOptions.didset(v178);
-              _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v178, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, v132);
+              v116 = v35;
+              v117 = *v115;
+              outlined destroy of UpdateCollectionViewTableCoordinator(&v194);
+              outlined init with copy of UpdateCollectionViewTableCoordinator(v1, v193);
+              v118 = AGGraphGetValue();
+              v119 = *v118;
+              v120 = v118[1];
+              v121 = v118[2];
+              v122 = v118[3];
+              v123 = v118[4];
+              v124 = v118[5];
+              v125 = v118[6];
+              outlined copy of ResolvedSubviewsSizingOptions(*v118, v120, v121, v122, v123, v124, v125);
+              outlined destroy of UpdateCollectionViewTableCoordinator(v193);
+              v126 = v117 + *((*v116 & *v117) + 0x100);
+              v127 = *(v126 + 6);
+              v128 = *(v126 + 2);
+              v129 = *v126;
+              v181[1] = *(v126 + 1);
+              v181[2] = v128;
+              v182 = v127;
+              v181[0] = v129;
+              v131 = *v126;
+              v130 = *(v126 + 1);
+              v132 = *(v126 + 3);
+              v169 = *(v126 + 2);
+              v170 = v130;
+              v168 = v132;
+              v133 = *(v126 + 5);
+              v167 = *(v126 + 4);
+              v163 = *(v126 + 6);
+              v164 = v133;
+              *v126 = v119;
+              *(v126 + 1) = v120;
+              *(v126 + 2) = v121;
+              *(v126 + 3) = v122;
+              *(v126 + 4) = v123;
+              *(v126 + 5) = v124;
+              v134 = v166;
+              *(v126 + 6) = v125;
+              v135 = MEMORY[0x1E69E6720];
+              outlined init with copy of Binding<AnySelectionManager>(v181, &v203, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, MEMORY[0x1E69E6720]);
+              outlined consume of ResolvedSubviewsSizingOptions?(v131, v170, v169, v168, v167, v164, v163);
+              specialized UICollectionViewListCoordinatorBase.subviewsSizingOptions.didset(v181);
+              _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0(v181, &lazy cache variable for type metadata for ResolvedSubviewsSizingOptions?, &type metadata for ResolvedSubviewsSizingOptions, v135);
 
-              outlined init with copy of UpdateCollectionViewTableCoordinator(v131, &v191);
-              v133 = AGGraphGetOutputValue();
-              if (v133)
+              outlined init with copy of UpdateCollectionViewTableCoordinator(v134, &v194);
+              v136 = AGGraphGetOutputValue();
+              if (v136)
               {
-                v134 = *v133;
-                outlined destroy of UpdateCollectionViewTableCoordinator(&v191);
-                outlined init with copy of UpdateCollectionViewTableCoordinator(v131, v190);
+                v137 = *v136;
+                outlined destroy of UpdateCollectionViewTableCoordinator(&v194);
+                outlined init with copy of UpdateCollectionViewTableCoordinator(v134, v193);
                 type metadata accessor for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)?(0, &lazy cache variable for type metadata for IntelligenceAppIntentsDataSourcePayloadProviding?, &lazy cache variable for type metadata for IntelligenceAppIntentsDataSourcePayloadProviding, MEMORY[0x1E69DBD30], type metadata accessor for CVarArg);
-                v135 = AGGraphGetValue();
-                outlined init with copy of IntelligenceAppIntentsDataSourcePayloadProviding?(v135, &v200);
-                outlined destroy of UpdateCollectionViewTableCoordinator(v190);
-                v136 = *((*MEMORY[0x1E69E7D40] & *v134) + 0x178);
+                v138 = AGGraphGetValue();
+                outlined init with copy of IntelligenceAppIntentsDataSourcePayloadProviding?(v138, &v203);
+                outlined destroy of UpdateCollectionViewTableCoordinator(v193);
+                v139 = *((*MEMORY[0x1E69E7D40] & *v137) + 0x178);
                 swift_beginAccess();
-                outlined assign with take of IntelligenceAppIntentsDataSourcePayloadProviding?(&v200, v134 + v136);
+                outlined assign with take of IntelligenceAppIntentsDataSourcePayloadProviding?(&v203, v137 + v139);
                 swift_endAccess();
 
                 Strong = swift_unknownObjectWeakLoadStrong();
                 if (!Strong)
                 {
 LABEL_41:
-                  outlined destroy of TableRowList(v227);
-                  _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0((v131 + 6), &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor, MEMORY[0x1E69E6720]);
-                  v142 = v189[0];
-                  v131[14] = v188;
-                  v131[15] = v142;
-                  *(v131 + 251) = *(v189 + 11);
-                  v143 = v185;
-                  v131[10] = v184;
-                  v131[11] = v143;
-                  v144 = v187;
-                  v131[12] = v186;
-                  v131[13] = v144;
-                  v145 = v181;
-                  v131[6] = v180;
-                  v131[7] = v145;
-                  v146 = v183;
-                  v131[8] = v182;
-                  v131[9] = v146;
-                  __swift_destroy_boxed_opaque_existential_1(v224);
+                  outlined destroy of TableRowList(v230);
+                  _s7SwiftUI7BindingVyAA27AnyTableColumnCustomizationVGWOhTm_0((v134 + 6), &lazy cache variable for type metadata for TableDataSourceAdaptor?, &type metadata for TableDataSourceAdaptor, MEMORY[0x1E69E6720]);
+                  v145 = v192[0];
+                  v134[14] = v191;
+                  v134[15] = v145;
+                  *(v134 + 251) = *(v192 + 11);
+                  v146 = v188;
+                  v134[10] = v187;
+                  v134[11] = v146;
+                  v147 = v190;
+                  v134[12] = v189;
+                  v134[13] = v147;
+                  v148 = v184;
+                  v134[6] = v183;
+                  v134[7] = v148;
+                  v149 = v186;
+                  v134[8] = v185;
+                  v134[9] = v149;
+                  __swift_destroy_boxed_opaque_existential_1(v227);
                   return;
                 }
 
-                v138 = Strong;
-                outlined init with copy of UpdateCollectionViewTableCoordinator(v131, &v191);
-                v139 = AGGraphGetOutputValue();
-                if (v139)
+                v141 = Strong;
+                outlined init with copy of UpdateCollectionViewTableCoordinator(v134, &v194);
+                v142 = AGGraphGetOutputValue();
+                if (v142)
                 {
-                  v140 = *v139;
-                  outlined destroy of UpdateCollectionViewTableCoordinator(&v191);
+                  v143 = *v142;
+                  outlined destroy of UpdateCollectionViewTableCoordinator(&v194);
                   AGGraphClearUpdate();
-                  outlined init with copy of UpdateCollectionViewTableCoordinator(v131, v190);
-                  v141 = *AGGraphGetValue();
+                  outlined init with copy of UpdateCollectionViewTableCoordinator(v134, v193);
+                  v144 = *AGGraphGetValue();
 
-                  outlined destroy of UpdateCollectionViewTableCoordinator(v190);
+                  outlined destroy of UpdateCollectionViewTableCoordinator(v193);
                   AGGraphSetUpdate();
-                  specialized UICollectionViewListCoordinator.update(_:to:transaction:performDiff:)(v138, &v180, v141, v159 & 1);
+                  specialized UICollectionViewListCoordinator.update(_:to:transaction:performDiff:)(v141, &v183, v144, v162 & 1);
 
                   goto LABEL_41;
                 }
@@ -7612,13 +8493,13 @@ LABEL_44:
 
   if (!OutputValue || v14)
   {
-    *&v180 = MEMORY[0x1E69E7CC0];
-    v36 = v225;
-    v37 = v226;
-    __swift_project_boxed_opaque_existential_1(v224, v225);
-    TableColumnList.visitAll<A>(applying:)(&v180, v36, &type metadata for MakeCellFormulas, v37, &protocol witness table for MakeCellFormulas);
-    v38 = v180;
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v210);
+    *&v183 = MEMORY[0x1E69E7CC0];
+    v36 = v228;
+    v37 = v229;
+    __swift_project_boxed_opaque_existential_1(v227, v228);
+    TableColumnList.visitAll<A>(applying:)(&v183, v36, &type metadata for MakeCellFormulas, v37, &protocol witness table for MakeCellFormulas);
+    v38 = v183;
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v213);
     type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>?, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>, &type metadata for AnyTableColumnCustomization);
     v39 = AGGraphGetValue();
     v40 = *v39;
@@ -7626,168 +8507,168 @@ LABEL_44:
     v42 = v39[2];
     v43 = v39[3];
     outlined copy of Binding<AnyTableColumnCustomization>?(*v39, v41);
-    outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
+    outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
     if (v41)
     {
-      *&v191 = v40;
-      *(&v191 + 1) = v41;
-      *&v192 = v42;
-      *(&v192 + 1) = v43;
+      *&v194 = v40;
+      *(&v194 + 1) = v41;
+      *&v195 = v42;
+      *(&v195 + 1) = v43;
       type metadata accessor for MutableBox<UInt32>(0, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>, &type metadata for AnyTableColumnCustomization, MEMORY[0x1E6981948]);
-      MEMORY[0x18D00ACC0](v190);
-      v44 = v190[0];
-      v45 = v190[1];
+      MEMORY[0x18D00ACC0](v193);
+      v45 = v193[0];
+      v46 = v193[1];
     }
 
     else
     {
-      v44 = 0;
       v45 = 0;
+      v46 = 0;
     }
 
-    v160 = _s7SwiftUI27AnyTableColumnCustomizationV15arrangedColumns_13customization13includeHidden17defaultVisibility2idSayxGq__ACSgSbAA0M0OxXEAA0deF2IDVxXEt7ElementQy_RszSlR_r0_lFZAA0D11CellFormulaV_SayARGTt4g5(v38, v44, v45, 0, specialized implicit closure #5 in UpdateCollectionViewTableCoordinator.updateValue(), 0, specialized implicit closure #6 in UpdateCollectionViewTableCoordinator.updateValue(), 0);
-    outlined consume of AttributedTextFormatting.Constraints?(v44);
+    v163 = _s7SwiftUI27AnyTableColumnCustomizationV15arrangedColumns_13customization13includeHidden17defaultVisibility2idSayxGq__ACSgSbAA0M0OxXEAA0deF2IDVxXEt7ElementQy_RszSlR_r0_lFZAA0D11CellFormulaV_SayARGTt4g5(v38, v45, v46, 0, specialized implicit closure #5 in UpdateCollectionViewTableCoordinator.updateValue(), 0, specialized implicit closure #6 in UpdateCollectionViewTableCoordinator.updateValue(), 0, v44);
+    outlined consume of AttributedTextFormatting.Constraints?(v45);
 
-    v19 = v162;
+    v19 = v165;
 LABEL_15:
-    outlined init with copy of TableRowList(v227, v199);
-    outlined init with copy of _Benchmark(v224, v198);
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v210);
-    LODWORD(v46) = UpdateCollectionViewTableCoordinator.hasMultipleSelection.getter();
-    outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v191);
+    outlined init with copy of TableRowList(v230, v202);
+    outlined init with copy of _Benchmark(v227, v201);
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v213);
+    LODWORD(v47) = UpdateCollectionViewTableCoordinator.hasMultipleSelection.getter();
+    outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v194);
     _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0(0, &lazy cache variable for type metadata for Binding<[SwiftUIAnySortComparator]>?, type metadata accessor for Binding<[SwiftUIAnySortComparator]>, MEMORY[0x1E69E6720]);
-    v47 = AGGraphGetValue();
-    v48 = *v47;
-    v49 = v47[2];
-    v156 = v47[1];
-    v157 = v48;
-    v155 = v49;
-    outlined copy of Binding<[SwiftUIAnySortComparator]>?(v48, v156);
-    outlined destroy of UpdateCollectionViewTableCoordinator(&v191);
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, v190);
+    v48 = AGGraphGetValue();
+    v49 = *v48;
+    v50 = v48[2];
+    v159 = v48[1];
+    v160 = v49;
+    v158 = v50;
+    outlined copy of Binding<[SwiftUIAnySortComparator]>?(v49, v159);
+    outlined destroy of UpdateCollectionViewTableCoordinator(&v194);
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, v193);
     type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>?, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>, &type metadata for AnyTableColumnCustomization);
-    v50 = AGGraphGetValue();
-    v51 = *v50;
-    v52 = v50[1];
-    v54 = v50[2];
-    v53 = v50[3];
-    outlined copy of Binding<AnyTableColumnCustomization>?(*v50, v52);
-    outlined destroy of UpdateCollectionViewTableCoordinator(v190);
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v180);
-    v154 = *AGGraphGetValue();
-    outlined destroy of UpdateCollectionViewTableCoordinator(&v180);
-    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, v178);
-    v153 = *AGGraphGetValue();
-    outlined destroy of UpdateCollectionViewTableCoordinator(v178);
-    outlined init with copy of _Benchmark(v198, &v200);
-    BYTE8(v202) = 0;
-    if (v52)
+    v51 = AGGraphGetValue();
+    v52 = *v51;
+    v53 = v51[1];
+    v55 = v51[2];
+    v54 = v51[3];
+    outlined copy of Binding<AnyTableColumnCustomization>?(*v51, v53);
+    outlined destroy of UpdateCollectionViewTableCoordinator(v193);
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v183);
+    v157 = *AGGraphGetValue();
+    outlined destroy of UpdateCollectionViewTableCoordinator(&v183);
+    outlined init with copy of UpdateCollectionViewTableCoordinator(v1, v181);
+    v156 = *AGGraphGetValue();
+    outlined destroy of UpdateCollectionViewTableCoordinator(v181);
+    outlined init with copy of _Benchmark(v201, &v203);
+    BYTE8(v205) = 0;
+    if (v53)
     {
-      v149 = v3;
-      v152 = v46;
-      *&v169 = v51;
-      *(&v169 + 1) = v52;
-      *&v170 = v54;
-      *(&v170 + 1) = v53;
+      v152 = v3;
+      v155 = v47;
+      *&v172 = v52;
+      *(&v172 + 1) = v53;
+      *&v173 = v55;
+      *(&v173 + 1) = v54;
       type metadata accessor for MutableBox<UInt32>(0, &lazy cache variable for type metadata for Binding<AnyTableColumnCustomization>, &type metadata for AnyTableColumnCustomization, MEMORY[0x1E6981948]);
-      v56 = v55;
+      v57 = v56;
 
-      MEMORY[0x18D00ACC0](v168, v56);
-      v57 = v168[0];
-      v58 = v168[1];
-      v148 = v53;
+      MEMORY[0x18D00ACC0](v171, v57);
+      v58 = v171[0];
+      v59 = v171[1];
+      v151 = v54;
 
-      v150 = v52;
+      v153 = v53;
 
-      v151 = v51;
+      v154 = v52;
 
-      v59 = outlined init with copy of TableColumnCollection(&v200, &v169);
-      MEMORY[0x1EEE9AC00](v59);
-      v147[-8] = specialized implicit closure #2 in TableDataSourceAdaptor.init(rowList:columnList:cellFormulas:hasMultipleSelection:sortOrder:columnCustomization:showsFirstColumnOnly:tableColumnHeadersVisibility:accessibilityEnabled:);
-      v147[-7] = 0;
-      LOBYTE(v147[-6]) = 0;
-      v147[1] = v57;
-      v147[-5] = v57;
-      v147[-4] = v58;
-      v147[-3] = specialized implicit closure #1 in TableDataSourceAdaptor.init(rowList:columnList:cellFormulas:hasMultipleSelection:sortOrder:columnCustomization:showsFirstColumnOnly:tableColumnHeadersVisibility:accessibilityEnabled:);
-      v147[-2] = 0;
-      v60 = specialized Sequence.compactMap<A>(_:)(&v169, partial apply for specialized closure #1 in static AnyTableColumnCustomization.arrangedColumns<A, B>(_:customization:includeHidden:defaultVisibility:id:), &v147[-10]);
-      outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v169, &lazy cache variable for type metadata for EnumeratedSequence<TableColumnCollection>, lazy protocol witness table accessor for type TableColumnCollection and conformance TableColumnCollection, &type metadata for TableColumnCollection, MEMORY[0x1E69E6E48]);
-      *&v169 = v60;
-      v147[2] = v58;
-      if (v58)
+      v60 = outlined init with copy of TableColumnCollection(&v203, &v172);
+      v61 = MEMORY[0x1EEE9AC00](v60);
+      v150[-8] = specialized implicit closure #2 in TableDataSourceAdaptor.init(rowList:columnList:cellFormulas:hasMultipleSelection:sortOrder:columnCustomization:showsFirstColumnOnly:tableColumnHeadersVisibility:accessibilityEnabled:);
+      v150[-7] = 0;
+      LOBYTE(v150[-6]) = 0;
+      v150[1] = v58;
+      v150[-5] = v58;
+      v150[-4] = v59;
+      v150[-3] = specialized implicit closure #1 in TableDataSourceAdaptor.init(rowList:columnList:cellFormulas:hasMultipleSelection:sortOrder:columnCustomization:showsFirstColumnOnly:tableColumnHeadersVisibility:accessibilityEnabled:);
+      v150[-2] = 0;
+      v62 = specialized Sequence.compactMap<A>(_:)(&v172, partial apply for specialized closure #1 in static AnyTableColumnCustomization.arrangedColumns<A, B>(_:customization:includeHidden:defaultVisibility:id:), &v150[-10], v61);
+      outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(&v172, &lazy cache variable for type metadata for EnumeratedSequence<TableColumnCollection>, lazy protocol witness table accessor for type TableColumnCollection and conformance TableColumnCollection, &type metadata for TableColumnCollection, MEMORY[0x1E69E6E48]);
+      *&v172 = v62;
+      v150[2] = v59;
+      if (v59)
       {
 
-        specialized MutableCollection<>.sort(by:)(&v169, v58, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry, specialized _ArrayBuffer._consumeAndCreateNew(), specialized UnsafeMutableBufferPointer._stableSortImpl(by:));
+        specialized MutableCollection<>.sort(by:)(&v172, v59, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry, specialized _ArrayBuffer._consumeAndCreateNew(), specialized UnsafeMutableBufferPointer._stableSortImpl(by:));
 
-        v60 = v169;
+        v62 = v172;
       }
 
-      v61 = v149;
-      v149 = v54;
-      v62 = v60[2];
-      if (v62)
+      v63 = v152;
+      v152 = v55;
+      v64 = v62[2];
+      if (v64)
       {
-        v168[0] = MEMORY[0x1E69E7CC0];
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v62, 0);
-        v63 = v168[0];
-        v64 = *(v61 + 80);
-        v147[0] = v60;
-        v65 = v60 + ((v64 + 32) & ~v64);
-        v66 = *(v61 + 72);
-        v67 = v158;
+        v171[0] = MEMORY[0x1E69E7CC0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v64, 0);
+        v65 = v171[0];
+        v66 = *(v63 + 80);
+        v150[0] = v62;
+        v67 = v62 + ((v66 + 32) & ~v66);
+        v68 = *(v63 + 72);
+        v69 = v161;
         do
         {
-          v68 = v166;
-          outlined init with copy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v65, v166, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
-          v69 = v68;
-          v70 = v164;
-          outlined init with take of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v69, v164, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
-          v71 = *(v167 + 48);
-          v72 = v70 + *(v167 + 64);
-          outlined consume of TableColumnCustomizationID.Base(*v72, *(v72 + 8), *(v72 + 16), *(v72 + 24), *(v72 + 32));
-          _s7SwiftUI16TableCellFormulaVWObTm_0(v70 + v71, v67, type metadata accessor for TableColumnCollection.Entry);
-          v168[0] = v63;
-          v74 = *(v63 + 16);
-          v73 = *(v63 + 24);
-          if (v74 >= v73 >> 1)
+          v70 = v169;
+          outlined init with copy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v67, v169, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
+          v71 = v70;
+          v72 = v167;
+          outlined init with take of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v71, v167, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
+          v73 = *(v170 + 48);
+          v74 = v72 + *(v170 + 64);
+          outlined consume of TableColumnCustomizationID.Base(*v74, *(v74 + 8), *(v74 + 16), *(v74 + 24), *(v74 + 32));
+          _s7SwiftUI16TableCellFormulaVWObTm_0(v72 + v73, v69, type metadata accessor for TableColumnCollection.Entry);
+          v171[0] = v65;
+          v76 = *(v65 + 16);
+          v75 = *(v65 + 24);
+          if (v76 >= v75 >> 1)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v73 > 1, v74 + 1, 1);
-            v67 = v158;
-            v63 = v168[0];
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v75 > 1), v76 + 1, 1);
+            v69 = v161;
+            v65 = v171[0];
           }
 
-          *(v63 + 16) = v74 + 1;
-          _s7SwiftUI16TableCellFormulaVWObTm_0(v67, v63 + ((*(v165 + 80) + 32) & ~*(v165 + 80)) + *(v165 + 72) * v74, type metadata accessor for TableColumnCollection.Entry);
-          v65 += v66;
-          --v62;
+          *(v65 + 16) = v76 + 1;
+          _s7SwiftUI16TableCellFormulaVWObTm_0(v69, v65 + ((*(v168 + 80) + 32) & ~*(v168 + 80)) + *(v168 + 72) * v76, type metadata accessor for TableColumnCollection.Entry);
+          v67 += v68;
+          --v64;
         }
 
-        while (v62);
+        while (v64);
 
-        v19 = v162;
-        v1 = v163;
-        v75 = v160;
+        v19 = v165;
+        v1 = v166;
+        v78 = v163;
       }
 
       else
       {
 
-        v75 = v160;
-        v63 = MEMORY[0x1E69E7CC0];
+        v78 = v163;
+        v65 = MEMORY[0x1E69E7CC0];
       }
 
-      *&v172[0] = v63;
-      BYTE8(v173) = 1;
+      *&v175[0] = v65;
+      BYTE8(v176) = 1;
       v35 = MEMORY[0x1E69E7D40];
-      v76 = v159;
-      LOBYTE(v46) = v152;
-      v52 = v150;
-      v51 = v151;
-      v53 = v148;
-      v54 = v149;
-      if (!v159)
+      v79 = v162;
+      LOBYTE(v47) = v155;
+      v53 = v153;
+      v52 = v154;
+      v54 = v151;
+      v55 = v152;
+      if (!v162)
       {
         goto LABEL_29;
       }
@@ -7795,111 +8676,111 @@ LABEL_15:
 
     else
     {
-      outlined init with copy of TableColumnCollection(&v200, v172);
+      outlined init with copy of TableColumnCollection(&v203, v175);
       v35 = MEMORY[0x1E69E7D40];
-      v76 = v159;
-      v75 = v160;
-      if (!v159)
+      v79 = v162;
+      v78 = v163;
+      if (!v162)
       {
         goto LABEL_29;
       }
     }
 
-    v77 = v53;
-    v78 = v54;
-    v79 = v52;
-    v80 = v76;
-    v81 = v46;
-    v46 = v51;
-    v82 = Array<A>.withResolvedOffsets.getter(v75);
+    v80 = v54;
+    v81 = v55;
+    v82 = v53;
+    v83 = v79;
+    v84 = v47;
+    v47 = v52;
+    v85 = Array<A>.withResolvedOffsets.getter(v78, v77);
 
-    v75 = v82;
-    v51 = v46;
-    LOBYTE(v46) = v81;
-    v76 = v80;
-    v52 = v79;
-    v54 = v78;
-    v53 = v77;
-    v19 = v162;
+    v78 = v85;
+    v52 = v47;
+    LOBYTE(v47) = v84;
+    v79 = v83;
+    v53 = v82;
+    v55 = v81;
+    v54 = v80;
+    v19 = v165;
     v35 = MEMORY[0x1E69E7D40];
 LABEL_29:
-    *&v174 = v75;
-    outlined init with copy of TableRowList(v199, v168);
-    TableSections.init(list:)(v168, &v169);
-    outlined destroy of TableColumnCollection(&v200);
-    __swift_destroy_boxed_opaque_existential_1(v198);
-    outlined destroy of TableRowList(v199);
-    BYTE8(v174) = v46 & 1;
-    *&v175 = v157;
-    *(&v175 + 1) = v156;
-    *&v176 = v155;
-    *(&v176 + 1) = v51;
-    *&v177[0] = v52;
-    *(&v177[0] + 1) = v54;
-    *&v177[1] = v53;
-    BYTE8(v177[1]) = v154;
-    BYTE10(v177[1]) = v76;
-    BYTE9(v177[1]) = v153;
-    v204 = v172[1];
-    v205 = v173;
-    v200 = v169;
-    v201 = v170;
-    v203 = v172[0];
-    v202 = v171;
+    *&v177 = v78;
+    outlined init with copy of TableRowList(v202, v171);
+    TableSections.init(list:)(v171, &v172);
+    outlined destroy of TableColumnCollection(&v203);
+    __swift_destroy_boxed_opaque_existential_1(v201);
+    outlined destroy of TableRowList(v202);
+    BYTE8(v177) = v47 & 1;
+    *&v178 = v160;
+    *(&v178 + 1) = v159;
+    *&v179 = v158;
+    *(&v179 + 1) = v52;
+    *&v180[0] = v53;
+    *(&v180[0] + 1) = v55;
+    *&v180[1] = v54;
+    BYTE8(v180[1]) = v157;
+    BYTE10(v180[1]) = v79;
+    BYTE9(v180[1]) = v156;
+    v207 = v175[1];
     v208 = v176;
-    v209[0] = v177[0];
-    *(v209 + 11) = *(v177 + 11);
-    v207 = v175;
-    v206 = v174;
+    v203 = v172;
+    v204 = v173;
+    v206 = v175[0];
+    v205 = v174;
+    v211 = v179;
+    v212[0] = v180[0];
+    *(v212 + 11) = *(v180 + 11);
+    v210 = v178;
+    v209 = v177;
     if (!AGGraphGetOutputValue())
     {
-      outlined init with copy of TableDataSourceAdaptor(&v200, v190);
-      outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v210);
+      outlined init with copy of TableDataSourceAdaptor(&v203, v193);
+      outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v213);
       type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager);
-      v83 = AGGraphGetValue();
-      outlined init with copy of Binding<AnySelectionManager>?(v83, v178, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
-      outlined destroy of UpdateCollectionViewTableCoordinator(&v210);
-      outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v191);
+      v86 = AGGraphGetValue();
+      outlined init with copy of Binding<AnySelectionManager>?(v86, v181, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
+      outlined destroy of UpdateCollectionViewTableCoordinator(&v213);
+      outlined init with copy of UpdateCollectionViewTableCoordinator(v1, &v194);
       type metadata accessor for Binding<EditMode>?(0, &lazy cache variable for type metadata for Binding<EditMode>?, &lazy cache variable for type metadata for Binding<EditMode>, &type metadata for EditMode);
-      v84 = AGGraphGetValue();
-      v85 = *v84;
-      v86 = *(v84 + 8);
-      v87 = *(v84 + 16);
-      outlined copy of Binding<Int>?(*v84, v86);
-      outlined destroy of UpdateCollectionViewTableCoordinator(&v191);
-      v88 = objc_allocWithZone(v19);
-      *(v88 + *((*MEMORY[0x1E69E7D40] & *v88) + 0x348)) = 0;
-      outlined init with copy of TableDataSourceAdaptor(v190, &v180);
-      outlined init with copy of Binding<AnySelectionManager>?(v178, &v169, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
-      v89 = v86;
+      v87 = AGGraphGetValue();
+      v88 = *v87;
+      v89 = *(v87 + 8);
+      v90 = *(v87 + 16);
+      outlined copy of Binding<Int>?(*v87, v89);
+      outlined destroy of UpdateCollectionViewTableCoordinator(&v194);
+      v91 = objc_allocWithZone(v19);
+      *(v91 + *((*MEMORY[0x1E69E7D40] & *v91) + 0x348)) = 0;
+      outlined init with copy of TableDataSourceAdaptor(v193, &v183);
+      outlined init with copy of Binding<AnySelectionManager>?(v181, &v172, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
+      v92 = v89;
       v35 = MEMORY[0x1E69E7D40];
-      v90 = v87;
-      v1 = v163;
-      v91 = specialized UICollectionViewListCoordinatorBase.init(dataSource:selection:editMode:transaction:)(&v180, &v169, v85, v89, v90, 1);
-      outlined destroy of Binding<AnySelectionManager>?(v178, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
-      outlined destroy of TableDataSourceAdaptor(v190);
-      *&v210 = v91;
+      v93 = v90;
+      v1 = v166;
+      v94 = specialized UICollectionViewListCoordinatorBase.init(dataSource:selection:editMode:transaction:)(&v183, &v172, v88, v92, v93, 1);
+      outlined destroy of Binding<AnySelectionManager>?(v181, &lazy cache variable for type metadata for Binding<AnySelectionManager>?, &lazy cache variable for type metadata for Binding<AnySelectionManager>, &type metadata for AnySelectionManager, type metadata accessor for Binding<EditMode>?);
+      outlined destroy of TableDataSourceAdaptor(v193);
+      *&v213 = v94;
       AGGraphSetOutputValue();
     }
 
-    v159 = (AGGraphGetOutputValue() == 0) | v161;
+    v162 = (AGGraphGetOutputValue() == 0) | v164;
+    v191 = v211;
+    v192[0] = v212[0];
+    *(v192 + 11) = *(v212 + 11);
+    v187 = v207;
     v188 = v208;
-    v189[0] = v209[0];
-    *(v189 + 11) = *(v209 + 11);
+    v189 = v209;
+    v190 = v210;
+    v183 = v203;
     v184 = v204;
     v185 = v205;
     v186 = v206;
-    v187 = v207;
-    v180 = v200;
-    v181 = v201;
-    v182 = v202;
-    v183 = v203;
     goto LABEL_32;
   }
 
   if (*(v1 + 120))
   {
-    v160 = *(v1 + 192);
+    v163 = *(v1 + 192);
 
     goto LABEL_15;
   }
@@ -7908,31 +8789,34 @@ LABEL_50:
   __break(1u);
 }
 
-uint64_t specialized implicit closure #6 in UpdateCollectionViewTableCoordinator.updateValue()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void specialized implicit closure #6 in UpdateCollectionViewTableCoordinator.updateValue()(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = a1 + *(type metadata accessor for TableCellFormula() + 20);
-  v4 = *v3;
-  v5 = *(v3 + 8);
-  v6 = *(v3 + 16);
-  v7 = *(v3 + 24);
-  v8 = *(v3 + 32);
-  result = outlined copy of TableColumnCustomizationID.Base(*v3, v5, v6, v7, v8);
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 16) = v6;
-  *(a2 + 24) = v7;
-  *(a2 + 32) = v8;
-  return result;
+  v4 = a1 + *(type metadata accessor for TableCellFormula(0) + 20);
+  v5 = *v4;
+  v6 = *(v4 + 8);
+  v7 = *(v4 + 16);
+  v8 = *(v4 + 24);
+  v9 = *(v4 + 32);
+  outlined copy of TableColumnCustomizationID.Base(*v4, v6, v7, v8, v9);
+  *a2 = v5;
+  *(a2 + 8) = v6;
+  *(a2 + 16) = v7;
+  *(a2 + 24) = v8;
+  *(a2 + 32) = v9;
 }
 
-uint64_t key path getter for ListUpdate.inverse : <A>ListUpdate<A.SectionIDs.Index, Int>@<X0>(char *a1@<X8>)
+uint64_t key path getter for ListUpdate.inverse : <A>ListUpdate<A.SectionIDs.Index, Int>@<X0>(char *x8_0@<X8>)
 {
   swift_getAssociatedTypeWitness();
   swift_getAssociatedConformanceWitness();
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  v2 = type metadata accessor for ListUpdate();
-  return ListUpdate.inverse.getter(v2, a1);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v9[0] = AssociatedTypeWitness;
+  v9[1] = MEMORY[0x1E69E6530];
+  v9[2] = AssociatedConformanceWitness;
+  v9[3] = MEMORY[0x1E69E6548];
+  v7 = type metadata accessor for ListUpdate(0, v9);
+  return ListUpdate.inverse.getter(v7, x8_0);
 }
 
 unint64_t *specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(unint64_t *result, uint64_t a2, unint64_t a3, uint64_t a4)
@@ -8342,94 +9226,94 @@ LABEL_34:
 uint64_t _s7SwiftUI23ShadowSectionCollectionVyACyxGAA0C18ListUpdateRecorderVyxGcfCAA22TableDataSourceAdaptorV_Tt1g5@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   result = outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, a2, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
-  v5 = *(a1[5] + 16);
-  v7 = a1[22];
-  v6 = a1[23];
-  v8 = *(v6 + 16);
+  v6 = *(a1[5] + 16);
+  v8 = a1[22];
+  v7 = a1[23];
   v9 = *(v7 + 16);
-  LOBYTE(v10) = v8 == 0;
-  if (!(v8 | v9))
+  v10 = *(v8 + 16);
+  LOBYTE(v11) = v9 == 0;
+  if (!(v9 | v10))
   {
 LABEL_2:
 
     outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(a1, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
 
-    *(a2 + 192) = v5;
+    *(a2 + 192) = v6;
     return result;
   }
 
-  v11 = 0;
+  v12 = 0;
   while (1)
   {
-    if (v10)
+    if (v11)
     {
-      if (v11 >= v9)
+      if (v12 >= v10)
       {
         goto LABEL_23;
       }
 
-      if (__OFADD__(v11, 1))
+      if (__OFADD__(v12, 1))
       {
         goto LABEL_26;
       }
 
-      v14 = (v7 + 64 + 40 * v11);
-      v10 = 1;
-      ++v11;
+      v15 = (v8 + 64 + 40 * v12);
+      v11 = 1;
+      ++v12;
     }
 
     else
     {
-      if (v11 >= v8)
+      if (v12 >= v9)
       {
         goto LABEL_24;
       }
 
-      v15 = v11 + 1;
-      if (__OFADD__(v11, 1))
+      v16 = v12 + 1;
+      if (__OFADD__(v12, 1))
       {
         goto LABEL_25;
       }
 
-      v14 = (v6 + 64 + 40 * v11);
-      v10 = v15 == v8;
-      if (v15 == v8)
+      v15 = (v7 + 64 + 40 * v12);
+      v11 = v16 == v9;
+      if (v16 == v9)
       {
-        v11 = 0;
+        v12 = 0;
       }
 
       else
       {
-        ++v11;
+        ++v12;
       }
     }
 
-    v16 = *v14;
-    if (v16 != 1)
+    v17 = *v15;
+    if (v17 != 1)
     {
       break;
     }
 
-    v12 = __OFADD__(v5++, 1);
-    if (v12)
+    v13 = __OFADD__(v6++, 1);
+    if (v13)
     {
       goto LABEL_27;
     }
 
 LABEL_5:
-    if (v11 == v9 && v10)
+    if (v12 == v10 && v11)
     {
       goto LABEL_2;
     }
   }
 
-  if (v16)
+  if (v17)
   {
     goto LABEL_5;
   }
 
-  v12 = __OFSUB__(v5--, 1);
-  if (!v12)
+  v13 = __OFSUB__(v6--, 1);
+  if (!v13)
   {
     goto LABEL_5;
   }
@@ -8457,8 +9341,8 @@ uint64_t _s7SwiftUI19ShadowRowCollectionV_7sectionACyxGAA0C18ListUpdateRecorderV
     goto LABEL_46;
   }
 
-  v7 = a1[5];
-  if (*(v7 + 16) <= a2)
+  v8 = a1[5];
+  if (*(v8 + 16) <= a2)
   {
 LABEL_47:
     __break(1u);
@@ -8470,111 +9354,111 @@ LABEL_49:
 
   else
   {
-    v8 = v7 + 96 * a2;
-    result = *(v8 + 96);
-    v9 = *(v8 + 104);
-    v10 = *(v8 + 112);
-    v11 = *(v8 + 120);
+    v9 = v8 + 96 * a2;
+    result = *(v9 + 96);
+    v10 = *(v9 + 104);
+    v11 = *(v9 + 112);
+    v12 = *(v9 + 120);
     *(a3 + 192) = result;
-    *(a3 + 200) = v9;
-    *(a3 + 208) = v10;
-    *(a3 + 216) = v11;
-    v13 = a1[22];
-    v12 = a1[23];
-    v14 = *(v12 + 16);
+    *(a3 + 200) = v10;
+    *(a3 + 208) = v11;
+    *(a3 + 216) = v12;
+    v14 = a1[22];
+    v13 = a1[23];
     v15 = *(v13 + 16);
-    LOBYTE(v16) = v14 == 0;
-    if (v14 | v15)
+    v16 = *(v14 + 16);
+    LOBYTE(v17) = v15 == 0;
+    if (v15 | v16)
     {
-      v17 = 0;
+      v18 = 0;
       do
       {
-        if (v16)
+        if (v17)
         {
-          if (v17 >= v15)
+          if (v18 >= v16)
           {
             goto LABEL_41;
           }
 
-          if (__OFADD__(v17, 1))
+          if (__OFADD__(v18, 1))
           {
             goto LABEL_44;
           }
 
-          v20 = v13 + 32 + 40 * v17;
-          v16 = 1;
-          ++v17;
+          v21 = v14 + 32 + 40 * v18;
+          v17 = 1;
+          ++v18;
         }
 
         else
         {
-          if (v17 >= v14)
+          if (v18 >= v15)
           {
             goto LABEL_42;
           }
 
-          v21 = v17 + 1;
-          if (__OFADD__(v17, 1))
+          v22 = v18 + 1;
+          if (__OFADD__(v18, 1))
           {
             goto LABEL_43;
           }
 
-          v20 = v12 + 32 + 40 * v17;
-          v16 = v21 == v14;
-          if (v21 == v14)
+          v21 = v13 + 32 + 40 * v18;
+          v17 = v22 == v15;
+          if (v22 == v15)
           {
-            v17 = 0;
+            v18 = 0;
           }
 
           else
           {
-            ++v17;
+            ++v18;
           }
         }
 
-        v22 = *(v20 + 32);
-        v23 = *v20;
-        if (v22 == 5)
+        v23 = *(v21 + 32);
+        v24 = *v21;
+        if (v23 == 5)
         {
-          v25 = *(v20 + 16);
-          if (v23 == a2)
+          v26 = *(v21 + 16);
+          if (v24 == a2)
           {
-            if (v25 != a2)
+            if (v26 != a2)
             {
-              v24 = __OFSUB__(v11--, 1);
-              if (v24)
+              v25 = __OFSUB__(v12--, 1);
+              if (v25)
               {
                 goto LABEL_48;
               }
             }
           }
 
-          else if (v25 == a2)
+          else if (v26 == a2)
           {
-            v24 = __OFADD__(v11++, 1);
-            if (v24)
+            v25 = __OFADD__(v12++, 1);
+            if (v25)
             {
               goto LABEL_49;
             }
           }
         }
 
-        else if (v22 == 4)
+        else if (v23 == 4)
         {
-          if (v23 == a2)
+          if (v24 == a2)
           {
-            v24 = __OFADD__(v11++, 1);
-            if (v24)
+            v25 = __OFADD__(v12++, 1);
+            if (v25)
             {
               goto LABEL_45;
             }
           }
         }
 
-        else if (v22 == 3 && v23 == a2)
+        else if (v23 == 3 && v24 == a2)
         {
-          v24 = __OFSUB__(v11--, 1);
-          if (v24)
+          v25 = __OFSUB__(v12--, 1);
+          if (v25)
           {
             __break(1u);
 LABEL_41:
@@ -8594,14 +9478,14 @@ LABEL_46:
         }
       }
 
-      while (v17 != v15 || !v16);
+      while (v18 != v16 || !v17);
     }
 
-    outlined copy of ResolvedTableRowIDs.Storage(result, v9);
+    outlined copy of ResolvedTableRowIDs.Storage(result, v10);
 
     outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(a1, &lazy cache variable for type metadata for ShadowListUpdateRecorder<TableDataSourceAdaptor>, lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor, &type metadata for TableDataSourceAdaptor, type metadata accessor for ShadowListUpdateRecorder);
 
-    *(a3 + 232) = v11;
+    *(a3 + 232) = v12;
   }
 
   return result;
@@ -8630,7 +9514,7 @@ void specialized ShadowRowCollection.endIndex.getter()
   }
 }
 
-uint64_t specialized ShadowRowCollection.subscript.getter@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+unint64_t *specialized ShadowRowCollection.subscript.getter@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v3 = result;
   v5 = v2[28];
@@ -8640,13 +9524,13 @@ uint64_t specialized ShadowRowCollection.subscript.getter@<X0>(uint64_t result@<
   {
     MEMORY[0x1EEE9AC00](result);
     lazy protocol witness table accessor for type TableDataSourceAdaptor and conformance TableDataSourceAdaptor();
-    swift_getKeyPath();
+    KeyPath = swift_getKeyPath();
 
-    updated = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(v6, v7);
+    updated = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(v6, v7, KeyPath);
 
-    v3 = specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(&v17, updated, v5, v3);
+    v3 = specialized ShadowListUpdateRecorder.applyUpdates<A>(_:to:)(&v18, updated, v5, v3);
 
-    v5 = v17;
+    v5 = v18;
   }
 
   if ((v5 & 0x8000000000000000) != 0)
@@ -8655,34 +9539,34 @@ uint64_t specialized ShadowRowCollection.subscript.getter@<X0>(uint64_t result@<
     goto LABEL_13;
   }
 
-  v9 = v2[5];
-  if (v5 >= *(v9 + 16))
+  v10 = v2[5];
+  if (v5 >= *(v10 + 16))
   {
 LABEL_13:
     __break(1u);
     goto LABEL_14;
   }
 
-  v10 = v9 + 96 * v5;
-  v13 = *(v10 + 96);
-  v11 = v10 + 96;
-  v12 = v13;
-  v14 = *(v11 + 16);
-  v15 = v3 - v14;
-  if (__OFSUB__(v3, v14))
+  v11 = v10 + 96 * v5;
+  v14 = *(v11 + 96);
+  v12 = v11 + 96;
+  v13 = v14;
+  v15 = *(v12 + 16);
+  v16 = v3 - v15;
+  if (__OFSUB__(v3, v15))
   {
 LABEL_14:
     __break(1u);
     goto LABEL_15;
   }
 
-  if (*(v11 + 8) == 1)
+  if (*(v12 + 8) == 1)
   {
-    if ((v15 & 0x8000000000000000) == 0)
+    if ((v16 & 0x8000000000000000) == 0)
     {
-      if (v15 < v12[2])
+      if (v16 < v13[2])
       {
-        return outlined init with copy of TableRowID(&v12[6 * v15 + 4], a2);
+        return outlined init with copy of TableRowID(&v13[6 * v16 + 4], a2);
       }
 
       goto LABEL_16;
@@ -8695,10 +9579,10 @@ LABEL_16:
     return result;
   }
 
-  v16 = *(*v12 + 104);
+  v17 = *(*v13 + 104);
 
-  v16(v15);
-  return outlined consume of Environment<[SceneID : KeyboardShortcut]>.Content(v12, 0);
+  v17(v16);
+  return outlined consume of Environment<[SceneID : KeyboardShortcut]>.Content(v13, 0);
 }
 
 uint64_t specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(unint64_t *a1, unint64_t *a2, uint64_t *a3)
@@ -8745,7 +9629,7 @@ LABEL_17:
   return result;
 }
 
-void specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(unint64_t *a1, unint64_t *a2, uint64_t *a3, unint64_t *a4, void (*a5)(uint64_t))
+void specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(unint64_t *a1, unint64_t *a2, uint64_t *a3, unint64_t *a4, uint64_t (*a5)(uint64_t))
 {
   v5 = *a1;
   v6 = *a2;
@@ -8810,18 +9694,17 @@ LABEL_7:
   return result;
 }
 
-uint64_t specialized closure #1 in closure #1 in UICollectionViewListCoordinatorBase.pendingSelection.didset@<X0>(void *a1@<X0>, BOOL *a2@<X8>)
+void specialized closure #1 in closure #1 in UICollectionViewListCoordinatorBase.pendingSelection.didset(void *a1@<X0>, BOOL *a3@<X8>)
 {
-  v3 = a1 + *((*MEMORY[0x1E69E7D40] & *a1) + 0x110);
-  result = swift_beginAccess();
-  v5 = *(v3 + 1);
+  v4 = a1 + *((*MEMORY[0x1E69E7D40] & *a1) + 0x110);
+  swift_beginAccess();
+  v5 = *(v4 + 1);
   if (v5)
   {
-    result = dispatch thunk of AnyLocation.set(_:transaction:)();
+    dispatch thunk of AnyLocation.set(_:transaction:)();
   }
 
-  *a2 = v5 == 0;
-  return result;
+  *a3 = v5 == 0;
 }
 
 unint64_t lazy protocol witness table accessor for type UpdateCollectionViewTableCoordinator and conformance UpdateCollectionViewTableCoordinator()
@@ -8829,20 +9712,20 @@ unint64_t lazy protocol witness table accessor for type UpdateCollectionViewTabl
   result = lazy protocol witness table cache variable for type UpdateCollectionViewTableCoordinator and conformance UpdateCollectionViewTableCoordinator;
   if (!lazy protocol witness table cache variable for type UpdateCollectionViewTableCoordinator and conformance UpdateCollectionViewTableCoordinator)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for UpdateCollectionViewTableCoordinator, &type metadata for UpdateCollectionViewTableCoordinator, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type UpdateCollectionViewTableCoordinator and conformance UpdateCollectionViewTableCoordinator);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager> and conformance CollectionViewListScrollable<A, B>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, void *))
+uint64_t lazy protocol witness table accessor for type CollectionViewListScrollable<TableDataSourceAdaptor, AnySelectionManager> and conformance CollectionViewListScrollable<A, B>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, void *), const char *a4)
 {
   result = *a1;
   if (!result)
   {
     type metadata accessor for UICollectionViewListCoordinator<TableDataSourceAdaptor, AnySelectionManager>(255, a2, a3);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(a4, v7);
     atomic_store(result, a1);
   }
 
@@ -8862,26 +9745,26 @@ void type metadata accessor for Binding<EditMode>?(uint64_t a1, unint64_t *a2, u
   }
 }
 
-uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(uint64_t a1, uint64_t a2)
+void *_sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7SwiftUI22ConcatenatedCollectionVySayAF10ListUpdateOyS2iGGALG_AKs5NeverOTB503_s7d10UI24ShadowhI95RecorderV12initialIndexy10SectionIDs_0H0QZAGFAA0dE0OyAGSiGAJcfu_AA22TableDataSourceAdaptorV_TG5s7KeyPathCyA2KGTf1cn_nTf4ng_nTm(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 16);
-  v3 = v2 == 0;
-  v17 = *(a2 + 16);
-  v4 = specialized Collection.distance(from:to:)(0, v2 == 0, v17, 1, a1);
-  v5 = MEMORY[0x1E69E7CC0];
-  if (!v4)
+  v3 = *(a1 + 16);
+  v4 = v3 == 0;
+  v18 = *(a2 + 16);
+  v5 = specialized Collection.distance(from:to:)(0, v3 == 0, v18, 1, a1);
+  v6 = MEMORY[0x1E69E7CC0];
+  if (!v5)
   {
-    return v5;
+    return v6;
   }
 
-  v6 = v4;
-  v21 = MEMORY[0x1E69E7CC0];
-  v7 = v4 & ~(v4 >> 63);
-  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7, 0);
-  v5 = v21;
-  if (v2)
+  v7 = v5;
+  v22 = MEMORY[0x1E69E7CC0];
+  v8 = v5 & ~(v5 >> 63);
+  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v8, 0);
+  v6 = v22;
+  if (v3)
   {
-    if ((v6 & 0x8000000000000000) == 0)
+    if ((v7 & 0x8000000000000000) == 0)
     {
       goto LABEL_6;
     }
@@ -8889,71 +9772,71 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF7Swif
     __break(1u);
   }
 
-  if ((v6 & 0x8000000000000000) == 0)
+  if ((v7 & 0x8000000000000000) == 0)
   {
 LABEL_6:
-    v9 = 0;
-    while (v7)
+    v10 = 0;
+    while (v8)
     {
-      if (v3)
+      if (v4)
       {
-        if (v9 >= v17)
+        if (v10 >= v18)
         {
           goto LABEL_27;
         }
       }
 
-      else if (v9 >= v2)
+      else if (v10 >= v3)
       {
         goto LABEL_28;
       }
 
       result = swift_getAtKeyPath();
-      v10 = v18;
       v11 = v19;
-      v13 = *(v21 + 16);
-      v12 = *(v21 + 24);
-      if (v13 >= v12 >> 1)
+      v12 = v20;
+      v14 = *(v22 + 16);
+      v13 = *(v22 + 24);
+      if (v14 >= v13 >> 1)
       {
-        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
+        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1);
+        v12 = v20;
         v11 = v19;
-        v10 = v18;
       }
 
-      *(v21 + 16) = v13 + 1;
-      v14 = v21 + 40 * v13;
-      *(v14 + 32) = v10;
-      *(v14 + 48) = v11;
-      *(v14 + 64) = v20;
-      v16 = __OFADD__(v9++, 1);
-      if (v3)
+      *(v22 + 16) = v14 + 1;
+      v15 = v22 + 40 * v14;
+      *(v15 + 32) = v11;
+      *(v15 + 48) = v12;
+      *(v15 + 64) = v21;
+      v17 = __OFADD__(v10++, 1);
+      if (v4)
       {
-        if (v16)
+        if (v17)
         {
           goto LABEL_30;
         }
 
-        v3 = 1;
+        v4 = 1;
       }
 
       else
       {
-        if (v16)
+        if (v17)
         {
           goto LABEL_29;
         }
 
-        v3 = v9 == v2;
-        if (v9 == v2)
+        v4 = v10 == v3;
+        if (v10 == v3)
         {
-          v9 = 0;
+          v10 = 0;
         }
       }
 
-      --v7;
-      if (!--v6)
+      --v8;
+      if (!--v7)
       {
-        return v5;
+        return v6;
       }
     }
 
@@ -8969,888 +9852,5 @@ LABEL_30:
   }
 
   __break(1u);
-  return result;
-}
-
-void specialized Sequence.forEach(_:)(unint64_t a1, void *a2, void *a3, size_t *a4)
-{
-  v46 = a4;
-  v7 = type metadata accessor for IndexPath();
-  v41 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v45 = v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10.n128_f64[0] = MEMORY[0x1EEE9AC00](v9);
-  v12 = v39 - v11;
-  if (a1 >> 62)
-  {
-    goto LABEL_30;
-  }
-
-  v13 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-LABEL_3:
-  if (v13)
-  {
-    v14 = 0;
-    v42 = (a3 + *((*MEMORY[0x1E69E7D40] & *a3) + 0x108));
-    v43 = v13;
-    v50 = a1 & 0xC000000000000001;
-    v48 = (v41 + 8);
-    v49 = a1 & 0xFFFFFFFFFFFFFF8;
-    v39[1] = v41 + 32;
-    v40 = (v41 + 16);
-    v44 = a2;
-    v47 = v12;
-    do
-    {
-      if (v50)
-      {
-        v15 = MEMORY[0x18D00E9C0](v14, a1, v10);
-      }
-
-      else
-      {
-        if (v14 >= *(v49 + 16))
-        {
-          goto LABEL_29;
-        }
-
-        v15 = *(a1 + 8 * v14 + 32);
-      }
-
-      a3 = v15;
-      v16 = v14 + 1;
-      if (__OFADD__(v14, 1))
-      {
-        __break(1u);
-LABEL_29:
-        __break(1u);
-LABEL_30:
-        v13 = __CocoaSet.count.getter();
-        goto LABEL_3;
-      }
-
-      v17 = [a2 indexPathForCell_];
-      if (v17)
-      {
-        v18 = v17;
-        static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-
-        swift_getObjectType();
-        v19 = swift_conformsToProtocol2();
-        if (v19 && a3)
-        {
-          v20 = v19;
-          v21 = v7;
-          v22 = a1;
-          ObjectType = swift_getObjectType();
-          v24 = *(v20 + 128);
-          a3 = a3;
-          v25 = COERCE_DOUBLE(v24(ObjectType, v20));
-          v28 = *v42;
-          a1 = v22;
-          if (v29)
-          {
-            if ((v42[1] & 1) == 0)
-            {
-              goto LABEL_20;
-            }
-
-LABEL_19:
-            v7 = v21;
-            v12 = v47;
-            (*v48)();
-          }
-
-          else
-          {
-            if ((v42[1] & 1) == 0)
-            {
-              v26.n128_f64[0] = *v42;
-              v27.n128_f64[0] = v25;
-              if (v25 == v28)
-              {
-                goto LABEL_19;
-              }
-            }
-
-LABEL_20:
-            (*(v20 + 136))(COERCE_DOUBLE(*&v28), v26, v27);
-            v7 = v21;
-            (*v40)(v45, v47, v21);
-            v30 = v46;
-            v31 = *v46;
-            isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            *v30 = v31;
-            if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-            {
-              v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v31[2] + 1, 1, v31);
-              *v46 = v31;
-            }
-
-            v34 = v31[2];
-            v33 = v31[3];
-            v12 = v47;
-            if (v34 >= v33 >> 1)
-            {
-              v38 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v33 > 1, v34 + 1, 1, v31);
-              *v46 = v38;
-            }
-
-            v35 = v41;
-            (*(v41 + 8))(v12, v7);
-            v36 = v45;
-            v37 = *v46;
-            *(v37 + 16) = v34 + 1;
-            (*(v35 + 32))(v37 + ((*(v35 + 80) + 32) & ~*(v35 + 80)) + *(v35 + 72) * v34, v36, v7);
-          }
-
-          v13 = v43;
-          a2 = v44;
-          goto LABEL_6;
-        }
-
-        (*v48)(v12, v7);
-      }
-
-LABEL_6:
-
-      ++v14;
-    }
-
-    while (v16 != v13);
-  }
-}
-
-void *specialized Sequence.compactMap<A>(_:)(uint64_t a1, void (*a2)(uint64_t, uint64_t), uint64_t a3)
-{
-  v70 = a3;
-  v61 = a2;
-  type metadata accessor for (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)?(0, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID)?, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v6 = &v47 - v5;
-  type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID)(0, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
-  v60 = v7;
-  v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v49 = &v47 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v47 = &v47 - v11;
-  _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0(0, &lazy cache variable for type metadata for TableColumnCollection.Entry?, type metadata accessor for TableColumnCollection.Entry, MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v57 = &v47 - v13;
-  v56 = type metadata accessor for TableColumnCollection.Visitor(0);
-  MEMORY[0x1EEE9AC00](v56);
-  v15 = (&v47 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v55 = type metadata accessor for TableColumnCollection.Entry(0);
-  v16 = *(v55 - 8);
-  MEMORY[0x1EEE9AC00](v55);
-  v18 = &v47 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for (offset: Int, element: TableColumnCollection.Entry)(0, &lazy cache variable for type metadata for (offset: Int, element: TableColumnCollection.Entry), type metadata accessor for TableColumnCollection.Entry);
-  v20 = v19;
-  MEMORY[0x1EEE9AC00](v19);
-  v59 = (&v47 - v21);
-  outlined init with copy of ListBatchUpdates<TableDataSourceAdaptor>(a1, v67, &lazy cache variable for type metadata for EnumeratedSequence<TableColumnCollection>, lazy protocol witness table accessor for type TableColumnCollection and conformance TableColumnCollection, &type metadata for TableColumnCollection, MEMORY[0x1E69E6E48]);
-  v22 = 0;
-  v68 = 0;
-  v69 = 0;
-  v54 = (v16 + 56);
-  v51 = v16;
-  v53 = (v16 + 48);
-  v23 = v15;
-  v48 = v8;
-  v58 = (v8 + 48);
-  v50 = MEMORY[0x1E69E7CC0];
-  v52 = v20;
-  while (1)
-  {
-    outlined init with copy of TableColumnCollection.Backing(v67, v65);
-    if (v66)
-    {
-      v24 = *(*&v65[0] + 16);
-
-      if (v22 == v24)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    else
-    {
-      outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v65, v62);
-      v25 = v63;
-      v26 = v64;
-      __swift_project_boxed_opaque_existential_1(v62, v63);
-      v27 = (*(v26 + 8))(v25, v26);
-      __swift_destroy_boxed_opaque_existential_1(v62);
-      if (v22 == v27)
-      {
-LABEL_22:
-        outlined destroy of ShadowListUpdateRecorder<TableDataSourceAdaptor>(v67, &lazy cache variable for type metadata for EnumeratedSequence<TableColumnCollection>.Iterator, lazy protocol witness table accessor for type TableColumnCollection and conformance TableColumnCollection, &type metadata for TableColumnCollection, MEMORY[0x1E69E6E40]);
-        return v50;
-      }
-    }
-
-    result = outlined init with copy of TableColumnCollection.Backing(v67, v65);
-    if (v66)
-    {
-      if (v22 >= *(*&v65[0] + 16))
-      {
-        goto LABEL_24;
-      }
-
-      _s7SwiftUI21TableColumnCollectionV5EntryVWOcTm_0(*&v65[0] + ((*(v51 + 80) + 32) & ~*(v51 + 80)) + *(v51 + 72) * v22, v18, type metadata accessor for TableColumnCollection.Entry);
-    }
-
-    else
-    {
-      v29 = v6;
-      v30 = v18;
-      outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v65, v62);
-      v31 = v56;
-      v32 = *(v56 + 20);
-      v33 = v55;
-      (*v54)(v23 + v32, 1, 1, v55);
-      *v23 = v22;
-      v34 = v63;
-      v35 = v64;
-      __swift_project_boxed_opaque_existential_1(v62, v63);
-      TableColumnList.visitColumns<A>(applying:from:)(v23, v22, v34, v31, v35, &protocol witness table for TableColumnCollection.Visitor);
-      v36 = v57;
-      outlined init with copy of Binding<AnySelectionManager>?(v23 + v32, v57, &lazy cache variable for type metadata for TableColumnCollection.Entry?, type metadata accessor for TableColumnCollection.Entry, MEMORY[0x1E69E6720], _s7SwiftUI16BridgedListStateV12ScrollTargetVSgMaTm_0);
-      result = (*v53)(v36, 1, v33);
-      if (result == 1)
-      {
-        goto LABEL_25;
-      }
-
-      outlined destroy of BridgedListState(v23, type metadata accessor for TableColumnCollection.Visitor);
-      v18 = v30;
-      _s7SwiftUI16TableCellFormulaVWObTm_0(v36, v30, type metadata accessor for TableColumnCollection.Entry);
-      __swift_destroy_boxed_opaque_existential_1(v62);
-      v6 = v29;
-      v20 = v52;
-    }
-
-    outlined init with copy of TableColumnCollection.Backing(v67, v65);
-    if (v66)
-    {
-      v37 = *(*&v65[0] + 16);
-    }
-
-    else
-    {
-      outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v65, v62);
-      v38 = v63;
-      v39 = v64;
-      __swift_project_boxed_opaque_existential_1(v62, v63);
-      v37 = (*(v39 + 8))(v38, v39);
-      result = __swift_destroy_boxed_opaque_existential_1(v62);
-    }
-
-    if (v22 >= v37)
-    {
-      break;
-    }
-
-    v40 = v22 + 1;
-    v68 = v22 + 1;
-    v41 = *(v20 + 48);
-    v42 = v59;
-    *v59 = v22;
-    _s7SwiftUI16TableCellFormulaVWObTm_0(v18, v42 + v41, type metadata accessor for TableColumnCollection.Entry);
-    v69 = v22 + 1;
-    v61(v22, v42 + v41);
-    outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v42, &lazy cache variable for type metadata for (offset: Int, element: TableColumnCollection.Entry), type metadata accessor for TableColumnCollection.Entry, type metadata accessor for (offset: Int, element: TableColumnCollection.Entry));
-    if ((*v58)(v6, 1, v60) == 1)
-    {
-      outlined destroy of (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID)?(v6, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID)?, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
-      ++v22;
-    }
-
-    else
-    {
-      v43 = v47;
-      outlined init with take of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v6, v47, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
-      outlined init with take of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v43, v49, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v50 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v50[2] + 1, 1, v50);
-      }
-
-      v45 = v50[2];
-      v44 = v50[3];
-      if (v45 >= v44 >> 1)
-      {
-        v50 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v44 > 1, v45 + 1, 1, v50);
-      }
-
-      v46 = v50;
-      v50[2] = v45 + 1;
-      outlined init with take of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v49, v46 + ((*(v48 + 80) + 32) & ~*(v48 + 80)) + *(v48 + 72) * v45, &lazy cache variable for type metadata for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID), type metadata accessor for TableColumnCollection.Entry);
-      v22 = v40;
-    }
-  }
-
-  __break(1u);
-LABEL_24:
-  __break(1u);
-LABEL_25:
-  __break(1u);
-  return result;
-}
-
-id specialized UICollectionViewListCoordinator.layoutConfiguration(hasGlobalHeader:)(char a1)
-{
-  v2 = [objc_allocWithZone(MEMORY[0x1E69DC810]) init];
-  v12 = MEMORY[0x1E69E7CC0];
-  if (a1)
-  {
-    v3 = objc_opt_self();
-    v4 = [v3 fractionalWidthDimension_];
-    v5 = [v3 estimatedDimension_];
-    v6 = [objc_opt_self() sizeWithWidthDimension:v4 heightDimension:v5];
-
-    v7 = MEMORY[0x18D00C850](0xD000000000000011, 0x800000018CD4D770);
-    v8 = [objc_opt_self() boundarySupplementaryItemWithLayoutSize:v6 elementKind:v7 alignment:1];
-
-    [v8 setZIndex_];
-    [v8 setPinToVisibleBounds_];
-    [v8 setExtendsBoundary_];
-    v9 = v8;
-    MEMORY[0x18D00CC30]();
-    if (*((v12 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v12 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-    {
-      specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-    }
-
-    specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-  }
-
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSCollectionLayoutBoundarySupplementaryItem);
-  isa = Array._bridgeToObjectiveC()().super.isa;
-
-  [v2 setBoundarySupplementaryItems_];
-
-  return v2;
-}
-
-void specialized _merge<A>(low:mid:high:buffer:by:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, unint64_t *a6, void (*a7)(uint64_t), uint64_t (*a8)(void *), uint64_t (*a9)(void *))
-{
-  v114 = a8;
-  v10 = v9;
-  v118 = a6;
-  v119 = a7;
-  type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID)(0, a6, a7);
-  v116 = v16;
-  MEMORY[0x1EEE9AC00](v16);
-  v111 = (&v104 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v18);
-  v112 = &v104 - v19;
-  MEMORY[0x1EEE9AC00](v20);
-  v22 = &v104 - v21;
-  MEMORY[0x1EEE9AC00](v23);
-  v25 = (&v104 - v24);
-  v27 = *(v26 + 72);
-  if (!v27)
-  {
-LABEL_114:
-    __break(1u);
-LABEL_115:
-    __break(1u);
-    goto LABEL_116;
-  }
-
-  if (a2 - a1 == 0x8000000000000000 && v27 == -1)
-  {
-    goto LABEL_115;
-  }
-
-  v28 = a3 - a2;
-  if (a3 - a2 != 0x8000000000000000 || v27 != -1)
-  {
-    v113 = a3;
-    v29 = (a2 - a1) / v27;
-    v122 = a1;
-    v121 = a4;
-    if (v29 < v28 / v27)
-    {
-      v30 = v29 * v27;
-      if (a4 < a1 || a1 + v30 <= a4)
-      {
-        swift_arrayInitWithTakeFrontToBack();
-      }
-
-      else if (a4 != a1)
-      {
-        swift_arrayInitWithTakeBackToFront();
-      }
-
-      v112 = (a4 + v30);
-      v120 = a4 + v30;
-      if (v30 >= 1 && a2 < v113)
-      {
-        v110 = v27;
-        v111 = v22;
-        v109 = a5 + 32;
-        v115 = a5;
-        while (1)
-        {
-          v36 = v118;
-          v35 = v119;
-          outlined init with copy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(a2, v25, v118, v119);
-          v37 = v36;
-          v38 = v111;
-          v39 = outlined init with copy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(a4, v111, v37, v35);
-          MEMORY[0x1EEE9AC00](v39);
-          *(&v104 - 2) = v25;
-          *(&v104 - 1) = v38;
-          v40 = specialized Collection.firstIndex(where:)(v114, (&v104 - 4), a5);
-          v117 = v10;
-          if ((v41 & 1) == 0)
-          {
-            break;
-          }
-
-          v42 = *v25;
-          v43 = v38;
-          v45 = v118;
-          v44 = v119;
-          v46 = a2;
-          v47 = *v43;
-          outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v43, v118, v119, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
-          outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v25, v45, v44, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
-          v48 = v42 < v47;
-          a2 = v46;
-          if (v48)
-          {
-            goto LABEL_45;
-          }
-
-LABEL_51:
-          v65 = v110;
-          v69 = a4 + v110;
-          if (a1 < a4 || a1 >= v69)
-          {
-            swift_arrayInitWithTakeFrontToBack();
-            v10 = v117;
-          }
-
-          else
-          {
-            v10 = v117;
-            if (a1 != a4)
-            {
-              swift_arrayInitWithTakeBackToFront();
-            }
-          }
-
-          v121 = v69;
-          a4 += v65;
-LABEL_58:
-          a5 = v115;
-          a1 += v65;
-          v122 = a1;
-          if (a4 >= v112 || a2 >= v113)
-          {
-            goto LABEL_109;
-          }
-        }
-
-        if ((v40 & 0x8000000000000000) != 0)
-        {
-          __break(1u);
-LABEL_111:
-          __break(1u);
-LABEL_112:
-          __break(1u);
-          goto LABEL_113;
-        }
-
-        if (v40 >= *(a5 + 16))
-        {
-          goto LABEL_111;
-        }
-
-        v49 = v109 + 40 * v40;
-        v50 = *v49;
-        v51 = *(v49 + 8);
-        v52 = v25 + *(v116 + 64);
-        v53 = *v52;
-        v54 = *(v52 + 1);
-        if (*(v49 + 32))
-        {
-          if (v52[32])
-          {
-            v56 = *(v49 + 16);
-            v55 = *(v49 + 24);
-            v57 = *(v52 + 2);
-            v58 = *(v52 + 3);
-            v59 = v50 == v53 && v51 == v54;
-            if (v59 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-            {
-              if (v56 == v57 && v55 == v58)
-              {
-                goto LABEL_44;
-              }
-
-LABEL_43:
-              if (_stringCompareWithSmolCheck(_:_:expecting:)())
-              {
-                goto LABEL_44;
-              }
-            }
-          }
-        }
-
-        else if ((v52[32] & 1) == 0)
-        {
-          if (v50 == v53 && v51 == v54)
-          {
-LABEL_44:
-            v62 = v38;
-            v64 = v118;
-            v63 = v119;
-            outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v62, v118, v119, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
-            outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v25, v64, v63, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
-LABEL_45:
-            v65 = v110;
-            if (a1 < a2 || a1 >= a2 + v110)
-            {
-              swift_arrayInitWithTakeFrontToBack();
-              a2 += v65;
-              v10 = v117;
-            }
-
-            else
-            {
-              v10 = v117;
-              if (a1 != a2)
-              {
-                swift_arrayInitWithTakeBackToFront();
-              }
-
-              a2 += v65;
-            }
-
-            goto LABEL_58;
-          }
-
-          goto LABEL_43;
-        }
-
-        v66 = v38;
-        v68 = v118;
-        v67 = v119;
-        outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v66, v118, v119, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
-        outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v25, v68, v67, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
-        goto LABEL_51;
-      }
-
-      goto LABEL_109;
-    }
-
-    v31 = a4;
-    v32 = v28 / v27 * v27;
-    if (v31 < a2 || a2 + v32 <= v31)
-    {
-      swift_arrayInitWithTakeFrontToBack();
-      v33 = v112;
-    }
-
-    else
-    {
-      v33 = v112;
-      if (v31 != a2)
-      {
-        swift_arrayInitWithTakeBackToFront();
-      }
-    }
-
-    v117 = v9;
-    v109 = v31;
-    v70 = v31 + v32;
-    if (v32 < 1)
-    {
-LABEL_108:
-      v122 = a2;
-      v120 = v70;
-LABEL_109:
-      specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v122, &v121, &v120, v118, v119);
-      return;
-    }
-
-    v107 = a9;
-    v71 = -v27;
-    v114 = -v27;
-    v115 = a5;
-    v105 = a5 + 32;
-    v72 = v31 + v32;
-    v73 = v113;
-LABEL_64:
-    v104 = v70;
-    v74 = a2;
-    v75 = v111;
-    v108 = a2;
-    v110 = a2 + v71;
-    while (1)
-    {
-      if (v74 <= a1)
-      {
-        v122 = v74;
-        v120 = v104;
-        goto LABEL_109;
-      }
-
-      v76 = v73;
-      v106 = v70;
-      v77 = (v72 + v71);
-      v79 = v118;
-      v78 = v119;
-      outlined init with copy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v72 + v71, v33, v118, v119);
-      v80 = outlined init with copy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v110, v75, v79, v78);
-      MEMORY[0x1EEE9AC00](v80);
-      *(&v104 - 2) = v33;
-      *(&v104 - 1) = v75;
-      v81 = v117;
-      v82 = specialized Collection.firstIndex(where:)(v107, (&v104 - 4), v115);
-      v117 = v81;
-      v113 = v77;
-      if (v83)
-      {
-        v84 = *v33 < *v75;
-        goto LABEL_95;
-      }
-
-      if ((v82 & 0x8000000000000000) != 0)
-      {
-        goto LABEL_112;
-      }
-
-      if (v82 >= *(v115 + 16))
-      {
-LABEL_113:
-        __break(1u);
-        goto LABEL_114;
-      }
-
-      v85 = v105 + 40 * v82;
-      v86 = *v85;
-      v87 = *(v85 + 8);
-      v88 = v33 + *(v116 + 64);
-      v89 = *v88;
-      v90 = *(v88 + 1);
-      if ((*(v85 + 32) & 1) == 0)
-      {
-        break;
-      }
-
-      if (v88[32])
-      {
-        v92 = *(v85 + 16);
-        v91 = *(v85 + 24);
-        v93 = *(v88 + 2);
-        v94 = *(v88 + 3);
-        v95 = v86 == v89 && v87 == v90;
-        if (v95 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-        {
-          if (v92 == v93 && v91 == v94)
-          {
-            goto LABEL_93;
-          }
-
-LABEL_92:
-          v84 = _stringCompareWithSmolCheck(_:_:expecting:)();
-          goto LABEL_94;
-        }
-      }
-
-      v84 = 0;
-LABEL_94:
-      v33 = v112;
-LABEL_95:
-      v98 = &v76[v114];
-      v99 = v75;
-      v101 = v118;
-      v100 = v119;
-      outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v99, v118, v119, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
-      outlined destroy of (index: Int, element: TableCellFormula, id: TableColumnCustomizationID)(v33, v101, v100, type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID));
-      if (v84)
-      {
-        v73 = v98;
-        if (v76 < v108 || v98 >= v108)
-        {
-          a2 = v110;
-          swift_arrayInitWithTakeFrontToBack();
-          v103 = v109;
-          v33 = v112;
-          v70 = v106;
-        }
-
-        else
-        {
-          v59 = v76 == v108;
-          v103 = v109;
-          a2 = v110;
-          v33 = v112;
-          v70 = v106;
-          if (!v59)
-          {
-            swift_arrayInitWithTakeBackToFront();
-          }
-        }
-
-        v71 = v114;
-        if (v72 <= v103)
-        {
-          goto LABEL_108;
-        }
-
-        goto LABEL_64;
-      }
-
-      v102 = v113;
-      v70 = v113;
-      v73 = v98;
-      if (v76 < v72 || v98 >= v72)
-      {
-        swift_arrayInitWithTakeFrontToBack();
-        v75 = v111;
-        v33 = v112;
-      }
-
-      else
-      {
-        v75 = v111;
-        v33 = v112;
-        if (v76 != v72)
-        {
-          swift_arrayInitWithTakeBackToFront();
-        }
-      }
-
-      v72 = v70;
-      v74 = v108;
-      v71 = v114;
-      if (v102 <= v109)
-      {
-        a2 = v108;
-        goto LABEL_108;
-      }
-    }
-
-    if (v88[32])
-    {
-      v84 = 0;
-      goto LABEL_95;
-    }
-
-    if (v86 == v89 && v87 == v90)
-    {
-LABEL_93:
-      v84 = 1;
-      goto LABEL_94;
-    }
-
-    goto LABEL_92;
-  }
-
-LABEL_116:
-  __break(1u);
-}
-
-uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, unint64_t a2, uint64_t *a3, uint64_t a4, unint64_t *a5, void (*a6)(uint64_t), uint64_t (*a7)(void *), uint64_t (*a8)(void *))
-{
-  v9 = v8;
-  v10 = a1;
-  v11 = *a1;
-
-  v34 = v11;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-LABEL_16:
-    v34 = specialized _ArrayBuffer._consumeAndCreateNew()(v34);
-  }
-
-  v26 = v10;
-  *v10 = v34;
-  v12 = v34 + 16;
-  v10 = *(v34 + 2);
-  if (v10 < 2)
-  {
-LABEL_10:
-
-    *v26 = v34;
-    return 1;
-  }
-
-  else
-  {
-    v27 = (v34 + 16);
-    while (1)
-    {
-      v13 = *a3;
-      if (!*a3)
-      {
-        break;
-      }
-
-      v14 = &v34[16 * v10];
-      v15 = *v14;
-      v16 = &v12[16 * v10];
-      v18 = *v16;
-      v17 = *(v16 + 1);
-      type metadata accessor for (index: Int, element: TableColumnCollection.Entry, id: TableColumnCustomizationID)(0, a5, a6);
-      v20 = *(*(v19 - 8) + 72);
-      v21 = v13 + v20 * v15;
-      v35 = v13 + v20 * v18;
-      v22 = v13 + v20 * v17;
-
-      specialized _merge<A>(low:mid:high:buffer:by:)(v21, v35, v22, a2, a4, a5, a6, a7, a8);
-
-      if (v9)
-      {
-        *v26 = v34;
-
-        return 1;
-      }
-
-      if (v17 < v15)
-      {
-        __break(1u);
-LABEL_14:
-        __break(1u);
-LABEL_15:
-        __break(1u);
-        goto LABEL_16;
-      }
-
-      v12 = v34 + 16;
-      v23 = *v27;
-      if (v10 - 2 >= *v27)
-      {
-        goto LABEL_14;
-      }
-
-      *v14 = v15;
-      *(v14 + 1) = v17;
-      v24 = v23 - v10;
-      if (v23 < v10)
-      {
-        goto LABEL_15;
-      }
-
-      v10 = v23 - 1;
-      memmove(v16, v16 + 16, 16 * v24);
-      *v27 = v10;
-      if (v10 <= 1)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    *v26 = v34;
-    __break(1u);
-  }
-
   return result;
 }

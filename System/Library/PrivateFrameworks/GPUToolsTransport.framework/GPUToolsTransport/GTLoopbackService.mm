@@ -152,7 +152,6 @@ uint64_t __51__GTLoopbackService_echo_repeat_callback_complete___block_invoke(vo
     v2 = 0;
     do
     {
-      v3 = a1[4];
       (*(a1[5] + 16))();
       ++v2;
     }
@@ -160,44 +159,34 @@ uint64_t __51__GTLoopbackService_echo_repeat_callback_complete___block_invoke(vo
     while (v2 < a1[7]);
   }
 
-  v4 = a1[4];
-  v5 = *(a1[6] + 16);
+  v3 = *(a1[6] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)echo:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   [v1 UTF8String];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)echo:(void *)a1 completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   [v1 UTF8String];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)echo:(void *)a1 repeat:callback:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   [v1 UTF8String];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

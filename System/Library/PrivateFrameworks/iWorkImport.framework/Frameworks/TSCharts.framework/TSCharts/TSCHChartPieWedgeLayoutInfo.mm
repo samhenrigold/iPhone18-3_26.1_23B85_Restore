@@ -74,11 +74,11 @@
     v39 = objc_msgSend_copy(v34, v35, v36, v37, v38);
     objc_msgSend_setPieLabels_(v16, v40, v41, v42, v43, v39);
 
-    objc_msgSend_combinedLabelTransformIntoPieChartCoordinateSpace(self, v44, v45, v46, v47);
-    v51[0] = v51[3];
-    v51[1] = v52;
-    v51[2] = v53;
-    objc_msgSend_setCombinedLabelTransformIntoPieChartCoordinateSpace_(v16, v48, *&v53, *&v52, v49, v51);
+    objc_msgSend_combinedLabelTransformIntoPieChartCoordinateSpace(self, v44, v45, v46);
+    v50[0] = v50[3];
+    v50[1] = v51;
+    v50[2] = v52;
+    objc_msgSend_setCombinedLabelTransformIntoPieChartCoordinateSpace_(v16, v47, *&v52, *&v51, v48, v50);
   }
 
   return v16;

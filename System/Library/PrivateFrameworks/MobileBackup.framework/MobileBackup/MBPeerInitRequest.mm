@@ -64,59 +64,20 @@
   v22.receiver = self;
   v22.super_class = MBPeerInitRequest;
   v7 = [(MBPeerInitRequest *)&v22 init];
-  if (!v7)
+  if (!v7 || ([dictionaryCopy objectForKeyedSubscript:@"MBProtocolVersion"], v8 = objc_claimAutoreleasedReturnValue(), targetProtocolVersion = v7->_targetProtocolVersion, v7->_targetProtocolVersion = v8, targetProtocolVersion, objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"MBDeviceUDID"), v10 = objc_claimAutoreleasedReturnValue(), targetDeviceUDID = v7->_targetDeviceUDID, v7->_targetDeviceUDID = v10, targetDeviceUDID, objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"MBDeviceName"), v12 = objc_claimAutoreleasedReturnValue(), targetDeviceName = v7->_targetDeviceName, v7->_targetDeviceName = v12, targetDeviceName, objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"MBDeviceClass"), v14 = objc_claimAutoreleasedReturnValue(), targetDeviceClass = v7->_targetDeviceClass, v7->_targetDeviceClass = v14, targetDeviceClass, objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"MBBuildVersion"), v16 = objc_claimAutoreleasedReturnValue(), targetBuildVersion = v7->_targetBuildVersion, v7->_targetBuildVersion = v16, targetBuildVersion, objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"MBProductVersion"), v18 = objc_claimAutoreleasedReturnValue(), targetProductVersion = v7->_targetProductVersion, v7->_targetProductVersion = v18, targetProductVersion, v7->_targetProtocolVersion) && v7->_targetDeviceUDID && v7->_targetDeviceName && v7->_targetDeviceClass && v7->_targetProductVersion && v7->_targetBuildVersion)
   {
-    goto LABEL_8;
-  }
-
-  v8 = [dictionaryCopy objectForKeyedSubscript:@"MBProtocolVersion"];
-  targetProtocolVersion = v7->_targetProtocolVersion;
-  v7->_targetProtocolVersion = v8;
-
-  v10 = [dictionaryCopy objectForKeyedSubscript:@"MBDeviceUDID"];
-  targetDeviceUDID = v7->_targetDeviceUDID;
-  v7->_targetDeviceUDID = v10;
-
-  v12 = [dictionaryCopy objectForKeyedSubscript:@"MBDeviceName"];
-  targetDeviceName = v7->_targetDeviceName;
-  v7->_targetDeviceName = v12;
-
-  v14 = [dictionaryCopy objectForKeyedSubscript:@"MBDeviceClass"];
-  targetDeviceClass = v7->_targetDeviceClass;
-  v7->_targetDeviceClass = v14;
-
-  v16 = [dictionaryCopy objectForKeyedSubscript:@"MBBuildVersion"];
-  targetBuildVersion = v7->_targetBuildVersion;
-  v7->_targetBuildVersion = v16;
-
-  v18 = [dictionaryCopy objectForKeyedSubscript:@"MBProductVersion"];
-  targetProductVersion = v7->_targetProductVersion;
-  v7->_targetProductVersion = v18;
-
-  if (!v7->_targetProtocolVersion)
-  {
-    goto LABEL_9;
-  }
-
-  if (v7->_targetDeviceUDID && v7->_targetDeviceName && v7->_targetDeviceClass && v7->_targetProductVersion && v7->_targetBuildVersion)
-  {
-LABEL_8:
     v20 = v7;
+  }
+
+  else if (error)
+  {
+    [MBError errorWithCode:11 format:@"Failed to decode request. Missing property in dictionary %@", dictionaryCopy];
+    *error = v20 = 0;
   }
 
   else
   {
-LABEL_9:
-    if (error)
-    {
-      [MBError errorWithCode:11 format:@"Failed to decode request. Missing property in dictionary %@", dictionaryCopy];
-      *error = v20 = 0;
-    }
-
-    else
-    {
-      v20 = 0;
-    }
+    v20 = 0;
   }
 
   return v20;

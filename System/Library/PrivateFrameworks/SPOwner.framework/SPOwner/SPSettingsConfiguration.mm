@@ -75,31 +75,31 @@
 
 - (id)serviceSettingsConfiguration
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/private/var/db/searchparty/daemon/savedConfiguration.plist" isDirectory:1];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfURL:v2 error:0];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v4 = [v3 objectForKeyedSubscript:{@"configurations", 0}];
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           v10 = [v9 objectForKeyedSubscript:@"source"];
           if ([v10 isEqualToString:@"serviceSettings"])
           {
@@ -109,7 +109,7 @@
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -127,8 +127,6 @@ LABEL_12:
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -159,23 +157,22 @@ LABEL_12:
     sharedDefaults = v2->_sharedDefaults;
     v2->_sharedDefaults = v11;
 
-    v13 = LogCategory_ServiceState();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = LogCategory_ServiceState(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v18 = v2;
-      _os_log_impl(&dword_2643D0000, v13, OS_LOG_TYPE_DEFAULT, "SPSettingsConfiguration: Created %@", buf, 0xCu);
+      _os_log_impl(&dword_2643D0000, v14, OS_LOG_TYPE_DEFAULT, "SPSettingsConfiguration: Created %@", buf, 0xCu);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = LogCategory_ServiceState();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = LogCategory_ServiceState(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -184,10 +181,9 @@ LABEL_12:
   }
 
   [(SPSettingsConfiguration *)self _invalidate];
-  v5.receiver = self;
-  v5.super_class = SPSettingsConfiguration;
-  [(SPSettingsConfiguration *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SPSettingsConfiguration;
+  [(SPSettingsConfiguration *)&v4 dealloc];
 }
 
 - (void)_invalidate
@@ -214,11 +210,11 @@ LABEL_12:
 
   if (serviceSettingsChangedNotificationToken)
   {
-    v6 = LogCategory_ServiceState();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = LogCategory_ServiceState(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "beginRefreshingServiceStateWithBlock: already started.", buf, 2u);
+      _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "beginRefreshingServiceStateWithBlock: already started.", buf, 2u);
     }
   }
 
@@ -235,20 +231,20 @@ LABEL_12:
     aBlock[2] = __64__SPSettingsConfiguration_beginRefreshingServiceStateWithBlock___block_invoke_2;
     aBlock[3] = &unk_279B59398;
     aBlock[4] = self;
-    v18 = blockCopy;
-    v7 = _Block_copy(aBlock);
-    v8 = SPServiceSettingsChangedLocalNotification;
+    v19 = blockCopy;
+    v8 = _Block_copy(aBlock);
+    v9 = SPServiceSettingsChangedLocalNotification;
     notificationQueue = [(SPSettingsConfiguration *)self notificationQueue];
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __64__SPSettingsConfiguration_beginRefreshingServiceStateWithBlock___block_invoke_3;
-    v15 = &unk_279B5A7B0;
-    v16 = v7;
-    v10 = v7;
-    v11 = [(SPSettingsConfiguration *)self fm_addNotificationBlockObserverForName:v8 object:self queue:notificationQueue usingBlock:&v12];
-    [(SPSettingsConfiguration *)self setServiceSettingsChangedNotificationToken:v11, v12, v13, v14, v15];
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __64__SPSettingsConfiguration_beginRefreshingServiceStateWithBlock___block_invoke_3;
+    v16 = &unk_279B5A7B0;
+    v17 = v8;
+    v11 = v8;
+    v12 = [(SPSettingsConfiguration *)self fm_addNotificationBlockObserverForName:v9 object:self queue:notificationQueue usingBlock:&v13];
+    [(SPSettingsConfiguration *)self setServiceSettingsChangedNotificationToken:v12, v13, v14, v15, v16];
 
-    v10[2](v10);
+    v11[2](v11);
   }
 }
 
@@ -353,14 +349,14 @@ void __54__SPSettingsConfiguration_setServiceState_completion___block_invoke(uin
     v7 = [v5 initWithServiceDescription:serviceDescription];
     [(SPSettingsConfiguration *)self setSession:v7];
 
-    v8 = LogCategory_ServiceState();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_ServiceState(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription2 = [(SPSettingsConfiguration *)self serviceDescription];
       machService = [serviceDescription2 machService];
       v16 = 138412290;
       v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPSettingsConfiguration: Establishing XPC connection to %@", &v16, 0xCu);
+      _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "SPSettingsConfiguration: Establishing XPC connection to %@", &v16, 0xCu);
     }
 
     session2 = [(SPSettingsConfiguration *)self session];
@@ -369,8 +365,6 @@ void __54__SPSettingsConfiguration_setServiceState_completion___block_invoke(uin
 
   session3 = [(SPSettingsConfiguration *)self session];
   proxy = [session3 proxy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }

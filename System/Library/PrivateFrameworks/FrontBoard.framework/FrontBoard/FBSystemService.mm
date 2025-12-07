@@ -15,16 +15,20 @@
 - (void)_performExitTasksForRelaunch:(BOOL)relaunch;
 - (void)_reallyActivateApplication:(id)application requestID:(id)d options:(id)options serviceInstance:(id)instance source:(id)source originalSourceToken:(id)token isTrusted:(BOOL)trusted sequenceNumber:(unint64_t)self0 cacheGUID:(id)self1 ourSequenceNumber:(unint64_t)self2 ourCacheGUID:(id)self3 withResult:(id)self4;
 - (void)_setInfoProvider;
+- (void)_terminateProcesses:(id)processes forReason:(int64_t)reason andReport:(BOOL)report withDescription:(id)description completion:(id)completion;
 - (void)canOpenApplication:(id)application completion:(id)completion;
 - (void)dealloc;
+- (void)exitAndRelaunch:(BOOL)relaunch withOptions:(unint64_t)options;
 - (void)handleActions:(id)actions source:(id)source withResult:(id)result;
 - (void)isPasscodeLockedOrBlockedWithResult:(id)result;
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context;
 - (void)openApplication:(id)application withOptions:(id)options originator:(id)originator requestID:(id)d completion:(id)completion;
 - (void)prepareDisplaysForExit;
 - (void)setDelegate:(id)delegate;
+- (void)setSystemIdleSleepDisabled:(BOOL)disabled forReason:(id)reason;
 - (void)shutdownWithOptions:(id)options origin:(id)origin;
 - (void)shutdownWithOptions:(unint64_t)options forSource:(int64_t)source;
+- (void)terminateApplication:(id)application forReason:(int64_t)reason andReport:(BOOL)report withDescription:(id)description completion:(id)completion;
 - (void)terminateApplicationGroup:(int64_t)group forReason:(int64_t)reason andReport:(BOOL)report withDescription:(id)description completion:(id)completion;
 @end
 
@@ -211,7 +215,7 @@ void __33__FBSystemService_initWithQueue___block_invoke(uint64_t a1, void *a2)
   [v7 setDelegate:*(a1 + 48)];
 }
 
-void __33__FBSystemService_initWithQueue___block_invoke_2(uint64_t a1, int a2)
+void __33__FBSystemService_initWithQueue___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (a2 == 5)
   {
@@ -647,6 +651,14 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_6(uint64_t 
   [v4 actOnUserInitiatedSystemShutDown:4 completion:v6];
 }
 
+- (void)setSystemIdleSleepDisabled:(BOOL)disabled forReason:(id)reason
+{
+  disabledCopy = disabled;
+  reasonCopy = reason;
+  v6 = +[FBSystemShell sharedInstance];
+  [v6 _setSystemIdleSleepDisabled:disabledCopy forReason:reasonCopy];
+}
+
 - (void)prepareDisplaysForExit
 {
   [MEMORY[0x1E6979518] flush];
@@ -655,9 +667,147 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_6(uint64_t 
   [serverIfRunning removeAllDisplays];
 }
 
-uint64_t __86__FBSystemService__terminateProcesses_forReason_andReport_withDescription_completion___block_invoke(uint64_t a1, void *a2)
+- (void)exitAndRelaunch:(BOOL)relaunch withOptions:(unint64_t)options
 {
-  v9 = *MEMORY[0x1E69E9840];
+  optionsCopy = options;
+  relaunchCopy = relaunch;
+  if ([(FBSystemService *)self isPendingExit])
+  {
+    return;
+  }
+
+  [(FBSystemService *)self setPendingExit:1];
+  v7 = FBLogCommon();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (relaunchCopy)
+  {
+    if (v8)
+    {
+      v13 = 0;
+      v9 = "Exiting...";
+      v10 = &v13;
+LABEL_7:
+      _os_log_impl(&dword_1A89DD000, v7, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
+    }
+  }
+
+  else if (v8)
+  {
+    LOWORD(v12) = 0;
+    v9 = "Tearing Down...";
+    v10 = &v12;
+    goto LABEL_7;
+  }
+
+  delegate = [(FBSystemService *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate systemServicePrepareForExit:self andRelaunch:relaunchCopy];
+  }
+
+  [(FBSystemService *)self _performExitTasksForRelaunch:relaunchCopy, v12];
+  if (!relaunchCopy)
+  {
+    BKSHIDServicesSetBacklightFactorWithFadeDuration();
+  }
+
+  if ((optionsCopy & 2) == 0)
+  {
+    exit(0);
+  }
+}
+
+- (void)_terminateProcesses:(id)processes forReason:(int64_t)reason andReport:(BOOL)report withDescription:(id)description completion:(id)completion
+{
+  reportCopy = report;
+  v41 = *MEMORY[0x1E69E9840];
+  processesCopy = processes;
+  descriptionCopy = description;
+  completionCopy = completion;
+  v24 = processesCopy;
+  if ([processesCopy count])
+  {
+    *buf = 0;
+    v37 = buf;
+    v38 = 0x2020000000;
+    v39 = 0;
+    v13 = MEMORY[0x1E698E630];
+    v14 = [processesCopy count];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __86__FBSystemService__terminateProcesses_forReason_andReport_withDescription_completion___block_invoke;
+    v33[3] = &unk_1E783BA50;
+    v35 = buf;
+    v34 = completionCopy;
+    v15 = [v13 sentinelWithSignalCount:v14 signalHandler:v33];
+    v23 = completionCopy;
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v16 = processesCopy;
+    v17 = [v16 countByEnumeratingWithState:&v29 objects:v40 count:16];
+    if (v17)
+    {
+      v18 = *v30;
+      do
+      {
+        for (i = 0; i != v17; ++i)
+        {
+          if (*v30 != v18)
+          {
+            objc_enumerationMutation(v16);
+          }
+
+          v20 = *(*(&v29 + 1) + 8 * i);
+          if ([v20 isCurrentProcess])
+          {
+            [v15 signal];
+          }
+
+          else
+          {
+            v26[0] = MEMORY[0x1E69E9820];
+            v26[1] = 3221225472;
+            v26[2] = __86__FBSystemService__terminateProcesses_forReason_andReport_withDescription_completion___block_invoke_87;
+            v26[3] = &unk_1E783BA78;
+            v28 = buf;
+            v27 = v15;
+            [v20 _killForReason:reason andReport:reportCopy withDescription:descriptionCopy completion:v26];
+          }
+        }
+
+        v17 = [v16 countByEnumeratingWithState:&v29 objects:v40 count:16];
+      }
+
+      while (v17);
+    }
+
+    _Block_object_dispose(buf, 8);
+    v21 = v23;
+  }
+
+  else
+  {
+    v22 = FBLogCommon();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1A89DD000, v22, OS_LOG_TYPE_DEFAULT, "[FBSystemService] Found no processes to terminate.", buf, 2u);
+    }
+
+    v21 = completionCopy;
+    if (completionCopy)
+    {
+      completionCopy[2]();
+      v21 = completionCopy;
+    }
+  }
+}
+
+uint64_t (**__86__FBSystemService__terminateProcesses_forReason_andReport_withDescription_completion___block_invoke(uint64_t a1, void *a2))(void *, BOOL)
+{
+  v8 = *MEMORY[0x1E69E9840];
   result = [a2 isComplete];
   if (result)
   {
@@ -665,54 +815,135 @@ uint64_t __86__FBSystemService__terminateProcesses_forReason_andReport_withDescr
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(*(*(a1 + 40) + 8) + 24);
-      v7 = 134217984;
-      v8 = v5;
-      _os_log_impl(&dword_1A89DD000, v4, OS_LOG_TYPE_DEFAULT, "[FBSystemService] Completed termination of %lu process(es)", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v5;
+      _os_log_impl(&dword_1A89DD000, v4, OS_LOG_TYPE_DEFAULT, "[FBSystemService] Completed termination of %lu process(es)", &v6, 0xCu);
     }
 
     result = *(a1 + 32);
     if (result)
     {
-      result = (*(result + 16))(result, *(*(*(a1 + 40) + 8) + 24) != 0);
+      return result[2](result, *(*(*(a1 + 40) + 8) + 24) != 0);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
+}
+
+- (void)terminateApplication:(id)application forReason:(int64_t)reason andReport:(BOOL)report withDescription:(id)description completion:(id)completion
+{
+  reportCopy = report;
+  v41 = *MEMORY[0x1E69E9840];
+  applicationCopy = application;
+  descriptionCopy = description;
+  completionCopy = completion;
+  v15 = +[FBProcessManager sharedInstance];
+  v16 = [v15 applicationProcessesForBundleIdentifier:applicationCopy];
+
+  if ([v16 count])
+  {
+    array = v16;
+  }
+
+  else
+  {
+    v29 = completionCopy;
+    selfCopy = self;
+    v31 = descriptionCopy;
+    reasonCopy = reason;
+    v33 = reportCopy;
+    array = [MEMORY[0x1E695DF70] array];
+    v18 = MEMORY[0x1E69C7618];
+    v34 = applicationCopy;
+    v19 = [MEMORY[0x1E69C7610] predicateMatchingBundleIdentifier:applicationCopy];
+    v20 = [v18 statesForPredicate:v19 withDescriptor:0 error:0];
+
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v21 = v20;
+    v22 = [v21 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    if (v22)
+    {
+      v23 = v22;
+      v24 = *v37;
+      do
+      {
+        v25 = 0;
+        do
+        {
+          if (*v37 != v24)
+          {
+            objc_enumerationMutation(v21);
+          }
+
+          process = [*(*(&v36 + 1) + 8 * v25) process];
+          if (process)
+          {
+            v27 = +[FBProcessManager sharedInstance];
+            objc_msgSend_auditToken(process);
+            v28 = [v27 registerProcessForAuditToken:v35];
+
+            if (v28)
+            {
+              [array addObject:v28];
+            }
+          }
+
+          ++v25;
+        }
+
+        while (v23 != v25);
+        v23 = [v21 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      }
+
+      while (v23);
+    }
+
+    applicationCopy = v34;
+    reportCopy = v33;
+    descriptionCopy = v31;
+    reason = reasonCopy;
+    completionCopy = v29;
+    self = selfCopy;
+  }
+
+  [(FBSystemService *)self _terminateProcesses:array forReason:reason andReport:reportCopy withDescription:descriptionCopy completion:completionCopy];
 }
 
 - (void)terminateApplicationGroup:(int64_t)group forReason:(int64_t)reason andReport:(BOOL)report withDescription:(id)description completion:(id)completion
 {
   reportCopy = report;
   reasonCopy = reason;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   completionCopy = completion;
   v12 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v13 = +[FBProcessManager sharedInstance];
   allApplicationProcesses = [v13 allApplicationProcesses];
 
-  v15 = [allApplicationProcesses countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [allApplicationProcesses countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       v18 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(allApplicationProcesses);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * v18);
-        if (group || [*(*(&v24 + 1) + 8 * v18) isForeground])
+        v19 = *(*(&v23 + 1) + 8 * v18);
+        if (group || [*(*(&v23 + 1) + 8 * v18) isForeground])
         {
           [v12 addObject:{v19, reasonCopy}];
         }
@@ -721,7 +952,7 @@ uint64_t __86__FBSystemService__terminateProcesses_forReason_andReport_withDescr
       }
 
       while (v16 != v18);
-      v16 = [allApplicationProcesses countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [allApplicationProcesses countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
@@ -729,8 +960,6 @@ uint64_t __86__FBSystemService__terminateProcesses_forReason_andReport_withDescr
 
   allObjects = [v12 allObjects];
   [(FBSystemService *)self _terminateProcesses:allObjects forReason:reasonCopy andReport:reportCopy withDescription:descriptionCopy completion:completionCopy];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_activateBundleID:(id)d requestID:(id)iD isTrusted:(BOOL)trusted options:(id)options serviceInstance:(id)instance source:(id)source originalSourceToken:(id)token withResult:(id)self0
@@ -744,7 +973,7 @@ uint64_t __86__FBSystemService__terminateProcesses_forReason_andReport_withDescr
   tokenCopy = token;
   resultCopy = result;
   selfCopy = self;
-  [(BSServiceDispatchQueue *)self->_queue assertBarrierOnQueue];
+  assertBarrierOnQueue = [(BSServiceDispatchQueue *)self->_queue assertBarrierOnQueue];
   if (!dCopy)
   {
     [FBSystemService _activateBundleID:a2 requestID:? isTrusted:? options:? serviceInstance:? source:? originalSourceToken:? withResult:?];
@@ -770,17 +999,17 @@ uint64_t __86__FBSystemService__terminateProcesses_forReason_andReport_withDescr
     [FBSystemService _activateBundleID:a2 requestID:? isTrusted:? options:? serviceInstance:? source:? originalSourceToken:? withResult:?];
   }
 
-  v21 = FBSystemAppBundleID();
-  v22 = [dCopy isEqualToString:v21];
+  v22 = FBSystemAppBundleID(assertBarrierOnQueue);
+  v23 = [dCopy isEqualToString:v22];
 
-  if (v22)
+  if (v23)
   {
-    v23 = FBLogCommon();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = FBLogCommon();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       *&buf[4] = iDCopy;
-      _os_log_impl(&dword_1A89DD000, v23, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Open request is targeting the system app itself; swizzling bundleID to nil.", buf, 0xCu);
+      _os_log_impl(&dword_1A89DD000, v24, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Open request is targeting the system app itself; swizzling bundleID to nil.", buf, 0xCu);
     }
 
     dCopy = 0;
@@ -789,46 +1018,46 @@ uint64_t __86__FBSystemService__terminateProcesses_forReason_andReport_withDescr
   dictionary = [optionsCopy dictionary];
   v58 = [dictionary objectForKey:*MEMORY[0x1E699F980]];
   [v58 doubleValue];
-  v25 = v24;
-  v26 = CACurrentMediaTime();
-  v27 = v25 <= 0.0 || v58 == 0;
-  v28 = v27;
-  v29 = fmin(v25, 30.0);
-  if (v27)
+  v26 = v25;
+  v27 = CACurrentMediaTime();
+  v28 = v26 <= 0.0 || v58 == 0;
+  v29 = v28;
+  v30 = fmin(v26, 30.0);
+  if (v28)
   {
-    v30 = v26;
+    v31 = v27;
   }
 
   else
   {
-    v30 = v26 + v29;
+    v31 = v27 + v30;
   }
 
-  if (!v27)
+  if (!v28)
   {
-    v25 = v29;
+    v26 = v30;
   }
 
-  v31 = [dictionary objectForKey:*MEMORY[0x1E699F928]];
-  v32 = [dictionary objectForKey:*MEMORY[0x1E699F920]];
-  if (v32)
+  v32 = [dictionary objectForKey:*MEMORY[0x1E699F928]];
+  v33 = [dictionary objectForKey:*MEMORY[0x1E699F920]];
+  if (v33)
   {
-    v33 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v32];
-    v34 = v33;
-    if (v31)
+    v34 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v33];
+    v35 = v34;
+    if (v32)
     {
-      v35 = v28;
+      v36 = v29;
     }
 
     else
     {
-      v35 = 0;
+      v36 = 0;
     }
 
-    if (v35 == 1 && v33)
+    if (v36 == 1 && v34)
     {
-      v25 = fmin(fmax(v25, 0.0), 2.0);
-      v30 = v30 + v25;
+      v26 = fmin(fmax(v26, 0.0), 2.0);
+      v31 = v31 + v26;
       v56 = 0x3FE0000000000000;
       goto LABEL_31;
     }
@@ -836,38 +1065,38 @@ uint64_t __86__FBSystemService__terminateProcesses_forReason_andReport_withDescr
 
   else
   {
-    v34 = 0;
+    v35 = 0;
   }
 
   v56 = 0x4000000000000000;
-  if (v28)
+  if (v29)
   {
-    v36 = dCopy;
-    v37 = v32;
-    v38 = resultCopy;
-    v39 = 0;
+    v37 = dCopy;
+    v38 = v33;
+    v39 = resultCopy;
+    v40 = 0;
     goto LABEL_34;
   }
 
 LABEL_31:
-  v40 = FBLogCommon();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v41 = FBLogCommon();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
     *&buf[4] = iDCopy;
     *&buf[12] = 2114;
     *&buf[14] = dCopy;
     *&buf[22] = 2048;
-    v80 = *&v25;
+    v80 = *&v26;
     LOWORD(v81) = 2048;
     *(&v81 + 2) = v56;
-    _os_log_impl(&dword_1A89DD000, v40, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Activation request for %{public}@ will wait %.2fs for app availability, with retry every %.2fs.", buf, 0x2Au);
+    _os_log_impl(&dword_1A89DD000, v41, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Activation request for %{public}@ will wait %.2fs for app availability, with retry every %.2fs.", buf, 0x2Au);
   }
 
-  v36 = dCopy;
-  v37 = v32;
-  v38 = resultCopy;
-  v39 = 1;
+  v37 = dCopy;
+  v38 = v33;
+  v39 = resultCopy;
+  v40 = 1;
 LABEL_34:
   v77[0] = 0;
   v77[1] = v77;
@@ -884,7 +1113,7 @@ LABEL_34:
   v60[2] = __119__FBSystemService__activateBundleID_requestID_isTrusted_options_serviceInstance_source_originalSourceToken_withResult___block_invoke;
   v60[3] = &unk_1E783BAF0;
   v60[4] = selfCopy;
-  v49 = v36;
+  v49 = v37;
   v61 = v49;
   v70 = v77;
   v71 = buf;
@@ -894,30 +1123,29 @@ LABEL_34:
   v63 = v51;
   v55 = instanceCopy;
   v64 = v55;
-  v41 = sourceCopy;
-  v65 = v41;
-  v42 = tokenCopy;
-  v66 = v42;
+  v42 = sourceCopy;
+  v65 = v42;
+  v43 = tokenCopy;
+  v66 = v43;
   trustedCopy = trusted;
-  v43 = v31;
-  v67 = v43;
-  v44 = v34;
-  v68 = v44;
-  v76 = v39;
-  v72 = v26;
-  v73 = v30;
+  v44 = v32;
+  v67 = v44;
+  v45 = v35;
+  v68 = v45;
+  v76 = v40;
+  v72 = v27;
+  v73 = v31;
   v74 = v56;
-  v45 = v38;
-  v69 = v45;
-  v46 = [v60 copy];
-  v47 = *(*&buf[8] + 40);
-  *(*&buf[8] + 40) = v46;
+  v46 = v39;
+  v69 = v46;
+  v47 = [v60 copy];
+  v48 = *(*&buf[8] + 40);
+  *(*&buf[8] + 40) = v47;
 
   (*(*(*&buf[8] + 40) + 16))();
   _Block_object_dispose(buf, 8);
 
   _Block_object_dispose(v77, 8);
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 void __119__FBSystemService__activateBundleID_requestID_isTrusted_options_serviceInstance_source_originalSourceToken_withResult___block_invoke(uint64_t a1)
@@ -1000,7 +1228,7 @@ void __119__FBSystemService__activateBundleID_requestID_isTrusted_options_servic
 
 void __119__FBSystemService__activateBundleID_requestID_isTrusted_options_serviceInstance_source_originalSourceToken_withResult___block_invoke_3(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) invalidate];
   v4 = [v3 domain];
@@ -1020,13 +1248,13 @@ void __119__FBSystemService__activateBundleID_requestID_isTrusted_options_servic
           v9 = *(a1 + 40);
           v10 = *(a1 + 48);
           v11 = FBSOpenApplicationErrorCodeToString();
-          v26 = 138543874;
-          v27 = v9;
-          v28 = 2114;
-          v29 = v10;
-          v30 = 2114;
-          v31 = v11;
-          _os_log_impl(&dword_1A89DD000, v8, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Retry attempt failed for %{public}@ with reason %{public}@", &v26, 0x20u);
+          v23 = 138543874;
+          v24 = v9;
+          v25 = 2114;
+          v26 = v10;
+          v27 = 2114;
+          v28 = v11;
+          _os_log_impl(&dword_1A89DD000, v8, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Retry attempt failed for %{public}@ with reason %{public}@", &v23, 0x20u);
         }
 
         v12 = CACurrentMediaTime();
@@ -1039,34 +1267,32 @@ void __119__FBSystemService__activateBundleID_requestID_isTrusted_options_servic
             {
               v14 = *(a1 + 40);
               v15 = *(a1 + 48);
-              v16 = *(a1 + 64);
-              v17 = FBSProcessPrettyDescription();
-              v26 = 138543874;
-              v27 = v14;
-              v28 = 2114;
-              v29 = v15;
-              v30 = 2114;
-              v31 = v17;
-              _os_log_impl(&dword_1A89DD000, v13, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Exhausted retry attempts for opening application: %{public}@ from source: %{public}@", &v26, 0x20u);
+              v16 = FBSProcessPrettyDescription();
+              v23 = 138543874;
+              v24 = v14;
+              v25 = 2114;
+              v26 = v15;
+              v27 = 2114;
+              v28 = v16;
+              _os_log_impl(&dword_1A89DD000, v13, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Exhausted retry attempts for opening application: %{public}@ from source: %{public}@", &v23, 0x20u);
             }
 
             goto LABEL_14;
           }
 
-          v21 = FBLogCommon();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v19 = FBLogCommon();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v22 = *(a1 + 40);
-            v23 = *(a1 + 48);
-            v24 = *(a1 + 64);
-            v25 = FBSProcessPrettyDescription();
-            v26 = 138543874;
-            v27 = v22;
-            v28 = 2114;
-            v29 = v23;
-            v30 = 2114;
-            v31 = v25;
-            _os_log_impl(&dword_1A89DD000, v21, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Attempting final launch request of: %{public}@ from source: %{public}@", &v26, 0x20u);
+            v20 = *(a1 + 40);
+            v21 = *(a1 + 48);
+            v22 = FBSProcessPrettyDescription();
+            v23 = 138543874;
+            v24 = v20;
+            v25 = 2114;
+            v26 = v21;
+            v27 = 2114;
+            v28 = v22;
+            _os_log_impl(&dword_1A89DD000, v19, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Attempting final launch request of: %{public}@ from source: %{public}@", &v23, 0x20u);
           }
 
           *(*(*(a1 + 88) + 8) + 24) = 1;
@@ -1080,12 +1306,11 @@ void __119__FBSystemService__activateBundleID_requestID_isTrusted_options_servic
 
 LABEL_14:
   (*(*(a1 + 72) + 16))();
-  v18 = *(*(a1 + 80) + 8);
-  v19 = *(v18 + 40);
-  *(v18 + 40) = 0;
+  v17 = *(*(a1 + 80) + 8);
+  v18 = *(v17 + 40);
+  *(v17 + 40) = 0;
 
 LABEL_15:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldPendRequestForClientSequenceNumber:(unint64_t)number clientCacheGUID:(id)d ourSequenceNumber:(unint64_t)sequenceNumber ourCacheGUID:(id)iD
@@ -1104,12 +1329,12 @@ LABEL_15:
 
 - (void)_reallyActivateApplication:(id)application requestID:(id)d options:(id)options serviceInstance:(id)instance source:(id)source originalSourceToken:(id)token isTrusted:(BOOL)trusted sequenceNumber:(unint64_t)self0 cacheGUID:(id)self1 ourSequenceNumber:(unint64_t)self2 ourCacheGUID:(id)self3 withResult:(id)self4
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   dCopy = d;
   optionsCopy = options;
   selfCopy = self;
-  v59 = optionsCopy;
+  v58 = optionsCopy;
   instanceCopy = instance;
   tokenCopy = token;
   iDCopy = iD;
@@ -1126,7 +1351,7 @@ LABEL_15:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       [iDCopy UUIDString];
-      v57 = iDCopy;
+      v56 = iDCopy;
       v31 = selfCopy;
       v33 = v32 = dCopy;
       *buf = 138544642;
@@ -1137,15 +1362,15 @@ LABEL_15:
       *&buf[24] = v33;
       *&buf[32] = 2048;
       numberCopy = number;
-      v83 = 2114;
+      v82 = 2114;
       sequenceNumberCopy2 = uIDCopy;
-      v85 = 2048;
+      v84 = 2048;
       sequenceNumberCopy = sequenceNumber;
       _os_log_impl(&dword_1A89DD000, v30, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Attempting activation of %@ with {UUID: %{public}@, Sequence: %lu} vs {UUID: %{public}@, Sequence: %lu}", buf, 0x3Eu);
 
       dCopy = v32;
       selfCopy = v31;
-      iDCopy = v57;
+      iDCopy = v56;
     }
 
     tokenCopy = v29;
@@ -1164,7 +1389,7 @@ LABEL_15:
         *&buf[24] = number;
         *&buf[32] = 2114;
         numberCopy = v34;
-        v83 = 2048;
+        v82 = 2048;
         sequenceNumberCopy2 = sequenceNumber;
         _os_log_impl(&dword_1A89DD000, v35, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Pending activate request due to LS value mismatch.\n\tClient LS values: {%{public}@, %lu}\n\t Our LS values: {%{public}@, %lu}", buf, 0x34u);
       }
@@ -1215,27 +1440,27 @@ LABEL_16:
     delegate = [(FBSystemService *)selfCopy delegate];
     if (!delegate)
     {
-      v51 = FBSOpenApplicationErrorCreate();
-      resultCopy[2](resultCopy, v51);
+      v50 = FBSOpenApplicationErrorCreate();
+      resultCopy[2](resultCopy, v50);
 LABEL_37:
 
       goto LABEL_17;
     }
 
-    v45 = selfCopy;
-    v46 = v27;
-    v47 = iDCopy;
-    v48 = tokenCopy;
+    v44 = selfCopy;
+    v45 = v27;
+    v46 = iDCopy;
+    v47 = tokenCopy;
     if (objc_opt_respondsToSelector())
     {
-      v49 = [[FBSystemServiceOpenApplicationRequest alloc] initWithBundleId:applicationCopy];
-      [(FBSystemServiceOpenApplicationRequest *)v49 setTrusted:trusted];
-      [(FBSystemServiceOpenApplicationRequest *)v49 setOptions:v59];
-      v50 = +[FBProcessManager sharedInstance];
-      v56 = dCopy;
-      if (v48)
+      v48 = [[FBSystemServiceOpenApplicationRequest alloc] initWithBundleId:applicationCopy];
+      [(FBSystemServiceOpenApplicationRequest *)v48 setTrusted:trusted];
+      [(FBSystemServiceOpenApplicationRequest *)v48 setOptions:v58];
+      v49 = +[FBProcessManager sharedInstance];
+      v55 = dCopy;
+      if (v47)
       {
-        [v48 realToken];
+        objc_msgSend_realToken(v47);
       }
 
       else
@@ -1243,89 +1468,87 @@ LABEL_37:
         memset(buf, 0, 32);
       }
 
-      v54 = [v50 registerProcessForAuditToken:buf];
-      [(FBSystemServiceOpenApplicationRequest *)v49 setClientProcess:v54];
+      v53 = [v49 registerProcessForAuditToken:buf];
+      [(FBSystemServiceOpenApplicationRequest *)v48 setClientProcess:v53];
 
-      v76[0] = MEMORY[0x1E69E9820];
-      v76[1] = 3221225472;
-      v76[2] = __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke;
-      v76[3] = &unk_1E783BB18;
-      v77 = delegate;
-      v78 = v45;
-      v79 = v49;
-      v80 = resultCopy;
-      v51 = v49;
-      FBOpenAppSystemServiceExecuteCallOut(instanceCopy, v76);
+      v75[0] = MEMORY[0x1E69E9820];
+      v75[1] = 3221225472;
+      v75[2] = __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke;
+      v75[3] = &unk_1E783BB18;
+      v76 = delegate;
+      v77 = v44;
+      v78 = v48;
+      v79 = resultCopy;
+      v50 = v48;
+      FBOpenAppSystemServiceExecuteCallOut(instanceCopy, v75);
 
-      dCopy = v56;
-      tokenCopy = v48;
-      iDCopy = v47;
+      dCopy = v55;
+      tokenCopy = v47;
+      iDCopy = v46;
       goto LABEL_36;
     }
 
-    v52 = [v59 url];
-    v55 = uIDCopy;
+    v51 = [v58 url];
+    v54 = uIDCopy;
     if (trusted)
     {
-      v51 = v52;
+      v50 = v51;
       if (objc_opt_respondsToSelector())
       {
-        v69[0] = MEMORY[0x1E69E9820];
-        v69[1] = 3221225472;
-        v69[2] = __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_2;
-        v69[3] = &unk_1E783BB68;
-        v70 = delegate;
-        v71 = v45;
-        v72 = applicationCopy;
-        v73 = v59;
-        v74 = tokenCopy;
-        v75 = resultCopy;
-        FBOpenAppSystemServiceExecuteCallOut(instanceCopy, v69);
+        v68[0] = MEMORY[0x1E69E9820];
+        v68[1] = 3221225472;
+        v68[2] = __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_2;
+        v68[3] = &unk_1E783BB68;
+        v69 = delegate;
+        v70 = v44;
+        v71 = applicationCopy;
+        v72 = v58;
+        v73 = tokenCopy;
+        v74 = resultCopy;
+        FBOpenAppSystemServiceExecuteCallOut(instanceCopy, v68);
 
-        v53 = v70;
+        v52 = v69;
 LABEL_35:
-        iDCopy = v47;
+        iDCopy = v46;
 
-        uIDCopy = v55;
+        uIDCopy = v54;
 LABEL_36:
-        v27 = v46;
+        v27 = v45;
         goto LABEL_37;
       }
     }
 
     else
     {
-      v51 = v52;
-      if (v52 && (objc_opt_respondsToSelector() & 1) != 0)
+      v50 = v51;
+      if (v51 && (objc_opt_respondsToSelector() & 1) != 0)
       {
-        v61[0] = MEMORY[0x1E69E9820];
-        v61[1] = 3221225472;
-        v61[2] = __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_4;
-        v61[3] = &unk_1E783BB90;
-        v62 = delegate;
-        v63 = v45;
-        v64 = v51;
-        v65 = applicationCopy;
-        v66 = v59;
-        v67 = tokenCopy;
-        v68 = resultCopy;
-        FBOpenAppSystemServiceExecuteCallOut(instanceCopy, v61);
+        v60[0] = MEMORY[0x1E69E9820];
+        v60[1] = 3221225472;
+        v60[2] = __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_4;
+        v60[3] = &unk_1E783BB90;
+        v61 = delegate;
+        v62 = v44;
+        v63 = v50;
+        v64 = applicationCopy;
+        v65 = v58;
+        v66 = tokenCopy;
+        v67 = resultCopy;
+        FBOpenAppSystemServiceExecuteCallOut(instanceCopy, v60);
 
-        v53 = v62;
+        v52 = v61;
         goto LABEL_35;
       }
     }
 
-    v53 = FBSOpenApplicationErrorCreate();
-    resultCopy[2](resultCopy, v53);
+    v52 = FBSOpenApplicationErrorCreate();
+    resultCopy[2](resultCopy, v52);
     goto LABEL_35;
   }
 
   delegate = FBSOpenApplicationErrorCreate();
   resultCopy[2](resultCopy, delegate);
 LABEL_17:
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_2(uint64_t a1)
@@ -1343,12 +1566,12 @@ void __184__FBSystemService__reallyActivateApplication_requestID_options_service
   [v2 systemService:v3 handleOpenApplicationRequest:v4 options:v5 origin:v6 withResult:v7];
 }
 
-void __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_3(uint64_t a1)
+void __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v3 = FBSOpenApplicationErrorCodeToString();
-  v2 = FBSOpenApplicationErrorCreate();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v4 = FBSOpenApplicationErrorCodeToString();
+  v3 = FBSOpenApplicationErrorCreate();
+  (*(v2 + 16))(v2, v3);
 }
 
 void __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_4(uint64_t a1)
@@ -1367,12 +1590,12 @@ void __184__FBSystemService__reallyActivateApplication_requestID_options_service
   [v2 systemService:v3 handleOpenURLRequest:v4 application:v5 options:v6 origin:v7 withResult:v8];
 }
 
-void __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_5(uint64_t a1)
+void __184__FBSystemService__reallyActivateApplication_requestID_options_serviceInstance_source_originalSourceToken_isTrusted_sequenceNumber_cacheGUID_ourSequenceNumber_ourCacheGUID_withResult___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v3 = FBSOpenApplicationErrorCodeToString();
-  v2 = FBSOpenApplicationErrorCreate();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v4 = FBSOpenApplicationErrorCodeToString();
+  v3 = FBSOpenApplicationErrorCreate();
+  (*(v2 + 16))(v2, v3);
 }
 
 - (void)isPasscodeLockedOrBlockedWithResult:(id)result
@@ -1393,28 +1616,28 @@ void __184__FBSystemService__reallyActivateApplication_requestID_options_service
 
 - (void)handleActions:(id)actions source:(id)source withResult:(id)result
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   sourceCopy = source;
   resultCopy = result;
   [(BSServiceDispatchQueue *)self->_queue assertBarrierOnQueue];
-  v28 = MEMORY[0x1E69E9820];
-  v29 = 3221225472;
-  v30 = __51__FBSystemService_handleActions_source_withResult___block_invoke;
-  v31 = &unk_1E783BBB8;
+  v27 = MEMORY[0x1E69E9820];
+  v28 = 3221225472;
+  v29 = __51__FBSystemService_handleActions_source_withResult___block_invoke;
+  v30 = &unk_1E783BBB8;
   v11 = actionsCopy;
-  v32 = v11;
+  v31 = v11;
   v12 = resultCopy;
-  v33 = v12;
-  v13 = MEMORY[0x1AC572E40](&v28);
-  v14 = [(FBSystemService *)self delegate:v28];
+  v32 = v12;
+  v13 = MEMORY[0x1AC572E40](&v27);
+  v14 = [(FBSystemService *)self delegate:v27];
   if (([sourceCopy hasEntitlement:@"com.apple.frontboard.launchapplications"] & 1) == 0 && (objc_msgSend(sourceCopy, "hasEntitlement:", @"com.apple.backboardd.launchapplications") & 1) == 0 && (objc_msgSend(sourceCopy, "hasEntitlement:", @"com.apple.springboard.launchapplications") & 1) == 0)
   {
     v17 = FBLogCommon();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v35 = @"com.apple.frontboard.launchapplications";
+      v34 = @"com.apple.frontboard.launchapplications";
       _os_log_impl(&dword_1A89DD000, v17, OS_LOG_TYPE_DEFAULT, "[FBSystemService] Entitlement %@ is required to send actions to the system app.", buf, 0xCu);
     }
 
@@ -1443,14 +1666,12 @@ LABEL_14:
   {
     fbs_singleLineDescriptionOfBSActions = [v11 fbs_singleLineDescriptionOfBSActions];
     *buf = 138543362;
-    v35 = fbs_singleLineDescriptionOfBSActions;
+    v34 = fbs_singleLineDescriptionOfBSActions;
     _os_log_impl(&dword_1A89DD000, v17, OS_LOG_TYPE_DEFAULT, "[FBSystemService] Received action(s): %{public}@", buf, 0xCu);
   }
 
   [v14 systemService:self handleActions:v11 origin:sourceCopy withResult:v13];
 LABEL_15:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__FBSystemService_handleActions_source_withResult___block_invoke(uint64_t a1, uint64_t a2)
@@ -1613,24 +1834,24 @@ void __49__FBSystemService_canOpenApplication_completion___block_invoke_3(uint64
   currentContext = [MEMORY[0x1E698F490] currentContext];
   remoteProcess = [currentContext remoteProcess];
 
-  if (!originatorCopy || ([remoteProcess hasEntitlement:*MEMORY[0x1E699F8B8]] & 1) == 0)
+  if (!originatorCopy || (v18 = [remoteProcess hasEntitlement:*MEMORY[0x1E699F8B8]], (v18 & 1) == 0))
   {
-    v18 = remoteProcess;
+    v19 = remoteProcess;
 
-    originatorCopy = v18;
+    originatorCopy = v19;
   }
 
   if (!applicationCopy)
   {
-    applicationCopy = FBSystemAppBundleID();
+    applicationCopy = FBSystemAppBundleID(v18);
   }
 
-  v19 = +[FBProcessManager sharedInstance];
-  auditToken = [originatorCopy auditToken];
-  v21 = auditToken;
-  if (auditToken)
+  v20 = +[FBProcessManager sharedInstance];
+  v21 = objc_msgSend_auditToken(originatorCopy);
+  v22 = v21;
+  if (v21)
   {
-    [auditToken realToken];
+    objc_msgSend_realToken(v21);
   }
 
   else
@@ -1638,37 +1859,37 @@ void __49__FBSystemService_canOpenApplication_completion___block_invoke_3(uint64
     memset(buf, 0, sizeof(buf));
   }
 
-  v119 = [v19 registerProcessForAuditToken:buf];
+  v119 = [v20 registerProcessForAuditToken:buf];
 
-  v22 = FBSProcessPrettyDescription();
-  v23 = objc_alloc_init(MEMORY[0x1E698E618]);
-  v24 = [objc_alloc(MEMORY[0x1E698E610]) initWithFlag:0];
+  v23 = FBSProcessPrettyDescription();
+  v24 = objc_alloc_init(MEMORY[0x1E698E618]);
+  v25 = [objc_alloc(MEMORY[0x1E698E610]) initWithFlag:0];
   v144[0] = MEMORY[0x1E69E9820];
   v144[1] = 3221225472;
   v144[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke;
   v144[3] = &unk_1E783BC80;
-  v117 = v23;
+  v117 = v24;
   v145 = v117;
-  v25 = dCopy;
-  v146 = v25;
+  v26 = dCopy;
+  v146 = v26;
   v120 = applicationCopy;
   v147 = v120;
-  v26 = optionsCopy;
-  v148 = v26;
-  v27 = v22;
-  v149 = v27;
+  v27 = optionsCopy;
+  v148 = v27;
+  v28 = v23;
+  v149 = v28;
   v116 = completionCopy;
   v151 = v116;
-  v118 = v24;
+  v118 = v25;
   v150 = v118;
-  v28 = MEMORY[0x1AC572E40](v144);
+  v29 = MEMORY[0x1AC572E40](v144);
   if (originatorCopy && ([originatorCopy isValid] & 1) != 0)
   {
     v140 = 0;
     v141 = &v140;
     v142 = 0x2020000000;
     v143 = 0;
-    dictionary = [v26 dictionary];
+    dictionary = [v27 dictionary];
     v139[0] = MEMORY[0x1E69E9820];
     v139[1] = 3221225472;
     v139[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_211;
@@ -1678,30 +1899,30 @@ void __49__FBSystemService_canOpenApplication_completion___block_invoke_3(uint64
 
     if (*(v141 + 24) == 1 && ([remoteProcess hasEntitlement:*MEMORY[0x1E699F8B8]] & 1) == 0)
     {
-      v40 = FBSOpenApplicationErrorCreate();
-      (v28)[2](v28, 4, v40);
+      v41 = FBSOpenApplicationErrorCreate();
+      (v29)[2](v29, 4, v41);
 LABEL_77:
 
       _Block_object_dispose(&v140, 8);
       goto LABEL_78;
     }
 
-    v113 = [v26 url];
-    auditToken2 = [remoteProcess auditToken];
-    auditToken3 = [originatorCopy auditToken];
-    v32 = [auditToken2 isEqual:auditToken3];
+    v113 = [v27 url];
+    v31 = objc_msgSend_auditToken(remoteProcess);
+    v32 = objc_msgSend_auditToken(originatorCopy);
+    v33 = [v31 isEqual:v32];
 
-    if (v32)
+    if (v33)
     {
       if (v113)
       {
-        v33 = FBLogCommon();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v34 = FBLogCommon();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           scheme = [v113 scheme];
           resourceSpecifier = [v113 resourceSpecifier];
           *buf = 138544387;
-          *&buf[4] = v25;
+          *&buf[4] = v26;
           *&buf[12] = 2114;
           *&buf[14] = v120;
           *&buf[22] = 2114;
@@ -1709,37 +1930,37 @@ LABEL_77:
           v154 = 2117;
           v155 = resourceSpecifier;
           v156 = 2114;
-          v157 = v27;
-          _os_log_impl(&dword_1A89DD000, v33, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Received request to open %{public}@ with url %{public}@:%{sensitive}@ from %{public}@.", buf, 0x34u);
+          v157 = v28;
+          _os_log_impl(&dword_1A89DD000, v34, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Received request to open %{public}@ with url %{public}@:%{sensitive}@ from %{public}@.", buf, 0x34u);
         }
       }
 
       else
       {
-        v33 = FBLogCommon();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v34 = FBLogCommon();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543874;
-          *&buf[4] = v25;
+          *&buf[4] = v26;
           *&buf[12] = 2114;
           *&buf[14] = v120;
           *&buf[22] = 2114;
-          *&buf[24] = v27;
-          _os_log_impl(&dword_1A89DD000, v33, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Received request to open %{public}@ from %{public}@.", buf, 0x20u);
+          *&buf[24] = v28;
+          _os_log_impl(&dword_1A89DD000, v34, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Received request to open %{public}@ from %{public}@.", buf, 0x20u);
         }
       }
     }
 
     else if (v113)
     {
-      v33 = FBLogCommon();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v34 = FBLogCommon();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         scheme2 = [v113 scheme];
         resourceSpecifier2 = [v113 resourceSpecifier];
-        v39 = FBSProcessPrettyDescription();
+        v40 = FBSProcessPrettyDescription();
         *buf = 138544643;
-        *&buf[4] = v25;
+        *&buf[4] = v26;
         *&buf[12] = 2114;
         *&buf[14] = v120;
         *&buf[22] = 2114;
@@ -1747,52 +1968,52 @@ LABEL_77:
         v154 = 2117;
         v155 = resourceSpecifier2;
         v156 = 2114;
-        v157 = v27;
+        v157 = v28;
         v158 = 2114;
-        v159 = v39;
-        _os_log_impl(&dword_1A89DD000, v33, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Received request to open %{public}@ with url %{public}@:%{sensitive}@ from %{public}@ on behalf of %{public}@.", buf, 0x3Eu);
+        v159 = v40;
+        _os_log_impl(&dword_1A89DD000, v34, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Received request to open %{public}@ with url %{public}@:%{sensitive}@ from %{public}@ on behalf of %{public}@.", buf, 0x3Eu);
       }
     }
 
     else
     {
-      v33 = FBLogCommon();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v34 = FBLogCommon();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = FBSProcessPrettyDescription();
+        v42 = FBSProcessPrettyDescription();
         *buf = 138544130;
-        *&buf[4] = v25;
+        *&buf[4] = v26;
         *&buf[12] = 2114;
         *&buf[14] = v120;
         *&buf[22] = 2114;
-        *&buf[24] = v27;
+        *&buf[24] = v28;
         v154 = 2114;
-        v155 = v41;
-        _os_log_impl(&dword_1A89DD000, v33, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Received request to open %{public}@ from %{public}@ on behalf of %{public}@.", buf, 0x2Au);
+        v155 = v42;
+        _os_log_impl(&dword_1A89DD000, v34, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Received request to open %{public}@ from %{public}@ on behalf of %{public}@.", buf, 0x2Au);
       }
     }
 
-    actions = [v26 actions];
+    actions = [v27 actions];
     if ([actions count])
     {
-      v42 = FBLogCommon();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v43 = FBLogCommon();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         fbs_singleLineDescriptionOfBSActions = [actions fbs_singleLineDescriptionOfBSActions];
         *buf = 138543618;
-        *&buf[4] = v25;
+        *&buf[4] = v26;
         *&buf[12] = 2114;
         *&buf[14] = fbs_singleLineDescriptionOfBSActions;
-        _os_log_impl(&dword_1A89DD000, v42, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Request contains action(s): %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_1A89DD000, v43, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Request contains action(s): %{public}@", buf, 0x16u);
       }
     }
 
-    dictionary2 = [v26 dictionary];
-    v45 = *MEMORY[0x1E699F8C8];
-    v46 = [dictionary2 objectForKey:*MEMORY[0x1E699F8C8]];
-    v47 = v46 == 0;
+    dictionary2 = [v27 dictionary];
+    v46 = *MEMORY[0x1E699F8C8];
+    v47 = [dictionary2 objectForKey:*MEMORY[0x1E699F8C8]];
+    v48 = v47 == 0;
 
-    if (v47)
+    if (v48)
     {
 LABEL_57:
       if (!v113)
@@ -1800,11 +2021,11 @@ LABEL_57:
         goto LABEL_65;
       }
 
-      auditToken4 = [originatorCopy auditToken];
-      v82 = auditToken4;
-      if (auditToken4)
+      v82 = objc_msgSend_auditToken(originatorCopy);
+      v83 = v82;
+      if (v82)
       {
-        [auditToken4 realToken];
+        objc_msgSend_realToken(v82);
       }
 
       else
@@ -1812,57 +2033,57 @@ LABEL_57:
         memset(buf, 0, sizeof(buf));
       }
 
-      v83 = sandbox_check_by_audit_token() == 0;
+      v84 = sandbox_check_by_audit_token() == 0;
 
-      if (v83)
+      if (v84)
       {
 LABEL_65:
-        dictionary3 = [v26 dictionary];
+        dictionary3 = [v27 dictionary];
         v111 = [dictionary3 objectForKey:*MEMORY[0x1E699F928]];
-        v88 = [dictionary3 objectForKey:*MEMORY[0x1E699F920]];
-        v89 = v88;
-        v109 = v88;
-        if ((v111 != 0) == (v88 != 0))
+        v89 = [dictionary3 objectForKey:*MEMORY[0x1E699F920]];
+        v90 = v89;
+        v109 = v89;
+        if ((v111 != 0) == (v89 != 0))
         {
-          if (v88)
+          if (v89)
           {
-            v91 = FBLogCommon();
-            if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+            v92 = FBLogCommon();
+            if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138544130;
-              *&buf[4] = v25;
+              *&buf[4] = v26;
               *&buf[12] = 2114;
               *&buf[14] = v120;
               *&buf[22] = 2114;
-              *&buf[24] = v89;
+              *&buf[24] = v90;
               v154 = 2114;
               v155 = v111;
-              _os_log_impl(&dword_1A89DD000, v91, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Activation request for %{public}@ contained LSCacheGUID %{public}@ and LSSequenceNumber %{public}@.", buf, 0x2Au);
+              _os_log_impl(&dword_1A89DD000, v92, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Activation request for %{public}@ contained LSCacheGUID %{public}@ and LSSequenceNumber %{public}@.", buf, 0x2Au);
             }
           }
 
           currentContext2 = [MEMORY[0x1E698F490] currentContext];
           instance = [currentContext2 instance];
 
-          v93 = objc_alloc(MEMORY[0x1E698E5F0]);
-          v94 = MEMORY[0x1E698E5F8];
+          v94 = objc_alloc(MEMORY[0x1E698E5F0]);
+          v95 = MEMORY[0x1E698E5F8];
           v137[0] = MEMORY[0x1E69E9820];
           v137[1] = 3221225472;
           v137[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_227;
           v137[3] = &unk_1E783BCD0;
-          v95 = v28;
-          v138 = v95;
-          v96 = [v94 responderWithHandler:v137];
-          v97 = [v93 initWithInfo:0 responder:v96];
+          v96 = v29;
+          v138 = v96;
+          v97 = [v95 responderWithHandler:v137];
+          v98 = [v94 initWithInfo:0 responder:v97];
 
           v134[0] = MEMORY[0x1E69E9820];
           v134[1] = 3221225472;
           v134[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_2;
           v134[3] = &unk_1E783BCF8;
-          v136 = v95;
-          v105 = v97;
+          v136 = v96;
+          v105 = v98;
           v135 = v105;
-          v98 = MEMORY[0x1AC572E40](v134);
+          v99 = MEMORY[0x1AC572E40](v134);
           _applicationInfoProvider = [(FBSystemService *)self _applicationInfoProvider];
           v121[0] = MEMORY[0x1E69E9820];
           v121[1] = 3221225472;
@@ -1870,159 +2091,159 @@ LABEL_65:
           v121[3] = &unk_1E783BD70;
           v122 = _applicationInfoProvider;
           v123 = v120;
-          v124 = v25;
+          v124 = v26;
           v125 = v118;
           selfCopy = self;
-          v100 = v122;
+          v101 = v122;
           v127 = remoteProcess;
           v128 = originatorCopy;
           v129 = dictionary3;
           v130 = v109;
-          v131 = v26;
-          v90 = instance;
-          v132 = v90;
-          v115 = v98;
+          v131 = v27;
+          v91 = instance;
+          v132 = v91;
+          v115 = v99;
           v133 = v115;
-          v101 = MEMORY[0x1AC572E40](v121);
+          v102 = MEMORY[0x1AC572E40](v121);
           if (objc_opt_respondsToSelector())
           {
-            [v100 synchronize:v101];
+            [v101 synchronize:v102];
           }
 
           else
           {
-            v101[2](v101);
+            v102[2](v102);
           }
         }
 
         else
         {
-          v90 = FBSOpenApplicationErrorCreate();
-          (v28)[2](v28, 4, v90);
+          v91 = FBSOpenApplicationErrorCreate();
+          (v29)[2](v29, 4, v91);
         }
 
-        v87 = v111;
+        v88 = v111;
       }
 
       else
       {
-        v84 = FBLogCommon();
-        if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+        v85 = FBLogCommon();
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
         {
-          v85 = FBSProcessPrettyDescription();
+          v86 = FBSProcessPrettyDescription();
           *buf = 138543618;
-          *&buf[4] = v25;
+          *&buf[4] = v26;
           *&buf[12] = 2114;
-          *&buf[14] = v85;
-          _os_log_impl(&dword_1A89DD000, v84, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Caller %{public}@ has a sandbox that does not allow opening URL's.", buf, 0x16u);
+          *&buf[14] = v86;
+          _os_log_impl(&dword_1A89DD000, v85, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Caller %{public}@ has a sandbox that does not allow opening URL's.", buf, 0x16u);
         }
 
         dictionary3 = FBSProcessPrettyDescription();
-        v87 = FBSOpenApplicationErrorCreate();
-        (v28)[2](v28, 4, v87);
+        v88 = FBSOpenApplicationErrorCreate();
+        (v29)[2](v29, 4, v88);
       }
 
-      v40 = v113;
+      v41 = v113;
       goto LABEL_77;
     }
 
-    dictionary4 = [v26 dictionary];
-    v108 = [dictionary4 objectForKey:v45];
+    dictionary4 = [v27 dictionary];
+    v108 = [dictionary4 objectForKey:v46];
 
     applicationInfo = [v119 applicationInfo];
     advertisingAttributionReportEndpoint = [applicationInfo advertisingAttributionReportEndpoint];
 
     if (!advertisingAttributionReportEndpoint)
     {
-      v59 = FBLogCommon();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+      v60 = FBLogCommon();
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
       {
-        [(FBSystemService *)v25 openApplication:v59 withOptions:v60 originator:v61 requestID:v62 completion:v63, v64, v65];
+        [(FBSystemService *)v26 openApplication:v60 withOptions:v61 originator:v62 requestID:v63 completion:v64, v65, v66];
       }
 
-      [v26 _updateOption:0 forKey:v45];
+      [v27 _updateOption:0 forKey:v46];
       goto LABEL_56;
     }
 
     eventMessage = [v108 eventMessage];
-    v51 = eventMessage;
+    v52 = eventMessage;
     if (eventMessage)
     {
       originIdentifier = [eventMessage originIdentifier];
-      context = [v51 context];
+      context = [v52 context];
       if (originIdentifier != 0xC181BADB23D8497BLL || context)
       {
-        v66 = FBLogCommon();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v67 = FBLogCommon();
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
-          originIdentifier2 = [v51 originIdentifier];
-          context2 = [v51 context];
+          originIdentifier2 = [v52 originIdentifier];
+          context2 = [v52 context];
           *buf = 138543874;
-          *&buf[4] = v25;
+          *&buf[4] = v26;
           *&buf[12] = 2048;
           *&buf[14] = originIdentifier2;
           *&buf[22] = 2048;
           *&buf[24] = context2;
-          _os_log_error_impl(&dword_1A89DD000, v66, OS_LOG_TYPE_ERROR, "[FBSystemService][%{public}@] Ignoring click attribution with invalid origin (%llx) or context (%llx).", buf, 0x20u);
+          _os_log_error_impl(&dword_1A89DD000, v67, OS_LOG_TYPE_ERROR, "[FBSystemService][%{public}@] Ignoring click attribution with invalid origin (%llx) or context (%llx).", buf, 0x20u);
         }
       }
 
       else
       {
-        timestamp = [v51 timestamp];
+        timestamp = [v52 timestamp];
         if (timestamp > openApplication_withOptions_originator_requestID_completion__sLastSeenBackBoardTimestamp)
         {
           openApplication_withOptions_originator_requestID_completion__sLastSeenBackBoardTimestamp = timestamp;
           mEMORY[0x1E698E3B0] = [MEMORY[0x1E698E3B0] sharedInstance];
-          v56 = [mEMORY[0x1E698E3B0] authenticateMessage:v51];
+          v57 = [mEMORY[0x1E698E3B0] authenticateMessage:v52];
 
-          if ((v56 & 0xFFFFFFFFFFFFFFFELL) == 2)
+          if ((v57 & 0xFFFFFFFFFFFFFFFELL) == 2)
           {
-            v57 = FBLogCommon();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+            v58 = FBLogCommon();
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              *&buf[4] = v25;
-              _os_log_impl(&dword_1A89DD000, v57, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Request contains valid click attribution.", buf, 0xCu);
+              *&buf[4] = v26;
+              _os_log_impl(&dword_1A89DD000, v58, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Request contains valid click attribution.", buf, 0xCu);
             }
 
-            v58 = [v108 clickAttributionWithReportEndpoint:advertisingAttributionReportEndpoint];
-            [v26 _updateOption:v58 forKey:v45];
+            v59 = [v108 clickAttributionWithReportEndpoint:advertisingAttributionReportEndpoint];
+            [v27 _updateOption:v59 forKey:v46];
           }
 
           else
           {
-            v79 = FBLogCommon();
-            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+            v80 = FBLogCommon();
+            if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
             {
-              v80 = NSStringFromBKSHIDEventAuthenticationStatus();
-              [FBSystemService openApplication:v25 withOptions:v80 originator:v152 requestID:v79 completion:?];
+              v81 = NSStringFromBKSHIDEventAuthenticationStatus();
+              [FBSystemService openApplication:v26 withOptions:v81 originator:v152 requestID:v80 completion:?];
             }
 
-            [v26 _updateOption:0 forKey:v45];
+            [v27 _updateOption:0 forKey:v46];
           }
 
           goto LABEL_55;
         }
 
-        v66 = FBLogCommon();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v67 = FBLogCommon();
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
-          [(FBSystemService *)v25 openApplication:v66 withOptions:v73 originator:v74 requestID:v75 completion:v76, v77, v78];
+          [(FBSystemService *)v26 openApplication:v67 withOptions:v74 originator:v75 requestID:v76 completion:v77, v78, v79];
         }
       }
     }
 
     else
     {
-      v66 = FBLogCommon();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      v67 = FBLogCommon();
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
-        [(FBSystemService *)v25 openApplication:v66 withOptions:v67 originator:v68 requestID:v69 completion:v70, v71, v72];
+        [(FBSystemService *)v26 openApplication:v67 withOptions:v68 originator:v69 requestID:v70 completion:v71, v72, v73];
       }
     }
 
-    [v26 _updateOption:0 forKey:v45];
+    [v27 _updateOption:0 forKey:v46];
 LABEL_55:
 
 LABEL_56:
@@ -2030,16 +2251,15 @@ LABEL_56:
   }
 
   v104 = FBSProcessPrettyDescription();
-  v36 = FBSOpenApplicationErrorCreate();
-  (v28)[2](v28, 4, v36);
+  v37 = FBSOpenApplicationErrorCreate();
+  (v29)[2](v29, 4, v37);
 
 LABEL_78:
-  v102 = *MEMORY[0x1E69E9840];
 }
 
 void __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke(uint64_t a1, NSObject *a2, void *a3)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ([*(a1 + 32) signal])
   {
@@ -2069,7 +2289,7 @@ void __79__FBSystemService_openApplication_withOptions_originator_requestID_comp
           {
             v23 = [MEMORY[0x1E696AB08] punctuationCharacterSet];
             v24 = [v19 stringByTrimmingCharactersInSet:v23];
-            v17 = [v20 stringWithFormat:@"The request was denied by service delegate (%@) for reason: %@ (\"%@\"", v11, v22, v24];
+            v17 = [v20 stringWithFormat:@"The request was denied by service delegate (%@) for reason: %@ (%@", v11, v22, v24];
 
             v12 = MEMORY[0x1E696A588];
           }
@@ -2132,13 +2352,13 @@ LABEL_22:
             v37 = *(a1 + 64);
             v38 = [a2 descriptionWithMultilinePrefix:0];
             *buf = 138544130;
-            v60 = v35;
-            v61 = 2114;
-            v62 = v36;
-            v63 = 2114;
-            v64 = v37;
-            v65 = 2114;
-            v66 = v38;
+            v59 = v35;
+            v60 = 2114;
+            v61 = v36;
+            v62 = 2114;
+            v63 = v37;
+            v64 = 2114;
+            v65 = v38;
             _os_log_impl(&dword_1A89DD000, v33, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Open %{public}@ request from %{public}@ failed with error: %{public}@", buf, 0x2Au);
           }
         }
@@ -2147,35 +2367,16 @@ LABEL_22:
         {
           v39 = *(a1 + 40);
           *buf = 138543362;
-          v60 = v39;
+          v59 = v39;
           _os_log_impl(&dword_1A89DD000, v33, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Request complete; no error reported.", buf, 0xCu);
         }
 
         if (*(a1 + 80))
         {
           v40 = +[FBProcess _currentProcess];
-          if ([v40 isApplicationProcess])
+          if ([v40 isApplicationProcess] && (objc_msgSend(v40, "bundleIdentifier"), v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v41, "isEqualToString:", *(a1 + 48)), v41, (v42 & 1) != 0) || (+[FBProcessManager sharedInstance](FBProcessManager, "sharedInstance"), v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v43, "processesForBundleIdentifier:", *(a1 + 48)), v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v44, "firstObject"), v45 = objc_claimAutoreleasedReturnValue(), v44, v43, v40) && !v45)
           {
-            v41 = [v40 bundleIdentifier];
-            v42 = [v41 isEqualToString:*(a1 + 48)];
-
-            if (v42)
-            {
-              goto LABEL_32;
-            }
-          }
-
-          v43 = +[FBProcessManager sharedInstance];
-          v44 = [v43 processesForBundleIdentifier:*(a1 + 48)];
-          v45 = [v44 firstObject];
-
-          if (v40)
-          {
-            if (!v45)
-            {
-LABEL_32:
-              v45 = v40;
-            }
+            v45 = v40;
           }
 
           if (a2 && ([*(a1 + 72) getFlag] & 1) == 0)
@@ -2185,18 +2386,18 @@ LABEL_32:
             {
               v47 = *(a1 + 40);
               *buf = 138543362;
-              v60 = v47;
+              v59 = v47;
               _os_log_impl(&dword_1A89DD000, v46, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Returning generic error for un-trusted client (147937300).", buf, 0xCu);
             }
 
             v48 = MEMORY[0x1E696ABC0];
             v49 = *MEMORY[0x1E699F9A0];
-            v54[0] = MEMORY[0x1E69E9820];
-            v54[1] = 3221225472;
-            v54[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_201;
-            v54[3] = &unk_1E783BC58;
-            v55 = *(a1 + 48);
-            v50 = [v48 bs_errorWithDomain:v49 code:4 configuration:v54];
+            v53[0] = MEMORY[0x1E69E9820];
+            v53[1] = 3221225472;
+            v53[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_201;
+            v53[3] = &unk_1E783BC58;
+            v54 = *(a1 + 48);
+            v50 = [v48 bs_errorWithDomain:v49 code:4 configuration:v53];
 
             a2 = v50;
           }
@@ -2225,8 +2426,8 @@ LABEL_32:
       block[1] = 3221225472;
       block[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_198;
       block[3] = &unk_1E783B240;
-      v57 = *(a1 + 56);
-      v58 = *(a1 + 48);
+      v56 = *(a1 + 56);
+      v57 = *(a1 + 48);
       dispatch_async(v32, block);
     }
 
@@ -2240,8 +2441,6 @@ LABEL_32:
   }
 
 LABEL_39:
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 void __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_198(uint64_t a1)
@@ -2301,9 +2500,9 @@ uint64_t __79__FBSystemService_openApplication_withOptions_originator_requestID_
 
 void __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_3(uint64_t a1)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) applicationInfoForBundleIdentifier:*(a1 + 40)];
-  if (v2 || (v5 = *(a1 + 32), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([*(a1 + 32) placeholderWithBundleIdentifier:*(a1 + 40)], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v2 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([*(a1 + 32) placeholderWithBundleIdentifier:*(a1 + 40)], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v3 = v2;
     v4 = 0;
@@ -2311,85 +2510,80 @@ void __79__FBSystemService_openApplication_withOptions_originator_requestID_comp
 
   else
   {
-    v6 = FBLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = FBLogCommon();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 48);
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 40);
+      v6 = *(a1 + 48);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = *(a1 + 40);
       *buf = 138543874;
-      v47 = v7;
-      v48 = 2112;
-      v49 = v10;
-      v50 = 2114;
-      v51 = v11;
-      _os_log_impl(&dword_1A89DD000, v6, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Application info provider (%@) returned nil for %{public}@", buf, 0x20u);
+      v42 = v6;
+      v43 = 2112;
+      v44 = v8;
+      v45 = 2114;
+      v46 = v9;
+      _os_log_impl(&dword_1A89DD000, v5, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Application info provider (%@) returned nil for %{public}@", buf, 0x20u);
     }
 
     v3 = 0;
     v4 = 1;
   }
 
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 64);
-  v15 = *(a1 + 72);
-  v16 = *(a1 + 80);
-  v17 = *(a1 + 88);
-  v45 = 0;
-  v18 = [v14 _isTrustedRequest:v12 forCaller:v15 fromClient:v16 forBundleInfo:v3 withOptions:v17 fatalError:&v45];
-  v19 = v45;
-  [v13 setFlag:v18];
-  if (v19)
+  v10 = *(a1 + 48);
+  v11 = *(a1 + 56);
+  v12 = *(a1 + 64);
+  v13 = *(a1 + 72);
+  v14 = *(a1 + 80);
+  v15 = *(a1 + 88);
+  v40 = 0;
+  v16 = [v12 _isTrustedRequest:v10 forCaller:v13 fromClient:v14 forBundleInfo:v3 withOptions:v15 fatalError:&v40];
+  v17 = v40;
+  [v11 setFlag:v16];
+  if (v17)
   {
     (*(*(a1 + 120) + 16))();
   }
 
   else if (v4 && !*(a1 + 96))
   {
-    v34 = *(a1 + 32);
-    v35 = objc_opt_class();
-    v36 = NSStringFromClass(v35);
-    v38 = *(a1 + 40);
-    v37 = FBSOpenApplicationErrorCreate();
+    v31 = objc_opt_class();
+    v32 = NSStringFromClass(v31);
+    v33 = FBSOpenApplicationErrorCreate();
 
-    (*(*(a1 + 120) + 16))(*(a1 + 120), 4, v37);
+    (*(*(a1 + 120) + 16))(*(a1 + 120), 4, v33);
   }
 
   else
   {
-    v39[0] = MEMORY[0x1E69E9820];
-    v20 = *(a1 + 64);
-    v21 = *(v20 + 8);
-    v39[1] = 3221225472;
-    v39[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_229;
-    v39[3] = &unk_1E783BD48;
-    v22 = *(a1 + 40);
-    v23 = *(a1 + 48);
-    v24 = *(a1 + 56);
-    *&v25 = v23;
-    *(&v25 + 1) = v24;
-    *&v26 = v20;
-    *(&v26 + 1) = v22;
-    v40 = v26;
-    v41 = v25;
-    v27 = *(a1 + 104);
-    v28 = *(a1 + 112);
-    v29 = *(a1 + 72);
-    v30 = *(a1 + 80);
-    *&v31 = v29;
-    *(&v31 + 1) = v30;
-    *&v32 = v27;
-    *(&v32 + 1) = v28;
-    v42 = v32;
-    v43 = v31;
-    v44 = *(a1 + 120);
-    [v21 performAsync:v39];
+    v34[0] = MEMORY[0x1E69E9820];
+    v18 = *(a1 + 64);
+    v19 = *(v18 + 8);
+    v34[1] = 3221225472;
+    v34[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_229;
+    v34[3] = &unk_1E783BD48;
+    v20 = *(a1 + 40);
+    v21 = *(a1 + 48);
+    v22 = *(a1 + 56);
+    *&v23 = v21;
+    *(&v23 + 1) = v22;
+    *&v24 = v18;
+    *(&v24 + 1) = v20;
+    v35 = v24;
+    v36 = v23;
+    v25 = *(a1 + 104);
+    v26 = *(a1 + 112);
+    v27 = *(a1 + 72);
+    v28 = *(a1 + 80);
+    *&v29 = v27;
+    *(&v29 + 1) = v28;
+    *&v30 = v25;
+    *(&v30 + 1) = v26;
+    v37 = v30;
+    v38 = v29;
+    v39 = *(a1 + 120);
+    [v19 performAsync:v34];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_229(uint64_t a1)
@@ -2401,7 +2595,7 @@ void __79__FBSystemService_openApplication_withOptions_originator_requestID_comp
   v6 = *(a1 + 64);
   v7 = *(a1 + 72);
   v8 = *(a1 + 80);
-  v9 = [*(a1 + 88) auditToken];
+  v9 = objc_msgSend_auditToken(*(a1 + 88));
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_2_230;
@@ -2446,7 +2640,7 @@ void __79__FBSystemService_openApplication_withOptions_originator_requestID_comp
 
 - (BOOL)_isTrustedRequest:(id)request forCaller:(id)caller fromClient:(id)client forBundleInfo:(id)info withOptions:(id)options fatalError:(id *)error
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   callerCopy = caller;
   clientCopy = client;
@@ -2471,9 +2665,9 @@ LABEL_20:
 
           v24 = FBSProcessPrettyDescription();
           *buf = 138543618;
-          v46 = requestCopy;
-          v47 = 2114;
-          v48 = v24;
+          v45 = requestCopy;
+          v46 = 2114;
+          v47 = v24;
           v25 = "[FBSystemService][%{public}@] Trusting legacy sensitive URL request from %{public}@.";
           goto LABEL_15;
         }
@@ -2493,21 +2687,21 @@ LABEL_20:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v30 = infoCopy;
+          v29 = infoCopy;
         }
 
         else
         {
-          v30 = 0;
+          v29 = 0;
         }
 
-        v31 = v30;
+        v30 = v29;
         bundleIdentifier = [infoCopy bundleIdentifier];
-        v33 = [(FBSystemService *)self _isAllowListedLaunchSuspendedApp:bundleIdentifier];
+        v32 = [(FBSystemService *)self _isAllowListedLaunchSuspendedApp:bundleIdentifier];
 
-        if (v31 && [v31 type] <= 1)
+        if (v30 && [v30 type] <= 1)
         {
-          hasViewServicesEntitlement = [v31 hasViewServicesEntitlement];
+          hasViewServicesEntitlement = [v30 hasViewServicesEntitlement];
         }
 
         else
@@ -2515,18 +2709,18 @@ LABEL_20:
           hasViewServicesEntitlement = 0;
         }
 
-        v22 = v33 | hasViewServicesEntitlement;
-        if ((v33 | hasViewServicesEntitlement))
+        v22 = v32 | hasViewServicesEntitlement;
+        if ((v32 | hasViewServicesEntitlement))
         {
-          v35 = FBLogCommon();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v34 = FBLogCommon();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
-            v36 = FBSProcessPrettyDescription();
+            v35 = FBSProcessPrettyDescription();
             *buf = 138543618;
-            v46 = requestCopy;
-            v47 = 2114;
-            v48 = v36;
-            _os_log_impl(&dword_1A89DD000, v35, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Trusting allow-listed background activation from %{public}@.", buf, 0x16u);
+            v45 = requestCopy;
+            v46 = 2114;
+            v47 = v35;
+            _os_log_impl(&dword_1A89DD000, v34, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Trusting allow-listed background activation from %{public}@.", buf, 0x16u);
           }
 
           v21 = 0;
@@ -2561,10 +2755,10 @@ LABEL_56:
         goto LABEL_57;
       }
 
-      v37 = [optionsCopy bs_safeURLForKey:*MEMORY[0x1E699F960]];
-      if (v37)
+      v36 = [optionsCopy bs_safeURLForKey:*MEMORY[0x1E699F960]];
+      if (v36)
       {
-        if (![callerCopy hasEntitlement:*MEMORY[0x1E699F8B8]] || objc_msgSend(v37, "isFileURL") && (objc_msgSend(optionsCopy, "bs_BOOLForKey:", *MEMORY[0x1E699F910]) & 1) == 0)
+        if (![callerCopy hasEntitlement:*MEMORY[0x1E699F8B8]] || objc_msgSend(v36, "isFileURL") && (objc_msgSend(optionsCopy, "bs_BOOLForKey:", *MEMORY[0x1E699F910]) & 1) == 0)
         {
           v21 = FBSOpenApplicationErrorCreate();
           if (v21)
@@ -2582,23 +2776,23 @@ LABEL_54:
 
       else
       {
-        v38 = [optionsCopy bs_BOOLForKey:*MEMORY[0x1E699F998]];
-        v39 = [optionsCopy bs_BOOLForKey:*MEMORY[0x1E699F950]];
-        if ((v38 & 1) == 0 && !v39)
+        v37 = [optionsCopy bs_BOOLForKey:*MEMORY[0x1E699F998]];
+        v38 = [optionsCopy bs_BOOLForKey:*MEMORY[0x1E699F950]];
+        if ((v37 & 1) == 0 && !v38)
         {
           goto LABEL_54;
         }
       }
 
-      v40 = FBLogCommon();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v39 = FBLogCommon();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = FBSProcessPrettyDescription();
+        v40 = FBSProcessPrettyDescription();
         *buf = 138543618;
-        v46 = requestCopy;
-        v47 = 2114;
-        v48 = v41;
-        _os_log_impl(&dword_1A89DD000, v40, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Allowing un-trusted request from %{public}@.", buf, 0x16u);
+        v45 = requestCopy;
+        v46 = 2114;
+        v47 = v40;
+        _os_log_impl(&dword_1A89DD000, v39, OS_LOG_TYPE_DEFAULT, "[FBSystemService][%{public}@] Allowing un-trusted request from %{public}@.", buf, 0x16u);
       }
 
       v21 = 0;
@@ -2618,9 +2812,9 @@ LABEL_16:
 
     v24 = FBSProcessPrettyDescription();
     *buf = 138543618;
-    v46 = requestCopy;
-    v47 = 2114;
-    v48 = v24;
+    v45 = requestCopy;
+    v46 = 2114;
+    v47 = v24;
     v25 = "[FBSystemService][%{public}@] Trusting entitled client %{public}@.";
 LABEL_15:
     _os_log_impl(&dword_1A89DD000, v23, OS_LOG_TYPE_DEFAULT, v25, buf, 0x16u);
@@ -2646,15 +2840,15 @@ LABEL_57:
   v23 = FBLogCommon();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    v44 = FBSProcessPrettyDescription();
+    v43 = FBSProcessPrettyDescription();
     succinctDescription = [v21 succinctDescription];
     *buf = 138543874;
-    v46 = requestCopy;
-    v47 = 2114;
-    v48 = v44;
-    v49 = 2114;
-    v50 = succinctDescription;
-    v43 = succinctDescription;
+    v45 = requestCopy;
+    v46 = 2114;
+    v47 = v43;
+    v48 = 2114;
+    v49 = succinctDescription;
+    v42 = succinctDescription;
     _os_log_error_impl(&dword_1A89DD000, v23, OS_LOG_TYPE_ERROR, "[FBSystemService][%{public}@] Request from %{public}@ is denied: %{public}@", buf, 0x20u);
   }
 
@@ -2670,7 +2864,6 @@ LABEL_18:
 
 LABEL_19:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v26 & v22;
 }
 
@@ -2769,8 +2962,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
 
 - (void)_activateBundleID:(char *)a1 requestID:isTrusted:options:serviceInstance:source:originalSourceToken:withResult:.cold.1(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"resultBlock != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2778,7 +2970,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"resultBlock != ((void *)0)", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2789,8 +2981,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
 
 - (void)_activateBundleID:(char *)a1 requestID:isTrusted:options:serviceInstance:source:originalSourceToken:withResult:.cold.2(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"originalSourceToken != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2798,7 +2989,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"originalSourceToken != ((void *)0)", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2809,8 +3000,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
 
 - (void)_activateBundleID:(char *)a1 requestID:isTrusted:options:serviceInstance:source:originalSourceToken:withResult:.cold.3(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sourceToken != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2818,7 +3008,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"sourceToken != ((void *)0)", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2829,8 +3019,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
 
 - (void)_activateBundleID:(char *)a1 requestID:isTrusted:options:serviceInstance:source:originalSourceToken:withResult:.cold.4(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"requestID != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2838,7 +3027,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"requestID != ((void *)0)", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2849,8 +3038,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
 
 - (void)_activateBundleID:(char *)a1 requestID:isTrusted:options:serviceInstance:source:originalSourceToken:withResult:.cold.5(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"bundleID != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2858,7 +3046,7 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"bundleID != ((void *)0)", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2869,29 +3057,27 @@ void __46__FBSystemService_shutdownWithOptions_origin___block_invoke_5_cold_1()
 
 - (void)handleActions:(uint64_t)a3 source:(uint64_t)a4 withResult:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, a1, a3, "%s is not available with this system app", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FBSystemService handleActions:source:withResult:]";
+  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, a1, a3, "%s is not available with this system app", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void __51__FBSystemService_handleActions_source_withResult___block_invoke_cold_1(uint64_t a1, int a2, NSObject *a3)
+void __51__FBSystemService_handleActions_source_withResult___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 32);
-  v6 = FBSOpenApplicationErrorCodeToString();
+  v4 = a2;
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = FBSOpenApplicationErrorCodeToString();
   OUTLINED_FUNCTION_3_1();
-  v9 = 1024;
-  v10 = a2;
-  _os_log_error_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_ERROR, "[FBSystemService] Error handling sent actions %{public}@: %{public}@ (%d)", v8, 0x1Cu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 1024;
+  v8 = v4;
+  _os_log_error_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_ERROR, "[FBSystemService] Error handling sent actions %{public}@: %{public}@ (%d)", v6, 0x1Cu);
 }
 
 - (void)openApplication:(uint64_t)a3 withOptions:(uint64_t)a4 originator:(uint64_t)a5 requestID:(uint64_t)a6 completion:(uint64_t)a7 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, a2, a3, "[FBSystemService][%{public}@] Ignoring click attribution from the past.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, a2, a3, "[FBSystemService][%{public}@] Ignoring click attribution from the past.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)openApplication:(uint8_t *)buf withOptions:(os_log_t)log originator:requestID:completion:.cold.2(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -2905,28 +3091,25 @@ void __51__FBSystemService_handleActions_source_withResult___block_invoke_cold_1
 
 - (void)openApplication:(uint64_t)a3 withOptions:(uint64_t)a4 originator:(uint64_t)a5 requestID:(uint64_t)a6 completion:(uint64_t)a7 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, a2, a3, "[FBSystemService][%{public}@] Ignoring click attribution that contained no authentication message.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, a2, a3, "[FBSystemService][%{public}@] Ignoring click attribution that contained no authentication message.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)openApplication:(uint64_t)a3 withOptions:(uint64_t)a4 originator:(uint64_t)a5 requestID:(uint64_t)a6 completion:(uint64_t)a7 .cold.4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, a2, a3, "[FBSystemService][%{public}@] Ignoring click attribution from client without a valid report endpoint.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1A89DD000, a2, a3, "[FBSystemService][%{public}@] Ignoring click attribution from client without a valid report endpoint.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __79__FBSystemService_openApplication_withOptions_originator_requestID_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 40);
-  v4 = [MEMORY[0x1E696AE30] processInfo];
-  v5 = [v4 processName];
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ called open application completion more than once. Ignoring.", v7, 0x16u);
-
   v6 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E696AE30] processInfo];
+  v4 = [v3 processName];
+  OUTLINED_FUNCTION_3_1();
+  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ called open application completion more than once. Ignoring.", v5, 0x16u);
 }
 
 @end

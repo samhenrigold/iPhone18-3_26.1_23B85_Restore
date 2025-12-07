@@ -72,7 +72,7 @@
     }
   }
 
-  if ([v30 count])
+  if (objc_msgSend_count(v30))
   {
     v26 = v30;
   }

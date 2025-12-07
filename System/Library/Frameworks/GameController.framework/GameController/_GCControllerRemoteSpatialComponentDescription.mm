@@ -38,7 +38,7 @@
 - (_GCControllerRemoteSpatialComponentDescription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = GCIPCObjectIdentifier_Classes();
+  v5 = GCIPCObjectIdentifier_Classes(coderCopy);
   v6 = [coderCopy decodeObjectOfClasses:v5 forKey:@"identifier"];
 
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"facade"];
@@ -74,11 +74,10 @@
 
 - (id)createWithContext:(id)context
 {
-  facade = self->_facade;
-  v5 = [objc_alloc(objc_msgSend(objc_opt_class() "objectClass"))];
-  v6 = [(_GCDeviceSpatialComponent *)[_GCControllerRemoteSpatialComponent alloc] initWithIdentifier:self->_identifier facade:v5];
+  v4 = [objc_alloc(objc_msgSend(objc_opt_class() "objectClass"))];
+  v5 = [(_GCDeviceSpatialComponent *)[_GCControllerRemoteSpatialComponent alloc] initWithIdentifier:self->_identifier facade:v4];
 
-  return v6;
+  return v5;
 }
 
 @end

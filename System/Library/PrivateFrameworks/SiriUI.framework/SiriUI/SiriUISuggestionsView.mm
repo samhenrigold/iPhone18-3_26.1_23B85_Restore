@@ -755,7 +755,7 @@ void __50__SiriUISuggestionsView_animateOutWithCompletion___block_invoke(uint64_
   [v2 removeAnimationForKey:@"SuggestionLabelOpacityAnimation"];
 }
 
-uint64_t __50__SiriUISuggestionsView_animateOutWithCompletion___block_invoke_2(uint64_t a1)
+void *__50__SiriUISuggestionsView_animateOutWithCompletion___block_invoke_2(uint64_t a1)
 {
   [*(*(a1 + 32) + 416) setAlpha:0.0];
   [*(*(a1 + 32) + 424) setAlpha:0.0];

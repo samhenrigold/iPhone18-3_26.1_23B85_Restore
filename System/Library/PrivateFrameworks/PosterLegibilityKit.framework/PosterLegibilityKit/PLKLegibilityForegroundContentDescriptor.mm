@@ -25,7 +25,7 @@ void __68__PLKLegibilityForegroundContentDescriptor_defaultContentDescriptor__bl
   v0 = [PLKLegibilityForegroundContentDescriptor alloc];
   v4 = [MEMORY[0x277D75348] clearColor];
   v1 = [MEMORY[0x277D75348] clearColor];
-  v2 = [(PLKLegibilityForegroundContentDescriptor *)v0 initWithPrimaryColor:v4 secondaryColor:v1];
+  v2 = [PLKLegibilityForegroundContentDescriptor initWithPrimaryColor:v0 secondaryColor:"initWithPrimaryColor:secondaryColor:"];
   v3 = defaultContentDescriptor_defaultForegroundContentDescriptor;
   defaultContentDescriptor_defaultForegroundContentDescriptor = v2;
 }
@@ -34,7 +34,7 @@ void __68__PLKLegibilityForegroundContentDescriptor_defaultContentDescriptor__bl
 {
   secondaryColorCopy = secondaryColor;
   colorCopy = color;
-  v7 = [objc_alloc(objc_opt_class()) initWithPrimaryColor:colorCopy secondaryColor:secondaryColorCopy];
+  v7 = [objc_alloc(objc_opt_class()) initWithPrimaryColor:? secondaryColor:?];
 
   return v7;
 }
@@ -104,7 +104,7 @@ void __68__PLKLegibilityForegroundContentDescriptor_defaultContentDescriptor__bl
       secondaryColor = [(PLKLegibilityForegroundContentDescriptor *)v9 secondaryColor];
 
       secondaryColor2 = [(PLKLegibilityForegroundContentDescriptor *)self secondaryColor];
-      v8 = [secondaryColor isEqual:secondaryColor2];
+      v8 = [secondaryColor isEqual:?];
     }
 
     else
@@ -118,12 +118,12 @@ void __68__PLKLegibilityForegroundContentDescriptor_defaultContentDescriptor__bl
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
-  v7.receiver = self;
-  v7.super_class = PLKLegibilityForegroundContentDescriptor;
-  v4 = [(PLKLegibilityContentDescriptor *)&v7 descriptionBuilderWithMultilinePrefix:prefix];
-  v5 = [v4 appendObject:self->_secondaryColor withName:@"_secondaryColor" skipIfNil:1];
+  v6.receiver = self;
+  v6.super_class = PLKLegibilityForegroundContentDescriptor;
+  v3 = [(PLKLegibilityContentDescriptor *)&v6 descriptionBuilderWithMultilinePrefix:prefix];
+  v4 = [v3 appendObject:? withName:? skipIfNil:?];
 
-  return v4;
+  return v3;
 }
 
 @end

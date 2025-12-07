@@ -40,7 +40,7 @@
 
 - (HFPowerStateControlItem)initWithValueSource:(id)source auxiliaryTargetValueTuples:(id)tuples additionalCharacteristicOptions:(id)options displayResults:(id)results
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   tuplesCopy = tuples;
   resultsCopy = results;
@@ -51,32 +51,31 @@
   self->_allTargetValues = v15;
 
   v17 = [(NSSet *)self->_allTargetValues na_map:&__block_literal_global_100_0];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __121__HFPowerStateControlItem_initWithValueSource_auxiliaryTargetValueTuples_additionalCharacteristicOptions_displayResults___block_invoke_2;
-  v28[3] = &unk_277DF3130;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __121__HFPowerStateControlItem_initWithValueSource_auxiliaryTargetValueTuples_additionalCharacteristicOptions_displayResults___block_invoke_2;
+  v27[3] = &unk_277DF3130;
   v18 = sourceCopy;
-  v29 = v18;
-  v19 = [v17 na_filter:v28];
+  v28 = v18;
+  v19 = [v17 na_filter:v27];
 
   v20 = [HFControlItemCharacteristicOptions alloc];
-  v30 = &unk_2825234C0;
-  v31[0] = v19;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v29 = &unk_2825234C0;
+  v30[0] = v19;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
   v22 = [(HFControlItemCharacteristicOptions *)v20 initWithCharacteristicTypesByUsage:v21];
 
   v23 = [(HFControlItemCharacteristicOptions *)v22 optionsByAddingCharacteristicOptions:optionsCopy];
 
-  v27.receiver = self;
-  v27.super_class = HFPowerStateControlItem;
-  v24 = [(HFPrimaryStateControlItem *)&v27 initWithValueSource:v18 characteristicOptions:v23 displayResults:resultsCopy];
+  v26.receiver = self;
+  v26.super_class = HFPowerStateControlItem;
+  v24 = [(HFPrimaryStateControlItem *)&v26 initWithValueSource:v18 characteristicOptions:v23 displayResults:resultsCopy];
 
   if (v24)
   {
     objc_storeStrong(&v24->_auxiliaryTargetValueTuples, tuples);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -157,31 +156,24 @@ LABEL_6:
 {
   v3 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v3 homeManager];
-  hasOptedToHH2 = [homeManager hasOptedToHH2];
-  v6 = off_277DF0150;
-  if (!hasOptedToHH2)
-  {
-    v6 = off_277DF0158;
-  }
-
-  v7 = *v6;
-  v8 = objc_opt_new();
+  [homeManager hasOptedToHH2];
+  v5 = objc_opt_new();
 
   valueSource = [(HFControlItem *)self valueSource];
-  [valueSource beginTransactionWithReason:@"HFPowerStateControlItem-Toggle" readPolicy:v8 logger:0];
+  [valueSource beginTransactionWithReason:@"HFPowerStateControlItem-Toggle" readPolicy:v5 logger:0];
 
   readValueAndPopulateStandardResults = [(HFPowerStateControlItem *)self readValueAndPopulateStandardResults];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __38__HFPowerStateControlItem_toggleValue__block_invoke;
-  v14[3] = &unk_277DF3FD0;
-  v14[4] = self;
-  v11 = [readValueAndPopulateStandardResults flatMap:v14];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __38__HFPowerStateControlItem_toggleValue__block_invoke;
+  v11[3] = &unk_277DF3FD0;
+  v11[4] = self;
+  v8 = [readValueAndPopulateStandardResults flatMap:v11];
 
   valueSource2 = [(HFControlItem *)self valueSource];
   [valueSource2 commitTransactionWithReason:@"HFPowerStateControlItem-Toggle"];
 
-  return v11;
+  return v8;
 }
 
 id __38__HFPowerStateControlItem_toggleValue__block_invoke(uint64_t a1, void *a2)
@@ -264,7 +256,7 @@ BOOL __56__HFPowerStateControlItem_valueForCharacteristicValues___block_invoke(u
 
 - (id)characteristicValuesForValue:(id)value
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   objc_opt_class();
@@ -282,26 +274,26 @@ BOOL __56__HFPowerStateControlItem_valueForCharacteristicValues___block_invoke(u
   v8 = v7;
 
   integerValue = [v8 integerValue];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   allTargetValues = [(HFPowerStateControlItem *)self allTargetValues];
-  v11 = [allTargetValues countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [allTargetValues countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(allTargetValues);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         v16 = [v15 targetValueForPrimaryState:integerValue];
         if (v16)
         {
@@ -310,15 +302,13 @@ BOOL __56__HFPowerStateControlItem_valueForCharacteristicValues___block_invoke(u
         }
       }
 
-      v12 = [allTargetValues countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [allTargetValues countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
 
   v18 = [(HFControlItem *)self normalizedCharacteristicValuesForValues:dictionary];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -335,39 +325,38 @@ BOOL __56__HFPowerStateControlItem_valueForCharacteristicValues___block_invoke(u
 
 uint64_t __60__HFPowerStateControlItem_supportsItemRepresentingServices___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = a2;
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() _powerStateTargetValues];
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v6)
+  v3 = [objc_opt_class() _powerStateTargetValues];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
   {
-    v7 = *v14;
+    v5 = *v11;
     while (2)
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v7)
+        if (*v11 != v5)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v3);
         }
 
-        v9 = [*(*(&v13 + 1) + 8 * i) characteristicType];
-        v10 = [v3 hf_characteristicOfType:v9];
+        v7 = [*(*(&v10 + 1) + 8 * i) characteristicType];
+        v8 = [v2 hf_characteristicOfType:v7];
 
-        if (v10)
+        if (v8)
         {
-          v6 = 1;
+          v4 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-      if (v6)
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v4)
       {
         continue;
       }
@@ -378,8 +367,7 @@ uint64_t __60__HFPowerStateControlItem_supportsItemRepresentingServices___block_
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v4;
 }
 
 + (id)_powerStateTargetValues

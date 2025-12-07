@@ -79,12 +79,12 @@
 - (void)_addContinueButtonsToFooter
 {
   selfCopy = self;
-  v60[3] = *MEMORY[0x277D85DE8];
+  v59[3] = *MEMORY[0x277D85DE8];
   footerView = [(VTUIEnrollmentLanguageOptionsView *)self footerView];
 
   if (footerView)
   {
-    v52 = +[VTUIStyle sharedStyle];
+    v51 = +[VTUIStyle sharedStyle];
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
     continueButtons = selfCopy->_continueButtons;
     selfCopy->_continueButtons = v4;
@@ -108,7 +108,7 @@
           languageCode = [currentLocale localeIdentifier];
         }
 
-        v56 = languageCode;
+        v55 = languageCode;
         mEMORY[0x277CEF2D8] = [MEMORY[0x277CEF2D8] sharedInstance];
         v14 = [mEMORY[0x277CEF2D8] localizedCompactNameForSiriLanguage:v8 inDisplayLanguage:languageCode];
         v15 = v14;
@@ -125,7 +125,7 @@
         v17 = v16;
 
         v18 = MEMORY[0x277CCACA8];
-        v55 = v8;
+        v54 = v8;
         v19 = +[VTUIStringsHelper sharedStringsHelper];
         v20 = [v19 uiLocalizedStringForKey:@"BUTTON_LANG_OPTION"];
         v21 = +[VTUIStringsHelper sharedStringsHelper];
@@ -135,22 +135,22 @@
         [v7 setTitle:v23 forState:0];
 
         [(UIView *)v11->_footerView addSubview:v7];
-        v53 = MEMORY[0x277CCAAD0];
+        v52 = MEMORY[0x277CCAAD0];
         centerXAnchor = [v7 centerXAnchor];
         centerXAnchor2 = [(UIView *)v11->_footerView centerXAnchor];
         v25 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-        v60[0] = v25;
+        v59[0] = v25;
         widthAnchor = [v7 widthAnchor];
-        [v52 footerButtonMaximumWidth];
+        [v51 footerButtonMaximumWidth];
         v27 = [widthAnchor constraintEqualToConstant:?];
-        v60[1] = v27;
+        v59[1] = v27;
         [v7 heightAnchor];
         v28 = selfCopy = v11;
-        [v52 primaryButtonHeight];
+        [v51 primaryButtonHeight];
         v29 = [v28 constraintEqualToConstant:?];
-        v60[2] = v29;
-        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:3];
-        [v53 activateConstraints:v30];
+        v59[2] = v29;
+        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:3];
+        [v52 activateConstraints:v30];
 
         [(NSMutableArray *)selfCopy->_continueButtons addObject:v7];
         ++v6;
@@ -163,10 +163,10 @@
     firstObject = [(NSMutableArray *)selfCopy->_continueButtons firstObject];
     topAnchor = [firstObject topAnchor];
     topAnchor2 = [(UIView *)selfCopy->_footerView topAnchor];
-    [v52 continueButtonOffset];
+    [v51 continueButtonOffset];
     v35 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
-    v59 = v35;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+    v58 = v35;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
     [v31 activateConstraints:v36];
 
     firstObject2 = [(NSMutableArray *)selfCopy->_continueButtons firstObject];
@@ -185,8 +185,8 @@
         topAnchor3 = [v39 topAnchor];
         bottomAnchor = [firstObject2 bottomAnchor];
         v43 = [topAnchor3 constraintEqualToSystemSpacingBelowAnchor:bottomAnchor multiplier:1.0];
-        v58 = v43;
-        v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+        v57 = v43;
+        v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
         [v40 activateConstraints:v44];
 
         if (v38 == [(NSMutableArray *)selfCopy->_continueButtons count]- 1)
@@ -194,10 +194,10 @@
           v45 = MEMORY[0x277CCAAD0];
           bottomAnchor2 = [v39 bottomAnchor];
           bottomAnchor3 = [(UIView *)selfCopy->_footerView bottomAnchor];
-          [v52 continueButtonOffset];
+          [v51 continueButtonOffset];
           v49 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:-v48];
-          v57 = v49;
-          v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+          v56 = v49;
+          v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
           [v45 activateConstraints:v50];
         }
 
@@ -208,8 +208,6 @@
       while ([(NSMutableArray *)selfCopy->_continueButtons count]> v38);
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)showPrivacyTextView

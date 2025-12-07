@@ -9,16 +9,15 @@
 {
   v2 = sub_22855C85C();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22855C84C();
-  sub_2284F0FB4(&qword_280DE9E98, 255, MEMORY[0x277D11C40]);
+  sub_2284F0FB4(&qword_280DE9E98, 255, MEMORY[0x277D11C40], MEMORY[0x277D11C50]);
   sub_22855E11C();
-  (*(v3 + 8))(v6, v2);
-  v7 = sub_22855D17C();
+  (*(v3 + 8))(v5, v2);
+  v6 = sub_22855D17C();
 
-  return v7;
+  return v6;
 }
 
 - (_TtC14HealthPlatform27MedicalIDChangesInputSignal)init

@@ -737,7 +737,7 @@ void __52__PFMediaCapabilities_currentDeviceHEVCCapabilities__block_invoke()
 - (void)setSupportsTranscodeChoice:(BOOL)choice
 {
   choiceCopy = choice;
-  dictionary = [(NSDictionary *)self->_capabilitiesInformation mutableCopy];
+  dictionary = objc_msgSend_mutableCopy(self->_capabilitiesInformation, a2);
   if (!dictionary)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -755,7 +755,7 @@ void __52__PFMediaCapabilities_currentDeviceHEVCCapabilities__block_invoke()
 - (void)setSupportForAdjustmentBaseResources:(BOOL)resources
 {
   resourcesCopy = resources;
-  dictionary = [(NSDictionary *)self->_capabilitiesInformation mutableCopy];
+  dictionary = objc_msgSend_mutableCopy(self->_capabilitiesInformation, a2);
   if (!dictionary)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];

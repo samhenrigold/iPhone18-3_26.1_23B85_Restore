@@ -33,7 +33,7 @@
   objectCopy = object;
   os_unfair_lock_lock(&self->_queueLock);
   allValues = [(NSMutableDictionary *)self->_signalQueueDictionary allValues];
-  v6 = [allValues count];
+  v6 = objc_msgSend_count(allValues);
   limit = self->_limit;
 
   if (v6 >= limit)
@@ -90,7 +90,7 @@
 {
   os_unfair_lock_lock(&self->_queueLock);
   allValues = [(NSMutableDictionary *)self->_signalQueueDictionary allValues];
-  if ([allValues count] && (objc_msgSend(allValues, "firstObject"), v4 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v4, (isKindOfClass & 1) != 0))
+  if (objc_msgSend_count(allValues) && ([allValues firstObject], v4 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v4, (isKindOfClass & 1) != 0))
   {
     v17 = 0u;
     v18 = 0u;
@@ -127,7 +127,7 @@
       v10 = 0.0;
     }
 
-    v13 = v10 / [v6 count];
+    v13 = v10 / objc_msgSend_count(v6);
     os_unfair_lock_unlock(&self->_queueLock);
   }
 
@@ -144,7 +144,7 @@
 {
   os_unfair_lock_lock(&self->_queueLock);
   allKeys = [(NSMutableDictionary *)self->_signalQueueDictionary allKeys];
-  if ([allKeys count])
+  if (objc_msgSend_count(allKeys))
   {
     v4 = [allKeys sortedArrayUsingSelector:"compare:"];
 
@@ -200,7 +200,7 @@
 - (unint64_t)count
 {
   allValues = [(NSMutableDictionary *)self->_signalQueueDictionary allValues];
-  v3 = [allValues count];
+  v3 = objc_msgSend_count(allValues);
 
   return v3;
 }

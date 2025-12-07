@@ -213,11 +213,14 @@
 
   if (v3)
   {
+    v8 = v3;
     attributes = [(GKTextStyle *)v3 attributes];
     [(GKTextView *)self setTypingAttributes:attributes];
+
+    v3 = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](appliedStyle, v3);
 }
 
 - (id)insertDictationResultPlaceholder

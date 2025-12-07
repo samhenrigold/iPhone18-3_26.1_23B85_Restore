@@ -6,7 +6,7 @@
 
 - (void)ins_sendIntent:()INSExtensionService toExtensionProxy:onQueue:completionHandler:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v10 = a4;
   v11 = a5;
   v12 = a6;
@@ -16,9 +16,9 @@
     v14 = v13;
     backingStore = [a3 backingStore];
     *buf = 136315394;
-    v27 = "[SAIntentGroupHandleIntent(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]";
-    v28 = 2112;
-    v29 = backingStore;
+    v26 = "[SAIntentGroupHandleIntent(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]";
+    v27 = 2112;
+    v28 = backingStore;
     _os_log_impl(&dword_25553C000, v14, OS_LOG_TYPE_INFO, "%s intent.backingStore = %@", buf, 0x16u);
   }
 
@@ -26,25 +26,23 @@
   ins_afAnalyticsContext = [self ins_afAnalyticsContext];
   [v16 logEventWithType:616 context:ins_afAnalyticsContext contextNoCopy:1];
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __108__SAIntentGroupHandleIntent_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke;
-  v25[3] = &unk_2797EAC50;
-  v25[4] = self;
-  [v10 setResponseHandler:v25];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __108__SAIntentGroupHandleIntent_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke;
+  v24[3] = &unk_2797EAC50;
+  v24[4] = self;
+  [v10 setResponseHandler:v24];
   [v10 setImageProcessingHandler:&__block_literal_global_383];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __108__SAIntentGroupHandleIntent_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke_4;
-  v21[3] = &unk_2797EACE8;
-  v22 = v11;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __108__SAIntentGroupHandleIntent_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke_4;
+  v20[3] = &unk_2797EACE8;
+  v21 = v11;
   selfCopy = self;
-  v24 = v12;
+  v23 = v12;
   v18 = v12;
   v19 = v11;
-  [v10 handleIntentWithCompletionHandler:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [v10 handleIntentWithCompletionHandler:v20];
 }
 
 @end

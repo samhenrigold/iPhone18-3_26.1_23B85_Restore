@@ -47,33 +47,33 @@ void __34__MFMessageCriterionConverter_log__block_invoke(uint64_t a1)
 
 - (id)_simplifiedCompoundPredicateOfType:(unint64_t)type forSubqueries:(id)subqueries
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   subqueriesCopy = subqueries;
   array = [MEMORY[0x1E695DEC8] array];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = subqueriesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v7)
   {
     goto LABEL_10;
   }
 
-  v8 = *v19;
+  v8 = *v18;
   while (2)
   {
     v9 = 0;
     v10 = array;
     do
     {
-      if (*v19 != v8)
+      if (*v18 != v8)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v18 + 1) + 8 * v9);
+      v11 = *(*(&v17 + 1) + 8 * v9);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -98,7 +98,7 @@ LABEL_14:
     }
 
     while (v7 != v9);
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       continue;
@@ -124,8 +124,6 @@ LABEL_15:
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -228,116 +226,114 @@ id __81__MFMessageCriterionConverter__orPredicateForAttributes_matchingValue_qua
 
 void __60__MFMessageCriterionConverter__defaultKeysForCriterionType___block_invoke()
 {
-  v56[26] = *MEMORY[0x1E69E9840];
-  v54 = @"Compound";
-  v55[0] = &unk_1F2775E68;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
-  v56[0] = v28;
-  v55[1] = &unk_1F2775E80;
-  v53 = @"AnyRecipient";
+  v55[26] = *MEMORY[0x1E69E9840];
+  v53 = @"Compound";
+  v54[0] = &unk_1F2775E68;
   v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
-  v56[1] = v27;
-  v55[2] = &unk_1F2775E98;
-  v52 = *MEMORY[0x1E699A9B0];
+  v55[0] = v27;
+  v54[1] = &unk_1F2775E80;
+  v52 = @"AnyRecipient";
   v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
-  v56[2] = v26;
-  v55[3] = &unk_1F2775EB0;
-  v51 = *MEMORY[0x1E699A858];
+  v55[1] = v26;
+  v54[2] = &unk_1F2775E98;
+  v51 = *MEMORY[0x1E699A9B0];
   v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
-  v56[3] = v25;
-  v55[4] = &unk_1F2775EC8;
-  v50 = @"BccRecipient";
+  v55[2] = v25;
+  v54[3] = &unk_1F2775EB0;
+  v50 = *MEMORY[0x1E699A858];
   v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
-  v56[4] = v24;
-  v55[5] = &unk_1F2775EE0;
-  v49 = @"senderAddress.emailAddressValue.simpleAddress";
+  v55[3] = v24;
+  v54[4] = &unk_1F2775EC8;
+  v49 = @"BccRecipient";
   v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
-  v56[5] = v23;
-  v55[6] = &unk_1F2775EF8;
-  v48 = @"Spotlight";
+  v55[4] = v23;
+  v54[5] = &unk_1F2775EE0;
+  v48 = @"senderAddress.emailAddressValue.simpleAddress";
   v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
-  v56[6] = v22;
-  v55[7] = &unk_1F2775F10;
-  v47 = @"body";
+  v55[5] = v22;
+  v54[6] = &unk_1F2775EF8;
+  v47 = @"Spotlight";
   v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
-  v56[7] = v21;
-  v55[8] = &unk_1F2775F28;
-  v46 = @"Mailbox";
+  v55[6] = v21;
+  v54[7] = &unk_1F2775F10;
+  v46 = @"body";
   v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
-  v56[8] = v20;
-  v55[9] = &unk_1F2775F40;
-  v45 = @"DateReceived";
+  v55[7] = v20;
+  v54[8] = &unk_1F2775F28;
+  v45 = @"Mailbox";
   v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
-  v56[9] = v19;
-  v55[10] = &unk_1F2775F58;
-  v44 = @"DateSent";
+  v55[8] = v19;
+  v54[9] = &unk_1F2775F40;
+  v44 = @"DateReceived";
   v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
-  v56[10] = v18;
-  v55[11] = &unk_1F2775F70;
-  v43 = @"DisplayDate";
+  v55[9] = v18;
+  v54[10] = &unk_1F2775F58;
+  v43 = @"DateSent";
   v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
-  v56[11] = v17;
-  v55[12] = &unk_1F2775F88;
-  v42 = @"subject.subjectWithoutPrefix";
+  v55[10] = v17;
+  v54[11] = &unk_1F2775F70;
+  v42 = @"DisplayDate";
   v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
-  v56[12] = v16;
-  v55[13] = &unk_1F2775FA0;
-  v41 = @"VIP";
+  v55[11] = v16;
+  v54[12] = &unk_1F2775F88;
+  v41 = @"subject.subjectWithoutPrefix";
   v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
-  v56[13] = v15;
-  v55[14] = &unk_1F2775FB8;
-  v40 = @"IsRead";
+  v55[12] = v15;
+  v54[13] = &unk_1F2775FA0;
+  v40 = @"VIP";
   v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
-  v56[14] = v14;
-  v55[15] = &unk_1F2775FD0;
-  v39 = @"HasAttachments";
+  v55[13] = v14;
+  v54[14] = &unk_1F2775FB8;
+  v39 = @"IsRead";
   v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
-  v56[15] = v13;
-  v55[16] = &unk_1F2775FE8;
-  v38 = @"Flagged";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
-  v56[16] = v0;
-  v55[17] = &unk_1F2776000;
-  v37 = @"FlagColor";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
-  v56[17] = v1;
-  v55[18] = &unk_1F2776018;
-  v36 = @"readLaterDate";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
-  v56[18] = v2;
-  v55[19] = &unk_1F2776030;
-  v35 = *MEMORY[0x1E699A960];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
-  v56[19] = v3;
-  v55[20] = &unk_1F2776048;
-  v34 = @"sendLaterDate";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
-  v56[20] = v4;
-  v55[21] = &unk_1F2776060;
-  v33 = @"followUpStartDate";
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
-  v56[21] = v5;
-  v55[22] = &unk_1F2776078;
-  v32 = *MEMORY[0x1E699A8B0];
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
-  v56[22] = v6;
-  v55[23] = &unk_1F2776090;
-  v31 = @"followUpEndDate";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
-  v56[23] = v7;
-  v55[24] = &unk_1F27760A8;
-  v30 = @"senderBucket";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
-  v56[24] = v8;
-  v55[25] = &unk_1F27760C0;
-  v29 = @"category";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
-  v56[25] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:26];
+  v55[14] = v13;
+  v54[15] = &unk_1F2775FD0;
+  v38 = @"HasAttachments";
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+  v55[15] = v12;
+  v54[16] = &unk_1F2775FE8;
+  v37 = @"Flagged";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+  v55[16] = v0;
+  v54[17] = &unk_1F2776000;
+  v36 = @"FlagColor";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+  v55[17] = v1;
+  v54[18] = &unk_1F2776018;
+  v35 = @"readLaterDate";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+  v55[18] = v2;
+  v54[19] = &unk_1F2776030;
+  v34 = *MEMORY[0x1E699A960];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+  v55[19] = v3;
+  v54[20] = &unk_1F2776048;
+  v33 = @"sendLaterDate";
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+  v55[20] = v4;
+  v54[21] = &unk_1F2776060;
+  v32 = @"followUpStartDate";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+  v55[21] = v5;
+  v54[22] = &unk_1F2776078;
+  v31 = *MEMORY[0x1E699A8B0];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+  v55[22] = v6;
+  v54[23] = &unk_1F2776090;
+  v30 = @"followUpEndDate";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+  v55[23] = v7;
+  v54[24] = &unk_1F27760A8;
+  v29 = @"senderBucket";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+  v55[24] = v8;
+  v54[25] = &unk_1F27760C0;
+  v28 = @"category";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+  v55[25] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:26];
   v11 = _defaultKeysForCriterionType__converterKeyDictionary;
   _defaultKeysForCriterionType__converterKeyDictionary = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_predicateKeysForCriterion:(int64_t)criterion
@@ -744,63 +740,61 @@ id __60__MFMessageCriterionConverter__searchPredicateForCriterion___block_invoke
 
 void __59__MFMessageCriterionConverter__defaultCriterionTypeForKey___block_invoke()
 {
-  v5[25] = *MEMORY[0x1E69E9840];
-  v4[0] = @"Compound";
-  v4[1] = @"AnyRecipient";
-  v5[0] = &unk_1F2775E68;
-  v5[1] = &unk_1F2775E80;
+  v4[25] = *MEMORY[0x1E69E9840];
+  v3[0] = @"Compound";
+  v3[1] = @"AnyRecipient";
+  v4[0] = &unk_1F2775E68;
+  v4[1] = &unk_1F2775E80;
   v0 = *MEMORY[0x1E699A858];
-  v4[2] = *MEMORY[0x1E699A9B0];
-  v4[3] = v0;
-  v5[2] = &unk_1F2775E98;
-  v5[3] = &unk_1F2775EB0;
-  v4[4] = @"BccRecipient";
-  v4[5] = @"senderAddress.emailAddressValue.simpleAddress";
-  v5[4] = &unk_1F2775EC8;
-  v5[5] = &unk_1F2775EE0;
-  v4[6] = @"Spotlight";
-  v4[7] = @"body";
-  v5[6] = &unk_1F2775EF8;
-  v5[7] = &unk_1F2775F10;
-  v4[8] = @"Mailbox";
-  v4[9] = @"DateReceived";
-  v5[8] = &unk_1F2775F28;
-  v5[9] = &unk_1F2775F40;
-  v4[10] = @"DateSent";
-  v4[11] = @"DisplayDate";
-  v5[10] = &unk_1F2775F58;
-  v5[11] = &unk_1F2775F70;
-  v4[12] = @"subject.subjectWithoutPrefix";
-  v4[13] = @"VIP";
-  v5[12] = &unk_1F2775F88;
-  v5[13] = &unk_1F2775FA0;
-  v4[14] = @"IsRead";
-  v4[15] = @"HasAttachments";
-  v5[14] = &unk_1F2775FB8;
-  v5[15] = &unk_1F2775FD0;
-  v4[16] = @"Flagged";
-  v4[17] = @"FlagColor";
-  v5[16] = &unk_1F2775FE8;
-  v5[17] = &unk_1F2776000;
-  v4[18] = @"readLaterDate";
-  v4[19] = @"sendLaterDate";
-  v5[18] = &unk_1F2776018;
-  v5[19] = &unk_1F2776048;
-  v4[20] = @"followUpStartDate";
-  v4[21] = @"followUpEndDate";
-  v5[20] = &unk_1F2776060;
-  v5[21] = &unk_1F2776090;
-  v4[22] = @"unsubscribeType";
-  v4[23] = @"senderBucket";
-  v5[22] = &unk_1F27760D8;
-  v5[23] = &unk_1F27760A8;
-  v4[24] = @"category";
-  v5[24] = &unk_1F27760C0;
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:25];
+  v3[2] = *MEMORY[0x1E699A9B0];
+  v3[3] = v0;
+  v4[2] = &unk_1F2775E98;
+  v4[3] = &unk_1F2775EB0;
+  v3[4] = @"BccRecipient";
+  v3[5] = @"senderAddress.emailAddressValue.simpleAddress";
+  v4[4] = &unk_1F2775EC8;
+  v4[5] = &unk_1F2775EE0;
+  v3[6] = @"Spotlight";
+  v3[7] = @"body";
+  v4[6] = &unk_1F2775EF8;
+  v4[7] = &unk_1F2775F10;
+  v3[8] = @"Mailbox";
+  v3[9] = @"DateReceived";
+  v4[8] = &unk_1F2775F28;
+  v4[9] = &unk_1F2775F40;
+  v3[10] = @"DateSent";
+  v3[11] = @"DisplayDate";
+  v4[10] = &unk_1F2775F58;
+  v4[11] = &unk_1F2775F70;
+  v3[12] = @"subject.subjectWithoutPrefix";
+  v3[13] = @"VIP";
+  v4[12] = &unk_1F2775F88;
+  v4[13] = &unk_1F2775FA0;
+  v3[14] = @"IsRead";
+  v3[15] = @"HasAttachments";
+  v4[14] = &unk_1F2775FB8;
+  v4[15] = &unk_1F2775FD0;
+  v3[16] = @"Flagged";
+  v3[17] = @"FlagColor";
+  v4[16] = &unk_1F2775FE8;
+  v4[17] = &unk_1F2776000;
+  v3[18] = @"readLaterDate";
+  v3[19] = @"sendLaterDate";
+  v4[18] = &unk_1F2776018;
+  v4[19] = &unk_1F2776048;
+  v3[20] = @"followUpStartDate";
+  v3[21] = @"followUpEndDate";
+  v4[20] = &unk_1F2776060;
+  v4[21] = &unk_1F2776090;
+  v3[22] = @"unsubscribeType";
+  v3[23] = @"senderBucket";
+  v4[22] = &unk_1F27760D8;
+  v4[23] = &unk_1F27760A8;
+  v3[24] = @"category";
+  v4[24] = &unk_1F27760C0;
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:25];
   v2 = _defaultCriterionTypeForKey__converterKeyDictionary;
   _defaultCriterionTypeForKey__converterKeyDictionary = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_criterionTypeForKey:(id)key
@@ -850,7 +844,7 @@ LABEL_7:
 
 - (id)_messageCriterionForComparisonPredicate:(id)predicate
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   predicateOperatorType = [predicateCopy predicateOperatorType];
   if (predicateOperatorType <= 5)
@@ -962,7 +956,7 @@ LABEL_23:
 
 LABEL_26:
   leftExpression = [predicateCopy leftExpression];
-  v46 = v7;
+  v45 = v7;
   v10 = [(MFMessageCriterionConverter *)self _criterionTypeFromExpression:leftExpression];
 
   rightExpression = [predicateCopy rightExpression];
@@ -1046,7 +1040,7 @@ LABEL_41:
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         ef_publicDescription = [predicateCopy ef_publicDescription];
-        [(MFMessageCriterionConverter *)ef_publicDescription _messageCriterionForComparisonPredicate:v47, p_super];
+        [(MFMessageCriterionConverter *)ef_publicDescription _messageCriterionForComparisonPredicate:v46, p_super];
       }
 
       goto LABEL_129;
@@ -1112,12 +1106,12 @@ LABEL_41:
       goto LABEL_114;
     case 16:
       bOOLValue = [v14 BOOLValue];
-      if (v46 == 3)
+      if (v45 == 3)
       {
         goto LABEL_125;
       }
 
-      if (v46 != 7)
+      if (v45 != 7)
       {
         p_super = +[MFMessageCriterionConverter log];
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
@@ -1148,13 +1142,13 @@ LABEL_126:
       {
         integerValue = [v14 integerValue];
         v20 = 0;
-        v25 = v46;
+        v25 = v45;
         if (!integerValue)
         {
           v25 = v6;
         }
 
-        v46 = v25;
+        v45 = v25;
       }
 
       else
@@ -1193,13 +1187,13 @@ LABEL_126:
     case 23:
       predicateOperatorType2 = [predicateCopy predicateOperatorType];
       v20 = 0;
-      v41 = v46;
+      v41 = v45;
       if (predicateOperatorType2 == 10)
       {
         v41 = 3;
       }
 
-      v46 = v41;
+      v45 = v41;
       v21 = 24;
       if (!keyPath && v14)
       {
@@ -1231,8 +1225,6 @@ LABEL_122:
       p_super = 0;
 LABEL_131:
 
-      v44 = *MEMORY[0x1E69E9840];
-
       return p_super;
     case 25:
       if (v13)
@@ -1263,7 +1255,7 @@ LABEL_117:
       }
 
 LABEL_118:
-      v43 = [[MFMessageCriterion alloc] initWithType:v21 qualifier:v46 expression:keyPath];
+      v43 = [[MFMessageCriterion alloc] initWithType:v21 qualifier:v45 expression:keyPath];
       p_super = &v43->super;
       if (v20)
       {
@@ -1281,7 +1273,7 @@ LABEL_114:
       p_super = [objc_alloc(MEMORY[0x1E699B200]) initWithHash:{-[NSObject longLongValue](v14, "longLongValue")}];
       v28 = [MFMessageCriterion alloc];
       stringValue2 = [p_super stringValue];
-      v30 = [(MFMessageCriterion *)v28 initWithType:38 qualifier:v46 expression:stringValue2];
+      v30 = [(MFMessageCriterion *)v28 initWithType:38 qualifier:v45 expression:stringValue2];
 
       goto LABEL_130;
     case 28:
@@ -1302,7 +1294,7 @@ LABEL_114:
         v38 = 6;
       }
 
-      v46 = v38;
+      v45 = v38;
 
       v39 = [MEMORY[0x1E695DF00] now];
       v35 = MFCriterionExpressionForDate(v39);
@@ -1511,56 +1503,34 @@ LABEL_10:
   return WeakRetained;
 }
 
-- (void)_predicateForKey:value:qualifier:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_searchPredicateForCriterion:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_1B0389000, v0, OS_LOG_TYPE_DEBUG, "Attempted to handle unsupported criterion %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B0389000, v0, OS_LOG_TYPE_DEBUG, "Attempted to handle unsupported criterion %@", v1, 0xCu);
 }
 
 - (void)_searchPredicateForCriterion:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_searchPredicateForCriterion:.cold.3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_searchPredicateForCriterion:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1B0389000, v1, OS_LOG_TYPE_DEBUG, "Returning criterion:%@ result:%@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1B0389000, v1, OS_LOG_TYPE_DEBUG, "Returning criterion:%@ result:%@", v2, 0x16u);
 }
 
 - (void)_messageCriterionForComparisonPredicate:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_messageCriterionForComparisonPredicate:(os_log_t)log .cold.2(uint8_t *buf, uint64_t a2, os_log_t log)
@@ -1572,10 +1542,9 @@ LABEL_10:
 
 - (void)_messageCriterionForComparisonPredicate:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_1B0389000, v0, OS_LOG_TYPE_DEBUG, "Attempted to handle unsupported predicate %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B0389000, v0, OS_LOG_TYPE_DEBUG, "Attempted to handle unsupported predicate %@", v1, 0xCu);
 }
 
 - (void)_messageCriterionForComparisonPredicate:(os_log_t)log .cold.4(void *a1, uint8_t *buf, os_log_t log)
@@ -1587,11 +1556,9 @@ LABEL_10:
 
 - (void)messageCriterionFromPredicate:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

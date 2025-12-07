@@ -232,19 +232,19 @@ uint64_t specialized prespecializeCollections<A>(_:)(uint64_t a1)
 {
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Any> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Any> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Any> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Any> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20120F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Any>, MEMORY[0x29EDC9C80]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Any> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20120F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Any>, MEMORY[0x29EDC9C88]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Any> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20120F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Any>, MEMORY[0x29EDC9C90]);
   static Array._allocateUninitialized(_:)();
 
   outlined init with copy of Any(a1, v3);
   __swift_destroy_boxed_opaque_existential_0(v3);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Any] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Any] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Any] and conformance [A], &unk_2A2012068, &cache variable for noncanonical specialized generic type metadata for [Any], MEMORY[0x29EDC9A60]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Any] and conformance [A], &unk_2A2012068, &cache variable for noncanonical specialized generic type metadata for [Any], MEMORY[0x29EDC9A80]);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Any> and conformance ContiguousArray<A>);
-  return lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Any> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Any> and conformance ContiguousArray<A>, &unk_2A2012030, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Any>, MEMORY[0x29EDC9DF8]);
+  return lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Any> and conformance ContiguousArray<A>, &unk_2A2012030, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Any>, MEMORY[0x29EDC9E08]);
 }
 
 uint64_t specialized Array.init()()
@@ -412,247 +412,254 @@ void specialized Collection<>.makeIterator()()
 
 Swift::Void __swiftcall prespecializeAll()()
 {
-  v2[3] = MEMORY[0x29EDCA180] + 8;
-  specialized prespecializeCollections<A>(_:)(v2);
-  __swift_destroy_boxed_opaque_existential_0(v2);
+  v9[3] = MEMORY[0x29EDCA180] + 8;
+  specialized prespecializeCollections<A>(_:)(v9);
+  __swift_destroy_boxed_opaque_existential_0(v9);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>);
+  v0 = MEMORY[0x29EDC9C80];
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20132F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Character>, MEMORY[0x29EDC9C80]);
+  v1 = MEMORY[0x29EDC9C88];
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20132F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Character>, MEMORY[0x29EDC9C88]);
+  v2 = MEMORY[0x29EDC9C90];
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20132F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Character>, MEMORY[0x29EDC9C90]);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Character] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Character] and conformance [A]);
+  v3 = MEMORY[0x29EDC9A60];
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Character] and conformance [A], &unk_2A2013268, &cache variable for noncanonical specialized generic type metadata for [Character], MEMORY[0x29EDC9A60]);
+  v4 = MEMORY[0x29EDC9A80];
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Character] and conformance [A], &unk_2A2013268, &cache variable for noncanonical specialized generic type metadata for [Character], MEMORY[0x29EDC9A80]);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Character> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Character> and conformance ContiguousArray<A>);
+  v5 = MEMORY[0x29EDC9DF8];
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Character> and conformance ContiguousArray<A>, &unk_2A2013230, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Character>, MEMORY[0x29EDC9DF8]);
+  v6 = MEMORY[0x29EDC9E08];
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Character> and conformance ContiguousArray<A>, &unk_2A2013230, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Character>, MEMORY[0x29EDC9E08]);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Unicode.Scalar> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Unicode.Scalar> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Unicode.Scalar> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Unicode.Scalar> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20131F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Unicode.Scalar>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Unicode.Scalar> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20131F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Unicode.Scalar>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Unicode.Scalar> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20131F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Unicode.Scalar>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Unicode.Scalar] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Unicode.Scalar] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Unicode.Scalar] and conformance [A], &unk_2A2013168, &cache variable for noncanonical specialized generic type metadata for [Unicode.Scalar], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Unicode.Scalar] and conformance [A], &unk_2A2013168, &cache variable for noncanonical specialized generic type metadata for [Unicode.Scalar], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Unicode.Scalar> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Unicode.Scalar> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Unicode.Scalar> and conformance ContiguousArray<A>, &unk_2A2013130, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Unicode.Scalar>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Unicode.Scalar> and conformance ContiguousArray<A>, &unk_2A2013130, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Unicode.Scalar>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF8View> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF8View> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF8View> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF8View> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20130F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String.UTF8View>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF8View> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20130F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String.UTF8View>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF8View> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20130F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String.UTF8View>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UTF8View] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UTF8View] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UTF8View] and conformance [A], &unk_2A2013068, &cache variable for noncanonical specialized generic type metadata for [String.UTF8View], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UTF8View] and conformance [A], &unk_2A2013068, &cache variable for noncanonical specialized generic type metadata for [String.UTF8View], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UTF8View> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UTF8View> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UTF8View> and conformance ContiguousArray<A>, &unk_2A2013030, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<String.UTF8View>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UTF8View> and conformance ContiguousArray<A>, &unk_2A2013030, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<String.UTF8View>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF16View> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF16View> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF16View> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF16View> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012FF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String.UTF16View>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF16View> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012FF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String.UTF16View>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UTF16View> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012FF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String.UTF16View>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UTF16View] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UTF16View] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UTF16View] and conformance [A], &unk_2A2012F68, &cache variable for noncanonical specialized generic type metadata for [String.UTF16View], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UTF16View] and conformance [A], &unk_2A2012F68, &cache variable for noncanonical specialized generic type metadata for [String.UTF16View], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UTF16View> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UTF16View> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UTF16View> and conformance ContiguousArray<A>, &unk_2A2012F30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<String.UTF16View>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UTF16View> and conformance ContiguousArray<A>, &unk_2A2012F30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<String.UTF16View>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UnicodeScalarView> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UnicodeScalarView> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UnicodeScalarView> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UnicodeScalarView> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012EF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String.UnicodeScalarView>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UnicodeScalarView> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012EF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String.UnicodeScalarView>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String.UnicodeScalarView> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012EF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String.UnicodeScalarView>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UnicodeScalarView] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UnicodeScalarView] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UnicodeScalarView] and conformance [A], &unk_2A2012E68, &cache variable for noncanonical specialized generic type metadata for [String.UnicodeScalarView], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String.UnicodeScalarView] and conformance [A], &unk_2A2012E68, &cache variable for noncanonical specialized generic type metadata for [String.UnicodeScalarView], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UnicodeScalarView> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UnicodeScalarView> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UnicodeScalarView> and conformance ContiguousArray<A>, &unk_2A2012E30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<String.UnicodeScalarView>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String.UnicodeScalarView> and conformance ContiguousArray<A>, &unk_2A2012E30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<String.UnicodeScalarView>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012DF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012DF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<String> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012DF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<String>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String] and conformance [A], &unk_2A2012D68, &cache variable for noncanonical specialized generic type metadata for [String], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [String] and conformance [A], &unk_2A2012D68, &cache variable for noncanonical specialized generic type metadata for [String], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String> and conformance ContiguousArray<A>, &unk_2A2012D30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<String>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<String> and conformance ContiguousArray<A>, &unk_2A2012D30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<String>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012CF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Double>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012CF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Double>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012CF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Double>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Double] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Double] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Double] and conformance [A], &unk_2A2012C68, &cache variable for noncanonical specialized generic type metadata for [Double], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Double] and conformance [A], &unk_2A2012C68, &cache variable for noncanonical specialized generic type metadata for [Double], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Double> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Double> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Double> and conformance ContiguousArray<A>, &unk_2A2012C30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Double>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Double> and conformance ContiguousArray<A>, &unk_2A2012C30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Double>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012BF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Float>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012BF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Float>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012BF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Float>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Float] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Float] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Float] and conformance [A], &unk_2A2012B68, &cache variable for noncanonical specialized generic type metadata for [Float], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Float] and conformance [A], &unk_2A2012B68, &cache variable for noncanonical specialized generic type metadata for [Float], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Float> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Float> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Float> and conformance ContiguousArray<A>, &unk_2A2012B30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Float>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Float> and conformance ContiguousArray<A>, &unk_2A2012B30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Float>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int> and conformance UnsafeMutableBufferPointer<A>);
-  v0 = MEMORY[0x29EDC9BA8];
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012AF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012AF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int> and conformance UnsafeMutableBufferPointer<A>, &unk_2A2012AF8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int>, v2);
+  v7 = MEMORY[0x29EDC9BA8];
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &unk_2A2012A68, &cache variable for noncanonical specialized generic type metadata for [Int], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &unk_2A2012A68, &cache variable for noncanonical specialized generic type metadata for [Int], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int> and conformance ContiguousArray<A>, &unk_2A2012A30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int> and conformance ContiguousArray<A>, &unk_2A2012A30, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20129F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20129F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20129F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt] and conformance [A], &unk_2A2012968, &cache variable for noncanonical specialized generic type metadata for [UInt], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt] and conformance [A], &unk_2A2012968, &cache variable for noncanonical specialized generic type metadata for [UInt], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt> and conformance ContiguousArray<A>, &unk_2A2012930, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt> and conformance ContiguousArray<A>, &unk_2A2012930, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int8> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int8> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int8> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int8> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20128F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int8>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int8> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20128F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int8>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int8> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20128F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int8>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int8] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int8] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int8] and conformance [A], &unk_2A2012868, &cache variable for noncanonical specialized generic type metadata for [Int8], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int8] and conformance [A], &unk_2A2012868, &cache variable for noncanonical specialized generic type metadata for [Int8], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int8> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int8> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int8> and conformance ContiguousArray<A>, &unk_2A2012830, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int8>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int8> and conformance ContiguousArray<A>, &unk_2A2012830, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int8>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int16> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int16> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int16> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int16> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20127F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int16>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int16> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20127F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int16>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int16> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20127F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int16>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int16] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int16] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int16] and conformance [A], &unk_2A2012768, &cache variable for noncanonical specialized generic type metadata for [Int16], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int16] and conformance [A], &unk_2A2012768, &cache variable for noncanonical specialized generic type metadata for [Int16], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int16> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int16> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int16> and conformance ContiguousArray<A>, &unk_2A2012730, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int16>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int16> and conformance ContiguousArray<A>, &unk_2A2012730, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int16>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int32> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int32> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int32> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int32> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20126F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int32>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int32> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20126F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int32>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int32> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20126F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int32>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int32] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int32] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int32] and conformance [A], &unk_2A2012668, &cache variable for noncanonical specialized generic type metadata for [Int32], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int32] and conformance [A], &unk_2A2012668, &cache variable for noncanonical specialized generic type metadata for [Int32], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int32> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int32> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int32> and conformance ContiguousArray<A>, &unk_2A2012630, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int32>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int32> and conformance ContiguousArray<A>, &unk_2A2012630, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int32>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int64> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int64> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int64> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int64> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20125F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int64>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int64> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20125F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int64>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Int64> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20125F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<Int64>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int64] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int64] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int64] and conformance [A], &unk_2A2012568, &cache variable for noncanonical specialized generic type metadata for [Int64], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [Int64] and conformance [A], &unk_2A2012568, &cache variable for noncanonical specialized generic type metadata for [Int64], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int64> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int64> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int64> and conformance ContiguousArray<A>, &unk_2A2012530, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int64>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<Int64> and conformance ContiguousArray<A>, &unk_2A2012530, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<Int64>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt8> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt8> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt8> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt8> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20124F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt8>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt8> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20124F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt8>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt8> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20124F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt8>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &unk_2A2012468, &cache variable for noncanonical specialized generic type metadata for [UInt8], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &unk_2A2012468, &cache variable for noncanonical specialized generic type metadata for [UInt8], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &unk_2A2012430, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt8>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &unk_2A2012430, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt8>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt16> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt16> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt16> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt16> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20123F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt16>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt16> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20123F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt16>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt16> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20123F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt16>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt16] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt16] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt16] and conformance [A], &unk_2A2012368, &cache variable for noncanonical specialized generic type metadata for [UInt16], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt16] and conformance [A], &unk_2A2012368, &cache variable for noncanonical specialized generic type metadata for [UInt16], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt16> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt16> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt16> and conformance ContiguousArray<A>, &unk_2A2012330, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt16>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt16> and conformance ContiguousArray<A>, &unk_2A2012330, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt16>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt32> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt32> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt32> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt32> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20122F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt32>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt32> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20122F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt32>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt32> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20122F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt32>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt32] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt32] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt32] and conformance [A], &unk_2A2012268, &cache variable for noncanonical specialized generic type metadata for [UInt32], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt32] and conformance [A], &unk_2A2012268, &cache variable for noncanonical specialized generic type metadata for [UInt32], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt32> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt32> and conformance ContiguousArray<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt32> and conformance ContiguousArray<A>, &unk_2A2012230, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt32>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt32> and conformance ContiguousArray<A>, &unk_2A2012230, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt32>, v6);
   swift_slowAlloc();
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt64> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt64> and conformance UnsafeMutableBufferPointer<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt64> and conformance UnsafeMutableBufferPointer<A>);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt64> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20121F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt64>, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt64> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20121F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt64>, v1);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<UInt64> and conformance UnsafeMutableBufferPointer<A>, &unk_2A20121F8, &cache variable for noncanonical specialized generic type metadata for UnsafeMutableBufferPointer<UInt64>, v2);
   static Array._allocateUninitialized(_:)();
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt64] and conformance [A]);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt64] and conformance [A]);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt64] and conformance [A], &unk_2A2012168, &cache variable for noncanonical specialized generic type metadata for [UInt64], v3);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type [UInt64] and conformance [A], &unk_2A2012168, &cache variable for noncanonical specialized generic type metadata for [UInt64], v4);
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt64> and conformance ContiguousArray<A>);
-  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt64> and conformance ContiguousArray<A>);
-  v1 = 0;
-  v2[0] = 0;
-  specialized Range._prespecializeRange(bounds:)(v2, &v1, v0);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt64> and conformance ContiguousArray<A>, &unk_2A2012130, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt64>, v5);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Character> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt64> and conformance ContiguousArray<A>, &unk_2A2012130, &cache variable for noncanonical specialized generic type metadata for ContiguousArray<UInt64>, v6);
+  v8 = 0;
+  v9[0] = 0;
+  specialized Range._prespecializeRange(bounds:)(v9, &v8, v7);
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -660,7 +667,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -740,7 +746,7 @@ uint64_t specialized Range<>.index(after:)(uint64_t a1, uint64_t a2, uint64_t a3
   return result;
 }
 
-uint64_t (*specialized Range<>.subscript.read(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))()
+void (*specialized Range<>.subscript.read(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))()
 {
   *a1 = a2;
   if (a2 >= a3 && a2 < a4)
@@ -815,7 +821,7 @@ uint64_t specialized ClosedRange.init(uncheckedBounds:)(uint64_t result, uint64_
   return result;
 }
 
-uint64_t (*specialized ClosedRange<>.subscript.read(void *a1, uint64_t a2, char a3))()
+void (*specialized ClosedRange<>.subscript.read(void *a1, uint64_t a2, char a3))()
 {
   if (a3)
   {
@@ -2209,88 +2215,6 @@ LABEL_16:
   return result;
 }
 
-{
-  v21 = result;
-  if (a3 != a2)
-  {
-    v7 = 32 * a3;
-    do
-    {
-      v17 = v7;
-      v18 = a3;
-      v8 = a3;
-      do
-      {
-        v9 = v8 - 1;
-        if (__OFSUB__(v8, 1))
-        {
-          goto LABEL_16;
-        }
-
-        if (v8 < 0)
-        {
-          goto LABEL_16;
-        }
-
-        v10 = v4[1];
-        if (v8 >= v10)
-        {
-          goto LABEL_16;
-        }
-
-        v11 = *v4;
-        v12 = (*v4 + v7);
-        outlined init with copy of Any(v12, v20);
-        if ((v9 & 0x8000000000000000) != 0 || v9 >= v10)
-        {
-          goto LABEL_16;
-        }
-
-        v13 = (v11 + 32 * v9);
-        outlined init with copy of Any(v13, v19);
-        v14 = a4(v20, v19);
-        __swift_destroy_boxed_opaque_existential_0(v19);
-        result = __swift_destroy_boxed_opaque_existential_0(v20);
-        if (v5)
-        {
-          return result;
-        }
-
-        if ((v14 & 1) == 0)
-        {
-          break;
-        }
-
-        v7 -= 32;
-        outlined init with take of Any(v12, v20);
-        v15 = v13[1];
-        *v12 = *v13;
-        v12[1] = v15;
-        result = outlined init with take of Any(v20, v13);
-        v8 = v9;
-      }
-
-      while (v9 != v21);
-      if (__OFADD__(v18, 1))
-      {
-        while (1)
-        {
-LABEL_16:
-          _fatalErrorMessage(_:_:file:line:flags:)();
-          __break(1u);
-        }
-      }
-
-      a3 = v18 + 1;
-      v7 = v17 + 32;
-    }
-
-    while (v18 + 1 != a2);
-  }
-
-  return result;
-}
-
 uint64_t specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, void *))
 {
   return specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(a1, a2, a3, a4);
@@ -2497,6 +2421,89 @@ LABEL_18:
   return result;
 }
 
+_OWORD *specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(_OWORD *result, uint64_t a2, uint64_t a3, uint64_t (*a4)(_OWORD *, _BYTE *))
+{
+  v21 = result;
+  if (a3 != a2)
+  {
+    v7 = 32 * a3;
+    do
+    {
+      v17 = v7;
+      v18 = a3;
+      v8 = a3;
+      do
+      {
+        v9 = v8 - 1;
+        if (__OFSUB__(v8, 1))
+        {
+          goto LABEL_16;
+        }
+
+        if (v8 < 0)
+        {
+          goto LABEL_16;
+        }
+
+        v10 = v4[1];
+        if (v8 >= v10)
+        {
+          goto LABEL_16;
+        }
+
+        v11 = *v4;
+        v12 = (*v4 + v7);
+        outlined init with copy of Any(v12, v20);
+        if ((v9 & 0x8000000000000000) != 0 || v9 >= v10)
+        {
+          goto LABEL_16;
+        }
+
+        v13 = (v11 + 32 * v9);
+        outlined init with copy of Any(v13, v19);
+        v14 = a4(v20, v19);
+        __swift_destroy_boxed_opaque_existential_0(v19);
+        result = __swift_destroy_boxed_opaque_existential_0(v20);
+        if (v5)
+        {
+          return result;
+        }
+
+        if ((v14 & 1) == 0)
+        {
+          break;
+        }
+
+        v7 -= 32;
+        outlined init with take of Any(v12, v20);
+        v15 = v13[1];
+        *v12 = *v13;
+        v12[1] = v15;
+        result = outlined init with take of Any(v20, v13);
+        v8 = v9;
+      }
+
+      while (v9 != v21);
+      if (__OFADD__(v18, 1))
+      {
+        while (1)
+        {
+LABEL_16:
+          _fatalErrorMessage(_:_:file:line:flags:)();
+          __break(1u);
+        }
+      }
+
+      a3 = v18 + 1;
+      v7 = v17 + 32;
+    }
+
+    while (v18 + 1 != a2);
+  }
+
+  return result;
+}
+
 uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 24);
@@ -2505,15 +2512,17 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t specialized MutableCollection<>.sort(by:)(uint64_t (*a1)(uint64_t *, uint64_t *), uint64_t a2)
@@ -3247,161 +3256,6 @@ LABEL_13:
         --v9;
         ++v11;
         if (v10 + v11 == 4)
-        {
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-{
-  result = _sSr39withContiguousMutableStorageIfAvailableyqd__Sgqd__SryxGzKXEKlFyp_ytTg570_sSMsSkRzrlE4sort2byySb7ElementSTQz_ADtKXE_tKFySryADGzKXEfU_SryypG_Tg5xq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyypypIsgnndzo_Tf1cn_nTm(v2, a1, a2, MEMORY[0x29EDCA178] + 8, specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:), specialized MutableCollection<>._insertionSort(within:sortedEnd:by:));
-  if (!v3 && (result & 1) != 0)
-  {
-    v7 = *v2;
-    v8 = v2[1];
-    v14[0] = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v8);
-    specialized MutableCollection<>.sort(by:)(a1, a2);
-    v9 = v14[0];
-    if (v8 < 0)
-    {
-LABEL_14:
-      result = _fatalErrorMessage(_:_:file:line:flags:)();
-      __break(1u);
-    }
-
-    else
-    {
-      if (v8)
-      {
-        v10 = 0;
-        v11 = *(v14[0] + 16);
-        v12 = v14[0] + 32;
-        while (v11 != v10)
-        {
-          if (v10 >= *(v9 + 16))
-          {
-            _assertionFailure(_:_:file:line:flags:)();
-            __break(1u);
-            goto LABEL_14;
-          }
-
-          ++v10;
-          outlined init with copy of Any(v12, v14);
-          outlined init with copy of Any(v14, v13);
-          __swift_destroy_boxed_opaque_existential_0(v14);
-          __swift_destroy_boxed_opaque_existential_0(v7);
-          outlined init with take of Any(v13, v7);
-          v12 += 32;
-          v7 += 4;
-          if (v8 == v10)
-          {
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-{
-  v4 = v2;
-  result = _ss15ContiguousArrayV04withA25MutableStorageIfAvailableyqd__Sgqd__SryxGzKXEKlFyp_ytTg5063_sSMsSkRzrlE4sort2byySb7ElementSTQz_ADtKXE_tKFySryADGzKXEfU_s15aB9VyypG_Tg5xq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyypypIsgnndzo_Tf1cn_nTf4ng_nTm(v2, a1, a2, specialized _ArrayBuffer._consumeAndCreateNew(), _sSa30withUnsafeMutableBufferPointeryqd__qd__SryxGzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF6_deferL_yysACRd_0_r_0_lFABSpyxGSiSayxGsAC_pRsd_0_r_0_lIetbyyb_Tpq5s6UInt64V_ytTg5);
-  if (!v3 && (result & 1) != 0)
-  {
-    v8 = *v2;
-    *&v14[0] = *v2;
-
-    specialized MutableCollection<>.sort(by:)(a1, a2);
-    v9 = *&v14[0];
-    v10 = *(v8 + 16);
-    if (v10)
-    {
-      v11 = 0;
-      v12 = *(*&v14[0] + 16);
-      v13 = 32;
-      while (v12 != v11)
-      {
-        if (v11 >= *(v9 + 16))
-        {
-          goto LABEL_15;
-        }
-
-        outlined init with copy of Any(v9 + v13, v14);
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v8 = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
-        }
-
-        if (v11 >= *(v8 + 16))
-        {
-LABEL_15:
-          result = _assertionFailure(_:_:file:line:flags:)();
-          __break(1u);
-          return result;
-        }
-
-        ++v11;
-        __swift_destroy_boxed_opaque_existential_0((v8 + v13));
-        outlined init with take of Any(v14, (v8 + v13));
-        *v4 = v8;
-        v13 += 32;
-        if (v10 == v11)
-        {
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-{
-  v4 = v2;
-  result = _ss15ContiguousArrayV04withA25MutableStorageIfAvailableyqd__Sgqd__SryxGzKXEKlFyp_ytTg5063_sSMsSkRzrlE4sort2byySb7ElementSTQz_ADtKXE_tKFySryADGzKXEfU_s15aB9VyypG_Tg5xq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyypypIsgnndzo_Tf1cn_nTf4ng_nTm(v2, a1, a2, specialized _ContiguousArrayBuffer._consumeAndCreateNew(), _ss15ContiguousArrayV30withUnsafeMutableBufferPointeryqd__qd__SryxGzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF6_deferL_yysAERd_0_r_0_lFADSpyxGSiAByxGsAE_pRsd_0_r_0_lIetbyyb_Tpq5s6UInt64V_ytTg5);
-  if (!v3 && (result & 1) != 0)
-  {
-    v8 = *v2;
-    *&v14[0] = *v2;
-
-    specialized MutableCollection<>.sort(by:)(a1, a2);
-    v9 = *&v14[0];
-    v10 = *(v8 + 16);
-    if (v10)
-    {
-      v11 = 0;
-      v12 = *(*&v14[0] + 16);
-      v13 = 32;
-      while (v12 != v11)
-      {
-        if (v11 >= *(v9 + 16))
-        {
-          goto LABEL_15;
-        }
-
-        outlined init with copy of Any(v9 + v13, v14);
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v8 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v8);
-        }
-
-        if (v11 >= *(v8 + 16))
-        {
-LABEL_15:
-          result = _assertionFailure(_:_:file:line:flags:)();
-          __break(1u);
-          return result;
-        }
-
-        ++v11;
-        __swift_destroy_boxed_opaque_existential_0((v8 + v13));
-        outlined init with take of Any(v14, (v8 + v13));
-        *v4 = v8;
-        v13 += 32;
-        if (v10 == v11)
         {
         }
       }
@@ -4854,7 +4708,7 @@ uint64_t specialized MutableCollection<>.sort(by:)(uint64_t (*a1)(void *, void *
   {
     v8 = *v2;
     v7 = v2[1];
-    v16 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+    v15 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7, &_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR, MEMORY[0x29EDC99B0]);
     specialized MutableCollection<>.sort(by:)(a1, a2);
     if (v7 < 0)
     {
@@ -4868,12 +4722,12 @@ LABEL_14:
       if (v7)
       {
         v9 = 0;
-        v10 = *(v16 + 16);
-        v11 = (v16 + 40);
+        v10 = v15[2];
+        v11 = v15 + 5;
         v12 = (v8 + 8);
         while (v10 != v9)
         {
-          if (v9 >= *(v16 + 16))
+          if (v9 >= v15[2])
           {
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
@@ -4883,7 +4737,6 @@ LABEL_14:
           ++v9;
           v14 = *(v11 - 1);
           v13 = *v11;
-          v15 = *v12;
 
           *(v12 - 1) = v14;
           *v12 = v13;
@@ -4905,24 +4758,24 @@ LABEL_14:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -4939,13 +4792,12 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
         {
         }
       }
@@ -4960,24 +4812,24 @@ LABEL_13:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -4994,13 +4846,12 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
         {
         }
       }
@@ -5016,7 +4867,7 @@ LABEL_13:
   {
     v8 = *v2;
     v7 = v2[1];
-    v16 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR);
+    v15 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMd, &_ss23_ContiguousArrayStorageCySS17UnicodeScalarViewVGMR, MEMORY[0x29EDC9988]);
     specialized MutableCollection<>.sort(by:)(a1, a2);
     if (v7 < 0)
     {
@@ -5030,12 +4881,12 @@ LABEL_14:
       if (v7)
       {
         v9 = 0;
-        v10 = *(v16 + 16);
-        v11 = (v16 + 40);
+        v10 = v15[2];
+        v11 = v15 + 5;
         v12 = (v8 + 8);
         while (v10 != v9)
         {
-          if (v9 >= *(v16 + 16))
+          if (v9 >= v15[2])
           {
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
@@ -5045,7 +4896,6 @@ LABEL_14:
           ++v9;
           v14 = *(v11 - 1);
           v13 = *v11;
-          v15 = *v12;
 
           *(v12 - 1) = v14;
           *v12 = v13;
@@ -5067,24 +4917,24 @@ LABEL_14:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -5101,13 +4951,12 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
         {
         }
       }
@@ -5122,24 +4971,24 @@ LABEL_13:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -5156,13 +5005,12 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
         {
         }
       }
@@ -5178,7 +5026,7 @@ LABEL_13:
   {
     v8 = *v2;
     v7 = v2[1];
-    v16 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR);
+    v15 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMd, &_ss23_ContiguousArrayStorageCySS9UTF16ViewVGMR, MEMORY[0x29EDC99A8]);
     specialized MutableCollection<>.sort(by:)(a1, a2);
     if (v7 < 0)
     {
@@ -5192,12 +5040,12 @@ LABEL_14:
       if (v7)
       {
         v9 = 0;
-        v10 = *(v16 + 16);
-        v11 = (v16 + 40);
+        v10 = v15[2];
+        v11 = v15 + 5;
         v12 = (v8 + 8);
         while (v10 != v9)
         {
-          if (v9 >= *(v16 + 16))
+          if (v9 >= v15[2])
           {
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
@@ -5207,7 +5055,6 @@ LABEL_14:
           ++v9;
           v14 = *(v11 - 1);
           v13 = *v11;
-          v15 = *v12;
 
           *(v12 - 1) = v14;
           *v12 = v13;
@@ -5229,24 +5076,24 @@ LABEL_14:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -5263,13 +5110,12 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
         {
         }
       }
@@ -5284,24 +5130,24 @@ LABEL_13:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -5318,13 +5164,12 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
         {
         }
       }
@@ -5340,7 +5185,7 @@ LABEL_13:
   {
     v8 = *v2;
     v7 = v2[1];
-    v16 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR);
+    v15 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMd, &_ss23_ContiguousArrayStorageCySS8UTF8ViewVGMR, MEMORY[0x29EDC99A0]);
     specialized MutableCollection<>.sort(by:)(a1, a2);
     if (v7 < 0)
     {
@@ -5354,12 +5199,12 @@ LABEL_14:
       if (v7)
       {
         v9 = 0;
-        v10 = *(v16 + 16);
-        v11 = (v16 + 40);
+        v10 = v15[2];
+        v11 = v15 + 5;
         v12 = (v8 + 8);
         while (v10 != v9)
         {
-          if (v9 >= *(v16 + 16))
+          if (v9 >= v15[2])
           {
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
@@ -5369,7 +5214,6 @@ LABEL_14:
           ++v9;
           v14 = *(v11 - 1);
           v13 = *v11;
-          v15 = *v12;
 
           *(v12 - 1) = v14;
           *v12 = v13;
@@ -5391,24 +5235,24 @@ LABEL_14:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -5425,13 +5269,12 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
         {
         }
       }
@@ -5446,24 +5289,24 @@ LABEL_13:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -5480,13 +5323,12 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
         {
         }
       }
@@ -5502,7 +5344,7 @@ LABEL_13:
   {
     v8 = *v2;
     v7 = v2[1];
-    v16 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7);
+    v15 = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v7);
     specialized MutableCollection<>.sort(by:)(a1, a2);
     if (v7 < 0)
     {
@@ -5516,12 +5358,12 @@ LABEL_14:
       if (v7)
       {
         v9 = 0;
-        v10 = *(v16 + 16);
-        v11 = (v16 + 40);
+        v10 = v15[2];
+        v11 = v15 + 5;
         v12 = (v8 + 8);
         while (v10 != v9)
         {
-          if (v9 >= *(v16 + 16))
+          if (v9 >= v15[2])
           {
             _assertionFailure(_:_:file:line:flags:)();
             __break(1u);
@@ -5531,7 +5373,6 @@ LABEL_14:
           ++v9;
           v14 = *(v11 - 1);
           v13 = *v11;
-          v15 = *v12;
 
           *(v12 - 1) = v14;
           *v12 = v13;
@@ -5553,24 +5394,24 @@ LABEL_14:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -5587,13 +5428,12 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
         {
         }
       }
@@ -5608,24 +5448,24 @@ LABEL_13:
   if (!v3 && (result & 1) != 0)
   {
     v7 = *v2;
-    v16 = *v2;
+    v15 = *v2;
 
     specialized MutableCollection<>.sort(by:)(a1, a2);
-    v15 = *(v7 + 16);
-    if (v15)
+    v14 = *(v7 + 16);
+    if (v14)
     {
       v8 = 0;
       v9 = 0;
-      v14 = *(v16 + 16);
-      while (v14 != v9)
+      v13 = *(v15 + 16);
+      while (v13 != v9)
       {
-        if (v9 >= *(v16 + 16))
+        if (v9 >= *(v15 + 16))
         {
           goto LABEL_13;
         }
 
-        v11 = *(v16 + v8 + 32);
-        v10 = *(v16 + v8 + 40);
+        v11 = *(v15 + v8 + 32);
+        v10 = *(v15 + v8 + 40);
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -5642,13 +5482,168 @@ LABEL_13:
 
         ++v9;
         v12 = v7 + v8;
-        v13 = *(v7 + v8 + 40);
 
         *(v12 + 32) = v11;
         *(v12 + 40) = v10;
         v8 += 16;
         *v2 = v7;
-        if (v15 == v9)
+        if (v14 == v9)
+        {
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t specialized MutableCollection<>.sort(by:)(uint64_t (*a1)(_OWORD *, void *), uint64_t a2)
+{
+  result = _sSr39withContiguousMutableStorageIfAvailableyqd__Sgqd__SryxGzKXEKlFyp_ytTg570_sSMsSkRzrlE4sort2byySb7ElementSTQz_ADtKXE_tKFySryADGzKXEfU_SryypG_Tg5xq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyypypIsgnndzo_Tf1cn_nTm(v2, a1, a2, MEMORY[0x29EDCA178] + 8, specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:), specialized MutableCollection<>._insertionSort(within:sortedEnd:by:));
+  if (!v3 && (result & 1) != 0)
+  {
+    v7 = *v2;
+    v8 = v2[1];
+    v14[0] = specialized _copyCollectionToContiguousArray<A>(_:)(*v2, v8);
+    specialized MutableCollection<>.sort(by:)(a1, a2);
+    v9 = v14[0];
+    if (v8 < 0)
+    {
+LABEL_14:
+      result = _fatalErrorMessage(_:_:file:line:flags:)();
+      __break(1u);
+    }
+
+    else
+    {
+      if (v8)
+      {
+        v10 = 0;
+        v11 = *(v14[0] + 16);
+        v12 = v14[0] + 32;
+        while (v11 != v10)
+        {
+          if (v10 >= *(v9 + 16))
+          {
+            _assertionFailure(_:_:file:line:flags:)();
+            __break(1u);
+            goto LABEL_14;
+          }
+
+          ++v10;
+          outlined init with copy of Any(v12, v14);
+          outlined init with copy of Any(v14, v13);
+          __swift_destroy_boxed_opaque_existential_0(v14);
+          __swift_destroy_boxed_opaque_existential_0(v7);
+          outlined init with take of Any(v13, v7);
+          v12 += 32;
+          v7 += 4;
+          if (v8 == v10)
+          {
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+{
+  v4 = v2;
+  result = _ss15ContiguousArrayV04withA25MutableStorageIfAvailableyqd__Sgqd__SryxGzKXEKlFyp_ytTg5063_sSMsSkRzrlE4sort2byySb7ElementSTQz_ADtKXE_tKFySryADGzKXEfU_s15aB9VyypG_Tg5xq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyypypIsgnndzo_Tf1cn_nTf4ng_nTm(v2, a1, a2, specialized _ArrayBuffer._consumeAndCreateNew(), _sSa30withUnsafeMutableBufferPointeryqd__qd__SryxGzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF6_deferL_yysACRd_0_r_0_lFABSpyxGSiSayxGsAC_pRsd_0_r_0_lIetbyyb_Tpq5s6UInt64V_ytTg5);
+  if (!v3 && (result & 1) != 0)
+  {
+    v8 = *v2;
+    *&v14[0] = *v2;
+
+    specialized MutableCollection<>.sort(by:)(a1, a2);
+    v9 = *&v14[0];
+    v10 = *(v8 + 16);
+    if (v10)
+    {
+      v11 = 0;
+      v12 = *(*&v14[0] + 16);
+      v13 = 32;
+      while (v12 != v11)
+      {
+        if (v11 >= *(v9 + 16))
+        {
+          goto LABEL_15;
+        }
+
+        outlined init with copy of Any(v9 + v13, v14);
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          v8 = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
+        }
+
+        if (v11 >= *(v8 + 16))
+        {
+LABEL_15:
+          result = _assertionFailure(_:_:file:line:flags:)();
+          __break(1u);
+          return result;
+        }
+
+        ++v11;
+        __swift_destroy_boxed_opaque_existential_0((v8 + v13));
+        outlined init with take of Any(v14, (v8 + v13));
+        *v4 = v8;
+        v13 += 32;
+        if (v10 == v11)
+        {
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+{
+  v4 = v2;
+  result = _ss15ContiguousArrayV04withA25MutableStorageIfAvailableyqd__Sgqd__SryxGzKXEKlFyp_ytTg5063_sSMsSkRzrlE4sort2byySb7ElementSTQz_ADtKXE_tKFySryADGzKXEfU_s15aB9VyypG_Tg5xq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyypypIsgnndzo_Tf1cn_nTf4ng_nTm(v2, a1, a2, specialized _ContiguousArrayBuffer._consumeAndCreateNew(), _ss15ContiguousArrayV30withUnsafeMutableBufferPointeryqd__qd__SryxGzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF6_deferL_yysAERd_0_r_0_lFADSpyxGSiAByxGsAE_pRsd_0_r_0_lIetbyyb_Tpq5s6UInt64V_ytTg5);
+  if (!v3 && (result & 1) != 0)
+  {
+    v8 = *v2;
+    *&v14[0] = *v2;
+
+    specialized MutableCollection<>.sort(by:)(a1, a2);
+    v9 = *&v14[0];
+    v10 = *(v8 + 16);
+    if (v10)
+    {
+      v11 = 0;
+      v12 = *(*&v14[0] + 16);
+      v13 = 32;
+      while (v12 != v11)
+      {
+        if (v11 >= *(v9 + 16))
+        {
+          goto LABEL_15;
+        }
+
+        outlined init with copy of Any(v9 + v13, v14);
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          v8 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v8);
+        }
+
+        if (v11 >= *(v8 + 16))
+        {
+LABEL_15:
+          result = _assertionFailure(_:_:file:line:flags:)();
+          __break(1u);
+          return result;
+        }
+
+        ++v11;
+        __swift_destroy_boxed_opaque_existential_0((v8 + v13));
+        outlined init with take of Any(v14, (v8 + v13));
+        *v4 = v8;
+        v13 += 32;
+        if (v10 == v11)
         {
         }
       }
@@ -5665,7 +5660,7 @@ uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64
     return MEMORY[0x29EDCA190];
   }
 
-  v9 = a5(a2, 0);
+  v9 = (a5)(a2, 0, a3, a4);
   if ((a2 & 0x8000000000000000) == 0)
   {
     v10 = v9;
@@ -5684,7 +5679,7 @@ uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64
     return MEMORY[0x29EDCA190];
   }
 
-  v9 = a5(a2, 0);
+  v9 = (a5)(a2, 0, a3, a4);
   if ((a2 & 0x8000000000000000) == 0)
   {
     v10 = v9;
@@ -5697,19 +5692,19 @@ uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64
   return result;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(unint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(unint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   if (!a2)
   {
     return MEMORY[0x29EDCA190];
   }
 
-  v6 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSnySiG_Tt1g5Tm(a2, 0, a3, a4);
+  v7 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSnySiG_Tt1g5Tm(a2, 0, a3, a4);
   if ((a2 & 0x8000000000000000) == 0)
   {
-    v7 = v6;
-    specialized UnsafeMutablePointer.initialize(from:count:)(a1, a2, (v6 + 4));
-    return v7;
+    v8 = v7;
+    specialized UnsafeMutablePointer.initialize(from:count:)(a1, a2, (v7 + 4));
+    return v8;
   }
 
   result = _fatalErrorMessage(_:_:file:line:flags:)();
@@ -5717,7 +5712,7 @@ uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(unint64_t a1, uint6
   return result;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(unint64_t a1, uint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(unint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -5856,23 +5851,7 @@ unint64_t specialized Array._checkSubscript(_:wasNativeTypeChecked:)(unint64_t r
   return result;
 }
 
-uint64_t specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(uint64_t a1, char a2, uint64_t a3)
-{
-  return specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(a1, a2, a3, specialized _ArrayBuffer._getElementSlowPath(_:));
-}
-
-{
-  return specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(a1, a2, a3, specialized _ArrayBuffer._getElementSlowPath(_:));
-}
-
-{
-  return specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(a1, a2, a3, specialized _ArrayBuffer._getElementSlowPath(_:));
-}
-
-{
-  return specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(a1, a2, a3, specialized _ArrayBuffer._getElementSlowPath(_:));
-}
-
+uint64_t specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   return specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(a1, a2, a3, specialized _ArrayBuffer._getElementSlowPath(_:));
 }
@@ -5965,11 +5944,9 @@ uint64_t specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptC
 {
   if (a2)
   {
-    v4 = a3 + 16 * a1;
-    v5 = *(v4 + 32);
-    v6 = *(v4 + 40);
+    v4 = *(a3 + 16 * a1 + 32);
 
-    return v5;
+    return v4;
   }
 
   else
@@ -5982,14 +5959,26 @@ uint64_t specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptC
   return result;
 }
 
+uint64_t specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(uint64_t a1, char a2, uint64_t a3)
+{
+  return specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(a1, a2, a3, specialized _ArrayBuffer._getElementSlowPath(_:));
+}
+
+{
+  return specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(a1, a2, a3, specialized _ArrayBuffer._getElementSlowPath(_:));
+}
+
+{
+  return specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(a1, a2, a3, specialized _ArrayBuffer._getElementSlowPath(_:));
+}
+
+{
+  return specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(a1, a2, a3, specialized _ArrayBuffer._getElementSlowPath(_:));
+}
+
 unint64_t specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(unint64_t result, char a2, uint64_t a3)
 {
-  if (a2)
-  {
-    v3 = *(a3 + 4 * result + 32);
-  }
-
-  else
+  if ((a2 & 1) == 0)
   {
     specialized _ArrayBuffer._getElementSlowPath(_:)(result, a3);
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -6027,11 +6016,9 @@ uint64_t specialized Array._getElement(_:wasNativeTypeChecked:matchingSubscriptC
 {
   if (a2)
   {
-    v3 = a3 + 16 * a1;
-    v4 = *(v3 + 32);
-    v5 = *(v3 + 40);
+    v3 = *(a3 + 16 * a1 + 32);
 
-    return v4;
+    return v3;
   }
 
   else
@@ -6616,7 +6603,7 @@ uint64_t specialized _ArrayBuffer._getElementSlowPath(_:)(unint64_t a1, uint64_t
   return result;
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, uint64_t *), uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t (*)(uint64_t *, uint64_t *), uint64_t))
+uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, uint64_t *), uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v8 = a3;
   v84 = MEMORY[0x29EDCA190];
@@ -6991,7 +6978,390 @@ LABEL_57:
   }
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(int **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(int *, int *), uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t (*)(int *, int *), uint64_t))
+{
+  v8 = a3;
+  v90 = MEMORY[0x29EDCA190];
+  v9 = a3[1];
+  if (v9 < 1)
+  {
+LABEL_62:
+    if (!*a1)
+    {
+      goto LABEL_79;
+    }
+
+    specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v90, *a1, a4);
+  }
+
+  else
+  {
+    v10 = 0;
+    v11 = MEMORY[0x29EDCA190];
+    v85 = v8;
+    while (1)
+    {
+      v12 = specialized _findNextRun<A>(in:from:by:)(&v89, *v8, v9, v10, a4);
+      if (v7)
+      {
+        break;
+      }
+
+      v13 = v89;
+      if (v12)
+      {
+        if (v89 < v10)
+        {
+          goto LABEL_78;
+        }
+
+        if (v10 < v89)
+        {
+          v14 = 16 * v89;
+          v15 = 16 * v10;
+          v16 = v89;
+          v17 = v10;
+          do
+          {
+            v18 = v16 - 1;
+            if (v17 != v16 - 1)
+            {
+              v19 = v8[1];
+              if (v17 >= v19 || v16 > v19)
+              {
+                while (1)
+                {
+                  _fatalErrorMessage(_:_:file:line:flags:)();
+                  __break(1u);
+LABEL_81:
+                  _assertionFailure(_:_:file:line:flags:)();
+                  __break(1u);
+LABEL_79:
+                  _assertionFailure(_:_:file:line:flags:)();
+                  __break(1u);
+                }
+              }
+
+              v21 = *v8;
+              if (!*v8)
+              {
+                goto LABEL_81;
+              }
+
+              v22 = (v21 + v15);
+              v23 = v21 + v14;
+              v24 = *v22;
+              v25 = v22[1];
+              *v22 = *(v23 - 16);
+              *(v23 - 16) = v24;
+              *(v23 - 8) = v25;
+            }
+
+            ++v17;
+            v14 -= 16;
+            v15 += 16;
+            v16 = v18;
+          }
+
+          while (v17 < v18);
+        }
+      }
+
+      v26 = v8[1];
+      if (v13 < v26)
+      {
+        if (__OFSUB__(v13, v10))
+        {
+          goto LABEL_76;
+        }
+
+        if (v13 - v10 < a6)
+        {
+          if (__OFADD__(v10, a6))
+          {
+            goto LABEL_77;
+          }
+
+          if (v10 + a6 >= v26)
+          {
+            v27 = v8[1];
+          }
+
+          else
+          {
+            v27 = v10 + a6;
+          }
+
+          if (v27 < v10)
+          {
+LABEL_78:
+            _assertionFailure(_:_:file:line:flags:)();
+            __break(1u);
+            goto LABEL_79;
+          }
+
+          a7(v10, v27, v13, a4, a5);
+          v13 = v27;
+        }
+      }
+
+      if (v13 < v10)
+      {
+        goto LABEL_78;
+      }
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v11 + 2) + 1, 1, v11);
+      }
+
+      v29 = *(v11 + 2);
+      v28 = *(v11 + 3);
+      v30 = v29 + 1;
+      if (v29 >= v28 >> 1)
+      {
+        v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v28 > 1), v29 + 1, 1, v11);
+      }
+
+      *(v11 + 2) = v30;
+      v31 = &v11[16 * v29];
+      *(v31 + 4) = v10;
+      *(v31 + 5) = v13;
+      v83 = v13;
+      v90 = v11;
+      v86 = *a1;
+      if (!*a1)
+      {
+        goto LABEL_79;
+      }
+
+      if (v29)
+      {
+        do
+        {
+          v32 = v30 - 1;
+          if (v30 >= 4)
+          {
+            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 4, 1, v11);
+            v35 = v11 + 32;
+            v36 = &v11[16 * v30 - 32];
+            v38 = *v36;
+            v37 = *(v36 + 1);
+            v39 = v37 - v38;
+            if (__OFSUB__(v37, v38))
+            {
+              __break(1u);
+LABEL_66:
+              __break(1u);
+LABEL_67:
+              __break(1u);
+LABEL_68:
+              __break(1u);
+LABEL_69:
+              __break(1u);
+LABEL_70:
+              __break(1u);
+LABEL_71:
+              __break(1u);
+LABEL_72:
+              __break(1u);
+LABEL_73:
+              __break(1u);
+LABEL_74:
+              __break(1u);
+LABEL_75:
+              __break(1u);
+LABEL_76:
+              __break(1u);
+LABEL_77:
+              __break(1u);
+              goto LABEL_78;
+            }
+
+            v33 = v30 - 3;
+            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 3, 1, v11);
+            v40 = &v35[16 * v30 - 48];
+            v42 = *v40;
+            v41 = *(v40 + 1);
+            v43 = v41 - v42;
+            if (__OFSUB__(v41, v42))
+            {
+              goto LABEL_66;
+            }
+
+            v34 = v30 - 2;
+            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 2, 1, v11);
+            v44 = &v11[16 * v30];
+            v46 = *v44;
+            v45 = *(v44 + 1);
+            v47 = __OFSUB__(v45, v46);
+            v48 = v45 - v46;
+            if (v47)
+            {
+              goto LABEL_68;
+            }
+
+            v47 = __OFADD__(v43, v48);
+            v49 = v43 + v48;
+            if (v47)
+            {
+              goto LABEL_71;
+            }
+
+            if (v49 >= v39)
+            {
+              specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 3, 1, v11);
+              specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 1, 1, v11);
+              v71 = &v35[16 * v32];
+              v73 = *v71;
+              v72 = *(v71 + 1);
+              v47 = __OFSUB__(v72, v73);
+              v74 = v72 - v73;
+              v8 = v85;
+              if (v47)
+              {
+                goto LABEL_75;
+              }
+
+              v75 = v43 < v74;
+              goto LABEL_54;
+            }
+          }
+
+          else
+          {
+            v33 = 0;
+            v34 = 0;
+            if (v30 != 3)
+            {
+              goto LABEL_47;
+            }
+          }
+
+          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v33, 1, v11);
+          v50 = &v11[16 * v33 + 32];
+          v52 = *v50;
+          v51 = *(v50 + 1);
+          v53 = v51 - v52;
+          if (__OFSUB__(v51, v52))
+          {
+            goto LABEL_67;
+          }
+
+          v34 = v30 - 2;
+          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 2, 1, v11);
+          v54 = &v11[16 * v30];
+          v56 = *v54;
+          v55 = *(v54 + 1);
+          v57 = v55 - v56;
+          if (__OFSUB__(v55, v56))
+          {
+            goto LABEL_70;
+          }
+
+          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 1, 1, v11);
+          v58 = &v11[16 * v32 + 32];
+          v60 = *v58;
+          v59 = *(v58 + 1);
+          v61 = v59 - v60;
+          if (__OFSUB__(v59, v60))
+          {
+            goto LABEL_73;
+          }
+
+          v62 = v57 + v61;
+          if (__OFADD__(v57, v61))
+          {
+            goto LABEL_74;
+          }
+
+          v8 = v85;
+          if (v62 >= v53)
+          {
+            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v33, 1, v11);
+            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 1, 1, v11);
+            v75 = v53 < v61;
+LABEL_54:
+            if (v75)
+            {
+              v32 = v34;
+            }
+
+            goto LABEL_56;
+          }
+
+LABEL_47:
+          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v34, 1, v11);
+          v63 = &v11[16 * v30];
+          v65 = *v63;
+          v64 = *(v63 + 1);
+          v66 = v64 - v65;
+          if (__OFSUB__(v64, v65))
+          {
+            goto LABEL_69;
+          }
+
+          v67 = &v11[16 * v32];
+          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v32, 1, v11);
+          v68 = *(v67 + 4);
+          v69 = *(v67 + 5);
+          v47 = __OFSUB__(v69, v68);
+          v70 = v69 - v68;
+          if (v47)
+          {
+            goto LABEL_72;
+          }
+
+          if (v70 < v66)
+          {
+            break;
+          }
+
+LABEL_56:
+          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v32 - 1, 1, v11);
+          v76 = v11 + 32;
+          v77 = *&v11[16 * v32 + 16];
+          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v32, 1, v11);
+          if (!*v8)
+          {
+            goto LABEL_79;
+          }
+
+          v78 = *&v76[16 * v32 + 8];
+          specialized _merge<A>(low:mid:high:buffer:by:)((*v8 + 16 * v77), (*v8 + 16 * *&v76[16 * v32]), *v8 + 16 * v78, v86, a4);
+          if (v78 < v77)
+          {
+            goto LABEL_78;
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            v11 = specialized _ArrayBuffer._consumeAndCreateNew()(v11);
+          }
+
+          specialized Array._checkSubscript_mutating(_:)(v32 - 1, v11);
+          v79 = &v11[16 * v32 - 16];
+          *(v79 + 4) = v77;
+          *(v79 + 5) = v78;
+          v90 = v11;
+          specialized Array.remove(at:)(v32);
+          v11 = v90;
+          v30 = *(v90 + 2);
+        }
+
+        while (v30 > 1);
+      }
+
+      v9 = v8[1];
+      v10 = v83;
+      if (v83 >= v9)
+      {
+        goto LABEL_62;
+      }
+    }
+  }
+}
+
+uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(int *, int *), uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v8 = a3;
   v84 = MEMORY[0x29EDCA190];
@@ -7366,7 +7736,7 @@ LABEL_57:
   }
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(__int16 **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(__int16 *, __int16 *), uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t (*)(__int16 *, __int16 *), uint64_t))
+uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(__int16 *, __int16 *), uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v8 = a3;
   v84 = MEMORY[0x29EDCA190];
@@ -7741,7 +8111,7 @@ LABEL_57:
   }
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(char *, char *), uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t (*)(char *, char *), uint64_t))
+uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(char *, char *), uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v8 = a3;
   v84 = MEMORY[0x29EDCA190];
@@ -8116,7 +8486,7 @@ LABEL_57:
   }
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(int **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(int *, int *), uint64_t a5, uint64_t a6)
+uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(int *, int *), uint64_t a5, uint64_t a6)
 {
   v7 = a3;
   v84 = MEMORY[0x29EDCA190];
@@ -8870,7 +9240,7 @@ LABEL_57:
   }
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, uint64_t *), uint64_t a5, uint64_t a6)
+uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, uint64_t *), uint64_t a5, uint64_t a6)
 {
   v7 = a3;
   v84 = MEMORY[0x29EDCA190];
@@ -9250,391 +9620,6 @@ LABEL_56:
   }
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, uint64_t *), uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t, uint64_t (*)(uint64_t *, uint64_t *), uint64_t))
-{
-  v8 = a3;
-  v90 = MEMORY[0x29EDCA190];
-  v9 = a3[1];
-  if (v9 < 1)
-  {
-LABEL_62:
-    if (!*a1)
-    {
-      goto LABEL_79;
-    }
-
-    specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v90, *a1, a4);
-  }
-
-  else
-  {
-    v10 = 0;
-    v11 = MEMORY[0x29EDCA190];
-    v85 = v8;
-    while (1)
-    {
-      v12 = specialized _findNextRun<A>(in:from:by:)(&v89, *v8, v9, v10, a4);
-      if (v7)
-      {
-        break;
-      }
-
-      v13 = v89;
-      if (v12)
-      {
-        if (v89 < v10)
-        {
-          goto LABEL_78;
-        }
-
-        if (v10 < v89)
-        {
-          v14 = 16 * v89;
-          v15 = 16 * v10;
-          v16 = v89;
-          v17 = v10;
-          do
-          {
-            v18 = v16 - 1;
-            if (v17 != v16 - 1)
-            {
-              v19 = v8[1];
-              if (v17 >= v19 || v16 > v19)
-              {
-                while (1)
-                {
-                  _fatalErrorMessage(_:_:file:line:flags:)();
-                  __break(1u);
-LABEL_81:
-                  _assertionFailure(_:_:file:line:flags:)();
-                  __break(1u);
-LABEL_79:
-                  _assertionFailure(_:_:file:line:flags:)();
-                  __break(1u);
-                }
-              }
-
-              v21 = *v8;
-              if (!*v8)
-              {
-                goto LABEL_81;
-              }
-
-              v22 = (v21 + v15);
-              v23 = v21 + v14;
-              v24 = *v22;
-              v25 = v22[1];
-              *v22 = *(v23 - 16);
-              *(v23 - 16) = v24;
-              *(v23 - 8) = v25;
-            }
-
-            ++v17;
-            v14 -= 16;
-            v15 += 16;
-            v16 = v18;
-          }
-
-          while (v17 < v18);
-        }
-      }
-
-      v26 = v8[1];
-      if (v13 < v26)
-      {
-        if (__OFSUB__(v13, v10))
-        {
-          goto LABEL_76;
-        }
-
-        if (v13 - v10 < a6)
-        {
-          if (__OFADD__(v10, a6))
-          {
-            goto LABEL_77;
-          }
-
-          if (v10 + a6 >= v26)
-          {
-            v27 = v8[1];
-          }
-
-          else
-          {
-            v27 = v10 + a6;
-          }
-
-          if (v27 < v10)
-          {
-LABEL_78:
-            _assertionFailure(_:_:file:line:flags:)();
-            __break(1u);
-            goto LABEL_79;
-          }
-
-          a7(v10, v27, v13, a4, a5);
-          v13 = v27;
-        }
-      }
-
-      if (v13 < v10)
-      {
-        goto LABEL_78;
-      }
-
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v11 + 2) + 1, 1, v11);
-      }
-
-      v29 = *(v11 + 2);
-      v28 = *(v11 + 3);
-      v30 = v29 + 1;
-      if (v29 >= v28 >> 1)
-      {
-        v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v28 > 1), v29 + 1, 1, v11);
-      }
-
-      *(v11 + 2) = v30;
-      v31 = &v11[16 * v29];
-      *(v31 + 4) = v10;
-      *(v31 + 5) = v13;
-      v83 = v13;
-      v90 = v11;
-      v86 = *a1;
-      if (!*a1)
-      {
-        goto LABEL_79;
-      }
-
-      if (v29)
-      {
-        do
-        {
-          v32 = v30 - 1;
-          if (v30 >= 4)
-          {
-            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 4, 1, v11);
-            v35 = v11 + 32;
-            v36 = &v11[16 * v30 - 32];
-            v38 = *v36;
-            v37 = *(v36 + 1);
-            v39 = v37 - v38;
-            if (__OFSUB__(v37, v38))
-            {
-              __break(1u);
-LABEL_66:
-              __break(1u);
-LABEL_67:
-              __break(1u);
-LABEL_68:
-              __break(1u);
-LABEL_69:
-              __break(1u);
-LABEL_70:
-              __break(1u);
-LABEL_71:
-              __break(1u);
-LABEL_72:
-              __break(1u);
-LABEL_73:
-              __break(1u);
-LABEL_74:
-              __break(1u);
-LABEL_75:
-              __break(1u);
-LABEL_76:
-              __break(1u);
-LABEL_77:
-              __break(1u);
-              goto LABEL_78;
-            }
-
-            v33 = v30 - 3;
-            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 3, 1, v11);
-            v40 = &v35[16 * v30 - 48];
-            v42 = *v40;
-            v41 = *(v40 + 1);
-            v43 = v41 - v42;
-            if (__OFSUB__(v41, v42))
-            {
-              goto LABEL_66;
-            }
-
-            v34 = v30 - 2;
-            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 2, 1, v11);
-            v44 = &v11[16 * v30];
-            v46 = *v44;
-            v45 = *(v44 + 1);
-            v47 = __OFSUB__(v45, v46);
-            v48 = v45 - v46;
-            if (v47)
-            {
-              goto LABEL_68;
-            }
-
-            v47 = __OFADD__(v43, v48);
-            v49 = v43 + v48;
-            if (v47)
-            {
-              goto LABEL_71;
-            }
-
-            if (v49 >= v39)
-            {
-              specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 3, 1, v11);
-              specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 1, 1, v11);
-              v71 = &v35[16 * v32];
-              v73 = *v71;
-              v72 = *(v71 + 1);
-              v47 = __OFSUB__(v72, v73);
-              v74 = v72 - v73;
-              v8 = v85;
-              if (v47)
-              {
-                goto LABEL_75;
-              }
-
-              v75 = v43 < v74;
-              goto LABEL_54;
-            }
-          }
-
-          else
-          {
-            v33 = 0;
-            v34 = 0;
-            if (v30 != 3)
-            {
-              goto LABEL_47;
-            }
-          }
-
-          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v33, 1, v11);
-          v50 = &v11[16 * v33 + 32];
-          v52 = *v50;
-          v51 = *(v50 + 1);
-          v53 = v51 - v52;
-          if (__OFSUB__(v51, v52))
-          {
-            goto LABEL_67;
-          }
-
-          v34 = v30 - 2;
-          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 2, 1, v11);
-          v54 = &v11[16 * v30];
-          v56 = *v54;
-          v55 = *(v54 + 1);
-          v57 = v55 - v56;
-          if (__OFSUB__(v55, v56))
-          {
-            goto LABEL_70;
-          }
-
-          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 1, 1, v11);
-          v58 = &v11[16 * v32 + 32];
-          v60 = *v58;
-          v59 = *(v58 + 1);
-          v61 = v59 - v60;
-          if (__OFSUB__(v59, v60))
-          {
-            goto LABEL_73;
-          }
-
-          v62 = v57 + v61;
-          if (__OFADD__(v57, v61))
-          {
-            goto LABEL_74;
-          }
-
-          v8 = v85;
-          if (v62 >= v53)
-          {
-            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v33, 1, v11);
-            specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v30 - 1, 1, v11);
-            v75 = v53 < v61;
-LABEL_54:
-            if (v75)
-            {
-              v32 = v34;
-            }
-
-            goto LABEL_56;
-          }
-
-LABEL_47:
-          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v34, 1, v11);
-          v63 = &v11[16 * v30];
-          v65 = *v63;
-          v64 = *(v63 + 1);
-          v66 = v64 - v65;
-          if (__OFSUB__(v64, v65))
-          {
-            goto LABEL_69;
-          }
-
-          v67 = &v11[16 * v32];
-          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v32, 1, v11);
-          v68 = *(v67 + 4);
-          v69 = *(v67 + 5);
-          v47 = __OFSUB__(v69, v68);
-          v70 = v69 - v68;
-          if (v47)
-          {
-            goto LABEL_72;
-          }
-
-          if (v70 < v66)
-          {
-            break;
-          }
-
-LABEL_56:
-          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v32 - 1, 1, v11);
-          v76 = v11 + 32;
-          v77 = *&v11[16 * v32 + 16];
-          specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v32, 1, v11);
-          if (!*v8)
-          {
-            goto LABEL_79;
-          }
-
-          v78 = *&v76[16 * v32 + 8];
-          specialized _merge<A>(low:mid:high:buffer:by:)((*v8 + 16 * v77), (*v8 + 16 * *&v76[16 * v32]), *v8 + 16 * v78, v86, a4);
-          if (v78 < v77)
-          {
-            goto LABEL_78;
-          }
-
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v11 = specialized _ArrayBuffer._consumeAndCreateNew()(v11);
-          }
-
-          specialized Array._checkSubscript_mutating(_:)(v32 - 1, v11);
-          v79 = &v11[16 * v32 - 16];
-          *(v79 + 4) = v77;
-          *(v79 + 5) = v78;
-          v90 = v11;
-          specialized Array.remove(at:)(v32);
-          v11 = v90;
-          v30 = *(v90 + 2);
-        }
-
-        while (v30 > 1);
-      }
-
-      v9 = v8[1];
-      v10 = v83;
-      if (v83 >= v9)
-      {
-        goto LABEL_62;
-      }
-    }
-  }
-}
-
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, uint64_t *), uint64_t a5, uint64_t a6)
 {
   v7 = a3;
   v87 = MEMORY[0x29EDCA190];

@@ -71,7 +71,7 @@
 
     item = [(PKDataDetectorView *)self item];
     menuInteraction = [(PKDetectionView *)self menuInteraction];
-    [(PKDetectionView *)self drawingTransform];
+    objc_msgSend_drawingTransform(self);
     v12 = *(MEMORY[0x1E695EFD0] + 16);
     v13[0] = *MEMORY[0x1E695EFD0];
     v13[1] = v12;

@@ -112,29 +112,29 @@
 
 - (void)updateFireDateComponents:(id)components completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   componentsCopy = components;
   handlerCopy = handler;
   context = [(HMEvent *)self context];
   if (!handlerCopy)
   {
-    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCalendarEvent updateFireDateComponents:completionHandler:]", @"completion"];
-    v27 = objc_autoreleasePoolPush();
+    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCalendarEvent updateFireDateComponents:completionHandler:]", @"completion"];
+    v26 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v29 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v30 = HMFGetLogIdentifier();
+      v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v30;
-      v36 = 2112;
-      v37 = v26;
-      _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v34 = v29;
+      v35 = 2112;
+      v36 = v25;
+      _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v27);
-    v31 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v26 userInfo:0];
-    objc_exception_throw(v31);
+    objc_autoreleasePoolPop(v26);
+    v30 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v25 userInfo:0];
+    objc_exception_throw(v30);
   }
 
   v9 = context;
@@ -152,9 +152,9 @@
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v35 = v15;
-        v36 = 2112;
-        v37 = componentsCopy;
+        v34 = v15;
+        v35 = 2112;
+        v36 = componentsCopy;
         _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Fire date is already %@", buf, 0x16u);
       }
 
@@ -169,9 +169,9 @@
       if (v21)
       {
         delegateCaller = v21;
-        v32 = @"kCalendarTimeEventFireDateComponents";
-        v33 = v21;
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v31 = @"kCalendarTimeEventFireDateComponents";
+        v32 = v21;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         [(HMEvent *)self _updateEventWithPayload:v22 completionHandler:handlerCopy];
       }
 
@@ -195,9 +195,9 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v20;
-      v36 = 2080;
-      v37 = "[HMCalendarEvent updateFireDateComponents:completionHandler:]";
+      v34 = v20;
+      v35 = 2080;
+      v36 = "[HMCalendarEvent updateFireDateComponents:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -205,8 +205,6 @@
     delegateCaller = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, delegateCaller);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_serializeForAdd
@@ -263,16 +261,15 @@
 
 - (HMCalendarEvent)initWithFireDateComponents:(NSDateComponents *)fireDateComponents
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11 = @"kEventUUIDKey";
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10 = @"kEventUUIDKey";
   v4 = MEMORY[0x1E696AFB0];
   v5 = fireDateComponents;
   uUID = [v4 UUID];
-  v12[0] = uUID;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = uUID;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [(HMCalendarEvent *)self initWithDict:v7 fireDateComponents:v5];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

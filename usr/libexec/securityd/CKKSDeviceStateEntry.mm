@@ -15,6 +15,7 @@
 - (id)cliqueStatusToCKType:(id)type;
 - (id)description;
 - (id)initForDevice:(id)device contextID:(id)d osVersion:(id)version lastUnlockTime:(id)time octagonPeerID:(id)iD octagonStatus:(id)status circlePeerID:(id)peerID circleStatus:(int)self0 keyState:(id)self1 currentTLKUUID:(id)self2 currentClassAUUID:(id)self3 currentClassCUUID:(id)self4 zoneID:(id)self5 encodedCKRecord:(id)self6;
+- (id)sosCCStatusToCKType:(int)type;
 - (id)sqlValues;
 - (id)updateCKRecord:(id)record zoneID:(id)d;
 - (id)whereClauseToFindSelf;
@@ -122,19 +123,8 @@
   v58[7] = v25;
   v57[8] = @"octagonstatus";
   octagonStatus = [(CKKSDeviceStateEntry *)self octagonStatus];
-  if (!octagonStatus)
+  if (!octagonStatus || (v27 = octagonStatus, -[CKKSDeviceStateEntry octagonStatus](self, "octagonStatus"), v28 = objc_claimAutoreleasedReturnValue(), [v28 status], OTCliqueStatusToString(), v29 = objc_claimAutoreleasedReturnValue(), v28, v27, !v29))
   {
-    goto LABEL_21;
-  }
-
-  v27 = octagonStatus;
-  octagonStatus2 = [(CKKSDeviceStateEntry *)self octagonStatus];
-  [octagonStatus2 status];
-  v29 = OTCliqueStatusToString();
-
-  if (!v29)
-  {
-LABEL_21:
     v29 = +[NSNull null];
   }
 
@@ -1547,6 +1537,23 @@ LABEL_7:
 LABEL_8:
 
   return v5;
+}
+
+- (id)sosCCStatusToCKType:(int)type
+{
+  if (type == -1)
+  {
+    *&type = 111;
+  }
+
+  else
+  {
+    *&type = type;
+  }
+
+  v3 = [NSNumber numberWithInt:*&type];
+
+  return v3;
 }
 
 - (id)initForDevice:(id)device contextID:(id)d osVersion:(id)version lastUnlockTime:(id)time octagonPeerID:(id)iD octagonStatus:(id)status circlePeerID:(id)peerID circleStatus:(int)self0 keyState:(id)self1 currentTLKUUID:(id)self2 currentClassAUUID:(id)self3 currentClassCUUID:(id)self4 zoneID:(id)self5 encodedCKRecord:(id)self6

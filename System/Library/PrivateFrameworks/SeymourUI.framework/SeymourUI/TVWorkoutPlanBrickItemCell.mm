@@ -12,7 +12,7 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC9SeymourUI26TVWorkoutPlanBrickItemCell_buttonStackView);
   selfCopy = self;
   arrangedSubviews = [v2 arrangedSubviews];
-  sub_20B51C88C(0, &qword_27C762910);
+  sub_20B51C88C(0, &qword_27C762910, 0x277D75D18);
   v5 = sub_20C13CC74();
 
   if (v5 >> 62)
@@ -33,12 +33,12 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC9SeymourUI26TVWorkoutPlanBrickItemCell_buttonStackView);
   selfCopy = self;
   arrangedSubviews = [v2 arrangedSubviews];
-  sub_20B51C88C(0, &qword_27C762910);
+  sub_20B51C88C(0, &qword_27C762910, 0x277D75D18);
   v5 = sub_20C13CC74();
 
   sub_20BEF6C24(v5);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v6 = sub_20C13CC54();
 
   return v6;

@@ -25,19 +25,7 @@
       identifier2 = [(QLToolbarButtonItemRepresentation *)v5 identifier];
       v8 = [identifier isEqualToString:identifier2];
 
-      if (!v8)
-      {
-        goto LABEL_7;
-      }
-
-      action = [(QLToolbarButtonItemRepresentation *)self action];
-      if (action != [(QLToolbarButtonItemRepresentation *)v5 action])
-      {
-        goto LABEL_7;
-      }
-
-      placement = [(QLToolbarButtonItemRepresentation *)self placement];
-      if (placement == [(QLToolbarButtonItemRepresentation *)v5 placement]&& ([(QLToolbarButtonItemRepresentation *)self target], v11 = objc_claimAutoreleasedReturnValue(), [(QLToolbarButtonItemRepresentation *)v5 target], v12 = objc_claimAutoreleasedReturnValue(), v12, v11, v11 == v12))
+      if (v8 && (v9 = [(QLToolbarButtonItemRepresentation *)self action], v9 == [(QLToolbarButtonItemRepresentation *)v5 action]) && (v10 = [(QLToolbarButtonItemRepresentation *)self placement], v10 == [(QLToolbarButtonItemRepresentation *)v5 placement]) && ([(QLToolbarButtonItemRepresentation *)self target], v11 = objc_claimAutoreleasedReturnValue(), [(QLToolbarButtonItemRepresentation *)v5 target], v12 = objc_claimAutoreleasedReturnValue(), v12, v11, v11 == v12))
       {
         originalButton = [(QLToolbarButtonItemRepresentation *)self originalButton];
         originalButton2 = [(QLToolbarButtonItemRepresentation *)v5 originalButton];
@@ -56,7 +44,6 @@
 
       else
       {
-LABEL_7:
         v13 = 0;
       }
     }

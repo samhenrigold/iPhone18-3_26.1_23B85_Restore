@@ -1,5 +1,4 @@
 @interface ARCoachingTransformations
-+ (__n128)translate:;
 + (__n64)rotate:(float)rotate axis:(float32x4_t)axis;
 + (double)lookAt:(float32x4_t)at center:(float32x4_t)center up:(float32x4_t)up;
 + (float)perspective_fov:(float)perspective_fov aspect:near:far:;
@@ -7,14 +6,6 @@
 @end
 
 @implementation ARCoachingTransformations
-
-+ (__n128)translate:
-{
-  result = *MEMORY[0x277D860B8];
-  v1 = *(MEMORY[0x277D860B8] + 16);
-  v2 = *(MEMORY[0x277D860B8] + 32);
-  return result;
-}
 
 + (__n64)rotate:(float)rotate axis:(float32x4_t)axis
 {

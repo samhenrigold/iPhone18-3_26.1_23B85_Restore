@@ -36,7 +36,7 @@
 
   sub_10023AAE8(v6);
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_import:(id)books_import
@@ -69,7 +69,7 @@
   [v6 requestPrimaryScene:v8];
   _Block_release(v8);
 
-  sub_100007840(v10, &unk_100AD5B40);
+  sub_100007840(v10, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_aboutKeyboardShortcuts:(id)shortcuts
@@ -90,7 +90,7 @@
 
   sub_10023D4B0();
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_aboutTermsAndConditions:(id)conditions
@@ -111,12 +111,12 @@
   v3 = sub_10079AE04();
   sub_10079ADD4();
 
-  sub_100007840(v4, &unk_100AD5B40);
+  sub_100007840(v4, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_aboutServicesAndSupport:(id)support
 {
-  v4 = sub_1001F1160(&qword_100AD67D0);
+  v4 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v4 - 8);
   v6 = v10 - v5;
   if (support)
@@ -140,7 +140,7 @@
   *(v9 + 24) = &protocol witness table for MainActor;
   sub_1003457A0(0, 0, v6, &unk_100812EA8, v9);
 
-  sub_100007840(v10, &unk_100AD5B40);
+  sub_100007840(v10, &unk_100AD5B40, &unk_100811300);
 }
 
 - (BKAppGlobalActionHandler)init

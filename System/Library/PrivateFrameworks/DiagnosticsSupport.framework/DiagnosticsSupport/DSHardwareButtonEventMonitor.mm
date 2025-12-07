@@ -78,7 +78,7 @@
 
 void __61__DSHardwareButtonEventMonitor_startWithPriority_completion___block_invoke(uint64_t a1)
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained && !WeakRetained[1])
@@ -88,39 +88,31 @@ void __61__DSHardwareButtonEventMonitor_startWithPriority_completion___block_inv
     v6 = v3[6];
     v3[6] = v5;
 
-    v7 = *MEMORY[0x277CBECE8];
     v3[1] = IOHIDEventSystemClientCreateWithType();
-    v21[0] = @"PrimaryUsagePage";
-    v21[1] = @"PrimaryUsage";
-    v22[0] = &unk_285B95B08;
-    v22[1] = &unk_285B95B20;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
-    v19[0] = @"PrimaryUsagePage";
-    v19[1] = @"PrimaryUsage";
-    v20[0] = &unk_285B95B38;
-    v20[1] = &unk_285B95B50;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-    v10 = v3[1];
-    v18[0] = v8;
-    v18[1] = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v14[0] = @"PrimaryUsagePage";
+    v14[1] = @"PrimaryUsage";
+    v15[0] = &unk_285B95B08;
+    v15[1] = &unk_285B95B20;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v12[0] = @"PrimaryUsagePage";
+    v12[1] = @"PrimaryUsage";
+    v13[0] = &unk_285B95B38;
+    v13[1] = &unk_285B95B50;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = v7;
+    v11[1] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     IOHIDEventSystemClientSetMatchingMultiple();
 
-    v12 = v3[1];
-    v13 = v3[6];
     IOHIDEventSystemClientScheduleWithDispatchQueue();
-    v14 = v3[1];
-    v15 = *(a1 + 48);
     IOHIDEventSystemClientRegisterEventFilterCallbackWithPriority();
   }
 
-  v16 = *(a1 + 32);
-  if (v16)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v16 + 16))();
+    (*(v10 + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopWithCompletion:(id)completion
@@ -176,12 +168,11 @@ uint64_t __51__DSHardwareButtonEventMonitor_stopWithCompletion___block_invoke_2(
     v3 = WeakRetained[1];
     if (v3)
     {
-      v6 = v2;
+      v5 = v2;
       MEMORY[0x24C1E6830](v3, v2[6]);
-      v4 = v6[1];
       IOHIDEventSystemClientUnregisterEventFilterCallback();
-      CFRelease(v6[1]);
-      v6[1] = 0;
+      CFRelease(v5[1]);
+      v5[1] = 0;
     }
   }
 
@@ -293,57 +284,8 @@ void __78__DSHardwareButtonEventMonitor_removeTarget_action_forButtonEvents_prop
 
 - (id)_handlersForTarget:(id)target
 {
-  v22 = *MEMORY[0x277D85DE8];
-  targetCopy = target;
-  v5 = [MEMORY[0x277CBEB58] set];
-  eventHandlerChangeLock = [(DSHardwareButtonEventMonitor *)self eventHandlerChangeLock];
-  [eventHandlerChangeLock lock];
-
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  buttonEventHandlers = [(DSHardwareButtonEventMonitor *)self buttonEventHandlers];
-  v8 = [buttonEventHandlers countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v18;
-    do
-    {
-      for (i = 0; i != v9; ++i)
-      {
-        if (*v18 != v10)
-        {
-          objc_enumerationMutation(buttonEventHandlers);
-        }
-
-        v12 = *(*(&v17 + 1) + 8 * i);
-        target = [v12 target];
-
-        if (target == targetCopy)
-        {
-          [v5 addObject:v12];
-        }
-      }
-
-      v9 = [buttonEventHandlers countByEnumeratingWithState:&v17 objects:v21 count:16];
-    }
-
-    while (v9);
-  }
-
-  eventHandlerChangeLock2 = [(DSHardwareButtonEventMonitor *)self eventHandlerChangeLock];
-  [eventHandlerChangeLock2 unlock];
-
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v5;
-}
-
-- (id)_handlersForEvent:(unint64_t)event
-{
   v21 = *MEMORY[0x277D85DE8];
+  targetCopy = target;
   v5 = [MEMORY[0x277CBEB58] set];
   eventHandlerChangeLock = [(DSHardwareButtonEventMonitor *)self eventHandlerChangeLock];
   [eventHandlerChangeLock lock];
@@ -368,7 +310,9 @@ void __78__DSHardwareButtonEventMonitor_removeTarget_action_forButtonEvents_prop
         }
 
         v12 = *(*(&v16 + 1) + 8 * i);
-        if (([v12 events] & event) != 0)
+        target = [v12 target];
+
+        if (target == targetCopy)
         {
           [v5 addObject:v12];
         }
@@ -383,35 +327,78 @@ void __78__DSHardwareButtonEventMonitor_removeTarget_action_forButtonEvents_prop
   eventHandlerChangeLock2 = [(DSHardwareButtonEventMonitor *)self eventHandlerChangeLock];
   [eventHandlerChangeLock2 unlock];
 
-  v14 = *MEMORY[0x277D85DE8];
+  return v5;
+}
+
+- (id)_handlersForEvent:(unint64_t)event
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v5 = [MEMORY[0x277CBEB58] set];
+  eventHandlerChangeLock = [(DSHardwareButtonEventMonitor *)self eventHandlerChangeLock];
+  [eventHandlerChangeLock lock];
+
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  buttonEventHandlers = [(DSHardwareButtonEventMonitor *)self buttonEventHandlers];
+  v8 = [buttonEventHandlers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v16;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v16 != v10)
+        {
+          objc_enumerationMutation(buttonEventHandlers);
+        }
+
+        v12 = *(*(&v15 + 1) + 8 * i);
+        if (([v12 events] & event) != 0)
+        {
+          [v5 addObject:v12];
+        }
+      }
+
+      v9 = [buttonEventHandlers countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v9);
+  }
+
+  eventHandlerChangeLock2 = [(DSHardwareButtonEventMonitor *)self eventHandlerChangeLock];
+  [eventHandlerChangeLock2 unlock];
 
   return v5;
 }
 
 - (BOOL)_triggerHandlers:(id)handlers event:(unint64_t)event
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = handlers;
-  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
     preventPropagation = 0;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         targetQueue = [(DSHardwareButtonEventMonitor *)self targetQueue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
@@ -432,7 +419,7 @@ void __78__DSHardwareButtonEventMonitor_removeTarget_action_forButtonEvents_prop
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -443,7 +430,6 @@ void __78__DSHardwareButtonEventMonitor_removeTarget_action_forButtonEvents_prop
     preventPropagation = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return preventPropagation;
 }
 

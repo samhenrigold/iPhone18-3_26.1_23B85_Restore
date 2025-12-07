@@ -320,9 +320,11 @@ LABEL_15:
 
 uint64_t __38__PXMemoriesTitleHelper_defaultHelper__block_invoke()
 {
-  defaultHelper_defaultHelper = objc_alloc_init(PXMemoriesTitleHelper);
+  v0 = objc_alloc_init(PXMemoriesTitleHelper);
+  v1 = defaultHelper_defaultHelper;
+  defaultHelper_defaultHelper = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

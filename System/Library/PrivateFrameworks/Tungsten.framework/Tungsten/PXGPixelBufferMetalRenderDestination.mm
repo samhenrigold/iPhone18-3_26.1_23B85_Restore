@@ -215,9 +215,9 @@
     textureCache = self->_textureCache;
     v8 = self->_pixelBuffer;
     colorPixelFormat = [(PXGPixelBufferMetalRenderDestination *)self colorPixelFormat];
-    [(PXGPixelBufferMetalRenderDestination *)self renderSize];
+    objc_msgSend_renderSize(self);
     v11 = v10;
-    [(PXGPixelBufferMetalRenderDestination *)self renderSize];
+    objc_msgSend_renderSize(self);
     if (CVMetalTextureCacheCreateTextureFromImage(v3, textureCache, v8, 0, colorPixelFormat, v11, v12, 0, &self->_cvMetalTexture))
     {
       v13 = PXAssertGetLog();

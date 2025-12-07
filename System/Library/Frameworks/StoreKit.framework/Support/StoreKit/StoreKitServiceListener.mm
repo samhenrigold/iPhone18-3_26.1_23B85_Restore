@@ -130,7 +130,7 @@
         v24 = qword_1003CB910;
         if (os_log_type_enabled(qword_1003CB910, OS_LOG_TYPE_ERROR))
         {
-          sub_1002CFAF4(lib_logUUID, v24);
+          sub_1002CFAF4(lib_logUUID, v24, v15);
         }
       }
 
@@ -483,31 +483,31 @@ LABEL_31:
     sub_1002CFA44();
   }
 
-  v7 = qword_1003CB918;
+  v8 = qword_1003CB918;
   if (os_log_type_enabled(qword_1003CB918, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v7;
-    *v16 = 138543874;
-    *&v16[4] = objc_opt_class();
-    *&v16[12] = 2114;
-    *&v16[14] = keyCopy;
-    *&v16[22] = 2114;
-    v17 = dCopy;
-    v9 = *&v16[4];
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@]: Marking cache stale in response to push for client: %{public}@", v16, 0x20u);
+    v9 = v8;
+    *v17 = 138543874;
+    *&v17[4] = objc_opt_class();
+    *&v17[12] = 2114;
+    *&v17[14] = keyCopy;
+    *&v17[22] = 2114;
+    v18 = dCopy;
+    v10 = *&v17[4];
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@]: Marking cache stale in response to push for client: %{public}@", v17, 0x20u);
   }
 
-  if (![LoadUnfinishedInAppTransactionsTask invalidateCacheForBundleID:dCopy withLogKey:keyCopy, *v16, *&v16[16], v17])
+  if (![LoadUnfinishedInAppTransactionsTask invalidateCacheForBundleID:dCopy withLogKey:keyCopy, *v17, *&v17[8], v18])
   {
     if (qword_1003D44F8 != -1)
     {
       sub_1002CFA58();
     }
 
-    v10 = qword_1003CB918;
+    v11 = qword_1003CB918;
     if (os_log_type_enabled(qword_1003CB918, OS_LOG_TYPE_ERROR))
     {
-      sub_1002D006C(v10);
+      sub_1002D006C(v11, self);
     }
   }
 
@@ -516,21 +516,21 @@ LABEL_31:
     sub_1002CFA58();
   }
 
-  v11 = qword_1003CB918;
+  v12 = qword_1003CB918;
   if (os_log_type_enabled(qword_1003CB918, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
-    v13 = objc_opt_class();
-    *v16 = 138543618;
-    *&v16[4] = v13;
-    *&v16[12] = 2114;
-    *&v16[14] = keyCopy;
-    v14 = v13;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@]: Sending unfinished transactions notification in response to push", v16, 0x16u);
+    v13 = v12;
+    v14 = objc_opt_class();
+    *v17 = 138543618;
+    *&v17[4] = v14;
+    *&v17[12] = 2114;
+    *&v17[14] = keyCopy;
+    v15 = v14;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@]: Sending unfinished transactions notification in response to push", v17, 0x16u);
   }
 
-  v15 = sub_100039F90(dCopy);
-  notify_post([v15 UTF8String]);
+  v16 = sub_100039F90(dCopy);
+  notify_post([v16 UTF8String]);
 }
 
 - (void)_syncReceiptsForClient:(_TtC9storekitd6Client *)client completionHandler:(id)handler

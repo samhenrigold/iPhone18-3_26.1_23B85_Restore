@@ -10,53 +10,53 @@
   if (!self->_inflated)
   {
     self->_inflated = 1;
-    v7 = objc_msgSend_pageLayout(self, a2, v2, v3, v4, v5);
-    objc_msgSend_inflateFootnotesInFootnoteContainer_(v7, v8, v9, v10, v11, v12, self);
+    v11 = objc_msgSend_pageLayout(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+    objc_msgSend_inflateFootnotesInFootnoteContainer_(v11, v12, v16, v17, v18, v19, self, v13, v14, v15);
   }
 
-  v13.receiver = self;
-  v13.super_class = TPInflatableFootnoteContainerLayout;
-  [(TPFootnoteContainerLayout *)&v13 validate];
+  v20.receiver = self;
+  v20.super_class = TPInflatableFootnoteContainerLayout;
+  [(TPFootnoteContainerLayout *)&v20 validate];
 }
 
 - (id)computeLayoutGeometry
 {
-  v42.receiver = self;
-  v42.super_class = TPInflatableFootnoteContainerLayout;
-  computeLayoutGeometry = [(TPFootnoteContainerLayout *)&v42 computeLayoutGeometry];
-  v10 = objc_msgSend_pageLayout(self, v4, v5, v6, v7, v8);
-  if (v10)
+  v58.receiver = self;
+  v58.super_class = TPInflatableFootnoteContainerLayout;
+  computeLayoutGeometry = [(TPFootnoteContainerLayout *)&v58 computeLayoutGeometry];
+  v18 = objc_msgSend_pageLayout(self, v4, v9, v10, v11, v12, v5, v6, v7, v8);
+  if (v18)
   {
-    objc_msgSend_frame(computeLayoutGeometry, v9, v11, v12, v13, v14);
-    v16 = v15;
-    v18 = v17;
-    v20 = v19.n128_f64[0];
-    v22 = v21.n128_f64[0];
-    v23.n128_u64[0] = v19.n128_u64[0];
-    v24.n128_u64[0] = v21.n128_u64[0];
-    objc_msgSend_footnoteContainerFrameWithSize_(v10, v25, v23, v24, v19, v21);
-    v27 = v26;
-    v29 = v28;
-    v31 = v30;
-    v33 = v32;
-    v44.origin.x = v16;
-    v44.origin.y = v18;
-    v44.size.width = v20;
-    v44.size.height = v22;
-    v45.origin.x = v27;
-    v45.origin.y = v29;
-    v45.size.width = v31;
-    v45.size.height = v33;
-    if (!CGRectEqualToRect(v44, v45))
+    objc_msgSend_frame(computeLayoutGeometry, v13, v19, v20, v21, v22, v14, v15, v16, v17);
+    v24 = v23;
+    v26 = v25;
+    v28 = v27.n128_f64[0];
+    v30 = v29.n128_f64[0];
+    v31.n128_u64[0] = v27.n128_u64[0];
+    v32.n128_u64[0] = v29.n128_u64[0];
+    objc_msgSend_footnoteContainerFrameWithSize_(v18, v33, v31, v32, v27, v29, v34, v35, v36, v37);
+    v39 = v38;
+    v41 = v40;
+    v43 = v42;
+    v45 = v44;
+    v60.origin.x = v24;
+    v60.origin.y = v26;
+    v60.size.width = v28;
+    v60.size.height = v30;
+    v61.origin.x = v39;
+    v61.origin.y = v41;
+    v61.size.width = v43;
+    v61.size.height = v45;
+    if (!CGRectEqualToRect(v60, v61))
     {
-      v34 = objc_alloc(MEMORY[0x277D80300]);
-      v35.n128_f64[0] = v27;
-      v36.n128_f64[0] = v29;
-      v37.n128_f64[0] = v31;
-      v38.n128_f64[0] = v33;
-      v40 = objc_msgSend_initWithFrame_(v34, v39, v35, v36, v37, v38);
+      v46 = objc_alloc(MEMORY[0x277D80300]);
+      v47.n128_f64[0] = v39;
+      v48.n128_f64[0] = v41;
+      v49.n128_f64[0] = v43;
+      v50.n128_f64[0] = v45;
+      v56 = objc_msgSend_initWithFrame_(v46, v51, v47, v48, v49, v50, v52, v53, v54, v55);
 
-      computeLayoutGeometry = v40;
+      computeLayoutGeometry = v56;
     }
   }
 

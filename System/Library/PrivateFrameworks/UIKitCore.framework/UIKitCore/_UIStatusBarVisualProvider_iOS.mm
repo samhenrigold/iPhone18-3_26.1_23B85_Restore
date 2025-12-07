@@ -85,7 +85,7 @@ LABEL_10:
   {
     if (!textColor)
     {
-      v10 = +[UIColor blackColor];
+      v10 = objc_msgSend_blackColor(UIColor);
       [v5 setTextColor:v10];
     }
 
@@ -93,7 +93,7 @@ LABEL_10:
 
     if (!imageTintColor2)
     {
-      v9 = +[UIColor blackColor];
+      v9 = objc_msgSend_blackColor(UIColor);
       goto LABEL_10;
     }
   }
@@ -326,7 +326,7 @@ LABEL_14:
 - (id)displayItemIdentifiersForPartWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqual:@"batteryPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v4 = MEMORY[0x1E695DFD8];
     v5 = +[_UIStatusBarBatteryItem staticIconDisplayIdentifier];
@@ -338,21 +338,21 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ([identifierCopy isEqual:@"backNavigationPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v4 = MEMORY[0x1E695DFD8];
     v5 = +[(_UIStatusBarItem *)_UIStatusBarNavigationItem];
     goto LABEL_7;
   }
 
-  if ([identifierCopy isEqual:@"clockPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v4 = MEMORY[0x1E695DFD8];
     v5 = +[_UIStatusBarTimeItem shortTimeDisplayIdentifier];
     goto LABEL_7;
   }
 
-  if ([identifierCopy isEqual:@"dateAndTimePartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v9 = MEMORY[0x1E695DFD8];
     v6 = +[_UIStatusBarTimeItem shortTimeDisplayIdentifier];
@@ -364,9 +364,9 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  v12 = [identifierCopy isEqual:@"lockPartIdentifier"];
+  isEqual = objc_msgSend_isEqual_(identifierCopy);
   v13 = MEMORY[0x1E695DFD8];
-  if (v12)
+  if (isEqual)
   {
     v6 = +[(_UIStatusBarItem *)_UIStatusBarLockItem];
     v10 = +[_UIStatusBarLockItem textDisplayIdentifier];

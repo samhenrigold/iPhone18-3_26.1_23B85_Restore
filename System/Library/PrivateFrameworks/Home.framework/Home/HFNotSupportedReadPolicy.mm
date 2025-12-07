@@ -44,8 +44,8 @@ LABEL_6:
   {
   }
 
-  service = [characteristicCopy service];
-  accessory = [service accessory];
+  v13 = objc_msgSend_service(characteristicCopy);
+  accessory = [v13 accessory];
   isAdditionalSetupRequired = [accessory isAdditionalSetupRequired];
 
   if (isAdditionalSetupRequired)
@@ -64,46 +64,26 @@ LABEL_6:
 
 - (BOOL)_requiresNotificationsForCharacteristic:(id)characteristic
 {
-  v18[6] = *MEMORY[0x277D85DE8];
+  v17[6] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
-  service = [characteristicCopy service];
-  serviceType = [service serviceType];
+  v4 = objc_msgSend_service(characteristicCopy);
+  serviceType = [v4 serviceType];
   v6 = [serviceType isEqualToString:*MEMORY[0x277CD0DD0]];
 
-  if (v6)
+  if (v6 & 1) != 0 || (v7 = *MEMORY[0x277CCF7D0], v17[0] = *MEMORY[0x277CCF780], v17[1] = v7, v8 = *MEMORY[0x277CCF928], v17[2] = *MEMORY[0x277CCF930], v17[3] = v8, v9 = *MEMORY[0x277CCFA48], v17[4] = *MEMORY[0x277CCFAD0], v17[5] = v9, [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:6], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(characteristicCopy, "characteristicType"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "containsObject:", v11), v11, v10, (v12))
   {
-    goto LABEL_3;
-  }
-
-  v7 = *MEMORY[0x277CCF7D0];
-  v18[0] = *MEMORY[0x277CCF780];
-  v18[1] = v7;
-  v8 = *MEMORY[0x277CCF928];
-  v18[2] = *MEMORY[0x277CCF930];
-  v18[3] = v8;
-  v9 = *MEMORY[0x277CCFA48];
-  v18[4] = *MEMORY[0x277CCFAD0];
-  v18[5] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:6];
-  characteristicType = [characteristicCopy characteristicType];
-  v12 = [v10 containsObject:characteristicType];
-
-  if (v12)
-  {
-LABEL_3:
     v13 = 0;
   }
 
   else
   {
     v14 = *MEMORY[0x277CCF8E8];
-    characteristicType2 = [characteristicCopy characteristicType];
-    LOBYTE(v14) = [v14 isEqualToString:characteristicType2];
+    characteristicType = [characteristicCopy characteristicType];
+    LOBYTE(v14) = [v14 isEqualToString:characteristicType];
 
     v13 = v14 ^ 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

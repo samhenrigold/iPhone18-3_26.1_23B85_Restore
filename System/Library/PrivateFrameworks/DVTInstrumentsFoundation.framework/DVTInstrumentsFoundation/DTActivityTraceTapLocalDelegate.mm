@@ -49,7 +49,7 @@
 
 - (id)validateConfig
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   predicateString = [(DTActivityTraceTapConfig *)self->_config predicateString];
   v4 = predicateString;
   if (predicateString && ([predicateString isEqualToString:&stru_285A19CB8] & 1) == 0)
@@ -63,10 +63,10 @@
       goto LABEL_5;
     }
 
-    v22 = [DTTapStatusMemo alloc];
+    v21 = [DTTapStatusMemo alloc];
     v5 = @"Internal error contains no diagnostics";
     v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Predicate supplied to logging system appears invalid. %@.", @"Internal error contains no diagnostics"];
-    v6 = [(DTTapStatusMemo *)v22 initWithStatus:2147484148 notice:v4];
+    v6 = [(DTTapStatusMemo *)v21 initWithStatus:2147484148 notice:v4];
   }
 
   else
@@ -81,31 +81,31 @@ LABEL_5:
     v7 = SecTaskCreateFromSelf(0);
     if (v7)
     {
-      v23 = v5;
+      v22 = v5;
       cf = v7;
       error = 0;
       v8 = SecTaskCopyValuesForEntitlements(v7, &unk_285A36A08, &error);
       if (v8)
       {
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
-        v9 = [&unk_285A36A20 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
+        v9 = [&unk_285A36A20 countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (v9)
         {
-          v10 = *v26;
+          v10 = *v25;
           v11 = MEMORY[0x277CBEC38];
           while (2)
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v26 != v10)
+              if (*v25 != v10)
               {
                 objc_enumerationMutation(&unk_285A36A20);
               }
 
-              v13 = *(*(&v25 + 1) + 8 * i);
+              v13 = *(*(&v24 + 1) + 8 * i);
               v14 = [(__CFDictionary *)v8 objectForKeyedSubscript:v13];
               v15 = [v14 isEqual:v11];
 
@@ -120,7 +120,7 @@ LABEL_5:
               }
             }
 
-            v9 = [&unk_285A36A20 countByEnumeratingWithState:&v25 objects:v30 count:16];
+            v9 = [&unk_285A36A20 countByEnumeratingWithState:&v24 objects:v29 count:16];
             if (v9)
             {
               continue;
@@ -134,11 +134,9 @@ LABEL_20:
       }
 
       CFRelease(cf);
-      v5 = v23;
+      v5 = v22;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -315,7 +313,7 @@ LABEL_20:
 
 - (void)start
 {
-  v82[1] = *MEMORY[0x277D85DE8];
+  v81[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   dock = self->_dock;
   self->_dock = v3;
@@ -336,12 +334,12 @@ LABEL_20:
   {
     v12 = MEMORY[0x277CCAC30];
     predicateString2 = [(DTActivityTraceTapConfig *)self->_config predicateString];
-    v70 = [v12 predicateWithFormat:predicateString2];
+    v69 = [v12 predicateWithFormat:predicateString2];
   }
 
   else
   {
-    v70 = 0;
+    v69 = 0;
   }
 
   if ([(DTActivityTraceTapConfig *)self->_config onlySignposts])
@@ -383,8 +381,8 @@ LABEL_20:
 
   mode = [(DTActivityTraceTapConfig *)self->_config mode];
   config = self->_config;
-  v67 = v16;
-  v68 = v14;
+  v66 = v16;
+  v67 = v14;
   if (mode)
   {
     mode2 = [(DTActivityTraceTapConfig *)config mode];
@@ -394,7 +392,7 @@ LABEL_20:
       v21 = 3;
     }
 
-    v66 = v21;
+    v65 = v21;
     processDetectionCallback = [(DTActivityTraceTapConfig *)self->_config processDetectionCallback];
     [(DTActivityTraceTapLocalShuttle *)self->_shuttle setProcessDetectionCallback:processDetectionCallback];
   }
@@ -414,15 +412,15 @@ LABEL_20:
 
         break;
       case 0:
-        v66 = 1;
+        v65 = 1;
         goto LABEL_28;
     }
 
-    v66 = 0;
+    v65 = 0;
   }
 
 LABEL_28:
-  v65 = [DTOSLogLoaderConfiguration alloc];
+  v64 = [DTOSLogLoaderConfiguration alloc];
   enableBacktraceReplacement = [(DTActivityTraceTapConfig *)self->_config enableBacktraceReplacement];
   machTimebase = [(DTActivityTraceTapConfig *)self->_config machTimebase];
   machContinuousStart = [(DTActivityTraceTapConfig *)self->_config machContinuousStart];
@@ -433,21 +431,21 @@ LABEL_28:
   dynamicTracingEnabledSubsystems = [(DTActivityTraceTapConfig *)self->_config dynamicTracingEnabledSubsystems];
   loggingSubsystemCategoryPairsToEnable = [(DTActivityTraceTapConfig *)self->_config loggingSubsystemCategoryPairsToEnable];
   signpostSubsystemCategoryPairsToEnable = [(DTActivityTraceTapConfig *)self->_config signpostSubsystemCategoryPairsToEnable];
-  LOBYTE(v61) = processDetectionCallback2 != 0;
-  v32 = [(DTOSLogLoaderConfiguration *)v65 initWithFilterPredicate:v70 signpostConfig:v68 loaderExclusions:v67 columnInclusions:includeSenderInfo mode:v66 enableBacktraceReplacement:enableBacktraceReplacement machTimebase:machTimebase machContinuousStart:machContinuousStart importedFileURL:importedFileURL importForcedStartDate:importForcedStartDate importForcedEndDate:importForcedEndDate trackPidToExecNameMapping:v61 dynamicTracingEnabledSubsystems:dynamicTracingEnabledSubsystems logSubsystemCategoryPairsToEnable:loggingSubsystemCategoryPairsToEnable signpostSubsystemCategoryPairsToEnable:signpostSubsystemCategoryPairsToEnable];
+  LOBYTE(v60) = processDetectionCallback2 != 0;
+  v32 = [(DTOSLogLoaderConfiguration *)v64 initWithFilterPredicate:v69 signpostConfig:v67 loaderExclusions:v66 columnInclusions:includeSenderInfo mode:v65 enableBacktraceReplacement:enableBacktraceReplacement machTimebase:machTimebase machContinuousStart:machContinuousStart importedFileURL:importedFileURL importForcedStartDate:importForcedStartDate importForcedEndDate:importForcedEndDate trackPidToExecNameMapping:v60 dynamicTracingEnabledSubsystems:dynamicTracingEnabledSubsystems logSubsystemCategoryPairsToEnable:loggingSubsystemCategoryPairsToEnable signpostSubsystemCategoryPairsToEnable:signpostSubsystemCategoryPairsToEnable];
 
-  v69 = v32;
+  v68 = v32;
   [(DTActivityTraceTapLocalShuttle *)self->_shuttle setConfiguration:v32];
   if ([(DTActivityTraceTapConfig *)self->_config enableHTTPArchiveLogging])
   {
     objc_initWeak(&location, self);
     v33 = [[DVTDeviceGlobalStatusIndicatorConfiguration alloc] initWithTitle:@"HTTP Traffic is being recorded" informationText:@"Recordings of HTTP traffic can contain sensitive information. If you did not ask to record HTTP traffic, tap Stop Recording."];
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = sub_247FB8BA4;
-    v78[3] = &unk_278EF1238;
-    objc_copyWeak(&v79, &location);
-    v34 = [DVTDeviceGlobalStatusIndicatorFactory deviceStatusIndicatorWithConfiguration:v33 stoppedByUserBlock:v78];
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = sub_247FB8BA4;
+    v77[3] = &unk_278EF1238;
+    objc_copyWeak(&v78, &location);
+    v34 = [DVTDeviceGlobalStatusIndicatorFactory deviceStatusIndicatorWithConfiguration:v33 stoppedByUserBlock:v77];
     recordingStatusIndicator = self->_recordingStatusIndicator;
     self->_recordingStatusIndicator = v34;
 
@@ -455,7 +453,7 @@ LABEL_28:
     [(DTActivityTraceTapLocalDelegate *)self initializeHARTimer];
     [(DTActivityTraceTapLocalDelegate *)self updateHARLogPrefsWithIsEnabled:1];
     [(DTActivityTraceTapLocalDelegate *)self _setupHARDisabledByExternalClientNotifications];
-    objc_destroyWeak(&v79);
+    objc_destroyWeak(&v78);
 
     objc_destroyWeak(&location);
   }
@@ -475,9 +473,9 @@ LABEL_28:
 
     if ([(DTActivityTraceTapConfig *)self->_config isTargetAllProcesses])
     {
-      v77 = 0;
-      v37 = [MEMORY[0x277D3A0F8] startMonitoringSystemMetricsWithConfig:defaultConfiguration error:&v77];
-      v38 = v77;
+      v76 = 0;
+      v37 = [MEMORY[0x277D3A0F8] startMonitoringSystemMetricsWithConfig:defaultConfiguration error:&v76];
+      v38 = v76;
       if ((v37 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         sub_24802EDC0(v38);
@@ -489,11 +487,11 @@ LABEL_28:
       targetPID = [(DTActivityTraceTapConfig *)self->_config targetPID];
       v40 = MEMORY[0x277D3A0F8];
       v41 = [MEMORY[0x277CCABB0] numberWithInt:targetPID];
-      v82[0] = v41;
-      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:1];
-      v76 = 0;
-      v43 = [v40 startMonitoringProcessesWithPID:v42 config:defaultConfiguration error:&v76];
-      v38 = v76;
+      v81[0] = v41;
+      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:1];
+      v75 = 0;
+      v43 = [v40 startMonitoringProcessesWithPID:v42 config:defaultConfiguration error:&v75];
+      v38 = v75;
 
       if ((v43 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -504,30 +502,30 @@ LABEL_28:
 
   v44 = [DTTapStatusMemo alloc];
   v45 = [(DTTapStatusMemo *)v44 initWithStatus:DTActivityTraceTapDeviceTimeInfoMemoStatusCode | 0x90000000 notice:@"Time Mapping"];
-  v74 = 0;
-  info = 0;
-  v72 = 0;
   v73 = 0;
+  info = 0;
+  v71 = 0;
+  v72 = 0;
   location = 0;
   times = mach_get_times();
   if (!(times | mach_timebase_info(&info)))
   {
-    v80[0] = DTActivityTraceTapDeviceTimeIntervalSince1970Key;
-    location = [MEMORY[0x277CCABB0] numberWithDouble:v72 / 1000000000.0 + location];
-    v81[0] = location;
-    v80[1] = DTActivityTraceTapDeviceMachContinuousTimeKey;
-    v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v73];
-    v81[1] = v48;
-    v80[2] = DTActivityTraceTapDeviceMachAbsoluteTimeKey;
-    v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v74];
-    v81[2] = v49;
-    v80[3] = DTActivityTraceTapDeviceMachTimebaseNumeratorKey;
+    v79[0] = DTActivityTraceTapDeviceTimeIntervalSince1970Key;
+    location = [MEMORY[0x277CCABB0] numberWithDouble:v71 / 1000000000.0 + location];
+    v80[0] = location;
+    v79[1] = DTActivityTraceTapDeviceMachContinuousTimeKey;
+    v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v72];
+    v80[1] = v48;
+    v79[2] = DTActivityTraceTapDeviceMachAbsoluteTimeKey;
+    v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v73];
+    v80[2] = v49;
+    v79[3] = DTActivityTraceTapDeviceMachTimebaseNumeratorKey;
     v50 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:info.numer];
-    v81[3] = v50;
-    v80[4] = DTActivityTraceTapDeviceMachTimebaseDenominatorKey;
+    v80[3] = v50;
+    v79[4] = DTActivityTraceTapDeviceMachTimebaseDenominatorKey;
     v51 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:info.denom];
-    v81[4] = v51;
-    v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:5];
+    v80[4] = v51;
+    v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:5];
     [(DTTapStatusMemo *)v45 setInfo:v52];
 
     WeakRetained = objc_loadWeakRetained(&self->_tap);
@@ -561,8 +559,6 @@ LABEL_49:
       v59 = [v58 _handleStatusMemo:v57];
     }
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop

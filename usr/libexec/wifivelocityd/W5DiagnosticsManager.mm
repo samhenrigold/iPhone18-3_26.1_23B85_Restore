@@ -16,6 +16,7 @@
 - (id)__channelWeightsForChannel:(id)channel;
 - (id)__channelWeightsForScanResults:(id)results supportedChannels:(id)channels rssiThreshold:(int64_t)threshold;
 - (id)__defaultDiagnosticsTests;
+- (id)__downloadSpeedtestWithFileSize:(int)size timeout:(unint64_t)timeout error:(id *)error;
 - (id)__filteredChannelWeights:(id)weights channels:(id)channels;
 - (id)__occupiedChannelsForScanResults:(id)results supportedChannels:(id)channels rssiThreshold:(int64_t)threshold ignoreChannel:(id)channel;
 - (id)__only2GHzChannels:(id)channels;
@@ -96,6 +97,7 @@
 - (id)__testWiFiLink;
 - (id)__testWiFiNoScanResultsWithConfiguration:(id)configuration;
 - (id)__testiOSPersonalHotspotWithConfiguration:(id)configuration;
+- (id)__uploadSpeedtestWithFileSize:(int)size timeout:(unint64_t)timeout error:(id *)error;
 - (id)diagnosticsHistory;
 - (int64_t)__ipv4ConfigMethodForDescription:(id)description;
 - (int64_t)__ipv6ConfigMethodForDescription:(id)description;
@@ -120,44 +122,7 @@
   v14.receiver = self;
   v14.super_class = W5DiagnosticsManager;
   v6 = [(W5DiagnosticsManager *)&v14 init];
-  if (!v6)
-  {
-    goto LABEL_10;
-  }
-
-  v7 = dispatch_queue_create("com.apple.wifivelocity.diagnostics", 0);
-  *(v6 + 5) = v7;
-  if (!v7)
-  {
-    goto LABEL_10;
-  }
-
-  v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v9 = dispatch_queue_create("com.apple.wifivelocity.diagnostics.default-route", v8);
-  *(v6 + 11) = v9;
-  if (!v9)
-  {
-    goto LABEL_10;
-  }
-
-  dispatch_queue_set_specific(*(v6 + 5), v6 + 40, 1, 0);
-  if (!manager)
-  {
-    goto LABEL_10;
-  }
-
-  *(v6 + 1) = manager;
-  *(v6 + 2) = diagnosticsManager;
-  v10 = objc_alloc_init(NSMutableArray);
-  *(v6 + 6) = v10;
-  if (!v10)
-  {
-    goto LABEL_10;
-  }
-
-  v11 = objc_alloc_init(NSMutableDictionary);
-  *(v6 + 8) = v11;
-  if (v11 && (v12 = objc_alloc_init(NSDateFormatter), (*(v6 + 14) = v12) != 0))
+  if (v6 && (v7 = dispatch_queue_create("com.apple.wifivelocity.diagnostics", 0), (*(v6 + 5) = v7) != 0) && (v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v9 = dispatch_queue_create("com.apple.wifivelocity.diagnostics.default-route", v8), (*(v6 + 11) = v9) != 0) && (dispatch_queue_set_specific(*(v6 + 5), v6 + 40, 1, 0), manager) && (*(v6 + 1) = manager, *(v6 + 2) = diagnosticsManager, v10 = objc_alloc_init(NSMutableArray), (*(v6 + 6) = v10) != 0) && (v11 = objc_alloc_init(NSMutableDictionary), (*(v6 + 8) = v11) != 0) && (v12 = objc_alloc_init(NSDateFormatter), (*(v6 + 14) = v12) != 0))
   {
     [v12 setDateFormat:@"HH:mm:ss.SSS"];
     [v6 __resetNetworkServiceOrderFromFile];
@@ -165,7 +130,6 @@
 
   else
   {
-LABEL_10:
 
     return 0;
   }
@@ -4241,6 +4205,206 @@ LABEL_6:
   return v5;
 }
 
+- (id)__downloadSpeedtestWithFileSize:(int)size timeout:(unint64_t)timeout error:(id *)error
+{
+  v7 = *&size;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3052000000;
+  v38 = sub_10003D538;
+  v39 = sub_10003D548;
+  v40 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3052000000;
+  v32 = sub_10003D538;
+  v33 = sub_10003D548;
+  v34 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  if (sub_10004C0BC(0))
+  {
+    defaultConfiguration = [sub_1000461A8() defaultConfiguration];
+    [defaultConfiguration setInterfaceType:1];
+    [defaultConfiguration setDownloadSize:v7];
+    [defaultConfiguration setCollectMetadata:0];
+    v9 = [sub_100046294() performanceTestWithConfiguration:defaultConfiguration];
+    if (v9)
+    {
+      v10 = objc_alloc_init(NSLock);
+      v11 = dispatch_semaphore_create(0);
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_100046380;
+      v20[3] = &unk_1000E2840;
+      v20[6] = &v25;
+      v20[7] = &v21;
+      v20[8] = &v35;
+      v20[9] = &v29;
+      v20[4] = v10;
+      v20[5] = v11;
+      [v9 startDownloadWithCompletion:v20];
+      v12 = dispatch_time(0, 1000000000 * timeout);
+      if (dispatch_semaphore_wait(v11, v12))
+      {
+        [v10 lock];
+        if ((v22[3] & 1) == 0)
+        {
+          *(v26 + 24) = 1;
+          v45 = NSLocalizedFailureReasonErrorKey;
+          v46 = @"W5TimeoutErr";
+          v13 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:3 userInfo:[NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1]];
+          v30[5] = v13;
+        }
+
+        [v10 unlock];
+      }
+
+      v14 = v30[5];
+      v15 = v36[5];
+      if (error)
+      {
+        v16 = v30[5];
+        if (v16)
+        {
+          v17 = [v16 copy];
+LABEL_14:
+          *error = v17;
+        }
+      }
+    }
+
+    else if (error)
+    {
+      v43 = NSLocalizedFailureReasonErrorKey;
+      v44 = @"W5NotSupportedErr";
+      v17 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:4 userInfo:[NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1]];
+      goto LABEL_14;
+    }
+  }
+
+  else if (error)
+  {
+    v41 = NSLocalizedFailureReasonErrorKey;
+    v42 = @"W5NotSupportedErr";
+    v17 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:4 userInfo:[NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1]];
+    goto LABEL_14;
+  }
+
+  v18 = [v36[5] copy];
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v35, 8);
+  return v18;
+}
+
+- (id)__uploadSpeedtestWithFileSize:(int)size timeout:(unint64_t)timeout error:(id *)error
+{
+  v7 = *&size;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3052000000;
+  v38 = sub_10003D538;
+  v39 = sub_10003D548;
+  v40 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3052000000;
+  v32 = sub_10003D538;
+  v33 = sub_10003D548;
+  v34 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  if (sub_10004C0BC(0))
+  {
+    defaultConfiguration = [sub_1000461A8() defaultConfiguration];
+    [defaultConfiguration setInterfaceType:1];
+    [defaultConfiguration setUploadSize:v7];
+    [defaultConfiguration setCollectMetadata:0];
+    v9 = [sub_100046294() performanceTestWithConfiguration:defaultConfiguration];
+    if (v9)
+    {
+      v10 = objc_alloc_init(NSLock);
+      v11 = dispatch_semaphore_create(0);
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_10004682C;
+      v20[3] = &unk_1000E2840;
+      v20[6] = &v25;
+      v20[7] = &v21;
+      v20[8] = &v35;
+      v20[9] = &v29;
+      v20[4] = v10;
+      v20[5] = v11;
+      [v9 startUploadWithCompletion:v20];
+      v12 = dispatch_time(0, 1000000000 * timeout);
+      if (dispatch_semaphore_wait(v11, v12))
+      {
+        [v10 lock];
+        if ((v22[3] & 1) == 0)
+        {
+          *(v26 + 24) = 1;
+          v45 = NSLocalizedFailureReasonErrorKey;
+          v46 = @"W5TimeoutErr";
+          v13 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:3 userInfo:[NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1]];
+          v30[5] = v13;
+        }
+
+        [v10 unlock];
+      }
+
+      v14 = v30[5];
+      v15 = v36[5];
+      if (error)
+      {
+        v16 = v30[5];
+        if (v16)
+        {
+          v17 = [v16 copy];
+LABEL_14:
+          *error = v17;
+        }
+      }
+    }
+
+    else if (error)
+    {
+      v43 = NSLocalizedFailureReasonErrorKey;
+      v44 = @"W5NotSupportedErr";
+      v17 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:4 userInfo:[NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1]];
+      goto LABEL_14;
+    }
+  }
+
+  else if (error)
+  {
+    v41 = NSLocalizedFailureReasonErrorKey;
+    v42 = @"W5NotSupportedErr";
+    v17 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:4 userInfo:[NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1]];
+    goto LABEL_14;
+  }
+
+  v18 = [v36[5] copy];
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v35, 8);
+  return v18;
+}
+
 - (id)__testDownloadSpeedWithConfiguration:(id)configuration
 {
   v5 = objc_alloc_init(W5DiagnosticsTestResult);
@@ -5535,11 +5699,12 @@ LABEL_12:
     v6 = sub_100098A04();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138543618;
-      v24 = v5;
-      v25 = 2048;
+      v22 = 138543618;
+      v23 = v5;
+      v24 = 2048;
       testID = [test testID];
-      _os_log_send_and_compose_impl();
+      LODWORD(v21) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] EXCLUDING [%{public}@] (testID=%ld) via boot-arg!!!", &v22, v21);
     }
 
     return 0;
@@ -5551,15 +5716,14 @@ LABEL_12:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:+[NSDate date]];
-      v23 = 138543874;
-      v24 = v10;
-      v25 = 2114;
+      v22 = 138543874;
+      v23 = v10;
+      v24 = 2114;
       testID = [objc_msgSend(objc_msgSend(test "uuid")];
-      v27 = 2114;
-      v28 = v5;
-      LODWORD(v22) = 32;
-      v21 = &v23;
-      _os_log_send_and_compose_impl();
+      v26 = 2114;
+      v27 = v5;
+      LODWORD(v21) = 32;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %{public}@ [%{public}@] BEGIN   %{public}@", &v22, v21);
     }
 
     switch([test testID])
@@ -5786,19 +5950,20 @@ LABEL_75:
       v18 = v16 - v17;
       result = [v7 result];
       didPass = [v7 didPass];
-      v23 = 138544642;
-      v24 = v13;
-      v25 = 2114;
+      v22 = 138544642;
+      v23 = v13;
+      v24 = 2114;
       testID = v14;
-      v27 = 2114;
-      v28 = v5;
-      v29 = 2048;
-      v30 = v18;
-      v31 = 1024;
-      v32 = result;
-      v33 = 1024;
-      v34 = didPass;
-      _os_log_send_and_compose_impl();
+      v26 = 2114;
+      v27 = v5;
+      v28 = 2048;
+      v29 = v18;
+      v30 = 1024;
+      v31 = result;
+      v32 = 1024;
+      v33 = didPass;
+      LODWORD(v21) = 54;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %{public}@ [%{public}@] END     %{public}@, took %.6fs, result=%d, didPass=%d", &v22, v21);
     }
   }
 
@@ -5952,7 +6117,7 @@ LABEL_75:
   v22 = sub_10003D538;
   v23 = sub_10003D548;
   v24 = 0;
-  v7 = sub_10004C3EC();
+  v7 = sub_10004C3EC(0);
   if (timeout <= 2147483646 && address && v7)
   {
     v8 = dispatch_semaphore_create(0);

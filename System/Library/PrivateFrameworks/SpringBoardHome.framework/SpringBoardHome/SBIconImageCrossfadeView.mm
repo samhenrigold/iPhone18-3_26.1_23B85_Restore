@@ -36,7 +36,7 @@
   v52.receiver = self;
   v52.super_class = SBIconImageCrossfadeView;
   [(SBIconImageCrossfadeView *)&v52 layoutSubviews];
-  [(SBIconImageCrossfadeView *)self bounds];
+  objc_msgSend_bounds(self);
   rect.origin.y = v3;
   [(SBCrossfadingIconImageSource *)self->_iconImageSource visibleBounds];
   v47 = v5;
@@ -63,7 +63,7 @@
   v24 = v9 * v12;
   [(UIView *)self->_containerView setFrame:v19 + v22 * -0.5, v21 + v9 * v12 * -0.5, v22, v9 * v12];
   backgroundView = self->_backgroundView;
-  [(UIView *)self->_containerView bounds];
+  objc_msgSend_bounds(self->_containerView);
   [(UIView *)backgroundView setFrame:?];
   v53.origin.x = rect.origin.x;
   v53.origin.y = v47;
@@ -84,7 +84,7 @@
   height = rect.size.height;
   v29 = v24 * *&v49 + rect.size.width * v22;
   iconImageView = self->_iconImageView;
-  [(UIView *)self->_containerView bounds];
+  objc_msgSend_bounds(self->_containerView);
   UIRectGetCenter();
   [(UIView *)iconImageView setCenter:?];
   if (v29 > 0.0 && v24 * v27 + height * v22 > 0.0)
@@ -145,7 +145,7 @@ LABEL_18:
 
 LABEL_19:
   crossfadeContainerView = self->_crossfadeContainerView;
-  [(UIView *)self->_containerView bounds];
+  objc_msgSend_bounds(self->_containerView);
   UIRectGetCenter();
   [(UIView *)crossfadeContainerView setCenter:?];
   v43 = self->_crossfadeContainerView;
@@ -154,7 +154,7 @@ LABEL_19:
   v50 = *&v51.tx;
   [(UIView *)v43 setTransform:&rect.size];
   crossfadeView = self->_crossfadeView;
-  [(UIView *)self->_crossfadeContainerView bounds];
+  objc_msgSend_bounds(self->_crossfadeContainerView);
   UIRectGetCenter();
   [(UIView *)crossfadeView setCenter:?];
 }
@@ -162,12 +162,12 @@ LABEL_19:
 - (void)prepareGeometry
 {
   backgroundView = self->_backgroundView;
-  [(UIView *)self->_iconImageView bounds];
+  objc_msgSend_bounds(self->_iconImageView, a2);
   [(UIView *)backgroundView setFrame:?];
   [(SBCrossfadingIconImageSource *)self->_iconImageSource visibleBounds];
   v5 = v4;
   v7 = v6;
-  [(UIView *)self->_crossfadeView bounds];
+  objc_msgSend_bounds(self->_crossfadeView);
   if (v8 == 0.0)
   {
     v10 = 0.0;
@@ -265,7 +265,7 @@ LABEL_19:
 
     [(UIView *)v9->_containerView addSubview:v9->_iconImageView];
     v17 = [_containerViewClass alloc];
-    [viewCopy bounds];
+    objc_msgSend_bounds(viewCopy);
     v18 = [v17 initWithFrame:?];
     crossfadeContainerView = v9->_crossfadeContainerView;
     v9->_crossfadeContainerView = v18;

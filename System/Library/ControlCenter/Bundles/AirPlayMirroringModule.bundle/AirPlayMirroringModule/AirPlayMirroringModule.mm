@@ -35,7 +35,6 @@ uint64_t sub_29C951E1C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
-  v4 = *(a1 + 49);
   if (*(a1 + 48))
   {
     if ((*(a1 + 49) & 1) == 0)
@@ -83,7 +82,7 @@ void sub_29C952788(_Unwind_Exception *a1)
 
 void sub_29C9527A4(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!a2 && *(a1 + 40) == 1)
   {
@@ -95,14 +94,12 @@ void sub_29C9527A4(uint64_t a1, uint64_t a2)
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
       v9 = [MEMORY[0x29EDBA070] numberWithInteger:0];
-      v12 = 138543362;
-      v13 = v9;
-      _os_signpost_emit_with_name_impl(&dword_29C950000, v8, OS_SIGNPOST_EVENT, v6, "DismissedMirroringModuleUponStopMirroring", "EVENT DETAILS || destinationChangeResult:%{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_signpost_emit_with_name_impl(&dword_29C950000, v8, OS_SIGNPOST_EVENT, v6, "DismissedMirroringModuleUponStopMirroring", "EVENT DETAILS || destinationChangeResult:%{public}@", &v11, 0xCu);
     }
 
     v10 = [WeakRetained contentModuleContext];
     [v10 dismissModule];
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }

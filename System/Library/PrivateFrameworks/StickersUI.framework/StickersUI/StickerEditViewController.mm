@@ -79,7 +79,7 @@
 
   selfCopy = self;
   sub_26BA3D548(animated, v6, v7);
-  sub_26BA36050(v6);
+  sub_26BA36050(v6, v7);
 }
 
 - (void)handleLiveButton

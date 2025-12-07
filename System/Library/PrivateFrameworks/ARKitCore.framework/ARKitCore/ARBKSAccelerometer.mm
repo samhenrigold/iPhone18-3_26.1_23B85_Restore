@@ -45,10 +45,10 @@ void __47__ARBKSAccelerometer_sharedAccelerometerHandle__block_invoke()
 
 - (id)initPrivate
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = ARBKSAccelerometer;
-  v2 = [(ARBKSAccelerometer *)&v9 init];
+  v15 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = ARBKSAccelerometer;
+  v2 = [(ARBKSAccelerometer *)&v10 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -57,18 +57,18 @@ void __47__ARBKSAccelerometer_sharedAccelerometerHandle__block_invoke()
 
     [(BKSAccelerometer *)v2->_accelerometer setDelegate:v2];
     [(BKSAccelerometer *)v2->_accelerometer setOrientationEventsEnabled:1];
-    [(ARBKSAccelerometer *)v2 setPassive:0];
+    v5 = [(ARBKSAccelerometer *)v2 setPassive:0];
     v2->_lastValidDeviceOrientation = 3;
-    v5 = _ARLogGeneral_38();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _ARLogGeneral_38(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138543618;
-      v11 = v7;
-      v12 = 2048;
-      v13 = v2;
-      _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: init", buf, 0x16u);
+      v12 = v8;
+      v13 = 2048;
+      v14 = v2;
+      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: init", buf, 0x16u);
     }
   }
 
@@ -78,8 +78,7 @@ void __47__ARBKSAccelerometer_sharedAccelerometerHandle__block_invoke()
 - (void)dealloc
 {
   v11 = *MEMORY[0x1E69E9840];
-  [(BKSAccelerometer *)self->_accelerometer setOrientationEventsEnabled:0];
-  v3 = _ARLogGeneral_38();
+  v3 = _ARLogGeneral_38([(BKSAccelerometer *)self->_accelerometer setOrientationEventsEnabled:0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();

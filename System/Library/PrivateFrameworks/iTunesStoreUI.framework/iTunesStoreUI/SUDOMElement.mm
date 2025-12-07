@@ -36,7 +36,7 @@
   WebThreadLock();
   if (element)
   {
-    [element innerFrameQuad];
+    objc_msgSend_innerFrameQuad(element);
   }
 
   v4 = 0.0;

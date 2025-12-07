@@ -24,8 +24,8 @@
 
 - (NSString)sceneTitle
 {
-  configuration = [(MacPlacePhotoViewerRootViewController *)self->_rootViewController configuration];
-  mapItem = [configuration mapItem];
+  v2 = objc_msgSend_configuration(self->_rootViewController, a2);
+  mapItem = [v2 mapItem];
   name = [mapItem name];
 
   return name;

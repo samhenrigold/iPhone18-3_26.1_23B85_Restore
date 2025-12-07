@@ -6,6 +6,7 @@
 - (id)description;
 - (void)_onQueueResetReachabilityDependency;
 - (void)_onQueueRunReachabilityDependency;
+- (void)_onqueueSetNetworkReachability:(BOOL)reachability;
 - (void)setNetworkReachability:(BOOL)reachability;
 @end
 
@@ -166,6 +167,30 @@
     objc_destroyWeak(&v19);
     objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
+  }
+}
+
+- (void)_onqueueSetNetworkReachability:(BOOL)reachability
+{
+  reachabilityCopy = reachability;
+  queue = [(KTReachabilityTracker *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  LODWORD(queue) = [(KTReachabilityTracker *)self haveNetwork];
+  [(KTReachabilityTracker *)self setHaveNetwork:reachabilityCopy];
+  if (queue != [(KTReachabilityTracker *)self haveNetwork])
+  {
+    if ([(KTReachabilityTracker *)self haveNetwork])
+    {
+
+      [(KTReachabilityTracker *)self _onQueueRunReachabilityDependency];
+    }
+
+    else
+    {
+
+      [(KTReachabilityTracker *)self _onQueueResetReachabilityDependency];
+    }
   }
 }
 

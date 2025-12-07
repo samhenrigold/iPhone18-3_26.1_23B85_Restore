@@ -30,23 +30,24 @@
   v4 = *(&self->super.isa + OBJC_IVAR____TtCC5Music18DragDropControllerP33_A2D93B940709760920FE5612D029DD8B12DropDelegate_onDropSessionDidUpdate);
   if (v4)
   {
+    v7 = *&self->canHandleSession[OBJC_IVAR____TtCC5Music18DragDropControllerP33_A2D93B940709760920FE5612D029DD8B12DropDelegate_onDropSessionDidUpdate];
     interactionCopy = interaction;
     swift_unknownObjectRetain();
     selfCopy = self;
-    sub_100030444(v4);
-    v9 = v4(update);
-    sub_100020438(v4);
+    sub_100030444(v4, v7);
+    v10 = v4(update);
+    sub_100020438(v4, v7);
 
     swift_unknownObjectRelease();
-    v10 = v9;
+    v11 = v10;
   }
 
   else
   {
-    v10 = [objc_allocWithZone(UIDropProposal) initWithDropOperation:0];
+    v11 = [objc_allocWithZone(UIDropProposal) initWithDropOperation:0];
   }
 
-  return v10;
+  return v11;
 }
 
 @end

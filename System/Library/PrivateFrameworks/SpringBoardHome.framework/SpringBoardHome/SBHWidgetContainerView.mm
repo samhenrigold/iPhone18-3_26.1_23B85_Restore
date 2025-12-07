@@ -51,9 +51,9 @@
       [(UILabel *)v13 setFont:v14];
 
       v15 = self->_titleLabel;
-      v16 = SBHBundle();
-      v17 = [v16 localizedStringForKey:@"WIDGET_SCREENTIME_TIME_LIMIT_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-      [(UILabel *)v15 setText:v17];
+      v17 = SBHBundle(v16);
+      v18 = [v17 localizedStringForKey:@"WIDGET_SCREENTIME_TIME_LIMIT_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      [(UILabel *)v15 setText:v18];
 
       [(UILabel *)self->_titleLabel setTextAlignment:1];
       [(UILabel *)self->_titleLabel setAdjustsFontSizeToFitWidth:1];
@@ -63,42 +63,42 @@
       [(MTMaterialView *)self->_screenTimeLockoutView addSubview:self->_titleLabel];
     }
 
-    v18 = [SBHIconGridSizeClassSet alloc];
-    v19 = [MEMORY[0x1E695DFD8] setWithObjects:{@"SBHIconGridSizeClassMedium", @"SBHIconGridSizeClassLarge", @"SBHIconGridSizeClassExtraLarge", @"SBHIconGridSizeClassNewsLargeTall", 0}];
-    v20 = [(SBHIconGridSizeClassSet *)v18 initWithGridSizeClasses:v19];
+    v19 = [SBHIconGridSizeClassSet alloc];
+    v20 = [MEMORY[0x1E695DFD8] setWithObjects:{@"SBHIconGridSizeClassMedium", @"SBHIconGridSizeClassLarge", @"SBHIconGridSizeClassExtraLarge", @"SBHIconGridSizeClassNewsLargeTall", 0}];
+    v21 = [(SBHIconGridSizeClassSet *)v19 initWithGridSizeClasses:v20];
 
-    if ([(SBHIconGridSizeClassSet *)v20 containsGridSizeClass:self->_gridSizeClass]&& [(NSString *)self->_applicationName length])
+    if ([(SBHIconGridSizeClassSet *)v21 containsGridSizeClass:self->_gridSizeClass]&& (v22 = [(NSString *)self->_applicationName length]) != 0)
     {
       descriptionLabel = self->_descriptionLabel;
       if (!descriptionLabel)
       {
-        v22 = objc_alloc_init(MEMORY[0x1E69DCC10]);
-        v23 = self->_descriptionLabel;
-        self->_descriptionLabel = v22;
+        v24 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+        v25 = self->_descriptionLabel;
+        self->_descriptionLabel = v24;
 
-        v24 = self->_descriptionLabel;
-        v25 = [(SBHWidgetContainerView *)self _fontWithTextStyle:*MEMORY[0x1E69DDD28] symbolicTraits:0 maxSizeCategory:v8];
-        [(UILabel *)v24 setFont:v25];
+        v26 = self->_descriptionLabel;
+        v27 = [(SBHWidgetContainerView *)self _fontWithTextStyle:*MEMORY[0x1E69DDD28] symbolicTraits:0 maxSizeCategory:v8];
+        [(UILabel *)v26 setFont:v27];
 
         [(UILabel *)self->_descriptionLabel setTextAlignment:1];
         [(UILabel *)self->_descriptionLabel setAdjustsFontSizeToFitWidth:1];
         [(UILabel *)self->_descriptionLabel setMinimumScaleFactor:0.5];
         [(UILabel *)self->_descriptionLabel setNumberOfLines:3];
-        [(MTMaterialView *)self->_screenTimeLockoutView addSubview:self->_descriptionLabel];
+        v22 = [(MTMaterialView *)self->_screenTimeLockoutView addSubview:self->_descriptionLabel];
         descriptionLabel = self->_descriptionLabel;
       }
 
-      v26 = MEMORY[0x1E696AEC0];
-      v27 = SBHBundle();
-      v28 = [v27 localizedStringForKey:@"WIDGET_SCREENTIME_TIME_LIMIT_DESCRIPTION" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-      v29 = [v26 stringWithFormat:v28, self->_applicationName];
-      [(UILabel *)descriptionLabel setText:v29];
+      v28 = MEMORY[0x1E696AEC0];
+      v29 = SBHBundle(v22);
+      v30 = [v29 localizedStringForKey:@"WIDGET_SCREENTIME_TIME_LIMIT_DESCRIPTION" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v31 = [v28 stringWithFormat:v30, self->_applicationName];
+      [(UILabel *)descriptionLabel setText:v31];
     }
 
     else
     {
       [(UILabel *)self->_descriptionLabel removeFromSuperview];
-      v32 = self->_descriptionLabel;
+      v34 = self->_descriptionLabel;
       self->_descriptionLabel = 0;
 
       [(UILabel *)self->_titleLabel setNumberOfLines:2];
@@ -108,11 +108,11 @@
   else
   {
     [(MTMaterialView *)screenTimeLockoutView removeFromSuperview];
-    v30 = self->_screenTimeLockoutView;
+    v32 = self->_screenTimeLockoutView;
     self->_screenTimeLockoutView = 0;
 
     [(UILabel *)self->_titleLabel removeFromSuperview];
-    v31 = self->_titleLabel;
+    v33 = self->_titleLabel;
     self->_titleLabel = 0;
 
     [(UILabel *)self->_descriptionLabel removeFromSuperview];
@@ -138,7 +138,7 @@ void *__40__SBHWidgetContainerView_layoutSubviews__block_invoke(uint64_t a1)
   v24.receiver = *(a1 + 32);
   v24.super_class = SBHWidgetContainerView;
   objc_msgSendSuper2(&v24, sel_layoutSubviews);
-  [*(a1 + 32) bounds];
+  objc_msgSend_bounds(*(a1 + 32));
   v3 = v2;
   v5 = v4;
   v7 = v6;
@@ -170,7 +170,7 @@ void *__40__SBHWidgetContainerView_layoutSubviews__block_invoke(uint64_t a1)
   {
     v23 = v3;
     [v15 setFrame:{v3, v5, v7, v9}];
-    [*(*(a1 + 32) + 496) bounds];
+    objc_msgSend_bounds(*(*(a1 + 32) + 496));
     UIRectInsetEdges();
     v17 = v16;
     v19 = v18;
@@ -266,7 +266,7 @@ void *__40__SBHWidgetContainerView_layoutSubviews__block_invoke(uint64_t a1)
   v12 = *MEMORY[0x1E69E9840];
   if (self->_blockedForScreenTimeExpiration != expiration)
   {
-    v5 = SBLogWidgets();
+    v5 = SBLogWidgets(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       logIdentifier = self->_logIdentifier;
@@ -293,7 +293,7 @@ void *__40__SBHWidgetContainerView_layoutSubviews__block_invoke(uint64_t a1)
     [viewCopy setAutoresizingMask:0];
     [(UIView *)self->_backgroundView removeFromSuperview];
     objc_storeStrong(&self->_backgroundView, view);
-    [(SBHWidgetContainerView *)self bounds];
+    objc_msgSend_bounds(self);
     [viewCopy setFrame:?];
     [(SBHWidgetContainerView *)self setNeedsLayout];
   }
@@ -342,7 +342,7 @@ void *__40__SBHWidgetContainerView_layoutSubviews__block_invoke(uint64_t a1)
   if (sbh_iconEffect)
   {
     makeNewEffectView = [sbh_iconEffect makeNewEffectView];
-    [(SBHWidgetContainerView *)self bounds];
+    objc_msgSend_bounds(self);
     [(UIView *)makeNewEffectView setFrame:?];
     [(UIView *)makeNewEffectView _setContinuousCornerRadius:self->_iconImageInfo.continuousCornerRadius];
     v7 = self->_effectView;

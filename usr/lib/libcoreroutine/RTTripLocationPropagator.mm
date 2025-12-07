@@ -725,13 +725,13 @@ void __75__RTTripLocationPropagator_getPropagatedLocationUsingLocations_atDistan
   }
 }
 
-void __75__RTTripLocationPropagator_getPropagatedLocationUsingLocations_atDistance___block_invoke_25(uint64_t a1, void *a2)
+void __75__RTTripLocationPropagator_getPropagatedLocationUsingLocations_atDistance___block_invoke_25(void *a1, void *a2)
 {
   v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (v4)
   {
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
+    objc_storeStrong((*(a1[5] + 8) + 40), a2);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v5 = _rt_log_facility_get_os_log(RTLogFacilityTripSegment);
@@ -768,7 +768,7 @@ LABEL_8:
 LABEL_9:
   }
 
-  dispatch_semaphore_signal(*(*(*(a1 + 48) + 8) + 40));
+  dispatch_semaphore_signal(*(*(a1[6] + 8) + 40));
 }
 
 @end

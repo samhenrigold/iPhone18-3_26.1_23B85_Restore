@@ -1,8 +1,46 @@
 @interface ATXCarPlayConnectedStream
+- (id)_carPlayPublisherWithStartDate:(id)date endDate:(id)endDate limit:(unint64_t)limit shouldReverse:(BOOL)reverse;
 - (void)_enumerateEventsConnected:(BOOL)connected startDate:(id)date endDate:(id)endDate filterBlock:(id)block limit:(unint64_t)limit ascending:(BOOL)ascending shouldContinue:(id)continue block:(id)self0;
 @end
 
 @implementation ATXCarPlayConnectedStream
+
+- (id)_carPlayPublisherWithStartDate:(id)date endDate:(id)endDate limit:(unint64_t)limit shouldReverse:(BOOL)reverse
+{
+  reverseCopy = reverse;
+  if (reverse)
+  {
+    dateCopy = endDate;
+  }
+
+  else
+  {
+    dateCopy = date;
+  }
+
+  if (reverse)
+  {
+    endDateCopy2 = date;
+  }
+
+  else
+  {
+    endDateCopy2 = endDate;
+  }
+
+  v12 = endDateCopy2;
+  v13 = dateCopy;
+  endDateCopy3 = endDate;
+  dateCopy3 = date;
+  v16 = BiomeLibrary();
+  carPlay = [v16 CarPlay];
+  connected = [carPlay Connected];
+  v19 = [objc_alloc(MEMORY[0x277CF1A50]) initWithStartDate:v13 endDate:v12 maxEvents:limit lastN:limit reversed:reverseCopy];
+
+  v20 = [connected publisherWithUseCase:@"ProactiveAppPrediction" options:v19];
+
+  return v20;
+}
 
 - (void)_enumerateEventsConnected:(BOOL)connected startDate:(id)date endDate:(id)endDate filterBlock:(id)block limit:(unint64_t)limit ascending:(BOOL)ascending shouldContinue:(id)continue block:(id)self0
 {
@@ -41,12 +79,13 @@
 void __122__ATXCarPlayConnectedStream__enumerateEventsConnected_startDate_endDate_filterBlock_limit_ascending_shouldContinue_block___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 state])
+  v3 = [v2 state];
+  if (v3)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_default(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __122__ATXCarPlayConnectedStream__enumerateEventsConnected_startDate_endDate_filterBlock_limit_ascending_shouldContinue_block___block_invoke_cold_1(v2, v3);
+      __122__ATXCarPlayConnectedStream__enumerateEventsConnected_startDate_endDate_filterBlock_limit_ascending_shouldContinue_block___block_invoke_cold_1(v2, v4);
     }
   }
 }
@@ -74,52 +113,52 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v9 = a1 + 56;
+  v10 = a1 + 56;
   if (v4 && *(*(*(a1 + 56) + 8) + 40))
   {
-    v10 = objc_alloc(MEMORY[0x277CBEAA8]);
+    v11 = objc_alloc(MEMORY[0x277CBEAA8]);
     [*(*(*(a1 + 56) + 8) + 40) timestamp];
-    v11 = [v10 initWithTimeIntervalSinceReferenceDate:?];
-    v12 = objc_alloc(MEMORY[0x277CBEAA8]);
+    v12 = [v11 initWithTimeIntervalSinceReferenceDate:?];
+    v13 = objc_alloc(MEMORY[0x277CBEAA8]);
     [v4 timestamp];
-    v13 = [v12 initWithTimeIntervalSinceReferenceDate:?];
-    v14 = [ATXCarPlayConnectedEvent alloc];
+    v14 = [v13 initWithTimeIntervalSinceReferenceDate:?];
+    v15 = [ATXCarPlayConnectedEvent alloc];
     if (*(a1 + 64))
     {
-      v15 = v13;
+      v16 = v14;
     }
 
     else
     {
-      v15 = v11;
+      v16 = v12;
     }
 
     if (*(a1 + 64))
     {
-      v16 = v11;
+      v17 = v12;
     }
 
     else
     {
-      v16 = v13;
+      v17 = v14;
     }
 
-    v17 = [(ATXCarPlayConnectedEvent *)v14 initWithStartTime:v15 endTime:v16 connected:*(a1 + 65)];
-    v18 = *(*(a1 + 56) + 8);
-    v19 = *(v18 + 40);
-    *(v18 + 40) = 0;
+    v18 = [(ATXCarPlayConnectedEvent *)v15 initWithStartTime:v16 endTime:v17 connected:*(a1 + 65)];
+    v19 = *(*(a1 + 56) + 8);
+    v20 = *(v19 + 40);
+    *(v19 + 40) = 0;
 
-    v20 = *(a1 + 32);
-    if (!v20 || (*(v20 + 16))(v20, v17))
+    v21 = *(a1 + 32);
+    if (!v21 || (*(v21 + 16))(v21, v18))
     {
       (*(*(a1 + 40) + 16))();
-      v21 = *(a1 + 48);
-      if (v21)
+      v22 = *(a1 + 48);
+      if (v22)
       {
-        if (!(*(v21 + 16))())
+        if (!(*(v22 + 16))())
         {
 
-          v23 = 0;
+          v24 = 0;
           goto LABEL_22;
         }
       }
@@ -128,43 +167,40 @@ LABEL_3:
 
   else
   {
-    v22 = __atxlog_handle_default();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = __atxlog_handle_default(v9);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      __122__ATXCarPlayConnectedStream__enumerateEventsConnected_startDate_endDate_filterBlock_limit_ascending_shouldContinue_block___block_invoke_1_cold_1(v9, v4, v22);
+      __122__ATXCarPlayConnectedStream__enumerateEventsConnected_startDate_endDate_filterBlock_limit_ascending_shouldContinue_block___block_invoke_1_cold_1(v10, v4, v23);
     }
   }
 
 LABEL_21:
-  v23 = 1;
+  v24 = 1;
 LABEL_22:
 
-  return v23;
+  return v24;
 }
 
 void __122__ATXCarPlayConnectedStream__enumerateEventsConnected_startDate_endDate_filterBlock_limit_ascending_shouldContinue_block___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 136315394;
-  v6 = "[ATXCarPlayConnectedStream _enumerateEventsConnected:startDate:endDate:filterBlock:limit:ascending:shouldContinue:block:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching latest CarPlay.Connected event from biome %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[ATXCarPlayConnectedStream _enumerateEventsConnected:startDate:endDate:filterBlock:limit:ascending:shouldContinue:block:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching latest CarPlay.Connected event from biome %@", &v4, 0x16u);
 }
 
 void __122__ATXCarPlayConnectedStream__enumerateEventsConnected_startDate_endDate_filterBlock_limit_ascending_shouldContinue_block___block_invoke_1_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(*(*a1 + 8) + 40);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_226368000, log, OS_LOG_TYPE_ERROR, "Skipping event: %@ %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_226368000, log, OS_LOG_TYPE_ERROR, "Skipping event: %@ %@", &v4, 0x16u);
 }
 
 @end

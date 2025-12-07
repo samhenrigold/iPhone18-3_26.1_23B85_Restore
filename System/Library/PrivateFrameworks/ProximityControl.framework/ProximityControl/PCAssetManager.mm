@@ -13,6 +13,7 @@
 - (void)handleDownloadCompletion:(id)completion assetType:(int64_t)type error:(id)error;
 - (void)handleQueryResult:(id)result assetType:(int64_t)type productType:(id)productType isFallback:(BOOL)fallback error:(id)error isAlternateBundle:(BOOL)bundle;
 - (void)initiateQuery:(id)query config:(id)config;
+- (void)prewarmBundleForAssetType:(int64_t)type alternate:(BOOL)alternate;
 - (void)sfAssetManagerEnsureStarted;
 @end
 
@@ -41,29 +42,18 @@ uint64_t __32__PCAssetManager_sharedInstance__block_invoke()
 
 - (PCAssetManager)init
 {
-  v9.receiver = self;
-  v9.super_class = PCAssetManager;
-  v2 = [(PCAssetManager *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = PCAssetManager;
+  v2 = [(PCAssetManager *)&v8 init];
   if (v2)
   {
     v3 = LogCategoryCreateEx();
     v2->_ucat = v3;
-    if (v3->var0 <= 30)
+    if (*v3 <= 30 && (*v3 != -1 || _LogCategory_Initialize()))
     {
-      if (v3->var0 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_6;
-        }
-
-        ucat = v2->_ucat;
-      }
-
       LogPrintF();
     }
 
-LABEL_6:
     v4 = dispatch_queue_create("com.apple.ProximityControl.assetManager.queue", 0);
     internalQueue = v2->_internalQueue;
     v2->_internalQueue = v4;
@@ -108,45 +98,24 @@ LABEL_6:
   var0 = self->_ucat->var0;
   if (v8)
   {
-    if (var0 <= 30)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_12;
-        }
-
-        ucat = self->_ucat;
-      }
-
       LogPrintF();
     }
 
-LABEL_12:
     v10 = v8;
-    goto LABEL_15;
   }
 
-  if (var0 <= 60)
+  else if (var0 <= 60 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
-    {
-LABEL_10:
-      LogPrintF();
-      [(PCAssetManager *)self prewarmBundleForAssetType:type, type];
-      goto LABEL_15;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      v13 = self->_ucat;
-      goto LABEL_10;
-    }
+    LogPrintF();
+    [(PCAssetManager *)self prewarmBundleForAssetType:type, type];
   }
 
-  [(PCAssetManager *)self prewarmBundleForAssetType:type, v14];
-LABEL_15:
+  else
+  {
+    [(PCAssetManager *)self prewarmBundleForAssetType:type, v12];
+  }
 
   return v8;
 }
@@ -170,45 +139,24 @@ LABEL_15:
   var0 = self->_ucat->var0;
   if (v8)
   {
-    if (var0 <= 30)
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_12;
-        }
-
-        ucat = self->_ucat;
-      }
-
       LogPrintF();
     }
 
-LABEL_12:
     v10 = v8;
-    goto LABEL_15;
   }
 
-  if (var0 <= 60)
+  else if (var0 <= 60 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
-    {
-LABEL_10:
-      LogPrintF();
-      [(PCAssetManager *)self prewarmAlternateBundleForAssetType:type, type];
-      goto LABEL_15;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      v13 = self->_ucat;
-      goto LABEL_10;
-    }
+    LogPrintF();
+    [(PCAssetManager *)self prewarmAlternateBundleForAssetType:type, type];
   }
 
-  [(PCAssetManager *)self prewarmAlternateBundleForAssetType:type, v14];
-LABEL_15:
+  else
+  {
+    [(PCAssetManager *)self prewarmAlternateBundleForAssetType:type, v12];
+  }
 
   return v8;
 }
@@ -226,77 +174,100 @@ LABEL_15:
   }
 
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
-    {
-LABEL_6:
-      v16 = type;
-      LogPrintF();
-      goto LABEL_8;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      ucat = self->_ucat;
-      goto LABEL_6;
-    }
-  }
-
-LABEL_8:
-  v7 = [(PCAssetManager *)self bundleForAssetType:type, v16];
-  if (!v7)
-  {
-    v9 = 0;
-    goto LABEL_22;
-  }
-
-  v8 = [(PCAssetManager *)self imageNameForAssetType:type];
-  if (!v8)
-  {
-    v11 = self->_ucat->var0;
-    if (v11 <= 60)
-    {
-      if (v11 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_20;
-        }
-
-        v15 = self->_ucat;
-      }
-
-      LogPrintF();
-    }
-
-LABEL_20:
-    v9 = 0;
-    goto LABEL_21;
-  }
-
-  v9 = [MEMORY[0x277D755B8] imageNamed:v8 inBundle:v7 withConfiguration:0];
-  v10 = self->_ucat->var0;
-  if (v10 <= 30)
-  {
-    if (v10 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_21;
-      }
-
-      v12 = self->_ucat;
-    }
-
+    v13 = type;
     LogPrintF();
   }
 
-LABEL_21:
+  v7 = [(PCAssetManager *)self bundleForAssetType:type, v13];
+  if (v7)
+  {
+    v8 = [(PCAssetManager *)self imageNameForAssetType:type];
+    if (v8)
+    {
+      v9 = [MEMORY[0x277D755B8] imageNamed:v8 inBundle:v7 withConfiguration:0];
+      v10 = self->_ucat->var0;
+      if (v10 <= 30 && (v10 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF();
+      }
+    }
 
-LABEL_22:
+    else
+    {
+      v11 = self->_ucat->var0;
+      if (v11 <= 60 && (v11 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF();
+      }
+
+      v9 = 0;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
 
   return v9;
+}
+
+- (void)prewarmBundleForAssetType:(int64_t)type alternate:(BOOL)alternate
+{
+  alternateCopy = alternate;
+  var0 = self->_ucat->var0;
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
+  {
+    if ((type - 1) >= 8)
+    {
+      type = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", type];
+    }
+
+    else
+    {
+      type = off_279AD1CB0[type - 1];
+    }
+
+    v9 = @"NO";
+    if (alternateCopy)
+    {
+      v9 = @"YES";
+    }
+
+    v13 = type;
+    v14 = v9;
+    LogPrintF();
+  }
+
+  v15 = [(PCAssetManager *)self assetRequestConfiguration:type alternate:alternateCopy, v13, v14];
+  if (v15)
+  {
+    v10 = [(PCAssetManager *)self assetQueryForAssetType:type alternate:alternateCopy];
+    if (v10)
+    {
+      [(PCAssetManager *)self initiateQuery:v10 config:v15];
+    }
+
+    else
+    {
+      v12 = self->_ucat->var0;
+      if (v12 <= 60 && (v12 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF();
+      }
+    }
+  }
+
+  else
+  {
+    v11 = self->_ucat->var0;
+    if (v11 <= 60 && (v11 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF();
+    }
+  }
 }
 
 - (id)assetQueryForAssetType:(int64_t)type alternate:(BOOL)alternate
@@ -316,81 +287,51 @@ LABEL_22:
   if (v8 == *MEMORY[0x277D54D48])
   {
     var0 = self->_ucat->var0;
-    if (var0 <= 60)
+    if (var0 > 60 || var0 == -1 && !_LogCategory_Initialize())
     {
-      if (var0 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_23;
-        }
-
-        ucat = self->_ucat;
-      }
-
-      goto LABEL_14;
+      goto LABEL_23;
     }
 
-    goto LABEL_23;
+    goto LABEL_14;
   }
 
   v10 = v8;
   v11 = [(PCAssetManager *)self productVersionForAssetType:type];
   v12 = self->_ucat->var0;
-  if (v11)
+  if (!v11)
   {
-    if (v12 <= 30)
+    if (v12 > 60 || v12 == -1 && !_LogCategory_Initialize())
     {
-      if (v12 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_18;
-        }
-
-        v18 = self->_ucat;
-      }
-
-      LogPrintF();
-    }
-
-LABEL_18:
-    v14 = objc_alloc(MEMORY[0x277D54C58]);
-    if (alternateCopy)
-    {
-      v15 = [v14 initWithHomePodColor:v10 version:v11];
-    }
-
-    else
-    {
-      v15 = [v14 initWithSingleHomePodColor:v10 version:v11];
-    }
-
-    v16 = v15;
-    goto LABEL_24;
-  }
-
-  if (v12 <= 60)
-  {
-    if (v12 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_23;
-      }
-
-      v19 = self->_ucat;
+      goto LABEL_23;
     }
 
 LABEL_14:
     LogPrintF();
+LABEL_23:
+    v15 = 0;
+    goto LABEL_24;
   }
 
-LABEL_23:
-  v16 = 0;
+  if (v12 <= 30 && (v12 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF();
+  }
+
+  v13 = objc_alloc(MEMORY[0x277D54C58]);
+  if (alternateCopy)
+  {
+    v14 = [v13 initWithHomePodColor:v10 version:v11];
+  }
+
+  else
+  {
+    v14 = [v13 initWithSingleHomePodColor:v10 version:v11];
+  }
+
+  v15 = v14;
 LABEL_24:
 
-  return v16;
+  return v15;
 }
 
 - (id)assetRequestConfiguration:(int64_t)configuration alternate:(BOOL)alternate
@@ -458,35 +399,20 @@ void __54__PCAssetManager_assetRequestConfiguration_alternate___block_invoke_2(u
   completionCopy = completion;
   errorCopy = error;
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
+    if ((type - 1) >= 8)
     {
-LABEL_3:
-      if ((type - 1) >= 8)
-      {
-        type = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", type];
-      }
-
-      else
-      {
-        type = off_279AD1CB0[type - 1];
-      }
-
-      LogPrintF();
-
-      goto LABEL_9;
+      type = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", type];
     }
 
-    ucat = self->_ucat;
-    if (_LogCategory_Initialize())
+    else
     {
-      v12 = self->_ucat;
-      goto LABEL_3;
+      type = off_279AD1CB0[type - 1];
     }
+
+    LogPrintF();
   }
-
-LABEL_9:
 }
 
 - (void)initiateQuery:(id)query config:(id)config
@@ -494,26 +420,14 @@ LABEL_9:
   queryCopy = query;
   configCopy = config;
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
-    {
-LABEL_3:
-      v9 = queryCopy;
-      v10 = configCopy;
-      LogPrintF();
-      goto LABEL_5;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      ucat = self->_ucat;
-      goto LABEL_3;
-    }
+    v8 = queryCopy;
+    v9 = configCopy;
+    LogPrintF();
   }
 
-LABEL_5:
-  [(PCAssetManager *)self sfAssetManagerEnsureStarted:v9];
+  [(PCAssetManager *)self sfAssetManagerEnsureStarted:v8];
   [(SFDeviceAssetManager *)self->_sfAssetManager getAssetBundleForDeviceQuery:queryCopy withRequestConfiguration:configCopy];
 }
 
@@ -525,19 +439,8 @@ LABEL_5:
   productTypeCopy = productType;
   errorCopy = error;
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 == -1)
-    {
-      ucat = self->_ucat;
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_11;
-      }
-
-      v19 = self->_ucat;
-    }
-
     if ((type - 1) >= 8)
     {
       type = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", type];
@@ -548,114 +451,90 @@ LABEL_5:
       type = off_279AD1CB0[type - 1];
     }
 
-    v20 = "no";
+    v18 = "no";
     if (fallbackCopy)
     {
-      v20 = "yes";
+      v18 = "yes";
     }
 
-    v39 = v20;
-    v40 = errorCopy;
-    v36 = type;
-    v37 = resultCopy;
-    v38 = productTypeCopy;
+    v34 = v18;
+    v35 = errorCopy;
+    v31 = type;
+    v32 = resultCopy;
+    v33 = productTypeCopy;
     LogPrintF();
   }
 
-LABEL_11:
   dispatch_assert_queue_V2(self->_internalQueue);
   if (!resultCopy || errorCopy)
   {
-    v30 = self->_ucat->var0;
-    if (v30 > 60)
+    v28 = self->_ucat->var0;
+    if (v28 <= 60 && (v28 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_32;
-    }
-
-    if (v30 == -1)
-    {
-      v33 = self->_ucat;
-      if (!_LogCategory_Initialize())
+      if ((type - 1) >= 8)
       {
-        goto LABEL_32;
+        type2 = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", type];
       }
 
-      v34 = self->_ucat;
-    }
+      else
+      {
+        type2 = off_279AD1CB0[type - 1];
+      }
 
-    if ((type - 1) >= 8)
-    {
-      type2 = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", type];
+      LogPrintF();
+      goto LABEL_31;
     }
-
-    else
-    {
-      type2 = off_279AD1CB0[type - 1];
-    }
-
-    LogPrintF();
-    goto LABEL_31;
   }
 
-  if (type)
+  else
   {
-    if (bundleCopy)
+    if (type)
     {
-      alternateBundles = self->_alternateBundles;
-      p_alternateBundles = &self->_alternateBundles;
-      v22 = alternateBundles;
-      if (alternateBundles)
+      if (bundleCopy)
       {
+        alternateBundles = self->_alternateBundles;
+        p_alternateBundles = &self->_alternateBundles;
+        v20 = alternateBundles;
+        if (alternateBundles)
+        {
 LABEL_17:
-        v26 = [MEMORY[0x277CCABB0] numberWithInteger:{type, v36, v37, v38, v39, v40}];
-        [(NSMutableDictionary *)v22 setObject:resultCopy forKeyedSubscript:v26];
+          v24 = [MEMORY[0x277CCABB0] numberWithInteger:{type, v31, v32, v33, v34, v35}];
+          [(NSMutableDictionary *)v20 setObject:resultCopy forKeyedSubscript:v24];
 
-        v27 = MEMORY[0x277CCAB98];
-        v28 = kPCAssetManagerNotificationNameQueryDidComplete;
-        type2 = [v27 defaultCenter];
-        [(__CFString *)type2 postNotificationName:v28 object:0];
+          v25 = MEMORY[0x277CCAB98];
+          v26 = kPCAssetManagerNotificationNameQueryDidComplete;
+          type2 = [v25 defaultCenter];
+          [(__CFString *)type2 postNotificationName:v26 object:0];
 
 LABEL_31:
-        goto LABEL_32;
+          goto LABEL_32;
+        }
       }
-    }
 
-    else
-    {
-      bundles = self->_bundles;
-      p_alternateBundles = &self->_bundles;
-      v22 = bundles;
-      if (bundles)
+      else
       {
-        goto LABEL_17;
+        bundles = self->_bundles;
+        p_alternateBundles = &self->_bundles;
+        v20 = bundles;
+        if (bundles)
+        {
+          goto LABEL_17;
+        }
       }
+
+      v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v23 = *p_alternateBundles;
+      *p_alternateBundles = v22;
+
+      v20 = *p_alternateBundles;
+      goto LABEL_17;
     }
 
-    v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v25 = *p_alternateBundles;
-    *p_alternateBundles = v24;
-
-    v22 = *p_alternateBundles;
-    goto LABEL_17;
-  }
-
-  v31 = self->_ucat->var0;
-  if (v31 > 60)
-  {
-    goto LABEL_32;
-  }
-
-  if (v31 != -1)
-  {
-LABEL_24:
-    LogPrintF();
-    goto LABEL_32;
-  }
-
-  if (_LogCategory_Initialize())
-  {
-    v35 = self->_ucat;
-    goto LABEL_24;
+    v29 = self->_ucat->var0;
+    if (v29 <= 60 && (v29 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF();
+    }
   }
 
 LABEL_32:
@@ -675,45 +554,30 @@ LABEL_32:
   }
 
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
+    if ((type - 1) >= 8)
     {
-LABEL_5:
-      if ((type - 1) >= 8)
-      {
-        type = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", type];
-      }
-
-      else
-      {
-        type = off_279AD1CB0[type - 1];
-      }
-
-      if (userInterfaceStyle >= 3)
-      {
-        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", userInterfaceStyle];
-      }
-
-      else
-      {
-        v13 = off_279AD1CF0[userInterfaceStyle];
-      }
-
-      LogPrintF();
-
-      goto LABEL_14;
+      type = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", type];
     }
 
-    ucat = self->_ucat;
-    if (_LogCategory_Initialize())
+    else
     {
-      v12 = self->_ucat;
-      goto LABEL_5;
+      type = off_279AD1CB0[type - 1];
     }
+
+    if (userInterfaceStyle >= 3)
+    {
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"? (%ld)", userInterfaceStyle];
+    }
+
+    else
+    {
+      v11 = off_279AD1CF0[userInterfaceStyle];
+    }
+
+    LogPrintF();
   }
-
-LABEL_14:
 
   return v5;
 }
@@ -733,36 +597,23 @@ LABEL_14:
 
 - (void)sfAssetManagerEnsureStarted
 {
-  if (self->_sfAssetManager)
+  if (!self->_sfAssetManager)
   {
-    return;
-  }
-
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    var0 = self->_ucat->var0;
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_6;
-      }
-
-      ucat = self->_ucat;
+      LogPrintF();
     }
 
-    LogPrintF();
+    v5 = objc_alloc_init(MEMORY[0x277D54C50]);
+    sfAssetManager = self->_sfAssetManager;
+    self->_sfAssetManager = v5;
+
+    [(SFDeviceAssetManager *)self->_sfAssetManager setDispatchQueue:self->_internalQueue];
+    v7 = self->_sfAssetManager;
+
+    [(SFDeviceAssetManager *)v7 activate];
   }
-
-LABEL_6:
-  v5 = objc_alloc_init(MEMORY[0x277D54C50]);
-  sfAssetManager = self->_sfAssetManager;
-  self->_sfAssetManager = v5;
-
-  [(SFDeviceAssetManager *)self->_sfAssetManager setDispatchQueue:self->_internalQueue];
-  v7 = self->_sfAssetManager;
-
-  [(SFDeviceAssetManager *)v7 activate];
 }
 
 @end

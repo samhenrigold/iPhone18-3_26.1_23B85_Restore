@@ -9,7 +9,7 @@
 
 - (PXComposablePhotosAction)initWithSubActions:(id)actions
 {
-  sub_1A3C52C70(0, &qword_1EB13AC50);
+  sub_1A3C52C70(0, &qword_1EB13AC50, off_1E771EEF0);
   v3 = sub_1A524CA34();
   return sub_1A444A4E8(v3);
 }

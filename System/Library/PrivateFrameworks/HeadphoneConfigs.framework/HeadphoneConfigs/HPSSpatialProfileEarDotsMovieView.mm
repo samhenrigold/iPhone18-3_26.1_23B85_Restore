@@ -105,7 +105,7 @@ void __60__HPSSpatialProfileEarDotsMovieView_addBoundaryTimeObserver__block_invo
 
 - (void)showDots
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v5) = 0;
@@ -121,7 +121,7 @@ void __60__HPSSpatialProfileEarDotsMovieView_addBoundaryTimeObserver__block_invo
 
 - (void)hideDots
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf.value) = 0;

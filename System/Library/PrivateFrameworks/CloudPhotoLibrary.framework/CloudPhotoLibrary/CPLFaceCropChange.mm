@@ -87,7 +87,7 @@ LABEL_10:
 
 - (void)setPersonScopedIdentifier:(id)identifier
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   scopeIdentifier = [identifierCopy scopeIdentifier];
   scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
@@ -119,11 +119,11 @@ LABEL_4:
           scopeIdentifier3 = [scopedIdentifier2 scopeIdentifier];
           scopeIdentifier4 = [identifierCopy scopeIdentifier];
           *buf = 138412802;
-          v24 = v10;
-          v25 = 2112;
-          v26 = scopeIdentifier3;
-          v27 = 2112;
-          v28 = scopeIdentifier4;
+          v23 = v10;
+          v24 = 2112;
+          v25 = scopeIdentifier3;
+          v26 = 2112;
+          v27 = scopeIdentifier4;
           _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Invalid call to %@ with mismatched scope: %@ vs. %@", buf, 0x20u);
         }
       }
@@ -142,8 +142,6 @@ LABEL_4:
 
   identifier = [identifierCopy identifier];
   [(CPLFaceCropChange *)self setPersonIdentifier:identifier];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)personScopedIdentifier

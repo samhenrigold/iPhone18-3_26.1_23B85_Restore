@@ -20,6 +20,7 @@
 + (BOOL)inhibitGlobalAlerts:(BOOL)alerts;
 + (BOOL)isDictationSupported:(id)supported;
 + (BOOL)isFloating;
++ (BOOL)setKeyboardDictation:(BOOL)dictation;
 + (BOOL)setPrefSettings:(id)settings;
 + (BOOL)shouldShowDictationKey;
 + (BOOL)shouldShowGlobeKey;
@@ -76,6 +77,7 @@
 + (void)runOnMainThread:(id)thread;
 + (void)setAirplaneMode:(BOOL)mode;
 + (void)setDoNotDisturb:(BOOL)disturb;
++ (void)setFloatingKeyboard:(BOOL)keyboard;
 + (void)tearDownRecapInlinePlayer;
 + (void)waitFor:(double)for;
 @end
@@ -237,12 +239,12 @@
 
 + (void)killKbd
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *__argv = xmmword_279DF46E8;
-  v9 = *&off_279DF46F8;
-  v7 = 0;
-  posix_spawn(&v7, "/usr/bin/killall", 0, 0, __argv, *MEMORY[0x277D85DB0]);
-  waitpid(v7, 0, 0);
+  v8 = *&off_279DF46F8;
+  v6 = 0;
+  posix_spawn(&v6, "/usr/bin/killall", 0, 0, __argv, *MEMORY[0x277D85DB0]);
+  waitpid(v6, 0, 0);
   v2 = 19;
   do
   {
@@ -260,7 +262,6 @@
   }
 
   while (v3);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)generateKeyboardList
@@ -285,94 +286,92 @@
 
 void __47__TypistKeyboardUtilities_generateKeyboardList__block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   CurrentIdiom = UIKeyboardGetCurrentIdiom();
   obj = UIKeyboardGetSupportedInputModes();
   if ((CurrentIdiom + 1) > 4 || ((1 << (CurrentIdiom + 1)) & 0x19) == 0)
   {
-    v38 = 0u;
-    v39 = 0u;
+    v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v29 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-    if (v29)
+    v33 = 0u;
+    v34 = 0u;
+    v26 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+    if (v26)
     {
-      v31 = a1;
-      v27 = *v37;
+      v28 = a1;
+      v24 = *v34;
       v10 = MEMORY[0x277CBEBF8];
-      v28 = CurrentIdiom;
+      v25 = CurrentIdiom;
       do
       {
         v11 = 0;
         do
         {
-          if (*v37 != v27)
+          if (*v34 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v36 + 1) + 8 * v11);
-          v13 = UIKeyboardGetSupportedHardwareKeyboardsForInputMode();
-          v14 = UIKeyboardGetSupportedSoftwareKeyboardsForInputModeAndIdiom();
-          if (!v13 || ![v13 count])
+          v12 = UIKeyboardGetSupportedHardwareKeyboardsForInputMode();
+          v13 = UIKeyboardGetSupportedSoftwareKeyboardsForInputModeAndIdiom();
+          if (!v12 || ![v12 count])
           {
 
-            v13 = &unk_28802A168;
+            v12 = &unk_28802A168;
           }
 
-          v30 = v11;
+          v27 = v11;
           if (CurrentIdiom == 1)
           {
-            v15 = [v10 arrayByAddingObjectsFromArray:&unk_28802A150];
+            v14 = [v10 arrayByAddingObjectsFromArray:&unk_28802A150];
 
-            v10 = v15;
+            v10 = v14;
           }
 
-          v34 = 0u;
-          v35 = 0u;
+          v31 = 0u;
           v32 = 0u;
-          v33 = 0u;
-          v16 = v14;
-          v17 = [v16 countByEnumeratingWithState:&v32 objects:v40 count:16];
-          if (v17)
+          v29 = 0u;
+          v30 = 0u;
+          v15 = v13;
+          v16 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
+          if (v16)
           {
-            v18 = v17;
-            v19 = *v33;
+            v17 = v16;
+            v18 = *v30;
             do
             {
-              for (i = 0; i != v18; ++i)
+              for (i = 0; i != v17; ++i)
               {
-                if (*v33 != v19)
+                if (*v30 != v18)
                 {
-                  objc_enumerationMutation(v16);
+                  objc_enumerationMutation(v15);
                 }
 
-                v21 = *(*(&v32 + 1) + 8 * i);
-                v22 = [v13 objectAtIndexedSubscript:{0, obj}];
-                v23 = UIKeyboardInputModeWithNewHWLayout();
+                v20 = [v12 objectAtIndexedSubscript:{0, obj}];
+                v21 = UIKeyboardInputModeWithNewHWLayout();
 
-                v24 = UIKeyboardInputModeWithNewSWLayout();
-                if (([v10 containsObject:v24] & 1) == 0)
+                v22 = UIKeyboardInputModeWithNewSWLayout();
+                if (([v10 containsObject:v22] & 1) == 0)
                 {
-                  [*(*(*(v31 + 32) + 8) + 40) addObject:v24];
+                  [*(*(*(v28 + 32) + 8) + 40) addObject:v22];
                 }
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v32 objects:v40 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
             }
 
-            while (v18);
+            while (v17);
           }
 
-          v11 = v30 + 1;
-          CurrentIdiom = v28;
+          v11 = v27 + 1;
+          CurrentIdiom = v25;
         }
 
-        while (v30 + 1 != v29);
-        v29 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+        while (v27 + 1 != v26);
+        v26 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
-      while (v29);
+      while (v26);
     }
 
     else
@@ -383,10 +382,8 @@ void __47__TypistKeyboardUtilities_generateKeyboardList__block_invoke(uint64_t a
 
   else
   {
-    TYLogl(OS_LOG_TYPE_ERROR, @"ERROR: The device under test does not appear to have software input support known to Typist", v3, v4, v5, v6, v7, v8, obj);
+    TYLogl(OS_LOG_TYPE_ERROR, @"ERROR: The device under test does not appear to have software input support known to Typist", v3, v4, v5, v6, v7, v8);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (int)touchScanRate
@@ -588,43 +585,41 @@ void __47__TypistKeyboardUtilities_generateKeyboardList__block_invoke(uint64_t a
 
 + (id)deviceInfo
 {
-  v20[9] = *MEMORY[0x277D85DE8];
+  v19[9] = *MEMORY[0x277D85DE8];
   v2 = [TypistKeyboardUtilities getMobileGestalt:@"BuildVersion"];
-  v20[0] = v2;
-  v19[0] = @"buildVersion";
-  v19[1] = @"serialNumber";
-  v18 = [TypistKeyboardUtilities getMobileGestalt:@"SerialNumber"];
-  v20[1] = v18;
-  v19[2] = @"hardwareModel";
-  v17 = [TypistKeyboardUtilities getMobileGestalt:@"HWModelStr"];
-  v20[2] = v17;
-  v19[3] = @"regionInfo";
+  v19[0] = v2;
+  v18[0] = @"buildVersion";
+  v18[1] = @"serialNumber";
+  v17 = [TypistKeyboardUtilities getMobileGestalt:@"SerialNumber"];
+  v19[1] = v17;
+  v18[2] = @"hardwareModel";
+  v16 = [TypistKeyboardUtilities getMobileGestalt:@"HWModelStr"];
+  v19[2] = v16;
+  v18[3] = @"regionInfo";
   v3 = [TypistKeyboardUtilities getMobileGestalt:@"RegionInfo"];
-  v20[3] = v3;
-  v19[4] = @"nandCapacity";
+  v19[3] = v3;
+  v18[4] = @"nandCapacity";
   v4 = +[TypistKeyboardUtilities getNandCapacity];
-  v20[4] = v4;
-  v19[5] = @"hardwareRevision";
+  v19[4] = v4;
+  v18[5] = @"hardwareRevision";
   v5 = +[TypistKeyboardUtilities getHwRevision];
-  v20[5] = v5;
-  v19[6] = @"build";
+  v19[5] = v5;
+  v18[6] = @"build";
   v6 = [TypistKeyboardUtilities getTrainBuildVersion:v2];
-  v20[6] = v6;
-  v19[7] = @"dateGenerated";
+  v19[6] = v6;
+  v18[7] = @"dateGenerated";
   v7 = MEMORY[0x277CCACA8];
   v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.0];
   v9 = [v7 stringWithFormat:@"%@", v8];
-  v20[7] = v9;
-  v19[8] = @"displaySize";
+  v19[7] = v9;
+  v18[8] = @"displaySize";
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen bounds];
-  v22.width = v11;
-  v22.height = v12;
-  v13 = NSStringFromCGSize(v22);
-  v20[8] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:9];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v21.width = v11;
+  v21.height = v12;
+  v13 = NSStringFromCGSize(v21);
+  v19[8] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:9];
 
   return v14;
 }
@@ -762,40 +757,38 @@ uint64_t __71__TypistKeyboardUtilities_SystemSettings__sharedFBSOrientationObser
 
 + (void)setDoNotDisturb:(BOOL)disturb
 {
-  v5[6] = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
   v3 = "0";
   if (disturb)
   {
     v3 = "1";
   }
 
-  v5[0] = "/usr/local/bin/coreautomationd";
-  v5[1] = "-command";
-  v5[2] = "settings.setDNDManualEnabled:";
-  v5[3] = "-int";
-  v5[4] = v3;
-  v5[5] = 0;
-  [TypistKeyboardUtilities runCommandLineProcess:v5];
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = "/usr/local/bin/coreautomationd";
+  v4[1] = "-command";
+  v4[2] = "settings.setDNDManualEnabled:";
+  v4[3] = "-int";
+  v4[4] = v3;
+  v4[5] = 0;
+  [TypistKeyboardUtilities runCommandLineProcess:v4];
 }
 
 + (void)setAirplaneMode:(BOOL)mode
 {
-  v5[6] = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
   v3 = "NO";
   if (mode)
   {
     v3 = "YES";
   }
 
-  v5[0] = "/usr/local/bin/coreautomationd";
-  v5[1] = "-command";
-  v5[2] = "networking.setAirplaneModeEnabled:";
-  v5[3] = "-BOOL";
-  v5[4] = v3;
-  v5[5] = 0;
-  [TypistKeyboardUtilities runCommandLineProcess:v5];
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = "/usr/local/bin/coreautomationd";
+  v4[1] = "-command";
+  v4[2] = "networking.setAirplaneModeEnabled:";
+  v4[3] = "-BOOL";
+  v4[4] = v3;
+  v4[5] = 0;
+  [TypistKeyboardUtilities runCommandLineProcess:v4];
 }
 
 + (id)sharedRecapInlinePlayer
@@ -803,7 +796,7 @@ uint64_t __71__TypistKeyboardUtilities_SystemSettings__sharedFBSOrientationObser
   v8 = _inlinePlayer;
   if (!_inlinePlayer)
   {
-    TYLog(@"Creating a new instance of Recap's inline player", a2, v2, v3, v4, v5, v6, v7, v12);
+    TYLog(@"Creating a new instance of Recap's inline player", a2, v2, v3, v4, v5, v6, v7);
     v9 = objc_alloc_init(MEMORY[0x277D44348]);
     v10 = _inlinePlayer;
     _inlinePlayer = v9;
@@ -818,7 +811,7 @@ uint64_t __71__TypistKeyboardUtilities_SystemSettings__sharedFBSOrientationObser
 {
   if (_inlinePlayer)
   {
-    TYLog(@"Tearing down Recap's inline player", a2, v2, v3, v4, v5, v6, v7, v9);
+    TYLog(@"Tearing down Recap's inline player", a2, v2, v3, v4, v5, v6, v7);
     [_inlinePlayer tearDown];
     v8 = _inlinePlayer;
     _inlinePlayer = 0;
@@ -827,52 +820,52 @@ uint64_t __71__TypistKeyboardUtilities_SystemSettings__sharedFBSOrientationObser
 
 + (void)launchRecap:(id)recap completion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   recapCopy = recap;
   completionCopy = completion;
-  v29 = dispatch_semaphore_create(0);
+  v28 = dispatch_semaphore_create(0);
   if (recapCopy && [recapCopy count])
   {
-    v26 = completionCopy;
+    v25 = completionCopy;
     v7 = objc_opt_new();
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v27 = recapCopy;
+    v26 = recapCopy;
     obj = recapCopy;
-    v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v33;
+      v10 = *v32;
       while (2)
       {
         v11 = 0;
         do
         {
-          if (*v33 != v10)
+          if (*v32 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v32 + 1) + 8 * v11);
+          v12 = *(*(&v31 + 1) + 8 * v11);
           v13 = +[TypistKeyboardUtilities formattedKeyplaneName];
           if ([v12 commandType])
           {
-            TYLog(@"\n### Recap Command [%@]:\n%@\n###", v14, v15, v16, v17, v18, v19, v20, v13);
+            TYLog(@"\n### Recap Command [%@]:\n%@\n###", v14, v15, v16, v17, v18, v19, v20, v13, v12);
             v21 = +[TypistKeyboardUtilities sharedRecapInlinePlayer];
             eventStream = [v12 eventStream];
             [v21 prewarmForEventStream:eventStream completion:0];
 
             eventStream2 = [v12 eventStream];
-            v30[0] = MEMORY[0x277D85DD0];
-            v30[1] = 3221225472;
-            v30[2] = __66__TypistKeyboardUtilities_RecapUtilities__launchRecap_completion___block_invoke;
-            v30[3] = &unk_279DF4650;
-            v24 = v29;
-            v31 = v24;
-            [v21 playEventStream:eventStream2 options:v7 completion:v30];
+            v29[0] = MEMORY[0x277D85DD0];
+            v29[1] = 3221225472;
+            v29[2] = __66__TypistKeyboardUtilities_RecapUtilities__launchRecap_completion___block_invoke;
+            v29[3] = &unk_279DF4650;
+            v24 = v28;
+            v30 = v24;
+            [v21 playEventStream:eventStream2 options:v7 completion:v29];
 
             dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
           }
@@ -880,8 +873,8 @@ uint64_t __71__TypistKeyboardUtilities_SystemSettings__sharedFBSOrientationObser
           else if (![TypistKeyboardUtilities waitForKeyboardPlane:v12])
           {
 
-            completionCopy = v26;
-            recapCopy = v27;
+            completionCopy = v25;
+            recapCopy = v26;
             goto LABEL_17;
           }
 
@@ -889,7 +882,7 @@ uint64_t __71__TypistKeyboardUtilities_SystemSettings__sharedFBSOrientationObser
         }
 
         while (v9 != v11);
-        v9 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v9)
         {
           continue;
@@ -899,8 +892,8 @@ uint64_t __71__TypistKeyboardUtilities_SystemSettings__sharedFBSOrientationObser
       }
     }
 
-    completionCopy = v26;
-    recapCopy = v27;
+    completionCopy = v25;
+    recapCopy = v26;
   }
 
   if (completionCopy)
@@ -909,8 +902,6 @@ uint64_t __71__TypistKeyboardUtilities_SystemSettings__sharedFBSOrientationObser
   }
 
 LABEL_17:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (void)launchRecapWithSyntheticEventStream:(id)stream
@@ -945,9 +936,9 @@ LABEL_17:
   _Block_object_dispose(v14, 8);
 }
 
-uint64_t __79__TypistKeyboardUtilities_RecapUtilities__launchRecapWithSyntheticEventStream___block_invoke(uint64_t result)
+void *__79__TypistKeyboardUtilities_RecapUtilities__launchRecapWithSyntheticEventStream___block_invoke(void *result)
 {
-  if ((*(*(*(result + 32) + 8) + 24) & 1) == 0)
+  if ((*(*(result[4] + 8) + 24) & 1) == 0)
   {
     v1 = result;
     do
@@ -955,13 +946,13 @@ uint64_t __79__TypistKeyboardUtilities_RecapUtilities__launchRecapWithSyntheticE
       result = [TypistKeyboardUtilities waitFor:0.02];
     }
 
-    while (*(*(*(v1 + 32) + 8) + 24) != 1);
+    while (*(*(v1[4] + 8) + 24) != 1);
   }
 
   return result;
 }
 
-uint64_t __79__TypistKeyboardUtilities_RecapUtilities__launchRecapWithSyntheticEventStream___block_invoke_2(uint64_t a1)
+void *__79__TypistKeyboardUtilities_RecapUtilities__launchRecapWithSyntheticEventStream___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) tryLock];
   if (result)
@@ -1283,7 +1274,7 @@ LABEL_26:
     }
   }
 
-  TYLog(@"Waiting done. Expected keyboard plane has been detected.", v10, v11, v12, v13, v14, v15, v16, v26);
+  TYLog(@"Waiting done. Expected keyboard plane has been detected.", v10, v11, v12, v13, v14, v15, v16);
 LABEL_6:
   IsSameAs = currentKeyboardPlaneIsSameAs(lastObject);
   if ((IsSameAs & 1) == 0)
@@ -1297,27 +1288,27 @@ LABEL_6:
 
 + (id)replaceWaitForKeyboardPlane:(id)plane withWait:(double)wait
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = [plane copy];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if (![v10 commandType])
         {
           v11 = MEMORY[0x277CCACA8];
@@ -1328,13 +1319,11 @@ LABEL_6:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1389,28 +1378,31 @@ LABEL_6:
   return v6;
 }
 
++ (BOOL)setKeyboardDictation:(BOOL)dictation
+{
+  dictationCopy = dictation;
+  v4 = +[TypistKeyboardData keyboardData];
+  v5 = MEMORY[0x277CBEAC0];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:dictationCopy];
+  v7 = [v5 dictionaryWithObject:v6 forKey:@"dictation"];
+  v8 = [(objc_class *)v4 setKeyboardUISettings:v7];
+  v9 = [v8 objectForKeyedSubscript:@"dictation"];
+  v10 = v9 != 0;
+
+  return v10;
+}
+
 + (BOOL)isDictationSupported:(id)supported
 {
   supportedCopy = supported;
   v4 = supportedCopy;
-  if (!supportedCopy)
-  {
-    goto LABEL_4;
-  }
-
-  v5 = [supportedCopy componentsSeparatedByString:@"@"];
-  v6 = [v5 objectAtIndexedSubscript:0];
-  v7 = [v6 componentsSeparatedByString:@"_"];
-  v8 = [v7 componentsJoinedByString:@"-"];
-
-  if (v8)
+  if (supportedCopy && ([supportedCopy componentsSeparatedByString:@"@"], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "objectAtIndexedSubscript:", 0), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "componentsSeparatedByString:", @"_"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "componentsJoinedByString:", @"-"), v8 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, v8))
   {
     v9 = [MEMORY[0x277CEF270] dictationIsSupportedForLanguageCode:v8 error:0];
   }
 
   else
   {
-LABEL_4:
     v9 = 0;
   }
 
@@ -1472,7 +1464,7 @@ LABEL_4:
 
 + (BOOL)triggerAllTIOneTimeActions
 {
-  TYLog(@"Triggering all one time actions to YES", a2, v2, v3, v4, v5, v6, v7, v15);
+  TYLog(@"Triggering all one time actions to YES", a2, v2, v3, v4, v5, v6, v7);
   mEMORY[0x277D6F470] = [MEMORY[0x277D6F470] sharedPreferencesController];
   [mEMORY[0x277D6F470] didTriggerOneTimeAction:*MEMORY[0x277D6F620]];
 
@@ -1732,6 +1724,16 @@ LABEL_4:
   return bOOLValue;
 }
 
++ (void)setFloatingKeyboard:(BOOL)keyboard
+{
+  keyboardCopy = keyboard;
+  v4 = +[TypistKeyboardData keyboardData];
+  v5 = MEMORY[0x277CBEAC0];
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:keyboardCopy];
+  v6 = [v5 dictionaryWithObject:v8 forKey:@"floatingKeyboard"];
+  v7 = [(objc_class *)v4 setKeyboardUISettings:v6];
+}
+
 + (CGPoint)floatingKeyboardDraggablePoint
 {
   v2 = +[TypistKeyboardData keyboardData];
@@ -1846,27 +1848,27 @@ LABEL_7:
 
 void __55__TypistKeyboardUtilities_KeyboardUI__searchForWindow___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277D75DA0] allWindowsIncludingInternalWindows:1 onlyVisibleWindows:0];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v2 = v12 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = v11 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
+        v7 = *(*(&v8 + 1) + 8 * i);
         NSClassFromString(*(a1 + 32));
         if (objc_opt_isKindOfClass())
         {
@@ -1875,7 +1877,7 @@ void __55__TypistKeyboardUtilities_KeyboardUI__searchForWindow___block_invoke(ui
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -1886,8 +1888,6 @@ void __55__TypistKeyboardUtilities_KeyboardUI__searchForWindow___block_invoke(ui
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)searchForViewInKeyboardWindow:(id)window
@@ -1984,30 +1984,30 @@ void __69__TypistKeyboardUtilities_KeyboardUI__searchForViewInKeyboardWindow___b
 
 void __68__TypistKeyboardUtilities_KeyboardUI__getRootViewControllerViaScene__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (![v3 activationState] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     [v3 windows];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v4 = v17 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v4 = v16 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if ([v9 isKeyWindow])
           {
             v10 = [v9 rootViewController];
@@ -2019,7 +2019,7 @@ void __68__TypistKeyboardUtilities_KeyboardUI__getRootViewControllerViaScene__bl
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -2031,8 +2031,6 @@ void __68__TypistKeyboardUtilities_KeyboardUI__getRootViewControllerViaScene__bl
 
 LABEL_13:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)captureCurrentKeyboardImage
@@ -2151,7 +2149,7 @@ LABEL_13:
 
   else
   {
-    TYLogl(OS_LOG_TYPE_ERROR, @"ERROR: No active keyboard found to capture", v2, v3, v4, v5, v6, v7, v29[0]);
+    TYLogl(OS_LOG_TYPE_ERROR, @"ERROR: No active keyboard found to capture", v2, v3, v4, v5, v6, v7);
     v15 = 0;
   }
 
@@ -2208,40 +2206,40 @@ void __66__TypistKeyboardUtilities_KeyboardUI__captureCurrentKeyboardImage__bloc
 
 void __66__TypistKeyboardUtilities_KeyboardUI__captureCurrentKeyboardImage__block_invoke_3(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D75568] defaultFormat];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = [MEMORY[0x277D75DA0] allWindowsIncludingInternalWindows:1 onlyVisibleWindows:0];
-  v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v19;
     do
     {
       v6 = 0;
       do
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * v6);
+        v7 = *(*(&v18 + 1) + 8 * v6);
         v8 = objc_alloc(MEMORY[0x277D75560]);
         v9 = [v7 layer];
         [v9 bounds];
         v12 = [v8 initWithSize:v2 format:{v10, v11}];
 
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __66__TypistKeyboardUtilities_KeyboardUI__captureCurrentKeyboardImage__block_invoke_4;
-        v18[3] = &unk_279DF4A18;
-        v18[4] = v7;
-        v13 = [v12 imageWithActions:v18];
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __66__TypistKeyboardUtilities_KeyboardUI__captureCurrentKeyboardImage__block_invoke_4;
+        v17[3] = &unk_279DF4A18;
+        v17[4] = v7;
+        v13 = [v12 imageWithActions:v17];
         v14 = *(*(a1 + 32) + 8);
         v15 = *(v14 + 40);
         *(v14 + 40) = v13;
@@ -2250,13 +2248,11 @@ void __66__TypistKeyboardUtilities_KeyboardUI__captureCurrentKeyboardImage__bloc
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v4);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __66__TypistKeyboardUtilities_KeyboardUI__captureCurrentKeyboardImage__block_invoke_4(uint64_t a1)

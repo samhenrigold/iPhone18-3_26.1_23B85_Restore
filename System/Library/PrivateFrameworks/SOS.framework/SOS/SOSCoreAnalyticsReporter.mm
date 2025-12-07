@@ -8,6 +8,7 @@
 - (void)reportSOSCancelationTimeout:(int64_t)timeout;
 - (void)reportSOSEvent:(id)event callDuration:(int64_t)duration isHandoffTrigger:(BOOL)trigger onWristState:(int64_t)state;
 - (void)reportSOSRejectedWithTrigger:(int64_t)trigger currentTriggerMechanism:(int64_t)mechanism;
+- (void)reportSOSRestingResponse:(int64_t)response restingResponse:(int64_t)restingResponse hasMedicalID:(BOOL)d;
 - (void)reportSOSTriggerHandoff:(int64_t)handoff source:(int64_t)source destination:(int64_t)destination result:(int64_t)result;
 - (void)reportSOSTriggered:(int64_t)triggered;
 - (void)reportSOSUserCancelled:(int64_t)cancelled lastFlowState:(int64_t)state countdownValue:(int64_t)value;
@@ -51,98 +52,105 @@ uint64_t __42__SOSCoreAnalyticsReporter_sharedInstance__block_invoke(uint64_t a1
 
   else
   {
-    v5 = sos_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sos_default_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "SOSCoreAnalyticsReport, not reporting SOS trigger because Safety data collection is OFF", buf, 2u);
+      _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "SOSCoreAnalyticsReport, not reporting SOS trigger because Safety data collection is OFF", buf, 2u);
     }
   }
 }
 
 id __47__SOSCoreAnalyticsReporter_reportSOSTriggered___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"triggerMechanism";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"triggerMechanism";
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 - (void)reportSOSUserCancelled:(int64_t)cancelled lastFlowState:(int64_t)state countdownValue:(int64_t)value
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"triggerMechanism";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"triggerMechanism";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:cancelled];
-  v13[0] = v7;
-  v12[1] = @"lastFlowState2";
+  v12[0] = v7;
+  v11[1] = @"lastFlowState2";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:state];
-  v13[1] = v8;
-  v12[2] = @"lastCountdownValue";
+  v12[1] = v8;
+  v11[2] = @"lastCountdownValue";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:value];
-  v13[2] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
   [SOSCoreAnalyticsReporter _AnalyticsSendEventLazy:@"com.apple.sos.user_canceled" data:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportSOSTriggerHandoff:(int64_t)handoff source:(int64_t)source destination:(int64_t)destination result:(int64_t)result
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v15[0] = @"triggerMechanism";
+  v15[4] = *MEMORY[0x277D85DE8];
+  v14[0] = @"triggerMechanism";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:handoff];
-  v16[0] = v9;
-  v15[1] = @"handoffSourceDescription";
+  v15[0] = v9;
+  v14[1] = @"handoffSourceDescription";
   v10 = [SOSCoreAnalyticsReporter SOSCoordinationDeviceString:source];
-  v16[1] = v10;
-  v15[2] = @"handoffDestinationDescription";
+  v15[1] = v10;
+  v14[2] = @"handoffDestinationDescription";
   v11 = [SOSCoreAnalyticsReporter SOSCoordinationDeviceString:destination];
-  v16[2] = v11;
-  v15[3] = @"handoffResult";
+  v15[2] = v11;
+  v14[3] = @"handoffResult";
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:result];
-  v16[3] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
   [SOSCoreAnalyticsReporter _AnalyticsSendEventLazy:@"com.apple.sos.trigger.handoff" data:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportSOSRejectedWithTrigger:(int64_t)trigger currentTriggerMechanism:(int64_t)mechanism
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"currentTriggerMechanism";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"currentTriggerMechanism";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:mechanism];
-  v9[1] = @"rejectedTriggerMechanism";
-  v10[0] = v5;
+  v8[1] = @"rejectedTriggerMechanism";
+  v9[0] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:trigger];
-  v10[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   [SOSCoreAnalyticsReporter _AnalyticsSendEventLazy:@"com.apple.sos.trigger.already_active" data:v7];
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)reportSOSRestingResponse:(int64_t)response restingResponse:(int64_t)restingResponse hasMedicalID:(BOOL)d
+{
+  dCopy = d;
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"triggerMechanism";
+  v7 = [MEMORY[0x277CCABB0] numberWithInteger:response];
+  v12[0] = v7;
+  v11[1] = @"restingResponse";
+  v8 = [MEMORY[0x277CCABB0] numberWithInteger:restingResponse];
+  v12[1] = v8;
+  v11[2] = @"hasMedicalID";
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:dCopy];
+  v12[2] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  [SOSCoreAnalyticsReporter _AnalyticsSendEventLazy:@"com.apple.sos.trigger.resting_response" data:v10];
 }
 
 - (void)reportSOSCancelationTimeout:(int64_t)timeout
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"triggerMechanism";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"triggerMechanism";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:timeout];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [SOSCoreAnalyticsReporter _AnalyticsSendEventLazy:@"com.apple.sos.user_cancelation_timeout" data:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportSOSEvent:(id)event callDuration:(int64_t)duration isHandoffTrigger:(BOOL)trigger onWristState:(int64_t)state
 {
   triggerCopy = trigger;
-  v30[8] = *MEMORY[0x277D85DE8];
+  v29[8] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v9 = +[SOSCoreAnalyticsReporter _firstPartyEnablementForTrigger:](SOSCoreAnalyticsReporter, "_firstPartyEnablementForTrigger:", [eventCopy trigger]);
   v10 = +[SOSCoreAnalyticsReporter _thirdPartyEnablementForTrigger:](SOSCoreAnalyticsReporter, "_thirdPartyEnablementForTrigger:", [eventCopy trigger]);
@@ -152,100 +160,88 @@ id __47__SOSCoreAnalyticsReporter_reportSOSTriggered___block_invoke(uint64_t a1)
   v14 = v13;
 
   v15 = state == 1;
-  v29[0] = @"triggerMechanism";
+  v28[0] = @"triggerMechanism";
   v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(eventCopy, "trigger")}];
-  v30[0] = v16;
-  v29[1] = @"3rdPartyFeatureEnablement";
+  v29[0] = v16;
+  v28[1] = @"3rdPartyFeatureEnablement";
   v17 = [MEMORY[0x277CCABB0] numberWithBool:v10];
-  v30[1] = v17;
-  v29[2] = @"callDuration";
+  v29[1] = v17;
+  v28[2] = @"callDuration";
   v18 = [MEMORY[0x277CCABB0] numberWithInteger:duration];
-  v30[2] = v18;
-  v29[3] = @"eventDuration";
+  v29[2] = v18;
+  v28[3] = @"eventDuration";
   v19 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
-  v30[3] = v19;
-  v29[4] = @"eventResolution";
+  v29[3] = v19;
+  v28[4] = @"eventResolution";
   v20 = MEMORY[0x277CCABB0];
   resolution = [eventCopy resolution];
 
   v22 = [v20 numberWithInteger:resolution];
-  v30[4] = v22;
-  v29[5] = @"featureEnablement";
+  v29[4] = v22;
+  v28[5] = @"featureEnablement";
   v23 = [MEMORY[0x277CCABB0] numberWithBool:v9];
-  v30[5] = v23;
-  v29[6] = @"wasHandoffTrigger";
+  v29[5] = v23;
+  v28[6] = @"wasHandoffTrigger";
   v24 = [MEMORY[0x277CCABB0] numberWithBool:triggerCopy];
-  v30[6] = v24;
-  v29[7] = @"watchOnWrist";
+  v29[6] = v24;
+  v28[7] = @"watchOnWrist";
   v25 = [MEMORY[0x277CCABB0] numberWithBool:v15];
-  v30[7] = v25;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:8];
+  v29[7] = v25;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:8];
   [SOSCoreAnalyticsReporter _AnalyticsSendEventLazy:@"com.apple.sos.event" data:v26];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 id __68__SOSCoreAnalyticsReporter_reportSOSShouldPlayAudioDuringCountdown___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"shouldPlayAudioDuringCountdown";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"shouldPlayAudioDuringCountdown";
   v1 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 id __67__SOSCoreAnalyticsReporter_reportSOSAutomaticCallCountdownEnabled___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"automaticCallCountdownEnabled";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"automaticCallCountdownEnabled";
   v1 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 id __67__SOSCoreAnalyticsReporter_reportSOSLongPressTriggersEmergencySOS___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"longPressTriggersEmergencySOS";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"longPressTriggersEmergencySOS";
   v1 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 id __60__SOSCoreAnalyticsReporter_reportSOSAutomaticNewtonEnabled___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"fallDetectionEnabled";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"fallDetectionEnabled";
   v1 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 id __56__SOSCoreAnalyticsReporter_reportSOSNumberOfVoiceLoops___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"numberOfVoiceLoops";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"numberOfVoiceLoops";
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -254,7 +250,7 @@ id __56__SOSCoreAnalyticsReporter_reportSOSNumberOfVoiceLoops___block_invoke(uin
 {
   if (trigger >= 0xA)
   {
-    v5 = sos_default_log();
+    v5 = sos_default_log(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(SOSCoreAnalyticsReporter *)trigger isSensitiveTrigger:v5, v6, v7, v8, v9, v10, v11];
@@ -327,7 +323,7 @@ id __56__SOSCoreAnalyticsReporter_reportSOSNumberOfVoiceLoops___block_invoke(uin
         }
 
 LABEL_19:
-        v5 = sos_default_log();
+        v5 = sos_default_log(0);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           [(SOSCoreAnalyticsReporter *)trigger _firstPartyEnablementForTrigger:v5, v6, v7, v8, v9, v10, v11];
@@ -373,7 +369,7 @@ LABEL_19:
 {
   if (trigger > 9)
   {
-    v7 = sos_default_log();
+    v7 = sos_default_log(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(SOSCoreAnalyticsReporter *)trigger _thirdPartyEnablementForTrigger:v7, v8, v9, v10, v11, v12, v13];
@@ -419,23 +415,23 @@ LABEL_19:
 
 + (void)isSensitiveTrigger:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4(&dword_264323000, a2, a3, "SOSCoreAnalyticsReporter,isSensitiveTrigger,unrecognized SOSTriggerMechanism %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_264323000, a2, a3, "SOSCoreAnalyticsReporter,isSensitiveTrigger,unrecognized SOSTriggerMechanism %d", a5, a6, a7, a8, v8);
 }
 
 + (void)_firstPartyEnablementForTrigger:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4(&dword_264323000, a2, a3, "SOSCoreAnalyticsReporter,_firstPartyEnablementForTrigger,unrecognized SOSTriggerMechanism %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_264323000, a2, a3, "SOSCoreAnalyticsReporter,_firstPartyEnablementForTrigger,unrecognized SOSTriggerMechanism %d", a5, a6, a7, a8, v8);
 }
 
 + (void)_thirdPartyEnablementForTrigger:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4(&dword_264323000, a2, a3, "SOSCoreAnalyticsReporter,_thirdPartyEnablementForTrigger,unrecognized SOSTriggerMechanism %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_264323000, a2, a3, "SOSCoreAnalyticsReporter,_thirdPartyEnablementForTrigger,unrecognized SOSTriggerMechanism %d", a5, a6, a7, a8, v8);
 }
 
 @end

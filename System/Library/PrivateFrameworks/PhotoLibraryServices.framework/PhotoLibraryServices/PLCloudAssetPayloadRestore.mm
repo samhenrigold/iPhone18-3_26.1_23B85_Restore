@@ -265,7 +265,7 @@ void __70__PLCloudAssetPayloadRestore__insertBatchOfUnresolvedCloudIdentifiers__
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [*(a1 + 32) objectForKeyedSubscript:a2];
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     [v5 setLocalAssetIdentifierForCloudIdentifiers:v6];
   }
@@ -290,7 +290,7 @@ void __70__PLCloudAssetPayloadRestore__insertBatchOfUnresolvedCloudIdentifiers__
   v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [*(a1 + 32) objectForKeyedSubscript:a2];
-  v7 = [v6 count];
+  v7 = objc_msgSend_count(v6);
   if (v7 >= [v5 assetIdentifierCount])
   {
     [*(a1 + 40) _insertPayload:v5 forAssets:v6 skipMessage:@"after resolve remapped identifiers"];
@@ -351,7 +351,7 @@ void __51__PLCloudAssetPayloadRestore__insertBatchToRestore__block_invoke_2(uint
   v5 = [v3 payloadID];
   v6 = [v4 objectForKeyedSubscript:v5];
 
-  v7 = [v6 count];
+  v7 = objc_msgSend_count(v6);
   if (v7 >= [v3 assetIdentifierCount])
   {
     [*(a1 + 40) _insertPayload:v3 forAssets:v6 skipMessage:@"existing asset"];
@@ -381,12 +381,12 @@ void __51__PLCloudAssetPayloadRestore__insertBatchToRestore__block_invoke_2(uint
 
 - (void)insertRemainingPayloads
 {
-  if ([(NSMutableArray *)self->_batchToRestore count])
+  if (objc_msgSend_count(self->_batchToRestore, a2))
   {
     [(PLCloudAssetPayloadRestore *)self _insertBatchToRestore];
   }
 
-  if ([(NSMutableDictionary *)self->_payloadsWithUnresolvedAssets count])
+  if (objc_msgSend_count(self->_payloadsWithUnresolvedAssets))
   {
 
     [(PLCloudAssetPayloadRestore *)self _insertBatchOfUnresolvedCloudIdentifiers];
@@ -396,12 +396,12 @@ void __51__PLCloudAssetPayloadRestore__insertBatchToRestore__block_invoke_2(uint
 - (void)addPayload:(id)payload
 {
   [(NSMutableArray *)self->_batchToRestore addObject:payload];
-  if ([(NSMutableArray *)self->_batchToRestore count]>= self->_batchSize)
+  if (objc_msgSend_count(self->_batchToRestore) >= self->_batchSize)
   {
     [(PLCloudAssetPayloadRestore *)self _insertBatchToRestore];
   }
 
-  if ([(NSMutableDictionary *)self->_payloadsWithUnresolvedAssets count]>= self->_batchSize)
+  if (objc_msgSend_count(self->_payloadsWithUnresolvedAssets) >= self->_batchSize)
   {
 
     [(PLCloudAssetPayloadRestore *)self _insertBatchOfUnresolvedCloudIdentifiers];
@@ -466,7 +466,7 @@ void __51__PLCloudAssetPayloadRestore__insertBatchToRestore__block_invoke_2(uint
   [payloadsCopy enumerateObjectsUsingBlock:v40];
 
   v14 = 0x1E695D000;
-  if ([v13 count])
+  if (objc_msgSend_count(v13))
   {
     v15 = MEMORY[0x1E695D5E0];
     v16 = +[PLManagedAsset entityName];
@@ -492,7 +492,7 @@ void __51__PLCloudAssetPayloadRestore__insertBatchToRestore__block_invoke_2(uint
     v14 = 0x1E695D000uLL;
   }
 
-  if ([v12 count])
+  if (objc_msgSend_count(v12))
   {
     v23 = *(v14 + 1504);
     v24 = +[PLManagedAsset entityName];
@@ -683,7 +683,7 @@ void __85__PLCloudAssetPayloadRestore_assetsForPayloadIDsWithPayloads_inManagedO
   payloadCopy = payload;
   contextCopy = context;
   assetIdentifiers = [payloadCopy assetIdentifiers];
-  v9 = [assetIdentifiers count];
+  v9 = objc_msgSend_count(assetIdentifiers);
 
   if (!v9)
   {

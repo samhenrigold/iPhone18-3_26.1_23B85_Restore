@@ -254,22 +254,22 @@
     {
       layer = [(UIView *)v21->_topTable layer];
       [(UIPickerColumnView *)v21 _horizontalBiasForEndTables];
-      [(UIPickerColumnView *)v21 _transformForTableWithPerspectiveTranslationX:v47 + v51];
+      objc_msgSend__transformForTableWithPerspectiveTranslationX_(v21, v47 + v51);
       [layer setSublayerTransform:v61];
 
       layer2 = [(UIView *)v21->_bottomTable layer];
       [(UIPickerColumnView *)v21 _horizontalBiasForEndTables];
-      [(UIPickerColumnView *)v21 _transformForTableWithPerspectiveTranslationX:v47 + v53];
+      objc_msgSend__transformForTableWithPerspectiveTranslationX_(v21, v47 + v53);
       [layer2 setSublayerTransform:v61];
 
       layer3 = [(UIView *)v21->_middleTable layer];
-      [(UIPickerColumnView *)v21 _transformForTableWithTranslationX:v47];
+      objc_msgSend__transformForTableWithTranslationX_(v21, v47);
     }
 
     else
     {
       layer3 = [(UIView *)v21->_middleTable layer];
-      [(UIPickerColumnView *)v21 _transformForTableWithPerspectiveTranslationX:v47];
+      objc_msgSend__transformForTableWithPerspectiveTranslationX_(v21, v47);
     }
 
     [layer3 setSublayerTransform:v61];
@@ -291,17 +291,17 @@
 - (BOOL)_containsTable:(id)table
 {
   tableCopy = table;
-  if ([tableCopy isEqual:self->_topTable] & 1) != 0 || (objc_msgSend(tableCopy, "isEqual:", self->_middleTable))
+  if (objc_msgSend_isEqual_(tableCopy) & 1) != 0 || (objc_msgSend_isEqual_(tableCopy))
   {
-    v5 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v5 = [tableCopy isEqual:self->_bottomTable];
+    isEqual = objc_msgSend_isEqual_(tableCopy);
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (BOOL)_pointLiesWithinEffectiveTableBounds:(CGPoint)bounds
@@ -365,7 +365,7 @@
 - (void)_sendCheckedRow:(int64_t)row inTableView:(id)view checked:(BOOL)checked
 {
   viewCopy = view;
-  if ([viewCopy isEqual:self->_middleTable])
+  if (objc_msgSend_isEqual_(viewCopy))
   {
     WeakRetained = objc_loadWeakRetained(&self->_pickerView);
     [WeakRetained _sendSelectionChangedFromTable:viewCopy notify:1];
@@ -492,19 +492,19 @@
     [offsetCopy contentOffset];
     v7 = v6;
     v9 = v8;
-    if ([offsetCopy isEqual:self->_topTable])
+    if (objc_msgSend_isEqual_(offsetCopy))
     {
       [(UIPickerColumnView *)self _moveTableViewIfNecessary:self->_middleTable toContentOffset:v7, v9];
       [(UIPickerColumnView *)self _moveTableViewIfNecessary:self->_bottomTable toContentOffset:v7, v9];
     }
 
-    if ([offsetCopy isEqual:self->_middleTable])
+    if (objc_msgSend_isEqual_(offsetCopy))
     {
       [(UIPickerColumnView *)self _moveTableViewIfNecessary:self->_topTable toContentOffset:v7, v9];
       [(UIPickerColumnView *)self _moveTableViewIfNecessary:self->_bottomTable toContentOffset:v7, v9];
     }
 
-    if ([offsetCopy isEqual:self->_bottomTable])
+    if (objc_msgSend_isEqual_(offsetCopy))
     {
       [(UIPickerColumnView *)self _moveTableViewIfNecessary:self->_topTable toContentOffset:v7, v9];
       [(UIPickerColumnView *)self _moveTableViewIfNecessary:self->_middleTable toContentOffset:v7, v9];
@@ -514,7 +514,7 @@
 
 - (void)pickerTableView:(id)view didChangeSelectionBarRowFrom:(int64_t)from to:(int64_t)to
 {
-  if ([view isEqual:self->_middleTable])
+  if (objc_msgSend_isEqual_(view, a2, self->_middleTable))
   {
     WeakRetained = objc_loadWeakRetained(&self->_pickerView);
     v9 = objc_opt_respondsToSelector();
@@ -638,7 +638,7 @@
     WeakRetained = objc_loadWeakRetained(&self->_pickerView);
     v8 = [WeakRetained tableView:viewCopy cellForRowAtIndexPath:pathCopy];
 
-    if ([viewCopy isEqual:self->_middleTable])
+    if (objc_msgSend_isEqual_(viewCopy))
     {
       v10 = objc_loadWeakRetained(&self->_pickerView);
       _magnifierEnabled = [v10 _magnifierEnabled];

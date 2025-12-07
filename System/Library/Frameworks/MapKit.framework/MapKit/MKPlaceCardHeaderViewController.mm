@@ -1452,7 +1452,7 @@ LABEL_6:
   verifiedToken = self->_verifiedToken;
   self->_verifiedToken = v23;
 
-  self->_isUserLocation = [(_MKPlaceItem *)self->_placeItem options]& 1;
+  self->_isUserLocation = objc_msgSend_options(self->_placeItem) & 1;
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel__contentSizeDidChangeNotificationHandler name:*MEMORY[0x1E69DDC48] object:0];
 

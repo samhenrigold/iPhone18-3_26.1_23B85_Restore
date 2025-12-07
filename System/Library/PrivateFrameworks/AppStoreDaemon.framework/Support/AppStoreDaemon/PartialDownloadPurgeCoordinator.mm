@@ -21,7 +21,7 @@
     dispatchQueue = v2->_dispatchQueue;
     v2->_dispatchQueue = v4;
 
-    v6 = sub_1003C27BC();
+    v6 = sub_1003C27BC(AppInstallsDatabaseStore);
     databaseStore = v2->_databaseStore;
     v2->_databaseStore = v6;
   }
@@ -161,7 +161,7 @@
   v20 = &v19;
   v21 = 0x2020000000;
   v22 = 0;
-  v10 = sub_1003C27BC();
+  v10 = sub_1003C27BC(AppInstallsDatabaseStore);
   v14[0] = _NSConcreteStackBlock;
   v14[1] = 3221225472;
   v14[2] = sub_1002D5BE4;

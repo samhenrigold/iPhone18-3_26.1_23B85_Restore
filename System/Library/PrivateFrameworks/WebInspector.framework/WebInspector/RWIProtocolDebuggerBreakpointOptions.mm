@@ -4,7 +4,9 @@
 - (NSString)condition;
 - (int)ignoreCount;
 - (void)setActions:(id)actions;
+- (void)setAutoContinue:(BOOL)continue;
 - (void)setCondition:(id)condition;
+- (void)setIgnoreCount:(int)count;
 @end
 
 @implementation RWIProtocolDebuggerBreakpointOptions
@@ -27,27 +29,27 @@
 
 - (void)setActions:(id)actions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = actions;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -58,18 +60,18 @@
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolDebuggerBreakpointOptions;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"actions"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolDebuggerBreakpointOptions;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"actions"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -82,8 +84,6 @@
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)actions
@@ -96,11 +96,25 @@
   return v2;
 }
 
+- (void)setAutoContinue:(BOOL)continue
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDebuggerBreakpointOptions;
+  [(RWIProtocolJSONObject *)&v3 setBool:continue forKey:@"autoContinue"];
+}
+
 - (BOOL)autoContinue
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDebuggerBreakpointOptions;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"autoContinue"];
+}
+
+- (void)setIgnoreCount:(int)count
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDebuggerBreakpointOptions;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&count forKey:@"ignoreCount"];
 }
 
 - (int)ignoreCount

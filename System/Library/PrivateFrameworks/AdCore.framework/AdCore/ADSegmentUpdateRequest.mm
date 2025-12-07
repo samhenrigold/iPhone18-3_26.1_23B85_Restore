@@ -1,8 +1,11 @@
 @interface ADSegmentUpdateRequest
 + (id)options;
 - (BOOL)isEqual:(id)equal;
+- (id)accountStatesAsString:(int)string;
+- (id)accountTypesAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)deviceModesAsString:(int)string;
 - (id)dictionaryRepresentation;
 - (int)StringAsAccountStates:(id)states;
 - (int)StringAsAccountTypes:(id)types;
@@ -127,6 +130,21 @@ void __33__ADSegmentUpdateRequest_options__block_invoke()
   return p_deviceModes->list[index];
 }
 
+- (id)deviceModesAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C552B8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDeviceModes:(id)modes
 {
   modesCopy = modes;
@@ -167,6 +185,21 @@ void __33__ADSegmentUpdateRequest_options__block_invoke()
   }
 
   return p_accountTypes->list[index];
+}
+
+- (id)accountTypesAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C552D0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAccountTypes:(id)types
@@ -234,6 +267,21 @@ void __33__ADSegmentUpdateRequest_options__block_invoke()
   }
 
   return p_accountStates->list[index];
+}
+
+- (id)accountStatesAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C55310[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAccountStates:(id)states
@@ -471,38 +519,36 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v18 = toCopy;
+  v10 = toCopy;
   if (self->_iAdID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v18;
+    toCopy = v10;
   }
 
   if (self->_segmentInfo)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v10;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    isFirstPartyIdentifier = self->_isFirstPartyIdentifier;
     PBDataWriterWriteBOOLField();
-    toCopy = v18;
+    toCopy = v10;
   }
 
   if (self->_advertisingIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v10;
   }
 
   has = self->_has;
   if (has)
   {
-    iTunesRefreshTime = self->_iTunesRefreshTime;
     PBDataWriterWriteDoubleField();
-    toCopy = v18;
+    toCopy = v10;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -521,9 +567,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  updateSentTime = self->_updateSentTime;
   PBDataWriterWriteDoubleField();
-  toCopy = v18;
+  toCopy = v10;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -537,77 +582,72 @@ LABEL_12:
   }
 
 LABEL_34:
-  timezone = self->_timezone;
   PBDataWriterWriteFloatField();
-  toCopy = v18;
+  toCopy = v10;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_13:
-    advertisingIdentifierMonthResetCount = self->_advertisingIdentifierMonthResetCount;
     PBDataWriterWriteInt32Field();
-    toCopy = v18;
+    toCopy = v10;
   }
 
 LABEL_14:
   if (self->_osVersionAndBuild)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v10;
   }
 
   if (self->_localeIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v18;
+    toCopy = v10;
   }
 
   if (self->_dPID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v18;
+    toCopy = v10;
   }
 
   if (self->_deviceModes.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_deviceModes.list[v8];
       PBDataWriterWriteInt32Field();
-      toCopy = v18;
-      ++v8;
+      toCopy = v10;
+      ++v6;
     }
 
-    while (v8 < self->_deviceModes.count);
+    while (v6 < self->_deviceModes.count);
   }
 
   if (self->_accountTypes.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_accountTypes.list[v10];
       PBDataWriterWriteInt32Field();
-      toCopy = v18;
-      ++v10;
+      toCopy = v10;
+      ++v7;
     }
 
-    while (v10 < self->_accountTypes.count);
+    while (v7 < self->_accountTypes.count);
   }
 
   p_accountStates = &self->_accountStates;
   if (p_accountStates->count)
   {
-    v13 = 0;
+    v9 = 0;
     do
     {
-      v14 = p_accountStates->list[v13];
       PBDataWriterWriteInt32Field();
-      toCopy = v18;
-      ++v13;
+      toCopy = v10;
+      ++v9;
     }
 
-    while (v13 < p_accountStates->count);
+    while (v9 < p_accountStates->count);
   }
 }
 
@@ -859,7 +899,6 @@ LABEL_8:
   }
 
   has = self->_has;
-  v8 = *(equalCopy + 160);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 160) & 0x10) == 0)
@@ -867,7 +906,6 @@ LABEL_8:
       goto LABEL_46;
     }
 
-    v11 = *(equalCopy + 156);
     if (self->_isFirstPartyIdentifier)
     {
       if ((*(equalCopy + 156) & 1) == 0)
@@ -902,7 +940,6 @@ LABEL_46:
 
   has = self->_has;
 LABEL_11:
-  v10 = *(equalCopy + 160);
   if (has)
   {
     if ((*(equalCopy + 160) & 1) == 0 || self->_iTunesRefreshTime != *(equalCopy + 10))

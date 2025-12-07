@@ -60,28 +60,28 @@ LABEL_21:
   return result;
 }
 
-void swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledTypeDecl(swift::Demangle::__runtime::Node **a1@<X0>, uint64_t a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X3>, void *a5@<X4>, uint64_t a6@<X8>)
+void swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledTypeDecl(swift::Demangle::__runtime::Node **a1@<X0>, swift::Demangle::__runtime::Node *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X3>, void *a5@<X4>, uint64_t a7@<X8>)
 {
   if (a3 > 0x400)
   {
 LABEL_2:
-    v7 = "Mangled type is too complex";
+    v8 = "Mangled type is too complex";
     goto LABEL_3;
   }
 
-  v9 = a3 + 1;
+  v10 = a3 + 1;
   while (1)
   {
-    v10 = *(a2 + 16);
-    if (v10 != 243)
+    v11 = *(a2 + 8);
+    if (v11 != 243)
     {
       break;
     }
 
-    v11 = *(a2 + 18);
-    if ((v11 - 1) >= 2)
+    v12 = *(a2 + 18);
+    if ((v12 - 1) >= 2)
     {
-      if (v11 != 5 || !*(a2 + 8))
+      if (v12 != 5 || !*(a2 + 2))
       {
         a2 = 0;
         goto LABEL_8;
@@ -92,28 +92,21 @@ LABEL_2:
 
     a2 = *a2;
 LABEL_8:
-    v9 = (v9 + 1);
-    if (v9 == 1026)
+    v10 = (v10 + 1);
+    if (v10 == 1026)
     {
       goto LABEL_2;
     }
   }
 
-  if (v10 != 244)
+  if (v11 != 244)
   {
     v13 = *(a2 + 18);
     if (v13 > 2)
     {
-      if (v13 == 3)
+      if (v13 != 5 || *(a2 + 2) <= 1u)
       {
-        v15 = *(a2 + 8);
-        v16 = *a2;
-        goto LABEL_33;
-      }
-
-      if (v13 != 5 || *(a2 + 8) <= 1u)
-      {
-LABEL_33:
+LABEL_30:
         operator new();
       }
 
@@ -124,119 +117,104 @@ LABEL_33:
     {
       if (v13 == 1)
       {
-        goto LABEL_33;
+        goto LABEL_30;
       }
 
       v14 = a2;
       if (v13 != 2)
       {
-        goto LABEL_33;
+        goto LABEL_30;
       }
     }
 
-    v17 = *v14;
-    v18 = *(*v14 + 16);
-    if (v18 == 163)
+    v15 = *v14;
+    v16 = *(*v14 + 16);
+    if (v16 == 163)
     {
       goto LABEL_14;
     }
 
-    if (v18 == 73)
+    if (v16 == 73)
     {
-      v19 = *(v17 + 18);
-      if (v19 != 2)
+      v17 = *(v15 + 18);
+      if (v17 != 2)
       {
-        if (v19 == 3)
+        if (v17 != 5 || *(v15 + 2) < 2u)
         {
-          v22 = *(v17 + 2);
-          v23 = *v17;
-          goto LABEL_44;
-        }
-
-        if (v19 != 5 || *(v17 + 2) < 2u)
-        {
-LABEL_44:
-          if (v13 != 2)
-          {
-            v24 = *(a2 + 8);
-          }
-
           operator new();
         }
 
-        v17 = *v17;
+        v15 = *v15;
       }
 
-      v20 = a5;
-      v21 = a2;
-      v17 = v17[1];
+      v18 = a5;
+      v19 = a2;
+      v15 = v15[1];
     }
 
     else
     {
-      v20 = a5;
-      v21 = a2;
+      v18 = a5;
+      v19 = a2;
     }
 
-    v25 = a1;
-    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v28, a1, v17, v9, 1);
-    v26 = LOWORD(v28.__r_.__value_.__r.__words[2]);
-    if (LOWORD(v28.__r_.__value_.__r.__words[2]))
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, v15, v10, 1, &v23);
+    v21 = v24;
+    if (v24)
     {
-      *v20 = 0;
-      v27 = v21;
-      if (v26 != 1)
+      *v18 = 0;
+      v22 = v19;
+      if (v21 != 1)
       {
-LABEL_54:
-        swift::Demangle::__runtime::getUnspecialized(v27, *v25, &v28);
-        if (!LODWORD(v28.__r_.__value_.__l.__data_))
+LABEL_47:
+        swift::Demangle::__runtime::getUnspecialized(&v23, v22, *a1);
+        if (!v23)
         {
-          a1 = v25;
+          a2 = __p;
           goto LABEL_14;
         }
 
-        v7 = "Failed to unspecialize type";
+        v8 = "Failed to unspecialize type";
         goto LABEL_3;
       }
 
-      (v28.__r_.__value_.__l.__size_)(v28.__r_.__value_.__r.__words[0], 3, 0);
+      (*(&v23 + 1))(v23, 3, 0);
     }
 
     else
     {
-      *v20 = v28.__r_.__value_.__r.__words[0];
+      *v18 = v23;
     }
 
-    v27 = v21;
-    goto LABEL_54;
+    v22 = v19;
+    goto LABEL_47;
   }
 
 LABEL_14:
-  v12 = *a1;
-  swift::reflection::TypeRefBuilder::createTypeDecl(&v28);
-  std::__optional_storage_base<swift::reflection::TypeRefDecl,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<swift::reflection::TypeRefDecl,false>>(a4, &v28);
-  if (v32 != 1)
+  swift::reflection::TypeRefBuilder::createTypeDecl(&v23, a2);
+  std::__optional_storage_base<swift::reflection::TypeRefDecl,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<swift::reflection::TypeRefDecl,false>>(a4, &v23);
+  if (v29 != 1)
   {
     goto LABEL_19;
   }
 
-  if (v31 == 1 && __p)
+  if (v28 == 1 && __p)
   {
-    v30 = __p;
+    v27 = __p;
     operator delete(__p);
   }
 
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if (v25 < 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
+    operator delete(v23);
     if ((*(a4 + 56) & 1) == 0)
     {
-      goto LABEL_30;
+      goto LABEL_29;
     }
 
 LABEL_20:
-    *a6 = 0;
-    *(a6 + 16) = 0;
+    *a7 = 0;
+    *(a7 + 16) = 0;
   }
 
   else
@@ -247,30 +225,23 @@ LABEL_19:
       goto LABEL_20;
     }
 
-LABEL_30:
-    v7 = "Failed to create type decl";
+LABEL_29:
+    v8 = "Failed to create type decl";
 LABEL_3:
-    *a6 = v7;
-    *(a6 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
-    *(a6 + 16) = 1;
+    *a7 = v8;
+    *(a7 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
+    *(a7 + 16) = 1;
   }
 }
 
-void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeGenericArgs@<X0>(void *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeGenericArgs(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v6 = a2 + 2;
-  if (*(a2 + 8) != 246)
+  v6 = (a2 + 16);
+  if (*(a2 + 16) != 246)
   {
-    if (*(a2 + 18) == 3)
-    {
-      v13 = *(a2 + 2);
-      v14 = *a2;
-    }
-
     operator new();
   }
 
-  v9 = result;
   v10 = *(a2 + 18);
   v11 = a2;
   if ((v10 - 1) >= 2)
@@ -279,7 +250,7 @@ void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>
     {
       v12 = *a2;
       v11 = *a2;
-      goto LABEL_13;
+      goto LABEL_11;
     }
 
     v11 = 0;
@@ -288,88 +259,86 @@ void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>
   switch(v10)
   {
     case 1:
-      v6 = a2 + 1;
-      if (v11 == a2 + 1)
+      v6 = (a2 + 8);
+      if (v11 == (a2 + 8))
       {
-        goto LABEL_31;
+        goto LABEL_29;
       }
 
-      goto LABEL_18;
+      goto LABEL_16;
     case 2:
-      goto LABEL_18;
+      goto LABEL_16;
     case 5:
       v12 = *a2;
-LABEL_13:
-      v6 = (v12 + 8 * *(a2 + 2));
+LABEL_11:
+      v6 = &v12[*(a2 + 8)];
       if (v11 == v6)
       {
-        goto LABEL_31;
+        goto LABEL_29;
       }
 
-      goto LABEL_18;
+      goto LABEL_16;
   }
 
   v6 = 0;
   if (!v11)
   {
-LABEL_31:
+LABEL_29:
     *a5 = 0;
     *(a5 + 16) = 0;
-    return result;
+    return;
   }
 
-LABEL_18:
-  v15 = *(a5 + 16);
+LABEL_16:
+  v13 = *(a5 + 16);
   while (1)
   {
-    result = swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v22, v9, *v11, a3, 0);
-    v16 = v24;
-    if (v24 == 1)
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, *v11, a3, 0, &v20);
+    v14 = v22;
+    if (v22 == 1)
     {
-      v17 = v22;
-      v18 = v23;
-      *(a5 + 8) = v23;
-      result = v18(v17, 2, 0);
-      *a5 = result;
-      v15 = 1;
+      v15 = v20;
+      v16 = v21;
+      *(a5 + 8) = v21;
+      *a5 = v16(v15, 2, 0);
+      v13 = 1;
     }
 
     else
     {
-      v19 = v22;
-      v20 = *(a4 + 8);
-      if (v20 >= *(a4 + 12))
+      v17 = v20;
+      v18 = *(a4 + 8);
+      if (v18 >= *(a4 + 12))
       {
-        result = __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4, a4 + 16, v20 + 1, 8);
-        v20 = *(a4 + 8);
+        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4, a4 + 16, v18 + 1, 8);
+        v18 = *(a4 + 8);
       }
 
-      v21 = v16 ? 0 : v19;
-      *(*a4 + 8 * v20) = v21;
+      v19 = v14 ? 0 : v17;
+      *(*a4 + 8 * v18) = v19;
       ++*(a4 + 8);
     }
 
-    if (v24 == 1)
+    if (v22 == 1)
     {
-      result = v23(v22, 3, 0);
+      v21(v20, 3, 0);
     }
 
-    if (v16 == 1)
+    if (v14 == 1)
     {
       break;
     }
 
     if (++v11 == v6)
     {
-      goto LABEL_31;
+      goto LABEL_29;
     }
   }
 
-  *(a5 + 16) = v15;
-  return result;
+  *(a5 + 16) = v13;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::createBoundGenericType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t swift::reflection::TypeRefBuilder::createBoundGenericType(uint64_t a1, uint64_t a2, const void *a3, unint64_t a4, uint64_t a5)
 {
   v10[0] = a3;
   v10[1] = a4;
@@ -592,7 +561,7 @@ LABEL_24:
 
 LABEL_45:
   v20 = a3;
-  swift::Demangle::__runtime::mangleNode();
+  swift::Demangle::__runtime::mangleNode(a1, 0);
   if (LODWORD(v24.__r_.__value_.__l.__data_))
   {
     v20->__r_.__value_.__s.__data_[0] = 0;
@@ -628,11 +597,11 @@ LABEL_52:
   }
 }
 
-uint64_t __swift::__runtime::llvm::SmallVectorTemplateBase<std::optional<std::pair<std::string,BOOL>>,false>::push_back(uint64_t result, __int128 *a2)
+unint64_t *__swift::__runtime::llvm::SmallVectorTemplateBase<std::optional<std::pair<std::string,BOOL>>,false>::push_back(unint64_t *result, __int128 *a2)
 {
-  v2 = *(result + 8);
+  v2 = *(result + 2);
   v3 = *result;
-  if (v2 >= *(result + 12))
+  if (v2 >= *(result + 3))
   {
     v8 = a2;
     if (v3 <= a2 && v3 + 40 * v2 > a2)
@@ -642,7 +611,7 @@ uint64_t __swift::__runtime::llvm::SmallVectorTemplateBase<std::optional<std::pa
       __swift::__runtime::llvm::SmallVectorTemplateBase<std::optional<std::pair<std::string,BOOL>>,false>::grow(result, v2 + 1);
       result = v12;
       v3 = *v12;
-      a2 = (*v12 + v11);
+      a2 = &v11[*v12];
     }
 
     else
@@ -655,7 +624,7 @@ uint64_t __swift::__runtime::llvm::SmallVectorTemplateBase<std::optional<std::pa
     }
   }
 
-  v4 = (v3 + 40 * *(result + 8));
+  v4 = (v3 + 40 * *(result + 2));
   v4->__r_.__value_.__s.__data_[0] = 0;
   v4[1].__r_.__value_.__s.__data_[8] = 0;
   if (*(a2 + 32) == 1)
@@ -680,11 +649,11 @@ uint64_t __swift::__runtime::llvm::SmallVectorTemplateBase<std::optional<std::pa
     v4[1].__r_.__value_.__s.__data_[8] = 1;
   }
 
-  ++*(result + 8);
+  ++*(result + 2);
   return result;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::createProtocolCompositionType(uint64_t a1, __int128 *a2, uint64_t a3, void *a4, int a5)
+uint64_t swift::reflection::TypeRefBuilder::createProtocolCompositionType(uint64_t a1, __int128 *a2, uint64_t a3, void *a4, uint64_t a5)
 {
   if (a3)
   {
@@ -750,7 +719,7 @@ uint64_t swift::reflection::TypeRefBuilder::createProtocolCompositionType(uint64
   return v10;
 }
 
-uint64_t swift::Demangle::__runtime::decodeRequirement<swift::reflection::TypeRef const*,swift::reflection::TypeRefRequirement,swift::reflection::TypeRefInverseRequirement,swift::reflection::TypeRefLayoutConstraint,swift::reflection::TypeRefBuilder>(uint64_t result, uint64_t a2, uint64_t a3, swift::reflection::TypeRefBuilder *a4)
+unint64_t swift::Demangle::__runtime::decodeRequirement<swift::reflection::TypeRef const*,swift::reflection::TypeRefRequirement,swift::reflection::TypeRefInverseRequirement,swift::reflection::TypeRefLayoutConstraint,swift::reflection::TypeRefBuilder>(unint64_t result, uint64_t a2, uint64_t a3, swift::reflection::TypeRefBuilder *a4)
 {
   v7 = *(result + 18);
   v8 = result;
@@ -770,7 +739,7 @@ uint64_t swift::Demangle::__runtime::decodeRequirement<swift::reflection::TypeRe
   {
     case 1:
       v10 = result + 8;
-      if (v8 != (result + 8))
+      if (v8 != result + 8)
       {
         goto LABEL_24;
       }
@@ -778,7 +747,7 @@ uint64_t swift::Demangle::__runtime::decodeRequirement<swift::reflection::TypeRe
       break;
     case 2:
       v10 = result + 16;
-      if (v8 != (result + 16))
+      if (v8 != result + 16)
       {
         goto LABEL_24;
       }
@@ -787,7 +756,7 @@ uint64_t swift::Demangle::__runtime::decodeRequirement<swift::reflection::TypeRe
     case 5:
       v9 = *result;
 LABEL_9:
-      v10 = &v9[*(result + 8)];
+      v10 = v9 + 8 * *(result + 8);
       if (v8 == v10)
       {
         return result;
@@ -797,7 +766,7 @@ LABEL_9:
       {
 LABEL_24:
         v15 = *v8;
-        v16 = *(*v8 + 8);
+        v16 = *(*v8 + 16);
         if (v16 == 38 || v16 == 43 || v16 == 370)
         {
           goto LABEL_23;
@@ -822,7 +791,7 @@ LABEL_24:
 
         v18 = result;
         v19 = *v8;
-        v20 = *(*v8 + 8);
+        v20 = *(*v8 + 16);
         if (v20 == 367)
         {
           v25 = *(v19 + 18);
@@ -844,13 +813,13 @@ LABEL_49:
             v27 = 0;
           }
 
-          if (*(v27 + 16) != 243)
+          if (*(v27 + 8) != 243)
           {
             return result;
           }
 
           v34 = *(v27 + 18);
-          if (v34 != 1 && (v34 != 5 || *(v27 + 8) != 1))
+          if (v34 != 1 && (v34 != 5 || *(v27 + 2) != 1))
           {
             return result;
           }
@@ -860,7 +829,7 @@ LABEL_49:
             v19 = *v19;
           }
 
-          v35 = **(v19 + 1);
+          v35 = *v19[1];
           v36 = *(a3 + 8);
           if (v36 >= *(a3 + 12))
           {
@@ -885,7 +854,7 @@ LABEL_49:
           {
             v19 = *v19;
 LABEL_44:
-            v24 = *(v19 + 1);
+            v24 = v19[1];
           }
 
           else
@@ -929,7 +898,7 @@ LABEL_55:
 
 LABEL_56:
         v28 = *v8;
-        v29 = *(*v8 + 8);
+        v29 = *(*v8 + 16);
         if (v29 != 42)
         {
           if (v29 == 40)
@@ -981,7 +950,7 @@ LABEL_56:
         {
           v28 = *v28;
 LABEL_66:
-          v31 = *(v28 + 1);
+          v31 = v28[1];
           goto LABEL_68;
         }
 
@@ -992,7 +961,7 @@ LABEL_68:
           return result;
         }
 
-        if (v31[1] != &dword_0 + 1)
+        if (v31[1] != 1)
         {
           return result;
         }
@@ -1016,7 +985,8 @@ LABEL_21:
 LABEL_22:
         ++*v14;
 LABEL_23:
-        if (++v8 == v10)
+        v8 += 8;
+        if (v8 == v10)
         {
           return result;
         }
@@ -1024,7 +994,7 @@ LABEL_23:
 
       v19 = *v19;
 LABEL_39:
-      v22 = *(v19 + 1);
+      v22 = v19[1];
       goto LABEL_55;
     default:
       v10 = 0;
@@ -1039,7 +1009,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::createConstrainedExistentialType(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t swift::reflection::TypeRefBuilder::createConstrainedExistentialType(uint64_t a1, unint64_t a2, const void *a3, uint64_t a4)
 {
   result = 0;
   if (a2 && *(a2 + 8) == 5)
@@ -1070,19 +1040,19 @@ uint64_t swift::reflection::TypeRefBuilder::createConstrainedExistentialType(uin
   return result;
 }
 
-void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType@<X0>(void *result@<X0>, uint64_t a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(void *result@<X0>, uint64_t *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   if (a3 > 0x400)
   {
 LABEL_2:
     *a6 = 0;
     *(a6 + 16) = 0;
-    return result;
+    return;
   }
 
   while (1)
   {
-    v6 = *(a2 + 16);
+    v6 = *(a2 + 8);
     if (v6 != 243 && v6 != 3)
     {
       break;
@@ -1091,7 +1061,7 @@ LABEL_2:
     v8 = *(a2 + 18);
     if ((v8 - 1) >= 2)
     {
-      if (v8 != 5 || !*(a2 + 8))
+      if (v8 != 5 || !*(a2 + 2))
       {
         a2 = 0;
         goto LABEL_7;
@@ -1127,7 +1097,7 @@ LABEL_7:
         v12 = *a2;
         v10 = *a2;
 LABEL_29:
-        v17 = (v12 + 8 * *(a2 + 8));
+        v17 = (v12 + 8 * *(a2 + 2));
         goto LABEL_35;
       }
 
@@ -1138,10 +1108,10 @@ LABEL_29:
     switch(v9)
     {
       case 1:
-        v17 = (a2 + 8);
+        v17 = a2 + 1;
         goto LABEL_35;
       case 2:
-        v17 = (a2 + 16);
+        v17 = a2 + 2;
         goto LABEL_35;
       case 5:
         v12 = *a2;
@@ -1156,10 +1126,10 @@ LABEL_35:
       {
         *v11 = 0;
         *(v11 + 16) = 0;
-        return result;
+        return;
       }
 
-      result = swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *)#1}::operator()(v27, *v10, &v23);
+      swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *)#1}::operator()(v27, *v10, &v23);
       if (v25 == 1)
       {
         break;
@@ -1171,12 +1141,11 @@ LABEL_35:
     v18 = v23;
     v19 = v24;
     *(v11 + 8) = v24;
-    result = v19(v18, 2, 0);
-    *v11 = result;
+    *v11 = v19(v18, 2, 0);
     *(v11 + 16) = 1;
     if (v25 == 1)
     {
-      return v24(v23, 3, 0);
+      v24(v23, 3, 0);
     }
   }
 
@@ -1185,19 +1154,18 @@ LABEL_35:
     v23 = 0;
     v24 = 0;
     v26 = 0;
-    result = swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator()(v28, a2, &v23, &v20);
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator()(v28, a2, &v23, &v20);
     if (v22 == 1)
     {
       v14 = v20;
       v15 = v21;
       *(a6 + 8) = v21;
-      result = v15(v14, 2, 0);
-      *a6 = result;
+      *a6 = v15(v14, 2, 0);
       v16 = v22;
       *(a6 + 16) = 1;
       if (v16)
       {
-        return v21(v20, 3, 0);
+        v21(v20, 3, 0);
       }
     }
 
@@ -1207,11 +1175,9 @@ LABEL_35:
       *(a6 + 16) = 0;
     }
   }
-
-  return result;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::createFunctionType(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, int a6, uint64_t a7, char *a8, char *a9)
+uint64_t swift::reflection::TypeRefBuilder::createFunctionType(uint64_t a1, const void *a2, uint64_t a3, void **a4, uint64_t a5, int a6, uint64_t a7, void **a8, void **a9)
 {
   __p = 0;
   v12 = 0;
@@ -1238,7 +1204,7 @@ uint64_t swift::reflection::TypeRefBuilder::createFunctionType(uint64_t a1, uint
   return result;
 }
 
-uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeImplFunctionParam<swift::Demangle::__runtime::ImplFunctionParam<swift::reflection::TypeRef const*>>(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
+uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeImplFunctionParam<swift::Demangle::__runtime::ImplFunctionParam<swift::reflection::TypeRef const*>>(void *a1, uint64_t **a2, unsigned int a3, uint64_t a4)
 {
   if (a3 > 0x400)
   {
@@ -1259,7 +1225,7 @@ uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuild
       return v4;
     }
 
-    v7 = *(a2 + 8);
+    v7 = *(a2 + 2);
     if (v7 < 2)
     {
       return 1;
@@ -1289,7 +1255,7 @@ uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuild
     return v4;
   }
 
-  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(v32, a1, v9, a3 + 1, 1);
+  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, v9, a3 + 1, 1, v32);
   v15 = v33;
   if (v33 == 1)
   {
@@ -1308,7 +1274,7 @@ LABEL_50:
         v19 = 1;
         break;
       case 5:
-        v19 = *(a2 + 8) - 1;
+        v19 = *(a2 + 2) - 1;
         break;
       case 1:
         goto LABEL_45;
@@ -1348,7 +1314,7 @@ LABEL_49:
     v20 = *(a2 + 18);
     if (v17 != 2)
     {
-      v20 = *(a2 + 8);
+      v20 = *(a2 + 2);
     }
 
     if (v20 <= i)
@@ -1432,7 +1398,7 @@ LABEL_15:
   return v4;
 }
 
-uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeImplFunctionResult<swift::Demangle::__runtime::ImplFunctionResult<swift::reflection::TypeRef const*>>(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
+uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeImplFunctionResult<swift::Demangle::__runtime::ImplFunctionResult<swift::reflection::TypeRef const*>>(void *a1, uint64_t *a2, unsigned int a3, uint64_t a4)
 {
   if (a3 > 0x400)
   {
@@ -1453,7 +1419,7 @@ uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuild
       return v4;
     }
 
-    v7 = *(a2 + 8);
+    v7 = *(a2 + 2);
     if (v7 < 2)
     {
       return 1;
@@ -1463,18 +1429,18 @@ uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuild
     v4 = v7 - 1;
   }
 
-  if (*(*v8 + 8) != 108)
+  if (*(*v8 + 16) != 108)
   {
     return 1;
   }
 
   v9 = v8[v4];
-  if (*(v9 + 8) != 243)
+  if (*(v9 + 16) != 243)
   {
     return 1;
   }
 
-  ConventionFromString = swift::Demangle::__runtime::ImplFunctionResult<swift::reflection::TypeRef const*>::getConventionFromString(**v8, (*v8)[1]);
+  ConventionFromString = swift::Demangle::__runtime::ImplFunctionResult<swift::reflection::TypeRef const*>::getConventionFromString(**v8, *(*v8 + 8));
   v34 = ConventionFromString;
   v35 = BYTE4(ConventionFromString);
   v4 = 1;
@@ -1483,7 +1449,7 @@ uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuild
     return v4;
   }
 
-  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(v32, a1, v9, a3 + 1, 1);
+  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, v9, a3 + 1, 1, v32);
   v15 = v33;
   if (v33 == 1)
   {
@@ -1500,7 +1466,7 @@ uint64_t swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuild
         v19 = 1;
         break;
       case 5:
-        v19 = *(a2 + 8) - 1;
+        v19 = *(a2 + 2) - 1;
         break;
       case 1:
         goto LABEL_40;
@@ -1518,7 +1484,7 @@ LABEL_29:
     v20 = *(a2 + 18);
     if (v17 != 2)
     {
-      v20 = *(a2 + 8);
+      v20 = *(a2 + 2);
     }
 
     if (v20 <= i)
@@ -1534,7 +1500,7 @@ LABEL_29:
 
     v22 = v21[i];
 LABEL_30:
-    v23 = *(v22 + 8);
+    v23 = *(v22 + 16);
     if (v23 == 113)
     {
       LOBYTE(v4) = 2;
@@ -1547,7 +1513,7 @@ LABEL_30:
         goto LABEL_44;
       }
 
-      v24 = *(v22 + 1);
+      v24 = *(v22 + 8);
       if (v24)
       {
         if (v24 != 13)
@@ -1632,7 +1598,7 @@ uint64_t swift::reflection::TypeRefBuilder::createImplFunctionType(uint64_t a1, 
   return result;
 }
 
-void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(swift::Demangle::__runtime::Node *,unsigned int,BOOL)::{lambda(swift::reflection::TypeRef const*)#1}>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X8>)
+void swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(swift::Demangle::__runtime::Node *,unsigned int,BOOL)::{lambda(swift::reflection::TypeRef const*)#1}>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X8>)
 {
   if (*(a2 + 8) == 243)
   {
@@ -1659,16 +1625,9 @@ LABEL_8:
     v8 = *(a2 + 18);
     if (v8 > 2)
     {
-      if (v8 == 3)
-      {
-        v20 = *(a2 + 2);
-        v21 = *a2;
-        goto LABEL_31;
-      }
-
       if (v8 != 5 || *(a2 + 2) <= 1u)
       {
-LABEL_31:
+LABEL_29:
         operator new();
       }
 
@@ -1677,186 +1636,181 @@ LABEL_31:
 
     else if (v8 != 2)
     {
-      goto LABEL_31;
+      goto LABEL_29;
     }
 
-    v22 = *a2;
-    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v45, a1, a2[1], a3, 1);
-    if (v47 == 1)
+    v19 = *a2;
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, a2[1], a3, 1, &v43);
+    if (v45 == 1)
     {
-      v25 = v45;
-      v26 = v46;
-      *(a5 + 8) = v46;
-      result = v26(v25, 2, 0);
-      v27 = 0;
-      *a5 = result;
+      v22 = v43;
+      v23 = v44;
+      *(a5 + 8) = v44;
+      v24 = 0;
+      *a5 = v23(v22, 2, 0);
       *(a5 + 16) = 1;
     }
 
     else
     {
-      v28 = *a1;
-      if (v47)
+      v25 = *a1;
+      if (v45)
       {
-        v29 = 0;
+        v26 = 0;
       }
 
       else
       {
-        v29 = v45;
+        v26 = v43;
       }
 
-      v42 = v29;
-      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](v28 + 624, &v42);
-      swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v42, a1, v22, a3, 1);
-      v30 = v44;
-      if (v44 == 1)
+      v40 = v26;
+      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](v25 + 624, &v40);
+      swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, v19, a3, 1, &v40);
+      v27 = v42;
+      if (v42 == 1)
       {
-        v31 = v42;
-        v32 = v43;
-        *(a5 + 8) = v43;
-        result = v32(v31, 2, 0);
-        *a5 = result;
+        v28 = v40;
+        v29 = v41;
+        *(a5 + 8) = v41;
+        *a5 = v29(v28, 2, 0);
         *(a5 + 16) = 1;
       }
 
       else
       {
-        if (v44)
+        if (v42)
         {
-          v33 = 0;
+          v30 = 0;
         }
 
         else
         {
-          v33 = v42;
+          v30 = v40;
         }
 
-        result = swift::reflection::PackExpansionTypeRef::create<swift::reflection::TypeRefBuilder>(*a1, v33, *(*(*a1 + 632) - 8));
-        v34 = *a4;
-        v35 = *(*a4 + 8);
-        if (v35 >= *(*a4 + 12))
+        v31 = swift::reflection::PackExpansionTypeRef::create<swift::reflection::TypeRefBuilder>(*a1, v30, *(*(*a1 + 632) - 8));
+        v32 = *a4;
+        v33 = *(*a4 + 8);
+        if (v33 >= *(*a4 + 12))
         {
-          v39 = result;
-          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(*a4, v34 + 16, v35 + 1, 8);
-          result = v39;
-          LODWORD(v35) = *(v34 + 8);
+          v37 = v31;
+          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(*a4, v32 + 16, v33 + 1, 8);
+          v31 = v37;
+          LODWORD(v33) = *(v32 + 8);
         }
 
-        *(*v34 + 8 * v35) = result;
+        *(*v32 + 8 * v33) = v31;
+        ++*(v32 + 8);
+        v34 = a4[1];
+        v35 = *a4[2];
+        v36 = *(v34 + 8);
+        if (v36 >= *(v34 + 12))
+        {
+          v39 = *a4[2];
+          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4[1], v34 + 16, v36 + 1, 16);
+          v35 = v39;
+          LODWORD(v36) = *(v34 + 8);
+        }
+
+        *(*v34 + 16 * v36) = v35;
         ++*(v34 + 8);
-        v36 = a4[1];
-        v37 = *a4[2];
-        v38 = *(v36 + 8);
-        if (v38 >= *(v36 + 12))
-        {
-          v41 = *a4[2];
-          result = __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4[1], v36 + 16, v38 + 1, 16);
-          v37 = v41;
-          LODWORD(v38) = *(v36 + 8);
-        }
-
-        *(*v36 + 16 * v38) = v37;
-        ++*(v36 + 8);
       }
 
-      if (v44 == 1)
+      if (v42 == 1)
       {
-        result = v43(v42, 3, 0);
+        v41(v40, 3, 0);
       }
 
-      if (v30 == 1)
+      if (v27 == 1)
       {
-        v27 = 0;
+        v24 = 0;
       }
 
       else
       {
         *(*a1 + 632) -= 8;
-        v27 = 1;
+        v24 = 1;
       }
     }
 
-    if (v47 == 1)
+    if (v45 == 1)
     {
-      result = v46(v45, 3, 0);
+      v44(v43, 3, 0);
     }
 
-    if (v27)
+    if (v24)
     {
-      goto LABEL_56;
+      goto LABEL_54;
     }
   }
 
   else
   {
-    result = swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v45, a1, a2, a3, 0);
-    v10 = v47;
-    if (v47 == 1)
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, a2, a3, 0, &v43);
+    v9 = v45;
+    if (v45 == 1)
     {
-      v11 = v45;
-      v12 = v46;
-      *(a5 + 8) = v46;
-      result = v12(v11, 2, 0);
-      *a5 = result;
+      v10 = v43;
+      v11 = v44;
+      *(a5 + 8) = v44;
+      *a5 = v11(v10, 2, 0);
       *(a5 + 16) = 1;
     }
 
     else
     {
-      v13 = v45;
-      v14 = *a4;
-      v15 = *(*a4 + 8);
-      if (v15 >= *(*a4 + 12))
+      v12 = v43;
+      v13 = *a4;
+      v14 = *(*a4 + 8);
+      if (v14 >= *(*a4 + 12))
       {
-        result = __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(*a4, v14 + 16, v15 + 1, 8);
-        LODWORD(v15) = *(v14 + 8);
+        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(*a4, v13 + 16, v14 + 1, 8);
+        LODWORD(v14) = *(v13 + 8);
       }
 
-      if (v10)
+      if (v9)
       {
-        v16 = 0;
+        v15 = 0;
       }
 
       else
       {
-        v16 = v13;
+        v15 = v12;
       }
 
-      *(*v14 + 8 * v15) = v16;
-      ++*(v14 + 8);
-      v17 = a4[1];
-      v18 = *a4[2];
-      v19 = *(v17 + 8);
-      if (v19 >= *(v17 + 12))
+      *(*v13 + 8 * v14) = v15;
+      ++*(v13 + 8);
+      v16 = a4[1];
+      v17 = *a4[2];
+      v18 = *(v16 + 8);
+      if (v18 >= *(v16 + 12))
       {
-        v40 = *a4[2];
-        result = __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4[1], v17 + 16, v19 + 1, 16);
-        v18 = v40;
-        LODWORD(v19) = *(v17 + 8);
+        v38 = *a4[2];
+        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4[1], v16 + 16, v18 + 1, 16);
+        v17 = v38;
+        LODWORD(v18) = *(v16 + 8);
       }
 
-      *(*v17 + 16 * v19) = v18;
-      ++*(v17 + 8);
+      *(*v16 + 16 * v18) = v17;
+      ++*(v16 + 8);
     }
 
-    if (v47 == 1)
+    if (v45 == 1)
     {
-      result = v46(v45, 3, 0);
+      v44(v43, 3, 0);
     }
 
-    if (v10 != 1)
+    if (v9 != 1)
     {
-LABEL_56:
+LABEL_54:
       *a5 = 0;
       *(a5 + 16) = 0;
     }
   }
-
-  return result;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::createTupleType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+_DWORD *swift::reflection::TypeRefBuilder::createTupleType(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v23 = 0;
   v24 = 0;
@@ -1948,7 +1902,7 @@ uint64_t swift::reflection::TypeRefBuilder::createTupleType(uint64_t a1, uint64_
   return v7;
 }
 
-void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(swift::Demangle::__runtime::Node *,unsigned int,BOOL)::{lambda(swift::reflection::TypeRef const*)#2}>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(swift::Demangle::__runtime::Node *,unsigned int,BOOL)::{lambda(swift::reflection::TypeRef const*)#2}>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   if (*(a2 + 8) == 243)
   {
@@ -1975,16 +1929,9 @@ LABEL_8:
     v8 = *(a2 + 18);
     if (v8 > 2)
     {
-      if (v8 == 3)
-      {
-        v16 = *(a2 + 2);
-        v17 = *a2;
-        goto LABEL_29;
-      }
-
       if (v8 != 5 || *(a2 + 2) <= 1u)
       {
-LABEL_29:
+LABEL_27:
         operator new();
       }
 
@@ -1993,158 +1940,153 @@ LABEL_29:
 
     else if (v8 != 2)
     {
-      goto LABEL_29;
+      goto LABEL_27;
     }
 
-    v18 = *a2;
-    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v35, a1, a2[1], a3, 1);
-    if (v37 == 1)
+    v15 = *a2;
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, a2[1], a3, 1, &v33);
+    if (v35 == 1)
     {
-      v21 = v35;
-      v22 = v36;
-      *(a5 + 8) = v36;
-      result = v22(v21, 2, 0);
-      v23 = 0;
-      *a5 = result;
+      v18 = v33;
+      v19 = v34;
+      *(a5 + 8) = v34;
+      v20 = 0;
+      *a5 = v19(v18, 2, 0);
       *(a5 + 16) = 1;
     }
 
     else
     {
-      v24 = *a1;
-      if (v37)
+      v21 = *a1;
+      if (v35)
       {
-        v25 = 0;
+        v22 = 0;
       }
 
       else
       {
-        v25 = v35;
+        v22 = v33;
       }
 
-      v32 = v25;
-      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](v24 + 624, &v32);
-      swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v32, a1, v18, a3, 1);
-      v26 = v34;
-      if (v34 == 1)
+      v30 = v22;
+      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](v21 + 624, &v30);
+      swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, v15, a3, 1, &v30);
+      v23 = v32;
+      if (v32 == 1)
       {
-        v27 = v32;
-        v28 = v33;
-        *(a5 + 8) = v33;
-        result = v28(v27, 2, 0);
-        *a5 = result;
+        v24 = v30;
+        v25 = v31;
+        *(a5 + 8) = v31;
+        *a5 = v25(v24, 2, 0);
         *(a5 + 16) = 1;
       }
 
       else
       {
-        if (v34)
+        if (v32)
         {
-          v29 = 0;
+          v26 = 0;
         }
 
         else
         {
-          v29 = v32;
+          v26 = v30;
         }
 
-        result = swift::reflection::PackExpansionTypeRef::create<swift::reflection::TypeRefBuilder>(*a1, v29, *(*(*a1 + 632) - 8));
-        v30 = *(a4 + 8);
-        if (v30 >= *(a4 + 12))
+        v27 = swift::reflection::PackExpansionTypeRef::create<swift::reflection::TypeRefBuilder>(*a1, v26, *(*(*a1 + 632) - 8));
+        v28 = *(a4 + 8);
+        if (v28 >= *(a4 + 12))
         {
-          v31 = result;
-          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4, a4 + 16, v30 + 1, 8);
-          result = v31;
-          LODWORD(v30) = *(a4 + 8);
+          v29 = v27;
+          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4, a4 + 16, v28 + 1, 8);
+          v27 = v29;
+          LODWORD(v28) = *(a4 + 8);
         }
 
-        *(*a4 + 8 * v30) = result;
+        *(*a4 + 8 * v28) = v27;
         ++*(a4 + 8);
       }
 
-      if (v34 == 1)
+      if (v32 == 1)
       {
-        result = v33(v32, 3, 0);
+        v31(v30, 3, 0);
       }
 
-      if (v26 == 1)
+      if (v23 == 1)
       {
-        v23 = 0;
+        v20 = 0;
       }
 
       else
       {
         *(*a1 + 632) -= 8;
-        v23 = 1;
+        v20 = 1;
       }
     }
 
-    if (v37 == 1)
+    if (v35 == 1)
     {
-      result = v36(v35, 3, 0);
+      v34(v33, 3, 0);
     }
 
-    if (v23)
+    if (v20)
     {
-      goto LABEL_52;
+      goto LABEL_50;
     }
   }
 
   else
   {
-    result = swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v35, a1, a2, a3, 0);
-    v10 = v37;
-    if (v37 == 1)
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, a2, a3, 0, &v33);
+    v9 = v35;
+    if (v35 == 1)
     {
-      v11 = v35;
-      v12 = v36;
-      *(a5 + 8) = v36;
-      result = v12(v11, 2, 0);
-      *a5 = result;
+      v10 = v33;
+      v11 = v34;
+      *(a5 + 8) = v34;
+      *a5 = v11(v10, 2, 0);
       *(a5 + 16) = 1;
     }
 
     else
     {
-      v13 = v35;
-      v14 = *(a4 + 8);
-      if (v14 >= *(a4 + 12))
+      v12 = v33;
+      v13 = *(a4 + 8);
+      if (v13 >= *(a4 + 12))
       {
-        result = __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4, a4 + 16, v14 + 1, 8);
-        LODWORD(v14) = *(a4 + 8);
+        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4, a4 + 16, v13 + 1, 8);
+        LODWORD(v13) = *(a4 + 8);
       }
 
-      if (v10)
+      if (v9)
       {
-        v15 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v15 = v13;
+        v14 = v12;
       }
 
-      *(*a4 + 8 * v14) = v15;
+      *(*a4 + 8 * v13) = v14;
       ++*(a4 + 8);
     }
 
-    if (v37 == 1)
+    if (v35 == 1)
     {
-      result = v36(v35, 3, 0);
+      v34(v33, 3, 0);
     }
 
-    if (v10 != 1)
+    if (v9 != 1)
     {
-LABEL_52:
+LABEL_50:
       *a5 = 0;
       *(a5 + 16) = 0;
     }
   }
-
-  return result;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::createPackType(uint64_t a1, uint64_t a2, uint64_t a3)
+_DWORD *swift::reflection::TypeRefBuilder::createPackType(uint64_t a1, const void *a2, uint64_t a3)
 {
   __p = 0;
   v6 = 0;
@@ -2189,10 +2131,10 @@ uint64_t __swift::__runtime::llvm::SmallVectorTemplateBase<unsigned int,true>::p
   return result;
 }
 
-uint64_t __swift::__runtime::llvm::SmallVectorImpl<std::pair<unsigned int,unsigned int>>::emplace_back<unsigned long long,unsigned long long>(uint64_t a1, unsigned int *a2, uint64_t *a3)
+uint64_t __swift::__runtime::llvm::SmallVectorImpl<std::pair<unsigned int,unsigned int>>::emplace_back<unsigned long long,unsigned long long>(uint64_t *a1, unsigned int *a2, uint64_t *a3)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 12))
+  v3 = *(a1 + 2);
+  if (v3 >= *(a1 + 3))
   {
     return __swift::__runtime::llvm::SmallVectorTemplateBase<std::pair<unsigned int,unsigned int>,true>::growAndEmplaceBack<unsigned long long,unsigned long long>(a1, a2, a3);
   }
@@ -2203,14 +2145,14 @@ uint64_t __swift::__runtime::llvm::SmallVectorImpl<std::pair<unsigned int,unsign
   *v5 = *a2;
   v5[1] = v6;
   v7 = v3 + 1;
-  *(a1 + 8) = v7;
+  *(a1 + 2) = v7;
   return v4 + 8 * v7 - 8;
 }
 
-uint64_t llvm::SmallVectorImpl<std::pair<swift::reflection::TypeRef const*,swift::reflection::TypeRef const*>>::emplace_back<swift::reflection::TypeRef const*&,swift::reflection::TypeRef const*>(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t llvm::SmallVectorImpl<std::pair<swift::reflection::TypeRef const*,swift::reflection::TypeRef const*>>::emplace_back<swift::reflection::TypeRef const*&,swift::reflection::TypeRef const*>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 12))
+  v3 = *(a1 + 2);
+  if (v3 >= *(a1 + 3))
   {
     return __swift::__runtime::llvm::SmallVectorTemplateBase<std::pair<swift::reflection::TypeRef const*,swift::reflection::TypeRef const*>,true>::growAndEmplaceBack<swift::reflection::TypeRef const*&,swift::reflection::TypeRef const*>(a1, a2, a3);
   }
@@ -2220,14 +2162,14 @@ uint64_t llvm::SmallVectorImpl<std::pair<swift::reflection::TypeRef const*,swift
   *v5 = *a2;
   v5[1] = *a3;
   v6 = v3 + 1;
-  *(a1 + 8) = v6;
+  *(a1 + 2) = v6;
   return v4 + 16 * v6 - 16;
 }
 
-uint64_t llvm::SmallVectorImpl<swift::reflection::SILBoxTypeWithLayoutTypeRef::Field>::emplace_back<swift::reflection::TypeRef const*,BOOL &>(uint64_t a1, uint64_t *a2, unsigned __int8 *a3)
+uint64_t llvm::SmallVectorImpl<swift::reflection::SILBoxTypeWithLayoutTypeRef::Field>::emplace_back<swift::reflection::TypeRef const*,BOOL &>(uint64_t *a1, uint64_t *a2, unsigned __int8 *a3)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 12))
+  v3 = *(a1 + 2);
+  if (v3 >= *(a1 + 3))
   {
     return __swift::__runtime::llvm::SmallVectorTemplateBase<swift::reflection::SILBoxTypeWithLayoutTypeRef::Field,true>::growAndEmplaceBack<swift::reflection::TypeRef const*,BOOL &>(a1, a2, a3);
   }
@@ -2241,7 +2183,7 @@ uint64_t llvm::SmallVectorImpl<swift::reflection::SILBoxTypeWithLayoutTypeRef::F
 
   *(v4 + 8 * v3) = v5 | *a2 & 0xFFFFFFFFFFFFFFFBLL;
   v6 = v3 + 1;
-  *(a1 + 8) = v6;
+  *(a1 + 2) = v6;
   return v4 + 8 * v6 - 8;
 }
 
@@ -2307,7 +2249,7 @@ void std::vector<unsigned int>::push_back[abi:nn200100](uint64_t a1, _DWORD *a2)
   *(a1 + 8) = v5;
 }
 
-uint64_t std::vector<llvm::ArrayRef<swift::reflection::TypeRef const*>>::emplace_back<swift::reflection::TypeRef const**,unsigned int>(uint64_t a1, void *a2, unsigned int *a3)
+void *std::vector<llvm::ArrayRef<swift::reflection::TypeRef const*>>::emplace_back<swift::reflection::TypeRef const**,unsigned int>(uint64_t a1, void *a2, unsigned int *a3)
 {
   v5 = *(a1 + 8);
   v6 = *(a1 + 16);
@@ -2372,7 +2314,7 @@ uint64_t std::vector<llvm::ArrayRef<swift::reflection::TypeRef const*>>::emplace
   }
 
   *(a1 + 8) = v8;
-  return v8 - 16;
+  return (v8 - 16);
 }
 
 char *swift::reflection::TypeRefBuilder::resolveOpaqueType(uint64_t a1, swift::Demangle::__runtime *a2, uint64_t a3, uint64_t a4, int a5)
@@ -2400,7 +2342,7 @@ char *swift::reflection::TypeRefBuilder::resolveOpaqueType(uint64_t a1, swift::D
     v50[0] = off_E0BC8;
     v50[1] = swift::Demangle::__runtime::genericParameterName;
     v51 = v50;
-    swift::Demangle::__runtime::nodeToString(a2, v46, v34, __p);
+    swift::Demangle::__runtime::nodeToString(__p, a2, v46, v34);
     if (v53 >= 0)
     {
       v37 = __p;
@@ -2455,7 +2397,7 @@ char *swift::reflection::TypeRefBuilder::resolveOpaqueType(uint64_t a1, swift::D
   v8 = *(a1 + 2288);
   if (!v8)
   {
-    v41 = std::__throw_bad_function_call[abi:nn200100]();
+    std::__throw_bad_function_call[abi:nn200100]();
     return swift::TypeLookupError::TypeLookupError<swift::TypeLookupError swift::TypeLookupErrorImpl<int,unsigned int,int,char const*,char const*>(char const*,int,unsigned int,int,char const*,char const*)::{lambda(void)#1}>(swift::TypeLookupError swift::TypeLookupErrorImpl<int,unsigned int,int,char const*,char const*>(char const*,int,unsigned int,int,char const*,char const*)::{lambda(void)#1} const&)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke(v41, v42, v43);
   }
 
@@ -2470,9 +2412,9 @@ char *swift::reflection::TypeRefBuilder::resolveOpaqueType(uint64_t a1, swift::D
       v10 = 0;
       while (1)
       {
-        v11 = a3 + 16 * v10;
-        v12 = *(v11 + 8);
-        if (*(v11 + 8))
+        v11 = (a3 + 16 * v10);
+        v12 = *(v11 + 2);
+        if (*(v11 + 2))
         {
           break;
         }
@@ -2627,14 +2569,14 @@ void swift_asprintf(char **a1, const char *__format, ...)
   }
 }
 
-uint64_t swift::reflection::ObjCClassTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, char *a2)
+uint64_t swift::reflection::ObjCClassTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t **a2)
 {
   v2 = a2;
   v11 = 0;
   v12 = 0;
   v13 = 0;
-  v4 = a2[23];
-  v5 = *(a2 + 1);
+  v4 = *(a2 + 23);
+  v5 = a2[1];
   if (v4 < 0)
   {
     a2 = *a2;
@@ -2911,15 +2853,15 @@ void swift::reflection::ObjCClassTypeRef::~ObjCClassTypeRef(void **this)
   operator delete();
 }
 
-void *std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::__emplace_unique_key_args<swift::reflection::TypeRefID,std::pair<swift::reflection::TypeRefID const,swift::reflection::ObjCClassTypeRef const*>>(void *a1, char **a2)
+void *std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::__emplace_unique_key_args<swift::reflection::TypeRefID,std::pair<swift::reflection::TypeRefID const,swift::reflection::ObjCClassTypeRef const*>>(float *a1, char **a2, uint64_t a3)
 {
-  v3 = *a2;
-  v2 = a2[1];
-  if (*a2 == v2)
+  v4 = *a2;
+  v3 = a2[1];
+  if (*a2 == v3)
   {
-    v4 = 0;
-    v7 = a1[1];
-    if (!*&v7)
+    v5 = 0;
+    v8 = *(a1 + 2);
+    if (!*&v8)
     {
       goto LABEL_24;
     }
@@ -2927,86 +2869,86 @@ void *std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swif
 
   else
   {
-    v4 = 0;
-    v5 = *a2;
+    v5 = 0;
+    v6 = *a2;
     do
     {
-      v6 = *v5;
-      v5 += 4;
-      v4 ^= (v4 << 6) + (v4 >> 2) + 2654435769u + v6;
+      v7 = *v6;
+      v6 += 4;
+      v5 ^= (v5 << 6) + (v5 >> 2) + 2654435769u + v7;
     }
 
-    while (v5 != v2);
-    v7 = a1[1];
-    if (!*&v7)
+    while (v6 != v3);
+    v8 = *(a1 + 2);
+    if (!*&v8)
     {
       goto LABEL_24;
     }
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v10 = v4;
-    if (v4 >= *&v7)
+    v11 = v5;
+    if (v5 >= *&v8)
     {
-      v10 = v4 % *&v7;
+      v11 = v5 % *&v8;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v4;
+    v11 = (*&v8 - 1) & v5;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_24:
     operator new();
   }
 
-  v13 = v2 - v3;
+  v14 = v3 - v4;
   while (1)
   {
-    v14 = v12[1];
-    if (v14 == v4)
+    v15 = v13[1];
+    if (v15 == v5)
     {
       break;
     }
 
-    if (v9 <= 1)
+    if (v10 <= 1)
     {
-      v14 &= *&v7 - 1;
+      v15 &= *&v8 - 1;
     }
 
-    else if (v14 >= *&v7)
+    else if (v15 >= *&v8)
     {
-      v14 %= *&v7;
+      v15 %= *&v8;
     }
 
-    if (v14 != v10)
+    if (v15 != v11)
     {
       goto LABEL_24;
     }
 
 LABEL_16:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_24;
     }
   }
 
-  v15 = v12[2];
-  if (v12[3] - v15 != v13 || memcmp(v15, v3, v13))
+  v16 = v13[2];
+  if (v13[3] - v16 != v14 || memcmp(v16, v4, v14))
   {
     goto LABEL_16;
   }
 
-  return v12;
+  return v13;
 }
 
 void std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::__do_rehash<true>(uint64_t a1, unint64_t a2)
@@ -3031,14 +2973,14 @@ void std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift
   *(a1 + 8) = 0;
 }
 
-void swift::reflection::TypeRefBuilder::createTypeDecl(std::string *a1@<X8>)
+void swift::reflection::TypeRefBuilder::createTypeDecl(uint64_t *__return_ptr a1@<X8>, swift::Demangle::__runtime::Node *a2@<X1>)
 {
-  swift::Demangle::__runtime::mangleNode();
-  if (v9)
+  swift::Demangle::__runtime::mangleNode(a2, 0);
+  if (LODWORD(v7[0]))
   {
-    a1->__r_.__value_.__s.__data_[0] = 0;
-    a1[2].__r_.__value_.__s.__data_[8] = 0;
-    if ((SHIBYTE(v10.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    *a1 = 0;
+    *(a1 + 56) = 0;
+    if ((SHIBYTE(v8.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return;
     }
@@ -3046,32 +2988,32 @@ void swift::reflection::TypeRefBuilder::createTypeDecl(std::string *a1@<X8>)
     goto LABEL_11;
   }
 
-  if ((SHIBYTE(v10.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v8.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    __p = v10;
+    __p = v8;
 LABEL_6:
-    v6 = __p;
+    v4 = __p;
     goto LABEL_9;
   }
 
-  std::string::__init_copy_ctor_external(&__p, v10.__r_.__value_.__l.__data_, v10.__r_.__value_.__l.__size_);
+  std::string::__init_copy_ctor_external(&__p, v8.__r_.__value_.__l.__data_, v8.__r_.__value_.__l.__size_);
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_6;
   }
 
-  std::string::__init_copy_ctor_external(&v6, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+  std::string::__init_copy_ctor_external(&v4, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
 LABEL_9:
-  v7 = 0;
-  v8 = 0;
-  *a1 = v6;
-  memset(&v6, 0, sizeof(v6));
-  a1[1].__r_.__value_.__s.__data_[0] = 0;
-  a1[2].__r_.__value_.__s.__data_[0] = 0;
-  a1[2].__r_.__value_.__s.__data_[8] = 1;
+  v5 = 0;
+  v6 = 0;
+  *a1 = v4;
+  memset(&v4, 0, sizeof(v4));
+  *(a1 + 24) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 1;
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if ((SHIBYTE(v10.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v8.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return;
     }
@@ -3080,72 +3022,70 @@ LABEL_9:
   }
 
   operator delete(__p.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_11:
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v8.__r_.__value_.__l.__data_);
   }
 }
 
-void std::__optional_storage_base<swift::reflection::TypeRefDecl,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<swift::reflection::TypeRefDecl,false>>(uint64_t a1, uint64_t a2)
+void std::__optional_storage_base<swift::reflection::TypeRefDecl,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<swift::reflection::TypeRefDecl,false>>(uint64_t result, __int128 *a2)
 {
-  if (*(a1 + 56) == *(a2 + 56))
+  if (*(result + 56) == *(a2 + 56))
   {
-    if (*(a1 + 56))
+    if (*(result + 56))
     {
 
-      swift::reflection::TypeRefDecl::operator=(a1, a2);
+      swift::reflection::TypeRefDecl::operator=(result, a2);
     }
   }
 
-  else if (*(a1 + 56))
+  else if (*(result + 56))
   {
-    if (*(a1 + 48) == 1)
+    if (*(result + 48) == 1)
     {
-      v3 = *(a1 + 24);
+      v3 = *(result + 24);
       if (v3)
       {
-        *(a1 + 32) = v3;
-        v4 = a1;
+        *(result + 32) = v3;
+        v4 = result;
         operator delete(v3);
-        a1 = v4;
+        result = v4;
       }
     }
 
-    if (*(a1 + 23) < 0)
+    if (*(result + 23) < 0)
     {
-      v5 = a1;
-      operator delete(*a1);
-      a1 = v5;
+      v5 = result;
+      operator delete(*result);
+      result = v5;
     }
 
-    *(a1 + 56) = 0;
+    *(result + 56) = 0;
   }
 
   else
   {
     v6 = *a2;
-    *(a1 + 16) = *(a2 + 16);
-    *a1 = v6;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    *(result + 16) = *(a2 + 2);
+    *result = v6;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
-    *(a1 + 24) = 0;
-    *(a1 + 48) = 0;
+    *(result + 24) = 0;
+    *(result + 48) = 0;
     if (*(a2 + 48) == 1)
     {
-      *(a1 + 24) = 0;
-      *(a1 + 32) = 0;
-      *(a1 + 40) = 0;
-      *(a1 + 24) = *(a2 + 24);
-      *(a1 + 40) = *(a2 + 40);
-      *(a2 + 24) = 0;
-      *(a2 + 32) = 0;
-      *(a2 + 40) = 0;
-      *(a1 + 48) = 1;
+      *(result + 24) = 0;
+      *(result + 32) = 0;
+      *(result + 40) = 0;
+      *(result + 24) = *(a2 + 24);
+      *(result + 40) = *(a2 + 5);
+      *(a2 + 24) = 0uLL;
+      *(a2 + 5) = 0;
+      *(result + 48) = 1;
     }
 
-    *(a1 + 56) = 1;
+    *(result + 56) = 1;
   }
 }
 
@@ -3219,7 +3159,7 @@ __n128 swift::reflection::TypeRefDecl::operator=(void *a1, uint64_t a2)
   return result;
 }
 
-uint64_t swift::reflection::NominalTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t a2, void *a3)
+void *swift::reflection::NominalTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t a2, void *a3)
 {
   v13 = 0;
   v14 = 0;
@@ -3353,24 +3293,25 @@ char *swift::TypeLookupError::TypeLookupError<swift::TypeLookupError swift::Type
 
 uint64_t swift::reflection::BoundGenericTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  swift::reflection::BoundGenericTypeRef::Profile(a2, a3, a4, v12);
-  v7 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 936), v12);
-  if (!v7)
+  swift::reflection::BoundGenericTypeRef::Profile(a2, a3, a4, v14);
+  v8 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 936), v14);
+  if (!v8)
   {
     if (*(a2 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v11, *a2, *(a2 + 8));
+      std::string::__init_copy_ctor_external(&v13, *a2, *(a2 + 8));
     }
 
     else
     {
-      v11 = *a2;
+      v13 = *a2;
     }
 
-    v9 = *(a3 + 8) - *a3;
-    if (v9)
+    memset(__p, 0, sizeof(__p));
+    v10 = *(a3 + 8) - *a3;
+    if (v10)
     {
-      if ((v9 & 0x8000000000000000) == 0)
+      if ((v10 & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -3378,20 +3319,20 @@ uint64_t swift::reflection::BoundGenericTypeRef::create<swift::reflection::TypeR
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::BoundGenericTypeRef,std::string,std::vector<swift::reflection::TypeRef const*>,swift::reflection::TypeRef const*>();
+    swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::BoundGenericTypeRef,std::string,std::vector<swift::reflection::TypeRef const*>,swift::reflection::TypeRef const*>(a1, &v13, __p, a4);
   }
 
-  v8 = v7[5];
-  if (v12[0])
+  v9 = v8[5];
+  if (v14[0])
   {
-    v12[1] = v12[0];
-    operator delete(v12[0]);
+    v14[1] = v14[0];
+    operator delete(v14[0]);
   }
 
-  return v8;
+  return v9;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::createBoundGenericType(uint64_t a1, uint64_t a2, void *a3)
+uint64_t swift::reflection::TypeRefBuilder::createBoundGenericType(uint64_t a1, uint64_t a2, const void **a3)
 {
   if (*(a2 + 56) != 1)
   {
@@ -3400,11 +3341,10 @@ uint64_t swift::reflection::TypeRefBuilder::createBoundGenericType(uint64_t a1, 
 
   if (*(a2 + 48) != 1)
   {
-    v13 = *a3;
     v12 = a3[1];
-    v44 = 0;
-    v45 = 0;
     v43 = 0;
+    v44 = 0;
+    v42 = 0;
     if (v12)
     {
       if ((v12 & 0x8000000000000000) == 0)
@@ -3415,23 +3355,23 @@ uint64_t swift::reflection::TypeRefBuilder::createBoundGenericType(uint64_t a1, 
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    result = swift::reflection::BoundGenericTypeRef::create<swift::reflection::TypeRefBuilder>(a1, a2, &v43, 0);
-    v14 = v43;
-    if (v43)
+    result = swift::reflection::BoundGenericTypeRef::create<swift::reflection::TypeRefBuilder>(a1, a2, &v42, 0);
+    v13 = v42;
+    if (v42)
     {
-      v15 = result;
-      v44 = v43;
+      v14 = result;
+      v43 = v42;
 LABEL_35:
-      operator delete(v14);
-      return v15;
+      operator delete(v13);
+      return v14;
     }
 
     return result;
   }
 
+  v45 = 0;
   v46 = 0;
   v47 = 0;
-  v48 = 0;
   v5 = *(a2 + 24);
   v4 = *(a2 + 32);
   if (v4 != v5)
@@ -3444,7 +3384,7 @@ LABEL_35:
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v49 = 1;
+  v48 = 1;
   v6 = *(a2 + 23);
   v7 = *(a2 + 8);
   if (v6 < 0)
@@ -3462,33 +3402,33 @@ LABEL_35:
     v8 = v7;
   }
 
-  v42 = 0;
-  v10 = swift::Demangle::__runtime::Demangler::demangleType(a1, a2, v8, v41);
-  if (v42 == v41)
+  v41 = 0;
+  v10 = swift::Demangle::__runtime::Demangler::demangleType(a1, a2, v8, v40);
+  if (v41 == v40)
   {
-    (*(*v42 + 32))(v42);
+    (*(*v41 + 32))(v41);
     if (!v10)
     {
 LABEL_32:
       result = 0;
 LABEL_33:
-      v14 = v46;
-      if (!v46)
+      v13 = v45;
+      if (!v45)
       {
         return result;
       }
 
-      v15 = result;
-      v47 = v46;
+      v14 = result;
+      v46 = v45;
       goto LABEL_35;
     }
   }
 
   else
   {
-    if (v42)
+    if (v41)
     {
-      (*(*v42 + 40))();
+      (*(*v41 + 40))();
     }
 
     if (!v10)
@@ -3497,81 +3437,81 @@ LABEL_33:
     }
   }
 
-  v16 = *(v10 + 18);
-  if ((v16 - 1) >= 2 && (v16 != 5 || !*(v10 + 8)) || *(v10 + 16) != 243)
+  v15 = *(v10 + 18);
+  if ((v15 - 1) >= 2 && (v15 != 5 || !*(v10 + 8)) || *(v10 + 16) != 243)
   {
     goto LABEL_32;
   }
 
-  if ((v16 - 1) < 2)
+  if ((v15 - 1) < 2)
   {
 LABEL_31:
-    v17 = *v10;
+    v16 = *v10;
     goto LABEL_38;
   }
 
-  if (v16 == 5 && *(v10 + 8))
+  if (v15 == 5 && *(v10 + 8))
   {
     v10 = *v10;
     goto LABEL_31;
   }
 
-  v17 = 0;
+  v16 = 0;
 LABEL_38:
-  swift::Demangle::__runtime::mangleNode();
-  if (v38)
+  swift::Demangle::__runtime::mangleNode(v16, 0);
+  if (LODWORD(v37[0]))
   {
     result = 0;
     goto LABEL_60;
   }
 
-  std::vector<unsigned long>::vector[abi:nn200100](&v36, &v46);
-  v18 = v36;
-  v19 = (v37 - v36) >> 3;
+  std::vector<unsigned long>::vector[abi:nn200100](&v35, &v45);
+  v17 = v35;
+  v18 = (v36 - v35) >> 3;
+  if (v18 > 0x3E8)
+  {
+    goto LABEL_57;
+  }
+
+  v19 = a3[1];
   if (v19 > 0x3E8)
   {
     goto LABEL_57;
   }
 
-  v20 = a3[1];
-  if (v20 > 0x3E8)
+  if (v36 == v35)
   {
-    goto LABEL_57;
-  }
-
-  if (v37 == v36)
-  {
-    v21 = 0;
-    v24 = a1;
+    v20 = 0;
+    v23 = a1;
 LABEL_51:
-    if (v21 == v20)
+    if (v20 == v19)
     {
-      v26 = a3;
-      v27 = v24;
-      v28 = swift::reflection::TypeRefBuilder::reconstructParentsOfBoundGenericType(v24, v17, &v36);
-      v29 = *v26 + 8 * v26[1];
-      std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100]<swift::reflection::TypeRef const* const*,0>(v35, v29 - 8 * *(v37 - 1), v29);
-      std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100](__p, v35);
-      result = swift::reflection::BoundGenericTypeRef::create<swift::reflection::TypeRefBuilder>(v27, &v39, __p, v28);
+      v25 = a3;
+      v26 = v23;
+      v27 = swift::reflection::TypeRefBuilder::reconstructParentsOfBoundGenericType(v23, v16, &v35, v25);
+      v28 = *v25 + 8 * v25[1];
+      std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100]<swift::reflection::TypeRef const* const*,0>(v34, &v28[-8 * *(v36 - 1)], v28);
+      std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100](__p, v34);
+      result = swift::reflection::BoundGenericTypeRef::create<swift::reflection::TypeRefBuilder>(v26, &v38, __p, v27);
       if (__p[0])
       {
         __p[1] = __p[0];
-        v30 = result;
+        v29 = result;
         operator delete(__p[0]);
+        result = v29;
+      }
+
+      if (v34[0])
+      {
+        v34[1] = v34[0];
+        v30 = result;
+        operator delete(v34[0]);
         result = v30;
       }
 
-      if (v35[0])
-      {
-        v35[1] = v35[0];
-        v31 = result;
-        operator delete(v35[0]);
-        result = v31;
-      }
-
-      v18 = v36;
+      v17 = v35;
 LABEL_58:
-      if (!v18)
+      if (!v17)
       {
         goto LABEL_60;
       }
@@ -3584,29 +3524,29 @@ LABEL_57:
     goto LABEL_58;
   }
 
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  if (v19 <= 1)
+  if (v18 <= 1)
   {
-    v23 = 1;
+    v22 = 1;
   }
 
   else
   {
-    v23 = (v37 - v36) >> 3;
+    v22 = (v36 - v35) >> 3;
   }
 
-  v24 = a1;
+  v23 = a1;
   while (1)
   {
-    v25 = *(v36 + v22);
-    if (v25 > v20)
+    v24 = *(v35 + v21);
+    if (v24 > v19)
     {
       break;
     }
 
-    v21 += v25;
-    if (v23 == ++v22)
+    v20 += v24;
+    if (v22 == ++v21)
     {
       goto LABEL_51;
     }
@@ -3614,19 +3554,19 @@ LABEL_57:
 
   result = 0;
 LABEL_59:
-  v37 = v18;
-  v32 = result;
-  operator delete(v18);
-  result = v32;
+  v36 = v17;
+  v31 = result;
+  operator delete(v17);
+  result = v31;
 LABEL_60:
-  if (v40 < 0)
+  if (v39 < 0)
   {
-    v33 = result;
-    operator delete(v39);
-    result = v33;
+    v32 = result;
+    operator delete(v38);
+    result = v32;
   }
 
-  if (v49)
+  if (v48)
   {
     goto LABEL_33;
   }
@@ -3706,11 +3646,11 @@ void swift::reflection::BoundGenericTypeRef::~BoundGenericTypeRef(swift::reflect
   operator delete();
 }
 
-void *std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100](void *result, void *a2)
+void *std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100](void *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
@@ -3722,14 +3662,14 @@ void *std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100](void 
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  return result;
+  return a1;
 }
 
-void *std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100]<swift::reflection::TypeRef const* const*,0>(void *result, uint64_t a2, uint64_t a3)
+void *std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100]<swift::reflection::TypeRef const* const*,0>(void *a1, _BYTE *a2, _BYTE *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3 != a2)
   {
     if (((a3 - a2) & 0x8000000000000000) == 0)
@@ -3740,10 +3680,10 @@ void *std::vector<swift::reflection::TypeRef const*>::vector[abi:nn200100]<swift
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::reconstructParentsOfBoundGenericType(uint64_t a1, uint64_t *a2, void *a3)
+uint64_t swift::reflection::TypeRefBuilder::reconstructParentsOfBoundGenericType(uint64_t a1, uint64_t *a2, void *a3, const void **a4)
 {
   if (a3[1] - *a3 == 8)
   {
@@ -3757,10 +3697,10 @@ uint64_t swift::reflection::TypeRefBuilder::reconstructParentsOfBoundGenericType
       break;
     }
 
-    v5 = *(a2 + 18);
-    if ((v5 - 1) >= 2)
+    v6 = *(a2 + 18);
+    if ((v6 - 1) >= 2)
     {
-      if (v5 != 5 || !*(a2 + 2))
+      if (v6 != 5 || !*(a2 + 2))
       {
         return 0;
       }
@@ -3769,8 +3709,8 @@ uint64_t swift::reflection::TypeRefBuilder::reconstructParentsOfBoundGenericType
     }
 
     a2 = *a2;
-    v6 = *(a2 + 8);
-    if (v6 == 25 || v6 == 230 || v6 == 63)
+    v7 = *(a2 + 8);
+    if (v7 == 25 || v7 == 230 || v7 == 63)
     {
       operator new();
     }
@@ -3780,11 +3720,11 @@ uint64_t swift::reflection::TypeRefBuilder::reconstructParentsOfBoundGenericType
   return 0;
 }
 
-void *std::vector<unsigned long>::vector[abi:nn200100](void *result, void *a2)
+void *std::vector<unsigned long>::vector[abi:nn200100](void *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
@@ -3796,7 +3736,7 @@ void *std::vector<unsigned long>::vector[abi:nn200100](void *result, void *a2)
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  return result;
+  return a1;
 }
 
 char *swift::TypeLookupError::TypeLookupError<swift::TypeLookupError swift::TypeLookupErrorImpl<int,unsigned int,int,char const*,swift::Demangle::__runtime::ManglingError::Code,unsigned int>(char const*,int,unsigned int,int,char const*,swift::Demangle::__runtime::ManglingError::Code,unsigned int)::{lambda(void)#1}>(swift::TypeLookupError swift::TypeLookupErrorImpl<int,unsigned int,int,char const*,swift::Demangle::__runtime::ManglingError::Code,unsigned int>(char const*,int,unsigned int,int,char const*,swift::Demangle::__runtime::ManglingError::Code,unsigned int)::{lambda(void)#1} const&)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke(char *result, int a2, void *a3)
@@ -3857,9 +3797,9 @@ uint64_t swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBui
   v7 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 856), &v11);
   if (!v7)
   {
-    if (*(v2 + 23) < 0)
+    if (v2[23] < 0)
     {
-      std::string::__init_copy_ctor_external(&v10, *v2, v2[1]);
+      std::string::__init_copy_ctor_external(&v10, *v2, *(v2 + 1));
     }
 
     else
@@ -3898,7 +3838,7 @@ void swift::reflection::BuiltinTypeRef::~BuiltinTypeRef(void **this)
   operator delete();
 }
 
-uint64_t swift::reflection::MetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2, int a3)
+_DWORD *swift::reflection::MetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2, int a3)
 {
   v9 = 0;
   v10 = 0;
@@ -3924,7 +3864,7 @@ uint64_t swift::reflection::MetatypeTypeRef::create<swift::reflection::TypeRefBu
   return v6;
 }
 
-uint64_t swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
+_DWORD *swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
 {
   v7 = 0;
   v8 = 0;
@@ -3948,13 +3888,13 @@ uint64_t swift::reflection::ExistentialMetatypeTypeRef::create<swift::reflection
   return v4;
 }
 
-double swift::reflection::TypeRefBuilder::createProtocolDecl@<D0>(std::string *a1@<X8>)
+double swift::reflection::TypeRefBuilder::createProtocolDecl@<D0>(swift::Demangle::__runtime::Node *a1@<X1>, std::string *a2@<X8>)
 {
-  swift::Demangle::__runtime::mangleNode();
-  if (v6)
+  swift::Demangle::__runtime::mangleNode(a1, 0);
+  if (LODWORD(v5[0]))
   {
-    a1->__r_.__value_.__s.__data_[0] = 0;
-    a1[1].__r_.__value_.__s.__data_[8] = 0;
+    a2->__r_.__value_.__s.__data_[0] = 0;
+    a2[1].__r_.__value_.__s.__data_[8] = 0;
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return result;
@@ -3965,18 +3905,18 @@ double swift::reflection::TypeRefBuilder::createProtocolDecl@<D0>(std::string *a
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v5, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v4, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v5 = __p;
+    v4 = __p;
   }
 
-  result = *&v5.__r_.__value_.__l.__data_;
-  *a1 = v5;
-  a1[1].__r_.__value_.__s.__data_[0] = 0;
-  a1[1].__r_.__value_.__s.__data_[8] = 1;
+  result = *&v4.__r_.__value_.__l.__data_;
+  *a2 = v4;
+  a2[1].__r_.__value_.__s.__data_[0] = 0;
+  a2[1].__r_.__value_.__s.__data_[8] = 1;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_3:
@@ -4050,7 +3990,7 @@ void __swift::__runtime::llvm::SmallVectorTemplateBase<std::optional<std::pair<s
   *(a1 + 12) = v12;
 }
 
-uint64_t swift::reflection::TypeRefBuilder::createProtocolTypeFromDecl(uint64_t a1, uint64_t a2)
+void *swift::reflection::TypeRefBuilder::createProtocolTypeFromDecl(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 24) != 1)
   {
@@ -4193,12 +4133,13 @@ void std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](uin
   *(a1 + 8) = v5;
 }
 
-uint64_t swift::reflection::ProtocolCompositionTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2, void *a3, int a4)
+uint64_t swift::reflection::ProtocolCompositionTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v7 = a2[1];
-  if (v7 != *a2)
+  v4 = a4;
+  v8 = a2[1];
+  if (v8 != *a2)
   {
-    if (((v7 - *a2) & 0x8000000000000000) == 0)
+    if (((v8 - *a2) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -4206,25 +4147,25 @@ uint64_t swift::reflection::ProtocolCompositionTypeRef::create<swift::reflection
     goto LABEL_13;
   }
 
-  v13 = 0;
-  v14 = 0;
   v15 = 0;
-  LODWORD(v12[0]) = a4;
-  std::vector<unsigned int>::push_back[abi:nn200100](&v13, v12);
-  v12[0] = a3;
-  std::vector<unsigned int>::push_back[abi:nn200100](&v13, v12);
-  std::vector<unsigned int>::push_back[abi:nn200100](&v13, v12 + 1);
-  v8 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1056), &v13);
-  if (!v8)
+  v16 = 0;
+  v17 = 0;
+  LODWORD(v13) = a4;
+  std::vector<unsigned int>::push_back[abi:nn200100](&v15, &v13);
+  v13 = a3;
+  std::vector<unsigned int>::push_back[abi:nn200100](&v15, &v13);
+  std::vector<unsigned int>::push_back[abi:nn200100](&v15, &v13 + 1);
+  v9 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1056), &v15);
+  if (!v9)
   {
-    memset(&v12[4], 0, 24);
-    v10 = a2[1] - *a2;
-    if (!v10)
+    memset(__p, 0, sizeof(__p));
+    v11 = a2[1] - *a2;
+    if (!v11)
     {
-      swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::ProtocolCompositionTypeRef,std::vector<swift::reflection::TypeRef const*>,swift::reflection::TypeRef const*,BOOL>();
+      swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::ProtocolCompositionTypeRef,std::vector<swift::reflection::TypeRef const*>,swift::reflection::TypeRef const*,BOOL>(a1, __p, a3, v4);
     }
 
-    if ((v10 & 0x8000000000000000) == 0)
+    if ((v11 & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -4233,14 +4174,14 @@ LABEL_13:
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v9 = v8[5];
-  if (v13)
+  v10 = v9[5];
+  if (v15)
   {
-    v14 = v13;
-    operator delete(v13);
+    v16 = v15;
+    operator delete(v15);
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t swift::reflection::ObjCProtocolTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, char *a2)
@@ -4270,9 +4211,9 @@ uint64_t swift::reflection::ObjCProtocolTypeRef::create<swift::reflection::TypeR
   v7 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1376), &v11);
   if (!v7)
   {
-    if (*(v2 + 23) < 0)
+    if (v2[23] < 0)
     {
-      std::string::__init_copy_ctor_external(&v10, *v2, v2[1]);
+      std::string::__init_copy_ctor_external(&v10, *v2, *(v2 + 1));
     }
 
     else
@@ -4333,13 +4274,13 @@ void swift::reflection::ProtocolCompositionTypeRef::~ProtocolCompositionTypeRef(
   operator delete();
 }
 
-char **__swift::__runtime::llvm::SmallVector<std::optional<std::pair<std::string,BOOL>>,8u>::~SmallVector(char **a1)
+char ***__swift::__runtime::llvm::SmallVector<std::optional<std::pair<std::string,BOOL>>,8u>::~SmallVector(char ***a1)
 {
   v2 = *a1;
   v3 = *(a1 + 2);
   if (v3)
   {
-    v4 = &v2[40 * v3 - 17];
+    v4 = &v2[5 * v3 - 2] - 1;
     v5 = -40 * v3;
     do
     {
@@ -4366,35 +4307,35 @@ char **__swift::__runtime::llvm::SmallVector<std::optional<std::pair<std::string
 
 uint64_t swift::reflection::ConstrainedExistentialTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, unint64_t a2, void *a3)
 {
-  v12 = 0;
   v13 = 0;
+  v14 = 0;
   __p = 0;
-  v5 = a3[1];
-  if (v5 != *a3)
+  v6 = a3[1];
+  if (v6 != *a3)
   {
-    if (((v5 - *a3) & 0x8000000000000000) == 0)
+    if (((v6 - *a3) & 0x8000000000000000) == 0)
     {
-      v6 = v5 - *a3;
       operator new();
     }
 
     goto LABEL_15;
   }
 
-  swift::reflection::ConstrainedExistentialTypeRef::Profile(a2, &__p, v14);
+  swift::reflection::ConstrainedExistentialTypeRef::Profile(a2, &__p, v15);
   if (__p)
   {
-    v12 = __p;
+    v13 = __p;
     operator delete(__p);
   }
 
-  v7 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1096), v14);
+  v7 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1096), v15);
   if (!v7)
   {
+    memset(v11, 0, sizeof(v11));
     v9 = a3[1] - *a3;
     if (!v9)
     {
-      swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::ConstrainedExistentialTypeRef,swift::reflection::ProtocolCompositionTypeRef const*,std::vector<swift::reflection::TypeRefRequirement>>();
+      swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::ConstrainedExistentialTypeRef,swift::reflection::ProtocolCompositionTypeRef const*,std::vector<swift::reflection::TypeRefRequirement>>(a1, a2, v11);
     }
 
     if ((v9 & 0x8000000000000000) == 0)
@@ -4407,10 +4348,10 @@ LABEL_15:
   }
 
   v8 = v7[5];
-  if (v14[0])
+  if (v15[0])
   {
-    v14[1] = v14[0];
-    operator delete(v14[0]);
+    v15[1] = v15[0];
+    operator delete(v15[0]);
   }
 
   return v8;
@@ -4476,7 +4417,7 @@ void swift::reflection::ConstrainedExistentialTypeRef::~ConstrainedExistentialTy
   operator delete();
 }
 
-uint64_t swift::reflection::GenericTypeParameterTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, int a2, int a3)
+_DWORD *swift::reflection::GenericTypeParameterTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, int a2, int a3)
 {
   v9 = 0;
   v10 = 0;
@@ -4532,12 +4473,11 @@ char *swift::TypeLookupError::TypeLookupError<swift::TypeLookupError swift::Type
   return result;
 }
 
-void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *)#1}::operator()@<X0>(void *result@<X0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
+void swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *)#1}::operator()(void *result@<X0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
 {
-  v4 = (a2 + 2);
+  v4 = a2 + 2;
   if (*(a2 + 8) == 235)
   {
-    v5 = result;
     v13 = 0uLL;
     v14 = 0;
     v6 = *(a2 + 18);
@@ -4557,7 +4497,7 @@ void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>
     switch(v6)
     {
       case 1:
-        v4 = (a2 + 1);
+        v4 = a2 + 1;
         if (v7 != a2 + 1)
         {
           goto LABEL_18;
@@ -4569,7 +4509,7 @@ void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>
       case 5:
         v8 = *a2;
 LABEL_10:
-        v4 = &v8[*(a2 + 2)];
+        v4 = (v8 + 8 * *(a2 + 2));
         if (v7 != v4)
         {
           goto LABEL_18;
@@ -4589,7 +4529,7 @@ LABEL_18:
         if (v10 == 289)
         {
           v14 |= 0x80u;
-          **v5 = 1;
+          **result = 1;
           goto LABEL_17;
         }
 
@@ -4610,17 +4550,17 @@ LABEL_18:
           goto LABEL_26;
         }
 
-        if (v11 == 5 && *(v9 + 2))
+        if (v11 == 5 && *(v9 + 8))
         {
           break;
         }
 
         v12 = 0;
 LABEL_28:
-        result = swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator()(v5[1], v12, &v13, a3);
+        swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator()(result[1], v12, &v13, a3);
         if (a3[16])
         {
-          return result;
+          return;
         }
 
 LABEL_17:
@@ -4640,16 +4580,15 @@ LABEL_26:
 LABEL_30:
   *a3 = 0;
   a3[16] = 0;
-  return result;
 }
 
-void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+void swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator()(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = *(a1 + 24);
   v6 = *(a3 + 24);
   while (1)
   {
-    v7 = *(a2 + 16);
+    v7 = *(a2 + 8);
     if (v7 <= 0xDA)
     {
       break;
@@ -4667,7 +4606,7 @@ void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>
         v6 |= 0x200u;
         break;
       default:
-        return swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator() const(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)::{lambda(swift::reflection::TypeRef const*)#1}>(v5, a2, (**(a1 + 8) + 1), a3, *(a1 + 16), a4);
+        goto LABEL_26;
     }
 
 LABEL_20:
@@ -4678,7 +4617,7 @@ LABEL_20:
       goto LABEL_4;
     }
 
-    if (v8 == 5 && *(a2 + 8))
+    if (v8 == 5 && *(a2 + 2))
     {
       a2 = *a2;
 LABEL_4:
@@ -4691,7 +4630,7 @@ LABEL_5:
     **a1 = 1;
   }
 
-  if (*(a2 + 16) > 0x83u)
+  if (*(a2 + 8) > 0x83u)
   {
     if (v7 == 132)
     {
@@ -4702,7 +4641,7 @@ LABEL_5:
     {
       if (v7 != 134)
       {
-        return swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator() const(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)::{lambda(swift::reflection::TypeRef const*)#1}>(v5, a2, (**(a1 + 8) + 1), a3, *(a1 + 16), a4);
+        goto LABEL_26;
       }
 
       v6 |= 0x800u;
@@ -4723,7 +4662,8 @@ LABEL_5:
     **a1 = 1;
   }
 
-  return swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator() const(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)::{lambda(swift::reflection::TypeRef const*)#1}>(v5, a2, (**(a1 + 8) + 1), a3, *(a1 + 16), a4);
+LABEL_26:
+  swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator() const(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)::{lambda(swift::reflection::TypeRef const*)#1}>(v5, a2, (**(a1 + 8) + 1), a3, *(a1 + 16), a4);
 }
 
 char *_ZZN5swift15TypeLookupErrorC1IZNS_L19TypeLookupErrorImplIJEEES0_PKcDpT_EUlvE_EERKT_ENUlPvNS0_7CommandESB_E_8__invokeESB_SC_SB_(char *result, int a2, void *a3)
@@ -4757,7 +4697,7 @@ char *_ZZN5swift15TypeLookupErrorC1IZNS_L19TypeLookupErrorImplIJEEES0_PKcDpT_EUl
   return result;
 }
 
-void *swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator() const(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)::{lambda(swift::reflection::TypeRef const*)#1}>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeTypeSequenceElement<swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledFunctionInputType(swift::Demangle::__runtime::Node *,unsigned int,llvm::SmallVectorImpl<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>> &,BOOL &)::{lambda(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)#1}::operator() const(swift::Demangle::__runtime::Node *,swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>&)::{lambda(swift::reflection::TypeRef const*)#1}>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   if (*(a2 + 8) == 243)
   {
@@ -4784,16 +4724,9 @@ LABEL_8:
     v10 = *(a2 + 18);
     if (v10 > 2)
     {
-      if (v10 == 3)
-      {
-        v20 = *(a2 + 2);
-        v21 = *a2;
-        goto LABEL_27;
-      }
-
       if (v10 != 5 || *(a2 + 2) <= 1u)
       {
-LABEL_27:
+LABEL_25:
         operator new();
       }
 
@@ -4802,183 +4735,177 @@ LABEL_27:
 
     else if (v10 != 2)
     {
-      goto LABEL_27;
+      goto LABEL_25;
     }
 
-    v22 = *a2;
-    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v43, a1, a2[1], a3, 1);
-    if (v45 == 1)
+    v19 = *a2;
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, a2[1], a3, 1, &v40);
+    if (v42 == 1)
     {
-      v25 = v43;
-      v26 = v44;
-      *(a6 + 8) = v44;
-      result = v26(v25, 2, 0);
-      v27 = 0;
-      *a6 = result;
+      v22 = v40;
+      v23 = v41;
+      *(a6 + 8) = v41;
+      v24 = 0;
+      *a6 = v23(v22, 2, 0);
       *(a6 + 16) = 1;
     }
 
     else
     {
-      v28 = *a1;
-      if (v45)
+      v25 = *a1;
+      if (v42)
       {
-        v29 = 0;
+        v26 = 0;
       }
 
       else
       {
-        v29 = v43;
+        v26 = v40;
       }
 
-      v40 = v29;
-      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](v28 + 624, &v40);
-      swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v40, a1, v22, a3, 1);
-      v30 = v42;
-      if (v42 == 1)
+      v37 = v26;
+      std::vector<swift::reflection::TypeRef const*>::push_back[abi:nn200100](v25 + 624, &v37);
+      swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, v19, a3, 1, &v37);
+      v27 = v39;
+      if (v39 == 1)
       {
-        v31 = v40;
-        v32 = v41;
-        *(a6 + 8) = v41;
-        result = v32(v31, 2, 0);
-        *a6 = result;
+        v28 = v37;
+        v29 = v38;
+        *(a6 + 8) = v38;
+        *a6 = v29(v28, 2, 0);
         *(a6 + 16) = 1;
       }
 
       else
       {
-        if (v42)
+        if (v39)
         {
-          v33 = 0;
+          v30 = 0;
         }
 
         else
         {
-          v33 = v40;
+          v30 = v37;
         }
 
-        result = swift::reflection::PackExpansionTypeRef::create<swift::reflection::TypeRefBuilder>(*a1, v33, *(*(*a1 + 632) - 8));
-        *(a4 + 16) = result;
-        v34 = *(a5 + 8);
-        v35 = *a5;
-        if (v34 >= *(a5 + 12))
+        *(a4 + 16) = swift::reflection::PackExpansionTypeRef::create<swift::reflection::TypeRefBuilder>(*a1, v30, *(*(*a1 + 632) - 8));
+        v31 = *(a5 + 8);
+        v32 = *a5;
+        if (v31 >= *(a5 + 12))
         {
-          if (v35 <= a4 && v35 + 32 * v34 > a4)
+          if (v32 <= a4 && v32 + 32 * v31 > a4)
           {
-            v39 = a4 - v35;
-            result = __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v34 + 1, 32);
-            v35 = *a5;
-            a4 = *a5 + v39;
+            v36 = a4 - v32;
+            __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v31 + 1, 32);
+            v32 = *a5;
+            a4 = *a5 + v36;
           }
 
           else
           {
-            result = __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v34 + 1, 32);
-            v35 = *a5;
+            __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v31 + 1, 32);
+            v32 = *a5;
           }
         }
 
-        v36 = (v35 + 32 * *(a5 + 8));
-        v37 = *(a4 + 16);
-        *v36 = *a4;
-        v36[1] = v37;
+        v33 = (v32 + 32 * *(a5 + 8));
+        v34 = *(a4 + 16);
+        *v33 = *a4;
+        v33[1] = v34;
         ++*(a5 + 8);
       }
 
-      if (v42 == 1)
+      if (v39 == 1)
       {
-        result = v41(v40, 3, 0);
+        v38(v37, 3, 0);
       }
 
-      if (v30 == 1)
+      if (v27 == 1)
       {
-        v27 = 0;
+        v24 = 0;
       }
 
       else
       {
         *(*a1 + 632) -= 8;
-        v27 = 1;
+        v24 = 1;
       }
     }
 
-    if (v45 == 1)
+    if (v42 == 1)
     {
-      result = v44(v43, 3, 0);
+      v41(v40, 3, 0);
     }
 
-    if (v27)
+    if (v24)
     {
-      goto LABEL_49;
+      goto LABEL_47;
     }
   }
 
   else
   {
-    result = swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(&v43, a1, a2, a3, 0);
-    v12 = v45;
-    if (v45 == 1)
+    swift::Demangle::__runtime::TypeDecoder<swift::reflection::TypeRefBuilder>::decodeMangledType(a1, a2, a3, 0, &v40);
+    v11 = v42;
+    if (v42 == 1)
     {
-      v13 = v43;
-      v14 = v44;
-      *(a6 + 8) = v44;
-      result = v14(v13, 2, 0);
-      *a6 = result;
+      v12 = v40;
+      v13 = v41;
+      *(a6 + 8) = v41;
+      *a6 = v13(v12, 2, 0);
       *(a6 + 16) = 1;
     }
 
     else
     {
-      v15 = v43;
-      if (v45)
+      v14 = v40;
+      if (v42)
       {
-        v15 = 0;
+        v14 = 0;
       }
 
-      *(a4 + 16) = v15;
-      v16 = *(a5 + 8);
-      v17 = *a5;
-      if (v16 >= *(a5 + 12))
+      *(a4 + 16) = v14;
+      v15 = *(a5 + 8);
+      v16 = *a5;
+      if (v15 >= *(a5 + 12))
       {
-        if (v17 <= a4 && v17 + 32 * v16 > a4)
+        if (v16 <= a4 && v16 + 32 * v15 > a4)
         {
-          v38 = a4 - v17;
-          result = __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v16 + 1, 32);
-          v17 = *a5;
-          a4 = *a5 + v38;
+          v35 = a4 - v16;
+          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v15 + 1, 32);
+          v16 = *a5;
+          a4 = *a5 + v35;
         }
 
         else
         {
-          result = __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v16 + 1, 32);
-          v17 = *a5;
+          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v15 + 1, 32);
+          v16 = *a5;
         }
       }
 
-      v18 = (v17 + 32 * *(a5 + 8));
-      v19 = *(a4 + 16);
-      *v18 = *a4;
-      v18[1] = v19;
+      v17 = (v16 + 32 * *(a5 + 8));
+      v18 = *(a4 + 16);
+      *v17 = *a4;
+      v17[1] = v18;
       ++*(a5 + 8);
     }
 
-    if (v45 == 1)
+    if (v42 == 1)
     {
-      result = v44(v43, 3, 0);
+      v41(v40, 3, 0);
     }
 
-    if (v12 != 1)
+    if (v11 != 1)
     {
-LABEL_49:
+LABEL_47:
       *a6 = 0;
       *(a6 + 16) = 0;
     }
   }
-
-  return result;
 }
 
-uint64_t swift::reflection::PackExpansionTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2, void *a3)
+_DWORD *swift::reflection::PackExpansionTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2, void *a3)
 {
   v9 = 0;
   v10 = 0;
@@ -5005,16 +4932,17 @@ uint64_t swift::reflection::PackExpansionTypeRef::create<swift::reflection::Type
   return v6;
 }
 
-uint64_t swift::reflection::FunctionTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t *a2, char *a3, uint64_t a4, int a5, uint64_t a6, char *a7, char *a8)
+uint64_t swift::reflection::FunctionTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t *a2, void **a3, uint64_t a4, int a5, uint64_t a6, void **a7, void **a8)
 {
-  swift::reflection::FunctionTypeRef::Profile(a2, a3, a4, a5, a6, a7, a8, v14);
-  v10 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1016), v14);
-  if (!v10)
+  swift::reflection::FunctionTypeRef::Profile(a2, a3, a4, a5, a6, a7, a8, v21);
+  v16 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1016), v21);
+  if (!v16)
   {
-    v12 = a2[1] - *a2;
-    if (v12)
+    memset(__p, 0, sizeof(__p));
+    v18 = a2[1] - *a2;
+    if (v18)
     {
-      if ((v12 & 0x8000000000000000) == 0)
+      if ((v18 & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -5022,20 +4950,20 @@ uint64_t swift::reflection::FunctionTypeRef::create<swift::reflection::TypeRefBu
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::FunctionTypeRef,std::vector<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>>,swift::reflection::TypeRef const*,swift::TargetFunctionTypeFlags<unsigned long>,swift::TargetExtendedFunctionTypeFlags<unsigned int>,swift::TargetFunctionMetadataDifferentiabilityKind<unsigned long>,swift::reflection::TypeRef const*,swift::reflection::TypeRef const*>();
+    swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::FunctionTypeRef,std::vector<swift::Demangle::__runtime::FunctionParam<swift::reflection::TypeRef const*>>,swift::reflection::TypeRef const*,swift::TargetFunctionTypeFlags<unsigned long>,swift::TargetExtendedFunctionTypeFlags<unsigned int>,swift::TargetFunctionMetadataDifferentiabilityKind<unsigned long>,swift::reflection::TypeRef const*,swift::reflection::TypeRef const*>(a1, __p, a3, a4, a5, a6, a7, a8);
   }
 
-  v11 = v10[5];
-  if (v14[0])
+  v17 = v16[5];
+  if (v21[0])
   {
-    v14[1] = v14[0];
-    operator delete(v14[0]);
+    v21[1] = v21[0];
+    operator delete(v21[0]);
   }
 
-  return v11;
+  return v17;
 }
 
-void swift::reflection::FunctionTypeRef::Profile(uint64_t *a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X4>, char *a6@<X5>, char *a7@<X6>, void *a8@<X8>)
+void swift::reflection::FunctionTypeRef::Profile(uint64_t *a1@<X0>, void **a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X4>, void **a6@<X5>, void **a7@<X6>, void *a8@<X8>)
 {
   *a8 = 0;
   a8[1] = 0;
@@ -5276,7 +5204,7 @@ LABEL_34:
   return v3 | v2;
 }
 
-uint64_t __swift::__runtime::llvm::SmallVectorImpl<swift::Demangle::__runtime::ImplFunctionParam<swift::reflection::TypeRef const*>>::emplace_back<swift::reflection::TypeRef const*,swift::Demangle::__runtime::ImplParameterConvention &,swift::optionset::OptionSet<swift::Demangle::__runtime::ImplParameterInfoFlags,unsigned char> &>(uint64_t a1, uint64_t *a2, unsigned int *a3, unsigned __int8 *a4)
+uint64_t __swift::__runtime::llvm::SmallVectorImpl<swift::Demangle::__runtime::ImplFunctionParam<swift::reflection::TypeRef const*>>::emplace_back<swift::reflection::TypeRef const*,swift::Demangle::__runtime::ImplParameterConvention &,swift::optionset::OptionSet<swift::Demangle::__runtime::ImplParameterInfoFlags,unsigned char> &>(uint64_t a1, uint64_t *a2, unsigned int *a3, char *a4)
 {
   v4 = *(a1 + 8);
   if (v4 >= *(a1 + 12))
@@ -5388,10 +5316,10 @@ LABEL_19:
   return v3 | v2;
 }
 
-uint64_t swift::reflection::TupleTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t a2, uint64_t a3)
+_DWORD *swift::reflection::TupleTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t a2, __int128 **a3)
 {
-  swift::reflection::TupleTypeRef::Profile(a2, a3, v12);
-  v6 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 976), v12);
+  swift::reflection::TupleTypeRef::Profile(a2, a3, v11);
+  v6 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 976), v11);
   if (!v6)
   {
     v8 = *(a2 + 8);
@@ -5399,17 +5327,16 @@ uint64_t swift::reflection::TupleTypeRef::create<swift::reflection::TypeRefBuild
     {
       if (((v8 - *a2) & 0x8000000000000000) == 0)
       {
-        v9 = v8 - *a2;
         operator new();
       }
 
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v10 = *(a3 + 8) - *a3;
-    if (v10)
+    v9 = a3[1] - *a3;
+    if (v9)
     {
-      if (0xAAAAAAAAAAAAAAABLL * (v10 >> 3) < 0xAAAAAAAAAAAAAABLL)
+      if (0xAAAAAAAAAAAAAAABLL * (v9 >> 3) < 0xAAAAAAAAAAAAAABLL)
       {
         operator new();
       }
@@ -5421,16 +5348,16 @@ uint64_t swift::reflection::TupleTypeRef::create<swift::reflection::TypeRefBuild
   }
 
   v7 = v6[5];
-  if (v12[0])
+  if (v11[0])
   {
-    v12[1] = v12[0];
-    operator delete(v12[0]);
+    v11[1] = v11[0];
+    operator delete(v11[0]);
   }
 
   return v7;
 }
 
-void std::vector<std::string>::__init_with_size[abi:nn200100]<__swift::__runtime::llvm::StringRef const*,__swift::__runtime::llvm::StringRef const*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::string>::__init_with_size[abi:nn200100]<__swift::__runtime::llvm::StringRef const*,__swift::__runtime::llvm::StringRef const*>(void *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5577,7 +5504,7 @@ void swift::reflection::TupleTypeRef::~TupleTypeRef(swift::reflection::TupleType
   operator delete();
 }
 
-uint64_t swift::reflection::PackTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void ***a2)
+_DWORD *swift::reflection::PackTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void ***a2)
 {
   v12 = 0;
   v13 = 0;
@@ -5698,9 +5625,9 @@ uint64_t swift::reflection::DependentMemberTypeRef::create<swift::reflection::Ty
   v14 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1256), &v20);
   if (!v14)
   {
-    if (*(v6 + 23) < 0)
+    if (v6[23] < 0)
     {
-      std::string::__init_copy_ctor_external(&v19, *v6, v6[1]);
+      std::string::__init_copy_ctor_external(&v19, *v6, *(v6 + 1));
       if ((*(a4 + 23) & 0x80000000) == 0)
       {
         goto LABEL_16;
@@ -5720,7 +5647,7 @@ LABEL_16:
 
     std::string::__init_copy_ctor_external(&v18, *a4, *(a4 + 8));
 LABEL_19:
-    swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::DependentMemberTypeRef,std::string,swift::reflection::TypeRef const*,std::string>();
+    swift::reflection::TypeRefBuilder::makeTypeRef<swift::reflection::DependentMemberTypeRef,std::string,swift::reflection::TypeRef const*,std::string>(a1, &v19, a3, &v18);
   }
 
   v15 = v14[5];
@@ -5804,7 +5731,7 @@ std::string *std::optional<std::pair<std::string,BOOL>>::optional[abi:nn200100](
   return result;
 }
 
-uint64_t swift::reflection::UnownedStorageTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
+_DWORD *swift::reflection::UnownedStorageTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
 {
   v7 = 0;
   v8 = 0;
@@ -5828,7 +5755,7 @@ uint64_t swift::reflection::UnownedStorageTypeRef::create<swift::reflection::Typ
   return v4;
 }
 
-uint64_t swift::reflection::UnmanagedStorageTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
+_DWORD *swift::reflection::UnmanagedStorageTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
 {
   v7 = 0;
   v8 = 0;
@@ -5852,7 +5779,7 @@ uint64_t swift::reflection::UnmanagedStorageTypeRef::create<swift::reflection::T
   return v4;
 }
 
-uint64_t swift::reflection::WeakStorageTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
+_DWORD *swift::reflection::WeakStorageTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
 {
   v7 = 0;
   v8 = 0;
@@ -5876,7 +5803,7 @@ uint64_t swift::reflection::WeakStorageTypeRef::create<swift::reflection::TypeRe
   return v4;
 }
 
-uint64_t swift::reflection::SILBoxTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
+_DWORD *swift::reflection::SILBoxTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2)
 {
   v7 = 0;
   v8 = 0;
@@ -5965,7 +5892,7 @@ uint64_t __swift::__runtime::llvm::SmallVectorTemplateBase<swift::reflection::SI
   return *a1 + 8 * v7 - 8;
 }
 
-uint64_t swift::reflection::SILBoxTypeWithLayoutTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t swift::reflection::SILBoxTypeWithLayoutTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, const void *a2, uint64_t a3, const void *a4, uint64_t a5, const void *a6, uint64_t a7)
 {
   v11 = 0;
   v12 = 0;
@@ -6097,13 +6024,13 @@ void swift::reflection::SILBoxTypeWithLayoutTypeRef::Profile(unint64_t **a1@<X0>
   }
 }
 
-uint64_t swift::reflection::SILBoxTypeWithLayoutTypeRef::SILBoxTypeWithLayoutTypeRef(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t swift::reflection::SILBoxTypeWithLayoutTypeRef::SILBoxTypeWithLayoutTypeRef(uint64_t a1, const void *a2, uint64_t a3, const void *a4, uint64_t a5, const void *a6, uint64_t a7)
 {
-  *(result + 8) = 20;
-  *result = off_E0790;
-  *(result + 24) = 0;
-  *(result + 32) = 0;
-  *(result + 16) = 0;
+  *(a1 + 8) = 20;
+  *a1 = off_E0790;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 16) = 0;
   if (a3)
   {
     if (((8 * a3) & 0x8000000000000000) == 0)
@@ -6114,9 +6041,9 @@ uint64_t swift::reflection::SILBoxTypeWithLayoutTypeRef::SILBoxTypeWithLayoutTyp
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  *(result + 40) = 0;
-  *(result + 48) = 0;
-  *(result + 56) = 0;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
   if (a5)
   {
     if (((16 * a5) & 0x8000000000000000) == 0)
@@ -6127,9 +6054,9 @@ uint64_t swift::reflection::SILBoxTypeWithLayoutTypeRef::SILBoxTypeWithLayoutTyp
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  *(result + 64) = 0;
-  *(result + 72) = 0;
-  *(result + 80) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
   if (a7)
   {
     if (((16 * a7) & 0x8000000000000000) == 0)
@@ -6140,7 +6067,7 @@ uint64_t swift::reflection::SILBoxTypeWithLayoutTypeRef::SILBoxTypeWithLayoutTyp
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void swift::reflection::SILBoxTypeWithLayoutTypeRef::~SILBoxTypeWithLayoutTypeRef(swift::reflection::SILBoxTypeWithLayoutTypeRef *this)
@@ -6192,9 +6119,9 @@ void swift::reflection::SILBoxTypeWithLayoutTypeRef::~SILBoxTypeWithLayoutTypeRe
   operator delete();
 }
 
-uint64_t swift::reflection::OpaqueArchetypeTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *__src, size_t __len, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8)
+uint64_t swift::reflection::OpaqueArchetypeTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *__src, size_t __len, void *a4, size_t a5, int a6, uint64_t a7, uint64_t a8)
 {
-  swift::reflection::OpaqueArchetypeTypeRef::Profile(__src, __len, a6, a7, a8, v12);
+  swift::reflection::OpaqueArchetypeTypeRef::Profile(v12, __src, __len, a6, a7, a8);
   v9 = std::__hash_table<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,std::__unordered_map_hasher<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Hash,swift::reflection::TypeRefID::Equal,true>,std::__unordered_map_equal<swift::reflection::TypeRefID,std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>,swift::reflection::TypeRefID::Equal,swift::reflection::TypeRefID::Hash,true>,std::allocator<std::__hash_value_type<swift::reflection::TypeRefID,swift::reflection::ObjCClassTypeRef const*>>>::find<swift::reflection::TypeRefID>((a1 + 1456), v12);
   if (!v9)
   {
@@ -6445,11 +6372,11 @@ LABEL_30:
   }
 }
 
-void swift::reflection::OpaqueArchetypeTypeRef::Profile(void *__src@<X0>, size_t __len@<X1>, int a3@<W4>, uint64_t a4@<X5>, uint64_t a5@<X6>, void *a6@<X8>)
+void swift::reflection::OpaqueArchetypeTypeRef::Profile(uint64_t *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, int a4@<W4>, uint64_t a5@<X5>, uint64_t a6@<X6>)
 {
-  *a6 = 0;
-  a6[1] = 0;
-  a6[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (__src)
   {
     if (__len >= 0x7FFFFFFFFFFFFFF8)
@@ -6504,23 +6431,23 @@ void swift::reflection::OpaqueArchetypeTypeRef::Profile(void *__src@<X0>, size_t
     v15 = v11;
   }
 
-  swift::reflection::TypeRefID::addString(a6, p_dst, v15);
+  swift::reflection::TypeRefID::addString(a1, p_dst, v15);
   if (SHIBYTE(v23) < 0)
   {
     operator delete(__dst);
   }
 
-  LODWORD(__dst) = a3;
-  std::vector<unsigned int>::push_back[abi:nn200100](a6, &__dst);
-  if (a5)
+  LODWORD(__dst) = a4;
+  std::vector<unsigned int>::push_back[abi:nn200100](a1, &__dst);
+  if (a6)
   {
-    v16 = a4 + 16 * a5;
+    v16 = a5 + 16 * a6;
     do
     {
-      v17 = *a4;
-      v18 = *(a4 + 8);
+      v17 = *a5;
+      v18 = *(a5 + 8);
       LODWORD(__dst) = 0;
-      std::vector<unsigned int>::push_back[abi:nn200100](a6, &__dst);
+      std::vector<unsigned int>::push_back[abi:nn200100](a1, &__dst);
       if (v18)
       {
         v19 = 8 * v18;
@@ -6528,18 +6455,18 @@ void swift::reflection::OpaqueArchetypeTypeRef::Profile(void *__src@<X0>, size_t
         {
           v20 = *v17++;
           __dst = v20;
-          std::vector<unsigned int>::push_back[abi:nn200100](a6, &__dst);
-          std::vector<unsigned int>::push_back[abi:nn200100](a6, &__dst + 1);
+          std::vector<unsigned int>::push_back[abi:nn200100](a1, &__dst);
+          std::vector<unsigned int>::push_back[abi:nn200100](a1, &__dst + 1);
           v19 -= 8;
         }
 
         while (v19);
       }
 
-      a4 += 16;
+      a5 += 16;
     }
 
-    while (a4 != v16);
+    while (a5 != v16);
   }
 }
 
@@ -7032,7 +6959,7 @@ LABEL_58:
   return v5;
 }
 
-uint64_t swift::reflection::IntegerTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t a2)
+_DWORD *swift::reflection::IntegerTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, uint64_t a2)
 {
   v2 = HIDWORD(a2);
   v8 = 0;
@@ -7058,7 +6985,7 @@ uint64_t swift::reflection::IntegerTypeRef::create<swift::reflection::TypeRefBui
   return v5;
 }
 
-uint64_t swift::reflection::BuiltinFixedArrayTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2, void *a3)
+_DWORD *swift::reflection::BuiltinFixedArrayTypeRef::create<swift::reflection::TypeRefBuilder>(uint64_t a1, void *a2, void *a3)
 {
   v9 = 0;
   v10 = 0;
@@ -7117,17 +7044,15 @@ uint64_t std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuild
   return result;
 }
 
-double std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress)#1},std::allocator<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress)#1}>,std::optional<swift::remote::RemoteAbsolutePointer> ()(swift::remote::RemoteAddress)>::operator()@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+double std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress)#1},std::allocator<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteAddress)#1}>,std::optional<swift::remote::RemoteAbsolutePointer> ()(swift::remote::RemoteAddress)>::operator()@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = a2[1];
-  v5 = *a2;
-  (*(**(*(a1 + 8) + 2800) + 72))(&v7);
-  *a3 = v7;
-  *(a3 + 16) = v8;
-  result = *&v9;
-  *(a3 + 24) = v9;
-  *(a3 + 40) = v10;
-  *(a3 + 48) = 1;
+  (*(**(*(a1 + 8) + 2800) + 72))(&v4);
+  *a2 = v4;
+  *(a2 + 16) = v5;
+  result = *&v6;
+  *(a2 + 24) = v6;
+  *(a2 + 40) = v7;
+  *(a2 + 48) = 1;
   return result;
 }
 
@@ -7139,7 +7064,7 @@ uint64_t std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuild
   return result;
 }
 
-unint64_t std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(std::string,unsigned int)#1},std::allocator<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(std::string,unsigned int)#1}>,std::optional<unsigned long long> ()(std::string,unsigned int)>::operator()(uint64_t a1, uint64_t a2, int *a3)
+unint64_t std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(std::string,unsigned int)#1},std::allocator<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(std::string,unsigned int)#1}>,std::optional<unsigned long long> ()(std::string,unsigned int)>::operator()(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
   *__p = *a2;
   v6 = *(a2 + 16);
@@ -7169,16 +7094,16 @@ unint64_t swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swif
   if (!v4)
   {
     LOBYTE(v6) = 0;
-    v10 = 0;
+    v9 = 0;
     if (!v5)
     {
-      return v6 | (v10 << 8);
+      return v6 | (v9 << 8);
     }
 
     goto LABEL_21;
   }
 
-  v6 = (*(*v4 + 8))(v4);
+  v6 = (*(*v4 + 8))(v4, a2);
   if (!v6)
   {
     goto LABEL_20;
@@ -7188,31 +7113,31 @@ unint64_t swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swif
   {
     if (a3 == 8)
     {
-      v15 = 0;
-      v8 = (*(*v4 + 32))(v4, v6, v7, &v15, 8);
-      v9 = v15;
+      v14 = 0;
+      v7 = (*(*v4 + 32))(v4, v6, a2, &v14, 8);
+      v8 = v14;
       goto LABEL_11;
     }
 
     LOBYTE(v6) = 0;
 LABEL_20:
-    v10 = 0;
+    v9 = 0;
     if (!v5)
     {
-      return v6 | (v10 << 8);
+      return v6 | (v9 << 8);
     }
 
     goto LABEL_21;
   }
 
-  v14 = 0;
-  v8 = (*(*v4 + 32))(v4, v6, v7, &v14, 4);
-  v9 = v14;
+  v13 = 0;
+  v7 = (*(*v4 + 32))(v4, v6, a2, &v13, 4);
+  v8 = v13;
 LABEL_11:
-  v11 = v8 == 0;
-  if (v8)
+  v10 = v7 == 0;
+  if (v7)
   {
-    LOBYTE(v6) = v9;
+    LOBYTE(v6) = v8;
   }
 
   else
@@ -7220,14 +7145,14 @@ LABEL_11:
     LOBYTE(v6) = 0;
   }
 
-  if (v11)
+  if (v10)
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v10 = v9 >> 8;
+    v9 = v8 >> 8;
   }
 
   if (v5)
@@ -7235,14 +7160,14 @@ LABEL_11:
 LABEL_21:
     if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      v12 = v6;
-      (v5->__on_zero_shared)(v5);
+      v11 = v6;
+      (v5->__on_zero_shared)(v5, a2);
       std::__shared_weak_count::__release_weak(v5);
-      LOBYTE(v6) = v12;
+      LOBYTE(v6) = v11;
     }
   }
 
-  return v6 | (v10 << 8);
+  return v6 | (v9 << 8);
 }
 
 void std::default_delete<swift::reflection::ReflectionContext<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>::operator()[abi:nn200100](uint64_t a1, uint64_t a2)
@@ -7271,7 +7196,7 @@ void std::default_delete<swift::reflection::ReflectionContext<swift::External<sw
   }
 }
 
-uint64_t std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::~vector[abi:nn200100](void *a1)
+void *std::vector<std::unique_ptr<void const,std::function<void ()(void const*)>>>::~vector[abi:nn200100](void *a1)
 {
   v2 = *a1;
   if (!*a1)
@@ -7331,7 +7256,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v12 = std::__throw_bad_function_call[abi:nn200100]();
+  std::__throw_bad_function_call[abi:nn200100]();
   return swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::~MetadataReader(v12);
 }
 
@@ -7372,18 +7297,7 @@ void __swift::__runtime::llvm::DenseMap<swift::remote::RemoteAddress,std::unique
     while (1)
     {
       v7 = v6 - 24;
-      if (*(v6 - 3) >= 0xFFFFFFFFFFFFFFFELL)
-      {
-        v8 = *(v6 - 16) == 0;
-        *(v6 - 16);
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      if (!v8)
+      if (*(v6 - 3) < 0xFFFFFFFFFFFFFFFELL || *(v6 - 16) != 0)
       {
         v9 = *(v6 - 1);
         *(v6 - 1) = 0;
@@ -7393,7 +7307,7 @@ void __swift::__runtime::llvm::DenseMap<swift::remote::RemoteAddress,std::unique
           v10 = *(v6 + 3);
           if (!v10)
           {
-            v13 = std::__throw_bad_function_call[abi:nn200100]();
+            std::__throw_bad_function_call[abi:nn200100]();
             swift::reflection::TypeRefBuilder::~TypeRefBuilder(v13);
             return;
           }
@@ -8734,17 +8648,17 @@ __n128 std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder
   return result;
 }
 
-uint64_t std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteRef<char>,BOOL)#1},std::allocator<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteRef<char>,BOOL)#1}>,swift::Demangle::__runtime::Node * ()(swift::remote::RemoteRef<char>,BOOL)>::operator()(uint64_t a1, __int128 *a2, unsigned __int8 *a3)
+uint64_t std::__function::__func<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteRef<char>,BOOL)#1},std::allocator<swift::reflection::TypeRefBuilder::TypeRefBuilder<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>(swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder> &,swift::remote::ExternalTypeRefCache *,swift::reflection::DescriptorFinder *)::{lambda(swift::remote::RemoteRef<char>,BOOL)#1}>,swift::Demangle::__runtime::Node * ()(swift::remote::RemoteRef<char>,BOOL)>::operator()(uint64_t a1, __int128 *a2, char *a3)
 {
   v7 = *a2;
   v3 = *a3;
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
   v8 = *(a2 + 2);
-  return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangle(v4, &v7, 0);
+  return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangle(v4, &v7, 0, v5, v3);
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangle(uint64_t a1, uint64_t a2, int a3)
+uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangle(uint64_t a1, uint64_t a2, int a3, uint64_t a4, char a5)
 {
   swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(*(a2 + 16), a2);
   if (a3 == 1)
@@ -8769,7 +8683,7 @@ __n128 std::__function::__func<swift::remote::MetadataReader<swift::External<swi
   return result;
 }
 
-unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangle(swift::remote::RemoteRef<char>,swift::remote::MangledNameKind,swift::Demangle::__runtime::Demangler &,BOOL)::{lambda(swift::Demangle::__runtime::SymbolicReferenceKind,swift::Demangle::__runtime::Directness,int,void const*)#1}::operator()(uint64_t **a1, int a2, int a3, int a4, uint64_t a5)
+uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangle(swift::remote::RemoteRef<char>,swift::remote::MangledNameKind,swift::Demangle::__runtime::Demangler &,BOOL)::{lambda(swift::Demangle::__runtime::SymbolicReferenceKind,swift::Demangle::__runtime::Directness,int,void const*)#1}::operator()(uint64_t **a1, int a2, int a3, int a4, uint64_t a5)
 {
   v8 = a1[1];
   v9 = **a1;
@@ -8779,7 +8693,7 @@ unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swi
   memset(v50, 0, 25);
   if (a3 == 1)
   {
-    swift::remote::MemoryReader::readPointer(*(v8 + 2800), v11 + v9, v10, 8u, v45);
+    swift::remote::MemoryReader::readPointer(v8[350], v11 + v9, v10, 8u, v45);
     if (v48 != 1)
     {
       goto LABEL_73;
@@ -8789,7 +8703,7 @@ unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swi
     v13 = v47;
     if (!v47)
     {
-      v12 = *(v8 + 2816) & *(&v46 + 1);
+      v12 = v8[352] & *(&v46 + 1);
     }
 
     if (v45[23] >= 0)
@@ -8850,7 +8764,7 @@ unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swi
 
   else
   {
-    (*(**(v8 + 2800) + 64))(v45);
+    (*(*v8[350] + 64))(v45);
     *__p = *v45;
     *&v50[0] = *&v45[16];
     *(v50 + 8) = v46;
@@ -8869,8 +8783,8 @@ unint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swi
     if (a2 == 4)
     {
       LODWORD(v41) = 0;
-      (*(**(v8 + 2800) + 32))(*(v8 + 2800), *&v50[1] + 4, BYTE8(v50[1]), &v41, 4);
-      (*(**(v8 + 2800) + 64))(v45);
+      (*(*v8[350] + 32))(v8[350], *&v50[1] + 4, BYTE8(v50[1]), &v41, 4);
+      (*(*v8[350] + 64))(v45);
       if (SBYTE7(v50[0]) < 0)
       {
         operator delete(__p[0]);
@@ -9232,7 +9146,7 @@ LABEL_25:
     __p = a2;
     v34 = a3;
     v35 = v21;
-    result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangle(a1, &__p, a4);
+    result = swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::demangle(a1, &__p, a4, a5, 0);
     if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
     {
 LABEL_41:
@@ -9254,7 +9168,7 @@ LABEL_41:
   return result;
 }
 
-uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+_BYTE *swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readContextDescriptor@<X0>(_BYTE *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   if (!a2)
   {
@@ -9265,8 +9179,8 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
   }
 
   v7 = result;
-  (*(**(result + 2800) + 24))(&v37);
-  if (!v37)
+  (*(**(result + 350) + 24))(&v36);
+  if (!v36)
   {
     goto LABEL_55;
   }
@@ -9281,9 +9195,9 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v32 = a2;
-  v33 = a3;
-  v10 = (v9 - 1) & __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(&v32, &v33);
+  *&v32 = a2;
+  *(&v32 + 1) = a3;
+  v10 = (v9 - 1) & __swift::__runtime::llvm::hash_combine<unsigned long long,unsigned char>(&v32, &v32 + 8);
   v11 = (v8 + 56 * v10);
   v12 = *v11;
   v13 = *(v11 + 8);
@@ -9317,9 +9231,9 @@ LABEL_19:
     goto LABEL_56;
   }
 
-  if (v37)
+  if (v36)
   {
-    v20 = v37;
+    v20 = v36;
   }
 
   else
@@ -9334,7 +9248,7 @@ LABEL_19:
     {
       if (v21 != 17)
       {
-        if (v21 != 18 || (swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetEnumDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v37) & 1) == 0)
+        if (v21 != 18 || (swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetEnumDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v36) & 1) == 0)
         {
           goto LABEL_55;
         }
@@ -9342,7 +9256,7 @@ LABEL_19:
         goto LABEL_45;
       }
 
-      if (swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v37))
+      if (swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v36))
       {
         goto LABEL_45;
       }
@@ -9352,7 +9266,7 @@ LABEL_19:
     {
       if (v21 != 4)
       {
-        if (v21 != 16 || (swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v37) & 1) == 0)
+        if (v21 != 16 || (swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v36) & 1) == 0)
         {
           goto LABEL_55;
         }
@@ -9360,7 +9274,7 @@ LABEL_19:
         goto LABEL_45;
       }
 
-      if (swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetOpaqueTypeDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v37))
+      if (swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetOpaqueTypeDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v36))
       {
         goto LABEL_45;
       }
@@ -9377,13 +9291,13 @@ LABEL_55:
   {
     if (v21 == 2)
     {
-      if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetAnonymousContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v37) & 1) == 0)
+      if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetAnonymousContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v36) & 1) == 0)
       {
         goto LABEL_55;
       }
     }
 
-    else if (v21 != 3 || (swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetProtocolDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v37) & 1) == 0)
+    else if (v21 != 3 || (swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetProtocolDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v36) & 1) == 0)
     {
       goto LABEL_55;
     }
@@ -9394,10 +9308,10 @@ LABEL_55:
     if (!v21)
     {
       (*(**(v7 + 2800) + 24))(&v32);
-      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v37, &v32);
+      std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](&v36, &v32);
       std::unique_ptr<void const,std::function<void ()(void const*)>>::~unique_ptr[abi:nn200100](&v32);
-      v22 = v37;
-      if (!v37)
+      v22 = v36;
+      if (!v36)
       {
         goto LABEL_55;
       }
@@ -9405,15 +9319,15 @@ LABEL_55:
       goto LABEL_46;
     }
 
-    if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetExtensionContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v37) & 1) == 0)
+    if ((swift::remote::MetadataReader<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetExtensionContextDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(v7, a2, a3, &v36) & 1) == 0)
     {
       goto LABEL_55;
     }
   }
 
 LABEL_45:
-  v22 = v37;
-  if (!v37)
+  v22 = v36;
+  if (!v36)
   {
     v23 = 0;
     goto LABEL_48;
@@ -9422,54 +9336,54 @@ LABEL_45:
 LABEL_46:
   v23 = v22;
 LABEL_48:
-  v32 = a2;
-  v33 = a3;
-  v37 = 0;
-  v34 = v22;
-  if (v39)
+  *&v32 = a2;
+  *(&v32 + 1) = a3;
+  v36 = 0;
+  v33 = v22;
+  if (v38)
   {
     v24 = v23;
-    if (v39 == v38)
+    if (v38 == v37)
     {
-      v36 = v35;
-      (*(*v39 + 24))();
+      v35 = v34;
+      (*(*v38 + 24))();
     }
 
     else
     {
-      v36 = v39;
-      v39 = 0;
+      v35 = v38;
+      v38 = 0;
     }
   }
 
   else
   {
     v24 = v23;
-    v36 = 0;
+    v35 = 0;
   }
 
-  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>,swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>::try_emplace<std::unique_ptr<void const,std::function<void ()(void const*)>>>(v7 + 48, &v32, &v34, v31);
-  v26 = v34;
-  v34 = 0;
+  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>,swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>,__swift::__runtime::llvm::DenseMapInfo<swift::remote::RemoteAddress>,__swift::__runtime::llvm::detail::DenseMapPair<swift::remote::RemoteAddress,std::unique_ptr<void const,std::function<void ()(void const*)>>>>::try_emplace<std::unique_ptr<void const,std::function<void ()(void const*)>>>((v7 + 48), &v32, &v33, v31);
+  v26 = v33;
+  v33 = 0;
   if (v26)
   {
     v31[0] = v26;
-    if (!v36)
+    if (!v35)
     {
       goto LABEL_74;
     }
 
-    (*(*v36 + 48))(v36, v31);
+    (*(*v35 + 48))(v35, v31);
   }
 
-  if (v36 == v35)
+  if (v35 == v34)
   {
-    (*(*v36 + 32))(v36);
+    (*(*v35 + 32))(v35);
   }
 
-  else if (v36)
+  else if (v35)
   {
-    (*(*v36 + 40))();
+    (*(*v35 + 40))();
   }
 
   *a4 = a2;
@@ -9477,32 +9391,32 @@ LABEL_48:
   v19 = v24;
 LABEL_56:
   *(a4 + 16) = v19;
-  v25 = v37;
-  v37 = 0;
+  v25 = v36;
+  v36 = 0;
   if (!v25)
   {
     goto LABEL_59;
   }
 
-  v32 = v25;
-  if (!v39)
+  *&v32 = v25;
+  if (!v38)
   {
 LABEL_74:
-    v27 = std::__throw_bad_function_call[abi:nn200100]();
+    std::__throw_bad_function_call[abi:nn200100]();
     return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v27, v28, v29, v30);
   }
 
-  (*(*v39 + 48))(v39, &v32);
+  (*(*v38 + 48))(v38, &v32);
 LABEL_59:
-  result = v39;
-  if (v39 == v38)
+  result = v38;
+  if (v38 == v37)
   {
-    return (*(*v39 + 32))(v39);
+    return (*(*v38 + 32))(v38);
   }
 
-  if (v39)
+  if (v38)
   {
-    return (*(*v39 + 40))();
+    return (*(*v38 + 40))();
   }
 
   return result;
@@ -9510,21 +9424,21 @@ LABEL_59:
 
 uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetClassDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  swift::remote::MemoryReader::readObj<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(*(a1 + 2800), &v30);
-  v6 = v30;
-  v30 = 0;
+  swift::remote::MemoryReader::readObj<swift::TargetClassDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(*(a1 + 2800), &v33);
+  v6 = v33;
+  v33 = 0;
   v7 = *a4;
   *a4 = v6;
   if (v7)
   {
-    v33 = v7;
+    v36 = v7;
     v8 = a4[4];
     if (!v8)
     {
       goto LABEL_64;
     }
 
-    (*(*v8 + 48))(v8, &v33);
+    (*(*v8 + 48))(v8, &v36);
   }
 
   v9 = a4[4];
@@ -9532,11 +9446,11 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
   if (v9 == a4 + 1)
   {
     (*(*v9 + 32))(v9);
-    v10 = v32;
-    if (v32)
+    v10 = v35;
+    if (v35)
     {
 LABEL_8:
-      if (v10 == v31)
+      if (v10 == v34)
       {
         a4[4] = (a4 + 1);
         (*(*v10 + 24))(v10, a4 + 1);
@@ -9545,7 +9459,7 @@ LABEL_8:
       else
       {
         a4[4] = v10;
-        v32 = 0;
+        v35 = 0;
       }
 
       goto LABEL_13;
@@ -9559,8 +9473,8 @@ LABEL_8:
       (*(*v9 + 40))(v9);
     }
 
-    v10 = v32;
-    if (v32)
+    v10 = v35;
+    if (v35)
     {
       goto LABEL_8;
     }
@@ -9568,14 +9482,14 @@ LABEL_8:
 
   a4[4] = 0;
 LABEL_13:
-  v11 = v30;
-  v30 = 0;
+  v11 = v33;
+  v33 = 0;
   if (!v11)
   {
 LABEL_16:
-    if (v32 == v31)
+    if (v35 == v34)
     {
-      (*(*v32 + 32))(v32);
+      (*(*v35 + 32))(v35);
       if (!*a4)
       {
         return 0;
@@ -9584,9 +9498,9 @@ LABEL_16:
 
     else
     {
-      if (v32)
+      if (v35)
       {
-        (*(*v32 + 40))();
+        (*(*v35 + 40))();
       }
 
       if (!*a4)
@@ -9647,7 +9561,7 @@ LABEL_34:
 
           else
           {
-            v18 = v15 + 44;
+            v18 = v15 + 11;
             if (v15)
             {
               goto LABEL_34;
@@ -9677,7 +9591,7 @@ LABEL_34:
             v24 = 0;
           }
 
-          v26 = &v18[16 * ((v23 >> 7) & 1) + v24];
+          v26 = (&v18[4 * ((v23 >> 7) & 1)] + v24);
           goto LABEL_53;
         }
       }
@@ -9690,7 +9604,7 @@ LABEL_34:
 
       else
       {
-        v20 = v15 + 44;
+        v20 = v15 + 11;
         if (!v15)
         {
           v21 = 0;
@@ -9700,7 +9614,7 @@ LABEL_34:
 
       v21 = v15;
 LABEL_49:
-      v26 = &v20[16 * ((*v21 >> 7) & 1)];
+      v26 = &v20[4 * ((*v21 >> 7) & 1)];
 LABEL_53:
       if (!v15)
       {
@@ -9711,29 +9625,29 @@ LABEL_53:
       if (v26 - v17 > v13)
       {
 LABEL_56:
-        (*(**(a1 + 2800) + 24))(&v30);
-        std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](a4, &v30);
-        v27 = v30;
-        v30 = 0;
+        (*(**(a1 + 2800) + 24))(&v33);
+        std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](a4, &v33);
+        v27 = v33;
+        v33 = 0;
         if (v27)
         {
-          v33 = v27;
-          if (!v32)
+          v36 = v27;
+          if (!v35)
           {
             goto LABEL_64;
           }
 
-          (*(*v32 + 48))(v32, &v33);
+          (*(*v35 + 48))(v35, &v36);
         }
 
-        if (v32 == v31)
+        if (v35 == v34)
         {
-          (*(*v32 + 32))(v32);
+          (*(*v35 + 32))(v35);
         }
 
-        else if (v32)
+        else if (v35)
         {
-          (*(*v32 + 40))();
+          (*(*v35 + 40))();
         }
 
         v13 = v22;
@@ -9751,35 +9665,35 @@ LABEL_25:
     }
   }
 
-  v33 = v11;
-  if (v32)
+  v36 = v11;
+  if (v35)
   {
-    (*(*v32 + 48))(v32, &v33);
+    (*(*v35 + 48))(v35, &v36);
     goto LABEL_16;
   }
 
 LABEL_64:
-  v29 = std::__throw_bad_function_call[abi:nn200100]();
-  return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetEnumDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v29);
+  std::__throw_bad_function_call[abi:nn200100]();
+  return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetEnumDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v29, v30, v31, v32);
 }
 
 uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetEnumDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  swift::remote::MemoryReader::readObj<swift::TargetEnumDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(*(a1 + 2800), &v30);
-  v6 = v30;
-  v30 = 0;
+  swift::remote::MemoryReader::readObj<swift::TargetEnumDescriptor<swift::External<swift::WithObjCInterop<swift::RuntimeTarget<8u>>>>>(*(a1 + 2800), &v33);
+  v6 = v33;
+  v33 = 0;
   v7 = *a4;
   *a4 = v6;
   if (v7)
   {
-    v33 = v7;
+    v36 = v7;
     v8 = a4[4];
     if (!v8)
     {
       goto LABEL_64;
     }
 
-    (*(*v8 + 48))(v8, &v33);
+    (*(*v8 + 48))(v8, &v36);
   }
 
   v9 = a4[4];
@@ -9787,11 +9701,11 @@ uint64_t swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swif
   if (v9 == a4 + 1)
   {
     (*(*v9 + 32))(v9);
-    v10 = v32;
-    if (v32)
+    v10 = v35;
+    if (v35)
     {
 LABEL_8:
-      if (v10 == v31)
+      if (v10 == v34)
       {
         a4[4] = (a4 + 1);
         (*(*v10 + 24))(v10, a4 + 1);
@@ -9800,7 +9714,7 @@ LABEL_8:
       else
       {
         a4[4] = v10;
-        v32 = 0;
+        v35 = 0;
       }
 
       goto LABEL_13;
@@ -9814,8 +9728,8 @@ LABEL_8:
       (*(*v9 + 40))(v9);
     }
 
-    v10 = v32;
-    if (v32)
+    v10 = v35;
+    if (v35)
     {
       goto LABEL_8;
     }
@@ -9823,14 +9737,14 @@ LABEL_8:
 
   a4[4] = 0;
 LABEL_13:
-  v11 = v30;
-  v30 = 0;
+  v11 = v33;
+  v33 = 0;
   if (!v11)
   {
 LABEL_16:
-    if (v32 == v31)
+    if (v35 == v34)
     {
-      (*(*v32 + 32))(v32);
+      (*(*v35 + 32))(v35);
       if (!*a4)
       {
         return 0;
@@ -9839,9 +9753,9 @@ LABEL_16:
 
     else
     {
-      if (v32)
+      if (v35)
       {
-        (*(*v32 + 40))();
+        (*(*v35 + 40))();
       }
 
       if (!*a4)
@@ -9966,29 +9880,29 @@ LABEL_53:
       if (v26 - v17 > v13)
       {
 LABEL_56:
-        (*(**(a1 + 2800) + 24))(&v30);
-        std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](a4, &v30);
-        v27 = v30;
-        v30 = 0;
+        (*(**(a1 + 2800) + 24))(&v33);
+        std::unique_ptr<void const,std::function<void ()(void const*)>>::operator=[abi:nn200100](a4, &v33);
+        v27 = v33;
+        v33 = 0;
         if (v27)
         {
-          v33 = v27;
-          if (!v32)
+          v36 = v27;
+          if (!v35)
           {
             goto LABEL_64;
           }
 
-          (*(*v32 + 48))(v32, &v33);
+          (*(*v35 + 48))(v35, &v36);
         }
 
-        if (v32 == v31)
+        if (v35 == v34)
         {
-          (*(*v32 + 32))(v32);
+          (*(*v35 + 32))(v35);
         }
 
-        else if (v32)
+        else if (v35)
         {
-          (*(*v32 + 40))();
+          (*(*v35 + 40))();
         }
 
         v13 = v22;
@@ -10006,14 +9920,14 @@ LABEL_25:
     }
   }
 
-  v33 = v11;
-  if (v32)
+  v36 = v11;
+  if (v35)
   {
-    (*(*v32 + 48))(v32, &v33);
+    (*(*v35 + 48))(v35, &v36);
     goto LABEL_16;
   }
 
 LABEL_64:
-  v29 = std::__throw_bad_function_call[abi:nn200100]();
-  return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v29);
+  std::__throw_bad_function_call[abi:nn200100]();
+  return swift::remote::MetadataReader<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>,swift::reflection::TypeRefBuilder>::readFullContextDescriptor<swift::TargetStructDescriptor<swift::External<swift::NoObjCInterop<swift::RuntimeTarget<8u>>>>>(v29, v30, v31, v32);
 }

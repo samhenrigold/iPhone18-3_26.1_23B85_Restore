@@ -68,7 +68,7 @@
 
 - (_NIWiFiRangingTestConfiguration)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
   v6 = MEMORY[0x1E695DFD8];
@@ -76,15 +76,15 @@
   v8 = objc_opt_class();
   v9 = [v6 setWithObjects:{v7, v8, objc_opt_class(), 0}];
   v10 = MEMORY[0x1E695DFD8];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"monitoredRegions"];
 
-  v21.receiver = self;
-  v21.super_class = _NIWiFiRangingTestConfiguration;
-  v14 = [(NIConfiguration *)&v21 initWithCoder:coderCopy];
+  v20.receiver = self;
+  v20.super_class = _NIWiFiRangingTestConfiguration;
+  v14 = [(NIConfiguration *)&v20 initWithCoder:coderCopy];
   if (v14)
   {
     v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"peerDiscoveryToken"];
@@ -98,7 +98,6 @@
     objc_storeStrong(&v14->_monitoredRegions, v13);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

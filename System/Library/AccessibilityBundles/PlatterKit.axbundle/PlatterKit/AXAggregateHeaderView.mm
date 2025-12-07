@@ -13,7 +13,7 @@
 
 - (AXAggregateHeaderView)initWithAccessibilityContainer:(id)container iconButtons:(id)buttons dateLabel:(id)label titleLabel:(id)titleLabel
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   containerCopy = container;
   buttonsCopy = buttons;
   labelCopy = label;
@@ -22,50 +22,49 @@
   [array axSafelyAddObjectsFromArray:buttonsCopy];
   [array axSafelyAddObject:titleLabelCopy];
   [array axSafelyAddObject:labelCopy];
-  v29.receiver = self;
-  v29.super_class = AXAggregateHeaderView;
-  v15 = [(UIAccessibilityAggregateElement *)&v29 initWithAccessibilityContainer:containerCopy representedElements:array];
+  v28.receiver = self;
+  v28.super_class = AXAggregateHeaderView;
+  v15 = [(UIAccessibilityAggregateElement *)&v28 initWithAccessibilityContainer:containerCopy representedElements:array];
   v16 = v15;
   if (v15)
   {
-    v24 = containerCopy;
+    v23 = containerCopy;
     objc_storeStrong(&v15->_iconButtons, buttons);
     objc_storeStrong(&v16->_titleLabel, titleLabel);
     objc_storeStrong(&v16->_dateLabel, label);
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v17 = v16->_iconButtons;
-    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v26;
+      v20 = *v25;
       do
       {
         v21 = 0;
         do
         {
-          if (*v26 != v20)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [*(*(&v25 + 1) + 8 * v21++) accessibilitySetIdentification:@"HeaderAppIcon"];
+          [*(*(&v24 + 1) + 8 * v21++) accessibilitySetIdentification:@"HeaderAppIcon"];
         }
 
         while (v19 != v21);
-        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v19);
     }
 
-    containerCopy = v24;
+    containerCopy = v23;
   }
 
-  v22 = *MEMORY[0x29EDCA608];
   return v16;
 }
 

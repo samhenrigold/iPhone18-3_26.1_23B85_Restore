@@ -1,14 +1,14 @@
 @interface NSSQLFetchIntermediate
+- (BOOL)groupByClauseContainsKeypath:(uint64_t)keypath;
 - (NSSQLFetchIntermediate)initWithScope:(id)scope;
 - (id)fetchIntermediateForKeypathExpression:(id)expression;
 - (id)generateSQLStringInContext:(id)context;
-- (uint64_t)addGroupByKeypath:(uint64_t)result;
-- (uint64_t)finalJoinForKeypathWithComponents:(uint64_t)result;
-- (uint64_t)groupByClauseContainsKeypath:(uint64_t)keypath;
-- (uint64_t)promoteToOuterJoinAtKeypathWithComponents:(uint64_t)result;
-- (uint64_t)promoteToOuterJoinsAlongKeypathWithComponents:(uint64_t)result;
+- (void)addGroupByKeypath:(void *)result;
 - (void)addJoinIntermediate:(void *)intermediate atKeypathWithComponents:;
 - (void)dealloc;
+- (void)finalJoinForKeypathWithComponents:(void *)result;
+- (void)promoteToOuterJoinAtKeypathWithComponents:(void *)result;
+- (void)promoteToOuterJoinsAlongKeypathWithComponents:(void *)result;
 - (void)setGroupByIntermediate:(uint64_t)intermediate;
 - (void)setHavingIntermediate:(uint64_t)intermediate;
 - (void)setOffsetIntermediate:(uint64_t)intermediate;
@@ -74,16 +74,16 @@
   }
 }
 
-- (uint64_t)addGroupByKeypath:(uint64_t)result
+- (void)addGroupByKeypath:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 96);
+    v4 = result[12];
     if (!v4)
     {
       v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      *(v3 + 96) = v4;
+      v3[12] = v4;
     }
 
     return [v4 addObject:a2];
@@ -92,7 +92,7 @@
   return result;
 }
 
-- (uint64_t)groupByClauseContainsKeypath:(uint64_t)keypath
+- (BOOL)groupByClauseContainsKeypath:(uint64_t)keypath
 {
   if (!keypath)
   {
@@ -150,35 +150,35 @@
 
 - (void)addJoinIntermediate:(void *)intermediate atKeypathWithComponents:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self)
   {
     [*(self + 112) addObject:a2];
     v6 = *(self + 120);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v7 = [intermediate countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [intermediate countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
           v11 = v6;
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(intermediate);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * i);
+          v12 = *(*(&v15 + 1) + 8 * i);
           v6 = [objc_msgSend(v6 objectForKey:{v12), "objectAtIndex:", 1}];
         }
 
-        v8 = [intermediate countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [intermediate countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -197,39 +197,37 @@
 
     [v11 setObject:v13 forKey:v12];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)finalJoinForKeypathWithComponents:(uint64_t)result
+- (void)finalJoinForKeypathWithComponents:(void *)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v3 = *(result + 120);
+    v3 = result[15];
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
-    v4 = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [a2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(a2);
           }
 
-          v8 = [v3 objectForKey:*(*(&v10 + 1) + 8 * i)];
+          v8 = [v3 objectForKey:*(*(&v9 + 1) + 8 * i)];
           v3 = [v8 objectAtIndex:1];
         }
 
-        v5 = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [a2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
@@ -240,39 +238,38 @@
       v8 = 0;
     }
 
-    result = [v8 objectAtIndex:0];
+    return [v8 objectAtIndex:0];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-- (uint64_t)promoteToOuterJoinsAlongKeypathWithComponents:(uint64_t)result
+- (void)promoteToOuterJoinsAlongKeypathWithComponents:(void *)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v3 = *(result + 120);
+    v3 = result[15];
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
-    result = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    result = [a2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (result)
     {
       v4 = result;
-      v5 = *v11;
+      v5 = *v10;
       do
       {
         v6 = 0;
         do
         {
-          if (*v11 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(a2);
           }
 
-          v7 = [v3 objectForKey:*(*(&v10 + 1) + 8 * v6)];
+          v7 = [v3 objectForKey:*(*(&v9 + 1) + 8 * v6)];
           v8 = [v7 objectAtIndex:0];
           if (v8)
           {
@@ -280,11 +277,11 @@
           }
 
           v3 = [v7 objectAtIndex:1];
-          ++v6;
+          v6 = (v6 + 1);
         }
 
         while (v4 != v6);
-        result = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        result = [a2 countByEnumeratingWithState:&v9 objects:v13 count:16];
         v4 = result;
       }
 
@@ -292,43 +289,42 @@
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-- (uint64_t)promoteToOuterJoinAtKeypathWithComponents:(uint64_t)result
+- (void)promoteToOuterJoinAtKeypathWithComponents:(void *)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v3 = *(result + 120);
+    v3 = result[15];
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
-    result = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    result = [a2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (result)
     {
       v4 = result;
-      v5 = *v11;
+      v5 = *v10;
       do
       {
         v6 = 0;
         do
         {
-          if (*v11 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(a2);
           }
 
-          v7 = [v3 objectForKey:*(*(&v10 + 1) + 8 * v6)];
+          v7 = [v3 objectForKey:*(*(&v9 + 1) + 8 * v6)];
           v8 = [v7 objectAtIndex:0];
           v3 = [v7 objectAtIndex:1];
-          ++v6;
+          v6 = (v6 + 1);
         }
 
         while (v4 != v6);
-        result = [a2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        result = [a2 countByEnumeratingWithState:&v9 objects:v13 count:16];
         v4 = result;
       }
 
@@ -340,16 +336,15 @@
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)generateSQLStringInContext:(id)context
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if ([context objectForKey:@"NSUnderlyingException"])
   {
-    goto LABEL_65;
+    return 0;
   }
 
   if (self && (whereClause = self->super._whereClause) != 0)
@@ -377,9 +372,7 @@ LABEL_10:
       v9 = 0;
 LABEL_64:
 
-LABEL_65:
-      v9 = 0;
-      goto LABEL_66;
+      return 0;
     }
   }
 
@@ -437,31 +430,31 @@ LABEL_65:
     orderIntermediate = self->super._orderIntermediate;
     if (!orderIntermediate || (orderIntermediate = [(NSSQLOrderIntermediate *)orderIntermediate generateSQLStringInContext:context]) != 0)
     {
-      v31 = orderIntermediate;
-      v32 = v11;
-      v33 = v8;
-      v34 = v13;
+      v30 = orderIntermediate;
+      v31 = v11;
+      v32 = v8;
+      v33 = v13;
       v16 = objc_alloc_init(MEMORY[0x1E696AD60]);
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       joinIntermediates = self->_joinIntermediates;
-      v18 = [(NSMutableArray *)joinIntermediates countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v18 = [(NSMutableArray *)joinIntermediates countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v36;
+        v20 = *v35;
         while (2)
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v36 != v20)
+            if (*v35 != v20)
             {
               objc_enumerationMutation(joinIntermediates);
             }
 
-            v22 = [*(*(&v35 + 1) + 8 * i) generateSQLStringInContext:{context, v31, v32, v33}];
+            v22 = [*(*(&v34 + 1) + 8 * i) generateSQLStringInContext:{context, v30, v31, v32}];
             if (!v22)
             {
 
@@ -473,7 +466,7 @@ LABEL_65:
             [v16 appendString:@" "];
           }
 
-          v19 = [(NSMutableArray *)joinIntermediates countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v19 = [(NSMutableArray *)joinIntermediates countByEnumeratingWithState:&v34 objects:v38 count:16];
           if (v19)
           {
             continue;
@@ -487,18 +480,18 @@ LABEL_65:
       {
 LABEL_40:
         v12 = 1;
-        v11 = v32;
-        v8 = v33;
-        v13 = v34;
-        v24 = v31;
+        v11 = v31;
+        v8 = v32;
+        v13 = v33;
+        v24 = v30;
 LABEL_61:
 
         goto LABEL_62;
       }
 
-      v11 = v32;
-      v8 = v33;
-      v24 = v31;
+      v11 = v31;
+      v8 = v32;
+      v24 = v30;
       if (self && (limitClause = self->super._limitClause) != 0)
       {
         v26 = [(NSSQLLimitIntermediate *)limitClause generateSQLStringInContext:context];
@@ -507,7 +500,7 @@ LABEL_61:
           v12 = 1;
 LABEL_60:
 
-          v13 = v34;
+          v13 = v33;
           goto LABEL_61;
         }
       }
@@ -535,11 +528,11 @@ LABEL_59:
         v28 = 0;
       }
 
-      [v9 appendString:{v16, v31, v32, v33}];
-      if (v34)
+      [v9 appendString:{v16, v30, v31, v32}];
+      if (v33)
       {
         [v9 appendString:@"WHERE "];
-        [v9 appendString:v34];
+        [v9 appendString:v33];
         [v9 appendString:@" "];
       }
 
@@ -586,8 +579,6 @@ LABEL_63:
     goto LABEL_64;
   }
 
-LABEL_66:
-  v29 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

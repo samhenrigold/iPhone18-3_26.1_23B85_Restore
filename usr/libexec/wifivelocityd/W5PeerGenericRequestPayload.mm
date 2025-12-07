@@ -36,9 +36,9 @@
 - (W5PeerGenericRequestPayload)initWithRequest:(id)request
 {
   requestCopy = request;
-  v16.receiver = self;
-  v16.super_class = W5PeerGenericRequestPayload;
-  v5 = [(W5PeerGenericRequestPayload *)&v16 init];
+  v18.receiver = self;
+  v18.super_class = W5PeerGenericRequestPayload;
+  v5 = [(W5PeerGenericRequestPayload *)&v18 init];
   if (!v5)
   {
     v10 = 0;
@@ -48,13 +48,14 @@ LABEL_10:
     v14 = sub_100098A04();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315650;
-      v18 = "[W5PeerGenericRequestPayload initWithRequest:]";
-      v19 = 2080;
-      v20 = "W5PeerGenericRequestPayload.m";
-      v21 = 1024;
-      v22 = 42;
-      _os_log_send_and_compose_impl();
+      v19 = 136315650;
+      v20 = "[W5PeerGenericRequestPayload initWithRequest:]";
+      v21 = 2080;
+      v22 = "W5PeerGenericRequestPayload.m";
+      v23 = 1024;
+      v24 = 42;
+      LODWORD(v15) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] %s (%s:%u) init error!", &v19, v15, v16);
     }
 
     v5 = 0;
@@ -70,9 +71,9 @@ LABEL_10:
 
   __allowedClasses = [(W5PeerGenericRequestPayload *)v5 __allowedClasses];
   v8 = [NSSet setWithArray:__allowedClasses];
-  v15 = 0;
-  v9 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v8 fromData:v6 error:&v15];
-  v10 = v15;
+  v17 = 0;
+  v9 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v8 fromData:v6 error:&v17];
+  v10 = v17;
   info = v5->_info;
   v5->_info = v9;
 
@@ -81,15 +82,15 @@ LABEL_10:
     v12 = sub_100098A04();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315906;
-      v18 = "[W5PeerGenericRequestPayload initWithRequest:]";
-      v19 = 2080;
-      v20 = "W5PeerGenericRequestPayload.m";
-      v21 = 1024;
-      v22 = 34;
-      v23 = 2114;
-      v24 = v10;
-      _os_log_send_and_compose_impl();
+      v19 = 136315906;
+      v20 = "[W5PeerGenericRequestPayload initWithRequest:]";
+      v21 = 2080;
+      v22 = "W5PeerGenericRequestPayload.m";
+      v23 = 1024;
+      v24 = 34;
+      v25 = 2114;
+      v26 = v10;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %s (%s:%u) FAILED to unarchive generic request payload, return error (%{public}@)", &v19, 38);
     }
 
     goto LABEL_10;
@@ -108,9 +109,9 @@ LABEL_8:
   if (info)
   {
     info2 = [(W5PeerGenericRequestPayload *)self info];
-    v14 = 0;
-    info = [NSKeyedArchiver archivedDataWithRootObject:info2 requiringSecureCoding:1 error:&v14];
-    v6 = v14;
+    v12 = 0;
+    info = [NSKeyedArchiver archivedDataWithRootObject:info2 requiringSecureCoding:1 error:&v12];
+    v6 = v12;
 
     if (info)
     {
@@ -122,17 +123,15 @@ LABEL_8:
       v8 = sub_100098A04();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 136315906;
-        v16 = "[W5PeerGenericRequestPayload encode]";
-        v17 = 2080;
-        v18 = "W5PeerGenericRequestPayload.m";
-        v19 = 1024;
-        v20 = 54;
-        v21 = 2114;
-        v22 = v6;
-        LODWORD(v13) = 38;
-        v12 = &v15;
-        _os_log_send_and_compose_impl();
+        v13 = 136315906;
+        v14 = "[W5PeerGenericRequestPayload encode]";
+        v15 = 2080;
+        v16 = "W5PeerGenericRequestPayload.m";
+        v17 = 1024;
+        v18 = 54;
+        v19 = 2114;
+        v20 = v6;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) FAILED to archive generic request payload, return error (%{public}@)", &v13, 38);
       }
 
       info = 0;

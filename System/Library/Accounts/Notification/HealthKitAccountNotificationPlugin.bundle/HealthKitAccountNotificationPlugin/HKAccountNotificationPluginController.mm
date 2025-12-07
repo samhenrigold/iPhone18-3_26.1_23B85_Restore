@@ -6,7 +6,7 @@
 
 - (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
 {
-  v67 = *MEMORY[0x29EDCA608];
+  v66 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   oldAccountCopy = oldAccount;
   v11 = oldAccountCopy;
@@ -94,15 +94,15 @@ LABEL_13:
 
       *buf = 138543874;
       selfCopy6 = self;
-      v64 = v31;
-      v63 = 2112;
+      v63 = v31;
+      v62 = 2112;
       if (v28)
       {
         v30 = @"YES";
       }
 
-      v65 = 2112;
-      v66 = v30;
+      v64 = 2112;
+      v65 = v30;
       _os_log_impl(&dword_29C8CF000, v29, OS_LOG_TYPE_INFO, "%{public}@: IS Health enabled: %@. WAS health enabled: %@.", buf, 0x20u);
     }
 
@@ -122,12 +122,12 @@ LABEL_13:
 
     v33 = objc_alloc_init(MEMORY[0x29EDBABE8]);
     v34 = [objc_alloc(MEMORY[0x29EDBAA90]) initWithHealthStore:v33];
-    v60[0] = MEMORY[0x29EDCA5F8];
-    v60[1] = 3221225472;
-    v60[2] = sub_29C8D0288;
-    v60[3] = &unk_29F32FF18;
-    v60[4] = self;
-    [v34 accountConfigurationDidChangeWithCompletion:v60];
+    v59[0] = MEMORY[0x29EDCA5F8];
+    v59[1] = 3221225472;
+    v59[2] = sub_29C8D0288;
+    v59[3] = &unk_29F32FF18;
+    v59[4] = self;
+    [v34 accountConfigurationDidChangeWithCompletion:v59];
     mEMORY[0x29EDBAEC0] = [MEMORY[0x29EDBAEC0] sharedBehavior];
     isiPad = [mEMORY[0x29EDBAEC0] isiPad];
 
@@ -136,15 +136,15 @@ LABEL_13:
       goto LABEL_33;
     }
 
-    v52 = v34;
+    v51 = v34;
     v37 = objc_alloc(MEMORY[0x29EDBAC18]);
     v38 = [v37 initWithCategory:3 domainName:*MEMORY[0x29EDBB018] healthStore:v33];
     v39 = *MEMORY[0x29EDBB010];
     date = [MEMORY[0x29EDB8DB0] date];
-    v59 = 0;
-    v54 = v39;
-    LOBYTE(v39) = [(__CFString *)v38 setDate:date forKey:v39 error:&v59];
-    v53 = v59;
+    v58 = 0;
+    v53 = v39;
+    LOBYTE(v39) = [(__CFString *)v38 setDate:date forKey:v39 error:&v58];
+    v52 = v58;
 
     if ((v39 & 1) == 0)
     {
@@ -154,19 +154,19 @@ LABEL_13:
       {
         *buf = 138543874;
         selfCopy6 = self;
-        v63 = 2114;
-        v64 = v54;
-        v65 = 2114;
-        v66 = v53;
+        v62 = 2114;
+        v63 = v53;
+        v64 = 2114;
+        v65 = v52;
         _os_log_error_impl(&dword_29C8CF000, v41, OS_LOG_TYPE_ERROR, "%{public}@: Unable to persist %{public}@: %{public}@", buf, 0x20u);
       }
     }
 
     v42 = *MEMORY[0x29EDBB028];
-    v58 = 0;
-    v51 = v38;
-    v43 = [(__CFString *)v38 dateForKey:v42 error:&v58];
-    v44 = v58;
+    v57 = 0;
+    v50 = v38;
+    v43 = [(__CFString *)v38 dateForKey:v42 error:&v57];
+    v44 = v57;
     if (v44)
     {
       _HKInitializeLogging();
@@ -181,43 +181,41 @@ LABEL_13:
     {
       if (!v43)
       {
-        v50 = [objc_alloc(MEMORY[0x29EDBACA8]) initWithClientIdentifier:@"NewDeviceSetup" healthStore:v33];
-        v55[0] = MEMORY[0x29EDCA5F8];
-        v55[1] = 3221225472;
-        v55[2] = sub_29C8D0378;
-        v55[3] = &unk_29F32FF40;
-        v55[4] = self;
-        v56 = v51;
-        v57 = v42;
-        v46 = v51;
-        [v50 sendNewDeviceNotificationWithMessageKind:0 completion:v55];
+        v49 = [objc_alloc(MEMORY[0x29EDBACA8]) initWithClientIdentifier:@"NewDeviceSetup" healthStore:v33];
+        v54[0] = MEMORY[0x29EDCA5F8];
+        v54[1] = 3221225472;
+        v54[2] = sub_29C8D0378;
+        v54[3] = &unk_29F32FF40;
+        v54[4] = self;
+        v55 = v50;
+        v56 = v42;
+        v46 = v50;
+        [v49 sendNewDeviceNotificationWithMessageKind:0 completion:v54];
 
-        v42 = v50;
-        v47 = v54;
+        v42 = v49;
+        v47 = v53;
         goto LABEL_32;
       }
 
       _HKInitializeLogging();
-      v49 = *MEMORY[0x29EDBA7B0];
+      v48 = *MEMORY[0x29EDBA7B0];
       if (os_log_type_enabled(*MEMORY[0x29EDBA7B0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         selfCopy6 = self;
-        _os_log_impl(&dword_29C8CF000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@: User previously notified of this device. Not doing anything", buf, 0xCu);
+        _os_log_impl(&dword_29C8CF000, v48, OS_LOG_TYPE_DEFAULT, "%{public}@: User previously notified of this device. Not doing anything", buf, 0xCu);
       }
     }
 
-    v46 = v54;
-    v47 = v51;
+    v46 = v53;
+    v47 = v50;
 LABEL_32:
 
-    v34 = v52;
+    v34 = v51;
 LABEL_33:
 
 LABEL_34:
   }
-
-  v48 = *MEMORY[0x29EDCA608];
 }
 
 @end

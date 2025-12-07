@@ -190,13 +190,13 @@
   memset(&v15[1], 0, sizeof(CMTime));
   if (self)
   {
-    [(AVVideoCompositionTimeWindow *)self durationBefore];
+    objc_msgSend_durationBefore(self);
     memset(v15, 0, 24);
-    [(AVVideoCompositionTimeWindow *)self durationAfter];
+    objc_msgSend_durationAfter(self);
     memset(&v14, 0, sizeof(v14));
-    [(AVVideoCompositionTimeWindow *)self durationBeforeWhenSeeking];
+    objc_msgSend_durationBeforeWhenSeeking(self);
     memset(&v13, 0, sizeof(v13));
-    [(AVVideoCompositionTimeWindow *)self durationAfterWhenSeeking];
+    objc_msgSend_durationAfterWhenSeeking(self);
   }
 
   else
@@ -209,13 +209,13 @@
   memset(&v12[1], 0, sizeof(CMTime));
   if (equal)
   {
-    [equal durationBefore];
+    objc_msgSend_durationBefore(equal);
     memset(v12, 0, 24);
-    [equal durationAfter];
+    objc_msgSend_durationAfter(equal);
     memset(&v11, 0, sizeof(v11));
-    [equal durationBeforeWhenSeeking];
+    objc_msgSend_durationBeforeWhenSeeking(equal);
     memset(&v10, 0, sizeof(v10));
-    [equal durationAfterWhenSeeking];
+    objc_msgSend_durationAfterWhenSeeking(equal);
   }
 
   else
@@ -255,13 +255,13 @@
 {
   if (self)
   {
-    [(AVVideoCompositionTimeWindow *)self durationBefore];
+    objc_msgSend_durationBefore(self, a2);
     v3 = CMTimeHash(&v7);
-    [(AVVideoCompositionTimeWindow *)self durationAfter];
+    objc_msgSend_durationAfter(self);
     v4 = CMTimeHash(&v7);
-    [(AVVideoCompositionTimeWindow *)self durationBeforeWhenSeeking];
+    objc_msgSend_durationBeforeWhenSeeking(self);
     v5 = CMTimeHash(&v7);
-    [(AVVideoCompositionTimeWindow *)self durationAfterWhenSeeking];
+    objc_msgSend_durationAfterWhenSeeking(self);
   }
 
   else

@@ -1,290 +1,3 @@
-id LinearUIKitProgressView.Base.SwiftUIProgressView.__deallocating_deinit(uint64_t (*a1)(void))
-{
-  v3.receiver = v1;
-  v3.super_class = a1(0);
-  return objc_msgSendSuper2(&v3, sel_dealloc);
-}
-
-__n128 __swift_memcpy169_8(uint64_t a1, __int128 *a2)
-{
-  v2 = *a2;
-  v3 = a2[2];
-  *(a1 + 16) = a2[1];
-  *(a1 + 32) = v3;
-  *a1 = v2;
-  v4 = a2[3];
-  v5 = a2[4];
-  v6 = a2[6];
-  *(a1 + 80) = a2[5];
-  *(a1 + 96) = v6;
-  *(a1 + 48) = v4;
-  *(a1 + 64) = v5;
-  result = a2[7];
-  v8 = a2[8];
-  v9 = a2[9];
-  *(a1 + 153) = *(a2 + 153);
-  *(a1 + 128) = v8;
-  *(a1 + 144) = v9;
-  *(a1 + 112) = result;
-  return result;
-}
-
-uint64_t assignWithTake for CircularUIKitProgressView(uint64_t a1, uint64_t *a2)
-{
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  v6 = *a1;
-  v7 = *(a1 + 8);
-  *a1 = v4;
-  *(a1 + 8) = v5;
-  outlined consume of Environment<Selector?>.Content(v6, v7);
-  v8 = *(a2 + 24);
-  v9 = *(a1 + 16);
-  v10 = *(a1 + 24);
-  *(a1 + 16) = a2[2];
-  *(a1 + 24) = v8;
-  outlined consume of Environment<Selector?>.Content(v9, v10);
-  v11 = *(a2 + 40);
-  v12 = *(a1 + 32);
-  v13 = *(a1 + 40);
-  *(a1 + 32) = a2[4];
-  *(a1 + 40) = v11;
-  outlined consume of Environment<Selector?>.Content(v12, v13);
-  *(a1 + 48) = a2[6];
-  *(a1 + 56) = *(a2 + 56);
-  v14 = *(a2 + 72);
-  v15 = *(a1 + 64);
-  v16 = *(a1 + 72);
-  *(a1 + 64) = a2[8];
-  *(a1 + 72) = v14;
-  outlined consume of Environment<Selector?>.Content(v15, v16);
-  v17 = *(a2 + 88);
-  v18 = *(a1 + 80);
-  v19 = *(a1 + 88);
-  *(a1 + 80) = a2[10];
-  *(a1 + 88) = v17;
-  outlined consume of Environment<Selector?>.Content(v18, v19);
-  *(a1 + 96) = a2[12];
-  *(a1 + 104) = *(a2 + 104);
-  v20 = *(a2 + 120);
-  v21 = *(a1 + 112);
-  v22 = *(a1 + 120);
-  *(a1 + 112) = a2[14];
-  *(a1 + 120) = v20;
-  outlined consume of Environment<Selector?>.Content(v21, v22);
-  v23 = *(a2 + 136);
-  v24 = *(a1 + 128);
-  v25 = *(a1 + 136);
-  *(a1 + 128) = a2[16];
-  *(a1 + 136) = v23;
-  outlined consume of Environment<Selector?>.Content(v24, v25);
-  *(a1 + 144) = a2[18];
-  *(a1 + 152) = *(a2 + 152);
-  *(a1 + 160) = a2[20];
-
-  *(a1 + 168) = *(a2 + 168);
-  return a1;
-}
-
-uint64_t getEnumTagSinglePayload for CircularUIKitProgressView(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0x7FFFFFFF && *(a1 + 169))
-  {
-    return (*a1 + 0x7FFFFFFF);
-  }
-
-  v3 = *(a1 + 160);
-  if (v3 >= 0xFFFFFFFF)
-  {
-    LODWORD(v3) = -1;
-  }
-
-  v4 = v3 - 1;
-  if (v4 < 0)
-  {
-    v4 = -1;
-  }
-
-  return (v4 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for CircularUIKitProgressView(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0x7FFFFFFE)
-  {
-    *(result + 152) = 0u;
-    *(result + 136) = 0u;
-    *(result + 120) = 0u;
-    *(result + 104) = 0u;
-    *(result + 88) = 0u;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *(result + 168) = 0;
-    *result = a2 - 0x7FFFFFFF;
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 169) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 169) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 160) = a2;
-    }
-  }
-
-  return result;
-}
-
-void *initializeBufferWithCopyOfBuffer for LinearUIKitProgressView(void *a1, void *a2, uint64_t a3)
-{
-  v5 = *(*(a3 - 8) + 80);
-  if ((v5 & 0x20000) != 0)
-  {
-    v12 = *a2;
-    *a1 = *a2;
-    a1 = (v12 + ((v5 + 16) & ~v5));
-  }
-
-  else
-  {
-    v7 = type metadata accessor for ProgressViewValue(0);
-    if (swift_getEnumCaseMultiPayload() == 1)
-    {
-      v8 = type metadata accessor for Date();
-      v9 = *(*(v8 - 8) + 16);
-      v9(a1, a2, v8);
-      type metadata accessor for ClosedRange<Date>();
-      v9((a1 + *(v10 + 36)), (a2 + *(v10 + 36)), v8);
-      type metadata accessor for (interval: ClosedRange<Date>, countdown: Bool)();
-      *(a1 + *(v11 + 48)) = *(a2 + *(v11 + 48));
-      swift_storeEnumTagMultiPayload();
-    }
-
-    else
-    {
-      memcpy(a1, a2, *(*(v7 - 8) + 64));
-    }
-
-    v13 = type metadata accessor for ProgressViewStyleConfiguration(0);
-    v14 = v13[5];
-    v15 = a1 + v14;
-    v16 = a2 + v14;
-    *v15 = *v16;
-    v15[8] = v16[8];
-    *(a1 + v13[6]) = *(a2 + v13[6]);
-    *(a1 + v13[7]) = *(a2 + v13[7]);
-    *(a1 + v13[8]) = *(a2 + v13[8]);
-    *(a1 + v13[9]) = *(a2 + v13[9]);
-    *(a1 + *(a3 + 20)) = *(a2 + *(a3 + 20));
-  }
-
-  return a1;
-}
-
-uint64_t destroy for LinearUIKitProgressView(uint64_t a1)
-{
-  type metadata accessor for ProgressViewValue(0);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v2 = type metadata accessor for Date();
-    v3 = *(*(v2 - 8) + 8);
-    v3(a1, v2);
-    type metadata accessor for ClosedRange<Date>();
-    v3(a1 + *(v4 + 36), v2);
-  }
-}
-
-_BYTE *initializeWithCopy for LinearUIKitProgressView(_BYTE *a1, _BYTE *a2, uint64_t a3)
-{
-  v6 = type metadata accessor for ProgressViewValue(0);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v7 = type metadata accessor for Date();
-    v8 = *(*(v7 - 8) + 16);
-    v8(a1, a2, v7);
-    type metadata accessor for ClosedRange<Date>();
-    v8(&a1[*(v9 + 36)], &a2[*(v9 + 36)], v7);
-    type metadata accessor for (interval: ClosedRange<Date>, countdown: Bool)();
-    a1[*(v10 + 48)] = a2[*(v10 + 48)];
-    swift_storeEnumTagMultiPayload();
-  }
-
-  else
-  {
-    memcpy(a1, a2, *(*(v6 - 8) + 64));
-  }
-
-  v11 = type metadata accessor for ProgressViewStyleConfiguration(0);
-  v12 = v11[5];
-  v13 = &a1[v12];
-  v14 = &a2[v12];
-  *v13 = *v14;
-  v13[8] = v14[8];
-  a1[v11[6]] = a2[v11[6]];
-  a1[v11[7]] = a2[v11[7]];
-  a1[v11[8]] = a2[v11[8]];
-  a1[v11[9]] = a2[v11[9]];
-  *&a1[*(a3 + 20)] = *&a2[*(a3 + 20)];
-
-  return a1;
-}
-
-_BYTE *assignWithCopy for LinearUIKitProgressView(_BYTE *a1, _BYTE *a2, uint64_t a3)
-{
-  if (a1 != a2)
-  {
-    outlined destroy of ProgressViewValue(a1);
-    v6 = type metadata accessor for ProgressViewValue(0);
-    if (swift_getEnumCaseMultiPayload() == 1)
-    {
-      v7 = type metadata accessor for Date();
-      v8 = *(*(v7 - 8) + 16);
-      v8(a1, a2, v7);
-      type metadata accessor for ClosedRange<Date>();
-      v8(&a1[*(v9 + 36)], &a2[*(v9 + 36)], v7);
-      type metadata accessor for (interval: ClosedRange<Date>, countdown: Bool)();
-      a1[*(v10 + 48)] = a2[*(v10 + 48)];
-      swift_storeEnumTagMultiPayload();
-    }
-
-    else
-    {
-      memcpy(a1, a2, *(*(v6 - 8) + 64));
-    }
-  }
-
-  v11 = type metadata accessor for ProgressViewStyleConfiguration(0);
-  v12 = v11[5];
-  v13 = &a1[v12];
-  v14 = &a2[v12];
-  v15 = v14[8];
-  *v13 = *v14;
-  v13[8] = v15;
-  a1[v11[6]] = a2[v11[6]];
-  a1[v11[7]] = a2[v11[7]];
-  a1[v11[8]] = a2[v11[8]];
-  a1[v11[9]] = a2[v11[9]];
-  *&a1[*(a3 + 20)] = *&a2[*(a3 + 20)];
-
-  return a1;
-}
-
 uint64_t outlined destroy of ProgressViewValue(uint64_t a1)
 {
   v2 = type metadata accessor for ProgressViewValue(0);
@@ -300,9 +13,9 @@ _BYTE *initializeWithTake for LinearUIKitProgressView(_BYTE *a1, _BYTE *a2, uint
     v7 = type metadata accessor for Date();
     v8 = *(*(v7 - 8) + 32);
     v8(a1, a2, v7);
-    type metadata accessor for ClosedRange<Date>();
+    type metadata accessor for ClosedRange<Date>(0);
     v8(&a1[*(v9 + 36)], &a2[*(v9 + 36)], v7);
-    type metadata accessor for (interval: ClosedRange<Date>, countdown: Bool)();
+    type metadata accessor for (interval: ClosedRange<Date>, countdown: Bool)(0);
     a1[*(v10 + 48)] = a2[*(v10 + 48)];
     swift_storeEnumTagMultiPayload();
   }
@@ -337,9 +50,9 @@ _BYTE *assignWithTake for LinearUIKitProgressView(_BYTE *a1, _BYTE *a2, uint64_t
       v7 = type metadata accessor for Date();
       v8 = *(*(v7 - 8) + 32);
       v8(a1, a2, v7);
-      type metadata accessor for ClosedRange<Date>();
+      type metadata accessor for ClosedRange<Date>(0);
       v8(&a1[*(v9 + 36)], &a2[*(v9 + 36)], v7);
-      type metadata accessor for (interval: ClosedRange<Date>, countdown: Bool)();
+      type metadata accessor for (interval: ClosedRange<Date>, countdown: Bool)(0);
       a1[*(v10 + 48)] = a2[*(v10 + 48)];
       swift_storeEnumTagMultiPayload();
     }
@@ -365,7 +78,7 @@ _BYTE *assignWithTake for LinearUIKitProgressView(_BYTE *a1, _BYTE *a2, uint64_t
   return a1;
 }
 
-uint64_t type metadata accessor for LinearUIKitProgressView()
+uint64_t type metadata accessor for LinearUIKitProgressView(uint64_t a1)
 {
   result = type metadata singleton initialization cache for LinearUIKitProgressView;
   if (!type metadata singleton initialization cache for LinearUIKitProgressView)
@@ -376,10 +89,10 @@ uint64_t type metadata accessor for LinearUIKitProgressView()
   return result;
 }
 
-uint64_t type metadata completion function for LinearUIKitProgressView()
+uint64_t type metadata completion function for LinearUIKitProgressView(uint64_t a1)
 {
   result = type metadata accessor for ProgressViewStyleConfiguration(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -393,7 +106,7 @@ unint64_t lazy protocol witness table accessor for type LinearUIKitProgressView.
   result = lazy protocol witness table cache variable for type LinearUIKitProgressView.Base and conformance LinearUIKitProgressView.Base;
   if (!lazy protocol witness table cache variable for type LinearUIKitProgressView.Base and conformance LinearUIKitProgressView.Base)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for LinearUIKitProgressView.Base, &type metadata for LinearUIKitProgressView.Base, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type LinearUIKitProgressView.Base and conformance LinearUIKitProgressView.Base);
   }
 
@@ -427,9 +140,13 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Line
   result = lazy protocol witness table cache variable for type _ConditionalContent<LinearUIKitProgressView.Base, TimelineProgressView<LinearUIKitProgressView.Base>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<LinearUIKitProgressView.Base, TimelineProgressView<LinearUIKitProgressView.Base>> and conformance <> _ConditionalContent<A, B>)
   {
+    v5[4] = v0;
+    v5[5] = v1;
     type metadata accessor for _ConditionalContent<LinearUIKitProgressView.Base, TimelineProgressView<LinearUIKitProgressView.Base>>.Storage(255, &lazy cache variable for type metadata for _ConditionalContent<LinearUIKitProgressView.Base, TimelineProgressView<LinearUIKitProgressView.Base>>, MEMORY[0x1E697F960]);
-    lazy protocol witness table accessor for type TimelineProgressView<LinearUIKitProgressView.Base> and conformance TimelineProgressView<A>();
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v5[0] = &protocol witness table for LinearUIKitProgressView.Base;
+    v5[1] = lazy protocol witness table accessor for type TimelineProgressView<LinearUIKitProgressView.Base> and conformance TimelineProgressView<A>();
+    result = swift_getWitnessTable(MEMORY[0x1E697F968], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<LinearUIKitProgressView.Base, TimelineProgressView<LinearUIKitProgressView.Base>> and conformance <> _ConditionalContent<A, B>);
   }
 
@@ -455,7 +172,7 @@ unint64_t lazy protocol witness table accessor for type TimelineProgressView<Lin
   if (!lazy protocol witness table cache variable for type TimelineProgressView<LinearUIKitProgressView.Base> and conformance TimelineProgressView<A>)
   {
     _s7SwiftUI12ScaledMetricVy12CoreGraphics7CGFloatVGMaTm_1(255, &lazy cache variable for type metadata for TimelineProgressView<LinearUIKitProgressView.Base>, lazy protocol witness table accessor for type LinearUIKitProgressView.Base and conformance LinearUIKitProgressView.Base, &type metadata for LinearUIKitProgressView.Base, type metadata accessor for TimelineProgressView);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for TimelineProgressView<A>, v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type TimelineProgressView<LinearUIKitProgressView.Base> and conformance TimelineProgressView<A>);
   }
 
@@ -754,33 +471,37 @@ uint64_t assignWithTake for ListSectionInfo(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t ExternalDisplay.body.getter@<X0>(uint64_t a1@<X8>)
+double ExternalDisplay.body.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  specialized ResolvedUISceneAdaptor.init(id:kind:content:)(0x6C616E7265747845, 0xEF79616C70736944, 0, 0, 2, &v15);
-  v20 = *&v16[24];
-  v19 = *&v16[8];
-  v17 = v15;
-  v18 = v16[0];
-  v8 = v15;
-  v9 = *v16;
-  v10 = *&v16[16];
-  v2 = type metadata accessor for ResolvedUISceneAdaptor();
-  swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(&v8, v2, &v11);
-  outlined destroy of SceneID(&v17);
-  outlined destroy of UISceneAdaptorConfiguration.Kind(&v19);
-  outlined destroy of AnyView(&v20);
-  v3 = v11;
-  v4 = v12;
-  v5 = v13;
-  v6 = v14;
-  v8 = v11;
-  LOBYTE(v9) = v12;
-  *(&v9 + 1) = v13;
-  v10 = v14;
-  static SceneBuilder.buildBlock<A>(_:)(&v8, v2, a1);
-  outlined consume of SceneID(v3, *(&v3 + 1), v4);
-  outlined consume of UISceneAdaptorConfiguration.Kind(v5, v6);
+  v3 = *(a1 + 16);
+  v4 = *(a1 + 24);
+  specialized ResolvedUISceneAdaptor.init(id:kind:content:)(0x6C616E7265747845, 0xEF79616C70736944, 0, 0, 2, &v19);
+  v24 = *&v20[24];
+  v23 = *&v20[8];
+  v21 = v19;
+  v22 = v20[0];
+  v12 = v19;
+  v13 = *v20;
+  v14 = *&v20[16];
+  v6 = type metadata accessor for ResolvedUISceneAdaptor(0, v3, v4, v5);
+  swift_getWitnessTable(protocol conformance descriptor for ResolvedUISceneAdaptor<A>, v6, v12, v13, v14);
+  static ViewBuilder.buildExpression<A>(_:)(&v12, v6, &v15);
+  outlined destroy of SceneID(&v21);
+  outlined destroy of UISceneAdaptorConfiguration.Kind(&v23);
+  outlined destroy of AnyView(&v24);
+  v7 = v15;
+  v8 = v16;
+  v9 = v17;
+  v10 = v18;
+  v12 = v15;
+  LOBYTE(v13) = v16;
+  *(&v13 + 1) = v17;
+  v14 = v18;
+  static SceneBuilder.buildBlock<A>(_:)(&v12, v6, a2);
+  outlined consume of SceneID(v7, *(&v7 + 1), v8);
+  outlined consume of UISceneAdaptorConfiguration.Kind(v9, v10);
+
+  return result;
 }
 
 uint64_t static TableRowBuilder.buildEither<A, B>(first:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
@@ -861,10 +582,10 @@ uint64_t static _ConditionalContent<>._makeRows(content:inputs:)@<X0>(int *a1@<X
   *(&v65 + 1) = a4;
   *&v66 = a5;
   *(&v66 + 1) = a6;
-  v19 = type metadata accessor for _ConditionalContent<>.TableRowProvider();
+  v19 = type metadata accessor for _ConditionalContent<>.TableRowProvider(0, &v65);
   v20 = *(v19 - 8);
   (*(v20 + 16))(&v65, &v54, v19);
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ConditionalContent<A, B><>.TableRowProvider, v19);
   _ConditionalContent.Container.init(content:provider:)();
   v40 = v73;
   v41 = v74;
@@ -885,7 +606,7 @@ uint64_t static _ConditionalContent<>._makeRows(content:inputs:)@<X0>(int *a1@<X
   *(&v78 + 1) = WitnessTable;
   v22 = type metadata accessor for _ConditionalContent.Container();
   v30 = v22;
-  v31 = swift_getWitnessTable();
+  v31 = swift_getWitnessTable(MEMORY[0x1E697F958], v22);
   v23 = *(v22 - 8);
   (*(v23 + 16))(&v77, &v65, v22);
   v24 = type metadata accessor for Attribute();
@@ -1014,62 +735,61 @@ uint64_t _ConditionalContent<>.TableRowProvider.detachOutputs()()
   PreferencesOutputs.detachIndirectOutputs()();
 }
 
-uint64_t _ConditionalContent<>.TableRowProvider.attachOutputs(to:)()
+uint64_t _ConditionalContent<>.TableRowProvider.attachOutputs(to:)(uint64_t *a1)
 {
 
   PreferencesOutputs.attachIndirectOutputs(to:)();
 }
 
-uint64_t _ConditionalContent<>.TableRowProvider.makeChildInputs()@<X0>(uint64_t a1@<X8>)
+void _ConditionalContent<>.TableRowProvider.makeChildInputs()(uint64_t a1@<X8>)
 {
   v3 = v1[7];
   v4 = v1[5];
-  v26 = v1[6];
-  v27 = v3;
+  v25 = v1[6];
+  v26 = v3;
   v5 = v1[7];
-  v28 = v1[8];
+  v27 = v1[8];
   v6 = v1[3];
   v8 = v1[1];
-  v22 = v1[2];
-  v7 = v22;
-  v23 = v6;
+  v21 = v1[2];
+  v7 = v21;
+  v22 = v6;
   v9 = v1[3];
   v10 = v1[5];
-  v24 = v1[4];
-  v11 = v24;
-  v25 = v10;
+  v23 = v1[4];
+  v11 = v23;
+  v24 = v10;
   v12 = v1[1];
-  v20 = *v1;
-  v13 = v20;
-  v21 = v12;
-  *(a1 + 96) = v26;
+  v19 = *v1;
+  v13 = v19;
+  v20 = v12;
+  *(a1 + 96) = v25;
   *(a1 + 112) = v5;
   *(a1 + 128) = v1[8];
   *(a1 + 32) = v7;
   *(a1 + 48) = v9;
   *(a1 + 64) = v11;
   *(a1 + 80) = v4;
-  v29 = *(v1 + 18);
-  v14 = v21;
+  v28 = *(v1 + 18);
+  v14 = v20;
   *(a1 + 144) = *(v1 + 18);
   *a1 = v13;
   *(a1 + 16) = v8;
   swift_beginAccess();
   v15 = v14[3];
-  v30[1] = v14[2];
-  v30[2] = v15;
+  v29[1] = v14[2];
+  v29[2] = v15;
   v16 = v14[5];
-  v30[3] = v14[4];
-  v30[4] = v16;
-  v30[0] = v14[1];
+  v29[3] = v14[4];
+  v29[4] = v16;
+  v29[0] = v14[1];
   type metadata accessor for MutableBox<CachedEnvironment>();
   v17 = swift_allocObject();
   memmove((v17 + 16), v14 + 1, 0x50uLL);
-  outlined init with copy of _TableRowInputs(&v20, v19);
-  outlined init with copy of CachedEnvironment(v30, v19);
+  outlined init with copy of _TableRowInputs(&v19, v18);
+  outlined init with copy of CachedEnvironment(v29, v18);
 
   *(a1 + 16) = v17;
-  return result;
 }
 
 uint64_t _ConditionalContent<>.TableRowProvider.makeTrueOutputs(child:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1152,14 +872,16 @@ uint64_t protocol witness for ConditionalContentProvider.inputs.getter in confor
   return outlined init with copy of _TableRowInputs(v15, v14);
 }
 
-uint64_t protocol witness for ConditionalContentProvider.outputs.getter in conformance _ConditionalContent<A, B><>.TableRowProvider@<X0>(uint64_t a1@<X8>)
+double protocol witness for ConditionalContentProvider.outputs.getter in conformance _ConditionalContent<A, B><>.TableRowProvider@<D0>(uint64_t a1@<X8>)
 {
   v2 = *(v1 + 160);
   *a1 = *(v1 + 152);
   *(a1 + 8) = v2;
+
+  return result;
 }
 
-uint64_t Optional<A>.ChildTableRow.value.getter@<X0>(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t Optional<A>.ChildTableRow.value.getter@<X0>(unsigned int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v27 = a1;
   v29 = a4;
@@ -1167,69 +889,69 @@ uint64_t Optional<A>.ChildTableRow.value.getter@<X0>(int a1@<W0>, uint64_t a2@<X
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v24 - v8;
-  swift_getAssociatedTypeWitness();
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v28 = type metadata accessor for EmptyTableRowContent();
-  v10 = type metadata accessor for _ConditionalContent.Storage();
-  v11 = type metadata accessor for Optional();
-  v24 = *(v11 - 8);
-  v25 = v11;
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v24 - v12;
-  v14 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v24 - v16;
+  v28 = type metadata accessor for EmptyTableRowContent(255, AssociatedTypeWitness, AssociatedConformanceWitness, v11);
+  v12 = type metadata accessor for _ConditionalContent.Storage();
+  v13 = type metadata accessor for Optional();
+  v24 = *(v13 - 8);
+  v25 = v13;
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v24 - v14;
+  v16 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v24 - v18;
   Optional<A>.ChildTableColumn.content.getter(v9);
   v31 = a2;
   v32 = a3;
-  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #1 in Optional<A>.ChildTableRow.value.getter, v30, MEMORY[0x1E69E73E0], v10, v18, v13);
+  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #1 in Optional<A>.ChildTableRow.value.getter, v30, MEMORY[0x1E69E73E0], v12, v20, v15);
   (*(v7 + 8))(v9, v6);
-  v19 = *(v14 + 48);
-  if (v19(v13, 1, v10) == 1)
+  v21 = *(v16 + 48);
+  if (v21(v15, 1, v12) == 1)
   {
-    v20 = swift_checkMetadataState();
-    destructiveProjectEnumData for CapsuleSlider.ScrollState.Orientation(v20, AssociatedConformanceWitness, v21, v22);
+    swift_checkMetadataState();
+    destructiveProjectEnumData for CapsuleSlider.ScrollState.Orientation();
     swift_storeEnumTagMultiPayload();
-    if (v19(v13, 1, v10) != 1)
+    if (v21(v15, 1, v12) != 1)
     {
-      (*(v24 + 8))(v13, v25);
+      (*(v24 + 8))(v15, v25);
     }
   }
 
   else
   {
-    (*(v14 + 32))(v17, v13, v10);
+    (*(v16 + 32))(v19, v15, v12);
   }
 
-  swift_checkMetadataState();
-  swift_getWitnessTable();
-  return _ConditionalContent.init(__storage:)(v17, v29);
+  v22 = swift_checkMetadataState();
+  swift_getWitnessTable(protocol conformance descriptor for EmptyTableRowContent<A>, v22);
+  return _ConditionalContent.init(__storage:)(v19, v29);
 }
 
-uint64_t closure #1 in Optional<A>.ChildTableRow.value.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t closure #1 in Optional<A>.ChildTableRow.value.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
-  (*(*(a2 - 8) + 16))(a3, a1, a2);
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  type metadata accessor for EmptyTableRowContent();
+  (*(*(a2 - 8) + 16))(a4, a1, a2);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  type metadata accessor for EmptyTableRowContent(255, AssociatedTypeWitness, AssociatedConformanceWitness, v6);
   type metadata accessor for _ConditionalContent.Storage();
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t protocol witness for static Rule.initialValue.getter in conformance A?<A>.ChildTableRow@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for static Rule.initialValue.getter in conformance A?<A>.ChildTableRow@<X0>(uint64_t a2@<X8>)
 {
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  type metadata accessor for EmptyTableRowContent();
-  v2 = type metadata accessor for _ConditionalContent();
-  v3 = *(*(v2 - 8) + 56);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  type metadata accessor for EmptyTableRowContent(255, AssociatedTypeWitness, AssociatedConformanceWitness, v5);
+  v6 = type metadata accessor for _ConditionalContent();
+  v7 = *(*(v6 - 8) + 56);
 
-  return v3(a1, 1, 1, v2);
+  return v7(a2, 1, 1, v6);
 }
 
 uint64_t protocol witness for static _AttributeBody.flags.getter in conformance A?<A>.ChildTableRow(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for A?<A>.ChildTableRow, a1);
 
   return MEMORY[0x1EEDDE9B8](a1, WitnessTable);
 }
@@ -1237,31 +959,31 @@ uint64_t protocol witness for static _AttributeBody.flags.getter in conformance 
 uint64_t static Optional<A>._makeRows(content:inputs:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   v7 = *(a1 + 112);
-  v15[6] = *(a1 + 96);
-  v15[7] = v7;
-  v15[8] = *(a1 + 128);
-  v16 = *(a1 + 144);
+  v20[6] = *(a1 + 96);
+  v20[7] = v7;
+  v20[8] = *(a1 + 128);
+  v21 = *(a1 + 144);
   v8 = *(a1 + 48);
-  v15[2] = *(a1 + 32);
-  v15[3] = v8;
+  v20[2] = *(a1 + 32);
+  v20[3] = v8;
   v9 = *(a1 + 80);
-  v15[4] = *(a1 + 64);
-  v15[5] = v9;
+  v20[4] = *(a1 + 64);
+  v20[5] = v9;
   v10 = *(a1 + 16);
-  v15[0] = *a1;
-  v15[1] = v10;
+  v20[0] = *a1;
+  v20[1] = v10;
   type metadata accessor for Optional();
   type metadata accessor for _GraphValue();
-  v14[1] = _GraphValue.value.getter();
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  v11 = type metadata accessor for EmptyTableRowContent();
+  v19[1] = _GraphValue.value.getter();
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v14 = type metadata accessor for EmptyTableRowContent(255, AssociatedTypeWitness, AssociatedConformanceWitness, v13);
   type metadata accessor for _ConditionalContent();
-  type metadata accessor for Optional<A>.ChildTableRow();
-  swift_getWitnessTable();
+  v16 = type metadata accessor for Optional<A>.ChildTableRow(0, a2, a3, v15);
+  swift_getWitnessTable(protocol conformance descriptor for A?<A>.ChildTableRow, v16);
   _GraphValue.init<A>(_:)();
-  WitnessTable = swift_getWitnessTable();
-  return static _ConditionalContent<>._makeRows(content:inputs:)(v14, v15, a2, v11, a3, WitnessTable, a4);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for EmptyTableRowContent<A>, v14);
+  return static _ConditionalContent<>._makeRows(content:inputs:)(v19, v20, a2, v14, a3, WitnessTable, a4);
 }
 
 uint64_t static Optional<A>._tableRowCount(inputs:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1307,72 +1029,72 @@ uint64_t destroy for _ConditionalContent<>.TableRowProvider()
 {
 }
 
-uint64_t initializeWithCopy for _ConditionalContent<>.TableRowProvider(uint64_t a1, uint64_t a2)
+uint64_t initializeWithCopy for _ConditionalContent<>.TableRowProvider(uint64_t a1, uint64_t *a2)
 {
   *a1 = *a2;
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = *(a2 + 24);
-  v3 = *(a2 + 48);
-  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 8) = *(a2 + 2);
+  *(a1 + 16) = a2[2];
+  *(a1 + 24) = *(a2 + 3);
+  v3 = a2[6];
+  *(a1 + 40) = a2[5];
   *(a1 + 48) = v3;
-  *(a1 + 56) = *(a2 + 56);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 72) = *(a2 + 72);
-  v4 = *(a2 + 96);
-  *(a1 + 88) = *(a2 + 88);
+  *(a1 + 56) = *(a2 + 14);
+  *(a1 + 64) = a2[8];
+  *(a1 + 72) = *(a2 + 9);
+  v4 = a2[12];
+  *(a1 + 88) = a2[11];
   *(a1 + 96) = v4;
-  *(a1 + 104) = *(a2 + 104);
-  *(a1 + 120) = *(a2 + 120);
-  *(a1 + 128) = *(a2 + 128);
-  *(a1 + 136) = *(a2 + 136);
-  *(a1 + 144) = *(a2 + 144);
-  *(a1 + 152) = *(a2 + 152);
-  *(a1 + 160) = *(a2 + 160);
+  *(a1 + 104) = *(a2 + 13);
+  *(a1 + 120) = a2[15];
+  *(a1 + 128) = *(a2 + 32);
+  *(a1 + 136) = a2[17];
+  *(a1 + 144) = a2[18];
+  *(a1 + 152) = a2[19];
+  *(a1 + 160) = *(a2 + 40);
 
   return a1;
 }
 
-uint64_t assignWithCopy for _ConditionalContent<>.TableRowProvider(uint64_t a1, uint64_t a2)
+uint64_t assignWithCopy for _ConditionalContent<>.TableRowProvider(uint64_t a1, uint64_t *a2)
 {
   *a1 = *a2;
 
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 8) = *(a2 + 2);
+  *(a1 + 16) = a2[2];
 
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 28) = *(a2 + 28);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 36) = *(a2 + 36);
-  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 24) = *(a2 + 6);
+  *(a1 + 28) = *(a2 + 7);
+  *(a1 + 32) = *(a2 + 8);
+  *(a1 + 36) = *(a2 + 9);
+  *(a1 + 40) = a2[5];
 
-  *(a1 + 48) = *(a2 + 48);
+  *(a1 + 48) = a2[6];
 
-  *(a1 + 56) = *(a2 + 56);
-  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 56) = *(a2 + 14);
+  *(a1 + 64) = a2[8];
 
-  *(a1 + 72) = *(a2 + 72);
-  *(a1 + 76) = *(a2 + 76);
-  *(a1 + 80) = *(a2 + 80);
-  *(a1 + 84) = *(a2 + 84);
-  *(a1 + 88) = *(a2 + 88);
+  *(a1 + 72) = *(a2 + 18);
+  *(a1 + 76) = *(a2 + 19);
+  *(a1 + 80) = *(a2 + 20);
+  *(a1 + 84) = *(a2 + 21);
+  *(a1 + 88) = a2[11];
 
-  *(a1 + 96) = *(a2 + 96);
+  *(a1 + 96) = a2[12];
 
-  *(a1 + 104) = *(a2 + 104);
-  *(a1 + 108) = *(a2 + 108);
-  *(a1 + 112) = *(a2 + 112);
-  *(a1 + 116) = *(a2 + 116);
-  *(a1 + 120) = *(a2 + 120);
-  *(a1 + 124) = *(a2 + 124);
-  *(a1 + 128) = *(a2 + 128);
-  *(a1 + 136) = *(a2 + 136);
+  *(a1 + 104) = *(a2 + 26);
+  *(a1 + 108) = *(a2 + 27);
+  *(a1 + 112) = *(a2 + 28);
+  *(a1 + 116) = *(a2 + 29);
+  *(a1 + 120) = *(a2 + 30);
+  *(a1 + 124) = *(a2 + 31);
+  *(a1 + 128) = *(a2 + 32);
+  *(a1 + 136) = a2[17];
 
-  *(a1 + 144) = *(a2 + 144);
-  *(a1 + 148) = *(a2 + 148);
-  *(a1 + 152) = *(a2 + 152);
+  *(a1 + 144) = *(a2 + 36);
+  *(a1 + 148) = *(a2 + 37);
+  *(a1 + 152) = a2[19];
 
-  *(a1 + 160) = *(a2 + 160);
+  *(a1 + 160) = *(a2 + 40);
   return a1;
 }
 
@@ -1500,7 +1222,7 @@ LABEL_8:
 uint64_t View.accessibilityInputLabels(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = a1;
-  return View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v4, 1, a2, MEMORY[0x1E6980030], a3);
+  return View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v4, 1, a2, MEMORY[0x1E6980030], a3, MEMORY[0x1E6980028]);
 }
 
 {
@@ -1547,13 +1269,13 @@ uint64_t View.accessibilityInputLabels(_:)(uint64_t a1, uint64_t a2, uint64_t a3
   }
 
   v21 = v6;
-  View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v21, 1, a2, MEMORY[0x1E6980030], a3);
+  View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v21, 1, a2, MEMORY[0x1E6980030], a3, MEMORY[0x1E6980028]);
 }
 
 uint64_t ModifiedContent<>.accessibilityInputLabels(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = a1;
-  return ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v4, 1, a2, a3);
+  return ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v4, 1, a2, MEMORY[0x1E6980030], MEMORY[0x1E6980028], a3);
 }
 
 {
@@ -1602,13 +1324,13 @@ uint64_t ModifiedContent<>.accessibilityInputLabels(_:)@<X0>(uint64_t a1@<X0>, u
   }
 
   v21 = v5;
-  ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v21, 1, a2, a3);
+  ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v21, 1, a2, MEMORY[0x1E6980030], MEMORY[0x1E6980028], a3);
 }
 
 uint64_t View.accessibilityInputLabels(_:isEnabled:)(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
 {
   v5 = a1;
-  return View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v5, a2, a3, MEMORY[0x1E6980030], a4);
+  return View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v5, a2, a3, MEMORY[0x1E6980030], a4, MEMORY[0x1E6980028]);
 }
 
 {
@@ -1657,7 +1379,7 @@ uint64_t View.accessibilityInputLabels(_:isEnabled:)(uint64_t a1, char a2, uint6
   }
 
   v24 = v8;
-  View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v24, a2 & 1, a3, MEMORY[0x1E6980030], v4);
+  View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v24, a2 & 1, a3, MEMORY[0x1E6980030], v4, MEMORY[0x1E6980028]);
 }
 
 uint64_t View.accessibilityInputLabels<A>(_:isEnabled:)(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -1668,15 +1390,15 @@ uint64_t View.accessibilityInputLabels<A>(_:isEnabled:)(uint64_t a1, char a2, ui
   v13[4] = a5;
   v13[5] = a6;
   v9 = type metadata accessor for Array();
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E69E6340], v9);
   v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in View.accessibilityInputLabels<A>(_:isEnabled:), v13, v9, MEMORY[0x1E6981148], MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v11);
-  View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v14, a2, a3, MEMORY[0x1E6980030], a5);
+  View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v14, a2, a3, MEMORY[0x1E6980030], a5, MEMORY[0x1E6980028]);
 }
 
 uint64_t ModifiedContent<>.accessibilityInputLabels(_:isEnabled:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = a1;
-  return ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v5, a2, a3, a4);
+  return ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v5, a2, a3, MEMORY[0x1E6980030], MEMORY[0x1E6980028], a4);
 }
 
 {
@@ -1725,7 +1447,7 @@ uint64_t ModifiedContent<>.accessibilityInputLabels(_:isEnabled:)@<X0>(uint64_t 
   }
 
   v23 = v7;
-  ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v23, a2 & 1, a3, a4);
+  ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v23, a2 & 1, a3, MEMORY[0x1E6980030], MEMORY[0x1E6980028], a4);
 }
 
 uint64_t ModifiedContent<>.accessibilityInputLabels<A>(_:isEnabled:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
@@ -1735,70 +1457,71 @@ uint64_t ModifiedContent<>.accessibilityInputLabels<A>(_:isEnabled:)@<X0>(uint64
   v13[3] = a4;
   v13[4] = a5;
   v9 = type metadata accessor for Array();
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E69E6340], v9);
   v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in ModifiedContent<>.accessibilityInputLabels<A>(_:isEnabled:), v13, v9, MEMORY[0x1E6981148], MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v11);
-  ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v14, a2, a3, a6);
+  ModifiedContent<>.update<A>(_:replacing:isEnabled:)(MEMORY[0x1E6980030], &v14, a2, a3, MEMORY[0x1E6980030], MEMORY[0x1E6980028], a6);
 }
 
-uint64_t TabContent.accessibilityInputLabels(_:isEnabled:)@<X0>(char a1@<W1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+uint64_t TabContent.accessibilityInputLabels(_:isEnabled:)@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t x8_0@<X8>)
 {
+  v6 = a2;
 
   AccessibilityProperties.init<A>(_:_:)();
-  TabContent.accessibility(_:isEnabled:)(v7, a1, a2, a3);
-  return outlined destroy of AccessibilityProperties(v7);
+  TabContent.accessibility(_:isEnabled:)(v9, v6, a3, x8_0);
+  return outlined destroy of AccessibilityProperties(v9);
 }
 
-uint64_t TabContent.accessibilityInputLabels(_:isEnabled:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t TabContent.accessibilityInputLabels(_:isEnabled:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t x8_0@<X8>)
 {
-  v5 = *(a1 + 16);
-  if (v5)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v21 = a3;
-    v22 = a4;
-    v23 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5, 0);
-    v7 = v23;
-    v8 = a1 + 56;
+    v22 = a3;
+    v23 = x8_0;
+    v24 = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0);
+    v8 = v24;
+    v9 = a1 + 56;
     do
     {
 
-      v9 = Text.init(_:tableName:bundle:comment:)();
-      v24 = v7;
-      v14 = *(v7 + 16);
-      v13 = *(v7 + 24);
-      if (v14 >= v13 >> 1)
+      v10 = Text.init(_:tableName:bundle:comment:)();
+      v25 = v8;
+      v15 = *(v8 + 16);
+      v14 = *(v8 + 24);
+      if (v15 >= v14 >> 1)
       {
-        v19 = v10;
-        v20 = v9;
-        v16 = v11;
+        v20 = v11;
+        v21 = v10;
         v17 = v12;
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1);
-        v11 = v16;
-        v10 = v19;
-        v9 = v20;
+        v18 = v13;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v14 > 1), v15 + 1, 1);
         v12 = v17;
-        v7 = v24;
+        v11 = v20;
+        v10 = v21;
+        v13 = v18;
+        v8 = v25;
       }
 
-      *(v7 + 16) = v14 + 1;
-      v15 = v7 + 32 * v14;
-      *(v15 + 32) = v9;
-      *(v15 + 40) = v10;
-      *(v15 + 48) = v11 & 1;
-      *(v15 + 56) = v12;
-      v8 += 32;
-      --v5;
+      *(v8 + 16) = v15 + 1;
+      v16 = v8 + 32 * v15;
+      *(v16 + 32) = v10;
+      *(v16 + 40) = v11;
+      *(v16 + 48) = v12 & 1;
+      *(v16 + 56) = v13;
+      v9 += 32;
+      --v6;
     }
 
-    while (v5);
-    a3 = v21;
-    a4 = v22;
+    while (v6);
+    a3 = v22;
+    x8_0 = v23;
   }
 
-  TabContent.accessibilityInputLabels(_:isEnabled:)(a2 & 1, a3, a4);
+  TabContent.accessibilityInputLabels(_:isEnabled:)(a2 & 1, a3, x8_0);
 }
 
-uint64_t TabContent.accessibilityInputLabels<A>(_:isEnabled:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+uint64_t TabContent.accessibilityInputLabels<A>(_:isEnabled:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   v14[7] = a1;
   v14[2] = a3;
@@ -1806,7 +1529,7 @@ uint64_t TabContent.accessibilityInputLabels<A>(_:isEnabled:)@<X0>(uint64_t a1@<
   v14[4] = a5;
   v14[5] = a6;
   v10 = type metadata accessor for Array();
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E69E6340], v10);
   _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in TabContent.accessibilityInputLabels<A>(_:isEnabled:), v14, v10, MEMORY[0x1E6981148], MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v12);
   TabContent.accessibilityInputLabels(_:isEnabled:)(a2, a3, a7);
 }
@@ -1819,20 +1542,20 @@ uint64_t View.accessibilityInputLabels<A>(_:)(uint64_t a1, uint64_t a2, uint64_t
   v11[4] = a4;
   v11[5] = a5;
   v7 = type metadata accessor for Array();
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E69E6340], v7);
   v12 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in View.accessibilityInputLabels<A>(_:isEnabled:), v11, v7, MEMORY[0x1E6981148], MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v9);
-  View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v12, 1, a2, MEMORY[0x1E6980030], a4);
+  View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980030], &v12, 1, a2, MEMORY[0x1E6980030], a4, MEMORY[0x1E6980028]);
 }
 
-uint64_t closure #1 in View.accessibilityInputLabels<A>(_:isEnabled:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t closure #1 in View.accessibilityInputLabels<A>(_:isEnabled:)@<X0>(uint64_t a1@<X0>, uint64_t a4@<X8>)
 {
-  v3 = MEMORY[0x1EEE9AC00](a1);
-  (*(v5 + 16))(&v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v3);
+  v5 = MEMORY[0x1EEE9AC00](a1);
+  (*(v7 + 16))(&v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
   result = Text.init<A>(_:)();
-  *a2 = result;
-  *(a2 + 8) = v7;
-  *(a2 + 16) = v8 & 1;
-  *(a2 + 24) = v9;
+  *a4 = result;
+  *(a4 + 8) = v9;
+  *(a4 + 16) = v10 & 1;
+  *(a4 + 24) = v11;
   return result;
 }
 
@@ -1841,47 +1564,46 @@ uint64_t AsyncImage.init<>(url:scale:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, 
   v6 = type metadata accessor for URL();
   v7 = *(*(v6 - 8) + 56);
   v7(a2, 1, 1, v6);
-  type metadata accessor for AsyncImage<Image>();
-  v9 = v8;
-  v10 = (a2 + v8[12]);
-  *v10 = 0;
-  v11 = type metadata accessor for LoadingState(0);
-  v7(v10 + *(v11 + 20), 1, 1, v6);
-  *(v10 + *(v11 + 24)) = 0x8000000000000000;
+  type metadata accessor for AsyncImage<Image>(0, v8, v9, v10);
+  v12 = v11;
+  v13 = (a2 + v11[12]);
+  *v13 = 0;
+  v14 = type metadata accessor for LoadingState(0);
+  v7(v13 + *(v14 + 20), 1, 1, v6);
+  *(v13 + *(v14 + 24)) = 0x8000000000000000;
   type metadata accessor for State<LoadingState>(0, &lazy cache variable for type metadata for State<LoadingState>, type metadata accessor for LoadingState, MEMORY[0x1E6981790]);
-  *(v10 + *(v12 + 28)) = 0;
+  *(v13 + *(v15 + 28)) = 0;
   result = outlined assign with take of URL?(a1, a2);
-  *(a2 + v9[9]) = a3;
-  *(a2 + v9[10]) = 0;
-  v14 = (a2 + v9[11]);
-  *v14 = closure #1 in AsyncImage.init<>(url:scale:);
-  v14[1] = 0;
+  *(a2 + v12[9]) = a3;
+  *(a2 + v12[10]) = 0;
+  v17 = (a2 + v12[11]);
+  *v17 = closure #1 in AsyncImage.init<>(url:scale:);
+  v17[1] = 0;
   return result;
 }
 
-uint64_t closure #1 in AsyncImage.init<>(url:scale:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+void closure #1 in AsyncImage.init<>(url:scale:)(unint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   if (*a1 >> 62)
   {
-    result = static Image.redacted.getter();
+    v3 = static Image.redacted.getter();
   }
 
   else
   {
   }
 
-  *a2 = result;
-  return result;
+  *a2 = v3;
 }
 
-void type metadata accessor for AsyncImage<Image>()
+void type metadata accessor for AsyncImage<Image>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!lazy cache variable for type metadata for AsyncImage<Image>)
   {
-    v0 = type metadata accessor for AsyncImage();
-    if (!v1)
+    v4 = type metadata accessor for AsyncImage(0, MEMORY[0x1E6981748], MEMORY[0x1E6981710], a4);
+    if (!v5)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for AsyncImage<Image>);
+      atomic_store(v4, &lazy cache variable for type metadata for AsyncImage<Image>);
     }
   }
 }
@@ -1922,74 +1644,74 @@ uint64_t AsyncImage.onDisappear()(uint64_t a1)
   return outlined destroy of LoadingState(v6, type metadata accessor for LoadingState);
 }
 
-uint64_t closure #1 in AsyncImage.resetLoadingState()(uint64_t a1)
+uint64_t closure #1 in AsyncImage.resetLoadingState()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   type metadata accessor for State<LoadingState>(0, &lazy cache variable for type metadata for URL?, MEMORY[0x1E6968FB0], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v2 - 8);
-  v4 = &v27 - v3;
-  v28 = type metadata accessor for LoadingState(0);
-  MEMORY[0x1EEE9AC00](v28);
-  v6 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v27 - v8;
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = (&v27 - v11);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = (&v27 - v14);
-  v16 = type metadata accessor for AsyncImage();
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v32 - v7;
+  v33 = type metadata accessor for LoadingState(0);
+  MEMORY[0x1EEE9AC00](v33);
+  v10 = &v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v32 - v12;
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = (&v32 - v15);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = (&v32 - v18);
+  v21 = type metadata accessor for AsyncImage(0, a2, a3, v20);
   type metadata accessor for State<LoadingState>(0, &lazy cache variable for type metadata for State<LoadingState>, type metadata accessor for LoadingState, MEMORY[0x1E6981790]);
-  v18 = v17;
+  v23 = v22;
   State.wrappedValue.getter();
-  v19 = *v15;
-  if (*v15)
+  v24 = *v19;
+  if (*v19)
   {
 
-    outlined destroy of LoadingState(v15, type metadata accessor for LoadingState);
-    MEMORY[0x18D00D010](v19, MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7410]);
+    outlined destroy of LoadingState(v19, type metadata accessor for LoadingState);
+    MEMORY[0x18D00D010](v24, MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7410]);
   }
 
   else
   {
-    outlined destroy of LoadingState(v15, type metadata accessor for LoadingState);
+    outlined destroy of LoadingState(v19, type metadata accessor for LoadingState);
   }
 
-  v20 = a1 + *(v16 + 48);
+  v25 = a1 + *(v21 + 48);
   State.wrappedValue.getter();
 
-  *v12 = 0;
-  v21 = *(v20 + *(v18 + 28));
-  v22 = v28;
-  if (v21)
+  *v16 = 0;
+  v26 = *(v25 + *(v23 + 28));
+  v27 = v33;
+  if (v26)
   {
     dispatch thunk of AnyLocation.set(_:transaction:)();
   }
 
-  outlined destroy of LoadingState(v12, type metadata accessor for LoadingState);
-  v23 = type metadata accessor for URL();
-  (*(*(v23 - 8) + 56))(v4, 1, 1, v23);
+  outlined destroy of LoadingState(v16, type metadata accessor for LoadingState);
+  v28 = type metadata accessor for URL();
+  (*(*(v28 - 8) + 56))(v8, 1, 1, v28);
   State.wrappedValue.getter();
-  outlined assign with take of URL?(v4, &v9[*(v22 + 20)]);
-  if (v21)
+  outlined assign with take of URL?(v8, &v13[*(v27 + 20)]);
+  if (v26)
   {
     dispatch thunk of AnyLocation.set(_:transaction:)();
-    outlined destroy of LoadingState(v9, type metadata accessor for LoadingState);
+    outlined destroy of LoadingState(v13, type metadata accessor for LoadingState);
     State.wrappedValue.getter();
-    v24 = *(v22 + 24);
-    outlined consume of AsyncImagePhase(*&v6[v24]);
-    *&v6[v24] = 0x8000000000000000;
+    v29 = *(v27 + 24);
+    outlined consume of AsyncImagePhase(*&v10[v29]);
+    *&v10[v29] = 0x8000000000000000;
     dispatch thunk of AnyLocation.set(_:transaction:)();
   }
 
   else
   {
-    outlined destroy of LoadingState(v9, type metadata accessor for LoadingState);
+    outlined destroy of LoadingState(v13, type metadata accessor for LoadingState);
     State.wrappedValue.getter();
-    v25 = *(v22 + 24);
-    outlined consume of AsyncImagePhase(*&v6[v25]);
-    *&v6[v25] = 0x8000000000000000;
+    v30 = *(v27 + 24);
+    outlined consume of AsyncImagePhase(*&v10[v30]);
+    *&v10[v30] = 0x8000000000000000;
   }
 
-  return outlined destroy of LoadingState(v6, type metadata accessor for LoadingState);
+  return outlined destroy of LoadingState(v10, type metadata accessor for LoadingState);
 }
 
 uint64_t AsyncImagePhase.error.getter()
@@ -2431,7 +2153,7 @@ char *initializeWithTake for LoadingState(char *a1, char *a2, uint64_t a3)
   return a1;
 }
 
-uint64_t closure #3 in updateTaskResult(_:config:)(uint64_t a1, uint64_t a2)
+uint64_t closure #3 in updateTaskResult(_:config:)(void *a1, uint64_t a2)
 {
   v3 = type metadata accessor for LoadingState(0);
   MEMORY[0x1EEE9AC00](v3);
@@ -2460,7 +2182,7 @@ unint64_t lazy protocol witness table accessor for type LoadingError and conform
   result = lazy protocol witness table cache variable for type LoadingError and conformance LoadingError;
   if (!lazy protocol witness table cache variable for type LoadingError and conformance LoadingError)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("Ms\rb\b'\t", &unk_1EFFE1A60, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type LoadingError and conformance LoadingError);
   }
 
@@ -2711,7 +2433,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for TaskConfig(uint64_t *a1, uint64_t
   return a1;
 }
 
-void *assignWithCopy for TaskConfig(void *a1, void *a2, uint64_t a3)
+uint64_t *assignWithCopy for TaskConfig(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = *a2;
 
@@ -3225,24 +2947,30 @@ LABEL_33:
   return result;
 }
 
-uint64_t key path setter for NavigationStateHost.seedHost : NavigationStateHost(void *a1, uint64_t a2)
+double key path setter for NavigationStateHost.seedHost : NavigationStateHost(uint64_t *a1, uint64_t a2)
 {
   *(*a2 + 192) = *a1;
+
+  return result;
 }
 
-uint64_t NavigationStackReader.init(namespace:path:root:hasImplicitState:stateHost:transform:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char a6@<W5>, uint64_t a7@<X6>, uint64_t a8@<X7>, char *a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12)
+uint64_t NavigationStackReader.init(namespace:path:root:hasImplicitState:stateHost:transform:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char a6@<W5>, uint64_t a7@<X6>, uint64_t a8@<X7>, char *a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   *a9 = a1;
   *(a9 + 1) = a2;
   *(a9 + 2) = a3;
   *(a9 + 3) = a4;
-  v17 = type metadata accessor for NavigationStackReader();
-  result = (*(*(a12 - 8) + 32))(&a9[v17[14]], a5, a12);
-  a9[v17[15]] = a6;
-  *&a9[v17[16]] = a7;
-  v19 = &a9[v17[17]];
-  *v19 = a8;
-  *(v19 + 1) = a10;
+  v22[0] = a11;
+  v22[1] = a12;
+  v22[2] = a13;
+  v22[3] = a14;
+  v19 = type metadata accessor for NavigationStackReader(0, v22);
+  result = (*(*(a12 - 8) + 32))(&a9[v19[14]], a5, a12);
+  a9[v19[15]] = a6;
+  *&a9[v19[16]] = a7;
+  v21 = &a9[v19[17]];
+  *v21 = a8;
+  *(v21 + 1) = a10;
   return result;
 }
 
@@ -3254,33 +2982,33 @@ double protocol witness for static Rule.initialValue.getter in conformance Navig
   return result;
 }
 
-uint64_t protocol witness for static Rule.initialValue.getter in conformance NavigationStackReader<A, B>.ExtractedRoot@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for static Rule.initialValue.getter in conformance NavigationStackReader<A, B>.ExtractedRoot@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
 {
-  type metadata accessor for ReadDestinationsModifier();
+  type metadata accessor for ReadDestinationsModifier(255, a1, &protocol witness table for NavigationStackReader<A, B>.ExtractedRoot, a2);
   type metadata accessor for ModifiedContent();
   type metadata accessor for _PreferenceTransformModifier<InspectorStorageV5.PreferenceKey>(255, &lazy cache variable for type metadata for _PreferenceTransformModifier<NavigationDestinationKey>, &type metadata for NavigationDestinationKey, &protocol witness table for NavigationDestinationKey, MEMORY[0x1E6980910]);
   type metadata accessor for ModifiedContent();
-  type metadata accessor for PositionedNavigationDestinationProcessor();
-  v2 = type metadata accessor for ModifiedContent();
-  v3 = *(*(v2 - 8) + 56);
+  type metadata accessor for PositionedNavigationDestinationProcessor(255, a1, &protocol witness table for NavigationStackReader<A, B>.ExtractedRoot, v5);
+  v6 = type metadata accessor for ModifiedContent();
+  v7 = *(*(v6 - 8) + 56);
 
-  return v3(a1, 1, 1, v2);
+  return v7(a3, 1, 1, v6);
 }
 
-uint64_t protocol witness for static Rule.initialValue.getter in conformance NavigationStackReader<A, B>.AppliedBody@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for static Rule.initialValue.getter in conformance NavigationStackReader<A, B>.AppliedBody@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
 {
-  type metadata accessor for PositionedNavigationDestinationProcessor();
+  type metadata accessor for PositionedNavigationDestinationProcessor(255, a1, &protocol witness table for NavigationStackReader<A, B>.AppliedBody, a2);
   type metadata accessor for ModifiedContent();
   type metadata accessor for _PreferenceTransformModifier<InspectorStorageV5.PreferenceKey>(255, &lazy cache variable for type metadata for _PreferenceTransformModifier<InspectorStorageV5.PreferenceKey>, &type metadata for InspectorStorageV5.PreferenceKey, &protocol witness table for InspectorStorageV5.PreferenceKey, MEMORY[0x1E6980910]);
-  v2 = type metadata accessor for ModifiedContent();
-  v3 = *(*(v2 - 8) + 56);
+  v4 = type metadata accessor for ModifiedContent();
+  v5 = *(*(v4 - 8) + 56);
 
-  return v3(a1, 1, 1, v2);
+  return v5(a3, 1, 1, v4);
 }
 
-uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance NavigationStackReader<A, B>()
+uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance NavigationStackReader<A, B>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(protocol conformance descriptor for NavigationStackReader<A, B>, a3);
 
   return static UnaryView._makeViewList(view:inputs:)();
 }
@@ -3480,10 +3208,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier>, NavigationSearchColumnModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier>, NavigationSearchColumnModifier> and conformance <> ModifiedContent<A, B>)
   {
+    v5[4] = v0;
+    v5[5] = v1;
     type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier>, NavigationSearchColumnModifier>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier>, NavigationSearchColumnModifier>, type metadata accessor for ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier>);
-    lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type NavigationSearchColumnModifier and conformance NavigationSearchColumnModifier();
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier> and conformance <> ModifiedContent<A, B>();
+    v5[1] = lazy protocol witness table accessor for type NavigationSearchColumnModifier and conformance NavigationSearchColumnModifier();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier>, NavigationSearchColumnModifier> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -3503,15 +3234,15 @@ void type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Co
   }
 }
 
-void type metadata accessor for _ViewModifier_Content<NavigationStackRootDecoratingModifier>()
+void type metadata accessor for _ViewModifier_Content<NavigationStackRootDecoratingModifier>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ViewModifier_Content<NavigationStackRootDecoratingModifier>)
   {
     lazy protocol witness table accessor for type NavigationStackRootDecoratingModifier and conformance NavigationStackRootDecoratingModifier();
-    v0 = type metadata accessor for _ViewModifier_Content();
-    if (!v1)
+    v1 = type metadata accessor for _ViewModifier_Content();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ViewModifier_Content<NavigationStackRootDecoratingModifier>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ViewModifier_Content<NavigationStackRootDecoratingModifier>);
     }
   }
 }
@@ -3521,7 +3252,7 @@ unint64_t lazy protocol witness table accessor for type NavigationStackRootDecor
   result = lazy protocol witness table cache variable for type NavigationStackRootDecoratingModifier and conformance NavigationStackRootDecoratingModifier;
   if (!lazy protocol witness table cache variable for type NavigationStackRootDecoratingModifier and conformance NavigationStackRootDecoratingModifier)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for NavigationStackRootDecoratingModifier, &type metadata for NavigationStackRootDecoratingModifier, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type NavigationStackRootDecoratingModifier and conformance NavigationStackRootDecoratingModifier);
   }
 
@@ -3533,9 +3264,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ViewMod
   result = lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier> and conformance <> ModifiedContent<A, B>)
   {
+    v5[4] = v0;
+    v5[5] = v1;
     type metadata accessor for ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier>(255);
-    lazy protocol witness table accessor for type Map<NavigationStateHost, NavigationSeedHost> and conformance Map<A, B>(&lazy protocol witness table cache variable for type _ViewModifier_Content<NavigationStackRootDecoratingModifier> and conformance _ViewModifier_Content<A>, type metadata accessor for _ViewModifier_Content<NavigationStackRootDecoratingModifier>);
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type Map<NavigationStateHost, NavigationSeedHost> and conformance Map<A, B>(&lazy protocol witness table cache variable for type _ViewModifier_Content<NavigationStackRootDecoratingModifier> and conformance _ViewModifier_Content<A>, type metadata accessor for _ViewModifier_Content<NavigationStackRootDecoratingModifier>, MEMORY[0x1E697FDF8]);
+    v5[1] = &protocol witness table for StackDepthModifier;
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<NavigationStackRootDecoratingModifier>, StackDepthModifier> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -3749,7 +3484,7 @@ LABEL_17:
 void FileImportExportBridge.presentImportPicker(operation:)(uint64_t a1)
 {
   v2 = v1;
-  type metadata accessor for URL?();
+  type metadata accessor for URL?(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for URL();
@@ -4225,7 +3960,7 @@ void *initializeBufferWithCopyOfBuffer for FileImportExportBridge.PresentationSt
 
         if (v88(&a2[v85], 1, v86))
         {
-          type metadata accessor for URL?();
+          type metadata accessor for URL?(0);
           memcpy(a1 + v85, &a2[v85], *(*(v89 - 8) + 64));
         }
 
@@ -4302,7 +4037,7 @@ void *initializeBufferWithCopyOfBuffer for FileImportExportBridge.PresentationSt
         }
 
         v111 = v80[10];
-        type metadata accessor for Predicate<Pack{URL}>();
+        type metadata accessor for Predicate<Pack{URL}>(0);
         v113 = v112;
         v114 = *(v112 - 8);
         if ((*(v114 + 48))(&a2[v111], 1, v112))
@@ -4338,7 +4073,7 @@ void *initializeBufferWithCopyOfBuffer for FileImportExportBridge.PresentationSt
 
         if (v28(&a2[v25], 1, v26))
         {
-          type metadata accessor for URL?();
+          type metadata accessor for URL?(0);
           memcpy(a1 + v25, &a2[v25], *(*(v29 - 8) + 64));
         }
 
@@ -4417,7 +4152,7 @@ void *initializeBufferWithCopyOfBuffer for FileImportExportBridge.PresentationSt
         *(a1 + v24[9]) = *&a2[v24[9]];
         *(a1 + v24[10]) = a2[v24[10]];
         v59 = v24[11];
-        type metadata accessor for Predicate<Pack{URL}>();
+        type metadata accessor for Predicate<Pack{URL}>(0);
         v61 = v60;
         v62 = *(v60 - 8);
         v63 = *(v62 + 48);
@@ -4572,7 +4307,7 @@ uint64_t *initializeWithCopy for FileImportExportBridge.PresentationState(uint64
 
       if (v86(&a2[v83], 1, v84))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v83, &a2[v83], *(*(v87 - 8) + 64));
       }
 
@@ -4649,7 +4384,7 @@ uint64_t *initializeWithCopy for FileImportExportBridge.PresentationState(uint64
       }
 
       v109 = v78[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v111 = v110;
       v112 = *(v110 - 8);
       if ((*(v112 + 48))(&a2[v109], 1, v110))
@@ -4685,7 +4420,7 @@ uint64_t *initializeWithCopy for FileImportExportBridge.PresentationState(uint64
 
       if (v26(&a2[v23], 1, v24))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v23, &a2[v23], *(*(v27 - 8) + 64));
       }
 
@@ -4764,7 +4499,7 @@ uint64_t *initializeWithCopy for FileImportExportBridge.PresentationState(uint64
       *(a1 + v22[9]) = *&a2[v22[9]];
       *(a1 + v22[10]) = a2[v22[10]];
       v57 = v22[11];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v59 = v58;
       v60 = *(v58 - 8);
       v61 = *(v60 + 48);
@@ -4837,7 +4572,7 @@ uint64_t assignWithCopy for FileImportExportBridge.PresentationState(uint64_t a1
 
         if (v38(a2 + v35, 1, v36))
         {
-          type metadata accessor for URL?();
+          type metadata accessor for URL?(0);
           memcpy((a1 + v35), a2 + v35, *(*(v39 - 8) + 64));
         }
 
@@ -4853,18 +4588,18 @@ uint64_t assignWithCopy for FileImportExportBridge.PresentationState(uint64_t a1
         if (*(a2 + v54 + 24))
         {
           v57 = *v56;
-          v58 = *(v56 + 8);
-          v59 = *(v56 + 16);
+          v58 = *(v56 + 1);
+          v59 = v56[16];
           outlined copy of Text.Storage(*v56, v58, v59);
           *v55 = v57;
           *(v55 + 8) = v58;
           *(v55 + 16) = v59;
-          *(v55 + 24) = *(v56 + 24);
+          *(v55 + 24) = *(v56 + 3);
         }
 
         else
         {
-          v60 = *(v56 + 16);
+          v60 = *(v56 + 1);
           *v55 = *v56;
           *(v55 + 16) = v60;
         }
@@ -4875,18 +4610,18 @@ uint64_t assignWithCopy for FileImportExportBridge.PresentationState(uint64_t a1
         if (*(a2 + v61 + 24))
         {
           v64 = *v63;
-          v65 = *(v63 + 8);
-          v66 = *(v63 + 16);
+          v65 = *(v63 + 1);
+          v66 = v63[16];
           outlined copy of Text.Storage(*v63, v65, v66);
           *v62 = v64;
           *(v62 + 8) = v65;
           *(v62 + 16) = v66;
-          *(v62 + 24) = *(v63 + 24);
+          *(v62 + 24) = *(v63 + 3);
         }
 
         else
         {
-          v67 = *(v63 + 16);
+          v67 = *(v63 + 1);
           *v62 = *v63;
           *(v62 + 16) = v67;
         }
@@ -4897,18 +4632,18 @@ uint64_t assignWithCopy for FileImportExportBridge.PresentationState(uint64_t a1
         if (*(a2 + v68 + 24))
         {
           v71 = *v70;
-          v72 = *(v70 + 8);
-          v73 = *(v70 + 16);
+          v72 = *(v70 + 1);
+          v73 = v70[16];
           outlined copy of Text.Storage(*v70, v72, v73);
           *v69 = v71;
           *(v69 + 8) = v72;
           *(v69 + 16) = v73;
-          *(v69 + 24) = *(v70 + 24);
+          *(v69 + 24) = *(v70 + 3);
         }
 
         else
         {
-          v74 = *(v70 + 16);
+          v74 = *(v70 + 1);
           *v69 = *v70;
           *(v69 + 16) = v74;
         }
@@ -4916,7 +4651,7 @@ uint64_t assignWithCopy for FileImportExportBridge.PresentationState(uint64_t a1
         *(a1 + v34[9]) = *(a2 + v34[9]);
         *(a1 + v34[10]) = *(a2 + v34[10]);
         v75 = v34[11];
-        type metadata accessor for Predicate<Pack{URL}>();
+        type metadata accessor for Predicate<Pack{URL}>(0);
         v77 = v76;
         v78 = *(v76 - 8);
         v79 = *(v78 + 48);
@@ -4938,9 +4673,9 @@ uint64_t assignWithCopy for FileImportExportBridge.PresentationState(uint64_t a1
         *(a1 + v34[12]) = *(a2 + v34[12]);
         v82 = v34[13];
         v83 = a1 + v82;
-        v84 = (a2 + v82);
+        v84 = a2 + v82;
         v85 = *v84;
-        *(v83 + 8) = *(v84 + 8);
+        *(v83 + 8) = v84[8];
         *v83 = v85;
         v86 = v34[14];
         v87 = (a1 + v86);
@@ -5038,7 +4773,7 @@ LABEL_39:
 
           if (v106(a2 + v103, 1, v104))
           {
-            type metadata accessor for URL?();
+            type metadata accessor for URL?(0);
             memcpy((a1 + v103), a2 + v103, *(*(v107 - 8) + 64));
           }
 
@@ -5054,18 +4789,18 @@ LABEL_39:
           if (*(a2 + v108 + 24))
           {
             v111 = *v110;
-            v112 = *(v110 + 8);
-            v113 = *(v110 + 16);
+            v112 = *(v110 + 1);
+            v113 = v110[16];
             outlined copy of Text.Storage(*v110, v112, v113);
             *v109 = v111;
             *(v109 + 8) = v112;
             *(v109 + 16) = v113;
-            *(v109 + 24) = *(v110 + 24);
+            *(v109 + 24) = *(v110 + 3);
           }
 
           else
           {
-            v114 = *(v110 + 16);
+            v114 = *(v110 + 1);
             *v109 = *v110;
             *(v109 + 16) = v114;
           }
@@ -5076,18 +4811,18 @@ LABEL_39:
           if (*(a2 + v115 + 24))
           {
             v118 = *v117;
-            v119 = *(v117 + 8);
-            v120 = *(v117 + 16);
+            v119 = *(v117 + 1);
+            v120 = v117[16];
             outlined copy of Text.Storage(*v117, v119, v120);
             *v116 = v118;
             *(v116 + 8) = v119;
             *(v116 + 16) = v120;
-            *(v116 + 24) = *(v117 + 24);
+            *(v116 + 24) = *(v117 + 3);
           }
 
           else
           {
-            v121 = *(v117 + 16);
+            v121 = *(v117 + 1);
             *v116 = *v117;
             *(v116 + 16) = v121;
           }
@@ -5098,24 +4833,24 @@ LABEL_39:
           if (*(a2 + v122 + 24))
           {
             v125 = *v124;
-            v126 = *(v124 + 8);
-            v127 = *(v124 + 16);
+            v126 = *(v124 + 1);
+            v127 = v124[16];
             outlined copy of Text.Storage(*v124, v126, v127);
             *v123 = v125;
             *(v123 + 8) = v126;
             *(v123 + 16) = v127;
-            *(v123 + 24) = *(v124 + 24);
+            *(v123 + 24) = *(v124 + 3);
           }
 
           else
           {
-            v128 = *(v124 + 16);
+            v128 = *(v124 + 1);
             *v123 = *v124;
             *(v123 + 16) = v128;
           }
 
           v129 = v99[10];
-          type metadata accessor for Predicate<Pack{URL}>();
+          type metadata accessor for Predicate<Pack{URL}>(0);
           v131 = v130;
           v132 = *(v130 - 8);
           v81 = v230;
@@ -5135,9 +4870,9 @@ LABEL_39:
           *(a1 + v99[11]) = *(a2 + v99[11]);
           v134 = v99[12];
           v135 = a1 + v134;
-          v136 = (a2 + v134);
+          v136 = a2 + v134;
           v137 = *v136;
-          *(v135 + 8) = *(v136 + 8);
+          *(v135 + 8) = v136[8];
           *v135 = v137;
 LABEL_55:
           swift_storeEnumTagMultiPayload();
@@ -5258,7 +4993,7 @@ LABEL_77:
 
         if (v198(a2 + v195, 1, v196))
         {
-          type metadata accessor for URL?();
+          type metadata accessor for URL?(0);
           memcpy((a1 + v195), a2 + v195, *(*(v199 - 8) + 64));
         }
 
@@ -5274,18 +5009,18 @@ LABEL_77:
         if (*(a2 + v200 + 24))
         {
           v203 = *v202;
-          v204 = *(v202 + 8);
-          v205 = *(v202 + 16);
+          v204 = *(v202 + 1);
+          v205 = v202[16];
           outlined copy of Text.Storage(*v202, v204, v205);
           *v201 = v203;
           *(v201 + 8) = v204;
           *(v201 + 16) = v205;
-          *(v201 + 24) = *(v202 + 24);
+          *(v201 + 24) = *(v202 + 3);
         }
 
         else
         {
-          v206 = *(v202 + 16);
+          v206 = *(v202 + 1);
           *v201 = *v202;
           *(v201 + 16) = v206;
         }
@@ -5296,18 +5031,18 @@ LABEL_77:
         if (*(a2 + v207 + 24))
         {
           v210 = *v209;
-          v211 = *(v209 + 8);
-          v212 = *(v209 + 16);
+          v211 = *(v209 + 1);
+          v212 = v209[16];
           outlined copy of Text.Storage(*v209, v211, v212);
           *v208 = v210;
           *(v208 + 8) = v211;
           *(v208 + 16) = v212;
-          *(v208 + 24) = *(v209 + 24);
+          *(v208 + 24) = *(v209 + 3);
         }
 
         else
         {
-          v213 = *(v209 + 16);
+          v213 = *(v209 + 1);
           *v208 = *v209;
           *(v208 + 16) = v213;
         }
@@ -5318,24 +5053,24 @@ LABEL_77:
         if (*(a2 + v214 + 24))
         {
           v217 = *v216;
-          v218 = *(v216 + 8);
-          v219 = *(v216 + 16);
+          v218 = *(v216 + 1);
+          v219 = v216[16];
           outlined copy of Text.Storage(*v216, v218, v219);
           *v215 = v217;
           *(v215 + 8) = v218;
           *(v215 + 16) = v219;
-          *(v215 + 24) = *(v216 + 24);
+          *(v215 + 24) = *(v216 + 3);
         }
 
         else
         {
-          v220 = *(v216 + 16);
+          v220 = *(v216 + 1);
           *v215 = *v216;
           *(v215 + 16) = v220;
         }
 
         v221 = v191[10];
-        type metadata accessor for Predicate<Pack{URL}>();
+        type metadata accessor for Predicate<Pack{URL}>(0);
         v223 = v222;
         v224 = *(v222 - 8);
         if ((*(v224 + 48))(a2 + v221, 1, v222))
@@ -5354,9 +5089,9 @@ LABEL_77:
         *(a1 + v191[11]) = *(a2 + v191[11]);
         v226 = v191[12];
         v227 = a1 + v226;
-        v228 = (a2 + v226);
+        v228 = a2 + v226;
         v229 = *v228;
-        *(v227 + 8) = *(v228 + 8);
+        *(v227 + 8) = v228[8];
         *v227 = v229;
         swift_storeEnumTagMultiPayload();
         goto LABEL_56;
@@ -5384,7 +5119,7 @@ LABEL_77:
 
   if (v52(a2 + v49, 1, v50))
   {
-    type metadata accessor for URL?();
+    type metadata accessor for URL?(0);
     memcpy((a1 + v49), a2 + v49, *(*(v53 - 8) + 64));
   }
 
@@ -5400,18 +5135,18 @@ LABEL_77:
   if (*(a2 + v147 + 24))
   {
     v150 = *v149;
-    v151 = *(v149 + 8);
-    v152 = *(v149 + 16);
+    v151 = *(v149 + 1);
+    v152 = v149[16];
     outlined copy of Text.Storage(*v149, v151, v152);
     *v148 = v150;
     *(v148 + 8) = v151;
     *(v148 + 16) = v152;
-    *(v148 + 24) = *(v149 + 24);
+    *(v148 + 24) = *(v149 + 3);
   }
 
   else
   {
-    v153 = *(v149 + 16);
+    v153 = *(v149 + 1);
     *v148 = *v149;
     *(v148 + 16) = v153;
   }
@@ -5422,18 +5157,18 @@ LABEL_77:
   if (*(a2 + v154 + 24))
   {
     v157 = *v156;
-    v158 = *(v156 + 8);
-    v159 = *(v156 + 16);
+    v158 = *(v156 + 1);
+    v159 = v156[16];
     outlined copy of Text.Storage(*v156, v158, v159);
     *v155 = v157;
     *(v155 + 8) = v158;
     *(v155 + 16) = v159;
-    *(v155 + 24) = *(v156 + 24);
+    *(v155 + 24) = *(v156 + 3);
   }
 
   else
   {
-    v160 = *(v156 + 16);
+    v160 = *(v156 + 1);
     *v155 = *v156;
     *(v155 + 16) = v160;
   }
@@ -5444,18 +5179,18 @@ LABEL_77:
   if (*(a2 + v161 + 24))
   {
     v164 = *v163;
-    v165 = *(v163 + 8);
-    v166 = *(v163 + 16);
+    v165 = *(v163 + 1);
+    v166 = v163[16];
     outlined copy of Text.Storage(*v163, v165, v166);
     *v162 = v164;
     *(v162 + 8) = v165;
     *(v162 + 16) = v166;
-    *(v162 + 24) = *(v163 + 24);
+    *(v162 + 24) = *(v163 + 3);
   }
 
   else
   {
-    v167 = *(v163 + 16);
+    v167 = *(v163 + 1);
     *v162 = *v163;
     *(v162 + 16) = v167;
   }
@@ -5463,7 +5198,7 @@ LABEL_77:
   *(a1 + v48[9]) = *(a2 + v48[9]);
   *(a1 + v48[10]) = *(a2 + v48[10]);
   v168 = v48[11];
-  type metadata accessor for Predicate<Pack{URL}>();
+  type metadata accessor for Predicate<Pack{URL}>(0);
   v170 = v169;
   v171 = *(v169 - 8);
   v172 = *(v171 + 48);
@@ -5484,9 +5219,9 @@ LABEL_77:
   *(a1 + v48[12]) = *(a2 + v48[12]);
   v174 = v48[13];
   v175 = a1 + v174;
-  v176 = (a2 + v174);
+  v176 = a2 + v174;
   v177 = *v176;
-  *(v175 + 8) = *(v176 + 8);
+  *(v175 + 8) = v176[8];
   *v175 = v177;
   v178 = v48[14];
   v179 = (a1 + v178);
@@ -5545,7 +5280,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState(_OWORD *
       v20 = *(v19 - 8);
       if ((*(v20 + 48))(a2 + v18, 1, v19))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v18, a2 + v18, *(*(v21 - 8) + 64));
       }
 
@@ -5574,7 +5309,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState(_OWORD *
       *v48 = *v49;
       v48[1] = v50;
       v51 = v17[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v53 = v52;
       v54 = *(v52 - 8);
       if ((*(v54 + 48))(a2 + v51, 1, v52))
@@ -5606,7 +5341,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState(_OWORD *
       v13 = *(v12 - 8);
       if ((*(v13 + 48))(a2 + v11, 1, v12))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v11, a2 + v11, *(*(v14 - 8) + 64));
       }
 
@@ -5637,7 +5372,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState(_OWORD *
       *(a1 + v10[9]) = *(a2 + v10[9]);
       *(a1 + v10[10]) = *(a2 + v10[10]);
       v34 = v10[11];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v36 = v35;
       v37 = *(v35 - 8);
       if ((*(v37 + 48))(a2 + v34, 1, v35))
@@ -5708,7 +5443,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState(_OWORD *a1, 
         v24 = *(v23 - 8);
         if ((*(v24 + 48))(a2 + v22, 1, v23))
         {
-          type metadata accessor for URL?();
+          type metadata accessor for URL?(0);
           memcpy(a1 + v22, a2 + v22, *(*(v25 - 8) + 64));
         }
 
@@ -5737,7 +5472,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState(_OWORD *a1, 
         *v57 = *v58;
         v57[1] = v59;
         v60 = v21[10];
-        type metadata accessor for Predicate<Pack{URL}>();
+        type metadata accessor for Predicate<Pack{URL}>(0);
         v62 = v61;
         v63 = *(v61 - 8);
         if ((*(v63 + 48))(a2 + v60, 1, v61))
@@ -5769,7 +5504,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState(_OWORD *a1, 
         v17 = *(v16 - 8);
         if ((*(v17 + 48))(a2 + v15, 1, v16))
         {
-          type metadata accessor for URL?();
+          type metadata accessor for URL?(0);
           memcpy(a1 + v15, a2 + v15, *(*(v18 - 8) + 64));
         }
 
@@ -5800,7 +5535,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState(_OWORD *a1, 
         *(a1 + v14[9]) = *(a2 + v14[9]);
         *(a1 + v14[10]) = *(a2 + v14[10]);
         v43 = v14[11];
-        type metadata accessor for Predicate<Pack{URL}>();
+        type metadata accessor for Predicate<Pack{URL}>(0);
         v45 = v44;
         v46 = *(v44 - 8);
         if ((*(v46 + 48))(a2 + v43, 1, v44))
@@ -5870,7 +5605,7 @@ LABEL_8:
       v78 = *(v77 - 8);
       if ((*(v78 + 48))(a2 + v76, 1, v77))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v76, a2 + v76, *(*(v79 - 8) + 64));
       }
 
@@ -5899,7 +5634,7 @@ LABEL_8:
       *v106 = *v107;
       v106[1] = v108;
       v109 = v75[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v111 = v110;
       v112 = *(v110 - 8);
       if ((*(v112 + 48))(a2 + v109, 1, v110))
@@ -5932,7 +5667,7 @@ LABEL_8:
       v29 = *(v28 - 8);
       if ((*(v29 + 48))(a2 + v27, 1, v28))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v27, a2 + v27, *(*(v30 - 8) + 64));
       }
 
@@ -5963,7 +5698,7 @@ LABEL_8:
       *(a1 + v26[9]) = *(a2 + v26[9]);
       *(a1 + v26[10]) = *(a2 + v26[10]);
       v92 = v26[11];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v94 = v93;
       v95 = *(v93 - 8);
       if ((*(v95 + 48))(a2 + v92, 1, v93))
@@ -6100,7 +5835,7 @@ unint64_t initializeBufferWithCopyOfBuffer for FileImportExportBridge.Presentati
 
       if (v84(a2 + v81, 1, v82))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy((a1 + v81), (a2 + v81), *(*(v85 - 8) + 64));
       }
 
@@ -6177,7 +5912,7 @@ unint64_t initializeBufferWithCopyOfBuffer for FileImportExportBridge.Presentati
       }
 
       v107 = v76[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v109 = v108;
       v110 = *(v108 - 8);
       if ((*(v110 + 48))(a2 + v107, 1, v108))
@@ -6213,7 +5948,7 @@ unint64_t initializeBufferWithCopyOfBuffer for FileImportExportBridge.Presentati
 
       if (v24(a2 + v21, 1, v22))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy((a1 + v21), (a2 + v21), *(*(v25 - 8) + 64));
       }
 
@@ -6292,7 +6027,7 @@ unint64_t initializeBufferWithCopyOfBuffer for FileImportExportBridge.Presentati
       *(a1 + v20[9]) = *(a2 + v20[9]);
       *(a1 + v20[10]) = *(a2 + v20[10]);
       v55 = v20[11];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v57 = v56;
       v58 = *(v56 - 8);
       v59 = *(v58 + 48);
@@ -6335,7 +6070,7 @@ unint64_t initializeBufferWithCopyOfBuffer for FileImportExportBridge.Presentati
   return a1;
 }
 
-uint64_t destroy for FileImportExportBridge.Presentation(uint64_t a1)
+void destroy for FileImportExportBridge.Presentation(uint64_t a1, uint64_t a2)
 {
   if (swift_getEnumCaseMultiPayload() == 1)
   {
@@ -6404,58 +6139,57 @@ LABEL_24:
     }
 
     v23 = v16[10];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v25 = v24;
     v27 = *(v24 - 8);
-    result = (*(v27 + 48))(a1 + v23, 1, v24);
-    if (!result)
+    if (!(*(v27 + 48))(a1 + v23, 1, v24))
     {
       v26 = *(v27 + 8);
 
-      return v26(a1 + v23, v25);
+      v26(a1 + v23, v25);
     }
 
-    return result;
+    return;
   }
 
-  v3 = type metadata accessor for FileImportOperation(0);
-  v4 = v3[5];
-  v5 = type metadata accessor for URL();
-  v6 = *(v5 - 8);
-  if (!(*(v6 + 48))(a1 + v4, 1, v5))
+  v4 = type metadata accessor for FileImportOperation(0);
+  v5 = v4[5];
+  v6 = type metadata accessor for URL();
+  v7 = *(v6 - 8);
+  if (!(*(v7 + 48))(a1 + v5, 1, v6))
   {
-    (*(v6 + 8))(a1 + v4, v5);
+    (*(v7 + 8))(a1 + v5, v6);
   }
 
-  v7 = a1 + v3[6];
-  if (*(v7 + 24))
-  {
-    outlined consume of Text.Storage(*v7, *(v7 + 8), *(v7 + 16));
-  }
-
-  v8 = a1 + v3[7];
+  v8 = a1 + v4[6];
   if (*(v8 + 24))
   {
     outlined consume of Text.Storage(*v8, *(v8 + 8), *(v8 + 16));
   }
 
-  v9 = a1 + v3[8];
+  v9 = a1 + v4[7];
   if (*(v9 + 24))
   {
     outlined consume of Text.Storage(*v9, *(v9 + 8), *(v9 + 16));
   }
 
-  v10 = v3[11];
-  type metadata accessor for Predicate<Pack{URL}>();
-  v12 = v11;
-  v13 = *(v11 - 8);
-  if (!(*(v13 + 48))(a1 + v10, 1, v11))
+  v10 = a1 + v4[8];
+  if (*(v10 + 24))
   {
-    (*(v13 + 8))(a1 + v10, v12);
+    outlined consume of Text.Storage(*v10, *(v10 + 8), *(v10 + 16));
+  }
+
+  v11 = v4[11];
+  type metadata accessor for Predicate<Pack{URL}>(0);
+  v13 = v12;
+  v14 = *(v12 - 8);
+  if (!(*(v14 + 48))(a1 + v11, 1, v12))
+  {
+    (*(v14 + 8))(a1 + v11, v13);
   }
 }
 
-uint64_t initializeWithCopy for FileImportExportBridge.Presentation(uint64_t a1, uint64_t a2)
+uint64_t initializeWithCopy for FileImportExportBridge.Presentation(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (swift_getEnumCaseMultiPayload() == 1)
   {
@@ -6465,39 +6199,39 @@ uint64_t initializeWithCopy for FileImportExportBridge.Presentation(uint64_t a1,
     {
       if (EnumCaseMultiPayload == 2)
       {
-        v23 = *a2;
-        v24 = *(a2 + 8);
-        v25 = *(a2 + 16);
-        v26 = *(a2 + 24);
-        v27 = *(a2 + 32);
-        v28 = *(a2 + 40);
-        outlined copy of FileExportOperation.Storage(*a2, v24, v25, v26, v27, v28);
-        *a1 = v23;
-        *(a1 + 8) = v24;
-        *(a1 + 16) = v25;
-        *(a1 + 24) = v26;
-        *(a1 + 32) = v27;
-        *(a1 + 40) = v28;
-        v29 = *(a2 + 56);
+        v24 = *a2;
+        v25 = *(a2 + 8);
+        v26 = *(a2 + 16);
+        v27 = *(a2 + 24);
+        v28 = *(a2 + 32);
+        v29 = *(a2 + 40);
+        outlined copy of FileExportOperation.Storage(*a2, v25, v26, v27, v28, v29);
+        *a1 = v24;
+        *(a1 + 8) = v25;
+        *(a1 + 16) = v26;
+        *(a1 + 24) = v27;
+        *(a1 + 32) = v28;
+        *(a1 + 40) = v29;
+        v30 = *(a2 + 56);
         *(a1 + 48) = *(a2 + 48);
-        *(a1 + 56) = v29;
-        v30 = *(a2 + 96);
-        v113 = *(a2 + 80);
+        *(a1 + 56) = v30;
+        v31 = *(a2 + 96);
+        v114 = *(a2 + 80);
         *(a1 + 64) = *(a2 + 64);
-        *(a1 + 80) = v113;
-        *(a1 + 96) = v30;
+        *(a1 + 80) = v114;
+        *(a1 + 96) = v31;
       }
 
       else
       {
-        v71 = *(a2 + 8);
+        v72 = *(a2 + 8);
         *a1 = *a2;
-        *(a1 + 8) = v71;
-        v72 = *(a2 + 48);
-        v114 = *(a2 + 32);
+        *(a1 + 8) = v72;
+        v73 = *(a2 + 48);
+        v115 = *(a2 + 32);
         *(a1 + 16) = *(a2 + 16);
-        *(a1 + 32) = v114;
-        *(a1 + 48) = v72;
+        *(a1 + 32) = v115;
+        *(a1 + 48) = v73;
       }
     }
 
@@ -6505,283 +6239,283 @@ uint64_t initializeWithCopy for FileImportExportBridge.Presentation(uint64_t a1,
     {
       if (EnumCaseMultiPayload)
       {
-        v69 = *(a2 + 32);
-        v70 = *(a2 + 16);
+        v70 = *(a2 + 32);
+        v71 = *(a2 + 16);
         *a1 = *a2;
-        *(a1 + 16) = v70;
-        *(a1 + 32) = v69;
+        *(a1 + 16) = v71;
+        *(a1 + 32) = v70;
       }
 
       else
       {
-        v5 = type metadata accessor for URL();
-        (*(*(v5 - 8) + 16))(a1, a2, v5);
-        v6 = type metadata accessor for FileExportOperation.Move(0);
-        v7 = *(v6 + 20);
-        v8 = (a1 + v7);
-        v9 = (a2 + v7);
-        v11 = *v9;
-        v10 = v9[1];
-        *v8 = v11;
-        v8[1] = v10;
-        v12 = *(v6 + 24);
-        v13 = (a1 + v12);
-        v14 = (a2 + v12);
-        v15 = v14[1];
-        *v13 = *v14;
-        v13[1] = v15;
+        v6 = type metadata accessor for URL();
+        (*(*(v6 - 8) + 16))(a1, a2, v6);
+        v7 = type metadata accessor for FileExportOperation.Move(0);
+        v8 = *(v7 + 20);
+        v9 = (a1 + v8);
+        v10 = (a2 + v8);
+        v12 = *v10;
+        v11 = v10[1];
+        *v9 = v12;
+        v9[1] = v11;
+        v13 = *(v7 + 24);
+        v14 = (a1 + v13);
+        v15 = (a2 + v13);
+        v16 = v15[1];
+        *v14 = *v15;
+        v14[1] = v16;
       }
     }
 
     swift_storeEnumTagMultiPayload();
-    v73 = type metadata accessor for FileExportOperation(0);
-    v74 = v73[5];
-    v75 = (a1 + v74);
-    v76 = (a2 + v74);
-    v77 = v76[1];
-    *v75 = *v76;
-    v75[1] = v77;
-    v78 = v73[6];
-    v79 = type metadata accessor for URL();
-    v80 = *(v79 - 8);
-    v81 = *(v80 + 48);
+    v74 = type metadata accessor for FileExportOperation(0);
+    v75 = v74[5];
+    v76 = (a1 + v75);
+    v77 = (a2 + v75);
+    v78 = v77[1];
+    *v76 = *v77;
+    v76[1] = v78;
+    v79 = v74[6];
+    v80 = type metadata accessor for URL();
+    v81 = *(v80 - 8);
+    v82 = *(v81 + 48);
 
-    if (v81(a2 + v78, 1, v79))
+    if (v82(a2 + v79, 1, v80))
     {
-      type metadata accessor for URL?();
-      memcpy((a1 + v78), (a2 + v78), *(*(v82 - 8) + 64));
+      type metadata accessor for URL?(0);
+      memcpy((a1 + v79), (a2 + v79), *(*(v83 - 8) + 64));
     }
 
     else
     {
-      (*(v80 + 16))(a1 + v78, a2 + v78, v79);
-      (*(v80 + 56))(a1 + v78, 0, 1, v79);
+      (*(v81 + 16))(a1 + v79, a2 + v79, v80);
+      (*(v81 + 56))(a1 + v79, 0, 1, v80);
     }
 
-    v83 = v73[7];
-    v84 = a1 + v83;
-    v85 = a2 + v83;
-    if (*(a2 + v83 + 24))
+    v84 = v74[7];
+    v85 = a1 + v84;
+    v86 = a2 + v84;
+    if (*(a2 + v84 + 24))
     {
-      v86 = *v85;
-      v87 = *(v85 + 8);
-      v88 = *(v85 + 16);
-      outlined copy of Text.Storage(*v85, v87, v88);
-      *v84 = v86;
-      *(v84 + 8) = v87;
-      *(v84 + 16) = v88;
-      *(v84 + 24) = *(v85 + 24);
+      v87 = *v86;
+      v88 = *(v86 + 8);
+      v89 = *(v86 + 16);
+      outlined copy of Text.Storage(*v86, v88, v89);
+      *v85 = v87;
+      *(v85 + 8) = v88;
+      *(v85 + 16) = v89;
+      *(v85 + 24) = *(v86 + 24);
     }
 
     else
     {
-      v89 = *(v85 + 16);
-      *v84 = *v85;
-      *(v84 + 16) = v89;
+      v90 = *(v86 + 16);
+      *v85 = *v86;
+      *(v85 + 16) = v90;
     }
 
-    v90 = v73[8];
-    v91 = a1 + v90;
-    v92 = a2 + v90;
-    if (*(a2 + v90 + 24))
+    v91 = v74[8];
+    v92 = a1 + v91;
+    v93 = a2 + v91;
+    if (*(a2 + v91 + 24))
     {
-      v93 = *v92;
-      v94 = *(v92 + 8);
-      v95 = *(v92 + 16);
-      outlined copy of Text.Storage(*v92, v94, v95);
-      *v91 = v93;
-      *(v91 + 8) = v94;
-      *(v91 + 16) = v95;
-      *(v91 + 24) = *(v92 + 24);
+      v94 = *v93;
+      v95 = *(v93 + 8);
+      v96 = *(v93 + 16);
+      outlined copy of Text.Storage(*v93, v95, v96);
+      *v92 = v94;
+      *(v92 + 8) = v95;
+      *(v92 + 16) = v96;
+      *(v92 + 24) = *(v93 + 24);
     }
 
     else
     {
-      v96 = *(v92 + 16);
-      *v91 = *v92;
-      *(v91 + 16) = v96;
+      v97 = *(v93 + 16);
+      *v92 = *v93;
+      *(v92 + 16) = v97;
     }
 
-    v97 = v73[9];
-    v98 = a1 + v97;
-    v99 = a2 + v97;
-    if (*(a2 + v97 + 24))
+    v98 = v74[9];
+    v99 = a1 + v98;
+    v100 = a2 + v98;
+    if (*(a2 + v98 + 24))
     {
-      v100 = *v99;
-      v101 = *(v99 + 8);
-      v102 = *(v99 + 16);
-      outlined copy of Text.Storage(*v99, v101, v102);
-      *v98 = v100;
-      *(v98 + 8) = v101;
-      *(v98 + 16) = v102;
-      *(v98 + 24) = *(v99 + 24);
+      v101 = *v100;
+      v102 = *(v100 + 8);
+      v103 = *(v100 + 16);
+      outlined copy of Text.Storage(*v100, v102, v103);
+      *v99 = v101;
+      *(v99 + 8) = v102;
+      *(v99 + 16) = v103;
+      *(v99 + 24) = *(v100 + 24);
     }
 
     else
     {
-      v103 = *(v99 + 16);
-      *v98 = *v99;
-      *(v98 + 16) = v103;
+      v104 = *(v100 + 16);
+      *v99 = *v100;
+      *(v99 + 16) = v104;
     }
 
-    v104 = v73[10];
-    type metadata accessor for Predicate<Pack{URL}>();
-    v106 = v105;
-    v107 = *(v105 - 8);
-    if ((*(v107 + 48))(a2 + v104, 1, v105))
+    v105 = v74[10];
+    type metadata accessor for Predicate<Pack{URL}>(0);
+    v107 = v106;
+    v108 = *(v106 - 8);
+    if ((*(v108 + 48))(a2 + v105, 1, v106))
     {
       _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-      memcpy((a1 + v104), (a2 + v104), *(*(v108 - 8) + 64));
+      memcpy((a1 + v105), (a2 + v105), *(*(v109 - 8) + 64));
     }
 
     else
     {
-      (*(v107 + 16))(a1 + v104, a2 + v104, v106);
-      (*(v107 + 56))(a1 + v104, 0, 1, v106);
+      (*(v108 + 16))(a1 + v105, a2 + v105, v107);
+      (*(v108 + 56))(a1 + v105, 0, 1, v107);
     }
 
-    *(a1 + v73[11]) = *(a2 + v73[11]);
-    v109 = v73[12];
-    v110 = a1 + v109;
-    v111 = a2 + v109;
-    *v110 = *v111;
-    *(v110 + 8) = *(v111 + 8);
+    *(a1 + v74[11]) = *(a2 + v74[11]);
+    v110 = v74[12];
+    v111 = a1 + v110;
+    v112 = a2 + v110;
+    *v111 = *v112;
+    *(v111 + 8) = *(v112 + 8);
   }
 
   else
   {
-    v16 = *(a2 + 8);
+    v17 = *(a2 + 8);
     *a1 = *a2;
-    *(a1 + 8) = v16;
-    v17 = type metadata accessor for FileImportOperation(0);
-    v18 = v17[5];
-    v19 = type metadata accessor for URL();
-    v20 = *(v19 - 8);
-    v21 = *(v20 + 48);
+    *(a1 + 8) = v17;
+    v18 = type metadata accessor for FileImportOperation(0);
+    v19 = v18[5];
+    v20 = type metadata accessor for URL();
+    v21 = *(v20 - 8);
+    v22 = *(v21 + 48);
 
-    if (v21(a2 + v18, 1, v19))
+    if (v22(a2 + v19, 1, v20))
     {
-      type metadata accessor for URL?();
-      memcpy((a1 + v18), (a2 + v18), *(*(v22 - 8) + 64));
+      type metadata accessor for URL?(0);
+      memcpy((a1 + v19), (a2 + v19), *(*(v23 - 8) + 64));
     }
 
     else
     {
-      (*(v20 + 16))(a1 + v18, a2 + v18, v19);
-      (*(v20 + 56))(a1 + v18, 0, 1, v19);
+      (*(v21 + 16))(a1 + v19, a2 + v19, v20);
+      (*(v21 + 56))(a1 + v19, 0, 1, v20);
     }
 
-    v31 = v17[6];
-    v32 = a1 + v31;
-    v33 = a2 + v31;
-    if (*(a2 + v31 + 24))
+    v32 = v18[6];
+    v33 = a1 + v32;
+    v34 = a2 + v32;
+    if (*(a2 + v32 + 24))
     {
-      v34 = *v33;
-      v35 = *(v33 + 8);
-      v36 = *(v33 + 16);
-      outlined copy of Text.Storage(*v33, v35, v36);
-      *v32 = v34;
-      *(v32 + 8) = v35;
-      *(v32 + 16) = v36;
-      *(v32 + 24) = *(v33 + 24);
+      v35 = *v34;
+      v36 = *(v34 + 8);
+      v37 = *(v34 + 16);
+      outlined copy of Text.Storage(*v34, v36, v37);
+      *v33 = v35;
+      *(v33 + 8) = v36;
+      *(v33 + 16) = v37;
+      *(v33 + 24) = *(v34 + 24);
     }
 
     else
     {
-      v37 = *(v33 + 16);
-      *v32 = *v33;
-      *(v32 + 16) = v37;
+      v38 = *(v34 + 16);
+      *v33 = *v34;
+      *(v33 + 16) = v38;
     }
 
-    v38 = v17[7];
-    v39 = a1 + v38;
-    v40 = a2 + v38;
-    if (*(a2 + v38 + 24))
+    v39 = v18[7];
+    v40 = a1 + v39;
+    v41 = a2 + v39;
+    if (*(a2 + v39 + 24))
     {
-      v41 = *v40;
-      v42 = *(v40 + 8);
-      v43 = *(v40 + 16);
-      outlined copy of Text.Storage(*v40, v42, v43);
-      *v39 = v41;
-      *(v39 + 8) = v42;
-      *(v39 + 16) = v43;
-      *(v39 + 24) = *(v40 + 24);
+      v42 = *v41;
+      v43 = *(v41 + 8);
+      v44 = *(v41 + 16);
+      outlined copy of Text.Storage(*v41, v43, v44);
+      *v40 = v42;
+      *(v40 + 8) = v43;
+      *(v40 + 16) = v44;
+      *(v40 + 24) = *(v41 + 24);
     }
 
     else
     {
-      v44 = *(v40 + 16);
-      *v39 = *v40;
-      *(v39 + 16) = v44;
+      v45 = *(v41 + 16);
+      *v40 = *v41;
+      *(v40 + 16) = v45;
     }
 
-    v45 = v17[8];
-    v46 = a1 + v45;
-    v47 = a2 + v45;
-    if (*(a2 + v45 + 24))
+    v46 = v18[8];
+    v47 = a1 + v46;
+    v48 = a2 + v46;
+    if (*(a2 + v46 + 24))
     {
-      v48 = *v47;
-      v49 = *(v47 + 8);
-      v50 = *(v47 + 16);
-      outlined copy of Text.Storage(*v47, v49, v50);
-      *v46 = v48;
-      *(v46 + 8) = v49;
-      *(v46 + 16) = v50;
-      *(v46 + 24) = *(v47 + 24);
+      v49 = *v48;
+      v50 = *(v48 + 8);
+      v51 = *(v48 + 16);
+      outlined copy of Text.Storage(*v48, v50, v51);
+      *v47 = v49;
+      *(v47 + 8) = v50;
+      *(v47 + 16) = v51;
+      *(v47 + 24) = *(v48 + 24);
     }
 
     else
     {
-      v51 = *(v47 + 16);
-      *v46 = *v47;
-      *(v46 + 16) = v51;
+      v52 = *(v48 + 16);
+      *v47 = *v48;
+      *(v47 + 16) = v52;
     }
 
-    *(a1 + v17[9]) = *(a2 + v17[9]);
-    *(a1 + v17[10]) = *(a2 + v17[10]);
-    v52 = v17[11];
-    type metadata accessor for Predicate<Pack{URL}>();
-    v54 = v53;
-    v55 = *(v53 - 8);
-    v56 = *(v55 + 48);
+    *(a1 + v18[9]) = *(a2 + v18[9]);
+    *(a1 + v18[10]) = *(a2 + v18[10]);
+    v53 = v18[11];
+    type metadata accessor for Predicate<Pack{URL}>(0);
+    v55 = v54;
+    v56 = *(v54 - 8);
+    v57 = *(v56 + 48);
 
-    if (v56(a2 + v52, 1, v54))
+    if (v57(a2 + v53, 1, v55))
     {
       _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-      memcpy((a1 + v52), (a2 + v52), *(*(v57 - 8) + 64));
+      memcpy((a1 + v53), (a2 + v53), *(*(v58 - 8) + 64));
     }
 
     else
     {
-      (*(v55 + 16))(a1 + v52, a2 + v52, v54);
-      (*(v55 + 56))(a1 + v52, 0, 1, v54);
+      (*(v56 + 16))(a1 + v53, a2 + v53, v55);
+      (*(v56 + 56))(a1 + v53, 0, 1, v55);
     }
 
-    *(a1 + v17[12]) = *(a2 + v17[12]);
-    v58 = v17[13];
-    v59 = a1 + v58;
-    v60 = a2 + v58;
-    *v59 = *v60;
-    *(v59 + 8) = *(v60 + 8);
-    v61 = v17[14];
-    v62 = (a1 + v61);
-    v63 = (a2 + v61);
-    v64 = v63[1];
-    *v62 = *v63;
-    v62[1] = v64;
-    v65 = v17[15];
-    v66 = (a1 + v65);
-    v67 = (a2 + v65);
-    v68 = v67[1];
-    *v66 = *v67;
-    v66[1] = v68;
+    *(a1 + v18[12]) = *(a2 + v18[12]);
+    v59 = v18[13];
+    v60 = a1 + v59;
+    v61 = a2 + v59;
+    *v60 = *v61;
+    *(v60 + 8) = *(v61 + 8);
+    v62 = v18[14];
+    v63 = (a1 + v62);
+    v64 = (a2 + v62);
+    v65 = v64[1];
+    *v63 = *v64;
+    v63[1] = v65;
+    v66 = v18[15];
+    v67 = (a1 + v66);
+    v68 = (a2 + v66);
+    v69 = v68[1];
+    *v67 = *v68;
+    v67[1] = v69;
   }
 
   swift_storeEnumTagMultiPayload();
   return a1;
 }
 
-uint64_t assignWithCopy for FileImportExportBridge.Presentation(uint64_t a1, uint64_t *a2)
+uint64_t assignWithCopy for FileImportExportBridge.Presentation(uint64_t a1, char *a2, uint64_t a3)
 {
   if (a1 != a2)
   {
@@ -6789,130 +6523,130 @@ uint64_t assignWithCopy for FileImportExportBridge.Presentation(uint64_t a1, uin
     if (swift_getEnumCaseMultiPayload() != 1)
     {
       *a1 = *a2;
-      *(a1 + 8) = a2[1];
-      v15 = type metadata accessor for FileImportOperation(0);
-      v16 = v15[5];
-      v17 = type metadata accessor for URL();
-      v18 = *(v17 - 8);
-      v19 = *(v18 + 48);
+      *(a1 + 8) = *(a2 + 1);
+      v16 = type metadata accessor for FileImportOperation(0);
+      v17 = v16[5];
+      v18 = type metadata accessor for URL();
+      v19 = *(v18 - 8);
+      v20 = *(v19 + 48);
 
-      if (v19(a2 + v16, 1, v17))
+      if (v20(&a2[v17], 1, v18))
       {
-        type metadata accessor for URL?();
-        memcpy((a1 + v16), a2 + v16, *(*(v20 - 8) + 64));
+        type metadata accessor for URL?(0);
+        memcpy((a1 + v17), &a2[v17], *(*(v21 - 8) + 64));
       }
 
       else
       {
-        (*(v18 + 16))(a1 + v16, a2 + v16, v17);
-        (*(v18 + 56))(a1 + v16, 0, 1, v17);
+        (*(v19 + 16))(a1 + v17, &a2[v17], v18);
+        (*(v19 + 56))(a1 + v17, 0, 1, v18);
       }
 
-      v29 = v15[6];
-      v30 = a1 + v29;
-      v31 = a2 + v29;
-      if (*(a2 + v29 + 24))
+      v30 = v16[6];
+      v31 = a1 + v30;
+      v32 = &a2[v30];
+      if (*&a2[v30 + 24])
       {
-        v32 = *v31;
-        v33 = *(v31 + 8);
-        v34 = *(v31 + 16);
-        outlined copy of Text.Storage(*v31, v33, v34);
-        *v30 = v32;
-        *(v30 + 8) = v33;
-        *(v30 + 16) = v34;
-        *(v30 + 24) = *(v31 + 24);
+        v33 = *v32;
+        v34 = *(v32 + 1);
+        v35 = v32[16];
+        outlined copy of Text.Storage(*v32, v34, v35);
+        *v31 = v33;
+        *(v31 + 8) = v34;
+        *(v31 + 16) = v35;
+        *(v31 + 24) = *(v32 + 3);
       }
 
       else
       {
-        v35 = *(v31 + 16);
-        *v30 = *v31;
-        *(v30 + 16) = v35;
+        v36 = *(v32 + 1);
+        *v31 = *v32;
+        *(v31 + 16) = v36;
       }
 
-      v36 = v15[7];
-      v37 = a1 + v36;
-      v38 = a2 + v36;
-      if (*(a2 + v36 + 24))
+      v37 = v16[7];
+      v38 = a1 + v37;
+      v39 = &a2[v37];
+      if (*&a2[v37 + 24])
       {
-        v39 = *v38;
-        v40 = *(v38 + 8);
-        v41 = *(v38 + 16);
-        outlined copy of Text.Storage(*v38, v40, v41);
-        *v37 = v39;
-        *(v37 + 8) = v40;
-        *(v37 + 16) = v41;
-        *(v37 + 24) = *(v38 + 24);
+        v40 = *v39;
+        v41 = *(v39 + 1);
+        v42 = v39[16];
+        outlined copy of Text.Storage(*v39, v41, v42);
+        *v38 = v40;
+        *(v38 + 8) = v41;
+        *(v38 + 16) = v42;
+        *(v38 + 24) = *(v39 + 3);
       }
 
       else
       {
-        v42 = *(v38 + 16);
-        *v37 = *v38;
-        *(v37 + 16) = v42;
+        v43 = *(v39 + 1);
+        *v38 = *v39;
+        *(v38 + 16) = v43;
       }
 
-      v43 = v15[8];
-      v44 = a1 + v43;
-      v45 = a2 + v43;
-      if (*(a2 + v43 + 24))
+      v44 = v16[8];
+      v45 = a1 + v44;
+      v46 = &a2[v44];
+      if (*&a2[v44 + 24])
       {
-        v46 = *v45;
-        v47 = *(v45 + 8);
-        v48 = *(v45 + 16);
-        outlined copy of Text.Storage(*v45, v47, v48);
-        *v44 = v46;
-        *(v44 + 8) = v47;
-        *(v44 + 16) = v48;
-        *(v44 + 24) = *(v45 + 24);
+        v47 = *v46;
+        v48 = *(v46 + 1);
+        v49 = v46[16];
+        outlined copy of Text.Storage(*v46, v48, v49);
+        *v45 = v47;
+        *(v45 + 8) = v48;
+        *(v45 + 16) = v49;
+        *(v45 + 24) = *(v46 + 3);
       }
 
       else
       {
-        v49 = *(v45 + 16);
-        *v44 = *v45;
-        *(v44 + 16) = v49;
+        v50 = *(v46 + 1);
+        *v45 = *v46;
+        *(v45 + 16) = v50;
       }
 
-      *(a1 + v15[9]) = *(a2 + v15[9]);
-      *(a1 + v15[10]) = *(a2 + v15[10]);
-      v50 = v15[11];
-      type metadata accessor for Predicate<Pack{URL}>();
-      v52 = v51;
-      v53 = *(v51 - 8);
-      v54 = *(v53 + 48);
+      *(a1 + v16[9]) = *&a2[v16[9]];
+      *(a1 + v16[10]) = a2[v16[10]];
+      v51 = v16[11];
+      type metadata accessor for Predicate<Pack{URL}>(0);
+      v53 = v52;
+      v54 = *(v52 - 8);
+      v55 = *(v54 + 48);
 
-      if (v54(a2 + v50, 1, v52))
+      if (v55(&a2[v51], 1, v53))
       {
         _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-        memcpy((a1 + v50), a2 + v50, *(*(v55 - 8) + 64));
+        memcpy((a1 + v51), &a2[v51], *(*(v56 - 8) + 64));
       }
 
       else
       {
-        (*(v53 + 16))(a1 + v50, a2 + v50, v52);
-        (*(v53 + 56))(a1 + v50, 0, 1, v52);
+        (*(v54 + 16))(a1 + v51, &a2[v51], v53);
+        (*(v54 + 56))(a1 + v51, 0, 1, v53);
       }
 
-      *(a1 + v15[12]) = *(a2 + v15[12]);
-      v56 = v15[13];
-      v57 = a1 + v56;
-      v58 = (a2 + v56);
-      v59 = *v58;
-      *(v57 + 8) = *(v58 + 8);
-      *v57 = v59;
-      v60 = v15[14];
-      v61 = (a1 + v60);
-      v62 = (a2 + v60);
-      v63 = v62[1];
-      *v61 = *v62;
-      v61[1] = v63;
-      v64 = v15[15];
-      v65 = (a1 + v64);
-      v66 = (a2 + v64);
-      v67 = v66[1];
-      *v65 = *v66;
-      v65[1] = v67;
+      *(a1 + v16[12]) = a2[v16[12]];
+      v57 = v16[13];
+      v58 = a1 + v57;
+      v59 = &a2[v57];
+      v60 = *v59;
+      *(v58 + 8) = v59[8];
+      *v58 = v60;
+      v61 = v16[14];
+      v62 = (a1 + v61);
+      v63 = &a2[v61];
+      v64 = *(v63 + 1);
+      *v62 = *v63;
+      v62[1] = v64;
+      v65 = v16[15];
+      v66 = (a1 + v65);
+      v67 = &a2[v65];
+      v68 = *(v67 + 1);
+      *v66 = *v67;
+      v66[1] = v68;
 
       goto LABEL_44;
     }
@@ -6923,42 +6657,42 @@ uint64_t assignWithCopy for FileImportExportBridge.Presentation(uint64_t a1, uin
     {
       if (EnumCaseMultiPayload == 2)
       {
-        v21 = *a2;
-        v22 = a2[1];
-        v23 = a2[2];
-        v24 = a2[3];
-        v25 = a2[4];
-        v26 = *(a2 + 40);
-        outlined copy of FileExportOperation.Storage(*a2, v22, v23, v24, v25, v26);
-        *a1 = v21;
-        *(a1 + 8) = v22;
-        *(a1 + 16) = v23;
-        *(a1 + 24) = v24;
-        *(a1 + 32) = v25;
-        *(a1 + 40) = v26;
-        *(a1 + 48) = a2[6];
-        *(a1 + 56) = a2[7];
-        *(a1 + 64) = a2[8];
-        v27 = a2[10];
-        *(a1 + 72) = a2[9];
-        *(a1 + 80) = v27;
-        v28 = a2[12];
-        *(a1 + 88) = a2[11];
-        *(a1 + 96) = v28;
+        v22 = *a2;
+        v23 = *(a2 + 1);
+        v24 = *(a2 + 2);
+        v25 = *(a2 + 3);
+        v26 = *(a2 + 4);
+        v27 = a2[40];
+        outlined copy of FileExportOperation.Storage(*a2, v23, v24, v25, v26, v27);
+        *a1 = v22;
+        *(a1 + 8) = v23;
+        *(a1 + 16) = v24;
+        *(a1 + 24) = v25;
+        *(a1 + 32) = v26;
+        *(a1 + 40) = v27;
+        *(a1 + 48) = *(a2 + 6);
+        *(a1 + 56) = *(a2 + 7);
+        *(a1 + 64) = *(a2 + 8);
+        v28 = *(a2 + 10);
+        *(a1 + 72) = *(a2 + 9);
+        *(a1 + 80) = v28;
+        v29 = *(a2 + 12);
+        *(a1 + 88) = *(a2 + 11);
+        *(a1 + 96) = v29;
       }
 
       else
       {
-        v70 = *(a2 + 8);
+        v71 = a2[8];
         *a1 = *a2;
-        *(a1 + 8) = v70;
-        *(a1 + 16) = a2[2];
-        v71 = a2[4];
-        *(a1 + 24) = a2[3];
-        *(a1 + 32) = v71;
-        v72 = a2[6];
-        *(a1 + 40) = a2[5];
-        *(a1 + 48) = v72;
+        *(a1 + 8) = v71;
+        *(a1 + 16) = *(a2 + 2);
+        v72 = *(a2 + 4);
+        *(a1 + 24) = *(a2 + 3);
+        *(a1 + 32) = v72;
+        v73 = *(a2 + 6);
+        *(a1 + 40) = *(a2 + 5);
+        *(a1 + 48) = v73;
       }
     }
 
@@ -6966,148 +6700,148 @@ uint64_t assignWithCopy for FileImportExportBridge.Presentation(uint64_t a1, uin
     {
       if (!EnumCaseMultiPayload)
       {
-        v5 = type metadata accessor for URL();
-        (*(*(v5 - 8) + 16))(a1, a2, v5);
-        v6 = type metadata accessor for FileExportOperation.Move(0);
-        v7 = *(v6 + 20);
-        v8 = (a1 + v7);
-        v9 = (a2 + v7);
-        v10 = v9[1];
-        *v8 = *v9;
-        v8[1] = v10;
-        v11 = *(v6 + 24);
-        v12 = (a1 + v11);
-        v13 = (a2 + v11);
-        v14 = v13[1];
-        *v12 = *v13;
-        v12[1] = v14;
+        v6 = type metadata accessor for URL();
+        (*(*(v6 - 8) + 16))(a1, a2, v6);
+        v7 = type metadata accessor for FileExportOperation.Move(0);
+        v8 = *(v7 + 20);
+        v9 = (a1 + v8);
+        v10 = &a2[v8];
+        v11 = *(v10 + 1);
+        *v9 = *v10;
+        v9[1] = v11;
+        v12 = *(v7 + 24);
+        v13 = (a1 + v12);
+        v14 = &a2[v12];
+        v15 = *(v14 + 1);
+        *v13 = *v14;
+        v13[1] = v15;
 LABEL_28:
 
         swift_storeEnumTagMultiPayload();
-        v73 = type metadata accessor for FileExportOperation(0);
-        v74 = v73[5];
-        v75 = (a1 + v74);
-        v76 = (a2 + v74);
-        *v75 = *v76;
-        v75[1] = v76[1];
-        v77 = v73[6];
-        v78 = type metadata accessor for URL();
-        v79 = *(v78 - 8);
-        v80 = *(v79 + 48);
+        v74 = type metadata accessor for FileExportOperation(0);
+        v75 = v74[5];
+        v76 = (a1 + v75);
+        v77 = &a2[v75];
+        *v76 = *v77;
+        v76[1] = *(v77 + 1);
+        v78 = v74[6];
+        v79 = type metadata accessor for URL();
+        v80 = *(v79 - 8);
+        v81 = *(v80 + 48);
 
-        if (v80(a2 + v77, 1, v78))
+        if (v81(&a2[v78], 1, v79))
         {
-          type metadata accessor for URL?();
-          memcpy((a1 + v77), a2 + v77, *(*(v81 - 8) + 64));
+          type metadata accessor for URL?(0);
+          memcpy((a1 + v78), &a2[v78], *(*(v82 - 8) + 64));
         }
 
         else
         {
-          (*(v79 + 16))(a1 + v77, a2 + v77, v78);
-          (*(v79 + 56))(a1 + v77, 0, 1, v78);
+          (*(v80 + 16))(a1 + v78, &a2[v78], v79);
+          (*(v80 + 56))(a1 + v78, 0, 1, v79);
         }
 
-        v82 = v73[7];
-        v83 = a1 + v82;
-        v84 = a2 + v82;
-        if (*(a2 + v82 + 24))
+        v83 = v74[7];
+        v84 = a1 + v83;
+        v85 = &a2[v83];
+        if (*&a2[v83 + 24])
         {
-          v85 = *v84;
-          v86 = *(v84 + 8);
-          v87 = *(v84 + 16);
-          outlined copy of Text.Storage(*v84, v86, v87);
-          *v83 = v85;
-          *(v83 + 8) = v86;
-          *(v83 + 16) = v87;
-          *(v83 + 24) = *(v84 + 24);
+          v86 = *v85;
+          v87 = *(v85 + 1);
+          v88 = v85[16];
+          outlined copy of Text.Storage(*v85, v87, v88);
+          *v84 = v86;
+          *(v84 + 8) = v87;
+          *(v84 + 16) = v88;
+          *(v84 + 24) = *(v85 + 3);
         }
 
         else
         {
-          v88 = *(v84 + 16);
-          *v83 = *v84;
-          *(v83 + 16) = v88;
+          v89 = *(v85 + 1);
+          *v84 = *v85;
+          *(v84 + 16) = v89;
         }
 
-        v89 = v73[8];
-        v90 = a1 + v89;
-        v91 = a2 + v89;
-        if (*(a2 + v89 + 24))
+        v90 = v74[8];
+        v91 = a1 + v90;
+        v92 = &a2[v90];
+        if (*&a2[v90 + 24])
         {
-          v92 = *v91;
-          v93 = *(v91 + 8);
-          v94 = *(v91 + 16);
-          outlined copy of Text.Storage(*v91, v93, v94);
-          *v90 = v92;
-          *(v90 + 8) = v93;
-          *(v90 + 16) = v94;
-          *(v90 + 24) = *(v91 + 24);
+          v93 = *v92;
+          v94 = *(v92 + 1);
+          v95 = v92[16];
+          outlined copy of Text.Storage(*v92, v94, v95);
+          *v91 = v93;
+          *(v91 + 8) = v94;
+          *(v91 + 16) = v95;
+          *(v91 + 24) = *(v92 + 3);
         }
 
         else
         {
-          v95 = *(v91 + 16);
-          *v90 = *v91;
-          *(v90 + 16) = v95;
+          v96 = *(v92 + 1);
+          *v91 = *v92;
+          *(v91 + 16) = v96;
         }
 
-        v96 = v73[9];
-        v97 = a1 + v96;
-        v98 = a2 + v96;
-        if (*(a2 + v96 + 24))
+        v97 = v74[9];
+        v98 = a1 + v97;
+        v99 = &a2[v97];
+        if (*&a2[v97 + 24])
         {
-          v99 = *v98;
-          v100 = *(v98 + 8);
-          v101 = *(v98 + 16);
-          outlined copy of Text.Storage(*v98, v100, v101);
-          *v97 = v99;
-          *(v97 + 8) = v100;
-          *(v97 + 16) = v101;
-          *(v97 + 24) = *(v98 + 24);
+          v100 = *v99;
+          v101 = *(v99 + 1);
+          v102 = v99[16];
+          outlined copy of Text.Storage(*v99, v101, v102);
+          *v98 = v100;
+          *(v98 + 8) = v101;
+          *(v98 + 16) = v102;
+          *(v98 + 24) = *(v99 + 3);
         }
 
         else
         {
-          v102 = *(v98 + 16);
-          *v97 = *v98;
-          *(v97 + 16) = v102;
+          v103 = *(v99 + 1);
+          *v98 = *v99;
+          *(v98 + 16) = v103;
         }
 
-        v103 = v73[10];
-        type metadata accessor for Predicate<Pack{URL}>();
-        v105 = v104;
-        v106 = *(v104 - 8);
-        if ((*(v106 + 48))(a2 + v103, 1, v104))
+        v104 = v74[10];
+        type metadata accessor for Predicate<Pack{URL}>(0);
+        v106 = v105;
+        v107 = *(v105 - 8);
+        if ((*(v107 + 48))(&a2[v104], 1, v105))
         {
           _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-          memcpy((a1 + v103), a2 + v103, *(*(v107 - 8) + 64));
+          memcpy((a1 + v104), &a2[v104], *(*(v108 - 8) + 64));
         }
 
         else
         {
-          (*(v106 + 16))(a1 + v103, a2 + v103, v105);
-          (*(v106 + 56))(a1 + v103, 0, 1, v105);
+          (*(v107 + 16))(a1 + v104, &a2[v104], v106);
+          (*(v107 + 56))(a1 + v104, 0, 1, v106);
         }
 
-        *(a1 + v73[11]) = *(a2 + v73[11]);
-        v108 = v73[12];
-        v109 = a1 + v108;
-        v110 = (a2 + v108);
-        v111 = *v110;
-        *(v109 + 8) = *(v110 + 8);
-        *v109 = v111;
+        *(a1 + v74[11]) = a2[v74[11]];
+        v109 = v74[12];
+        v110 = a1 + v109;
+        v111 = &a2[v109];
+        v112 = *v111;
+        *(v110 + 8) = v111[8];
+        *v110 = v112;
 LABEL_44:
         swift_storeEnumTagMultiPayload();
         return a1;
       }
 
       *a1 = *a2;
-      v68 = a2[2];
-      *(a1 + 8) = a2[1];
-      *(a1 + 16) = v68;
-      v69 = a2[4];
-      *(a1 + 24) = a2[3];
-      *(a1 + 32) = v69;
+      v69 = *(a2 + 2);
+      *(a1 + 8) = *(a2 + 1);
+      *(a1 + 16) = v69;
+      v70 = *(a2 + 4);
+      *(a1 + 24) = *(a2 + 3);
+      *(a1 + 32) = v70;
     }
 
     goto LABEL_28;
@@ -7116,299 +6850,299 @@ LABEL_44:
   return a1;
 }
 
-_OWORD *initializeWithTake for FileImportExportBridge.Presentation(_OWORD *a1, _OWORD *a2)
+_OWORD *initializeWithTake for FileImportExportBridge.Presentation(_OWORD *a1, _OWORD *a2, uint64_t a3)
 {
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v4 = type metadata accessor for FileExportOperation.Mode(0);
+    v5 = type metadata accessor for FileExportOperation.Mode(0);
     if (swift_getEnumCaseMultiPayload())
     {
-      memcpy(a1, a2, *(*(v4 - 8) + 64));
+      memcpy(a1, a2, *(*(v5 - 8) + 64));
     }
 
     else
     {
-      v10 = type metadata accessor for URL();
-      (*(*(v10 - 8) + 32))(a1, a2, v10);
-      v11 = type metadata accessor for FileExportOperation.Move(0);
-      *(a1 + *(v11 + 20)) = *(a2 + *(v11 + 20));
-      *(a1 + *(v11 + 24)) = *(a2 + *(v11 + 24));
+      v11 = type metadata accessor for URL();
+      (*(*(v11 - 8) + 32))(a1, a2, v11);
+      v12 = type metadata accessor for FileExportOperation.Move(0);
+      *(a1 + *(v12 + 20)) = *(a2 + *(v12 + 20));
+      *(a1 + *(v12 + 24)) = *(a2 + *(v12 + 24));
       swift_storeEnumTagMultiPayload();
     }
 
-    v12 = type metadata accessor for FileExportOperation(0);
-    *(a1 + v12[5]) = *(a2 + v12[5]);
-    v13 = v12[6];
-    v14 = type metadata accessor for URL();
-    v15 = *(v14 - 8);
-    if ((*(v15 + 48))(a2 + v13, 1, v14))
+    v13 = type metadata accessor for FileExportOperation(0);
+    *(a1 + v13[5]) = *(a2 + v13[5]);
+    v14 = v13[6];
+    v15 = type metadata accessor for URL();
+    v16 = *(v15 - 8);
+    if ((*(v16 + 48))(a2 + v14, 1, v15))
     {
-      type metadata accessor for URL?();
-      memcpy(a1 + v13, a2 + v13, *(*(v16 - 8) + 64));
+      type metadata accessor for URL?(0);
+      memcpy(a1 + v14, a2 + v14, *(*(v17 - 8) + 64));
     }
 
     else
     {
-      (*(v15 + 32))(a1 + v13, a2 + v13, v14);
-      (*(v15 + 56))(a1 + v13, 0, 1, v14);
+      (*(v16 + 32))(a1 + v14, a2 + v14, v15);
+      (*(v16 + 56))(a1 + v14, 0, 1, v15);
     }
 
-    v34 = v12[7];
-    v35 = (a1 + v34);
-    v36 = (a2 + v34);
-    v37 = v36[1];
-    *v35 = *v36;
-    v35[1] = v37;
-    v38 = v12[8];
-    v39 = (a1 + v38);
-    v40 = (a2 + v38);
-    v41 = v40[1];
-    *v39 = *v40;
-    v39[1] = v41;
-    v42 = v12[9];
-    v43 = (a1 + v42);
-    v44 = (a2 + v42);
-    v45 = v44[1];
-    *v43 = *v44;
-    v43[1] = v45;
-    v46 = v12[10];
-    type metadata accessor for Predicate<Pack{URL}>();
-    v48 = v47;
-    v49 = *(v47 - 8);
-    if ((*(v49 + 48))(a2 + v46, 1, v47))
+    v35 = v13[7];
+    v36 = (a1 + v35);
+    v37 = (a2 + v35);
+    v38 = v37[1];
+    *v36 = *v37;
+    v36[1] = v38;
+    v39 = v13[8];
+    v40 = (a1 + v39);
+    v41 = (a2 + v39);
+    v42 = v41[1];
+    *v40 = *v41;
+    v40[1] = v42;
+    v43 = v13[9];
+    v44 = (a1 + v43);
+    v45 = (a2 + v43);
+    v46 = v45[1];
+    *v44 = *v45;
+    v44[1] = v46;
+    v47 = v13[10];
+    type metadata accessor for Predicate<Pack{URL}>(0);
+    v49 = v48;
+    v50 = *(v48 - 8);
+    if ((*(v50 + 48))(a2 + v47, 1, v48))
     {
       _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-      memcpy(a1 + v46, a2 + v46, *(*(v50 - 8) + 64));
+      memcpy(a1 + v47, a2 + v47, *(*(v51 - 8) + 64));
     }
 
     else
     {
-      (*(v49 + 32))(a1 + v46, a2 + v46, v48);
-      (*(v49 + 56))(a1 + v46, 0, 1, v48);
+      (*(v50 + 32))(a1 + v47, a2 + v47, v49);
+      (*(v50 + 56))(a1 + v47, 0, 1, v49);
     }
 
-    *(a1 + v12[11]) = *(a2 + v12[11]);
-    v54 = v12[12];
-    v55 = a1 + v54;
-    v56 = a2 + v54;
-    *v55 = *v56;
-    v55[8] = v56[8];
+    *(a1 + v13[11]) = *(a2 + v13[11]);
+    v55 = v13[12];
+    v56 = a1 + v55;
+    v57 = a2 + v55;
+    *v56 = *v57;
+    v56[8] = v57[8];
   }
 
   else
   {
     *a1 = *a2;
-    v5 = type metadata accessor for FileImportOperation(0);
-    v6 = v5[5];
-    v7 = type metadata accessor for URL();
-    v8 = *(v7 - 8);
-    if ((*(v8 + 48))(a2 + v6, 1, v7))
+    v6 = type metadata accessor for FileImportOperation(0);
+    v7 = v6[5];
+    v8 = type metadata accessor for URL();
+    v9 = *(v8 - 8);
+    if ((*(v9 + 48))(a2 + v7, 1, v8))
     {
-      type metadata accessor for URL?();
-      memcpy(a1 + v6, a2 + v6, *(*(v9 - 8) + 64));
+      type metadata accessor for URL?(0);
+      memcpy(a1 + v7, a2 + v7, *(*(v10 - 8) + 64));
     }
 
     else
     {
-      (*(v8 + 32))(a1 + v6, a2 + v6, v7);
-      (*(v8 + 56))(a1 + v6, 0, 1, v7);
+      (*(v9 + 32))(a1 + v7, a2 + v7, v8);
+      (*(v9 + 56))(a1 + v7, 0, 1, v8);
     }
 
-    v17 = v5[6];
-    v18 = (a1 + v17);
-    v19 = (a2 + v17);
-    v20 = v19[1];
-    *v18 = *v19;
-    v18[1] = v20;
-    v21 = v5[7];
-    v22 = (a1 + v21);
-    v23 = (a2 + v21);
-    v24 = v23[1];
-    *v22 = *v23;
-    v22[1] = v24;
-    v25 = v5[8];
-    v26 = (a1 + v25);
-    v27 = (a2 + v25);
-    v28 = v27[1];
-    *v26 = *v27;
-    v26[1] = v28;
-    *(a1 + v5[9]) = *(a2 + v5[9]);
-    *(a1 + v5[10]) = *(a2 + v5[10]);
-    v29 = v5[11];
-    type metadata accessor for Predicate<Pack{URL}>();
-    v31 = v30;
-    v32 = *(v30 - 8);
-    if ((*(v32 + 48))(a2 + v29, 1, v30))
+    v18 = v6[6];
+    v19 = (a1 + v18);
+    v20 = (a2 + v18);
+    v21 = v20[1];
+    *v19 = *v20;
+    v19[1] = v21;
+    v22 = v6[7];
+    v23 = (a1 + v22);
+    v24 = (a2 + v22);
+    v25 = v24[1];
+    *v23 = *v24;
+    v23[1] = v25;
+    v26 = v6[8];
+    v27 = (a1 + v26);
+    v28 = (a2 + v26);
+    v29 = v28[1];
+    *v27 = *v28;
+    v27[1] = v29;
+    *(a1 + v6[9]) = *(a2 + v6[9]);
+    *(a1 + v6[10]) = *(a2 + v6[10]);
+    v30 = v6[11];
+    type metadata accessor for Predicate<Pack{URL}>(0);
+    v32 = v31;
+    v33 = *(v31 - 8);
+    if ((*(v33 + 48))(a2 + v30, 1, v31))
     {
       _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-      memcpy(a1 + v29, a2 + v29, *(*(v33 - 8) + 64));
+      memcpy(a1 + v30, a2 + v30, *(*(v34 - 8) + 64));
     }
 
     else
     {
-      (*(v32 + 32))(a1 + v29, a2 + v29, v31);
-      (*(v32 + 56))(a1 + v29, 0, 1, v31);
+      (*(v33 + 32))(a1 + v30, a2 + v30, v32);
+      (*(v33 + 56))(a1 + v30, 0, 1, v32);
     }
 
-    *(a1 + v5[12]) = *(a2 + v5[12]);
-    v51 = v5[13];
-    v52 = a1 + v51;
-    v53 = a2 + v51;
-    *v52 = *v53;
-    v52[8] = v53[8];
-    *(a1 + v5[14]) = *(a2 + v5[14]);
-    *(a1 + v5[15]) = *(a2 + v5[15]);
+    *(a1 + v6[12]) = *(a2 + v6[12]);
+    v52 = v6[13];
+    v53 = a1 + v52;
+    v54 = a2 + v52;
+    *v53 = *v54;
+    v53[8] = v54[8];
+    *(a1 + v6[14]) = *(a2 + v6[14]);
+    *(a1 + v6[15]) = *(a2 + v6[15]);
   }
 
   swift_storeEnumTagMultiPayload();
   return a1;
 }
 
-_OWORD *assignWithTake for FileImportExportBridge.Presentation(_OWORD *a1, _OWORD *a2)
+_OWORD *assignWithTake for FileImportExportBridge.Presentation(_OWORD *a1, _OWORD *a2, uint64_t a3)
 {
   if (a1 != a2)
   {
     outlined destroy of FileImportExportBridge.Presentation(a1, type metadata accessor for FileImportExportBridge.Presentation);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v4 = type metadata accessor for FileExportOperation.Mode(0);
+      v5 = type metadata accessor for FileExportOperation.Mode(0);
       if (swift_getEnumCaseMultiPayload())
       {
-        memcpy(a1, a2, *(*(v4 - 8) + 64));
+        memcpy(a1, a2, *(*(v5 - 8) + 64));
       }
 
       else
       {
-        v10 = type metadata accessor for URL();
-        (*(*(v10 - 8) + 32))(a1, a2, v10);
-        v11 = type metadata accessor for FileExportOperation.Move(0);
-        *(a1 + *(v11 + 20)) = *(a2 + *(v11 + 20));
-        *(a1 + *(v11 + 24)) = *(a2 + *(v11 + 24));
+        v11 = type metadata accessor for URL();
+        (*(*(v11 - 8) + 32))(a1, a2, v11);
+        v12 = type metadata accessor for FileExportOperation.Move(0);
+        *(a1 + *(v12 + 20)) = *(a2 + *(v12 + 20));
+        *(a1 + *(v12 + 24)) = *(a2 + *(v12 + 24));
         swift_storeEnumTagMultiPayload();
       }
 
-      v12 = type metadata accessor for FileExportOperation(0);
-      *(a1 + v12[5]) = *(a2 + v12[5]);
-      v13 = v12[6];
-      v14 = type metadata accessor for URL();
-      v15 = *(v14 - 8);
-      if ((*(v15 + 48))(a2 + v13, 1, v14))
+      v13 = type metadata accessor for FileExportOperation(0);
+      *(a1 + v13[5]) = *(a2 + v13[5]);
+      v14 = v13[6];
+      v15 = type metadata accessor for URL();
+      v16 = *(v15 - 8);
+      if ((*(v16 + 48))(a2 + v14, 1, v15))
       {
-        type metadata accessor for URL?();
-        memcpy(a1 + v13, a2 + v13, *(*(v16 - 8) + 64));
+        type metadata accessor for URL?(0);
+        memcpy(a1 + v14, a2 + v14, *(*(v17 - 8) + 64));
       }
 
       else
       {
-        (*(v15 + 32))(a1 + v13, a2 + v13, v14);
-        (*(v15 + 56))(a1 + v13, 0, 1, v14);
+        (*(v16 + 32))(a1 + v14, a2 + v14, v15);
+        (*(v16 + 56))(a1 + v14, 0, 1, v15);
       }
 
-      v34 = v12[7];
-      v35 = (a1 + v34);
-      v36 = (a2 + v34);
-      v37 = v36[1];
-      *v35 = *v36;
-      v35[1] = v37;
-      v38 = v12[8];
-      v39 = (a1 + v38);
-      v40 = (a2 + v38);
-      v41 = v40[1];
-      *v39 = *v40;
-      v39[1] = v41;
-      v42 = v12[9];
-      v43 = (a1 + v42);
-      v44 = (a2 + v42);
-      v45 = v44[1];
-      *v43 = *v44;
-      v43[1] = v45;
-      v46 = v12[10];
-      type metadata accessor for Predicate<Pack{URL}>();
-      v48 = v47;
-      v49 = *(v47 - 8);
-      if ((*(v49 + 48))(a2 + v46, 1, v47))
+      v35 = v13[7];
+      v36 = (a1 + v35);
+      v37 = (a2 + v35);
+      v38 = v37[1];
+      *v36 = *v37;
+      v36[1] = v38;
+      v39 = v13[8];
+      v40 = (a1 + v39);
+      v41 = (a2 + v39);
+      v42 = v41[1];
+      *v40 = *v41;
+      v40[1] = v42;
+      v43 = v13[9];
+      v44 = (a1 + v43);
+      v45 = (a2 + v43);
+      v46 = v45[1];
+      *v44 = *v45;
+      v44[1] = v46;
+      v47 = v13[10];
+      type metadata accessor for Predicate<Pack{URL}>(0);
+      v49 = v48;
+      v50 = *(v48 - 8);
+      if ((*(v50 + 48))(a2 + v47, 1, v48))
       {
         _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-        memcpy(a1 + v46, a2 + v46, *(*(v50 - 8) + 64));
+        memcpy(a1 + v47, a2 + v47, *(*(v51 - 8) + 64));
       }
 
       else
       {
-        (*(v49 + 32))(a1 + v46, a2 + v46, v48);
-        (*(v49 + 56))(a1 + v46, 0, 1, v48);
+        (*(v50 + 32))(a1 + v47, a2 + v47, v49);
+        (*(v50 + 56))(a1 + v47, 0, 1, v49);
       }
 
-      *(a1 + v12[11]) = *(a2 + v12[11]);
-      v54 = v12[12];
-      v55 = a1 + v54;
-      v56 = a2 + v54;
-      *v55 = *v56;
-      v55[8] = v56[8];
+      *(a1 + v13[11]) = *(a2 + v13[11]);
+      v55 = v13[12];
+      v56 = a1 + v55;
+      v57 = a2 + v55;
+      *v56 = *v57;
+      v56[8] = v57[8];
     }
 
     else
     {
       *a1 = *a2;
-      v5 = type metadata accessor for FileImportOperation(0);
-      v6 = v5[5];
-      v7 = type metadata accessor for URL();
-      v8 = *(v7 - 8);
-      if ((*(v8 + 48))(a2 + v6, 1, v7))
+      v6 = type metadata accessor for FileImportOperation(0);
+      v7 = v6[5];
+      v8 = type metadata accessor for URL();
+      v9 = *(v8 - 8);
+      if ((*(v9 + 48))(a2 + v7, 1, v8))
       {
-        type metadata accessor for URL?();
-        memcpy(a1 + v6, a2 + v6, *(*(v9 - 8) + 64));
+        type metadata accessor for URL?(0);
+        memcpy(a1 + v7, a2 + v7, *(*(v10 - 8) + 64));
       }
 
       else
       {
-        (*(v8 + 32))(a1 + v6, a2 + v6, v7);
-        (*(v8 + 56))(a1 + v6, 0, 1, v7);
+        (*(v9 + 32))(a1 + v7, a2 + v7, v8);
+        (*(v9 + 56))(a1 + v7, 0, 1, v8);
       }
 
-      v17 = v5[6];
-      v18 = (a1 + v17);
-      v19 = (a2 + v17);
-      v20 = v19[1];
-      *v18 = *v19;
-      v18[1] = v20;
-      v21 = v5[7];
-      v22 = (a1 + v21);
-      v23 = (a2 + v21);
-      v24 = v23[1];
-      *v22 = *v23;
-      v22[1] = v24;
-      v25 = v5[8];
-      v26 = (a1 + v25);
-      v27 = (a2 + v25);
-      v28 = v27[1];
-      *v26 = *v27;
-      v26[1] = v28;
-      *(a1 + v5[9]) = *(a2 + v5[9]);
-      *(a1 + v5[10]) = *(a2 + v5[10]);
-      v29 = v5[11];
-      type metadata accessor for Predicate<Pack{URL}>();
-      v31 = v30;
-      v32 = *(v30 - 8);
-      if ((*(v32 + 48))(a2 + v29, 1, v30))
+      v18 = v6[6];
+      v19 = (a1 + v18);
+      v20 = (a2 + v18);
+      v21 = v20[1];
+      *v19 = *v20;
+      v19[1] = v21;
+      v22 = v6[7];
+      v23 = (a1 + v22);
+      v24 = (a2 + v22);
+      v25 = v24[1];
+      *v23 = *v24;
+      v23[1] = v25;
+      v26 = v6[8];
+      v27 = (a1 + v26);
+      v28 = (a2 + v26);
+      v29 = v28[1];
+      *v27 = *v28;
+      v27[1] = v29;
+      *(a1 + v6[9]) = *(a2 + v6[9]);
+      *(a1 + v6[10]) = *(a2 + v6[10]);
+      v30 = v6[11];
+      type metadata accessor for Predicate<Pack{URL}>(0);
+      v32 = v31;
+      v33 = *(v31 - 8);
+      if ((*(v33 + 48))(a2 + v30, 1, v31))
       {
         _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-        memcpy(a1 + v29, a2 + v29, *(*(v33 - 8) + 64));
+        memcpy(a1 + v30, a2 + v30, *(*(v34 - 8) + 64));
       }
 
       else
       {
-        (*(v32 + 32))(a1 + v29, a2 + v29, v31);
-        (*(v32 + 56))(a1 + v29, 0, 1, v31);
+        (*(v33 + 32))(a1 + v30, a2 + v30, v32);
+        (*(v33 + 56))(a1 + v30, 0, 1, v32);
       }
 
-      *(a1 + v5[12]) = *(a2 + v5[12]);
-      v51 = v5[13];
-      v52 = a1 + v51;
-      v53 = a2 + v51;
-      *v52 = *v53;
-      v52[8] = v53[8];
-      *(a1 + v5[14]) = *(a2 + v5[14]);
-      *(a1 + v5[15]) = *(a2 + v5[15]);
+      *(a1 + v6[12]) = *(a2 + v6[12]);
+      v52 = v6[13];
+      v53 = a1 + v52;
+      v54 = a2 + v52;
+      *v53 = *v54;
+      v53[8] = v54[8];
+      *(a1 + v6[14]) = *(a2 + v6[14]);
+      *(a1 + v6[15]) = *(a2 + v6[15]);
     }
 
     swift_storeEnumTagMultiPayload();
@@ -7554,7 +7288,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for FileImportExportBridge.Presentati
 
       if (v174(a2 + v171, 1, v172))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v171, (a2 + v171), *(*(v175 - 8) + 64));
       }
 
@@ -7631,7 +7365,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for FileImportExportBridge.Presentati
       }
 
       v159 = v128[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v161 = v197;
       v162 = *(v197 - 8);
       if (!(*(v162 + 48))(a2 + v159, 1, v197))
@@ -7653,7 +7387,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for FileImportExportBridge.Presentati
 
     if (v45(a2 + v42, 1, v43))
     {
-      type metadata accessor for URL?();
+      type metadata accessor for URL?(0);
       memcpy(a1 + v42, (a2 + v42), *(*(v46 - 8) + 64));
     }
 
@@ -7732,7 +7466,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for FileImportExportBridge.Presentati
     *(a1 + v35[9]) = *(a2 + v35[9]);
     *(a1 + v35[10]) = *(a2 + v35[10]);
     v84 = v35[11];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v86 = v110;
     v87 = *(v110 - 8);
     v111 = *(v87 + 48);
@@ -7866,7 +7600,7 @@ LABEL_55:
 
       if (v136(a2 + v133, 1, v134))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v133, (a2 + v133), *(*(v137 - 8) + 64));
       }
 
@@ -7943,7 +7677,7 @@ LABEL_55:
       }
 
       v159 = v128[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v161 = v160;
       v162 = *(v160 - 8);
       if (!(*(v162 + 48))(a2 + v159, 1, v160))
@@ -7978,7 +7712,7 @@ LABEL_86:
 
     if (v39(a2 + v36, 1, v37))
     {
-      type metadata accessor for URL?();
+      type metadata accessor for URL?(0);
       memcpy(a1 + v36, (a2 + v36), *(*(v40 - 8) + 64));
     }
 
@@ -8057,7 +7791,7 @@ LABEL_86:
     *(a1 + v35[9]) = *(a2 + v35[9]);
     *(a1 + v35[10]) = *(a2 + v35[10]);
     v84 = v35[11];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v86 = v85;
     v87 = *(v85 - 8);
     v88 = *(v87 + 48);
@@ -8075,88 +7809,87 @@ LABEL_86:
   return memcpy(a1, a2, v32);
 }
 
-uint64_t destroy for FileImportExportBridge.PresentationState.UpdateEffect(uint64_t a1)
+void destroy for FileImportExportBridge.PresentationState.UpdateEffect(uint64_t a1, uint64_t a2)
 {
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 1)
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload == 1)
   {
     type metadata accessor for FileImportExportBridge.Presentation(0);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       type metadata accessor for FileExportOperation.Mode(0);
-      EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-      if (EnumCaseMultiPayload <= 1)
+      v4 = swift_getEnumCaseMultiPayload();
+      if (v4 <= 1)
       {
-        if (EnumCaseMultiPayload)
+        if (v4)
         {
 LABEL_6:
-          if (EnumCaseMultiPayload == 1)
+          if (v4 == 1)
           {
 
 LABEL_29:
           }
 
 LABEL_30:
-          v16 = type metadata accessor for FileExportOperation(0);
+          v17 = type metadata accessor for FileExportOperation(0);
 
-          v17 = v16[6];
-          v18 = type metadata accessor for URL();
-          v19 = *(v18 - 8);
-          if (!(*(v19 + 48))(a1 + v17, 1, v18))
+          v18 = v17[6];
+          v19 = type metadata accessor for URL();
+          v20 = *(v19 - 8);
+          if (!(*(v20 + 48))(a1 + v18, 1, v19))
           {
-            (*(v19 + 8))(a1 + v17, v18);
+            (*(v20 + 8))(a1 + v18, v19);
           }
 
-          v20 = a1 + v16[7];
-          if (*(v20 + 24))
-          {
-            outlined consume of Text.Storage(*v20, *(v20 + 8), *(v20 + 16));
-          }
-
-          v21 = a1 + v16[8];
+          v21 = a1 + v17[7];
           if (*(v21 + 24))
           {
             outlined consume of Text.Storage(*v21, *(v21 + 8), *(v21 + 16));
           }
 
-          v22 = a1 + v16[9];
+          v22 = a1 + v17[8];
           if (*(v22 + 24))
           {
             outlined consume of Text.Storage(*v22, *(v22 + 8), *(v22 + 16));
           }
 
-          v23 = v16[10];
-          type metadata accessor for Predicate<Pack{URL}>();
-          v25 = v24;
-          v27 = *(v24 - 8);
-          result = (*(v27 + 48))(a1 + v23, 1, v24);
-          if (!result)
+          v23 = a1 + v17[9];
+          if (*(v23 + 24))
           {
-            v26 = *(v27 + 8);
-
-            return v26(a1 + v23, v25);
+            outlined consume of Text.Storage(*v23, *(v23 + 8), *(v23 + 16));
           }
 
-          return result;
+          v24 = v17[10];
+          type metadata accessor for Predicate<Pack{URL}>(0);
+          v26 = v25;
+          v28 = *(v25 - 8);
+          if (!(*(v28 + 48))(a1 + v24, 1, v25))
+          {
+            v27 = *(v28 + 8);
+
+            v27(a1 + v24, v26);
+          }
+
+          return;
         }
 
 LABEL_11:
-        v4 = type metadata accessor for URL();
-        (*(*(v4 - 8) + 8))(a1, v4);
+        v5 = type metadata accessor for URL();
+        (*(*(v5 - 8) + 8))(a1, v5);
         type metadata accessor for FileExportOperation.Move(0);
 
         goto LABEL_29;
       }
 
 LABEL_25:
-      if (EnumCaseMultiPayload == 2)
+      if (v4 == 2)
       {
         outlined consume of FileExportOperation.Storage(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), *(a1 + 32), *(a1 + 40));
 
         goto LABEL_29;
       }
 
-      if (EnumCaseMultiPayload == 3)
+      if (v4 == 3)
       {
 
         goto LABEL_29;
@@ -8168,19 +7901,19 @@ LABEL_25:
 
   else
   {
-    if (result)
+    if (EnumCaseMultiPayload)
     {
-      return result;
+      return;
     }
 
     type metadata accessor for FileImportExportBridge.Presentation(0);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       type metadata accessor for FileExportOperation.Mode(0);
-      EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-      if (EnumCaseMultiPayload <= 1)
+      v4 = swift_getEnumCaseMultiPayload();
+      if (v4 <= 1)
       {
-        if (EnumCaseMultiPayload)
+        if (v4)
         {
           goto LABEL_6;
         }
@@ -8192,44 +7925,44 @@ LABEL_25:
     }
   }
 
-  v5 = type metadata accessor for FileImportOperation(0);
-  v6 = v5[5];
-  v7 = type metadata accessor for URL();
-  v8 = *(v7 - 8);
-  if (!(*(v8 + 48))(a1 + v6, 1, v7))
+  v6 = type metadata accessor for FileImportOperation(0);
+  v7 = v6[5];
+  v8 = type metadata accessor for URL();
+  v9 = *(v8 - 8);
+  if (!(*(v9 + 48))(a1 + v7, 1, v8))
   {
-    (*(v8 + 8))(a1 + v6, v7);
+    (*(v9 + 8))(a1 + v7, v8);
   }
 
-  v9 = a1 + v5[6];
-  if (*(v9 + 24))
-  {
-    outlined consume of Text.Storage(*v9, *(v9 + 8), *(v9 + 16));
-  }
-
-  v10 = a1 + v5[7];
+  v10 = a1 + v6[6];
   if (*(v10 + 24))
   {
     outlined consume of Text.Storage(*v10, *(v10 + 8), *(v10 + 16));
   }
 
-  v11 = a1 + v5[8];
+  v11 = a1 + v6[7];
   if (*(v11 + 24))
   {
     outlined consume of Text.Storage(*v11, *(v11 + 8), *(v11 + 16));
   }
 
-  v12 = v5[11];
-  type metadata accessor for Predicate<Pack{URL}>();
-  v14 = v13;
-  v15 = *(v13 - 8);
-  if (!(*(v15 + 48))(a1 + v12, 1, v13))
+  v12 = a1 + v6[8];
+  if (*(v12 + 24))
   {
-    (*(v15 + 8))(a1 + v12, v14);
+    outlined consume of Text.Storage(*v12, *(v12 + 8), *(v12 + 16));
+  }
+
+  v13 = v6[11];
+  type metadata accessor for Predicate<Pack{URL}>(0);
+  v15 = v14;
+  v16 = *(v14 - 8);
+  if (!(*(v16 + 48))(a1 + v13, 1, v14))
+  {
+    (*(v16 + 8))(a1 + v13, v15);
   }
 }
 
-char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffect(char *a1, uint64_t *a2, uint64_t a3)
+uint64_t *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffect(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload == 1)
@@ -8237,9 +7970,9 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
     type metadata accessor for FileImportExportBridge.Presentation(0);
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      v39 = a2[1];
+      v39 = *(a2 + 8);
       *a1 = *a2;
-      *(a1 + 1) = v39;
+      a1[1] = v39;
       v40 = type metadata accessor for FileImportOperation(0);
       v41 = v40[5];
       v42 = type metadata accessor for URL();
@@ -8248,18 +7981,18 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
 
       if (v44(a2 + v41, 1, v42))
       {
-        type metadata accessor for URL?();
-        memcpy(&a1[v41], a2 + v41, *(*(v45 - 8) + 64));
+        type metadata accessor for URL?(0);
+        memcpy(a1 + v41, (a2 + v41), *(*(v45 - 8) + 64));
       }
 
       else
       {
-        (*(v43 + 16))(&a1[v41], a2 + v41, v42);
-        (*(v43 + 56))(&a1[v41], 0, 1, v42);
+        (*(v43 + 16))(a1 + v41, a2 + v41, v42);
+        (*(v43 + 56))(a1 + v41, 0, 1, v42);
       }
 
       v100 = v40[6];
-      v101 = &a1[v100];
+      v101 = a1 + v100;
       v102 = a2 + v100;
       if (*(a2 + v100 + 24))
       {
@@ -8281,7 +8014,7 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
       }
 
       v107 = v40[7];
-      v108 = &a1[v107];
+      v108 = a1 + v107;
       v109 = a2 + v107;
       if (*(a2 + v107 + 24))
       {
@@ -8303,7 +8036,7 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
       }
 
       v114 = v40[8];
-      v115 = &a1[v114];
+      v115 = a1 + v114;
       v116 = a2 + v114;
       if (*(a2 + v114 + 24))
       {
@@ -8324,10 +8057,10 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
         *(v115 + 1) = v120;
       }
 
-      *&a1[v40[9]] = *(a2 + v40[9]);
-      a1[v40[10]] = *(a2 + v40[10]);
+      *(a1 + v40[9]) = *(a2 + v40[9]);
+      *(a1 + v40[10]) = *(a2 + v40[10]);
       v121 = v40[11];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v123 = v122;
       v124 = *(v122 - 8);
       v125 = *(v124 + 48);
@@ -8335,33 +8068,33 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
       if (v125(a2 + v121, 1, v123))
       {
         _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-        memcpy(&a1[v121], a2 + v121, *(*(v126 - 8) + 64));
+        memcpy(a1 + v121, (a2 + v121), *(*(v126 - 8) + 64));
       }
 
       else
       {
-        (*(v124 + 16))(&a1[v121], a2 + v121, v123);
-        (*(v124 + 56))(&a1[v121], 0, 1, v123);
+        (*(v124 + 16))(a1 + v121, a2 + v121, v123);
+        (*(v124 + 56))(a1 + v121, 0, 1, v123);
       }
 
-      a1[v40[12]] = *(a2 + v40[12]);
+      *(a1 + v40[12]) = *(a2 + v40[12]);
       v127 = v40[13];
-      v128 = &a1[v127];
+      v128 = a1 + v127;
       v129 = a2 + v127;
       *v128 = *v129;
       v128[8] = *(v129 + 8);
       v130 = v40[14];
-      v131 = &a1[v130];
+      v131 = (a1 + v130);
       v132 = (a2 + v130);
       v133 = v132[1];
       *v131 = *v132;
-      *(v131 + 1) = v133;
+      v131[1] = v133;
       v134 = v40[15];
-      v135 = &a1[v134];
+      v135 = (a1 + v134);
       v136 = (a2 + v134);
       v137 = v136[1];
       *v135 = *v136;
-      *(v135 + 1) = v137;
+      v135[1] = v137;
 
       goto LABEL_88;
     }
@@ -8373,38 +8106,38 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
       if (v18 == 2)
       {
         v54 = *a2;
-        v55 = a2[1];
-        v56 = a2[2];
-        v57 = a2[3];
-        v58 = a2[4];
+        v55 = *(a2 + 8);
+        v56 = *(a2 + 16);
+        v57 = *(a2 + 24);
+        v58 = *(a2 + 32);
         v59 = *(a2 + 40);
         outlined copy of FileExportOperation.Storage(*a2, v55, v56, v57, v58, v59);
         *a1 = v54;
-        *(a1 + 1) = v55;
-        *(a1 + 2) = v56;
-        *(a1 + 3) = v57;
-        *(a1 + 4) = v58;
-        a1[40] = v59;
-        v60 = a2[7];
-        *(a1 + 6) = a2[6];
-        *(a1 + 7) = v60;
-        v61 = a2[12];
-        v220 = *(a2 + 5);
-        *(a1 + 4) = *(a2 + 4);
+        a1[1] = v55;
+        a1[2] = v56;
+        a1[3] = v57;
+        a1[4] = v58;
+        *(a1 + 40) = v59;
+        v60 = *(a2 + 56);
+        a1[6] = *(a2 + 48);
+        a1[7] = v60;
+        v61 = *(a2 + 96);
+        v220 = *(a2 + 80);
+        *(a1 + 4) = *(a2 + 64);
         *(a1 + 5) = v220;
-        *(a1 + 12) = v61;
+        a1[12] = v61;
       }
 
       else
       {
         v179 = *(a2 + 8);
         *a1 = *a2;
-        a1[8] = v179;
-        v180 = a2[6];
-        v221 = *(a2 + 2);
-        *(a1 + 1) = *(a2 + 1);
+        *(a1 + 8) = v179;
+        v180 = *(a2 + 48);
+        v221 = *(a2 + 32);
+        *(a1 + 1) = *(a2 + 16);
         *(a1 + 2) = v221;
-        *(a1 + 6) = v180;
+        a1[6] = v180;
       }
     }
 
@@ -8412,11 +8145,11 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
     {
       if (v18)
       {
-        v177 = a2[4];
-        v178 = *(a2 + 1);
+        v177 = *(a2 + 32);
+        v178 = *(a2 + 16);
         *a1 = *a2;
         *(a1 + 1) = v178;
-        *(a1 + 4) = v177;
+        a1[4] = v177;
       }
 
       else
@@ -8425,29 +8158,29 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
         (*(*(v19 - 8) + 16))(a1, a2, v19);
         v20 = type metadata accessor for FileExportOperation.Move(0);
         v21 = *(v20 + 20);
-        v22 = &a1[v21];
+        v22 = (a1 + v21);
         v23 = (a2 + v21);
         v25 = *v23;
         v24 = v23[1];
         *v22 = v25;
-        *(v22 + 1) = v24;
+        v22[1] = v24;
         v26 = *(v20 + 24);
-        v27 = &a1[v26];
+        v27 = (a1 + v26);
         v28 = (a2 + v26);
         v29 = v28[1];
         *v27 = *v28;
-        *(v27 + 1) = v29;
+        v27[1] = v29;
       }
     }
 
     swift_storeEnumTagMultiPayload();
     v142 = type metadata accessor for FileExportOperation(0);
     v181 = v142[5];
-    v182 = &a1[v181];
+    v182 = (a1 + v181);
     v183 = (a2 + v181);
     v184 = v183[1];
     *v182 = *v183;
-    *(v182 + 1) = v184;
+    v182[1] = v184;
     v185 = v142[6];
     v186 = type metadata accessor for URL();
     v187 = *(v186 - 8);
@@ -8455,18 +8188,18 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
 
     if (v188(a2 + v185, 1, v186))
     {
-      type metadata accessor for URL?();
-      memcpy(&a1[v185], a2 + v185, *(*(v189 - 8) + 64));
+      type metadata accessor for URL?(0);
+      memcpy(a1 + v185, (a2 + v185), *(*(v189 - 8) + 64));
     }
 
     else
     {
-      (*(v187 + 16))(&a1[v185], a2 + v185, v186);
-      (*(v187 + 56))(&a1[v185], 0, 1, v186);
+      (*(v187 + 16))(a1 + v185, a2 + v185, v186);
+      (*(v187 + 56))(a1 + v185, 0, 1, v186);
     }
 
     v190 = v142[7];
-    v191 = &a1[v190];
+    v191 = a1 + v190;
     v192 = a2 + v190;
     if (*(a2 + v190 + 24))
     {
@@ -8488,7 +8221,7 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
     }
 
     v197 = v142[8];
-    v198 = &a1[v197];
+    v198 = a1 + v197;
     v199 = a2 + v197;
     if (*(a2 + v197 + 24))
     {
@@ -8510,7 +8243,7 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
     }
 
     v204 = v142[9];
-    v205 = &a1[v204];
+    v205 = a1 + v204;
     v206 = a2 + v204;
     if (*(a2 + v204 + 24))
     {
@@ -8532,13 +8265,13 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
     }
 
     v173 = v142[10];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v212 = v211;
     v213 = *(v211 - 8);
     if (!(*(v213 + 48))(a2 + v173, 1, v211))
     {
-      (*(v213 + 16))(&a1[v173], a2 + v173, v212);
-      (*(v213 + 56))(&a1[v173], 0, 1, v212);
+      (*(v213 + 16))(a1 + v173, a2 + v173, v212);
+      (*(v213 + 56))(a1 + v173, 0, 1, v212);
       goto LABEL_87;
     }
 
@@ -8550,9 +8283,9 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
     type metadata accessor for FileImportExportBridge.Presentation(0);
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      v32 = a2[1];
+      v32 = *(a2 + 8);
       *a1 = *a2;
-      *(a1 + 1) = v32;
+      a1[1] = v32;
       v33 = type metadata accessor for FileImportOperation(0);
       v34 = v33[5];
       v35 = type metadata accessor for URL();
@@ -8561,18 +8294,18 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
 
       if (v37(a2 + v34, 1, v35))
       {
-        type metadata accessor for URL?();
-        memcpy(&a1[v34], a2 + v34, *(*(v38 - 8) + 64));
+        type metadata accessor for URL?(0);
+        memcpy(a1 + v34, (a2 + v34), *(*(v38 - 8) + 64));
       }
 
       else
       {
-        (*(v36 + 16))(&a1[v34], a2 + v34, v35);
-        (*(v36 + 56))(&a1[v34], 0, 1, v35);
+        (*(v36 + 16))(a1 + v34, a2 + v34, v35);
+        (*(v36 + 56))(a1 + v34, 0, 1, v35);
       }
 
       v62 = v33[6];
-      v63 = &a1[v62];
+      v63 = a1 + v62;
       v64 = a2 + v62;
       if (*(a2 + v62 + 24))
       {
@@ -8594,7 +8327,7 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
       }
 
       v69 = v33[7];
-      v70 = &a1[v69];
+      v70 = a1 + v69;
       v71 = a2 + v69;
       if (*(a2 + v69 + 24))
       {
@@ -8616,7 +8349,7 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
       }
 
       v76 = v33[8];
-      v77 = &a1[v76];
+      v77 = a1 + v76;
       v78 = a2 + v76;
       if (*(a2 + v76 + 24))
       {
@@ -8637,10 +8370,10 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
         *(v77 + 1) = v82;
       }
 
-      *&a1[v33[9]] = *(a2 + v33[9]);
-      a1[v33[10]] = *(a2 + v33[10]);
+      *(a1 + v33[9]) = *(a2 + v33[9]);
+      *(a1 + v33[10]) = *(a2 + v33[10]);
       v83 = v33[11];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v85 = v84;
       v86 = *(v84 - 8);
       v87 = *(v86 + 48);
@@ -8648,33 +8381,33 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
       if (v87(a2 + v83, 1, v85))
       {
         _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-        memcpy(&a1[v83], a2 + v83, *(*(v88 - 8) + 64));
+        memcpy(a1 + v83, (a2 + v83), *(*(v88 - 8) + 64));
       }
 
       else
       {
-        (*(v86 + 16))(&a1[v83], a2 + v83, v85);
-        (*(v86 + 56))(&a1[v83], 0, 1, v85);
+        (*(v86 + 16))(a1 + v83, a2 + v83, v85);
+        (*(v86 + 56))(a1 + v83, 0, 1, v85);
       }
 
-      a1[v33[12]] = *(a2 + v33[12]);
+      *(a1 + v33[12]) = *(a2 + v33[12]);
       v89 = v33[13];
-      v90 = &a1[v89];
+      v90 = a1 + v89;
       v91 = a2 + v89;
       *v90 = *v91;
       v90[8] = *(v91 + 8);
       v92 = v33[14];
-      v93 = &a1[v92];
+      v93 = (a1 + v92);
       v94 = (a2 + v92);
       v95 = v94[1];
       *v93 = *v94;
-      *(v93 + 1) = v95;
+      v93[1] = v95;
       v96 = v33[15];
-      v97 = &a1[v96];
+      v97 = (a1 + v96);
       v98 = (a2 + v96);
       v99 = v98[1];
       *v97 = *v98;
-      *(v97 + 1) = v99;
+      v97[1] = v99;
 
       goto LABEL_88;
     }
@@ -8686,38 +8419,38 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
       if (v7 == 2)
       {
         v46 = *a2;
-        v47 = a2[1];
-        v48 = a2[2];
-        v49 = a2[3];
-        v50 = a2[4];
+        v47 = *(a2 + 8);
+        v48 = *(a2 + 16);
+        v49 = *(a2 + 24);
+        v50 = *(a2 + 32);
         v51 = *(a2 + 40);
         outlined copy of FileExportOperation.Storage(*a2, v47, v48, v49, v50, v51);
         *a1 = v46;
-        *(a1 + 1) = v47;
-        *(a1 + 2) = v48;
-        *(a1 + 3) = v49;
-        *(a1 + 4) = v50;
-        a1[40] = v51;
-        v52 = a2[7];
-        *(a1 + 6) = a2[6];
-        *(a1 + 7) = v52;
-        v53 = a2[12];
-        v218 = *(a2 + 5);
-        *(a1 + 4) = *(a2 + 4);
+        a1[1] = v47;
+        a1[2] = v48;
+        a1[3] = v49;
+        a1[4] = v50;
+        *(a1 + 40) = v51;
+        v52 = *(a2 + 56);
+        a1[6] = *(a2 + 48);
+        a1[7] = v52;
+        v53 = *(a2 + 96);
+        v218 = *(a2 + 80);
+        *(a1 + 4) = *(a2 + 64);
         *(a1 + 5) = v218;
-        *(a1 + 12) = v53;
+        a1[12] = v53;
       }
 
       else
       {
         v140 = *(a2 + 8);
         *a1 = *a2;
-        a1[8] = v140;
-        v141 = a2[6];
-        v219 = *(a2 + 2);
-        *(a1 + 1) = *(a2 + 1);
+        *(a1 + 8) = v140;
+        v141 = *(a2 + 48);
+        v219 = *(a2 + 32);
+        *(a1 + 1) = *(a2 + 16);
         *(a1 + 2) = v219;
-        *(a1 + 6) = v141;
+        a1[6] = v141;
       }
     }
 
@@ -8729,25 +8462,25 @@ char *initializeWithCopy for FileImportExportBridge.PresentationState.UpdateEffe
         (*(*(v8 - 8) + 16))(a1, a2, v8);
         v9 = type metadata accessor for FileExportOperation.Move(0);
         v10 = *(v9 + 20);
-        v11 = &a1[v10];
+        v11 = (a1 + v10);
         v12 = (a2 + v10);
         v13 = v12[1];
         *v11 = *v12;
-        *(v11 + 1) = v13;
+        v11[1] = v13;
         v14 = *(v9 + 24);
-        v15 = &a1[v14];
+        v15 = (a1 + v14);
         v16 = (a2 + v14);
         v17 = v16[1];
         *v15 = *v16;
-        *(v15 + 1) = v17;
+        v15[1] = v17;
         goto LABEL_56;
       }
 
-      v138 = a2[4];
-      v139 = *(a2 + 1);
+      v138 = *(a2 + 32);
+      v139 = *(a2 + 16);
       *a1 = *a2;
       *(a1 + 1) = v139;
-      *(a1 + 4) = v138;
+      a1[4] = v138;
     }
 
 LABEL_56:
@@ -8755,11 +8488,11 @@ LABEL_56:
     swift_storeEnumTagMultiPayload();
     v142 = type metadata accessor for FileExportOperation(0);
     v143 = v142[5];
-    v144 = &a1[v143];
+    v144 = (a1 + v143);
     v145 = (a2 + v143);
     v146 = v145[1];
     *v144 = *v145;
-    *(v144 + 1) = v146;
+    v144[1] = v146;
     v147 = v142[6];
     v148 = type metadata accessor for URL();
     v149 = *(v148 - 8);
@@ -8767,18 +8500,18 @@ LABEL_56:
 
     if (v150(a2 + v147, 1, v148))
     {
-      type metadata accessor for URL?();
-      memcpy(&a1[v147], a2 + v147, *(*(v151 - 8) + 64));
+      type metadata accessor for URL?(0);
+      memcpy(a1 + v147, (a2 + v147), *(*(v151 - 8) + 64));
     }
 
     else
     {
-      (*(v149 + 16))(&a1[v147], a2 + v147, v148);
-      (*(v149 + 56))(&a1[v147], 0, 1, v148);
+      (*(v149 + 16))(a1 + v147, a2 + v147, v148);
+      (*(v149 + 56))(a1 + v147, 0, 1, v148);
     }
 
     v152 = v142[7];
-    v153 = &a1[v152];
+    v153 = a1 + v152;
     v154 = a2 + v152;
     if (*(a2 + v152 + 24))
     {
@@ -8800,7 +8533,7 @@ LABEL_56:
     }
 
     v159 = v142[8];
-    v160 = &a1[v159];
+    v160 = a1 + v159;
     v161 = a2 + v159;
     if (*(a2 + v159 + 24))
     {
@@ -8822,7 +8555,7 @@ LABEL_56:
     }
 
     v166 = v142[9];
-    v167 = &a1[v166];
+    v167 = a1 + v166;
     v168 = a2 + v166;
     if (*(a2 + v166 + 24))
     {
@@ -8844,17 +8577,17 @@ LABEL_56:
     }
 
     v173 = v142[10];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v175 = v174;
     v176 = *(v174 - 8);
     if (!(*(v176 + 48))(a2 + v173, 1, v174))
     {
-      (*(v176 + 16))(&a1[v173], a2 + v173, v175);
-      (*(v176 + 56))(&a1[v173], 0, 1, v175);
+      (*(v176 + 16))(a1 + v173, a2 + v173, v175);
+      (*(v176 + 56))(a1 + v173, 0, 1, v175);
 LABEL_87:
-      a1[v142[11]] = *(a2 + v142[11]);
+      *(a1 + v142[11]) = *(a2 + v142[11]);
       v215 = v142[12];
-      v216 = &a1[v215];
+      v216 = a1 + v215;
       v217 = a2 + v215;
       *v216 = *v217;
       v216[8] = *(v217 + 8);
@@ -8866,7 +8599,7 @@ LABEL_88:
 
 LABEL_85:
     _s10Foundation3URLVSgMaTm_4(0, &lazy cache variable for type metadata for Predicate<Pack{URL}>?, type metadata accessor for Predicate<Pack{URL}>, MEMORY[0x1E69E6720]);
-    memcpy(&a1[v173], a2 + v173, *(*(v214 - 8) + 64));
+    memcpy(a1 + v173, (a2 + v173), *(*(v214 - 8) + 64));
     goto LABEL_87;
   }
 
@@ -8899,7 +8632,7 @@ char *assignWithCopy for FileImportExportBridge.PresentationState.UpdateEffect(c
 
       if (v40(&a2[v37], 1, v38))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(&a1[v37], &a2[v37], *(*(v41 - 8) + 64));
       }
 
@@ -8978,7 +8711,7 @@ char *assignWithCopy for FileImportExportBridge.PresentationState.UpdateEffect(c
       *&a1[v31[9]] = *&a2[v31[9]];
       a1[v31[10]] = a2[v31[10]];
       v79 = v31[11];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v81 = v105;
       v82 = *(v105 - 8);
       v106 = *(v82 + 48);
@@ -9113,7 +8846,7 @@ LABEL_71:
 
     if (v170(&a2[v167], 1, v168))
     {
-      type metadata accessor for URL?();
+      type metadata accessor for URL?(0);
       memcpy(&a1[v167], &a2[v167], *(*(v171 - 8) + 64));
     }
 
@@ -9190,7 +8923,7 @@ LABEL_71:
     }
 
     v155 = v125[10];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v157 = v193;
     v158 = *(v193 - 8);
     if (!(*(v158 + 48))(&a2[v155], 1, v193))
@@ -9298,7 +9031,7 @@ LABEL_53:
 
       if (v132(&a2[v129], 1, v130))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(&a1[v129], &a2[v129], *(*(v133 - 8) + 64));
       }
 
@@ -9375,7 +9108,7 @@ LABEL_53:
       }
 
       v155 = v125[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v157 = v156;
       v158 = *(v156 - 8);
       if (!(*(v158 + 48))(&a2[v155], 1, v156))
@@ -9410,7 +9143,7 @@ LABEL_86:
 
     if (v35(&a2[v32], 1, v33))
     {
-      type metadata accessor for URL?();
+      type metadata accessor for URL?(0);
       memcpy(&a1[v32], &a2[v32], *(*(v36 - 8) + 64));
     }
 
@@ -9489,7 +9222,7 @@ LABEL_86:
     *&a1[v31[9]] = *&a2[v31[9]];
     a1[v31[10]] = a2[v31[10]];
     v79 = v31[11];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v81 = v80;
     v82 = *(v80 - 8);
     v83 = *(v82 + 48);
@@ -9538,7 +9271,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState.UpdateEf
       v63 = *(v62 - 8);
       if ((*(v63 + 48))(a2 + v61, 1, v62))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v61, a2 + v61, *(*(v64 - 8) + 64));
       }
 
@@ -9567,7 +9300,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState.UpdateEf
       *v88 = *v89;
       v88[1] = v90;
       v55 = v22[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v57 = v91;
       v58 = *(v91 - 8);
       if ((*(v58 + 48))(a2 + v55, 1, v91))
@@ -9585,7 +9318,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState.UpdateEf
     v18 = *(v17 - 8);
     if ((*(v18 + 48))(a2 + v16, 1, v17))
     {
-      type metadata accessor for URL?();
+      type metadata accessor for URL?(0);
       memcpy(a1 + v16, a2 + v16, *(*(v19 - 8) + 64));
     }
 
@@ -9616,7 +9349,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState.UpdateEf
     *(a1 + v11[9]) = *(a2 + v11[9]);
     *(a1 + v11[10]) = *(a2 + v11[10]);
     v39 = v11[11];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v41 = v77;
     v42 = *(v77 - 8);
     if ((*(v42 + 48))(a2 + v39, 1, v77))
@@ -9655,7 +9388,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState.UpdateEf
       v25 = *(v24 - 8);
       if ((*(v25 + 48))(a2 + v23, 1, v24))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v23, a2 + v23, *(*(v26 - 8) + 64));
       }
 
@@ -9684,7 +9417,7 @@ _OWORD *initializeWithTake for FileImportExportBridge.PresentationState.UpdateEf
       *v52 = *v53;
       v52[1] = v54;
       v55 = v22[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v57 = v56;
       v58 = *(v56 - 8);
       if ((*(v58 + 48))(a2 + v55, 1, v56))
@@ -9715,7 +9448,7 @@ LABEL_38:
     v14 = *(v13 - 8);
     if ((*(v14 + 48))(a2 + v12, 1, v13))
     {
-      type metadata accessor for URL?();
+      type metadata accessor for URL?(0);
       memcpy(a1 + v12, a2 + v12, *(*(v15 - 8) + 64));
     }
 
@@ -9746,7 +9479,7 @@ LABEL_38:
     *(a1 + v11[9]) = *(a2 + v11[9]);
     *(a1 + v11[10]) = *(a2 + v11[10]);
     v39 = v11[11];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v41 = v40;
     v42 = *(v40 - 8);
     if ((*(v42 + 48))(a2 + v39, 1, v40))
@@ -9817,7 +9550,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState.UpdateEffect
       v63 = *(v62 - 8);
       if ((*(v63 + 48))(a2 + v61, 1, v62))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v61, a2 + v61, *(*(v64 - 8) + 64));
       }
 
@@ -9846,7 +9579,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState.UpdateEffect
       *v88 = *v89;
       v88[1] = v90;
       v55 = v22[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v57 = v91;
       v58 = *(v91 - 8);
       if ((*(v58 + 48))(a2 + v55, 1, v91))
@@ -9864,7 +9597,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState.UpdateEffect
     v18 = *(v17 - 8);
     if ((*(v18 + 48))(a2 + v16, 1, v17))
     {
-      type metadata accessor for URL?();
+      type metadata accessor for URL?(0);
       memcpy(a1 + v16, a2 + v16, *(*(v19 - 8) + 64));
     }
 
@@ -9895,7 +9628,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState.UpdateEffect
     *(a1 + v11[9]) = *(a2 + v11[9]);
     *(a1 + v11[10]) = *(a2 + v11[10]);
     v39 = v11[11];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v41 = v77;
     v42 = *(v77 - 8);
     if ((*(v42 + 48))(a2 + v39, 1, v77))
@@ -9934,7 +9667,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState.UpdateEffect
       v25 = *(v24 - 8);
       if ((*(v25 + 48))(a2 + v23, 1, v24))
       {
-        type metadata accessor for URL?();
+        type metadata accessor for URL?(0);
         memcpy(a1 + v23, a2 + v23, *(*(v26 - 8) + 64));
       }
 
@@ -9963,7 +9696,7 @@ _OWORD *assignWithTake for FileImportExportBridge.PresentationState.UpdateEffect
       *v52 = *v53;
       v52[1] = v54;
       v55 = v22[10];
-      type metadata accessor for Predicate<Pack{URL}>();
+      type metadata accessor for Predicate<Pack{URL}>(0);
       v57 = v56;
       v58 = *(v56 - 8);
       if ((*(v58 + 48))(a2 + v55, 1, v56))
@@ -9994,7 +9727,7 @@ LABEL_39:
     v14 = *(v13 - 8);
     if ((*(v14 + 48))(a2 + v12, 1, v13))
     {
-      type metadata accessor for URL?();
+      type metadata accessor for URL?(0);
       memcpy(a1 + v12, a2 + v12, *(*(v15 - 8) + 64));
     }
 
@@ -10025,7 +9758,7 @@ LABEL_39:
     *(a1 + v11[9]) = *(a2 + v11[9]);
     *(a1 + v11[10]) = *(a2 + v11[10]);
     v39 = v11[11];
-    type metadata accessor for Predicate<Pack{URL}>();
+    type metadata accessor for Predicate<Pack{URL}>(0);
     v41 = v40;
     v42 = *(v40 - 8);
     if ((*(v42 + 48))(a2 + v39, 1, v40))
@@ -10057,4 +9790,16 @@ LABEL_37:
   v9 = *(*(a3 - 8) + 64);
 
   return memcpy(a1, a2, v9);
+}
+
+void ForEach.reuseID<A>(_:)(uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  (*(*(a2 - 8) + 16))(a3, v3, a2);
+  swift_getKeyPath();
+  type metadata accessor for KeyPath();
+  v6 = _AppendKeyPath.appending<A, B, C>(path:)();
+
+  v7 = *(a2 + 68);
+
+  *(a3 + v7) = v6;
 }

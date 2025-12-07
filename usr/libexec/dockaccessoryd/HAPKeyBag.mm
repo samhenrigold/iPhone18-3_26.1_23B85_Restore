@@ -62,7 +62,7 @@
     v14->_availableKeysToTry = v15;
 
     v17 = v14;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = sub_10007FAFC(v17);
@@ -108,7 +108,6 @@ LABEL_11:
   v7 = [(HAPKeyBag *)self _populateBagWithPairingIdentitiesForAccessory:accessoryIdentifier2 fromStore:keyStore2];
 
   os_unfair_lock_lock_with_options();
-  availableKeysToTry = self->_availableKeysToTry;
   if (HMFEqualObjects())
   {
     self->_currentIndexInBag = -1;
@@ -117,25 +116,25 @@ LABEL_11:
 
   else
   {
-    v9 = [v7 copy];
-    v10 = self->_availableKeysToTry;
-    self->_availableKeysToTry = v9;
+    v8 = [v7 copy];
+    availableKeysToTry = self->_availableKeysToTry;
+    self->_availableKeysToTry = v8;
 
     self->_currentIndexInBag = -1;
     os_unfair_lock_unlock(&self->_lock);
     selfCopy = self;
-    v12 = sub_10007FAA0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v11 = sub_10007FAA0(selfCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = sub_10007FAFC(selfCopy);
+      v12 = sub_10007FAFC(selfCopy);
       accessoryIdentifier3 = [(HAPKeyBag *)selfCopy accessoryIdentifier];
-      v15 = 138543874;
-      v16 = v13;
-      v17 = 2112;
-      v18 = accessoryIdentifier3;
-      v19 = 2112;
-      v20 = v7;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%{public}@Refreshed key bag for accessory [%@] with identities: [%@]", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v12;
+      v16 = 2112;
+      v17 = accessoryIdentifier3;
+      v18 = 2112;
+      v19 = v7;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%{public}@Refreshed key bag for accessory [%@] with identities: [%@]", &v14, 0x20u);
     }
   }
 }
@@ -170,7 +169,7 @@ LABEL_11:
   if ([v12 hmf_isEmpty])
   {
     selfCopy = self;
-    v16 = sub_10007FAA0();
+    v16 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = sub_10007FAFC(selfCopy);
@@ -228,7 +227,7 @@ LABEL_11:
     [(HAPKeyBag *)self setCurrentIndexInBag:[(HAPKeyBag *)self currentIndexInBag]+ 1];
     currentIdentity = [(HAPKeyBag *)self currentIdentity];
     selfCopy = self;
-    v5 = sub_10007FAA0();
+    v5 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = sub_10007FAFC(selfCopy);
@@ -263,7 +262,7 @@ LABEL_11:
     v4 = [availableKeysToTry objectAtIndex:{-[HAPKeyBag currentIndexInBag](self, "currentIndexInBag")}];
 
     selfCopy = self;
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = sub_10007FAFC(selfCopy);

@@ -3,13 +3,13 @@
 
 @implementation CalEventOccurrenceCacheCopyEventOccurrencesInDateRange
 
-CFTypeRef ___CalEventOccurrenceCacheCopyEventOccurrencesInDateRange_block_invoke(CFTypeRef result, CFTypeRef cf)
+void *___CalEventOccurrenceCacheCopyEventOccurrencesInDateRange_block_invoke(void *result, CFTypeRef cf)
 {
   if (cf)
   {
     v2 = result;
     result = CFRetain(cf);
-    *(*(*(v2 + 32) + 8) + 24) = result;
+    *(*(v2[4] + 8) + 24) = result;
   }
 
   return result;

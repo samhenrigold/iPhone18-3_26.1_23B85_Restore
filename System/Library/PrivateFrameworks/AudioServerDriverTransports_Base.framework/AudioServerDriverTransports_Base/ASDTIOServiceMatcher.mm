@@ -27,9 +27,9 @@
     v10 = delegateCopy ? v9 : 1;
     if ((v10 & 1) == 0)
     {
-      v27.receiver = self;
-      v27.super_class = ASDTIOServiceMatcher;
-      v13 = [(ASDTIOServiceMatcher *)&v27 init];
+      v30.receiver = self;
+      v30.super_class = ASDTIOServiceMatcher;
+      v13 = [(ASDTIOServiceMatcher *)&v30 init];
       selfCopy = v13;
       if (v13)
       {
@@ -47,10 +47,11 @@
 
         objc_storeWeak(&selfCopy->_delegate, delegateCopy);
         mainPort = 0;
-        if (MEMORY[0x245CEC490](*MEMORY[0x277D85F18], &mainPort))
+        v21 = MEMORY[0x245CEC490](*MEMORY[0x277D85F18], &mainPort);
+        if (v21)
         {
-          v21 = ASDTBaseLogType();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v23 = ASDTBaseLogType(v21, v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             [ASDTIOServiceMatcher initForIOServiceWithClassName:withDelegate:];
           }
@@ -63,12 +64,12 @@ LABEL_13:
           goto LABEL_19;
         }
 
-        v22 = IONotificationPortCreate(mainPort);
-        selfCopy->_notificationPort = v22;
-        if (!v22)
+        v24 = IONotificationPortCreate(mainPort);
+        selfCopy->_notificationPort = v24;
+        if (!v24)
         {
-          v21 = ASDTBaseLogType();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v23 = ASDTBaseLogType(0, v25);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             [ASDTIOServiceMatcher initForIOServiceWithClassName:withDelegate:];
           }
@@ -76,21 +77,21 @@ LABEL_13:
           goto LABEL_11;
         }
 
-        IONotificationPortSetDispatchQueue(v22, selfCopy->_matcherQueue);
+        IONotificationPortSetDispatchQueue(v24, selfCopy->_matcherQueue);
         if (objc_opt_respondsToSelector())
         {
-          v23 = [(ASDTIOServiceMatcher *)selfCopy addMatchingNotificationForType:"IOServiceWillTerminate" callback:ASDTIOSerivceWillTerminateHandler];
-          selfCopy->_willTerminateNotification = v23;
-          if (!v23)
+          v26 = [(ASDTIOServiceMatcher *)selfCopy addMatchingNotificationForType:"IOServiceWillTerminate" callback:ASDTIOSerivceWillTerminateHandler];
+          selfCopy->_willTerminateNotification = v26;
+          if (!v26)
           {
             goto LABEL_12;
           }
         }
 
-        v24 = [(ASDTIOServiceMatcher *)selfCopy addMatchingNotificationForType:"IOServiceFirstPublish" callback:ASDTIOServiceMatchingHandler];
-        selfCopy->_matchingNotification = v24;
+        v27 = [(ASDTIOServiceMatcher *)selfCopy addMatchingNotificationForType:"IOServiceFirstPublish" callback:ASDTIOServiceMatchingHandler];
+        selfCopy->_matchingNotification = v27;
 
-        if (!v24)
+        if (!v27)
         {
           goto LABEL_13;
         }
@@ -136,26 +137,27 @@ LABEL_19:
 
 - (unsigned)addMatchingNotificationForType:(char)type[128] callback:(void *)callback
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = IOServiceMatching([(ASDTIOServiceMatcher *)self ioServiceClassNameCStr]);
   notification = 0;
-  if (IOServiceAddMatchingNotification(self->_notificationPort, type, v7, callback, self, &notification))
+  v8 = IOServiceAddMatchingNotification(self->_notificationPort, type, v7, callback, self, &notification);
+  if (v8)
   {
-    v8 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v8 = notification == 0;
+    v10 = notification == 0;
   }
 
-  if (v8)
+  if (v10)
   {
-    v9 = ASDTBaseLogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = ASDTBaseLogType(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       ioServiceClassName = [(ASDTIOServiceMatcher *)self ioServiceClassName];
-      [(ASDTIOServiceMatcher *)ioServiceClassName addMatchingNotificationForType:type callback:buf, v9];
+      [(ASDTIOServiceMatcher *)ioServiceClassName addMatchingNotificationForType:type callback:buf, v11];
     }
 
     IONotificationPortDestroy(self->_notificationPort);
@@ -172,13 +174,12 @@ LABEL_19:
     block[3] = &unk_278CE6610;
     block[4] = self;
     block[5] = callback;
-    v15 = notification;
+    v16 = notification;
     dispatch_sync(matcherQueue, block);
 
-    result = notification;
+    return notification;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -191,20 +192,18 @@ LABEL_19:
 
 - (void)initForIOServiceWithClassName:withDelegate:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_12();
-  _os_log_error_impl(&dword_241659000, v0, OS_LOG_TYPE_ERROR, "%s.%@: IOMainPort failed.", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_241659000, v0, OS_LOG_TYPE_ERROR, "%s.%@: IOMainPort failed.", v1, 0x16u);
 }
 
 - (void)initForIOServiceWithClassName:withDelegate:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_12();
-  _os_log_error_impl(&dword_241659000, v0, OS_LOG_TYPE_ERROR, "%s.%@: IONotificationPortCreate failed.", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_241659000, v0, OS_LOG_TYPE_ERROR, "%s.%@: IONotificationPortCreate failed.", v1, 0x16u);
 }
 
 - (void)addMatchingNotificationForType:(uint8_t *)buf callback:(os_log_t)log .cold.1(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)

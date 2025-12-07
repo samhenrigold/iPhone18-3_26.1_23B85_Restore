@@ -41,7 +41,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_100002F18();
+  sub_100002F18(selfCopy);
 }
 
 - (void)performAuxillaryAction
@@ -51,10 +51,10 @@
   {
     v3 = *&self->headerLabel[OBJC_IVAR____TtC22GuestUserHandoverSetup29AppSelectionSectionHeaderView_action];
     selfCopy = self;
-    v5 = sub_100003918(v2);
+    v5 = sub_100003918(v2, v3);
     v2(v5);
 
-    sub_100003908(v2);
+    sub_100003908(v2, v3);
   }
 }
 

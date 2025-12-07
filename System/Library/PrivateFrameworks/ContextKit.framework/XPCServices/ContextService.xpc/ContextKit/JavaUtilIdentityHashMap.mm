@@ -55,7 +55,7 @@
 - (id)newElementArrayWithInt:(int)int
 {
   intCopy = int;
-  v4 = NSObject_class_();
+  v4 = NSObject_class_(self, a2);
 
   return [IOSObjectArray arrayWithLength:intCopy type:v4];
 }
@@ -245,41 +245,41 @@ LABEL_13:
     JreThrowNullPointerException();
   }
 
-  v10 = v8;
   v11 = v8;
+  v12 = v8;
   size = elementData->super.size_;
-  if ((v10 & 0x80000000) != 0 || v10 >= size)
+  if ((v11 & 0x80000000) != 0 || v11 >= size)
   {
-    IOSArray_throwOutOfBoundsWithMsg(size, v10);
+    IOSArray_throwOutOfBoundsWithMsg(size, v11);
   }
 
-  if ((&elementData->elementType_)[v11] == idCopy)
+  if ((&elementData->elementType_)[v12] == idCopy)
   {
-    v15 = (v10 + 1);
+    v16 = (v11 + 1);
   }
 
   else
   {
     ++self->modCount_;
-    v13 = self->size_ + 1;
-    self->size_ = v13;
-    if (v13 > self->threshold_)
+    v14 = self->size_ + 1;
+    self->size_ = v14;
+    if (v14 > self->threshold_)
     {
-      [JavaUtilIdentityHashMap rehash]_0(self);
-      v14 = sub_1002619CC(idCopy, self->elementData_);
-      v11 = v14;
-      LODWORD(v10) = v14;
+      [JavaUtilIdentityHashMap rehash]_0(self, v9);
+      v15 = sub_1002619CC(idCopy, self->elementData_);
+      v12 = v15;
+      LODWORD(v11) = v15;
     }
 
-    IOSObjectArray_Set(self->elementData_, v11, idCopy);
-    v15 = (v10 + 1);
-    IOSObjectArray_Set(self->elementData_, v15, 0);
+    IOSObjectArray_Set(self->elementData_, v12, idCopy);
+    v16 = (v11 + 1);
+    IOSObjectArray_Set(self->elementData_, v16, 0);
   }
 
-  v16 = self->elementData_;
-  if ((v15 & 0x80000000) != 0 || v15 >= v16->super.size_)
+  v17 = self->elementData_;
+  if ((v16 & 0x80000000) != 0 || v16 >= v17->super.size_)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v16->super.size_, v15);
+    IOSArray_throwOutOfBoundsWithMsg(v17->super.size_, v16);
   }
 
   if (withId)
@@ -292,86 +292,86 @@ LABEL_13:
     withIdCopy = v6;
   }
 
-  v18 = (&v16->elementType_)[v15];
-  IOSObjectArray_Set(self->elementData_, v15, withIdCopy);
-  if (qword_1005568B0 == v18)
+  v19 = (&v17->elementType_)[v16];
+  IOSObjectArray_Set(self->elementData_, v16, withIdCopy);
+  if (qword_1005568B0 == v19)
   {
     return 0;
   }
 
   else
   {
-    return v18;
+    return v19;
   }
 }
 
 - (id)rehash
 {
-  v1 = *(self + 24);
-  if (!v1)
+  v2 = *(self + 24);
+  if (!v2)
   {
     goto LABEL_18;
   }
 
-  v3 = 2 * *(v1 + 8);
-  if (v3 <= 1)
+  v4 = 2 * *(v2 + 8);
+  if (v4 <= 1)
   {
-    v3 = 1;
+    v4 = 1;
   }
 
-  v4 = [IOSObjectArray arrayWithLength:v3 type:NSObject_class_()];
-  v5 = *(self + 24);
-  v6 = *(v5 + 8);
-  if (v6 >= 1)
+  v5 = [IOSObjectArray arrayWithLength:v4 type:NSObject_class_(self, a2)];
+  v6 = *(self + 24);
+  v7 = *(v6 + 8);
+  if (v7 >= 1)
   {
-    v7 = 0;
+    v8 = 0;
     do
     {
-      v8 = v7;
-      if (v7 < 0)
+      v9 = v8;
+      if (v8 < 0)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v6, v7);
+        IOSArray_throwOutOfBoundsWithMsg(v7, v8);
       }
 
-      v9 = *(v5 + 24 + 8 * v7);
-      if (v9)
+      v10 = *(v6 + 24 + 8 * v8);
+      if (v10)
       {
-        v10 = sub_1002619CC(*(v5 + 24 + 8 * v7), v4);
-        if (!v4)
+        v11 = sub_1002619CC(*(v6 + 24 + 8 * v8), v5);
+        if (!v5)
         {
           goto LABEL_18;
         }
 
-        v11 = v10;
-        IOSObjectArray_Set(v4, v10, v9);
-        v12 = *(self + 24);
-        v13 = v8 + 1;
-        v14 = *(v12 + 8);
-        if (v8 < 0 || v13 >= v14)
+        v12 = v11;
+        IOSObjectArray_Set(v5, v11, v10);
+        v13 = *(self + 24);
+        v14 = v9 + 1;
+        v15 = *(v13 + 8);
+        if (v9 < 0 || v14 >= v15)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v14, v13);
+          IOSArray_throwOutOfBoundsWithMsg(v15, v14);
         }
 
-        IOSObjectArray_Set(v4, v11 + 1, *(v12 + 24 + 8 * (v8 + 1)));
+        IOSObjectArray_Set(v5, v12 + 1, *(v13 + 24 + 8 * (v9 + 1)));
       }
 
-      v7 = v8 + 2;
-      v5 = *(self + 24);
-      v6 = *(v5 + 8);
+      v8 = v9 + 2;
+      v6 = *(self + 24);
+      v7 = *(v6 + 8);
     }
 
-    while (v8 + 2 < v6);
+    while (v9 + 2 < v7);
   }
 
-  result = JreStrongAssign((self + 24), v4);
-  v16 = *(self + 24);
-  if (!v16)
+  result = JreStrongAssign((self + 24), v5);
+  v17 = *(self + 24);
+  if (!v17)
   {
 LABEL_18:
     JreThrowNullPointerException();
   }
 
-  *(self + 36) = 7500 * (*(v16 + 8) / 2) / 10000;
+  *(self + 36) = 7500 * (*(v17 + 8) / 2) / 10000;
   return result;
 }
 
@@ -405,88 +405,88 @@ LABEL_18:
     JreThrowNullPointerException();
   }
 
-  v7 = v5;
+  v8 = v5;
   size = elementData->super.size_;
-  if ((v7 & 0x80000000) != 0 || v7 >= size)
+  if ((v8 & 0x80000000) != 0 || v8 >= size)
   {
-    IOSArray_throwOutOfBoundsWithMsg(size, v7);
+    IOSArray_throwOutOfBoundsWithMsg(size, v8);
   }
 
-  if ((&elementData->elementType_)[v7] != idCopy)
+  if ((&elementData->elementType_)[v8] != idCopy)
   {
     return 0;
   }
 
-  v10 = self->elementData_;
-  v11 = v10->super.size_;
-  v12 = v7 + 1;
-  if (v7 + 1 < 0 || v12 >= v11)
+  v11 = self->elementData_;
+  v12 = v11->super.size_;
+  v13 = v8 + 1;
+  if (v8 + 1 < 0 || v13 >= v12)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v10->super.size_, v12);
+    IOSArray_throwOutOfBoundsWithMsg(v11->super.size_, v13);
   }
 
-  v13 = self->elementData_;
-  v25 = v10->buffer_[v7];
-  v14 = v10->super.size_;
-  v15 = v7;
+  v14 = self->elementData_;
+  v26 = v11->buffer_[v8];
+  v15 = v11->super.size_;
+  v16 = v8;
   while (1)
   {
-    v16 = v7 + 2;
-    LODWORD(v7) = (v7 + 2) % v11;
-    if ((v7 & 0x80000000) != 0 || v7 >= v14)
+    v17 = v8 + 2;
+    LODWORD(v8) = (v8 + 2) % v12;
+    if ((v8 & 0x80000000) != 0 || v8 >= v15)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v14, (v16 % v11));
+      IOSArray_throwOutOfBoundsWithMsg(v15, (v17 % v12));
     }
 
-    v17 = (&v13->elementType_)[v7];
-    if (!v17)
+    v18 = (&v14->elementType_)[v8];
+    if (!v18)
     {
       break;
     }
 
-    v18 = JavaUtilCollections_secondaryIdentityHashWithId_((&v13->elementType_)[v7]);
-    v19 = 2 * (v18 - (v18 & 0x7FFFFFFF) / (v11 / 2) * (v11 / 2));
-    if (v7 >= v15)
+    v19 = JavaUtilCollections_secondaryIdentityHashWithId_((&v14->elementType_)[v8], v6);
+    v20 = 2 * (v19 - (v19 & 0x7FFFFFFF) / (v12 / 2) * (v12 / 2));
+    if (v8 >= v16)
     {
-      if (v19 > v15 && v19 <= v7)
+      if (v20 > v16 && v20 <= v8)
       {
         goto LABEL_29;
       }
     }
 
-    else if (v19 > v15 || v19 <= v7)
+    else if (v20 > v16 || v20 <= v8)
     {
       goto LABEL_29;
     }
 
-    IOSObjectArray_Set(self->elementData_, v15, v17);
-    v22 = self->elementData_;
-    v23 = v22->super.size_;
-    v24 = v7 + 1;
-    if (v7 + 1 < 0 || v24 >= v23)
+    IOSObjectArray_Set(self->elementData_, v16, v18);
+    v23 = self->elementData_;
+    v24 = v23->super.size_;
+    v25 = v8 + 1;
+    if (v8 + 1 < 0 || v25 >= v24)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v23, v24);
+      IOSArray_throwOutOfBoundsWithMsg(v24, v25);
     }
 
-    IOSObjectArray_Set(self->elementData_, v15 + 1, v22->buffer_[v7]);
-    v15 = v7;
+    IOSObjectArray_Set(self->elementData_, v16 + 1, v23->buffer_[v8]);
+    v16 = v8;
 LABEL_29:
-    v13 = self->elementData_;
-    v14 = v13->super.size_;
+    v14 = self->elementData_;
+    v15 = v14->super.size_;
   }
 
   --self->size_;
   ++self->modCount_;
-  IOSObjectArray_Set(self->elementData_, v15, 0);
-  IOSObjectArray_Set(self->elementData_, v15 + 1, 0);
-  if (qword_1005568B0 == v25)
+  IOSObjectArray_Set(self->elementData_, v16, 0);
+  IOSObjectArray_Set(self->elementData_, v16 + 1, 0);
+  if (qword_1005568B0 == v26)
   {
     return 0;
   }
 
   else
   {
-    return v25;
+    return v26;
   }
 }
 
@@ -532,23 +532,23 @@ LABEL_29:
 
   else
   {
-    v5 = [JavaUtilMap_class_() isInstance:equal];
+    v5 = [JavaUtilMap_class_(self a2)];
     if (v5)
     {
-      v6 = JavaUtilMap_class_();
+      v7 = JavaUtilMap_class_(v5, v6);
       if (!equal)
       {
         [(JavaUtilIdentityHashMap *)self size];
         JreThrowNullPointerException();
       }
 
-      if (([v6 isInstance:equal] & 1) == 0)
+      if (([v7 isInstance:equal] & 1) == 0)
       {
         JreThrowClassCastException();
       }
 
-      v7 = [(JavaUtilIdentityHashMap *)self size];
-      if (v7 == [equal size])
+      v8 = [(JavaUtilIdentityHashMap *)self size];
+      if (v8 == [equal size])
       {
         entrySet = [(JavaUtilIdentityHashMap *)self entrySet];
         if (!entrySet)
@@ -556,10 +556,10 @@ LABEL_29:
           JreThrowNullPointerException();
         }
 
-        v9 = entrySet;
+        v10 = entrySet;
         entrySet2 = [equal entrySet];
 
-        LOBYTE(v5) = [v9 isEqual:entrySet2];
+        LOBYTE(v5) = [v10 isEqual:entrySet2];
       }
 
       else
@@ -574,28 +574,29 @@ LABEL_29:
 
 - (id)clone
 {
-  v8.receiver = self;
-  v8.super_class = JavaUtilIdentityHashMap;
-  clone = [(JavaUtilAbstractMap *)&v8 clone];
+  v10.receiver = self;
+  v10.super_class = JavaUtilIdentityHashMap;
+  clone = [(JavaUtilAbstractMap *)&v10 clone];
   objc_opt_class();
   if (!clone)
   {
     goto LABEL_6;
   }
 
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
   elementData = self->elementData_;
-  if (!elementData || (v5 = [IOSObjectArray arrayWithLength:elementData->super.size_ type:NSObject_class_()], JreStrongAssign(clone + 3, v5), (v6 = self->elementData_) == 0))
+  if (!elementData || (v7 = [IOSObjectArray arrayWithLength:elementData->super.size_ type:NSObject_class_(isKindOfClass, v5)], JreStrongAssign(clone + 3, v7), (v8 = self->elementData_) == 0))
   {
 LABEL_6:
     JreThrowNullPointerException();
   }
 
-  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v6, 0, clone[3], 0, v6->super.size_);
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v8, 0, clone[3], 0, v8->super.size_);
   return clone;
 }
 
@@ -660,18 +661,18 @@ LABEL_9:
   [stream defaultReadObject];
   readInt = [stream readInt];
   self->threshold_ = 21;
-  v6 = [IOSObjectArray arrayWithLength:56 type:NSObject_class_()];
-  JreStrongAssign(&self->elementData_, v6);
+  v7 = [IOSObjectArray arrayWithLength:56 type:NSObject_class_(readInt, v6)];
+  JreStrongAssign(&self->elementData_, v7);
   if (readInt - 1 >= 0)
   {
-    v7 = readInt;
+    v8 = readInt;
     do
     {
       -[JavaUtilIdentityHashMap putWithId:withId:](self, "putWithId:withId:", [stream readObject], objc_msgSend(stream, "readObject"));
-      --v7;
+      --v8;
     }
 
-    while (v7);
+    while (v8);
   }
 
   self->size_ = readInt;

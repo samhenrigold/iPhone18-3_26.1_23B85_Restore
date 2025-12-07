@@ -79,33 +79,31 @@ void __37__PTPassiveTraceConfig_sharedConfig___block_invoke()
 
   if (!sharedConfig__shared)
   {
-    v4 = _clientPassiveErrorHandle();
-    if (os_signpost_enabled(v4))
+    v5 = _clientPassiveErrorHandle(v4);
+    if (os_signpost_enabled(v5))
     {
-      v5 = [v2 localizedDescription];
-      v6 = v5;
-      v7 = @"Unknown";
-      if (v5)
+      v6 = [v2 localizedDescription];
+      v7 = v6;
+      v8 = @"Unknown";
+      if (v6)
       {
-        v7 = v5;
+        v8 = v6;
       }
 
       *buf = 138543362;
-      v11 = v7;
-      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToAllocateSharedInstance", "Encountered error: %{public}@", buf, 0xCu);
+      v11 = v8;
+      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToAllocateSharedInstance", "Encountered error: %{public}@", buf, 0xCu);
     }
 
     objc_storeStrong(&sharedConfig__allocError, v1);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)init:(id *)init
 {
-  v29.receiver = self;
-  v29.super_class = PTPassiveTraceConfig;
-  v4 = [(PTPassiveTraceConfig *)&v29 init];
+  v30.receiver = self;
+  v30.super_class = PTPassiveTraceConfig;
+  v4 = [(PTPassiveTraceConfig *)&v30 init];
   v5 = v4;
   if (!v4)
   {
@@ -124,12 +122,12 @@ void __37__PTPassiveTraceConfig_sharedConfig___block_invoke()
     if (init)
     {
       [MEMORY[0x277CCA9B8] passiveTraceError:4 description:@"Client process could not establish connection to the backing mach service"];
-      *init = v20 = 0;
+      *init = v21 = 0;
       goto LABEL_14;
     }
 
 LABEL_13:
-    v20 = 0;
+    v21 = 0;
     goto LABEL_14;
   }
 
@@ -144,22 +142,22 @@ LABEL_13:
   [connection4 setInterruptionHandler:&__block_literal_global_96];
 
   objc_initWeak(&location, v5);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __29__PTPassiveTraceConfig_init___block_invoke_97;
-  v26[3] = &unk_279A18D20;
-  objc_copyWeak(&v27, &location);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __29__PTPassiveTraceConfig_init___block_invoke_97;
+  v27[3] = &unk_279A18D20;
+  objc_copyWeak(&v28, &location);
   connection5 = [(PTPassiveTraceConfig *)v5 connection];
-  [connection5 setInvalidationHandler:v26];
+  [connection5 setInvalidationHandler:v27];
 
   connection6 = [(PTPassiveTraceConfig *)v5 connection];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __29__PTPassiveTraceConfig_init___block_invoke_98;
-  v24[3] = &unk_279A18D48;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __29__PTPassiveTraceConfig_init___block_invoke_98;
+  v25[3] = &unk_279A18D48;
   v15 = v5;
-  v25 = v15;
-  v16 = [connection6 synchronousRemoteObjectProxyWithErrorHandler:v24];
+  v26 = v15;
+  v16 = [connection6 synchronousRemoteObjectProxyWithErrorHandler:v25];
   syncRemoteProxy = v15->_syncRemoteProxy;
   v15->_syncRemoteProxy = v16;
 
@@ -170,11 +168,11 @@ LABEL_13:
 
   if (!syncRemoteProxy)
   {
-    v21 = _clientPassiveErrorHandle();
-    if (os_signpost_enabled(v21))
+    v22 = _clientPassiveErrorHandle(v20);
+    if (os_signpost_enabled(v22))
     {
-      v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CouldNotGetRemoteObjectProxy", "", &v23, 2u);
+      v24 = 0;
+      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CouldNotGetRemoteObjectProxy", "", &v24, 2u);
     }
 
     if (init)
@@ -182,33 +180,33 @@ LABEL_13:
       *init = [MEMORY[0x277CCA9B8] passiveTraceError:4 description:@"Client process could not establish connection to the backing mach service"];
     }
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(&location);
     goto LABEL_13;
   }
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
 LABEL_5:
-  v20 = v5;
+  v21 = v5;
 LABEL_14:
 
-  return v20;
+  return v21;
 }
 
-void __29__PTPassiveTraceConfig_init___block_invoke()
+void __29__PTPassiveTraceConfig_init___block_invoke(uint64_t a1)
 {
-  v0 = _clientPassiveErrorHandle();
-  if (os_signpost_enabled(v0))
+  v1 = _clientPassiveErrorHandle(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v0, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ServiceConnectionInterrupted", "", v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ServiceConnectionInterrupted", "", v2, 2u);
   }
 }
 
 void __29__PTPassiveTraceConfig_init___block_invoke_97(uint64_t a1)
 {
-  v2 = _clientPassiveErrorHandle();
+  v2 = _clientPassiveErrorHandle(a1);
   if (os_signpost_enabled(v2))
   {
     *v4 = 0;
@@ -221,9 +219,9 @@ void __29__PTPassiveTraceConfig_init___block_invoke_97(uint64_t a1)
 
 void __29__PTPassiveTraceConfig_init___block_invoke_98(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _clientPassiveErrorHandle();
+  v4 = _clientPassiveErrorHandle(v3);
   if (os_signpost_enabled(v4))
   {
     v5 = @"Unknown";
@@ -232,13 +230,12 @@ void __29__PTPassiveTraceConfig_init___block_invoke_98(uint64_t a1, void *a2)
       v5 = v3;
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SynchronousRemoteObjectProxyError", "Failed with error: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SynchronousRemoteObjectProxyError", "Failed with error: %{public}@", &v6, 0xCu);
   }
 
   [*(a1 + 32) setProxyError:v3];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)resetPassiveCollectionSettings:(id *)settings
@@ -321,52 +318,51 @@ void __55__PTPassiveTraceConfig_resetPassiveCollectionSettings___block_invoke(ui
 
   else
   {
-    v3 = [*(a1 + 32) proxyError];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    v4 = [*(a1 + 32) proxyError];
+    v5 = *(*(a1 + 40) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
 
-    [*(a1 + 32) setProxyError:0];
+    v3 = [*(a1 + 32) setProxyError:0];
   }
 
   if (*(*(*(a1 + 40) + 8) + 40))
   {
-    v6 = _clientPassiveErrorHandle();
-    if (os_signpost_enabled(v6))
+    v7 = _clientPassiveErrorHandle(v3);
+    if (os_signpost_enabled(v7))
     {
-      v7 = [*(*(*(a1 + 40) + 8) + 40) localizedDescription];
-      v8 = v7;
-      v9 = @"Unknown";
-      if (v7)
+      v8 = [*(*(*(a1 + 40) + 8) + 40) localizedDescription];
+      v9 = v8;
+      v10 = @"Unknown";
+      if (v8)
       {
-        v9 = v7;
+        v10 = v8;
       }
 
       *buf = 138543362;
-      v24 = v9;
-      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ResetError", "Failed to reset due to error: %{public}@", buf, 0xCu);
+      v24 = v10;
+      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ResetError", "Failed to reset due to error: %{public}@", buf, 0xCu);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v6 = _clientPassiveHandle();
-    if (os_signpost_enabled(v6))
+    v7 = _clientPassiveHandle(v3);
+    if (os_signpost_enabled(v7))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ResetSuccess", "Reset configuration to default", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ResetSuccess", "Reset configuration to default", buf, 2u);
     }
 
-    v10 = 1;
+    v11 = 1;
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = v10;
+  *(*(*(a1 + 48) + 8) + 24) = v11;
   _Block_object_dispose(&v13, 8);
 
   _Block_object_dispose(&v19, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __55__PTPassiveTraceConfig_resetPassiveCollectionSettings___block_invoke_2(uint64_t a1, void *a2)
@@ -476,19 +472,18 @@ void __40__PTPassiveTraceConfig_fetchCollectMSS___block_invoke(uint64_t a1)
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v9);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543362;
-    v28 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchMSS", "Value: %{public}@", buf, 0xCu);
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchMSS", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PTPassiveTraceConfig_fetchCollectMSS___block_invoke_2(void *a1, char a2)
@@ -584,26 +579,25 @@ void __41__PTPassiveTraceConfig_updateCollectMSS___block_invoke(uint64_t a1)
 
   else
   {
-    v6 = [*(a1 + 40) proxyError];
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [*(a1 + 40) proxyError];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    [*(a1 + 40) setProxyError:0];
+    v6 = [*(a1 + 40) setProxyError:0];
   }
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v6);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543362;
-    v25 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateMSS", "Value: %{public}@", buf, 0xCu);
+    v25 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateMSS", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v14, 8);
   _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __41__PTPassiveTraceConfig_updateCollectMSS___block_invoke_2(uint64_t a1, void *a2)
@@ -720,19 +714,18 @@ void __47__PTPassiveTraceConfig_fetchCollectAppInFocus___block_invoke(uint64_t a
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v9);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543362;
-    v28 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchAppInFocus", "Value: %{public}@", buf, 0xCu);
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchAppInFocus", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __47__PTPassiveTraceConfig_fetchCollectAppInFocus___block_invoke_2(void *a1, char a2)
@@ -828,26 +821,25 @@ void __48__PTPassiveTraceConfig_updateCollectAppInFocus___block_invoke(uint64_t 
 
   else
   {
-    v6 = [*(a1 + 40) proxyError];
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [*(a1 + 40) proxyError];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    [*(a1 + 40) setProxyError:0];
+    v6 = [*(a1 + 40) setProxyError:0];
   }
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v6);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543362;
-    v25 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateAppInFocus", "Value: %{public}@", buf, 0xCu);
+    v25 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateAppInFocus", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v14, 8);
   _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PTPassiveTraceConfig_updateCollectAppInFocus___block_invoke_2(uint64_t a1, void *a2)
@@ -964,19 +956,18 @@ void __60__PTPassiveTraceConfig_fetchCollectLoggingPerfPowerMetrics___block_invo
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v9);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543362;
-    v28 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingPerfPowerMetrics", "Value: %{public}@", buf, 0xCu);
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingPerfPowerMetrics", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PTPassiveTraceConfig_fetchCollectLoggingPerfPowerMetrics___block_invoke_2(void *a1, char a2)
@@ -1072,26 +1063,25 @@ void __61__PTPassiveTraceConfig_updateCollectLoggingPerfPowerMetrics___block_inv
 
   else
   {
-    v6 = [*(a1 + 40) proxyError];
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [*(a1 + 40) proxyError];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    [*(a1 + 40) setProxyError:0];
+    v6 = [*(a1 + 40) setProxyError:0];
   }
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v6);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543362;
-    v25 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingPerfPowerMetrics", "Value: %{public}@", buf, 0xCu);
+    v25 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingPerfPowerMetrics", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v14, 8);
   _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__PTPassiveTraceConfig_updateCollectLoggingPerfPowerMetrics___block_invoke_2(uint64_t a1, void *a2)
@@ -1208,19 +1198,18 @@ void __49__PTPassiveTraceConfig_fetchCollectLoggingHangs___block_invoke(uint64_t
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v9);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543362;
-    v28 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingHangs", "Value: %{public}@", buf, 0xCu);
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingHangs", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PTPassiveTraceConfig_fetchCollectLoggingHangs___block_invoke_2(void *a1, char a2)
@@ -1316,26 +1305,25 @@ void __50__PTPassiveTraceConfig_updateCollectLoggingHangs___block_invoke(uint64_
 
   else
   {
-    v6 = [*(a1 + 40) proxyError];
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [*(a1 + 40) proxyError];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    [*(a1 + 40) setProxyError:0];
+    v6 = [*(a1 + 40) setProxyError:0];
   }
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v6);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543362;
-    v25 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingHangs", "Value: %{public}@", buf, 0xCu);
+    v25 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingHangs", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v14, 8);
   _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __50__PTPassiveTraceConfig_updateCollectLoggingHangs___block_invoke_2(uint64_t a1, void *a2)
@@ -1452,19 +1440,18 @@ void __59__PTPassiveTraceConfig_fetchCollectLoggingUserInteraction___block_invok
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v9);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543362;
-    v28 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingUserInteraction", "Value: %{public}@", buf, 0xCu);
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingUserInteraction", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __59__PTPassiveTraceConfig_fetchCollectLoggingUserInteraction___block_invoke_2(void *a1, char a2)
@@ -1560,26 +1547,25 @@ void __60__PTPassiveTraceConfig_updateCollectLoggingUserInteraction___block_invo
 
   else
   {
-    v6 = [*(a1 + 40) proxyError];
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [*(a1 + 40) proxyError];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    [*(a1 + 40) setProxyError:0];
+    v6 = [*(a1 + 40) setProxyError:0];
   }
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v6);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543362;
-    v25 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingUserInteraction", "Value: %{public}@", buf, 0xCu);
+    v25 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingUserInteraction", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v14, 8);
   _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PTPassiveTraceConfig_updateCollectLoggingUserInteraction___block_invoke_2(uint64_t a1, void *a2)
@@ -1696,19 +1682,18 @@ void __60__PTPassiveTraceConfig_fetchCollectLoggingMetalFramePacing___block_invo
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v9);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543362;
-    v28 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingMetalFramePacing", "Value: %{public}@", buf, 0xCu);
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingMetalFramePacing", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PTPassiveTraceConfig_fetchCollectLoggingMetalFramePacing___block_invoke_2(void *a1, char a2)
@@ -1804,26 +1789,25 @@ void __61__PTPassiveTraceConfig_updateCollectLoggingMetalFramePacing___block_inv
 
   else
   {
-    v6 = [*(a1 + 40) proxyError];
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [*(a1 + 40) proxyError];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    [*(a1 + 40) setProxyError:0];
+    v6 = [*(a1 + 40) setProxyError:0];
   }
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v6);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543362;
-    v25 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingMetalFramePacing", "Value: %{public}@", buf, 0xCu);
+    v25 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingMetalFramePacing", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v14, 8);
   _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__PTPassiveTraceConfig_updateCollectLoggingMetalFramePacing___block_invoke_2(uint64_t a1, void *a2)
@@ -1940,19 +1924,18 @@ void __53__PTPassiveTraceConfig_fetchCollectLoggingScrolling___block_invoke(uint
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v9);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543362;
-    v28 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingScrolling", "Value: %{public}@", buf, 0xCu);
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingScrolling", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PTPassiveTraceConfig_fetchCollectLoggingScrolling___block_invoke_2(void *a1, char a2)
@@ -2048,26 +2031,25 @@ void __54__PTPassiveTraceConfig_updateCollectLoggingScrolling___block_invoke(uin
 
   else
   {
-    v6 = [*(a1 + 40) proxyError];
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [*(a1 + 40) proxyError];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    [*(a1 + 40) setProxyError:0];
+    v6 = [*(a1 + 40) setProxyError:0];
   }
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v6);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543362;
-    v25 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingScrolling", "Value: %{public}@", buf, 0xCu);
+    v25 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingScrolling", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v14, 8);
   _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PTPassiveTraceConfig_updateCollectLoggingScrolling___block_invoke_2(uint64_t a1, void *a2)
@@ -2184,19 +2166,18 @@ void __53__PTPassiveTraceConfig_fetchCollectLoggingAppLaunch___block_invoke(uint
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v9);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543362;
-    v28 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingAppLaunch", "Value: %{public}@", buf, 0xCu);
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLoggingAppLaunch", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PTPassiveTraceConfig_fetchCollectLoggingAppLaunch___block_invoke_2(void *a1, char a2)
@@ -2292,26 +2273,25 @@ void __54__PTPassiveTraceConfig_updateCollectLoggingAppLaunch___block_invoke(uin
 
   else
   {
-    v6 = [*(a1 + 40) proxyError];
-    v7 = *(*(a1 + 48) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v7 = [*(a1 + 40) proxyError];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
 
-    [*(a1 + 40) setProxyError:0];
+    v6 = [*(a1 + 40) setProxyError:0];
   }
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v6);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543362;
-    v25 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingAppLaunch", "Value: %{public}@", buf, 0xCu);
+    v25 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLoggingAppLaunch", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v14, 8);
   _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PTPassiveTraceConfig_updateCollectLoggingAppLaunch___block_invoke_2(uint64_t a1, void *a2)
@@ -2428,19 +2408,18 @@ void __53__PTPassiveTraceConfig_fetchCollectLookbackInterval___block_invoke(uint
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = _clientPassiveHandle();
-  if (os_signpost_enabled(v9))
+  v10 = _clientPassiveHandle(v9);
+  if (os_signpost_enabled(v10))
   {
-    v10 = *(*(*(a1 + 48) + 8) + 40);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543362;
-    v28 = v10;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLookbackInterval", "Value: %{public}@", buf, 0xCu);
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FetchLookbackInterval", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PTPassiveTraceConfig_fetchCollectLookbackInterval___block_invoke_2(void *a1, double a2)
@@ -2536,26 +2515,25 @@ void __54__PTPassiveTraceConfig_updateCollectLookbackInterval___block_invoke(uin
 
   else
   {
-    v5 = [*(a1 + 40) proxyError];
-    v6 = *(*(a1 + 48) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v6 = [*(a1 + 40) proxyError];
+    v7 = *(*(a1 + 48) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
-    [*(a1 + 40) setProxyError:0];
+    v5 = [*(a1 + 40) setProxyError:0];
   }
 
-  v8 = _clientPassiveHandle();
-  if (os_signpost_enabled(v8))
+  v9 = _clientPassiveHandle(v5);
+  if (os_signpost_enabled(v9))
   {
-    v9 = *(a1 + 32);
+    v10 = *(a1 + 32);
     *buf = 138543362;
-    v24 = v9;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLookbackInterval", "Value: %{public}@", buf, 0xCu);
+    v24 = v10;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdateLookbackInterval", "Value: %{public}@", buf, 0xCu);
   }
 
   _Block_object_dispose(&v13, 8);
   _Block_object_dispose(&v19, 8);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PTPassiveTraceConfig_updateCollectLookbackInterval___block_invoke_2(uint64_t a1, void *a2)

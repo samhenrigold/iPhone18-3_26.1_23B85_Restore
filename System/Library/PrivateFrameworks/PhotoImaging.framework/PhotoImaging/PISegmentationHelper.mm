@@ -200,7 +200,7 @@
     v31 = v25 / v28;
   }
 
-  [v16 extent];
+  objc_msgSend_extent(v16);
   v35 = v34;
   v37 = v36;
   v39 = v38;
@@ -294,7 +294,7 @@ LABEL_30:
       outputImage = [textImageGeneratorFilter outputImage];
       v85 = [MEMORY[0x1E695F658] imageWithColor:v77];
 
-      [outputImage extent];
+      objc_msgSend_extent(outputImage);
       v86 = [v85 imageByCroppingToRect:?];
 
       blendWithMaskFilter = [MEMORY[0x1E695F648] blendWithMaskFilter];
@@ -304,7 +304,7 @@ LABEL_30:
 
       [blendWithMaskFilter setBackgroundImage:0];
       outputImage2 = [blendWithMaskFilter outputImage];
-      [outputImage2 extent];
+      objc_msgSend_extent(outputImage2);
       memset(&v114, 0, sizeof(v114));
       CGAffineTransformMakeTranslation(&v114, v75 - (v90 + v91 * 0.5), v69 + v70 * 0.5 - (v92 + v93 * 0.5));
       v113 = v114;
@@ -422,486 +422,486 @@ LABEL_37:
 
 + (id)debugImageWithInputImage:(double)image finalLayout:(double)layout intermediateLayout:(double)intermediateLayout faceRects:(double)rects saliencyPreferrectRect:(double)rect saliencyAcceptableRect:(double)acceptableRect settlingEffectRect:(double)effectRect
 {
-  v133 = *MEMORY[0x1E69E9840];
-  v118 = a11;
-  v117 = a12;
-  v115 = a13;
-  v23 = a14;
-  v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v131 = *MEMORY[0x1E69E9840];
+  v116 = a11;
+  v115 = a12;
+  v113 = a13;
+  v21 = a14;
+  v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v126 = 0u;
+  v127 = 0u;
   v128 = 0u;
   v129 = 0u;
-  v130 = 0u;
-  v131 = 0u;
-  obj = v23;
-  v25 = [obj countByEnumeratingWithState:&v128 objects:v132 count:16];
-  if (v25)
+  obj = v21;
+  v23 = [obj countByEnumeratingWithState:&v126 objects:v130 count:16];
+  if (v23)
   {
-    v26 = v25;
-    v27 = 0;
-    v28 = *v129;
+    v24 = v23;
+    v25 = 0;
+    v26 = *v127;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v129 != v28)
+        if (*v127 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v128 + 1) + 8 * i);
-        v31 = MEMORY[0x1E69C0798];
-        [v30 rectValue];
-        [v31 inflatePersonFaceRect:?];
+        v28 = *(*(&v126 + 1) + 8 * i);
+        v29 = MEMORY[0x1E69C0798];
+        [v28 rectValue];
+        [v29 inflatePersonFaceRect:?];
+        v31 = v30;
         v33 = v32;
         v35 = v34;
         v37 = v36;
-        v39 = v38;
-        v40 = +[PIDebugRect inflatedFaceColor];
-        v41 = [PIDebugRect debugRectWithRect:v40 color:0 label:v33, v35, v37, v39];
-        [v24 addObject:v41];
+        v38 = +[PIDebugRect inflatedFaceColor];
+        v39 = [PIDebugRect debugRectWithRect:v38 color:0 label:v31, v33, v35, v37];
+        [v22 addObject:v39];
 
-        v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"f%d", v27];
-        [v30 rectValue];
+        v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"f%d", v25];
+        [v28 rectValue];
+        v42 = v41;
         v44 = v43;
         v46 = v45;
         v48 = v47;
-        v50 = v49;
-        v51 = +[PIDebugRect faceColor];
-        v52 = [PIDebugRect debugRectWithRect:v51 color:v42 label:v44, v46, v48, v50];
-        [v24 addObject:v52];
+        v49 = +[PIDebugRect faceColor];
+        v50 = [PIDebugRect debugRectWithRect:v49 color:v40 label:v42, v44, v46, v48];
+        [v22 addObject:v50];
 
-        v27 = (v27 + 1);
+        v25 = (v25 + 1);
       }
 
-      v26 = [obj countByEnumeratingWithState:&v128 objects:v132 count:16];
+      v24 = [obj countByEnumeratingWithState:&v126 objects:v130 count:16];
     }
 
-    while (v26);
+    while (v24);
   }
 
-  v53 = +[PIDebugRect saliencyPreferredColor];
-  intermediateLayout = [PIDebugRect debugRectWithRect:v53 color:@"saliency preferred" label:a2, image, layout, intermediateLayout];
-  [v24 addObject:intermediateLayout];
+  v51 = +[PIDebugRect saliencyPreferredColor];
+  intermediateLayout = [PIDebugRect debugRectWithRect:v51 color:@"saliency preferred" label:a2, image, layout, intermediateLayout];
+  [v22 addObject:intermediateLayout];
 
-  v55 = +[PIDebugRect saliencyAcceptableColor];
-  effectRect = [PIDebugRect debugRectWithRect:v55 color:@"saliency acceptable" label:rects, rect, acceptableRect, effectRect];
-  [v24 addObject:effectRect];
+  v53 = +[PIDebugRect saliencyAcceptableColor];
+  effectRect = [PIDebugRect debugRectWithRect:v53 color:@"saliency acceptable" label:rects, rect, acceptableRect, effectRect];
+  [v22 addObject:effectRect];
 
-  v135.origin.x = a15;
-  v135.origin.y = a16;
-  v135.size.width = a17;
-  v135.size.height = a18;
-  if (!CGRectIsNull(v135))
+  v133.origin.x = a15;
+  v133.origin.y = a16;
+  v133.size.width = a17;
+  v133.size.height = a18;
+  if (!CGRectIsNull(v133))
   {
-    v57 = +[PIDebugRect settlingEffectColor];
-    v58 = [PIDebugRect debugRectWithRect:v57 color:@"settling effect" label:a15, a16, a17, a18];
-    [v24 addObject:v58];
+    v55 = +[PIDebugRect settlingEffectColor];
+    v56 = [PIDebugRect debugRectWithRect:v55 color:@"settling effect" label:a15, a16, a17, a18];
+    [v22 addObject:v56];
   }
 
-  v59 = *MEMORY[0x1E695EFF8];
-  v126 = *(MEMORY[0x1E695EFF8] + 8);
-  [v117 imageSize];
+  v57 = *MEMORY[0x1E695EFF8];
+  v124 = *(MEMORY[0x1E695EFF8] + 8);
+  [v115 imageSize];
+  v59 = v58;
   v61 = v60;
-  v63 = v62;
-  [v115 visibleRect];
-  v120 = v64;
-  v122 = v65;
-  v67 = v66;
-  v124 = v68;
-  [v117 timeFrame];
+  [v113 visibleRect];
+  v118 = v62;
+  v120 = v63;
+  v65 = v64;
+  v122 = v66;
+  [v115 timeFrame];
+  v68 = v67;
   v70 = v69;
   v72 = v71;
   v74 = v73;
-  v76 = v75;
-  [v117 visibleFrame];
-  v81 = v70 - v80;
-  v82 = 0.0;
-  v83 = 0.0;
-  if (v78 != 0.0)
+  [v115 visibleFrame];
+  v79 = v68 - v78;
+  v80 = 0.0;
+  v81 = 0.0;
+  if (v76 != 0.0)
   {
-    v81 = v81 / v78;
-    v83 = v74 / v78;
+    v79 = v79 / v76;
+    v81 = v72 / v76;
   }
 
-  v84 = v72 - v77;
-  if (v79 != 0.0)
+  v82 = v70 - v75;
+  if (v77 != 0.0)
   {
-    v84 = v84 / v79;
-    v82 = v76 / v79;
+    v82 = v82 / v77;
+    v80 = v74 / v77;
   }
 
-  v85 = v122 + v84 * v124;
-  v86 = v120 + v81 * v67 - v59;
-  v87 = 0.0;
-  v88 = 0.0;
+  v83 = v120 + v82 * v122;
+  v84 = v118 + v79 * v65 - v57;
+  v85 = 0.0;
+  v86 = 0.0;
+  if (v59 != 0.0)
+  {
+    v84 = v84 / v59;
+    v86 = v65 * v81 / v59;
+  }
+
+  v87 = v83 - v124;
   if (v61 != 0.0)
   {
-    v86 = v86 / v61;
-    v88 = v67 * v83 / v61;
+    v87 = v87 / v61;
+    v85 = v122 * v80 / v61;
   }
 
-  v89 = v85 - v126;
-  if (v63 != 0.0)
+  v88 = +[PIDebugRect datetimeColor];
+  v89 = [PIDebugRect debugRectWithRect:v88 color:@"time" label:v84, v87, v86, v85];
+  [v22 addObject:v89];
+
+  [v113 inactiveRect];
+  v94 = v93 - v57;
+  v95 = 0.0;
+  v96 = 0.0;
+  if (v59 != 0.0)
   {
-    v89 = v89 / v63;
-    v87 = v124 * v82 / v63;
+    v94 = v94 / v59;
+    v96 = v91 / v59;
   }
 
-  v90 = +[PIDebugRect datetimeColor];
-  v91 = [PIDebugRect debugRectWithRect:v90 color:@"time" label:v86, v89, v88, v87];
-  [v24 addObject:v91];
-
-  [v115 inactiveRect];
-  v96 = v95 - v59;
-  v97 = 0.0;
-  v98 = 0.0;
+  v97 = v90 - v124;
   if (v61 != 0.0)
   {
-    v96 = v96 / v61;
-    v98 = v93 / v61;
+    v97 = v97 / v61;
+    v95 = v92 / v61;
   }
 
-  v99 = v92 - v126;
-  if (v63 != 0.0)
+  v98 = +[PIDebugRect inactiveColor];
+  v99 = [PIDebugRect debugRectWithRect:v98 color:@"inactive" label:v94, v97, v96, v95];
+  [v22 addObject:v99];
+
+  v100 = v118 - v57;
+  v101 = 0.0;
+  v102 = 0.0;
+  if (v59 != 0.0)
   {
-    v99 = v99 / v63;
-    v97 = v94 / v63;
+    v100 = v100 / v59;
+    v102 = v65 / v59;
   }
 
-  v100 = +[PIDebugRect inactiveColor];
-  v101 = [PIDebugRect debugRectWithRect:v100 color:@"inactive" label:v96, v99, v98, v97];
-  [v24 addObject:v101];
-
-  v102 = v120 - v59;
-  v103 = 0.0;
-  v104 = 0.0;
+  v103 = v120 - v124;
   if (v61 != 0.0)
   {
-    v102 = v102 / v61;
-    v104 = v67 / v61;
+    v103 = v103 / v61;
+    v101 = v122 / v61;
   }
 
-  v105 = v122 - v126;
-  if (v63 != 0.0)
-  {
-    v105 = v105 / v63;
-    v103 = v124 / v63;
-  }
+  v104 = +[PIDebugRect visibleColor];
+  v101 = [PIDebugRect debugRectWithRect:v104 color:@"visible" label:v100, v103, v102, v101];
+  [v22 addObject:v101];
 
-  v106 = +[PIDebugRect visibleColor];
-  v103 = [PIDebugRect debugRectWithRect:v106 color:@"visible" label:v102, v105, v104, v103];
-  [v24 addObject:v103];
+  v106 = [v113 debugDescription];
+  v107 = [self debugImageWithInputImage:v116 fullSize:v22 debugRects:v106 label:{v59, v61}];
 
-  v108 = [v115 debugDescription];
-  v109 = [self debugImageWithInputImage:v118 fullSize:v24 debugRects:v108 label:{v61, v63}];
-
-  return v109;
+  return v107;
 }
 
 + (id)debugImageWithInputImage:(double)image layout:(double)layout faceRects:(double)rects saliencyPreferrectRect:(double)rect saliencyAcceptableRect:(double)acceptableRect gazeAreaRect:(double)areaRect settlingEffectRect:(double)effectRect
 {
-  v235 = *MEMORY[0x1E69E9840];
-  v29 = a11;
-  v30 = a12;
-  v31 = a13;
-  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v33 = MEMORY[0x1E69C07A8];
-  v219 = v29;
-  [v29 extent];
-  v35 = v34;
-  v37 = v36;
-  configuration = [v30 configuration];
+  v232 = *MEMORY[0x1E69E9840];
+  v26 = a11;
+  v27 = a12;
+  v28 = a13;
+  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = MEMORY[0x1E69C07A8];
+  v216 = v26;
+  objc_msgSend_extent(v26);
+  v32 = v31;
+  v34 = v33;
+  configuration = [v27 configuration];
   [configuration screenSize];
-  [v33 bestFaceRectWithImageSize:v31 deviceSize:v35 faceRegions:{v37, v39, v40}];
-  v42 = v41;
-  v222 = v41;
-  v44 = v43;
-  v46 = v45;
-  v48 = v47;
+  [v30 bestFaceRectWithImageSize:v28 deviceSize:v32 faceRegions:{v34, v36, v37}];
+  v39 = v38;
+  v219 = v38;
+  v41 = v40;
+  v43 = v42;
+  v45 = v44;
 
-  v210 = v44;
-  v216 = *(MEMORY[0x1E69BDDA8] + 8) + *(MEMORY[0x1E69BDDA8] + 24) - (v44 + v48);
-  v49 = *(MEMORY[0x1E69BDDA8] + 8) + *(MEMORY[0x1E69BDDA8] + 24);
-  obja = v49;
-  v50 = MEMORY[0x1E69C06A0];
-  configuration2 = [v30 configuration];
-  [v30 imageSize];
-  v53 = v52;
-  [v30 imageSize];
-  v55 = [v50 bestAdaptiveCropRectForPosterClassification:1 layoutConfiguration:configuration2 sourcePixelWidth:v53 sourcePixelHeight:v54 sourcePreferredCropRectNormalized:a2 sourceAcceptableCropRectNormalized:image sourceFaceAreaRectNormalized:{layout, rects, rect, acceptableRect, areaRect, effectRect, *&v42, *&v216, *&v46, *&v48}];
+  v207 = v41;
+  v213 = *(MEMORY[0x1E69BDDA8] + 8) + *(MEMORY[0x1E69BDDA8] + 24) - (v41 + v45);
+  v46 = *(MEMORY[0x1E69BDDA8] + 8) + *(MEMORY[0x1E69BDDA8] + 24);
+  obja = v46;
+  v47 = MEMORY[0x1E69C06A0];
+  configuration2 = [v27 configuration];
+  [v27 imageSize];
+  v50 = v49;
+  [v27 imageSize];
+  v52 = [v47 bestAdaptiveCropRectForPosterClassification:1 layoutConfiguration:configuration2 sourcePixelWidth:v50 sourcePixelHeight:v51 sourcePreferredCropRectNormalized:a2 sourceAcceptableCropRectNormalized:image sourceFaceAreaRectNormalized:{layout, rects, rect, acceptableRect, areaRect, effectRect, *&v39, *&v213, *&v43, *&v45}];
 
-  v215 = v55;
-  [v55 visibleRect];
-  v212 = v57;
-  v213 = v56;
-  v214 = v58;
-  v211 = v49 - (v59 + v58);
-  configuration3 = [v30 configuration];
+  v212 = v52;
+  [v52 visibleRect];
+  v209 = v54;
+  v210 = v53;
+  v211 = v55;
+  v208 = v46 - (v56 + v55);
+  configuration3 = [v27 configuration];
   [configuration3 screenSize];
-  v62 = v61;
-  configuration4 = [v30 configuration];
+  v59 = v58;
+  configuration4 = [v27 configuration];
   [configuration4 screenSize];
-  v65 = v62 / v64;
-  v203 = v62 / v64;
+  v62 = v59 / v61;
+  v200 = v59 / v61;
 
-  [v30 imageSize];
-  v67 = v66;
-  [v30 imageSize];
-  v209 = v46;
-  [PIPNCropUtilitiesWrapper bestCropVariantFromSignalsWithAspectRatio:v67 sourcePixelWidth:v68 sourcePixelHeight:v65 acceptableCropRect:rect preferredCropRect:acceptableRect normalizedFaceAreaRect:areaRect gazeAreaRect:effectRect, *&a2, *&image, *&layout, *&rects, *&v222, *&v216, *&v46, *&v48, *&a14, *&a15, *&a16, *&a17];
-  v207 = v70;
-  v208 = v69;
-  v205 = v71;
+  [v27 imageSize];
+  v64 = v63;
+  [v27 imageSize];
+  v206 = v43;
+  [PIPNCropUtilitiesWrapper bestCropVariantFromSignalsWithAspectRatio:v64 sourcePixelWidth:v65 sourcePixelHeight:v62 acceptableCropRect:rect preferredCropRect:acceptableRect normalizedFaceAreaRect:areaRect gazeAreaRect:effectRect, *&a2, *&image, *&layout, *&rects, *&v219, *&v213, *&v43, *&v45, *&a14, *&a15, *&a16, *&a17];
+  v204 = v67;
+  v205 = v66;
+  v202 = v68;
+  v70 = v69;
+  v71 = MEMORY[0x1E69C06A0];
+  [v27 imageSize];
   v73 = v72;
-  v74 = MEMORY[0x1E69C06A0];
-  [v30 imageSize];
-  v76 = v75;
-  v217 = v30;
-  [v30 imageSize];
-  v78 = v73;
-  [v74 bestCropRectV2ForAspectRatio:v76 sourcePixelWidth:v77 sourcePixelHeight:0 sourceEssentialAreaRect:v203 sourceSecondaryEssentialAreaRect:rect outputCropScore:{acceptableRect, areaRect, effectRect, *&a2, *&image, *&layout, *&rects}];
-  v202 = v80;
-  v204 = v79;
-  v206 = obja - (v205 + v73);
-  v82 = v81;
+  v214 = v27;
+  [v27 imageSize];
+  v75 = v70;
+  [v71 bestCropRectV2ForAspectRatio:v73 sourcePixelWidth:v74 sourcePixelHeight:0 sourceEssentialAreaRect:v200 sourceSecondaryEssentialAreaRect:rect outputCropScore:{acceptableRect, areaRect, effectRect, *&a2, *&image, *&layout, *&rects}];
+  v199 = v77;
+  v201 = v76;
+  v203 = obja - (v202 + v70);
+  v79 = v78;
+  v227 = 0u;
+  v228 = 0u;
+  v198 = obja - (v80 + v78);
+  v229 = 0u;
   v230 = 0u;
-  v231 = 0u;
-  v201 = obja - (v83 + v81);
-  v232 = 0u;
-  v233 = 0u;
-  obj = v31;
-  v84 = [obj countByEnumeratingWithState:&v230 objects:v234 count:16];
-  if (v84)
+  obj = v28;
+  v81 = [obj countByEnumeratingWithState:&v227 objects:v231 count:16];
+  if (v81)
   {
-    v85 = v84;
-    v86 = 0;
-    v87 = *v231;
+    v82 = v81;
+    v83 = 0;
+    v84 = *v228;
     do
     {
-      for (i = 0; i != v85; ++i)
+      for (i = 0; i != v82; ++i)
       {
-        if (*v231 != v87)
+        if (*v228 != v84)
         {
           objc_enumerationMutation(obj);
         }
 
-        v89 = *(*(&v230 + 1) + 8 * i);
-        v90 = [MEMORY[0x1E696AEC0] stringWithFormat:@"f%d", v86];
-        [v89 rectValue];
-        v92 = v91;
-        v94 = v93;
-        v96 = v95;
-        v98 = v97;
-        v99 = +[PIDebugRect faceColor];
-        v100 = [PIDebugRect debugRectWithRect:v99 color:v90 label:v92, v94, v96, v98];
-        [v32 addObject:v100];
+        v86 = *(*(&v227 + 1) + 8 * i);
+        v87 = [MEMORY[0x1E696AEC0] stringWithFormat:@"f%d", v83];
+        [v86 rectValue];
+        v89 = v88;
+        v91 = v90;
+        v93 = v92;
+        v95 = v94;
+        v96 = +[PIDebugRect faceColor];
+        v97 = [PIDebugRect debugRectWithRect:v96 color:v87 label:v89, v91, v93, v95];
+        [v29 addObject:v97];
 
-        v86 = (v86 + 1);
+        v83 = (v83 + 1);
       }
 
-      v85 = [obj countByEnumeratingWithState:&v230 objects:v234 count:16];
+      v82 = [obj countByEnumeratingWithState:&v227 objects:v231 count:16];
     }
 
-    while (v85);
+    while (v82);
   }
 
-  v101 = +[PIDebugRect saliencyPreferredColor];
-  rects = [PIDebugRect debugRectWithRect:v101 color:@"saliency preferred" label:a2, image, layout, rects];
-  [v32 addObject:rects];
+  v98 = +[PIDebugRect saliencyPreferredColor];
+  rects = [PIDebugRect debugRectWithRect:v98 color:@"saliency preferred" label:a2, image, layout, rects];
+  [v29 addObject:rects];
 
-  v103 = +[PIDebugRect saliencyAcceptableColor];
-  effectRect = [PIDebugRect debugRectWithRect:v103 color:@"saliency acceptable" label:rect, acceptableRect, areaRect, effectRect];
-  [v32 addObject:effectRect];
+  v100 = +[PIDebugRect saliencyAcceptableColor];
+  effectRect = [PIDebugRect debugRectWithRect:v100 color:@"saliency acceptable" label:rect, acceptableRect, areaRect, effectRect];
+  [v29 addObject:effectRect];
 
-  v105 = +[PIDebugRect faceUnionColor];
-  v106 = [PIDebugRect debugRectWithRect:v105 color:@"face union" label:v222, v210, v209, v48];
-  [v32 addObject:v106];
+  v102 = +[PIDebugRect faceUnionColor];
+  v103 = [PIDebugRect debugRectWithRect:v102 color:@"face union" label:v219, v207, v206, v45];
+  [v29 addObject:v103];
 
-  v107 = +[PIDebugRect gazeAreaRectColor];
-  v108 = [PIDebugRect debugRectWithRect:v107 color:@"gaze area" label:a14, a15, a16, a17];
-  [v32 addObject:v108];
+  v104 = +[PIDebugRect gazeAreaRectColor];
+  v105 = [PIDebugRect debugRectWithRect:v104 color:@"gaze area" label:a14, a15, a16, a17];
+  [v29 addObject:v105];
 
-  v109 = +[PIDebugRect v2CropColor];
-  v110 = [PIDebugRect debugRectWithRect:v109 color:@"bestCropRectV2" label:v204, v201, v202, v82];
-  [v32 addObject:v110];
+  v106 = +[PIDebugRect v2CropColor];
+  v107 = [PIDebugRect debugRectWithRect:v106 color:@"bestCropRectV2" label:v201, v198, v199, v79];
+  [v29 addObject:v107];
 
-  v111 = +[PIDebugRect smartCropColor];
-  v112 = [PIDebugRect debugRectWithRect:v111 color:@"smart crop" label:v208, v206, v207, v78];
-  [v32 addObject:v112];
+  v108 = +[PIDebugRect smartCropColor];
+  v109 = [PIDebugRect debugRectWithRect:v108 color:@"smart crop" label:v205, v203, v204, v75];
+  [v29 addObject:v109];
 
-  v113 = +[PIDebugRect metadataColor];
-  v214 = [PIDebugRect debugRectWithRect:v113 color:@"metadata" label:v213, v211, v212, v214];
-  [v32 addObject:v214];
+  v110 = +[PIDebugRect metadataColor];
+  v211 = [PIDebugRect debugRectWithRect:v110 color:@"metadata" label:v210, v208, v209, v211];
+  [v29 addObject:v211];
 
-  v237.origin.x = a18;
-  v237.origin.y = a19;
-  v237.size.width = a20;
-  v237.size.height = a21;
-  if (!CGRectIsNull(v237))
+  v234.origin.x = a18;
+  v234.origin.y = a19;
+  v234.size.width = a20;
+  v234.size.height = a21;
+  if (!CGRectIsNull(v234))
   {
-    v115 = +[PIDebugRect settlingEffectColor];
-    v116 = [PIDebugRect debugRectWithRect:v115 color:@"settling effect" label:a18, a19, a20, a21];
-    [v32 addObject:v116];
+    v112 = +[PIDebugRect settlingEffectColor];
+    v113 = [PIDebugRect debugRectWithRect:v112 color:@"settling effect" label:a18, a19, a20, a21];
+    [v29 addObject:v113];
   }
 
-  v118 = *MEMORY[0x1E695EFF8];
-  v117 = *(MEMORY[0x1E695EFF8] + 8);
-  [v217 imageSize];
-  v120 = v119;
-  v122 = v121;
-  [v217 inactiveFrame];
-  v127 = v126 - v118;
-  v128 = 0.0;
-  v129 = 0.0;
-  if (v120 != 0.0)
+  v115 = *MEMORY[0x1E695EFF8];
+  v114 = *(MEMORY[0x1E695EFF8] + 8);
+  [v214 imageSize];
+  v117 = v116;
+  v119 = v118;
+  [v214 inactiveFrame];
+  v124 = v123 - v115;
+  v125 = 0.0;
+  v126 = 0.0;
+  if (v117 != 0.0)
   {
-    v127 = v127 / v120;
-    v129 = v124 / v120;
+    v124 = v124 / v117;
+    v126 = v121 / v117;
   }
 
-  v130 = v123 - v117;
-  if (v122 != 0.0)
+  v127 = v120 - v114;
+  if (v119 != 0.0)
   {
-    v130 = v130 / v122;
-    v128 = v125 / v122;
+    v127 = v127 / v119;
+    v125 = v122 / v119;
   }
 
-  v131 = +[PIDebugRect inactiveColor];
-  v128 = [PIDebugRect debugRectWithRect:v131 color:@"inactive" label:v127, v130, v129, v128];
-  [v32 addObject:v128];
+  v128 = +[PIDebugRect inactiveColor];
+  v125 = [PIDebugRect debugRectWithRect:v128 color:@"inactive" label:v124, v127, v126, v125];
+  [v29 addObject:v125];
 
-  [v217 timeFrame];
-  v137 = v136 - v118;
-  v138 = 0.0;
-  v139 = 0.0;
-  if (v120 != 0.0)
+  [v214 timeFrame];
+  v134 = v133 - v115;
+  v135 = 0.0;
+  v136 = 0.0;
+  if (v117 != 0.0)
   {
-    v137 = v137 / v120;
-    v139 = v134 / v120;
+    v134 = v134 / v117;
+    v136 = v131 / v117;
   }
 
-  v140 = v133 - v117;
-  if (v122 != 0.0)
+  v137 = v130 - v114;
+  if (v119 != 0.0)
   {
-    v140 = v140 / v122;
-    v138 = v135 / v122;
+    v137 = v137 / v119;
+    v135 = v132 / v119;
   }
 
-  v141 = +[PIDebugRect datetimeColor];
-  v138 = [PIDebugRect debugRectWithRect:v141 color:@"time" label:v137, v140, v139, v138];
-  [v32 addObject:v138];
+  v138 = +[PIDebugRect datetimeColor];
+  v135 = [PIDebugRect debugRectWithRect:v138 color:@"time" label:v134, v137, v136, v135];
+  [v29 addObject:v135];
 
-  [v217 visibleFrame];
-  v147 = v146 - v118;
-  v148 = 0.0;
-  v149 = 0.0;
-  if (v120 != 0.0)
+  [v214 visibleFrame];
+  v144 = v143 - v115;
+  v145 = 0.0;
+  v146 = 0.0;
+  if (v117 != 0.0)
   {
-    v147 = v147 / v120;
-    v149 = v144 / v120;
+    v144 = v144 / v117;
+    v146 = v141 / v117;
   }
 
-  v150 = v143 - v117;
-  if (v122 != 0.0)
+  v147 = v140 - v114;
+  if (v119 != 0.0)
   {
-    v150 = v150 / v122;
-    v148 = v145 / v122;
+    v147 = v147 / v119;
+    v145 = v142 / v119;
   }
 
-  v151 = +[PIDebugRect visibleColor];
-  v148 = [PIDebugRect debugRectWithRect:v151 color:@"visible" label:v147, v150, v149, v148];
-  [v32 addObject:v148];
+  v148 = +[PIDebugRect visibleColor];
+  v145 = [PIDebugRect debugRectWithRect:v148 color:@"visible" label:v144, v147, v146, v145];
+  [v29 addObject:v145];
 
-  [v217 adaptiveVisibleFrame];
-  v157 = v156 - v118;
-  v158 = 0.0;
-  v159 = 0.0;
-  if (v120 != 0.0)
+  [v214 adaptiveVisibleFrame];
+  v154 = v153 - v115;
+  v155 = 0.0;
+  v156 = 0.0;
+  if (v117 != 0.0)
   {
-    v157 = v157 / v120;
-    v159 = v154 / v120;
+    v154 = v154 / v117;
+    v156 = v151 / v117;
   }
 
-  v160 = v153 - v117;
-  if (v122 != 0.0)
+  v157 = v150 - v114;
+  if (v119 != 0.0)
   {
-    v160 = v160 / v122;
-    v158 = v155 / v122;
+    v157 = v157 / v119;
+    v155 = v152 / v119;
   }
 
-  v161 = +[PIDebugRect adaptiveColor];
-  v158 = [PIDebugRect debugRectWithRect:v161 color:@"adaptive" label:v157, v160, v159, v158];
-  [v32 addObject:v158];
+  v158 = +[PIDebugRect adaptiveColor];
+  v155 = [PIDebugRect debugRectWithRect:v158 color:@"adaptive" label:v154, v157, v156, v155];
+  [v29 addObject:v155];
 
-  [v217 adaptiveInactiveTopFrame];
-  v167 = v166 - v118;
-  v168 = 0.0;
-  v169 = 0.0;
-  if (v120 != 0.0)
+  [v214 adaptiveInactiveTopFrame];
+  v164 = v163 - v115;
+  v165 = 0.0;
+  v166 = 0.0;
+  if (v117 != 0.0)
   {
-    v167 = v167 / v120;
-    v169 = v164 / v120;
+    v164 = v164 / v117;
+    v166 = v161 / v117;
   }
 
-  v170 = v163 - v117;
-  if (v122 != 0.0)
+  v167 = v160 - v114;
+  if (v119 != 0.0)
   {
-    v170 = v170 / v122;
-    v168 = v165 / v122;
+    v167 = v167 / v119;
+    v165 = v162 / v119;
   }
 
-  v171 = +[PIDebugRect inactiveColor];
-  v168 = [PIDebugRect debugRectWithRect:v171 color:@"adaptive-inactive" label:v167, v170, v169, v168];
-  [v32 addObject:v168];
+  v168 = +[PIDebugRect inactiveColor];
+  v165 = [PIDebugRect debugRectWithRect:v168 color:@"adaptive-inactive" label:v164, v167, v166, v165];
+  [v29 addObject:v165];
 
-  [v217 maxClockShift];
-  v174 = v173;
-  [v217 timeFrame];
-  v179 = v178 - v118;
-  v180 = 0.0;
-  v181 = 0.0;
-  if (v120 != 0.0)
+  [v214 maxClockShift];
+  v171 = v170;
+  [v214 timeFrame];
+  v176 = v175 - v115;
+  v177 = 0.0;
+  v178 = 0.0;
+  if (v117 != 0.0)
   {
-    v179 = v179 / v120;
-    v181 = v176 / v120;
+    v176 = v176 / v117;
+    v178 = v173 / v117;
   }
 
-  v182 = v175 - v117;
-  if (v122 != 0.0)
+  v179 = v172 - v114;
+  if (v119 != 0.0)
   {
-    v182 = v182 / v122;
-    v180 = v177 / v122;
+    v179 = v179 / v119;
+    v177 = v174 / v119;
   }
 
-  v183 = v182 - v174;
-  v184 = v174 + v180;
-  v185 = +[PIDebugRect stretchColor];
-  v184 = [PIDebugRect debugRectWithRect:v185 color:@"stretched time" label:v179, v183, v181, v184];
-  [v32 addObject:v184];
+  v180 = v179 - v171;
+  v181 = v171 + v177;
+  v182 = +[PIDebugRect stretchColor];
+  v181 = [PIDebugRect debugRectWithRect:v182 color:@"stretched time" label:v176, v180, v178, v181];
+  [v29 addObject:v181];
 
-  layoutVariant = [v217 layoutVariant];
+  layoutVariant = [v214 layoutVariant];
   if (layoutVariant > 4)
   {
-    v188 = 0;
+    v185 = 0;
   }
 
   else
   {
-    v188 = off_1E82AAAF8[layoutVariant];
+    v185 = off_1E82AAAF8[layoutVariant];
   }
 
-  v189 = MEMORY[0x1E696AEC0];
-  [v217 maxClockShift];
-  v191 = v190;
-  [v215 adaptiveHeadroom];
-  v193 = v192;
-  [v217 deviceResolution];
-  v195 = v194;
-  [v217 deviceResolution];
-  v196 = [v189 stringWithFormat:@"type: %@. stretch: %f. adaptive headroom: %f. Device %d x %d", v188, v191, v193, v195, v196];
-  v198 = [self debugImageWithInputImage:v219 fullSize:v32 debugRects:v196 label:{v120, v122}];
+  v186 = MEMORY[0x1E696AEC0];
+  [v214 maxClockShift];
+  v188 = v187;
+  [v212 adaptiveHeadroom];
+  v190 = v189;
+  [v214 deviceResolution];
+  v192 = v191;
+  [v214 deviceResolution];
+  v193 = [v186 stringWithFormat:@"type: %@. stretch: %f. adaptive headroom: %f. Device %d x %d", v185, v188, v190, v192, v193];
+  v195 = [self debugImageWithInputImage:v216 fullSize:v29 debugRects:v193 label:{v117, v119}];
 
-  return v198;
+  return v195;
 }
 
 + (id)debugImageWithInputImage:(id)image fullSize:(CGSize)size debugRects:(id)rects label:(id)label
@@ -912,7 +912,7 @@ LABEL_37:
   imageCopy = image;
   rectsCopy = rects;
   labelCopy = label;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v12 = height * *MEMORY[0x1E69C0C68];
   v14 = *MEMORY[0x1E69C0C68] * v13;
   memset(&v80, 0, sizeof(v80));
@@ -946,7 +946,7 @@ LABEL_37:
         v26 = v25;
         v28 = v27;
         v30 = v29;
-        [v16 extent];
+        objc_msgSend_extent(v16);
         v33 = v31 + v24 * v32;
         v36 = v34 + v26 * v35;
         v37 = v28 * v32;
@@ -998,9 +998,9 @@ LABEL_37:
   v58 = createLabelImage(labelCopy, v55, *MEMORY[0x1E695EFF8], v57);
 
   memset(&v79, 0, sizeof(v79));
-  [v16 extent];
+  objc_msgSend_extent(v16);
   v60 = v59;
-  [v58 extent];
+  objc_msgSend_extent(v58);
   CGAffineTransformMakeTranslation(&v79, v60 - v61, 0.0);
   v74 = v79;
   v62 = [v58 imageByApplyingTransform:&v74];
@@ -1475,11 +1475,11 @@ LABEL_61:
   [columnAverageFilter setInputImage:matteCopy];
   [columnAverageFilter setExtent:{x, y, width, height}];
   outputImage = [columnAverageFilter outputImage];
-  [outputImage extent];
+  objc_msgSend_extent(outputImage);
   v18 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:(4 * vcvtpd_s64_f64(v17))];
   mutableBytes = [v18 mutableBytes];
   v20 = [v18 length];
-  [outputImage extent];
+  objc_msgSend_extent(outputImage);
   [contextCopy render:outputImage toBitmap:mutableBytes rowBytes:v20 bounds:*MEMORY[0x1E695F8C8] format:0 colorSpace:?];
   v21 = [v18 copy];
 
@@ -1616,7 +1616,7 @@ LABEL_27:
   configurationCopy = configuration;
   contextCopy = context;
   memset(v35, 0, sizeof(v35));
-  [PISegmentationHelper computeClockLayerOrderWithVisibleFrame:matteCopy segmentationMatte:configurationCopy layoutConfiguration:contextCopy context:0 interactive:x, y, width, height];
+  objc_msgSend_computeClockLayerOrderWithVisibleFrame_segmentationMatte_layoutConfiguration_context_interactive_(PISegmentationHelper, x, y, width, height);
   v36.origin.x = x;
   v36.origin.y = y;
   v36.size.width = width;
@@ -1704,7 +1704,7 @@ LABEL_27:
     v29 = v28;
     v30 = v17;
     memset(buf, 0, sizeof(buf));
-    [PISegmentationHelper computeClockLayerOrderWithVisibleFrame:matteCopy segmentationMatte:configurationCopy layoutConfiguration:contextCopy context:0 interactive:v23, v25, v27, v29];
+    objc_msgSend_computeClockLayerOrderWithVisibleFrame_segmentationMatte_layoutConfiguration_context_interactive_(PISegmentationHelper, v23, v25, v27, v29);
     v17 = 0;
 
     if (([v30 isEqualToString:0] & 1) == 0)
@@ -1730,7 +1730,7 @@ LABEL_27:
   {
     [self scaleRect:x scaleFactor:y scaleCenter:{width, height, 1.0 / ((v21 + v32) * 0.5), center.x, center.y}];
     memset(buf, 0, sizeof(buf));
-    [PISegmentationHelper computeClockLayerOrderWithVisibleFrame:matteCopy segmentationMatte:configurationCopy layoutConfiguration:contextCopy context:0 interactive:?];
+    objc_msgSend_computeClockLayerOrderWithVisibleFrame_segmentationMatte_layoutConfiguration_context_interactive_(PISegmentationHelper);
     v34 = [0 isEqualToString:v30];
     v35 = 0;
     if (v34)
@@ -1858,7 +1858,7 @@ LABEL_22:
     v36 = v27;
     v100 = y + v27 * r2;
     v96 = v29;
-    [v22 extent];
+    objc_msgSend_extent(v22);
     v102.origin.y = 0.0;
     v102.origin.x = v92;
     v102.size.width = v14 * v97;
@@ -2121,7 +2121,7 @@ LABEL_39:
     [configurationCopy timeOverlapCheckBottom];
     v22 = x + v21 * width;
     v24 = width * v23;
-    [matteCopy extent];
+    objc_msgSend_extent(matteCopy);
     v26 = imageDataOfRowAverages(v19, matteCopy, v22, 0.0, v24, v25);
     v27 = [v26 length];
     if (v27 >= 0)
@@ -2430,7 +2430,7 @@ LABEL_60:
     v124 = y + v21 * height;
     v26 = width * v25;
     v28 = height * v27;
-    [matteCopy extent];
+    objc_msgSend_extent(matteCopy);
     v127 = contextCopy;
     v128 = matteCopy;
     v30 = imageDataOfRowAverages(contextCopy, matteCopy, v24, 0.0, v26, v29);
@@ -2996,7 +2996,7 @@ LABEL_71:
 {
   contextCopy = context;
   matteCopy = matte;
-  [matteCopy extent];
+  objc_msgSend_extent(matteCopy);
   v8 = v7;
   v10 = v9;
   v12 = v11 + -5.0;
@@ -3016,7 +3016,7 @@ LABEL_71:
 {
   contextCopy = context;
   matteCopy = matte;
-  [matteCopy extent];
+  objc_msgSend_extent(matteCopy);
   v8 = v7;
   v10 = v9 + v7 * 0.0;
   v13 = v11 + v12 * 0.0;
@@ -3129,7 +3129,7 @@ LABEL_71:
   if (imageCopy)
   {
     v7 = imageCopy;
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     memset(&v13, 0, sizeof(v13));
     CGAffineTransformMakeScale(&v13, width / v8, height / v9);
     v12 = v13;
@@ -3151,10 +3151,10 @@ LABEL_71:
   guideImageCopy = guideImage;
   if (imageCopy)
   {
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     v8 = v7;
     v10 = v9;
-    [guideImageCopy extent];
+    objc_msgSend_extent(guideImageCopy);
     if (v8 != v12 || v10 != v11)
     {
       v18[0] = @"inputSmallImage";
@@ -3167,7 +3167,7 @@ LABEL_71:
       v15 = [guideImageCopy imageByApplyingFilter:@"CIEdgePreserveUpsampleFilter" withInputParameters:v14];
 
       imageByClampingToExtent = [v15 imageByClampingToExtent];
-      [v15 extent];
+      objc_msgSend_extent(v15);
       imageCopy = [imageByClampingToExtent imageByCroppingToRect:?];
     }
   }
@@ -3180,10 +3180,10 @@ LABEL_71:
   infillCopy = infill;
   imageCopy = image;
   v10 = [self infillMaskForSegmentationMatte:matte];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v13 = [self upsampleBackgroundImage:v10 toSize:{v11, v12}];
 
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v16 = [self upsampleBackgroundImage:infillCopy toSize:{v14, v15}];
 
   blendWithMaskFilter = [MEMORY[0x1E695F648] blendWithMaskFilter];
@@ -3200,7 +3200,7 @@ LABEL_71:
 {
   matteCopy = matte;
   imageCopy = image;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v10 = [self upsampleBackgroundImage:matteCopy toSize:{v8, v9}];
 
   blendWithMaskFilter = [MEMORY[0x1E695F648] blendWithMaskFilter];
@@ -3242,7 +3242,7 @@ LABEL_71:
 + (id)openMask:(id)mask withRadius:(double)radius
 {
   maskCopy = mask;
-  [maskCopy extent];
+  objc_msgSend_extent(maskCopy);
   v7 = v6;
   v9 = v8;
   v11 = v10;
@@ -3275,7 +3275,7 @@ LABEL_71:
   [morphologyMinimumFilter setRadius:v8];
   [morphologyMinimumFilter setInputImage:maskCopy];
   outputImage = [morphologyMinimumFilter outputImage];
-  [maskCopy extent];
+  objc_msgSend_extent(maskCopy);
   v11 = v10;
   v13 = v12;
   v15 = v14;
@@ -3295,7 +3295,7 @@ LABEL_71:
   [morphologyMaximumFilter setRadius:v8];
   [morphologyMaximumFilter setInputImage:maskCopy];
   outputImage = [morphologyMaximumFilter outputImage];
-  [maskCopy extent];
+  objc_msgSend_extent(maskCopy);
   v11 = v10;
   v13 = v12;
   v15 = v14;
@@ -3347,7 +3347,7 @@ LABEL_71:
 
   if (v7 > 0.0)
   {
-    [matteCopy extent];
+    objc_msgSend_extent(matteCopy);
     if (v8 >= v9)
     {
       v10 = v8;

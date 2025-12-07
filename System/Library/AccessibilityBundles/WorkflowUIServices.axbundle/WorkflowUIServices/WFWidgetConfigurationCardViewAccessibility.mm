@@ -15,12 +15,10 @@
 
 - (id)_accessibilityAdditionalElements
 {
-  v6[1] = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
   _axClosePopupElement = [(WFWidgetConfigurationCardViewAccessibility *)self _axClosePopupElement];
-  v6[0] = _axClosePopupElement;
-  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x29EDCA608];
+  v5[0] = _axClosePopupElement;
+  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v5 count:1];
 
   return v3;
 }

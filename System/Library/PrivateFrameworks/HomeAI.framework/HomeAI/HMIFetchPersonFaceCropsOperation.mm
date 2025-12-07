@@ -43,13 +43,10 @@
   v4 = MEMORY[0x277CBEB98];
   person = [(HMIFetchPersonFaceCropsOperation *)self person];
   uUID = [person UUID];
-  v7 = [v4 setWithObject:uUID];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __61__HMIFetchPersonFaceCropsOperation_mainInsideAutoreleasePool__block_invoke;
-  v8[3] = &unk_278753D20;
+  v7 = [v4 setWithObject:?];
+  v8 = MEMORY[0x277D85DD0];
   objc_copyWeak(&v9, &location);
-  [dataSource fetchFaceCropsForPersonsWithUUIDs:v7 completion:v8];
+  [dataSource fetchFaceCropsForPersonsWithUUIDs:v8 completion:{3221225472, __61__HMIFetchPersonFaceCropsOperation_mainInsideAutoreleasePool__block_invoke, &unk_278753D20}];
 
   objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
@@ -83,7 +80,7 @@ void __61__HMIFetchPersonFaceCropsOperation_mainInsideAutoreleasePool__block_inv
       }
 
       objc_autoreleasePoolPop(v10);
-      [v11 cancelWithError:v7];
+      [v11 cancelWithError:?];
     }
 
     else

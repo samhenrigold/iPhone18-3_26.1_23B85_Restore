@@ -68,9 +68,11 @@ void __50__MLMediaLibraryServiceInterface_serviceInterface__block_invoke()
 
 uint64_t __49__MLMediaLibraryServiceInterface_clientInterface__block_invoke()
 {
-  clientInterface_interface = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2840E3E68];
+  v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2840E3E68];
+  v1 = clientInterface_interface;
+  clientInterface_interface = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -1,12 +1,12 @@
 @interface GGMController
 - ($43C834F0531B50B92CAF4577069D180C)setDefaultControllerConfig;
 - (GGMController)initWithConfig:(id *)config metalContext:(id)context imageDimensions:(id)dimensions tuningParameters:(id)parameters forDetection:(BOOL)detection;
+- (GGMController)initWithConfigDict:(id)dict metalContext:(id)context imageDimensions:(id)dimensions forDetection:(BOOL)detection;
 - (id)buildInputParamsToRepairFromMetaInfo:(id)info andDetectedResults:(id)results lookaheadDetectedResults:(id)detectedResults;
 - (id)createInputParamsToRepairFromMetaInfo:(id)info metaContainerBuffer:(id)buffer futureMetaContainerBuffers:(id)buffers metaContainerBuffer_HW:(id)w futureMetaContainerBuffers_HW:(id)hW;
 - (id)detectGreenGhostFor:(__CVBuffer *)for metaData:(id)data frameNum:(int64_t)num timeStamp:(id *)stamp keyPoint:(__CVBuffer *)point lightSourceMask:(__CVBuffer *)mask futureFrames:(id *)frames;
 - (int64_t)processDetection;
 - (int64_t)repairGreenGhostFor:(__CVBuffer *)for inputParamsToRepair:(id)repair parsedMetaData:(id)data lookaheadDetResult:(id)result mitigated:(__CVBuffer *)mitigated;
-- (uint64_t)processDetection;
 - (void)resetIntermediateVariables;
 - (void)resetState;
 - (void)setConfigureFromDefaultsWrite:(id *)write;
@@ -91,6 +91,56 @@
 
     while (v7);
   }
+}
+
+- (GGMController)initWithConfigDict:(id)dict metalContext:(id)context imageDimensions:(id)dimensions forDetection:(BOOL)detection
+{
+  detectionCopy = detection;
+  dictCopy = dict;
+  contextCopy = context;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  if (self)
+  {
+    objc_msgSend_setDefaultControllerConfig(self, v21, v22, v23, v24);
+  }
+
+  if (dictCopy)
+  {
+    [(GGMController *)self updateConfig:&v23 withConfigureDict:dictCopy];
+  }
+
+  v12 = [dictCopy objectForKeyedSubscript:{@"TuningParameters", v21, v22, v23, v24}];
+
+  if (v12)
+  {
+    v13 = [dictCopy objectForKeyedSubscript:@"TuningParameters"];
+    v14 = [NSMutableDictionary dictionaryWithDictionary:v13];
+  }
+
+  else
+  {
+    v14 = +[NSMutableDictionary dictionary];
+  }
+
+  [v14 setObject:&__kCFBooleanTrue forKeyedSubscript:@"hwMode"];
+  [(GGMController *)self setConfigureFromDefaultsWrite:&v21];
+  v15 = [NSNumber numberWithBool:BYTE10(v24) == 0];
+  [v14 setObject:v15 forKeyedSubscript:@"UseGPUHWModel"];
+
+  v16 = [NSNumber numberWithBool:BYTE11(v24) != 0];
+  [v14 setObject:v16 forKeyedSubscript:@"WaitForRepairCompletion"];
+
+  v17 = [NSNumber numberWithBool:BYTE12(v24) != 0];
+  [v14 setObject:v17 forKeyedSubscript:@"ForceLosslessFormat"];
+
+  v18 = [NSNumber numberWithBool:BYTE13(v24) != 0];
+  [v14 setObject:v18 forKeyedSubscript:@"ReportProcessingTime"];
+
+  v19 = [(GGMController *)self initWithConfig:&v21 metalContext:contextCopy imageDimensions:dimensions tuningParameters:v14 forDetection:detectionCopy];
+  return v19;
 }
 
 - (GGMController)initWithConfig:(id *)config metalContext:(id)context imageDimensions:(id)dimensions tuningParameters:(id)parameters forDetection:(BOOL)detection
@@ -185,9 +235,7 @@ LABEL_9:
   metaInfoQueue = self->_metaInfoQueue;
   self->_metaInfoQueue = v3;
 
-  v5 = objc_alloc_init(RepairWeightsProcessor);
-  repairWeightsProcessor = self->_repairWeightsProcessor;
-  self->_repairWeightsProcessor = v5;
+  self->_repairWeightsProcessor = objc_alloc_init(RepairWeightsProcessor);
 
   _objc_release_x1();
 }
@@ -205,7 +253,6 @@ LABEL_9:
 - (void)setConfigureFromDefaultsWrite:(id *)write
 {
   write->var1.var11 = FigGetCFPreferenceNumberWithDefault() == 0;
-  var12 = write->var1.var12;
   write->var1.var12 = FigGetCFPreferenceNumberWithDefault();
   write->var1.var13 = FigGetCFPreferenceNumberWithDefault();
   write->var1.var14 = FigGetCFPreferenceNumberWithDefault();
@@ -227,14 +274,9 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  processedFrameInDetection = self->_processedFrameInDetection;
-  lightSourceMask = self->_lightSourceMask;
-  keyPointsList = self->_keyPointsList;
-  futureFramesToDetectionAndRepair = self->_futureFramesToDetectionAndRepair;
-  ispTimeStamp = self->_ispTimeStamp;
-  v7 = [GGMController detectGreenGhostFor:"detectGreenGhostFor:metaData:frameNum:timeStamp:keyPoint:lightSourceMask:futureFrames:" metaData:futureFramesToDetectionAndRepair frameNum:? timeStamp:? keyPoint:? lightSourceMask:? futureFrames:?];
+  v3 = [GGMController detectGreenGhostFor:"detectGreenGhostFor:metaData:frameNum:timeStamp:keyPoint:lightSourceMask:futureFrames:" metaData:self->_futureFramesToDetectionAndRepair frameNum:? timeStamp:? keyPoint:? lightSourceMask:? futureFrames:?];
   detectedGreenGhostInfo = self->_detectedGreenGhostInfo;
-  self->_detectedGreenGhostInfo = v7;
+  self->_detectedGreenGhostInfo = v3;
 
   if (self->_detectedGreenGhostInfo)
   {
@@ -387,7 +429,7 @@ LABEL_40:
   mutableBytes2 = [v13 mutableBytes];
   if (!mutableBytes || (mutableBytes[2168] & 1) == 0)
   {
-    [GGMController buildInputParamsToRepairFromMetaInfo:andDetectedResults:lookaheadDetectedResults:];
+    [GGMController buildInputParamsToRepairFromMetaInfo:mutableBytes2 andDetectedResults:? lookaheadDetectedResults:?];
 LABEL_34:
     v11 = 0;
     v17 = 0;
@@ -500,130 +542,18 @@ LABEL_26:
   *&self->_ispTimeStamp.value = v3;
 }
 
-- (void)initWithConfig:(void *)a1 metalContext:imageDimensions:tuningParameters:forDetection:.cold.1(void *a1)
+- (void)initWithConfig:(const char *)a1 metalContext:imageDimensions:tuningParameters:forDetection:.cold.4(const char *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
-- (void)initWithConfig:(void *)a1 metalContext:imageDimensions:tuningParameters:forDetection:.cold.2(void *a1)
+- (void)repairGreenGhostFor:(const char *)a1 inputParamsToRepair:parsedMetaData:lookaheadDetResult:mitigated:.cold.1(const char *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfig:metalContext:imageDimensions:tuningParameters:forDetection:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (void)initWithConfig:(void *)a1 metalContext:imageDimensions:tuningParameters:forDetection:.cold.4(void *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-}
-
-- (uint64_t)processDetection
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (void)repairGreenGhostFor:(void *)a1 inputParamsToRepair:parsedMetaData:lookaheadDetResult:mitigated:.cold.1(void *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-}
-
-- (uint64_t)repairGreenGhostFor:inputParamsToRepair:parsedMetaData:lookaheadDetResult:mitigated:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)repairGreenGhostFor:inputParamsToRepair:parsedMetaData:lookaheadDetResult:mitigated:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)repairGreenGhostFor:inputParamsToRepair:parsedMetaData:lookaheadDetResult:mitigated:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)repairGreenGhostFor:inputParamsToRepair:parsedMetaData:lookaheadDetResult:mitigated:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)buildInputParamsToRepairFromMetaInfo:andDetectedResults:lookaheadDetectedResults:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)buildInputParamsToRepairFromMetaInfo:andDetectedResults:lookaheadDetectedResults:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)buildInputParamsToRepairFromMetaInfo:andDetectedResults:lookaheadDetectedResults:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)buildInputParamsToRepairFromMetaInfo:andDetectedResults:lookaheadDetectedResults:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)buildInputParamsToRepairFromMetaInfo:andDetectedResults:lookaheadDetectedResults:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)buildInputParamsToRepairFromMetaInfo:andDetectedResults:lookaheadDetectedResults:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)buildInputParamsToRepairFromMetaInfo:andDetectedResults:lookaheadDetectedResults:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)buildInputParamsToRepairFromMetaInfo:andDetectedResults:lookaheadDetectedResults:.cold.8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
 @end

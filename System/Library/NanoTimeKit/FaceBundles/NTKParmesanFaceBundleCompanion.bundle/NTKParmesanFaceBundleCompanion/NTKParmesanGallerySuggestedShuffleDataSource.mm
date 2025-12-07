@@ -35,58 +35,58 @@
 
 - (id)_init
 {
-  v29.receiver = self;
-  v29.super_class = NTKParmesanGallerySuggestedShuffleDataSource;
-  v2 = [(NTKParmesanGallerySuggestedShuffleDataSource *)&v29 init];
-  v6 = v2;
+  v27.receiver = self;
+  v27.super_class = NTKParmesanGallerySuggestedShuffleDataSource;
+  v2 = [(NTKParmesanGallerySuggestedShuffleDataSource *)&v27 init];
+  v5 = v2;
   if (v2)
   {
     v2->_isPrepared = 0;
-    v7 = objc_msgSend_array(MEMORY[0x277CBEB18], v3, v4, v5);
-    suggestedShuffleIDs = v6->_suggestedShuffleIDs;
-    v6->_suggestedShuffleIDs = v7;
+    v6 = objc_msgSend_array(MEMORY[0x277CBEB18], v3, v4);
+    suggestedShuffleIDs = v5->_suggestedShuffleIDs;
+    v5->_suggestedShuffleIDs = v6;
 
-    v12 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v9, v10, v11);
-    resourceDirectoriesForUUID = v6->_resourceDirectoriesForUUID;
-    v6->_resourceDirectoriesForUUID = v12;
+    v10 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v8, v9);
+    resourceDirectoriesForUUID = v5->_resourceDirectoriesForUUID;
+    v5->_resourceDirectoriesForUUID = v10;
 
-    v14 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
-    v15 = dispatch_queue_create("com.apple.NanoTimeKit.PhotosFaceSuggestedShufflesQ", v14);
-    workQ = v6->_workQ;
-    v6->_workQ = v15;
+    v12 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
+    v13 = dispatch_queue_create("com.apple.NanoTimeKit.PhotosFaceSuggestedShufflesQ", v12);
+    workQ = v5->_workQ;
+    v5->_workQ = v13;
 
-    v17 = dispatch_queue_create("com.apple.NanoTimeKit.PhotosFaceSuggestedShuffleNotificationQ", v14);
-    observerQ = v6->_observerQ;
-    v6->_observerQ = v17;
+    v15 = dispatch_queue_create("com.apple.NanoTimeKit.PhotosFaceSuggestedShuffleNotificationQ", v12);
+    observerQ = v5->_observerQ;
+    v5->_observerQ = v15;
 
-    v19 = objc_opt_new();
-    observers = v6->_observers;
-    v6->_observers = v19;
+    v17 = objc_opt_new();
+    observers = v5->_observers;
+    v5->_observers = v17;
 
     out_token = 0;
-    objc_initWeak(&location, v6);
-    v21 = *MEMORY[0x277D3B3C8];
-    v22 = v6->_workQ;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = sub_23BF28848;
-    v24[3] = &unk_278BA7160;
-    objc_copyWeak(&v26, &location);
-    v25 = v6;
-    notify_register_dispatch(v21, &out_token, v22, v24);
+    objc_initWeak(&location, v5);
+    v19 = *MEMORY[0x277D3B3C8];
+    v20 = v5->_workQ;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = sub_23BF28848;
+    v22[3] = &unk_278BA7160;
+    objc_copyWeak(&v24, &location);
+    v23 = v5;
+    notify_register_dispatch(v19, &out_token, v20, v22);
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)prepareWithCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v8 = completionCopy;
+  v7 = completionCopy;
   if (self->_isPrepared)
   {
     if (completionCopy)
@@ -97,25 +97,25 @@
 
   else
   {
-    v9 = objc_msgSend_logObject(NTKParmesanFaceBundle, v5, v6, v7);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = objc_msgSend_logObject(NTKParmesanFaceBundle, v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_23BF0C000, v9, OS_LOG_TYPE_DEFAULT, "prepareWithCompletion: Preparing shuffles for data source: %@", buf, 0xCu);
+      _os_log_impl(&dword_23BF0C000, v8, OS_LOG_TYPE_DEFAULT, "prepareWithCompletion: Preparing shuffles for data source: %@", buf, 0xCu);
     }
 
-    v13 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v10, v11, v12);
+    v11 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v9, v10);
     resourceDirectoriesForUUID = self->_resourceDirectoriesForUUID;
-    self->_resourceDirectoriesForUUID = v13;
+    self->_resourceDirectoriesForUUID = v11;
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = sub_23BF28AB4;
-    v17[3] = &unk_278BA7200;
-    v17[4] = self;
-    v18 = v8;
-    objc_msgSend_fetchGalleryShufflesWithCompletion_(NTKParmesanPhotoProcessor, v15, v17, v16);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_23BF28AB4;
+    v14[3] = &unk_278BA7200;
+    v14[4] = self;
+    v15 = v7;
+    objc_msgSend_fetchGalleryShufflesWithCompletion_(NTKParmesanPhotoProcessor, v13, v14);
   }
 }
 
@@ -123,30 +123,30 @@
 {
   if (self->_isPrepared)
   {
-    v5 = objc_msgSend_allKeys(self->_resourceDirectoriesForUUID, a2, v2, v3);
+    v4 = objc_msgSend_allKeys(self->_resourceDirectoriesForUUID, a2, v2);
   }
 
   else
   {
-    v5 = MEMORY[0x277CBEBF8];
+    v4 = MEMORY[0x277CBEBF8];
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)resourceDirectoryForUUIDString:(id)string
 {
   if (self->_isPrepared)
   {
-    v5 = objc_msgSend_objectForKeyedSubscript_(self->_resourceDirectoriesForUUID, a2, string, v3);
+    v4 = objc_msgSend_objectForKeyedSubscript_(self->_resourceDirectoriesForUUID, a2, string);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)addObserver:(id)observer
@@ -179,13 +179,13 @@
 
 - (void)_queue_notifyObserversShuffleUpdated
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = objc_msgSend_logObject(NTKParmesanFaceBundle, a2, v2, v3);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_logObject(NTKParmesanFaceBundle, a2, v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_23BF0C000, v5, OS_LOG_TYPE_DEFAULT, "_queue_notifyObserversShuffleUpdated: data source updated: %@", buf, 0xCu);
+    _os_log_impl(&dword_23BF0C000, v4, OS_LOG_TYPE_DEFAULT, "_queue_notifyObserversShuffleUpdated: data source updated: %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
@@ -194,55 +194,55 @@
   block[1] = 3221225472;
   block[2] = sub_23BF29318;
   block[3] = &unk_278BA7270;
-  objc_copyWeak(&v8, buf);
+  objc_copyWeak(&v7, buf);
   dispatch_async(observerQ, block);
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
 }
 
 - (void)_queue_createResourceDirectoryForShuffle:(id)shuffle completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   shuffleCopy = shuffle;
   completionCopy = completion;
-  v11 = objc_msgSend__cacheDirectoryPath(self, v8, v9, v10);
-  v15 = objc_msgSend_uuidString(shuffleCopy, v12, v13, v14);
-  v18 = objc_msgSend_stringByAppendingPathComponent_(v11, v16, v15, v17);
+  v10 = objc_msgSend__cacheDirectoryPath(self, v8, v9);
+  v13 = objc_msgSend_uuidString(shuffleCopy, v11, v12);
+  v15 = objc_msgSend_stringByAppendingPathComponent_(v10, v14, v13);
 
-  v38 = 0;
-  v22 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v19, v20, v21);
-  isDirectory = objc_msgSend_fileExistsAtPath_isDirectory_(v22, v23, v18, &v38);
-  v28 = isDirectory;
+  v33 = 0;
+  v18 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v16, v17);
+  isDirectory = objc_msgSend_fileExistsAtPath_isDirectory_(v18, v19, v15, &v33);
+  v23 = isDirectory;
   if (isDirectory)
   {
-    if (v38 != 1)
+    if (v33 != 1)
     {
-      v31 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v25, @"com.apple.parmesan.galleryShuffle", 4, 0);
-      completionCopy[2](completionCopy, 0, v31);
+      v26 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v21, @"com.apple.parmesan.galleryShuffle", 4, 0);
+      completionCopy[2](completionCopy, 0, v26);
 
       goto LABEL_8;
     }
 
-    v29 = objc_msgSend_logObject(NTKParmesanFaceBundle, v25, v26, v27);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v24 = objc_msgSend_logObject(NTKParmesanFaceBundle, v21, v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v40 = v18;
-      _os_log_impl(&dword_23BF0C000, v29, OS_LOG_TYPE_DEFAULT, "_queue_createResourceDirectoryForShuffle: directory %@ already exists", buf, 0xCu);
+      v35 = v15;
+      _os_log_impl(&dword_23BF0C000, v24, OS_LOG_TYPE_DEFAULT, "_queue_createResourceDirectoryForShuffle: directory %@ already exists", buf, 0xCu);
     }
   }
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = sub_23BF295B8;
-  v32[3] = &unk_278BA72C0;
-  v32[4] = self;
-  v33 = v18;
-  v36 = completionCopy;
-  v34 = shuffleCopy;
-  v37 = v28;
-  v35 = v22;
-  objc_msgSend_fetchAssetsInGalleryShuffle_completion_(NTKParmesanPhotoProcessor, v30, v34, v32);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = sub_23BF295B8;
+  v27[3] = &unk_278BA72C0;
+  v27[4] = self;
+  v28 = v15;
+  v31 = completionCopy;
+  v29 = shuffleCopy;
+  v32 = v23;
+  v30 = v18;
+  objc_msgSend_fetchAssetsInGalleryShuffle_completion_(NTKParmesanPhotoProcessor, v25, v29, v27);
 
 LABEL_8:
 }
@@ -261,73 +261,73 @@ LABEL_8:
 
 - (id)_pickAssetFromShuffle:(id)shuffle
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   shuffleCopy = shuffle;
   v4 = MEMORY[0x277CBEB18];
-  v8 = objc_msgSend_count(shuffleCopy, v5, v6, v7);
-  v11 = objc_msgSend_arrayWithCapacity_(v4, v9, v8, v10);
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v12 = shuffleCopy;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v46, v51, 16);
-  if (v14)
+  v7 = objc_msgSend_count(shuffleCopy, v5, v6);
+  v9 = objc_msgSend_arrayWithCapacity_(v4, v8, v7);
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v10 = shuffleCopy;
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v39, v44, 16);
+  if (v12)
   {
-    v18 = v14;
-    v19 = *v47;
+    v15 = v12;
+    v16 = *v40;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v47 != v19)
+        if (*v40 != v16)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v21 = objc_msgSend_localIdentifier(*(*(&v46 + 1) + 8 * i), v15, v16, v17);
-        objc_msgSend_addObject_(v11, v22, v21, v23);
+        v18 = objc_msgSend_localIdentifier(*(*(&v39 + 1) + 8 * i), v13, v14);
+        objc_msgSend_addObject_(v9, v19, v18);
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v46, v51, 16);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v39, v44, 16);
     }
 
-    while (v18);
+    while (v15);
   }
 
-  objc_msgSend_sortUsingComparator_(v11, v24, &unk_284EBA668, v25);
-  v29 = objc_msgSend_firstObject(v11, v26, v27, v28);
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v30 = v12;
-  v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v42, v50, 16);
-  if (v35)
+  objc_msgSend_sortUsingComparator_(v9, v20, &unk_284EBA668);
+  v23 = objc_msgSend_firstObject(v9, v21, v22);
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v24 = v10;
+  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v35, v43, 16);
+  if (v28)
   {
-    v36 = *v43;
+    v29 = *v36;
     while (2)
     {
-      for (j = 0; j != v35; j = j + 1)
+      for (j = 0; j != v28; j = j + 1)
       {
-        if (*v43 != v36)
+        if (*v36 != v29)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v24);
         }
 
-        v38 = *(*(&v42 + 1) + 8 * j);
-        v39 = objc_msgSend_localIdentifier(v38, v32, v33, v34, v42);
-        v40 = NTKEqualStrings();
+        v31 = *(*(&v35 + 1) + 8 * j);
+        v32 = objc_msgSend_localIdentifier(v31, v26, v27, v35);
+        v33 = NTKEqualStrings();
 
-        if (v40)
+        if (v33)
         {
-          v35 = v38;
+          v28 = v31;
           goto LABEL_18;
         }
       }
 
-      v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v32, &v42, v50, 16);
-      if (v35)
+      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v26, &v35, v43, 16);
+      if (v28)
       {
         continue;
       }
@@ -338,85 +338,85 @@ LABEL_8:
 
 LABEL_18:
 
-  return v35;
+  return v28;
 }
 
 - (BOOL)_createResourceDirectoryForShuffle:(id)shuffle asset:(id)asset at:(id)at
 {
-  v190 = *MEMORY[0x277D85DE8];
+  v156 = *MEMORY[0x277D85DE8];
   shuffleCopy = shuffle;
   assetCopy = asset;
   atCopy = at;
-  v14 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v11, v12, v13);
-  v186 = 0;
-  objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v14, v15, atCopy, 1, 0, &v186);
-  v19 = v186;
-  if (v19)
+  v13 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v11, v12);
+  v152 = 0;
+  objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v13, v14, atCopy, 1, 0, &v152);
+  v17 = v152;
+  if (v17)
   {
-    v20 = objc_msgSend_logObject(NTKParmesanFaceBundle, v16, v17, v18);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v18 = objc_msgSend_logObject(NTKParmesanFaceBundle, v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_23BFF8188(atCopy, v20, v21, v22, v23, v24, v25, v26);
+      sub_23BFF8188(atCopy, v18, v19, v20, v21, v22, v23, v24);
     }
 
-    v27 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v28 = MEMORY[0x277CCACA8];
-    v29 = objc_msgSend_resourceDirectory(assetCopy, v16, v17, v18);
-    v30 = v29;
-    v34 = objc_msgSend_fileSystemRepresentation(v30, v31, v32, v33);
-    v20 = objc_msgSend_stringWithCString_encoding_(v28, v35, v34, 4);
+    v26 = MEMORY[0x277CCACA8];
+    v27 = objc_msgSend_resourceDirectory(assetCopy, v15, v16);
+    v28 = v27;
+    v31 = objc_msgSend_fileSystemRepresentation(v28, v29, v30);
+    v18 = objc_msgSend_stringWithCString_encoding_(v26, v32, v31, 4);
 
-    v184 = 0u;
-    v185 = 0u;
-    v182 = 0u;
-    v183 = 0u;
-    v39 = objc_msgSend_layouts(assetCopy, v36, v37, v38);
-    v43 = objc_msgSend_allKeys(v39, v40, v41, v42);
+    v150 = 0u;
+    v151 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v35 = objc_msgSend_layouts(assetCopy, v33, v34);
+    v38 = objc_msgSend_allKeys(v35, v36, v37);
 
-    obj = v43;
-    v177 = assetCopy;
-    v180 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v44, &v182, v189, 16);
-    if (v180)
+    obj = v38;
+    v143 = assetCopy;
+    v146 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v148, v155, 16);
+    if (v146)
     {
       selfCopy = self;
-      v179 = *v183;
-      v175 = v14;
-      v176 = shuffleCopy;
+      v145 = *v149;
+      v141 = v13;
+      v142 = shuffleCopy;
       while (2)
       {
-        for (i = 0; i != v180; ++i)
+        for (i = 0; i != v146; ++i)
         {
-          if (*v183 != v179)
+          if (*v149 != v145)
           {
             objc_enumerationMutation(obj);
           }
 
-          v50 = *(*(&v182 + 1) + 8 * i);
-          v51 = objc_msgSend_layouts(assetCopy, v45, v46, v47, v175, v176);
-          v54 = objc_msgSend_objectForKeyedSubscript_(v51, v52, v50, v53);
+          v44 = *(*(&v148 + 1) + 8 * i);
+          v45 = objc_msgSend_layouts(assetCopy, v40, v41, v141, v142);
+          v47 = objc_msgSend_objectForKeyedSubscript_(v45, v46, v44);
 
-          v58 = objc_msgSend_baseImageName(v54, v55, v56, v57);
-          v61 = objc_msgSend_stringByAppendingPathComponent_(v20, v59, v58, v60);
+          v50 = objc_msgSend_baseImageName(v47, v48, v49);
+          v52 = objc_msgSend_stringByAppendingPathComponent_(v18, v51, v50);
 
-          v65 = objc_msgSend_baseImageName(v54, v62, v63, v64);
-          v68 = objc_msgSend_stringByAppendingPathComponent_(atCopy, v66, v65, v67);
+          v55 = objc_msgSend_baseImageName(v47, v53, v54);
+          v57 = objc_msgSend_stringByAppendingPathComponent_(atCopy, v56, v55);
 
-          if (!objc_msgSend__copyFile_to_(selfCopy, v69, v61, v68) || (objc_msgSend_mask(v54, v70, v71, v72), v73 = objc_claimAutoreleasedReturnValue(), objc_msgSend_imageName(v73, v74, v75, v76), v77 = objc_claimAutoreleasedReturnValue(), v77, v73, v77) && (objc_msgSend_mask(v54, v78, v79, v80), v81 = objc_claimAutoreleasedReturnValue(), objc_msgSend_imageName(v81, v82, v83, v84), v85 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringByAppendingPathComponent_(v20, v86, v85, v87), v181 = objc_claimAutoreleasedReturnValue(), v85, v81, objc_msgSend_mask(v54, v88, v89, v90), v91 = objc_claimAutoreleasedReturnValue(), objc_msgSend_imageName(v91, v92, v93, v94), v95 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringByAppendingPathComponent_(atCopy, v96, v95, v97), v98 = v20, v99 = atCopy, v100 = objc_claimAutoreleasedReturnValue(), v95, v91, LODWORD(v91) = objc_msgSend__copyFile_to_(selfCopy, v101, v181, v100), v100, atCopy = v99, v20 = v98, v181, assetCopy = v177, !v91))
+          if (!objc_msgSend__copyFile_to_(selfCopy, v58, v52, v57) || (objc_msgSend_mask(v47, v59, v60), v61 = objc_claimAutoreleasedReturnValue(), objc_msgSend_imageName(v61, v62, v63), v64 = objc_claimAutoreleasedReturnValue(), v64, v61, v64) && (objc_msgSend_mask(v47, v65, v66), v67 = objc_claimAutoreleasedReturnValue(), objc_msgSend_imageName(v67, v68, v69), v70 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringByAppendingPathComponent_(v18, v71, v70), v147 = objc_claimAutoreleasedReturnValue(), v70, v67, objc_msgSend_mask(v47, v72, v73), v74 = objc_claimAutoreleasedReturnValue(), objc_msgSend_imageName(v74, v75, v76), v77 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringByAppendingPathComponent_(atCopy, v78, v77), v79 = v18, v80 = atCopy, v81 = objc_claimAutoreleasedReturnValue(), v77, v74, LODWORD(v74) = objc_msgSend__copyFile_to_(selfCopy, v82, v147, v81), v81, atCopy = v80, v18 = v79, v147, assetCopy = v143, !v74))
           {
-            v14 = v175;
-            shuffleCopy = v176;
+            v13 = v141;
+            shuffleCopy = v142;
             goto LABEL_37;
           }
         }
 
-        v14 = v175;
-        shuffleCopy = v176;
-        v180 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v45, &v182, v189, 16);
-        if (v180)
+        v13 = v141;
+        shuffleCopy = v142;
+        v146 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v40, &v148, v155, 16);
+        if (v146)
         {
           continue;
         }
@@ -425,139 +425,139 @@ LABEL_18:
       }
     }
 
-    v102 = atCopy;
+    v83 = atCopy;
 
-    v103 = objc_opt_new();
-    v107 = objc_msgSend_asDictionary(assetCopy, v104, v105, v106);
-    objc_msgSend_addObject_(v103, v108, v107, v109);
+    v84 = objc_opt_new();
+    v87 = objc_msgSend_asDictionary(assetCopy, v85, v86);
+    objc_msgSend_addObject_(v84, v88, v87);
 
-    v54 = objc_opt_new();
-    v112 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v110, 2, v111);
-    objc_msgSend_setObject_forKeyedSubscript_(v54, v113, v112, kParmesanReaderVersionKey);
+    v47 = objc_opt_new();
+    v90 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v89, 2);
+    objc_msgSend_setObject_forKeyedSubscript_(v47, v91, v90, kParmesanReaderVersionKey);
 
-    obj = v103;
-    objc_msgSend_setObject_forKeyedSubscript_(v54, v114, v103, kParmesanReaderImageListKey);
-    v118 = objc_msgSend_people(shuffleCopy, v115, v116, v117);
-    v122 = objc_msgSend_count(v118, v119, v120, v121);
+    obj = v84;
+    objc_msgSend_setObject_forKeyedSubscript_(v47, v92, v84, kParmesanReaderImageListKey);
+    v95 = objc_msgSend_people(shuffleCopy, v93, v94);
+    v98 = objc_msgSend_count(v95, v96, v97);
 
-    if (v122)
+    if (v98)
     {
-      v126 = objc_msgSend_people(shuffleCopy, v123, v124, v125);
-      v130 = objc_msgSend_allObjects(v126, v127, v128, v129);
-      objc_msgSend_setObject_forKeyedSubscript_(v54, v131, v130, kParmesanReaderPeopleIdentifiersKey);
+      v101 = objc_msgSend_people(shuffleCopy, v99, v100);
+      v104 = objc_msgSend_allObjects(v101, v102, v103);
+      objc_msgSend_setObject_forKeyedSubscript_(v47, v105, v104, kParmesanReaderPeopleIdentifiersKey);
     }
 
-    v132 = objc_msgSend_people(shuffleCopy, v123, v124, v125);
-    v136 = objc_msgSend_count(v132, v133, v134, v135);
-    v138 = MEMORY[0x277CBEC38];
-    v139 = MEMORY[0x277CBEC28];
-    if (v136)
+    v106 = objc_msgSend_people(shuffleCopy, v99, v100);
+    v109 = objc_msgSend_count(v106, v107, v108);
+    v111 = MEMORY[0x277CBEC38];
+    v112 = MEMORY[0x277CBEC28];
+    if (v109)
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v54, v137, MEMORY[0x277CBEC38], kParmesanReaderHasPeopleKey);
-    }
-
-    else
-    {
-      objc_msgSend_setObject_forKeyedSubscript_(v54, v137, MEMORY[0x277CBEC28], kParmesanReaderHasPeopleKey);
-    }
-
-    if (objc_msgSend_pets(shuffleCopy, v140, v141, v142))
-    {
-      objc_msgSend_setObject_forKeyedSubscript_(v54, v143, v138, kParmesanReaderHasPetsKey);
+      objc_msgSend_setObject_forKeyedSubscript_(v47, v110, MEMORY[0x277CBEC38], kParmesanReaderHasPeopleKey);
     }
 
     else
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v54, v143, v139, kParmesanReaderHasPetsKey);
+      objc_msgSend_setObject_forKeyedSubscript_(v47, v110, MEMORY[0x277CBEC28], kParmesanReaderHasPeopleKey);
     }
 
-    if (objc_msgSend_nature(shuffleCopy, v144, v145, v146))
+    if (objc_msgSend_pets(shuffleCopy, v113, v114))
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v54, v147, v138, kParmesanReaderHasNatureKey);
+      objc_msgSend_setObject_forKeyedSubscript_(v47, v115, v111, kParmesanReaderHasPetsKey);
     }
 
     else
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v54, v147, v139, kParmesanReaderHasNatureKey);
+      objc_msgSend_setObject_forKeyedSubscript_(v47, v115, v112, kParmesanReaderHasPetsKey);
     }
 
-    if (objc_msgSend_cityscape(shuffleCopy, v148, v149, v150))
+    if (objc_msgSend_nature(shuffleCopy, v116, v117))
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v54, v151, v138, kParmesanReaderHasCityscapesKey);
+      objc_msgSend_setObject_forKeyedSubscript_(v47, v118, v111, kParmesanReaderHasNatureKey);
     }
 
     else
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v54, v151, v139, kParmesanReaderHasCityscapesKey);
+      objc_msgSend_setObject_forKeyedSubscript_(v47, v118, v112, kParmesanReaderHasNatureKey);
     }
 
-    v155 = objc_msgSend_uuidString(shuffleCopy, v152, v153, v154);
-    objc_msgSend_setObject_forKeyedSubscript_(v54, v156, v155, kParmesanReaderUUIDStringKey);
+    if (objc_msgSend_cityscape(shuffleCopy, v119, v120))
+    {
+      objc_msgSend_setObject_forKeyedSubscript_(v47, v121, v111, kParmesanReaderHasCityscapesKey);
+    }
 
-    atCopy = v102;
-    v61 = objc_msgSend_stringByAppendingPathComponent_(v102, v157, kParmesanReaderImagelistFileName, v158);
-    v162 = objc_msgSend_logObject(NTKParmesanFaceBundle, v159, v160, v161);
-    if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
+    else
+    {
+      objc_msgSend_setObject_forKeyedSubscript_(v47, v121, v112, kParmesanReaderHasCityscapesKey);
+    }
+
+    v124 = objc_msgSend_uuidString(shuffleCopy, v122, v123);
+    objc_msgSend_setObject_forKeyedSubscript_(v47, v125, v124, kParmesanReaderUUIDStringKey);
+
+    atCopy = v83;
+    v52 = objc_msgSend_stringByAppendingPathComponent_(v83, v126, kParmesanReaderImagelistFileName);
+    v129 = objc_msgSend_logObject(NTKParmesanFaceBundle, v127, v128);
+    if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v188 = v61;
-      _os_log_impl(&dword_23BF0C000, v162, OS_LOG_TYPE_DEFAULT, "writing image list to path %@", buf, 0xCu);
+      v154 = v52;
+      _os_log_impl(&dword_23BF0C000, v129, OS_LOG_TYPE_DEFAULT, "writing image list to path %@", buf, 0xCu);
     }
 
-    if (objc_msgSend_writeToFile_atomically_(v54, v163, v61, 0))
+    if (objc_msgSend_writeToFile_atomically_(v47, v130, v52, 0))
     {
 
-      v27 = 1;
-      assetCopy = v177;
+      v25 = 1;
+      assetCopy = v143;
     }
 
     else
     {
-      v68 = objc_msgSend_logObject(NTKParmesanFaceBundle, v164, v165, v166);
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+      v57 = objc_msgSend_logObject(NTKParmesanFaceBundle, v131, v132);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
-        sub_23BFF81F4(v61, v68, v167, v168, v169, v170, v171, v172);
+        sub_23BFF81F4(v52, v57, v133, v134, v135, v136, v137, v138);
       }
 
-      assetCopy = v177;
+      assetCopy = v143;
 LABEL_37:
 
-      objc_msgSend_removeItemAtPath_error_(v14, v173, atCopy, 0);
-      v27 = 0;
+      objc_msgSend_removeItemAtPath_error_(v13, v139, atCopy, 0);
+      v25 = 0;
     }
 
-    v19 = 0;
+    v17 = 0;
   }
 
-  return v27;
+  return v25;
 }
 
 - (BOOL)_copyFile:(id)file to:(id)to
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   toCopy = to;
-  v10 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v7, v8, v9);
-  v18 = 0;
-  objc_msgSend_copyItemAtPath_toPath_error_(v10, v11, fileCopy, toCopy, &v18);
-  v12 = v18;
+  v9 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v7, v8);
+  v16 = 0;
+  objc_msgSend_copyItemAtPath_toPath_error_(v9, v10, fileCopy, toCopy, &v16);
+  v11 = v16;
 
-  if (v12)
+  if (v11)
   {
-    v16 = objc_msgSend_logObject(NTKParmesanFaceBundle, v13, v14, v15);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v14 = objc_msgSend_logObject(NTKParmesanFaceBundle, v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v20 = fileCopy;
+      v18 = fileCopy;
+      v19 = 2112;
+      v20 = toCopy;
       v21 = 2112;
-      v22 = toCopy;
-      v23 = 2112;
-      v24 = v12;
-      _os_log_error_impl(&dword_23BF0C000, v16, OS_LOG_TYPE_ERROR, "_createResourceDirectoryForShuffle: cannot copy %@ to %@, error == %@", buf, 0x20u);
+      v22 = v11;
+      _os_log_error_impl(&dword_23BF0C000, v14, OS_LOG_TYPE_ERROR, "_createResourceDirectoryForShuffle: cannot copy %@ to %@, error == %@", buf, 0x20u);
     }
   }
 
-  return v12 == 0;
+  return v11 == 0;
 }
 
 @end

@@ -23,34 +23,31 @@
 
 - (id)_tokenForSandboxExtensionWithClass:(const char *)class path:(id)path
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   [pathCopy fileSystemRepresentation];
-  v5 = *MEMORY[0x277D861E8];
-  v6 = sandbox_extension_issue_file();
-  if (v6)
+  v5 = sandbox_extension_issue_file();
+  if (v5)
   {
-    v7 = v6;
-    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:v6 encoding:4];
-    free(v7);
+    v6 = v5;
+    v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:v5 encoding:4];
+    free(v6);
   }
 
   else
   {
-    v9 = TRILogCategory_Server();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = TRILogCategory_Server();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = pathCopy;
-      _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Failed to create sandbox extension for %{public}@", &v12, 0xCu);
+      v10 = 138543362;
+      v11 = pathCopy;
+      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Failed to create sandbox extension for %{public}@", &v10, 0xCu);
     }
 
-    v8 = 0;
+    v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v7;
 }
 
 - ($A5A652246548B43F8BC05201A1C72A70)applyPatchWithFilename:(id)filename toSrcDir:(id)dir writingToEmptyDestDir:(id)destDir postPatchCompression:(id)compression error:(id *)error

@@ -33,7 +33,7 @@
   v12 = v7;
   if (v7)
   {
-    objc_msgSend_stageScale(v7, v8, v9, v10, v11);
+    objc_msgSend_stageScale(v7, v9, v10, v11);
   }
 
   else

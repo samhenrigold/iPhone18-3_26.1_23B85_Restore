@@ -27,7 +27,7 @@
 - (void)setBlurRadius:(double)radius
 {
   selfCopy = self;
-  sub_190921D3C();
+  sub_190921D3C(radius);
 }
 
 - (_TtC7ChatKit28MaterialSwipeActionIndicator)initWithFrame:(CGRect)frame

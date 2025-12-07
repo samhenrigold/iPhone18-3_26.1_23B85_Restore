@@ -29,9 +29,9 @@
 - (CloudSettingStore)initWithContainer:(id)container
 {
   containerCopy = container;
-  v24.receiver = self;
-  v24.super_class = CloudSettingStore;
-  v6 = [(CloudSettingStore *)&v24 init];
+  v26.receiver = self;
+  v26.super_class = CloudSettingStore;
+  v6 = [(CloudSettingStore *)&v26 init];
   v7 = v6;
   if (v6)
   {
@@ -42,37 +42,37 @@
 
     if (!v7->_database)
     {
-      v10 = sub_10000300C();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = sub_10000300C(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_10003A5E4(v10);
+        sub_10003A5E4(v12);
       }
     }
 
-    v11 = objc_alloc_init(NSOperationQueue);
+    v13 = objc_alloc_init(NSOperationQueue);
     cloudSettingsOperationQueue = v7->_cloudSettingsOperationQueue;
-    v7->_cloudSettingsOperationQueue = v11;
+    v7->_cloudSettingsOperationQueue = v13;
 
     [(NSOperationQueue *)v7->_cloudSettingsOperationQueue setQualityOfService:17];
-    v13 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudSettings.CloudSettingStore.%@.%p.operationQueue", objc_opt_class(), v7];
-    [(NSOperationQueue *)v7->_cloudSettingsOperationQueue setName:v13];
+    v15 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudSettings.CloudSettingStore.%@.%p.operationQueue", objc_opt_class(), v7];
+    [(NSOperationQueue *)v7->_cloudSettingsOperationQueue setName:v15];
 
-    v14 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudSettings.CloudSettingStore.%@.%p.internalQueue", objc_opt_class(), v7];
-    v15 = dispatch_queue_create([v14 UTF8String], 0);
+    v16 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudSettings.CloudSettingStore.%@.%p.internalQueue", objc_opt_class(), v7];
+    v17 = dispatch_queue_create([v16 UTF8String], 0);
     internalQueue = v7->_internalQueue;
-    v7->_internalQueue = v15;
+    v7->_internalQueue = v17;
 
-    v17 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudSettings.CloudSettingStore.%@.%p.completionHandlerQueue", objc_opt_class(), v7];
-    v18 = dispatch_queue_create([v17 UTF8String], 0);
+    v19 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudSettings.CloudSettingStore.%@.%p.completionHandlerQueue", objc_opt_class(), v7];
+    v20 = dispatch_queue_create([v19 UTF8String], 0);
     completionHandlerQueue = v7->_completionHandlerQueue;
-    v7->_completionHandlerQueue = v18;
+    v7->_completionHandlerQueue = v20;
 
-    v20 = +[NSMutableArray array];
+    v22 = +[NSMutableArray array];
     pendingZoneCreationCompletionHandlers = v7->_pendingZoneCreationCompletionHandlers;
-    v7->_pendingZoneCreationCompletionHandlers = v20;
+    v7->_pendingZoneCreationCompletionHandlers = v22;
 
     v7->_isCreatingZone = 0;
-    v22 = v7;
+    v24 = v7;
   }
 
   return v7;
@@ -132,55 +132,55 @@
   blockCopy = block;
   deletedBlockCopy = deletedBlock;
   handlerCopy = handler;
-  v17 = sub_10000300C();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v18 = sub_10000300C(handlerCopy, v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if (tokenCopy)
   {
-    if (v18)
+    if (v19)
     {
-      v19 = v17;
+      v20 = v18;
       safari_logDescription = [groupCopy safari_logDescription];
       *buf = 138543618;
-      v37 = tokenCopy;
-      v38 = 2114;
-      v39 = safari_logDescription;
-      v21 = "Fetching record changes with server change token %{public}@ with %{public}@";
-      v22 = v19;
-      v23 = 22;
+      v38 = tokenCopy;
+      v39 = 2114;
+      v40 = safari_logDescription;
+      v22 = "Fetching record changes with server change token %{public}@ with %{public}@";
+      v23 = v20;
+      v24 = 22;
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v21, buf, v23);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v22, buf, v24);
     }
   }
 
-  else if (v18)
+  else if (v19)
   {
-    v19 = v17;
+    v20 = v18;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v37 = safari_logDescription;
-    v21 = "Fetching all records with %{public}@";
-    v22 = v19;
-    v23 = 12;
+    v38 = safari_logDescription;
+    v22 = "Fetching all records with %{public}@";
+    v23 = v20;
+    v24 = 12;
     goto LABEL_6;
   }
 
   internalQueue = self->_internalQueue;
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_100033FAC;
-  v30[3] = &unk_100130F90;
-  v30[4] = self;
-  v31 = tokenCopy;
-  v32 = groupCopy;
-  v33 = blockCopy;
-  v34 = deletedBlockCopy;
-  v35 = handlerCopy;
-  v25 = handlerCopy;
-  v26 = groupCopy;
-  v27 = deletedBlockCopy;
-  v28 = blockCopy;
-  v29 = tokenCopy;
-  dispatch_async(internalQueue, v30);
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100033FAC;
+  v31[3] = &unk_100130F90;
+  v31[4] = self;
+  v32 = tokenCopy;
+  v33 = groupCopy;
+  v34 = blockCopy;
+  v35 = deletedBlockCopy;
+  v36 = handlerCopy;
+  v26 = handlerCopy;
+  v27 = groupCopy;
+  v28 = deletedBlockCopy;
+  v29 = blockCopy;
+  v30 = tokenCopy;
+  dispatch_async(internalQueue, v31);
 }
 
 - (void)_fetchRecordsOnInternalQueueWithServerChangeToken:(id)token recordChangedBlock:(id)block recordWithIDWasDeletedBlock:(id)deletedBlock inOperationGroup:(id)group completionHandler:(id)handler
@@ -190,8 +190,9 @@ LABEL_6:
   deletedBlockCopy = deletedBlock;
   blockCopy = block;
   tokenCopy = token;
-  v17 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_10000300C()];
-  [(CloudSettingStore *)self _fetchRecordsOnInternalQueueWithRetryManager:v17 serverChangeToken:tokenCopy recordChangedBlock:blockCopy recordWithIDWasDeletedBlock:deletedBlockCopy inOperationGroup:groupCopy completionHandler:handlerCopy];
+  v17 = [WBSCloudKitOperationRetryManager alloc];
+  v19 = [v17 initWithLog:{sub_10000300C(v17, v18)}];
+  [(CloudSettingStore *)self _fetchRecordsOnInternalQueueWithRetryManager:v19 serverChangeToken:tokenCopy recordChangedBlock:blockCopy recordWithIDWasDeletedBlock:deletedBlockCopy inOperationGroup:groupCopy completionHandler:handlerCopy];
 }
 
 - (void)_fetchRecordsOnInternalQueueWithRetryManager:(id)manager serverChangeToken:(id)token recordChangedBlock:(id)block recordWithIDWasDeletedBlock:(id)deletedBlock inOperationGroup:(id)group completionHandler:(id)handler
@@ -205,87 +206,87 @@ LABEL_6:
   v18 = objc_alloc_init(CKFetchRecordZoneChangesConfiguration);
   [v18 setPreviousServerChangeToken:tokenCopy];
   v19 = [CKFetchRecordZoneChangesOperation alloc];
-  v20 = sub_100033914();
-  v77 = v20;
-  v21 = [NSArray arrayWithObjects:&v77 count:1];
-  v22 = sub_100033914();
-  v75 = v22;
-  v76 = v18;
-  v46 = v18;
-  v23 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+  v20 = sub_100033914(v19);
+  v79 = v20;
+  v21 = [NSArray arrayWithObjects:&v79 count:1];
+  v22 = sub_100033914(v21);
+  v77 = v22;
+  v78 = v18;
+  v48 = v18;
+  v23 = [NSDictionary dictionaryWithObjects:&v78 forKeys:&v77 count:1];
   v24 = [v19 initWithRecordZoneIDs:v21 configurationsByRecordZoneID:v23];
 
-  v67[0] = _NSConcreteStackBlock;
-  v67[1] = 3221225472;
-  v67[2] = sub_100034588;
-  v67[3] = &unk_100132A58;
+  v69[0] = _NSConcreteStackBlock;
+  v69[1] = 3221225472;
+  v69[2] = sub_100034588;
+  v69[3] = &unk_100132A58;
   v25 = groupCopy;
-  v68 = v25;
+  v70 = v25;
   selfCopy = self;
   v26 = blockCopy;
-  v70 = v26;
-  [v24 setRecordChangedBlock:v67];
-  v63[0] = _NSConcreteStackBlock;
-  v63[1] = 3221225472;
-  v63[2] = sub_10003467C;
-  v63[3] = &unk_100132A80;
+  v72 = v26;
+  [v24 setRecordChangedBlock:v69];
+  v65[0] = _NSConcreteStackBlock;
+  v65[1] = 3221225472;
+  v65[2] = sub_10003467C;
+  v65[3] = &unk_100132A80;
   v27 = v25;
-  v64 = v27;
+  v66 = v27;
   selfCopy2 = self;
   v28 = deletedBlockCopy;
-  v66 = v28;
-  [v24 setRecordWithIDWasDeletedBlock:v63];
-  v56[0] = _NSConcreteStackBlock;
-  v56[1] = 3221225472;
-  v56[2] = sub_100034810;
-  v56[3] = &unk_100132AA8;
-  v56[4] = self;
-  v57 = managerCopy;
+  v68 = v28;
+  [v24 setRecordWithIDWasDeletedBlock:v65];
+  v58[0] = _NSConcreteStackBlock;
+  v58[1] = 3221225472;
+  v58[2] = sub_100034810;
+  v58[3] = &unk_100132AA8;
+  v58[4] = self;
+  v59 = managerCopy;
   v29 = handlerCopy;
-  v60 = v29;
-  v61 = v26;
-  v58 = tokenCopy;
-  v62 = v28;
+  v62 = v29;
+  v63 = v26;
+  v60 = tokenCopy;
+  v64 = v28;
   v30 = v27;
-  v59 = v30;
+  v61 = v30;
   v31 = v28;
-  v45 = v26;
+  v47 = v26;
   v32 = tokenCopy;
   v33 = managerCopy;
-  v52[0] = _NSConcreteStackBlock;
-  v52[1] = 3221225472;
-  v52[2] = sub_100034BD8;
-  v52[3] = &unk_100132AF8;
-  v52[4] = self;
-  v34 = objc_retainBlock(v56);
-  v54 = v34;
+  v54[0] = _NSConcreteStackBlock;
+  v54[1] = 3221225472;
+  v54[2] = sub_100034BD8;
+  v54[3] = &unk_100132AF8;
+  v54[4] = self;
+  v34 = objc_retainBlock(v58);
+  v56 = v34;
   v35 = v30;
-  v53 = v35;
+  v55 = v35;
   v36 = v29;
-  v55 = v36;
-  [v24 setRecordZoneFetchCompletionBlock:v52];
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_10003507C;
-  v47[3] = &unk_100132B20;
-  v50 = v34;
+  v57 = v36;
+  [v24 setRecordZoneFetchCompletionBlock:v54];
+  v49[0] = _NSConcreteStackBlock;
+  v49[1] = 3221225472;
+  v49[2] = sub_10003507C;
+  v49[3] = &unk_100132B20;
+  v52 = v34;
   v37 = v35;
-  v48 = v37;
+  v50 = v37;
   selfCopy3 = self;
-  v51 = v36;
+  v53 = v36;
   v38 = v36;
   v39 = v34;
-  [v24 setFetchRecordZoneChangesCompletionBlock:v47];
-  v40 = sub_10000300C();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+  v40 = [v24 setFetchRecordZoneChangesCompletionBlock:v49];
+  v42 = sub_10000300C(v40, v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
   {
-    v41 = v40;
+    v43 = v42;
     safari_logDescription = [v37 safari_logDescription];
     *buf = 138543618;
-    v72 = @"CloudSettings";
-    v73 = 2114;
-    v74 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Enqueuing request to fetch records from record zone %{public}@ with %{public}@", buf, 0x16u);
+    v74 = @"CloudSettings";
+    v75 = 2114;
+    v76 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "Enqueuing request to fetch records from record zone %{public}@ with %{public}@", buf, 0x16u);
   }
 
   [(CloudSettingStore *)self _scheduleOperation:v24 inOperationGroup:v37 operationQueue:self->_cloudSettingsOperationQueue, deletedBlockCopy];
@@ -295,47 +296,48 @@ LABEL_6:
 {
   groupCopy = group;
   completionCopy = completion;
-  v8 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_10000300C()];
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100035314;
-  v11[3] = &unk_100132B48;
+  v8 = [WBSCloudKitOperationRetryManager alloc];
+  v10 = [v8 initWithLog:{sub_10000300C(v8, v9)}];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100035314;
+  v13[3] = &unk_100132B48;
+  v14 = groupCopy;
+  v15 = completionCopy;
+  v11 = completionCopy;
   v12 = groupCopy;
-  v13 = completionCopy;
-  v9 = completionCopy;
-  v10 = groupCopy;
-  [(CloudSettingStore *)self _createCloudSettingsRecordZoneInOperationGroup:v10 withRetryManager:v8 completionHandler:v11];
+  [(CloudSettingStore *)self _createCloudSettingsRecordZoneInOperationGroup:v12 withRetryManager:v10 completionHandler:v13];
 }
 
 - (void)saveCloudSettingsZoneSubscriptionInOperationGroup:(id)group withCompletionHandler:(id)handler
 {
   groupCopy = group;
   handlerCopy = handler;
-  v8 = sub_10000300C();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10000300C(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v8;
+    v10 = v9;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v20 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Saving CloudSettings zone subscription with %{public}@", buf, 0xCu);
+    v22 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Saving CloudSettings zone subscription with %{public}@", buf, 0xCu);
   }
 
-  objc_initWeak(buf, self);
-  v11 = sub_100033914();
+  inited = objc_initWeak(buf, self);
+  v13 = sub_100033914(inited);
   cloudSettingsOperationQueue = self->_cloudSettingsOperationQueue;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_100035570;
-  v15[3] = &unk_100130EA0;
-  v13 = handlerCopy;
-  v17 = v13;
-  objc_copyWeak(&v18, buf);
-  v14 = groupCopy;
-  v16 = v14;
-  [(CloudSettingStore *)self _saveRecordZoneSubscriptionForZoneID:v11 subscriptionID:@"CloudSettingsZoneSubscription" inOperationGroup:v14 operationQueue:cloudSettingsOperationQueue completionHandler:v15];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100035570;
+  v17[3] = &unk_100130EA0;
+  v15 = handlerCopy;
+  v19 = v15;
+  objc_copyWeak(&v20, buf);
+  v16 = groupCopy;
+  v18 = v16;
+  [(CloudSettingStore *)self _saveRecordZoneSubscriptionForZoneID:v13 subscriptionID:@"CloudSettingsZoneSubscription" inOperationGroup:v16 operationQueue:cloudSettingsOperationQueue completionHandler:v17];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
 }
 
@@ -376,36 +378,36 @@ LABEL_6:
   dataCopy = data;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  v19 = sub_10000300C();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_10000300C(completionHandlerCopy, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = v19;
+    v21 = v20;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v36 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Saving CloudSettings record with %{public}@", buf, 0xCu);
+    v37 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Saving CloudSettings record with %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_100035ED4;
-  v27[3] = &unk_100132BE8;
-  objc_copyWeak(&v33, buf);
-  v22 = completionHandlerCopy;
-  v31 = v22;
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_100035ED4;
+  v28[3] = &unk_100132BE8;
+  objc_copyWeak(&v34, buf);
+  v23 = completionHandlerCopy;
+  v32 = v23;
   missingCopy = missing;
-  v23 = groupCopy;
-  v28 = v23;
-  v24 = recordsCopy;
+  v24 = groupCopy;
   v29 = v24;
-  v25 = dataCopy;
+  v25 = recordsCopy;
   v30 = v25;
-  v26 = handlerCopy;
-  v32 = v26;
-  [(CloudSettingStore *)self _saveCloudSettingsRecords:v24 inOperationGroup:v23 clientChangeTokenData:v25 mergeHandler:v26 completionHandler:v27];
+  v26 = dataCopy;
+  v31 = v26;
+  v27 = handlerCopy;
+  v33 = v27;
+  [(CloudSettingStore *)self _saveCloudSettingsRecords:v25 inOperationGroup:v24 clientChangeTokenData:v26 mergeHandler:v27 completionHandler:v28];
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v34);
   objc_destroyWeak(buf);
 }
 
@@ -416,8 +418,9 @@ LABEL_6:
   dataCopy = data;
   groupCopy = group;
   recordsCopy = records;
-  v17 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_10000300C()];
-  [(CloudSettingStore *)self _saveCloudSettingsRecords:recordsCopy retryManager:v17 inOperationGroup:groupCopy clientChangeTokenData:dataCopy mergeHandler:handlerCopy completionHandler:completionHandlerCopy];
+  v17 = [WBSCloudKitOperationRetryManager alloc];
+  v19 = [v17 initWithLog:{sub_10000300C(v17, v18)}];
+  [(CloudSettingStore *)self _saveCloudSettingsRecords:recordsCopy retryManager:v19 inOperationGroup:groupCopy clientChangeTokenData:dataCopy mergeHandler:handlerCopy completionHandler:completionHandlerCopy];
 }
 
 - (void)_saveCloudSettingsRecords:(id)records retryManager:(id)manager inOperationGroup:(id)group clientChangeTokenData:(id)data mergeHandler:(id)handler completionHandler:(id)completionHandler
@@ -482,44 +485,44 @@ LABEL_6:
   groupCopy = group;
   handlerCopy = handler;
   v11 = [recordsCopy count];
-  v12 = sub_10000300C();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = sub_10000300C(v11, v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v11)
   {
-    if (v13)
+    if (v14)
     {
-      v14 = v12;
-      v15 = [recordsCopy count];
+      v15 = v13;
+      v16 = [recordsCopy count];
       safari_logDescription = [groupCopy safari_logDescription];
       *buf = 134218242;
-      v25 = v15;
-      v26 = 2114;
-      v27 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Deleting %lu records with %{public}@", buf, 0x16u);
+      v26 = v16;
+      v27 = 2114;
+      v28 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Deleting %lu records with %{public}@", buf, 0x16u);
     }
 
-    v17 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:0 recordIDsToDelete:recordsCopy];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100037820;
-    v21[3] = &unk_100132CD8;
-    v21[4] = self;
-    v18 = groupCopy;
-    v22 = v18;
-    v23 = handlerCopy;
-    [v17 setModifyRecordsCompletionBlock:v21];
-    [(CloudSettingStore *)self _scheduleOperation:v17 inOperationGroup:v18 operationQueue:self->_cloudSettingsOperationQueue];
+    v18 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:0 recordIDsToDelete:recordsCopy];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100037820;
+    v22[3] = &unk_100132CD8;
+    v22[4] = self;
+    v19 = groupCopy;
+    v23 = v19;
+    v24 = handlerCopy;
+    [v18 setModifyRecordsCompletionBlock:v22];
+    [(CloudSettingStore *)self _scheduleOperation:v18 inOperationGroup:v19 operationQueue:self->_cloudSettingsOperationQueue];
   }
 
   else
   {
-    if (v13)
+    if (v14)
     {
-      v19 = v12;
+      v20 = v13;
       safari_logDescription2 = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v25 = safari_logDescription2;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "No records to delete with %{public}@", buf, 0xCu);
+      v26 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "No records to delete with %{public}@", buf, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
@@ -528,7 +531,7 @@ LABEL_6:
 
 - (void)clearCachedCloudSettingsRecordZone
 {
-  v3 = sub_10000300C();
+  v3 = sub_10000300C(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -555,14 +558,14 @@ LABEL_6:
 {
   groupCopy = group;
   completionCopy = completion;
-  v8 = sub_10000300C();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10000300C(completionCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v8;
+    v10 = v9;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v18 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Deleting CloudSettings zone with %{public}@", buf, 0xCu);
+    v19 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Deleting CloudSettings zone with %{public}@", buf, 0xCu);
   }
 
   internalQueue = self->_internalQueue;
@@ -570,11 +573,11 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = sub_100037CA4;
   block[3] = &unk_100130E50;
-  v15 = groupCopy;
-  v16 = completionCopy;
+  v16 = groupCopy;
+  v17 = completionCopy;
   block[4] = self;
-  v12 = groupCopy;
-  v13 = completionCopy;
+  v13 = groupCopy;
+  v14 = completionCopy;
   dispatch_async(internalQueue, block);
 }
 
@@ -582,22 +585,23 @@ LABEL_6:
 {
   handlerCopy = handler;
   groupCopy = group;
-  v8 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_10000300C()];
-  [(CloudSettingStore *)self _createCloudSettingsRecordZoneInOperationGroup:groupCopy withRetryManager:v8 completionHandler:handlerCopy];
+  v8 = [WBSCloudKitOperationRetryManager alloc];
+  v10 = [v8 initWithLog:{sub_10000300C(v8, v9)}];
+  [(CloudSettingStore *)self _createCloudSettingsRecordZoneInOperationGroup:groupCopy withRetryManager:v10 completionHandler:handlerCopy];
 }
 
 - (void)fetchCloudSettingsZoneSubscriptionInOperationGroup:(id)group withCompletionHandler:(id)handler
 {
   groupCopy = group;
   handlerCopy = handler;
-  v8 = sub_10000300C();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10000300C(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v8;
+    v10 = v9;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v19 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Fetching CloudSettings zone subscription with %{public}@", buf, 0xCu);
+    v20 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Fetching CloudSettings zone subscription with %{public}@", buf, 0xCu);
   }
 
   internalQueue = self->_internalQueue;
@@ -605,11 +609,11 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = sub_10003810C;
   block[3] = &unk_100131A20;
-  v15 = groupCopy;
+  v16 = groupCopy;
   selfCopy = self;
-  v17 = handlerCopy;
-  v12 = handlerCopy;
-  v13 = groupCopy;
+  v18 = handlerCopy;
+  v13 = handlerCopy;
+  v14 = groupCopy;
   dispatch_async(internalQueue, block);
 }
 
@@ -618,14 +622,14 @@ LABEL_6:
   groupCopy = group;
   managerCopy = manager;
   handlerCopy = handler;
-  v11 = sub_10000300C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10000300C(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
+    v13 = v12;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v24 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Creating CloudSettings zone with %{public}@", buf, 0xCu);
+    v25 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Creating CloudSettings zone with %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
@@ -634,17 +638,17 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = sub_100038624;
   block[3] = &unk_100132E80;
-  v21 = handlerCopy;
+  v22 = handlerCopy;
   block[4] = self;
-  v19 = groupCopy;
-  v15 = groupCopy;
-  v16 = handlerCopy;
-  objc_copyWeak(&v22, buf);
-  v20 = managerCopy;
-  v17 = managerCopy;
+  v20 = groupCopy;
+  v16 = groupCopy;
+  v17 = handlerCopy;
+  objc_copyWeak(&v23, buf);
+  v21 = managerCopy;
+  v18 = managerCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(buf);
 }
 
@@ -653,42 +657,43 @@ LABEL_6:
   recordCopy = record;
   groupCopy = group;
   handlerCopy = handler;
-  v11 = sub_10000300C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = sub_10000300C(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = v11;
+    v13 = v12;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v27 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Attempting to save/load record with %{public}@", buf, 0xCu);
+    v28 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Attempting to save/load record with %{public}@", buf, 0xCu);
   }
 
-  v14 = [CKModifyRecordsOperation alloc];
-  v25 = recordCopy;
-  v15 = [NSArray arrayWithObjects:&v25 count:1];
-  v16 = [v14 initWithRecordsToSave:v15 recordIDsToDelete:0];
+  v15 = [CKModifyRecordsOperation alloc];
+  v26 = recordCopy;
+  v16 = [NSArray arrayWithObjects:&v26 count:1];
+  v17 = [v15 initWithRecordsToSave:v16 recordIDsToDelete:0];
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_1000395B0;
-  v20[3] = &unk_100132ED0;
-  v21 = recordCopy;
-  v22 = groupCopy;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1000395B0;
+  v21[3] = &unk_100132ED0;
+  v22 = recordCopy;
+  v23 = groupCopy;
   selfCopy = self;
-  v24 = handlerCopy;
-  v17 = handlerCopy;
-  v18 = groupCopy;
-  v19 = recordCopy;
-  [v16 setModifyRecordsCompletionBlock:v20];
-  [(CloudSettingStore *)self _scheduleOperation:v16 inOperationGroup:v18 operationQueue:self->_cloudSettingsOperationQueue];
+  v25 = handlerCopy;
+  v18 = handlerCopy;
+  v19 = groupCopy;
+  v20 = recordCopy;
+  [v17 setModifyRecordsCompletionBlock:v21];
+  [(CloudSettingStore *)self _scheduleOperation:v17 inOperationGroup:v19 operationQueue:self->_cloudSettingsOperationQueue];
 }
 
 - (void)_setUpEncryptionInfoInOperationGroup:(id)group withCompletionHandler:(id)handler
 {
   handlerCopy = handler;
   groupCopy = group;
-  v8 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_10000300C()];
-  [(CloudSettingStore *)self _setUpEncryptionInfoInOperationGroup:groupCopy withRetryManager:v8 completionHandler:handlerCopy];
+  v8 = [WBSCloudKitOperationRetryManager alloc];
+  v10 = [v8 initWithLog:{sub_10000300C(v8, v9)}];
+  [(CloudSettingStore *)self _setUpEncryptionInfoInOperationGroup:groupCopy withRetryManager:v10 completionHandler:handlerCopy];
 }
 
 - (void)_setUpEncryptionInfoInOperationGroup:(id)group withRetryManager:(id)manager completionHandler:(id)handler
@@ -696,42 +701,42 @@ LABEL_6:
   groupCopy = group;
   managerCopy = manager;
   handlerCopy = handler;
-  v11 = sub_10000300C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10000300C(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
+    v13 = v12;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v28 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Creating encryption record with %{public}@", buf, 0xCu);
+    v31 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Creating encryption record with %{public}@", buf, 0xCu);
   }
 
-  v14 = objc_alloc_init(WBSHashGenerator);
-  v15 = sub_100033914();
-  v16 = [v14 encryptionInfoRecordWithZone:v15];
+  v15 = objc_alloc_init(WBSHashGenerator);
+  v16 = sub_100033914(v15);
+  v17 = [v15 encryptionInfoRecordWithZone:v16];
 
-  v17 = sub_10000300C();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v20 = sub_10000300C(v18, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    v18 = v17;
+    v21 = v20;
     safari_logDescription2 = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v28 = safari_logDescription2;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Attempting to save/load encryption record with %{public}@", buf, 0xCu);
+    v31 = safari_logDescription2;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Attempting to save/load encryption record with %{public}@", buf, 0xCu);
   }
 
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_100039B8C;
-  v23[3] = &unk_100132F48;
-  v23[4] = self;
-  v24 = groupCopy;
-  v25 = managerCopy;
-  v26 = handlerCopy;
-  v20 = managerCopy;
-  v21 = handlerCopy;
-  v22 = groupCopy;
-  [(CloudSettingStore *)self _saveOrLoadRecord:v16 inOperationGroup:v22 withCompletionHandler:v23];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_100039B8C;
+  v26[3] = &unk_100132F48;
+  v26[4] = self;
+  v27 = groupCopy;
+  v28 = managerCopy;
+  v29 = handlerCopy;
+  v23 = managerCopy;
+  v24 = handlerCopy;
+  v25 = groupCopy;
+  [(CloudSettingStore *)self _saveOrLoadRecord:v17 inOperationGroup:v25 withCompletionHandler:v26];
 }
 
 - (void)_scheduleOperation:(id)operation inOperationGroup:(id)group operationQueue:(id)queue

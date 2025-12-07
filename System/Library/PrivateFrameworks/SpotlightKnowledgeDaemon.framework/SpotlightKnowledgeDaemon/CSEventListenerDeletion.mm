@@ -28,71 +28,65 @@
 
 - (void)iterateIdentifiers:(id)identifiers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = identifiersCopy;
   if (self && self->_isDict)
   {
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __46__CSEventListenerDeletion_iterateIdentifiers___block_invoke;
-    v22 = &unk_27893CF58;
-    v23 = identifiersCopy;
-    v17 = *&self->_itemsObj.containerBytes;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __46__CSEventListenerDeletion_iterateIdentifiers___block_invoke;
+    v20 = &unk_27893CF58;
+    v21 = identifiersCopy;
+    v15 = *&self->_itemsObj.containerBytes;
     reference = self->_itemsObj.reference;
     _MDPlistArrayIterate();
-    v6 = v23;
+    v6 = v21;
   }
 
   else
   {
-    v7 = *MEMORY[0x277CBECE8];
-    v17 = *&self->_itemsObj.containerBytes;
+    v15 = *&self->_itemsObj.containerBytes;
     reference = self->_itemsObj.reference;
+    v11 = 0u;
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
     v6 = MDJournalReaderMDPlistObjectCopy();
-    v8 = [v6 countByEnumeratingWithState:&v13 objects:v24 count:16];
-    if (v8)
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v22 count:16];
+    if (v7)
     {
-      v9 = v8;
-      v10 = *v14;
+      v8 = v7;
+      v9 = *v12;
       do
       {
-        v11 = 0;
+        v10 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v5[2](v5, *(*(&v13 + 1) + 8 * v11++));
+          v5[2](v5, *(*(&v11 + 1) + 8 * v10++));
         }
 
-        while (v9 != v11);
-        v9 = [v6 countByEnumeratingWithState:&v13 objects:v24 count:16];
+        while (v8 != v10);
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v22 count:16];
       }
 
-      while (v9);
+      while (v8);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CSEventListenerDeletion_iterateIdentifiers___block_invoke(uint64_t a1, __int128 *a2)
 {
-  v5 = *a2;
-  v6 = *(a2 + 2);
   if (_MDPlistDictionaryGetPlistObjectForKey())
   {
     if (_MDPlistStringGetValue())
     {
-      v3 = *MEMORY[0x277CBECE8];
-      v4 = MDJournalReaderMDPlistObjectCopy();
+      v3 = MDJournalReaderMDPlistObjectCopy();
       (*(*(a1 + 32) + 16))();
     }
   }

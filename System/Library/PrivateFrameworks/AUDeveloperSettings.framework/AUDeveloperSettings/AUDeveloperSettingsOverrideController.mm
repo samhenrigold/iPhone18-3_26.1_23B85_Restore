@@ -180,25 +180,8 @@ LABEL_17:
       v15 = [v9 propertyForKey:*MEMORY[0x277D3FFB8]];
       LOBYTE(v12) = [v15 isEqual:*MEMORY[0x277CE54E8]];
 
-      if (v12)
+      if (v12 & 1) != 0 || ([v9 propertyForKey:v14], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqual:", *MEMORY[0x277CE5500]), v16, (v17) || (objc_msgSend(v9, "propertyForKey:", v14), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqual:", *MEMORY[0x277CE54F8]), v18, (v19) || (objc_msgSend(v9, "propertyForKey:", v14), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isEqual:", *MEMORY[0x277CE54F0]), v20, v21))
       {
-        goto LABEL_7;
-      }
-
-      v16 = [v9 propertyForKey:v14];
-      v17 = [v16 isEqual:*MEMORY[0x277CE5500]];
-
-      if (v17)
-      {
-        goto LABEL_7;
-      }
-
-      v18 = [v9 propertyForKey:v14];
-      v19 = [v18 isEqual:*MEMORY[0x277CE54F8]];
-
-      if ((v19 & 1) != 0 || ([v9 propertyForKey:v14], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isEqual:", *MEMORY[0x277CE54F0]), v20, v21))
-      {
-LABEL_7:
         v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:AUDeveloperSettingsURLTypeToString()];
         [v13 setObject:v22 forKeyedSubscript:*MEMORY[0x277CE5530]];
 

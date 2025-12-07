@@ -11,6 +11,8 @@
 - (id)notesForGUIDs:(id)ds;
 - (id)notesForIntegerIds:(id)ids;
 - (id)notesForServerIds:(id)ids;
+- (id)notesForServerIntIds:(id)ids ascending:(BOOL)ascending limit:(unint64_t)limit;
+- (id)notesForServerIntIdsInRange:(_NSRange)range ascending:(BOOL)ascending limit:(unint64_t)limit;
 - (id)titleForTableViewCell;
 - (unint64_t)minimumSequenceNumberForServerIntIds:(id)ids;
 - (unsigned)maximumServerIntId;
@@ -140,6 +142,55 @@
   v12 = [managedObjectContext2 executeFetchRequest:v6 error:0];
 
   return v12;
+}
+
+- (id)notesForServerIntIds:(id)ids ascending:(BOOL)ascending limit:(unint64_t)limit
+{
+  ascendingCopy = ascending;
+  v8 = MEMORY[0x277CBE428];
+  idsCopy = ids;
+  v10 = objc_alloc_init(v8);
+  v11 = MEMORY[0x277CBE408];
+  managedObjectContext = [(NoteStoreObject *)self managedObjectContext];
+  v13 = [v11 entityForName:@"Note" inManagedObjectContext:managedObjectContext];
+
+  [v10 setEntity:v13];
+  idsCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(store == %@) AND (externalServerIntId IN %@)", self, idsCopy];
+
+  [v10 setPredicate:idsCopy];
+  v15 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"externalServerIntId" ascending:ascendingCopy];
+  v16 = [MEMORY[0x277CBEA60] arrayWithObject:v15];
+  [v10 setSortDescriptors:v16];
+
+  [v10 setFetchLimit:limit];
+  managedObjectContext2 = [(NoteStoreObject *)self managedObjectContext];
+  v18 = [managedObjectContext2 executeFetchRequest:v10 error:0];
+
+  return v18;
+}
+
+- (id)notesForServerIntIdsInRange:(_NSRange)range ascending:(BOOL)ascending limit:(unint64_t)limit
+{
+  ascendingCopy = ascending;
+  length = range.length;
+  location = range.location;
+  v10 = objc_alloc_init(MEMORY[0x277CBE428]);
+  v11 = MEMORY[0x277CBE408];
+  managedObjectContext = [(NoteStoreObject *)self managedObjectContext];
+  v13 = [v11 entityForName:@"Note" inManagedObjectContext:managedObjectContext];
+
+  [v10 setEntity:v13];
+  v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(store == %@) AND (externalServerIntId >= %d) AND (externalServerIntId < %d)", self, location, location + length];
+  [v10 setPredicate:v14];
+  v15 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"externalServerIntId" ascending:ascendingCopy];
+  v16 = [MEMORY[0x277CBEA60] arrayWithObject:v15];
+  [v10 setSortDescriptors:v16];
+
+  [v10 setFetchLimit:limit];
+  managedObjectContext2 = [(NoteStoreObject *)self managedObjectContext];
+  v18 = [managedObjectContext2 executeFetchRequest:v10 error:0];
+
+  return v18;
 }
 
 - (unsigned)maximumServerIntId

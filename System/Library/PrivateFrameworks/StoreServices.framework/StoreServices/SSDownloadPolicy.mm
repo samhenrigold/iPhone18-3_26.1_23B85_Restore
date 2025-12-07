@@ -207,17 +207,17 @@ void __44__SSDownloadPolicy_unionNetworkConstraints___block_invoke(uint64_t a1, 
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v10.receiver = self;
-    v10.super_class = SSDownloadPolicy;
-    v5 = [(SSDownloadPolicy *)&v10 init];
+    v11.receiver = self;
+    v11.super_class = SSDownloadPolicy;
+    v5 = [(SSDownloadPolicy *)&v11 init];
     if (v5)
     {
       value = xpc_dictionary_get_value(encoding, "1");
       v8 = objc_opt_class();
       v9 = SSXPCCreateNSArrayFromXPCEncodedArray(value, v8);
       v5->_bagType = xpc_dictionary_get_int64(encoding, "2");
-      objc_opt_class();
-      v5->_downloadKind = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
+      v10 = objc_opt_class();
+      v5->_downloadKind = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v10);
       v5->_policyRules = [v9 mutableCopy];
     }
   }

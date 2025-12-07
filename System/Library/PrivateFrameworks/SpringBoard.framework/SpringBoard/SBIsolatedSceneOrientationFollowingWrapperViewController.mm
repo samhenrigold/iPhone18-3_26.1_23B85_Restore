@@ -121,12 +121,11 @@ LABEL_7:
 
 void __125__SBIsolatedSceneOrientationFollowingWrapperViewController__updateOrientationResolutionPolicyWithContainerTraitsParticipant___block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v4 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
-  if (WeakRetained && [v5 containsObject:WeakRetained[131]])
+  if (WeakRetained && objc_msgSend_containsObject_(v4))
   {
-    [v4[131] setOrientationResolutionPolicyInfo:v4[134]];
+    [WeakRetained[131] setOrientationResolutionPolicyInfo:WeakRetained[134]];
   }
 }
 

@@ -228,7 +228,7 @@
 
 - (id)contactUsingContactStore:(id)store withKeysToFetch:(id)fetch
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   storeCopy = store;
   selfCopy = self;

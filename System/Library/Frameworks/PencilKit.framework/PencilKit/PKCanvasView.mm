@@ -1102,7 +1102,7 @@ LABEL_17:
   pageView = self->_pageView;
   if (pageView)
   {
-    [(PKCanvasAttachmentView *)pageView drawingTransform];
+    objc_msgSend_drawingTransform(pageView);
     v16 = v25;
     v15 = v26;
   }
@@ -1343,7 +1343,7 @@ uint64_t __41__PKCanvasView_imageWithCompletionBlock___block_invoke(uint64_t a1,
     b = selfCopy[45].b;
     if (b != 0.0)
     {
-      [*&b drawingTransform];
+      objc_msgSend_drawingTransform(*&b);
     }
 
     CGAffineTransformMakeScale(&t1, v8 / v12, v10 / v14);
@@ -1661,7 +1661,7 @@ LABEL_6:
     v10 = _tiledView2;
     if (_tiledView2)
     {
-      [_tiledView2 rulerTransform];
+      objc_msgSend_rulerTransform(_tiledView2);
     }
 
     else

@@ -1757,7 +1757,7 @@ void __47__CAMTopBar_hudItemForAccessibilityHUDManager___block_invoke(uint64_t a
   [(CAMTopBar *)self _iterateViewsInHUDManager:v5 forHUDItem:v6];
 }
 
-uint64_t __47__CAMTopBar_selectedByAccessibilityHUDManager___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__47__CAMTopBar_selectedByAccessibilityHUDManager___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 selectedByAccessibilityHUDManager:*(a1 + 32)];
   *a3 = 1;

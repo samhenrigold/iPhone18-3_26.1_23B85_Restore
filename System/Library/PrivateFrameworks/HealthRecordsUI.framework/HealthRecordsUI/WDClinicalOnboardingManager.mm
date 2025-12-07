@@ -599,7 +599,7 @@ uint64_t __89__WDClinicalOnboardingManager__dismissInFlightLoginViewControllerIf
   v3 = [OUTLINED_FUNCTION_8() logPrefix];
   v4 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_4(&dword_1D101F000, v5, v6, "%{public}@ tried to onboard using a deep link with no gateway ID and found error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_4(&dword_1D101F000, v5, v6, "%{public}@ tried to onboard using a deep link with no gateway ID and found error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)gatewayProxyWithActivity:.cold.2()
@@ -609,7 +609,7 @@ uint64_t __89__WDClinicalOnboardingManager__dismissInFlightLoginViewControllerIf
   v3 = [OUTLINED_FUNCTION_8() logPrefix];
   v4 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_4(&dword_1D101F000, v5, v6, "%{public}@ tried to onboard using a deep link with no batch ID and found error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_4(&dword_1D101F000, v5, v6, "%{public}@ tried to onboard using a deep link with no batch ID and found error: %{public}@", v7, v8, v9, v10);
 }
 
 void __83__WDClinicalOnboardingManager_registerInflightOnboardingViewController_completion___block_invoke_cold_1(uint64_t a1, void *a2)

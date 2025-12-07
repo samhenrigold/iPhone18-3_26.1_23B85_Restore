@@ -7,7 +7,7 @@
 
 - (id)summarizedFeaturesForMomentNodes:(id)nodes
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = [(MAElementCollection *)self->_momentNodesWithRelevantPublicEvent collectionByIntersecting:nodes];
   if ([v3 count])
   {
@@ -16,16 +16,14 @@
     universalDateIntervals = [v3 universalDateIntervals];
     v7 = [(PGPublicEventSummarizedFeature *)v5 initWithIntervalsPresent:universalDateIntervals isMandatoryForKeyAsset:0 publicEventLabel:appleEvents];
 
-    v11[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
   {
     v8 = MEMORY[0x277CBEBF8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

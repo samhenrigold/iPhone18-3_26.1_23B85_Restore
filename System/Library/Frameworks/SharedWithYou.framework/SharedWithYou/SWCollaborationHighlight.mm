@@ -1,4 +1,5 @@
 @interface SWCollaborationHighlight
++ (id)requiredSpotlightAttributeKeysforHighlightType:(unsigned __int8)type;
 - (BOOL)isEqual:(id)equal;
 - (NSDate)creationDate;
 - (NSDictionary)earliestAttributionIdentifiers;
@@ -8,6 +9,7 @@
 - (NSString)title;
 - (SWCollaborationHighlight)initWithCSSearchableItem:(id)item error:(id *)error;
 - (SWCollaborationHighlight)initWithCSSearchableItemUniqueIdentifier:(id)identifier error:(id *)error;
+- (SWCollaborationHighlight)initWithCSSearchableItemUniqueIdentifier:(id)identifier forType:(unsigned __int8)type error:(id *)error;
 - (SWCollaborationHighlight)initWithCoder:(id)coder;
 - (SWCollaborationHighlight)initWithDictionary:(id)dictionary;
 - (SWCollaborationHighlight)initWithSLCollaborationHighlight:(id)highlight;
@@ -62,6 +64,17 @@
   return selfCopy;
 }
 
+- (SWCollaborationHighlight)initWithCSSearchableItemUniqueIdentifier:(id)identifier forType:(unsigned __int8)type error:(id *)error
+{
+  typeCopy = type;
+  v8 = MEMORY[0x1E69D37C8];
+  identifierCopy = identifier;
+  v10 = [[v8 alloc] initWithCSSearchableItemUniqueIdentifier:identifierCopy forContentType:+[SWHighlight highlightContentTypeForType:](SWHighlight error:{"highlightContentTypeForType:", typeCopy), error}];
+
+  v11 = [(SWCollaborationHighlight *)self initWithSLCollaborationHighlight:v10 andType:typeCopy];
+  return v11;
+}
+
 - (SWCollaborationHighlight)initWithCSSearchableItemUniqueIdentifier:(id)identifier error:(id *)error
 {
   identifierCopy = identifier;
@@ -94,6 +107,14 @@
 
   v8 = -[SWCollaborationHighlight initWithSLCollaborationHighlight:andType:](self, "initWithSLCollaborationHighlight:andType:", v6, [v7 containsString:@"at_"]);
   return v8;
+}
+
++ (id)requiredSpotlightAttributeKeysforHighlightType:(unsigned __int8)type
+{
+  v3 = MEMORY[0x1E69D37C8];
+  v4 = [SWHighlight highlightContentTypeForType:type];
+
+  return [v3 requiredSpotlightAttributeKeysforHighlightType:v4];
 }
 
 - (UTType)contentType

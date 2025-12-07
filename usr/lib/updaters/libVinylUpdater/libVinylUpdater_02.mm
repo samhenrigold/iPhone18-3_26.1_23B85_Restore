@@ -1,3 +1,52 @@
+void sub_299FAA2BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a23 < 0)
+  {
+    operator delete(a18);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(char *a1, uint64_t a2, void *a3, uint64_t a4, unint64_t a5, uint64_t a6, char *a7, size_t a8)
+{
+  v12 = (a4 >> 32) - (a6 + a8);
+  if ((a4 & 7u) <= 1)
+  {
+    if ((a4 & 7) != 0)
+    {
+      v13 = 0;
+      goto LABEL_7;
+    }
+
+    goto LABEL_5;
+  }
+
+  if ((a4 & 7) == 3)
+  {
+LABEL_5:
+    v13 = (a4 >> 32) - (a6 + a8);
+    v12 = 0;
+    goto LABEL_7;
+  }
+
+  v13 = v12 >> 1;
+  v12 -= v12 >> 1;
+LABEL_7:
+  v14 = HIDWORD(a5);
+  v15 = std::__formatter::__fill[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(a3, v13, SHIDWORD(a5));
+  std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(v15, a1, a7 - a1);
+  std::__format::__output_buffer<char>::__fill[abi:ne200100](v15, a8, 48);
+  std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(v15, a7, a2 - a7);
+
+  return std::__formatter::__fill[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v15, v12, v14);
+}
+
 _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<float,float>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   *(a1 + 4) = 0;
@@ -5,7 +54,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<float,
   v6 = MEMORY[0x29C2B8F30](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -28,7 +77,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -36,12 +85,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -217,27 +266,27 @@ LABEL_8:
   return result;
 }
 
-uint64_t std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t result, char a2)
+uint64_t *std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t *result, char a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (!v2 || (v4 = *v2, v3 = v2[1], v2[1] = v3 + 1, v3 < v4))
   {
     v5 = *result;
-    v6 = *(result + 16);
-    *(result + 16) = v6 + 1;
+    v6 = result[2];
+    result[2] = v6 + 1;
     *(v5 + v6) = a2;
-    if (*(result + 16) == *(result + 8))
+    if (result[2] == result[1])
     {
-      return (*(result + 24))(result, 2);
+      return (result[3])(result, 2);
     }
   }
 
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+void *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, unint64_t a2, unint64_t a3, double a4)
 {
-  v49[128] = *MEMORY[0x29EDCA608];
+  v47[128] = *MEMORY[0x29EDCA608];
   v7 = *&a4 >> 63;
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
   {
@@ -253,60 +302,60 @@ void *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::b
       v10 = a3;
     }
 
-    v45 = v10;
-    v46 = 0;
+    v43 = v10;
+    v44 = 0;
     if (v10 < 1075)
     {
       v11 = v10 + 316;
-      v47 = v11;
+      v45 = v11;
       if ((v10 + 316) < 0x401)
       {
-        v12 = v49;
+        v12 = v47;
         goto LABEL_10;
       }
     }
 
     else
     {
-      v45 = 1074;
-      v46 = v10 - 1074;
+      v43 = 1074;
+      v44 = v10 - 1074;
       v11 = 1390;
-      v47 = 1390;
+      v45 = 1390;
     }
 
     v12 = operator new(v11);
 LABEL_10:
     __p = v12;
-    std::__formatter::__format_buffer[abi:ne200100]<double,double>(&v45, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v41, v9);
+    std::__formatter::__format_buffer[abi:ne200100]<double,double>(&v43, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v39, v9);
     if ((a2 & 0x20) != 0)
     {
-      v13 = v42;
-      v14 = *v44;
-      if (v42 == *v44)
+      v13 = v40;
+      v14 = *v42;
+      if (v40 == *v42)
       {
-        ++*v44;
+        ++*v42;
         *v14 = 46;
-        v15 = v43;
-        v16 = (*v44 - 1);
-        if (v43 != (*v44 - 1))
+        v15 = v41;
+        v16 = (*v42 - 1);
+        if (v41 != (*v42 - 1))
         {
-          if (v43 + 1 == v16)
+          if (v41 + 1 == v16)
           {
-            v18 = *v43;
-            *v43 = v43[1];
+            v18 = *v41;
+            *v41 = v41[1];
             v15[1] = v18;
           }
 
           else
           {
-            v17 = *(*v44 - 1);
-            memmove(v43 + 1, v43, v16 - v43);
+            v17 = *(*v42 - 1);
+            memmove(v41 + 1, v41, v16 - v41);
             *v15 = v17;
           }
         }
 
-        v13 = v43;
-        v42 = v43++;
+        v13 = v41;
+        v40 = v41++;
       }
 
       if ((BYTE1(a2) - 17) <= 1u)
@@ -326,9 +375,9 @@ LABEL_10:
           v19 = 6;
         }
 
-        if (v43 == *v44)
+        if (v41 == *v42)
         {
-          v20 = v41 - v13;
+          v20 = v39 - v13;
         }
 
         else
@@ -337,10 +386,10 @@ LABEL_10:
         }
 
         v21 = v20 + v19;
-        v22 = &v43[~v13];
+        v22 = &v41[~v13];
         if (v22 < v21)
         {
-          v46 += v21 - v22;
+          v44 += v21 - v22;
         }
       }
     }
@@ -348,30 +397,30 @@ LABEL_10:
     if ((a2 & 0x40) != 0)
     {
       v30 = *a1;
-      std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v40);
-      v31 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v30, &v45, &v41, &v40, a2, a3);
-      std::locale::~locale(&v40);
+      std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v38);
+      v31 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v30, &v43, &v39, &v38, a2, a3);
+      std::locale::~locale(&v38);
     }
 
     else
     {
-      v23 = *v44;
+      v23 = *v42;
       v24 = __p;
-      v25 = *v44 - __p;
-      v26 = v46;
-      if (*v44 - __p + v46 >= a2 >> 32)
+      v25 = *v42 - __p;
+      v26 = v44;
+      if (*v42 - __p + v44 >= a2 >> 32)
       {
-        if (!v46 || (v32 = v43, v43 == *v44))
+        if (!v44 || (v32 = v41, v41 == *v42))
         {
           v31 = *a1;
-          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v44 - __p);
+          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v42 - __p);
           std::__format::__output_buffer<char>::__fill[abi:ne200100](v31, v26, 48);
         }
 
         else
         {
           v31 = *a1;
-          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v43 - __p);
+          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v41 - __p);
           std::__format::__output_buffer<char>::__fill[abi:ne200100](v31, v26, 48);
           std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(v31, v32, v23 - v32);
         }
@@ -382,7 +431,7 @@ LABEL_10:
         v27 = *a1;
         if ((a2 & 7) == 4)
         {
-          if (__p != v41)
+          if (__p != v39)
           {
             std::__format::__output_buffer<char>::push_back[abi:ne200100](v27, *__p);
             ++v24;
@@ -402,31 +451,29 @@ LABEL_10:
         v34 = a3 & 0xFFFFFF00FFFFFFFFLL | (v29 << 32);
         if (v26)
         {
-          v35 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v44, v27, v33, v34, v25, v43, v26);
+          v35 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v42, v27, v33, v34, v25, v41, v26);
         }
 
         else
         {
-          v35 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v44 - v24, v27, v33, v34, v25);
+          v35 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v42 - v24, v27, v33, v34, v25);
         }
 
         v31 = v35;
       }
     }
 
-    if (v47 >= 0x401)
+    if (v45 >= 0x401)
     {
       operator delete(__p);
     }
 
-    v36 = *MEMORY[0x29EDCA608];
     return v31;
   }
 
-  v38 = *a1;
-  v39 = *MEMORY[0x29EDCA608];
+  v37 = *a1;
 
-  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v38, a2, a3, a4 < 0.0, 0);
+  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v37, a2, a3, a4 < 0.0, 0);
 }
 
 void sub_299FAAB48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, unint64_t a16, void *__p)
@@ -439,7 +486,7 @@ void sub_299FAAB48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -484,7 +531,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -561,7 +608,7 @@ LABEL_35:
   return std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<double,double>(a1, v17, v9, a6);
 }
 
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x29EDC93F8]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -834,7 +881,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x29C2B8ED0](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -857,7 +904,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -865,12 +912,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -1046,9 +1093,9 @@ LABEL_8:
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+void *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, unint64_t a2, unint64_t a3, double a4)
 {
-  v49[128] = *MEMORY[0x29EDCA608];
+  v47[128] = *MEMORY[0x29EDCA608];
   v7 = *&a4 >> 63;
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
   {
@@ -1064,60 +1111,60 @@ void *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,s
       v10 = a3;
     }
 
-    v45 = v10;
-    v46 = 0;
+    v43 = v10;
+    v44 = 0;
     if (v10 < 1075)
     {
       v11 = v10 + 316;
-      v47 = v11;
+      v45 = v11;
       if ((v10 + 316) < 0x401)
       {
-        v12 = v49;
+        v12 = v47;
         goto LABEL_10;
       }
     }
 
     else
     {
-      v45 = 1074;
-      v46 = v10 - 1074;
+      v43 = 1074;
+      v44 = v10 - 1074;
       v11 = 1390;
-      v47 = 1390;
+      v45 = 1390;
     }
 
     v12 = operator new(v11);
 LABEL_10:
     __p = v12;
-    std::__formatter::__format_buffer[abi:ne200100]<double,long double>(&v45, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v41, v9);
+    std::__formatter::__format_buffer[abi:ne200100]<double,long double>(&v43, v7, (a3 & 0x80000000) == 0, (a2 >> 3) & 3, v8, &v39, v9);
     if ((a2 & 0x20) != 0)
     {
-      v13 = v42;
-      v14 = *v44;
-      if (v42 == *v44)
+      v13 = v40;
+      v14 = *v42;
+      if (v40 == *v42)
       {
-        ++*v44;
+        ++*v42;
         *v14 = 46;
-        v15 = v43;
-        v16 = (*v44 - 1);
-        if (v43 != (*v44 - 1))
+        v15 = v41;
+        v16 = (*v42 - 1);
+        if (v41 != (*v42 - 1))
         {
-          if (v43 + 1 == v16)
+          if (v41 + 1 == v16)
           {
-            v18 = *v43;
-            *v43 = v43[1];
+            v18 = *v41;
+            *v41 = v41[1];
             v15[1] = v18;
           }
 
           else
           {
-            v17 = *(*v44 - 1);
-            memmove(v43 + 1, v43, v16 - v43);
+            v17 = *(*v42 - 1);
+            memmove(v41 + 1, v41, v16 - v41);
             *v15 = v17;
           }
         }
 
-        v13 = v43;
-        v42 = v43++;
+        v13 = v41;
+        v40 = v41++;
       }
 
       if ((BYTE1(a2) - 17) <= 1u)
@@ -1137,9 +1184,9 @@ LABEL_10:
           v19 = 6;
         }
 
-        if (v43 == *v44)
+        if (v41 == *v42)
         {
-          v20 = v41 - v13;
+          v20 = v39 - v13;
         }
 
         else
@@ -1148,10 +1195,10 @@ LABEL_10:
         }
 
         v21 = v20 + v19;
-        v22 = &v43[~v13];
+        v22 = &v41[~v13];
         if (v22 < v21)
         {
-          v46 += v21 - v22;
+          v44 += v21 - v22;
         }
       }
     }
@@ -1159,30 +1206,30 @@ LABEL_10:
     if ((a2 & 0x40) != 0)
     {
       v30 = *a1;
-      std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v40);
-      v31 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v30, &v45, &v41, &v40, a2, a3);
-      std::locale::~locale(&v40);
+      std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>::locale[abi:ne200100](a1, &v38);
+      v31 = std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(v30, &v43, &v39, &v38, a2, a3);
+      std::locale::~locale(&v38);
     }
 
     else
     {
-      v23 = *v44;
+      v23 = *v42;
       v24 = __p;
-      v25 = *v44 - __p;
-      v26 = v46;
-      if (*v44 - __p + v46 >= a2 >> 32)
+      v25 = *v42 - __p;
+      v26 = v44;
+      if (*v42 - __p + v44 >= a2 >> 32)
       {
-        if (!v46 || (v32 = v43, v43 == *v44))
+        if (!v44 || (v32 = v41, v41 == *v42))
         {
           v31 = *a1;
-          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v44 - __p);
+          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, *v42 - __p);
           std::__format::__output_buffer<char>::__fill[abi:ne200100](v31, v26, 48);
         }
 
         else
         {
           v31 = *a1;
-          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v43 - __p);
+          std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(*a1, __p, v41 - __p);
           std::__format::__output_buffer<char>::__fill[abi:ne200100](v31, v26, 48);
           std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(v31, v32, v23 - v32);
         }
@@ -1193,7 +1240,7 @@ LABEL_10:
         v27 = *a1;
         if ((a2 & 7) == 4)
         {
-          if (__p != v41)
+          if (__p != v39)
           {
             std::__format::__output_buffer<char>::push_back[abi:ne200100](v27, *__p);
             ++v24;
@@ -1213,31 +1260,29 @@ LABEL_10:
         v34 = a3 & 0xFFFFFF00FFFFFFFFLL | (v29 << 32);
         if (v26)
         {
-          v35 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v44, v27, v33, v34, v25, v43, v26);
+          v35 = std::__formatter::__write_using_trailing_zeros[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v42, v27, v33, v34, v25, v41, v26);
         }
 
         else
         {
-          v35 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v44 - v24, v27, v33, v34, v25);
+          v35 = std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v24, *v42 - v24, v27, v33, v34, v25);
         }
 
         v31 = v35;
       }
     }
 
-    if (v47 >= 0x401)
+    if (v45 >= 0x401)
     {
       operator delete(__p);
     }
 
-    v36 = *MEMORY[0x29EDCA608];
     return v31;
   }
 
-  v38 = *a1;
-  v39 = *MEMORY[0x29EDCA608];
+  v37 = *a1;
 
-  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v38, a2, a3, a4 < 0.0, 0);
+  return std::__formatter::__format_floating_point_non_finite[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>(v37, a2, a3, a4 < 0.0, 0);
 }
 
 void sub_299FAB8A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, unint64_t a16, void *__p)
@@ -1250,7 +1295,7 @@ void sub_299FAB8A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -1295,7 +1340,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -1379,7 +1424,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x29C2B8F00](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -1402,7 +1447,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -1410,12 +1455,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -1603,7 +1648,7 @@ unsigned __int8 *std::__formatter_string<char>::parse[abi:ne200100]<std::basic_f
   return result;
 }
 
-void *std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, char *__s, void *a3)
+void *std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, char *__s, uint64_t *a3)
 {
   v6 = strlen(__s);
   v7 = *a3;
@@ -1641,7 +1686,7 @@ unsigned __int8 *std::__formatter_pointer<char>::parse[abi:ne200100]<std::basic_
   return result;
 }
 
-void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unint64_t a2, void *a3)
+void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t **a3)
 {
   v5 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = 1536;
@@ -1653,17 +1698,17 @@ void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_con
   return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a2, a3, v5 & 0xFFFFFFFFFFFF00FFLL | v7 | 0x20, v6, 0);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      goto LABEL_11;
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
     }
 
-    v11 = 2;
+    v10 = 2;
     if (BYTE1(a3) == 2)
     {
       v7 = "0b";
@@ -1676,15 +1721,13 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::b
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x300;
     }
 
-    v9 = &v14;
-LABEL_18:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v12, v9, v7, v11);
-    goto LABEL_19;
+    v9 = &v13;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) > 5u)
   {
-    v11 = 16;
+    v10 = 16;
     if (BYTE1(a3) == 6)
     {
       v7 = "0x";
@@ -1697,15 +1740,13 @@ LABEL_18:
       v8 = a3 & 0xFFFFFFFFFFFF00FFLL | 0x700;
     }
 
-    v9 = &v13;
-    goto LABEL_18;
+    v9 = &v12;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, v8, a4, a5, v11, v9, v7, v10);
   }
 
   if (BYTE1(a3) != 4)
   {
-LABEL_11:
-    result = std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v12, &v13 + 2, 0, 10);
-    goto LABEL_19;
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
   }
 
   if (a1)
@@ -1718,13 +1759,10 @@ LABEL_11:
     v5 = 0;
   }
 
-  result = std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v12, &v13 + 5, v5, 8);
-LABEL_19:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, signed int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -1960,51 +1998,50 @@ uint64_t __cxx_global_var_init_23()
 
 void *VinylUpdaterCreate(const __CFDictionary *a1, uint64_t (*a2)(void, void), void *a3, ACFULogging **a4)
 {
-  MEMORY[0x29C2B8A50](v42, @"VinylUpdaterCreate");
+  MEMORY[0x29C2B8A50](v48, @"VinylUpdaterCreate");
   keys = CFDictionaryGetValue(a1, @"RestoreOptions");
-  v8 = ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(&v41, &keys);
+  v8 = ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(&v47, &keys);
   BBULogParseDebugArgs(v8);
-  if (v41)
+  if (v47)
   {
-    CFRelease(v41);
+    CFRelease(v47);
   }
 
   gVinylUpdaterLogFunc = a2;
   VinylLogRegisterSync(VinylLogAdapter);
   v9 = BBULogModuleEnabled(22);
-  v10 = MEMORY[0x29EDB8ED8];
   if (!v9)
   {
     LogInstance = ACFULogging::getLogInstance(v9);
     inited = ACFULogging::initLog(LogInstance, a1, a2, a3);
-    v19 = inited;
+    v18 = inited;
     goto LABEL_21;
   }
 
   keys = @"ACFUDebugArgs";
-  v11 = *MEMORY[0x29EDB8ED8];
+  v10 = *MEMORY[0x29EDB8ED8];
   values = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"logLevel=%d", 4);
-  v12 = CFDictionaryCreate(v11, &keys, &values, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v38 = v12;
-  Mutable = CFDictionaryCreateMutable(v11, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v14 = Mutable;
-  v37 = Mutable;
-  if (v12)
+  v11 = CFDictionaryCreate(v10, &keys, &values, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+  v44 = v11;
+  Mutable = CFDictionaryCreateMutable(v10, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+  v13 = Mutable;
+  v43 = Mutable;
+  if (v11)
   {
-    v15 = Mutable == 0;
+    v14 = Mutable == 0;
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
-  v16 = !v15;
-  if (!v15)
+  v15 = !v14;
+  if (!v14)
   {
-    CFDictionaryAddValue(Mutable, @"Options", v12);
-    v18 = ACFULogging::getLogInstance(v17);
-    v19 = ACFULogging::initLog(v18, v14, a2, a3);
+    CFDictionaryAddValue(Mutable, @"Options", v11);
+    v17 = ACFULogging::getLogInstance(v16);
+    v18 = ACFULogging::initLog(v17, v13, a2, a3);
     if (values)
     {
       CFRelease(values);
@@ -2012,8 +2049,8 @@ void *VinylUpdaterCreate(const __CFDictionary *a1, uint64_t (*a2)(void, void), v
     }
 
 LABEL_13:
-    CFRelease(v14);
-    if (!v12)
+    CFRelease(v13);
+    if (!v11)
     {
       goto LABEL_15;
     }
@@ -2021,45 +2058,45 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  ACFULogging::getLogInstance(Mutable);
-  inited = ACFULogging::handleMessage();
-  if (v14)
+  v29 = ACFULogging::getLogInstance(Mutable);
+  inited = ACFULogging::handleMessage(v29, 2, "%s::%s: failed to init debugArgs/logOptions\n", "VinylUpdater", "VinylUpdaterCreate");
+  if (v13)
   {
-    v19 = 0;
+    v18 = 0;
     goto LABEL_13;
   }
 
-  v16 = 0;
-  v19 = 0;
-  if (v12)
+  v15 = 0;
+  v18 = 0;
+  if (v11)
   {
 LABEL_14:
-    CFRelease(v12);
+    CFRelease(v11);
   }
 
 LABEL_15:
-  if ((v16 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
     Instance = 0;
     goto LABEL_17;
   }
 
 LABEL_21:
-  if (v19)
+  if (v18)
   {
-    ACFULogging::getLogInstance(inited);
-    ACFULogging::handleMessage();
-    std::string::basic_string[abi:ne200100]<0>(v35, "failed to init logging");
+    v30 = ACFULogging::getLogInstance(inited);
+    ACFULogging::handleMessage(v30, 2, "%s::%s: failed to init logging\n", "VinylUpdater", "VinylUpdaterCreate");
+    std::string::basic_string[abi:ne200100]<0>(v41, "failed to init logging");
     inited = ACFUError::addError();
     Instance = 0;
-    if ((v36 & 0x80000000) == 0)
+    if ((v42 & 0x80000000) == 0)
     {
       goto LABEL_17;
     }
 
-    v28 = v35;
+    v31 = v41;
 LABEL_39:
-    operator delete(*v28);
+    operator delete(*v31);
     goto LABEL_17;
   }
 
@@ -2070,35 +2107,34 @@ LABEL_39:
 
   if (!kVinylRestoreObjTypeID)
   {
-    ACFULogging::getLogInstance(inited);
-    ACFULogging::handleMessage();
-    std::string::basic_string[abi:ne200100]<0>(v33, "failed to create Vinyl CFRuntimeClass");
+    v32 = ACFULogging::getLogInstance(inited);
+    ACFULogging::handleMessage(v32, 2, "%s::%s: failed to create Vinyl CFRuntimeClass\n", "VinylUpdater", "VinylUpdaterCreate");
+    std::string::basic_string[abi:ne200100]<0>(v39, "failed to create Vinyl CFRuntimeClass");
     inited = ACFUError::addError();
     Instance = 0;
-    if ((v34 & 0x80000000) == 0)
+    if ((v40 & 0x80000000) == 0)
     {
       goto LABEL_17;
     }
 
-    v28 = v33;
+    v31 = v39;
     goto LABEL_39;
   }
 
-  v24 = *v10;
   Instance = _CFRuntimeCreateInstance();
   if (!Instance)
   {
-    ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage();
-    std::string::basic_string[abi:ne200100]<0>(v31, "failed to create Vinyl CFType object");
+    v33 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v33, 2, "%s::%s: failed to create Vinyl CFType object\n", "VinylUpdater", "VinylUpdaterCreate");
+    std::string::basic_string[abi:ne200100]<0>(v37, "failed to create Vinyl CFType object");
     inited = ACFUError::addError();
     Instance = 0;
-    if ((v32 & 0x80000000) == 0)
+    if ((v38 & 0x80000000) == 0)
     {
       goto LABEL_17;
     }
 
-    v28 = v31;
+    v31 = v37;
     goto LABEL_39;
   }
 
@@ -2106,58 +2142,59 @@ LABEL_39:
   Instance[2] = v26;
   if (v26)
   {
-    ACFULogging::getLogInstance(v26);
-    ACFULogging::handleMessage();
+    v27 = ACFULogging::getLogInstance(v26);
+    ACFULogging::handleMessage(v27, 4, "%s::%s: Updater object created successfully\n", "VinylUpdater", "VinylUpdaterCreate");
     goto LABEL_28;
   }
 
-  ACFULogging::getLogInstance(0);
-  ACFULogging::handleMessage();
-  std::string::basic_string[abi:ne200100]<0>(v29, "failed to get the Vinyl restore instance");
+  v34 = ACFULogging::getLogInstance(0);
+  ACFULogging::handleMessage(v34, 2, "%s::%s: failed to get the Vinyl restore instance\n", "VinylUpdater", "VinylUpdaterCreate");
+  std::string::basic_string[abi:ne200100]<0>(v35, "failed to get the Vinyl restore instance");
   inited = ACFUError::addError();
-  if (v30 < 0)
+  if (v36 < 0)
   {
-    v28 = v29;
+    v31 = v35;
     goto LABEL_39;
   }
 
 LABEL_17:
-  ACFULogging::getLogInstance(inited);
-  ACFULogging::handleMessage();
-  CFError = ACFUError::getCFError(v42);
+  v21 = ACFULogging::getLogInstance(inited);
+  ACFULogging::handleMessage(v21, 2, "%s::%s: failed to create restore object\n", "VinylUpdater", "VinylUpdaterCreate");
+  CFError = ACFUError::getCFError(v48);
   *a4 = CFError;
   if (Instance)
   {
     CFRelease(Instance);
   }
 
-  ACFULogging::getLogInstance(CFError);
-  ACFULogging::handleMessage();
+  v23 = ACFULogging::getLogInstance(CFError);
+  ACFULogging::handleMessage(v23, 4, "%s::%s: leaving: VinylUpdater: %s\n", "VinylUpdater", "VinylUpdaterCreate", "VinylUpdaterCreate");
   Instance = 0;
 LABEL_28:
-  MEMORY[0x29C2B8A60](v42);
+  MEMORY[0x29C2B8A60](v48);
   return Instance;
 }
 
-void sub_299FAC998(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, char a36, int a37, __int16 a38, char a39, char a40)
+void sub_299FAC998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, char a36, int a37, __int16 a38, char a39, char a40)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x29C2B8A60](v40 - 96);
+  MEMORY[0x29C2B8A60](v40 - 96, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void VinylLogAdapter(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void VinylLogAdapter(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (gVinylUpdaterLogFunc)
   {
-    v9 = 0;
-    vasprintf(&v9, a2, &a9);
-    gVinylUpdaterLogFunc(0, v9);
-    free(v9);
+    v8 = 0;
+    vasprintf(&v8, a2, va);
+    gVinylUpdaterLogFunc(0, v8);
+    free(v8);
   }
 }
 
@@ -2168,128 +2205,127 @@ uint64_t __VinylUpdaterCreate_block_invoke()
   return result;
 }
 
-uint64_t VinylRestoreObjDestroy(ACFULogging *a1)
+uint64_t VinylRestoreObjDestroy(ACFULogging **a1)
 {
-  ACFULogging::getLogInstance(a1);
-  v2 = ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  v3 = ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: VinylUpdater: %s\n", "VinylUpdater", "VinylRestoreObjDestroy", "VinylRestoreObjDestroy");
   if (a1)
   {
-    v2 = *(a1 + 2);
-    if (v2)
+    v3 = a1[2];
+    if (v3)
     {
-      v3 = (*(*v2 + 8))(v2);
-      ACFULogging::getLogInstance(v3);
-      v2 = ACFULogging::handleMessage();
-      *(a1 + 2) = 0;
+      v4 = (*(*v3 + 8))(v3);
+      v5 = ACFULogging::getLogInstance(v4);
+      v3 = ACFULogging::handleMessage(v5, 3, "%s::%s: Cleaning up restore object\n", "VinylUpdater", "VinylRestoreObjDestroy");
+      a1[2] = 0;
     }
   }
 
-  ACFULogging::getLogInstance(v2);
-  return ACFULogging::handleMessage();
+  v6 = ACFULogging::getLogInstance(v3);
+  return ACFULogging::handleMessage(v6, 4, "%s::%s: leaving: VinylUpdater: %s\n", "VinylUpdater", "VinylRestoreObjDestroy", "VinylRestoreObjDestroy");
 }
 
 ACFULogging *VinylRestoreObjDescribe(ACFULogging *a1)
 {
   v1 = a1;
-  ACFULogging::getLogInstance(a1);
-  v2 = ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  v3 = ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: VinylUpdater: %s\n", "VinylUpdater", "VinylRestoreObjDescribe", "VinylRestoreObjDescribe");
   if (v1)
   {
-    v3 = CFGetAllocator(v1);
     v4 = CFGetAllocator(v1);
-    v2 = CFStringCreateWithFormat(v3, 0, @"<VinylRestoreObj %p [%p]>{}", v1, v4, "VinylRestoreObjDescribe");
-    v1 = v2;
+    v5 = CFGetAllocator(v1);
+    v3 = CFStringCreateWithFormat(v4, 0, @"<VinylRestoreObj %p [%p]>{}", v1, v5);
+    v1 = v3;
   }
 
-  ACFULogging::getLogInstance(v2);
-  ACFULogging::handleMessage();
+  v6 = ACFULogging::getLogInstance(v3);
+  ACFULogging::handleMessage(v6, 4, "%s::%s: leaving: VinylUpdater: %s\n", "VinylUpdater", "VinylRestoreObjDescribe", "VinylRestoreObjDescribe");
   return v1;
 }
 
-uint64_t VinylUpdaterExecCommand(uint64_t a1, __CFString *theString)
+uint64_t VinylUpdaterExecCommand(uint64_t a1, __CFString *theString, uint64_t a3, uint64_t a4)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   CString = CFStringGetCString(theString, buffer, 128, 0x8000100u);
-  ACFULogging::getLogInstance(CString);
-  v5 = ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(CString);
+  v8 = ACFULogging::handleMessage(LogInstance, 0, "%s::%s: entering: VinylUpdater: %s command: %s\n", "VinylUpdater", "VinylUpdaterExecCommand", "VinylUpdaterExecCommand", buffer);
   if (a1)
   {
     if (*(a1 + 16))
     {
-      v7 = ACFURestore::restoreCommand(theString, v6);
-      v8 = ACFURestore::executeCommand();
-      if ((v8 & 1) == 0)
+      v10 = ACFURestore::restoreCommand(theString, v9);
+      v11 = ACFURestore::executeCommand();
+      if ((v11 & 1) == 0)
       {
-        v8 = VinylUpdaterExecCommand_cold_1(v7);
-        v9 = 0;
+        v11 = VinylUpdaterExecCommand_cold_1(v10);
+        v12 = 0;
         goto LABEL_5;
       }
     }
 
     else
     {
-      v8 = VinylUpdaterExecCommand_cold_2(v5);
+      v11 = VinylUpdaterExecCommand_cold_2(v8);
     }
   }
 
   else
   {
-    v8 = VinylUpdaterExecCommand_cold_3(v5);
+    v11 = VinylUpdaterExecCommand_cold_3(v8);
   }
 
-  v9 = 1;
+  v12 = 1;
 LABEL_5:
-  ACFULogging::getLogInstance(v8);
-  ACFULogging::handleMessage();
-  v10 = *MEMORY[0x29EDCA608];
-  return v9;
+  v13 = ACFULogging::getLogInstance(v11);
+  ACFULogging::handleMessage(v13, 4, "%s::%s: leaving: VinylUpdater: %s\n", "VinylUpdater", "VinylUpdaterExecCommand", "VinylUpdaterExecCommand");
+  return v12;
 }
 
-uint64_t VinylUpdaterIsDone(ACFULogging *a1, void *a2)
+ACFULogging *VinylUpdaterIsDone(ACFULogging *a1, void *a2)
 {
   v3 = a1;
-  ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: VinylUpdater: %s\n", "VinylUpdater", "VinylUpdaterIsDone", "VinylUpdaterIsDone");
   pthread_mutex_lock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  v4 = xmmword_2A14F5908;
+  v5 = xmmword_2A14F5908;
   if (!xmmword_2A14F5908)
   {
-    BBUCapabilities::create_default_global(v16);
-    v5 = *v16;
-    v16[0] = 0;
-    v16[1] = 0;
-    v6 = *(&xmmword_2A14F5908 + 1);
-    xmmword_2A14F5908 = v5;
-    if (v6)
+    BBUCapabilities::create_default_global(v21);
+    v6 = *v21;
+    v21[0] = 0;
+    v21[1] = 0;
+    v7 = *(&xmmword_2A14F5908 + 1);
+    xmmword_2A14F5908 = v6;
+    if (v7)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-      if (v16[1])
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      if (v21[1])
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v16[1]);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v21[1]);
       }
     }
 
-    v4 = xmmword_2A14F5908;
+    v5 = xmmword_2A14F5908;
   }
 
-  v7 = *(&xmmword_2A14F5908 + 1);
+  v8 = *(&xmmword_2A14F5908 + 1);
   if (*(&xmmword_2A14F5908 + 1))
   {
     atomic_fetch_add_explicit((*(&xmmword_2A14F5908 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  v8 = BBUCapabilities::supportsVinylUpdate(v4);
-  v9 = v8;
-  if (v7)
+  v9 = BBUCapabilities::supportsVinylUpdate(v5);
+  v10 = v9;
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  if ((v9 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    ACFULogging::getLogInstance(v8);
-    ACFULogging::handleMessage();
+    v13 = ACFULogging::getLogInstance(v9);
+    ACFULogging::handleMessage(v13, 0, "%s::%s: Vinyl update through generic updater is not supported, skip Vinyl update\n", "VinylUpdater", "VinylUpdaterIsDone");
     if (a2)
     {
       *a2 = 0;
@@ -2300,12 +2336,12 @@ uint64_t VinylUpdaterIsDone(ACFULogging *a1, void *a2)
 
   if (v3)
   {
-    v10 = *(v3 + 2);
-    if (v10)
+    v11 = *(v3 + 2);
+    if (v11)
     {
       if (VinylRestore::updateAllowed(*(v3 + 2)))
       {
-        isRestoreComplete = ACFURestore::isRestoreComplete(v10);
+        isRestoreComplete = ACFURestore::isRestoreComplete(v11);
         v3 = isRestoreComplete;
         if (a2)
         {
@@ -2315,47 +2351,47 @@ uint64_t VinylUpdaterIsDone(ACFULogging *a1, void *a2)
             goto LABEL_30;
           }
 
-          ACFURestore::getErrorHandle(v16, v10);
-          *a2 = ACFUError::getCFError(v16[0]);
-          isRestoreComplete = v16[1];
-          if (v16[1])
+          ACFURestore::getErrorHandle(v21, v11);
+          *a2 = ACFUError::getCFError(v21[0]);
+          isRestoreComplete = v21[1];
+          if (v21[1])
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v16[1]);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v21[1]);
           }
         }
 
         else if (!isRestoreComplete)
         {
 LABEL_30:
-          ACFULogging::getLogInstance(isRestoreComplete);
-          ACFULogging::handleMessage();
+          v18 = ACFULogging::getLogInstance(isRestoreComplete);
+          ACFULogging::handleMessage(v18, 4, "%s::%s: leaving: VinylUpdater: %s\n", "VinylUpdater", "VinylUpdaterIsDone", "VinylUpdaterIsDone");
           return v3;
         }
 
-        ACFULogging::getLogInstance(isRestoreComplete);
-        isRestoreComplete = ACFULogging::handleMessage();
+        v17 = ACFULogging::getLogInstance(isRestoreComplete);
+        isRestoreComplete = ACFULogging::handleMessage(v17, 0, "%s::%s: Vinyl Update is complete!\n", "VinylUpdater", "VinylUpdaterIsDone");
         goto LABEL_30;
       }
     }
 
     else
     {
-      v12 = MEMORY[0x29C2B8A50](v16, @"VinylUpdaterIsDone");
-      ACFULogging::getLogInstance(v12);
-      ACFULogging::handleMessage();
+      v14 = MEMORY[0x29C2B8A50](v21, @"VinylUpdaterIsDone");
+      v15 = ACFULogging::getLogInstance(v14);
+      ACFULogging::handleMessage(v15, 2, "%s::%s: VinylRestore object doesn't exist\n", "VinylUpdater", "VinylUpdaterIsDone");
       std::string::basic_string[abi:ne200100]<0>(&__p, "VinylRestore object doesn't exist");
       ACFUError::addError();
-      if (v15 < 0)
+      if (v20 < 0)
       {
         operator delete(__p);
       }
 
       if (a2)
       {
-        *a2 = ACFUError::getCFError(v16);
+        *a2 = ACFUError::getCFError(v21);
       }
 
-      MEMORY[0x29C2B8A60](v16);
+      MEMORY[0x29C2B8A60](v21);
     }
 
     return 1;
@@ -2385,17 +2421,17 @@ uint64_t VinylUpdaterSupported(void *a1)
   v1 = xmmword_2A14F5908;
   if (!xmmword_2A14F5908)
   {
-    BBUCapabilities::create_default_global(&v8);
-    v2 = v8;
-    v8 = 0uLL;
+    BBUCapabilities::create_default_global(&v9);
+    v2 = v9;
+    v9 = 0uLL;
     v3 = *(&xmmword_2A14F5908 + 1);
     xmmword_2A14F5908 = v2;
     if (v3)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-      if (*(&v8 + 1))
+      if (*(&v9 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v8 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v9 + 1));
       }
     }
 
@@ -2421,8 +2457,8 @@ uint64_t VinylUpdaterSupported(void *a1)
     return 0;
   }
 
-  ACFULogging::getLogInstance(v5);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(v5);
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Vinyl update through generic updater is supported\n", "VinylUpdater", "VinylUpdaterSupported");
   return 1;
 }
 
@@ -2472,27 +2508,27 @@ FILE *(**vinyl_fill_fopen_filefunc(FILE *(**result)(int a1, void *__buf, int a3,
   return result;
 }
 
-void VinylICECommunication::statusCallback(char a1, uint64_t a2, int a3)
+void VinylICECommunication::statusCallback(const void *a1, uint64_t a2, int a3)
 {
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  if ((*gBBULogMaskGet(a1, a2) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "BBUICE16Communication", "", "transport %p, status: %d\n", v5, v6, v7, a1);
+    _BBULog(2, 0, "BBUICE16Communication", "", "transport %p, status: %d\n", a1, a3);
   }
 
   if (a3 == 1)
   {
-    v8 = *MEMORY[0x29EDB8ED8];
     Controller = TelephonyBasebandCreateController();
-    v10 = TelephonyBasebandResetModem();
-    if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    v6 = TelephonyBasebandResetModem();
+    v7 = v6;
+    if ((*gBBULogMaskGet(v6, v8) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      v14 = "failure";
-      if (v10)
+      v9 = "failure";
+      if (v7)
       {
-        v14 = "success";
+        v9 = "success";
       }
 
-      _BBULog(2, 0, "BBUICE16Communication", "", "Resetting modem: %s\n", v11, v12, v13, v14);
+      _BBULog(2, 0, "BBUICE16Communication", "", "Resetting modem: %s\n", v9);
     }
 
     if (Controller)
@@ -2502,14 +2538,14 @@ void VinylICECommunication::statusCallback(char a1, uint64_t a2, int a3)
   }
 }
 
-void sub_299FAD3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_299FAD3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ctu::cf::CFSharedRef<__TelephonyBasebandControllerHandle_tag>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t VinylICECommunication::freeTransportSync(uint64_t a1, uint64_t a2)
+uint64_t VinylICECommunication::freeTransportSync(uint64_t a1, const void *a2)
 {
   v2 = *(a1 + 48);
   if (!v2)
@@ -2519,107 +2555,106 @@ uint64_t VinylICECommunication::freeTransportSync(uint64_t a1, uint64_t a2)
 
   if (v2 == a2)
   {
-    v9 = *(a1 + 40);
+    v6 = *(a1 + 40);
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 0x40000000;
     block[2] = ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke;
     block[3] = &__block_descriptor_tmp_3;
     block[4] = a1;
-    dispatch_sync(v9, block);
-    v8 = TelephonyUtilTransportFree();
-    v10 = *(a1 + 40);
-    v13[0] = MEMORY[0x29EDCA5F8];
-    v13[1] = 0x40000000;
-    v13[2] = ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke_2;
-    v13[3] = &__block_descriptor_tmp_8;
-    v14 = v8;
-    v13[4] = a1;
-    v13[5] = a2;
-    dispatch_sync(v10, v13);
+    dispatch_sync(v6, block);
+    v5 = TelephonyUtilTransportFree();
+    v7 = *(a1 + 40);
+    v9[0] = MEMORY[0x29EDCA5F8];
+    v9[1] = 0x40000000;
+    v9[2] = ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke_2;
+    v9[3] = &__block_descriptor_tmp_8;
+    v10 = v5;
+    v9[4] = a1;
+    v9[5] = a2;
+    dispatch_sync(v7, v9);
   }
 
   else
   {
-    v8 = 0;
-    if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    v5 = 0;
+    if ((*gBBULogMaskGet(a1, a2) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      v12 = *(a1 + 48);
-      _BBULog(2, 0, "BBUICE16Communication", "", "call with %p different from fTransportCreated(%p)\n", v5, v6, v7, a2);
+      _BBULog(2, 0, "BBUICE16Communication", "", "call with %p different from fTransportCreated(%p)\n", a2, *(a1 + 48));
       return 0;
     }
   }
 
-  return v8;
+  return v5;
 }
 
-uint64_t ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke_2(uint64_t result)
+uint64_t ___ZN21VinylICECommunication17freeTransportSyncEP26TelephonyUtilTransport_tag_block_invoke_2(uint64_t result, uint64_t a2)
 {
-  v1 = *(result + 32);
-  *(v1 + 24) = 0;
+  v2 = *(result + 32);
+  *(v2 + 24) = 0;
   if (*(result + 48) == 1)
   {
-    *(v1 + 48) = 0;
+    *(v2 + 48) = 0;
   }
 
   else
   {
-    v2 = result;
-    result = gBBULogMaskGet();
+    v3 = result;
+    result = gBBULogMaskGet(result, a2);
     if ((*result & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      return _BBULog(2, 0, "BBUICE16Communication", "", "fail to free transport: %p\n", v3, v4, v5, *(v2 + 40));
+      return _BBULog(2, 0, "BBUICE16Communication", "", "fail to free transport: %p\n", *(v3 + 40));
     }
   }
 
   return result;
 }
 
-uint64_t VinylICECommunication::openChannel()
+uint64_t VinylICECommunication::openChannel(uint64_t a1, uint64_t a2)
 {
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "BBUICE16Communication", "", " Initializing KTL options struct, opening ARI channel\n", v0, v1, v2, v10);
+  gBBULogMaskGet(a1, a2);
+  _BBULog(0, 0xFFFFFFFFLL, "BBUICE16Communication", "", " Initializing KTL options struct, opening ARI channel\n");
   IceAriGetContext();
   pthread_mutex_lock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  v3 = xmmword_2A14F5908;
+  v2 = xmmword_2A14F5908;
   if (!xmmword_2A14F5908)
   {
-    BBUCapabilities::create_default_global(&v10);
-    v4 = v10;
-    v10 = 0uLL;
-    v5 = *(&xmmword_2A14F5908 + 1);
-    xmmword_2A14F5908 = v4;
-    if (v5)
+    BBUCapabilities::create_default_global(&v9);
+    v3 = v9;
+    v9 = 0uLL;
+    v4 = *(&xmmword_2A14F5908 + 1);
+    xmmword_2A14F5908 = v3;
+    if (v4)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-      if (*(&v10 + 1))
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+      if (*(&v9 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v9 + 1));
       }
     }
 
-    v3 = xmmword_2A14F5908;
+    v2 = xmmword_2A14F5908;
   }
 
-  v6 = *(&xmmword_2A14F5908 + 1);
+  v5 = *(&xmmword_2A14F5908 + 1);
   if (*(&xmmword_2A14F5908 + 1))
   {
     atomic_fetch_add_explicit((*(&xmmword_2A14F5908 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  BBUCapabilities::getARICommandTimeout(v3);
-  v7 = KTLInitOptions();
-  if (v6)
+  BBUCapabilities::getARICommandTimeout(v2);
+  v6 = KTLInitOptions();
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  if (v7)
+  if (v6)
   {
     IceAriGetContext();
-    v8 = KTLOpenChannel();
+    v7 = KTLOpenChannel();
     IceAriSetContextValid(1);
-    if (v8)
+    if (v7)
     {
       return 0;
     }
@@ -2676,76 +2711,77 @@ void IceAriSetContextValid(char a1)
   }
 }
 
-uint64_t VinylICECommunication::createTransport(uint64_t a1, uint64_t a2)
+uint64_t VinylICECommunication::createTransport(uint64_t a1, const void *a2)
 {
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2000000000;
-  v37 = 3;
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x2000000000;
-  v33 = 0;
-  TelephonyBasebandPCITransportInitParameters();
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 3;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x2000000000;
+  v27 = 0;
+  inited = TelephonyBasebandPCITransportInitParameters();
   if (*(a1 + 48))
   {
-    if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+    if ((*gBBULogMaskGet(inited, v5) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
     {
-      _BBULog(2, 0, "BBUICE16Communication", "", "Need to free transport before creating again", v4, v5, v6, v17);
+      _BBULog(2, 0, "BBUICE16Communication", "", "Need to free transport before creating again");
     }
 
-    (*(*a1 + 40))(a1, *(a1 + 48));
+    inited = (*(*a1 + 40))(a1, *(a1 + 48));
     *(a1 + 48) = 0;
   }
 
-  v7 = *(a1 + 40);
-  LODWORD(v28) = v28 | 1;
-  v25[0] = MEMORY[0x29EDCA5F8];
-  v25[1] = 0x40000000;
-  v25[2] = ___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke;
-  v25[3] = &__block_descriptor_tmp_12;
-  v25[4] = a2;
-  *(&v26 + 1) = v7;
-  *&v27 = v25;
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  v6 = *(a1 + 40);
+  LODWORD(v22) = v22 | 1;
+  v19[0] = MEMORY[0x29EDCA5F8];
+  v19[1] = 0x40000000;
+  v19[2] = ___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke;
+  v19[3] = &__block_descriptor_tmp_12;
+  v19[4] = a2;
+  *(&v20 + 1) = v6;
+  *&v21 = v19;
+  v7 = gBBULogMaskGet(inited, v5);
+  if ((*v7 & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "BBUICE16Communication", "", "Creating transport:%p \n", v8, v9, v10, a2);
+    v7 = _BBULog(2, 0, "BBUICE16Communication", "", "Creating transport:%p \n", a2);
   }
 
-  LODWORD(v26) = 8;
-  DWORD2(v27) = 10000;
+  LODWORD(v20) = 8;
+  DWORD2(v21) = 10000;
   *(a1 + 56) = 8;
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  if ((*gBBULogMaskGet(v7, v8) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "BBUICE16Communication", "", "Creating with timeout set to %u ms\n", v11, v12, v13, SBYTE8(v27));
+    _BBULog(2, 0, "BBUICE16Communication", "", "Creating with timeout set to %u ms\n", DWORD2(v21));
   }
 
-  v14 = *(a1 + 32);
+  v9 = *(a1 + 32);
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 0x40000000;
   block[2] = ___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke_2;
   block[3] = &unk_29F293530;
   block[6] = a1;
   block[7] = a2;
-  v21 = v28;
-  v22 = v29;
-  v23 = v30;
-  v24 = v31;
-  v19 = v26;
-  v20 = v27;
-  block[4] = v32;
-  block[5] = &v34;
-  dispatch_sync(v14, block);
-  v15 = *(v35 + 6);
-  if (v26 == 8 && !v15)
+  v15 = v22;
+  v16 = v23;
+  v17 = v24;
+  v18 = v25;
+  v13 = v20;
+  v14 = v21;
+  block[4] = v26;
+  block[5] = &v28;
+  dispatch_sync(v9, block);
+  v10 = *(v29 + 6);
+  if (v20 == 8 && !v10)
   {
-    v15 = (*(*a1 + 24))(a1, a2);
-    *(v35 + 6) = v15;
+    v10 = (*(*a1 + 24))(a1, a2);
+    *(v29 + 6) = v10;
   }
 
-  _Block_object_dispose(v32, 8);
-  _Block_object_dispose(&v34, 8);
-  return v15;
+  _Block_object_dispose(v26, 8);
+  _Block_object_dispose(&v28, 8);
+  return v10;
 }
 
 void sub_299FADB20(_Unwind_Exception *a1)
@@ -2755,45 +2791,46 @@ void sub_299FADB20(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke_2(void *a1)
+_BYTE *___ZN21VinylICECommunication15createTransportEP26TelephonyUtilTransport_tag_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = a1[6];
-  *(v2 + 48) = a1[7];
-  *(*(a1[4] + 8) + 24) = TelephonyBasebandPCITransportCreate();
-  result = gBBULogMaskGet();
+  v7 = *(a1 + 48);
+  *(v7 + 48) = *(a1 + 56);
+  v8 = TelephonyBasebandPCITransportCreate();
+  *(*(*(a1 + 32) + 8) + 24) = v8;
+  result = gBBULogMaskGet(v8, v9);
   if ((*result & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    if (*(*(a1[4] + 8) + 24))
+    if (*(*(*(a1 + 32) + 8) + 24))
     {
-      v7 = "success";
+      v11 = "success";
     }
 
     else
     {
-      v7 = "failure";
+      v11 = "failure";
     }
 
-    result = _BBULog(2, 0, "BBUICE16Communication", "", " TelephonyBasebandPCITransportCreate returns: %s\n", v4, v5, v6, v7);
+    result = _BBULog(2, 0, "BBUICE16Communication", "", " TelephonyBasebandPCITransportCreate returns: %s\n", v11);
   }
 
-  if (*(*(a1[4] + 8) + 24))
+  if (*(*(*(a1 + 32) + 8) + 24))
   {
-    if (!*(v2 + 48))
+    if (!*(v7 + 48))
     {
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 67, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Communication/ICE/VinylICECommunication.cpp", 0x82u, "Assertion failure(nullptr != fTransportCreated && Telephony util transport error.)", v10, v11, v12, v13);
+      _BBUException::_BBUException(exception, 67, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Communication/ICE/VinylICECommunication.cpp", 0x82u, "Assertion failure(nullptr != fTransportCreated && Telephony util transport error.)", v14, v15, v16);
     }
 
-    v8 = 0;
+    v12 = 0;
   }
 
   else
   {
-    result = VinylICECommunication::freeTransportSync(v2, a1[7]);
-    v8 = 3;
+    result = VinylICECommunication::freeTransportSync(v7, *(a1 + 56));
+    v12 = 3;
   }
 
-  *(*(a1[5] + 8) + 24) = v8;
+  *(*(*(a1 + 40) + 8) + 24) = v12;
   return result;
 }
 
@@ -2849,36 +2886,36 @@ uint64_t IceAriGetContextValid(void)
   return v5;
 }
 
-uint64_t VinylICECommunication::freeTransport(void *a1, uint64_t a2)
+uint64_t VinylICECommunication::freeTransport(void *a1, const void *a2)
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2000000000;
-  v14 = 1;
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2000000000;
+  v11 = 1;
+  if ((*gBBULogMaskGet(a1, a2) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "BBUICE16Communication", "", "request to free transport: %p\n", v4, v5, v6, a2);
+    _BBULog(2, 0, "BBUICE16Communication", "", "request to free transport: %p\n", a2);
   }
 
   (*(*a1 + 32))(a1);
-  v7 = a1[4];
+  v4 = a1[4];
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 0x40000000;
   block[2] = ___ZN21VinylICECommunication13freeTransportEP26TelephonyUtilTransport_tag_block_invoke;
   block[3] = &unk_29F293558;
-  block[4] = &v11;
+  block[4] = &v8;
   block[5] = a1;
   block[6] = a2;
-  dispatch_sync(v7, block);
-  v8 = *(v12 + 24);
-  _Block_object_dispose(&v11, 8);
-  return v8;
+  dispatch_sync(v4, block);
+  v5 = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
+  return v5;
 }
 
-uint64_t ___ZN21VinylICECommunication13freeTransportEP26TelephonyUtilTransport_tag_block_invoke(void *a1)
+uint64_t ___ZN21VinylICECommunication13freeTransportEP26TelephonyUtilTransport_tag_block_invoke(uint64_t a1)
 {
-  result = VinylICECommunication::freeTransportSync(a1[5], a1[6]);
-  *(*(a1[4] + 8) + 24) = result;
+  result = VinylICECommunication::freeTransportSync(*(a1 + 40), *(a1 + 48));
+  *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
@@ -2971,9 +3008,9 @@ unint64_t DEREncodeItemIntoVector(unint64_t a1, unint64_t a2, const void *a3, un
   return v11;
 }
 
-uint64_t DEREncodeSequenceIntoVector(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t *a4)
+uint64_t DEREncodeSequenceIntoVector(uint64_t a1, unint64_t a2, uint64_t *a3, unint64_t *a4)
 {
-  v8 = DERLengthOfEncodedSequence(a1, a2, *(a3 + 8), *a3);
+  v8 = DERLengthOfEncodedSequence(a1, a2, *(a3 + 4), *a3);
   v15 = v8;
   v9 = *a4;
   v10 = a4[1] - *a4;
@@ -2991,7 +3028,7 @@ uint64_t DEREncodeSequenceIntoVector(uint64_t a1, unint64_t a2, uint64_t a3, uni
     v9 = *a4;
   }
 
-  v11 = DEREncodeSequence(a1, a2, *(a3 + 8), *a3, v9, &v15);
+  v11 = DEREncodeSequence(a1, a2, *(a3 + 4), *a3, v9, &v15);
   if (v11)
   {
     v12 = *a4;
@@ -3020,47 +3057,47 @@ uint64_t DEREncodeSequenceIntoVector(uint64_t a1, unint64_t a2, uint64_t a3, uni
 
 uint64_t DERDecodeBBTicket(uint64_t a1, unsigned int a2, unint64_t a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
-  v17[6] = xmmword_299FE2D58;
-  v17[7] = unk_299FE2D68;
-  v17[8] = xmmword_299FE2D78;
-  v17[2] = xmmword_299FE2D18;
-  v17[3] = unk_299FE2D28;
-  v17[4] = xmmword_299FE2D38;
-  v17[5] = unk_299FE2D48;
-  v17[0] = xmmword_299FE2CF8;
-  v17[1] = unk_299FE2D08;
-  v15[6] = xmmword_299FE2DE8;
-  v15[7] = unk_299FE2DF8;
-  v15[8] = xmmword_299FE2E08;
-  v15[9] = unk_299FE2E18;
-  v15[2] = xmmword_299FE2DA8;
-  v15[3] = unk_299FE2DB8;
-  v15[4] = xmmword_299FE2DC8;
-  v15[5] = unk_299FE2DD8;
-  v15[0] = xmmword_299FE2D88;
-  v15[1] = unk_299FE2D98;
-  v16 = 1;
-  v12[0] = a1;
-  v12[1] = a2;
-  result = DERDecodeItem(v12, &v13);
+  v17 = *MEMORY[0x29EDCA608];
+  v16[6] = xmmword_299FE2D58;
+  v16[7] = unk_299FE2D68;
+  v16[8] = xmmword_299FE2D78;
+  v16[2] = xmmword_299FE2D18;
+  v16[3] = unk_299FE2D28;
+  v16[4] = xmmword_299FE2D38;
+  v16[5] = unk_299FE2D48;
+  v16[0] = xmmword_299FE2CF8;
+  v16[1] = unk_299FE2D08;
+  v14[6] = xmmword_299FE2DE8;
+  v14[7] = unk_299FE2DF8;
+  v14[8] = xmmword_299FE2E08;
+  v14[9] = unk_299FE2E18;
+  v14[2] = xmmword_299FE2DA8;
+  v14[3] = unk_299FE2DB8;
+  v14[4] = xmmword_299FE2DC8;
+  v14[5] = unk_299FE2DD8;
+  v14[0] = xmmword_299FE2D88;
+  v14[1] = unk_299FE2D98;
+  v15 = 1;
+  v11[0] = a1;
+  v11[1] = a2;
+  result = DERDecodeItem(v11, &v12);
   if (!result)
   {
-    if (v13 == 0x2000000000000010)
+    if (v12 == 0x2000000000000010)
     {
       if (TelephonyRadiosGetRadioVendor() == 1)
       {
-        v5 = v15;
+        v5 = v14;
         v6 = 7;
       }
 
       else
       {
-        v5 = v17;
+        v5 = v16;
         v6 = 6;
       }
 
-      result = DERParseSequenceContent(&v14, v6, v5, a3, 0);
+      result = DERParseSequenceContent(&v13, v6, v5, a3, 0);
       if (!result)
       {
         v7 = *(a3 + 16);
@@ -3072,12 +3109,12 @@ uint64_t DERDecodeBBTicket(uint64_t a1, unsigned int a2, unint64_t a3)
         {
           if (*(a3 + 24) == 10)
           {
-            result = 0;
+            return 0;
           }
 
           else
           {
-            result = 3;
+            return 3;
           }
         }
       }
@@ -3085,11 +3122,10 @@ uint64_t DERDecodeBBTicket(uint64_t a1, unsigned int a2, unint64_t a3)
 
     else
     {
-      result = 2;
+      return 2;
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3240,23 +3276,26 @@ void std::vector<unsigned char>::__append(uint64_t a1, size_t a2)
   }
 }
 
-uint64_t _BBUException::_BBUException(uint64_t a1, int a2, char *a3, unsigned int a4, ctu::LogMessageBuffer *a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t _BBUException::_BBUException(uint64_t a1, uint64_t a2, char *a3, unsigned int a4, ctu::LogMessageBuffer *a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   *a1 = &unk_2A20319A0;
   *(a1 + 520) = a2;
-  _BBUException::constructCommon(a1, a2, a3, a4, a5, &a9);
+  _BBUException::constructCommon(a1, a2, a3, a4, a5, va);
   return a1;
 }
 
 {
+  va_start(va, a8);
   *a1 = &unk_2A20319A0;
   *(a1 + 520) = a2;
-  _BBUException::constructCommon(a1, a2, a3, a4, a5, &a9);
+  _BBUException::constructCommon(a1, a2, a3, a4, a5, va);
   return a1;
 }
 
-void _BBUException::constructCommon(uint64_t a1, int a2, char *a3, unsigned int a4, ctu::LogMessageBuffer *this, char *a6)
+void _BBUException::constructCommon(uint64_t a1, uint64_t a2, char *a3, unsigned int a4, ctu::LogMessageBuffer *this, char *a6)
 {
+  v8 = a2;
   ctu::LogMessageBuffer::vCreateWithFormat(&v40, this, a6, a3);
   v10 = MEMORY[0x29C2B81B0](&v40);
   v11 = *v10;
@@ -3268,7 +3307,7 @@ void _BBUException::constructCommon(uint64_t a1, int a2, char *a3, unsigned int 
   MEMORY[0x29C2B81D0](&v40);
   *(&v35.__r_.__value_.__s + 23) = 1;
   LOWORD(v35.__r_.__value_.__l.__data_) = 32;
-  v12 = BBUReturnAsString(a2);
+  v12 = BBUReturnAsString(v8);
   v13 = strlen(v12);
   v14 = std::string::append(&v35, v12, v13);
   v15 = *&v14->__r_.__value_.__l.__data_;
@@ -3531,103 +3570,156 @@ ctu::llvm::StringRef *ctu::llvm::StringRef::StringRef(ctu::llvm::StringRef *this
   return this;
 }
 
-uint64_t eUICC::logEUICCData(int *a1)
+uint64_t eUICC::logEUICCData(int *a1, uint64_t a2)
 {
-  gBBULogMaskGet();
-  v2 = *(a1 + 5);
-  v3 = *a1;
-  ctu::hex((a1 + 7), 0x10);
-  v30 = *(a1 + 23);
-  _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "status 0x%x sw1_sw2 0x%x eid 0x%s op_mode 0x%hhx\n", v4, v5, v6, v3);
-  if (v36 < 0)
+  gBBULogMaskGet(a1, a2);
+  v3 = *(a1 + 5);
+  v4 = *a1;
+  ctu::hex(v33, (a1 + 7), 0x10);
+  if (v34 >= 0)
   {
-    operator delete(v35[0]);
+    v5 = v33;
   }
 
-  gBBULogMaskGet();
-  v7 = v35;
-  ctu::hex((a1 + 6), 0x20);
-  if (v36 < 0)
+  else
   {
-    LOBYTE(v7) = v35[0];
+    v5 = v33[0];
   }
 
-  ctu::hex((a1 + 14), 8);
-  ctu::hex((a1 + 16), 8);
-  _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "current_fw_version %s main_fw_nonce 0x%s gold_fw_nonce 0x%s\n", v8, v9, v10, v7);
+  v6 = _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "status 0x%x sw1_sw2 0x%x eid 0x%s op_mode 0x%hhx\n", v4, v3, v5, *(a1 + 23));
+  if (v34 < 0)
+  {
+    operator delete(v33[0]);
+  }
+
+  gBBULogMaskGet(v6, v7);
+  v8 = v33;
+  ctu::hex(v33, (a1 + 6), 0x20);
+  if (v34 < 0)
+  {
+    v8 = v33[0];
+  }
+
+  ctu::hex(v31, (a1 + 14), 8);
+  v9 = v32;
+  v10 = v31[0];
+  ctu::hex(__p, (a1 + 16), 8);
+  v11 = v31;
+  if (v9 < 0)
+  {
+    v11 = v10;
+  }
+
+  if (v30 >= 0)
+  {
+    v12 = __p;
+  }
+
+  else
+  {
+    v12 = __p[0];
+  }
+
+  v13 = _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "current_fw_version %s main_fw_nonce 0x%s gold_fw_nonce 0x%s\n", v8, v11, v12);
+  if (v30 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
   if (v32 < 0)
   {
-    operator delete(__p);
+    operator delete(v31[0]);
   }
 
   if (v34 < 0)
   {
-    operator delete(v33);
+    operator delete(v33[0]);
   }
 
-  if (v36 < 0)
+  gBBULogMaskGet(v13, v14);
+  ctu::hex(v33, (a1 + 18), 0x10);
+  v15 = v34;
+  v16 = v33[0];
+  ctu::hex(v31, (a1 + 147), 0x10);
+  if (v15 >= 0)
   {
-    operator delete(v35[0]);
-  }
-
-  gBBULogMaskGet();
-  ctu::hex((a1 + 18), 0x10);
-  v11 = v36;
-  v12 = v35[0];
-  ctu::hex((a1 + 147), 0x10);
-  if (v11 >= 0)
-  {
-    v16 = v35;
+    v17 = v33;
   }
 
   else
   {
-    LOBYTE(v16) = v12;
+    v17 = v16;
   }
 
-  v28 = *(a1 + 111);
-  _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "main_fw_pcf_mac 0x%s gold_fw_pcf_mac 0x%s pcf_version 0x%x\n", v13, v14, v15, v16);
-  if (v34 < 0)
+  if (v32 >= 0)
   {
-    operator delete(v33);
-  }
-
-  if (v36 < 0)
-  {
-    operator delete(v35[0]);
-  }
-
-  gBBULogMaskGet();
-  ctu::hex((a1 + 60), 3);
-  v17 = v36;
-  v18 = v35[0];
-  ctu::hex((a1 + 243), 0x20);
-  if (v17 >= 0)
-  {
-    v22 = v35;
+    v18 = v31;
   }
 
   else
   {
-    LOBYTE(v22) = v18;
+    v18 = v31[0];
   }
 
-  v29 = *(a1 + 4);
-  _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "loader_version 0x%s key_id 0x%s perso %d\n", v19, v20, v21, v22);
+  v19 = _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "main_fw_pcf_mac 0x%s gold_fw_pcf_mac 0x%s pcf_version 0x%x\n", v17, v18, *(a1 + 111));
+  if (v32 < 0)
+  {
+    operator delete(v31[0]);
+  }
+
   if (v34 < 0)
   {
-    operator delete(v33);
+    operator delete(v33[0]);
   }
 
-  if (v36 < 0)
+  gBBULogMaskGet(v19, v20);
+  ctu::hex(v33, (a1 + 60), 3);
+  v21 = v34;
+  v22 = v33[0];
+  ctu::hex(v31, (a1 + 243), 0x20);
+  if (v21 >= 0)
   {
-    operator delete(v35[0]);
+    v23 = v33;
   }
 
-  gBBULogMaskGet();
-  *(a1 + 279);
-  v27 = *(a1 + 276);
-  return _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "chip_id 0x%x stream_apdu_max_apdus 0x%x isAbsentOk: %s\n", v23, v24, v25, *(a1 + 275));
+  else
+  {
+    v23 = v22;
+  }
+
+  if (v32 >= 0)
+  {
+    v24 = v31;
+  }
+
+  else
+  {
+    v24 = v31[0];
+  }
+
+  v25 = _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "loader_version 0x%s key_id 0x%s perso %d\n", v23, v24, *(a1 + 4));
+  if (v32 < 0)
+  {
+    operator delete(v31[0]);
+  }
+
+  if (v34 < 0)
+  {
+    operator delete(v33[0]);
+  }
+
+  gBBULogMaskGet(v25, v26);
+  if (*(a1 + 279))
+  {
+    v27 = "Yes";
+  }
+
+  else
+  {
+    v27 = "No";
+  }
+
+  return _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylValve", "", "chip_id 0x%x stream_apdu_max_apdus 0x%x isAbsentOk: %s\n", *(a1 + 275), *(a1 + 276), v27);
 }
 
 void sub_299FAEE1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -3795,7 +3887,7 @@ LABEL_33:
     v39 = 0;
     v37 = 0;
     v33 = (*&__src[2])(*(&__src[3] + 1), *&__src[4], v9, 0);
-    HIDWORD(v34) = unzlocal_getLong(__src, *&__src[4], &v40);
+    HIDWORD(v34) = unzlocal_getLong(__src, *&__src[4], v40);
     LODWORD(v34) = unzlocal_getShort(__src, *&__src[4], &v39);
     Short = unzlocal_getShort(__src, *&__src[4], &v38);
     v23 = unzlocal_getShort(__src, *&__src[4], &__src[4] + 1);
@@ -4252,69 +4344,60 @@ uint64_t vinyl_unzGoToNextFile(void *a1)
 
 uint64_t vinyl_unzLocateFile(uint64_t a1, char *__s, int a3)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  if (a1 && strlen(__s) <= 0xFF)
+  v21 = *MEMORY[0x29EDCA608];
+  if (!a1 || strlen(__s) > 0xFF)
   {
-    if (*(a1 + 112))
+    return 4294967194;
+  }
+
+  if (!*(a1 + 112))
+  {
+    return 4294967196;
+  }
+
+  v7 = *(a1 + 96);
+  v8 = *(a1 + 104);
+  v17 = *(a1 + 240);
+  v18 = *(a1 + 256);
+  v9 = *(a1 + 280);
+  v19 = *(a1 + 272);
+  v13 = *(a1 + 176);
+  v14 = *(a1 + 192);
+  v15 = *(a1 + 208);
+  v16 = *(a1 + 224);
+  v11 = *(a1 + 144);
+  v12 = *(a1 + 160);
+  v10 = *(a1 + 136);
+  *(a1 + 96) = 0;
+  *(a1 + 104) = v10;
+  result = unzlocal_GetCurrentFileInfoInternal(a1, a1 + 144, (a1 + 280), 0, 0, 0, 0, 0, 0);
+  for (*(a1 + 112) = result == 0; !result; result = vinyl_unzGoToNextFile(a1))
+  {
+    result = unzlocal_GetCurrentFileInfoInternal(a1, 0, 0, v20, 0x100uLL, 0, 0, 0, 0);
+    if (result)
     {
-      v8 = *(a1 + 96);
-      v9 = *(a1 + 104);
-      v18 = *(a1 + 240);
-      v19 = *(a1 + 256);
-      v10 = *(a1 + 280);
-      v20 = *(a1 + 272);
-      v14 = *(a1 + 176);
-      v15 = *(a1 + 192);
-      v16 = *(a1 + 208);
-      v17 = *(a1 + 224);
-      v12 = *(a1 + 144);
-      v13 = *(a1 + 160);
-      v11 = *(a1 + 136);
-      *(a1 + 96) = 0;
-      *(a1 + 104) = v11;
-      result = unzlocal_GetCurrentFileInfoInternal(a1, a1 + 144, (a1 + 280), 0, 0, 0, 0, 0, 0);
-      for (*(a1 + 112) = result == 0; !result; result = vinyl_unzGoToNextFile(a1))
-      {
-        result = unzlocal_GetCurrentFileInfoInternal(a1, 0, 0, v21, 0x100uLL, 0, 0, 0, 0);
-        if (result)
-        {
-          break;
-        }
-
-        result = vinyl_unzStringFileNameCompare(v21, __s, a3);
-        if (!result)
-        {
-          goto LABEL_4;
-        }
-      }
-
-      *(a1 + 96) = v8;
-      *(a1 + 104) = v9;
-      *(a1 + 240) = v18;
-      *(a1 + 256) = v19;
-      *(a1 + 176) = v14;
-      *(a1 + 192) = v15;
-      *(a1 + 208) = v16;
-      *(a1 + 224) = v17;
-      *(a1 + 144) = v12;
-      *(a1 + 160) = v13;
-      *(a1 + 272) = v20;
-      *(a1 + 280) = v10;
+      break;
     }
 
-    else
+    result = vinyl_unzStringFileNameCompare(v20, __s, a3);
+    if (!result)
     {
-      result = 4294967196;
+      return result;
     }
   }
 
-  else
-  {
-    result = 4294967194;
-  }
-
-LABEL_4:
-  v7 = *MEMORY[0x29EDCA608];
+  *(a1 + 96) = v7;
+  *(a1 + 104) = v8;
+  *(a1 + 240) = v17;
+  *(a1 + 256) = v18;
+  *(a1 + 176) = v13;
+  *(a1 + 192) = v14;
+  *(a1 + 208) = v15;
+  *(a1 + 224) = v16;
+  *(a1 + 144) = v11;
+  *(a1 + 160) = v12;
+  *(a1 + 272) = v19;
+  *(a1 + 280) = v9;
   return result;
 }
 
@@ -4356,11 +4439,10 @@ uint64_t vinyl_unzGoToFilePos(int8x16_t *a1, int8x16_t *a2)
 
 uint64_t vinyl_unzOpenCurrentFile3(uint64_t a1, _DWORD *a2, int *a3, int a4, _BYTE *a5)
 {
-  v56[2] = *MEMORY[0x29EDCA608];
+  v55[2] = *MEMORY[0x29EDCA608];
   if (!a1 || !*(a1 + 112))
   {
-    v17 = 4294967194;
-    goto LABEL_49;
+    return 4294967194;
   }
 
   if (*(a1 + 288))
@@ -4370,18 +4452,18 @@ uint64_t vinyl_unzOpenCurrentFile3(uint64_t a1, _DWORD *a2, int *a3, int a4, _BY
 
   if ((*(a1 + 32))(*(a1 + 56), *(a1 + 64), *(a1 + 88) + *(a1 + 280), 0))
   {
-    goto LABEL_48;
+    return 4294967193;
   }
 
-  v55 = 0;
-  v56[0] = 0;
   v54 = 0;
-  Long = unzlocal_getLong(a1, *(a1 + 64), v56);
-  v11 = v56[0];
-  Short = unzlocal_getShort(a1, *(a1 + 64), &v55);
-  v13 = unzlocal_getShort(a1, *(a1 + 64), &v54);
+  v55[0] = 0;
+  v53 = 0;
+  Long = unzlocal_getLong(a1, *(a1 + 64), v55);
+  v11 = v55[0];
+  Short = unzlocal_getShort(a1, *(a1 + 64), &v54);
+  v13 = unzlocal_getShort(a1, *(a1 + 64), &v53);
   v14 = -103;
-  if (!unzlocal_getShort(a1, *(a1 + 64), &v55))
+  if (!unzlocal_getShort(a1, *(a1 + 64), &v54))
   {
     v19 = v11 == 67324752 ? 0 : -103;
     v20 = v13 | Short | Long;
@@ -4389,9 +4471,9 @@ uint64_t vinyl_unzOpenCurrentFile3(uint64_t a1, _DWORD *a2, int *a3, int a4, _BY
     if (!v20 && v11 == 67324752)
     {
       v14 = -103;
-      if (v55 == *(a1 + 168))
+      if (v54 == *(a1 + 168))
       {
-        if ((v55 & 0xFFFFFFFFFFFFFFF7) != 0)
+        if ((v54 & 0xFFFFFFFFFFFFFFF7) != 0)
         {
           v14 = -103;
         }
@@ -4404,43 +4486,41 @@ uint64_t vinyl_unzOpenCurrentFile3(uint64_t a1, _DWORD *a2, int *a3, int a4, _BY
     }
   }
 
-  v15 = unzlocal_getLong(a1, *(a1 + 64), &v55);
-  v16 = unzlocal_getLong(a1, *(a1 + 64), &v55) || v15 | v14 || v55 != *(a1 + 184) && (v54 & 8) == 0;
+  v15 = unzlocal_getLong(a1, *(a1 + 64), &v54);
+  v16 = unzlocal_getLong(a1, *(a1 + 64), &v54) || v15 | v14 || v54 != *(a1 + 184) && (v53 & 8) == 0;
   v18 = 1;
-  if (!unzlocal_getLong(a1, *(a1 + 64), &v55) && !v16)
+  if (!unzlocal_getLong(a1, *(a1 + 64), &v54) && !v16)
   {
-    v18 = v55 != *(a1 + 192) && (v54 & 8) == 0;
+    v18 = v54 != *(a1 + 192) && (v53 & 8) == 0;
   }
 
   v21 = 1;
-  if (!unzlocal_getLong(a1, *(a1 + 64), &v55) && !v18)
+  if (!unzlocal_getLong(a1, *(a1 + 64), &v54) && !v18)
   {
-    v21 = v55 != *(a1 + 200) && (v54 & 8) == 0;
-  }
-
-  v53 = 0;
-  v22 = unzlocal_getShort(a1, *(a1 + 64), &v53);
-  v23 = 0;
-  v24 = v53;
-  if (!v22 && !v21)
-  {
-    v23 = v53 == *(a1 + 208);
+    v21 = v54 != *(a1 + 200) && (v53 & 8) == 0;
   }
 
   v52 = 0;
-  if (unzlocal_getShort(a1, *(a1 + 64), &v52) || !v23)
+  v22 = unzlocal_getShort(a1, *(a1 + 64), &v52);
+  v23 = 0;
+  v24 = v52;
+  if (!v22 && !v21)
   {
-LABEL_48:
-    v17 = 4294967193;
-    goto LABEL_49;
+    v23 = v52 == *(a1 + 208);
+  }
+
+  v51 = 0;
+  if (unzlocal_getShort(a1, *(a1 + 64), &v51) || !v23)
+  {
+    return 4294967193;
   }
 
   v25 = *(a1 + 280);
-  v26 = v52;
+  v26 = v51;
   v27 = malloc(0x120uLL);
   if (!v27)
   {
-    goto LABEL_67;
+    return 4294967192;
   }
 
   v28 = v27;
@@ -4453,7 +4533,7 @@ LABEL_48:
   if (!v29)
   {
     free(v28);
-    goto LABEL_67;
+    return 4294967192;
   }
 
   *(v28 + 16) = 0;
@@ -4493,33 +4573,33 @@ LABEL_48:
   }
 
 LABEL_56:
-  v34 = *(a1 + 184);
+  v33 = *(a1 + 184);
   *(v28 + 20) = 0;
-  *(v28 + 21) = v34;
-  v35 = *(a1 + 168);
+  *(v28 + 21) = v33;
+  v34 = *(a1 + 168);
   *(v28 + 32) = *(a1 + 64);
-  *(v28 + 33) = v35;
-  v36 = *(a1 + 16);
+  *(v28 + 33) = v34;
+  v35 = *(a1 + 16);
   *(v28 + 12) = *a1;
-  *(v28 + 13) = v36;
-  v37 = *(a1 + 48);
+  *(v28 + 13) = v35;
+  v36 = *(a1 + 48);
   *(v28 + 14) = *(a1 + 32);
-  *(v28 + 15) = v37;
+  *(v28 + 15) = v36;
   *(v28 + 34) = *(a1 + 88);
   *(v28 + 6) = 0;
-  if (!a4 && v35 == 8)
+  if (!a4 && v34 == 8)
   {
     *(v28 + 1) = 0;
     *(v28 + 4) = 0;
     *(v28 + 10) = 0;
     *(v28 + 11) = 0;
     *(v28 + 9) = 0;
-    v38 = inflateInit2_((v28 + 8), -15, "1.2.12", 112);
-    if (v38)
+    v37 = inflateInit2_((v28 + 8), -15, "1.2.12", 112);
+    if (v37)
     {
-      v17 = v38;
+      v17 = v37;
       free(v28);
-      goto LABEL_49;
+      return v17;
     }
 
     *(v28 + 16) = 1;
@@ -4532,67 +4612,62 @@ LABEL_56:
   *(a1 + 288) = v28;
   if (!a5)
   {
-    v17 = 0;
-    goto LABEL_49;
+    return 0;
   }
 
-  v39 = 878082192;
+  v38 = 878082192;
   crc_table = get_crc_table();
   *(a1 + 304) = xmmword_299FE2E80;
   *(a1 + 320) = 878082192;
   *(a1 + 328) = crc_table;
-  v41 = *a5;
+  v40 = *a5;
   if (*a5)
   {
-    v42 = a5 + 1;
-    v43 = 305419896;
-    v44 = 591751049;
+    v41 = a5 + 1;
+    v42 = 305419896;
+    v43 = 591751049;
     do
     {
-      v43 = crc_table[v41 ^ v43] ^ (v43 >> 8);
-      v44 = 134775813 * (v44 + v43) + 1;
-      *(a1 + 304) = v43;
-      *(a1 + 312) = v44;
-      v39 = crc_table[(v39 ^ BYTE3(v44))] ^ (v39 >> 8);
-      *(a1 + 320) = v39;
-      v45 = *v42++;
-      v41 = v45;
+      v42 = crc_table[v40 ^ v42] ^ (v42 >> 8);
+      v43 = 134775813 * (v43 + v42) + 1;
+      *(a1 + 304) = v42;
+      *(a1 + 312) = v43;
+      v38 = crc_table[(v38 ^ BYTE3(v43))] ^ (v38 >> 8);
+      *(a1 + 320) = v38;
+      v44 = *v41++;
+      v40 = v44;
     }
 
-    while (v45);
+    while (v44);
   }
 
-  if ((*(a1 + 32))(*(a1 + 56), *(a1 + 64), *(*(a1 + 288) + 272) + *(*(a1 + 288) + 120), 0) || (*(a1 + 8))(*(a1 + 56), *(a1 + 64), v56, 12) < 0xC)
+  if ((*(a1 + 32))(*(a1 + 56), *(a1 + 64), *(*(a1 + 288) + 272) + *(*(a1 + 288) + 120), 0) || (*(a1 + 8))(*(a1 + 56), *(a1 + 64), v55, 12) < 0xC)
   {
-LABEL_67:
-    v17 = 4294967192;
-    goto LABEL_49;
+    return 4294967192;
   }
 
-  v46 = 0;
-  v48 = *(a1 + 320);
-  v47 = *(a1 + 328);
-  v49 = *(a1 + 304);
-  v50 = *(a1 + 312);
+  v45 = 0;
+  v47 = *(a1 + 320);
+  v46 = *(a1 + 328);
+  v48 = *(a1 + 304);
+  v49 = *(a1 + 312);
   do
   {
-    v51 = *(v56 + v46) ^ (((v48 & 0xFFFD ^ 3) * (v48 | 2)) >> 8);
-    *(v56 + v46) = v51;
-    v49 = *(v47 + 8 * (v51 ^ v49)) ^ (v49 >> 8);
-    v50 = 134775813 * (v50 + v49) + 1;
-    *(a1 + 304) = v49;
-    *(a1 + 312) = v50;
-    v48 = *(v47 + 8 * (v48 ^ BYTE3(v50))) ^ (v48 >> 8);
-    *(a1 + 320) = v48;
-    ++v46;
+    v50 = *(v55 + v45) ^ (((v47 & 0xFFFD ^ 3) * (v47 | 2)) >> 8);
+    *(v55 + v45) = v50;
+    v48 = *(v46 + 8 * (v50 ^ v48)) ^ (v48 >> 8);
+    v49 = 134775813 * (v49 + v48) + 1;
+    *(a1 + 304) = v48;
+    *(a1 + 312) = v49;
+    v47 = *(v46 + 8 * (v47 ^ BYTE3(v49))) ^ (v47 >> 8);
+    *(a1 + 320) = v47;
+    ++v45;
   }
 
-  while (v46 != 12);
+  while (v45 != 12);
   v17 = 0;
   *(*(a1 + 288) + 120) += 12;
   *(a1 + 296) = 1;
-LABEL_49:
-  v32 = *MEMORY[0x29EDCA608];
   return v17;
 }
 
@@ -5014,16 +5089,16 @@ uint64_t ___ZN5eUICC18eUICCVinylMAVValve15HardwareHasESIMERh_block_invoke(uint64
     return result;
   }
 
-  v16[0] = *(v2 + 296);
-  v16[1] = 30000;
-  v6 = eUICC::GetSIMSKUID::Perform(v16);
-  if (v6 || v4 != 1)
+  v10[0] = *(v2 + 296);
+  v10[1] = 30000;
+  v5 = eUICC::GetSIMSKUID::Perform(v10, v4);
+  if (v5 || v6 != 1)
   {
-    gBBULogMaskGet();
-    return _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "GetSIMSKUID error %d status 0x%hhx\n", v10, v11, v12, v6);
+    gBBULogMaskGet(v5, v6);
+    return _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "GetSIMSKUID error %d status 0x%hhx\n");
   }
 
-  **(a1 + 40) = v5;
+  **(a1 + 40) = BYTE1(v6);
   v7 = **(a1 + 40);
   result = TelephonyRadiosGetRadio();
   if (result == 13)
@@ -5031,13 +5106,12 @@ uint64_t ___ZN5eUICC18eUICCVinylMAVValve15HardwareHasESIMERh_block_invoke(uint64
     goto LABEL_7;
   }
 
-  v8 = result;
   if (result != 18)
   {
     if (result != 17)
     {
-      gBBULogMaskGet();
-      return _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "MAV radio %d eSIM lookup not supported!\n", v13, v14, v15, v8);
+      gBBULogMaskGet(result, v8);
+      return _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "MAV radio %d eSIM lookup not supported!\n");
     }
 
 LABEL_7:
@@ -5059,42 +5133,41 @@ LABEL_7:
 
 void *eUICC::eUICCVinylMAVValve::GetVinylType@<X0>(eUICC::eUICCVinylMAVValve *this@<X0>, void *a2@<X8>)
 {
-  v14 = *(this + 37);
-  v15 = *(this + 73);
   v4 = eUICC::GetVinylType::Perform();
   v6 = v5;
   v7 = v4;
-  v9 = v8;
-  gBBULogMaskGet();
-  if (v7 || v9 != 1)
+  v8 = v5;
+  gBBULogMaskGet(v4, v5);
+  if (v7 || v8 != 1)
   {
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "error %d status 0x%hhx\n", v10, v11, v12, v7);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "error %d status 0x%hhx\n", v7, v8);
   }
 
   else
   {
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "status 0x%hhx cards_type: %hhu \n", v10, v11, v12, 1);
+    v9 = v6 >> 8;
+    v10 = BYTE1(v6);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "status 0x%hhx cards_type: %hhu \n", 1, v10);
     *(this + 2) = 1;
-    *(this + 285) = v6;
-    *(this + 288) = v6 == 3;
+    *(this + 285) = v9;
+    *(this + 288) = v10 == 3;
   }
 
   return memcpy(a2, this + 8, 0x11BuLL);
 }
 
-void *eUICC::eUICCVinylMAVValve::GetData@<X0>(eUICC::eUICCVinylMAVValve *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
+void *eUICC::eUICCVinylMAVValve::GetData@<X0>(eUICC::eUICCVinylMAVValve *this@<X0>, void *a2@<X8>, uint64_t a3@<X1>)
 {
-  v48 = *MEMORY[0x29EDCA608];
   if (!*(this + 37))
   {
-    eUICC::eUICCVinylMAVValve::GetData(this, a2, a3, a4, a5, a6, a7, a8, v20);
-    goto LABEL_8;
+    eUICC::eUICCVinylMAVValve::GetData(this, a3);
+    return memcpy(a2, this + 8, 0x11BuLL);
   }
 
   if (*(this + 290) == 1)
   {
-    gBBULogMaskGet();
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "eUICCVinylData cache is valid. Using cached data!\n", v11, v12, v13, v20);
+    gBBULogMaskGet(this, a3);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "eUICCVinylData cache is valid. Using cached data!\n");
   }
 
   else
@@ -5118,54 +5191,48 @@ void *eUICC::eUICCVinylMAVValve::GetData@<X0>(eUICC::eUICCVinylMAVValve *this@<X
     *(this + 8) = 0u;
     *(this + 275) = 0u;
     *(this + 2) = TelephonyRadiosGetRadioVendor() - 2 < 3;
-    v23 = *(this + 37);
-    v24 = *(this + 73);
     eUICC::GetData::Perform();
-    *(this + 2) = v26;
-    *(this + 13) = bswap32(v28) >> 16;
-    *(this + 15) = v29;
-    *(this + 31) = v30;
-    *(this + 2) = v31;
-    *(this + 3) = v32;
-    *(this + 4) = v33;
-    *(this + 5) = v34;
-    *(this + 143) = *&v37[15];
-    *(this + 7) = v36;
-    *(this + 8) = *v37;
-    *(this + 6) = v35;
-    *(this + 218) = *&v41[15];
-    *(this + 203) = *v41;
-    *(this + 187) = v40;
-    *(this + 171) = v39;
-    *(this + 155) = v38;
-    *(this + 115) = v42;
-    *(this + 250) = v44;
-    *(this + 124) = v43;
-    *(this + 267) = v46;
-    *(this + 251) = v45;
-    *(this + 12) = v27;
-    *(this + 283) = v47;
-    v14 = eUICC::eUICCVinylValve::hardwareHasESIM;
+    *(this + 2) = v10;
+    *(this + 13) = bswap32(v12) >> 16;
+    *(this + 15) = v13;
+    *(this + 31) = v14;
+    *(this + 2) = v15;
+    *(this + 3) = v16;
+    *(this + 4) = v17;
+    *(this + 5) = v18;
+    *(this + 143) = *&v21[15];
+    *(this + 7) = v20;
+    *(this + 8) = *v21;
+    *(this + 6) = v19;
+    *(this + 218) = *&v25[15];
+    *(this + 203) = *v25;
+    *(this + 187) = v24;
+    *(this + 171) = v23;
+    *(this + 155) = v22;
+    *(this + 115) = v26;
+    *(this + 250) = v28;
+    *(this + 124) = v27;
+    *(this + 267) = v30;
+    *(this + 251) = v29;
+    *(this + 12) = v11;
+    *(this + 283) = v31;
+    v6 = eUICC::eUICCVinylValve::hardwareHasESIM;
     *(this + 289) = eUICC::eUICCVinylValve::hardwareHasESIM;
     *(this + 286) = eUICC::eUICCVinylValve::simSKUID;
-    *(this + 287) = (v26 == 4) & (v14 ^ 1);
-    if (*(this + 2) != TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+    *(this + 287) = (v10 == 4) & (v6 ^ 1);
+    RadioVendor = TelephonyRadiosGetRadioVendor();
+    if (*(this + 2) != (RadioVendor - 5) < 0xFFFFFFFD)
     {
-      gBBULogMaskGet();
-      v21 = *(this + 2);
-      v22 = *(this + 13);
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "error %d status %u sw1_sw2 0x%x\n", v15, v16, v17, v25);
-      goto LABEL_8;
+      gBBULogMaskGet(RadioVendor, v5);
+      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "error %d status %u sw1_sw2 0x%x\n", v9, *(this + 2), *(this + 13));
+      return memcpy(a2, this + 8, 0x11BuLL);
     }
 
     *(this + 290) = 1;
   }
 
-  eUICC::logEUICCData(this + 2);
-LABEL_8:
-  result = memcpy(a9, this + 8, 0x11BuLL);
-  v19 = *MEMORY[0x29EDCA608];
-  return result;
+  eUICC::logEUICCData(this + 2, v5);
+  return memcpy(a2, this + 8, 0x11BuLL);
 }
 
 uint64_t eUICC::eUICCVinylMAVValve::SetCardMode(uint64_t a1, int a2, char a3)
@@ -5174,77 +5241,78 @@ uint64_t eUICC::eUICCVinylMAVValve::SetCardMode(uint64_t a1, int a2, char a3)
   v6 = (a1 + 8);
   (*(*a1 + 8))(__src);
   memcpy(v6, __src, 0x11BuLL);
-  if ((a3 & 1) == 0)
+  if (a3)
   {
-    if (*v6 != TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
-    {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v16, v17, v18, "outData.Valid()");
-      goto LABEL_8;
-    }
-
-    if (*(a1 + 31) == a2)
-    {
-      gBBULogMaskGet();
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "SwitchCardMode: Baseband already in mode %hhu\n", v13, v14, v15, a2);
-LABEL_11:
-      result = 0;
-      goto LABEL_12;
-    }
+    goto LABEL_2;
   }
 
-  v7 = *(a1 + 292);
-  __src[0] = *(a1 + 296);
-  LOBYTE(__src[1]) = v7;
-  BYTE1(__src[1]) = a2;
-  WORD1(__src[1]) = 1;
-  HIDWORD(__src[1]) = 10000;
-  v9 = eUICC::SwitchMode::Perform();
-  if (!v9 && (v8 & 0xFF00000000) == 0x100000000 && a2 == BYTE5(v8))
+  RadioVendor = TelephonyRadiosGetRadioVendor();
+  if (*v6 != (RadioVendor - 5) < 0xFFFFFFFD)
   {
-    goto LABEL_11;
+    gBBULogMaskGet(RadioVendor, v12);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "outData.Valid()");
+    return 18;
   }
 
-  gBBULogMaskGet();
-  _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "SwitchCardMode: Failed err %d status %hhu mode %d sw1 0x%x sw2 0x%x\n", v10, v11, v12, v9);
-LABEL_8:
-  result = 18;
-LABEL_12:
-  v20 = *MEMORY[0x29EDCA608];
-  return result;
+  if (*(a1 + 31) != a2)
+  {
+LABEL_2:
+    v7 = *(a1 + 292);
+    __src[0] = *(a1 + 296);
+    LOBYTE(__src[1]) = v7;
+    BYTE1(__src[1]) = a2;
+    WORD1(__src[1]) = 1;
+    HIDWORD(__src[1]) = 10000;
+    v8 = eUICC::SwitchMode::Perform();
+    v10 = v8;
+    if (!v8 && (v9 & 0xFF00000000) == 0x100000000 && a2 == BYTE5(v9))
+    {
+      return 0;
+    }
+
+    gBBULogMaskGet(v8, v9);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "SwitchCardMode: Failed err %d status %hhu mode %d sw1 0x%x sw2 0x%x\n", v10);
+    return 18;
+  }
+
+  gBBULogMaskGet(RadioVendor, v12);
+  _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "SwitchCardMode: Baseband already in mode %hhu\n", a2);
+  return 0;
 }
 
-uint64_t eUICC::eUICCVinylMAVValve::ResetCard(eUICC::eUICCVinylMAVValve *this)
+uint64_t eUICC::eUICCVinylMAVValve::ResetCard(eUICC::eUICCVinylMAVValve *this, uint64_t a2)
 {
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "eUICCVinylMAVValve::ResetCard not supported\n", v1, v2, v3, vars0);
+  gBBULogMaskGet(this, a2);
+  _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "eUICCVinylMAVValve::ResetCard not supported\n");
   return 9;
 }
 
-uint64_t eUICC::eUICCVinylMAVValve::DeleteProfile(eUICC::eUICCVinylMAVValve *this, char a2)
+uint64_t eUICC::eUICCVinylMAVValve::DeleteProfile(eUICC::eUICCVinylMAVValve *this, uint64_t a2)
 {
   if (*(this + 37))
   {
     v2 = *(this + 73);
-    v10 = *(this + 37);
-    v11 = v2;
-    v12 = a2;
-    v13 = 0;
-    v14 = 60000;
-    v3 = eUICC::DeleteProfile::Perform();
-    v5 = v3;
-    if (v3 || (result = 0, v4 != 1))
+    v8 = *(this + 37);
+    v9 = v2;
+    v10 = a2;
+    v11 = 0;
+    v12 = 60000;
+    result = eUICC::DeleteProfile::Perform();
+    v5 = result;
+    v6 = v4;
+    v7 = v4;
+    if (result || (result = 0, v4 != 1))
     {
-      gBBULogMaskGet();
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "DeleteProfile failed, error %d status %hhu sw1 0x%x sw2 0x%x\n", v7, v8, v9, v5);
+      gBBULogMaskGet(result, v4);
+      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "DeleteProfile failed, error %d status %hhu sw1 0x%x sw2 0x%x\n", v5, v7, BYTE1(v6), BYTE2(v6));
       return 18;
     }
   }
 
   else
   {
-    eUICC::eUICCVinylMAVValve::DeleteProfile(&v10);
-    return v10;
+    eUICC::eUICCVinylMAVValve::DeleteProfile(&v8, a2);
+    return v8;
   }
 
   return result;
@@ -5252,58 +5320,55 @@ uint64_t eUICC::eUICCVinylMAVValve::DeleteProfile(eUICC::eUICCVinylMAVValve *thi
 
 uint64_t eUICC::eUICCVinylMAVValve::StoreData(uint64_t a1)
 {
-  v1 = MEMORY[0x2A1C7C4A8](a1);
-  v3 = v2;
-  v5 = v4;
-  v23 = *MEMORY[0x29EDCA608];
-  v15 = *(v1 + 296);
-  v16 = *(v1 + 292);
-  v17 = v6[1] - *v6;
-  eUICC::StoreData::Perform();
-  if (v18 || v19 != 1)
+  MEMORY[0x2A1C7C4A8](a1);
+  v2 = v1;
+  v4 = v3;
+  v15 = *MEMORY[0x29EDCA608];
+  v5 = eUICC::StoreData::Perform();
+  if (v10 || v11 != 1)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v8, v9, v10, "rsp.Valid()");
-    gBBULogMaskGet();
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to StoreData status %hhu SW1 0x%x SW2 0x%x\n", v11, v12, v13, v19);
+    gBBULogMaskGet(v5, v6);
+    v8 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp.Valid()", "", "", 224);
+    gBBULogMaskGet(v8, v9);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to StoreData status %hhu SW1 0x%x SW2 0x%x\n", v11, v12, HIBYTE(v12));
     result = 18;
   }
 
   else
   {
-    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v5, v22, &v22[v21], v21);
+    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v4, v14, &v14[v13], v13);
     result = 0;
   }
 
-  *v3 = bswap32(v20) >> 16;
-  v14 = *MEMORY[0x29EDCA608];
+  *v2 = bswap32(v12) >> 16;
   return result;
 }
 
-unint64_t eUICC::eUICCVinylMAVValve::LETOEnableEUICC(eUICC::eUICCVinylMAVValve *this)
+unint64_t eUICC::eUICCVinylMAVValve::LETOEnableEUICC(eUICC::eUICCVinylMAVValve *this, uint64_t a2)
 {
-  v11[0] = *(this + 37);
-  v11[1] = 0x271000003201;
-  result = eUICC::LETOMuxSwitch::Perform(v11);
-  v3 = HIDWORD(result);
+  v9[0] = *(this + 37);
+  v9[1] = 0x271000003201;
+  result = eUICC::LETOMuxSwitch::Perform(v9, a2);
+  v4 = v3;
+  v5 = HIDWORD(result);
   if (result)
   {
     goto LABEL_6;
   }
 
-  v4 = BYTE4(result) == 0;
-  if ((v2 & 0xFF000000000000) != 0x5000000000000)
+  v6 = BYTE4(result) == 0;
+  if ((v3 & 0xFF000000000000) != 0x5000000000000)
   {
-    v4 = 0;
+    v6 = 0;
   }
 
-  if (BYTE4(result) != 2 && !v4)
+  if (BYTE4(result) != 2 && !v6)
   {
 LABEL_6:
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v5, v6, v7, "rsp.Valid() &&(( rsp.hwSetRsp == LETOMuxSwitch::MgrSetSIMHWSetResultType::kSuccess && rsp.contents.resultPhase == LETOMuxSwitch::ResultPhase::kTargetHWActivationCompleted) || rsp.hwSetRsp == LETOMuxSwitch::MgrSetSIMHWSetResultType::kErrorAlreadySet)");
-    gBBULogMaskGet();
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to LETOEnableEUICC hwSetRsp %hhu resultAvailable %d srcSimHwSet %hhu targetSimHwSet %hhu resultPhase %hhu\n", v8, v9, v10, v3);
+    gBBULogMaskGet(result, v3);
+    v7 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp.Valid() &&(( rsp.hwSetRsp == LETOMuxSwitch::MgrSetSIMHWSetResultType::kSuccess && rsp.contents.resultPhase == LETOMuxSwitch::ResultPhase::kTargetHWActivationCompleted) || rsp.hwSetRsp == LETOMuxSwitch::MgrSetSIMHWSetResultType::kErrorAlreadySet)", "", "", 240);
+    gBBULogMaskGet(v7, v8);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to LETOEnableEUICC hwSetRsp %hhu resultAvailable %d srcSimHwSet %hhu targetSimHwSet %hhu resultPhase %hhu\n", v5, BYTE3(v4), BYTE4(v4), BYTE5(v4), BYTE6(v4));
     return 18;
   }
 
@@ -5314,26 +5379,25 @@ uint64_t eUICC::eUICCVinylMAVValve::InstallTicket(uint64_t a1, CFDataRef *a2)
 {
   if (*a2)
   {
-    v4 = (*(*a1 + 16))(a1, 0, 0);
-    if (v4)
+    v3 = (*(*a1 + 16))(a1, 0, 0);
+    if (v3)
     {
-      v5 = v4;
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v6, v7, v8, "kBBUReturnSuccess == ret");
+      v5 = v3;
+      gBBULogMaskGet(v3, v4);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 252);
     }
 
     else
     {
       CFDataGetBytePtr(*a2);
       CFDataGetLength(*a2);
-      v19 = *(a1 + 296);
-      v20 = *(a1 + 292);
-      v12 = eUICC::InstallTicket::Perform();
-      v14 = v12;
-      if (v12 || (v13 & 0xFF00000000) != 0x100000000)
+      v6 = eUICC::InstallTicket::Perform();
+      v8 = v6;
+      v9 = HIDWORD(v7);
+      if (v6 || (v7 & 0xFF00000000) != 0x100000000)
       {
-        gBBULogMaskGet();
-        _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "InstallTicket failed error %d status %hhu sw1 0x%x sw2 0x%x\n", v15, v16, v17, v14);
+        gBBULogMaskGet(v6, v7);
+        _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "InstallTicket failed error %d status %hhu sw1 0x%x sw2 0x%x\n", v8, v9, BYTE1(v9), BYTE2(v9));
         return 16;
       }
 
@@ -5346,8 +5410,8 @@ uint64_t eUICC::eUICCVinylMAVValve::InstallTicket(uint64_t a1, CFDataRef *a2)
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v9, v10, v11, "installTicket");
+    gBBULogMaskGet(a1, a2);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "installTicket", "", "", 249);
     return 2;
   }
 
@@ -5357,170 +5421,174 @@ uint64_t eUICC::eUICCVinylMAVValve::InstallTicket(uint64_t a1, CFDataRef *a2)
 uint64_t eUICC::eUICCVinylMAVValve::StreamFirmware(eUICC::eUICCVinylMAVValve *this, __CFData *a2)
 {
   __src[36] = *MEMORY[0x29EDCA608];
-  VinylFirmware::getFirmwareAPDUs(a2, &v56);
-  v4 = v56;
-  v3 = v57;
+  VinylFirmware::getFirmwareAPDUs(a2, &v45);
+  v4 = v45;
+  v3 = v46;
   (*(*this + 8))(__src, this);
   memcpy(this + 8, __src, 0x11BuLL);
-  if (*(this + 2) == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+  RadioVendor = TelephonyRadiosGetRadioVendor();
+  if (*(this + 2) == (RadioVendor - 5) < 0xFFFFFFFD)
   {
-    v5 = *(this + 284);
+    v7 = *(this + 284);
     if (!*(this + 284))
     {
-      v5 = *(this + 304);
+      v7 = *(this + 304);
     }
 
-    gBBULogMaskGet();
-    v6 = v5;
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "~~~~ MAX APDU PER SET: %zu  ~~~~\n", v7, v8, v9, v5);
-    v10 = (v3 - v4) >> 5;
-    v55 = v10;
-    if (v10 % v5)
+    gBBULogMaskGet(RadioVendor, v6);
+    v8 = v7;
+    v9 = _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "~~~~ MAX APDU PER SET: %zu  ~~~~\n", v7);
+    v11 = (v3 - v4) >> 5;
+    v44 = v11;
+    if (v11 % v7)
     {
-      v11 = v10 / v5 + 1;
+      v12 = v11 / v7 + 1;
     }
 
     else
     {
-      v11 = v10 / v5;
+      v12 = v11 / v7;
     }
 
-    if (v11)
+    if (v12)
     {
-      v12 = (*(*this + 16))(this, 1, 0);
-      if (v12)
+      v13 = (*(*this + 16))(this, 1, 0);
+      v15 = v13;
+      if (v13)
       {
-        gBBULogMaskGet();
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v13, v14, v15, "kBBUReturnSuccess == ret");
+        gBBULogMaskGet(v13, v14);
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 295);
       }
 
       else
       {
-        v22 = 0;
-        v23 = 0;
-        v54 = 0;
-        v24 = 32 * v5;
-        v25 = v55;
+        v16 = 0;
+        v17 = 0;
+        v43 = 0;
+        v18 = 32 * v7;
+        v19 = v44;
         while (1)
         {
-          v26 = v25 - v6;
-          if (v25 >= v6)
+          v20 = v19 - v8;
+          if (v19 >= v8)
           {
-            v25 = v6;
+            v19 = v8;
           }
 
-          v27 = v25 <= 1 ? 1 : v25;
-          v28 = v55 - v23 * v6 >= v6 ? v6 : v55 - v23 * v6;
+          v21 = v19 <= 1 ? 1 : v19;
+          v22 = v44 - v17 * v8 >= v8 ? v8 : v44 - v17 * v8;
           LODWORD(__src[4]) = 15000;
-          v29 = v24;
-          __src[2] = operator new[](v24);
-          __src[3] = v6;
+          v23 = v18;
+          __src[2] = operator new[](v18);
+          __src[3] = v8;
           __src[0] = *(this + 37);
           LOBYTE(__src[1]) = *(this + 73);
-          WORD1(__src[1]) = v11;
-          WORD2(__src[1]) = v23;
-          BYTE6(__src[1]) = v28;
-          gBBULogMaskGet();
-          _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "StreamFirmware set %d/%zu adpusThisSet %zu\n", v30, v31, v32, v23);
-          if (v55 == v23 * v6)
+          WORD1(__src[1]) = v12;
+          WORD2(__src[1]) = v17;
+          BYTE6(__src[1]) = v22;
+          gBBULogMaskGet(__src[2], v24);
+          v25 = _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "StreamFirmware set %d/%zu adpusThisSet %zu\n", v17, v12, v22);
+          if (v44 == v17 * v8)
           {
 LABEL_25:
-            if (eUICC::StreamAPDU::Perform() || (v40 & 0xFF00000000) != 0x100000000)
+            v34 = eUICC::StreamAPDU::Perform();
+            v36 = v34;
+            v37 = HIDWORD(v35);
+            if (v34 || (v35 & 0xFF00000000) != 0x100000000)
             {
-              gBBULogMaskGet();
-              _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed StreamAPDU set %d/%zu, error %d status %hhu sw1 0x%x sw2 0x%x\n", v42, v43, v44, v23);
-              v41 = 0;
-              v54 = 16;
+              gBBULogMaskGet(v34, v35);
+              _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed StreamAPDU set %d/%zu, error %d status %hhu sw1 0x%x sw2 0x%x\n", v17, v12, v36, v37, BYTE1(v37), BYTE2(v37));
+              v38 = 0;
+              v43 = 16;
             }
 
             else
             {
-              v41 = 1;
+              v38 = 1;
             }
           }
 
           else
           {
-            v33 = 0;
-            v34 = 0;
-            v35 = v22;
-            while (__src[3] >= v34)
+            v27 = 0;
+            v28 = 0;
+            v29 = v16;
+            while (__src[3] >= v28)
             {
-              v36 = *(v56 + v35);
-              v37 = *(v56 + v35 + 16);
-              v38 = *(v56 + v35 + 24);
-              v39 = (__src[2] + v33);
-              *v39 = *(v56 + v35 + 8);
-              v39[1] = v36;
-              v39[2] = v38;
-              v39[3] = v37;
-              ++v34;
-              v35 += 32;
-              v33 += 32;
-              if (v27 == v34)
+              v30 = *(v45 + v29);
+              v31 = *(v45 + v29 + 16);
+              v32 = *(v45 + v29 + 24);
+              v33 = (__src[2] + v27);
+              *v33 = *(v45 + v29 + 8);
+              v33[1] = v30;
+              v33[2] = v32;
+              v33[3] = v31;
+              ++v28;
+              v29 += 32;
+              v27 += 32;
+              if (v21 == v28)
               {
                 goto LABEL_25;
               }
             }
 
-            gBBULogMaskGet();
-            _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v45, v46, v47, "j <= req.apdu_payload.apdu_data_size");
-            gBBULogMaskGet();
-            _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed SteamAPDU index '%d' is greater than max array size '%zu'", v48, v49, v50, v34);
-            v41 = 0;
+            gBBULogMaskGet(v25, v26);
+            v39 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "j <= req.apdu_payload.apdu_data_size", "", "", 315);
+            gBBULogMaskGet(v39, v40);
+            _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed SteamAPDU index '%d' is greater than max array size '%zu'", v28, __src[3]);
+            v38 = 0;
           }
 
-          v51 = __src[2];
+          v41 = __src[2];
           __src[2] = 0;
-          if (v51)
+          if (v41)
           {
-            operator delete[](v51);
+            operator delete[](v41);
           }
 
-          if ((v41 & 1) == 0)
+          if ((v38 & 1) == 0)
           {
             break;
           }
 
-          ++v23;
-          v24 = v29;
-          v22 += v29;
-          v25 = v26;
-          if (v11 <= v23)
+          ++v17;
+          v18 = v23;
+          v16 += v23;
+          v19 = v20;
+          if (v12 <= v17)
           {
-            v12 = 0;
+            v15 = 0;
             goto LABEL_36;
           }
         }
 
-        v12 = v54;
+        v15 = v43;
       }
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v19, v20, v21, "apduSetCount");
-      v12 = 15;
+      gBBULogMaskGet(v9, v10);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "apduSetCount", "", "", 291);
+      v15 = 15;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v16, v17, v18, "outData.Valid()");
-    v12 = 18;
+    gBBULogMaskGet(RadioVendor, v6);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "outData.Valid()", "", "", 286);
+    v15 = 18;
   }
 
 LABEL_36:
-  if (v56)
+  if (v45)
   {
-    v57 = v56;
-    operator delete(v56);
+    v46 = v45;
+    operator delete(v45);
   }
 
-  v52 = *MEMORY[0x29EDCA608];
-  return v12;
+  return v15;
 }
 
 void sub_299FB198C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
@@ -5533,9 +5601,9 @@ void sub_299FB198C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t eUICC::eUICCVinylMAVValve::InitPerso(uint64_t a1, uint64_t a2, void *a3)
+uint64_t eUICC::eUICCVinylMAVValve::InitPerso(uint64_t a1, uint64_t a2, void **a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   *&__dst[6] = 0;
   *__dst = 0;
   *&__dst[14] = 30000;
@@ -5554,40 +5622,37 @@ uint64_t eUICC::eUICCVinylMAVValve::InitPerso(uint64_t a1, uint64_t a2, void *a3
   }
 
   memcpy(__dst, v6, v9);
-  v26 = v4;
-  v27 = v5;
-  v28 = 0;
-  v29 = 0;
-  v30 = v9;
-  v31 = *__dst;
-  v32 = *&__dst[16];
-  eUICC::InitPersoSession::Perform();
+  v17 = v4;
+  v18 = v5;
+  v19 = 0;
+  v20 = 0;
+  v21 = v9;
+  v22 = *__dst;
+  v23 = *&__dst[16];
+  v10 = eUICC::InitPersoSession::Perform();
   if (*__dst)
   {
     if (!**__dst && *(*__dst + 8) == 1 && *(*__dst + 11))
     {
       std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, (*__dst + 13), (*__dst + 13 + *(*__dst + 11)), *(*__dst + 11));
-      v10 = 0;
+      v12 = 0;
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v11, v12, v13, "rsp->Valid() && rsp->contents.rsp_len");
-      gBBULogMaskGet();
-      v23 = *(*__dst + 10);
-      v24 = *(*__dst + 11);
-      v22 = *(*__dst + 9);
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to InitPerso status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", v14, v15, v16, *(*__dst + 8));
-      v10 = 18;
+      gBBULogMaskGet(v10, v11);
+      v13 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp->Valid() && rsp->contents.rsp_len", "", "", 341);
+      gBBULogMaskGet(v13, v14);
+      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to InitPerso status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", *(*__dst + 8), *(*__dst + 9), *(*__dst + 10), *(*__dst + 11));
+      v12 = 18;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v17, v18, v19, "rsp");
-    v10 = 11;
+    gBBULogMaskGet(v10, v11);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp", "", "", 340);
+    v12 = 11;
   }
 
   if (*&__dst[8])
@@ -5595,11 +5660,10 @@ uint64_t eUICC::eUICCVinylMAVValve::InitPerso(uint64_t a1, uint64_t a2, void *a3
     std::__shared_weak_count::__release_shared[abi:ne200100](*&__dst[8]);
   }
 
-  v20 = *MEMORY[0x29EDCA608];
-  return v10;
+  return v12;
 }
 
-uint64_t eUICC::eUICCVinylMAVValve::AuthPerso(uint64_t a1, uint64_t a2, void *a3)
+uint64_t eUICC::eUICCVinylMAVValve::AuthPerso(uint64_t a1, uint64_t a2, void **a3)
 {
   v6 = operator new(0x818uLL);
   bzero(v6 + 2, 0x810uLL);
@@ -5620,47 +5684,44 @@ uint64_t eUICC::eUICCVinylMAVValve::AuthPerso(uint64_t a1, uint64_t a2, void *a3
 
   memcpy(v6 + 14, v7, v8);
   *(v6 + 6) = v8;
-  eUICC::AuthPersoSession::Perform();
-  if (v23)
+  v9 = eUICC::AuthPersoSession::Perform();
+  if (v15)
   {
-    if (!*v23 && *(v23 + 8) == 1 && *(v23 + 11))
+    if (!*v15 && *(v15 + 8) == 1 && *(v15 + 11))
     {
-      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, (v23 + 13), (v23 + 13 + *(v23 + 11)), *(v23 + 11));
-      v9 = 0;
+      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, (v15 + 13), (v15 + 13 + *(v15 + 11)), *(v15 + 11));
+      v11 = 0;
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v10, v11, v12, "rsp->Valid() && rsp->contents.rsp_len");
-      gBBULogMaskGet();
-      v21 = *(v23 + 10);
-      v22 = *(v23 + 11);
-      v20 = *(v23 + 9);
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to AuthenticatePersoDevice status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", v13, v14, v15, *(v23 + 8));
-      v9 = 18;
+      gBBULogMaskGet(v9, v10);
+      v12 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp->Valid() && rsp->contents.rsp_len", "", "", 356);
+      gBBULogMaskGet(v12, v13);
+      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to AuthenticatePersoDevice status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", *(v15 + 8), *(v15 + 9), *(v15 + 10), *(v15 + 11));
+      v11 = 18;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v16, v17, v18, "rsp");
-    v9 = 11;
+    gBBULogMaskGet(v9, v10);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp", "", "", 355);
+    v11 = 11;
   }
 
-  if (v24)
+  if (v16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   }
 
   operator delete(v6);
-  return v9;
+  return v11;
 }
 
 uint64_t eUICC::eUICCVinylMAVValve::FinalizePerso(uint64_t a1, uint64_t a2)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   memset(__dst, 0, 266);
   *(&__dst[16] + 2) = 30000;
   v3 = *(a1 + 296);
@@ -5679,38 +5740,36 @@ uint64_t eUICC::eUICCVinylMAVValve::FinalizePerso(uint64_t a1, uint64_t a2)
 
   memcpy(__dst, v5, v8);
   v9 = *(a1 + 291);
-  v25 = v3;
-  v26 = v4;
-  v27 = 0;
-  v28 = v9;
-  v29 = 0;
-  v30 = v8;
-  memcpy(v31, __dst, sizeof(v31));
-  eUICC::FinalizePersoSession::Perform();
+  v17 = v3;
+  v18 = v4;
+  v19 = 0;
+  v20 = v9;
+  v21 = 0;
+  v22 = v8;
+  memcpy(v23, __dst, sizeof(v23));
+  v10 = eUICC::FinalizePersoSession::Perform();
   if (*&__dst[0])
   {
     if (**&__dst[0] || *(*&__dst[0] + 8) != 1)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v11, v12, v13, "rsp->Valid()");
-      gBBULogMaskGet();
-      v22 = *(*&__dst[0] + 9);
-      v23 = *(*&__dst[0] + 10);
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to FinalizePersoDevice status %hhu SW1 0x%x SW2 0x%x\n", v14, v15, v16, *(*&__dst[0] + 8));
-      v10 = 18;
+      gBBULogMaskGet(v10, v11);
+      v13 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp->Valid()", "", "", 370);
+      gBBULogMaskGet(v13, v14);
+      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to FinalizePersoDevice status %hhu SW1 0x%x SW2 0x%x\n", *(*&__dst[0] + 8), *(*&__dst[0] + 9), *(*&__dst[0] + 10));
+      v12 = 18;
     }
 
     else
     {
-      v10 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v17, v18, v19, "rsp");
-    v10 = 11;
+    gBBULogMaskGet(v10, v11);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp", "", "", 369);
+    v12 = 11;
   }
 
   if (*(&__dst[0] + 1))
@@ -5718,21 +5777,20 @@ uint64_t eUICC::eUICCVinylMAVValve::FinalizePerso(uint64_t a1, uint64_t a2)
     std::__shared_weak_count::__release_shared[abi:ne200100](*(&__dst[0] + 1));
   }
 
-  v20 = *MEMORY[0x29EDCA608];
-  return v10;
+  return v12;
 }
 
-uint64_t eUICC::eUICCVinylMAVValve::ValidatePerso(uint64_t a1, uint64_t a2, void *a3)
+uint64_t eUICC::eUICCVinylMAVValve::ValidatePerso(uint64_t a1, uint64_t a2, void **a3)
 {
-  v43 = *MEMORY[0x29EDCA608];
-  v30 = 0u;
-  memset(v31, 0, 24);
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v34 = *MEMORY[0x29EDCA608];
+  v21 = 0u;
+  memset(v22, 0, 24);
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   __dst = 0u;
-  *&v31[24] = 30000;
+  *&v22[24] = 30000;
   v4 = *(a1 + 296);
   v5 = *(a1 + 292);
   v6 = *a2;
@@ -5748,45 +5806,42 @@ uint64_t eUICC::eUICCVinylMAVValve::ValidatePerso(uint64_t a1, uint64_t a2, void
   }
 
   memcpy(&__dst, v6, v9);
-  v40 = v29;
-  v41 = v30;
-  *v42 = *v31;
-  *&v42[12] = *&v31[12];
-  v36 = __dst;
-  v37 = v26;
-  v38 = v27;
-  v32 = v4;
-  v33 = v5;
-  v34 = 0;
-  v35 = v9;
-  v39 = v28;
-  eUICC::VinylValidatePerso::Perform(&v32, &__dst);
+  v31 = v20;
+  v32 = v21;
+  *v33 = *v22;
+  *&v33[12] = *&v22[12];
+  v27 = __dst;
+  v28 = v17;
+  v29 = v18;
+  v23 = v4;
+  v24 = v5;
+  v25 = 0;
+  v26 = v9;
+  v30 = v19;
+  v10 = eUICC::VinylValidatePerso::Perform(&v23, &__dst);
   if (__dst)
   {
     if (!*__dst && *(__dst + 8) == 1 && *(__dst + 11))
     {
       std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, (__dst + 13), (__dst + 13 + *(__dst + 11)), *(__dst + 11));
-      v10 = 0;
+      v12 = 0;
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v11, v12, v13, "rsp->Valid() && rsp->contents.rsp_len");
-      gBBULogMaskGet();
-      v23 = *(__dst + 10);
-      v24 = *(__dst + 11);
-      v22 = *(__dst + 9);
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to AuthenticatePersoDevice status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", v14, v15, v16, *(__dst + 8));
-      v10 = 18;
+      gBBULogMaskGet(v10, v11);
+      v13 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp->Valid() && rsp->contents.rsp_len", "", "", 383);
+      gBBULogMaskGet(v13, v14);
+      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to AuthenticatePersoDevice status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", *(__dst + 8), *(__dst + 9), *(__dst + 10), *(__dst + 11));
+      v12 = 18;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v17, v18, v19, "rsp");
-    v10 = 11;
+    gBBULogMaskGet(v10, v11);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp", "", "", 382);
+    v12 = 11;
   }
 
   if (*(&__dst + 1))
@@ -5794,117 +5849,107 @@ uint64_t eUICC::eUICCVinylMAVValve::ValidatePerso(uint64_t a1, uint64_t a2, void
     std::__shared_weak_count::__release_shared[abi:ne200100](*(&__dst + 1));
   }
 
-  v20 = *MEMORY[0x29EDCA608];
-  return v10;
+  return v12;
 }
 
 uint64_t eUICC::eUICCVinylMAVValve::InstallPairingMSM(uint64_t a1)
 {
   v1 = MEMORY[0x2A1C7C4A8](a1);
-  v27 = *MEMORY[0x29EDCA608];
-  v21 = 0;
-  v20 = 0;
+  v26 = *MEMORY[0x29EDCA608];
+  v17 = 0;
+  v16 = 0;
   v2 = *(v1 + 292);
   v4 = *v3;
   v5 = v3[1] - *v3;
-  v17 = *(v1 + 296);
-  v18 = v2;
-  v19 = 0;
-  v22 = v4;
-  v23 = v5;
-  v24 = 10000;
-  eUICC::VinylManagePairing::Perform(&v17, &v25);
-  v6 = v25;
-  v7 = v26;
-  gBBULogMaskGet();
-  if (v6 || v7 != 1)
+  v13 = *(v1 + 296);
+  v14 = v2;
+  v15 = 0;
+  v18 = v4;
+  v19 = v5;
+  v20 = 10000;
+  v6 = eUICC::VinylManagePairing::Perform(&v13, &v21, v3);
+  v7 = v21;
+  v8 = v22;
+  gBBULogMaskGet(v6, v9);
+  if (v7 || v8 != 1)
   {
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v8, v9, v10, "rsp.Valid()");
-    gBBULogMaskGet();
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to InstallPairingMSM status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", v12, v13, v14, v26);
-    result = 18;
+    v11 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp.Valid()", "", "", 395);
+    gBBULogMaskGet(v11, v12);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Failed to InstallPairingMSM status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", v22, v23, v24, v25);
+    return 18;
   }
 
   else
   {
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "InstallPairingMSM returning success\n", v8, v9, v10, v16);
-    result = 0;
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "InstallPairingMSM returning success\n");
+    return 0;
   }
-
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t eUICC::eUICCVinylMAVValve::ManagePairingGetNonce(uint64_t a1)
 {
   v1 = MEMORY[0x2A1C7C4A8](a1);
   v3 = v2;
-  v26 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v4 = *(v1 + 292);
-  v17 = *(v1 + 296);
-  v18 = v4;
-  v19 = 1;
-  *v21 = 0;
-  v20 = 0;
-  *&v21[3] = 0;
-  *&v21[7] = 10000;
-  eUICC::VinylManagePairing::Perform(&v17, &v22);
-  if (!v22 && v23 == 1 && v24)
+  v12 = *(v1 + 296);
+  v13 = v4;
+  v14 = 1;
+  *v16 = 0;
+  v15 = 0;
+  *&v16[3] = 0;
+  *&v16[7] = 10000;
+  v5 = eUICC::VinylManagePairing::Perform(&v12, &v17, v2);
+  if (!v17 && v18 == 1 && v21)
   {
-    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v3, v25, &v25[v24], v24);
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "ManagePairingGetNonce returning success\n", v13, v14, v15, v16);
-    result = 0;
+    v10 = std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v3, v22, &v22[v21], v21);
+    gBBULogMaskGet(v10, v11);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "ManagePairingGetNonce returning success\n");
+    return 0;
   }
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v5, v6, v7, "rsp.Valid() && rsp.contents.rsp_len");
-    gBBULogMaskGet();
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "ManagePairingGetNonce Failed status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", v8, v9, v10, v23);
-    result = 18;
+    gBBULogMaskGet(v5, v6);
+    v7 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp.Valid() && rsp.contents.rsp_len", "", "", 406);
+    gBBULogMaskGet(v7, v8);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "ManagePairingGetNonce Failed status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", v18, v19, v20, v21);
+    return 18;
   }
-
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t eUICC::eUICCVinylMAVValve::ManagePairingAuthenticate(uint64_t a1)
 {
   v1 = MEMORY[0x2A1C7C4A8](a1);
-  v27 = *MEMORY[0x29EDCA608];
-  v21 = 0;
-  v20 = 0;
+  v26 = *MEMORY[0x29EDCA608];
+  v17 = 0;
+  v16 = 0;
   v2 = *(v1 + 292);
   v4 = *v3;
   v5 = v3[1] - *v3;
-  v17 = *(v1 + 296);
-  v18 = v2;
-  v19 = 2;
-  v22 = v4;
-  v23 = v5;
-  v24 = 10000;
-  eUICC::VinylManagePairing::Perform(&v17, &v25);
-  v6 = v25;
-  v7 = v26;
-  gBBULogMaskGet();
-  if (v6 || v7 != 1)
+  v13 = *(v1 + 296);
+  v14 = v2;
+  v15 = 2;
+  v18 = v4;
+  v19 = v5;
+  v20 = 10000;
+  v6 = eUICC::VinylManagePairing::Perform(&v13, &v21, v3);
+  v7 = v21;
+  v8 = v22;
+  gBBULogMaskGet(v6, v9);
+  if (v7 || v8 != 1)
   {
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", v8, v9, v10, "rsp.Valid()");
-    gBBULogMaskGet();
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "ManagePairingAuthenticate Failed status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", v12, v13, v14, v26);
-    result = 18;
+    v11 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "Condition <<%s>> failed %s %s/%d\n", "rsp.Valid()", "", "", 418);
+    gBBULogMaskGet(v11, v12);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "ManagePairingAuthenticate Failed status %hhu SW1 0x%x SW2 0x%x rsp_len %u\n", v22, v23, v24, v25);
+    return 18;
   }
 
   else
   {
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "ManagePairingAuthenticate returning success\n", v8, v9, v10, v16);
-    result = 0;
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylMAVValve", "", "ManagePairingAuthenticate returning success\n");
+    return 0;
   }
-
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 void eUICC::eUICCVinylMAVValve::~eUICCVinylMAVValve(eUICC::eUICCVinylMAVValve *this)
@@ -5916,15 +5961,15 @@ void eUICC::eUICCVinylMAVValve::~eUICCVinylMAVValve(eUICC::eUICCVinylMAVValve *t
 
 uint64_t eUICCStateMachine::Run(unsigned int *a1, void *a2, uint64_t a3, uint64_t a4, const void *a5, uint64_t *a6)
 {
-  v64 = 0;
+  v54[0] = 0;
   if (a5)
   {
-    v49 = a5;
-    ctu::cf::CFSharedRef<__CFDictionary const>::reset(&v64, &v49);
-    cf = v64;
-    if (v64)
+    v39 = a5;
+    ctu::cf::CFSharedRef<__CFDictionary const>::reset(v54, &v39);
+    cf = v54[0];
+    if (v54[0])
     {
-      CFRetain(v64);
+      CFRetain(v54[0]);
     }
   }
 
@@ -5933,140 +5978,123 @@ uint64_t eUICCStateMachine::Run(unsigned int *a1, void *a2, uint64_t a3, uint64_
     cf = 0;
   }
 
-  Options::Options(&v49, &cf);
+  Options::Options(&v39, &cf);
+  v12 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v55 & 1) != 0 || (v50)
+  if (v45 & 1) != 0 || (v40)
   {
-    v11 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v11 = v51 ^ 1;
+    v13 = v41 ^ 1;
   }
 
-  gBBULogMaskGet();
-  Options::ToString(&v49, __p);
-  if (v47 >= 0)
+  gBBULogMaskGet(v12, v11);
+  Options::ToString(__p, &v39);
+  if (v37 >= 0)
   {
-    v15 = __p;
+    v14 = __p;
   }
 
   else
   {
-    LOBYTE(v15) = __p[0];
+    v14 = __p[0];
   }
 
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Options:\n%s\n", v12, v13, v14, v15);
-  if (v47 < 0)
+  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Options:\n%s\n", v14);
+  if (v37 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v16 = v49;
-  v17 = v54;
-  v18 = a6[1];
-  v44 = *a6;
-  v45 = v18;
-  if (v18)
+  v15 = v39;
+  v16 = v44;
+  v17 = a6[1];
+  v34 = *a6;
+  v35 = v17;
+  if (v17)
   {
-    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  eUICC::VinylFactory::GetValve(a2, v16, v17, &v44, __p);
-  if (v45)
+  eUICC::VinylFactory::GetValve(a2, v15, v16, &v34, __p);
+  v19 = v35;
+  if (v35)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
   }
 
   if (__p[0])
   {
-    v19 = *a1;
+    v20 = *a1;
     *a1 = 0;
-    gBBULogMaskGet();
-    LOBYTE(v19) = eUICCStateMachine::StateAsString(v19);
-    eUICCStateMachine::StateAsString(*a1);
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Resetting state machine: %s --> %s\n", v20, v21, v22, v19);
+    gBBULogMaskGet(v19, v18);
+    v21 = eUICCStateMachine::StateAsString(v20);
+    v22 = eUICCStateMachine::StateAsString(*a1);
+    v23 = _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Resetting state machine: %s --> %s\n", v21, v22);
     while (1)
     {
       if (*a1 > 6)
       {
-        v27 = 0;
+        v28 = 0;
         goto LABEL_30;
       }
 
-      gBBULogMaskGet();
-      v23 = eUICCStateMachine::StateAsString(*a1);
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Running at state %s\n", v24, v25, v26, v23);
-      v27 = eUICCStateMachine::Step(a1, a3, a4);
-      if (v27 == 45)
+      gBBULogMaskGet(v23, v24);
+      v25 = eUICCStateMachine::StateAsString(*a1);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Running at state %s\n", v25);
+      v26 = eUICCStateMachine::Step(a1, a3, a4, &v39, __p);
+      v28 = v26;
+      if (v26 == 45)
       {
         break;
       }
 
-      gBBULogMaskGet();
-      eUICCStateMachine::StateAsString(*a1);
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Result %d next state %s allowRetry %d\n", v28, v29, v30, v27);
-      if (((v27 != 0) & v11) == 1)
+      gBBULogMaskGet(v26, v27);
+      v29 = eUICCStateMachine::StateAsString(*a1);
+      v23 = _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Result %d next state %s allowRetry %d\n", v28, v29, v13 & 1);
+      if (((v28 != 0) & v13) == 1)
       {
-        v27 = 0;
-        v11 = 0;
+        v28 = 0;
+        v13 = 0;
         *a1 = 6;
       }
 
-      if (v27)
+      if (v28)
       {
         goto LABEL_30;
       }
     }
 
-    gBBULogMaskGet();
-    v38 = eUICCStateMachine::StateAsString(*a1);
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "eUICC -- back to host to personalize in state %s\n", v39, v40, v41, v38);
-    v27 = 0;
+    gBBULogMaskGet(v26, v27);
+    v31 = eUICCStateMachine::StateAsString(*a1);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "eUICC -- back to host to personalize in state %s\n", v31);
+    v28 = 0;
   }
 
   else
   {
-    gBBULogMaskGet();
-    v31 = eUICCStateMachine::StateAsString(*a1);
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Fatal Error: Error creating vinyl valve! Current State: %s\n", v32, v33, v34, v31);
+    gBBULogMaskGet(v19, v18);
+    v30 = eUICCStateMachine::StateAsString(*a1);
+    v23 = _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Fatal Error: Error creating vinyl valve! Current State: %s\n", v30);
     *a1 = 7;
-    v27 = 9;
+    v28 = 9;
 LABEL_30:
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "ret = %d\n", v35, v36, v37, v27);
+    gBBULogMaskGet(v23, v24);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "ret = %d\n", v28);
   }
 
-  v42 = __p[0];
+  v32 = __p[0];
   __p[0] = 0;
-  if (v42)
+  if (v32)
   {
-    (*(*v42 + 136))(v42);
-  }
-
-  if (v63 < 0)
-  {
-    operator delete(v62);
-  }
-
-  if (v61 < 0)
-  {
-    operator delete(v60);
-  }
-
-  if (v59 < 0)
-  {
-    operator delete(v58);
-  }
-
-  if (v57 < 0)
-  {
-    operator delete(v56);
+    (*(*v32 + 136))(v32);
   }
 
   if (v53 < 0)
@@ -6074,12 +6102,32 @@ LABEL_30:
     operator delete(v52);
   }
 
-  if (v64)
+  if (v51 < 0)
   {
-    CFRelease(v64);
+    operator delete(v50);
   }
 
-  return v27;
+  if (v49 < 0)
+  {
+    operator delete(v48);
+  }
+
+  if (v47 < 0)
+  {
+    operator delete(v46);
+  }
+
+  if (v43 < 0)
+  {
+    operator delete(v42);
+  }
+
+  if (v54[0])
+  {
+    CFRelease(v54[0]);
+  }
+
+  return v28;
 }
 
 void ctu::cf::CFSharedRef<__CFDictionary const>::reset(const void **a1, CFTypeRef *a2)
@@ -6111,7 +6159,7 @@ const char *eUICCStateMachine::StateAsString(unsigned int a1)
   }
 }
 
-uint64_t eUICCStateMachine::Step(unsigned int *a1, uint64_t a2, uint64_t a3)
+uint64_t eUICCStateMachine::Step(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v44 = *MEMORY[0x29EDCA608];
   v25 = 7;
@@ -6147,54 +6195,53 @@ uint64_t eUICCStateMachine::Step(unsigned int *a1, uint64_t a2, uint64_t a3)
   v41 = 0;
   v42 = 8;
   v43 = 0;
-  std::map<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>::map[abi:ne200100](v23, v26, 9);
+  std::map<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>::map[abi:ne200100](&v23, v26, 9);
   for (i = 82; i != -8; i -= 10)
   {
     std::__function::__value_func<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State &,std::unique_ptr<eUICC::eUICCVinylValve> &)>::~__value_func[abi:ne200100](&v26[i]);
   }
 
-  v7 = v24[0];
+  v9 = v24[0];
   if (!v24[0])
   {
     goto LABEL_17;
   }
 
-  v8 = *a1;
-  v9 = v24;
+  v10 = *a1;
+  v11 = v24;
   do
   {
-    if (*(v7 + 8) >= v8)
+    if (*(v9 + 8) >= v10)
     {
-      v9 = v7;
+      v11 = v9;
     }
 
-    v7 = v7[*(v7 + 8) < v8];
+    v9 = v9[*(v9 + 8) < v10];
   }
 
-  while (v7);
-  if (v9 == v24 || v8 < *(v9 + 8) || !v9[8])
+  while (v9);
+  if (v11 == v24 || v10 < *(v11 + 8) || !v11[8])
   {
 LABEL_17:
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 2, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Update/StateMachine/eUICCStateMachine.cpp", 0x88u, "Assertion failure(((stateMap.end() != def) && def->second) && eUICCStateMachine is corrupted.)", v19, v20, v21, v22);
+    _BBUException::_BBUException(exception, 2, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Update/StateMachine/eUICCStateMachine.cpp", 0x88u, "Assertion failure(((stateMap.end() != def) && def->second) && eUICCStateMachine is corrupted.)", v20, v21, v22);
   }
 
-  v10 = std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State &,std::unique_ptr<eUICC::eUICCVinylValve> &)>::operator()((v9 + 5), a2, a3);
-  gBBULogMaskGet();
-  eUICCStateMachine::StateAsString(*a1);
-  eUICCStateMachine::StateAsString(v25);
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Ret %d from state %s next %s\n", v11, v12, v13, v10);
-  v14 = v10 == 45 || v10 == 0;
-  v15 = v25;
-  if (!v14)
+  v12 = std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State &,std::unique_ptr<eUICC::eUICCVinylValve> &)>::operator()((v11 + 5), a2, a3);
+  gBBULogMaskGet(v12, v13);
+  v14 = eUICCStateMachine::StateAsString(*a1);
+  v15 = eUICCStateMachine::StateAsString(v25);
+  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Ret %d from state %s next %s\n", v12, v14, v15);
+  v16 = v12 == 45 || v12 == 0;
+  v17 = v25;
+  if (!v16)
   {
-    v15 = 7;
+    v17 = 7;
   }
 
-  *a1 = v15;
-  std::__tree<std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>,std::__map_value_compare<eUICCStateMachine::State,std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>,std::less<eUICCStateMachine::State>,true>,std::allocator<std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>>>::destroy(v23, v24[0]);
-  v16 = *MEMORY[0x29EDCA608];
-  return v10;
+  *a1 = v17;
+  std::__tree<std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>,std::__map_value_compare<eUICCStateMachine::State,std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>,std::less<eUICCStateMachine::State>,true>,std::allocator<std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>>>::destroy(&v23, v24[0]);
+  return v12;
 }
 
 void sub_299FB2F34(_Unwind_Exception *a1)
@@ -6209,9 +6256,9 @@ void sub_299FB2F34(_Unwind_Exception *a1)
 
 uint64_t eUICCStateMachine::Start(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5)
 {
-  *&v11[283] = *MEMORY[0x29EDCA608];
-  (*(**a5 + 8))(v11);
-  v7 = HowToProceed(v11, a3);
+  *&v10[283] = *MEMORY[0x29EDCA608];
+  (*(**a5 + 8))(v10);
+  v7 = HowToProceed(v10, a3);
   if (v7 > 1)
   {
     if (v7 == 3)
@@ -6223,51 +6270,50 @@ uint64_t eUICCStateMachine::Start(uint64_t a1, uint64_t a2, uint64_t a3, int *a4
     {
       v9 = 5;
     }
-
-    goto LABEL_8;
   }
 
-  if (v7)
+  else
   {
+    if (!v7)
+    {
+      return 18;
+    }
+
     v9 = 2;
-LABEL_8:
-    result = 0;
-    *a4 = v9;
-    goto LABEL_9;
   }
 
-  result = 18;
-LABEL_9:
-  v10 = *MEMORY[0x29EDCA608];
+  result = 0;
+  *a4 = v9;
   return result;
 }
 
-uint64_t eUICCStateMachine::Perso(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, void (****a5)(std::string *__return_ptr))
+uint64_t eUICCStateMachine::Perso(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, void *a5)
 {
-  v17 = *MEMORY[0x29EDCA608];
-  (**a5)[1](&v14);
-  if (BYTE4(v14) == 1 || *(a3 + 48) == 1)
+  v16 = *MEMORY[0x29EDCA608];
+  (*(**a5 + 8))(&v13);
+  if (BYTE4(v13) == 1 || *(a3 + 48) == 1)
   {
-    VinylFirmware::bootloaderVersion(v15, v16, &__p);
+    VinylFirmware::bootloaderVersion(v14, v15, &__p);
     v8 = eUICC::Perso::Perform(a3, &__p, a5);
     v9 = *a5;
-    *++v9 = 0u;
-    *(v9 + 15) = 0u;
-    *(v9 + 16) = 0u;
-    *(v9 + 13) = 0u;
-    *(v9 + 14) = 0u;
-    *(v9 + 11) = 0u;
-    *(v9 + 12) = 0u;
-    *(v9 + 9) = 0u;
-    *(v9 + 10) = 0u;
-    *(v9 + 7) = 0u;
     *(v9 + 8) = 0u;
-    *(v9 + 5) = 0u;
-    *(v9 + 6) = 0u;
-    *(v9 + 3) = 0u;
-    *(v9 + 4) = 0u;
-    *(v9 + 1) = 0u;
-    *(v9 + 2) = 0u;
+    v9 += 8;
+    *(v9 + 240) = 0u;
+    *(v9 + 256) = 0u;
+    *(v9 + 208) = 0u;
+    *(v9 + 224) = 0u;
+    *(v9 + 176) = 0u;
+    *(v9 + 192) = 0u;
+    *(v9 + 144) = 0u;
+    *(v9 + 160) = 0u;
+    *(v9 + 112) = 0u;
+    *(v9 + 128) = 0u;
+    *(v9 + 80) = 0u;
+    *(v9 + 96) = 0u;
+    *(v9 + 48) = 0u;
+    *(v9 + 64) = 0u;
+    *(v9 + 16) = 0u;
+    *(v9 + 32) = 0u;
     *(v9 + 267) = 0u;
     *v9 = TelephonyRadiosGetRadioVendor() - 2 < 3;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6292,7 +6338,6 @@ uint64_t eUICCStateMachine::Perso(uint64_t a1, uint64_t a2, uint64_t a3, int *a4
   }
 
   *a4 = v10;
-  v11 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -6308,116 +6353,115 @@ void sub_299FB3198(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t eUICCStateMachine::Recovery(VinylFirmware *a1, VinylFirmware *a2, uint64_t a3, _DWORD *a4, void *a5)
 {
-  *&v33[137] = *MEMORY[0x29EDCA608];
-  (*(**a5 + 8))(&v31);
-  if (v31 != TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+  *&v27[137] = *MEMORY[0x29EDCA608];
+  (*(**a5 + 8))(&v25);
+  RadioVendor = TelephonyRadiosGetRadioVendor();
+  if (v25 != (RadioVendor - 5) < 0xFFFFFFFD)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v15, v16, v17, "euiccData.Valid()");
-    v10 = 18;
-    goto LABEL_19;
+    gBBULogMaskGet(RadioVendor, v10);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "euiccData.Valid()", "", "", 191);
+    return 18;
   }
 
-  if (!v32)
+  if (!v26)
   {
     goto LABEL_18;
   }
 
   if (VinylFirmware::getRecoveryFwData(a2))
   {
-    v9 = a2;
+    v11 = a2;
   }
 
   else
   {
-    v9 = a1;
+    v11 = a1;
   }
 
-  if (VinylFirmware::getRecoveryFwData(v9))
+  if (VinylFirmware::getRecoveryFwData(v11))
   {
-    v10 = (*(**a5 + 64))();
-    v11 = *a5;
-    *(v11 + 8) = 0u;
-    v11 += 8;
-    *(v11 + 240) = 0u;
-    *(v11 + 256) = 0u;
-    *(v11 + 208) = 0u;
-    *(v11 + 224) = 0u;
-    *(v11 + 176) = 0u;
-    *(v11 + 192) = 0u;
-    *(v11 + 144) = 0u;
-    *(v11 + 160) = 0u;
-    *(v11 + 112) = 0u;
-    *(v11 + 128) = 0u;
-    *(v11 + 80) = 0u;
-    *(v11 + 96) = 0u;
-    *(v11 + 48) = 0u;
-    *(v11 + 64) = 0u;
-    *(v11 + 16) = 0u;
-    *(v11 + 32) = 0u;
-    *(v11 + 267) = 0u;
-    *v11 = TelephonyRadiosGetRadioVendor() - 2 < 3;
-    gBBULogMaskGet();
-    if (v10)
+    v12 = (*(**a5 + 64))();
+    v13 = *a5;
+    *(v13 + 8) = 0u;
+    v13 += 8;
+    *(v13 + 240) = 0u;
+    *(v13 + 256) = 0u;
+    *(v13 + 208) = 0u;
+    *(v13 + 224) = 0u;
+    *(v13 + 176) = 0u;
+    *(v13 + 192) = 0u;
+    *(v13 + 144) = 0u;
+    *(v13 + 160) = 0u;
+    *(v13 + 112) = 0u;
+    *(v13 + 128) = 0u;
+    *(v13 + 80) = 0u;
+    *(v13 + 96) = 0u;
+    *(v13 + 48) = 0u;
+    *(v13 + 64) = 0u;
+    *(v13 + 16) = 0u;
+    *(v13 + 32) = 0u;
+    *(v13 + 267) = 0u;
+    v14 = TelephonyRadiosGetRadioVendor();
+    *v13 = (v14 - 2) < 3;
+    gBBULogMaskGet(v14, v15);
+    if (v12)
     {
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v12, v13, v14, "kBBUReturnSuccess == ret");
-      goto LABEL_19;
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 206);
+      return v12;
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully streamed recovery Firmware\n", v12, v13, v14, v28);
-    v10 = (*(**a5 + 16))(*a5, 0, 0);
-    if (v10)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully streamed recovery Firmware\n");
+    v19 = (*(**a5 + 16))(*a5, 0, 0);
+    v12 = v19;
+    if (v19)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v22, v23, v24, "kBBUReturnSuccess == ret");
-      goto LABEL_19;
+      gBBULogMaskGet(v19, v20);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 210);
+      return v12;
     }
 
-    v25 = *a5;
-    *(v25 + 8) = 0u;
-    v25 += 8;
-    *(v25 + 240) = 0u;
-    *(v25 + 256) = 0u;
-    *(v25 + 208) = 0u;
-    *(v25 + 224) = 0u;
-    *(v25 + 176) = 0u;
-    *(v25 + 192) = 0u;
-    *(v25 + 144) = 0u;
-    *(v25 + 160) = 0u;
-    *(v25 + 112) = 0u;
-    *(v25 + 128) = 0u;
-    *(v25 + 80) = 0u;
-    *(v25 + 96) = 0u;
-    *(v25 + 48) = 0u;
-    *(v25 + 64) = 0u;
-    *(v25 + 16) = 0u;
-    *(v25 + 32) = 0u;
-    *(v25 + 267) = 0u;
-    *v25 = TelephonyRadiosGetRadioVendor() - 2 < 3;
+    v21 = *a5;
+    *(v21 + 8) = 0u;
+    v21 += 8;
+    *(v21 + 240) = 0u;
+    *(v21 + 256) = 0u;
+    *(v21 + 208) = 0u;
+    *(v21 + 224) = 0u;
+    *(v21 + 176) = 0u;
+    *(v21 + 192) = 0u;
+    *(v21 + 144) = 0u;
+    *(v21 + 160) = 0u;
+    *(v21 + 112) = 0u;
+    *(v21 + 128) = 0u;
+    *(v21 + 80) = 0u;
+    *(v21 + 96) = 0u;
+    *(v21 + 48) = 0u;
+    *(v21 + 64) = 0u;
+    *(v21 + 16) = 0u;
+    *(v21 + 32) = 0u;
+    *(v21 + 267) = 0u;
+    *v21 = TelephonyRadiosGetRadioVendor() - 2 < 3;
 LABEL_18:
-    v10 = 0;
+    v12 = 0;
     *a4 = 3;
-    goto LABEL_19;
+    return v12;
   }
 
-  ctu::hex(v33, 8);
-  gBBULogMaskGet();
-  p_p = &__p;
-  if (v30 < 0)
+  v16 = ctu::hex(__p, v27, 8);
+  gBBULogMaskGet(v16, v17);
+  v18 = __p;
+  if (v24 < 0)
   {
-    LOBYTE(p_p) = __p;
+    v18 = __p[0];
   }
 
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "SM::Recovery Missing gold with hash %s\n", v18, v19, v20, p_p);
-  if (v30 < 0)
+  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "SM::Recovery Missing gold with hash %s\n", v18);
+  if (v24 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
-  v10 = 15;
-LABEL_19:
-  v26 = *MEMORY[0x29EDCA608];
-  return v10;
+  return 15;
 }
 
 void sub_299FB34FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -6430,41 +6474,39 @@ void sub_299FB34FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t eUICCStateMachine::UpdateGold(const __CFDictionary **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t eUICCStateMachine::UpdateGold(const __CFDictionary **a1, uint64_t a2, uint64_t a3, int *a4, void *a5)
 {
   *&__dst[71] = *MEMORY[0x29EDCA608];
   cf = 0;
   (*(**a5 + 8))(__dst);
-  if (__dst[0] == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+  RadioVendor = TelephonyRadiosGetRadioVendor();
+  if (__dst[0] == (RadioVendor - 5) < 0xFFFFFFFD)
   {
     if (a1)
     {
       VinylFirmware::getFwMac(a1);
       __src = 0;
-      v20 = 0uLL;
-      ctu::cf::assign();
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v12, v13, v14, "bundMac.size() == kFWMacSize");
-      v15 = 1;
+      v14 = 0uLL;
+      v8 = ctu::cf::assign();
+      gBBULogMaskGet(v8, v9);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "bundMac.size() == kFWMacSize", "", "", 232);
+      return 1;
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v9, v10, v11, "goldFirmware");
-      v15 = 15;
+      gBBULogMaskGet(RadioVendor, v7);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "goldFirmware", "", "", 230);
+      return 15;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v6, v7, v8, "euiccData.Valid()");
-    v15 = 18;
+    gBBULogMaskGet(RadioVendor, v7);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "euiccData.Valid()", "", "", 228);
+    return 18;
   }
-
-  v16 = *MEMORY[0x29EDCA608];
-  return v15;
 }
 
 void sub_299FB3C64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, int a21, const void *a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -6490,239 +6532,247 @@ void sub_299FB3C64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t eUICCStateMachine::UpdateMain(uint64_t a1, CFMutableDataRef *a2, uint64_t a3, int *a4, void *a5)
 {
-  v119 = *MEMORY[0x29EDCA608];
+  v91 = *MEMORY[0x29EDCA608];
   __p[0] = 0;
   __p[1] = 0;
-  v113 = 0;
-  v110 = 0;
-  v111 = 0uLL;
+  v85 = 0;
+  v82 = 0;
+  v83 = 0uLL;
   cf = 0;
   (*(**a5 + 8))(__dst);
-  if (*__dst != TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+  RadioVendor = TelephonyRadiosGetRadioVendor();
+  if (*__dst != (RadioVendor - 5) < 0xFFFFFFFD)
   {
-    gBBULogMaskGet();
-    v13 = 0;
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v14, v15, v16, "euiccData.Valid()");
-    v17 = 18;
-    goto LABEL_38;
+    gBBULogMaskGet(RadioVendor, v10);
+    v14 = 0;
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "euiccData.Valid()", "", "", 313);
+    v15 = 18;
+    goto LABEL_40;
   }
 
   if (!a2)
   {
-    gBBULogMaskGet();
-    v13 = 0;
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v18, v19, v20, "mainFirmware");
-    v17 = 15;
-    goto LABEL_38;
+    gBBULogMaskGet(RadioVendor, v10);
+    v14 = 0;
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "mainFirmware", "", "", 315);
+    v15 = 15;
+    goto LABEL_40;
   }
 
-  VinylFirmware::getVersionString(a2, __src);
-  if (SHIBYTE(v113) < 0)
+  VersionString = VinylFirmware::getVersionString(a2, __src);
+  if (SHIBYTE(v85) < 0)
   {
     operator delete(__p[0]);
   }
 
   *__p = *__src;
-  v113 = *&__src[16];
-  v107 = __dst[41];
+  v85 = *&__src[16];
+  v79 = __dst[41];
   if (__dst[41] == 79)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Update card version as it is overridden\n", v9, v10, v11, v102);
-    v117 = *&__dst[24];
-    v118 = __dst[40];
-    v116[0] = *&__dst[42];
-    *(v116 + 6) = *&__dst[48];
-    v12 = operator new(0x28uLL);
-    *v12 = *&__dst[24];
-    v12[16] = __dst[40];
-    v12[17] = 77;
-    *(v12 + 18) = *&__dst[42];
-    *(v12 + 3) = *&__dst[48];
+    gBBULogMaskGet(VersionString, v12);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Update card version as it is overridden\n");
+    v89 = *&__dst[24];
+    v90 = __dst[40];
+    v88[0] = *&__dst[42];
+    *(v88 + 6) = *&__dst[48];
+    v13 = operator new(0x28uLL);
+    *v13 = *&__dst[24];
+    v13[16] = __dst[40];
+    v13[17] = 77;
+    *(v13 + 18) = *&__dst[42];
+    *(v13 + 3) = *&__dst[48];
   }
 
   else
   {
-    v12 = operator new(0x28uLL);
-    v21 = *&__dst[40];
-    *v12 = *&__dst[24];
-    *(v12 + 1) = v21;
+    v13 = operator new(0x28uLL);
+    v16 = *&__dst[40];
+    *v13 = *&__dst[24];
+    *(v13 + 1) = v16;
   }
 
-  v12[32] = 0;
-  if (SHIBYTE(v111) < 0)
+  v13[32] = 0;
+  if (SHIBYTE(v83) < 0)
   {
-    operator delete(v110);
+    operator delete(v82);
   }
 
-  v110 = v12;
-  v111 = xmmword_299FE2F20;
+  v82 = v13;
+  v83 = xmmword_299FE2F20;
   VinylFirmware::getFwMac(a2);
   memset(__src, 0, 24);
-  ctu::cf::assign();
-  v13 = *__src;
+  v17 = ctu::cf::assign();
+  v14 = *__src;
   if (*&__src[8] - *__src != 8)
   {
-    gBBULogMaskGet();
-    v39 = "bundMac.size() == kFWMacSize";
-LABEL_37:
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v36, v37, v38, v39);
-    v17 = 1;
+    gBBULogMaskGet(v17, v18);
+    v33 = 330;
+    v34 = "bundMac.size() == kFWMacSize";
+LABEL_39:
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v34, "", "", v33);
+    v15 = 1;
+    goto LABEL_40;
+  }
+
+  v19 = HIBYTE(v85);
+  if (v85 < 0)
+  {
+    v19 = __p[1];
+  }
+
+  if (!v19)
+  {
     goto LABEL_38;
   }
 
-  v22 = HIBYTE(v113);
-  if (v113 < 0)
+  v20 = HIBYTE(v83);
+  if (v83 < 0)
   {
-    v22 = __p[1];
+    v20 = v83;
   }
 
-  if (!v22)
+  if (!v20)
   {
-    goto LABEL_36;
+LABEL_38:
+    gBBULogMaskGet(v17, v18);
+    v33 = 331;
+    v34 = "!bundVersionString.empty() && !cardVersionString.empty()";
+    goto LABEL_39;
   }
 
-  v23 = HIBYTE(v111);
-  if (v111 < 0)
+  gBBULogMaskGet(v17, v18);
+  v21 = &v82;
+  if (v83 < 0)
   {
-    v23 = v111;
+    v21 = v82;
   }
 
-  if (!v23)
+  v22 = __p;
+  if (v85 < 0)
   {
-LABEL_36:
-    gBBULogMaskGet();
-    v39 = "!bundVersionString.empty() && !cardVersionString.empty()";
-    goto LABEL_37;
+    v22 = __p[0];
   }
 
-  gBBULogMaskGet();
-  v27 = &v110;
-  if (v111 < 0)
+  v23 = _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Update Main:Card %s Bundle %s\n", v21, v22);
+  v25 = a4;
+  v26 = SHIBYTE(v83);
+  if (v83 >= 0)
   {
-    LOBYTE(v27) = v110;
-  }
-
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Update Main:Card %s Bundle %s\n", v24, v25, v26, v27);
-  v28 = a4;
-  v29 = SHIBYTE(v111);
-  if (v111 >= 0)
-  {
-    v30 = HIBYTE(v111);
+    v27 = HIBYTE(v83);
   }
 
   else
   {
-    v30 = v111;
+    v27 = v83;
   }
 
-  v31 = HIBYTE(v113);
-  if (v113 >= 0)
+  v28 = HIBYTE(v85);
+  if (v85 >= 0)
   {
-    v32 = HIBYTE(v113);
+    v29 = HIBYTE(v85);
   }
 
   else
   {
-    v32 = __p[1];
+    v29 = __p[1];
   }
 
-  if (v30 == v32)
+  if (v27 == v29)
   {
-    if (v111 >= 0)
+    if (v83 >= 0)
     {
-      v33 = &v110;
+      v30 = &v82;
     }
 
     else
     {
-      v33 = v110;
+      v30 = v82;
     }
 
-    if (v113 >= 0)
+    if (v85 >= 0)
     {
-      v34 = __p;
-    }
-
-    else
-    {
-      v34 = __p[0];
-    }
-
-    v35 = memcmp(v33, v34, v30) == 0;
-  }
-
-  else
-  {
-    v35 = 0;
-  }
-
-  if (v30 < 0x12)
-  {
-    v44 = 0;
-  }
-
-  else
-  {
-    if (v29 >= 0)
-    {
-      v42 = &v110;
+      v31 = __p;
     }
 
     else
     {
-      v42 = v110;
+      v31 = __p[0];
     }
 
-    v43 = memchr(v42 + 17, 82, v30 - 17);
-    v44 = 0;
-    if (v43 && v43 - v42 == 17 && v32 >= 0x12)
+    v23 = memcmp(v30, v31, v27);
+    v32 = v23 == 0;
+  }
+
+  else
+  {
+    v32 = 0;
+  }
+
+  if (v27 < 0x12)
+  {
+    v37 = 0;
+  }
+
+  else
+  {
+    if (v26 >= 0)
     {
-      if (v31 >= 0)
+      v36 = &v82;
+    }
+
+    else
+    {
+      v36 = v82;
+    }
+
+    v23 = memchr(v36 + 17, 82, v27 - 17);
+    v37 = 0;
+    if (v23 && v23 - v36 == 17 && v29 >= 0x12)
+    {
+      if (v28 >= 0)
       {
-        v45 = __p;
+        v38 = __p;
       }
 
       else
       {
-        v45 = __p[0];
+        v38 = __p[0];
       }
 
-      v46 = memchr(v45 + 17, 77, v32 - 17);
-      if (v46)
+      v23 = memchr(v38 + 17, 77, v29 - 17);
+      if (v23)
       {
-        v47 = v46 - v45 == 17;
+        v39 = v23 - v38 == 17;
       }
 
       else
       {
-        v47 = 0;
+        v39 = 0;
       }
 
-      v44 = v47;
+      v37 = v39;
     }
   }
 
-  v48 = *(a3 + 137);
-  gBBULogMaskGet();
-  v106 = *(a3 + 137);
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "isR2MUpdate=%d, optimizeRefurbFirmwareUpdatePath=%d\n", v49, v50, v51, v44);
-  if (*(a3 + 10) & 1) == 0 && ((v35 | v44 & v48))
+  v40 = *(a3 + 137);
+  gBBULogMaskGet(v23, v24);
+  v41 = _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "isR2MUpdate=%d, optimizeRefurbFirmwareUpdatePath=%d\n", v37, *(a3 + 137));
+  if (*(a3 + 10) & 1) == 0 && ((v32 | v37 & v40))
   {
-    gBBULogMaskGet();
-    if (v35)
+    gBBULogMaskGet(v41, v42);
+    if (v32)
     {
-      v55 = "Main FW versions already matching (no forceMain)\n";
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Main FW versions already matching (no forceMain)\n");
     }
 
     else
     {
-      v55 = "Refurb optimization enabled, therefore blocking Refurb to Main FW update.";
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Refurb optimization enabled, therefore blocking Refurb to Main FW update.");
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", v55, v52, v53, v54, v103);
-    v17 = 0;
-    goto LABEL_71;
+    v15 = 0;
+    goto LABEL_73;
   }
 
   AuthPayload = VinylFirmware::getAuthPayload(a2);
@@ -6731,216 +6781,238 @@ LABEL_36:
   ctu::cf::CFSharedRef<__CFData const>::operator=<__CFData,void>(&cf, __src);
   if (!cf)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Install main but no ticket -- back to restored please\n", v61, v62, v63, v103);
-    v17 = 45;
-    v56 = 4;
-    goto LABEL_78;
+    gBBULogMaskGet(0, v46);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Install main but no ticket -- back to restored please\n");
+    v15 = 45;
+    v43 = 4;
+    goto LABEL_80;
   }
 
-  if ((*(a3 + 10) & 1) != 0 || *&__dst[72] != *v13)
+  if ((*(a3 + 10) & 1) != 0 || *&__dst[72] != *v14)
   {
-    v59 = *a5;
-    v108 = cf;
+    v47 = *a5;
+    v80 = cf;
     CFRetain(cf);
-    v17 = (*(*v59 + 56))(v59, &v108);
-    ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(&v108);
-    v60 = *a5;
-    *(v60 + 8) = 0u;
-    v60 += 8;
-    *(v60 + 240) = 0u;
-    *(v60 + 256) = 0u;
-    *(v60 + 208) = 0u;
-    *(v60 + 224) = 0u;
-    *(v60 + 176) = 0u;
-    *(v60 + 192) = 0u;
-    *(v60 + 144) = 0u;
-    *(v60 + 160) = 0u;
-    *(v60 + 112) = 0u;
-    *(v60 + 128) = 0u;
-    *(v60 + 80) = 0u;
-    *(v60 + 96) = 0u;
-    *(v60 + 48) = 0u;
-    *(v60 + 64) = 0u;
-    *(v60 + 16) = 0u;
-    *(v60 + 32) = 0u;
-    *(v60 + 267) = 0u;
-    *v60 = TelephonyRadiosGetRadioVendor() - 2 < 3;
-    if (v17)
+    v15 = (*(*v47 + 56))(v47, &v80);
+    ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(&v80);
+    v48 = *a5;
+    *(v48 + 8) = 0u;
+    v48 += 8;
+    *(v48 + 240) = 0u;
+    *(v48 + 256) = 0u;
+    *(v48 + 208) = 0u;
+    *(v48 + 224) = 0u;
+    *(v48 + 176) = 0u;
+    *(v48 + 192) = 0u;
+    *(v48 + 144) = 0u;
+    *(v48 + 160) = 0u;
+    *(v48 + 112) = 0u;
+    *(v48 + 128) = 0u;
+    *(v48 + 80) = 0u;
+    *(v48 + 96) = 0u;
+    *(v48 + 48) = 0u;
+    *(v48 + 64) = 0u;
+    *(v48 + 16) = 0u;
+    *(v48 + 32) = 0u;
+    *(v48 + 267) = 0u;
+    v49 = TelephonyRadiosGetRadioVendor();
+    *v48 = (v49 - 2) < 3;
+    if (v15)
     {
-LABEL_95:
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v88, v89, v90, "kBBUReturnSuccess == ret");
-      goto LABEL_38;
+      gBBULogMaskGet(v49, v50);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 364);
+      goto LABEL_40;
     }
 
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully pushed Install Ticket\n", v64, v65, v66, v103);
+    gBBULogMaskGet(v49, v50);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully pushed Install Ticket\n");
   }
 
-  v67 = *a5;
+  v51 = *a5;
   FwData = VinylFirmware::getFwData(a2);
-  v17 = (*(*v67 + 64))(v67, FwData);
-  v69 = *a5;
-  *(v69 + 8) = 0u;
-  v69 += 8;
-  *(v69 + 240) = 0u;
-  *(v69 + 256) = 0u;
-  *(v69 + 208) = 0u;
-  *(v69 + 224) = 0u;
-  *(v69 + 176) = 0u;
-  *(v69 + 192) = 0u;
-  *(v69 + 144) = 0u;
-  *(v69 + 160) = 0u;
-  *(v69 + 112) = 0u;
-  *(v69 + 128) = 0u;
-  *(v69 + 80) = 0u;
-  *(v69 + 96) = 0u;
-  *(v69 + 48) = 0u;
-  *(v69 + 64) = 0u;
-  *(v69 + 16) = 0u;
-  *(v69 + 32) = 0u;
-  *(v69 + 267) = 0u;
-  *v69 = TelephonyRadiosGetRadioVendor() - 2 < 3;
-  if (v17)
+  v15 = (*(*v51 + 64))(v51, FwData);
+  v53 = *a5;
+  *(v53 + 8) = 0u;
+  v53 += 8;
+  *(v53 + 240) = 0u;
+  *(v53 + 256) = 0u;
+  *(v53 + 208) = 0u;
+  *(v53 + 224) = 0u;
+  *(v53 + 176) = 0u;
+  *(v53 + 192) = 0u;
+  *(v53 + 144) = 0u;
+  *(v53 + 160) = 0u;
+  *(v53 + 112) = 0u;
+  *(v53 + 128) = 0u;
+  *(v53 + 80) = 0u;
+  *(v53 + 96) = 0u;
+  *(v53 + 48) = 0u;
+  *(v53 + 64) = 0u;
+  *(v53 + 16) = 0u;
+  *(v53 + 32) = 0u;
+  *(v53 + 267) = 0u;
+  v54 = TelephonyRadiosGetRadioVendor();
+  *v53 = (v54 - 2) < 3;
+  if (v15)
   {
-    goto LABEL_95;
+    gBBULogMaskGet(v54, v55);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 370);
+    goto LABEL_40;
   }
 
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully streamed Firmware\n", v70, v71, v72, v103);
-  v17 = (*(**a5 + 16))(*a5, 0, 0);
-  v73 = *a5;
-  *(v73 + 8) = 0u;
-  v73 += 8;
-  *(v73 + 240) = 0u;
-  *(v73 + 256) = 0u;
-  *(v73 + 208) = 0u;
-  *(v73 + 224) = 0u;
-  *(v73 + 176) = 0u;
-  *(v73 + 192) = 0u;
-  *(v73 + 144) = 0u;
-  *(v73 + 160) = 0u;
-  *(v73 + 112) = 0u;
-  *(v73 + 128) = 0u;
-  *(v73 + 80) = 0u;
-  *(v73 + 96) = 0u;
-  *(v73 + 48) = 0u;
-  *(v73 + 64) = 0u;
-  *(v73 + 16) = 0u;
-  *(v73 + 32) = 0u;
-  *(v73 + 267) = 0u;
-  *v73 = TelephonyRadiosGetRadioVendor() - 2 < 3;
-  if (v17)
+  gBBULogMaskGet(v54, v55);
+  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully streamed Firmware\n");
+  v15 = (*(**a5 + 16))(*a5, 0, 0);
+  v56 = *a5;
+  *(v56 + 8) = 0u;
+  v56 += 8;
+  *(v56 + 240) = 0u;
+  *(v56 + 256) = 0u;
+  *(v56 + 208) = 0u;
+  *(v56 + 224) = 0u;
+  *(v56 + 176) = 0u;
+  *(v56 + 192) = 0u;
+  *(v56 + 144) = 0u;
+  *(v56 + 160) = 0u;
+  *(v56 + 112) = 0u;
+  *(v56 + 128) = 0u;
+  *(v56 + 80) = 0u;
+  *(v56 + 96) = 0u;
+  *(v56 + 48) = 0u;
+  *(v56 + 64) = 0u;
+  *(v56 + 16) = 0u;
+  *(v56 + 32) = 0u;
+  *(v56 + 267) = 0u;
+  v57 = TelephonyRadiosGetRadioVendor();
+  *v56 = (v57 - 2) < 3;
+  if (v15)
   {
-    goto LABEL_95;
+    gBBULogMaskGet(v57, v58);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 377);
+    goto LABEL_40;
   }
 
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully switched back to Normal\n", v74, v75, v76, v104);
-  if (v107 == 79 || *(a3 + 20) >= 1)
+  gBBULogMaskGet(v57, v58);
+  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully switched back to Normal\n");
+  if (v79 == 79 || *(a3 + 20) >= 1)
   {
-    v17 = (*(**a5 + 16))(*a5, 1, 1);
-    if (v17)
+    v70 = (*(**a5 + 16))(*a5, 1, 1);
+    v15 = v70;
+    if (v70)
     {
-      goto LABEL_95;
+      gBBULogMaskGet(v70, v71);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 387);
+      goto LABEL_40;
     }
 
-    v17 = (*(**a5 + 16))(*a5, 0, 1);
-    if (v17)
+    v72 = (*(**a5 + 16))(*a5, 0, 1);
+    v15 = v72;
+    if (v72)
     {
-      goto LABEL_95;
+      gBBULogMaskGet(v72, v73);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 389);
+      goto LABEL_40;
     }
 
-    v98 = *a5;
-    *(v98 + 8) = 0u;
-    v98 += 8;
-    *(v98 + 240) = 0u;
-    *(v98 + 256) = 0u;
-    *(v98 + 208) = 0u;
-    *(v98 + 224) = 0u;
-    *(v98 + 176) = 0u;
-    *(v98 + 192) = 0u;
-    *(v98 + 144) = 0u;
-    *(v98 + 160) = 0u;
-    *(v98 + 112) = 0u;
-    *(v98 + 128) = 0u;
-    *(v98 + 80) = 0u;
-    *(v98 + 96) = 0u;
-    *(v98 + 48) = 0u;
-    *(v98 + 64) = 0u;
-    *(v98 + 16) = 0u;
-    *(v98 + 32) = 0u;
-    *(v98 + 267) = 0u;
-    *v98 = TelephonyRadiosGetRadioVendor() - 2 < 3;
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully reset the card\n", v99, v100, v101, v105);
+    v76 = *a5;
+    *(v76 + 8) = 0u;
+    v76 += 8;
+    *(v76 + 240) = 0u;
+    *(v76 + 256) = 0u;
+    *(v76 + 208) = 0u;
+    *(v76 + 224) = 0u;
+    *(v76 + 176) = 0u;
+    *(v76 + 192) = 0u;
+    *(v76 + 144) = 0u;
+    *(v76 + 160) = 0u;
+    *(v76 + 112) = 0u;
+    *(v76 + 128) = 0u;
+    *(v76 + 80) = 0u;
+    *(v76 + 96) = 0u;
+    *(v76 + 48) = 0u;
+    *(v76 + 64) = 0u;
+    *(v76 + 16) = 0u;
+    *(v76 + 32) = 0u;
+    *(v76 + 267) = 0u;
+    v77 = TelephonyRadiosGetRadioVendor();
+    *v76 = (v77 - 2) < 3;
+    gBBULogMaskGet(v77, v78);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "successfully reset the card\n");
   }
 
   (*(**a5 + 8))(__src);
   memcpy(__dst, __src, sizeof(__dst));
-  v77 = operator new(0x28uLL);
-  *__src = v77;
+  v59 = operator new(0x28uLL);
+  v61 = v59;
+  *__src = v59;
   *&__src[8] = xmmword_299FE2F20;
-  v78 = *&__dst[40];
-  *v77 = *&__dst[24];
-  v77[1] = v78;
-  *(v77 + 32) = 0;
+  v62 = *&__dst[40];
+  *v59 = *&__dst[24];
+  v59[1] = v62;
+  *(v59 + 32) = 0;
   if (*(a3 + 20) >= 1)
   {
-    v117 = *&__dst[24];
-    v118 = __dst[40];
-    v79 = __dst[41];
-    v116[0] = *&__dst[42];
-    *(v116 + 6) = *&__dst[48];
+    v89 = *&__dst[24];
+    v90 = __dst[40];
+    v63 = __dst[41];
+    v88[0] = *&__dst[42];
+    *(v88 + 6) = *&__dst[48];
     if (__dst[41] == 79)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Update card version as it is overridden\n", v80, v81, v82, v105);
-      v79 = 77;
+      gBBULogMaskGet(v59, v60);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Update card version as it is overridden\n");
+      v63 = 77;
     }
 
-    v83 = operator new(0x28uLL);
-    *v83 = v117;
-    v83[16] = v118;
-    v83[17] = v79;
-    *(v83 + 18) = v116[0];
-    *(v83 + 3) = *(v116 + 6);
-    v83[32] = 0;
-    operator delete(v77);
-    *__src = v83;
+    v64 = operator new(0x28uLL);
+    *v64 = v89;
+    v64[16] = v90;
+    v64[17] = v63;
+    *(v64 + 18) = v88[0];
+    *(v64 + 3) = *(v88 + 6);
+    v64[32] = 0;
+    operator delete(v61);
+    *__src = v64;
     *&__src[8] = xmmword_299FE2F20;
   }
 
-  if (*__dst == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+  v65 = TelephonyRadiosGetRadioVendor();
+  if (*__dst == (v65 - 5) < 0xFFFFFFFD)
   {
-    if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__src, __p))
+    v67 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__src, __p);
+    if (v67)
     {
-      v17 = 0;
-      v84 = 1;
+      v15 = 0;
+      v69 = 1;
     }
 
     else
     {
-      gBBULogMaskGet();
-      v94 = __src;
+      gBBULogMaskGet(v67, v68);
+      v74 = __src;
       if (__src[23] < 0)
       {
-        LOBYTE(v94) = __src[0];
+        v74 = *__src;
       }
 
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Main version strings mismatched: Card %s Bundle %s", v91, v92, v93, v94);
-      v84 = 0;
-      v17 = 22;
+      v75 = __p;
+      if (v85 < 0)
+      {
+        v75 = __p[0];
+      }
+
+      v67 = _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Main version strings mismatched: Card %s Bundle %s", v74, v75);
+      v69 = 0;
+      v15 = 22;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", v85, v86, v87, "euiccData.Valid()");
-    v84 = 0;
-    v17 = 18;
+    gBBULogMaskGet(v65, v66);
+    v67 = _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Condition <<%s>> failed %s %s/%d\n", "euiccData.Valid()", "", "", 408);
+    v69 = 0;
+    v15 = 18;
   }
 
   if ((__src[23] & 0x80000000) != 0)
@@ -6948,39 +7020,38 @@ LABEL_95:
     operator delete(*__src);
   }
 
-  if (v84)
+  if (v69)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Success!\n", v95, v96, v97, v105);
-LABEL_71:
-    v56 = 5;
-LABEL_78:
-    *v28 = v56;
+    gBBULogMaskGet(v67, v68);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Success!\n");
+LABEL_73:
+    v43 = 5;
+LABEL_80:
+    *v25 = v43;
   }
 
-LABEL_38:
+LABEL_40:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v13)
+  if (v14)
   {
-    operator delete(v13);
+    operator delete(v14);
   }
 
-  if (SHIBYTE(v111) < 0)
+  if (SHIBYTE(v83) < 0)
   {
-    operator delete(v110);
+    operator delete(v82);
   }
 
-  if (SHIBYTE(v113) < 0)
+  if (SHIBYTE(v85) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v40 = *MEMORY[0x29EDCA608];
-  return v17;
+  return v15;
 }
 
 void sub_299FB4964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, int a17, const void *a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36)
@@ -7007,17 +7078,17 @@ void sub_299FB4964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t eUICCStateMachine::PostProcess(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
-  gBBULogMaskGet();
-  _BBULog(22, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Empty implementation for PostProcess. Non updater takes care of refurb options!\n", v5, v6, v7, v9);
+  gBBULogMaskGet(a1, a2);
+  _BBULog(22, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "Empty implementation for PostProcess. Non updater takes care of refurb options!\n");
   *a4 = 8;
   return 0;
 }
 
 uint64_t eUICCStateMachine::Retry(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, void *a5)
 {
-  (*(**a5 + 16))(*a5, 0, 1);
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "...waiting patiently for reset\n", v6, v7, v8, v10);
+  v6 = (*(**a5 + 16))(*a5, 0, 1);
+  gBBULogMaskGet(v6, v7);
+  _BBULog(0, 0xFFFFFFFFLL, "eUICCeUICCStateMachine", "", "...waiting patiently for reset\n");
   __ns.__rep_ = 10000000000;
   std::this_thread::sleep_for (&__ns);
   *a4 = 0;
@@ -7039,32 +7110,30 @@ uint64_t std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options cons
 
 uint64_t HowToProceed(uint64_t a1, uint64_t a2)
 {
-  *&v31 = *MEMORY[0x29EDCA608];
+  *&v25 = *MEMORY[0x29EDCA608];
   if (*(a2 + 8) == 1)
   {
-    gBBULogMaskGet();
-    v5 = "eUICC Skip All\n";
-LABEL_3:
-    _BBULog(0, 0xFFFFFFFFLL, "eUICC", "", v5, v2, v3, v4, v28);
-    v6 = 3;
-    goto LABEL_43;
+    gBBULogMaskGet(a1, a2);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICC", "", "eUICC Skip All\n");
+    return 3;
   }
 
-  if (*a1 == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+  RadioVendor = TelephonyRadiosGetRadioVendor();
+  if (*a1 == (RadioVendor - 5) < 0xFFFFFFFD)
   {
     *(&__p.__r_.__value_.__s + 23) = 3;
     LODWORD(__p.__r_.__value_.__l.__data_) = 3223088;
-    memset(&v29, 0, sizeof(v29));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v29, &__p, &v31, 1uLL);
+    memset(&v23, 0, sizeof(v23));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v23, &__p, &v25, 1uLL);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
     VinylFirmware::bootloaderVersion(*(a1 + 240), *(a1 + 241), &__p);
-    size = v29.__r_.__value_.__l.__size_;
-    v8 = v29.__r_.__value_.__r.__words[0];
-    if (v29.__r_.__value_.__r.__words[0] != v29.__r_.__value_.__l.__size_)
+    size = v23.__r_.__value_.__l.__size_;
+    v8 = v23.__r_.__value_.__r.__words[0];
+    if (v23.__r_.__value_.__r.__words[0] != v23.__r_.__value_.__l.__size_)
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
@@ -7098,7 +7167,8 @@ LABEL_3:
         if (v12 == v10)
         {
           v14 = v13 >= 0 ? v8 : *v8;
-          if (!memcmp(v14, p_p, v10))
+          v6 = memcmp(v14, p_p, v10);
+          if (!v6)
           {
             break;
           }
@@ -7115,14 +7185,14 @@ LABEL_3:
     if (v8 == size)
     {
 LABEL_27:
-      v6 = 1;
+      v2 = 1;
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICC", "", "eUICC HW present is too old so we will skip updating it\n", v15, v16, v17, v28);
-      v6 = 3;
+      gBBULogMaskGet(v6, v7);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICC", "", "eUICC HW present is too old so we will skip updating it\n");
+      v2 = 3;
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7130,7 +7200,7 @@ LABEL_27:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    __p.__r_.__value_.__r.__words[0] = &v29;
+    __p.__r_.__value_.__r.__words[0] = &v23;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
   }
 
@@ -7138,61 +7208,60 @@ LABEL_27:
   {
     if (*(a1 + 279) == 1)
     {
-      gBBULogMaskGet();
-      v5 = "eUICC not stuffed but that's ok!\n";
-      goto LABEL_3;
+      gBBULogMaskGet(RadioVendor, v5);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICC", "", "eUICC not stuffed but that's ok!\n");
+      return 3;
     }
 
     pthread_mutex_lock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-    v18 = xmmword_2A14F5908;
+    v15 = xmmword_2A14F5908;
     if (!xmmword_2A14F5908)
     {
-      BBUCapabilities::create_default_global(&v29);
-      v19 = *&v29.__r_.__value_.__l.__data_;
-      *&v29.__r_.__value_.__l.__data_ = 0uLL;
-      v20 = *(&xmmword_2A14F5908 + 1);
-      xmmword_2A14F5908 = v19;
-      if (v20)
+      BBUCapabilities::create_default_global(&v23);
+      v16 = *&v23.__r_.__value_.__l.__data_;
+      *&v23.__r_.__value_.__l.__data_ = 0uLL;
+      v17 = *(&xmmword_2A14F5908 + 1);
+      xmmword_2A14F5908 = v16;
+      if (v17)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-        if (v29.__r_.__value_.__l.__size_)
+        std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+        if (v23.__r_.__value_.__l.__size_)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v29.__r_.__value_.__l.__size_);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v23.__r_.__value_.__l.__size_);
         }
       }
 
-      v18 = xmmword_2A14F5908;
+      v15 = xmmword_2A14F5908;
     }
 
-    v21 = *(&xmmword_2A14F5908 + 1);
+    v18 = *(&xmmword_2A14F5908 + 1);
     if (*(&xmmword_2A14F5908 + 1))
     {
       atomic_fetch_add_explicit((*(&xmmword_2A14F5908 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-    v22 = BBUCapabilities::supportsVinylUpdate(v18);
-    if (v21)
+    v19 = BBUCapabilities::supportsVinylUpdate(v15);
+    v21 = v19;
+    if (v18)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
     }
 
-    if (v22)
+    if (v21)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICC", "", "Bailing on eUICC error due to status %u\n", v23, v24, v25, *a1);
-      v6 = 0;
+      gBBULogMaskGet(v19, v20);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICC", "", "Bailing on eUICC error due to status %u\n", *a1);
+      return 0;
     }
 
     else
     {
-      v6 = 2;
+      return 2;
     }
   }
 
-LABEL_43:
-  v26 = *MEMORY[0x29EDCA608];
-  return v6;
+  return v2;
 }
 
 const void **ctu::cf::CFSharedRef<__CFData const>::operator=<__CFData,void>(const void **a1, CFTypeRef *a2)
@@ -7239,7 +7308,6 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -7341,7 +7409,7 @@ void sub_299FB51E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-char *std::vector<std::string>::__vallocate[abi:ne200100](void *a1, unint64_t a2)
+void *std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 >= 0xAAAAAAAAAAAAAABLL)
   {
@@ -7351,7 +7419,7 @@ char *std::vector<std::string>::__vallocate[abi:ne200100](void *a1, unint64_t a2
   result = std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a1, a2);
   *a1 = result;
   a1[1] = result;
-  a1[2] = &result[24 * v4];
+  a1[2] = result + 24 * v4;
   return result;
 }
 
@@ -7429,12 +7497,12 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*
   }
 }
 
-uint64_t std::map<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>::map[abi:ne200100](uint64_t a1, int *a2, uint64_t a3)
+uint64_t **std::map<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  *(a1 + 16) = 0;
-  *a1 = a1 + 8;
+  a1[1] = 0;
+  v4 = (a1 + 1);
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 40 * a3;
@@ -7468,9 +7536,9 @@ uint64_t *std::__tree<std::__value_type<eUICCStateMachine::State,std::function<B
   return v7;
 }
 
-uint64_t *std::__tree<std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>,std::__map_value_compare<eUICCStateMachine::State,std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>,std::less<eUICCStateMachine::State>,true>,std::allocator<std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>>>::__find_equal<eUICCStateMachine::State>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>,std::__map_value_compare<eUICCStateMachine::State,std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>,std::less<eUICCStateMachine::State>,true>,std::allocator<std::__value_type<eUICCStateMachine::State,std::function<BBUReturn ()(VinylFirmware *,VinylFirmware *,Options const&,eUICCStateMachine::State&,std::unique_ptr<eUICC::eUICCVinylValve> &)>>>>::__find_equal<eUICCStateMachine::State>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -7497,7 +7565,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -7558,7 +7626,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -7637,7 +7705,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -7763,90 +7831,91 @@ uint64_t __cxx_global_var_init_53()
   return result;
 }
 
-uint64_t VinylController::create(uint64_t a1, int a2)
+uint64_t VinylController::create(uint64_t a1, uint64_t a2)
 {
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "entering VinylController::create\n", v4, v5, v6, v19);
-  v14 = VinylController::instance;
-  if (!a2 || VinylController::instance)
+  v2 = a2;
+  gBBULogMaskGet(a1, a2);
+  v4 = _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "entering VinylController::create\n");
+  v6 = VinylController::instance;
+  if (!v2 || VinylController::instance)
   {
     if (VinylController::instance)
     {
       goto LABEL_7;
     }
 
-    v14 = operator new(0x88uLL);
-    VinylController::VinylController(v14);
+    v6 = operator new(0x88uLL);
+    VinylController::VinylController(v6);
   }
 
   else
   {
-    v14 = operator new(0x88uLL);
-    VinylController::VinylController(v14, 0, a1);
+    v6 = operator new(0x88uLL);
+    v4 = VinylController::VinylController(v6, 0, a1);
   }
 
-  VinylController::instance = v14;
+  VinylController::instance = v6;
 LABEL_7:
-  if (!*(v14 + 2))
+  if (!*(v6 + 2))
   {
-    VinylControllerObjDestroy(v14, v7, v8, v9, v10, v11, v12, v13, v20);
+    v4 = VinylControllerObjDestroy(v6);
     VinylController::instance = 0;
   }
 
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "returning VinylController::create\n", v15, v16, v17, v20);
+  gBBULogMaskGet(v4, v5);
+  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "returning VinylController::create\n");
   return VinylController::instance;
 }
 
-uint64_t VinylControllerObjDestroy(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t VinylControllerObjDestroy(uint64_t result)
 {
   if (result)
   {
-    (*(*result + 8))(result);
+    v1 = (*(*result + 8))(result);
     VinylController::instance = 0;
-    gBBULogMaskGet();
+    gBBULogMaskGet(v1, v2);
 
-    return _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Cleaning up VinylController object \n", v9, v10, v11, a9);
+    return _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Cleaning up VinylController object \n");
   }
 
   return result;
 }
 
-uint64_t VinylController::create(uint64_t *a1)
+uint64_t VinylController::create(uint64_t *a1, uint64_t a2)
 {
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "entering VinylController::create\n", v2, v3, v4, v20[0]);
-  v12 = VinylController::instance;
+  gBBULogMaskGet(a1, a2);
+  v3 = _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "entering VinylController::create\n");
+  v5 = VinylController::instance;
   if (!VinylController::instance)
   {
-    v13 = operator new(0x88uLL);
-    v12 = v13;
-    v14 = *a1;
-    v15 = a1[1];
-    v20[0] = v14;
-    v20[1] = v15;
-    if (v15)
+    v6 = operator new(0x88uLL);
+    v5 = v6;
+    v7 = *a1;
+    v8 = a1[1];
+    v10[0] = v7;
+    v10[1] = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    VinylController::VinylController(v13, v20);
-    VinylController::instance = v12;
-    if (v15)
+    v3 = VinylController::VinylController(v6, v10);
+    VinylController::instance = v5;
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-      v12 = VinylController::instance;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      v5 = VinylController::instance;
     }
   }
 
-  if (!*(v12 + 16))
+  if (!*(v5 + 16))
   {
-    VinylControllerObjDestroy(v12, v5, v6, v7, v8, v9, v10, v11, v20[0]);
+    v3 = VinylControllerObjDestroy(v5);
     VinylController::instance = 0;
   }
 
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "returning VinylController::create\n", v16, v17, v18, v20[0]);
+  gBBULogMaskGet(v3, v4);
+  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "returning VinylController::create\n");
   return VinylController::instance;
 }
 
@@ -7873,7 +7942,7 @@ uint64_t VinylController::VinylController(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  *(a1 + 16) = VinylCommunication::create(&v7);
+  *(a1 + 16) = VinylCommunication::create(&v7, a2);
   v5 = v8;
   if (v8)
   {
@@ -7899,7 +7968,7 @@ void sub_299FB5C4C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t VinylController::VinylController(uint64_t a1, int a2, uint64_t a3)
+uint64_t VinylController::VinylController(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = &unk_2A2031B50;
   *(a1 + 8) = 0;
@@ -7967,97 +8036,97 @@ void VinylController::VinylController(VinylController *this)
 
 uint64_t get_info(__CFDictionary **a1, uint64_t a2)
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   if (*a2 != TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
   {
-    result = 1;
-    goto LABEL_60;
+    return 1;
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   if (!Mutable)
   {
-    get_info(&v43);
-    result = LODWORD(v43.__r_.__value_.__l.__data_);
-    goto LABEL_60;
+    get_info(&v39, v5);
+    return LODWORD(v39.__r_.__value_.__l.__data_);
   }
 
-  v5 = Mutable;
-  stringifyDataBuffer((a2 + 7), 16, &v43);
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  v6 = Mutable;
+  stringifyDataBuffer((a2 + 7), 16, &v39);
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v41, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v37, v39.__r_.__value_.__l.__data_, v39.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v41 = v43;
+    v37 = v39;
   }
 
-  v7 = copyAsCFString();
-  v42 = v7;
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  v8 = copyAsCFString(&v37);
+  v38 = v8;
+  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v41.__r_.__value_.__l.__data_);
+    operator delete(v37.__r_.__value_.__l.__data_);
   }
 
-  CFDictionarySetValue(v5, @"kVinylEID", v7);
-  memset(v44, 0, sizeof(v44));
+  CFDictionarySetValue(v6, @"kVinylEID", v8);
+  *v40 = 0;
+  *&v40[8] = 0;
+  *&v40[15] = 0;
   if (*(a2 + 4))
   {
-    qmemcpy(v44, "Unpersonalized", 14);
-    v8 = 14;
+    qmemcpy(v40, "Unpersonalized", 14);
+    v9 = 14;
   }
 
   else
   {
-    qmemcpy(v44, "Personalized", 12);
-    v8 = 12;
+    qmemcpy(v40, "Personalized", 12);
+    v9 = 12;
   }
 
-  *v38 = *v44;
-  *&v38[15] = *&v44[15];
-  v39 = v8;
-  v9 = copyAsCFString();
-  v40 = v9;
-  if (v39 < 0)
+  *v34 = *v40;
+  *&v34[15] = *&v40[15];
+  v35 = v9;
+  v10 = copyAsCFString(v34);
+  v36 = v10;
+  if (v35 < 0)
   {
-    operator delete(*v38);
+    operator delete(*v34);
   }
 
-  CFDictionarySetValue(v5, @"kVinylPersoState", v9);
-  v10 = operator new(0x28uLL);
-  v11 = *(a2 + 40);
-  *v10 = *(a2 + 24);
-  v10[1] = v11;
-  *(v10 + 32) = 0;
-  std::string::__init_copy_ctor_external(&v36, v10, 0x20uLL);
-  v12 = copyAsCFString();
-  v37 = v12;
-  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  CFDictionarySetValue(v6, @"kVinylPersoState", v10);
+  v11 = operator new(0x28uLL);
+  v12 = *(a2 + 40);
+  *v11 = *(a2 + 24);
+  v11[1] = v12;
+  *(v11 + 32) = 0;
+  std::string::__init_copy_ctor_external(&v32, v11, 0x20uLL);
+  v13 = copyAsCFString(&v32);
+  v33 = v13;
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  CFDictionarySetValue(v5, @"kVinylFirmware", v12);
-  v13 = *(a2 + 281);
-  v14 = *(a2 + 278);
-  std::to_string(&v34, v14);
-  v15 = copyAsCFString();
-  v35 = v15;
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+  CFDictionarySetValue(v6, @"kVinylFirmware", v13);
+  v14 = *(a2 + 281);
+  v15 = *(a2 + 278);
+  std::to_string(&v30, v15);
+  v16 = copyAsCFString(&v30);
+  v31 = v16;
+  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v34.__r_.__value_.__l.__data_);
+    operator delete(v30.__r_.__value_.__l.__data_);
   }
 
-  CFDictionarySetValue(v5, @"kVinylSIMSKUID", v15);
+  CFDictionarySetValue(v6, @"kVinylSIMSKUID", v16);
   RadioVendor = TelephonyRadiosGetRadioVendor();
-  v17 = "ESIM";
+  v18 = "ESIM";
   if ((RadioVendor - 2) < 2)
   {
-    if (!v13)
+    if (!v14)
     {
-      v17 = "PSIM";
+      v18 = "PSIM";
     }
 
     goto LABEL_24;
@@ -8071,70 +8140,70 @@ uint64_t get_info(__CFDictionary **a1, uint64_t a2)
     }
 
 LABEL_24:
-    std::string::basic_string[abi:ne200100]<0>(&v33, v17);
+    std::string::basic_string[abi:ne200100]<0>(&v29, v18);
     goto LABEL_29;
   }
 
-  if (v14 < 0xB)
+  if (v15 < 0xB)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v33, eUICC::MAVHWSIMSKUStr[v14]);
+    std::string::basic_string[abi:ne200100]<0>(&v29, eUICC::MAVHWSIMSKUStr[v15]);
     goto LABEL_29;
   }
 
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Condition <<%s>> failed %s %s/%d\n", v18, v19, v20, "simSKUID < ARR_SIZE(MAVHWSIMSKUStr)");
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Error: invalid simSKUID = %u\n", v21, v22, v23, v14);
+  gBBULogMaskGet(RadioVendor, "ESIM");
+  v19 = _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Condition <<%s>> failed %s %s/%d\n", "simSKUID < ARR_SIZE(MAVHWSIMSKUStr)", "", "", 142);
+  gBBULogMaskGet(v19, v20);
+  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Error: invalid simSKUID = %u\n", v15);
 LABEL_28:
-  memset(&v33, 0, sizeof(v33));
+  memset(&v29, 0, sizeof(v29));
 LABEL_29:
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v31, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v27, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v31 = v33;
+    v27 = v29;
   }
 
-  v24 = copyAsCFString();
-  v32 = v24;
-  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+  v21 = copyAsCFString(&v27);
+  v28 = v21;
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v31.__r_.__value_.__l.__data_);
+    operator delete(v27.__r_.__value_.__l.__data_);
   }
 
-  CFDictionarySetValue(v5, @"kVinylSIMSKU", v24);
-  capabilities::radio::radioType(&__p, v25);
+  CFDictionarySetValue(v6, @"kVinylSIMSKU", v21);
+  capabilities::radio::radioType(&__p, v22);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v28, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v24, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v28 = __p;
+    v24 = __p;
   }
 
-  v26 = copyAsCFString();
-  v29 = v26;
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  v23 = copyAsCFString(&v24);
+  v25 = v23;
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
+    operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-  CFDictionarySetValue(v5, @"kVinylRadioType", v26);
-  *a1 = v5;
-  if (v26)
+  CFDictionarySetValue(v6, @"kVinylRadioType", v23);
+  *a1 = v6;
+  if (v23)
   {
-    CFRelease(v26);
+    CFRelease(v23);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (!v24)
+    if (!v21)
     {
       goto LABEL_46;
     }
@@ -8142,16 +8211,16 @@ LABEL_29:
     goto LABEL_45;
   }
 
-  if (v24)
+  if (v21)
   {
 LABEL_45:
-    CFRelease(v24);
+    CFRelease(v21);
   }
 
 LABEL_46:
-  if ((SHIBYTE(v33.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v29.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if (!v15)
+    if (!v16)
     {
       goto LABEL_51;
     }
@@ -8159,39 +8228,36 @@ LABEL_46:
     goto LABEL_50;
   }
 
-  operator delete(v33.__r_.__value_.__l.__data_);
-  if (v15)
+  operator delete(v29.__r_.__value_.__l.__data_);
+  if (v16)
   {
 LABEL_50:
-    CFRelease(v15);
+    CFRelease(v16);
   }
 
 LABEL_51:
-  if (v12)
+  if (v13)
   {
-    CFRelease(v12);
+    CFRelease(v13);
   }
 
-  operator delete(v10);
-  if (v9)
+  operator delete(v11);
+  if (v10)
   {
-    CFRelease(v9);
+    CFRelease(v10);
   }
 
-  if (v7)
+  if (v8)
   {
-    CFRelease(v7);
+    CFRelease(v8);
   }
 
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v39.__r_.__value_.__l.__data_);
   }
 
-  result = 0;
-LABEL_60:
-  v27 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 void sub_299FB62D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, const void *a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, const void *a47, void *a48, uint64_t a49, int a50, __int16 a51, char a52, char a53, const void *a54)
@@ -8222,19 +8288,19 @@ void sub_299FB62D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t VinylController::getParamUpdateOperation(const void **this, __CFDictionary *a2, const __CFDictionary *a3)
 {
-  v153 = *MEMORY[0x29EDCA608];
+  v107 = *MEMORY[0x29EDCA608];
   memset(__dst, 0, 283);
-  v149 = 0;
-  v150 = 0;
-  v147 = 0;
-  v148 = 0;
-  v145 = 0;
-  v146 = 0;
-  v143 = 0;
-  v144 = 0;
-  v141 = 0;
-  v142 = 0;
-  v140 = 0;
+  v103 = 0;
+  v104 = 0;
+  v101 = 0;
+  v102 = 0;
+  v99 = 0;
+  v100 = 0;
+  v97 = 0;
+  v98 = 0;
+  v95 = 0;
+  v96 = 0;
+  v94 = 0;
   if (a3)
   {
     __p[0] = a3;
@@ -8242,26 +8308,27 @@ uint64_t VinylController::getParamUpdateOperation(const void **this, __CFDiction
   }
 
   ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef(&cf, this + 16);
-  Options::Options(v128, &cf);
-  v123 = this;
+  Options::Options(v82, &cf);
+  v77 = this;
+  v6 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  gBBULogMaskGet();
-  Options::ToString(v128, __p);
+  gBBULogMaskGet(v6, v5);
+  Options::ToString(__p, v82);
   if (SHIBYTE(__p[2]) >= 0)
   {
-    v8 = __p;
+    v7 = __p;
   }
 
   else
   {
-    LOBYTE(v8) = __p[0];
+    v7 = __p[0];
   }
 
-  _BBULog(22, 0xFFFFFFFFLL, "VinylController", "", "VinylRestore Options:\n%s\n", v5, v6, v7, v8);
+  v8 = _BBULog(22, 0xFFFFFFFFLL, "VinylController", "", "VinylRestore Options:\n%s\n", v7);
   if (SHIBYTE(__p[2]) < 0)
   {
     operator delete(__p[0]);
@@ -8269,394 +8336,407 @@ uint64_t VinylController::getParamUpdateOperation(const void **this, __CFDiction
 
   if (!a2)
   {
-    v49 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v49))
+    gBBULogMaskGet(v8, v9);
+    Transport = VinylDaleCommunication::createTransport();
+    if (Transport)
     {
-      _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v50, v51, v52, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+      Transport = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 241, "deviceInfoDict");
     }
 
-    v122 = 1;
-    v121 = 0;
-    if (*gBBULogMaskGet())
+    v76 = 1;
+    v75 = 0;
+    if (*gBBULogMaskGet(Transport, v52))
     {
-      v119 = 0;
-      v120 = 0;
-      v30 = 0;
-      v19 = 0;
-      v22 = 0;
-      v23 = 0;
-      v21 = 0;
-      v18 = 0;
-      v24 = 0;
-      v25 = 0;
-      v124 = 0;
+      v73 = 0;
+      v74 = 0;
+      v44 = 0;
+      v28 = 0;
+      v33 = 0;
+      v35 = 0;
+      v31 = 0;
+      v27 = 0;
+      v37 = 0;
+      v39 = 0;
+      v78 = 0;
       if (gBBULogVerbosity >= 1)
       {
-        v122 = 1;
-        v124 = 0;
-        _BBULog(0, 1, "VinylController", "", "deviceInfoDict passed is NULL:\n", v53, v54, v55, v118);
-        v120 = 0;
-        v121 = 0;
-        v30 = 0;
-        v119 = 0;
-        v19 = 0;
-        v22 = 0;
-        v23 = 0;
-        v21 = 0;
-        v18 = 0;
-        v24 = 0;
-        v25 = 0;
+        v76 = 1;
+        v78 = 0;
+        _BBULog(0, 1, "VinylController", "", "deviceInfoDict passed is NULL:\n");
+        v74 = 0;
+        v75 = 0;
+        v44 = 0;
+        v73 = 0;
+        v28 = 0;
+        v33 = 0;
+        v35 = 0;
+        v31 = 0;
+        v27 = 0;
+        v37 = 0;
+        v39 = 0;
       }
 
       goto LABEL_34;
     }
 
-LABEL_124:
-    v119 = 0;
-    v120 = 0;
-    v30 = 0;
-    v19 = 0;
-    v22 = 0;
-    v23 = 0;
-    v21 = 0;
-    v18 = 0;
-    v24 = 0;
-    v25 = 0;
-    v124 = 0;
+LABEL_123:
+    v73 = 0;
+    v74 = 0;
+    v44 = 0;
+    v28 = 0;
+    v33 = 0;
+    v35 = 0;
+    v31 = 0;
+    v27 = 0;
+    v37 = 0;
+    v39 = 0;
+    v78 = 0;
     goto LABEL_34;
   }
 
-  TransportNoEvents = VinylController::createTransportNoEvents(this);
-  v10 = TransportNoEvents;
+  TransportNoEvents = VinylController::createTransportNoEvents(this, 0);
+  v12 = TransportNoEvents;
   if (!TransportNoEvents)
   {
-    v11 = v128[0];
-    (*(**(v123 + 2) + 48))(&v125);
-    eUICC::VinylFactory::GetValve(v123 + 32, v11, 0, &v125, __p);
-    v12 = __p[0];
+    v13 = v82[0];
+    (*(**(v77 + 2) + 48))(&v79);
+    eUICC::VinylFactory::GetValve(v77 + 32, v13, 0, &v79, __p);
+    v15 = __p[0];
     __p[0] = 0;
-    if (v126)
+    v16 = v80;
+    if (v80)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v126);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v80);
     }
 
-    if (v12)
+    if (v15)
     {
-      v124 = v12;
-      (*(*v12 + 8))(__p, v12);
+      v78 = v15;
+      (*(*v15 + 8))(__p, v15);
       memcpy(__dst, __p, 0x11BuLL);
-      if (LODWORD(__dst[0]) == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+      RadioVendor = TelephonyRadiosGetRadioVendor();
+      if (LODWORD(__dst[0]) == (RadioVendor - 5) < 0xFFFFFFFD)
       {
-        v13 = *MEMORY[0x29EDB8ED8];
-        v14 = CFDataCreate(*MEMORY[0x29EDB8ED8], __dst + 7, 16);
-        v150 = v14;
-        if (v14)
+        v19 = *MEMORY[0x29EDB8ED8];
+        v21 = CFDataCreate(*MEMORY[0x29EDB8ED8], __dst + 7, 16);
+        v104 = v21;
+        if (v21)
         {
-          v121 = v14;
-          CFDictionarySetValue(a2, @"eUICC,EID", v14);
-          v15 = CFNumberCreate(v13, kCFNumberSInt8Type, &__dst[17] + 3);
-          v149 = v15;
-          if (v15)
+          v75 = v21;
+          CFDictionarySetValue(a2, @"eUICC,EID", v21);
+          v23 = CFNumberCreate(v19, kCFNumberSInt8Type, &__dst[17] + 3);
+          v103 = v23;
+          if (v23)
           {
-            v120 = v15;
-            CFDictionarySetValue(a2, @"eUICC,ChipID", v15);
-            v16 = CFDataCreate(v13, &__dst[3] + 8, 8);
-            v147 = v16;
-            Mutable = CFDictionaryCreateMutable(v13, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-            v18 = Mutable;
-            v142 = Mutable;
-            v119 = v16;
-            if (!v16 || !Mutable)
+            v74 = v23;
+            CFDictionarySetValue(a2, @"eUICC,ChipID", v23);
+            v24 = CFDataCreate(v19, &__dst[3] + 8, 8);
+            v101 = v24;
+            Mutable = CFDictionaryCreateMutable(v19, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+            v27 = Mutable;
+            v96 = Mutable;
+            v73 = v24;
+            if (!v24 || !Mutable)
             {
-              v34 = gBBULogMaskGet();
-              if (VinylDaleCommunication::createTransport(v34))
+              gBBULogMaskGet(Mutable, v26);
+              v47 = VinylDaleCommunication::createTransport();
+              if (v47)
               {
-                _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v35, v36, v37, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+                v47 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 270, "mainNonce && mainDict");
               }
 
-              gBBULogMaskGet();
-              _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create mainDict\n", v38, v39, v40, v118);
-              v30 = 0;
-              v19 = 0;
-              v22 = 0;
-              v23 = 0;
-              v21 = 0;
-              goto LABEL_112;
+              gBBULogMaskGet(v47, v48);
+              _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create mainDict\n");
+              v44 = 0;
+              v28 = 0;
+              v33 = 0;
+              v35 = 0;
+              v31 = 0;
+              goto LABEL_111;
             }
 
-            CFDictionarySetValue(Mutable, @"Nonce", v16);
-            CFDictionarySetValue(a2, @"eUICC,Main", v18);
-            v19 = CFDataCreate(v13, &__dst[4], 8);
-            v146 = v19;
-            v20 = CFDictionaryCreateMutable(v13, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-            v21 = v20;
-            v143 = v20;
-            if (v19 && v20)
+            CFDictionarySetValue(Mutable, @"Nonce", v24);
+            CFDictionarySetValue(a2, @"eUICC,Main", v27);
+            v28 = CFDataCreate(v19, &__dst[4], 8);
+            v100 = v28;
+            v29 = CFDictionaryCreateMutable(v19, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+            v31 = v29;
+            v97 = v29;
+            if (v28 && v29)
             {
-              CFDictionarySetValue(v20, @"Nonce", v19);
-              CFDictionarySetValue(a2, @"eUICC,Gold", v21);
+              CFDictionarySetValue(v29, @"Nonce", v28);
+              CFDictionarySetValue(a2, @"eUICC,Gold", v31);
               CFDictionarySetValue(a2, @"@eUICC,Ticket", *MEMORY[0x29EDB8F00]);
-              v22 = CFDataCreate(v13, &__dst[15] + 3, 20);
-              v145 = v22;
-              if (v22)
+              v33 = CFDataCreate(v19, &__dst[15] + 3, 20);
+              v99 = v33;
+              if (v33)
               {
-                CFDictionarySetValue(a2, @"eUICC,RootKeyIdentifier", v22);
-                v23 = CFDataCreate(v13, &__dst[15], 3);
-                v144 = v23;
-                if (v23)
+                CFDictionarySetValue(a2, @"eUICC,RootKeyIdentifier", v33);
+                v35 = CFDataCreate(v19, &__dst[15], 3);
+                v98 = v35;
+                if (v35)
                 {
-                  CFDictionarySetValue(a2, @"eUICC,FirmwareLoaderVersion", v23);
-                  v24 = CFDataCreate(v13, &__dst[4] + 8, 16);
-                  v141 = v24;
-                  if (v24)
+                  CFDictionarySetValue(a2, @"eUICC,FirmwareLoaderVersion", v35);
+                  v37 = CFDataCreate(v19, &__dst[4] + 8, 16);
+                  v95 = v37;
+                  if (v37)
                   {
-                    CFDictionarySetValue(a2, @"eUICC,MainFwMac", v24);
-                    v25 = CFDataCreate(v13, &__dst[9] + 3, 16);
-                    v140 = v25;
-                    if (v25)
+                    CFDictionarySetValue(a2, @"eUICC,MainFwMac", v37);
+                    v39 = CFDataCreate(v19, &__dst[9] + 3, 16);
+                    v94 = v39;
+                    if (v39)
                     {
-                      CFDictionarySetValue(a2, @"eUICC,GoldFwMac", v25);
-                      v26 = MGCopyAnswer();
-                      if (v26)
+                      CFDictionarySetValue(a2, @"eUICC,GoldFwMac", v39);
+                      v41 = MGCopyAnswer();
+                      if (v41)
                       {
-                        CFDictionarySetValue(a2, @"eUICC,ApProductionMode", v26);
+                        CFDictionarySetValue(a2, @"eUICC,ApProductionMode", v41);
                       }
 
                       else
                       {
-                        gBBULogMaskGet();
-                        _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "MobileGestalt returned NULL for SigningFuse", v27, v28, v29, v118);
+                        gBBULogMaskGet(0, v40);
+                        _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "MobileGestalt returned NULL for SigningFuse");
                       }
 
-                      if (v129 < 1)
+                      if (v83 < 1)
                       {
-                        v30 = 0;
+                        v44 = 0;
                         goto LABEL_33;
                       }
 
-                      v30 = CFNumberCreate(v13, kCFNumberSInt8Type, &v129);
-                      v148 = v30;
-                      if (v30)
+                      v44 = CFNumberCreate(v19, kCFNumberSInt8Type, &v83);
+                      v102 = v44;
+                      if (v44)
                       {
-                        CFDictionarySetValue(a2, @"eUICC,BypassSEPPairing", v30);
+                        CFDictionarySetValue(a2, @"eUICC,BypassSEPPairing", v44);
 LABEL_33:
-                        v122 = 0;
+                        v76 = 0;
                         goto LABEL_34;
                       }
 
-                      v111 = gBBULogMaskGet();
-                      if (VinylDaleCommunication::createTransport(v111))
+                      gBBULogMaskGet(0, v43);
+                      v71 = VinylDaleCommunication::createTransport();
+                      if (v71)
                       {
-                        _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v112, v113, v114, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+                        v71 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 323, "eUICCSepPairingBypassValue");
                       }
 
-                      gBBULogMaskGet();
-                      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create eUICCSepPairingBypassValue\n", v115, v116, v117, v118);
-                      v30 = 0;
-                      goto LABEL_114;
+                      gBBULogMaskGet(v71, v72);
+                      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create eUICCSepPairingBypassValue\n");
+                      v44 = 0;
+                      goto LABEL_113;
                     }
 
-                    v104 = gBBULogMaskGet();
-                    if (VinylDaleCommunication::createTransport(v104))
+                    gBBULogMaskGet(0, v38);
+                    v69 = VinylDaleCommunication::createTransport();
+                    if (v69)
                     {
-                      _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v105, v106, v107, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+                      v69 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 303, "goldFwMac");
                     }
 
-                    gBBULogMaskGet();
-                    _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create goldFwMac\n", v108, v109, v110, v118);
-                    v30 = 0;
+                    gBBULogMaskGet(v69, v70);
+                    _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create goldFwMac\n");
+                    v44 = 0;
+LABEL_112:
+                    v39 = 0;
 LABEL_113:
-                    v25 = 0;
-LABEL_114:
-                    v122 = 1;
+                    v76 = 1;
                     goto LABEL_34;
                   }
 
-                  v97 = gBBULogMaskGet();
-                  if (VinylDaleCommunication::createTransport(v97))
+                  gBBULogMaskGet(0, v36);
+                  v67 = VinylDaleCommunication::createTransport();
+                  if (v67)
                   {
-                    _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v98, v99, v100, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+                    v67 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 298, "mainFwMac");
                   }
 
-                  gBBULogMaskGet();
-                  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create mainFwMac\n", v101, v102, v103, v118);
-                  v30 = 0;
-LABEL_112:
-                  v24 = 0;
-                  goto LABEL_113;
-                }
-
-                v90 = gBBULogMaskGet();
-                if (VinylDaleCommunication::createTransport(v90))
-                {
-                  _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v91, v92, v93, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
-                }
-
-                gBBULogMaskGet();
-                _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create firmwareLoaderVersion\n", v94, v95, v96, v118);
-                v30 = 0;
+                  gBBULogMaskGet(v67, v68);
+                  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create mainFwMac\n");
+                  v44 = 0;
 LABEL_111:
-                v23 = 0;
-                goto LABEL_112;
+                  v37 = 0;
+                  goto LABEL_112;
+                }
+
+                gBBULogMaskGet(0, v34);
+                v65 = VinylDaleCommunication::createTransport();
+                if (v65)
+                {
+                  v65 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 292, "firmwareLoaderVersion");
+                }
+
+                gBBULogMaskGet(v65, v66);
+                _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create firmwareLoaderVersion\n");
+                v44 = 0;
+LABEL_110:
+                v35 = 0;
+                goto LABEL_111;
               }
 
-              v86 = gBBULogMaskGet();
-              if (VinylDaleCommunication::createTransport(v86))
+              gBBULogMaskGet(0, v32);
+              v63 = VinylDaleCommunication::createTransport();
+              if (v63)
               {
-                _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v87, v88, v89, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+                v63 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 287, "certIdentifier");
               }
 
-              gBBULogMaskGet();
-              v48 = "failed to create certIdentifier\n";
+              gBBULogMaskGet(v63, v64);
+              _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create certIdentifier\n");
             }
 
             else
             {
-              v41 = gBBULogMaskGet();
-              if (VinylDaleCommunication::createTransport(v41))
+              gBBULogMaskGet(v29, v30);
+              v49 = VinylDaleCommunication::createTransport();
+              if (v49)
               {
-                _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v42, v43, v44, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+                v49 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 279, "goldNonce && goldDict");
               }
 
-              gBBULogMaskGet();
-              v48 = "failed to create goldDict\n";
+              gBBULogMaskGet(v49, v50);
+              _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create goldDict\n");
             }
 
-            _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", v48, v45, v46, v47, v118);
-            v30 = 0;
-            v22 = 0;
-            goto LABEL_111;
+            v44 = 0;
+            v33 = 0;
+            goto LABEL_110;
           }
 
-          v79 = gBBULogMaskGet();
-          if (VinylDaleCommunication::createTransport(v79))
+          gBBULogMaskGet(0, v22);
+          v61 = VinylDaleCommunication::createTransport();
+          if (v61)
           {
-            _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v80, v81, v82, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+            v61 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 262, "chipID");
           }
 
-          gBBULogMaskGet();
-          _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create euiccCSN\n", v83, v84, v85, v118);
-LABEL_103:
-          v119 = 0;
-          v120 = 0;
-          v30 = 0;
-          v19 = 0;
-          v22 = 0;
-          v23 = 0;
-          v21 = 0;
-          v18 = 0;
-          goto LABEL_112;
+          gBBULogMaskGet(v61, v62);
+          _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create euiccCSN\n");
+LABEL_102:
+          v73 = 0;
+          v74 = 0;
+          v44 = 0;
+          v28 = 0;
+          v33 = 0;
+          v35 = 0;
+          v31 = 0;
+          v27 = 0;
+          goto LABEL_111;
         }
 
-        v75 = gBBULogMaskGet();
-        if (VinylDaleCommunication::createTransport(v75))
+        gBBULogMaskGet(0, v20);
+        v59 = VinylDaleCommunication::createTransport();
+        if (v59)
         {
-          _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v76, v77, v78, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+          v59 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 257, "euiccCSN");
         }
 
-        gBBULogMaskGet();
-        v74 = "failed to create euiccCSN\n";
+        gBBULogMaskGet(v59, v60);
+        _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "failed to create euiccCSN\n");
       }
 
       else
       {
-        v67 = gBBULogMaskGet();
-        if (VinylDaleCommunication::createTransport(v67))
+        gBBULogMaskGet(RadioVendor, v18);
+        v57 = VinylDaleCommunication::createTransport();
+        if (v57)
         {
-          _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v68, v69, v70, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+          v57 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 254, "outData.Valid()");
         }
 
-        gBBULogMaskGet();
-        v74 = "eUICC not detected, skipping\n";
+        gBBULogMaskGet(v57, v58);
+        _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "eUICC not detected, skipping\n");
       }
 
-      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", v74, v71, v72, v73, v118);
-      v121 = 0;
-      goto LABEL_103;
+      v75 = 0;
+      goto LABEL_102;
     }
 
-    v63 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v63))
+    gBBULogMaskGet(v16, v14);
+    v55 = VinylDaleCommunication::createTransport();
+    if (v55)
     {
-      _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v64, v65, v66, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+      v55 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 250, "vinylValve");
     }
 
-    gBBULogMaskGet();
-    v10 = 0;
-    v122 = -1;
-LABEL_92:
-    v124 = 0;
-    _BBULog(0, v122, "VinylController", "", "Fail to create transport: %d\n", v60, v61, v62, v10);
-    v122 = 1;
-    v25 = 0;
-    v120 = 0;
-    v121 = 0;
-    v30 = 0;
-    v119 = 0;
-    v19 = 0;
-    v22 = 0;
-    v23 = 0;
-    v21 = 0;
-    v18 = 0;
-    v24 = 0;
+    gBBULogMaskGet(v55, v56);
+    v12 = 0;
+    v76 = -1;
+LABEL_91:
+    v78 = 0;
+    _BBULog(0, v76, "VinylController", "", "Fail to create transport: %d\n", v12);
+    v76 = 1;
+    v39 = 0;
+    v74 = 0;
+    v75 = 0;
+    v44 = 0;
+    v73 = 0;
+    v28 = 0;
+    v33 = 0;
+    v35 = 0;
+    v31 = 0;
+    v27 = 0;
+    v37 = 0;
     goto LABEL_34;
   }
 
-  v56 = gBBULogMaskGet();
-  if (VinylDaleCommunication::createTransport(v56))
+  gBBULogMaskGet(TransportNoEvents, v11);
+  v53 = VinylDaleCommunication::createTransport();
+  if (v53)
   {
-    _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v57, v58, v59, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+    v53 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 245, "kBBUReturnSuccess == ret");
   }
 
-  v122 = 1;
-  v121 = 0;
-  if ((*gBBULogMaskGet() & 1) == 0)
+  v76 = 1;
+  v75 = 0;
+  if ((*gBBULogMaskGet(v53, v54) & 1) == 0)
   {
-    goto LABEL_124;
+    goto LABEL_123;
   }
 
-  v119 = 0;
-  v120 = 0;
-  v30 = 0;
-  v19 = 0;
-  v22 = 0;
-  v23 = 0;
-  v21 = 0;
-  v18 = 0;
-  v24 = 0;
-  v25 = 0;
-  v124 = 0;
+  v73 = 0;
+  v74 = 0;
+  v44 = 0;
+  v28 = 0;
+  v33 = 0;
+  v35 = 0;
+  v31 = 0;
+  v27 = 0;
+  v37 = 0;
+  v39 = 0;
+  v78 = 0;
   if (gBBULogVerbosity > 0)
   {
-    goto LABEL_92;
+    goto LABEL_91;
   }
 
 LABEL_34:
-  v31 = VinylController::freeTransport(v123);
-  if (v139 < 0)
+  v45 = VinylController::freeTransport(v77, v42);
+  if (v93 < 0)
   {
-    operator delete(v138);
+    operator delete(v92);
   }
 
-  if (v137 < 0)
+  if (v91 < 0)
   {
-    operator delete(v136);
+    operator delete(v90);
   }
 
-  if (v135 < 0)
+  if (v89 < 0)
   {
-    operator delete(v134);
+    operator delete(v88);
   }
 
-  if (v133 < 0)
+  if (v87 < 0)
   {
-    operator delete(v132);
+    operator delete(v86);
   }
 
-  if (v131 < 0)
+  if (v85 < 0)
   {
-    operator delete(v130);
-    if (!v25)
+    operator delete(v84);
+    if (!v39)
     {
       goto LABEL_47;
     }
@@ -8664,80 +8744,77 @@ LABEL_34:
     goto LABEL_46;
   }
 
-  if (v25)
+  if (v39)
   {
 LABEL_46:
-    CFRelease(v25);
+    CFRelease(v39);
   }
 
 LABEL_47:
-  if (v24)
+  if (v37)
   {
-    CFRelease(v24);
+    CFRelease(v37);
   }
 
-  if (v18)
+  if (v27)
   {
-    CFRelease(v18);
-  }
-
-  if (v21)
-  {
-    CFRelease(v21);
-  }
-
-  if (v23)
-  {
-    CFRelease(v23);
-  }
-
-  if (v22)
-  {
-    CFRelease(v22);
-  }
-
-  if (v19)
-  {
-    CFRelease(v19);
-  }
-
-  if (v119)
-  {
-    CFRelease(v119);
-  }
-
-  if (v30)
-  {
-    CFRelease(v30);
-  }
-
-  if (v120)
-  {
-    CFRelease(v120);
-  }
-
-  if (v121)
-  {
-    CFRelease(v121);
-  }
-
-  if (v124)
-  {
-    (*(*v124 + 136))(v124);
+    CFRelease(v27);
   }
 
   if (v31)
   {
-    result = v31;
+    CFRelease(v31);
+  }
+
+  if (v35)
+  {
+    CFRelease(v35);
+  }
+
+  if (v33)
+  {
+    CFRelease(v33);
+  }
+
+  if (v28)
+  {
+    CFRelease(v28);
+  }
+
+  if (v73)
+  {
+    CFRelease(v73);
+  }
+
+  if (v44)
+  {
+    CFRelease(v44);
+  }
+
+  if (v74)
+  {
+    CFRelease(v74);
+  }
+
+  if (v75)
+  {
+    CFRelease(v75);
+  }
+
+  if (v78)
+  {
+    (*(*v78 + 136))(v78);
+  }
+
+  if (v45)
+  {
+    return v45;
   }
 
   else
   {
-    result = v122;
+    return v76;
   }
-
-  v33 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 const void **ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef(const void **a1, const void **a2)
@@ -8752,31 +8829,31 @@ const void **ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef(const void 
   return a1;
 }
 
-uint64_t VinylController::createTransportNoEvents(VinylController *this)
+uint64_t VinylController::createTransportNoEvents(VinylController *this, uint64_t a2)
 {
   if (!*(this + 2))
   {
-    VinylController::createTransportNoEvents(&v16);
-    return v16;
+    VinylController::createTransportNoEvents(&v13, a2);
+    return v13;
   }
 
   if (!*(this + 24))
   {
-    VinylController::freeTransport(this);
+    v5 = VinylController::freeTransport(this, a2);
     v7 = 1;
     v8 = 1;
     do
     {
       v9 = v7;
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "createTransport attempt %d/%d\n", v10, v11, v12, v8);
-      v13 = (*(**(this + 2) + 16))(*(this + 2), this + 32);
-      if (!v13)
+      gBBULogMaskGet(v5, v6);
+      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "createTransport attempt %d/%d\n", v8, 2);
+      v11 = (*(**(this + 2) + 16))(*(this + 2), this + 32);
+      if (!v11)
       {
         break;
       }
 
-      VinylController::freeTransport(this);
+      VinylController::freeTransport(this, v10);
       __ns.__rep_ = 3000000000;
       std::this_thread::sleep_for (&__ns);
       v7 = 0;
@@ -8784,42 +8861,42 @@ uint64_t VinylController::createTransportNoEvents(VinylController *this)
     }
 
     while ((v9 & 1) != 0);
-    return v13;
+    return v11;
   }
 
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "opening channel on provided external transport\n", v2, v3, v4, v14);
-  v5 = *(**(this + 2) + 24);
+  gBBULogMaskGet(this, a2);
+  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "opening channel on provided external transport\n");
+  v3 = *(**(this + 2) + 24);
 
-  return v5();
+  return v3();
 }
 
-uint64_t VinylController::freeTransport(VinylController *this)
+uint64_t VinylController::freeTransport(VinylController *this, uint64_t a2)
 {
   if (*(this + 24))
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Skipping free of external transport\n", v1, v2, v3, v10);
+    gBBULogMaskGet(this, a2);
+    _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Skipping free of external transport\n");
     return 0;
   }
 
   else
   {
-    v6 = *(this + 2);
-    if (v6)
+    v4 = *(this + 2);
+    if (v4)
     {
-      v7 = *(this + 11);
-      if (v7 && (v8 = v7(this + 32), v6 = *(this + 2), v8))
+      v5 = *(this + 11);
+      if (v5 && (v6 = v5(this + 32), v4 = *(this + 2), v6))
       {
-        v9 = *(*v6 + 40);
+        v7 = *(*v4 + 40);
       }
 
       else
       {
-        v9 = *(*v6 + 40);
+        v7 = *(*v4 + 40);
       }
 
-      if (v9())
+      if (v7())
       {
         return 0;
       }
@@ -8832,15 +8909,15 @@ uint64_t VinylController::freeTransport(VinylController *this)
 
     else
     {
-      VinylController::freeTransport(&v11);
-      return v11;
+      VinylController::freeTransport(&v8, a2);
+      return v8;
     }
   }
 }
 
 uint64_t VinylController::checkVinylPresence(const void **this, const __CFDictionary *a2, BOOL *a3, char a4)
 {
-  v68 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   if (a2)
   {
     __p[0] = a2;
@@ -8848,26 +8925,27 @@ uint64_t VinylController::checkVinylPresence(const void **this, const __CFDictio
   }
 
   ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef(&cf, this + 16);
-  Options::Options(v54, &cf);
+  Options::Options(v39, &cf);
+  v8 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  gBBULogMaskGet();
-  Options::ToString(v54, __p);
-  if (v66 >= 0)
+  gBBULogMaskGet(v8, v7);
+  Options::ToString(__p, v39);
+  if (v51 >= 0)
   {
-    v10 = __p;
+    v9 = __p;
   }
 
   else
   {
-    LOBYTE(v10) = __p[0];
+    v9 = __p[0];
   }
 
-  _BBULog(22, 0xFFFFFFFFLL, "VinylController", "", "VinylRestore Options:\n%s\n", v7, v8, v9, v10);
-  if (v66 < 0)
+  v10 = _BBULog(22, 0xFFFFFFFFLL, "VinylController", "", "VinylRestore Options:\n%s\n", v9);
+  if (v51 < 0)
   {
     operator delete(__p[0]);
   }
@@ -8875,134 +8953,136 @@ uint64_t VinylController::checkVinylPresence(const void **this, const __CFDictio
   if (a3)
   {
     *a3 = 0;
-    TransportNoEvents = VinylController::createTransportNoEvents(this);
-    v12 = TransportNoEvents;
+    TransportNoEvents = VinylController::createTransportNoEvents(this, 0);
+    v14 = TransportNoEvents;
     if (TransportNoEvents)
     {
-      v36 = gBBULogMaskGet();
-      if (VinylDaleCommunication::createTransport(v36))
+      gBBULogMaskGet(TransportNoEvents, v13);
+      Transport = VinylDaleCommunication::createTransport();
+      if (Transport)
       {
-        _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v37, v38, v39, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+        Transport = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 365, "kBBUReturnSuccess == ret");
       }
 
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Fail to create transport: %d\n", v40, v41, v42, v12);
+      gBBULogMaskGet(Transport, v33);
+      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Fail to create transport: %d\n", v14);
     }
 
     else
     {
-      v13 = v54[0];
-      (*(*this[2] + 48))(&v51);
-      eUICC::VinylFactory::GetValve(this + 4, v13, 0, &v51, __p);
-      v14 = __p[0];
+      v15 = v39[0];
+      (*(*this[2] + 48))(&v36);
+      eUICC::VinylFactory::GetValve(this + 4, v15, 0, &v36, __p);
+      v17 = __p[0];
       __p[0] = 0;
-      if (v52)
+      v18 = v37;
+      if (v37)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v52);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v37);
       }
 
-      if (v14)
+      if (v17)
       {
-        (*(*v14 + 8))(__p, v14);
-        v15 = __p[0];
-        v16 = v67;
-        if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+        v19 = (*(*v17 + 8))(__p, v17);
+        v20 = __p[0];
+        v21 = v52;
+        if ((*(gBBULogMaskGet(v19, v22) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
         {
-          v17 = v15 == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD;
-          _BBULog(22, 7, "VinylController", "", "Get data Valid(): %d isAbsentOk %d\n", v18, v19, v20, v17);
+          v23 = v20 == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD;
+          _BBULog(22, 7, "VinylController", "", "Get data Valid(): %d isAbsentOk %d\n", v23, v21);
         }
 
-        if (v15 == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD || (v16 & 1) == 0)
+        if (v20 == TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD || (v21 & 1) == 0)
         {
-          if (v15 != TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+          RadioVendor = TelephonyRadiosGetRadioVendor();
+          if (v20 != (RadioVendor - 5) < 0xFFFFFFFD)
           {
-            gBBULogMaskGet();
-            _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Invalid GetData, but allow Vinyl Update for coredump collection\n", v22, v23, v24, v50);
+            gBBULogMaskGet(RadioVendor, v24);
+            _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Invalid GetData, but allow Vinyl Update for coredump collection\n");
           }
 
-          v21 = 1;
+          v25 = 1;
         }
 
         else
         {
-          v21 = 0;
+          v25 = 0;
         }
 
         goto LABEL_24;
       }
 
-      v43 = gBBULogMaskGet();
-      if (VinylDaleCommunication::createTransport(v43))
+      gBBULogMaskGet(v18, v16);
+      v34 = VinylDaleCommunication::createTransport();
+      if (v34)
       {
-        _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v44, v45, v46, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+        v34 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 370, "vinylValve");
       }
 
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Fail to create transport: %d\n", v47, v48, v49, 0);
+      gBBULogMaskGet(v34, v35);
+      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Fail to create transport: %d\n", 0);
     }
 
-    v14 = 0;
-    v21 = a4 ^ 1;
+    v17 = 0;
+    v25 = a4 ^ 1;
 LABEL_24:
-    v25 = 0;
-    *a3 = v21;
+    v27 = 0;
+    *a3 = v25;
     goto LABEL_25;
   }
 
-  v29 = gBBULogMaskGet();
-  if (VinylDaleCommunication::createTransport(v29))
+  gBBULogMaskGet(v10, v11);
+  v30 = VinylDaleCommunication::createTransport();
+  if (v30)
   {
-    _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v30, v31, v32, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+    v30 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 356, "vinylPresent");
   }
 
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Invalid input parameter\n", v33, v34, v35, v50);
-  v14 = 0;
-  v25 = 2;
+  gBBULogMaskGet(v30, v31);
+  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Invalid input parameter\n");
+  v17 = 0;
+  v27 = 2;
 LABEL_25:
-  v26 = VinylController::freeTransport(this);
-  if (v64 < 0)
+  v28 = VinylController::freeTransport(this, v24);
+  if (v49 < 0)
   {
-    operator delete(v63);
+    operator delete(v48);
   }
 
-  if (v62 < 0)
+  if (v47 < 0)
   {
-    operator delete(v61);
+    operator delete(v46);
   }
 
-  if (v60 < 0)
+  if (v45 < 0)
   {
-    operator delete(v59);
+    operator delete(v44);
   }
 
-  if (v58 < 0)
+  if (v43 < 0)
   {
-    operator delete(v57);
+    operator delete(v42);
   }
 
-  if (v56 < 0)
+  if (v41 < 0)
   {
-    operator delete(v55);
+    operator delete(v40);
   }
 
-  if (v14)
+  if (v17)
   {
-    (*(*v14 + 136))(v14);
+    (*(*v17 + 136))(v17);
   }
 
-  if (v26)
+  if (v28)
   {
-    result = v26;
+    return v28;
   }
 
   else
   {
-    result = v25;
+    return v27;
   }
-
-  v28 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 void sub_299FB7AF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42, int a43, __int16 a44, char a45, char a46)
@@ -9017,53 +9097,57 @@ void sub_299FB7AF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t VinylController::updateFw(VinylController *this, VinylFirmware *a2, VinylFirmware *a3, const __CFDictionary *a4)
 {
-  eUICCStateMachine::create_default_global(&v43);
-  gBBULogMaskGet();
-  _BBULog(22, 0xFFFFFFFFLL, "VinylController", "", "entering VinylController::updateFw\n", v8, v9, v10, v39);
+  default_global = eUICCStateMachine::create_default_global(&v29);
+  gBBULogMaskGet(default_global, v9);
+  v10 = _BBULog(22, 0xFFFFFFFFLL, "VinylController", "", "entering VinylController::updateFw\n");
   if (a2 && a3 && a4)
   {
-    TransportNoEvents = VinylController::createTransportNoEvents(this);
+    TransportNoEvents = VinylController::createTransportNoEvents(this, 0);
+    v14 = TransportNoEvents;
     if (TransportNoEvents)
     {
-      v25 = gBBULogMaskGet();
-      if (VinylDaleCommunication::createTransport(v25))
+      gBBULogMaskGet(TransportNoEvents, v13);
+      Transport = VinylDaleCommunication::createTransport();
+      if (Transport)
       {
-        _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+        Transport = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 415, "kBBUReturnSuccess == ret");
       }
 
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Fail to create transport: %d\n", v29, v30, v31, TransportNoEvents);
+      gBBULogMaskGet(Transport, v24);
+      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Fail to create transport: %d\n", v14);
     }
 
     else
     {
-      v12 = v43;
-      (*(**(this + 2) + 48))(&v41);
-      TransportNoEvents = eUICCStateMachine::Run(v12, this + 32, a2, a3, a4, &v41);
-      if (v42)
+      v15 = v29;
+      (*(**(this + 2) + 48))(&v27);
+      v14 = eUICCStateMachine::Run(v15, this + 32, a2, a3, a4, &v27);
+      v17 = v28;
+      if (v28)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v28);
       }
 
-      if (TransportNoEvents)
+      if (v14)
       {
-        v32 = gBBULogMaskGet();
-        if (VinylDaleCommunication::createTransport(v32))
+        gBBULogMaskGet(v17, v16);
+        v25 = VinylDaleCommunication::createTransport();
+        if (v25)
         {
-          _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v33, v34, v35, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+          v25 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 419, "kBBUReturnSuccess == ret");
         }
 
-        gBBULogMaskGet();
-        _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Fail to run eUICC state machine: %d\n", v36, v37, v38, TransportNoEvents);
+        gBBULogMaskGet(v25, v26);
+        _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Fail to run eUICC state machine: %d\n", v14);
       }
 
       else
       {
-        TransportNoEvents = 0;
-        if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 1)
+        v14 = 0;
+        if ((*(gBBULogMaskGet(v17, v16) + 2) & 0x40) != 0 && gBBULogVerbosity >= 1)
         {
-          _BBULog(22, 1, "VinylController", "", "returning VinylController::updateFw\n", v13, v14, v15, v40);
-          TransportNoEvents = 0;
+          _BBULog(22, 1, "VinylController", "", "returning VinylController::updateFw\n");
+          v14 = 0;
         }
       }
     }
@@ -9071,31 +9155,32 @@ uint64_t VinylController::updateFw(VinylController *this, VinylFirmware *a2, Vin
 
   else
   {
-    v18 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v18))
+    gBBULogMaskGet(v10, v11);
+    v21 = VinylDaleCommunication::createTransport();
+    if (v21)
     {
-      _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp");
+      v21 = _BBULog(1, 6, "VinylController", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Controller/VinylController.cpp", 411, "goldFirmware && mainFirmware && restoreOptions");
     }
 
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "invalid input params", v22, v23, v24, v40);
-    TransportNoEvents = 2;
+    gBBULogMaskGet(v21, v22);
+    _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "invalid input params");
+    v14 = 2;
   }
 
-  v16 = VinylController::freeTransport(this);
-  if (v44)
+  v19 = VinylController::freeTransport(this, v18);
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
   }
 
-  if (v16)
+  if (v19)
   {
-    return v16;
+    return v19;
   }
 
   else
   {
-    return TransportNoEvents;
+    return v14;
   }
 }
 
@@ -9114,77 +9199,75 @@ void sub_299FB7E88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *eUICCStateMachine::create_default_global@<X0>(void *a1@<X8>)
+uint64_t *eUICCStateMachine::create_default_global@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = operator new(4uLL);
-  eUICCStateMachine::eUICCStateMachine(v3);
+  v2 = operator new(4uLL);
+  eUICCStateMachine::eUICCStateMachine(v2);
 
-  return std::shared_ptr<eUICCStateMachine>::shared_ptr[abi:ne200100]<eUICCStateMachine,0>(a1, v3);
+  return std::shared_ptr<eUICCStateMachine>::shared_ptr[abi:ne200100]<eUICCStateMachine,0>(a1, v2);
 }
 
-uint64_t VinylController::Refurb(uint64_t a1, int a2, void *a3)
+uint64_t VinylController::Refurb(uint64_t a1, uint64_t a2, void *a3)
 {
-  *&v21[283] = *MEMORY[0x29EDCA608];
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "refurbAction: %d\n", v5, v6, v7, a2);
-  v8 = 0;
-  if ((a2 - 3) >= 2)
+  v4 = a2;
+  *&v13[283] = *MEMORY[0x29EDCA608];
+  gBBULogMaskGet(a1, a2);
+  v5 = _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "refurbAction: %d\n", v4);
+  v7 = 0;
+  if ((v4 - 3) >= 2)
   {
-    if (a2 == 1)
+    if (v4 == 1)
     {
-      v9 = 0;
+      v8 = 0;
     }
 
     else
     {
-      if (a2 != 2)
+      if (v4 != 2)
       {
-        gBBULogMaskGet();
-        _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "default case\n", v14, v15, v16, v20);
-        goto LABEL_10;
+        gBBULogMaskGet(v5, v6);
+        _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "default case\n");
+        return 0;
       }
 
-      v9 = 1;
+      v8 = 1;
     }
 
-    v10 = (*(**a3 + 32))(*a3, v9);
-    if (v10)
+    v9 = (*(**a3 + 32))(*a3, v8);
+    if (v9)
     {
-      v8 = v10;
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Failed to handle Refurb operation, ret %d\n", v11, v12, v13, v8);
-      goto LABEL_11;
+      v7 = v9;
+      gBBULogMaskGet(v9, v10);
+      _BBULog(0, 0xFFFFFFFFLL, "VinylController", "", "Failed to handle Refurb operation, ret %d\n", v7);
+      return v7;
     }
 
-    v17 = *a3;
-    *(v17 + 8) = 0u;
-    v17 += 8;
-    *(v17 + 240) = 0u;
-    *(v17 + 256) = 0u;
-    *(v17 + 208) = 0u;
-    *(v17 + 224) = 0u;
-    *(v17 + 176) = 0u;
-    *(v17 + 192) = 0u;
-    *(v17 + 144) = 0u;
-    *(v17 + 160) = 0u;
-    *(v17 + 112) = 0u;
-    *(v17 + 128) = 0u;
-    *(v17 + 80) = 0u;
-    *(v17 + 96) = 0u;
-    *(v17 + 48) = 0u;
-    *(v17 + 64) = 0u;
-    *(v17 + 16) = 0u;
-    *(v17 + 32) = 0u;
-    *(v17 + 267) = 0u;
-    *v17 = TelephonyRadiosGetRadioVendor() - 2 < 3;
-    (*(**a3 + 8))(v21);
-LABEL_10:
-    v8 = 0;
+    v11 = *a3;
+    *(v11 + 8) = 0u;
+    v11 += 8;
+    *(v11 + 240) = 0u;
+    *(v11 + 256) = 0u;
+    *(v11 + 208) = 0u;
+    *(v11 + 224) = 0u;
+    *(v11 + 176) = 0u;
+    *(v11 + 192) = 0u;
+    *(v11 + 144) = 0u;
+    *(v11 + 160) = 0u;
+    *(v11 + 112) = 0u;
+    *(v11 + 128) = 0u;
+    *(v11 + 80) = 0u;
+    *(v11 + 96) = 0u;
+    *(v11 + 48) = 0u;
+    *(v11 + 64) = 0u;
+    *(v11 + 16) = 0u;
+    *(v11 + 32) = 0u;
+    *(v11 + 267) = 0u;
+    *v11 = TelephonyRadiosGetRadioVendor() - 2 < 3;
+    (*(**a3 + 8))(v13);
+    return 0;
   }
 
-LABEL_11:
-  v18 = *MEMORY[0x29EDCA608];
-  return v8;
+  return v7;
 }
 
 uint64_t VinylController::operationRequested(uint64_t a1, int a2, uint64_t a3)
@@ -9440,82 +9523,83 @@ uint64_t __cxx_global_var_init_109()
   return result;
 }
 
-VinylDaleCommunication *VinylCommunication::create(int a1, uint64_t a2)
+VinylDaleCommunication *VinylCommunication::create(uint64_t a1, uint64_t a2)
 {
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  v3 = a1;
+  if ((*gBBULogMaskGet(a1, a2) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "VinylCommunication", "", "VinylCommunication::create", v4, v5, v6, v14);
+    _BBULog(2, 0, "VinylCommunication", "", "VinylCommunication::create");
   }
 
   RadioVendor = TelephonyRadiosGetRadioVendor();
   if ((RadioVendor - 2) < 2)
   {
-    v9 = operator new(0x40uLL);
-    VinylICECommunication::VinylICECommunication(v9, a1, a2);
+    v7 = operator new(0x40uLL);
+    VinylICECommunication::VinylICECommunication(v7, v3, a2);
   }
 
   else
   {
-    v8 = RadioVendor;
+    v6 = RadioVendor;
     if (RadioVendor == 4)
     {
-      v9 = operator new(0x58uLL);
-      VinylDaleCommunication::VinylDaleCommunication(v9);
+      v7 = operator new(0x58uLL);
+      VinylDaleCommunication::VinylDaleCommunication(v7);
     }
 
     else if (RadioVendor == 1)
     {
-      v9 = operator new(0x38uLL);
-      VinylEURCommunication::VinylEURCommunication(v9, a2);
+      v7 = operator new(0x38uLL);
+      VinylEURCommunication::VinylEURCommunication(v7, a2);
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "VinylCommunication", "", "Unhandled radio(%d) type or no radio\n", v10, v11, v12, v8);
+      gBBULogMaskGet(RadioVendor, v5);
+      _BBULog(0, 0xFFFFFFFFLL, "VinylCommunication", "", "Unhandled radio(%d) type or no radio\n", v6);
       return 0;
     }
   }
 
-  return v9;
+  return v7;
 }
 
-void *VinylCommunication::create(uint64_t *a1)
+void *VinylCommunication::create(uint64_t *a1, uint64_t a2)
 {
-  if ((*gBBULogMaskGet() & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
+  if ((*gBBULogMaskGet(a1, a2) & 4) != 0 && (gBBULogVerbosity & 0x80000000) == 0)
   {
-    _BBULog(2, 0, "VinylCommunication", "", "VinylCommunication::create", v2, v3, v4, v14);
+    _BBULog(2, 0, "VinylCommunication", "", "VinylCommunication::create");
   }
 
   RadioVendor = TelephonyRadiosGetRadioVendor();
   if (RadioVendor == 4)
   {
-    v6 = operator new(0x58uLL);
-    v7 = v6;
-    v8 = a1[1];
-    v15 = *a1;
-    v16 = v8;
-    if (v8)
+    v5 = operator new(0x58uLL);
+    v6 = v5;
+    v7 = a1[1];
+    v10 = *a1;
+    v11 = v7;
+    if (v7)
     {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    VinylDaleCommunication::VinylDaleCommunication(v6, &v15);
-    if (v16)
+    VinylDaleCommunication::VinylDaleCommunication(v5, &v10);
+    if (v11)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
   }
 
   else
   {
-    v9 = RadioVendor;
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "VinylCommunication", "", "Unhandled radio(%d) type or no radio\n", v10, v11, v12, v9);
+    v8 = RadioVendor;
+    gBBULogMaskGet(RadioVendor, v4);
+    _BBULog(0, 0xFFFFFFFFLL, "VinylCommunication", "", "Unhandled radio(%d) type or no radio\n", v8);
     return 0;
   }
 
-  return v7;
+  return v6;
 }
 
 void sub_299FB8794(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
@@ -9611,11 +9695,11 @@ uint64_t VinylDaleCommunication::VinylDaleCommunication(uint64_t a1, uint64_t *a
 
 uint64_t *ReverseProxyGetSettings@<X0>(uint64_t a1@<X0>, const void **a2@<X8>)
 {
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x3002000000;
-  v39[3] = __Block_byref_object_copy__0;
-  v39[4] = __Block_byref_object_dispose__0;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x3002000000;
+  v29[3] = __Block_byref_object_copy__0;
+  v29[4] = __Block_byref_object_dispose__0;
   v4 = operator new(0x90uLL);
   *(v4 + 1) = 0;
   *(v4 + 2) = 0;
@@ -9629,57 +9713,57 @@ uint64_t *ReverseProxyGetSettings@<X0>(uint64_t a1@<X0>, const void **a2@<X8>)
   *(v4 + 7) = 0u;
   *(v4 + 124) = 0u;
   *v4 = &unk_2A2031C50;
-  v40[0] = v4;
-  v38 = v4;
+  v30[0] = v4;
+  v28 = v4;
   std::__assoc_sub_state::__attach_future[abi:ne200100](v4);
   *a2 = 0;
   if (*(a1 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v36, *a1, *(a1 + 8));
+    std::string::__init_copy_ctor_external(&v26, *a1, *(a1 + 8));
   }
 
   else
   {
-    v36 = *a1;
+    v26 = *a1;
   }
 
-  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v41, v36.__r_.__value_.__l.__data_, v36.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v41 = v36;
-  }
-
-  v40[1] = 0;
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v42, v41.__r_.__value_.__l.__data_, v41.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v31, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v42 = v41;
+    v31 = v26;
   }
 
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  v30[1] = 0;
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v43, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v32, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v43 = v42;
+    v32 = v31;
+  }
+
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v33, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v33 = v32;
   }
 
   v5 = *MEMORY[0x29EDB8ED8];
-  v44 = 0;
+  v34 = 0;
   if (ctu::cf::convert_copy())
   {
-    v6 = CFURLCreateWithString(v5, v44, 0);
-    CFRelease(v44);
+    v6 = CFURLCreateWithString(v5, v34, 0);
+    CFRelease(v34);
   }
 
   else
@@ -9687,157 +9771,105 @@ uint64_t *ReverseProxyGetSettings@<X0>(uint64_t a1@<X0>, const void **a2@<X8>)
     v6 = 0;
   }
 
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v33.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v42.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  v37 = v6;
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  v27 = v6;
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v41.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
   v7 = RPRegisterForAvailability();
+  v9 = v7;
   if (!v7)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Condition <<%s>> failed %s %s/%d\n", v16, v17, v18, "reg");
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Failed to register for proxy\n", v19, v20, v21, v34);
+    gBBULogMaskGet(0, v8);
+    v16 = _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Condition <<%s>> failed %s %s/%d\n", "reg", "", "", 41);
+    gBBULogMaskGet(v16, v17);
+    _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Failed to register for proxy\n");
     if (!v6)
     {
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
-    goto LABEL_36;
-  }
-
-  v8 = *(a1 + 23);
-  if ((v8 & 0x80u) != 0)
-  {
-    v8 = *(a1 + 8);
-  }
-
-  if (!v8 || !v6)
-  {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Condition <<%s>> failed %s %s/%d\n", v22, v23, v24, "!url.empty() && urlRef");
-    gBBULogMaskGet();
-    v28 = "NULL requestURL?\n";
-LABEL_34:
-    _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", v28, v25, v26, v27, v35);
     goto LABEL_35;
   }
 
-  RPRegistrationResume();
-  v43.__r_.__value_.__r.__words[0] = 5;
-  v9 = std::__assoc_sub_state::wait_for[abi:ne200100]<long long,std::ratio<1l,1l>>(v4, &v43);
-  RPRegistrationInvalidate();
-  if (v9)
+  v10 = *(a1 + 23);
+  if ((v10 & 0x80u) != 0)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Condition <<%s>> failed %s %s/%d\n", v10, v11, v12, "fs == std::future_status::ready");
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "PRP timed out %d\n", v13, v14, v15, v9);
-    goto LABEL_35;
+    v10 = *(a1 + 8);
   }
 
-  if ((std::future<BOOL>::get(&v38) & 1) == 0)
+  if (v10 && v6)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Condition <<%s>> failed %s %s/%d\n", v31, v32, v33, "future.get()");
-    gBBULogMaskGet();
-    v28 = "Failed to get PRP\n";
-    goto LABEL_34;
-  }
-
-  v43.__r_.__value_.__r.__words[0] = RPCopyProxyDictionary();
-  ctu::cf::CFSharedRef<__CFDictionary const>::operator=(a2, &v43.__r_.__value_.__l.__data_);
-LABEL_35:
-  CFRelease(v7);
-  v6 = v37;
-  if (v37)
-  {
-LABEL_36:
-    CFRelease(v6);
-  }
-
-LABEL_37:
-  v29 = v38;
-  if (v38 && !atomic_fetch_add(v38 + 1, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (*(*v29 + 16))(v29);
-  }
-
-  _Block_object_dispose(v39, 8);
-  return std::promise<BOOL>::~promise(v40);
-}
-
-void sub_299FB8EF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, const void *a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
-{
-  ctu::cf::CFSharedRef<__CFURL const>::~CFSharedRef(&a25);
-  ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(v33);
-  v36 = a26;
-  if (a26)
-  {
-    if (!atomic_fetch_add((a26 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    RPRegistrationResume();
+    v33.__r_.__value_.__r.__words[0] = 5;
+    v11 = std::__assoc_sub_state::wait_for[abi:ne200100]<long long,std::ratio<1l,1l>>(v4, &v33);
+    v12 = RPRegistrationInvalidate();
+    if (v11)
     {
-      (*(*v36 + 16))(v36);
-    }
-  }
-
-  _Block_object_dispose(&a27, 8);
-  std::promise<BOOL>::~promise((v34 + 40));
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void ___Z23ReverseProxyGetSettingsRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE_block_invoke(uint64_t a1, int a2)
-{
-  if (a2 != 2)
-  {
-    v2 = a2;
-    if (a2 == 1)
-    {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Proxy Available!\n", v4, v5, v6, v11);
-      v7 = *(*(a1 + 32) + 8);
-      v12 = 1;
-      std::promise<BOOL>::set_value((v7 + 40), &v12);
+      gBBULogMaskGet(v12, v13);
+      v14 = _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Condition <<%s>> failed %s %s/%d\n", "fs == std::future_status::ready", "", "", 47);
+      gBBULogMaskGet(v14, v15);
+      _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "PRP timed out %d\n", v11);
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Proxy Aborted? %d\n", v8, v9, v10, v2);
+      v22 = std::future<BOOL>::get(&v28);
+      if (v22)
+      {
+        v33.__r_.__value_.__r.__words[0] = RPCopyProxyDictionary();
+        ctu::cf::CFSharedRef<__CFDictionary const>::operator=(a2, &v33.__r_.__value_.__l.__data_);
+      }
+
+      else
+      {
+        gBBULogMaskGet(v22, v23);
+        v24 = _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Condition <<%s>> failed %s %s/%d\n", "future.get()", "", "", 48);
+        gBBULogMaskGet(v24, v25);
+        _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Failed to get PRP\n");
+      }
     }
   }
-}
 
-void std::promise<BOOL>::set_value(uint64_t *a1, _BYTE *a2)
-{
-  v3 = *a1;
-  if (!v3)
+  else
   {
-    std::__throw_future_error[abi:ne200100](3u);
+    gBBULogMaskGet(v7, v8);
+    v18 = _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Condition <<%s>> failed %s %s/%d\n", "!url.empty() && urlRef", "", "", 42);
+    gBBULogMaskGet(v18, v19);
+    _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "NULL requestURL?\n");
   }
 
-  std::__assoc_state<BOOL>::set_value<BOOL>(v3, a2);
+  CFRelease(v9);
+  v6 = v27;
+  if (v27)
+  {
+LABEL_35:
+    CFRelease(v6);
+  }
+
+LABEL_36:
+  v20 = v28;
+  if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v20->__on_zero_shared)(v20);
+  }
+
+  _Block_object_dispose(v29, 8);
+  return std::promise<BOOL>::~promise(v30);
 }

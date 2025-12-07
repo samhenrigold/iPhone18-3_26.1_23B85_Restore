@@ -601,14 +601,14 @@ void __50__PXAppleMusicAudioSession__updateContentLoudness__block_invoke(uint64_
     if (self->_stateQueue_hasSeekedOrPlayed)
     {
       playerController = [(PXAppleMusicAudioSession *)self playerController];
-      [playerController fetchCurrentTime];
+      objc_msgSend_fetchCurrentTime(playerController);
       v11 = v7;
       v12 = v8;
     }
 
     else
     {
-      result = [(PXAudioSession *)self startTime];
+      result = objc_msgSend_startTime(self);
       v11 = v9;
       v12 = v10;
     }

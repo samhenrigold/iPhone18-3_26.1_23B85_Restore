@@ -14,7 +14,7 @@
   sub_23C871BA4();
   swift_unknownObjectRelease();
   sub_23C588DC0(v9, v8);
-  type metadata accessor for AnteroEvent();
+  type metadata accessor for AnteroEvent(0);
   if (swift_dynamicCast())
   {
     sub_23C5A584C(v7);

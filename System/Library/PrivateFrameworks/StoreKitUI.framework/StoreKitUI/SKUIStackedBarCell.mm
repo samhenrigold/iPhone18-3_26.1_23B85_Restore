@@ -144,9 +144,9 @@
 
 - (void)layoutSubviews
 {
-  v22.receiver = self;
-  v22.super_class = SKUIStackedBarCell;
-  [(SKUIStackedBarCell *)&v22 layoutSubviews];
+  v26.receiver = self;
+  v26.super_class = SKUIStackedBarCell;
+  [(SKUIStackedBarCell *)&v26 layoutSubviews];
   [(SKUIStackedBarCell *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -154,23 +154,23 @@
   v10 = v9;
   v11 = *(MEMORY[0x277CBF3A0] + 8);
   [(SKUIStackedBarCell *)self bounds];
-  Width = CGRectGetWidth(v23);
+  Width = CGRectGetWidth(v27);
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
   v15 = 1.0 / v14;
 
   [(SKUIStackedBarCell *)self bounds];
-  Height = CGRectGetHeight(v24);
-  v25.origin.x = 0.0;
-  v25.origin.y = v11;
-  v25.size.width = Width;
-  v25.size.height = v15;
-  v17 = CGRectGetHeight(v25);
+  Height = CGRectGetHeight(v28);
+  v29.origin.x = 0.0;
+  v29.origin.y = v11;
+  v29.size.width = Width;
+  v29.size.height = v15;
+  v17 = CGRectGetHeight(v29);
   separator = self->_separator;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(0.0, Height - v17, Width, v15, v4, v6, v8, v10);
-  [(UIView *)separator setFrame:?];
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(0.0, Height - v17, Width, v15, v4, v6, v8, v10, v19, v20);
+  v21 = [(UIView *)separator setFrame:?];
   backButton = self->_backButton;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(0.0, 0.0, 47.0, 42.0, v4, v6, v8, v10);
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(0.0, 0.0, 47.0, 42.0, v4, v6, v8, v10, v21, v23);
   [(UIButton *)backButton setFrame:?];
   [(UILabel *)self->_expandedLabel sizeToFit];
   expandedLabel = self->_expandedLabel;

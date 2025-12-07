@@ -115,7 +115,7 @@ id __78__HFWallpaperImageCache_imageForVariant_wallpaper_withOriginalImageGenera
 
 - (id)_imageForVariant:(int64_t)variant wallpaper:(id)wallpaper imageKey:(id)key withOriginalImageGenerator:(id)generator
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   wallpaperCopy = wallpaper;
   generatorCopy = generator;
   keyCopy = key;
@@ -131,33 +131,31 @@ id __78__HFWallpaperImageCache_imageForVariant_wallpaper_withOriginalImageGenera
   {
     v15 = NSStringFromHFWallpaperVariant(variant);
     *buf = 138412546;
-    v28 = v15;
-    v29 = 2112;
-    v30 = wallpaperCopy;
+    v27 = v15;
+    v28 = 2112;
+    v29 = wallpaperCopy;
     _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Retrieving cached %@ image from wallpaper %@", buf, 0x16u);
   }
 
   imageCache = [(HFWallpaperImageCache *)self imageCache];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __88__HFWallpaperImageCache__imageForVariant_wallpaper_imageKey_withOriginalImageGenerator___block_invoke;
-  v22[3] = &unk_277E00478;
-  v23 = wallpaperCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __88__HFWallpaperImageCache__imageForVariant_wallpaper_imageKey_withOriginalImageGenerator___block_invoke;
+  v21[3] = &unk_277E00478;
+  v22 = wallpaperCopy;
   selfCopy = self;
-  v25 = generatorCopy;
+  v24 = generatorCopy;
   variantCopy = variant;
   v17 = generatorCopy;
   v18 = wallpaperCopy;
-  v19 = [imageCache imageForKey:keyCopy generatingIfNecessaryWithBlock:v22];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [imageCache imageForKey:keyCopy generatingIfNecessaryWithBlock:v21];
 
   return v19;
 }
 
 id __88__HFWallpaperImageCache__imageForVariant_wallpaper_imageKey_withOriginalImageGenerator___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   *a2 = 4 * ([*(a1 + 32) type] != 2);
   v3 = HFLogForCategory(0x4EuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -165,9 +163,9 @@ id __88__HFWallpaperImageCache__imageForVariant_wallpaper_imageKey_withOriginalI
     v4 = NSStringFromHFWallpaperVariant(*(a1 + 56));
     v5 = *(a1 + 32);
     *buf = 138412546;
-    v16 = v4;
-    v17 = 2112;
-    v18 = v5;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Recreating evicted %@ slice from wallpaper %@", buf, 0x16u);
   }
 
@@ -196,14 +194,13 @@ LABEL_7:
   NSLog(&cfstr_UnexpectedWall.isa, *(a1 + 56));
   v9 = 0;
 LABEL_8:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)saveVariantsForWallpaper:(id)wallpaper originalImage:(id)image
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   wallpaperCopy = wallpaper;
   imageCopy = image;
   processedWallpaperSource = [(HFWallpaperImageCache *)self processedWallpaperSource];
@@ -213,33 +210,33 @@ LABEL_8:
     NSLog(&cfstr_MustRegisterPr.isa);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   processedWallpaperSource2 = [(HFWallpaperImageCache *)self processedWallpaperSource];
   supportedVariants = [processedWallpaperSource2 supportedVariants];
 
   obj = supportedVariants;
-  v35 = [supportedVariants countByEnumeratingWithState:&v36 objects:v40 count:16];
-  if (v35)
+  v34 = [supportedVariants countByEnumeratingWithState:&v35 objects:v39 count:16];
+  if (v34)
   {
-    v10 = *v37;
+    v10 = *v36;
     do
     {
       v11 = 0;
       do
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue = [*(*(&v36 + 1) + 8 * v11) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v35 + 1) + 8 * v11) unsignedIntegerValue];
         if ([wallpaperCopy type] == 4)
         {
-          v32 = [(HFWallpaperImageCache *)self _cacheKeyForDefaultBlurWallpaper:wallpaperCopy withVariant:unsignedIntegerValue forUserInterfaceStyle:1];
-          v33 = [(HFWallpaperImageCache *)self _cacheKeyForDefaultBlurWallpaper:wallpaperCopy withVariant:unsignedIntegerValue forUserInterfaceStyle:2];
+          v31 = [(HFWallpaperImageCache *)self _cacheKeyForDefaultBlurWallpaper:wallpaperCopy withVariant:unsignedIntegerValue forUserInterfaceStyle:1];
+          v32 = [(HFWallpaperImageCache *)self _cacheKeyForDefaultBlurWallpaper:wallpaperCopy withVariant:unsignedIntegerValue forUserInterfaceStyle:2];
           [imageCopy imageAsset];
           v13 = wallpaperCopy;
           selfCopy = self;
@@ -254,11 +251,11 @@ LABEL_8:
           v10 = v15;
           self = selfCopy;
           wallpaperCopy = v13;
-          v22 = v32;
+          v22 = v31;
 
-          [(HFWallpaperImageCache *)self _saveVariants:unsignedIntegerValue forWallpaper:wallpaperCopy originalImage:v18 withImageKey:v32];
-          v23 = v33;
-          [(HFWallpaperImageCache *)self _saveVariants:unsignedIntegerValue forWallpaper:wallpaperCopy originalImage:v21 withImageKey:v33];
+          [(HFWallpaperImageCache *)self _saveVariants:unsignedIntegerValue forWallpaper:wallpaperCopy originalImage:v18 withImageKey:v31];
+          v23 = v32;
+          [(HFWallpaperImageCache *)self _saveVariants:unsignedIntegerValue forWallpaper:wallpaperCopy originalImage:v21 withImageKey:v32];
 
 LABEL_12:
           goto LABEL_14;
@@ -290,14 +287,12 @@ LABEL_14:
         ++v11;
       }
 
-      while (v35 != v11);
-      v35 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      while (v34 != v11);
+      v34 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
-    while (v35);
+    while (v34);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_saveVariants:(int64_t)variants forWallpaper:(id)wallpaper originalImage:(id)image withImageKey:(id)key
@@ -389,23 +384,21 @@ LABEL_7:
 
 void __54__HFWallpaperImageCache_pruneUnusedWallpaperVariants___block_invoke_3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([*(a1 + 32) containsObject:v3] & 1) == 0)
   {
     v4 = HFLogForCategory(0x4EuLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Removed unused image variant at key %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Removed unused image variant at key %@", &v6, 0xCu);
     }
 
     v5 = [*(a1 + 40) imageCache];
     [v5 removeImageForKey:v3];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cacheKeyForWallpaper:(id)wallpaper withVariant:(int64_t)variant

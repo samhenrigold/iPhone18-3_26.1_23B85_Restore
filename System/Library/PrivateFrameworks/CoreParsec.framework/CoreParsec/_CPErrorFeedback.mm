@@ -122,7 +122,6 @@ LABEL_19:
   toCopy = to;
   if ([(_CPErrorFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -144,12 +143,11 @@ LABEL_19:
 
   relatedStartNetworkSearchFeedbackId = [(_CPErrorFeedback *)self relatedStartNetworkSearchFeedbackId];
 
-  v10 = toCopy;
+  v9 = toCopy;
   if (relatedStartNetworkSearchFeedbackId)
   {
-    relatedStartNetworkSearchFeedbackId = self->_relatedStartNetworkSearchFeedbackId;
     PBDataWriterWriteStringField();
-    v10 = toCopy;
+    v9 = toCopy;
   }
 }
 

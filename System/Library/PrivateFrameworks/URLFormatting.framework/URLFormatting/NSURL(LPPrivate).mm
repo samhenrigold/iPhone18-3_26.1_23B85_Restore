@@ -35,18 +35,16 @@
 
 - (id)_lp_URLBySortingQueryItems
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v1 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:self resolvingAgainstBaseURL:0];
   v2 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"name" ascending:1 selector:sel_compare_];
   percentEncodedQueryItems = [v1 percentEncodedQueryItems];
-  v9[0] = v2;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v2;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v5 = [percentEncodedQueryItems sortedArrayUsingDescriptors:v4];
   [v1 setPercentEncodedQueryItems:v5];
 
   v6 = [v1 URL];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -92,7 +90,7 @@ LABEL_8:
 
 + (CFURLRef)_lp_URLWithData:()LPPrivate baseURL:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   if (!v5)
@@ -183,8 +181,6 @@ LABEL_22:
   }
 
 LABEL_26:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

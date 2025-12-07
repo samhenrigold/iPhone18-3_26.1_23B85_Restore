@@ -62,7 +62,7 @@ LABEL_7:
 id __90__POLoginConfiguration_initWithClientID_issuer_tokenEndpointURL_jwksEndpointURL_audience___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Client ID is missing"];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -74,7 +74,7 @@ id __90__POLoginConfiguration_initWithClientID_issuer_tokenEndpointURL_jwksEndpo
 id __90__POLoginConfiguration_initWithClientID_issuer_tokenEndpointURL_jwksEndpointURL_audience___block_invoke_55()
 {
   v0 = [POError errorWithCode:-1008 description:@"Issuer is missing"];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -181,12 +181,12 @@ void __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identit
 
   if (v9)
   {
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_2;
-    v41[3] = &unk_279A3DC48;
-    v42 = v9;
-    v12 = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_2(v41);
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_2;
+    v42[3] = &unk_279A3DC48;
+    v43 = v9;
+    v12 = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_2(v42);
     (*(a1[6] + 16))();
   }
 
@@ -196,79 +196,79 @@ void __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identit
     if (objc_opt_isKindOfClass())
     {
       v13 = v8;
-      if ([v13 statusCode] >= 200 && objc_msgSend(v13, "statusCode") < 300)
+      if ([v13 statusCode] >= 200 && (v14 = objc_msgSend(v13, "statusCode"), v14 < 300))
       {
-        v16 = PO_LOG_POLoginConfiguration();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v17 = PO_LOG_POLoginConfiguration(v14);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_cold_1(v7);
         }
 
-        v38 = 0;
-        v17 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:16 error:&v38];
-        v18 = v38;
-        v15 = v18;
-        if (!v17 || v18)
+        v39 = 0;
+        v18 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:16 error:&v39];
+        v19 = v39;
+        v16 = v19;
+        if (!v18 || v19)
         {
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_101;
-          v36[3] = &unk_279A3DC48;
-          v37 = v18;
-          v27 = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_101(v36);
+          v37[0] = MEMORY[0x277D85DD0];
+          v37[1] = 3221225472;
+          v37[2] = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_101;
+          v37[3] = &unk_279A3DC48;
+          v38 = v19;
+          v28 = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_101(v37);
           (*(a1[6] + 16))();
 
-          v28 = v37;
+          v29 = v38;
         }
 
         else
         {
-          v19 = [v17 objectForKeyedSubscript:@"token_endpoint"];
-          v20 = [v17 objectForKeyedSubscript:@"jwks_uri"];
-          v35 = v17;
-          v21 = [v17 objectForKeyedSubscript:@"issuer"];
-          v22 = [POLoginConfiguration alloc];
-          v23 = a1[5];
-          v31 = a1[4];
-          v32 = v22;
-          v33 = v21;
-          if (!v23)
+          v20 = [v18 objectForKeyedSubscript:@"token_endpoint"];
+          v21 = [v18 objectForKeyedSubscript:@"jwks_uri"];
+          v36 = v18;
+          v22 = [v18 objectForKeyedSubscript:@"issuer"];
+          v23 = [POLoginConfiguration alloc];
+          v24 = a1[5];
+          v32 = a1[4];
+          v33 = v23;
+          v34 = v22;
+          if (!v24)
           {
-            v23 = v21;
+            v24 = v22;
           }
 
-          v34 = v19;
-          v24 = [MEMORY[0x277CBEBC0] URLWithString:{v19, v23}];
-          v25 = [MEMORY[0x277CBEBC0] URLWithString:v20];
-          v26 = [(POLoginConfiguration *)v32 initWithClientID:v31 issuer:v30 tokenEndpointURL:v24 jwksEndpointURL:v25 audience:0];
+          v35 = v20;
+          v25 = [MEMORY[0x277CBEBC0] URLWithString:{v20, v24}];
+          v26 = [MEMORY[0x277CBEBC0] URLWithString:v21];
+          v27 = [(POLoginConfiguration *)v33 initWithClientID:v32 issuer:v31 tokenEndpointURL:v25 jwksEndpointURL:v26 audience:0];
 
-          if (v26)
+          if (v27)
           {
             (*(a1[6] + 16))();
           }
 
           else
           {
-            v29 = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_116();
+            v30 = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_116();
             (*(a1[6] + 16))();
           }
 
-          v28 = v34;
-          v17 = v35;
+          v29 = v35;
+          v18 = v36;
         }
       }
 
       else
       {
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_94;
-        v39[3] = &unk_279A3DC48;
-        v40 = v13;
-        v14 = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_94(v39);
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_94;
+        v40[3] = &unk_279A3DC48;
+        v41 = v13;
+        v15 = __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_94(v40);
         (*(a1[6] + 16))();
 
-        v15 = v40;
+        v16 = v41;
       }
     }
 
@@ -283,7 +283,7 @@ void __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identit
 id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_2(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1009 underlyingError:*(a1 + 32) description:@"failed to retrieve openid-configuration."];
-  v2 = PO_LOG_POLoginConfiguration();
+  v2 = PO_LOG_POLoginConfiguration(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -295,7 +295,7 @@ id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityP
 id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_88()
 {
   v0 = [POError errorWithCode:-1009 description:@"Not a HTTP response when retrieving openid-configuration."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -307,7 +307,7 @@ id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityP
 id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_94(uint64_t a1)
 {
   v2 = [POError errorWithCode:-1009 description:@"Not a HTTP success response when retrieving openid-configuration."];
-  v3 = PO_LOG_POLoginConfiguration();
+  v3 = PO_LOG_POLoginConfiguration(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_94_cold_1(v2, a1, v3);
@@ -319,7 +319,7 @@ id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityP
 id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_101(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1008 underlyingError:*(a1 + 32) description:@"Failed to parse openid-configuration response."];
-  v2 = PO_LOG_POLoginConfiguration();
+  v2 = PO_LOG_POLoginConfiguration(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -331,7 +331,7 @@ id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityP
 id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_116()
 {
   v0 = [POError errorWithCode:-1008 description:@"Failed to create login configuration when retrieving openid-configuration."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -378,7 +378,7 @@ id __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityP
 id __77__POLoginConfiguration_setCustomAssertionRequestHeaderClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Assertion request header claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -414,7 +414,7 @@ id __77__POLoginConfiguration_setCustomAssertionRequestHeaderClaims_returningErr
 id __75__POLoginConfiguration_setCustomAssertionRequestBodyClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Assertion request body claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -450,7 +450,7 @@ id __75__POLoginConfiguration_setCustomAssertionRequestBodyClaims_returningError
 id __73__POLoginConfiguration_setCustomLoginRequestHeaderClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Login request header claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -486,7 +486,7 @@ id __73__POLoginConfiguration_setCustomLoginRequestHeaderClaims_returningError__
 id __71__POLoginConfiguration_setCustomLoginRequestBodyClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Login request body claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -537,7 +537,7 @@ id __71__POLoginConfiguration_setCustomLoginRequestBodyClaims_returningError___b
 id __75__POLoginConfiguration_setCustomRefreshRequestHeaderClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Refresh request header claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -573,7 +573,7 @@ id __75__POLoginConfiguration_setCustomRefreshRequestHeaderClaims_returningError
 id __73__POLoginConfiguration_setCustomRefreshRequestBodyClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Refresh request body header claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -651,7 +651,7 @@ id __73__POLoginConfiguration_setCustomRefreshRequestBodyClaims_returningError__
 id __79__POLoginConfiguration_setCustomKeyExchangeRequestHeaderClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Key exchange request header claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -687,7 +687,7 @@ id __79__POLoginConfiguration_setCustomKeyExchangeRequestHeaderClaims_returningE
 id __77__POLoginConfiguration_setCustomKeyExchangeRequestBodyClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Key exchange request body claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -723,7 +723,7 @@ id __77__POLoginConfiguration_setCustomKeyExchangeRequestBodyClaims_returningErr
 id __71__POLoginConfiguration_setCustomKeyRequestHeaderClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Key request header claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -759,7 +759,7 @@ id __71__POLoginConfiguration_setCustomKeyRequestHeaderClaims_returningError___b
 id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Key request body claims are not valid JSON."];
-  v1 = PO_LOG_POLoginConfiguration();
+  v1 = PO_LOG_POLoginConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -812,7 +812,7 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
 - (id)dataRepresentationForDisplay:(BOOL)display
 {
   displayCopy = display;
-  v237 = *MEMORY[0x277D85DE8];
+  v236 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   clientID = self->_clientID;
   v6 = NSStringFromSelector(sel_clientID);
@@ -840,35 +840,35 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
 
   invalidCredentialPredicate = self->_invalidCredentialPredicate;
   v18 = NSStringFromSelector(sel_invalidCredentialPredicate);
-  v190 = v4;
+  v189 = v4;
   [v4 setObject:invalidCredentialPredicate forKeyedSubscript:v18];
 
   v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v224 = 0u;
   v225 = 0u;
   v226 = 0u;
   v227 = 0u;
-  v228 = 0u;
   v20 = self->_jwksTrustedRootCertificates;
-  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v225 objects:v236 count:16];
+  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v224 objects:v235 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v226;
+    v23 = *v225;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v226 != v23)
+        if (*v225 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [POSecKeyHelper dataForCertificate:*(*(&v225 + 1) + 8 * i)];
+        v25 = [POSecKeyHelper dataForCertificate:*(*(&v224 + 1) + 8 * i)];
         psso_base64URLEncodedString = [v25 psso_base64URLEncodedString];
         [v19 addObject:psso_base64URLEncodedString];
       }
 
-      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v225 objects:v236 count:16];
+      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v224 objects:v235 count:16];
     }
 
     while (v22);
@@ -877,7 +877,7 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   if ([v19 count])
   {
     v27 = NSStringFromSelector(sel_jwksTrustedRootCertificates);
-    [v190 setObject:v19 forKeyedSubscript:v27];
+    [v189 setObject:v19 forKeyedSubscript:v27];
   }
 
   deviceContext = self->_deviceContext;
@@ -892,7 +892,7 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   }
   v29 = ;
   v30 = NSStringFromSelector(sel_deviceContext);
-  [v190 setObject:v29 forKeyedSubscript:v30];
+  [v189 setObject:v29 forKeyedSubscript:v30];
 
   if (displayCopy)
   {
@@ -905,225 +905,225 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   }
   v31 = ;
   v32 = NSStringFromSelector(sel_userSEPKeyBiometricPolicy);
-  [v190 setObject:v31 forKeyedSubscript:v32];
+  [v189 setObject:v31 forKeyedSubscript:v32];
 
   absoluteString3 = [(NSURL *)self->_nonceEndpointURL absoluteString];
   v34 = NSStringFromSelector(sel_nonceEndpointURL);
-  [v190 setObject:absoluteString3 forKeyedSubscript:v34];
+  [v189 setObject:absoluteString3 forKeyedSubscript:v34];
 
   nonceResponseKeypath = self->_nonceResponseKeypath;
   v36 = NSStringFromSelector(sel_nonceResponseKeypath);
-  [v190 setObject:nonceResponseKeypath forKeyedSubscript:v36];
+  [v189 setObject:nonceResponseKeypath forKeyedSubscript:v36];
 
   serverNonceClaimName = self->_serverNonceClaimName;
   v38 = NSStringFromSelector(sel_serverNonceClaimName);
-  [v190 setObject:serverNonceClaimName forKeyedSubscript:v38];
+  [v189 setObject:serverNonceClaimName forKeyedSubscript:v38];
 
   serverNonceExpirationTime = self->_serverNonceExpirationTime;
   v40 = NSStringFromSelector(sel_serverNonceExpirationTime);
-  [v190 setObject:serverNonceExpirationTime forKeyedSubscript:v40];
+  [v189 setObject:serverNonceExpirationTime forKeyedSubscript:v40];
 
-  v193 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v192 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v220 = 0u;
   v221 = 0u;
   v222 = 0u;
   v223 = 0u;
-  v224 = 0u;
   v41 = self->_customNonceRequestValues;
-  v42 = [(NSArray *)v41 countByEnumeratingWithState:&v221 objects:v235 count:16];
+  v42 = [(NSArray *)v41 countByEnumeratingWithState:&v220 objects:v234 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v222;
+    v44 = *v221;
     do
     {
       for (j = 0; j != v43; ++j)
       {
-        if (*v222 != v44)
+        if (*v221 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        v46 = *(*(&v221 + 1) + 8 * j);
+        v46 = *(*(&v220 + 1) + 8 * j);
         value = [v46 value];
         name = [v46 name];
-        [v193 setObject:value forKeyedSubscript:name];
+        [v192 setObject:value forKeyedSubscript:name];
       }
 
-      v43 = [(NSArray *)v41 countByEnumeratingWithState:&v221 objects:v235 count:16];
+      v43 = [(NSArray *)v41 countByEnumeratingWithState:&v220 objects:v234 count:16];
     }
 
     while (v43);
   }
 
-  if ([v193 count])
+  if ([v192 count])
   {
     v49 = NSStringFromSelector(sel_customNonceRequestValues);
-    [v190 setObject:v193 forKeyedSubscript:v49];
+    [v189 setObject:v192 forKeyedSubscript:v49];
   }
 
   customAssertionRequestHeaderClaims = self->_customAssertionRequestHeaderClaims;
   v51 = NSStringFromSelector(sel_customAssertionRequestHeaderClaims);
-  [v190 setObject:customAssertionRequestHeaderClaims forKeyedSubscript:v51];
+  [v189 setObject:customAssertionRequestHeaderClaims forKeyedSubscript:v51];
 
   customAssertionRequestBodyClaims = self->_customAssertionRequestBodyClaims;
   v53 = NSStringFromSelector(sel_customAssertionRequestBodyClaims);
-  [v190 setObject:customAssertionRequestBodyClaims forKeyedSubscript:v53];
+  [v189 setObject:customAssertionRequestBodyClaims forKeyedSubscript:v53];
 
   additionalScopes = self->_additionalScopes;
   v55 = NSStringFromSelector(sel_additionalScopes);
-  [v190 setObject:additionalScopes forKeyedSubscript:v55];
+  [v189 setObject:additionalScopes forKeyedSubscript:v55];
 
   additionalAuthorizationScopes = self->_additionalAuthorizationScopes;
   v57 = NSStringFromSelector(sel_additionalAuthorizationScopes);
-  [v190 setObject:additionalAuthorizationScopes forKeyedSubscript:v57];
+  [v189 setObject:additionalAuthorizationScopes forKeyedSubscript:v57];
 
   v58 = [MEMORY[0x277CCABB0] numberWithBool:self->_includePreviousRefreshTokenInLoginRequest];
   v59 = NSStringFromSelector(sel_includePreviousRefreshTokenInLoginRequest);
-  [v190 setObject:v58 forKeyedSubscript:v59];
+  [v189 setObject:v58 forKeyedSubscript:v59];
 
   previousRefreshTokenClaimName = self->_previousRefreshTokenClaimName;
   v61 = NSStringFromSelector(sel_previousRefreshTokenClaimName);
-  [v190 setObject:previousRefreshTokenClaimName forKeyedSubscript:v61];
+  [v189 setObject:previousRefreshTokenClaimName forKeyedSubscript:v61];
 
   customRequestJWTParameterName = self->_customRequestJWTParameterName;
   v63 = NSStringFromSelector(sel_customRequestJWTParameterName);
-  [v190 setObject:customRequestJWTParameterName forKeyedSubscript:v63];
+  [v189 setObject:customRequestJWTParameterName forKeyedSubscript:v63];
 
-  v192 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v191 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v216 = 0u;
   v217 = 0u;
   v218 = 0u;
   v219 = 0u;
-  v220 = 0u;
   v64 = self->_customLoginRequestValues;
-  v65 = [(NSArray *)v64 countByEnumeratingWithState:&v217 objects:v234 count:16];
+  v65 = [(NSArray *)v64 countByEnumeratingWithState:&v216 objects:v233 count:16];
   if (v65)
   {
     v66 = v65;
-    v67 = *v218;
+    v67 = *v217;
     do
     {
       for (k = 0; k != v66; ++k)
       {
-        if (*v218 != v67)
+        if (*v217 != v67)
         {
           objc_enumerationMutation(v64);
         }
 
-        v69 = *(*(&v217 + 1) + 8 * k);
+        v69 = *(*(&v216 + 1) + 8 * k);
         value2 = [v69 value];
         name2 = [v69 name];
-        [v192 setObject:value2 forKeyedSubscript:name2];
+        [v191 setObject:value2 forKeyedSubscript:name2];
       }
 
-      v66 = [(NSArray *)v64 countByEnumeratingWithState:&v217 objects:v234 count:16];
+      v66 = [(NSArray *)v64 countByEnumeratingWithState:&v216 objects:v233 count:16];
     }
 
     while (v66);
   }
 
-  v187 = v19;
+  v186 = v19;
 
-  if ([v192 count])
+  if ([v191 count])
   {
     v72 = NSStringFromSelector(sel_customLoginRequestValues);
-    [v190 setObject:v192 forKeyedSubscript:v72];
+    [v189 setObject:v191 forKeyedSubscript:v72];
   }
 
   customLoginRequestHeaderClaims = self->_customLoginRequestHeaderClaims;
   v74 = NSStringFromSelector(sel_customLoginRequestHeaderClaims);
-  [v190 setObject:customLoginRequestHeaderClaims forKeyedSubscript:v74];
+  [v189 setObject:customLoginRequestHeaderClaims forKeyedSubscript:v74];
 
   customLoginRequestBodyClaims = self->_customLoginRequestBodyClaims;
   v76 = NSStringFromSelector(sel_customLoginRequestBodyClaims);
-  [v190 setObject:customLoginRequestBodyClaims forKeyedSubscript:v76];
+  [v189 setObject:customLoginRequestBodyClaims forKeyedSubscript:v76];
 
   uniqueIdentifierClaimName = self->_uniqueIdentifierClaimName;
   v78 = NSStringFromSelector(sel_uniqueIdentifierClaimName);
-  [v190 setObject:uniqueIdentifierClaimName forKeyedSubscript:v78];
+  [v189 setObject:uniqueIdentifierClaimName forKeyedSubscript:v78];
 
   groupRequestClaimName = self->_groupRequestClaimName;
   v80 = NSStringFromSelector(sel_groupRequestClaimName);
-  [v190 setObject:groupRequestClaimName forKeyedSubscript:v80];
+  [v189 setObject:groupRequestClaimName forKeyedSubscript:v80];
 
   groupResponseClaimName = self->_groupResponseClaimName;
   v82 = NSStringFromSelector(sel_groupResponseClaimName);
-  [v190 setObject:groupResponseClaimName forKeyedSubscript:v82];
+  [v189 setObject:groupResponseClaimName forKeyedSubscript:v82];
 
   absoluteString4 = [(NSURL *)self->_refreshEndpointURL absoluteString];
   v84 = NSStringFromSelector(sel_refreshEndpointURL);
-  [v190 setObject:absoluteString4 forKeyedSubscript:v84];
+  [v189 setObject:absoluteString4 forKeyedSubscript:v84];
 
-  v191 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v190 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v212 = 0u;
   v213 = 0u;
   v214 = 0u;
   v215 = 0u;
-  v216 = 0u;
   v85 = self->_customRefreshRequestValues;
-  v86 = [(NSArray *)v85 countByEnumeratingWithState:&v213 objects:v233 count:16];
+  v86 = [(NSArray *)v85 countByEnumeratingWithState:&v212 objects:v232 count:16];
   if (v86)
   {
     v87 = v86;
-    v88 = *v214;
+    v88 = *v213;
     do
     {
       for (m = 0; m != v87; ++m)
       {
-        if (*v214 != v88)
+        if (*v213 != v88)
         {
           objc_enumerationMutation(v85);
         }
 
-        v90 = *(*(&v213 + 1) + 8 * m);
+        v90 = *(*(&v212 + 1) + 8 * m);
         value3 = [v90 value];
         name3 = [v90 name];
-        [v191 setObject:value3 forKeyedSubscript:name3];
+        [v190 setObject:value3 forKeyedSubscript:name3];
       }
 
-      v87 = [(NSArray *)v85 countByEnumeratingWithState:&v213 objects:v233 count:16];
+      v87 = [(NSArray *)v85 countByEnumeratingWithState:&v212 objects:v232 count:16];
     }
 
     while (v87);
   }
 
-  if ([v191 count])
+  if ([v190 count])
   {
     v93 = NSStringFromSelector(sel_customRefreshRequestValues);
-    [v190 setObject:v191 forKeyedSubscript:v93];
+    [v189 setObject:v190 forKeyedSubscript:v93];
   }
 
   customRefreshRequestHeaderClaims = self->_customRefreshRequestHeaderClaims;
   v95 = NSStringFromSelector(sel_customRefreshRequestHeaderClaims);
-  [v190 setObject:customRefreshRequestHeaderClaims forKeyedSubscript:v95];
+  [v189 setObject:customRefreshRequestHeaderClaims forKeyedSubscript:v95];
 
   customRefreshRequestBodyClaims = self->_customRefreshRequestBodyClaims;
   v97 = NSStringFromSelector(sel_customRefreshRequestBodyClaims);
-  [v190 setObject:customRefreshRequestBodyClaims forKeyedSubscript:v97];
+  [v189 setObject:customRefreshRequestBodyClaims forKeyedSubscript:v97];
 
   v98 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v208 = 0u;
   v209 = 0u;
   v210 = 0u;
   v211 = 0u;
-  v212 = 0u;
   v99 = self->_kerberosTicketMappings;
-  v100 = [(NSArray *)v99 countByEnumeratingWithState:&v209 objects:v232 count:16];
+  v100 = [(NSArray *)v99 countByEnumeratingWithState:&v208 objects:v231 count:16];
   if (v100)
   {
     v101 = v100;
-    v102 = *v210;
+    v102 = *v209;
     do
     {
       for (n = 0; n != v101; ++n)
       {
-        if (*v210 != v102)
+        if (*v209 != v102)
         {
           objc_enumerationMutation(v99);
         }
 
-        dictionaryRepresentation = [*(*(&v209 + 1) + 8 * n) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v208 + 1) + 8 * n) dictionaryRepresentation];
         [v98 addObject:dictionaryRepresentation];
       }
 
-      v101 = [(NSArray *)v99 countByEnumeratingWithState:&v209 objects:v232 count:16];
+      v101 = [(NSArray *)v99 countByEnumeratingWithState:&v208 objects:v231 count:16];
     }
 
     while (v101);
@@ -1132,61 +1132,61 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   if ([v98 count])
   {
     v105 = NSStringFromSelector(sel_kerberosTicketMappings);
-    [v190 setObject:v98 forKeyedSubscript:v105];
+    [v189 setObject:v98 forKeyedSubscript:v105];
   }
 
   v106 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_federationType];
   v107 = NSStringFromSelector(sel_federationType);
-  [v190 setObject:v106 forKeyedSubscript:v107];
+  [v189 setObject:v106 forKeyedSubscript:v107];
 
   federationRequestURN = self->_federationRequestURN;
   v109 = NSStringFromSelector(sel_federationRequestURN);
-  [v190 setObject:federationRequestURN forKeyedSubscript:v109];
+  [v189 setObject:federationRequestURN forKeyedSubscript:v109];
 
   absoluteString5 = [(NSURL *)self->_federationMexURL absoluteString];
   v111 = NSStringFromSelector(sel_federationMexURL);
-  [v190 setObject:absoluteString5 forKeyedSubscript:v111];
+  [v189 setObject:absoluteString5 forKeyedSubscript:v111];
 
   absoluteString6 = [(NSURL *)self->_federationUserPreauthenticationURL absoluteString];
   v113 = NSStringFromSelector(sel_federationUserPreauthenticationURL);
-  [v190 setObject:absoluteString6 forKeyedSubscript:v113];
+  [v189 setObject:absoluteString6 forKeyedSubscript:v113];
 
   federationMexURLKeypath = self->_federationMexURLKeypath;
   v115 = NSStringFromSelector(sel_federationMexURLKeypath);
-  [v190 setObject:federationMexURLKeypath forKeyedSubscript:v115];
+  [v189 setObject:federationMexURLKeypath forKeyedSubscript:v115];
 
   federationPredicate = self->_federationPredicate;
   v117 = NSStringFromSelector(sel_federationPredicate);
-  [v190 setObject:federationPredicate forKeyedSubscript:v117];
+  [v189 setObject:federationPredicate forKeyedSubscript:v117];
 
   v118 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v204 = 0u;
   v205 = 0u;
   v206 = 0u;
   v207 = 0u;
-  v208 = 0u;
   selfCopy = self;
   v119 = self->_customFederationUserPreauthenticationRequestValues;
-  v120 = [(NSArray *)v119 countByEnumeratingWithState:&v205 objects:v231 count:16];
+  v120 = [(NSArray *)v119 countByEnumeratingWithState:&v204 objects:v230 count:16];
   if (v120)
   {
     v121 = v120;
-    v122 = *v206;
+    v122 = *v205;
     do
     {
       for (ii = 0; ii != v121; ++ii)
       {
-        if (*v206 != v122)
+        if (*v205 != v122)
         {
           objc_enumerationMutation(v119);
         }
 
-        v124 = *(*(&v205 + 1) + 8 * ii);
+        v124 = *(*(&v204 + 1) + 8 * ii);
         value4 = [v124 value];
         name4 = [v124 name];
         [v118 setObject:value4 forKeyedSubscript:name4];
       }
 
-      v121 = [(NSArray *)v119 countByEnumeratingWithState:&v205 objects:v231 count:16];
+      v121 = [(NSArray *)v119 countByEnumeratingWithState:&v204 objects:v230 count:16];
     }
 
     while (v121);
@@ -1195,7 +1195,7 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   if ([v118 count])
   {
     v127 = NSStringFromSelector(sel_customFederationUserPreauthenticationRequestValues);
-    [v190 setObject:v118 forKeyedSubscript:v127];
+    [v189 setObject:v118 forKeyedSubscript:v127];
   }
 
   loginRequestEncryptionPublicKeyData = selfCopy->__loginRequestEncryptionPublicKeyData;
@@ -1210,7 +1210,7 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   }
   v129 = ;
   v130 = NSStringFromSelector(sel_loginRequestEncryptionPublicKey);
-  [v190 setObject:v129 forKeyedSubscript:v130];
+  [v189 setObject:v129 forKeyedSubscript:v130];
 
   [(POLoginConfiguration *)selfCopy loginRequestEncryptionAlgorithm];
   if (displayCopy)
@@ -1219,7 +1219,7 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   }
   v131 = ;
   v132 = NSStringFromSelector(sel_loginRequestEncryptionAlgorithm);
-  [v190 setObject:v131 forKeyedSubscript:v132];
+  [v189 setObject:v131 forKeyedSubscript:v132];
 
   if (displayCopy)
   {
@@ -1233,47 +1233,47 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   }
   v133 = ;
   v134 = NSStringFromSelector(sel_loginRequestHpkePsk);
-  [v190 setObject:v133 forKeyedSubscript:v134];
+  [v189 setObject:v133 forKeyedSubscript:v134];
 
   psso_base64URLEncodedString2 = [(NSData *)selfCopy->_loginRequestHpkePsk_id psso_base64URLEncodedString];
   v136 = NSStringFromSelector(sel_loginRequestHpkePsk_id);
-  [v190 setObject:psso_base64URLEncodedString2 forKeyedSubscript:v136];
+  [v189 setObject:psso_base64URLEncodedString2 forKeyedSubscript:v136];
 
   psso_base64URLEncodedString3 = [(NSData *)selfCopy->_loginRequestEncryptionAPVPrefix psso_base64URLEncodedString];
   v138 = NSStringFromSelector(sel_loginRequestEncryptionAPVPrefix);
-  [v190 setObject:psso_base64URLEncodedString3 forKeyedSubscript:v138];
+  [v189 setObject:psso_base64URLEncodedString3 forKeyedSubscript:v138];
 
   absoluteString7 = [(NSURL *)selfCopy->_keyEndpointURL absoluteString];
   v140 = NSStringFromSelector(sel_keyEndpointURL);
-  [v190 setObject:absoluteString7 forKeyedSubscript:v140];
+  [v189 setObject:absoluteString7 forKeyedSubscript:v140];
 
   v141 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v200 = 0u;
   v201 = 0u;
   v202 = 0u;
   v203 = 0u;
-  v204 = 0u;
   v142 = selfCopy->_customKeyExchangeRequestValues;
-  v143 = [(NSArray *)v142 countByEnumeratingWithState:&v201 objects:v230 count:16];
+  v143 = [(NSArray *)v142 countByEnumeratingWithState:&v200 objects:v229 count:16];
   if (v143)
   {
     v144 = v143;
-    v145 = *v202;
+    v145 = *v201;
     do
     {
       for (jj = 0; jj != v144; ++jj)
       {
-        if (*v202 != v145)
+        if (*v201 != v145)
         {
           objc_enumerationMutation(v142);
         }
 
-        v147 = *(*(&v201 + 1) + 8 * jj);
+        v147 = *(*(&v200 + 1) + 8 * jj);
         value5 = [v147 value];
         name5 = [v147 name];
         [v141 setObject:value5 forKeyedSubscript:name5];
       }
 
-      v144 = [(NSArray *)v142 countByEnumeratingWithState:&v201 objects:v230 count:16];
+      v144 = [(NSArray *)v142 countByEnumeratingWithState:&v200 objects:v229 count:16];
     }
 
     while (v144);
@@ -1282,44 +1282,44 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   if ([v141 count])
   {
     v150 = NSStringFromSelector(sel_customKeyExchangeRequestValues);
-    [v190 setObject:v141 forKeyedSubscript:v150];
+    [v189 setObject:v141 forKeyedSubscript:v150];
   }
 
   customKeyExchangeRequestHeaderClaims = selfCopy->_customKeyExchangeRequestHeaderClaims;
   v152 = NSStringFromSelector(sel_customKeyExchangeRequestHeaderClaims);
-  [v190 setObject:customKeyExchangeRequestHeaderClaims forKeyedSubscript:v152];
+  [v189 setObject:customKeyExchangeRequestHeaderClaims forKeyedSubscript:v152];
 
   customKeyExchangeRequestBodyClaims = selfCopy->_customKeyExchangeRequestBodyClaims;
   v154 = NSStringFromSelector(sel_customKeyExchangeRequestBodyClaims);
-  [v190 setObject:customKeyExchangeRequestBodyClaims forKeyedSubscript:v154];
+  [v189 setObject:customKeyExchangeRequestBodyClaims forKeyedSubscript:v154];
 
   v155 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v196 = 0u;
   v197 = 0u;
   v198 = 0u;
   v199 = 0u;
-  v200 = 0u;
   v156 = selfCopy->_customKeyRequestValues;
-  v157 = [(NSArray *)v156 countByEnumeratingWithState:&v197 objects:v229 count:16];
+  v157 = [(NSArray *)v156 countByEnumeratingWithState:&v196 objects:v228 count:16];
   if (v157)
   {
     v158 = v157;
-    v159 = *v198;
+    v159 = *v197;
     do
     {
       for (kk = 0; kk != v158; ++kk)
       {
-        if (*v198 != v159)
+        if (*v197 != v159)
         {
           objc_enumerationMutation(v156);
         }
 
-        v161 = *(*(&v197 + 1) + 8 * kk);
+        v161 = *(*(&v196 + 1) + 8 * kk);
         value6 = [v161 value];
         name6 = [v161 name];
         [v155 setObject:value6 forKeyedSubscript:name6];
       }
 
-      v158 = [(NSArray *)v156 countByEnumeratingWithState:&v197 objects:v229 count:16];
+      v158 = [(NSArray *)v156 countByEnumeratingWithState:&v196 objects:v228 count:16];
     }
 
     while (v158);
@@ -1328,16 +1328,16 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   if ([v155 count])
   {
     v164 = NSStringFromSelector(sel_customKeyRequestValues);
-    [v190 setObject:v155 forKeyedSubscript:v164];
+    [v189 setObject:v155 forKeyedSubscript:v164];
   }
 
   customKeyRequestHeaderClaims = selfCopy->_customKeyRequestHeaderClaims;
   v166 = NSStringFromSelector(sel_customKeyRequestHeaderClaims);
-  [v190 setObject:customKeyRequestHeaderClaims forKeyedSubscript:v166];
+  [v189 setObject:customKeyRequestHeaderClaims forKeyedSubscript:v166];
 
   customKeyRequestBodyClaims = selfCopy->_customKeyRequestBodyClaims;
   v168 = NSStringFromSelector(sel_customKeyRequestBodyClaims);
-  [v190 setObject:customKeyRequestBodyClaims forKeyedSubscript:v168];
+  [v189 setObject:customKeyRequestBodyClaims forKeyedSubscript:v168];
 
   hpkePsk = selfCopy->_hpkePsk;
   if (displayCopy)
@@ -1351,11 +1351,11 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   }
   v170 = ;
   v171 = NSStringFromSelector(sel_hpkePsk);
-  [v190 setObject:v170 forKeyedSubscript:v171];
+  [v189 setObject:v170 forKeyedSubscript:v171];
 
   psso_base64URLEncodedString4 = [(NSData *)selfCopy->_hpkePsk_id psso_base64URLEncodedString];
   v173 = NSStringFromSelector(sel_hpkePsk_id);
-  [v190 setObject:psso_base64URLEncodedString4 forKeyedSubscript:v173];
+  [v189 setObject:psso_base64URLEncodedString4 forKeyedSubscript:v173];
 
   if (displayCopy)
   {
@@ -1368,33 +1368,33 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
   }
   v174 = ;
   v175 = NSStringFromSelector(sel_hpkeAuthPublicKey);
-  [v190 setObject:v174 forKeyedSubscript:v175];
+  [v189 setObject:v174 forKeyedSubscript:v175];
 
   v176 = objc_alloc_init(MEMORY[0x277CCAA68]);
   [v176 setFormatOptions:1907];
   date = [MEMORY[0x277CBEAA8] date];
   v178 = [v176 stringFromDate:date];
-  [v190 setObject:v178 forKeyedSubscript:@"created"];
+  [v189 setObject:v178 forKeyedSubscript:@"created"];
 
-  v196 = 0;
-  v179 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v190 options:11 error:&v196];
-  v180 = v196;
+  v195 = 0;
+  v179 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v189 options:11 error:&v195];
+  v180 = v195;
   v181 = v180;
   if (v180)
   {
-    v194[0] = MEMORY[0x277D85DD0];
-    v194[1] = 3221225472;
-    v194[2] = __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke;
-    v194[3] = &unk_279A3DC48;
-    v195 = v180;
-    v182 = __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(v194);
+    v193[0] = MEMORY[0x277D85DD0];
+    v193[1] = 3221225472;
+    v193[2] = __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke;
+    v193[3] = &unk_279A3DC48;
+    v194 = v180;
+    v182 = __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(v193);
 
     v183 = 0;
   }
 
   else
   {
-    v184 = PO_LOG_POLoginConfiguration();
+    v184 = PO_LOG_POLoginConfiguration(0);
     if (os_log_type_enabled(v184, OS_LOG_TYPE_DEBUG))
     {
       [POLoginConfiguration dataRepresentationForDisplay:v179];
@@ -1403,15 +1403,13 @@ id __69__POLoginConfiguration_setCustomKeyRequestBodyClaims_returningError___blo
     v183 = v179;
   }
 
-  v185 = *MEMORY[0x277D85DE8];
-
   return v183;
 }
 
 id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error serializing login config."];
-  v2 = PO_LOG_POLoginConfiguration();
+  v2 = PO_LOG_POLoginConfiguration(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -1422,21 +1420,21 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
 
 - (POLoginConfiguration)initWithData:(id)data
 {
-  v283 = *MEMORY[0x277D85DE8];
-  v281 = 0;
-  v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:data options:16 error:&v281];
-  v5 = v281;
+  v282 = *MEMORY[0x277D85DE8];
+  v280 = 0;
+  v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:data options:16 error:&v280];
+  v5 = v280;
   v6 = v5;
   if (v5)
   {
-    v279[0] = MEMORY[0x277D85DD0];
-    v279[1] = 3221225472;
-    v279[2] = __37__POLoginConfiguration_initWithData___block_invoke;
-    v279[3] = &unk_279A3DC48;
-    v280 = v5;
-    v7 = __37__POLoginConfiguration_initWithData___block_invoke(v279);
+    v278[0] = MEMORY[0x277D85DD0];
+    v278[1] = 3221225472;
+    v278[2] = __37__POLoginConfiguration_initWithData___block_invoke;
+    v278[3] = &unk_279A3DC48;
+    v279 = v5;
+    v7 = __37__POLoginConfiguration_initWithData___block_invoke(v278);
     selfCopy = 0;
-    v9 = v280;
+    v9 = v279;
   }
 
   else
@@ -1485,11 +1483,11 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
     v27 = [(POLoginConfiguration *)self _initWithClientId:v9 issuer:v12 tokenEndpointURL:v18 jwksEndpointURL:v24 audience:v26];
     if (v27)
     {
-      v255 = v26;
-      v256 = v24;
-      v257 = v18;
-      v258 = v12;
-      v259 = v9;
+      v254 = v26;
+      v255 = v24;
+      v256 = v18;
+      v257 = v12;
+      v258 = v9;
       v28 = NSStringFromSelector(sel_accountDisplayName);
       v29 = [v4 objectForKeyedSubscript:v28];
       v30 = *(v27 + 3);
@@ -1501,29 +1499,29 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       *(v27 + 2) = v32;
 
       v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v274 = 0u;
       v275 = 0u;
       v276 = 0u;
       v277 = 0u;
-      v278 = 0u;
       v35 = NSStringFromSelector(sel_jwksTrustedRootCertificates);
-      v260 = v4;
+      v259 = v4;
       v36 = [v4 objectForKeyedSubscript:v35];
 
-      v37 = [v36 countByEnumeratingWithState:&v275 objects:v282 count:16];
+      v37 = [v36 countByEnumeratingWithState:&v274 objects:v281 count:16];
       if (v37)
       {
         v38 = v37;
-        v39 = *v276;
+        v39 = *v275;
         do
         {
           for (i = 0; i != v38; ++i)
           {
-            if (*v276 != v39)
+            if (*v275 != v39)
             {
               objc_enumerationMutation(v36);
             }
 
-            v41 = *(*(&v275 + 1) + 8 * i);
+            v41 = *(*(&v274 + 1) + 8 * i);
             v42 = objc_alloc(MEMORY[0x277CBEA90]);
             v43 = [v42 psso_initWithBase64URLEncodedString:v41];
 
@@ -1534,7 +1532,7 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
             }
           }
 
-          v38 = [v36 countByEnumeratingWithState:&v275 objects:v282 count:16];
+          v38 = [v36 countByEnumeratingWithState:&v274 objects:v281 count:16];
         }
 
         while (v38);
@@ -1546,13 +1544,13 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       }
 
       v45 = NSStringFromSelector(sel_deviceContext);
-      v46 = [v260 objectForKeyedSubscript:v45];
+      v46 = [v259 objectForKeyedSubscript:v45];
 
       if (v46)
       {
         v47 = objc_alloc(MEMORY[0x277CBEA90]);
         v48 = NSStringFromSelector(sel_deviceContext);
-        v49 = [v260 objectForKeyedSubscript:v48];
+        v49 = [v259 objectForKeyedSubscript:v48];
         v50 = [v47 psso_initWithBase64URLEncodedString:v49];
 
         v51 = *(v27 + 10);
@@ -1560,39 +1558,39 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       }
 
       v52 = NSStringFromSelector(sel_userSEPKeyBiometricPolicy);
-      v53 = [v260 objectForKeyedSubscript:v52];
+      v53 = [v259 objectForKeyedSubscript:v52];
       *(v27 + 11) = [v53 intValue];
 
       v54 = NSStringFromSelector(sel_nonceEndpointURL);
-      v55 = [v260 objectForKeyedSubscript:v54];
+      v55 = [v259 objectForKeyedSubscript:v54];
 
       if (v55)
       {
         v56 = MEMORY[0x277CBEBC0];
         v57 = NSStringFromSelector(sel_nonceEndpointURL);
-        v58 = [v260 objectForKeyedSubscript:v57];
+        v58 = [v259 objectForKeyedSubscript:v57];
         v59 = [v56 URLWithString:v58];
         v60 = *(v27 + 12);
         *(v27 + 12) = v59;
       }
 
       v61 = NSStringFromSelector(sel_nonceResponseKeypath);
-      v62 = [v260 objectForKeyedSubscript:v61];
+      v62 = [v259 objectForKeyedSubscript:v61];
       v63 = *(v27 + 13);
       *(v27 + 13) = v62;
 
       v64 = NSStringFromSelector(sel_serverNonceClaimName);
-      v65 = [v260 objectForKeyedSubscript:v64];
+      v65 = [v259 objectForKeyedSubscript:v64];
       v66 = *(v27 + 14);
       *(v27 + 14) = v65;
 
       v67 = NSStringFromSelector(sel_serverNonceExpirationTime);
-      v68 = [v260 objectForKeyedSubscript:v67];
+      v68 = [v259 objectForKeyedSubscript:v67];
 
       if (v68)
       {
         v69 = NSStringFromSelector(sel_serverNonceExpirationTime);
-        v70 = [v260 objectForKeyedSubscript:v69];
+        v70 = [v259 objectForKeyedSubscript:v69];
       }
 
       else
@@ -1605,105 +1603,105 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
 
       v72 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v73 = NSStringFromSelector(sel_customNonceRequestValues);
-      v74 = [v260 objectForKeyedSubscript:v73];
+      v74 = [v259 objectForKeyedSubscript:v73];
 
-      v273[0] = MEMORY[0x277D85DD0];
-      v273[1] = 3221225472;
-      v273[2] = __37__POLoginConfiguration_initWithData___block_invoke_300;
-      v273[3] = &unk_279A3E7C0;
+      v272[0] = MEMORY[0x277D85DD0];
+      v272[1] = 3221225472;
+      v272[2] = __37__POLoginConfiguration_initWithData___block_invoke_300;
+      v272[3] = &unk_279A3E7C0;
       v75 = v72;
-      v274 = v75;
-      v254 = v74;
-      [v74 enumerateKeysAndObjectsUsingBlock:v273];
+      v273 = v75;
+      v253 = v74;
+      [v74 enumerateKeysAndObjectsUsingBlock:v272];
       if ([v75 count])
       {
         objc_storeStrong(v27 + 15, v72);
       }
 
       v76 = NSStringFromSelector(sel_customAssertionRequestHeaderClaims);
-      v77 = [v260 objectForKeyedSubscript:v76];
+      v77 = [v259 objectForKeyedSubscript:v76];
       v78 = *(v27 + 46);
       *(v27 + 46) = v77;
 
       v79 = NSStringFromSelector(sel_customAssertionRequestBodyClaims);
-      v80 = [v260 objectForKeyedSubscript:v79];
+      v80 = [v259 objectForKeyedSubscript:v79];
       v81 = *(v27 + 47);
       *(v27 + 47) = v80;
 
       v82 = NSStringFromSelector(sel_additionalScopes);
-      v83 = [v260 objectForKeyedSubscript:v82];
+      v83 = [v259 objectForKeyedSubscript:v82];
       v84 = *(v27 + 17);
       *(v27 + 17) = v83;
 
       v85 = NSStringFromSelector(sel_additionalAuthorizationScopes);
-      v86 = [v260 objectForKeyedSubscript:v85];
+      v86 = [v259 objectForKeyedSubscript:v85];
       v87 = *(v27 + 18);
       *(v27 + 18) = v86;
 
       v88 = NSStringFromSelector(sel_includePreviousRefreshTokenInLoginRequest);
-      v89 = [v260 objectForKeyedSubscript:v88];
+      v89 = [v259 objectForKeyedSubscript:v88];
       *(v27 + 8) = [v89 BOOLValue];
 
       v90 = NSStringFromSelector(sel_previousRefreshTokenClaimName);
-      v91 = [v260 objectForKeyedSubscript:v90];
+      v91 = [v259 objectForKeyedSubscript:v90];
       v92 = *(v27 + 19);
       *(v27 + 19) = v91;
 
       v93 = NSStringFromSelector(sel_customRequestJWTParameterName);
-      v94 = [v260 objectForKeyedSubscript:v93];
+      v94 = [v259 objectForKeyedSubscript:v93];
       v95 = *(v27 + 20);
       *(v27 + 20) = v94;
 
       v96 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v97 = NSStringFromSelector(sel_customLoginRequestValues);
-      v98 = [v260 objectForKeyedSubscript:v97];
+      v98 = [v259 objectForKeyedSubscript:v97];
 
-      v271[0] = MEMORY[0x277D85DD0];
-      v271[1] = 3221225472;
-      v271[2] = __37__POLoginConfiguration_initWithData___block_invoke_2;
-      v271[3] = &unk_279A3E7C0;
+      v270[0] = MEMORY[0x277D85DD0];
+      v270[1] = 3221225472;
+      v270[2] = __37__POLoginConfiguration_initWithData___block_invoke_2;
+      v270[3] = &unk_279A3E7C0;
       v99 = v96;
-      v272 = v99;
-      v253 = v98;
-      [v98 enumerateKeysAndObjectsUsingBlock:v271];
+      v271 = v99;
+      v252 = v98;
+      [v98 enumerateKeysAndObjectsUsingBlock:v270];
       if ([v99 count])
       {
         objc_storeStrong(v27 + 21, v96);
       }
 
       v100 = NSStringFromSelector(sel_customLoginRequestHeaderClaims);
-      v101 = [v260 objectForKeyedSubscript:v100];
+      v101 = [v259 objectForKeyedSubscript:v100];
       v102 = *(v27 + 48);
       *(v27 + 48) = v101;
 
       v103 = NSStringFromSelector(sel_customLoginRequestBodyClaims);
-      v104 = [v260 objectForKeyedSubscript:v103];
+      v104 = [v259 objectForKeyedSubscript:v103];
       v105 = *(v27 + 49);
       *(v27 + 49) = v104;
 
       v106 = NSStringFromSelector(sel_uniqueIdentifierClaimName);
-      v107 = [v260 objectForKeyedSubscript:v106];
+      v107 = [v259 objectForKeyedSubscript:v106];
       v108 = *(v27 + 22);
       *(v27 + 22) = v107;
 
       v109 = NSStringFromSelector(sel_groupRequestClaimName);
-      v110 = [v260 objectForKeyedSubscript:v109];
+      v110 = [v259 objectForKeyedSubscript:v109];
       v111 = *(v27 + 23);
       *(v27 + 23) = v110;
 
       v112 = NSStringFromSelector(sel_groupResponseClaimName);
-      v113 = [v260 objectForKeyedSubscript:v112];
+      v113 = [v259 objectForKeyedSubscript:v112];
       v114 = *(v27 + 24);
       *(v27 + 24) = v113;
 
       v115 = NSStringFromSelector(sel_refreshEndpointURL);
-      v116 = [v260 objectForKeyedSubscript:v115];
+      v116 = [v259 objectForKeyedSubscript:v115];
 
       if (v116)
       {
         v117 = MEMORY[0x277CBEBC0];
         v118 = NSStringFromSelector(sel_refreshEndpointURL);
-        v119 = [v260 objectForKeyedSubscript:v118];
+        v119 = [v259 objectForKeyedSubscript:v118];
         v120 = [v117 URLWithString:v119];
         v121 = *(v27 + 25);
         *(v27 + 25) = v120;
@@ -1712,118 +1710,118 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       v122 = objc_alloc_init(MEMORY[0x277CBEB18]);
 
       v123 = NSStringFromSelector(sel_customRefreshRequestValues);
-      v124 = [v260 objectForKeyedSubscript:v123];
+      v124 = [v259 objectForKeyedSubscript:v123];
 
-      v269[0] = MEMORY[0x277D85DD0];
-      v269[1] = 3221225472;
-      v269[2] = __37__POLoginConfiguration_initWithData___block_invoke_3;
-      v269[3] = &unk_279A3E7C0;
+      v268[0] = MEMORY[0x277D85DD0];
+      v268[1] = 3221225472;
+      v268[2] = __37__POLoginConfiguration_initWithData___block_invoke_3;
+      v268[3] = &unk_279A3E7C0;
       v125 = v122;
-      v270 = v125;
-      v252 = v124;
-      [v124 enumerateKeysAndObjectsUsingBlock:v269];
+      v269 = v125;
+      v251 = v124;
+      [v124 enumerateKeysAndObjectsUsingBlock:v268];
       if ([v125 count])
       {
         objc_storeStrong(v27 + 26, v122);
       }
 
       v126 = NSStringFromSelector(sel_customRefreshRequestHeaderClaims);
-      v127 = [v260 objectForKeyedSubscript:v126];
+      v127 = [v259 objectForKeyedSubscript:v126];
       v128 = *(v27 + 50);
       *(v27 + 50) = v127;
 
       v129 = NSStringFromSelector(sel_customRefreshRequestBodyClaims);
-      v130 = [v260 objectForKeyedSubscript:v129];
+      v130 = [v259 objectForKeyedSubscript:v129];
       v131 = *(v27 + 51);
       *(v27 + 51) = v130;
 
       v132 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v133 = NSStringFromSelector(sel_kerberosTicketMappings);
-      v134 = [v260 objectForKeyedSubscript:v133];
+      v134 = [v259 objectForKeyedSubscript:v133];
 
-      v267[0] = MEMORY[0x277D85DD0];
-      v267[1] = 3221225472;
-      v267[2] = __37__POLoginConfiguration_initWithData___block_invoke_4;
-      v267[3] = &unk_279A3DD60;
+      v266[0] = MEMORY[0x277D85DD0];
+      v266[1] = 3221225472;
+      v266[2] = __37__POLoginConfiguration_initWithData___block_invoke_4;
+      v266[3] = &unk_279A3DD60;
       v135 = v132;
-      v268 = v135;
-      v251 = v134;
-      [v134 enumerateObjectsUsingBlock:v267];
+      v267 = v135;
+      v250 = v134;
+      [v134 enumerateObjectsUsingBlock:v266];
       if ([v135 count])
       {
         objc_storeStrong(v27 + 27, v132);
       }
 
       v136 = NSStringFromSelector(sel_federationType);
-      v137 = [v260 objectForKeyedSubscript:v136];
+      v137 = [v259 objectForKeyedSubscript:v136];
       *(v27 + 28) = [v137 intValue];
 
       v138 = NSStringFromSelector(sel_federationRequestURN);
-      v139 = [v260 objectForKeyedSubscript:v138];
+      v139 = [v259 objectForKeyedSubscript:v138];
       v140 = *(v27 + 29);
       *(v27 + 29) = v139;
 
       v141 = NSStringFromSelector(sel_federationMexURL);
-      v142 = [v260 objectForKeyedSubscript:v141];
+      v142 = [v259 objectForKeyedSubscript:v141];
 
       if (v142)
       {
         v143 = MEMORY[0x277CBEBC0];
         v144 = NSStringFromSelector(sel_federationMexURL);
-        v145 = [v260 objectForKeyedSubscript:v144];
+        v145 = [v259 objectForKeyedSubscript:v144];
         v146 = [v143 URLWithString:v145];
         v147 = *(v27 + 30);
         *(v27 + 30) = v146;
       }
 
       v148 = NSStringFromSelector(sel_federationUserPreauthenticationURL);
-      v149 = [v260 objectForKeyedSubscript:v148];
+      v149 = [v259 objectForKeyedSubscript:v148];
 
       if (v149)
       {
         v150 = MEMORY[0x277CBEBC0];
         v151 = NSStringFromSelector(sel_federationUserPreauthenticationURL);
-        v152 = [v260 objectForKeyedSubscript:v151];
+        v152 = [v259 objectForKeyedSubscript:v151];
         v153 = [v150 URLWithString:v152];
         v154 = *(v27 + 31);
         *(v27 + 31) = v153;
       }
 
       v155 = NSStringFromSelector(sel_federationMexURLKeypath);
-      v156 = [v260 objectForKeyedSubscript:v155];
+      v156 = [v259 objectForKeyedSubscript:v155];
       v157 = *(v27 + 32);
       *(v27 + 32) = v156;
 
       v158 = NSStringFromSelector(sel_federationPredicate);
-      v159 = [v260 objectForKeyedSubscript:v158];
+      v159 = [v259 objectForKeyedSubscript:v158];
       v160 = *(v27 + 33);
       *(v27 + 33) = v159;
 
       v161 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v162 = NSStringFromSelector(sel_customFederationUserPreauthenticationRequestValues);
-      v163 = [v260 objectForKeyedSubscript:v162];
+      v163 = [v259 objectForKeyedSubscript:v162];
 
-      v265[0] = MEMORY[0x277D85DD0];
-      v265[1] = 3221225472;
-      v265[2] = __37__POLoginConfiguration_initWithData___block_invoke_5;
-      v265[3] = &unk_279A3E7C0;
+      v264[0] = MEMORY[0x277D85DD0];
+      v264[1] = 3221225472;
+      v264[2] = __37__POLoginConfiguration_initWithData___block_invoke_5;
+      v264[3] = &unk_279A3E7C0;
       v164 = v161;
-      v266 = v164;
-      v250 = v163;
-      [v163 enumerateKeysAndObjectsUsingBlock:v265];
+      v265 = v164;
+      v249 = v163;
+      [v163 enumerateKeysAndObjectsUsingBlock:v264];
       if ([v164 count])
       {
         objc_storeStrong(v27 + 34, v161);
       }
 
       v165 = NSStringFromSelector(sel_loginRequestEncryptionPublicKey);
-      v166 = [v260 objectForKeyedSubscript:v165];
+      v166 = [v259 objectForKeyedSubscript:v165];
 
       if (v166)
       {
         v167 = objc_alloc(MEMORY[0x277CBEA90]);
         v168 = NSStringFromSelector(sel_loginRequestEncryptionPublicKey);
-        v169 = [v260 objectForKeyedSubscript:v168];
+        v169 = [v259 objectForKeyedSubscript:v168];
         v170 = [v167 psso_initWithBase64URLEncodedString:v169];
 
         v171 = *(v27 + 56);
@@ -1831,12 +1829,12 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       }
 
       v172 = NSStringFromSelector(sel_loginRequestEncryptionAlgorithm);
-      v173 = [v260 objectForKeyedSubscript:v172];
+      v173 = [v259 objectForKeyedSubscript:v172];
 
       if (v173)
       {
         v174 = NSStringFromSelector(sel_loginRequestEncryptionAlgorithm);
-        v175 = [v260 objectForKeyedSubscript:v174];
+        v175 = [v259 objectForKeyedSubscript:v174];
 
         v176 = *(v27 + 35);
         *(v27 + 35) = v175;
@@ -1850,13 +1848,13 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       }
 
       v178 = NSStringFromSelector(sel_loginRequestHpkePsk_id);
-      v179 = [v260 objectForKeyedSubscript:v178];
+      v179 = [v259 objectForKeyedSubscript:v178];
 
       if (v179)
       {
         v180 = objc_alloc(MEMORY[0x277CBEA90]);
         v181 = NSStringFromSelector(sel_loginRequestHpkePsk_id);
-        v182 = [v260 objectForKeyedSubscript:v181];
+        v182 = [v259 objectForKeyedSubscript:v181];
         v183 = [v180 psso_initWithBase64URLEncodedString:v182];
 
         v184 = *(v27 + 37);
@@ -1864,13 +1862,13 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       }
 
       v185 = NSStringFromSelector(sel_loginRequestHpkePsk);
-      v186 = [v260 objectForKeyedSubscript:v185];
+      v186 = [v259 objectForKeyedSubscript:v185];
 
       if (v186)
       {
         v187 = objc_alloc(MEMORY[0x277CBEA90]);
         v188 = NSStringFromSelector(sel_loginRequestHpkePsk);
-        v189 = [v260 objectForKeyedSubscript:v188];
+        v189 = [v259 objectForKeyedSubscript:v188];
         v190 = [v187 psso_initWithBase64URLEncodedString:v189];
 
         v191 = *(v27 + 36);
@@ -1878,13 +1876,13 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       }
 
       v192 = NSStringFromSelector(sel_loginRequestEncryptionAPVPrefix);
-      v193 = [v260 objectForKeyedSubscript:v192];
+      v193 = [v259 objectForKeyedSubscript:v192];
 
       if (v193)
       {
         v194 = objc_alloc(MEMORY[0x277CBEA90]);
         v195 = NSStringFromSelector(sel_loginRequestEncryptionAPVPrefix);
-        v196 = [v260 objectForKeyedSubscript:v195];
+        v196 = [v259 objectForKeyedSubscript:v195];
         v197 = [v194 psso_initWithBase64URLEncodedString:v196];
 
         v198 = *(v27 + 38);
@@ -1892,13 +1890,13 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       }
 
       v199 = NSStringFromSelector(sel_keyEndpointURL);
-      v200 = [v260 objectForKeyedSubscript:v199];
+      v200 = [v259 objectForKeyedSubscript:v199];
 
       if (v200)
       {
         v201 = MEMORY[0x277CBEBC0];
         v202 = NSStringFromSelector(sel_keyEndpointURL);
-        v203 = [v260 objectForKeyedSubscript:v202];
+        v203 = [v259 objectForKeyedSubscript:v202];
         v204 = [v201 URLWithString:v203];
         v205 = *(v27 + 39);
         *(v27 + 39) = v204;
@@ -1907,65 +1905,65 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       v206 = objc_alloc_init(MEMORY[0x277CBEB18]);
 
       v207 = NSStringFromSelector(sel_customKeyExchangeRequestValues);
-      v208 = [v260 objectForKeyedSubscript:v207];
+      v208 = [v259 objectForKeyedSubscript:v207];
 
-      v263[0] = MEMORY[0x277D85DD0];
-      v263[1] = 3221225472;
-      v263[2] = __37__POLoginConfiguration_initWithData___block_invoke_6;
-      v263[3] = &unk_279A3E7C0;
+      v262[0] = MEMORY[0x277D85DD0];
+      v262[1] = 3221225472;
+      v262[2] = __37__POLoginConfiguration_initWithData___block_invoke_6;
+      v262[3] = &unk_279A3E7C0;
       v209 = v206;
-      v264 = v209;
-      v249 = v208;
-      [v208 enumerateKeysAndObjectsUsingBlock:v263];
+      v263 = v209;
+      v248 = v208;
+      [v208 enumerateKeysAndObjectsUsingBlock:v262];
       if ([v209 count])
       {
         objc_storeStrong(v27 + 40, v206);
       }
 
       v210 = NSStringFromSelector(sel_customKeyExchangeRequestHeaderClaims);
-      v211 = [v260 objectForKeyedSubscript:v210];
+      v211 = [v259 objectForKeyedSubscript:v210];
       v212 = *(v27 + 54);
       *(v27 + 54) = v211;
 
       v213 = NSStringFromSelector(sel_customKeyExchangeRequestBodyClaims);
-      v214 = [v260 objectForKeyedSubscript:v213];
+      v214 = [v259 objectForKeyedSubscript:v213];
       v215 = *(v27 + 55);
       *(v27 + 55) = v214;
 
       v216 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v217 = NSStringFromSelector(sel_customKeyRequestValues);
-      v218 = [v260 objectForKeyedSubscript:v217];
+      v218 = [v259 objectForKeyedSubscript:v217];
 
-      v261[0] = MEMORY[0x277D85DD0];
-      v261[1] = 3221225472;
-      v261[2] = __37__POLoginConfiguration_initWithData___block_invoke_7;
-      v261[3] = &unk_279A3E7C0;
+      v260[0] = MEMORY[0x277D85DD0];
+      v260[1] = 3221225472;
+      v260[2] = __37__POLoginConfiguration_initWithData___block_invoke_7;
+      v260[3] = &unk_279A3E7C0;
       v219 = v216;
-      v262 = v219;
-      [v218 enumerateKeysAndObjectsUsingBlock:v261];
+      v261 = v219;
+      [v218 enumerateKeysAndObjectsUsingBlock:v260];
       if ([v219 count])
       {
         objc_storeStrong(v27 + 41, v216);
       }
 
       v220 = NSStringFromSelector(sel_customKeyRequestHeaderClaims);
-      v221 = [v260 objectForKeyedSubscript:v220];
+      v221 = [v259 objectForKeyedSubscript:v220];
       v222 = *(v27 + 52);
       *(v27 + 52) = v221;
 
       v223 = NSStringFromSelector(sel_customKeyRequestBodyClaims);
-      v224 = [v260 objectForKeyedSubscript:v223];
+      v224 = [v259 objectForKeyedSubscript:v223];
       v225 = *(v27 + 53);
       *(v27 + 53) = v224;
 
       v226 = NSStringFromSelector(sel_hpkeAuthPublicKey);
-      v227 = [v260 objectForKeyedSubscript:v226];
+      v227 = [v259 objectForKeyedSubscript:v226];
 
       if (v227)
       {
         v228 = objc_alloc(MEMORY[0x277CBEA90]);
         v229 = NSStringFromSelector(sel_hpkeAuthPublicKey);
-        v230 = [v260 objectForKeyedSubscript:v229];
+        v230 = [v259 objectForKeyedSubscript:v229];
         v231 = [v228 psso_initWithBase64URLEncodedString:v230];
 
         v232 = *(v27 + 57);
@@ -1973,13 +1971,13 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       }
 
       v233 = NSStringFromSelector(sel_hpkePsk_id);
-      v234 = [v260 objectForKeyedSubscript:v233];
+      v234 = [v259 objectForKeyedSubscript:v233];
 
       if (v234)
       {
         v235 = objc_alloc(MEMORY[0x277CBEA90]);
         v236 = NSStringFromSelector(sel_hpkePsk_id);
-        v237 = [v260 objectForKeyedSubscript:v236];
+        v237 = [v259 objectForKeyedSubscript:v236];
         v238 = [v235 psso_initWithBase64URLEncodedString:v237];
 
         v239 = *(v27 + 45);
@@ -1987,25 +1985,25 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
       }
 
       v240 = NSStringFromSelector(sel_hpkePsk);
-      v241 = [v260 objectForKeyedSubscript:v240];
+      v241 = [v259 objectForKeyedSubscript:v240];
 
       if (v241)
       {
         v242 = objc_alloc(MEMORY[0x277CBEA90]);
         v243 = NSStringFromSelector(sel_hpkePsk);
-        v244 = [v260 objectForKeyedSubscript:v243];
+        v244 = [v259 objectForKeyedSubscript:v243];
         v245 = [v242 psso_initWithBase64URLEncodedString:v244];
 
         v246 = *(v27 + 44);
         *(v27 + 44) = v245;
       }
 
-      v4 = v260;
-      v9 = v259;
-      v18 = v257;
-      v12 = v258;
-      v26 = v255;
-      v24 = v256;
+      v4 = v259;
+      v9 = v258;
+      v18 = v256;
+      v12 = v257;
+      v26 = v254;
+      v24 = v255;
     }
 
     self = v27;
@@ -2013,14 +2011,13 @@ id __53__POLoginConfiguration_dataRepresentationForDisplay___block_invoke(uint64
     selfCopy = self;
   }
 
-  v247 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 id __37__POLoginConfiguration_initWithData___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error deserializing login config."];
-  v2 = PO_LOG_POLoginConfiguration();
+  v2 = PO_LOG_POLoginConfiguration(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -2183,35 +2180,27 @@ void __37__POLoginConfiguration_initWithData___block_invoke_7(uint64_t a1, uint6
 
 void __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:a1 encoding:4];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_25E8B1000, v2, v3, "open id response received: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25E8B1000, v2, v3, "open id response received: %{public}@", v4, v5, v6, v7);
 }
 
 void __111__POLoginConfiguration_configurationWithOpenIdConfigurationURL_identityProviderURL_clientId_issuer_completion___block_invoke_94_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a2 + 32), "statusCode")}];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_25E8B1000, a3, OS_LOG_TYPE_ERROR, "%{public}@, %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_25E8B1000, a3, OS_LOG_TYPE_ERROR, "%{public}@, %{public}@", &v6, 0x16u);
 }
 
 - (void)dataRepresentationForDisplay:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:a1 encoding:4];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_25E8B1000, v2, v3, "serialized configuration: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25E8B1000, v2, v3, "serialized configuration: %{public}@", v4, v5, v6, v7);
 }
 
 @end

@@ -69,7 +69,6 @@
 
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v22;
 
   return v4;
@@ -149,28 +148,26 @@
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __36__AMDKVStore_setValue_forKey_error___block_invoke(void *a1)
 {
-  v9[2] = a1;
-  v9[1] = a1;
-  v3 = MEMORY[0x277CBE408];
-  v5 = +[AMDKVStore entity];
-  v4 = [v5 name];
-  v1 = a1[4];
-  v9[0] = [v3 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  v8[2] = a1;
+  v8[1] = a1;
+  v2 = MEMORY[0x277CBE408];
+  v4 = +[AMDKVStore entity];
+  v3 = [v4 name];
+  v8[0] = [v2 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  MEMORY[0x277D82BD8](v3);
   MEMORY[0x277D82BD8](v4);
-  MEMORY[0x277D82BD8](v5);
-  [v9[0] setKey:a1[5]];
-  [v9[0] setValue:a1[6]];
-  v2 = a1[7];
+  [v8[0] setKey:a1[5]];
+  [v8[0] setValue:a1[6]];
+  v1 = a1[7];
   location = (*(a1[8] + 8) + 40);
-  v8 = *location;
-  [v2 save:&v8];
-  objc_storeStrong(location, v8);
-  objc_storeStrong(v9, 0);
+  v7 = *location;
+  [v1 save:&v7];
+  objc_storeStrong(location, v7);
+  objc_storeStrong(v8, 0);
 }
 
 + (id)deleteWithPredicate:(id)predicate error:(id *)error
@@ -426,7 +423,6 @@ void __37__AMDKVStore_fetchEntryForKey_error___block_invoke(void *a1)
   v4 = MEMORY[0x277D82BE0](v19);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v19, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }

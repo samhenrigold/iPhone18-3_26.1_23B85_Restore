@@ -80,9 +80,9 @@
 - (void)setColoringWithColorScheme:(id)scheme
 {
   schemeCopy = scheme;
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v5 = objc_msgSend_primaryTextColor(schemeCopy);
   offerNoticeTextColor = self->_offerNoticeTextColor;
-  self->_offerNoticeTextColor = primaryTextColor;
+  self->_offerNoticeTextColor = v5;
 
   itemOfferNoticeLabel = [(SUUIItemCellLayout *)self itemOfferNoticeLabel];
   v8 = itemOfferNoticeLabel;

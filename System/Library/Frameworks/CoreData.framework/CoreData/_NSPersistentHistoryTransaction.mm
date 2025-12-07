@@ -108,10 +108,10 @@
 
 - (_NSPersistentHistoryTransaction)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = _NSPersistentHistoryTransaction;
-  v4 = [(_NSPersistentHistoryTransaction *)&v18 init];
+  v19 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = _NSPersistentHistoryTransaction;
+  v4 = [(_NSPersistentHistoryTransaction *)&v17 init];
   if (v4)
   {
     v5 = objc_autoreleasePoolPush();
@@ -119,35 +119,35 @@
     v4->_rowIdentifier = [objc_msgSend(coder decodeObjectOfClass:objc_opt_class() forKey:{@"NSPersistentHistoryTransactionRowID", "longLongValue"}];
     [objc_msgSend(coder decodeObjectOfClass:objc_opt_class() forKey:{@"NSPersistentHistoryTransactionTimestamp", "doubleValue"}];
     v4->_timestamp = v6;
-    v4->_changes = [coder decodeObjectOfClasses:+[_PFRoutines historyChangesArrayClassesForSecureCoding]() forKey:@"NSPersistentHistoryTransactionChangeSet"];
+    v4->_changes = [coder decodeObjectOfClasses:+[_PFRoutines historyChangesArrayClassesForSecureCoding](_PFRoutines) forKey:@"NSPersistentHistoryTransactionChangeSet"];
     v4->_bundleID = [coder decodeObjectOfClass:objc_opt_class() forKey:@"NSPersistentHistoryTransactionBundleID"];
     v4->_processID = [coder decodeObjectOfClass:objc_opt_class() forKey:@"NSPersistentHistoryTransactionProcessID"];
     v4->_contextName = [coder decodeObjectOfClass:objc_opt_class() forKey:@"NSPersistentHistoryTransactionContextName"];
     v4->_author = [coder decodeObjectOfClass:objc_opt_class() forKey:@"NSPersistentHistoryTransactionAuthor"];
-    v4->_queryGeneration = [coder decodeObjectOfClasses:+[_PFRoutines historyQueryGenDataClassesForSecureCoding]() forKey:@"NSPersistentHistoryTransactionQueryGen"];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
+    v4->_queryGeneration = [coder decodeObjectOfClasses:+[_PFRoutines historyQueryGenDataClassesForSecureCoding](_PFRoutines) forKey:@"NSPersistentHistoryTransactionQueryGen"];
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     changes = v4->_changes;
-    v8 = [(NSArray *)changes countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v8 = [(NSArray *)changes countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(changes);
           }
 
-          [*(*(&v14 + 1) + 8 * i) _setTransaction:v4];
+          [*(*(&v13 + 1) + 8 * i) _setTransaction:v4];
         }
 
-        v9 = [(NSArray *)changes countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v9 = [(NSArray *)changes countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v9);
@@ -156,7 +156,6 @@
     objc_autoreleasePoolPop(v5);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -254,7 +253,7 @@
 
 - (id)objectIDNotification
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   if (!self)
   {
@@ -265,29 +264,29 @@
   v4 = [MEMORY[0x1E695DFA8] set];
   v5 = [MEMORY[0x1E695DFA8] set];
   v6 = [MEMORY[0x1E695DFA8] set];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   changes = self->_changes;
-  v8 = [(NSArray *)changes countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [(NSArray *)changes countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (!v8)
   {
     goto LABEL_15;
   }
 
   v9 = v8;
-  v10 = *v22;
+  v10 = *v21;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v22 != v10)
+      if (*v21 != v10)
       {
         objc_enumerationMutation(changes);
       }
 
-      v12 = *(*(&v21 + 1) + 8 * i);
+      v12 = *(*(&v20 + 1) + 8 * i);
       changedObjectID = [v12 changedObjectID];
       changeType = [v12 changeType];
       v15 = v4;
@@ -311,7 +310,7 @@ LABEL_12:
       }
     }
 
-    v9 = [(NSArray *)changes countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [(NSArray *)changes countByEnumeratingWithState:&v20 objects:v24 count:16];
   }
 
   while (v9);
@@ -336,7 +335,6 @@ LABEL_15:
 LABEL_22:
   v18 = [objc_alloc(MEMORY[0x1E696AD80]) initWithName:@"NSManagedObjectContextDidSaveObjectIDsNotification" object:0 userInfo:v17];
   objc_autoreleasePoolPop(v3);
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

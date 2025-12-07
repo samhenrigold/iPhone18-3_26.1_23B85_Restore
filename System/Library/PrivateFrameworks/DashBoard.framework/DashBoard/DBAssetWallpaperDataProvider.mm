@@ -66,7 +66,7 @@
   selfCopy = self;
   DBAssetWallpaperDataProvider.dynamicAppearanceWallpapers(for:)(vehicleCopy);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE908D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE908D8, &unk_24839DA70);
   v6 = sub_248383B00();
 
   return v6;

@@ -424,7 +424,7 @@ LABEL_19:
       OUTLINED_FUNCTION_4_3();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_3_5();
-      OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing property name=%@", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing property name=%@", v2, v3, v4, v5);
     }
   }
 }
@@ -439,7 +439,7 @@ LABEL_19:
       OUTLINED_FUNCTION_4_3();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_3_5();
-      OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing property name=%@", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing property name=%@", v2, v3, v4, v5);
     }
   }
 }
@@ -454,7 +454,7 @@ LABEL_19:
       OUTLINED_FUNCTION_4_3();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_3_5();
-      OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing property name=%@", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing property name=%@", v2, v3, v4, v5);
     }
   }
 }
@@ -469,7 +469,7 @@ LABEL_19:
       OUTLINED_FUNCTION_4_3();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_3_5();
-      OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing property name=%@", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing property name=%@", v2, v3, v4, v5);
     }
   }
 }

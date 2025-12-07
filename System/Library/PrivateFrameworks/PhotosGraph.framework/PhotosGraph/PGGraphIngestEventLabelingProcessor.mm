@@ -8,7 +8,7 @@
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   graphBuilder = self->_graphBuilder;
   blockCopy = block;
   updateCopy = update;
@@ -31,9 +31,9 @@
   v16 = [updateCopy momentNodesToProcessInGraph:graph forMomentUpdateTypes:objc_msgSend(objc_opt_class() includeInsertedNodes:{"requiredMomentUpdateTypes"), 1}];
 
   v17 = self->_graphBuilder;
-  v28 = 0;
-  v18 = [PGEventProcessor processPGGraphForMomentNodes:v16 graphBuilder:v17 progressReporter:v14 error:&v28];
-  v19 = v28;
+  v27 = 0;
+  v18 = [PGEventProcessor processPGGraphForMomentNodes:v16 graphBuilder:v17 progressReporter:v14 error:&v27];
+  v19 = v27;
   if (!v18)
   {
     v20 = +[PGLogging sharedLogging];
@@ -42,7 +42,7 @@
     if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v31 = v19;
+      v30 = v19;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[PGGraphIngestEventLabelingProcessor] Error processing events: %@", buf, 0xCu);
     }
   }
@@ -61,25 +61,23 @@
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v31 = "PGGraphIngestEventLabelingProcessor";
-    v32 = 2048;
-    v33 = ((((v22 - v13) * numer) / denom) / 1000000.0);
+    v30 = "PGGraphIngestEventLabelingProcessor";
+    v31 = 2048;
+    v32 = ((((v22 - v13) * numer) / denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, v26, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRunWithGraphUpdate:(id)update
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (+[PGEventLabelingConfiguration isEventLabelingEnabled])
   {
     photoLibrary = [(PGGraphBuilder *)self->_graphBuilder photoLibrary];
-    v20 = 0;
-    v6 = [photoLibrary urlForApplicationDataFolderIdentifier:1 error:&v20];
-    v7 = v20;
+    v19 = 0;
+    v6 = [photoLibrary urlForApplicationDataFolderIdentifier:1 error:&v19];
+    v7 = v19;
 
     if (v6)
     {
@@ -147,7 +145,7 @@ LABEL_16:
       }
 
       *buf = 138412290;
-      v22 = v7;
+      v21 = v7;
       v13 = "Failed to access the graph service URL. Error: %@";
       v14 = loggingConnection;
       v15 = 12;
@@ -160,7 +158,6 @@ LABEL_16:
   LOBYTE(hasMomentsToUpdate) = 0;
 LABEL_18:
 
-  v18 = *MEMORY[0x277D85DE8];
   return hasMomentsToUpdate;
 }
 

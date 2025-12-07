@@ -1,5 +1,6 @@
 @interface ComponentControl
 - (BOOL)shouldDoCPMSActions;
+- (ComponentControl)initWithCC:(int)c :(__CFDictionary *)a4;
 - (__CFString)copyFieldCurrentValueForIndex:(int)index;
 - (__CFString)copyHeaderForIndex:(int)index;
 - (unsigned)computePowerTarget;
@@ -42,6 +43,38 @@
       [(ComponentControl *)self defaultAction];
     }
   }
+}
+
+- (ComponentControl)initWithCC:(int)c :(__CFDictionary *)a4
+{
+  v5 = *&c;
+  v9.receiver = self;
+  v9.super_class = ComponentControl;
+  v6 = [(PidComponent *)&v9 initPIDWith:a4];
+  v7 = v6;
+  if (v6)
+  {
+    *(&v6->super.controlEffort + 4) = 0;
+    *&v6->allowLIOverride = 0;
+    v6->currentLoadingIndex = 100;
+    v6->previousValue = 100;
+    v6->super.mitigationType = v5;
+    v6->super.nameofComponent = 0;
+    v6->maxLoadingIndex = 100;
+    v6->releaseMaxLI = 999;
+    sub_100002A20(a4, @"MaxReleaseRate", kCFNumberIntType, &v6->releaseMaxLI);
+    v7->_powerlogKeyMaxLI = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Max LI%d", v5);
+    v7->_nominalPowerTarget = 0;
+    v7->_maxPower = 0;
+    v7->powerTarget = 0;
+    v7->currentPower = 0;
+    v7->isCPMSControlActive = 0;
+    LOBYTE(v7->_minPower) = 0;
+    v7->mitigationDetails = 0;
+    v7->initialCPMSBudgetSent = 0;
+  }
+
+  return v7;
 }
 
 - (void)defaultAction

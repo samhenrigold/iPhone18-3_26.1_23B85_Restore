@@ -10,7 +10,7 @@
 
 - (ISDialogTextField)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISDialogTextField.m", 22, a2);
   v4.receiver = self;
   v4.super_class = ISDialogTextField;
   return [(ISDialogTextField *)&v4 init];
@@ -33,7 +33,7 @@
 
 - (ISDialogTextField)initWithXPCEncoding:(id)encoding
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISDialogTextField.m", 44, a2);
   if (encoding && MEMORY[0x277C8C570](encoding) == MEMORY[0x277D86468])
   {
     v7.receiver = self;
@@ -64,9 +64,7 @@
   v3 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v3, "0", self->_keyboardType);
   xpc_dictionary_set_BOOL(v3, "1", self->_secure);
-  title = self->_title;
   SSXPCDictionarySetCFObject();
-  value = self->_value;
   SSXPCDictionarySetCFObject();
   return v3;
 }

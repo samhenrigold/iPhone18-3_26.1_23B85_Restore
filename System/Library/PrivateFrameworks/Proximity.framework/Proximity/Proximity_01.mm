@@ -238,39 +238,38 @@ uint64_t RangeAngleSharingImportanceEstimator::removeOutOfDateMeasurements(uint6
 
 uint64_t RangeAngleSharingImportanceEstimator::updateRecentMeasurements(uint64_t a1, uint64_t a2)
 {
-  std::deque<RangeAngleSharingImportanceEstimator::Measurement>::push_back(a1 + 24, a2);
+  std::deque<RangeAngleSharingImportanceEstimator::Measurement>::push_back((a1 + 24), a2);
 
   return RangeAngleSharingImportanceEstimator::removeOutOfDateMeasurements(a1);
 }
 
-__n128 std::deque<RangeAngleSharingImportanceEstimator::Measurement>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<RangeAngleSharingImportanceEstimator::Measurement>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 73 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 73 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<RangeAngleSharingImportanceEstimator::Measurement>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x49)) + 56 * (v8 % 0x49);
+  v8 = *(v5 + 8 * (v7 / 0x49)) + 56 * (v7 % 0x49);
   result = *a2;
-  v11 = *(a2 + 16);
-  v12 = *(a2 + 32);
-  *(v9 + 48) = *(a2 + 48);
-  *(v9 + 16) = v11;
-  *(v9 + 32) = v12;
-  *v9 = result;
-  ++*(a1 + 40);
+  v10 = *(a2 + 16);
+  v11 = *(a2 + 32);
+  *(v8 + 48) = *(a2 + 48);
+  *(v8 + 16) = v10;
+  *(v8 + 32) = v11;
+  *v8 = result;
+  ++a1[5];
   return result;
 }
 
@@ -371,7 +370,7 @@ LABEL_19:
   v15 = v11;
   v16 = v8;
   v17 = v10;
-  std::deque<RangeAngleSharingImportanceEstimator::Measurement>::push_back(this + 24, v13);
+  std::deque<RangeAngleSharingImportanceEstimator::Measurement>::push_back((this + 24), v13);
   return RangeAngleSharingImportanceEstimator::removeOutOfDateMeasurements(v2);
 }
 
@@ -449,9 +448,9 @@ double RangeAngleSharingImportanceEstimator::getAverageRangeMeters(RangeAngleSha
 
 double RangeAngleSharingImportanceEstimator::getMedianSoiRssiDbm(RangeAngleSharingImportanceEstimator *this, double a2)
 {
+  v18 = 0;
   v19 = 0;
   v20 = 0;
-  v21 = 0;
   v2 = *(this + 4);
   if (*(this + 5) == v2)
   {
@@ -471,13 +470,12 @@ double RangeAngleSharingImportanceEstimator::getMedianSoiRssiDbm(RangeAngleShari
   {
     v8 = *v4;
     v9 = *(v4 + 48);
-    v16 = *(v4 + 16);
-    v17 = *(v4 + 32);
-    v18 = v9;
+    v16 = *(v4 + 32);
+    v17 = v9;
     v10 = a2 - *&v8;
     if (v10 >= 0.0 && v10 <= 1.0)
     {
-      std::vector<double>::push_back[abi:ne200100](&v19, &v17);
+      std::vector<double>::push_back[abi:ne200100](&v18, &v16);
     }
 
     v4 += 56;
@@ -490,20 +488,20 @@ double RangeAngleSharingImportanceEstimator::getMedianSoiRssiDbm(RangeAngleShari
   }
 
   while (v4 != v5);
-  v13 = v19;
-  if (v19 != v20)
+  v13 = v18;
+  if (v18 != v19)
   {
     std::__sort<std::__less<double,double> &,double *>();
-    v13 = v19;
-    v14 = *&v19[((v20 - v19) >> 1) & 0xFFFFFFFFFFFFFFF8];
+    v13 = v18;
+    v14 = *&v18[((v19 - v18) >> 1) & 0xFFFFFFFFFFFFFFF8];
 LABEL_16:
-    v20 = v13;
+    v19 = v13;
     operator delete(v13);
     return v14;
   }
 
   v14 = -INFINITY;
-  if (v19)
+  if (v18)
   {
     goto LABEL_16;
   }
@@ -521,7 +519,7 @@ void sub_230ED2A00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -676,7 +674,7 @@ uint64_t RangeAngleSharingImportanceEstimator::getPreviousBTCoarseRange(RangeAng
   return 3;
 }
 
-BOOL RangeAngleSharingImportanceEstimator::isOutsideFOVRegionWithHysteresis(RangeAngleSharingImportanceEstimator *this, double a2, double a3)
+uint64_t RangeAngleSharingImportanceEstimator::isOutsideFOVRegionWithHysteresis(RangeAngleSharingImportanceEstimator *this, double a2, double a3)
 {
   v3 = fabs(a3);
   if (*(this + 88) == 1)
@@ -780,7 +778,7 @@ LABEL_27:
 
 void RangeAngleSharingImportanceEstimator::computeNormalizedSoiRssiDbm(uint64_t a1, uint64_t a2, double a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 40);
   MedianSoiRssiDbm = RangeAngleSharingImportanceEstimator::getMedianSoiRssiDbm(a1, a3);
   if (v6 > 0.0)
@@ -796,13 +794,13 @@ void RangeAngleSharingImportanceEstimator::computeNormalizedSoiRssiDbm(uint64_t 
     {
       v9 = *(a1 + 176);
       v10 = a3 - *(a1 + 184);
-      v12 = 134218496;
-      v13 = MedianSoiRssiDbm;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2048;
-      v17 = v10;
-      _os_log_impl(&dword_230EB5000, v8, OS_LOG_TYPE_INFO, "normalizedSoiRssiDbm %f, use %f computed %f(s) ago instead", &v12, 0x20u);
+      v11 = 134218496;
+      v12 = MedianSoiRssiDbm;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2048;
+      v16 = v10;
+      _os_log_impl(&dword_230EB5000, v8, OS_LOG_TYPE_INFO, "normalizedSoiRssiDbm %f, use %f computed %f(s) ago instead", &v11, 0x20u);
     }
 
     *(a2 + 56) = *(a1 + 176);
@@ -818,13 +816,11 @@ void RangeAngleSharingImportanceEstimator::computeNormalizedSoiRssiDbm(uint64_t 
   {
     *(a2 + 56) = 0x7FF0000000000000;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void RangeAngleSharingImportanceEstimator::getImportanceEstimate(uint64_t a1, uint64_t a2, double a3)
+void RangeAngleSharingImportanceEstimator::getImportanceEstimate(uint64_t a1, __int128 *a2, double a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 16);
   if (a3 - v6 <= 3.0)
   {
@@ -833,32 +829,32 @@ void RangeAngleSharingImportanceEstimator::getImportanceEstimate(uint64_t a1, ui
       v8 = *(a1 + 96);
       v9 = *(a1 + 112);
       v10 = *(a1 + 144);
-      *(a2 + 32) = *(a1 + 128);
-      *(a2 + 48) = v10;
+      a2[2] = *(a1 + 128);
+      a2[3] = v10;
       *a2 = v8;
-      *(a2 + 16) = v9;
+      a2[1] = v9;
       if (a3 - *(a1 + 160) > 0.5 && (*(a1 + 90) & 1) == 0)
       {
-        *(a2 + 24) = 0x7FF4000000000000;
+        *(a2 + 3) = 0x7FF4000000000000;
         *(a2 + 17) = 0;
       }
     }
 
     else
     {
-      *v19 = 0x7FF4000000000000;
-      v19[8] = 0;
-      RangeAngleSharingImportanceEstimator::getScoreEstimate(a1, v19, a3);
-      *a2 = *v19;
-      *(a2 + 16) = v19[8];
+      *v18 = 0x7FF4000000000000;
+      v18[8] = 0;
+      RangeAngleSharingImportanceEstimator::getScoreEstimate(a1, v18, a3);
+      *a2 = *v18;
+      *(a2 + 16) = v18[8];
       v11 = 3.0;
       if (!*(a1 + 89))
       {
         v11 = 1.0;
       }
 
-      *(a2 + 40) = RangeAngleSharingImportanceEstimator::getAverageRangeMeters(a1, a3, v11, 1);
-      *(a2 + 24) = *(a1 + 80);
+      *(a2 + 5) = RangeAngleSharingImportanceEstimator::getAverageRangeMeters(a1, a3, v11, 1);
+      *(a2 + 3) = *(a1 + 80);
       *(a2 + 32) = 1;
       *(a2 + 17) = 1;
       v12 = *(a1 + 64);
@@ -875,15 +871,15 @@ void RangeAngleSharingImportanceEstimator::getImportanceEstimate(uint64_t a1, ui
 
       v14 = 3;
 LABEL_17:
-      *(a2 + 48) = v14;
+      *(a2 + 12) = v14;
       *(a2 + 33) = *(a1 + 90);
       RangeAngleSharingImportanceEstimator::computeNormalizedSoiRssiDbm(a1, a2, a3);
       if (*(a1 + 16) == a3)
       {
         v15 = *a2;
-        v16 = *(a2 + 16);
-        v17 = *(a2 + 48);
-        *(a1 + 128) = *(a2 + 32);
+        v16 = a2[1];
+        v17 = a2[3];
+        *(a1 + 128) = a2[2];
         *(a1 + 144) = v17;
         *(a1 + 96) = v15;
         *(a1 + 112) = v16;
@@ -895,24 +891,22 @@ LABEL_17:
 
   else
   {
-    *(a2 + 16) = 0;
-    *a2 = 0;
     *(a2 + 8) = 0;
-    *(a2 + 24) = 0x7FF4000000000000;
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0x7FF4000000000000;
-    *(a2 + 48) = 3;
-    *(a2 + 56) = 0xFFF0000000000000;
+    *a2 = 0;
+    *(a2 + 1) = 0;
+    *(a2 + 3) = 0x7FF4000000000000;
+    *(a2 + 16) = 0;
+    *(a2 + 5) = 0x7FF4000000000000;
+    *(a2 + 12) = 3;
+    *(a2 + 7) = 0xFFF0000000000000;
     v7 = *(a1 + 192);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v19 = 134217984;
-      *&v19[4] = 0x4008000000000000;
-      _os_log_impl(&dword_230EB5000, v7, OS_LOG_TYPE_INFO, "[WARNING] Measurement gap more than %f(s)", v19, 0xCu);
+      *v18 = 134217984;
+      *&v18[4] = 0x4008000000000000;
+      _os_log_impl(&dword_230EB5000, v7, OS_LOG_TYPE_INFO, "[WARNING] Measurement gap more than %f(s)", v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void RangeAngleSharingImportanceEstimator::~RangeAngleSharingImportanceEstimator(RangeAngleSharingImportanceEstimator *this)
@@ -1020,19 +1014,19 @@ uint64_t std::deque<RangeAngleSharingImportanceEstimator::Measurement>::__maybe_
   return v4 ^ 1u;
 }
 
-void *std::deque<RangeAngleSharingImportanceEstimator::Measurement>::__add_back_capacity(void *a1)
+void std::deque<RangeAngleSharingImportanceEstimator::Measurement>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x49;
   v3 = v1 - 73;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1040,25 +1034,25 @@ void *std::deque<RangeAngleSharingImportanceEstimator::Measurement>::__add_back_
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_back<RangeAngleSharingImportanceEstimator::Measurement *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_back<RangeAngleSharingImportanceEstimator::Measurement *&>(a1, &v9);
 }
 
 void sub_230ED367C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -1072,27 +1066,26 @@ void sub_230ED367C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_back<RangeAngleSharingImportanceEstimator::Measurement *&>(void *result, void *a2)
+void std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_back<RangeAngleSharingImportanceEstimator::Measurement *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1101,28 +1094,26 @@ void *std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_front<RangeAngleSharingImportanceEstimator::Measurement *>(const void **result, void *a2)
+void std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_front<RangeAngleSharingImportanceEstimator::Measurement *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1135,52 +1126,50 @@ const void **std::__split_buffer<RangeAngleSharingImportanceEstimator::Measureme
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_back<RangeAngleSharingImportanceEstimator::Measurement *>(void *result, void *a2)
+void std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_back<RangeAngleSharingImportanceEstimator::Measurement *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1189,28 +1178,26 @@ void *std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_front<RangeAngleSharingImportanceEstimator::Measurement *&>(const void **result, void *a2)
+void std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_front<RangeAngleSharingImportanceEstimator::Measurement *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1223,29 +1210,28 @@ const void **std::__split_buffer<RangeAngleSharingImportanceEstimator::Measureme
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(uint64_t a1, unint64_t a2)
@@ -1360,9 +1346,9 @@ id PRSendHelloWithTimeout(uint64_t a1)
   return v5;
 }
 
-void sub_230ED4B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED4B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1400,9 +1386,9 @@ id PRGetPreflightInfo()
   return v3;
 }
 
-void sub_230ED4CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED4CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1425,39 +1411,39 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t PRRoseHasFailedUpdate()
+uint64_t PRRoseHasFailedUpdate(uint64_t a1, uint64_t a2)
 {
-  if (PRIsSupportedPlatform() && (getDiagnosticsServiceXPCConnection(), (v0 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (PRIsSupportedPlatform(a1, a2) && (getDiagnosticsServiceXPCConnection(), (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v1 = v0;
-    v6 = 0;
-    v7 = &v6;
-    v8 = 0x2020000000;
-    v9 = 0;
-    v2 = [v0 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_16];
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __PRRoseHasFailedUpdate_block_invoke_2;
-    v5[3] = &unk_2788F3F08;
-    v5[4] = &v6;
-    [v2 hasFailedRoseUpdate:v5];
+    v3 = v2;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x2020000000;
+    v11 = 0;
+    v4 = [v2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_16];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __PRRoseHasFailedUpdate_block_invoke_2;
+    v7[3] = &unk_2788F3F08;
+    v7[4] = &v8;
+    [v4 hasFailedRoseUpdate:v7];
 
-    [v1 invalidate];
-    v3 = *(v7 + 24);
-    _Block_object_dispose(&v6, 8);
+    [v3 invalidate];
+    v5 = *(v9 + 24);
+    _Block_object_dispose(&v8, 8);
   }
 
   else
   {
-    v3 = 0;
+    v5 = 0;
   }
 
-  return v3 & 1;
+  return v5 & 1;
 }
 
-void sub_230ED4E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED4E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1470,83 +1456,83 @@ id PRGetChipInfo()
 
   if (v2)
   {
-    v3 = dispatch_semaphore_create(0);
-    v4 = v3;
-    if (!v3)
+    v5 = dispatch_semaphore_create(0);
+    v6 = v5;
+    if (!v5)
     {
-      v6 = 0;
+      v8 = 0;
       goto LABEL_10;
     }
 
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x3032000000;
-    v17 = __Block_byref_object_copy__1;
-    v18 = __Block_byref_object_dispose__1;
-    v19 = 0;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __PRGetChipInfo_block_invoke;
-    v11[3] = &unk_2788F3F30;
-    v13 = &v14;
-    v4 = v3;
-    v12 = v4;
-    PRGetChipInfoAsync(v11);
-    v5 = dispatch_time(0, 5000000000);
-    dispatch_semaphore_wait(v4, v5);
-    v6 = v15[5];
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3032000000;
+    v19 = __Block_byref_object_copy__1;
+    v20 = __Block_byref_object_dispose__1;
+    v21 = 0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __PRGetChipInfo_block_invoke;
+    v13[3] = &unk_2788F3F30;
+    v15 = &v16;
+    v6 = v5;
+    v14 = v6;
+    PRGetChipInfoAsync(v13);
+    v7 = dispatch_time(0, 5000000000);
+    dispatch_semaphore_wait(v6, v7);
+    v8 = v17[5];
   }
 
   else
   {
-    if (!PRIsSupportedPlatform() || (getDiagnosticsServiceXPCConnection(), (v7 = objc_claimAutoreleasedReturnValue()) == 0))
+    if (!PRIsSupportedPlatform(v3, v4) || (getDiagnosticsServiceXPCConnection(), (v9 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v6 = 0;
+      v8 = 0;
       goto LABEL_11;
     }
 
-    v4 = v7;
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x3032000000;
-    v17 = __Block_byref_object_copy__1;
-    v18 = __Block_byref_object_dispose__1;
-    v19 = 0;
-    v8 = [v7 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_23];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __PRGetChipInfo_block_invoke_3;
-    v10[3] = &unk_2788F3F58;
-    v10[4] = &v14;
-    [v8 getChipInfoSync:1 reply:v10];
+    v6 = v9;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3032000000;
+    v19 = __Block_byref_object_copy__1;
+    v20 = __Block_byref_object_dispose__1;
+    v21 = 0;
+    v10 = [v9 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_23];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __PRGetChipInfo_block_invoke_3;
+    v12[3] = &unk_2788F3F58;
+    v12[4] = &v16;
+    [v10 getChipInfoSync:1 reply:v12];
 
-    [v4 invalidate];
-    v6 = v15[5];
+    [v6 invalidate];
+    v8 = v17[5];
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v16, 8);
 
 LABEL_10:
 LABEL_11:
 
-  return v6;
+  return v8;
 }
 
 void PRGetChipInfoAsync(void *a1)
 {
   v1 = a1;
-  if ((PRIsSupportedPlatform() & 1) != 0 && (getDiagnosticsServiceXPCConnection(), (v2 = objc_claimAutoreleasedReturnValue()) != 0))
+  if ((PRIsSupportedPlatform(v1, v2) & 1) != 0 && (getDiagnosticsServiceXPCConnection(), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v3 = v2;
-    v4 = [v2 remoteObjectProxyWithErrorHandler:&__block_literal_global_25];
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __PRGetChipInfoAsync_block_invoke_2;
-    v6[3] = &unk_2788F3F80;
-    v7 = v3;
-    v8 = v1;
-    v5 = v3;
-    [v4 getChipInfoSync:0 reply:v6];
+    v4 = v3;
+    v5 = [v3 remoteObjectProxyWithErrorHandler:&__block_literal_global_25];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __PRGetChipInfoAsync_block_invoke_2;
+    v7[3] = &unk_2788F3F80;
+    v8 = v4;
+    v9 = v1;
+    v6 = v4;
+    [v5 getChipInfoSync:0 reply:v7];
   }
 
   else
@@ -1603,9 +1589,9 @@ id PRGetPowerStatsWithTimeout(uint64_t a1)
   return v5;
 }
 
-void sub_230ED5424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED5424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1642,9 +1628,9 @@ uint64_t PRSetMcc(void *a1)
   return v4 & 1;
 }
 
-void sub_230ED556C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED556C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1681,9 +1667,9 @@ uint64_t PRSetIsoCountry(void *a1)
   return v5 & 1;
 }
 
-void sub_230ED5694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED5694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1720,9 +1706,9 @@ uint64_t PRSetAccessoryState(uint64_t a1)
   return v5 & 1;
 }
 
-void sub_230ED57D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED57D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1767,9 +1753,9 @@ uint64_t PRCollectLogs(unint64_t a1)
   return v1 & 1;
 }
 
-void sub_230ED5910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED5910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1806,9 +1792,9 @@ uint64_t PRSetRoseGlobalConfigParams(void *a1)
   return v4 & 1;
 }
 
-void sub_230ED5A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED5A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1846,11 +1832,11 @@ uint64_t PRGetChipPowerState(_BYTE *a1)
   return v1 & 1;
 }
 
-void sub_230ED5B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED5B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1883,9 +1869,9 @@ uint64_t PRRequestPowerChange(uint64_t a1)
   return v4;
 }
 
-void sub_230ED5CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED5CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1912,9 +1898,9 @@ uint64_t PRGetChipType()
   return v2;
 }
 
-void sub_230ED5DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED5DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1944,9 +1930,9 @@ id PRGetChipPublicKey()
   return v2;
 }
 
-void sub_230ED5EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED5EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1973,9 +1959,9 @@ uint64_t PRSetNarrowbandSARState(uint64_t a1)
   return v4;
 }
 
-void sub_230ED6004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED6004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2002,9 +1988,9 @@ uint64_t PRGetDeepSleepState()
   return v2;
 }
 
-void sub_230ED6108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED6108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2063,21 +2049,21 @@ void sub_230ED6D54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_230ED6EF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_230ED6EF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   objc_destroyWeak(va);
-  objc_destroyWeak((v6 - 24));
+  objc_destroyWeak((v10 - 24));
 
   _Unwind_Resume(a1);
 }
 
-void sub_230ED7014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_230ED7014(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = PRBeacon;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2106,12 +2092,12 @@ void sub_230ED776C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_230ED7A3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_230ED7A3C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = PRBeaconListener;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2129,30 +2115,29 @@ void sub_230ED90C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 std::deque<BtProxData>::push_back(uint64_t a1, __n128 *a2)
+__n128 std::deque<BtProxData>::push_back(unint64_t *a1, __n128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 170 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 170 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<BtProxData>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = (*(v6 + 8 * (v8 / 0xAA)) + 24 * (v8 % 0xAA));
+  v8 = (*(v5 + 8 * (v7 / 0xAA)) + 24 * (v7 % 0xAA));
   result = *a2;
-  v9[1].n128_u64[0] = a2[1].n128_u64[0];
-  *v9 = result;
-  ++*(a1 + 40);
+  v8[1].n128_u64[0] = a2[1].n128_u64[0];
+  *v8 = result;
+  ++a1[5];
   return result;
 }
 
@@ -2245,19 +2230,19 @@ uint64_t std::deque<BtProxData>::__maybe_remove_front_spare[abi:ne200100](uint64
   return v4 ^ 1u;
 }
 
-void *std::deque<BtProxData>::__add_back_capacity(void *a1)
+void std::deque<BtProxData>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0xAA;
   v3 = v1 - 170;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -2265,25 +2250,25 @@ void *std::deque<BtProxData>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<RangeAngleSharingImportanceEstimator::Measurement *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_back<RangeAngleSharingImportanceEstimator::Measurement *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<RangeAngleSharingImportanceEstimator::Measurement *>::emplace_back<RangeAngleSharingImportanceEstimator::Measurement *&>(a1, &v9);
 }
 
 void sub_230EDA418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2297,7 +2282,7 @@ void sub_230EDA418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<BtProxData>::vector[abi:ne200100]<std::__deque_iterator<BtProxData,BtProxData*,BtProxData&,BtProxData**,long,170l>,0>(void *a1, void *a2, uint64_t a3, void *a4, uint64_t a5)
+uint64_t *std::vector<BtProxData>::vector[abi:ne200100]<std::__deque_iterator<BtProxData,BtProxData*,BtProxData&,BtProxData**,long,170l>,0>(uint64_t *a1, void *a2, __int128 *a3, void *a4, __int128 *a5)
 {
   v6 = 0;
   *a1 = 0;
@@ -2312,7 +2297,7 @@ void *std::vector<BtProxData>::vector[abi:ne200100]<std::__deque_iterator<BtProx
   return a1;
 }
 
-uint64_t std::vector<BtProxData>::__init_with_size[abi:ne200100]<std::__deque_iterator<BtProxData,BtProxData*,BtProxData&,BtProxData**,long,170l>,std::__deque_iterator<BtProxData,BtProxData*,BtProxData&,BtProxData**,long,170l>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+uint64_t *std::vector<BtProxData>::__init_with_size[abi:ne200100]<std::__deque_iterator<BtProxData,BtProxData*,BtProxData&,BtProxData**,long,170l>,std::__deque_iterator<BtProxData,BtProxData*,BtProxData&,BtProxData**,long,170l>>(uint64_t *result, void *a2, __int128 *a3, uint64_t a4, __int128 *a5, unint64_t a6)
 {
   if (a6)
   {
@@ -2334,7 +2319,7 @@ void sub_230EDA560(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<BtProxData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<BtProxData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2354,23 +2339,24 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<BtProxData>>(uint64_t
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_230EDAFF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, void *a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53)
+void sub_230EDAFF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53)
 {
   std::__tree<Region>::destroy(&a44, a45);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<NeighborMeasurements>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+uint64_t std::vector<NeighborMeasurements>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<NeighborMeasurements>::__emplace_back_slow_path<NeighborMeasurements const&>(a1, a2);
   }
@@ -2381,7 +2367,7 @@ uint64_t std::vector<NeighborMeasurements>::push_back[abi:ne200100](uint64_t a1,
     result = v3 + 88;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -2446,41 +2432,41 @@ void SharingImportanceManager::~SharingImportanceManager(SharingImportanceManage
   std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::destroy(this, *(this + 1));
 }
 
-void *std::__tree<std::__value_type<unsigned long long,BOOL>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,BOOL>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,BOOL>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,BOOL>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2513,21 +2499,21 @@ __n128 std::vector<NeighborMeasurements>::__construct_one_at_end[abi:ne200100]<N
   return result;
 }
 
-uint64_t std::vector<NeighborMeasurements>::__emplace_back_slow_path<NeighborMeasurements const&>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<NeighborMeasurements>::__emplace_back_slow_path<NeighborMeasurements const&>(uint64_t *a1, __int128 *a2)
 {
-  v2 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x2E8BA2E8BA2E8BA3 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x2E8BA2E8BA2E8BALL)
   {
     std::vector<Rose::ResponderSuperframeRxPacketInfo>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5D1745D1745D1746 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5D1745D1745D1746 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5D1745D1745D1746 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5D1745D1745D1746 * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x2E8BA2E8BA2E8BA3 * ((*(a1 + 16) - *a1) >> 3)) >= 0x1745D1745D1745DLL)
+  if ((0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 3)) >= 0x1745D1745D1745DLL)
   {
     v6 = 0x2E8BA2E8BA2E8BALL;
   }
@@ -2571,14 +2557,14 @@ uint64_t std::vector<NeighborMeasurements>::__emplace_back_slow_path<NeighborMea
   *(v7 + 66) = v12;
   *(v7 + 56) = v11;
   *&v22 = v10 + 88;
-  v14 = *(a1 + 8);
+  v14 = a1[1];
   v15 = v9 + *a1 - v14;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<NeighborMeasurements>,NeighborMeasurements*>(a1, *a1, v14, v15);
   v16 = *a1;
   *a1 = v15;
-  v17 = *(a1 + 16);
+  v17 = a1[2];
   v19 = v22;
-  *(a1 + 8) = v22;
+  *(a1 + 1) = v22;
   *&v22 = v16;
   *(&v22 + 1) = v17;
   v20 = v16;
@@ -2587,9 +2573,9 @@ uint64_t std::vector<NeighborMeasurements>::__emplace_back_slow_path<NeighborMea
   return v19;
 }
 
-void sub_230EDC4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_230EDC4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<NeighborMeasurements>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2764,16 +2750,16 @@ void sub_230EDDCE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id PRMakeRangingServerXPCInterface()
+id PRMakeRangingServerXPCInterface(uint64_t a1)
 {
   if (PRMakeRangingServerXPCInterface_onceToken != -1)
   {
     PRMakeRangingServerXPCInterface_cold_1();
   }
 
-  v1 = PRMakeRangingServerXPCInterface_interface;
+  v2 = PRMakeRangingServerXPCInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __PRMakeRangingServerXPCInterface_block_invoke()
@@ -2993,11 +2979,11 @@ void sub_230EE0068(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_230EE0250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230EE0250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3008,11 +2994,11 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_230EE0434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230EE0434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3209,7 +3195,7 @@ double BtProxMaxFilter::FilterSamples(uint64_t a1, uint64_t *a2)
   return *(v2 + 8);
 }
 
-double BtProxMeanFilter::FilterSamples(uint64_t a1, uint64_t *a2)
+double BtProxMeanFilter::FilterSamples(uint64_t a1, const void **a2)
 {
   v2 = *a2;
   v3 = a2[1];
@@ -3254,7 +3240,7 @@ LABEL_9:
   return v7;
 }
 
-double BtProxMedianFilter::FilterSamples(uint64_t a1, uint64_t *a2)
+double BtProxMedianFilter::FilterSamples(uint64_t a1, char **a2)
 {
   v3 = a2[1];
   v4 = *a2;
@@ -3267,10 +3253,10 @@ double BtProxMedianFilter::FilterSamples(uint64_t a1, uint64_t *a2)
   v6 = v5 >> 1;
   v8 = BtProximityFilterBase::RssiCompare;
   std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*,false>(v4, v3, &v8, 126 - 2 * __clz(v5), 1);
-  result = *(*a2 + 24 * v6 + 8);
+  result = *&(*a2)[24 * v6 + 8];
   if (((*(a2 + 2) - *a2) & 8) == 0)
   {
-    return (result + *(*a2 + 24 * v6 - 16)) * 0.5;
+    return (result + *&(*a2)[24 * v6 - 16]) * 0.5;
   }
 
   return result;
@@ -3532,7 +3518,7 @@ void sub_230EE0D48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double BtProxOlympicFilter::FilterSamples(uint64_t a1, uint64_t *a2)
+double BtProxOlympicFilter::FilterSamples(uint64_t a1, void **a2)
 {
   v3 = *a2;
   v2 = a2[1];
@@ -3681,7 +3667,7 @@ void sub_230EE1024(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BtProxData>::__init_with_size[abi:ne200100]<BtProxData*,BtProxData*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<BtProxData>::__init_with_size[abi:ne200100]<BtProxData*,BtProxData*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3703,18 +3689,18 @@ void sub_230EE13B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*,false>(uint64_t a1, __n128 *a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*,false>(char *result, __n128 *a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4, char a5)
 {
 LABEL_1:
   v8 = &a2[-2].n128_i8[8];
   v9 = a2 - 3;
   v10 = &a2[-5].n128_i8[8];
-  v11 = a1;
+  v11 = result;
 LABEL_2:
   v12 = 1 - a4;
   while (1)
   {
-    a1 = v11;
+    result = v11;
     v13 = v12;
     v14 = a2 - v11;
     v15 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v11) >> 3);
@@ -3781,7 +3767,7 @@ LABEL_10:
     }
 
     v16 = v15 >> 1;
-    v17 = v11 + 24 * (v15 >> 1);
+    v17 = &v11[24 * (v15 >> 1)];
     v18 = *a3;
     if (v14 >= 0xC01)
     {
@@ -3882,14 +3868,14 @@ LABEL_27:
         }
       }
 
-      v63 = v11 + 24 * v16;
+      v63 = &v11[24 * v16];
       v64 = v63 - 24;
       v65 = *a3;
       v66 = *(v63 - 24);
       v198 = *(v63 - 1);
       v197 = v66;
-      v195 = *(a1 + 24);
-      v196 = *(a1 + 40);
+      v195 = *(result + 24);
+      v196 = *(result + 5);
       v67 = v65(&v197, &v195);
       v68 = *a3;
       if (v67)
@@ -3902,22 +3888,22 @@ LABEL_27:
         v195 = v70;
         if (v68(&v197, &v195))
         {
-          v71 = *(a1 + 40);
-          v72 = *(a1 + 24);
+          v71 = *(result + 5);
+          v72 = *(result + 24);
           v73 = a2[-2].n128_u64[0];
-          *(a1 + 24) = *v9;
-          *(a1 + 40) = v73;
+          *(result + 24) = *v9;
+          *(result + 5) = v73;
           *v9 = v72;
           goto LABEL_39;
         }
 
-        v197 = *(a1 + 24);
+        v197 = *(result + 24);
         v91 = v197;
-        v198 = *(a1 + 40);
+        v198 = *(result + 5);
         v92 = v198;
         v93 = *(v64 + 2);
-        *(a1 + 24) = *v64;
-        *(a1 + 40) = v93;
+        *(result + 24) = *v64;
+        *(result + 5) = v93;
         *(v64 + 2) = v92;
         *v64 = v91;
         v94 = *a3;
@@ -3964,30 +3950,30 @@ LABEL_39:
           v79 = *v64;
           v198 = *(v64 + 2);
           v197 = v79;
-          v195 = *(a1 + 24);
-          v196 = *(a1 + 40);
+          v195 = *(result + 24);
+          v196 = *(result + 5);
           if (v78(&v197, &v195))
           {
-            v197 = *(a1 + 24);
+            v197 = *(result + 24);
             v80 = v197;
-            v198 = *(a1 + 40);
+            v198 = *(result + 5);
             v81 = v198;
             v82 = *(v64 + 2);
-            *(a1 + 24) = *v64;
-            *(a1 + 40) = v82;
+            *(result + 24) = *v64;
+            *(result + 5) = v82;
             *(v64 + 2) = v81;
             *v64 = v80;
           }
         }
       }
 
-      v99 = a1 + 24 * v16;
+      v99 = &result[24 * v16];
       v100 = *a3;
       v101 = *(v99 + 24);
-      v198 = *(v99 + 40);
+      v198 = *(v99 + 5);
       v197 = v101;
-      v195 = *(a1 + 48);
-      v196 = *(a1 + 64);
+      v195 = *(result + 3);
+      v196 = *(result + 8);
       v102 = v100(&v197, &v195);
       v103 = *a3;
       if (v102)
@@ -3996,42 +3982,42 @@ LABEL_39:
         v198 = a2[-4].n128_u64[1];
         v197 = v104;
         v105 = *(v99 + 24);
-        v196 = *(v99 + 40);
+        v196 = *(v99 + 5);
         v195 = v105;
         if (v103(&v197, &v195))
         {
-          v106 = *(a1 + 64);
-          v107 = *(a1 + 48);
+          v106 = *(result + 8);
+          v107 = *(result + 3);
           v108 = a2[-4].n128_u64[1];
-          *(a1 + 48) = *v10;
-          *(a1 + 64) = v108;
+          *(result + 3) = *v10;
+          *(result + 8) = v108;
           *v10 = v107;
           goto LABEL_48;
         }
 
-        v197 = *(a1 + 48);
+        v197 = *(result + 3);
         v118 = v197;
-        v198 = *(a1 + 64);
+        v198 = *(result + 8);
         v119 = v198;
-        v120 = *(v99 + 40);
-        *(a1 + 48) = *(v99 + 24);
-        *(a1 + 64) = v120;
-        *(v99 + 40) = v119;
+        v120 = *(v99 + 5);
+        *(result + 3) = *(v99 + 24);
+        *(result + 8) = v120;
+        *(v99 + 5) = v119;
         *(v99 + 24) = v118;
         v121 = *a3;
         v122 = *v10;
         v198 = a2[-4].n128_u64[1];
         v197 = v122;
         v123 = *(v99 + 24);
-        v196 = *(v99 + 40);
+        v196 = *(v99 + 5);
         v195 = v123;
         if (v121(&v197, &v195))
         {
           v124 = *(v99 + 24);
-          v198 = *(v99 + 40);
+          v198 = *(v99 + 5);
           v197 = v124;
           v125 = *v10;
-          *(v99 + 40) = a2[-4].n128_u64[1];
+          *(v99 + 5) = a2[-4].n128_u64[1];
           *(v99 + 24) = v125;
           *v10 = v197;
           v106 = v198;
@@ -4046,34 +4032,34 @@ LABEL_48:
         v198 = a2[-4].n128_u64[1];
         v197 = v109;
         v110 = *(v99 + 24);
-        v196 = *(v99 + 40);
+        v196 = *(v99 + 5);
         v195 = v110;
         if (v103(&v197, &v195))
         {
           v111 = *(v99 + 24);
-          v198 = *(v99 + 40);
+          v198 = *(v99 + 5);
           v197 = v111;
           v112 = *v10;
-          *(v99 + 40) = a2[-4].n128_u64[1];
+          *(v99 + 5) = a2[-4].n128_u64[1];
           *(v99 + 24) = v112;
           *v10 = v197;
           a2[-4].n128_u64[1] = v198;
           v113 = *a3;
           v114 = *(v99 + 24);
-          v198 = *(v99 + 40);
+          v198 = *(v99 + 5);
           v197 = v114;
-          v195 = *(a1 + 48);
-          v196 = *(a1 + 64);
+          v195 = *(result + 3);
+          v196 = *(result + 8);
           if (v113(&v197, &v195))
           {
-            v197 = *(a1 + 48);
+            v197 = *(result + 3);
             v115 = v197;
-            v198 = *(a1 + 64);
+            v198 = *(result + 8);
             v116 = v198;
-            v117 = *(v99 + 40);
-            *(a1 + 48) = *(v99 + 24);
-            *(a1 + 64) = v117;
-            *(v99 + 40) = v116;
+            v117 = *(v99 + 5);
+            *(result + 3) = *(v99 + 24);
+            *(result + 8) = v117;
+            *(v99 + 5) = v116;
             *(v99 + 24) = v115;
           }
         }
@@ -4091,7 +4077,7 @@ LABEL_48:
       if (v129)
       {
         v131 = *(v99 + 24);
-        v198 = *(v99 + 40);
+        v198 = *(v99 + 5);
         v197 = v131;
         v132 = *v17;
         v196 = *(v17 + 2);
@@ -4102,7 +4088,7 @@ LABEL_48:
           v198 = *(v64 + 2);
           v197 = v133;
           *v64 = *(v99 + 24);
-          *(v64 + 2) = *(v99 + 40);
+          *(v64 + 2) = *(v99 + 5);
           goto LABEL_57;
         }
 
@@ -4116,7 +4102,7 @@ LABEL_48:
         *v17 = v144;
         v145 = *a3;
         v146 = *(v99 + 24);
-        v198 = *(v99 + 40);
+        v198 = *(v99 + 5);
         v197 = v146;
         v147 = *v17;
         v196 = *(v17 + 2);
@@ -4127,10 +4113,10 @@ LABEL_48:
           v198 = *(v17 + 2);
           v197 = v148;
           *v17 = *(v99 + 24);
-          *(v17 + 2) = *(v99 + 40);
+          *(v17 + 2) = *(v99 + 5);
 LABEL_57:
           v149 = v197;
-          *(v99 + 40) = v198;
+          *(v99 + 5) = v198;
           *(v99 + 24) = v149;
         }
       }
@@ -4138,7 +4124,7 @@ LABEL_57:
       else
       {
         v134 = *(v99 + 24);
-        v198 = *(v99 + 40);
+        v198 = *(v99 + 5);
         v197 = v134;
         v135 = *v17;
         v196 = *(v17 + 2);
@@ -4149,9 +4135,9 @@ LABEL_57:
           v198 = *(v17 + 2);
           v197 = v136;
           *v17 = *(v99 + 24);
-          *(v17 + 2) = *(v99 + 40);
+          *(v17 + 2) = *(v99 + 5);
           v137 = v197;
-          *(v99 + 40) = v198;
+          *(v99 + 5) = v198;
           *(v99 + 24) = v137;
           v138 = *a3;
           v139 = *v17;
@@ -4174,12 +4160,12 @@ LABEL_57:
         }
       }
 
-      v150 = *a1;
-      v198 = *(a1 + 16);
+      v150 = *result;
+      v198 = *(result + 2);
       v197 = v150;
       v151 = *v17;
-      *(a1 + 16) = *(v17 + 2);
-      *a1 = v151;
+      *(result + 2) = *(v17 + 2);
+      *result = v151;
       v152 = v197;
       *(v17 + 2) = v198;
       *v17 = v152;
@@ -4288,26 +4274,26 @@ LABEL_59:
     if ((a5 & 1) == 0)
     {
       v153 = *a3;
-      v154 = *(a1 - 24);
-      v198 = *(a1 - 8);
+      v154 = *(result - 24);
+      v198 = *(result - 1);
       v197 = v154;
-      v155 = *a1;
-      v196 = *(a1 + 16);
+      v155 = *result;
+      v196 = *(result + 2);
       v195 = v155;
       if ((v153(&v197, &v195) & 1) == 0)
       {
-        v11 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,BtProxData *,BOOL (*&)(BtProxData,BtProxData)>(a1, a2, a3);
+        v11 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,BtProxData *,BOOL (*&)(BtProxData,BtProxData)>(result, a2, a3);
         goto LABEL_66;
       }
     }
 
-    v156 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,BtProxData *,BOOL (*&)(BtProxData,BtProxData)>(a1, a2, a3);
+    v156 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,BtProxData *,BOOL (*&)(BtProxData,BtProxData)>(result, a2, a3);
     if ((v157 & 1) == 0)
     {
       goto LABEL_64;
     }
 
-    v158 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*>(a1, v156, a3);
+    v158 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*>(result, v156, a3);
     v11 = &v156[1].n128_i8[8];
     if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*>(&v156[1].n128_i64[1], a2, a3))
     {
@@ -4325,7 +4311,7 @@ LABEL_59:
     if (!v158)
     {
 LABEL_64:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*,false>(a1, v156, a3, -v13, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*,false>(result, v156, a3, -v13, a5 & 1);
       v11 = &v156[1].n128_i8[8];
 LABEL_66:
       a5 = 0;
@@ -4363,19 +4349,19 @@ LABEL_66:
         v175 = *a3;
         v197 = *(v11 + 72);
         v198 = *(v11 + 11);
-        v195 = v11[3];
+        v195 = *(v11 + 3);
         v196 = *(v11 + 8);
         if (v175(&v197, &v195))
         {
           v176 = *(v11 + 8);
-          v177 = v11[3];
-          v11[3] = *(v11 + 72);
+          v177 = *(v11 + 3);
+          *(v11 + 3) = *(v11 + 72);
           v178 = *(v11 + 11);
           *(v11 + 8) = v178;
           *(v11 + 72) = v177;
           *(v11 + 11) = v176;
           v179 = *a3;
-          v197 = v11[3];
+          v197 = *(v11 + 3);
           v198 = v178;
           v195 = *(v11 + 24);
           v196 = *(v11 + 5);
@@ -4383,9 +4369,9 @@ LABEL_66:
           {
             v180 = *(v11 + 5);
             v181 = *(v11 + 24);
-            *(v11 + 24) = v11[3];
+            *(v11 + 24) = *(v11 + 3);
             *(v11 + 5) = *(v11 + 8);
-            v11[3] = v181;
+            *(v11 + 3) = v181;
             *(v11 + 8) = v180;
 LABEL_87:
             v191 = *a3;
@@ -4731,7 +4717,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
   return result;
 }
 
-__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,BtProxData *,BOOL (*&)(BtProxData,BtProxData)>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
+char *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,BtProxData *,BOOL (*&)(BtProxData,BtProxData)>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v4 = a2;
   v31 = *a1;
@@ -4746,7 +4732,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     v7 = a1;
     do
     {
-      v8 = (v7 + 24);
+      v8 = v7 + 24;
       v9 = *a3;
       v33 = v31;
       v34 = v32;
@@ -4761,7 +4747,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
 
   else
   {
-    v11 = (a1 + 24);
+    v11 = a1 + 24;
     do
     {
       v8 = v11;
@@ -4776,7 +4762,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
       v29 = *v8;
       v30 = *(v8 + 2);
       v13 = v12(&v33, &v29);
-      v11 = (v8 + 24);
+      v11 = v8 + 24;
     }
 
     while (!v13);
@@ -4818,7 +4804,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     {
       v19 = *(v8 + 24);
       v20 = *(v8 + 5);
-      v8 = (v8 + 24);
+      v8 += 24;
       v21 = *a3;
       v33 = v31;
       v34 = v32;
@@ -4843,7 +4829,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   }
 
   v25 = (v8 - 24);
-  if ((v8 - 24) != a1)
+  if (v8 - 24 != a1)
   {
     v26 = *v25;
     *(a1 + 2) = *(v8 - 1);
@@ -4856,7 +4842,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v8;
 }
 
-uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,BtProxData *,BOOL (*&)(BtProxData,BtProxData)>(__int128 *a1, unint64_t a2, uint64_t (**a3)(__int128 *, __int128 *))
+__int128 *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,BtProxData *,BOOL (*&)(BtProxData,BtProxData)>(__int128 *a1, unint64_t a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v6 = 0;
   v29 = *a1;
@@ -4872,8 +4858,8 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
   }
 
   while ((v7(&v31, &v27) & 1) != 0);
-  v8 = (a1 + v6);
-  v9 = a1 + v6 - 24;
+  v8 = a1 + v6;
+  v9 = (a1 + v6 - 24);
   if (v6 == 24)
   {
     while (v8 < a2)
@@ -4930,7 +4916,7 @@ LABEL_9:
       {
         v18 = *(v13 + 24);
         v19 = *(v13 + 5);
-        v13 = (v13 + 24);
+        v13 += 24;
         v20 = *a3;
         v31 = v18;
         v32 = v19;
@@ -4955,18 +4941,18 @@ LABEL_9:
     }
 
     while (v13 < v14);
-    v9 = v13 - 24;
+    v9 = (v13 - 24);
   }
 
   if (v9 != a1)
   {
     v24 = *v9;
-    *(a1 + 2) = *(v9 + 16);
+    *(a1 + 2) = *(v9 + 2);
     *a1 = v24;
   }
 
   v25 = v29;
-  *(v9 + 16) = v30;
+  *(v9 + 2) = v30;
   *v9 = v25;
   return v9;
 }
@@ -4979,7 +4965,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
     switch(v6)
     {
       case 3:
-        v24 = (a2 - 24);
+        v24 = &a2[-2].n128_i8[8];
         v25 = *a3;
         v70 = *(a1 + 24);
         v71 = *(a1 + 40);
@@ -4990,14 +4976,14 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         if (v26)
         {
           v70 = *v24;
-          v71 = v24[1].n128_i64[0];
+          v71 = *(v24 + 2);
           v68 = *(a1 + 24);
           v69 = *(a1 + 40);
           if (v27(&v70, &v68))
           {
             v28 = *(a1 + 16);
             v29 = *a1;
-            v30 = v24[1].n128_i64[0];
+            v30 = *(v24 + 2);
             *a1 = *v24;
             *(a1 + 16) = v30;
           }
@@ -5012,7 +4998,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
             *(a1 + 40) = v49;
             v51 = *a3;
             v70 = *v24;
-            v71 = v24[1].n128_i64[0];
+            v71 = *(v24 + 2);
             v68 = *(a1 + 24);
             v69 = *(a1 + 40);
             if (!v51(&v70, &v68))
@@ -5022,18 +5008,18 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
 
             v28 = *(a1 + 40);
             v29 = *(a1 + 24);
-            v52 = v24[1].n128_i64[0];
+            v52 = *(v24 + 2);
             *(a1 + 24) = *v24;
             *(a1 + 40) = v52;
           }
 
           *v24 = v29;
-          v24[1].n128_u64[0] = v28;
+          *(v24 + 2) = v28;
           return 1;
         }
 
         v70 = *v24;
-        v71 = v24[1].n128_i64[0];
+        v71 = *(v24 + 2);
         v68 = *(a1 + 24);
         v69 = *(a1 + 40);
         if (!v27(&v70, &v68))
@@ -5043,11 +5029,11 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
 
         v37 = *(a1 + 40);
         v38 = *(a1 + 24);
-        v39 = v24[1].n128_i64[0];
+        v39 = *(v24 + 2);
         *(a1 + 24) = *v24;
         *(a1 + 40) = v39;
         *v24 = v38;
-        v24[1].n128_u64[0] = v37;
+        *(v24 + 2) = v37;
         break;
       case 4:
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*,0>(a1, (a1 + 24), (a1 + 48), (a2 - 24), a3);
@@ -5056,7 +5042,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), a3);
         v12 = *a3;
         v70 = *(a2 - 24);
-        v71 = a2[-1].n128_i64[1];
+        v71 = a2[-1].n128_u64[1];
         v68 = *(a1 + 72);
         v69 = *(a1 + 88);
         if (!v12(&v70, &v68))
@@ -5064,14 +5050,14 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
           return 1;
         }
 
-        v13 = &a2[-2].n128_i64[1];
+        v13 = &a2[-2].n128_i8[8];
         v14 = *(a1 + 88);
         v15 = *(a1 + 72);
-        v16 = a2[-1].n128_i64[1];
+        v16 = a2[-1].n128_u64[1];
         *(a1 + 72) = *(a2 - 24);
         *(a1 + 88) = v16;
         *v13 = v15;
-        v13[2] = v14;
+        *(v13 + 2) = v14;
         v17 = *a3;
         v70 = *(a1 + 72);
         v71 = *(a1 + 88);
@@ -5137,19 +5123,19 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
   {
     v7 = *a3;
     v70 = *(a2 - 24);
-    v71 = a2[-1].n128_i64[1];
+    v71 = a2[-1].n128_u64[1];
     v68 = *a1;
     v69 = *(a1 + 16);
     if (v7(&v70, &v68))
     {
-      v8 = (a2 - 24);
+      v8 = &a2[-2].n128_i8[8];
       v9 = *(a1 + 16);
       v10 = *a1;
-      v11 = a2[-1].n128_i64[1];
+      v11 = a2[-1].n128_u64[1];
       *a1 = *(a2 - 24);
       *(a1 + 16) = v11;
       *v8 = v10;
-      v8[1].n128_u64[0] = v9;
+      *(v8 + 2) = v9;
     }
 
     return 1;
@@ -5251,14 +5237,14 @@ LABEL_33:
   {
     v59 = *a3;
     v70 = *v56;
-    v71 = v56[1].n128_i64[0];
+    v71 = v56[1].n128_u64[0];
     v60 = *v31;
-    v69 = v31[1].n128_i64[0];
+    v69 = v31[1].n128_u64[0];
     v68 = v60;
     if (v59(&v70, &v68))
     {
       v70 = *v56;
-      v71 = v56[1].n128_i64[0];
+      v71 = v56[1].n128_u64[0];
       v61 = v57;
       while (1)
       {
@@ -5303,7 +5289,7 @@ LABEL_41:
   }
 }
 
-__n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*,BtProxData*>(__n128 *a1, __n128 *a2, __n128 *a3, unsigned int (**a4)(__n128 *, __n128 *))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*,BtProxData*>(__n128 *a1, __n128 *a2, char *a3, unsigned int (**a4)(__n128 *, __n128 *))
 {
   if (a1 != a2)
   {
@@ -5332,22 +5318,22 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
       {
         v14 = *a4;
         v26 = *v13;
-        v27 = v13[1].n128_u64[0];
+        v27 = *(v13 + 2);
         v24 = *a1;
         v25 = a1[1].n128_u64[0];
         if (v14(&v26, &v24))
         {
-          v15 = v13[1].n128_u64[0];
+          v15 = *(v13 + 2);
           v16 = *v13;
           v17 = a1[1].n128_u64[0];
           *v13 = *a1;
-          v13[1].n128_u64[0] = v17;
+          *(v13 + 2) = v17;
           *a1 = v16;
           a1[1].n128_u64[0] = v15;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*>(a1, a4, v9, a1);
         }
 
-        v13 = (v13 + 24);
+        v13 += 24;
       }
 
       while (v13 != a3);
@@ -5356,7 +5342,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
     if (v8 >= 25)
     {
       v18 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 3);
-      v19 = (a2 - 24);
+      v19 = &a2[-2].n128_i8[8];
       do
       {
         v26 = *a1;
@@ -5371,14 +5357,14 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
         else
         {
           v21 = *v19;
-          *(v20 + 2) = v19[1].n128_u64[0];
+          *(v20 + 2) = *(v19 + 2);
           *v20 = v21;
           *v19 = v26;
-          v19[1].n128_u64[0] = v27;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*>(a1, v20 + 24, a4, 0xAAAAAAAAAAAAAAABLL * ((v20 + 24 - a1) >> 3));
+          *(v19 + 2) = v27;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*>(a1, (v20 + 24), a4, 0xAAAAAAAAAAAAAAABLL * ((v20 + 24 - a1) >> 3));
         }
 
-        v19 = (v19 - 24);
+        v19 -= 24;
       }
 
       while (v18-- > 2);
@@ -5474,25 +5460,25 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxDat
   return result;
 }
 
-__int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*>(__int128 *a1, unsigned int (**a2)(__int128 *, __int128 *), uint64_t a3)
+char *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,BtProxData),BtProxData*>(__int128 *a1, unsigned int (**a2)(__int128 *, __int128 *), uint64_t a3)
 {
   v6 = 0;
   v7 = (a3 - 2) / 2;
   do
   {
     v8 = a1 + 24 * v6;
-    v9 = (v8 + 24);
+    v9 = v8 + 24;
     v10 = (2 * v6) | 1;
     v11 = 2 * v6 + 2;
     if (v11 < a3)
     {
       v12 = *a2;
       v13 = *v9;
-      v21 = *(v8 + 40);
+      v21 = *(v8 + 5);
       v20 = v13;
-      v14 = (v8 + 48);
-      v15 = *(v8 + 48);
-      v19 = *(v8 + 64);
+      v14 = v8 + 48;
+      v15 = *(v8 + 3);
+      v19 = *(v8 + 8);
       v18 = v15;
       if (v12(&v20, &v18))
       {
@@ -5563,7 +5549,7 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(BtProxData,
   return result;
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5585,7 +5571,7 @@ void sub_230EE389C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6108,20 +6094,20 @@ void sub_230EE410C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<short>::resize(void *a1, unint64_t a2, __int16 *a3)
+void std::vector<short>::resize(void *result, unint64_t a2, __int16 *a3)
 {
-  v3 = (a1[1] - *a1) >> 1;
+  v3 = (result[1] - *result) >> 1;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<short>::__append(a1, a2 - v3, a3);
+    std::vector<short>::__append(result, a2 - v3, a3);
   }
 }
 

@@ -26,9 +26,11 @@
 
 - (void)createChildren
 {
-  self->_shortcutsPlaygroundSettings = [(PTSettings *)[PUWallpaperShortcutsPlaygroundSettings alloc] initWithDefaultValues];
+  initWithDefaultValues = [(PTSettings *)[PUWallpaperShortcutsPlaygroundSettings alloc] initWithDefaultValues];
+  shortcutsPlaygroundSettings = self->_shortcutsPlaygroundSettings;
+  self->_shortcutsPlaygroundSettings = initWithDefaultValues;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](initWithDefaultValues, shortcutsPlaygroundSettings);
 }
 
 - (void)setDefaultValues

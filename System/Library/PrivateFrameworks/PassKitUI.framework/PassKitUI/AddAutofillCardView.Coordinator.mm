@@ -21,8 +21,10 @@
   selfCopy = self;
   [cancelledCopy dismissViewControllerAnimated:1 completion:0];
   v5 = *(&selfCopy->super.isa + OBJC_IVAR____TtCV9PassKitUI19AddAutofillCardView11Coordinator_didComplete);
+  v6 = *&selfCopy->autoFillManager[OBJC_IVAR____TtCV9PassKitUI19AddAutofillCardView11Coordinator_didComplete];
   sub_1BE048964();
   v5(0);
+  v6, v7, v8, v9, v10, v11, v12, v13;
 }
 
 - (_TtCV9PassKitUI19AddAutofillCardView11Coordinator)init

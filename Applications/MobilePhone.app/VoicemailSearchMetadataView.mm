@@ -24,7 +24,7 @@
     {
       v7();
 
-      outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+      outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v6);
     }
 
     else
@@ -35,7 +35,7 @@
 
 - (void)handleContentSizeCategoryDidChange:(id)change
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd, &_s10Foundation12NotificationVSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if (change)

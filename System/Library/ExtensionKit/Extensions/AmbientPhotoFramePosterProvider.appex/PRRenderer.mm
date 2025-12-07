@@ -25,11 +25,12 @@
 
 - (id)px_extendRenderSessionForReason:(id)reason
 {
-  sub_100010854();
+  v4 = sub_100010854();
+  v6 = v5;
   selfCopy = self;
-  v5 = PRRenderer.px_extendRenderSession(forReason:)();
+  v8 = PRRenderer.px_extendRenderSession(forReason:)(v4, v6);
 
-  return v5;
+  return v8;
 }
 
 - (PXPosterRenderingEnvironment)px_environment

@@ -168,12 +168,12 @@ void __55__CDPUIStatusChangeController__handleUserChoice_error___block_invoke_2(
   return v8;
 }
 
-uint64_t __70__CDPUIStatusChangeController_Presentation___configureAlertController__block_invoke(uint64_t a1)
+uint64_t __70__CDPUIStatusChangeController_Presentation___configureAlertController__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __70__CDPUIStatusChangeController_Presentation___configureAlertController__block_invoke_cold_1(v2);
+    __70__CDPUIStatusChangeController_Presentation___configureAlertController__block_invoke_cold_1(v3);
   }
 
   return [*(a1 + 32) _handleUserChoice:1];
@@ -196,7 +196,7 @@ uint64_t __70__CDPUIStatusChangeController_Presentation___configureAlertControll
   v7 = _CDPLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [CDPUIStatusChangeController(Presentation) presentWithViewController:presentationType:];
+    [CDPUIStatusChangeController(Presentation) presentWithViewController:type presentationType:?];
   }
 
   model = [(CDPUIStatusChangeController *)self model];
@@ -211,7 +211,7 @@ uint64_t __70__CDPUIStatusChangeController_Presentation___configureAlertControll
   [model _checkCurrentStatus:v10];
 }
 
-uint64_t __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke(uint64_t result, uint64_t a2)
+id *__88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke(id *result, uint64_t a2)
 {
   v2 = result;
   if (a2 <= 1)
@@ -229,7 +229,7 @@ uint64_t __88__CDPUIStatusChangeController_Presentation__presentWithViewControll
         __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_4();
       }
 
-      v5 = *(v2 + 32);
+      v5 = v2[4];
       v6 = 2;
     }
 
@@ -241,7 +241,7 @@ uint64_t __88__CDPUIStatusChangeController_Presentation__presentWithViewControll
         __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_5();
       }
 
-      v5 = *(v2 + 32);
+      v5 = v2[4];
       v6 = 3;
     }
 
@@ -259,7 +259,7 @@ uint64_t __88__CDPUIStatusChangeController_Presentation__presentWithViewControll
           __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_3();
         }
 
-        return [*(v2 + 32) _alertWithViewController:*(v2 + 40)];
+        return [v2[4] _alertWithViewController:v2[5]];
       case 3:
         v8 = _CDPLogSystem();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
@@ -267,7 +267,7 @@ uint64_t __88__CDPUIStatusChangeController_Presentation__presentWithViewControll
           __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_2();
         }
 
-        return [*(v2 + 32) _passcodeVerificationflowWithViewController:*(v2 + 40) presentationType:*(v2 + 48)];
+        return [v2[4] _passcodeVerificationflowWithViewController:v2[5] presentationType:v2[6]];
       case 4:
         v3 = _CDPLogSystem();
         if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -275,7 +275,7 @@ uint64_t __88__CDPUIStatusChangeController_Presentation__presentWithViewControll
           __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_1();
         }
 
-        return [*(v2 + 32) _handleBuddyFlow];
+        return [v2[4] _handleBuddyFlow];
     }
   }
 
@@ -312,7 +312,7 @@ void __106__CDPUIStatusChangeController_Presentation___passcodeVerificationflowW
     v7 = _CDPLogSystem();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __106__CDPUIStatusChangeController_Presentation___passcodeVerificationflowWithViewController_presentationType___block_invoke_cold_2();
+      __106__CDPUIStatusChangeController_Presentation___passcodeVerificationflowWithViewController_presentationType___block_invoke_cold_2(a1);
     }
 
     [*(a1 + 32) _handleUserChoice:1];
@@ -375,73 +375,77 @@ void __61__CDPUIStatusChangeController_Presentation___handleBuddyFlow__block_inv
 void __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v1 = OUTLINED_FUNCTION_4_0();
-  NSStringFromClass(v1);
+  v2 = OUTLINED_FUNCTION_4_0(v1);
+  NSStringFromClass(v2);
   objc_claimAutoreleasedReturnValue();
-  v2 = [OUTLINED_FUNCTION_3_1() model];
+  v3 = [OUTLINED_FUNCTION_3_1() model];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v3, v4, "%@: Performing CDP State Check %@.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v4, v5, "%@: Performing CDP State Check %@.", v6, v7, v8, v9);
 }
 
 void __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_2_1();
-  v1 = OUTLINED_FUNCTION_4_0();
-  NSStringFromClass(v1);
+  v2 = OUTLINED_FUNCTION_4_0(v1);
+  NSStringFromClass(v2);
   objc_claimAutoreleasedReturnValue();
-  v2 = [OUTLINED_FUNCTION_3_1() model];
+  v3 = [OUTLINED_FUNCTION_3_1() model];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v3, v4, "%@: Presenting passcode entry for %@.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v4, v5, "%@: Presenting passcode entry for %@.", v6, v7, v8, v9);
 }
 
 void __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_3()
 {
   OUTLINED_FUNCTION_2_1();
-  v1 = OUTLINED_FUNCTION_4_0();
-  NSStringFromClass(v1);
+  v2 = OUTLINED_FUNCTION_4_0(v1);
+  NSStringFromClass(v2);
   objc_claimAutoreleasedReturnValue();
-  v2 = [OUTLINED_FUNCTION_3_1() model];
+  v3 = [OUTLINED_FUNCTION_3_1() model];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v3, v4, "%@: Presenting alert for %@.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v4, v5, "%@: Presenting alert for %@.", v6, v7, v8, v9);
 }
 
 void __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_4()
 {
   OUTLINED_FUNCTION_2_1();
-  v1 = OUTLINED_FUNCTION_4_0();
-  NSStringFromClass(v1);
+  v2 = OUTLINED_FUNCTION_4_0(v1);
+  NSStringFromClass(v2);
   objc_claimAutoreleasedReturnValue();
-  v2 = [OUTLINED_FUNCTION_3_1() model];
+  v3 = [OUTLINED_FUNCTION_3_1() model];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v3, v4, "%@: Skipping user prompt for %@ user interaction was not needed.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v4, v5, "%@: Skipping user prompt for %@ user interaction was not needed.", v6, v7, v8, v9);
 }
 
 void __88__CDPUIStatusChangeController_Presentation__presentWithViewController_presentationType___block_invoke_cold_5()
 {
   OUTLINED_FUNCTION_2_1();
-  v1 = OUTLINED_FUNCTION_4_0();
-  NSStringFromClass(v1);
+  v2 = OUTLINED_FUNCTION_4_0(v1);
+  NSStringFromClass(v2);
   objc_claimAutoreleasedReturnValue();
-  v2 = [OUTLINED_FUNCTION_3_1() model];
+  v3 = [OUTLINED_FUNCTION_3_1() model];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v3, v4, "%@: Skipping user prompt for %@ because no change was needed.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v4, v5, "%@: Skipping user prompt for %@ because no change was needed.", v6, v7, v8, v9);
 }
 
 void __106__CDPUIStatusChangeController_Presentation___passcodeVerificationflowWithViewController_presentationType___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = OUTLINED_FUNCTION_4_0();
+  v3 = OUTLINED_FUNCTION_4_0(a1);
   v4 = NSStringFromClass(v3);
   v5 = [a2 localizedDescription];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v6, v7, "%@: Error in updating local secret %@.", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v6, v7, "%@: Error in updating local secret %@.", v8, v9, v10, v11);
 }
 
-void __106__CDPUIStatusChangeController_Presentation___passcodeVerificationflowWithViewController_presentationType___block_invoke_cold_2()
+void __106__CDPUIStatusChangeController_Presentation___passcodeVerificationflowWithViewController_presentationType___block_invoke_cold_2(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_4_0();
-  v1 = NSStringFromClass(v0);
-  v8 = [0 localizedDescription];
-  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v2, v3, "%@: Updated local secret successfully %@.", v4, v5, v6, v7, 2u);
+  v1 = OUTLINED_FUNCTION_4_0(a1);
+  v2 = NSStringFromClass(v1);
+  v3 = [0 localizedDescription];
+  *v10 = 138412546;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_1_0(&dword_2451DB000, v4, v5, "%@: Updated local secret successfully %@.", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 void __61__CDPUIStatusChangeController_Presentation___handleBuddyFlow__block_invoke_cold_1(uint64_t a1, NSObject *a2)

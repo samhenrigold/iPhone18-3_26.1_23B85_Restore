@@ -52,13 +52,13 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_100012E28(&qword_1000B2550);
+  sub_100012E28(&qword_1000B2550, &unk_10008CB48);
   v15 = sub_10007D740();
 
 LABEL_8:
   sub_1000104AC(v10, v12, v18, v15, context);
 
-  sub_10000B348(v18, &qword_1000B2528);
+  sub_10000B348(v18, &qword_1000B2528, &unk_10008C970);
 }
 
 - (_TtC22StickersUltraExtension13LivePhotoView)initWithCoder:(id)coder

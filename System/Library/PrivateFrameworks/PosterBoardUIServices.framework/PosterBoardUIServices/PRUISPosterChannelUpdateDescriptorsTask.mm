@@ -63,7 +63,7 @@ void __57___PRUISPosterChannelUpdateDescriptorsTask__lock_cleanup__block_invoke(
 {
   v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRUISLogChannels();
+  v4 = PRUISLogChannels(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) channel];
@@ -90,20 +90,20 @@ void __51___PRUISPosterChannelUpdateDescriptorsTask_execute__block_invoke(uint64
 
 void __62___PRUISPosterChannelUpdateDescriptorsTask__executeWithState___block_invoke(uint64_t a1, unint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [*(a1 + 32) channelIdentifier];
   v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ExecuteWithState-V%lu", *(*(*(a1 + 40) + 8) + 24)];
   v8 = CHANNEL_LOG_PREFIX(v6, @"UpdateDescriptorsTask", v7, a2);
 
-  v9 = PRUISLogChannels();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PRUISLogChannels(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_1CAE63000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
+    v12 = v8;
+    v13 = 2114;
+    v14 = v5;
+    _os_log_impl(&dword_1CAE63000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
 }
 
@@ -117,28 +117,29 @@ void __62___PRUISPosterChannelUpdateDescriptorsTask__executeWithState___block_in
 uint64_t __62___PRUISPosterChannelUpdateDescriptorsTask__executeWithState___block_invoke_2(void *a1, void *a2)
 {
   v3 = a2;
-  if ((v3[2] & 1) == 0)
+  if ((*(v3 + 16) & 1) == 0)
   {
     v10 = v3;
-    if (([v3[11] hasBeenSignalled] & 1) == 0)
+    v3 = [*(v3 + 88) hasBeenSignalled];
+    if ((v3 & 1) == 0)
     {
-      v4 = v10[3];
-      v10[3] = v4 + 1;
+      v4 = *(v10 + 24);
+      *(v10 + 24) = v4 + 1;
       *(*(a1[4] + 8) + 24) = v4;
-      v5 = v10[4];
+      v5 = *(v10 + 32);
       v6 = [MEMORY[0x1E696ABC0] pf_errorWithCode:2];
       [v5 finishWithError:v6];
 
       v7 = objc_opt_new();
-      v8 = v10[4];
-      v10[4] = v7;
+      v8 = *(v10 + 32);
+      *(v10 + 32) = v7;
 
       objc_storeStrong((*(a1[5] + 8) + 40), v7);
       *(*(a1[6] + 8) + 24) = 1;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3);
 }
 
 void __62___PRUISPosterChannelUpdateDescriptorsTask__executeWithState___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -270,20 +271,21 @@ void __61___PRUISPosterChannelUpdateDescriptorsTask_cancelWithReason___block_inv
 uint64_t __69___PRUISPosterChannelUpdateDescriptorsTask_channelWillUpdateContext___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ((v2[2] & 1) == 0)
+  if ((*(v2 + 16) & 1) == 0)
   {
     v6 = v2;
-    if (([v2[11] hasBeenSignalled] & 1) == 0)
+    v2 = [*(v2 + 88) hasBeenSignalled];
+    if ((v2 & 1) == 0)
     {
-      v3 = [v6[4] future];
+      v3 = [*(v6 + 32) future];
       [v3 cancel];
 
-      v4 = v6[4];
-      v6[4] = 0;
+      v4 = *(v6 + 32);
+      *(v6 + 32) = 0;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 void __69___PRUISPosterChannelUpdateDescriptorsTask_channel_didUpdateContext___block_invoke(uint64_t a1)

@@ -61,7 +61,7 @@
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container
 {
   containerCopy = container;
-  v5 = cdui_default_log();
+  v5 = cdui_default_log(containerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(_UIViewServiceViewController *)containerCopy preferredContentSizeDidChangeForChildContentContainer:v5];

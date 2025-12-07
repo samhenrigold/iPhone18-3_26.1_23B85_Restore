@@ -35,32 +35,32 @@
 
 + (id)topPersonNodeIdentifierForTwoPersonSocialGroupsFromPersonNodes:(id)nodes personNodes:(id)personNodes
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   personNodesCopy = personNodes;
   socialGroupNodesSortedByImportance = [nodes socialGroupNodesSortedByImportance];
   if ([socialGroupNodesSortedByImportance count])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v7 = socialGroupNodesSortedByImportance;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       anyObject = &stru_2843F5C58;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          collection = [*(*(&v18 + 1) + 8 * i) collection];
+          collection = [*(*(&v17 + 1) + 8 * i) collection];
           personNodes = [collection personNodes];
 
           if ([personNodes count] == 1 && (objc_msgSend(personNodesCopy, "intersectsCollection:", personNodes) & 1) != 0)
@@ -72,7 +72,7 @@
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v9)
         {
           continue;
@@ -94,8 +94,6 @@ LABEL_15:
   {
     anyObject = &stru_2843F5C58;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return anyObject;
 }
@@ -174,7 +172,7 @@ LABEL_15:
 
 void __85__PGPeopleInferencesConveniences_countedPersonNodesFromMomentNodes_amongPersonNodes___block_invoke(id *a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a1[4] containsIdentifier:a2])
   {
@@ -201,14 +199,12 @@ void __85__PGPeopleInferencesConveniences_countedPersonNodesFromMomentNodes_amon
 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = 134217984;
-        v12 = a2;
-        _os_log_error_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_ERROR, "Could not fetch person node with identifier %lu", &v11, 0xCu);
+        v10 = 134217984;
+        v11 = a2;
+        _os_log_error_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_ERROR, "Could not fetch person node with identifier %lu", &v10, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)personLocalIdentifierByContactIdentifierFromPersonNodes:(id)nodes

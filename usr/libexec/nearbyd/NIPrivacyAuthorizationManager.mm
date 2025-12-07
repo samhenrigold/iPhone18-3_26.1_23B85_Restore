@@ -59,7 +59,7 @@
       v12 = connection;
       if (connection)
       {
-        [connection auditToken];
+        objc_msgSend_auditToken(connection);
       }
 
       else
@@ -91,7 +91,7 @@
         v18 = connection2;
         if (connection2)
         {
-          [connection2 auditToken];
+          objc_msgSend_auditToken(connection2);
         }
 
         else
@@ -100,11 +100,11 @@
           v28 = 0u;
         }
 
-        [(NIPrivacyAuthorizationManager *)self presentUserAuthorizationPrompt:displayName3 forAuditToken:buf withBundleRecord:v14];
+        objc_msgSend_presentUserAuthorizationPrompt_forAuditToken_withBundleRecord_(self);
 
         std::mutex::lock((self + 8));
         *buf = &v26;
-        v21 = sub_10003CB9C(self + 9, &v26);
+        v21 = sub_10003CB9C(self + 9, &v26, &unk_100548C50, buf);
         *(v21 + 3) = v23;
         v21[5] = v24;
         std::mutex::unlock((self + 8));

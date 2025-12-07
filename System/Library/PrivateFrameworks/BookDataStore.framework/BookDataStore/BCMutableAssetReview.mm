@@ -17,7 +17,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = BDSCloudKitLog();
+    v7 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E47053F0();
@@ -72,7 +72,7 @@ LABEL_7:
 
     else
     {
-      reviewBody = BDSCloudKitLog();
+      reviewBody = BDSCloudKitLog(0);
       if (os_log_type_enabled(reviewBody, OS_LOG_TYPE_ERROR))
       {
         sub_1E4705274();
@@ -91,7 +91,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    reviewBody = BDSCloudKitLog();
+    reviewBody = BDSCloudKitLog(0);
     if (os_log_type_enabled(reviewBody, OS_LOG_TYPE_ERROR))
     {
       sub_1E4705424();

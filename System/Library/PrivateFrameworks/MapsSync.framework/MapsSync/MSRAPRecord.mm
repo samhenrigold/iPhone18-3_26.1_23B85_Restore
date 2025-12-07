@@ -23,9 +23,8 @@
   indexCopy = index;
   revisionCopy = revision;
   v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v17 = *(*(v16 - 8) + 64);
   MEMORY[0x1EEE9AC00](v16 - 8);
-  v19 = &v51 - v18;
+  v18 = &v50 - v17;
   if (data)
   {
     codeCopy = code;
@@ -34,9 +33,9 @@
     dateCopy = date;
     summaryCopy = summary;
     dataCopy = data;
-    v26 = sub_1B63BE924();
-    v54 = v27;
-    v55 = v26;
+    v25 = sub_1B63BE924();
+    v53 = v26;
+    v54 = v25;
 
     if (code)
     {
@@ -51,14 +50,14 @@
     idCopy2 = id;
     dateCopy2 = date;
     summaryCopy2 = summary;
-    v54 = 0xF000000000000000;
-    v55 = 0;
+    v53 = 0xF000000000000000;
+    v54 = 0;
     if (code)
     {
 LABEL_3:
-      v28 = sub_1B63BEBD4();
-      v52 = v29;
-      v53 = v28;
+      v27 = sub_1B63BEBD4();
+      v51 = v28;
+      v52 = v27;
 
       if (response)
       {
@@ -69,13 +68,13 @@ LABEL_3:
     }
   }
 
+  v51 = 0;
   v52 = 0;
-  v53 = 0;
   if (response)
   {
 LABEL_4:
-    v30 = sub_1B63BE924();
-    v32 = v31;
+    v29 = sub_1B63BE924();
+    v31 = v30;
 
     if (id)
     {
@@ -83,8 +82,8 @@ LABEL_4:
     }
 
 LABEL_10:
-    v33 = 0;
-    v35 = 0;
+    v32 = 0;
+    v34 = 0;
     if (date)
     {
       goto LABEL_6;
@@ -94,50 +93,50 @@ LABEL_10:
   }
 
 LABEL_9:
-  v30 = 0;
-  v32 = 0xF000000000000000;
+  v29 = 0;
+  v31 = 0xF000000000000000;
   if (!id)
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  v33 = sub_1B63BEBD4();
-  v35 = v34;
+  v32 = sub_1B63BEBD4();
+  v34 = v33;
 
   if (date)
   {
 LABEL_6:
     sub_1B63BE974();
 
-    v36 = sub_1B63BE994();
-    (*(*(v36 - 8) + 56))(v19, 0, 1, v36);
+    v35 = sub_1B63BE994();
+    (*(*(v35 - 8) + 56))(v18, 0, 1, v35);
     goto LABEL_12;
   }
 
 LABEL_11:
-  v42 = sub_1B63BE994();
-  (*(*(v42 - 8) + 56))(v19, 1, 1, v42);
+  v41 = sub_1B63BE994();
+  (*(*(v41 - 8) + 56))(v18, 1, 1, v41);
 LABEL_12:
   if (summary)
   {
-    v43 = sub_1B63BEBD4();
-    v45 = v44;
+    v42 = sub_1B63BEBD4();
+    v44 = v43;
   }
 
   else
   {
-    v43 = 0;
-    v45 = 0;
+    v42 = 0;
+    v44 = 0;
   }
 
-  v50 = v19;
-  v47 = v54;
-  v46 = v55;
-  v48 = sub_1B6310620(revisionCopy, v55, v54, v53, v52, indexCopy, v30, v32, v33, v35, status, v50, v43, v45, type);
-  sub_1B6284F64(v30, v32);
-  sub_1B6284F64(v46, v47);
-  return v48;
+  v49 = v18;
+  v46 = v53;
+  v45 = v54;
+  v47 = sub_1B6310620(revisionCopy, v54, v53, v52, v51, indexCopy, v29, v31, v32, v34, status, v49, v42, v44, type);
+  sub_1B6284F64(v29, v31);
+  sub_1B6284F64(v45, v46);
+  return v47;
 }
 
 - (MSRAPRecord)initWithStore:(id)store clientRevision:(signed __int16)revision contentData:(id)data countryCode:(id)code positionIndex:(int64_t)index rapResponse:(id)response reportId:(id)id status:(signed __int16)self0 statusLastUpdatedDate:(id)self1 summary:(id)self2 type:(signed __int16)self3
@@ -146,9 +145,8 @@ LABEL_12:
   indexCopy = index;
   revisionCopy = revision;
   v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v18 = *(*(v17 - 8) + 64);
   MEMORY[0x1EEE9AC00](v17 - 8);
-  v20 = &v50 - v19;
+  v19 = &v49 - v18;
   storeCopy = store;
   if (data)
   {
@@ -159,9 +157,9 @@ LABEL_12:
     dateCopy = date;
     summaryCopy = summary;
     dataCopy = data;
-    v28 = sub_1B63BE924();
-    v52 = v29;
-    v53 = v28;
+    v27 = sub_1B63BE924();
+    v51 = v28;
+    v52 = v27;
 
     if (code)
     {
@@ -177,14 +175,14 @@ LABEL_12:
     idCopy2 = id;
     dateCopy2 = date;
     summaryCopy2 = summary;
-    v52 = 0xF000000000000000;
-    v53 = 0;
+    v51 = 0xF000000000000000;
+    v52 = 0;
     if (code)
     {
 LABEL_3:
-      v30 = sub_1B63BEBD4();
-      v50 = v31;
-      v51 = v30;
+      v29 = sub_1B63BEBD4();
+      v49 = v30;
+      v50 = v29;
 
       if (response)
       {
@@ -195,13 +193,13 @@ LABEL_3:
     }
   }
 
+  v49 = 0;
   v50 = 0;
-  v51 = 0;
   if (response)
   {
 LABEL_4:
-    v32 = sub_1B63BE924();
-    v34 = v33;
+    v31 = sub_1B63BE924();
+    v33 = v32;
 
     if (id)
     {
@@ -209,8 +207,8 @@ LABEL_4:
     }
 
 LABEL_10:
-    v35 = 0;
-    v37 = 0;
+    v34 = 0;
+    v36 = 0;
     if (date)
     {
       goto LABEL_6;
@@ -220,44 +218,44 @@ LABEL_10:
   }
 
 LABEL_9:
-  v32 = 0;
-  v34 = 0xF000000000000000;
+  v31 = 0;
+  v33 = 0xF000000000000000;
   if (!id)
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  v35 = sub_1B63BEBD4();
-  v37 = v36;
+  v34 = sub_1B63BEBD4();
+  v36 = v35;
 
   if (date)
   {
 LABEL_6:
     sub_1B63BE974();
 
-    v38 = sub_1B63BE994();
-    (*(*(v38 - 8) + 56))(v20, 0, 1, v38);
+    v37 = sub_1B63BE994();
+    (*(*(v37 - 8) + 56))(v19, 0, 1, v37);
     goto LABEL_12;
   }
 
 LABEL_11:
-  v45 = sub_1B63BE994();
-  (*(*(v45 - 8) + 56))(v20, 1, 1, v45);
+  v44 = sub_1B63BE994();
+  (*(*(v44 - 8) + 56))(v19, 1, 1, v44);
 LABEL_12:
   if (summary)
   {
-    v46 = sub_1B63BEBD4();
-    v48 = v47;
+    v45 = sub_1B63BEBD4();
+    v47 = v46;
   }
 
   else
   {
-    v46 = 0;
-    v48 = 0;
+    v45 = 0;
+    v47 = 0;
   }
 
-  return RAPRecord.init(store:clientRevision:contentData:countryCode:positionIndex:rapResponse:reportId:status:statusLastUpdatedDate:summary:type:)(storeCopy, revisionCopy, v53, v52, v51, v50, indexCopy, v32, v34, v35, v37, status, v20, v46, v48, type);
+  return RAPRecord.init(store:clientRevision:contentData:countryCode:positionIndex:rapResponse:reportId:status:statusLastUpdatedDate:summary:type:)(storeCopy, revisionCopy, v52, v51, v50, v49, indexCopy, v31, v33, v34, v36, status, v19, v45, v47, type);
 }
 
 + (Class)managedClass
@@ -307,47 +305,45 @@ LABEL_12:
 - (NSDate)statusLastUpdatedDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_1B630D870(v6);
+  sub_1B630D870(v5);
 
-  v8 = sub_1B63BE994();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_1B63BE994();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1B63BE954();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1B63BE954();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setStatusLastUpdatedDate:(id)date
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (date)
   {
     sub_1B63BE974();
-    v9 = sub_1B63BE994();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1B63BE994();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1B63BE994();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1B63BE994();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
-  sub_1B630DE70(v8);
+  sub_1B630DE70(v7);
 }
 
 - (void)setType:(signed __int16)type

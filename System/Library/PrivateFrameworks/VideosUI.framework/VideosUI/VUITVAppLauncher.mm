@@ -97,30 +97,30 @@
   return v2;
 }
 
-void __34__VUITVAppLauncher_sharedInstance__block_invoke()
+void __34__VUITVAppLauncher_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = VUISignpostLogObject();
-  if (os_signpost_enabled(v0))
+  v1 = VUISignpostLogObject(a1);
+  if (os_signpost_enabled(v1))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.Init", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.Init", "", buf, 2u);
   }
 
-  v1 = objc_alloc_init(objc_opt_class());
-  v2 = sharedInstance_sSharedInstance_2;
-  sharedInstance_sSharedInstance_2 = v1;
+  v2 = objc_alloc_init(objc_opt_class());
+  v3 = sharedInstance_sSharedInstance_2;
+  sharedInstance_sSharedInstance_2 = v2;
 
-  v3 = VUISignpostLogObject();
-  if (os_signpost_enabled(v3))
+  v5 = VUISignpostLogObject(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.Init", "", v4, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.Init", "", v6, 2u);
   }
 }
 
 - (VUITVAppLauncher)init
 {
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -128,64 +128,65 @@ void __34__VUITVAppLauncher_sharedInstance__block_invoke()
   }
 
   VUIRequireMainThread();
-  v20.receiver = self;
-  v20.super_class = VUITVAppLauncher;
-  v4 = [(VUITVAppLauncher *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = VUITVAppLauncher;
+  v4 = [(VUITVAppLauncher *)&v21 init];
+  v5 = v4;
   if (v4)
   {
-    v5 = VUISignpostLogObject();
-    if (os_signpost_enabled(v5))
+    v6 = VUISignpostLogObject(v4);
+    if (os_signpost_enabled(v6))
     {
       LOWORD(buf[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PerceivedLaunch", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PerceivedLaunch", "", buf, 2u);
     }
 
-    v4->_startupPrewarmSubscriptionDataCompleted = 0;
-    v6 = dispatch_get_global_queue(0, 0);
-    dispatch_async(v6, &__block_literal_global_150);
+    v5->_startupPrewarmSubscriptionDataCompleted = 0;
+    v7 = dispatch_get_global_queue(0, 0);
+    dispatch_async(v7, &__block_literal_global_150);
 
-    v7 = [objc_alloc(MEMORY[0x1E69DF790]) initWithName:@"VUITVAppLauncher_StateMachine" initialState:@"Idle" mode:0 stateChangeHandler:&__block_literal_global_195];
-    stateMachine = v4->_stateMachine;
-    v4->_stateMachine = v7;
+    v8 = [objc_alloc(MEMORY[0x1E69DF790]) initWithName:@"VUITVAppLauncher_StateMachine" initialState:@"Idle" mode:0 stateChangeHandler:&__block_literal_global_195];
+    stateMachine = v5->_stateMachine;
+    v5->_stateMachine = v8;
 
-    [(VUITVAppLauncher *)v4 _configureStateMachine];
-    v4->_isTerminating = 0;
-    v4->_isStillProcessingStartupItems = 0;
-    v4->_isStillProcessingStartupItemsLock._os_unfair_lock_opaque = 0;
-    v4->_didProcessAppFinishLoading = 0;
-    v4->_didProcessAppFinishLoadingLock._os_unfair_lock_opaque = 0;
+    [(VUITVAppLauncher *)v5 _configureStateMachine];
+    v5->_isTerminating = 0;
+    v5->_isStillProcessingStartupItems = 0;
+    v5->_isStillProcessingStartupItemsLock._os_unfair_lock_opaque = 0;
+    v5->_didProcessAppFinishLoading = 0;
+    v5->_didProcessAppFinishLoadingLock._os_unfair_lock_opaque = 0;
     date = [MEMORY[0x1E695DF00] date];
-    appLaunchDate = v4->_appLaunchDate;
-    v4->_appLaunchDate = date;
+    appLaunchDate = v5->_appLaunchDate;
+    v5->_appLaunchDate = date;
 
-    v4->_firstBecomeActiveSinceColdLaunch = 1;
-    objc_initWeak(buf, v4);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __24__VUITVAppLauncher_init__block_invoke_3;
-    v17[3] = &unk_1E87368F0;
-    objc_copyWeak(&v18, buf);
-    [(VUITVAppLauncher *)v4 setSwitchTabHandler:v17];
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __24__VUITVAppLauncher_init__block_invoke_4;
-    v15 = &unk_1E8736918;
-    objc_copyWeak(&v16, buf);
-    [(VUITVAppLauncher *)v4 setDeeplinkCompletionHandler:&v12];
-    objc_destroyWeak(&v16);
-    objc_destroyWeak(&v18);
+    v5->_firstBecomeActiveSinceColdLaunch = 1;
+    objc_initWeak(buf, v5);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __24__VUITVAppLauncher_init__block_invoke_3;
+    v18[3] = &unk_1E87368F0;
+    objc_copyWeak(&v19, buf);
+    [(VUITVAppLauncher *)v5 setSwitchTabHandler:v18];
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __24__VUITVAppLauncher_init__block_invoke_4;
+    v16 = &unk_1E8736918;
+    objc_copyWeak(&v17, buf);
+    [(VUITVAppLauncher *)v5 setDeeplinkCompletionHandler:&v13];
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
 
-  [(VUITVAppLauncher *)v4 registerForApplicationNotifications:v12];
-  return v4;
+  [(VUITVAppLauncher *)v5 registerForApplicationNotifications:v13];
+  return v5;
 }
 
 - (void)_configureStateMachine
 {
   [(VUITVAppLauncher *)self _registerStateMachineHandlers];
   stateMachine = [(VUITVAppLauncher *)self stateMachine];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(stateMachine);
   [stateMachine setLogObject:v3];
 
   [stateMachine logUnhandledEvents];
@@ -457,7 +458,7 @@ void __34__VUITVAppLauncher_sharedInstance__block_invoke()
 
 - (void)_initializeMediaLibrary
 {
-  v3 = VUISignpostLogObject();
+  v3 = VUISignpostLogObject(self);
   if (os_signpost_enabled(v3))
   {
     LOWORD(buf[0]) = 0;
@@ -489,11 +490,11 @@ void __43__VUITVAppLauncher__initializeMediaLibrary__block_invoke(uint64_t a1)
   v2 = +[VUIPerfMetricsAppLaunchController sharedInstance];
   [v2 recordAppLaunchEventWithEventType:@"mediaLibraryInitializeEnd"];
 
-  v3 = VUISignpostLogObject();
-  if (os_signpost_enabled(v3))
+  v4 = VUISignpostLogObject(v3);
+  if (os_signpost_enabled(v4))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MediaLibrary Initialization", "", v4, 2u);
+    *v5 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MediaLibrary Initialization", "", v5, 2u);
   }
 
   objc_destroyWeak(&to);
@@ -501,7 +502,7 @@ void __43__VUITVAppLauncher__initializeMediaLibrary__block_invoke(uint64_t a1)
 
 - (void)configureAppWindow
 {
-  v3 = VUISignpostLogObject();
+  v3 = VUISignpostLogObject(self);
   if (os_signpost_enabled(v3))
   {
     *buf = 0;
@@ -517,27 +518,25 @@ void __43__VUITVAppLauncher__initializeMediaLibrary__block_invoke(uint64_t a1)
   [(UIWindow *)v6 setBackgroundColor:vui_primaryDynamicBackgroundColor];
 
   v8 = [[VUISplitViewController alloc] initWithStyle:1];
-  [(UIWindow *)self->_appWindow setRootViewController:v8];
-  v9 = VUISignpostLogObject();
+  v9 = VUISignpostLogObject([(UIWindow *)self->_appWindow setRootViewController:v8]);
   if (os_signpost_enabled(v9))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow.init", "", v14, 2u);
+    *v15 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow.init", "", v15, 2u);
   }
 
-  v10 = VUISignpostLogObject();
-  if (os_signpost_enabled(v10))
-  {
-    *v13 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow.makeKey", "", v13, 2u);
-  }
-
-  [(UIWindow *)self->_appWindow vui_makeKeyAndVisible];
-  v11 = VUISignpostLogObject();
+  v11 = VUISignpostLogObject(v10);
   if (os_signpost_enabled(v11))
   {
-    *v12 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow.makeKey", "", v12, 2u);
+    *v14 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow.makeKey", "", v14, 2u);
+  }
+
+  v12 = VUISignpostLogObject([(UIWindow *)self->_appWindow vui_makeKeyAndVisible]);
+  if (os_signpost_enabled(v12))
+  {
+    *v13 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow.makeKey", "", v13, 2u);
   }
 }
 
@@ -557,13 +556,13 @@ void __43__VUITVAppLauncher__initializeMediaLibrary__block_invoke(uint64_t a1)
 
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_271(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a5;
-  v7 = VUISignpostLogObject();
+  v7 = VUISignpostLogObject(v6);
   if (os_signpost_enabled(v7))
   {
-    LOWORD(v16) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "UIApplicationLaunch", "", &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "UIApplicationLaunch", "", &v17, 2u);
   }
 
   v8 = +[VUIPerfMetricsAppLaunchController sharedInstance];
@@ -571,35 +570,33 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2
 
   v9 = [v6 vui_dictionaryForKey:@"Options"];
 
-  v10 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = VUIDefaultLogObject(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = v9;
-    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Launching with options: %@", &v16, 0xCu);
+    v17 = 138412290;
+    v18 = v9;
+    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Launching with options: %@", &v17, 0xCu);
   }
 
-  v11 = VUISignpostLogObject();
-  if (os_signpost_enabled(v11))
+  v13 = VUISignpostLogObject(v12);
+  if (os_signpost_enabled(v13))
   {
-    LOWORD(v16) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "MediaLibrary", "", &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "MediaLibrary", "", &v17, 2u);
   }
 
-  [*(a1 + 32) _initializeMediaLibrary];
-  v12 = VUISignpostLogObject();
-  if (os_signpost_enabled(v12))
+  v14 = VUISignpostLogObject([*(a1 + 32) _initializeMediaLibrary]);
+  if (os_signpost_enabled(v14))
   {
-    LOWORD(v16) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MediaLibrary", "", &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MediaLibrary", "", &v17, 2u);
   }
 
-  v13 = +[VUIMetricsController sharedInstance];
-  v14 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = VUIDefaultLogObject(+[VUIMetricsController sharedInstance]);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "UNIFIED_MESSAGING: Unified Messaging is enabled", &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "UNIFIED_MESSAGING: Unified Messaging is enabled", &v17, 2u);
   }
 
   +[_TtC8VideosUI8VideosUI initializeUnifiedMessagingManager];
@@ -618,7 +615,7 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2
 
 + (BOOL)isRemoteServerLikelyReachable
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = +[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable];
   v3 = +[VUIFeaturesConfiguration sharedInstance];
   launchConfig = [v3 launchConfig];
@@ -629,35 +626,35 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2
 
   if (v2)
   {
-    v8 = checkRemoteServerReachability ^ 1 | isLikelyReachable;
+    v9 = checkRemoteServerReachability ^ 1 | isLikelyReachable;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v9 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = VUIDefaultLogObject(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109888;
-    v11[1] = checkRemoteServerReachability;
-    v12 = 1024;
-    v13 = isLikelyReachable;
-    v14 = 1024;
-    v15 = v2;
-    v16 = 1024;
-    v17 = v8 & 1;
-    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - isRemoteServerLikelyReachable: checkRemoteServerReachability: %d, isRemoteServerLikelyReachable: %d, isNetworkReachable: %d, result: %d", v11, 0x1Au);
+    v12[0] = 67109888;
+    v12[1] = checkRemoteServerReachability;
+    v13 = 1024;
+    v14 = isLikelyReachable;
+    v15 = 1024;
+    v16 = v2;
+    v17 = 1024;
+    v18 = v9 & 1;
+    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - isRemoteServerLikelyReachable: checkRemoteServerReachability: %d, isRemoteServerLikelyReachable: %d, isNetworkReachable: %d, result: %d", v12, 0x1Au);
   }
 
-  return v8 & 1;
+  return v9 & 1;
 }
 
 void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_5(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VUISignpostLogObject();
+  v4 = VUISignpostLogObject(v3);
   if (os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -693,7 +690,7 @@ void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_5(uint64
 
 - (void)_startJavascriptSetup
 {
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -707,7 +704,7 @@ void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_5(uint64
 
 - (void)_resetJavascriptState
 {
-  v3 = VUISignpostLogObject();
+  v3 = VUISignpostLogObject(self);
   if (os_signpost_enabled(v3))
   {
     *buf = 0;
@@ -716,8 +713,7 @@ void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_5(uint64
 
   [(VUITVAppLauncher *)self setTabBarItems:0];
   [(VUITVAppLauncher *)self setJetPackController:0];
-  [(VUITVAppLauncher *)self setAppController:0];
-  v4 = VUISignpostLogObject();
+  v4 = VUISignpostLogObject([(VUITVAppLauncher *)self setAppController:0]);
   if (os_signpost_enabled(v4))
   {
     *v5 = 0;
@@ -804,8 +800,7 @@ void __54__VUITVAppLauncher__fetchApplicationControllerBootURL__block_invoke_2(u
       v8 = [v3 stateMachine];
       [v8 postEvent:@"Boot URL Fetch Did Complete" withContext:0 userInfo:v6];
 
-      [v3 setJetPackController:0];
-      v9 = VUISignpostLogObject();
+      v9 = VUISignpostLogObject([v3 setJetPackController:0]);
       if (os_signpost_enabled(v9))
       {
         *v11 = 0;
@@ -829,24 +824,25 @@ void __54__VUITVAppLauncher__fetchApplicationControllerBootURL__block_invoke_2(u
   tabBarController = self->_tabBarController;
   if (!tabBarController)
   {
-    if (+[VUIUtilities isSUIEnabled])
+    v4 = +[VUIUtilities isSUIEnabled];
+    if (v4)
     {
-      v4 = +[VUIInterfaceFactory sharedInstance];
-      tabBarController = [v4 tabBarController];
+      v5 = +[VUIInterfaceFactory sharedInstance];
+      tabBarController = [v5 tabBarController];
 
       goto LABEL_8;
     }
 
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Initializing TabBarController", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Initializing TabBarController", v11, 2u);
     }
 
-    v7 = objc_alloc_init(VUITabBarController);
-    v8 = self->_tabBarController;
-    self->_tabBarController = v7;
+    v8 = objc_alloc_init(VUITabBarController);
+    v9 = self->_tabBarController;
+    self->_tabBarController = v8;
 
     tabBarController = self->_tabBarController;
   }
@@ -1052,7 +1048,7 @@ void __24__VUITVAppLauncher_init__block_invoke_6(uint64_t a1)
 {
   v15 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(optionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
@@ -1081,84 +1077,82 @@ void __24__VUITVAppLauncher_init__block_invoke_6(uint64_t a1)
 - (BOOL)applicationDidFinishLaunchingWithOptions:(id)options
 {
   optionsCopy = options;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(optionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v20 = 0;
-    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - applicationDidFinishLaunchingWithOptions", v20, 2u);
+    *v26 = 0;
+    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - applicationDidFinishLaunchingWithOptions", v26, 2u);
   }
 
-  v6 = VUISignpostLogObject();
-  if (os_signpost_enabled(v6))
+  v7 = VUISignpostLogObject(v6);
+  if (os_signpost_enabled(v7))
   {
-    *v20 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow", "", v20, 2u);
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow", "", v26, 2u);
   }
 
   [(VUITVAppLauncher *)self configureAppWindow];
-  [(VUITVAppLauncher *)self updateAppAppearance];
-  v7 = VUISignpostLogObject();
-  if (os_signpost_enabled(v7))
-  {
-    *v20 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow", "", v20, 2u);
-  }
-
-  v8 = VUISignpostLogObject();
+  v8 = VUISignpostLogObject([(VUITVAppLauncher *)self updateAppAppearance]);
   if (os_signpost_enabled(v8))
   {
-    *v20 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.showLoadingView", "", v20, 2u);
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.configureAppWindow", "", v26, 2u);
   }
 
-  [(VUITVAppLauncher *)self showLoadingView];
-  v9 = VUISignpostLogObject();
-  if (os_signpost_enabled(v9))
-  {
-    *v20 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.showLoadingView", "", v20, 2u);
-  }
-
-  v10 = VUISignpostLogObject();
+  v10 = VUISignpostLogObject(v9);
   if (os_signpost_enabled(v10))
   {
-    *v20 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.stateMachine", "", v20, 2u);
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.showLoadingView", "", v26, 2u);
+  }
+
+  v11 = VUISignpostLogObject([(VUITVAppLauncher *)self showLoadingView]);
+  if (os_signpost_enabled(v11))
+  {
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.showLoadingView", "", v26, 2u);
+  }
+
+  v13 = VUISignpostLogObject(v12);
+  if (os_signpost_enabled(v13))
+  {
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.stateMachine", "", v26, 2u);
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary vui_setObjectIfNotNil:optionsCopy forKey:@"Options"];
 
   stateMachine = [(VUITVAppLauncher *)self stateMachine];
-  v13 = [dictionary copy];
-  [stateMachine postEvent:@"UIApplication Did Finish Launching" withContext:0 userInfo:v13];
+  v16 = [dictionary copy];
+  [stateMachine postEvent:@"UIApplication Did Finish Launching" withContext:0 userInfo:v16];
 
-  v14 = VUISignpostLogObject();
-  if (os_signpost_enabled(v14))
+  v18 = VUISignpostLogObject(v17);
+  if (os_signpost_enabled(v18))
   {
-    *v20 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.stateMachine", "", v20, 2u);
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v18, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.stateMachine", "", v26, 2u);
   }
 
-  v15 = VUISignpostLogObject();
-  if (os_signpost_enabled(v15))
+  v20 = VUISignpostLogObject(v19);
+  if (os_signpost_enabled(v20))
   {
-    *v20 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v15, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.registerButtonListener", "", v20, 2u);
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v20, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launcher.registerButtonListener", "", v26, 2u);
   }
 
-  v16 = VUISignpostLogObject();
-  if (os_signpost_enabled(v16))
+  v22 = VUISignpostLogObject(v21);
+  if (os_signpost_enabled(v22))
   {
-    *v20 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.registerButtonListener", "", v20, 2u);
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v22, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launcher.registerButtonListener", "", v26, 2u);
   }
 
   [(VUITVAppLauncher *)self prewarmPostAppDidFinishLaunching];
   if (_os_feature_enabled_impl())
   {
-    v17 = +[VUIInterfaceFactory sharedInstance];
-    backgroundTaskManager = [v17 backgroundTaskManager];
+    v23 = +[VUIInterfaceFactory sharedInstance];
+    backgroundTaskManager = [v23 backgroundTaskManager];
     [backgroundTaskManager registerBackgroundTasks];
   }
 
@@ -1167,62 +1161,63 @@ void __24__VUITVAppLauncher_init__block_invoke_6(uint64_t a1)
 
 - (BOOL)openURL:(id)l options:(id)options
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
   optionsCopy = options;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(optionsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412546;
-    v20 = lCopy;
-    v21 = 2112;
-    v22 = optionsCopy;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - openURL %@, options %@", &v19, 0x16u);
+    v20 = 138412546;
+    v21 = lCopy;
+    v22 = 2112;
+    v23 = optionsCopy;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - openURL %@, options %@", &v20, 0x16u);
   }
 
   [(VUITVAppLauncher *)self setIsDeeplinkLaunched:[(VUITVAppLauncher *)self isAppRunning]^ 1];
   v9 = [ATAParsedOpenURL parsedOpenURLWithURL:lCopy andOptions:optionsCopy];
+  v10 = v9;
   if (v9)
   {
-    v10 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = VUIDefaultLogObject(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - openURL creating openUrlEvent userInfo", &v19, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - openURL creating openUrlEvent userInfo", &v20, 2u);
     }
 
-    v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v11 vui_setObjectIfNotNil:v9 forKey:@"ParsedOpenURL"];
-    [v11 vui_setObjectIfNotNil:optionsCopy forKey:@"Options"];
+    v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [v12 vui_setObjectIfNotNil:v10 forKey:@"ParsedOpenURL"];
+    [v12 vui_setObjectIfNotNil:optionsCopy forKey:@"Options"];
     stateMachine = [(VUITVAppLauncher *)self stateMachine];
-    [stateMachine postEvent:@"UIApplication Open URL" withContext:0 userInfo:v11];
+    [stateMachine postEvent:@"UIApplication Open URL" withContext:0 userInfo:v12];
 
-    v13 = [v9 URL];
-    absoluteString = [v13 absoluteString];
+    v14 = [v10 URL];
+    absoluteString = [v14 absoluteString];
 
-    v15 = +[VUIMetricsController sharedInstance];
-    v16 = v15;
+    v16 = +[VUIMetricsController sharedInstance];
+    v17 = v16;
     if (optionsCopy)
     {
-      v17 = optionsCopy;
+      v18 = optionsCopy;
     }
 
     else
     {
-      v17 = MEMORY[0x1E695E0F8];
+      v18 = MEMORY[0x1E695E0F8];
     }
 
-    [v15 recordOpenUrlLaunchWithExtURL:absoluteString andOptions:v17];
+    [v16 recordOpenUrlLaunchWithExtURL:absoluteString andOptions:v18];
   }
 
-  return v9 != 0;
+  return v10 != 0;
 }
 
 - (void)didFailToLaunch:(id)launch
 {
   v7 = *MEMORY[0x1E69E9840];
   launchCopy = launch;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(launchCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -1233,15 +1228,15 @@ void __24__VUITVAppLauncher_init__block_invoke_6(uint64_t a1)
 
 - (void)setMainWindow:(id)window
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   windowCopy = window;
   objc_storeStrong(&self->_appWindow, window);
-  v6 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = VUIDefaultLogObject(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = windowCopy;
-    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - setMainWindow %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = windowCopy;
+    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - setMainWindow %@", &v8, 0xCu);
   }
 }
 
@@ -1273,7 +1268,7 @@ void __24__VUITVAppLauncher_init__block_invoke_6(uint64_t a1)
 - (void)cleanUp
 {
   self->_isTerminating = 1;
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1308,22 +1303,26 @@ void __38__VUITVAppLauncher_refreshTabBarItems__block_invoke_2(uint64_t a1, void
 {
   v2 = [a2 objectForKeyedSubscript:@"App"];
   v3 = v2;
-  if (v2 && [v2 hasProperty:@"fetchConfigAndSetTabBarItems"])
+  if (v2)
   {
-    v4 = VUISignpostLogObject();
-    if (os_signpost_enabled(v4))
+    v4 = [v2 hasProperty:@"fetchConfigAndSetTabBarItems"];
+    if (v4)
     {
-      *v6 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "TabBarItemsFetch", "", v6, 2u);
-    }
+      v5 = VUISignpostLogObject(v4);
+      if (os_signpost_enabled(v5))
+      {
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "TabBarItemsFetch", "", v7, 2u);
+      }
 
-    v5 = [v3 invokeMethod:@"fetchConfigAndSetTabBarItems" withArguments:0];
+      v6 = [v3 invokeMethod:@"fetchConfigAndSetTabBarItems" withArguments:0];
+    }
   }
 }
 
 - (void)processStartupItems
 {
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1420,7 +1419,7 @@ LABEL_6:
 
 - (void)didShowGDPRWelcome
 {
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1452,28 +1451,28 @@ void __38__VUITVAppLauncher_didShowGDPRWelcome__block_invoke(uint64_t a1)
 
 - (void)didAcceptGDPRWelcome
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   _dialogMetricsForGDPR = [(VUITVAppLauncher *)self _dialogMetricsForGDPR];
   [v3 addEntriesFromDictionary:_dialogMetricsForGDPR];
 
-  v10[0] = @"targetId";
-  v10[1] = @"targetType";
-  v11[0] = @"continue";
-  v11[1] = @"button";
-  v10[2] = @"actionType";
-  v11[2] = @"gdprConsent";
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
+  v11[0] = @"targetId";
+  v11[1] = @"targetType";
+  v12[0] = @"continue";
+  v12[1] = @"button";
+  v11[2] = @"actionType";
+  v12[2] = @"gdprConsent";
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   [v3 addEntriesFromDictionary:v5];
 
   v6 = +[VUIMetricsController sharedInstance];
   [v6 recordClick:v3];
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - didAcceptGDPRWelcome", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - didAcceptGDPRWelcome", v10, 2u);
   }
 
   if ([MEMORY[0x1E696AF00] isMainThread])
@@ -1486,8 +1485,8 @@ void __38__VUITVAppLauncher_didShowGDPRWelcome__block_invoke(uint64_t a1)
     dispatch_async(MEMORY[0x1E69E96A0], &__block_literal_global_235);
   }
 
-  v8 = dispatch_get_global_queue(0, 0);
-  dispatch_async(v8, &__block_literal_global_237);
+  v9 = dispatch_get_global_queue(0, 0);
+  dispatch_async(v9, &__block_literal_global_237);
 }
 
 void __40__VUITVAppLauncher_didAcceptGDPRWelcome__block_invoke()
@@ -1579,15 +1578,16 @@ void __52__VUITVAppLauncher__applicationWillEnterForeground___block_invoke(uint6
 
     if (([openURLHandler openedByDeeplink] & 1) == 0 && !+[VUIGDPRPresentationManager shouldShowWelcomeScreen](VUIGDPRPresentationManager, "shouldShowWelcomeScreen"))
     {
-      if (_os_feature_enabled_impl())
+      v11 = _os_feature_enabled_impl();
+      if (v11)
       {
         if (!self->_firstBecomeActiveSinceColdLaunch)
         {
-          v11 = VUIDefaultLogObject();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = VUIDefaultLogObject(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            *v16 = 0;
-            _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - App foreground -- Check if there is any pending ODJ badging action metrics", v16, 2u);
+            *v17 = 0;
+            _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - App foreground -- Check if there is any pending ODJ badging action metrics", v17, 2u);
           }
 
           +[_TtC8VideosUI8VideosUI handleUnifiedMessagingAppDidFinishLoading];
@@ -1600,11 +1600,11 @@ void __52__VUITVAppLauncher__applicationWillEnterForeground___block_invoke(uint6
 
       else
       {
-        v12 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = VUIDefaultLogObject(v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          *v16 = 0;
-          _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - App foreground -- Check if there is any pending offer to present", v16, 2u);
+          *v17 = 0;
+          _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - App foreground -- Check if there is any pending offer to present", v17, 2u);
         }
 
         appController = [(VUITVAppLauncher *)self appController];
@@ -1634,18 +1634,18 @@ void __60__VUITVAppLauncher__applicationDidBecomeActiveNotification___block_invo
 
   if (isRunningTest)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Running PPT test. Skip handling of engagement presentation sheet.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Running PPT test. Skip handling of engagement presentation sheet.", v7, 2u);
     }
   }
 }
 
 - (void)_applicationDidEnterBackgroundNotification:(id)notification
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = +[VUIInterfaceFactory sharedInstance];
   openURLHandler = [v4 openURLHandler];
   [openURLHandler setOpenedByDeeplink:0];
@@ -1654,36 +1654,36 @@ void __60__VUITVAppLauncher__applicationDidBecomeActiveNotification___block_invo
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   [standardUserDefaults setObject:date forKey:@"lastActiveDate"];
 
-  v8 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = VUIDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = date;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "DropOnTab: Updating lastActiveDate to %@", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = date;
+    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "DropOnTab: Updating lastActiveDate to %@", &v13, 0xCu);
   }
 
   if ([(VUITVAppLauncher *)self _shouldRecordExitEvent])
   {
-    v9 = +[VUIMetricsController sharedInstance];
-    [v9 recordAppWillBackground];
+    v10 = +[VUIMetricsController sharedInstance];
+    [v10 recordAppWillBackground];
   }
 
   if (_os_feature_enabled_impl())
   {
-    v10 = +[VUIInterfaceFactory sharedInstance];
-    backgroundTaskManager = [v10 backgroundTaskManager];
+    v11 = +[VUIInterfaceFactory sharedInstance];
+    backgroundTaskManager = [v11 backgroundTaskManager];
     [backgroundTaskManager scheduleBackgroundTasks];
   }
 }
 
 - (void)_applicationWillTerminateNotification:(id)notification
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v4 = VUIDefaultLogObject();
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - will terminate.", &v9, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - will terminate.", &v10, 2u);
   }
 
   if ([(VUITVAppLauncher *)self _shouldRecordExitEvent])
@@ -1696,12 +1696,12 @@ void __60__VUITVAppLauncher__applicationDidBecomeActiveNotification___block_invo
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   [standardUserDefaults setObject:date forKey:@"lastActiveDate"];
 
-  v8 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = VUIDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = date;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "DropOnTab: Updating lastActiveDate to %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = date;
+    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "DropOnTab: Updating lastActiveDate to %@", &v10, 0xCu);
   }
 }
 
@@ -1730,22 +1730,22 @@ void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_4(uint64
 
 void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_268(uint64_t a1)
 {
-  v2 = VUISignpostLogObject();
+  v2 = VUISignpostLogObject(a1);
   if (os_signpost_enabled(v2))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1E323F000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "JS.WaitingForStateTransition", "", buf, 2u);
   }
 
-  v3 = VUISignpostLogObject();
-  if (os_signpost_enabled(v3))
+  v4 = VUISignpostLogObject(v3);
+  if (os_signpost_enabled(v4))
   {
-    *v6 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "JS.URLLoad", "", v6, 2u);
+    *v7 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "JS.URLLoad", "", v7, 2u);
   }
 
-  v4 = +[VUIPerfMetricsAppLaunchController sharedInstance];
-  [v4 recordAppLaunchEventWithEventType:@"javascriptRuntimeStart"];
+  v5 = +[VUIPerfMetricsAppLaunchController sharedInstance];
+  [v5 recordAppLaunchEventWithEventType:@"javascriptRuntimeStart"];
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _startJavascriptSetup];
@@ -1753,157 +1753,154 @@ void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_268(uint
 
 uint64_t __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_273(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   +[_TtC8VideosUI8VideosUI initializeUIFactory];
   v10 = +[VUITVAppLauncher isRemoteServerLikelyReachable];
-  v11 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = v10;
+  v12 = VUIDefaultLogObject(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = @"NO";
+    v13 = @"NO";
     *buf = 138412802;
-    v49 = @"UIApplication Did Finish Launching";
-    v51 = @"StartingUIApplication";
-    v50 = 2112;
-    if (v10)
+    v51 = @"UIApplication Did Finish Launching";
+    v53 = @"StartingUIApplication";
+    v52 = 2112;
+    if (v11)
     {
-      v12 = @"YES";
+      v13 = @"YES";
     }
 
-    v52 = 2112;
-    v53 = v12;
-    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: %@ - JS State: %@ - isNetworkReachable: %@", buf, 0x20u);
+    v54 = 2112;
+    v55 = v13;
+    _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: %@ - JS State: %@ - isNetworkReachable: %@", buf, 0x20u);
   }
 
-  v13 = +[VUIAuthenticationManager isLibraryOnlyCountry];
-  if (v13)
+  v14 = +[VUIAuthenticationManager isLibraryOnlyCountry];
+  if (v14)
   {
-    LOBYTE(v13) = +[VUIAuthenticationManager isLibraryOnlyCountryResolved];
+    LOBYTE(v14) = +[VUIAuthenticationManager isLibraryOnlyCountryResolved];
   }
 
-  if (!v10 || v13)
+  if (!v11 || v14)
   {
     [WeakRetained _showJavascriptUnavailableUIWithNetworkAvailable:0];
-    v14 = @"RunningWithoutJavascript";
+    v15 = @"RunningWithoutJavascript";
   }
 
   else
   {
     (*(*(a1 + 40) + 16))();
-    v14 = @"WaitingForBootURL";
+    v15 = @"WaitingForBootURL";
   }
 
-  v45 = v14;
-  v47 = v7;
+  v47 = v15;
+  v49 = v7;
   if (os_variant_has_internal_content())
   {
     JSRemoteInspectorSetLogToSystemConsole();
   }
 
-  v15 = +[VUISettingsManager sharedInstance];
-  v16 = +[VUIPostPlayUpsellManager sharedInstance];
-  v17 = [v8 vui_dictionaryForKey:@"Options"];
+  v16 = +[VUISettingsManager sharedInstance];
+  v17 = +[VUIPostPlayUpsellManager sharedInstance];
+  v18 = [v8 vui_dictionaryForKey:@"Options"];
 
-  [WeakRetained setLaunchOptions:v17];
-  v18 = VUISignpostLogObject();
-  if (os_signpost_enabled(v18))
+  v19 = VUISignpostLogObject([WeakRetained setLaunchOptions:v18]);
+  if (os_signpost_enabled(v19))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v18, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "BookmarkService Initialization", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v19, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "BookmarkService Initialization", "", buf, 2u);
   }
 
-  v19 = +[VUIPerfMetricsAppLaunchController sharedInstance];
-  [v19 recordAppLaunchEventWithEventType:@"bookmarkServiceInitializationStart"];
+  v20 = +[VUIPerfMetricsAppLaunchController sharedInstance];
+  [v20 recordAppLaunchEventWithEventType:@"bookmarkServiceInitializationStart"];
 
-  [WeakRetained _initializeBookmarkService];
-  v20 = VUISignpostLogObject();
-  if (os_signpost_enabled(v20))
+  v21 = VUISignpostLogObject([WeakRetained _initializeBookmarkService]);
+  if (os_signpost_enabled(v21))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v20, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "BookmarkService Initialization", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v21, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "BookmarkService Initialization", "", buf, 2u);
   }
 
-  v21 = +[VUIPerfMetricsAppLaunchController sharedInstance];
-  [v21 recordAppLaunchEventWithEventType:@"bookmarkServiceInitializationEnd"];
+  v22 = +[VUIPerfMetricsAppLaunchController sharedInstance];
+  [v22 recordAppLaunchEventWithEventType:@"bookmarkServiceInitializationEnd"];
 
-  v22 = VUISignpostLogObject();
-  if (os_signpost_enabled(v22))
+  v24 = VUISignpostLogObject(v23);
+  if (os_signpost_enabled(v24))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v22, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Rentals.Init", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v24, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Rentals.Init", "", buf, 2u);
   }
 
-  v23 = +[VUIRentalManager sharedInstance];
-  [v23 initializeRentals];
+  v25 = +[VUIRentalManager sharedInstance];
+  [v25 initializeRentals];
 
-  v24 = +[VUIARQLPreviewManager sharedInstance];
-  [v24 cancelExistingDownloadsIfAny];
+  v26 = +[VUIARQLPreviewManager sharedInstance];
+  [v26 cancelExistingDownloadsIfAny];
 
-  v25 = VUISignpostLogObject();
-  if (os_signpost_enabled(v25))
+  v28 = VUISignpostLogObject(v27);
+  if (os_signpost_enabled(v28))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v25, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Rentals.Init", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v28, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Rentals.Init", "", buf, 2u);
   }
 
-  v26 = VUISignpostLogObject();
-  if (os_signpost_enabled(v26))
+  v30 = VUISignpostLogObject(v29);
+  if (os_signpost_enabled(v30))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v26, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launch.DidFinishLaunch.OthersInit", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v30, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Launch.DidFinishLaunch.OthersInit", "", buf, 2u);
   }
 
-  v27 = [MEMORY[0x1E69E1558] defaultCenter];
+  v31 = [MEMORY[0x1E69E1558] defaultCenter];
   [WeakRetained _initializePlayer];
-  v28 = [MEMORY[0x1E69E14B0] sharedInstance];
-  v29 = [MEMORY[0x1E696AD88] defaultCenter];
-  v30 = +[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy networkReachabilityDidChangeNotificationName];
-  [v29 addObserver:WeakRetained selector:sel__handleNetworkReachabilityDidChangeNotification_ name:v30 object:0];
+  v32 = [MEMORY[0x1E69E14B0] sharedInstance];
+  v33 = [MEMORY[0x1E696AD88] defaultCenter];
+  v34 = +[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy networkReachabilityDidChangeNotificationName];
+  [v33 addObserver:WeakRetained selector:sel__handleNetworkReachabilityDidChangeNotification_ name:v34 object:0];
 
-  v31 = +[VUIFeaturesConfiguration sharedInstance];
-  v32 = [v31 launchConfig];
-  v33 = [v32 checkRemoteServerReachability];
+  v35 = +[VUIFeaturesConfiguration sharedInstance];
+  v36 = [v35 launchConfig];
+  v37 = [v36 checkRemoteServerReachability];
 
-  if (v33)
+  if (v37)
   {
-    v34 = [MEMORY[0x1E696AD80] remoteNetworkReachabilityDidChange];
-    [v29 addObserver:WeakRetained selector:sel__handleRemoteNetworkReachabilityDidChangeNotification_ name:v34 object:0];
+    v38 = [MEMORY[0x1E696AD80] remoteNetworkReachabilityDidChange];
+    [v33 addObserver:WeakRetained selector:sel__handleRemoteNetworkReachabilityDidChangeNotification_ name:v38 object:0];
   }
 
-  v35 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v35 addObserver:*(a1 + 32) selector:sel__accountsChanged_ name:@"VUIAuthenticationManagerAccountStoreDidChangeNotification" object:0];
+  v39 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v39 addObserver:*(a1 + 32) selector:sel__accountsChanged_ name:@"VUIAuthenticationManagerAccountStoreDidChangeNotification" object:0];
 
-  v36 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v36 addObserver:*(a1 + 32) selector:sel__isLibraryOnlyCountryChanged_ name:@"VUIAuthenticationManagerIsLibraryOnlyCountryDidChangeNotification" object:0];
+  v40 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v40 addObserver:*(a1 + 32) selector:sel__isLibraryOnlyCountryChanged_ name:@"VUIAuthenticationManagerIsLibraryOnlyCountryDidChangeNotification" object:0];
 
-  v37 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v37 addObserver:*(a1 + 32) selector:sel__appAppearanceSettingChanged_ name:@"VUIAppAppearanceSettingDidChangeNotification" object:0];
+  v41 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v41 addObserver:*(a1 + 32) selector:sel__appAppearanceSettingChanged_ name:@"VUIAppAppearanceSettingDidChangeNotification" object:0];
 
-  v38 = [MEMORY[0x1E69DF680] sharedInstance];
-  [v38 listenForApplicationNotifications];
+  v42 = [MEMORY[0x1E69DF680] sharedInstance];
+  [v42 listenForApplicationNotifications];
 
-  v39 = [MEMORY[0x1E69DF678] sharedInstance];
-  v40 = VUISignpostLogObject();
-  if (os_signpost_enabled(v40))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v40, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "UIApplicationLaunch", "", buf, 2u);
-  }
-
-  v41 = +[VUIPerfMetricsAppLaunchController sharedInstance];
-  [v41 recordAppLaunchEventWithEventType:@"uikitApplicationLaunchEnd"];
-
-  v42 = +[VUIAppReviewManager sharedInstance];
-  v43 = VUISignpostLogObject();
+  v43 = VUISignpostLogObject([MEMORY[0x1E69DF678] sharedInstance]);
   if (os_signpost_enabled(v43))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v43, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launch.DidFinishLaunch.OthersInit", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v43, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "UIApplicationLaunch", "", buf, 2u);
   }
 
-  return v46;
+  v44 = +[VUIPerfMetricsAppLaunchController sharedInstance];
+  [v44 recordAppLaunchEventWithEventType:@"uikitApplicationLaunchEnd"];
+
+  v45 = VUISignpostLogObject(+[VUIAppReviewManager sharedInstance]);
+  if (os_signpost_enabled(v45))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v45, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launch.DidFinishLaunch.OthersInit", "", buf, 2u);
+  }
+
+  return v48;
 }
 
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_301(uint64_t a1)
@@ -1969,7 +1966,7 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_4
   v6 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v8 = [v6 vui_URLForKey:@"BootURL"];
-  v9 = VUIDefaultLogObject();
+  v9 = VUIDefaultLogObject(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     if (v8)
@@ -2015,7 +2012,7 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_3
   v6 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v8 = [v6 vui_URLForKey:@"BootURL"];
-  v9 = VUIDefaultLogObject();
+  v9 = VUIDefaultLogObject(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     if (v8)
@@ -2057,51 +2054,52 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_3
 
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_306(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v8 = [v6 vui_numberForKey:@"fullFeatureFlag"];
   v9 = [v8 BOOLValue];
-  v10 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v10 = v9;
+  v11 = VUIDefaultLogObject(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    if (v9)
+    if (v10)
     {
-      v11 = @"YES";
+      v12 = @"YES";
     }
 
     else
     {
-      v11 = @"NO";
+      v12 = @"NO";
     }
 
-    v12 = [v6 vui_URLForKey:@"Error"];
-    v16 = 138413058;
-    v17 = @"Full Feature Flag Fetch Did Complete";
-    v18 = 2112;
-    v19 = @"WaitingForFullFeatureFlag";
-    v20 = 2112;
-    v21 = v11;
-    v22 = 2112;
-    v23 = v12;
-    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: %@ - JS State: %@ - fullFeatureFlag: %@ - error: %@", &v16, 0x2Au);
+    v13 = [v6 vui_URLForKey:@"Error"];
+    v17 = 138413058;
+    v18 = @"Full Feature Flag Fetch Did Complete";
+    v19 = 2112;
+    v20 = @"WaitingForFullFeatureFlag";
+    v21 = 2112;
+    v22 = v12;
+    v23 = 2112;
+    v24 = v13;
+    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: %@ - JS State: %@ - fullFeatureFlag: %@ - error: %@", &v17, 0x2Au);
   }
 
-  if (v9)
+  if (v10)
   {
-    v13 = [v6 vui_URLForKey:@"BootURL"];
-    [WeakRetained _startApplicationControllerWithBootURL:v13 completion:&__block_literal_global_309_0];
+    v14 = [v6 vui_URLForKey:@"BootURL"];
+    [WeakRetained _startApplicationControllerWithBootURL:v14 completion:&__block_literal_global_309_0];
 
-    v14 = @"WaitingForTVApplicationControllerToStartAndInitialTabItems";
+    v15 = @"WaitingForTVApplicationControllerToStartAndInitialTabItems";
   }
 
   else
   {
     [WeakRetained _showJavascriptUnavailableUIWithNetworkAvailable:1];
-    v14 = @"RunningWithoutJavascript";
+    v15 = @"RunningWithoutJavascript";
   }
 
-  return v14;
+  return v15;
 }
 
 uint64_t __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_307()
@@ -2109,7 +2107,7 @@ uint64_t __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_307(
   result = +[VUIGDPRPresentationManager shouldShowWelcomeScreen];
   if ((result & 1) == 0)
   {
-    v1 = VUIDefaultLogObject();
+    v1 = VUIDefaultLogObject(result);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
       *v2 = 0;
@@ -2124,57 +2122,58 @@ uint64_t __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_307(
 
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_310(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v8 = [v6 vui_numberForKey:@"fullFeatureFlag"];
   v9 = [v8 BOOLValue];
-  v10 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v10 = v9;
+  v11 = VUIDefaultLogObject(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    if (v9)
+    if (v10)
     {
-      v11 = @"YES";
+      v12 = @"YES";
     }
 
     else
     {
-      v11 = @"NO";
+      v12 = @"NO";
     }
 
-    v12 = [v6 vui_URLForKey:@"Error"];
-    v16 = 138413058;
-    v17 = @"Full Feature Flag Fetch Did Complete";
-    v18 = 2112;
-    v19 = @"RunningWithoutJavascriptWaitingForFullFeatureFlag";
-    v20 = 2112;
-    v21 = v11;
-    v22 = 2112;
-    v23 = v12;
-    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: %@ - JS State: %@ - fullFeatureFlag: %@ - error: %@", &v16, 0x2Au);
+    v13 = [v6 vui_URLForKey:@"Error"];
+    v17 = 138413058;
+    v18 = @"Full Feature Flag Fetch Did Complete";
+    v19 = 2112;
+    v20 = @"RunningWithoutJavascriptWaitingForFullFeatureFlag";
+    v21 = 2112;
+    v22 = v12;
+    v23 = 2112;
+    v24 = v13;
+    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: %@ - JS State: %@ - fullFeatureFlag: %@ - error: %@", &v17, 0x2Au);
   }
 
-  if (v9)
+  if (v10)
   {
-    v13 = [v6 vui_URLForKey:@"BootURL"];
-    [WeakRetained _startApplicationControllerWithBootURL:v13 completion:0];
+    v14 = [v6 vui_URLForKey:@"BootURL"];
+    [WeakRetained _startApplicationControllerWithBootURL:v14 completion:0];
 
-    v14 = @"RunningWithoutJavascriptWaitingForTVApplicationControllerToStartAndInitialTabItems";
+    v15 = @"RunningWithoutJavascriptWaitingForTVApplicationControllerToStartAndInitialTabItems";
   }
 
   else
   {
     [WeakRetained _showJavascriptUnavailableUIWithNetworkAvailable:1];
-    v14 = @"RunningWithoutJavascript";
+    v15 = @"RunningWithoutJavascript";
   }
 
-  return v14;
+  return v15;
 }
 
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_312(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v6 = a5;
-  v7 = VUISignpostLogObject();
+  v7 = VUISignpostLogObject(v6);
   if (os_signpost_enabled(v7))
   {
     *buf = 0;
@@ -2182,35 +2181,36 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2
   }
 
   v8 = (*(*(a1 + 40) + 16))();
-  if ([v8 count])
+  v9 = [v8 count];
+  if (v9)
   {
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VUIDefaultLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Recieved tab items from javascript after waiting for initial tab items", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Recieved tab items from javascript after waiting for initial tab items", v14, 2u);
     }
 
     (*(*(a1 + 48) + 16))();
-    v10 = [MEMORY[0x1E69E15A8] sharedInstance];
-    [v10 prewarmSubscriptionData];
+    v11 = [MEMORY[0x1E69E15A8] sharedInstance];
+    [v11 prewarmSubscriptionData];
 
-    v11 = @"RunningWithJavascript";
+    v12 = @"RunningWithJavascript";
   }
 
   else
   {
     [*(a1 + 32) _showJavascriptUnavailableUIWithNetworkAvailable:1];
-    v11 = @"RunningWithoutJavascript";
+    v12 = @"RunningWithoutJavascript";
   }
 
-  return v11;
+  return v12;
 }
 
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_314(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v6 = a5;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -2224,7 +2224,7 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_3
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_316(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v6 = a5;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -2238,7 +2238,7 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_320(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = VUISignpostLogObject();
+  v2 = VUISignpostLogObject(WeakRetained);
   if (os_signpost_enabled(v2))
   {
     *buf = 0;
@@ -2248,25 +2248,25 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2
   v3 = +[VUIPerfMetricsAppLaunchController sharedInstance];
   [v3 recordAppLaunchEventWithEventType:@"tabBarItemUpdatesStart"];
 
-  v4 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = VUIDefaultLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - tv app controller did finish launching from waiting for tv app controller to start, updating tab bar items", v10, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - tv app controller did finish launching from waiting for tv app controller to start, updating tab bar items", v12, 2u);
   }
 
-  v5 = [WeakRetained tabBarItems];
-  [WeakRetained _finishJavascriptSetupWithTabBarItems:v5 setSelectedIdentifierFromDefaults:1];
+  v6 = [WeakRetained tabBarItems];
+  [WeakRetained _finishJavascriptSetupWithTabBarItems:v6 setSelectedIdentifierFromDefaults:1];
 
-  v6 = VUISignpostLogObject();
-  if (os_signpost_enabled(v6))
+  v8 = VUISignpostLogObject(v7);
+  if (os_signpost_enabled(v8))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TabBarItemUpdates", "", v9, 2u);
+    *v11 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TabBarItemUpdates", "", v11, 2u);
   }
 
-  v7 = +[VUIPerfMetricsAppLaunchController sharedInstance];
-  [v7 recordAppLaunchEventWithEventType:@"tabBarItemUpdatesEnd"];
+  v9 = +[VUIPerfMetricsAppLaunchController sharedInstance];
+  [v9 recordAppLaunchEventWithEventType:@"tabBarItemUpdatesEnd"];
 
   return @"RunningWithJavascript";
 }
@@ -2274,7 +2274,7 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_324(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -2315,98 +2315,98 @@ id __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_4_330(uint
 
     if (v6)
     {
-      v7 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = VUIDefaultLogObject(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:Foreground: checkRemoteServerReachability begin", v11, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:Foreground: checkRemoteServerReachability begin", v12, 2u);
       }
 
-      v8 = +[_TtC8VideosUI32RemoteNetworkReachabilityMonitor shared];
-      [v8 checkRemoteServerReachabilityWithCompletionHandler:&__block_literal_global_334];
+      v9 = +[_TtC8VideosUI32RemoteNetworkReachabilityMonitor shared];
+      [v9 checkRemoteServerReachabilityWithCompletionHandler:&__block_literal_global_334];
     }
 
     else
     {
-      v8 = [*(a1 + 32) stateMachine];
-      [v8 postEvent:@"Network Reachability Did Change" withContext:0 userInfo:0];
+      v9 = [*(a1 + 32) stateMachine];
+      [v9 postEvent:@"Network Reachability Did Change" withContext:0 userInfo:0];
     }
   }
 
-  v9 = [v3 currentState];
+  v10 = [v3 currentState];
 
-  return v9;
+  return v10;
 }
 
-void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_332()
+void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_332(uint64_t a1)
 {
-  v0 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = VUIDefaultLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1E323F000, v0, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:Foreground: checkRemoteServerReachability end", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1E323F000, v1, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:Foreground: checkRemoteServerReachability end", v2, 2u);
   }
 }
 
 id __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_335(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable];
   v5 = *(a1 + 32);
   if (!v4)
   {
-    v15 = [v5 stateMachine];
-    [v15 postEvent:@"Network Reachability Did Change" withContext:0 userInfo:0];
+    v18 = [v5 stateMachine];
+    [v18 postEvent:@"Network Reachability Did Change" withContext:0 userInfo:0];
     goto LABEL_21;
   }
 
   v6 = [v5 appController];
   v7 = [v6 appContext];
 
-  v8 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = VUIDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v26[0] = 67109376;
-    v26[1] = 1;
-    v27 = 1024;
-    v28 = v7 != 0;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - check tabItesm after app become active network %d, js running %d", v26, 0xEu);
+    v30[0] = 67109376;
+    v30[1] = 1;
+    v31 = 1024;
+    v32 = v7 != 0;
+    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - check tabItesm after app become active network %d, js running %d", v30, 0xEu);
   }
 
   if (!v7)
   {
-    v16 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = VUIDefaultLogObject(v10);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_335_cold_1(v16);
+      __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_335_cold_1(v19);
     }
 
     goto LABEL_17;
   }
 
-  v9 = [MEMORY[0x1E69DC938] currentDevice];
-  if ([v9 userInterfaceIdiom] != 1)
+  v11 = [MEMORY[0x1E69DC938] currentDevice];
+  if ([v11 userInterfaceIdiom] != 1)
   {
     goto LABEL_8;
   }
 
-  v10 = [MEMORY[0x1E69DC668] sharedApplication];
-  if ([v10 isRunningTest])
+  v12 = [MEMORY[0x1E69DC668] sharedApplication];
+  if ([v12 isRunningTest])
   {
 
 LABEL_8:
     goto LABEL_9;
   }
 
-  v23 = _os_feature_enabled_impl();
+  v27 = _os_feature_enabled_impl();
 
-  if ((v23 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    v24 = [*(a1 + 32) splitViewController];
-    v25 = [v24 hasRemoteBarItems];
+    v28 = [*(a1 + 32) splitViewController];
+    v29 = [v28 hasRemoteBarItems];
 
-    if ((v25 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
       goto LABEL_10;
     }
@@ -2415,57 +2415,57 @@ LABEL_8:
   }
 
 LABEL_9:
-  v11 = [*(a1 + 32) tabBarController];
-  v12 = [v11 tabBarItems];
-  v13 = [v12 count];
+  v13 = [*(a1 + 32) tabBarController];
+  v14 = [v13 tabBarItems];
+  v15 = [v14 count];
 
-  if (v13 <= 1)
+  if (v15 <= 1)
   {
 LABEL_10:
-    v14 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = VUIDefaultLogObject(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26[0]) = 0;
-      _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - js app runing, network connected but no tabItems??, trying to refresh", v26, 2u);
+      LOWORD(v30[0]) = 0;
+      _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - js app runing, network connected but no tabItems??, trying to refresh", v30, 2u);
     }
 
     [*(a1 + 32) refreshTabBarItems];
   }
 
 LABEL_17:
-  v17 = +[VUIFeaturesConfiguration sharedInstance];
-  v18 = [v17 launchConfig];
-  v19 = [v18 checkRemoteServerReachability];
+  v20 = +[VUIFeaturesConfiguration sharedInstance];
+  v21 = [v20 launchConfig];
+  v22 = [v21 checkRemoteServerReachability];
 
-  if (!v19)
+  if (!v22)
   {
     goto LABEL_22;
   }
 
-  v20 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v24 = VUIDefaultLogObject(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v26[0]) = 0;
-    _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: WithJS:Foreground: checkRemoteServerReachability begin", v26, 2u);
+    LOWORD(v30[0]) = 0;
+    _os_log_impl(&dword_1E323F000, v24, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: WithJS:Foreground: checkRemoteServerReachability begin", v30, 2u);
   }
 
-  v15 = +[_TtC8VideosUI32RemoteNetworkReachabilityMonitor shared];
-  [v15 checkRemoteServerReachabilityWithCompletionHandler:&__block_literal_global_338_0];
+  v18 = +[_TtC8VideosUI32RemoteNetworkReachabilityMonitor shared];
+  [v18 checkRemoteServerReachabilityWithCompletionHandler:&__block_literal_global_338_0];
 LABEL_21:
 
 LABEL_22:
-  v21 = [v3 currentState];
+  v25 = [v3 currentState];
 
-  return v21;
+  return v25;
 }
 
-void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_336()
+void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_336(uint64_t a1)
 {
-  v0 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = VUIDefaultLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1E323F000, v0, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: WithJS:Foreground: checkRemoteServerReachability end", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1E323F000, v1, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: WithJS:Foreground: checkRemoteServerReachability end", v2, 2u);
   }
 }
 
@@ -2491,10 +2491,10 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_3
 
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_340(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v33 = a2;
-  v31 = a3;
-  v32 = a4;
+  v48 = *MEMORY[0x1E69E9840];
+  v36 = a2;
+  v34 = a3;
+  v35 = a4;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v11 = WeakRetained;
@@ -2512,65 +2512,66 @@ __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2
   }
 
   v15 = +[VUITVAppLauncher isRemoteServerConnected];
-  v16 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v16 = v15;
+  v17 = VUIDefaultLogObject(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     buf = __PAIR64__(v13, 67109888);
-    v39 = 1024;
-    v40 = v15;
-    v41 = 1024;
-    v42 = v14;
-    v43 = 1024;
-    v44 = v12;
-    _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:NetworkChange: isNetworkReachable: %d, isRemoteServerConnected: %d, isLibraryOnlyCountryMode: %d, isFromRemoteServerMonitor: %d", &buf, 0x1Au);
+    v42 = 1024;
+    v43 = v16;
+    v44 = 1024;
+    v45 = v14;
+    v46 = 1024;
+    v47 = v12;
+    _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:NetworkChange: isNetworkReachable: %d, isRemoteServerConnected: %d, isLibraryOnlyCountryMode: %d, isFromRemoteServerMonitor: %d", &buf, 0x1Au);
   }
 
-  v17 = +[VUIFeaturesConfiguration sharedInstance];
-  v18 = [v17 launchConfig];
-  v19 = [v18 checkRemoteServerReachability];
+  v18 = +[VUIFeaturesConfiguration sharedInstance];
+  v19 = [v18 launchConfig];
+  v20 = [v19 checkRemoteServerReachability];
 
-  if (((v19 & v13 ^ 1 | v14 | v12) & 1) == 0)
+  if (((v20 & v13 ^ 1 | v14 | v12) & 1) == 0)
   {
-    v24 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v27 = VUIDefaultLogObject(v21);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_1E323F000, v24, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:NetworkChanged:RemoteServer: checkRemoteServerReachability begin", &buf, 2u);
+      _os_log_impl(&dword_1E323F000, v27, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:NetworkChanged:RemoteServer: checkRemoteServerReachability begin", &buf, 2u);
     }
 
-    v25 = +[_TtC8VideosUI32RemoteNetworkReachabilityMonitor shared];
-    [v25 checkRemoteServerReachabilityWithCompletionHandler:&__block_literal_global_343];
+    v28 = +[_TtC8VideosUI32RemoteNetworkReachabilityMonitor shared];
+    [v28 checkRemoteServerReachabilityWithCompletionHandler:&__block_literal_global_343];
 
     goto LABEL_19;
   }
 
-  if (v14 || !v15)
+  if (v14 || (v16 & 1) == 0)
   {
-    v20 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v20 userInterfaceIdiom] == 1)
+    v22 = [MEMORY[0x1E69DC938] currentDevice];
+    if ([v22 userInterfaceIdiom] == 1)
     {
-      v21 = [MEMORY[0x1E69DC668] sharedApplication];
-      if (![v21 isRunningTest])
+      v23 = [MEMORY[0x1E69DC668] sharedApplication];
+      if (![v23 isRunningTest])
       {
-        v30 = _os_feature_enabled_impl();
+        v33 = _os_feature_enabled_impl();
 
-        if ((v30 & 1) == 0)
+        if ((v33 & 1) == 0)
         {
 LABEL_19:
-          v26 = @"RunningWithoutJavascript";
+          v29 = @"RunningWithoutJavascript";
           goto LABEL_24;
         }
 
 LABEL_13:
-        v22 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v25 = VUIDefaultLogObject(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: Hiding tab bar", &buf, 2u);
+          _os_log_impl(&dword_1E323F000, v25, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: Hiding tab bar", &buf, 2u);
         }
 
-        v23 = [v11 tabBarController];
-        [v23 setTabBarHidden:1];
+        v26 = [v11 tabBarController];
+        [v26 setTabBarHidden:1];
 
         goto LABEL_19;
       }
@@ -2584,42 +2585,42 @@ LABEL_13:
   objc_initWeak(&buf, v11);
   if (_os_feature_enabled_impl())
   {
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_346;
-    v36[3] = &unk_1E87306E0;
-    v27 = &v37;
-    objc_copyWeak(&v37, &buf);
-    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v36];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_346;
+    v39[3] = &unk_1E87306E0;
+    v30 = &v40;
+    objc_copyWeak(&v40, &buf);
+    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v39];
   }
 
   else
   {
-    v28 = MEMORY[0x1E69E15F8];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_350;
-    v34[3] = &unk_1E872F5D0;
-    v27 = &v35;
-    objc_copyWeak(&v35, &buf);
-    [v28 isFullTVAppEnabledwithCompletion:v34];
+    v31 = MEMORY[0x1E69E15F8];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_350;
+    v37[3] = &unk_1E872F5D0;
+    v30 = &v38;
+    objc_copyWeak(&v38, &buf);
+    [v31 isFullTVAppEnabledwithCompletion:v37];
   }
 
-  objc_destroyWeak(v27);
+  objc_destroyWeak(v30);
   objc_destroyWeak(&buf);
-  v26 = @"RunningWithoutJavascriptWaitingForBootURL";
+  v29 = @"RunningWithoutJavascriptWaitingForBootURL";
 LABEL_24:
 
-  return v26;
+  return v29;
 }
 
-void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_341()
+void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_341(uint64_t a1)
 {
-  v0 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = VUIDefaultLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1E323F000, v0, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:NetworkChanged:RemoteServer: checkRemoteServerReachability end", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1E323F000, v1, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: NoJS:NetworkChanged:RemoteServer: checkRemoteServerReachability end", v2, 2u);
   }
 }
 
@@ -2627,7 +2628,7 @@ void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_346(uint
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
@@ -2688,7 +2689,7 @@ LABEL_7:
 void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_350(uint64_t a1, int a2)
 {
   v11 = *MEMORY[0x1E69E9840];
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"NO";
@@ -2752,87 +2753,88 @@ LABEL_7:
 
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_352(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v37 = a2;
+  v50 = *MEMORY[0x1E69E9840];
+  v40 = a2;
   v9 = a3;
   v10 = a4;
   v11 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v13 = +[VUITVAppLauncher isRemoteServerLikelyReachable];
   v14 = [v11 vui_BOOLForKey:@"FromRemoteNetworkMonitor" defaultValue:0];
-  v15 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = v14;
+  v16 = VUIDefaultLogObject(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109376;
     HIDWORD(buf) = v13;
-    v45 = 1024;
-    v46 = v14;
-    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: WithJS:NetworkChange: isRemoteServerLikelyReachable: %d, isFromRemoteServerMonitor: %d", &buf, 0xEu);
+    v48 = 1024;
+    v49 = v15;
+    _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: WithJS:NetworkChange: isRemoteServerLikelyReachable: %d, isFromRemoteServerMonitor: %d", &buf, 0xEu);
   }
 
   if (!v13)
   {
-    v17 = [objc_opt_class() _libraryOnlyTabBarItem];
-    v18 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v18 userInterfaceIdiom] == 1)
+    v18 = [objc_opt_class() _libraryOnlyTabBarItem];
+    v19 = [MEMORY[0x1E69DC938] currentDevice];
+    if ([v19 userInterfaceIdiom] == 1)
     {
-      v19 = [MEMORY[0x1E69DC668] sharedApplication];
-      if (![v19 isRunningTest])
+      v20 = [MEMORY[0x1E69DC668] sharedApplication];
+      if (![v20 isRunningTest])
       {
-        v33 = _os_feature_enabled_impl();
+        v36 = _os_feature_enabled_impl();
 
-        if ((v33 & 1) == 0)
+        if ((v36 & 1) == 0)
         {
-          v34 = VUIDefaultLogObject();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v37 = VUIDefaultLogObject(v21);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(buf) = 0;
-            _os_log_impl(&dword_1E323F000, v34, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - SplitViewController updatedWithBarItems Library Only", &buf, 2u);
+            _os_log_impl(&dword_1E323F000, v37, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - SplitViewController updatedWithBarItems Library Only", &buf, 2u);
           }
 
-          v21 = [*(a1 + 32) splitViewController];
-          v43 = v17;
-          v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
-          [v21 updateWithBarItems:v22 setSelectedIdentifierFromDefaults:0 appContext:0];
+          v23 = [*(a1 + 32) splitViewController];
+          v46 = v18;
+          v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
+          [v23 updateWithBarItems:v24 setSelectedIdentifierFromDefaults:0 appContext:0];
 LABEL_13:
 
-          v23 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([v23 userInterfaceIdiom] == 1)
+          v25 = [MEMORY[0x1E69DC938] currentDevice];
+          if ([v25 userInterfaceIdiom] == 1)
           {
-            v24 = [MEMORY[0x1E69DC668] sharedApplication];
-            if (![v24 isRunningTest])
+            v26 = [MEMORY[0x1E69DC668] sharedApplication];
+            if (![v26 isRunningTest])
             {
-              v35 = _os_feature_enabled_impl();
+              v38 = _os_feature_enabled_impl();
 
-              if ((v35 & 1) == 0)
+              if ((v38 & 1) == 0)
               {
 LABEL_18:
-                v26 = [MEMORY[0x1E69DC938] currentDevice];
-                if ([v26 userInterfaceIdiom] == 1)
+                v28 = [MEMORY[0x1E69DC938] currentDevice];
+                if ([v28 userInterfaceIdiom] == 1)
                 {
-                  v27 = [MEMORY[0x1E69DC668] sharedApplication];
-                  if (![v27 isRunningTest])
+                  v29 = [MEMORY[0x1E69DC668] sharedApplication];
+                  if (![v29 isRunningTest])
                   {
-                    v36 = _os_feature_enabled_impl();
+                    v39 = _os_feature_enabled_impl();
 
-                    if ((v36 & 1) == 0)
+                    if ((v39 & 1) == 0)
                     {
 LABEL_25:
 
-                      v30 = @"RunningWithoutJavascript";
+                      v33 = @"RunningWithoutJavascript";
                       goto LABEL_28;
                     }
 
 LABEL_22:
-                    v28 = VUIDefaultLogObject();
-                    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+                    v31 = VUIDefaultLogObject(v30);
+                    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
                     {
                       LOWORD(buf) = 0;
-                      _os_log_impl(&dword_1E323F000, v28, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: Hiding tab bar", &buf, 2u);
+                      _os_log_impl(&dword_1E323F000, v31, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: Hiding tab bar", &buf, 2u);
                     }
 
-                    v29 = [WeakRetained tabBarController];
-                    [v29 setTabBarHidden:1];
+                    v32 = [WeakRetained tabBarController];
+                    [v32 setTabBarHidden:1];
 
                     goto LABEL_25;
                   }
@@ -2842,8 +2844,8 @@ LABEL_22:
               }
 
 LABEL_17:
-              v25 = [WeakRetained tabBarController];
-              [v25 setSelectedIndexForTabBarItemIdentifier:@"library"];
+              v27 = [WeakRetained tabBarController];
+              [v27 setSelectedIndexForTabBarItemIdentifier:@"library"];
 
               goto LABEL_18;
             }
@@ -2853,17 +2855,17 @@ LABEL_17:
         }
 
 LABEL_10:
-        v20 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v22 = VUIDefaultLogObject(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - TabBarController updatedWithBarItems Library Only", &buf, 2u);
+          _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - TabBarController updatedWithBarItems Library Only", &buf, 2u);
         }
 
-        v21 = [*(a1 + 32) tabBarController];
-        v42 = v17;
-        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
-        [v21 updateWithTabBarItems:v22 setSelectedIdentifierFromDefaults:0 appContext:0];
+        v23 = [*(a1 + 32) tabBarController];
+        v45 = v18;
+        v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
+        [v23 updateWithTabBarItems:v24 setSelectedIdentifierFromDefaults:0 appContext:0];
         goto LABEL_13;
       }
     }
@@ -2874,40 +2876,40 @@ LABEL_10:
   objc_initWeak(&buf, WeakRetained);
   if (_os_feature_enabled_impl())
   {
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_353;
-    v40[3] = &unk_1E87306E0;
-    v16 = &v41;
-    objc_copyWeak(&v41, &buf);
-    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v40];
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_353;
+    v43[3] = &unk_1E87306E0;
+    v17 = &v44;
+    objc_copyWeak(&v44, &buf);
+    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v43];
   }
 
   else
   {
-    v31 = MEMORY[0x1E69E15F8];
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_355;
-    v38[3] = &unk_1E872F5D0;
-    v16 = &v39;
-    objc_copyWeak(&v39, &buf);
-    [v31 isFullTVAppEnabledwithCompletion:v38];
+    v34 = MEMORY[0x1E69E15F8];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_355;
+    v41[3] = &unk_1E872F5D0;
+    v17 = &v42;
+    objc_copyWeak(&v42, &buf);
+    [v34 isFullTVAppEnabledwithCompletion:v41];
   }
 
-  objc_destroyWeak(v16);
+  objc_destroyWeak(v17);
   objc_destroyWeak(&buf);
-  v30 = @"RunningWithJavascript";
+  v33 = @"RunningWithJavascript";
 LABEL_28:
 
-  return v30;
+  return v33;
 }
 
 void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_353(uint64_t a1, int a2, void *a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
@@ -3017,50 +3019,51 @@ LABEL_7:
 
 __CFString *__49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_357(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   v12 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v14 = +[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable];
-  v15 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = v14;
+  v16 = VUIDefaultLogObject(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v30 = @"Without Javascript Active Account Did Change";
-    v31 = 2112;
-    v32 = @"RunningWithoutJavascript";
-    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: %@ - JS State: %@", buf, 0x16u);
+    v32 = @"Without Javascript Active Account Did Change";
+    v33 = 2112;
+    v34 = @"RunningWithoutJavascript";
+    _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: %@ - JS State: %@", buf, 0x16u);
   }
 
-  if (!v14)
+  if (!v15)
   {
-    v17 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v17 userInterfaceIdiom] == 1)
+    v18 = [MEMORY[0x1E69DC938] currentDevice];
+    if ([v18 userInterfaceIdiom] == 1)
     {
-      v18 = [MEMORY[0x1E69DC668] sharedApplication];
-      if (![v18 isRunningTest])
+      v19 = [MEMORY[0x1E69DC668] sharedApplication];
+      if (![v19 isRunningTest])
       {
-        v24 = _os_feature_enabled_impl();
+        v26 = _os_feature_enabled_impl();
 
-        if ((v24 & 1) == 0)
+        if ((v26 & 1) == 0)
         {
 LABEL_13:
-          v21 = @"RunningWithoutJavascript";
+          v23 = @"RunningWithoutJavascript";
           goto LABEL_16;
         }
 
 LABEL_10:
-        v19 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v21 = VUIDefaultLogObject(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: Hiding tab bar", buf, 2u);
+          _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: Hiding tab bar", buf, 2u);
         }
 
-        v20 = [WeakRetained tabBarController];
-        [v20 setTabBarHidden:1];
+        v22 = [WeakRetained tabBarController];
+        [v22 setTabBarHidden:1];
 
         goto LABEL_13;
       }
@@ -3073,40 +3076,40 @@ LABEL_10:
   objc_initWeak(buf, WeakRetained);
   if (_os_feature_enabled_impl())
   {
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_358;
-    v27[3] = &unk_1E87306E0;
-    v16 = &v28;
-    objc_copyWeak(&v28, buf);
-    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v27];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_358;
+    v29[3] = &unk_1E87306E0;
+    v17 = &v30;
+    objc_copyWeak(&v30, buf);
+    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v29];
   }
 
   else
   {
-    v22 = MEMORY[0x1E69E15F8];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_360;
-    v25[3] = &unk_1E872F5D0;
-    v16 = &v26;
-    objc_copyWeak(&v26, buf);
-    [v22 isFullTVAppEnabledwithCompletion:v25];
+    v24 = MEMORY[0x1E69E15F8];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_2_360;
+    v27[3] = &unk_1E872F5D0;
+    v17 = &v28;
+    objc_copyWeak(&v28, buf);
+    [v24 isFullTVAppEnabledwithCompletion:v27];
   }
 
-  objc_destroyWeak(v16);
+  objc_destroyWeak(v17);
   objc_destroyWeak(buf);
-  v21 = @"RunningWithoutJavascriptWaitingForBootURL";
+  v23 = @"RunningWithoutJavascriptWaitingForBootURL";
 LABEL_16:
 
-  return v21;
+  return v23;
 }
 
 void __49__VUITVAppLauncher__registerStateMachineHandlers__block_invoke_358(uint64_t a1, int a2, void *a3)
 {
   v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -3223,25 +3226,25 @@ LABEL_7:
 - (void)_updateTabControllerWithTabBarItems:(id)items setSelectedIdentifierFromDefaults:(BOOL)defaults
 {
   defaultsCopy = defaults;
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v7 = [itemsCopy count];
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = @"NO";
-    *v25 = 134218498;
-    *&v25[4] = v7;
-    *&v25[12] = 2112;
+    *v26 = 134218498;
+    *&v26[4] = v7;
+    *&v26[12] = 2112;
     if (defaultsCopy)
     {
       v9 = @"YES";
     }
 
-    *&v25[14] = v9;
-    v26 = 2112;
-    v27 = itemsCopy;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Updating tabbar with items: count %ld - setSelectedIdentifierFromDefaults: %@, items: %@", v25, 0x20u);
+    *&v26[14] = v9;
+    v27 = 2112;
+    v28 = itemsCopy;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Updating tabbar with items: count %ld - setSelectedIdentifierFromDefaults: %@, items: %@", v26, 0x20u);
   }
 
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
@@ -3256,10 +3259,10 @@ LABEL_7:
 
 LABEL_8:
 LABEL_9:
-    tabBarController = [(VUITVAppLauncher *)self tabBarController];
+    splitViewController = [(VUITVAppLauncher *)self tabBarController:*v26];
     appController = [(VUITVAppLauncher *)self appController];
     appContext = [appController appContext];
-    [tabBarController updateWithTabBarItems:itemsCopy setSelectedIdentifierFromDefaults:defaultsCopy appContext:appContext];
+    [splitViewController updateWithTabBarItems:itemsCopy setSelectedIdentifierFromDefaults:defaultsCopy appContext:appContext];
 LABEL_10:
 
     goto LABEL_11;
@@ -3274,18 +3277,19 @@ LABEL_10:
 
   if (v7)
   {
-    tabBarController = [(VUITVAppLauncher *)self splitViewController];
+    splitViewController = [(VUITVAppLauncher *)self splitViewController];
     appController = [(VUITVAppLauncher *)self appController];
     appContext = [appController appContext];
-    [tabBarController updateWithBarItems:itemsCopy setSelectedIdentifierFromDefaults:defaultsCopy appContext:appContext];
+    [splitViewController updateWithBarItems:itemsCopy setSelectedIdentifierFromDefaults:defaultsCopy appContext:appContext];
     goto LABEL_10;
   }
 
   v24 = +[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable];
-  tabBarController = VUIDefaultLogObject();
-  if (os_log_type_enabled(tabBarController, OS_LOG_TYPE_ERROR))
+  v25 = v24;
+  splitViewController = VUIDefaultLogObject(v24);
+  if (os_log_type_enabled(splitViewController, OS_LOG_TYPE_ERROR))
   {
-    [VUITVAppLauncher _updateTabControllerWithTabBarItems:v24 setSelectedIdentifierFromDefaults:tabBarController];
+    [VUITVAppLauncher _updateTabControllerWithTabBarItems:v25 setSelectedIdentifierFromDefaults:splitViewController];
   }
 
 LABEL_11:
@@ -3304,7 +3308,7 @@ LABEL_11:
     }
   }
 
-  if (!+[VUIGroupActivitiesManagerObjC isQuickStartupEnabled](VUIGroupActivitiesManagerObjC, "isQuickStartupEnabled", *v25, *&v25[8]) && !+[VUIGDPRPresentationManager shouldShowWelcomeScreen])
+  if (!+[VUIGroupActivitiesManagerObjC isQuickStartupEnabled](VUIGroupActivitiesManagerObjC, "isQuickStartupEnabled", *v26, *&v26[8]) && !+[VUIGDPRPresentationManager shouldShowWelcomeScreen])
   {
     v19 = dispatch_get_global_queue(0, 0);
     dispatch_async(v19, &__block_literal_global_364);
@@ -3339,7 +3343,7 @@ void __90__VUITVAppLauncher__updateTabControllerWithTabBarItems_setSelectedIdent
 
 + (BOOL)isRemoteServerConnected
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = +[_TtC8VideosUI38VUINetworkReachabilityMonitorObjCProxy isNetworkReachable];
   v3 = +[VUIFeaturesConfiguration sharedInstance];
   launchConfig = [v3 launchConfig];
@@ -3350,36 +3354,36 @@ void __90__VUITVAppLauncher__updateTabControllerWithTabBarItems_setSelectedIdent
 
   if (v2)
   {
-    v8 = checkRemoteServerReachability ^ 1 | isReachable;
+    v9 = checkRemoteServerReachability ^ 1 | isReachable;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v9 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = VUIDefaultLogObject(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109888;
-    v11[1] = checkRemoteServerReachability;
-    v12 = 1024;
-    v13 = isReachable;
-    v14 = 1024;
-    v15 = v2;
-    v16 = 1024;
-    v17 = v8 & 1;
-    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - isRemoteServerConnected: checkRemoteServerReachability: %d, isRemoteServerReachable: %d, isNetworkReachable: %d, result: %d", v11, 0x1Au);
+    v12[0] = 67109888;
+    v12[1] = checkRemoteServerReachability;
+    v13 = 1024;
+    v14 = isReachable;
+    v15 = 1024;
+    v16 = v2;
+    v17 = 1024;
+    v18 = v9 & 1;
+    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - isRemoteServerConnected: checkRemoteServerReachability: %d, isRemoteServerReachable: %d, isNetworkReachable: %d, result: %d", v12, 0x1Au);
   }
 
-  return v8 & 1;
+  return v9 & 1;
 }
 
 - (void)_showJavascriptUnavailableUIWithNetworkAvailable:(BOOL)available
 {
   availableCopy = available;
-  v24 = *MEMORY[0x1E69E9840];
-  v5 = VUIDefaultLogObject();
+  v25 = *MEMORY[0x1E69E9840];
+  v5 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
@@ -3389,7 +3393,7 @@ void __90__VUITVAppLauncher__updateTabControllerWithTabBarItems_setSelectedIdent
     }
 
     *buf = 138412290;
-    v23 = v6;
+    v24 = v6;
     _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Showing JS unavailable UI - networkAvailable: %@", buf, 0xCu);
   }
 
@@ -3408,30 +3412,30 @@ void __90__VUITVAppLauncher__updateTabControllerWithTabBarItems_setSelectedIdent
 LABEL_8:
 LABEL_9:
     tabBarController = [(VUITVAppLauncher *)self tabBarController];
-    v20 = _libraryOnlyTabBarItem;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v21 = _libraryOnlyTabBarItem;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
     [tabBarController updateWithTabBarItems:v11 setSelectedIdentifierFromDefaults:0 appContext:0];
     goto LABEL_10;
   }
 
-  v18 = _os_feature_enabled_impl();
+  v19 = _os_feature_enabled_impl();
 
-  if (v18)
+  if (v19)
   {
     goto LABEL_9;
   }
 
   tabBarController = [(VUITVAppLauncher *)self splitViewController];
-  v21 = _libraryOnlyTabBarItem;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v22 = _libraryOnlyTabBarItem;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
   [tabBarController updateWithBarItems:v11 setSelectedIdentifierFromDefaults:0 appContext:0];
 LABEL_10:
 
-  v12 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = VUIDefaultLogObject(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: Hiding tab bar", buf, 2u);
+    _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Event: Hiding tab bar", buf, 2u);
   }
 
   tabBarController2 = [(VUITVAppLauncher *)self tabBarController];
@@ -3453,16 +3457,16 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v19 = _os_feature_enabled_impl();
+  v20 = _os_feature_enabled_impl();
 
-  if (v19)
+  if (v20)
   {
     goto LABEL_16;
   }
 
   tabBarController3 = [(VUITVAppLauncher *)self splitViewController];
 LABEL_17:
-  v17 = tabBarController3;
+  v18 = tabBarController3;
   [(UIWindow *)self->_appWindow vui_setRootViewController:tabBarController3];
   [(UIWindow *)self->_appWindow vui_makeKeyAndVisible];
   if (availableCopy)
@@ -3482,52 +3486,52 @@ LABEL_17:
 
 - (void)_fetchFullFeatureFlag:(id)flag
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   flagCopy = flag;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(flagCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = flagCopy;
+    v16 = flagCopy;
     _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Fetching full feature flag - bootURL: %@", buf, 0xCu);
   }
 
-  v6 = VUISignpostLogObject();
-  if (os_signpost_enabled(v6))
+  v7 = VUISignpostLogObject(v6);
+  if (os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "JS.URLLoad.FetchFullFeatureFlag", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "JS.URLLoad.FetchFullFeatureFlag", "", buf, 2u);
   }
 
   objc_initWeak(buf, self);
   if (_os_feature_enabled_impl())
   {
-    v7 = v12;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke;
-    v12[3] = &unk_1E8732730;
-    v8 = &v13;
-    objc_copyWeak(&v13, buf);
-    v12[4] = flagCopy;
-    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v12];
+    v8 = v13;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke;
+    v13[3] = &unk_1E8732730;
+    v9 = &v14;
+    objc_copyWeak(&v14, buf);
+    v13[4] = flagCopy;
+    [_TtC8VideosUI22VUIBagServiceProxyObjC isFullTVAppEnabledWithCompletionHandler:v13];
   }
 
   else
   {
-    v9 = objc_opt_class();
-    v7 = v10;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke_366;
-    v10[3] = &unk_1E872F328;
-    v8 = &v11;
-    objc_copyWeak(&v11, buf);
-    v10[4] = flagCopy;
-    [v9 isFullTVAppEnabledwithCompletion:v10];
+    v10 = objc_opt_class();
+    v8 = v11;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke_366;
+    v11[3] = &unk_1E872F328;
+    v9 = &v12;
+    objc_copyWeak(&v12, buf);
+    v11[4] = flagCopy;
+    [v10 isFullTVAppEnabledwithCompletion:v11];
   }
 
-  objc_destroyWeak(v8);
+  objc_destroyWeak(v9);
   objc_destroyWeak(buf);
 }
 
@@ -3550,17 +3554,17 @@ void __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke(uint64_t a1, ch
 
 void __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = VUIDefaultLogObject();
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 56);
     v4 = *(a1 + 32);
-    v10[0] = 67109378;
-    v10[1] = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1E323F000, v2, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - _fetchFullFeatureFlag - isFullTVAppEnabled: %d, error: %@", v10, 0x12u);
+    v11[0] = 67109378;
+    v11[1] = v3;
+    v12 = 2112;
+    v13 = v4;
+    _os_log_impl(&dword_1E323F000, v2, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - _fetchFullFeatureFlag - isFullTVAppEnabled: %d, error: %@", v11, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -3569,15 +3573,15 @@ void __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke_2(uint64_t a1)
   v7 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];
   [v6 vui_setObjectIfNotNil:v7 forKey:@"fullFeatureFlag"];
 
-  v8 = VUISignpostLogObject();
-  if (os_signpost_enabled(v8))
+  v9 = VUISignpostLogObject(v8);
+  if (os_signpost_enabled(v9))
   {
-    LOWORD(v10[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "JS.URLLoad.FetchFullFeatureFlag", "", v10, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "JS.URLLoad.FetchFullFeatureFlag", "", v11, 2u);
   }
 
-  v9 = [WeakRetained stateMachine];
-  [v9 postEvent:@"Full Feature Flag Fetch Did Complete" withContext:0 userInfo:v6];
+  v10 = [WeakRetained stateMachine];
+  [v10 postEvent:@"Full Feature Flag Fetch Did Complete" withContext:0 userInfo:v6];
 }
 
 void __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke_366(uint64_t a1, char a2)
@@ -3602,22 +3606,22 @@ void __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke_2_367(uint64_t 
   v4 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48)];
   [v3 vui_setObjectIfNotNil:v4 forKey:@"fullFeatureFlag"];
 
-  v5 = VUISignpostLogObject();
-  if (os_signpost_enabled(v5))
+  v6 = VUISignpostLogObject(v5);
+  if (os_signpost_enabled(v6))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "JS.URLLoad.FetchFullFeatureFlag", "", v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "JS.URLLoad.FetchFullFeatureFlag", "", v8, 2u);
   }
 
-  v6 = [WeakRetained stateMachine];
-  [v6 postEvent:@"Full Feature Flag Fetch Did Complete" withContext:0 userInfo:v3];
+  v7 = [WeakRetained stateMachine];
+  [v7 postEvent:@"Full Feature Flag Fetch Did Complete" withContext:0 userInfo:v3];
 }
 
 - (void)_startApplicationControllerWithBootURL:(id)l completion:(id)completion
 {
   lCopy = l;
   completionCopy = completion;
-  v7 = VUISignpostLogObject();
+  v7 = VUISignpostLogObject(completionCopy);
   if (os_signpost_enabled(v7))
   {
     *buf = 0;
@@ -3682,8 +3686,7 @@ void __42__VUITVAppLauncher__fetchFullFeatureFlag___block_invoke_2_367(uint64_t 
   contextCopy = context;
   v8 = [[VUITVApplicationController alloc] initWithContext:contextCopy window:self->_appWindow delegate:self];
 
-  [(VUITVAppLauncher *)self setAppController:v8];
-  v9 = VUISignpostLogObject();
+  v9 = VUISignpostLogObject([(VUITVAppLauncher *)self setAppController:v8]);
   if (os_signpost_enabled(v9))
   {
     *v15 = 0;
@@ -3776,7 +3779,7 @@ LABEL_5:
 - (void)_handleRemoteNetworkReachabilityDidChangeNotification:(id)notification
 {
   v12[1] = *MEMORY[0x1E69E9840];
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -3834,11 +3837,11 @@ LABEL_6:
     v12 = *p_splitViewController;
     *p_splitViewController = rootSplitViewController;
 
-    v13 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = VUIDefaultLogObject(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Requested SplitViewController from InterfaceFactory", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Requested SplitViewController from InterfaceFactory", v15, 2u);
     }
 
     goto LABEL_6;
@@ -3919,14 +3922,14 @@ void __41__VUITVAppLauncher__handleParsedOpenURL___block_invoke(uint64_t a1, voi
 
 - (void)_accountsChanged:(id)changed
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     userInfo = [changedCopy userInfo];
     *buf = 138412290;
-    v17 = userInfo;
+    v18 = userInfo;
     _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Active account has changed %@", buf, 0xCu);
   }
 
@@ -3939,14 +3942,14 @@ void __41__VUITVAppLauncher__handleParsedOpenURL___block_invoke(uint64_t a1, voi
     currentState = [stateMachine currentState];
     v10 = [currentState isEqual:@"RunningWithoutJavascript"];
 
-    v11 = VUIDefaultLogObject();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = VUIDefaultLogObject(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (v10)
     {
-      if (v12)
+      if (v13)
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Active account has changed and Javscript is not running", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Active account has changed and Javscript is not running", buf, 2u);
       }
 
       block[0] = MEMORY[0x1E69E9820];
@@ -3959,10 +3962,10 @@ void __41__VUITVAppLauncher__handleParsedOpenURL___block_invoke(uint64_t a1, voi
 
     else
     {
-      if (v12)
+      if (v13)
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Active account has changed. Fetch config and refresh tab bar items.", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Active account has changed. Fetch config and refresh tab bar items.", buf, 2u);
       }
 
       [(VUITVAppLauncher *)self refreshTabBarItems];
@@ -3972,13 +3975,13 @@ void __41__VUITVAppLauncher__handleParsedOpenURL___block_invoke(uint64_t a1, voi
   else
   {
     objc_initWeak(buf, self);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __37__VUITVAppLauncher__accountsChanged___block_invoke_401;
-    v13[3] = &unk_1E872E4B8;
-    objc_copyWeak(&v14, buf);
-    dispatch_async(MEMORY[0x1E69E96A0], v13);
-    objc_destroyWeak(&v14);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __37__VUITVAppLauncher__accountsChanged___block_invoke_401;
+    v14[3] = &unk_1E872E4B8;
+    objc_copyWeak(&v15, buf);
+    dispatch_async(MEMORY[0x1E69E96A0], v14);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
 }
@@ -4010,25 +4013,26 @@ void __37__VUITVAppLauncher__accountsChanged___block_invoke_401(uint64_t a1)
 
   v7 = [v5 objectAtIndex:v6];
   v8 = [v7 vui_stringForKey:@"documentRef"];
-  if ([v8 isEqualToString:@"Library"])
+  v9 = [v8 isEqualToString:@"Library"];
+  if (v9)
   {
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VUIDefaultLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - User signed out. Popping to library tab root.", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - User signed out. Popping to library tab root.", v14, 2u);
     }
 
-    v10 = [WeakRetained appController];
-    v11 = [v10 navigationController];
-    v12 = [v11 popToRootViewControllerAnimated:0];
+    v11 = [WeakRetained appController];
+    v12 = [v11 navigationController];
+    v13 = [v12 popToRootViewControllerAnimated:0];
   }
 }
 
 - (void)_isLibraryOnlyCountryChanged:(id)changed
 {
   v12 = *MEMORY[0x1E69E9840];
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     +[VUIAuthenticationManager isLibraryOnlyCountry];
@@ -4083,13 +4087,14 @@ void __35__VUITVAppLauncher_hideLoadingView__block_invoke()
   [(VUITVAppLauncher *)self setIsStillProcessingStartupItems:0];
   if (![(VUITVAppLauncher *)self didProcessAppFinishLoading])
   {
-    if (_os_feature_enabled_impl())
+    v3 = _os_feature_enabled_impl();
+    if (v3)
     {
-      v3 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = VUIDefaultLogObject(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        *v4 = 0;
-        _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Cold launch -- Check if there is any pending ODJ badging action metrics", v4, 2u);
+        *v5 = 0;
+        _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUITVAppLauncher - Cold launch -- Check if there is any pending ODJ badging action metrics", v5, 2u);
       }
 
       +[_TtC8VideosUI8VideosUI handleUnifiedMessagingAppDidFinishLoading];
@@ -4222,7 +4227,7 @@ LABEL_21:
 
   if (![*p_sportsTabIdentifier length])
   {
-    v24 = VUIDefaultLogObject();
+    v24 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -4356,9 +4361,9 @@ void __65__VUITVAppLauncher_appController_evaluateAppJavaScriptInContext___block
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
       if (![mEMORY[0x1E69DC668] isRunningTest])
       {
-        v20 = _os_feature_enabled_impl();
+        v21 = _os_feature_enabled_impl();
 
-        if ((v20 & 1) == 0)
+        if ((v21 & 1) == 0)
         {
           splitViewController = self->_splitViewController;
           self->_splitViewController = 0;
@@ -4424,9 +4429,9 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v17 = _os_feature_enabled_impl();
+  v18 = _os_feature_enabled_impl();
 
-  if ((v17 & 1) == 0)
+  if ((v18 & 1) == 0)
   {
     splitViewController = [(VUITVAppLauncher *)self splitViewController];
     goto LABEL_30;
@@ -4434,17 +4439,17 @@ LABEL_20:
 
 LABEL_21:
   tabBarController = [(VUITVAppLauncher *)self tabBarController];
-  if ([tabBarController conformsToProtocol:&unk_1F5E7E650] || +[VUIUtilities isSUIEnabled](VUIUtilities, "isSUIEnabled"))
+  if ([tabBarController conformsToProtocol:&unk_1F5E7E650] || (v16 = +[VUIUtilities isSUIEnabled](VUIUtilities, "isSUIEnabled"), v16))
   {
     splitViewController = tabBarController;
   }
 
   else
   {
-    v18 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = VUIDefaultLogObject(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [VUITVAppLauncher rootViewControllerForAppController:v18];
+      [VUITVAppLauncher rootViewControllerForAppController:v19];
     }
 
     splitViewController = 0;
@@ -4661,43 +4666,43 @@ void __46__VUITVAppLauncher__javascriptSetTabBarItems___block_invoke_3(uint64_t 
 - (void)setIsStillProcessingStartupItems:(BOOL)items
 {
   itemsCopy = items;
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_isStillProcessingStartupItemsLock);
   self->_isStillProcessingStartupItems = itemsCopy;
   os_unfair_lock_unlock(&self->_isStillProcessingStartupItemsLock);
-  v5 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = VUIDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = @"NO";
+    v7 = @"NO";
     if (itemsCopy)
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUITVAppLauncher::set isStillProcessingStartupItems to %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUITVAppLauncher::set isStillProcessingStartupItems to %@", &v8, 0xCu);
   }
 }
 
 - (BOOL)isStillProcessingStartupItems
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_isStillProcessingStartupItemsLock);
   isStillProcessingStartupItems = self->_isStillProcessingStartupItems;
   os_unfair_lock_unlock(&self->_isStillProcessingStartupItemsLock);
-  v4 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = VUIDefaultLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = @"NO";
+    v6 = @"NO";
     if (isStillProcessingStartupItems)
     {
-      v5 = @"YES";
+      v6 = @"YES";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_INFO, "VUITVAppLauncher:: read isStillProcessingStartupItems : %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUITVAppLauncher:: read isStillProcessingStartupItems : %@", &v8, 0xCu);
   }
 
   return isStillProcessingStartupItems;
@@ -4706,43 +4711,43 @@ void __46__VUITVAppLauncher__javascriptSetTabBarItems___block_invoke_3(uint64_t 
 - (void)setDidProcessAppFinishLoading:(BOOL)loading
 {
   loadingCopy = loading;
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_didProcessAppFinishLoadingLock);
   self->_didProcessAppFinishLoading = loadingCopy;
   os_unfair_lock_unlock(&self->_didProcessAppFinishLoadingLock);
-  v5 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = VUIDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = @"NO";
+    v7 = @"NO";
     if (loadingCopy)
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUITVAppLauncher::set didProcessAppFinishLoading to %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUITVAppLauncher::set didProcessAppFinishLoading to %@", &v8, 0xCu);
   }
 }
 
 - (BOOL)didProcessAppFinishLoading
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_didProcessAppFinishLoadingLock);
   didProcessAppFinishLoading = self->_didProcessAppFinishLoading;
   os_unfair_lock_unlock(&self->_didProcessAppFinishLoadingLock);
-  v4 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = VUIDefaultLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = @"NO";
+    v6 = @"NO";
     if (didProcessAppFinishLoading)
     {
-      v5 = @"YES";
+      v6 = @"YES";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_INFO, "VUITVAppLauncher:: read didProcessAppFinishLoading : %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUITVAppLauncher:: read didProcessAppFinishLoading : %@", &v8, 0xCu);
   }
 
   return self->_didProcessAppFinishLoading;

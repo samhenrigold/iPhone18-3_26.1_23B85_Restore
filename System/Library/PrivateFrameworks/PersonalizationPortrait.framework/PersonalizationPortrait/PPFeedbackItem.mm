@@ -151,41 +151,35 @@ LABEL_5:
 
 + (id)stringForItemFeedbackType:(unsigned int)type
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if (type >= 6)
+  v16 = *MEMORY[0x1E69E9840];
+  if (type < 6)
   {
-    v6 = pp_default_log_handle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v12 = NSStringFromSelector(a2);
-      typeCopy3 = type;
-      *buf = 138412546;
-      v14 = v12;
-      v15 = 2048;
-      typeCopy2 = type;
-      _os_log_error_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_ERROR, "%@ called with invalid PPItemFeedbackType value of %lu", buf, 0x16u);
-    }
+    return off_1E77F7C00[type];
+  }
 
-    else
-    {
-      typeCopy3 = type;
-    }
-
-    v8 = MEMORY[0x1E695DF30];
-    v9 = *MEMORY[0x1E695D930];
-    v10 = NSStringFromSelector(a2);
-    [v8 raise:v9 format:{@"%@ called with invalid PPItemFeedbackType value of %lu", v10, typeCopy3}];
-
-    result = @"invalid";
+  v6 = pp_default_log_handle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    v11 = NSStringFromSelector(a2);
+    typeCopy3 = type;
+    *buf = 138412546;
+    v13 = v11;
+    v14 = 2048;
+    typeCopy2 = type;
+    _os_log_error_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_ERROR, "%@ called with invalid PPItemFeedbackType value of %lu", buf, 0x16u);
   }
 
   else
   {
-    result = off_1E77F7C00[type];
+    typeCopy3 = type;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = MEMORY[0x1E695DF30];
+  v9 = *MEMORY[0x1E695D930];
+  v10 = NSStringFromSelector(a2);
+  [v8 raise:v9 format:{@"%@ called with invalid PPItemFeedbackType value of %lu", v10, typeCopy3}];
+
+  return @"invalid";
 }
 
 @end

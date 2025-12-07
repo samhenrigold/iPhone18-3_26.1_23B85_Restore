@@ -59,7 +59,7 @@
   selfCopy = self;
   TabBarSplitViewController.viewControllers.getter();
 
-  sub_1D7E0A1A8(0, &qword_1EDBB31B0);
+  sub_1D7E0A1A8(0, &qword_1EDBB31B0, 0x1E69DD258);
   v3 = sub_1D8191304();
 
   return v3;
@@ -67,7 +67,7 @@
 
 - (void)setViewControllers:(id)controllers
 {
-  sub_1D7E0A1A8(0, &qword_1EDBB31B0);
+  sub_1D7E0A1A8(0, &qword_1EDBB31B0, 0x1E69DD258);
   sub_1D8191314();
   selfCopy = self;
   TabBarSplitViewController.viewControllers.setter();
@@ -142,10 +142,10 @@
   v4 = sub_1D818E454();
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D818E414();
   selfCopy = self;
-  sub_1D7F6D1F4();
+  sub_1D7F6D1F4(v9);
 
   (*(v5 + 8))(v7, v4);
 }
@@ -210,7 +210,7 @@
 
   if (v4)
   {
-    sub_1D7E0A1A8(0, &qword_1EDBB3260);
+    sub_1D7E0A1A8(0, &qword_1EDBB3260, 0x1E69DCBA0);
     v5 = sub_1D8191304();
   }
 

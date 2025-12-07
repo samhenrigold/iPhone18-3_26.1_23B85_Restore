@@ -244,7 +244,7 @@ uint64_t __67__TITypologyStatisticRankCandidatesAccepted_isCandidatePrediction__
   return v10;
 }
 
-uint64_t __61__TITypologyStatisticRankCandidatesAccepted_rankOfCandidate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__61__TITypologyStatisticRankCandidatesAccepted_rankOfCandidate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isEqual:a2];
   if (result)

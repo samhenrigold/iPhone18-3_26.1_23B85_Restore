@@ -243,9 +243,11 @@ LABEL_27:
 
 - (void)setStreamReadChannelSourceHandler:(id)handler
 {
-  self->_streamReadChannelSourceHandler = MEMORY[0x245D00360](handler, a2);
+  v4 = MEMORY[0x245D00360](handler, a2);
+  streamReadChannelSourceHandler = self->_streamReadChannelSourceHandler;
+  self->_streamReadChannelSourceHandler = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, streamReadChannelSourceHandler);
 }
 
 - (void)readFromOffset:(int64_t)offset length:(unint64_t)length handler:(id)handler

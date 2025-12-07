@@ -41,18 +41,18 @@ HKSPSleepStore *__27__HKSPSleepStoreCache_init__block_invoke(uint64_t a1, void *
 
 - (HKSPSleepStoreCache)initWithSleepStoreProvider:(id)provider useWeakReferences:(BOOL)references
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  v15.receiver = self;
-  v15.super_class = HKSPSleepStoreCache;
-  v7 = [(HKSPSleepStoreCache *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = HKSPSleepStoreCache;
+  v7 = [(HKSPSleepStoreCache *)&v14 init];
   if (v7)
   {
     v8 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ initializing...", buf, 0xCu);
     }
 
@@ -76,13 +76,12 @@ HKSPSleepStore *__27__HKSPSleepStoreCache_init__block_invoke(uint64_t a1, void *
     v7->_lock._os_unfair_lock_opaque = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)sleepStoreForIdentifier:(id)identifier healthStore:(id)store
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   storeCopy = store;
   if (!identifierCopy)
@@ -98,7 +97,7 @@ HKSPSleepStore *__27__HKSPSleepStoreCache_init__block_invoke(uint64_t a1, void *
 
   else
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"%@", identifierCopy, v15];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"%@", identifierCopy, v14];
   }
   v9 = ;
   os_unfair_lock_lock(&self->_lock);
@@ -110,8 +109,8 @@ HKSPSleepStore *__27__HKSPSleepStoreCache_init__block_invoke(uint64_t a1, void *
     {
       *buf = 138543618;
       selfCopy = self;
-      v18 = 2112;
-      v19 = v9;
+      v17 = 2112;
+      v18 = v9;
       _os_log_impl(&dword_269A84000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ caching a new sleep store with identifier %@", buf, 0x16u);
     }
 
@@ -120,8 +119,6 @@ HKSPSleepStore *__27__HKSPSleepStoreCache_init__block_invoke(uint64_t a1, void *
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

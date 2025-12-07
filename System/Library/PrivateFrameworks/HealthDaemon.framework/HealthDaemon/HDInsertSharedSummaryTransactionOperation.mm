@@ -14,7 +14,7 @@
   v5 = [(HDInsertSharedSummaryTransactionOperation *)&v9 init];
   if (v5)
   {
-    v6 = [identifierCopy copy];
+    v6 = objc_msgSend_copy(identifierCopy);
     zoneIdentifier = v5->_zoneIdentifier;
     v5->_zoneIdentifier = v6;
   }
@@ -24,59 +24,59 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   transactionCopy = transaction;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3032000000;
-  v79 = __Block_byref_object_copy__181;
-  v80 = __Block_byref_object_dispose__181;
-  v81 = 0;
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x2020000000;
   v75 = 0;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x2020000000;
+  v76 = &v75;
+  v77 = 0x3032000000;
+  v78 = __Block_byref_object_copy__181;
+  v79 = __Block_byref_object_dispose__181;
+  v80 = 0;
   v71 = 0;
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v63 = __82__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_error___block_invoke;
-  v64 = &unk_27862C0A8;
-  v65 = &v72;
-  v66 = &v76;
-  v67 = &v68;
-  v55 = profileCopy;
-  v49 = transactionCopy;
-  v50 = v62;
+  v72 = &v71;
+  v73 = 0x2020000000;
+  v74 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x2020000000;
+  v70 = 0;
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v62 = __82__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_error___block_invoke;
+  v63 = &unk_27862C0A8;
+  v64 = &v71;
+  v65 = &v75;
+  v66 = &v67;
+  v54 = profileCopy;
+  v48 = transactionCopy;
+  v49 = v61;
   selfCopy = self;
   if (self)
   {
-    v103 = 0;
-    v104 = &v103;
-    v105 = 0x3032000000;
-    v106 = __Block_byref_object_copy__181;
-    v107 = __Block_byref_object_dispose__181;
-    v108 = 0;
-    v97 = 0;
-    v98 = &v97;
-    v99 = 0x3032000000;
-    v100 = __Block_byref_object_copy__181;
-    v101 = __Block_byref_object_dispose__181;
     v102 = 0;
+    v103 = &v102;
+    v104 = 0x3032000000;
+    v105 = __Block_byref_object_copy__181;
+    v106 = __Block_byref_object_dispose__181;
+    v107 = 0;
+    v96 = 0;
+    v97 = &v96;
+    v98 = 0x3032000000;
+    v99 = __Block_byref_object_copy__181;
+    v100 = __Block_byref_object_dispose__181;
+    v101 = 0;
     v9 = dispatch_semaphore_create(0);
-    cloudSyncManager = [v55 cloudSyncManager];
-    v93[0] = MEMORY[0x277D85DD0];
-    v93[1] = 3221225472;
-    v93[2] = __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_completion___block_invoke;
-    v93[3] = &unk_2786186B0;
-    v95 = &v97;
-    v96 = &v103;
+    cloudSyncManager = [v54 cloudSyncManager];
+    v92[0] = MEMORY[0x277D85DD0];
+    v92[1] = 3221225472;
+    v92[2] = __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_completion___block_invoke;
+    v92[3] = &unk_2786186B0;
+    v94 = &v96;
+    v95 = &v102;
     dsema = v9;
-    v94 = dsema;
-    [cloudSyncManager cloudSyncRepositoriesForClient:0 completion:v93];
+    v93 = dsema;
+    [cloudSyncManager cloudSyncRepositoriesForClient:0 completion:v92];
 
     v11 = dispatch_time(0, 15000000000);
     if (dispatch_semaphore_wait(dsema, v11))
@@ -85,60 +85,60 @@
       v12 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        *v117 = 138543362;
+        *v116 = 138543362;
         selfCopy2 = self;
-        _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Timed out waiting to complete journable operation", v117, 0xCu);
+        _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Timed out waiting to complete journable operation", v116, 0xCu);
       }
     }
 
-    if (v98[5])
+    if (v97[5])
     {
       v13 = objc_alloc_init(MEMORY[0x277D10BB0]);
-      v91[0] = MEMORY[0x277D85DD0];
-      v91[1] = 3221225472;
-      v91[2] = __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_completion___block_invoke_294;
-      v91[3] = &unk_2786152A8;
-      v92 = v50;
-      [v13 setDidFinish:v91];
+      v90[0] = MEMORY[0x277D85DD0];
+      v90[1] = 3221225472;
+      v90[2] = __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_completion___block_invoke_294;
+      v90[3] = &unk_2786152A8;
+      v91 = v49;
+      [v13 setDidFinish:v90];
       [v13 beginTask];
-      v59 = v13;
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
+      v58 = v13;
       v88 = 0u;
-      obj = v98[5];
-      v14 = [obj countByEnumeratingWithState:&v87 objects:v117 count:16];
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
+      obj = v97[5];
+      v14 = [obj countByEnumeratingWithState:&v86 objects:v116 count:16];
       if (v14)
       {
-        v54 = *v88;
+        v53 = *v87;
         do
         {
-          v56 = v14;
-          for (i = 0; i != v56; ++i)
+          v55 = v14;
+          for (i = 0; i != v55; ++i)
           {
-            if (*v88 != v54)
+            if (*v87 != v53)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v87 + 1) + 8 * i);
-            [v59 beginTask];
+            v16 = *(*(&v86 + 1) + 8 * i);
+            [v58 beginTask];
             v17 = [[HDCloudSyncCachedZone alloc] initForZoneIdentifier:selfCopy->_zoneIdentifier repository:v16 accessibilityAssertion:0];
-            v82[0] = MEMORY[0x277D85DD0];
-            v82[1] = 3221225472;
-            v83 = __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_completion___block_invoke_2;
-            v84 = &unk_278616020;
-            v85 = v59;
-            v86 = selfCopy;
-            v58 = v55;
+            v81[0] = MEMORY[0x277D85DD0];
+            v81[1] = 3221225472;
+            v82 = __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_completion___block_invoke_2;
+            v83 = &unk_278616020;
+            v84 = v58;
+            v85 = selfCopy;
+            v57 = v54;
             v18 = v16;
             v19 = v17;
-            v20 = v82;
+            v20 = v81;
             v21 = objc_opt_class();
-            v116 = 0;
-            v22 = [v19 recordsForClass:v21 error:&v116];
-            v23 = v116;
-            v61 = v23;
+            v115 = 0;
+            v22 = [v19 recordsForClass:v21 error:&v115];
+            v23 = v115;
+            v60 = v23;
             if (v22)
             {
               v24 = 1;
@@ -151,29 +151,29 @@
 
             if (v24)
             {
-              v57 = [v22 hk_map:&__block_literal_global_217];
+              v56 = [v22 hk_map:&__block_literal_global_217];
               v25 = objc_opt_class();
-              v115 = 0;
-              v26 = [v19 recordsForClass:v25 error:&v115];
-              v27 = v115;
+              v114 = 0;
+              v26 = [v19 recordsForClass:v25 error:&v114];
+              v27 = v114;
 
               if (v26 || !v27)
               {
-                v53 = [v26 hk_map:&__block_literal_global_304];
-                if (v53)
+                v52 = [v26 hk_map:&__block_literal_global_304];
+                if (v52)
                 {
-                  v109[0] = MEMORY[0x277D85DD0];
-                  v109[1] = 3221225472;
-                  v109[2] = __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_305;
-                  v109[3] = &unk_27862C168;
-                  v114 = v20;
-                  v109[4] = selfCopy;
-                  v110 = 0;
+                  v108[0] = MEMORY[0x277D85DD0];
+                  v108[1] = 3221225472;
+                  v108[2] = __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_305;
+                  v108[3] = &unk_27862C168;
+                  v113 = v20;
+                  v108[4] = selfCopy;
+                  v109 = 0;
                   v31 = v18;
-                  v111 = v31;
-                  v112 = v57;
-                  v113 = v53;
-                  v32 = v109;
+                  v110 = v31;
+                  v111 = v56;
+                  v112 = v52;
+                  v32 = v108;
                   v33 = v31;
                   cloudSyncShimProvider = [v33 cloudSyncShimProvider];
                   sharedSummariesShim = [cloudSyncShimProvider sharedSummariesShim];
@@ -187,11 +187,11 @@
                   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138543362;
-                    v120 = selfCopy;
+                    v119 = selfCopy;
                     _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: No Summary records found.", buf, 0xCu);
                   }
 
-                  v83(v20, 1, 0);
+                  v82(v20, 1, 0);
                 }
               }
 
@@ -204,15 +204,15 @@
                   v39 = v28;
                   zoneIdentifier = [v19 zoneIdentifier];
                   *buf = 138543874;
-                  v120 = selfCopy;
-                  v121 = 2114;
-                  v122 = zoneIdentifier;
-                  v123 = 2114;
-                  v124 = v27;
+                  v119 = selfCopy;
+                  v120 = 2114;
+                  v121 = zoneIdentifier;
+                  v122 = 2114;
+                  v123 = v27;
                   _os_log_error_impl(&dword_228986000, v39, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to get summary records for %{public}@, %{public}@", buf, 0x20u);
                 }
 
-                v83(v20, 0, v27);
+                v82(v20, 0, v27);
               }
             }
 
@@ -225,49 +225,49 @@
                 v37 = v29;
                 zoneIdentifier2 = [v19 zoneIdentifier];
                 *buf = 138543874;
-                v120 = selfCopy;
-                v121 = 2114;
-                v122 = zoneIdentifier2;
-                v123 = 2114;
-                v124 = v61;
+                v119 = selfCopy;
+                v120 = 2114;
+                v121 = zoneIdentifier2;
+                v122 = 2114;
+                v123 = v60;
                 _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to get transaction records for %{public}@, %{public}@", buf, 0x20u);
               }
 
-              v83(v20, 0, v61);
+              v82(v20, 0, v60);
             }
           }
 
-          v14 = [obj countByEnumeratingWithState:&v87 objects:v117 count:16];
+          v14 = [obj countByEnumeratingWithState:&v86 objects:v116 count:16];
         }
 
         while (v14);
       }
 
-      [v59 finishTask];
+      [v58 finishTask];
     }
 
     else
     {
-      v63(v50, 0, v104[5]);
+      v62(v49, 0, v103[5]);
     }
 
-    _Block_object_dispose(&v97, 8);
-    _Block_object_dispose(&v103, 8);
+    _Block_object_dispose(&v96, 8);
+    _Block_object_dispose(&v102, 8);
   }
 
-  if ((v69[3] & 1) == 0)
+  if ((v68[3] & 1) == 0)
   {
     _HKInitializeLogging();
     v41 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
-      *v117 = 138543362;
+      *v116 = 138543362;
       selfCopy2 = selfCopy;
-      _os_log_fault_impl(&dword_228986000, v41, OS_LOG_TYPE_FAULT, "[summary-sharing] %{public}@ Completion block expected to be called synchronously was called asynchronously.", v117, 0xCu);
+      _os_log_fault_impl(&dword_228986000, v41, OS_LOG_TYPE_FAULT, "[summary-sharing] %{public}@ Completion block expected to be called synchronously was called asynchronously.", v116, 0xCu);
     }
   }
 
-  v42 = v77[5];
+  v42 = v76[5];
   v43 = v42;
   if (v42)
   {
@@ -283,12 +283,11 @@
     }
   }
 
-  v45 = *(v73 + 24);
-  _Block_object_dispose(&v68, 8);
-  _Block_object_dispose(&v72, 8);
-  _Block_object_dispose(&v76, 8);
+  v45 = *(v72 + 24);
+  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v71, 8);
+  _Block_object_dispose(&v75, 8);
 
-  v46 = *MEMORY[0x277D85DE8];
   return v45 & 1;
 }
 
@@ -319,7 +318,7 @@ void __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transact
 
 void __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_completion___block_invoke_294(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = v6;
   if (a3)
@@ -333,9 +332,9 @@ void __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transact
     if ([v7 count] >= 2)
     {
       v9 = MEMORY[0x277CCA9B8];
-      v13 = *MEMORY[0x277CCA578];
-      v14[0] = v7;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x277CCA578];
+      v13[0] = v7;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       v11 = [v9 hk_error:100 userInfo:v10];
 
       v8 = v11;
@@ -343,13 +342,11 @@ void __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transact
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transaction_completion___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -362,23 +359,21 @@ void __87__HDInsertSharedSummaryTransactionOperation_performWithProfile_transact
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to save shared summary transaction, %{public}@", &v9, 0x16u);
+      v7 = *(a1 + 40);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to save shared summary transaction, %{public}@", &v8, 0x16u);
     }
 
     [*(a1 + 32) failTaskWithError:v5];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_305(uint64_t a1, void *a2, uint64_t a3)
 {
-  v114[5] = *MEMORY[0x277D85DE8];
+  v113[5] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -396,75 +391,75 @@ void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithP
       v9 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v66 = *(a1 + 32);
-        v67 = *(a1 + 40);
+        v65 = *(a1 + 32);
+        v66 = *(a1 + 40);
         *buf = 138543618;
-        *&buf[4] = v66;
+        *&buf[4] = v65;
         *&buf[12] = 2114;
-        *&buf[14] = v67;
+        *&buf[14] = v66;
         _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Error fetching committed transactions %{public}@.", buf, 0x16u);
       }
     }
 
     v10 = objc_alloc_init(MEMORY[0x277D10BB0]);
-    v93[0] = MEMORY[0x277D85DD0];
-    v93[1] = 3221225472;
-    v93[2] = __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_310;
-    v93[3] = &unk_27862C118;
-    v68 = v6;
-    v94 = v6;
-    v79 = v8;
-    v95 = v79;
-    v98 = *(a1 + 72);
+    v92[0] = MEMORY[0x277D85DD0];
+    v92[1] = 3221225472;
+    v92[2] = __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_310;
+    v92[3] = &unk_27862C118;
+    v67 = v6;
+    v93 = v6;
+    v78 = v8;
+    v94 = v78;
+    v97 = *(a1 + 72);
     v11 = *(a1 + 48);
     v12 = *(a1 + 32);
-    v96 = v11;
-    v97 = v12;
-    [v10 setDidFinish:v93];
-    v71 = v10;
+    v95 = v11;
+    v96 = v12;
+    [v10 setDidFinish:v92];
+    v70 = v10;
     [v10 beginTask];
+    v88 = 0u;
     v89 = 0u;
     v90 = 0u;
     v91 = 0u;
-    v92 = 0u;
     obj = *(a1 + 56);
-    v83 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
-    if (v83)
+    v82 = [obj countByEnumeratingWithState:&v88 objects:v100 count:16];
+    if (v82)
     {
-      v82 = *v90;
-      v69 = v7;
-      v70 = a1;
+      v81 = *v89;
+      v68 = v7;
+      v69 = a1;
       do
       {
-        for (i = 0; i != v83; ++i)
+        for (i = 0; i != v82; ++i)
         {
-          if (*v90 != v82)
+          if (*v89 != v81)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v89 + 1) + 8 * i);
+          v14 = *(*(&v88 + 1) + 8 * i);
           v15 = [v14 record];
           v16 = [v15 recordID];
           v17 = [v16 zoneID];
+          v86 = 0;
           v87 = 0;
-          v88 = 0;
-          v18 = [v17 hd_isSharedSummaryZoneIDForUserIdentifier:&v88 syncCircleIdentifier:&v87];
-          v19 = v88;
-          v20 = v87;
+          v18 = [v17 hd_isSharedSummaryZoneIDForUserIdentifier:&v87 syncCircleIdentifier:&v86];
+          v19 = v87;
+          v20 = v86;
 
           if (v18)
           {
             v21 = [v14 UUID];
-            [v79 addObject:v21];
+            [v78 addObject:v21];
 
             v22 = *(a1 + 64);
-            v86[0] = MEMORY[0x277D85DD0];
-            v86[1] = 3221225472;
-            v86[2] = __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_313;
-            v86[3] = &unk_27862C140;
-            v86[4] = v14;
-            v23 = [v22 hk_filter:v86];
+            v85[0] = MEMORY[0x277D85DD0];
+            v85[1] = 3221225472;
+            v85[2] = __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_313;
+            v85[3] = &unk_27862C140;
+            v85[4] = v14;
+            v23 = [v22 hk_filter:v85];
             v24 = [v23 count];
             v25 = [v14 summaryIdentifiers];
             v26 = [v25 count];
@@ -492,76 +487,76 @@ void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithP
               {
                 v37 = a1;
                 v38 = v7;
-                [v71 beginTask];
+                [v70 beginTask];
                 v39 = *(v37 + 32);
                 v40 = *(v37 + 48);
-                v84[0] = MEMORY[0x277D85DD0];
-                v84[1] = 3221225472;
-                v84[2] = __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_315;
-                v84[3] = &unk_278613630;
-                v84[4] = v39;
-                v84[5] = v14;
-                v85 = v71;
+                v83[0] = MEMORY[0x277D85DD0];
+                v83[1] = 3221225472;
+                v83[2] = __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_315;
+                v83[3] = &unk_278613630;
+                v83[4] = v39;
+                v83[5] = v14;
+                v84 = v70;
                 v41 = v40;
                 v42 = v14;
-                v78 = v23;
-                v80 = v23;
-                v43 = v84;
+                v77 = v23;
+                v79 = v23;
+                v43 = v83;
                 v44 = v43;
                 if (v39)
                 {
                   v45 = v39;
-                  v77 = v43;
-                  v75 = v41;
+                  v76 = v43;
+                  v74 = v41;
                   v46 = [v42 metadata];
 
                   if (v46)
                   {
                     v47 = MEMORY[0x277CBEB98];
-                    v114[0] = objc_opt_class();
-                    v114[1] = objc_opt_class();
-                    v114[2] = objc_opt_class();
-                    v114[3] = objc_opt_class();
-                    v114[4] = objc_opt_class();
-                    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:5];
+                    v113[0] = objc_opt_class();
+                    v113[1] = objc_opt_class();
+                    v113[2] = objc_opt_class();
+                    v113[3] = objc_opt_class();
+                    v113[4] = objc_opt_class();
+                    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:5];
                     v49 = [v47 setWithArray:v48];
 
                     v50 = MEMORY[0x277CCAAC8];
                     v51 = [v42 metadata];
-                    v100 = 0;
-                    v52 = [v50 unarchivedObjectOfClasses:v49 fromData:v51 error:&v100];
-                    v53 = v100;
+                    v99 = 0;
+                    v52 = [v50 unarchivedObjectOfClasses:v49 fromData:v51 error:&v99];
+                    v53 = v99;
 
-                    v74 = v52;
+                    v73 = v52;
                     if (!v52)
                     {
                       _HKInitializeLogging();
                       v54 = *MEMORY[0x277CCC328];
                       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                       {
-                        *v108 = 138543618;
-                        v109 = v45;
-                        v110 = 2114;
-                        v111 = v53;
-                        _os_log_error_impl(&dword_228986000, v54, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Error unarchiving metadata %{public}@", v108, 0x16u);
+                        *v107 = 138543618;
+                        v108 = v45;
+                        v109 = 2114;
+                        v110 = v53;
+                        _os_log_error_impl(&dword_228986000, v54, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Error unarchiving metadata %{public}@", v107, 0x16u);
                       }
                     }
                   }
 
                   else
                   {
-                    v74 = 0;
+                    v73 = 0;
                     v53 = 0;
                   }
 
-                  v73 = v53;
-                  v76 = v19;
-                  v99[0] = MEMORY[0x277D85DD0];
-                  v99[1] = 3221225472;
-                  v99[2] = __119__HDInsertSharedSummaryTransactionOperation__persistRecordsWithRepository_transactionRecord_summaryRecords_completion___block_invoke;
-                  v99[3] = &unk_27862C190;
-                  v99[4] = v45;
-                  v72 = [v80 hk_map:v99];
+                  v72 = v53;
+                  v75 = v19;
+                  v98[0] = MEMORY[0x277D85DD0];
+                  v98[1] = 3221225472;
+                  v98[2] = __119__HDInsertSharedSummaryTransactionOperation__persistRecordsWithRepository_transactionRecord_summaryRecords_completion___block_invoke;
+                  v98[3] = &unk_27862C190;
+                  v98[4] = v45;
+                  v71 = [v79 hk_map:v98];
                   _HKInitializeLogging();
                   v55 = *MEMORY[0x277CCC328];
                   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -570,39 +565,39 @@ void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithP
                     v57 = [v42 UUID];
                     v58 = [v57 UUIDString];
                     v59 = [v42 sourceDeviceIdentifier];
-                    *v108 = 138543874;
-                    v109 = v45;
-                    v110 = 2114;
-                    v111 = v58;
-                    v112 = 2114;
-                    v113 = v59;
-                    _os_log_impl(&dword_228986000, v56, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Saving transaction with UUID %{public}@ and source device identifier %{public}@.", v108, 0x20u);
+                    *v107 = 138543874;
+                    v108 = v45;
+                    v109 = 2114;
+                    v110 = v58;
+                    v111 = 2114;
+                    v112 = v59;
+                    _os_log_impl(&dword_228986000, v56, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Saving transaction with UUID %{public}@ and source device identifier %{public}@.", v107, 0x20u);
                   }
 
-                  v41 = v75;
-                  v60 = [v75 cloudSyncShimProvider];
+                  v41 = v74;
+                  v60 = [v74 cloudSyncShimProvider];
                   v61 = [v60 sharedSummariesShim];
                   v62 = [v42 UUID];
                   v63 = [v42 sourceDeviceIdentifier];
                   *buf = MEMORY[0x277D85DD0];
                   *&buf[8] = 3221225472;
                   *&buf[16] = __119__HDInsertSharedSummaryTransactionOperation__persistRecordsWithRepository_transactionRecord_summaryRecords_completion___block_invoke_324;
-                  v103 = &unk_278619540;
-                  v44 = v77;
-                  v107 = v77;
-                  v104 = v45;
-                  v64 = v75;
-                  v105 = v64;
-                  v106 = v42;
-                  [v61 prepareAndCommitRepository:v64 transactionWithUUID:v62 sourceDeviceIdentifier:v63 metadata:v74 sharedSummaries:v72 completion:buf];
+                  v102 = &unk_278619540;
+                  v44 = v76;
+                  v106 = v76;
+                  v103 = v45;
+                  v64 = v74;
+                  v104 = v64;
+                  v105 = v42;
+                  [v61 prepareAndCommitRepository:v64 transactionWithUUID:v62 sourceDeviceIdentifier:v63 metadata:v73 sharedSummaries:v71 completion:buf];
 
-                  v38 = v69;
-                  v19 = v76;
+                  v38 = v68;
+                  v19 = v75;
                 }
 
-                v23 = v78;
+                v23 = v77;
                 v7 = v38;
-                a1 = v70;
+                a1 = v69;
               }
             }
 
@@ -638,17 +633,15 @@ void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithP
           }
         }
 
-        v83 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
+        v82 = [obj countByEnumeratingWithState:&v88 objects:v100 count:16];
       }
 
-      while (v83);
+      while (v82);
     }
 
-    [v71 finishTask];
-    v6 = v68;
+    [v70 finishTask];
+    v6 = v67;
   }
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_310(uint64_t a1)
@@ -692,7 +685,7 @@ uint64_t __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishW
 
 void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_3(void *a1, char a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -700,24 +693,22 @@ void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithP
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v9 = a1[4];
-      v8 = a1[5];
-      v10 = v6;
-      v11 = [v8 count];
-      v12 = a1[6];
-      v13 = 138543874;
-      v14 = v9;
-      v15 = 2048;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v12;
-      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to prune %ld non-present transactions after insertion from cloud: %{public}@", &v13, 0x20u);
+      v8 = a1[4];
+      v7 = a1[5];
+      v9 = v6;
+      v10 = [v7 count];
+      v11 = a1[6];
+      v12 = 138543874;
+      v13 = v8;
+      v14 = 2048;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v11;
+      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to prune %ld non-present transactions after insertion from cloud: %{public}@", &v12, 0x20u);
     }
   }
 
   (*(a1[7] + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_313(uint64_t a1, void *a2)
@@ -733,7 +724,7 @@ uint64_t __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishW
 
 void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithProfile_repository_zone_completion___block_invoke_315(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -741,21 +732,19 @@ void __105__HDInsertSharedSummaryTransactionOperation__saveRecordsAndFinishWithP
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v8;
-      v12 = 2114;
-      v13 = v5;
-      v14 = 2114;
-      v15 = v9;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Error saving transaction %{public}@, %{public}@", &v10, 0x20u);
+      v7 = *(a1 + 32);
+      v8 = *(a1 + 40);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v5;
+      v13 = 2114;
+      v14 = v8;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Error saving transaction %{public}@, %{public}@", &v9, 0x20u);
     }
   }
 
   [*(a1 + 48) finishTask];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 id __119__HDInsertSharedSummaryTransactionOperation__persistRecordsWithRepository_transactionRecord_summaryRecords_completion___block_invoke(uint64_t a1, void *a2)
@@ -793,37 +782,36 @@ uint64_t __119__HDInsertSharedSummaryTransactionOperation__persistRecordsWithRep
 {
   if (a3)
   {
-    v4 = *(a1 + 56);
-    v5 = *(*(a1 + 56) + 16);
+    v4 = *(*(a1 + 56) + 16);
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 40);
-    v9 = v7;
-    if (v6 && [v8 profileType] == 2)
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 48);
+    v7 = *(a1 + 40);
+    v8 = v6;
+    if (v5 && [v7 profileType] == 2)
     {
-      v10 = [v8 profile];
-      v11 = [v10 legacyRepositoryProfile];
+      v9 = [v7 profile];
+      v10 = [v9 legacyRepositoryProfile];
 
-      v12 = HDCloudSyncLastPulledUpdateDate(v11);
-      v13 = [v9 record];
-      v14 = [v13 modificationDate];
+      v11 = HDCloudSyncLastPulledUpdateDate(v10);
+      v12 = [v8 record];
+      v13 = [v12 modificationDate];
 
-      if (!v12 || [v14 hk_isAfterDate:v12])
+      if (!v11 || [v13 hk_isAfterDate:v11])
       {
-        HDCloudSyncDidPullUpdateWithDate(v14, v11);
-        v15 = [v11 cloudSyncManager];
-        [v15 didCompleteSuccessfulPullOfUpdateWithDate:v14];
+        HDCloudSyncDidPullUpdateWithDate(v13, v10);
+        v14 = [v10 cloudSyncManager];
+        [v14 didCompleteSuccessfulPullOfUpdateWithDate:v13];
       }
     }
 
-    v5 = *(*(a1 + 56) + 16);
+    v4 = *(*(a1 + 56) + 16);
   }
 
-  return v5();
+  return v4();
 }
 
 - (HDInsertSharedSummaryTransactionOperation)initWithCoder:(id)coder

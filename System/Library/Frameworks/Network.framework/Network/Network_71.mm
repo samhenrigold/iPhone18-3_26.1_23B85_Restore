@@ -1,15 +1,2828 @@
-uint64_t nw_protocol_common_supports_external_data(uint64_t a1)
+BOOL sub_181ED3C68(void *a1, void *a2, __n128 a3)
+{
+  v3 = a2[3] + a2[4];
+  if (a2[2] < v3)
+  {
+    v3 = a2[2];
+  }
+
+  v16 = a2[4];
+  v17 = v3;
+  v4 = a1[4];
+  v5 = a1[3] + v4;
+  if (a1[2] < v5)
+  {
+    v5 = a1[2];
+  }
+
+  v13 = a1[4];
+  v14 = v5;
+  v6 = a1;
+  while (1)
+  {
+    v7 = v16;
+    if (v16 != v17)
+    {
+      goto LABEL_9;
+    }
+
+    if (sub_181AC81FC(a3))
+    {
+      v7 = v16;
+LABEL_9:
+      v16 = v7 + 1;
+      v8 = *(a2 + v7 + 40);
+      goto LABEL_11;
+    }
+
+    v8 = 5;
+LABEL_11:
+    if (v4 == v14)
+    {
+      break;
+    }
+
+LABEL_14:
+    v13 = v4 + 1;
+    v9 = *(v6 + v4 + 40);
+    v10 = v9 == 5;
+    if (v8 == 5)
+    {
+      goto LABEL_20;
+    }
+
+    if (v9 != 5)
+    {
+      ++v4;
+      if (qword_182B07CD0[v8] == qword_182B07CD0[v9])
+      {
+        continue;
+      }
+    }
+
+    goto LABEL_21;
+  }
+
+  v6 = a1;
+  if (sub_181AC81FC(a3))
+  {
+    v4 = v13;
+    goto LABEL_14;
+  }
+
+  if (v8 == 5)
+  {
+    v10 = 1;
+LABEL_20:
+
+    goto LABEL_22;
+  }
+
+LABEL_21:
+
+  v10 = 0;
+LABEL_22:
+
+  return v10;
+}
+
+uint64_t nw_resolver_get_error(void *a1)
 {
   v20 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = v1;
+  if (v1)
+  {
+    os_unfair_lock_lock(v1 + 3);
+    os_unfair_lock_opaque = v2[21]._os_unfair_lock_opaque;
+    if (!os_unfair_lock_opaque)
+    {
+      if (v2[2]._os_unfair_lock_opaque == 2 && nw_endpoint_get_type(*&v2[6]._os_unfair_lock_opaque) == nw_endpoint_type_host && ((v4 = *&v2[42]._os_unfair_lock_opaque) == 0 || !_nw_array_get_count(v4)) && (v2[92]._os_unfair_lock_opaque & 0x100000) == 0 && (~LOWORD(v2[22]._os_unfair_lock_opaque) & 0xC00) != 0)
+      {
+        os_unfair_lock_opaque = 4294901742;
+      }
+
+      else
+      {
+        os_unfair_lock_opaque = 0;
+      }
+    }
+
+    os_unfair_lock_unlock(v2 + 3);
+    goto LABEL_11;
+  }
+
+  v6 = __nwlog_obj();
+  *buf = 136446210;
+  v17 = "nw_resolver_get_error";
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null resolver", buf, 12);
+
+  type = OS_LOG_TYPE_ERROR;
+  v14 = 0;
+  if (__nwlog_fault(v7, &type, &v14))
+  {
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v8 = __nwlog_obj();
+      v9 = type;
+      if (os_log_type_enabled(v8, type))
+      {
+        *buf = 136446210;
+        v17 = "nw_resolver_get_error";
+        _os_log_impl(&dword_181A37000, v8, v9, "%{public}s called with null resolver", buf, 0xCu);
+      }
+    }
+
+    else if (v14 == 1)
+    {
+      backtrace_string = __nw_create_backtrace_string();
+      v8 = __nwlog_obj();
+      v11 = type;
+      v12 = os_log_type_enabled(v8, type);
+      if (backtrace_string)
+      {
+        if (v12)
+        {
+          *buf = 136446466;
+          v17 = "nw_resolver_get_error";
+          v18 = 2082;
+          v19 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v8, v11, "%{public}s called with null resolver, dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(backtrace_string);
+        goto LABEL_29;
+      }
+
+      if (v12)
+      {
+        *buf = 136446210;
+        v17 = "nw_resolver_get_error";
+        _os_log_impl(&dword_181A37000, v8, v11, "%{public}s called with null resolver, no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v8 = __nwlog_obj();
+      v13 = type;
+      if (os_log_type_enabled(v8, type))
+      {
+        *buf = 136446210;
+        v17 = "nw_resolver_get_error";
+        _os_log_impl(&dword_181A37000, v8, v13, "%{public}s called with null resolver, backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+  }
+
+LABEL_29:
+  if (v7)
+  {
+    free(v7);
+  }
+
+  os_unfair_lock_opaque = 0;
+LABEL_11:
+
+  return os_unfair_lock_opaque;
+}
+
+uint64_t get_enum_tag_for_layout_string_7Network0A9AgentTypeV0B6DomainO_0(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  if (v1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v1) = -1;
+  }
+
+  return (v1 + 1);
+}
+
+uint64_t InterfaceType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA83A2C8, &qword_182AF4958);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v12 - v7;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  sub_181EBD8F0();
+  sub_182AD45E8();
+  if (!v2)
+  {
+    v9 = sub_182AD3FE8();
+    (*(v6 + 8))(v8, v5);
+    v10 = 0x302010400uLL >> (8 * v9);
+    if (v9 >= 5)
+    {
+      LOBYTE(v10) = 0;
+    }
+
+    *a2 = v10;
+  }
+
+  return __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+_DWORD *nw_error_create_dns_error(uint64_t a1)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    v1 = a1;
+    v2 = [NWConcrete_nw_error alloc];
+
+    return [(NWConcrete_nw_error *)v2 initWithDomain:v1 code:?];
+  }
+
+  v4 = __nwlog_obj();
+  *buf = 136446210;
+  v14 = "nw_error_create_dns_error";
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null dns_error", buf, 12);
+
+  type = OS_LOG_TYPE_ERROR;
+  v11 = 0;
+  if (__nwlog_fault(v5, &type, &v11))
+  {
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (os_log_type_enabled(v6, type))
+      {
+        *buf = 136446210;
+        v14 = "nw_error_create_dns_error";
+        v8 = "%{public}s called with null dns_error";
+LABEL_18:
+        _os_log_impl(&dword_181A37000, v6, v7, v8, buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      if (v11 == 1)
+      {
+        backtrace_string = __nw_create_backtrace_string();
+        v6 = __nwlog_obj();
+        v7 = type;
+        v10 = os_log_type_enabled(v6, type);
+        if (backtrace_string)
+        {
+          if (v10)
+          {
+            *buf = 136446466;
+            v14 = "nw_error_create_dns_error";
+            v15 = 2082;
+            v16 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with null dns_error, dumping backtrace:%{public}s", buf, 0x16u);
+          }
+
+          free(backtrace_string);
+          goto LABEL_20;
+        }
+
+        if (!v10)
+        {
+          goto LABEL_19;
+        }
+
+        *buf = 136446210;
+        v14 = "nw_error_create_dns_error";
+        v8 = "%{public}s called with null dns_error, no backtrace";
+        goto LABEL_18;
+      }
+
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (os_log_type_enabled(v6, type))
+      {
+        *buf = 136446210;
+        v14 = "nw_error_create_dns_error";
+        v8 = "%{public}s called with null dns_error, backtrace limit exceeded";
+        goto LABEL_18;
+      }
+    }
+
+LABEL_19:
+  }
+
+LABEL_20:
+  if (v5)
+  {
+    free(v5);
+  }
+
+  return 0;
+}
+
+uint64_t nw_protocol_connected_is_valid(uint64_t a1, uint64_t a2)
+{
+  if (a1)
+  {
+    v2 = *(a1 + 24);
+    if (v2)
+    {
+      LODWORD(v2) = *(v2 + 40) != 0;
+    }
+  }
+
+  else
+  {
+    LODWORD(v2) = 0;
+  }
+
+  if (a2)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void _nw_path_set_necp_result_delegate_interface_generation(char *a1, int a2)
+{
+  if (a1)
+  {
+    v3 = &a1[OBJC_IVAR____TtC7Network8__NWPath_path];
+    v4 = a1;
+    swift_beginAccess();
+    *(v3 + 86) = a2;
+  }
+}
+
+void _nw_path_set_necp_result_delegate_interface_index(char *a1, int a2)
+{
+  if (a1)
+  {
+    v3 = &a1[OBJC_IVAR____TtC7Network8__NWPath_path];
+    v4 = a1;
+    swift_beginAccess();
+    *(v3 + 85) = a2;
+  }
+}
+
+uint64_t __nw_dictionary_copy_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  value = xpc_pointer_get_value();
+  if (value)
+  {
+    os_retain(value);
+  }
+
+  return 1;
+}
+
+uint64_t sub_181ED46C8(NSObject *a1, uint64_t a2, uint64_t a3)
+{
+  type metadata accessor for NWProtocolFramer.Instance();
+  v6 = swift_allocObject();
+  *(v6 + 16) = a1;
+  v7 = *(a3 + 16);
+  swift_unknownObjectRetain();
+
+  v9 = v7(v8, a2, a3);
+  v10 = swift_allocObject();
+  v10[2] = v9;
+  v10[3] = a3;
+  v10[4] = v6;
+  v25 = sub_181F1490C;
+  v26 = v10;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 1107296256;
+  v23 = sub_181F148B0;
+  v24 = &block_descriptor_56;
+  v11 = _Block_copy(&v21);
+
+  swift_unknownObjectRetain();
+
+  nw_framer_set_input_handler(a1, v11);
+  _Block_release(v11);
+  v12 = swift_allocObject();
+  v12[2] = v9;
+  v12[3] = a3;
+  v12[4] = v6;
+  v25 = sub_181BE7ED8;
+  v26 = v12;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 1107296256;
+  v23 = sub_181BE7D2C;
+  v24 = &block_descriptor_62_0;
+  v13 = _Block_copy(&v21);
+
+  swift_unknownObjectRetain();
+
+  nw_framer_set_output_handler(a1, v13);
+  _Block_release(v13);
+  v14 = swift_allocObject();
+  v14[2] = v9;
+  v14[3] = a3;
+  v14[4] = v6;
+  v25 = sub_1820F9C04;
+  v26 = v14;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 1107296256;
+  v23 = sub_181AA4EBC;
+  v24 = &block_descriptor_68;
+  v15 = _Block_copy(&v21);
+
+  swift_unknownObjectRetain();
+
+  nw_framer_set_wakeup_handler(a1, v15);
+  _Block_release(v15);
+  v16 = swift_allocObject();
+  v16[2] = v9;
+  v16[3] = a3;
+  v16[4] = v6;
+  v25 = sub_1820F9C5C;
+  v26 = v16;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 1107296256;
+  v23 = sub_1820F7CF0;
+  v24 = &block_descriptor_74_0;
+  v17 = _Block_copy(&v21);
+
+  swift_unknownObjectRetain();
+
+  nw_framer_set_stop_handler(a1, v17);
+  _Block_release(v17);
+  v18 = swift_allocObject();
+  v18[2] = v9;
+  v18[3] = a3;
+  v18[4] = v6;
+  v25 = sub_1820F9CB8;
+  v26 = v18;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 1107296256;
+  v23 = sub_181AA4EBC;
+  v24 = &block_descriptor_80;
+  v19 = _Block_copy(&v21);
+
+  swift_unknownObjectRetain();
+
+  nw_framer_set_cleanup_handler(a1, v19);
+  _Block_release(v19);
+  (*(a3 + 24))(&v21, v6, a2, a3);
+  swift_unknownObjectRelease();
+
+  if (v21)
+  {
+    return 2;
+  }
+
+  else
+  {
+    return 1;
+  }
+}
+
+uint64_t NWProtocolFramer.Instance.options.getter()
+{
+  v1 = nw_framer_copy_options(*(v0 + 16));
+  type metadata accessor for NWProtocolFramer.Options();
+  result = swift_allocObject();
+  *(result + 16) = v1;
+  return result;
+}
+
+nw_protocol_options_t nw_framer_copy_options(nw_framer_t framer)
+{
+  v30 = *MEMORY[0x1E69E9840];
+  v1 = framer;
+  v2 = v1;
+  if (v1)
+  {
+    v3 = nw_framer_copy_parameters(v1);
+    v4 = v3;
+    if (v3)
+    {
+      v5 = v3;
+      v6 = _nw_parameters_copy_protocol_options_with_level();
+
+LABEL_4:
+      goto LABEL_5;
+    }
+
+    v12 = __nwlog_obj();
+    *buf = 136446210;
+    v27 = "nw_framer_copy_options";
+    v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null parameters", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v24 = 0;
+    if (__nwlog_fault(v13, &type, &v24))
+    {
+      if (type == OS_LOG_TYPE_FAULT)
+      {
+        v14 = __nwlog_obj();
+        v15 = type;
+        if (os_log_type_enabled(v14, type))
+        {
+          *buf = 136446210;
+          v27 = "nw_framer_copy_options";
+          _os_log_impl(&dword_181A37000, v14, v15, "%{public}s called with null parameters", buf, 0xCu);
+        }
+      }
+
+      else if (v24 == 1)
+      {
+        backtrace_string = __nw_create_backtrace_string();
+        v14 = __nwlog_obj();
+        v20 = type;
+        v21 = os_log_type_enabled(v14, type);
+        if (backtrace_string)
+        {
+          if (v21)
+          {
+            *buf = 136446466;
+            v27 = "nw_framer_copy_options";
+            v28 = 2082;
+            v29 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v14, v20, "%{public}s called with null parameters, dumping backtrace:%{public}s", buf, 0x16u);
+          }
+
+          free(backtrace_string);
+          goto LABEL_41;
+        }
+
+        if (v21)
+        {
+          *buf = 136446210;
+          v27 = "nw_framer_copy_options";
+          _os_log_impl(&dword_181A37000, v14, v20, "%{public}s called with null parameters, no backtrace", buf, 0xCu);
+        }
+      }
+
+      else
+      {
+        v14 = __nwlog_obj();
+        v23 = type;
+        if (os_log_type_enabled(v14, type))
+        {
+          *buf = 136446210;
+          v27 = "nw_framer_copy_options";
+          _os_log_impl(&dword_181A37000, v14, v23, "%{public}s called with null parameters, backtrace limit exceeded", buf, 0xCu);
+        }
+      }
+    }
+
+LABEL_41:
+    if (v13)
+    {
+      free(v13);
+    }
+
+    v6 = 0;
+    goto LABEL_4;
+  }
+
+  v8 = __nwlog_obj();
+  *buf = 136446210;
+  v27 = "nw_framer_copy_options";
+  v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null framer", buf, 12);
+
+  type = OS_LOG_TYPE_ERROR;
+  v24 = 0;
+  if (__nwlog_fault(v9, &type, &v24))
+  {
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v11 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v27 = "nw_framer_copy_options";
+        _os_log_impl(&dword_181A37000, v10, v11, "%{public}s called with null framer", buf, 0xCu);
+      }
+    }
+
+    else if (v24 == 1)
+    {
+      v16 = __nw_create_backtrace_string();
+      v10 = __nwlog_obj();
+      v17 = type;
+      v18 = os_log_type_enabled(v10, type);
+      if (v16)
+      {
+        if (v18)
+        {
+          *buf = 136446466;
+          v27 = "nw_framer_copy_options";
+          v28 = 2082;
+          v29 = v16;
+          _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null framer, dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(v16);
+        goto LABEL_35;
+      }
+
+      if (v18)
+      {
+        *buf = 136446210;
+        v27 = "nw_framer_copy_options";
+        _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null framer, no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v10 = __nwlog_obj();
+      v22 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v27 = "nw_framer_copy_options";
+        _os_log_impl(&dword_181A37000, v10, v22, "%{public}s called with null framer, backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+  }
+
+LABEL_35:
+  if (v9)
+  {
+    free(v9);
+  }
+
+  v6 = 0;
+LABEL_5:
+
+  return v6;
+}
+
+nw_parameters_t nw_framer_copy_parameters(nw_framer_t framer)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  v1 = framer;
+  v2 = v1;
+  if (v1)
+  {
+    nw_context_assert_queue(v1[46].isa);
+    isa = v2[42].isa;
+    if (isa && (v4 = *(isa + 3)) != 0 && (v5 = *(v4 + 112)) != 0)
+    {
+      v6 = v5();
+    }
+
+    else
+    {
+      v6 = v2[45].isa;
+    }
+
+    v7 = v6;
+    goto LABEL_7;
+  }
+
+  v9 = __nwlog_obj();
+  *buf = 136446210;
+  v20 = "nw_framer_copy_parameters";
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null framer", buf, 12);
+
+  type = OS_LOG_TYPE_ERROR;
+  v17 = 0;
+  if (__nwlog_fault(v10, &type, &v17))
+  {
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v11 = __nwlog_obj();
+      v12 = type;
+      if (os_log_type_enabled(v11, type))
+      {
+        *buf = 136446210;
+        v20 = "nw_framer_copy_parameters";
+        _os_log_impl(&dword_181A37000, v11, v12, "%{public}s called with null framer", buf, 0xCu);
+      }
+    }
+
+    else if (v17 == 1)
+    {
+      backtrace_string = __nw_create_backtrace_string();
+      v11 = __nwlog_obj();
+      v14 = type;
+      v15 = os_log_type_enabled(v11, type);
+      if (backtrace_string)
+      {
+        if (v15)
+        {
+          *buf = 136446466;
+          v20 = "nw_framer_copy_parameters";
+          v21 = 2082;
+          v22 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v11, v14, "%{public}s called with null framer, dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(backtrace_string);
+        goto LABEL_25;
+      }
+
+      if (v15)
+      {
+        *buf = 136446210;
+        v20 = "nw_framer_copy_parameters";
+        _os_log_impl(&dword_181A37000, v11, v14, "%{public}s called with null framer, no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v11 = __nwlog_obj();
+      v16 = type;
+      if (os_log_type_enabled(v11, type))
+      {
+        *buf = 136446210;
+        v20 = "nw_framer_copy_parameters";
+        _os_log_impl(&dword_181A37000, v11, v16, "%{public}s called with null framer, backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+  }
+
+LABEL_25:
+  if (v10)
+  {
+    free(v10);
+  }
+
+  v7 = 0;
+LABEL_7:
+
+  return v7;
+}
+
+id nw_framer_options_copy_object_value(nw_protocol_options_t options, const char *key)
+{
+  v33 = *MEMORY[0x1E69E9840];
+  v3 = options;
+  v4 = v3;
+  if (!v3)
+  {
+    v7 = __nwlog_obj();
+    *buf = 136446210;
+    *&buf[4] = "nw_framer_options_copy_object_value";
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null options", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v8, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v9 = __nwlog_obj();
+      v10 = type;
+      if (os_log_type_enabled(v9, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_framer_options_copy_object_value";
+        _os_log_impl(&dword_181A37000, v9, v10, "%{public}s called with null options", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v27 != 1)
+    {
+      v9 = __nwlog_obj();
+      v23 = type;
+      if (os_log_type_enabled(v9, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_framer_options_copy_object_value";
+        _os_log_impl(&dword_181A37000, v9, v23, "%{public}s called with null options, backtrace limit exceeded", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    backtrace_string = __nw_create_backtrace_string();
+    v9 = __nwlog_obj();
+    v16 = type;
+    v17 = os_log_type_enabled(v9, type);
+    if (!backtrace_string)
+    {
+      if (v17)
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_framer_options_copy_object_value";
+        _os_log_impl(&dword_181A37000, v9, v16, "%{public}s called with null options, no backtrace", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v17)
+    {
+      *buf = 136446466;
+      *&buf[4] = "nw_framer_options_copy_object_value";
+      *&buf[12] = 2082;
+      *&buf[14] = backtrace_string;
+      _os_log_impl(&dword_181A37000, v9, v16, "%{public}s called with null options, dumping backtrace:%{public}s", buf, 0x16u);
+    }
+
+    goto LABEL_35;
+  }
+
+  if (!nw_protocol_options_has_standard_framer_options(v3))
+  {
+    v11 = __nwlog_obj();
+    *buf = 136446210;
+    *&buf[4] = "nw_framer_options_copy_object_value";
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null nw_protocol_options_has_standard_framer_options(options)", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v8, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v9 = __nwlog_obj();
+      v12 = type;
+      if (os_log_type_enabled(v9, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_framer_options_copy_object_value";
+        _os_log_impl(&dword_181A37000, v9, v12, "%{public}s called with null nw_protocol_options_has_standard_framer_options(options)", buf, 0xCu);
+      }
+    }
+
+    else if (v27 == 1)
+    {
+      v18 = __nw_create_backtrace_string();
+      v9 = __nwlog_obj();
+      v19 = type;
+      v20 = os_log_type_enabled(v9, type);
+      if (v18)
+      {
+        if (v20)
+        {
+          *buf = 136446466;
+          *&buf[4] = "nw_framer_options_copy_object_value";
+          *&buf[12] = 2082;
+          *&buf[14] = v18;
+          _os_log_impl(&dword_181A37000, v9, v19, "%{public}s called with null nw_protocol_options_has_standard_framer_options(options), dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(v18);
+LABEL_55:
+        if (!v8)
+        {
+LABEL_57:
+          v5 = 0;
+          goto LABEL_5;
+        }
+
+LABEL_56:
+        free(v8);
+        goto LABEL_57;
+      }
+
+      if (v20)
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_framer_options_copy_object_value";
+        _os_log_impl(&dword_181A37000, v9, v19, "%{public}s called with null nw_protocol_options_has_standard_framer_options(options), no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v9 = __nwlog_obj();
+      v24 = type;
+      if (os_log_type_enabled(v9, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_framer_options_copy_object_value";
+        _os_log_impl(&dword_181A37000, v9, v24, "%{public}s called with null nw_protocol_options_has_standard_framer_options(options), backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+
+LABEL_54:
+
+    goto LABEL_55;
+  }
+
+  if (!key)
+  {
+    v13 = __nwlog_obj();
+    *buf = 136446210;
+    *&buf[4] = "nw_framer_options_copy_object_value";
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null key", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v8, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v9 = __nwlog_obj();
+      v14 = type;
+      if (os_log_type_enabled(v9, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_framer_options_copy_object_value";
+        _os_log_impl(&dword_181A37000, v9, v14, "%{public}s called with null key", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v27 != 1)
+    {
+      v9 = __nwlog_obj();
+      v25 = type;
+      if (os_log_type_enabled(v9, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_framer_options_copy_object_value";
+        _os_log_impl(&dword_181A37000, v9, v25, "%{public}s called with null key, backtrace limit exceeded", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    backtrace_string = __nw_create_backtrace_string();
+    v9 = __nwlog_obj();
+    v21 = type;
+    v22 = os_log_type_enabled(v9, type);
+    if (!backtrace_string)
+    {
+      if (v22)
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_framer_options_copy_object_value";
+        _os_log_impl(&dword_181A37000, v9, v21, "%{public}s called with null key, no backtrace", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v22)
+    {
+      *buf = 136446466;
+      *&buf[4] = "nw_framer_options_copy_object_value";
+      *&buf[12] = 2082;
+      *&buf[14] = backtrace_string;
+      _os_log_impl(&dword_181A37000, v9, v21, "%{public}s called with null key, dumping backtrace:%{public}s", buf, 0x16u);
+    }
+
+LABEL_35:
+
+    free(backtrace_string);
+    if (!v8)
+    {
+      goto LABEL_57;
+    }
+
+    goto LABEL_56;
+  }
+
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x3032000000;
+  v30 = __Block_byref_object_copy__5122;
+  v31 = __Block_byref_object_dispose__5123;
+  v32 = 0;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __nw_framer_options_copy_object_value_block_invoke;
+  v26[3] = &unk_1E6A3AB40;
+  v26[4] = buf;
+  v26[5] = key;
+  nw_protocol_options_access_handle(v4, v26);
+  v5 = *(*&buf[8] + 40);
+  _Block_object_dispose(buf, 8);
+
+LABEL_5:
+  return v5;
+}
+
+void sub_181ED5B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+{
+  _Block_object_dispose(&a21, 8);
+
+  _Unwind_Resume(a1);
+}
+
+void nw_framer_set_input_handler(nw_framer_t framer, nw_framer_input_handler_t input_handler)
+{
+  v33 = *MEMORY[0x1E69E9840];
+  v3 = framer;
+  v4 = input_handler;
+  v5 = v4;
+  if (!v3)
+  {
+    v8 = __nwlog_obj();
+    *buf = 136446210;
+    v30 = "nw_framer_set_input_handler";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null framer", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v9, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v11 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_input_handler";
+        _os_log_impl(&dword_181A37000, v10, v11, "%{public}s called with null framer", buf, 0xCu);
+      }
+    }
+
+    else if (v27 == 1)
+    {
+      backtrace_string = __nw_create_backtrace_string();
+      v10 = __nwlog_obj();
+      v17 = type;
+      v18 = os_log_type_enabled(v10, type);
+      if (backtrace_string)
+      {
+        if (v18)
+        {
+          *buf = 136446466;
+          v30 = "nw_framer_set_input_handler";
+          v31 = 2082;
+          v32 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null framer, dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(backtrace_string);
+LABEL_55:
+        if (!v9)
+        {
+          goto LABEL_5;
+        }
+
+LABEL_56:
+        free(v9);
+        goto LABEL_5;
+      }
+
+      if (v18)
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_input_handler";
+        _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null framer, no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v10 = __nwlog_obj();
+      v24 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_input_handler";
+        _os_log_impl(&dword_181A37000, v10, v24, "%{public}s called with null framer, backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+
+LABEL_54:
+
+    goto LABEL_55;
+  }
+
+  if (!v4)
+  {
+    v12 = __nwlog_obj();
+    *buf = 136446210;
+    v30 = "nw_framer_set_input_handler";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null input_handler", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v9, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v13 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_input_handler";
+        _os_log_impl(&dword_181A37000, v10, v13, "%{public}s called with null input_handler", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v27 != 1)
+    {
+      v10 = __nwlog_obj();
+      v25 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_input_handler";
+        _os_log_impl(&dword_181A37000, v10, v25, "%{public}s called with null input_handler, backtrace limit exceeded", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    v19 = __nw_create_backtrace_string();
+    v10 = __nwlog_obj();
+    v20 = type;
+    v21 = os_log_type_enabled(v10, type);
+    if (!v19)
+    {
+      if (v21)
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_input_handler";
+        _os_log_impl(&dword_181A37000, v10, v20, "%{public}s called with null input_handler, no backtrace", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v21)
+    {
+      *buf = 136446466;
+      v30 = "nw_framer_set_input_handler";
+      v31 = 2082;
+      v32 = v19;
+      _os_log_impl(&dword_181A37000, v10, v20, "%{public}s called with null input_handler, dumping backtrace:%{public}s", buf, 0x16u);
+    }
+
+    goto LABEL_35;
+  }
+
+  if ((BYTE6(v3[75].isa) & 4) == 0)
+  {
+    v14 = __nwlog_obj();
+    *buf = 136446210;
+    v30 = "nw_framer_set_input_handler";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null framer->in_start", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v9, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v15 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_input_handler";
+        _os_log_impl(&dword_181A37000, v10, v15, "%{public}s called with null framer->in_start", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v27 != 1)
+    {
+      v10 = __nwlog_obj();
+      v26 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_input_handler";
+        _os_log_impl(&dword_181A37000, v10, v26, "%{public}s called with null framer->in_start, backtrace limit exceeded", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    v19 = __nw_create_backtrace_string();
+    v10 = __nwlog_obj();
+    v22 = type;
+    v23 = os_log_type_enabled(v10, type);
+    if (!v19)
+    {
+      if (v23)
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_input_handler";
+        _os_log_impl(&dword_181A37000, v10, v22, "%{public}s called with null framer->in_start, no backtrace", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v23)
+    {
+      *buf = 136446466;
+      v30 = "nw_framer_set_input_handler";
+      v31 = 2082;
+      v32 = v19;
+      _os_log_impl(&dword_181A37000, v10, v22, "%{public}s called with null framer->in_start, dumping backtrace:%{public}s", buf, 0x16u);
+    }
+
+LABEL_35:
+
+    free(v19);
+    if (!v9)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_56;
+  }
+
+  v6 = _Block_copy(v4);
+  isa = v3[50].isa;
+  v3[50].isa = v6;
+
+LABEL_5:
+}
+
+void nw_framer_set_output_handler(nw_framer_t framer, nw_framer_output_handler_t output_handler)
+{
+  v33 = *MEMORY[0x1E69E9840];
+  v3 = framer;
+  v4 = output_handler;
+  v5 = v4;
+  if (!v3)
+  {
+    v8 = __nwlog_obj();
+    *buf = 136446210;
+    v30 = "nw_framer_set_output_handler";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null framer", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v9, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v11 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_output_handler";
+        _os_log_impl(&dword_181A37000, v10, v11, "%{public}s called with null framer", buf, 0xCu);
+      }
+    }
+
+    else if (v27 == 1)
+    {
+      backtrace_string = __nw_create_backtrace_string();
+      v10 = __nwlog_obj();
+      v17 = type;
+      v18 = os_log_type_enabled(v10, type);
+      if (backtrace_string)
+      {
+        if (v18)
+        {
+          *buf = 136446466;
+          v30 = "nw_framer_set_output_handler";
+          v31 = 2082;
+          v32 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null framer, dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(backtrace_string);
+LABEL_55:
+        if (!v9)
+        {
+          goto LABEL_5;
+        }
+
+LABEL_56:
+        free(v9);
+        goto LABEL_5;
+      }
+
+      if (v18)
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_output_handler";
+        _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null framer, no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v10 = __nwlog_obj();
+      v24 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_output_handler";
+        _os_log_impl(&dword_181A37000, v10, v24, "%{public}s called with null framer, backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+
+LABEL_54:
+
+    goto LABEL_55;
+  }
+
+  if (!v4)
+  {
+    v12 = __nwlog_obj();
+    *buf = 136446210;
+    v30 = "nw_framer_set_output_handler";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null output_handler", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v9, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v13 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_output_handler";
+        _os_log_impl(&dword_181A37000, v10, v13, "%{public}s called with null output_handler", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v27 != 1)
+    {
+      v10 = __nwlog_obj();
+      v25 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_output_handler";
+        _os_log_impl(&dword_181A37000, v10, v25, "%{public}s called with null output_handler, backtrace limit exceeded", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    v19 = __nw_create_backtrace_string();
+    v10 = __nwlog_obj();
+    v20 = type;
+    v21 = os_log_type_enabled(v10, type);
+    if (!v19)
+    {
+      if (v21)
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_output_handler";
+        _os_log_impl(&dword_181A37000, v10, v20, "%{public}s called with null output_handler, no backtrace", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v21)
+    {
+      *buf = 136446466;
+      v30 = "nw_framer_set_output_handler";
+      v31 = 2082;
+      v32 = v19;
+      _os_log_impl(&dword_181A37000, v10, v20, "%{public}s called with null output_handler, dumping backtrace:%{public}s", buf, 0x16u);
+    }
+
+    goto LABEL_35;
+  }
+
+  if ((BYTE6(v3[75].isa) & 4) == 0)
+  {
+    v14 = __nwlog_obj();
+    *buf = 136446210;
+    v30 = "nw_framer_set_output_handler";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null framer->in_start", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v9, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v15 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_output_handler";
+        _os_log_impl(&dword_181A37000, v10, v15, "%{public}s called with null framer->in_start", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v27 != 1)
+    {
+      v10 = __nwlog_obj();
+      v26 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_output_handler";
+        _os_log_impl(&dword_181A37000, v10, v26, "%{public}s called with null framer->in_start, backtrace limit exceeded", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    v19 = __nw_create_backtrace_string();
+    v10 = __nwlog_obj();
+    v22 = type;
+    v23 = os_log_type_enabled(v10, type);
+    if (!v19)
+    {
+      if (v23)
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_output_handler";
+        _os_log_impl(&dword_181A37000, v10, v22, "%{public}s called with null framer->in_start, no backtrace", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v23)
+    {
+      *buf = 136446466;
+      v30 = "nw_framer_set_output_handler";
+      v31 = 2082;
+      v32 = v19;
+      _os_log_impl(&dword_181A37000, v10, v22, "%{public}s called with null framer->in_start, dumping backtrace:%{public}s", buf, 0x16u);
+    }
+
+LABEL_35:
+
+    free(v19);
+    if (!v9)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_56;
+  }
+
+  v6 = _Block_copy(v4);
+  isa = v3[51].isa;
+  v3[51].isa = v6;
+
+LABEL_5:
+}
+
+void nw_framer_set_stop_handler(nw_framer_t framer, nw_framer_stop_handler_t stop_handler)
+{
+  v33 = *MEMORY[0x1E69E9840];
+  v3 = framer;
+  v4 = stop_handler;
+  v5 = v4;
+  if (!v3)
+  {
+    v8 = __nwlog_obj();
+    *buf = 136446210;
+    v30 = "nw_framer_set_stop_handler";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null framer", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v9, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v11 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_stop_handler";
+        _os_log_impl(&dword_181A37000, v10, v11, "%{public}s called with null framer", buf, 0xCu);
+      }
+    }
+
+    else if (v27 == 1)
+    {
+      backtrace_string = __nw_create_backtrace_string();
+      v10 = __nwlog_obj();
+      v17 = type;
+      v18 = os_log_type_enabled(v10, type);
+      if (backtrace_string)
+      {
+        if (v18)
+        {
+          *buf = 136446466;
+          v30 = "nw_framer_set_stop_handler";
+          v31 = 2082;
+          v32 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null framer, dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(backtrace_string);
+LABEL_55:
+        if (!v9)
+        {
+          goto LABEL_5;
+        }
+
+LABEL_56:
+        free(v9);
+        goto LABEL_5;
+      }
+
+      if (v18)
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_stop_handler";
+        _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null framer, no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v10 = __nwlog_obj();
+      v24 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_stop_handler";
+        _os_log_impl(&dword_181A37000, v10, v24, "%{public}s called with null framer, backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+
+LABEL_54:
+
+    goto LABEL_55;
+  }
+
+  if (!v4)
+  {
+    v12 = __nwlog_obj();
+    *buf = 136446210;
+    v30 = "nw_framer_set_stop_handler";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null stop_handler", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v9, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v13 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_stop_handler";
+        _os_log_impl(&dword_181A37000, v10, v13, "%{public}s called with null stop_handler", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v27 != 1)
+    {
+      v10 = __nwlog_obj();
+      v25 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_stop_handler";
+        _os_log_impl(&dword_181A37000, v10, v25, "%{public}s called with null stop_handler, backtrace limit exceeded", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    v19 = __nw_create_backtrace_string();
+    v10 = __nwlog_obj();
+    v20 = type;
+    v21 = os_log_type_enabled(v10, type);
+    if (!v19)
+    {
+      if (v21)
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_stop_handler";
+        _os_log_impl(&dword_181A37000, v10, v20, "%{public}s called with null stop_handler, no backtrace", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v21)
+    {
+      *buf = 136446466;
+      v30 = "nw_framer_set_stop_handler";
+      v31 = 2082;
+      v32 = v19;
+      _os_log_impl(&dword_181A37000, v10, v20, "%{public}s called with null stop_handler, dumping backtrace:%{public}s", buf, 0x16u);
+    }
+
+    goto LABEL_35;
+  }
+
+  if ((BYTE6(v3[75].isa) & 4) == 0)
+  {
+    v14 = __nwlog_obj();
+    *buf = 136446210;
+    v30 = "nw_framer_set_stop_handler";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null framer->in_start", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v27 = 0;
+    if (!__nwlog_fault(v9, &type, &v27))
+    {
+      goto LABEL_55;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v10 = __nwlog_obj();
+      v15 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_stop_handler";
+        _os_log_impl(&dword_181A37000, v10, v15, "%{public}s called with null framer->in_start", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v27 != 1)
+    {
+      v10 = __nwlog_obj();
+      v26 = type;
+      if (os_log_type_enabled(v10, type))
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_stop_handler";
+        _os_log_impl(&dword_181A37000, v10, v26, "%{public}s called with null framer->in_start, backtrace limit exceeded", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    v19 = __nw_create_backtrace_string();
+    v10 = __nwlog_obj();
+    v22 = type;
+    v23 = os_log_type_enabled(v10, type);
+    if (!v19)
+    {
+      if (v23)
+      {
+        *buf = 136446210;
+        v30 = "nw_framer_set_stop_handler";
+        _os_log_impl(&dword_181A37000, v10, v22, "%{public}s called with null framer->in_start, no backtrace", buf, 0xCu);
+      }
+
+      goto LABEL_54;
+    }
+
+    if (v23)
+    {
+      *buf = 136446466;
+      v30 = "nw_framer_set_stop_handler";
+      v31 = 2082;
+      v32 = v19;
+      _os_log_impl(&dword_181A37000, v10, v22, "%{public}s called with null framer->in_start, dumping backtrace:%{public}s", buf, 0x16u);
+    }
+
+LABEL_35:
+
+    free(v19);
+    if (!v9)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_56;
+  }
+
+  v6 = _Block_copy(v4);
+  isa = v3[53].isa;
+  v3[53].isa = v6;
+
+LABEL_5:
+}
+
+void nw_framer_mark_ready(nw_framer_t framer)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  v1 = framer;
+  v2 = v1;
+  if (v1)
+  {
+    nw_context_assert_queue(v1[46].isa);
+    if ((BYTE6(v2[75].isa) & 0x10) != 0)
+    {
+      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+      networkd_settings_init();
+      v8 = gLogObj;
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136446466;
+        v20 = "nw_framer_mark_ready";
+        v21 = 2080;
+        v22 = &v2[76].isa + 1;
+        _os_log_impl(&dword_181A37000, v8, OS_LOG_TYPE_ERROR, "%{public}s %s Already in the ready state", buf, 0x16u);
+      }
+    }
+
+    else
+    {
+      BYTE6(v2[75].isa) |= 0x10u;
+      isa = v2[42].isa;
+      if (isa)
+      {
+        v4 = *(isa + 3);
+        if (v4)
+        {
+          v5 = *(v4 + 40);
+          if (!v5 || (v5(), (v6 = v2[42].isa) != 0) && (v4 = *(v6 + 3)) != 0)
+          {
+            v7 = *(v4 + 72);
+            if (v7)
+            {
+              v7();
+            }
+          }
+        }
+      }
+    }
+
+    goto LABEL_13;
+  }
+
+  v9 = __nwlog_obj();
+  *buf = 136446210;
+  v20 = "nw_framer_mark_ready";
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null framer", buf, 12);
+
+  type = OS_LOG_TYPE_ERROR;
+  v17 = 0;
+  if (__nwlog_fault(v10, &type, &v17))
+  {
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v11 = __nwlog_obj();
+      v12 = type;
+      if (os_log_type_enabled(v11, type))
+      {
+        *buf = 136446210;
+        v20 = "nw_framer_mark_ready";
+        _os_log_impl(&dword_181A37000, v11, v12, "%{public}s called with null framer", buf, 0xCu);
+      }
+    }
+
+    else if (v17 == 1)
+    {
+      backtrace_string = __nw_create_backtrace_string();
+      v11 = __nwlog_obj();
+      v14 = type;
+      v15 = os_log_type_enabled(v11, type);
+      if (backtrace_string)
+      {
+        if (v15)
+        {
+          *buf = 136446466;
+          v20 = "nw_framer_mark_ready";
+          v21 = 2082;
+          v22 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v11, v14, "%{public}s called with null framer, dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(backtrace_string);
+        goto LABEL_30;
+      }
+
+      if (v15)
+      {
+        *buf = 136446210;
+        v20 = "nw_framer_mark_ready";
+        _os_log_impl(&dword_181A37000, v11, v14, "%{public}s called with null framer, no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v11 = __nwlog_obj();
+      v16 = type;
+      if (os_log_type_enabled(v11, type))
+      {
+        *buf = 136446210;
+        v20 = "nw_framer_mark_ready";
+        _os_log_impl(&dword_181A37000, v11, v16, "%{public}s called with null framer, backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+  }
+
+LABEL_30:
+  if (v10)
+  {
+    free(v10);
+  }
+
+LABEL_13:
+}
+
+_OWORD *nw_protocol_http_messaging_create(uint64_t a1, uint64_t a2, void *a3, void *a4)
+{
+  v37 = *MEMORY[0x1E69E9840];
+  if (!a3)
+  {
+    v20 = __nwlog_obj();
+    *buf = 136446210;
+    *&buf[4] = "nw_protocol_http_messaging_create";
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s called with null endpoint", buf, 12);
+    type = OS_LOG_TYPE_ERROR;
+    v33 = 0;
+    if (!__nwlog_fault(v21, &type, &v33))
+    {
+      goto LABEL_59;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v22 = __nwlog_obj();
+      v23 = type;
+      if (os_log_type_enabled(v22, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_protocol_http_messaging_create";
+        v24 = "%{public}s called with null endpoint";
+LABEL_58:
+        _os_log_impl(&dword_181A37000, v22, v23, v24, buf, 0xCu);
+      }
+
+LABEL_59:
+      if (v21)
+      {
+        free(v21);
+      }
+
+      return 0;
+    }
+
+    if (v33 != 1)
+    {
+      v22 = __nwlog_obj();
+      v23 = type;
+      if (os_log_type_enabled(v22, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_protocol_http_messaging_create";
+        v24 = "%{public}s called with null endpoint, backtrace limit exceeded";
+        goto LABEL_58;
+      }
+
+      goto LABEL_59;
+    }
+
+    backtrace_string = __nw_create_backtrace_string();
+    v22 = __nwlog_obj();
+    v23 = type;
+    v28 = os_log_type_enabled(v22, type);
+    if (!backtrace_string)
+    {
+      if (v28)
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_protocol_http_messaging_create";
+        v24 = "%{public}s called with null endpoint, no backtrace";
+        goto LABEL_58;
+      }
+
+      goto LABEL_59;
+    }
+
+    if (v28)
+    {
+      *buf = 136446466;
+      *&buf[4] = "nw_protocol_http_messaging_create";
+      *&buf[12] = 2082;
+      *&buf[14] = backtrace_string;
+      v29 = "%{public}s called with null endpoint, dumping backtrace:%{public}s";
+LABEL_48:
+      _os_log_impl(&dword_181A37000, v22, v23, v29, buf, 0x16u);
+    }
+
+LABEL_49:
+    free(backtrace_string);
+    goto LABEL_59;
+  }
+
+  if (!a4)
+  {
+    v25 = __nwlog_obj();
+    *buf = 136446210;
+    *&buf[4] = "nw_protocol_http_messaging_create";
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null parameters", buf, 12);
+    type = OS_LOG_TYPE_ERROR;
+    v33 = 0;
+    if (!__nwlog_fault(v21, &type, &v33))
+    {
+      goto LABEL_59;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v22 = __nwlog_obj();
+      v23 = type;
+      if (os_log_type_enabled(v22, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_protocol_http_messaging_create";
+        v24 = "%{public}s called with null parameters";
+        goto LABEL_58;
+      }
+
+      goto LABEL_59;
+    }
+
+    if (v33 != 1)
+    {
+      v22 = __nwlog_obj();
+      v23 = type;
+      if (os_log_type_enabled(v22, type))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_protocol_http_messaging_create";
+        v24 = "%{public}s called with null parameters, backtrace limit exceeded";
+        goto LABEL_58;
+      }
+
+      goto LABEL_59;
+    }
+
+    backtrace_string = __nw_create_backtrace_string();
+    v22 = __nwlog_obj();
+    v23 = type;
+    v30 = os_log_type_enabled(v22, type);
+    if (!backtrace_string)
+    {
+      if (v30)
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_protocol_http_messaging_create";
+        v24 = "%{public}s called with null parameters, no backtrace";
+        goto LABEL_58;
+      }
+
+      goto LABEL_59;
+    }
+
+    if (v30)
+    {
+      *buf = 136446466;
+      *&buf[4] = "nw_protocol_http_messaging_create";
+      *&buf[12] = 2082;
+      *&buf[14] = backtrace_string;
+      v29 = "%{public}s called with null parameters, dumping backtrace:%{public}s";
+      goto LABEL_48;
+    }
+
+    goto LABEL_49;
+  }
+
+  v6 = malloc_type_calloc(1uLL, 0x160uLL, 0x46D9C302uLL);
+  v7 = v6;
+  if (v6)
+  {
+    v6[20] = 0u;
+    v6[21] = 0u;
+    v6[18] = 0u;
+    v6[19] = 0u;
+    v6[16] = 0u;
+    v6[17] = 0u;
+    v6[14] = 0u;
+    v6[15] = 0u;
+    v6[12] = 0u;
+    v6[13] = 0u;
+    v6[10] = 0u;
+    v6[11] = 0u;
+    v6[8] = 0u;
+    v6[9] = 0u;
+    v6[6] = 0u;
+    v6[7] = 0u;
+    v6[4] = 0u;
+    v6[5] = 0u;
+    v6[2] = 0u;
+    v6[3] = 0u;
+    *v6 = 0u;
+    v6[1] = 0u;
+LABEL_14:
+    logging_disabled = _nw_parameters_get_logging_disabled(a4);
+    if (logging_disabled)
+    {
+      v16 = 2;
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    *(v7 + 172) = *(v7 + 172) & 0xFFFD | v16;
+    if (!logging_disabled && gLogDatapath == 1)
+    {
+      v26 = __nwlog_obj();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 136446722;
+        *&buf[4] = "nw_protocol_http_messaging_create";
+        *&buf[12] = 2082;
+        *&buf[14] = v7 + 260;
+        *&buf[22] = 2080;
+        v36 = " ";
+        _os_log_impl(&dword_181A37000, v26, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%scalled", buf, 0x20u);
+      }
+    }
+
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x2000000000;
+    v36 = v7;
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 0x40000000;
+    aBlock[2] = __nw_protocol_http_messaging_create_block_invoke;
+    aBlock[3] = &unk_1E6A3AE90;
+    aBlock[4] = buf;
+    *(v7 + 28) = _Block_copy(aBlock);
+    _Block_object_dispose(buf, 8);
+    if (nw_protocol_http_messaging_identifier::onceToken != -1)
+    {
+      dispatch_once(&nw_protocol_http_messaging_identifier::onceToken, &__block_literal_global_80493);
+    }
+
+    *(v7 + 2) = &nw_protocol_http_messaging_identifier::protocol_identifier;
+    if (nw_protocol_http_messaging_get_callbacks(void)::onceToken != -1)
+    {
+      dispatch_once(&nw_protocol_http_messaging_get_callbacks(void)::onceToken, &__block_literal_global_19_80494);
+    }
+
+    *(v7 + 3) = &nw_protocol_http_messaging_get_callbacks(void)::protocol_callbacks;
+    *(v7 + 5) = v7;
+    if (nw_protocol_http_messaging_get_listen_callbacks(void)::onceToken[0] != -1)
+    {
+      dispatch_once(nw_protocol_http_messaging_get_listen_callbacks(void)::onceToken, &__block_literal_global_32_80495);
+    }
+
+    *(v7 + 8) = &nw_protocol_http_messaging_get_listen_callbacks(void)::listen_protocol_callbacks;
+    *(v7 + 11) = v7;
+    v17 = os_retain(a3);
+    v18 = *(v7 + 120);
+    if (v18)
+    {
+      if (*(v7 + 14))
+      {
+        v19 = v17;
+        os_release(*(v7 + 14));
+        v17 = v19;
+        v18 = *(v7 + 120);
+      }
+    }
+
+    *(v7 + 14) = v17;
+    *(v7 + 120) = v18 | 1;
+    *(v7 + 172) = *(v7 + 172) & 0xFFFE | _nw_parameters_get_server_mode(a4);
+    return v7;
+  }
+
+  pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+  networkd_settings_init();
+  v8 = gLogObj;
+  *buf = 136446722;
+  *&buf[4] = "nw_protocol_http_messaging_create";
+  if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_ERROR))
+  {
+    v9 = 3;
+  }
+
+  else
+  {
+    v9 = 2;
+  }
+
+  *&buf[12] = 2048;
+  *&buf[14] = 1;
+  *&buf[22] = 2048;
+  v36 = 352;
+  v10 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s strict_calloc(%zu, %zu) failed", buf, 32);
+  result = __nwlog_should_abort(v10);
+  if (!result)
+  {
+    free(v10);
+    MEMORY[0x150] = 0u;
+    MEMORY[0x140] = 0u;
+    MEMORY[0x130] = 0u;
+    MEMORY[0x120] = 0u;
+    MEMORY[0x110] = 0u;
+    MEMORY[0x100] = 0u;
+    MEMORY[0xE0] = 0u;
+    MEMORY[0xD0] = 0u;
+    MEMORY[0xC0] = 0u;
+    MEMORY[0xB0] = 0u;
+    MEMORY[0xA0] = 0u;
+    MEMORY[0x90] = 0u;
+    MEMORY[0x70] = 0u;
+    MEMORY[0x60] = 0u;
+    MEMORY[0x50] = 0u;
+    MEMORY[0x40] = 0u;
+    MEMORY[0x30] = 0u;
+    MEMORY[0x20] = 0u;
+    MEMORY[0x10] = 0u;
+    MEMORY[0] = 0u;
+    MEMORY[0x60] = 0;
+    MEMORY[0x68] = 0;
+    MEMORY[0x70] = 0;
+    MEMORY[0x78] = 0;
+    MEMORY[0x90] = 0;
+    MEMORY[0x88] = 0;
+    MEMORY[0x80] = 0;
+    MEMORY[0xA0] = 0;
+    MEMORY[0xA8] = 0;
+    MEMORY[0xB0] = 0;
+    MEMORY[0xB8] = 0;
+    MEMORY[0xC0] = 0;
+    MEMORY[0xC8] = 0;
+    MEMORY[0xD0] = 0;
+    MEMORY[0xD8] = 0;
+    MEMORY[0xF8] = 0;
+    MEMORY[0xF0] = 0;
+    MEMORY[0xE8] = 0;
+    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+    networkd_settings_init();
+    v12 = gLogObj;
+    v13 = os_log_type_enabled(gLogObj, OS_LOG_TYPE_ERROR) ? 3 : 2;
+    *buf = 136446210;
+    *&buf[4] = "nw_protocol_http_messaging_create";
+    LODWORD(v31) = 12;
+    v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s strict_placement_new(nw_protocol_http_messaging, strict_calloc(1, sizeof(nw_protocol_http_messaging)),) failed", buf, v31);
+    result = __nwlog_should_abort(v14);
+    if (!result)
+    {
+      free(v14);
+      goto LABEL_14;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t nw_protocol_http_messaging_add_input_handler(nw_protocol *a1, nw_protocol *a2)
+{
+  v60 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    __nwlog_obj();
+    v40 = __nwlog_obj();
     *buf = 136446210;
-    v17 = "nw_protocol_common_supports_external_data";
-    v1 = _os_log_send_and_compose_impl();
+    v55 = "nw_protocol_http_messaging_add_input_handler";
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v40, 16, "%{public}s called with null protocol", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v14 = 0;
-    if (!__nwlog_fault(v1, &type, &v14))
+    v52 = 0;
+    if (!__nwlog_fault(v18, &type, &v52))
+    {
+      goto LABEL_48;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v41 = __nwlog_obj();
+      v42 = type;
+      if (!os_log_type_enabled(v41, type))
+      {
+        goto LABEL_48;
+      }
+
+      *buf = 136446210;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v21 = "%{public}s called with null protocol";
+      goto LABEL_113;
+    }
+
+    if (v52 != 1)
+    {
+      v41 = __nwlog_obj();
+      v42 = type;
+      if (!os_log_type_enabled(v41, type))
+      {
+        goto LABEL_48;
+      }
+
+      *buf = 136446210;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v21 = "%{public}s called with null protocol, backtrace limit exceeded";
+      goto LABEL_113;
+    }
+
+    backtrace_string = __nw_create_backtrace_string();
+    v41 = __nwlog_obj();
+    v42 = type;
+    v45 = os_log_type_enabled(v41, type);
+    if (backtrace_string)
+    {
+      if (!v45)
+      {
+        goto LABEL_34;
+      }
+
+      *buf = 136446466;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v56 = 2082;
+      v57 = backtrace_string;
+      v30 = "%{public}s called with null protocol, dumping backtrace:%{public}s";
+      goto LABEL_76;
+    }
+
+    if (!v45)
+    {
+      goto LABEL_48;
+    }
+
+    *buf = 136446210;
+    v55 = "nw_protocol_http_messaging_add_input_handler";
+    v21 = "%{public}s called with null protocol, no backtrace";
+    goto LABEL_113;
+  }
+
+  handle = a1->handle;
+  if (!handle)
+  {
+    v43 = __nwlog_obj();
+    *buf = 136446210;
+    v55 = "nw_protocol_http_messaging_add_input_handler";
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v43, 16, "%{public}s called with null http_messaging", buf, 12);
+    type = OS_LOG_TYPE_ERROR;
+    v52 = 0;
+    if (!__nwlog_fault(v18, &type, &v52))
+    {
+      goto LABEL_48;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v41 = __nwlog_obj();
+      v42 = type;
+      if (!os_log_type_enabled(v41, type))
+      {
+        goto LABEL_48;
+      }
+
+      *buf = 136446210;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v21 = "%{public}s called with null http_messaging";
+      goto LABEL_113;
+    }
+
+    if (v52 != 1)
+    {
+      v41 = __nwlog_obj();
+      v42 = type;
+      if (!os_log_type_enabled(v41, type))
+      {
+        goto LABEL_48;
+      }
+
+      *buf = 136446210;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v21 = "%{public}s called with null http_messaging, backtrace limit exceeded";
+      goto LABEL_113;
+    }
+
+    backtrace_string = __nw_create_backtrace_string();
+    v41 = __nwlog_obj();
+    v42 = type;
+    v46 = os_log_type_enabled(v41, type);
+    if (backtrace_string)
+    {
+      if (!v46)
+      {
+        goto LABEL_34;
+      }
+
+      *buf = 136446466;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v56 = 2082;
+      v57 = backtrace_string;
+      v30 = "%{public}s called with null http_messaging, dumping backtrace:%{public}s";
+      goto LABEL_76;
+    }
+
+    if (!v46)
+    {
+      goto LABEL_48;
+    }
+
+    *buf = 136446210;
+    v55 = "nw_protocol_http_messaging_add_input_handler";
+    v21 = "%{public}s called with null http_messaging, no backtrace";
+    goto LABEL_113;
+  }
+
+  if (!a2)
+  {
+    v44 = __nwlog_obj();
+    *buf = 136446210;
+    v55 = "nw_protocol_http_messaging_add_input_handler";
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v44, 16, "%{public}s called with null input_protocol", buf, 12);
+    type = OS_LOG_TYPE_ERROR;
+    v52 = 0;
+    if (!__nwlog_fault(v18, &type, &v52))
+    {
+      goto LABEL_48;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v41 = __nwlog_obj();
+      v42 = type;
+      if (!os_log_type_enabled(v41, type))
+      {
+        goto LABEL_48;
+      }
+
+      *buf = 136446210;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v21 = "%{public}s called with null input_protocol";
+      goto LABEL_113;
+    }
+
+    if (v52 != 1)
+    {
+      v41 = __nwlog_obj();
+      v42 = type;
+      if (!os_log_type_enabled(v41, type))
+      {
+        goto LABEL_48;
+      }
+
+      *buf = 136446210;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v21 = "%{public}s called with null input_protocol, backtrace limit exceeded";
+      goto LABEL_113;
+    }
+
+    backtrace_string = __nw_create_backtrace_string();
+    v41 = __nwlog_obj();
+    v42 = type;
+    v47 = os_log_type_enabled(v41, type);
+    if (backtrace_string)
+    {
+      if (!v47)
+      {
+        goto LABEL_34;
+      }
+
+      *buf = 136446466;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v56 = 2082;
+      v57 = backtrace_string;
+      v30 = "%{public}s called with null input_protocol, dumping backtrace:%{public}s";
+      goto LABEL_76;
+    }
+
+    if (!v47)
+    {
+      goto LABEL_48;
+    }
+
+    *buf = 136446210;
+    v55 = "nw_protocol_http_messaging_add_input_handler";
+    v21 = "%{public}s called with null input_protocol, no backtrace";
+    goto LABEL_113;
+  }
+
+  if (*(handle + 19))
+  {
+    v4 = a1->handle;
+
+    return nw_http_messaging_add_to_version_specific_protocol(v4, a2);
+  }
+
+  v6 = *(handle + 6);
+  if (!v6)
+  {
+    v10 = a2;
+    nw_protocol_set_input_handler(a1->handle, a2);
+    *handle = *v10->flow_id;
+    v11 = v10;
+    parameters = nw_protocol_get_parameters(v10);
+    if (parameters)
+    {
+      v13 = parameters;
+      v14 = _nw_parameters_copy_protocol_options_with_level();
+
+      if (v14)
+      {
+        v15 = v14;
+        _nw_protocol_options_get_log_id_str(v15, handle + 260);
+
+        os_release(v15);
+        a2 = v11;
+        if (v11->output_handler)
+        {
+LABEL_39:
+          pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+          networkd_settings_init();
+          v36 = gLogObj;
+          if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136446210;
+            v55 = "nw_protocol_http_messaging_add_input_handler";
+            _os_log_impl(&dword_181A37000, v36, OS_LOG_TYPE_ERROR, "%{public}s Output handler already exists for protocol being added as input handler", buf, 0xCu);
+          }
+
+          return 1;
+        }
+
+LABEL_15:
+        nw_protocol_set_output_handler(a2, a1);
+        return 1;
+      }
+
+      v49 = __nwlog_obj();
+      *buf = 136446210;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v49, 16, "%{public}s called with null options", buf, 12);
+      type = OS_LOG_TYPE_ERROR;
+      v52 = 0;
+      if (!__nwlog_fault(v18, &type, &v52))
+      {
+        goto LABEL_48;
+      }
+
+      if (type == OS_LOG_TYPE_FAULT)
+      {
+        v41 = __nwlog_obj();
+        v42 = type;
+        if (!os_log_type_enabled(v41, type))
+        {
+          goto LABEL_48;
+        }
+
+        *buf = 136446210;
+        v55 = "nw_protocol_http_messaging_add_input_handler";
+        v21 = "%{public}s called with null options";
+        goto LABEL_113;
+      }
+
+      if (v52 == 1)
+      {
+        backtrace_string = __nw_create_backtrace_string();
+        v41 = __nwlog_obj();
+        v42 = type;
+        v51 = os_log_type_enabled(v41, type);
+        if (backtrace_string)
+        {
+          if (!v51)
+          {
+            goto LABEL_34;
+          }
+
+          *buf = 136446466;
+          v55 = "nw_protocol_http_messaging_add_input_handler";
+          v56 = 2082;
+          v57 = backtrace_string;
+          v30 = "%{public}s called with null options, dumping backtrace:%{public}s";
+LABEL_76:
+          v31 = v41;
+          v32 = v42;
+          v33 = 22;
+          goto LABEL_33;
+        }
+
+        if (!v51)
+        {
+          goto LABEL_48;
+        }
+
+        *buf = 136446210;
+        v55 = "nw_protocol_http_messaging_add_input_handler";
+        v21 = "%{public}s called with null options, no backtrace";
+      }
+
+      else
+      {
+        v41 = __nwlog_obj();
+        v42 = type;
+        if (!os_log_type_enabled(v41, type))
+        {
+          goto LABEL_48;
+        }
+
+        *buf = 136446210;
+        v55 = "nw_protocol_http_messaging_add_input_handler";
+        v21 = "%{public}s called with null options, backtrace limit exceeded";
+      }
+    }
+
+    else
+    {
+      v48 = __nwlog_obj();
+      *buf = 136446210;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v48, 16, "%{public}s called with null parameters", buf, 12);
+      type = OS_LOG_TYPE_ERROR;
+      v52 = 0;
+      if (!__nwlog_fault(v18, &type, &v52))
+      {
+        goto LABEL_48;
+      }
+
+      if (type == OS_LOG_TYPE_FAULT)
+      {
+        v41 = __nwlog_obj();
+        v42 = type;
+        if (!os_log_type_enabled(v41, type))
+        {
+          goto LABEL_48;
+        }
+
+        *buf = 136446210;
+        v55 = "nw_protocol_http_messaging_add_input_handler";
+        v21 = "%{public}s called with null parameters";
+        goto LABEL_113;
+      }
+
+      if (v52 == 1)
+      {
+        backtrace_string = __nw_create_backtrace_string();
+        v41 = __nwlog_obj();
+        v42 = type;
+        v50 = os_log_type_enabled(v41, type);
+        if (backtrace_string)
+        {
+          if (!v50)
+          {
+            goto LABEL_34;
+          }
+
+          *buf = 136446466;
+          v55 = "nw_protocol_http_messaging_add_input_handler";
+          v56 = 2082;
+          v57 = backtrace_string;
+          v30 = "%{public}s called with null parameters, dumping backtrace:%{public}s";
+          goto LABEL_76;
+        }
+
+        if (!v50)
+        {
+          goto LABEL_48;
+        }
+
+        *buf = 136446210;
+        v55 = "nw_protocol_http_messaging_add_input_handler";
+        v21 = "%{public}s called with null parameters, no backtrace";
+      }
+
+      else
+      {
+        v41 = __nwlog_obj();
+        v42 = type;
+        if (!os_log_type_enabled(v41, type))
+        {
+          goto LABEL_48;
+        }
+
+        *buf = 136446210;
+        v55 = "nw_protocol_http_messaging_add_input_handler";
+        v21 = "%{public}s called with null parameters, backtrace limit exceeded";
+      }
+    }
+
+LABEL_113:
+    v37 = v41;
+    v38 = v42;
+    v39 = 12;
+    goto LABEL_47;
+  }
+
+  if (v6 != a2)
+  {
+    v8 = *(handle + 30);
+    v7 = *(handle + 31);
+    if (v8 >= v7)
+    {
+      v22 = *(handle + 29);
+      v23 = v8 - v22;
+      v24 = (v8 - v22) >> 4;
+      v25 = v24 + 1;
+      if ((v24 + 1) >> 60)
+      {
+        std::string::__throw_length_error[abi:nn200100]();
+      }
+
+      v26 = v7 - v22;
+      if (v26 >> 3 > v25)
+      {
+        v25 = v26 >> 3;
+      }
+
+      if (v26 >= 0x7FFFFFFFFFFFFFF0)
+      {
+        v27 = 0xFFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v27 = v25;
+      }
+
+      if (v27)
+      {
+        if (!(v27 >> 60))
+        {
+          operator new();
+        }
+
+        std::string::__throw_length_error[abi:nn200100]();
+      }
+
+      v34 = 16 * v24;
+      v35 = a2;
+      *v34 = a2;
+      *(v34 + 8) = 0;
+      v9 = 16 * v24 + 16;
+      memcpy(0, v22, v23);
+      *(handle + 29) = 0;
+      *(handle + 30) = v9;
+      *(handle + 31) = 0;
+      if (v22)
+      {
+        operator delete(v22);
+      }
+
+      a2 = v35;
+    }
+
+    else
+    {
+      *v8 = a2;
+      *(v8 + 8) = 0;
+      v9 = v8 + 16;
+    }
+
+    *(handle + 30) = v9;
+    if (a2->output_handler)
+    {
+      goto LABEL_39;
+    }
+
+    goto LABEL_15;
+  }
+
+  v16 = a2;
+  pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+  networkd_settings_init();
+  *buf = 136446466;
+  v55 = "nw_protocol_http_messaging_add_input_handler";
+  v56 = 2048;
+  v17 = v16;
+  v57 = v16;
+  v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s Adding the same input handler more than once to messaging %p", buf, 22);
+  type = OS_LOG_TYPE_ERROR;
+  v52 = 0;
+  if (!__nwlog_fault(v18, &type, &v52))
+  {
+    goto LABEL_48;
+  }
+
+  if (type == OS_LOG_TYPE_FAULT)
+  {
+    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+    networkd_settings_init();
+    v19 = gLogObj;
+    v20 = type;
+    if (os_log_type_enabled(gLogObj, type))
+    {
+      *buf = 136446466;
+      v55 = "nw_protocol_http_messaging_add_input_handler";
+      v56 = 2048;
+      v57 = v17;
+      v21 = "%{public}s Adding the same input handler more than once to messaging %p";
+LABEL_46:
+      v37 = v19;
+      v38 = v20;
+      v39 = 22;
+LABEL_47:
+      _os_log_impl(&dword_181A37000, v37, v38, v21, buf, v39);
+      goto LABEL_48;
+    }
+
+    goto LABEL_48;
+  }
+
+  if (v52 == 1)
+  {
+    backtrace_string = __nw_create_backtrace_string();
+    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+    networkd_settings_init();
+    v19 = gLogObj;
+    v20 = type;
+    v29 = os_log_type_enabled(gLogObj, type);
+    if (!backtrace_string)
+    {
+      if (v29)
+      {
+        *buf = 136446466;
+        v55 = "nw_protocol_http_messaging_add_input_handler";
+        v56 = 2048;
+        v57 = v17;
+        v21 = "%{public}s Adding the same input handler more than once to messaging %p, no backtrace";
+        goto LABEL_46;
+      }
+
+      goto LABEL_48;
+    }
+
+    if (!v29)
+    {
+LABEL_34:
+      free(backtrace_string);
+      goto LABEL_48;
+    }
+
+    *buf = 136446722;
+    v55 = "nw_protocol_http_messaging_add_input_handler";
+    v56 = 2048;
+    v57 = v17;
+    v58 = 2082;
+    v59 = backtrace_string;
+    v30 = "%{public}s Adding the same input handler more than once to messaging %p, dumping backtrace:%{public}s";
+    v31 = v19;
+    v32 = v20;
+    v33 = 32;
+LABEL_33:
+    _os_log_impl(&dword_181A37000, v31, v32, v30, buf, v33);
+    goto LABEL_34;
+  }
+
+  pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+  networkd_settings_init();
+  v19 = gLogObj;
+  v20 = type;
+  if (os_log_type_enabled(gLogObj, type))
+  {
+    *buf = 136446466;
+    v55 = "nw_protocol_http_messaging_add_input_handler";
+    v56 = 2048;
+    v57 = v17;
+    v21 = "%{public}s Adding the same input handler more than once to messaging %p, backtrace limit exceeded";
+    goto LABEL_46;
+  }
+
+LABEL_48:
+  if (v18)
+  {
+    free(v18);
+  }
+
+  return 0;
+}
+
+uint64_t nw_protocol_common_supports_external_data(uint64_t a1)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  if (!a1)
+  {
+    v12 = __nwlog_obj();
+    *buf = 136446210;
+    v18 = "nw_protocol_common_supports_external_data";
+    v1 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null protocol", buf, 12);
+    type = OS_LOG_TYPE_ERROR;
+    v15 = 0;
+    if (!__nwlog_fault(v1, &type, &v15))
     {
       goto LABEL_16;
     }
@@ -24,24 +2837,24 @@ uint64_t nw_protocol_common_supports_external_data(uint64_t a1)
       }
 
       *buf = 136446210;
-      v17 = "nw_protocol_common_supports_external_data";
+      v18 = "nw_protocol_common_supports_external_data";
       v4 = "%{public}s called with null protocol";
     }
 
-    else if (v14 == 1)
+    else if (v15 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
       v2 = __nwlog_obj();
       v3 = type;
-      v13 = os_log_type_enabled(v2, type);
+      v14 = os_log_type_enabled(v2, type);
       if (backtrace_string)
       {
-        if (v13)
+        if (v14)
         {
           *buf = 136446466;
-          v17 = "nw_protocol_common_supports_external_data";
-          v18 = 2082;
-          v19 = backtrace_string;
+          v18 = "nw_protocol_common_supports_external_data";
+          v19 = 2082;
+          v20 = backtrace_string;
           _os_log_impl(&dword_181A37000, v2, v3, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
@@ -54,13 +2867,13 @@ uint64_t nw_protocol_common_supports_external_data(uint64_t a1)
         return 0;
       }
 
-      if (!v13)
+      if (!v14)
       {
         goto LABEL_16;
       }
 
       *buf = 136446210;
-      v17 = "nw_protocol_common_supports_external_data";
+      v18 = "nw_protocol_common_supports_external_data";
       v4 = "%{public}s called with null protocol, no backtrace";
     }
 
@@ -74,7 +2887,7 @@ uint64_t nw_protocol_common_supports_external_data(uint64_t a1)
       }
 
       *buf = 136446210;
-      v17 = "nw_protocol_common_supports_external_data";
+      v18 = "nw_protocol_common_supports_external_data";
       v4 = "%{public}s called with null protocol, backtrace limit exceeded";
     }
 
@@ -94,11 +2907,11 @@ LABEL_15:
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
   *buf = 136446210;
-  v17 = "nw_protocol_common_supports_external_data";
-  v1 = _os_log_send_and_compose_impl();
+  v18 = "nw_protocol_common_supports_external_data";
+  v1 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s supports_external_data requires an input handler", buf, 12);
   type = OS_LOG_TYPE_ERROR;
-  v14 = 0;
-  if (!__nwlog_fault(v1, &type, &v14))
+  v15 = 0;
+  if (!__nwlog_fault(v1, &type, &v15))
   {
     goto LABEL_16;
   }
@@ -115,12 +2928,12 @@ LABEL_15:
     }
 
     *buf = 136446210;
-    v17 = "nw_protocol_common_supports_external_data";
+    v18 = "nw_protocol_common_supports_external_data";
     v4 = "%{public}s supports_external_data requires an input handler";
     goto LABEL_14;
   }
 
-  if (v14 != 1)
+  if (v15 != 1)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
@@ -132,7 +2945,7 @@ LABEL_15:
     }
 
     *buf = 136446210;
-    v17 = "nw_protocol_common_supports_external_data";
+    v18 = "nw_protocol_common_supports_external_data";
     v4 = "%{public}s supports_external_data requires an input handler, backtrace limit exceeded";
     goto LABEL_14;
   }
@@ -148,9 +2961,9 @@ LABEL_15:
     if (v8)
     {
       *buf = 136446466;
-      v17 = "nw_protocol_common_supports_external_data";
-      v18 = 2082;
-      v19 = v5;
+      v18 = "nw_protocol_common_supports_external_data";
+      v19 = 2082;
+      v20 = v5;
       _os_log_impl(&dword_181A37000, v6, v7, "%{public}s supports_external_data requires an input handler, dumping backtrace:%{public}s", buf, 0x16u);
     }
 
@@ -160,7 +2973,7 @@ LABEL_15:
   else if (v8)
   {
     *buf = 136446210;
-    v17 = "nw_protocol_common_supports_external_data";
+    v18 = "nw_protocol_common_supports_external_data";
     v4 = "%{public}s supports_external_data requires an input handler, no backtrace";
     v9 = v6;
     v10 = v7;
@@ -179,68 +2992,68 @@ LABEL_17:
 
 uint64_t nw_protocol_http_messaging_get_parameters(nw_protocol *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    __nwlog_obj();
+    v4 = __nwlog_obj();
     *buf = 136446210;
-    v15 = "nw_protocol_http_messaging_get_parameters";
-    v4 = _os_log_send_and_compose_impl();
+    v17 = "nw_protocol_http_messaging_get_parameters";
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null protocol", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v12 = 0;
-    if (!__nwlog_fault(v4, &type, &v12))
+    v14 = 0;
+    if (!__nwlog_fault(v5, &type, &v14))
     {
       goto LABEL_35;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v5 = __nwlog_obj();
-      v6 = type;
-      if (!os_log_type_enabled(v5, type))
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (!os_log_type_enabled(v6, type))
       {
         goto LABEL_35;
       }
 
       *buf = 136446210;
-      v15 = "nw_protocol_http_messaging_get_parameters";
-      v7 = "%{public}s called with null protocol";
+      v17 = "nw_protocol_http_messaging_get_parameters";
+      v8 = "%{public}s called with null protocol";
     }
 
     else
     {
-      if (v12 != 1)
+      if (v14 != 1)
       {
-        v5 = __nwlog_obj();
-        v6 = type;
-        if (!os_log_type_enabled(v5, type))
+        v6 = __nwlog_obj();
+        v7 = type;
+        if (!os_log_type_enabled(v6, type))
         {
           goto LABEL_35;
         }
 
         *buf = 136446210;
-        v15 = "nw_protocol_http_messaging_get_parameters";
-        v7 = "%{public}s called with null protocol, backtrace limit exceeded";
+        v17 = "nw_protocol_http_messaging_get_parameters";
+        v8 = "%{public}s called with null protocol, backtrace limit exceeded";
         goto LABEL_34;
       }
 
       backtrace_string = __nw_create_backtrace_string();
-      v5 = __nwlog_obj();
-      v6 = type;
-      v9 = os_log_type_enabled(v5, type);
+      v6 = __nwlog_obj();
+      v7 = type;
+      v11 = os_log_type_enabled(v6, type);
       if (backtrace_string)
       {
-        if (v9)
+        if (v11)
         {
           *buf = 136446466;
-          v15 = "nw_protocol_http_messaging_get_parameters";
-          v16 = 2082;
-          v17 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v5, v6, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
+          v17 = "nw_protocol_http_messaging_get_parameters";
+          v18 = 2082;
+          v19 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
-        if (!v4)
+        if (!v5)
         {
           return 0;
         }
@@ -248,100 +3061,100 @@ uint64_t nw_protocol_http_messaging_get_parameters(nw_protocol *a1)
         goto LABEL_36;
       }
 
-      if (!v9)
-      {
-        goto LABEL_35;
-      }
-
-      *buf = 136446210;
-      v15 = "nw_protocol_http_messaging_get_parameters";
-      v7 = "%{public}s called with null protocol, no backtrace";
-    }
-
-LABEL_34:
-    _os_log_impl(&dword_181A37000, v5, v6, v7, buf, 0xCu);
-    goto LABEL_35;
-  }
-
-  handle = a1->handle;
-  if (!handle)
-  {
-    __nwlog_obj();
-    *buf = 136446210;
-    v15 = "nw_protocol_http_messaging_get_parameters";
-    v4 = _os_log_send_and_compose_impl();
-    type = OS_LOG_TYPE_ERROR;
-    v12 = 0;
-    if (!__nwlog_fault(v4, &type, &v12))
-    {
-      goto LABEL_35;
-    }
-
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v5 = __nwlog_obj();
-      v6 = type;
-      if (!os_log_type_enabled(v5, type))
-      {
-        goto LABEL_35;
-      }
-
-      *buf = 136446210;
-      v15 = "nw_protocol_http_messaging_get_parameters";
-      v7 = "%{public}s called with null http_messaging";
-      goto LABEL_34;
-    }
-
-    if (v12 != 1)
-    {
-      v5 = __nwlog_obj();
-      v6 = type;
-      if (!os_log_type_enabled(v5, type))
-      {
-        goto LABEL_35;
-      }
-
-      *buf = 136446210;
-      v15 = "nw_protocol_http_messaging_get_parameters";
-      v7 = "%{public}s called with null http_messaging, backtrace limit exceeded";
-      goto LABEL_34;
-    }
-
-    v10 = __nw_create_backtrace_string();
-    v5 = __nwlog_obj();
-    v6 = type;
-    v11 = os_log_type_enabled(v5, type);
-    if (!v10)
-    {
       if (!v11)
       {
         goto LABEL_35;
       }
 
       *buf = 136446210;
-      v15 = "nw_protocol_http_messaging_get_parameters";
-      v7 = "%{public}s called with null http_messaging, no backtrace";
+      v17 = "nw_protocol_http_messaging_get_parameters";
+      v8 = "%{public}s called with null protocol, no backtrace";
+    }
+
+LABEL_34:
+    _os_log_impl(&dword_181A37000, v6, v7, v8, buf, 0xCu);
+    goto LABEL_35;
+  }
+
+  handle = a1->handle;
+  if (!handle)
+  {
+    v9 = __nwlog_obj();
+    *buf = 136446210;
+    v17 = "nw_protocol_http_messaging_get_parameters";
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null http_messaging", buf, 12);
+    type = OS_LOG_TYPE_ERROR;
+    v14 = 0;
+    if (!__nwlog_fault(v5, &type, &v14))
+    {
+      goto LABEL_35;
+    }
+
+    if (type == OS_LOG_TYPE_FAULT)
+    {
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (!os_log_type_enabled(v6, type))
+      {
+        goto LABEL_35;
+      }
+
+      *buf = 136446210;
+      v17 = "nw_protocol_http_messaging_get_parameters";
+      v8 = "%{public}s called with null http_messaging";
       goto LABEL_34;
     }
 
-    if (v11)
+    if (v14 != 1)
     {
-      *buf = 136446466;
-      v15 = "nw_protocol_http_messaging_get_parameters";
-      v16 = 2082;
-      v17 = v10;
-      _os_log_impl(&dword_181A37000, v5, v6, "%{public}s called with null http_messaging, dumping backtrace:%{public}s", buf, 0x16u);
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (!os_log_type_enabled(v6, type))
+      {
+        goto LABEL_35;
+      }
+
+      *buf = 136446210;
+      v17 = "nw_protocol_http_messaging_get_parameters";
+      v8 = "%{public}s called with null http_messaging, backtrace limit exceeded";
+      goto LABEL_34;
     }
 
-    free(v10);
+    v12 = __nw_create_backtrace_string();
+    v6 = __nwlog_obj();
+    v7 = type;
+    v13 = os_log_type_enabled(v6, type);
+    if (!v12)
+    {
+      if (!v13)
+      {
+        goto LABEL_35;
+      }
+
+      *buf = 136446210;
+      v17 = "nw_protocol_http_messaging_get_parameters";
+      v8 = "%{public}s called with null http_messaging, no backtrace";
+      goto LABEL_34;
+    }
+
+    if (v13)
+    {
+      *buf = 136446466;
+      v17 = "nw_protocol_http_messaging_get_parameters";
+      v18 = 2082;
+      v19 = v12;
+      _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with null http_messaging, dumping backtrace:%{public}s", buf, 0x16u);
+    }
+
+    free(v12);
 LABEL_35:
-    if (!v4)
+    if (!v5)
     {
       return 0;
     }
 
 LABEL_36:
-    free(v4);
+    free(v5);
     return 0;
   }
 
@@ -358,7 +3171,7 @@ LABEL_36:
 
 uint64_t nw_protocol_common_get_local_endpoint(uint64_t a1)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v1 = *(a1 + 48);
@@ -414,133 +3227,133 @@ uint64_t nw_protocol_common_get_local_endpoint(uint64_t a1)
       }
 
 LABEL_44:
-      __nwlog_obj();
-      v25 = *(v1 + 16);
+      v25 = __nwlog_obj();
+      v26 = *(v1 + 16);
       *buf = 136446722;
-      v41 = "__nw_protocol_get_local_endpoint";
-      if (!v25)
+      v43 = "__nw_protocol_get_local_endpoint";
+      if (!v26)
       {
-        v25 = "invalid";
+        v26 = "invalid";
       }
 
-      v42 = 2082;
-      v43 = v25;
-      v44 = 2048;
-      v45 = v1;
-      v26 = _os_log_send_and_compose_impl();
+      v44 = 2082;
+      v45 = v26;
+      v46 = 2048;
+      v47 = v1;
+      v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s protocol %{public}s (%p) has invalid get_local_endpoint callback", buf, 32);
       type = OS_LOG_TYPE_ERROR;
-      v38 = 0;
-      if (__nwlog_fault(v26, &type, &v38))
+      v40 = 0;
+      if (__nwlog_fault(v27, &type, &v40))
       {
         if (type == OS_LOG_TYPE_FAULT)
         {
-          v27 = __nwlog_obj();
-          v28 = type;
-          if (!os_log_type_enabled(v27, type))
+          v28 = __nwlog_obj();
+          v29 = type;
+          if (!os_log_type_enabled(v28, type))
           {
             goto LABEL_80;
           }
 
-          v29 = *(v1 + 16);
-          if (!v29)
+          v30 = *(v1 + 16);
+          if (!v30)
           {
-            v29 = "invalid";
+            v30 = "invalid";
           }
 
           *buf = 136446722;
-          v41 = "__nw_protocol_get_local_endpoint";
-          v42 = 2082;
-          v43 = v29;
-          v44 = 2048;
-          v45 = v1;
-          v30 = "%{public}s protocol %{public}s (%p) has invalid get_local_endpoint callback";
+          v43 = "__nw_protocol_get_local_endpoint";
+          v44 = 2082;
+          v45 = v30;
+          v46 = 2048;
+          v47 = v1;
+          v31 = "%{public}s protocol %{public}s (%p) has invalid get_local_endpoint callback";
 LABEL_79:
-          _os_log_impl(&dword_181A37000, v27, v28, v30, buf, 0x20u);
+          _os_log_impl(&dword_181A37000, v28, v29, v31, buf, 0x20u);
           goto LABEL_80;
         }
 
-        if (v38 != 1)
+        if (v40 != 1)
         {
-          v27 = __nwlog_obj();
-          v28 = type;
-          if (!os_log_type_enabled(v27, type))
+          v28 = __nwlog_obj();
+          v29 = type;
+          if (!os_log_type_enabled(v28, type))
           {
             goto LABEL_80;
           }
 
-          v36 = *(v1 + 16);
-          if (!v36)
+          v38 = *(v1 + 16);
+          if (!v38)
           {
-            v36 = "invalid";
+            v38 = "invalid";
           }
 
           *buf = 136446722;
-          v41 = "__nw_protocol_get_local_endpoint";
-          v42 = 2082;
-          v43 = v36;
-          v44 = 2048;
-          v45 = v1;
-          v30 = "%{public}s protocol %{public}s (%p) has invalid get_local_endpoint callback, backtrace limit exceeded";
+          v43 = "__nw_protocol_get_local_endpoint";
+          v44 = 2082;
+          v45 = v38;
+          v46 = 2048;
+          v47 = v1;
+          v31 = "%{public}s protocol %{public}s (%p) has invalid get_local_endpoint callback, backtrace limit exceeded";
           goto LABEL_79;
         }
 
         backtrace_string = __nw_create_backtrace_string();
-        v27 = __nwlog_obj();
-        v28 = type;
-        v32 = os_log_type_enabled(v27, type);
+        v28 = __nwlog_obj();
+        v29 = type;
+        v34 = os_log_type_enabled(v28, type);
         if (!backtrace_string)
         {
-          if (!v32)
+          if (!v34)
           {
             goto LABEL_80;
           }
 
-          v37 = *(v1 + 16);
-          if (!v37)
+          v39 = *(v1 + 16);
+          if (!v39)
           {
-            v37 = "invalid";
+            v39 = "invalid";
           }
 
           *buf = 136446722;
-          v41 = "__nw_protocol_get_local_endpoint";
-          v42 = 2082;
-          v43 = v37;
-          v44 = 2048;
-          v45 = v1;
-          v30 = "%{public}s protocol %{public}s (%p) has invalid get_local_endpoint callback, no backtrace";
+          v43 = "__nw_protocol_get_local_endpoint";
+          v44 = 2082;
+          v45 = v39;
+          v46 = 2048;
+          v47 = v1;
+          v31 = "%{public}s protocol %{public}s (%p) has invalid get_local_endpoint callback, no backtrace";
           goto LABEL_79;
         }
 
-        if (v32)
+        if (v34)
         {
           if (*(v1 + 16))
           {
-            v33 = *(v1 + 16);
+            v35 = *(v1 + 16);
           }
 
           else
           {
-            v33 = "invalid";
+            v35 = "invalid";
           }
 
           *buf = 136446978;
-          v41 = "__nw_protocol_get_local_endpoint";
-          v42 = 2082;
-          v43 = v33;
-          v44 = 2048;
-          v45 = v1;
-          v46 = 2082;
-          v47 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v27, v28, "%{public}s protocol %{public}s (%p) has invalid get_local_endpoint callback, dumping backtrace:%{public}s", buf, 0x2Au);
+          v43 = "__nw_protocol_get_local_endpoint";
+          v44 = 2082;
+          v45 = v35;
+          v46 = 2048;
+          v47 = v1;
+          v48 = 2082;
+          v49 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v28, v29, "%{public}s protocol %{public}s (%p) has invalid get_local_endpoint callback, dumping backtrace:%{public}s", buf, 0x2Au);
         }
 
         free(backtrace_string);
       }
 
 LABEL_80:
-      if (v26)
+      if (v27)
       {
-        free(v26);
+        free(v27);
       }
 
       result = 0;
@@ -590,11 +3403,11 @@ LABEL_23:
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     *buf = 136446210;
-    v41 = "nw_protocol_common_get_local_endpoint";
-    v6 = _os_log_send_and_compose_impl();
+    v43 = "nw_protocol_common_get_local_endpoint";
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s get_local_endpoint requires a default input handler", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v38 = 0;
-    if (__nwlog_fault(v6, &type, &v38))
+    v40 = 0;
+    if (__nwlog_fault(v6, &type, &v40))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -605,7 +3418,7 @@ LABEL_23:
         if (os_log_type_enabled(gLogObj, type))
         {
           *buf = 136446210;
-          v41 = "nw_protocol_common_get_local_endpoint";
+          v43 = "nw_protocol_common_get_local_endpoint";
           v9 = "%{public}s get_local_endpoint requires a default input handler";
 LABEL_36:
           v23 = v7;
@@ -615,7 +3428,7 @@ LABEL_37:
         }
       }
 
-      else if (v38 == 1)
+      else if (v40 == 1)
       {
         v10 = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -628,9 +3441,9 @@ LABEL_37:
           if (v13)
           {
             *buf = 136446466;
-            v41 = "nw_protocol_common_get_local_endpoint";
-            v42 = 2082;
-            v43 = v10;
+            v43 = "nw_protocol_common_get_local_endpoint";
+            v44 = 2082;
+            v45 = v10;
             _os_log_impl(&dword_181A37000, v11, v12, "%{public}s get_local_endpoint requires a default input handler, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
@@ -641,7 +3454,7 @@ LABEL_37:
         if (v13)
         {
           *buf = 136446210;
-          v41 = "nw_protocol_common_get_local_endpoint";
+          v43 = "nw_protocol_common_get_local_endpoint";
           v9 = "%{public}s get_local_endpoint requires a default input handler, no backtrace";
           v23 = v11;
           v24 = v12;
@@ -658,7 +3471,7 @@ LABEL_37:
         if (os_log_type_enabled(gLogObj, type))
         {
           *buf = 136446210;
-          v41 = "nw_protocol_common_get_local_endpoint";
+          v43 = "nw_protocol_common_get_local_endpoint";
           v9 = "%{public}s get_local_endpoint requires a default input handler, backtrace limit exceeded";
           goto LABEL_36;
         }
@@ -668,13 +3481,13 @@ LABEL_37:
 
   else
   {
-    __nwlog_obj();
+    v32 = __nwlog_obj();
     *buf = 136446210;
-    v41 = "nw_protocol_common_get_local_endpoint";
-    v6 = _os_log_send_and_compose_impl();
+    v43 = "nw_protocol_common_get_local_endpoint";
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v32, 16, "%{public}s called with null protocol", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v38 = 0;
-    if (!__nwlog_fault(v6, &type, &v38))
+    v40 = 0;
+    if (!__nwlog_fault(v6, &type, &v40))
     {
       goto LABEL_38;
     }
@@ -689,12 +3502,12 @@ LABEL_37:
       }
 
       *buf = 136446210;
-      v41 = "nw_protocol_common_get_local_endpoint";
+      v43 = "nw_protocol_common_get_local_endpoint";
       v9 = "%{public}s called with null protocol";
       goto LABEL_36;
     }
 
-    if (v38 != 1)
+    if (v40 != 1)
     {
       v7 = __nwlog_obj();
       v8 = type;
@@ -704,34 +3517,34 @@ LABEL_37:
       }
 
       *buf = 136446210;
-      v41 = "nw_protocol_common_get_local_endpoint";
+      v43 = "nw_protocol_common_get_local_endpoint";
       v9 = "%{public}s called with null protocol, backtrace limit exceeded";
       goto LABEL_36;
     }
 
-    v34 = __nw_create_backtrace_string();
+    v36 = __nw_create_backtrace_string();
     v7 = __nwlog_obj();
     v8 = type;
-    v35 = os_log_type_enabled(v7, type);
-    if (v34)
+    v37 = os_log_type_enabled(v7, type);
+    if (v36)
     {
-      if (v35)
+      if (v37)
       {
         *buf = 136446466;
-        v41 = "nw_protocol_common_get_local_endpoint";
-        v42 = 2082;
-        v43 = v34;
+        v43 = "nw_protocol_common_get_local_endpoint";
+        v44 = 2082;
+        v45 = v36;
         _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
-      free(v34);
+      free(v36);
       goto LABEL_38;
     }
 
-    if (v35)
+    if (v37)
     {
       *buf = 136446210;
-      v41 = "nw_protocol_common_get_local_endpoint";
+      v43 = "nw_protocol_common_get_local_endpoint";
       v9 = "%{public}s called with null protocol, no backtrace";
       goto LABEL_36;
     }
@@ -748,7 +3561,7 @@ LABEL_38:
 
 uint64_t nw_protocol_http_messaging_get_remote_endpoint(nw_protocol *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     handle = a1->handle;
@@ -763,41 +3576,41 @@ uint64_t nw_protocol_http_messaging_get_remote_endpoint(nw_protocol *a1)
       return nw_protocol_get_remote_endpoint(v2);
     }
 
-    __nwlog_obj();
+    v9 = __nwlog_obj();
     *buf = 136446210;
-    v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-    v4 = _os_log_send_and_compose_impl();
+    v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null http_messaging", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v12 = 0;
-    if (!__nwlog_fault(v4, &type, &v12))
+    v14 = 0;
+    if (!__nwlog_fault(v5, &type, &v14))
     {
       goto LABEL_36;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v5 = __nwlog_obj();
-      v6 = type;
-      if (os_log_type_enabled(v5, type))
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (os_log_type_enabled(v6, type))
       {
         *buf = 136446210;
-        v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-        v7 = "%{public}s called with null http_messaging";
+        v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+        v8 = "%{public}s called with null http_messaging";
         goto LABEL_35;
       }
 
       goto LABEL_36;
     }
 
-    if (v12 != 1)
+    if (v14 != 1)
     {
-      v5 = __nwlog_obj();
-      v6 = type;
-      if (os_log_type_enabled(v5, type))
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (os_log_type_enabled(v6, type))
       {
         *buf = 136446210;
-        v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-        v7 = "%{public}s called with null http_messaging, backtrace limit exceeded";
+        v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+        v8 = "%{public}s called with null http_messaging, backtrace limit exceeded";
         goto LABEL_35;
       }
 
@@ -805,16 +3618,74 @@ uint64_t nw_protocol_http_messaging_get_remote_endpoint(nw_protocol *a1)
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v5 = __nwlog_obj();
-    v6 = type;
-    v11 = os_log_type_enabled(v5, type);
+    v6 = __nwlog_obj();
+    v7 = type;
+    v13 = os_log_type_enabled(v6, type);
+    if (!backtrace_string)
+    {
+      if (v13)
+      {
+        *buf = 136446210;
+        v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+        v8 = "%{public}s called with null http_messaging, no backtrace";
+        goto LABEL_35;
+      }
+
+      goto LABEL_36;
+    }
+
+    if (v13)
+    {
+      *buf = 136446466;
+      v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+      v18 = 2082;
+      v19 = backtrace_string;
+      v12 = "%{public}s called with null http_messaging, dumping backtrace:%{public}s";
+      goto LABEL_25;
+    }
+
+    goto LABEL_26;
+  }
+
+  v4 = __nwlog_obj();
+  *buf = 136446210;
+  v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null protocol", buf, 12);
+  type = OS_LOG_TYPE_ERROR;
+  v14 = 0;
+  if (!__nwlog_fault(v5, &type, &v14))
+  {
+    goto LABEL_36;
+  }
+
+  if (type != OS_LOG_TYPE_FAULT)
+  {
+    if (v14 != 1)
+    {
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (os_log_type_enabled(v6, type))
+      {
+        *buf = 136446210;
+        v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+        v8 = "%{public}s called with null protocol, backtrace limit exceeded";
+        goto LABEL_35;
+      }
+
+      goto LABEL_36;
+    }
+
+    backtrace_string = __nw_create_backtrace_string();
+    v6 = __nwlog_obj();
+    v7 = type;
+    v11 = os_log_type_enabled(v6, type);
     if (!backtrace_string)
     {
       if (v11)
       {
         *buf = 136446210;
-        v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-        v7 = "%{public}s called with null http_messaging, no backtrace";
+        v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+        v8 = "%{public}s called with null protocol, no backtrace";
         goto LABEL_35;
       }
 
@@ -824,70 +3695,12 @@ uint64_t nw_protocol_http_messaging_get_remote_endpoint(nw_protocol *a1)
     if (v11)
     {
       *buf = 136446466;
-      v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-      v16 = 2082;
-      v17 = backtrace_string;
-      v10 = "%{public}s called with null http_messaging, dumping backtrace:%{public}s";
-      goto LABEL_25;
-    }
-
-    goto LABEL_26;
-  }
-
-  __nwlog_obj();
-  *buf = 136446210;
-  v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-  v4 = _os_log_send_and_compose_impl();
-  type = OS_LOG_TYPE_ERROR;
-  v12 = 0;
-  if (!__nwlog_fault(v4, &type, &v12))
-  {
-    goto LABEL_36;
-  }
-
-  if (type != OS_LOG_TYPE_FAULT)
-  {
-    if (v12 != 1)
-    {
-      v5 = __nwlog_obj();
-      v6 = type;
-      if (os_log_type_enabled(v5, type))
-      {
-        *buf = 136446210;
-        v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-        v7 = "%{public}s called with null protocol, backtrace limit exceeded";
-        goto LABEL_35;
-      }
-
-      goto LABEL_36;
-    }
-
-    backtrace_string = __nw_create_backtrace_string();
-    v5 = __nwlog_obj();
-    v6 = type;
-    v9 = os_log_type_enabled(v5, type);
-    if (!backtrace_string)
-    {
-      if (v9)
-      {
-        *buf = 136446210;
-        v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-        v7 = "%{public}s called with null protocol, no backtrace";
-        goto LABEL_35;
-      }
-
-      goto LABEL_36;
-    }
-
-    if (v9)
-    {
-      *buf = 136446466;
-      v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-      v16 = 2082;
-      v17 = backtrace_string;
-      v10 = "%{public}s called with null protocol, dumping backtrace:%{public}s";
+      v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+      v18 = 2082;
+      v19 = backtrace_string;
+      v12 = "%{public}s called with null protocol, dumping backtrace:%{public}s";
 LABEL_25:
-      _os_log_impl(&dword_181A37000, v5, v6, v10, buf, 0x16u);
+      _os_log_impl(&dword_181A37000, v6, v7, v12, buf, 0x16u);
     }
 
 LABEL_26:
@@ -895,21 +3708,21 @@ LABEL_26:
     goto LABEL_36;
   }
 
-  v5 = __nwlog_obj();
-  v6 = type;
-  if (os_log_type_enabled(v5, type))
+  v6 = __nwlog_obj();
+  v7 = type;
+  if (os_log_type_enabled(v6, type))
   {
     *buf = 136446210;
-    v15 = "nw_protocol_http_messaging_get_remote_endpoint";
-    v7 = "%{public}s called with null protocol";
+    v17 = "nw_protocol_http_messaging_get_remote_endpoint";
+    v8 = "%{public}s called with null protocol";
 LABEL_35:
-    _os_log_impl(&dword_181A37000, v5, v6, v7, buf, 0xCu);
+    _os_log_impl(&dword_181A37000, v6, v7, v8, buf, 0xCu);
   }
 
 LABEL_36:
-  if (v4)
+  if (v5)
   {
-    free(v4);
+    free(v5);
   }
 
   return 0;
@@ -917,7 +3730,7 @@ LABEL_36:
 
 uint64_t nw_protocol_common_get_path(uint64_t a1)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v1 = *(a1 + 48);
@@ -973,133 +3786,133 @@ uint64_t nw_protocol_common_get_path(uint64_t a1)
       }
 
 LABEL_44:
-      __nwlog_obj();
-      v25 = *(v1 + 16);
+      v25 = __nwlog_obj();
+      v26 = *(v1 + 16);
       *buf = 136446722;
-      v41 = "__nw_protocol_get_path";
-      if (!v25)
+      v43 = "__nw_protocol_get_path";
+      if (!v26)
       {
-        v25 = "invalid";
+        v26 = "invalid";
       }
 
-      v42 = 2082;
-      v43 = v25;
-      v44 = 2048;
-      v45 = v1;
-      v26 = _os_log_send_and_compose_impl();
+      v44 = 2082;
+      v45 = v26;
+      v46 = 2048;
+      v47 = v1;
+      v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s protocol %{public}s (%p) has invalid get_path callback", buf, 32);
       type = OS_LOG_TYPE_ERROR;
-      v38 = 0;
-      if (__nwlog_fault(v26, &type, &v38))
+      v40 = 0;
+      if (__nwlog_fault(v27, &type, &v40))
       {
         if (type == OS_LOG_TYPE_FAULT)
         {
-          v27 = __nwlog_obj();
-          v28 = type;
-          if (!os_log_type_enabled(v27, type))
+          v28 = __nwlog_obj();
+          v29 = type;
+          if (!os_log_type_enabled(v28, type))
           {
             goto LABEL_80;
           }
 
-          v29 = *(v1 + 16);
-          if (!v29)
+          v30 = *(v1 + 16);
+          if (!v30)
           {
-            v29 = "invalid";
+            v30 = "invalid";
           }
 
           *buf = 136446722;
-          v41 = "__nw_protocol_get_path";
-          v42 = 2082;
-          v43 = v29;
-          v44 = 2048;
-          v45 = v1;
-          v30 = "%{public}s protocol %{public}s (%p) has invalid get_path callback";
+          v43 = "__nw_protocol_get_path";
+          v44 = 2082;
+          v45 = v30;
+          v46 = 2048;
+          v47 = v1;
+          v31 = "%{public}s protocol %{public}s (%p) has invalid get_path callback";
 LABEL_79:
-          _os_log_impl(&dword_181A37000, v27, v28, v30, buf, 0x20u);
+          _os_log_impl(&dword_181A37000, v28, v29, v31, buf, 0x20u);
           goto LABEL_80;
         }
 
-        if (v38 != 1)
+        if (v40 != 1)
         {
-          v27 = __nwlog_obj();
-          v28 = type;
-          if (!os_log_type_enabled(v27, type))
+          v28 = __nwlog_obj();
+          v29 = type;
+          if (!os_log_type_enabled(v28, type))
           {
             goto LABEL_80;
           }
 
-          v36 = *(v1 + 16);
-          if (!v36)
+          v38 = *(v1 + 16);
+          if (!v38)
           {
-            v36 = "invalid";
+            v38 = "invalid";
           }
 
           *buf = 136446722;
-          v41 = "__nw_protocol_get_path";
-          v42 = 2082;
-          v43 = v36;
-          v44 = 2048;
-          v45 = v1;
-          v30 = "%{public}s protocol %{public}s (%p) has invalid get_path callback, backtrace limit exceeded";
+          v43 = "__nw_protocol_get_path";
+          v44 = 2082;
+          v45 = v38;
+          v46 = 2048;
+          v47 = v1;
+          v31 = "%{public}s protocol %{public}s (%p) has invalid get_path callback, backtrace limit exceeded";
           goto LABEL_79;
         }
 
         backtrace_string = __nw_create_backtrace_string();
-        v27 = __nwlog_obj();
-        v28 = type;
-        v32 = os_log_type_enabled(v27, type);
+        v28 = __nwlog_obj();
+        v29 = type;
+        v34 = os_log_type_enabled(v28, type);
         if (!backtrace_string)
         {
-          if (!v32)
+          if (!v34)
           {
             goto LABEL_80;
           }
 
-          v37 = *(v1 + 16);
-          if (!v37)
+          v39 = *(v1 + 16);
+          if (!v39)
           {
-            v37 = "invalid";
+            v39 = "invalid";
           }
 
           *buf = 136446722;
-          v41 = "__nw_protocol_get_path";
-          v42 = 2082;
-          v43 = v37;
-          v44 = 2048;
-          v45 = v1;
-          v30 = "%{public}s protocol %{public}s (%p) has invalid get_path callback, no backtrace";
+          v43 = "__nw_protocol_get_path";
+          v44 = 2082;
+          v45 = v39;
+          v46 = 2048;
+          v47 = v1;
+          v31 = "%{public}s protocol %{public}s (%p) has invalid get_path callback, no backtrace";
           goto LABEL_79;
         }
 
-        if (v32)
+        if (v34)
         {
           if (*(v1 + 16))
           {
-            v33 = *(v1 + 16);
+            v35 = *(v1 + 16);
           }
 
           else
           {
-            v33 = "invalid";
+            v35 = "invalid";
           }
 
           *buf = 136446978;
-          v41 = "__nw_protocol_get_path";
-          v42 = 2082;
-          v43 = v33;
-          v44 = 2048;
-          v45 = v1;
-          v46 = 2082;
-          v47 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v27, v28, "%{public}s protocol %{public}s (%p) has invalid get_path callback, dumping backtrace:%{public}s", buf, 0x2Au);
+          v43 = "__nw_protocol_get_path";
+          v44 = 2082;
+          v45 = v35;
+          v46 = 2048;
+          v47 = v1;
+          v48 = 2082;
+          v49 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v28, v29, "%{public}s protocol %{public}s (%p) has invalid get_path callback, dumping backtrace:%{public}s", buf, 0x2Au);
         }
 
         free(backtrace_string);
       }
 
 LABEL_80:
-      if (v26)
+      if (v27)
       {
-        free(v26);
+        free(v27);
       }
 
       result = 0;
@@ -1149,11 +3962,11 @@ LABEL_23:
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     *buf = 136446210;
-    v41 = "nw_protocol_common_get_path";
-    v6 = _os_log_send_and_compose_impl();
+    v43 = "nw_protocol_common_get_path";
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s get_path requires a default input handler", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v38 = 0;
-    if (__nwlog_fault(v6, &type, &v38))
+    v40 = 0;
+    if (__nwlog_fault(v6, &type, &v40))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -1164,7 +3977,7 @@ LABEL_23:
         if (os_log_type_enabled(gLogObj, type))
         {
           *buf = 136446210;
-          v41 = "nw_protocol_common_get_path";
+          v43 = "nw_protocol_common_get_path";
           v9 = "%{public}s get_path requires a default input handler";
 LABEL_36:
           v23 = v7;
@@ -1174,7 +3987,7 @@ LABEL_37:
         }
       }
 
-      else if (v38 == 1)
+      else if (v40 == 1)
       {
         v10 = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -1187,9 +4000,9 @@ LABEL_37:
           if (v13)
           {
             *buf = 136446466;
-            v41 = "nw_protocol_common_get_path";
-            v42 = 2082;
-            v43 = v10;
+            v43 = "nw_protocol_common_get_path";
+            v44 = 2082;
+            v45 = v10;
             _os_log_impl(&dword_181A37000, v11, v12, "%{public}s get_path requires a default input handler, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
@@ -1200,7 +4013,7 @@ LABEL_37:
         if (v13)
         {
           *buf = 136446210;
-          v41 = "nw_protocol_common_get_path";
+          v43 = "nw_protocol_common_get_path";
           v9 = "%{public}s get_path requires a default input handler, no backtrace";
           v23 = v11;
           v24 = v12;
@@ -1217,7 +4030,7 @@ LABEL_37:
         if (os_log_type_enabled(gLogObj, type))
         {
           *buf = 136446210;
-          v41 = "nw_protocol_common_get_path";
+          v43 = "nw_protocol_common_get_path";
           v9 = "%{public}s get_path requires a default input handler, backtrace limit exceeded";
           goto LABEL_36;
         }
@@ -1227,13 +4040,13 @@ LABEL_37:
 
   else
   {
-    __nwlog_obj();
+    v32 = __nwlog_obj();
     *buf = 136446210;
-    v41 = "nw_protocol_common_get_path";
-    v6 = _os_log_send_and_compose_impl();
+    v43 = "nw_protocol_common_get_path";
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v32, 16, "%{public}s called with null protocol", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v38 = 0;
-    if (!__nwlog_fault(v6, &type, &v38))
+    v40 = 0;
+    if (!__nwlog_fault(v6, &type, &v40))
     {
       goto LABEL_38;
     }
@@ -1248,12 +4061,12 @@ LABEL_37:
       }
 
       *buf = 136446210;
-      v41 = "nw_protocol_common_get_path";
+      v43 = "nw_protocol_common_get_path";
       v9 = "%{public}s called with null protocol";
       goto LABEL_36;
     }
 
-    if (v38 != 1)
+    if (v40 != 1)
     {
       v7 = __nwlog_obj();
       v8 = type;
@@ -1263,34 +4076,34 @@ LABEL_37:
       }
 
       *buf = 136446210;
-      v41 = "nw_protocol_common_get_path";
+      v43 = "nw_protocol_common_get_path";
       v9 = "%{public}s called with null protocol, backtrace limit exceeded";
       goto LABEL_36;
     }
 
-    v34 = __nw_create_backtrace_string();
+    v36 = __nw_create_backtrace_string();
     v7 = __nwlog_obj();
     v8 = type;
-    v35 = os_log_type_enabled(v7, type);
-    if (v34)
+    v37 = os_log_type_enabled(v7, type);
+    if (v36)
     {
-      if (v35)
+      if (v37)
       {
         *buf = 136446466;
-        v41 = "nw_protocol_common_get_path";
-        v42 = 2082;
-        v43 = v34;
+        v43 = "nw_protocol_common_get_path";
+        v44 = 2082;
+        v45 = v36;
         _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
-      free(v34);
+      free(v36);
       goto LABEL_38;
     }
 
-    if (v35)
+    if (v37)
     {
       *buf = 136446210;
-      v41 = "nw_protocol_common_get_path";
+      v43 = "nw_protocol_common_get_path";
       v9 = "%{public}s called with null protocol, no backtrace";
       goto LABEL_36;
     }
@@ -1355,12 +4168,12 @@ uint64_t getEnumTagSinglePayload for NWBrowser.State(uint64_t a1, unsigned int a
   return v3 + 1;
 }
 
-uint64_t NWEndpoint.Host.debugDescription.getter()
+uint64_t NWEndpoint.Host.debugDescription.getter(uint64_t a1, uint64_t a2)
 {
-  v1 = *v0;
-  if (*(v0 + 24))
+  v3 = *v2;
+  if (*(v2 + 24))
   {
-    if (*(v0 + 24) == 1)
+    if (*(v2 + 24) == 1)
     {
       return IPv4Address.debugDescription.getter();
     }
@@ -1371,11 +4184,11 @@ uint64_t NWEndpoint.Host.debugDescription.getter()
     }
   }
 
-  else if (v0[2])
+  else if (v2[2])
   {
-    v3 = v0[1];
+    v5 = v2[1];
 
-    MEMORY[0x1865D9CA0](v1, v3);
+    MEMORY[0x1865D9CA0](v3, v5);
 
     MEMORY[0x1865D9CA0](37, 0xE100000000000000);
     sub_182AD3E18();
@@ -1386,7 +4199,7 @@ uint64_t NWEndpoint.Host.debugDescription.getter()
   else
   {
 
-    return v1;
+    return v3;
   }
 }
 
@@ -1460,19 +4273,19 @@ uint64_t nw_protocol_waiting_for_output_is_valid(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t _nw_tcp_options_get_multipath_force_version(uint64_t a1)
+uint64_t _nw_tcp_options_get_multipath_force_version()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA838DE0);
-  v2 = sub_181AA8420(a1);
-  if (!v2)
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA838DE0, &unk_182AE6F00);
+  v0 = sub_181AA8420();
+  if (!v0)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v3 = v2 + *(*v2 + 128);
+  v1 = v0 + *(*v0 + 128);
   result = swift_beginAccess();
-  v5 = *(v3 + 40);
-  if (v5 == 2)
+  v3 = *(v1 + 40);
+  if (v3 == 2)
   {
     __break(1u);
   }
@@ -1480,7 +4293,7 @@ uint64_t _nw_tcp_options_get_multipath_force_version(uint64_t a1)
   else
   {
 
-    return v5 & 1;
+    return v3 & 1;
   }
 
   return result;
@@ -1488,54 +4301,54 @@ uint64_t _nw_tcp_options_get_multipath_force_version(uint64_t a1)
 
 void nw_protocol_http_messaging_connected(nw_protocol *a1, nw_protocol *a2)
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    __nwlog_obj();
+    v72 = __nwlog_obj();
     *buf = 136446210;
-    v85 = "nw_protocol_http_messaging_connected";
-    v69 = _os_log_send_and_compose_impl();
+    v91 = "nw_protocol_http_messaging_connected";
+    v73 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v72, 16, "%{public}s called with null protocol", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v82 = 0;
-    if (!__nwlog_fault(v69, &type, &v82))
+    v88 = 0;
+    if (!__nwlog_fault(v73, &type, &v88))
     {
       goto LABEL_209;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v70 = __nwlog_obj();
-      v71 = type;
-      if (!os_log_type_enabled(v70, type))
+      v74 = __nwlog_obj();
+      v75 = type;
+      if (!os_log_type_enabled(v74, type))
       {
         goto LABEL_209;
       }
 
       *buf = 136446210;
-      v85 = "nw_protocol_http_messaging_connected";
-      v72 = "%{public}s called with null protocol";
+      v91 = "nw_protocol_http_messaging_connected";
+      v76 = "%{public}s called with null protocol";
     }
 
-    else if (v82 == 1)
+    else if (v88 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v70 = __nwlog_obj();
-      v71 = type;
-      v74 = os_log_type_enabled(v70, type);
+      v74 = __nwlog_obj();
+      v75 = type;
+      v80 = os_log_type_enabled(v74, type);
       if (backtrace_string)
       {
-        if (v74)
+        if (v80)
         {
           *buf = 136446466;
-          v85 = "nw_protocol_http_messaging_connected";
-          v86 = 2082;
-          v87 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v70, v71, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
+          v91 = "nw_protocol_http_messaging_connected";
+          v92 = 2082;
+          v93 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v74, v75, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
 LABEL_209:
-        if (!v69)
+        if (!v73)
         {
           return;
         }
@@ -1543,28 +4356,28 @@ LABEL_209:
         goto LABEL_210;
       }
 
-      if (!v74)
+      if (!v80)
       {
         goto LABEL_209;
       }
 
       *buf = 136446210;
-      v85 = "nw_protocol_http_messaging_connected";
-      v72 = "%{public}s called with null protocol, no backtrace";
+      v91 = "nw_protocol_http_messaging_connected";
+      v76 = "%{public}s called with null protocol, no backtrace";
     }
 
     else
     {
-      v70 = __nwlog_obj();
-      v71 = type;
-      if (!os_log_type_enabled(v70, type))
+      v74 = __nwlog_obj();
+      v75 = type;
+      if (!os_log_type_enabled(v74, type))
       {
         goto LABEL_209;
       }
 
       *buf = 136446210;
-      v85 = "nw_protocol_http_messaging_connected";
-      v72 = "%{public}s called with null protocol, backtrace limit exceeded";
+      v91 = "nw_protocol_http_messaging_connected";
+      v76 = "%{public}s called with null protocol, backtrace limit exceeded";
     }
 
     goto LABEL_208;
@@ -1573,156 +4386,156 @@ LABEL_209:
   handle = a1->handle;
   if (!handle)
   {
-    __nwlog_obj();
+    v77 = __nwlog_obj();
     *buf = 136446210;
-    v85 = "nw_protocol_http_messaging_connected";
-    v69 = _os_log_send_and_compose_impl();
+    v91 = "nw_protocol_http_messaging_connected";
+    v73 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v77, 16, "%{public}s called with null http_messaging", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v82 = 0;
-    if (!__nwlog_fault(v69, &type, &v82))
+    v88 = 0;
+    if (!__nwlog_fault(v73, &type, &v88))
     {
       goto LABEL_209;
     }
 
     if (type != OS_LOG_TYPE_FAULT)
     {
-      if (v82 != 1)
+      if (v88 != 1)
       {
-        v70 = __nwlog_obj();
-        v71 = type;
-        if (!os_log_type_enabled(v70, type))
+        v74 = __nwlog_obj();
+        v75 = type;
+        if (!os_log_type_enabled(v74, type))
         {
           goto LABEL_209;
         }
 
         *buf = 136446210;
-        v85 = "nw_protocol_http_messaging_connected";
-        v72 = "%{public}s called with null http_messaging, backtrace limit exceeded";
+        v91 = "nw_protocol_http_messaging_connected";
+        v76 = "%{public}s called with null http_messaging, backtrace limit exceeded";
         goto LABEL_208;
       }
 
-      v75 = __nw_create_backtrace_string();
-      v70 = __nwlog_obj();
-      v71 = type;
-      v76 = os_log_type_enabled(v70, type);
-      if (!v75)
+      v81 = __nw_create_backtrace_string();
+      v74 = __nwlog_obj();
+      v75 = type;
+      v82 = os_log_type_enabled(v74, type);
+      if (!v81)
       {
-        if (!v76)
+        if (!v82)
         {
           goto LABEL_209;
         }
 
         *buf = 136446210;
-        v85 = "nw_protocol_http_messaging_connected";
-        v72 = "%{public}s called with null http_messaging, no backtrace";
+        v91 = "nw_protocol_http_messaging_connected";
+        v76 = "%{public}s called with null http_messaging, no backtrace";
         goto LABEL_208;
       }
 
-      if (v76)
+      if (v82)
       {
         *buf = 136446466;
-        v85 = "nw_protocol_http_messaging_connected";
-        v86 = 2082;
-        v87 = v75;
-        v77 = "%{public}s called with null http_messaging, dumping backtrace:%{public}s";
+        v91 = "nw_protocol_http_messaging_connected";
+        v92 = 2082;
+        v93 = v81;
+        v83 = "%{public}s called with null http_messaging, dumping backtrace:%{public}s";
 LABEL_165:
-        _os_log_impl(&dword_181A37000, v70, v71, v77, buf, 0x16u);
+        _os_log_impl(&dword_181A37000, v74, v75, v83, buf, 0x16u);
       }
 
 LABEL_166:
-      free(v75);
-      if (!v69)
+      free(v81);
+      if (!v73)
       {
         return;
       }
 
 LABEL_210:
-      free(v69);
+      free(v73);
       return;
     }
 
-    v70 = __nwlog_obj();
-    v71 = type;
-    if (!os_log_type_enabled(v70, type))
+    v74 = __nwlog_obj();
+    v75 = type;
+    if (!os_log_type_enabled(v74, type))
     {
       goto LABEL_209;
     }
 
     *buf = 136446210;
-    v85 = "nw_protocol_http_messaging_connected";
-    v72 = "%{public}s called with null http_messaging";
+    v91 = "nw_protocol_http_messaging_connected";
+    v76 = "%{public}s called with null http_messaging";
 LABEL_208:
-    _os_log_impl(&dword_181A37000, v70, v71, v72, buf, 0xCu);
+    _os_log_impl(&dword_181A37000, v74, v75, v76, buf, 0xCu);
     goto LABEL_209;
   }
 
   if (!a2)
   {
-    __nwlog_obj();
+    v78 = __nwlog_obj();
     *buf = 136446210;
-    v85 = "nw_protocol_http_messaging_connected";
-    v69 = _os_log_send_and_compose_impl();
+    v91 = "nw_protocol_http_messaging_connected";
+    v73 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v78, 16, "%{public}s called with null other_protocol", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v82 = 0;
-    if (!__nwlog_fault(v69, &type, &v82))
+    v88 = 0;
+    if (!__nwlog_fault(v73, &type, &v88))
     {
       goto LABEL_209;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v70 = __nwlog_obj();
-      v71 = type;
-      if (!os_log_type_enabled(v70, type))
+      v74 = __nwlog_obj();
+      v75 = type;
+      if (!os_log_type_enabled(v74, type))
       {
         goto LABEL_209;
       }
 
       *buf = 136446210;
-      v85 = "nw_protocol_http_messaging_connected";
-      v72 = "%{public}s called with null other_protocol";
+      v91 = "nw_protocol_http_messaging_connected";
+      v76 = "%{public}s called with null other_protocol";
       goto LABEL_208;
     }
 
-    if (v82 != 1)
+    if (v88 != 1)
     {
-      v70 = __nwlog_obj();
-      v71 = type;
-      if (!os_log_type_enabled(v70, type))
+      v74 = __nwlog_obj();
+      v75 = type;
+      if (!os_log_type_enabled(v74, type))
       {
         goto LABEL_209;
       }
 
       *buf = 136446210;
-      v85 = "nw_protocol_http_messaging_connected";
-      v72 = "%{public}s called with null other_protocol, backtrace limit exceeded";
+      v91 = "nw_protocol_http_messaging_connected";
+      v76 = "%{public}s called with null other_protocol, backtrace limit exceeded";
       goto LABEL_208;
     }
 
-    v75 = __nw_create_backtrace_string();
-    v70 = __nwlog_obj();
-    v71 = type;
-    v78 = os_log_type_enabled(v70, type);
-    if (!v75)
+    v81 = __nw_create_backtrace_string();
+    v74 = __nwlog_obj();
+    v75 = type;
+    v84 = os_log_type_enabled(v74, type);
+    if (!v81)
     {
-      if (!v78)
+      if (!v84)
       {
         goto LABEL_209;
       }
 
       *buf = 136446210;
-      v85 = "nw_protocol_http_messaging_connected";
-      v72 = "%{public}s called with null other_protocol, no backtrace";
+      v91 = "nw_protocol_http_messaging_connected";
+      v76 = "%{public}s called with null other_protocol, no backtrace";
       goto LABEL_208;
     }
 
-    if (v78)
+    if (v84)
     {
       *buf = 136446466;
-      v85 = "nw_protocol_http_messaging_connected";
-      v86 = 2082;
-      v87 = v75;
-      v77 = "%{public}s called with null other_protocol, dumping backtrace:%{public}s";
+      v91 = "nw_protocol_http_messaging_connected";
+      v92 = 2082;
+      v93 = v81;
+      v83 = "%{public}s called with null other_protocol, dumping backtrace:%{public}s";
       goto LABEL_165;
     }
 
@@ -1736,20 +4549,20 @@ LABEL_208:
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
-      v17 = gLogObj;
+      v18 = gLogObj;
       if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
       {
         *buf = 136446722;
-        v85 = "nw_protocol_http_messaging_connected";
-        v86 = 2082;
-        v87 = handle + 260;
-        v88 = 2080;
-        v89 = " ";
-        v18 = "%{public}s %{public}s%signoring connected";
-        v19 = v17;
-        v20 = OS_LOG_TYPE_INFO;
+        v91 = "nw_protocol_http_messaging_connected";
+        v92 = 2082;
+        v93 = handle + 260;
+        v94 = 2080;
+        v95 = " ";
+        v19 = "%{public}s %{public}s%signoring connected";
+        v20 = v18;
+        v21 = OS_LOG_TYPE_INFO;
 LABEL_30:
-        _os_log_impl(&dword_181A37000, v19, v20, v18, buf, 0x20u);
+        _os_log_impl(&dword_181A37000, v20, v21, v19, buf, 0x20u);
       }
     }
   }
@@ -1767,16 +4580,16 @@ LABEL_30:
 
       if ((*(handle + 172) & 2) == 0 && gLogDatapath == 1)
       {
-        v80 = __nwlog_obj();
-        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+        v86 = __nwlog_obj();
+        if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136446722;
-          v85 = "nw_http_messaging_get_http_version_from_alpn";
-          v86 = 2082;
-          v87 = handle + 260;
-          v88 = 2080;
-          v89 = " ";
-          _os_log_impl(&dword_181A37000, v80, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%scalled", buf, 0x20u);
+          v91 = "nw_http_messaging_get_http_version_from_alpn";
+          v92 = 2082;
+          v93 = handle + 260;
+          v94 = 2080;
+          v95 = " ";
+          _os_log_impl(&dword_181A37000, v86, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%scalled", buf, 0x20u);
         }
       }
 
@@ -1797,13 +4610,13 @@ LABEL_30:
             if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
             {
               *buf = 136446978;
-              v85 = "nw_http_messaging_get_http_version_from_alpn";
-              v86 = 2082;
-              v87 = handle + 260;
-              v88 = 2080;
-              v89 = " ";
-              v90 = 2082;
-              v91 = v11;
+              v91 = "nw_http_messaging_get_http_version_from_alpn";
+              v92 = 2082;
+              v93 = handle + 260;
+              v94 = 2080;
+              v95 = " ";
+              v96 = 2082;
+              v97 = v11;
               _os_log_impl(&dword_181A37000, v12, OS_LOG_TYPE_INFO, "%{public}s %{public}s%sFound TLS metadata with ALPN %{public}s", buf, 0x2Au);
             }
           }
@@ -1812,100 +4625,100 @@ LABEL_30:
           {
             if (*v11 == 104 && *(v11 + 1) == 50 && !*(v11 + 2))
             {
-              v58 = 4;
+              v60 = 4;
             }
 
             else
             {
               if (strcmp(v11, "http/1.1"))
               {
-                __nwlog_obj();
+                v13 = __nwlog_obj();
                 *buf = 136446466;
-                v85 = "nw_http_messaging_get_http_version_from_alpn";
-                v86 = 2080;
-                v87 = v11;
-                v13 = _os_log_send_and_compose_impl();
+                v91 = "nw_http_messaging_get_http_version_from_alpn";
+                v92 = 2080;
+                v93 = v11;
+                v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s Invalid TLS ALPN %s", buf, 22);
                 type = OS_LOG_TYPE_ERROR;
-                v82 = 0;
-                if (__nwlog_fault(v13, &type, &v82))
+                v88 = 0;
+                if (__nwlog_fault(v14, &type, &v88))
                 {
                   if (type == OS_LOG_TYPE_FAULT)
                   {
-                    v14 = __nwlog_obj();
-                    v15 = type;
-                    if (os_log_type_enabled(v14, type))
+                    v15 = __nwlog_obj();
+                    v16 = type;
+                    if (os_log_type_enabled(v15, type))
                     {
                       *buf = 136446466;
-                      v85 = "nw_http_messaging_get_http_version_from_alpn";
-                      v86 = 2080;
-                      v87 = v11;
-                      v16 = "%{public}s Invalid TLS ALPN %s";
+                      v91 = "nw_http_messaging_get_http_version_from_alpn";
+                      v92 = 2080;
+                      v93 = v11;
+                      v17 = "%{public}s Invalid TLS ALPN %s";
 LABEL_125:
-                      _os_log_impl(&dword_181A37000, v14, v15, v16, buf, 0x16u);
+                      _os_log_impl(&dword_181A37000, v15, v16, v17, buf, 0x16u);
                     }
                   }
 
-                  else if (v82 == 1)
+                  else if (v88 == 1)
                   {
-                    v59 = __nw_create_backtrace_string();
-                    v14 = __nwlog_obj();
-                    v15 = type;
-                    v60 = os_log_type_enabled(v14, type);
-                    if (v59)
+                    v61 = __nw_create_backtrace_string();
+                    v15 = __nwlog_obj();
+                    v16 = type;
+                    v62 = os_log_type_enabled(v15, type);
+                    if (v61)
                     {
-                      if (v60)
+                      if (v62)
                       {
                         *buf = 136446722;
-                        v85 = "nw_http_messaging_get_http_version_from_alpn";
-                        v86 = 2080;
-                        v87 = v11;
-                        v88 = 2082;
-                        v89 = v59;
-                        _os_log_impl(&dword_181A37000, v14, v15, "%{public}s Invalid TLS ALPN %s, dumping backtrace:%{public}s", buf, 0x20u);
+                        v91 = "nw_http_messaging_get_http_version_from_alpn";
+                        v92 = 2080;
+                        v93 = v11;
+                        v94 = 2082;
+                        v95 = v61;
+                        _os_log_impl(&dword_181A37000, v15, v16, "%{public}s Invalid TLS ALPN %s, dumping backtrace:%{public}s", buf, 0x20u);
                       }
 
-                      free(v59);
+                      free(v61);
                       goto LABEL_126;
                     }
 
-                    if (v60)
+                    if (v62)
                     {
                       *buf = 136446466;
-                      v85 = "nw_http_messaging_get_http_version_from_alpn";
-                      v86 = 2080;
-                      v87 = v11;
-                      v16 = "%{public}s Invalid TLS ALPN %s, no backtrace";
+                      v91 = "nw_http_messaging_get_http_version_from_alpn";
+                      v92 = 2080;
+                      v93 = v11;
+                      v17 = "%{public}s Invalid TLS ALPN %s, no backtrace";
                       goto LABEL_125;
                     }
                   }
 
                   else
                   {
-                    v14 = __nwlog_obj();
-                    v15 = type;
-                    if (os_log_type_enabled(v14, type))
+                    v15 = __nwlog_obj();
+                    v16 = type;
+                    if (os_log_type_enabled(v15, type))
                     {
                       *buf = 136446466;
-                      v85 = "nw_http_messaging_get_http_version_from_alpn";
-                      v86 = 2080;
-                      v87 = v11;
-                      v16 = "%{public}s Invalid TLS ALPN %s, backtrace limit exceeded";
+                      v91 = "nw_http_messaging_get_http_version_from_alpn";
+                      v92 = 2080;
+                      v93 = v11;
+                      v17 = "%{public}s Invalid TLS ALPN %s, backtrace limit exceeded";
                       goto LABEL_125;
                     }
                   }
                 }
 
 LABEL_126:
-                if (v13)
+                if (v14)
                 {
-                  free(v13);
+                  free(v14);
                 }
 
-                v58 = 0;
+                v60 = 0;
                 goto LABEL_129;
               }
 
-              v58 = 3;
+              v60 = 3;
             }
 
 LABEL_129:
@@ -1913,225 +4726,225 @@ LABEL_129:
             goto LABEL_175;
           }
 
-          v58 = 3;
+          v60 = 3;
 LABEL_175:
           os_release(v10);
           goto LABEL_176;
         }
 
-        if (_nw_protocol_metadata_is_quic(v9))
+        if (_nw_protocol_metadata_is_quic())
         {
           v10 = nw_quic_copy_sec_protocol_metadata(v9);
-          v23 = sec_protocol_metadata_copy_negotiated_protocol();
+          v24 = sec_protocol_metadata_copy_negotiated_protocol();
           if ((*(handle + 172) & 2) == 0)
           {
-            v24 = __nwlog_obj();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+            v25 = __nwlog_obj();
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               *buf = 136446978;
-              v85 = "nw_http_messaging_get_http_version_from_alpn";
-              v86 = 2082;
-              v87 = handle + 260;
-              v88 = 2080;
-              v89 = " ";
-              v90 = 2082;
-              v91 = v23;
-              _os_log_impl(&dword_181A37000, v24, OS_LOG_TYPE_INFO, "%{public}s %{public}s%sFound QUIC metadata with ALPN %{public}s", buf, 0x2Au);
+              v91 = "nw_http_messaging_get_http_version_from_alpn";
+              v92 = 2082;
+              v93 = handle + 260;
+              v94 = 2080;
+              v95 = " ";
+              v96 = 2082;
+              v97 = v24;
+              _os_log_impl(&dword_181A37000, v25, OS_LOG_TYPE_INFO, "%{public}s %{public}s%sFound QUIC metadata with ALPN %{public}s", buf, 0x2Au);
             }
           }
 
-          if (v23)
+          if (v24)
           {
-            if (*v23 == 104 && v23[1] == 51 && !v23[2])
+            if (*v24 == 104 && v24[1] == 51 && !v24[2])
             {
-              v58 = 5;
+              v60 = 5;
 LABEL_137:
-              free(v23);
+              free(v24);
               goto LABEL_174;
             }
 
-            __nwlog_obj();
+            v26 = __nwlog_obj();
             *buf = 136446466;
-            v85 = "nw_http_messaging_get_http_version_from_alpn";
-            v86 = 2080;
-            v87 = v23;
-            v25 = _os_log_send_and_compose_impl();
+            v91 = "nw_http_messaging_get_http_version_from_alpn";
+            v92 = 2080;
+            v93 = v24;
+            v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s Invalid QUIC ALPN %s", buf, 22);
             type = OS_LOG_TYPE_ERROR;
-            v82 = 0;
-            if (__nwlog_fault(v25, &type, &v82))
+            v88 = 0;
+            if (__nwlog_fault(v27, &type, &v88))
             {
               if (type == OS_LOG_TYPE_FAULT)
               {
-                v26 = __nwlog_obj();
-                v27 = type;
-                if (os_log_type_enabled(v26, type))
+                v28 = __nwlog_obj();
+                v29 = type;
+                if (os_log_type_enabled(v28, type))
                 {
                   *buf = 136446466;
-                  v85 = "nw_http_messaging_get_http_version_from_alpn";
-                  v86 = 2080;
-                  v87 = v23;
-                  v28 = "%{public}s Invalid QUIC ALPN %s";
+                  v91 = "nw_http_messaging_get_http_version_from_alpn";
+                  v92 = 2080;
+                  v93 = v24;
+                  v30 = "%{public}s Invalid QUIC ALPN %s";
 LABEL_133:
-                  _os_log_impl(&dword_181A37000, v26, v27, v28, buf, 0x16u);
+                  _os_log_impl(&dword_181A37000, v28, v29, v30, buf, 0x16u);
                 }
               }
 
-              else if (v82 == 1)
+              else if (v88 == 1)
               {
-                v61 = __nw_create_backtrace_string();
-                v26 = __nwlog_obj();
-                v27 = type;
-                v62 = os_log_type_enabled(v26, type);
-                if (v61)
+                v63 = __nw_create_backtrace_string();
+                v28 = __nwlog_obj();
+                v29 = type;
+                v64 = os_log_type_enabled(v28, type);
+                if (v63)
                 {
-                  if (v62)
+                  if (v64)
                   {
                     *buf = 136446722;
-                    v85 = "nw_http_messaging_get_http_version_from_alpn";
-                    v86 = 2080;
-                    v87 = v23;
-                    v88 = 2082;
-                    v89 = v61;
-                    _os_log_impl(&dword_181A37000, v26, v27, "%{public}s Invalid QUIC ALPN %s, dumping backtrace:%{public}s", buf, 0x20u);
+                    v91 = "nw_http_messaging_get_http_version_from_alpn";
+                    v92 = 2080;
+                    v93 = v24;
+                    v94 = 2082;
+                    v95 = v63;
+                    _os_log_impl(&dword_181A37000, v28, v29, "%{public}s Invalid QUIC ALPN %s, dumping backtrace:%{public}s", buf, 0x20u);
                   }
 
-                  free(v61);
+                  free(v63);
                   goto LABEL_134;
                 }
 
-                if (v62)
+                if (v64)
                 {
                   *buf = 136446466;
-                  v85 = "nw_http_messaging_get_http_version_from_alpn";
-                  v86 = 2080;
-                  v87 = v23;
-                  v28 = "%{public}s Invalid QUIC ALPN %s, no backtrace";
+                  v91 = "nw_http_messaging_get_http_version_from_alpn";
+                  v92 = 2080;
+                  v93 = v24;
+                  v30 = "%{public}s Invalid QUIC ALPN %s, no backtrace";
                   goto LABEL_133;
                 }
               }
 
               else
               {
-                v26 = __nwlog_obj();
-                v27 = type;
-                if (os_log_type_enabled(v26, type))
+                v28 = __nwlog_obj();
+                v29 = type;
+                if (os_log_type_enabled(v28, type))
                 {
                   *buf = 136446466;
-                  v85 = "nw_http_messaging_get_http_version_from_alpn";
-                  v86 = 2080;
-                  v87 = v23;
-                  v28 = "%{public}s Invalid QUIC ALPN %s, backtrace limit exceeded";
+                  v91 = "nw_http_messaging_get_http_version_from_alpn";
+                  v92 = 2080;
+                  v93 = v24;
+                  v30 = "%{public}s Invalid QUIC ALPN %s, backtrace limit exceeded";
                   goto LABEL_133;
                 }
               }
             }
 
 LABEL_134:
-            if (v25)
+            if (v27)
             {
-              free(v25);
+              free(v27);
             }
 
-            v58 = 0;
+            v60 = 0;
             goto LABEL_137;
           }
 
           if (nw_protocol_waiting_for_output(*(handle + 4), handle))
           {
-            v58 = 5;
+            v60 = 5;
             goto LABEL_174;
           }
 
-          __nwlog_obj();
+          v65 = __nwlog_obj();
           *buf = 136446210;
-          v85 = "nw_http_messaging_get_http_version_from_alpn";
-          v63 = _os_log_send_and_compose_impl();
+          v91 = "nw_http_messaging_get_http_version_from_alpn";
+          v66 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v65, 16, "%{public}s Missing QUIC ALPN", buf, 12);
           type = OS_LOG_TYPE_ERROR;
-          v82 = 0;
-          if (__nwlog_fault(v63, &type, &v82))
+          v88 = 0;
+          if (__nwlog_fault(v66, &type, &v88))
           {
             if (type == OS_LOG_TYPE_FAULT)
             {
-              v64 = __nwlog_obj();
-              v65 = type;
-              if (os_log_type_enabled(v64, type))
+              v67 = __nwlog_obj();
+              v68 = type;
+              if (os_log_type_enabled(v67, type))
               {
                 *buf = 136446210;
-                v85 = "nw_http_messaging_get_http_version_from_alpn";
-                v66 = "%{public}s Missing QUIC ALPN";
+                v91 = "nw_http_messaging_get_http_version_from_alpn";
+                v69 = "%{public}s Missing QUIC ALPN";
 LABEL_170:
-                _os_log_impl(&dword_181A37000, v64, v65, v66, buf, 0xCu);
+                _os_log_impl(&dword_181A37000, v67, v68, v69, buf, 0xCu);
               }
             }
 
-            else if (v82 == 1)
+            else if (v88 == 1)
             {
-              v67 = __nw_create_backtrace_string();
-              v64 = __nwlog_obj();
-              v65 = type;
-              v68 = os_log_type_enabled(v64, type);
-              if (v67)
+              v70 = __nw_create_backtrace_string();
+              v67 = __nwlog_obj();
+              v68 = type;
+              v71 = os_log_type_enabled(v67, type);
+              if (v70)
               {
-                if (v68)
+                if (v71)
                 {
                   *buf = 136446466;
-                  v85 = "nw_http_messaging_get_http_version_from_alpn";
-                  v86 = 2082;
-                  v87 = v67;
-                  _os_log_impl(&dword_181A37000, v64, v65, "%{public}s Missing QUIC ALPN, dumping backtrace:%{public}s", buf, 0x16u);
+                  v91 = "nw_http_messaging_get_http_version_from_alpn";
+                  v92 = 2082;
+                  v93 = v70;
+                  _os_log_impl(&dword_181A37000, v67, v68, "%{public}s Missing QUIC ALPN, dumping backtrace:%{public}s", buf, 0x16u);
                 }
 
-                free(v67);
+                free(v70);
                 goto LABEL_171;
               }
 
-              if (v68)
+              if (v71)
               {
                 *buf = 136446210;
-                v85 = "nw_http_messaging_get_http_version_from_alpn";
-                v66 = "%{public}s Missing QUIC ALPN, no backtrace";
+                v91 = "nw_http_messaging_get_http_version_from_alpn";
+                v69 = "%{public}s Missing QUIC ALPN, no backtrace";
                 goto LABEL_170;
               }
             }
 
             else
             {
-              v64 = __nwlog_obj();
-              v65 = type;
-              if (os_log_type_enabled(v64, type))
+              v67 = __nwlog_obj();
+              v68 = type;
+              if (os_log_type_enabled(v67, type))
               {
                 *buf = 136446210;
-                v85 = "nw_http_messaging_get_http_version_from_alpn";
-                v66 = "%{public}s Missing QUIC ALPN, backtrace limit exceeded";
+                v91 = "nw_http_messaging_get_http_version_from_alpn";
+                v69 = "%{public}s Missing QUIC ALPN, backtrace limit exceeded";
                 goto LABEL_170;
               }
             }
           }
 
 LABEL_171:
-          if (v63)
+          if (v66)
           {
-            free(v63);
+            free(v66);
           }
 
-          v58 = 0;
+          v60 = 0;
 LABEL_174:
           if (!v10)
           {
 LABEL_176:
             os_release(v9);
             os_release(v7);
-            *(handle + 64) = v58;
-            if (v58 > 3)
+            *(handle + 64) = v60;
+            if (v60 > 3)
             {
-              if (v58 == 4)
+              if (v60 == 4)
               {
                 if (nw_protocol_http2_identifier::onceToken != -1)
                 {
                   dispatch_once(&nw_protocol_http2_identifier::onceToken, &__block_literal_global_88988);
                 }
 
-                v29 = &nw_protocol_http2_identifier::http2_protocol_identifier;
+                v31 = &nw_protocol_http2_identifier::http2_protocol_identifier;
                 if (*(handle + 172))
                 {
                   goto LABEL_58;
@@ -2145,7 +4958,7 @@ LABEL_176:
                   dispatch_once(&nw_protocol_http3_identifier::onceToken, &__block_literal_global_13_64572);
                 }
 
-                v29 = &nw_protocol_http3_identifier::http3_protocol_identifier;
+                v31 = &nw_protocol_http3_identifier::http3_protocol_identifier;
                 if (*(handle + 172))
                 {
                   goto LABEL_58;
@@ -2161,56 +4974,56 @@ LABEL_176:
 
                 else if ((*(handle + 172) & 2) == 0)
                 {
-                  v79 = __nwlog_obj();
-                  if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+                  v85 = __nwlog_obj();
+                  if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 136446722;
-                    v85 = "nw_protocol_http_messaging_connected";
-                    v86 = 2082;
-                    v87 = handle + 260;
-                    v88 = 2080;
-                    v89 = " ";
-                    _os_log_impl(&dword_181A37000, v79, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%sconnection's endpoint is not registered, cannot add edges", buf, 0x20u);
+                    v91 = "nw_protocol_http_messaging_connected";
+                    v92 = 2082;
+                    v93 = handle + 260;
+                    v94 = 2080;
+                    v95 = " ";
+                    _os_log_impl(&dword_181A37000, v85, OS_LOG_TYPE_ERROR, "%{public}s %{public}s%sconnection's endpoint is not registered, cannot add edges", buf, 0x20u);
                   }
                 }
               }
 
 LABEL_58:
-              internal = nw_protocol_create_internal(v29, *(handle + 14), *(handle + 12), 0);
+              internal = nw_protocol_create_internal(v31, *(handle + 14), *(handle + 12), 0);
               *(handle + 19) = internal;
               *(internal + 16) = *(handle + 2);
-              v31 = *(handle + 6);
+              v33 = *(handle + 6);
               nw_protocol_set_input_handler(handle, 0);
-              nw_http_messaging_add_to_version_specific_protocol(handle, v31);
+              nw_http_messaging_add_to_version_specific_protocol(handle, v33);
               nw_protocol_add_listen_handler(*(handle + 19), (handle + 64));
-              nw_protocol_replace_input_handler(*(handle + 4), handle, v31[4]);
+              nw_protocol_replace_input_handler(*(handle + 4), handle, v33[4]);
               nw_protocol_set_output_handler(handle, 0);
               *(handle + 172) |= 0x80u;
-              nw_protocol_connect(v31[4], v31);
+              nw_protocol_connect(v33[4], v33);
               while (1)
               {
-                v34 = *(handle + 29);
-                v33 = *(handle + 30);
-                v35 = v34;
-                if (v34 != v33)
+                v36 = *(handle + 29);
+                v35 = *(handle + 30);
+                v37 = v36;
+                if (v36 != v35)
                 {
-                  while (*(v35 + 8) == 2)
+                  while (*(v37 + 8) == 2)
                   {
-                    v35 += 16;
-                    if (v35 == v33)
+                    v37 += 16;
+                    if (v37 == v35)
                     {
-                      v35 = *(handle + 30);
+                      v37 = *(handle + 30);
                       break;
                     }
                   }
                 }
 
-                if (v33 == v35)
+                if (v35 == v37)
                 {
-                  v57 = *(handle + 172);
-                  if ((v57 & 0x80) != 0)
+                  v59 = *(handle + 172);
+                  if ((v59 & 0x80) != 0)
                   {
-                    *(handle + 172) = v57 & 0xFF7F;
+                    *(handle + 172) = v59 & 0xFF7F;
                   }
 
                   else
@@ -2221,60 +5034,60 @@ LABEL_58:
                   return;
                 }
 
-                v36 = *v35;
-                v37 = *(v35 + 8);
-                v38 = v35 + 16;
-                if (v35 + 16 != v33)
+                v38 = *v37;
+                v39 = *(v37 + 8);
+                v40 = v37 + 16;
+                if (v37 + 16 != v35)
                 {
-                  v39 = v33 - v35 - 32;
-                  if (v39 >= 0x10)
+                  v41 = v35 - v37 - 32;
+                  if (v41 >= 0x10)
                   {
-                    v40 = v35 - v34;
-                    v41 = (v39 >> 4) + 1;
-                    v42 = 16 * (v41 & 0x1FFFFFFFFFFFFFFELL);
-                    v35 += v42;
-                    v43 = v34 + v40 + 24;
-                    v44 = v41 & 0x1FFFFFFFFFFFFFFELL;
+                    v42 = v37 - v36;
+                    v43 = (v41 >> 4) + 1;
+                    v44 = 16 * (v43 & 0x1FFFFFFFFFFFFFFELL);
+                    v37 += v44;
+                    v45 = v36 + v42 + 24;
+                    v46 = v43 & 0x1FFFFFFFFFFFFFFELL;
                     do
                     {
-                      v45 = *(v43 + 8);
-                      *(v43 - 24) = *(v43 - 8);
-                      *(v43 - 8) = v45;
-                      LODWORD(v45) = *(v43 + 16);
-                      *(v43 - 16) = *v43;
-                      *v43 = v45;
-                      v43 += 32;
-                      v44 -= 2;
+                      v47 = *(v45 + 8);
+                      *(v45 - 24) = *(v45 - 8);
+                      *(v45 - 8) = v47;
+                      LODWORD(v47) = *(v45 + 16);
+                      *(v45 - 16) = *v45;
+                      *v45 = v47;
+                      v45 += 32;
+                      v46 -= 2;
                     }
 
-                    while (v44);
-                    if (v41 == (v41 & 0x1FFFFFFFFFFFFFFELL))
+                    while (v46);
+                    if (v43 == (v43 & 0x1FFFFFFFFFFFFFFELL))
                     {
                       goto LABEL_73;
                     }
 
-                    v38 += v42;
+                    v40 += v44;
                   }
 
                   do
                   {
-                    *v35 = *v38;
-                    *(v35 + 8) = *(v38 + 8);
-                    v38 += 16;
-                    v35 += 16;
+                    *v37 = *v40;
+                    *(v37 + 8) = *(v40 + 8);
+                    v40 += 16;
+                    v37 += 16;
                   }
 
-                  while (v38 != v33);
+                  while (v40 != v35);
                 }
 
 LABEL_73:
-                *(handle + 30) = v35;
-                parameters = nw_protocol_get_parameters(v36);
-                if (nw_protocol_http_messaging_accept(handle, *(handle + 14), parameters) && (nw_http_messaging_add_to_version_specific_protocol(handle, v36) & 1) != 0)
+                *(handle + 30) = v37;
+                parameters = nw_protocol_get_parameters(v38);
+                if (nw_protocol_http_messaging_accept(handle, *(handle + 14), parameters) && (nw_http_messaging_add_to_version_specific_protocol(handle, v38) & 1) != 0)
                 {
-                  if (v37 == 1)
+                  if (v39 == 1)
                   {
-                    nw_protocol_connect(*(v36 + 32), v36);
+                    nw_protocol_connect(*(v38 + 32), v38);
                   }
                 }
 
@@ -2284,58 +5097,58 @@ LABEL_73:
                   {
                     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
                     networkd_settings_init();
-                    v47 = gLogObj;
+                    v49 = gLogObj;
                     if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
                     {
                       *buf = 136446722;
-                      v85 = "nw_protocol_http_messaging_connected";
-                      v86 = 2082;
-                      v87 = handle + 260;
-                      v88 = 2080;
-                      v89 = " ";
-                      _os_log_impl(&dword_181A37000, v47, OS_LOG_TYPE_INFO, "%{public}s %{public}s%sVersion specific protocol cannot accept stream", buf, 0x20u);
+                      v91 = "nw_protocol_http_messaging_connected";
+                      v92 = 2082;
+                      v93 = handle + 260;
+                      v94 = 2080;
+                      v95 = " ";
+                      _os_log_impl(&dword_181A37000, v49, OS_LOG_TYPE_INFO, "%{public}s %{public}s%sVersion specific protocol cannot accept stream", buf, 0x20u);
                     }
                   }
 
-                  v49 = *(handle + 30);
-                  v48 = *(handle + 31);
-                  if (v49 < v48)
+                  v51 = *(handle + 30);
+                  v50 = *(handle + 31);
+                  if (v51 < v50)
                   {
-                    *v49 = v36;
-                    *(v49 + 8) = 2;
-                    v32 = v49 + 16;
+                    *v51 = v38;
+                    *(v51 + 8) = 2;
+                    v34 = v51 + 16;
                   }
 
                   else
                   {
-                    v50 = *(handle + 29);
-                    v51 = v49 - v50;
-                    v52 = (v49 - v50) >> 4;
-                    v53 = v52 + 1;
-                    if ((v52 + 1) >> 60)
+                    v52 = *(handle + 29);
+                    v53 = v51 - v52;
+                    v54 = (v51 - v52) >> 4;
+                    v55 = v54 + 1;
+                    if ((v54 + 1) >> 60)
                     {
                       std::string::__throw_length_error[abi:nn200100]();
                     }
 
-                    v54 = v48 - v50;
-                    if (v54 >> 3 > v53)
+                    v56 = v50 - v52;
+                    if (v56 >> 3 > v55)
                     {
-                      v53 = v54 >> 3;
+                      v55 = v56 >> 3;
                     }
 
-                    if (v54 >= 0x7FFFFFFFFFFFFFF0)
+                    if (v56 >= 0x7FFFFFFFFFFFFFF0)
                     {
-                      v55 = 0xFFFFFFFFFFFFFFFLL;
+                      v57 = 0xFFFFFFFFFFFFFFFLL;
                     }
 
                     else
                     {
-                      v55 = v53;
+                      v57 = v55;
                     }
 
-                    if (v55)
+                    if (v57)
                     {
-                      if (!(v55 >> 60))
+                      if (!(v57 >> 60))
                       {
                         operator new();
                       }
@@ -2343,28 +5156,28 @@ LABEL_73:
                       std::string::__throw_length_error[abi:nn200100]();
                     }
 
-                    v56 = 16 * v52;
-                    *v56 = v36;
-                    *(v56 + 8) = 2;
-                    v32 = 16 * v52 + 16;
-                    memcpy(0, v50, v51);
+                    v58 = 16 * v54;
+                    *v58 = v38;
+                    *(v58 + 8) = 2;
+                    v34 = 16 * v54 + 16;
+                    memcpy(0, v52, v53);
                     *(handle + 29) = 0;
-                    *(handle + 30) = v32;
+                    *(handle + 30) = v34;
                     *(handle + 31) = 0;
-                    if (v50)
+                    if (v52)
                     {
-                      operator delete(v50);
+                      operator delete(v52);
                     }
                   }
 
-                  *(handle + 30) = v32;
-                  nw_protocol_error(v36, handle);
-                  nw_protocol_disconnected(v36, handle);
+                  *(handle + 30) = v34;
+                  nw_protocol_error(v38, handle);
+                  nw_protocol_disconnected(v38, handle);
                 }
               }
             }
 
-            if (!v58)
+            if (!v60)
             {
               nw_protocol_http_messaging_error(handle, handle);
               nw_protocol_http_messaging_disconnected(handle, handle);
@@ -2377,21 +5190,21 @@ LABEL_52:
               dispatch_once(&nw_protocol_http1_identifier::onceToken, &__block_literal_global_42999);
             }
 
-            v29 = &nw_protocol_http1_identifier::http1_protocol_identifier;
+            v31 = &nw_protocol_http1_identifier::http1_protocol_identifier;
             if (*(handle + 16) != *(handle + 17))
             {
               if ((*(handle + 172) & 2) == 0 && gLogDatapath == 1)
               {
-                v81 = __nwlog_obj();
-                if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+                v87 = __nwlog_obj();
+                if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446722;
-                  v85 = "nw_protocol_http_messaging_connected";
-                  v86 = 2082;
-                  v87 = handle + 260;
-                  v88 = 2080;
-                  v89 = " ";
-                  _os_log_impl(&dword_181A37000, v81, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%sremoving instance since http_joining handles joining", buf, 0x20u);
+                  v91 = "nw_protocol_http_messaging_connected";
+                  v92 = 2082;
+                  v93 = handle + 260;
+                  v94 = 2080;
+                  v95 = " ";
+                  _os_log_impl(&dword_181A37000, v87, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%sremoving instance since http_joining handles joining", buf, 0x20u);
                 }
               }
 
@@ -2413,16 +5226,16 @@ LABEL_52:
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
-          v22 = gLogObj;
+          v23 = gLogObj;
           if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_INFO))
           {
             *buf = 136446722;
-            v85 = "nw_http_messaging_get_http_version_from_alpn";
-            v86 = 2082;
-            v87 = handle + 260;
-            v88 = 2080;
-            v89 = " ";
-            _os_log_impl(&dword_181A37000, v22, OS_LOG_TYPE_INFO, "%{public}s %{public}s%sTop metadata isn't TLS, assuming HTTP/1.1", buf, 0x20u);
+            v91 = "nw_http_messaging_get_http_version_from_alpn";
+            v92 = 2082;
+            v93 = handle + 260;
+            v94 = 2080;
+            v95 = " ";
+            _os_log_impl(&dword_181A37000, v23, OS_LOG_TYPE_INFO, "%{public}s %{public}s%sTop metadata isn't TLS, assuming HTTP/1.1", buf, 0x20u);
           }
         }
 
@@ -2442,18 +5255,18 @@ LABEL_51:
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
-      v21 = gLogObj;
+      v22 = gLogObj;
       if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v85 = "nw_protocol_http_messaging_connected";
-        v86 = 2082;
-        v87 = handle + 260;
-        v88 = 2080;
-        v89 = " ";
-        v18 = "%{public}s %{public}s%sno default input handler, ignoring connected";
-        v19 = v21;
-        v20 = OS_LOG_TYPE_ERROR;
+        v91 = "nw_protocol_http_messaging_connected";
+        v92 = 2082;
+        v93 = handle + 260;
+        v94 = 2080;
+        v95 = " ";
+        v19 = "%{public}s %{public}s%sno default input handler, ignoring connected";
+        v20 = v22;
+        v21 = OS_LOG_TYPE_ERROR;
         goto LABEL_30;
       }
     }
@@ -2462,16 +5275,16 @@ LABEL_51:
 
 uint64_t nw_protocol_http_messaging_connect(nw_protocol *a1, nw_protocol *a2)
 {
-  v125 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    __nwlog_obj();
+    v69 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_http_messaging_connect";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v69, 16, "%{public}s called with null protocol", buf, 12);
     type[0] = 16;
-    v117 = OS_LOG_TYPE_DEFAULT;
-    if (!__nwlog_fault(v8, type, &v117))
+    v121 = OS_LOG_TYPE_DEFAULT;
+    if (!__nwlog_fault(v8, type, &v121))
     {
       goto LABEL_87;
     }
@@ -2491,7 +5304,7 @@ uint64_t nw_protocol_http_messaging_connect(nw_protocol *a1, nw_protocol *a2)
       goto LABEL_65;
     }
 
-    if (v117 != OS_LOG_TYPE_INFO)
+    if (v121 != OS_LOG_TYPE_INFO)
     {
       v9 = __nwlog_obj();
       v10 = type[0];
@@ -2509,10 +5322,10 @@ uint64_t nw_protocol_http_messaging_connect(nw_protocol *a1, nw_protocol *a2)
     backtrace_string = __nw_create_backtrace_string();
     v9 = __nwlog_obj();
     v10 = type[0];
-    v70 = os_log_type_enabled(v9, type[0]);
+    v73 = os_log_type_enabled(v9, type[0]);
     if (!backtrace_string)
     {
-      if (!v70)
+      if (!v73)
       {
         goto LABEL_87;
       }
@@ -2523,7 +5336,7 @@ uint64_t nw_protocol_http_messaging_connect(nw_protocol *a1, nw_protocol *a2)
       goto LABEL_65;
     }
 
-    if (!v70)
+    if (!v73)
     {
       goto LABEL_137;
     }
@@ -2532,22 +5345,22 @@ uint64_t nw_protocol_http_messaging_connect(nw_protocol *a1, nw_protocol *a2)
     *&buf[4] = "nw_protocol_http_messaging_connect";
     *&buf[12] = 2082;
     *&buf[14] = backtrace_string;
-    v71 = "%{public}s called with null protocol, dumping backtrace:%{public}s";
+    v74 = "%{public}s called with null protocol, dumping backtrace:%{public}s";
 LABEL_136:
-    _os_log_impl(&dword_181A37000, v9, v10, v71, buf, 0x16u);
+    _os_log_impl(&dword_181A37000, v9, v10, v74, buf, 0x16u);
     goto LABEL_137;
   }
 
   handle = a1->handle;
   if (!handle)
   {
-    __nwlog_obj();
+    v70 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_http_messaging_connect";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v70, 16, "%{public}s called with null http_messaging", buf, 12);
     type[0] = 16;
-    v117 = OS_LOG_TYPE_DEFAULT;
-    if (!__nwlog_fault(v8, type, &v117))
+    v121 = OS_LOG_TYPE_DEFAULT;
+    if (!__nwlog_fault(v8, type, &v121))
     {
       goto LABEL_87;
     }
@@ -2567,7 +5380,7 @@ LABEL_136:
       goto LABEL_65;
     }
 
-    if (v117 != OS_LOG_TYPE_INFO)
+    if (v121 != OS_LOG_TYPE_INFO)
     {
       v9 = __nwlog_obj();
       v10 = type[0];
@@ -2585,10 +5398,10 @@ LABEL_136:
     backtrace_string = __nw_create_backtrace_string();
     v9 = __nwlog_obj();
     v10 = type[0];
-    v72 = os_log_type_enabled(v9, type[0]);
+    v75 = os_log_type_enabled(v9, type[0]);
     if (!backtrace_string)
     {
-      if (!v72)
+      if (!v75)
       {
         goto LABEL_87;
       }
@@ -2599,7 +5412,7 @@ LABEL_136:
       goto LABEL_65;
     }
 
-    if (!v72)
+    if (!v75)
     {
       goto LABEL_137;
     }
@@ -2608,19 +5421,19 @@ LABEL_136:
     *&buf[4] = "nw_protocol_http_messaging_connect";
     *&buf[12] = 2082;
     *&buf[14] = backtrace_string;
-    v71 = "%{public}s called with null http_messaging, dumping backtrace:%{public}s";
+    v74 = "%{public}s called with null http_messaging, dumping backtrace:%{public}s";
     goto LABEL_136;
   }
 
   if (!a2)
   {
-    __nwlog_obj();
+    v71 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_http_messaging_connect";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v71, 16, "%{public}s called with null other_protocol", buf, 12);
     type[0] = 16;
-    v117 = OS_LOG_TYPE_DEFAULT;
-    if (!__nwlog_fault(v8, type, &v117))
+    v121 = OS_LOG_TYPE_DEFAULT;
+    if (!__nwlog_fault(v8, type, &v121))
     {
       goto LABEL_87;
     }
@@ -2640,7 +5453,7 @@ LABEL_136:
       goto LABEL_65;
     }
 
-    if (v117 != OS_LOG_TYPE_INFO)
+    if (v121 != OS_LOG_TYPE_INFO)
     {
       v9 = __nwlog_obj();
       v10 = type[0];
@@ -2658,10 +5471,10 @@ LABEL_136:
     backtrace_string = __nw_create_backtrace_string();
     v9 = __nwlog_obj();
     v10 = type[0];
-    v73 = os_log_type_enabled(v9, type[0]);
+    v76 = os_log_type_enabled(v9, type[0]);
     if (!backtrace_string)
     {
-      if (!v73)
+      if (!v76)
       {
         goto LABEL_87;
       }
@@ -2672,13 +5485,13 @@ LABEL_136:
       goto LABEL_65;
     }
 
-    if (v73)
+    if (v76)
     {
       *buf = 136446466;
       *&buf[4] = "nw_protocol_http_messaging_connect";
       *&buf[12] = 2082;
       *&buf[14] = backtrace_string;
-      v71 = "%{public}s called with null other_protocol, dumping backtrace:%{public}s";
+      v74 = "%{public}s called with null other_protocol, dumping backtrace:%{public}s";
       goto LABEL_136;
     }
 
@@ -2693,10 +5506,10 @@ LABEL_137:
     networkd_settings_init();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_http_messaging_connect";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s connect requires an output handler", buf, 12);
     type[0] = 16;
-    v117 = OS_LOG_TYPE_DEFAULT;
-    if (!__nwlog_fault(v8, type, &v117))
+    v121 = OS_LOG_TYPE_DEFAULT;
+    if (!__nwlog_fault(v8, type, &v121))
     {
       goto LABEL_87;
     }
@@ -2719,7 +5532,7 @@ LABEL_137:
 
     else
     {
-      if (v117 == OS_LOG_TYPE_INFO)
+      if (v121 == OS_LOG_TYPE_INFO)
       {
         v29 = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -2810,10 +5623,10 @@ LABEL_26:
     *&buf[4] = "nw_protocol_http_messaging_connect";
     *&buf[12] = 2048;
     *&buf[14] = a2;
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s Protocol %p isn't an input handler of http messaging", buf, 22);
     type[0] = 16;
-    v117 = OS_LOG_TYPE_DEFAULT;
-    if (!__nwlog_fault(v8, type, &v117))
+    v121 = OS_LOG_TYPE_DEFAULT;
+    if (!__nwlog_fault(v8, type, &v121))
     {
       goto LABEL_87;
     }
@@ -2837,7 +5650,7 @@ LABEL_26:
       goto LABEL_85;
     }
 
-    if (v117 != OS_LOG_TYPE_INFO)
+    if (v121 != OS_LOG_TYPE_INFO)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
@@ -2871,7 +5684,7 @@ LABEL_26:
         *&buf[12] = 2048;
         *&buf[14] = a2;
         *&buf[22] = 2082;
-        v122 = v53;
+        v126 = v53;
         _os_log_impl(&dword_181A37000, v27, v28, "%{public}s Protocol %p isn't an input handler of http messaging, dumping backtrace:%{public}s", buf, 0x20u);
       }
 
@@ -2946,73 +5759,73 @@ LABEL_87:
   v22 = v21;
   if (!v21)
   {
-    v85 = __nwlog_obj();
+    v88 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_messaging_options_copy_retry_with_h1_handler";
-    v86 = _os_log_send_and_compose_impl();
+    v89 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v88, 16, "%{public}s called with null options", buf, 12);
 
     type[0] = 16;
-    v117 = OS_LOG_TYPE_DEFAULT;
-    if (__nwlog_fault(v86, type, &v117))
+    v121 = OS_LOG_TYPE_DEFAULT;
+    if (__nwlog_fault(v89, type, &v121))
     {
       if (type[0] == 17)
       {
-        v87 = __nwlog_obj();
-        v88 = type[0];
-        if (os_log_type_enabled(v87, type[0]))
+        v90 = __nwlog_obj();
+        v91 = type[0];
+        if (os_log_type_enabled(v90, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_messaging_options_copy_retry_with_h1_handler";
-          _os_log_impl(&dword_181A37000, v87, v88, "%{public}s called with null options", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v90, v91, "%{public}s called with null options", buf, 0xCu);
         }
       }
 
-      else if (v117 == OS_LOG_TYPE_INFO)
+      else if (v121 == OS_LOG_TYPE_INFO)
       {
-        v97 = __nw_create_backtrace_string();
-        v87 = __nwlog_obj();
-        v98 = type[0];
-        v99 = os_log_type_enabled(v87, type[0]);
-        if (v97)
+        v100 = __nw_create_backtrace_string();
+        v90 = __nwlog_obj();
+        v101 = type[0];
+        v102 = os_log_type_enabled(v90, type[0]);
+        if (v100)
         {
-          if (v99)
+          if (v102)
           {
             *buf = 136446466;
             *&buf[4] = "nw_http_messaging_options_copy_retry_with_h1_handler";
             *&buf[12] = 2082;
-            *&buf[14] = v97;
-            _os_log_impl(&dword_181A37000, v87, v98, "%{public}s called with null options, dumping backtrace:%{public}s", buf, 0x16u);
+            *&buf[14] = v100;
+            _os_log_impl(&dword_181A37000, v90, v101, "%{public}s called with null options, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
-          free(v97);
+          free(v100);
           goto LABEL_241;
         }
 
-        if (v99)
+        if (v102)
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_messaging_options_copy_retry_with_h1_handler";
-          _os_log_impl(&dword_181A37000, v87, v98, "%{public}s called with null options, no backtrace", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v90, v101, "%{public}s called with null options, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v87 = __nwlog_obj();
-        v104 = type[0];
-        if (os_log_type_enabled(v87, type[0]))
+        v90 = __nwlog_obj();
+        v107 = type[0];
+        if (os_log_type_enabled(v90, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_messaging_options_copy_retry_with_h1_handler";
-          _os_log_impl(&dword_181A37000, v87, v104, "%{public}s called with null options, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v90, v107, "%{public}s called with null options, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
 LABEL_241:
-    if (v86)
+    if (v89)
     {
-      free(v86);
+      free(v89);
     }
 
     goto LABEL_243;
@@ -3032,14 +5845,14 @@ LABEL_241:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v122 = __Block_byref_object_copy__7;
-    v123 = __Block_byref_object_dispose__8;
-    v124 = 0;
+    v126 = __Block_byref_object_copy__7;
+    v127 = __Block_byref_object_dispose__8;
+    v128 = 0;
     *type = MEMORY[0x1E69E9820];
     *&type[8] = 3221225472;
     *&type[16] = __nw_http_messaging_options_copy_retry_with_h1_handler_block_invoke;
-    v119 = &unk_1E6A3A858;
-    v120 = buf;
+    v123 = &unk_1E6A3A858;
+    v124 = buf;
     nw_protocol_options_access_handle(v24, type);
     v26 = _Block_copy(*(*&buf[8] + 40));
     _Block_object_dispose(buf, 8);
@@ -3107,7 +5920,7 @@ LABEL_37:
       nw_endpoint_add_edges_for_instance(*(handle + 14), handle, 0);
     }
 
-    v115 = v35;
+    v119 = v35;
     v40 = v36;
     v41 = v40;
     if (v40)
@@ -3126,87 +5939,88 @@ LABEL_37:
         *type = 0;
         *&type[8] = type;
         *&type[16] = 0x2020000000;
-        LOBYTE(v119) = 0;
+        LOBYTE(v123) = 0;
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __nw_http_messaging_options_get_early_data_enabled_block_invoke;
-        v122 = &unk_1E6A3A858;
-        v123 = type;
+        v126 = &unk_1E6A3A858;
+        v127 = type;
         nw_protocol_options_access_handle(v43, buf);
         v45 = *(*&type[8] + 24);
         _Block_object_dispose(type, 8);
         goto LABEL_52;
       }
 
-      v78 = __nwlog_obj();
+      v81 = __nwlog_obj();
       *type = 136446210;
       *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
-      v114 = _os_log_send_and_compose_impl();
+      LODWORD(v116) = 12;
+      v118 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v81, 16, "%{public}s protocol options are not http_messaging", type, v116);
 
-      v117 = OS_LOG_TYPE_ERROR;
-      v116 = 0;
-      if (__nwlog_fault(v114, &v117, &v116))
+      v121 = OS_LOG_TYPE_ERROR;
+      v120 = 0;
+      if (__nwlog_fault(v118, &v121, &v120))
       {
-        if (v117 == OS_LOG_TYPE_FAULT)
+        if (v121 == OS_LOG_TYPE_FAULT)
         {
-          v79 = __nwlog_obj();
-          v80 = v117;
-          if (os_log_type_enabled(v79, v117))
+          v82 = __nwlog_obj();
+          v83 = v121;
+          if (os_log_type_enabled(v82, v121))
           {
             *type = 136446210;
             *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
-            _os_log_impl(&dword_181A37000, v79, v80, "%{public}s protocol options are not http_messaging", type, 0xCu);
+            _os_log_impl(&dword_181A37000, v82, v83, "%{public}s protocol options are not http_messaging", type, 0xCu);
           }
         }
 
         else
         {
-          if (v116 != 1)
+          if (v120 != 1)
           {
-            v101 = __nwlog_obj();
-            v102 = v117;
-            if (os_log_type_enabled(v101, v117))
+            v104 = __nwlog_obj();
+            v105 = v121;
+            if (os_log_type_enabled(v104, v121))
             {
               *type = 136446210;
               *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
-              _os_log_impl(&dword_181A37000, v101, v102, "%{public}s protocol options are not http_messaging, backtrace limit exceeded", type, 0xCu);
+              _os_log_impl(&dword_181A37000, v104, v105, "%{public}s protocol options are not http_messaging, backtrace limit exceeded", type, 0xCu);
             }
 
             goto LABEL_229;
           }
 
-          v92 = __nw_create_backtrace_string();
-          v79 = __nwlog_obj();
-          v113 = v117;
-          v93 = os_log_type_enabled(v79, v117);
-          if (v92)
+          v95 = __nw_create_backtrace_string();
+          v82 = __nwlog_obj();
+          HIDWORD(v116) = v121;
+          v96 = os_log_type_enabled(v82, v121);
+          if (v95)
           {
-            if (v93)
+            if (v96)
             {
               *type = 136446466;
               *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
               *&type[12] = 2082;
-              *&type[14] = v92;
-              _os_log_impl(&dword_181A37000, v79, v113, "%{public}s protocol options are not http_messaging, dumping backtrace:%{public}s", type, 0x16u);
+              *&type[14] = v95;
+              _os_log_impl(&dword_181A37000, v82, BYTE4(v116), "%{public}s protocol options are not http_messaging, dumping backtrace:%{public}s", type, 0x16u);
             }
 
-            free(v92);
+            free(v95);
             goto LABEL_229;
           }
 
-          if (v93)
+          if (v96)
           {
             *type = 136446210;
             *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
-            _os_log_impl(&dword_181A37000, v79, v113, "%{public}s protocol options are not http_messaging, no backtrace", type, 0xCu);
+            _os_log_impl(&dword_181A37000, v82, BYTE4(v116), "%{public}s protocol options are not http_messaging, no backtrace", type, 0xCu);
           }
         }
       }
 
 LABEL_229:
-      if (v114)
+      if (v118)
       {
-        free(v114);
+        free(v118);
       }
 
       v45 = 0;
@@ -3227,14 +6041,14 @@ LABEL_52:
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v122 = __Block_byref_object_copy__75915;
-        v123 = __Block_byref_object_dispose__75916;
-        v124 = 0;
+        v126 = __Block_byref_object_copy__75915;
+        v127 = __Block_byref_object_dispose__75916;
+        v128 = 0;
         *type = MEMORY[0x1E69E9820];
         *&type[8] = 3221225472;
         *&type[16] = __nw_http_messaging_options_copy_storage_block_invoke;
-        v119 = &unk_1E6A3A858;
-        v120 = buf;
+        v123 = &unk_1E6A3A858;
+        v124 = buf;
         nw_protocol_options_access_handle(v48, type);
         v50 = *(*&buf[8] + 40);
         _Block_object_dispose(buf, 8);
@@ -3242,99 +6056,101 @@ LABEL_52:
         goto LABEL_56;
       }
 
-      v81 = __nwlog_obj();
+      v84 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_http_messaging_options_copy_storage";
-      v82 = _os_log_send_and_compose_impl();
+      LODWORD(v116) = 12;
+      v85 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v84, 16, "%{public}s protocol options are not http_messaging", buf, v116);
 
-      v117 = OS_LOG_TYPE_ERROR;
-      v116 = 0;
-      if (!__nwlog_fault(v82, &v117, &v116))
+      v121 = OS_LOG_TYPE_ERROR;
+      v120 = 0;
+      if (!__nwlog_fault(v85, &v121, &v120))
       {
         goto LABEL_235;
       }
 
-      if (v117 == OS_LOG_TYPE_FAULT)
+      if (v121 == OS_LOG_TYPE_FAULT)
       {
-        v83 = __nwlog_obj();
-        v84 = v117;
-        if (os_log_type_enabled(v83, v117))
+        v86 = __nwlog_obj();
+        v87 = v121;
+        if (os_log_type_enabled(v86, v121))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_messaging_options_copy_storage";
-          _os_log_impl(&dword_181A37000, v83, v84, "%{public}s protocol options are not http_messaging", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v87, "%{public}s protocol options are not http_messaging", buf, 0xCu);
         }
       }
 
-      else if (v116 == 1)
+      else if (v120 == 1)
       {
-        v94 = __nw_create_backtrace_string();
-        v83 = __nwlog_obj();
-        v95 = v117;
-        v96 = os_log_type_enabled(v83, v117);
-        if (v94)
+        v97 = __nw_create_backtrace_string();
+        v86 = __nwlog_obj();
+        v98 = v121;
+        v99 = os_log_type_enabled(v86, v121);
+        if (v97)
         {
-          if (v96)
+          if (v99)
           {
             *buf = 136446466;
             *&buf[4] = "nw_http_messaging_options_copy_storage";
             *&buf[12] = 2082;
-            *&buf[14] = v94;
-            _os_log_impl(&dword_181A37000, v83, v95, "%{public}s protocol options are not http_messaging, dumping backtrace:%{public}s", buf, 0x16u);
+            *&buf[14] = v97;
+            _os_log_impl(&dword_181A37000, v86, v98, "%{public}s protocol options are not http_messaging, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
-          free(v94);
+          free(v97);
           goto LABEL_235;
         }
 
-        if (v96)
+        if (v99)
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_messaging_options_copy_storage";
-          _os_log_impl(&dword_181A37000, v83, v95, "%{public}s protocol options are not http_messaging, no backtrace", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v98, "%{public}s protocol options are not http_messaging, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v83 = __nwlog_obj();
-        v103 = v117;
-        if (os_log_type_enabled(v83, v117))
+        v86 = __nwlog_obj();
+        v106 = v121;
+        if (os_log_type_enabled(v86, v121))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_messaging_options_copy_storage";
-          _os_log_impl(&dword_181A37000, v83, v103, "%{public}s protocol options are not http_messaging, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v86, v106, "%{public}s protocol options are not http_messaging, backtrace limit exceeded", buf, 0xCu);
         }
       }
 
 LABEL_235:
-      if (v82)
+      if (v85)
       {
-        free(v82);
+        free(v85);
       }
 
       v50 = 0;
       goto LABEL_56;
     }
 
-    v74 = __nwlog_obj();
+    v77 = __nwlog_obj();
     *type = 136446210;
     *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
-    v75 = _os_log_send_and_compose_impl();
+    LODWORD(v116) = 12;
+    v78 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v77, 16, "%{public}s called with null options", type, v116);
 
-    v117 = OS_LOG_TYPE_ERROR;
-    v116 = 0;
-    if (__nwlog_fault(v75, &v117, &v116))
+    v121 = OS_LOG_TYPE_ERROR;
+    v120 = 0;
+    if (__nwlog_fault(v78, &v121, &v120))
     {
-      if (v117 == OS_LOG_TYPE_FAULT)
+      if (v121 == OS_LOG_TYPE_FAULT)
       {
-        v76 = __nwlog_obj();
-        v77 = v117;
-        if (os_log_type_enabled(v76, v117))
+        v79 = __nwlog_obj();
+        v80 = v121;
+        if (os_log_type_enabled(v79, v121))
         {
           *type = 136446210;
           *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
-          _os_log_impl(&dword_181A37000, v76, v77, "%{public}s called with null options", type, 0xCu);
+          _os_log_impl(&dword_181A37000, v79, v80, "%{public}s called with null options", type, 0xCu);
         }
 
 LABEL_204:
@@ -3342,123 +6158,124 @@ LABEL_204:
         goto LABEL_205;
       }
 
-      if (v116 != 1)
+      if (v120 != 1)
       {
-        v76 = __nwlog_obj();
-        v100 = v117;
-        if (os_log_type_enabled(v76, v117))
+        v79 = __nwlog_obj();
+        v103 = v121;
+        if (os_log_type_enabled(v79, v121))
         {
           *type = 136446210;
           *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
-          _os_log_impl(&dword_181A37000, v76, v100, "%{public}s called with null options, backtrace limit exceeded", type, 0xCu);
+          _os_log_impl(&dword_181A37000, v79, v103, "%{public}s called with null options, backtrace limit exceeded", type, 0xCu);
         }
 
         goto LABEL_204;
       }
 
-      v89 = __nw_create_backtrace_string();
-      v76 = __nwlog_obj();
-      v90 = v117;
-      v91 = os_log_type_enabled(v76, v117);
-      if (!v89)
+      v92 = __nw_create_backtrace_string();
+      v79 = __nwlog_obj();
+      v93 = v121;
+      v94 = os_log_type_enabled(v79, v121);
+      if (!v92)
       {
-        if (v91)
+        if (v94)
         {
           *type = 136446210;
           *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
-          _os_log_impl(&dword_181A37000, v76, v90, "%{public}s called with null options, no backtrace", type, 0xCu);
+          _os_log_impl(&dword_181A37000, v79, v93, "%{public}s called with null options, no backtrace", type, 0xCu);
         }
 
         goto LABEL_204;
       }
 
-      if (v91)
+      if (v94)
       {
         *type = 136446466;
         *&type[4] = "nw_http_messaging_options_get_early_data_enabled";
         *&type[12] = 2082;
-        *&type[14] = v89;
-        _os_log_impl(&dword_181A37000, v76, v90, "%{public}s called with null options, dumping backtrace:%{public}s", type, 0x16u);
+        *&type[14] = v92;
+        _os_log_impl(&dword_181A37000, v79, v93, "%{public}s called with null options, dumping backtrace:%{public}s", type, 0x16u);
       }
 
-      free(v89);
+      free(v92);
     }
 
 LABEL_205:
-    if (v75)
+    if (v78)
     {
-      free(v75);
+      free(v78);
     }
 
-    v105 = __nwlog_obj();
+    v108 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_messaging_options_copy_storage";
-    v106 = _os_log_send_and_compose_impl();
+    LODWORD(v117) = 12;
+    v109 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v108, 16, "%{public}s called with null options", buf, v117);
 
-    v117 = OS_LOG_TYPE_ERROR;
-    v116 = 0;
-    if (!__nwlog_fault(v106, &v117, &v116))
+    v121 = OS_LOG_TYPE_ERROR;
+    v120 = 0;
+    if (!__nwlog_fault(v109, &v121, &v120))
     {
       goto LABEL_223;
     }
 
-    if (v117 == OS_LOG_TYPE_FAULT)
+    if (v121 == OS_LOG_TYPE_FAULT)
     {
-      v107 = __nwlog_obj();
-      v108 = v117;
-      if (os_log_type_enabled(v107, v117))
+      v110 = __nwlog_obj();
+      v111 = v121;
+      if (os_log_type_enabled(v110, v121))
       {
         *buf = 136446210;
         *&buf[4] = "nw_http_messaging_options_copy_storage";
-        _os_log_impl(&dword_181A37000, v107, v108, "%{public}s called with null options", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v110, v111, "%{public}s called with null options", buf, 0xCu);
       }
     }
 
-    else if (v116 == 1)
+    else if (v120 == 1)
     {
-      v109 = __nw_create_backtrace_string();
-      v107 = __nwlog_obj();
-      v110 = v117;
-      v111 = os_log_type_enabled(v107, v117);
-      if (v109)
+      v112 = __nw_create_backtrace_string();
+      v110 = __nwlog_obj();
+      v113 = v121;
+      v114 = os_log_type_enabled(v110, v121);
+      if (v112)
       {
-        if (v111)
+        if (v114)
         {
           *buf = 136446466;
           *&buf[4] = "nw_http_messaging_options_copy_storage";
           *&buf[12] = 2082;
-          *&buf[14] = v109;
-          _os_log_impl(&dword_181A37000, v107, v110, "%{public}s called with null options, dumping backtrace:%{public}s", buf, 0x16u);
+          *&buf[14] = v112;
+          _os_log_impl(&dword_181A37000, v110, v113, "%{public}s called with null options, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
-        free(v109);
+        free(v112);
         goto LABEL_223;
       }
 
-      if (v111)
+      if (v114)
       {
         *buf = 136446210;
         *&buf[4] = "nw_http_messaging_options_copy_storage";
-        _os_log_impl(&dword_181A37000, v107, v110, "%{public}s called with null options, no backtrace", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v110, v113, "%{public}s called with null options, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
-      v107 = __nwlog_obj();
-      v112 = v117;
-      if (os_log_type_enabled(v107, v117))
+      v110 = __nwlog_obj();
+      v115 = v121;
+      if (os_log_type_enabled(v110, v121))
       {
         *buf = 136446210;
         *&buf[4] = "nw_http_messaging_options_copy_storage";
-        _os_log_impl(&dword_181A37000, v107, v112, "%{public}s called with null options, backtrace limit exceeded", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v110, v115, "%{public}s called with null options, backtrace limit exceeded", buf, 0xCu);
       }
     }
 
 LABEL_223:
-    if (v106)
+    if (v109)
     {
-      free(v106);
+      free(v109);
     }
 
     v45 = 0;
@@ -3469,7 +6286,7 @@ LABEL_56:
     if (v51)
     {
       v58 = *(handle + 20);
-      v52 = v115;
+      v52 = v119;
       if (v58)
       {
         os_release(v58);
@@ -3479,7 +6296,7 @@ LABEL_56:
 
     else
     {
-      v52 = v115;
+      v52 = v119;
     }
 
     *(handle + 20) = v50;
@@ -3505,7 +6322,7 @@ LABEL_56:
         {
 LABEL_93:
           os_release(v60);
-          v52 = v115;
+          v52 = v119;
 LABEL_106:
           result = nw_protocol_connect(a1->output_handler->flow_id, a1);
           v68 = result;
@@ -3539,10 +6356,11 @@ LABEL_106:
     networkd_settings_init();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_http_messaging_connect";
-    v61 = _os_log_send_and_compose_impl();
+    LODWORD(v116) = 12;
+    v61 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s Output handler has no options", buf, v116);
     type[0] = 16;
-    v117 = OS_LOG_TYPE_DEFAULT;
-    if (__nwlog_fault(v61, type, &v117))
+    v121 = OS_LOG_TYPE_DEFAULT;
+    if (__nwlog_fault(v61, type, &v121))
     {
       if (type[0] == 17)
       {
@@ -3559,7 +6377,7 @@ LABEL_106:
         goto LABEL_103;
       }
 
-      if (v117 != OS_LOG_TYPE_INFO)
+      if (v121 != OS_LOG_TYPE_INFO)
       {
         v62 = __nwlog_obj();
         v63 = type[0];
@@ -3604,7 +6422,7 @@ LABEL_103:
     }
 
 LABEL_104:
-    v52 = v115;
+    v52 = v119;
     if (v61)
     {
       free(v61);
@@ -3629,12 +6447,19 @@ LABEL_104:
     *&buf[12] = 2082;
     *&buf[14] = handle + 260;
     *&buf[22] = 2080;
-    v122 = " ";
+    v126 = " ";
     _os_log_impl(&dword_181A37000, v34, OS_LOG_TYPE_INFO, "%{public}s %{public}s%srestarting websocket to force h1", buf, 0x20u);
     return 0;
   }
 
   return result;
+}
+
+void sub_181EDDB38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t nw_http_messaging_options_is_websocket(void *a1)
@@ -3647,7 +6472,7 @@ uint64_t nw_http_messaging_options_is_websocket(void *a1)
     v7 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_messaging_options_is_websocket";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null options", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v17 = 0;
@@ -3749,9 +6574,9 @@ LABEL_25:
   return v6 & 1;
 }
 
-void sub_181EDDEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_181EDDEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3862,7 +6687,7 @@ uint64_t nw_endpoint_is_registered(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_endpoint_is_registered";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null endpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -3944,22 +6769,22 @@ uint64_t __nw_http_messaging_options_is_websocket_block_invoke(uint64_t a1, uint
   return 1;
 }
 
-void nw_protocol_error(void *a1, uint64_t a2)
+void nw_protocol_error(char *a1, uint64_t a2)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = a2;
     v3 = a1;
-    v4 = a1[5];
+    v4 = *(a1 + 5);
     v5 = a1;
-    if (v4 == &nw_protocol_ref_counted_handle || v4 == &nw_protocol_ref_counted_additional_handle && (v5 = a1[8]) != 0)
+    if (v4 == &nw_protocol_ref_counted_handle || v4 == &nw_protocol_ref_counted_additional_handle && (v5 = *(a1 + 8)) != 0)
     {
-      v11 = v5[11];
+      v11 = *(v5 + 11);
       if (v11)
       {
         v6 = 0;
-        v5[11] = v11 + 1;
+        *(v5 + 11) = v11 + 1;
         if (!a2)
         {
           goto LABEL_12;
@@ -3982,63 +6807,63 @@ void nw_protocol_error(void *a1, uint64_t a2)
       if (!a2)
       {
 LABEL_12:
-        __nwlog_obj();
+        v12 = __nwlog_obj();
         *buf = 136446210;
-        v48 = "__nw_protocol_error";
-        v2 = _os_log_send_and_compose_impl();
+        v51 = "__nw_protocol_error";
+        v2 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null other_protocol", buf, 12);
         type = OS_LOG_TYPE_ERROR;
-        v45 = 0;
-        if (!__nwlog_fault(v2, &type, &v45))
+        v48 = 0;
+        if (!__nwlog_fault(v2, &type, &v48))
         {
           goto LABEL_104;
         }
 
         if (type == OS_LOG_TYPE_FAULT)
         {
-          v12 = __nwlog_obj();
-          v13 = type;
-          if (!os_log_type_enabled(v12, type))
+          v13 = __nwlog_obj();
+          v14 = type;
+          if (!os_log_type_enabled(v13, type))
           {
             goto LABEL_104;
           }
 
           *buf = 136446210;
-          v48 = "__nw_protocol_error";
-          v14 = "%{public}s called with null other_protocol";
+          v51 = "__nw_protocol_error";
+          v15 = "%{public}s called with null other_protocol";
           goto LABEL_103;
         }
 
-        if (v45 != 1)
+        if (v48 != 1)
         {
-          v12 = __nwlog_obj();
-          v13 = type;
-          if (!os_log_type_enabled(v12, type))
+          v13 = __nwlog_obj();
+          v14 = type;
+          if (!os_log_type_enabled(v13, type))
           {
             goto LABEL_104;
           }
 
           *buf = 136446210;
-          v48 = "__nw_protocol_error";
-          v14 = "%{public}s called with null other_protocol, backtrace limit exceeded";
+          v51 = "__nw_protocol_error";
+          v15 = "%{public}s called with null other_protocol, backtrace limit exceeded";
           goto LABEL_103;
         }
 
         backtrace_string = __nw_create_backtrace_string();
-        v12 = __nwlog_obj();
-        v13 = type;
-        v42 = os_log_type_enabled(v12, type);
+        v13 = __nwlog_obj();
+        v14 = type;
+        v45 = os_log_type_enabled(v13, type);
         if (!backtrace_string)
         {
-          if (!v42)
+          if (!v45)
           {
             goto LABEL_104;
           }
 
           *buf = 136446210;
-          v48 = "__nw_protocol_error";
-          v14 = "%{public}s called with null other_protocol, no backtrace";
+          v51 = "__nw_protocol_error";
+          v15 = "%{public}s called with null other_protocol, no backtrace";
 LABEL_103:
-          _os_log_impl(&dword_181A37000, v12, v13, v14, buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v13, v14, v15, buf, 0xCu);
 LABEL_104:
           if (!v2)
           {
@@ -4050,13 +6875,13 @@ LABEL_36:
           goto LABEL_37;
         }
 
-        if (v42)
+        if (v45)
         {
           *buf = 136446466;
-          v48 = "__nw_protocol_error";
-          v49 = 2082;
-          v50 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v12, v13, "%{public}s called with null other_protocol, dumping backtrace:%{public}s", buf, 0x16u);
+          v51 = "__nw_protocol_error";
+          v52 = 2082;
+          v53 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v13, v14, "%{public}s called with null other_protocol, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
@@ -4068,30 +6893,30 @@ LABEL_36:
 LABEL_37:
         if ((v6 & 1) == 0)
         {
-          v22 = *(v3 + 40);
-          if (v22 == &nw_protocol_ref_counted_handle || v22 == &nw_protocol_ref_counted_additional_handle && (v3 = *(v3 + 64)) != 0)
+          v23 = *(v3 + 5);
+          if (v23 == &nw_protocol_ref_counted_handle || v23 == &nw_protocol_ref_counted_additional_handle && (v3 = *(v3 + 8)) != 0)
           {
-            v23 = *(v3 + 88);
-            if (v23)
+            v24 = *(v3 + 11);
+            if (v24)
             {
-              v24 = v23 - 1;
-              *(v3 + 88) = v24;
-              if (!v24)
+              v25 = v24 - 1;
+              *(v3 + 11) = v25;
+              if (!v25)
               {
-                v25 = *(v3 + 64);
-                if (v25)
+                v26 = *(v3 + 8);
+                if (v26)
                 {
-                  *(v3 + 64) = 0;
-                  v25[2](v25);
-                  _Block_release(v25);
+                  *(v3 + 8) = 0;
+                  v26[2](v26);
+                  _Block_release(v26);
                 }
 
-                if (*(v3 + 72))
+                if (v3[72])
                 {
-                  v26 = *(v3 + 64);
-                  if (v26)
+                  v27 = *(v3 + 8);
+                  if (v27)
                   {
-                    _Block_release(v26);
+                    _Block_release(v27);
                   }
                 }
 
@@ -4109,12 +6934,12 @@ LABEL_37:
     v8 = a2;
     if (v7 == &nw_protocol_ref_counted_handle || v7 == &nw_protocol_ref_counted_additional_handle && (v8 = *(a2 + 64)) != 0)
     {
-      v15 = *(v8 + 88);
-      if (v15)
+      v16 = *(v8 + 88);
+      if (v16)
       {
         v9 = 0;
-        *(v8 + 88) = v15 + 1;
-        v10 = a1[3];
+        *(v8 + 88) = v16 + 1;
+        v10 = *(a1 + 3);
         if (!v10)
         {
           goto LABEL_50;
@@ -4124,7 +6949,7 @@ LABEL_37:
       else
       {
         v9 = 0;
-        v10 = a1[3];
+        v10 = *(a1 + 3);
         if (!v10)
         {
           goto LABEL_50;
@@ -4135,132 +6960,132 @@ LABEL_37:
     else
     {
       v9 = 1;
-      v10 = a1[3];
+      v10 = *(a1 + 3);
       if (!v10)
       {
         goto LABEL_50;
       }
     }
 
-    v16 = *(v10 + 56);
-    if (v16)
+    v17 = *(v10 + 56);
+    if (v17)
     {
-      v16(a1, a2);
+      v17(a1, a2);
       goto LABEL_25;
     }
 
 LABEL_50:
-    __nwlog_obj();
-    v27 = *(v3 + 16);
+    v28 = __nwlog_obj();
+    v29 = *(v3 + 2);
     *buf = 136446722;
-    v48 = "__nw_protocol_error";
-    if (!v27)
+    v51 = "__nw_protocol_error";
+    if (!v29)
     {
-      v27 = "invalid";
+      v29 = "invalid";
     }
 
-    v49 = 2082;
-    v50 = v27;
-    v51 = 2048;
-    v52 = v3;
-    v28 = _os_log_send_and_compose_impl();
+    v52 = 2082;
+    v53 = v29;
+    v54 = 2048;
+    v55 = v3;
+    v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s protocol %{public}s (%p) has invalid error callback", buf, 32);
     type = OS_LOG_TYPE_ERROR;
-    v45 = 0;
-    if (!__nwlog_fault(v28, &type, &v45))
+    v48 = 0;
+    if (!__nwlog_fault(v30, &type, &v48))
     {
       goto LABEL_94;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v29 = __nwlog_obj();
-      v30 = type;
-      if (!os_log_type_enabled(v29, type))
+      v31 = __nwlog_obj();
+      v32 = type;
+      if (!os_log_type_enabled(v31, type))
       {
         goto LABEL_94;
       }
 
-      v31 = *(v3 + 16);
-      if (!v31)
+      v33 = *(v3 + 2);
+      if (!v33)
       {
-        v31 = "invalid";
+        v33 = "invalid";
       }
 
       *buf = 136446722;
-      v48 = "__nw_protocol_error";
-      v49 = 2082;
-      v50 = v31;
-      v51 = 2048;
-      v52 = v3;
-      v32 = "%{public}s protocol %{public}s (%p) has invalid error callback";
+      v51 = "__nw_protocol_error";
+      v52 = 2082;
+      v53 = v33;
+      v54 = 2048;
+      v55 = v3;
+      v34 = "%{public}s protocol %{public}s (%p) has invalid error callback";
     }
 
-    else if (v45 == 1)
+    else if (v48 == 1)
     {
-      v36 = __nw_create_backtrace_string();
-      v29 = __nwlog_obj();
-      v30 = type;
-      v37 = os_log_type_enabled(v29, type);
-      if (v36)
+      v39 = __nw_create_backtrace_string();
+      v31 = __nwlog_obj();
+      v32 = type;
+      v40 = os_log_type_enabled(v31, type);
+      if (v39)
       {
-        if (v37)
+        if (v40)
         {
-          v38 = *(v3 + 16);
-          if (!v38)
+          v41 = *(v3 + 2);
+          if (!v41)
           {
-            v38 = "invalid";
+            v41 = "invalid";
           }
 
           *buf = 136446978;
-          v48 = "__nw_protocol_error";
-          v49 = 2082;
-          v50 = v38;
-          v51 = 2048;
-          v52 = v3;
-          v53 = 2082;
-          v54 = v36;
-          _os_log_impl(&dword_181A37000, v29, v30, "%{public}s protocol %{public}s (%p) has invalid error callback, dumping backtrace:%{public}s", buf, 0x2Au);
+          v51 = "__nw_protocol_error";
+          v52 = 2082;
+          v53 = v41;
+          v54 = 2048;
+          v55 = v3;
+          v56 = 2082;
+          v57 = v39;
+          _os_log_impl(&dword_181A37000, v31, v32, "%{public}s protocol %{public}s (%p) has invalid error callback, dumping backtrace:%{public}s", buf, 0x2Au);
         }
 
-        free(v36);
+        free(v39);
         goto LABEL_94;
       }
 
-      if (!v37)
+      if (!v40)
       {
 LABEL_94:
-        if (v28)
+        if (v30)
         {
-          free(v28);
+          free(v30);
         }
 
 LABEL_25:
         if ((v9 & 1) == 0)
         {
-          v17 = *(v2 + 40);
-          if (v17 == &nw_protocol_ref_counted_handle || v17 == &nw_protocol_ref_counted_additional_handle && (v2 = *(v2 + 64)) != 0)
+          v18 = *(v2 + 40);
+          if (v18 == &nw_protocol_ref_counted_handle || v18 == &nw_protocol_ref_counted_additional_handle && (v2 = *(v2 + 64)) != 0)
           {
-            v18 = *(v2 + 88);
-            if (v18)
+            v19 = *(v2 + 88);
+            if (v19)
             {
-              v19 = v18 - 1;
-              *(v2 + 88) = v19;
-              if (!v19)
+              v20 = v19 - 1;
+              *(v2 + 88) = v20;
+              if (!v20)
               {
-                v20 = *(v2 + 64);
-                if (v20)
+                v21 = *(v2 + 64);
+                if (v21)
                 {
                   *(v2 + 64) = 0;
-                  v20[2](v20);
-                  _Block_release(v20);
+                  v21[2](v21);
+                  _Block_release(v21);
                 }
 
                 if (*(v2 + 72))
                 {
-                  v21 = *(v2 + 64);
-                  if (v21)
+                  v22 = *(v2 + 64);
+                  if (v22)
                   {
-                    _Block_release(v21);
+                    _Block_release(v22);
                   }
                 }
 
@@ -4273,89 +7098,89 @@ LABEL_25:
         goto LABEL_37;
       }
 
-      v44 = *(v3 + 16);
-      if (!v44)
+      v47 = *(v3 + 2);
+      if (!v47)
       {
-        v44 = "invalid";
+        v47 = "invalid";
       }
 
       *buf = 136446722;
-      v48 = "__nw_protocol_error";
-      v49 = 2082;
-      v50 = v44;
-      v51 = 2048;
-      v52 = v3;
-      v32 = "%{public}s protocol %{public}s (%p) has invalid error callback, no backtrace";
+      v51 = "__nw_protocol_error";
+      v52 = 2082;
+      v53 = v47;
+      v54 = 2048;
+      v55 = v3;
+      v34 = "%{public}s protocol %{public}s (%p) has invalid error callback, no backtrace";
     }
 
     else
     {
-      v29 = __nwlog_obj();
-      v30 = type;
-      if (!os_log_type_enabled(v29, type))
+      v31 = __nwlog_obj();
+      v32 = type;
+      if (!os_log_type_enabled(v31, type))
       {
         goto LABEL_94;
       }
 
-      v43 = *(v3 + 16);
-      if (!v43)
+      v46 = *(v3 + 2);
+      if (!v46)
       {
-        v43 = "invalid";
+        v46 = "invalid";
       }
 
       *buf = 136446722;
-      v48 = "__nw_protocol_error";
-      v49 = 2082;
-      v50 = v43;
-      v51 = 2048;
-      v52 = v3;
-      v32 = "%{public}s protocol %{public}s (%p) has invalid error callback, backtrace limit exceeded";
+      v51 = "__nw_protocol_error";
+      v52 = 2082;
+      v53 = v46;
+      v54 = 2048;
+      v55 = v3;
+      v34 = "%{public}s protocol %{public}s (%p) has invalid error callback, backtrace limit exceeded";
     }
 
-    _os_log_impl(&dword_181A37000, v29, v30, v32, buf, 0x20u);
+    _os_log_impl(&dword_181A37000, v31, v32, v34, buf, 0x20u);
     goto LABEL_94;
   }
 
-  __nwlog_obj();
+  v35 = __nwlog_obj();
   *buf = 136446210;
-  v48 = "__nw_protocol_error";
-  v3 = _os_log_send_and_compose_impl();
+  v51 = "__nw_protocol_error";
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v35, 16, "%{public}s called with null protocol", buf, 12);
   type = OS_LOG_TYPE_ERROR;
-  v45 = 0;
-  if (__nwlog_fault(v3, &type, &v45))
+  v48 = 0;
+  if (__nwlog_fault(v3, &type, &v48))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v33 = __nwlog_obj();
-      v34 = type;
-      if (!os_log_type_enabled(v33, type))
+      v36 = __nwlog_obj();
+      v37 = type;
+      if (!os_log_type_enabled(v36, type))
       {
         goto LABEL_99;
       }
 
       *buf = 136446210;
-      v48 = "__nw_protocol_error";
-      v35 = "%{public}s called with null protocol";
+      v51 = "__nw_protocol_error";
+      v38 = "%{public}s called with null protocol";
     }
 
-    else if (v45 == 1)
+    else if (v48 == 1)
     {
-      v39 = __nw_create_backtrace_string();
-      v33 = __nwlog_obj();
-      v34 = type;
-      v40 = os_log_type_enabled(v33, type);
-      if (v39)
+      v42 = __nw_create_backtrace_string();
+      v36 = __nwlog_obj();
+      v37 = type;
+      v43 = os_log_type_enabled(v36, type);
+      if (v42)
       {
-        if (v40)
+        if (v43)
         {
           *buf = 136446466;
-          v48 = "__nw_protocol_error";
-          v49 = 2082;
-          v50 = v39;
-          _os_log_impl(&dword_181A37000, v33, v34, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
+          v51 = "__nw_protocol_error";
+          v52 = 2082;
+          v53 = v42;
+          _os_log_impl(&dword_181A37000, v36, v37, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
-        free(v39);
+        free(v42);
         if (v3)
         {
           goto LABEL_48;
@@ -4364,31 +7189,31 @@ LABEL_25:
         return;
       }
 
-      if (!v40)
+      if (!v43)
       {
         goto LABEL_99;
       }
 
       *buf = 136446210;
-      v48 = "__nw_protocol_error";
-      v35 = "%{public}s called with null protocol, no backtrace";
+      v51 = "__nw_protocol_error";
+      v38 = "%{public}s called with null protocol, no backtrace";
     }
 
     else
     {
-      v33 = __nwlog_obj();
-      v34 = type;
-      if (!os_log_type_enabled(v33, type))
+      v36 = __nwlog_obj();
+      v37 = type;
+      if (!os_log_type_enabled(v36, type))
       {
         goto LABEL_99;
       }
 
       *buf = 136446210;
-      v48 = "__nw_protocol_error";
-      v35 = "%{public}s called with null protocol, backtrace limit exceeded";
+      v51 = "__nw_protocol_error";
+      v38 = "%{public}s called with null protocol, backtrace limit exceeded";
     }
 
-    _os_log_impl(&dword_181A37000, v33, v34, v35, buf, 0xCu);
+    _os_log_impl(&dword_181A37000, v36, v37, v38, buf, 0xCu);
   }
 
 LABEL_99:
@@ -4399,7 +7224,7 @@ LABEL_48:
   }
 }
 
-void nw_flow_error(nw_protocol *a1, nw_protocol *a2, unsigned int a3)
+void nw_flow_error(nw_protocol *a1, nw_protocol *a2, uint64_t a3)
 {
   v5 = a1;
   v126 = *MEMORY[0x1E69E9840];
@@ -4411,7 +7236,7 @@ void nw_flow_error(nw_protocol *a1, nw_protocol *a2, unsigned int a3)
     v68 = __nwlog_obj();
     *buf = 136446210;
     v109 = "nw_flow_error";
-    v69 = _os_log_send_and_compose_impl();
+    v69 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v68, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v106 = 0;
@@ -4493,9 +7318,9 @@ LABEL_116:
         dns_error = nw_error_create_dns_error(a3);
       }
 
-      else if (a3 + 9899 > 0x63)
+      else if ((a3 + 9899) > 0x63)
       {
-        if (a3 + 11999 > 0x1F3)
+        if ((a3 + 11999) > 0x1F3)
         {
           dns_error = nw_error_create_posix_error(a3);
         }
@@ -4974,7 +7799,7 @@ LABEL_86:
 
 void nw_protocol_default_error(nw_protocol *a1, nw_protocol *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     default_input_handler = a1->default_input_handler;
@@ -4995,77 +7820,77 @@ void nw_protocol_default_error(nw_protocol *a1, nw_protocol *a2)
     return;
   }
 
-  __nwlog_obj();
+  v5 = __nwlog_obj();
   *buf = 136446210;
-  v14 = "nw_protocol_default_error";
-  v5 = _os_log_send_and_compose_impl();
+  v15 = "nw_protocol_default_error";
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null protocol", buf, 12);
   type = OS_LOG_TYPE_ERROR;
-  v11 = 0;
-  if (__nwlog_fault(v5, &type, &v11))
+  v12 = 0;
+  if (__nwlog_fault(v6, &type, &v12))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v6 = __nwlog_obj();
-      v7 = type;
-      if (!os_log_type_enabled(v6, type))
+      v7 = __nwlog_obj();
+      v8 = type;
+      if (!os_log_type_enabled(v7, type))
       {
         goto LABEL_22;
       }
 
       *buf = 136446210;
-      v14 = "nw_protocol_default_error";
-      v8 = "%{public}s called with null protocol";
+      v15 = "nw_protocol_default_error";
+      v9 = "%{public}s called with null protocol";
       goto LABEL_21;
     }
 
-    if (v11 != 1)
+    if (v12 != 1)
     {
-      v6 = __nwlog_obj();
-      v7 = type;
-      if (!os_log_type_enabled(v6, type))
+      v7 = __nwlog_obj();
+      v8 = type;
+      if (!os_log_type_enabled(v7, type))
       {
         goto LABEL_22;
       }
 
       *buf = 136446210;
-      v14 = "nw_protocol_default_error";
-      v8 = "%{public}s called with null protocol, backtrace limit exceeded";
+      v15 = "nw_protocol_default_error";
+      v9 = "%{public}s called with null protocol, backtrace limit exceeded";
       goto LABEL_21;
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v6 = __nwlog_obj();
-    v7 = type;
-    v10 = os_log_type_enabled(v6, type);
+    v7 = __nwlog_obj();
+    v8 = type;
+    v11 = os_log_type_enabled(v7, type);
     if (backtrace_string)
     {
-      if (v10)
+      if (v11)
       {
         *buf = 136446466;
-        v14 = "nw_protocol_default_error";
-        v15 = 2082;
-        v16 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
+        v15 = "nw_protocol_default_error";
+        v16 = 2082;
+        v17 = backtrace_string;
+        _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
       free(backtrace_string);
       goto LABEL_22;
     }
 
-    if (v10)
+    if (v11)
     {
       *buf = 136446210;
-      v14 = "nw_protocol_default_error";
-      v8 = "%{public}s called with null protocol, no backtrace";
+      v15 = "nw_protocol_default_error";
+      v9 = "%{public}s called with null protocol, no backtrace";
 LABEL_21:
-      _os_log_impl(&dword_181A37000, v6, v7, v8, buf, 0xCu);
+      _os_log_impl(&dword_181A37000, v7, v8, v9, buf, 0xCu);
     }
   }
 
 LABEL_22:
-  if (v5)
+  if (v6)
   {
-    free(v5);
+    free(v6);
   }
 }
 
@@ -5075,8 +7900,8 @@ uint64_t ___ZL28nw_protocol_purge_frame_poolP31NWConcrete_nw_protocol_instance_b
   v3 = a2;
   v4 = v3;
   v5 = (*(a1 + 32) + 176);
-  v6 = *(v3 + 2);
-  v7 = *(v3 + 3);
+  v6 = v3[2];
+  v7 = v3[3];
   if (v6)
   {
     v5 = (v6 + 24);
@@ -5084,8 +7909,8 @@ uint64_t ___ZL28nw_protocol_purge_frame_poolP31NWConcrete_nw_protocol_instance_b
 
   *v5 = v7;
   *v7 = v6;
-  *(v3 + 2) = 0;
-  *(v3 + 3) = 0;
+  v3[2] = 0;
+  v3[3] = 0;
   v8 = *(a1 + 32);
   v9 = *(v8 + 160);
   *(v8 + 160) = v9 - 1;
@@ -5130,7 +7955,7 @@ uint64_t ___ZL35nw_protocol_implementation_teardownP31NWConcrete_nw_protocol_ins
   v17 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "__nw_protocol_get_output_handler";
-  v18 = _os_log_send_and_compose_impl();
+  v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null protocol", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   v26 = 0;
@@ -5298,7 +8123,7 @@ void nw_protocol_instance_tear_down_path(void *a1, uint64_t a2)
     v7 = __nwlog_obj();
     *buf = 136446210;
     v27 = "nw_protocol_instance_tear_down_path";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -5410,7 +8235,7 @@ LABEL_42:
   v11 = __nwlog_obj();
   *buf = 136446210;
   v27 = "nw_protocol_instance_tear_down_path";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null path", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -5591,7 +8416,7 @@ LABEL_17:
   }
 
   v5 = node;
-  nw_protocol_instance_tear_down_path_inner(*(a1 + 32), node + 32);
+  nw_protocol_instance_tear_down_path_inner(*(a1 + 32), (node + 4));
   if ((*(v5 + 176) | 2) == 3)
   {
     *(v5 + 176) = 2;
@@ -5645,18 +8470,18 @@ LABEL_17:
 
 void nw_protocol_instance_tear_down_path_inner(void *a1, uint64_t a2)
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v3 = a1;
   if (!v3)
   {
     v44 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_protocol_instance_tear_down_path_inner";
-    v45 = _os_log_send_and_compose_impl();
+    v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v44, 16, "%{public}s called with null instance", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v76) = 0;
-    if (!__nwlog_fault(v45, type, &v76))
+    LOBYTE(v77) = 0;
+    if (!__nwlog_fault(v45, type, &v77))
     {
       goto LABEL_127;
     }
@@ -5673,7 +8498,7 @@ void nw_protocol_instance_tear_down_path_inner(void *a1, uint64_t a2)
       }
     }
 
-    else if (v76 == 1)
+    else if (v77 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
       v46 = __nwlog_obj();
@@ -5746,14 +8571,14 @@ LABEL_126:
       *(v4 + 40) = type;
       v5 = *(a2 + 128);
       *type = v4;
-      v79 = v5;
+      v80 = v5;
       *(a2 + 120) = 0;
       *(a2 + 128) = a2 + 120;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 0x40000000;
       *&buf[16] = ___ZL25__nw_frame_array_finalizeP16nw_frame_array_sbb_block_invoke;
-      v81 = &__block_descriptor_tmp_21_49595;
-      LOBYTE(v82) = 0;
+      v82 = &__block_descriptor_tmp_21_49595;
+      LOBYTE(v83) = 0;
       do
       {
         v6 = *type;
@@ -5767,7 +8592,7 @@ LABEL_126:
         v9 = (v7 + 40);
         if (!v7)
         {
-          v9 = &v79;
+          v9 = &v80;
         }
 
         *v9 = v8;
@@ -5819,7 +8644,7 @@ LABEL_126:
     LOBYTE(v12) = -1;
 LABEL_19:
     *type = v10;
-    LOBYTE(v79) = v12;
+    LOBYTE(v80) = v12;
     v15 = *(v3 - 7);
     v16 = (v3 - 12);
     if (v15 == &nw_protocol_ref_counted_handle || v15 == &nw_protocol_ref_counted_additional_handle && (v16 = *(v3 - 4)) != 0)
@@ -5840,8 +8665,8 @@ LABEL_19:
       v18 = 1;
     }
 
-    v76 = (v3 - 12);
-    v77 = v17;
+    v77 = (v3 - 12);
+    v78 = v17;
     v20 = *(v10 + 3);
     if (v20)
     {
@@ -5879,12 +8704,13 @@ LABEL_30:
             *&buf[12] = 2082;
             *&buf[14] = v3 + 415;
             *&buf[22] = 2080;
-            v81 = " ";
-            v24 = _os_log_send_and_compose_impl();
+            v82 = " ";
+            LODWORD(v74) = 32;
+            v24 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v23, 16, "%{public}s %{public}s%sUnable to remove output handler", buf, v74);
 
             type[0] = OS_LOG_TYPE_ERROR;
-            LOBYTE(v76) = 0;
-            if (__nwlog_fault(v24, type, &v76))
+            LOBYTE(v77) = 0;
+            if (__nwlog_fault(v24, type, &v77))
             {
               if (type[0] == OS_LOG_TYPE_FAULT)
               {
@@ -5899,12 +8725,12 @@ LABEL_30:
                   *&buf[12] = 2082;
                   *&buf[14] = v3 + 415;
                   *&buf[22] = 2080;
-                  v81 = " ";
+                  v82 = " ";
                   _os_log_impl(&dword_181A37000, v25, v26, "%{public}s %{public}s%sUnable to remove output handler", buf, 0x20u);
                 }
               }
 
-              else if (v76 == 1)
+              else if (v77 == 1)
               {
                 v27 = __nw_create_backtrace_string();
                 if (v27)
@@ -5921,9 +8747,9 @@ LABEL_30:
                     *&buf[12] = 2082;
                     *&buf[14] = v3 + 415;
                     *&buf[22] = 2080;
-                    v81 = " ";
-                    v82 = 2082;
-                    v83 = v28;
+                    v82 = " ";
+                    v83 = 2082;
+                    v84 = v28;
                     _os_log_impl(&dword_181A37000, v29, v30, "%{public}s %{public}s%sUnable to remove output handler, dumping backtrace:%{public}s", buf, 0x2Au);
                   }
 
@@ -5945,7 +8771,7 @@ LABEL_30:
                   *&buf[12] = 2082;
                   *&buf[14] = v3 + 415;
                   *&buf[22] = 2080;
-                  v81 = " ";
+                  v82 = " ";
                   _os_log_impl(&dword_181A37000, v25, v32, "%{public}s %{public}s%sUnable to remove output handler, no backtrace", buf, 0x20u);
                 }
               }
@@ -5963,7 +8789,7 @@ LABEL_30:
                   *&buf[12] = 2082;
                   *&buf[14] = v3 + 415;
                   *&buf[22] = 2080;
-                  v81 = " ";
+                  v82 = " ";
                   _os_log_impl(&dword_181A37000, v25, v31, "%{public}s %{public}s%sUnable to remove output handler, backtrace limit exceeded", buf, 0x20u);
                 }
               }
@@ -6002,9 +8828,9 @@ LABEL_58:
                 *&buf[12] = 2082;
                 *&buf[14] = v3 + 415;
                 *&buf[22] = 2080;
-                v81 = " ";
-                v82 = 2112;
-                v83 = v34;
+                v82 = " ";
+                v83 = 2112;
+                v84 = v34;
                 _os_log_impl(&dword_181A37000, v35, OS_LOG_TYPE_INFO, "%{public}s %{public}s%sRemoving interface option %@", buf, 0x2Au);
               }
             }
@@ -6042,7 +8868,7 @@ LABEL_58:
         }
 
 LABEL_29:
-        nw::release_if_needed<nw_protocol *>(&v76);
+        nw::release_if_needed<nw_protocol *>(&v77);
         goto LABEL_30;
       }
     }
@@ -6061,18 +8887,18 @@ LABEL_29:
     *&buf[14] = v53;
     *&buf[22] = 2048;
     v54 = v51;
-    v81 = v51;
-    v55 = _os_log_send_and_compose_impl();
+    v82 = v51;
+    v55 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v52, 16, "%{public}s protocol %{public}s (%p) has invalid remove_input_handler callback", buf, 32);
 
-    v75 = OS_LOG_TYPE_ERROR;
-    v74 = 0;
-    if (__nwlog_fault(v55, &v75, &v74))
+    v76 = OS_LOG_TYPE_ERROR;
+    v75 = 0;
+    if (__nwlog_fault(v55, &v76, &v75))
     {
-      if (v75 == OS_LOG_TYPE_FAULT)
+      if (v76 == OS_LOG_TYPE_FAULT)
       {
         v56 = __nwlog_obj();
-        v57 = v75;
-        if (os_log_type_enabled(v56, v75))
+        v57 = v76;
+        if (os_log_type_enabled(v56, v76))
         {
           v58 = *(v54 + 2);
           if (!v58)
@@ -6085,7 +8911,7 @@ LABEL_29:
           *&buf[12] = 2082;
           *&buf[14] = v58;
           *&buf[22] = 2048;
-          v81 = v54;
+          v82 = v54;
           _os_log_impl(&dword_181A37000, v56, v57, "%{public}s protocol %{public}s (%p) has invalid remove_input_handler callback", buf, 0x20u);
         }
 
@@ -6094,11 +8920,11 @@ LABEL_133:
         goto LABEL_134;
       }
 
-      if (v74 != 1)
+      if (v75 != 1)
       {
         v56 = __nwlog_obj();
-        v71 = v75;
-        if (os_log_type_enabled(v56, v75))
+        v71 = v76;
+        if (os_log_type_enabled(v56, v76))
         {
           v72 = *(v54 + 2);
           if (!v72)
@@ -6111,7 +8937,7 @@ LABEL_133:
           *&buf[12] = 2082;
           *&buf[14] = v72;
           *&buf[22] = 2048;
-          v81 = v54;
+          v82 = v54;
           _os_log_impl(&dword_181A37000, v56, v71, "%{public}s protocol %{public}s (%p) has invalid remove_input_handler callback, backtrace limit exceeded", buf, 0x20u);
         }
 
@@ -6120,8 +8946,8 @@ LABEL_133:
 
       v65 = __nw_create_backtrace_string();
       v56 = __nwlog_obj();
-      v66 = v75;
-      v67 = os_log_type_enabled(v56, v75);
+      v66 = v76;
+      v67 = os_log_type_enabled(v56, v76);
       if (!v65)
       {
         if (v67)
@@ -6137,7 +8963,7 @@ LABEL_133:
           *&buf[12] = 2082;
           *&buf[14] = v73;
           *&buf[22] = 2048;
-          v81 = v54;
+          v82 = v54;
           _os_log_impl(&dword_181A37000, v56, v66, "%{public}s protocol %{public}s (%p) has invalid remove_input_handler callback, no backtrace", buf, 0x20u);
         }
 
@@ -6157,9 +8983,9 @@ LABEL_133:
         *&buf[12] = 2082;
         *&buf[14] = v68;
         *&buf[22] = 2048;
-        v81 = v54;
-        v82 = 2082;
-        v83 = v65;
+        v82 = v54;
+        v83 = 2082;
+        v84 = v65;
         _os_log_impl(&dword_181A37000, v56, v66, "%{public}s protocol %{public}s (%p) has invalid remove_input_handler callback, dumping backtrace:%{public}s", buf, 0x2Au);
       }
 
@@ -6184,11 +9010,11 @@ LABEL_134:
   v48 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_protocol_instance_tear_down_path_inner";
-  v45 = _os_log_send_and_compose_impl();
+  v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v48, 16, "%{public}s called with null path_state", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
-  LOBYTE(v76) = 0;
-  if (!__nwlog_fault(v45, type, &v76))
+  LOBYTE(v77) = 0;
+  if (!__nwlog_fault(v45, type, &v77))
   {
     goto LABEL_127;
   }
@@ -6207,7 +9033,7 @@ LABEL_134:
     goto LABEL_126;
   }
 
-  if (v76 != 1)
+  if (v77 != 1)
   {
     v46 = __nwlog_obj();
     v70 = type[0];
@@ -6265,7 +9091,7 @@ void nw_protocol_path_state_dispose(void *a1, uint64_t a2)
     v10 = __nwlog_obj();
     *buf = 136446210;
     v27 = "nw_protocol_path_state_dispose";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null instance", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -6372,7 +9198,7 @@ LABEL_39:
   v14 = __nwlog_obj();
   *buf = 136446210;
   v27 = "nw_protocol_path_state_dispose";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null path_state", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -6445,7 +9271,7 @@ LABEL_6:
 
 uint64_t nw_connection_read_buffer(void *a1, char *a2, unint64_t a3, unint64_t a4, void *a5)
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   v10 = a1;
   v11 = a5;
   v12 = v11;
@@ -6453,34 +9279,34 @@ uint64_t nw_connection_read_buffer(void *a1, char *a2, unint64_t a3, unint64_t a
   {
     if (v11)
     {
-      *v90 = 0;
-      v91 = v90;
-      v92 = 0x2020000000;
-      v93 = 1;
-      v87[0] = MEMORY[0x1E69E9820];
-      v87[1] = 3221225472;
-      v87[2] = __nw_connection_read_buffer_block_invoke;
-      v87[3] = &unk_1E6A3D738;
-      v89 = v90;
+      *v91 = 0;
+      v92 = v91;
+      v93 = 0x2020000000;
+      v94 = 1;
+      v88[0] = MEMORY[0x1E69E9820];
+      v88[1] = 3221225472;
+      v88[2] = __nw_connection_read_buffer_block_invoke;
+      v88[3] = &unk_1E6A3D738;
+      v90 = v91;
       v13 = v10;
-      v88 = v13;
+      v89 = v13;
       os_unfair_lock_lock(v10 + 34);
-      __nw_connection_read_buffer_block_invoke(v87);
+      __nw_connection_read_buffer_block_invoke(v88);
       os_unfair_lock_unlock(v10 + 34);
-      if (v91[24])
+      if (v92[24])
       {
-        v86 = v13;
+        v87 = v13;
         v14 = v12;
         if (!a2)
         {
           v76 = __nwlog_obj();
           *buf = 136446210;
-          v97 = "nw_read_request_create_with_buffer";
-          v17 = _os_log_send_and_compose_impl();
+          v98 = "nw_read_request_create_with_buffer";
+          v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v76, 16, "%{public}s called with null buffer", buf, 12);
 
           type = OS_LOG_TYPE_ERROR;
-          v94 = 0;
-          if (__nwlog_fault(v17, &type, &v94))
+          v95 = 0;
+          if (__nwlog_fault(v17, &type, &v95))
           {
             if (type == OS_LOG_TYPE_FAULT)
             {
@@ -6489,21 +9315,21 @@ uint64_t nw_connection_read_buffer(void *a1, char *a2, unint64_t a3, unint64_t a
               if (os_log_type_enabled(v18, type))
               {
                 *buf = 136446210;
-                v97 = "nw_read_request_create_with_buffer";
+                v98 = "nw_read_request_create_with_buffer";
                 _os_log_impl(&dword_181A37000, v18, v77, "%{public}s called with null buffer", buf, 0xCu);
               }
 
               goto LABEL_75;
             }
 
-            if (v94 != 1)
+            if (v95 != 1)
             {
               v18 = __nwlog_obj();
               v85 = type;
               if (os_log_type_enabled(v18, type))
               {
                 *buf = 136446210;
-                v97 = "nw_read_request_create_with_buffer";
+                v98 = "nw_read_request_create_with_buffer";
                 _os_log_impl(&dword_181A37000, v18, v85, "%{public}s called with null buffer, backtrace limit exceeded", buf, 0xCu);
               }
 
@@ -6519,7 +9345,7 @@ uint64_t nw_connection_read_buffer(void *a1, char *a2, unint64_t a3, unint64_t a
               if (v84)
               {
                 *buf = 136446210;
-                v97 = "nw_read_request_create_with_buffer";
+                v98 = "nw_read_request_create_with_buffer";
                 _os_log_impl(&dword_181A37000, v18, v83, "%{public}s called with null buffer, no backtrace", buf, 0xCu);
               }
 
@@ -6529,9 +9355,9 @@ uint64_t nw_connection_read_buffer(void *a1, char *a2, unint64_t a3, unint64_t a
             if (v84)
             {
               *buf = 136446466;
-              v97 = "nw_read_request_create_with_buffer";
-              v98 = 2082;
-              *v99 = backtrace_string;
+              v98 = "nw_read_request_create_with_buffer";
+              v99 = 2082;
+              *v100 = backtrace_string;
               _os_log_impl(&dword_181A37000, v18, v83, "%{public}s called with null buffer, dumping backtrace:%{public}s", buf, 0x16u);
             }
 
@@ -6563,16 +9389,16 @@ LABEL_76:
           networkd_settings_init();
           v16 = gLogObj;
           *buf = 136446722;
-          v97 = "nw_read_request_create_with_buffer";
-          v98 = 2048;
-          *v99 = v15;
-          *&v99[8] = 2048;
-          *&v99[10] = a4;
-          v17 = _os_log_send_and_compose_impl();
+          v98 = "nw_read_request_create_with_buffer";
+          v99 = 2048;
+          *v100 = v15;
+          *&v100[8] = 2048;
+          *&v100[10] = a4;
+          v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s minlength (%zu) > max_data_count (%zu)", buf, 32);
 
           type = OS_LOG_TYPE_ERROR;
-          v94 = 0;
-          if (!__nwlog_fault(v17, &type, &v94))
+          v95 = 0;
+          if (!__nwlog_fault(v17, &type, &v95))
           {
             goto LABEL_76;
           }
@@ -6586,11 +9412,11 @@ LABEL_76:
             if (os_log_type_enabled(v18, type))
             {
               *buf = 136446722;
-              v97 = "nw_read_request_create_with_buffer";
-              v98 = 2048;
-              *v99 = v15;
-              *&v99[8] = 2048;
-              *&v99[10] = a4;
+              v98 = "nw_read_request_create_with_buffer";
+              v99 = 2048;
+              *v100 = v15;
+              *&v100[8] = 2048;
+              *&v100[10] = a4;
               _os_log_impl(&dword_181A37000, v18, v19, "%{public}s minlength (%zu) > max_data_count (%zu)", buf, 0x20u);
             }
 
@@ -6599,7 +9425,7 @@ LABEL_75:
             goto LABEL_76;
           }
 
-          if (v94 != 1)
+          if (v95 != 1)
           {
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
@@ -6608,11 +9434,11 @@ LABEL_75:
             if (os_log_type_enabled(v18, type))
             {
               *buf = 136446722;
-              v97 = "nw_read_request_create_with_buffer";
-              v98 = 2048;
-              *v99 = v15;
-              *&v99[8] = 2048;
-              *&v99[10] = a4;
+              v98 = "nw_read_request_create_with_buffer";
+              v99 = 2048;
+              *v100 = v15;
+              *&v100[8] = 2048;
+              *&v100[10] = a4;
               _os_log_impl(&dword_181A37000, v18, v47, "%{public}s minlength (%zu) > max_data_count (%zu), backtrace limit exceeded", buf, 0x20u);
             }
 
@@ -6630,11 +9456,11 @@ LABEL_75:
             if (v40)
             {
               *buf = 136446722;
-              v97 = "nw_read_request_create_with_buffer";
-              v98 = 2048;
-              *v99 = v15;
-              *&v99[8] = 2048;
-              *&v99[10] = a4;
+              v98 = "nw_read_request_create_with_buffer";
+              v99 = 2048;
+              *v100 = v15;
+              *&v100[8] = 2048;
+              *&v100[10] = a4;
               _os_log_impl(&dword_181A37000, v18, v39, "%{public}s minlength (%zu) > max_data_count (%zu), no backtrace", buf, 0x20u);
             }
 
@@ -6644,13 +9470,13 @@ LABEL_75:
           if (v40)
           {
             *buf = 136446978;
-            v97 = "nw_read_request_create_with_buffer";
-            v98 = 2048;
-            *v99 = v15;
-            *&v99[8] = 2048;
-            *&v99[10] = a4;
-            v100 = 2082;
-            v101 = v38;
+            v98 = "nw_read_request_create_with_buffer";
+            v99 = 2048;
+            *v100 = v15;
+            *&v100[8] = 2048;
+            *&v100[10] = a4;
+            v101 = 2082;
+            v102 = v38;
             _os_log_impl(&dword_181A37000, v18, v39, "%{public}s minlength (%zu) > max_data_count (%zu), dumping backtrace:%{public}s", buf, 0x2Au);
           }
 
@@ -6667,12 +9493,13 @@ LABEL_87:
           networkd_settings_init();
           v56 = gLogObj;
           *buf = 136446210;
-          v97 = "nw_connection_read_buffer";
-          v57 = _os_log_send_and_compose_impl();
+          v98 = "nw_connection_read_buffer";
+          LODWORD(v86) = 12;
+          v57 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v56, 16, "%{public}s nw_read_request_create_with_buffer failed", buf, v86);
 
           type = OS_LOG_TYPE_ERROR;
-          v94 = 0;
-          if (__nwlog_fault(v57, &type, &v94))
+          v95 = 0;
+          if (__nwlog_fault(v57, &type, &v95))
           {
             if (type == OS_LOG_TYPE_FAULT)
             {
@@ -6683,12 +9510,12 @@ LABEL_87:
               if (os_log_type_enabled(v58, type))
               {
                 *buf = 136446210;
-                v97 = "nw_connection_read_buffer";
+                v98 = "nw_connection_read_buffer";
                 _os_log_impl(&dword_181A37000, v58, v59, "%{public}s nw_read_request_create_with_buffer failed", buf, 0xCu);
               }
             }
 
-            else if (v94 == 1)
+            else if (v95 == 1)
             {
               v60 = __nw_create_backtrace_string();
               if (v60)
@@ -6701,9 +9528,9 @@ LABEL_87:
                 if (os_log_type_enabled(v62, type))
                 {
                   *buf = 136446466;
-                  v97 = "nw_connection_read_buffer";
-                  v98 = 2082;
-                  *v99 = v61;
+                  v98 = "nw_connection_read_buffer";
+                  v99 = 2082;
+                  *v100 = v61;
                   _os_log_impl(&dword_181A37000, v62, v63, "%{public}s nw_read_request_create_with_buffer failed, dumping backtrace:%{public}s", buf, 0x16u);
                 }
 
@@ -6721,7 +9548,7 @@ LABEL_87:
               if (os_log_type_enabled(v58, type))
               {
                 *buf = 136446210;
-                v97 = "nw_connection_read_buffer";
+                v98 = "nw_connection_read_buffer";
                 _os_log_impl(&dword_181A37000, v58, v65, "%{public}s nw_read_request_create_with_buffer failed, no backtrace", buf, 0xCu);
               }
             }
@@ -6735,7 +9562,7 @@ LABEL_87:
               if (os_log_type_enabled(v58, type))
               {
                 *buf = 136446210;
-                v97 = "nw_connection_read_buffer";
+                v98 = "nw_connection_read_buffer";
                 _os_log_impl(&dword_181A37000, v58, v64, "%{public}s nw_read_request_create_with_buffer failed, backtrace limit exceeded", buf, 0xCu);
               }
             }
@@ -6782,7 +9609,7 @@ LABEL_105:
 
           v31 = v27;
 
-          nw_connection_add_read_request(v86, v31);
+          nw_connection_add_read_request(v87, v31);
           v32 = 1;
           goto LABEL_107;
         }
@@ -6791,12 +9618,12 @@ LABEL_105:
         networkd_settings_init();
         v43 = gLogObj;
         *buf = 136446210;
-        v97 = "nw_read_request_create_with_buffer";
-        v44 = _os_log_send_and_compose_impl();
+        v98 = "nw_read_request_create_with_buffer";
+        v44 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v43, 16, "%{public}s [[NW_CONCRETE_CLASS_NAME(nw_read_request) alloc] init] failed", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
-        v94 = 0;
-        if (__nwlog_fault(v44, &type, &v94))
+        v95 = 0;
+        if (__nwlog_fault(v44, &type, &v95))
         {
           if (type == OS_LOG_TYPE_FAULT)
           {
@@ -6807,12 +9634,12 @@ LABEL_105:
             if (os_log_type_enabled(v45, type))
             {
               *buf = 136446210;
-              v97 = "nw_read_request_create_with_buffer";
+              v98 = "nw_read_request_create_with_buffer";
               _os_log_impl(&dword_181A37000, v45, v46, "%{public}s [[NW_CONCRETE_CLASS_NAME(nw_read_request) alloc] init] failed", buf, 0xCu);
             }
           }
 
-          else if (v94 == 1)
+          else if (v95 == 1)
           {
             v48 = __nw_create_backtrace_string();
             if (v48)
@@ -6825,9 +9652,9 @@ LABEL_105:
               if (os_log_type_enabled(v50, type))
               {
                 *buf = 136446466;
-                v97 = "nw_read_request_create_with_buffer";
-                v98 = 2082;
-                *v99 = v49;
+                v98 = "nw_read_request_create_with_buffer";
+                v99 = 2082;
+                *v100 = v49;
                 _os_log_impl(&dword_181A37000, v50, v51, "%{public}s [[NW_CONCRETE_CLASS_NAME(nw_read_request) alloc] init] failed, dumping backtrace:%{public}s", buf, 0x16u);
               }
 
@@ -6845,7 +9672,7 @@ LABEL_105:
             if (os_log_type_enabled(v45, type))
             {
               *buf = 136446210;
-              v97 = "nw_read_request_create_with_buffer";
+              v98 = "nw_read_request_create_with_buffer";
               _os_log_impl(&dword_181A37000, v45, v55, "%{public}s [[NW_CONCRETE_CLASS_NAME(nw_read_request) alloc] init] failed, no backtrace", buf, 0xCu);
             }
           }
@@ -6859,7 +9686,7 @@ LABEL_105:
             if (os_log_type_enabled(v45, type))
             {
               *buf = 136446210;
-              v97 = "nw_read_request_create_with_buffer";
+              v98 = "nw_read_request_create_with_buffer";
               _os_log_impl(&dword_181A37000, v45, v54, "%{public}s [[NW_CONCRETE_CLASS_NAME(nw_read_request) alloc] init] failed, backtrace limit exceeded", buf, 0xCu);
             }
           }
@@ -6888,14 +9715,14 @@ LABEL_85:
         v21 = gconnectionLogObj;
         os_unfair_lock_opaque = v13[112]._os_unfair_lock_opaque;
         *buf = 136446466;
-        v97 = "nw_connection_read_buffer";
-        v98 = 1024;
-        *v99 = os_unfair_lock_opaque;
-        v23 = _os_log_send_and_compose_impl();
+        v98 = "nw_connection_read_buffer";
+        v99 = 1024;
+        *v100 = os_unfair_lock_opaque;
+        v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s [C%u] client_queue is nil", buf, 18);
 
         type = OS_LOG_TYPE_ERROR;
-        v94 = 0;
-        if (__nwlog_fault(v23, &type, &v94))
+        v95 = 0;
+        if (__nwlog_fault(v23, &type, &v95))
         {
           if (type == OS_LOG_TYPE_FAULT)
           {
@@ -6910,14 +9737,14 @@ LABEL_85:
             {
               v26 = v13[112]._os_unfair_lock_opaque;
               *buf = 136446466;
-              v97 = "nw_connection_read_buffer";
-              v98 = 1024;
-              *v99 = v26;
+              v98 = "nw_connection_read_buffer";
+              v99 = 1024;
+              *v100 = v26;
               _os_log_impl(&dword_181A37000, v24, v25, "%{public}s [C%u] client_queue is nil", buf, 0x12u);
             }
           }
 
-          else if (v94 == 1)
+          else if (v95 == 1)
           {
             v33 = __nw_create_backtrace_string();
             if (v33)
@@ -6934,11 +9761,11 @@ LABEL_85:
               {
                 v37 = v13[112]._os_unfair_lock_opaque;
                 *buf = 136446722;
-                v97 = "nw_connection_read_buffer";
-                v98 = 1024;
-                *v99 = v37;
-                *&v99[4] = 2082;
-                *&v99[6] = v34;
+                v98 = "nw_connection_read_buffer";
+                v99 = 1024;
+                *v100 = v37;
+                *&v100[4] = 2082;
+                *&v100[6] = v34;
                 _os_log_impl(&dword_181A37000, v35, v36, "%{public}s [C%u] client_queue is nil, dumping backtrace:%{public}s", buf, 0x1Cu);
               }
 
@@ -6962,9 +9789,9 @@ LABEL_85:
             {
               v53 = v13[112]._os_unfair_lock_opaque;
               *buf = 136446466;
-              v97 = "nw_connection_read_buffer";
-              v98 = 1024;
-              *v99 = v53;
+              v98 = "nw_connection_read_buffer";
+              v99 = 1024;
+              *v100 = v53;
               _os_log_impl(&dword_181A37000, v24, v52, "%{public}s [C%u] client_queue is nil, no backtrace", buf, 0x12u);
             }
           }
@@ -6982,9 +9809,9 @@ LABEL_85:
             {
               v42 = v13[112]._os_unfair_lock_opaque;
               *buf = 136446466;
-              v97 = "nw_connection_read_buffer";
-              v98 = 1024;
-              *v99 = v42;
+              v98 = "nw_connection_read_buffer";
+              v99 = 1024;
+              *v100 = v42;
               _os_log_impl(&dword_181A37000, v24, v41, "%{public}s [C%u] client_queue is nil, backtrace limit exceeded", buf, 0x12u);
             }
           }
@@ -7001,27 +9828,27 @@ LABEL_72:
       v32 = 0;
 LABEL_108:
 
-      _Block_object_dispose(v90, 8);
+      _Block_object_dispose(v91, 8);
       goto LABEL_109;
     }
 
     v71 = __nwlog_obj();
     *buf = 136446210;
-    v97 = "nw_connection_read_buffer";
-    v68 = _os_log_send_and_compose_impl();
+    v98 = "nw_connection_read_buffer";
+    v68 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v71, 16, "%{public}s called with null handler", buf, 12);
 
-    v90[0] = OS_LOG_TYPE_ERROR;
+    v91[0] = OS_LOG_TYPE_ERROR;
     type = OS_LOG_TYPE_DEFAULT;
-    if (__nwlog_fault(v68, v90, &type))
+    if (__nwlog_fault(v68, v91, &type))
     {
-      if (v90[0] == OS_LOG_TYPE_FAULT)
+      if (v91[0] == OS_LOG_TYPE_FAULT)
       {
         v69 = __nwlog_obj();
-        v72 = v90[0];
-        if (os_log_type_enabled(v69, v90[0]))
+        v72 = v91[0];
+        if (os_log_type_enabled(v69, v91[0]))
         {
           *buf = 136446210;
-          v97 = "nw_connection_read_buffer";
+          v98 = "nw_connection_read_buffer";
           _os_log_impl(&dword_181A37000, v69, v72, "%{public}s called with null handler", buf, 0xCu);
         }
 
@@ -7033,11 +9860,11 @@ LABEL_154:
       if (type != OS_LOG_TYPE_INFO)
       {
         v69 = __nwlog_obj();
-        v81 = v90[0];
-        if (os_log_type_enabled(v69, v90[0]))
+        v81 = v91[0];
+        if (os_log_type_enabled(v69, v91[0]))
         {
           *buf = 136446210;
-          v97 = "nw_connection_read_buffer";
+          v98 = "nw_connection_read_buffer";
           _os_log_impl(&dword_181A37000, v69, v81, "%{public}s called with null handler, backtrace limit exceeded", buf, 0xCu);
         }
 
@@ -7046,14 +9873,14 @@ LABEL_154:
 
       v73 = __nw_create_backtrace_string();
       v69 = __nwlog_obj();
-      v78 = v90[0];
-      v79 = os_log_type_enabled(v69, v90[0]);
+      v78 = v91[0];
+      v79 = os_log_type_enabled(v69, v91[0]);
       if (!v73)
       {
         if (v79)
         {
           *buf = 136446210;
-          v97 = "nw_connection_read_buffer";
+          v98 = "nw_connection_read_buffer";
           _os_log_impl(&dword_181A37000, v69, v78, "%{public}s called with null handler, no backtrace", buf, 0xCu);
         }
 
@@ -7063,9 +9890,9 @@ LABEL_154:
       if (v79)
       {
         *buf = 136446466;
-        v97 = "nw_connection_read_buffer";
-        v98 = 2082;
-        *v99 = v73;
+        v98 = "nw_connection_read_buffer";
+        v99 = 2082;
+        *v100 = v73;
         _os_log_impl(&dword_181A37000, v69, v78, "%{public}s called with null handler, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
@@ -7077,21 +9904,21 @@ LABEL_154:
   {
     v67 = __nwlog_obj();
     *buf = 136446210;
-    v97 = "nw_connection_read_buffer";
-    v68 = _os_log_send_and_compose_impl();
+    v98 = "nw_connection_read_buffer";
+    v68 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v67, 16, "%{public}s called with null connection", buf, 12);
 
-    v90[0] = OS_LOG_TYPE_ERROR;
+    v91[0] = OS_LOG_TYPE_ERROR;
     type = OS_LOG_TYPE_DEFAULT;
-    if (__nwlog_fault(v68, v90, &type))
+    if (__nwlog_fault(v68, v91, &type))
     {
-      if (v90[0] == OS_LOG_TYPE_FAULT)
+      if (v91[0] == OS_LOG_TYPE_FAULT)
       {
         v69 = __nwlog_obj();
-        v70 = v90[0];
-        if (os_log_type_enabled(v69, v90[0]))
+        v70 = v91[0];
+        if (os_log_type_enabled(v69, v91[0]))
         {
           *buf = 136446210;
-          v97 = "nw_connection_read_buffer";
+          v98 = "nw_connection_read_buffer";
           _os_log_impl(&dword_181A37000, v69, v70, "%{public}s called with null connection", buf, 0xCu);
         }
 
@@ -7101,11 +9928,11 @@ LABEL_154:
       if (type != OS_LOG_TYPE_INFO)
       {
         v69 = __nwlog_obj();
-        v80 = v90[0];
-        if (os_log_type_enabled(v69, v90[0]))
+        v80 = v91[0];
+        if (os_log_type_enabled(v69, v91[0]))
         {
           *buf = 136446210;
-          v97 = "nw_connection_read_buffer";
+          v98 = "nw_connection_read_buffer";
           _os_log_impl(&dword_181A37000, v69, v80, "%{public}s called with null connection, backtrace limit exceeded", buf, 0xCu);
         }
 
@@ -7114,14 +9941,14 @@ LABEL_154:
 
       v73 = __nw_create_backtrace_string();
       v69 = __nwlog_obj();
-      v74 = v90[0];
-      v75 = os_log_type_enabled(v69, v90[0]);
+      v74 = v91[0];
+      v75 = os_log_type_enabled(v69, v91[0]);
       if (!v73)
       {
         if (v75)
         {
           *buf = 136446210;
-          v97 = "nw_connection_read_buffer";
+          v98 = "nw_connection_read_buffer";
           _os_log_impl(&dword_181A37000, v69, v74, "%{public}s called with null connection, no backtrace", buf, 0xCu);
         }
 
@@ -7131,9 +9958,9 @@ LABEL_154:
       if (v75)
       {
         *buf = 136446466;
-        v97 = "nw_connection_read_buffer";
-        v98 = 2082;
-        *v99 = v73;
+        v98 = "nw_connection_read_buffer";
+        v99 = 2082;
+        *v100 = v73;
         _os_log_impl(&dword_181A37000, v69, v74, "%{public}s called with null connection, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
@@ -7153,2698 +9980,4 @@ LABEL_155:
 LABEL_109:
 
   return v32;
-}
-
-void sub_181EE3198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, ...)
-{
-  va_start(va, a14);
-
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __nw_connection_read_buffer_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (*(v2 + 200))
-  {
-    result = 1;
-  }
-
-  else
-  {
-    result = nw_context_is_inline(*(v2 + 24));
-  }
-
-  *(*(*(a1 + 40) + 8) + 24) = result;
-  return result;
-}
-
-void nw_parameters_set_uid(uint64_t a1, uint64_t a2)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-
-    _nw_parameters_set_uid(a1, a2);
-    return;
-  }
-
-  v2 = __nwlog_obj();
-  *buf = 136446210;
-  v12 = "nw_parameters_set_uid";
-  v3 = _os_log_send_and_compose_impl();
-
-  type = OS_LOG_TYPE_ERROR;
-  v9 = 0;
-  if (__nwlog_fault(v3, &type, &v9))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (os_log_type_enabled(v4, type))
-      {
-        *buf = 136446210;
-        v12 = "nw_parameters_set_uid";
-        v6 = "%{public}s called with null parameters";
-LABEL_18:
-        _os_log_impl(&dword_181A37000, v4, v5, v6, buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      if (v9 == 1)
-      {
-        backtrace_string = __nw_create_backtrace_string();
-        v4 = __nwlog_obj();
-        v5 = type;
-        v8 = os_log_type_enabled(v4, type);
-        if (backtrace_string)
-        {
-          if (v8)
-          {
-            *buf = 136446466;
-            v12 = "nw_parameters_set_uid";
-            v13 = 2082;
-            v14 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null parameters, dumping backtrace:%{public}s", buf, 0x16u);
-          }
-
-          free(backtrace_string);
-          goto LABEL_20;
-        }
-
-        if (!v8)
-        {
-          goto LABEL_19;
-        }
-
-        *buf = 136446210;
-        v12 = "nw_parameters_set_uid";
-        v6 = "%{public}s called with null parameters, no backtrace";
-        goto LABEL_18;
-      }
-
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (os_log_type_enabled(v4, type))
-      {
-        *buf = 136446210;
-        v12 = "nw_parameters_set_uid";
-        v6 = "%{public}s called with null parameters, backtrace limit exceeded";
-        goto LABEL_18;
-      }
-    }
-
-LABEL_19:
-  }
-
-LABEL_20:
-  if (v3)
-  {
-    free(v3);
-  }
-}
-
-void nw_parameters_set_e_proc_uuid(uint64_t a1, uint64_t a2)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-
-    _nw_parameters_set_e_proc_uuid(a1, a2);
-    return;
-  }
-
-  v2 = __nwlog_obj();
-  *buf = 136446210;
-  v12 = "nw_parameters_set_e_proc_uuid";
-  v3 = _os_log_send_and_compose_impl();
-
-  type = OS_LOG_TYPE_ERROR;
-  v9 = 0;
-  if (__nwlog_fault(v3, &type, &v9))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (os_log_type_enabled(v4, type))
-      {
-        *buf = 136446210;
-        v12 = "nw_parameters_set_e_proc_uuid";
-        v6 = "%{public}s called with null parameters";
-LABEL_18:
-        _os_log_impl(&dword_181A37000, v4, v5, v6, buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      if (v9 == 1)
-      {
-        backtrace_string = __nw_create_backtrace_string();
-        v4 = __nwlog_obj();
-        v5 = type;
-        v8 = os_log_type_enabled(v4, type);
-        if (backtrace_string)
-        {
-          if (v8)
-          {
-            *buf = 136446466;
-            v12 = "nw_parameters_set_e_proc_uuid";
-            v13 = 2082;
-            v14 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null parameters, dumping backtrace:%{public}s", buf, 0x16u);
-          }
-
-          free(backtrace_string);
-          goto LABEL_20;
-        }
-
-        if (!v8)
-        {
-          goto LABEL_19;
-        }
-
-        *buf = 136446210;
-        v12 = "nw_parameters_set_e_proc_uuid";
-        v6 = "%{public}s called with null parameters, no backtrace";
-        goto LABEL_18;
-      }
-
-      v4 = __nwlog_obj();
-      v5 = type;
-      if (os_log_type_enabled(v4, type))
-      {
-        *buf = 136446210;
-        v12 = "nw_parameters_set_e_proc_uuid";
-        v6 = "%{public}s called with null parameters, backtrace limit exceeded";
-        goto LABEL_18;
-      }
-    }
-
-LABEL_19:
-  }
-
-LABEL_20:
-  if (v3)
-  {
-    free(v3);
-  }
-}
-
-uint64_t nw_path_get_flow_divert_unit(void *a1)
-{
-  v1 = a1;
-  v2 = v1;
-  if (v1)
-  {
-    flow_divert_unit = _nw_path_get_flow_divert_unit(v1);
-  }
-
-  else
-  {
-    flow_divert_unit = 0;
-  }
-
-  return flow_divert_unit;
-}
-
-void __nw_socks5_server_handle_busy_changed_block_invoke_2(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2[0] = MEMORY[0x1E69E9820];
-  v2[1] = 3221225472;
-  v2[2] = __nw_socks5_server_handle_busy_changed_block_invoke_3;
-  v2[3] = &unk_1E6A3D868;
-  v3 = v1;
-  os_unfair_lock_lock(v1 + 6);
-  __nw_socks5_server_handle_busy_changed_block_invoke_3(v2);
-  os_unfair_lock_unlock(v1 + 6);
-}
-
-void __nw_socks5_server_handle_busy_changed_block_invoke_3(uint64_t a1)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 120);
-  if (v3 && (*(v2 + 136) & 2) != 0)
-  {
-    dispatch_suspend(v3);
-    *(*(a1 + 32) + 136) &= ~2u;
-    v2 = *(a1 + 32);
-  }
-
-  if (!*(v2 + 132))
-  {
-    v4 = *(v2 + 128);
-    if (v4)
-    {
-      IOPMAssertionRelease(v4);
-      v5 = mach_continuous_time();
-      if (v5 <= 1)
-      {
-        v6 = 1;
-      }
-
-      else
-      {
-        v6 = v5;
-      }
-
-      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-      networkd_settings_init();
-      v7 = gLogObj;
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-      {
-        v8 = *(a1 + 32);
-        v9 = *(v8 + 128);
-        v10 = nw_delta_nanos(*(v8 + 112), v6);
-        v12 = "nw_socks5_server_handle_busy_changed_block_invoke_3";
-        v13 = 2112;
-        v11 = 136446978;
-        v14 = v8;
-        v15 = 1024;
-        v16 = v9;
-        v17 = 2048;
-        v18 = v10 / 0x3B9ACA00;
-        _os_log_impl(&dword_181A37000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s %@ released power assertion: %u after %llus", &v11, 0x26u);
-      }
-
-      *(*(a1 + 32) + 112) = v6;
-      *(*(a1 + 32) + 128) = 0;
-    }
-  }
-}
-
-void __nw_connection_set_interface_use_callback_block_invoke(uint64_t a1, void *a2)
-{
-  v27 = *MEMORY[0x1E69E9840];
-  v4 = a2;
-  v5 = *(*(a1 + 32) + 16);
-  if (v5 && !_nw_parameters_get_logging_disabled(v5))
-  {
-    if (__nwlog_connection_log::onceToken[0] != -1)
-    {
-      dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-    }
-
-    v6 = gconnectionLogObj;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-    {
-      v7 = *(*(a1 + 32) + 448);
-      if (v4)
-      {
-        name = _nw_interface_get_name(v4);
-      }
-
-      else
-      {
-        name = "(null)";
-      }
-
-      v19 = 136446722;
-      v20 = "nw_connection_set_interface_use_callback_block_invoke";
-      v21 = 1024;
-      v22 = v7;
-      v23 = 2080;
-      v24 = name;
-      _os_log_impl(&dword_181A37000, v6, OS_LOG_TYPE_INFO, "%{public}s [C%u] Got migration callback interface %s", &v19, 0x1Cu);
-    }
-  }
-
-  v9 = _nw_interface_shallow_compare(v4, *(*(a1 + 32) + 520));
-  v10 = *(*(a1 + 32) + 16);
-  if (!v9)
-  {
-    if (!v10 || _nw_parameters_get_logging_disabled(v10))
-    {
-      goto LABEL_31;
-    }
-
-    if (__nwlog_connection_log::onceToken[0] != -1)
-    {
-      dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-    }
-
-    v13 = gconnectionLogObj;
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-    {
-LABEL_30:
-
-LABEL_31:
-      (*(*(*(a1 + 32) + 512) + 16))();
-      objc_storeStrong((*(a1 + 32) + 520), a2);
-      *(*(a1 + 32) + 109) |= 0x80u;
-      goto LABEL_32;
-    }
-
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 448);
-    v16 = *(v14 + 520);
-    if (v16)
-    {
-      v17 = _nw_interface_get_name(v16);
-      if (v4)
-      {
-LABEL_26:
-        v18 = _nw_interface_get_name(v4);
-LABEL_29:
-        v19 = 136446978;
-        v20 = "nw_connection_set_interface_use_callback_block_invoke";
-        v21 = 1024;
-        v22 = v15;
-        v23 = 2080;
-        v24 = v17;
-        v25 = 2080;
-        v26 = v18;
-        _os_log_impl(&dword_181A37000, v13, OS_LOG_TYPE_INFO, "%{public}s [C%u] Changed from %s to %s", &v19, 0x26u);
-        goto LABEL_30;
-      }
-    }
-
-    else
-    {
-      v17 = "(null)";
-      if (v4)
-      {
-        goto LABEL_26;
-      }
-    }
-
-    v18 = "(null)";
-    goto LABEL_29;
-  }
-
-  if (v10 && !_nw_parameters_get_logging_disabled(v10))
-  {
-    if (__nwlog_connection_log::onceToken[0] != -1)
-    {
-      dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-    }
-
-    v11 = gconnectionLogObj;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-    {
-      v12 = *(*(a1 + 32) + 448);
-      v19 = 136446466;
-      v20 = "nw_connection_set_interface_use_callback_block_invoke";
-      v21 = 1024;
-      v22 = v12;
-      _os_log_impl(&dword_181A37000, v11, OS_LOG_TYPE_INFO, "%{public}s [C%u] No change in AWDL usage", &v19, 0x12u);
-    }
-  }
-
-LABEL_32:
-}
-
-void nw_quic_set_keepalive(void *a1, unsigned __int16 a2)
-{
-  v3 = nw_quic_stream_copy_connection_metadata(a1);
-  nw_quic_connection_set_keepalive(v3, a2);
-}
-
-void nw_protocol_implementation_partial_input_frame_finalizer(void *a1)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  if (v1)
-  {
-    v2 = v1;
-    v13 = v1;
-    if ((*(v1 + 102) & 0x100) == 0 || !g_channel_check_validity || (v3 = g_channel_check_validity(v1, *(v1 + 11)), v2 = v13, v3))
-    {
-      v4 = *(v2 + 112);
-      if (v4)
-      {
-        free(v4);
-        v2 = v13;
-      }
-    }
-
-    nw_frame_reset(v2, 0, 0, 0, 0);
-
-    return;
-  }
-
-  v5 = __nwlog_obj();
-  *buf = 136446210;
-  v17 = "nw_protocol_implementation_partial_input_frame_finalizer";
-  v6 = _os_log_send_and_compose_impl();
-
-  type = OS_LOG_TYPE_ERROR;
-  v14 = 0;
-  if (__nwlog_fault(v6, &type, &v14))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v7 = __nwlog_obj();
-      v8 = type;
-      if (os_log_type_enabled(v7, type))
-      {
-        *buf = 136446210;
-        v17 = "nw_protocol_implementation_partial_input_frame_finalizer";
-        _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null frame", buf, 0xCu);
-      }
-    }
-
-    else if (v14 == 1)
-    {
-      backtrace_string = __nw_create_backtrace_string();
-      v7 = __nwlog_obj();
-      v10 = type;
-      v11 = os_log_type_enabled(v7, type);
-      if (backtrace_string)
-      {
-        if (v11)
-        {
-          *buf = 136446466;
-          v17 = "nw_protocol_implementation_partial_input_frame_finalizer";
-          v18 = 2082;
-          v19 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null frame, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(backtrace_string);
-        goto LABEL_26;
-      }
-
-      if (v11)
-      {
-        *buf = 136446210;
-        v17 = "nw_protocol_implementation_partial_input_frame_finalizer";
-        _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null frame, no backtrace", buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      v7 = __nwlog_obj();
-      v12 = type;
-      if (os_log_type_enabled(v7, type))
-      {
-        *buf = 136446210;
-        v17 = "nw_protocol_implementation_partial_input_frame_finalizer";
-        _os_log_impl(&dword_181A37000, v7, v12, "%{public}s called with null frame, backtrace limit exceeded", buf, 0xCu);
-      }
-    }
-  }
-
-LABEL_26:
-  if (v6)
-  {
-    free(v6);
-  }
-}
-
-uint64_t ___ZL62nw_protocol_instance_registrar_copy_san_list_from_tls_metadataP41NWConcrete_nw_protocol_instance_registrarP11nw_protocolPU35objcproto24OS_sec_protocol_metadata8NSObjectt_block_invoke_73(uint64_t a1, uint64_t a2, void *a3)
-{
-  v33 = *MEMORY[0x1E69E9840];
-  v4 = a3;
-  v5 = *(a1 + 32);
-  v6 = v4;
-  v7 = v6;
-  if (!v5)
-  {
-    v12 = __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-    v13 = _os_log_send_and_compose_impl();
-
-    type = OS_LOG_TYPE_ERROR;
-    v29 = 0;
-    if (!__nwlog_fault(v13, &type, &v29))
-    {
-      goto LABEL_41;
-    }
-
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v14 = __nwlog_obj();
-      v15 = type;
-      if (os_log_type_enabled(v14, type))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-        _os_log_impl(&dword_181A37000, v14, v15, "%{public}s called with null array", buf, 0xCu);
-      }
-    }
-
-    else if (v29 == 1)
-    {
-      backtrace_string = __nw_create_backtrace_string();
-      v14 = __nwlog_obj();
-      v19 = type;
-      v20 = os_log_type_enabled(v14, type);
-      if (backtrace_string)
-      {
-        if (v20)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-          *&buf[12] = 2082;
-          *&buf[14] = backtrace_string;
-          _os_log_impl(&dword_181A37000, v14, v19, "%{public}s called with null array, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(backtrace_string);
-        goto LABEL_41;
-      }
-
-      if (v20)
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-        _os_log_impl(&dword_181A37000, v14, v19, "%{public}s called with null array, no backtrace", buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      v14 = __nwlog_obj();
-      v24 = type;
-      if (os_log_type_enabled(v14, type))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-        _os_log_impl(&dword_181A37000, v14, v24, "%{public}s called with null array, backtrace limit exceeded", buf, 0xCu);
-      }
-    }
-
-LABEL_40:
-
-    goto LABEL_41;
-  }
-
-  if (v6)
-  {
-    *buf = 0;
-    *&buf[8] = buf;
-    *&buf[16] = 0x2020000000;
-    v32 = 0;
-    aBlock[0] = MEMORY[0x1E69E9820];
-    aBlock[1] = 3221225472;
-    aBlock[2] = ___ZL54nw_protocol_instance_registrar_array_contains_endpointPU22objcproto11OS_nw_array8NSObjectPU25objcproto14OS_nw_endpointS__block_invoke;
-    aBlock[3] = &unk_1E6A3BB28;
-    v8 = v6;
-    v27 = v8;
-    v28 = buf;
-    _nw_array_apply(v5, aBlock);
-    v9 = *(*&buf[8] + 24);
-
-    _Block_object_dispose(buf, 8);
-    if (v9)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_4;
-  }
-
-  v16 = __nwlog_obj();
-  *buf = 136446210;
-  *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-  v13 = _os_log_send_and_compose_impl();
-
-  type = OS_LOG_TYPE_ERROR;
-  v29 = 0;
-  if (__nwlog_fault(v13, &type, &v29))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v14 = __nwlog_obj();
-      v17 = type;
-      if (os_log_type_enabled(v14, type))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-        _os_log_impl(&dword_181A37000, v14, v17, "%{public}s called with null endpoint", buf, 0xCu);
-      }
-    }
-
-    else if (v29 == 1)
-    {
-      v21 = __nw_create_backtrace_string();
-      v14 = __nwlog_obj();
-      v22 = type;
-      v23 = os_log_type_enabled(v14, type);
-      if (v21)
-      {
-        if (v23)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-          *&buf[12] = 2082;
-          *&buf[14] = v21;
-          _os_log_impl(&dword_181A37000, v14, v22, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(v21);
-        if (!v13)
-        {
-          goto LABEL_43;
-        }
-
-        goto LABEL_42;
-      }
-
-      if (v23)
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-        _os_log_impl(&dword_181A37000, v14, v22, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      v14 = __nwlog_obj();
-      v25 = type;
-      if (os_log_type_enabled(v14, type))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_instance_registrar_array_contains_endpoint";
-        _os_log_impl(&dword_181A37000, v14, v25, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
-      }
-    }
-
-    goto LABEL_40;
-  }
-
-LABEL_41:
-  if (v13)
-  {
-LABEL_42:
-    free(v13);
-  }
-
-LABEL_43:
-
-LABEL_4:
-  v10 = *(a1 + 32);
-  if (v10 && v7)
-  {
-    _nw_array_append(v10, v7);
-  }
-
-LABEL_7:
-
-  return 1;
-}
-
-uint64_t __nw_http_messaging_options_copy_transaction_metadata_block_invoke(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 24);
-  if (v2)
-  {
-    v4 = v2;
-    v5 = nw_http_client_metadata_copy_current_transaction_metadata(v4);
-    v6 = *(*(a1 + 32) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
-  }
-
-  return 1;
-}
-
-id nw_http_client_metadata_copy_current_transaction_metadata(void *a1)
-{
-  v31 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = v1;
-  if (v1)
-  {
-    v3 = nw_protocol_copy_http_client_definition_onceToken;
-    v4 = v1;
-    if (v3 != -1)
-    {
-      dispatch_once(&nw_protocol_copy_http_client_definition_onceToken, &__block_literal_global_85);
-    }
-
-    v5 = nw_protocol_metadata_matches_definition(v4, nw_protocol_copy_http_client_definition_definition);
-
-    if (v5)
-    {
-      *buf = 0;
-      *&buf[8] = buf;
-      *&buf[16] = 0x3032000000;
-      v28 = __Block_byref_object_copy__75915;
-      v29 = __Block_byref_object_dispose__75916;
-      v30 = 0;
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v22 = __nw_http_client_metadata_copy_current_transaction_metadata_block_invoke;
-      v23 = &unk_1E6A3A858;
-      v24 = buf;
-      if (_nw_protocol_metadata_get_handle(v4))
-      {
-        (v22)(v21);
-      }
-
-      v6 = *(*&buf[8] + 40);
-      _Block_object_dispose(buf, 8);
-
-      goto LABEL_8;
-    }
-
-    v12 = __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-    v9 = _os_log_send_and_compose_impl();
-
-    type = OS_LOG_TYPE_ERROR;
-    v25 = 0;
-    if (__nwlog_fault(v9, &type, &v25))
-    {
-      if (type == OS_LOG_TYPE_FAULT)
-      {
-        v10 = __nwlog_obj();
-        v13 = type;
-        if (os_log_type_enabled(v10, type))
-        {
-          *buf = 136446210;
-          *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-          _os_log_impl(&dword_181A37000, v10, v13, "%{public}s metadata must be http_client", buf, 0xCu);
-        }
-
-LABEL_40:
-
-        goto LABEL_41;
-      }
-
-      if (v25 != 1)
-      {
-        v10 = __nwlog_obj();
-        v20 = type;
-        if (os_log_type_enabled(v10, type))
-        {
-          *buf = 136446210;
-          *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-          _os_log_impl(&dword_181A37000, v10, v20, "%{public}s metadata must be http_client, backtrace limit exceeded", buf, 0xCu);
-        }
-
-        goto LABEL_40;
-      }
-
-      backtrace_string = __nw_create_backtrace_string();
-      v10 = __nwlog_obj();
-      v17 = type;
-      v18 = os_log_type_enabled(v10, type);
-      if (!backtrace_string)
-      {
-        if (v18)
-        {
-          *buf = 136446210;
-          *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-          _os_log_impl(&dword_181A37000, v10, v17, "%{public}s metadata must be http_client, no backtrace", buf, 0xCu);
-        }
-
-        goto LABEL_40;
-      }
-
-      if (v18)
-      {
-        *buf = 136446466;
-        *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-        *&buf[12] = 2082;
-        *&buf[14] = backtrace_string;
-        _os_log_impl(&dword_181A37000, v10, v17, "%{public}s metadata must be http_client, dumping backtrace:%{public}s", buf, 0x16u);
-      }
-
-      goto LABEL_28;
-    }
-  }
-
-  else
-  {
-    v8 = __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-    v9 = _os_log_send_and_compose_impl();
-
-    type = OS_LOG_TYPE_ERROR;
-    v25 = 0;
-    if (__nwlog_fault(v9, &type, &v25))
-    {
-      if (type == OS_LOG_TYPE_FAULT)
-      {
-        v10 = __nwlog_obj();
-        v11 = type;
-        if (os_log_type_enabled(v10, type))
-        {
-          *buf = 136446210;
-          *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-          _os_log_impl(&dword_181A37000, v10, v11, "%{public}s called with null metadata", buf, 0xCu);
-        }
-
-        goto LABEL_40;
-      }
-
-      if (v25 != 1)
-      {
-        v10 = __nwlog_obj();
-        v19 = type;
-        if (os_log_type_enabled(v10, type))
-        {
-          *buf = 136446210;
-          *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-          _os_log_impl(&dword_181A37000, v10, v19, "%{public}s called with null metadata, backtrace limit exceeded", buf, 0xCu);
-        }
-
-        goto LABEL_40;
-      }
-
-      backtrace_string = __nw_create_backtrace_string();
-      v10 = __nwlog_obj();
-      v15 = type;
-      v16 = os_log_type_enabled(v10, type);
-      if (!backtrace_string)
-      {
-        if (v16)
-        {
-          *buf = 136446210;
-          *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-          _os_log_impl(&dword_181A37000, v10, v15, "%{public}s called with null metadata, no backtrace", buf, 0xCu);
-        }
-
-        goto LABEL_40;
-      }
-
-      if (v16)
-      {
-        *buf = 136446466;
-        *&buf[4] = "nw_http_client_metadata_copy_current_transaction_metadata";
-        *&buf[12] = 2082;
-        *&buf[14] = backtrace_string;
-        _os_log_impl(&dword_181A37000, v10, v15, "%{public}s called with null metadata, dumping backtrace:%{public}s", buf, 0x16u);
-      }
-
-LABEL_28:
-
-      free(backtrace_string);
-    }
-  }
-
-LABEL_41:
-  if (v9)
-  {
-    free(v9);
-  }
-
-  v6 = 0;
-LABEL_8:
-
-  return v6;
-}
-
-void sub_181EE4C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __nw_http_client_metadata_copy_current_transaction_metadata_block_invoke(uint64_t a1, uint64_t a2)
-{
-  object = *(a2 + 24);
-  if (object)
-  {
-    object = _nw_array_copy_last_object(object);
-  }
-
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = object;
-
-  return 1;
-}
-
-uint64_t nw_http2_get_capsule_handling_disabled(void *a1)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  if (nw_protocol_options_is_http_messaging(v1))
-  {
-    v2 = nw_http_messaging_options_copy_http2_options(v1);
-    capsule_handling_disabled = nw_http2_get_capsule_handling_disabled();
-
-    goto LABEL_5;
-  }
-
-  if (nw_protocol_options_is_http2(v1))
-  {
-    *buf = 0;
-    *&buf[8] = buf;
-    *&buf[16] = 0x2020000000;
-    v17 = 0;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __nw_http2_get_capsule_handling_disabled_block_invoke;
-    v13[3] = &unk_1E6A3A858;
-    v13[4] = buf;
-    nw_protocol_options_access_handle(v1, v13);
-    capsule_handling_disabled = *(*&buf[8] + 24);
-    _Block_object_dispose(buf, 8);
-    goto LABEL_5;
-  }
-
-  v5 = __nwlog_obj();
-  *buf = 136446210;
-  *&buf[4] = "nw_http2_get_capsule_handling_disabled";
-  v6 = _os_log_send_and_compose_impl();
-
-  type = OS_LOG_TYPE_ERROR;
-  v14 = 0;
-  if (__nwlog_fault(v6, &type, &v14))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v7 = __nwlog_obj();
-      v8 = type;
-      if (os_log_type_enabled(v7, type))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_http2_get_capsule_handling_disabled";
-        _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null nw_protocol_options_is_http2(options)", buf, 0xCu);
-      }
-    }
-
-    else if (v14 == 1)
-    {
-      backtrace_string = __nw_create_backtrace_string();
-      v7 = __nwlog_obj();
-      v10 = type;
-      v11 = os_log_type_enabled(v7, type);
-      if (backtrace_string)
-      {
-        if (v11)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_http2_get_capsule_handling_disabled";
-          *&buf[12] = 2082;
-          *&buf[14] = backtrace_string;
-          _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null nw_protocol_options_is_http2(options), dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(backtrace_string);
-        goto LABEL_22;
-      }
-
-      if (v11)
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_http2_get_capsule_handling_disabled";
-        _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null nw_protocol_options_is_http2(options), no backtrace", buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      v7 = __nwlog_obj();
-      v12 = type;
-      if (os_log_type_enabled(v7, type))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_http2_get_capsule_handling_disabled";
-        _os_log_impl(&dword_181A37000, v7, v12, "%{public}s called with null nw_protocol_options_is_http2(options), backtrace limit exceeded", buf, 0xCu);
-      }
-    }
-  }
-
-LABEL_22:
-  if (v6)
-  {
-    free(v6);
-  }
-
-  capsule_handling_disabled = 0;
-LABEL_5:
-
-  return capsule_handling_disabled & 1;
-}
-
-void sub_181EE4FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void nw_http2_stream_init(http2_stream *a1)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    *a1 = 0;
-    *(a1 + 1) = a1;
-    *(a1 + 2) = 0;
-    *(a1 + 3) = a1 + 16;
-    *(a1 + 13) = 0;
-    *(a1 + 14) = 0;
-    *(a1 + 94) &= ~0x1000u;
-    v2 = _nw_http_parsed_fields_create();
-    v3 = *(a1 + 152);
-    if ((v3 & 1) != 0 && *(a1 + 18))
-    {
-      v4 = v2;
-      os_release(*(a1 + 18));
-      v2 = v4;
-      v3 = *(a1 + 152);
-    }
-
-    *(a1 + 18) = v2;
-    *(a1 + 152) = v3 | 1;
-    v5 = _nw_array_create();
-    v6 = *(a1 + 168);
-    if (v6)
-    {
-      if (*(a1 + 20))
-      {
-        v7 = v5;
-        os_release(*(a1 + 20));
-        v5 = v7;
-        v6 = *(a1 + 168);
-      }
-    }
-
-    *(a1 + 20) = v5;
-    *(a1 + 168) = v6 | 1;
-    *(a1 + 44) = -1;
-    *(a1 + 46) = 0x200000;
-    *(a1 + 94) = *(a1 + 94) & 0xFE62 | 4;
-    return;
-  }
-
-  __nwlog_obj();
-  *buf = 136446210;
-  v17 = "nw_http2_stream_init";
-  v8 = _os_log_send_and_compose_impl();
-  type = OS_LOG_TYPE_ERROR;
-  v14 = 0;
-  if (__nwlog_fault(v8, &type, &v14))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v9 = __nwlog_obj();
-      v10 = type;
-      if (!os_log_type_enabled(v9, type))
-      {
-        goto LABEL_24;
-      }
-
-      *buf = 136446210;
-      v17 = "nw_http2_stream_init";
-      v11 = "%{public}s called with null stream";
-      goto LABEL_23;
-    }
-
-    if (v14 != 1)
-    {
-      v9 = __nwlog_obj();
-      v10 = type;
-      if (!os_log_type_enabled(v9, type))
-      {
-        goto LABEL_24;
-      }
-
-      *buf = 136446210;
-      v17 = "nw_http2_stream_init";
-      v11 = "%{public}s called with null stream, backtrace limit exceeded";
-      goto LABEL_23;
-    }
-
-    backtrace_string = __nw_create_backtrace_string();
-    v9 = __nwlog_obj();
-    v10 = type;
-    v13 = os_log_type_enabled(v9, type);
-    if (backtrace_string)
-    {
-      if (v13)
-      {
-        *buf = 136446466;
-        v17 = "nw_http2_stream_init";
-        v18 = 2082;
-        v19 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v9, v10, "%{public}s called with null stream, dumping backtrace:%{public}s", buf, 0x16u);
-      }
-
-      free(backtrace_string);
-      goto LABEL_24;
-    }
-
-    if (v13)
-    {
-      *buf = 136446210;
-      v17 = "nw_http2_stream_init";
-      v11 = "%{public}s called with null stream, no backtrace";
-LABEL_23:
-      _os_log_impl(&dword_181A37000, v9, v10, v11, buf, 0xCu);
-    }
-  }
-
-LABEL_24:
-  if (v8)
-  {
-    free(v8);
-  }
-}
-
-uint64_t nw_protocol_add_listen_handler(void *a1, uint64_t a2)
-{
-  v50 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    v2 = a1;
-    v3 = a1[5];
-    v4 = a1;
-    if (v3 == &nw_protocol_ref_counted_handle || v3 == &nw_protocol_ref_counted_additional_handle && (v4 = a1[8]) != 0)
-    {
-      v15 = v4[11];
-      if (v15)
-      {
-        v5 = 0;
-        v4[11] = v15 + 1;
-        if (!a2)
-        {
-          goto LABEL_23;
-        }
-      }
-
-      else
-      {
-        v5 = 0;
-        if (!a2)
-        {
-          goto LABEL_23;
-        }
-      }
-    }
-
-    else
-    {
-      v5 = 1;
-      if (!a2)
-      {
-LABEL_23:
-        __nwlog_obj();
-        *buf = 136446210;
-        v43 = "__nw_protocol_add_listen_handler";
-        v16 = _os_log_send_and_compose_impl();
-        type = OS_LOG_TYPE_ERROR;
-        v40 = 0;
-        if (!__nwlog_fault(v16, &type, &v40))
-        {
-          goto LABEL_82;
-        }
-
-        if (type == OS_LOG_TYPE_FAULT)
-        {
-          v17 = __nwlog_obj();
-          v18 = type;
-          if (!os_log_type_enabled(v17, type))
-          {
-            goto LABEL_82;
-          }
-
-          *buf = 136446210;
-          v43 = "__nw_protocol_add_listen_handler";
-          v19 = "%{public}s called with null listen_protocol";
-          goto LABEL_80;
-        }
-
-        if (v40 != 1)
-        {
-          v17 = __nwlog_obj();
-          v18 = type;
-          if (!os_log_type_enabled(v17, type))
-          {
-            goto LABEL_82;
-          }
-
-          *buf = 136446210;
-          v43 = "__nw_protocol_add_listen_handler";
-          v19 = "%{public}s called with null listen_protocol, backtrace limit exceeded";
-          goto LABEL_80;
-        }
-
-        backtrace_string = __nw_create_backtrace_string();
-        v17 = __nwlog_obj();
-        v18 = type;
-        v34 = os_log_type_enabled(v17, type);
-        if (backtrace_string)
-        {
-          if (v34)
-          {
-            *buf = 136446466;
-            v43 = "__nw_protocol_add_listen_handler";
-            v44 = 2082;
-            v45 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v17, v18, "%{public}s called with null listen_protocol, dumping backtrace:%{public}s", buf, 0x16u);
-          }
-
-          free(backtrace_string);
-          if (!v16)
-          {
-LABEL_84:
-            result = 0;
-            if (v5)
-            {
-              return result;
-            }
-
-LABEL_8:
-            v9 = v2[5];
-            if (v9 == &nw_protocol_ref_counted_handle || v9 == &nw_protocol_ref_counted_additional_handle && (v2 = v2[8]) != 0)
-            {
-              v10 = v2[11];
-              if (v10)
-              {
-                v11 = v10 - 1;
-                v2[11] = v11;
-                if (!v11)
-                {
-                  v12 = result;
-                  v13 = v2[8];
-                  if (v13)
-                  {
-                    v2[8] = 0;
-                    v13[2](v13);
-                    _Block_release(v13);
-                  }
-
-                  if (v2[9])
-                  {
-                    v14 = v2[8];
-                    if (v14)
-                    {
-                      _Block_release(v14);
-                    }
-                  }
-
-                  free(v2);
-                  return v12;
-                }
-              }
-            }
-
-            return result;
-          }
-
-LABEL_83:
-          free(v16);
-          goto LABEL_84;
-        }
-
-        if (v34)
-        {
-          *buf = 136446210;
-          v43 = "__nw_protocol_add_listen_handler";
-          v19 = "%{public}s called with null listen_protocol, no backtrace";
-LABEL_80:
-          v37 = v17;
-          v38 = v18;
-          v39 = 12;
-          goto LABEL_81;
-        }
-
-        goto LABEL_82;
-      }
-    }
-
-    v6 = a1[3];
-    if (v6)
-    {
-      v7 = *(v6 + 232);
-      if (v7)
-      {
-        result = v7(a1);
-        if (v5)
-        {
-          return result;
-        }
-
-        goto LABEL_8;
-      }
-    }
-
-    __nwlog_obj();
-    v20 = v2[2];
-    *buf = 136446722;
-    v43 = "__nw_protocol_add_listen_handler";
-    if (!v20)
-    {
-      v20 = "invalid";
-    }
-
-    v44 = 2082;
-    v45 = v20;
-    v46 = 2048;
-    v47 = v2;
-    v16 = _os_log_send_and_compose_impl();
-    type = OS_LOG_TYPE_ERROR;
-    v40 = 0;
-    if (__nwlog_fault(v16, &type, &v40))
-    {
-      if (type == OS_LOG_TYPE_FAULT)
-      {
-        v21 = __nwlog_obj();
-        v22 = type;
-        if (!os_log_type_enabled(v21, type))
-        {
-          goto LABEL_82;
-        }
-
-        v23 = v2[2];
-        if (!v23)
-        {
-          v23 = "invalid";
-        }
-
-        *buf = 136446722;
-        v43 = "__nw_protocol_add_listen_handler";
-        v44 = 2082;
-        v45 = v23;
-        v46 = 2048;
-        v47 = v2;
-        v19 = "%{public}s protocol %{public}s (%p) has invalid add_listen_handler callback";
-      }
-
-      else if (v40 == 1)
-      {
-        v28 = __nw_create_backtrace_string();
-        v21 = __nwlog_obj();
-        v22 = type;
-        v29 = os_log_type_enabled(v21, type);
-        if (v28)
-        {
-          if (v29)
-          {
-            v30 = v2[2];
-            if (!v30)
-            {
-              v30 = "invalid";
-            }
-
-            *buf = 136446978;
-            v43 = "__nw_protocol_add_listen_handler";
-            v44 = 2082;
-            v45 = v30;
-            v46 = 2048;
-            v47 = v2;
-            v48 = 2082;
-            v49 = v28;
-            _os_log_impl(&dword_181A37000, v21, v22, "%{public}s protocol %{public}s (%p) has invalid add_listen_handler callback, dumping backtrace:%{public}s", buf, 0x2Au);
-          }
-
-          free(v28);
-          goto LABEL_82;
-        }
-
-        if (!v29)
-        {
-          goto LABEL_82;
-        }
-
-        v36 = v2[2];
-        if (!v36)
-        {
-          v36 = "invalid";
-        }
-
-        *buf = 136446722;
-        v43 = "__nw_protocol_add_listen_handler";
-        v44 = 2082;
-        v45 = v36;
-        v46 = 2048;
-        v47 = v2;
-        v19 = "%{public}s protocol %{public}s (%p) has invalid add_listen_handler callback, no backtrace";
-      }
-
-      else
-      {
-        v21 = __nwlog_obj();
-        v22 = type;
-        if (!os_log_type_enabled(v21, type))
-        {
-          goto LABEL_82;
-        }
-
-        v35 = v2[2];
-        if (!v35)
-        {
-          v35 = "invalid";
-        }
-
-        *buf = 136446722;
-        v43 = "__nw_protocol_add_listen_handler";
-        v44 = 2082;
-        v45 = v35;
-        v46 = 2048;
-        v47 = v2;
-        v19 = "%{public}s protocol %{public}s (%p) has invalid add_listen_handler callback, backtrace limit exceeded";
-      }
-
-      v37 = v21;
-      v38 = v22;
-      v39 = 32;
-LABEL_81:
-      _os_log_impl(&dword_181A37000, v37, v38, v19, buf, v39);
-    }
-
-LABEL_82:
-    if (!v16)
-    {
-      goto LABEL_84;
-    }
-
-    goto LABEL_83;
-  }
-
-  __nwlog_obj();
-  *buf = 136446210;
-  v43 = "__nw_protocol_add_listen_handler";
-  v24 = _os_log_send_and_compose_impl();
-  type = OS_LOG_TYPE_ERROR;
-  v40 = 0;
-  if (__nwlog_fault(v24, &type, &v40))
-  {
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v25 = __nwlog_obj();
-      v26 = type;
-      if (os_log_type_enabled(v25, type))
-      {
-        *buf = 136446210;
-        v43 = "__nw_protocol_add_listen_handler";
-        v27 = "%{public}s called with null protocol";
-LABEL_74:
-        _os_log_impl(&dword_181A37000, v25, v26, v27, buf, 0xCu);
-      }
-    }
-
-    else if (v40 == 1)
-    {
-      v31 = __nw_create_backtrace_string();
-      v25 = __nwlog_obj();
-      v26 = type;
-      v32 = os_log_type_enabled(v25, type);
-      if (v31)
-      {
-        if (v32)
-        {
-          *buf = 136446466;
-          v43 = "__nw_protocol_add_listen_handler";
-          v44 = 2082;
-          v45 = v31;
-          _os_log_impl(&dword_181A37000, v25, v26, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(v31);
-        goto LABEL_75;
-      }
-
-      if (v32)
-      {
-        *buf = 136446210;
-        v43 = "__nw_protocol_add_listen_handler";
-        v27 = "%{public}s called with null protocol, no backtrace";
-        goto LABEL_74;
-      }
-    }
-
-    else
-    {
-      v25 = __nwlog_obj();
-      v26 = type;
-      if (os_log_type_enabled(v25, type))
-      {
-        *buf = 136446210;
-        v43 = "__nw_protocol_add_listen_handler";
-        v27 = "%{public}s called with null protocol, backtrace limit exceeded";
-        goto LABEL_74;
-      }
-    }
-  }
-
-LABEL_75:
-  if (v24)
-  {
-    free(v24);
-  }
-
-  return 0;
-}
-
-void nw_protocol_http2_connected(nw_protocol *a1, nw_protocol *a2)
-{
-  v59 = *MEMORY[0x1E69E9840];
-  if (!a1)
-  {
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_http2_connected";
-    v36 = _os_log_send_and_compose_impl();
-    type = OS_LOG_TYPE_ERROR;
-    v53 = 0;
-    if (!__nwlog_fault(v36, &type, &v53))
-    {
-      goto LABEL_139;
-    }
-
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v37 = __nwlog_obj();
-      v38 = type;
-      if (!os_log_type_enabled(v37, type))
-      {
-        goto LABEL_139;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_http2_connected";
-      v39 = "%{public}s called with null protocol";
-    }
-
-    else if (v53 == 1)
-    {
-      backtrace_string = __nw_create_backtrace_string();
-      v37 = __nwlog_obj();
-      v38 = type;
-      v43 = os_log_type_enabled(v37, type);
-      if (backtrace_string)
-      {
-        if (v43)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_protocol_http2_connected";
-          *&buf[12] = 2082;
-          *&buf[14] = backtrace_string;
-          _os_log_impl(&dword_181A37000, v37, v38, "%{public}s called with null protocol, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(backtrace_string);
-LABEL_139:
-        if (!v36)
-        {
-          return;
-        }
-
-        goto LABEL_140;
-      }
-
-      if (!v43)
-      {
-        goto LABEL_139;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_http2_connected";
-      v39 = "%{public}s called with null protocol, no backtrace";
-    }
-
-    else
-    {
-      v37 = __nwlog_obj();
-      v38 = type;
-      if (!os_log_type_enabled(v37, type))
-      {
-        goto LABEL_139;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_http2_connected";
-      v39 = "%{public}s called with null protocol, backtrace limit exceeded";
-    }
-
-    goto LABEL_138;
-  }
-
-  handle = a1->handle;
-  if (!handle)
-  {
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_http2_connected";
-    v36 = _os_log_send_and_compose_impl();
-    type = OS_LOG_TYPE_ERROR;
-    v53 = 0;
-    if (!__nwlog_fault(v36, &type, &v53))
-    {
-      goto LABEL_139;
-    }
-
-    if (type != OS_LOG_TYPE_FAULT)
-    {
-      if (v53 != 1)
-      {
-        v37 = __nwlog_obj();
-        v38 = type;
-        if (!os_log_type_enabled(v37, type))
-        {
-          goto LABEL_139;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_http2_connected";
-        v39 = "%{public}s called with null http2, backtrace limit exceeded";
-        goto LABEL_138;
-      }
-
-      v44 = __nw_create_backtrace_string();
-      v37 = __nwlog_obj();
-      v38 = type;
-      v45 = os_log_type_enabled(v37, type);
-      if (!v44)
-      {
-        if (!v45)
-        {
-          goto LABEL_139;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_protocol_http2_connected";
-        v39 = "%{public}s called with null http2, no backtrace";
-        goto LABEL_138;
-      }
-
-      if (v45)
-      {
-        *buf = 136446466;
-        *&buf[4] = "nw_protocol_http2_connected";
-        *&buf[12] = 2082;
-        *&buf[14] = v44;
-        v46 = "%{public}s called with null http2, dumping backtrace:%{public}s";
-LABEL_110:
-        _os_log_impl(&dword_181A37000, v37, v38, v46, buf, 0x16u);
-      }
-
-LABEL_111:
-      free(v44);
-      if (!v36)
-      {
-        return;
-      }
-
-LABEL_140:
-      free(v36);
-      return;
-    }
-
-    v37 = __nwlog_obj();
-    v38 = type;
-    if (!os_log_type_enabled(v37, type))
-    {
-      goto LABEL_139;
-    }
-
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_http2_connected";
-    v39 = "%{public}s called with null http2";
-LABEL_138:
-    _os_log_impl(&dword_181A37000, v37, v38, v39, buf, 0xCu);
-    goto LABEL_139;
-  }
-
-  if (!a2)
-  {
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_protocol_http2_connected";
-    v36 = _os_log_send_and_compose_impl();
-    type = OS_LOG_TYPE_ERROR;
-    v53 = 0;
-    if (!__nwlog_fault(v36, &type, &v53))
-    {
-      goto LABEL_139;
-    }
-
-    if (type == OS_LOG_TYPE_FAULT)
-    {
-      v37 = __nwlog_obj();
-      v38 = type;
-      if (!os_log_type_enabled(v37, type))
-      {
-        goto LABEL_139;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_http2_connected";
-      v39 = "%{public}s called with null other_protocol";
-      goto LABEL_138;
-    }
-
-    if (v53 != 1)
-    {
-      v37 = __nwlog_obj();
-      v38 = type;
-      if (!os_log_type_enabled(v37, type))
-      {
-        goto LABEL_139;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_http2_connected";
-      v39 = "%{public}s called with null other_protocol, backtrace limit exceeded";
-      goto LABEL_138;
-    }
-
-    v44 = __nw_create_backtrace_string();
-    v37 = __nwlog_obj();
-    v38 = type;
-    v47 = os_log_type_enabled(v37, type);
-    if (!v44)
-    {
-      if (!v47)
-      {
-        goto LABEL_139;
-      }
-
-      *buf = 136446210;
-      *&buf[4] = "nw_protocol_http2_connected";
-      v39 = "%{public}s called with null other_protocol, no backtrace";
-      goto LABEL_138;
-    }
-
-    if (v47)
-    {
-      *buf = 136446466;
-      *&buf[4] = "nw_protocol_http2_connected";
-      *&buf[12] = 2082;
-      *&buf[14] = v44;
-      v46 = "%{public}s called with null other_protocol, dumping backtrace:%{public}s";
-      goto LABEL_110;
-    }
-
-    goto LABEL_111;
-  }
-
-  if ((handle[379] & 1) == 0 && gLogDatapath == 1)
-  {
-    if (__nwlog_connection_log::onceToken[0] != -1)
-    {
-      dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-    }
-
-    v40 = gconnectionLogObj;
-    if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-    {
-      v41 = *(handle + 90);
-      *buf = 136446978;
-      *&buf[4] = "nw_protocol_http2_connected";
-      *&buf[12] = 2082;
-      *&buf[14] = handle + 380;
-      *&buf[22] = 2080;
-      v56 = " ";
-      LOWORD(v57) = 1024;
-      *(&v57 + 2) = v41;
-      _os_log_impl(&dword_181A37000, v40, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", buf, 0x26u);
-    }
-  }
-
-  default_input_handler = a1->default_input_handler;
-  if (default_input_handler)
-  {
-    callbacks = default_input_handler->callbacks;
-    if (callbacks)
-    {
-      connected = callbacks->connected;
-      if (connected)
-      {
-        connected();
-      }
-    }
-  }
-
-  if (a1->output_handler != a2)
-  {
-    if ((handle[379] & 1) == 0 && gLogDatapath == 1)
-    {
-      if (__nwlog_connection_log::onceToken[0] != -1)
-      {
-        dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-      }
-
-      v8 = gconnectionLogObj;
-      if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-      {
-        v9 = *(handle + 90);
-        *buf = 136446978;
-        *&buf[4] = "nw_protocol_http2_connected";
-        *&buf[12] = 2082;
-        *&buf[14] = handle + 380;
-        *&buf[22] = 2080;
-        v56 = " ";
-        LOWORD(v57) = 1024;
-        *(&v57 + 2) = v9;
-        v10 = "%{public}s %{public}s%s<i%u> connected protocol is not our output_handler, ignoring";
-LABEL_36:
-        _os_log_impl(&dword_181A37000, v8, OS_LOG_TYPE_DEBUG, v10, buf, 0x26u);
-        return;
-      }
-    }
-
-    return;
-  }
-
-  if ((handle[379] & 1) == 0 && gLogDatapath == 1)
-  {
-    if (__nwlog_connection_log::onceToken[0] != -1)
-    {
-      dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-    }
-
-    v48 = gconnectionLogObj;
-    if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-    {
-      v49 = *(handle + 90);
-      *buf = 136446978;
-      *&buf[4] = "nw_protocol_http2_process_connected";
-      *&buf[12] = 2082;
-      *&buf[14] = handle + 380;
-      *&buf[22] = 2080;
-      v56 = " ";
-      LOWORD(v57) = 1024;
-      *(&v57 + 2) = v49;
-      _os_log_impl(&dword_181A37000, v48, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", buf, 0x26u);
-    }
-  }
-
-  v11 = (handle + 377);
-  if ((*(handle + 377) & 0x80) != 0)
-  {
-    if (!*(handle + 18))
-    {
-      if ((handle[379] & 1) == 0)
-      {
-        if (__nwlog_connection_log::onceToken[0] != -1)
-        {
-          dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-        }
-
-        v20 = gconnectionLogObj;
-        if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_INFO))
-        {
-          v21 = *(handle + 90);
-          *buf = 136446978;
-          *&buf[4] = "nw_protocol_http2_process_connected";
-          *&buf[12] = 2082;
-          *&buf[14] = handle + 380;
-          *&buf[22] = 2080;
-          v56 = " ";
-          LOWORD(v57) = 1024;
-          *(&v57 + 2) = v21;
-          _os_log_impl(&dword_181A37000, v20, OS_LOG_TYPE_INFO, "%{public}s %{public}s%s<i%u> no listen handler on server, deferring processing of input and connected state until listen handler is present", buf, 0x26u);
-        }
-      }
-
-      *v11 |= 0x1000u;
-      return;
-    }
-
-    if ((handle[379] & 1) == 0 && gLogDatapath == 1)
-    {
-      if (__nwlog_connection_log::onceToken[0] != -1)
-      {
-        dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-      }
-
-      v12 = gconnectionLogObj;
-      if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-      {
-        v50 = *(handle + 90);
-        *buf = 136446978;
-        *&buf[4] = "nw_protocol_http2_process_connected";
-        *&buf[12] = 2082;
-        *&buf[14] = handle + 380;
-        *&buf[22] = 2080;
-        v56 = " ";
-        LOWORD(v57) = 1024;
-        *(&v57 + 2) = v50;
-        v14 = "%{public}s %{public}s%s<i%u> listen handler present, processing input without waiting";
-        goto LABEL_127;
-      }
-    }
-  }
-
-  else if ((handle[379] & 1) == 0 && gLogDatapath == 1)
-  {
-    if (__nwlog_connection_log::onceToken[0] != -1)
-    {
-      dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-    }
-
-    v12 = gconnectionLogObj;
-    if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-    {
-      v13 = *(handle + 90);
-      *buf = 136446978;
-      *&buf[4] = "nw_protocol_http2_process_connected";
-      *&buf[12] = 2082;
-      *&buf[14] = handle + 380;
-      *&buf[22] = 2080;
-      v56 = " ";
-      LOWORD(v57) = 1024;
-      *(&v57 + 2) = v13;
-      v14 = "%{public}s %{public}s%s<i%u> not server, processing input without waiting";
-LABEL_127:
-      _os_log_impl(&dword_181A37000, v12, OS_LOG_TYPE_DEBUG, v14, buf, 0x26u);
-    }
-  }
-
-  v15 = *v11;
-  *v11 &= ~0x1000u;
-  if ((v15 & 0xC) == 0)
-  {
-    nw_http2_send_settings(handle);
-    *v11 |= 4u;
-    if ((handle[379] & 1) == 0 && gLogDatapath == 1)
-    {
-      if (__nwlog_connection_log::onceToken[0] != -1)
-      {
-        dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-      }
-
-      v51 = gconnectionLogObj;
-      if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-      {
-        v52 = *(handle + 90);
-        *buf = 136446978;
-        *&buf[4] = "nw_protocol_http2_process_connected";
-        *&buf[12] = 2082;
-        *&buf[14] = handle + 380;
-        *&buf[22] = 2080;
-        v56 = " ";
-        LOWORD(v57) = 1024;
-        *(&v57 + 2) = v52;
-        _os_log_impl(&dword_181A37000, v51, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> http2 tunnel is now connected", buf, 0x26u);
-      }
-    }
-
-    v17 = *(handle + 14);
-    if (v17)
-    {
-      v18 = v17;
-      is_registered = _nw_endpoint_is_registered(v18);
-
-      if (is_registered)
-      {
-        if (nw_settings_get_http_connection_coalescing_enabled())
-        {
-          nw_endpoint_add_edges_for_instance(v18, handle, 1);
-        }
-      }
-
-      else if ((handle[379] & 1) == 0)
-      {
-        if (__nwlog_connection_log::onceToken[0] != -1)
-        {
-          dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-        }
-
-        v28 = gconnectionLogObj;
-        if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-        {
-          v29 = *(handle + 90);
-          *buf = 136446978;
-          *&buf[4] = "nw_protocol_http2_process_connected";
-          *&buf[12] = 2082;
-          *&buf[14] = handle + 380;
-          *&buf[22] = 2080;
-          v56 = " ";
-          LOWORD(v57) = 1024;
-          *(&v57 + 2) = v29;
-          _os_log_impl(&dword_181A37000, v28, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> http2's remote endpoint is not registered", buf, 0x26u);
-        }
-      }
-
-      goto LABEL_79;
-    }
-
-    if (handle[379])
-    {
-LABEL_79:
-      nw_protocol_http2_process_input(handle);
-      v35 = *(handle + 19);
-      *buf = MEMORY[0x1E69E9820];
-      *&buf[8] = 0x40000000;
-      *&buf[16] = ___ZL35nw_protocol_http2_process_connectedP17nw_protocol_http2_block_invoke;
-      v56 = &__block_descriptor_tmp_49_88077;
-      v57 = handle;
-      nw_hash_table_apply(v35, buf);
-      return;
-    }
-
-    if (__nwlog_connection_log::onceToken[0] != -1)
-    {
-      dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-    }
-
-    v22 = *(handle + 90);
-    *buf = 136446978;
-    *&buf[4] = "nw_protocol_http2_process_connected";
-    *&buf[12] = 2082;
-    *&buf[14] = handle + 380;
-    *&buf[22] = 2080;
-    v56 = " ";
-    LOWORD(v57) = 1024;
-    *(&v57 + 2) = v22;
-    v23 = _os_log_send_and_compose_impl();
-    type = OS_LOG_TYPE_ERROR;
-    v53 = 0;
-    if (__nwlog_fault(v23, &type, &v53))
-    {
-      if (type == OS_LOG_TYPE_FAULT)
-      {
-        if (__nwlog_connection_log::onceToken[0] != -1)
-        {
-          dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-        }
-
-        v24 = gconnectionLogObj;
-        v25 = type;
-        if (!os_log_type_enabled(gconnectionLogObj, type))
-        {
-          goto LABEL_77;
-        }
-
-        v26 = *(handle + 90);
-        *buf = 136446978;
-        *&buf[4] = "nw_protocol_http2_process_connected";
-        *&buf[12] = 2082;
-        *&buf[14] = handle + 380;
-        *&buf[22] = 2080;
-        v56 = " ";
-        LOWORD(v57) = 1024;
-        *(&v57 + 2) = v26;
-        v27 = "%{public}s %{public}s%s<i%u> http2 does not have remote endpoint";
-        goto LABEL_76;
-      }
-
-      if (v53 != 1)
-      {
-        if (__nwlog_connection_log::onceToken[0] != -1)
-        {
-          dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-        }
-
-        v24 = gconnectionLogObj;
-        v25 = type;
-        if (!os_log_type_enabled(gconnectionLogObj, type))
-        {
-          goto LABEL_77;
-        }
-
-        v33 = *(handle + 90);
-        *buf = 136446978;
-        *&buf[4] = "nw_protocol_http2_process_connected";
-        *&buf[12] = 2082;
-        *&buf[14] = handle + 380;
-        *&buf[22] = 2080;
-        v56 = " ";
-        LOWORD(v57) = 1024;
-        *(&v57 + 2) = v33;
-        v27 = "%{public}s %{public}s%s<i%u> http2 does not have remote endpoint, backtrace limit exceeded";
-        goto LABEL_76;
-      }
-
-      v30 = __nw_create_backtrace_string();
-      if (__nwlog_connection_log::onceToken[0] != -1)
-      {
-        dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-      }
-
-      v24 = gconnectionLogObj;
-      v25 = type;
-      v31 = os_log_type_enabled(gconnectionLogObj, type);
-      if (v30)
-      {
-        if (v31)
-        {
-          v32 = *(handle + 90);
-          *buf = 136447234;
-          *&buf[4] = "nw_protocol_http2_process_connected";
-          *&buf[12] = 2082;
-          *&buf[14] = handle + 380;
-          *&buf[22] = 2080;
-          v56 = " ";
-          LOWORD(v57) = 1024;
-          *(&v57 + 2) = v32;
-          HIWORD(v57) = 2082;
-          v58 = v30;
-          _os_log_impl(&dword_181A37000, v24, v25, "%{public}s %{public}s%s<i%u> http2 does not have remote endpoint, dumping backtrace:%{public}s", buf, 0x30u);
-        }
-
-        free(v30);
-        goto LABEL_77;
-      }
-
-      if (v31)
-      {
-        v34 = *(handle + 90);
-        *buf = 136446978;
-        *&buf[4] = "nw_protocol_http2_process_connected";
-        *&buf[12] = 2082;
-        *&buf[14] = handle + 380;
-        *&buf[22] = 2080;
-        v56 = " ";
-        LOWORD(v57) = 1024;
-        *(&v57 + 2) = v34;
-        v27 = "%{public}s %{public}s%s<i%u> http2 does not have remote endpoint, no backtrace";
-LABEL_76:
-        _os_log_impl(&dword_181A37000, v24, v25, v27, buf, 0x26u);
-      }
-    }
-
-LABEL_77:
-    if (v23)
-    {
-      free(v23);
-    }
-
-    goto LABEL_79;
-  }
-
-  if ((handle[379] & 1) == 0 && gLogDatapath == 1)
-  {
-    if (__nwlog_connection_log::onceToken[0] != -1)
-    {
-      dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-    }
-
-    v8 = gconnectionLogObj;
-    if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-    {
-      v16 = *(handle + 90);
-      *buf = 136446978;
-      *&buf[4] = "nw_protocol_http2_process_connected";
-      *&buf[12] = 2082;
-      *&buf[14] = handle + 380;
-      *&buf[22] = 2080;
-      v56 = " ";
-      LOWORD(v57) = 1024;
-      *(&v57 + 2) = v16;
-      v10 = "%{public}s %{public}s%s<i%u> tunnel already connected or closed, ignoring connected event";
-      goto LABEL_36;
-    }
-  }
-}
-
-void nw_http2_session_send(uint64_t a1)
-{
-  v64 = *MEMORY[0x1E69E9840];
-  if (a1 && (*(a1 + 379) & 1) != 0)
-  {
-    goto LABEL_5;
-  }
-
-  if (gLogDatapath != 1)
-  {
-    goto LABEL_4;
-  }
-
-  if (__nwlog_connection_log::onceToken[0] != -1)
-  {
-    dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-  }
-
-  v45 = gconnectionLogObj;
-  if (!os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-  {
-LABEL_4:
-    if (a1)
-    {
-      goto LABEL_5;
-    }
-
-    __nwlog_obj();
-    *buf = 136446210;
-    *&buf[4] = "nw_http2_session_send";
-    v41 = _os_log_send_and_compose_impl();
-    v56[0] = 16;
-    v54 = 0;
-    if (__nwlog_fault(v41, v56, &v54))
-    {
-      if (v56[0] == 17)
-      {
-        v42 = __nwlog_obj();
-        v43 = v56[0];
-        if (!os_log_type_enabled(v42, v56[0]))
-        {
-          goto LABEL_108;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_http2_session_send";
-        v44 = "%{public}s called with null http2";
-        goto LABEL_107;
-      }
-
-      if (v54 != 1)
-      {
-        v42 = __nwlog_obj();
-        v43 = v56[0];
-        if (!os_log_type_enabled(v42, v56[0]))
-        {
-          goto LABEL_108;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "nw_http2_session_send";
-        v44 = "%{public}s called with null http2, backtrace limit exceeded";
-        goto LABEL_107;
-      }
-
-      backtrace_string = __nw_create_backtrace_string();
-      v42 = __nwlog_obj();
-      v43 = v56[0];
-      v50 = os_log_type_enabled(v42, v56[0]);
-      if (backtrace_string)
-      {
-        if (v50)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_http2_session_send";
-          *&buf[12] = 2082;
-          *&buf[14] = backtrace_string;
-          _os_log_impl(&dword_181A37000, v42, v43, "%{public}s called with null http2, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(backtrace_string);
-        goto LABEL_108;
-      }
-
-      if (v50)
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_http2_session_send";
-        v44 = "%{public}s called with null http2, no backtrace";
-LABEL_107:
-        _os_log_impl(&dword_181A37000, v42, v43, v44, buf, 0xCu);
-      }
-    }
-
-LABEL_108:
-    if (v41)
-    {
-      free(v41);
-    }
-
-    return;
-  }
-
-  v46 = " ";
-  v47 = *(a1 + 360);
-  *&buf[4] = "nw_http2_session_send";
-  *&buf[12] = 2082;
-  v48 = (a1 + 380);
-  *buf = 136446978;
-  if (!a1)
-  {
-    v48 = "";
-  }
-
-  *&buf[14] = v48;
-  if (!a1)
-  {
-    v46 = "";
-  }
-
-  *&buf[22] = 2080;
-  *&buf[24] = v46;
-  *&buf[32] = 1024;
-  *&buf[34] = v47;
-  _os_log_impl(&dword_181A37000, v45, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", buf, 0x26u);
-LABEL_5:
-  v2 = (a1 + 377);
-  if ((*(a1 + 377) & 0x100) != 0)
-  {
-    if ((*(a1 + 379) & 1) == 0 && gLogDatapath == 1)
-    {
-      if (__nwlog_connection_log::onceToken[0] != -1)
-      {
-        dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-      }
-
-      v37 = gconnectionLogObj;
-      if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-      {
-        v38 = *(a1 + 360);
-        *buf = 136446978;
-        *&buf[4] = "nw_http2_session_send";
-        *&buf[12] = 2082;
-        *&buf[14] = a1 + 380;
-        *&buf[22] = 2080;
-        *&buf[24] = " ";
-        *&buf[32] = 1024;
-        *&buf[34] = v38;
-        v39 = "%{public}s %{public}s%s<i%u> already in session send, skipping";
-LABEL_76:
-        _os_log_impl(&dword_181A37000, v37, OS_LOG_TYPE_DEBUG, v39, buf, 0x26u);
-      }
-    }
-  }
-
-  else
-  {
-    if ((*(a1 + 377) & 0x200) == 0)
-    {
-      v3 = 0;
-      *v2 = *(a1 + 377) | 0x100;
-      v4 = a1 + 380;
-      while (1)
-      {
-        if (!nghttp2_session_want_write())
-        {
-LABEL_79:
-          *v2 &= ~0x100u;
-          if (v3)
-          {
-            nw_http2_connection_close(a1);
-          }
-
-          return;
-        }
-
-        if ((*(a1 + 379) & 1) == 0 && gLogDatapath == 1)
-        {
-          if (__nwlog_connection_log::onceToken[0] != -1)
-          {
-            dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-          }
-
-          v33 = gconnectionLogObj;
-          if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-          {
-            v34 = *(a1 + 360);
-            *buf = 136446978;
-            *&buf[4] = "nw_http2_session_send";
-            *&buf[12] = 2082;
-            *&buf[14] = v4;
-            *&buf[22] = 2080;
-            *&buf[24] = " ";
-            *&buf[32] = 1024;
-            *&buf[34] = v34;
-            _os_log_impl(&dword_181A37000, v33, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> nghttp2 wants to write", buf, 0x26u);
-          }
-        }
-
-        *v2 &= ~0x2000u;
-        v6 = nghttp2_session_send();
-        if (!v6)
-        {
-          goto LABEL_42;
-        }
-
-        v7 = v6;
-        if (v6 != -902 || (*v2 & 0x10) == 0)
-        {
-          break;
-        }
-
-        if ((*(a1 + 379) & 1) == 0)
-        {
-          if (__nwlog_connection_log::onceToken[0] != -1)
-          {
-            dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-          }
-
-          v17 = gconnectionLogObj;
-          if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEFAULT))
-          {
-            v18 = *(a1 + 360);
-            *buf = 136446978;
-            *&buf[4] = "nw_http2_session_send";
-            *&buf[12] = 2082;
-            *&buf[14] = v4;
-            *&buf[22] = 2080;
-            *&buf[24] = " ";
-            *&buf[32] = 1024;
-            *&buf[34] = v18;
-            _os_log_impl(&dword_181A37000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}s%s<i%u> tunnel error, send failed, closing", buf, 0x26u);
-          }
-        }
-
-        v3 = 1;
-        v19 = *v2;
-        if ((*v2 & 0x2000) != 0)
-        {
-LABEL_77:
-          if ((*(a1 + 379) & 1) == 0 && gLogDatapath == 1)
-          {
-            if (__nwlog_connection_log::onceToken[0] != -1)
-            {
-              dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-            }
-
-            v51 = gconnectionLogObj;
-            if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-            {
-              v52 = *(a1 + 360);
-              *buf = 136446978;
-              *&buf[4] = "nw_http2_session_send";
-              *&buf[12] = 2082;
-              *&buf[14] = a1 + 380;
-              *&buf[22] = 2080;
-              *&buf[24] = " ";
-              *&buf[32] = 1024;
-              *&buf[34] = v52;
-              _os_log_impl(&dword_181A37000, v51, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> cannot send any more, returning", buf, 0x26u);
-            }
-          }
-
-          goto LABEL_79;
-        }
-
-LABEL_43:
-        if (*(a1 + 366) < 6u)
-        {
-          if ((v19 & 0x4000) == 0)
-          {
-            *v2 = v19 | 0x4000;
-            v29 = *(a1 + 344);
-            v30 = *(a1 + 128);
-            v53[0] = MEMORY[0x1E69E9820];
-            v53[1] = 0x40000000;
-            v53[2] = ___ZL21nw_http2_session_sendP17nw_protocol_http2_block_invoke;
-            v53[3] = &unk_1E6A3C300;
-            v53[4] = v29;
-            nw_queue_context_async(v30, v53);
-          }
-        }
-
-        else
-        {
-          nw_http2_finalize_written_output_frames(a1);
-        }
-
-        nw_http2_drain_output_frames(a1);
-        if ((*(a1 + 379) & 1) == 0 && gLogDatapath == 1)
-        {
-          if (__nwlog_connection_log::onceToken[0] != -1)
-          {
-            dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-          }
-
-          v35 = gconnectionLogObj;
-          if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-          {
-            v36 = *(a1 + 360);
-            *v56 = 136446978;
-            v57 = "nw_http2_deliver_pending_output_available";
-            v58 = 2082;
-            v59 = v4;
-            v60 = 2080;
-            v61 = " ";
-            v62 = 1024;
-            v63 = v36;
-            _os_log_impl(&dword_181A37000, v35, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> called", v56, 0x26u);
-          }
-        }
-
-        if ((*v2 & 0x800) != 0)
-        {
-          *v2 &= ~0x800u;
-          v5 = *(a1 + 152);
-          *buf = MEMORY[0x1E69E9820];
-          *&buf[8] = 0x40000000;
-          *&buf[16] = ___ZL41nw_http2_deliver_pending_output_availableP17nw_protocol_http2_block_invoke;
-          *&buf[24] = &__block_descriptor_tmp_31_87115;
-          *&buf[32] = a1;
-          nw_hash_table_apply(v5, buf);
-        }
-
-        else if ((*(a1 + 379) & 1) == 0 && gLogDatapath == 1)
-        {
-          if (__nwlog_connection_log::onceToken[0] != -1)
-          {
-            dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-          }
-
-          v31 = gconnectionLogObj;
-          if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-          {
-            v32 = *(a1 + 360);
-            *v56 = 136446978;
-            v57 = "nw_http2_deliver_pending_output_available";
-            v58 = 2082;
-            v59 = v4;
-            v60 = 2080;
-            v61 = " ";
-            v62 = 1024;
-            v63 = v32;
-            _os_log_impl(&dword_181A37000, v31, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s%s<i%u> no streams have output available pending, nothing to do", v56, 0x26u);
-          }
-        }
-      }
-
-      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-      networkd_settings_init();
-      v9 = nghttp2_strerror();
-      *buf = 136446722;
-      *&buf[4] = "nw_http2_session_send";
-      *&buf[12] = 1024;
-      *&buf[14] = v7;
-      *&buf[18] = 2082;
-      *&buf[20] = v9;
-      v10 = _os_log_send_and_compose_impl();
-      v56[0] = 16;
-      v54 = 0;
-      if (__nwlog_fault(v10, v56, &v54))
-      {
-        if (v56[0] == 17)
-        {
-          pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-          networkd_settings_init();
-          v11 = gLogObj;
-          v12 = v56[0];
-          if (os_log_type_enabled(gLogObj, v56[0]))
-          {
-            v13 = nghttp2_strerror();
-            *buf = 136446722;
-            *&buf[4] = "nw_http2_session_send";
-            *&buf[12] = 1024;
-            *&buf[14] = v7;
-            *&buf[18] = 2082;
-            *&buf[20] = v13;
-            v14 = v11;
-            v15 = v12;
-            v16 = "%{public}s nghttp2_session_send failed: %d (%{public}s) failed";
-LABEL_38:
-            _os_log_impl(&dword_181A37000, v14, v15, v16, buf, 0x1Cu);
-          }
-        }
-
-        else if (v54 == 1)
-        {
-          v20 = __nw_create_backtrace_string();
-          pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-          networkd_settings_init();
-          v21 = gLogObj;
-          v22 = v56[0];
-          v23 = os_log_type_enabled(gLogObj, v56[0]);
-          if (v20)
-          {
-            if (v23)
-            {
-              v24 = nghttp2_strerror();
-              *buf = 136446978;
-              *&buf[4] = "nw_http2_session_send";
-              *&buf[12] = 1024;
-              *&buf[14] = v7;
-              *&buf[18] = 2082;
-              *&buf[20] = v24;
-              *&buf[28] = 2082;
-              *&buf[30] = v20;
-              _os_log_impl(&dword_181A37000, v21, v22, "%{public}s nghttp2_session_send failed: %d (%{public}s) failed, dumping backtrace:%{public}s", buf, 0x26u);
-            }
-
-            free(v20);
-            v4 = a1 + 380;
-            goto LABEL_39;
-          }
-
-          v4 = a1 + 380;
-          if (v23)
-          {
-            v28 = nghttp2_strerror();
-            *buf = 136446722;
-            *&buf[4] = "nw_http2_session_send";
-            *&buf[12] = 1024;
-            *&buf[14] = v7;
-            *&buf[18] = 2082;
-            *&buf[20] = v28;
-            v14 = v21;
-            v15 = v22;
-            v16 = "%{public}s nghttp2_session_send failed: %d (%{public}s) failed, no backtrace";
-            goto LABEL_38;
-          }
-        }
-
-        else
-        {
-          pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-          networkd_settings_init();
-          v25 = gLogObj;
-          v26 = v56[0];
-          if (os_log_type_enabled(gLogObj, v56[0]))
-          {
-            v27 = nghttp2_strerror();
-            *buf = 136446722;
-            *&buf[4] = "nw_http2_session_send";
-            *&buf[12] = 1024;
-            *&buf[14] = v7;
-            *&buf[18] = 2082;
-            *&buf[20] = v27;
-            v14 = v25;
-            v15 = v26;
-            v16 = "%{public}s nghttp2_session_send failed: %d (%{public}s) failed, backtrace limit exceeded";
-            goto LABEL_38;
-          }
-        }
-      }
-
-LABEL_39:
-      if (v10)
-      {
-        free(v10);
-      }
-
-      v3 = 1;
-LABEL_42:
-      v19 = *v2;
-      if ((*v2 & 0x2000) != 0)
-      {
-        goto LABEL_77;
-      }
-
-      goto LABEL_43;
-    }
-
-    if ((*(a1 + 379) & 1) == 0 && gLogDatapath == 1)
-    {
-      if (__nwlog_connection_log::onceToken[0] != -1)
-      {
-        dispatch_once(__nwlog_connection_log::onceToken, &__block_literal_global_28_47435);
-      }
-
-      v37 = gconnectionLogObj;
-      if (os_log_type_enabled(gconnectionLogObj, OS_LOG_TYPE_DEBUG))
-      {
-        v40 = *(a1 + 360);
-        *buf = 136446978;
-        *&buf[4] = "nw_http2_session_send";
-        *&buf[12] = 2082;
-        *&buf[14] = a1 + 380;
-        *&buf[22] = 2080;
-        *&buf[24] = " ";
-        *&buf[32] = 1024;
-        *&buf[34] = v40;
-        v39 = "%{public}s %{public}s%s<i%u> in mem recv, skipping";
-        goto LABEL_76;
-      }
-    }
-  }
 }

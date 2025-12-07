@@ -188,7 +188,7 @@ void __58__SSMetricsConfiguration__initSSMetricsEventConfiguration__block_invoke
 
 - (SSMetricsConfiguration)initWithGlobalConfiguration:(id)configuration
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   _initSSMetricsEventConfiguration = [(SSMetricsConfiguration *)self _initSSMetricsEventConfiguration];
   if (_initSSMetricsEventConfiguration)
@@ -216,31 +216,31 @@ void __58__SSMetricsConfiguration__initSSMetricsEventConfiguration__block_invoke
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v29[0] = MEMORY[0x1E69E9820];
-          v29[1] = 3221225472;
-          v29[2] = __54__SSMetricsConfiguration_initWithGlobalConfiguration___block_invoke;
-          v29[3] = &unk_1E84AE620;
-          v30 = v8;
-          [v11 enumerateKeysAndObjectsUsingBlock:v29];
+          v28[0] = MEMORY[0x1E69E9820];
+          v28[1] = 3221225472;
+          v28[2] = __54__SSMetricsConfiguration_initWithGlobalConfiguration___block_invoke;
+          v28[3] = &unk_1E84AE620;
+          v29 = v8;
+          [v11 enumerateKeysAndObjectsUsingBlock:v28];
         }
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __54__SSMetricsConfiguration_initWithGlobalConfiguration___block_invoke_2;
-        v27[3] = &unk_1E84AE620;
-        v28 = v8;
-        [v10 enumerateKeysAndObjectsUsingBlock:v27];
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __54__SSMetricsConfiguration_initWithGlobalConfiguration___block_invoke_2;
+        v26[3] = &unk_1E84AE620;
+        v27 = v8;
+        [v10 enumerateKeysAndObjectsUsingBlock:v26];
       }
 
       v12 = [(SSMetricsConfiguration *)v8 copy];
       fields = _initSSMetricsEventConfiguration->_fields;
       _initSSMetricsEventConfiguration->_fields = v12;
 
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     v9 = +[SSLogConfig sharedStoreServicesConfig];
@@ -252,47 +252,51 @@ void __58__SSMetricsConfiguration__initSSMetricsEventConfiguration__block_invoke
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
 
     if (v15)
     {
-      v31 = 138412290;
-      v32 = objc_opt_class();
-      v17 = v32;
-      LODWORD(v26) = 12;
-      v18 = _os_log_send_and_compose_impl();
+      v30 = 138412290;
+      v31 = objc_opt_class();
+      v17 = v31;
+      v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "[%@] initializing with empty config ", &v30, 12);
 
       if (!v18)
       {
-LABEL_23:
+LABEL_24:
         v8 = _initSSMetricsEventConfiguration;
         _initSSMetricsEventConfiguration = 0;
-LABEL_24:
+LABEL_25:
 
-        goto LABEL_25;
+        goto LABEL_26;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v31, v26}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog(v9, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
     }
 
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
-LABEL_25:
+LABEL_26:
 
   return _initSSMetricsEventConfiguration;
 }
@@ -543,7 +547,7 @@ void __52__SSMetricsConfiguration_initWithStorePlatformData___block_invoke_2(uin
 
 - (BOOL)isEventTypeBlacklisted:(id)blacklisted
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   blacklistedCopy = blacklisted;
   v5 = blacklistedCopy;
   disabled = self->_disabled;
@@ -551,7 +555,7 @@ void __52__SSMetricsConfiguration_initWithStorePlatformData___block_invoke_2(uin
   {
     if (![blacklistedCopy length])
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     blacklistedEvents = self->_blacklistedEvents;
@@ -567,11 +571,11 @@ void __52__SSMetricsConfiguration_initWithStorePlatformData___block_invoke_2(uin
 
     if (![(NSSet *)blacklistedEvents containsObject:v5])
     {
-LABEL_18:
+LABEL_19:
       childConfiguration = [(SSMetricsConfiguration *)self childConfiguration];
       disabled = [childConfiguration isEventTypeBlacklisted:v5];
 
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
     v11 = +[SSLogConfig sharedStoreServicesConfig];
@@ -583,47 +587,51 @@ LABEL_18:
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
     oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      *v26 = 138412546;
-      *&v26[4] = objc_opt_class();
-      *&v26[12] = 2112;
-      *&v26[14] = v5;
-      v15 = *&v26[4];
-      LODWORD(v25) = 22;
-      v16 = _os_log_send_and_compose_impl();
+      v25 = 138412546;
+      v26 = objc_opt_class();
+      v27 = 2112;
+      v28 = v5;
+      v15 = v26;
+      v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "[%@] Blacklisted event [%@] ", &v25, 22);
 
       if (!v16)
       {
-LABEL_17:
+LABEL_18:
 
         disabled = 1;
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, v26, v25, *v26, *&v26[16], v27}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog(v11, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
-LABEL_19:
+LABEL_20:
 
   return disabled;
 }
@@ -752,87 +760,86 @@ void __34__SSMetricsConfiguration_pingURLs__block_invoke(uint64_t a1, void *a2)
 
 + (void)getReportingFrequencyOverrideWithCompletionBlock:(id)block
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (!SSVUserDefaultsIsReadable(@"com.apple.itunesstored"))
+  IsReadable = SSVUserDefaultsIsReadable(@"com.apple.itunesstored");
+  if (!IsReadable)
   {
-    if (!SSIsInternalBuild() || !_os_feature_enabled_impl())
+    if (!SSIsInternalBuild(IsReadable, v6) || !_os_feature_enabled_impl())
     {
       goto LABEL_18;
     }
 
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
+    v10 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v10)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v10 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v10 shouldLog];
+    if ([v10 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      v12 = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      v12 = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
+    oSLogObject = [v10 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
+      v14 = v12;
     }
 
     else
     {
-      v12 = v10 & 2;
+      v14 = v12 & 2;
     }
 
-    if (v12)
+    if (v14)
     {
-      v27 = 136446210;
-      v28 = "+[SSMetricsConfiguration getReportingFrequencyOverrideWithCompletionBlock:]";
-      LODWORD(v21) = 12;
-      v13 = _os_log_send_and_compose_impl();
+      v28 = 136446210;
+      v29 = "+[SSMetricsConfiguration getReportingFrequencyOverrideWithCompletionBlock:]";
 
-      if (!v13)
+      if (!v15)
       {
 LABEL_17:
 
 LABEL_18:
-        v6 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
-        v7 = SSXPCCreateMessageDictionary(128);
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __75__SSMetricsConfiguration_getReportingFrequencyOverrideWithCompletionBlock___block_invoke_80;
-        v22[3] = &unk_1E84AE2D8;
-        v23 = blockCopy;
-        v20 = blockCopy;
-        [(SSXPCConnection *)v6 sendMessage:v7 withReply:v22];
+        v8 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+        v9 = SSXPCCreateMessageDictionary(128);
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __75__SSMetricsConfiguration_getReportingFrequencyOverrideWithCompletionBlock___block_invoke_80;
+        v23[3] = &unk_1E84AE2D8;
+        v24 = blockCopy;
+        v22 = blockCopy;
+        [(SSXPCConnection *)v8 sendMessage:v9 withReply:v23];
 
         goto LABEL_19;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v27, v21}];
-      free(v13);
-      SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+      free(v15);
+      SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
     }
 
     goto LABEL_17;
   }
 
-  v5 = dispatch_get_global_queue(0, 0);
+  v7 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __75__SSMetricsConfiguration_getReportingFrequencyOverrideWithCompletionBlock___block_invoke;
   block[3] = &unk_1E84AE698;
-  v25 = blockCopy;
+  v26 = blockCopy;
   selfCopy = self;
-  v6 = blockCopy;
-  dispatch_async(v5, block);
+  v8 = blockCopy;
+  dispatch_async(v7, block);
 
-  v7 = v25;
+  v9 = v26;
 LABEL_19:
 }
 
@@ -862,94 +869,93 @@ void __75__SSMetricsConfiguration_getReportingFrequencyOverrideWithCompletionBlo
 
 + (void)setReportingFrequencyOverride:(id)override
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   overrideCopy = override;
-  if (SSVUserDefaultsIsWritable(@"com.apple.itunesstored"))
+  IsWritable = SSVUserDefaultsIsWritable(@"com.apple.itunesstored");
+  if (IsWritable)
   {
-    v4 = CPCopySharedResourcesPreferencesDomainForDomain();
-    if (v4)
+    v6 = CPCopySharedResourcesPreferencesDomainForDomain();
+    if (v6)
     {
-      v5 = v4;
-      CFPreferencesSetAppValue(@"SSVMetricsInternalSettingReportingFrequency", overrideCopy, v4);
-      CFPreferencesAppSynchronize(v5);
+      v7 = v6;
+      CFPreferencesSetAppValue(@"SSVMetricsInternalSettingReportingFrequency", overrideCopy, v6);
+      CFPreferencesAppSynchronize(v7);
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
       CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.StoreServices.metrics-internal-settings-change", 0, 0, 1u);
-      CFRelease(v5);
+      CFRelease(v7);
     }
 
     goto LABEL_23;
   }
 
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(IsWritable, v5) && _os_feature_enabled_impl())
   {
-    v7 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v7)
+    v9 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v9)
     {
-      v7 = +[SSLogConfig sharedConfig];
+      v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v7 shouldLog];
-    if ([v7 shouldLogToDisk])
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      v11 = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      v11 = shouldLog;
     }
 
-    oSLogObject = [v7 OSLogObject];
+    oSLogObject = [v9 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v11 = v9;
+      v13 = v11;
     }
 
     else
     {
-      v11 = v9 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v11)
+    if (v13)
     {
-      v25 = 136446210;
-      v26 = "+[SSMetricsConfiguration setReportingFrequencyOverride:]";
-      LODWORD(v24) = 12;
-      v12 = _os_log_send_and_compose_impl();
+      v26 = 136446210;
+      v27 = "+[SSMetricsConfiguration setReportingFrequencyOverride:]";
 
-      if (!v12)
+      if (!v14)
       {
 LABEL_18:
 
         goto LABEL_19;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v25, v24}];
-      free(v12);
-      SSFileLog(v7, @"%@", v13, v14, v15, v16, v17, v18, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+      free(v14);
+      SSFileLog(v9, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
     }
 
     goto LABEL_18;
   }
 
 LABEL_19:
-  v19 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
-  v20 = SSXPCCreateMessageDictionary(129);
-  v21 = xpc_dictionary_create(0, 0, 0);
+  v21 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+  v22 = SSXPCCreateMessageDictionary(129);
+  v23 = xpc_dictionary_create(0, 0, 0);
   uTF8String = [@"SSVMetricsInternalSettingReportingFrequency" UTF8String];
   if (overrideCopy)
   {
-    SSXPCDictionarySetObject(v21, uTF8String, overrideCopy);
+    SSXPCDictionarySetObject(v23, uTF8String, overrideCopy);
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    SSXPCDictionarySetObject(v21, uTF8String, null);
+    SSXPCDictionarySetObject(v23, uTF8String, null);
   }
 
-  xpc_dictionary_set_value(v20, "1", v21);
-  [(SSXPCConnection *)v19 sendMessage:v20 withReply:&__block_literal_global_7];
+  xpc_dictionary_set_value(v22, "1", v23);
+  [(SSXPCConnection *)v21 sendMessage:v22 withReply:&__block_literal_global_7];
 
 LABEL_23:
 }

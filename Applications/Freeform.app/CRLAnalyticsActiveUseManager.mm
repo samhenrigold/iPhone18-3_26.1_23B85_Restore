@@ -33,7 +33,7 @@
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10073BBF4();
+  sub_10073BBF4(v7);
 
   (*(v5 + 8))(v7, v4);
 }

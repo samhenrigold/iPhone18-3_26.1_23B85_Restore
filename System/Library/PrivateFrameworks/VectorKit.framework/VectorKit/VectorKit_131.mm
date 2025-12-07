@@ -1,3 +1,9477 @@
+void sub_1B3189EB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a11)
+  {
+    operator delete(a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void md::DaVinciGroundTileData::_appendFaces(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9, float a10, uint64_t *a11, uint64_t *a12, char a13, int *a14, uint64_t a15)
+{
+  v25 = +[VKDebugSettings sharedSettings];
+  v26 = [v25 daVinciBuildingHeights];
+
+  if (v26)
+  {
+    v27 = *(a2 + 4);
+    if (*(a15 + 24))
+    {
+      v27 = *(a15 + 20) + (*(a15 + 8) * v27);
+    }
+
+    v99 = *(a2 + 1) == 0;
+  }
+
+  else
+  {
+    v99 = 0;
+    v27 = *(a1 + 1184) * 5.0;
+  }
+
+  v28 = *a3;
+  v29 = a3[1];
+  if (v29 != *a3)
+  {
+    v30 = 0;
+    v31 = *a12;
+    v32 = 0xAAAAAAAAAAAAAAABLL * ((v29 - *a3) >> 2);
+    v33 = v32 - 1;
+    v34 = a3[3];
+    v35 = *(a5 + 40);
+    v36 = *(a8 + 40);
+    v37 = *(a7 + 40);
+    v38 = *(a6 + 40);
+    v39 = v32 - 1;
+    v40 = *(a4 + 40);
+    v41 = (v28 + 4);
+    v42 = *a12;
+    do
+    {
+      v43 = v30++;
+      if (v39 == v43)
+      {
+        v44 = 0;
+      }
+
+      else
+      {
+        v44 = v30;
+      }
+
+      v45 = a9;
+      if ((a13 & 1) == 0)
+      {
+        v45 = v41[1];
+      }
+
+      v46 = 0.0;
+      if (!v99)
+      {
+        v46 = v41[1];
+      }
+
+      v47 = (v28 + 12 * v33);
+      v48 = *(v34 + v43);
+      v49 = *(v41 - 1);
+      v50 = v46 + v27;
+      v51 = (v49 * a10);
+      v52 = (*v41 * a10);
+      if ((v48 & 3) == 0)
+      {
+        v53 = *v41 - v47[1];
+        v54 = *v47 - v49;
+        v55 = v35 + 8 * v42;
+        *v55 = v51;
+        *(v55 + 2) = v52;
+        *(v36 + 4 * v42) = a9;
+        *(v55 + 4) = v50;
+        v56 = 0.28126 / sqrtf((v53 * v53) + (v54 * v54));
+        _S6 = (v56 * v53) + 0.5;
+        _S5 = (v56 * v54) + 0.5;
+        __asm
+        {
+          FCVT            H6, S6
+          FCVT            H5, S5
+        }
+
+        v63 = (v37 + 4 * v42);
+        *v63 = LOWORD(_S6);
+        v63[1] = LOWORD(_S5);
+        _S7 = *a14;
+        _S16 = a14[1];
+        __asm
+        {
+          FCVT            H7, S7
+          FCVT            H16, S16
+        }
+
+        v66 = (v38 + 4 * v42);
+        *v66 = _S7;
+        v66[1] = _S16;
+        v67 = v35 + 8 * (v42 + 1);
+        *v67 = v51;
+        *(v67 + 2) = v52;
+        *(v67 + 4) = v41[1];
+        *(v36 + 4 * (v42 + 1)) = v45;
+        v68 = (v37 + 4 * (v42 + 1));
+        *v68 = LOWORD(_S6);
+        v68[1] = LOWORD(_S5);
+        _S5 = *a14;
+        _S6 = a14[1];
+        __asm
+        {
+          FCVT            H5, S5
+          FCVT            H6, S6
+        }
+
+        v71 = (v38 + 4 * (v42 + 1));
+        *v71 = _S5;
+        v71[1] = _S6;
+        v42 += 2;
+        *a12 = v42;
+      }
+
+      v72 = (v28 + 12 * v44);
+      v73 = v42 + 2;
+      if (v39 == v43)
+      {
+        v73 = v31;
+      }
+
+      v74 = *a11;
+      v75 = *a11 + 1;
+      *a11 = v75;
+      *(v40 + 2 * v75) = *a12 + 1;
+      v76 = (v40 + 2 * v74);
+      *v76 = v42;
+      v76[2] = v73;
+      v76[3] = v73;
+      *a11 = v74 + 4;
+      *(v40 + 2 * (v74 + 4)) = *a12 + 1;
+      v76[5] = v73 + 1;
+      *a11 = v74 + 6;
+      v77 = v72 + 1;
+      v78 = v47 + 1;
+      if (v48)
+      {
+        v79 = v72 + 1;
+      }
+
+      else
+      {
+        v79 = v41;
+      }
+
+      if (v48)
+      {
+        v80 = v72;
+      }
+
+      else
+      {
+        v80 = v41 - 1;
+      }
+
+      if ((v48 & 2) != 0)
+      {
+        v77 = v79;
+      }
+
+      else
+      {
+        v78 = v41;
+      }
+
+      if ((v48 & 2) != 0)
+      {
+        v81 = v47;
+      }
+
+      else
+      {
+        v81 = v41 - 1;
+      }
+
+      if ((v48 & 2) != 0)
+      {
+        v82 = v80;
+      }
+
+      else
+      {
+        v82 = v72;
+      }
+
+      v83 = *v77 - *v78;
+      v84 = *v81 - *v82;
+      v85 = sqrtf((v83 * v83) + (v84 * v84));
+      v86 = *a12;
+      v87 = v35 + 8 * *a12;
+      *v87 = v51;
+      *(v87 + 2) = v52;
+      *(v87 + 4) = v50;
+      *(v36 + 4 * v86) = a9;
+      _S5 = ((0.28126 / v85) * v83) + 0.5;
+      _S4 = ((0.28126 / v85) * v84) + 0.5;
+      __asm
+      {
+        FCVT            H5, S5
+        FCVT            H4, S4
+      }
+
+      v90 = (v37 + 4 * v86);
+      *v90 = LOWORD(_S5);
+      v90[1] = LOWORD(_S4);
+      _S6 = *a14;
+      _S7 = a14[1];
+      __asm
+      {
+        FCVT            H6, S6
+        FCVT            H7, S7
+      }
+
+      v93 = (v38 + 4 * v86);
+      *v93 = _S6;
+      v93[1] = _S7;
+      v94 = v35 + 8 * (v86 + 1);
+      *v94 = v51;
+      *(v94 + 2) = v52;
+      *(v94 + 4) = v41[1];
+      *(v36 + 4 * (v86 + 1)) = v45;
+      v95 = (v37 + 4 * (v86 + 1));
+      *v95 = LOWORD(_S5);
+      v95[1] = LOWORD(_S4);
+      _S3 = *a14;
+      _S4 = a14[1];
+      __asm
+      {
+        FCVT            H3, S3
+        FCVT            H4, S4
+      }
+
+      v98 = (v38 + 4 * (v86 + 1));
+      *v98 = _S3;
+      v98[1] = _S4;
+      v42 = v86 + 2;
+      *a12 = v86 + 2;
+      v41 += 3;
+      v33 = v43;
+    }
+
+    while (v32 > v30);
+  }
+}
+
+void std::vector<md::PolygonLoop>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v4 -= 48;
+        std::__destroy_at[abi:nn200100]<md::MuninRoadEdgePolyline,0>(v4);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<md::PolygonLoop>>(unint64_t a1)
+{
+  if (a1 < 0x555555555555556)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<md::PolygonLoop>,md::PolygonLoop*>(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (a1 != a2)
+  {
+    v4 = a1;
+    v5 = a1;
+    do
+    {
+      *a3 = 0;
+      a3[1] = 0;
+      a3[2] = 0;
+      *a3 = *v5;
+      a3[2] = *(v5 + 16);
+      *v5 = 0;
+      *(v5 + 8) = 0;
+      *(v5 + 16) = 0;
+      a3[3] = 0;
+      a3[4] = 0;
+      a3[5] = 0;
+      *(a3 + 3) = *(v5 + 24);
+      a3[5] = *(v5 + 40);
+      *(v5 + 24) = 0;
+      *(v5 + 32) = 0;
+      *(v5 + 40) = 0;
+      v5 += 48;
+      a3 += 6;
+    }
+
+    while (v5 != a2);
+    do
+    {
+      std::__destroy_at[abi:nn200100]<md::MuninRoadEdgePolyline,0>(v4);
+      v4 += 48;
+    }
+
+    while (v4 != a2);
+  }
+}
+
+uint64_t std::__split_buffer<md::PolygonLoop>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    *(a1 + 16) = i - 48;
+    std::__destroy_at[abi:nn200100]<md::MuninRoadEdgePolyline,0>(i - 48);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::__shared_ptr_emplace<ggl::DaVinci::ElevationCompressedMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3AAD8;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void ggl::DeviceDataTyped<ggl::DaVinci::Elevations>::~DeviceDataTyped(std::mutex *a1)
+{
+  ggl::BufferData::~BufferData(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::DeviceDataTyped<ggl::DaVinci::Elevations>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3A780;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::VertexDataTyped<ggl::DaVinci::ElevationCompressedVbo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3A940;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::vector<md::DaVinciGroundTileData::BuildingBatch>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v4 -= 80;
+        std::__destroy_at[abi:nn200100]<md::MuninRoadEdgePolyline,0>(v4);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+uint64_t std::__shared_ptr_pointer<ggl::Texture2D  *>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 8))();
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_pointer<ggl::Texture2D  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void sub_1B318A7D4(_Unwind_Exception *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(v1);
+  operator delete(v3);
+  _Unwind_Resume(a1);
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned long,std::function<gm::Matrix<float,2,1> ()(unsigned long)>>>>(unint64_t a1)
+{
+  if (a1 < 0x666666666666667)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+void *std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<std::pair<unsigned long,std::function<gm::Matrix<float,2,1> ()(unsigned long)>>>,std::pair<unsigned long,std::function<gm::Matrix<float,2,1> ()(unsigned long)>>*>(void *result, void *a2, uint64_t a3)
+{
+  if (result != a2)
+  {
+    v4 = result;
+    v5 = (a3 + 32);
+    v6 = result;
+    do
+    {
+      *(v5 - 4) = *v6;
+      v7 = v6[4];
+      if (v7)
+      {
+        if (v6 + 1 == v7)
+        {
+          *v5 = v5 - 3;
+          (*(*v6[4] + 24))(v6[4]);
+        }
+
+        else
+        {
+          *v5 = v7;
+          v6[4] = 0;
+        }
+      }
+
+      else
+      {
+        *v5 = 0;
+      }
+
+      v6 += 5;
+      v5 += 5;
+    }
+
+    while (v6 != a2);
+    do
+    {
+      result = std::__function::__value_func<gm::Matrix<float,2,1> ()(unsigned long)>::~__value_func[abi:nn200100]((v4 + 1));
+      v4 += 5;
+    }
+
+    while (v4 != a2);
+  }
+
+  return result;
+}
+
+uint64_t std::__split_buffer<std::pair<unsigned long,std::function<gm::Matrix<float,2,1> ()(unsigned long)>>>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    *(a1 + 16) = i - 40;
+    std::__function::__value_func<gm::Matrix<float,2,1> ()(unsigned long)>::~__value_func[abi:nn200100](i - 32);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::vector<std::pair<unsigned long,std::function<gm::Matrix<float,2,1> ()(unsigned long)>>>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v6 = v4 - 40;
+        std::__function::__value_func<gm::Matrix<float,2,1> ()(unsigned long)>::~__value_func[abi:nn200100]((v4 - 32));
+        v4 = v6;
+      }
+
+      while (v6 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+uint64_t std::__function::__func<md::DaVinciGroundTileData::_prepareBuildingBatches(std::shared_ptr<geo::codec::VectorTile> const&,md::PolygonRound const&,std::unordered_map<md::DaVinciGroundTileData::BuildingBatchType,std::vector<md::DaVinciGroundTileData::BuildingBatch>,md::DaVinciGroundTileData::BuildingBatchTypeHash,std::equal_to<md::DaVinciGroundTileData::BuildingBatchType>,std::allocator<std::pair<md::DaVinciGroundTileData::BuildingBatchType const,std::vector<md::DaVinciGroundTileData::BuildingBatch>>>> &)::$_1,std::allocator<md::DaVinciGroundTileData::_prepareBuildingBatches(std::shared_ptr<geo::codec::VectorTile> const&,md::PolygonRound const&,std::unordered_map<md::DaVinciGroundTileData::BuildingBatchType,std::vector<md::DaVinciGroundTileData::BuildingBatch>,md::DaVinciGroundTileData::BuildingBatchTypeHash,std::equal_to<md::DaVinciGroundTileData::BuildingBatchType>,std::allocator<std::pair<md::DaVinciGroundTileData::BuildingBatchType const,std::vector<md::DaVinciGroundTileData::BuildingBatch>>>> &)::$_1>,gm::Matrix<float,2,1> ()(unsigned long)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F2A3A518;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<md::DaVinciGroundTileData::_prepareBuildingBatches(std::shared_ptr<geo::codec::VectorTile> const&,md::PolygonRound const&,std::unordered_map<md::DaVinciGroundTileData::BuildingBatchType,std::vector<md::DaVinciGroundTileData::BuildingBatch>,md::DaVinciGroundTileData::BuildingBatchTypeHash,std::equal_to<md::DaVinciGroundTileData::BuildingBatchType>,std::allocator<std::pair<md::DaVinciGroundTileData::BuildingBatchType const,std::vector<md::DaVinciGroundTileData::BuildingBatch>>>> &)::$_0,std::allocator<md::DaVinciGroundTileData::_prepareBuildingBatches(std::shared_ptr<geo::codec::VectorTile> const&,md::PolygonRound const&,std::unordered_map<md::DaVinciGroundTileData::BuildingBatchType,std::vector<md::DaVinciGroundTileData::BuildingBatch>,md::DaVinciGroundTileData::BuildingBatchTypeHash,std::equal_to<md::DaVinciGroundTileData::BuildingBatchType>,std::allocator<std::pair<md::DaVinciGroundTileData::BuildingBatchType const,std::vector<md::DaVinciGroundTileData::BuildingBatch>>>> &)::$_0>,gm::Matrix<float,2,1> ()(unsigned long)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F2A3AD10;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t md::StyleTexture<md::DaVinciGroundTileData::BuildingColorStyle>::StyleTexture(uint64_t a1, unint64_t a2)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  if (a2)
+  {
+    if (!(a2 >> 62))
+    {
+      operator new();
+    }
+
+    std::__throw_bad_array_new_length[abi:nn200100]();
+  }
+
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 1;
+  *(a1 + 40) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 0;
+  v3 = &unk_1EB839000;
+  {
+    v3 = &unk_1EB839000;
+    if (v12)
+    {
+      md::StyleTexture<md::DaVinciGroundTileData::BuildingColorStyle>::StyleTexture(unsigned long,md::StyleTexture<md::DaVinciGroundTileData::BuildingColorStyle>::PackStyle,BOOL,ggl::Filter)::bytesPerPixel = 4;
+      v3 = &unk_1EB839000;
+    }
+  }
+
+  v4 = v3[306];
+  v5 = (v4 + 3) / v4;
+  v6 = vcvtpd_u64_f64(sqrt(0));
+  v7 = v6 > 1;
+  v8 = (1 << -__clz(v6 - 1));
+  if (!v7)
+  {
+    v8 = 1;
+  }
+
+  v9 = vcvtpd_u64_f64(0 / (v8 / v5));
+  v7 = v9 > 1;
+  v10 = (1 << -__clz(v9 - 1));
+  if (!v7)
+  {
+    v10 = 1;
+  }
+
+  *(a1 + 48) = v8;
+  *(a1 + 56) = v10;
+  *(a1 + 72) = v8 / v5;
+  *(a1 + 80) = v5;
+  *(a1 + 64) = v5 * v4;
+  *(a1 + 88) = 1.0 / v8;
+  return a1;
+}
+
+void std::__shared_ptr_emplace<md::StyleTexture<md::DaVinciGroundTileData::BuildingColorStyle>>::__on_zero_shared(void *a1)
+{
+  v2 = a1[8];
+  a1[8] = 0;
+  if (v2)
+  {
+    MEMORY[0x1B8C62190](v2, 0xC400A2AC0F1);
+  }
+
+  v3 = a1[6];
+  a1[6] = 0;
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  v4 = a1[3];
+  if (v4)
+  {
+    a1[4] = v4;
+
+    operator delete(v4);
+  }
+}
+
+void std::__shared_ptr_emplace<md::StyleTexture<md::DaVinciGroundTileData::BuildingColorStyle>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3ACD8;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+__n128 std::__function::__func<md::DaVinciGroundTileData::DaVinciGroundTileData(gdc::LayerDataRequestKey const&,std::vector<gdc::Resource::LoadMetadata> &&,std::shared_ptr<md::GEOVectorTileResource> const&,VKSharedResources *,std::vector<gdc::Resource::LoadMetadata> &&<gss::StylesheetManager<VKSharedResources *::PropertyID>> const&,std::vector<gdc::Resource::LoadMetadata> &&<md::RegistryManager> const&,gdc::Registry *,md::DaVinciGroundSettings const*)::$_0::operator() const(ggl::ResourceAccessor *)::{lambda(void)#3},std::allocator<ggl::ResourceAccessor *>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A3A638;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<md::DaVinciDecalBuilder::DecalDescription>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<md::DaVinciDecalBuilder::DecalDescription>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<md::DaVinciDecalBuilder::DecalDescription>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<md::DaVinciDecalBuilder::DecalDescription>>>>::~__hash_table(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    do
+    {
+      v3 = *v2;
+      std::__destroy_at[abi:nn200100]<std::pair<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>> const,std::vector<gm::Matrix<float,3,1>>>,0>(v2 + 2);
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+
+  v4 = *a1;
+  *a1 = 0;
+  if (v4)
+  {
+    operator delete(v4);
+  }
+
+  return a1;
+}
+
+__n128 std::__function::__func<md::DaVinciGroundTileData::DaVinciGroundTileData(gdc::LayerDataRequestKey const&,std::vector<gdc::Resource::LoadMetadata> &&,std::shared_ptr<md::GEOVectorTileResource> const&,VKSharedResources *,std::vector<gdc::Resource::LoadMetadata> &&<gss::StylesheetManager<VKSharedResources *::PropertyID>> const&,std::vector<gdc::Resource::LoadMetadata> &&<md::RegistryManager> const&,gdc::Registry *,md::DaVinciGroundSettings const*)::$_0::operator() const(ggl::ResourceAccessor *)::{lambda(void)#2},std::allocator<ggl::ResourceAccessor *>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A3A5F0;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<md::DaVinciGroundTileData::RibbonAsset>>(unint64_t a1)
+{
+  if (a1 < 0x492492492492493)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<md::DaVinciGroundTileData::RibbonAsset>,md::DaVinciGroundTileData::RibbonAsset*>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a1 != a2)
+  {
+    v8[3] = v3;
+    v8[4] = v4;
+    v6 = a1;
+    v7 = a1;
+    do
+    {
+      *a3 = *v7;
+      *(a3 + 16) = 0;
+      *(a3 + 24) = 0;
+      *(a3 + 8) = 0;
+      *(a3 + 8) = *(v7 + 8);
+      *(a3 + 24) = *(v7 + 24);
+      *(v7 + 8) = 0;
+      *(v7 + 16) = 0;
+      *(v7 + 24) = 0;
+      *(a3 + 32) = 0;
+      *(a3 + 40) = 0;
+      *(a3 + 48) = 0;
+      *(a3 + 32) = *(v7 + 32);
+      *(a3 + 48) = *(v7 + 48);
+      *(v7 + 32) = 0;
+      *(v7 + 40) = 0;
+      *(v7 + 48) = 0;
+      v7 += 56;
+      a3 += 56;
+    }
+
+    while (v7 != a2);
+    do
+    {
+      v8[0] = (v6 + 32);
+      std::vector<md::components::BoundingVolume>::__destroy_vector::operator()[abi:nn200100](v8);
+      v8[0] = (v6 + 8);
+      std::vector<md::components::CustomRenderState>::__destroy_vector::operator()[abi:nn200100](v8);
+      v6 += 56;
+    }
+
+    while (v6 != a2);
+  }
+}
+
+uint64_t std::__split_buffer<md::DaVinciGroundTileData::RibbonAsset>::~__split_buffer(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v2; i = *(a1 + 16))
+  {
+    *(a1 + 16) = i - 56;
+    v5 = (i - 24);
+    std::vector<md::components::BoundingVolume>::__destroy_vector::operator()[abi:nn200100](&v5);
+    v5 = (i - 48);
+    std::vector<md::components::CustomRenderState>::__destroy_vector::operator()[abi:nn200100](&v5);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::__shared_ptr_emplace<ggl::DaVinci::RibbonMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3AFE0;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void non-virtual thunk toggl::VertexDataTyped<ggl::DaVinci::RibbonVbo>::~VertexDataTyped(uint64_t a1)
+{
+  ggl::VertexData::~VertexData((a1 - 200));
+
+  JUMPOUT(0x1B8C62190);
+}
+
+{
+  ggl::VertexData::~VertexData((a1 - 200));
+}
+
+void ggl::VertexDataTyped<ggl::DaVinci::RibbonVbo>::~VertexDataTyped(ggl::VertexData *a1)
+{
+  ggl::VertexData::~VertexData(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::VertexDataTyped<ggl::DaVinci::RibbonVbo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3AFA8;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+float md::DaVinciGroundTileData::_edgeSmoothingAngleForZ(md::DaVinciGroundTileData *this)
+{
+  v1 = this;
+  v2 = +[VKDebugSettings sharedSettings];
+  v3 = [v2 daVinciSmoothEdgeMinZ];
+  v4 = [v2 daVinciSmoothEdgeMaxZ];
+  [v2 daVinciSmoothEdgeMinZAngle];
+  v6 = v5;
+  [v2 daVinciSmoothEdgeMaxZAngle];
+  v8 = (v6 + ((v7 - v6) * fminf(fmaxf((v1 - v3) / (v4 - v3), 0.0), 1.0))) * 0.017453;
+
+  return v8;
+}
+
+void std::vector<std::optional<unsigned int>>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
+{
+  v4 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v4 >= v3)
+  {
+    v6 = *a1;
+    v7 = v4 - *a1;
+    v8 = (v7 >> 3) + 1;
+    if (v8 >> 61)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v9 = v3 - v6;
+    if (v9 >> 2 > v8)
+    {
+      v8 = v9 >> 2;
+    }
+
+    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v10 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v8;
+    }
+
+    if (v10)
+    {
+      if (!(v10 >> 61))
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v11 = (8 * (v7 >> 3));
+    *v11 = *a2;
+    v5 = v11 + 1;
+    memcpy(0, v6, v7);
+    *a1 = 0;
+    *(a1 + 8) = v5;
+    *(a1 + 16) = 0;
+    if (v6)
+    {
+      operator delete(v6);
+    }
+  }
+
+  else
+  {
+    *v4 = *a2;
+    v5 = v4 + 1;
+  }
+
+  *(a1 + 8) = v5;
+}
+
+uint64_t **geo::range_map<unsigned int,md::DaVinciGroundTileData::TextureMappingData,std::less<unsigned int>,std::allocator<std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>>::insert(uint64_t **result, _DWORD *a2)
+{
+  if (!result[2])
+  {
+    return std::__tree<std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>,std::__map_value_compare<gm::Range<unsigned int>,std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>,geo::range_map<unsigned int,md::DaVinciGroundTileData::TextureMappingData,std::less<unsigned int>,std::allocator<std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>>::RangeCompare,true>,std::allocator<std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>>>::__emplace_unique_key_args<gm::Range<unsigned int>,std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>(result, a2[1], a2);
+  }
+
+  v2 = (result + 1);
+  if (*result == (result + 1))
+  {
+    v8 = *result;
+  }
+
+  else
+  {
+    v3 = 0;
+    v4 = *result;
+    do
+    {
+      v5 = v4[1];
+      if (v5)
+      {
+        do
+        {
+          v6 = v5;
+          v5 = *v5;
+        }
+
+        while (v5);
+      }
+
+      else
+      {
+        do
+        {
+          v6 = v4[2];
+          v7 = *v6 == v4;
+          v4 = v6;
+        }
+
+        while (!v7);
+      }
+
+      ++v3;
+      v4 = v6;
+    }
+
+    while (v6 != v2);
+    v8 = *result;
+    do
+    {
+      v9 = v3 >> 1;
+      v10 = v8;
+      if (v3 >= 2)
+      {
+        v11 = v3 >> 1;
+        v12 = v8;
+        do
+        {
+          v13 = v12[1];
+          if (v13)
+          {
+            do
+            {
+              v10 = v13;
+              v13 = *v13;
+            }
+
+            while (v13);
+          }
+
+          else
+          {
+            do
+            {
+              v10 = v12[2];
+              v7 = *v10 == v12;
+              v12 = v10;
+            }
+
+            while (!v7);
+          }
+
+          v12 = v10;
+        }
+
+        while (v11-- > 1);
+      }
+
+      if (*(v10 + 9) < a2[1])
+      {
+        v15 = v10[1];
+        if (v15)
+        {
+          do
+          {
+            v8 = v15;
+            v15 = *v15;
+          }
+
+          while (v15);
+        }
+
+        else
+        {
+          do
+          {
+            v8 = v10[2];
+            v7 = *v8 == v10;
+            v10 = v8;
+          }
+
+          while (!v7);
+        }
+
+        v9 = v3 + ~v9;
+      }
+
+      v3 = v9;
+    }
+
+    while (v9);
+  }
+
+  if (v2 == v8 || *(v8 + 8) >= a2[1])
+  {
+    if (*result == v8)
+    {
+      return std::__tree<std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>,std::__map_value_compare<gm::Range<unsigned int>,std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>,geo::range_map<unsigned int,md::DaVinciGroundTileData::TextureMappingData,std::less<unsigned int>,std::allocator<std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>>::RangeCompare,true>,std::allocator<std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>>>::__emplace_unique_key_args<gm::Range<unsigned int>,std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>(result, a2[1], a2);
+    }
+
+    v16 = *v8;
+    if (*v8)
+    {
+      do
+      {
+        v17 = v16;
+        v16 = *(v16 + 8);
+      }
+
+      while (v16);
+    }
+
+    else
+    {
+      do
+      {
+        v17 = v8[2];
+        v7 = *v17 == v8;
+        v8 = v17;
+      }
+
+      while (v7);
+    }
+
+    if (*a2 >= *(v17 + 36))
+    {
+      return std::__tree<std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>,std::__map_value_compare<gm::Range<unsigned int>,std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>,geo::range_map<unsigned int,md::DaVinciGroundTileData::TextureMappingData,std::less<unsigned int>,std::allocator<std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>>::RangeCompare,true>,std::allocator<std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>>>::__emplace_unique_key_args<gm::Range<unsigned int>,std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>(result, a2[1], a2);
+    }
+  }
+
+  return result;
+}
+
+void md::DaVinciGroundTileData::_buildNormals(uint64_t a1, unint64_t a2, uint64_t a3, std::vector<unsigned int>::size_type a4, _DWORD *a5, uint64_t a6, float *a7, void **a8, const void **a9, unint64_t *a10, std::vector<unsigned int> *a11, void *a12, uint64_t a13)
+{
+  v44 = *MEMORY[0x1E69E9840];
+  v33 = a1;
+  v34 = a2;
+  v31 = a3;
+  v32 = a4;
+  v29 = a5;
+  v30 = a6;
+  v28 = 0;
+  __sz = a4;
+  if (*(a7 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v26, *a7, *(a7 + 1));
+  }
+
+  else
+  {
+    v26 = *a7;
+  }
+
+  v13 = &v26;
+  if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v13 = v26.__r_.__value_.__r.__words[0];
+  }
+
+  v37 = 12;
+  *v36 = v13;
+  v38 = &v42;
+  v39 = xmmword_1B33B16F0;
+  v40 = std::__format::__allocating_buffer<char>::__prepare_write[abi:nn200100];
+  v41 = 0;
+  __src = &v42;
+  *&v19 = 1;
+  *(&v19 + 1) = v36;
+  *&v20 = 12;
+  std::__vformat_to[abi:nn200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v38, "[{}]", 4, &v19);
+  v14 = *(&v39 + 1);
+  if (*(&v39 + 1) < 0x7FFFFFFFFFFFFFF8uLL)
+  {
+    if (*(&v39 + 1) < 0x17uLL)
+    {
+      v25 = BYTE8(v39);
+      if (*(&v39 + 1))
+      {
+        memmove(&__dst, __src, *(&v39 + 1));
+      }
+
+      *(&__dst + v14) = 0;
+      if (__src != &v42)
+      {
+        operator delete(__src);
+      }
+
+      v23 = 0;
+      std::vector<unsigned int>::resize(a11, __sz);
+      v15 = __sz;
+      v16 = v31;
+      if (__sz)
+      {
+        v17 = 0;
+        begin = a11->__begin_;
+        do
+        {
+          begin[v17] = *(v16 + 2 * v17);
+          ++v17;
+        }
+
+        while (v15 > v17);
+      }
+
+      v22 = 0;
+      v19 = 0u;
+      v20 = 0u;
+      v21 = 1065353216;
+      v35 = 0;
+      operator new();
+    }
+
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+void sub_1B318D118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *__p, uint64_t a51, int a52, __int16 a53, char a54, char a55, void *a56, uint64_t a57, int a58, __int16 a59, char a60, char a61, uint64_t a62, uint64_t a63)
+{
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&a35);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&a65);
+  a65 = &a40;
+  std::vector<std::vector<geo::handle<md::CommandBufferResource>>>::__destroy_vector::operator()[abi:nn200100](&a65);
+  if (v65)
+  {
+    operator delete(v65);
+  }
+
+  std::default_delete<gdc::TriangularDCEL>::operator()[abi:nn200100](v66);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&a43);
+  if (a55 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a61 < 0)
+  {
+    operator delete(a56);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+double geo::S2XYZ<double>::uv(double *a1, int a2)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = a1[2];
+  if (a2 > 2)
+  {
+    if (a2 == 3)
+    {
+      return v4 / v3;
+    }
+
+    else if (a2 == 4)
+    {
+      return v4 / v2;
+    }
+
+    else
+    {
+      result = 0.0;
+      if (a2 == 5)
+      {
+        return -v2 / v4;
+      }
+    }
+  }
+
+  else if (a2)
+  {
+    if (a2 == 1)
+    {
+      return -v3 / v2;
+    }
+
+    else
+    {
+      result = 0.0;
+      if (a2 == 2)
+      {
+        return -v3 / v4;
+      }
+    }
+  }
+
+  else
+  {
+    return v2 / v3;
+  }
+
+  return result;
+}
+
+double geo::S2UVtoST<double>(double a1)
+{
+  v1 = a1 < 0.0;
+  v2 = sqrt(a1 * -3.0 + 1.0) * -0.5 + 1.0;
+  result = sqrt(a1 * 3.0 + 1.0) * 0.5;
+  if (v1)
+  {
+    return v2;
+  }
+
+  return result;
+}
+
+void *geo::range_map<unsigned int,md::DaVinciGroundTileData::TextureMappingData,std::less<unsigned int>,std::allocator<std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>>::find(void *a1, unsigned int a2)
+{
+  v4 = *a1;
+  v2 = a1 + 1;
+  v3 = v4;
+  if (v4 != v2)
+  {
+    v5 = 0;
+    v6 = v3;
+    do
+    {
+      v7 = v6[1];
+      if (v7)
+      {
+        do
+        {
+          v8 = v7;
+          v7 = *v7;
+        }
+
+        while (v7);
+      }
+
+      else
+      {
+        do
+        {
+          v8 = v6[2];
+          v9 = *v8 == v6;
+          v6 = v8;
+        }
+
+        while (!v9);
+      }
+
+      ++v5;
+      v6 = v8;
+    }
+
+    while (v8 != v2);
+    do
+    {
+      v10 = v5 >> 1;
+      v11 = v3;
+      if (v5 >= 2)
+      {
+        v12 = v5 >> 1;
+        v13 = v3;
+        do
+        {
+          v14 = v13[1];
+          if (v14)
+          {
+            do
+            {
+              v11 = v14;
+              v14 = *v14;
+            }
+
+            while (v14);
+          }
+
+          else
+          {
+            do
+            {
+              v11 = v13[2];
+              v9 = *v11 == v13;
+              v13 = v11;
+            }
+
+            while (!v9);
+          }
+
+          v13 = v11;
+          v16 = v12-- <= 1;
+        }
+
+        while (!v16);
+      }
+
+      if (*(v11 + 9) <= a2)
+      {
+        v15 = v11[1];
+        if (v15)
+        {
+          do
+          {
+            v3 = v15;
+            v15 = *v15;
+          }
+
+          while (v15);
+        }
+
+        else
+        {
+          do
+          {
+            v3 = v11[2];
+            v9 = *v3 == v11;
+            v11 = v3;
+          }
+
+          while (!v9);
+        }
+
+        v10 = v5 + ~v10;
+      }
+
+      v5 = v10;
+    }
+
+    while (v10);
+  }
+
+  if (v2 == v3)
+  {
+    return v2;
+  }
+
+  v16 = *(v3 + 8) <= a2 && *(v3 + 9) > a2;
+  if (!v16)
+  {
+    return v2;
+  }
+
+  return v3;
+}
+
+float md::DaVinciGroundTileData::_buildInstanceTransform(float *a1, float *a2, uint64_t a3)
+{
+  v3 = a1;
+  if (*(a3 + 64) == 1)
+  {
+    v5 = *(a2 + 1);
+    v6 = *(a2 + 4);
+    v7 = *(a2 + 5);
+    *v29 = *a2;
+    DWORD1(v29[0]) = v6;
+    v8 = *(a2 + 9);
+    *(&v29[0] + 1) = *(a2 + 8);
+    v32[0] = v5;
+    v32[1] = v7;
+    v32[2] = v8;
+    v9 = a2[3];
+    v10 = *(a2 + 6);
+    v11 = a2[7];
+    v31[0] = a2[2];
+    v31[1] = v10;
+    v12 = a2[11];
+    v31[2] = a2[10];
+    v32[3] = 0;
+    v31[3] = 0;
+    v30[0] = v9;
+    v30[1] = v11;
+    v30[2] = v12;
+    v30[3] = 1.0;
+    v13 = v33;
+    gm::Matrix<float,4,4>::Matrix<int,void>(v33, v29, v32, v31, v30);
+    gm::operator*<float,4,4,4>(v29, a3, v33);
+    v14 = 0;
+    v33[0] = v29[0];
+    v33[1] = v29[1];
+    v33[2] = v29[2];
+    v33[3] = v29[3];
+    do
+    {
+      v15 = 0;
+      v16 = v3;
+      do
+      {
+        result = *&v13[v15];
+        *v16 = result;
+        v16 += 3;
+        ++v15;
+      }
+
+      while (v15 != 4);
+      ++v14;
+      ++v3;
+      v13 = (v13 + 4);
+    }
+
+    while (v14 != 3);
+  }
+
+  else
+  {
+    result = *a2;
+    v18 = *(a2 + 1);
+    v19 = *(a2 + 4);
+    v20 = *(a2 + 5);
+    v21 = *(a2 + 8);
+    v22 = *(a2 + 9);
+    v23 = *(a2 + 2);
+    v24 = *(a2 + 3);
+    v25 = *(a2 + 6);
+    v26 = *(a2 + 7);
+    v27 = *(a2 + 10);
+    v28 = *(a2 + 11);
+    *a1 = *a2;
+    *(a1 + 1) = v19;
+    *(a1 + 2) = v21;
+    *(a1 + 3) = v18;
+    *(a1 + 4) = v20;
+    *(a1 + 5) = v22;
+    *(a1 + 6) = v23;
+    *(a1 + 7) = v25;
+    *(a1 + 8) = v27;
+    *(a1 + 9) = v24;
+    *(a1 + 10) = v26;
+    *(a1 + 11) = v28;
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_emplace<md::MeshConnectivity>::__on_zero_shared(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+}
+
+void std::__shared_ptr_emplace<md::MeshConnectivity>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3AB48;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::DaVinci::DistanceCompressedMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3AB10;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::VertexDataTyped<ggl::DaVinci::DistanceCompressedVbo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3A9B8;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::DaVinci::ElevationMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3AAA0;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::VertexDataTyped<ggl::DaVinci::ElevationVbo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3A850;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::__function::__value_func<void ()(gdc::DCELBase const*,gdc::DCELBase::Warning,unsigned int)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+void std::vector<std::optional<gm::Range<unsigned int>>>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
+{
+  v4 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v4 >= v3)
+  {
+    v7 = *a1;
+    v8 = v4 - *a1;
+    v9 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 2) + 1;
+    if (v9 > 0x1555555555555555)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v10 = 0xAAAAAAAAAAAAAAABLL * ((v3 - v7) >> 2);
+    if (2 * v10 > v9)
+    {
+      v9 = 2 * v10;
+    }
+
+    if (v10 >= 0xAAAAAAAAAAAAAAALL)
+    {
+      v11 = 0x1555555555555555;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    if (v11)
+    {
+      if (v11 <= 0x1555555555555555)
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v12 = 4 * (v8 >> 2);
+    *v12 = *a2;
+    *(v12 + 8) = *(a2 + 2);
+    v6 = v12 + 12;
+    v13 = v12 - v8;
+    memcpy((v12 - v8), v7, v8);
+    *a1 = v13;
+    *(a1 + 8) = v6;
+    *(a1 + 16) = 0;
+    if (v7)
+    {
+      operator delete(v7);
+    }
+  }
+
+  else
+  {
+    v5 = *a2;
+    *(v4 + 8) = *(a2 + 2);
+    *v4 = v5;
+    v6 = v4 + 12;
+  }
+
+  *(a1 + 8) = v6;
+}
+
+uint64_t std::default_delete<gdc::TriangularDCEL>::operator()[abi:nn200100](uint64_t result)
+{
+  if (result)
+  {
+    v1 = result;
+    std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(result + 128);
+    std::__function::__value_func<void ()(gdc::DCELBase const*,gdc::DCELBase::Warning,unsigned int)>::~__value_func[abi:nn200100](v1 + 96);
+    v2 = *(v1 + 72);
+    if (v2)
+    {
+      *(v1 + 80) = v2;
+      operator delete(v2);
+    }
+
+    v3 = *(v1 + 48);
+    if (v3)
+    {
+      *(v1 + 56) = v3;
+      operator delete(v3);
+    }
+
+    v4 = *(v1 + 24);
+    if (v4)
+    {
+      *(v1 + 32) = v4;
+      operator delete(v4);
+    }
+
+    v5 = *v1;
+    if (*v1)
+    {
+      *(v1 + 8) = v5;
+      operator delete(v5);
+    }
+
+    JUMPOUT(0x1B8C62190);
+  }
+
+  return result;
+}
+
+void gdc::TriangularDCEL::HalfEdge::to_string(gdc::TriangularDCEL::HalfEdge *this, unsigned int a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = (a2 & 0x3FFFFFFF) != 0x3FFFFFFF;
+  v4 = a2 >> 30 == 3;
+  v5 = !v4 || !v3;
+  if (v4 && v3)
+  {
+    v6 = a2 & 0x3FFFFFFF;
+  }
+
+  else
+  {
+    v6 = 3 * (a2 & 0x3FFFFFFF) + (a2 >> 30);
+  }
+
+  v11[0] = v6;
+  v11[1] = 0;
+  v11[2] = a2 & 0x3FFFFFFF;
+  v11[3] = 0;
+  v11[4] = a2 >> 30;
+  v11[5] = 0;
+  v7 = "interior";
+  if (!v5)
+  {
+    v7 = "boundary";
+  }
+
+  v11[7] = 8;
+  v11[8] = 432326;
+  v11[6] = v7;
+  v12 = v16;
+  *__len = xmmword_1B33B16F0;
+  v14 = std::__format::__allocating_buffer<char>::__prepare_write[abi:nn200100];
+  v15 = 0;
+  __src = v16;
+  v10[0] = 4;
+  v10[1] = v11;
+  v10[2] = 432326;
+  std::__vformat_to[abi:nn200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v12, "({} = ({}, {}), {})", 19, v10);
+  v8 = __len[1];
+  if (__len[1] >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::__throw_bad_array_new_length[abi:nn200100]();
+  }
+
+  v9 = __src;
+  if (__len[1] >= 0x17)
+  {
+    operator new();
+  }
+
+  *(this + 23) = __len[1];
+  if (v8)
+  {
+    memmove(this, v9, v8);
+  }
+
+  *(this + v8) = 0;
+  if (__src != v16)
+  {
+    operator delete(__src);
+  }
+}
+
+void sub_1B318DEEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *__p)
+{
+  if (__p != v61)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::pair<unsigned int,unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::pair<unsigned int,unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::pair<unsigned int,unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::pair<unsigned int,unsigned int>>>>::__equal_range_multi<unsigned int>(uint64_t a1, unint64_t a2, unsigned int a3)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v3 = vcnt_s8(a2);
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
+  {
+    v4 = a3;
+    if (a3 >= a2)
+    {
+      v4 = a3 % a2;
+    }
+  }
+
+  else
+  {
+    v4 = (a2 - 1) & a3;
+  }
+
+  v6 = *(a1 + 8 * v4);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  result = *v6;
+  if (!*v6)
+  {
+    return result;
+  }
+
+  while (1)
+  {
+    v7 = result[1];
+    if (v7 == a3)
+    {
+      break;
+    }
+
+    if (v3.u32[0] > 1uLL)
+    {
+      if (v7 >= a2)
+      {
+        v7 %= a2;
+      }
+    }
+
+    else
+    {
+      v7 &= a2 - 1;
+    }
+
+    if (v7 != v4)
+    {
+      return 0;
+    }
+
+LABEL_18:
+    result = *result;
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  if (*(result + 4) != a3)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = result;
+  do
+  {
+    v8 = *v8;
+  }
+
+  while (v8 && *(v8 + 4) == a3);
+  return result;
+}
+
+void md::DaVinciGroundTileData::_buildNormals(std::span<gm::Matrix<float,3,1> const,18446744073709551615ul>,std::span<unsigned short const,18446744073709551615ul>,std::span<md::IndexRangeInfo const,18446744073709551615ul>,md::DaVinciGroundTileData::BuildNormalsOptions const&,std::unordered_map<unsigned int,unsigned int> &,std::vector<gm::Range<unsigned int>> &,std::vector<gm::Matrix<float,3,1>> &,md::DaVinciGroundTileData::MeshIndices &,std::vector<md::BadTriangle> &,md::DaVinciGroundTileData::ConnectivityInfo *)::$_1::operator()(uint64_t a1, unsigned int a2, unsigned int a3, int a4)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v6 = *(**a1 + 8 * a2);
+  if (!v6)
+  {
+    v18 = **(a1 + 8);
+    if (GEOGetVectorKitVKDefaultLog_onceToken != -1)
+    {
+      dispatch_once(&GEOGetVectorKitVKDefaultLog_onceToken, &__block_literal_global_5_15525);
+    }
+
+    v13 = GEOGetVectorKitVKDefaultLog_log;
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_20;
+    }
+
+    v19 = *(a1 + 16);
+    if (*(v19 + 23) < 0)
+    {
+      v19 = *v19;
+    }
+
+    v28 = 136315394;
+    v29 = v19;
+    v30 = 1024;
+    v31 = v18 + 3 * a2;
+    v15 = "%s Could not find vertex offset for index %d";
+    v16 = v13;
+    v17 = OS_LOG_TYPE_DEBUG;
+    goto LABEL_19;
+  }
+
+  v9 = *(v6 + 8);
+  v10 = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::find<unsigned int>(*(a1 + 24), v9);
+  if (!v10)
+  {
+    if (GEOGetVectorKitVKDefaultLog_onceToken != -1)
+    {
+      dispatch_once(&GEOGetVectorKitVKDefaultLog_onceToken, &__block_literal_global_5_15525);
+    }
+
+    v20 = GEOGetVectorKitVKDefaultLog_log;
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_28;
+    }
+
+    v21 = *(a1 + 16);
+    if (*(v21 + 23) < 0)
+    {
+      v21 = *v21;
+    }
+
+    v28 = 136315650;
+    v29 = v21;
+    v30 = 1024;
+    v31 = a3;
+    v32 = 1024;
+    LODWORD(v33) = v9;
+    v22 = "%s On vertex %d, could not find new vertex offset for old offset %d. Cannot remap.";
+    v23 = v20;
+    v24 = 24;
+    goto LABEL_27;
+  }
+
+  v11 = **(a1 + 8) + 3 * a2;
+  if (v11 > 0xFFFFFFFC)
+  {
+LABEL_7:
+    if (GEOGetVectorKitVKDefaultLog_onceToken != -1)
+    {
+      dispatch_once(&GEOGetVectorKitVKDefaultLog_onceToken, &__block_literal_global_5_15525);
+    }
+
+    v13 = GEOGetVectorKitVKDefaultLog_log;
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_20;
+    }
+
+    v14 = *(a1 + 16);
+    if (*(v14 + 23) < 0)
+    {
+      v14 = *v14;
+    }
+
+    v28 = 136315394;
+    v29 = v14;
+    v30 = 1024;
+    v31 = a2;
+    v15 = "%s cant find index for tri %d";
+    v16 = v13;
+    v17 = OS_LOG_TYPE_ERROR;
+LABEL_19:
+    _os_log_impl(&dword_1B2754000, v16, v17, v15, &v28, 0x12u);
+LABEL_20:
+
+    return;
+  }
+
+  v12 = (v11 + 3);
+  while (a3 - v9 != *(**(a1 + 32) + 2 * v11))
+  {
+    if (++v11 >= v12)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  v25 = a4 - *(v10 + 5);
+  if (v25 >= 0x10000)
+  {
+    **(a1 + 40) = 1;
+  }
+
+  if (**(a1 + 48) <= v11)
+  {
+    if (GEOGetVectorKitVKDefaultLog_onceToken != -1)
+    {
+      dispatch_once(&GEOGetVectorKitVKDefaultLog_onceToken, &__block_literal_global_5_15525);
+    }
+
+    v20 = GEOGetVectorKitVKDefaultLog_log;
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_28;
+    }
+
+    v26 = *(a1 + 16);
+    if (*(v26 + 23) < 0)
+    {
+      v26 = *v26;
+    }
+
+    v27 = **(a1 + 48);
+    v28 = 136315650;
+    v29 = v26;
+    v30 = 1024;
+    v31 = v11;
+    v32 = 2048;
+    v33 = v27;
+    v22 = "%s index is too large : %d (indexCount = %zu)";
+    v23 = v20;
+    v24 = 28;
+LABEL_27:
+    _os_log_impl(&dword_1B2754000, v23, OS_LOG_TYPE_ERROR, v22, &v28, v24);
+LABEL_28:
+
+    return;
+  }
+
+  *(**(a1 + 56) + 4 * v11) = v25;
+}
+
+void std::__shared_ptr_pointer<gdc::TriangularDCEL  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__function::__func<md::DaVinciGroundTileData::_buildNormals(std::span<gm::Matrix<float,3,1> const,18446744073709551615ul>,std::span<unsigned short const,18446744073709551615ul>,std::span<md::IndexRangeInfo const,18446744073709551615ul>,md::DaVinciGroundTileData::BuildNormalsOptions const&,std::unordered_map<unsigned int,unsigned int> &,std::vector<gm::Range<unsigned int>> &,std::vector<gm::Matrix<float,3,1>> &,md::DaVinciGroundTileData::MeshIndices &,std::vector<md::BadTriangle> &,md::DaVinciGroundTileData::ConnectivityInfo *)::$_0,std::allocator<md::DaVinciGroundTileData::_buildNormals(std::span<gm::Matrix<float,3,1> const,18446744073709551615ul>,std::span<unsigned short const,18446744073709551615ul>,std::span<md::IndexRangeInfo const,18446744073709551615ul>,md::DaVinciGroundTileData::BuildNormalsOptions const&,std::unordered_map<unsigned int,unsigned int> &,std::vector<gm::Range<unsigned int>> &,std::vector<gm::Matrix<float,3,1>> &,md::DaVinciGroundTileData::MeshIndices &,std::vector<md::BadTriangle> &,md::DaVinciGroundTileData::ConnectivityInfo *)::$_0>,void ()(gdc::DCELBase const*,gdc::DCELBase::Warning,unsigned int)>::operator()(uint64_t a1, uint64_t a2, int *a3, int *a4)
+{
+  v39 = *MEMORY[0x1E69E9840];
+  v5 = *a3;
+  v6 = *a4;
+  ++**(a1 + 8);
+  v7 = *(a1 + 24);
+  v8 = *(v7 + 8);
+  if (v8)
+  {
+    v9 = **(a1 + 16);
+    v10 = v9 + 3 * v6;
+    v11 = *v7;
+    v12 = 16 * v8;
+    while (*v11 > v10 || v11[1] <= v10)
+    {
+      v11 += 4;
+      v12 -= 16;
+      if (!v12)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    v15 = v11[2];
+    if (v10 <= 0xFFFFFFFC)
+    {
+      operator new();
+    }
+
+    *buf = v5;
+    v16 = **(a1 + 48);
+    v17 = **(a1 + 56);
+    v18 = v9 + 3 * v6;
+    for (i = 4; i != 40; i += 12)
+    {
+      v20 = &buf[i];
+      v21 = v17 + 12 * (v15 + *(v16 + 2 * v18));
+      *v20 = *v21;
+      *(v20 + 2) = *(v21 + 8);
+      ++v18;
+    }
+
+    v22 = *(a1 + 64);
+    v23 = *(v22 + 8);
+    v24 = *(v22 + 16);
+    if (v23 >= v24)
+    {
+      v26 = *v22;
+      v27 = v23 - *v22;
+      v28 = 0xCCCCCCCCCCCCCCCDLL * (v27 >> 3) + 1;
+      if (v28 > 0x666666666666666)
+      {
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      v29 = 0xCCCCCCCCCCCCCCCDLL * ((v24 - v26) >> 3);
+      if (2 * v29 > v28)
+      {
+        v28 = 2 * v29;
+      }
+
+      if (v29 >= 0x333333333333333)
+      {
+        v30 = 0x666666666666666;
+      }
+
+      else
+      {
+        v30 = v28;
+      }
+
+      if (v30)
+      {
+        if (v30 <= 0x666666666666666)
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      v31 = 8 * (v27 >> 3);
+      v32 = *&buf[16];
+      *v31 = *buf;
+      *(v31 + 16) = v32;
+      *(v31 + 32) = v38;
+      v25 = v31 + 40;
+      v33 = v31 - v27;
+      if (v26 != v23)
+      {
+        v34 = v33;
+        do
+        {
+          v35 = *v26;
+          v36 = v26[1];
+          *(v34 + 32) = *(v26 + 4);
+          *v34 = v35;
+          *(v34 + 16) = v36;
+          v26 = (v26 + 40);
+          v34 += 40;
+        }
+
+        while (v26 != v23);
+        v26 = *v22;
+      }
+
+      *v22 = v33;
+      *(v22 + 8) = v25;
+      *(v22 + 16) = 0;
+      if (v26)
+      {
+        operator delete(v26);
+      }
+    }
+
+    else
+    {
+      *v23 = *buf;
+      v23[1] = *&buf[16];
+      *(v23 + 4) = v38;
+      v25 = v23 + 40;
+    }
+
+    *(v22 + 8) = v25;
+  }
+
+  else
+  {
+LABEL_6:
+    if (GEOGetVectorKitVKDefaultLog_onceToken != -1)
+    {
+      dispatch_once(&GEOGetVectorKitVKDefaultLog_onceToken, &__block_literal_global_5_15525);
+    }
+
+    v13 = GEOGetVectorKitVKDefaultLog_log;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v14 = *(a1 + 32);
+      if (*(v14 + 23) < 0)
+      {
+        v14 = *v14;
+      }
+
+      *buf = 136315394;
+      *&buf[4] = v14;
+      *&buf[12] = 1024;
+      *&buf[14] = v6;
+      _os_log_impl(&dword_1B2754000, v13, OS_LOG_TYPE_ERROR, "%s could not find vtx offset for face %d", buf, 0x12u);
+    }
+  }
+}
+
+__n128 std::__function::__func<md::DaVinciGroundTileData::_buildNormals(std::span<gm::Matrix<float,3,1> const,18446744073709551615ul>,std::span<unsigned short const,18446744073709551615ul>,std::span<md::IndexRangeInfo const,18446744073709551615ul>,md::DaVinciGroundTileData::BuildNormalsOptions const&,std::unordered_map<unsigned int,unsigned int> &,std::vector<gm::Range<unsigned int>> &,std::vector<gm::Matrix<float,3,1>> &,md::DaVinciGroundTileData::MeshIndices &,std::vector<md::BadTriangle> &,md::DaVinciGroundTileData::ConnectivityInfo *)::$_0,std::allocator<md::DaVinciGroundTileData::_buildNormals(std::span<gm::Matrix<float,3,1> const,18446744073709551615ul>,std::span<unsigned short const,18446744073709551615ul>,std::span<md::IndexRangeInfo const,18446744073709551615ul>,md::DaVinciGroundTileData::BuildNormalsOptions const&,std::unordered_map<unsigned int,unsigned int> &,std::vector<gm::Range<unsigned int>> &,std::vector<gm::Matrix<float,3,1>> &,md::DaVinciGroundTileData::MeshIndices &,std::vector<md::BadTriangle> &,md::DaVinciGroundTileData::ConnectivityInfo *)::$_0>,void ()(gdc::DCELBase const*,gdc::DCELBase::Warning,unsigned int)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A3AF28;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__tree<std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>,std::__map_value_compare<gm::Range<unsigned int>,std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>,geo::range_map<unsigned int,md::DaVinciGroundTileData::TextureMappingData,std::less<unsigned int>,std::allocator<std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>>::RangeCompare,true>,std::allocator<std::__value_type<gm::Range<unsigned int>,md::DaVinciGroundTileData::TextureMappingData>>>::__emplace_unique_key_args<gm::Range<unsigned int>,std::pair<gm::Range<unsigned int> const,md::DaVinciGroundTileData::TextureMappingData>>(uint64_t **a1, unsigned int a2, _OWORD *a3)
+{
+  v3 = a1[1];
+  if (!v3)
+  {
+LABEL_7:
+    operator new();
+  }
+
+  while (1)
+  {
+    while (1)
+    {
+      v4 = v3;
+      v5 = *(v3 + 9);
+      if (v5 <= a2)
+      {
+        break;
+      }
+
+      v3 = *v4;
+      if (!*v4)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    if (v5 >= a2)
+    {
+      return 0;
+    }
+
+    v3 = v4[1];
+    if (!v3)
+    {
+      goto LABEL_7;
+    }
+  }
+}
+
+__n128 std::__function::__func<md::DaVinciGroundTileData::DaVinciGroundTileData(gdc::LayerDataRequestKey const&,std::vector<gdc::Resource::LoadMetadata> &&,std::shared_ptr<md::GEOVectorTileResource> const&,VKSharedResources *,std::vector<gdc::Resource::LoadMetadata> &&<gss::StylesheetManager<VKSharedResources *::PropertyID>> const&,std::vector<gdc::Resource::LoadMetadata> &&<md::RegistryManager> const&,gdc::Registry *,md::DaVinciGroundSettings const*)::$_0::operator() const(ggl::ResourceAccessor *)::{lambda(void)#1},std::allocator<ggl::ResourceAccessor *>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A3A5A8;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+void *std::unique_ptr<md::MaterialRaster>::~unique_ptr[abi:nn200100](void *a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    v3 = v2[12];
+    if (v3)
+    {
+      v2[13] = v3;
+      operator delete(v3);
+    }
+
+    v4 = v2[9];
+    if (v4)
+    {
+      v2[10] = v4;
+      operator delete(v4);
+    }
+
+    v5 = v2[6];
+    if (v5)
+    {
+      v2[7] = v5;
+      operator delete(v5);
+    }
+
+    v6 = v2[5];
+    if (v6)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+    }
+
+    v7 = v2[3];
+    if (v7)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v7);
+    }
+
+    v8 = v2[1];
+    if (v8)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v8);
+    }
+
+    MEMORY[0x1B8C62190](v2, 0x1030C4040757CC0);
+  }
+
+  return a1;
+}
+
+uint64_t std::__shared_ptr_emplace<md::StyleAttributeRasterSet>::__on_zero_shared(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<unsigned char,std::unique_ptr<md::MaterialRaster>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<md::MaterialRaster>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::unique_ptr<md::MaterialRaster>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::unique_ptr<md::MaterialRaster>>>>::~__hash_table((a1 + 64));
+
+  return std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<ggl::Texture2D>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ggl::Texture2D>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<ggl::Texture2D>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<ggl::Texture2D>>>>::~__hash_table(a1 + 24);
+}
+
+void std::__shared_ptr_emplace<md::StyleAttributeRasterSet>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3AC40;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned char,std::unique_ptr<md::MaterialRaster>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned char,std::unique_ptr<md::MaterialRaster>>,void *>>>>::~unique_ptr[abi:nn200100](uint64_t a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      std::unique_ptr<md::MaterialRaster>::~unique_ptr[abi:nn200100](v2 + 3);
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__function::__func<md::DaVinciGroundTileData::DaVinciGroundTileData(gdc::LayerDataRequestKey const&,std::vector<gdc::Resource::LoadMetadata> &&,std::shared_ptr<md::GEOVectorTileResource> const&,VKSharedResources *,std::vector<gdc::Resource::LoadMetadata> &&<gss::StylesheetManager<VKSharedResources *::PropertyID>> const&,std::vector<gdc::Resource::LoadMetadata> &&<md::RegistryManager> const&,gdc::Registry *,md::DaVinciGroundSettings const*)::$_0,std::allocator<md::DaVinciGroundSettings const*>,void ()(ggl::ResourceAccessor *)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+void std::__function::__func<md::DaVinciGroundTileData::DaVinciGroundTileData(gdc::LayerDataRequestKey const&,std::vector<gdc::Resource::LoadMetadata> &&,std::shared_ptr<md::GEOVectorTileResource> const&,VKSharedResources *,std::vector<gdc::Resource::LoadMetadata> &&<gss::StylesheetManager<VKSharedResources *::PropertyID>> const&,std::vector<gdc::Resource::LoadMetadata> &&<md::RegistryManager> const&,gdc::Registry *,md::DaVinciGroundSettings const*)::$_0,std::allocator<md::DaVinciGroundSettings const*>,void ()(ggl::ResourceAccessor *)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+}
+
+__n128 std::__function::__func<md::DaVinciGroundTileData::DaVinciGroundTileData(gdc::LayerDataRequestKey const&,std::vector<gdc::Resource::LoadMetadata> &&,std::shared_ptr<md::GEOVectorTileResource> const&,VKSharedResources *,std::vector<gdc::Resource::LoadMetadata> &&<gss::StylesheetManager<VKSharedResources *::PropertyID>> const&,std::vector<gdc::Resource::LoadMetadata> &&<md::RegistryManager> const&,gdc::Registry *,md::DaVinciGroundSettings const*)::$_0,std::allocator<md::DaVinciGroundSettings const*>,void ()(ggl::ResourceAccessor *)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F2A3A560;
+  *(a2 + 8) = *(a1 + 8);
+  v2 = *(a1 + 24);
+  *(a2 + 24) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  result = *(a1 + 32);
+  v4 = *(a1 + 48);
+  *(a2 + 64) = *(a1 + 64);
+  *(a2 + 32) = result;
+  *(a2 + 48) = v4;
+  return result;
+}
+
+void std::__function::__func<md::DaVinciGroundTileData::DaVinciGroundTileData(gdc::LayerDataRequestKey const&,std::vector<gdc::Resource::LoadMetadata> &&,std::shared_ptr<md::GEOVectorTileResource> const&,VKSharedResources *,std::vector<gdc::Resource::LoadMetadata> &&<gss::StylesheetManager<VKSharedResources *::PropertyID>> const&,std::vector<gdc::Resource::LoadMetadata> &&<md::RegistryManager> const&,gdc::Registry *,md::DaVinciGroundSettings const*)::$_0,std::allocator<md::DaVinciGroundSettings const*>,void ()(ggl::ResourceAccessor *)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A3A560;
+  v1 = a1[3];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *std::__function::__func<md::DaVinciGroundTileData::DaVinciGroundTileData(gdc::LayerDataRequestKey const&,std::vector<gdc::Resource::LoadMetadata> &&,std::shared_ptr<md::GEOVectorTileResource> const&,VKSharedResources *,std::vector<gdc::Resource::LoadMetadata> &&<gss::StylesheetManager<VKSharedResources *::PropertyID>> const&,std::vector<gdc::Resource::LoadMetadata> &&<md::RegistryManager> const&,gdc::Registry *,md::DaVinciGroundSettings const*)::$_0,std::allocator<md::DaVinciGroundSettings const*>,void ()(ggl::ResourceAccessor *)>::~__func(void *a1)
+{
+  *a1 = &unk_1F2A3A560;
+  v2 = a1[3];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return a1;
+}
+
+uint64_t md::DaVinciGroundTileData::debugString(md::DaVinciGroundTileData *this, void *a2)
+{
+  std::ostringstream::basic_ostringstream[abi:nn200100](&v11);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v11, "Tex Verts: ", 11);
+  v4 = MEMORY[0x1B8C61CB0](&v11, (*(a2[111] + 48) - *(a2[111] + 40)) / *(a2[111] + 8));
+  std::ios_base::getloc((v4 + *(*v4 - 24)));
+  v5 = std::locale::use_facet(&v16, MEMORY[0x1E69E5318]);
+  (v5->__vftable[2].~facet_0)(v5, 10);
+  std::locale::~locale(&v16);
+  std::ostream::put();
+  std::ostream::flush();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v4, "2Elev Verts: ", 13);
+  v6 = MEMORY[0x1B8C61CB0](v4, (*(a2[113] + 48) - *(a2[113] + 40)) / *(a2[113] + 8));
+  std::ios_base::getloc((v6 + *(*v6 - 24)));
+  v7 = std::locale::use_facet(&v16, MEMORY[0x1E69E5318]);
+  (v7->__vftable[2].~facet_0)(v7, 10);
+  std::locale::~locale(&v16);
+  std::ostream::put();
+  std::ostream::flush();
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v6, "Indices: ", 9);
+  v8 = MEMORY[0x1B8C61CB0](v6, (*(a2[109] + 48) - *(a2[109] + 40)) / *(a2[109] + 8));
+  std::ios_base::getloc((v8 + *(*v8 - 24)));
+  v9 = std::locale::use_facet(&v16, MEMORY[0x1E69E5318]);
+  (v9->__vftable[2].~facet_0)(v9, 10);
+  std::locale::~locale(&v16);
+  std::ostream::put();
+  std::ostream::flush();
+  std::stringbuf::str[abi:nn200100](this, &v12);
+  v11 = *MEMORY[0x1E69E54E8];
+  *(&v11 + *(v11 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v12 = MEMORY[0x1E69E5548] + 16;
+  if (v14 < 0)
+  {
+    operator delete(v13[7].__locale_);
+  }
+
+  v12 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v13);
+  std::ostream::~ostream();
+  return MEMORY[0x1B8C620C0](&v15);
+}
+
+void sub_1B318F47C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26)
+{
+  std::locale::~locale((v26 - 56));
+  a9 = *MEMORY[0x1E69E54E8];
+  *(&a9 + *(a9 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  a10 = MEMORY[0x1E69E5548] + 16;
+  if (a23 < 0)
+  {
+    operator delete(__p);
+  }
+
+  a10 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&a11);
+  std::ostream::~ostream();
+  MEMORY[0x1B8C620C0](&a26);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *md::Ribbons::RibbonWriter<md::Ribbons::PatternedRibbonDescriptor>::writeVertex(uint64_t *result, uint64_t a2)
+{
+  v2 = 0;
+  v3 = *(a2 + 60);
+  v4 = *result;
+  v5 = 1;
+  do
+  {
+    v6 = v5;
+    v7 = (fminf(fmaxf(*(a2 + 12), 0.0), 1.0) * 65535.0);
+    *v4 = (fminf(fmaxf(*(a2 + 8), 0.0), 1.0) * 65535.0);
+    v8.i64[0] = *(a2 + 20 + 8 * v2);
+    v8.i64[1] = *(a2 + 44 + 8 * v2);
+    *(v4 + 2) = v7;
+    v9.i64[0] = 0xBF000000BF000000;
+    v9.i64[1] = 0xBF000000BF000000;
+    *(v4 + 4) = vmovn_s32(vcvtq_s32_f32(vmlaq_f32(v9, xmmword_1B33B0C70, v8)));
+    *(v4 + 12) = *(a2 + 16);
+    *(v4 + 16) = v3;
+    v4 += 20;
+    v2 = 1;
+    v5 = 0;
+  }
+
+  while ((v6 & 1) != 0);
+  *result = v4;
+  return result;
+}
+
+void std::__shared_ptr_emplace<ggl::PatternedRibbon::WriteStencilBasePipelineState>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3B0D0;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void md::PatternedSharedResources::PatternedSharedResources(md::PatternedSharedResources *this, const ggl::StandardLibrary *a2, const RenderTargetFormat *a3, int a4)
+{
+  v4 = *MEMORY[0x1E69E9840];
+  *this = 0u;
+  *(this + 1) = 0u;
+  if (a4)
+  {
+    operator new();
+  }
+
+  operator new();
+}
+
+void sub_1B31900EC(_Unwind_Exception *a1)
+{
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v5 = v1[6];
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v5);
+  }
+
+  std::unique_ptr<md::PolylinePipelineStateManager<md::Ribbons::GradientPolylineOverlayRibbonDescriptor,ggl::GradientPolylineOverlayRibbon::FillPipelineState,std::shared_ptr<ggl::GradientPolylineOverlayFillShader>>>::reset[abi:nn200100](v3, 0);
+  v6 = v1[3];
+  v1[3] = 0;
+  if (v6)
+  {
+    (*(*v6 + 8))(v6);
+  }
+
+  v7 = v1[2];
+  v1[2] = 0;
+  if (v7)
+  {
+    (*(*v7 + 8))(v7);
+  }
+
+  v8 = v1[1];
+  v1[1] = 0;
+  if (v8)
+  {
+    (*(*v8 + 8))(v8);
+  }
+
+  v9 = *v1;
+  *v1 = 0;
+  if (v9)
+  {
+    (*(*v9 + 8))(v9);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+unint64_t md::PatternedBatchKey::hash(md::PatternedBatchKey *this)
+{
+  v2 = *this;
+  v3 = gss::FeatureAttributeSet::hash(*(*this + 240), *(*this + 248));
+  v5 = *(v2 + 284);
+  if (*(v2 + 284))
+  {
+    v6 = 0;
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    do
+    {
+      if (v10 < v5 && (v8 & 1) == 0)
+      {
+        v11 = *(v2 + 272);
+        v9 = (v11 + 4 * v10);
+        v4 = (v11 + *(v2 + 280) + 2 * v10);
+        v8 = 1;
+      }
+
+      v6 ^= (*v4 - 0x61C8864680B583EBLL + ((((v6 << 6) - 0x61C8864680B583EBLL + (v6 >> 2) + *v9) ^ v6) << 6) + ((((v6 << 6) - 0x61C8864680B583EBLL + (v6 >> 2) + *v9) ^ v6) >> 2)) ^ ((v6 << 6) - 0x61C8864680B583EBLL + (v6 >> 2) + *v9);
+      v12 = v10 + 1;
+      if (v8)
+      {
+        v8 = 0;
+      }
+
+      if (v12 < v5)
+      {
+        ++v10;
+      }
+
+      else
+      {
+        v10 = *(v2 + 284);
+      }
+    }
+
+    while (v12 < v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6 ^ *(this + 4) ^ v3;
+}
+
+uint64_t md::Ribbons::RibbonBatch<md::Ribbons::PatternedRibbonDescriptor>::~RibbonBatch(uint64_t a1)
+{
+  *a1 = &unk_1F2A3B078;
+  v6 = (a1 + 888);
+  std::vector<std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>>::__destroy_vector::operator()[abi:nn200100](&v6);
+  md::FrameAllocator<ggl::RenderItem>::reset((a1 + 864));
+  free(*(a1 + 864));
+  v2 = *(a1 + 840);
+  if (v2)
+  {
+    *(a1 + 848) = v2;
+    operator delete(v2);
+  }
+
+  v6 = (a1 + 808);
+  std::vector<gm::MultiRange<unsigned long>,geo::allocator_adapter<gm::MultiRange<unsigned long>,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v6);
+  v3 = *(a1 + 784);
+  if (v3)
+  {
+    *(a1 + 792) = v3;
+    operator delete(v3);
+  }
+
+  for (i = 656; i != -112; i -= 128)
+  {
+    ggl::RenderItem::~RenderItem((a1 + i));
+  }
+
+  return a1;
+}
+
+void std::vector<std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](--v4, 0);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+uint64_t *std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = (v2 + 56);
+    std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v3);
+
+    JUMPOUT(0x1B8C62190);
+  }
+
+  return result;
+}
+
+void md::Ribbons::RibbonBatch<md::Ribbons::PatternedRibbonDescriptor>::~RibbonBatch(uint64_t a1)
+{
+  md::Ribbons::RibbonBatch<md::Ribbons::PatternedRibbonDescriptor>::~RibbonBatch(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void md::RibbonBatch<md::Ribbons::PatternedRibbonDescriptor>::~RibbonBatch(void *a1)
+{
+  *a1 = &unk_1F2A3B058;
+  v2 = a1[116];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  md::Ribbons::RibbonBatch<md::Ribbons::PatternedRibbonDescriptor>::~RibbonBatch(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t md::RibbonBatch<md::Ribbons::PatternedRibbonDescriptor>::~RibbonBatch(void *a1)
+{
+  *a1 = &unk_1F2A3B058;
+  v2 = a1[116];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return md::Ribbons::RibbonBatch<md::Ribbons::PatternedRibbonDescriptor>::~RibbonBatch(a1);
+}
+
+void ggl::ConstantDataTyped<ggl::PatternedRibbon::Style>::~ConstantDataTyped(std::mutex *a1)
+{
+  ggl::BufferData::~BufferData(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::ConstantDataTyped<ggl::PatternedRibbon::Style>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3D580;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void md::PatternedBatch::~PatternedBatch(md::PatternedBatch *this)
+{
+  md::PatternedBatch::~PatternedBatch(this);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+{
+  *this = &unk_1F2A3B018;
+  v2 = *(this + 129);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = *(this + 127);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+
+  v4 = *(this + 125);
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v4);
+  }
+
+  v5 = *(this + 123);
+  *(this + 123) = 0;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  v6 = *(this + 122);
+  *(this + 122) = 0;
+  if (v6)
+  {
+    (*(*v6 + 8))(v6);
+  }
+
+  v7 = *(this + 121);
+  *(this + 121) = 0;
+  if (v7)
+  {
+    (*(*v7 + 8))(v7);
+  }
+
+  v8 = *(this + 120);
+  *(this + 120) = 0;
+  if (v8)
+  {
+    (*(*v8 + 8))(v8);
+  }
+
+  v9 = *(this + 119);
+  *(this + 119) = 0;
+  if (v9)
+  {
+    (*(*v9 + 8))(v9);
+  }
+
+  v10 = *(this + 118);
+  *(this + 118) = 0;
+  if (v10)
+  {
+    (*(*v10 + 8))(v10);
+  }
+
+  *this = &unk_1F2A3B058;
+  v11 = *(this + 116);
+  if (v11)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v11);
+  }
+
+  md::Ribbons::RibbonBatch<md::Ribbons::PatternedRibbonDescriptor>::~RibbonBatch(this);
+}
+
+void md::PatternedPipelineStateManager::pipelineStateForFunctionConstants(uint64_t *a1, const BOOL *a2, char a3, char a4, char a5, char a6, char a7, char a8)
+{
+  v28 = *MEMORY[0x1E69E9840];
+  v27 = 0;
+  v26 = 0u;
+  v25 = 0u;
+  v24 = 0u;
+  v18[0] = a3;
+  v18[1] = a4;
+  v18[2] = a5;
+  v19 = 0;
+  v20 = a6;
+  v21 = a7;
+  v22 = 0;
+  v23 = a8;
+  v10 = ggl::packFunctionConstantKey(v18, a2);
+  v11 = *(a2 + 13);
+  if (!v11)
+  {
+    goto LABEL_9;
+  }
+
+  v12 = (a2 + 104);
+  do
+  {
+    v13 = *(v11 + 32);
+    v14 = v13 >= v10;
+    v15 = v13 < v10;
+    if (v14)
+    {
+      v12 = v11;
+    }
+
+    v11 = *(v11 + 8 * v15);
+  }
+
+  while (v11);
+  if (v12 == (a2 + 104) || v10 < v12[4])
+  {
+LABEL_9:
+    operator new();
+  }
+
+  v17 = v12[5];
+  v16 = v12[6];
+  *a1 = v17;
+  a1[1] = v16;
+  if (v16)
+  {
+    atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
+  }
+}
+
+void sub_1B3190E80(_Unwind_Exception *a1)
+{
+  std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  _Unwind_Resume(a1);
+}
+
+void setupPatternedShader<ggl::PatternedRibbon::BasePipelineSetup>(uint64_t a1, float *a2, float *a3, int *a4, void *a5, int a6, float a7, float a8, float a9)
+{
+  _S8 = a9;
+  _S9 = a8;
+  v57 = *MEMORY[0x1E69E9840];
+  v19 = *a5;
+  if (!*a5)
+  {
+    goto LABEL_14;
+  }
+
+  std::vector<float,geo::allocator_adapter<float,gss::zone_mallocator>>::vector[abi:nn200100](&v54, a3);
+  v20 = a3[8];
+  v56 = v20;
+  if (*(v19 + 46) != (_S9 + 0.5) || v20 != *(v19 + 32) || v55 - v54 != *(v19 + 8) - *v19)
+  {
+    std::vector<float,geo::allocator_adapter<float,gss::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v54);
+    goto LABEL_14;
+  }
+
+  if (v55 == v54)
+  {
+    v26 = &v54;
+LABEL_17:
+    std::vector<float,geo::allocator_adapter<float,gss::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](v26);
+    goto LABEL_18;
+  }
+
+  v21 = 0;
+  v22 = 1;
+  do
+  {
+    v23 = vabds_f32(*(v54 + 4 * v21), *(*v19 + 4 * v21));
+    v21 = v22++;
+  }
+
+  while (v23 <= 0.00000011921 && (v55 - v54) >> 2 > v21);
+  std::vector<float,geo::allocator_adapter<float,gss::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v54);
+  if (v23 > 0.00000011921)
+  {
+LABEL_14:
+    std::vector<float,geo::allocator_adapter<float,gss::zone_mallocator>>::vector[abi:nn200100](v52, a3);
+    v53 = *(a3 + 8);
+    md::DashTextureCache::textureForPattern(v50, a2, v52, 0, _S9);
+    v25 = a5[1];
+    *a5 = v50[0];
+    if (v25)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v25);
+    }
+
+    v26 = v52;
+    goto LABEL_17;
+  }
+
+LABEL_18:
+  **(a1 + 168) = *(*a5 + 64);
+  v27 = *a5;
+  LOWORD(v9) = *(v27 + 40);
+  ggl::DataAccess<ggl::Tile::View>::DataAccess(v50, **(a1 + 136), 0);
+  v28 = *(v27 + 48);
+  v29 = 0.0;
+  if (v28 != 0.0)
+  {
+    v30 = *(v51 + 64);
+    if (a6)
+    {
+      v31 = log2f(v30);
+      v29 = 1.0 / (v28 * exp2f(floorf(v31)));
+    }
+
+    else
+    {
+      v32 = logf(v28 * v30);
+      v29 = expf(floorf(v32 * 4.0) * -0.25);
+    }
+  }
+
+  v33 = v9;
+  ggl::BufferMemory::~BufferMemory(v50);
+  ggl::DataAccess<ggl::ManeuverPoint::Style>::DataAccess(v50, *(*(a1 + 136) + 32));
+  v34 = 4;
+  v35 = v51;
+  do
+  {
+    v36 = *a4++;
+    *(v35 + 4 * v34++) = v36;
+  }
+
+  while (v34 != 8);
+  *v35 = (v33 * 0.5) / a7;
+  *(v35 + 32) = v29;
+  __asm { FCVT            H0, S9 }
+
+  *(v35 + 36) = _H0;
+  v42 = *a3;
+  v43 = (*(a3 + 1) - *a3) >> 2;
+  if (*(a3 + 1) == *a3)
+  {
+    _S0 = 0.0;
+  }
+
+  else
+  {
+    _S0 = *v42;
+  }
+
+  __asm { FCVT            H1, S0 }
+
+  *(v35 + 38) = _H1;
+  v46 = _S0 + v43;
+  _H0 = 0;
+  if (v46 > 1.0)
+  {
+    _S0 = *(v42 + 4);
+    __asm { FCVT            H0, S0 }
+  }
+
+  *(v35 + 40) = _H0;
+  __asm { FCVT            H0, S8 }
+
+  *(v35 + 42) = _H0;
+  ggl::BufferMemory::~BufferMemory(v50);
+}
+
+void std::__shared_ptr_emplace<ggl::PatternedRibbon::BasePipelineState>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3B098;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *md::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::RibbonLayer(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, char *a6, int a7)
+{
+  v11 = a1;
+  v312 = *MEMORY[0x1E69E9840];
+  if (a3)
+  {
+    v306 = 0;
+    v307 = 0;
+    *&v309[4] = 0;
+    *&v308[1] = 0;
+    *&v308[8] = 0;
+    *&v309[12] = 1065353216;
+    v12 = a3[5];
+    v13 = a3[6];
+    if (v12 == v13)
+    {
+LABEL_99:
+      operator new();
+    }
+
+    while (1)
+    {
+      v14 = *(*v12 + 88);
+      v15 = *(*v12 + 72);
+      if (a7)
+      {
+        v16 = 0;
+        if (v14)
+        {
+          v17 = v15 + 1;
+          do
+          {
+            v18 = vcvts_n_u32_f32(*(v17 - 1), 2uLL);
+            if (v18 >= 3)
+            {
+              LOBYTE(v18) = 3;
+            }
+
+            v19 = vcvts_n_u32_f32(*v17, 2uLL);
+            if (v19 >= 3)
+            {
+              LOBYTE(v19) = 3;
+            }
+
+            v16 |= 1 << (v18 | (4 * v19));
+            v17 += 3;
+            v14 = (v14 - 1);
+          }
+
+          while (v14);
+        }
+      }
+
+      else
+      {
+        v14 = ggl::CullingGrid::intersectedCellsForRibbon(v14, v15);
+        v16 = v14;
+      }
+
+      v20 = v16;
+      v21 = v307;
+      if (v307)
+      {
+        v22 = vcnt_s8(v307);
+        v22.i16[0] = vaddlv_u8(v22);
+        if (v22.u32[0] > 1uLL)
+        {
+          v9 = v16;
+          if (v307 <= v16)
+          {
+            v9 = v16 % v307;
+          }
+        }
+
+        else
+        {
+          v9 = (v307 - 1) & v16;
+        }
+
+        v23 = *(*&v306 + 8 * v9);
+        if (v23)
+        {
+          v24 = *v23;
+          if (*v23)
+          {
+            do
+            {
+              v25 = v24[1];
+              if (v25 == v16)
+              {
+                if (*(v24 + 4) == v16)
+                {
+                  goto LABEL_88;
+                }
+              }
+
+              else
+              {
+                if (v22.u32[0] > 1uLL)
+                {
+                  if (v25 >= v307)
+                  {
+                    v25 %= v307;
+                  }
+                }
+
+                else
+                {
+                  v25 &= v307 - 1;
+                }
+
+                if (v25 != v9)
+                {
+                  break;
+                }
+              }
+
+              v24 = *v24;
+            }
+
+            while (v24);
+          }
+        }
+      }
+
+      v26 = mdm::zone_mallocator::instance(v14);
+      v27 = pthread_rwlock_rdlock((v26 + 32));
+      if (v27)
+      {
+        geo::read_write_lock::logFailure(v27, "read lock", v28);
+      }
+
+      v24 = malloc_type_zone_malloc(*v26, 0x38uLL, 0x10200408A1E2E81uLL);
+      atomic_fetch_add((v26 + 24), 1u);
+      geo::read_write_lock::unlock((v26 + 32));
+      *v24 = 0;
+      v24[1] = v16;
+      *(v24 + 4) = v16;
+      v24[3] = 0;
+      v24[4] = 0;
+      v24[5] = 0;
+      v30 = (*&v309[4] + 1);
+      if (!v21 || (*&v309[12] * v21) < v30)
+      {
+        break;
+      }
+
+LABEL_78:
+      v51 = v306;
+      v52 = *(*&v306 + 8 * v9);
+      if (v52)
+      {
+        *v24 = *v52;
+      }
+
+      else
+      {
+        *v24 = *&v308[8];
+        *&v308[8] = v24;
+        *(*&v51 + 8 * v9) = &v308[8];
+        if (!*v24)
+        {
+          goto LABEL_87;
+        }
+
+        v53 = *(*v24 + 8);
+        if ((v21 & (v21 - 1)) != 0)
+        {
+          if (v53 >= v21)
+          {
+            v53 %= v21;
+          }
+        }
+
+        else
+        {
+          v53 &= v21 - 1;
+        }
+
+        v52 = (*&v306 + 8 * v53);
+      }
+
+      *v52 = v24;
+LABEL_87:
+      ++*&v309[4];
+LABEL_88:
+      std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>::push_back[abi:nn200100]((v24 + 3), v12++);
+      if (v12 == v13)
+      {
+        goto LABEL_99;
+      }
+    }
+
+    v31 = (v21 & (v21 - 1)) != 0;
+    if (v21 < 3)
+    {
+      v31 = 1;
+    }
+
+    v32 = v31 | (2 * v21);
+    v33 = vcvtps_u32_f32(v30 / *&v309[12]);
+    if (v32 <= v33)
+    {
+      v34 = v33;
+    }
+
+    else
+    {
+      v34 = v32;
+    }
+
+    if (v34 == 1)
+    {
+      v34 = 2;
+    }
+
+    else if ((v34 & (v34 - 1)) != 0)
+    {
+      prime = std::__next_prime(v34);
+      v34 = prime;
+    }
+
+    v21 = v307;
+    if (v34 > v307)
+    {
+      goto LABEL_43;
+    }
+
+    if (v34 < v307)
+    {
+      prime = vcvtps_u32_f32(*&v309[4] / *&v309[12]);
+      if (v307 < 3 || (v46 = vcnt_s8(v307), v46.i16[0] = vaddlv_u8(v46), v46.u32[0] > 1uLL))
+      {
+        prime = std::__next_prime(prime);
+      }
+
+      else
+      {
+        v47 = 1 << -__clz(prime - 1);
+        if (prime >= 2)
+        {
+          prime = v47;
+        }
+      }
+
+      if (v34 <= prime)
+      {
+        v34 = prime;
+      }
+
+      if (v34 >= v307)
+      {
+        v21 = v307;
+      }
+
+      else
+      {
+        if (v34)
+        {
+LABEL_43:
+          v35 = mdm::zone_mallocator::instance(prime);
+          v36 = pthread_rwlock_rdlock((v35 + 32));
+          if (v36)
+          {
+            geo::read_write_lock::logFailure(v36, "read lock", v37);
+          }
+
+          v38 = malloc_type_zone_malloc(*v35, 8 * v34, 0x2004093837F09uLL);
+          atomic_fetch_add((v35 + 24), 1u);
+          geo::read_write_lock::unlock((v35 + 32));
+          v40 = v306;
+          v306 = v38;
+          if (v40)
+          {
+            v41 = mdm::zone_mallocator::instance(v39);
+            geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::__hash_node_base<std::__hash_node<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>>,void *> *> *>(v41, v40);
+          }
+
+          v42 = 0;
+          v307 = v34;
+          do
+          {
+            *(*&v306 + 8 * v42++) = 0;
+          }
+
+          while (v34 != v42);
+          v43 = *&v308[8];
+          if (*&v308[8])
+          {
+            v44 = *(*&v308[8] + 8);
+            v45 = vcnt_s8(v34);
+            v45.i16[0] = vaddlv_u8(v45);
+            if (v45.u32[0] > 1uLL)
+            {
+              if (v44 >= v34)
+              {
+                v44 %= v34;
+              }
+            }
+
+            else
+            {
+              v44 &= v34 - 1;
+            }
+
+            *(*&v306 + 8 * v44) = &v308[8];
+            for (i = *v43; i; v44 = v49)
+            {
+              v49 = i[1];
+              if (v45.u32[0] > 1uLL)
+              {
+                if (v49 >= v34)
+                {
+                  v49 %= v34;
+                }
+              }
+
+              else
+              {
+                v49 &= v34 - 1;
+              }
+
+              if (v49 != v44)
+              {
+                v50 = v306;
+                if (!*(*&v306 + 8 * v49))
+                {
+                  *(*&v306 + 8 * v49) = v43;
+                  goto LABEL_69;
+                }
+
+                *v43 = *i;
+                *i = **(*&v50 + 8 * v49);
+                **(*&v50 + 8 * v49) = i;
+                i = v43;
+              }
+
+              v49 = v44;
+LABEL_69:
+              v43 = i;
+              i = *i;
+            }
+          }
+
+          v21 = v34;
+          goto LABEL_73;
+        }
+
+        v54 = v306;
+        v306 = 0;
+        if (v54)
+        {
+          v55 = mdm::zone_mallocator::instance(prime);
+          geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::__hash_node_base<std::__hash_node<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>>,void *> *> *>(v55, v54);
+        }
+
+        v21 = 0;
+        v307 = 0;
+      }
+    }
+
+LABEL_73:
+    if ((v21 & (v21 - 1)) != 0)
+    {
+      if (v21 <= v20)
+      {
+        v9 = v20 % v21;
+      }
+
+      else
+      {
+        v9 = v20;
+      }
+    }
+
+    else
+    {
+      v9 = (v21 - 1) & v20;
+    }
+
+    goto LABEL_78;
+  }
+
+  v56 = a6[32];
+  if (v56 == 1)
+  {
+    v8 = a6[1];
+    v10 = *(a6 + 4);
+    v57 = *a6;
+    v9 = *(a6 + 2);
+    v7 = a6[24];
+  }
+
+  else
+  {
+    v57 = 0;
+  }
+
+  *a1 = &unk_1F2A3B128;
+  a1[1] = 0;
+  a1[2] = 0;
+  a1[3] = 0;
+  v58.i64[1] = 0;
+  *(a1 + 2) = 0u;
+  a1[12] = 0;
+  *(a1 + 4) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 104) = a7;
+  a1[14] = 0;
+  *(a1 + 120) = 0;
+  *(a1 + 152) = 0;
+  if (v56)
+  {
+    *(a1 + 121) = v8;
+    *(a1 + 124) = v10;
+    *(a1 + 120) = v57;
+    a1[17] = v9;
+    *(a1 + 144) = v7;
+    *(a1 + 152) = 1;
+  }
+
+  if (!a1[1])
+  {
+    v60 = 0;
+    if ((a7 & 1) == 0)
+    {
+      goto LABEL_165;
+    }
+
+LABEL_164:
+    operator new();
+  }
+
+  v59 = a1[1];
+  v60 = 0;
+  do
+  {
+    v262 = v59;
+    v61 = *v59;
+    v61[1] = v11;
+    v62 = v61[111];
+    v63 = v61[112];
+    v267 = v63;
+    while (v62 != v63)
+    {
+      v274 = v62;
+      v64 = *v62;
+      v64[1] = **v62;
+      v64[3] = v64[2];
+      v64[5] = v64[4];
+      v306 = 0;
+      v307 = 0;
+      *v308 = 0;
+      memset(&__p, 0, sizeof(__p));
+      v65 = v64[7];
+      v281 = v64[8];
+      if (v65 != v281)
+      {
+        v269 = v60;
+        v276 = v64;
+        do
+        {
+          v66 = *v65;
+          v293.__begin_ = 1;
+          md::Ribbons::RibbonWriter<md::Ribbons::DaVinciTrafficRibbonDescriptor>::eliminateDuplicates(v66, &v306, &__p, &v293);
+          begin = v293.__begin_;
+          if (v293.__begin_ >= 2)
+          {
+            v68 = v306;
+            if (*(v66 + 96))
+            {
+              v69 = 0;
+              v70 = 0;
+              v71 = *(v66 + 100);
+              v72 = *(v66 + 104);
+            }
+
+            else
+            {
+              v73 = 12;
+              v74 = 1;
+              while (1)
+              {
+                v75 = (*&v306 + 12 * v74);
+                v77 = *v75;
+                v76 = v75[1];
+                v78 = 1;
+                v79 = **v306.f32;
+                do
+                {
+                  v80 = vabds_f32(v77, v79);
+                  if ((v78 & 1) == 0)
+                  {
+                    break;
+                  }
+
+                  v78 = 0;
+                  v79 = *(*&v306 + 4);
+                  v77 = v76;
+                }
+
+                while (v80 < 1.0e-10);
+                if (v80 >= 1.0e-10)
+                {
+                  break;
+                }
+
+                ++v74;
+                v73 += 12;
+                if (v74 == v293.__begin_)
+                {
+                  v72 = 0.0;
+                  v71 = 1.0;
+                  goto LABEL_124;
+                }
+              }
+
+              for (j = 0; j != 12; j += 4)
+              {
+                *(&v297 + j) = *(*&v68 + v73) - *(*&v68 + j);
+                v73 += 4;
+              }
+
+              v82 = 1.0 / sqrtf((*&v297 * *&v297) + (*(&v297 + 1) * *(&v297 + 1)));
+              v71 = v82 * *&v297;
+              v72 = v82 * *(&v297 + 1);
+LABEL_124:
+              v69 = 1;
+              v70 = 2;
+            }
+
+            v279 = v65;
+            if (v69 < begin - 1)
+            {
+              v83 = *&v68 + 12 * v69 + 12;
+              while (1)
+              {
+                v84 = v71;
+                v85 = v72;
+                v86 = *&v68 + 12 * v69;
+                v294 = *v86;
+                LODWORD(v295) = *(v86 + 8);
+                if (++v69 < begin)
+                {
+                  v87 = v83;
+                  v88 = v69;
+                  while (1)
+                  {
+                    v89 = (*&v68 + 12 * v88);
+                    v91 = *v89;
+                    v90 = v89[1];
+                    v92 = 1;
+                    v93 = *&v294;
+                    do
+                    {
+                      v94 = vabds_f32(v91, v93);
+                      if ((v92 & 1) == 0)
+                      {
+                        break;
+                      }
+
+                      v92 = 0;
+                      v93 = *(&v294 + 1);
+                      v91 = v90;
+                    }
+
+                    while (v94 < 1.0e-10);
+                    if (v94 >= 1.0e-10)
+                    {
+                      break;
+                    }
+
+                    ++v88;
+                    v87 += 3;
+                    if (v88 >= begin)
+                    {
+                      goto LABEL_138;
+                    }
+                  }
+
+                  for (k = 0; k != 12; k += 4)
+                  {
+                    v96 = *v87++;
+                    *(&v297 + k) = v96 - *(&v294 + k);
+                  }
+
+                  v97 = 1.0 / sqrtf((*&v297 * *&v297) + (*(&v297 + 1) * *(&v297 + 1)));
+                  v71 = v97 * *&v297;
+                  v72 = v97 * *(&v297 + 1);
+                }
+
+LABEL_138:
+                v98 = atan2f(v72, v71);
+                v99 = v98 - atan2f(v85, v84);
+                v100 = v99;
+                if (v99 > 3.14159265)
+                {
+                  break;
+                }
+
+                if (v100 < -3.14159265)
+                {
+                  v101 = 6.28318531;
+                  goto LABEL_142;
+                }
+
+LABEL_143:
+                v102 = fmaxf(ceilf(fabsf(v99) * 1.2732), 1.0);
+                v103 = 2;
+                if (v102 >= 2)
+                {
+                  v103 = 2 * v102;
+                }
+
+                v70 += v103;
+                v83 += 12;
+                if (v69 == (begin - 1))
+                {
+                  goto LABEL_146;
+                }
+              }
+
+              v101 = -6.28318531;
+LABEL_142:
+              v99 = v100 + v101;
+              goto LABEL_143;
+            }
+
+LABEL_146:
+            v104 = v70 + 2;
+            if ((v70 + 2) < 0x10000)
+            {
+              v107 = 3 * v104 + *(v66 + 24);
+              v105 = *(v66 + 8) + v104;
+              v106 = v107 - 6;
+            }
+
+            else
+            {
+              v105 = *(v66 + 8);
+              v106 = *(v66 + 24);
+            }
+
+            v11 = a1;
+            v64 = v276;
+            v65 = v279;
+            *(v66 + 16) = v105;
+            *(v66 + 32) = v106;
+            *(v66 + 48) = *(v66 + 40);
+          }
+
+          v108 = *v65++;
+          v64[1] = v108[2] + v64[1] - v108[1];
+          v64[3] = v108[4] + v64[3] - v108[3];
+          v64[5] = v108[6] + v64[5] - v108[5];
+        }
+
+        while (v65 != v281);
+        v60 = v269;
+        if (__p.__begin_)
+        {
+          operator delete(__p.__begin_);
+        }
+      }
+
+      if (v306)
+      {
+        operator delete(*&v306);
+      }
+
+      v109 = v60 >> 3;
+      if (((v60 >> 3) + 1) >> 61)
+      {
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      if (v60 >> 3 != -1)
+      {
+        if (!(((v60 >> 3) + 1) >> 61))
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      *(8 * v109) = *v274;
+      memcpy(0, 0, v60);
+      v60 = 8 * v109 + 8;
+      v62 = (v274 + 1);
+      v63 = v267;
+    }
+
+    v59 = v262 + 1;
+  }
+
+  while (v262 != -8);
+  if (v11[13])
+  {
+    goto LABEL_164;
+  }
+
+LABEL_165:
+  v110 = 0;
+  v111 = 0;
+  v112 = 0;
+  v297 = 0;
+  v113 = v60 >> 3;
+  do
+  {
+    if (v112 == v113 || (*(*(8 * v112) + 8) + v111 - **(8 * v112)) >= 0x10000)
+    {
+      v294 = "BatchType/IData";
+      operator new();
+    }
+
+    if (v112 < v60 >> 3)
+    {
+      v114 = *(8 * v112);
+      v111 += v114->i64[1] - v114->i64[0];
+      v115 = vaddq_s64(v114[1], v114[2]);
+      v58 = vsubq_s64(vdupq_laneq_s64(v115, 1), v115);
+      v110 += v58.i64[0];
+      v297 = v110;
+    }
+
+    v113 = v60 >> 3;
+    ++v112;
+  }
+
+  while (v112 <= v60 >> 3);
+  v116 = &xmmword_1B33B2000;
+  *a1 = &unk_1F2A3B108;
+  a1[20] = *a4;
+  v117 = a4[1];
+  a1[21] = v117;
+  if (v117)
+  {
+    atomic_fetch_add_explicit((v117 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  a1[22] = *a5;
+  v118 = a5[1];
+  a1[23] = v118;
+  if (v118)
+  {
+    atomic_fetch_add_explicit((v118 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  a1[24] = 0;
+  v119 = a1[1];
+  v256 = a1[2];
+  if (v119 != v256)
+  {
+    v58.i64[0] = 0x3DDB7CDFD9D7BDBBLL;
+    v287 = v58;
+    do
+    {
+      v257 = v119;
+      v120 = *v119;
+      v121 = *(*v119 + 888);
+      v122 = *(v120 + 896);
+      v258 = v122;
+      while (v121 != v122)
+      {
+        v259 = v121;
+        v123 = *v121;
+        v124 = **((*v121)[11] + 64);
+        v125 = **v121;
+        v126 = (*v121)[1];
+        ggl::BufferMemory::BufferMemory(&__p);
+        ggl::ResourceAccessor::accessIndexData(&v306, a2, v124, v125, v126, 1, 1);
+        ggl::BufferMemory::operator=(&__p, &v306);
+        ggl::BufferMemory::~BufferMemory(&v306);
+        v127 = v123[2];
+        v129 = v123[4];
+        v128 = v123[5];
+        if (v128 == v129)
+        {
+          v130 = v123[3];
+        }
+
+        else
+        {
+          if (v129 < v127)
+          {
+            v127 = v123[4];
+          }
+
+          if (v123[3] <= v128)
+          {
+            v130 = v123[5];
+          }
+
+          else
+          {
+            v130 = v123[3];
+          }
+        }
+
+        v131 = v300;
+        v132 = ggl::DataAccess<ggl::DaVinci::TexturedCompressedVbo>::DataAccess(&v297, *(v123[11] + 96), v127, v130, 1, 1, a2);
+        v133 = v123[2];
+        v134 = v123[4];
+        v294 = 0;
+        v295 = 0;
+        v296 = 0;
+        memset(&v293, 0, sizeof(v293));
+        v261 = v123;
+        v135 = v123[7];
+        v263 = (v123 + 7);
+        v136 = v123[8];
+        if (v135 != v136)
+        {
+          v137 = v298 + 2 * v133 - 2 * v127;
+          v138 = v298 + 2 * v134 - 2 * v127;
+          v139 = v287;
+          v266 = v136;
+          while (1)
+          {
+            v132 = *v135;
+            v304 = v131;
+            v140 = *(v132 + 2);
+            if (v140 != *(v132 + 1))
+            {
+              break;
+            }
+
+            v141 = *(v132 + 2);
+LABEL_279:
+            v131 += 20 * (v141 - v140);
+            v137 += 2 * (*(v132 + 4) - *(v132 + 3));
+            v138 += 2 * (*(v132 + 6) - *(v132 + 5));
+            if (++v135 == v136)
+            {
+              v287 = v139;
+              v135 = *v263;
+              goto LABEL_281;
+            }
+          }
+
+          v273 = v137;
+          v275 = v132;
+          v288 = v139;
+          v303 = 1;
+          md::Ribbons::RibbonWriter<md::Ribbons::DaVinciTrafficRibbonDescriptor>::eliminateDuplicates(v132, &v294, &v293, &v303);
+          v145 = v303;
+          if (v303 < 2)
+          {
+            v139 = v288;
+            v137 = v273;
+LABEL_278:
+            v132 = *v135;
+            v140 = *(*v135 + 1);
+            v141 = *(*v135 + 2);
+            goto LABEL_279;
+          }
+
+          v270 = v131;
+          v146 = 0;
+          v147 = v294;
+          v148 = v294;
+          v280 = v293.__begin_;
+          v149 = v303 - 1;
+          v150 = 0.0;
+          v151 = v294;
+          v152 = v288;
+          do
+          {
+            v153 = 0;
+            ++v146;
+            do
+            {
+              v306.f32[v153] = *&v151[v153 * 4 + 12] - *&v151[v153 * 4];
+              ++v153;
+            }
+
+            while (v153 != 3);
+            v150 = sqrtf(vaddv_f32(vmul_f32(v306, v306))) + v150;
+            v151 += 12;
+          }
+
+          while (v146 != v149);
+          *&v142 = v150;
+          v154 = 1.0 / v150;
+          v155 = *&v142 <= 1.0e-10;
+          DWORD1(v142) = 0;
+          if (v155)
+          {
+            v154 = 0.0;
+          }
+
+          v277 = v154;
+          __src = v145;
+          v271 = v135;
+          if (*(v275 + 96))
+          {
+            v156 = 0;
+            *&v144 = *(v275 + 100);
+            LOBYTE(v311) = 0;
+            v157 = 0.0;
+          }
+
+          else
+          {
+            for (m = 0; m != 3; ++m)
+            {
+              v306.f32[m] = *&v147[m * 4 + 12] - *&v147[m * 4];
+            }
+
+            v157 = sqrtf((v306.f32[0] * v306.f32[0]) + (v306.f32[1] * v306.f32[1]));
+            v159 = 1;
+            while (1)
+            {
+              v160 = &v147[12 * v159];
+              v162 = *v160;
+              v161 = v160[1];
+              v163 = 1;
+              v164 = *v148;
+              do
+              {
+                v165 = vabds_f32(v162, v164);
+                if ((v163 & 1) == 0)
+                {
+                  break;
+                }
+
+                v163 = 0;
+                v164 = v148[1];
+                v162 = v161;
+              }
+
+              while (v165 < 1.0e-10);
+              if (v165 >= 1.0e-10)
+              {
+                break;
+              }
+
+              ++v159;
+              m += 3;
+              if (v159 == v145)
+              {
+                v166 = 0.0;
+                LODWORD(v142) = 1.0;
+                goto LABEL_214;
+              }
+            }
+
+            for (n = 0; n != 3; ++n)
+            {
+              v306.f32[n] = v148[m++] - v148[n];
+            }
+
+            v168 = 1.0 / sqrtf((v306.f32[0] * v306.f32[0]) + (v306.f32[1] * v306.f32[1]));
+            *&v142 = v168 * v306.f32[0];
+            v166 = v168 * v306.f32[1];
+LABEL_214:
+            v306 = *v280;
+            for (ii = 2; ii != 5; ++ii)
+            {
+              v170 = *v148++;
+              v306.i32[ii] = v170;
+            }
+
+            v171 = v142;
+            *(&v171 + 1) = v166;
+            v283 = v171;
+            v310 = 0;
+            *v309 = -v166;
+            *&v309[4] = v142;
+            v311 = 0;
+            *&v308[4] = -v166;
+            *&v308[8] = v142;
+            *&v308[12] = v166;
+            *&v308[16] = -*&v142;
+            *&v309[8] = xmmword_1B33B0590;
+            md::Ribbons::RibbonWriter<md::Ribbons::PatternedRibbonDescriptor>::writeVertex(&v304, &v306);
+            v144 = v283;
+            v152 = v288;
+            v156 = 1;
+            v145 = __src;
+          }
+
+          v268 = v138;
+          if (v156 >= v149)
+          {
+            v215 = v144;
+LABEL_250:
+            v216 = &v147[12 * v149];
+            v217 = &v147[12 * v145];
+            v218 = *v216;
+            v219 = *(v217 - 6);
+            v220 = 1;
+            do
+            {
+              v221 = vabds_f32(v218, v219);
+              if ((v220 & 1) == 0)
+              {
+                break;
+              }
+
+              v220 = 0;
+              v219 = *(v217 - 5);
+              v218 = v216[1];
+            }
+
+            while (v221 < 1.0e-10);
+            if (v221 >= 1.0e-10)
+            {
+              for (jj = 0; jj != 3; ++jj)
+              {
+                v305[0].f32[jj] = v217[jj - 3] - v217[jj - 6];
+              }
+
+              v215 = vmul_n_f32(v305[0], 1.0 / sqrtf(vaddv_f32(vmul_f32(v305[0], v305[0]))));
+            }
+
+            v290 = v152;
+            if (*(v275 + 97) == 1)
+            {
+              v224 = *(v275 + 27);
+              v223 = *(v275 + 28);
+              v225 = v215.f32[0] + v224;
+              v226 = v215.f32[1];
+              v227 = v215.f32[1] + v223;
+              v228 = (v225 * v225) + (v227 * v227);
+              v230 = v215.f32[1];
+              v292 = v215.f32[0];
+              v229 = v215.f32[0];
+              if (v228 > 0.0)
+              {
+                v231 = 1.0 / sqrtf(v228);
+                v229 = -(v227 * v231);
+                v230 = v231 * v225;
+              }
+
+              v285 = *(v275 + 28);
+              v232 = atan2f(v223, v224);
+              v233 = v232 - atan2f(v226, v292);
+              v234 = v233;
+              if (v233 <= 3.14159265)
+              {
+                v135 = v271;
+                v145 = __src;
+                if (v234 < -3.14159265)
+                {
+                  v233 = v234 + 6.28318531;
+                }
+              }
+
+              else
+              {
+                v233 = v234 + -6.28318531;
+                v135 = v271;
+                v145 = __src;
+              }
+
+              v236 = fmaxf(ceilf(fabsf(v233) * *(v116 + 384)), 1.0);
+              v237 = v229;
+              v215.f32[0] = v230;
+              if (v236 <= 1)
+              {
+                v238 = sqrtf(fmaxf(-((((v229 * v224) + (v230 * v285)) * ((v229 * v224) + (v230 * v285))) + -1.0), 0.1));
+                v237 = v229 / v238;
+                v215.f32[0] = v230 / v238;
+              }
+
+              *&v308[4] = v237;
+              *&v308[8] = v215.i32[0];
+              v235 = -v237;
+            }
+
+            else
+            {
+              v235 = v215.f32[1];
+              v229 = -v215.f32[1];
+              *&v308[4] = -v215.f32[1];
+              *&v308[8] = v215.i32[0];
+              v230 = v215.f32[0];
+              v135 = v271;
+            }
+
+            v131 = v270;
+            v136 = v266;
+            *&v308[12] = v235;
+            *&v308[16] = -v215.f32[0];
+            HIBYTE(v311) = 0;
+            v306 = v280[v145 - 1];
+            for (kk = 2; kk != 5; ++kk)
+            {
+              v240 = *v216++;
+              v306.i32[kk] = v240;
+            }
+
+            *v309 = v229;
+            *&v309[4] = v230;
+            *&v310 = v157;
+            *(&v310 + 1) = v157 * v277;
+            md::Ribbons::RibbonWriter<md::Ribbons::PatternedRibbonDescriptor>::writeVertex(&v304, &v306);
+            v137 = v273;
+            v241 = *(v275 + 1);
+            v242 = *(v275 + 2) - v241;
+            v139 = v290;
+            v138 = v268;
+            if (v242 >= 4)
+            {
+              v243 = v242 >> 1;
+              if (v243 <= 2)
+              {
+                v243 = 2;
+              }
+
+              v244 = v243 - 1;
+              v245 = v244;
+              v246 = *(v275 + 1);
+              v247 = v273;
+              do
+              {
+                *v247 = v246;
+                v248 = v246 + 1;
+                v247[1] = v246 + 1;
+                v249 = v246 + 3;
+                LODWORD(v246) = v246 + 2;
+                v247[2] = v246;
+                v247[3] = v248;
+                v247[4] = v249;
+                v247[5] = v246;
+                v247 += 6;
+                --v245;
+              }
+
+              while (v245);
+              if (*(v275 + 6) != *(v275 + 5))
+              {
+                v250 = v268;
+                do
+                {
+                  *v250 = v241;
+                  v241 += 2;
+                  v250[1] = v241;
+                  v250 += 2;
+                  --v244;
+                }
+
+                while (v244);
+              }
+            }
+
+            goto LABEL_278;
+          }
+
+          v172 = &v147[12 * v156];
+          v173 = (v172 + 12);
+          while (2)
+          {
+            v174 = 0;
+            v306 = v280[v156];
+            v175 = &v147[12 * v156];
+            v301 = *v175;
+            v302 = *(v175 + 2);
+            ++v156;
+            do
+            {
+              v305[0].f32[v174] = v173[v174] - *(&v301 + v174 * 4);
+              ++v174;
+            }
+
+            while (v174 != 3);
+            v176 = v305[0];
+            if (v156 >= v145)
+            {
+LABEL_228:
+              v143 = v144;
+              v185 = *(&v144 + 1);
+              v186 = *(&v144 + 1);
+              v187 = *&v144;
+            }
+
+            else
+            {
+              v177 = v173;
+              v178 = v156;
+              while (1)
+              {
+                v179 = &v147[12 * v178];
+                v181 = *v179;
+                v180 = v179[1];
+                v182 = 1;
+                v183 = *&v301;
+                do
+                {
+                  v184 = vabds_f32(v181, v183);
+                  if ((v182 & 1) == 0)
+                  {
+                    break;
+                  }
+
+                  v182 = 0;
+                  v183 = *(&v301 + 1);
+                  v181 = v180;
+                }
+
+                while (v184 < 1.0e-10);
+                if (v184 >= 1.0e-10)
+                {
+                  break;
+                }
+
+                ++v178;
+                v177 += 3;
+                if (v178 >= v145)
+                {
+                  goto LABEL_228;
+                }
+              }
+
+              for (mm = 0; mm != 3; ++mm)
+              {
+                v189 = *v177++;
+                v305[0].f32[mm] = v189 - *(&v301 + mm * 4);
+              }
+
+              v190 = 1.0 / sqrtf((v305[0].f32[0] * v305[0].f32[0]) + (v305[0].f32[1] * v305[0].f32[1]));
+              v187 = v190 * v305[0].f32[0];
+              v186 = v190 * v305[0].f32[1];
+              v185 = *(&v144 + 1);
+              *&v143 = v190 * v305[0].f32[0];
+            }
+
+            v191 = v187 + *&v144;
+            v192 = v186 + v185;
+            v193 = (v191 * v191) + (v192 * v192);
+            if (v193 <= 0.0)
+            {
+              v196 = *(&v144 + 1);
+              v197 = v144;
+              v185 = *(&v144 + 1);
+              LODWORD(v195) = v144;
+            }
+
+            else
+            {
+              v194 = 1.0 / sqrtf(v193);
+              v195 = -(v192 * v194);
+              v196 = v194 * v191;
+              v197 = __PAIR64__(LODWORD(v196), LODWORD(v195));
+            }
+
+            v282 = v196;
+            v284 = *&v144;
+            v198 = sqrtf((v176.f32[0] * v176.f32[0]) + (v176.f32[1] * v176.f32[1]));
+            *(&v143 + 1) = v186;
+            v289 = v143;
+            v291 = v197;
+            v199 = sqrtf(fmaxf(-((((v187 * v195) + (v186 * v196)) * ((v187 * v195) + (v186 * v196))) + -1.0), 0.1));
+            v200 = v195 / v199;
+            v201 = v172;
+            for (nn = 2; nn != 5; ++nn)
+            {
+              v203 = *v201++;
+              v306.i32[nn] = v203;
+            }
+
+            *&v310 = v157;
+            *(&v310 + 1) = v157 * v277;
+            *&v309[8] = xmmword_1B33B0590;
+            *v309 = v195;
+            HIBYTE(v311) = 1;
+            v204 = atan2f(v186, v187);
+            v205 = v204 - atan2f(v185, v284);
+            v206 = v205;
+            if (v205 > 3.14159265)
+            {
+              v207 = -6.28318531;
+              goto LABEL_241;
+            }
+
+            if (v206 < -3.14159265)
+            {
+              v207 = 6.28318531;
+LABEL_241:
+              v205 = v206 + v207;
+            }
+
+            v208 = v149;
+            v209 = fmaxf(ceilf(fabsf(v205) * *(v116 + 384)), 1.0);
+            if (v209 < 2)
+            {
+              *&v309[4] = v282;
+              *&v308[4] = v200;
+              *&v308[8] = v282 / v199;
+              *&v308[12] = -v200;
+              *&v308[16] = -(v282 / v199);
+              md::Ribbons::RibbonWriter<md::Ribbons::PatternedRibbonDescriptor>::writeVertex(&v304, &v306);
+            }
+
+            else
+            {
+              for (i1 = 0; i1 != v209; ++i1)
+              {
+                v211 = __sincosf_stret(((i1 * (1.0 / (v209 + -1.0))) + -0.5) * v205);
+                v212 = vrev64_s32(vmul_n_f32(v291, v211.__sinval));
+                v213 = vmul_n_f32(v291, v211.__cosval);
+                v214.i32[0] = vsub_f32(v213, v212).u32[0];
+                v214.i32[1] = vadd_f32(v213, v212).i32[1];
+                *v309 = v214;
+                *&v308[4] = v214;
+                *&v308[12] = vneg_f32(v214);
+                md::Ribbons::RibbonWriter<md::Ribbons::PatternedRibbonDescriptor>::writeVertex(&v304, &v306);
+                HIBYTE(v311) = 0;
+              }
+            }
+
+            v173 += 3;
+            v157 = v198 + v157;
+            v172 += 12;
+            v152 = v289;
+            v215 = v289;
+            *&v144 = v289;
+            v149 = v208;
+            v116 = &xmmword_1B33B2000;
+            v145 = __src;
+            if (v156 == v208)
+            {
+              goto LABEL_250;
+            }
+
+            continue;
+          }
+        }
+
+LABEL_281:
+        v251 = v261;
+        if (v135)
+        {
+          v252 = v261[8];
+          v253 = v135;
+          if (v252 != v135)
+          {
+            do
+            {
+              std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>::reset[abi:nn200100](--v252);
+            }
+
+            while (v252 != v135);
+            v251 = v261;
+            v253 = *v263;
+          }
+
+          v251[8] = v135;
+          v254 = mdm::zone_mallocator::instance(v132);
+          geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>>(v254, v253);
+          *v263 = 0;
+          v263[1] = 0;
+          v263[2] = 0;
+        }
+
+        *v263 = 0;
+        v263[1] = 0;
+        v263[2] = 0;
+        v307 = 0;
+        *v308 = 0;
+        v306 = 0;
+        v305[0] = &v306;
+        std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](v305);
+        if (v293.__begin_)
+        {
+          operator delete(v293.__begin_);
+        }
+
+        if (v294)
+        {
+          operator delete(v294);
+        }
+
+        ggl::BufferMemory::~BufferMemory(&v297);
+        ggl::BufferMemory::~BufferMemory(&__p);
+        v122 = v258;
+        v121 = v259 + 1;
+      }
+
+      v119 = v257 + 1;
+    }
+
+    while (v257 + 1 != v256);
+  }
+
+  return a1;
+}
+
+void md::PatternedLayer::~PatternedLayer(md::PatternedLayer *this)
+{
+  *this = &unk_1F2A3B108;
+  v2 = *(this + 23);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = *(this + 21);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+
+  md::Ribbons::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::~RibbonLayer(this);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+{
+  *this = &unk_1F2A3B108;
+  v2 = *(this + 23);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = *(this + 21);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+
+  md::Ribbons::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::~RibbonLayer(this);
+}
+
+void *md::Ribbons::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::~RibbonLayer(void *a1)
+{
+  *a1 = &unk_1F2A3B128;
+  v2 = a1[1];
+  v3 = a1[2];
+  while (v2 != v3)
+  {
+    if (*v2)
+    {
+      (*(**v2 + 8))(*v2);
+    }
+
+    ++v2;
+  }
+
+  v4 = a1[4];
+  v5 = a1[5];
+  while (v4 != v5)
+  {
+    if (*v4)
+    {
+      (*(**v4 + 8))(*v4);
+    }
+
+    ++v4;
+  }
+
+  v6 = a1[14];
+  a1[14] = 0;
+  if (v6)
+  {
+    std::default_delete<gdc::GlobeTileGrid>::operator()[abi:nn200100](v6);
+  }
+
+  v7 = a1[4];
+  if (v7)
+  {
+    a1[5] = v7;
+    operator delete(v7);
+  }
+
+  v8 = a1[1];
+  if (v8)
+  {
+    a1[2] = v8;
+    operator delete(v8);
+  }
+
+  return a1;
+}
+
+void md::Ribbons::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::~RibbonLayer(void *a1)
+{
+  md::Ribbons::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::~RibbonLayer(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void md::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::~RibbonLayer(void *a1)
+{
+  *a1 = &unk_1F2A3B108;
+  v2 = a1[23];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = a1[21];
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+
+  md::Ribbons::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::~RibbonLayer(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *md::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::~RibbonLayer(void *a1)
+{
+  *a1 = &unk_1F2A3B108;
+  v2 = a1[23];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  v3 = a1[21];
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+  }
+
+  return md::Ribbons::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::~RibbonLayer(a1);
+}
+
+void std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>::reset[abi:nn200100](uint64_t (****result)(void))
+{
+  v1 = *result;
+  *result = 0;
+  if (v1)
+  {
+    v2 = (**v1)(v1);
+    v3 = mdm::zone_mallocator::instance(v2);
+
+    geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<md::PatternedRibbon>(v3, v1);
+  }
+}
+
+void non-virtual thunk toggl::VertexDataTyped<ggl::PatternedRibbon::DefaultVbo>::~VertexDataTyped(uint64_t a1)
+{
+  ggl::VertexData::~VertexData((a1 - 200));
+
+  JUMPOUT(0x1B8C62190);
+}
+
+{
+  ggl::VertexData::~VertexData((a1 - 200));
+}
+
+void ggl::VertexDataTyped<ggl::PatternedRibbon::DefaultVbo>::~VertexDataTyped(ggl::VertexData *a1)
+{
+  ggl::VertexData::~VertexData(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__shared_ptr_emplace<ggl::VertexDataTyped<ggl::PatternedRibbon::DefaultVbo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A3B148;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+mdm::zone_mallocator *std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>::push_back[abi:nn200100](mdm::zone_mallocator *result, uint64_t *a2)
+{
+  v3 = result;
+  v5 = *(result + 1);
+  v4 = *(result + 2);
+  if (v5 >= v4)
+  {
+    v8 = *result;
+    v9 = v5 - *result;
+    v10 = v9 >> 3;
+    v11 = (v9 >> 3) + 1;
+    if (v11 >> 61)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v12 = v4 - v8;
+    if (v12 >> 2 > v11)
+    {
+      v11 = v12 >> 2;
+    }
+
+    if (v12 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v13 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v13 = v11;
+    }
+
+    v22[4] = result + 24;
+    if (v13)
+    {
+      v14 = mdm::zone_mallocator::instance(result);
+      v15 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>>(v14, v13);
+      v8 = *v3;
+      v9 = *(v3 + 1) - *v3;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    v16 = &v15[8 * v10];
+    v17 = &v15[8 * v13];
+    v18 = *a2;
+    *a2 = 0;
+    v19 = &v16[-8 * (v9 >> 3)];
+    *v16 = v18;
+    v7 = v16 + 8;
+    memcpy(v19, v8, v9);
+    v20 = *v3;
+    *v3 = v19;
+    *(v3 + 1) = v7;
+    v21 = *(v3 + 2);
+    *(v3 + 2) = v17;
+    v22[2] = v20;
+    v22[3] = v21;
+    v22[0] = v20;
+    v22[1] = v20;
+    result = std::__split_buffer<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator> &>::~__split_buffer(v22);
+  }
+
+  else
+  {
+    v6 = *a2;
+    *a2 = 0;
+    *v5 = v6;
+    v7 = v5 + 1;
+  }
+
+  *(v3 + 1) = v7;
+  return result;
+}
+
+uint64_t std::__introsort<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::batch(std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,false>(uint64_t result, uint64_t *a2, uint64_t a3, char a4)
+{
+  v6 = result;
+  while (2)
+  {
+    v117 = a2;
+    v119 = a2 - 1;
+    v114 = a2 - 3;
+    v115 = a2 - 2;
+    while (1)
+    {
+      while (1)
+      {
+        while (1)
+        {
+          v7 = v6;
+          v8 = a2 - v6;
+          if (v8 > 2)
+          {
+            switch(v8)
+            {
+              case 3:
+
+                return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(v6, v6 + 1, v119);
+              case 4:
+
+                return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(v6, v6 + 1, v6 + 2, v119);
+              case 5:
+
+                return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(v6, v6 + 1, v6 + 2, v6 + 3, v119);
+            }
+          }
+
+          else
+          {
+            if (v8 < 2)
+            {
+              return result;
+            }
+
+            if (v8 == 2)
+            {
+              v41 = *v119;
+              v42 = ggl::CullingGrid::sortOrderForCells(*(*v119 + 96));
+              v43 = *v6;
+              result = ggl::CullingGrid::sortOrderForCells(*(*v6 + 96));
+              if (v42 < result)
+              {
+                *v6 = v41;
+                *v119 = v43;
+              }
+
+              return result;
+            }
+          }
+
+          if (v8 <= 23)
+          {
+            v44 = v6 + 1;
+            v46 = v6 == a2 || v44 == a2;
+            if (a4)
+            {
+              if (!v46)
+              {
+                v47 = 0;
+                v48 = v6;
+                do
+                {
+                  v49 = v44;
+                  v50 = v48[1];
+                  v51 = ggl::CullingGrid::sortOrderForCells(*(v50 + 96));
+                  result = ggl::CullingGrid::sortOrderForCells(*(*v48 + 96));
+                  if (v51 < result)
+                  {
+                    *v49 = 0;
+                    v124 = v50;
+                    v52 = *v48;
+                    v53 = v47;
+                    while (1)
+                    {
+                      *(v7 + v53) = 0;
+                      std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100]((v7 + v53 + 8), v52);
+                      v54 = v124;
+                      if (!v53)
+                      {
+                        break;
+                      }
+
+                      v55 = ggl::CullingGrid::sortOrderForCells(*(v124 + 96));
+                      v52 = *(v7 + v53 - 8);
+                      v53 -= 8;
+                      if (v55 >= ggl::CullingGrid::sortOrderForCells(*(v52 + 96)))
+                      {
+                        v56 = (v7 + v53 + 8);
+                        goto LABEL_84;
+                      }
+                    }
+
+                    v56 = v7;
+LABEL_84:
+                    v124 = 0;
+                    std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v56, v54);
+                    result = std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](&v124, 0);
+                    a2 = v117;
+                  }
+
+                  v44 = v49 + 1;
+                  v47 += 8;
+                  v48 = v49;
+                }
+
+                while (v49 + 1 != a2);
+              }
+            }
+
+            else if (!v46)
+            {
+              do
+              {
+                v106 = v44;
+                v107 = v7[1];
+                v108 = ggl::CullingGrid::sortOrderForCells(*(v107 + 96));
+                result = ggl::CullingGrid::sortOrderForCells(*(*v7 + 96));
+                if (v108 < result)
+                {
+                  *v106 = 0;
+                  v124 = v107;
+                  v109 = *v7;
+                  v110 = v106;
+                  v111 = v106;
+                  do
+                  {
+                    *--v111 = 0;
+                    std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v110, v109);
+                    v112 = v124;
+                    v113 = ggl::CullingGrid::sortOrderForCells(*(v124 + 96));
+                    v109 = *(v110 - 2);
+                    v110 = v111;
+                  }
+
+                  while (v113 < ggl::CullingGrid::sortOrderForCells(*(v109 + 96)));
+                  v124 = 0;
+                  std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v111, v112);
+                  result = std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](&v124, 0);
+                }
+
+                v44 = v106 + 1;
+                v7 = v106;
+              }
+
+              while (v106 + 1 != a2);
+            }
+
+            return result;
+          }
+
+          v122 = v6;
+          if (!a3)
+          {
+            if (v6 != a2)
+            {
+              v57 = (v8 - 2) >> 1;
+              v120 = v57;
+              do
+              {
+                v58 = v57;
+                if (v120 >= v57)
+                {
+                  v59 = (2 * v57) | 1;
+                  v60 = &v122[v59];
+                  if (2 * v57 + 2 >= v8)
+                  {
+                    v65 = *v60;
+                  }
+
+                  else
+                  {
+                    v61 = *v60;
+                    v62 = ggl::CullingGrid::sortOrderForCells(*(*v60 + 96));
+                    v63 = v60[1];
+                    v64 = ggl::CullingGrid::sortOrderForCells(*(v63 + 96));
+                    if (v62 >= v64)
+                    {
+                      v65 = v61;
+                    }
+
+                    else
+                    {
+                      v65 = v63;
+                    }
+
+                    if (v62 < v64)
+                    {
+                      ++v60;
+                      v59 = 2 * v58 + 2;
+                    }
+                  }
+
+                  v66 = &v122[v58];
+                  v67 = ggl::CullingGrid::sortOrderForCells(*(v65 + 96));
+                  v68 = *v66;
+                  result = ggl::CullingGrid::sortOrderForCells(*(*v66 + 96));
+                  if (v67 >= result)
+                  {
+                    *v66 = 0;
+                    v124 = v68;
+                    v69 = *v60;
+                    while (1)
+                    {
+                      v70 = v60;
+                      *v60 = 0;
+                      std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v66, v69);
+                      if (v120 < v59)
+                      {
+                        break;
+                      }
+
+                      v71 = (2 * v59) | 1;
+                      v60 = &v122[v71];
+                      v72 = 2 * v59 + 2;
+                      if (v72 >= v8)
+                      {
+                        v69 = *v60;
+                        v59 = (2 * v59) | 1;
+                      }
+
+                      else
+                      {
+                        v73 = *v60;
+                        v74 = ggl::CullingGrid::sortOrderForCells(*(*v60 + 96));
+                        v75 = v60[1];
+                        v76 = ggl::CullingGrid::sortOrderForCells(*(v75 + 96));
+                        v77 = v74 >= v76;
+                        if (v74 >= v76)
+                        {
+                          v69 = v73;
+                        }
+
+                        else
+                        {
+                          v69 = v75;
+                        }
+
+                        if (v77)
+                        {
+                          v59 = v71;
+                        }
+
+                        else
+                        {
+                          ++v60;
+                          v59 = v72;
+                        }
+                      }
+
+                      v78 = ggl::CullingGrid::sortOrderForCells(*(v69 + 96));
+                      v79 = v124;
+                      v66 = v70;
+                      if (v78 < ggl::CullingGrid::sortOrderForCells(*(v124 + 96)))
+                      {
+                        goto LABEL_112;
+                      }
+                    }
+
+                    v79 = v124;
+LABEL_112:
+                    a2 = v117;
+                    v124 = 0;
+                    std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v70, v79);
+                    result = std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](&v124, 0);
+                  }
+                }
+
+                v57 = v58 - 1;
+              }
+
+              while (v58);
+              v80 = v122;
+              do
+              {
+                if (v8 >= 2)
+                {
+                  v81 = 0;
+                  v82 = *v80;
+                  *v80 = 0;
+                  v118 = a2;
+                  v121 = v82;
+                  v123 = v82;
+                  v83 = v80;
+                  do
+                  {
+                    v84 = &v83[v81];
+                    v85 = v84 + 1;
+                    v86 = (2 * v81) | 1;
+                    v81 = 2 * v81 + 2;
+                    if (v81 >= v8)
+                    {
+                      v93 = *v85;
+                      v81 = v86;
+                    }
+
+                    else
+                    {
+                      v87 = v84[1];
+                      v88 = ggl::CullingGrid::sortOrderForCells(*(v87 + 96));
+                      v91 = v84[2];
+                      v90 = v84 + 2;
+                      v89 = v91;
+                      v92 = ggl::CullingGrid::sortOrderForCells(*(v91 + 96));
+                      if (v88 >= v92)
+                      {
+                        v93 = v87;
+                      }
+
+                      else
+                      {
+                        v93 = v89;
+                      }
+
+                      if (v88 >= v92)
+                      {
+                        v81 = v86;
+                      }
+
+                      else
+                      {
+                        v85 = v90;
+                      }
+                    }
+
+                    *v85 = 0;
+                    std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v83, v93);
+                    v83 = v85;
+                  }
+
+                  while (v81 <= ((v8 - 2) >> 1));
+                  a2 = v118;
+                  v94 = v118 - 1;
+                  if (v85 == v118 - 1)
+                  {
+                    v123 = 0;
+                    std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v85, v121);
+                    v80 = v122;
+                  }
+
+                  else
+                  {
+                    v95 = *v94;
+                    *v94 = 0;
+                    std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v85, v95);
+                    v123 = 0;
+                    std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v94, v121);
+                    v80 = v122;
+                    v96 = (v85 - v122 + 8) >> 3;
+                    v97 = v96 < 2;
+                    v98 = v96 - 2;
+                    if (!v97)
+                    {
+                      v99 = v98 >> 1;
+                      v100 = &v122[v98 >> 1];
+                      v101 = ggl::CullingGrid::sortOrderForCells(*(*v100 + 96));
+                      v102 = *v85;
+                      if (v101 < ggl::CullingGrid::sortOrderForCells(*(*v85 + 96)))
+                      {
+                        *v85 = 0;
+                        v103 = *v100;
+                        do
+                        {
+                          v104 = v100;
+                          *v100 = 0;
+                          std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v85, v103);
+                          if (!v99)
+                          {
+                            break;
+                          }
+
+                          v99 = (v99 - 1) >> 1;
+                          v100 = &v122[v99];
+                          v103 = *v100;
+                          v105 = ggl::CullingGrid::sortOrderForCells(*(*v100 + 96));
+                          v85 = v104;
+                        }
+
+                        while (v105 < ggl::CullingGrid::sortOrderForCells(*(v102 + 96)));
+                        v124 = 0;
+                        std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v104, v102);
+                        std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](&v124, 0);
+                        a2 = v118;
+                      }
+                    }
+                  }
+
+                  result = std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](&v123, 0);
+                }
+
+                --a2;
+                v97 = v8-- > 2;
+              }
+
+              while (v97);
+            }
+
+            return result;
+          }
+
+          v9 = v8 >> 1;
+          v10 = &v6[v8 >> 1];
+          if (v8 < 0x81)
+          {
+            std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(&v6[v8 >> 1], v6, v119);
+          }
+
+          else
+          {
+            std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(v6, &v6[v8 >> 1], v119);
+            std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(v6 + 1, v10 - 1, v115);
+            std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(v6 + 2, &v6[v9 + 1], v114);
+            v7 = v6;
+            std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(v10 - 1, &v6[v8 >> 1], &v6[v9 + 1]);
+            v11 = *v6;
+            *v6 = *v10;
+            *v10 = v11;
+          }
+
+          --a3;
+          v12 = *v7;
+          if (a4)
+          {
+            break;
+          }
+
+          v14 = ggl::CullingGrid::sortOrderForCells(*(*(v7 - 1) + 96));
+          v13 = ggl::CullingGrid::sortOrderForCells(*(v12 + 96));
+          v77 = v14 >= v13;
+          v7 = v6;
+          if (!v77)
+          {
+            goto LABEL_18;
+          }
+
+          *v6 = 0;
+          v124 = v12;
+          if (v13 >= ggl::CullingGrid::sortOrderForCells(*(*v119 + 96)))
+          {
+            v31 = (v6 + 1);
+            do
+            {
+              v6 = v31;
+              if (v31 >= a2)
+              {
+                break;
+              }
+
+              v31 += 8;
+            }
+
+            while (v13 >= ggl::CullingGrid::sortOrderForCells(*(*v6 + 96)));
+          }
+
+          else
+          {
+            do
+            {
+              v30 = v6[1];
+              ++v6;
+            }
+
+            while (v13 >= ggl::CullingGrid::sortOrderForCells(*(v30 + 96)));
+          }
+
+          v32 = a2;
+          if (v6 < a2)
+          {
+            v32 = a2;
+            do
+            {
+              v33 = *--v32;
+            }
+
+            while (v13 < ggl::CullingGrid::sortOrderForCells(*(v33 + 96)));
+          }
+
+          if (v6 < v32)
+          {
+            v34 = *v6;
+            v35 = *v32;
+            do
+            {
+              *v6 = v35;
+              *v32 = v34;
+              v12 = v124;
+              v36 = ggl::CullingGrid::sortOrderForCells(*(v124 + 96));
+              do
+              {
+                v37 = v6[1];
+                ++v6;
+                v34 = v37;
+              }
+
+              while (v36 >= ggl::CullingGrid::sortOrderForCells(*(v37 + 96)));
+              do
+              {
+                v38 = *--v32;
+                v35 = v38;
+              }
+
+              while (v36 < ggl::CullingGrid::sortOrderForCells(*(v38 + 96)));
+            }
+
+            while (v6 < v32);
+          }
+
+          v39 = v6 - 1;
+          if (v6 - 1 != v122)
+          {
+            v40 = *v39;
+            *v39 = 0;
+            std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v122, v40);
+            v12 = v124;
+          }
+
+          v124 = 0;
+          std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v6 - 1, v12);
+          result = std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](&v124, 0);
+          a4 = 0;
+        }
+
+        v13 = ggl::CullingGrid::sortOrderForCells(*(v12 + 96));
+LABEL_18:
+        *v7 = 0;
+        v124 = v12;
+        v15 = v7;
+        do
+        {
+          v16 = v15;
+          v18 = v15[1];
+          ++v15;
+          v17 = v18;
+        }
+
+        while (ggl::CullingGrid::sortOrderForCells(*(v18 + 96)) < v13);
+        v19 = a2;
+        if (v16 == v122)
+        {
+          v19 = a2;
+          do
+          {
+            if (v15 >= v19)
+            {
+              break;
+            }
+
+            v21 = *--v19;
+          }
+
+          while (ggl::CullingGrid::sortOrderForCells(*(v21 + 96)) >= v13);
+        }
+
+        else
+        {
+          do
+          {
+            v20 = *--v19;
+          }
+
+          while (ggl::CullingGrid::sortOrderForCells(*(v20 + 96)) >= v13);
+        }
+
+        if (v15 < v19)
+        {
+          v22 = *v19;
+          v23 = v15;
+          v24 = v19;
+          do
+          {
+            *v23 = v22;
+            *v24 = v17;
+            v12 = v124;
+            v25 = ggl::CullingGrid::sortOrderForCells(*(v124 + 96));
+            do
+            {
+              v16 = v23;
+              v26 = v23[1];
+              ++v23;
+              v17 = v26;
+            }
+
+            while (ggl::CullingGrid::sortOrderForCells(*(v26 + 96)) < v25);
+            do
+            {
+              v27 = *--v24;
+              v22 = v27;
+            }
+
+            while (ggl::CullingGrid::sortOrderForCells(*(v27 + 96)) >= v25);
+          }
+
+          while (v23 < v24);
+        }
+
+        if (v16 != v122)
+        {
+          v28 = *v16;
+          *v16 = 0;
+          std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v122, v28);
+          v12 = v124;
+        }
+
+        v124 = 0;
+        std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v16, v12);
+        std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](&v124, 0);
+        a2 = v117;
+        if (v15 >= v19)
+        {
+          break;
+        }
+
+LABEL_37:
+        result = std::__introsort<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::batch(std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,false>(v122, v16, a3, a4 & 1);
+        a4 = 0;
+        v6 = v16 + 1;
+      }
+
+      v29 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::batch(std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*>(v122, v16);
+      v6 = v16 + 1;
+      result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::batch(std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*>(v16 + 1, v117);
+      if (result)
+      {
+        break;
+      }
+
+      if (!v29)
+      {
+        goto LABEL_37;
+      }
+    }
+
+    a2 = v16;
+    v6 = v122;
+    if (!v29)
+    {
+      continue;
+    }
+
+    return result;
+  }
+}
+
+void std::__hash_table<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,geo::allocator_adapter<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>>,mdm::zone_mallocator>>::__deallocate_node(char *result)
+{
+  if (result)
+  {
+    v1 = result;
+    do
+    {
+      v2 = *v1;
+      v5 = (v1 + 24);
+      std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v5);
+      v4 = mdm::zone_mallocator::instance(v3);
+      geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::__hash_node<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>>,void *>>(v4, v1);
+      v1 = v2;
+    }
+
+    while (v2);
+  }
+}
+
+void geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::__hash_node_base<std::__hash_node<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>>,void *> *> *>(uint64_t a1, void *a2)
+{
+  v4 = pthread_rwlock_rdlock((a1 + 32));
+  if (v4)
+  {
+    geo::read_write_lock::logFailure(v4, "read lock", v5);
+  }
+
+  atomic_fetch_add((a1 + 24), 0xFFFFFFFF);
+  malloc_zone_free(*a1, a2);
+
+  geo::read_write_lock::unlock((a1 + 32));
+}
+
+void geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::__hash_node<std::__hash_value_type<unsigned int,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>>,void *>>(uint64_t a1, void *a2)
+{
+  v4 = pthread_rwlock_rdlock((a1 + 32));
+  if (v4)
+  {
+    geo::read_write_lock::logFailure(v4, "read lock", v5);
+  }
+
+  if (a2)
+  {
+    atomic_fetch_add((a1 + 24), 0xFFFFFFFF);
+  }
+
+  malloc_zone_free(*a1, a2);
+
+  geo::read_write_lock::unlock((a1 + 32));
+}
+
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::batch(std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::PatternedBatchKey,std::vector<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,geo::allocator_adapter<std::unique_ptr<md::PatternedRibbon,mdm::TypeDeleter<md::PatternedRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*>(uint64_t *a1, uint64_t *a2)
+{
+  v4 = a2 - a1;
+  if (v4 > 2)
+  {
+    switch(v4)
+    {
+      case 3:
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(a1, a1 + 1, a2 - 1);
+        return 1;
+      case 4:
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(a1, a1 + 1, a1 + 2, a2 - 1);
+        return 1;
+      case 5:
+        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(a1, a1 + 1, a1 + 2, a1 + 3, a2 - 1);
+        return 1;
+    }
+  }
+
+  else
+  {
+    if (v4 < 2)
+    {
+      return 1;
+    }
+
+    if (v4 == 2)
+    {
+      v5 = *(a2 - 1);
+      v6 = ggl::CullingGrid::sortOrderForCells(*(v5 + 96));
+      v7 = *a1;
+      if (v6 < ggl::CullingGrid::sortOrderForCells(*(*a1 + 96)))
+      {
+        *a1 = v5;
+        *(a2 - 1) = v7;
+      }
+
+      return 1;
+    }
+  }
+
+  v8 = a1 + 2;
+  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,md::RibbonLayer<md::Ribbons::DaVinciTrafficRibbonDescriptor>::batch(std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&,std::shared_ptr<ggl::ConstantDataTyped<std::shared_ptr::Tile::View>> const&,std::unordered_map<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>> &&<ggl<ggl::ConstantDataTyped::Transform>> const&,BOOL)::{lambda(std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const&,std::unique_ptr<md::RibbonSection<md::Ribbons::DaVinciTrafficRibbonDescriptor>> const)#1} &,std::default_delete<md::RibbonSection>*,0>(a1, a1 + 1, a1 + 2);
+  v9 = a1 + 3;
+  if (a1 + 3 != a2)
+  {
+    v10 = 0;
+    v11 = 0;
+    do
+    {
+      v12 = *v9;
+      v13 = ggl::CullingGrid::sortOrderForCells(*(*v9 + 96));
+      if (v13 < ggl::CullingGrid::sortOrderForCells(*(*v8 + 96)))
+      {
+        *v9 = 0;
+        v21 = v12;
+        v14 = *v8;
+        v15 = v10;
+        while (1)
+        {
+          *(a1 + v15 + 16) = 0;
+          std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100]((a1 + v15 + 24), v14);
+          v16 = v21;
+          if (v15 == -16)
+          {
+            break;
+          }
+
+          v17 = ggl::CullingGrid::sortOrderForCells(*(v21 + 96));
+          v14 = *(a1 + v15 + 8);
+          v15 -= 8;
+          if (v17 >= ggl::CullingGrid::sortOrderForCells(*(v14 + 96)))
+          {
+            v18 = (a1 + v15 + 24);
+            goto LABEL_19;
+          }
+        }
+
+        v18 = a1;
+LABEL_19:
+        v21 = 0;
+        std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](v18, v16);
+        if (++v11 == 8)
+        {
+          v19 = v9 + 1 == a2;
+          std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](&v21, 0);
+          return v19;
+        }
+
+        std::unique_ptr<md::RibbonSection<md::Ribbons::PatternedRibbonDescriptor>>::reset[abi:nn200100](&v21, 0);
+      }
+
+      v8 = v9;
+      v10 += 8;
+      ++v9;
+    }
+
+    while (v9 != a2);
+  }
+
+  return 1;
+}
+
+void *md::PatternedLayer::PatternedLayer(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, int a7)
+{
+  v8[0] = 0;
+  v12 = 0;
+  if (*(a6 + 32) == 1)
+  {
+    v9 = *(a6 + 4);
+    *v8 = *a6;
+    v10 = *(a6 + 16);
+    v11 = *(a6 + 24);
+    v12 = 1;
+  }
+
+  result = md::RibbonLayer<md::Ribbons::PatternedRibbonDescriptor>::RibbonLayer(a1, a2, *(a3 + 16), a4, a5, v8, a7);
+  *result = &unk_1F2A3B038;
+  result[25] = 0;
+  return result;
+}
+
+void md::PolygonRound::smoothTwoSegments(void *a1, float *a2, float *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v4 = *a2;
+  if (*a2 == 0.0)
+  {
+    goto LABEL_13;
+  }
+
+  v6 = a3[2];
+  v7 = a3[3];
+  v8 = v6 - *a3;
+  v9 = v7 - a3[1];
+  v10 = a3[4] - v6;
+  v11 = a3[5] - v7;
+  v12 = atan2f(v11, v10);
+  v50 = v8;
+  v13 = v12 - atan2f(v9, v8);
+  if (v13 <= 3.1416)
+  {
+    if (v13 >= -3.1416)
+    {
+      goto LABEL_7;
+    }
+
+    v14 = v13;
+    v15 = 6.28318531;
+  }
+
+  else
+  {
+    v14 = v13;
+    v15 = -6.28318531;
+  }
+
+  v13 = v14 + v15;
+LABEL_7:
+  v16 = fabsf(v13);
+  if (v16 < a2[2] || v16 > a2[3] || ((v17 = v4 / tanf((v16 * -0.5) + 1.5708), v18 = sqrtf((v50 * v50) + (v9 * v9)), v19 = a2[4], v20 = v19 * sqrtf((v10 * v10) + (v11 * v11)), v17 <= (v19 * v18)) ? (v21 = v17 <= v20) : (v21 = 0), !v21))
+  {
+LABEL_13:
+    v52 = a1;
+    std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long>>(1uLL);
+  }
+
+  v22 = vcvtas_u32_f32(v16 / a2[1]);
+  if (v22 <= 1)
+  {
+    v23 = 1;
+  }
+
+  else
+  {
+    v23 = v22;
+  }
+
+  v24 = 1.0 / v18;
+  v25 = v24 * v50;
+  v48 = v24 * v50;
+  v26 = v24 * v9;
+  v49 = v24 * v9;
+  v27 = -(v24 * v9);
+  v28 = -(v24 * v50);
+  if (v13 <= 0.0)
+  {
+    v29 = v26;
+  }
+
+  else
+  {
+    v29 = v27;
+  }
+
+  if (v13 <= 0.0)
+  {
+    v30 = v28;
+  }
+
+  else
+  {
+    v30 = v25;
+  }
+
+  v31 = v17;
+  std::vector<gm::Matrix<float,2,1>>::reserve(a1, v23 + 1);
+  v32 = 0;
+  v33 = -(v29 * *a2);
+  v34 = v30;
+  v35 = -(v30 * *a2);
+  v36 = v6 - ((v31 * v48) - (v29 * v4));
+  v37 = v7 - ((v31 * v49) - (v34 * v4));
+  v38 = a1[1];
+  do
+  {
+    v39 = __sincosf_stret((v13 * v32) * (1.0 / v23));
+    v40 = v36 - ((v39.__sinval * v35) - (v39.__cosval * v33));
+    v41 = (v37 + (v39.__sinval * v33)) + (v39.__cosval * v35);
+    v42 = a1[2];
+    if (v38 >= v42)
+    {
+      v43 = (v38 - *a1) >> 3;
+      if ((v43 + 1) >> 61)
+      {
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      v44 = v42 - *a1;
+      v45 = v44 >> 2;
+      if (v44 >> 2 <= (v43 + 1))
+      {
+        v45 = v43 + 1;
+      }
+
+      if (v44 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v46 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v46 = v45;
+      }
+
+      v52 = a1;
+      if (v46)
+      {
+        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long>>(v46);
+      }
+
+      v47 = (8 * v43);
+      __p[0] = 0;
+      __p[1] = v47;
+      *v47 = v40;
+      v47[1] = v41;
+      __p[2] = (8 * v43 + 8);
+      __p[3] = 0;
+      std::vector<gm::Matrix<float,2,1>>::__swap_out_circular_buffer(a1, __p);
+      v38 = a1[1];
+      if (__p[0])
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    else
+    {
+      *v38 = v40;
+      v38[1] = v41;
+      v38 += 2;
+    }
+
+    a1[1] = v38;
+    ++v32;
+  }
+
+  while (v23 + 1 != v32);
+}
+
+void std::vector<GEOPDCameraPathFrame>::reserve(void *a1, unint64_t a2)
+{
+  if (0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 3) < a2)
+  {
+    if (a2 < 0x2E8BA2E8BA2E8BBLL)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<GEOPDCameraPathFrame>>(a2);
+    }
+
+    std::__throw_bad_array_new_length[abi:nn200100]();
+  }
+}
+
+void std::vector<GEOPDCameraPathFrame>::push_back[abi:nn200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (v3 >= v4)
+  {
+    v10 = 0x2E8BA2E8BA2E8BA3 * ((v3 - *a1) >> 3);
+    v11 = v10 + 1;
+    if ((v10 + 1) > 0x2E8BA2E8BA2E8BALL)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v12 = 0x2E8BA2E8BA2E8BA3 * ((v4 - *a1) >> 3);
+    if (2 * v12 > v11)
+    {
+      v11 = 2 * v12;
+    }
+
+    if (v12 >= 0x1745D1745D1745DLL)
+    {
+      v13 = 0x2E8BA2E8BA2E8BALL;
+    }
+
+    else
+    {
+      v13 = v11;
+    }
+
+    if (v13)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<GEOPDCameraPathFrame>>(v13);
+    }
+
+    v14 = 88 * v10;
+    v15 = *(a2 + 16);
+    *v14 = *a2;
+    *(v14 + 16) = v15;
+    v16 = *(a2 + 32);
+    v17 = *(a2 + 48);
+    v18 = *(a2 + 64);
+    *(v14 + 80) = *(a2 + 80);
+    *(v14 + 48) = v17;
+    *(v14 + 64) = v18;
+    *(v14 + 32) = v16;
+    v9 = 88 * v10 + 88;
+    v19 = *(a1 + 8) - *a1;
+    v20 = v14 - v19;
+    memcpy((v14 - v19), *a1, v19);
+    v21 = *a1;
+    *a1 = v20;
+    *(a1 + 8) = v9;
+    *(a1 + 16) = 0;
+    if (v21)
+    {
+      operator delete(v21);
+    }
+  }
+
+  else
+  {
+    v5 = *(a2 + 16);
+    *v3 = *a2;
+    *(v3 + 16) = v5;
+    v6 = *(a2 + 32);
+    v7 = *(a2 + 48);
+    v8 = *(a2 + 64);
+    *(v3 + 80) = *(a2 + 80);
+    *(v3 + 48) = v7;
+    *(v3 + 64) = v8;
+    *(v3 + 32) = v6;
+    v9 = v3 + 88;
+  }
+
+  *(a1 + 8) = v9;
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<GEOPDCameraPathFrame>>(unint64_t a1)
+{
+  if (a1 < 0x2E8BA2E8BA2E8BBLL)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+void *geo::_retain_ptr<CAMediaTimingFunction * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(void *a1, void *a2)
+{
+  v3 = a2;
+  *a1 = &unk_1F2A3B180;
+  a1[1] = v3;
+  return a1;
+}
+
+void std::vector<md::AnimationData::LabelEntry>::push_back[abi:nn200100](void *a1, uint64_t a2)
+{
+  v4 = a1[1];
+  v3 = a1[2];
+  if (v4 >= v3)
+  {
+    v7 = (v4 - *a1) >> 5;
+    if ((v7 + 1) >> 59)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v8 = v3 - *a1;
+    v9 = v8 >> 4;
+    if (v8 >> 4 <= (v7 + 1))
+    {
+      v9 = v7 + 1;
+    }
+
+    if (v8 >= 0x7FFFFFFFFFFFFFE0)
+    {
+      v10 = 0x7FFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v9;
+    }
+
+    v23 = a1;
+    if (v10)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<md::AnimationData::LabelEntry>>(v10);
+    }
+
+    v12 = 32 * v7;
+    v20 = 0;
+    v21 = 32 * v7;
+    v22 = (32 * v7);
+    *(32 * v7) = *a2;
+    if (*(a2 + 31) < 0)
+    {
+      std::string::__init_copy_ctor_external((32 * v7 + 8), *(a2 + 8), *(a2 + 16));
+      v12 = v21;
+      v14 = v22;
+    }
+
+    else
+    {
+      v13 = *(a2 + 8);
+      *(32 * v7 + 0x18) = *(a2 + 24);
+      *(32 * v7 + 8) = v13;
+      v14 = 32 * v7;
+    }
+
+    *&v22 = v14 + 32;
+    v15 = a1[1];
+    v16 = v12 + *a1 - v15;
+    std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<md::AnimationData::LabelEntry>,md::AnimationData::LabelEntry*>(*a1, v15, v16);
+    v17 = *a1;
+    *a1 = v16;
+    v18 = a1[2];
+    v19 = v22;
+    *(a1 + 1) = v22;
+    *&v22 = v17;
+    *(&v22 + 1) = v18;
+    v20 = v17;
+    v21 = v17;
+    std::__split_buffer<md::AnimationData::LabelEntry>::~__split_buffer(&v20);
+    v11 = v19;
+  }
+
+  else
+  {
+    *v4 = *a2;
+    v5 = (v4 + 1);
+    if (*(a2 + 31) < 0)
+    {
+      std::string::__init_copy_ctor_external(v5, *(a2 + 8), *(a2 + 16));
+    }
+
+    else
+    {
+      v6 = *(a2 + 8);
+      v4[3] = *(a2 + 24);
+      *&v5->__r_.__value_.__l.__data_ = v6;
+    }
+
+    v11 = v4 + 4;
+    a1[1] = v4 + 4;
+  }
+
+  a1[1] = v11;
+}
+
+void sub_1B3195600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  std::__split_buffer<md::AnimationData::LabelEntry>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+void std::vector<md::AnimationData::LabelEntry>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        if (*(v4 - 1) < 0)
+        {
+          operator delete(*(v4 - 3));
+        }
+
+        v4 -= 4;
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+void std::vector<geo::_retain_ptr<CAMediaTimingFunction * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      v6 = v4 - 3;
+      v7 = v4 - 3;
+      v8 = v4 - 3;
+      do
+      {
+        v9 = *v8;
+        v8 -= 3;
+        (*v9)(v7);
+        v6 -= 3;
+        v10 = v7 == v2;
+        v7 = v8;
+      }
+
+      while (!v10);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<md::AnimationData::LabelEntry>>(unint64_t a1)
+{
+  if (!(a1 >> 59))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<md::AnimationData::LabelEntry>,md::AnimationData::LabelEntry*>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a1 != a2)
+  {
+    v4 = a1;
+    v5 = a1;
+    do
+    {
+      *a3 = *v5;
+      v6 = *(v5 + 8);
+      *(a3 + 24) = *(v5 + 24);
+      *(a3 + 8) = v6;
+      *(v5 + 16) = 0;
+      *(v5 + 24) = 0;
+      *(v5 + 8) = 0;
+      v5 += 32;
+      a3 += 32;
+    }
+
+    while (v5 != a2);
+    do
+    {
+      if (*(v4 + 31) < 0)
+      {
+        operator delete(*(v4 + 8));
+      }
+
+      v4 += 32;
+    }
+
+    while (v4 != a2);
+  }
+}
+
+uint64_t std::__split_buffer<md::AnimationData::LabelEntry>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  if (v2 != v3)
+  {
+    do
+    {
+      v4 = v2 - 32;
+      *(a1 + 16) = v2 - 32;
+      if (*(v2 - 1) < 0)
+      {
+        operator delete(*(v2 - 24));
+        v4 = *(a1 + 16);
+      }
+
+      v2 = v4;
+    }
+
+    while (v4 != v3);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+uint64_t (***std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<geo::_retain_ptr<CAMediaTimingFunction * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>>,geo::_retain_ptr<CAMediaTimingFunction * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>*>(uint64_t (***result)(void), uint64_t (***a2)(void), id *a3))(void)
+{
+  if (result != a2)
+  {
+    v4 = result;
+    v5 = a3;
+    v6 = result;
+    v7 = a3;
+    do
+    {
+      *v7 = &unk_1F2A3B180;
+      v7 += 3;
+      a3[1] = 0;
+      objc_storeStrong(a3 + 1, v6[1]);
+      v8 = v6[1];
+      v6[1] = 0;
+
+      v6 += 3;
+      v5 += 3;
+      a3 = v7;
+    }
+
+    while (v6 != a2);
+    v9 = v4;
+    v10 = v4;
+    do
+    {
+      v11 = *v10;
+      v10 += 3;
+      result = (*v11)(v4);
+      v9 += 3;
+      v4 = v10;
+    }
+
+    while (v10 != a2);
+  }
+
+  return result;
+}
+
+uint64_t std::__split_buffer<geo::_retain_ptr<CAMediaTimingFunction * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    v4 = *(i - 24);
+    *(a1 + 16) = i - 24;
+    (*v4)();
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void geo::_retain_ptr<CAMediaTimingFunction * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::~_retain_ptr(uint64_t a1)
+{
+  *a1 = &unk_1F2A3B180;
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t geo::_retain_ptr<CAMediaTimingFunction * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::~_retain_ptr(uint64_t a1)
+{
+  *a1 = &unk_1F2A3B180;
+
+  return a1;
+}
+
+void md::AnimationData::~AnimationData(md::AnimationData *this)
+{
+  v6 = (this + 120);
+  std::vector<md::AnimationData::LabelEntry>::__destroy_vector::operator()[abi:nn200100](&v6);
+  v6 = (this + 96);
+  std::vector<geo::_retain_ptr<CAMediaTimingFunction * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>>::__destroy_vector::operator()[abi:nn200100](&v6);
+  v2 = *(this + 9);
+  if (v2)
+  {
+    *(this + 10) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(this + 6);
+  if (v3)
+  {
+    *(this + 7) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(this + 3);
+  if (v4)
+  {
+    *(this + 4) = v4;
+    operator delete(v4);
+  }
+
+  v5 = *this;
+  if (*this)
+  {
+    *(this + 1) = v5;
+    operator delete(v5);
+  }
+}
+
+uint64_t md::AnimationData::getKeyframeIndex(md::AnimationData *this, double a2, unsigned int *a3)
+{
+  v3 = a2 / *(this + 18);
+  v4 = *a3;
+  v5 = *(this + 9);
+  if (v3 >= *(v5 + 8 * v4))
+  {
+    v7 = ((*(this + 10) - v5) >> 3) - 1;
+    do
+    {
+      result = v4;
+      if (v7 <= v4)
+      {
+        break;
+      }
+
+      v4 = (v4 + 1);
+    }
+
+    while (v3 > *(v5 + 8 * v4));
+  }
+
+  else if (v4)
+  {
+    while (v3 < *(v5 + 8 * v4))
+    {
+      if (!--v4)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    result = v4;
+  }
+
+  else
+  {
+LABEL_5:
+    result = 0;
+  }
+
+  *a3 = result;
+  return result;
+}
+
+void md::AnimationData::interpolateFrames(md::AnimationData *this, double a2, uint64_t a3, unsigned int a4)
+{
+  *this = vdupq_n_s64(0xC00921FB54442D18);
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  v6 = 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 3);
+  if (v6 > a4 + 1)
+  {
+    v7 = a4 + 1;
+  }
+
+  else
+  {
+    v7 = v6 - 1;
+  }
+
+  v8 = a4;
+  if (v7 == a4)
+  {
+    LODWORD(a2) = 1.0;
+  }
+
+  else
+  {
+    a2 = (a2 / *(a3 + 144) - *(*(a3 + 72) + 8 * a4)) / (*(*(a3 + 72) + 8 * v7) - *(*(a3 + 72) + 8 * a4));
+    *&a2 = a2;
+  }
+
+  [*(*(a3 + 96) + 24 * a4 + 8) _solveForInput:a2];
+  v10 = v9;
+  if (*(a3 + 152) == 1)
+  {
+    v11 = *(*(a3 + 72) + 8 * v8) + (*(*(a3 + 72) + 8 * v7) - *(*(a3 + 72) + 8 * v8)) * v10;
+    md::interpolateSpline(a3, (a3 + 72), v11);
+    v41[0] = v12;
+    v41[1] = v13;
+    v41[2] = v14;
+    md::interpolateSpline((a3 + 48), (a3 + 72), v11);
+    v16 = v15;
+    v18 = v17;
+    v20 = v19;
+    md::interpolateSpline((a3 + 24), (a3 + 72), v11);
+    v22 = v21;
+    geo::Coordinate3D<geo::Radians,double>::Coordinate3D<double>(this, v41);
+    *(this + 4) = v18;
+    *(this + 5) = v16;
+  }
+
+  else
+  {
+    v23 = 3 * v8;
+    v24 = (*a3 + 8 * v23);
+    v25 = *v24;
+    v26 = (*a3 + 24 * v7);
+    v27 = fmod(3.14159265 - *v24 + *v26, 6.28318531);
+    v28 = fmod(v27 + 6.28318531, 6.28318531);
+    v29 = fmod(v25 + 3.14159265 + (v28 + -3.14159265) * v10, 6.28318531);
+    *this = fmod(v29 + 6.28318531, 6.28318531) + -3.14159265;
+    v30 = v24[1];
+    v31 = fmod(3.14159265 - v30 + v26[1], 6.28318531);
+    v32 = fmod(v31 + 6.28318531, 6.28318531);
+    v33 = fmod(v30 + 3.14159265 + (v32 + -3.14159265) * v10, 6.28318531);
+    *(this + 1) = fmod(v33 + 6.28318531, 6.28318531) + -3.14159265;
+    *(this + 2) = v24[2] + (v26[2] - v24[2]) * v10;
+    v22 = *(*(a3 + 24) + 8 * v23) + (*(*(a3 + 24) + 24 * v7) - *(*(a3 + 24) + 8 * v23)) * v10;
+    v34 = *(a3 + 48);
+    v35 = (v34 + 8 * v23);
+    v36 = *v35;
+    v37 = (v34 + 24 * v7);
+    v38 = fmod(3.14159265 - *v35 + *v37, 6.28318531);
+    v39 = fmod(v38 + 6.28318531, 6.28318531);
+    v40 = fmod(v36 + 3.14159265 + (v39 + -3.14159265) * v10, 6.28318531);
+    *(this + 5) = fmod(v40 + 6.28318531, 6.28318531) + -3.14159265;
+    *(this + 4) = v35[1] + (v37[1] - v35[1]) * v10;
+    v20 = v35[2] + (v37[2] - v35[2]) * v10;
+  }
+
+  *(this + 6) = v20;
+  *(this + 3) = v22;
+}
+
+void *md::interpolateSpline(__int128 **a1, void **a2, double a3)
+{
+  v202 = *MEMORY[0x1E69E9840];
+  v170 = &unk_1F2A3B1A0;
+  *__p = 0u;
+  v172 = 0u;
+  v173 = 0u;
+  v174 = 0u;
+  v175 = 0u;
+  v176 = 0u;
+  v177 = 0u;
+  v178 = 0;
+  v182 = 0;
+  v181 = 0uLL;
+  v179 = 256;
+  v180 = 1;
+  std::vector<double>::reserve(__p, 3uLL);
+  std::vector<gm::Matrix<double,3,1>>::reserve(&v172 + 1, 3uLL);
+  if ((&v172 + 8) != a1)
+  {
+    std::vector<gm::Matrix<double,3,1>>::__assign_with_size[abi:nn200100]<gm::Matrix<double,3,1>*,gm::Matrix<double,3,1>*>(&v172 + 1, *a1, a1[1], 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3));
+  }
+
+  v180 = 1;
+  if (__p == a2)
+  {
+    v14 = __p[1];
+  }
+
+  else
+  {
+    v6 = *a2;
+    v7 = a2[1];
+    v8 = v7 - *a2;
+    v9 = v172;
+    v10 = __p[0];
+    if (v172 - __p[0] < v8)
+    {
+      v11 = v8 >> 3;
+      if (__p[0])
+      {
+        __p[1] = __p[0];
+        operator delete(__p[0]);
+        v9 = 0;
+        __p[0] = 0;
+        __p[1] = 0;
+        *&v172 = 0;
+      }
+
+      if (!(v11 >> 61))
+      {
+        v12 = v9 >> 2;
+        if (v9 >> 2 <= v11)
+        {
+          v12 = v8 >> 3;
+        }
+
+        if (v9 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v13 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v13 = v12;
+        }
+
+        if (!(v13 >> 61))
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long>>(v13);
+        }
+      }
+
+LABEL_202:
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v15 = __p[1];
+    v16 = __p[1] - __p[0];
+    if ((__p[1] - __p[0]) >= v8)
+    {
+      if (v7 != v6)
+      {
+        memmove(__p[0], v6, v8);
+      }
+
+      v14 = &v10[v8];
+    }
+
+    else
+    {
+      v17 = &v6[v16];
+      if (__p[1] != __p[0])
+      {
+        memmove(__p[0], v6, v16);
+        v15 = __p[1];
+      }
+
+      if (v7 != v17)
+      {
+        memmove(v15, v17, v7 - v17);
+      }
+
+      v14 = &v15[v7 - v17];
+    }
+
+    __p[1] = v14;
+  }
+
+  v180 = 0;
+  v18 = __p[0];
+  v19 = *(&v172 + 1);
+  v20 = v14 - __p[0];
+  v21 = 0xAAAAAAAAAAAAAAABLL * ((v173 - *(&v172 + 1)) >> 3);
+  if ((v20 >> 3) >= v21)
+  {
+    v22 = v21;
+  }
+
+  else
+  {
+    v22 = (v20 >> 3);
+  }
+
+  if (v22 < 2)
+  {
+    goto LABEL_165;
+  }
+
+  v197 = 0uLL;
+  v198 = 0;
+  v195 = 0uLL;
+  v23 = (v22 - 1);
+  v196 = 0;
+  std::vector<gm::Matrix<double,3,1>>::reserve(&v197, v23);
+  std::vector<double>::reserve(&v195, v23);
+  v24 = 0;
+  for (i = 1; i != v22; ++i)
+  {
+    v26 = 0;
+    v27 = *(&v172 + 1) + v24;
+    do
+    {
+      *(&v199 + v26) = *(v27 + v26 + 24) - *(v27 + v26);
+      v26 += 8;
+    }
+
+    while (v26 != 24);
+    v193 = v199;
+    v194 = v200;
+    std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](&v197, &v193);
+    v28 = 0;
+    v29 = 0.0;
+    do
+    {
+      v29 = v29 + *(&v193 + v28) * *(&v193 + v28);
+      v28 += 8;
+    }
+
+    while (v28 != 24);
+    v30 = *(&v195 + 1);
+    v31 = sqrt(v29);
+    if (*(&v195 + 1) >= v196)
+    {
+      v33 = v195;
+      v34 = *(&v195 + 1) - v195;
+      v35 = (*(&v195 + 1) - v195) >> 3;
+      v36 = v35 + 1;
+      if ((v35 + 1) >> 61)
+      {
+        goto LABEL_202;
+      }
+
+      v37 = v196 - v195;
+      if ((v196 - v195) >> 2 > v36)
+      {
+        v36 = v37 >> 2;
+      }
+
+      if (v37 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v38 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v38 = v36;
+      }
+
+      if (v38)
+      {
+        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long>>(v38);
+      }
+
+      *(8 * v35) = v31;
+      v32 = 8 * v35 + 8;
+      memcpy(0, v33, v34);
+      v39 = v195;
+      *&v195 = 0;
+      *(&v195 + 1) = v32;
+      v196 = 0;
+      if (v39)
+      {
+        operator delete(v39);
+      }
+    }
+
+    else
+    {
+      **(&v195 + 1) = v31;
+      v32 = v30 + 8;
+    }
+
+    *(&v195 + 1) = v32;
+    v24 += 24;
+  }
+
+  v40 = 0.0;
+  v169 = HIBYTE(v179);
+  if (HIBYTE(v179) == 1)
+  {
+    v41 = v195;
+    v42 = v22 - 1;
+    v43 = 0.0;
+    do
+    {
+      v44 = *v41++;
+      v43 = v44 + v43;
+      --v42;
+    }
+
+    while (v42);
+    v40 = v43 / v23;
+  }
+
+  std::vector<gm::Matrix<double,3,1>>::resize(&v177, v22);
+  std::vector<gm::Matrix<double,3,1>>::resize(&v175 + 1, v22);
+  v45 = v179;
+  v193 = 0uLL;
+  v194 = 0;
+  std::vector<gm::Matrix<double,3,1>>::reserve(&v193, v22);
+  v46 = &qword_1B33AF000;
+  if (*(&v174 + 1) - v174 == v173 - *(&v172 + 1))
+  {
+    if (v169)
+    {
+      v47 = 0;
+      for (j = 0; j != v22; ++j)
+      {
+        v49 = 0;
+        v50 = 0.0;
+        do
+        {
+          v50 = v50 + *(v174 + v47 + v49) * *(v174 + v47 + v49);
+          v49 += 8;
+        }
+
+        while (v49 != 24);
+        v51 = 0;
+        v52 = sqrt(v50);
+        v53 = v52;
+        if (v53 <= 1.0e-20)
+        {
+          v54 = 1.0;
+        }
+
+        else
+        {
+          v54 = 1.0 / v53;
+        }
+
+        v55 = v54 * v40;
+        v56 = v174 + v47;
+        do
+        {
+          *(&v199 + v51) = v55 * *(v56 + v51);
+          v51 += 8;
+        }
+
+        while (v51 != 24);
+        v191 = v199;
+        v192 = v200;
+        std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](&v193, &v191);
+        v47 += 24;
+      }
+    }
+
+    else
+    {
+      v112 = 0;
+      v113 = v22;
+      do
+      {
+        std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](&v193, (v174 + v112));
+        v112 += 24;
+        --v113;
+      }
+
+      while (v113);
+    }
+
+    v67 = 1;
+    v111 = v22 - 2;
+    goto LABEL_137;
+  }
+
+  v191 = 0uLL;
+  v192 = 0;
+  if (*(&v174 + 1) - v174 == 48)
+  {
+    std::vector<gm::Matrix<double,3,1>>::__assign_with_size[abi:nn200100]<gm::Matrix<double,3,1>*,gm::Matrix<double,3,1>*>(&v191, v174, *(&v174 + 1), 2uLL);
+  }
+
+  v57 = 0;
+  if (v22 != 2 && v45)
+  {
+    v58 = (*(&v172 + 1) + 24 * v23);
+    v59 = *v58;
+    v60 = v58[1];
+    v61 = v58[2];
+    v57 = **(&v172 + 1) == v59 && *(*(&v172 + 1) + 8) == v60 && *(*(&v172 + 1) + 16) == v61;
+  }
+
+  v64 = 0;
+  v65 = 0;
+  v66 = v191;
+  v67 = v191 != *(&v191 + 1) || v57;
+  v168 = (v191 + 24);
+  v68 = v197;
+  v69 = v197 - 24;
+  do
+  {
+    if (v65 || v66 == *(&v66 + 1))
+    {
+      if (v65 != v23 || v66 == *(&v66 + 1))
+      {
+        if (v65)
+        {
+          if (v65 >= v23)
+          {
+            v109 = 0;
+            v110 = *(&v172 + 1) + v64;
+            do
+            {
+              *(&v199 + v109) = *(v110 + v109) - *(v110 + v109 - 24);
+              v109 += 8;
+            }
+
+            while (v109 != 24);
+          }
+
+          else
+          {
+            v99 = 0;
+            v100 = *(v195 + 8 * (v65 - 1));
+            v101 = *(v195 + 8 * v65);
+            v102 = 1.0 / (v101 + v100);
+            if (fabs(v101 + v100) <= 1.0e-20)
+            {
+              v102 = 0.0;
+            }
+
+            v103 = v102 * v101;
+            do
+            {
+              *(&v199 + v99) = v103 * *(v69 + v99);
+              v99 += 8;
+            }
+
+            while (v99 != 24);
+            v104 = 0;
+            v187 = v199;
+            v188 = v200;
+            v105 = v102 * v100;
+            do
+            {
+              *(&v199 + v104) = v105 * *(v68 + v104);
+              v104 += 8;
+            }
+
+            while (v104 != 24);
+            v106 = 0;
+            v185 = v199;
+            v186 = v200;
+            do
+            {
+              *(&v199 + v106) = *(&v185 + v106) + *(&v187 + v106);
+              v106 += 8;
+            }
+
+            while (v106 != 24);
+          }
+        }
+
+        else
+        {
+          v107 = 0;
+          v108 = *(&v172 + 1);
+          do
+          {
+            *(&v199 + v107) = *(v108 + v107 + 24) - *(v108 + v107);
+            v107 += 8;
+          }
+
+          while (v107 != 24);
+        }
+      }
+
+      else
+      {
+        v70 = v168;
+        if (!v169)
+        {
+LABEL_112:
+          std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](&v193, v70);
+          goto LABEL_130;
+        }
+
+        v85 = 0;
+        v86 = *(&v172 + 1) + 24 * v23;
+        v87 = *(&v172 + 1) + 24 * v22 - 48;
+        do
+        {
+          *(&v199 + v85) = *(v86 + v85) - *(v87 + v85);
+          v85 += 8;
+        }
+
+        while (v85 != 24);
+        v88 = 0;
+        v89 = 0.0;
+        do
+        {
+          v89 = v89 + *(&v199 + v88) * *(&v199 + v88);
+          v88 += 8;
+        }
+
+        while (v88 != 24);
+        v90 = 0.0;
+        v91 = sqrt(v89);
+        do
+        {
+          v90 = v90 + *(v66 + v88) * *(v66 + v88);
+          v88 += 8;
+        }
+
+        while (v88 != 48);
+        v92 = 0;
+        v93 = v91;
+        v94 = v93;
+        if (v94 <= 1.0e-20)
+        {
+          v94 = 1.0;
+        }
+
+        v95 = sqrt(v90);
+        v96 = v95;
+        if (v96 <= 1.0e-20)
+        {
+          v97 = 1.0;
+        }
+
+        else
+        {
+          v97 = 1.0 / v96;
+        }
+
+        v98 = v97 * v94;
+        do
+        {
+          *(&v199 + v92) = v98 * *(v66 + v92 + 24);
+          v92 += 8;
+        }
+
+        while (v92 != 24);
+      }
+    }
+
+    else
+    {
+      v70 = v66;
+      if (!v169)
+      {
+        goto LABEL_112;
+      }
+
+      v71 = 0;
+      v72 = *(&v172 + 1);
+      do
+      {
+        *(&v199 + v71) = *(v72 + v71) - *(v72 + v71 + 24);
+        v71 += 8;
+      }
+
+      while (v71 != 24);
+      v73 = 0;
+      v74 = 0.0;
+      do
+      {
+        v74 = v74 + *(&v199 + v73) * *(&v199 + v73);
+        v73 += 8;
+      }
+
+      while (v73 != 24);
+      v75 = 0;
+      v76 = 0.0;
+      v77 = sqrt(v74);
+      do
+      {
+        v76 = v76 + *(v66 + v75) * *(v66 + v75);
+        v75 += 8;
+      }
+
+      while (v75 != 24);
+      v78 = 0;
+      v79 = v77;
+      v80 = v79;
+      if (v80 <= 1.0e-20)
+      {
+        v80 = 1.0;
+      }
+
+      v81 = sqrt(v76);
+      v82 = v81;
+      if (v82 <= 1.0e-20)
+      {
+        v83 = 1.0;
+      }
+
+      else
+      {
+        v83 = 1.0 / v82;
+      }
+
+      v84 = v83 * v80;
+      do
+      {
+        *(&v199 + v78) = v84 * *(v66 + v78);
+        v78 += 8;
+      }
+
+      while (v78 != 24);
+    }
+
+    v189 = v199;
+    v190 = v200;
+    std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](&v193, &v189);
+LABEL_130:
+    ++v65;
+    v64 += 24;
+    v69 += 24;
+    v68 += 24;
+  }
+
+  while (v65 != v22);
+  if (v66)
+  {
+    operator delete(v66);
+  }
+
+  v111 = v22 - 2;
+  v46 = &qword_1B33AF000;
+LABEL_137:
+  v114 = 0;
+  v115 = v193;
+  v116 = v177;
+  v117 = *(&v175 + 1);
+  v118 = __p[0];
+  v119 = *(v46 + 281);
+  v120 = v193;
+  do
+  {
+    if (v114)
+    {
+      v121 = v114 == v23;
+    }
+
+    else
+    {
+      v121 = 1;
+    }
+
+    v122 = !v121;
+    v123 = 0.0;
+    if ((v122 | v67))
+    {
+      v124 = v114 - 1;
+      if (v114)
+      {
+        v125 = 0.0;
+      }
+
+      else
+      {
+        v124 = v111;
+        v125 = 1.0;
+      }
+
+      v126 = (v114 + 1);
+      if (v114 >= v23)
+      {
+        v127 = 1.0;
+      }
+
+      else
+      {
+        v127 = 0.0;
+      }
+
+      if (v114 >= v23)
+      {
+        v126 = 1;
+      }
+
+      v128 = v118[v124];
+      v129 = v125 + v127 + v118[v126] - v128;
+      if (v129 > v119)
+      {
+        v123 = (v125 - v128 + v118[v114] + v125 - v128 + v118[v114]) / v129;
+      }
+    }
+
+    v130 = 0;
+    v131 = v116 + 24 * v114;
+    v132 = v117 + 24 * v114;
+    do
+    {
+      *(&v199 + v130) = *(v120 + v130) * v123;
+      v130 += 8;
+    }
+
+    while (v130 != 24);
+    v133 = 0;
+    v134 = v200;
+    *v132 = v199;
+    *(v132 + 16) = v134;
+    do
+    {
+      *(&v199 + v133) = *(v120 + v133) * v123;
+      v133 += 8;
+    }
+
+    while (v133 != 24);
+    v135 = v200;
+    *v131 = v199;
+    *(v131 + 16) = v135;
+    ++v114;
+    v120 += 24;
+  }
+
+  while (v114 != v22);
+  operator delete(v115);
+  if (v195)
+  {
+    *(&v195 + 1) = v195;
+    operator delete(v195);
+  }
+
+  if (v197)
+  {
+    operator delete(v197);
+  }
+
+  v18 = __p[0];
+  v19 = *(&v172 + 1);
+  v20 = __p[1] - __p[0];
+  v21 = 0xAAAAAAAAAAAAAAABLL * ((v173 - *(&v172 + 1)) >> 3);
+LABEL_165:
+  v136 = v20 >> 3;
+  if (v136 >= v21)
+  {
+    v136 = v21;
+  }
+
+  if (0xAAAAAAAAAAAAAAABLL * ((v176 - *(&v175 + 1)) >> 3) == v136 && v136 && 0xAAAAAAAAAAAAAAABLL * ((*(&v177 + 1) - v177) >> 3) == v136)
+  {
+    v138 = 0;
+    v139 = 24;
+    while (1)
+    {
+      v140 = v18[v138];
+      if (v140 > a3)
+      {
+        break;
+      }
+
+      ++v138;
+      v139 -= 24;
+      if (v136 == v138)
+      {
+        goto LABEL_179;
+      }
+    }
+
+    if (v138)
+    {
+      if (v138 != v136)
+      {
+        v144 = (*(&v175 + 1) - v139);
+        v145 = (v19 - v139);
+        v146 = v18[v138 - 1];
+        v147 = v140 - v146;
+        v148 = 0.0;
+        if (v147 != 0.0)
+        {
+          v148 = (a3 - v146) / v147;
+        }
+
+        v149 = 0;
+        v150 = 3 * (v138 - 1);
+        v151 = 3 * v138;
+        *&v199 = v19 + 8 * v150;
+        *(&v199 + 1) = v19 + 8 * v151;
+        v200 = *(&v175 + 1) + 8 * v150;
+        v201 = v177 + 8 * v151;
+        *&v191 = v148 * v148;
+        *&v193 = v148 * v148 * v148;
+        do
+        {
+          v152 = *v144++;
+          *(&v197 + v149) = v152 * v148;
+          v149 += 8;
+        }
+
+        while (v149 != 24);
+        v153 = 0;
+        v195 = v197;
+        v196 = v198;
+        do
+        {
+          v154 = *v145++;
+          *(&v197 + v153) = v154 + *(&v195 + v153);
+          v153 += 8;
+        }
+
+        while (v153 != 24);
+        v155 = 0;
+        v156 = &v193;
+        v157 = 1;
+        v183 = v197;
+        v184 = v198;
+        do
+        {
+          v158 = 0;
+          v159 = 0;
+          v160 = v157;
+          v195 = v181;
+          v196 = v182;
+          do
+          {
+            v161 = 0;
+            v163 = *(&v199 + v158);
+            do
+            {
+              *(&v197 + v161) = *(v163 + v161) * v162;
+              v161 += 8;
+            }
+
+            while (v161 != 24);
+            for (k = 0; k != 24; k += 8)
+            {
+              *(&v195 + k) = *(&v195 + k) + *(&v197 + k);
+            }
+
+            ++v158;
+            v159 += 4;
+          }
+
+          while (v158 != 4);
+          v165 = 0;
+          v166 = *v156;
+          do
+          {
+            *(&v197 + v165) = *(&v195 + v165) * v166;
+            v165 += 8;
+          }
+
+          while (v165 != 24);
+          for (m = 0; m != 24; m += 8)
+          {
+            *(&v183 + m) = *(&v183 + m) + *(&v197 + m);
+          }
+
+          v157 = 0;
+          v156 = &v191;
+          v155 = 1;
+        }
+
+        while ((v160 & 1) != 0);
+      }
+
+LABEL_179:
+      v141 = v19 + 24 * v136;
+      v183 = *(v141 - 24);
+      v142 = *(v141 - 8);
+    }
+
+    else
+    {
+      v183 = *v19;
+      v142 = *(v19 + 2);
+    }
+
+    v184 = v142;
+  }
+}
+
+void sub_1B3196BC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *__p)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  v51 = *(v49 - 256);
+  if (v51)
+  {
+    operator delete(v51);
+  }
+
+  v52 = *(v49 - 224);
+  if (v52)
+  {
+    *(v49 - 216) = v52;
+    operator delete(v52);
+  }
+
+  v53 = *(v49 - 192);
+  if (v53)
+  {
+    operator delete(v53);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void *md::anonymous namespace::FlyoverSplineInterpolator<gm::Matrix<double,3,1>>::~FlyoverSplineInterpolator(void *a1)
+{
+  *a1 = &unk_1F2A3B1A0;
+  v2 = a1[13];
+  if (v2)
+  {
+    a1[14] = v2;
+    operator delete(v2);
+  }
+
+  v3 = a1[10];
+  if (v3)
+  {
+    a1[11] = v3;
+    operator delete(v3);
+  }
+
+  v4 = a1[7];
+  if (v4)
+  {
+    a1[8] = v4;
+    operator delete(v4);
+  }
+
+  v5 = a1[4];
+  if (v5)
+  {
+    a1[5] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[1];
+  if (v6)
+  {
+    a1[2] = v6;
+    operator delete(v6);
+  }
+
+  return a1;
+}
+
+void md::anonymous namespace::FlyoverSplineInterpolator<gm::Matrix<double,3,1>>::~FlyoverSplineInterpolator(void *a1)
+{
+
+  JUMPOUT(0x1B8C62190);
+}
+
+md::AnimationData *std::unique_ptr<md::AnimationData>::reset[abi:nn200100](md::AnimationData **a1, md::AnimationData *a2)
+{
+  result = *a1;
+  *a1 = a2;
+  if (result)
+  {
+    md::AnimationData::~AnimationData(result);
+
+    JUMPOUT(0x1B8C62190);
+  }
+
+  return result;
+}
+
+uint64_t *std::unique_ptr<std::map<unsigned long long,GEOPDFlyover const* {__strong}>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    std::__tree<std::__value_type<unsigned long long,GEOPDFlyover const* {__strong}>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,GEOPDFlyover const* {__strong}>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,GEOPDFlyover const* {__strong}>>>::destroy(*(v2 + 8));
+
+    JUMPOUT(0x1B8C62190);
+  }
+
+  return result;
+}
+
+md::AnimationData ***std::unique_ptr<md::TourData>::reset[abi:nn200100](md::AnimationData ***result, md::AnimationData **a2)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    std::unique_ptr<md::AnimationData>::reset[abi:nn200100](v2, 0);
+
+    JUMPOUT(0x1B8C62190);
+  }
+
+  return result;
+}
+
+int64x2_t md::VKFlyoverTour::getStartFrame(md::VKFlyoverTour *this, uint64_t *a2)
+{
+  if (a2 && (v2 = *a2) != 0)
+  {
+    md::AnimationData::interpolateFrames(this, 0.0, v2, 0);
+  }
+
+  else
+  {
+    result = vdupq_n_s64(0xC00921FB54442D18);
+    *this = result;
+    *(this + 1) = 0u;
+    *(this + 2) = 0u;
+    *(this + 6) = 0;
+  }
+
+  return result;
+}
+
+uint64_t md::VKFlyoverTour::stopTour(md::VKFlyoverTour *this)
+{
+  result = *(this + 27);
+  if (result)
+  {
+    v3 = *(this + 1);
+    if (v3)
+    {
+      v4 = *v3;
+      if (v4)
+      {
+        v5 = *(v4 + 144);
+      }
+
+      else
+      {
+        v5 = 0.0;
+      }
+
+      if (vabds_f32(*(this + 35), v5) <= 0.01)
+      {
+        v6 = 5;
+      }
+
+      else
+      {
+        v6 = 3;
+      }
+    }
+
+    else
+    {
+      v6 = 5;
+    }
+
+    std::function<void ()(VKFlyoverTourState)>::operator()(result, v6);
+    std::__function::__value_func<void ()(VKFlyoverTourState)>::operator=[abi:nn200100](this + 192);
+
+    return std::__function::__value_func<void ()(std::string const&)>::operator=[abi:nn200100](this + 224);
+  }
+
+  return result;
+}
+
+uint64_t std::function<void ()(VKFlyoverTourState)>::operator()(uint64_t a1, int a2)
+{
+  v4 = a2;
+  if (a1)
+  {
+    return (*(*a1 + 48))(a1, &v4);
+  }
+
+  v3 = std::__throw_bad_function_call[abi:nn200100]();
+  return std::__function::__value_func<void ()(VKFlyoverTourState)>::operator=[abi:nn200100](v3);
+}
+
+uint64_t std::__function::__value_func<void ()(VKFlyoverTourState)>::operator=[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  *(a1 + 24) = 0;
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(std::string const&)>::operator=[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  *(a1 + 24) = 0;
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+float64_t md::VKFlyoverTour::interpolateFrames(float64x2_t *a1, float64x2_t *a2, float64x2_t *a3, float a4)
+{
+  v7 = a2->f64[0];
+  v21 = a4;
+  v8 = fmod(3.14159265 - a2->f64[0] + a3->f64[0], 6.28318531);
+  v9 = fmod(v8 + 6.28318531, 6.28318531);
+  v10 = fmod(v7 + 3.14159265 + (v9 + -3.14159265) * v21, 6.28318531);
+  a1->f64[0] = fmod(v10 + 6.28318531, 6.28318531) + -3.14159265;
+  v11 = a2->f64[1];
+  v12 = fmod(3.14159265 - v11 + a3->f64[1], 6.28318531);
+  v13 = fmod(v12 + 6.28318531, 6.28318531);
+  v14 = fmod(v11 + 3.14159265 + (v13 + -3.14159265) * v21, 6.28318531);
+  a1->f64[1] = fmod(v14 + 6.28318531, 6.28318531) + -3.14159265;
+  a1[1] = vmlaq_n_f64(a2[1], vsubq_f64(a3[1], a2[1]), v21);
+  v15 = a2[2].f64[1];
+  v16 = fmod(3.14159265 - v15 + a3[2].f64[1], 6.28318531);
+  v17 = fmod(v16 + 6.28318531, 6.28318531);
+  v18 = fmod(v15 + 3.14159265 + (v17 + -3.14159265) * v21, 6.28318531);
+  v19 = fmod(v18 + 6.28318531, 6.28318531);
+  a1[2].f64[0] = a2[2].f64[0] + (a3[2].f64[0] - a2[2].f64[0]) * v21;
+  a1[2].f64[1] = v19 + -3.14159265;
+  result = a2[3].f64[0] + (a3[3].f64[0] - a2[3].f64[0]) * v21;
+  a1[3].f64[0] = result;
+  return result;
+}
+
+void std::function<void ()(GEOPDFlyover const*)>::operator()(uint64_t a1, void *a2)
+{
+  v5 = a2;
+  v3 = *(a1 + 24);
+  if (!v3)
+  {
+    v4 = std::__throw_bad_function_call[abi:nn200100]();
+
+    _Unwind_Resume(v4);
+  }
+
+  (*(*v3 + 48))(v3, &v5);
+}
+
+void ggl::RouteLineTraffic::BasePipelineSetup::~BasePipelineSetup(std::__shared_weak_count *this)
+{
+  ggl::PipelineSetup::~PipelineSetup(this);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void md::CrossFadeLabelPart::~CrossFadeLabelPart(md::CrossFadeLabelPart *this)
+{
+  md::CompositeLabelPart::~CompositeLabelPart(this);
+  v3 = mdm::zone_mallocator::instance(v2);
+
+  geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<unsigned char>(v3, this);
+}
+
+double md::RoadSignColoring::RoadSignColoring(md::RoadSignColoring *this)
+{
+  *(this + 33) = 0;
+  *this = 0x1010000000001;
+  __asm { FMOV            V0.2D, #1.0 }
+
+  *(this + 8) = _Q0;
+  *(this + 24) = _Q0;
+  *(this + 168) = 0u;
+  *(this + 184) = xmmword_1B33B21E0;
+  *(this + 200) = 0u;
+  result = 0.0;
+  *(this + 216) = xmmword_1B33B0740;
+  return result;
+}
+
+void *md::LabelsExternalMeshLogic::debugConsoleString@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, _BYTE *a3@<X8>)
+{
+  v4 = *(*a2 + 16);
+  if (v4)
+  {
+    v6 = (*(**(*(v4 + 168) + 64) + 24))(*(*(v4 + 168) + 64));
+    if (v6)
+    {
+      v7 = v6;
+      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](v49);
+      v8 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>(*(a1 + 120));
+      v10 = *(v8 + 80);
+      v9 = *(v8 + 88);
+      v11 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMeshRequest>>>(*(a1 + 120));
+      v13 = *(v11 + 80);
+      v12 = *(v11 + 88);
+      v14 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMesh>>>(*(a1 + 120));
+      v47 = v13;
+      v48 = v12;
+      v15 = *(v14 + 80);
+      v16 = *(v14 + 88);
+      v17 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMesh>>>(*(a1 + 120));
+      v19 = *(v17 + 80);
+      v18 = *(v17 + 88);
+      v20 = *(a1 + 120);
+      v21 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::LabelExternalMesh>>>(v20);
+      v22 = gdc::Registry::storage<arComponents::QueuedForDeletionAfterLayout>(v20);
+      v23 = v22;
+      v45 = v18;
+      v46 = v15;
+      v44 = v19;
+      v24 = v22 + 32;
+      if (*(v22 + 64) - *(v22 + 56) >= *(v21 + 64) - *(v21 + 56))
+      {
+        v25 = v21 + 32;
+      }
+
+      else
+      {
+        v25 = v22 + 32;
+      }
+
+      gdc::RegistryView<md::components::DynamicMeshInstance,md::components::Material>::RegistryViewIterator::RegistryViewIterator(v61, v25, v21 + 32, v24, *(v25 + 24));
+      if (*(v23 + 64) - *(v23 + 56) >= *(v21 + 64) - *(v21 + 56))
+      {
+        v26 = v21 + 32;
+      }
+
+      else
+      {
+        v26 = v24;
+      }
+
+      gdc::RegistryView<md::components::DynamicMeshInstance,md::components::Material>::RegistryViewIterator::RegistryViewIterator(v59, v26, v21 + 32, v24, *(v26 + 32));
+      v27 = v60;
+      v28 = v62;
+      if (v60 == v62)
+      {
+        v29 = 0;
+      }
+
+      else
+      {
+        v29 = 0;
+        v30 = *(v61[0] + 32);
+        do
+        {
+          ++v29;
+          v31 = v28;
+          while (1)
+          {
+            v32 = v31;
+            v31 += 8;
+            v62 = v31;
+            if (v31 == v30)
+            {
+              break;
+            }
+
+            if (gdc::RegistryView<md::components::DynamicMeshInstance,md::components::Material>::RegistryViewIterator::isValid(v61))
+            {
+              v28 = v32 + 8;
+              goto LABEL_16;
+            }
+          }
+
+          v28 = v31;
+          v31 = v30;
+LABEL_16:
+          ;
+        }
+
+        while (v27 != v31);
+      }
+
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v50, "Pending Arrival Requests:", 25);
+      v34 = MEMORY[0x1B8C61CB0](&v50, (v9 - v10) >> 4);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v34, "\n", 1);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v50, "Pending Shadow Requests:", 24);
+      v35 = MEMORY[0x1B8C61CB0](&v50, (v48 - v47) >> 4);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v35, "\n", 1);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v50, "Arrival Features:", 17);
+      v36 = MEMORY[0x1B8C61CB0](&v50, (v16 - v46) >> 4);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v36, "\n", 1);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v50, "Shadow Features:", 16);
+      v37 = MEMORY[0x1B8C61CB0](&v50, (v45 - v44) >> 4);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v37, "\n", 1);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v50, "Visible Features:", 17);
+      v38 = MEMORY[0x1B8C61CB0](&v50, (*(v7 + 16) - *(v7 + 8)) >> 3);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v38, "\n", 1);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v50, "Awaiting Deletion:", 18);
+      v39 = MEMORY[0x1B8C61CB0](&v50, v29);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v39, "\n", 1);
+      if ((v57 & 0x10) != 0)
+      {
+        v41 = v56;
+        if (v56 < v53)
+        {
+          v56 = v53;
+          v41 = v53;
+        }
+
+        locale = v52[4].__locale_;
+      }
+
+      else
+      {
+        if ((v57 & 8) == 0)
+        {
+          v40 = 0;
+          a3[23] = 0;
+LABEL_35:
+          a3[v40] = 0;
+          v49[0] = *MEMORY[0x1E69E54D8];
+          v43 = *(MEMORY[0x1E69E54D8] + 72);
+          *(v49 + *(v49[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+          v50 = v43;
+          v51 = MEMORY[0x1E69E5548] + 16;
+          if (v55 < 0)
+          {
+            operator delete(__p);
+          }
+
+          v51 = MEMORY[0x1E69E5538] + 16;
+          std::locale::~locale(v52);
+          std::iostream::~basic_iostream();
+          return MEMORY[0x1B8C620C0](&v58);
+        }
+
+        locale = v52[1].__locale_;
+        v41 = v52[3].__locale_;
+      }
+
+      v40 = v41 - locale;
+      if ((v41 - locale) >= 0x7FFFFFFFFFFFFFF8)
+      {
+        std::__throw_bad_array_new_length[abi:nn200100]();
+      }
+
+      if (v40 >= 0x17)
+      {
+        operator new();
+      }
+
+      a3[23] = v40;
+      if (v40)
+      {
+        memmove(a3, locale, v40);
+      }
+
+      goto LABEL_35;
+    }
+  }
+
+  return std::string::basic_string[abi:nn200100]<0>(a3, "");
+}
+
+void sub_1B31979F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34)
+{
+  a15 = *MEMORY[0x1E69E54D8];
+  v35 = *(MEMORY[0x1E69E54D8] + 72);
+  *(&a15 + *(a15 - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  a17 = v35;
+  a18 = MEMORY[0x1E69E5548] + 16;
+  if (a31 < 0)
+  {
+    operator delete(__p);
+  }
+
+  a18 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&a19);
+  std::iostream::~basic_iostream();
+  MEMORY[0x1B8C620C0](&a34);
+  _Unwind_Resume(a1);
+}
+
+uint64_t gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>(uint64_t a1)
+{
+  v3 = 0x38E94766143C6BD3;
+  v1 = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>((a1 + 120), 0x38E94766143C6BD3uLL);
+  if (!v1)
+  {
+    operator new();
+  }
+
+  return v1[3];
+}
+
+uint64_t gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMeshRequest>>>(uint64_t a1)
+{
+  v3 = 0x152DC0B81456FF96;
+  v1 = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>((a1 + 120), 0x152DC0B81456FF96uLL);
+  if (!v1)
+  {
+    operator new();
+  }
+
+  return v1[3];
+}
+
+uint64_t gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMesh>>>(uint64_t a1)
+{
+  v3 = 0xDC141A54284D3B32;
+  v1 = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>((a1 + 120), 0xDC141A54284D3B32);
+  if (!v1)
+  {
+    operator new();
+  }
+
+  return v1[3];
+}
+
+uint64_t gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMesh>>>(uint64_t a1)
+{
+  v3 = 0x29581258A69F7265;
+  v1 = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>((a1 + 120), 0x29581258A69F7265uLL);
+  if (!v1)
+  {
+    operator new();
+  }
+
+  return v1[3];
+}
+
+BOOL gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMesh>>>::remove(void *a1, uint64_t a2)
+{
+  v16 = a2;
+  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
+  v4 = v3;
+  v5 = a1[8];
+  if (v5 != v3)
+  {
+    v6 = (a1[10] + 2 * (v3 - a1[7]));
+    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
+    v7 = a1[11];
+    v9 = *(v7 - 16);
+    v8 = *(v7 - 8);
+    if (v8)
+    {
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v10 = v6[1];
+    *v6 = v9;
+    v6[1] = v8;
+    if (v10)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+    }
+
+    v11 = a1[11];
+    v12 = *(v11 - 8);
+    if (v12)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+    }
+
+    a1[11] = v11 - 16;
+    v13 = a1[28];
+    if (v13)
+    {
+      v14 = a1[31];
+      do
+      {
+        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v13[6], v14, &v16, 1);
+        v13 = *v13;
+      }
+
+      while (v13);
+    }
+  }
+
+  return v5 != v4;
+}
+
+void gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMesh>>>::~ComponentStorageWrapper(uint64_t a1)
+{
+  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
+  v3 = (a1 + 80);
+  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v3);
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    *(a1 + 64) = v2;
+    operator delete(v2);
+  }
+
+  v3 = (a1 + 32);
+  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v3);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMesh>>>::~ComponentStorageWrapper(uint64_t a1)
+{
+  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
+  v4 = (a1 + 80);
+  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v4);
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    *(a1 + 64) = v2;
+    operator delete(v2);
+  }
+
+  v4 = (a1 + 32);
+  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
+  return a1;
+}
+
+BOOL gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMesh>>>::remove(void *a1, uint64_t a2)
+{
+  v16 = a2;
+  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
+  v4 = v3;
+  v5 = a1[8];
+  if (v5 != v3)
+  {
+    v6 = (a1[10] + 2 * (v3 - a1[7]));
+    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
+    v7 = a1[11];
+    v9 = *(v7 - 16);
+    v8 = *(v7 - 8);
+    if (v8)
+    {
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v10 = v6[1];
+    *v6 = v9;
+    v6[1] = v8;
+    if (v10)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+    }
+
+    v11 = a1[11];
+    v12 = *(v11 - 8);
+    if (v12)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+    }
+
+    a1[11] = v11 - 16;
+    v13 = a1[28];
+    if (v13)
+    {
+      v14 = a1[31];
+      do
+      {
+        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v13[6], v14, &v16, 1);
+        v13 = *v13;
+      }
+
+      while (v13);
+    }
+  }
+
+  return v5 != v4;
+}
+
+void gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMesh>>>::~ComponentStorageWrapper(uint64_t a1)
+{
+  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
+  v3 = (a1 + 80);
+  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v3);
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    *(a1 + 64) = v2;
+    operator delete(v2);
+  }
+
+  v3 = (a1 + 32);
+  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v3);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMesh>>>::~ComponentStorageWrapper(uint64_t a1)
+{
+  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
+  v4 = (a1 + 80);
+  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v4);
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    *(a1 + 64) = v2;
+    operator delete(v2);
+  }
+
+  v4 = (a1 + 32);
+  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
+  return a1;
+}
+
+BOOL gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMeshRequest>>>::remove(void *a1, uint64_t a2)
+{
+  v16 = a2;
+  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
+  v4 = v3;
+  v5 = a1[8];
+  if (v5 != v3)
+  {
+    v6 = (a1[10] + 2 * (v3 - a1[7]));
+    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
+    v7 = a1[11];
+    v9 = *(v7 - 16);
+    v8 = *(v7 - 8);
+    if (v8)
+    {
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v10 = v6[1];
+    *v6 = v9;
+    v6[1] = v8;
+    if (v10)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+    }
+
+    v11 = a1[11];
+    v12 = *(v11 - 8);
+    if (v12)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+    }
+
+    a1[11] = v11 - 16;
+    v13 = a1[28];
+    if (v13)
+    {
+      v14 = a1[31];
+      do
+      {
+        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v13[6], v14, &v16, 1);
+        v13 = *v13;
+      }
+
+      while (v13);
+    }
+  }
+
+  return v5 != v4;
+}
+
+void gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMeshRequest>>>::~ComponentStorageWrapper(uint64_t a1)
+{
+  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
+  v3 = (a1 + 80);
+  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v3);
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    *(a1 + 64) = v2;
+    operator delete(v2);
+  }
+
+  v3 = (a1 + 32);
+  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v3);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMeshRequest>>>::~ComponentStorageWrapper(uint64_t a1)
+{
+  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
+  v4 = (a1 + 80);
+  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v4);
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    *(a1 + 64) = v2;
+    operator delete(v2);
+  }
+
+  v4 = (a1 + 32);
+  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
+  return a1;
+}
+
+BOOL gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>::remove(void *a1, uint64_t a2)
+{
+  v16 = a2;
+  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
+  v4 = v3;
+  v5 = a1[8];
+  if (v5 != v3)
+  {
+    v6 = (a1[10] + 2 * (v3 - a1[7]));
+    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
+    v7 = a1[11];
+    v9 = *(v7 - 16);
+    v8 = *(v7 - 8);
+    if (v8)
+    {
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v10 = v6[1];
+    *v6 = v9;
+    v6[1] = v8;
+    if (v10)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+    }
+
+    v11 = a1[11];
+    v12 = *(v11 - 8);
+    if (v12)
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+    }
+
+    a1[11] = v11 - 16;
+    v13 = a1[28];
+    if (v13)
+    {
+      v14 = a1[31];
+      do
+      {
+        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v13[6], v14, &v16, 1);
+        v13 = *v13;
+      }
+
+      while (v13);
+    }
+  }
+
+  return v5 != v4;
+}
+
+void gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>::~ComponentStorageWrapper(uint64_t a1)
+{
+  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
+  v3 = (a1 + 80);
+  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v3);
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    *(a1 + 64) = v2;
+    operator delete(v2);
+  }
+
+  v3 = (a1 + 32);
+  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v3);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+uint64_t gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>::~ComponentStorageWrapper(uint64_t a1)
+{
+  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
+  v4 = (a1 + 80);
+  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v4);
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    *(a1 + 64) = v2;
+    operator delete(v2);
+  }
+
+  v4 = (a1 + 32);
+  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
+  return a1;
+}
+
+void md::LabelsExternalMeshLogic::runAfterLayout(uint64_t a1)
+{
+  v9 = v13;
+  v10 = v13;
+  v11 = v13;
+  v12 = 4;
+  v2 = gdc::Registry::storage<arComponents::QueuedForDeletionAfterLayout>(*(a1 + 120));
+  v3 = *(v2 + 56);
+  v4 = *(v2 + 64);
+  while (v3 != v4)
+  {
+    v14 = *v3;
+    geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(&v9, &v14);
+    ++v3;
+  }
+
+  v5 = v9;
+  v6 = v10;
+  if (v9 != v10)
+  {
+    v7 = *(a1 + 120);
+    do
+    {
+      v8 = *v5++;
+      gdc::Registry::destroy(v7, v8);
+    }
+
+    while (v5 != v6);
+    v5 = v9;
+  }
+
+  if (v5 != v11)
+  {
+    free(v5);
+  }
+}
+
+void sub_1B3198A40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *a12)
+{
+  if (a10 != a12)
+  {
+    free(a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void md::LabelsExternalMeshLogic::runBeforeLayout(uint64_t *a1, md::LayoutContext *a2, uint64_t a3)
+{
+  v413 = *MEMORY[0x1E69E9840];
+  if (a1[15])
+  {
+    v3 = *(*a3 + 16);
+    if (v3)
+    {
+      v5 = a1;
+      v6 = (*(**(*(v3 + 168) + 64) + 24))(*(*(v3 + 168) + 64));
+      if (v6)
+      {
+        v369 = a2;
+        v371 = v6;
+        *v406 = &v407 + 8;
+        *&v406[8] = &v407 + 8;
+        *&v406[16] = &v407 + 8;
+        *&v407 = 4;
+        v396 = v400;
+        v397 = v400;
+        v398 = v400;
+        v399 = 4;
+        v7 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::LabelExternalMesh>>>(v5[15]);
+        v8 = v7[7];
+        v9 = v7[8];
+        if (v8 != v9)
+        {
+          v10 = v7[10];
+          do
+          {
+            v401 = *v8;
+            v11 = atomic_load(*v10 + 116);
+            if (v11)
+            {
+              v12 = v401;
+              v13 = gdc::Registry::storage<arComponents::QueuedForDeletionAfterLayout>(v5[15]);
+              gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v13, v12);
+              v14 = gdc::Registry::storage<arComponents::LabelFeatureArrivalModel>(v5[15]);
+              v15 = gdc::ComponentStorageWrapper<arComponents::RotationToApply>::get(v14, v12);
+              if (v15)
+              {
+                v16 = v15;
+                v17 = *v15;
+                v18 = gdc::Registry::storage<arComponents::QueuedForDeletionAfterLayout>(v5[15]);
+                gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v18, v17);
+                v19 = v16[1];
+                v20 = gdc::Registry::storage<arComponents::QueuedForDeletionAfterLayout>(v5[15]);
+                gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v20, v19);
+              }
+
+              v22 = v5[22];
+              v21 = v5[23];
+              if (v22 != v21)
+              {
+                while (*v10 != *v22)
+                {
+                  v22 += 2;
+                  if (v22 == v21)
+                  {
+                    goto LABEL_18;
+                  }
+                }
+
+                if (v22 != v21)
+                {
+                  v23 = v22 + 2;
+                  if (v22 + 2 != v21)
+                  {
+                    do
+                    {
+                      v24 = v23[1];
+                      *(v23 - 2) = *v23;
+                      *(v23 - 1) = v24;
+                      v23 += 2;
+                    }
+
+                    while (v23 != v21);
+                    v22 = v23 - 2;
+                  }
+
+                  v5[23] = v22;
+                }
+              }
+
+LABEL_18:
+              geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(v406, &v401);
+              v25 = GEOGetVectorKitLabelExternalMeshLogicLog();
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+              {
+                v26 = **v10;
+                v27 = "ARFeatureShadow";
+                if (!*(*v10 + 4))
+                {
+                  v27 = "ARArrival";
+                }
+
+                *buf = 67109378;
+                *&buf[4] = v26;
+                *&buf[8] = 2080;
+                *&buf[10] = v27;
+                _os_log_impl(&dword_1B2754000, v25, OS_LOG_TYPE_INFO, "Queuing external mesh for deletion (id:%d type:%s)", buf, 0x12u);
+              }
+            }
+
+            v10 += 2;
+            ++v8;
+          }
+
+          while (v8 != v9);
+        }
+
+        v28 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>>(v5[15]);
+        v29 = v28[7];
+        v30 = v28[8];
+        v385 = v5;
+        if (v29 != v30)
+        {
+          v31 = v28[10];
+          do
+          {
+            v32 = *v29;
+            v401 = *v29;
+            v33 = *v31;
+            std::mutex::lock((*v31 + 96));
+            v34 = *(v33 + 176);
+            std::mutex::unlock((v33 + 96));
+            v5 = v385;
+            if (v34 == 4)
+            {
+              v35 = gdc::Registry::storage<arComponents::LabelFeatureArrivalModel>(v385[15]);
+              v36 = gdc::ComponentStorageWrapper<arComponents::RotationToApply>::get(v35, v32);
+              if (v36)
+              {
+                v37 = v36;
+                geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(&v396, v36);
+                geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(&v396, v37 + 1);
+              }
+
+              geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(&v396, &v401);
+              v38 = GEOGetVectorKitLabelExternalMeshLogicLog();
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+              {
+                v39 = *(*v31 + 8);
+                v40 = "ARFeatureShadow";
+                if (!*(*v31 + 12))
+                {
+                  v40 = "ARArrival";
+                }
+
+                *buf = 67109378;
+                *&buf[4] = v39;
+                *&buf[8] = 2080;
+                *&buf[10] = v40;
+                _os_log_impl(&dword_1B2754000, v38, OS_LOG_TYPE_INFO, "Dropping canceled mesh request (id:%d type:%s)", buf, 0x12u);
+              }
+
+              v5 = v385;
+            }
+
+            v31 += 2;
+            ++v29;
+          }
+
+          while (v29 != v30);
+        }
+
+        v41 = v5[15];
+        v42 = *v406;
+        v43 = *&v406[8];
+        if (*v406 != *&v406[8])
+        {
+          do
+          {
+            v44 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::LabelExternalMesh>>>(v41);
+            gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::LabelExternalMesh>>>::remove(v44, *v42++);
+          }
+
+          while (v42 != v43);
+          v41 = v5[15];
+          v45 = *v406;
+          v46 = *&v406[8];
+          if (*v406 != *&v406[8])
+          {
+            do
+            {
+              v47 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMesh>>>(v41);
+              gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMesh>>>::remove(v47, *v45++);
+            }
+
+            while (v45 != v46);
+            v41 = v5[15];
+            v48 = *v406;
+            v49 = *&v406[8];
+            if (*v406 != *&v406[8])
+            {
+              do
+              {
+                v50 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMesh>>>(v41);
+                gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMesh>>>::remove(v50, *v48++);
+              }
+
+              while (v48 != v49);
+              v41 = v5[15];
+            }
+          }
+        }
+
+        v52 = v396;
+        v51 = v397;
+        if (v396 != v397)
+        {
+          do
+          {
+            v53 = *v52++;
+            gdc::Registry::destroy(v41, v53);
+          }
+
+          while (v52 != v51);
+          v52 = v396;
+        }
+
+        v54 = v385;
+        if (v52 != v398)
+        {
+          free(v52);
+        }
+
+        if (*v406 != *&v406[16])
+        {
+          free(*v406);
+        }
+
+        *v406 = &v407 + 8;
+        *&v406[8] = &v407 + 8;
+        *&v406[16] = &v407 + 8;
+        *&v407 = 4;
+        v396 = v400;
+        v397 = v400;
+        v398 = v400;
+        v399 = 4;
+        v55 = v385[15];
+        v56 = gdc::Registry::storage<gdc::component::DataRequestObserver::IsFailed>(v55);
+        v57 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>(v55);
+        v58 = v57;
+        v59 = (v57 + 32);
+        v61 = v56[7];
+        v60 = v56[8];
+        if (*(v57 + 64) - *(v57 + 56) >= (v60 - v61))
+        {
+          v62 = v56 + 4;
+        }
+
+        else
+        {
+          v62 = (v57 + 32);
+        }
+
+        if (v56 + 4 == v62)
+        {
+          *buf = &v396;
+          *&buf[8] = v385;
+          while (v61 != v60)
+          {
+            Index = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v59, *(v61 + 4));
+            v64 = v58[8];
+            if (v64 != Index)
+            {
+              v65 = *v61;
+              v66 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v59, HIDWORD(*v61));
+              if (v64 == v66)
+              {
+                v67 = v58[11];
+              }
+
+              else
+              {
+                v67 = (v58[10] + 2 * (v66 - v58[7]));
+              }
+
+              md::LabelsExternalMeshLogic::processPendingArrivalRequests(void)::$_0::operator()(buf, v65, *v67);
+            }
+
+            v61 += 8;
+          }
+
+          v54 = v385;
+        }
+
+        if (v59 == v62)
+        {
+          *buf = &v396;
+          *&buf[8] = v54;
+          v68 = v58[7];
+          v69 = v58[8];
+          if (v68 != v69)
+          {
+            v70 = v58[10];
+            do
+            {
+              if (v56[8] != geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v56 + 4, *(v68 + 4)))
+              {
+                md::LabelsExternalMeshLogic::processPendingArrivalRequests(void)::$_0::operator()(buf, *v68, *v70);
+              }
+
+              v70 += 2;
+              v68 += 8;
+            }
+
+            while (v68 != v69);
+          }
+        }
+
+        v71 = v54[15];
+        v73 = v396;
+        v72 = v397;
+        if (v396 == v397)
+        {
+          v75 = v385;
+        }
+
+        else
+        {
+          do
+          {
+            v74 = *v73++;
+            gdc::Registry::destroy(v71, v74);
+          }
+
+          while (v73 != v72);
+          v73 = v396;
+          v75 = v385;
+          v71 = v385[15];
+        }
+
+        v397 = v73;
+        v76 = gdc::Registry::storage<gdc::component::DataRequestObserver::IsCompleted>(v71);
+        v77 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>(v71);
+        v78 = gdc::Registry::storage<arComponents::LabelFeatureArrivalModel>(v71);
+        v79.i64[0] = v76;
+        v79.i64[1] = v77;
+        v80 = v78 + 4;
+        *buf = vaddq_s64(v79, vdupq_n_s64(0x20uLL));
+        *&buf[16] = v78 + 4;
+        v81 = *buf;
+        v82 = 8;
+        v83 = buf;
+        do
+        {
+          if (*(*&buf[v82] + 32) - *(*&buf[v82] + 24) < *(v81 + 32) - *(v81 + 24))
+          {
+            v81 = *&buf[v82];
+            v83 = &buf[v82];
+          }
+
+          v82 += 8;
+        }
+
+        while (v82 != 24);
+        v84 = *v83;
+        v85 = (v76 + 32);
+        if (v76 + 32 == *v83)
+        {
+          v386 = *v83;
+          v378 = (v76 + 32);
+          v381 = v76;
+          *buf = v75;
+          *&buf[8] = v406;
+          *&buf[16] = &v396;
+          v87 = *(v76 + 56);
+          v86 = *(v76 + 64);
+          while (v87 != v86)
+          {
+            v88 = *(v87 + 4);
+            v89 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v77 + 4, v88);
+            v90 = v77[8];
+            if (v90 != v89)
+            {
+              v91 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v80, v88);
+              v92 = v78[8];
+              if (v92 != v91)
+              {
+                v93 = *v87;
+                v94 = HIDWORD(*v87);
+                v95 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v77 + 4, HIDWORD(*v87));
+                if (v90 == v95)
+                {
+                  v96 = v77[11];
+                }
+
+                else
+                {
+                  v96 = (v77[10] + 2 * (v95 - v77[7]));
+                }
+
+                v97 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v80, v94);
+                if (v92 == v97)
+                {
+                  v98 = v78[11];
+                }
+
+                else
+                {
+                  v98 = (v78[10] + 2 * (v97 - v78[7]));
+                }
+
+                md::LabelsExternalMeshLogic::processPendingArrivalRequests(void)::$_1::operator()(buf, v93, *v96, v98);
+              }
+            }
+
+            v87 += 8;
+          }
+
+          v85 = v378;
+          v76 = v381;
+          v84 = v386;
+        }
+
+        v99 = v77 + 4;
+        if (v77 + 4 == v84)
+        {
+          v387 = v84;
+          *buf = v75;
+          *&buf[8] = v406;
+          *&buf[16] = &v396;
+          v100 = v77[7];
+          v101 = v77[8];
+          if (v100 != v101)
+          {
+            v102 = v77[10];
+            do
+            {
+              v103 = *(v100 + 4);
+              if (*(v76 + 64) != geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v85, v103))
+              {
+                v104 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v80, v103);
+                v105 = v78[8];
+                if (v105 != v104)
+                {
+                  v106 = *v100;
+                  v107 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v80, HIDWORD(*v100));
+                  if (v105 == v107)
+                  {
+                    v108 = v78[11];
+                  }
+
+                  else
+                  {
+                    v108 = (v78[10] + 2 * (v107 - v78[7]));
+                  }
+
+                  md::LabelsExternalMeshLogic::processPendingArrivalRequests(void)::$_1::operator()(buf, v106, *v102, v108);
+                }
+              }
+
+              v102 += 2;
+              v100 += 8;
+            }
+
+            while (v100 != v101);
+          }
+
+          v75 = v385;
+          v84 = v387;
+          v99 = v77 + 4;
+        }
+
+        if (v80 == v84)
+        {
+          *buf = v75;
+          *&buf[8] = v406;
+          *&buf[16] = &v396;
+          v109 = v78[7];
+          v110 = v78[8];
+          if (v109 != v110)
+          {
+            v111 = v78[10];
+            do
+            {
+              v112 = *(v109 + 4);
+              if (*(v76 + 64) != geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v85, v112))
+              {
+                v113 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v99, v112);
+                v114 = v77[8];
+                if (v114 != v113)
+                {
+                  v115 = *v109;
+                  v116 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v99, HIDWORD(*v109));
+                  if (v114 == v116)
+                  {
+                    v117 = v77[11];
+                  }
+
+                  else
+                  {
+                    v117 = (v77[10] + 2 * (v116 - v77[7]));
+                  }
+
+                  md::LabelsExternalMeshLogic::processPendingArrivalRequests(void)::$_1::operator()(buf, v115, *v117, v111);
+                }
+              }
+
+              v111 += 2;
+              v109 += 8;
+            }
+
+            while (v109 != v110);
+          }
+
+          v75 = v385;
+        }
+
+        v118 = v75[15];
+        v119 = *v406;
+        v120 = *&v406[8];
+        if (*v406 != *&v406[8])
+        {
+          do
+          {
+            v121 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>(v118);
+            gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>::remove(v121, *v119++);
+          }
+
+          while (v119 != v120);
+          v118 = v75[15];
+          v119 = *v406;
+          v120 = *&v406[8];
+        }
+
+        gdc::Registry::remove<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>,gdc::Entity *>(v118, v119, v120);
+        v123 = v396;
+        v122 = v397;
+        if (v396 != v397)
+        {
+          v124 = v385[15];
+          do
+          {
+            v125 = *v123++;
+            gdc::Registry::destroy(v124, v125);
+          }
+
+          while (v123 != v122);
+          v123 = v396;
+        }
+
+        v126 = v385;
+        if (v123 != v398)
+        {
+          free(v123);
+        }
+
+        if (*v406 != *&v406[16])
+        {
+          free(*v406);
+        }
+
+        v127 = 0;
+        v128 = 0xCBF29CE484222325;
+        *v406 = &v407 + 8;
+        *&v406[8] = &v407 + 8;
+        *&v406[16] = &v407 + 8;
+        *&v407 = 4;
+        v396 = v400;
+        v397 = v400;
+        v398 = v400;
+        v399 = 4;
+        v129 = v385[15];
+        do
+        {
+          v128 = 0x100000001B3 * (v128 ^ aStdStringViewG_867[v127++ + 38]);
+        }
+
+        while (v127 != 122);
+        v130 = gdc::Registry::storage<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>::StatusTag<(gdc::component::DataRequestStatus)4>>(v385[15], v128);
+        v131 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMeshRequest>>>(v129);
+        v132 = gdc::Registry::storage<arComponents::Boundary>(v129);
+        v133.i64[0] = v130;
+        v133.i64[1] = v131;
+        v134 = v132 + 4;
+        *buf = vaddq_s64(v133, vdupq_n_s64(0x20uLL));
+        *&buf[16] = v132 + 4;
+        v135 = *buf;
+        v136 = 8;
+        v137 = buf;
+        do
+        {
+          if (*(*&buf[v136] + 32) - *(*&buf[v136] + 24) < *(v135 + 32) - *(v135 + 24))
+          {
+            v135 = *&buf[v136];
+            v137 = &buf[v136];
+          }
+
+          v136 += 8;
+        }
+
+        while (v136 != 24);
+        v138 = *v137;
+        v388 = (v130 + 32);
+        if (v130 + 32 == *v137)
+        {
+          v379 = v130;
+          v382 = *v137;
+          *buf = v385;
+          *&buf[8] = v406;
+          *&buf[16] = &v396;
+          v140 = *(v130 + 56);
+          v139 = *(v130 + 64);
+          while (v140 != v139)
+          {
+            v141 = *(v140 + 4);
+            v142 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v131 + 4, v141);
+            v143 = v131[8];
+            if (v143 != v142)
+            {
+              v144 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v134, v141);
+              v145 = v132[8];
+              if (v145 != v144)
+              {
+                v146 = *v140;
+                v147 = HIDWORD(*v140);
+                v148 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v131 + 4, HIDWORD(*v140));
+                if (v143 == v148)
+                {
+                  v149 = v131[11];
+                }
+
+                else
+                {
+                  v149 = (v131[10] + 2 * (v148 - v131[7]));
+                }
+
+                v150 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v134, v147);
+                if (v145 == v150)
+                {
+                  v151 = v132[11];
+                }
+
+                else
+                {
+                  v151 = v132[10] + 24 * ((v150 - v132[7]) >> 3);
+                }
+
+                md::LabelsExternalMeshLogic::processPendingShadowRequests(void)::$_0::operator()(buf, v146, v149, v151);
+              }
+            }
+
+            v140 += 8;
+          }
+
+          v126 = v385;
+          v130 = v379;
+          v138 = v382;
+        }
+
+        if (v131 + 4 == v138)
+        {
+          v383 = v138;
+          *buf = v126;
+          *&buf[8] = v406;
+          *&buf[16] = &v396;
+          v152 = v131[7];
+          v153 = v131[8];
+          if (v152 != v153)
+          {
+            v154 = v131[10];
+            do
+            {
+              v155 = *(v152 + 4);
+              if (*(v130 + 64) != geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v388, v155))
+              {
+                v156 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v134, v155);
+                v157 = v132[8];
+                if (v157 != v156)
+                {
+                  v158 = *v152;
+                  v159 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v134, HIDWORD(*v152));
+                  if (v157 == v159)
+                  {
+                    v160 = v132[11];
+                  }
+
+                  else
+                  {
+                    v160 = v132[10] + 24 * ((v159 - v132[7]) >> 3);
+                  }
+
+                  md::LabelsExternalMeshLogic::processPendingShadowRequests(void)::$_0::operator()(buf, v158, v154, v160);
+                }
+              }
+
+              v154 += 2;
+              v152 += 8;
+            }
+
+            while (v152 != v153);
+          }
+
+          v126 = v385;
+          v138 = v383;
+        }
+
+        if (v134 == v138)
+        {
+          *buf = v126;
+          *&buf[8] = v406;
+          *&buf[16] = &v396;
+          v161 = v132[7];
+          v162 = v132[8];
+          if (v161 != v162)
+          {
+            v163 = v132[10];
+            do
+            {
+              v164 = *(v161 + 4);
+              if (*(v130 + 64) != geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v388, v164))
+              {
+                v165 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex(v131 + 4, v164);
+                v166 = v131[8];
+                if (v166 != v165)
+                {
+                  v167 = *v161;
+                  v168 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v131 + 4, HIDWORD(*v161));
+                  if (v166 == v168)
+                  {
+                    v169 = v131[11];
+                  }
+
+                  else
+                  {
+                    v169 = (v131[10] + 2 * (v168 - v131[7]));
+                  }
+
+                  md::LabelsExternalMeshLogic::processPendingShadowRequests(void)::$_0::operator()(buf, v167, v169, v163);
+                }
+              }
+
+              v163 += 24;
+              v161 += 8;
+            }
+
+            while (v161 != v162);
+          }
+
+          v126 = v385;
+        }
+
+        v170 = *v406;
+        v171 = *&v406[8];
+        if (*v406 != *&v406[8])
+        {
+          do
+          {
+            v172 = *v170;
+            v173 = v126[15];
+            v174 = gdc::Registry::storage<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>(v173);
+            v175 = gdc::ComponentStorageWrapper<md::overlayComponents::FoundationMeshType<(gss::MeshType)24>>::get(v174, v172);
+            if (v175)
+            {
+              gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>::_clearRequest(v173, v172, v175);
+              *buf = v172;
+              v176 = gdc::Registry::_get<gdc::component::DataRequestObserver::ObserverList<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>>(v173, v172);
+              if (v176)
+              {
+                v177 = *v176;
+                v178 = *(v176 + 8);
+                while (v177 != v178)
+                {
+                  v179 = *v177;
+                  v401 = v179;
+                  v180 = gdc::Registry::_get<gdc::component::DataRequestObserver::Observer<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>>(v173, v179);
+                  gdc::component::DataRequestObserver::updateStatusCounts(v173, v179, v172, *(v180 + 8), 0);
+                  gdc::Registry::remove<gdc::component::DataRequestObserver::Observer<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>>(v173, &v401);
+                  ++v177;
+                }
+
+                gdc::Registry::remove<gdc::component::DataRequestObserver::ObserverList<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>>(v173, buf);
+              }
+
+              v181 = gdc::Registry::storage<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>(v173);
+              gdc::ComponentStorageWrapper<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>::remove(v181, v172);
+            }
+
+            ++v170;
+          }
+
+          while (v170 != v171);
+          v170 = *v406;
+          v171 = *&v406[8];
+        }
+
+        v182 = v126[15];
+        if (v170 != v171)
+        {
+          do
+          {
+            v183 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMeshRequest>>>(v182);
+            gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMeshRequest>>>::remove(v183, *v170++);
+          }
+
+          while (v170 != v171);
+          v182 = v126[15];
+          v170 = *v406;
+          v171 = *&v406[8];
+        }
+
+        gdc::Registry::remove<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>,gdc::Entity *>(v182, v170, v171);
+        v185 = v396;
+        v184 = v397;
+        if (v396 != v397)
+        {
+          v186 = v385[15];
+          do
+          {
+            v187 = *v185++;
+            gdc::Registry::destroy(v186, v187);
+          }
+
+          while (v185 != v184);
+          v185 = v396;
+        }
+
+        if (v185 != v398)
+        {
+          free(v185);
+        }
+
+        if (*v406 != *&v406[16])
+        {
+          free(*v406);
+        }
+
+        memset(buf, 0, sizeof(buf));
+        std::mutex::lock((v371 + 64));
+        v188 = *(v371 + 56);
+        *buf = *(v371 + 40);
+        *&buf[16] = v188;
+        *(v371 + 40) = 0;
+        *(v371 + 48) = 0;
+        *(v371 + 56) = 0;
+        std::vector<std::shared_ptr<ggl::VertexData>,geo::allocator_adapter<std::shared_ptr<ggl::VertexData>,ggl::zone_mallocator>>::clear[abi:nn200100]((v371 + 40));
+        std::mutex::unlock((v371 + 64));
+        v189 = *buf;
+        v375 = *&buf[8];
+        if (*buf != *&buf[8])
+        {
+          __asm { FMOV            V9.2S, #1.0 }
+
+          do
+          {
+            v194 = GEOGetVectorKitLabelExternalMeshLogicLog();
+            if (os_log_type_enabled(v194, OS_LOG_TYPE_INFO))
+            {
+              v195 = *(*v189 + 8);
+              v196 = "ARFeatureShadow";
+              if (!*(*v189 + 12))
+              {
+                v196 = "ARArrival";
+              }
+
+              *v406 = 67109378;
+              *&v406[4] = v195;
+              *&v406[8] = 2080;
+              *&v406[10] = v196;
+              _os_log_impl(&dword_1B2754000, v194, OS_LOG_TYPE_INFO, "Processing new request(id:%d) for external mesh type:%s", v406, 0x12u);
+            }
+
+            v384 = v189;
+            if (!*(*v189 + 12))
+            {
+              v198 = v189[1];
+              if (v198)
+              {
+                atomic_fetch_add_explicit((v198 + 8), 1uLL, memory_order_relaxed);
+              }
+
+              gdc::Registry::create(v385[15]);
+            }
+
+            if (*(*v189 + 12) == 1)
+            {
+              v197 = v189[1];
+              if (v197)
+              {
+                atomic_fetch_add_explicit((v197 + 8), 1uLL, memory_order_relaxed);
+              }
+
+              gdc::Registry::create(v385[15]);
+            }
+
+            v189 += 2;
+          }
+
+          while (v384 + 2 != v375);
+        }
+
+        v199 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMeshRequest>>>(v385[15]);
+        v201 = *(v199 + 80);
+        v200 = *(v199 + 88);
+        v202 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARFeatureShadowExternalMeshRequest>>>(v385[15]);
+        v203 = (v200 - v201) >> 4;
+        v205 = *(v202 + 80);
+        v204 = *(v202 + 88);
+        v206 = v385;
+        if (v385[26] != v203)
+        {
+          v207 = GEOGetVectorKitLabelExternalMeshLogicLog();
+          if (os_log_type_enabled(v207, OS_LOG_TYPE_INFO))
+          {
+            *v406 = 134217984;
+            *&v406[4] = v203;
+            _os_log_impl(&dword_1B2754000, v207, OS_LOG_TYPE_INFO, "%lu pending Arrival requests", v406, 0xCu);
+          }
+
+          v385[26] = v203;
+        }
+
+        v208 = (v204 - v205) >> 4;
+        if (v385[25] != v208)
+        {
+          v209 = GEOGetVectorKitLabelExternalMeshLogicLog();
+          if (os_log_type_enabled(v209, OS_LOG_TYPE_INFO))
+          {
+            *v406 = 134217984;
+            *&v406[4] = (v204 - v205) >> 4;
+            _os_log_impl(&dword_1B2754000, v209, OS_LOG_TYPE_INFO, "%lu pending Shadow requests", v406, 0xCu);
+          }
+
+          v385[25] = v208;
+        }
+
+        md::LayoutContext::frameState(v369);
+        v211 = *(v210 + 88);
+        v212 = +[VKDebugSettings sharedSettings];
+        v380 = [v212 arIsArrivalAnimationEnabled];
+
+        v213 = v385[16];
+        v214 = v385[18];
+        v215 = v385[19];
+        v385[16] = v215;
+        v216 = *(v385 + 10);
+        *(v385 + 17) = v216;
+        v385[20] = v213;
+        v385[21] = v214;
+        v385[19] = v213;
+        v396 = v400;
+        v397 = v400;
+        v398 = v400;
+        v399 = 2;
+        v218 = *(v371 + 8);
+        v217 = *(v371 + 16);
+        if (v218 != v217)
+        {
+          while (1)
+          {
+            v219 = *v218;
+            v397 = v396;
+            v220 = v206[22];
+            v221 = v206[23];
+            while (1)
+            {
+              if (v220 == v221)
+              {
+                goto LABEL_233;
+              }
+
+              if (v219 == *v220)
+              {
+                break;
+              }
+
+              v220 += 2;
+            }
+
+            if (v220 == v221)
+            {
+LABEL_233:
+              v222 = 0xFFFFFFFF00000000;
+            }
+
+            else
+            {
+              v222 = v220[1];
+              v401 = v222;
+              if (v222)
+              {
+                v223 = 0;
+              }
+
+              else
+              {
+                v223 = v222 > 0xFFFFFFFEFFFFFFFFLL;
+              }
+
+              if (!v223)
+              {
+                v224 = v206[15];
+                if (gdc::Registry::isValid(v224, &v401))
+                {
+                  v225 = gdc::Registry::storage<arComponents::QueuedForDeletionAfterLayout>(v224);
+                  if (*(v225 + 64) == geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex((v225 + 32), HIDWORD(v222)))
+                  {
+                    if (*(v219 + 4))
+                    {
+                      if (*(v219 + 4) == 1)
+                      {
+                        v226 = gdc::Registry::storage<arComponents::WorldTransform>(v206[15]);
+                        v227 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v226 + 4, HIDWORD(v222));
+                        if (v226[8] != v227)
+                        {
+                          v228 = v226[10];
+                          if (v228 + 80 * ((v227 - v226[7]) >> 3) != v226[11] && v228 != 0)
+                          {
+                            v230 = v206[15];
+                            *v406 = *(v219 + 2);
+                            *&v406[16] = *(v219 + 6);
+                            v407 = *(v219 + 14);
+                            v408 = *(v219 + 9);
+                            v409 = *(v219 + 10);
+                            v410 = *(v219 + 22);
+                            v411 = *(v219 + 13);
+                            v231 = gdc::Registry::storage<arComponents::WorldTransform>(v230);
+                            gdc::ComponentStorageWrapper<arComponents::WorldTransform>::emplace(v231, v222, v406);
+                            v232 = gdc::Registry::storage<arComponents::RequiresUpdateInRenderLayer<arComponents::WorldTransform>>(v206[15]);
+                            gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v232, v222);
+                          }
+                        }
+
+                        v233 = gdc::Registry::storage<arComponents::VisibilityAlpha>(v206[15]);
+                        v234 = gdc::ComponentStorageWrapper<md::components::CustomZIndex>::get(v233, v222);
+                        if (v234)
+                        {
+                          v235 = *(v219 + 28);
+                          if (vabds_f32(*v234, v235) > 0.001)
+                          {
+                            *v234 = v235;
+                            v236 = gdc::Registry::storage<arComponents::RequiresUpdateInRenderLayer<arComponents::VisibilityAlpha>>(v206[15]);
+                            gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v236, v222);
+                          }
+                        }
+
+                        geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(&v396, &v401);
+                      }
+
+                      goto LABEL_298;
+                    }
+
+                    v393 = v219;
+                    v245 = gdc::Registry::storage<arComponents::LabelFeatureArrivalModel>(v206[15]);
+                    v246 = gdc::ComponentStorageWrapper<arComponents::RotationToApply>::get(v245, v222);
+                    if (!v246)
+                    {
+                      goto LABEL_298;
+                    }
+
+                    v247 = v246;
+                    v248 = v206[15];
+                    v249 = *v246;
+                    v404[0] = &unk_1F2A3BE08;
+                    v404[1] = &v393;
+                    v405 = v404;
+                    v250 = gdc::Registry::storage<arComponents::UpRelativeTranslationToApply>(v248);
+                    v251 = gdc::ComponentStorageWrapper<arComponents::UpRelativeTranslationToApply>::get(v250, v249);
+                    if (v251)
+                    {
+                      std::function<void ()(arComponents::UpRelativeTranslationToApply &,BOOL)>::operator()(v405, v251, 0);
+                    }
+
+                    else
+                    {
+                      *v406 = 0;
+                      std::function<void ()(arComponents::UpRelativeTranslationToApply &,BOOL)>::operator()(v405, v406, 1);
+                      v395 = *v406;
+                      v252 = gdc::Registry::storage<arComponents::UpRelativeTranslationToApply>(v248);
+                      gdc::ComponentStorageWrapper<md::components::PendingMaterial>::emplace(v252, v249, &v395);
+                    }
+
+                    std::__function::__value_func<void ()(arComponents::UpRelativeTranslationToApply &,BOOL)>::~__value_func[abi:nn200100](v404);
+                    v253 = v206[15];
+                    v254 = *v247;
+                    v255 = gdc::Registry::storage<arComponents::AnimationEntityStatus<(VKAnimationState)1>>(v253);
+                    v256 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v255 + 4, HIDWORD(v254));
+                    v206 = v385;
+                    if (v255[8] == v256 || (v257 = v255[10], v257 + v256 - v255[7] == v255[11]) || !v257)
+                    {
+                      v258 = *v247;
+                      v259 = gdc::Registry::storage<arComponents::AnimationEntityStatus<(VKAnimationState)3>>(v385[15]);
+                      v260 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v259 + 4, HIDWORD(v258));
+                      v261 = v259[8] == v260 ? v259[11] : v259[10] + v260 - v259[7];
+                      v206 = v385;
+                      v262 = v261 == v259[11] ? 0 : v261;
+                      if (v380 && (!v262 || (v211 * 1000.0) - *v262 >= 1001))
+                      {
+                        v263 = v385[15];
+                        v264 = *v247;
+                        v265 = +[VKDebugSettings sharedSettings];
+                        [v265 arJumpOffset];
+                        v372 = v266;
+
+                        v267 = +[VKDebugSettings sharedSettings];
+                        [v267 arJumpDuration];
+                        v389 = v268;
+
+                        v269 = +[VKDebugSettings sharedSettings];
+                        [v269 arJumpStart];
+                        v377 = v270;
+
+                        v271 = +[VKDebugSettings sharedSettings];
+                        [v271 arFallOffset];
+                        v370 = v272;
+
+                        v273 = +[VKDebugSettings sharedSettings];
+                        [v273 arFallDuration];
+                        v376 = v274;
+
+                        v275 = +[VKDebugSettings sharedSettings];
+                        [v275 arFallStart];
+                        v374 = v276;
+
+                        v277 = +[VKDebugSettings sharedSettings];
+                        [v277 arRotateOffset];
+                        v279 = v278;
+
+                        v280 = +[VKDebugSettings sharedSettings];
+                        [v280 arRotateDuration];
+                        v373 = v281;
+
+                        v282 = +[VKDebugSettings sharedSettings];
+                        [v282 arRotateStart];
+                        v284 = v283;
+
+                        v285 = +[VKDebugSettings sharedSettings];
+                        [v285 arPulseOffset];
+                        v368 = v286;
+
+                        v287 = +[VKDebugSettings sharedSettings];
+                        [v287 arPulseDuration];
+                        v289 = v288;
+
+                        v290 = +[VKDebugSettings sharedSettings];
+                        [v290 arPulseStart];
+                        v292 = v291;
+
+                        v293 = +[VKDebugSettings sharedSettings];
+                        [v293 arPulseNumberOfRepeats];
+                        v295 = v294;
+
+                        JumpAndRotate = gdc::Registry::storage<arComponents::CreateJumpAndRotateAnimation>(v263);
+                        *v406 = v264;
+                        v297 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::insert(JumpAndRotate + 4, v406);
+                        v298 = fmaxf(fmaxf(fmaxf(fmaxf(v377 + v389, 0.0), v376 + (v377 + v389)), v284 + v373), v292 + ((v289 + v289) * v295)) - fminf(v292, fminf(v284, fminf(v374, fminf(v377, 0.0))));
+                        v299 = v279 * 3.14159265;
+                        v300 = v295;
+                        if (v301)
+                        {
+                          v302 = JumpAndRotate[11];
+                          v303 = JumpAndRotate[12];
+                          if (v302 >= v303)
+                          {
+                            v308 = JumpAndRotate[10];
+                            v309 = 0x8E38E38E38E38E39 * ((v302 - v308) >> 3);
+                            v310 = v309 + 1;
+                            if (v309 + 1 > 0x38E38E38E38E38ELL)
+                            {
+                              std::__throw_bad_array_new_length[abi:nn200100]();
+                            }
+
+                            v311 = 0x8E38E38E38E38E39 * ((v303 - v308) >> 3);
+                            if (2 * v311 > v310)
+                            {
+                              v310 = 2 * v311;
+                            }
+
+                            if (v311 >= 0x1C71C71C71C71C7)
+                            {
+                              v312 = 0x38E38E38E38E38ELL;
+                            }
+
+                            else
+                            {
+                              v312 = v310;
+                            }
+
+                            if (v312)
+                            {
+                              if (v312 <= 0x38E38E38E38E38ELL)
+                              {
+                                operator new();
+                              }
+
+                              std::__throw_bad_array_new_length[abi:nn200100]();
+                            }
+
+                            v313 = 72 * v309;
+                            *v313 = v298;
+                            *(v313 + 4) = v372;
+                            *(v313 + 8) = v389;
+                            *(v313 + 12) = v377;
+                            *(v313 + 16) = v395;
+                            *(v313 + 20) = v370;
+                            *(v313 + 24) = v376;
+                            *(v313 + 28) = v374;
+                            *(v313 + 32) = v394;
+                            *(v313 + 36) = v299;
+                            *(v313 + 40) = v373;
+                            *(v313 + 44) = v284;
+                            *(v313 + 48) = v391;
+                            *(v313 + 52) = v368;
+                            *(v313 + 56) = v289;
+                            *(v313 + 60) = v292;
+                            *(v313 + 64) = v392;
+                            *(v313 + 68) = v300;
+                            v304 = 72 * v309 + 72;
+                            v314 = JumpAndRotate[10];
+                            v315 = JumpAndRotate[11] - v314;
+                            v316 = v313 - v315;
+                            memcpy((v313 - v315), v314, v315);
+                            v317 = JumpAndRotate[10];
+                            JumpAndRotate[10] = v316;
+                            JumpAndRotate[11] = v304;
+                            JumpAndRotate[12] = 0;
+                            if (v317)
+                            {
+                              operator delete(v317);
+                            }
+
+                            v206 = v385;
+                          }
+
+                          else
+                          {
+                            *v302 = v298;
+                            *(v302 + 4) = v372;
+                            *(v302 + 8) = v389;
+                            *(v302 + 12) = v377;
+                            *(v302 + 20) = v370;
+                            *(v302 + 24) = v376;
+                            *(v302 + 28) = v374;
+                            *(v302 + 36) = v299;
+                            *(v302 + 40) = v373;
+                            *(v302 + 44) = v284;
+                            *(v302 + 52) = v368;
+                            *(v302 + 56) = v289;
+                            *(v302 + 68) = v300;
+                            v304 = v302 + 72;
+                            *(v302 + 60) = v292;
+                          }
+
+                          JumpAndRotate[11] = v304;
+                          v306 = JumpAndRotate[31];
+LABEL_288:
+                          for (i = JumpAndRotate[22]; i; i = *i)
+                          {
+                            std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(i[6], v306, v406, 1);
+                          }
+                        }
+
+                        else
+                        {
+                          v305 = JumpAndRotate[10] + 72 * ((v297 - JumpAndRotate[7]) >> 3);
+                          *v305 = v298;
+                          *(v305 + 4) = v372;
+                          *(v305 + 8) = v389;
+                          *(v305 + 12) = v377;
+                          *(v305 + 20) = v370;
+                          *(v305 + 24) = v376;
+                          *(v305 + 28) = v374;
+                          *(v305 + 36) = v299;
+                          *(v305 + 40) = v373;
+                          *(v305 + 44) = v284;
+                          *(v305 + 52) = v368;
+                          *(v305 + 56) = v289;
+                          *(v305 + 60) = v292;
+                          *(v305 + 68) = v300;
+                          v306 = JumpAndRotate[31];
+                          if (v305 == JumpAndRotate[11])
+                          {
+                            goto LABEL_288;
+                          }
+
+                          for (j = JumpAndRotate[16]; j; j = *j)
+                          {
+                            std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(j[6], v306, v406, 1);
+                          }
+                        }
+                      }
+                    }
+
+                    v319 = 0;
+                    *v406 = *v247;
+                    do
+                    {
+                      v391 = *&v406[v319];
+                      v320 = v391;
+                      v321 = gdc::Registry::storage<arComponents::VisibilityAlpha>(v206[15]);
+                      v322 = gdc::ComponentStorageWrapper<md::components::CustomZIndex>::get(v321, v320);
+                      if (v322)
+                      {
+                        v323 = *(v219 + 28);
+                        if (vabds_f32(*v322, v323) > 0.001)
+                        {
+                          *v322 = v323;
+                          v324 = gdc::Registry::storage<arComponents::RequiresUpdateInRenderLayer<arComponents::VisibilityAlpha>>(v206[15]);
+                          gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v324, v320);
+                        }
+                      }
+
+                      v325 = v206[15];
+                      v402[0] = &unk_1F2A3BE80;
+                      v402[1] = &v393;
+                      v403 = v402;
+                      v326 = gdc::Registry::storage<arComponents::ScaleToApply>(v325);
+                      v327 = gdc::ComponentStorageWrapper<arComponents::UpRelativeTranslationToApply>::get(v326, v320);
+                      if (v327)
+                      {
+                        std::function<void ()(arComponents::ScaleToApply &,BOOL)>::operator()(v403, v327, 0);
+                      }
+
+                      else
+                      {
+                        v395 = 0x3FF0000000000000;
+                        std::function<void ()(arComponents::ScaleToApply &,BOOL)>::operator()(v403, &v395, 1);
+                        v394 = v395;
+                        v328 = gdc::Registry::storage<arComponents::ScaleToApply>(v325);
+                        gdc::ComponentStorageWrapper<md::components::PendingMaterial>::emplace(v328, v320, &v394);
+                      }
+
+                      std::__function::__value_func<void ()(arComponents::ScaleToApply &,BOOL)>::~__value_func[abi:nn200100](v402);
+                      geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(&v396, &v391);
+                      v319 += 8;
+                    }
+
+                    while (v319 != 16);
+LABEL_298:
+                    v329 = v396;
+                    v330 = v397;
+                    while (v329 != v330)
+                    {
+                      v331 = *v329;
+                      *v406 = *v329;
+                      v333 = v206[19];
+                      v332 = v206[20];
+                      v334 = v332;
+                      if (v333 == v332)
+                      {
+                        goto LABEL_307;
+                      }
+
+                      v334 = v206[19];
+                      while (*v334 < v331)
+                      {
+                        v334 += 8;
+                        if (v334 == v332)
+                        {
+                          v334 = v206[20];
+                          goto LABEL_307;
+                        }
+                      }
+
+                      if (v334 == v332 || v331 != *v334)
+                      {
+LABEL_307:
+                        v335 = v206[21];
+                        if (v332 >= v335)
+                        {
+                          v337 = ((v332 - v333) >> 3) + 1;
+                          if (v337 >> 61)
+                          {
+                            std::__throw_bad_array_new_length[abi:nn200100]();
+                          }
+
+                          v338 = v335 - v333;
+                          v339 = (v335 - v333) >> 2;
+                          if (v339 > v337)
+                          {
+                            v337 = v339;
+                          }
+
+                          if (v338 >= 0x7FFFFFFFFFFFFFF8)
+                          {
+                            v340 = 0x1FFFFFFFFFFFFFFFLL;
+                          }
+
+                          else
+                          {
+                            v340 = v337;
+                          }
+
+                          if (v340)
+                          {
+                            std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long>>(v340);
+                          }
+
+                          v341 = v334 - v333;
+                          v342 = (v334 - v333) >> 3;
+                          v343 = (8 * v342);
+                          v344 = 8 * v342;
+                          if (!v342)
+                          {
+                            if (v341 < 1)
+                            {
+                              v347 = v341 >> 2;
+                              if (v334 == v333)
+                              {
+                                v348 = 1;
+                              }
+
+                              else
+                              {
+                                v348 = v347;
+                              }
+
+                              std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long>>(v348);
+                            }
+
+                            v343 = (v343 - (((v341 >> 1) + 4) & 0xFFFFFFFFFFFFFFF8));
+                            v344 = v343;
+                          }
+
+                          *v343 = *v406;
+                          v349 = v344 + 8;
+                          memcpy((v344 + 8), v334, v206[20] - v334);
+                          v350 = v206[19];
+                          v390 = (v349 + v206[20] - v334);
+                          v206[20] = v334;
+                          v351 = v334 - v350;
+                          v352 = v343 - (v334 - v350);
+                          memcpy(v352, v350, v351);
+                          v353 = v206[19];
+                          v206[19] = v352;
+                          *(v206 + 10) = v390;
+                          if (v353)
+                          {
+                            operator delete(v353);
+                          }
+                        }
+
+                        else if (v334 == v332)
+                        {
+                          *v332 = v331;
+                          v206[20] = (v332 + 8);
+                        }
+
+                        else
+                        {
+                          if (v332 < 8)
+                          {
+                            v336 = v206[20];
+                          }
+
+                          else
+                          {
+                            *v332 = *(v332 - 1);
+                            v336 = v332 + 8;
+                          }
+
+                          v206[20] = v336;
+                          if (v332 != v334 + 8)
+                          {
+                            memmove(v334 + 8, v334, v332 - (v334 + 8));
+                            v336 = v206[20];
+                          }
+
+                          v345 = v336 <= v406 || v334 > v406;
+                          v346 = 8;
+                          if (v345)
+                          {
+                            v346 = 0;
+                          }
+
+                          *v334 = *&v406[v346];
+                        }
+                      }
+
+                      v355 = v206[16];
+                      v354 = v206[17];
+                      v356 = *v406;
+                      if (v355 == v354)
+                      {
+                        goto LABEL_351;
+                      }
+
+                      while (1)
+                      {
+                        v357 = *v355;
+                        if (*v355 == *v406)
+                        {
+                          break;
+                        }
+
+                        v355 += 8;
+                        if (*v406 < v357 || v355 == v354)
+                        {
+                          goto LABEL_351;
+                        }
+                      }
+
+                      if (v355 == v354)
+                      {
+LABEL_351:
+                        v360 = gdc::Registry::storage<arComponents::IsVisible>(v206[15]);
+                        gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v360, v356);
+                        v361 = *v406;
+                        v362 = gdc::Registry::storage<arComponents::RequiresUpdateInRenderLayer<arComponents::IsVisible>>(v206[15]);
+                        gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v362, v361);
+                      }
+
+                      else
+                      {
+                        v359 = v354 - (v355 + 8);
+                        if (v354 != v355 + 8)
+                        {
+                          memmove(v355, v355 + 8, v354 - (v355 + 8));
+                        }
+
+                        v206[17] = &v355[v359];
+                      }
+
+                      ++v329;
+                    }
+
+                    goto LABEL_250;
+                  }
+                }
+              }
+            }
+
+            v237 = GEOGetVectorKitLabelExternalMeshLogicLog();
+            if (os_log_type_enabled(v237, OS_LOG_TYPE_ERROR))
+            {
+              v238 = *v219;
+              v239 = "ARFeatureShadow";
+              if (!*(v219 + 4))
+              {
+                v239 = "ARArrival";
+              }
+
+              *v406 = 67109378;
+              *&v406[4] = v238;
+              *&v406[8] = 2080;
+              *&v406[10] = v239;
+              _os_log_impl(&dword_1B2754000, v237, OS_LOG_TYPE_ERROR, "Labels is still tracking a deleted external mesh entity (id:%d type:%s)", v406, 0x12u);
+            }
+
+            v241 = v206[16];
+            v240 = v206[17];
+            if (v241 != v240)
+            {
+              while (1)
+              {
+                v242 = *v241;
+                if (*v241 == v222)
+                {
+                  break;
+                }
+
+                ++v241;
+                if (v222 < v242 || v241 == v240)
+                {
+                  goto LABEL_250;
+                }
+              }
+
+              if (v241 != v240)
+              {
+                v244 = v240 - (v241 + 1);
+                if (v240 != v241 + 1)
+                {
+                  memmove(v241, v241 + 1, v240 - (v241 + 1));
+                }
+
+                v206[17] = v241 + v244;
+              }
+            }
+
+LABEL_250:
+            if (++v218 == v217)
+            {
+              v215 = v206[16];
+              v363 = v206[17];
+              goto LABEL_354;
+            }
+          }
+        }
+
+        v363 = v216;
+LABEL_354:
+        v364 = v206[15];
+        if (v215 != v363)
+        {
+          do
+          {
+            v365 = *v215;
+            v366 = gdc::Registry::storage<arComponents::RequiresUpdateInRenderLayer<arComponents::IsVisible>>(v364);
+            gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v366, v365);
+            ++v215;
+          }
+
+          while (v215 != v363);
+          v364 = v206[15];
+          v215 = v206[16];
+          v363 = v206[17];
+        }
+
+        if (v215 != v363)
+        {
+          do
+          {
+            v367 = gdc::Registry::storage<arComponents::IsVisible>(v364);
+            gdc::ComponentStorageWrapper<arComponents::IsVisible>::remove(v367, *v215++);
+          }
+
+          while (v215 != v363);
+          v215 = v206[16];
+        }
+
+        v206[17] = v215;
+        if (v396 != v398)
+        {
+          free(v396);
+        }
+
+        *v406 = buf;
+        std::vector<std::shared_ptr<md::MuninRoadLabel>>::__destroy_vector::operator()[abi:nn200100](v406);
+      }
+    }
+  }
+}
+
 void sub_1B319CD84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, __int128 a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51)
 {
   if (a32 != a34)
@@ -199,7 +9673,7 @@ LABEL_24:
     goto LABEL_46;
   }
 
-  v32 = (v26[10] + v27 - v26[7]);
+  v32 = (v27 + v26[10] - v26[7]);
   *v32 = *a3;
   v32[1] = *(a3 + 4);
   v33 = v26[31];
@@ -356,9460 +9830,4 @@ double _ZNSt3__110__function6__funcIZN2md23LabelsExternalMeshLogic15runBeforeLay
   result = *a2 * *(**(a1 + 8) + 168);
   *a2 = result;
   return result;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2md23LabelsExternalMeshLogic15runBeforeLayoutERKNS2_13LayoutContextERKNS2_17LogicDependenciesIJN3gdc8TypeListIJNS2_13LabelsContextEEEENS9_IJEEEEE20ResolvedDependenciesERNS2_25LabelsExternalMeshContextEE3__1NS_9allocatorISJ_EEFvRN12arComponents12ScaleToApplyEbEE7__cloneEPNS0_6__baseISP_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A3BE80;
-  a2[1] = v2;
-  return result;
-}
-
-double _ZNSt3__110__function6__funcIZN2md23LabelsExternalMeshLogic15runBeforeLayoutERKNS2_13LayoutContextERKNS2_17LogicDependenciesIJN3gdc8TypeListIJNS2_13LabelsContextEEEENS9_IJEEEEE20ResolvedDependenciesERNS2_25LabelsExternalMeshContextEE3__0NS_9allocatorISJ_EEFvRN12arComponents28UpRelativeTranslationToApplyEbEEclESO_Ob(uint64_t a1, double *a2)
-{
-  result = *a2 + *(**(a1 + 8) + 120) * 0.0000000249532021;
-  *a2 = result;
-  return result;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2md23LabelsExternalMeshLogic15runBeforeLayoutERKNS2_13LayoutContextERKNS2_17LogicDependenciesIJN3gdc8TypeListIJNS2_13LabelsContextEEEENS9_IJEEEEE20ResolvedDependenciesERNS2_25LabelsExternalMeshContextEE3__0NS_9allocatorISJ_EEFvRN12arComponents28UpRelativeTranslationToApplyEbEE7__cloneEPNS0_6__baseISP_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A3BE08;
-  a2[1] = v2;
-  return result;
-}
-
-BOOL gdc::ComponentStorageWrapper<arComponents::RequiresUpdateInRenderLayer<arComponents::VisibilityAlpha>>::remove(void *a1, uint64_t a2)
-{
-  v8 = a2;
-  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
-  v4 = a1[8];
-  if (v4 != v3)
-  {
-    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
-    --a1[11];
-    v5 = a1[28];
-    if (v5)
-    {
-      v6 = a1[31];
-      do
-      {
-        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v5[6], v6, &v8, 1);
-        v5 = *v5;
-      }
-
-      while (v5);
-    }
-  }
-
-  return v4 != v3;
-}
-
-void gdc::ComponentStorageWrapper<arComponents::RequiresUpdateInRenderLayer<arComponents::VisibilityAlpha>>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v4 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t gdc::ComponentStorageWrapper<arComponents::RequiresUpdateInRenderLayer<arComponents::VisibilityAlpha>>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v5 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v5);
-  return a1;
-}
-
-BOOL gdc::ComponentStorageWrapper<arComponents::RequiresUpdateInRenderLayer<arComponents::WorldTransform>>::remove(void *a1, uint64_t a2)
-{
-  v8 = a2;
-  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
-  v4 = a1[8];
-  if (v4 != v3)
-  {
-    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
-    --a1[11];
-    v5 = a1[28];
-    if (v5)
-    {
-      v6 = a1[31];
-      do
-      {
-        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v5[6], v6, &v8, 1);
-        v5 = *v5;
-      }
-
-      while (v5);
-    }
-  }
-
-  return v4 != v3;
-}
-
-void gdc::ComponentStorageWrapper<arComponents::RequiresUpdateInRenderLayer<arComponents::WorldTransform>>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v4 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t gdc::ComponentStorageWrapper<arComponents::RequiresUpdateInRenderLayer<arComponents::WorldTransform>>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v5 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v5);
-  return a1;
-}
-
-BOOL gdc::Registry::remove<gdc::component::DataRequestObserver::Observer<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>>(uint64_t a1, uint64_t *a2)
-{
-  v3 = 0;
-  v4 = 0xCBF29CE484222325;
-  do
-  {
-    v4 = 0x100000001B3 * (v4 ^ aStdStringViewG_876[v3++ + 38]);
-  }
-
-  while (v3 != 112);
-  v5 = gdc::Registry::storage<gdc::component::DataRequestObserver::Observer<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>>(a1, v4);
-  v6 = *a2;
-
-  return gdc::ComponentStorageWrapper<gdc::component::DataRequestObserver::Observer<gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>>>::remove(v5, v6);
-}
-
-BOOL gdc::ComponentStorageWrapper<arComponents::LabelFeatureArrivalModel>::remove(void *a1, uint64_t a2)
-{
-  v11 = a2;
-  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
-  v4 = v3;
-  v5 = a1[8];
-  if (v5 != v3)
-  {
-    v6 = a1[10];
-    v7 = 2 * (v3 - a1[7]);
-    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
-    *(v6 + v7) = *(a1[11] - 16);
-    a1[11] -= 16;
-    v8 = a1[28];
-    if (v8)
-    {
-      v9 = a1[31];
-      do
-      {
-        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v8[6], v9, &v11, 1);
-        v8 = *v8;
-      }
-
-      while (v8);
-    }
-  }
-
-  return v5 != v4;
-}
-
-void gdc::ComponentStorageWrapper<arComponents::LabelFeatureArrivalModel>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v4 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t gdc::ComponentStorageWrapper<arComponents::LabelFeatureArrivalModel>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v5 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v5);
-  return a1;
-}
-
-BOOL gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>>::remove(void *a1, uint64_t a2)
-{
-  v16 = a2;
-  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
-  v4 = v3;
-  v5 = a1[8];
-  if (v5 != v3)
-  {
-    v6 = (a1[10] + 2 * (v3 - a1[7]));
-    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
-    v7 = a1[11];
-    v9 = *(v7 - 16);
-    v8 = *(v7 - 8);
-    if (v8)
-    {
-      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v10 = v6[1];
-    *v6 = v9;
-    v6[1] = v8;
-    if (v10)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v10);
-    }
-
-    v11 = a1[11];
-    v12 = *(v11 - 8);
-    if (v12)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v12);
-    }
-
-    a1[11] = v11 - 16;
-    v13 = a1[28];
-    if (v13)
-    {
-      v14 = a1[31];
-      do
-      {
-        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v13[6], v14, &v16, 1);
-        v13 = *v13;
-      }
-
-      while (v13);
-    }
-  }
-
-  return v5 != v4;
-}
-
-void gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v3 = (a1 + 80);
-  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v3);
-  v2 = *(a1 + 56);
-  if (v2)
-  {
-    *(a1 + 64) = v2;
-    operator delete(v2);
-  }
-
-  v3 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v3);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v4 = (a1 + 80);
-  std::vector<std::shared_ptr<md::TrafficDynamicTileResource>>::__destroy_vector::operator()[abi:nn200100](&v4);
-  v2 = *(a1 + 56);
-  if (v2)
-  {
-    *(a1 + 64) = v2;
-    operator delete(v2);
-  }
-
-  v4 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
-  return a1;
-}
-
-uint64_t gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>::_clearRequest(uint64_t a1, uint64_t a2, _BYTE *a3)
-{
-  v6 = gdc::Registry::storage<arComponents::XYPlaneMeshRequestData>(a1);
-  gdc::ComponentStorageWrapper<arComponents::XYPlaneMeshRequestData>::remove(v6, a2);
-  result = gdc::component::DataRequest<arComponents::XYPlaneMeshRequestData>::_removeStatusTag(a1, a2, *a3);
-  *a3 = 0;
-  return result;
-}
-
-void ___ZL40GEOGetVectorKitLabelExternalMeshLogicLogv_block_invoke()
-{
-  v0 = os_log_create("com.apple.VectorKit", "LabelExternalMeshLogic");
-  v1 = GEOGetVectorKitLabelExternalMeshLogicLog(void)::log;
-  GEOGetVectorKitLabelExternalMeshLogicLog(void)::log = v0;
-}
-
-uint64_t md::LabelsExternalMeshLogic::processPendingShadowRequests(void)::$_0::operator()(uint64_t a1, unint64_t a2)
-{
-  v2 = HIDWORD(a2);
-  v3 = gdc::Registry::storage<arComponents::XYPlaneMeshRequest>(*(*a1 + 120));
-  result = geo::sparse_set<gdc::Entity,unsigned short,256ul>::findIndex((v3 + 32), v2);
-  if (*(v3 + 64) == result)
-  {
-    operator new();
-  }
-
-  return result;
-}
-
-BOOL gdc::Registry::remove<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>,gdc::Entity *>(_BOOL8 result, uint64_t *a2, uint64_t *a3)
-{
-  if (a2 != a3)
-  {
-    v4 = a2;
-    v5 = result;
-    do
-    {
-      v6 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>>(v5);
-      v7 = *v4++;
-      result = gdc::ComponentStorageWrapper<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>>::remove(v6, v7);
-    }
-
-    while (v4 != a3);
-  }
-
-  return result;
-}
-
-char *geo::linear_map<md::LabelExternalMesh *,gdc::Entity,std::equal_to<md::LabelExternalMesh *>,std::allocator<std::pair<md::LabelExternalMesh *,gdc::Entity>>,std::vector<std::pair<md::LabelExternalMesh *,gdc::Entity>>>::operator[](uint64_t a1, uint64_t a2)
-{
-  v4 = *a1;
-  v3 = *(a1 + 8);
-  if (*a1 == v3)
-  {
-    goto LABEL_7;
-  }
-
-  v5 = *a1;
-  while (*v5 != a2)
-  {
-    v5 += 16;
-    if (v5 == v3)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if (v5 == v3)
-  {
-LABEL_7:
-    if (v4 == v3)
-    {
-      goto LABEL_13;
-    }
-
-    v5 = *a1;
-    while (*v5 != a2)
-    {
-      v5 += 16;
-      if (v5 == v3)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    if (v5 == v3)
-    {
-LABEL_13:
-      v6 = *(a1 + 16);
-      if (v3 >= v6)
-      {
-        v8 = v3 - v4;
-        v9 = (v3 - v4) >> 4;
-        v10 = v9 + 1;
-        if ((v9 + 1) >> 60)
-        {
-          std::__throw_bad_array_new_length[abi:nn200100]();
-        }
-
-        v11 = v6 - v4;
-        if (v11 >> 3 > v10)
-        {
-          v10 = v11 >> 3;
-        }
-
-        if (v11 >= 0x7FFFFFFFFFFFFFF0)
-        {
-          v12 = 0xFFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v12 = v10;
-        }
-
-        if (v12)
-        {
-          if (!(v12 >> 60))
-          {
-            operator new();
-          }
-
-          std::__throw_bad_array_new_length[abi:nn200100]();
-        }
-
-        v13 = v9;
-        v14 = (16 * v9);
-        *v14 = a2;
-        v14[1] = 0xFFFFFFFF00000000;
-        v7 = 16 * v9 + 16;
-        v15 = &v14[-2 * v13];
-        memcpy(v15, v4, v8);
-        *a1 = v15;
-        *(a1 + 8) = v7;
-        *(a1 + 16) = 0;
-        if (v4)
-        {
-          operator delete(v4);
-        }
-      }
-
-      else
-      {
-        *v3 = a2;
-        *(v3 + 1) = 0xFFFFFFFF00000000;
-        v7 = (v3 + 16);
-      }
-
-      *(a1 + 8) = v7;
-      v5 = (v7 - 16);
-    }
-  }
-
-  return v5 + 8;
-}
-
-void std::__shared_ptr_emplace<md::ARFeatureShadowExternalMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3BF88;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t gdc::Registry::storage<gdc::component::DataRequestObserver::IsFailed>(uint64_t a1)
-{
-  v3 = 0xBD48D0FDFECFEB54;
-  v1 = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>((a1 + 120), 0xBD48D0FDFECFEB54);
-  if (!v1)
-  {
-    operator new();
-  }
-
-  return v1[3];
-}
-
-void md::LabelsExternalMeshLogic::processPendingArrivalRequests(void)::$_0::operator()(void **a1, uint64_t a2, uint64_t a3)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  v14 = a2;
-  v6 = a1[1];
-  std::mutex::lock((a3 + 96));
-  v7 = *(a3 + 160);
-  if (v7)
-  {
-    atomic_store(1u, (v7 + 116));
-  }
-
-  std::mutex::lock((a3 + 96));
-  v8 = *(a3 + 176);
-  std::mutex::unlock((a3 + 96));
-  if (v8 != 4)
-  {
-    *(a3 + 176) = 3;
-  }
-
-  std::mutex::unlock((a3 + 96));
-  geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(*a1, &v14);
-  v9 = gdc::Registry::storage<arComponents::LabelFeatureArrivalModel>(v6[15]);
-  v10 = gdc::ComponentStorageWrapper<arComponents::RotationToApply>::get(v9, a2);
-  if (v10)
-  {
-    v11 = v10;
-    geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(*a1, v10);
-    geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(*a1, v11 + 1);
-  }
-
-  v12 = GEOGetVectorKitLabelExternalMeshLogicLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-  {
-    v13 = *(a3 + 8);
-    *buf = 67109890;
-    v16 = v13;
-    v17 = 2080;
-    v18 = "false";
-    v19 = 2080;
-    v20 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/src/LabelsExternalMeshLogic.mm";
-    v21 = 1024;
-    v22 = 440;
-    _os_log_impl(&dword_1B2754000, v12, OS_LOG_TYPE_ERROR, "Failed to fulfill request (id:%d): Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x22u);
-  }
-}
-
-void md::LabelsExternalMeshLogic::processPendingArrivalRequests(void)::$_1::operator()(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  v42 = *MEMORY[0x1E69E9840];
-  v35 = a2;
-  v8 = *a1;
-  v9 = *a4;
-  v10 = gdc::Registry::storage<arComponents::Boundary>(*(*a1 + 120));
-  v11 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(v10 + 4, HIDWORD(v9));
-  if (v10[8] == v11)
-  {
-    v14 = 1;
-  }
-
-  else
-  {
-    v12 = v10[10] + 24 * ((v11 - v10[7]) >> 3);
-    v13 = v12 == v10[11] || v12 == 0;
-    v14 = v13;
-    if (!v13)
-    {
-      operator new();
-    }
-  }
-
-  *buf = 0;
-  *v37 = 0;
-  v15 = md::LabelExternalMeshRequest::fulfillRequest(a3, buf);
-  if (*v37)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*v37);
-  }
-
-  if (v15)
-  {
-    v16 = GEOGetVectorKitLabelExternalMeshLogicLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
-    {
-      v17 = *(a3 + 8);
-      v18 = "ARFeatureShadow";
-      if (!*(a3 + 12))
-      {
-        v18 = "ARArrival";
-      }
-
-      *buf = 67109378;
-      *&buf[4] = v17;
-      *v37 = 2080;
-      *&v37[2] = v18;
-      _os_log_impl(&dword_1B2754000, v16, OS_LOG_TYPE_INFO, "Fulfilled request(id:%d) for external mesh type:%s", buf, 0x12u);
-    }
-
-    v19 = *(v8 + 120);
-    if (v14)
-    {
-      *v37 = 0;
-    }
-
-    else
-    {
-      atomic_fetch_add_explicit(8, 1uLL, memory_order_relaxed);
-      *v37 = 0;
-      atomic_fetch_add_explicit(8, 1uLL, memory_order_relaxed);
-    }
-
-    *buf = 0;
-    v22 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::LabelExternalMesh>>>(v19);
-    gdc::ComponentStorageWrapper<arComponents::TransformConstantDataComponent>::emplace(v22, a2, buf);
-    if (*v37)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](*v37);
-    }
-
-    if (v14)
-    {
-      v23 = *(v8 + 120);
-      *v37 = 0;
-    }
-
-    else
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](0);
-      v23 = *(v8 + 120);
-      *v37 = 0;
-      atomic_fetch_add_explicit(8, 1uLL, memory_order_relaxed);
-    }
-
-    *buf = 0;
-    v24 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMesh>>>(v23);
-    gdc::ComponentStorageWrapper<arComponents::TransformConstantDataComponent>::emplace(v24, a2, buf);
-    if (*v37)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](*v37);
-    }
-
-    v25 = *(v8 + 120);
-    v26 = *a4;
-    if (v14)
-    {
-      *v37 = 0;
-    }
-
-    else
-    {
-      atomic_fetch_add_explicit(8, 1uLL, memory_order_relaxed);
-      *v37 = 0;
-      atomic_fetch_add_explicit(8, 1uLL, memory_order_relaxed);
-    }
-
-    *buf = 0;
-    v27 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::LabelExternalMesh>>>(v25);
-    gdc::ComponentStorageWrapper<arComponents::TransformConstantDataComponent>::emplace(v27, v26, buf);
-    if (*v37)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](*v37);
-    }
-
-    if (v14)
-    {
-      v28 = *(v8 + 120);
-      v29 = *a4;
-      *v37 = 0;
-    }
-
-    else
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](0);
-      v28 = *(v8 + 120);
-      v29 = *a4;
-      *v37 = 0;
-      atomic_fetch_add_explicit(8, 1uLL, memory_order_relaxed);
-    }
-
-    *buf = 0;
-    v30 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::ARArrivalExternalMesh>>>(v28);
-    gdc::ComponentStorageWrapper<arComponents::TransformConstantDataComponent>::emplace(v30, v29, buf);
-    if (*v37)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](*v37);
-    }
-
-    v31 = *a4;
-    v32 = gdc::Registry::storage<arComponents::TransitionToRenderRegistry>(*(v8 + 120));
-    gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v32, v31);
-    v33 = a4[1];
-    v34 = gdc::Registry::storage<arComponents::TransitionToRenderRegistry>(*(v8 + 120));
-    gdc::ComponentStorageWrapper<md::components::QueuedForDestruction<>>::emplace(v34, v33);
-    *geo::linear_map<md::LabelExternalMesh *,gdc::Entity,std::equal_to<md::LabelExternalMesh *>,std::allocator<std::pair<md::LabelExternalMesh *,gdc::Entity>>,std::vector<std::pair<md::LabelExternalMesh *,gdc::Entity>>>::operator[](v8 + 176, 0) = a2;
-    geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(a1[1], &v35);
-  }
-
-  else
-  {
-    geo::small_vector_base<gdc::Entity>::emplace_back<gdc::Entity&>(a1[2], &v35);
-    v20 = GEOGetVectorKitLabelExternalMeshLogicLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      v21 = *(a3 + 8);
-      *buf = 67109890;
-      *&buf[4] = v21;
-      *v37 = 2080;
-      *&v37[2] = "false";
-      v38 = 2080;
-      v39 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/src/LabelsExternalMeshLogic.mm";
-      v40 = 1024;
-      v41 = 480;
-      _os_log_impl(&dword_1B2754000, v20, OS_LOG_TYPE_ERROR, "Failed to fulfill request (id:%d): Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x22u);
-    }
-  }
-
-  if ((v14 & 1) == 0)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](0);
-  }
-}
-
-void sub_1B319F7C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__shared_ptr_emplace<md::ARArrivalExternalMesh>::__on_zero_shared(uint64_t a1)
-{
-  v1 = *(a1 + 184);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
-  }
-}
-
-void std::__shared_ptr_emplace<md::ARArrivalExternalMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3BFC0;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t gdc::Registry::storage<gdc::component::DataRequestObserver::IsCompleted>(uint64_t a1)
-{
-  v3 = 0xB369A71FEF0EAB72;
-  v1 = std::__hash_table<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::unique_ptr<gdc::ComponentStorageWrapperBase>>>>::find<unsigned long>((a1 + 120), 0xB369A71FEF0EAB72);
-  if (!v1)
-  {
-    operator new();
-  }
-
-  return v1[3];
-}
-
-BOOL gdc::ComponentStorageWrapper<gdc::component::DataRequestObserver::IsCompleted>::remove(void *a1, uint64_t a2)
-{
-  v8 = a2;
-  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
-  v4 = a1[8];
-  if (v4 != v3)
-  {
-    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
-    --a1[11];
-    v5 = a1[28];
-    if (v5)
-    {
-      v6 = a1[31];
-      do
-      {
-        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v5[6], v6, &v8, 1);
-        v5 = *v5;
-      }
-
-      while (v5);
-    }
-  }
-
-  return v4 != v3;
-}
-
-void gdc::ComponentStorageWrapper<gdc::component::DataRequestObserver::IsCompleted>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v4 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t gdc::ComponentStorageWrapper<gdc::component::DataRequestObserver::IsCompleted>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v5 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v5);
-  return a1;
-}
-
-BOOL gdc::ComponentStorageWrapper<gdc::component::DataRequestObserver::IsFailed>::remove(void *a1, uint64_t a2)
-{
-  v8 = a2;
-  v3 = geo::sparse_set<gdc::Entity,unsigned short,256ul>::find(a1 + 4, HIDWORD(a2));
-  v4 = a1[8];
-  if (v4 != v3)
-  {
-    geo::sparse_set<gdc::Entity,unsigned short,256ul>::erase((a1 + 4), v3);
-    --a1[11];
-    v5 = a1[28];
-    if (v5)
-    {
-      v6 = a1[31];
-      do
-      {
-        std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>::operator()(v5[6], v6, &v8, 1);
-        v5 = *v5;
-      }
-
-      while (v5);
-    }
-  }
-
-  return v4 != v3;
-}
-
-void gdc::ComponentStorageWrapper<gdc::component::DataRequestObserver::IsFailed>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v4 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v4);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t gdc::ComponentStorageWrapper<gdc::component::DataRequestObserver::IsFailed>::~ComponentStorageWrapper(uint64_t a1)
-{
-  gdc::ComponentStorageSignals::~ComponentStorageSignals((a1 + 104));
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-    *(a1 + 64) = v3;
-    operator delete(v3);
-  }
-
-  v5 = (a1 + 32);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v5);
-  return a1;
-}
-
-_BYTE *md::Logic<md::LabelsExternalMeshLogic,md::LabelsExternalMeshContext,md::LogicDependencies<gdc::TypeList<md::LabelsContext>,gdc::TypeList<>>>::_debugConsoleString@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
-{
-  v8[2] = *MEMORY[0x1E69E9840];
-  if (*(a3 + 8) == 0xF409241CDA31AF08 && (v4 = *(a3 + 32)) != 0)
-  {
-    v8[0] = gdc::Context::context<md::LabelsContext>(*(a2 + 8));
-    return (*(*a1 + 160))(a1, a2, v8, v4);
-  }
-
-  else
-  {
-
-    return std::string::basic_string[abi:nn200100]<0>(a4, "");
-  }
-}
-
-uint64_t md::Logic<md::LabelsExternalMeshLogic,md::LabelsExternalMeshContext,md::LogicDependencies<gdc::TypeList<md::LabelsContext>,gdc::TypeList<>>>::_runAfterLayout(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  v6[2] = *MEMORY[0x1E69E9840];
-  if (*(a3 + 8) == 0xF409241CDA31AF08)
-  {
-    v3 = *(a3 + 32);
-    if (v3)
-    {
-      v5 = result;
-      v6[0] = gdc::Context::context<md::LabelsContext>(*(a2 + 8));
-      return (*(*v5 + 152))(v5, a2, v6, v3);
-    }
-  }
-
-  return result;
-}
-
-uint64_t md::Logic<md::LabelsExternalMeshLogic,md::LabelsExternalMeshContext,md::LogicDependencies<gdc::TypeList<md::LabelsContext>,gdc::TypeList<>>>::_runBeforeLayout(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  v6[2] = *MEMORY[0x1E69E9840];
-  if (*(a3 + 8) == 0xF409241CDA31AF08)
-  {
-    v3 = *(a3 + 32);
-    if (v3)
-    {
-      v5 = result;
-      v6[0] = gdc::Context::context<md::LabelsContext>(*(a2 + 8));
-      return (*(*v5 + 144))(v5, a2, v6, v3);
-    }
-  }
-
-  return result;
-}
-
-uint64_t md::Logic<md::LabelsExternalMeshLogic,md::LabelsExternalMeshContext,md::LogicDependencies<gdc::TypeList<md::LabelsContext>,gdc::TypeList<>>>::_runAfterLayoutAtVariableRate(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  v6[2] = *MEMORY[0x1E69E9840];
-  if (*(a3 + 8) == 0xF409241CDA31AF08)
-  {
-    v3 = *(a3 + 32);
-    if (v3)
-    {
-      v5 = result;
-      v6[0] = gdc::Context::context<md::LabelsContext>(*(a2 + 8));
-      return (*(*v5 + 136))(v5, a2, v6, v3);
-    }
-  }
-
-  return result;
-}
-
-uint64_t md::Logic<md::LabelsExternalMeshLogic,md::LabelsExternalMeshContext,md::LogicDependencies<gdc::TypeList<md::LabelsContext>,gdc::TypeList<>>>::_runBeforeLayoutAtVariableRate(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  v6[2] = *MEMORY[0x1E69E9840];
-  if (*(a3 + 8) == 0xF409241CDA31AF08)
-  {
-    v3 = *(a3 + 32);
-    if (v3)
-    {
-      v5 = result;
-      v6[0] = gdc::Context::context<md::LabelsContext>(*(a2 + 8));
-      return (*(*v5 + 128))(v5, a2, v6, v3);
-    }
-  }
-
-  return result;
-}
-
-uint64_t gdc::ObjectHolder<md::LabelsExternalMeshContext>::extract@<X0>(uint64_t result@<X0>, void *a2@<X8>)
-{
-  v2 = *(result + 32);
-  *(result + 32) = 0;
-  *a2 = v2;
-  return result;
-}
-
-void gdc::ManagedObjectHolder<md::LabelsExternalMeshContext>::~ManagedObjectHolder(void *a1)
-{
-  *a1 = &unk_1F2A3BFF8;
-  v1 = a1[4];
-  if (v1)
-  {
-    MEMORY[0x1B8C62190](v1, 0xC400A2AC0F1);
-  }
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *gdc::ManagedObjectHolder<md::LabelsExternalMeshContext>::~ManagedObjectHolder(void *a1)
-{
-  *a1 = &unk_1F2A3BFF8;
-  v2 = a1[4];
-  if (v2)
-  {
-    MEMORY[0x1B8C62190](v2, 0xC400A2AC0F1);
-  }
-
-  return a1;
-}
-
-void md::LabelsExternalMeshLogic::createDebugNode(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  std::string::basic_string[abi:nn200100]<0>(__p, "LabelExternalMeshLogic");
-  gdc::DebugTreeNode::DebugTreeNode(a2, __p);
-  if (v15 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v4 = *(a1 + 120);
-  if (v4)
-  {
-    v5 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::LabelExternalMeshRequest>>>(v4);
-    v6 = gdc::Registry::storage<arComponents::Wrap<std::shared_ptr<md::LabelExternalMesh>>>(*(a1 + 120));
-    std::string::basic_string[abi:nn200100]<0>(__p, "PendingRequests");
-    gdc::DebugTreeValue::DebugTreeValue(v11, (*(v5 + 88) - *(v5 + 80)) >> 4);
-    gdc::DebugTreeNode::addProperty(a2, __p, v11);
-    if (v13 < 0)
-    {
-      operator delete(v12);
-    }
-
-    if (v15 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    std::string::basic_string[abi:nn200100]<0>(__p, "ExternalMeshes");
-    ChildNode = gdc::DebugTreeNode::createChildNode(a2, __p);
-    if (v15 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    v8 = v6[7];
-    v9 = v6[8];
-    if (v8 != v9)
-    {
-      for (i = v6[10]; *(*i + 4) != 1; i += 16)
-      {
-        if (!*(*i + 4))
-        {
-          std::string::basic_string[abi:nn200100]<0>(__p, "ARArrival");
-          goto LABEL_16;
-        }
-
-LABEL_18:
-        v8 += 8;
-        if (v8 == v9)
-        {
-          return;
-        }
-      }
-
-      std::string::basic_string[abi:nn200100]<0>(__p, "ARFeatureShadow");
-LABEL_16:
-      gdc::DebugTreeNode::createChildNode(ChildNode, __p);
-      if (v15 < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      goto LABEL_18;
-    }
-  }
-}
-
-void sub_1B31A0544(_Unwind_Exception *a1)
-{
-  *(v2 - 72) = v1 + 72;
-  std::vector<gdc::DebugTreeProperty>::__destroy_vector::operator()[abi:nn200100]((v2 - 72));
-  *(v2 - 72) = v1 + 48;
-  std::vector<gdc::DebugTreeNode>::__destroy_vector::operator()[abi:nn200100]((v2 - 72));
-  if (*(v1 + 47) < 0)
-  {
-    operator delete(*(v1 + 24));
-  }
-
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void md::LabelsExternalMeshLogic::~LabelsExternalMeshLogic(md::LabelsExternalMeshLogic *this)
-{
-  md::LabelsExternalMeshLogic::~LabelsExternalMeshLogic(this);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-{
-  *this = &unk_1F2A3B5B8;
-  v2 = *(this + 22);
-  if (v2)
-  {
-    *(this + 23) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 19);
-  if (v3)
-  {
-    *(this + 20) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(this + 16);
-  if (v4)
-  {
-    *(this + 17) = v4;
-    operator delete(v4);
-  }
-
-  *this = off_1F2A578C0;
-  std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::destroy(*(this + 13));
-  std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::destroy(*(this + 10));
-}
-
-void md::Logic<md::LabelsExternalMeshLogic,md::LabelsExternalMeshContext,md::LogicDependencies<gdc::TypeList<md::LabelsContext>,gdc::TypeList<>>>::debugConsoleString(uint64_t a1@<X0>, gdc::DebugTreeNode *a2@<X8>)
-{
-  v3[12] = 0;
-  (*(*a1 + 56))(v3);
-  gdc::DebugTreeNode::toString(a2);
-}
-
-void ggl::VenueOpenToBelowShadowAlpha::MeshPipelineSetup::~MeshPipelineSetup(std::__shared_weak_count *this)
-{
-  ggl::PipelineSetup::~PipelineSetup(this);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void ggl::VenueOpenToBelowShadow::MeshPipelineSetup::~MeshPipelineSetup(std::__shared_weak_count *this)
-{
-  ggl::PipelineSetup::~PipelineSetup(this);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t ecs2::BasicRegistry<void>::storage<md::CollisionTrianglesDebug>(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CollisionTrianglesDebug>();
-  v2 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CollisionTrianglesDebug>(void)::metadata;
-  if (ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CollisionTrianglesDebug>(void)::metadata >= 0x200)
-  {
-    v3 = GEOGetGeoDisplayCoreDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
-    {
-      buf[0] = 136315650;
-      *&buf[1] = "componentMetadata.id < _pools.size()";
-      v6 = 2080;
-      v7 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/geo/GeoDisplayCore/GeoDisplayCore/ECSRegistry.hpp";
-      v8 = 1024;
-      LODWORD(v9) = 177;
-      _os_log_impl(&dword_1B2754000, v3, OS_LOG_TYPE_FAULT, "More components types that declared amount: Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x1Cu);
-    }
-  }
-
-  result = *(a1 + 4152 + 8 * v2);
-  if (!result)
-  {
-    operator new();
-  }
-
-  return result;
-}
-
-void geo::sparse_set<ecs2::Entity,unsigned short,256ul>::insert(uint64_t *a1, uint64_t a2)
-{
-  v4 = *(a2 + 2);
-  v5 = v4 >> 7;
-  v6 = *a1;
-  v7 = a1[1] - *a1;
-  if (v4 >> 7 >= v7 >> 3 || (v8 = *(v6 + 8 * v5)) == 0)
-  {
-    v10 = a1[4];
-LABEL_7:
-    v12 = v10;
-    goto LABEL_8;
-  }
-
-  v9 = *(v8 + 2 * (v4 & 0x7F));
-  v11 = a1[3];
-  v10 = a1[4];
-  if (v9 >= (v10 - v11) >> 2)
-  {
-    goto LABEL_7;
-  }
-
-  v12 = v11 + 4 * v9;
-  if (*(v12 + 2) != v4)
-  {
-    goto LABEL_7;
-  }
-
-LABEL_8:
-  if (v10 == v12)
-  {
-    v13 = a1[3];
-    v14 = v4 & 0x7F;
-    if (v5 >= v7 >> 3)
-    {
-      std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::resize(a1, v5 + 1);
-      v6 = *a1;
-    }
-
-    v15 = v12 - v13;
-    if (!*(v6 + 8 * v5))
-    {
-      operator new();
-    }
-
-    *(*(*a1 + 8 * v5) + 2 * v14) = v15 >> 2;
-    v17 = a1[4];
-    v16 = a1[5];
-    if (v17 >= v16)
-    {
-      v19 = a1[3];
-      v20 = (v17 - v19) >> 2;
-      if ((v20 + 1) >> 62)
-      {
-        std::__throw_bad_array_new_length[abi:nn200100]();
-      }
-
-      v21 = v16 - v19;
-      v22 = v21 >> 1;
-      if (v21 >> 1 <= (v20 + 1))
-      {
-        v22 = v20 + 1;
-      }
-
-      if (v21 >= 0x7FFFFFFFFFFFFFFCLL)
-      {
-        v23 = 0x3FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v23 = v22;
-      }
-
-      if (v23)
-      {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v23);
-      }
-
-      v24 = (4 * v20);
-      *v24 = *a2;
-      v18 = 4 * v20 + 4;
-      v25 = a1[3];
-      v26 = a1[4] - v25;
-      v27 = v24 - v26;
-      memcpy(v24 - v26, v25, v26);
-      v28 = a1[3];
-      a1[3] = v27;
-      a1[4] = v18;
-      a1[5] = 0;
-      if (v28)
-      {
-        operator delete(v28);
-      }
-    }
-
-    else
-    {
-      *v17 = *a2;
-      v18 = (v17 + 1);
-    }
-
-    a1[4] = v18;
-  }
-}
-
-uint64_t ecs2::BasicRegistry<void>::storage<md::CameraCollision>(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollision>();
-  v2 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollision>(void)::metadata;
-  if (ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollision>(void)::metadata >= 0x200)
-  {
-    v3 = GEOGetGeoDisplayCoreDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
-    {
-      buf[0] = 136315650;
-      *&buf[1] = "componentMetadata.id < _pools.size()";
-      v6 = 2080;
-      v7 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/geo/GeoDisplayCore/GeoDisplayCore/ECSRegistry.hpp";
-      v8 = 1024;
-      LODWORD(v9) = 177;
-      _os_log_impl(&dword_1B2754000, v3, OS_LOG_TYPE_FAULT, "More components types that declared amount: Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x1Cu);
-    }
-  }
-
-  result = *(a1 + 4152 + 8 * v2);
-  if (!result)
-  {
-    operator new();
-  }
-
-  return result;
-}
-
-uint64_t std::vector<std::variant<gm::Box<double,3>,gm::Sphere<double,3,std::enable_if<true,void>>,geo::OrientedBox<double,3u,double,double>>>::push_back[abi:nn200100](uint64_t *a1, uint64_t a2)
-{
-  v4 = a1[1];
-  v3 = a1[2];
-  if (v4 >= v3)
-  {
-    v7 = 0x6DB6DB6DB6DB6DB7 * ((v4 - *a1) >> 4);
-    if ((v7 + 1) > 0x249249249249249)
-    {
-      std::__throw_bad_array_new_length[abi:nn200100]();
-    }
-
-    v8 = 0x6DB6DB6DB6DB6DB7 * ((v3 - *a1) >> 4);
-    v9 = 2 * v8;
-    if (2 * v8 <= v7 + 1)
-    {
-      v9 = v7 + 1;
-    }
-
-    if (v8 >= 0x124924924924924)
-    {
-      v10 = 0x249249249249249;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    v19 = a1;
-    if (v10)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::variant<gm::Box<double,3>,gm::Sphere<double,3,std::enable_if<true,void>>,geo::OrientedBox<double,3u,double,double>>>>(v10);
-    }
-
-    v16 = 0;
-    v17 = 112 * v7;
-    std::__variant_detail::__move_constructor<std::__variant_detail::__traits<gm::Box<double,3>,gm::Sphere<double,3,std::enable_if<true,void>>,geo::OrientedBox<double,3u,double,double>>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:nn200100](112 * v7, a2);
-    v18 = (112 * v7 + 112);
-    v11 = a1[1];
-    v12 = 112 * v7 + *a1 - v11;
-    std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<std::variant<gm::Box<double,3>,gm::Sphere<double,3,std::enable_if<true,void>>,geo::OrientedBox<double,3u,double,double>>>,std::variant<gm::Box<double,3>,gm::Sphere<double,3,std::enable_if<true,void>>,geo::OrientedBox<double,3u,double,double>>*>(*a1, v11, v12);
-    v13 = *a1;
-    *a1 = v12;
-    v14 = a1[2];
-    v15 = v18;
-    *(a1 + 1) = v18;
-    *&v18 = v13;
-    *(&v18 + 1) = v14;
-    v16 = v13;
-    v17 = v13;
-    result = std::__split_buffer<std::variant<gm::Box<double,3>,gm::Sphere<double,3,std::enable_if<true,void>>,geo::OrientedBox<double,3u,double,double>>>::~__split_buffer(&v16);
-    v6 = v15;
-  }
-
-  else
-  {
-    result = std::__variant_detail::__move_constructor<std::__variant_detail::__traits<gm::Box<double,3>,gm::Sphere<double,3,std::enable_if<true,void>>,geo::OrientedBox<double,3u,double,double>>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:nn200100](a1[1], a2);
-    v6 = v4 + 112;
-    a1[1] = v4 + 112;
-  }
-
-  a1[1] = v6;
-  return result;
-}
-
-uint64_t ecs2::BasicRegistry<void>::storage<md::CameraCollisionPathDebug>(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionPathDebug>();
-  v2 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionPathDebug>(void)::metadata;
-  if (ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionPathDebug>(void)::metadata >= 0x200)
-  {
-    v3 = GEOGetGeoDisplayCoreDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
-    {
-      buf[0] = 136315650;
-      *&buf[1] = "componentMetadata.id < _pools.size()";
-      v6 = 2080;
-      v7 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/geo/GeoDisplayCore/GeoDisplayCore/ECSRegistry.hpp";
-      v8 = 1024;
-      LODWORD(v9) = 177;
-      _os_log_impl(&dword_1B2754000, v3, OS_LOG_TYPE_FAULT, "More components types that declared amount: Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x1Cu);
-    }
-  }
-
-  result = *(a1 + 4152 + 8 * v2);
-  if (!result)
-  {
-    operator new();
-  }
-
-  return result;
-}
-
-uint64_t ecs2::BasicRegistry<void>::storage<md::CameraCollisionVolumeDebug>(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionVolumeDebug>();
-  v2 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionVolumeDebug>(void)::metadata;
-  if (ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionVolumeDebug>(void)::metadata >= 0x200)
-  {
-    v3 = GEOGetGeoDisplayCoreDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
-    {
-      buf[0] = 136315650;
-      *&buf[1] = "componentMetadata.id < _pools.size()";
-      v6 = 2080;
-      v7 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/geo/GeoDisplayCore/GeoDisplayCore/ECSRegistry.hpp";
-      v8 = 1024;
-      LODWORD(v9) = 177;
-      _os_log_impl(&dword_1B2754000, v3, OS_LOG_TYPE_FAULT, "More components types that declared amount: Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x1Cu);
-    }
-  }
-
-  result = *(a1 + 4152 + 8 * v2);
-  if (!result)
-  {
-    operator new();
-  }
-
-  return result;
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionVolumeDebug>()
-{
-  {
-    {
-      gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::CameraCollisionVolumeDebug>(void)::localId = atomic_fetch_add(&gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::Counter::nextId(void)::counter, 1uLL);
-    }
-
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionVolumeDebug>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::CameraCollisionVolumeDebug>(void)::localId;
-    unk_1EB845E20 = 0x6347220B58E4F5B2;
-    qword_1EB845E28 = "md::CameraCollisionVolumeDebug]";
-    qword_1EB845E30 = 30;
-  }
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md26CameraCollisionVolumeDebugEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESB_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISJ_EEFvSI_EEclEOSI_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionVolumeDebug>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionVolumeDebug>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::CameraCollisionVolumeDebug>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = 0;
-        v14 = *(v8 + 4 * v9 + 2);
-        v15 = ((v10[5] - v10[4]) >> 2) - 1;
-        v16 = v10[7];
-        v17 = *(v16 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 40 * (v15 & 0x3F);
-        v18 = *(v16 + ((v14 >> 3) & 0x1FF8)) + 40 * (v14 & 0x3F);
-        v21 = *v18;
-        v22 = *(v18 + 16);
-        v19 = *(v18 + 24);
-        v20 = *(v18 + 32);
-        do
-        {
-          *(v18 + v13) = *(v17 + v13);
-          v13 += 8;
-        }
-
-        while (v13 != 24);
-        *(v18 + 24) = *(v17 + 24);
-        *(v18 + 32) = *(v17 + 32);
-        *v17 = v21;
-        *(v17 + 16) = v22;
-        *(v17 + 24) = v19;
-        *(v17 + 32) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionVolumeDebug>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionVolumeDebug>(void)::metadata) = *(v3 + 4096);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md26CameraCollisionVolumeDebugEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESB_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISJ_EEFvSI_EE7__cloneEPNS0_6__baseISM_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A444C8;
-  a2[1] = v2;
-  return result;
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::CameraCollisionVolumeDebug,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A44488;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::CameraCollisionVolumeDebug,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::CameraCollisionVolumeDebug,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A444A8;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::CameraCollisionVolumeDebug,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::CameraCollisionVolumeDebug,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::CameraCollisionVolumeDebug,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A44488;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::CameraCollisionVolumeDebug,64ul>::~storage(a1);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionPathDebug>()
-{
-  {
-    {
-      gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::CameraCollisionPathDebug>(void)::localId = atomic_fetch_add(&gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::Counter::nextId(void)::counter, 1uLL);
-    }
-
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionPathDebug>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::CameraCollisionPathDebug>(void)::localId;
-    *algn_1EB845E98 = 0x3DEA0A6965AEDF5DLL;
-    qword_1EB845EA0 = "md::CameraCollisionPathDebug]";
-    qword_1EB845EA8 = 28;
-  }
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md24CameraCollisionPathDebugEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESB_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISJ_EEFvSI_EEclEOSI_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionPathDebug>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionPathDebug>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::CameraCollisionPathDebug>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = 0;
-        v14 = *(v8 + 4 * v9 + 2);
-        v15 = ((v10[5] - v10[4]) >> 2) - 1;
-        v16 = v10[7];
-        v17 = *(v16 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 56 * (v15 & 0x3F);
-        v18 = *(v16 + ((v14 >> 3) & 0x1FF8)) + 56 * (v14 & 0x3F);
-        v23 = *v18;
-        *v24 = *(v18 + 16);
-        *&v24[16] = *(v18 + 32);
-        v19 = *(v18 + 48);
-        do
-        {
-          *(v18 + v13) = *(v17 + v13);
-          v13 += 8;
-        }
-
-        while (v13 != 24);
-        v20 = 0;
-        v21 = (v17 + 24);
-        do
-        {
-          *(v18 + 24 + v20) = *(v21 + v20);
-          v20 += 8;
-        }
-
-        while (v20 != 24);
-        *(v18 + 48) = *(v17 + 48);
-        *v17 = v23;
-        *(v17 + 16) = *v24;
-        *v21 = *&v24[8];
-        *(v17 + 40) = *&v24[24];
-        *(v17 + 48) = v19;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  v22 = *(v3 + 41016) + (v2 >> 16 << 6);
-  *(v22 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionPathDebug>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollisionPathDebug>(void)::metadata) = *(v3 + 4096);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md24CameraCollisionPathDebugEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESB_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISJ_EEFvSI_EE7__cloneEPNS0_6__baseISM_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A44738;
-  a2[1] = v2;
-  return result;
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::CameraCollisionPathDebug,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A446F8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::CameraCollisionPathDebug,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::CameraCollisionPathDebug,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A44718;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::CameraCollisionPathDebug,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::CameraCollisionPathDebug,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::CameraCollisionPathDebug,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A446F8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::CameraCollisionPathDebug,64ul>::~storage(a1);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollision>()
-{
-  {
-    {
-      gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::CameraCollision>(void)::localId = atomic_fetch_add(&gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::Counter::nextId(void)::counter, 1uLL);
-    }
-
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollision>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::CameraCollision>(void)::localId;
-    *algn_1EB845DE8 = 0xAF52E84D5C37AC91;
-    qword_1EB845DF0 = "md::CameraCollision]";
-    qword_1EB845DF8 = 19;
-  }
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md15CameraCollisionEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESB_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISJ_EEFvSI_EEclEOSI_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollision>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollision>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::CameraCollision>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = 0;
-        v14 = *(v8 + 4 * v9 + 2);
-        v15 = ((v10[5] - v10[4]) >> 2) - 1;
-        v16 = v10[7];
-        v17 = *(v16 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 72 * (v15 & 0x3F);
-        v18 = *(v16 + ((v14 >> 3) & 0x1FF8)) + 72 * (v14 & 0x3F);
-        *&v24[16] = *(v18 + 32);
-        v25 = *(v18 + 48);
-        v26 = *(v18 + 64);
-        v23 = *v18;
-        *v24 = *(v18 + 16);
-        do
-        {
-          *(v18 + v13) = *(v17 + v13);
-          v13 += 8;
-        }
-
-        while (v13 != 24);
-        v19 = 0;
-        v20 = (v17 + 24);
-        do
-        {
-          *(v18 + 24 + v19) = *(v20 + v19);
-          v19 += 8;
-        }
-
-        while (v19 != 24);
-        v21 = *(v17 + 48);
-        *(v18 + 64) = *(v17 + 64);
-        *(v18 + 48) = v21;
-        *v17 = v23;
-        *(v17 + 16) = *v24;
-        *v20 = *&v24[8];
-        *(v17 + 40) = *&v24[24];
-        *(v17 + 48) = v25;
-        *(v17 + 64) = v26;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  v22 = *(v3 + 41016) + (v2 >> 16 << 6);
-  *(v22 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollision>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CameraCollision>(void)::metadata) = *(v3 + 4096);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md15CameraCollisionEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESB_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISJ_EEFvSI_EE7__cloneEPNS0_6__baseISM_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A443D0;
-  a2[1] = v2;
-  return result;
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::CameraCollision,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A44390;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::CameraCollision,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::CameraCollision,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A443B0;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::CameraCollision,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::CameraCollision,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::CameraCollision,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A44390;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::CameraCollision,64ul>::~storage(a1);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CollisionTrianglesDebug>()
-{
-  {
-    {
-      gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::CollisionTrianglesDebug>(void)::localId = atomic_fetch_add(&gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::Counter::nextId(void)::counter, 1uLL);
-    }
-
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CollisionTrianglesDebug>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::CollisionTrianglesDebug>(void)::localId;
-    unk_1EB845E60 = 0x2031092DD0D95BB0;
-    qword_1EB845E68 = "md::CollisionTrianglesDebug]";
-    qword_1EB845E70 = 27;
-  }
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md23CollisionTrianglesDebugEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESB_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISJ_EEFvSI_EEclEOSI_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CollisionTrianglesDebug>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CollisionTrianglesDebug>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::CollisionTrianglesDebug>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 24 * (v14 & 0x3F);
-        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 24 * (v13 & 0x3F);
-        v18 = *v17;
-        v19 = *(v17 + 16);
-        *v17 = 0;
-        *(v17 + 8) = 0;
-        *(v17 + 16) = 0;
-        *v17 = *v16;
-        *(v17 + 16) = *(v16 + 16);
-        *v16 = v18;
-        *(v16 + 16) = v19;
-        if (v18)
-        {
-          *(v16 + 8) = v18;
-          operator delete(v18);
-        }
-
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CollisionTrianglesDebug>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::CollisionTrianglesDebug>(void)::metadata) = *(v3 + 4096);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md23CollisionTrianglesDebugEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESB_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISJ_EEFvSI_EE7__cloneEPNS0_6__baseISM_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A44668;
-  a2[1] = v2;
-  return result;
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::CollisionTrianglesDebug,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A44628;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::CollisionTrianglesDebug,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::CollisionTrianglesDebug,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A44648;
-  v2 = a1[4];
-  v3 = a1[5];
-  if (v3 != v2)
-  {
-    v4 = 0;
-    do
-    {
-      v5 = *(a1[7] + ((v4 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 24 * (v4 & 0x3F);
-      v6 = *v5;
-      if (*v5)
-      {
-        *(v5 + 8) = v6;
-        operator delete(v6);
-        v2 = a1[4];
-        v3 = a1[5];
-      }
-
-      ++v4;
-    }
-
-    while (v4 < (v3 - v2) >> 2);
-  }
-
-  if (v3 != v2)
-  {
-    do
-    {
-      v2 = ecs2::sparse_set<ecs2::Entity,64ul>::erase(a1, v2);
-    }
-
-    while (a1[5] != v2);
-  }
-
-  v7 = a1[7];
-  v8 = a1[8];
-  while (v7 != v8)
-  {
-    if (*v7)
-    {
-      operator delete(*v7);
-    }
-
-    ++v7;
-  }
-
-  v9 = a1[10];
-  if (v9)
-  {
-    a1[11] = v9;
-    operator delete(v9);
-  }
-
-  v10 = a1[7];
-  if (v10)
-  {
-    a1[8] = v10;
-    operator delete(v10);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::CollisionTrianglesDebug,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::CollisionTrianglesDebug,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::CollisionTrianglesDebug,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A44628;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::CollisionTrianglesDebug,64ul>::~storage(a1);
-}
-
-void md::BVHDebugLogic::~BVHDebugLogic(md::BVHDebugLogic *this)
-{
-  *this = &unk_1F2A3C100;
-  v2 = *(this + 20);
-  if (v2)
-  {
-    *(this + 21) = v2;
-    operator delete(v2);
-  }
-
-  v3 = (this + 136);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v3);
-  *this = off_1F2A578C0;
-  std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::destroy(*(this + 13));
-  std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::destroy(*(this + 10));
-
-  JUMPOUT(0x1B8C62190);
-}
-
-{
-  *this = &unk_1F2A3C100;
-  v2 = *(this + 20);
-  if (v2)
-  {
-    *(this + 21) = v2;
-    operator delete(v2);
-  }
-
-  v3 = (this + 136);
-  std::vector<std::unique_ptr<std::array<unsigned short,128ul>>>::__destroy_vector::operator()[abi:nn200100](&v3);
-  *this = off_1F2A578C0;
-  std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::destroy(*(this + 13));
-  std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::destroy(*(this + 10));
-}
-
-void sub_1B31A301C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, std::__shared_weak_count *a20, char a21)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a21 == 1)
-  {
-    (*(*a17 + 56))(a17);
-  }
-
-  if (a20)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](a20);
-  }
-
-  if (a18)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](a18);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long> const&>,std::tuple<>>(void *a1, unint64_t a2, uint64_t a3)
-{
-  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
-  v5 = (a3 + 0x77FA823ACE0B5A40 * (v4 ^ (v4 >> 47)) + ((0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47))) >> 2) - 0x61C8864680B583EBLL) ^ (0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47)));
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_22;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
-  {
-    v8 = (a3 + 0x77FA823ACE0B5A40 * (v4 ^ (v4 >> 47)) + ((0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47))) >> 2) - 0x61C8864680B583EBLL) ^ (0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47)));
-    if (v5 >= *&v6)
-    {
-      v8 = v5 % *&v6;
-    }
-  }
-
-  else
-  {
-    v8 = v5 & (*&v6 - 1);
-  }
-
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
-  {
-LABEL_22:
-    operator new();
-  }
-
-  while (1)
-  {
-    v11 = v10[1];
-    if (v11 == v5)
-    {
-      break;
-    }
-
-    if (v7.u32[0] > 1uLL)
-    {
-      if (v11 >= *&v6)
-      {
-        v11 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v11 &= *&v6 - 1;
-    }
-
-    if (v11 != v8)
-    {
-      goto LABEL_22;
-    }
-
-LABEL_21:
-    v10 = *v10;
-    if (!v10)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  if (v10[2] != a2 || v10[3] != a3)
-  {
-    goto LABEL_21;
-  }
-
-  return v10;
-}
-
-uint64_t std::__function::__value_func<void ()(gm::Range<unsigned long> const&,gm::Range<unsigned long> const&,ggl::DataWrite<ggl::Venue3DStroke::HorizontalDefaultVbo> &,ggl::DataWrite<unsigned short> &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(gm::Range<unsigned long> const&,gm::Range<unsigned long> const&,ggl::DataWrite<ggl::Venue3DStroke::VerticalDefaultVbo> &,ggl::DataWrite<unsigned short> &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t numberOfStyleChanges(uint64_t a1, unint64_t a2, unsigned __int8 *a3)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v3 = 0;
-  v4 = 0;
-  do
-  {
-    v5 = *a3;
-    a3 += 12;
-    if (v5 == 1 && ((*(a1 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v3) & 1) == 0)
-    {
-      v4 += (~*(a1 + ((((a2 + v3 - 1) % a2) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> ((a2 + v3 - 1) % a2)) & 1;
-    }
-
-    ++v3;
-  }
-
-  while (a2 != v3);
-  return v4;
-}
-
-uint64_t std::__function::__value_func<void ()(gm::Range<unsigned long> const&,gm::Range<unsigned long> const&,ggl::DataWrite<ggl::VenueWall::DefaultVbo> &,ggl::DataWrite<unsigned short> &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(gm::Range<unsigned long> const&,gm::Range<unsigned long> const&,ggl::DataWrite<ggl::VenueWall::EndCapVbo> &,ggl::DataWrite<unsigned short> &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void std::__shared_ptr_emplace<ggl::Venue3DStroke::VerticalVenue3DStrokeMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C520;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::Venue3DStroke::HorizontalVenue3DStrokeMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C4E8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::VenueWall::EndCapMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C4B0;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::VenueWall::MeshMesh>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C478;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void sub_1B31A73D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1B31A8310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, std::__shared_weak_count *a31)
-{
-  if (a31)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](a31);
-  }
-
-  std::unique_ptr<md::MeshSetStorage>::reset[abi:nn200100](v33 + 20, 0);
-  ggl::BufferMemory::~BufferMemory((v33 + 12));
-  ggl::BufferMemory::~BufferMemory((v33 + 6));
-  *(v34 - 144) = v32;
-  std::vector<std::shared_ptr<md::MuninRoadLabel>>::__destroy_vector::operator()[abi:nn200100]((v34 - 144));
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void std::__shared_ptr_emplace<ggl::VertexDataTyped<ggl::Venue3DStroke::VerticalDefaultVbo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C400;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::VertexDataTyped<ggl::Venue3DStroke::HorizontalDefaultVbo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C340;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void non-virtual thunk toggl::VertexDataTyped<ggl::VenueWall::EndCapVbo>::~VertexDataTyped(uint64_t a1)
-{
-  ggl::VertexData::~VertexData((a1 - 200));
-
-  JUMPOUT(0x1B8C62190);
-}
-
-{
-  ggl::VertexData::~VertexData((a1 - 200));
-}
-
-void ggl::VertexDataTyped<ggl::VenueWall::EndCapVbo>::~VertexDataTyped(ggl::VertexData *a1)
-{
-  ggl::VertexData::~VertexData(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::VertexDataTyped<ggl::VenueWall::EndCapVbo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C2C0;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void non-virtual thunk toggl::VertexDataTyped<ggl::VenueWall::DefaultVbo>::~VertexDataTyped(uint64_t a1)
-{
-  ggl::VertexData::~VertexData((a1 - 200));
-
-  JUMPOUT(0x1B8C62190);
-}
-
-{
-  ggl::VertexData::~VertexData((a1 - 200));
-}
-
-void ggl::VertexDataTyped<ggl::VenueWall::DefaultVbo>::~VertexDataTyped(ggl::VertexData *a1)
-{
-  ggl::VertexData::~VertexData(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::VertexDataTyped<ggl::VenueWall::DefaultVbo>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C240;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t geo::MarkedLRUCache<md::Label *,gm::Matrix<double,3,1>,std::hash<md::Label *>,std::equal_to<md::Label *>>::find(uint64_t a1, unint64_t a2)
-{
-  if (std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,mdm::zone_mallocator>>::find<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>((a1 + 24), a2))
-  {
-    operator new();
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(gm::Matrix<double,4,4> const&,arComponents::LocalBounds const&)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(gm::Matrix<double,4,4> const&,gm::Box<float,3> const&)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(gdc::Tiled const*)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-double std::__function::__func<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_3,std::allocator<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_3>,void ()(gdc::Tiled const*)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = 1 << *(*a2 + 1);
-  v4 = 1.0 / v3;
-  v5 = v4 * (v3 + ~*(*a2 + 4));
-  v8.n128_f64[0] = v4 * *(*a2 + 8);
-  v8.n128_f64[1] = v5;
-  v9 = v8.n128_f64[0] + v4;
-  v10 = v5 + v4;
-  v7 = -16711681;
-  md::DebugConsoleMapRect::drawWorldRect(v2, &v8, &v7, 0);
-  return result;
-}
-
-uint64_t std::__function::__func<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_3,std::allocator<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_3>,void ()(gdc::Tiled const*)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A3C750;
-  a2[1] = v2;
-  return result;
-}
-
-void std::__function::__func<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_2,std::allocator<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_2>,void ()(gm::Matrix<double,4,4> const&,gm::Box<float,3> const&)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = 0;
-  v11[4] = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 8);
-  do
-  {
-    v8[0].n128_f64[v4] = *(a3 + 4 * v4);
-    ++v4;
-  }
-
-  while (v4 != 3);
-  do
-  {
-    v8[0].n128_f64[v4] = *(a3 + 4 * v4);
-    ++v4;
-  }
-
-  while (v4 != 6);
-  v9 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
-  *v10 = xmmword_1B33B0520;
-  *&v10[16] = vdupq_n_s64(0xFFEFFFFFFFFFFFFFLL);
-  v11[0] = &unk_1F2A61070;
-  v11[1] = &v9;
-  v11[2] = a2;
-  v11[3] = v11;
-  gm::Box<double,3>::forEachCorner(v8, v11);
-  std::__function::__value_func<void ()(gm::Matrix<double,3,1> &)>::~__value_func[abi:nn200100](v11);
-  v8[0] = v9;
-  v8[1] = *&v10[8];
-  v6 = *(a1 + 16);
-  if (*(*(v5 + 2208) + 129) == 1)
-  {
-    v7 = -16776961;
-  }
-
-  else
-  {
-    v7 = 0x80000000;
-  }
-
-  LODWORD(v11[0]) = v7;
-  md::DebugConsoleMapRect::drawWorldRect(v6, v8, v11, 0);
-}
-
-__n128 std::__function::__func<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_2,std::allocator<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_2>,void ()(gm::Matrix<double,4,4> const&,gm::Box<float,3> const&)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F2A3C708;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-void std::__function::__func<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_1,std::allocator<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_1>,void ()(gm::Matrix<double,4,4> const&,arComponents::LocalBounds const&)>::operator()(uint64_t a1, double *a2, uint64_t a3)
-{
-  v6 = *(a1 + 8);
-  if ((*(a3 + 160) & 1) == 0)
-  {
-    memset(v29, 0, sizeof(v29));
-    memset(v28, 0, sizeof(v28));
-    __p[0] = 0;
-    __p[1] = 0;
-    v26 = 0.0;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    *v27 = _Q0;
-    geo::DiscreteOrientedPolytope<arComponents::XY26DOPTraits<float>>::extractVertices(a3, v28, __p);
-  }
-
-  v12 = *(a3 + 136);
-  v13 = *(a3 + 144);
-  if (v13 != v12)
-  {
-    v14 = 0;
-    do
-    {
-      *__p = *(v12 + 16 * v14);
-      v26 = 0.0;
-      v15 = gm::Matrix<double,4,4>::multiplyHomogeneous<int,void>(a2, __p);
-      v17 = v16;
-      if (v14 < ((v13 - v12) >> 4) - 1)
-      {
-        v18 = v14 + 1;
-      }
-
-      else
-      {
-        v18 = 0;
-      }
-
-      *__p = *(v12 + 16 * v18);
-      v26 = 0.0;
-      v19 = gm::Matrix<double,4,4>::multiplyHomogeneous<int,void>(a2, __p);
-      v20 = *(a1 + 16);
-      v21 = v19 - v15;
-      v23 = v22 - *&v17;
-      if (*(*(v6 + 2208) + 128) == 1)
-      {
-        v24 = -16776961;
-      }
-
-      else
-      {
-        v24 = 0x80000000;
-      }
-
-      LODWORD(v29[0]) = v24;
-      __p[0] = *&v15;
-      __p[1] = v17;
-      v26 = v21;
-      v27[0] = v23;
-      md::DebugConsoleMapRect::drawWorldSegment(v20, __p, v29);
-      ++v14;
-      v12 = *(a3 + 136);
-      v13 = *(a3 + 144);
-    }
-
-    while (v14 < (v13 - v12) >> 4);
-  }
-}
-
-__n128 std::__function::__func<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_1,std::allocator<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_1>,void ()(gm::Matrix<double,4,4> const&,arComponents::LocalBounds const&)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F2A3C6C0;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-BOOL std::__function::__func<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_0,std::allocator<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_0>,BOOL ()(gm::Box<double,3> const&)>::operator()(uint64_t a1, __int128 *a2)
-{
-  v2 = 0;
-  v3 = 0;
-  v4 = &v11;
-  v5 = *(a2 + 24);
-  v11 = *a2;
-  v12 = v5;
-  v6 = *(a1 + 8);
-  v7 = v6 + 24;
-  v8 = v6 + 40;
-  while (*(v8 + 8 * v3) > *v4)
-  {
-    result = *(v7 + 8 * v3) >= *(&v12 + v3);
-    v10 = v2 | result;
-    v2 = 1;
-    v4 = &v11 + 1;
-    v3 = 1;
-    if (v10)
-    {
-      return result;
-    }
-  }
-
-  return 1;
-}
-
-uint64_t std::__function::__func<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_0,std::allocator<md::ARWalkingLabeler::debugDrawMiniMap(md::DebugConsole *)::$_0>,BOOL ()(gm::Box<double,3> const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F2A3C678;
-  a2[1] = v2;
-  return result;
-}
-
-void md::ARWalkingLabeler::debugString(md::ARWalkingLabeler *this@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  md::ARWalkingLabeler::debugOutputLabelState(this, v4);
-  std::string::basic_string[abi:nn200100]<0>(a2, -[NSMutableString UTF8String](v4, "UTF8String"));
-}
-
-void md::ARWalkingLabeler::debugOutputLabelState(md::ARWalkingLabeler *this, NSMutableString *a2)
-{
-  v5 = a2;
-  BOOL = GEOConfigGetBOOL();
-  v6 = *(this + 3);
-  v7 = *(this + 257);
-
-  v105 = v5;
-  v102 = this;
-  if (v7)
-  {
-    v8 = *(this + 257);
-    v9 = [v8 routeInfo];
-    v10 = [v9 route];
-
-    v110 = v10;
-    [v10 pointAtRouteCoordinate:*(*(v102 + 3) + 3600)];
-    v12 = v11;
-    v3 = v13;
-    v2 = v14;
-  }
-
-  else
-  {
-    v110 = 0;
-    v12 = 0.0;
-  }
-
-  [(NSMutableString *)v5 appendString:@"ARWalkingLabeler\n"];
-  v15 = *(v102 + 2203);
-  if (v15 > 3)
-  {
-    v16 = "<Invalid>";
-  }
-
-  else
-  {
-    v16 = off_1E7B3CF50[v15];
-  }
-
-  v17 = *(v102 + 2200);
-  if (v17 > 3)
-  {
-    v18 = "<Invalid>";
-  }
-
-  else
-  {
-    v18 = off_1E7B3B9C0[v17];
-  }
-
-  [(NSMutableString *)v5 appendFormat:@"  arSessionState:%s|%s\n", v16, v18];
-  v19 = *(*(v102 + 55) + 448);
-  if (v19 && (v20 = [v19 state], (v20 - 1) <= 4))
-  {
-    v21 = *(&off_1E7B3B998 + v20 - 1);
-  }
-
-  else
-  {
-    v21 = @"VKARWalkingFeatureSetStateNone";
-  }
-
-  [(NSMutableString *)v5 appendFormat:@"  featureSetState:%@\n", v21];
-  [(NSMutableString *)v5 appendFormat:@"  featureCount:%lu\n", 0xAAAAAAAAAAAAAAABLL * ((*(*(v102 + 55) + 472) - *(*(v102 + 55) + 464)) >> 3)];
-  v22 = *(v102 + 276);
-  v23 = *(v102 + 277);
-  if (v23)
-  {
-    atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v25 = v24;
-  if (v22)
-  {
-    if (*(v22 + 128) == 1)
-    {
-      [v24 addObject:@"Building"];
-    }
-
-    if (*(v22 + 129) == 1)
-    {
-      [v25 addObject:@"Ground"];
-    }
-  }
-
-  v26 = [v25 componentsJoinedByString:@"|"];
-
-  [(NSMutableString *)v5 appendFormat:@"  avoidanceTypes:%@\n", v26];
-  if (v23)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v23);
-  }
-
-  v27 = GEOPolylineCoordinateAsShortString();
-  [(NSMutableString *)v5 appendFormat:@"  userRouteOffset:%@\n", v27];
-
-  [(NSMutableString *)v5 appendFormat:@"  eye:%f, %f, %f\n", *(v102 + 51), *(v102 + 52), *(v102 + 53)];
-  if (v7)
-  {
-    v111 = *(v102 + 52) * 0.0174532925;
-    v28 = *(v102 + 53);
-    v29 = __sincos_stret(*(v102 + 51) * 0.0174532925);
-    v115 = v12;
-    v113 = v2;
-    v30 = 6378137.0 / sqrt(1.0 - v29.__sinval * v29.__sinval * 0.00669437999);
-    v31 = (v30 + v28) * v29.__cosval;
-    v32 = __sincos_stret(v111);
-    *&v121 = v31 * v32.__cosval;
-    *(&v121 + 1) = v31 * v32.__sinval;
-    v122 = (v28 + v30 * 0.99330562) * v29.__sinval;
-    v33 = __sincos_stret(v12 * 0.0174532925);
-    v34 = 6378137.0 / sqrt(1.0 - v33.__sinval * v33.__sinval * 0.00669437999);
-    v35 = (v34 + v113) * v33.__cosval;
-    v36 = __sincos_stret(v3 * 0.0174532925);
-    v128.f64[0] = v35 * v36.__cosval;
-    v128.f64[1] = v35 * v36.__sinval;
-    v129 = (v113 + v34 * 0.99330562) * v33.__sinval;
-    [(NSMutableString *)v5 appendFormat:@"  routeEye:%f, %f, %f(%3.0fm)\n", *&v115, *&v3, *&v113, gm::Matrix<double, 3, 1>::distanceToPoint<int, void>(&v121, &v128)];
-  }
-
-  v37 = *(v102 + 253);
-  v101 = *(v102 + 254);
-  v38 = v110;
-  if (v37 != v101)
-  {
-    while (1)
-    {
-      ARStringForFeature(v126, v37);
-      v39 = (*(**v37 + 208))();
-      v40 = [v39 intraFeaturePriority];
-
-      v41 = v127 >= 0 ? v126 : v126[0];
-      if (v40 == -1)
-      {
-        v42 = "-";
-      }
-
-      else
-      {
-        std::to_string(&v125, v40);
-        v42 = &v125;
-        if ((v125.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-        {
-          v42 = v125.__r_.__value_.__r.__words[0];
-        }
-      }
-
-      [(NSMutableString *)v5 appendFormat:@"=======%s (p:%s)", v41, v42];
-      if (v40 != -1 && SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v125.__r_.__value_.__l.__data_);
-      }
-
-      v43 = *(v102 + 281);
-      if (v43 && *v37 == *(v43 + 8))
-      {
-        [(NSMutableString *)v5 appendFormat:@" ACTIVE"];
-      }
-
-      [(NSMutableString *)v5 appendFormat:@"======="];
-      if (isArrivalFeature(v37))
-      {
-        v44 = (*(**v37 + 264))(*v37);
-        v45 = *v37;
-        if (v44 == 27)
-        {
-          v46 = *(v45 + 744);
-        }
-
-        else
-        {
-          v46 = *(v45 + 232);
-        }
-
-        md::LabelExternalPointFeature::incident(v46);
-        objc_claimAutoreleasedReturnValue();
-        v47 = [v46 storeFronts];
-        -[NSMutableString appendFormat:](v5, "appendFormat:", @"\n  storeFronts:%lu", [v47 count]);
-
-        [(NSMutableString *)v5 appendString:@"\n  attrs:"];
-        v48 = [v46 styleAttributes];
-        if (v48)
-        {
-          for (i = 0; i < [v48 countAttrs]; ++i)
-          {
-            v50 = [v48 attributeAtIndex:i];
-            [(NSMutableString *)v5 appendFormat:@"(%d, %d)", *v50, v50[1]];
-            if (i + 1 < [v48 countAttrs])
-            {
-              [(NSMutableString *)v5 appendString:@", "];
-            }
-          }
-        }
-      }
-
-      [(NSMutableString *)v5 appendFormat:@"\n"];
-      v51 = (*(**v37 + 264))(*v37) == 24 ? 2 : 3;
-      v52 = v37[2];
-      v108 = v37[3];
-      v109 = v51;
-      if (v52 != v108)
-      {
-        break;
-      }
-
-LABEL_106:
-      if (v127 < 0)
-      {
-        operator delete(v126[0]);
-      }
-
-      v37 += 5;
-      v38 = v110;
-      if (v37 == v101)
-      {
-        goto LABEL_109;
-      }
-    }
-
-    v53 = 0;
-    v107 = v37;
-    while (1)
-    {
-      if (!((v53 < v109) | BOOL & 1))
-      {
-        [(NSMutableString *)v5 appendFormat:@"    ...+%lu more\n", ((v37[3] - v37[2]) >> 7) - v53];
-        goto LABEL_106;
-      }
-
-      v54 = (*(**v37 + 264))(*v37);
-      v55 = *v37;
-      if (v54 == 26)
-      {
-        break;
-      }
-
-      v57 = (*(*v55 + 264))(*v37);
-      v55 = *v37;
-      if (v57 == 24)
-      {
-        v56 = md::ARWalkingManeuverLabelFeature::layoutTypeForLabelIdentifier(*v37, *(v52 + 32));
-        goto LABEL_61;
-      }
-
-      v58 = 0;
-      v114 = 0;
-LABEL_63:
-      v59 = (*(*v55 + 112))(v55, v52 + 32);
-      v112 = v58;
-      v121 = *v59;
-      v122 = *(v59 + 16);
-      v123 = *(v59 + 24);
-      v124[0] = *(v59 + 40);
-      *(v124 + 3) = *(v59 + 43);
-      v60 = (*(**v37 + 304))(*v37, v52 + 32);
-      v116 = v61;
-      v62 = v60;
-      for (j = 0; j != 3; ++j)
-      {
-        v128.f64[j] = *(v52 + j * 8 + 40) - *(v6 + 568 + j * 8);
-      }
-
-      v64 = gm::Matrix<double,3,1>::normalized<int,void>(&v128);
-      v65 = 0;
-      *v120 = v64;
-      v120[1] = v66;
-      v120[2] = v67;
-      v68 = 0.0;
-      do
-      {
-        v68 = v68 + *&v120[v65] * *(v6 + 592 + v65 * 8);
-        ++v65;
-      }
-
-      while (v65 != 3);
-      v69 = acos(v68);
-      if (*(v52 + 76) == 1)
-      {
-        v70 = *(v52 + 72);
-        v71 = *(v52 + 64);
-      }
-
-      else
-      {
-        v71 = 0;
-        v70 = 1.0;
-      }
-
-      v72 = 0;
-      v73 = v69 * 57.2957795;
-      v119.__r_.__value_.__r.__words[0] = v71;
-      *&v119.__r_.__value_.__r.__words[1] = v70;
-      do
-      {
-        v128.f64[v72] = *(&v119.__r_.__value_.__l.__data_ + v72);
-        ++v72;
-      }
-
-      while (v72 != 3);
-      v74 = 0;
-      v75 = 0.0;
-      do
-      {
-        v75 = v75 + *&v120[v74] * v128.f64[v74];
-        ++v74;
-      }
-
-      while (v74 != 3);
-      v76 = acos(v75);
-      v77 = 0;
-      if (v110 && (v116 & 1) != 0)
-      {
-        [v110 distanceFromPoint:*(*(v102 + 3) + 3600) toPoint:v62];
-        v77 = v78;
-      }
-
-      v79 = v53;
-      v80 = &v119;
-      md::LabelPoint::coordinate(&v128, &v121);
-      if (*(v52 + 106))
-      {
-        v81 = " ";
-      }
-
-      else
-      {
-        v81 = "!";
-      }
-
-      md::LabelIdentifier::to_string(&v119, *(v52 + 32));
-      if ((v119.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v80 = v119.__r_.__value_.__r.__words[0];
-      }
-
-      v82 = *(v52 + 56);
-      v83 = *(v52 + 120);
-      v84 = *(v52 + 96);
-      v85 = &stru_1F2A61C40;
-      if (v116)
-      {
-        v86 = MEMORY[0x1E696AEC0];
-        v104 = GEOPolylineCoordinateAsShortString();
-        v103 = [v86 stringWithFormat:@"rc:%@", v104];
-        v85 = v103;
-      }
-
-      v87 = v80;
-      v88 = v128;
-      v89 = v129;
-      if (v114)
-      {
-        v90 = gss::to_string(v112);
-      }
-
-      else
-      {
-        v90 = "";
-      }
-
-      md::stringFromLabelOutcome(__p, *(v52 + 104));
-      v91 = *(v52 + 105);
-      v92 = "<NONE>";
-      if (v91 <= 2)
-      {
-        v92 = off_1E7B39578[v91];
-      }
-
-      v93 = __p[0];
-      if (v118 >= 0)
-      {
-        v93 = __p;
-      }
-
-      v100 = v81;
-      v5 = v105;
-      [(NSMutableString *)v105 appendFormat:@"%s   id:%2s v:(%3.0f, %3.0f) e:(l:%3.0f o:%2.0f) d:(%3.0f:%3.0f) \n    %@ %f, %f, %f \n    %s %s-%s\n", v100, v87, *&v73, v76 * 57.2957795, v82 * 40075017.0, v83, sqrt(v84), v77, v85, *&v88, *&v89, v90, v93, v92];
-      if (v118 < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      v37 = v107;
-      v94 = v79;
-      if (v116)
-      {
-      }
-
-      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v119.__r_.__value_.__l.__data_);
-      }
-
-      if ((*(**v107 + 264))(*v107) == 27)
-      {
-        v95 = md::StorefrontLabelFeature::storefront(*v107, *(v52 + 32));
-        if (v95)
-        {
-          v96 = *(v95 + 152);
-          v97 = v96;
-          if (v96)
-          {
-            [v96 faceWidthInMeters];
-            v98 = v119.__r_.__value_.__r.__words[0];
-            [v97 faceHeightInMeters];
-            v99 = __p[0];
-          }
-
-          else
-          {
-            v119.__r_.__value_.__r.__words[0] = 0;
-            __p[0] = 0;
-            v99 = 0;
-            v98 = 0;
-          }
-
-          [(NSMutableString *)v105 appendFormat:@"    storefront: w:%f h:%f\n", v98, v99];
-        }
-      }
-
-      v53 = v94 + 1;
-      v52 += 128;
-      if (v52 == v108)
-      {
-        goto LABEL_106;
-      }
-    }
-
-    v56 = md::ARWalkingContinueLabelFeature::layoutTypeForLabelIdentifier(*v37, *(v52 + 32));
-LABEL_61:
-    v58 = v56;
-    v114 = v56 > 0xFFu;
-    goto LABEL_63;
-  }
-
-LABEL_109:
-}
-
-void md::ARWalkingLabeler::populateDebugNode(uint64_t a1, void *a2, _BYTE *a3)
-{
-  v296 = *MEMORY[0x1E69E9840];
-  md::StandardLabeler::populateDebugNode(a1, a2, a3);
-  v104 = a1;
-  v5 = *(a1 + 440);
-  std::string::basic_string[abi:nn200100]<0>(v266, "ARWalkingSupport");
-  ChildNode = gdc::DebugTreeNode::createChildNode(a2, v266);
-  std::string::basic_string[abi:nn200100]<0>(&__p, "ARWalkingFeatures");
-  v7 = gdc::DebugTreeNode::createChildNode(ChildNode, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  v8 = v5[97];
-  std::string::basic_string[abi:nn200100]<0>(&__p, "HighPrecisionAltitudeRequestor");
-  v9 = gdc::DebugTreeNode::createChildNode(v7, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "Stats");
-  v10 = gdc::DebugTreeNode::createChildNode(v9, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "VL");
-  v11 = gdc::DebugTreeNode::createChildNode(v10, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&v293, "cacheHits");
-  gdc::DebugTreeValue::DebugTreeValue(&__p, v8[68]);
-  gdc::DebugTreeNode::addProperty(v11, &v293, &__p);
-  if (v288 < 0)
-  {
-    operator delete(*(&v284 + 1));
-  }
-
-  if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v293.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&v290, "cacheMisses");
-  gdc::DebugTreeValue::DebugTreeValue(&v293, v8[69]);
-  gdc::DebugTreeNode::addProperty(v11, &v290, &v293);
-  if (v295 < 0)
-  {
-    operator delete(v294);
-  }
-
-  if (SHIBYTE(v290.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v290.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&v280, "cachedRequests");
-  gdc::DebugTreeValue::DebugTreeValue(&v290, v8[32]);
-  gdc::DebugTreeNode::addProperty(v11, &v280, &v290);
-  if (v292 < 0)
-  {
-    operator delete(v291);
-  }
-
-  if (SHIBYTE(v280.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v280.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&v280, "Requests");
-  v12 = gdc::DebugTreeNode::createChildNode(v10, &v280);
-  if (SHIBYTE(v280.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v280.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&v277, "cacheHits");
-  gdc::DebugTreeValue::DebugTreeValue(&v280, v8[70]);
-  gdc::DebugTreeNode::addProperty(v12, &v277, &v280);
-  if (v282 < 0)
-  {
-    operator delete(v281);
-  }
-
-  if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v277.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&v274, "cacheMisses");
-  gdc::DebugTreeValue::DebugTreeValue(&v277, v8[71]);
-  gdc::DebugTreeNode::addProperty(v12, &v274, &v277);
-  if (v279 < 0)
-  {
-    operator delete(v278);
-  }
-
-  if (SHIBYTE(v274.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v274.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(v268, "cachedRequests");
-  gdc::DebugTreeValue::DebugTreeValue(&v274, v8[50]);
-  gdc::DebugTreeNode::addProperty(v12, v268, &v274);
-  if (v276 < 0)
-  {
-    operator delete(v275);
-  }
-
-  if (v269 < 0)
-  {
-    operator delete(v268[0]);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(v272, "deviceLocationHits");
-  gdc::DebugTreeValue::DebugTreeValue(v268, v8[72]);
-  gdc::DebugTreeNode::addProperty(v12, v272, v268);
-  if (v271 < 0)
-  {
-    operator delete(v270);
-  }
-
-  if (v273 < 0)
-  {
-    operator delete(v272[0]);
-  }
-
-  if (v5[58] != v5[59])
-  {
-    std::string::basic_string[abi:nn200100]<0>(&v293, "FeatureCount");
-    gdc::DebugTreeValue::DebugTreeValue(&__p, -1431655765 * ((v5[59] - v5[58]) >> 3));
-    gdc::DebugTreeNode::addProperty(ChildNode, &v293, &__p);
-    if (v288 < 0)
-    {
-      operator delete(*(&v284 + 1));
-    }
-
-    if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v293.__r_.__value_.__l.__data_);
-    }
-
-    v13 = v5[58];
-    v14 = v5[59];
-    if (v13 != v14)
-    {
-      v15 = 1;
-      do
-      {
-        v16 = (*(**(v13 + 8) + 264))(*(v13 + 8));
-        v17 = "";
-        if (v16 <= 0x1B)
-        {
-          v17 = off_1E7B35C80[v16];
-        }
-
-        std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::basic_string[abi:nn200100]<0>(&v293, v17);
-        if ((v293.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v18 = &v293;
-        }
-
-        else
-        {
-          v18 = v293.__r_.__value_.__r.__words[0];
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v290, v18);
-        std::to_string(&v280, v15);
-        v19 = gdc::DebugTreeNode::createChildNode(v7, &v290, &v280);
-        if (SHIBYTE(v280.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v280.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v290.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v290.__r_.__value_.__l.__data_);
-        }
-
-        v20 = (*(**(v13 + 8) + 472))(*(v13 + 8), v19, *v5);
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          v21 = v293.__r_.__value_.__r.__words[0];
-          v22 = mdm::zone_mallocator::instance(v20);
-          geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char>(v22, v21);
-        }
-
-        v13 += 24;
-        ++v15;
-      }
-
-      while (v13 != v14);
-    }
-  }
-
-  if (v267 < 0)
-  {
-    operator delete(v266[0]);
-  }
-
-  v108 = *(v104 + 24);
-  v23 = *(v104 + 2088);
-  v24 = *(v104 + 2072) * 6.28318531;
-  v25 = exp(*(v104 + 2080) * 6.28318531 + -3.14159265);
-  v26 = atan(v25);
-  v27 = fmod(v24, 6.28318531);
-  v28 = fmod(v27 + 6.28318531, 6.28318531);
-  std::string::basic_string[abi:nn200100]<0>(&__p, "ARWalkingLabeler");
-  v102 = gdc::DebugTreeNode::createChildNode(a2, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "arSessionState");
-  v29 = *(v104 + 2203);
-  if (v29 > 3)
-  {
-    v30 = "<Invalid>";
-  }
-
-  else
-  {
-    v30 = off_1E7B3CF50[v29];
-  }
-
-  gdc::DebugTreeValue::DebugTreeValue(v263, v30);
-  gdc::DebugTreeNode::addProperty(v102, &__p, v263);
-  if (v265 < 0)
-  {
-    operator delete(v264);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "arLocalizationState");
-  v31 = *(v104 + 2200);
-  if (v31 > 3)
-  {
-    v32 = "<Invalid>";
-  }
-
-  else
-  {
-    v32 = off_1E7B3B9C0[v31];
-  }
-
-  gdc::DebugTreeValue::DebugTreeValue(v260, v32);
-  gdc::DebugTreeNode::addProperty(v102, &__p, v260);
-  if (v262 < 0)
-  {
-    operator delete(v261);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "shouldLayoutLabels");
-  gdc::DebugTreeValue::DebugTreeValue(v257, *(v104 + 400));
-  gdc::DebugTreeNode::addProperty(v102, &__p, v257);
-  if (v259 < 0)
-  {
-    operator delete(v258);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "userRouteOffset");
-  v33 = gdc::DebugTreeNode::createChildNode(v102, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "index");
-  gdc::DebugTreeValue::DebugTreeValue(v254, *(*(v104 + 24) + 3600));
-  gdc::DebugTreeNode::addProperty(v33, &__p, v254);
-  if (v256 < 0)
-  {
-    operator delete(v255);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "offset");
-  gdc::DebugTreeValue::DebugTreeValue(v251, *(*(v104 + 24) + 3604));
-  gdc::DebugTreeNode::addProperty(v33, &__p, v251);
-  if (v253 < 0)
-  {
-    operator delete(v252);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "eyePos");
-  v34 = gdc::DebugTreeNode::createChildNode(v102, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "x");
-  v35 = v108 + 71;
-  gdc::DebugTreeValue::DebugTreeValue(v248, v108[71]);
-  gdc::DebugTreeNode::addProperty(v34, &__p, v248);
-  if (v250 < 0)
-  {
-    operator delete(v249);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "y");
-  gdc::DebugTreeValue::DebugTreeValue(v245, v108[72]);
-  gdc::DebugTreeNode::addProperty(v34, &__p, v245);
-  if (v247 < 0)
-  {
-    operator delete(v246);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "z");
-  gdc::DebugTreeValue::DebugTreeValue(v242, v108[73]);
-  gdc::DebugTreeNode::addProperty(v34, &__p, v242);
-  if (v244 < 0)
-  {
-    operator delete(v243);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "resolvedEye");
-  v36 = gdc::DebugTreeNode::createChildNode(v102, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "x");
-  gdc::DebugTreeValue::DebugTreeValue(v239, *(v104 + 2072));
-  gdc::DebugTreeNode::addProperty(v36, &__p, v239);
-  if (v241 < 0)
-  {
-    operator delete(v240);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "y");
-  gdc::DebugTreeValue::DebugTreeValue(v236, *(v104 + 2080));
-  gdc::DebugTreeNode::addProperty(v36, &__p, v236);
-  if (v238 < 0)
-  {
-    operator delete(v237);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "z");
-  gdc::DebugTreeValue::DebugTreeValue(v233, *(v104 + 2088));
-  gdc::DebugTreeNode::addProperty(v36, &__p, v233);
-  if (v235 < 0)
-  {
-    operator delete(v234);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "eyeCoord");
-  v37 = gdc::DebugTreeNode::createChildNode(v102, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "lat");
-  gdc::DebugTreeValue::DebugTreeValue(v230, *(v104 + 408));
-  gdc::DebugTreeNode::addProperty(v37, &__p, v230);
-  if (v232 < 0)
-  {
-    operator delete(v231);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "lng");
-  gdc::DebugTreeValue::DebugTreeValue(v227, *(v104 + 416));
-  gdc::DebugTreeNode::addProperty(v37, &__p, v227);
-  if (v229 < 0)
-  {
-    operator delete(v228);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "alt");
-  gdc::DebugTreeValue::DebugTreeValue(v224, *(v104 + 424));
-  gdc::DebugTreeNode::addProperty(v37, &__p, v224);
-  if (v226 < 0)
-  {
-    operator delete(v225);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "resolvedEyeCoord");
-  v38 = gdc::DebugTreeNode::createChildNode(v102, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "lat");
-  gdc::DebugTreeValue::DebugTreeValue(v221, v26 * 114.591559 + -90.0);
-  gdc::DebugTreeNode::addProperty(v38, &__p, v221);
-  if (v223 < 0)
-  {
-    operator delete(v222);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "lng");
-  gdc::DebugTreeValue::DebugTreeValue(v218, v28 * 57.2957795 + -180.0);
-  gdc::DebugTreeNode::addProperty(v38, &__p, v218);
-  if (v220 < 0)
-  {
-    operator delete(v219);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "alt");
-  gdc::DebugTreeValue::DebugTreeValue(v215, v23 * 40075017.0);
-  gdc::DebugTreeNode::addProperty(v38, &__p, v215);
-  if (v217 < 0)
-  {
-    operator delete(v216);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "elevation");
-  gdc::DebugTreeValue::DebugTreeValue(v212, v108[73] * 40075017.0);
-  gdc::DebugTreeNode::addProperty(v102, &__p, v212);
-  if (v214 < 0)
-  {
-    operator delete(v213);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "min clip range");
-  gdc::DebugTreeValue::DebugTreeValue(v209, *(v104 + 784));
-  gdc::DebugTreeNode::addProperty(v102, &__p, v209);
-  if (v211 < 0)
-  {
-    operator delete(v210);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(&__p, "max clip range");
-  gdc::DebugTreeValue::DebugTreeValue(v206, *(v104 + 864));
-  gdc::DebugTreeNode::addProperty(v102, &__p, v206);
-  if (v208 < 0)
-  {
-    operator delete(v207);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  v105 = *(v104 + 2208);
-  if (v105)
-  {
-    std::string::basic_string[abi:nn200100]<0>(&__p, "ARWorldIntersector");
-    v39 = gdc::DebugTreeNode::createChildNode(v102, &__p);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    std::string::basic_string[abi:nn200100]<0>(&__p, "isGroundOcclusionEnabled");
-    gdc::DebugTreeValue::DebugTreeValue(&v293, *(v105 + 129));
-    gdc::DebugTreeNode::addProperty(v39, &__p, &v293);
-    if (v295 < 0)
-    {
-      operator delete(v294);
-    }
-
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    std::string::basic_string[abi:nn200100]<0>(&__p, "isBuildingOcclusionEnabled");
-    gdc::DebugTreeValue::DebugTreeValue(&v290, *(v105 + 128));
-    gdc::DebugTreeNode::addProperty(v39, &__p, &v290);
-    if (v292 < 0)
-    {
-      operator delete(v291);
-    }
-
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    v274.__r_.__value_.__r.__words[0] = 0;
-    v40 = *v105;
-    if (*v105 == v105 + 8)
-    {
-      LODWORD(v41) = 0;
-    }
-
-    else
-    {
-      v41 = 0;
-      do
-      {
-        v42 = gdc::Registry::storage<arComponents::LocalBounds>(*(v40[4] + 792));
-        v44 = *(v42 + 80);
-        v43 = *(v42 + 88);
-        FillRect = grl::IconMetricsRenderResult::getFillRect(v40[4]);
-        v46 = gdc::Camera::cameraFrame(FillRect);
-        gdc::LayerDataKey::createDebugNode(&__p, v46);
-        gdc::DebugTreeNode::addChildNode(v39, &__p);
-        v280.__r_.__value_.__r.__words[0] = v289;
-        std::vector<gdc::DebugTreeProperty>::__destroy_vector::operator()[abi:nn200100](&v280);
-        v280.__r_.__value_.__r.__words[0] = v287;
-        std::vector<gdc::DebugTreeNode>::__destroy_vector::operator()[abi:nn200100](&v280);
-        if (v286 < 0)
-        {
-          operator delete(v284);
-        }
-
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        v47 = v40[1];
-        if (v47)
-        {
-          do
-          {
-            v48 = v47;
-            v47 = *v47;
-          }
-
-          while (v47);
-        }
-
-        else
-        {
-          do
-          {
-            v48 = v40[2];
-            v49 = *v48 == v40;
-            v40 = v48;
-          }
-
-          while (!v49);
-        }
-
-        v41 -= 0x30C30C30C30C30C3 * ((v43 - v44) >> 3);
-        v40 = v48;
-      }
-
-      while (v48 != (v105 + 8));
-    }
-
-    v50 = *(v105 + 24);
-    if (v50 != (v105 + 32))
-    {
-      do
-      {
-        (*(*v50[5] + 24))(&__p);
-        gdc::DebugTreeNode::addChildNode(v39, &__p);
-        v280.__r_.__value_.__r.__words[0] = v289;
-        std::vector<gdc::DebugTreeProperty>::__destroy_vector::operator()[abi:nn200100](&v280);
-        v280.__r_.__value_.__r.__words[0] = v287;
-        std::vector<gdc::DebugTreeNode>::__destroy_vector::operator()[abi:nn200100](&v280);
-        if (v286 < 0)
-        {
-          operator delete(v284);
-        }
-
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        v51 = v50[1];
-        if (v51)
-        {
-          do
-          {
-            v52 = v51;
-            v51 = *v51;
-          }
-
-          while (v51);
-        }
-
-        else
-        {
-          do
-          {
-            v52 = v50[2];
-            v49 = *v52 == v50;
-            v50 = v52;
-          }
-
-          while (!v49);
-        }
-
-        v50 = v52;
-      }
-
-      while (v52 != (v105 + 32));
-    }
-
-    std::string::basic_string[abi:nn200100]<0>(&v280, "buildingOcclusionBoundsCount");
-    gdc::DebugTreeValue::DebugTreeValue(&__p, v41);
-    gdc::DebugTreeNode::addProperty(v39, &v280, &__p);
-    if (v288 < 0)
-    {
-      operator delete(*(&v284 + 1));
-    }
-
-    if (SHIBYTE(v280.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v280.__r_.__value_.__l.__data_);
-    }
-
-    std::string::basic_string[abi:nn200100]<0>(&v277, "groundOcclusionBoundsCount");
-    gdc::DebugTreeValue::DebugTreeValue(&v280, -1431655765 * ((*(v105 + 112) - *(v105 + 104)) >> 4));
-    gdc::DebugTreeNode::addProperty(v39, &v277, &v280);
-    if (v282 < 0)
-    {
-      operator delete(v281);
-    }
-
-    if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v277.__r_.__value_.__l.__data_);
-    }
-  }
-
-  v53 = *(v104 + 2024);
-  v101 = *(v104 + 2032);
-  if (v53 != v101)
-  {
-    v54 = v108 + 74;
-    v103 = v104 + 2096;
-    do
-    {
-      ARStringForFeature(&v290, v53);
-      v55 = *(v104 + 2248);
-      if (v55 && *v53 == *(v55 + 8))
-      {
-        std::string::append(&v290, "  - ACTIVE", 0xAuLL);
-      }
-
-      v109 = gdc::DebugTreeNode::createChildNode(v102, &v290);
-      if (isArrivalFeature(v53))
-      {
-        v56 = (*(**v53 + 264))(*v53);
-        v57 = *v53;
-        if (v56 == 27)
-        {
-          v58 = *(v57 + 744);
-        }
-
-        else
-        {
-          v58 = *(v57 + 232);
-        }
-
-        md::LabelExternalPointFeature::incident(v58);
-        objc_claimAutoreleasedReturnValue();
-        std::string::basic_string[abi:nn200100]<0>(&__p, "hasStoreFronts");
-        v59 = [v58 storeFronts];
-        gdc::DebugTreeValue::DebugTreeValue(v203, [v59 count] != 0);
-        gdc::DebugTreeNode::addProperty(v109, &__p, v203);
-        if (v205 < 0)
-        {
-          operator delete(v204);
-        }
-
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&__p, "StyleAttributes");
-        v106 = v58;
-        v60 = gdc::DebugTreeNode::createChildNode(v109, &__p);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        v61 = v53;
-        (*(**v53 + 600))(&v280);
-        v62 = v280.__r_.__value_.__r.__words[0];
-        if (*(v280.__r_.__value_.__r.__words[0] + 33))
-        {
-          v63 = 0;
-          v64 = 0;
-          do
-          {
-            v65 = (*v62 + v63);
-            v66 = *v65;
-            v67 = gss::to_string(*v65);
-            LODWORD(v65) = v65[1];
-            std::string::basic_string[abi:nn200100]<0>(&__p, v67);
-            v68 = gss::to_string(v66, v65);
-            std::string::basic_string[abi:nn200100]<0>(&v293, v68);
-            gdc::DebugTreeValue::DebugTreeValue(v200, &v293);
-            gdc::DebugTreeNode::addProperty(v60, &__p, v200);
-            if (v202 < 0)
-            {
-              operator delete(v201);
-            }
-
-            if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v293.__r_.__value_.__l.__data_);
-            }
-
-            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(__p.__r_.__value_.__l.__data_);
-            }
-
-            ++v64;
-            v62 = v280.__r_.__value_.__r.__words[0];
-            v63 += 8;
-          }
-
-          while (v64 < *(v280.__r_.__value_.__r.__words[0] + 33));
-        }
-
-        if (v280.__r_.__value_.__l.__size_)
-        {
-          std::__shared_weak_count::__release_shared[abi:nn200100](v280.__r_.__value_.__l.__size_);
-        }
-
-        v53 = v61;
-      }
-
-      v69 = v53[2];
-      v107 = v53;
-      if (v69 != v53[3])
-      {
-        md::LabelIdentifier::to_string(&__p, *(v69 + 32));
-        v70 = gdc::DebugTreeNode::createChildNode(v109, &__p);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        md::ARWalkingLabeler::screenHeadingForWorldPoint(&__p, *(v104 + 24) + 432, v69 + 40, *(v104 + 664));
-        v71 = *&__p.__r_.__value_.__l.__data_;
-        v72 = __p.__r_.__value_.__s.__data_[8];
-        v73 = (*(**v53 + 112))(*v53, v69 + 32);
-        v74 = 0;
-        __p = *v73;
-        v284 = *(v73 + 24);
-        *v285 = *(v73 + 40);
-        *&v285[3] = *(v73 + 43);
-        do
-        {
-          *(&v293.__r_.__value_.__l.__data_ + v74 * 8) = *(v69 + v74 * 8 + 40) - v35[v74];
-          ++v74;
-        }
-
-        while (v74 != 3);
-        v75 = gm::Matrix<double,3,1>::normalized<int,void>(&v293);
-        v77 = *&v76;
-        v79 = *&v78;
-        v80 = 0;
-        *&v280.__r_.__value_.__l.__data_ = v75;
-        v280.__r_.__value_.__l.__size_ = v76;
-        v280.__r_.__value_.__r.__words[2] = v78;
-        v81 = 0.0;
-        do
-        {
-          v81 = v81 + *(&v280.__r_.__value_.__l.__data_ + v80 * 8) * v54[v80];
-          ++v80;
-        }
-
-        while (v80 != 3);
-        v82 = acos(v81);
-        std::string::basic_string[abi:nn200100]<0>(&v293, "isDisplayLabel");
-        gdc::DebugTreeValue::DebugTreeValue(v197, *(v69 + 106));
-        gdc::DebugTreeNode::addProperty(v70, &v293, v197);
-        if (v199 < 0)
-        {
-          operator delete(v198);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "hasBecomeVisible");
-        v83 = gdc::DebugTreeNode::createChildNode(v70, &v293);
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "hasBecomeVisible");
-        gdc::DebugTreeValue::DebugTreeValue(v194, *(v69 + 107));
-        gdc::DebugTreeNode::addProperty(v83, &v293, v194);
-        if (v196 < 0)
-        {
-          operator delete(v195);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        if (*(v69 + 112))
-        {
-          std::string::basic_string[abi:nn200100]<0>(&v293, "eyeCoordinate");
-          v84 = gdc::DebugTreeNode::createChildNode(v83, &v293);
-          if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v293.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v293, "lat");
-          gdc::DebugTreeValue::DebugTreeValue(v191, **(v69 + 112));
-          gdc::DebugTreeNode::addProperty(v84, &v293, v191);
-          if (v193 < 0)
-          {
-            operator delete(v192);
-          }
-
-          if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v293.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v293, "lng");
-          gdc::DebugTreeValue::DebugTreeValue(v188, *(*(v69 + 112) + 8));
-          gdc::DebugTreeNode::addProperty(v84, &v293, v188);
-          if (v190 < 0)
-          {
-            operator delete(v189);
-          }
-
-          if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v293.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v293, "altitude");
-          gdc::DebugTreeValue::DebugTreeValue(v185, *(*(v69 + 112) + 16));
-          gdc::DebugTreeNode::addProperty(v84, &v293, v185);
-          if (v187 < 0)
-          {
-            operator delete(v186);
-          }
-
-          if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v293.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v293, "distance");
-          gdc::DebugTreeValue::DebugTreeValue(v182, *(*(v69 + 112) + 32));
-          gdc::DebugTreeNode::addProperty(v83, &v293, v182);
-          if (v184 < 0)
-          {
-            operator delete(v183);
-          }
-
-          if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v293.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v293, "faceAngleCosine");
-          gdc::DebugTreeValue::DebugTreeValue(v179, *(*(v69 + 112) + 24));
-          gdc::DebugTreeNode::addProperty(v83, &v293, v179);
-          if (v181 < 0)
-          {
-            operator delete(v180);
-          }
-
-          if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v293.__r_.__value_.__l.__data_);
-          }
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "fixedPerspectiveScale");
-        gdc::DebugTreeValue::DebugTreeValue(v176, *(*(v69 + 16) + 1144));
-        gdc::DebugTreeNode::addProperty(v70, &v293, v176);
-        if (v178 < 0)
-        {
-          operator delete(v177);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "identifier");
-        md::LabelIdentifier::to_string(&v277, *(v69 + 32));
-        gdc::DebugTreeValue::DebugTreeValue(v173, &v277);
-        gdc::DebugTreeNode::addProperty(v70, &v293, v173);
-        if (v175 < 0)
-        {
-          operator delete(v174);
-        }
-
-        if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v277.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "screenHeading");
-        gdc::DebugTreeValue::DebugTreeValue(v170, v71);
-        gdc::DebugTreeNode::addProperty(v70, &v293, v170);
-        if (v172 < 0)
-        {
-          operator delete(v171);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "isDirectlyBehind");
-        gdc::DebugTreeValue::DebugTreeValue(v167, v72);
-        gdc::DebugTreeNode::addProperty(v70, &v293, v167);
-        if (v169 < 0)
-        {
-          operator delete(v168);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "angleFromView");
-        gdc::DebugTreeValue::DebugTreeValue(v164, v82 * 57.2957795);
-        gdc::DebugTreeNode::addProperty(v70, &v293, v164);
-        if (v166 < 0)
-        {
-          operator delete(v165);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "pointDir");
-        v85 = gdc::DebugTreeNode::createChildNode(v70, &v293);
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "x");
-        gdc::DebugTreeValue::DebugTreeValue(v161, v75);
-        gdc::DebugTreeNode::addProperty(v85, &v293, v161);
-        if (v163 < 0)
-        {
-          operator delete(v162);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "y");
-        gdc::DebugTreeValue::DebugTreeValue(v158, v77);
-        gdc::DebugTreeNode::addProperty(v85, &v293, v158);
-        if (v160 < 0)
-        {
-          operator delete(v159);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "z");
-        gdc::DebugTreeValue::DebugTreeValue(v155, v79);
-        gdc::DebugTreeNode::addProperty(v85, &v293, v155);
-        if (v157 < 0)
-        {
-          operator delete(v156);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "elevation");
-        gdc::DebugTreeValue::DebugTreeValue(v152, *(v69 + 56) * 40075017.0);
-        gdc::DebugTreeNode::addProperty(v70, &v293, v152);
-        if (v154 < 0)
-        {
-          operator delete(v153);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "elevationOffset");
-        gdc::DebugTreeValue::DebugTreeValue(v149, *(v69 + 120));
-        gdc::DebugTreeNode::addProperty(v70, &v293, v149);
-        if (v151 < 0)
-        {
-          operator delete(v150);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "worldPoint");
-        v86 = gdc::DebugTreeNode::createChildNode(v70, &v293);
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "x");
-        gdc::DebugTreeValue::DebugTreeValue(v146, *(v69 + 40));
-        gdc::DebugTreeNode::addProperty(v86, &v293, v146);
-        if (v148 < 0)
-        {
-          operator delete(v147);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "y");
-        gdc::DebugTreeValue::DebugTreeValue(v143, *(v69 + 48));
-        gdc::DebugTreeNode::addProperty(v86, &v293, v143);
-        if (v145 < 0)
-        {
-          operator delete(v144);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v293, "z");
-        gdc::DebugTreeValue::DebugTreeValue(v140, *(v69 + 56));
-        gdc::DebugTreeNode::addProperty(v86, &v293, v140);
-        if (v142 < 0)
-        {
-          operator delete(v141);
-        }
-
-        if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v293.__r_.__value_.__l.__data_);
-        }
-
-        md::LabelPoint::coordinate(&v293, &__p);
-        std::string::basic_string[abi:nn200100]<0>(&v277, "coordinate");
-        v87 = gdc::DebugTreeNode::createChildNode(v70, &v277);
-        if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v277.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v277, "lat");
-        gdc::DebugTreeValue::DebugTreeValue(v137, *&v293.__r_.__value_.__l.__data_);
-        gdc::DebugTreeNode::addProperty(v87, &v277, v137);
-        if (v139 < 0)
-        {
-          operator delete(v138);
-        }
-
-        if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v277.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v277, "lng");
-        gdc::DebugTreeValue::DebugTreeValue(v134, *&v293.__r_.__value_.__l.__size_);
-        gdc::DebugTreeNode::addProperty(v87, &v277, v134);
-        if (v136 < 0)
-        {
-          operator delete(v135);
-        }
-
-        if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v277.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v277, "altitude");
-        gdc::DebugTreeValue::DebugTreeValue(v131, *&v293.__r_.__value_.__r.__words[2]);
-        gdc::DebugTreeNode::addProperty(v87, &v277, v131);
-        if (v133 < 0)
-        {
-          operator delete(v132);
-        }
-
-        if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v277.__r_.__value_.__l.__data_);
-        }
-
-        v88 = geo::MarkedLRUCache<md::Label *,gm::Matrix<double,3,1>,std::hash<md::Label *>,std::equal_to<md::Label *>>::find(v103, *(v69 + 16));
-        if (v103 != v88)
-        {
-          v89 = v88[4];
-          v90 = v88[5];
-          v91 = v88[3];
-          v92 = exp(v89 * 6.28318531 + -3.14159265);
-          v93 = atan(v92);
-          v94 = fmod(v91 * 6.28318531, 6.28318531);
-          v95 = fmod(v94 + 6.28318531, 6.28318531);
-          std::string::basic_string[abi:nn200100]<0>(&v277, "intersectionPoint");
-          v96 = gdc::DebugTreeNode::createChildNode(v70, &v277);
-          if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v277.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v277, "mercator");
-          v97 = gdc::DebugTreeNode::createChildNode(v96, &v277);
-          if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v277.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v277, "x");
-          gdc::DebugTreeValue::DebugTreeValue(v128, v91);
-          gdc::DebugTreeNode::addProperty(v97, &v277, v128);
-          if (v130 < 0)
-          {
-            operator delete(v129);
-          }
-
-          if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v277.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v277, "y");
-          gdc::DebugTreeValue::DebugTreeValue(v125, v89);
-          gdc::DebugTreeNode::addProperty(v97, &v277, v125);
-          if (v127 < 0)
-          {
-            operator delete(v126);
-          }
-
-          if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v277.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v277, "z");
-          gdc::DebugTreeValue::DebugTreeValue(v122, v90 * 40075017.0);
-          gdc::DebugTreeNode::addProperty(v97, &v277, v122);
-          if (v124 < 0)
-          {
-            operator delete(v123);
-          }
-
-          if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v277.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v277, "coordinate");
-          v98 = gdc::DebugTreeNode::createChildNode(v96, &v277);
-          if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v277.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v277, "lat");
-          gdc::DebugTreeValue::DebugTreeValue(v119, v93 * 114.591559 + -90.0);
-          gdc::DebugTreeNode::addProperty(v98, &v277, v119);
-          if (v121 < 0)
-          {
-            operator delete(v120);
-          }
-
-          if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v277.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v277, "lng");
-          gdc::DebugTreeValue::DebugTreeValue(v116, v95 * 57.2957795 + -180.0);
-          gdc::DebugTreeNode::addProperty(v98, &v277, v116);
-          if (v118 < 0)
-          {
-            operator delete(v117);
-          }
-
-          if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v277.__r_.__value_.__l.__data_);
-          }
-
-          std::string::basic_string[abi:nn200100]<0>(&v277, "altitude");
-          gdc::DebugTreeValue::DebugTreeValue(v113, v90 * 40075017.0);
-          gdc::DebugTreeNode::addProperty(v98, &v277, v113);
-          if (v115 < 0)
-          {
-            operator delete(v114);
-          }
-
-          if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v277.__r_.__value_.__l.__data_);
-          }
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v277, "distance");
-        gdc::DebugTreeValue::DebugTreeValue(v110, sqrt(*(v69 + 96)));
-        gdc::DebugTreeNode::addProperty(v70, &v277, v110);
-        if (v112 < 0)
-        {
-          operator delete(v111);
-        }
-
-        if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v277.__r_.__value_.__l.__data_);
-        }
-
-        std::string::basic_string[abi:nn200100]<0>(&v277, "label");
-        md::LabelIdentifier::to_string(&v274, *(*(v69 + 16) + 48));
-        v100 = gdc::DebugTreeNode::createChildNode(v70, &v277, &v274);
-        if (SHIBYTE(v274.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v274.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v277.__r_.__value_.__l.__data_);
-        }
-
-        md::Label::populateDebugNode(*(v69 + 16), v100, v99);
-      }
-
-      if (SHIBYTE(v290.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v290.__r_.__value_.__l.__data_);
-      }
-
-      v53 += 5;
-    }
-
-    while (v107 + 5 != v101);
-  }
-}
-
-void sub_1B31AC6C0(_Unwind_Exception *a1)
-{
-  if (SLOBYTE(STACK[0xF07]) < 0)
-  {
-    operator delete(STACK[0xEF0]);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t md::ARWalkingContinueFeatureDedupingGroup::getAlternateLayout(md::ARWalkingContinueFeatureDedupingGroup *this, md::LabelBase *a2)
-{
-  v2 = *(this + 36);
-  v3 = *(v2 + 272);
-  if (!v3)
-  {
-    goto LABEL_9;
-  }
-
-  v4 = v2 + 272;
-  v5 = *(a2 + 12);
-  v6 = v4;
-  do
-  {
-    v7 = *(v3 + 32);
-    v8 = v7 >= v5;
-    v9 = v7 < v5;
-    if (v8)
-    {
-      v6 = v3;
-    }
-
-    v3 = *(v3 + 8 * v9);
-  }
-
-  while (v3);
-  if (v6 != v4 && v5 >= *(v6 + 32))
-  {
-    v10 = *(v6 + 40);
-    if (v10)
-    {
-      v17 = *(v10 + 160) == v5;
-      v18 = 160;
-      if (v17)
-      {
-        v18 = 164;
-      }
-
-      LODWORD(v10) = *(v10 + v18);
-    }
-  }
-
-  else
-  {
-LABEL_9:
-    LODWORD(v10) = 0;
-  }
-
-  v11 = *(this + 43);
-  if (v11)
-  {
-    v12 = vcnt_s8(v11);
-    v12.i16[0] = vaddlv_u8(v12);
-    if (v12.u32[0] > 1uLL)
-    {
-      v13 = v10;
-      if (v11 <= v10)
-      {
-        v13 = v10 % v11;
-      }
-    }
-
-    else
-    {
-      v13 = (v11 - 1) & v10;
-    }
-
-    v14 = *(*(this + 42) + 8 * v13);
-    if (v14)
-    {
-      for (i = *v14; i; i = *i)
-      {
-        v16 = i[1];
-        if (v16 == v10)
-        {
-          if (*(i + 4) == v10)
-          {
-            return i[3];
-          }
-        }
-
-        else
-        {
-          if (v12.u32[0] > 1uLL)
-          {
-            if (v16 >= v11)
-            {
-              v16 %= v11;
-            }
-          }
-
-          else
-          {
-            v16 &= v11 - 1;
-          }
-
-          if (v16 != v13)
-          {
-            return 0;
-          }
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-void md::ARWalkingContinueFeatureDedupingGroup::onLabelRemoved(int8x8_t *this, md::LabelBase *a2)
-{
-  md::ARWalkingLabelLayoutDedupingGroup::onLabelRemoved(this, a2);
-  v4 = this[43];
-  if (v4)
-  {
-    v5 = *(a2 + 12);
-    v6 = vcnt_s8(v4);
-    v6.i16[0] = vaddlv_u8(v6);
-    if (v6.u32[0] > 1uLL)
-    {
-      v7 = *(a2 + 12);
-      if (*&v4 <= v5)
-      {
-        v7 = v5 % v4.i32[0];
-      }
-    }
-
-    else
-    {
-      v7 = (v4.i32[0] - 1) & v5;
-    }
-
-    v8 = this[42];
-    v9 = *(*&v8 + 8 * v7);
-    if (v9)
-    {
-      v10 = *v9;
-      if (*v9)
-      {
-        v11 = *&v4 - 1;
-        do
-        {
-          v12 = v10[1];
-          if (v12 == v5)
-          {
-            if (v10[2].i32[0] == v5)
-            {
-              v13 = v10[1];
-              if (v6.u32[0] > 1uLL)
-              {
-                if (v13 >= *&v4)
-                {
-                  v13 %= *&v4;
-                }
-              }
-
-              else
-              {
-                v13 &= v11;
-              }
-
-              v14 = *(*&v8 + 8 * v13);
-              do
-              {
-                v15 = v14;
-                v14 = *v14;
-              }
-
-              while (v14 != v10);
-              if (v15 == &this[44])
-              {
-                goto LABEL_36;
-              }
-
-              v16 = v15[1];
-              if (v6.u32[0] > 1uLL)
-              {
-                if (v16 >= *&v4)
-                {
-                  v16 %= *&v4;
-                }
-              }
-
-              else
-              {
-                v16 &= v11;
-              }
-
-              if (v16 != v13)
-              {
-LABEL_36:
-                if (!*v10)
-                {
-                  goto LABEL_37;
-                }
-
-                v17 = *(*v10 + 8);
-                if (v6.u32[0] > 1uLL)
-                {
-                  if (v17 >= *&v4)
-                  {
-                    v17 %= *&v4;
-                  }
-                }
-
-                else
-                {
-                  v17 &= v11;
-                }
-
-                if (v17 != v13)
-                {
-LABEL_37:
-                  *(*&v8 + 8 * v13) = 0;
-                }
-              }
-
-              v18 = *v10;
-              if (*v10)
-              {
-                v19 = *(*&v18 + 8);
-                if (v6.u32[0] > 1uLL)
-                {
-                  if (v19 >= *&v4)
-                  {
-                    v19 %= *&v4;
-                  }
-                }
-
-                else
-                {
-                  v19 &= v11;
-                }
-
-                if (v19 != v13)
-                {
-                  *(*&this[42] + 8 * v19) = v15;
-                  v18 = *v10;
-                }
-              }
-
-              *v15 = v18;
-              *v10 = 0;
-              --*&this[45];
-
-              operator delete(v10);
-              return;
-            }
-          }
-
-          else
-          {
-            if (v6.u32[0] > 1uLL)
-            {
-              if (v12 >= *&v4)
-              {
-                v12 %= *&v4;
-              }
-            }
-
-            else
-            {
-              v12 &= v11;
-            }
-
-            if (v12 != v7)
-            {
-              return;
-            }
-          }
-
-          v10 = *v10;
-        }
-
-        while (v10);
-      }
-    }
-  }
-}
-
-void md::ARWalkingContinueFeatureDedupingGroup::onLabelAdded(int8x8_t *this, md::LabelBase *a2)
-{
-  md::ARWalkingLabelLayoutDedupingGroup::onLabelAdded(this, a2);
-  v4 = *(a2 + 12);
-  v5 = this[43];
-  if (!*&v5)
-  {
-    goto LABEL_18;
-  }
-
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = *(a2 + 12);
-    if (*&v5 <= v4)
-    {
-      v7 = v4 % v5.i32[0];
-    }
-  }
-
-  else
-  {
-    v7 = (v5.i32[0] - 1) & v4;
-  }
-
-  v8 = *(*&this[42] + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v10 = v9[1];
-    if (v10 == v4)
-    {
-      break;
-    }
-
-    if (v6.u32[0] > 1uLL)
-    {
-      if (v10 >= *&v5)
-      {
-        v10 %= *&v5;
-      }
-    }
-
-    else
-    {
-      v10 &= *&v5 - 1;
-    }
-
-    if (v10 != v7)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v9 = *v9;
-    if (!v9)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (*(v9 + 4) != v4)
-  {
-    goto LABEL_17;
-  }
-
-  v9[3] = a2;
-}
-
-void md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::ARWalkingContinueFeatureDedupingGroup *this, const LabelLayoutContext **a2)
-{
-  md::ARWalkingLabelLayoutDedupingGroup::prepareLayoutGroups(this, a2[53]);
-  v4 = *(this + 5);
-  if (v4 == *(this + 6))
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = *v4;
-  }
-
-  *(this + 6) = v4;
-  *(this + 9) = 0;
-  v57 = *(this + 32);
-  if (*(this + 40))
-  {
-    v6 = *(this + 39);
-    if (v6)
-    {
-      do
-      {
-        v7 = *v6;
-        operator delete(v6);
-        v6 = v7;
-      }
-
-      while (v7);
-    }
-
-    *(this + 39) = 0;
-    v8 = *(this + 38);
-    if (v8)
-    {
-      for (i = 0; i != v8; ++i)
-      {
-        *(*(this + 37) + 8 * i) = 0;
-      }
-    }
-
-    *(this + 40) = 0;
-  }
-
-  v11 = *(this + 1);
-  v10 = *(this + 2);
-  if (v11 != v10)
-  {
-    while (1)
-    {
-      v12 = *v11;
-      if ((*(*v11 + 1378) & 1) != 0 && std::__hash_table<std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>,std::__unordered_map_hasher<gdc::Registry *,std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>,std::hash<gdc::Registry *>,std::equal_to<gdc::Registry *>,true>,std::__unordered_map_equal<gdc::Registry *,std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>,std::equal_to<gdc::Registry *>,std::hash<gdc::Registry *>,true>,std::allocator<std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>>>::find<gdc::Registry *>(this + 26, *v11))
-      {
-        ++v11;
-      }
-
-      else
-      {
-        v10 = (v10 - 8);
-        if (v11 == v10)
-        {
-          break;
-        }
-
-        while (1)
-        {
-          v13 = v10->i64[0];
-          if (*(v10->i64[0] + 1378) == 1)
-          {
-            if (std::__hash_table<std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>,std::__unordered_map_hasher<gdc::Registry *,std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>,std::hash<gdc::Registry *>,std::equal_to<gdc::Registry *>,true>,std::__unordered_map_equal<gdc::Registry *,std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>,std::equal_to<gdc::Registry *>,std::hash<gdc::Registry *>,true>,std::allocator<std::__hash_value_type<gdc::Registry *,std::unordered_map<gdc::Entity,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *,std::hash<gdc::Entity>,std::equal_to<gdc::Entity>,std::allocator<std::pair<gdc::Entity const,gdc::components::RegistryBridgeMap<gdc::Entity>::RemoteBridgeNode *>>>>>>::find<gdc::Registry *>(this + 26, v10->i64[0]))
-            {
-              break;
-            }
-          }
-
-          v10 = (v10 - 8);
-          if (v10 == v11)
-          {
-            goto LABEL_23;
-          }
-        }
-
-        *v11++ = v13;
-        v10->i64[0] = v12;
-      }
-
-      if (v11 == v10)
-      {
-        goto LABEL_24;
-      }
-    }
-  }
-
-LABEL_23:
-  v10 = v11;
-LABEL_24:
-  v14 = *(this + 1);
-  v54 = this;
-  v55 = &v57;
-  v56 = (a2 + 450);
-  if (v14 != v10)
-  {
-    v15 = v10;
-    do
-    {
-      while (1)
-      {
-        if (v5 == v14->i64[0])
-        {
-          v58 = v5;
-          v16 = (*(**(v5 + 8) + 304))(*(v5 + 8), v5 + 48);
-          v17 = 0.0;
-          if (v18)
-          {
-            v19 = v16;
-            v20 = std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,mdm::zone_mallocator>>::find<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>(v54 + 37, v58);
-            if (v20)
-            {
-              v17 = v20[3];
-            }
-
-            else
-            {
-              [*v55 distanceFromPoint:*v56 toPoint:v19];
-              v17 = v21;
-              if (*v56 > v19 || *v56 == v19 && v56[1] > *(&v19 + 1))
-              {
-                v17 = -v21;
-              }
-
-              v59 = &v58;
-              *(std::__hash_table<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::__unordered_map_hasher<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::hash<md::LabelBase const*>,std::equal_to<md::LabelBase const*>,true>,std::__unordered_map_equal<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::equal_to<md::LabelBase const*>,std::hash<md::LabelBase const*>,true>,std::allocator<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>>>::__emplace_unique_key_args<md::LabelBase const*,std::piecewise_construct_t const&,std::tuple<md::LabelBase const* const&>,std::tuple<>>(v54 + 37, v58) + 3) = v17;
-            }
-          }
-
-          if (v17 >= -(*(this + 35) * *(this + 34)))
-          {
-            break;
-          }
-        }
-
-        v15 = (v15 - 8);
-        if (v14 != v15)
-        {
-          while (1)
-          {
-            if (v5 == v15->i64[0])
-            {
-              v58 = v5;
-              v22 = (*(**(v5 + 8) + 304))(*(v5 + 8), v5 + 48);
-              v23 = 0.0;
-              if (v24)
-              {
-                v25 = v22;
-                v26 = std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,mdm::zone_mallocator>>::find<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>(v54 + 37, v58);
-                if (v26)
-                {
-                  v23 = v26[3];
-                }
-
-                else
-                {
-                  [*v55 distanceFromPoint:*v56 toPoint:v25];
-                  v23 = v27;
-                  if (*v56 > v25 || *v56 == v25 && v56[1] > *(&v25 + 1))
-                  {
-                    v23 = -v27;
-                  }
-
-                  v59 = &v58;
-                  *(std::__hash_table<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::__unordered_map_hasher<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::hash<md::LabelBase const*>,std::equal_to<md::LabelBase const*>,true>,std::__unordered_map_equal<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::equal_to<md::LabelBase const*>,std::hash<md::LabelBase const*>,true>,std::allocator<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>>>::__emplace_unique_key_args<md::LabelBase const*,std::piecewise_construct_t const&,std::tuple<md::LabelBase const* const&>,std::tuple<>>(v54 + 37, v58) + 3) = v23;
-                }
-              }
-
-              if (v23 >= -(*(this + 35) * *(this + 34)))
-              {
-                break;
-              }
-            }
-
-            v15 = (v15 - 8);
-            if (v15 == v14)
-            {
-              goto LABEL_52;
-            }
-          }
-
-          v28 = v14->i64[0];
-          v14->i64[0] = v15->i64[0];
-          v14 = (v14 + 8);
-          v15->i64[0] = v28;
-          if (v14 != v15)
-          {
-            continue;
-          }
-        }
-
-        goto LABEL_52;
-      }
-
-      v14 = (v14 + 8);
-    }
-
-    while (v14 != v15);
-    v14 = v15;
-  }
-
-LABEL_52:
-  v29 = v14;
-  if (v14 == v10)
-  {
-    goto LABEL_83;
-  }
-
-  v30 = v10;
-  v29 = v14;
-  do
-  {
-    v31 = v54;
-    while (1)
-    {
-      v58 = v29->i64[0];
-      v32 = (*(**(v58 + 8) + 304))(*(v58 + 8), v58 + 48);
-      if ((v33 & 1) == 0)
-      {
-        v36 = 0.0;
-        goto LABEL_65;
-      }
-
-      v34 = v32;
-      v35 = std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,mdm::zone_mallocator>>::find<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>(v31 + 37, v58);
-      if (v35)
-      {
-        v36 = v35[3];
-      }
-
-      else
-      {
-        [*v55 distanceFromPoint:*v56 toPoint:v34];
-        v36 = v37;
-        if (*v56 > v34 || *v56 == v34 && v56[1] > *(&v34 + 1))
-        {
-          v36 = -v37;
-        }
-
-        v59 = &v58;
-        *(std::__hash_table<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::__unordered_map_hasher<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::hash<md::LabelBase const*>,std::equal_to<md::LabelBase const*>,true>,std::__unordered_map_equal<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::equal_to<md::LabelBase const*>,std::hash<md::LabelBase const*>,true>,std::allocator<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>>>::__emplace_unique_key_args<md::LabelBase const*,std::piecewise_construct_t const&,std::tuple<md::LabelBase const* const&>,std::tuple<>>(v31 + 37, v58) + 3) = v36;
-      }
-
-      if (v36 < 0.0)
-      {
-        break;
-      }
-
-LABEL_65:
-      if (v36 > *(this + 35))
-      {
-        break;
-      }
-
-      v29 = (v29 + 8);
-      if (v29 == v30)
-      {
-        v29 = v30;
-        goto LABEL_83;
-      }
-    }
-
-    if (v29 == --v30)
-    {
-      break;
-    }
-
-LABEL_69:
-    v58 = *v30;
-    v38 = (*(**(v58 + 8) + 304))(*(v58 + 8), v58 + 48);
-    if ((v39 & 1) == 0)
-    {
-      v42 = 0.0;
-      goto LABEL_79;
-    }
-
-    v40 = v38;
-    v41 = std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,mdm::zone_mallocator>>::find<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>(v31 + 37, v58);
-    if (v41)
-    {
-      v42 = v41[3];
-    }
-
-    else
-    {
-      [*v55 distanceFromPoint:*v56 toPoint:v40];
-      v42 = v43;
-      if (*v56 > v40 || *v56 == v40 && v56[1] > *(&v40 + 1))
-      {
-        v42 = -v43;
-      }
-
-      v59 = &v58;
-      *(std::__hash_table<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::__unordered_map_hasher<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::hash<md::LabelBase const*>,std::equal_to<md::LabelBase const*>,true>,std::__unordered_map_equal<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::equal_to<md::LabelBase const*>,std::hash<md::LabelBase const*>,true>,std::allocator<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>>>::__emplace_unique_key_args<md::LabelBase const*,std::piecewise_construct_t const&,std::tuple<md::LabelBase const* const&>,std::tuple<>>(v31 + 37, v58) + 3) = v42;
-    }
-
-    if (v42 < 0.0)
-    {
-LABEL_80:
-      if (--v30 == v29)
-      {
-        break;
-      }
-
-      goto LABEL_69;
-    }
-
-LABEL_79:
-    if (v42 > *(this + 35))
-    {
-      goto LABEL_80;
-    }
-
-    v44 = v29->i64[0];
-    v29->i64[0] = *v30;
-    v29 = (v29 + 8);
-    *v30 = v44;
-  }
-
-  while (v29 != v30);
-LABEL_83:
-  v45 = 126 - 2 * __clz((v29 - v14) >> 3);
-  v59 = &v54;
-  if (v29 == v14)
-  {
-    v46 = 0;
-  }
-
-  else
-  {
-    v46 = v45;
-  }
-
-  std::__introsort<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **,false>(v14, v29, &v59, v46, 1);
-  v47 = 126 - 2 * __clz((v10 - v29) >> 3);
-  v59 = &v54;
-  if (v10 == v29)
-  {
-    v48 = 0;
-  }
-
-  else
-  {
-    v48 = v47;
-  }
-
-  std::__introsort<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **,false>(v29, v10, &v59, v48, 1);
-  v49 = *(this + 2);
-  v50 = *(this + 1);
-  if (v50 != v49)
-  {
-    v51 = 0;
-    v52 = *(this + 1);
-    do
-    {
-      v53 = *v52++;
-      *(v53 + 32) = v51++;
-    }
-
-    while (v52 != v49);
-    *(this + 9) = *v50;
-  }
-}
-
-void *std::__hash_table<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::__unordered_map_hasher<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::hash<md::LabelBase const*>,std::equal_to<md::LabelBase const*>,true>,std::__unordered_map_equal<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::equal_to<md::LabelBase const*>,std::hash<md::LabelBase const*>,true>,std::allocator<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>>>::__emplace_unique_key_args<md::LabelBase const*,std::piecewise_construct_t const&,std::tuple<md::LabelBase const* const&>,std::tuple<>>(void *a1, unint64_t a2)
-{
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
-  {
-    goto LABEL_18;
-  }
-
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
-    {
-      v7 = v4 % *&v5;
-    }
-  }
-
-  else
-  {
-    v7 = v4 & (*&v5 - 1);
-  }
-
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v10 = v9[1];
-    if (v10 == v4)
-    {
-      break;
-    }
-
-    if (v6.u32[0] > 1uLL)
-    {
-      if (v10 >= *&v5)
-      {
-        v10 %= *&v5;
-      }
-    }
-
-    else
-    {
-      v10 &= *&v5 - 1;
-    }
-
-    if (v10 != v7)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v9 = *v9;
-    if (!v9)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v9[2] != a2)
-  {
-    goto LABEL_17;
-  }
-
-  return v9;
-}
-
-uint64_t std::__introsort<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **,false>(uint64_t result, int8x16_t *a2, uint64_t **a3, uint64_t a4, char a5)
-{
-  v8 = result;
-LABEL_2:
-  v9 = &a2[-1].u64[1];
-  v10 = v8;
-  v124 = a2;
-  while (1)
-  {
-    v8 = v10;
-    v11 = (a2 - v10) >> 3;
-    if (v11 > 2)
-    {
-      break;
-    }
-
-    if (v11 < 2)
-    {
-      return result;
-    }
-
-    if (v11 == 2)
-    {
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v9, v10->i64[0]);
-      if (result)
-      {
-        v78 = v10->i64[0];
-        v10->i64[0] = *v9;
-LABEL_103:
-        *v9 = v78;
-        return result;
-      }
-
-      return result;
-    }
-
-LABEL_10:
-    if (v11 <= 23)
-    {
-      v81 = &v10->u64[1];
-      v83 = v10 == a2 || v81 == a2;
-      if (a5)
-      {
-        if (!v83)
-        {
-          v84 = 0;
-          v85 = v10;
-          do
-          {
-            v87 = *v85;
-            v86 = v85[1];
-            v85 = v81;
-            result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v86, v87);
-            if (result)
-            {
-              v88 = *v85;
-              v89 = v84;
-              while (1)
-              {
-                *(&v10->i64[1] + v89) = *(v10->i64 + v89);
-                if (!v89)
-                {
-                  break;
-                }
-
-                result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v88, *(&v10->u64[-1] + v89));
-                v89 -= 8;
-                if ((result & 1) == 0)
-                {
-                  i64 = (&v10->i64[1] + v89);
-                  goto LABEL_125;
-                }
-              }
-
-              i64 = v10->i64;
-LABEL_125:
-              *i64 = v88;
-            }
-
-            v81 = v85 + 1;
-            v84 += 8;
-          }
-
-          while (v85 + 1 != a2);
-        }
-      }
-
-      else if (!v83)
-      {
-        do
-        {
-          v119 = *v8;
-          v118 = v8[1];
-          v8 = v81;
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v118, v119);
-          if (result)
-          {
-            v120 = *v8;
-            v121 = v8;
-            do
-            {
-              v122 = v121;
-              v123 = *--v121;
-              *v122 = v123;
-              result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v120, *(v122 - 2));
-            }
-
-            while ((result & 1) != 0);
-            *v121 = v120;
-          }
-
-          v81 = v8 + 1;
-        }
-
-        while (v8 + 1 != a2);
-      }
-
-      return result;
-    }
-
-    if (!a4)
-    {
-      if (v10 != a2)
-      {
-        v91 = (v11 - 2) >> 1;
-        v126 = v91;
-        do
-        {
-          v92 = v91;
-          if (v126 >= v91)
-          {
-            v93 = (2 * v91) | 1;
-            v94 = &v8[v93];
-            if (2 * v91 + 2 < v11 && md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v94, v94[1]))
-            {
-              ++v94;
-              v93 = 2 * v92 + 2;
-            }
-
-            v95 = &v8[v92];
-            result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v94, *v95);
-            if ((result & 1) == 0)
-            {
-              v96 = *v95;
-              do
-              {
-                v97 = v94;
-                *v95 = *v94;
-                if (v126 < v93)
-                {
-                  break;
-                }
-
-                v98 = (2 * v93) | 1;
-                v94 = &v8[v98];
-                v99 = 2 * v93 + 2;
-                if (v99 < v11 && md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v94, v94[1]))
-                {
-                  ++v94;
-                  v98 = v99;
-                }
-
-                result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v94, v96);
-                v95 = v97;
-                v93 = v98;
-              }
-
-              while (!result);
-              *v97 = v96;
-            }
-          }
-
-          v91 = v92 - 1;
-        }
-
-        while (v92);
-        v100 = v124;
-        do
-        {
-          v101 = v100;
-          v102 = 0;
-          v127 = *v8;
-          v103 = v8;
-          do
-          {
-            v104 = &v103[v102];
-            v105 = v104 + 1;
-            v106 = (2 * v102) | 1;
-            v107 = 2 * v102 + 2;
-            if (v107 >= v11)
-            {
-              v102 = (2 * v102) | 1;
-            }
-
-            else
-            {
-              v109 = v104[2];
-              v108 = v104 + 2;
-              result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(v108 - 1), v109);
-              if (result)
-              {
-                v105 = v108;
-                v102 = v107;
-              }
-
-              else
-              {
-                v102 = v106;
-              }
-            }
-
-            *v103 = *v105;
-            v103 = v105;
-          }
-
-          while (v102 <= ((v11 - 2) >> 1));
-          v100 = v101 - 1;
-          if (v105 == v101 - 1)
-          {
-            *v105 = v127;
-          }
-
-          else
-          {
-            *v105 = *v100;
-            *v100 = v127;
-            v110 = (v105 - v8 + 8) >> 3;
-            v111 = v110 < 2;
-            v112 = v110 - 2;
-            if (!v111)
-            {
-              v113 = v112 >> 1;
-              v114 = &v8[v112 >> 1];
-              result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v114, *v105);
-              if (result)
-              {
-                v115 = *v105;
-                do
-                {
-                  v116 = v114;
-                  *v105 = *v114;
-                  if (!v113)
-                  {
-                    break;
-                  }
-
-                  v113 = (v113 - 1) >> 1;
-                  v114 = &v8[v113];
-                  result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v114, v115);
-                  v105 = v116;
-                }
-
-                while ((result & 1) != 0);
-                *v116 = v115;
-              }
-            }
-          }
-
-          v111 = v11-- <= 2;
-        }
-
-        while (!v111);
-      }
-
-      return result;
-    }
-
-    v12 = v11 >> 1;
-    if (v11 < 0x81)
-    {
-      v16 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v10->i64[0], v10->u64[v12]);
-      v17 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v9, v10->i64[0]);
-      if (v16)
-      {
-        v18 = v10->u64[v12];
-        if (v17)
-        {
-          v10->i64[v12] = *v9;
-          *v9 = v18;
-        }
-
-        else
-        {
-          v10->i64[v12] = v10->i64[0];
-          v10->i64[0] = v18;
-          if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v9, v18))
-          {
-            v30 = v10->i64[0];
-            v10->i64[0] = *v9;
-            *v9 = v30;
-          }
-        }
-      }
-
-      else if (v17)
-      {
-        v21 = v10->i64[0];
-        v10->i64[0] = *v9;
-        *v9 = v21;
-        if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v10->i64[0], v10->u64[v12]))
-        {
-          v22 = v10->i64[v12];
-          v10->i64[v12] = v10->i64[0];
-          v10->i64[0] = v22;
-        }
-      }
-
-      goto LABEL_55;
-    }
-
-    v13 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v10->u64[v12], v10->i64[0]);
-    v14 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v9, v10->u64[v12]);
-    if (v13)
-    {
-      v15 = v10->i64[0];
-      if (v14)
-      {
-        v10->i64[0] = *v9;
-        *v9 = v15;
-      }
-
-      else
-      {
-        v10->i64[0] = v10->i64[v12];
-        v10->i64[v12] = v15;
-        if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v9, v15))
-        {
-          v23 = v10->u64[v12];
-          v10->i64[v12] = *v9;
-          *v9 = v23;
-        }
-      }
-    }
-
-    else if (v14)
-    {
-      v19 = v10->u64[v12];
-      v10->i64[v12] = *v9;
-      *v9 = v19;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v10->u64[v12], v10->i64[0]))
-      {
-        v20 = v10->i64[0];
-        v10->i64[0] = v10->i64[v12];
-        v10->i64[v12] = v20;
-      }
-    }
-
-    v24 = v12 - 1;
-    v25 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v8[v12 - 1], v8[1]);
-    v26 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, a2[-1].u64[0], v8[v12 - 1]);
-    if (v25)
-    {
-      v27 = v8[1];
-      if (v26)
-      {
-        v8[1] = a2[-1].u64[0];
-        a2[-1].i64[0] = v27;
-      }
-
-      else
-      {
-        v8[1] = v8[v24];
-        v8[v24] = v27;
-        if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, a2[-1].u64[0], v27))
-        {
-          v31 = v8[v24];
-          v8[v24] = a2[-1].u64[0];
-          a2[-1].i64[0] = v31;
-        }
-      }
-    }
-
-    else if (v26)
-    {
-      v28 = v8[v24];
-      v8[v24] = a2[-1].u64[0];
-      a2[-1].i64[0] = v28;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v8[v24], v8[1]))
-      {
-        v29 = v8[1];
-        v8[1] = v8[v24];
-        v8[v24] = v29;
-      }
-    }
-
-    v32 = a2;
-    v33 = v12 + 1;
-    v34 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v8[v12 + 1], v8[2]);
-    v35 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v32[-2].u64[1], v8[v12 + 1]);
-    if (v34)
-    {
-      v36 = v8[2];
-      if (v35)
-      {
-        v8[2] = *(v124 - 3);
-        *(v124 - 3) = v36;
-      }
-
-      else
-      {
-        v8[2] = v8[v33];
-        v8[v33] = v36;
-        if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(v124 - 3), v36))
-        {
-          v39 = v8[v33];
-          v8[v33] = *(v124 - 3);
-          *(v124 - 3) = v39;
-        }
-      }
-    }
-
-    else if (v35)
-    {
-      v37 = v8[v33];
-      v8[v33] = *(v124 - 3);
-      *(v124 - 3) = v37;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v8[v33], v8[2]))
-      {
-        v38 = v8[2];
-        v8[2] = v8[v33];
-        v8[v33] = v38;
-      }
-    }
-
-    v40 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v8[v12], v8[v24]);
-    v41 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v8[v33], v8[v12]);
-    if (!v40)
-    {
-      v43 = v8[v12];
-      if (!v41)
-      {
-        goto LABEL_54;
-      }
-
-      v44 = v8[v33];
-      v8[v12] = v44;
-      v8[v33] = v43;
-      v45 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v44, v8[v24]);
-      v43 = v8[v12];
-      if (!v45)
-      {
-        goto LABEL_54;
-      }
-
-      v46 = v8[v24];
-      v8[v24] = v43;
-      v8[v12] = v46;
-      goto LABEL_53;
-    }
-
-    v42 = v8[v24];
-    if (v41)
-    {
-      v8[v24] = v8[v33];
-      v8[v33] = v42;
-      v43 = v8[v12];
-    }
-
-    else
-    {
-      v8[v24] = v8[v12];
-      v8[v12] = v42;
-      v47 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v8[v33], v42);
-      v43 = v8[v12];
-      if (v47)
-      {
-        v46 = v8[v33];
-        v8[v12] = v46;
-        v8[v33] = v43;
-LABEL_53:
-        v43 = v46;
-      }
-    }
-
-LABEL_54:
-    a2 = v124;
-    v48 = *v8;
-    *v8 = v43;
-    v8[v12] = v48;
-LABEL_55:
-    --a4;
-    v49 = *v8;
-    if ((a5 & 1) != 0 || (v50 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(v8 - 1), *v8), v49 = *v8, v50))
-    {
-      v51 = v8;
-      do
-      {
-        v52 = v51;
-        v53 = v51[1];
-        ++v51;
-      }
-
-      while (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v53, v49));
-      v54 = a2;
-      if (v52 == v8)
-      {
-        v54 = a2;
-        do
-        {
-          if (v51 >= v54)
-          {
-            break;
-          }
-
-          v56 = *--v54;
-        }
-
-        while (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v56, v49));
-      }
-
-      else
-      {
-        do
-        {
-          v55 = *--v54;
-        }
-
-        while (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v55, v49));
-      }
-
-      if (v51 < v54)
-      {
-        v57 = v51;
-        v58 = v54;
-        do
-        {
-          v59 = *v57;
-          *v57 = *v58;
-          *v58 = v59;
-          do
-          {
-            v52 = v57;
-            v60 = v57[1];
-            ++v57;
-          }
-
-          while (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v60, v49));
-          do
-          {
-            v61 = *--v58;
-          }
-
-          while (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v61, v49));
-        }
-
-        while (v57 < v58);
-      }
-
-      if (v52 != v8)
-      {
-        *v8 = *v52;
-      }
-
-      *v52 = v49;
-      a2 = v124;
-      if (v51 < v54)
-      {
-        goto LABEL_76;
-      }
-
-      v62 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **>(v8, v52, a3);
-      v10 = (v52 + 1);
-      result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **>((v52 + 1), v124, a3);
-      if (result)
-      {
-        a2 = v52;
-        if (!v62)
-        {
-          goto LABEL_2;
-        }
-
-        return result;
-      }
-
-      if (!v62)
-      {
-LABEL_76:
-        result = std::__introsort<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **,false>(v8, v52, a3, a4, a5 & 1);
-        a5 = 0;
-        v10 = (v52 + 1);
-      }
-    }
-
-    else
-    {
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v8, *v9);
-      if (result)
-      {
-        v10 = v8;
-        do
-        {
-          v63 = v10->u64[1];
-          v10 = (v10 + 8);
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v49, v63);
-        }
-
-        while ((result & 1) == 0);
-      }
-
-      else
-      {
-        v64 = (v8 + 1);
-        do
-        {
-          v10 = v64;
-          if (v64 >= a2)
-          {
-            break;
-          }
-
-          v64 = (v64 + 8);
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v49, v10->i64[0]);
-        }
-
-        while (!result);
-      }
-
-      v65 = a2;
-      if (v10 < a2)
-      {
-        v65 = a2;
-        do
-        {
-          v66 = v65[-1].u64[1];
-          v65 = (v65 - 8);
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v49, v66);
-        }
-
-        while ((result & 1) != 0);
-      }
-
-      while (v10 < v65)
-      {
-        v67 = v10->i64[0];
-        v10->i64[0] = v65->i64[0];
-        v65->i64[0] = v67;
-        do
-        {
-          v68 = v10->u64[1];
-          v10 = (v10 + 8);
-        }
-
-        while (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v49, v68));
-        do
-        {
-          v69 = v65[-1].u64[1];
-          v65 = (v65 - 8);
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v49, v69);
-        }
-
-        while ((result & 1) != 0);
-      }
-
-      v70 = &v10[-1].u64[1];
-      if (&v10[-1].u64[1] != v8)
-      {
-        *v8 = *v70;
-      }
-
-      a5 = 0;
-      *v70 = v49;
-    }
-  }
-
-  if (v11 != 3)
-  {
-    if (v11 == 4)
-    {
-
-      return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **,0>(v10, &v10->u64[1], &v10[1], v9, a3);
-    }
-
-    if (v11 == 5)
-    {
-      std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **,0>(v10, &v10->u64[1], &v10[1], &v10[1].u64[1], a3);
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v9, v10[1].u64[1]);
-      if (!result)
-      {
-        return result;
-      }
-
-      v71 = v10[1].u64[1];
-      v10[1].i64[1] = *v9;
-      *v9 = v71;
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v10[1].u64[1], v10[1].u64[0]);
-      if (!result)
-      {
-        return result;
-      }
-
-      v73 = v10[1].i64[0];
-      v72 = v10[1].u64[1];
-      v74 = v10->u64[1];
-      v10[1].i64[0] = v72;
-      v10[1].i64[1] = v73;
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v72, v74);
-      if (!result)
-      {
-        return result;
-      }
-
-      v76 = v10->i64[1];
-      v75 = v10[1].u64[0];
-      v77 = v10->i64[0];
-      v10->i64[1] = v75;
-      v10[1].i64[0] = v76;
-      goto LABEL_164;
-    }
-
-    goto LABEL_10;
-  }
-
-  v79 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v10->u64[1], v10->i64[0]);
-  result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v9, v10->u64[1]);
-  if (!v79)
-  {
-    if (!result)
-    {
-      return result;
-    }
-
-    v117 = v10->u64[1];
-    v10->i64[1] = *v9;
-    *v9 = v117;
-    v77 = v10->i64[0];
-    v75 = v10->u64[1];
-LABEL_164:
-    result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v75, v77);
-    if (result)
-    {
-      *v10 = vextq_s8(*v10, *v10, 8uLL);
-    }
-
-    return result;
-  }
-
-  v80 = v10->i64[0];
-  if (result)
-  {
-    v10->i64[0] = *v9;
-    *v9 = v80;
-  }
-
-  else
-  {
-    v10->i64[0] = v10->i64[1];
-    v10->i64[1] = v80;
-    result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v9, v80);
-    if (result)
-    {
-      v78 = v10->u64[1];
-      v10->i64[1] = *v9;
-      goto LABEL_103;
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__introsort<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **,false>(uint64_t result, int8x16_t *a2, uint64_t **a3, uint64_t a4, char a5)
-{
-  v8 = result;
-LABEL_2:
-  v9 = &a2[-1].u64[1];
-  v10 = v8;
-  v124 = a2;
-  while (1)
-  {
-    v8 = v10;
-    v11 = (a2 - v10) >> 3;
-    if (v11 > 2)
-    {
-      break;
-    }
-
-    if (v11 < 2)
-    {
-      return result;
-    }
-
-    if (v11 == 2)
-    {
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v9, v10->i64[0]);
-      if (result)
-      {
-        v78 = v10->i64[0];
-        v10->i64[0] = *v9;
-LABEL_103:
-        *v9 = v78;
-        return result;
-      }
-
-      return result;
-    }
-
-LABEL_10:
-    if (v11 <= 23)
-    {
-      v81 = &v10->u64[1];
-      v83 = v10 == a2 || v81 == a2;
-      if (a5)
-      {
-        if (!v83)
-        {
-          v84 = 0;
-          v85 = v10;
-          do
-          {
-            v87 = *v85;
-            v86 = v85[1];
-            v85 = v81;
-            result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v86, v87);
-            if (result)
-            {
-              v88 = *v85;
-              v89 = v84;
-              while (1)
-              {
-                *(&v10->i64[1] + v89) = *(v10->i64 + v89);
-                if (!v89)
-                {
-                  break;
-                }
-
-                result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v88, *(&v10->u64[-1] + v89));
-                v89 -= 8;
-                if ((result & 1) == 0)
-                {
-                  i64 = (&v10->i64[1] + v89);
-                  goto LABEL_125;
-                }
-              }
-
-              i64 = v10->i64;
-LABEL_125:
-              *i64 = v88;
-            }
-
-            v81 = v85 + 1;
-            v84 += 8;
-          }
-
-          while (v85 + 1 != a2);
-        }
-      }
-
-      else if (!v83)
-      {
-        do
-        {
-          v119 = *v8;
-          v118 = v8[1];
-          v8 = v81;
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v118, v119);
-          if (result)
-          {
-            v120 = *v8;
-            v121 = v8;
-            do
-            {
-              v122 = v121;
-              v123 = *--v121;
-              *v122 = v123;
-              result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v120, *(v122 - 2));
-            }
-
-            while ((result & 1) != 0);
-            *v121 = v120;
-          }
-
-          v81 = v8 + 1;
-        }
-
-        while (v8 + 1 != a2);
-      }
-
-      return result;
-    }
-
-    if (!a4)
-    {
-      if (v10 != a2)
-      {
-        v91 = (v11 - 2) >> 1;
-        v126 = v91;
-        do
-        {
-          v92 = v91;
-          if (v126 >= v91)
-          {
-            v93 = (2 * v91) | 1;
-            v94 = &v8[v93];
-            if (2 * v91 + 2 < v11 && md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v94, v94[1]))
-            {
-              ++v94;
-              v93 = 2 * v92 + 2;
-            }
-
-            v95 = &v8[v92];
-            result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v94, *v95);
-            if ((result & 1) == 0)
-            {
-              v96 = *v95;
-              do
-              {
-                v97 = v94;
-                *v95 = *v94;
-                if (v126 < v93)
-                {
-                  break;
-                }
-
-                v98 = (2 * v93) | 1;
-                v94 = &v8[v98];
-                v99 = 2 * v93 + 2;
-                if (v99 < v11 && md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v94, v94[1]))
-                {
-                  ++v94;
-                  v98 = v99;
-                }
-
-                result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v94, v96);
-                v95 = v97;
-                v93 = v98;
-              }
-
-              while (!result);
-              *v97 = v96;
-            }
-          }
-
-          v91 = v92 - 1;
-        }
-
-        while (v92);
-        v100 = v124;
-        do
-        {
-          v101 = v100;
-          v102 = 0;
-          v127 = *v8;
-          v103 = v8;
-          do
-          {
-            v104 = &v103[v102];
-            v105 = v104 + 1;
-            v106 = (2 * v102) | 1;
-            v107 = 2 * v102 + 2;
-            if (v107 >= v11)
-            {
-              v102 = (2 * v102) | 1;
-            }
-
-            else
-            {
-              v109 = v104[2];
-              v108 = v104 + 2;
-              result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(v108 - 1), v109);
-              if (result)
-              {
-                v105 = v108;
-                v102 = v107;
-              }
-
-              else
-              {
-                v102 = v106;
-              }
-            }
-
-            *v103 = *v105;
-            v103 = v105;
-          }
-
-          while (v102 <= ((v11 - 2) >> 1));
-          v100 = v101 - 1;
-          if (v105 == v101 - 1)
-          {
-            *v105 = v127;
-          }
-
-          else
-          {
-            *v105 = *v100;
-            *v100 = v127;
-            v110 = (v105 - v8 + 8) >> 3;
-            v111 = v110 < 2;
-            v112 = v110 - 2;
-            if (!v111)
-            {
-              v113 = v112 >> 1;
-              v114 = &v8[v112 >> 1];
-              result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v114, *v105);
-              if (result)
-              {
-                v115 = *v105;
-                do
-                {
-                  v116 = v114;
-                  *v105 = *v114;
-                  if (!v113)
-                  {
-                    break;
-                  }
-
-                  v113 = (v113 - 1) >> 1;
-                  v114 = &v8[v113];
-                  result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v114, v115);
-                  v105 = v116;
-                }
-
-                while ((result & 1) != 0);
-                *v116 = v115;
-              }
-            }
-          }
-
-          v111 = v11-- <= 2;
-        }
-
-        while (!v111);
-      }
-
-      return result;
-    }
-
-    v12 = v11 >> 1;
-    if (v11 < 0x81)
-    {
-      v16 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v10->i64[0], v10->u64[v12]);
-      v17 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v9, v10->i64[0]);
-      if (v16)
-      {
-        v18 = v10->u64[v12];
-        if (v17)
-        {
-          v10->i64[v12] = *v9;
-          *v9 = v18;
-        }
-
-        else
-        {
-          v10->i64[v12] = v10->i64[0];
-          v10->i64[0] = v18;
-          if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v9, v18))
-          {
-            v30 = v10->i64[0];
-            v10->i64[0] = *v9;
-            *v9 = v30;
-          }
-        }
-      }
-
-      else if (v17)
-      {
-        v21 = v10->i64[0];
-        v10->i64[0] = *v9;
-        *v9 = v21;
-        if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v10->i64[0], v10->u64[v12]))
-        {
-          v22 = v10->i64[v12];
-          v10->i64[v12] = v10->i64[0];
-          v10->i64[0] = v22;
-        }
-      }
-
-      goto LABEL_55;
-    }
-
-    v13 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v10->u64[v12], v10->i64[0]);
-    v14 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v9, v10->u64[v12]);
-    if (v13)
-    {
-      v15 = v10->i64[0];
-      if (v14)
-      {
-        v10->i64[0] = *v9;
-        *v9 = v15;
-      }
-
-      else
-      {
-        v10->i64[0] = v10->i64[v12];
-        v10->i64[v12] = v15;
-        if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v9, v15))
-        {
-          v23 = v10->u64[v12];
-          v10->i64[v12] = *v9;
-          *v9 = v23;
-        }
-      }
-    }
-
-    else if (v14)
-    {
-      v19 = v10->u64[v12];
-      v10->i64[v12] = *v9;
-      *v9 = v19;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v10->u64[v12], v10->i64[0]))
-      {
-        v20 = v10->i64[0];
-        v10->i64[0] = v10->i64[v12];
-        v10->i64[v12] = v20;
-      }
-    }
-
-    v24 = v12 - 1;
-    v25 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v8[v12 - 1], v8[1]);
-    v26 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, a2[-1].u64[0], v8[v12 - 1]);
-    if (v25)
-    {
-      v27 = v8[1];
-      if (v26)
-      {
-        v8[1] = a2[-1].u64[0];
-        a2[-1].i64[0] = v27;
-      }
-
-      else
-      {
-        v8[1] = v8[v24];
-        v8[v24] = v27;
-        if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, a2[-1].u64[0], v27))
-        {
-          v31 = v8[v24];
-          v8[v24] = a2[-1].u64[0];
-          a2[-1].i64[0] = v31;
-        }
-      }
-    }
-
-    else if (v26)
-    {
-      v28 = v8[v24];
-      v8[v24] = a2[-1].u64[0];
-      a2[-1].i64[0] = v28;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v8[v24], v8[1]))
-      {
-        v29 = v8[1];
-        v8[1] = v8[v24];
-        v8[v24] = v29;
-      }
-    }
-
-    v32 = a2;
-    v33 = v12 + 1;
-    v34 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v8[v12 + 1], v8[2]);
-    v35 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v32[-2].u64[1], v8[v12 + 1]);
-    if (v34)
-    {
-      v36 = v8[2];
-      if (v35)
-      {
-        v8[2] = *(v124 - 3);
-        *(v124 - 3) = v36;
-      }
-
-      else
-      {
-        v8[2] = v8[v33];
-        v8[v33] = v36;
-        if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(v124 - 3), v36))
-        {
-          v39 = v8[v33];
-          v8[v33] = *(v124 - 3);
-          *(v124 - 3) = v39;
-        }
-      }
-    }
-
-    else if (v35)
-    {
-      v37 = v8[v33];
-      v8[v33] = *(v124 - 3);
-      *(v124 - 3) = v37;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v8[v33], v8[2]))
-      {
-        v38 = v8[2];
-        v8[2] = v8[v33];
-        v8[v33] = v38;
-      }
-    }
-
-    v40 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v8[v12], v8[v24]);
-    v41 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v8[v33], v8[v12]);
-    if (!v40)
-    {
-      v43 = v8[v12];
-      if (!v41)
-      {
-        goto LABEL_54;
-      }
-
-      v44 = v8[v33];
-      v8[v12] = v44;
-      v8[v33] = v43;
-      v45 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v44, v8[v24]);
-      v43 = v8[v12];
-      if (!v45)
-      {
-        goto LABEL_54;
-      }
-
-      v46 = v8[v24];
-      v8[v24] = v43;
-      v8[v12] = v46;
-      goto LABEL_53;
-    }
-
-    v42 = v8[v24];
-    if (v41)
-    {
-      v8[v24] = v8[v33];
-      v8[v33] = v42;
-      v43 = v8[v12];
-    }
-
-    else
-    {
-      v8[v24] = v8[v12];
-      v8[v12] = v42;
-      v47 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v8[v33], v42);
-      v43 = v8[v12];
-      if (v47)
-      {
-        v46 = v8[v33];
-        v8[v12] = v46;
-        v8[v33] = v43;
-LABEL_53:
-        v43 = v46;
-      }
-    }
-
-LABEL_54:
-    a2 = v124;
-    v48 = *v8;
-    *v8 = v43;
-    v8[v12] = v48;
-LABEL_55:
-    --a4;
-    v49 = *v8;
-    if ((a5 & 1) != 0 || (v50 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(v8 - 1), *v8), v49 = *v8, v50))
-    {
-      v51 = v8;
-      do
-      {
-        v52 = v51;
-        v53 = v51[1];
-        ++v51;
-      }
-
-      while (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v53, v49));
-      v54 = a2;
-      if (v52 == v8)
-      {
-        v54 = a2;
-        do
-        {
-          if (v51 >= v54)
-          {
-            break;
-          }
-
-          v56 = *--v54;
-        }
-
-        while (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v56, v49));
-      }
-
-      else
-      {
-        do
-        {
-          v55 = *--v54;
-        }
-
-        while (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v55, v49));
-      }
-
-      if (v51 < v54)
-      {
-        v57 = v51;
-        v58 = v54;
-        do
-        {
-          v59 = *v57;
-          *v57 = *v58;
-          *v58 = v59;
-          do
-          {
-            v52 = v57;
-            v60 = v57[1];
-            ++v57;
-          }
-
-          while (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v60, v49));
-          do
-          {
-            v61 = *--v58;
-          }
-
-          while (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v61, v49));
-        }
-
-        while (v57 < v58);
-      }
-
-      if (v52 != v8)
-      {
-        *v8 = *v52;
-      }
-
-      *v52 = v49;
-      a2 = v124;
-      if (v51 < v54)
-      {
-        goto LABEL_76;
-      }
-
-      v62 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **>(v8, v52, a3);
-      v10 = (v52 + 1);
-      result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **>((v52 + 1), v124, a3);
-      if (result)
-      {
-        a2 = v52;
-        if (!v62)
-        {
-          goto LABEL_2;
-        }
-
-        return result;
-      }
-
-      if (!v62)
-      {
-LABEL_76:
-        result = std::__introsort<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **,false>(v8, v52, a3, a4, a5 & 1);
-        a5 = 0;
-        v10 = (v52 + 1);
-      }
-    }
-
-    else
-    {
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v8, *v9);
-      if (result)
-      {
-        v10 = v8;
-        do
-        {
-          v63 = v10->u64[1];
-          v10 = (v10 + 8);
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v49, v63);
-        }
-
-        while ((result & 1) == 0);
-      }
-
-      else
-      {
-        v64 = (v8 + 1);
-        do
-        {
-          v10 = v64;
-          if (v64 >= a2)
-          {
-            break;
-          }
-
-          v64 = (v64 + 8);
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v49, v10->i64[0]);
-        }
-
-        while (!result);
-      }
-
-      v65 = a2;
-      if (v10 < a2)
-      {
-        v65 = a2;
-        do
-        {
-          v66 = v65[-1].u64[1];
-          v65 = (v65 - 8);
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v49, v66);
-        }
-
-        while ((result & 1) != 0);
-      }
-
-      while (v10 < v65)
-      {
-        v67 = v10->i64[0];
-        v10->i64[0] = v65->i64[0];
-        v65->i64[0] = v67;
-        do
-        {
-          v68 = v10->u64[1];
-          v10 = (v10 + 8);
-        }
-
-        while (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v49, v68));
-        do
-        {
-          v69 = v65[-1].u64[1];
-          v65 = (v65 - 8);
-          result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v49, v69);
-        }
-
-        while ((result & 1) != 0);
-      }
-
-      v70 = &v10[-1].u64[1];
-      if (&v10[-1].u64[1] != v8)
-      {
-        *v8 = *v70;
-      }
-
-      a5 = 0;
-      *v70 = v49;
-    }
-  }
-
-  if (v11 != 3)
-  {
-    if (v11 == 4)
-    {
-
-      return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **,0>(v10, &v10->u64[1], &v10[1], v9, a3);
-    }
-
-    if (v11 == 5)
-    {
-      std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **,0>(v10, &v10->u64[1], &v10[1], &v10[1].u64[1], a3);
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v9, v10[1].u64[1]);
-      if (!result)
-      {
-        return result;
-      }
-
-      v71 = v10[1].u64[1];
-      v10[1].i64[1] = *v9;
-      *v9 = v71;
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v10[1].u64[1], v10[1].u64[0]);
-      if (!result)
-      {
-        return result;
-      }
-
-      v73 = v10[1].i64[0];
-      v72 = v10[1].u64[1];
-      v74 = v10->u64[1];
-      v10[1].i64[0] = v72;
-      v10[1].i64[1] = v73;
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v72, v74);
-      if (!result)
-      {
-        return result;
-      }
-
-      v76 = v10->i64[1];
-      v75 = v10[1].u64[0];
-      v77 = v10->i64[0];
-      v10->i64[1] = v75;
-      v10[1].i64[0] = v76;
-      goto LABEL_164;
-    }
-
-    goto LABEL_10;
-  }
-
-  v79 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v10->u64[1], v10->i64[0]);
-  result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v9, v10->u64[1]);
-  if (!v79)
-  {
-    if (!result)
-    {
-      return result;
-    }
-
-    v117 = v10->u64[1];
-    v10->i64[1] = *v9;
-    *v9 = v117;
-    v77 = v10->i64[0];
-    v75 = v10->u64[1];
-LABEL_164:
-    result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v75, v77);
-    if (result)
-    {
-      *v10 = vextq_s8(*v10, *v10, 8uLL);
-    }
-
-    return result;
-  }
-
-  v80 = v10->i64[0];
-  if (result)
-  {
-    v10->i64[0] = *v9;
-    *v9 = v80;
-  }
-
-  else
-  {
-    v10->i64[0] = v10->i64[1];
-    v10->i64[1] = v80;
-    result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v9, v80);
-    if (result)
-    {
-      v78 = v10->u64[1];
-      v10->i64[1] = *v9;
-      goto LABEL_103;
-    }
-  }
-
-  return result;
-}
-
-BOOL md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(uint64_t **a1, unint64_t a2, unint64_t a3)
-{
-  v6 = *a1;
-  v25 = a2;
-  v7 = *v6;
-  v8 = (*(**(a2 + 8) + 304))(*(a2 + 8), a2 + 48);
-  v9 = 0.0;
-  if (v10)
-  {
-    v11 = v8;
-    v12 = std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,mdm::zone_mallocator>>::find<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>((v7 + 296), a2);
-    if (v12)
-    {
-      v9 = v12[3];
-    }
-
-    else
-    {
-      [*v6[1] distanceFromPoint:*v6[2] toPoint:v11];
-      v9 = v13;
-      v14 = v6[2];
-      if (*v14 > v11 || *v14 == v11 && *(v14 + 4) > *(&v11 + 1))
-      {
-        v9 = -v13;
-      }
-
-      v26 = &v25;
-      *(std::__hash_table<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::__unordered_map_hasher<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::hash<md::LabelBase const*>,std::equal_to<md::LabelBase const*>,true>,std::__unordered_map_equal<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::equal_to<md::LabelBase const*>,std::hash<md::LabelBase const*>,true>,std::allocator<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>>>::__emplace_unique_key_args<md::LabelBase const*,std::piecewise_construct_t const&,std::tuple<md::LabelBase const* const&>,std::tuple<>>((v7 + 296), a2) + 3) = v9;
-    }
-  }
-
-  v15 = *a1;
-  v25 = a3;
-  v16 = *v15;
-  v17 = (*(**(a3 + 8) + 304))(*(a3 + 8), a3 + 48);
-  if ((v18 & 1) == 0)
-  {
-    v21 = 0.0;
-    if (v9 >= 0.0)
-    {
-      return v9 < v21;
-    }
-
-    return v9 > v21;
-  }
-
-  v19 = v17;
-  v20 = std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,mdm::zone_mallocator>>::find<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>((v16 + 296), a3);
-  if (v20)
-  {
-    v21 = v20[3];
-  }
-
-  else
-  {
-    [*v15[1] distanceFromPoint:*v15[2] toPoint:v19];
-    v21 = v22;
-    v23 = v15[2];
-    if (*v23 > v19 || *v23 == v19 && *(v23 + 4) > *(&v19 + 1))
-    {
-      v21 = -v22;
-    }
-
-    v26 = &v25;
-    *(std::__hash_table<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::__unordered_map_hasher<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::hash<md::LabelBase const*>,std::equal_to<md::LabelBase const*>,true>,std::__unordered_map_equal<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::equal_to<md::LabelBase const*>,std::hash<md::LabelBase const*>,true>,std::allocator<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>>>::__emplace_unique_key_args<md::LabelBase const*,std::piecewise_construct_t const&,std::tuple<md::LabelBase const* const&>,std::tuple<>>((v16 + 296), a3) + 3) = v21;
-  }
-
-  result = v9 >= 0.0;
-  if (v9 >= 0.0 && v21 >= 0.0)
-  {
-    return v9 < v21;
-  }
-
-  if (v9 <= 0.0 && v21 <= 0.0)
-  {
-    return v9 > v21;
-  }
-
-  return result;
-}
-
-BOOL std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t **a5)
-{
-  v10 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a5, *a2, *a1);
-  v11 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a5, *a3, *a2);
-  if (v10)
-  {
-    v12 = *a1;
-    if (v11)
-    {
-      *a1 = *a3;
-      *a3 = v12;
-    }
-
-    else
-    {
-      *a1 = *a2;
-      *a2 = v12;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a5, *a3, v12))
-      {
-        v15 = *a2;
-        *a2 = *a3;
-        *a3 = v15;
-      }
-    }
-  }
-
-  else if (v11)
-  {
-    v13 = *a2;
-    *a2 = *a3;
-    *a3 = v13;
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a5, *a2, *a1))
-    {
-      v14 = *a1;
-      *a1 = *a2;
-      *a2 = v14;
-    }
-  }
-
-  result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a5, *a4, *a3);
-  if (result)
-  {
-    v17 = *a3;
-    *a3 = *a4;
-    *a4 = v17;
-    result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a5, *a3, *a2);
-    if (result)
-    {
-      v18 = *a2;
-      *a2 = *a3;
-      *a3 = v18;
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a5, *a2, *a1);
-      if (result)
-      {
-        v19 = *a1;
-        *a1 = *a2;
-        *a2 = v19;
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **>(uint64_t a1, unint64_t *a2, uint64_t **a3)
-{
-  v6 = (a2 - a1) >> 3;
-  if (v6 > 2)
-  {
-    switch(v6)
-    {
-      case 3:
-        v15 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(a1 + 8), *a1);
-        v16 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(a2 - 1), *(a1 + 8));
-        if (v15)
-        {
-          v17 = *a1;
-          if (v16)
-          {
-            *a1 = *(a2 - 1);
-            *(a2 - 1) = v17;
-            return 1;
-          }
-
-          *a1 = *(a1 + 8);
-          *(a1 + 8) = v17;
-          if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(a2 - 1), v17))
-          {
-            return 1;
-          }
-
-          v7 = *(a1 + 8);
-          *(a1 + 8) = *(a2 - 1);
-          goto LABEL_6;
-        }
-
-        if (!v16)
-        {
-          return 1;
-        }
-
-        v22 = *(a1 + 8);
-        *(a1 + 8) = *(a2 - 1);
-        *(a2 - 1) = v22;
-        v14 = *a1;
-        v12 = *(a1 + 8);
-        break;
-      case 4:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **,0>(a1, (a1 + 8), (a1 + 16), a2 - 1, a3);
-        return 1;
-      case 5:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4 &,md::LabelBase **,0>(a1, (a1 + 8), (a1 + 16), (a1 + 24), a3);
-        if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(a2 - 1), *(a1 + 24)))
-        {
-          return 1;
-        }
-
-        v8 = *(a1 + 24);
-        *(a1 + 24) = *(a2 - 1);
-        *(a2 - 1) = v8;
-        if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(a1 + 24), *(a1 + 16)))
-        {
-          return 1;
-        }
-
-        v10 = *(a1 + 16);
-        v9 = *(a1 + 24);
-        v11 = *(a1 + 8);
-        *(a1 + 16) = v9;
-        *(a1 + 24) = v10;
-        if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v9, v11))
-        {
-          return 1;
-        }
-
-        v13 = *(a1 + 8);
-        v12 = *(a1 + 16);
-        v14 = *a1;
-        *(a1 + 8) = v12;
-        *(a1 + 16) = v13;
-        break;
-      default:
-        goto LABEL_17;
-    }
-
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v12, v14))
-    {
-      *a1 = vextq_s8(*a1, *a1, 8uLL);
-    }
-
-    return 1;
-  }
-
-  if (v6 < 2)
-  {
-    return 1;
-  }
-
-  if (v6 == 2)
-  {
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(a2 - 1), *a1))
-    {
-      v7 = *a1;
-      *a1 = *(a2 - 1);
-LABEL_6:
-      *(a2 - 1) = v7;
-    }
-
-    return 1;
-  }
-
-LABEL_17:
-  v18 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(a1 + 8), *a1);
-  v19 = (a1 + 16);
-  v20 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *(a1 + 16), *(a1 + 8));
-  if (v18)
-  {
-    v21 = *a1;
-    if (v20)
-    {
-      *a1 = *(a1 + 16);
-      *(a1 + 16) = v21;
-    }
-
-    else
-    {
-      v26 = *(a1 + 16);
-      *a1 = *(a1 + 8);
-      *(a1 + 8) = v21;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v26, v21))
-      {
-        *(a1 + 8) = vextq_s8(*(a1 + 8), *(a1 + 8), 8uLL);
-      }
-    }
-  }
-
-  else if (v20)
-  {
-    v24 = *(a1 + 8);
-    v23 = *(a1 + 16);
-    v25 = *a1;
-    *(a1 + 8) = v23;
-    *(a1 + 16) = v24;
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v23, v25))
-    {
-      *a1 = vextq_s8(*a1, *a1, 8uLL);
-    }
-  }
-
-  v27 = (a1 + 24);
-  if ((a1 + 24) == a2)
-  {
-    return 1;
-  }
-
-  v28 = 0;
-  v29 = 0;
-  while (1)
-  {
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, *v27, *v19))
-    {
-      v30 = *v27;
-      v31 = v28;
-      while (1)
-      {
-        v32 = a1 + v31;
-        *(a1 + v31 + 24) = *(a1 + v31 + 16);
-        if (v31 == -16)
-        {
-          break;
-        }
-
-        v31 -= 8;
-        if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_4::operator()(a3, v30, *(v32 + 8)))
-        {
-          v33 = (a1 + v31 + 24);
-          goto LABEL_40;
-        }
-      }
-
-      v33 = a1;
-LABEL_40:
-      *v33 = v30;
-      if (++v29 == 8)
-      {
-        return v27 + 1 == a2;
-      }
-    }
-
-    v19 = v27;
-    v28 += 8;
-    if (++v27 == a2)
-    {
-      return 1;
-    }
-  }
-}
-
-BOOL md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(uint64_t **a1, unint64_t a2, unint64_t a3)
-{
-  v6 = *a1;
-  v25 = a2;
-  v7 = *v6;
-  v8 = (*(**(a2 + 8) + 304))(*(a2 + 8), a2 + 48);
-  v9 = 0.0;
-  v10 = 0.0;
-  if (v11)
-  {
-    v12 = v8;
-    v13 = std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,mdm::zone_mallocator>>::find<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>((v7 + 296), a2);
-    if (v13)
-    {
-      v10 = v13[3];
-    }
-
-    else
-    {
-      [*v6[1] distanceFromPoint:*v6[2] toPoint:v12];
-      v10 = v14;
-      v15 = v6[2];
-      if (*v15 > v12 || *v15 == v12 && *(v15 + 4) > *(&v12 + 1))
-      {
-        v10 = -v14;
-      }
-
-      v26 = &v25;
-      *(std::__hash_table<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::__unordered_map_hasher<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::hash<md::LabelBase const*>,std::equal_to<md::LabelBase const*>,true>,std::__unordered_map_equal<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::equal_to<md::LabelBase const*>,std::hash<md::LabelBase const*>,true>,std::allocator<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>>>::__emplace_unique_key_args<md::LabelBase const*,std::piecewise_construct_t const&,std::tuple<md::LabelBase const* const&>,std::tuple<>>((v7 + 296), a2) + 3) = v10;
-    }
-  }
-
-  v16 = *a1;
-  v25 = a3;
-  v17 = *v16;
-  v18 = (*(**(a3 + 8) + 304))(*(a3 + 8), a3 + 48);
-  if (v19)
-  {
-    v20 = v18;
-    v21 = std::__hash_table<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::__unordered_map_hasher<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,std::__unordered_map_equal<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,std::equal_to<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,std::hash<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>,true>,geo::allocator_adapter<std::__hash_value_type<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,std::vector<gm::Matrix<float,3,1>>>,mdm::zone_mallocator>>::find<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>((v17 + 296), a3);
-    if (v21)
-    {
-      v9 = v21[3];
-    }
-
-    else
-    {
-      [*v16[1] distanceFromPoint:*v16[2] toPoint:v20];
-      v9 = v22;
-      v23 = v16[2];
-      if (*v23 > v20 || *v23 == v20 && *(v23 + 4) > *(&v20 + 1))
-      {
-        v9 = -v22;
-      }
-
-      v26 = &v25;
-      *(std::__hash_table<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::__unordered_map_hasher<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::hash<md::LabelBase const*>,std::equal_to<md::LabelBase const*>,true>,std::__unordered_map_equal<md::LabelBase const*,std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>,std::equal_to<md::LabelBase const*>,std::hash<md::LabelBase const*>,true>,std::allocator<std::__hash_value_type<md::LabelBase const*,geo::Unit<geo::MeterUnitDescription,double>>>>::__emplace_unique_key_args<md::LabelBase const*,std::piecewise_construct_t const&,std::tuple<md::LabelBase const* const&>,std::tuple<>>((v17 + 296), a3) + 3) = v9;
-    }
-  }
-
-  return v10 > v9;
-}
-
-BOOL std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t **a5)
-{
-  v10 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a5, *a2, *a1);
-  v11 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a5, *a3, *a2);
-  if (v10)
-  {
-    v12 = *a1;
-    if (v11)
-    {
-      *a1 = *a3;
-      *a3 = v12;
-    }
-
-    else
-    {
-      *a1 = *a2;
-      *a2 = v12;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a5, *a3, v12))
-      {
-        v15 = *a2;
-        *a2 = *a3;
-        *a3 = v15;
-      }
-    }
-  }
-
-  else if (v11)
-  {
-    v13 = *a2;
-    *a2 = *a3;
-    *a3 = v13;
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a5, *a2, *a1))
-    {
-      v14 = *a1;
-      *a1 = *a2;
-      *a2 = v14;
-    }
-  }
-
-  result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a5, *a4, *a3);
-  if (result)
-  {
-    v17 = *a3;
-    *a3 = *a4;
-    *a4 = v17;
-    result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a5, *a3, *a2);
-    if (result)
-    {
-      v18 = *a2;
-      *a2 = *a3;
-      *a3 = v18;
-      result = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a5, *a2, *a1);
-      if (result)
-      {
-        v19 = *a1;
-        *a1 = *a2;
-        *a2 = v19;
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **>(uint64_t a1, unint64_t *a2, uint64_t **a3)
-{
-  v6 = (a2 - a1) >> 3;
-  if (v6 > 2)
-  {
-    switch(v6)
-    {
-      case 3:
-        v15 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(a1 + 8), *a1);
-        v16 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(a2 - 1), *(a1 + 8));
-        if (v15)
-        {
-          v17 = *a1;
-          if (v16)
-          {
-            *a1 = *(a2 - 1);
-            *(a2 - 1) = v17;
-            return 1;
-          }
-
-          *a1 = *(a1 + 8);
-          *(a1 + 8) = v17;
-          if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(a2 - 1), v17))
-          {
-            return 1;
-          }
-
-          v7 = *(a1 + 8);
-          *(a1 + 8) = *(a2 - 1);
-          goto LABEL_6;
-        }
-
-        if (!v16)
-        {
-          return 1;
-        }
-
-        v22 = *(a1 + 8);
-        *(a1 + 8) = *(a2 - 1);
-        *(a2 - 1) = v22;
-        v14 = *a1;
-        v12 = *(a1 + 8);
-        break;
-      case 4:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **,0>(a1, (a1 + 8), (a1 + 16), a2 - 1, a3);
-        return 1;
-      case 5:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3 &,md::LabelBase **,0>(a1, (a1 + 8), (a1 + 16), (a1 + 24), a3);
-        if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(a2 - 1), *(a1 + 24)))
-        {
-          return 1;
-        }
-
-        v8 = *(a1 + 24);
-        *(a1 + 24) = *(a2 - 1);
-        *(a2 - 1) = v8;
-        if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(a1 + 24), *(a1 + 16)))
-        {
-          return 1;
-        }
-
-        v10 = *(a1 + 16);
-        v9 = *(a1 + 24);
-        v11 = *(a1 + 8);
-        *(a1 + 16) = v9;
-        *(a1 + 24) = v10;
-        if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v9, v11))
-        {
-          return 1;
-        }
-
-        v13 = *(a1 + 8);
-        v12 = *(a1 + 16);
-        v14 = *a1;
-        *(a1 + 8) = v12;
-        *(a1 + 16) = v13;
-        break;
-      default:
-        goto LABEL_17;
-    }
-
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v12, v14))
-    {
-      *a1 = vextq_s8(*a1, *a1, 8uLL);
-    }
-
-    return 1;
-  }
-
-  if (v6 < 2)
-  {
-    return 1;
-  }
-
-  if (v6 == 2)
-  {
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(a2 - 1), *a1))
-    {
-      v7 = *a1;
-      *a1 = *(a2 - 1);
-LABEL_6:
-      *(a2 - 1) = v7;
-    }
-
-    return 1;
-  }
-
-LABEL_17:
-  v18 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(a1 + 8), *a1);
-  v19 = (a1 + 16);
-  v20 = md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *(a1 + 16), *(a1 + 8));
-  if (v18)
-  {
-    v21 = *a1;
-    if (v20)
-    {
-      *a1 = *(a1 + 16);
-      *(a1 + 16) = v21;
-    }
-
-    else
-    {
-      v26 = *(a1 + 16);
-      *a1 = *(a1 + 8);
-      *(a1 + 8) = v21;
-      if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v26, v21))
-      {
-        *(a1 + 8) = vextq_s8(*(a1 + 8), *(a1 + 8), 8uLL);
-      }
-    }
-  }
-
-  else if (v20)
-  {
-    v24 = *(a1 + 8);
-    v23 = *(a1 + 16);
-    v25 = *a1;
-    *(a1 + 8) = v23;
-    *(a1 + 16) = v24;
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v23, v25))
-    {
-      *a1 = vextq_s8(*a1, *a1, 8uLL);
-    }
-  }
-
-  v27 = (a1 + 24);
-  if ((a1 + 24) == a2)
-  {
-    return 1;
-  }
-
-  v28 = 0;
-  v29 = 0;
-  while (1)
-  {
-    if (md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, *v27, *v19))
-    {
-      v30 = *v27;
-      v31 = v28;
-      while (1)
-      {
-        v32 = a1 + v31;
-        *(a1 + v31 + 24) = *(a1 + v31 + 16);
-        if (v31 == -16)
-        {
-          break;
-        }
-
-        v31 -= 8;
-        if (!md::ARWalkingContinueFeatureDedupingGroup::prepareForCollision(md::LabelManager *)::$_3::operator()(a3, v30, *(v32 + 8)))
-        {
-          v33 = (a1 + v31 + 24);
-          goto LABEL_40;
-        }
-      }
-
-      v33 = a1;
-LABEL_40:
-      *v33 = v30;
-      if (++v29 == 8)
-      {
-        return v27 + 1 == a2;
-      }
-    }
-
-    v19 = v27;
-    v28 += 8;
-    if (++v27 == a2)
-    {
-      return 1;
-    }
-  }
-}
-
-void md::ARWalkingContinueFeatureDedupingGroup::~ARWalkingContinueFeatureDedupingGroup(md::ARWalkingContinueFeatureDedupingGroup *this)
-{
-  *this = &unk_1F2A3C798;
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 336);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 296);
-  *(this + 31) = &unk_1F2A4C308;
-
-  *this = &unk_1F2A54330;
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 208);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 168);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 88);
-  *this = off_1F2A55B58;
-  std::vector<md::LabelBase *,geo::allocator_adapter<md::LabelBase *,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100]((this + 40));
-  std::vector<md::LabelBase *,geo::allocator_adapter<md::LabelBase *,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100]((this + 8));
-
-  JUMPOUT(0x1B8C62190);
-}
-
-{
-  *this = &unk_1F2A3C798;
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 336);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 296);
-  *(this + 31) = &unk_1F2A4C308;
-
-  *this = &unk_1F2A54330;
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 208);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 168);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(this + 88);
-  *this = off_1F2A55B58;
-  std::vector<md::LabelBase *,geo::allocator_adapter<md::LabelBase *,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100]((this + 40));
-  std::vector<md::LabelBase *,geo::allocator_adapter<md::LabelBase *,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100]((this + 8));
-}
-
-uint64_t md::raySphereIntersection(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, double a6)
-{
-  for (i = 0; i != 24; i += 8)
-  {
-    *(&v28 + i) = *(a1 + i) - *(a3 + i);
-  }
-
-  v7 = 0;
-  v26 = v28;
-  v27 = v29;
-  v8 = 0.0;
-  do
-  {
-    v8 = v8 + *(a2 + v7) * *(a2 + v7);
-    v7 += 8;
-  }
-
-  while (v7 != 24);
-  v9 = 0;
-  v10 = 0.0;
-  do
-  {
-    v10 = v10 + *(a2 + v9) * *(&v26 + v9);
-    v9 += 8;
-  }
-
-  while (v9 != 24);
-  v11 = 0;
-  v12 = 0.0;
-  do
-  {
-    v12 = v12 + *(&v26 + v11) * *(&v26 + v11);
-    v11 += 8;
-  }
-
-  while (v11 != 24);
-  v13 = v10 + v10;
-  v14 = v8 * -4.0 * (v12 - a6 * a6) + v13 * v13;
-  if (v14 < 0.0)
-  {
-    return 0;
-  }
-
-  v16 = sqrt(v14);
-  v17 = (v16 + v13) * -0.5 / v8;
-  if (v17 >= 0.0)
-  {
-    for (j = 0; j != 24; j += 8)
-    {
-      *(&v28 + j) = *(a2 + j) * v17;
-    }
-
-    v22 = 0;
-    v24 = v28;
-    v25 = v29;
-    do
-    {
-      *(&v28 + v22) = *(&v24 + v22) + *(a1 + v22);
-      v22 += 8;
-    }
-
-    while (v22 != 24);
-  }
-
-  else
-  {
-    if (!a5)
-    {
-      return 0;
-    }
-
-    v18 = (v16 - v13) * 0.5 / v8;
-    if (v18 < 0.0)
-    {
-      return 0;
-    }
-
-    for (k = 0; k != 24; k += 8)
-    {
-      *(&v28 + k) = *(a2 + k) * v18;
-    }
-
-    v20 = 0;
-    v24 = v28;
-    v25 = v29;
-    do
-    {
-      *(&v28 + v20) = *(&v24 + v20) + *(a1 + v20);
-      v20 += 8;
-    }
-
-    while (v20 != 24);
-  }
-
-  v23 = v29;
-  *a4 = v28;
-  *(a4 + 16) = v23;
-  return 1;
-}
-
-void md::getDirFromScreenPosition(uint64_t a1, uint64_t a2, float a3, float a4)
-{
-  v8 = gdc::Camera::cameraFrame(a1);
-  gdc::CameraFrame<geo::Radians,double>::toRigidTransformGeocentric(v26, v8);
-  v10 = gdc::Camera::horizontalOffset(v9, *(a1 + 488));
-  v11 = *(a1 + 384);
-  v12 = v11 * v10;
-  v14 = gdc::Camera::horizontalOffset(v13, *(a1 + 492));
-  v15 = *(a1 + 392);
-  *&v14 = v15 * v14;
-  v16 = ((v12 - a3) + (v12 - a3)) / v11;
-  v17 = ((*&v14 - a4) + (*&v14 - a4)) / v15;
-  gdc::Camera::verticalFieldOfView(v25, a1);
-  v18 = tan(v25[0] * 0.5);
-  gdc::Camera::horizontalFieldOfView(v25, a1);
-  v19 = tan(v25[0] * 0.5);
-  v24[0] = -(v19 + v16 * v19);
-  v24[1] = v18 + v17 * v18;
-  v24[2] = -1.0;
-  v25[0] = gm::Matrix<double,3,1>::normalized<int,void>(v24);
-  v25[1] = v20;
-  v25[2] = v21;
-  *a2 = gm::Quaternion<double>::operator*(&v27, v25);
-  *(a2 + 8) = v22;
-  *(a2 + 16) = v23;
-}
-
-void md::CameraManager::update(uint64_t a1, gdc::Camera **a2, int a3)
-{
-  if ((*(a1 + 16) & 1) != 0 || (*(a1 + 81) & 1) != 0 || (*(a1 + 128) & 1) != 0 || *(a1 + 184) == 1)
-  {
-    v5 = *(a1 + 8);
-    v6 = gdc::Camera::cameraFrame(*a2);
-    v7 = COERCE_DOUBLE(md::MapDataAccess::heightAtCoordinate(v5, v6));
-    if ((v8 & 0x100) != 0)
-    {
-      v9 = v7;
-    }
-
-    else
-    {
-      v9 = 0.0;
-    }
-
-    v10 = *a2;
-    v11 = gdc::Camera::cameraFrame(*a2);
-    gdc::Camera::setAltitude(v10, COERCE__INT64(fmax(v9, *(v11 + 16))));
-    v12 = 1;
-    if (*(a1 + 16))
-    {
-      v13 = *(a1 + 8);
-      v14 = gdc::Camera::cameraFrame(*a2);
-      md::MapDataAccess::groundCoordinateForScreenCursor(v369, v13, v14, *(a1 + 20));
-      *(a1 + 48) = *v369;
-      *(a1 + 64) = *&v369[16];
-      *(a1 + 17) = 1;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  if (*(a1 + 81) == 1)
-  {
-    v15 = *(a1 + 8);
-    v16 = gdc::Camera::cameraFrame(*a2);
-    md::MapDataAccess::groundCoordinateForScreenCursor(v369, v15, v16, *(a1 + 112));
-    *(a1 + 88) = *v369;
-    *(a1 + 104) = *&v369[16];
-    *(a1 + 82) = 1;
-  }
-
-  if (*(a1 + 128) == 1)
-  {
-    v17 = *(a1 + 8);
-    v18 = gdc::Camera::cameraFrame(*a2);
-    md::MapDataAccess::groundCoordinateForScreenCursor(v369, v17, v18, *(a1 + 160));
-    *(a1 + 136) = *v369;
-    *(a1 + 152) = *&v369[16];
-    *(a1 + 129) = 1;
-  }
-
-  if (*(a1 + 184) == 1)
-  {
-    v19 = *(a1 + 8);
-    v20 = gdc::Camera::cameraFrame(*a2);
-    md::MapDataAccess::groundCoordinateForScreenCursor(v369, v19, v20, *(a1 + 216));
-    *(a1 + 192) = *v369;
-    *(a1 + 208) = *&v369[16];
-    *(a1 + 232) = *grl::IconMetricsRenderResult::size(*a2);
-    *(a1 + 185) = 1;
-  }
-
-  if (v12 && (*(a1 + 16) != 1 || (*(a1 + 243) & 1) == 0))
-  {
-    *(a1 + 244) = 0;
-  }
-
-  v21 = *a2;
-  v22 = gdc::Camera::cameraFrame(*a2);
-  gdc::CameraFrame<geo::Radians,double>::toLookAtGeocentric(v369, v22);
-  if (*(a1 + 17) == 1)
-  {
-    v23 = *(a1 + 20);
-    v24 = *(a1 + 28);
-    v25 = v23 - v24;
-    if (v23 == v24)
-    {
-      v26 = *(a1 + 24);
-      v27 = *(a1 + 32);
-      if (v26 == v27)
-      {
-        v28 = 0;
-        goto LABEL_78;
-      }
-    }
-
-    else
-    {
-      v27 = *(a1 + 32);
-      v26 = *(a1 + 24);
-    }
-
-    v29 = *grl::IconMetricsRenderResult::size(v21);
-    if (*(a1 + 80) == 1)
-    {
-      v30 = v26 - v27;
-      v24 = *(a1 + 36);
-      v27 = *(a1 + 40);
-      v23 = v25 + v24;
-      v26 = v30 + v27;
-    }
-
-    v31 = v29 * 0.2;
-    md::getDirFromScreenPosition(v21, &v387, v23, v26);
-    md::getDirFromScreenPosition(*a2, &v385, v24, v27);
-    *&v32.f64[0] = vdupq_laneq_s64(v388, 1).u64[0];
-    v32.f64[1] = v387;
-    *&v33.f64[0] = vdupq_laneq_s64(v386, 1).u64[0];
-    v33.f64[1] = v385;
-    *v398 = vmlaq_f64(vnegq_f64(vmulq_f64(v33, v388)), v386, v32);
-    *&v398[16] = -(v387 * *v386.i64 - v385 * *v388.i64);
-    v384[0] = gm::Matrix<double,3,1>::normalized<int,void>(v398);
-    v384[1] = v34;
-    v384[2] = v35;
-    v21 = *a2;
-    v36 = gdc::Camera::cameraFrame(*a2);
-    gdc::CameraFrame<geo::Radians,double>::toRigidTransformGeocentric(v398, v36);
-    v404 = *v398;
-    v405 = *&v398[16];
-    v38 = gdc::Camera::horizontalOffset(v37, *(v21 + 122));
-    v39 = *(v21 + 48);
-    v40 = v39 * v38;
-    v42 = gdc::Camera::horizontalOffset(v41, *(v21 + 123));
-    v43 = *(v21 + 49);
-    *&v42 = v43 * v42;
-    v44 = ((v40 - v23) + (v40 - v23)) / v39;
-    v45 = ((*&v42 - v26) + (*&v42 - v26)) / v43;
-    gdc::Camera::verticalFieldOfView(&v395, v21);
-    v46 = tan(v395.f64[0] * 0.5);
-    gdc::Camera::horizontalFieldOfView(&v395, v21);
-    v47 = tan(v395.f64[0] * 0.5);
-    v389.f64[0] = -(v47 + v44 * v47);
-    v389.f64[1] = v46 + v45 * v46;
-    v390 = -1.0;
-    v395.f64[0] = gm::Matrix<double,3,1>::normalized<int,void>(&v389);
-    v395.f64[1] = v48;
-    v396 = v49;
-    v374.f64[0] = gm::Quaternion<double>::operator*(v399, &v395);
-    v374.f64[1] = v50;
-    v375 = v51;
-    v402.f64[0] = gm::Matrix<double,3,1>::normalized<int,void>(&v404);
-    v402.f64[1] = v52;
-    v403 = v53;
-    v54 = gm::Matrix<double,3,1>::normalized<int,void>(&v402);
-    v55 = 0;
-    v389.f64[0] = v54;
-    v389.f64[1] = v56;
-    v390 = v57;
-    v58 = 0.0;
-    do
-    {
-      v58 = v58 + v389.f64[v55] * v374.f64[v55];
-      ++v55;
-    }
-
-    while (v55 != 3);
-    v59 = v58 + 0.1;
-    if (v59 > 0.0)
-    {
-      v60 = 0;
-      v61 = v59 * 0.8;
-      do
-      {
-        v395.f64[v60] = v61 * v389.f64[v60];
-        ++v60;
-      }
-
-      while (v60 != 3);
-      v62 = 0;
-      v377 = v395;
-      v378 = v396;
-      do
-      {
-        v395.f64[v62] = v374.f64[v62] - v377.f64[v62];
-        ++v62;
-      }
-
-      while (v62 != 3);
-      v374 = v395;
-      v375 = v396;
-    }
-
-    v63 = 0;
-    v64 = 0.0;
-    do
-    {
-      v64 = v64 + v374.f64[v63] * v374.f64[v63];
-      ++v63;
-    }
-
-    while (v63 != 3);
-    v65 = 0;
-    v66 = 1.0 / sqrt(v64);
-    do
-    {
-      v374.f64[v65] = v374.f64[v65] * v66;
-      ++v65;
-    }
-
-    while (v65 != 3);
-    v67 = *(a1 + 56);
-    v68 = *(a1 + 64);
-    v69 = __sincos_stret(*(a1 + 48));
-    v70 = 6378137.0 / sqrt(v69.__sinval * v69.__sinval * -0.00669437999 + 1.0);
-    v71 = (v70 + v68) * v69.__cosval;
-    v72 = __sincos_stret(v67);
-    v73 = 0;
-    v395.f64[0] = v71 * v72.__cosval;
-    v395.f64[1] = v71 * v72.__sinval;
-    v396 = (v68 + v70 * 0.99330562) * v69.__sinval;
-    v74 = 0.0;
-    do
-    {
-      v74 = v74 + v395.f64[v73] * v395.f64[v73];
-      ++v73;
-    }
-
-    while (v73 != 3);
-    v377 = 0uLL;
-    v378 = 0.0;
-    v75 = sqrt(v74);
-    if (md::raySphereIntersection(&v404, &v374, &v377, &v389, 0, v75))
-    {
-      goto LABEL_46;
-    }
-
-    for (i = 0; i != 3; ++i)
-    {
-      v395.f64[i] = -v374.f64[i];
-    }
-
-    v402 = v395;
-    v403 = v396;
-    v401 = 0;
-    v400 = 0uLL;
-    if (md::raySphereIntersection(&v404, &v402, &v400, &v389, 1, v75))
-    {
-LABEL_46:
-      v402 = v389;
-      v403 = v390;
-    }
-
-    else
-    {
-      v77 = gdc::CameraUtil::calculateAltitude(v36);
-      v79 = gdc::CameraUtil::calculateHorizonDistance(v78, v77);
-      for (j = 0; j != 3; ++j)
-      {
-        v395.f64[j] = v374.f64[j] * v79;
-      }
-
-      v81 = 0;
-      v377 = v395;
-      v378 = v396;
-      do
-      {
-        v395.f64[v81] = v377.f64[v81] + v404.f64[v81];
-        ++v81;
-      }
-
-      while (v81 != 3);
-      geo::Coordinate3D<geo::Radians,double>::Coordinate3D<double>(&v377, v395.f64);
-      v82 = v377.f64[1];
-      v83 = __sincos_stret(v377.f64[0]);
-      v84 = 6378137.0 / sqrt(v83.__sinval * v83.__sinval * -0.00669437999 + 1.0);
-      v85 = (v84 + v68) * v83.__cosval;
-      v86 = __sincos_stret(v82);
-      v402.f64[0] = v85 * v86.__cosval;
-      v402.f64[1] = v85 * v86.__sinval;
-      v403 = (v68 + v84 * 0.99330562) * v83.__sinval;
-    }
-
-    v404 = v402;
-    v405 = v403;
-    geo::Coordinate3D<geo::Radians,double>::Coordinate3D<double>(&v400, v402.f64);
-    for (k = 0; k != 3; ++k)
-    {
-      *&v398[k * 8] = v404.f64[k] - *&v369[k * 8];
-    }
-
-    v88 = 0;
-    v89 = 0.0;
-    do
-    {
-      v89 = v89 + *&v398[v88] * *&v398[v88];
-      v88 += 8;
-    }
-
-    while (v88 != 24);
-    v90 = 0;
-    v91 = 0.0;
-    v92 = sqrt(v89);
-    do
-    {
-      v91 = v91 + *(&v385 + v90) * *(&v387 + v90);
-      v90 += 8;
-    }
-
-    while (v90 != 24);
-    v93 = fmax(v31, v92);
-    v94 = sqrt(v93 * v93 + v93 * v93 - v91 * (v93 * v93 + v93 * v93));
-    *(a1 + 72) = v94;
-    v95 = gm::Matrix<double,3,1>::normalized<int,void>(v369);
-    v96 = 0;
-    *v398 = v95;
-    *&v398[8] = v97;
-    *&v398[16] = v98;
-    v99 = 0.0;
-    do
-    {
-      v99 = v99 + *&v398[v96] * *(&v387 + v96);
-      v96 += 8;
-    }
-
-    while (v96 != 24);
-    v100 = fmin(1.0 / fabs(v99), 2.0);
-    v383[0] = 0;
-    v383[1] = 0;
-    v383[2] = 0x3FF0000000000000;
-    v101 = gm::Matrix<double,3,1>::normalized<int,void>(&v370);
-    *v398 = -v102;
-    *&v398[8] = v101;
-    *&v398[16] = 0;
-    v103 = gm::Matrix<double,3,1>::normalized<int,void>(v398);
-    v106 = 0;
-    *v382 = v103;
-    *&v382[1] = v104;
-    v382[2] = *&v105.f64[0];
-    *v381 = v104;
-    *&v381[1] = -v103;
-    v381[2] = 0;
-    v107 = 0.0;
-    do
-    {
-      v107 = v107 + *&v383[v106] * *&v384[v106];
-      ++v106;
-    }
-
-    while (v106 != 3);
-    v108 = 0;
-    v109 = v100 * 0.000000156961014;
-    v110 = 0.0;
-    do
-    {
-      v110 = v110 + *&v382[v108] * *&v384[v108];
-      ++v108;
-    }
-
-    while (v108 != 3);
-    v111 = 0;
-    v112 = 0.0;
-    do
-    {
-      v112 = v112 + *&v381[v111] * *&v384[v111];
-      ++v111;
-    }
-
-    while (v111 != 3);
-    *&v113.f64[0] = vdupq_laneq_s64(*&v369[8], 1).u64[0];
-    v113.f64[1] = *v369;
-    v114.f64[0] = v104;
-    v114.f64[1] = v105.f64[0];
-    v105.f64[1] = v103;
-    *v398 = vmlaq_f64(vnegq_f64(vmulq_f64(v113, v114)), v105, *&v369[8]);
-    *&v398[16] = -(v103 * *&v369[8] - *v369 * v104);
-    v380[0] = gm::Matrix<double,3,1>::normalized<int,void>(v398);
-    v380[1] = v115;
-    v380[2] = v116;
-    v117 = *&v400;
-    v118 = cos(*&v400);
-    v119 = 0;
-    v120 = 0.0;
-    v121 = 1.0 / v118;
-    do
-    {
-      v120 = v120 + *&v380[v119] * *&v384[v119];
-      ++v119;
-    }
-
-    while (v119 != 3);
-    v122 = v109 * v94;
-    v123 = fmin(v121, 4.0) * v122 * v120;
-    v124 = fmin(fmax(fabs(v117), 1.30899694), 1.48352986) * 5.72957795 + -7.5;
-    v125 = v124 * v124 * (v124 * -2.0 + 3.0);
-    v126 = v123 + -(v123 - v107 * v122) * v125;
-    v127 = 1.0;
-    if (*grl::IconMetricsRenderResult::size(v21) > 1000000.0)
-    {
-      v128 = *(a1 + 24) - *(a1 + 40);
-      if (v128)
-      {
-        v129 = fmin(fmax(fabs((*(a1 + 20) - *(a1 + 36)) / v128), 1.0), 2.0) + -1.0;
-        v127 = v129 * v129 * (v129 * 2.0 + -3.0) + 1.0;
-      }
-    }
-
-    v130 = v126 * 0.5;
-    v131 = sin(v130);
-    for (m = 0; m != 3; ++m)
-    {
-      *&v398[m * 8] = *&v383[m] * v131;
-    }
-
-    v361 = *v398;
-    v133 = *&v398[16];
-    v134 = cos(v130);
-    v389 = v361;
-    v390 = v133;
-    v391 = v134;
-    v135 = v122 * 0.5;
-    v136 = v135 * v110 * v127;
-    v137 = sin(v136);
-    for (n = 0; n != 3; ++n)
-    {
-      *&v398[n * 8] = *&v382[n] * v137;
-    }
-
-    v362 = *v398;
-    v139 = *&v398[16];
-    v140 = cos(v136);
-    v377 = v362;
-    v378 = v139;
-    v379 = v140;
-    gm::Quaternion<double>::operator*(&v395, &v389, &v377);
-    v141 = v135 * v112 * v125;
-    v142 = sin(v141);
-    for (ii = 0; ii != 3; ++ii)
-    {
-      *&v398[ii * 8] = *&v381[ii] * v142;
-    }
-
-    v363 = *v398;
-    v144 = *&v398[16];
-    v145 = cos(v141);
-    v374 = v363;
-    v375 = v144;
-    v376 = v145;
-    gm::Quaternion<double>::operator*(v398, &v395, &v374);
-    *v369 = gm::Quaternion<double>::operator*(v398, v369);
-    *&v369[8] = v146;
-    *&v369[16] = v147;
-    v370.f64[0] = gm::Quaternion<double>::operator*(v398, &v370);
-    v370.f64[1] = v148;
-    v371 = v149;
-    v372 = gm::Quaternion<double>::operator*(v398, &v372);
-    *v373.i64 = v150;
-    *&v373.i64[1] = v151;
-    *(a1 + 28) = *(a1 + 20);
-    v28 = 1;
-  }
-
-  else
-  {
-    v28 = 0;
-  }
-
-LABEL_78:
-  if (*(a1 + 82) == 1)
-  {
-    v152 = *(a1 + 96);
-    v153 = *(a1 + 104);
-    v154 = __sincos_stret(*(a1 + 88));
-    v155 = 6378137.0 / sqrt(v154.__sinval * v154.__sinval * -0.00669437999 + 1.0);
-    v156 = (v155 + v153) * v154.__cosval;
-    v157 = __sincos_stret(v152);
-    v395.f64[0] = v156 * v157.__cosval;
-    v395.f64[1] = v156 * v157.__sinval;
-    v396 = (v153 + v155 * 0.99330562) * v154.__sinval;
-    v389.f64[0] = gm::Matrix<double,3,1>::normalized<int,void>(&v395);
-    v389.f64[1] = v158;
-    v390 = v159;
-    v160 = *(a1 + 120) * 0.5;
-    v161 = sin(v160);
-    for (jj = 0; jj != 3; ++jj)
-    {
-      *&v398[jj * 8] = v389.f64[jj] * v161;
-    }
-
-    v364 = *v398;
-    v163 = *&v398[16];
-    v164 = cos(v160);
-    *v398 = v364;
-    *&v398[16] = v163;
-    *v399 = v164;
-    *v369 = gm::Quaternion<double>::operator*(v398, v369);
-    *&v369[8] = v165;
-    *&v369[16] = v166;
-    v370.f64[0] = gm::Quaternion<double>::operator*(v398, &v370);
-    v370.f64[1] = v167;
-    v371 = v168;
-    v372 = gm::Quaternion<double>::operator*(v398, &v372);
-    *v373.i64 = v169;
-    *&v373.i64[1] = v170;
-    *(a1 + 120) = 0;
-    v28 = 1;
-  }
-
-  if (*(a1 + 129) == 1)
-  {
-    v171 = *(gdc::Camera::cameraFrame(v21) + 32);
-    v172 = fmax(v171 + *(a1 + 176), 0.0);
-    v173 = *(a1 + 144);
-    v174 = *(a1 + 152);
-    v175 = __sincos_stret(*(a1 + 136));
-    v176 = 6378137.0 / sqrt(v175.__sinval * v175.__sinval * -0.00669437999 + 1.0);
-    v177 = (v176 + v174) * v175.__cosval;
-    v178 = __sincos_stret(v173);
-    v179 = 0;
-    v389.f64[0] = v177 * v178.__cosval;
-    v389.f64[1] = v177 * v178.__sinval;
-    v390 = (v174 + v176 * 0.99330562) * v175.__sinval;
-    do
-    {
-      *&v398[v179 * 8] = *&v369[v179 * 8] - v389.f64[v179];
-      ++v179;
-    }
-
-    while (v179 != 3);
-    v180 = 0;
-    v377 = *v398;
-    v378 = *&v398[16];
-    do
-    {
-      *&v398[v180 * 8] = *&v369[v180 * 8 + 24] - v389.f64[v180];
-      ++v180;
-    }
-
-    while (v180 != 3);
-    v181 = 0;
-    v374 = *v398;
-    v375 = *&v398[16];
-    do
-    {
-      *&v398[v181] = *&v369[v181 + 24] - *&v369[v181];
-      v181 += 8;
-    }
-
-    while (v181 != 24);
-    *&v182.f64[0] = vdupq_laneq_s64(v373, 1).u64[0];
-    v182.f64[1] = v372;
-    *&v183.f64[0] = vdupq_laneq_s64(*&v398[8], 1).u64[0];
-    v183.f64[1] = *v398;
-    v184 = -(v372 * *&v398[8] - *v373.i64 * *v398);
-    *v398 = vmlaq_f64(vnegq_f64(vmulq_f64(v373, v183)), *&v398[8], v182);
-    *&v398[16] = v184;
-    v404.f64[0] = gm::Matrix<double,3,1>::normalized<int,void>(v398);
-    v404.f64[1] = v185;
-    v405 = v186;
-    v187 = (fmin(v172, 3.14159265) - v171) * 0.5;
-    v188 = sin(v187);
-    for (kk = 0; kk != 3; ++kk)
-    {
-      *&v398[kk * 8] = v404.f64[kk] * v188;
-    }
-
-    v365 = *v398;
-    v190 = *&v398[16];
-    v191 = cos(v187);
-    *v398 = v365;
-    *&v398[16] = v190;
-    *v399 = v191;
-    v192 = gm::Quaternion<double>::operator*(v398, &v377);
-    v193 = 0;
-    v402.f64[0] = v192;
-    v402.f64[1] = v194;
-    v403 = v195;
-    do
-    {
-      v395.f64[v193] = v402.f64[v193] + v389.f64[v193];
-      ++v193;
-    }
-
-    while (v193 != 3);
-    *v369 = v395;
-    *&v369[16] = v396;
-    v196 = gm::Quaternion<double>::operator*(v398, &v374);
-    v197 = 0;
-    v402.f64[0] = v196;
-    v402.f64[1] = v198;
-    v403 = v199;
-    do
-    {
-      v395.f64[v197] = v402.f64[v197] + v389.f64[v197];
-      ++v197;
-    }
-
-    while (v197 != 3);
-    v370 = v395;
-    v371 = v396;
-    v372 = gm::Quaternion<double>::operator*(v398, &v372);
-    *v373.i64 = v200;
-    *&v373.i64[1] = v201;
-    *(a1 + 176) = 0;
-    v28 = 1;
-  }
-
-  v202 = (a1 + 296);
-  if (*(a1 + 185) == 1)
-  {
-    LabelingPoint = grl::IconMetricsRenderResult::getLabelingPoint(v21);
-    v204 = grl::IconMetricsRenderResult::size(LabelingPoint);
-    v205 = *v204;
-    v366 = v204[1];
-    v206 = grl::IconMetricsRenderResult::size(v21);
-    v207 = *v206;
-    if (*v206 < *(a1 + 232) * 0.125)
-    {
-      v208 = *(a1 + 8);
-      v209 = gdc::Camera::cameraFrame(v21);
-      md::MapDataAccess::groundCoordinateForScreenCursor(v398, v208, v209, *(a1 + 216));
-      *(a1 + 192) = *v398;
-      *(a1 + 208) = *&v398[16];
-      v21 = *a2;
-      *(a1 + 232) = *grl::IconMetricsRenderResult::size(*a2);
-    }
-
-    v210 = *(a1 + 200);
-    v211 = *(a1 + 208);
-    v212 = __sincos_stret(*(a1 + 192));
-    v213 = 6378137.0 / sqrt(v212.__sinval * v212.__sinval * -0.00669437999 + 1.0);
-    v214 = (v213 + v211) * v212.__cosval;
-    v215 = __sincos_stret(v210);
-    v395.f64[0] = v214 * v215.__cosval;
-    v395.f64[1] = v214 * v215.__sinval;
-    v396 = (v211 + v213 * 0.99330562) * v212.__sinval;
-    v216 = *(a1 + 224);
-    if (v216 <= 1.0)
-    {
-      goto LABEL_116;
-    }
-
-    v217 = 0;
-    v218 = 0.0;
-    do
-    {
-      v218 = v218 + *&v369[v217] * *&v369[v217];
-      v217 += 8;
-    }
-
-    while (v217 != 24);
-    v219 = 0;
-    v220 = 0.0;
-    do
-    {
-      v220 = v220 + v395.f64[v219] * v395.f64[v219];
-      ++v219;
-    }
-
-    while (v219 != 3);
-    if (sqrt(v218) - sqrt(v220) >= v207 * 0.2)
-    {
-LABEL_116:
-      for (mm = 0; mm != 3; ++mm)
-      {
-        *&v398[mm * 8] = v395.f64[mm] - *&v369[mm * 8];
-      }
-
-      v229 = 0;
-      v230 = 0.0;
-      do
-      {
-        v230 = v230 + *&v398[v229] * *&v398[v229];
-        v229 += 8;
-      }
-
-      while (v229 != 24);
-      v231 = sqrt(v215.__cosval);
-      if (v216 >= 1.0)
-      {
-        if (v216 <= 1.0)
-        {
-          v232 = v231 * v216;
-        }
-
-        else
-        {
-          v232 = v231;
-          if (v231 <= v366)
-          {
-            v232 = v231 * v216;
-            if (v215.__cosval > v366)
-            {
-              v232 = v366;
-            }
-          }
-        }
-      }
-
-      else
-      {
-        v232 = v231;
-        if (v231 >= v205)
-        {
-          v232 = v231 * v216;
-          if (v215.__cosval < v205)
-          {
-            v232 = v205;
-          }
-        }
-      }
-
-      for (nn = 0; nn != 3; ++nn)
-      {
-        *&v398[nn * 8] = v395.f64[nn] - *&v369[nn * 8];
-      }
-
-      v234 = gm::Matrix<double,3,1>::normalized<int,void>(v398);
-      v235 = 0;
-      v389.f64[0] = v234;
-      v389.f64[1] = v236;
-      v390 = v237;
-      do
-      {
-        *&v398[v235] = *&v369[v235 + 24] - *&v369[v235];
-        v235 += 8;
-      }
-
-      while (v235 != 24);
-      v238 = v231 - v232;
-      v239 = gm::Matrix<double,3,1>::normalized<int,void>(v398);
-      v240 = 0;
-      v377.f64[0] = v239;
-      v377.f64[1] = v241;
-      v378 = v242;
-      do
-      {
-        *&v398[v240 * 8] = v389.f64[v240] * v238;
-        ++v240;
-      }
-
-      while (v240 != 3);
-      v243 = 0;
-      v374 = *v398;
-      v375 = *&v398[16];
-      do
-      {
-        *&v398[v243 * 8] = v374.f64[v243] + *&v369[v243 * 8];
-        ++v243;
-      }
-
-      while (v243 != 3);
-      v244 = 0;
-      v245 = 0.0;
-      do
-      {
-        v245 = v245 + v395.f64[v244] * v395.f64[v244];
-        ++v244;
-      }
-
-      while (v244 != 3);
-      v404 = 0uLL;
-      v405 = 0.0;
-      v227 = md::raySphereIntersection(v398, &v377, &v404, &v374, 0, sqrt(v245));
-      if (v227)
-      {
-        v370 = v374;
-        v371 = v375;
-        *v369 = *v398;
-        *&v369[16] = *&v398[16];
-        *(a1 + 224) = 0x3FF0000000000000;
-      }
-    }
-
-    else
-    {
-      for (i1 = 0; i1 != 24; i1 += 8)
-      {
-        *&v398[i1] = *&v369[i1 + 24] - *&v369[i1];
-      }
-
-      v222 = 0;
-      v377 = *v398;
-      v378 = *&v398[16];
-      v223 = 1.0 - v216;
-      do
-      {
-        *&v398[v222 * 8] = v377.f64[v222] * v223;
-        ++v222;
-      }
-
-      while (v222 != 3);
-      v224 = 0;
-      v389 = *v398;
-      v390 = *&v398[16];
-      do
-      {
-        *&v398[v224 * 8] = v389.f64[v224] * 0.2;
-        ++v224;
-      }
-
-      while (v224 != 3);
-      for (i2 = 0; i2 != 24; i2 += 8)
-      {
-        *&v369[i2] = *&v369[i2] + *&v398[i2];
-      }
-
-      for (i3 = 0; i3 != 3; ++i3)
-      {
-        v370.f64[i3] = v370.f64[i3] + *&v398[i3 * 8];
-      }
-
-      *(a1 + 224) = 0x3FF0000000000000;
-      v227 = 1;
-    }
-
-    v28 |= v227;
-  }
-
-  v246 = *(a1 + 18);
-  if (v246 & 1) != 0 || (*(a1 + 130) & 1) != 0 || (*(a1 + 83) & 1) != 0 || (*(a1 + 186))
-  {
-    if (*(a1 + 243) == 1)
-    {
-      if (*(a1 + 256) < 1.0)
-      {
-        goto LABEL_150;
-      }
-
-      *(a1 + 243) = 0;
-    }
-
-    goto LABEL_149;
-  }
-
-  if ((*(a1 + 243) & 1) == 0)
-  {
-LABEL_149:
-    *(a1 + 264) = *gdc::Camera::pitch(v21);
-  }
-
-LABEL_150:
-  v247 = gdc::Camera::cameraFrame(v21);
-  v248 = *(v247 + 8);
-  v249 = *(v247 + 16);
-  v250 = __sincos_stret(*v247);
-  v251 = 6378137.0 / sqrt(v250.__sinval * v250.__sinval * -0.00669437999 + 1.0);
-  v252 = (v251 + v249) * v250.__cosval;
-  v253 = __sincos_stret(v248);
-  *(a1 + 272) = v252 * v253.__cosval;
-  *(a1 + 280) = v252 * v253.__sinval;
-  *(a1 + 288) = (v249 + v251 * 0.99330562) * v250.__sinval;
-  *(a1 + 256) = 0;
-  *(a1 + 244) = 0;
-  *(a1 + 304) = 0;
-  *(a1 + 312) = 0;
-  *v202 = 0;
-  v254 = *a2;
-  v255 = grl::IconMetricsRenderResult::size(v254);
-  md::CameraManager::getMaxTilt(a1, *v255);
-  v257 = v256;
-  v258 = gdc::Camera::pitch(v254);
-  v259 = v257 < *v258;
-  *(a1 + 243) = v259;
-  *(a1 + 320) = 0x3FD3333333333333;
-  if (v259)
-  {
-    v260 = gdc::Camera::cameraFrame(v254);
-    v261 = *(v260 + 8);
-    v262 = *(v260 + 16);
-    v263 = __sincos_stret(*v260);
-    v264 = 6378137.0 / sqrt(v263.__sinval * v263.__sinval * -0.00669437999 + 1.0);
-    v265 = (v264 + v262) * v263.__cosval;
-    v266 = __sincos_stret(v261);
-    v267 = 0;
-    v395.f64[0] = v265 * v266.__cosval;
-    v395.f64[1] = v265 * v266.__sinval;
-    v396 = (v262 + v264 * 0.99330562) * v263.__sinval;
-    do
-    {
-      *&v398[v267 * 8] = v395.f64[v267] - *(a1 + 272 + v267 * 8);
-      ++v267;
-    }
-
-    while (v267 != 3);
-    v268 = 0;
-    v269 = 0.0;
-    do
-    {
-      v269 = v269 + *&v398[v268] * *&v398[v268];
-      v268 += 8;
-    }
-
-    while (v268 != 24);
-    if (sqrt(v269) > 1.0)
-    {
-      v270 = 0;
-      v271 = 0.0;
-      do
-      {
-        v271 = v271 + *&v398[v270] * *&v398[v270];
-        v270 += 8;
-      }
-
-      while (v270 != 24);
-      v272 = 0;
-      v273 = 1.0 / sqrt(v271);
-      do
-      {
-        *&v398[v272] = *&v398[v272] * v273;
-        v272 += 8;
-      }
-
-      while (v272 != 24);
-      *v202 = *v398;
-      *(a1 + 312) = *&v398[16];
-    }
-
-    *(a1 + 256) = 0;
-  }
-
-  if ((v28 | a3) != 1)
-  {
-    if (!v246)
-    {
-      goto LABEL_178;
-    }
-
-    goto LABEL_177;
-  }
-
-  geo::Coordinate3D<geo::Radians,double>::Coordinate3D<double>(&v377, v370.f64);
-  v274 = gm::Matrix<double,3,1>::normalized<int,void>(&v370);
-  v275 = 0;
-  v374.f64[0] = v274;
-  v374.f64[1] = v276;
-  v375 = v277;
-  do
-  {
-    *&v398[v275] = *&v369[v275 + 24] - *&v369[v275];
-    v275 += 8;
-  }
-
-  while (v275 != 24);
-  v278 = 0;
-  v404 = *v398;
-  v405 = *&v398[16];
-  v279 = 0.0;
-  do
-  {
-    v279 = v279 + v404.f64[v278] * v404.f64[v278];
-    ++v278;
-  }
-
-  while (v278 != 3);
-  v280 = 0;
-  v281 = 0.0;
-  do
-  {
-    v281 = v281 + v404.f64[v280] * v404.f64[v280];
-    ++v280;
-  }
-
-  while (v280 != 3);
-  v282 = 0;
-  v283 = 1.0 / sqrt(v281);
-  do
-  {
-    v404.f64[v282] = v404.f64[v282] * v283;
-    ++v282;
-  }
-
-  while (v282 != 3);
-  v402.f64[0] = gm::Matrix<double,3,1>::normalized<int,void>(&v372);
-  v402.f64[1] = v284;
-  v403 = v285;
-  v286 = *(a1 + 129);
-  if (v286 == 1)
-  {
-    v287 = 0;
-    v288 = 0.0;
-    do
-    {
-      v288 = v288 + v404.f64[v287] * v374.f64[v287];
-      ++v287;
-    }
-
-    while (v287 != 3);
-    v289 = acos(fmin(fmax(-v288, -1.0), 1.0));
-  }
-
-  else
-  {
-    v289 = *v258;
-  }
-
-  v290 = sqrt(v279);
-  v291 = cos(v289);
-  for (i4 = 0; i4 != 3; ++i4)
-  {
-    *&v398[i4 * 8] = v402.f64[i4] * v291;
-  }
-
-  v395 = *v398;
-  v396 = *&v398[16];
-  v293 = sin(v289);
-  for (i5 = 0; i5 != 3; ++i5)
-  {
-    *&v398[i5 * 8] = v404.f64[i5] * v293;
-  }
-
-  v295 = 0;
-  v389 = *v398;
-  v390 = *&v398[16];
-  do
-  {
-    *&v398[v295 * 8] = v389.f64[v295] + v395.f64[v295];
-    ++v295;
-  }
-
-  while (v295 != 3);
-  v400 = *v398;
-  v401 = *&v398[16];
-  memset(v399, 0, 32);
-  *v398 = v377;
-  *&v398[16] = v378;
-  gdc::CameraFrame<geo::Radians,double>::toRigidTransformGeocentric(&v389, v398);
-  geo::RigidTransform<double,double>::inverse(&v395, &v389);
-  v296 = gm::Quaternion<double>::operator*(&v397, &v400);
-  v298 = atan2(-v296, v297);
-  v389 = v377;
-  v390 = v378;
-  v394 = 0;
-  v392 = v289;
-  v393 = v298;
-  if ((v286 & 1) == 0)
-  {
-    md::CameraManager::getMaxTilt(a1, v290);
-    if (v289 > v299)
-    {
-      if (*(a1 + 242) == 1)
-      {
-        *(a1 + 244) = 1;
-        *(a1 + 248) = v289;
-      }
-
-      v392 = v299;
-    }
-  }
-
-  if ((*(a1 + 82) & 1) == 0 && fabs(v377.f64[0]) < 1.30899694)
-  {
-    v300 = gdc::Camera::heading(v254);
-    if (v290 >= 400000.0)
-    {
-      v301 = *v300;
-      v302 = fabs(*v300);
-      if (v302 >= 0.01)
-      {
-        v303 = gdc::Camera::cameraFrame(v254);
-        v304 = fmod(3.14159265 - *(v303 + 8) + v377.f64[1], 6.28318531);
-        v305 = fabs(fmod(v304 + 6.28318531, 6.28318531) + -3.14159265);
-        v306 = v305 + v305;
-        v307 = 0.0;
-        if (*(a1 + 240) == 1)
-        {
-          v308 = *v255;
-          if (v290 >= *v255)
-          {
-            v309 = v290 * 0.785398163 / v308;
-          }
-
-          else
-          {
-            v309 = v308 * 0.785398163 / v290;
-          }
-
-          v307 = v309 + -0.785398163;
-        }
-
-        v310 = fmin(v302, fmax(v306, v307));
-        if (v301 > 0.0)
-        {
-          v310 = -v310;
-        }
-
-        v393 = v310 + v298;
-      }
-
-      else
-      {
-        v393 = 0.0;
-      }
-    }
-
-    else
-    {
-      v393 = *v300;
-    }
-  }
-
-  v311 = 0;
-  v312 = 0;
-  v391 = fmin(v290, 60592301.5);
-  v313 = v389.f64[0];
-  v314 = (a1 + 328);
-  v315 = (a1 + 344);
-  do
-  {
-    v316 = v315[v312];
-    v317 = v314[v312];
-    if (v311)
-    {
-      break;
-    }
-
-    v311 = 1;
-    v312 = 1;
-  }
-
-  while (v316 >= v317);
-  v318 = v389.f64[1];
-  if (v316 < v317)
-  {
-LABEL_222:
-    v323 = 0;
-    v324 = 0;
-    v325 = (a1 + 360);
-    v326 = a1 + 376;
-    do
-    {
-      v327 = *(v326 + 8 * v324);
-      v328 = *&v325->i64[v324];
-      if (v323)
-      {
-        break;
-      }
-
-      v323 = 1;
-      v324 = 1;
-    }
-
-    while (v327 >= v328);
-    if (v327 < v328)
-    {
-      goto LABEL_258;
-    }
-
-    v329 = 0;
-    v330 = 0;
-    v331 = a1 + 392;
-    v332 = a1 + 408;
-    do
-    {
-      v333 = *(v332 + 8 * v330);
-      v334 = *(v331 + 8 * v330);
-      if (v329)
-      {
-        break;
-      }
-
-      v329 = 1;
-      v330 = 1;
-    }
-
-    while (v333 >= v334);
-    if (v333 < v334)
-    {
-      goto LABEL_258;
-    }
-
-    v335 = 0;
-    v336 = 0.0;
-    v337 = 1;
-    v338 = v389.f64[1];
-    v339 = 1;
-    while (1)
-    {
-      v340 = v337;
-      v341 = *(v326 + 8 * v335);
-      if (v338 > v341)
-      {
-        break;
-      }
-
-      v343 = *&v325->i64[v335];
-      if (v338 < v343)
-      {
-        v339 = 0;
-        v342 = v343 - v338;
-        goto LABEL_235;
-      }
-
-LABEL_236:
-      v337 = 0;
-      v338 = v389.f64[0];
-      v335 = 1;
-      if ((v340 & 1) == 0)
-      {
-        if (v339)
-        {
-          goto LABEL_258;
-        }
-
-        v344 = 0;
-        v345 = 0.0;
-        v346 = 1;
-        v347 = 1;
-        v348 = sqrt(v336);
-        while (1)
-        {
-          v349 = v346;
-          v350 = *(v332 + 8 * v344);
-          if (v318 > v350)
-          {
-            break;
-          }
-
-          v352 = *(v331 + 8 * v344);
-          if (v318 < v352)
-          {
-            v347 = 0;
-            v351 = v352 - v318;
-            goto LABEL_243;
-          }
-
-LABEL_244:
-          v346 = 0;
-          v318 = v389.f64[0];
-          v344 = 1;
-          if ((v349 & 1) == 0)
-          {
-            if ((v347 & 1) == 0)
-            {
-              if (v348 > sqrt(v345))
-              {
-                v325 = (a1 + 392);
-              }
-
-              v389 = vminnmq_f64(vmaxnmq_f64(v389, vextq_s8(*v325, *v325, 8uLL)), vextq_s8(v325[1], v325[1], 8uLL));
-            }
-
-            goto LABEL_258;
-          }
-        }
-
-        v347 = 0;
-        v351 = v318 - v350;
-LABEL_243:
-        v345 = v345 + v351 * v351;
-        goto LABEL_244;
-      }
-    }
-
-    v339 = 0;
-    v342 = v338 - v341;
-LABEL_235:
-    v336 = v336 + v342 * v342;
-    goto LABEL_236;
-  }
-
-  v319 = 0;
-  v320 = 1;
-  v321 = v389.f64[1];
-  while (v321 >= v314[v319] && v321 < v315[v319])
-  {
-    v322 = v320;
-    v320 = 0;
-    v321 = v389.f64[0];
-    v319 = 1;
-    if ((v322 & 1) == 0)
-    {
-      goto LABEL_222;
-    }
-  }
-
-  v353 = *v315;
-  if (v389.f64[1] < *v314 || v389.f64[1] > v353)
-  {
-    v355 = v389.f64[1] + -3.14159265;
-    v368 = v389.f64[0];
-    v356 = fmod(*v314 - (v389.f64[1] + -3.14159265), 6.28318531);
-    v357 = fabs(fmod(v356 + 6.28318531, 6.28318531) + -3.14159265);
-    v358 = fmod(v353 - v355, 6.28318531);
-    v359 = fmod(v358 + 6.28318531, 6.28318531);
-    v313 = v368;
-    if (v357 <= fabs(v359 + -3.14159265))
-    {
-      v360 = (a1 + 328);
-    }
-
-    else
-    {
-      v360 = (a1 + 344);
-    }
-
-    v389.f64[1] = *v360;
-  }
-
-  v389.f64[0] = fmin(fmax(v313, *(a1 + 336)), *(a1 + 352));
-LABEL_258:
-  gdc::Camera::setCameraFrame(v254, &v389);
-  if (*(a1 + 18))
-  {
-LABEL_177:
-    *(a1 + 17) = 0;
-  }
-
-LABEL_178:
-  if (*(a1 + 130) == 1)
-  {
-    *(a1 + 129) = 0;
-  }
-
-  if (*(a1 + 83) == 1)
-  {
-    *(a1 + 82) = 0;
-  }
-
-  if (*(a1 + 186) == 1)
-  {
-    *(a1 + 185) = 0;
-  }
-
-  *(a1 + 16) = 0;
-  *(a1 + 128) = 0;
-  *(a1 + 81) = 0;
-  *(a1 + 184) = 0;
-}
-
-void md::CameraManager::getMaxTilt(md::CameraManager *this, double a2)
-{
-  if (*(this + 241) == 1 && a2 <= 1500000.0)
-  {
-    cos(sqrt(fmax(a2, 1.0) * 0.000000666666667) * 3.7699104 + 2.5132736);
-  }
-}
-
-uint64_t *md::Ribbons::RibbonWriter<md::Ribbons::RoadRibbonDescriptor>::writeVertex(uint64_t *result, uint64_t a2)
-{
-  v2 = 0;
-  v3 = *result;
-  v4 = *(a2 + 16);
-  v5 = 1;
-  do
-  {
-    v6 = fminf(fmaxf(*(a2 + 12), 0.0), 1.0);
-    v7 = v5;
-    *v3 = (fminf(fmaxf(*(a2 + 8), 0.0), 1.0) * 65535.0);
-    *(v3 + 2) = (v6 * 65535.0);
-    *(v3 + 12) = v4;
-    v8.i64[0] = *(a2 + 20 + 8 * v2);
-    v8.i64[1] = *(a2 + 44 + 8 * v2);
-    v9.i64[0] = 0xBF000000BF000000;
-    v9.i64[1] = 0xBF000000BF000000;
-    *(v3 + 4) = vmovn_s32(vcvtq_s32_f32(vmlaq_f32(v9, xmmword_1B33B0C70, v8)));
-    v3 += 16;
-    v2 = 1;
-    v5 = 0;
-  }
-
-  while ((v7 & 1) != 0);
-  *result = v3;
-  return result;
-}
-
-void ggl::ConstantDataTyped<ggl::OffsetRibbon::Noise>::~ConstantDataTyped(std::mutex *a1)
-{
-  ggl::BufferData::~BufferData(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::ConstantDataTyped<ggl::OffsetRibbon::Noise>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C9C8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void ggl::ConstantDataTyped<ggl::TexturedInnerShadowRibbon::ShadowStyle>::~ConstantDataTyped(std::mutex *a1)
-{
-  ggl::BufferData::~BufferData(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::ConstantDataTyped<ggl::TexturedInnerShadowRibbon::ShadowStyle>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C970;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void ggl::ConstantDataTyped<ggl::Line::Style>::~ConstantDataTyped(std::mutex *a1)
-{
-  ggl::BufferData::~BufferData(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::ConstantDataTyped<ggl::Line::Style>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C918;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void ggl::ConstantDataTyped<ggl::OuterShadowRibbon::Style>::~ConstantDataTyped(std::mutex *a1)
-{
-  ggl::BufferData::~BufferData(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::ConstantDataTyped<ggl::OuterShadowRibbon::Style>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3C8C0;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void ggl::ConstantDataTyped<ggl::OffsetRibbon::Style>::~ConstantDataTyped(std::mutex *a1)
-{
-  ggl::BufferData::~BufferData(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::ConstantDataTyped<ggl::OffsetRibbon::Style>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A5B568;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::TexturedInnerShadowRibbon::PipelineState>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3CAC8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::TexturedSolidRibbon::PipelineState>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3CA90;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::Line::BasePipelineState>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3CA58;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void std::__shared_ptr_emplace<ggl::OuterShadowRibbon::PipelineState>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2A3CA20;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t md::Ribbons::RibbonBatch<md::Ribbons::RoadRibbonDescriptor>::~RibbonBatch(uint64_t a1)
-{
-  *a1 = &unk_1F2A3C868;
-  v6 = (a1 + 1016);
-  std::vector<std::unique_ptr<md::RibbonSection<md::Ribbons::RoadRibbonDescriptor>>>::__destroy_vector::operator()[abi:nn200100](&v6);
-  md::FrameAllocator<ggl::RenderItem>::reset(a1 + 992);
-  free(*(a1 + 992));
-  v2 = *(a1 + 968);
-  if (v2)
-  {
-    *(a1 + 976) = v2;
-    operator delete(v2);
-  }
-
-  v6 = (a1 + 936);
-  std::vector<gm::MultiRange<unsigned long>,geo::allocator_adapter<gm::MultiRange<unsigned long>,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v6);
-  v3 = *(a1 + 912);
-  if (v3)
-  {
-    *(a1 + 920) = v3;
-    operator delete(v3);
-  }
-
-  for (i = 784; i != -112; i -= 128)
-  {
-    ggl::RenderItem::~RenderItem((a1 + i));
-  }
-
-  return a1;
-}
-
-void md::Ribbons::RibbonBatch<md::Ribbons::RoadRibbonDescriptor>::~RibbonBatch(uint64_t a1)
-{
-  md::Ribbons::RibbonBatch<md::Ribbons::RoadRibbonDescriptor>::~RibbonBatch(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void md::RibbonBatch<md::Ribbons::RoadRibbonDescriptor>::~RibbonBatch(void *a1)
-{
-  *a1 = &unk_1F2A3C848;
-  v2 = a1[132];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
-  }
-
-  md::Ribbons::RibbonBatch<md::Ribbons::RoadRibbonDescriptor>::~RibbonBatch(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-uint64_t md::RibbonBatch<md::Ribbons::RoadRibbonDescriptor>::~RibbonBatch(void *a1)
-{
-  *a1 = &unk_1F2A3C848;
-  v2 = a1[132];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
-  }
-
-  return md::Ribbons::RibbonBatch<md::Ribbons::RoadRibbonDescriptor>::~RibbonBatch(a1);
-}
-
-void md::RoadBatch::~RoadBatch(md::RoadBatch *this)
-{
-  *this = &unk_1F2A3C808;
-  v2 = 1136;
-  while (1)
-  {
-    v3 = *(this + v2);
-    *(this + v2) = 0;
-    if (v3)
-    {
-      (*(*v3 + 8))(v3);
-    }
-
-    v2 -= 8;
-    if (v2 == 1080)
-    {
-      v4 = *(this + 135);
-      if (v4)
-      {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v4);
-      }
-
-      *this = &unk_1F2A3C848;
-      v5 = *(this + 132);
-      if (v5)
-      {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v5);
-      }
-
-      md::Ribbons::RibbonBatch<md::Ribbons::RoadRibbonDescriptor>::~RibbonBatch(this);
-
-      JUMPOUT(0x1B8C62190);
-    }
-  }
-}
-
-{
-  *this = &unk_1F2A3C808;
-  for (i = 1136; i != 1080; i -= 8)
-  {
-    v3 = *(this + i);
-    *(this + i) = 0;
-    if (v3)
-    {
-      (*(*v3 + 8))(v3);
-    }
-  }
-
-  v4 = *(this + 135);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v4);
-  }
-
-  *this = &unk_1F2A3C848;
-  v5 = *(this + 132);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v5);
-  }
-
-  md::Ribbons::RibbonBatch<md::Ribbons::RoadRibbonDescriptor>::~RibbonBatch(this);
-}
-
-void md::RoadBatch::setStyle(void *a1, void *a2)
-{
-  v5 = *a2;
-  v4 = a2[1];
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  a1[134] = v5;
-  v6 = a1[135];
-  a1[135] = v4;
-  if (v6)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
-  }
-
-  if (*a2)
-  {
-    ggl::ColorGlyphWithNormalHalo::DefaultPipelineSetup::setFloatBufferTextureSizeConstantData(*(a1[139] + 136), *(a1[139] + 232), *(*a2 + 96), *(*a2 + 104));
-    ggl::ColorGlyphWithNormalHalo::DefaultPipelineSetup::setFloatBufferTextureSizeConstantData(*(a1[138] + 136), *(a1[138] + 232), *(*a2 + 144), *(*a2 + 152));
-    ggl::ColorGlyphWithNormalHalo::DefaultPipelineSetup::setFloatBufferTextureSizeConstantData(*(a1[136] + 136), *(a1[136] + 232), *(*a2 + 80), *(*a2 + 88));
-    v7 = a1[137];
-    v8 = *(v7 + 136);
-    v9 = *(*a2 + 160);
-    v10 = *(*a2 + 168);
-    *(v8 + 32) = v9;
-    *(v8 + 40) = 0;
-    v11 = *(v7 + 232);
-    if (v10)
-    {
-      atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v12 = *(v11 + 40);
-    *(v11 + 32) = v9;
-    *(v11 + 40) = v10;
-    if (v12)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v12);
-    }
-
-    v13 = a1[140];
-    v14 = *(v13 + 136);
-    v15 = *(*a2 + 96);
-    v16 = *(*a2 + 104);
-    *(v14 + 32) = v15;
-    *(v14 + 40) = 0;
-    v17 = *(v13 + 232);
-    if (v16)
-    {
-      atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v18 = *(v17 + 40);
-    *(v17 + 32) = v15;
-    *(v17 + 40) = v16;
-    if (v18)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v18);
-    }
-
-    v19 = *(v13 + 136);
-    v20 = *(*a2 + 192);
-    v21 = *(*a2 + 200);
-    *(v19 + 48) = v20;
-    *(v19 + 56) = 0;
-    v22 = *(v13 + 232);
-    if (v21)
-    {
-      atomic_fetch_add_explicit((v21 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v23 = *(v22 + 56);
-    *(v22 + 48) = v20;
-    *(v22 + 56) = v21;
-    if (v23)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v23);
-    }
-
-    v24 = a1[141];
-    v25 = *(v24 + 136);
-    v26 = *(*a2 + 112);
-    v27 = *(*a2 + 120);
-    *(v25 + 32) = v26;
-    *(v25 + 40) = 0;
-    v28 = *(v24 + 232);
-    if (v27)
-    {
-      atomic_fetch_add_explicit((v27 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v29 = *(v28 + 40);
-    *(v28 + 32) = v26;
-    *(v28 + 40) = v27;
-    if (v29)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v29);
-    }
-
-    v30 = *(v24 + 136);
-    v31 = *(*a2 + 128);
-    v32 = *(*a2 + 136);
-    *(v30 + 64) = v31;
-    *(v30 + 72) = 0;
-    v33 = *(v24 + 232);
-    if (v32)
-    {
-      atomic_fetch_add_explicit((v32 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v34 = *(v33 + 72);
-    *(v33 + 64) = v31;
-    *(v33 + 72) = v32;
-    if (v34)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v34);
-    }
-
-    v35 = *(v24 + 136);
-    v36 = *(*a2 + 192);
-    v37 = *(*a2 + 200);
-    *(v35 + 48) = v36;
-    *(v35 + 56) = 0;
-    v38 = *(v24 + 232);
-    if (v37)
-    {
-      atomic_fetch_add_explicit((v37 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v39 = *(v38 + 56);
-    *(v38 + 48) = v36;
-    *(v38 + 56) = v37;
-    if (v39)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v39);
-    }
-
-    v40 = a1[142];
-    v41 = *(v40 + 136);
-    v42 = *(*a2 + 176);
-    v43 = *(*a2 + 184);
-    *(v41 + 16) = v42;
-    *(v41 + 24) = 0;
-    v44 = *(v40 + 232);
-    if (v43)
-    {
-      atomic_fetch_add_explicit((v43 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v45 = *(v44 + 24);
-    *(v44 + 16) = v42;
-    *(v44 + 24) = v43;
-    if (v45)
-    {
-
-      std::__shared_weak_count::__release_shared[abi:nn200100](v45);
-    }
-  }
-}
-
-uint64_t std::__tree<std::__value_type<unsigned long long,std::shared_ptr<ggl::SolidRibbon::PipelineState>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::shared_ptr<ggl::SolidRibbon::PipelineState>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::shared_ptr<ggl::SolidRibbon::PipelineState>>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,std::shared_ptr<ggl::SolidRibbon::PipelineState>>>(uint64_t result, unint64_t a2)
-{
-  v2 = *(result + 8);
-  if (!v2)
-  {
-LABEL_7:
-    operator new();
-  }
-
-  while (1)
-  {
-    while (1)
-    {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
-      {
-        break;
-      }
-
-      v2 = *v3;
-      if (!*v3)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    if (v4 >= a2)
-    {
-      return result;
-    }
-
-    v2 = v3[1];
-    if (!v2)
-    {
-      goto LABEL_7;
-    }
-  }
 }

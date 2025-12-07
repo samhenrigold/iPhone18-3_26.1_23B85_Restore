@@ -171,17 +171,7 @@
   [(ENUIExposureDetailHeaderView *)self setLearnMoreURL:learnMoreURL];
 
   learnMoreURL2 = [(ENUIExposureDetailHeaderView *)self learnMoreURL];
-  if (!learnMoreURL2)
-  {
-    goto LABEL_4;
-  }
-
-  v13 = learnMoreURL2;
-  v14 = +[UIApplication sharedApplication];
-  learnMoreURL3 = [(ENUIExposureDetailHeaderView *)self learnMoreURL];
-  v16 = [v14 canOpenURL:learnMoreURL3];
-
-  if (v16)
+  if (learnMoreURL2 && (v13 = learnMoreURL2, +[UIApplication sharedApplication](UIApplication, "sharedApplication"), v14 = objc_claimAutoreleasedReturnValue(), -[ENUIExposureDetailHeaderView learnMoreURL](self, "learnMoreURL"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v14 canOpenURL:v15], v15, v14, v13, v16))
   {
     headerStack = [(ENUIExposureDetailHeaderView *)self headerStack];
     continueButton = [(ENUIExposureDetailHeaderView *)self continueButton];
@@ -190,7 +180,6 @@
 
   else
   {
-LABEL_4:
     headerStack = [(ENUIExposureDetailHeaderView *)self headerStack];
     continueButton = [(ENUIExposureDetailHeaderView *)self continueButton];
     [headerStack removeArrangedSubview:continueButton];

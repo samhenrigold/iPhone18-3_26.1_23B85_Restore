@@ -1,328 +1,45 @@
-void sub_239224BC0(uint64_t a1)
-{
-  v2 = *(a1 + 184);
-  if (v2)
-  {
-    (*(v2 + 16))();
-    v3 = *(a1 + 184);
-    *(a1 + 184) = 0;
-  }
-
-  if ((*(a1 + 176) & 1) == 0)
-  {
-    v4 = *(*a1 + 8);
-
-    v4(a1);
-  }
-}
-
-uint64_t sub_239224C48(uint64_t a1, void *a2)
-{
-  v3 = a2[7];
-  v4 = a2[8];
-  if (v4)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = v3 == 0;
-  }
-
-  if (!v5)
-  {
-    if (v4 != 1 || v3 == 0)
-    {
-      sub_23952CF2C();
-    }
-
-    MEMORY[0x23EE77B60]();
-  }
-
-  v7 = a2[9];
-  v8 = a2[10];
-  if (v8)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    v9 = v7 == 0;
-  }
-
-  if (!v9)
-  {
-    if (v8)
-    {
-      v10 = v7 == 0;
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-
-    if (v10)
-    {
-      sub_23952CFDC();
-    }
-
-    MEMORY[0x23EE77B40]();
-  }
-
-  result = a2[5];
-  v12 = a2[6];
-  if (v12)
-  {
-    v13 = 0;
-  }
-
-  else
-  {
-    v13 = result == 0;
-  }
-
-  if (!v13)
-  {
-    if (v12 == 1 && result != 0)
-    {
-
-      JUMPOUT(0x23EE77B60);
-    }
-
-    sub_23952D08C();
-  }
-
-  return result;
-}
-
-void sub_239224D1C(uint64_t a1)
-{
-  if (*(a1 + 56))
-  {
-    v1 = MEMORY[0x23EE78590]();
-    v1[2]();
-  }
-}
-
-unint64_t sub_239224D94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v8 = sub_2394DB314(a2, a3);
-  if (v8)
-  {
-    v9 = v8 & 0xFFFFFFFF00000000;
-  }
-
-  else
-  {
-    v10 = sub_23921C1E4(MTRError, a3, a4);
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:sub_2394D7B4C(a2)];
-    sub_239224E6C(a1, v10, v11);
-
-    v9 = 0;
-    LODWORD(v8) = 0;
-  }
-
-  return v8 | v9;
-}
-
-void sub_239224E6C(uint64_t a1, void *a2, void *a3)
-{
-  v7 = a2;
-  v5 = a3;
-  if (*(a1 + 48))
-  {
-    v6 = MEMORY[0x23EE78590]();
-    (v6)[2](v6, v7, v5);
-  }
-}
-
-void sub_239224F0C(uint64_t a1)
-{
-  if (*(a1 + 64))
-  {
-    v1 = MEMORY[0x23EE78590]();
-    v1[2]();
-  }
-}
-
-void sub_239224F84(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 88))
-  {
-    v3 = MEMORY[0x23EE78590]();
-    v3[2](v3, a2);
-  }
-}
-
-uint64_t sub_239225004(uint64_t a1)
-{
-  result = *(*(*(a1 + 32) + 8) + 24);
-  if (result)
-  {
-    return (*(*result + 8))();
-  }
-
-  return result;
-}
-
-uint64_t sub_23922503C(uint64_t a1, unsigned __int16 a2)
-{
-  sub_23947632C("/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRBaseSubscriptionCallback.mm", 215);
-  result = *(a1 + 168);
-  if (result)
-  {
-
-    return sub_2393BF470(result, a2);
-  }
-
-  return result;
-}
-
-uint64_t sub_239225098(uint64_t a1, unsigned int *a2)
-{
-  sub_23947632C("/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRBaseSubscriptionCallback.mm", 223);
-  result = *(a1 + 168);
-  if (result)
-  {
-
-    return sub_2393BF49C(result, a2);
-  }
-
-  return result;
-}
-
-uint64_t sub_2392250F4(uint64_t a1, unsigned __int16 *a2)
-{
-  sub_23947632C("/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRBaseSubscriptionCallback.mm", 231);
-  result = *(a1 + 168);
-  if (result)
-  {
-
-    return sub_2393BF4E8(result, a2);
-  }
-
-  return result;
-}
-
-void sub_239225150(uint64_t a1, dispatch_once_t *a2)
-{
-
-  dispatch_once_f(a2 + 12, a2, sub_238DCC8D4);
-}
-
-void sub_239225BA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
-{
-  a11 = &a20;
-  sub_239227730(&a11);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_239226164(void *a1)
-{
-  v2 = a1[4];
-  v3 = objc_opt_respondsToSelector();
-  v4 = a1[4];
-  if (v3)
-  {
-    v5 = a1[5];
-    v6 = a1[6];
-    v7 = a1[7];
-    v8 = a1[8];
-
-    return MEMORY[0x2821F9670](v4, sel_commissioning_failedWithError_forDeviceID_metrics_);
-  }
-
-  else
-  {
-    result = objc_opt_respondsToSelector();
-    if (result)
-    {
-      v9 = a1[4];
-      v10 = a1[5];
-      v11 = a1[6];
-      v12 = a1[8];
-
-      return MEMORY[0x2821F9670](v9, sel_commissioning_failedWithError_metrics_);
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2392262D4(void *a1)
-{
-  v2 = a1[4];
-  result = objc_opt_respondsToSelector();
-  if (result)
-  {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
-
-    return MEMORY[0x2821F9670](v4, sel_commissioning_statusUpdate_);
-  }
-
-  return result;
-}
-
 uint64_t sub_2392265A8(uint64_t a1)
 {
   [*(a1 + 32) setIsWaitingAfterPASEEstablished:1];
-  v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v4 = *(a1 + 48);
 
   return MEMORY[0x2821F9670](v2, sel_commissioning_paseSessionEstablishmentComplete_);
 }
 
-uint64_t sub_23922675C(void *a1)
+uint64_t sub_23922675C(uint64_t a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
-    v7 = a1[7];
+    v3 = *(a1 + 32);
 
-    return MEMORY[0x2821F9670](v4, sel_commissioning_succeededForNodeID_metrics_);
+    return MEMORY[0x2821F9670](v3, sel_commissioning_succeededForNodeID_metrics_);
   }
 
   return result;
 }
 
-uint64_t sub_23922687C(void *a1)
+uint64_t sub_23922687C(uint64_t a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = *(a1 + 32);
 
-    return MEMORY[0x2821F9670](v4, sel_commissioning_readCommissioneeInfo_);
+    return MEMORY[0x2821F9670](v3, sel_commissioning_readCommissioneeInfo_);
   }
 
   return result;
 }
 
-uint64_t sub_2392269B0(void *a1)
+uint64_t sub_2392269B0(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = objc_opt_respondsToSelector();
-  v4 = a1[4];
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = a1[5];
-    v6 = a1[6];
 
-    return MEMORY[0x2821F9670](v4, sel_commissioning_provisionedNetworkCredentialsForDeviceID_);
+    return MEMORY[0x2821F9670](v3, sel_commissioning_provisionedNetworkCredentialsForDeviceID_);
   }
 
   else
@@ -330,10 +47,9 @@ uint64_t sub_2392269B0(void *a1)
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v7 = a1[4];
-      v8 = a1[5];
+      v4 = *(a1 + 32);
 
-      return MEMORY[0x2821F9670](v7, sel_commissioning_reachedCommissioningStage_);
+      return MEMORY[0x2821F9670](v4, sel_commissioning_reachedCommissioningStage_);
     }
   }
 
@@ -366,7 +82,7 @@ void sub_239226BF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_239226C10(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -377,32 +93,29 @@ void sub_239226C10(uint64_t a1, void *a2, void *a3)
     v10 = v9;
     if (v9)
     {
-      v19 = 0;
-      v11 = [v9 continueCommissioning:v8 withWiFiSSID:v5 credentials:v6 error:&v19];
-      v12 = v19;
+      v15 = 0;
+      v11 = [v9 continueCommissioning:v8 withWiFiSSID:v5 credentials:v6 error:&v15];
+      v12 = v15;
       if ((v11 & 1) == 0)
       {
         v13 = sub_2393D9044(0);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v21 = v8;
-          v22 = 2112;
-          v23 = v10;
-          v24 = 2112;
-          v25 = v12;
+          v17 = v8;
+          v18 = 2112;
+          v19 = v10;
+          v20 = 2112;
+          v21 = v12;
           _os_log_impl(&dword_238DAE000, v13, OS_LOG_TYPE_ERROR, "%@ attempt to continue commissioning with Wi-Fi credentials with controller %@ failed: %@", buf, 0x20u);
         }
 
         if (sub_2393D5398(1u))
         {
-          v17 = v10;
-          v18 = v12;
-          v16 = v8;
-          sub_2393D5320(0, 1);
+          sub_2393D5320(0, 1, "%@ attempt to continue commissioning with Wi-Fi credentials with controller %@ failed: %@", v8, v10, v12);
         }
 
-        [v8 _dispatchCommissioningError:{v12, v16, v17, v18}];
+        [v8 _dispatchCommissioningError:v12];
         [v8 stop];
       }
     }
@@ -419,11 +132,9 @@ void sub_239226C10(uint64_t a1, void *a2, void *a3)
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "MTRCommissioningOperation deallocated while waiting to continue after Wi-Fi network scan");
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_239226F0C(uint64_t a1)
@@ -452,7 +163,7 @@ void sub_239226FD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_239226FEC(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -462,32 +173,29 @@ void sub_239226FEC(uint64_t a1, void *a2)
     v7 = v6;
     if (v6)
     {
-      v16 = 0;
-      v8 = [v6 continueCommissioning:v5 withOperationalDataset:v3 error:&v16];
-      v9 = v16;
+      v12 = 0;
+      v8 = [v6 continueCommissioning:v5 withOperationalDataset:v3 error:&v12];
+      v9 = v12;
       if ((v8 & 1) == 0)
       {
         v10 = sub_2393D9044(0);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v18 = v5;
-          v19 = 2112;
-          v20 = v7;
-          v21 = 2112;
-          v22 = v9;
+          v14 = v5;
+          v15 = 2112;
+          v16 = v7;
+          v17 = 2112;
+          v18 = v9;
           _os_log_impl(&dword_238DAE000, v10, OS_LOG_TYPE_ERROR, "%@ attempt to continue commissioning with Thread credentials with controller %@ failed: %@", buf, 0x20u);
         }
 
         if (sub_2393D5398(1u))
         {
-          v14 = v7;
-          v15 = v9;
-          v13 = v5;
-          sub_2393D5320(0, 1);
+          sub_2393D5320(0, 1, "%@ attempt to continue commissioning with Thread credentials with controller %@ failed: %@", v5, v7, v9);
         }
 
-        [v5 _dispatchCommissioningError:{v9, v13, v14, v15}];
+        [v5 _dispatchCommissioningError:v9];
         [v5 stop];
       }
     }
@@ -504,11 +212,9 @@ void sub_239226FEC(uint64_t a1, void *a2)
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "MTRCommissioningOperation deallocated while waiting to continue after Thread network scan");
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2392272D8(uint64_t a1)
@@ -538,7 +244,7 @@ void sub_2392273A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_2392273C0(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -548,32 +254,29 @@ void sub_2392273C0(uint64_t a1)
     if (v4)
     {
       v6 = *(a1 + 40);
-      v15 = 0;
-      v7 = [v4 continueCommissioningAfterAttestation:v3 forOpaqueHandle:v6 error:&v15];
-      v8 = v15;
+      v11 = 0;
+      v7 = [v4 continueCommissioningAfterAttestation:v3 forOpaqueHandle:v6 error:&v11];
+      v8 = v11;
       if ((v7 & 1) == 0)
       {
         v9 = sub_2393D9044(0);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v17 = v3;
-          v18 = 2112;
-          v19 = v5;
-          v20 = 2112;
-          v21 = v8;
+          v13 = v3;
+          v14 = 2112;
+          v15 = v5;
+          v16 = 2112;
+          v17 = v8;
           _os_log_impl(&dword_238DAE000, v9, OS_LOG_TYPE_ERROR, "%@ attempt to continue commissioning after device attestation with controller %@ failed: %@", buf, 0x20u);
         }
 
         if (sub_2393D5398(1u))
         {
-          v13 = v5;
-          v14 = v8;
-          v12 = v3;
-          sub_2393D5320(0, 1);
+          sub_2393D5320(0, 1, "%@ attempt to continue commissioning after device attestation with controller %@ failed: %@", v3, v5, v8);
         }
 
-        [v3 _dispatchCommissioningError:{v8, v12, v13, v14}];
+        [v3 _dispatchCommissioningError:v8];
         [v3 stop];
       }
     }
@@ -590,11 +293,9 @@ void sub_2392273C0(uint64_t a1)
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "MTRCommissioningOperation deallocated while waiting to continue after device attestation");
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_239227730(void ***a1)
@@ -4976,104 +4677,100 @@ uint64_t sub_239283EA0(uint64_t a1)
   return v4;
 }
 
-BOOL sub_239283EE8(void **a1, uint64_t *a2, uint64_t a3, uint64_t a4, unint64_t (*a5)(uint64_t a1, uint64_t a2, uint64_t a3), uint64_t a6, uint64_t a7)
+BOOL sub_239283EE8(void **a1, uint64_t *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7)
 {
   v10 = a4;
-  v34 = *MEMORY[0x277D85DE8];
-  v28 = &v33;
-  v29 = 400;
+  v33 = *MEMORY[0x277D85DE8];
+  v27 = &v32;
+  v28 = 400;
   v13 = (a3 + (a6 >> 1));
   if (a6)
   {
-    v14 = (*(*v13 + a5))(v13, a4, &v28);
+    v14 = (*(*v13 + a5))(v13, a4, &v27);
   }
 
   else
   {
-    v14 = a5(v13, a4, &v28);
+    v14 = (a5)(v13, a4, &v27);
   }
 
-  if (!v14)
+  if (v14)
   {
-    if (a6)
+    v15 = sub_2393D9044(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v18 = (a6 & 1 | a5) == 0;
+      v16 = sub_2393C9138();
+      *buf = 136315650;
+      *&buf[4] = a7;
+      *&buf[12] = 1024;
+      *&buf[14] = v10;
+      v30 = 2080;
+      v31 = v16;
+      _os_log_impl(&dword_238DAE000, v15, OS_LOG_TYPE_ERROR, "Failed to fetch %s certificate for fabric index %x: %s", buf, 0x1Cu);
     }
 
-    else
+    result = sub_2393D5398(1u);
+    if (result)
     {
-      v18 = 1;
+      sub_2393C9138();
+      sub_2393D5320(0, 1, "Failed to fetch %s certificate for fabric index %x: %s");
+      return 0;
     }
 
-    v19 = v18;
-    if (a5 == sub_2394A8274 && v19 && !v29)
-    {
-      v20 = *a1;
-      *a1 = 0;
-
-      v21 = *a2;
-      *a2 = 0;
-    }
-
-    else
-    {
-      sub_238DB6950(buf, v28, v29);
-      v22 = [MEMORY[0x277CBEA90] dataWithBytes:*buf length:*&buf[8]];
-      v23 = *a2;
-      *a2 = v22;
-
-      v24 = [MTRCertificates convertMatterCertificate:*a2];
-      v25 = *a1;
-      *a1 = v24;
-
-      if (!*a1)
-      {
-        v27 = sub_2393D9044(0);
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315138;
-          *&buf[4] = a7;
-          _os_log_impl(&dword_238DAE000, v27, OS_LOG_TYPE_ERROR, "Failed to convert %s certificate to x509 encoding", buf, 0xCu);
-        }
-
-        result = sub_2393D5398(1u);
-        if (result)
-        {
-          goto LABEL_9;
-        }
-
-        goto LABEL_22;
-      }
-    }
-
-    result = 1;
-    goto LABEL_22;
+    return result;
   }
 
-  v15 = sub_2393D9044(0);
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  if (a6)
   {
-    v16 = sub_2393C9138();
-    *buf = 136315650;
+    v18 = (a6 & 1 | a5) == 0;
+  }
+
+  else
+  {
+    v18 = 1;
+  }
+
+  v19 = v18;
+  if (a5 == sub_2394A8274 && v19 && !v28)
+  {
+    v20 = *a1;
+    *a1 = 0;
+
+    v21 = *a2;
+    *a2 = 0;
+
+    return 1;
+  }
+
+  sub_238DB6950(buf, v27, v28);
+  v22 = [MEMORY[0x277CBEA90] dataWithBytes:*buf length:*&buf[8]];
+  v23 = *a2;
+  *a2 = v22;
+
+  v24 = [MTRCertificates convertMatterCertificate:*a2];
+  v25 = *a1;
+  *a1 = v24;
+
+  if (*a1)
+  {
+    return 1;
+  }
+
+  v26 = sub_2393D9044(0);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315138;
     *&buf[4] = a7;
-    *&buf[12] = 1024;
-    *&buf[14] = v10;
-    v31 = 2080;
-    v32 = v16;
-    _os_log_impl(&dword_238DAE000, v15, OS_LOG_TYPE_ERROR, "Failed to fetch %s certificate for fabric index %x: %s", buf, 0x1Cu);
+    _os_log_impl(&dword_238DAE000, v26, OS_LOG_TYPE_ERROR, "Failed to convert %s certificate to x509 encoding", buf, 0xCu);
   }
 
   result = sub_2393D5398(1u);
   if (result)
   {
-    sub_2393C9138();
-LABEL_9:
-    sub_2393D5320(0, 1);
-    result = 0;
+    sub_2393D5320(0, 1, "Failed to convert %s certificate to x509 encoding");
+    return 0;
   }
 
-LABEL_22:
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5091,46 +4788,40 @@ void sub_239285730(uint64_t a1)
   sub_2392CA514(v1);
 }
 
-uint64_t sub_2392858F0(uint64_t a1)
+void sub_2392858F0(uint64_t a1)
 {
   v2 = sub_23952B998(*(a1 + 32));
   sub_2392CA900(v2);
-  result = [*(a1 + 40) shouldAdvertiseOperational];
-  if (result)
+  if ([*(a1 + 40) shouldAdvertiseOperational])
   {
-    result = sub_23952B9A4(*(a1 + 32));
-    if (result)
+    v3 = sub_23952B9A4(*(a1 + 32));
+    if (v3)
     {
       v4 = atomic_load((*(a1 + 40) + 88));
-      sub_2394AD200(result, v4, 1);
+      sub_2394AD200(v3, v4, 1);
       v5 = *(a1 + 32);
 
-      return sub_23952B8E0(v5);
+      sub_23952B8E0(v5);
     }
   }
-
-  return result;
 }
 
-uint64_t sub_239285A1C(uint64_t a1)
+void sub_239285A1C(uint64_t a1)
 {
   v2 = sub_23952B998(*(a1 + 32));
   sub_2392CA514(v2);
-  result = [*(a1 + 40) shouldAdvertiseOperational];
-  if (result)
+  if ([*(a1 + 40) shouldAdvertiseOperational])
   {
-    result = sub_23952B9A4(*(a1 + 32));
-    if (result)
+    v3 = sub_23952B9A4(*(a1 + 32));
+    if (v3)
     {
       v4 = atomic_load((*(a1 + 40) + 88));
-      sub_2394AD200(result, v4, 0);
+      sub_2394AD200(v3, v4, 0);
       v5 = *(a1 + 32);
 
-      return sub_23952B8E0(v5);
+      sub_23952B8E0(v5);
     }
   }
-
-  return result;
 }
 
 void sub_239285C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
@@ -5140,32 +4831,27 @@ void sub_239285C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_23928659C(uint64_t a1)
+void sub_23928659C(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = sub_2393D9044(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v8 = v3;
+    v5 = v3;
     _os_log_impl(&dword_238DAE000, v2, OS_LOG_TYPE_DEFAULT, "%@ Finished flushing data write operations", buf, 0xCu);
   }
 
-  result = sub_2393D5398(2u);
-  if (result)
+  if (sub_2393D5398(2u))
   {
-    v6 = *(a1 + 32);
-    result = sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ Finished flushing data write operations", *(a1 + 32));
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void sub_239286E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
+void sub_239286E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5173,10 +4859,10 @@ void sub_239286E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_239286ECC(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isRunning])
   {
-    goto LABEL_41;
+    return;
   }
 
   v2 = [*(a1 + 40) vendorID];
@@ -5188,20 +4874,20 @@ void sub_239286ECC(uint64_t a1)
       v7 = *(a1 + 32);
       v8 = [*(a1 + 40) vendorID];
       *buf = 138412546;
-      v45 = v7;
-      v46 = 2112;
-      v47 = v8;
+      v43 = v7;
+      v44 = 2112;
+      v45 = v8;
       _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_ERROR, "%@ %@ is not a valid vendorID to initialize a device controller with", buf, 0x16u);
     }
 
     if (sub_2393D5398(1u))
     {
       v9 = *(a1 + 32);
-      v42 = [*(a1 + 40) vendorID];
-      sub_2393D5320(0, 1);
+      v10 = [*(a1 + 40) vendorID];
+      sub_2393D5320(0, 1, "%@ %@ is not a valid vendorID to initialize a device controller with", v9, v10);
     }
 
-    goto LABEL_41;
+    return;
   }
 
   v5 = [*(a1 + 40) operationalCertificate];
@@ -5211,75 +4897,72 @@ void sub_239286ECC(uint64_t a1)
 
   else
   {
-    v10 = [*(a1 + 40) nodeID];
+    v11 = [*(a1 + 40) nodeID];
 
-    if (!v10)
+    if (!v11)
     {
-      v23 = sub_2393D9044(0);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = sub_2393D9044(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v24 = *(a1 + 32);
+        v25 = *(a1 + 32);
         *buf = 138412290;
-        v45 = v24;
-        _os_log_impl(&dword_238DAE000, v23, OS_LOG_TYPE_ERROR, "%@ Can't start a controller if we don't know what node id it is", buf, 0xCu);
+        v43 = v25;
+        _os_log_impl(&dword_238DAE000, v24, OS_LOG_TYPE_ERROR, "%@ Can't start a controller if we don't know what node id it is", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_41;
+        sub_2393D5320(0, 1, "%@ Can't start a controller if we don't know what node id it is", *(a1 + 32));
       }
 
-LABEL_21:
-      v40 = *(a1 + 32);
-      sub_2393D5320(0, 1);
-      goto LABEL_41;
+      return;
     }
   }
 
   if (([*(a1 + 40) keypairsMatchCertificates] & 1) == 0)
   {
-    v21 = sub_2393D9044(0);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = sub_2393D9044(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v22 = *(a1 + 32);
+      v23 = *(a1 + 32);
       *buf = 138412290;
-      v45 = v22;
-      _os_log_impl(&dword_238DAE000, v21, OS_LOG_TYPE_ERROR, "%@ Provided keypairs do not match certificates", buf, 0xCu);
+      v43 = v23;
+      _os_log_impl(&dword_238DAE000, v22, OS_LOG_TYPE_ERROR, "%@ Provided keypairs do not match certificates", buf, 0xCu);
     }
 
-    if (!sub_2393D5398(1u))
+    if (sub_2393D5398(1u))
     {
-      goto LABEL_41;
+      sub_2393D5320(0, 1, "%@ Provided keypairs do not match certificates", *(a1 + 32));
     }
 
-    goto LABEL_21;
+    return;
   }
 
-  v11 = [*(a1 + 40) operationalCertificate];
-  if (v11)
+  v12 = [*(a1 + 40) operationalCertificate];
+  if (v12)
   {
-    v12 = [*(a1 + 40) operationalKeypair];
-    if (!v12)
+    v13 = [*(a1 + 40) operationalKeypair];
+    if (!v13)
     {
-      v32 = *(a1 + 40);
-      if (v32 && ([v32 fabricIndex], (buf[0] & 1) != 0))
+      v33 = *(a1 + 40);
+      if (v33 && (objc_msgSend_fabricIndex(v33), (buf[0] & 1) != 0))
       {
-        v33 = [*(a1 + 40) keystore];
-        v34 = *(a1 + 40);
-        if (v34)
+        v35 = [*(a1 + 40) keystore];
+        v36 = *(a1 + 40);
+        if (v36)
         {
-          [v34 fabricIndex];
+          objc_msgSend_fabricIndex(v36);
         }
 
         else
         {
-          LOWORD(v43) = 0;
+          LOWORD(v41) = 0;
         }
 
-        v37 = sub_238DE36D8(&v43);
-        v38 = (*(*v33 + 24))(v33, *v37);
+        v39 = sub_238DE36D8(&v41, v34);
+        v40 = (*(*v35 + 24))(v35, LOBYTE(v39->super.isa));
 
-        if (v38)
+        if (v40)
         {
           goto LABEL_15;
         }
@@ -5289,64 +4972,60 @@ LABEL_21:
       {
       }
 
-      v35 = sub_2393D9044(0);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v37 = sub_2393D9044(0);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        v36 = *(a1 + 32);
+        v38 = *(a1 + 32);
         *buf = 138412290;
-        v45 = v36;
-        _os_log_impl(&dword_238DAE000, v35, OS_LOG_TYPE_ERROR, "%@ Have no operational keypair for our operational certificate", buf, 0xCu);
+        v43 = v38;
+        _os_log_impl(&dword_238DAE000, v37, OS_LOG_TYPE_ERROR, "%@ Have no operational keypair for our operational certificate", buf, 0xCu);
       }
 
       if (sub_2393D5398(1u))
       {
-        v41 = *(a1 + 32);
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "%@ Have no operational keypair for our operational certificate", *(a1 + 32));
       }
 
-      goto LABEL_41;
+      return;
     }
   }
 
 LABEL_15:
-  v13 = [*(a1 + 40) nocSigner];
-  v14 = v13 == 0;
+  v14 = [*(a1 + 40) nocSigner];
+  v15 = v14 == 0;
 
-  v15 = *(a1 + 32);
-  if (v14)
+  v16 = *(a1 + 32);
+  if (v15)
   {
-    v20 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v16 = [*(a1 + 40) nocSigner];
-    v17 = sub_238DC3B28(v15 + 112, v16);
-    v19 = v18;
+    v17 = [*(a1 + 40) nocSigner];
+    v18 = sub_238DC3B28(v16 + 112, v17);
+    v20 = v19;
 
-    if ([*(a1 + 32) checkForStartError:v17 logMsg:{v19, @"Init failure while creating signing keypair bridge"}])
+    if ([*(a1 + 32) checkForStartError:v18 logMsg:{v20, @"Init failure while creating signing keypair bridge"}])
     {
-      goto LABEL_41;
+      return;
     }
 
-    v15 = *(a1 + 32);
-    v20 = v15 + 112;
+    v16 = *(a1 + 32);
+    v21 = v16 + 112;
   }
 
-  v25 = *(v15 + 1648);
-  v26 = [*(a1 + 40) ipk];
-  v27 = [*(a1 + 40) rootCertificate];
-  v28 = [*(a1 + 40) intermediateCertificate];
-  v29 = sub_2392D1B1C(v25, v20, v26, v27, v28);
-  v31 = v30;
+  v26 = *(v16 + 1648);
+  v27 = [*(a1 + 40) ipk];
+  v28 = [*(a1 + 40) rootCertificate];
+  v29 = [*(a1 + 40) intermediateCertificate];
+  v30 = sub_2392D1B1C(v26, v21, v27, v28, v29);
+  v32 = v31;
 
-  if (([*(a1 + 32) checkForStartError:v29 logMsg:{v31, @"Init failure while creating operational credentials delegate"}] & 1) == 0)
+  if (([*(a1 + 32) checkForStartError:v30 logMsg:{v32, @"Init failure while creating operational credentials delegate"}] & 1) == 0)
   {
     operator new();
   }
-
-LABEL_41:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_239287F8C(uint64_t result, uint64_t a2)
@@ -5398,86 +5077,80 @@ LABEL_8:
 
 void sub_2392880C0(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v31 = a2;
+  v38 = *MEMORY[0x277D85DE8];
+  v24 = a2;
   v3 = sub_2393D9044(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v5 = [v31 count];
+    v5 = [v24 count];
     v6 = [*(a1 + 32) uniqueIdentifier];
     *buf = 138412802;
-    v40 = v4;
-    v41 = 2048;
-    v42 = v5;
-    v43 = 2112;
-    v44 = v6;
+    v33 = v4;
+    v34 = 2048;
+    v35 = v5;
+    v36 = 2112;
+    v37 = v6;
     _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_DEFAULT, "%@ Loaded attribute values for %lu nodes from storage for controller uuid %@", buf, 0x20u);
   }
 
   if (sub_2393D5398(2u))
   {
     v7 = *(a1 + 32);
-    v8 = [v31 count];
-    [*(a1 + 32) uniqueIdentifier];
-    v28 = v26 = v8;
-    v24 = v7;
-    sub_2393D5320(0, 2);
+    v8 = [v24 count];
+    v9 = [*(a1 + 32) uniqueIdentifier];
+    sub_2393D5320(0, 2, "%@ Loaded attribute values for %lu nodes from storage for controller uuid %@", v7, v8, v9);
   }
 
   lock = [*(a1 + 32) deviceMapLock];
   os_unfair_lock_lock(lock);
-  v9 = [MEMORY[0x277CBEB18] array];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v10 = v31;
-  v11 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
-  if (v11)
+  v10 = [MEMORY[0x277CBEB18] array];
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v11 = v24;
+  v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v12)
   {
-    v12 = *v35;
+    v13 = *v28;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v35 != v12)
+        if (*v28 != v13)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * i);
-        v15 = [v10 objectForKeyedSubscript:v14];
-        v16 = [*(a1 + 32) _setupDeviceForNodeID:v14 prefetchedClusterData:v15];
+        v15 = *(*(&v27 + 1) + 8 * i);
+        v16 = [v11 objectForKeyedSubscript:v15];
+        v17 = [*(a1 + 32) _setupDeviceForNodeID:v15 prefetchedClusterData:v16];
         if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = *(a1 + 32);
-          v18 = [v15 count];
+          v18 = *(a1 + 32);
+          v19 = [v16 count];
           *buf = 138412802;
-          v40 = v17;
-          v41 = 2048;
-          v42 = v18;
-          v43 = 2112;
-          v44 = v16;
+          v33 = v18;
+          v34 = 2048;
+          v35 = v19;
+          v36 = 2112;
+          v37 = v17;
           _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_DEFAULT, "%@ Loaded %lu cluster data from storage for %@", buf, 0x20u);
         }
 
         if (sub_2393D5398(2u))
         {
-          v19 = *(a1 + 32);
-          v27 = [v15 count];
-          v29 = v16;
-          v25 = v19;
-          sub_2393D5320(0, 2);
+          sub_2393D5320(0, 2, "%@ Loaded %lu cluster data from storage for %@", *(a1 + 32), [v16 count], v17);
         }
 
-        [v9 addObject:{v16, v25, v27, v29}];
+        [v10 addObject:v17];
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
   v20 = dispatch_time(0, 60000000000);
@@ -5487,39 +5160,32 @@ void sub_2392880C0(uint64_t a1, void *a2)
   block[2] = sub_2392884C8;
   block[3] = &unk_278A72298;
   block[4] = *(a1 + 32);
-  v33 = v9;
-  v22 = v9;
+  v26 = v10;
+  v22 = v10;
   dispatch_after(v20, v21, block);
 
   os_unfair_lock_unlock(lock);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t sub_2392884C8(uint64_t a1)
+void sub_2392884C8(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = sub_2393D9044(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) count];
     *buf = 138412546;
-    v9 = v3;
-    v10 = 2048;
-    v11 = v4;
+    v6 = v3;
+    v7 = 2048;
+    v8 = v4;
     _os_log_impl(&dword_238DAE000, v2, OS_LOG_TYPE_DEFAULT, "%@ un-retain devices loaded at startup %lu", buf, 0x16u);
   }
 
-  result = sub_2393D5398(2u);
-  if (result)
+  if (sub_2393D5398(2u))
   {
-    v7 = *(a1 + 32);
-    [*(a1 + 40) count];
-    result = sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ un-retain devices loaded at startup %lu", *(a1 + 32), [*(a1 + 40) count]);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_23928893C(void *a1)
@@ -5549,10 +5215,10 @@ void sub_2392889E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_239288C60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, ...)
+void sub_239288C60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, void *a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  v17 = v15;
+  va_start(va, a20);
+  v24 = v22;
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5567,26 +5233,26 @@ __n128 sub_239288CB4(__n128 *a1, __n128 *a2)
 
 BOOL sub_239288CC4(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 56) + 8) + 48;
-  v19[0] = "dwnfw_setup_with_payload";
-  v19[1] = v2;
-  v20 = 0;
-  v21 = "dwnfw_setup_with_payload";
-  v23 = 0;
-  sub_23948BD20(&v20);
+  v18[0] = "dwnfw_setup_with_payload";
+  v18[1] = v2;
+  v19 = 0;
+  v20 = "dwnfw_setup_with_payload";
+  v22 = 0;
+  sub_23948BD20(&v19);
   v3 = [*(a1 + 32) unsignedLongLongValue];
   *(*(*(a1 + 40) + 1648) + 32) = v3;
-  v20 = 0;
-  v21 = "dwnfw_setup_pase_session";
-  v23 = 0;
-  sub_23948BD20(&v20);
+  v19 = 0;
+  v20 = "dwnfw_setup_pase_session";
+  v22 = 0;
+  sub_23948BD20(&v19);
   v4 = *(*(a1 + 40) + 1616);
   v5 = [*(a1 + 48) setupPayload];
   v6 = v5;
   v7 = [v5 UTF8String];
-  LOBYTE(v20) = 0;
-  v8 = sub_2394FCB7C(v4, v3, v7, 2, &v20);
+  LOBYTE(v19) = 0;
+  v8 = sub_2394FCB7C(v4, v3, v7, 2, &v19);
   v9 = *(*(a1 + 56) + 8);
   *(v9 + 48) = v8;
   *(v9 + 56) = v10;
@@ -5594,11 +5260,11 @@ BOOL sub_239288CC4(uint64_t a1)
   v11 = *(*(*(a1 + 56) + 8) + 48);
   if (v11)
   {
-    v20 = 1;
-    v21 = "dwnfw_setup_pase_session";
-    v22 = v11;
-    v23 = 3;
-    sub_23948BD20(&v20);
+    v19 = 1;
+    v20 = "dwnfw_setup_pase_session";
+    v21 = v11;
+    v22 = 3;
+    sub_23948BD20(&v19);
   }
 
   else
@@ -5610,37 +5276,37 @@ BOOL sub_239288CC4(uint64_t a1)
   v12 = *(*(a1 + 56) + 8);
   v13 = *(v12 + 48);
   v14 = *(v12 + 56);
-  v18 = 0;
-  v15 = [MTRDeviceController_Concrete checkForError:v13 logMsg:v14 error:@"Failure while pairing the device", &v18];
-  sub_238F3F7E4(v19);
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v15 = [MTRDeviceController_Concrete checkForError:v13 logMsg:v14 error:@"Failure while pairing the device", &v17];
+  sub_238F3F7E4(v18);
   return !v15;
 }
 
-void sub_239288E8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_239288E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_238F3F7E4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239289484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, void *a23, void *a24, uint64_t a25, uint64_t a26, char a27)
+void sub_239289484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, void *a23, void *a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 BOOL sub_2392894F8(uint64_t a1)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 64) + 8) + 48;
-  v40[0] = "dwnfw_setup_with_discovered";
-  v40[1] = v2;
-  LODWORD(v63) = 0;
-  *(&v63 + 1) = "dwnfw_setup_with_discovered";
-  BYTE4(v64) = 0;
-  sub_23948BD20(&v63);
+  v41[0] = "dwnfw_setup_with_discovered";
+  v41[1] = v2;
+  LODWORD(v64) = 0;
+  *(&v64 + 1) = "dwnfw_setup_with_discovered";
+  BYTE4(v65) = 0;
+  sub_23948BD20(&v64);
   v3 = [*(a1 + 32) unsignedLongLongValue];
   *(*(*(a1 + 40) + 1648) + 32) = v3;
   v4 = *(*(a1 + 64) + 8);
@@ -5649,31 +5315,31 @@ BOOL sub_2392894F8(uint64_t a1)
   v5 = *(a1 + 48);
   if (v5)
   {
-    [v5 params];
-    if (v63)
+    objc_msgSend_params(v5);
+    if (v64)
     {
       v6 = [*(a1 + 56) setupPasscode];
       v7 = [v6 unsignedLongValue];
 
-      *(sub_239289A18(&v63) + 8) = v7;
-      LODWORD(v52) = 0;
-      *(&v52 + 1) = "dwnfw_setup_pase_session";
-      BYTE4(v53) = 0;
-      sub_23948BD20(&v52);
-      v8 = *(*(a1 + 40) + 1616);
-      v9 = sub_239289A18(&v63);
-      v10 = sub_2394FBC2C(v8, v3, v9);
-      v11 = *(*(a1 + 64) + 8);
-      *(v11 + 48) = v10;
-      *(v11 + 56) = v12;
-      v13 = *(*(*(a1 + 64) + 8) + 48);
-      if (v13)
+      *(sub_239289A18(&v64, v8) + 8) = v7;
+      LODWORD(v53) = 0;
+      *(&v53 + 1) = "dwnfw_setup_pase_session";
+      BYTE4(v54) = 0;
+      sub_23948BD20(&v53);
+      v9 = *(*(a1 + 40) + 1616);
+      v11 = sub_239289A18(&v64, v10);
+      v12 = sub_2394FBC2C(v9, v3, v11);
+      v13 = *(*(a1 + 64) + 8);
+      *(v13 + 48) = v12;
+      *(v13 + 56) = v14;
+      v15 = *(*(*(a1 + 64) + 8) + 48);
+      if (v15)
       {
-        LODWORD(v52) = 1;
-        *(&v52 + 1) = "dwnfw_setup_pase_session";
-        LODWORD(v53) = v13;
-        BYTE4(v53) = 3;
-        sub_23948BD20(&v52);
+        LODWORD(v53) = 1;
+        *(&v53 + 1) = "dwnfw_setup_pase_session";
+        LODWORD(v54) = v15;
+        BYTE4(v54) = 3;
+        sub_23948BD20(&v53);
       }
 
       else
@@ -5687,118 +5353,118 @@ BOOL sub_2392894F8(uint64_t a1)
 
   else
   {
-    v78 = 0;
-    v76 = 0u;
+    v79 = 0;
     v77 = 0u;
-    v74 = 0u;
+    v78 = 0u;
     v75 = 0u;
-    v72 = 0u;
+    v76 = 0u;
     v73 = 0u;
-    v70 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
-    v63 = 0u;
+    v66 = 0u;
+    v64 = 0u;
   }
 
-  v14 = [*(a1 + 56) qrCodeString:0];
-  if (!v14)
+  v16 = [*(a1 + 56) qrCodeString:0];
+  if (!v16)
   {
-    v14 = [*(a1 + 56) manualEntryCode];
-    if (!v14)
+    v16 = [*(a1 + 56) manualEntryCode];
+    if (!v16)
     {
-      v34 = *(*(a1 + 64) + 8);
-      *(v34 + 48) = 0x4000000002FLL;
-      *(v34 + 56) = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController_Concrete.mm";
-      v30 = [MTRDeviceController_Concrete checkForError:*(*(*(a1 + 64) + 8) + 48) logMsg:*(*(*(a1 + 64) + 8) + 56) error:@"Generating Manual Pairing Code failed", *(a1 + 72)];
+      v35 = *(*(a1 + 64) + 8);
+      *(v35 + 48) = 0x4000000002FLL;
+      *(v35 + 56) = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController_Concrete.mm";
+      v32 = [MTRDeviceController_Concrete checkForError:*(*(*(a1 + 64) + 8) + 48) logMsg:*(*(*(a1 + 64) + 8) + 56) error:@"Generating Manual Pairing Code failed", *(a1 + 72)];
       goto LABEL_29;
     }
   }
 
-  v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v15 = [*(a1 + 48) interfaces];
-  obj = v15;
-  v16 = [v15 countByEnumeratingWithState:&v36 objects:v62 count:16];
-  if (v16)
+  v38 = 0u;
+  v17 = [*(a1 + 48) interfaces];
+  obj = v17;
+  v18 = [v17 countByEnumeratingWithState:&v37 objects:v63 count:16];
+  if (v18)
   {
-    v17 = *v37;
+    v19 = *v38;
     while (2)
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v37 != v17)
+        if (*v38 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v36 + 1) + 8 * i);
-        v20 = [*(a1 + 48) interfaces];
-        v21 = [v20 objectForKeyedSubscript:v19];
-        v22 = v21;
-        if (v21)
+        v21 = *(*(&v37 + 1) + 8 * i);
+        v22 = [*(a1 + 48) interfaces];
+        v23 = [v22 objectForKeyedSubscript:v21];
+        v24 = v23;
+        if (v23)
         {
-          [v21 resolutionData];
+          objc_msgSend_resolutionData(v23);
         }
 
         else
         {
-          memset(v61, 0, sizeof(v61));
-          v59 = 0u;
+          memset(v62, 0, sizeof(v62));
           v60 = 0u;
-          v57 = 0u;
+          v61 = 0u;
           v58 = 0u;
-          v55 = 0u;
+          v59 = 0u;
           v56 = 0u;
-          v53 = 0u;
+          v57 = 0u;
           v54 = 0u;
-          v52 = 0u;
+          v55 = 0u;
+          v53 = 0u;
         }
 
-        if (v52)
+        if (v53)
         {
-          v41 = 0;
-          v42 = "dwnfw_setup_pase_session";
-          BYTE4(v43) = 0;
-          sub_23948BD20(&v41);
-          v23 = *(*(a1 + 40) + 1616);
-          v24 = v14;
-          v25 = [v14 UTF8String];
-          LOBYTE(v41) = v52;
-          if (v52 == 1)
+          v42 = 0;
+          v43 = "dwnfw_setup_pase_session";
+          BYTE4(v44) = 0;
+          sub_23948BD20(&v42);
+          v25 = *(*(a1 + 40) + 1616);
+          v26 = v16;
+          v27 = [v16 UTF8String];
+          LOBYTE(v42) = v53;
+          if (v53 == 1)
           {
-            LODWORD(v42) = DWORD2(v52);
-            v49 = v59;
+            LODWORD(v43) = DWORD2(v53);
             v50 = v60;
-            v51[0] = v61[0];
-            *(v51 + 11) = *(v61 + 11);
-            v45 = v55;
+            v51 = v61;
+            v52[0] = v62[0];
+            *(v52 + 11) = *(v62 + 11);
             v46 = v56;
             v47 = v57;
             v48 = v58;
-            v43 = v53;
+            v49 = v59;
             v44 = v54;
+            v45 = v55;
           }
 
-          v26 = sub_2394FCB7C(v23, v3, v25, 0, &v41);
-          v27 = *(*(a1 + 64) + 8);
-          *(v27 + 48) = v26;
-          *(v27 + 56) = v28;
-          v29 = *(*(*(a1 + 64) + 8) + 48);
-          if (v29)
+          v28 = sub_2394FCB7C(v25, v3, v27, 0, &v42);
+          v29 = *(*(a1 + 64) + 8);
+          *(v29 + 48) = v28;
+          *(v29 + 56) = v30;
+          v31 = *(*(*(a1 + 64) + 8) + 48);
+          if (v31)
           {
-            v41 = 1;
-            v42 = "dwnfw_setup_pase_session";
-            LODWORD(v43) = v29;
-            BYTE4(v43) = 3;
-            sub_23948BD20(&v41);
-            v15 = obj;
+            v42 = 1;
+            v43 = "dwnfw_setup_pase_session";
+            LODWORD(v44) = v31;
+            BYTE4(v44) = 3;
+            sub_23948BD20(&v42);
+            v17 = obj;
             goto LABEL_25;
           }
 
@@ -5806,9 +5472,9 @@ BOOL sub_2392894F8(uint64_t a1)
         }
       }
 
-      v15 = obj;
-      v16 = [obj countByEnumeratingWithState:&v36 objects:v62 count:16];
-      if (v16)
+      v17 = obj;
+      v18 = [obj countByEnumeratingWithState:&v37 objects:v63 count:16];
+      if (v18)
       {
         continue;
       }
@@ -5820,22 +5486,21 @@ BOOL sub_2392894F8(uint64_t a1)
 LABEL_25:
 
 LABEL_28:
-  v30 = [MTRDeviceController_Concrete checkForError:*(*(*(a1 + 64) + 8) + 48) logMsg:*(*(*(a1 + 64) + 8) + 56) error:@"Failure while pairing the device", *(a1 + 72)];
+  v32 = [MTRDeviceController_Concrete checkForError:*(*(*(a1 + 64) + 8) + 48) logMsg:*(*(*(a1 + 64) + 8) + 56) error:@"Failure while pairing the device", *(a1 + 72)];
 LABEL_29:
-  v31 = v30;
-  sub_238F3F7E4(v40);
-  v32 = *MEMORY[0x277D85DE8];
-  return !v31;
+  v33 = v32;
+  sub_238F3F7E4(v41);
+  return !v33;
 }
 
-void sub_239289984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_239289984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   sub_238F3F7E4(va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_239289A18(_BYTE *a1)
+_BYTE *sub_239289A18(_BYTE *a1, uint64_t a2)
 {
   if ((*a1 & 1) == 0)
   {
@@ -5847,67 +5512,67 @@ _BYTE *sub_239289A18(_BYTE *a1)
 
 BOOL sub_23928A058(uint64_t a1)
 {
-  v198 = *MEMORY[0x277D85DE8];
-  v151[0] = 0;
-  v151[4] = 0;
-  v151[8] = 0;
+  v195 = *MEMORY[0x277D85DE8];
+  v148[0] = 0;
+  v148[4] = 0;
+  v148[8] = 0;
+  v149 = 0;
   v152 = 0;
   v155 = 0;
-  v158 = 0;
+  v156 = 0;
+  v157 = 0;
   v159 = 0;
-  v160 = 0;
-  v162 = 0;
-  v164 = 0;
-  v168 = 0;
-  v170 = 0;
+  v161 = 0;
+  v165 = 0;
+  v167 = 0;
+  v169 = 0;
+  v171 = 0;
   v172 = 0;
+  v173 = 0;
   v174 = 0;
-  v175 = 0;
-  v176 = 0;
+  v175[0] = 0;
+  v175[24] = 0;
+  v175[40] = 0;
+  v175[64] = 0;
+  v175[88] = 0;
+  v175[112] = 0;
+  v175[136] = 0;
+  v175[152] = 0;
+  v175[156] = 0;
+  v175[160] = 0;
+  v175[162] = 0;
+  v175[164] = 0;
+  v178 = 0;
+  v179 = 0;
+  v180 = 0;
+  v176 = 0u;
   v177 = 0;
-  v178[0] = 0;
-  v178[24] = 0;
-  v178[40] = 0;
-  v178[64] = 0;
-  v178[88] = 0;
-  v178[112] = 0;
-  v178[136] = 0;
-  v178[152] = 0;
-  v178[156] = 0;
-  v178[160] = 0;
-  v178[162] = 0;
-  v178[164] = 0;
   v181 = 0;
   v182 = 0;
-  v183 = 0;
-  v179 = 0u;
-  v180 = 0;
-  v184 = 0;
+  LOBYTE(v184) = 0;
   v185 = 0;
-  LOBYTE(v187) = 0;
+  v187 = 0;
   v188 = 0;
+  v189 = 0;
   v190 = 0;
   v191 = 0;
   v192 = 0;
-  v193 = 0;
+  v193 = 0u;
   v194 = 0;
-  v195 = 0;
-  v196 = 0u;
-  v197 = 0;
   __p = 0;
-  v146 = 0;
-  v147 = 0;
+  v143 = 0;
+  v144 = 0;
   if ([*(a1 + 32) readEndpointInformation])
   {
-    v1 = sub_239298174();
+    v1 = sub_239298174(MTREndpointInfo);
     if (v2)
     {
       v3 = v1;
-      v4 = v146;
+      v4 = v143;
       v5 = 12 * v2;
       do
       {
-        if (v4 >= v147)
+        if (v4 >= v144)
         {
           v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - __p) >> 2);
           v8 = v7 + 1;
@@ -5916,12 +5581,12 @@ BOOL sub_23928A058(uint64_t a1)
             sub_238DBAEA8();
           }
 
-          if (0x5555555555555556 * ((v147 - __p) >> 2) > v8)
+          if (0x5555555555555556 * ((v144 - __p) >> 2) > v8)
           {
-            v8 = 0x5555555555555556 * ((v147 - __p) >> 2);
+            v8 = 0x5555555555555556 * ((v144 - __p) >> 2);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((v147 - __p) >> 2) >= 0xAAAAAAAAAAAAAAALL)
+          if (0xAAAAAAAAAAAAAAABLL * ((v144 - __p) >> 2) >= 0xAAAAAAAAAAAAAAALL)
           {
             v9 = 0x1555555555555555;
           }
@@ -5941,11 +5606,11 @@ BOOL sub_23928A058(uint64_t a1)
           *(v10 + 8) = v3[2];
           *v10 = v11;
           v4 = 12 * v7 + 12;
-          memcpy((12 * v7 - (v146 - __p)), __p, v146 - __p);
+          memcpy((12 * v7 - (v143 - __p)), __p, v143 - __p);
           v12 = __p;
-          __p = (12 * v7 - (v146 - __p));
-          v146 = v4;
-          v147 = 0;
+          __p = (12 * v7 - (v143 - __p));
+          v143 = v4;
+          v144 = 0;
           if (v12)
           {
             operator delete(v12);
@@ -5960,7 +5625,7 @@ BOOL sub_23928A058(uint64_t a1)
           v4 += 12;
         }
 
-        v146 = v4;
+        v143 = v4;
         v3 += 3;
         v5 -= 12;
       }
@@ -5974,42 +5639,42 @@ BOOL sub_23928A058(uint64_t a1)
 
   if (!v14)
   {
-    v143 = 0u;
-    v144 = 0u;
+    v140 = 0u;
     v141 = 0u;
-    v142 = 0u;
+    v138 = 0u;
+    v139 = 0u;
     v15 = [*(a1 + 32) extraAttributesToRead];
-    v16 = [v15 countByEnumeratingWithState:&v141 objects:v150 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v138 objects:v147 count:16];
     if (v16)
     {
-      v17 = *v142;
+      v17 = *v139;
       v18 = v15;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v142 != v17)
+          if (*v139 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v141 + 1) + 8 * i);
-          v21 = v146;
-          if (v146 >= v147)
+          v20 = *(*(&v138 + 1) + 8 * i);
+          v21 = v143;
+          if (v143 >= v144)
           {
-            v23 = 0xAAAAAAAAAAAAAAABLL * ((v146 - __p) >> 2);
+            v23 = 0xAAAAAAAAAAAAAAABLL * ((v143 - __p) >> 2);
             v24 = v23 + 1;
             if (v23 + 1 > 0x1555555555555555)
             {
               sub_238DBAEA8();
             }
 
-            if (0x5555555555555556 * ((v147 - __p) >> 2) > v24)
+            if (0x5555555555555556 * ((v144 - __p) >> 2) > v24)
             {
-              v24 = 0x5555555555555556 * ((v147 - __p) >> 2);
+              v24 = 0x5555555555555556 * ((v144 - __p) >> 2);
             }
 
-            if (0xAAAAAAAAAAAAAAABLL * ((v147 - __p) >> 2) >= 0xAAAAAAAAAAAAAAALL)
+            if (0xAAAAAAAAAAAAAAABLL * ((v144 - __p) >> 2) >= 0xAAAAAAAAAAAAAAALL)
             {
               v25 = 0x1555555555555555;
             }
@@ -6024,16 +5689,16 @@ BOOL sub_23928A058(uint64_t a1)
               sub_238DBAF50(&__p, v25);
             }
 
-            v26 = 4 * ((v146 - __p) >> 2);
+            v26 = 4 * ((v143 - __p) >> 2);
             *(v26 + 8) = -1;
             *v26 = -1;
             v22 = 12 * v23 + 12;
-            v27 = (12 * v23 - (v146 - __p));
-            memcpy((v26 - (v146 - __p)), __p, v146 - __p);
+            v27 = (12 * v23 - (v143 - __p));
+            memcpy((v26 - (v143 - __p)), __p, v143 - __p);
             v28 = __p;
             __p = v27;
-            v146 = v22;
-            v147 = 0;
+            v143 = v22;
+            v144 = 0;
             if (v28)
             {
               operator delete(v28);
@@ -6044,27 +5709,27 @@ BOOL sub_23928A058(uint64_t a1)
 
           else
           {
-            *v146 = -1;
+            *v143 = -1;
             *(v21 + 2) = -1;
             v22 = (v21 + 12);
           }
 
-          v146 = v22;
+          v143 = v22;
           [v20 convertToAttributePathParams:v22 - 12];
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v141 objects:v150 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v138 objects:v147 count:16];
       }
 
       while (v16);
     }
   }
 
-  if (__p != v146)
+  if (__p != v143)
   {
-    sub_238DB9BD8(&v137, __p, 0xAAAAAAAAAAAAAAABLL * ((v146 - __p) >> 2));
-    sub_238DB9BD8(buf, v137, v138);
-    v196 = *buf;
+    sub_238DB9BD8(&v134, __p, 0xAAAAAAAAAAAAAAABLL * ((v143 - __p) >> 2));
+    sub_238DB9BD8(buf, v134, v135);
+    v193 = *buf;
   }
 
   v29 = [*(a1 + 32) csrNonce];
@@ -6076,8 +5741,8 @@ BOOL sub_23928A058(uint64_t a1)
     v32 = v31;
     sub_238DB6950(buf, [v31 bytes], objc_msgSend(v31, "length"));
 
-    v160 = 1;
-    v161 = *buf;
+    v157 = 1;
+    v158 = *buf;
   }
 
   v33 = [*(a1 + 32) attestationNonce];
@@ -6089,8 +5754,8 @@ BOOL sub_23928A058(uint64_t a1)
     v36 = v35;
     sub_238DB6950(buf, [v35 bytes], objc_msgSend(v35, "length"));
 
-    v162 = 1;
-    v163 = *buf;
+    v159 = 1;
+    v160 = *buf;
   }
 
   v37 = [*(a1 + 32) threadOperationalDataset];
@@ -6101,9 +5766,9 @@ BOOL sub_23928A058(uint64_t a1)
   {
     v43 = [v39 preventNetworkScans];
     v42 = a1;
-    if ((v43 & 1) == 0 && (v172 & 1) == 0)
+    if ((v43 & 1) == 0 && (v169 & 1) == 0)
     {
-      v187 = 257;
+      v184 = 257;
     }
   }
 
@@ -6113,9 +5778,9 @@ BOOL sub_23928A058(uint64_t a1)
     v41 = v40;
     sub_238DB6950(buf, [v40 bytes], objc_msgSend(v40, "length"));
 
-    v172 = 1;
-    v173 = *buf;
-    v187 = 1;
+    v169 = 1;
+    v170 = *buf;
+    v184 = 1;
 
     v42 = a1;
   }
@@ -6143,8 +5808,8 @@ BOOL sub_23928A058(uint64_t a1)
           v53 = [*(a1 + 32) acceptedTermsAndConditionsVersion];
           v54 = [v53 unsignedIntValue];
 
-          v170 = 1;
-          v171 = v52 | (v54 << 16);
+          v167 = 1;
+          v168 = v52 | (v54 << 16);
           goto LABEL_55;
         }
 
@@ -6159,8 +5824,7 @@ BOOL sub_23928A058(uint64_t a1)
 
         if (sub_2393D5398(1u))
         {
-          v123 = *(a1 + 40);
-          sub_2393D5320(0, 1);
+          sub_2393D5320(0, 1, "%@ Error: acceptedTermsAndConditionsVersion value should be between 0 and 65535", *(a1 + 40));
         }
 
         if (*(a1 + 56))
@@ -6183,8 +5847,7 @@ BOOL sub_23928A058(uint64_t a1)
 
         if (sub_2393D5398(1u))
         {
-          v122 = *(a1 + 40);
-          sub_2393D5320(0, 1);
+          sub_2393D5320(0, 1, "%@ Error: acceptedTermsAndConditions value should be between 0 and 65535", *(a1 + 40));
         }
 
         if (*(a1 + 56))
@@ -6204,8 +5867,8 @@ LABEL_106:
 
 LABEL_55:
   v55 = [*(a1 + 32) skipCommissioningComplete];
-  v188 = 1;
-  v189 = v55;
+  v185 = 1;
+  v186 = v55;
   v56 = [*(a1 + 32) wifiSSID];
   v57 = v56 == 0;
 
@@ -6233,15 +5896,15 @@ LABEL_55:
       v65 = v64;
       sub_238DB6950(buf, [v64 bytes], objc_msgSend(v64, "length"));
 
-      v126 = *buf;
-      v66 = v126;
+      v123 = *buf;
+      v66 = v123;
     }
 
     v69 = 0;
-    v164 = 1;
-    v165 = v61;
-    v166 = v62;
-    v167 = v66;
+    v161 = 1;
+    v162 = v61;
+    v163 = v62;
+    v164 = v66;
     v68 = a1;
     goto LABEL_68;
   }
@@ -6252,8 +5915,8 @@ LABEL_55:
   {
     v69 = 1;
 LABEL_68:
-    v185 = 1;
-    v186 = v69;
+    v182 = 1;
+    v183 = v69;
   }
 
   v73 = [*(v68 + 32) deviceAttestationDelegate];
@@ -6290,29 +5953,29 @@ LABEL_68:
     v83 = v82;
     sub_238DB9BD8(buf, [v82 UTF8String], objc_msgSend(v82, "lengthOfBytesUsingEncoding:", 4));
 
-    v168 = 1;
-    v169 = *buf;
+    v165 = 1;
+    v166 = *buf;
   }
 
   v84 = [MEMORY[0x277CBEBB0] localTimeZone];
-  LODWORD(v137) = 0;
-  v138 = 0;
-  v139 = 0;
-  v125 = v84;
+  LODWORD(v134) = 0;
+  v135 = 0;
+  v136 = 0;
+  v122 = v84;
   v85 = [v84 secondsFromGMT];
   [v84 daylightSavingTimeOffset];
-  LODWORD(v137) = (v85 - v86);
+  LODWORD(v134) = (v85 - v86);
   v87 = [v84 name];
   v88 = v87;
   sub_238DB9BD8(buf, [v87 UTF8String], objc_msgSend(v87, "lengthOfBytesUsingEncoding:", 4));
 
-  v139 = 1;
-  v140 = *buf;
+  v136 = 1;
+  v137 = *buf;
 
   v89 = 0;
-  v152 = 1;
-  v153 = &v137;
-  v154 = 1;
+  v149 = 1;
+  v150 = &v134;
+  v151 = 1;
   do
   {
     v90 = &buf[v89];
@@ -6326,19 +5989,19 @@ LABEL_68:
   while (v89 != 128);
   v91 = sub_2393AFFBC(4);
   v92 = a1;
-  v127 = v91;
+  v124 = v91;
   if (v91)
   {
-    v135 = 0u;
-    v136 = 0u;
+    v132 = 0u;
     v133 = 0u;
-    v134 = 0u;
+    v130 = 0u;
+    v131 = 0u;
     v93 = v91;
-    v94 = [v93 countByEnumeratingWithState:&v133 objects:v148 count:16];
+    v94 = [v93 countByEnumeratingWithState:&v130 objects:v145 count:16];
     if (v94)
     {
       v95 = 0;
-      v96 = *v134;
+      v96 = *v131;
       while (2)
       {
         v97 = 0;
@@ -6355,22 +6018,22 @@ LABEL_68:
           v101 = 0;
         }
 
-        v124 = v98;
+        v121 = v98;
         v102 = &buf[32 * v98 + 24];
         do
         {
-          if (*v134 != v96)
+          if (*v131 != v96)
           {
             objc_enumerationMutation(v93);
           }
 
           if (v101 == v97)
           {
-            v109 = v124 + v97;
+            v109 = v121 + v97;
             goto LABEL_98;
           }
 
-          v103 = *(*(&v133 + 1) + 8 * v97);
+          v103 = *(*(&v130 + 1) + 8 * v97);
           v104 = [v103 offset];
           *(v102 - 6) = [v104 intValue];
 
@@ -6400,8 +6063,8 @@ LABEL_68:
         }
 
         while (v94 != v97);
-        v94 = [v93 countByEnumeratingWithState:&v133 objects:v148 count:16];
-        v95 = v124 + v97;
+        v94 = [v93 countByEnumeratingWithState:&v130 objects:v145 count:16];
+        v95 = v121 + v97;
         if (v94)
         {
           continue;
@@ -6410,7 +6073,7 @@ LABEL_68:
         break;
       }
 
-      v109 = v124 + v97;
+      v109 = v121 + v97;
     }
 
     else
@@ -6420,9 +6083,9 @@ LABEL_68:
 
 LABEL_98:
 
-    v155 = 1;
-    v156 = buf;
-    v157 = v109;
+    v152 = 1;
+    v153 = buf;
+    v154 = v109;
     v92 = a1;
   }
 
@@ -6432,25 +6095,24 @@ LABEL_98:
   v112 = [*(v92 + 32) copy];
   sub_238DB5C90(v111, v112);
 
-  v113 = (*(**(*(a1 + 40) + 1616) + 56))(*(*(a1 + 40) + 1616), v110, v151);
+  v113 = (*(**(*(a1 + 40) + 1616) + 56))(*(*(a1 + 40) + 1616), v110, v148);
   v115 = v114;
-  v129 = 2;
-  v130 = "dwnfw_commission_node";
-  v131 = v113;
-  v132 = 3;
-  sub_23948BD20(&v129);
+  v126 = 2;
+  v127 = "dwnfw_commission_node";
+  v128 = v113;
+  v129 = 3;
+  sub_23948BD20(&v126);
   v116 = [MTRDeviceController_Concrete checkForError:v113 logMsg:v115 error:@"Failure while pairing the device", *(a1 + 56)];
 
   v117 = !v116;
 LABEL_108:
   if (__p)
   {
-    v146 = __p;
+    v143 = __p;
     operator delete(__p);
   }
 
-  sub_239293190(v178);
-  v120 = *MEMORY[0x277D85DE8];
+  sub_239293190(v175);
   return v117;
 }
 
@@ -6496,14 +6158,14 @@ uint64_t sub_23928B460(uint64_t a1)
 
 BOOL sub_23928B97C(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 32) + 1648) + 32) = 0;
   v2 = sub_2394FE350(*(*(a1 + 32) + 1616), [*(a1 + 40) unsignedLongLongValue]);
   v4 = v3;
   *buf = 2;
-  *&v14[4] = "dwnfw_cancel_commissioning";
-  *&v14[12] = v2;
-  v14[16] = 3;
+  *&v11[4] = "dwnfw_cancel_commissioning";
+  *&v11[12] = v2;
+  v11[16] = 3;
   sub_23948BD20(buf);
   v5 = [MTRDeviceController_Concrete checkForError:v2 logMsg:v4 error:@"Failure while trying to stop the pairing process", *(a1 + 56)];
   if (!v5 && *(a1 + 64) == 1)
@@ -6514,23 +6176,20 @@ BOOL sub_23928B97C(uint64_t a1)
       v7 = *(a1 + 32);
       v8 = *(a1 + 48);
       *buf = 138412546;
-      *v14 = v7;
-      *&v14[8] = 2112;
-      *&v14[10] = v8;
+      *v11 = v7;
+      *&v11[8] = 2112;
+      *&v11[10] = v8;
       _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_DEFAULT, "%@ Notifying commissioning complete manually because %@ is being canceled while waiting after PASE establishment", buf, 0x16u);
     }
 
     if (sub_2393D5398(2u))
     {
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 48);
-      sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "%@ Notifying commissioning complete manually because %@ is being canceled while waiting after PASE establishment", *(a1 + 32), *(a1 + 48));
     }
 
     (*(**(*(a1 + 32) + 1640) + 40))(*(*(a1 + 32) + 1640), [*(a1 + 40) unsignedLongLongValue], 0x54E00000074, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController_Concrete.mm");
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return !v5;
 }
 
@@ -6658,37 +6317,36 @@ void sub_23928C7AC(uint64_t a1, void *a2, void *a3)
 
 id sub_23928C90C(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v12 = 0;
-  v9[0] = "dwnfw_attestation_challenge_for_device";
-  v9[1] = &v10;
+  v15 = *MEMORY[0x277D85DE8];
   v10 = 0;
-  v13 = 0;
-  v14 = "dwnfw_attestation_challenge_for_device";
-  v15 = 0;
-  sub_23948BD20(&v13);
-  v10 = sub_2394FB5A4(*(*(a1 + 32) + 1616), [*(a1 + 40) unsignedLongLongValue], &v12);
-  v11 = v2;
-  if ([MTRDeviceController_Concrete checkForError:v10 logMsg:v2 error:@"Failure obtaining device being commissioned", 0]|| (v7 = &v13, v8 = 16, v10 = (*(*v12 + 64))(v12, &v7), v11 = v3, [MTRDeviceController_Concrete checkForError:v10 logMsg:v3 error:@"Failure getting attestation challenge", 0]))
+  v11 = 0;
+  v8[0] = "dwnfw_attestation_challenge_for_device";
+  v8[1] = &v9;
+  v9 = 0;
+  v12 = 0;
+  v13 = "dwnfw_attestation_challenge_for_device";
+  v14 = 0;
+  sub_23948BD20(&v12);
+  v9 = sub_2394FB5A4(*(*(a1 + 32) + 1616), [*(a1 + 40) unsignedLongLongValue], &v11);
+  v10 = v2;
+  if ([MTRDeviceController_Concrete checkForError:v9 logMsg:v2 error:@"Failure obtaining device being commissioned", 0]|| (v6 = &v12, v7 = 16, v9 = (*(*v11 + 64))(v11, &v6), v10 = v3, [MTRDeviceController_Concrete checkForError:v9 logMsg:v3 error:@"Failure getting attestation challenge", 0]))
   {
     v4 = 0;
   }
 
   else
   {
-    v4 = [MEMORY[0x277CBEA90] dataWithBytes:v7 length:v8];
+    v4 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:v7];
   }
 
-  sub_238F3F7E4(v9);
-  v5 = *MEMORY[0x277D85DE8];
+  sub_238F3F7E4(v8);
 
   return v4;
 }
 
-void sub_23928CA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23928CA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_238F3F7E4(va);
   _Unwind_Resume(a1);
 }
@@ -6718,17 +6376,15 @@ void sub_23928CD04(uint64_t a1)
   {
     v7 = *(a1 + 32);
     v8 = [*(a1 + 40) endpointID];
-    [v8 unsignedLongLongValue];
+    v9 = [v8 unsignedLongLongValue];
     v10 = [*(a1 + 32) uniqueIdentifier];
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ Added server endpoint %u to controller %@", v7, v9, v10);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23928CEA8(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sub_2393D9044(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -6736,10 +6392,10 @@ void sub_23928CEA8(uint64_t a1, void *a2)
     v5 = *(a1 + 32);
     v6 = [*(a1 + 40) endpointID];
     *buf = 138412546;
-    v11 = v5;
-    v12 = 1024;
-    LOWORD(v13) = [v6 unsignedLongLongValue];
-    v13 = v13;
+    v10 = v5;
+    v11 = 1024;
+    LOWORD(v12) = [v6 unsignedLongLongValue];
+    v12 = v12;
     _os_log_impl(&dword_238DAE000, v4, OS_LOG_TYPE_ERROR, "%@ Unexpected failure dispatching to Matter queue on running controller in addServerEndpoint, adding endpoint %u", buf, 0x12u);
   }
 
@@ -6747,11 +6403,8 @@ void sub_23928CEA8(uint64_t a1, void *a2)
   {
     v7 = *(a1 + 32);
     v8 = [*(a1 + 40) endpointID];
-    [v8 unsignedLongLongValue];
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "%@ Unexpected failure dispatching to Matter queue on running controller in addServerEndpoint, adding endpoint %u", v7, [v8 unsignedLongLongValue]);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23928D1D4(uint64_t a1)
@@ -6778,27 +6431,25 @@ void sub_23928D1D4(uint64_t a1)
   {
     v7 = *(a1 + 32);
     v8 = [*(a1 + 40) endpointID];
-    [v8 unsignedLongLongValue];
-    v12 = [*(a1 + 32) uniqueIdentifier];
-    sub_2393D5320(0, 2);
+    v9 = [v8 unsignedLongLongValue];
+    v10 = [*(a1 + 32) uniqueIdentifier];
+    sub_2393D5320(0, 2, "%@ Removed server endpoint %u from controller %@", v7, v9, v10);
   }
 
-  v9 = *(a1 + 48);
-  if (v9)
+  v11 = *(a1 + 48);
+  if (v11)
   {
-    v10 = *(a1 + 56);
-    if (v10)
+    v12 = *(a1 + 56);
+    if (v12)
     {
-      dispatch_async(v9, v10);
+      dispatch_async(v11, v12);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23928D37C(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sub_2393D9044(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -6806,10 +6457,10 @@ void sub_23928D37C(uint64_t a1, void *a2)
     v5 = *(a1 + 32);
     v6 = [*(a1 + 40) endpointID];
     *buf = 138412546;
-    v13 = v5;
-    v14 = 1024;
-    LOWORD(v15) = [v6 unsignedLongLongValue];
-    v15 = v15;
+    v12 = v5;
+    v13 = 1024;
+    LOWORD(v14) = [v6 unsignedLongLongValue];
+    v14 = v14;
     _os_log_impl(&dword_238DAE000, v4, OS_LOG_TYPE_DEFAULT, "%@ controller already shut down, so endpoint %u has already been removed", buf, 0x12u);
   }
 
@@ -6817,8 +6468,7 @@ void sub_23928D37C(uint64_t a1, void *a2)
   {
     v7 = *(a1 + 32);
     v8 = [*(a1 + 40) endpointID];
-    [v8 unsignedLongLongValue];
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ controller already shut down, so endpoint %u has already been removed", v7, [v8 unsignedLongLongValue]);
   }
 
   v9 = *(a1 + 48);
@@ -6830,8 +6480,6 @@ void sub_23928D37C(uint64_t a1, void *a2)
       dispatch_async(v9, v10);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23928DFD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
@@ -6891,57 +6539,57 @@ void sub_23928E624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_23928E750(uint64_t a1, uint64_t a2)
 {
-  v16 = 0;
-  v4 = sub_2394FB5A4(a2, *(a1 + 40), &v16);
+  v17 = 0;
+  v4 = sub_2394FB5A4(a2, *(a1 + 40), &v17);
   if (v4)
   {
     v5 = *(a1 + 32);
-    LOBYTE(v14) = 0;
+    LOBYTE(v15) = 0;
     v6 = sub_23921C1E4(MTRError, v4, v3);
-    (*(v5 + 16))(v5, 0, &v14, v6, 0);
+    (*(v5 + 16))(v5, 0, &v15, v6, 0);
 
-    if (v14 == 1)
+    if (v15 == 1)
     {
-      (*(*v15 + 32))(v15);
+      (*(*v16 + 32))(v16);
     }
   }
 
   else
   {
-    (*(*v16 + 48))(&v14);
-    if (v14 == 1 && (v7 = sub_238EA9094(&v14), *(sub_239495304(*v7) + 57) == 1))
+    (*(*v17 + 48))(&v15);
+    if (v15 == 1 && (v8 = sub_238EA9094(&v15, v7), *(sub_239495304(*v8) + 57) == 1))
     {
-      v8 = *(a1 + 32);
-      v9 = (*(*v16 + 40))(v16);
-      (*(v8 + 16))(v8, v9, &v14, 0, 0);
+      v9 = *(a1 + 32);
+      v10 = (*(*v17 + 40))(v17);
+      (*(v9 + 16))(v9, v10, &v15, 0, 0);
     }
 
     else
     {
-      v10 = *(a1 + 32);
-      v12[0] = 0;
-      v11 = sub_23921C1E4(MTRError, 0x6ED00000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController_Concrete.mm");
-      (*(v10 + 16))(v10, 0, v12, v11, 0);
+      v11 = *(a1 + 32);
+      v13[0] = 0;
+      v12 = sub_23921C1E4(MTRError, 0x6ED00000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController_Concrete.mm");
+      (*(v11 + 16))(v11, 0, v13, v12, 0);
 
-      if (v12[0] == 1)
+      if (v13[0] == 1)
       {
-        (*(*v13 + 32))(v13);
+        (*(*v14 + 32))(v14);
       }
     }
 
-    if (v14 == 1)
+    if (v15 == 1)
     {
-      (*(*v15 + 32))(v15);
+      (*(*v16 + 32))(v16);
     }
   }
 }
 
-void sub_23928E97C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23928E97C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
 
   sub_238EA92A0(va);
   sub_238EA92A0(va1);
@@ -6961,18 +6609,18 @@ void sub_23928EA54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_23928EB6C(uint64_t a1)
+void *sub_23928EB6C(uint64_t a1)
 {
   result = [*(a1 + 32) checkIsRunning];
   if (result)
   {
     if ([*(a1 + 40) isPASEDevice])
     {
-      v10 = 0;
-      result = sub_2394FB5A4(*(*(a1 + 32) + 1616), [*(a1 + 40) nodeID], &v10);
+      v11 = 0;
+      result = sub_2394FB5A4(*(*(a1 + 32) + 1616), [*(a1 + 40) nodeID], &v11);
       if (!result)
       {
-        *(*(*(a1 + 48) + 8) + 24) = *(v10 + 64);
+        *(*(*(a1 + 48) + 8) + 24) = *(v11 + 64);
       }
     }
 
@@ -6992,16 +6640,16 @@ uint64_t sub_23928EB6C(uint64_t a1)
         v7 = 0;
       }
 
-      v9[0] = 0;
-      result = sub_23949A820(v7, v4, v5, v9, 0, &v10);
-      if (v10)
+      v10[0] = 0;
+      result = sub_23949A820(v7, v4, v5, v10, 0, &v11);
+      if (v11)
       {
-        v8 = sub_238EA9094(&v10);
-        result = sub_239495304(*v8);
+        v9 = sub_238EA9094(&v11, v8);
+        result = sub_239495304(*v9);
         *(*(*(a1 + 48) + 8) + 24) = *(result + 112);
-        if (v10)
+        if (v11)
         {
-          return (*(*v11 + 32))(v11);
+          return (*(*v12 + 32))(v12);
         }
       }
     }
@@ -7010,9 +6658,9 @@ uint64_t sub_23928EB6C(uint64_t a1)
   return result;
 }
 
-void sub_23928ECA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23928ECA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_238EA92A0(va);
   _Unwind_Resume(a1);
 }
@@ -7042,7 +6690,7 @@ LABEL_4:
 LABEL_5:
 }
 
-uint64_t sub_23928F164(uint64_t a1)
+void *sub_23928F164(uint64_t a1)
 {
   result = [*(a1 + 32) checkIsRunning:*(a1 + 48)];
   if (result)
@@ -7055,7 +6703,7 @@ uint64_t sub_23928F164(uint64_t a1)
   return result;
 }
 
-void sub_23928F2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_23928F2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -7077,9 +6725,9 @@ void sub_23928F32C(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_23928F464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_23928F464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -7107,7 +6755,7 @@ BOOL sub_23928F6C0(uint64_t a1, uint64_t a2)
   return sub_2393F9148(v5, v6, v7);
 }
 
-uint64_t sub_23928F8C0(uint64_t a1)
+void sub_23928F8C0(uint64_t a1)
 {
   v1 = *(*(a1 + 32) + 1616);
   v2 = *(v1 + 4280);
@@ -7118,96 +6766,93 @@ uint64_t sub_23928F8C0(uint64_t a1)
 
   v4 = [*(a1 + 40) unsignedLongLongValue];
   v5 = *(v1 + 36);
-  v8 = v4;
-  v9 = v5;
-  v7 = 513;
-  return sub_239497AE8(v3, &v8, &v7);
+  v7 = v4;
+  v8 = v5;
+  v6 = 513;
+  sub_239497AE8(v3, &v7, &v6);
 }
 
 uint64_t sub_239290654(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  sub_23929093C(*(*(a1 + 32) + 1616), v27);
-  if (v27[0])
+  v27 = *MEMORY[0x277D85DE8];
+  sub_23929093C(*(*(a1 + 32) + 1616), v25);
+  if (v25[0])
   {
-    v2 = sub_239289A18(v27);
-    sub_239293360(buf, v2);
-    v3 = *(a1 + 40);
-    v4 = v3;
-    sub_238DB6950(&v19, [v3 bytes], objc_msgSend(v3, "length"));
+    v3 = sub_239289A18(v25, v2);
+    sub_239293360(buf, v3);
+    v4 = *(a1 + 40);
+    v5 = v4;
+    sub_238DB6950(&v17, [v4 bytes], objc_msgSend(v4, "length"));
 
-    v5 = v19;
-    v6 = *(a1 + 48);
-    if (v6)
+    v6 = v17;
+    v7 = *(a1 + 48);
+    if (v7)
     {
-      v18 = v19;
-      v7 = v6;
+      v16 = v17;
       v8 = v7;
-      sub_238DB6950(&v19, [v7 bytes], objc_msgSend(v7, "length"));
+      v9 = v8;
+      sub_238DB6950(&v17, [v8 bytes], objc_msgSend(v8, "length"));
 
-      v5 = v18;
-      v9 = v19;
+      v6 = v16;
+      v10 = v17;
     }
 
     else
     {
-      v9 = 0uLL;
+      v10 = 0uLL;
     }
 
-    v22 = 1;
-    v23 = v5;
-    v24 = v9;
-    v26 = 1;
-    v13 = *(*(*(a1 + 32) + 1616) + 9136);
-    if (!(*(*v13 + 16))(v13, buf))
+    v20 = 1;
+    v21 = v6;
+    v22 = v10;
+    v24 = 1;
+    v14 = *(*(*(a1 + 32) + 1616) + 9136);
+    if (!(*(*v14 + 16))(v14, buf))
     {
       sub_239507A2C(*(*(a1 + 32) + 1616));
     }
 
-    v14 = *(a1 + 56);
-    v12 = [MTRDeviceController_Concrete checkForError:"checkForError:logMsg:error:" logMsg:? error:?]^ 1;
-    sub_239293190(v25);
+    v13 = [MTRDeviceController_Concrete checkForError:"checkForError:logMsg:error:" logMsg:? error:?]^ 1;
+    sub_239293190(v23);
   }
 
   else
   {
-    v10 = sub_2393D9044(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_2393D9044(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
+      v12 = *(a1 + 32);
       *buf = 138412290;
-      v21 = v11;
-      _os_log_impl(&dword_238DAE000, v10, OS_LOG_TYPE_ERROR, "%@ Has no commissioning parameters", buf, 0xCu);
+      v19 = v12;
+      _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_ERROR, "%@ Has no commissioning parameters", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      v17 = *(a1 + 32);
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Has no commissioning parameters", *(a1 + 32));
     }
 
     if (*(a1 + 56))
     {
       sub_23921C1E4(MTRError, 0x7F500000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController_Concrete.mm");
-      **(a1 + 56) = v12 = 0;
+      **(a1 + 56) = v13 = 0;
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
   }
 
-  if (v27[0] == 1)
+  if (v25[0] == 1)
   {
-    sub_239293190(v28);
+    sub_239293190(v26);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
-void sub_2392908DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_2392908DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   sub_239293190(&a63);
   if (LOBYTE(STACK[0x2E8]) == 1)
@@ -7238,28 +6883,27 @@ _BYTE *sub_23929093C@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 
 uint64_t sub_239290BD4(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  sub_23929093C(*(*(a1 + 32) + 1616), v20);
-  if (v20[0])
+  v20 = *MEMORY[0x277D85DE8];
+  sub_23929093C(*(*(a1 + 32) + 1616), v18);
+  if (v18[0])
   {
-    v2 = sub_239289A18(v20);
-    sub_239293360(buf, v2);
-    v3 = *(a1 + 40);
-    v4 = v3;
-    sub_238DB6950(&v13, [v3 bytes], objc_msgSend(v3, "length"));
+    v3 = sub_239289A18(v18, v2);
+    sub_239293360(buf, v3);
+    v4 = *(a1 + 40);
+    v5 = v4;
+    sub_238DB6950(&v11, [v4 bytes], objc_msgSend(v4, "length"));
 
-    v16 = 1;
-    v17 = v13;
-    v19 = 1;
-    v5 = *(*(*(a1 + 32) + 1616) + 9136);
-    if (!(*(*v5 + 16))(v5, buf))
+    v14 = 1;
+    v15 = v11;
+    v17 = 1;
+    v6 = *(*(*(a1 + 32) + 1616) + 9136);
+    if (!(*(*v6 + 16))(v6, buf))
     {
       sub_239507A2C(*(*(a1 + 32) + 1616));
     }
 
-    v6 = *(a1 + 48);
     v7 = [MTRDeviceController_Concrete checkForError:"checkForError:logMsg:error:" logMsg:? error:?]^ 1;
-    sub_239293190(v18);
+    sub_239293190(v16);
   }
 
   else
@@ -7269,14 +6913,13 @@ uint64_t sub_239290BD4(uint64_t a1)
     {
       v9 = *(a1 + 32);
       *buf = 138412290;
-      v15 = v9;
+      v13 = v9;
       _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "%@ Has no commissioning parameters", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      v12 = *(a1 + 32);
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Has no commissioning parameters", *(a1 + 32));
     }
 
     if (*(a1 + 48))
@@ -7291,16 +6934,15 @@ uint64_t sub_239290BD4(uint64_t a1)
     }
   }
 
-  if (v20[0] == 1)
+  if (v18[0] == 1)
   {
-    sub_239293190(v21);
+    sub_239293190(v19);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-void sub_239290E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_239290E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61)
 {
   sub_239293190(&a61);
   if (LOBYTE(STACK[0x2D8]) == 1)
@@ -7340,19 +6982,18 @@ void sub_239291E28(void *a1)
   {
     v3 = [MTRBaseDevice alloc];
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a1[7]];
-    v6 = [(MTRBaseDevice *)v3 initWithNodeID:v4 controller:a1[5]];
+    v5 = [(MTRBaseDevice *)v3 initWithNodeID:v4 controller:a1[5]];
 
-    v2 = v6;
+    v2 = v5;
   }
 
-  v5 = a1[4];
-  v7 = v2;
+  v6 = v2;
   (*(a1[6] + 16))();
 }
 
-void sub_2392922AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2392922AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -7360,52 +7001,52 @@ void sub_2392922AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 BOOL sub_239292304(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 48) + 8) + 48;
-  v17[0] = "dwnfw_pair_device";
-  v17[1] = v2;
-  v18.n128_u32[0] = 0;
-  v18.n128_u64[1] = "dwnfw_pair_device";
-  LOBYTE(v21) = 0;
-  sub_23948BD20(&v18);
-  sub_2393CF730([*(a1 + 32) UTF8String], &v16);
+  v16[0] = "dwnfw_pair_device";
+  v16[1] = v2;
+  LODWORD(v17) = 0;
+  *(&v17 + 1) = "dwnfw_pair_device";
+  LOBYTE(v20) = 0;
+  sub_23948BD20(&v17);
+  sub_2393CF730([*(a1 + 32) UTF8String], &v15);
   v3 = *(a1 + 76);
   *(*(*(a1 + 40) + 1648) + 32) = *(a1 + 56);
-  v32 = 0;
-  v31 = 0u;
+  v31 = 0;
   v30 = 0u;
   v29 = 0u;
   v28 = 0u;
   v27 = 0u;
   v26 = 0u;
+  v25 = 0u;
   v4 = *(a1 + 72);
-  v18 = v16;
-  v19 = 1;
-  v20 = v3;
+  v17 = v15;
+  v18 = 1;
+  v19 = v3;
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  v23 = v4;
+  v22 = v4;
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v34 = 0;
-  v35 = 0;
   v33 = 0;
-  v12 = 0;
-  v13 = "dwnfw_setup_pase_session";
-  v15 = 0;
-  sub_23948BD20(&v12);
-  v5 = sub_2394FBC2C(*(*(a1 + 40) + 1616), *(a1 + 56), &v18);
+  v34 = 0;
+  v32 = 0;
+  v11 = 0;
+  v12 = "dwnfw_setup_pase_session";
+  v14 = 0;
+  sub_23948BD20(&v11);
+  v5 = sub_2394FBC2C(*(*(a1 + 40) + 1616), *(a1 + 56), &v17);
   v6 = *(*(a1 + 48) + 8);
   *(v6 + 48) = v5;
   *(v6 + 56) = v7;
   v8 = *(*(*(a1 + 48) + 8) + 48);
   if (v8)
   {
-    v12 = 1;
-    v13 = "dwnfw_setup_pase_session";
-    v14 = v8;
-    v15 = 3;
-    sub_23948BD20(&v12);
+    v11 = 1;
+    v12 = "dwnfw_setup_pase_session";
+    v13 = v8;
+    v14 = 3;
+    sub_23948BD20(&v11);
   }
 
   else
@@ -7414,14 +7055,13 @@ BOOL sub_239292304(uint64_t a1)
   }
 
   v9 = [MTRDeviceController_Concrete checkForError:*(*(*(a1 + 48) + 8) + 48) logMsg:*(*(*(a1 + 48) + 8) + 56) error:@"Failure while pairing the device", *(a1 + 64)];
-  sub_238F3F7E4(v17);
-  v10 = *MEMORY[0x277D85DE8];
+  sub_238F3F7E4(v16);
   return !v9;
 }
 
-void sub_2392924D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2392924D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   sub_238F3F7E4(va);
   _Unwind_Resume(a1);
 }
@@ -7443,19 +7083,19 @@ uint64_t sub_2392927C8(uint64_t a1)
   return a1 ^ 1;
 }
 
-void sub_239292864(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_239292864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_238F3F7E4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239292C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_239292C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va1, a15);
-  va_start(va, a15);
-  v17 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a22);
+  va_start(va, a22);
+  v24 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
 
   sub_238F3F7E4(va);
   _Block_object_dispose(va1, 8);
@@ -7464,19 +7104,19 @@ void sub_239292C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 id sub_239292CD4(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  LOBYTE(v40) = 0;
-  *v42 = 0;
-  v42[2] = 0;
-  *&v42[6] = 0;
-  *(&v40 + 2) = 0;
-  HIWORD(v40) = 0;
-  v43 = v44;
-  v44[0] = 0;
-  v46[0] = 0;
-  v46[1] = 0;
-  v44[1] = 0;
-  v45 = v46;
+  v46 = *MEMORY[0x277D85DE8];
+  LOBYTE(v35) = 0;
+  *v37 = 0;
+  v37[2] = 0;
+  *&v37[6] = 0;
+  *(&v35 + 2) = 0;
+  HIWORD(v35) = 0;
+  v38 = v39;
+  v39[0] = 0;
+  v41[0] = 0;
+  v41[1] = 0;
+  v39[1] = 0;
+  v40 = v41;
   v2 = *(*(a1 + 32) + 1616);
   v3 = *(a1 + 48);
   v4 = *(a1 + 56);
@@ -7484,8 +7124,8 @@ id sub_239292CD4(uint64_t a1)
   v6 = *(a1 + 72);
   LOBYTE(__p[0]) = 1;
   HIDWORD(__p[0]) = v6;
-  v34[0] = 0;
-  v7 = sub_239520478(v2, v3, v4, 1000, v5, __p, v34, &v40, 0);
+  v29[0] = 0;
+  v7 = sub_239520478(v2, v3, v4, 1000, v5, __p, v29, &v35, 0);
   v8 = *(*(a1 + 40) + 8);
   *(v8 + 48) = v7;
   *(v8 + 56) = v9;
@@ -7496,21 +7136,21 @@ id sub_239292CD4(uint64_t a1)
 
   else
   {
-    *v34 = v40;
-    *&v34[3] = *(&v40 + 3);
-    v35 = HIBYTE(v40);
-    if (HIBYTE(v40) == 1)
+    *v29 = v35;
+    *&v29[3] = *(&v35 + 3);
+    v30 = HIBYTE(v35);
+    if (HIBYTE(v35) == 1)
     {
-      v36 = v41;
+      v31 = v36;
     }
 
-    v37 = *v42;
-    v38 = *&v42[8];
-    v39 = 0;
+    v32 = *v37;
+    v33 = *&v37[8];
+    v34 = 0;
     __p[0] = 0;
     __p[1] = 0;
-    v33 = 0;
-    v11 = sub_23948CB80(v34, __p);
+    v28 = 0;
+    v11 = sub_23948CB80(v29, __p);
     v12 = v11;
     v13 = *(*(a1 + 40) + 8);
     *(v13 + 48) = v11;
@@ -7523,14 +7163,13 @@ id sub_239292CD4(uint64_t a1)
       {
         v17 = *(a1 + 32);
         *buf = 138412290;
-        v48 = v17;
+        v43 = v17;
         _os_log_impl(&dword_238DAE000, v15, OS_LOG_TYPE_ERROR, "%@ Failed to get decimal setup code", buf, 0xCu);
       }
 
       if (sub_2393D5398(1u))
       {
-        v30 = *(a1 + 32);
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "%@ Failed to get decimal setup code", *(a1 + 32));
       }
 
       v10 = 0;
@@ -7542,58 +7181,54 @@ id sub_239292CD4(uint64_t a1)
       {
         v18 = *(a1 + 32);
         v19 = __p;
-        if (v33 < 0)
+        if (v28 < 0)
         {
           v19 = __p[0];
         }
 
         *buf = 138412546;
-        v48 = v18;
-        v49 = 2080;
-        v50 = v19;
+        v43 = v18;
+        v44 = 2080;
+        v45 = v19;
         _os_log_impl(&dword_238DAE000, v15, OS_LOG_TYPE_ERROR, "%@ Setup code is %s", buf, 0x16u);
       }
 
       if (sub_2393D5398(1u))
       {
-        v20 = *(a1 + 32);
-        v21 = __p;
-        if (v33 < 0)
+        v20 = __p;
+        if (v28 < 0)
         {
-          v21 = __p[0];
+          v20 = __p[0];
         }
 
-        v29 = *(a1 + 32);
-        v31 = v21;
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "%@ Setup code is %s", *(a1 + 32), v20);
       }
 
-      v22 = MEMORY[0x277CCACA8];
-      v23 = SHIBYTE(v33);
-      v24 = __p[0];
-      v25 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
-      if (v23 >= 0)
+      v21 = MEMORY[0x277CCACA8];
+      v22 = SHIBYTE(v28);
+      v23 = __p[0];
+      v24 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
+      if (v22 >= 0)
       {
-        v26 = __p;
+        v25 = __p;
       }
 
       else
       {
-        v26 = v24;
+        v25 = v23;
       }
 
-      v10 = [v22 stringWithCString:v26 encoding:v25];
+      v10 = [v21 stringWithCString:v25 encoding:v24];
     }
 
-    if (SHIBYTE(v33) < 0)
+    if (SHIBYTE(v28) < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  sub_238EF5F20(&v45, v46[0]);
-  sub_238EF5F20(&v43, v44[0]);
-  v27 = *MEMORY[0x277D85DE8];
+  sub_238EF5F20(&v40, v41[0]);
+  sub_238EF5F20(&v38, v39[0]);
 
   return v10;
 }
@@ -7626,7 +7261,7 @@ _BYTE *sub_239293190(_BYTE *a1)
 {
   if (*a1 == 1)
   {
-    sub_2393F9144(a1 + 1, 16);
+    sub_2393F9144((a1 + 1), 16);
   }
 
   return a1;
@@ -7654,7 +7289,7 @@ uint64_t sub_2392931D0(uint64_t a1, void *a2, void *a3, unsigned __int8 *a4, cha
   return a1;
 }
 
-uint64_t sub_239293294(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, char a5)
+uint64_t sub_239293294(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   if (*(a1 + 32) == 1)
   {
@@ -8102,7 +7737,7 @@ void sub_239293FB8(uint64_t a1, void *a2, void *a3)
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Attribute cache read failed due to XPC connection failure");
     }
 
     v16 = *(a1 + 72);
@@ -8473,7 +8108,7 @@ LABEL_85:
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Error: No attribute cache available to read from");
       }
 
       v8 = *(a1 + 64);
@@ -8493,7 +8128,7 @@ LABEL_85:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Error: currently read from attribute cache does not support wildcards for both endpoint and cluster");
     }
 
     v27 = *(a1 + 64);
@@ -8525,68 +8160,67 @@ unint64_t sub_239294884(unsigned __int16 *a1, uint64_t a2, void *a3)
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v12 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Error: Failed to read from attribute cache: %s", v12);
     }
 
     v24[0] = @"attributePath";
-    v12 = [[MTRAttributePath alloc] initWithPath:a1];
-    v25[0] = v12;
+    v13 = [[MTRAttributePath alloc] initWithPath:a1];
+    v25[0] = v13;
     v24[1] = @"error";
-    v13 = sub_23921C1E4(MTRError, v7, v9);
-    v25[1] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-    [v5 addObject:v14];
+    v14 = sub_23921C1E4(MTRError, v7, v9);
+    v25[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    [v5 addObject:v15];
 
-    v15 = v7 & 0xFFFFFFFF00000000;
+    v16 = v7 & 0xFFFFFFFF00000000;
   }
 
   else
   {
-    v16 = sub_238EE60DC(v23, 0);
-    if (v16)
+    v17 = sub_238EE60DC(v23, 0);
+    if (v17)
     {
       v30[0] = @"attributePath";
-      v17 = [[MTRAttributePath alloc] initWithPath:a1];
+      v18 = [[MTRAttributePath alloc] initWithPath:a1];
       v30[1] = @"data";
-      v31[0] = v17;
-      v31[1] = v16;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-      [v5 addObject:v18];
+      v31[0] = v18;
+      v31[1] = v17;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+      [v5 addObject:v19];
       v8 = 0;
-      v15 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v19 = sub_2393D9044(0);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = sub_2393D9044(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_238DAE000, v19, OS_LOG_TYPE_ERROR, "Error: Cached value could not be converted to generic NSObject", buf, 2u);
+        _os_log_impl(&dword_238DAE000, v20, OS_LOG_TYPE_ERROR, "Error: Cached value could not be converted to generic NSObject", buf, 2u);
       }
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Error: Cached value could not be converted to generic NSObject");
       }
 
       v28[0] = @"attributePath";
-      v17 = [[MTRAttributePath alloc] initWithPath:a1];
-      v29[0] = v17;
+      v18 = [[MTRAttributePath alloc] initWithPath:a1];
+      v29[0] = v18;
       v28[1] = @"error";
-      v18 = sub_23921C1E4(MTRError, 0x4E000000B0, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRClusterStateCacheContainer.mm");
-      v29[1] = v18;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
-      [v5 addObject:v20];
+      v19 = sub_23921C1E4(MTRError, 0x4E000000B0, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRClusterStateCacheContainer.mm");
+      v29[1] = v19;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+      [v5 addObject:v21];
 
-      v15 = 0x5000000000;
+      v16 = 0x5000000000;
       v8 = 176;
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v15 | v8;
+  return v16 | v8;
 }
 
 void sub_239294BFC(_Unwind_Exception *a1)
@@ -8657,4 +8291,445 @@ void sub_239295018(uint64_t a1)
     v13 = sub_23921C1E4(MTRError, 0xDF000000D8, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRClusterStateCacheContainer.mm");
     (*(v7 + 16))(v7, 0);
   }
+}
+
+void sub_2392954BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+{
+  v15 = v14;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_239295710(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_2392957A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
+{
+  a9.super_class = MTRDeviceConnectivityMonitor;
+  [(_Unwind_Exception *)&a9 dealloc:a3];
+  _Unwind_Resume(a1);
+}
+
+void sub_239295F28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
+{
+  objc_destroyWeak((v28 + 32));
+  objc_destroyWeak((v27 + 32));
+  objc_destroyWeak(&location);
+
+  os_unfair_lock_unlock(&unk_27DF775E8);
+  _Unwind_Resume(a1);
+}
+
+void sub_239295FB4(uint64_t a1, void *a2)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained && nw_path_get_status(v3) == nw_path_status_satisfied)
+  {
+    v5 = sub_2393D9044(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v7 = WeakRetained;
+      _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_DEFAULT, "%@ path is satisfied", buf, 0xCu);
+    }
+
+    if (sub_2393D5398(2u))
+    {
+      sub_2393D5320(0, 2, "%@ path is satisfied", WeakRetained);
+    }
+
+    os_unfair_lock_lock(&unk_27DF775E8);
+    [WeakRetained _callHandler];
+    os_unfair_lock_unlock(&unk_27DF775E8);
+  }
+}
+
+void sub_2392960D0(_Unwind_Exception *a1)
+{
+  os_unfair_lock_unlock(&unk_27DF775E8);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_239296100(uint64_t a1, int a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained && a2)
+  {
+    os_unfair_lock_lock(&unk_27DF775E8);
+    v4 = sub_2393D9044(0);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v6 = WeakRetained;
+      _os_log_impl(&dword_238DAE000, v4, OS_LOG_TYPE_DEFAULT, "%@ connectivity now viable", buf, 0xCu);
+    }
+
+    if (sub_2393D5398(2u))
+    {
+      sub_2393D5320(0, 2, "%@ connectivity now viable", WeakRetained);
+    }
+
+    [WeakRetained _callHandler];
+    os_unfair_lock_unlock(&unk_27DF775E8);
+  }
+}
+
+void sub_2392961FC(_Unwind_Exception *a1)
+{
+  os_unfair_lock_unlock(&unk_27DF775E8);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_239296660(_Unwind_Exception *a1)
+{
+  os_unfair_lock_unlock(&unk_27DF775E8);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_23929687C()
+{
+  os_unfair_lock_lock(&unk_27DF775E8);
+  if (qword_27DF77600)
+  {
+    v0 = 1;
+  }
+
+  else
+  {
+    v0 = qword_27DF775F0 == 0;
+  }
+
+  if (!v0)
+  {
+    v1 = sub_2393D9044(0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    {
+      *v3 = 0;
+      _os_log_impl(&dword_238DAE000, v1, OS_LOG_TYPE_DEFAULT, "MTRDeviceConnectivityMonitor: Closing shared resolver connection", v3, 2u);
+    }
+
+    if (sub_2393D5398(2u))
+    {
+      sub_2393D5320(0, 2, "MTRDeviceConnectivityMonitor: Closing shared resolver connection");
+    }
+
+    DNSServiceRefDeallocate(qword_27DF775F0);
+    qword_27DF775F0 = 0;
+    v2 = qword_27DF775F8;
+    qword_27DF775F8 = 0;
+  }
+
+  os_unfair_lock_unlock(&unk_27DF775E8);
+}
+
+void sub_239296B4C(uint64_t a1)
+{
+  os_unfair_lock_lock(&unk_27DF775E8);
+  [*(a1 + 32) _stopMonitoring];
+
+  os_unfair_lock_unlock(&unk_27DF775E8);
+}
+
+void sub_239296C28(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    operator new();
+  }
+
+  sub_238DBAFA8();
+}
+
+unint64_t sub_239296C70(uint64_t a1, unsigned __int16 *a2, void *a3)
+{
+  *&v6[33] = *MEMORY[0x277D85DE8];
+  sub_239296DA0(v6, "g/a/%x/%x/%x", *a2, 0, *(a2 + 1));
+  return sub_239528760((a1 + 8), v6, a3);
+}
+
+unint64_t sub_239296CFC(uint64_t a1, unsigned __int16 *a2, uint64_t *a3)
+{
+  *&v6[33] = *MEMORY[0x277D85DE8];
+  sub_239296DA0(v6, "g/a/%x/%x/%x", *a2, 0, *(a2 + 1));
+  return sub_2395287EC((a1 + 8), v6, a3);
+}
+
+uint64_t *sub_239296DA0@<X0>(uint64_t *__return_ptr a1@<X8>, char *__format@<X0>, ...)
+{
+  va_start(va, __format);
+  *(a1 + 32) = 0;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  return vsnprintf(a1, 0x21uLL, __format, va);
+}
+
+id sub_239296DE4(id a1, void *a2, void *a3, void *a4)
+{
+  v7 = a2;
+  v8 = a3;
+  v9 = a4;
+  if (a1)
+  {
+    v13.receiver = a1;
+    v13.super_class = MTREndpointInfo;
+    a1 = objc_msgSendSuper2(&v13, sel_init);
+    *(a1 + 4) = [v7 unsignedShortValue];
+    v10 = [v8 copy];
+    v11 = *(a1 + 2);
+    *(a1 + 2) = v10;
+
+    sub_23952D324(a1, [v9 copy]);
+  }
+
+  return a1;
+}
+
+uint64_t sub_239297204(uint64_t a1, void *a2)
+{
+  v53 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  objc_opt_self();
+  v3 = [v2 objectForKeyedSubscript:&unk_284C41618];
+  v33 = v3;
+  if (v3)
+  {
+    v45 = 0u;
+    v46 = 0u;
+    *v44 = 0u;
+    sub_239297944(v44, (v3 + 8));
+    v4 = 1;
+    while (1)
+    {
+      v43 = *(*(*&v44[8] + ((v46.i64[0] >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * (v46.i16[0] & 0x7FF));
+      v5 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:?];
+      v34 = [v2 objectForKeyedSubscript:v5];
+
+      if (*(v34 + 10) == 1)
+      {
+        *(v34 + 10) = 2;
+        v46 = vaddq_s64(v46, xmmword_2395C0E10);
+        if (v46.i64[0] >= 0x1000uLL)
+        {
+          operator delete(**&v44[8]);
+          *&v44[8] += 8;
+          v46.i64[0] -= 2048;
+        }
+
+        sub_2392979D8(v44, &v43);
+        if (v43 == *(v3 + 8))
+        {
+
+          v18 = v46.i64[1];
+          if (v18 != [v2 count])
+          {
+            v19 = sub_2393D9044(0);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_238DAE000, v19, OS_LOG_TYPE_ERROR, "Warning: Not all endpoints are descendants of the root endpoint", buf, 2u);
+            }
+
+            if (sub_2393D5398(1u))
+            {
+              sub_2393D5320(0, 1, "Warning: Not all endpoints are descendants of the root endpoint");
+            }
+
+            v4 = 0;
+          }
+
+          v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          while (v46.i64[1])
+          {
+            v21 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(*(*&v44[8] + ((v46.i64[0] >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * (v46.i16[0] & 0x7FF))];
+            v22 = [v2 objectForKeyedSubscript:v21];
+
+            v46 = vaddq_s64(v46, xmmword_2395C0E10);
+            if (v46.i64[0] >= 0x1000uLL)
+            {
+              operator delete(**&v44[8]);
+              *&v44[8] += 8;
+              v46.i64[0] -= 2048;
+            }
+
+            if (*(v22 + 10))
+            {
+              [v20 removeAllObjects];
+              v37 = 0u;
+              v38 = 0u;
+              v35 = 0u;
+              v36 = 0u;
+              v23 = *(v22 + 24);
+              v24 = [v23 countByEnumeratingWithState:&v35 objects:v47 count:16];
+              if (v24)
+              {
+                v25 = *v36;
+                do
+                {
+                  for (i = 0; i != v24; ++i)
+                  {
+                    if (*v36 != v25)
+                    {
+                      objc_enumerationMutation(v23);
+                    }
+
+                    v27 = [v2 objectForKeyedSubscript:*(*(&v35 + 1) + 8 * i)];
+                    v28 = v27;
+                    if (v27 && *(v27 + 10))
+                    {
+                      *(v27 + 10) = 0;
+                      [v20 addObject:v27];
+                    }
+                  }
+
+                  v24 = [v23 countByEnumeratingWithState:&v35 objects:v47 count:16];
+                }
+
+                while (v24);
+              }
+
+              v29 = [v20 copy];
+              v30 = *(v22 + 32);
+              *(v22 + 32) = v29;
+            }
+          }
+
+          v33[10] = 0;
+
+          sub_239298200(v44);
+          goto LABEL_62;
+        }
+      }
+
+      else
+      {
+        if (!*(v34 + 10))
+        {
+          *(v34 + 10) = 1;
+          v41 = 0u;
+          v42 = 0u;
+          v39 = 0u;
+          v40 = 0u;
+          v6 = *(v34 + 24);
+          v7 = [v6 countByEnumeratingWithState:&v39 objects:v52 count:16];
+          if (!v7)
+          {
+            goto LABEL_25;
+          }
+
+          v8 = *v40;
+          while (1)
+          {
+            for (j = 0; j != v7; ++j)
+            {
+              if (*v40 != v8)
+              {
+                objc_enumerationMutation(v6);
+              }
+
+              v10 = *(*(&v39 + 1) + 8 * j);
+              v11 = [v2 objectForKeyedSubscript:v10];
+              v12 = v11;
+              if (!v11)
+              {
+                v13 = sub_2393D9044(0);
+                if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+                {
+                  v14 = v43;
+                  v15 = [v10 unsignedShortValue];
+                  *buf = 67109376;
+                  v49 = v14;
+                  v50 = 1024;
+                  v51 = v15;
+                  _os_log_impl(&dword_238DAE000, v13, OS_LOG_TYPE_ERROR, "Warning: PartsList of endpoint %u references non-existant endpoint %u", buf, 0xEu);
+                }
+
+                if (sub_2393D5398(1u))
+                {
+                  [v10 unsignedShortValue];
+                  sub_2393D5320(0, 1, "Warning: PartsList of endpoint %u references non-existant endpoint %u");
+                }
+
+                goto LABEL_22;
+              }
+
+              if (*(v11 + 10) == 1)
+              {
+                v16 = sub_2393D9044(0);
+                if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+                {
+                  v17 = v12[4];
+                  *buf = 67109376;
+                  v49 = v17;
+                  v50 = 1024;
+                  v51 = v43;
+                  _os_log_impl(&dword_238DAE000, v16, OS_LOG_TYPE_ERROR, "Warning: Cyclic endpoint composition involving endpoints %u and %u", buf, 0xEu);
+                }
+
+                if (sub_2393D5398(1u))
+                {
+                  sub_2393D5320(0, 1, "Warning: Cyclic endpoint composition involving endpoints %u and %u");
+                }
+
+LABEL_22:
+                v4 = 0;
+                goto LABEL_23;
+              }
+
+              if (!*(v11 + 10))
+              {
+                sub_239297944(v44, (v11 + 8));
+              }
+
+LABEL_23:
+            }
+
+            v7 = [v6 countByEnumeratingWithState:&v39 objects:v52 count:16];
+            if (!v7)
+            {
+LABEL_25:
+
+              goto LABEL_32;
+            }
+          }
+        }
+
+        v46 = vaddq_s64(v46, xmmword_2395C0E10);
+        if (v46.i64[0] >= 0x1000uLL)
+        {
+          operator delete(**&v44[8]);
+          *&v44[8] += 8;
+          v46.i64[0] -= 2048;
+        }
+      }
+
+LABEL_32:
+    }
+  }
+
+  v31 = sub_2393D9044(0);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  {
+    *v44 = 0;
+    _os_log_impl(&dword_238DAE000, v31, OS_LOG_TYPE_ERROR, "Missing root endpoint, not populating endpoint hierarchy", v44, 2u);
+  }
+
+  if (sub_2393D5398(1u))
+  {
+    sub_2393D5320(0, 1, "Missing root endpoint, not populating endpoint hierarchy");
+  }
+
+  v4 = 0;
+LABEL_62:
+
+  return v4 & 1;
 }

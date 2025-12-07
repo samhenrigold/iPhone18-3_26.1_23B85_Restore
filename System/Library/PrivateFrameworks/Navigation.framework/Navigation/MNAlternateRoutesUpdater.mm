@@ -9,7 +9,7 @@
 
 - (NSArray)alternateRoutes
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   alternateRoutes = self->_alternateRoutes;
   if (alternateRoutes)
   {
@@ -19,30 +19,30 @@
   else
   {
     v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSMutableArray count](self->_trackedAlternateRoutes, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v6 = self->_trackedAlternateRoutes;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          alternateRoute = [*(*(&v16 + 1) + 8 * i) alternateRoute];
+          alternateRoute = [*(*(&v15 + 1) + 8 * i) alternateRoute];
           [(NSArray *)v5 addObject:alternateRoute];
         }
 
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -54,8 +54,6 @@
 
     v3 = self->_alternateRoutes;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -91,27 +89,27 @@
 
 - (BOOL)updateForLocation:(id)location
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   if (-[NSMutableArray count](self->_trackedAlternateRoutes, "count") && ([locationCopy routeMatch], v5 = objc_claimAutoreleasedReturnValue(), v5, v5))
   {
     if (!self->_mainRoute)
     {
-      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Tracking alternate routes requires the main route."];
-      v21 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Tracking alternate routes requires the main route."];
+      v20 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v22 = 136316162;
-        v23 = "[MNAlternateRoutesUpdater updateForLocation:]";
-        v24 = 2080;
-        v25 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNAlternateRoutesUpdater.m";
-        v26 = 1024;
-        v27 = 104;
-        v28 = 2080;
-        v29 = "_mainRoute != nil";
-        v30 = 2112;
-        v31 = v20;
-        _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v22, 0x30u);
+        v21 = 136316162;
+        v22 = "[MNAlternateRoutesUpdater updateForLocation:]";
+        v23 = 2080;
+        v24 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNAlternateRoutesUpdater.m";
+        v25 = 1024;
+        v26 = 104;
+        v27 = 2080;
+        v28 = "_mainRoute != nil";
+        v29 = 2112;
+        v30 = v19;
+        _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v21, 0x30u);
       }
     }
 
@@ -153,13 +151,12 @@
     v16 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)setAlternateRoutes:(id)routes forMainRoute:(id)route
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   routeCopy = route;
   alternateRoutes = self->_alternateRoutes;
@@ -168,28 +165,28 @@
   selfCopy = self;
   objc_storeStrong(&self->_mainRoute, route);
   v9 = objc_alloc_init(MNRouteDivergenceFinder);
-  v30 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(routesCopy, "count")}];
+  v29 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(routesCopy, "count")}];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = routesCopy;
-  v10 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v10 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
-    v29 = 0;
-    v12 = *v33;
+    v28 = 0;
+    v12 = *v32;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * i);
+        v14 = *(*(&v31 + 1) + 8 * i);
         route = [routeCopy route];
         route2 = [v14 route];
         v17 = [(MNRouteDivergenceFinder *)v9 findFirstDivergenceBetweenRoute:route andRoute:route2];
@@ -208,14 +205,14 @@
             [(_MNTrackedAlternateRoute *)v23 setMainRoute:routeCopy];
             [(_MNTrackedAlternateRoute *)v23 setAlternateRoute:v14];
             [(_MNTrackedAlternateRoute *)v23 setDivergenceCoordinate:v22];
-            [(NSMutableArray *)v30 addObject:v23];
+            [(NSMutableArray *)v29 addObject:v23];
 
-            v29 = 1;
+            v28 = 1;
           }
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v11 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v11);
@@ -223,16 +220,15 @@
 
   else
   {
-    v29 = 0;
+    v28 = 0;
   }
 
   v24 = [(NSMutableArray *)selfCopy->_trackedAlternateRoutes count];
-  LOBYTE(v24) = v24 != [(NSMutableArray *)v30 count];
+  LOBYTE(v24) = v24 != [(NSMutableArray *)v29 count];
   trackedAlternateRoutes = selfCopy->_trackedAlternateRoutes;
-  selfCopy->_trackedAlternateRoutes = v30;
+  selfCopy->_trackedAlternateRoutes = v29;
 
-  v26 = *MEMORY[0x1E69E9840];
-  return (v24 | v29) & 1;
+  return (v24 | v28) & 1;
 }
 
 @end

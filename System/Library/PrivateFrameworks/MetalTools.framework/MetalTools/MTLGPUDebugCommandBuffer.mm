@@ -539,7 +539,7 @@ LABEL_8:
     }
 
     v11 = &v10;
-    std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(self + 40, &v10)[3] = label;
+    std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(self + 40, &v10, &std::piecewise_construct, &v11)[3] = label;
   }
 
   ++*(self + 78);
@@ -975,7 +975,7 @@ LABEL_50:
   if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(v25 + 3, &v27))
   {
     *&v27 = [debugCopy hash];
-    std::__hash_table<std::__hash_value_type<unsigned long long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLGPUDebugResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLGPUDebugResidencySet *>>>::__emplace_unique_impl<unsigned long,MTLGPUDebugResidencySet *&>();
+    std::__hash_table<std::__hash_value_type<unsigned long long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLGPUDebugResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLGPUDebugResidencySet *>>>::__emplace_unique_impl<unsigned long,MTLGPUDebugResidencySet *&>((v25 + 3), &v27, &debugCopy);
   }
 }
 
@@ -988,7 +988,7 @@ LABEL_50:
     {
       setCopy = set;
       v7 = [set hash];
-      std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *>(self + 87, &v7);
+      std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *>(self + 87, &v7, &v7, &setCopy);
     }
   }
 
@@ -1010,7 +1010,7 @@ LABEL_50:
       if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(self + 87, &v11))
       {
         v11 = [v12 hash];
-        std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(self + 87, &v11);
+        std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(self + 87, &v11, &v11, &v12);
       }
 
       ++setsCopy;
@@ -1028,21 +1028,21 @@ LABEL_50:
 - (void)preCommit
 {
   ii = self;
-  v56 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = *(*(self + 19) + 20);
   if ((v3 & 2) != 0 && !*(self + 97))
   {
     v4 = objc_alloc_init(MEMORY[0x277CD6EC8]);
     [v4 setBufferSize:1024];
-    *&v51 = 0;
-    v5 = [*(ii + 3) newLogStateWithDescriptor:v4 error:&v51];
+    *&v52 = 0;
+    v5 = [*(ii + 3) newLogStateWithDescriptor:v4 error:&v52];
     *(ii + 97) = v5;
     [v5 setUsedForShaderValidation:1];
 
-    v6 = MTLGPUDebugLog();
-    v7 = MEMORY[0x277CCACA8];
-    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"com.apple.Metal"];
-    [*(ii + 97) populateDefaultLoggerCache:objc_msgSend(v7 logger:{"stringWithFormat:", @"%@%@", v8, objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", "GPUDebug")), v6}];
+    v8 = MTLGPUDebugLog(v6, v7);
+    v9 = MEMORY[0x277CCACA8];
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"com.apple.Metal"];
+    [*(ii + 97) populateDefaultLoggerCache:objc_msgSend(v9 logger:{"stringWithFormat:", @"%@%@", v10, objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", "GPUDebug")), v8}];
     baseObject = [(MTLToolsObject *)ii baseObject];
     [baseObject useInternalResidencySet:*(*(ii + 97) + *MEMORY[0x277CD70E0])];
     baseObject2 = [*(ii + 98) baseObject];
@@ -1053,53 +1053,53 @@ LABEL_50:
   if ((v3 & 0x200000001) != 0)
   {
     commandQueue = [(MTLToolsCommandBuffer *)ii commandQueue];
-    v48 = 0u;
     v49 = 0u;
-    v50 = 1065353216;
+    v50 = 0u;
+    v51 = 1065353216;
     residencySetsLock = [(MTLCommandQueue *)commandQueue residencySetsLock];
     os_unfair_lock_lock(residencySetsLock);
-    v46 = 0u;
     v47 = 0u;
-    v44 = 0u;
+    v48 = 0u;
     v45 = 0u;
+    v46 = 0u;
     residencySetsArray = [(MTLCommandQueue *)commandQueue residencySetsArray];
-    v14 = [residencySetsArray countByEnumeratingWithState:&v44 objects:v55 count:16];
-    if (v14)
+    v16 = [residencySetsArray countByEnumeratingWithState:&v45 objects:v56 count:16];
+    if (v16)
     {
-      v15 = *v45;
+      v17 = *v46;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v45 != v15)
+          if (*v46 != v17)
           {
             objc_enumerationMutation(residencySetsArray);
           }
 
-          *&v51 = *(*(&v44 + 1) + 8 * i);
-          *&v41 = [v51 hash];
-          if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v48, &v41))
+          *&v52 = *(*(&v45 + 1) + 8 * i);
+          *&v42 = [v52 hash];
+          if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v49, &v42))
           {
-            *&v41 = [v51 hash];
-            std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(&v48, &v41);
+            *&v42 = [v52 hash];
+            std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(&v49, &v42, &v42, &v52);
           }
         }
 
-        v14 = [residencySetsArray countByEnumeratingWithState:&v44 objects:v55 count:16];
+        v16 = [residencySetsArray countByEnumeratingWithState:&v45 objects:v56 count:16];
       }
 
-      while (v14);
+      while (v16);
     }
 
     os_unfair_lock_unlock(residencySetsLock);
     for (j = *(ii + 89); j; j = *j)
     {
-      *&v51 = j[3];
-      *&v41 = [v51 hash];
-      if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v48, &v41))
+      *&v52 = j[3];
+      *&v42 = [v52 hash];
+      if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v49, &v42))
       {
-        *&v41 = [v51 hash];
-        std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(&v48, &v41);
+        *&v42 = [v52 hash];
+        std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(&v49, &v42, &v42, &v52);
       }
     }
 
@@ -1107,79 +1107,79 @@ LABEL_50:
     {
       for (m = k[5]; m; m = *m)
       {
-        *&v51 = m[3];
-        *&v41 = [v51 hash];
-        if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v48, &v41))
+        *&v52 = m[3];
+        *&v42 = [v52 hash];
+        if (!std::__hash_table<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,MTLLegacySVResidencySet *>>>::find<unsigned long long>(&v49, &v42))
         {
-          *&v41 = [v51 hash];
-          std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(&v48, &v41);
+          *&v42 = [v52 hash];
+          std::__hash_table<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLGPUDebugResidencySet *>>>::__emplace_unique_key_args<unsigned long,unsigned long,MTLGPUDebugResidencySet *&>(&v49, &v42, &v42, &v52);
         }
       }
     }
 
-    v41 = 0u;
     v42 = 0u;
-    v43 = 1065353216;
-    v38 = 0u;
+    v43 = 0u;
+    v44 = 1065353216;
     v39 = 0u;
-    v40 = 1065353216;
-    v20 = v49;
-    if (v49)
+    v40 = 0u;
+    v41 = 1065353216;
+    v22 = v50;
+    if (v50)
     {
-      v32 = ii;
+      v33 = ii;
       do
       {
-        v21 = v20[3];
-        v36 = 0u;
+        v23 = v22[3];
         v37 = 0u;
-        v34 = 0u;
+        v38 = 0u;
         v35 = 0u;
-        allCommittedAllocations = [v21 allCommittedAllocations];
-        v23 = [allCommittedAllocations countByEnumeratingWithState:&v34 objects:v54 count:16];
-        if (v23)
+        v36 = 0u;
+        allCommittedAllocations = [v23 allCommittedAllocations];
+        v25 = [allCommittedAllocations countByEnumeratingWithState:&v35 objects:v55 count:16];
+        if (v25)
         {
-          v24 = *v35;
+          v26 = *v36;
           do
           {
-            for (n = 0; n != v23; ++n)
+            for (n = 0; n != v25; ++n)
             {
-              if (*v35 != v24)
+              if (*v36 != v26)
               {
                 objc_enumerationMutation(allCommittedAllocations);
               }
 
-              v26 = *(*(&v34 + 1) + 8 * n);
+              v28 = *(*(&v35 + 1) + 8 * n);
               if (objc_opt_respondsToSelector())
               {
-                *&v51 = v26;
-                std::__hash_table<_MTLResource *,std::hash<_MTLResource *>,std::equal_to<_MTLResource *>,std::allocator<_MTLResource *>>::__emplace_unique_key_args<_MTLResource *,_MTLResource *>(&v41, &v51);
+                *&v52 = v28;
+                std::__hash_table<_MTLResource *,std::hash<_MTLResource *>,std::equal_to<_MTLResource *>,std::allocator<_MTLResource *>>::__emplace_unique_key_args<_MTLResource *,_MTLResource *>(&v42, &v52, &v52);
               }
 
               else if (objc_opt_respondsToSelector())
               {
-                *&v51 = v26;
-                std::__hash_table<_MTLHeap *,std::hash<_MTLHeap *>,std::equal_to<_MTLHeap *>,std::allocator<_MTLHeap *>>::__emplace_unique_key_args<_MTLHeap *,_MTLHeap *>(&v38, &v51);
+                *&v52 = v28;
+                std::__hash_table<_MTLHeap *,std::hash<_MTLHeap *>,std::equal_to<_MTLHeap *>,std::allocator<_MTLHeap *>>::__emplace_unique_key_args<_MTLHeap *,_MTLHeap *>(&v39, &v52, &v52);
               }
             }
 
-            v23 = [allCommittedAllocations countByEnumeratingWithState:&v34 objects:v54 count:16];
+            v25 = [allCommittedAllocations countByEnumeratingWithState:&v35 objects:v55 count:16];
           }
 
-          while (v23);
+          while (v25);
         }
 
-        v20 = *v20;
+        v22 = *v22;
       }
 
-      while (v20);
-      v27 = v42;
-      for (ii = v32; v27; v27 = *v27)
+      while (v22);
+      v29 = v43;
+      for (ii = v33; v29; v29 = *v29)
       {
-        v28 = v27[2];
+        v30 = v29[2];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [(MTLGPUDebugCommandBuffer *)v32 markBuffer:v28 usage:3 stages:31];
+          [(MTLGPUDebugCommandBuffer *)v33 markBuffer:v30 usage:3 stages:31];
         }
 
         else
@@ -1187,51 +1187,50 @@ LABEL_50:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            -[MTLGPUDebugCommandBuffer markTexture:usage:stages:](v32, "markTexture:usage:stages:", [v28 gpuIdentifier], 3, 31);
+            -[MTLGPUDebugCommandBuffer markTexture:usage:stages:](v33, "markTexture:usage:stages:", [v30 gpuIdentifier], 3, 31);
           }
         }
 
-        if ([v28 conformsToProtocol:&unk_284228AC0])
+        if ([v30 conformsToProtocol:&unk_284228AC0])
         {
-          if (v28)
+          if (v30)
           {
-            [v28 getActiveViews];
-            for (jj = v52; jj; jj = *jj)
+            objc_msgSend_getActiveViews(v30);
+            for (jj = v53; jj; jj = *jj)
             {
-              [(MTLGPUDebugCommandBuffer *)v32 markTexture:jj[2] usage:3 stages:31];
+              [(MTLGPUDebugCommandBuffer *)v33 markTexture:jj[2] usage:3 stages:31];
             }
           }
 
           else
           {
-            v53 = 0;
-            v51 = 0u;
+            v54 = 0;
             v52 = 0u;
+            v53 = 0u;
           }
 
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v51);
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v52);
         }
       }
     }
 
-    for (kk = v39; kk; kk = *kk)
+    for (kk = v40; kk; kk = *kk)
     {
       [(MTLGPUDebugCommandBuffer *)ii markHeap:kk[2] usage:3 stages:31];
     }
 
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v38);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v41);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v48);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v39);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v42);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v49);
     if ((*(*(ii + 19) + 20) & 0x200000001) != 0)
     {
       HeapUsageTable::apply((ii + 664), ii + 59, ii + 61, ii + 63, ii + 65, ii + 67, ii + 69, ii + 71, ii + 73, (ii + 600), (ii + 616), (ii + 632), (ii + 648));
     }
   }
 
-  v33.receiver = ii;
-  v33.super_class = MTLGPUDebugCommandBuffer;
-  [(MTLToolsCommandBuffer *)&v33 preCommit];
-  v31 = *MEMORY[0x277D85DE8];
+  v34.receiver = ii;
+  v34.super_class = MTLGPUDebugCommandBuffer;
+  [(MTLToolsCommandBuffer *)&v34 preCommit];
 }
 
 - (void)preCompletionHandlers

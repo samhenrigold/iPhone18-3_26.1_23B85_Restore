@@ -102,7 +102,7 @@
 
 - (id)providedKeyText
 {
-  v3 = sub_1760C();
+  v3 = sub_1760C(self);
   keyCount = [(ENExposureDetectionHistoryFile *)self->_file keyCount];
   v5 = [v3 stringFromNumber:keyCount];
 
@@ -111,7 +111,7 @@
 
 - (id)matchedKeyText
 {
-  v3 = sub_1760C();
+  v3 = sub_1760C(self);
   matchCount = [(ENExposureDetectionHistoryFile *)self->_file matchCount];
   v5 = matchCount;
   if (matchCount)

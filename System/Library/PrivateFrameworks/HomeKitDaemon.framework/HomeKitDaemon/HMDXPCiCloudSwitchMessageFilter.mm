@@ -2,6 +2,7 @@
 + (BOOL)isHomeiCloudSwitchEnabled;
 + (id)logCategory;
 + (int64_t)filterMessage:(id)message withPolicies:(id)policies error:(id *)error;
++ (void)setHomeiCloudSwitchEnabledOverride:(BOOL)override;
 + (void)stopOverridingHomeiCloudSwitchEnabled;
 @end
 
@@ -47,10 +48,9 @@
 
 void __46__HMDXPCiCloudSwitchMessageFilter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_115331;
-  logCategory__hmf_once_v7_115331 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_115331;
+  logCategory__hmf_once_v7_115331 = v0;
 }
 
 + (void)stopOverridingHomeiCloudSwitchEnabled
@@ -59,9 +59,16 @@ void __46__HMDXPCiCloudSwitchMessageFilter_logCategory__block_invoke()
   homeiCloudSwitchEnabledOverrideNumber = 0;
 }
 
++ (void)setHomeiCloudSwitchEnabledOverride:(BOOL)override
+{
+  v3 = [MEMORY[0x277CCABB0] numberWithBool:override];
+  v4 = homeiCloudSwitchEnabledOverrideNumber;
+  homeiCloudSwitchEnabledOverrideNumber = v3;
+}
+
 + (int64_t)filterMessage:(id)message withPolicies:(id)policies error:(id *)error
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   policiesCopy = policies;
   if (!messageCopy)
@@ -88,9 +95,9 @@ LABEL_28:
   if (([self isHomeiCloudSwitchEnabled] & 1) == 0)
   {
     v13 = MEMORY[0x277CCA9B8];
-    v46 = *MEMORY[0x277CD00D8];
-    v47[0] = &unk_283E72B90;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v45 = *MEMORY[0x277CD00D8];
+    v46[0] = &unk_283E72B90;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     v15 = [v13 hmPrivateErrorWithCode:2013 userInfo:v14];
 
     v16 = [self requiredPolicyOfClass:objc_opt_class() fromPolicies:v10 error:0];
@@ -104,9 +111,9 @@ LABEL_28:
         v25 = HMFGetLogIdentifier();
         shortDescription = [messageCopy shortDescription];
         *buf = 138543618;
-        v41 = v25;
-        v42 = 2112;
-        v43 = shortDescription;
+        v40 = v25;
+        v41 = 2112;
+        v42 = shortDescription;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Rejecting message because iCloud switch is disabled and no explicit policy exists: %@", buf, 0x16u);
       }
 
@@ -146,13 +153,13 @@ LABEL_25:
       {
         v31 = HMFGetLogIdentifier();
         [messageCopy shortDescription];
-        v32 = v39 = v28;
+        v32 = v38 = v28;
         *buf = 138543874;
-        v41 = v31;
-        v42 = 2112;
-        v43 = v32;
-        v44 = 2112;
-        v45 = bundleIdentifier;
+        v40 = v31;
+        v41 = 2112;
+        v42 = v32;
+        v43 = 2112;
+        v44 = bundleIdentifier;
         v33 = "%{public}@Rejecting message because iCloud switch is disabled and bundle identifier is not allowed: %@ / %@";
         v34 = v30;
         v35 = 32;
@@ -169,18 +176,18 @@ LABEL_25:
       {
         v31 = HMFGetLogIdentifier();
         [messageCopy shortDescription];
-        v32 = v39 = v28;
+        v32 = v38 = v28;
         *buf = 138543618;
-        v41 = v31;
-        v42 = 2112;
-        v43 = v32;
+        v40 = v31;
+        v41 = 2112;
+        v42 = v32;
         v33 = "%{public}@Rejecting message because iCloud switch is disabled and no bundle identifier was found: %@";
         v34 = v30;
         v35 = 22;
 LABEL_20:
         _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, v33, buf, v35);
 
-        v28 = v39;
+        v28 = v38;
       }
     }
 
@@ -198,7 +205,6 @@ LABEL_20:
   v12 = 1;
 LABEL_26:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

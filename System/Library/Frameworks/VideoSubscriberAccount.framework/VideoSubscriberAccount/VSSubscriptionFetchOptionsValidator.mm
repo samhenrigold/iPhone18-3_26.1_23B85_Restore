@@ -29,20 +29,20 @@
 
 - (id)subscriptionFetchOptionsAllowedForSecurityTask:(id)task
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   *buf = MEMORY[0x277D85DD0];
-  v47 = 3221225472;
-  v48 = __VSAllSubscriptionFetchOptions_block_invoke;
-  v49 = &unk_278B73708;
-  v50 = &unk_284DF34D8;
-  v51 = MEMORY[0x277CBEC38];
+  v48 = 3221225472;
+  v49 = __VSAllSubscriptionFetchOptions_block_invoke;
+  v50 = &unk_278B73708;
+  v51 = &unk_284DF34D8;
+  v52 = MEMORY[0x277CBEC38];
   if (VSAllSubscriptionFetchOptions___vs_lazy_init_predicate != -1)
   {
     dispatch_once(&VSAllSubscriptionFetchOptions___vs_lazy_init_predicate, buf);
   }
 
-  v5 = v51;
+  v5 = v52;
   v6 = VSAllSubscriptionFetchOptions___vs_lazy_init_variable;
 
   v7 = [v6 mutableCopy];
@@ -50,17 +50,18 @@
   v9 = objc_alloc_init(VSSubscriptionFetchOptionDescription);
   [(VSSubscriptionFetchOptionDescription *)v9 setKey:@"VSSubscriptionFetchOptionSubscriberIdentifierHashModifier"];
   [(VSSubscriptionFetchOptionDescription *)v9 setAllowedClass:objc_opt_class()];
+  v46 = 0;
   v45 = 0;
-  v44 = 0;
-  v10 = [v8 getValue:&v45 forEntitlement:@"com.apple.private.subscriptionservce.subscriber-identifier-hash-modifiers" error:&v44];
-  v11 = v45;
-  v12 = v44;
+  v10 = [v8 getValue:&v46 forEntitlement:@"com.apple.private.subscriptionservce.subscriber-identifier-hash-modifiers" error:&v45];
+  v11 = v46;
+  v12 = v45;
+  v13 = v12;
   if (!v10)
   {
-    v23 = VSErrorLogObject();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = VSErrorLogObject(v12);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [(VSSubscriptionFetchOptionsValidator *)v12 subscriptionFetchOptionsAllowedForSecurityTask:v23];
+      [(VSSubscriptionFetchOptionsValidator *)v13 subscriptionFetchOptionsAllowedForSecurityTask:v24];
     }
 
     goto LABEL_20;
@@ -68,11 +69,11 @@
 
   if (!v11)
   {
-    v23 = VSDefaultLogObject();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = VSDefaultLogObject(v12);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23AB8E000, v23, OS_LOG_TYPE_DEFAULT, "No allowed hash modifiers.", buf, 2u);
+      _os_log_impl(&dword_23AB8E000, v24, OS_LOG_TYPE_DEFAULT, "No allowed hash modifiers.", buf, 2u);
     }
 
 LABEL_20:
@@ -84,73 +85,73 @@ LABEL_20:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = v11;
-    if ([v13 count])
+    v14 = v11;
+    if ([v14 count])
     {
-      v36 = v11;
-      v37 = v9;
-      v38 = v8;
-      v39 = v7;
-      v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v40 = 0u;
+      v37 = v11;
+      v38 = v9;
+      v39 = v8;
+      v40 = v7;
+      v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v35 = v13;
-      v15 = v13;
-      v16 = [v15 countByEnumeratingWithState:&v40 objects:buf count:16];
-      if (v16)
+      v44 = 0u;
+      v36 = v14;
+      v16 = v14;
+      v17 = [v16 countByEnumeratingWithState:&v41 objects:buf count:16];
+      if (v17)
       {
-        v17 = v16;
-        v18 = *v41;
-        v19 = *MEMORY[0x277CBE660];
+        v18 = v17;
+        v19 = *v42;
+        v20 = *MEMORY[0x277CBE660];
         do
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v18; ++i)
           {
-            if (*v41 != v18)
+            if (*v42 != v19)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v40 + 1) + 8 * i);
+            v22 = *(*(&v41 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [(VSSubscriptionFetchOptionDescription *)v14 addObject:v21];
+              [(VSSubscriptionFetchOptionDescription *)v15 addObject:v22];
             }
 
             else
             {
-              [MEMORY[0x277CBEAD8] raise:v19 format:{@"Value (%@) in %@ entitlement array is not a string.", v21, @"com.apple.private.subscriptionservce.subscriber-identifier-hash-modifiers"}];
+              [MEMORY[0x277CBEAD8] raise:v20 format:{@"Value (%@) in %@ entitlement array is not a string.", v22, @"com.apple.private.subscriptionservce.subscriber-identifier-hash-modifiers"}];
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v40 objects:buf count:16];
+          v18 = [v16 countByEnumeratingWithState:&v41 objects:buf count:16];
         }
 
-        while (v17);
+        while (v18);
       }
 
-      v22 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self in %@", v14];
-      v9 = v37;
-      [(VSSubscriptionFetchOptionDescription *)v37 setAllowedValuePredicate:v22];
-      v7 = v39;
-      v8 = v38;
-      v11 = v36;
-      v13 = v35;
+      v23 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self in %@", v15];
+      v9 = v38;
+      [(VSSubscriptionFetchOptionDescription *)v38 setAllowedValuePredicate:v23];
+      v7 = v40;
+      v8 = v39;
+      v11 = v37;
+      v14 = v36;
     }
 
     else
     {
-      v22 = VSDefaultLogObject();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = VSDefaultLogObject(0);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23AB8E000, v22, OS_LOG_TYPE_DEFAULT, "Allowed hash modifiers array is empty.", buf, 2u);
+        _os_log_impl(&dword_23AB8E000, v23, OS_LOG_TYPE_DEFAULT, "Allowed hash modifiers array is empty.", buf, 2u);
       }
 
-      v14 = v9;
+      v15 = v9;
       v9 = 0;
     }
   }
@@ -167,30 +168,30 @@ LABEL_21:
     [v7 setObject:v9 forKey:@"VSSubscriptionFetchOptionSubscriberIdentifierHashModifier"];
   }
 
-  v24 = [v7 objectForKey:@"VSSubscriptionFetchOptionSources"];
-  v25 = [v24 copy];
+  v25 = [v7 objectForKey:@"VSSubscriptionFetchOptionSources"];
+  v26 = [v25 copy];
 
-  if (v25)
+  if (v26)
   {
-    v26 = v25;
+    v27 = v26;
     predicateFactory = [(VSSubscriptionFetchOptionsValidator *)self predicateFactory];
-    v28 = [predicateFactory allowedSubscriptionSourcesPredicateForRequestKind:0 fromTask:v8];
+    v29 = [predicateFactory allowedSubscriptionSourcesPredicateForRequestKind:0 fromTask:v8];
 
-    [v26 setAllowedValuePredicate:v28];
-    [v7 setObject:v26 forKey:@"VSSubscriptionFetchOptionSources"];
+    [v27 setAllowedValuePredicate:v29];
+    [v7 setObject:v27 forKey:@"VSSubscriptionFetchOptionSources"];
   }
 
-  v29 = [v7 objectForKey:@"VSSubscriptionFetchOptionSourceKind"];
-  v30 = [v29 copy];
+  v30 = [v7 objectForKey:@"VSSubscriptionFetchOptionSourceKind"];
+  v31 = [v30 copy];
 
-  if (v30)
+  if (v31)
   {
-    v31 = v30;
+    v32 = v31;
     predicateFactory2 = [(VSSubscriptionFetchOptionsValidator *)self predicateFactory];
-    v33 = [predicateFactory2 allowedSubscriptionSourceKindsPredicateForRequestKind:0 fromTask:v8];
+    v34 = [predicateFactory2 allowedSubscriptionSourceKindsPredicateForRequestKind:0 fromTask:v8];
 
-    [v31 setAllowedValuePredicate:v33];
-    [v7 setObject:v31 forKey:@"VSSubscriptionFetchOptionSourceKind"];
+    [v32 setAllowedValuePredicate:v34];
+    [v7 setObject:v32 forKey:@"VSSubscriptionFetchOptionSourceKind"];
   }
 
   return v7;

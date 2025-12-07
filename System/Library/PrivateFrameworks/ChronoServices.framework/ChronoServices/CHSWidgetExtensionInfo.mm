@@ -228,64 +228,63 @@
 
     if (v33)
     {
-      v40 = CHSLogChronoServices();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v41 = CHSLogChronoServices(v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         v72 = v33;
-        _os_log_impl(&dword_195EB2000, v40, OS_LOG_TYPE_DEFAULT, "Error decoding widget info: %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_195EB2000, v41, OS_LOG_TYPE_DEFAULT, "Error decoding widget info: %{public}@", buf, 0xCu);
       }
     }
 
-    v41 = objc_opt_class();
-    v42 = [coderCopy decodeCollectionOfClass:v41 containingClass:objc_opt_class() forKey:@"widgetConfigurations"];
+    v42 = objc_opt_class();
+    v43 = [coderCopy decodeCollectionOfClass:v42 containingClass:objc_opt_class() forKey:@"widgetConfigurations"];
     widgetConfigurations = _init->_widgetConfigurations;
-    _init->_widgetConfigurations = v42;
+    _init->_widgetConfigurations = v43;
 
-    v44 = objc_opt_class();
-    v45 = [coderCopy decodeCollectionOfClass:v44 containingClass:objc_opt_class() forKey:@"controlConfigurations"];
+    v45 = objc_opt_class();
+    v46 = [coderCopy decodeCollectionOfClass:v45 containingClass:objc_opt_class() forKey:@"controlConfigurations"];
     controlConfigurations = _init->_controlConfigurations;
-    _init->_controlConfigurations = v45;
+    _init->_controlConfigurations = v46;
 
-    v47 = objc_opt_class();
-    v48 = [coderCopy decodeCollectionOfClass:v47 containingClass:objc_opt_class() forKey:@"snu"];
+    v48 = objc_opt_class();
+    v49 = [coderCopy decodeCollectionOfClass:v48 containingClass:objc_opt_class() forKey:@"snu"];
     snapshotURLs = _init->_snapshotURLs;
-    _init->_snapshotURLs = v48;
+    _init->_snapshotURLs = v49;
 
-    v50 = objc_opt_class();
-    v51 = [coderCopy decodeCollectionOfClass:v50 containingClass:objc_opt_class() forKey:@"plu"];
+    v51 = objc_opt_class();
+    v52 = [coderCopy decodeCollectionOfClass:v51 containingClass:objc_opt_class() forKey:@"plu"];
     placeholderURLs = _init->_placeholderURLs;
-    _init->_placeholderURLs = v51;
+    _init->_placeholderURLs = v52;
 
-    v53 = objc_opt_class();
-    v54 = [coderCopy decodeCollectionOfClass:v53 containingClass:objc_opt_class() forKey:@"tlu"];
+    v54 = objc_opt_class();
+    v55 = [coderCopy decodeCollectionOfClass:v54 containingClass:objc_opt_class() forKey:@"tlu"];
     timelineURLs = _init->_timelineURLs;
-    _init->_timelineURLs = v54;
+    _init->_timelineURLs = v55;
 
-    v56 = objc_opt_class();
-    v57 = [coderCopy decodeCollectionOfClass:v56 containingClass:objc_opt_class() forKey:@"liveControlURLs"];
+    v57 = objc_opt_class();
+    v58 = [coderCopy decodeCollectionOfClass:v57 containingClass:objc_opt_class() forKey:@"liveControlURLs"];
     liveControlURLs = _init->_liveControlURLs;
-    _init->_liveControlURLs = v57;
+    _init->_liveControlURLs = v58;
 
-    v59 = objc_opt_class();
-    v60 = [coderCopy decodeCollectionOfClass:v59 containingClass:objc_opt_class() forKey:@"livePlaceholderControlURLs"];
+    v60 = objc_opt_class();
+    v61 = [coderCopy decodeCollectionOfClass:v60 containingClass:objc_opt_class() forKey:@"livePlaceholderControlURLs"];
     livePlaceholderControlURLs = _init->_livePlaceholderControlURLs;
-    _init->_livePlaceholderControlURLs = v60;
+    _init->_livePlaceholderControlURLs = v61;
 
-    v62 = objc_opt_class();
-    v63 = [coderCopy decodeCollectionOfClass:v62 containingClass:objc_opt_class() forKey:@"previewControlURLs"];
+    v63 = objc_opt_class();
+    v64 = [coderCopy decodeCollectionOfClass:v63 containingClass:objc_opt_class() forKey:@"previewControlURLs"];
     previewControlURLs = _init->_previewControlURLs;
-    _init->_previewControlURLs = v63;
+    _init->_previewControlURLs = v64;
 
-    v65 = objc_opt_class();
-    v66 = [coderCopy decodeCollectionOfClass:v65 containingClass:objc_opt_class() forKey:@"ncbi"];
+    v66 = objc_opt_class();
+    v67 = [coderCopy decodeCollectionOfClass:v66 containingClass:objc_opt_class() forKey:@"ncbi"];
     nominatedContainerBundleIdentifiers = _init->_nominatedContainerBundleIdentifiers;
-    _init->_nominatedContainerBundleIdentifiers = v66;
+    _init->_nominatedContainerBundleIdentifiers = v67;
 
     _init->_disablesImplicitDiscovery = [coderCopy decodeBoolForKey:@"disablesImplicitDiscovery"];
   }
 
-  v68 = *MEMORY[0x1E69E9840];
   return _init;
 }
 

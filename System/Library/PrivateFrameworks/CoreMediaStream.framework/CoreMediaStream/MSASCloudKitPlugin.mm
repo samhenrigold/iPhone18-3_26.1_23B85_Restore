@@ -2,13 +2,14 @@
 + (id)_decryptedObjectForRecord:(id)record forKey:(id)key validateClass:(Class)class;
 + (id)fetchMigrationCtag;
 + (void)_fetchRecordWithRecordID:(id)d zoneName:(id)name fieldName:(id)fieldName ownerUserID:(id)iD isOwned:(BOOL)owned completionHandler:(id)handler;
++ (void)fetchClientOrgKeyForRecordID:(id)d zoneName:(id)name fieldName:(id)fieldName ownerUserID:(id)iD isOwned:(BOOL)owned completionHandler:(id)handler;
 @end
 
 @implementation MSASCloudKitPlugin
 
 + (id)_decryptedObjectForRecord:(id)record forKey:(id)key validateClass:(Class)class
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   keyCopy = key;
   encryptedValues = [recordCopy encryptedValues];
@@ -38,20 +39,18 @@ LABEL_5:
     recordType = [recordCopy recordType];
     recordID = [recordCopy recordID];
     recordName = [recordID recordName];
-    v19 = 138543874;
-    v20 = recordType;
-    v21 = 2114;
-    v22 = recordName;
-    v23 = 2114;
-    v24 = objc_opt_class();
-    v18 = v24;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unexpected object instead of encrypted data for %{public}@.%{public}@: %{public}@", &v19, 0x20u);
+    v18 = 138543874;
+    v19 = recordType;
+    v20 = 2114;
+    v21 = recordName;
+    v22 = 2114;
+    v23 = objc_opt_class();
+    v17 = v23;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unexpected object instead of encrypted data for %{public}@.%{public}@: %{public}@", &v18, 0x20u);
   }
 
   v12 = 0;
 LABEL_12:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -59,58 +58,58 @@ LABEL_12:
 + (void)_fetchRecordWithRecordID:(id)d zoneName:(id)name fieldName:(id)fieldName ownerUserID:(id)iD isOwned:(BOOL)owned completionHandler:(id)handler
 {
   ownedCopy = owned;
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   fieldNameCopy = fieldName;
   iDCopy = iD;
   handlerCopy = handler;
-  v30 = iDCopy;
-  v31 = nameCopy;
+  v29 = iDCopy;
+  v30 = nameCopy;
   v17 = [objc_alloc(MEMORY[0x277CBC5F8]) initWithZoneName:nameCopy ownerName:iDCopy];
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__2001;
-  v48 = __Block_byref_object_dispose__2002;
-  v49 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__2001;
-  v42 = __Block_byref_object_dispose__2002;
   v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__2001;
+  v47 = __Block_byref_object_dispose__2002;
+  v48 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__2001;
+  v41 = __Block_byref_object_dispose__2002;
+  v42 = 0;
   if (v17)
   {
     v18 = [objc_alloc(MEMORY[0x277CBC5D0]) initWithRecordName:dCopy zoneID:v17];
-    v29 = [objc_alloc(MEMORY[0x277CBC220]) initWithContainerIdentifier:@"com.apple.icloud-photos.fdb" environment:1];
+    v28 = [objc_alloc(MEMORY[0x277CBC220]) initWithContainerIdentifier:@"com.apple.icloud-photos.fdb" environment:1];
     v19 = objc_alloc_init(MEMORY[0x277CBC230]);
     [v19 setApplicationBundleIdentifierOverrideForContainerAccess:@"com.apple.photos.cloud"];
     [v19 setApplicationBundleIdentifierOverrideForNetworkAttribution:@"com.apple.photos.cloud"];
     [v19 setApplicationBundleIdentifierOverrideForPushTopicGeneration:@"com.apple.sharedstreams"];
-    v20 = [objc_alloc(MEMORY[0x277CBC218]) initWithContainerID:v29 options:v19];
+    v20 = [objc_alloc(MEMORY[0x277CBC218]) initWithContainerID:v28 options:v19];
     v21 = objc_alloc_init(MEMORY[0x277CBC4F0]);
     [v21 setContainer:v20];
     v22 = objc_alloc(MEMORY[0x277CBC3E0]);
-    v53[0] = v18;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+    v52[0] = v18;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
     v24 = [v22 initWithRecordIDs:v23];
 
     [v24 setConfiguration:v21];
-    v52 = fieldNameCopy;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+    v51 = fieldNameCopy;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
     [v24 setDesiredKeys:v25];
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __104__MSASCloudKitPlugin__fetchRecordWithRecordID_zoneName_fieldName_ownerUserID_isOwned_completionHandler___block_invoke;
-    v33[3] = &unk_278E908D0;
-    v36 = &v38;
-    v37 = &v44;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __104__MSASCloudKitPlugin__fetchRecordWithRecordID_zoneName_fieldName_ownerUserID_isOwned_completionHandler___block_invoke;
+    v32[3] = &unk_278E908D0;
+    v35 = &v37;
+    v36 = &v43;
     v26 = v18;
-    v34 = v26;
-    v35 = dCopy;
-    [v24 setFetchRecordsCompletionBlock:v33];
+    v33 = v26;
+    v34 = dCopy;
+    [v24 setFetchRecordsCompletionBlock:v32];
     if (ownedCopy)
     {
       [v20 privateCloudDatabase];
@@ -128,20 +127,19 @@ LABEL_12:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v51 = v31;
+    v50 = v30;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Invalid zoneID for zoneName: %@", buf, 0xCu);
   }
 
-  handlerCopy[2](handlerCopy, v45[5], v39[5]);
-  _Block_object_dispose(&v38, 8);
+  handlerCopy[2](handlerCopy, v44[5], v38[5]);
+  _Block_object_dispose(&v37, 8);
 
-  _Block_object_dispose(&v44, 8);
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v43, 8);
 }
 
 void __104__MSASCloudKitPlugin__fetchRecordWithRecordID_zoneName_fieldName_ownerUserID_isOwned_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_storeStrong((*(a1[6] + 8) + 40), a3);
@@ -152,46 +150,44 @@ void __104__MSASCloudKitPlugin__fetchRecordWithRecordID_zoneName_fieldName_owner
       goto LABEL_3;
     }
 
-    v15 = 138412290;
-    v16 = v6;
-    v13 = MEMORY[0x277D86220];
-    v14 = "Failed to fetch userRecord: %@";
+    v14 = 138412290;
+    v15 = v6;
+    v12 = MEMORY[0x277D86220];
+    v13 = "Failed to fetch userRecord: %@";
 LABEL_10:
-    _os_log_error_impl(&dword_245B99000, v13, OS_LOG_TYPE_ERROR, v14, &v15, 0xCu);
+    _os_log_error_impl(&dword_245B99000, v12, OS_LOG_TYPE_ERROR, v13, &v14, 0xCu);
     goto LABEL_3;
   }
 
-  v8 = [v5 objectForKey:a1[4]];
-  v9 = *(a1[7] + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v7 = [v5 objectForKey:a1[4]];
+  v8 = *(a1[7] + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
-  v11 = *(*(a1[7] + 8) + 40);
-  if (!v11)
+  v10 = *(*(a1[7] + 8) + 40);
+  if (!v10)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_3;
     }
 
-    v12 = a1[5];
-    v15 = 138412290;
-    v16 = v12;
-    v13 = MEMORY[0x277D86220];
-    v14 = "No valid userRecord for recordID: %@";
+    v11 = a1[5];
+    v14 = 138412290;
+    v15 = v11;
+    v12 = MEMORY[0x277D86220];
+    v13 = "No valid userRecord for recordID: %@";
     goto LABEL_10;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = v11;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched userRecord: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v10;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched userRecord: %@", &v14, 0xCu);
   }
 
 LABEL_3:
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)fetchMigrationCtag
@@ -229,6 +225,31 @@ void __40__MSASCloudKitPlugin_fetchMigrationCtag__block_invoke(void *a1, void *a
   v7 = *(a1[5] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
+}
+
++ (void)fetchClientOrgKeyForRecordID:(id)d zoneName:(id)name fieldName:(id)fieldName ownerUserID:(id)iD isOwned:(BOOL)owned completionHandler:(id)handler
+{
+  ownedCopy = owned;
+  dCopy = d;
+  nameCopy = name;
+  fieldNameCopy = fieldName;
+  iDCopy = iD;
+  handlerCopy = handler;
+  if ((_os_feature_enabled_impl() & 1) == 0)
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, 0);
+  }
+
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __108__MSASCloudKitPlugin_fetchClientOrgKeyForRecordID_zoneName_fieldName_ownerUserID_isOwned_completionHandler___block_invoke;
+  v21[3] = &unk_278E90880;
+  v23 = handlerCopy;
+  selfCopy = self;
+  v22 = fieldNameCopy;
+  v19 = handlerCopy;
+  v20 = fieldNameCopy;
+  [self _fetchRecordWithRecordID:dCopy zoneName:nameCopy fieldName:v20 ownerUserID:iDCopy isOwned:ownedCopy completionHandler:v21];
 }
 
 void __108__MSASCloudKitPlugin_fetchClientOrgKeyForRecordID_zoneName_fieldName_ownerUserID_isOwned_completionHandler___block_invoke(void *a1, void *a2, void *a3)

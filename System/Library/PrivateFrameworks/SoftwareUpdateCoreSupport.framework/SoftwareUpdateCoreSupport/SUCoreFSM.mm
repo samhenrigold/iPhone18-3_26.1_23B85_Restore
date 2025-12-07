@@ -25,21 +25,21 @@
 
 - (id)_initMachine:(id)machine ofInstance:(id)instance withTable:(id)table startingIn:(id)in usingDelegate:(id)delegate registeringAllInfoClass:(Class)class registeringAndActivating:(BOOL)activating
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   machineCopy = machine;
   instanceCopy = instance;
   tableCopy = table;
   inCopy = in;
   delegateCopy = delegate;
-  v71.receiver = self;
-  v71.super_class = SUCoreFSM;
-  v19 = [(SUCoreFSM *)&v71 init];
+  v68.receiver = self;
+  v68.super_class = SUCoreFSM;
+  v19 = [(SUCoreFSM *)&v68 init];
   if (!v19)
   {
     goto LABEL_30;
   }
 
-  v69 = instanceCopy;
+  v66 = instanceCopy;
   v20 = +[SUCoreDiag sharedDiag];
   [v20 trackBegin:@"[FSM] API: initMachine"];
 
@@ -61,22 +61,22 @@
 
   if (!machineCopy)
   {
-    v29 = +[SUCore sharedCore];
-    v30 = v29;
-    v31 = @"FSM name not provided";
-    v32 = 8101;
+    v27 = +[SUCore sharedCore];
+    v28 = v27;
+    v29 = @"FSM name not provided";
+    v30 = 8101;
 LABEL_14:
-    v33 = [v29 buildError:v32 underlying:0 description:v31];
+    v31 = [v27 buildError:v30 underlying:0 description:v29];
     goto LABEL_23;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v29 = +[SUCore sharedCore];
-    v30 = v29;
-    v31 = @"invalid FSM name";
-    v32 = 8102;
+    v27 = +[SUCore sharedCore];
+    v28 = v27;
+    v29 = @"invalid FSM name";
+    v30 = 8102;
     goto LABEL_14;
   }
 
@@ -85,22 +85,22 @@ LABEL_14:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v30 = +[SUCore sharedCore];
-      v33 = [v30 buildError:8102 underlying:0 description:@"invalid instance name"];
+      v28 = +[SUCore sharedCore];
+      v31 = [v28 buildError:8102 underlying:0 description:@"invalid instance name"];
       goto LABEL_23;
     }
   }
 
   if (!tableCopy)
   {
-    v30 = +[SUCore sharedCore];
+    v28 = +[SUCore sharedCore];
     machineCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSM(%@) state table not provided", machineCopy];
 LABEL_19:
-    v36 = machineCopy;
-    v37 = v30;
-    v38 = 8101;
+    v34 = machineCopy;
+    v35 = v28;
+    v36 = 8101;
 LABEL_22:
-    v33 = [v37 buildError:v38 underlying:0 description:v36];
+    v31 = [v35 buildError:v36 underlying:0 description:v34];
 
     goto LABEL_23;
   }
@@ -108,18 +108,18 @@ LABEL_22:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v30 = +[SUCore sharedCore];
+    v28 = +[SUCore sharedCore];
     machineCopy2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSM(%@) invalid state table", machineCopy];
 LABEL_21:
-    v36 = machineCopy2;
-    v37 = v30;
-    v38 = 8102;
+    v34 = machineCopy2;
+    v35 = v28;
+    v36 = 8102;
     goto LABEL_22;
   }
 
   if (!inCopy)
   {
-    v30 = +[SUCore sharedCore];
+    v28 = +[SUCore sharedCore];
     machineCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSM(%@) start state not provided", machineCopy];
     goto LABEL_19;
   }
@@ -127,7 +127,7 @@ LABEL_21:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v30 = +[SUCore sharedCore];
+    v28 = +[SUCore sharedCore];
     machineCopy2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSM(%@) invalid start state", machineCopy];
     goto LABEL_21;
   }
@@ -136,65 +136,63 @@ LABEL_21:
   objc_storeStrong(&v19->_instanceName, instance);
   if (v19->_instanceName)
   {
-    v26 = objc_alloc(MEMORY[0x1E696AEC0]);
-    fsmName = v19->_fsmName;
-    v28 = [v26 initWithFormat:@"%@[%@]", fsmName, v19->_instanceName];
+    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@[%@]", v19->_fsmName, v19->_instanceName];
   }
 
   else
   {
-    v28 = v19->_fsmName;
+    v26 = v19->_fsmName;
   }
 
   fullName = v19->_fullName;
-  v19->_fullName = v28;
+  v19->_fullName = v26;
 
-  v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@.%@", @"fsm", v19->_fullName];
-  v63 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SUFSM_%@_%@", v19->_fullName, @"SUDiagDump.plist"];
-  v50 = [[SUCoreDiag alloc] initWithAppendedDomain:v30 appendingDumpFilename:v63];
+  v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@.%@", @"fsm", v19->_fullName];
+  v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SUFSM_%@_%@", v19->_fullName, @"SUDiagDump.plist"];
+  v47 = [[SUCoreDiag alloc] initWithAppendedDomain:v28 appendingDumpFilename:v60];
   diag = v19->_diag;
-  v19->_diag = v50;
+  v19->_diag = v47;
 
-  v52 = +[SUCore sharedCore];
-  commonDomain = [v52 commonDomain];
+  v49 = +[SUCore sharedCore];
+  commonDomain = [v49 commonDomain];
 
-  v67 = commonDomain;
-  v54 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@.%@.%@", commonDomain, @"core.fsm.extended", v19->_fullName];
-  uTF8String = [v54 UTF8String];
-  v64 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v56 = dispatch_queue_create(uTF8String, v64);
+  v64 = commonDomain;
+  v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@.%@.%@", commonDomain, @"core.fsm.extended", v19->_fullName];
+  uTF8String = [v51 UTF8String];
+  v61 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v53 = dispatch_queue_create(uTF8String, v61);
   extendedStateQueue = v19->_extendedStateQueue;
-  v19->_extendedStateQueue = v56;
+  v19->_extendedStateQueue = v53;
 
   if (v19->_extendedStateQueue)
   {
-    v58 = +[SUCoreLog sharedLogger];
-    oslog = [v58 oslog];
+    v55 = +[SUCoreLog sharedLogger];
+    oslog = [v55 oslog];
 
-    v65 = oslog;
+    v62 = oslog;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      v60 = v19->_fullName;
+      v57 = v19->_fullName;
       *buf = 138543874;
-      v73 = v67;
-      v74 = 2114;
-      v75 = @"core.fsm.extended";
-      v76 = 2114;
-      v77 = v60;
+      v70 = v64;
+      v71 = 2114;
+      v72 = @"core.fsm.extended";
+      v73 = 2114;
+      v74 = v57;
       _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[FSM] DISPATCH: created extended state dispatch queue domain(%{public}@.%{public}@.%{public}@)", buf, 0x20u);
     }
 
-    v33 = 0;
-    v61 = v65;
+    v31 = 0;
+    v58 = v62;
   }
 
   else
   {
-    v66 = +[SUCore sharedCore];
-    v62 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSM(%@) failed to create extended state dispatch queue", v19->_fullName];
-    v33 = [v66 buildError:8100 underlying:0 description:v62];
+    v63 = +[SUCore sharedCore];
+    v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSM(%@) failed to create extended state dispatch queue", v19->_fullName];
+    v31 = [v63 buildError:8100 underlying:0 description:v59];
 
-    v61 = v66;
+    v58 = v63;
   }
 
 LABEL_23:
@@ -209,41 +207,40 @@ LABEL_23:
 
     else
     {
-      v39 = +[SUCore sharedCore];
-      v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSM(%@) failed to validate state table and registered actions", v19->_fullName];
-      v41 = [v39 buildError:8503 underlying:0 description:v40];
+      v37 = +[SUCore sharedCore];
+      v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FSM(%@) failed to validate state table and registered actions", v19->_fullName];
+      v39 = [v37 buildError:8503 underlying:0 description:v38];
 
-      v33 = v41;
+      v31 = v39;
     }
   }
 
-  v42 = inCopy;
-  if (!v33)
+  v40 = inCopy;
+  if (!v31)
   {
     objc_storeStrong(&v19->_stateTable, table);
     objc_storeStrong(&v19->_startState, in);
-    v46 = +[SUCoreDiag sharedDiag];
-    [v46 trackEnd:@"[FSM] API: initMachine"];
+    v44 = +[SUCoreDiag sharedDiag];
+    [v44 trackEnd:@"[FSM] API: initMachine"];
 
-    instanceCopy = v69;
+    instanceCopy = v66;
 LABEL_30:
-    v45 = v19;
-    v42 = inCopy;
+    v43 = v19;
+    v40 = inCopy;
     goto LABEL_31;
   }
 
-  v43 = +[SUCoreDiag sharedDiag];
-  [v43 trackFailure:@"[FSM] FAILURE: initMachine" forReason:@"unable to fully validate and setup FSM" withResult:objc_msgSend(v33 withError:{"code"), v33}];
+  v41 = +[SUCoreDiag sharedDiag];
+  [v41 trackFailure:@"[FSM] FAILURE: initMachine" forReason:@"unable to fully validate and setup FSM" withResult:objc_msgSend(v31 withError:{"code"), v31}];
 
-  v44 = +[SUCoreDiag sharedDiag];
-  [v44 trackEnd:@"[FSM] API: initMachine" withResult:objc_msgSend(v33 withError:{"code"), v33}];
+  v42 = +[SUCoreDiag sharedDiag];
+  [v42 trackEnd:@"[FSM] API: initMachine" withResult:objc_msgSend(v31 withError:{"code"), v31}];
 
-  v45 = 0;
-  instanceCopy = v69;
+  v43 = 0;
+  instanceCopy = v66;
 LABEL_31:
 
-  v47 = *MEMORY[0x1E69E9840];
-  return v45;
+  return v43;
 }
 
 - (void)teardownMachine
@@ -439,7 +436,7 @@ void __90__SUCoreFSM__registerAllActions_withInfoClass_stateTable_actionTable_lo
 
 - (void)_registerAction:(id)action ForEvent:(id)event inState:(id)state usingDelegate:(id)delegate withInfoClass:(Class)class actionTable:(id)table loggingRegistration:(BOOL)registration
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   eventCopy = event;
   stateCopy = state;
@@ -452,9 +449,9 @@ void __90__SUCoreFSM__registerAllActions_withInfoClass_stateTable_actionTable_lo
     v22 = objc_opt_new();
     if (!v22)
     {
-      v35 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v34 = objc_alloc(MEMORY[0x1E696AEC0]);
       fullName = [(SUCoreFSM *)self fullName];
-      eventCopy = [v35 initWithFormat:@"FSM(%@) unable to create actions for state(%@) so dropping registration of action(%@) for event(%@)", fullName, stateCopy, actionCopy, eventCopy];
+      eventCopy = [v34 initWithFormat:@"FSM(%@) unable to create actions for state(%@) so dropping registration of action(%@) for event(%@)", fullName, stateCopy, actionCopy, eventCopy];
       [v20 trackAnomaly:@"[FSM] REGISTER_EVENT" forReason:eventCopy withResult:8100 withError:0];
 
       goto LABEL_11;
@@ -478,30 +475,30 @@ void __90__SUCoreFSM__registerAllActions_withInfoClass_stateTable_actionTable_lo
 
     if (!v27)
     {
-      v31 = [[SUCoreFSMAttachedAction alloc] initWithAction:actionCopy usingDelegate:delegateCopy withInfoClass:class];
-      [v21 setSafeObject:v31 forKey:eventCopy];
+      v30 = [[SUCoreFSMAttachedAction alloc] initWithAction:actionCopy usingDelegate:delegateCopy withInfoClass:class];
+      [v21 setSafeObject:v30 forKey:eventCopy];
       [tableCopy setSafeObject:v21 forKey:stateCopy];
       if (registration)
       {
-        v38 = v31;
-        v32 = +[SUCoreLog sharedLogger];
-        oslog = [v32 oslog];
+        v37 = v30;
+        v31 = +[SUCoreLog sharedLogger];
+        oslog = [v31 oslog];
 
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
         {
           fullName3 = [(SUCoreFSM *)self fullName];
           *buf = 138544130;
-          v40 = fullName3;
-          v41 = 2114;
-          v42 = actionCopy;
-          v43 = 2114;
-          v44 = eventCopy;
-          v45 = 2114;
-          v46 = stateCopy;
+          v39 = fullName3;
+          v40 = 2114;
+          v41 = actionCopy;
+          v42 = 2114;
+          v43 = eventCopy;
+          v44 = 2114;
+          v45 = stateCopy;
           _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[FSM] REGISTER_EVENT: FSM(%{public}@) attached action(%{public}@) handling event(%{public}@) in state(%{public}@)", buf, 0x2Au);
         }
 
-        v31 = v38;
+        v30 = v37;
       }
 
       goto LABEL_10;
@@ -517,8 +514,6 @@ void __90__SUCoreFSM__registerAllActions_withInfoClass_stateTable_actionTable_lo
 
 LABEL_10:
 LABEL_11:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activateMachine
@@ -887,7 +882,7 @@ void __41__SUCoreFSM_dumpEventInStateOccurrences___block_invoke_2(uint64_t a1, v
 
 void __41__SUCoreFSM_dumpEventInStateOccurrences___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a3 safeStringForKey:@"FSMAction"];
   v7 = [*(a1 + 32) usageTable];
@@ -914,24 +909,24 @@ void __41__SUCoreFSM_dumpEventInStateOccurrences___block_invoke_3(uint64_t a1, v
           v16 = v15;
           v17 = *(a1 + 40);
           v18 = @"NONE";
-          v25 = 138413570;
+          v24 = 138413570;
           if (v6)
           {
             v18 = v6;
           }
 
-          v26 = v14;
-          v27 = 2112;
-          v28 = v15;
-          v29 = 2112;
-          v30 = v17;
-          v31 = 2112;
-          v32 = v5;
-          v33 = 2112;
-          v34 = v18;
-          v35 = 2048;
-          v36 = v11;
-          _os_log_impl(&dword_1E0F71000, v13, OS_LOG_TYPE_DEFAULT, "[FSM] DUMP_EVENT_IN_STATE | %@:FSM(%@) | STATE(%@) EVENT(%@) ACTION(%@) | occurrences:%llu", &v25, 0x3Eu);
+          v25 = v14;
+          v26 = 2112;
+          v27 = v15;
+          v28 = 2112;
+          v29 = v17;
+          v30 = 2112;
+          v31 = v5;
+          v32 = 2112;
+          v33 = v18;
+          v34 = 2048;
+          v35 = v11;
+          _os_log_impl(&dword_1E0F71000, v13, OS_LOG_TYPE_DEFAULT, "[FSM] DUMP_EVENT_IN_STATE | %@:FSM(%@) | STATE(%@) EVENT(%@) ACTION(%@) | occurrences:%llu", &v24, 0x3Eu);
         }
 
 LABEL_12:
@@ -951,28 +946,26 @@ LABEL_12:
     v13 = v21;
     v22 = *(a1 + 40);
     v23 = @"NONE";
-    v25 = 138413314;
+    v24 = 138413314;
     if (v6)
     {
       v23 = v6;
     }
 
-    v26 = v20;
-    v27 = 2112;
-    v28 = v21;
-    v29 = 2112;
-    v30 = v22;
-    v31 = 2112;
-    v32 = v5;
-    v33 = 2112;
-    v34 = v23;
-    _os_log_impl(&dword_1E0F71000, v10, OS_LOG_TYPE_DEFAULT, "[FSM] DUMP_EVENT_IN_STATE | %@:FSM(%@) | STATE(%@) EVENT(%@) ACTION(%@) | occurrences:0", &v25, 0x34u);
+    v25 = v20;
+    v26 = 2112;
+    v27 = v21;
+    v28 = 2112;
+    v29 = v22;
+    v30 = 2112;
+    v31 = v5;
+    v32 = 2112;
+    v33 = v23;
+    _os_log_impl(&dword_1E0F71000, v10, OS_LOG_TYPE_DEFAULT, "[FSM] DUMP_EVENT_IN_STATE | %@:FSM(%@) | STATE(%@) EVENT(%@) ACTION(%@) | occurrences:0", &v24, 0x34u);
     goto LABEL_12;
   }
 
 LABEL_13:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postEvent:(id)event withInfo:(id)info
@@ -1326,28 +1319,10 @@ LABEL_14:
 
   usageTable2 = [(SUCoreFSM *)self usageTable];
 
-  if (!usageTable2)
+  if (!usageTable2 || (-[SUCoreFSM usageTable](self, "usageTable"), v12 = objc_claimAutoreleasedReturnValue(), -[SUCoreFSM currentState](self, "currentState"), v13 = objc_claimAutoreleasedReturnValue(), [v12 safeDictionaryForKey:v13 fromBase:typeCopy withKeyDescription:@"current state"], v14 = objc_claimAutoreleasedReturnValue(), v13, v12, !v14) && (v14 = objc_alloc_init(MEMORY[0x1E695DF90]), -[SUCoreFSM usageTable](self, "usageTable"), v15 = objc_claimAutoreleasedReturnValue(), -[SUCoreFSM currentState](self, "currentState"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "setSafeObject:forKey:", v14, v16), v16, v15, !v14))
   {
-    goto LABEL_8;
-  }
-
-  usageTable3 = [(SUCoreFSM *)self usageTable];
-  currentState = [(SUCoreFSM *)self currentState];
-  v14 = [usageTable3 safeDictionaryForKey:currentState fromBase:typeCopy withKeyDescription:@"current state"];
-
-  if (!v14)
-  {
-    v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    usageTable4 = [(SUCoreFSM *)self usageTable];
-    currentState2 = [(SUCoreFSM *)self currentState];
-    [usageTable4 setSafeObject:v14 forKey:currentState2];
-
-    if (!v14)
-    {
-LABEL_8:
-      [(SUCoreFSM *)self setUntrackedOccurrences:[(SUCoreFSM *)self untrackedOccurrences]+ 1];
-      goto LABEL_17;
-    }
+    [(SUCoreFSM *)self setUntrackedOccurrences:[(SUCoreFSM *)self untrackedOccurrences]+ 1];
+    goto LABEL_17;
   }
 
   v17 = [v14 safeDictionaryForKey:occurrenceCopy fromBase:typeCopy withKeyDescription:@"FSM event"];

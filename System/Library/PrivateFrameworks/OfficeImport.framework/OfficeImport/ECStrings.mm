@@ -6,37 +6,38 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    v14 = TCBundle();
-    v2 = [v14 localizedStringForKey:@"h" value:&stru_286EE1130 table:@"TCCompatibility"];
-    v3 = sDurationHourShortString;
-    sDurationHourShortString = v2;
+    v21 = TCBundle(v3);
+    v4 = [v21 localizedStringForKey:@"h" value:&stru_286EE1130 table:@"TCCompatibility"];
+    v5 = sDurationHourShortString;
+    sDurationHourShortString = v4;
 
-    v15 = TCBundle();
-    v4 = [v15 localizedStringForKey:@"hours" value:&stru_286EE1130 table:@"TCCompatibility"];
-    v5 = sDurationHourLongString;
-    sDurationHourLongString = v4;
+    v22 = TCBundle(v6);
+    v7 = [v22 localizedStringForKey:@"hours" value:&stru_286EE1130 table:@"TCCompatibility"];
+    v8 = sDurationHourLongString;
+    sDurationHourLongString = v7;
 
-    v16 = TCBundle();
-    v6 = [v16 localizedStringForKey:@"m" value:&stru_286EE1130 table:@"TCCompatibility"];
-    v7 = sDurationMinuteShortString;
-    sDurationMinuteShortString = v6;
+    v23 = TCBundle(v9);
+    v10 = [v23 localizedStringForKey:@"m" value:&stru_286EE1130 table:@"TCCompatibility"];
+    v11 = sDurationMinuteShortString;
+    sDurationMinuteShortString = v10;
 
-    v17 = TCBundle();
-    v8 = [v17 localizedStringForKey:@"minutes" value:&stru_286EE1130 table:@"TCCompatibility"];
-    v9 = sDurationMinuteLongString;
-    sDurationMinuteLongString = v8;
+    v24 = TCBundle(v12);
+    v13 = [v24 localizedStringForKey:@"minutes" value:&stru_286EE1130 table:@"TCCompatibility"];
+    v14 = sDurationMinuteLongString;
+    sDurationMinuteLongString = v13;
 
-    v18 = TCBundle();
-    v10 = [v18 localizedStringForKey:@"s" value:&stru_286EE1130 table:@"TCCompatibility"];
-    v11 = sDurationSecondShortString;
-    sDurationSecondShortString = v10;
+    v25 = TCBundle(v15);
+    v16 = [v25 localizedStringForKey:@"s" value:&stru_286EE1130 table:@"TCCompatibility"];
+    v17 = sDurationSecondShortString;
+    sDurationSecondShortString = v16;
 
-    v19 = TCBundle();
-    v12 = [v19 localizedStringForKey:@"seconds" value:&stru_286EE1130 table:@"TCCompatibility"];
-    v13 = sDurationSecondLongString;
-    sDurationSecondLongString = v12;
+    v26 = TCBundle(v18);
+    v19 = [v26 localizedStringForKey:@"seconds" value:&stru_286EE1130 table:@"TCCompatibility"];
+    v20 = sDurationSecondLongString;
+    sDurationSecondLongString = v19;
   }
 }
 

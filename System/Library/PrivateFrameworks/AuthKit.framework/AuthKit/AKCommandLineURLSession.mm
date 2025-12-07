@@ -175,7 +175,6 @@ uint64_t __51__AKCommandLineURLSession_sharedServerUIURLSession__block_invoke()
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __99__AKCommandLineURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke(void *a1, void *a2, void *a3)

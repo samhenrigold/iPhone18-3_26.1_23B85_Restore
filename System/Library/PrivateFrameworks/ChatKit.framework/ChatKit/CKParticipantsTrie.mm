@@ -166,11 +166,11 @@ uint64_t __40__CKParticipantsTrie_entitiesForPrefix___block_invoke(uint64_t a1, 
   return v10;
 }
 
-uint64_t __65__CKParticipantsTrie__composedCharactersForString_appendRootKey___block_invoke(uint64_t result, uint64_t a2)
+id *__65__CKParticipantsTrie__composedCharactersForString_appendRootKey___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;

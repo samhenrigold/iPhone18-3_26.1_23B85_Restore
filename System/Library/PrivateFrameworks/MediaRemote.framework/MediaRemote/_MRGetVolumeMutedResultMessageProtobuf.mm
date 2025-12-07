@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    isMuted = self->_isMuted;
     PBDataWriterWriteBOOLField();
   }
 }

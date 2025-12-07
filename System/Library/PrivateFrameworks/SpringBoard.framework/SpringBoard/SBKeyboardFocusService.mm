@@ -122,7 +122,7 @@ void __85__SBKeyboardFocusService_client_requestKeyboardFocusForSceneIdentity_pi
 void __85__SBKeyboardFocusService_client_requestKeyboardFocusForSceneIdentity_pid_completion___block_invoke_4(void *a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  if (([*(a1[4] + 32) containsObject:a1[5]] & 1) == 0)
+  if ((objc_msgSend_containsObject_(*(a1[4] + 32), a2, a1[5]) & 1) == 0)
   {
     v4 = SBLogKeyboardFocus();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -156,7 +156,7 @@ void __74__SBKeyboardFocusService_client_removeKeyboardFocusFromSceneIdentity_pi
   v2 = [*(*(a1 + 32) + 16) sceneForSceneIdentityToken:*(a1 + 40) inProcess:{objc_msgSend(*(a1 + 48), "intValue")}];
   if (v2)
   {
-    v3 = [*(*(a1 + 32) + 32) containsObject:v2];
+    v3 = objc_msgSend_containsObject_(*(*(a1 + 32) + 32));
     v4 = SBLogKeyboardFocus();
     v5 = v4;
     if (v3)
@@ -415,28 +415,35 @@ void __85__SBKeyboardFocusService_client_requestKeyboardFocusForSceneIdentity_pi
 {
   OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "SBKeyboardFocusService: requestKeyboardFocusForSceneIdentity failed to find scene %{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "SBKeyboardFocusService: requestKeyboardFocusForSceneIdentity failed to find scene %{public}@", v2, v3, v4, v5);
 }
 
 void __74__SBKeyboardFocusService_client_removeKeyboardFocusFromSceneIdentity_pid___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "SBKeyboardFocusService: removeKeyboardFocusFromSceneIdentity called for non-focus-requested scene %{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "SBKeyboardFocusService: removeKeyboardFocusFromSceneIdentity called for non-focus-requested scene %{public}@", v2, v3, v4, v5);
 }
 
 void __74__SBKeyboardFocusService_client_removeKeyboardFocusFromSceneIdentity_pid___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "SBKeyboardFocusService: removeKeyboardFocusFromSceneIdentity failed to find scene %{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "SBKeyboardFocusService: removeKeyboardFocusFromSceneIdentity failed to find scene %{public}@", v2, v3, v4, v5);
+}
+
+void __91__SBKeyboardFocusService_client_deferAdditionalEnvironments_whenSceneHasKeyboardFocus_pid___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a2, a3, "SBKeyboardFocusService: failed to unarchive deferral environment data, error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __91__SBKeyboardFocusService_client_deferAdditionalEnvironments_whenSceneHasKeyboardFocus_pid___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "SBKeyboardFocusService: deferAdditionalEnvironments: failed to find scene %{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, v0, v1, "SBKeyboardFocusService: deferAdditionalEnvironments: failed to find scene %{public}@", v2, v3, v4, v5);
 }
 
 @end

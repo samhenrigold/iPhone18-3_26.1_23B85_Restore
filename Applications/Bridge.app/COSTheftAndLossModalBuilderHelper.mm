@@ -24,7 +24,7 @@
   }
 
   v9 = sub_10013E308(sub_10013E5C4, v7, v6, v8);
-  sub_10000D74C(v6);
+  sub_10000D74C(v6, v8);
 
   return v9;
 }

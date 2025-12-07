@@ -1,4 +1,5 @@
 @interface SACallTreeFrame
++ (id)callTreeFrameWithFrame:(id)frame startSampleIndex:(unint64_t)index sampleCount:(unint64_t)count isLeafFrame:(BOOL)leafFrame;
 + (void)enumerateTree:(uint64_t)tree block:;
 - (SACallTreeFrame)initWithFrame:(id)frame startSampleIndex:(unint64_t)index sampleCount:(unint64_t)count isLeafFrame:(BOOL)leafFrame;
 - (void)writeJSONDictionaryEntriesToStream:(id)stream;
@@ -23,6 +24,13 @@
   }
 
   return v9;
+}
+
++ (id)callTreeFrameWithFrame:(id)frame startSampleIndex:(unint64_t)index sampleCount:(unint64_t)count isLeafFrame:(BOOL)leafFrame
+{
+  v6 = [[self alloc] initWithFrame:frame startSampleIndex:index sampleCount:count isLeafFrame:leafFrame];
+
+  return v6;
 }
 
 + (void)enumerateTree:(uint64_t)tree block:

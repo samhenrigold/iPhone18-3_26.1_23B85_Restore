@@ -5,6 +5,7 @@
 - (GPBUInt64EnumDictionary)initWithDictionary:(id)dictionary;
 - (GPBUInt64EnumDictionary)initWithValidationFunction:(void *)function rawValues:(const int *)values forKeys:(const unint64_t *)keys count:(unint64_t)count;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type;
 - (unint64_t)computeSerializedSizeAsField:(id)field;
 - (void)addRawEntriesFromDictionary:(id)dictionary;
 - (void)dealloc;
@@ -12,7 +13,9 @@
 - (void)enumerateKeysAndEnumsUsingBlock:(id)block;
 - (void)enumerateKeysAndRawValuesUsingBlock:(id)block;
 - (void)removeEnumForKey:(unint64_t)key;
+- (void)setEnum:(int)enum forKey:(unint64_t)key;
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key;
+- (void)setRawValue:(int)value forKey:(unint64_t)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
 
@@ -192,6 +195,19 @@
   }
 }
 
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v7 = *&value;
+  v8 = sub_10031EA6C(key->var2, 1, type);
+  v9 = [NSMutableData dataWithLength:GPBComputeEnumSize(2, v7) + v8];
+  v10 = [[GPBCodedOutputStream alloc] initWithData:v9];
+  sub_10031EC7C(v10, key->var2, 1, typeCopy);
+  [(GPBCodedOutputStream *)v10 writeEnum:2 value:v7];
+
+  return v9;
+}
+
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key
 {
   dictionary = self->_dictionary;
@@ -282,12 +298,40 @@
   }
 }
 
+- (void)setRawValue:(int)value forKey:(unint64_t)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:?], [NSNumber numberWithUnsignedLongLong:key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
+  }
+}
+
 - (void)removeEnumForKey:(unint64_t)key
 {
   dictionary = self->_dictionary;
   v4 = [NSNumber numberWithUnsignedLongLong:key];
 
   [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
+}
+
+- (void)setEnum:(int)enum forKey:(unint64_t)key
+{
+  v5 = *&enum;
+  if (((self->_validationFunc)(*&enum, a2) & 1) == 0)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"GPBUInt64EnumDictionary: Attempt to set an unknown enum value (%d)", v5];
+  }
+
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:v5], [NSNumber numberWithUnsignedLongLong:key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
+  }
 }
 
 @end

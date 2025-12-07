@@ -212,8 +212,7 @@
       features2 = [(VUINowPlayingFeatureMonitor *)self features];
       [features2 addObject:featureCopy];
 
-      [(VUINowPlayingFeatureMonitor *)self _processFeature:featureCopy];
-      v8 = VUIDefaultLogObject();
+      v8 = VUIDefaultLogObject([(VUINowPlayingFeatureMonitor *)self _processFeature:featureCopy]);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = 138412290;
@@ -245,8 +244,7 @@
         [featureDependencies setObject:featuresCopy forKey:featureCopy];
       }
 
-      [(VUINowPlayingFeatureMonitor *)self _processFeature:featureCopy];
-      v12 = VUIDefaultLogObject();
+      v12 = VUIDefaultLogObject([(VUINowPlayingFeatureMonitor *)self _processFeature:featureCopy]);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = 138412290;
@@ -320,7 +318,7 @@ uint64_t __52__VUINowPlayingFeatureMonitor_activeFeatureForType___block_invoke(u
 
 - (void)removeFeature:(id)feature
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   featureCopy = feature;
   v5 = featureCopy;
   if (featureCopy)
@@ -350,12 +348,12 @@ uint64_t __52__VUINowPlayingFeatureMonitor_activeFeatureForType___block_invoke(u
       features = [(VUINowPlayingFeatureMonitor *)self features];
       [features removeObject:v5];
 
-      v8 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = VUIDefaultLogObject(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412290;
-        v11 = v5;
-        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Feature [%@] removed.", &v10, 0xCu);
+        v11 = 138412290;
+        v12 = v5;
+        _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Feature [%@] removed.", &v11, 0xCu);
       }
     }
   }
@@ -363,7 +361,7 @@ uint64_t __52__VUINowPlayingFeatureMonitor_activeFeatureForType___block_invoke(u
 
 - (void)_cleanupFeature:(id)feature
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   featureCopy = feature;
   if (featureCopy)
   {
@@ -372,25 +370,26 @@ uint64_t __52__VUINowPlayingFeatureMonitor_activeFeatureForType___block_invoke(u
     if (objc_opt_isKindOfClass())
     {
       v5 = [(VUINowPlayingFeatureMonitor *)self _isTimerFeatureExpired:featureCopy];
-      featureTimers = VUIDefaultLogObject();
-      v7 = os_log_type_enabled(featureTimers, OS_LOG_TYPE_DEFAULT);
-      if (v5)
+      v6 = v5;
+      featureTimers = VUIDefaultLogObject(v5);
+      v8 = os_log_type_enabled(featureTimers, OS_LOG_TYPE_DEFAULT);
+      if (v6)
       {
-        if (v7)
+        if (v8)
         {
-          v10 = 138412290;
-          v11 = featureCopy;
-          _os_log_impl(&dword_1E323F000, featureTimers, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: since timer feature: %@ has already expired, so not removing it.", &v10, 0xCu);
+          v11 = 138412290;
+          v12 = featureCopy;
+          _os_log_impl(&dword_1E323F000, featureTimers, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: since timer feature: %@ has already expired, so not removing it.", &v11, 0xCu);
         }
       }
 
       else
       {
-        if (v7)
+        if (v8)
         {
-          v10 = 138412290;
-          v11 = featureCopy;
-          _os_log_impl(&dword_1E323F000, featureTimers, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: timer feature: %@ has not expired, removing it.", &v10, 0xCu);
+          v11 = 138412290;
+          v12 = featureCopy;
+          _os_log_impl(&dword_1E323F000, featureTimers, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: timer feature: %@ has not expired, removing it.", &v11, 0xCu);
         }
 
         featureTimers = [(VUINowPlayingFeatureMonitor *)self featureTimers];
@@ -405,9 +404,9 @@ uint64_t __52__VUINowPlayingFeatureMonitor_activeFeatureForType___block_invoke(u
       goto LABEL_15;
     }
 
-    v9 = [featureCopy conformsToProtocol:&unk_1F5E605A0];
+    v10 = [featureCopy conformsToProtocol:&unk_1F5E605A0];
 
-    if (v9)
+    if (v10)
     {
       features = featureCopy;
       [features removeObserver:self forKeyPath:@"startTime"];
@@ -802,26 +801,27 @@ LABEL_11:
 - (void)_activateFeature:(id)feature ignoringCurrentActivation:(BOOL)activation animated:(BOOL)animated completion:(id)completion
 {
   animatedCopy = animated;
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   featureCopy = feature;
   completionCopy = completion;
   v12 = completionCopy;
   if (!featureCopy)
   {
-    v13 = 0;
+    v14 = 0;
     if (!completionCopy)
     {
       goto LABEL_8;
     }
 
 LABEL_7:
-    v12[2](v12, v13);
+    v12[2](v12, v14);
     goto LABEL_8;
   }
 
-  if ([featureCopy isActive] && !activation)
+  isActive = [featureCopy isActive];
+  if (isActive && !activation)
   {
-    v13 = [(VUINowPlayingFeatureMonitor *)self _isTVAdvisoryFeature:featureCopy]^ 1;
+    v14 = [(VUINowPlayingFeatureMonitor *)self _isTVAdvisoryFeature:featureCopy]^ 1;
     if (!v12)
     {
       goto LABEL_8;
@@ -830,12 +830,12 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v14 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = VUIDefaultLogObject(isActive);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = featureCopy;
-    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Feature [%@] activated.", &v17, 0xCu);
+    v18 = 138412290;
+    v19 = featureCopy;
+    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Feature [%@] activated.", &v18, 0xCu);
   }
 
   delegate = [(VUINowPlayingFeatureMonitor *)self delegate];
@@ -862,7 +862,7 @@ LABEL_7:
     }
   }
 
-  v13 = 1;
+  v14 = 1;
   if (v12)
   {
     goto LABEL_7;
@@ -874,53 +874,57 @@ LABEL_8:
 - (void)_deactivateFeature:(id)feature animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   featureCopy = feature;
   v7 = featureCopy;
-  if (featureCopy && [featureCopy isActive])
+  if (featureCopy)
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    isActive = [featureCopy isActive];
+    if (isActive)
     {
-      v17 = 138412290;
-      v18 = v7;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Feature [%@] deactivated.", &v17, 0xCu);
-    }
-
-    [v7 setActive:0];
-    featureLastRequestedUI = [(VUINowPlayingFeatureMonitor *)self featureLastRequestedUI];
-    if (featureLastRequestedUI == v7)
-    {
-      [(VUINowPlayingFeatureMonitor *)self setFeatureLastRequestedUI:0];
-    }
-
-    if (self->_delegateFlags.respondsToFeatureDidChangeState)
-    {
-      delegate = [(VUINowPlayingFeatureMonitor *)self delegate];
-      [delegate featureMonitor:self featureDidChangeState:v7 animated:animatedCopy];
-    }
-
-    if ([(VUINowPlayingFeatureMonitor *)self _isTimeBoundFeature:v7])
-    {
-      v11 = v7;
-      [v11 startTime];
-      v13 = v12;
-      [v11 duration];
-      [(VUINowPlayingFeatureMonitor *)self _removeTimeObservingForFeature:v11 withStartTime:v13 + v14];
-    }
-
-    if ([v7 shouldAutoRemove])
-    {
-      [(VUINowPlayingFeatureMonitor *)self _cleanupFeature:v7];
-      features = [(VUINowPlayingFeatureMonitor *)self features];
-      [features removeObject:v7];
-
-      v16 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v9 = VUIDefaultLogObject(isActive);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412290;
-        v18 = v7;
-        _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Feature [%@] removed.", &v17, 0xCu);
+        v19 = 138412290;
+        v20 = v7;
+        _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Feature [%@] deactivated.", &v19, 0xCu);
+      }
+
+      [v7 setActive:0];
+      featureLastRequestedUI = [(VUINowPlayingFeatureMonitor *)self featureLastRequestedUI];
+      if (featureLastRequestedUI == v7)
+      {
+        [(VUINowPlayingFeatureMonitor *)self setFeatureLastRequestedUI:0];
+      }
+
+      if (self->_delegateFlags.respondsToFeatureDidChangeState)
+      {
+        delegate = [(VUINowPlayingFeatureMonitor *)self delegate];
+        [delegate featureMonitor:self featureDidChangeState:v7 animated:animatedCopy];
+      }
+
+      if ([(VUINowPlayingFeatureMonitor *)self _isTimeBoundFeature:v7])
+      {
+        v12 = v7;
+        [v12 startTime];
+        v14 = v13;
+        [v12 duration];
+        [(VUINowPlayingFeatureMonitor *)self _removeTimeObservingForFeature:v12 withStartTime:v14 + v15];
+      }
+
+      if ([v7 shouldAutoRemove])
+      {
+        [(VUINowPlayingFeatureMonitor *)self _cleanupFeature:v7];
+        features = [(VUINowPlayingFeatureMonitor *)self features];
+        [features removeObject:v7];
+
+        v18 = VUIDefaultLogObject(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        {
+          v19 = 138412290;
+          v20 = v7;
+          _os_log_impl(&dword_1E323F000, v18, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Feature [%@] removed.", &v19, 0xCu);
+        }
       }
     }
   }
@@ -1346,48 +1350,49 @@ LABEL_55:
 
 void __56__VUINowPlayingFeatureMonitor__processTimeBoundFeature___block_invoke(uint64_t a1, char a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v4 = VUIDefaultLogObject();
+  v26 = *MEMORY[0x1E69E9840];
+  v4 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138412290;
-    v22 = v5;
+    v25 = v5;
     _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Boundary time observer triggered for feature activation - %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = [WeakRetained _shouldAnimateFeature:*(a1 + 32)];
   v8 = [WeakRetained _isElapsedTimeWithinFeatureTimeWindow:*(a1 + 32)];
-  v9 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = v8;
+  v10 = VUIDefaultLogObject(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = VUIBoolLogString();
+    v11 = VUIBoolLogString();
     *buf = 138412290;
-    v22 = v10;
-    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Is elapsed time within feature time window - %@", buf, 0xCu);
+    v25 = v11;
+    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Is elapsed time within feature time window - %@", buf, 0xCu);
   }
 
-  if (v8)
+  if (v9)
   {
-    v11 = [WeakRetained featureDependencies];
-    v12 = [v11 objectForKey:*(a1 + 32)];
+    v12 = [WeakRetained featureDependencies];
+    v13 = [v12 objectForKey:*(a1 + 32)];
 
-    v13 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = VUIDefaultLogObject(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v12;
-      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Dependent preferred features: [%@]", buf, 0xCu);
+      v25 = v13;
+      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Dependent preferred features: [%@]", buf, 0xCu);
     }
 
-    if ([v12 count] && (objc_msgSend(WeakRetained, "_hasActiveFeaturesInArray:", v12) & 1) != 0)
+    if ([v13 count] && (v16 = objc_msgSend(WeakRetained, "_hasActiveFeaturesInArray:", v13), (v16 & 1) != 0))
     {
-      v14 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v17 = VUIDefaultLogObject(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Not activating this feature since there's a preferred feature already active.", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Not activating this feature since there's a preferred feature already active.", buf, 2u);
       }
     }
 
@@ -1402,15 +1407,15 @@ void __56__VUINowPlayingFeatureMonitor__processTimeBoundFeature___block_invoke(u
       aBlock[1] = 3221225472;
       aBlock[2] = __56__VUINowPlayingFeatureMonitor__processTimeBoundFeature___block_invoke_183;
       aBlock[3] = &unk_1E872F8A8;
-      objc_copyWeak(&v18, (a1 + 40));
-      v17 = *(a1 + 32);
-      v19 = a2;
-      v20 = v7;
-      v15 = _Block_copy(aBlock);
+      objc_copyWeak(&v21, (a1 + 40));
+      v20 = *(a1 + 32);
+      v22 = a2;
+      v23 = v7;
+      v18 = _Block_copy(aBlock);
       [WeakRetained _needsUIForFeature:*(a1 + 32)];
-      v15[2](v15);
+      v18[2](v18);
 
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v21);
     }
   }
 }
@@ -1430,11 +1435,11 @@ void __56__VUINowPlayingFeatureMonitor__processTimeBoundFeature___block_invoke_1
   [WeakRetained _activateFeature:v7 ignoringCurrentActivation:v4 animated:v5 completion:v6];
 }
 
-uint64_t __56__VUINowPlayingFeatureMonitor__processTimeBoundFeature___block_invoke_2(uint64_t result, int a2)
+id *__56__VUINowPlayingFeatureMonitor__processTimeBoundFeature___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _scheduleDeactivationOfTimeBoundFeature:*(result + 40)];
+    return [result[4] _scheduleDeactivationOfTimeBoundFeature:result[5]];
   }
 
   return result;
@@ -1502,7 +1507,7 @@ uint64_t __56__VUINowPlayingFeatureMonitor__processTimeBoundFeature___block_invo
 void __71__VUINowPlayingFeatureMonitor__scheduleDeactivationOfTimeBoundFeature___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1516,7 +1521,7 @@ void __71__VUINowPlayingFeatureMonitor__scheduleDeactivationOfTimeBoundFeature__
 {
   v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -1889,7 +1894,7 @@ void __78__VUINowPlayingFeatureMonitor__processUserTriggeredFeature_activate_ani
 
 - (void)_processTimerTriggeredFeature:(id)feature
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   featureCopy = feature;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1909,35 +1914,35 @@ void __78__VUINowPlayingFeatureMonitor__processUserTriggeredFeature_activate_ani
       }
 
       objc_initWeak(&location, self);
-      objc_initWeak(&from, featureCopy);
-      v11 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      inited = objc_initWeak(&from, featureCopy);
+      v12 = VUIDefaultLogObject(inited);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        v26 = v6;
-        v27 = 2112;
-        v28 = featureCopy;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Scheduling a timer with interval:<%f> for feature: %@", buf, 0x16u);
+        v27 = v6;
+        v28 = 2112;
+        v29 = featureCopy;
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Scheduling a timer with interval:<%f> for feature: %@", buf, 0x16u);
       }
 
-      v12 = MEMORY[0x1E695DFF0];
-      v17 = MEMORY[0x1E69E9820];
-      v18 = 3221225472;
-      v19 = __61__VUINowPlayingFeatureMonitor__processTimerTriggeredFeature___block_invoke;
-      v20 = &unk_1E872F948;
-      objc_copyWeak(&v21, &from);
-      objc_copyWeak(&v22, &location);
-      v13 = [v12 scheduledTimerWithTimeInterval:v8 repeats:&v17 block:v6];
-      v14 = objc_opt_new();
-      [v14 setRepeatingTimer:{v13, v17, v18, v19, v20}];
+      v13 = MEMORY[0x1E695DFF0];
+      v18 = MEMORY[0x1E69E9820];
+      v19 = 3221225472;
+      v20 = __61__VUINowPlayingFeatureMonitor__processTimerTriggeredFeature___block_invoke;
+      v21 = &unk_1E872F948;
+      objc_copyWeak(&v22, &from);
+      objc_copyWeak(&v23, &location);
+      v14 = [v13 scheduledTimerWithTimeInterval:v8 repeats:&v18 block:v6];
+      v15 = objc_opt_new();
+      [v15 setRepeatingTimer:{v14, v18, v19, v20, v21}];
       date = [MEMORY[0x1E695DF00] date];
-      [v14 setStartDate:date];
+      [v15 setStartDate:date];
 
       featureTimers2 = [(VUINowPlayingFeatureMonitor *)self featureTimers];
-      [featureTimers2 setObject:v14 forKey:featureCopy];
+      [featureTimers2 setObject:v15 forKey:featureCopy];
 
+      objc_destroyWeak(&v23);
       objc_destroyWeak(&v22);
-      objc_destroyWeak(&v21);
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
     }
@@ -1946,7 +1951,7 @@ void __78__VUINowPlayingFeatureMonitor__processUserTriggeredFeature_activate_ani
 
 void __61__VUINowPlayingFeatureMonitor__processTimerTriggeredFeature___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = [v3 featureTimers];
@@ -1955,12 +1960,12 @@ void __61__VUINowPlayingFeatureMonitor__processTimerTriggeredFeature___block_inv
   v6 = [MEMORY[0x1E695DF00] date];
   [v5 setStartDate:v6];
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = WeakRetained;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Will activate timer triggered feature: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = WeakRetained;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Will activate timer triggered feature: %@", &v9, 0xCu);
   }
 
   [v3 _activateFeature:WeakRetained animated:1 completion:0];
@@ -1987,42 +1992,43 @@ void __61__VUINowPlayingFeatureMonitor__processTimerTriggeredFeature___block_inv
 
 - (BOOL)_isTimerFeatureExpired:(id)expired
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   expiredCopy = expired;
+  v5 = expiredCopy;
   if (!expiredCopy)
   {
-    LOBYTE(v9) = 0;
+    LOBYTE(v10) = 0;
     goto LABEL_9;
   }
 
   featureTimers = [(VUINowPlayingFeatureMonitor *)self featureTimers];
-  v6 = [featureTimers objectForKey:expiredCopy];
+  v7 = [featureTimers objectForKey:v5];
 
-  backgroundedDate = [v6 backgroundedDate];
-  startDate = [v6 startDate];
-  v9 = startDate;
+  backgroundedDate = [v7 backgroundedDate];
+  startDate = [v7 startDate];
+  v10 = startDate;
   if (backgroundedDate)
   {
     [backgroundedDate timeIntervalSinceDate:startDate];
-    v11 = v10;
+    v12 = v11;
 
     date = [MEMORY[0x1E695DF00] date];
     [date timeIntervalSinceDate:backgroundedDate];
-    v14 = v13;
+    v15 = v14;
 
-    v15 = v11 + v14;
+    v16 = v12 + v15;
 LABEL_7:
-    [expiredCopy duration];
-    LOBYTE(v9) = v15 >= v19;
+    [v5 duration];
+    LOBYTE(v10) = v16 >= v20;
     goto LABEL_8;
   }
 
-  if (v9)
+  if (v10)
   {
     date2 = [MEMORY[0x1E695DF00] date];
-    startDate2 = [v6 startDate];
+    startDate2 = [v7 startDate];
     [date2 timeIntervalSinceDate:startDate2];
-    v15 = v18;
+    v16 = v19;
 
     goto LABEL_7;
   }
@@ -2030,23 +2036,23 @@ LABEL_7:
 LABEL_8:
 
 LABEL_9:
-  v20 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = VUIDefaultLogObject(expiredCopy);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = VUIBoolLogString();
-    v23 = 138412546;
-    v24 = expiredCopy;
-    v25 = 2112;
-    v26 = v21;
-    _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: timerFeature: %@ hasExpired:<%@>", &v23, 0x16u);
+    v22 = VUIBoolLogString();
+    v24 = 138412546;
+    v25 = v5;
+    v26 = 2112;
+    v27 = v22;
+    _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: timerFeature: %@ hasExpired:<%@>", &v24, 0x16u);
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)_setupTimerFeatureExpiration
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   featureTimers = [(VUINowPlayingFeatureMonitor *)self featureTimers];
   v4 = [featureTimers count];
 
@@ -2060,7 +2066,7 @@ LABEL_9:
     {
       v9 = nextObject;
       *&v8 = 138412546;
-      v22 = v8;
+      v23 = v8;
       do
       {
         objc_opt_class();
@@ -2082,14 +2088,14 @@ LABEL_9:
             [date2 timeIntervalSinceDate:startDate];
             v19 = v18;
 
-            v20 = VUIDefaultLogObject();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            v21 = VUIDefaultLogObject(v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v22;
-              v24 = v10;
-              v25 = 2048;
-              v26 = v15 - v19;
-              _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: cancelling timer for feature: %@, timeRemaining:<%f>", buf, 0x16u);
+              *buf = v23;
+              v25 = v10;
+              v26 = 2048;
+              v27 = v15 - v19;
+              _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: cancelling timer for feature: %@, timeRemaining:<%f>", buf, 0x16u);
             }
 
             [(VUINowPlayingFeatureMonitor *)self _cancelTimerForFeature:v10];
@@ -2108,13 +2114,13 @@ LABEL_9:
 
 - (void)_expireTimerFeaturesIfNeeded
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v3 = VUIDefaultLogObject();
+  v49 = *MEMORY[0x1E69E9840];
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     featureTimers = [(VUINowPlayingFeatureMonitor *)self featureTimers];
     *buf = 134217984;
-    v43 = [featureTimers count];
+    v46 = [featureTimers count];
     _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: Will expire feature timers, count:<%lu>", buf, 0xCu);
   }
 
@@ -2150,7 +2156,7 @@ LABEL_9:
     if (nextObject3)
     {
       *&v16 = 138412546;
-      v35 = v16;
+      v38 = v16;
       do
       {
         objc_opt_class();
@@ -2162,72 +2168,77 @@ LABEL_9:
           aBlock[1] = 3221225472;
           aBlock[2] = __59__VUINowPlayingFeatureMonitor__expireTimerFeaturesIfNeeded__block_invoke;
           aBlock[3] = &unk_1E872F970;
-          objc_copyWeak(&v40, &location);
+          objc_copyWeak(&v43, &location);
           v18 = v17;
-          v39 = v18;
+          v42 = v18;
           v19 = _Block_copy(aBlock);
           featureTimers5 = [(VUINowPlayingFeatureMonitor *)self featureTimers];
           v21 = [featureTimers5 objectForKey:v18];
 
-          if ([(VUINowPlayingFeatureMonitor *)self _isTimerFeatureExpired:v18])
+          v22 = [(VUINowPlayingFeatureMonitor *)self _isTimerFeatureExpired:v18];
+          if (v22)
           {
-            v22 = VUIDefaultLogObject();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v23 = VUIDefaultLogObject(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v43 = v18;
-              _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: activating feature after application entered foreground: %@", buf, 0xCu);
+              v46 = v18;
+              _os_log_impl(&dword_1E323F000, v23, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: activating feature after application entered foreground: %@", buf, 0xCu);
             }
 
             v19[2](v19, 0);
           }
 
-          else if ([v18 isBackgroundTimer])
-          {
-            v23 = VUIDefaultLogObject();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138412290;
-              v43 = v18;
-              _os_log_impl(&dword_1E323F000, v23, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: background timer feature %@ did not expire while in background. Cancelling feature now that it is in the foreground", buf, 0xCu);
-            }
-
-            [(VUINowPlayingFeatureMonitor *)self _cancelTimerForFeature:v18];
-          }
-
           else
           {
-            backgroundedDate = [v21 backgroundedDate];
-            startDate = [v21 startDate];
-            [backgroundedDate timeIntervalSinceDate:startDate];
-            v27 = v26;
-
-            [v18 duration];
-            v29 = v28;
-            v30 = VUIDefaultLogObject();
-            v31 = v29 - v27;
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            isBackgroundTimer = [v18 isBackgroundTimer];
+            if (isBackgroundTimer)
             {
-              *buf = v35;
-              v43 = v18;
-              v44 = 2048;
-              v45 = v31;
-              _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: timer feature %@ has not expired yet after entering to foreground. creating a one time timer with interval: %f", buf, 0x16u);
+              v25 = VUIDefaultLogObject(isBackgroundTimer);
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412290;
+                v46 = v18;
+                _os_log_impl(&dword_1E323F000, v25, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: background timer feature %@ did not expire while in background. Cancelling feature now that it is in the foreground", buf, 0xCu);
+              }
+
+              [(VUINowPlayingFeatureMonitor *)self _cancelTimerForFeature:v18];
             }
 
-            v32 = MEMORY[0x1E695DFF0];
-            v36[0] = MEMORY[0x1E69E9820];
-            v36[1] = 3221225472;
-            v36[2] = __59__VUINowPlayingFeatureMonitor__expireTimerFeaturesIfNeeded__block_invoke_194;
-            v36[3] = &unk_1E872F998;
-            v37 = v19;
-            v33 = [v32 scheduledTimerWithTimeInterval:0 repeats:v36 block:v31];
-            [v21 setOneTimeTimer:v33];
+            else
+            {
+              backgroundedDate = [v21 backgroundedDate];
+              startDate = [v21 startDate];
+              [backgroundedDate timeIntervalSinceDate:startDate];
+              v29 = v28;
+
+              duration = [v18 duration];
+              v32 = v31;
+              v33 = VUIDefaultLogObject(duration);
+              v34 = v32 - v29;
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = v38;
+                v46 = v18;
+                v47 = 2048;
+                v48 = v34;
+                _os_log_impl(&dword_1E323F000, v33, OS_LOG_TYPE_DEFAULT, "VUINowPlayingFeatureMonitor:: timer feature %@ has not expired yet after entering to foreground. creating a one time timer with interval: %f", buf, 0x16u);
+              }
+
+              v35 = MEMORY[0x1E695DFF0];
+              v39[0] = MEMORY[0x1E69E9820];
+              v39[1] = 3221225472;
+              v39[2] = __59__VUINowPlayingFeatureMonitor__expireTimerFeaturesIfNeeded__block_invoke_194;
+              v39[3] = &unk_1E872F998;
+              v40 = v19;
+              v36 = [v35 scheduledTimerWithTimeInterval:0 repeats:v39 block:v34];
+              [v21 setOneTimeTimer:v36];
+            }
           }
 
-          [v21 setBackgroundedDate:{0, v35}];
+          [v21 setBackgroundedDate:{0, v38}];
 
-          objc_destroyWeak(&v40);
+          objc_destroyWeak(&v43);
           objc_destroyWeak(&location);
         }
 

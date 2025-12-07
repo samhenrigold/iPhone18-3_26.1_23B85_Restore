@@ -132,12 +132,10 @@ void *__65____NSDictionaryI_enumerateKeysAndObjectsWithOptions_usingBlock___bloc
   if (*(result[4] + 16 + 16 * a2))
   {
     v2 = result;
-    v3 = 2 * a2;
-    v4 = _CFAutoreleasePoolPush();
-    v5 = *(v2[4] + 16 + 8 * v3 + 8);
+    v3 = _CFAutoreleasePoolPush();
     __NSDICTIONARY_IS_CALLING_OUT_TO_A_BLOCK__(v2[5]);
 
-    return _CFAutoreleasePoolPop(v4);
+    return _CFAutoreleasePoolPop(v3);
   }
 
   return result;
@@ -145,20 +143,18 @@ void *__65____NSDictionaryI_enumerateKeysAndObjectsWithOptions_usingBlock___bloc
 
 void *__53____NSDictionaryI_keyOfEntryWithOptions_passingTest___block_invoke(void *result, uint64_t a2, _BYTE *a3)
 {
-  v3 = result[4] + 16;
-  v4 = *(v3 + 16 * a2);
-  if (v4)
+  v3 = *(result[4] + 16 + 16 * a2);
+  if (v3)
   {
-    v6 = result;
-    v7 = *(v3 + 16 * a2 + 8);
-    v8 = _CFAutoreleasePoolPush();
-    if ((*(v6[5] + 16))())
+    v5 = result;
+    v6 = _CFAutoreleasePoolPush();
+    if ((*(v5[5] + 16))())
     {
-      atomic_store(v4, (*(v6[6] + 8) + 24));
+      atomic_store(v3, (*(v5[6] + 8) + 24));
       *a3 = 1;
     }
 
-    return _CFAutoreleasePoolPop(v8);
+    return _CFAutoreleasePoolPop(v6);
   }
 
   return result;
@@ -166,21 +162,19 @@ void *__53____NSDictionaryI_keyOfEntryWithOptions_passingTest___block_invoke(voi
 
 void *__56____NSDictionaryI_keysOfEntriesWithOptions_passingTest___block_invoke(void *result, uint64_t a2)
 {
-  v2 = result[4] + 16;
-  v3 = *(v2 + 16 * a2);
-  if (v3)
+  v2 = *(result[4] + 16 + 16 * a2);
+  if (v2)
   {
-    v4 = result;
-    v5 = *(v2 + 16 * a2 + 8);
-    v6 = _CFAutoreleasePoolPush();
-    if ((*(v4[6] + 16))())
+    v3 = result;
+    v4 = _CFAutoreleasePoolPush();
+    if ((*(v3[6] + 16))())
     {
-      os_unfair_lock_lock(v4[7]);
-      [v4[5] addObject:v3];
-      os_unfair_lock_unlock(v4[7]);
+      os_unfair_lock_lock(v3[7]);
+      [v3[5] addObject:v2];
+      os_unfair_lock_unlock(v3[7]);
     }
 
-    return _CFAutoreleasePoolPop(v6);
+    return _CFAutoreleasePoolPop(v4);
   }
 
   return result;

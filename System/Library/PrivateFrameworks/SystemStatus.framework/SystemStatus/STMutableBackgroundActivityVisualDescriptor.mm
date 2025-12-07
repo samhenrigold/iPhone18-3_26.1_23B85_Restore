@@ -20,61 +20,51 @@
 - (void)setSystemImageName:(id)name
 {
   nameCopy = name;
-  systemImageName = self->super._systemImageName;
-  v8 = nameCopy;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v6 = [v8 copy];
-    v7 = self->super._systemImageName;
-    self->super._systemImageName = v6;
+    v4 = [nameCopy copy];
+    systemImageName = self->super._systemImageName;
+    self->super._systemImageName = v4;
   }
 }
 
 - (void)setImageName:(id)name
 {
   nameCopy = name;
-  imageName = self->super._imageName;
-  v8 = nameCopy;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v6 = [v8 copy];
-    v7 = self->super._imageName;
-    self->super._imageName = v6;
+    v4 = [nameCopy copy];
+    imageName = self->super._imageName;
+    self->super._imageName = v4;
   }
 }
 
 - (void)setPackageName:(id)name
 {
   nameCopy = name;
-  packageName = self->super._packageName;
-  v8 = nameCopy;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v6 = [v8 copy];
-    v7 = self->super._packageName;
-    self->super._packageName = v6;
+    v4 = [nameCopy copy];
+    packageName = self->super._packageName;
+    self->super._packageName = v4;
   }
 }
 
 - (void)setTextLabel:(id)label
 {
   labelCopy = label;
-  textLabel = self->super._textLabel;
-  v8 = labelCopy;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v6 = [v8 copy];
-    v7 = self->super._textLabel;
-    self->super._textLabel = v6;
+    v4 = [labelCopy copy];
+    textLabel = self->super._textLabel;
+    self->super._textLabel = v4;
   }
 }
 
 - (void)setBackgroundColorRepresentation:(id)representation
 {
-  representationCopy = representation;
-  backgroundColorRepresentation = self->super._backgroundColorRepresentation;
   p_backgroundColorRepresentation = &self->super._backgroundColorRepresentation;
-  v8 = representationCopy;
+  representationCopy = representation;
   if ((BSEqualObjects() & 1) == 0)
   {
     objc_storeStrong(p_backgroundColorRepresentation, representation);
@@ -113,13 +103,12 @@
     nameCopy = @"none";
   }
 
-  preferredVisualEffectName = self->super._preferredVisualEffectName;
-  v8 = nameCopy;
+  v7 = nameCopy;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v6 = [(__CFString *)v8 copy];
-    v7 = self->super._preferredVisualEffectName;
-    self->super._preferredVisualEffectName = v6;
+    v5 = [(__CFString *)v7 copy];
+    preferredVisualEffectName = self->super._preferredVisualEffectName;
+    self->super._preferredVisualEffectName = v5;
   }
 }
 
@@ -131,13 +120,12 @@
     nameCopy = @"pulseBackground";
   }
 
-  preferredContinuousAnimationName = self->super._preferredContinuousAnimationName;
-  v8 = nameCopy;
+  v7 = nameCopy;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v6 = [(__CFString *)v8 copy];
-    v7 = self->super._preferredContinuousAnimationName;
-    self->super._preferredContinuousAnimationName = v6;
+    v5 = [(__CFString *)v7 copy];
+    preferredContinuousAnimationName = self->super._preferredContinuousAnimationName;
+    self->super._preferredContinuousAnimationName = v5;
   }
 }
 
@@ -152,13 +140,11 @@
 - (void)setCrossfadableActivities:(id)activities
 {
   activitiesCopy = activities;
-  crossfadableActivities = self->super._crossfadableActivities;
-  v8 = activitiesCopy;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v6 = [v8 copy];
-    v7 = self->super._crossfadableActivities;
-    self->super._crossfadableActivities = v6;
+    v4 = [activitiesCopy copy];
+    crossfadableActivities = self->super._crossfadableActivities;
+    self->super._crossfadableActivities = v4;
   }
 }
 

@@ -63,7 +63,7 @@
 
 - (BOOL)_isSystemNoteTakingEnabled
 {
-  v3 = SynapseLibraryCore();
+  v3 = SynapseLibraryCore(0);
   if (v3)
   {
     v8 = 0;
@@ -149,21 +149,27 @@ void __125__WBSSystemNoteTakingController_saveHighlightsData_selectedText_select
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to fetch page metadata. Continuing with limited metadata. (%{public}@)", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to fetch page metadata. Continuing with limited metadata. (%{public}@)", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __125__WBSSystemNoteTakingController_saveHighlightsData_selectedText_selectedImage_newGroup_originatedInApp_webView_userActivity___block_invoke_13_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to create link context: %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to create link context: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __91__WBSSystemNoteTakingController_fetchHighlightsForUserActivity_privateBrowsing_completion___block_invoke_2_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to fetch link context: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to fetch link context: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

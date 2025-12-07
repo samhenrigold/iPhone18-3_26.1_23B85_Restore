@@ -1,5 +1,6 @@
 @interface NUArticleViewController
 + (id)_parentOrPresentingViewControllerFor:(id)for;
+- (BOOL)accessibilityShouldScrollForScrollViewController:(id)controller defaultValue:(BOOL)value;
 - (BOOL)becomeFirstResponder;
 - (BOOL)isExperimentationEnabled;
 - (BOOL)isPreviewingOrShowingHardPaywall;
@@ -32,12 +33,15 @@
 - (void)reportEvent:(id)event;
 - (void)saveScrollPosition:(id)position;
 - (void)scrollToAudioPositionAndHideMessageAfterEvent:(id)event;
+- (void)scrollToTopAnimated:(BOOL)animated;
 - (void)scrollViewController:(id)controller didApplyDocumentStyle:(id)style;
+- (void)scrollViewController:(id)controller enableNavigation:(BOOL)navigation;
 - (void)scrollViewControllerDidLayoutContent:(id)content;
 - (void)scrollViewControllerDidScroll:(id)scroll;
 - (void)scrollViewControllerDidScrollToBottomOfPrimaryContent:(id)content;
 - (void)scrollViewControllerDidStopScrolling:(id)scrolling;
 - (void)setArticleContext:(id)context;
+- (void)setArticleIsPresentingFullscreen:(BOOL)fullscreen;
 - (void)setContentScale:(int64_t)scale;
 - (void)setContentSizeCategory:(id)category;
 - (void)showArticleMessage:(int64_t)message hideAfterEvent:(id)event;
@@ -48,9 +52,13 @@
 - (void)updateScrollViewControllerWithFooterBlueprint:(id)blueprint;
 - (void)updateScrollViewControllerWithHeaderBlueprint:(id)blueprint;
 - (void)updateTextSelectionForPaywallPresentation;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation NUArticleViewController
@@ -198,10 +206,10 @@ void __266__NUArticleViewController_initWithArticleDataProvider_scrollViewContro
 
 - (void)viewDidLoad
 {
-  v73[1] = *MEMORY[0x277D85DE8];
-  v70.receiver = self;
-  v70.super_class = NUArticleViewController;
-  [(NUArticleViewController *)&v70 viewDidLoad];
+  v72[1] = *MEMORY[0x277D85DE8];
+  v69.receiver = self;
+  v69.super_class = NUArticleViewController;
+  [(NUArticleViewController *)&v69 viewDidLoad];
   view = [(NUArticleViewController *)self view];
   clearColor = [MEMORY[0x277D75348] clearColor];
   [view setBackgroundColor:clearColor];
@@ -253,69 +261,69 @@ void __266__NUArticleViewController_initWithArticleDataProvider_scrollViewContro
   objc_initWeak(&location, self);
   eventManager = [(NUArticleViewController *)self eventManager];
   v23 = MEMORY[0x277CBEB98];
-  v73[0] = @"silexContextDidLoadEvent";
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
+  v72[0] = @"silexContextDidLoadEvent";
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:1];
   v25 = [v23 setWithArray:v24];
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __38__NUArticleViewController_viewDidLoad__block_invoke;
-  v67[3] = &unk_2799A3CD0;
-  objc_copyWeak(&v68, &location);
-  [eventManager triggerOnceWhenAllEventsHaveOccurred:v25 block:v67];
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __38__NUArticleViewController_viewDidLoad__block_invoke;
+  v66[3] = &unk_2799A3CD0;
+  objc_copyWeak(&v67, &location);
+  [eventManager triggerOnceWhenAllEventsHaveOccurred:v25 block:v66];
 
   eventManager2 = [(NUArticleViewController *)self eventManager];
   v27 = MEMORY[0x277CBEB98];
-  v72[0] = @"viewDidAppearEvent";
-  v72[1] = @"silexContextDidLoadEvent";
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+  v71[0] = @"viewDidAppearEvent";
+  v71[1] = @"silexContextDidLoadEvent";
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
   v29 = [v27 setWithArray:v28];
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_3;
-  v65[3] = &unk_2799A3CD0;
-  objc_copyWeak(&v66, &location);
-  [eventManager2 triggerAlwaysWhenAllEventsHaveOccurred:v29 block:v65];
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_3;
+  v64[3] = &unk_2799A3CD0;
+  objc_copyWeak(&v65, &location);
+  [eventManager2 triggerAlwaysWhenAllEventsHaveOccurred:v29 block:v64];
 
   eventManager3 = [(NUArticleViewController *)self eventManager];
   v31 = MEMORY[0x277CBEB98];
-  v71 = @"viewDidDisappearEvent";
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
+  v70 = @"viewDidDisappearEvent";
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
   v33 = [v31 setWithArray:v32];
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_5;
-  v63[3] = &unk_2799A3CD0;
-  objc_copyWeak(&v64, &location);
-  [eventManager3 triggerAlwaysWhenAllEventsHaveOccurred:v33 block:v63];
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_5;
+  v62[3] = &unk_2799A3CD0;
+  objc_copyWeak(&v63, &location);
+  [eventManager3 triggerAlwaysWhenAllEventsHaveOccurred:v33 block:v62];
 
   documentSectionBlueprintProvider = [(NUArticleViewController *)self documentSectionBlueprintProvider];
   observableHeaderBlueprint = [documentSectionBlueprintProvider observableHeaderBlueprint];
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_7;
-  v61[3] = &unk_2799A3CF8;
-  objc_copyWeak(&v62, &location);
-  v36 = [observableHeaderBlueprint observe:v61];
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_7;
+  v60[3] = &unk_2799A3CF8;
+  objc_copyWeak(&v61, &location);
+  v36 = [observableHeaderBlueprint observe:v60];
   [v36 disposeOn:self];
 
   documentSectionBlueprintProvider2 = [(NUArticleViewController *)self documentSectionBlueprintProvider];
   observableContentOverlayBlueprintData = [documentSectionBlueprintProvider2 observableContentOverlayBlueprintData];
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_9;
-  v59[3] = &unk_2799A3D20;
-  objc_copyWeak(&v60, &location);
-  v39 = [observableContentOverlayBlueprintData observe:v59];
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_9;
+  v58[3] = &unk_2799A3D20;
+  objc_copyWeak(&v59, &location);
+  v39 = [observableContentOverlayBlueprintData observe:v58];
   [v39 disposeOn:self];
 
   documentSectionBlueprintProvider3 = [(NUArticleViewController *)self documentSectionBlueprintProvider];
   observableFooterBlueprint = [documentSectionBlueprintProvider3 observableFooterBlueprint];
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_11;
-  v57[3] = &unk_2799A3CF8;
-  objc_copyWeak(&v58, &location);
-  v42 = [observableFooterBlueprint observe:v57];
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __38__NUArticleViewController_viewDidLoad__block_invoke_11;
+  v56[3] = &unk_2799A3CF8;
+  objc_copyWeak(&v57, &location);
+  v42 = [observableFooterBlueprint observe:v56];
   [v42 disposeOn:self];
 
   documentSectionBlueprintProvider4 = [(NUArticleViewController *)self documentSectionBlueprintProvider];
@@ -339,14 +347,13 @@ void __266__NUArticleViewController_initWithArticleDataProvider_scrollViewContro
   [(NUArticleViewController *)self updateScrollViewControllerWithFooterBlueprint:value4];
 
   [(NUArticleViewController *)self loadArticle];
-  objc_destroyWeak(&v58);
-  objc_destroyWeak(&v60);
-  objc_destroyWeak(&v62);
-  objc_destroyWeak(&v64);
-  objc_destroyWeak(&v66);
-  objc_destroyWeak(&v68);
+  objc_destroyWeak(&v57);
+  objc_destroyWeak(&v59);
+  objc_destroyWeak(&v61);
+  objc_destroyWeak(&v63);
+  objc_destroyWeak(&v65);
+  objc_destroyWeak(&v67);
   objc_destroyWeak(&location);
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void __38__NUArticleViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -440,6 +447,24 @@ void __38__NUArticleViewController_viewDidLoad__block_invoke_11(uint64_t a1, voi
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = NUArticleViewController;
+  [(NUArticleViewController *)&v5 viewWillAppear:appear];
+  eventManager = [(NUArticleViewController *)self eventManager];
+  [eventManager fireEvent:@"viewWillAppearEvent"];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = NUArticleViewController;
+  [(NUArticleViewController *)&v5 viewDidAppear:appear];
+  eventManager = [(NUArticleViewController *)self eventManager];
+  [eventManager fireEvent:@"viewDidAppearEvent"];
+}
+
 - (void)viewSafeAreaInsetsDidChange
 {
   v7.receiver = self;
@@ -454,6 +479,23 @@ void __38__NUArticleViewController_viewDidLoad__block_invoke_11(uint64_t a1, voi
     scrollView = [(NUArticleViewController *)self scrollView];
     [(UIViewController *)self nu_adjustInsetsForScrollView:scrollView];
   }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = NUArticleViewController;
+  [(NUArticleViewController *)&v4 viewWillDisappear:disappear];
+  [(NUArticleViewController *)self setArticleIsPresentingFullscreen:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = NUArticleViewController;
+  [(NUArticleViewController *)&v5 viewDidDisappear:disappear];
+  eventManager = [(NUArticleViewController *)self eventManager];
+  [eventManager fireEvent:@"viewDidDisappearEvent"];
 }
 
 - (void)loadArticle
@@ -549,29 +591,29 @@ void __38__NUArticleViewController_loadArticle__block_invoke_3(uint64_t a1)
 
 - (void)prepareArticleLoadingWithContext:(id)context
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   contextCopy = context;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   loadingListeners = [(NUArticleViewController *)self loadingListeners];
-  v6 = [loadingListeners countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [loadingListeners countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(loadingListeners);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           articleDataProvider = [(NUArticleViewController *)self articleDataProvider];
@@ -583,13 +625,11 @@ void __38__NUArticleViewController_loadArticle__block_invoke_3(uint64_t a1)
       }
 
       while (v7 != v9);
-      v7 = [loadingListeners countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [loadingListeners countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finalizeArticleLoadingWithContext:(id)context
@@ -637,47 +677,48 @@ void __38__NUArticleViewController_loadArticle__block_invoke_3(uint64_t a1)
   v50[3] = &unk_2799A3D98;
   v50[4] = self;
   v13 = __61__NUArticleViewController_finalizeArticleLoadingWithContext___block_invoke(v50);
+  v14 = v13;
   if (v13)
   {
-    [(NUArticleViewController *)self setPresentationMode:0];
+    v13 = [(NUArticleViewController *)self setPresentationMode:0];
   }
 
-  v14 = NUArticleLoadLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = NUArticleLoadLog(v13);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     articleDataProvider2 = [(NUArticleViewController *)self articleDataProvider];
     articleID = [articleDataProvider2 articleID];
     *buf = 138543362;
     v57 = articleID;
-    _os_log_impl(&dword_25C2D6000, v14, OS_LOG_TYPE_DEFAULT, "Article did finish loading, starting layout, articleID=%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_25C2D6000, v15, OS_LOG_TYPE_DEFAULT, "Article did finish loading, starting layout, articleID=%{public}@", buf, 0xCu);
   }
 
-  v17 = CACurrentMediaTime();
+  v18 = CACurrentMediaTime();
   articleDataProvider3 = [(NUArticleViewController *)self articleDataProvider];
   articleID2 = [articleDataProvider3 articleID];
 
   eventManager = [(NUArticleViewController *)self eventManager];
-  v21 = MEMORY[0x277CBEB98];
+  v22 = MEMORY[0x277CBEB98];
   v55 = @"silexContextDidLoadEvent";
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
-  v23 = [v21 setWithArray:v22];
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+  v24 = [v22 setWithArray:v23];
   v47[0] = MEMORY[0x277D85DD0];
   v47[1] = 3221225472;
   v47[2] = __61__NUArticleViewController_finalizeArticleLoadingWithContext___block_invoke_364;
   v47[3] = &unk_2799A3DC0;
-  v24 = articleID2;
-  v48 = v24;
-  v49 = v17;
-  [eventManager triggerOnceWhenAllEventsHaveOccurred:v23 block:v47];
+  v25 = articleID2;
+  v48 = v25;
+  v49 = v18;
+  [eventManager triggerOnceWhenAllEventsHaveOccurred:v24 block:v47];
 
   scrollViewController = [(NUArticleViewController *)self scrollViewController];
   [scrollViewController loadContext:contextCopy analyticsReporting:self];
 
   [(NUArticleViewController *)self updatePresentationAttributes];
-  if (v13)
+  if (v14)
   {
     scrollViewController2 = [(NUArticleViewController *)self scrollViewController];
-    [scrollViewController2 updateScrollPosition:v13 animated:0];
+    [scrollViewController2 updateScrollPosition:v14 animated:0];
 
     [(NUArticleViewController *)self setDidRestoreScrollPosition:1];
   }
@@ -702,29 +743,27 @@ void __38__NUArticleViewController_loadArticle__block_invoke_3(uint64_t a1)
   {
     scrollViewController3 = [headline title];
     sourceName = [headline sourceName];
-    v37 = [sourceName length];
+    v38 = [sourceName length];
 
-    if (v37)
+    if (v38)
     {
-      v38 = MEMORY[0x277CCACA8];
+      v39 = MEMORY[0x277CCACA8];
       sourceName2 = [headline sourceName];
       title = [headline title];
-      v41 = [v38 stringWithFormat:@"%@, %@", sourceName2, title];
+      v42 = [v39 stringWithFormat:@"%@, %@", sourceName2, title];
 
-      scrollViewController3 = v41;
+      scrollViewController3 = v42;
     }
 
     scrollView = [(NUArticleViewController *)self scrollViewController];
-    v35ScrollView = [scrollView scrollView];
-    [v35ScrollView setAccessibilityLabel:scrollViewController3];
+    v36ScrollView = [scrollView scrollView];
+    [v36ScrollView setAccessibilityLabel:scrollViewController3];
   }
 
-  v43 = *MEMORY[0x277D76488];
+  v44 = *MEMORY[0x277D76488];
   scrollViewController4 = [(NUArticleViewController *)self scrollViewController];
   scrollView2 = [scrollViewController4 scrollView];
-  UIAccessibilityPostNotification(v43, scrollView2);
-
-  v46 = *MEMORY[0x277D85DE8];
+  UIAccessibilityPostNotification(v44, scrollView2);
 }
 
 id __61__NUArticleViewController_finalizeArticleLoadingWithContext___block_invoke(uint64_t a1)
@@ -760,47 +799,45 @@ id __61__NUArticleViewController_finalizeArticleLoadingWithContext___block_invok
 
 void __61__NUArticleViewController_finalizeArticleLoadingWithContext___block_invoke_364(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = NUArticleLoadLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = NUArticleLoadLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = CACurrentMediaTime() - *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2048;
-    v9 = v4;
-    _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "Article did finish initial layout, articleID=%{public}@, duration=%f", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2048;
+    v8 = v4;
+    _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "Article did finish initial layout, articleID=%{public}@, duration=%f", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)articleDidApplyDocumentStyle:(id)style
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   styleCopy = style;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   loadingListeners = [(NUArticleViewController *)self loadingListeners];
-  v6 = [loadingListeners countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [loadingListeners countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(loadingListeners);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           articleDataProvider = [(NUArticleViewController *)self articleDataProvider];
@@ -812,13 +849,11 @@ void __61__NUArticleViewController_finalizeArticleLoadingWithContext___block_inv
       }
 
       while (v7 != v9);
-      v7 = [loadingListeners countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [loadingListeners countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)becomeFirstResponder
@@ -1048,6 +1083,13 @@ void __61__NUArticleViewController_finalizeArticleLoadingWithContext___block_inv
   return v6;
 }
 
+- (void)scrollViewController:(id)controller enableNavigation:(BOOL)navigation
+{
+  navigationCopy = navigation;
+  navigationControl = [(UIViewController *)self navigationControl];
+  [navigationControl enableNavigation:navigationCopy];
+}
+
 - (void)scrollViewControllerDidScroll:(id)scroll
 {
   scrollViewController = [(NUArticleViewController *)self scrollViewController];
@@ -1169,6 +1211,28 @@ void __61__NUArticleViewController_finalizeArticleLoadingWithContext___block_inv
     [(NUArticleViewController *)self setShouldAutoPlayVideo:[(NUArticleContext *)v6 shouldAutoPlayVideo]];
     contextCopy = v6;
   }
+}
+
+- (void)setArticleIsPresentingFullscreen:(BOOL)fullscreen
+{
+  if (self->_articleIsPresentingFullscreen != fullscreen)
+  {
+    fullscreenCopy = fullscreen;
+    self->_articleIsPresentingFullscreen = fullscreen;
+    chromeControl = [(NUArticleViewController *)self chromeControl];
+    [chromeControl prefersChromeHidden:fullscreenCopy fromViewController:self];
+  }
+}
+
+- (void)scrollToTopAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  scrollViewController = [(NUArticleViewController *)self scrollViewController];
+  scrollView = [scrollViewController scrollView];
+  scrollViewController2 = [(NUArticleViewController *)self scrollViewController];
+  scrollView2 = [scrollViewController2 scrollView];
+  [scrollView2 adjustedContentInset];
+  [scrollView setContentOffset:animatedCopy animated:{0.0, -v8}];
 }
 
 - (void)setContentSizeCategory:(id)category
@@ -1300,29 +1364,31 @@ void __61__NUArticleViewController_finalizeArticleLoadingWithContext___block_inv
   scrollViewController = [(NUArticleViewController *)self scrollViewController];
   context = [scrollViewController context];
 
-  if (!context)
+  result = 0;
+  if (context)
   {
-    return 0;
+    if ([(NUArticleViewController *)self didRestoreScrollPosition])
+    {
+      return 1;
+    }
+
+    manualScrollingStartDate = [(NUArticleViewController *)self manualScrollingStartDate];
+    if (manualScrollingStartDate)
+    {
+      v6 = manualScrollingStartDate;
+      date = [MEMORY[0x277CBEAA8] date];
+      manualScrollingStartDate2 = [(NUArticleViewController *)self manualScrollingStartDate];
+      [date timeIntervalSinceDate:manualScrollingStartDate2];
+      v10 = v9;
+
+      if (v10 > 10.0)
+      {
+        return 1;
+      }
+    }
   }
 
-  if ([(NUArticleViewController *)self didRestoreScrollPosition])
-  {
-    return 1;
-  }
-
-  manualScrollingStartDate = [(NUArticleViewController *)self manualScrollingStartDate];
-  if (!manualScrollingStartDate)
-  {
-    return 0;
-  }
-
-  v6 = manualScrollingStartDate;
-  date = [MEMORY[0x277CBEAA8] date];
-  manualScrollingStartDate2 = [(NUArticleViewController *)self manualScrollingStartDate];
-  [date timeIntervalSinceDate:manualScrollingStartDate2];
-  v10 = v9;
-
-  return v10 > 10.0;
+  return result;
 }
 
 - (void)saveScrollPosition:(id)position
@@ -1464,6 +1530,34 @@ LABEL_5:
   }
 
   return v9;
+}
+
+- (BOOL)accessibilityShouldScrollForScrollViewController:(id)controller defaultValue:(BOOL)value
+{
+  valueCopy = value;
+  controllerCopy = controller;
+  v7 = [NUArticleViewController _parentOrPresentingViewControllerFor:self];
+  if (v7)
+  {
+    v8 = v7;
+    while ((objc_opt_respondsToSelector() & 1) == 0)
+    {
+      v9 = [NUArticleViewController _parentOrPresentingViewControllerFor:v8];
+
+      v8 = v9;
+      if (!v9)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    scrollView = [controllerCopy scrollView];
+    LOBYTE(valueCopy) = [v8 accessibilityShouldScroll:scrollView defaultValue:valueCopy];
+  }
+
+LABEL_7:
+
+  return valueCopy;
 }
 
 - (BOOL)isPreviewingOrShowingHardPaywall

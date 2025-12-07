@@ -70,11 +70,11 @@
 
 - (FBSceneSnapshotContext)initWithFBSContext:(id)context
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v55.receiver = self;
-  v55.super_class = FBSceneSnapshotContext;
-  v5 = [(FBSceneSnapshotContext *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = FBSceneSnapshotContext;
+  v5 = [(FBSceneSnapshotContext *)&v54 init];
   if (v5)
   {
     sceneID = [contextCopy sceneID];
@@ -98,45 +98,45 @@
     v21 = v20;
     v23 = v22;
     [contextCopy frame];
-    v60.origin.x = v24;
-    v60.origin.y = v25;
-    v60.size.width = v26;
-    v60.size.height = v27;
-    v58.origin.x = v17;
-    v58.origin.y = v19;
-    v58.size.width = v21;
-    v58.size.height = v23;
-    v59 = CGRectIntersection(v58, v60);
+    v59.origin.x = v24;
+    v59.origin.y = v25;
+    v59.size.width = v26;
+    v59.size.height = v27;
+    v57.origin.x = v17;
+    v57.origin.y = v19;
+    v57.size.width = v21;
+    v57.size.height = v23;
+    v58 = CGRectIntersection(v57, v59);
     v5->_frame.origin.x = v13;
     v5->_frame.origin.y = v15;
-    v5->_frame.size.width = v59.size.width;
-    v5->_frame.size.height = v59.size.height;
+    v5->_frame.size.width = v58.size.width;
+    v5->_frame.size.height = v58.size.height;
     layersToExclude = [contextCopy layersToExclude];
 
     if (layersToExclude)
     {
       v29 = [MEMORY[0x1E695DFA8] set];
+      v50 = 0u;
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
       layersToExclude2 = [contextCopy layersToExclude];
-      v31 = [layersToExclude2 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v31 = [layersToExclude2 countByEnumeratingWithState:&v50 objects:v55 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v52;
+        v33 = *v51;
         do
         {
           v34 = 0;
           do
           {
-            if (*v52 != v33)
+            if (*v51 != v33)
             {
               objc_enumerationMutation(layersToExclude2);
             }
 
-            v35 = [FBSceneLayer layerWithFBSSceneLayer:*(*(&v51 + 1) + 8 * v34)];
+            v35 = [FBSceneLayer layerWithFBSSceneLayer:*(*(&v50 + 1) + 8 * v34)];
             if (v35)
             {
               [(NSSet *)v29 addObject:v35];
@@ -146,7 +146,7 @@
           }
 
           while (v32 != v34);
-          v32 = [layersToExclude2 countByEnumeratingWithState:&v51 objects:v56 count:16];
+          v32 = [layersToExclude2 countByEnumeratingWithState:&v50 objects:v55 count:16];
         }
 
         while (v32);
@@ -185,7 +185,6 @@
     }
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -209,7 +208,7 @@
 
 - (void)applyContext:(id)context
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   sceneID = self->_sceneID;
   sceneID = [contextCopy sceneID];
@@ -217,16 +216,15 @@
 
   if ((sceneID & 1) == 0)
   {
-    v45 = MEMORY[0x1E696AEC0];
-    sceneID2 = [contextCopy sceneID];
-    v47 = objc_claimAutoreleasedReturnValue();
+    v44 = MEMORY[0x1E696AEC0];
+    v46 = sceneID2 = [contextCopy sceneID];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      [(FBSceneSnapshotContext *)a2 applyContext:v47];
+      [(FBSceneSnapshotContext *)a2 applyContext:v46];
     }
 
-    [v47 UTF8String];
+    [v46 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1A89F16BCLL);
@@ -247,45 +245,45 @@
   v20 = v19;
   v22 = v21;
   [contextCopy frame];
-  v56.origin.x = v23;
-  v56.origin.y = v24;
-  v56.size.width = v25;
-  v56.size.height = v26;
-  v54.origin.x = v16;
-  v54.origin.y = v18;
-  v54.size.width = v20;
-  v54.size.height = v22;
-  v55 = CGRectIntersection(v54, v56);
+  v55.origin.x = v23;
+  v55.origin.y = v24;
+  v55.size.width = v25;
+  v55.size.height = v26;
+  v53.origin.x = v16;
+  v53.origin.y = v18;
+  v53.size.width = v20;
+  v53.size.height = v22;
+  v54 = CGRectIntersection(v53, v55);
   self->_frame.origin.x = v12;
   self->_frame.origin.y = v14;
-  self->_frame.size.width = v55.size.width;
-  self->_frame.size.height = v55.size.height;
+  self->_frame.size.width = v54.size.width;
+  self->_frame.size.height = v54.size.height;
   layersToExclude = [contextCopy layersToExclude];
 
   if (layersToExclude)
   {
     v28 = [MEMORY[0x1E695DFA8] set];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     layersToExclude2 = [contextCopy layersToExclude];
-    v30 = [layersToExclude2 countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v30 = [layersToExclude2 countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v49;
+      v32 = *v48;
       do
       {
         v33 = 0;
         do
         {
-          if (*v49 != v32)
+          if (*v48 != v32)
           {
             objc_enumerationMutation(layersToExclude2);
           }
 
-          v34 = [FBSceneLayer layerWithFBSSceneLayer:*(*(&v48 + 1) + 8 * v33)];
+          v34 = [FBSceneLayer layerWithFBSSceneLayer:*(*(&v47 + 1) + 8 * v33)];
           if (v34)
           {
             [(NSSet *)v28 addObject:v34];
@@ -295,7 +293,7 @@
         }
 
         while (v31 != v33);
-        v31 = [layersToExclude2 countByEnumeratingWithState:&v48 objects:v52 count:16];
+        v31 = [layersToExclude2 countByEnumeratingWithState:&v47 objects:v51 count:16];
       }
 
       while (v31);
@@ -323,8 +321,6 @@
       self->_expirationDate = v42;
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (id)succinctDescription
@@ -446,25 +442,23 @@ id __64__FBSceneSnapshotContext_descriptionBuilderWithMultilinePrefix___block_in
 
 - (void)applyContext:(uint64_t)a3 .cold.1(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromSelector(a1);
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v9 = 138544642;
-  v10 = v5;
-  v11 = 2114;
-  v12 = v7;
-  v13 = 2048;
-  v14 = a2;
-  v15 = 2114;
-  v16 = @"FBSceneSnapshotContext.m";
-  v17 = 1024;
-  v18 = 121;
-  v19 = 2114;
-  v20 = a3;
-  _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138544642;
+  v9 = v5;
+  v10 = 2114;
+  v11 = v7;
+  v12 = 2048;
+  v13 = a2;
+  v14 = 2114;
+  v15 = @"FBSceneSnapshotContext.m";
+  v16 = 1024;
+  v17 = 121;
+  v18 = 2114;
+  v19 = a3;
+  _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v8, 0x3Au);
 }
 
 @end

@@ -1,81 +1,9 @@
-void anonymous namespace::getValidatedSplitDimValue(_anonymous_namespace_ *this, const ODIE::Common::Value *a2, int a3)
-{
-  if (!*(a2 + 1))
-  {
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Split.cpp", "getValidatedSplitDimValue", "Cannot perform split op without split dimension data.");
-LABEL_13:
-    v6 = 0;
-    v5 = 2;
-    goto LABEL_7;
-  }
-
-  if (*(*a2 + 8) != 2)
-  {
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v7);
-  }
-
-  v4 = *(*a2 + 24);
-  if (*(v4 + 8) != 1)
-  {
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    goto LABEL_13;
-  }
-
-  if (*(v4 + 24) != 25)
-  {
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Utils/NDArrayUtils.hpp", "getScalarValue", "Scalar is not int32.");
-    goto LABEL_13;
-  }
-
-  v5 = (a3 & (**(a2 + 1) >> 31)) + **(a2 + 1);
-  if (v5 >= a3)
-  {
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Split.cpp", "getValidatedSplitDimValue", "Split dimension %d is invalid. Expect between 0 and %d.");
-    goto LABEL_13;
-  }
-
-  v6 = 1;
-LABEL_7:
-  *this = v5;
-  *(this + 4) = v6;
-}
-
-uint64_t anonymous namespace::validateSplitSizes(int *a1, uint64_t a2, int a3, int a4)
-{
-  if (a2 < 1)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = 0;
-    do
-    {
-      v5 = *a1++;
-      v4 += v5;
-      --a2;
-    }
-
-    while (a2);
-  }
-
-  if (v4 == a4)
-  {
-    return 0;
-  }
-
-  odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Split.cpp", "validateSplitSizes", "split operation: count of split sizes is %d. Num of elements along split dimension %d in input is %d.", v4, a3, a4);
-  return 2;
-}
-
 uint64_t ODIE::Kernels::Core::CPU::valueInferenceSplit(__int128 *a1, uint64_t **a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
   if (a3 != 3 || *(**a2 + 8) != 2)
   {
     v12 = 1;
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Utils/NDArrayUtils.hpp", "validateOperandsAreNdArrayType", "%s");
+    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Utils/NDArrayUtils.hpp", "validateOperandsAreNdArrayType", "%s", a5);
     return v12;
   }
 
@@ -172,7 +100,7 @@ LABEL_16:
     ODIE::Platform::abort(v45);
   }
 
-  v23 = *(v22 + 8);
+  v23 = *(v22 + 32);
   if (v23 >= 2)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Split.cpp", "valueInferenceSplit", "split configuration's rank can only be 0D or 1D.", v47);
@@ -194,7 +122,7 @@ LABEL_16:
       ODIE::Platform::abort(v46);
     }
 
-    v29 = *(*v21 + 3);
+    v29 = *(*v21 + 24);
     if (*(v29 + 8) != 1)
     {
       odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.", v47);
@@ -279,7 +207,7 @@ LABEL_16:
     goto LABEL_53;
   }
 
-  ODIE::Common::NDArrayType::getNumElements(v22, &v48);
+  ODIE::Common::NDArrayType::getNumElements(&v48, v22);
   v25 = v48;
   if (BYTE4(v48) != 1)
   {
@@ -391,21 +319,20 @@ uint64_t anonymous namespace::performSplit(uint64_t *a1, uint64_t a2, uint64_t a
 
 void ODIE::Kernels::Core::CPU::registerSplitKernels(_OWORD **a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2[40] = 0;
-  v3 = "coreml.split";
-  v4 = 25;
-  v5 = ODIE::Kernels::Core::CPU::typeInferenceSplit;
-  v6 = ODIE::Kernels::Core::CPU::valueInferenceSplit;
-  v7 = 0;
-  ODIE::Registration::KernelRegistry::addKernel(a1, v2, 1);
-  ODIE::Common::String::~String(v2);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1[40] = 0;
+  v2 = "coreml.split";
+  v3 = 25;
+  v4 = ODIE::Kernels::Core::CPU::typeInferenceSplit;
+  v5 = ODIE::Kernels::Core::CPU::valueInferenceSplit;
+  v6 = 0;
+  ODIE::Registration::KernelRegistry::addKernel(a1, v1, 1);
+  ODIE::Common::String::~String(v1);
 }
 
-uint64_t ODIE::Kernels::Core::CPU::typeInferenceStack(__int128 *a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t ODIE::Kernels::Core::CPU::typeInferenceStack(__int128 *a1, const ODIE::Common::Value **a2, uint64_t a3, void *a4)
 {
-  v6 = (a2 + 8);
+  v6 = a2 + 1;
   v7 = *a2;
   v8 = a3 - 1;
   if (!HaveSameNdArrayType)
@@ -609,7 +536,7 @@ void sub_25C88B058()
   JUMPOUT(0x25C88AE38);
 }
 
-void anonymous namespace::validateAndGetAxisValue(_anonymous_namespace_ *this, const ODIE::Common::Value *a2, const ODIE::Common::NDArrayType *a3)
+void anonymous namespace::validateAndGetAxisValue(uint64_t this, const ODIE::Common::Value *a2, const ODIE::Common::NDArrayType *a3)
 {
   if (*(*a2 + 8) != 2)
   {
@@ -1176,16 +1103,15 @@ LABEL_103:
 
 void ODIE::Kernels::Core::CPU::registerStackKernels(_OWORD **a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2[40] = 0;
-  v3 = "coreml.stack";
-  v4 = 25;
-  v5 = ODIE::Kernels::Core::CPU::typeInferenceStack;
-  v6 = ODIE::Kernels::Core::CPU::valueInferenceStack;
-  v7 = 0;
-  ODIE::Registration::KernelRegistry::addKernel(a1, v2, 1);
-  ODIE::Common::String::~String(v2);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1[40] = 0;
+  v2 = "coreml.stack";
+  v3 = 25;
+  v4 = ODIE::Kernels::Core::CPU::typeInferenceStack;
+  v5 = ODIE::Kernels::Core::CPU::valueInferenceStack;
+  v6 = 0;
+  ODIE::Registration::KernelRegistry::addKernel(a1, v1, 1);
+  ODIE::Common::String::~String(v1);
 }
 
 uint64_t ODIE::Kernels::Core::CPU::typeInferenceTile(__int128 *a1, uint64_t **a2, uint64_t a3, void *a4)
@@ -1251,7 +1177,7 @@ uint64_t ODIE::Kernels::Core::CPU::typeInferenceTile(__int128 *a1, uint64_t **a2
 
 uint64_t ODIE::Kernels::Core::CPU::valueInferenceTile(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t **a4, uint64_t a5)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (a3 < 1)
   {
     goto LABEL_6;
@@ -1320,100 +1246,92 @@ LABEL_11:
           v18 = **a4;
           if (*(v18 + 8) == 2)
           {
-            v34 = *(v16 + 40);
+            v33 = *(v16 + 40);
             v19 = *(v16 + 32);
             v20 = *(*(v16 + 24) + 16);
             v21 = *(v18 + 40);
             v22 = *(v18 + 32);
             v23 = v17[1];
             v24 = v15[1];
-            v42 = 0;
+            v41 = 0;
             memset(__dst, 0, sizeof(__dst));
-            ODIE::Kernels::Core::CPU::Utils::PositionIterator::PositionIterator(v37, v21, v22);
-            if (v40)
+            ODIE::Kernels::Core::CPU::Utils::PositionIterator::PositionIterator(v36, v21, v22);
+            if (v39)
             {
-LABEL_23:
-              v30 = 0;
+              return 0;
             }
 
-            else
+            while (1)
             {
-              while (1)
+              v25 = v38;
+              memcpy(__dst, v37, 4 * v38);
+              if (v19 >= 1)
               {
-                v25 = v39;
-                memcpy(__dst, v38, 4 * v39);
-                if (v19 >= 1)
+                v26 = __dst;
+                v27 = v33;
+                v28 = v19;
+                do
                 {
-                  v26 = __dst;
-                  v27 = v34;
-                  v28 = v19;
-                  do
-                  {
-                    v29 = *v27++;
-                    *v26++ %= v29;
-                    --v28;
-                  }
-
-                  while (v28);
+                  v29 = *v27++;
+                  *v26++ %= v29;
+                  --v28;
                 }
 
-                ODIE::Common::NDArrayType::ravelMultiIndex(v16, __dst, v19, &v35);
-                v30 = v35;
-                if ((v36 & 1) == 0)
-                {
-                  break;
-                }
+                while (v28);
+              }
 
-                ODIE::Common::NDArrayType::ravelMultiIndex(v18, v38, v25, &v35);
-                if ((v36 & 1) == 0)
-                {
-                  v30 = v35;
-                  goto LABEL_24;
-                }
+              ODIE::Common::NDArrayType::ravelMultiIndex(v16, __dst, v19, &v34);
+              v30 = v34;
+              if ((v35 & 1) == 0)
+              {
+                break;
+              }
 
-                memcpy((v23 + v20 * v35), (v24 + v20 * v30), v20);
-                ODIE::Kernels::Core::CPU::Utils::PositionIterator::operator++(v37);
-                if (v40 == 1)
-                {
-                  goto LABEL_23;
-                }
+              ODIE::Common::NDArrayType::ravelMultiIndex(v18, v37, v25, &v34);
+              if ((v35 & 1) == 0)
+              {
+                return v34;
+              }
+
+              memcpy((v23 + v20 * v34), (v24 + v20 * v30), v20);
+              ODIE::Kernels::Core::CPU::Utils::PositionIterator::operator++(v36);
+              if (v39 == 1)
+              {
+                return 0;
               }
             }
 
-            goto LABEL_24;
+            return v30;
           }
         }
 
-        v33 = "coreml.tile expects 1 NDArrayType output.";
+        v32 = "coreml.tile expects 1 NDArrayType output.";
       }
 
       else
       {
-        v33 = "coreml.tile expects all inputs to be packed NDArrayType.";
+        v32 = "coreml.tile expects all inputs to be packed NDArrayType.";
       }
 
       v30 = 1;
-      odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Utils/NDArrayUtils.hpp", "validateOperandsAreNdArrayType", "%s", v33);
+      odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Utils/NDArrayUtils.hpp", "validateOperandsAreNdArrayType", "%s", v32);
     }
   }
 
-LABEL_24:
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 void ODIE::Kernels::Core::CPU::registerTileKernel(_OWORD **a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2[40] = 0;
-  v3 = "coreml.tile";
-  v4 = 23;
-  v5 = ODIE::Kernels::Core::CPU::typeInferenceTile;
-  v6 = ODIE::Kernels::Core::CPU::valueInferenceTile;
-  v7 = 0;
-  ODIE::Registration::KernelRegistry::addKernel(a1, v2, 1);
-  ODIE::Common::String::~String(v2);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1[40] = 0;
+  v2 = "coreml.tile";
+  v3 = 23;
+  v4 = ODIE::Kernels::Core::CPU::typeInferenceTile;
+  v5 = ODIE::Kernels::Core::CPU::valueInferenceTile;
+  v6 = 0;
+  ODIE::Registration::KernelRegistry::addKernel(a1, v1, 1);
+  ODIE::Common::String::~String(v1);
 }
 
 uint64_t ODIE::Kernels::Core::CPU::typeInferenceTranspose(__int128 *a1, uint64_t **a2, uint64_t a3, void *a4, uint64_t a5)
@@ -1713,16 +1631,15 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceTranspose(uint64_t a1, uint64_t
 
 void ODIE::Kernels::Core::CPU::registerTransposeKernels(_OWORD **a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2[40] = 0;
-  v3 = "coreml.transpose";
-  v4 = 33;
-  v5 = ODIE::Kernels::Core::CPU::typeInferenceTranspose;
-  v6 = ODIE::Kernels::Core::CPU::valueInferenceTranspose;
-  v7 = 0;
-  ODIE::Registration::KernelRegistry::addKernel(a1, v2, 1);
-  ODIE::Common::String::~String(v2);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1[40] = 0;
+  v2 = "coreml.transpose";
+  v3 = 33;
+  v4 = ODIE::Kernels::Core::CPU::typeInferenceTranspose;
+  v5 = ODIE::Kernels::Core::CPU::valueInferenceTranspose;
+  v6 = 0;
+  ODIE::Registration::KernelRegistry::addKernel(a1, v1, 1);
+  ODIE::Common::String::~String(v1);
 }
 
 void ODIE::Common::NDArrayType::create(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unsigned int *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
@@ -1855,9 +1772,9 @@ LABEL_27:
   *(a8 + 8) = v21;
 }
 
-void ODIE::Common::NDArrayType::getNumElements(ODIE::Common::NDArrayType *this@<X0>, uint64_t a2@<X8>)
+void ODIE::Common::NDArrayType::getNumElements(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  if ((*(this + 2) & 0x8000000000000000) != 0)
+  if (this[2] < 0)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/NDArrayType.cpp", "getNumElements", "Cannot compute number of elements for unknown shaped array.");
     v7 = 0;
@@ -1874,7 +1791,7 @@ void ODIE::Common::NDArrayType::getNumElements(ODIE::Common::NDArrayType *this@<
 
     else
     {
-      v4 = *(this + 5);
+      v4 = this[5];
       v5 = 1;
       do
       {
@@ -1889,8 +1806,8 @@ void ODIE::Common::NDArrayType::getNumElements(ODIE::Common::NDArrayType *this@<
     v7 = 1;
   }
 
-  *a2 = v5;
-  *(a2 + 4) = v7;
+  *a1 = v5;
+  *(a1 + 4) = v7;
 }
 
 uint64_t ODIE::Common::NDArrayType::reconcileWith(uint64_t a1, uint64_t a2)
@@ -1909,7 +1826,7 @@ uint64_t ODIE::Common::NDArrayType::reconcileWith(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void ODIE::Common::NDArrayValue::create(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X8>)
+void ODIE::Common::NDArrayValue::create(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X4>, uint64_t a6@<X8>)
 {
   v10[0] = a3;
   v10[1] = a4;
@@ -1933,7 +1850,7 @@ void ODIE::Common::NDArrayValue::create(uint64_t a1@<X0>, uint64_t a2@<X1>, uint
 
   else
   {
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/NDArrayValue.cpp", "create", "Cannot create NDArray value without a valid NDArray type.");
+    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/NDArrayValue.cpp", "create", "Cannot create NDArray value without a valid NDArray type.", a5);
     v8 = 0;
     *a6 = 1;
   }
@@ -1941,98 +1858,95 @@ void ODIE::Common::NDArrayValue::create(uint64_t a1@<X0>, uint64_t a2@<X1>, uint
   *(a6 + 8) = v8;
 }
 
-ODIE::Common::Value *ODIE::Common::Allocator::allocInstance<ODIE::Common::NDArrayValue,ODIE::Common::NDArrayType const*&,ODIE::Common::Span<unsigned char> &,ODIE::Common::Variant<ODIE::Common::EmptyState,ODIE::Common::Allocator,void (*)(void *)> &>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+ODIE::Common::Value *ODIE::Common::Allocator::allocInstance<ODIE::Common::NDArrayValue,ODIE::Common::NDArrayType const*&,ODIE::Common::Span<unsigned char> &,ODIE::Common::Variant<ODIE::Common::EmptyState,ODIE::Common::Allocator,void (*)(void *)> &>(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t *a4)
 {
-  v17[5] = *MEMORY[0x277D85DE8];
+  v16[5] = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 16);
-  v14[0] = *a1;
-  v14[1] = v7;
-  v15 = *(a1 + 32);
-  v8 = odie_alloc_aligned(v14, 64, 8, 0);
+  v13[0] = *a1;
+  v13[1] = v7;
+  v14 = *(a1 + 32);
+  v8 = odie_alloc_aligned(v13, 64, 8, 0);
   if (v8)
   {
     v9 = *a2;
     v11 = *a3;
     v10 = a3[1];
-    v16 = *a4;
-    (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE20copyConstructStorageERKh_functions[v16])(v17, a4 + 1);
-    ODIE::Common::NDArrayValue::NDArrayValue(v8, v9, v11, v10, &v16);
-    if (v16 <= 2)
+    v15 = *a4;
+    (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE20copyConstructStorageERKh_functions[v15])(v16, a4 + 1);
+    ODIE::Common::NDArrayValue::NDArrayValue(v8, v9, v11, v10, &v15);
+    if (v15 <= 2)
     {
-      (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE14destroyStorageEv_functions[v16])(v17);
+      (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE14destroyStorageEv_functions[v15])(v16);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-ODIE::Common::Value *ODIE::Common::NDArrayValue::NDArrayValue(ODIE::Common::Value *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+ODIE::Common::Value *ODIE::Common::NDArrayValue::NDArrayValue(ODIE::Common::Value *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5)
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11 = *a5;
-  (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE20copyConstructStorageERKh_functions[v11])(v12, a5 + 1);
-  ODIE::Common::Value::Value<unsigned char>(a1, a2, a3, a4, &v11);
-  if (v11 <= 2)
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10 = *a5;
+  (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE20copyConstructStorageERKh_functions[v10])(v11, a5 + 1);
+  ODIE::Common::Value::Value<unsigned char>(a1, a2, a3, a4, &v10);
+  if (v10 <= 2)
   {
-    (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE14destroyStorageEv_functions[v11])(v12);
+    (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE14destroyStorageEv_functions[v10])(v11);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-ODIE::Common::Value *ODIE::Common::Value::Value<unsigned char>(ODIE::Common::Value *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+ODIE::Common::Value *ODIE::Common::Value::Value<unsigned char>(ODIE::Common::Value *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5)
 {
-  v11[5] = *MEMORY[0x277D85DE8];
+  v10[5] = *MEMORY[0x277D85DE8];
   *(a1 + 1) = 0;
   *(a1 + 2) = 0;
   *a1 = a2;
   if (a4 >= 1)
   {
-    v10 = *a5;
-    (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE20copyConstructStorageERKh_functions[v10])(v11, a5 + 1);
-    ODIE::Common::Value::setData<unsigned char>(a1, a3, a4, &v10, 0);
-    if (v10 <= 2)
+    v9 = *a5;
+    (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE20copyConstructStorageERKh_functions[v9])(v10, a5 + 1);
+    ODIE::Common::Value::setData<unsigned char>(a1, a3, a4, &v9, 0);
+    if (v9 <= 2)
     {
-      (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE14destroyStorageEv_functions[v10])(v11);
+      (__const__ZN4ODIE6Common7VariantIJNS0_10EmptyStateENS0_9AllocatorEPFvPvEEE14destroyStorageEv_functions[v9])(v10);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-void ODIE::Common::ScalarType::create(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void ODIE::Common::ScalarType::create(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a6@<X8>)
 {
-  v11 = a2;
-  v10 = a3;
+  v13 = a2;
+  v12 = a3;
   StorageSize = ODIE::Common::ScalarType::getStorageSize(a2);
   if (StorageSize > a3)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/ScalarType.cpp", "create", "Given scalar storage size %lld is smaller than the minimum required size %lld.", a3, StorageSize);
-    v9 = 0;
-    *a4 = 1;
+    v11 = 0;
+    *a6 = 1;
   }
 
   else
   {
-    v8 = ODIE::Common::Allocator::allocInstance<ODIE::Common::ScalarType,ODIE::Common::ScalarTypeAttr::ScalarTag &,long long &>(a1, &v11, &v10);
-    if (v8)
+    v10 = ODIE::Common::Allocator::allocInstance<ODIE::Common::ScalarType,ODIE::Common::ScalarTypeAttr::ScalarTag &,long long &>(a1, &v13, &v12);
+    if (v10)
     {
-      *a4 = v8;
-      v9 = 1;
+      *a6 = v10;
+      v11 = 1;
     }
 
     else
     {
       odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/ScalarType.cpp", "create", "Unable to allocate memory for Scalar type.");
-      v9 = 0;
-      *a4 = 4;
+      v11 = 0;
+      *a6 = 4;
     }
   }
 
-  *(a4 + 8) = v9;
+  *(a6 + 8) = v11;
 }
 
 uint64_t ODIE::Common::ScalarType::getStorageSize(int a1)
@@ -2170,193 +2084,192 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceWhere(uint64_t a1, void *a2, ui
 {
   v4 = a2[1];
   v5 = a2[2];
-  v6 = *(*a2 + 8);
-  v7 = *(**a2 + 16);
+  v6 = *(**a2 + 16);
   if (*(*v4 + 8) != 2)
+  {
+    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
+    ODIE::Platform::abort(v49);
+  }
+
+  v7 = *(*v4 + 24);
+  if (*(v7 + 8) != 1)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
     ODIE::Platform::abort(v50);
   }
 
-  v8 = *(*v4 + 24);
-  if (*(v8 + 8) != 1)
-  {
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v51);
-  }
-
-  v9 = *(v8 + 24);
+  v8 = *(v7 + 24);
   result = 3;
-  if (v9 <= 25)
+  if (v8 <= 25)
   {
-    if (v9 == 16)
+    if (v8 == 16)
     {
-      v43 = *a4;
-      v52 = *(*a2 + 8);
-      v53 = v7;
-      v44 = *(*v43 + 16);
-      if (v44 >= 1)
+      v42 = *a4;
+      v51 = *(*a2 + 8);
+      v52 = v6;
+      v43 = *(*v42 + 16);
+      if (v43 >= 1)
       {
-        v45 = 0;
-        v46 = v43[1];
-        v47 = v4[1];
-        v48 = *(v5 + 8);
+        v44 = 0;
+        v45 = v42[1];
+        v46 = v4[1];
+        v47 = *(v5 + 8);
         do
         {
-          if (*ODIE::Common::Span<BOOL const>::at(&v52, v45))
+          if (*ODIE::Common::Span<BOOL const>::at(&v51, v44))
           {
-            v49 = v47;
+            v48 = v46;
           }
 
           else
           {
-            v49 = v48;
+            v48 = v47;
           }
 
-          *(v46 + v45) = *(v49 + v45);
-          ++v45;
+          *(v45 + v44) = *(v48 + v44);
+          ++v44;
         }
 
-        while (v44 != v45);
+        while (v43 != v44);
       }
     }
 
     else
     {
-      if (v9 != 25)
+      if (v8 != 25)
       {
         return result;
       }
 
-      v19 = *a4;
-      v52 = *(*a2 + 8);
-      v53 = v7;
-      v20 = *(*v19 + 16);
-      if (v20 >= 4)
+      v18 = *a4;
+      v51 = *(*a2 + 8);
+      v52 = v6;
+      v19 = *(*v18 + 16);
+      if (v19 >= 4)
       {
-        v21 = 0;
-        v22 = v19[1];
-        v23 = v20 >> 2;
-        v24 = v4[1];
-        v25 = *(v5 + 8);
+        v20 = 0;
+        v21 = v18[1];
+        v22 = v19 >> 2;
+        v23 = v4[1];
+        v24 = *(v5 + 8);
         do
         {
-          if (*ODIE::Common::Span<BOOL const>::at(&v52, v21))
+          if (*ODIE::Common::Span<BOOL const>::at(&v51, v20))
           {
-            v26 = v24;
+            v25 = v23;
           }
 
           else
           {
-            v26 = v25;
+            v25 = v24;
           }
 
-          *(v22 + 4 * v21) = *(v26 + 4 * v21);
-          ++v21;
+          *(v21 + 4 * v20) = *(v25 + 4 * v20);
+          ++v20;
         }
 
-        while (v23 != v21);
+        while (v22 != v20);
       }
     }
   }
 
   else
   {
-    switch(v9)
+    switch(v8)
     {
       case 26:
-        v27 = *a4;
-        v52 = *(*a2 + 8);
-        v53 = v7;
-        v28 = *(*v27 + 16);
-        if (v28 >= 8)
+        v26 = *a4;
+        v51 = *(*a2 + 8);
+        v52 = v6;
+        v27 = *(*v26 + 16);
+        if (v27 >= 8)
         {
-          v29 = 0;
-          v30 = v27[1];
-          v31 = v28 >> 3;
-          v32 = v4[1];
-          v33 = *(v5 + 8);
+          v28 = 0;
+          v29 = v26[1];
+          v30 = v27 >> 3;
+          v31 = v4[1];
+          v32 = *(v5 + 8);
           do
           {
-            if (*ODIE::Common::Span<BOOL const>::at(&v52, v29))
+            if (*ODIE::Common::Span<BOOL const>::at(&v51, v28))
             {
-              v34 = v32;
+              v33 = v31;
             }
 
             else
             {
-              v34 = v33;
+              v33 = v32;
             }
 
-            *(v30 + 8 * v29) = *(v34 + 8 * v29);
-            ++v29;
+            *(v29 + 8 * v28) = *(v33 + 8 * v28);
+            ++v28;
           }
 
-          while (v31 != v29);
+          while (v30 != v28);
         }
 
         break;
       case 68:
-        v35 = *a4;
-        v52 = *(*a2 + 8);
-        v53 = v7;
-        v36 = *(*v35 + 16);
-        if (v36 >= 2)
+        v34 = *a4;
+        v51 = *(*a2 + 8);
+        v52 = v6;
+        v35 = *(*v34 + 16);
+        if (v35 >= 2)
         {
-          v37 = 0;
-          v38 = v35[1];
-          v39 = v36 >> 1;
-          v40 = v4[1];
-          v41 = *(v5 + 8);
+          v36 = 0;
+          v37 = v34[1];
+          v38 = v35 >> 1;
+          v39 = v4[1];
+          v40 = *(v5 + 8);
           do
           {
-            if (*ODIE::Common::Span<BOOL const>::at(&v52, v37))
+            if (*ODIE::Common::Span<BOOL const>::at(&v51, v36))
             {
-              v42 = v40;
+              v41 = v39;
             }
 
             else
             {
-              v42 = v41;
+              v41 = v40;
             }
 
-            *(v38 + 2 * v37) = *(v42 + 2 * v37);
-            ++v37;
+            *(v37 + 2 * v36) = *(v41 + 2 * v36);
+            ++v36;
           }
 
-          while (v39 != v37);
+          while (v38 != v36);
         }
 
         break;
       case 69:
-        v11 = *a4;
-        v52 = *(*a2 + 8);
-        v53 = v7;
-        v12 = *(*v11 + 16);
-        if (v12 >= 4)
+        v10 = *a4;
+        v51 = *(*a2 + 8);
+        v52 = v6;
+        v11 = *(*v10 + 16);
+        if (v11 >= 4)
         {
-          v13 = 0;
-          v14 = v11[1];
-          v15 = v12 >> 2;
-          v16 = v4[1];
-          v17 = *(v5 + 8);
+          v12 = 0;
+          v13 = v10[1];
+          v14 = v11 >> 2;
+          v15 = v4[1];
+          v16 = *(v5 + 8);
           do
           {
-            if (*ODIE::Common::Span<BOOL const>::at(&v52, v13))
+            if (*ODIE::Common::Span<BOOL const>::at(&v51, v12))
             {
-              v18 = v16;
+              v17 = v15;
             }
 
             else
             {
-              v18 = v17;
+              v17 = v16;
             }
 
-            *(v14 + 4 * v13) = *(v18 + 4 * v13);
-            ++v13;
+            *(v13 + 4 * v12) = *(v17 + 4 * v12);
+            ++v12;
           }
 
-          while (v15 != v13);
+          while (v14 != v12);
         }
 
         break;
@@ -2370,16 +2283,15 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceWhere(uint64_t a1, void *a2, ui
 
 void ODIE::Kernels::Core::CPU::registerWhereKernels(_OWORD **a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2[40] = 0;
-  v3 = "coreml.where";
-  v4 = 25;
-  v5 = ODIE::Kernels::Core::CPU::typeInferenceWhere;
-  v6 = ODIE::Kernels::Core::CPU::valueInferenceWhere;
-  v7 = 0;
-  ODIE::Registration::KernelRegistry::addKernel(a1, v2, 1);
-  ODIE::Common::String::~String(v2);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1[40] = 0;
+  v2 = "coreml.where";
+  v3 = 25;
+  v4 = ODIE::Kernels::Core::CPU::typeInferenceWhere;
+  v5 = ODIE::Kernels::Core::CPU::valueInferenceWhere;
+  v6 = 0;
+  ODIE::Registration::KernelRegistry::addKernel(a1, v1, 1);
+  ODIE::Common::String::~String(v1);
 }
 
 uint64_t ODIE::Common::Span<BOOL const>::at(void *a1, uint64_t a2)
@@ -2394,7 +2306,7 @@ uint64_t ODIE::Common::Span<BOOL const>::at(void *a1, uint64_t a2)
   return *a1 + a2;
 }
 
-void mlir::ODIE::Compiler::registerDialects(mlir::ODIE::Compiler::FrontendRegistry *a1)
+void mlir::ODIE::Compiler::registerDialects(uint64_t **a1)
 {
   mlir::DialectRegistry::insert<mlir::func::FuncDialect>(a1);
   mlir::DialectRegistry::insert<mlir::cf::ControlFlowDialect>(a1);
@@ -2410,15 +2322,13 @@ void mlir::ODIE::Compiler::registerDialects(mlir::ODIE::Compiler::FrontendRegist
   mlir::func::registerInlinerExtension(a1, v2);
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::ODIE::DebugInfo::DebugInfoDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::ODIE::DebugInfo::DebugInfoDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E744D0;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::DebugInfo::DebugInfoDialect,void>::id, "debuginfo", 9uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E744D0;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::DebugInfo::DebugInfoDialect,void>::id, "debuginfo", 9uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
 uint64_t mlir::ODIE::Compiler::anonymous namespace::CoreConstantFoldInterface::fold(uint64_t a1, mlir::SymbolOpInterface *a2, mlir::Operation *a3, uint64_t a4, uint64_t a5)
@@ -2940,15 +2850,13 @@ const char *llvm::detail::getTypeNameImpl<mlir::ODIE::Compiler::CoreML::Conditio
   return &v2[v3];
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::func::FuncDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::func::FuncDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E74290;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::func::FuncDialect,void>::id, "func", 4uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E74290;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::func::FuncDialect,void>::id, "func", 4uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
 uint64_t std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](uint64_t a1)
@@ -2967,92 +2875,76 @@ uint64_t std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>:
   return a1;
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::cf::ControlFlowDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::cf::ControlFlowDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E742D8;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::cf::ControlFlowDialect,void>::id, "cf", 2uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E742D8;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::cf::ControlFlowDialect,void>::id, "cf", 2uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::scf::SCFDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::scf::SCFDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E74320;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::scf::SCFDialect,void>::id, "scf", 3uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E74320;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::scf::SCFDialect,void>::id, "scf", 3uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::tensor::TensorDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::tensor::TensorDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E74368;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::tensor::TensorDialect,void>::id, "tensor", 6uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E74368;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::tensor::TensorDialect,void>::id, "tensor", 6uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::ODIE::Compiler::CoreML::CoreMLDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::ODIE::Compiler::CoreML::CoreMLDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E743B0;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::CoreMLDialect,void>::id, "coreml", 6uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E743B0;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::CoreMLDialect,void>::id, "coreml", 6uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::ODIE::Compiler::CoreMLAX::CoreMLAXDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::ODIE::Compiler::CoreMLAX::CoreMLAXDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E743F8;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreMLAX::CoreMLAXDialect,void>::id, "coremlax", 8uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E743F8;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreMLAX::CoreMLAXDialect,void>::id, "coremlax", 8uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::ODIE::Compiler::Exec::ExecDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::ODIE::Compiler::Exec::ExecDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E74550;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::Exec::ExecDialect,void>::id, "exec", 4uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E74550;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::Exec::ExecDialect,void>::id, "exec", 4uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::ODIE::Compiler::ODIX::ODIXDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::ODIE::Compiler::ODIX::ODIXDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E74440;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::ODIX::ODIXDialect,void>::id, "odix", 4uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E74440;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::ODIX::ODIXDialect,void>::id, "odix", 4uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
-uint64_t mlir::DialectRegistry::insert<mlir::LLVM::LLVMDialect>(uint64_t a1)
+uint64_t mlir::DialectRegistry::insert<mlir::LLVM::LLVMDialect>(uint64_t **a1)
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_286E74488;
-  v3[3] = v3;
-  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::LLVM::LLVMDialect,void>::id, "llvm", 4uLL, v3);
-  result = std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_286E74488;
+  v2[3] = v2;
+  mlir::DialectRegistry::insert(a1, &mlir::detail::TypeIDResolver<mlir::LLVM::LLVMDialect,void>::id, "llvm", 4uLL, v2);
+  return std::__function::__value_func<mlir::Dialect * ()(mlir::MLIRContext *)>::~__value_func[abi:nn200100](v2);
 }
 
 uint64_t llvm::MapVector<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase>,llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>,llvm::SmallVector<std::pair<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase>>,0u>>::try_emplace<std::unique_ptr<mlir::DialectExtensionBase>>(uint64_t a1, void *a2, uint64_t *a3)
@@ -3072,7 +2964,7 @@ uint64_t llvm::MapVector<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase
   return *(a1 + 24) + 16 * *(a1 + 32) - 16;
 }
 
-uint64_t llvm::SmallVectorImpl<std::pair<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase>>>::emplace_back<std::piecewise_construct_t const&,std::tuple<mlir::TypeID const&>,std::tuple<std::unique_ptr<mlir::DialectExtensionBase>&&>>(unsigned int *a1, uint64_t a2, void **a3, uint64_t **a4)
+void *llvm::SmallVectorImpl<std::pair<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase>>>::emplace_back<std::piecewise_construct_t const&,std::tuple<mlir::TypeID const&>,std::tuple<std::unique_ptr<mlir::DialectExtensionBase>&&>>(unsigned int *a1, uint64_t a2, void **a3, uint64_t **a4)
 {
   v4 = a1[2];
   if (v4 >= a1[3])
@@ -3088,7 +2980,7 @@ uint64_t llvm::SmallVectorImpl<std::pair<mlir::TypeID,std::unique_ptr<mlir::Dial
   v5[1] = v7;
   v8 = v4 + 1;
   a1[2] = v8;
-  return *a1 + 16 * v8 - 16;
+  return (*a1 + 16 * v8 - 16);
 }
 
 uint64_t llvm::DenseMapBase<llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>,mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::try_emplace<unsigned int>@<X0>(uint64_t a1@<X0>, void *a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
@@ -3198,7 +3090,7 @@ void *llvm::DenseMapBase<llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMap
     goto LABEL_3;
   }
 
-  llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::grow(a1, v6);
+  llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::grow(a1, v6, a3);
   llvm::DenseMapBase<llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>,mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::LookupBucketFor<mlir::TypeID>(a1, a2, &v8);
   v5 = *(a1 + 8);
   a3 = v8;
@@ -3212,61 +3104,61 @@ LABEL_3:
   return a3;
 }
 
-char *llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::grow(uint64_t a1, int a2)
+uint64_t *llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::grow(uint64_t *a1, int a2, unint64_t a3)
 {
-  v3 = *(a1 + 16);
-  v4 = *a1;
-  v5 = (a2 - 1) | ((a2 - 1) >> 1);
-  v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
-  v7 = ((v6 | (v6 >> 8)) >> 16) | v6 | (v6 >> 8);
-  if ((v7 + 1) > 0x40)
+  v4 = *(a1 + 4);
+  v5 = *a1;
+  v6 = (a2 - 1) | ((a2 - 1) >> 1);
+  v7 = v6 | (v6 >> 2) | ((v6 | (v6 >> 2)) >> 4);
+  v8 = ((v7 | (v7 >> 8)) >> 16) | v7 | (v7 >> 8);
+  if ((v8 + 1) > 0x40)
   {
-    v8 = v7 + 1;
+    v9 = v8 + 1;
   }
 
   else
   {
-    v8 = 64;
+    v9 = 64;
   }
 
-  *(a1 + 16) = v8;
-  result = llvm::allocate_buffer((16 * v8), 8uLL);
+  *(a1 + 4) = v9;
+  result = llvm::allocate_buffer((16 * v9), 8uLL);
   *a1 = result;
-  if (v4)
+  if (v5)
   {
-    llvm::DenseMapBase<llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>,mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::moveFromOldBuckets(a1, v4, v4 + 16 * v3);
+    llvm::DenseMapBase<llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>,mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::moveFromOldBuckets(a1, v5, v5 + 16 * v4);
 
     JUMPOUT(0x25F891030);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
-  if (v10)
+  a1[1] = 0;
+  v11 = *(a1 + 4);
+  if (v11)
   {
-    v11 = 0;
-    v12 = v10 + 0xFFFFFFFFFFFFFFFLL;
-    v13 = v12 & 0xFFFFFFFFFFFFFFFLL;
-    v14 = (v12 & 0xFFFFFFFFFFFFFFFLL) - (v12 & 1) + 2;
-    v15 = vdupq_n_s64(v13);
-    v16 = result + 16;
+    v12 = 0;
+    v13 = v11 + 0xFFFFFFFFFFFFFFFLL;
+    v14 = v13 & 0xFFFFFFFFFFFFFFFLL;
+    v15 = (v13 & 0xFFFFFFFFFFFFFFFLL) - (v13 & 1) + 2;
+    v16 = vdupq_n_s64(v14);
+    v17 = result + 2;
     do
     {
-      v17 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(vdupq_n_s64(v11), xmmword_25D0A0500)));
-      if (v17.i8[0])
+      v18 = vmovn_s64(vcgeq_u64(v16, vorrq_s8(vdupq_n_s64(v12), xmmword_25D0A0500)));
+      if (v18.i8[0])
       {
-        *(v16 - 2) = -4096;
+        *(v17 - 2) = -4096;
       }
 
-      if (v17.i8[4])
+      if (v18.i8[4])
       {
-        *v16 = -4096;
+        *v17 = -4096;
       }
 
-      v11 += 2;
-      v16 += 4;
+      v12 += 2;
+      v17 += 4;
     }
 
-    while (v14 != v11);
+    while (v15 != v12);
   }
 
   return result;
@@ -3322,7 +3214,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<mlir::TypeID,unsigned int,llvm::Dense
   return result;
 }
 
-uint64_t llvm::SmallVectorTemplateBase<std::pair<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase>>,false>::growAndEmplaceBack<std::piecewise_construct_t const&,std::tuple<mlir::TypeID const&>,std::tuple<std::unique_ptr<mlir::DialectExtensionBase>&&>>(unsigned int *a1, uint64_t a2, void **a3, uint64_t **a4)
+void *llvm::SmallVectorTemplateBase<std::pair<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase>>,false>::growAndEmplaceBack<std::piecewise_construct_t const&,std::tuple<mlir::TypeID const&>,std::tuple<std::unique_ptr<mlir::DialectExtensionBase>&&>>(unsigned int *a1, uint64_t a2, void **a3, uint64_t **a4)
 {
   v15 = 0;
   v7 = a1 + 4;
@@ -3409,24 +3301,24 @@ void mlir::DialectRegistry::addExtension<mlir::ODIE::Compiler::CoreML::CoreMLDia
   JUMPOUT(0x25F891040);
 }
 
-void llvm::SmallVectorImpl<llvm::StringRef>::append<llvm::StringRef const*,void>(uint64_t a1, _BYTE *__src, _BYTE *a3)
+void llvm::SmallVectorImpl<llvm::StringRef>::append<llvm::StringRef const*,void>(unsigned int *result, _BYTE *__src, _BYTE *a3)
 {
   v6 = a3 - __src;
-  v7 = *(a1 + 8);
+  v7 = result[2];
   v8 = v7 + ((a3 - __src) >> 4);
-  if (v8 > *(a1 + 12))
+  if (v8 > result[3])
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 16), v8, 16);
-    LODWORD(v7) = *(a1 + 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(result, result + 4, v8, 16);
+    LODWORD(v7) = result[2];
   }
 
   if (__src != a3)
   {
-    memcpy((*a1 + 16 * v7), __src, v6);
-    LODWORD(v7) = *(a1 + 8);
+    memcpy((*result + 16 * v7), __src, v6);
+    LODWORD(v7) = result[2];
   }
 
-  *(a1 + 8) = v7 + (v6 >> 4);
+  result[2] = v7 + (v6 >> 4);
 }
 
 uint64_t llvm::SmallVectorImpl<llvm::StringRef>::operator=(uint64_t a1, uint64_t a2)
@@ -3553,7 +3445,7 @@ uint64_t mlir::ODIE::Compiler::getRegisteredOptionsForPassManager(mlir::ODIE::Co
   return v4;
 }
 
-void *mlir::ODIE::Compiler::anonymous namespace::getOptionsRegistry(mlir::ODIE::Compiler::_anonymous_namespace_ *this)
+std::mutex *mlir::ODIE::Compiler::anonymous namespace::getOptionsRegistry(mlir::ODIE::Compiler::_anonymous_namespace_ *this)
 {
   if ((atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_0))
   {
@@ -3666,204 +3558,202 @@ LABEL_5:
   return v8;
 }
 
-char *llvm::DenseMap<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*,llvm::DenseMapInfo<mlir::OpPassManager const*,void>,llvm::detail::DenseMapPair<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*>>::grow(uint64_t a1, int a2)
+uint64_t *llvm::DenseMap<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*,llvm::DenseMapInfo<mlir::OpPassManager const*,void>,llvm::detail::DenseMapPair<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*>>::grow(uint64_t a1, int a2, unint64_t a3)
 {
-  v3 = *(a1 + 16);
-  v4 = *a1;
-  v5 = (a2 - 1) | ((a2 - 1) >> 1);
-  v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
-  v7 = ((v6 | (v6 >> 8)) >> 16) | v6 | (v6 >> 8);
-  if ((v7 + 1) > 0x40)
+  v4 = *(a1 + 16);
+  v5 = *a1;
+  v6 = (a2 - 1) | ((a2 - 1) >> 1);
+  v7 = v6 | (v6 >> 2) | ((v6 | (v6 >> 2)) >> 4);
+  v8 = ((v7 | (v7 >> 8)) >> 16) | v7 | (v7 >> 8);
+  if ((v8 + 1) > 0x40)
   {
-    v8 = v7 + 1;
+    v9 = v8 + 1;
   }
 
   else
   {
-    v8 = 64;
+    v9 = 64;
   }
 
-  *(a1 + 16) = v8;
-  result = llvm::allocate_buffer((16 * v8), 8uLL);
+  *(a1 + 16) = v9;
+  result = llvm::allocate_buffer((16 * v9), 8uLL);
   *a1 = result;
-  if (v4)
+  if (v5)
   {
     *(a1 + 8) = 0;
-    v10 = *(a1 + 16);
-    if (v10)
+    v11 = *(a1 + 16);
+    if (v11)
     {
-      v11 = 0;
-      v12 = v10 + 0xFFFFFFFFFFFFFFFLL;
-      v13 = v12 & 0xFFFFFFFFFFFFFFFLL;
-      v14 = (v12 & 0xFFFFFFFFFFFFFFFLL) - (v12 & 1) + 2;
-      v15 = vdupq_n_s64(v13);
-      v16 = result + 16;
+      v12 = 0;
+      v13 = v11 + 0xFFFFFFFFFFFFFFFLL;
+      v14 = v13 & 0xFFFFFFFFFFFFFFFLL;
+      v15 = (v13 & 0xFFFFFFFFFFFFFFFLL) - (v13 & 1) + 2;
+      v16 = vdupq_n_s64(v14);
+      v17 = result + 2;
       do
       {
-        v17 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(vdupq_n_s64(v11), xmmword_25D0A0500)));
-        if (v17.i8[0])
+        v18 = vmovn_s64(vcgeq_u64(v16, vorrq_s8(vdupq_n_s64(v12), xmmword_25D0A0500)));
+        if (v18.i8[0])
         {
-          *(v16 - 2) = -4096;
+          *(v17 - 2) = -4096;
         }
 
-        if (v17.i8[4])
+        if (v18.i8[4])
         {
-          *v16 = -4096;
+          *v17 = -4096;
         }
 
-        v11 += 2;
-        v16 += 4;
+        v12 += 2;
+        v17 += 4;
       }
 
-      while (v14 != v11);
+      while (v15 != v12);
     }
 
-    if (v3)
+    if (v4)
     {
-      v18 = 16 * v3;
-      v19 = v4;
+      v19 = 16 * v4;
+      v20 = v5;
       do
       {
-        v20 = *v19;
-        if ((*v19 | 0x1000) != 0xFFFFFFFFFFFFF000)
+        v21 = *v20;
+        if ((*v20 | 0x1000) != 0xFFFFFFFFFFFFF000)
         {
-          v30 = 0;
-          llvm::DenseMapBase<llvm::DenseMap<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*,llvm::DenseMapInfo<mlir::OpPassManager const*,void>,llvm::detail::DenseMapPair<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*>>,mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*,llvm::DenseMapInfo<mlir::OpPassManager const*,void>,llvm::detail::DenseMapPair<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*>>::LookupBucketFor<mlir::OpPassManager const*>(*a1, *(a1 + 16), v20, &v30);
-          v21 = v30;
-          *v30 = *v19;
-          v21[1] = v19[1];
+          v31 = 0;
+          llvm::DenseMapBase<llvm::DenseMap<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*,llvm::DenseMapInfo<mlir::OpPassManager const*,void>,llvm::detail::DenseMapPair<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*>>,mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*,llvm::DenseMapInfo<mlir::OpPassManager const*,void>,llvm::detail::DenseMapPair<mlir::OpPassManager const*,mlir::ODIE::Compiler::Options const*>>::LookupBucketFor<mlir::OpPassManager const*>(*a1, *(a1 + 16), v21, &v31);
+          v22 = v31;
+          *v31 = *v20;
+          v22[1] = v20[1];
           ++*(a1 + 8);
         }
 
-        v19 += 2;
-        v18 -= 16;
+        v20 += 2;
+        v19 -= 16;
       }
 
-      while (v18);
+      while (v19);
     }
 
     JUMPOUT(0x25F891030);
   }
 
   *(a1 + 8) = 0;
-  v22 = *(a1 + 16);
-  if (v22)
+  v23 = *(a1 + 16);
+  if (v23)
   {
-    v23 = 0;
-    v24 = v22 + 0xFFFFFFFFFFFFFFFLL;
-    v25 = v24 & 0xFFFFFFFFFFFFFFFLL;
-    v26 = (v24 & 0xFFFFFFFFFFFFFFFLL) - (v24 & 1) + 2;
-    v27 = vdupq_n_s64(v25);
-    v28 = result + 16;
+    v24 = 0;
+    v25 = v23 + 0xFFFFFFFFFFFFFFFLL;
+    v26 = v25 & 0xFFFFFFFFFFFFFFFLL;
+    v27 = (v25 & 0xFFFFFFFFFFFFFFFLL) - (v25 & 1) + 2;
+    v28 = vdupq_n_s64(v26);
+    v29 = result + 2;
     do
     {
-      v29 = vmovn_s64(vcgeq_u64(v27, vorrq_s8(vdupq_n_s64(v23), xmmword_25D0A0500)));
-      if (v29.i8[0])
+      v30 = vmovn_s64(vcgeq_u64(v28, vorrq_s8(vdupq_n_s64(v24), xmmword_25D0A0500)));
+      if (v30.i8[0])
       {
-        *(v28 - 2) = -4096;
+        *(v29 - 2) = -4096;
       }
 
-      if (v29.i8[4])
+      if (v30.i8[4])
       {
-        *v28 = -4096;
+        *v29 = -4096;
       }
 
-      v23 += 2;
-      v28 += 4;
+      v24 += 2;
+      v29 += 4;
     }
 
-    while (v26 != v23);
+    while (v27 != v24);
   }
 
   return result;
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mlir::ODIE::Compiler::applyPasses(mlir::ModuleOp,llvm::ArrayRef<std::variant<mlir::ODIE::Compiler::PassEntry,std::function<llvm::LogicalResult ()(mlir::OpPassManager &)>>>,mlir::ODIE::Compiler::Options const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mlir::ODIE::Compiler::PassEntry,std::function<llvm::LogicalResult ()(mlir::OpPassManager &)>> const&>(uint64_t **a1, unsigned __int8 *a2, const unsigned __int8 *a3)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mlir::ODIE::Compiler::applyPasses(mlir::ModuleOp,llvm::ArrayRef<std::variant<mlir::ODIE::Compiler::PassEntry,std::function<llvm::LogicalResult ()(mlir::OpPassManager &)>>>,mlir::ODIE::Compiler::Options const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mlir::ODIE::Compiler::PassEntry,std::function<llvm::LogicalResult ()(mlir::OpPassManager &)>> const&>(uint64_t ***a1, const char *a2, const unsigned __int8 *a3, unint64_t a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v4 = **a1;
-  v5 = a2[23];
-  if (v5 >= 0)
+  v41 = *MEMORY[0x277D85DE8];
+  v5 = **a1;
+  v6 = a2[23];
+  if (v6 >= 0)
   {
-    v6 = a2;
+    v7 = a2;
   }
 
   else
   {
-    v6 = *a2;
+    v7 = *a2;
   }
 
-  if (v5 >= 0)
+  if (v6 >= 0)
   {
-    v7 = a2[23];
+    v8 = a2[23];
   }
 
   else
   {
-    v7 = *(a2 + 1);
+    v8 = *(a2 + 1);
   }
 
-  v8 = mlir::PassPipelineInfo::lookup(v6, v7, a3);
-  if (v8 || ((v10 = a2[23], v10 >= 0) ? (v11 = a2) : (v11 = *a2), v10 >= 0 ? (v12 = a2[23]) : (v12 = *(a2 + 1)), (v8 = mlir::PassInfo::lookup(v11, v12, v9)) != 0))
+  v9 = mlir::PassPipelineInfo::lookup(v7, v8, a3, a4);
+  if (v9 || ((v12 = a2[23], v12 >= 0) ? (v13 = a2) : (v13 = *a2), v12 >= 0 ? (v14 = a2[23]) : (v14 = *(a2 + 1)), (v9 = mlir::PassInfo::lookup(v13, v14, v10, v11)) != 0))
   {
-    v13 = v8;
-    v35 = v37;
-    v36 = 0x600000000;
-    v14 = a2[71];
-    if (v14 >= 0)
+    v15 = v9;
+    v34 = v36;
+    v35 = 0x600000000;
+    v16 = a2[71];
+    if (v16 >= 0)
     {
-      v15 = a2[71];
+      v17 = *(a2 + 71);
     }
 
     else
     {
-      v15 = *(a2 + 7);
+      v17 = *(a2 + 7);
     }
 
-    if (v15)
+    if (v17)
     {
-      v39 = v41;
-      v40 = 0x300000000;
-      if (v14 >= 0)
+      v38 = v40;
+      v39 = 0x300000000;
+      if (v16 >= 0)
       {
-        v16 = (a2 + 48);
+        v18 = (a2 + 48);
       }
 
       else
       {
-        v16 = *(a2 + 6);
+        v18 = *(a2 + 6);
       }
 
-      llvm::SplitString(v16, v15, &v39, ",", 1);
-      if (v40)
+      llvm::SplitString(v18, v17, &v38, ",", 1);
+      if (v39)
       {
-        v17 = *v39;
-        v18 = *(v39 + 1);
-        mlir::detail::OpPassManagerImpl::nest(**(v4 + 8));
+        mlir::detail::OpPassManagerImpl::nest(**(v5 + 8));
       }
 
-      if (v39 != v41)
+      if (v38 != v40)
       {
-        free(v39);
+        free(v38);
       }
     }
 
     else
     {
-      llvm::SmallVectorTemplateBase<mlir::OpPassManager *,true>::push_back(&v35, *(v4 + 8));
+      llvm::SmallVectorTemplateBase<mlir::OpPassManager *,true>::push_back(&v34, *(v5 + 8));
     }
 
-    if (v36)
+    if (v35)
     {
-      v19 = *v4;
-      v20 = v35;
-      v21 = 8 * v36;
+      v19 = *v5;
+      v20 = v34;
+      v21 = 8 * v35;
       while (1)
       {
         v22 = a2[47];
         v23 = v22 >= 0 ? (a2 + 24) : *(a2 + 3);
         v24 = v22 >= 0 ? a2[47] : *(a2 + 4);
-        if ((std::function<llvm::LogicalResult ()(mlir::OpPassManager &,llvm::StringRef,llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>)>::operator()(v13 + 48, *v20, v23, v24, llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>::callback_fn<mlir::ODIE::Compiler::applyPasses(mlir::ModuleOp,llvm::ArrayRef<std::variant<mlir::ODIE::Compiler::PassEntry,std::function<llvm::LogicalResult ()(mlir::OpPassManager &)>>>,mlir::ODIE::Compiler::Options const&)::$_1>, v19) & 1) == 0)
+        if ((std::function<llvm::LogicalResult ()(mlir::OpPassManager &,llvm::StringRef,llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>)>::operator()(v15 + 48, *v20, v23, v24, llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>::callback_fn<mlir::ODIE::Compiler::applyPasses(mlir::ModuleOp,llvm::ArrayRef<std::variant<mlir::ODIE::Compiler::PassEntry,std::function<llvm::LogicalResult ()(mlir::OpPassManager &)>>>,mlir::ODIE::Compiler::Options const&)::$_1>, v19) & 1) == 0)
         {
           break;
         }
@@ -3876,27 +3766,27 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
         }
       }
 
-      v31 = "Failed to create pass: ";
-      v32 = 259;
-      emitDiag(*(**v19 + 616), 2, &v31, &v39);
-      if (v39)
+      v30 = "Failed to create pass: ";
+      v31 = 259;
+      emitDiag(*(**v19 + 616), 2, &v30, &v38);
+      if (v38)
       {
-        v34 = 260;
-        v33[0] = a2;
-        mlir::Diagnostic::operator<<(&v40, v33);
-        if (v39)
+        v33 = 260;
+        v32[0] = a2;
+        mlir::Diagnostic::operator<<(&v39, v32);
+        if (v38)
         {
-          mlir::Diagnostic::operator<<<12ul>(&v40, "; options: ");
-          if (v39)
+          mlir::Diagnostic::operator<<<12ul>(&v39, "; options: ");
+          if (v38)
           {
-            v34 = 260;
-            v33[0] = a2 + 24;
-            mlir::Diagnostic::operator<<(&v40, v33);
+            v33 = 260;
+            v32[0] = a2 + 24;
+            mlir::Diagnostic::operator<<(&v39, v32);
           }
         }
       }
 
-      mlir::InFlightDiagnostic::~InFlightDiagnostic(&v39);
+      mlir::InFlightDiagnostic::~InFlightDiagnostic(&v38);
       v25 = 0;
     }
 
@@ -3906,9 +3796,9 @@ LABEL_37:
       v25 = 1;
     }
 
-    if (v35 != v37)
+    if (v34 != v36)
     {
-      free(v35);
+      free(v34);
     }
   }
 
@@ -3921,54 +3811,52 @@ LABEL_37:
       v27 = a2;
     }
 
-    v28 = *v4;
+    v28 = *v5;
     if (v26 < 0)
     {
       v26 = *(a2 + 1);
     }
 
-    v38 = 1283;
-    v35 = "Failed to find registered pass or pipeline: ";
-    v37[0] = v27;
-    v37[1] = v26;
-    emitDiag(*(**v28 + 616), 2, &v35, &v39);
-    v25 = v41[184] ^ 1;
-    mlir::InFlightDiagnostic::~InFlightDiagnostic(&v39);
+    v37 = 1283;
+    v34 = "Failed to find registered pass or pipeline: ";
+    v36[0] = v27;
+    v36[1] = v26;
+    emitDiag(*(**v28 + 616), 2, &v34, &v38);
+    v25 = v40[184] ^ 1;
+    mlir::InFlightDiagnostic::~InFlightDiagnostic(&v38);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v25 & 1;
 }
 
 void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mlir::ODIE::Compiler::applyPasses(mlir::ModuleOp,llvm::ArrayRef<std::variant<mlir::ODIE::Compiler::PassEntry,std::function<llvm::LogicalResult ()(mlir::OpPassManager &)>>>,mlir::ODIE::Compiler::Options const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mlir::ODIE::Compiler::PassEntry,std::function<llvm::LogicalResult ()(mlir::OpPassManager &)>> const&>(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 24);
-  if (v4)
+  v3 = *(a2 + 24);
+  if (v3)
   {
-    v5 = **(*a1 + 8);
-    v6 = *(*v4 + 48);
+    v4 = *(*v3 + 48);
 
-    v6();
+    v4();
   }
 
   else
   {
-    v7 = std::__throw_bad_function_call[abi:nn200100]();
-    llvm::SmallVectorTemplateBase<mlir::OpPassManager *,true>::push_back(v7, v8);
+    v5 = std::__throw_bad_function_call[abi:nn200100]();
+    llvm::SmallVectorTemplateBase<mlir::OpPassManager *,true>::push_back(v5, v6);
   }
 }
 
-void llvm::SmallVectorTemplateBase<mlir::OpPassManager *,true>::push_back(uint64_t a1, uint64_t a2)
+void llvm::SmallVectorTemplateBase<mlir::OpPassManager *,true>::push_back(uint64_t result, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  if (v4 >= *(a1 + 12))
+  v4 = *(result + 8);
+  if (v4 >= *(result + 12))
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 16), v4 + 1, 8);
-    LODWORD(v4) = *(a1 + 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(result, (result + 16), v4 + 1, 8);
+    LODWORD(v4) = *(result + 8);
   }
 
-  *(*a1 + 8 * v4) = a2;
-  ++*(a1 + 8);
+  *(*result + 8 * v4) = a2;
+  ++*(result + 8);
 }
 
 void mlir::InFlightDiagnostic::~InFlightDiagnostic(mlir::InFlightDiagnostic *this)
@@ -4095,10 +3983,9 @@ uint64_t std::function<llvm::LogicalResult ()(mlir::OpPassManager &,llvm::String
 BOOL llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>::callback_fn<mlir::ODIE::Compiler::applyPasses(mlir::ModuleOp,llvm::ArrayRef<std::variant<mlir::ODIE::Compiler::PassEntry,std::function<llvm::LogicalResult ()(mlir::OpPassManager &)>>>,mlir::ODIE::Compiler::Options const&)::$_1>(uint64_t a1, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  emitDiag(*(**a1 + 616), 2, a2, v5);
-  v2 = v5[200];
-  mlir::InFlightDiagnostic::~InFlightDiagnostic(v5);
-  v3 = *MEMORY[0x277D85DE8];
+  emitDiag(*(**a1 + 616), 2, a2, v4);
+  v2 = v5;
+  mlir::InFlightDiagnostic::~InFlightDiagnostic(v4);
   return (v2 & 1) == 0;
 }
 
@@ -4225,7 +4112,7 @@ uint64_t mlir::ODIE::Compiler::anonymous namespace::UserLoggerIRPrinterConfig::p
   return result;
 }
 
-char **std::function<void ()(llvm::StringRef)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
+char ***std::function<void ()(llvm::StringRef)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6[0] = a2;
   v6[1] = a3;
@@ -4239,27 +4126,27 @@ char **std::function<void ()(llvm::StringRef)>::operator()(uint64_t a1, uint64_t
   return llvm::SmallVector<std::pair<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase>>,0u>::~SmallVector(v5);
 }
 
-char **llvm::SmallVector<std::pair<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase>>,0u>::~SmallVector(char **a1)
+char ***llvm::SmallVector<std::pair<mlir::TypeID,std::unique_ptr<mlir::DialectExtensionBase>>,0u>::~SmallVector(char ***a1)
 {
   v2 = *a1;
   v3 = *(a1 + 2);
   if (v3)
   {
-    v4 = v2 - 8;
-    v5 = 16 * v3;
+    v4 = v2 - 1;
+    v5 = 2 * v3;
     do
     {
-      v6 = *&v4[v5];
-      *&v4[v5] = 0;
+      v6 = v4[v5];
+      v4[v5] = 0;
       if (v6)
       {
         (*(*v6 + 8))(v6);
       }
 
-      v5 -= 16;
+      v5 -= 2;
     }
 
-    while (v5);
+    while (v5 * 8);
     v2 = *a1;
   }
 
@@ -4324,7 +4211,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<mlir::OpPassManager const*,mlir::ODIE
   return 0;
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -4338,13 +4225,13 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -4407,7 +4294,6 @@ uint64_t std::function<void ()(mlir::OpPassManager &,mlir::ODIE::Compiler::anony
 
 void std::__function::__func<mlir::ODIE::Compiler::registerPassPipelines(void)::$_0,std::allocator<mlir::ODIE::Compiler::registerPassPipelines(void)::$_0>,void ()(mlir::OpPassManager &,mlir::ODIE::Compiler::LegalizeToCoreOptions const&)>::operator()(uint64_t a1, mlir *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v5 = (a3 + 1840);
   v6 = *(a3 + 1863);
   if (v6 >= 0)
@@ -4489,7 +4375,7 @@ void std::__function::__func<mlir::ODIE::Compiler::registerPassPipelines(void)::
   mlir::ODIE::Compiler::populateCanonicalizationPasses(a2);
 }
 
-void mlir::ODIE::Compiler::anonymous namespace::createSpecializeDynamicShapesPassPipeline(uint64_t a1, uint64_t a2)
+void mlir::ODIE::Compiler::anonymous namespace::createSpecializeDynamicShapesPassPipeline(mlir *a1, uint64_t a2)
 {
   v10[9] = *MEMORY[0x277D85DE8];
   if (*(a2 + 568) == 1)
@@ -4519,7 +4405,7 @@ void mlir::ODIE::Compiler::anonymous namespace::EnumeratedShapesOptions::~Enumer
   *(this + 56) = &unk_286E79348;
   std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:nn200100](this + 600);
   llvm::cl::Option::~Option(this + 56);
-  mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption(this + 184);
+  mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption((this + 184));
   v3 = *(this + 20);
   if (v3)
   {
@@ -4676,7 +4562,7 @@ uint64_t llvm::SmallVector<std::string,2u>::~SmallVector(uint64_t a1)
   return a1;
 }
 
-llvm::cl::Option *mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::ListOption<llvm::cl::desc>(llvm::cl::Option *a1, const void *a2, uint64_t a3, uint64_t a4, _OWORD *a5)
+llvm::cl::Option *mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::ListOption<llvm::cl::desc>(llvm::cl::Option *a1, char *a2, uint64_t a3, uint64_t a4, _OWORD *a5)
 {
   v10[0] = a3;
   v10[1] = a4;
@@ -4693,11 +4579,11 @@ llvm::cl::Option *mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,ll
   }
 
   v9[0] = v7 + 240;
-  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100](a2 + 160, v9);
+  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100]((a2 + 160), v9);
   return a1;
 }
 
-llvm::cl::Option *llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::list<llvm::StringRef,llvm::cl::sub,llvm::cl::desc>(llvm::cl::Option *a1, uint64_t *a2, const void **a3, _OWORD *a4)
+llvm::cl::Option *llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::list<llvm::StringRef,llvm::cl::sub,llvm::cl::desc>(llvm::cl::Option *a1, uint64_t *a2, char **a3, _OWORD *a4)
 {
   v8 = llvm::cl::Option::Option(a1, 1, 0);
   *(v8 + 168) = 0;
@@ -4711,7 +4597,7 @@ llvm::cl::Option *llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mli
   *(v8 + 200) = &unk_286E76508;
   *(v8 + 208) = &unk_286E75C18;
   *(v8 + 232) = v8 + 208;
-  llvm::cl::Option::setArgStr(v8, *a2, a2[1]);
+  llvm::cl::Option::setArgStr(v8, *a2, a2[1], v9, v10, v11);
   llvm::cl::sub::apply<llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>>(a3, a1);
   *(a1 + 2) = *a4;
   llvm::cl::Option::addArgument(a1);
@@ -4796,21 +4682,21 @@ BOOL mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parse
   return (mlir::detail::pass_options::parseCommaSeparatedList(a1, a3, a4, a5, a6, llvm::function_ref<llvm::LogicalResult ()(llvm::StringRef)>::callback_fn<llvm::LogicalResult mlir::detail::pass_options::parseCommaSeparatedList<llvm::cl::parser<mlir::ODIE::FuncShape>,mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::handleOccurrence(unsigned int,llvm::StringRef,llvm::StringRef)::{lambda(mlir::ODIE::FuncShape const&)#1}>(llvm::cl::Option &,llvm::StringRef,llvm::StringRef,llvm::cl::parser<mlir::ODIE::FuncShape> &,mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::handleOccurrence(unsigned int,llvm::StringRef,llvm::StringRef)::{lambda(mlir::ODIE::FuncShape const&)#1} &&)::{lambda(llvm::StringRef)#1}>, v13) & 1) == 0;
 }
 
-void mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption(uint64_t a1)
+void mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption(llvm::cl::Option *a1)
 {
   *a1 = &unk_286E75BB0;
   std::__function::__value_func<void ()(mlir::ODIE::FuncShape const&)>::~__value_func[abi:nn200100](a1 + 208);
-  v2 = *(a1 + 176);
+  v2 = *(a1 + 22);
   if (v2)
   {
-    *(a1 + 184) = v2;
+    *(a1 + 23) = v2;
     operator delete(v2);
   }
 
-  v3 = *(a1 + 144);
+  v3 = *(a1 + 18);
   if (v3)
   {
-    *(a1 + 152) = v3;
+    *(a1 + 19) = v3;
     operator delete(v3);
   }
 
@@ -4825,46 +4711,24 @@ void mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parse
   JUMPOUT(0x25F891040);
 }
 
+void llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::setDefault(void *result)
 {
-  *a1 = &unk_286E75BB0;
-  std::__function::__value_func<void ()(mlir::ODIE::FuncShape const&)>::~__value_func[abi:nn200100](a1 + 208);
-  v2 = *(a1 + 176);
-  if (v2)
-  {
-    *(a1 + 184) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 144);
-  if (v3)
-  {
-    *(a1 + 152) = v3;
-    operator delete(v3);
-  }
-
-  v4 = (a1 + 120);
-  std::vector<mlir::ODIE::FuncShape>::__destroy_vector::operator()[abi:nn200100](&v4);
-  llvm::cl::Option::~Option(a1);
-}
-
-void llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::setDefault(void *a1)
-{
-  v2 = (a1 + 15);
-  v3 = a1[15];
-  a1[23] = a1[22];
-  for (i = a1[16]; i != v3; std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::destroy[abi:nn200100]<mlir::ODIE::FuncShape,0>(v2, i))
+  v2 = result + 15;
+  v3 = result[15];
+  result[23] = result[22];
+  for (i = result[16]; i != v3; std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::destroy[abi:nn200100]<mlir::ODIE::FuncShape,0>(v2, i))
   {
     i -= 72;
   }
 
-  a1[16] = v3;
+  result[16] = v3;
 }
 
-void mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::print(uint64_t a1, llvm::raw_ostream *this)
+void mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::print(llvm::raw_ostream *result, llvm::raw_ostream *this)
 {
-  if (*(a1 + 168) != 1 || (*(a1 + 128) == *(a1 + 120) ? (v4 = (*(a1 + 152) - *(a1 + 144)) >> 3 == 0x8E38E38E38E38E39 * ((*(a1 + 128) - *(a1 + 120)) >> 3)) : (v4 = 0), !v4))
+  if (*(result + 168) != 1 || (*(result + 16) == *(result + 15) ? (v4 = (*(result + 19) - *(result + 18)) >> 3 == 0x8E38E38E38E38E39 * ((*(result + 16) - *(result + 15)) >> 3)) : (v4 = 0), !v4))
   {
-    v5 = llvm::raw_ostream::operator<<(this, *(a1 + 16), *(a1 + 24));
+    v5 = llvm::raw_ostream::operator<<(this, *(result + 2), *(result + 3));
     v6 = *(v5 + 4);
     if (*(v5 + 3) - v6 > 1uLL)
     {
@@ -4877,11 +4741,11 @@ void mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parse
       llvm::raw_ostream::write(v5, "={", 2uLL);
     }
 
-    v7 = *(a1 + 120);
-    v8 = *(a1 + 128);
+    v7 = *(result + 15);
+    v8 = *(result + 16);
     if (v7 != v8)
     {
-      llvm::cl::parser<mlir::ODIE::FuncShape>::print(this, *(a1 + 120));
+      llvm::cl::parser<mlir::ODIE::FuncShape>::print(this, *(result + 15));
       for (i = v7 + 72; i != v8; i += 72)
       {
         v10 = *(this + 4);
@@ -4917,25 +4781,25 @@ void mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parse
 
 void mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::copyValueFrom(uint64_t a1, uint64_t a2)
 {
-  std::vector<mlir::ODIE::FuncShape>::__assign_with_size[abi:nn200100]<mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape const*>(a1 + 120, *(a2 - 120), *(a2 - 112), 0x8E38E38E38E38E39 * ((*(a2 - 112) - *(a2 - 120)) >> 3));
+  std::vector<mlir::ODIE::FuncShape>::__assign_with_size[abi:nn200100]<mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape const*>((a1 + 120), *(a2 - 120), *(a2 - 112), 0x8E38E38E38E38E39 * ((*(a2 - 112) - *(a2 - 120)) >> 3));
   *(a1 + 248) = 1;
   *(a1 + 248) = *(a2 + 8);
 }
 
 void non-virtual thunk tomlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption(uint64_t a1)
 {
-  mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption(a1 - 240);
+  mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption((a1 - 240));
 }
 
 {
-  mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption(a1 - 240);
+  mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption((a1 - 240));
 
   JUMPOUT(0x25F891040);
 }
 
 void non-virtual thunk tomlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::copyValueFrom(uint64_t a1, uint64_t a2)
 {
-  std::vector<mlir::ODIE::FuncShape>::__assign_with_size[abi:nn200100]<mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape const*>(a1 - 120, *(a2 - 120), *(a2 - 112), 0x8E38E38E38E38E39 * ((*(a2 - 112) - *(a2 - 120)) >> 3));
+  std::vector<mlir::ODIE::FuncShape>::__assign_with_size[abi:nn200100]<mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape const*>((a1 - 120), *(a2 - 120), *(a2 - 112), 0x8E38E38E38E38E39 * ((*(a2 - 112) - *(a2 - 120)) >> 3));
   *(a1 + 8) = 1;
   *(a1 + 8) = *(a2 + 8);
 }
@@ -4961,14 +4825,14 @@ uint64_t llvm::cl::Option::Option(uint64_t a1, char a2, char a3)
   return a1;
 }
 
-uint64_t llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::handleOccurrence(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::handleOccurrence(uint64_t a1, int a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6)
 {
   v10 = a2;
-  v21 = a2;
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
-  *v16 = 0u;
+  v19 = a2;
+  v18 = 0;
+  v16 = 0u;
+  v17 = 0u;
+  *v14 = 0u;
   *__p = 0u;
   if (*(a1 + 168) == 1)
   {
@@ -4976,52 +4840,50 @@ uint64_t llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::
     *(a1 + 168) = 0;
   }
 
-  v12 = llvm::cl::parser<mlir::ODIE::FuncShape>::parse(a1 + 200, a1, a3, a4, a5, a6, v16);
-  if ((v12 & 1) == 0)
+  if ((llvm::cl::parser<mlir::ODIE::FuncShape>::parse(a1 + 200, a1, a3, a4, a5, a6, v14) & 1) == 0)
   {
-    std::vector<mlir::ODIE::FuncShape>::push_back[abi:nn200100](a1 + 120, v16);
+    std::vector<mlir::ODIE::FuncShape>::push_back[abi:nn200100](a1 + 120, v14);
     *(a1 + 12) = v10;
-    std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 176), &v21);
-    v13 = *(a1 + 232);
-    if (!v13)
+    std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 176), &v19);
+    v12 = *(a1 + 232);
+    if (!v12)
     {
-      v15 = std::__throw_bad_function_call[abi:nn200100]();
-      return llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::~list(v15);
+      v13 = std::__throw_bad_function_call[abi:nn200100]();
+      llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::~list(v13);
+      return;
     }
 
-    (*(*v13 + 48))(v13, v16);
+    (*(*v12 + 48))(v12, v14);
   }
 
-  v22 = &v19;
-  std::vector<mlir::ODIE::ArgShape>::__destroy_vector::operator()[abi:nn200100](&v22);
-  if (SHIBYTE(v18) < 0)
+  v20 = &v17;
+  std::vector<mlir::ODIE::ArgShape>::__destroy_vector::operator()[abi:nn200100](&v20);
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p[1]);
   }
 
   if (SHIBYTE(__p[0]) < 0)
   {
-    operator delete(v16[0]);
+    operator delete(v14[0]);
   }
-
-  return v12;
 }
 
-void llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::~list(uint64_t a1)
+void llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::~list(llvm::cl::Option *a1)
 {
   *a1 = &unk_286E75BB0;
   std::__function::__value_func<void ()(mlir::ODIE::FuncShape const&)>::~__value_func[abi:nn200100](a1 + 208);
-  v2 = *(a1 + 176);
+  v2 = *(a1 + 22);
   if (v2)
   {
-    *(a1 + 184) = v2;
+    *(a1 + 23) = v2;
     operator delete(v2);
   }
 
-  v3 = *(a1 + 144);
+  v3 = *(a1 + 18);
   if (v3)
   {
-    *(a1 + 152) = v3;
+    *(a1 + 19) = v3;
     operator delete(v3);
   }
 
@@ -5030,21 +4892,21 @@ void llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::Func
   llvm::cl::Option::~Option(a1);
 }
 
-uint64_t llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::~list(uint64_t a1)
+uint64_t llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::~list(llvm::cl::Option *a1)
 {
   *a1 = &unk_286E75BB0;
   std::__function::__value_func<void ()(mlir::ODIE::FuncShape const&)>::~__value_func[abi:nn200100](a1 + 208);
-  v2 = *(a1 + 176);
+  v2 = *(a1 + 22);
   if (v2)
   {
-    *(a1 + 184) = v2;
+    *(a1 + 23) = v2;
     operator delete(v2);
   }
 
-  v3 = *(a1 + 144);
+  v3 = *(a1 + 18);
   if (v3)
   {
-    *(a1 + 152) = v3;
+    *(a1 + 19) = v3;
     operator delete(v3);
   }
 
@@ -5054,20 +4916,20 @@ uint64_t llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::
   return MEMORY[0x25F891040]();
 }
 
-void llvm::SmallVectorTemplateBase<llvm::cl::OptionCategory *,true>::push_back(uint64_t a1, uint64_t a2)
+void llvm::SmallVectorTemplateBase<llvm::cl::OptionCategory *,true>::push_back(uint64_t result, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  if (v4 >= *(a1 + 12))
+  v4 = *(result + 8);
+  if (v4 >= *(result + 12))
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 16), v4 + 1, 8);
-    LODWORD(v4) = *(a1 + 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(result, (result + 16), v4 + 1, 8);
+    LODWORD(v4) = *(result + 8);
   }
 
-  *(*a1 + 8 * v4) = a2;
-  ++*(a1 + 8);
+  *(*result + 8 * v4) = a2;
+  ++*(result + 8);
 }
 
-const void **llvm::cl::sub::apply<llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>>(const void **result, uint64_t a2)
+char **llvm::cl::sub::apply<llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>>(char **result, uint64_t a2)
 {
   if (*result)
   {
@@ -5096,7 +4958,7 @@ const void **llvm::cl::sub::apply<llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm
   return result;
 }
 
-const void **llvm::SmallPtrSetImpl<llvm::cl::SubCommand *>::insert@<X0>(llvm::SmallPtrSetImplBase *a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+char **llvm::SmallPtrSetImpl<llvm::cl::SubCommand *>::insert@<X0>(llvm::SmallPtrSetImplBase *a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
 {
   result = llvm::SmallPtrSetImplBase::insert_imp(a1, a2);
   v7 = 8;
@@ -5105,7 +4967,7 @@ const void **llvm::SmallPtrSetImpl<llvm::cl::SubCommand *>::insert@<X0>(llvm::Sm
     v7 = 12;
   }
 
-  v8 = *a1 + 8 * *(a1 + v7);
+  v8 = (*a1 + 8 * *(a1 + v7));
   if (v8 != result)
   {
     while (*result >= 0xFFFFFFFFFFFFFFFELL)
@@ -5124,7 +4986,7 @@ const void **llvm::SmallPtrSetImpl<llvm::cl::SubCommand *>::insert@<X0>(llvm::Sm
   return result;
 }
 
-const void **llvm::SmallPtrSetImplBase::insert_imp(llvm::SmallPtrSetImplBase *this, char *a2)
+char **llvm::SmallPtrSetImplBase::insert_imp(llvm::SmallPtrSetImplBase *this, char *a2)
 {
   if (*(this + 20) != 1)
   {
@@ -5161,34 +5023,34 @@ LABEL_6:
   return v5;
 }
 
-void llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::clear(void *a1)
+void llvm::cl::list<mlir::ODIE::FuncShape,BOOL,llvm::cl::parser<mlir::ODIE::FuncShape>>::clear(void *result)
 {
-  v2 = (a1 + 15);
-  v3 = a1[15];
-  a1[23] = a1[22];
-  for (i = a1[16]; i != v3; std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::destroy[abi:nn200100]<mlir::ODIE::FuncShape,0>(v2, i))
+  v2 = result + 15;
+  v3 = result[15];
+  result[23] = result[22];
+  for (i = result[16]; i != v3; std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::destroy[abi:nn200100]<mlir::ODIE::FuncShape,0>(v2, i))
   {
     i -= 72;
   }
 
-  a1[16] = v3;
+  result[16] = v3;
 }
 
-uint64_t llvm::cl::parser<mlir::ODIE::FuncShape>::parse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t llvm::cl::parser<mlir::ODIE::FuncShape>::parse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7)
 {
-  v66 = a5;
-  v67 = a6;
-  llvm::StringRef::split(&v66, "(", 1uLL, v63);
-  if (!v63[1] || !v65 || v64[v65 - 1] != 41)
+  v66.n128_u64[0] = a5;
+  v66.n128_u64[1] = a6;
+  llvm::StringRef::split(&v66, "(", 1uLL, &v63);
+  if (!v63.n128_u64[1] || !v65 || v64[v65 - 1] != 41)
   {
     goto LABEL_13;
   }
 
-  llvm::StringRef::split(v63, ":", 1uLL, &v61);
-  v10 = *(&__src + 1);
-  if (!*(&v61 + 1))
+  llvm::StringRef::split(&v63, ":", 1uLL, &v61);
+  v10 = __src.n128_u64[1];
+  if (!v61.n128_u64[1])
   {
-    if (*(&__src + 1))
+    if (__src.n128_u64[1])
     {
       v61 = __src;
       goto LABEL_9;
@@ -5198,7 +5060,6 @@ LABEL_13:
     *&v39[32] = 1283;
     *v39 = "'";
     *&v39[16] = v66;
-    *&v39[24] = v67;
     *__dst = v39;
     *&__dst[16] = "' is an invalid function shape specifier!";
     *&__dst[32] = 770;
@@ -5207,10 +5068,10 @@ LABEL_13:
     return v12 & 1;
   }
 
-  if (!*(&__src + 1))
+  if (!__src.n128_u64[1])
   {
     __src = v61;
-    v10 = *(&v61 + 1);
+    v10 = v61.n128_u64[1];
   }
 
 LABEL_9:
@@ -5227,32 +5088,32 @@ LABEL_9:
   __dst[23] = v10;
   if (v10)
   {
-    memmove(__dst, __src, v10);
+    memmove(__dst, __src.n128_u64[0], v10);
   }
 
   __dst[v10] = 0;
-  v14 = *(&v61 + 1);
-  if (*(&v61 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+  v14 = v61.n128_u64[1];
+  if (v61.n128_u64[1] > 0x7FFFFFFFFFFFFFF7)
   {
 LABEL_88:
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  if (*(&v61 + 1) >= 0x17uLL)
+  if (v61.n128_u64[1] >= 0x17)
   {
     operator new();
   }
 
-  v57[7] = BYTE8(v61);
-  if (*(&v61 + 1))
+  v57[7] = v61.n128_u8[8];
+  if (v61.n128_u64[1])
   {
-    memmove(&__dst[24], v61, *(&v61 + 1));
+    memmove(&__dst[24], v61.n128_u64[0], v61.n128_u64[1]);
   }
 
   __dst[v14 + 24] = 0;
   *&v57[8] = 0;
   *&v57[16] = 0;
-  *&v58 = 0;
+  v58.n128_u64[0] = 0;
   if (*(a7 + 23) < 0)
   {
     operator delete(*a7);
@@ -5273,9 +5134,9 @@ LABEL_88:
   __dst[24] = 0;
   std::vector<mlir::ODIE::ArgShape>::__vdeallocate((a7 + 48));
   *(a7 + 48) = *&v57[8];
-  *(a7 + 64) = v58;
+  *(a7 + 64) = v58.n128_u64[0];
   *&v57[16] = 0;
-  *&v58 = 0;
+  v58.n128_u64[0] = 0;
   *&v57[8] = 0;
   *v39 = &v57[8];
   std::vector<mlir::ODIE::ArgShape>::__destroy_vector::operator()[abi:nn200100](v39);
@@ -5310,13 +5171,13 @@ LABEL_88:
   llvm::StringRef::split(&v39[24], ";", 1uLL, __dst);
   *&v39[8] = *__dst;
   *&v39[24] = *&__dst[16];
-  v72 = 0u;
   v71 = 0u;
-  *&v73 = ";";
-  *(&v73 + 1) = 1;
-  llvm::StringRef::split(&v72, ";", 1uLL, __dst);
-  v71 = *__dst;
-  v72 = *&__dst[16];
+  v70 = 0u;
+  *&v72 = ";";
+  *(&v72 + 1) = 1;
+  llvm::StringRef::split(&v71, ";", 1uLL, __dst);
+  v70 = *__dst;
+  v71 = *&__dst[16];
   __dst[0] = v39[0];
   *&__dst[8] = *&v39[8];
   *&__dst[24] = *&v39[24];
@@ -5327,11 +5188,11 @@ LABEL_88:
     *&v57[8] = 1;
   }
 
-  v57[16] = v70;
-  v58 = v71;
-  v59 = v72;
-  v60 = v73;
-  if (v73 == &v70)
+  v57[16] = v69;
+  v58 = v70;
+  v59 = v71;
+  v60 = v72;
+  if (v72 == &v69)
   {
     *&v60 = &v57[16];
     *(&v60 + 1) = 1;
@@ -5347,7 +5208,7 @@ LABEL_88:
     *(&v55 + 1) = 1;
   }
 
-  v48 = v70;
+  v48 = v69;
   v49 = v58;
   v50 = v59;
   v51 = v60;
@@ -5358,7 +5219,7 @@ LABEL_88:
   }
 
   v16 = v53;
-  if (v53 == v49)
+  if (v53 == v49.n128_u64[0])
   {
 LABEL_85:
     v12 = 0;
@@ -5388,71 +5249,71 @@ LABEL_85:
 
       else
       {
-        v71 = 0uLL;
-        *&v72 = v16;
-        *(&v72 + 1) = *(&v53 + 1);
-        *&v73 = "x";
-        *(&v73 + 1) = 1;
-        llvm::StringRef::split(&v72, "x", 1uLL, v68);
-        v71 = *v68;
-        v72 = *&v68[16];
-        memset(&v68[8], 0, 32);
-        *&v69 = "x";
-        *(&v69 + 1) = 1;
-        llvm::StringRef::split(&v68[24], "x", 1uLL, &v36);
-        *&v68[8] = v36;
-        *&v68[24] = v37;
-        v39[0] = v70;
-        *&v39[8] = v71;
-        *&v39[24] = v72;
-        v40 = v73;
-        if (v73 == &v70)
+        v70 = 0uLL;
+        v71.n128_u64[0] = v16;
+        v71.n128_u64[1] = *(&v53 + 1);
+        *&v72 = "x";
+        *(&v72 + 1) = 1;
+        llvm::StringRef::split(&v71, "x", 1uLL, v67);
+        v70 = *v67;
+        v71 = *&v67[16];
+        memset(&v67[8], 0, 32);
+        *&v68 = "x";
+        *(&v68 + 1) = 1;
+        llvm::StringRef::split(&v67[24], "x", 1uLL, &v36);
+        *&v67[8] = v36;
+        *&v67[24] = v37;
+        v39[0] = v69;
+        *&v39[8] = v70;
+        *&v39[24] = v71;
+        v40 = v72;
+        if (v72 == &v69)
         {
           *&v40 = v39;
           *(&v40 + 1) = 1;
         }
 
-        v41 = v68[0];
-        v42 = *&v68[8];
-        v43 = *&v68[24];
-        v44 = v69;
-        if (v69 == v68)
+        v41 = v67[0];
+        v42 = *&v67[8];
+        v43 = *&v67[24];
+        v44 = v68;
+        if (v68 == v67)
         {
           *&v44 = &v41;
           *(&v44 + 1) = 1;
         }
 
-        v71 = *&v39[8];
-        v72 = *&v39[24];
-        v73 = v40;
+        v70 = *&v39[8];
+        v71 = *&v39[24];
+        v72 = v40;
         if (v40 == v39)
         {
-          *&v73 = &v70;
-          *(&v73 + 1) = 1;
+          *&v72 = &v69;
+          *(&v72 + 1) = 1;
         }
 
-        *&v68[8] = v42;
-        *&v68[24] = v43;
-        v69 = v44;
+        *&v67[8] = v42;
+        *&v67[24] = v43;
+        v68 = v44;
         if (v44 == &v41)
         {
-          *&v69 = v68;
-          *(&v69 + 1) = 1;
+          *&v68 = v67;
+          *(&v68 + 1) = 1;
         }
 
-        while (v71 != *&v68[8])
+        while (v70.n128_u64[0] != *&v67[8])
         {
           v34[0] = 0;
-          v36 = v71;
+          v36 = v70;
           v20 = llvm::consumeSignedInteger(&v36, 0xA, v34, v19);
-          if ((v20 & 1) != 0 || *(&v36 + 1) || v34[0] != SLODWORD(v34[0]))
+          if ((v20 & 1) != 0 || v36.n128_u64[1] || v34[0] != SLODWORD(v34[0]))
           {
             v35 = 1283;
             v34[0] = "'";
             v34[2] = v16;
             v34[3] = v17;
-            *&v36 = v34;
-            *&v37 = "' is an invalid dimension shape!";
+            v36.n128_u64[0] = v34;
+            v37.n128_u64[0] = "' is an invalid dimension shape!";
             v38 = 770;
             v31 = llvm::errs(v20);
             v32 = llvm::cl::Option::error(v33, &v36, 0, 0, v31);
@@ -5510,9 +5371,9 @@ LABEL_85:
           }
 
           v46 = v22;
-          llvm::StringRef::split(&v72, v73, *(&v73 + 1), &v36);
-          v71 = v36;
-          v72 = v37;
+          llvm::StringRef::split(&v71, v72, *(&v72 + 1), &v36);
+          v70 = v36;
+          v71 = v37;
         }
 
         memset(v39, 0, 24);
@@ -5547,7 +5408,7 @@ LABEL_80:
       v53 = *v39;
       v54 = *&v39[16];
       v16 = *v39;
-      if (*v39 == v49)
+      if (*v39 == v49.n128_u64[0])
       {
         goto LABEL_85;
       }
@@ -5559,7 +5420,7 @@ LABEL_80:
   return v12 & 1;
 }
 
-void std::vector<unsigned int>::push_back[abi:nn200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:nn200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5662,7 +5523,7 @@ void std::vector<unsigned int>::push_back[abi:nn200100](const void **a1, _DWORD 
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -5683,24 +5544,24 @@ void std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::destroy[abi:n
   }
 }
 
-__n128 llvm::StringRef::split@<Q0>(uint64_t *a1@<X0>, char *a2@<X1>, size_t a3@<X2>, uint64_t a4@<X8>)
+__n128 llvm::StringRef::split@<Q0>(__n128 *a1@<X0>, char *a2@<X1>, size_t a3@<X2>, __n128 *a4@<X8>)
 {
   v7 = llvm::StringRef::find(a1, a2, a3, 0);
   if (v7 == -1)
   {
-    *(a4 + 16) = 0;
-    *(a4 + 24) = 0;
+    a4[1].n128_u64[0] = 0;
+    a4[1].n128_u64[1] = 0;
     result = *a1;
     *a4 = *a1;
   }
 
   else
   {
-    v10 = *a1;
-    v9 = a1[1];
+    v10 = a1->n128_u64[0];
+    v9 = a1->n128_u64[1];
     if (v7 >= v9)
     {
-      v11 = a1[1];
+      v11 = a1->n128_u64[1];
     }
 
     else
@@ -5711,19 +5572,19 @@ __n128 llvm::StringRef::split@<Q0>(uint64_t *a1@<X0>, char *a2@<X1>, size_t a3@<
     v12 = v7 + a3;
     if (v9 < v7 + a3)
     {
-      v12 = a1[1];
+      v12 = a1->n128_u64[1];
     }
 
-    *a4 = v10;
-    *(a4 + 8) = v11;
-    *(a4 + 16) = v10 + v12;
-    *(a4 + 24) = v9 - v12;
+    a4->n128_u64[0] = v10;
+    a4->n128_u64[1] = v11;
+    a4[1].n128_u64[0] = v10 + v12;
+    a4[1].n128_u64[1] = v9 - v12;
   }
 
   return result;
 }
 
-uint64_t std::vector<mlir::ODIE::ArgShape>::push_back[abi:nn200100](uint64_t *a1, uint64_t a2)
+void *std::vector<mlir::ODIE::ArgShape>::push_back[abi:nn200100](uint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -5741,7 +5602,7 @@ uint64_t std::vector<mlir::ODIE::ArgShape>::push_back[abi:nn200100](uint64_t *a1
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    result = (v3 + 3);
+    result = v3 + 3;
   }
 
   a1[1] = result;
@@ -5787,7 +5648,7 @@ void std::vector<mlir::ODIE::ArgShape>::clear[abi:nn200100](uint64_t *a1)
   a1[1] = v3;
 }
 
-uint64_t std::vector<mlir::ODIE::ArgShape>::__emplace_back_slow_path<mlir::ODIE::ArgShape>(uint64_t *a1, uint64_t a2)
+void *std::vector<mlir::ODIE::ArgShape>::__emplace_back_slow_path<mlir::ODIE::ArgShape>(uint64_t *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -5922,21 +5783,21 @@ void std::__split_buffer<mlir::ODIE::ArgShape>::__destruct_at_end[abi:nn200100](
   }
 }
 
-void *std::vector<int>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<int>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<int>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 2);
+    std::vector<int>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<int>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -6006,7 +5867,7 @@ std::string *std::vector<mlir::ODIE::FuncShape>::__emplace_back_slow_path<mlir::
 
   v7 = (72 * v2);
   std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::construct[abi:nn200100]<mlir::ODIE::FuncShape,mlir::ODIE::FuncShape const&,0>(a1, v7, a2);
-  v8 = v7 + 3;
+  v8 = &v7[3];
   v9 = a1[1];
   v10 = *a1 + v7 - v9;
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<mlir::ODIE::FuncShape>,mlir::ODIE::FuncShape*>(a1, *a1, v9, v10);
@@ -6023,7 +5884,7 @@ std::string *std::vector<mlir::ODIE::FuncShape>::__emplace_back_slow_path<mlir::
   return v8;
 }
 
-uint64_t std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::construct[abi:nn200100]<mlir::ODIE::FuncShape,mlir::ODIE::FuncShape const&,0>(int a1, std::string *this, __int128 *a3)
+uint64_t *std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::construct[abi:nn200100]<mlir::ODIE::FuncShape,mlir::ODIE::FuncShape const&,0>(int a1, std::string *this, __int128 *a3)
 {
   if (*(a3 + 23) < 0)
   {
@@ -6059,7 +5920,7 @@ uint64_t std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::construct
   return std::vector<mlir::ODIE::ArgShape>::__init_with_size[abi:nn200100]<mlir::ODIE::ArgShape*,mlir::ODIE::ArgShape*>(v7, v8, v9, 0xAAAAAAAAAAAAAAABLL * ((v9 - v8) >> 3));
 }
 
-uint64_t std::vector<mlir::ODIE::ArgShape>::__init_with_size[abi:nn200100]<mlir::ODIE::ArgShape*,mlir::ODIE::ArgShape*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<mlir::ODIE::ArgShape>::__init_with_size[abi:nn200100]<mlir::ODIE::ArgShape*,mlir::ODIE::ArgShape*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6069,7 +5930,7 @@ uint64_t std::vector<mlir::ODIE::ArgShape>::__init_with_size[abi:nn200100]<mlir:
   return result;
 }
 
-void std::vector<mlir::ODIE::ArgShape>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<mlir::ODIE::ArgShape>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -6243,7 +6104,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<mlir::detail::PassOpt
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-uint64_t llvm::function_ref<llvm::LogicalResult ()(llvm::StringRef)>::callback_fn<llvm::LogicalResult mlir::detail::pass_options::parseCommaSeparatedList<llvm::cl::parser<mlir::ODIE::FuncShape>,mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::handleOccurrence(unsigned int,llvm::StringRef,llvm::StringRef)::{lambda(mlir::ODIE::FuncShape const&)#1}>(llvm::cl::Option &,llvm::StringRef,llvm::StringRef,llvm::cl::parser<mlir::ODIE::FuncShape> &,mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::handleOccurrence(unsigned int,llvm::StringRef,llvm::StringRef)::{lambda(mlir::ODIE::FuncShape const&)#1} &&)::{lambda(llvm::StringRef)#1}>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t llvm::function_ref<llvm::LogicalResult ()(llvm::StringRef)>::callback_fn<llvm::LogicalResult mlir::detail::pass_options::parseCommaSeparatedList<llvm::cl::parser<mlir::ODIE::FuncShape>,mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::handleOccurrence(unsigned int,llvm::StringRef,llvm::StringRef)::{lambda(mlir::ODIE::FuncShape const&)#1}>(llvm::cl::Option &,llvm::StringRef,llvm::StringRef,llvm::cl::parser<mlir::ODIE::FuncShape> &,mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::handleOccurrence(unsigned int,llvm::StringRef,llvm::StringRef)::{lambda(mlir::ODIE::FuncShape const&)#1} &&)::{lambda(llvm::StringRef)#1}>(uint64_t a1, unint64_t a2, unint64_t a3)
 {
   v10 = 0;
   v8 = 0u;
@@ -6304,81 +6165,80 @@ void llvm::cl::parser<mlir::ODIE::FuncShape>::print(llvm::raw_ostream *a1, const
     ++*(v6 + 4);
   }
 
-  v8 = *(v2 + 3);
-  v9 = *(v2 + 7);
-  v10 = *(v2 + 6);
-  if (v10 == v9)
+  v8 = *(v2 + 7);
+  v9 = *(v2 + 6);
+  if (v9 == v8)
   {
-    v21 = *(a1 + 4);
-    if (*(a1 + 3) == v21)
+    v20 = *(a1 + 4);
+    if (*(a1 + 3) == v20)
     {
       llvm::raw_ostream::write(a1, "*", 1uLL);
     }
 
     else
     {
-      *v21 = 42;
+      *v20 = 42;
       ++*(a1 + 4);
     }
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
     do
     {
-      std::vector<int>::vector[abi:nn200100](__p, v10);
-      if (v11)
+      std::vector<int>::vector[abi:nn200100](__p, v9);
+      if (v10)
       {
-        v12 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v12 = ";";
+        v11 = ";";
       }
 
-      llvm::raw_ostream::operator<<(a1, v12, (v11 & 1) == 0);
-      v13 = __p[1];
-      v14 = __p[0];
+      llvm::raw_ostream::operator<<(a1, v11, (v10 & 1) == 0);
+      v12 = __p[1];
+      v13 = __p[0];
       if (__p[0] == __p[1])
       {
-        v20 = *(a1 + 4);
-        if (*(a1 + 3) == v20)
+        v19 = *(a1 + 4);
+        if (*(a1 + 3) == v19)
         {
           llvm::raw_ostream::write(a1, "*", 1uLL);
         }
 
         else
         {
-          *v20 = 42;
+          *v19 = 42;
           ++*(a1 + 4);
         }
       }
 
       else
       {
-        v15 = 1;
+        v14 = 1;
         do
         {
-          v17 = *v14++;
-          v16 = v17;
-          if (v15)
+          v16 = *v13++;
+          v15 = v16;
+          if (v14)
           {
-            v18 = 0;
+            v17 = 0;
           }
 
           else
           {
-            v18 = "x";
+            v17 = "x";
           }
 
-          v19 = llvm::raw_ostream::operator<<(a1, v18, (v15 & 1) == 0);
-          llvm::write_integer(v19, v16, 0, 0);
-          v15 = 0;
+          v18 = llvm::raw_ostream::operator<<(a1, v17, (v14 & 1) == 0);
+          llvm::write_integer(v18, v15, 0, 0);
+          v14 = 0;
         }
 
-        while (v14 != v13);
+        while (v13 != v12);
       }
 
       if (__p[0])
@@ -6387,31 +6247,31 @@ void llvm::cl::parser<mlir::ODIE::FuncShape>::print(llvm::raw_ostream *a1, const
         operator delete(__p[0]);
       }
 
-      v11 = 0;
-      v10 += 3;
+      v10 = 0;
+      v9 += 3;
     }
 
-    while (v10 != v9);
+    while (v9 != v8);
   }
 
-  v22 = *(a1 + 4);
-  if (*(a1 + 3) == v22)
+  v21 = *(a1 + 4);
+  if (*(a1 + 3) == v21)
   {
     llvm::raw_ostream::write(a1, ")", 1uLL);
   }
 
   else
   {
-    *v22 = 41;
+    *v21 = 41;
     ++*(a1 + 4);
   }
 }
 
-uint64_t mlir::detail::PassOptions::Option<BOOL,llvm::cl::parser<BOOL>>::Option<llvm::cl::desc>(uint64_t a1, const void *a2, _OWORD *a3)
+uint64_t mlir::detail::PassOptions::Option<BOOL,llvm::cl::parser<BOOL>>::Option<llvm::cl::desc>(uint64_t a1, char *a2, _OWORD *a3)
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = a2;
-  v10[1] = 0;
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = a2;
+  v12[1] = 0;
   v6 = llvm::cl::Option::Option(a1, 0, 0);
   *(v6 + 120) = 0;
   *(v6 + 128) = &unk_286E76000;
@@ -6421,21 +6281,20 @@ uint64_t mlir::detail::PassOptions::Option<BOOL,llvm::cl::parser<BOOL>>::Option<
   v7 = (v6 + 152);
   *(v6 + 152) = &unk_286E76020;
   *(v6 + 176) = v6 + 152;
-  llvm::cl::Option::setArgStr(v6, "create-entry-points", 19);
-  llvm::cl::sub::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>>(v10, a1);
+  llvm::cl::Option::setArgStr(v6, "create-entry-points", 19, v8, v9, v10);
+  llvm::cl::sub::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>>(v12, a1);
   *(a1 + 32) = *a3;
   llvm::cl::Option::addArgument(a1);
   *(a1 + 192) = 0;
   *a1 = &unk_286E75F40;
   *(a1 + 184) = &unk_286E75FC0;
-  v10[0] = (a1 + 184);
-  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100](a2 + 160, v10);
-  v11[0] = &unk_286E751F0;
-  v11[1] = a1;
-  v11[3] = v11;
-  std::function<void ()(BOOL const&)>::operator=(v7, v11);
-  std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:nn200100](v11);
-  v8 = *MEMORY[0x277D85DE8];
+  v12[0] = (a1 + 184);
+  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100]((a2 + 160), v12);
+  v13[0] = &unk_286E751F0;
+  v13[1] = a1;
+  v13[3] = v13;
+  std::function<void ()(BOOL const&)>::operator=(v7, v13);
+  std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:nn200100](v13);
   return a1;
 }
 
@@ -6525,7 +6384,7 @@ uint64_t non-virtual thunk tomlir::detail::PassOptions::Option<BOOL,llvm::cl::pa
   return result;
 }
 
-const void **llvm::cl::sub::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>>(const void **result, uint64_t a2)
+char **llvm::cl::sub::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>>(char **result, uint64_t a2)
 {
   if (*result)
   {
@@ -6556,11 +6415,10 @@ const void **llvm::cl::sub::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL
 
 void *std::function<void ()(BOOL const&)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:nn200100](v5, a2);
-  std::__function::__value_func<void ()(BOOL const&)>::swap[abi:nn200100](v5, a1);
-  std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:nn200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:nn200100](v4, a2);
+  std::__function::__value_func<void ()(BOOL const&)>::swap[abi:nn200100](v4, a1);
+  std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:nn200100](v4);
   return a1;
 }
 
@@ -6591,7 +6449,7 @@ uint64_t std::__function::__value_func<void ()(BOOL const&)>::__value_func[abi:n
 
 void *std::__function::__value_func<void ()(BOOL const&)>::swap[abi:nn200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -6601,15 +6459,15 @@ void *std::__function::__value_func<void ()(BOOL const&)>::swap[abi:nn200100](vo
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -6637,7 +6495,6 @@ void *std::__function::__value_func<void ()(BOOL const&)>::swap[abi:nn200100](vo
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6665,53 +6522,52 @@ uint64_t std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:
   return a1;
 }
 
-llvm::cl::Option *mlir::detail::PassOptions::Option<BOOL,llvm::cl::parser<BOOL>>::Option<llvm::cl::desc,llvm::cl::initializer<BOOL>>(llvm::cl::Option *a1, const void *a2, uint64_t a3, uint64_t a4, __n128 *a5, _BYTE **a6)
+llvm::cl::Option *mlir::detail::PassOptions::Option<BOOL,llvm::cl::parser<BOOL>>::Option<llvm::cl::desc,llvm::cl::initializer<BOOL>>(llvm::cl::Option *a1, char *a2, uint64_t a3, uint64_t a4, __n128 *a5, unsigned __int8 **a6)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v12[0] = a3;
-  v12[1] = a4;
-  v11[0] = a2;
-  v11[1] = 0;
-  v8 = llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<BOOL>>(a1, v12, v11, a5, a6);
+  v12[4] = *MEMORY[0x277D85DE8];
+  v11[0] = a3;
+  v11[1] = a4;
+  v10[0] = a2;
+  v10[1] = 0;
+  v8 = llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<BOOL>>(a1, v11, v10, a5, a6);
   *(v8 + 192) = 0;
   *v8 = &unk_286E75F40;
   *(v8 + 23) = &unk_286E75FC0;
-  v11[0] = v8 + 184;
-  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100](a2 + 160, v11);
-  v13[0] = &unk_286E76068;
-  v13[1] = a1;
-  v13[3] = v13;
-  std::function<void ()(BOOL const&)>::operator=(a1 + 19, v13);
-  std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:nn200100](v13);
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = v8 + 184;
+  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100]((a2 + 160), v10);
+  v12[0] = &unk_286E76068;
+  v12[1] = a1;
+  v12[3] = v12;
+  std::function<void ()(BOOL const&)>::operator=(a1 + 19, v12);
+  std::__function::__value_func<void ()(BOOL const&)>::~__value_func[abi:nn200100](v12);
   return a1;
 }
 
-llvm::cl::Option *llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<BOOL>>(llvm::cl::Option *a1, uint64_t *a2, const void **a3, __n128 *a4, _BYTE **a5)
+llvm::cl::Option *llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<BOOL>>(llvm::cl::Option *a1, uint64_t *a2, char **a3, __n128 *a4, unsigned __int8 **a5)
 {
   v10 = llvm::cl::Option::Option(a1, 0, 0);
-  *(v10 + 120) = 0;
-  *(v10 + 128) = &unk_286E76000;
-  *(v10 + 136) = 0;
-  *v10 = &unk_286E79348;
-  *(v10 + 144) = &unk_286E79090;
-  *(v10 + 152) = &unk_286E76020;
-  *(v10 + 176) = v10 + 152;
-  llvm::cl::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>,llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<BOOL>>(v10, a2, a3, a4, a5);
+  v10[7].n128_u8[8] = 0;
+  v10[8].n128_u64[0] = &unk_286E76000;
+  v10[8].n128_u64[1] = 0;
+  v10->n128_u64[0] = &unk_286E79348;
+  v10[9].n128_u64[0] = &unk_286E79090;
+  v10[9].n128_u64[1] = &unk_286E76020;
+  v10[11].n128_u64[0] = &v10[9].n128_u64[1];
+  llvm::cl::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>,llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<BOOL>>(v10, a2, a3, a4, a5, v11);
   llvm::cl::Option::addArgument(a1);
   return a1;
 }
 
-__n128 llvm::cl::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>,llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<BOOL>>(uint64_t a1, uint64_t *a2, const void **a3, __n128 *a4, _BYTE **a5)
+__n128 llvm::cl::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>,llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<BOOL>>(__n128 *a1, uint64_t *a2, char **a3, __n128 *a4, unsigned __int8 **a5, uint64_t a6)
 {
-  llvm::cl::Option::setArgStr(a1, *a2, a2[1]);
+  llvm::cl::Option::setArgStr(a1, *a2, a2[1], a4, a5, a6);
   llvm::cl::sub::apply<llvm::cl::opt<BOOL,false,llvm::cl::parser<BOOL>>>(a3, a1);
   result = *a4;
-  *(a1 + 32) = *a4;
-  v10 = *a5;
-  *(a1 + 120) = **a5;
-  *(a1 + 137) = 1;
-  *(a1 + 136) = *v10;
+  a1[2] = *a4;
+  v11 = *a5;
+  a1[7].n128_u8[8] = **a5;
+  a1[8].n128_u8[9] = 1;
+  a1[8].n128_u8[8] = *v11;
   return result;
 }
 
@@ -6723,21 +6579,21 @@ uint64_t _ZNKSt3__110__function6__funcIZN4mlir6detail11PassOptions6OptionIbN4llv
   return result;
 }
 
-void std::vector<mlir::ODIE::FuncShape>::__assign_with_size[abi:nn200100]<mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape const*>(uint64_t a1, std::string *__str, std::string *a3, unint64_t a4)
+void std::vector<mlir::ODIE::FuncShape>::__assign_with_size[abi:nn200100]<mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape const*>(std::string **a1, std::string *__str, std::string *a3, unint64_t a4)
 {
   v7 = *a1;
-  if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 3) < a4)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) < a4)
   {
     std::vector<mlir::ODIE::FuncShape>::__vdeallocate(a1);
     if (a4 <= 0x38E38E38E38E38ELL)
     {
-      v8 = 0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3);
+      v8 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3);
       if (v8 <= a4)
       {
         v8 = a4;
       }
 
-      if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 3) >= 0x1C71C71C71C71C7)
+      if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) >= 0x1C71C71C71C71C7)
       {
         v9 = 0x38E38E38E38E38ELL;
       }
@@ -6753,50 +6609,50 @@ void std::vector<mlir::ODIE::FuncShape>::__assign_with_size[abi:nn200100]<mlir::
     std::vector<mlir::ODIE::FuncShape>::__throw_length_error[abi:nn200100]();
   }
 
-  v10 = *(a1 + 8) - v7;
+  v10 = a1[1] - v7;
   if (0x8E38E38E38E38E39 * (v10 >> 3) >= a4)
   {
     std::__copy_impl::operator()[abi:nn200100]<mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape*>(&v18, __str, a3, v7);
     v15 = v14;
-    v16 = *(a1 + 8);
+    v16 = a1[1];
     if (v16 != v14)
     {
       do
       {
-        v16 -= 72;
+        v16 -= 3;
         std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::destroy[abi:nn200100]<mlir::ODIE::FuncShape,0>(a1, v16);
       }
 
       while (v16 != v15);
     }
 
-    *(a1 + 8) = v15;
+    a1[1] = v15;
   }
 
   else
   {
     v11 = (__str + v10);
     std::__copy_impl::operator()[abi:nn200100]<mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape const*,mlir::ODIE::FuncShape*>(&v17, __str, (__str + v10), v7);
-    v12 = *(a1 + 8);
+    v12 = a1[1];
     if (v11 != a3)
     {
-      v13 = *(a1 + 8);
+      v13 = a1[1];
       do
       {
         std::allocator_traits<std::allocator<mlir::ODIE::FuncShape>>::construct[abi:nn200100]<mlir::ODIE::FuncShape,mlir::ODIE::FuncShape const&,0>(a1, v13, v11);
         v11 = (v11 + 72);
         v13 += 3;
-        v12 += 72;
+        v12 += 3;
       }
 
       while (v11 != a3);
     }
 
-    *(a1 + 8) = v12;
+    a1[1] = v12;
   }
 }
 
-void std::vector<mlir::ODIE::FuncShape>::__vdeallocate(void **a1)
+void std::vector<mlir::ODIE::FuncShape>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -6823,7 +6679,7 @@ void std::vector<mlir::ODIE::FuncShape>::__vdeallocate(void **a1)
   }
 }
 
-void std::vector<mlir::ODIE::FuncShape>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<mlir::ODIE::FuncShape>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x38E38E38E38E38FLL)
   {
@@ -6859,21 +6715,21 @@ std::string *std::__copy_impl::operator()[abi:nn200100]<mlir::ODIE::FuncShape co
   return v6;
 }
 
-void std::vector<mlir::ODIE::ArgShape>::__assign_with_size[abi:nn200100]<mlir::ODIE::ArgShape*,mlir::ODIE::ArgShape*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<mlir::ODIE::ArgShape>::__assign_with_size[abi:nn200100]<mlir::ODIE::ArgShape*,mlir::ODIE::ArgShape*>(void ***a1, char **a2, char **a3, unint64_t a4)
 {
   v7 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) < a4)
   {
     std::vector<mlir::ODIE::ArgShape>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v8 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v8 = 0x5555555555555556 * (a1[2] - *a1);
       if (v8 <= a4)
       {
         v8 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
       {
         v9 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -6941,7 +6797,7 @@ void std::vector<mlir::ODIE::ArgShape>::__assign_with_size[abi:nn200100]<mlir::O
   }
 }
 
-char **std::__copy_impl::operator()[abi:nn200100]<mlir::ODIE::ArgShape *,mlir::ODIE::ArgShape *,mlir::ODIE::ArgShape *>(int a1, char **a2, char **a3, char **a4)
+char **std::__copy_impl::operator()[abi:nn200100]<mlir::ODIE::ArgShape *,mlir::ODIE::ArgShape *,mlir::ODIE::ArgShape *>(int a1, char **a2, char **a3, void **a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -6964,7 +6820,7 @@ char **std::__copy_impl::operator()[abi:nn200100]<mlir::ODIE::ArgShape *,mlir::O
   return v5;
 }
 
-void *std::vector<int>::__assign_with_size[abi:nn200100]<int *,int *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<int>::__assign_with_size[abi:nn200100]<int *,int *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7039,20 +6895,20 @@ void *std::vector<int>::__assign_with_size[abi:nn200100]<int *,int *>(void *resu
   return result;
 }
 
-void llvm::SmallVectorImpl<mlir::ODIE::FuncShape>::append<std::__wrap_iter<mlir::ODIE::FuncShape const*>,void>(uint64_t a1, uint64_t a2, uint64_t a3)
+void llvm::SmallVectorImpl<mlir::ODIE::FuncShape>::append<std::__wrap_iter<mlir::ODIE::FuncShape const*>,void>(void *result, uint64_t a2, uint64_t a3)
 {
   v6 = 0x8E38E38E38E38E39 * ((a3 - a2) >> 3);
-  v7 = *(a1 + 8);
-  if (v6 + v7 > *(a1 + 12))
+  v7 = *(result + 2);
+  if (v6 + v7 > *(result + 3))
   {
-    llvm::SmallVectorTemplateBase<mlir::ODIE::FuncShape,false>::grow(a1, v6 + v7);
-    LODWORD(v7) = *(a1 + 8);
+    llvm::SmallVectorTemplateBase<mlir::ODIE::FuncShape,false>::grow(result, v6 + v7);
+    LODWORD(v7) = *(result + 2);
   }
 
   if (a3 != a2)
   {
     v8 = 0;
-    v9 = *a1 + 72 * v7;
+    v9 = *result + 72 * v7;
     do
     {
       v10 = (v9 + v8);
@@ -7086,17 +6942,17 @@ void llvm::SmallVectorImpl<mlir::ODIE::FuncShape>::append<std::__wrap_iter<mlir:
       v16 = v9 + v8;
       *(v16 + 48) = 0;
       *(v16 + 56) = 0;
-      v17 = v9 + v8 + 48;
-      *(v17 + 16) = 0;
+      v17 = (v9 + v8 + 48);
+      v17[2] = 0;
       std::vector<mlir::ODIE::ArgShape>::__init_with_size[abi:nn200100]<mlir::ODIE::ArgShape*,mlir::ODIE::ArgShape*>(v17, *(a2 + v8 + 48), *(a2 + v8 + 56), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + v8 + 56) - *(a2 + v8 + 48)) >> 3));
       v8 += 72;
     }
 
     while (a2 + v8 != a3);
-    LODWORD(v7) = *(a1 + 8);
+    LODWORD(v7) = *(result + 2);
   }
 
-  *(a1 + 8) = v7 + v6;
+  *(result + 2) = v7 + v6;
 }
 
 void llvm::SmallVectorTemplateBase<mlir::ODIE::FuncShape,false>::grow(uint64_t a1, unint64_t a2)
@@ -7115,7 +6971,7 @@ void llvm::SmallVectorTemplateBase<mlir::ODIE::FuncShape,false>::grow(uint64_t a
   *(a1 + 12) = v5;
 }
 
-void llvm::SmallVectorTemplateBase<mlir::ODIE::FuncShape,false>::moveElementsForGrow(__int128 **a1, uint64_t a2)
+void llvm::SmallVectorTemplateBase<mlir::ODIE::FuncShape,false>::moveElementsForGrow(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
   v4 = *(a1 + 2);
@@ -7294,12 +7150,12 @@ void std::__function::__func<mlir::PassPipelineRegistration<mlir::ODIE::Compiler
 
 mlir::ODIE::Compiler::LegalizeToCoreOptions *std::__function::__func<mlir::PassPipelineRegistration<mlir::ODIE::Compiler::LegalizeToCoreOptions>::PassPipelineRegistration(llvm::StringRef,llvm::StringRef,std::function<void ()(mlir::OpPassManager &,mlir::ODIE::Compiler::LegalizeToCoreOptions const&)>)::{lambda(mlir::OpPassManager &,llvm::StringRef,llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>)#1},std::allocator<mlir::PassPipelineRegistration<mlir::ODIE::Compiler::LegalizeToCoreOptions>::PassPipelineRegistration(llvm::StringRef,llvm::StringRef,std::function<void ()(mlir::OpPassManager &,mlir::ODIE::Compiler::LegalizeToCoreOptions const&)>)::{lambda(mlir::OpPassManager &,llvm::StringRef,llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>)#1}>,llvm::LogicalResult ()(mlir::OpPassManager &,llvm::StringRef,llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>)>::operator()(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v14[295] = *MEMORY[0x277D85DE8];
+  v13[295] = *MEMORY[0x277D85DE8];
   v5 = *a3;
   v6 = a3[1];
-  v7 = mlir::ODIE::Compiler::LegalizeToCoreOptions::LegalizeToCoreOptions(v14);
+  v7 = mlir::ODIE::Compiler::LegalizeToCoreOptions::LegalizeToCoreOptions(v13);
   v8 = llvm::errs(v7);
-  if ((mlir::detail::PassOptions::parseFromString(v14, v5, v6, v8) & 1) == 0)
+  if ((mlir::detail::PassOptions::parseFromString(v13, v5, v6, v8) & 1) == 0)
   {
     v10 = 0;
     goto LABEL_5;
@@ -7308,21 +7164,20 @@ mlir::ODIE::Compiler::LegalizeToCoreOptions *std::__function::__func<mlir::PassP
   v9 = *(a1 + 32);
   if (v9)
   {
-    (*(*v9 + 48))(v9, a2, v14);
+    (*(*v9 + 48))(v9, a2, v13);
     v10 = 1;
 LABEL_5:
-    mlir::ODIE::Compiler::LegalizeToCoreOptions::~LegalizeToCoreOptions(v14);
-    v11 = *MEMORY[0x277D85DE8];
+    mlir::ODIE::Compiler::LegalizeToCoreOptions::~LegalizeToCoreOptions(v13);
     return v10;
   }
 
-  v13 = std::__throw_bad_function_call[abi:nn200100]();
-  return mlir::ODIE::Compiler::LegalizeToCoreOptions::LegalizeToCoreOptions(v13);
+  v12 = std::__throw_bad_function_call[abi:nn200100]();
+  return mlir::ODIE::Compiler::LegalizeToCoreOptions::LegalizeToCoreOptions(v12);
 }
 
 mlir::ODIE::Compiler::LegalizeToCoreOptions *mlir::ODIE::Compiler::LegalizeToCoreOptions::LegalizeToCoreOptions(mlir::ODIE::Compiler::LegalizeToCoreOptions *this)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *this = 0u;
   *(this + 1) = 0u;
   *(this + 4) = this + 48;
@@ -7337,24 +7192,24 @@ mlir::ODIE::Compiler::LegalizeToCoreOptions *mlir::ODIE::Compiler::LegalizeToCor
   __str.__r_.__value_.__r.__words[0] = "Materialize the given enumerated shapes into the graph as static-shaped functions. Example: 'main:(3x3;4x3),main:(4x3;4x3)'";
   __str.__r_.__value_.__l.__size_ = 123;
   mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::ListOption<llvm::cl::desc>((this + 184), this, "enumerated-shapes", 17, &__str);
-  *&v7 = "The action to take when we encounter a graph with constants marked as 'mutable'";
-  *(&v7 + 1) = 79;
-  v5 = 1;
-  v6 = &v5;
+  *&v9 = "The action to take when we encounter a graph with constants marked as 'mutable'";
+  *(&v9 + 1) = 79;
+  v7 = 1;
+  v8 = &v7;
   __src = "hoistToArg";
-  v11 = 10;
-  v13 = "hoist mutable weights to graph arguments";
-  v14 = 40;
-  v15 = "insertOptimizationBarrier";
-  v16 = 25;
-  v12 = 0;
-  v17 = 1;
-  v18 = "insert an optimization barrier after each mutable weight";
-  v19 = 56;
+  v13 = 10;
+  v15 = "hoist mutable weights to graph arguments";
+  v16 = 40;
+  v17 = "insertOptimizationBarrier";
+  v18 = 25;
+  v14 = 0;
+  v19 = 1;
+  v20 = "insert an optimization barrier after each mutable weight";
+  v21 = 56;
   __str.__r_.__value_.__r.__words[0] = &__str.__r_.__value_.__r.__words[2];
   __str.__r_.__value_.__l.__size_ = 0x400000000;
-  llvm::SmallVectorImpl<llvm::cl::OptionEnumValue>::append<llvm::cl::OptionEnumValue const*,void>(&__str, &__src, &v20);
-  mlir::detail::PassOptions::Option<mlir::ODIE::Compiler::Action,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::Option<llvm::cl::desc,llvm::cl::initializer<mlir::ODIE::Compiler::Action>,llvm::cl::ValuesClass>(this + 448, this, "mutable-arg-action", 18, &v7, &v6, &__str);
+  llvm::SmallVectorImpl<llvm::cl::OptionEnumValue>::append<llvm::cl::OptionEnumValue const*,void>(&__str, &__src, &v22);
+  mlir::detail::PassOptions::Option<mlir::ODIE::Compiler::Action,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::Option<llvm::cl::desc,llvm::cl::initializer<mlir::ODIE::Compiler::Action>,llvm::cl::ValuesClass>(this + 448, this, "mutable-arg-action", 18, &v9, &v8, &__str);
   if (__str.__r_.__value_.__l.__data_ != &__str.__r_.__value_.__r.__words[2])
   {
     free(__str.__r_.__value_.__l.__data_);
@@ -7364,16 +7219,16 @@ mlir::ODIE::Compiler::LegalizeToCoreOptions *mlir::ODIE::Compiler::LegalizeToCor
   __str.__r_.__value_.__l.__size_ = 34;
   mlir::detail::PassOptions::ListOption<std::string,llvm::cl::parser<std::string>>::ListOption<llvm::cl::desc>((this + 1056), this, "import-search-paths", 19, &__str);
   __str.__r_.__value_.__l.__size_ = 68;
-  LOBYTE(v7) = 0;
-  __src = &v7;
+  LOBYTE(v9) = 0;
+  __src = &v9;
   mlir::detail::PassOptions::Option<BOOL,llvm::cl::parser<BOOL>>::Option<llvm::cl::desc,llvm::cl::initializer<BOOL>>((this + 1320), this, "promote-buffers-to-mutable", 26, &__str, &__src);
   __str.__r_.__value_.__r.__words[0] = "Encloses mil dialect ops within coreml.graph() if a mil op is decomposed to multiple coreml ops.";
   __str.__r_.__value_.__l.__size_ = 96;
-  LOBYTE(v7) = 0;
-  __src = &v7;
+  LOBYTE(v9) = 0;
+  __src = &v9;
   mlir::detail::PassOptions::Option<BOOL,llvm::cl::parser<BOOL>>::Option<llvm::cl::desc,llvm::cl::initializer<BOOL>>((this + 1520), this, "isolate-mil-ops", 15, &__str, &__src);
   __src = this;
-  v11 = 0;
+  v13 = 0;
   v2 = llvm::cl::Option::Option(this + 1720, 0, 0);
   *(this + 232) = 0;
   *(this + 115) = 0u;
@@ -7385,7 +7240,7 @@ mlir::ODIE::Compiler::LegalizeToCoreOptions *mlir::ODIE::Compiler::LegalizeToCor
   *(this + 238) = &unk_286E791E0;
   *(this + 239) = &unk_286E75EB0;
   *(this + 242) = this + 1912;
-  llvm::cl::Option::setArgStr(v2, "source-dialect", 14);
+  llvm::cl::Option::setArgStr(v2, "source-dialect", 14, v3, v4, v5);
   llvm::cl::sub::apply<llvm::cl::opt<std::string,false,llvm::cl::parser<std::string>>>(&__src, this + 1720);
   *(this + 219) = "MLIR dialect of the input module.";
   *(this + 220) = 33;
@@ -7410,61 +7265,59 @@ mlir::ODIE::Compiler::LegalizeToCoreOptions *mlir::ODIE::Compiler::LegalizeToCor
   std::function<void ()(std::string const&)>::operator=(this + 239, &__str);
   std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:nn200100](&__str);
   __str.__r_.__value_.__l.__size_ = 63;
-  LOBYTE(v7) = 1;
-  __src = &v7;
+  LOBYTE(v9) = 1;
+  __src = &v9;
   mlir::detail::PassOptions::Option<BOOL,llvm::cl::parser<BOOL>>::Option<llvm::cl::desc,llvm::cl::initializer<BOOL>>((this + 1960), this, "remove-unused-externalized-graphs", 33, &__str, &__src);
   __str.__r_.__value_.__r.__words[0] = "Removes extra broadcast ops from eligible ops.";
   __str.__r_.__value_.__l.__size_ = 46;
-  LOBYTE(v7) = 0;
-  __src = &v7;
+  LOBYTE(v9) = 0;
+  __src = &v9;
   mlir::detail::PassOptions::Option<BOOL,llvm::cl::parser<BOOL>>::Option<llvm::cl::desc,llvm::cl::initializer<BOOL>>((this + 2160), this, "elide-explicit-broadcast", 24, &__str, &__src);
-  v3 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void llvm::SmallVectorImpl<llvm::cl::OptionEnumValue>::append<llvm::cl::OptionEnumValue const*,void>(uint64_t a1, _BYTE *__src, _BYTE *a3)
+void llvm::SmallVectorImpl<llvm::cl::OptionEnumValue>::append<llvm::cl::OptionEnumValue const*,void>(unsigned int *result, _BYTE *__src, _BYTE *a3)
 {
   v6 = a3 - __src;
   v7 = 0xCCCCCCCCCCCCCCCDLL * ((a3 - __src) >> 3);
-  v8 = *(a1 + 8);
-  if (v7 + v8 > *(a1 + 12))
+  v8 = result[2];
+  if (v7 + v8 > result[3])
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 16), v7 + v8, 40);
-    LODWORD(v8) = *(a1 + 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(result, result + 4, v7 + v8, 40);
+    LODWORD(v8) = result[2];
   }
 
   if (__src != a3)
   {
-    memcpy((*a1 + 40 * v8), __src, v6);
-    LODWORD(v8) = *(a1 + 8);
+    memcpy((*result + 40 * v8), __src, v6);
+    LODWORD(v8) = result[2];
   }
 
-  *(a1 + 8) = v8 + v7;
+  result[2] = v8 + v7;
 }
 
-uint64_t mlir::detail::PassOptions::Option<mlir::ODIE::Compiler::Action,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::Option<llvm::cl::desc,llvm::cl::initializer<mlir::ODIE::Compiler::Action>,llvm::cl::ValuesClass>(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, _OWORD *a5, int **a6, uint64_t *a7)
+uint64_t mlir::detail::PassOptions::Option<mlir::ODIE::Compiler::Action,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::Option<llvm::cl::desc,llvm::cl::initializer<mlir::ODIE::Compiler::Action>,llvm::cl::ValuesClass>(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, _OWORD *a5, int **a6, uint64_t *a7)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = a3;
-  v13[1] = a4;
-  v12[0] = a2;
-  v12[1] = 0;
-  v9 = llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<mlir::ODIE::Compiler::Action>,llvm::cl::ValuesClass>(a1, v13, v12, a5, a6, a7);
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = a3;
+  v12[1] = a4;
+  v11[0] = a2;
+  v11[1] = 0;
+  v9 = llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<mlir::ODIE::Compiler::Action>,llvm::cl::ValuesClass>(a1, v12, v11, a5, a6, a7);
   *(v9 + 600) = 0;
   *v9 = &unk_286E75280;
   *(v9 + 592) = &unk_286E75300;
-  v12[0] = (v9 + 592);
-  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100](a2 + 160, v12);
-  v14[0] = &unk_286E754D0;
-  v14[1] = a1;
-  v14[3] = v14;
-  std::function<void ()(mlir::ODIE::Compiler::Action const&)>::operator=((a1 + 560), v14);
-  std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)>::~__value_func[abi:nn200100](v14);
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = (v9 + 592);
+  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100]((a2 + 160), v11);
+  v13[0] = &unk_286E754D0;
+  v13[1] = a1;
+  v13[3] = v13;
+  std::function<void ()(mlir::ODIE::Compiler::Action const&)>::operator=((a1 + 560), v13);
+  std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)>::~__value_func[abi:nn200100](v13);
   return a1;
 }
 
-uint64_t llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<mlir::ODIE::Compiler::Action>,llvm::cl::ValuesClass>(uint64_t a1, uint64_t *a2, const void **a3, _OWORD *a4, int **a5, uint64_t *a6)
+uint64_t llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc,llvm::cl::initializer<mlir::ODIE::Compiler::Action>,llvm::cl::ValuesClass>(uint64_t a1, uint64_t *a2, char **a3, _OWORD *a4, int **a5, uint64_t *a6)
 {
   v12 = llvm::cl::Option::Option(a1, 0, 0);
   *(v12 + 120) = 0;
@@ -7477,13 +7330,13 @@ uint64_t llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOpti
   *(v12 + 144) = &unk_286E753E8;
   *(v12 + 560) = &unk_286E75488;
   *(v12 + 584) = v12 + 560;
-  llvm::cl::Option::setArgStr(v12, *a2, a2[1]);
+  llvm::cl::Option::setArgStr(v12, *a2, a2[1], v13, v14, v15);
   llvm::cl::sub::apply<llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>>(a3, a1);
   *(a1 + 32) = *a4;
-  v13 = **a5;
-  *(a1 + 120) = v13;
+  v16 = **a5;
+  *(a1 + 120) = v16;
   *(a1 + 140) = 1;
-  *(a1 + 136) = v13;
+  *(a1 + 136) = v16;
   llvm::cl::ValuesClass::apply<llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>>(a6, a1);
   llvm::cl::Option::addArgument(a1);
   return a1;
@@ -7557,7 +7410,7 @@ void mlir::detail::PassOptions::Option<mlir::ODIE::Compiler::Action,mlir::detail
   llvm::cl::Option::~Option(a1);
 }
 
-llvm::raw_ostream *llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::printOptionValue(llvm::raw_ostream *result, int a2, char a3)
+llvm::raw_ostream *llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::printOptionValue(llvm::raw_ostream *result, unint64_t a2, char a3)
 {
   if ((a3 & 1) != 0 || *(result + 140) != 1 || *(result + 34) != *(result + 30))
   {
@@ -7685,22 +7538,6 @@ void mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action
   JUMPOUT(0x25F891040);
 }
 
-uint64_t llvm::cl::parser<mlir::ODIE::Compiler::Action>::getOption(uint64_t a1, unsigned int a2)
-{
-  v2 = (*(a1 + 16) + 48 * a2);
-  result = *v2;
-  v4 = v2[1];
-  return result;
-}
-
-uint64_t llvm::cl::parser<mlir::ODIE::Compiler::Action>::getDescription(uint64_t a1, unsigned int a2)
-{
-  v2 = *(a1 + 16) + 48 * a2;
-  result = *(v2 + 16);
-  v4 = *(v2 + 24);
-  return result;
-}
-
 void *llvm::cl::parser<mlir::ODIE::Compiler::Action>::~parser(void *a1)
 {
   *a1 = &unk_286E75438;
@@ -7725,7 +7562,7 @@ void llvm::cl::parser<mlir::ODIE::Compiler::Action>::~parser(void *a1)
   JUMPOUT(0x25F891040);
 }
 
-const void **llvm::cl::sub::apply<llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>>(const void **result, uint64_t a2)
+char **llvm::cl::sub::apply<llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>>(char **result, uint64_t a2)
 {
   if (*result)
   {
@@ -7754,13 +7591,13 @@ const void **llvm::cl::sub::apply<llvm::cl::opt<mlir::ODIE::Compiler::Action,fal
   return result;
 }
 
-void llvm::cl::ValuesClass::apply<llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>>(uint64_t *a1, uint64_t a2)
+void llvm::cl::ValuesClass::apply<llvm::cl::opt<mlir::ODIE::Compiler::Action,false,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>>(uint64_t *result, uint64_t a2)
 {
-  v2 = *(a1 + 2);
+  v2 = *(result + 2);
   if (v2)
   {
-    v4 = *a1;
-    v5 = *a1 + 40 * v2;
+    v4 = *result;
+    v5 = *result + 40 * v2;
     do
     {
       llvm::cl::parser<mlir::ODIE::Compiler::Action>::addLiteralOption<int>(a2 + 144, *v4, *(v4 + 8), (v4 + 16), *(v4 + 24), *(v4 + 32));
@@ -7861,11 +7698,10 @@ void llvm::SmallVectorTemplateBase<llvm::cl::parser<mlir::ODIE::Compiler::Action
 
 void *std::function<void ()(mlir::ODIE::Compiler::Action const&)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)>::__value_func[abi:nn200100](v5, a2);
-  std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)>::swap[abi:nn200100](v5, a1);
-  std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)>::~__value_func[abi:nn200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)>::__value_func[abi:nn200100](v4, a2);
+  std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)>::swap[abi:nn200100](v4, a1);
+  std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)>::~__value_func[abi:nn200100](v4);
   return a1;
 }
 
@@ -7896,7 +7732,7 @@ uint64_t std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action cons
 
 void *std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)>::swap[abi:nn200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -7906,15 +7742,15 @@ void *std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -7942,7 +7778,6 @@ void *std::__function::__value_func<void ()(mlir::ODIE::Compiler::Action const&)
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8031,18 +7866,18 @@ LABEL_13:
   return result;
 }
 
-void llvm::cl::generic_parser_base::getExtraOptionNames(void *a1, uint64_t a2)
+void llvm::cl::generic_parser_base::getExtraOptionNames(void *result, uint64_t a2)
 {
-  if (!*(a1[1] + 24))
+  if (!*(result[1] + 24))
   {
-    v4 = (*(*a1 + 16))(a1);
+    v4 = (*(*result + 16))(result);
     if (v4)
     {
       v5 = v4;
       v6 = 0;
       do
       {
-        v7 = (*(*a1 + 24))(a1, v6);
+        v7 = (*(*result + 24))(result, v6);
         llvm::SmallVectorTemplateBase<llvm::StringRef,true>::push_back(a2, v7, v8);
         v6 = (v6 + 1);
       }
@@ -8052,19 +7887,19 @@ void llvm::cl::generic_parser_base::getExtraOptionNames(void *a1, uint64_t a2)
   }
 }
 
-void llvm::SmallVectorTemplateBase<llvm::StringRef,true>::push_back(uint64_t a1, uint64_t a2, uint64_t a3)
+void llvm::SmallVectorTemplateBase<llvm::StringRef,true>::push_back(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a1 + 8);
-  if (v6 >= *(a1 + 12))
+  v6 = *(result + 8);
+  if (v6 >= *(result + 12))
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 16), v6 + 1, 16);
-    LODWORD(v6) = *(a1 + 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(result, (result + 16), v6 + 1, 16);
+    LODWORD(v6) = *(result + 8);
   }
 
-  v7 = (*a1 + 16 * v6);
+  v7 = (*result + 16 * v6);
   *v7 = a2;
   v7[1] = a3;
-  ++*(a1 + 8);
+  ++*(result + 8);
 }
 
 llvm::raw_ostream *mlir::detail::PassOptions::printValue<mlir::ODIE::Compiler::Action>(llvm::raw_ostream *a1, uint64_t a2, _DWORD *a3)
@@ -8075,7 +7910,7 @@ llvm::raw_ostream *mlir::detail::PassOptions::printValue<mlir::ODIE::Compiler::A
   return llvm::raw_ostream::operator<<(a1, *(i - 44), *(i - 36));
 }
 
-llvm::cl::Option *mlir::detail::PassOptions::ListOption<std::string,llvm::cl::parser<std::string>>::ListOption<llvm::cl::desc>(llvm::cl::Option *a1, const void *a2, uint64_t a3, uint64_t a4, _OWORD *a5)
+llvm::cl::Option *mlir::detail::PassOptions::ListOption<std::string,llvm::cl::parser<std::string>>::ListOption<llvm::cl::desc>(llvm::cl::Option *a1, char *a2, uint64_t a3, uint64_t a4, _OWORD *a5)
 {
   v10[0] = a3;
   v10[1] = a4;
@@ -8092,11 +7927,11 @@ llvm::cl::Option *mlir::detail::PassOptions::ListOption<std::string,llvm::cl::pa
   }
 
   v9[0] = v7 + 240;
-  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100](a2 + 160, v9);
+  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100]((a2 + 160), v9);
   return a1;
 }
 
-llvm::cl::Option *llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::list<llvm::StringRef,llvm::cl::sub,llvm::cl::desc>(llvm::cl::Option *a1, uint64_t *a2, const void **a3, _OWORD *a4)
+llvm::cl::Option *llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::list<llvm::StringRef,llvm::cl::sub,llvm::cl::desc>(llvm::cl::Option *a1, uint64_t *a2, char **a3, _OWORD *a4)
 {
   v8 = llvm::cl::Option::Option(a1, 1, 0);
   *(v8 + 168) = 0;
@@ -8110,7 +7945,7 @@ llvm::cl::Option *llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>
   *(v8 + 200) = &unk_286E791E0;
   *(v8 + 208) = &unk_286E75D88;
   *(v8 + 232) = v8 + 208;
-  llvm::cl::Option::setArgStr(v8, *a2, a2[1]);
+  llvm::cl::Option::setArgStr(v8, *a2, a2[1], v9, v10, v11);
   llvm::cl::sub::apply<llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>>(a3, a1);
   *(a1 + 2) = *a4;
   llvm::cl::Option::addArgument(a1);
@@ -8178,16 +8013,16 @@ void mlir::detail::PassOptions::ListOption<std::string,llvm::cl::parser<std::str
   llvm::cl::Option::~Option(a1);
 }
 
-void llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::setDefault(uint64_t a1)
+void llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::setDefault(void ***a1)
 {
-  *(a1 + 184) = *(a1 + 176);
-  std::vector<std::string>::clear[abi:nn200100]((a1 + 120));
-  v2 = *(a1 + 144);
-  v3 = *(a1 + 152);
+  a1[23] = a1[22];
+  std::vector<std::string>::clear[abi:nn200100](a1 + 15);
+  v2 = a1[18];
+  v3 = a1[19];
   while (v2 != v3)
   {
-    llvm::cl::list_storage<std::string,BOOL>::addValue<std::string>(a1 + 120, (v2 + 8), 0);
-    v2 += 40;
+    llvm::cl::list_storage<std::string,BOOL>::addValue<std::string>((a1 + 15), (v2 + 1), 0);
+    v2 += 5;
   }
 }
 
@@ -8318,10 +8153,10 @@ void non-virtual thunk tomlir::detail::PassOptions::ListOption<std::string,llvm:
   *(a1 + 8) = *(a2 + 8);
 }
 
-uint64_t llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::handleOccurrence(uint64_t a1, int a2, int a3, int a4, void *__src, size_t __len)
+void llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::handleOccurrence(uint64_t a1, int a2, int a3, int a4, void *__src, size_t __len)
 {
   v10 = a2;
-  v17 = a2;
+  v15 = a2;
   memset(&__p, 0, sizeof(__p));
   if (*(a1 + 168) == 1)
   {
@@ -8330,28 +8165,26 @@ uint64_t llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::handleO
     *(a1 + 168) = 0;
   }
 
-  v12 = llvm::cl::parser<std::string>::parse(a1 + 200, a1, a3, a4, __src, __len, &__p);
-  if ((v12 & 1) == 0)
+  if ((llvm::cl::parser<std::string>::parse(a1 + 200, a1, a3, a4, __src, __len, &__p) & 1) == 0)
   {
     llvm::cl::list_storage<std::string,BOOL>::addValue<std::string>(a1 + 120, &__p, 0);
     *(a1 + 12) = v10;
-    std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 176), &v17);
-    v13 = *(a1 + 232);
-    if (!v13)
+    std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 176), &v15);
+    v12 = *(a1 + 232);
+    if (!v12)
     {
-      v15 = std::__throw_bad_function_call[abi:nn200100]();
-      return llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::~list(v15);
+      v13 = std::__throw_bad_function_call[abi:nn200100]();
+      llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::~list(v13);
+      return;
     }
 
-    (*(*v13 + 48))(v13, &__p);
+    (*(*v12 + 48))(v12, &__p);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  return v12;
 }
 
 void llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::~list(uint64_t a1)
@@ -8391,7 +8224,7 @@ uint64_t llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>::~list(u
   return MEMORY[0x25F891040]();
 }
 
-const void **llvm::cl::sub::apply<llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>>(const void **result, uint64_t a2)
+char **llvm::cl::sub::apply<llvm::cl::list<std::string,BOOL,llvm::cl::parser<std::string>>>(char **result, uint64_t a2)
 {
   if (*result)
   {
@@ -8571,7 +8404,7 @@ void llvm::cl::list_storage<std::string,BOOL>::addValue<std::string>(uint64_t a1
 
       *(v20 + 32) = v24.__end_cap_.__value_;
       *v20 = &unk_286E79070;
-      v23 = v20 + 40;
+      v23 = (v20 + 40);
     }
 
     *(a1 + 32) = v23;
@@ -8641,7 +8474,7 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:nn200100](uint64_t 
   }
 }
 
-uint64_t std::vector<llvm::cl::OptionValue<std::string>>::__emplace_back_slow_path<llvm::cl::OptionValue<std::string>>(uint64_t *a1, uint64_t a2)
+void *std::vector<llvm::cl::OptionValue<std::string>>::__emplace_back_slow_path<llvm::cl::OptionValue<std::string>>(uint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -8749,7 +8582,6 @@ BOOL llvm::cl::OptionValueCopy<std::string>::compare(uint64_t a1, void *a2)
     v6 = v7;
   }
 
-  v9 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -9116,7 +8948,7 @@ void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
   }
 }
 
-void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -9239,7 +9071,7 @@ std::string *non-virtual thunk tomlir::detail::PassOptions::Option<std::string,l
   return result;
 }
 
-const void **llvm::cl::sub::apply<llvm::cl::opt<std::string,false,llvm::cl::parser<std::string>>>(const void **result, uint64_t a2)
+char **llvm::cl::sub::apply<llvm::cl::opt<std::string,false,llvm::cl::parser<std::string>>>(char **result, uint64_t a2)
 {
   if (*result)
   {
@@ -9270,11 +9102,10 @@ const void **llvm::cl::sub::apply<llvm::cl::opt<std::string,false,llvm::cl::pars
 
 void *std::function<void ()(std::string const&)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:nn200100](v5, a2);
-  std::__function::__value_func<void ()(std::string const&)>::swap[abi:nn200100](v5, a1);
-  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:nn200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:nn200100](v4, a2);
+  std::__function::__value_func<void ()(std::string const&)>::swap[abi:nn200100](v4, a1);
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:nn200100](v4);
   return a1;
 }
 
@@ -9305,7 +9136,7 @@ uint64_t std::__function::__value_func<void ()(std::string const&)>::__value_fun
 
 void *std::__function::__value_func<void ()(std::string const&)>::swap[abi:nn200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -9315,15 +9146,15 @@ void *std::__function::__value_func<void ()(std::string const&)>::swap[abi:nn200
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -9351,7 +9182,6 @@ void *std::__function::__value_func<void ()(std::string const&)>::swap[abi:nn200
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9403,7 +9233,7 @@ void mlir::ODIE::Compiler::LegalizeToCoreOptions::~LegalizeToCoreOptions(mlir::O
   llvm::cl::Option::~Option(this + 165);
   mlir::detail::PassOptions::ListOption<std::string,llvm::cl::parser<std::string>>::~ListOption(this + 1056);
   mlir::detail::PassOptions::Option<mlir::ODIE::Compiler::Action,mlir::detail::PassOptions::GenericOptionParser<mlir::ODIE::Compiler::Action>>::~Option(this + 448);
-  mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption(this + 184);
+  mlir::detail::PassOptions::ListOption<mlir::ODIE::FuncShape,llvm::cl::parser<mlir::ODIE::FuncShape>>::~ListOption((this + 184));
   v3 = *(this + 20);
   if (v3)
   {
@@ -9427,14 +9257,13 @@ void mlir::ODIE::Compiler::LegalizeToCoreOptions::~LegalizeToCoreOptions(mlir::O
 
 void std::__function::__func<mlir::PassPipelineRegistration<mlir::ODIE::Compiler::LegalizeToCoreOptions>::PassPipelineRegistration(llvm::StringRef,llvm::StringRef,std::function<void ()(mlir::OpPassManager &,mlir::ODIE::Compiler::LegalizeToCoreOptions const&)>)::{lambda(llvm::function_ref<void ()(mlir::detail::PassOptions const&)>)#1},std::allocator<mlir::PassPipelineRegistration<mlir::ODIE::Compiler::LegalizeToCoreOptions>::PassPipelineRegistration(llvm::StringRef,llvm::StringRef,std::function<void ()(mlir::OpPassManager &,mlir::ODIE::Compiler::LegalizeToCoreOptions const&)>)::{lambda(llvm::function_ref<void ()(mlir::detail::PassOptions const&)>)#1}>,void ()(llvm::function_ref<void ()(mlir::detail::PassOptions const&)>)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v5[295] = *MEMORY[0x277D85DE8];
+  v4[295] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = *(a2 + 8);
-  bzero(v5, 0x938uLL);
-  mlir::ODIE::Compiler::LegalizeToCoreOptions::LegalizeToCoreOptions(v5);
-  v3(v2, v5);
-  mlir::ODIE::Compiler::LegalizeToCoreOptions::~LegalizeToCoreOptions(v5);
-  v4 = *MEMORY[0x277D85DE8];
+  bzero(v4, 0x938uLL);
+  mlir::ODIE::Compiler::LegalizeToCoreOptions::LegalizeToCoreOptions(v4);
+  v3(v2, v4);
+  mlir::ODIE::Compiler::LegalizeToCoreOptions::~LegalizeToCoreOptions(v4);
 }
 
 uint64_t std::__function::__value_func<void ()(llvm::function_ref<void ()(mlir::detail::PassOptions const&)>)>::~__value_func[abi:nn200100](uint64_t a1)
@@ -9471,89 +9300,89 @@ uint64_t std::__function::__value_func<llvm::LogicalResult ()(mlir::OpPassManage
 
 void std::__function::__func<mlir::ODIE::Compiler::registerPassPipelines(void)::$_1,std::allocator<mlir::ODIE::Compiler::registerPassPipelines(void)::$_1>,void ()(mlir::OpPassManager &,mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions const&)>::operator()(uint64_t a1, mlir::ODIE::Compiler::_anonymous_namespace_ *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   RegisteredOptionsForPassManager = mlir::ODIE::Compiler::getRegisteredOptionsForPassManager(a2);
-  v12 = 0;
-  v5 = *(a3 + 327);
-  if (v5 >= 0)
+  v13 = 0;
+  v6 = *(a3 + 327);
+  if (v6 >= 0)
   {
-    v6 = *(a3 + 327);
+    v7 = *(a3 + 327);
   }
 
   else
   {
-    v6 = *(a3 + 312);
+    v7 = *(a3 + 312);
   }
 
-  if (v6)
+  if (v7)
   {
-    if (v5 >= 0)
+    if (v6 >= 0)
     {
-      v7 = (a3 + 304);
+      v8 = (a3 + 304);
     }
 
     else
     {
-      v7 = *(a3 + 304);
+      v8 = *(a3 + 304);
     }
 
-    v8 = llvm::StringMap<mlir::ODIE::Compiler::ModuleRewriter,llvm::MallocAllocator>::find(&RegisteredOptionsForPassManager[1], v7, v6);
-    std::__function::__value_func<std::unique_ptr<llvm::MemoryBuffer> ()(mlir::ODIE::Compiler::ModuleRewriter::Payload &&)>::__value_func[abi:nn200100](v9, *v8 + 8);
+    v9 = llvm::StringMap<mlir::ODIE::Compiler::ModuleRewriter,llvm::MallocAllocator>::find(&RegisteredOptionsForPassManager[1], v8, v7, v5);
+    std::__function::__value_func<std::unique_ptr<llvm::MemoryBuffer> ()(mlir::ODIE::Compiler::ModuleRewriter::Payload &&)>::__value_func[abi:nn200100](v10, *v9 + 8);
     if (*(a3 + 567) < 0)
     {
-      std::string::__init_copy_ctor_external(&v11, *(a3 + 544), *(a3 + 552));
+      std::string::__init_copy_ctor_external(&v12, *(a3 + 544), *(a3 + 552));
     }
 
     else
     {
-      v11 = *(a3 + 544);
+      v12 = *(a3 + 544);
     }
 
-    if (v10)
+    if (v11)
     {
-      if (v10 == v9)
+      if (v11 == v10)
       {
-        v14 = v13;
-        (*(*v10 + 24))();
+        v15 = v14;
+        (*(*v11 + 24))();
       }
 
       else
       {
-        v14 = v10;
-        v10 = 0;
+        v15 = v11;
+        v11 = 0;
       }
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    __p.__pn_ = v11;
-    memset(&v11, 0, sizeof(v11));
+    __p.__pn_ = v12;
+    memset(&v12, 0, sizeof(v12));
     operator new();
   }
 
-  v14 = 0;
+  v15 = 0;
   std::__fs::filesystem::__absolute(&__p, RegisteredOptionsForPassManager, 0);
-  mlir::ODIE::Compiler::Transforms::createSegmentForDelegates(v13);
+  mlir::ODIE::Compiler::Transforms::createSegmentForDelegates(v14);
 }
 
-uint64_t llvm::StringMap<mlir::ODIE::Compiler::ModuleRewriter,llvm::MallocAllocator>::find(uint64_t a1, unsigned __int8 *a2, const unsigned __int8 *a3)
+uint64_t llvm::StringMap<mlir::ODIE::Compiler::ModuleRewriter,llvm::MallocAllocator>::find(uint64_t a1, unsigned __int8 *a2, const unsigned __int8 *a3, unint64_t a4)
 {
-  v6 = llvm::xxh3_64bits(a2, a3, a3);
-  Key = llvm::StringMapImpl::FindKey(a1, a2, a3, v6);
+  v7 = llvm::xxh3_64bits(a2, a3, a3, a4);
+  Key = llvm::StringMapImpl::FindKey(a1, a2, a3, v7);
   if (Key == -1)
   {
-    v8 = *(a1 + 8);
+    v9 = *(a1 + 8);
   }
 
   else
   {
-    v8 = Key;
+    v9 = Key;
   }
 
-  return *a1 + 8 * v8;
+  return *a1 + 8 * v9;
 }
 
 uint64_t std::__function::__value_func<std::unique_ptr<llvm::MemoryBuffer> ()(mlir::ODIE::Compiler::ModuleRewriter::Payload &&)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
@@ -9627,7 +9456,7 @@ void std::__function::__func<mlir::ODIE::Compiler::anonymous namespace::createRu
   }
 }
 
-void std::__function::__func<mlir::ODIE::Compiler::anonymous namespace::createRunDefaultSegmenterPassPipeline(mlir::OpPassManager &,mlir::ODIE::Compiler::Options const&,mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions const&)::$_0,std::allocator<mlir::ODIE::Compiler::anonymous namespace::createRunDefaultSegmenterPassPipeline(mlir::OpPassManager &,mlir::ODIE::Compiler::Options const&,mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions const&)::$_0>,std::unique_ptr<llvm::MemoryBuffer> ()(std::unique_ptr<llvm::MemoryBuffer>&&,std::__fs::filesystem::path const&,llvm::function_ref<void ()(llvm::Twine const&)>)>::destroy_deallocate(void *a1)
+void std::__function::__func<mlir::ODIE::Compiler::anonymous namespace::createRunDefaultSegmenterPassPipeline(mlir::OpPassManager &,mlir::ODIE::Compiler::Options const&,mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions const&)::$_0,std::allocator<mlir::ODIE::Compiler::anonymous namespace::createRunDefaultSegmenterPassPipeline(mlir::OpPassManager &,mlir::ODIE::Compiler::Options const&,mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions const&)::$_0>,std::unique_ptr<llvm::MemoryBuffer> ()(std::unique_ptr<llvm::MemoryBuffer>&&,std::__fs::filesystem::path const&,llvm::function_ref<void ()(llvm::Twine const&)>)>::destroy_deallocate(char *a1)
 {
 
   operator delete(a1);
@@ -9709,7 +9538,7 @@ uint64_t std::__function::__alloc_func<mlir::ODIE::Compiler::anonymous namespace
 
 void *std::__function::__value_func<std::unique_ptr<llvm::MemoryBuffer> ()(std::unique_ptr<llvm::MemoryBuffer>&&,std::__fs::filesystem::path const&,llvm::function_ref<void ()(llvm::Twine const&)>)>::swap[abi:nn200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -9719,15 +9548,15 @@ void *std::__function::__value_func<std::unique_ptr<llvm::MemoryBuffer> ()(std::
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -9755,7 +9584,6 @@ void *std::__function::__value_func<std::unique_ptr<llvm::MemoryBuffer> ()(std::
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9833,4 +9661,191 @@ void std::__function::__func<mlir::PassPipelineRegistration<mlir::ODIE::Compiler
 {
 
   operator delete(a1);
+}
+
+mlir::ODIE::Compiler::_anonymous_namespace_::SegmenterOptions *std::__function::__func<mlir::PassPipelineRegistration<mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions>::PassPipelineRegistration(llvm::StringRef,llvm::StringRef,std::function<void ()(mlir::OpPassManager &,mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions const&)>)::{lambda(mlir::OpPassManager &,llvm::StringRef,llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>)#1},std::allocator<mlir::PassPipelineRegistration<mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions>::PassPipelineRegistration(llvm::StringRef,llvm::StringRef,std::function<void ()(mlir::OpPassManager &,mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions const&)>)::{lambda(mlir::OpPassManager &,llvm::StringRef,llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>)#1}>,llvm::LogicalResult ()(mlir::OpPassManager &,llvm::StringRef,llvm::function_ref<llvm::LogicalResult ()(llvm::Twine const&)>)>::operator()(uint64_t a1, uint64_t a2, uint64_t *a3)
+{
+  v13[173] = *MEMORY[0x277D85DE8];
+  v5 = *a3;
+  v6 = a3[1];
+  v8 = llvm::errs(v7);
+  if ((mlir::detail::PassOptions::parseFromString(v13, v5, v6, v8) & 1) == 0)
+  {
+    v10 = 0;
+    goto LABEL_5;
+  }
+
+  v9 = *(a1 + 32);
+  if (v9)
+  {
+    (*(*v9 + 48))(v9, a2, v13);
+    v10 = 1;
+LABEL_5:
+    return v10;
+  }
+
+  v12 = std::__throw_bad_function_call[abi:nn200100]();
+}
+
+mlir::ODIE::Compiler::_anonymous_namespace_::SegmenterOptions *mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions::SegmenterOptions(mlir::ODIE::Compiler::_anonymous_namespace_::SegmenterOptions *this)
+{
+  *&v4 = "An SoC identifier. E.g., h14g.";
+  *(&v4 + 1) = 30;
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::Option<llvm::cl::desc>((v2 + 664), this, "target-soc", 10, &v4);
+  *&v4 = "LLVM style target to compile for. E.g., arm64-macos-macos14.";
+  *(&v4 + 1) = 60;
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::Option<llvm::cl::desc>((this + 904), this, "target-triple", 13, &v4);
+  *&v4 = "A string to store all delegate related options.";
+  *(&v4 + 1) = 47;
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::Option<llvm::cl::desc>((this + 1144), this, "target-delegate", 15, &v4);
+  return this;
+}
+
+void mlir::ODIE::Compiler::anonymous namespace::SegmenterOptions::~SegmenterOptions(mlir::ODIE::Compiler::_anonymous_namespace_::SegmenterOptions *this)
+{
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::~Option(this + 1144);
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::~Option(this + 904);
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::~Option(this + 664);
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::~Option(this + 424);
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::~Option(this + 184);
+  v2 = *(this + 20);
+  if (v2)
+  {
+    *(this + 21) = v2;
+    operator delete(v2);
+  }
+
+  llvm::StringMap<llvm::cl::Option *,llvm::MallocAllocator>::~StringMap(this + 128);
+  v3 = *(this + 10);
+  if (v3 != this + 96)
+  {
+    free(v3);
+  }
+
+  v4 = *(this + 4);
+  if (v4 != this + 48)
+  {
+    free(v4);
+  }
+}
+
+mlir::ODIE::Compiler::_anonymous_namespace_::ExternalRewriterOptions *mlir::ODIE::Compiler::anonymous namespace::ExternalRewriterOptions::ExternalRewriterOptions(mlir::ODIE::Compiler::_anonymous_namespace_::ExternalRewriterOptions *this)
+{
+  *this = 0u;
+  *(this + 1) = 0u;
+  *(this + 4) = this + 48;
+  *(this + 5) = 0x400000000;
+  *(this + 10) = this + 96;
+  *(this + 11) = 0x400000000;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  *(this + 18) = 0x1000000000;
+  *(this + 152) = 0u;
+  *(this + 168) = 0u;
+  *&v4 = "The name of the external rewriter (to look up in the registry).";
+  *(&v4 + 1) = 63;
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::Option<llvm::cl::desc>((this + 184), this, "name", 4, &v4);
+  v3 = &byte_25D0A27DF;
+  *&v4 = "The arguments to the rewriter needed to perform the requested task.";
+  *(&v4 + 1) = 67;
+  mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::Option<llvm::cl::initializer<char [1]>,llvm::cl::desc>(this + 424, this, &v3, &v4);
+  return this;
+}
+
+uint64_t mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::Option<llvm::cl::initializer<char [1]>,llvm::cl::desc>(uint64_t a1, char *a2, char **a3, _OWORD *a4)
+{
+  v18[4] = *MEMORY[0x277D85DE8];
+  v16[0] = a2;
+  v16[1] = 0;
+  v8 = llvm::cl::Option::Option(a1, 0, 0);
+  *(v8 + 128) = 0;
+  *(v8 + 136) = 0;
+  *(v8 + 120) = 0;
+  v9 = (v8 + 120);
+  *(v8 + 160) = 0;
+  *(v8 + 168) = 0;
+  *(v8 + 176) = 0;
+  *(v8 + 152) = 0;
+  v10 = (v8 + 152);
+  *(v8 + 144) = &unk_286E79070;
+  *v8 = &unk_286E792E0;
+  *(v8 + 184) = &unk_286E791E0;
+  v11 = (v8 + 192);
+  *(v8 + 192) = &unk_286E75EB0;
+  *(v8 + 216) = v8 + 192;
+  llvm::cl::Option::setArgStr(v8, "args", 4, v12, v13, v14);
+  llvm::cl::sub::apply<llvm::cl::opt<std::string,false,llvm::cl::parser<std::string>>>(v16, a1);
+  std::string::basic_string[abi:nn200100]<0>(&__str, *a3);
+  std::string::operator=(v9, &__str);
+  *(a1 + 176) = 1;
+  std::string::operator=(v10, &__str);
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__str.__r_.__value_.__l.__data_);
+  }
+
+  *(a1 + 32) = *a4;
+  llvm::cl::Option::addArgument(a1);
+  *(a1 + 232) = 0;
+  *a1 = &unk_286E75DD0;
+  *(a1 + 224) = &unk_286E75E50;
+  __str.__r_.__value_.__r.__words[0] = a1 + 224;
+  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100]((a2 + 160), &__str);
+  v18[0] = &unk_286E75680;
+  v18[1] = a1;
+  v18[3] = v18;
+  std::function<void ()(std::string const&)>::operator=(v11, v18);
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:nn200100](v18);
+  return a1;
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN4mlir6detail11PassOptions6OptionINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEN4llvm2cl6parserISB_EEEC1IJNSD_11initializerIA1_cEENSD_4descEEEERS4_NSC_9StringRefEDpOT_EUlRKT_E_NS9_ISU_EEFvRKSB_EE7__cloneEPNS0_6__baseISY_EE(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_286E75680;
+  a2[1] = v2;
+  return result;
+}
+
+llvm::cl::Option *mlir::detail::PassOptions::Option<std::string,llvm::cl::parser<std::string>>::Option<llvm::cl::desc>(llvm::cl::Option *a1, char *a2, uint64_t a3, uint64_t a4, _OWORD *a5)
+{
+  v11[4] = *MEMORY[0x277D85DE8];
+  v10[0] = a3;
+  v10[1] = a4;
+  v9[0] = a2;
+  v9[1] = 0;
+  v7 = llvm::cl::opt<std::string,false,llvm::cl::parser<std::string>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc>(a1, v10, v9, a5);
+  *(v7 + 232) = 0;
+  *v7 = &unk_286E75DD0;
+  *(v7 + 28) = &unk_286E75E50;
+  v9[0] = v7 + 224;
+  std::vector<mlir::detail::PassOptions::OptionBase *>::push_back[abi:nn200100]((a2 + 160), v9);
+  v11[0] = &unk_286E75EF8;
+  v11[1] = a1;
+  v11[3] = v11;
+  std::function<void ()(std::string const&)>::operator=(a1 + 24, v11);
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:nn200100](v11);
+  return a1;
+}
+
+llvm::cl::Option *llvm::cl::opt<std::string,false,llvm::cl::parser<std::string>>::opt<llvm::StringRef,llvm::cl::sub,llvm::cl::desc>(llvm::cl::Option *a1, uint64_t *a2, char **a3, _OWORD *a4)
+{
+  v8 = llvm::cl::Option::Option(a1, 0, 0);
+  *(v8 + 120) = 0;
+  *(v8 + 128) = 0;
+  *(v8 + 176) = 0;
+  *(v8 + 160) = 0;
+  *(v8 + 168) = 0;
+  *(v8 + 152) = 0;
+  *(v8 + 136) = 0;
+  *(v8 + 144) = &unk_286E79070;
+  *v8 = &unk_286E792E0;
+  *(v8 + 184) = &unk_286E791E0;
+  *(v8 + 192) = &unk_286E75EB0;
+  *(v8 + 216) = v8 + 192;
+  llvm::cl::Option::setArgStr(v8, *a2, a2[1], v9, v10, v11);
+  llvm::cl::sub::apply<llvm::cl::opt<std::string,false,llvm::cl::parser<std::string>>>(a3, a1);
+  *(a1 + 2) = *a4;
+  llvm::cl::Option::addArgument(a1);
+  return a1;
 }

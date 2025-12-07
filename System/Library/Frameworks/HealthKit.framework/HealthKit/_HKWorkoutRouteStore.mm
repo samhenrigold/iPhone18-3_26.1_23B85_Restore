@@ -132,64 +132,62 @@
 
 - (void)_queue_addWorkoutRoutes:(id)routes
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v5 = [routesCopy countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v25 = 0u;
+  v5 = [routesCopy countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v22;
+    v8 = *v23;
     *&v6 = 138412290;
-    v20 = v6;
+    v21 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(routesCopy);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
         series = self->_series;
         uUID = [v10 UUID];
         v13 = [(NSMutableDictionary *)series objectForKeyedSubscript:uUID];
 
         if (!v13)
         {
-          _HKInitializeLogging();
-          v14 = HKLogWorkouts;
+          _HKInitializeLogging(v14, v15);
+          v16 = HKLogWorkouts;
           if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = v14;
+            v17 = v16;
             uUID2 = [v10 UUID];
-            *buf = v20;
-            v26 = uUID2;
-            _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, "[routes] Add routes %@ to workout route store.", buf, 0xCu);
+            *buf = v21;
+            v27 = uUID2;
+            _os_log_impl(&dword_19197B000, v17, OS_LOG_TYPE_DEFAULT, "[routes] Add routes %@ to workout route store.", buf, 0xCu);
           }
 
-          v17 = self->_series;
+          v19 = self->_series;
           uUID3 = [v10 UUID];
-          [(NSMutableDictionary *)v17 setObject:v10 forKey:uUID3];
+          [(NSMutableDictionary *)v19 setObject:v10 forKey:uUID3];
         }
       }
 
-      v7 = [routesCopy countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v7 = [routesCopy countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAllLocationsWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   samples = [(_HKWorkoutRouteStore *)self samples];
   self->_loadingCount = [samples count];
@@ -197,37 +195,35 @@
   loadingCompletionBlock = self->_loadingCompletionBlock;
   self->_loadingCompletionBlock = v6;
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = samples;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(_HKWorkoutRouteStore *)self _fetchAllLocationsFromSeriesSample:*(*(&v14 + 1) + 8 * v12++), v14];
+        [(_HKWorkoutRouteStore *)self _fetchAllLocationsFromSeriesSample:*(*(&v13 + 1) + 8 * v12++), v13];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchAllLocationsFromSeriesSample:(id)sample
@@ -272,44 +268,42 @@
 
 - (id)_queue_locations
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   allValues = [(NSMutableDictionary *)self->_series allValues];
   v4 = [allValues sortedArrayUsingComparator:&__block_literal_global_142];
 
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
         locations = self->_locations;
-        uUID = [*(*(&v16 + 1) + 8 * i) UUID];
+        uUID = [*(*(&v15 + 1) + 8 * i) UUID];
         v13 = [(NSMutableDictionary *)locations objectForKeyedSubscript:uUID];
 
         [array addObjectsFromArray:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }

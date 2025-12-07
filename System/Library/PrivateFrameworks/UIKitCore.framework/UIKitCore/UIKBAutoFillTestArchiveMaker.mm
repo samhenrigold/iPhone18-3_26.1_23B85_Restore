@@ -173,7 +173,7 @@ LABEL_12:
   toViewCopy = toView;
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   else

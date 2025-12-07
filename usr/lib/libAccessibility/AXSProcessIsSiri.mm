@@ -3,7 +3,7 @@
 
 @implementation AXSProcessIsSiri
 
-uint64_t ___AXSProcessIsSiri_block_invoke()
+void *___AXSProcessIsSiri_block_invoke()
 {
   if (cachedAppID_onceToken != -1)
   {

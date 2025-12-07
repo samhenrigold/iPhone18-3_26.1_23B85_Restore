@@ -95,17 +95,7 @@
   accountOverrideInfo2 = [options2 accountOverrideInfo];
   accountID2 = [accountOverrideInfo2 accountID];
 
-  if (accountID != accountID2 && ![accountID isEqual:accountID2])
-  {
-    goto LABEL_6;
-  }
-
-  database3 = [(CKFetchRecordZoneChangesOperation *)self database];
-  databaseScope = [database3 databaseScope];
-  database4 = [operationCopy database];
-  databaseScope2 = [database4 databaseScope];
-
-  if (databaseScope == databaseScope2)
+  if ((accountID == accountID2 || [accountID isEqual:accountID2]) && (-[CKFetchRecordZoneChangesOperation database](self, "database"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "databaseScope"), objc_msgSend(operationCopy, "database"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "databaseScope"), v17, v15, v16 == v18))
   {
     recordZoneIDs = [operationCopy recordZoneIDs];
     if (recordZoneIDs)
@@ -124,7 +114,6 @@
 
   else
   {
-LABEL_6:
     v22 = 0;
   }
 

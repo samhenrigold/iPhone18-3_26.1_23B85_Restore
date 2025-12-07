@@ -51,9 +51,9 @@
       v9 = path;
       path2 = [(NSURL *)v7 path];
       path3 = [(NSURL *)v13 path];
-      v12 = [path2 isEqualToString:path3];
+      isEqualToString = objc_msgSend_isEqualToString_(path2);
 
-      if ((v12 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         [(PLStreamShareSource *)self _cleanupIfNeededMediaAtURL:v7];
       }

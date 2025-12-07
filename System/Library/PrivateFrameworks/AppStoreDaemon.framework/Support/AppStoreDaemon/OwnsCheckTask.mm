@@ -50,8 +50,8 @@
   v10 = (self + OBJC_IVAR____TtC9appstored13OwnsCheckTask_input);
   accountCopy = account;
   bagCopy = bag;
-  sub_100085D40(&qword_10059C3D0);
-  sub_100085D40(&unk_10059CE80);
+  sub_100085D40(&qword_10059C3D0, &qword_1004353A0);
+  sub_100085D40(&unk_10059CE80, &unk_100436170);
   swift_dynamicCast();
   *v10 = account;
   v10[1] = v9;
@@ -64,7 +64,7 @@
 
 - (void)mainWithCompletionHandler:(id)handler
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

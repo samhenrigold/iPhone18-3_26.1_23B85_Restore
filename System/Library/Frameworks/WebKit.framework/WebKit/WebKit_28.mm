@@ -75,7 +75,7 @@ void IPC::ArgumentCoder<WebCore::FormDataElement,void>::decode(_BYTE *a1, IPC::D
   }
 }
 
-void sub_19D724FD4(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, unsigned __int8 a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, unsigned __int8 a24, int a25, __int16 a26, char a27, char a28)
+void sub_19D724FD4(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, int a25, __int16 a26, char a27, char a28)
 {
   if (a15 != 255)
   {
@@ -327,70 +327,70 @@ LABEL_13:
 
 void sub_19D725510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v71 = *(v66 + 200);
-  *(v66 + 200) = 0;
-  if (v71)
+  v70 = *(v65 + 200);
+  *(v65 + 200) = 0;
+  if (v70)
   {
   }
 
-  WebCore::ResourceRequestBase::~ResourceRequestBase(v67);
-  v73 = STACK[0x250];
+  WebCore::ResourceRequestBase::~ResourceRequestBase(v66);
+  v72 = STACK[0x250];
   STACK[0x250] = 0;
-  if (v73)
+  if (v72)
   {
-    WTF::RefCounted<WebCore::AdditionalNetworkLoadMetricsForWebInspector>::deref(v73, v72);
+    WTF::RefCounted<WebCore::AdditionalNetworkLoadMetricsForWebInspector>::deref(v72, v71);
   }
 
-  v74 = STACK[0x230];
+  v73 = STACK[0x230];
   STACK[0x230] = 0;
-  if (v74 && atomic_fetch_add_explicit(v74, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v73 && atomic_fetch_add_explicit(v73, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v74, v72);
+    WTF::StringImpl::destroy(v73, v71);
   }
 
-  if (a66)
+  if (a65)
   {
   }
 
-  WebCore::ResourceResponseBase::~ResourceResponseBase((v69 + 208), v72);
+  WebCore::ResourceResponseBase::~ResourceResponseBase((v68 + 208), v71);
   if (a34)
   {
   }
 
-  WebCore::ResourceRequestBase::~ResourceRequestBase((v68 + 8));
+  WebCore::ResourceRequestBase::~ResourceRequestBase((v67 + 8));
   if (LOBYTE(STACK[0x2D8]) == 1)
   {
-    v76 = STACK[0x2D0];
+    v75 = STACK[0x2D0];
     STACK[0x2D0] = 0;
-    if (v76)
+    if (v75)
     {
-      WTF::RefCounted<WebCore::AdditionalNetworkLoadMetricsForWebInspector>::deref(v76, v75);
+      WTF::RefCounted<WebCore::AdditionalNetworkLoadMetricsForWebInspector>::deref(v75, v74);
     }
 
-    v77 = STACK[0x2B0];
+    v76 = STACK[0x2B0];
     STACK[0x2B0] = 0;
-    if (v77 && atomic_fetch_add_explicit(v77, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (v76 && atomic_fetch_add_explicit(v76, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v77, v75);
+      WTF::StringImpl::destroy(v76, v74);
     }
   }
 
   if (LOBYTE(STACK[0x3E8]) == 1)
   {
-    v78 = STACK[0x3D8];
+    v77 = STACK[0x3D8];
     STACK[0x3D8] = 0;
-    if (v78)
+    if (v77)
     {
     }
 
-    WebCore::ResourceResponseBase::~ResourceResponseBase(&STACK[0x2E0], v75);
+    WebCore::ResourceResponseBase::~ResourceResponseBase(&STACK[0x2E0], v74);
   }
 
   if (LOBYTE(STACK[0x4B8]) == 1)
   {
-    v79 = STACK[0x4B0];
+    v78 = STACK[0x4B0];
     STACK[0x4B0] = 0;
-    if (v79)
+    if (v78)
     {
     }
 
@@ -400,7 +400,7 @@ void sub_19D725510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-WebCore::AdditionalNetworkLoadMetricsForWebInspector *IPC::Decoder::decode<WebCore::NetworkLoadMetrics>(uint64_t a1, IPC::Decoder *a2)
+WebCore::AdditionalNetworkLoadMetricsForWebInspector *IPC::Decoder::decode<WebCore::NetworkLoadMetrics>(uint64_t a1, unsigned __int8 **a2)
 {
   result = IPC::ArgumentCoder<WebCore::NetworkLoadMetrics,void>::decode(a2, a1);
   if ((*(a1 + 128) & 1) == 0)
@@ -1318,7 +1318,7 @@ LABEL_54:
   return result;
 }
 
-void sub_19D726430(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, char a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, char a40)
+void sub_19D726430(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, char a40)
 {
   if (a34 == 1)
   {
@@ -2504,16 +2504,16 @@ void sub_19D727844(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-WTF::StringImpl *IPC::Decoder::decode<WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+WTF::StringImpl *IPC::Decoder::decode<WTF::Vector<WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>@<X0>(WTF::StringImpl **a1@<X0>, uint64_t a2@<X8>)
 {
   result = IPC::VectorArgumentCoder<false,WebCore::DataListSuggestion,0ul,WTF::CrashOnOverflow,16ul>::decode<IPC::Decoder>(a1, a2);
   if ((*(a2 + 16) & 1) == 0)
   {
     v5 = *a1;
-    v6 = *(a1 + 8);
+    v6 = a1[1];
     *a1 = 0;
-    *(a1 + 8) = 0;
-    result = *(a1 + 24);
+    a1[1] = 0;
+    result = a1[3];
     if (result)
     {
       v7 = v6 == 0;
@@ -2831,7 +2831,7 @@ void IPC::ArgumentCoder<WebCore::PixelBufferFormat,void>::encode(IPC::Encoder *a
   IPC::ArgumentCoder<WebCore::DestinationColorSpace,void>::encode(a1, (a2 + 8));
 }
 
-void IPC::ArgumentCoder<WebCore::PixelBufferFormat,void>::encode(WTF *a1, uint64_t a2)
+void IPC::ArgumentCoder<WebCore::PixelBufferFormat,void>::encode(mpark *a1, uint64_t a2)
 {
   if (!*(a1 + 1))
   {
@@ -3039,7 +3039,7 @@ WTF *IPC::ArgumentCoder<WebCore::TextIndicator,void>::encode(IPC::Encoder *a1, u
   return result;
 }
 
-void sub_19D7280C0(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, WTF *a15, int a16, uint64_t a17, _DWORD *a18, _DWORD *a19, _DWORD *a20, uint64_t a21)
+void sub_19D7280C0(_Unwind_Exception *exception_object, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, WTF *a15, int a16, uint64_t a17, _DWORD *a18, _DWORD *a19, _DWORD *a20, uint64_t a21)
 {
   if ((a21 & 0x8000000000000) != 0)
   {
@@ -3055,7 +3055,7 @@ void sub_19D7280C0(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   {
     if (a20[4] == 1)
     {
-      (*(*a20 + 8))(a20);
+      (*(*a20 + 8))(a20, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -3068,7 +3068,7 @@ void sub_19D7280C0(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   {
     if (a19[4] == 1)
     {
-      (*(*a19 + 8))(a19);
+      (*(*a19 + 8))(a19, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -3081,7 +3081,7 @@ void sub_19D7280C0(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   {
     if (a18[4] == 1)
     {
-      (*(*a18 + 8))(a18);
+      (*(*a18 + 8))(a18, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -3197,7 +3197,7 @@ LABEL_6:
   return result;
 }
 
-void sub_19D728358(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, WTF *a17, int a18, uint64_t a19, _DWORD *a20, _DWORD *a21, _DWORD *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_19D728358(_Unwind_Exception *exception_object, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, WTF *a17, int a18, uint64_t a19, _DWORD *a20, _DWORD *a21, _DWORD *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
 {
   if (a28 == 1)
   {
@@ -3215,7 +3215,7 @@ void sub_19D728358(_Unwind_Exception *exception_object, void *a2, int a3, int a4
     {
       if (a22[4] == 1)
       {
-        (*(*a22 + 8))(a22);
+        (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
       }
 
       else
@@ -3228,7 +3228,7 @@ void sub_19D728358(_Unwind_Exception *exception_object, void *a2, int a3, int a4
     {
       if (a21[4] == 1)
       {
-        (*(*a21 + 8))(a21);
+        (*(*a21 + 8))(a21, a2, a3, a4, a5, a6, a7, a8);
       }
 
       else
@@ -3241,7 +3241,7 @@ void sub_19D728358(_Unwind_Exception *exception_object, void *a2, int a3, int a4
     {
       if (a20[4] == 1)
       {
-        (*(*a20 + 8))(a20);
+        (*(*a20 + 8))(a20, a2, a3, a4, a5, a6, a7, a8);
       }
 
       else
@@ -3364,7 +3364,7 @@ LABEL_5:
   }
 }
 
-void sub_19D7286D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, char a14)
+void sub_19D7286D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
 {
   WebCore::PasteboardCustomData::~PasteboardCustomData(&a9);
   if (a14 == 1)
@@ -3388,16 +3388,16 @@ void sub_19D7286D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void IPC::Decoder::decode<WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>(uint64_t a1@<X0>, char *a2@<X8>)
+void IPC::Decoder::decode<WTF::Vector<WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>(uint64_t *a1@<X0>, char *a2@<X8>)
 {
   IPC::VectorArgumentCoder<false,WebCore::PasteboardCustomData::Entry,0ul,WTF::CrashOnOverflow,16ul>::decode<IPC::Decoder>(a1, a2);
   if ((a2[16] & 1) == 0)
   {
     v4 = *a1;
-    v5 = *(a1 + 8);
+    v5 = a1[1];
     *a1 = 0;
-    *(a1 + 8) = 0;
-    v6 = *(a1 + 24);
+    a1[1] = 0;
+    v6 = a1[3];
     if (v6)
     {
       v7 = v5 == 0;
@@ -4066,19 +4066,19 @@ uint64_t IPC::ArgumentCoder<WebCore::MediaConstraints,void>::encode(IPC::Encoder
   return IPC::Encoder::operator<<<BOOL>(a1, a2 + 960);
 }
 
-void IPC::ArgumentCoder<WebCore::MediaConstraints,void>::decode(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void IPC::ArgumentCoder<WebCore::MediaConstraints,void>::decode(IPC::Decoder *a1@<X0>, __n128 *a2@<X8>)
 {
   v2 = a1;
   IPC::Decoder::decode<WebCore::MediaTrackConstraintSetMap>(v41, a1);
-  v4 = v2[1];
-  v5 = ((v2[2] + 7) & 0xFFFFFFFFFFFFFFF8);
+  v4 = *(v2 + 1);
+  v5 = ((*(v2 + 2) + 7) & 0xFFFFFFFFFFFFFFF8);
   v6 = *v2;
   v7 = v5 - *v2;
   v8 = v4 >= v7;
   v9 = v4 - v7;
   if (v8 && v9 > 7)
   {
-    v2[2] = (v5 + 1);
+    *(v2 + 2) = v5 + 1;
     if (v5)
     {
       v11 = *v5;
@@ -4091,14 +4091,14 @@ void IPC::ArgumentCoder<WebCore::MediaConstraints,void>::decode(uint64_t *a1@<X0
 
       if (v11)
       {
-        v12 = WTF::fastMalloc((944 * v11));
+        v12 = WTF::fastMalloc(0x3B0, (944 * v11));
         LODWORD(v44) = 944 * v11 / 0x3B0u;
         v43 = v12;
         do
         {
           IPC::Decoder::decode<WebCore::MediaTrackConstraintSetMap>(v35, v2);
-          v13 = v36;
-          if (v36)
+          v13 = v36.n128_u8[0];
+          if (v36.n128_u8[0])
           {
             if (HIDWORD(v44) == v44)
             {
@@ -4107,12 +4107,12 @@ void IPC::ArgumentCoder<WebCore::MediaConstraints,void>::decode(uint64_t *a1@<X0
 
             else
             {
-              WebCore::MediaTrackConstraintSetMap::MediaTrackConstraintSetMap(v43 + 944 * HIDWORD(v44), v35);
+              WebCore::MediaTrackConstraintSetMap::MediaTrackConstraintSetMap(&v43[118 * HIDWORD(v44)], v35);
               ++HIDWORD(v44);
             }
           }
 
-          if (v36 == 1)
+          if (v36.n128_u8[0] == 1)
           {
             WebCore::MediaTrackConstraintSetMap::~MediaTrackConstraintSetMap(v35, v6);
           }
@@ -4143,14 +4143,14 @@ LABEL_18:
   else
   {
     *v2 = 0;
-    v2[1] = 0;
-    v30 = v2[3];
+    *(v2 + 1) = 0;
+    v30 = *(v2 + 3);
     if (v30)
     {
       if (v4)
       {
         (*(*v30 + 16))(v30);
-        v4 = v2[1];
+        v4 = *(v2 + 1);
       }
     }
 
@@ -4161,8 +4161,8 @@ LABEL_18:
   }
 
   *v2 = 0;
-  v2[1] = 0;
-  v31 = v2[3];
+  *(v2 + 1) = 0;
+  v31 = *(v2 + 3);
   if (v31 && v4)
   {
     (*(*v31 + 16))(v31);
@@ -4173,30 +4173,30 @@ LABEL_18:
   while (1)
   {
     v27 = *v2;
-    v28 = v2[1];
+    v28 = *(v2 + 1);
     *v2 = 0;
-    v2[1] = 0;
-    v29 = v2[3];
+    *(v2 + 1) = 0;
+    v29 = *(v2 + 3);
     if (v29 && v28)
     {
       (*(*v29 + 16))(v29, v27);
     }
 
 LABEL_19:
-    v15 = v2[1];
-    v16 = v2[2];
+    v15 = *(v2 + 1);
+    v16 = *(v2 + 2);
     v17 = *v2;
     if (v15 <= &v16[-*v2])
     {
       *v2 = 0;
-      v2[1] = 0;
-      v32 = v2[3];
+      *(v2 + 1) = 0;
+      v32 = *(v2 + 3);
       if (v32)
       {
         if (v15)
         {
           (*(*v32 + 16))(v32);
-          v15 = v2[1];
+          v15 = *(v2 + 1);
         }
       }
 
@@ -4208,7 +4208,7 @@ LABEL_19:
 
     else
     {
-      v2[2] = (v16 + 1);
+      *(v2 + 2) = v16 + 1;
       if (v16)
       {
         v18 = *v16;
@@ -4223,8 +4223,8 @@ LABEL_19:
     }
 
     *v2 = 0;
-    v2[1] = 0;
-    v33 = v2[3];
+    *(v2 + 1) = 0;
+    v33 = *(v2 + 3);
     if (!v33)
     {
       v15 = 0;
@@ -4242,11 +4242,11 @@ LABEL_58:
     (*(*v33 + 16))(v33);
     v18 = 0;
     v17 = *v2;
-    v15 = v2[1];
+    v15 = *(v2 + 1);
 LABEL_59:
     *v2 = 0;
-    v2[1] = 0;
-    v34 = v2[3];
+    *(v2 + 1) = 0;
+    v34 = *(v2 + 3);
     if (!v34 || !v15)
     {
       break;
@@ -4270,20 +4270,20 @@ LABEL_23:
       {
         v20 = v38;
         v38 = 0;
-        *&v36 = v20;
+        v36.n128_u64[0] = v20;
         v21 = v39;
         v39 = 0;
-        *(&v36 + 1) = v21;
+        v36.n128_u64[1] = v21;
         if (v11)
         {
           v37 = v19;
           WebCore::MediaTrackConstraintSetMap::MediaTrackConstraintSetMap(a2, v35);
-          *&v22 = 0;
+          v22.n128_u64[0] = 0;
           v23 = v36;
           v36 = v22;
-          *(a2 + 944) = v23;
-          *(a2 + 960) = v37;
-          *(a2 + 968) = 1;
+          a2[59] = v23;
+          a2[60].n128_u8[0] = v37;
+          a2[60].n128_u8[8] = 1;
           WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v36, v24);
           WebCore::MediaTrackConstraintSetMap::~MediaTrackConstraintSetMap(v35, v25);
           goto LABEL_31;
@@ -4296,8 +4296,8 @@ LABEL_23:
     {
 LABEL_37:
       IPC::Decoder::decode<WebCore::MediaTrackConstraintSetMap>(v35, v2);
-      v26 = v36;
-      if (v36)
+      v26 = v36.n128_u8[0];
+      if (v36.n128_u8[0])
       {
         if (HIDWORD(v44) == v44)
         {
@@ -4306,12 +4306,12 @@ LABEL_37:
 
         else
         {
-          WebCore::MediaTrackConstraintSetMap::MediaTrackConstraintSetMap(v43 + 944 * HIDWORD(v44), v35);
+          WebCore::MediaTrackConstraintSetMap::MediaTrackConstraintSetMap(&v43[118 * HIDWORD(v44)], v35);
           ++HIDWORD(v44);
         }
       }
 
-      if (v36 == 1)
+      if (v36.n128_u8[0] == 1)
       {
         WebCore::MediaTrackConstraintSetMap::~MediaTrackConstraintSetMap(v35, v6);
       }
@@ -4334,8 +4334,8 @@ LABEL_46:
     WTF::Vector<WebCore::MediaTrackConstraintSetMap,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v43, v6);
   }
 
-  *a2 = 0;
-  *(a2 + 968) = 0;
+  a2->n128_u8[0] = 0;
+  a2[60].n128_u8[8] = 0;
 LABEL_31:
   if (v40 == 1)
   {
@@ -4363,7 +4363,7 @@ void sub_19D7298A0(_Unwind_Exception *a1, void *a2)
   _Unwind_Resume(a1);
 }
 
-void IPC::Decoder::decode<WebCore::MediaTrackConstraintSetMap>(_BYTE *a1, uint64_t *a2)
+void IPC::Decoder::decode<WebCore::MediaTrackConstraintSetMap>(_BYTE *a1, IPC::Decoder *a2)
 {
   IPC::Decoder::decode<std::optional<WebCore::IntConstraint>>(v161, a2);
   IPC::Decoder::decode<std::optional<WebCore::IntConstraint>>(v157, a2);
@@ -4745,10 +4745,10 @@ LABEL_65:
   if ((a1[944] & 1) == 0)
   {
     v10 = *a2;
-    v11 = a2[1];
+    v11 = *(a2 + 1);
     *a2 = 0;
-    a2[1] = 0;
-    v12 = a2[3];
+    *(a2 + 1) = 0;
+    v12 = *(a2 + 3);
     if (v12)
     {
       if (v11)
@@ -4886,33 +4886,33 @@ void sub_19D72A584(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
 
 void IPC::Decoder::decode<WebCore::Region>(_BYTE *a1, IPC::Decoder *a2)
 {
-  IPC::ArgumentCoder<std::span<float const,18446744073709551615ul>,void>::decode<IPC::Decoder>(a2, &v34);
-  if (v36[0] & 1) != 0 || (IPC::Decoder::markInvalid(a2), (v36[0]))
+  IPC::ArgumentCoder<std::span<float const,18446744073709551615ul>,void>::decode<IPC::Decoder>(a2, &v35);
+  if (v37[0] & 1) != 0 || (IPC::Decoder::markInvalid(a2), (v37[0]))
   {
-    v3 = v34;
-    v8 = v35;
-    v9 = v47;
-    v44 = v47;
-    v45 = 32;
-    v46 = v35;
-    v2 = (4 * v35);
-    if (v35 >= 0x21)
+    v3 = v35;
+    v8 = v36;
+    v9 = v48;
+    v45 = v48;
+    v46 = 32;
+    v47 = v36;
+    v2 = (4 * v36);
+    if (v36 >= 0x21)
     {
-      if (v35 >> 30)
+      if (v36 >> 30)
       {
         __break(0xC471u);
         JUMPOUT(0x19D72AA60);
       }
 
-      v9 = WTF::fastMalloc((4 * v35));
-      v45 = v8;
-      v44 = v9;
+      v9 = WTF::fastMalloc(0, (4 * v36));
+      v46 = v8;
+      v45 = v9;
     }
 
-    else if (!v35)
+    else if (!v36)
     {
 LABEL_5:
-      v48 = 1;
+      v49 = 1;
       goto LABEL_6;
     }
 
@@ -4929,8 +4929,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  LOBYTE(v44) = 0;
-  v48 = 0;
+  LOBYTE(v45) = 0;
+  v49 = 0;
   IPC::Decoder::markInvalid(a2);
 LABEL_6:
   v11 = *(a2 + 1);
@@ -4946,36 +4946,37 @@ LABEL_6:
       goto LABEL_76;
     }
 
-    v3 = &v49;
+    v3 = &v50;
     v4 = *v12;
-    v2 = v36;
-    v34 = v36;
+    v17 = &v35;
+    v2 = v37;
+    v35 = v37;
     v5 = 16;
-    v35 = 16;
+    v36 = 16;
     if (v4 >= 0x10000)
     {
       while (1)
       {
-        IPC::Decoder::decode<WebCore::Region::Span>(&v49, a2);
-        if ((v50 & 1) == 0)
+        IPC::Decoder::decode<WebCore::Region::Span>(&v50, a2);
+        if ((v51 & 1) == 0)
         {
           break;
         }
 
-        if (HIDWORD(v35) == v35)
+        if (HIDWORD(v36) == v36)
         {
-          WTF::Vector<WebCore::Region::Span,16ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::Region::Span>(&v34, &v49);
+          WTF::Vector<WebCore::Region::Span,16ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::Region::Span>(&v35, &v50);
         }
 
         else
         {
-          *(v34 + HIDWORD(v35)) = v49;
-          ++HIDWORD(v35);
+          *(v35 + HIDWORD(v36)) = v50;
+          ++HIDWORD(v36);
         }
 
         if (!--v4)
         {
-          WTF::Vector<WebCore::Region::Span,16ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(&v34, HIDWORD(v35));
+          WTF::Vector<WebCore::Region::Span,16ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(&v35, HIDWORD(v36));
           goto LABEL_19;
         }
       }
@@ -4986,46 +4987,46 @@ LABEL_6:
       if (v4 >= 0x11)
       {
 LABEL_56:
-        v27 = WTF::fastMalloc((16 * v4));
-        LODWORD(v35) = v4;
-        v34 = v27;
+        v28 = WTF::fastMalloc(v17, (16 * v4));
+        LODWORD(v36) = v4;
+        v35 = v28;
         goto LABEL_15;
       }
 
       if (!v4)
       {
 LABEL_19:
-        v3 = v42;
-        v40 = v42;
-        v41 = v5;
-        WTF::VectorBuffer<WebCore::Region::Span,16ul,WTF::FastMalloc>::adopt(&v40, &v34);
-        v18 = 1;
-        v43 = 1;
+        v3 = v43;
+        v41 = v43;
+        v42 = v5;
+        WTF::VectorBuffer<WebCore::Region::Span,16ul,WTF::FastMalloc>::adopt(&v41, &v35);
+        v19 = 1;
+        v44 = 1;
         goto LABEL_20;
       }
 
 LABEL_15:
       while (1)
       {
-        IPC::ArgumentCoder<WebCore::Region::Span,void>::decode(&v49, a2);
-        if ((v50 & 1) == 0)
+        IPC::ArgumentCoder<WebCore::Region::Span,void>::decode(&v50, a2);
+        if ((v51 & 1) == 0)
         {
           IPC::Decoder::markInvalid(a2);
-          if ((v50 & 1) == 0)
+          if ((v51 & 1) == 0)
           {
             break;
           }
         }
 
-        if (HIDWORD(v35) == v35)
+        if (HIDWORD(v36) == v36)
         {
-          WTF::Vector<WebCore::Region::Span,16ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::Region::Span>(&v34, &v49);
+          WTF::Vector<WebCore::Region::Span,16ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebCore::Region::Span>(&v35, &v50);
         }
 
         else
         {
-          *(v34 + HIDWORD(v35)) = *v3;
-          ++HIDWORD(v35);
+          *(v35 + HIDWORD(v36)) = *v3;
+          ++HIDWORD(v36);
         }
 
         if (!--v4)
@@ -5035,20 +5036,20 @@ LABEL_15:
       }
     }
 
-    v18 = 0;
-    LOBYTE(v40) = 0;
-    v43 = 0;
+    v19 = 0;
+    LOBYTE(v41) = 0;
+    v44 = 0;
 LABEL_20:
-    v19 = v34;
-    if (v2 != v34 && v34 != 0)
+    v20 = v35;
+    if (v2 != v35 && v35 != 0)
     {
-      v34 = 0;
-      LODWORD(v35) = 0;
-      WTF::fastFree(v19, v17);
-      v18 = v43;
+      v35 = 0;
+      LODWORD(v36) = 0;
+      WTF::fastFree(v20, v18);
+      v19 = v44;
     }
 
-    if (v18)
+    if (v19)
     {
       goto LABEL_26;
     }
@@ -5059,8 +5060,8 @@ LABEL_20:
   IPC::Decoder::markInvalid(a2);
 LABEL_76:
   IPC::Decoder::markInvalid(a2);
-  LOBYTE(v40) = 0;
-  v43 = 0;
+  LOBYTE(v41) = 0;
+  v44 = 0;
 LABEL_77:
   IPC::Decoder::markInvalid(a2);
 LABEL_26:
@@ -5069,7 +5070,14 @@ LABEL_26:
     goto LABEL_69;
   }
 
-  if ((v48 & 1) == 0 || (v43 & 1) == 0)
+  v17 = v49;
+  if ((v49 & 1) == 0)
+  {
+    goto LABEL_55;
+  }
+
+  v17 = v44;
+  if ((v44 & 1) == 0)
   {
     goto LABEL_55;
   }
@@ -5077,12 +5085,13 @@ LABEL_26:
   if ((WebCore::Region::Shape::isValidShape() & 1) == 0 || !*a2)
   {
 LABEL_69:
-    LOBYTE(v28) = 0;
-    v33 = 0;
+    LOBYTE(v29) = 0;
+    v34 = 0;
     goto LABEL_37;
   }
 
-  if ((v48 & 1) == 0 || (v43 & 1) == 0)
+  v17 = v49;
+  if ((v49 & 1) == 0 || (v17 = v44, (v44 & 1) == 0))
   {
 LABEL_55:
     __break(1u);
@@ -5090,89 +5099,90 @@ LABEL_55:
   }
 
   WebCore::Region::Shape::Shape();
-  v2 = v29;
-  v28 = v29;
-  v21 = v34;
-  v3 = v36;
-  if (v34 == v36)
+  v2 = v30;
+  v29 = v30;
+  v22 = v35;
+  v3 = v37;
+  if (v35 == v37)
   {
-    memcpy(v29, v36, 4 * HIDWORD(v35));
+    memcpy(v30, v37, 4 * HIDWORD(v36));
   }
 
   else
   {
-    v34 = v36;
-    v28 = v21;
-    LODWORD(v35) = 32;
+    v35 = v37;
+    v29 = v22;
+    LODWORD(v36) = 32;
   }
 
-  HIDWORD(v35) = 0;
-  v4 = &v34;
-  v30 = v32;
-  v31 = 16;
-  WTF::VectorBuffer<WebCore::Region::Span,16ul,WTF::FastMalloc>::adopt(&v30, &v37);
-  v33 = 1;
-  v22 = v37;
-  if (&v39 != v37 && v37)
+  HIDWORD(v36) = 0;
+  v4 = &v35;
+  v31 = v33;
+  v32 = 16;
+  WTF::VectorBuffer<WebCore::Region::Span,16ul,WTF::FastMalloc>::adopt(&v31, &v38);
+  v34 = 1;
+  v23 = v38;
+  if (&v40 != v38 && v38)
   {
-    v37 = 0;
     v38 = 0;
-    WTF::fastFree(v22, v17);
+    v39 = 0;
+    WTF::fastFree(v23, v18);
   }
 
-  v23 = v34;
-  if (v36 != v34 && v34)
+  v24 = v35;
+  if (v37 != v35 && v35)
   {
-    v34 = 0;
-    LODWORD(v35) = 0;
-    WTF::fastFree(v23, v17);
+    v35 = 0;
+    LODWORD(v36) = 0;
+    WTF::fastFree(v24, v18);
   }
 
 LABEL_37:
-  if (v43 == 1)
+  if (v44 == 1)
   {
-    v24 = v40;
-    if (v42 != v40)
+    v25 = v41;
+    if (v43 != v41)
     {
-      if (v40)
+      if (v41)
       {
-        v40 = 0;
-        LODWORD(v41) = 0;
-        WTF::fastFree(v24, v17);
+        v41 = 0;
+        LODWORD(v42) = 0;
+        WTF::fastFree(v25, v18);
       }
     }
   }
 
-  if (v48 == 1)
+  if (v49 == 1)
   {
-    v25 = v44;
-    if (v47 != v44)
+    v26 = v45;
+    if (v48 != v45)
     {
-      if (v44)
+      if (v45)
       {
-        v44 = 0;
         v45 = 0;
-        WTF::fastFree(v25, v17);
+        v46 = 0;
+        WTF::fastFree(v26, v18);
       }
     }
   }
 
-  if ((v33 & 1) == 0)
+  if ((v34 & 1) == 0)
   {
     IPC::Decoder::markInvalid(a2);
   }
 
   if (*a2)
   {
-    if (v33)
+    v17 = v34;
+    if (v34)
     {
-      v34 = 0;
       v35 = 0;
-      v36[0] = 0;
+      v36 = 0;
+      v37[0] = 0;
       WebCore::Region::setShape();
       WebCore::Region::Region();
       a1[24] = 1;
-      WebCore::Region::~Region(&v34);
+      WebCore::Region::~Region(&v35);
       goto LABEL_46;
     }
 
@@ -5182,19 +5192,19 @@ LABEL_37:
   *a1 = 0;
   a1[24] = 0;
 LABEL_46:
-  if (v33 == 1)
+  if (v34 == 1)
   {
-    v26 = v30;
-    if (v32 != v30 && v30)
+    v27 = v31;
+    if (v33 != v31 && v31)
     {
-      v30 = 0;
-      LODWORD(v31) = 0;
-      WTF::fastFree(v26, v17);
+      v31 = 0;
+      LODWORD(v32) = 0;
+      WTF::fastFree(v27, v18);
     }
 
-    if (v29 != v28 && v28)
+    if (v30 != v29 && v29)
     {
-      WTF::fastFree(v28, v17);
+      WTF::fastFree(v29, v18);
     }
   }
 
@@ -5331,7 +5341,7 @@ LABEL_5:
   }
 
   v59 = v13;
-  if (v7 <= v10 - v9)
+  if (v7 <= &v10[-v9])
   {
     v52 = 0;
     v55 = *(a1 + 3);
@@ -5464,12 +5474,12 @@ LABEL_44:
 
         else
         {
-          v37 = v70 + 96 * HIDWORD(v71);
+          v37 = &v70[12 * HIDWORD(v71)];
           *v37 = v64[0];
           v38 = v64[1];
           v64[1] = 0;
-          *(v37 + 8) = v38;
-          result = std::__optional_move_base<WebCore::TextManipulationTokenInfo,false>::__optional_move_base[abi:sn200100](v37 + 16, &v65);
+          v37[1] = v38;
+          result = std::__optional_move_base<WebCore::TextManipulationTokenInfo,false>::__optional_move_base[abi:sn200100]((v37 + 2), &v65);
           *(v37 + 88) = v68;
           ++HIDWORD(v71);
         }
@@ -5534,7 +5544,7 @@ LABEL_43:
           goto LABEL_123;
         }
 
-        v44 = WTF::fastMalloc((96 * HIDWORD(v71)));
+        v44 = WTF::fastMalloc((3 * HIDWORD(v71)), (96 * HIDWORD(v71)));
         LODWORD(v71) = 96 * v42 / 0x60;
         v70 = v44;
         if (v44 != v43)
@@ -5559,7 +5569,7 @@ LABEL_43:
   else if (v25)
   {
     LODWORD(v71) = 96 * v25 / 0x60u;
-    v70 = WTF::fastMalloc((96 * v25));
+    v70 = WTF::fastMalloc((3 * v25), (96 * v25));
     do
     {
       IPC::Decoder::decode<WebCore::TextManipulationToken>(v64, a1);
@@ -5573,12 +5583,12 @@ LABEL_43:
 
         else
         {
-          v27 = v70 + 96 * HIDWORD(v71);
+          v27 = &v70[12 * HIDWORD(v71)];
           *v27 = v64[0];
           v28 = v64[1];
           v64[1] = 0;
-          *(v27 + 8) = v28;
-          std::__optional_move_base<WebCore::TextManipulationTokenInfo,false>::__optional_move_base[abi:sn200100](v27 + 16, &v65);
+          v27[1] = v28;
+          std::__optional_move_base<WebCore::TextManipulationTokenInfo,false>::__optional_move_base[abi:sn200100]((v27 + 2), &v65);
           *(v27 + 88) = v68;
           ++HIDWORD(v71);
         }
@@ -6437,7 +6447,7 @@ void sub_19D72BF94(_Unwind_Exception *a1, WTF::StringImpl *a2)
   _Unwind_Resume(a1);
 }
 
-void IPC::Decoder::decode<WebCore::Credential>(WTF::StringImpl *a1@<X0>, uint64_t a2@<X8>)
+void IPC::Decoder::decode<WebCore::Credential>(IPC::Decoder *a1@<X0>, uint64_t a2@<X8>)
 {
   IPC::ArgumentCoder<WebCore::Credential,void>::decode(a1, a2);
   if ((*(a2 + 32) & 1) == 0)
@@ -6455,7 +6465,7 @@ void IPC::Decoder::decode<WebCore::Credential>(WTF::StringImpl *a1@<X0>, uint64_
   }
 }
 
-uint64_t IPC::ArgumentCoder<WebCore::DragData,void>::encode(IPC::Encoder *a1, uint64_t a2)
+IPC::Decoder *IPC::ArgumentCoder<WebCore::DragData,void>::encode(IPC::Encoder *a1, uint64_t a2)
 {
   IPC::ArgumentCoder<WTF::String,void>::encode<IPC::Encoder>(a1, (a2 + 72));
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(a1, *a2);
@@ -6611,7 +6621,7 @@ LABEL_42:
   v11 = *(a1 + 1);
 LABEL_5:
   v16 = *(a1 + 2);
-  if (v11 <= v16 - v13)
+  if (v11 <= &v16[-v13])
   {
     goto LABEL_39;
   }
@@ -6705,7 +6715,7 @@ LABEL_20:
   return result;
 }
 
-void sub_19D72C764(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, char a28)
+void sub_19D72C764(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
 {
   if (a28 == 1)
   {
@@ -6795,7 +6805,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t IPC::ArgumentCoder<WebCore::UserStyleSheet,void>::encode(IPC::Encoder *a1, uint64_t a2)
+IPC::Decoder *IPC::ArgumentCoder<WebCore::UserStyleSheet,void>::encode(IPC::Encoder *a1, uint64_t a2)
 {
   IPC::ArgumentCoder<WTF::String,void>::encode<IPC::Encoder>(a1, a2);
   IPC::ArgumentCoder<WTF::String,void>::encode<IPC::Encoder>(a1, (a2 + 8));
@@ -6829,7 +6839,7 @@ uint64_t IPC::ArgumentCoder<WebCore::ScrollableAreaParameters,void>::encode(IPC:
   return IPC::ArgumentCoder<BOOL,void>::encode<IPC::Encoder>(a1, v4);
 }
 
-void IPC::ArgumentCoder<WebCore::NotificationResources,void>::decode(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void IPC::ArgumentCoder<WebCore::NotificationResources,void>::decode(unsigned __int8 **a1@<X0>, uint64_t a2@<X8>)
 {
   IPC::Decoder::decode<WTF::RefPtr<WebCore::Image,WTF::RawPtrTraits<WebCore::Image>,WTF::DefaultRefDerefTraits<WebCore::Image>>>(a1, &v8);
   v4 = *a1;
@@ -6841,12 +6851,12 @@ void IPC::ArgumentCoder<WebCore::NotificationResources,void>::decode(uint64_t *a
       return;
     }
 
-    v5 = WTF::fastMalloc(0x10);
+    v5 = WTF::fastMalloc(v9, 0x10);
     LOBYTE(v4) = 1;
     *v5 = 1;
     v6 = v8;
     v8 = 0;
-    *(v5 + 8) = v6;
+    v5[1] = v6;
     *a2 = v5;
   }
 
@@ -6875,13 +6885,13 @@ void IPC::ArgumentCoder<WebCore::NotificationResources,void>::decode(uint64_t *a
   }
 }
 
-void sub_19D72CB18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _DWORD *a9, char a10)
+void sub_19D72CB18(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _DWORD *a9, char a10)
 {
   if (a10 == 1 && a9)
   {
     if (a9[4] == 1)
     {
-      (*(*a9 + 8))(a9);
+      (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -9060,7 +9070,7 @@ uint64_t IPC::ArgumentCoder<WebCore::Gradient,void>::encode(IPC::Encoder *a1, ui
   return IPC::VectorArgumentCoder<false,WebCore::GradientColorStop,2ul,WTF::CrashOnOverflow,16ul>::encode<IPC::Encoder,WTF::Vector<WebCore::GradientColorStop,2ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&>(a1, a2 + 88);
 }
 
-uint64_t *IPC::ArgumentCoder<WebCore::Gradient,void>::encode(mpark *a1, uint64_t a2)
+mpark *IPC::ArgumentCoder<WebCore::Gradient,void>::encode(mpark *a1, uint64_t a2)
 {
   IPC::ArgumentCoder<mpark::variant<WebCore::Gradient::LinearData,WebCore::Gradient::RadialData,WebCore::Gradient::ConicData>,void>::encode<IPC::StreamConnectionEncoder,mpark::variant<WebCore::Gradient::LinearData,WebCore::Gradient::RadialData,WebCore::Gradient::ConicData> const&>(a1, a2 + 48);
   v4 = *(a2 + 80);
@@ -9088,7 +9098,7 @@ LABEL_6:
   return IPC::VectorArgumentCoder<false,WebCore::GradientColorStop,2ul,WTF::CrashOnOverflow,16ul>::encode<IPC::StreamConnectionEncoder,WTF::Vector<WebCore::GradientColorStop,2ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&>(a1, a2 + 88);
 }
 
-uint64_t IPC::ArgumentCoder<WebCore::Gradient,void>::decode@<X0>(IPC::Decoder *a1@<X0>, uint64_t a2@<X8>)
+void *IPC::ArgumentCoder<WebCore::Gradient,void>::decode@<X0>(IPC::Decoder *a1@<X0>, uint64_t a2@<X8>)
 {
   IPC::ArgumentCoder<mpark::variant<WebCore::Gradient::LinearData,WebCore::Gradient::RadialData,WebCore::Gradient::ConicData>,void>::decode<IPC::Decoder>(a1, v13);
   if ((v14 & 1) == 0)
@@ -9138,7 +9148,7 @@ LABEL_10:
   return result;
 }
 
-void sub_19D72EB2C(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_19D72EB2C(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
 {
   if (a17 == 1)
   {
@@ -9211,10 +9221,10 @@ atomic_uchar ***WTF::Ref<WebCore::Gradient,WTF::RawPtrTraits<WebCore::Gradient>,
   return a1;
 }
 
-uint64_t IPC::ArgumentCoder<WebCore::PatternParameters,void>::encode(IPC::Encoder *a1, uint64_t a2)
+uint64_t IPC::ArgumentCoder<WebCore::PatternParameters,void>::encode(IPC::Encoder *a1, char *a2)
 {
   IPC::Encoder::operator<<<BOOL>(a1, a2);
-  IPC::Encoder::operator<<<BOOL>(a1, (a2 + 1));
+  IPC::Encoder::operator<<<BOOL>(a1, a2 + 1);
 
   return IPC::ArgumentCoder<std::span<double const,6ul>,void>::encode<IPC::Encoder>(a1, (a2 + 8));
 }
@@ -9649,7 +9659,7 @@ uint64_t IPC::ArgumentCoder<WebCore::GraphicsContextGLAttributes,void>::encode(I
   return IPC::ArgumentCoder<BOOL,void>::encode<IPC::Encoder>(a1, v4);
 }
 
-uint64_t IPC::ArgumentCoder<WebCore::GraphicsContextGLAttributes,void>::decode(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 *a7, uint64_t a8)
+unint64_t IPC::ArgumentCoder<WebCore::GraphicsContextGLAttributes,void>::decode(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8)
 {
   v8 = a1[1];
   v9 = a1[2];
@@ -10307,7 +10317,7 @@ LABEL_28:
       goto LABEL_110;
     }
 
-    a7 = v26 + 1;
+    a7 = (v26 + 1);
     a1[2] = v26 + 1;
     if (!v26)
     {
@@ -10330,7 +10340,7 @@ LABEL_28:
     v27 = *v26;
     if (v27 < 3)
     {
-      a7 = (v27 | 0x100);
+      a7 = v27 | 0x100;
       goto LABEL_32;
     }
 

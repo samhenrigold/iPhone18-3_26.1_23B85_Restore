@@ -33,7 +33,7 @@
   v14.super_class = GSMultiLayerRenderer;
   errorCopy = error;
   [(GSMultiLayerRenderer *)&v14 init];
-  [optionCopy impl];
+  objc_msgSend_impl(optionCopy);
   std::allocate_shared[abi:ne200100]<apple3dgs::MultiLayerRenderer,std::allocator<apple3dgs::MultiLayerRenderer>,objc_object  {objcproto9MTLDevice}* {__strong}&,apple3dgs::MultiLayerOptions &,MTLPixelFormat &,MTLPixelFormat,NSError * {__autoreleasing}*&,0>();
 }
 
@@ -44,56 +44,56 @@
   assetCopy = asset;
   optionCopy = option;
   callbackCopy = callback;
-  v15 = MEMORY[0x24C1A2460]();
+  v16 = MEMORY[0x24C1A2460]();
   ptr = self->_impl.__ptr_;
   if (assetCopy)
   {
-    [assetCopy impl];
-    v17 = v38;
+    objc_msgSend_impl(assetCopy);
+    v18 = v38;
   }
 
   else
   {
-    v17 = 0uLL;
+    v18 = 0uLL;
   }
 
-  v39 = v17;
-  [optionCopy impl];
-  v18 = *(v36 + 16);
+  v39 = v18;
+  objc_msgSend_impl(optionCopy);
+  v19 = *(v36 + 16);
   v42[0] = *v36;
-  v42[1] = v18;
-  v19 = *(v36 + 80);
-  v21 = *(v36 + 32);
-  v20 = *(v36 + 48);
+  v42[1] = v19;
+  v20 = *(v36 + 80);
+  v22 = *(v36 + 32);
+  v21 = *(v36 + 48);
   v42[4] = *(v36 + 64);
-  v42[5] = v19;
-  v42[2] = v21;
-  v42[3] = v20;
-  v22 = *(v36 + 144);
-  v24 = *(v36 + 96);
-  v23 = *(v36 + 112);
+  v42[5] = v20;
+  v42[2] = v22;
+  v42[3] = v21;
+  v23 = *(v36 + 144);
+  v25 = *(v36 + 96);
+  v24 = *(v36 + 112);
   v42[8] = *(v36 + 128);
-  v42[9] = v22;
-  v42[6] = v24;
-  v42[7] = v23;
-  v25 = *(v36 + 208);
-  v27 = *(v36 + 160);
-  v26 = *(v36 + 176);
+  v42[9] = v23;
+  v42[6] = v25;
+  v42[7] = v24;
+  v26 = *(v36 + 208);
+  v28 = *(v36 + 160);
+  v27 = *(v36 + 176);
   v42[12] = *(v36 + 192);
-  v42[13] = v25;
-  v42[10] = v27;
-  v42[11] = v26;
-  v28 = *(v36 + 224);
-  v29 = *(v36 + 237);
-  v30 = *(v36 + 232);
-  v43 = v28;
-  v44[0] = v30;
-  *(v44 + 5) = v29;
-  v31 = MEMORY[0x24C1A2460](v15);
+  v42[13] = v26;
+  v42[10] = v28;
+  v42[11] = v27;
+  v29 = *(v36 + 224);
+  v30 = *(v36 + 237);
+  v31 = *(v36 + 232);
+  v43 = v29;
+  v44[0] = v31;
+  *(v44 + 5) = v30;
+  v32 = MEMORY[0x24C1A2460](v16);
   v40[0] = &unk_28593CD58;
-  v40[1] = v31;
+  v40[1] = v32;
   v41 = v40;
-  v32 = apple3dgs::MultiLayerRenderer::Render(ptr, withCopy, &v39, v42);
+  v33 = apple3dgs::MultiLayerRenderer::Render(ptr, withCopy, &v39, v42, v40, error);
   if (v41 == v40)
   {
     (*(*v41 + 32))(v41);
@@ -110,15 +110,14 @@
     std::__shared_weak_count::__release_weak(v37);
   }
 
-  v33 = *(&v39 + 1);
+  v34 = *(&v39 + 1);
   if (*(&v39 + 1) && !atomic_fetch_add((*(&v39 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v33->__on_zero_shared)(v33);
-    std::__shared_weak_count::__release_weak(v33);
+    (v34->__on_zero_shared)(v34);
+    std::__shared_weak_count::__release_weak(v34);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-  return v32;
+  return v33;
 }
 
 - (BOOL)startWarmupThread:(id)thread multiLayerCallback:(id)callback error:(id *)error

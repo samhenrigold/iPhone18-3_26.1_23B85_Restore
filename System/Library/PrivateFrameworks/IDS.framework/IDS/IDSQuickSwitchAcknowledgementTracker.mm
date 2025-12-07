@@ -72,31 +72,31 @@
 
 - (id)awaitAcknowledgementFromServiceDelegate:(id)delegate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   watchPairing = [MEMORY[0x1E69A6138] watchPairing];
   if (os_log_type_enabled(watchPairing, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v14 = objc_opt_class();
-    v15 = 2080;
-    v16 = "[IDSQuickSwitchAcknowledgementTracker awaitAcknowledgementFromServiceDelegate:]";
-    v17 = 2112;
-    v18 = delegateCopy;
-    v6 = v14;
+    v13 = objc_opt_class();
+    v14 = 2080;
+    v15 = "[IDSQuickSwitchAcknowledgementTracker awaitAcknowledgementFromServiceDelegate:]";
+    v16 = 2112;
+    v17 = delegateCopy;
+    v6 = v13;
     _os_log_impl(&dword_1959FF000, watchPairing, OS_LOG_TYPE_DEFAULT, "%@ %s  (serviceDelegate: %@)", buf, 0x20u);
   }
 
   if (delegateCopy)
   {
     v7 = [(IDSQuickSwitchAcknowledgementTracker *)self identifierForServiceDelegate:delegateCopy];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_195A7F514;
-    v11[3] = &unk_1E74410D8;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = sub_195A7F514;
+    v10[3] = &unk_1E74410D8;
     v8 = v7;
-    v12 = v8;
-    [(IDSQuickSwitchAcknowledgementTracker *)self _accessDelegateIdentifiersInCriticalSectionWithBlock:v11];
+    v11 = v8;
+    [(IDSQuickSwitchAcknowledgementTracker *)self _accessDelegateIdentifiersInCriticalSectionWithBlock:v10];
   }
 
   else
@@ -104,25 +104,23 @@
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (id)identifierForServiceDelegate:(id)delegate
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   watchPairing = [MEMORY[0x1E69A6138] watchPairing];
   if (os_log_type_enabled(watchPairing, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v12 = objc_opt_class();
-    v13 = 2080;
-    v14 = "[IDSQuickSwitchAcknowledgementTracker identifierForServiceDelegate:]";
-    v15 = 2112;
-    v16 = delegateCopy;
-    v5 = v12;
+    v11 = objc_opt_class();
+    v12 = 2080;
+    v13 = "[IDSQuickSwitchAcknowledgementTracker identifierForServiceDelegate:]";
+    v14 = 2112;
+    v15 = delegateCopy;
+    v5 = v11;
     _os_log_impl(&dword_1959FF000, watchPairing, OS_LOG_TYPE_DEFAULT, "%@ %s  (serviceDelegate: %@)", buf, 0x20u);
   }
 
@@ -138,57 +136,52 @@
     delegateCopy = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return delegateCopy;
 }
 
 - (void)stopAwaitingAcknowledgementFromServiceDelegateWithIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   watchPairing = [MEMORY[0x1E69A6138] watchPairing];
   if (os_log_type_enabled(watchPairing, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v11 = objc_opt_class();
-    v12 = 2080;
-    v13 = "[IDSQuickSwitchAcknowledgementTracker stopAwaitingAcknowledgementFromServiceDelegateWithIdentifier:]";
-    v14 = 2112;
-    v15 = identifierCopy;
-    v6 = v11;
+    v10 = objc_opt_class();
+    v11 = 2080;
+    v12 = "[IDSQuickSwitchAcknowledgementTracker stopAwaitingAcknowledgementFromServiceDelegateWithIdentifier:]";
+    v13 = 2112;
+    v14 = identifierCopy;
+    v6 = v10;
     _os_log_impl(&dword_1959FF000, watchPairing, OS_LOG_TYPE_DEFAULT, "%@ %s  (delegateIdentifier: %@)", buf, 0x20u);
   }
 
   if (identifierCopy)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = sub_195A7F8E0;
-    v8[3] = &unk_1E74410D8;
-    v9 = identifierCopy;
-    [(IDSQuickSwitchAcknowledgementTracker *)self _accessDelegateIdentifiersInCriticalSectionWithBlock:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = sub_195A7F8E0;
+    v7[3] = &unk_1E74410D8;
+    v8 = identifierCopy;
+    [(IDSQuickSwitchAcknowledgementTracker *)self _accessDelegateIdentifiersInCriticalSectionWithBlock:v7];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopAwaitingAcknowledgementFromAllServiceDelegates
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   watchPairing = [MEMORY[0x1E69A6138] watchPairing];
   if (os_log_type_enabled(watchPairing, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412546;
-    v7 = objc_opt_class();
-    v8 = 2080;
-    v9 = "[IDSQuickSwitchAcknowledgementTracker stopAwaitingAcknowledgementFromAllServiceDelegates]";
-    v4 = v7;
-    _os_log_impl(&dword_1959FF000, watchPairing, OS_LOG_TYPE_DEFAULT, "%@ %s", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = objc_opt_class();
+    v7 = 2080;
+    v8 = "[IDSQuickSwitchAcknowledgementTracker stopAwaitingAcknowledgementFromAllServiceDelegates]";
+    v4 = v6;
+    _os_log_impl(&dword_1959FF000, watchPairing, OS_LOG_TYPE_DEFAULT, "%@ %s", &v5, 0x16u);
   }
 
   [(IDSQuickSwitchAcknowledgementTracker *)self _accessDelegateIdentifiersInCriticalSectionWithBlock:&unk_1F09E61C0];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_accessDelegateIdentifiersInCriticalSectionWithBlock:(id)block

@@ -60,29 +60,29 @@
 
 - (id)asDictionary
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   identifier = [(CRSystemWallpaperData *)self identifier];
 
   if (identifier)
   {
-    v7 = @"systemWallpaperIdentifier";
+    v8 = @"systemWallpaperIdentifier";
     identifier2 = [(CRSystemWallpaperData *)self identifier];
-    v8[0] = identifier2;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v9[0] = identifier2;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
   {
-    identifier2 = CarGeneralLogging();
+    identifier2 = CarGeneralLogging(v4);
     if (os_log_type_enabled(identifier2, OS_LOG_TYPE_FAULT))
     {
       [(CRSystemWallpaperData *)self asDictionary];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal

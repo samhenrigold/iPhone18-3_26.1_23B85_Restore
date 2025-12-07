@@ -34,6 +34,7 @@
 - (void)scrollToTop;
 - (void)scrubVideoToFirstFrame;
 - (void)setContentSafeAreaInsets:(UIEdgeInsets)insets;
+- (void)setNeedsTextView:(BOOL)view;
 - (void)setParallaxOffset:(CGPoint)offset;
 - (void)setupActionButtonConfiguration;
 - (void)updateActionButton;
@@ -659,6 +660,43 @@ LABEL_31:
   {
     delegate = [(TPSBaseTipCollectionViewCell *)self delegate];
     [delegate tipCollectionViewCellContentLayoutChanged:self];
+  }
+}
+
+- (void)setNeedsTextView:(BOOL)view
+{
+  if (self->_hasBodyContent)
+  {
+    viewCopy = view;
+    self->_needsTextView = view;
+    [(NSLayoutConstraint *)self->_actionButtonTextLabelTopConstraint setActive:!view];
+    [(NSLayoutConstraint *)self->_actionButtonTextViewTopConstraint setActive:viewCopy];
+    v5 = &OBJC_IVAR___TPSBaseTipCollectionViewCell__contentTextViewConstraints;
+    if (viewCopy)
+    {
+      v6 = &OBJC_IVAR___TPSBaseTipCollectionViewCell__contentLabelConstraints;
+    }
+
+    else
+    {
+      v6 = &OBJC_IVAR___TPSBaseTipCollectionViewCell__contentTextViewConstraints;
+    }
+
+    v7 = *(&self->super.super.super.super.super.isa + *v6);
+    if (!viewCopy)
+    {
+      v5 = &OBJC_IVAR___TPSBaseTipCollectionViewCell__contentLabelConstraints;
+    }
+
+    v8 = *(&self->super.super.super.super.super.isa + *v5);
+    v9 = v7;
+    [NSLayoutConstraint deactivateConstraints:v9];
+    [NSLayoutConstraint activateConstraints:v8];
+  }
+
+  else
+  {
+    self->_needsTextView = 0;
   }
 }
 
@@ -1548,12 +1586,11 @@ LABEL_7:
 {
   v3 = type metadata accessor for URL();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   static TipsWorkspace.openSensitive(_:)();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 @end

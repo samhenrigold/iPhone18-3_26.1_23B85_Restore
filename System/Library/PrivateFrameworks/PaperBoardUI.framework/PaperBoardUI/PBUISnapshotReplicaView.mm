@@ -39,7 +39,7 @@
   imageView = self->_imageView;
   if (imageView)
   {
-    [(UIImageView *)imageView transform];
+    objc_msgSend_transform(imageView);
     v13 = self->_imageView;
   }
 
@@ -193,9 +193,9 @@ LABEL_7:
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v20.receiver = self;
-  v20.super_class = PBUISnapshotReplicaView;
-  v7 = [(PBUISnapshotReplicaView *)&v20 initWithFrame:?];
+  v22.receiver = self;
+  v22.super_class = PBUISnapshotReplicaView;
+  v7 = [(PBUISnapshotReplicaView *)&v22 initWithFrame:?];
   v8 = v7;
   if (v7)
   {
@@ -214,24 +214,24 @@ LABEL_7:
     [(UIImageView *)v8->_imageView setAutoresizingMask:18];
     [(PBUISnapshotReplicaView *)v8 addSubview:v8->_imageView];
     [(PBUISnapshotReplicaView *)v8 setAutoresizingMask:18];
-    [(PBUISnapshotReplicaView *)v8 setShouldMatchWallpaperPosition:1];
-    if (PBUIReplicaDebugModeIsEnabled())
+    v13 = [(PBUISnapshotReplicaView *)v8 setShouldMatchWallpaperPosition:1];
+    if (PBUIReplicaDebugModeIsEnabled(v13, v14))
     {
       height = [[PBUIReplicaDebugView alloc] initWithFrame:x, y, width, height];
       debugView = v8->_debugView;
       v8->_debugView = height;
 
-      v15 = v8->_debugView;
+      v17 = v8->_debugView;
       blueColor = [MEMORY[0x277D75348] blueColor];
-      v17 = [blueColor colorWithAlphaComponent:0.4];
-      [(PBUIReplicaDebugView *)v15 setColor:v17];
+      v19 = [blueColor colorWithAlphaComponent:0.4];
+      [(PBUIReplicaDebugView *)v17 setColor:v19];
 
       [(PBUISnapshotReplicaView *)v8 addSubview:v8->_debugView];
     }
 
     else
     {
-      v18 = v8->_debugView;
+      v20 = v8->_debugView;
       v8->_debugView = 0;
     }
   }

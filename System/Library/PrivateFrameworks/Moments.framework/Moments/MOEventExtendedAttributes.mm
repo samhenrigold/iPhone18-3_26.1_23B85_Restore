@@ -40,55 +40,53 @@
 
 + (id)lowerCaseArrayOfStrings:(id)strings
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = stringsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        lowercaseString = [*(*(&v13 + 1) + 8 * i) lowercaseString];
+        lowercaseString = [*(*(&v12 + 1) + 8 * i) lowercaseString];
         [array addObject:lowercaseString];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (MOEventExtendedAttributes)initWithMoment:(id)moment
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   momentCopy = moment;
   v5 = [momentCopy objectForKey:@"localIdentifier"];
   v6 = [(MOEventExtendedAttributes *)self initWithLocalIdentifier:v5];
   if (v6)
   {
-    v43 = v5;
+    v42 = v5;
     v7 = [momentCopy objectForKey:@"inferences"];
     v8 = [MOEventExtendedAttributes lowerCaseArrayOfStrings:v7];
-    v42 = v7;
+    v41 = v7;
     if (v7)
     {
       v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v8 copyItems:1];
@@ -96,10 +94,10 @@
       v6->_photoMomentInferences = v9;
     }
 
-    v41 = v8;
+    v40 = v8;
     v11 = [momentCopy objectForKey:@"holidays"];
     v12 = [MOEventExtendedAttributes lowerCaseArrayOfStrings:v11];
-    v40 = v11;
+    v39 = v11;
     if (v11)
     {
       v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v12 copyItems:1];
@@ -107,36 +105,36 @@
       v6->_photoMomentHolidays = v13;
     }
 
-    v39 = v12;
+    v38 = v12;
     v15 = [momentCopy objectForKey:@"publicEvents"];
     if (v15)
     {
       v16 = objc_opt_new();
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
       v17 = v15;
       v18 = v15;
-      v19 = [v18 countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v47 objects:v52 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v49;
+        v21 = *v48;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v49 != v21)
+            if (*v48 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = [[MOPublicEvent alloc] initWithEventDictionary:*(*(&v48 + 1) + 8 * i)];
+            v23 = [[MOPublicEvent alloc] initWithEventDictionary:*(*(&v47 + 1) + 8 * i)];
             [v16 addObject:v23];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v48 objects:v53 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v47 objects:v52 count:16];
         }
 
         while (v20);
@@ -153,26 +151,26 @@
     if (v26)
     {
       v27 = objc_opt_new();
+      v43 = 0u;
       v44 = 0u;
       v45 = 0u;
       v46 = 0u;
-      v47 = 0u;
       v28 = v26;
-      v29 = [v28 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v43 objects:v51 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v45;
+        v31 = *v44;
         do
         {
           for (j = 0; j != v30; ++j)
           {
-            if (*v45 != v31)
+            if (*v44 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v33 = [[MOPerson alloc] initWithPersonDictionary:*(*(&v44 + 1) + 8 * j)];
+            v33 = [[MOPerson alloc] initWithPersonDictionary:*(*(&v43 + 1) + 8 * j)];
             v34 = v33;
             if (v33)
             {
@@ -181,7 +179,7 @@
             }
           }
 
-          v30 = [v28 countByEnumeratingWithState:&v44 objects:v52 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v43 objects:v51 count:16];
         }
 
         while (v30);
@@ -192,10 +190,9 @@
       v6->_photoMomentPersons = v35;
     }
 
-    v5 = v43;
+    v5 = v42;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -336,13 +333,12 @@ LABEL_13:
 
 - (void)initWithLocalIdentifier:(os_log_t)log .cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[MOEventExtendedAttributes initWithLocalIdentifier:]";
-  v4 = 1024;
-  v5 = 216;
-  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: localIdentifier (in %s:%d)", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[MOEventExtendedAttributes initWithLocalIdentifier:]";
+  v3 = 1024;
+  v4 = 216;
+  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: localIdentifier (in %s:%d)", &v1, 0x12u);
 }
 
 @end

@@ -32,14 +32,13 @@
 
 void __46__QueryController_applicationNameForUserAgent__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v3 = [v2 infoDictionary];
-  v6 = [v3 objectForKeyedSubscript:@"CFBundleVersion"];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = [v1 infoDictionary];
+  v5 = [v2 objectForKeyedSubscript:@"CFBundleVersion"];
 
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Spotlight/%@", v6];
-  v5 = applicationNameForUserAgent_applicationNameForUserAgent;
-  applicationNameForUserAgent_applicationNameForUserAgent = v4;
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Spotlight/%@", v5];
+  v4 = applicationNameForUserAgent_applicationNameForUserAgent;
+  applicationNameForUserAgent_applicationNameForUserAgent = v3;
 }
 
 - (QueryController)init

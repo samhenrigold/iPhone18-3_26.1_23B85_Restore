@@ -126,19 +126,18 @@ uint64_t __58__BLTPingHandlerHolder_pingWithRecordID_forSectionID_ack___block_in
 
   if (a2)
   {
-    v6 = blt_general_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = blt_general_log(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __58__BLTPingHandlerHolder_pingWithRecordID_forSectionID_ack___block_invoke_2_cold_1(v6);
+      __58__BLTPingHandlerHolder_pingWithRecordID_forSectionID_ack___block_invoke_2_cold_1(v5);
     }
 
     return (*(*(a1 + 32) + 16))();
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 32) + 16);
+  v3 = *(*(a1 + 32) + 16);
 
-  return v4();
+  return v3();
 }
 
 void __58__BLTPingHandlerHolder_pingWithRecordID_forSectionID_ack___block_invoke_2(void *a1)
@@ -174,7 +173,7 @@ void __58__BLTPingHandlerHolder_pingWithRecordID_forSectionID_ack___block_invoke
 {
   bulletinCopy = bulletin;
   ackCopy = ack;
-  v8 = BLTWorkQueue();
+  v8 = BLTWorkQueue(ackCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __45__BLTPingHandlerHolder_pingWithBulletin_ack___block_invoke;
@@ -280,19 +279,18 @@ uint64_t __58__BLTPingHandlerHolder_pingWithBulletin_notification_ack___block_in
 
   if (a2)
   {
-    v6 = blt_general_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = blt_general_log(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __58__BLTPingHandlerHolder_pingWithRecordID_forSectionID_ack___block_invoke_2_cold_1(v6);
+      __58__BLTPingHandlerHolder_pingWithRecordID_forSectionID_ack___block_invoke_2_cold_1(v5);
     }
 
     return (*(*(a1 + 32) + 16))();
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 32) + 16);
+  v3 = *(*(a1 + 32) + 16);
 
-  return v4();
+  return v3();
 }
 
 void __58__BLTPingHandlerHolder_pingWithBulletin_notification_ack___block_invoke_4(void *a1)

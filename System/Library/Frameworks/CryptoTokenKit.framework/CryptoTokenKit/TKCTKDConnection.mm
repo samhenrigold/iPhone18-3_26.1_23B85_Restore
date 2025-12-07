@@ -23,16 +23,18 @@
   if (serverEndpoint)
   {
     v6 = serverEndpoint;
+    v7 = v6;
   }
 
   else
   {
     v6 = provideEndpoint(2);
+    v7 = v6;
     if (!v6)
     {
       if (selfCopy->_targetUID)
       {
-        v15 = TK_LOG_client_2();
+        v15 = TK_LOG_client_2(0);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           [(TKCTKDConnection *)@"com.apple.ctkd.token-client" serverConnection:buf];
@@ -40,14 +42,14 @@
       }
 
       selfCopy->_namedConnection = 1;
-      v8 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.ctkd.token-client" options:0];
-      v6 = 0;
+      v9 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.ctkd.token-client" options:0];
+      v7 = 0;
       goto LABEL_7;
     }
   }
 
-  v7 = TK_LOG_client_2();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = TK_LOG_client_2(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v16 = selfCopy->_serverEndpoint ? "external" : "EP-provided";
     targetUID = selfCopy->_targetUID;
@@ -66,25 +68,25 @@
     v20 = v16;
     v21 = 2082;
     v22 = uTF8String;
-    _os_log_debug_impl(&dword_1DF413000, v7, OS_LOG_TYPE_DEBUG, "creating connection to %{public}s endpoint%{public}s", buf, 0x16u);
+    _os_log_debug_impl(&dword_1DF413000, v8, OS_LOG_TYPE_DEBUG, "creating connection to %{public}s endpoint%{public}s", buf, 0x16u);
     if (targetUID)
     {
     }
   }
 
-  v8 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:v6];
+  v9 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:v7];
 LABEL_7:
-  v9 = selfCopy->_serverConnection;
-  selfCopy->_serverConnection = v8;
+  v10 = selfCopy->_serverConnection;
+  selfCopy->_serverConnection = v9;
 
-  v10 = selfCopy->_targetUID;
-  if (v10)
+  v11 = selfCopy->_targetUID;
+  if (v11)
   {
-    [(NSXPCConnection *)selfCopy->_serverConnection _setTargetUserIdentifier:[(NSNumber *)v10 integerValue]];
+    [(NSXPCConnection *)selfCopy->_serverConnection _setTargetUserIdentifier:[(NSNumber *)v11 integerValue]];
   }
 
-  v11 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5A901D0];
-  [(NSXPCConnection *)selfCopy->_serverConnection setRemoteObjectInterface:v11];
+  v12 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5A901D0];
+  [(NSXPCConnection *)selfCopy->_serverConnection setRemoteObjectInterface:v12];
 
   if (selfCopy->_exportedInterface)
   {
@@ -100,12 +102,10 @@ LABEL_7:
 
   serverConnection = selfCopy->_serverConnection;
 LABEL_14:
-  v12 = serverConnection;
+  v13 = serverConnection;
   objc_sync_exit(selfCopy);
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v13;
 }
 
 - (TKCTKDConnection)initWithCTKDEndpoint:(id)endpoint targetUID:(id)d
@@ -127,125 +127,128 @@ LABEL_14:
 
 - (id)withError:(id *)error invoke:(id)invoke
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   invokeCopy = invoke;
-  v30 = 0;
-  v29 = *MEMORY[0x1E696A250];
-  *&v8 = 67109120;
-  v28 = v8;
-  while (v30 <= 7)
+  v8 = invokeCopy;
+  v32 = 0;
+  v31 = *MEMORY[0x1E696A250];
+  *&v9 = 67109120;
+  v30 = v9;
+  while (v32 <= 7)
   {
-    v35 = 0;
-    v36[0] = &v35;
-    v36[1] = 0x3032000000;
-    v36[2] = __Block_byref_object_copy__8;
-    v36[3] = __Block_byref_object_dispose__8;
     v37 = 0;
+    v38[0] = &v37;
+    v38[1] = 0x3032000000;
+    v38[2] = __Block_byref_object_copy__8;
+    v38[3] = __Block_byref_object_dispose__8;
+    v39 = 0;
     serverConnection = [(TKCTKDConnection *)self serverConnection];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __37__TKCTKDConnection_withError_invoke___block_invoke;
-    v34[3] = &unk_1E86B7B20;
-    v34[4] = &v35;
-    v10 = [serverConnection synchronousRemoteObjectProxyWithErrorHandler:v34];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __37__TKCTKDConnection_withError_invoke___block_invoke;
+    v36[3] = &unk_1E86B7B20;
+    v36[4] = &v37;
+    v11 = [serverConnection synchronousRemoteObjectProxyWithErrorHandler:v36];
 
-    v33 = 0;
-    v11 = invokeCopy[2](invokeCopy, v10, &v33);
-    v12 = v33;
-    v13 = *(v36[0] + 40);
-    if (!v13)
+    v35 = 0;
+    v12 = (v8)[2](v8, v11, &v35);
+    v13 = v35;
+    v14 = *(v38[0] + 40);
+    if (!v14)
     {
-      if (error && !v11)
+      if (error && !v12)
       {
-        v22 = v12;
-        *error = v12;
+        v25 = v13;
+        *error = v13;
       }
 
-      v4 = v11;
-      v17 = 0;
+      v4 = v12;
+      v19 = 0;
       goto LABEL_26;
     }
 
-    if ([v13 code] == 4097 && (objc_msgSend(*(v36[0] + 40), "domain"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", v29), v14, v15))
+    if ([v14 code] == 4097 && (objc_msgSend(*(v38[0] + 40), "domain"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isEqualToString:", v31), v15, v16))
     {
-      v16 = TK_LOG_client_2();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v18 = TK_LOG_client_2(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v28;
-        v41 = v30;
-        _os_log_debug_impl(&dword_1DF413000, v16, OS_LOG_TYPE_DEBUG, "reconnecting ctkd after interrupt, try %d", buf, 8u);
+        *buf = v30;
+        v43 = v32;
+        _os_log_debug_impl(&dword_1DF413000, v18, OS_LOG_TYPE_DEBUG, "reconnecting ctkd after interrupt, try %d", buf, 8u);
       }
     }
 
     else
     {
-      if ([*(v36[0] + 40) code] != 4099)
+      code = [*(v38[0] + 40) code];
+      if (code != 4099)
       {
         goto LABEL_17;
       }
 
-      domain = [*(v36[0] + 40) domain];
-      v19 = [domain isEqualToString:v29];
+      domain = [*(v38[0] + 40) domain];
+      v22 = [domain isEqualToString:v31];
 
-      if (!v19)
+      if (!v22)
       {
         goto LABEL_17;
       }
 
-      if (self->_namedConnection || [(TKCTKDConnection *)self _testing_noAutomaticReconnect])
+      if (self->_namedConnection || (code = [(TKCTKDConnection *)self _testing_noAutomaticReconnect], code))
       {
-        v20 = TK_LOG_client_2();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v23 = TK_LOG_client_2(code);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
-          [(TKCTKDConnection *)&v31 withError:v32 invoke:v20];
+          [(TKCTKDConnection *)&v33 withError:v34 invoke:v23];
         }
 
 LABEL_17:
         if (error)
         {
-          *error = *(v36[0] + 40);
+          code = *(v38[0] + 40);
+          *error = code;
         }
 
-        v21 = TK_LOG_client_2();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v24 = TK_LOG_client_2(code);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          [(TKCTKDConnection *)v38 withError:v36 invoke:&v39, v21];
+          [(TKCTKDConnection *)v40 withError:v38 invoke:&v41, v24];
         }
 
-        v17 = 0;
+        v19 = 0;
         v4 = 0;
         goto LABEL_26;
       }
 
-      v23 = TK_LOG_client_2();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v26 = TK_LOG_client_2(code);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v28;
-        v41 = v30;
-        _os_log_debug_impl(&dword_1DF413000, v23, OS_LOG_TYPE_DEBUG, "reconnecting ctkd after invalidate, try %d", buf, 8u);
+        *buf = v30;
+        v43 = v32;
+        _os_log_debug_impl(&dword_1DF413000, v26, OS_LOG_TYPE_DEBUG, "reconnecting ctkd after invalidate, try %d", buf, 8u);
       }
 
       [(NSXPCConnection *)self->_serverConnection invalidate];
       serverConnection = self->_serverConnection;
       self->_serverConnection = 0;
 
-      [MEMORY[0x1E696AF00] sleepForTimeInterval:v30++ * 0.1];
+      [MEMORY[0x1E696AF00] sleepForTimeInterval:v32++ * 0.1];
     }
 
-    v17 = 1;
+    v19 = 1;
 LABEL_26:
 
-    _Block_object_dispose(&v35, 8);
-    if ((v17 & 1) == 0)
+    _Block_object_dispose(&v37, 8);
+    if ((v19 & 1) == 0)
     {
       goto LABEL_36;
     }
   }
 
-  v25 = TK_LOG_client_2();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+  v28 = TK_LOG_client_2(invokeCopy);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
   {
-    [TKCTKDConnection withError:v25 invoke:?];
+    [TKCTKDConnection withError:v28 invoke:?];
   }
 
   if (error)
@@ -260,8 +263,6 @@ LABEL_26:
   }
 
 LABEL_36:
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -342,15 +343,14 @@ id __41__TKCTKDConnection_configurationEndpoint__block_invoke(uint64_t a1, void 
 
 - (void)withError:(uint64_t)a1 invoke:(NSObject *)a2 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 8);
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_fault_impl(&dword_1DF413000, a2, OS_LOG_TYPE_FAULT, "Unable to connect to tokenServer even after retries. (ep=%{public}@, uid=%@)", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_fault_impl(&dword_1DF413000, a2, OS_LOG_TYPE_FAULT, "Unable to connect to tokenServer even after retries. (ep=%{public}@, uid=%@)", &v4, 0x16u);
 }
 
 @end

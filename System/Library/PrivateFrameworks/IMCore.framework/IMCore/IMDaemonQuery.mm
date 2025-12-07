@@ -10,47 +10,47 @@
   dCopy = d;
   keyCopy = key;
   handlerCopy = handler;
-  v29.receiver = self;
-  v29.super_class = IMDaemonQuery;
-  v13 = [(IMDaemonQuery *)&v29 init];
-  if (v13)
+  v21.receiver = self;
+  v21.super_class = IMDaemonQuery;
+  v11 = [(IMDaemonQuery *)&v21 init];
+  if (v11)
   {
-    v14 = objc_msgSend_copy(dCopy, v11, v12);
-    ID = v13->_ID;
-    v13->_ID = v14;
+    v12 = [dCopy copy];
+    ID = v11->_ID;
+    v11->_ID = v12;
 
-    v18 = objc_msgSend_copy(keyCopy, v16, v17);
-    key = v13->_key;
-    v13->_key = v18;
+    v14 = [keyCopy copy];
+    key = v11->_key;
+    v11->_key = v14;
 
-    v22 = objc_msgSend_copy(handlerCopy, v20, v21);
-    completionHandler = v13->_completionHandler;
-    v13->_completionHandler = v22;
+    v16 = [handlerCopy copy];
+    completionHandler = v11->_completionHandler;
+    v11->_completionHandler = v16;
 
-    v26 = objc_msgSend_date(MEMORY[0x1E695DF00], v24, v25);
-    startDate = v13->_startDate;
-    v13->_startDate = v26;
+    date = [MEMORY[0x1E695DF00] date];
+    startDate = v11->_startDate;
+    v11->_startDate = date;
   }
 
-  return v13;
+  return v11;
 }
 
 - (id)description
 {
-  v4 = MEMORY[0x1E696AEC0];
-  v5 = objc_msgSend_ID(self, a2, v2);
-  v8 = objc_msgSend_key(self, v6, v7);
-  v11 = objc_msgSend_startDate(self, v9, v10);
-  v15 = objc_msgSend_completionHandler(self, v12, v13);
-  v16 = @"YES";
-  if (!v15)
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = [(IMDaemonQuery *)self ID];
+  v5 = [(IMDaemonQuery *)self key];
+  startDate = [(IMDaemonQuery *)self startDate];
+  completionHandler = [(IMDaemonQuery *)self completionHandler];
+  v8 = @"YES";
+  if (!completionHandler)
   {
-    v16 = @"NO";
+    v8 = @"NO";
   }
 
-  v17 = objc_msgSend_stringWithFormat_(v4, v14, @"ID: %@ key: %@ startDate: %@ completionHandler: %@", v5, v8, v11, v16);
+  v9 = [v3 stringWithFormat:@"ID: %@ key: %@ startDate: %@ completionHandler: %@", v4, v5, startDate, v8];
 
-  return v17;
+  return v9;
 }
 
 @end

@@ -9,37 +9,39 @@
 {
   managerCopy = manager;
   presenterCopy = presenter;
-  v15.receiver = self;
-  v15.super_class = ICSCustomEmailPresenter;
-  v8 = [(ICSCustomEmailPresenter *)&v15 init];
+  v17.receiver = self;
+  v17.super_class = ICSCustomEmailPresenter;
+  v8 = [(ICSCustomEmailPresenter *)&v17 init];
+  v9 = v8;
   if (v8)
   {
-    v9 = LogSubsystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = LogSubsystem(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [ICSCustomEmailPresenter initWithAccountManager:managerCopy presenter:v9];
+      [ICSCustomEmailPresenter initWithAccountManager:managerCopy presenter:v10];
     }
 
-    v10 = [MEMORY[0x277CCA8D8] ics_loadBundle:@"MailAccountSettings.bundle" atPath:@"System/Library/PreferenceBundles/AccountSettings"];
-    v11 = NSClassFromString(&cfstr_Byodspecifierp_0.isa);
-    if ([(objc_class *)v11 conformsToProtocol:&unk_2884BC2B8])
+    v11 = [MEMORY[0x277CCA8D8] ics_loadBundle:@"MailAccountSettings.bundle" atPath:@"System/Library/PreferenceBundles/AccountSettings"];
+    v12 = NSClassFromString(&cfstr_Byodspecifierp_0.isa);
+    v13 = [(objc_class *)v12 conformsToProtocol:&unk_2884BC2B8];
+    if (v13)
     {
-      v12 = [[v11 alloc] initWithAccountManager:managerCopy presenter:presenterCopy];
-      customEmailSpecifierProvider = v8->_customEmailSpecifierProvider;
-      v8->_customEmailSpecifierProvider = v12;
+      v14 = [[v12 alloc] initWithAccountManager:managerCopy presenter:presenterCopy];
+      customEmailSpecifierProvider = v9->_customEmailSpecifierProvider;
+      v9->_customEmailSpecifierProvider = v14;
     }
 
     else
     {
-      customEmailSpecifierProvider = LogSubsystem();
+      customEmailSpecifierProvider = LogSubsystem(v13);
       if (os_log_type_enabled(customEmailSpecifierProvider, OS_LOG_TYPE_ERROR))
       {
-        [ICSCustomEmailPresenter initWithAccountManager:v10 presenter:customEmailSpecifierProvider];
+        [ICSCustomEmailPresenter initWithAccountManager:v11 presenter:customEmailSpecifierProvider];
       }
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)showCustomEmailDomainView
@@ -54,34 +56,31 @@
 
   else
   {
-    v4 = LogSubsystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = LogSubsystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(ICSCustomEmailPresenter *)v4 showCustomEmailDomainView];
+      [(ICSCustomEmailPresenter *)v5 showCustomEmailDomainView];
     }
   }
 }
 
 - (void)initWithAccountManager:(void *)a1 presenter:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [a1 accounts];
   v5 = [v4 objectForKeyedSubscript:*MEMORY[0x277CED1A0]];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_275819000, a2, OS_LOG_TYPE_DEBUG, "AccountManager: %@, account: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_275819000, a2, OS_LOG_TYPE_DEBUG, "AccountManager: %@, account: %@", &v6, 0x16u);
 }
 
 - (void)initWithAccountManager:(uint64_t)a1 presenter:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
 }
 
 @end

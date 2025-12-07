@@ -62,12 +62,13 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  sub_AB8FF0();
-  v10 = objc_allocWithZone(type metadata accessor for UpsellArtworkGrid());
+  v10 = sub_AB8FF0();
+  v11 = objc_allocWithZone(type metadata accessor for UpsellArtworkGrid());
   dictionaryCopy = dictionary;
-  v12 = sub_3624F4(x, y, width, height);
+  sub_3624F4(v10, x, y, width, height);
+  v14 = v13;
 
-  return v12;
+  return v14;
 }
 
 - (void)dynamicViewController:(id)controller didFinishCarrierLinkingWithResult:(id)result error:(id)error

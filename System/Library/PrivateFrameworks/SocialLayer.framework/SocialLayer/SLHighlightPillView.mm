@@ -4,6 +4,7 @@
 - (BOOL)shouldInvalidatePreviousPlaceHolderSlotContent:(id)content forStyle:(id)style;
 - (BOOL)shouldShowContextMenu;
 - (BOOL)shouldShowReplyContextMenu;
+- (SLHighlightPillView)initWithHighlight:(id)highlight maxWidth:(double)width variant:(unint64_t)variant shouldDrawBlur:(BOOL)blur;
 - (SLHighlightPillViewDelegate)delegate;
 - (UIAction)hideAction;
 - (UIAction)replyAction;
@@ -30,6 +31,7 @@
 - (void)remoteContentIsLoadedValueChanged;
 - (void)renderRemoteContentForLayerContextID:(unint64_t)d style:(id)style yield:(id)yield;
 - (void)setBlurEffectGroupName:(id)name;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)setPreferredBackgroundColor:(id)color;
 - (void)setShouldDrawBackgroundBlur:(BOOL)blur;
 - (void)shouldShowContextMenu;
@@ -37,6 +39,106 @@
 @end
 
 @implementation SLHighlightPillView
+
+- (SLHighlightPillView)initWithHighlight:(id)highlight maxWidth:(double)width variant:(unint64_t)variant shouldDrawBlur:(BOOL)blur
+{
+  blurCopy = blur;
+  highlightCopy = highlight;
+  v11 = objc_opt_class();
+  v27.receiver = self;
+  v27.super_class = SLHighlightPillView;
+  v12 = [(SLRemoteView *)&v27 initWithServiceProxyClass:v11 maxWidth:width];
+  v13 = v12;
+  if (v12)
+  {
+    [(SLHighlightPillView *)v12 setHighlight:highlightCopy];
+    [(SLHighlightPillView *)v13 setShouldDrawBackgroundBlur:blurCopy];
+    [(SLHighlightPillView *)v13 setUserInteractionEnabled:1];
+    clearColor = [MEMORY[0x277D75348] clearColor];
+    [(SLHighlightPillView *)v13 setBackgroundColor:clearColor];
+
+    v13->_variant = variant;
+    [(SLHighlightPillView *)v13 _setupBlurView];
+    if (blurCopy)
+    {
+      chevronEffect = [(SLHighlightPillView *)v13 chevronEffect];
+    }
+
+    else
+    {
+      chevronEffect = 0;
+    }
+
+    v16 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:chevronEffect];
+    [(SLHighlightPillView *)v13 setChevronImageView:v16];
+    chevronImageView = [(SLHighlightPillView *)v13 chevronImageView];
+    [chevronImageView setTranslatesAutoresizingMaskIntoConstraints:0];
+
+    chevronImageView2 = [(SLHighlightPillView *)v13 chevronImageView];
+    slotView = [(SLRemoteView *)v13 slotView];
+    [(SLHighlightPillView *)v13 insertSubview:chevronImageView2 above:slotView];
+
+    _shouldDisplayDebugPillLabel = [(SLHighlightPillView *)v13 _shouldDisplayDebugPillLabel];
+    if (_shouldDisplayDebugPillLabel)
+    {
+      v21 = SLFrameworkLogHandle(_shouldDisplayDebugPillLabel);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        [SLHighlightPillView initWithHighlight:maxWidth:variant:shouldDrawBlur:];
+      }
+
+      [(SLHighlightPillView *)v13 _setupDebugPillLabel];
+    }
+
+    [(SLHighlightPillView *)v13 addTarget:v13 action:sel__pillTapped_forEvent_ forControlEvents:64];
+    if ([(SLHighlightPillView *)v13 shouldShowContextMenu])
+    {
+      [(SLHighlightPillView *)v13 setContextMenuInteractionEnabled:1];
+    }
+
+    currentDevice = [MEMORY[0x277D75418] currentDevice];
+    userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+
+    if (userInterfaceIdiom == 1)
+    {
+      v24 = [objc_alloc(MEMORY[0x277D75870]) initWithDelegate:v13];
+      [(SLHighlightPillView *)v13 setPointerInteraction:v24];
+
+      pointerInteraction = [(SLHighlightPillView *)v13 pointerInteraction];
+      [(SLHighlightPillView *)v13 addInteraction:pointerInteraction];
+    }
+
+    [(SLHighlightPillView *)v13 refreshContextMenuItems];
+  }
+
+  return v13;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  isHighlighted = [(SLHighlightPillView *)self isHighlighted];
+  v9.receiver = self;
+  v9.super_class = SLHighlightPillView;
+  [(SLHighlightPillView *)&v9 setHighlighted:highlightedCopy];
+  if (isHighlighted != highlightedCopy)
+  {
+    v6 = [(SLHighlightPillView *)self isHighlighted]== 0;
+    v7 = 0.6;
+    v8[1] = 3221225472;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[2] = __38__SLHighlightPillView_setHighlighted___block_invoke;
+    v8[3] = &unk_278925D68;
+    if (v6)
+    {
+      v7 = 1.0;
+    }
+
+    v8[4] = self;
+    *&v8[5] = v7;
+    [MEMORY[0x277D75D18] animateWithDuration:v8 animations:0.25];
+  }
+}
 
 - (BOOL)_shouldDisplayDebugPillLabel
 {
@@ -54,7 +156,7 @@
 
 - (void)_setupBlurView
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D75D68]);
   v4 = [MEMORY[0x277D75210] effectWithStyle:8];
   v5 = [v3 initWithEffect:v4];
@@ -64,29 +166,28 @@
   [(SLHighlightPillView *)self addSubview:self->_blurView];
   [(SLHighlightPillView *)self sendSubviewToBack:self->_blurView];
   [(UIVisualEffectView *)self->_blurView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v16 = MEMORY[0x277CCAAD0];
+  v15 = MEMORY[0x277CCAAD0];
   leadingAnchor = [(UIVisualEffectView *)self->_blurView leadingAnchor];
   leadingAnchor2 = [(SLHighlightPillView *)self leadingAnchor];
-  v19 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v22[0] = v19;
+  v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v21[0] = v18;
   trailingAnchor = [(UIVisualEffectView *)self->_blurView trailingAnchor];
   trailingAnchor2 = [(SLHighlightPillView *)self trailingAnchor];
   v7 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v22[1] = v7;
+  v21[1] = v7;
   topAnchor = [(UIVisualEffectView *)self->_blurView topAnchor];
   topAnchor2 = [(SLHighlightPillView *)self topAnchor];
   v10 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v22[2] = v10;
+  v21[2] = v10;
   bottomAnchor = [(UIVisualEffectView *)self->_blurView bottomAnchor];
   bottomAnchor2 = [(SLHighlightPillView *)self bottomAnchor];
   v13 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v22[3] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
-  [v16 activateConstraints:v14];
+  v21[3] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  [v15 activateConstraints:v14];
 
   [(UIVisualEffectView *)self->_blurView setHidden:1];
   [(UIVisualEffectView *)self->_blurView setUserInteractionEnabled:0];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (UIVisualEffect)chevronEffect
@@ -238,10 +339,10 @@
     blurView = [(SLHighlightPillView *)self blurView];
     [blurView _setGroupName:nameCopy];
 
-    v6 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SLFrameworkLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [(SLHighlightPillView *)self setBlurEffectGroupName:nameCopy, v6];
+      [(SLHighlightPillView *)self setBlurEffectGroupName:nameCopy, v7];
     }
   }
 }
@@ -276,7 +377,7 @@
 
 - (void)_configureChevronForSlotStyle:(id)style
 {
-  v51[4] = *MEMORY[0x277D85DE8];
+  v50[4] = *MEMORY[0x277D85DE8];
   if (self->_chevronImageView)
   {
     styleCopy = style;
@@ -292,7 +393,7 @@
 
     v7 = [SLHighlightPillMetrics chevronFontDescriptorWithStyle:styleCopy variant:[(SLHighlightPillView *)self variant]];
 
-    v50 = v7;
+    v49 = v7;
     v8 = [MEMORY[0x277D74300] fontWithDescriptor:v7 size:0.0];
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x277D75128] userInterfaceLayoutDirection];
@@ -305,11 +406,11 @@
 
     v12 = MEMORY[0x277D755D0];
     v13 = v11;
-    v49 = v8;
+    v48 = v8;
     v14 = [v12 configurationWithFont:v8 scale:1];
     v15 = objc_alloc(MEMORY[0x277D755E8]);
     v16 = [v15 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
-    v48 = v14;
+    v47 = v14;
     v17 = [MEMORY[0x277D755B8] systemImageNamed:v13 withConfiguration:v14];
 
     v18 = [v17 imageWithRenderingMode:2];
@@ -365,21 +466,21 @@
       [v33 deactivateConstraints:chevronConstraints2];
     }
 
-    v51[0] = v29;
+    v50[0] = v29;
     centerYAnchor = [(UIVisualEffectView *)self->_chevronImageView centerYAnchor];
     centerYAnchor2 = [(SLHighlightPillView *)self centerYAnchor];
     v37 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v51[1] = v37;
+    v50[1] = v37;
     widthAnchor = [(UIVisualEffectView *)self->_chevronImageView widthAnchor];
     [v16 size];
     [widthAnchor constraintEqualToConstant:?];
-    v39 = v47 = v29;
-    v51[2] = v39;
+    v39 = v46 = v29;
+    v50[2] = v39;
     heightAnchor = [(UIVisualEffectView *)self->_chevronImageView heightAnchor];
     [v16 size];
     v42 = [heightAnchor constraintEqualToConstant:v41];
-    v51[3] = v42;
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:4];
+    v50[3] = v42;
+    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:4];
     [(SLHighlightPillView *)self setChevronConstraints:v43];
 
     v44 = MEMORY[0x277CCAAD0];
@@ -389,8 +490,6 @@
     [(SLHighlightPillView *)self setNeedsLayout];
     [(SLHighlightPillView *)self setLastChevronImageView:v16];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 + (void)openMessagesForMessageGUID:(id)d
@@ -422,9 +521,11 @@
     attachmentGUID = 0;
   }
 
-  if ([v5 count])
+  _viewControllerForAncestor = [v5 count];
+  if (_viewControllerForAncestor)
   {
     _viewControllerForAncestor = [(SLHighlightPillView *)self _viewControllerForAncestor];
+    v12 = _viewControllerForAncestor;
     if (v6)
     {
       goto LABEL_6;
@@ -433,25 +534,26 @@
 
   else
   {
-    _viewControllerForAncestor = 0;
+    v12 = 0;
     if (v6)
     {
 LABEL_6:
       if (v6 == 1)
       {
-        v12 = objc_alloc_init(SLTranscriptController);
+        v13 = objc_alloc_init(SLTranscriptController);
         firstObject2 = [v5 firstObject];
-        if (_viewControllerForAncestor)
+        v15 = firstObject2;
+        if (v12)
         {
-          [(SLTranscriptController *)v12 presentTranscriptForMessageGUID:firstObject2 attachmentGUID:attachmentGUID presentingViewController:_viewControllerForAncestor];
+          [(SLTranscriptController *)v13 presentTranscriptForMessageGUID:firstObject2 attachmentGUID:attachmentGUID presentingViewController:v12];
         }
 
         else
         {
-          v25 = SLFrameworkLogHandle();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v27 = SLFrameworkLogHandle(firstObject2);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            [SLHighlightPillView _pillTapped:v25 forEvent:?];
+            [SLHighlightPillView _pillTapped:v27 forEvent:?];
           }
         }
 
@@ -466,29 +568,29 @@ LABEL_6:
         superview = [(SLHighlightPillView *)self superview];
         [(SLHighlightPillView *)self frame];
         [superview convertRect:0 toView:?];
-        v16 = v15;
         v18 = v17;
         v20 = v19;
         v22 = v21;
+        v24 = v23;
 
-        v23 = [SLDisambiguationCollectionViewController alloc];
+        v25 = [SLDisambiguationCollectionViewController alloc];
         highlight3 = [(SLHighlightPillView *)self highlight];
-        v12 = [(SLDisambiguationCollectionViewController *)v23 initWithHighlight:highlight3];
+        v13 = [(SLDisambiguationCollectionViewController *)v25 initWithHighlight:highlight3];
 
-        [(SLTranscriptController *)v12 setModalPresentationStyle:5];
-        [(SLTranscriptController *)v12 setModalTransitionStyle:2];
-        [(SLTranscriptController *)v12 setAttributionViewFrame:v16, v18, v20, v22];
-        [_viewControllerForAncestor presentViewController:v12 animated:0 completion:0];
+        [(SLTranscriptController *)v13 setModalPresentationStyle:5];
+        [(SLTranscriptController *)v13 setModalTransitionStyle:2];
+        [(SLTranscriptController *)v13 setAttributionViewFrame:v18, v20, v22, v24];
+        [v12 presentViewController:v13 animated:0 completion:0];
       }
 
       goto LABEL_17;
     }
   }
 
-  v12 = SLFrameworkLogHandle();
-  if (os_log_type_enabled(&v12->super.super.super, OS_LOG_TYPE_ERROR))
+  v13 = SLFrameworkLogHandle(_viewControllerForAncestor);
+  if (os_log_type_enabled(&v13->super.super.super, OS_LOG_TYPE_ERROR))
   {
-    [SLHighlightPillView _pillTapped:&v12->super.super.super forEvent:?];
+    [SLHighlightPillView _pillTapped:&v13->super.super.super forEvent:?];
   }
 
 LABEL_17:
@@ -514,55 +616,54 @@ LABEL_17:
       highlight2 = [(SLHighlightPillView *)self highlight];
       attributions2 = [highlight2 attributions];
 
-      v10 = [attributions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
-      if (v10)
+      v11 = [attributions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      if (v11)
       {
-        v11 = v10;
-        v12 = *v23;
+        v12 = v11;
+        v13 = *v23;
         do
         {
-          for (i = 0; i != v11; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v23 != v12)
+            if (*v23 != v13)
             {
               objc_enumerationMutation(attributions2);
             }
 
-            v14 = *(*(&v22 + 1) + 8 * i);
-            uniqueIdentifier = [v14 uniqueIdentifier];
+            v15 = *(*(&v22 + 1) + 8 * i);
+            uniqueIdentifier = [v15 uniqueIdentifier];
 
             if (uniqueIdentifier)
             {
-              uniqueIdentifier2 = [v14 uniqueIdentifier];
+              uniqueIdentifier2 = [v15 uniqueIdentifier];
               [array addObject:uniqueIdentifier2];
             }
           }
 
-          v11 = [attributions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v12 = [attributions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
-        while (v11);
+        while (v12);
       }
     }
 
     else
     {
-      attributions2 = SLFrameworkLogHandle();
+      attributions2 = SLFrameworkLogHandle(v8);
       if (os_log_type_enabled(attributions2, OS_LOG_TYPE_ERROR))
       {
         [SLHighlightPillView initWithHighlight:maxWidth:variant:shouldDrawBlur:];
       }
     }
 
-    v17 = [array copy];
-    v18 = self->_attributionIdentifiers;
-    self->_attributionIdentifiers = v17;
+    v18 = [array copy];
+    v19 = self->_attributionIdentifiers;
+    self->_attributionIdentifiers = v18;
   }
 
-  v19 = self->_attributionIdentifiers;
-  v20 = *MEMORY[0x277D85DE8];
+  v20 = self->_attributionIdentifiers;
 
-  return v19;
+  return v20;
 }
 
 - (void)remoteContentIsLoadedValueChanged
@@ -673,19 +774,18 @@ void __72__SLHighlightPillView_renderRemoteContentForLayerContextID_style_yield_
     [*(a1 + 32) _configureChevronForSlotStyle:*(a1 + 40)];
   }
 
-  [*(a1 + 32) setRemoteContentIsLoaded:*(a1 + 48) != 0];
+  v5 = [*(a1 + 32) setRemoteContentIsLoaded:*(a1 + 48) != 0];
   if (*(a1 + 48))
   {
-    v5 = SLGeneralTelemetryLogHandle();
-    v6 = v5;
-    v7 = *(*(*(a1 + 72) + 8) + 24);
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v6 = SLGeneralTelemetryLogHandle();
+    v7 = v6;
+    v8 = *(*(*(a1 + 72) + 8) + 24);
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
     {
       *v10 = 0;
-      _os_signpost_emit_with_name_impl(&dword_231772000, v6, OS_SIGNPOST_INTERVAL_END, v7, "HighlightPillTotalRender", "", v10, 2u);
+      _os_signpost_emit_with_name_impl(&dword_231772000, v7, OS_SIGNPOST_INTERVAL_END, v8, "HighlightPillTotalRender", "", v10, 2u);
     }
 
-    v8 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
     [*(a1 + 32) setNeedsLayout];
     [*(a1 + 32) layoutIfNeeded];
@@ -695,10 +795,10 @@ void __72__SLHighlightPillView_renderRemoteContentForLayerContextID_style_yield_
 
   else
   {
-    v9 = SLFrameworkLogHandle();
+    v9 = SLFrameworkLogHandle(v5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __72__SLHighlightPillView_renderRemoteContentForLayerContextID_style_yield___block_invoke_2_cold_1(v2, a1);
+      __72__SLHighlightPillView_renderRemoteContentForLayerContextID_style_yield___block_invoke_2_cold_1(v2);
     }
   }
 }
@@ -751,7 +851,7 @@ void __72__SLHighlightPillView_renderRemoteContentForLayerContextID_style_yield_
   v4 = [attributions count];
   if (!v4)
   {
-    v5 = SLFrameworkLogHandle();
+    v5 = SLFrameworkLogHandle(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [SLHighlightPillView shouldShowContextMenu];
@@ -769,14 +869,15 @@ void __72__SLHighlightPillView_renderRemoteContentForLayerContextID_style_yield_
   if (![(SLHighlightPillView *)self shouldShowContextMenu])
   {
 LABEL_6:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_8;
   }
 
-  if ([attributions count] >= 2)
+  v5 = [attributions count];
+  if (v5 >= 2)
   {
-    v5 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = SLFrameworkLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [SLHighlightPillView shouldShowReplyContextMenu];
     }
@@ -784,28 +885,28 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v6 = 1;
+  v7 = 1;
 LABEL_8:
   excludedContextMenuIdentifiers = [(SLHighlightPillView *)self excludedContextMenuIdentifiers];
-  v8 = [excludedContextMenuIdentifiers containsObject:@"slReplyMenuItem"];
+  v9 = [excludedContextMenuIdentifiers containsObject:@"slReplyMenuItem"];
 
-  if (v8)
+  if (v9)
   {
-    v9 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = SLFrameworkLogHandle(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [SLHighlightPillView shouldShowReplyContextMenu];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)refreshContextMenuItems
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if ([(SLHighlightPillView *)self shouldShowContextMenu])
   {
@@ -826,31 +927,31 @@ LABEL_8:
 
     if ([array2 count])
     {
-      v28 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v25 = array2;
+      v28 = 0u;
+      v26 = array2;
       v10 = array2;
-      v11 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (!v11)
       {
         goto LABEL_27;
       }
 
       v12 = v11;
-      v13 = *v27;
+      v13 = *v28;
       while (1)
       {
         v14 = 0;
         do
         {
-          if (*v27 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v26 + 1) + 8 * v14);
+          v15 = *(*(&v27 + 1) + 8 * v14);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -859,33 +960,33 @@ LABEL_8:
             v18 = [v16 predicateWithFormat:@"identifier MATCHES %@", identifier];
 
             identifier3 = [array filteredArrayUsingPredicate:v18];
-            if ([identifier3 count])
+            v20 = [identifier3 count];
+            if (v20)
             {
-              v20 = SLFrameworkLogHandle();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              v21 = SLFrameworkLogHandle(v20);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 identifier2 = [v15 identifier];
                 *buf = 134218242;
                 selfCopy4 = self;
-                v32 = 2112;
-                v33 = identifier2;
-                _os_log_error_impl(&dword_231772000, v20, OS_LOG_TYPE_ERROR, "[SLHighlightPillView: %p] Skipping adding context menu item with identifier %@ provided by delegate as its already present", buf, 0x16u);
+                v33 = 2112;
+                v34 = identifier2;
+                _os_log_error_impl(&dword_231772000, v21, OS_LOG_TYPE_ERROR, "[SLHighlightPillView: %p] Skipping adding context menu item with identifier %@ provided by delegate as its already present", buf, 0x16u);
                 goto LABEL_25;
               }
             }
 
             else
             {
-              [array addObject:v15];
-              v20 = SLFrameworkLogHandle();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+              v21 = SLFrameworkLogHandle([array addObject:v15]);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
               {
                 identifier2 = [v15 identifier];
                 *buf = 134218242;
                 selfCopy4 = self;
-                v32 = 2112;
-                v33 = identifier2;
-                _os_log_debug_impl(&dword_231772000, v20, OS_LOG_TYPE_DEBUG, "[SLHighlightPillView: %p] Adding context menu item with identifier %@ provided by delegate ", buf, 0x16u);
+                v33 = 2112;
+                v34 = identifier2;
+                _os_log_debug_impl(&dword_231772000, v21, OS_LOG_TYPE_DEBUG, "[SLHighlightPillView: %p] Adding context menu item with identifier %@ provided by delegate ", buf, 0x16u);
 LABEL_25:
               }
             }
@@ -895,10 +996,10 @@ LABEL_21:
           }
 
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass)
           {
-            [array addObject:v15];
-            v18 = SLFrameworkLogHandle();
+            v18 = SLFrameworkLogHandle([array addObject:v15]);
             if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_22;
@@ -907,19 +1008,19 @@ LABEL_21:
             identifier3 = [v15 identifier];
             *buf = 134218242;
             selfCopy4 = self;
-            v32 = 2112;
-            v33 = identifier3;
+            v33 = 2112;
+            v34 = identifier3;
             _os_log_debug_impl(&dword_231772000, v18, OS_LOG_TYPE_DEBUG, "[SLHighlightPillView: %p] Adding context menu item with identifier %@ provided by delegate ", buf, 0x16u);
             goto LABEL_21;
           }
 
-          v18 = SLFrameworkLogHandle();
+          v18 = SLFrameworkLogHandle(isKindOfClass);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218242;
             selfCopy4 = self;
-            v32 = 2112;
-            v33 = v15;
+            v33 = 2112;
+            v34 = v15;
             _os_log_error_impl(&dword_231772000, v18, OS_LOG_TYPE_ERROR, "[SLHighlightPillView: %p] Not adding invalid context menu item %@ provided by delegate.", buf, 0x16u);
           }
 
@@ -929,23 +1030,21 @@ LABEL_22:
         }
 
         while (v12 != v14);
-        v22 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
-        v12 = v22;
-        if (!v22)
+        v24 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v12 = v24;
+        if (!v24)
         {
 LABEL_27:
 
-          array2 = v25;
+          array2 = v26;
           break;
         }
       }
     }
   }
 
-  v23 = [array copy];
-  [(SLHighlightPillView *)self setContextMenuItems:v23];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = [array copy];
+  [(SLHighlightPillView *)self setContextMenuItems:v25];
 }
 
 - (void)excludeContextMenuItemsWithIdentifiers:(id)identifiers
@@ -977,8 +1076,8 @@ LABEL_27:
 
   if (v6)
   {
-    v7 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = SLFrameworkLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [SLHighlightPillView _uiActionItems];
     }
@@ -993,9 +1092,9 @@ LABEL_27:
     }
   }
 
-  v9 = [array copy];
+  v10 = [array copy];
 
-  return v9;
+  return v10;
 }
 
 - (UIAction)replyAction
@@ -1003,21 +1102,21 @@ LABEL_27:
   replyAction = self->_replyAction;
   if (!replyAction)
   {
-    objc_initWeak(&location, self);
-    v4 = MEMORY[0x277D750C8];
-    v5 = SLFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"REPLY_CONTEXTMENU" value:&stru_28468DAB8 table:@"SocialLayer"];
-    v7 = [MEMORY[0x277D755B8] systemImageNamed:@"arrowshape.turn.up.left"];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __34__SLHighlightPillView_replyAction__block_invoke;
-    v11[3] = &unk_2789271A8;
-    objc_copyWeak(&v12, &location);
-    v8 = [v4 actionWithTitle:v6 image:v7 identifier:@"slReplyMenuItem" handler:v11];
-    v9 = self->_replyAction;
-    self->_replyAction = v8;
+    inited = objc_initWeak(&location, self);
+    v5 = MEMORY[0x277D750C8];
+    v6 = SLFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"REPLY_CONTEXTMENU" value:&stru_28468DAB8 table:@"SocialLayer"];
+    v8 = [MEMORY[0x277D755B8] systemImageNamed:@"arrowshape.turn.up.left"];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __34__SLHighlightPillView_replyAction__block_invoke;
+    v12[3] = &unk_2789271A8;
+    objc_copyWeak(&v13, &location);
+    v9 = [v5 actionWithTitle:v7 image:v8 identifier:@"slReplyMenuItem" handler:v12];
+    v10 = self->_replyAction;
+    self->_replyAction = v9;
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
     replyAction = self->_replyAction;
   }
@@ -1036,21 +1135,21 @@ void __34__SLHighlightPillView_replyAction__block_invoke(uint64_t a1)
   hideAction = self->_hideAction;
   if (!hideAction)
   {
-    objc_initWeak(&location, self);
-    v4 = MEMORY[0x277D750C8];
-    v5 = SLFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"HIDE_CONTEXTMENU" value:&stru_28468DAB8 table:@"SocialLayer"];
-    v7 = [MEMORY[0x277D755B8] systemImageNamed:@"minus.circle"];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __33__SLHighlightPillView_hideAction__block_invoke;
-    v11[3] = &unk_2789271A8;
-    objc_copyWeak(&v12, &location);
-    v8 = [v4 actionWithTitle:v6 image:v7 identifier:@"slHideMenuItem" handler:v11];
-    v9 = self->_hideAction;
-    self->_hideAction = v8;
+    inited = objc_initWeak(&location, self);
+    v5 = MEMORY[0x277D750C8];
+    v6 = SLFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"HIDE_CONTEXTMENU" value:&stru_28468DAB8 table:@"SocialLayer"];
+    v8 = [MEMORY[0x277D755B8] systemImageNamed:@"minus.circle"];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __33__SLHighlightPillView_hideAction__block_invoke;
+    v12[3] = &unk_2789271A8;
+    objc_copyWeak(&v13, &location);
+    v9 = [v5 actionWithTitle:v7 image:v8 identifier:@"slHideMenuItem" handler:v12];
+    v10 = self->_hideAction;
+    self->_hideAction = v9;
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
     hideAction = self->_hideAction;
   }
@@ -1060,7 +1159,7 @@ void __34__SLHighlightPillView_replyAction__block_invoke(uint64_t a1)
 
 void __33__SLHighlightPillView_hideAction__block_invoke(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -1073,33 +1172,31 @@ void __33__SLHighlightPillView_hideAction__block_invoke(uint64_t a1)
 
 - (void)_replyMenuItemSelected
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = SLFrameworkLogHandle();
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = SLFrameworkLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 134217984;
+    v4 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLHighlightPillView %p] Performing reply context menu action.", &v5, 0xCu);
+    _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLHighlightPillView %p] Performing reply context menu action.", &v4, 0xCu);
   }
 
   [(SLHighlightPillView *)self _pillTapped:0 forEvent:0];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hideMenuItemSelected
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLHighlightPillView %p] _hideMenuItemSelected: Unable to perform hide context menu action without an application identifier.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLHighlightPillView %p] _hideMenuItemSelected: Unable to perform hide context menu action without an application identifier.", &v2, 0xCu);
 }
 
 void __44__SLHighlightPillView__hideMenuItemSelected__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = SLFrameworkLogHandle();
+  v6 = SLFrameworkLogHandle(v5);
   v7 = v6;
   if (a2)
   {
@@ -1107,11 +1204,11 @@ void __44__SLHighlightPillView__hideMenuItemSelected__block_invoke(uint64_t a1, 
     {
       v8 = *(a1 + 32);
       v9 = [*(a1 + 40) identifier];
-      v11 = 134218242;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_INFO, "[SLHighlightPillView %p] _hideMenuItemSelected: Sent hide feedback for highlight: %@. Posting highlights deleted notification.", &v11, 0x16u);
+      v10 = 134218242;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_INFO, "[SLHighlightPillView %p] _hideMenuItemSelected: Sent hide feedback for highlight: %@. Posting highlights deleted notification.", &v10, 0x16u);
     }
 
     notify_post("com.apple.spotlight.SyndicatedContentDeleted");
@@ -1124,8 +1221,6 @@ void __44__SLHighlightPillView__hideMenuItemSelected__block_invoke(uint64_t a1, 
       __44__SLHighlightPillView__hideMenuItemSelected__block_invoke_cold_1(a1);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location
@@ -1242,92 +1337,71 @@ id __77__SLHighlightPillView_contextMenuInteraction_configurationForMenuAtLocati
 - (void)initWithHighlight:maxWidth:variant:shouldDrawBlur:.cold.1()
 {
   OUTLINED_FUNCTION_3_2();
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [v0 highlight];
   v2 = [v1 identifier];
   OUTLINED_FUNCTION_0_10();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBlurEffectGroupName:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_231772000, log, OS_LOG_TYPE_DEBUG, "[SLHighlightPillView: %p] blurEffectGroupName set to: '%@'", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_231772000, log, OS_LOG_TYPE_DEBUG, "[SLHighlightPillView: %p] blurEffectGroupName set to: '%@'", &v3, 0x16u);
 }
 
 - (void)_pillTapped:(uint64_t)a1 forEvent:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLHighlightPillView: %p] User tapped the pill, but we don't have any attribution identifiers?", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLHighlightPillView: %p] User tapped the pill, but we don't have any attribution identifiers?", &v2, 0xCu);
 }
 
-void __72__SLHighlightPillView_renderRemoteContentForLayerContextID_style_yield___block_invoke_2_cold_1(id *a1, uint64_t a2)
+void __72__SLHighlightPillView_renderRemoteContentForLayerContextID_style_yield___block_invoke_2_cold_1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 56);
   [*a1 maxWidth];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 - (void)shouldShowContextMenu
 {
   OUTLINED_FUNCTION_3_2();
-  v9 = *MEMORY[0x277D85DE8];
   highlight = [v0 highlight];
   identifier = [highlight identifier];
   OUTLINED_FUNCTION_0_10();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldShowReplyContextMenu
 {
   OUTLINED_FUNCTION_3_2();
-  v11 = *MEMORY[0x277D85DE8];
   highlight = [v0 highlight];
   identifier = [highlight identifier];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_2_6(&dword_231772000, v3, v4, "[SLHighlightPillView: %p] No reply context menu item for Highlight:%@ since it was asked to be excluded", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_6(&dword_231772000, v3, v4, "[SLHighlightPillView: %p] No reply context menu item for Highlight:%@ since it was asked to be excluded", v5, v6, v7, v8);
 }
 
 - (void)_uiActionItems
 {
   OUTLINED_FUNCTION_3_2();
-  v11 = *MEMORY[0x277D85DE8];
   highlight = [v0 highlight];
   identifier = [highlight identifier];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_2_6(&dword_231772000, v3, v4, "[SLHighlightPillView: %p] No Hide context menu item for Highlight:%@ since it was asked to be excluded", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_6(&dword_231772000, v3, v4, "[SLHighlightPillView: %p] No Hide context menu item for Highlight:%@ since it was asked to be excluded", v5, v6, v7, v8);
 }
 
 void __44__SLHighlightPillView__hideMenuItemSelected__block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v8 = [*(a1 + 40) identifier];
+  v6 = [*(a1 + 40) identifier];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 @end

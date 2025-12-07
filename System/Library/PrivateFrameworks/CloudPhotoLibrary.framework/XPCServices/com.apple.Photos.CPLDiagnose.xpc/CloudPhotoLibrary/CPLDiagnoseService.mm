@@ -10,6 +10,7 @@
 - (void)didInvalidateClientConnectionWithIdentifier:(id)identifier;
 - (void)notifyClientsStateChangedOnQueue;
 - (void)releasePowerAssertion:(unsigned int)assertion;
+- (void)runDiagnoseWithLibraryURL:(id)l bundleID:(id)d outputDirectoryURL:(id)rL includeDatabases:(BOOL)databases includeSysdiagnose:(BOOL)sysdiagnose excludeSPLAndSyndication:(BOOL)syndication replyHandler:(id)handler;
 - (void)runDiagnoseWithOptions:(id)options replyHandler:(id)handler;
 @end
 
@@ -128,6 +129,176 @@
   bOOLValue3 = [v14 BOOLValue];
 
   [(CPLDiagnoseService *)self runDiagnoseWithLibraryURL:v7 bundleID:v8 outputDirectoryURL:0 includeDatabases:bOOLValue includeSysdiagnose:bOOLValue2 excludeSPLAndSyndication:bOOLValue3 replyHandler:handlerCopy];
+}
+
+- (void)runDiagnoseWithLibraryURL:(id)l bundleID:(id)d outputDirectoryURL:(id)rL includeDatabases:(BOOL)databases includeSysdiagnose:(BOOL)sysdiagnose excludeSPLAndSyndication:(BOOL)syndication replyHandler:(id)handler
+{
+  syndicationCopy = syndication;
+  databasesCopy = databases;
+  lCopy = l;
+  dCopy = d;
+  rLCopy = rL;
+  handlerCopy = handler;
+  unsetenv("TMPDIR");
+  v17 = [(CPLDiagnoseService *)self diagnosticFilename:databasesCopy];
+  v18 = [NSURL alloc];
+  v19 = [v18 initFileURLWithPath:CPLDiagnosticsLogsPath isDirectory:1];
+  v20 = [v19 URLByAppendingPathComponent:v17];
+  objc_storeStrong(&self->_diagnosticFileURL, v20);
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
+  queue = self->_queue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10001C31C;
+  block[3] = &unk_100035560;
+  block[4] = self;
+  v51 = &v52;
+  v22 = handlerCopy;
+  v50 = v22;
+  dispatch_sync(queue, block);
+  if (*(v53 + 24) == 1)
+  {
+    [(CPLDiagnoseService *)self releasePowerAssertion:0];
+    v64[0] = NSLocalizedDescriptionKey;
+    v64[1] = NSLocalizedFailureReasonErrorKey;
+    v65[0] = @"Diagnostic request failed";
+    v65[1] = @"Diagnose already in progress";
+    v23 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:2];
+    v24 = [NSError errorWithDomain:CPLDiagnosticsService code:101 userInfo:v23];
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10001ECC4();
+    }
+
+    (*(v22 + 2))(v22, 0, 0, v24);
+
+    goto LABEL_26;
+  }
+
+  v63 = 0;
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v41 = CPLDiagnosticsService;
+  v58[0] = [CPLDiagnosticsService UTF8String];
+  v58[1] = "-S";
+  v58[2] = "-o";
+  path = [v20 path];
+  v26 = path;
+  v58[3] = [path fileSystemRepresentation];
+
+  if (databasesCopy)
+  {
+    v27 = 4;
+    if (sysdiagnose)
+    {
+      goto LABEL_10;
+    }
+
+    goto LABEL_9;
+  }
+
+  *&v59 = "-D";
+  v27 = 5;
+  if (!sysdiagnose)
+  {
+LABEL_9:
+    v58[v27] = "-s";
+    v27 = (v27 + 1);
+  }
+
+LABEL_10:
+  if (dCopy)
+  {
+    v58[v27] = "-b";
+    v28 = dCopy;
+    uTF8String = [dCopy UTF8String];
+    v30 = v27 + 1;
+    v27 = (v27 + 2);
+    v58[v30] = uTF8String;
+  }
+
+  if (syndicationCopy)
+  {
+    v58[v27] = "-n";
+    v27 = (v27 + 1);
+  }
+
+  v31 = objc_alloc_init(CPLDiagnoseCommand);
+  v32 = objc_alloc_init(CPLOutput);
+  [(CPLCTLCommand *)v31 beginOutputTo:v32];
+
+  [(CPLDiagnoseCommand *)v31 parseCommandOptionsWithArgc:v27 argv:v58];
+  v33 = self->_queue;
+  v48[0] = _NSConcreteStackBlock;
+  v48[1] = 3221225472;
+  v48[2] = sub_10001C364;
+  v48[3] = &unk_100034BD0;
+  v48[4] = self;
+  dispatch_barrier_sync(v33, v48);
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "starting cpldiagnose", buf, 2u);
+  }
+
+  v34 = [(CPLDiagnoseService *)self takeUserIdlePowerAssertionWithInterval:1800.0];
+  v35 = os_transaction_create();
+  if ([(CPLDiagnoseCommand *)v31 execute])
+  {
+    [(CPLDiagnoseService *)self releasePowerAssertion:v34];
+    v56[0] = NSLocalizedDescriptionKey;
+    v56[1] = NSLocalizedFailureReasonErrorKey;
+    v57[0] = @"Diagnostic request failed";
+    v57[1] = @"Error running Photos Diagnostic.";
+    v36 = [NSDictionary dictionaryWithObjects:v57 forKeys:v56 count:2];
+    v37 = [NSError errorWithDomain:v41 code:105 userInfo:v36];
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10001ECC4();
+    }
+
+    v38 = self->_queue;
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_10001C36C;
+    v45[3] = &unk_100035588;
+    v45[4] = self;
+    v46 = v37;
+    v39 = v37;
+    dispatch_barrier_sync(v38, v45);
+  }
+
+  else
+  {
+    if (v35)
+    {
+    }
+
+    [(CPLDiagnoseService *)self releasePowerAssertion:v34];
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "finished cpldiagnose", buf, 2u);
+    }
+
+    v40 = self->_queue;
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_10001C3B8;
+    v44[3] = &unk_100034BD0;
+    v44[4] = self;
+    dispatch_barrier_sync(v40, v44);
+  }
+
+LABEL_26:
+  _Block_object_dispose(&v52, 8);
 }
 
 - (void)checkStateWithReplyHandler:(id)handler

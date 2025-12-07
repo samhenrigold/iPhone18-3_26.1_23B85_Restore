@@ -6,6 +6,7 @@
 - (id)accessibilityValue;
 - (int64_t)accessibilityContainerType;
 - (unint64_t)accessibilityTraits;
+- (void)setHighlightSelectableItems:(BOOL)items animated:(BOOL)animated;
 @end
 
 @implementation VKCImageTextSelectionView_iOSAccessibility
@@ -160,6 +161,17 @@
   }
 
   return accessibilityValue;
+}
+
+- (void)setHighlightSelectableItems:(BOOL)items animated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = VKCImageTextSelectionView_iOSAccessibility;
+  [(VKCImageTextSelectionView_iOSAccessibility *)&v6 setHighlightSelectableItems:items animated:animated];
+  if (!items)
+  {
+    [(VKCImageTextSelectionView_iOSAccessibility *)self _accessibilitySetRetainedValue:0 forKey:*MEMORY[0x29EDC7620]];
+  }
 }
 
 @end

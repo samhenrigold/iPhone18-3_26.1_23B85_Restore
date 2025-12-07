@@ -33,7 +33,7 @@
 
 - (CHSConfiguredWidgetContainerDescriptor)initWithUniqueIdentifier:(id)identifier location:(int64_t)location canAppearInSecureEnvironment:(BOOL)environment page:(unint64_t)page family:(int64_t)family widgets:(id)widgets activeWidget:(id)widget
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   widgetsCopy = widgets;
   widgetCopy = widget;
@@ -96,33 +96,33 @@ LABEL_4:
   }
 
 LABEL_15:
-  v42.receiver = self;
-  v42.super_class = CHSConfiguredWidgetContainerDescriptor;
-  v22 = [(CHSConfiguredWidgetContainerDescriptor *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = CHSConfiguredWidgetContainerDescriptor;
+  v22 = [(CHSConfiguredWidgetContainerDescriptor *)&v41 init];
   if (v22)
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v23 = widgetsCopy;
-    v24 = [v23 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v24)
     {
-      v25 = *v39;
+      v25 = *v38;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v39 != v25)
+          if (*v38 != v25)
           {
             objc_enumerationMutation(v23);
           }
 
-          [*(*(&v38 + 1) + 8 * i) _setContainer:v22];
+          [*(*(&v37 + 1) + 8 * i) _setContainer:v22];
         }
 
-        v24 = [v23 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v24);
@@ -145,39 +145,38 @@ LABEL_15:
     v22->_stack = [v23 count] > 1;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (BOOL)isSystemConfigured
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_widgets;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (([*(*(&v9 + 1) + 8 * i) isSystemConfigured] & 1) == 0)
+        if (([*(*(&v8 + 1) + 8 * i) isSystemConfigured] & 1) == 0)
         {
           v6 = 0;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -190,7 +189,6 @@ LABEL_15:
   v6 = 1;
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -362,7 +360,7 @@ uint64_t __80__CHSConfiguredWidgetContainerDescriptor_descriptionBuilderWithMult
   v4 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 24) withName:@"canAppearInSecureEnvironment"];
   v5 = [*(a1 + 32) appendUnsignedInteger:*(*(a1 + 40) + 64) withName:@"page"];
   v6 = *(a1 + 32);
-  v7 = CHSWidgetFamilyDescription(*(*(a1 + 40) + 48));
+  v7 = CHSWidgetFamilyDescription();
   [v6 appendString:v7 withName:@"widgetFamily"];
 
   [*(a1 + 32) appendArraySection:*(*(a1 + 40) + 40) withName:@"widgets" skipIfEmpty:0];
@@ -431,40 +429,42 @@ uint64_t __80__CHSConfiguredWidgetContainerDescriptor_descriptionBuilderWithMult
 
 id __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
+    v26 = 0u;
+    v27 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v4 = v3;
-    v5 = 0;
-    v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v6)
+    v5 = v3;
+    v6 = 0;
+    v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v7)
     {
-      v7 = *v23;
+      v8 = *v25;
       while (2)
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v23 != v7)
+          if (*v25 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v22 + 1) + 8 * i);
+          v10 = *(*(&v24 + 1) + 8 * i);
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v11 = objc_opt_isKindOfClass();
+          if ((v11 & 1) == 0)
           {
-            v16 = CHSLogChronoServices();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v19 = CHSLogChronoServices(v11);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
-              v17 = objc_opt_class();
-              v18 = NSStringFromClass(v17);
-              __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke_cold_2(v18, buf, v16);
+              v20 = objc_opt_class();
+              v21 = NSStringFromClass(v20);
+              __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke_cold_2(v21, buf, v19);
             }
 
             goto LABEL_23;
@@ -472,15 +472,15 @@ id __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke(uin
 
           if (*(a1 + 32))
           {
-            v10 = [v9 uniqueIdentifier];
-            v11 = [v10 isEqualToString:*(a1 + 32)];
+            v12 = [v10 uniqueIdentifier];
+            v13 = [v12 isEqualToString:*(a1 + 32)];
 
-            v5 |= v11;
+            v6 |= v13;
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
-        if (v6)
+        v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        if (v7)
         {
           continue;
         }
@@ -489,37 +489,35 @@ id __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke(uin
       }
     }
 
-    if ((*(a1 + 32) == 0) | v5 & 1)
+    if ((*(a1 + 32) == 0) | v6 & 1)
     {
-      v12 = v4;
+      v15 = v5;
       goto LABEL_24;
     }
 
-    v19 = CHSLogChronoServices();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = CHSLogChronoServices(v14);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke_cold_3((a1 + 32), a1, v19);
+      __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke_cold_3((a1 + 32), a1, v22);
     }
   }
 
   else
   {
-    v13 = CHSLogChronoServices();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = CHSLogChronoServices(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke_cold_1(v15, buf, v13);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke_cold_1(v18, buf, v16);
     }
   }
 
 LABEL_23:
-  v12 = 0;
+  v15 = 0;
 LABEL_24:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v15;
 }
 
 void __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)
@@ -538,15 +536,14 @@ void __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke_c
 
 void __56__CHSConfiguredWidgetContainerDescriptor_initWithCoder___block_invoke_cold_3(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = *(a2 + 40);
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_195EB2000, log, OS_LOG_TYPE_ERROR, "Unable to find active widget (%{public}@) matching in widget container %{public}@", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = v3;
+  v7 = 2114;
+  v8 = v4;
+  _os_log_error_impl(&dword_195EB2000, log, OS_LOG_TYPE_ERROR, "Unable to find active widget (%{public}@) matching in widget container %{public}@", &v5, 0x16u);
 }
 
 @end

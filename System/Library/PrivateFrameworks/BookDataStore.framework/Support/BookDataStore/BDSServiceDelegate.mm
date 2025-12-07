@@ -13,21 +13,22 @@
 
 - (void)_dieIfUnacknowledgediCloudLogoutOcccurred
 {
-  v3 = sub_1000023E8();
+  v3 = sub_1000023E8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Checking if an account change happened, necessitating our process going away.", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Checking if an account change happened, necessitating our process going away.", v8, 2u);
   }
 
   iCloudIdentityTokenTracker = [(BDSServiceDelegate *)self iCloudIdentityTokenTracker];
   [iCloudIdentityTokenTracker fetchCurrentToken];
-  if ([iCloudIdentityTokenTracker didUnacknowledgediCloudLogoutOccur])
+  didUnacknowledgediCloudLogoutOccur = [iCloudIdentityTokenTracker didUnacknowledgediCloudLogoutOccur];
+  if (didUnacknowledgediCloudLogoutOccur)
   {
-    v5 = sub_1000023E8();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_1000023E8(didUnacknowledgediCloudLogoutOccur);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1001C3C34(v5);
+      sub_1001C3C34(v6);
     }
 
     raise(9);
@@ -65,71 +66,72 @@
 - (BDSServiceDelegate)initWithServiceConnectionClient:(id)client
 {
   clientCopy = client;
-  v27.receiver = self;
-  v27.super_class = BDSServiceDelegate;
-  v5 = [(BDSServiceDelegate *)&v27 init];
+  v28.receiver = self;
+  v28.super_class = BDSServiceDelegate;
+  v5 = [(BDSServiceDelegate *)&v28 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_1000023E8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = sub_1000023E8(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Initializing service delegate.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Initializing service delegate.", buf, 2u);
     }
 
-    v7 = objc_alloc_init(BDSClientConnectionManager);
-    clientConnectionManager = v5->_clientConnectionManager;
-    v5->_clientConnectionManager = v7;
+    v8 = objc_alloc_init(BDSClientConnectionManager);
+    clientConnectionManager = v6->_clientConnectionManager;
+    v6->_clientConnectionManager = v8;
 
-    objc_storeWeak(&v5->_serviceConnectionClient, clientCopy);
-    v9 = +[BDSReachability sharedReachabilityForInternetConnection];
-    networkReachability = v5->_networkReachability;
-    v5->_networkReachability = v9;
+    objc_storeWeak(&v6->_serviceConnectionClient, clientCopy);
+    v10 = +[BDSReachability sharedReachabilityForInternetConnection];
+    networkReachability = v6->_networkReachability;
+    v6->_networkReachability = v10;
 
     +[BCCloudKitDatabaseController startInternetConnectionReachabilityNotifier];
-    v11 = [BDSICloudIdentityTokenTracker alloc];
-    v12 = +[BDSAppGroupContainer containerURL];
-    v13 = [(BDSICloudIdentityTokenTracker *)v11 initWithContainerURL:v12 trackingLiverpool:0];
-    iCloudIdentityTokenTracker = v5->_iCloudIdentityTokenTracker;
-    v5->_iCloudIdentityTokenTracker = v13;
+    v12 = [BDSICloudIdentityTokenTracker alloc];
+    v13 = +[BDSAppGroupContainer containerURL];
+    v14 = [(BDSICloudIdentityTokenTracker *)v12 initWithContainerURL:v13 trackingLiverpool:0];
+    iCloudIdentityTokenTracker = v6->_iCloudIdentityTokenTracker;
+    v6->_iCloudIdentityTokenTracker = v14;
 
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_100077FFC;
-    v25[3] = &unk_10023F6B0;
-    v15 = v5;
-    v26 = v15;
-    [(BDSServiceDelegate *)v15 _deleteLocaliCloudDataIfUserLoggedOutFromiCloudCompletion:v25];
-    v16 = +[BUAccountsProvider sharedProvider];
-    [v16 observeTCCAccessChangeNotificationIfNeeded];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_100077FFC;
+    v26[3] = &unk_10023F6B0;
+    v16 = v6;
+    v27 = v16;
+    [(BDSServiceDelegate *)v16 _deleteLocaliCloudDataIfUserLoggedOutFromiCloudCompletion:v26];
+    v17 = +[BUAccountsProvider sharedProvider];
+    [v17 observeTCCAccessChangeNotificationIfNeeded];
 
     out_token = -1;
-    objc_initWeak(buf, v15);
+    objc_initWeak(buf, v16);
     uTF8String = [@"com.apple.tcc.access.changed" UTF8String];
-    v18 = &_dispatch_main_q;
+    v19 = &_dispatch_main_q;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100078020;
     handler[3] = &unk_100241E20;
-    objc_copyWeak(&v22, buf);
+    objc_copyWeak(&v23, buf);
     LODWORD(uTF8String) = notify_register_dispatch(uTF8String, &out_token, &_dispatch_main_q, handler);
 
     if (uTF8String)
     {
-      v19 = 0xFFFFFFFFLL;
+      v20 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v19 = out_token;
+      v20 = out_token;
     }
 
-    [(BDSServiceDelegate *)v15 setTccNotifyToken:v19];
-    objc_destroyWeak(&v22);
+    [(BDSServiceDelegate *)v16 setTccNotifyToken:v20];
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)dealloc
@@ -143,23 +145,23 @@
   v3 = +[NSNotificationCenter defaultCenter];
   [v3 removeObserver:self];
 
-  v4 = sub_1000023E8();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = sub_1000023E8(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Service delegate released.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Service delegate released.", buf, 2u);
   }
 
-  v5.receiver = self;
-  v5.super_class = BDSServiceDelegate;
-  [(BDSServiceDelegate *)&v5 dealloc];
+  v6.receiver = self;
+  v6.super_class = BDSServiceDelegate;
+  [(BDSServiceDelegate *)&v6 dealloc];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v7 = sub_1000023E8();
+  v7 = sub_1000023E8(connectionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -175,32 +177,32 @@
   if (bOOLValue)
   {
     v11 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___BDSDaemonProtocol];
-    v22 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___BDSClientSideProtocol];
+    v24 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___BDSClientSideProtocol];
     [BDSServiceProtocolInterface configureInterface:v11];
     v12 = [[BDSClient alloc] initWithConnection:connectionCopy];
     objc_initWeak(buf, self);
     objc_initWeak(&location, connectionCopy);
     objc_initWeak(&from, v12);
-    [connectionCopy setRemoteObjectInterface:v22];
+    [connectionCopy setRemoteObjectInterface:v24];
     [connectionCopy setExportedInterface:v11];
     _bdsService = [(BDSServiceDelegate *)self _bdsService];
     [connectionCopy setExportedObject:_bdsService];
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_10007867C;
-    v28[3] = &unk_100241E48;
-    objc_copyWeak(&v29, &from);
-    objc_copyWeak(&v30, &location);
-    objc_copyWeak(&v31, buf);
-    [connectionCopy setInvalidationHandler:v28];
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_100078784;
-    v24[3] = &unk_100241E48;
-    objc_copyWeak(&v25, &from);
-    objc_copyWeak(&v26, &location);
-    objc_copyWeak(&v27, buf);
-    [connectionCopy setInterruptionHandler:v24];
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_10007867C;
+    v30[3] = &unk_100241E48;
+    objc_copyWeak(&v31, &from);
+    objc_copyWeak(&v32, &location);
+    objc_copyWeak(&v33, buf);
+    [connectionCopy setInvalidationHandler:v30];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_100078784;
+    v26[3] = &unk_100241E48;
+    objc_copyWeak(&v27, &from);
+    objc_copyWeak(&v28, &location);
+    objc_copyWeak(&v29, buf);
+    [connectionCopy setInterruptionHandler:v26];
     clientConnectionManager = [(BDSServiceDelegate *)self clientConnectionManager];
     [clientConnectionManager addClient:v12];
 
@@ -208,21 +210,21 @@
     serviceConnectionClient = [(BDSServiceDelegate *)self serviceConnectionClient];
     [serviceConnectionClient serviceDelegate:self didAcceptConnection:connectionCopy];
 
-    v16 = sub_1000023E8();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = sub_1000023E8(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       processIdentifier = [connectionCopy processIdentifier];
-      *v35 = 67109120;
-      v36 = processIdentifier;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Accepted connection to %d.", v35, 8u);
+      *v37 = 67109120;
+      v38 = processIdentifier;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Accepted connection to %d.", v37, 8u);
     }
 
-    objc_destroyWeak(&v27);
-    objc_destroyWeak(&v26);
-    objc_destroyWeak(&v25);
-    objc_destroyWeak(&v31);
-    objc_destroyWeak(&v30);
     objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
 
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
@@ -232,20 +234,20 @@
   else
   {
     objc_opt_class();
-    v18 = [connectionCopy valueForEntitlement:@"application-identifier"];
+    v19 = [connectionCopy valueForEntitlement:@"application-identifier"];
     v11 = BUDynamicCast();
 
     if (!v11)
     {
       objc_opt_class();
-      v19 = [connectionCopy valueForEntitlement:@"com.apple.application-identifier"];
+      v21 = [connectionCopy valueForEntitlement:@"com.apple.application-identifier"];
       v11 = BUDynamicCast();
     }
 
-    v20 = sub_1000023E8();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = sub_1000023E8(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_1001C3B94(connectionCopy, v11, v20);
+      sub_1001C3B94(connectionCopy, v11, v22);
     }
 
     [connectionCopy invalidate];
@@ -257,7 +259,7 @@
 - (void)_deleteLocaliCloudDataIfUserLoggedOutFromiCloudCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_1000023E8();
+  v5 = sub_1000023E8(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -266,31 +268,32 @@
 
   iCloudIdentityTokenTracker = [(BDSServiceDelegate *)self iCloudIdentityTokenTracker];
   [iCloudIdentityTokenTracker fetchCurrentToken];
-  if ([iCloudIdentityTokenTracker didUnacknowledgediCloudLogoutOccur])
+  didUnacknowledgediCloudLogoutOccur = [iCloudIdentityTokenTracker didUnacknowledgediCloudLogoutOccur];
+  if (didUnacknowledgediCloudLogoutOccur)
   {
-    v7 = sub_1000023E8();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000023E8(didUnacknowledgediCloudLogoutOccur);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "User logged out from iCloud.  Deleting local copies of cloud data.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "User logged out from iCloud.  Deleting local copies of cloud data.", buf, 2u);
     }
 
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100078AAC;
-    v10[3] = &unk_100240D90;
-    v11 = completionCopy;
-    [(BDSServiceDelegate *)self deleteCloudDataWithCompletion:v10];
-    v8 = v11;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100078AAC;
+    v11[3] = &unk_100240D90;
+    v12 = completionCopy;
+    [(BDSServiceDelegate *)self deleteCloudDataWithCompletion:v11];
+    v9 = v12;
   }
 
   else
   {
-    v9 = objc_retainBlock(completionCopy);
-    v8 = v9;
-    if (v9)
+    v10 = objc_retainBlock(completionCopy);
+    v9 = v10;
+    if (v10)
     {
-      (*(v9 + 2))(v9);
+      (*(v10 + 2))(v10);
     }
   }
 
@@ -300,7 +303,7 @@
 - (void)deleteCloudDataWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = sub_1000023E8();
+  v4 = sub_1000023E8(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;

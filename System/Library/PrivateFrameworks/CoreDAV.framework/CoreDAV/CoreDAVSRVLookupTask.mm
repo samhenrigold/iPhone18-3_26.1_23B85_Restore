@@ -56,9 +56,8 @@
   if (self->_resolver)
   {
     nw_resolver_set_cancel_handler();
-    resolver = self->_resolver;
     nw_resolver_cancel();
-    v4 = self->_resolver;
+    resolver = self->_resolver;
     self->_resolver = 0;
   }
 
@@ -66,7 +65,7 @@
   if (timeoutTimer)
   {
     [(NSTimer *)timeoutTimer invalidate];
-    v6 = self->_timeoutTimer;
+    v5 = self->_timeoutTimer;
     self->_timeoutTimer = 0;
   }
 
@@ -74,44 +73,42 @@
   [serviceString UTF8String];
   srv = nw_endpoint_create_srv();
 
-  v9 = MEMORY[0x245D68950]();
-  v10 = nw_resolver_create_with_endpoint();
-  v11 = self->_resolver;
-  self->_resolver = v10;
-  v12 = v10;
+  v8 = MEMORY[0x245D68950]();
+  v9 = nw_resolver_create_with_endpoint();
+  v10 = self->_resolver;
+  self->_resolver = v9;
+  v11 = v9;
 
-  v13 = self->_resolver;
-  v30 = MEMORY[0x277D85DD0];
-  v31 = 3221225472;
-  v32 = __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_2;
-  v33 = &unk_278E30F18;
+  v27 = MEMORY[0x277D85DD0];
+  v28 = 3221225472;
+  v29 = __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_2;
+  v30 = &unk_278E30F18;
   selfCopy = self;
   nw_resolver_set_cancel_handler();
-  v14 = self->_resolver;
-  v25 = MEMORY[0x277D85DD0];
-  v26 = 3221225472;
-  v27 = __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_2_20;
-  v28 = &unk_278E310E0;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_2_20;
+  v25 = &unk_278E310E0;
   selfCopy2 = self;
   nw_resolver_set_update_handler();
   [(CoreDAVTask *)self timeoutInterval];
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_4;
-  v22 = &unk_278E31108;
-  if (v15 <= 0.0)
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_4;
+  v19 = &unk_278E31108;
+  if (v12 <= 0.0)
   {
-    v15 = 60.0;
+    v12 = 60.0;
   }
 
-  v24 = v15;
+  v21 = v12;
   selfCopy3 = self;
-  v16 = [MEMORY[0x277CBEBB8] timerWithTimeInterval:0 repeats:&v19 block:?];
-  v17 = self->_timeoutTimer;
-  self->_timeoutTimer = v16;
+  v13 = [MEMORY[0x277CBEBB8] timerWithTimeInterval:0 repeats:&v16 block:?];
+  v14 = self->_timeoutTimer;
+  self->_timeoutTimer = v13;
 
-  v18 = [(CoreDAVTask *)self workRunLoop:v19];
-  [v18 addTimer:self->_timeoutTimer forMode:*MEMORY[0x277CBE640]];
+  v15 = [(CoreDAVTask *)self workRunLoop:v16];
+  [v15 addTimer:self->_timeoutTimer forMode:*MEMORY[0x277CBE640]];
 }
 
 uint64_t __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_2(uint64_t a1)
@@ -161,35 +158,32 @@ void __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_2_20(uint64_t a
 
 void __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_4(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[CoreDAVLogging sharedLogging];
   v3 = [v2 logHandleForAccountInfoProvider:0];
   v4 = v3;
   if (v3 && os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 40);
-    v8 = 134217984;
-    v9 = v5;
-    _os_log_impl(&dword_2452FB000, v4, OS_LOG_TYPE_ERROR, "Timeout interval of %f reached", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v5;
+    _os_log_impl(&dword_2452FB000, v4, OS_LOG_TYPE_ERROR, "Timeout interval of %f reached", &v7, 0xCu);
   }
 
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"CoreDAVErrorDomain" code:6 userInfo:0];
   [*(a1 + 32) finishCoreDAVTaskWithError:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v8.receiver = self;
-  v8.super_class = CoreDAVSRVLookupTask;
-  [(CoreDAVTask *)&v8 finishCoreDAVTaskWithError:error];
+  v7.receiver = self;
+  v7.super_class = CoreDAVSRVLookupTask;
+  [(CoreDAVTask *)&v7 finishCoreDAVTaskWithError:error];
   if (self->_resolver)
   {
     nw_resolver_set_cancel_handler();
-    resolver = self->_resolver;
     nw_resolver_cancel();
-    v5 = self->_resolver;
+    resolver = self->_resolver;
     self->_resolver = 0;
   }
 
@@ -197,7 +191,7 @@ void __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_4(uint64_t a1)
   if (timeoutTimer)
   {
     [(NSTimer *)timeoutTimer invalidate];
-    v7 = self->_timeoutTimer;
+    v6 = self->_timeoutTimer;
     self->_timeoutTimer = 0;
   }
 }
@@ -212,7 +206,7 @@ void __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_4(uint64_t a1)
 
 - (void)handleResolvedEndPoints:(id)points
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   pointsCopy = points;
   if (!pointsCopy || (count = nw_array_get_count()) == 0)
   {
@@ -237,7 +231,7 @@ void __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_4(uint64_t a1)
       if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        v19 = error;
+        v18 = error;
         _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_INFO, "nw_resolver_get_error returned %i", buf, 8u);
       }
     }
@@ -249,11 +243,11 @@ void __42__CoreDAVSRVLookupTask_performCoreDAVTask__block_invoke_4(uint64_t a1)
   v6 = count;
   srv_weighted_variant = nw_resolver_create_srv_weighted_variant();
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v6];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = v8;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = v8;
   v9 = v8;
   nw_array_apply();
-  v10 = [v9 copy:v16];
+  v10 = [v9 copy:v15];
   fetchedRecords = self->_fetchedRecords;
   self->_fetchedRecords = v10;
 
@@ -261,8 +255,6 @@ LABEL_4:
   v12 = 0;
 LABEL_12:
   [(CoreDAVSRVLookupTask *)self finishCoreDAVTaskWithError:v12];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__CoreDAVSRVLookupTask_handleResolvedEndPoints___block_invoke(uint64_t a1, uint64_t a2, void *a3)

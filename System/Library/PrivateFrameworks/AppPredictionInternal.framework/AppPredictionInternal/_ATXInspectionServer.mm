@@ -23,30 +23,39 @@
 - (void)appIntentHistoryMockIntentLaunch:(id)launch source:(id)source startDate:(id)date endDate:(id)endDate timeZone:(id)zone reply:(id)reply;
 - (void)appLaunchDatesWithReply:(id)reply;
 - (void)appLaunchInformationWithReply:(id)reply;
+- (void)benchmarkAppPredictionForConsumerSubType:(unsigned __int8)type ntimes:(unint64_t)ntimes reply:(id)reply;
 - (void)blendedSuggestionsForConsumerSubType:(unsigned __int8)type reply:(id)reply;
 - (void)buildAnchorModelTrainingDataset:(id)dataset;
 - (void)categoryLaunchInformationWithReply:(id)reply;
 - (void)clearAllDataForStressTestWithReply:(id)reply;
 - (void)clearBlendingSuggestionsForClientModel:(int64_t)model withReply:(id)reply;
+- (void)clearDigestFeedbackHistogramWithShouldResetBookmarks:(BOOL)bookmarks reply:(id)reply;
 - (void)clearNotificationsWithReply:(id)reply;
 - (void)createAppPredictionLogs:(id)logs;
 - (void)donateSuggestion:(id)suggestion forClientModel:(int64_t)model withReply:(id)reply;
+- (void)dumpNotificationJSONFromSource:(id)source startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply;
 - (void)dumpPredictionTableForMMExpert:(id)expert reply:(id)reply;
 - (void)evaluateInfoSuggestionsWithCompletionHandler:(id)handler;
 - (void)feedbackClear:(id)clear;
+- (void)feedbackLaunchedWithConsumerSubType:(unsigned __int8)type forBundleId:(id)id rejected:(id)rejected reply:(id)reply;
 - (void)fetchPIDFromServer:(id)server;
 - (void)fetchPosterDescriptorsWithReply:(id)reply;
 - (void)fetchSuggestionsForSourceId:(id)id reply:(id)reply;
 - (void)forceMagicalMomentsAppPredictionForBundleId:(id)id expert:(id)expert reply:(id)reply;
 - (void)forceNotificationAndSuggestionDbUpdate:(id)update;
 - (void)generateDataForStressTestWithReply:(id)reply;
+- (void)generateSerializedAppGroupedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply;
 - (void)generateSerializedMissedNotificationBundleFromFileData:(id)data modeString:(id)string reply:(id)reply;
+- (void)generateSerializedMissedNotificationBundleFromSource:(id)source modeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply;
 - (void)generateSerializedNotificationDigestFromFileData:(id)data digestTimeString:(id)string reply:(id)reply;
+- (void)generateSerializedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply;
 - (void)getAppFeedbackData:(id)data;
 - (void)getCurrentLocationWithReply:(id)reply;
 - (void)getInfoPredictionsInString:(id)string;
 - (void)getInfoSuggestionsInString:(id)string;
 - (void)getModeTimelineDataFromStartDate:(id)date reply:(id)reply;
+- (void)getParseTreeForConsumerSubType:(unsigned __int8)type reply:(id)reply;
+- (void)getPredictionModelDetailsForConsumerSubType:(unsigned __int8)type reply:(id)reply;
 - (void)histogramsInMemory:(id)memory;
 - (void)histogramsInMemoryBySize:(id)size;
 - (void)inspectInferredActivitySessionStream:(id)stream fromTimestamp:(double)timestamp reply:(id)reply;
@@ -55,6 +64,9 @@
 - (void)logNotificationMetricsFromStartTimestamp:(id)timestamp toEndTimestamp:(id)endTimestamp withCompletion:(id)completion;
 - (void)nPlusOneStudyDryRunResultFilterByExtensionBundleId:(id)id reply:(id)reply;
 - (void)performHomeScreenCoreAnalyticsDryRunWithCustomStartDate:(id)date reply:(id)reply;
+- (void)predictItemsAndReturnInputsAndSubscoresForConsumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIds:(id)ids candidateActiontypes:(id)actiontypes reply:(id)reply;
+- (void)predictItemsAndReturnMetaDataAndInputsAndSubScoresWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type reply:(id)reply;
+- (void)predictItemsAndReturnStageScoresWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type reply:(id)reply;
 - (void)processAppDirectoryFeedbackWithReply:(id)reply;
 - (void)processHomeScreenFeedbackWithReply:(id)reply;
 - (void)processLockscreenFeedbackWithReply:(id)reply;
@@ -70,9 +82,11 @@
 - (void)schedulePredictionsForAnchorModel:(id)model anchorType:(id)type reply:(id)reply;
 - (void)scheduledPredictionsForAnchorModelWithReply:(id)reply;
 - (void)setDigestFeedbackHistogramValueForBundleId:(id)id location:(id)location feedback:(id)feedback value:(id)value withReply:(id)reply;
+- (void)setTestMode:(BOOL)mode withCompletion:(id)completion;
 - (void)showDigestFeedbackHistogramForBundleId:(id)id withReply:(id)reply;
 - (void)trainAnchorModel:(id)model;
 - (void)trainMagicalMomentsAppPredictor:(id)predictor;
+- (void)trainModeEntityModelsWithDeferTrainingWhenApplicable:(BOOL)applicable reply:(id)reply;
 - (void)trainModeSetupPredictionModelWithReply:(id)reply;
 - (void)triggerBackgroundJobWithIdentifier:(id)identifier configuration:(id)configuration completion:(id)completion;
 - (void)triggerPredictionsUpdateWithCompletion:(id)completion;
@@ -117,30 +131,31 @@
 {
   connectionCopy = connection;
   v6 = [connectionCopy valueForEntitlement:@"com.apple.duet.appPrediction.inspection"];
-  if (v6 && (objc_opt_respondsToSelector() & 1) != 0 && ([v6 BOOLValue] & 1) != 0)
+  v7 = v6;
+  if (v6 && (v6 = objc_opt_respondsToSelector(), (v6 & 1) != 0) && (v6 = [v7 BOOLValue], (v6 & 1) != 0))
   {
-    v7 = _ATXInspectionInterface();
-    [connectionCopy setExportedInterface:v7];
+    v8 = _ATXInspectionInterface();
+    [connectionCopy setExportedInterface:v8];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy setInterruptionHandler:&__block_literal_global_24_1];
     [connectionCopy setInvalidationHandler:&__block_literal_global_27_0];
     [connectionCopy resume];
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [_ATXInspectionServer listener:shouldAcceptNewConnection:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)appAndActionHistoryClear:(id)clear
@@ -183,7 +198,7 @@
   actionCopy = action;
   dateCopy = date;
   replyCopy = reply;
-  v11 = __atxlog_handle_default();
+  v11 = __atxlog_handle_default(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [_ATXInspectionServer appHistoryUpdateActionPredictionPipelineWithAction:actionCopy date:v11 timeZone:? reply:?];
@@ -230,26 +245,27 @@
   {
     if (lastObject)
     {
-      v28 = lastObject;
+      v29 = lastObject;
     }
 
     else
     {
-      v28 = lastObject2;
+      v29 = lastObject2;
     }
 
+    v28 = v29;
     v27 = v28;
   }
 
-  v29 = __atxlog_handle_default();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v30 = __atxlog_handle_default(v28);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = [v27 description];
+    v31 = [v27 description];
     *buf = 138543618;
-    v100 = v30;
+    v100 = v31;
     v101 = 2080;
     v102 = "[_ATXInspectionServer appHistoryUpdateActionPredictionPipelineWithAction:date:timeZone:reply:]";
-    _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEFAULT, "Biome query result: %{public}@, %s", buf, 0x16u);
+    _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_DEFAULT, "Biome query result: %{public}@, %s", buf, 0x16u);
   }
 
   if (v27)
@@ -258,8 +274,8 @@
     {
       intent = [v27 intent];
       _intents_bundleIdForDisplay = [intent _intents_bundleIdForDisplay];
-      v33 = _intents_bundleIdForDisplay;
-      v34 = lastObject2;
+      v34 = _intents_bundleIdForDisplay;
+      v35 = lastObject2;
       if (_intents_bundleIdForDisplay)
       {
         bundleId = _intents_bundleIdForDisplay;
@@ -273,19 +289,19 @@
       actionCopy = bundleId;
 
       intentType = [v27 intentType];
-      v42 = objc_alloc(MEMORY[0x277CEB2C8]);
+      v43 = objc_alloc(MEMORY[0x277CEB2C8]);
       intent2 = [v27 intent];
-      v44 = objc_opt_new();
+      v45 = objc_opt_new();
       LOBYTE(v77) = 0;
-      v45 = [v42 initWithIntent:intent2 actionUUID:v44 bundleId:actionCopy heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v77 title:0 subtitle:0];
+      v46 = [v43 initWithIntent:intent2 actionUUID:v45 bundleId:actionCopy heuristic:0 heuristicMetadata:0 criteria:0 isFutureMedia:v77 title:0 subtitle:0];
 
-      lastObject2 = v34;
-      v41 = v45;
+      lastObject2 = v35;
+      v42 = v46;
     }
 
     else
     {
-      v41 = 0;
+      v42 = 0;
       intentType = 0;
       actionCopy = 0;
     }
@@ -307,19 +323,19 @@
       v82 = contentURL;
       if (contentURL || relatedUniqueIdentifier || contentDescription)
       {
-        v52 = contentDescription;
-        v53 = objc_alloc(MEMORY[0x277CC34B8]);
-        v54 = [v53 initWithContentType:*MEMORY[0x277CE1D40]];
-        v55 = relatedUniqueIdentifier;
-        v51 = v54;
-        [v54 setRelatedUniqueIdentifier:v55];
-        [v51 setContentURL:contentURL];
-        [v51 setContentDescription:v52];
+        v53 = contentDescription;
+        v54 = objc_alloc(MEMORY[0x277CC34B8]);
+        v55 = [v54 initWithContentType:*MEMORY[0x277CE1D40]];
+        v56 = relatedUniqueIdentifier;
+        v52 = v55;
+        [v55 setRelatedUniqueIdentifier:v56];
+        [v52 setContentURL:contentURL];
+        [v52 setContentDescription:v53];
       }
 
       else
       {
-        v51 = 0;
+        v52 = 0;
       }
 
       bundleId2 = [v27 bundleId];
@@ -330,56 +346,56 @@
       action3 = [v27 action];
       userActivityString = [action3 userActivityString];
 
-      v59 = [objc_alloc(MEMORY[0x277CC1EF0]) _initWithUserActivityStrings:userActivityString secondaryString:0 optionalData:0];
-      v60 = MEMORY[0x277CEB2C8];
-      activityType = [v59 activityType];
-      v80 = [v60 getNSUATypefromActivityType:activityType];
+      v60 = [objc_alloc(MEMORY[0x277CC1EF0]) _initWithUserActivityStrings:userActivityString secondaryString:0 optionalData:0];
+      v61 = MEMORY[0x277CEB2C8];
+      activityType = [v60 activityType];
+      v80 = [v61 getNSUATypefromActivityType:activityType];
 
-      v62 = objc_alloc(MEMORY[0x277CEB2C8]);
-      v63 = objc_opt_new();
+      v63 = objc_alloc(MEMORY[0x277CEB2C8]);
+      v64 = objc_opt_new();
       LOBYTE(v78) = 0;
       actionCopy = bundleId2;
-      v64 = [v62 initWithNSUserActivityString:userActivityString actionUUID:v63 bundleId:bundleId2 itemIdentifier:itemIdentifier contentAttributeSet:v51 heuristic:0 heuristicMetadata:0 isFutureMedia:v78 title:0 subtitle:0];
+      v65 = [v63 initWithNSUserActivityString:userActivityString actionUUID:v64 bundleId:bundleId2 itemIdentifier:itemIdentifier contentAttributeSet:v52 heuristic:0 heuristicMetadata:0 isFutureMedia:v78 title:0 subtitle:0];
 
-      v41 = v64;
+      v42 = v65;
       intentType = v80;
       replyCopy = v86;
       dateCopy = v87;
     }
 
-    if (actionCopy && intentType && v41 && ([v41 actionTitle], v65 = objc_claimAutoreleasedReturnValue(), v65, v65))
+    if (actionCopy && intentType && v42 && ([v42 actionTitle], v66 = objc_claimAutoreleasedReturnValue(), v66, v66))
     {
-      v66 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:dateCopy endDate:dateCopy];
-      v67 = [objc_alloc(MEMORY[0x277CEB5D8]) initWithBundleId:actionCopy intentType:intentType dateInterval:v66 action:v41];
-      v68 = +[_ATXAppPredictor sharedInstance];
-      [v68 appIntentMonitor];
-      v88 = v41;
-      v69 = intentType;
-      v70 = lastObject;
-      v71 = replyCopy;
-      v73 = v72 = dateCopy;
-      LODWORD(v74) = 1.0;
-      [v73 updateActionPredictionPipelineForIntentEvent:v67 weight:0 appSessionStartDate:0 appSessionEndDate:v74];
+      v67 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:dateCopy endDate:dateCopy];
+      v68 = [objc_alloc(MEMORY[0x277CEB5D8]) initWithBundleId:actionCopy intentType:intentType dateInterval:v67 action:v42];
+      v69 = +[_ATXAppPredictor sharedInstance];
+      [v69 appIntentMonitor];
+      v88 = v42;
+      v70 = intentType;
+      v71 = lastObject;
+      v72 = replyCopy;
+      v74 = v73 = dateCopy;
+      LODWORD(v75) = 1.0;
+      [v74 updateActionPredictionPipelineForIntentEvent:v68 weight:0 appSessionStartDate:0 appSessionEndDate:v75];
 
-      dateCopy = v72;
-      replyCopy = v71;
-      lastObject = v70;
-      intentType = v69;
-      v41 = v88;
+      dateCopy = v73;
+      replyCopy = v72;
+      lastObject = v71;
+      intentType = v70;
+      v42 = v88;
 
-      v40 = [v88 description];
+      v41 = [v88 description];
 
-      v39 = 0;
+      v40 = 0;
     }
 
     else
     {
-      v75 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v76 = objc_alloc(MEMORY[0x277CCA9B8]);
       v97 = *MEMORY[0x277CCA450];
       v98 = @"The action does not have a bundleId, intentType, or title.";
-      v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
-      v39 = [v75 initWithDomain:@"appHistoryUpdateActionPredictionPipelineWithAction" code:-1 userInfo:v66];
-      v40 = 0;
+      v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+      v40 = [v76 initWithDomain:@"appHistoryUpdateActionPredictionPipelineWithAction" code:-1 userInfo:v67];
+      v41 = 0;
     }
 
     lastObject2 = v89;
@@ -387,17 +403,16 @@
 
   else
   {
-    v36 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v37 = objc_alloc(MEMORY[0x277CCA9B8]);
     v95 = *MEMORY[0x277CCA450];
     actionCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"No events found for UUID: %@", actionCopy];
     v96 = actionCopy;
     intentType = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-    v39 = [v36 initWithDomain:@"appHistoryUpdateActionPredictionPipelineWithAction" code:-1 userInfo:intentType];
-    v40 = 0;
+    v40 = [v37 initWithDomain:@"appHistoryUpdateActionPredictionPipelineWithAction" code:-1 userInfo:intentType];
+    v41 = 0;
   }
 
-  replyCopy[2](replyCopy, v40, v39);
-  v76 = *MEMORY[0x277D85DE8];
+  replyCopy[2](replyCopy, v41, v40);
 }
 
 - (id)_filterAndSortAppIntentEventsWithUUID:(id)d events:(id)events
@@ -417,45 +432,44 @@
 
 - (void)appHistoryActionWithUUID:(id)d reply:(id)reply
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   replyCopy = reply;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__83;
-  v26 = __Block_byref_object_dispose__83;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__83;
+  v25 = __Block_byref_object_dispose__83;
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v29 = *MEMORY[0x277CCA450];
+  v28 = *MEMORY[0x277CCA450];
   v8 = MEMORY[0x277CCACA8];
   uUIDString = [dCopy UUIDString];
   v10 = [v8 stringWithFormat:@"There is no action found with UUID: %@", uUIDString];
-  v30[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-  v27 = [v7 initWithDomain:@"appHistoryActionWithUUID" code:-1 userInfo:v11];
+  v29[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v26 = [v7 initWithDomain:@"appHistoryActionWithUUID" code:-1 userInfo:v11];
 
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__83;
-  v20 = __Block_byref_object_dispose__83;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__83;
+  v19 = __Block_byref_object_dispose__83;
+  v20 = 0;
   v12 = +[_ATXDataStore sharedInstance];
-  v28 = dCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __55___ATXInspectionServer_appHistoryActionWithUUID_reply___block_invoke;
-  v15[3] = &unk_27859F9B8;
-  v15[4] = &v22;
-  v15[5] = &v16;
-  [v12 enumerateActionsInUUIDSet:v13 block:v15];
+  v27 = dCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __55___ATXInspectionServer_appHistoryActionWithUUID_reply___block_invoke;
+  v14[3] = &unk_27859F9B8;
+  v14[4] = &v21;
+  v14[5] = &v15;
+  [v12 enumerateActionsInUUIDSet:v13 block:v14];
 
-  replyCopy[2](replyCopy, v17[5], v23[5]);
-  _Block_object_dispose(&v16, 8);
+  replyCopy[2](replyCopy, v16[5], v22[5]);
+  _Block_object_dispose(&v15, 8);
 
-  _Block_object_dispose(&v22, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
 }
 
 - (void)appHistoryAddNSUALaunch:(id)launch requiredString:(id)string itemIdentifier:(id)identifier date:(id)date timeZone:(id)zone reply:(id)reply
@@ -530,7 +544,7 @@
 
 - (void)appIntentHistoryDonateINIntent:(id)intent intentType:(id)type startDate:(id)date endDate:(id)endDate timeZone:(id)zone reply:(id)reply
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v13 = MEMORY[0x277CD3E98];
   replyCopy = reply;
@@ -545,7 +559,7 @@
   v18 = objc_alloc(MEMORY[0x277CD3E90]);
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  v44 = v17;
+  v43 = v17;
   v21 = [v18 initWithPersonHandle:v17 nameComponents:0 displayName:@"Alice" image:0 contactIdentifier:uUIDString customIdentifier:0];
 
   v22 = objc_alloc(MEMORY[0x277CD3E98]);
@@ -560,8 +574,8 @@
   if ([typeCopy isEqualToString:@"SendMessage"])
   {
     v29 = objc_alloc(MEMORY[0x277CD4078]);
-    v48[0] = v21;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
+    v47[0] = v21;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
     v31 = [objc_alloc(MEMORY[0x277CD4188]) initWithSpokenPhrase:@"Hello"];
     v32 = [v29 initWithRecipients:v30 outgoingMessageType:0 content:@"Hello" speakableGroupName:v31 conversationIdentifier:@"Conversation" serviceName:@"Service" sender:v28 attachments:0];
   }
@@ -576,8 +590,8 @@
     }
 
     v33 = objc_alloc(MEMORY[0x277CD41A8]);
-    v47 = v21;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+    v46 = v21;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
     v32 = [v33 initWithCallRecordFilter:0 callRecordToCallBack:0 audioRoute:0 destinationType:1 contacts:v30 callCapability:1];
   }
 
@@ -589,18 +603,16 @@ LABEL_7:
 
   [v35 setDateInterval:v36];
   v37 = dispatch_semaphore_create(0);
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __99___ATXInspectionServer_appIntentHistoryDonateINIntent_intentType_startDate_endDate_timeZone_reply___block_invoke;
-  v45[3] = &unk_27859EE08;
-  v46 = v37;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __99___ATXInspectionServer_appIntentHistoryDonateINIntent_intentType_startDate_endDate_timeZone_reply___block_invoke;
+  v44[3] = &unk_27859EE08;
+  v45 = v37;
   v38 = v37;
-  [v35 _donateInteractionWithBundleId:intentCopy completion:v45];
+  [v35 _donateInteractionWithBundleId:intentCopy completion:v44];
 
   [MEMORY[0x277D425A0] waitForSemaphore:v38 timeoutSeconds:5.0];
   replyCopy[2](replyCopy, 0);
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appHistoryStartDeltaRecording:(id)recording
@@ -673,82 +685,225 @@ LABEL_7:
   clearCopy[2](clearCopy, 0);
 }
 
+- (void)feedbackLaunchedWithConsumerSubType:(unsigned __int8)type forBundleId:(id)id rejected:(id)rejected reply:(id)reply
+{
+  typeCopy = type;
+  idCopy = id;
+  rejectedCopy = rejected;
+  replyCopy = reply;
+  v12 = objc_alloc_init(ATXPredictionContextBuilder);
+  predictionContextForCurrentContext = [(ATXPredictionContextBuilder *)v12 predictionContextForCurrentContext];
+  if (predictionContextForCurrentContext)
+  {
+    v14 = [MEMORY[0x277CEBCF0] consumerTypeForSubType:typeCopy];
+    v15 = +[_ATXFeedback sharedInstance];
+    [v15 feedbackLaunchedWithConsumerType:v14 forBundleId:idCopy rejected:rejectedCopy explicitlyRejected:0 context:predictionContextForCurrentContext];
+  }
+
+  else
+  {
+    v16 = __atxlog_handle_default(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [_ATXInspectionServer feedbackLaunchedWithConsumerSubType:forBundleId:rejected:reply:];
+    }
+  }
+
+  replyCopy[2](replyCopy, 0);
+}
+
+- (void)predictItemsAndReturnInputsAndSubscoresForConsumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIds:(id)ids candidateActiontypes:(id)actiontypes reply:(id)reply
+{
+  typeCopy = type;
+  intentCopy = intent;
+  idsCopy = ids;
+  actiontypesCopy = actiontypes;
+  replyCopy = reply;
+  v14 = objc_opt_new();
+  v15 = +[_ATXAppPredictor sharedInstance];
+  v16 = [v15 predictWithLimit:8 consumerSubType:typeCopy intent:intentCopy candidateBundleIdentifiers:idsCopy candidateActiontypes:actiontypesCopy scoreLogger:v14];
+
+  inputsAndSubscores = [v14 inputsAndSubscores];
+  replyCopy[2](replyCopy, inputsAndSubscores, 0);
+}
+
+- (void)predictItemsAndReturnMetaDataAndInputsAndSubScoresWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type reply:(id)reply
+{
+  typeCopy = type;
+  v28[3] = *MEMORY[0x277D85DE8];
+  identifiersCopy = identifiers;
+  actiontypesCopy = actiontypes;
+  replyCopy = reply;
+  v9 = objc_opt_new();
+  v10 = objc_opt_new();
+  v11 = objc_opt_new();
+  v21 = objc_opt_new();
+  v12 = [ATXActionPredictions predictionsWithCandidateBundleIdentifiers:identifiersCopy candidateActiontypes:actiontypesCopy consumerSubType:typeCopy firstStageScoreLogger:v9 secondStageScoreLogger:v10 thirdStageScoreLogger:v11 multiStageScoreLogger:v21];
+  v27[0] = @"firstStage";
+  actionMetaDataItems = [v9 actionMetaDataItems];
+  v28[0] = actionMetaDataItems;
+  v27[1] = @"secondStage";
+  actionMetaDataItems2 = [v10 actionMetaDataItems];
+  v28[1] = actionMetaDataItems2;
+  v27[2] = @"thirdStage";
+  actionMetaDataItems3 = [v11 actionMetaDataItems];
+  v28[2] = actionMetaDataItems3;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+
+  v25[0] = @"firstStage";
+  inputsAndSubscores = [v9 inputsAndSubscores];
+  v26[0] = inputsAndSubscores;
+  v25[1] = @"secondStage";
+  inputsAndSubscores2 = [v10 inputsAndSubscores];
+  v26[1] = inputsAndSubscores2;
+  v25[2] = @"thirdStage";
+  inputsAndSubscores3 = [v11 inputsAndSubscores];
+  v26[2] = inputsAndSubscores3;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+
+  replyCopy[2](replyCopy, v16, v20, 0);
+}
+
+- (void)predictItemsAndReturnStageScoresWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type reply:(id)reply
+{
+  typeCopy = type;
+  identifiersCopy = identifiers;
+  actiontypesCopy = actiontypes;
+  replyCopy = reply;
+  v11 = objc_opt_new();
+  v12 = objc_opt_new();
+  v13 = objc_opt_new();
+  v14 = objc_opt_new();
+  v15 = [ATXActionPredictions predictionsWithCandidateBundleIdentifiers:identifiersCopy candidateActiontypes:actiontypesCopy consumerSubType:typeCopy firstStageScoreLogger:v12 secondStageScoreLogger:v13 thirdStageScoreLogger:v14 multiStageScoreLogger:v11];
+
+  stageScores = [v11 stageScores];
+  replyCopy[2](replyCopy, stageScores, 0);
+}
+
+- (void)getParseTreeForConsumerSubType:(unsigned __int8)type reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  v6 = [_ATXAppPredictor getParseTreeForConsumerSubType:typeCopy];
+  replyCopy[2](replyCopy, v6, 0);
+}
+
+- (void)getPredictionModelDetailsForConsumerSubType:(unsigned __int8)type reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  v6 = +[_ATXAppPredictor sharedInstance];
+  v9 = [v6 getPredictionModelDetailsForConsumerSubType:typeCopy];
+
+  v7 = +[_ATXAppPredictor sharedInstance];
+  getABGroups = [v7 getABGroups];
+
+  replyCopy[2](replyCopy, v9, getABGroups, 0);
+}
+
+- (void)benchmarkAppPredictionForConsumerSubType:(unsigned __int8)type ntimes:(unint64_t)ntimes reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  if (*&benchmarkAppPredictionForConsumerSubType_ntimes_reply__msPerTick == 0.0)
+  {
+    info = 0;
+    mach_timebase_info(&info);
+    LODWORD(v9) = info.denom;
+    LODWORD(v8) = info.numer;
+    *&benchmarkAppPredictionForConsumerSubType_ntimes_reply__msPerTick = v8 / v9 * 0.000001;
+  }
+
+  for (i = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:ntimes]; ntimes; --ntimes)
+  {
+    v11 = objc_autoreleasePoolPush();
+    v12 = mach_absolute_time();
+    v13 = +[_ATXAppPredictor sharedInstance];
+    v14 = [v13 predictWithLimit:8 consumerSubType:typeCopy intent:0 candidateBundleIdentifiers:0 candidateActiontypes:0 scoreLogger:0];
+
+    v15 = [MEMORY[0x277CCABB0] numberWithDouble:*&benchmarkAppPredictionForConsumerSubType_ntimes_reply__msPerTick * (mach_absolute_time() - v12)];
+    [i addObject:v15];
+
+    objc_autoreleasePoolPop(v11);
+  }
+
+  replyCopy[2](replyCopy, i, 0);
+}
+
 - (void)createAppPredictionLogs:(id)logs
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   logsCopy = logs;
   v3 = +[ATXPredictionJSONScoreLogger sharedInstance];
   v4 = dispatch_group_create();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v5 = [&unk_283A589A0 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [&unk_283A589A0 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       v8 = 0;
       do
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(&unk_283A589A0);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * v8);
+        v9 = *(*(&v22 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
         dispatch_group_enter(v4);
         LOBYTE(v9) = [v9 unsignedIntegerValue];
         v11 = +[_ATXAppPredictor sharedInstance];
         v12 = [v11 predictWithLimit:8 consumerSubType:v9 intent:0 candidateBundleIdentifiers:0 candidateActiontypes:0 scoreLogger:v3];
 
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __48___ATXInspectionServer_createAppPredictionLogs___block_invoke;
-        v21[3] = &unk_278596BB8;
-        v22 = v4;
-        [v3 flushWithCompletion:v21];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __48___ATXInspectionServer_createAppPredictionLogs___block_invoke;
+        v20[3] = &unk_278596BB8;
+        v21 = v4;
+        [v3 flushWithCompletion:v20];
 
         objc_autoreleasePoolPop(v10);
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [&unk_283A589A0 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [&unk_283A589A0 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
   }
 
   v13 = MEMORY[0x277D425A0];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __48___ATXInspectionServer_createAppPredictionLogs___block_invoke_134;
-  v19[3] = &unk_2785969B8;
-  v20 = logsCopy;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __48___ATXInspectionServer_createAppPredictionLogs___block_invoke_135;
-  v17[3] = &unk_2785969B8;
-  v18 = v20;
-  v14 = v20;
-  [v13 waitForGroup:v4 timeoutSeconds:v19 onGroupComplete:v17 onTimeout:3.0];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __48___ATXInspectionServer_createAppPredictionLogs___block_invoke_134;
+  v18[3] = &unk_2785969B8;
+  v19 = logsCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __48___ATXInspectionServer_createAppPredictionLogs___block_invoke_135;
+  v16[3] = &unk_2785969B8;
+  v17 = v19;
+  v14 = v19;
+  [v13 waitForGroup:v4 timeoutSeconds:v18 onGroupComplete:v16 onTimeout:3.0];
 }
 
 - (void)_getActionLogs:(id)logs obfuscation:(BOOL)obfuscation
 {
   obfuscationCopy = obfuscation;
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   logsCopy = logs;
   v6 = +[_ATXDataStore sharedInstance];
   v7 = objc_opt_new();
   v8 = objc_opt_new();
-  v41 = logsCopy;
+  v40 = logsCopy;
   if (obfuscationCopy)
   {
     bundleIdMapping = [v6 bundleIdMapping];
@@ -759,28 +914,28 @@ LABEL_7:
     bundleIdMapping = 0;
   }
 
-  v48 = objc_opt_new();
+  v47 = objc_opt_new();
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   obj = [v6 actionLogKeys];
-  v9 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
-  v47 = v6;
+  v9 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
+  v46 = v6;
   if (v9)
   {
     v10 = v9;
-    v44 = *v62;
+    v43 = *v61;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v62 != v44)
+        if (*v61 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v61 + 1) + 8 * i);
+        v12 = *(*(&v60 + 1) + 8 * i);
         first = [v12 first];
         second = [v12 second];
         if (obfuscationCopy)
@@ -813,44 +968,44 @@ LABEL_7:
           [v22 setObject:v21 forKeyedSubscript:second];
         }
 
-        v57[0] = MEMORY[0x277D85DD0];
-        v57[1] = 3221225472;
-        v57[2] = __51___ATXInspectionServer__getActionLogs_obfuscation___block_invoke;
-        v57[3] = &unk_27859F9E0;
-        v60 = obfuscationCopy;
-        v58 = v48;
-        v59 = v21;
+        v56[0] = MEMORY[0x277D85DD0];
+        v56[1] = 3221225472;
+        v56[2] = __51___ATXInspectionServer__getActionLogs_obfuscation___block_invoke;
+        v56[3] = &unk_27859F9E0;
+        v59 = obfuscationCopy;
+        v57 = v47;
+        v58 = v21;
         v23 = v21;
-        v6 = v47;
-        [v47 enumerateActionOfType:second bundleId:first block:v57];
+        v6 = v46;
+        [v46 enumerateActionOfType:second bundleId:first block:v56];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
+      v10 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
     }
 
     while (v10);
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   obja = [v6 actionFeedbackLogKeys];
-  v24 = [obja countByEnumeratingWithState:&v53 objects:v67 count:16];
+  v24 = [obja countByEnumeratingWithState:&v52 objects:v66 count:16];
   if (v24)
   {
     v25 = v24;
-    v45 = *v54;
+    v44 = *v53;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v54 != v45)
+        if (*v53 != v44)
         {
           objc_enumerationMutation(obja);
         }
 
-        v27 = *(*(&v53 + 1) + 8 * j);
+        v27 = *(*(&v52 + 1) + 8 * j);
         first2 = [v27 first];
         second2 = [v27 second];
         if (obfuscationCopy)
@@ -883,32 +1038,30 @@ LABEL_7:
           [v37 setObject:v36 forKeyedSubscript:second2];
         }
 
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __51___ATXInspectionServer__getActionLogs_obfuscation___block_invoke_2;
-        v49[3] = &unk_27859FA08;
-        v52 = obfuscationCopy;
-        v50 = v48;
-        v51 = v36;
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __51___ATXInspectionServer__getActionLogs_obfuscation___block_invoke_2;
+        v48[3] = &unk_27859FA08;
+        v51 = obfuscationCopy;
+        v49 = v47;
+        v50 = v36;
         v38 = v36;
-        v6 = v47;
-        [v47 enumerateFeedbackForActionOfType:second2 bundleId:first2 block:v49];
+        v6 = v46;
+        [v46 enumerateFeedbackForActionOfType:second2 bundleId:first2 block:v48];
       }
 
-      v25 = [obja countByEnumeratingWithState:&v53 objects:v67 count:16];
+      v25 = [obja countByEnumeratingWithState:&v52 objects:v66 count:16];
     }
 
     while (v25);
   }
 
-  v65[0] = @"actions";
-  v65[1] = @"feedback";
-  v66[0] = v7;
-  v66[1] = v8;
-  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:2];
-  (v41)[2](v41, v39, 0);
-
-  v40 = *MEMORY[0x277D85DE8];
+  v64[0] = @"actions";
+  v64[1] = @"feedback";
+  v65[0] = v7;
+  v65[1] = v8;
+  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:2];
+  (v40)[2](v40, v39, 0);
 }
 
 - (void)histogramsInMemory:(id)memory
@@ -971,7 +1124,7 @@ LABEL_7:
 
 - (void)allHistogramsBySize:(id)size
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   sizeCopy = size;
   v3 = +[_ATXDataStore sharedInstance];
   v4 = objc_opt_new();
@@ -982,12 +1135,12 @@ LABEL_7:
     {
       v7 = v6;
       v8 = [_ATXDataStore stringForHistogramType:i];
-      v21 = v8;
+      v20 = v8;
       v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v7, "length")}];
-      v22[0] = v9;
+      v21[0] = v9;
       v10 = MEMORY[0x277CBEAC0];
-      v11 = v22;
-      v12 = &v21;
+      v11 = v21;
+      v12 = &v20;
     }
 
     else
@@ -1000,12 +1153,12 @@ LABEL_7:
 
       v7 = v13;
       v8 = [_ATXDataStore stringForHistogramType:i];
-      v19 = v8;
+      v18 = v8;
       v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v7, "length")}];
-      v20 = v9;
+      v19 = v9;
       v10 = MEMORY[0x277CBEAC0];
-      v11 = &v20;
-      v12 = &v19;
+      v11 = &v19;
+      v12 = &v18;
     }
 
     v14 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
@@ -1015,8 +1168,6 @@ LABEL_7:
   v15 = [v4 sortedArrayUsingComparator:&__block_literal_global_240];
   v16 = [v15 _pas_mappedArrayWithTransform:&__block_literal_global_242];
   sizeCopy[2](sizeCopy, v16, 0);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrainActionHistograms:(id)histograms
@@ -1049,79 +1200,69 @@ LABEL_7:
 
 - (void)getAppFeedbackData:(id)data
 {
-  v51[4] = *MEMORY[0x277D85DE8];
+  v50[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = +[_ATXFeedback sharedInstance];
-  v50[0] = @"baseAlpha";
+  v49[0] = @"baseAlpha";
   v5 = MEMORY[0x277CCABB0];
   +[_ATXFeedbackConstants baseAlpha];
   v6 = [v5 numberWithDouble:?];
-  v51[0] = v6;
-  v50[1] = @"baseBeta";
+  v50[0] = v6;
+  v49[1] = @"baseBeta";
   v7 = MEMORY[0x277CCABB0];
   +[_ATXFeedbackConstants baseBeta];
   v8 = [v7 numberWithDouble:?];
-  v51[1] = v8;
-  v50[2] = @"currentAlpha";
+  v50[1] = v8;
+  v49[2] = @"currentAlpha";
   v9 = MEMORY[0x277CCABB0];
   [v4 currentAlpha];
   v10 = [v9 numberWithDouble:?];
-  v51[2] = v10;
-  v50[3] = @"currentBeta";
+  v50[2] = v10;
+  v49[3] = @"currentBeta";
   v11 = MEMORY[0x277CCABB0];
-  v42 = v4;
+  v41 = v4;
   [v4 currentBeta];
   v12 = [v11 numberWithDouble:?];
-  v51[3] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:4];
+  v50[3] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:4];
 
   v14 = +[_ATXAppIconState sharedInstance];
   allInstalledAppsKnownToSpringBoard = [v14 allInstalledAppsKnownToSpringBoard];
-  v44 = [allInstalledAppsKnownToSpringBoard count];
-  v16 = 8 * v44;
-  v17 = malloc_type_malloc(8 * v44, 0x100004000313F17uLL);
-  if (!v17)
+  v43 = [allInstalledAppsKnownToSpringBoard count];
+  v16 = 8 * v43;
+  v17 = malloc_type_malloc(8 * v43, 0x100004000313F17uLL);
+  if (!v17 || (v18 = v17, v40 = v13, v19 = 0x277CCA000uLL, (v20 = malloc_type_malloc(v16, 0x100004000313F17uLL)) == 0) || (v21 = v20, v38 = v14, v39 = dataCopy, (v22 = malloc_type_malloc(v16, 0x100004000313F17uLL)) == 0))
   {
-    goto LABEL_8;
-  }
-
-  v18 = v17;
-  v41 = v13;
-  v19 = 0x277CCA000uLL;
-  v20 = malloc_type_malloc(v16, 0x100004000313F17uLL);
-  if (!v20 || (v21 = v20, v39 = v14, v40 = dataCopy, (v22 = malloc_type_malloc(v16, 0x100004000313F17uLL)) == 0))
-  {
-LABEL_8:
-    v38 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-    objc_exception_throw(v38);
+    v37 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+    objc_exception_throw(v37);
   }
 
   v23 = v22;
-  [v42 putFeedbackScoresForApps:allInstalledAppsKnownToSpringBoard intoScores:v18 confirms:v21 rejects:v22];
-  v43 = objc_opt_new();
+  [v41 putFeedbackScoresForApps:allInstalledAppsKnownToSpringBoard intoScores:v18 confirms:v21 rejects:v22];
+  v42 = objc_opt_new();
   v24 = 0x277CBE000uLL;
   v25 = allInstalledAppsKnownToSpringBoard;
-  if (v44)
+  if (v43)
   {
-    for (i = 0; i != v44; ++i)
+    for (i = 0; i != v43; ++i)
     {
-      v48[0] = @"score";
-      v45 = [*(v19 + 2992) numberWithDouble:v18[i]];
-      v49[0] = v45;
-      v48[1] = @"confirms";
+      v47[0] = @"score";
+      v44 = [*(v19 + 2992) numberWithDouble:v18[i]];
+      v48[0] = v44;
+      v47[1] = @"confirms";
       v27 = [*(v19 + 2992) numberWithDouble:v21[i]];
-      v49[1] = v27;
-      v48[2] = @"rejects";
+      v48[1] = v27;
+      v47[2] = @"rejects";
       v28 = [*(v19 + 2992) numberWithDouble:v23[i]];
-      v49[2] = v28;
-      v29 = [*(v24 + 2752) dictionaryWithObjects:v49 forKeys:v48 count:3];
+      v48[2] = v28;
+      v29 = [*(v24 + 2752) dictionaryWithObjects:v48 forKeys:v47 count:3];
       [v25 objectAtIndexedSubscript:i];
       v30 = v24;
       v31 = v23;
       v32 = v21;
       v33 = v18;
       v35 = v34 = v25;
-      [v43 setObject:v29 forKeyedSubscript:v35];
+      [v42 setObject:v29 forKeyedSubscript:v35];
 
       v25 = v34;
       v18 = v33;
@@ -1136,14 +1277,12 @@ LABEL_8:
   free(v18);
   free(v21);
   free(v23);
-  v46[0] = @"params";
-  v46[1] = @"apps";
-  v47[0] = v41;
-  v47[1] = v43;
-  v36 = [*(v24 + 2752) dictionaryWithObjects:v47 forKeys:v46 count:2];
-  (v40)[2](v40, v36, 0);
-
-  v37 = *MEMORY[0x277D85DE8];
+  v45[0] = @"params";
+  v45[1] = @"apps";
+  v46[0] = v40;
+  v46[1] = v42;
+  v36 = [*(v24 + 2752) dictionaryWithObjects:v46 forKeys:v45 count:2];
+  (v39)[2](v39, v36, 0);
 }
 
 - (void)trainMagicalMomentsAppPredictor:(id)predictor
@@ -1161,44 +1300,43 @@ LABEL_8:
   idCopy = id;
   expertCopy = expert;
   replyCopy = reply;
-  v10 = __atxlog_handle_default();
+  v10 = __atxlog_handle_default(replyCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [_ATXInspectionServer forceMagicalMomentsAppPredictionForBundleId:expert:reply:];
   }
 
   v11 = NSClassFromString(expertCopy);
-  if (([(objc_class *)v11 isSubclassOfClass:objc_opt_class()]& 1) != 0)
+  v12 = [(objc_class *)v11 isSubclassOfClass:objc_opt_class()];
+  if (v12)
   {
     NSClassFromString(expertCopy);
-    v12 = objc_opt_new();
-    v13 = [[ATXMagicalMomentsPrediction alloc] initWithConfidence:idCopy predictionIdentifier:1.0];
-    v14 = objc_opt_class();
+    v13 = objc_opt_new();
+    v14 = [[ATXMagicalMomentsPrediction alloc] initWithConfidence:idCopy predictionIdentifier:1.0];
+    v15 = objc_opt_class();
     sampleEventForExpert = [objc_opt_class() sampleEventForExpert];
-    v20 = v13;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
-    [v14 broadcastMMPredictionsForEvent:sampleEventForExpert predictions:v16];
+    v20 = v14;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    [v15 broadcastMMPredictionsForEvent:sampleEventForExpert predictions:v17];
 
     replyCopy[2](replyCopy, 1, 0);
   }
 
   else
   {
-    v17 = __atxlog_handle_default();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_default(v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [_ATXInspectionServer forceMagicalMomentsAppPredictionForBundleId:expert:reply:];
     }
 
-    v18 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v19 = objc_alloc(MEMORY[0x277CCA9B8]);
     v21 = *MEMORY[0x277CCA450];
     v22[0] = @"ATXMM: Tried to force a MagicalMoments App Prediction with an unrecognized expert. Terminating operation.";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v13 = [v18 initWithDomain:@"ATXMM" code:-1 userInfo:v12];
-    (replyCopy)[2](replyCopy, 0, v13);
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v14 = [v19 initWithDomain:@"ATXMM" code:-1 userInfo:v13];
+    (replyCopy)[2](replyCopy, 0, v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dumpPredictionTableForMMExpert:(id)expert reply:(id)reply
@@ -1206,17 +1344,18 @@ LABEL_8:
   v16[1] = *MEMORY[0x277D85DE8];
   expertCopy = expert;
   replyCopy = reply;
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(replyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [_ATXInspectionServer dumpPredictionTableForMMExpert:expertCopy reply:v7];
   }
 
   v8 = NSClassFromString(expertCopy);
-  if (([(objc_class *)v8 isSubclassOfClass:objc_opt_class()]& 1) != 0)
+  v9 = [(objc_class *)v8 isSubclassOfClass:objc_opt_class()];
+  if (v9)
   {
     NSClassFromString(expertCopy);
-    v9 = objc_opt_new();
+    v10 = objc_opt_new();
     predictionTable = [objc_opt_class() predictionTable];
     describeTable = [predictionTable describeTable];
     replyCopy[2](replyCopy, describeTable, 0);
@@ -1224,21 +1363,19 @@ LABEL_8:
 
   else
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [_ATXInspectionServer forceMagicalMomentsAppPredictionForBundleId:expert:reply:];
     }
 
-    v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v14 = objc_alloc(MEMORY[0x277CCA9B8]);
     v15 = *MEMORY[0x277CCA450];
     v16[0] = @"ATXMM: Tried to force a MagicalMoments App Prediction with an unrecognized expert. Terminating operation.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    predictionTable = [v13 initWithDomain:@"ATXMM" code:-1 userInfo:v9];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    predictionTable = [v14 initWithDomain:@"ATXMM" code:-1 userInfo:v10];
     (replyCopy)[2](replyCopy, 0, predictionTable);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)evaluateInfoSuggestionsWithCompletionHandler:(id)handler
@@ -1273,41 +1410,41 @@ LABEL_8:
 
 - (void)widgetBundleIdentifiersForAllInfoSuggestionsInString:(id)string
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = +[ATXInfoSuggestionServer sharedInstance];
   infoEngine = [v4 infoEngine];
   allInfoSuggestions = [infoEngine allInfoSuggestions];
 
   v7 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = allInfoSuggestions;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        widgetBundleIdentifier = [*(*(&v17 + 1) + 8 * v12) widgetBundleIdentifier];
+        widgetBundleIdentifier = [*(*(&v16 + 1) + 8 * v12) widgetBundleIdentifier];
         [v7 addObject:widgetBundleIdentifier];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -1316,8 +1453,6 @@ LABEL_8:
   allObjects = [v7 allObjects];
   v15 = [allObjects componentsJoinedByString:@"\n"];
   stringCopy[2](stringCopy, v15, 0);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getInfoPredictionsInString:(id)string
@@ -1361,7 +1496,7 @@ LABEL_8:
 - (void)appLaunchInformationWithReply:(id)reply
 {
   replyCopy = reply;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(replyCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [_ATXInspectionServer appLaunchInformationWithReply:];
@@ -1374,7 +1509,7 @@ LABEL_8:
 - (void)categoryLaunchInformationWithReply:(id)reply
 {
   replyCopy = reply;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(replyCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [_ATXInspectionServer categoryLaunchInformationWithReply:];
@@ -1387,7 +1522,7 @@ LABEL_8:
 - (void)appLaunchDatesWithReply:(id)reply
 {
   replyCopy = reply;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(replyCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [_ATXInspectionServer categoryLaunchInformationWithReply:];
@@ -1596,6 +1731,16 @@ LABEL_8:
   [v7 dryRunResultFilterByExtensionBundleId:idCopy completionHandler:replyCopy];
 }
 
+- (void)trainModeEntityModelsWithDeferTrainingWhenApplicable:(BOOL)applicable reply:(id)reply
+{
+  applicableCopy = applicable;
+  replyCopy = reply;
+  v5 = objc_opt_new();
+  [v5 trainWithShouldDeferTrainingOnBackupRestoreOrUpgrade:applicableCopy];
+
+  replyCopy[2](replyCopy, 0);
+}
+
 - (void)trainModeSetupPredictionModelWithReply:(id)reply
 {
   replyCopy = reply;
@@ -1607,69 +1752,65 @@ LABEL_8:
 
 - (void)inspectInferredActivitySessionStream:(id)stream fromTimestamp:(double)timestamp reply:(id)reply
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   replyCopy = reply;
-  v9 = __atxlog_handle_default();
+  v9 = __atxlog_handle_default(replyCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
-    v13 = 138412802;
-    v14 = v11;
-    v15 = 2112;
-    v16 = streamCopy;
-    v17 = 2048;
+    v12 = 138412802;
+    v13 = v11;
+    v14 = 2112;
+    v15 = streamCopy;
+    v16 = 2048;
     timestampCopy = timestamp;
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "[%@] Inspecting stream %@ from timestamp %f", &v13, 0x20u);
+    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "[%@] Inspecting stream %@ from timestamp %f", &v12, 0x20u);
   }
 
   [ATXUnifiedInferredActivityBiomeInspector retrieveInferredActivitySessionsFromPublisherName:streamCopy startTime:replyCopy reply:timestamp];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)inspectInferredActivityTransitionStream:(id)stream fromTimestamp:(double)timestamp reply:(id)reply
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   replyCopy = reply;
-  v9 = __atxlog_handle_default();
+  v9 = __atxlog_handle_default(replyCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
-    v13 = 138412802;
-    v14 = v11;
-    v15 = 2112;
-    v16 = streamCopy;
-    v17 = 2048;
+    v12 = 138412802;
+    v13 = v11;
+    v14 = 2112;
+    v15 = streamCopy;
+    v16 = 2048;
     timestampCopy = timestamp;
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "[%@] Inspecting stream %@ from timestamp %f", &v13, 0x20u);
+    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "[%@] Inspecting stream %@ from timestamp %f", &v12, 0x20u);
   }
 
   [ATXUnifiedInferredActivityBiomeInspector retrieveInferredActivityTransitionsFromPublisherName:streamCopy startTime:replyCopy reply:timestamp];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceNotificationAndSuggestionDbUpdate:(id)update
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(updateCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_INFO, "[%@] Forcing notification and suggestion DB update", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_INFO, "[%@] Forcing notification and suggestion DB update", &v8, 0xCu);
   }
 
   v7 = objc_opt_new();
   [v7 updateDatabase];
   updateCopy[2](updateCopy, 0);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateSerializedNotificationDigestFromFileData:(id)data digestTimeString:(id)string reply:(id)reply
@@ -1685,6 +1826,38 @@ LABEL_8:
   replyCopy[2](replyCopy, v11, v12);
 }
 
+- (void)generateSerializedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply
+{
+  messagesCopy = messages;
+  replyCopy = reply;
+  endDateCopy = endDate;
+  dateCopy = date;
+  stringCopy = string;
+  sourceCopy = source;
+  v18 = objc_opt_new();
+  v21 = 0;
+  v19 = [v18 fetchSerializedNotificationDigestFromSource:sourceCopy digestTimeString:stringCopy startDate:dateCopy endDate:endDateCopy shouldInferMessages:messagesCopy outError:&v21];
+
+  v20 = v21;
+  replyCopy[2](replyCopy, v19, v20);
+}
+
+- (void)generateSerializedAppGroupedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply
+{
+  messagesCopy = messages;
+  replyCopy = reply;
+  endDateCopy = endDate;
+  dateCopy = date;
+  stringCopy = string;
+  sourceCopy = source;
+  v18 = objc_opt_new();
+  v21 = 0;
+  v19 = [v18 fetchSerializedAppGroupedNotificationDigestFromSource:sourceCopy digestTimeString:stringCopy startDate:dateCopy endDate:endDateCopy shouldInferMessages:messagesCopy outError:&v21];
+
+  v20 = v21;
+  replyCopy[2](replyCopy, v19, v20);
+}
+
 - (void)generateSerializedMissedNotificationBundleFromFileData:(id)data modeString:(id)string reply:(id)reply
 {
   replyCopy = reply;
@@ -1696,6 +1869,37 @@ LABEL_8:
 
   v12 = v13;
   replyCopy[2](replyCopy, v11, v12);
+}
+
+- (void)generateSerializedMissedNotificationBundleFromSource:(id)source modeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply
+{
+  messagesCopy = messages;
+  replyCopy = reply;
+  endDateCopy = endDate;
+  dateCopy = date;
+  stringCopy = string;
+  sourceCopy = source;
+  v18 = objc_opt_new();
+  v21 = 0;
+  v19 = [v18 fetchSerializedMissedNotificationRankingFromSource:sourceCopy modeString:stringCopy startDate:dateCopy endDate:endDateCopy shouldInferMessages:messagesCopy outError:&v21];
+
+  v20 = v21;
+  replyCopy[2](replyCopy, v19, v20);
+}
+
+- (void)dumpNotificationJSONFromSource:(id)source startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply
+{
+  messagesCopy = messages;
+  replyCopy = reply;
+  endDateCopy = endDate;
+  dateCopy = date;
+  sourceCopy = source;
+  v15 = objc_opt_new();
+  v18 = 0;
+  v16 = [v15 fetchSerializedNotificationsFromSource:sourceCopy startDate:dateCopy endDate:endDateCopy shouldInferMessages:messagesCopy outError:&v18];
+
+  v17 = v18;
+  replyCopy[2](replyCopy, v16, v17);
 }
 
 - (void)clearNotificationsWithReply:(id)reply
@@ -1735,6 +1939,14 @@ LABEL_8:
   idCopy = id;
   v16 = objc_opt_new();
   [v16 setHistogramValueForBundleId:idCopy location:locationCopy feedback:feedbackCopy value:valueCopy withReply:replyCopy];
+}
+
+- (void)clearDigestFeedbackHistogramWithShouldResetBookmarks:(BOOL)bookmarks reply:(id)reply
+{
+  bookmarksCopy = bookmarks;
+  replyCopy = reply;
+  v6 = objc_opt_new();
+  [v6 clearHistogramWithShouldResetBookmarks:bookmarksCopy reply:replyCopy];
 }
 
 - (void)getCurrentLocationWithReply:(id)reply
@@ -1792,6 +2004,29 @@ LABEL_8:
 
   [(ATXNotificationTelemetryLogger *)v12 logNotificationMetricsFromStartTimestamp:timestampCopy toEndTimestamp:endTimestampCopy withTask:0];
   completionCopy[2](completionCopy, 0);
+}
+
+- (void)setTestMode:(BOOL)mode withCompletion:(id)completion
+{
+  modeCopy = mode;
+  v5 = MEMORY[0x277D42590];
+  completionCopy = completion;
+  if ([v5 isInternalBuild])
+  {
+    mEMORY[0x277CEBC70] = [MEMORY[0x277CEBC70] sharedInstance];
+    [mEMORY[0x277CEBC70] setTestMode:modeCopy];
+
+    completionCopy[2](completionCopy, 0);
+    v7 = completionCopy;
+  }
+
+  else
+  {
+    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CEB260] code:5 userInfo:0];
+    completionCopy[2](completionCopy, v8);
+
+    v7 = v8;
+  }
 }
 
 - (void)triggerPredictionsUpdateWithCompletion:(id)completion
@@ -1856,38 +2091,34 @@ LABEL_8:
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "Rejecting connection %@ without entitlement %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "Rejecting connection %@ without entitlement %@", v1, 0x16u);
 }
 
 - (void)appHistoryUpdateActionPredictionPipelineWithAction:(uint64_t)a1 date:(NSObject *)a2 timeZone:reply:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[_ATXInspectionServer appHistoryUpdateActionPredictionPipelineWithAction:date:timeZone:reply:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%s %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[_ATXInspectionServer appHistoryUpdateActionPredictionPipelineWithAction:date:timeZone:reply:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "%s %@", &v2, 0x16u);
 }
 
 - (void)forceMagicalMomentsAppPredictionForBundleId:expert:reply:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_9();
-  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "ATXMM: Forcing MM App Prediction for bundleId: %@, expert: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "ATXMM: Forcing MM App Prediction for bundleId: %@, expert: %@", v1, 0x16u);
 }
 
 - (void)dumpPredictionTableForMMExpert:(uint64_t)a1 reply:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXMM: Dumping prediction table for expert: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXMM: Dumping prediction table for expert: %@", &v2, 0xCu);
 }
 
 @end

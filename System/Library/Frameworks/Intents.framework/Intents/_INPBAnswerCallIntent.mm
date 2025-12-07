@@ -1,6 +1,7 @@
 @interface _INPBAnswerCallIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBAnswerCallIntent)initWithCoder:(id)coder;
+- (id)audioRouteAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAudioRoute:(id)route;
@@ -195,7 +196,6 @@ LABEL_17:
   toCopy = to;
   if ([(_INPBAnswerCallIntent *)self hasAudioRoute])
   {
-    audioRoute = self->_audioRoute;
     PBDataWriterWriteInt32Field();
   }
 
@@ -203,19 +203,18 @@ LABEL_17:
 
   if (callIdentifier)
   {
-    callIdentifier = self->_callIdentifier;
     PBDataWriterWriteStringField();
   }
 
   intentMetadata = [(_INPBAnswerCallIntent *)self intentMetadata];
 
-  v8 = toCopy;
+  v6 = toCopy;
   if (intentMetadata)
   {
     intentMetadata2 = [(_INPBAnswerCallIntent *)self intentMetadata];
     PBDataWriterWriteSubmessage();
 
-    v8 = toCopy;
+    v6 = toCopy;
   }
 }
 
@@ -249,6 +248,21 @@ LABEL_17:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)audioRouteAsString:(int)string
+{
+  if ((string - 2) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7286DF8[string - 2];
   }
 
   return v4;

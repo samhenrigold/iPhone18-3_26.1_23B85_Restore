@@ -160,34 +160,34 @@ LABEL_11:
   requestCopy = request;
   queueCopy = queue;
   completionCopy = completion;
-  v54 = objc_opt_new();
-  v53 = objc_opt_new();
-  v65 = 0u;
-  v66 = 0u;
+  v56 = objc_opt_new();
+  v55 = objc_opt_new();
   v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v16 = imagesCopy;
-  v58 = [v16 countByEnumeratingWithState:&v65 objects:v69 count:16];
-  if (v58)
+  v60 = [v16 countByEnumeratingWithState:&v67 objects:v71 count:16];
+  if (v60)
   {
-    v49 = completionCopy;
-    v50 = queueCopy;
-    v51 = sourceCopy;
-    v52 = requestCopy;
+    v51 = completionCopy;
+    v52 = queueCopy;
+    v53 = sourceCopy;
+    v54 = requestCopy;
     v17 = 0;
     v18 = 0;
-    v56 = *v66;
+    v58 = *v68;
     quality = &stru_B8 + 24;
     do
     {
-      for (i = 0; i != v58; i = i + 1)
+      for (i = 0; i != v60; i = i + 1)
       {
-        if (*v66 != v56)
+        if (*v68 != v58)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v65 + 1) + 8 * i);
+        v21 = *(*(&v67 + 1) + 8 * i);
         v22 = ([v21 processingOptions] >> 7) & 1;
         processingOptions = [v21 processingOptions];
         v24 = processingOptions;
@@ -218,16 +218,16 @@ LABEL_11:
         if (!v30)
         {
           [v21 image];
-          v55 = v17;
+          v57 = v17;
           v31 = quality;
           v33 = v32 = v16;
           v34 = +[UIImage imageWithCGImage:](UIImage, "imageWithCGImage:", [v33 CGImage]);
-          [v54 addObject:v34];
+          [v56 addObject:v34];
 
           v16 = v32;
           quality = v31;
-          v17 = v55;
-          [v53 addObject:v29];
+          v17 = v57;
+          [v55 addObject:v29];
         }
 
         if ([v21 quality] < quality)
@@ -239,67 +239,67 @@ LABEL_11:
         v17 |= v24 & 0x40;
       }
 
-      v58 = [v16 countByEnumeratingWithState:&v65 objects:v69 count:16];
+      v60 = [v16 countByEnumeratingWithState:&v67 objects:v71 count:16];
     }
 
-    while (v58);
+    while (v60);
 
     if (v18)
     {
-      v35 = 2;
+      v37 = 2;
     }
 
     else
     {
-      v35 = quality;
+      v37 = quality;
     }
 
-    sourceCopy = v51;
-    requestCopy = v52;
-    completionCopy = v49;
-    queueCopy = v50;
+    sourceCopy = v53;
+    requestCopy = v54;
+    completionCopy = v51;
+    queueCopy = v52;
   }
 
   else
   {
 
     LOWORD(v17) = 0;
-    v35 = 208;
+    v37 = 208;
   }
 
-  v36 = mainScreenScaleFactor();
+  v38 = mainScreenScaleFactor(v35, v36);
   [sourceCopy imageSize];
-  v38 = v37;
   v40 = v39;
-  v41 = BCUCoverEffectsIdentifierSeriesStackDiagonal;
-  v42 = v16;
+  v42 = v41;
+  v43 = BCUCoverEffectsIdentifierSeriesStackDiagonal;
+  v44 = v16;
   if (([requestCopy processingOptions] & 0x1000) != 0)
   {
     processingOptions2 = [requestCopy processingOptions];
-    v44 = &BCUCoverEffectsIdentifierSeriesStackHorizontal;
+    v46 = &BCUCoverEffectsIdentifierSeriesStackHorizontal;
     if ((processingOptions2 & 0x80) != 0)
     {
-      v44 = &BCUCoverEffectsIdentifierSeriesStackHorizontalRTL;
+      v46 = &BCUCoverEffectsIdentifierSeriesStackHorizontalRTL;
     }
 
-    v45 = *v44;
+    v47 = *v46;
 
-    v41 = v45;
+    v43 = v47;
   }
 
-  v59[1] = 3221225472;
-  v59[0] = _NSConcreteStackBlock;
-  v59[2] = sub_145280;
-  v59[3] = &unk_2CE178;
-  v60 = queueCopy;
-  v61 = sourceCopy;
-  v63 = v17;
-  v64 = v35;
-  v62 = completionCopy;
-  v46 = completionCopy;
-  v47 = sourceCopy;
-  v48 = queueCopy;
-  [(BCStackRenderer *)self _applySeriesFilter:v41 toImages:v54 filters:v53 size:v59 completion:v38 / v36, v40 / v36];
+  v61[1] = 3221225472;
+  v61[0] = _NSConcreteStackBlock;
+  v61[2] = sub_145280;
+  v61[3] = &unk_2CE178;
+  v62 = queueCopy;
+  v63 = sourceCopy;
+  v65 = v17;
+  v66 = v37;
+  v64 = completionCopy;
+  v48 = completionCopy;
+  v49 = sourceCopy;
+  v50 = queueCopy;
+  [(BCStackRenderer *)self _applySeriesFilter:v43 toImages:v56 filters:v55 size:v61 completion:v40 / v38, v42 / v38];
 }
 
 - (void)_applySeriesFilter:(id)filter toImages:(id)images filters:(id)filters size:(CGSize)size completion:(id)completion
@@ -314,41 +314,41 @@ LABEL_11:
   v18 = [filtersCopy count];
   if (v16 && v17 && v18 == v17)
   {
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_145748;
+    v31[3] = &unk_2CE1A0;
+    v32 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(imagesCopy, "count")}];
+    v19 = v32;
+    v20 = [imagesCopy enumerateObjectsUsingBlock:v31];
+    v22 = mainScreenScaleFactor(v20, v21);
     v29[0] = _NSConcreteStackBlock;
     v29[1] = 3221225472;
-    v29[2] = sub_145748;
-    v29[3] = &unk_2CE1A0;
-    v30 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(imagesCopy, "count")}];
-    v19 = v30;
-    [imagesCopy enumerateObjectsUsingBlock:v29];
-    v20 = mainScreenScaleFactor();
+    v29[2] = sub_145794;
+    v29[3] = &unk_2CE1C8;
+    v29[4] = self;
+    v30 = completionCopy;
+    v23 = [v16 newOperationWithImages:v19 filters:filtersCopy size:1 contentsScale:v29 waitForCPUSynchronization:width completion:{height, v22}];
+    [v23 start];
     v27[0] = _NSConcreteStackBlock;
     v27[1] = 3221225472;
-    v27[2] = sub_145794;
-    v27[3] = &unk_2CE1C8;
+    v27[2] = sub_1459AC;
+    v27[3] = &unk_2C7BE8;
     v27[4] = self;
-    v28 = completionCopy;
-    v21 = [v16 newOperationWithImages:v19 filters:filtersCopy size:1 contentsScale:v27 waitForCPUSynchronization:width completion:{height, v20}];
-    [v21 start];
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_1459AC;
-    v25[3] = &unk_2C7BE8;
-    v25[4] = self;
-    v26 = v21;
-    v22 = v21;
+    v28 = v23;
+    v24 = v23;
     os_unfair_lock_lock(&self->_accessLock);
-    sub_1459AC(v25);
+    sub_1459AC(v27);
     os_unfair_lock_unlock(&self->_accessLock);
   }
 
   else
   {
-    v23 = objc_retainBlock(completionCopy);
-    v24 = v23;
-    if (v23)
+    v25 = objc_retainBlock(completionCopy);
+    v26 = v25;
+    if (v25)
     {
-      (*(v23 + 2))(v23, 0, 0);
+      (*(v25 + 2))(v25, 0, 0);
     }
   }
 }

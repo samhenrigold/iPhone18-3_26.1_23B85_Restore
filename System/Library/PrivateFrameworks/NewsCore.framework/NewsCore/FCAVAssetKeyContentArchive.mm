@@ -97,14 +97,12 @@
 
 - (id)manifest
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = [FCContentManifest alloc];
   identifier = [(NTPBAVAssetKey *)self->_avAssetKey identifier];
-  v9[0] = identifier;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = identifier;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [(FCContentManifest *)v3 initWithAVAssetKeyIDs:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

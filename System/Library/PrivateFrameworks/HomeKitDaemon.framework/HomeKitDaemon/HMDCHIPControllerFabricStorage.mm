@@ -28,7 +28,7 @@
     [array addObject:v10];
   }
 
-  v11 = [array copy];
+  v11 = objc_msgSend_copy(array);
 
   return v11;
 }
@@ -91,6 +91,24 @@
 
 - (void)updateHomeModel:(id)model
 {
+  v11 = *MEMORY[0x277D85DE8];
+  modelCopy = model;
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    v8 = HMFGetLogIdentifier();
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Not implemented", &v9, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v5);
+}
+
+- (BOOL)updateUsingHomeModel:(id)model
+{
   v12 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v5 = objc_autoreleasePoolPush();
@@ -105,26 +123,6 @@
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (BOOL)updateUsingHomeModel:(id)model
-{
-  v13 = *MEMORY[0x277D85DE8];
-  modelCopy = model;
-  v5 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-  {
-    v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Not implemented", &v11, 0xCu);
-  }
-
-  objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -134,7 +132,7 @@
   keyValueStore = [(HMDCHIPControllerFabricStorage *)self keyValueStore];
   [dictionary setObject:keyValueStore forKeyedSubscript:@"Key-Value Store"];
 
-  v5 = [dictionary copy];
+  v5 = objc_msgSend_copy(dictionary);
 
   return v5;
 }
@@ -153,10 +151,9 @@
 
 void __45__HMDCHIPControllerFabricStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_280039;
-  logCategory__hmf_once_v4_280039 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_280039;
+  logCategory__hmf_once_v4_280039 = v0;
 }
 
 @end

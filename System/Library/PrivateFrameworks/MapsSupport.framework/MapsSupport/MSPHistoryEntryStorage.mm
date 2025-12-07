@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)searchTypeAsString:(int)string;
 - (int)StringAsSearchType:(id)type;
 - (int)searchType;
 - (unint64_t)hash;
@@ -42,6 +43,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)searchTypeAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279867D58[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSearchType:(id)type
@@ -218,7 +234,6 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    searchType = self->_searchType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -230,14 +245,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if (has)
   {
-    position = self->_position;
     PBDataWriterWriteDoubleField();
   }
 
@@ -268,7 +281,6 @@
 
   if ((*&self->_has & 8) != 0)
   {
-    tracksRAPRecordingOnly = self->_tracksRAPRecordingOnly;
     PBDataWriterWriteBOOLField();
   }
 
@@ -409,7 +421,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 92);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 92) & 4) == 0 || self->_searchType != *(equalCopy + 18))
@@ -434,7 +445,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 92);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 92) & 2) == 0 || self->_timestamp != *(equalCopy + 3))
@@ -503,7 +513,7 @@
     }
   }
 
-  v14 = (*(equalCopy + 92) & 8) == 0;
+  v12 = (*(equalCopy + 92) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 92) & 8) != 0)
@@ -521,17 +531,17 @@
         goto LABEL_32;
       }
 
-      v14 = 1;
+      v12 = 1;
       goto LABEL_33;
     }
 
 LABEL_32:
-    v14 = 0;
+    v12 = 0;
   }
 
 LABEL_33:
 
-  return v14;
+  return v12;
 }
 
 - (unint64_t)hash

@@ -9,8 +9,8 @@
 + (id)_effectWithInputEffect:(id)effect
 {
   effectCopy = effect;
-  preview = [effectCopy preview];
-  v5 = [(UIPointerEffect *)_UIPointerAccessibilityEffect effectWithPreview:preview];
+  v4 = objc_msgSend_preview(effectCopy);
+  v5 = [(UIPointerEffect *)_UIPointerAccessibilityEffect effectWithPreview:v4];
 
   [v5 setPrefersScaledContent:{(objc_msgSend(effectCopy, "options") >> 5) & 1}];
   isKindOfClass = 1;

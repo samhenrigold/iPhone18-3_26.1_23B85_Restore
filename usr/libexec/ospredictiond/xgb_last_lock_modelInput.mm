@@ -7,9 +7,9 @@
 
 - (xgb_last_lock_modelInput)initWithTime_since_active:(double)time_since_active time_of_day:(double)time_of_day day_of_week:(double)day_of_week all_dur_til_act_p10:(double)all_dur_til_act_p10 all_dur_til_act_p25:(double)all_dur_til_act_p25 all_dur_til_act_p50:(double)all_dur_til_act_p50 all_dur_til_act_p75:(double)all_dur_til_act_p75 all_dur_til_act_p90:(double)self0 all_dur_til_act_std:(double)self1 all___60_0__dur_act:(double)self2 all___60_0__dur_cons:(double)self3 all___60_0__dur_r8:(double)self4 all___60_0__cnt_act:(double)self5 all___60_0__cnt_hrs:(double)self6 all___60_0__cnt_r8:(double)self7 all__0_30__dur_act:(double)self8 all__0_30__dur_cons:(double)self9 all__0_30__dur_r8:(double)all__0_30__dur_r8 all__0_30__cnt_act:(double)all__0_30__cnt_act all__0_30__cnt_hrs:(double)all__0_30__cnt_hrs all__0_30__cnt_r8:(double)all__0_30__cnt_r8 all__30_60__dur_act:(double)all__30_60__dur_act all__30_60__dur_cons:(double)all__30_60__dur_cons all__30_60__dur_r8:(double)all__30_60__dur_r8 all__30_60__cnt_act:(double)all__30_60__cnt_act all__30_60__cnt_hrs:(double)all__30_60__cnt_hrs all__30_60__cnt_r8:(double)all__30_60__cnt_r8 all__60_120__dur_act:(double)time_since_active0 all__60_120__dur_cons:(double)time_since_active1 all__60_120__dur_r8:(double)time_since_active2 all__60_120__cnt_act:(double)time_since_active3 all__60_120__cnt_hrs:(double)time_since_active4 all__60_120__cnt_r8:(double)time_since_active5 all__120_240__dur_act:(double)time_since_active6 all__120_240__dur_cons:(double)time_since_active7 all__120_240__dur_r8:(double)time_since_active8 all__120_240__cnt_act:(double)time_since_active9 all__120_240__cnt_hrs:(double)time_of_day0 all__120_240__cnt_r8:(double)time_of_day1 all__240_480__dur_act:(double)time_of_day2 all__240_480__dur_cons:(double)time_of_day3 all__240_480__dur_r8:(double)time_of_day4 all__240_480__cnt_act:(double)time_of_day5 all__240_480__cnt_hrs:(double)time_of_day6 all__240_480__cnt_r8:(double)time_of_day7 all__480_1020__dur_act:(double)time_of_day8 all__480_1020__dur_cons:(double)time_of_day9 all__480_1020__dur_r8:(double)day_of_week0 all__480_1020__cnt_act:(double)day_of_week1 all__480_1020__cnt_hrs:(double)day_of_week2 all__480_1020__cnt_r8:(double)day_of_week3 woo_dur_til_act_p10:(double)day_of_week4 woo_dur_til_act_p25:(double)day_of_week5 woo_dur_til_act_p50:(double)day_of_week6 woo_dur_til_act_p75:(double)day_of_week7 woo_dur_til_act_p90:(double)day_of_week8 woo_dur_til_act_std:(double)day_of_week9 woo___60_0__dur_act:(double)all_dur_til_act_p100 woo___60_0__dur_cons:(double)all_dur_til_act_p101 woo___60_0__dur_r8:(double)all_dur_til_act_p102 woo___60_0__cnt_act:(double)all_dur_til_act_p103 woo___60_0__cnt_hrs:woo___60_0__cnt_r8:woo__0_30__dur_act:woo__0_30__dur_cons:woo__0_30__dur_r8:woo__0_30__cnt_act:woo__0_30__cnt_hrs:woo__0_30__cnt_r8:woo__30_60__dur_act:woo__30_60__dur_cons:woo__30_60__dur_r8:woo__30_60__cnt_act:woo__30_60__cnt_hrs:woo__30_60__cnt_r8:woo__60_120__dur_act:woo__60_120__dur_cons:woo__60_120__dur_r8:woo__60_120__cnt_act:woo__60_120__cnt_hrs:woo__60_120__cnt_r8:woo__120_240__dur_act:woo__120_240__dur_cons:woo__120_240__dur_r8:woo__120_240__cnt_act:woo__120_240__cnt_hrs:woo__120_240__cnt_r8:woo__240_480__dur_act:woo__240_480__dur_cons:woo__240_480__dur_r8:woo__240_480__cnt_act:woo__240_480__cnt_hrs:woo__240_480__cnt_r8:woo__480_1020__dur_act:woo__480_1020__dur_cons:woo__480_1020__dur_r8:woo__480_1020__cnt_act:woo__480_1020__cnt_hrs:woo__480_1020__cnt_r8:dow_dur_til_act_p10:dow_dur_til_act_p25:dow_dur_til_act_p50:dow_dur_til_act_p75:dow_dur_til_act_p90:dow_dur_til_act_std:dow___60_0__dur_act:dow___60_0__dur_cons:dow___60_0__dur_r8:dow___60_0__cnt_act:dow___60_0__cnt_hrs:dow___60_0__cnt_r8:dow__0_30__dur_act:dow__0_30__dur_cons:dow__0_30__dur_r8:dow__0_30__cnt_act:dow__0_30__cnt_hrs:dow__0_30__cnt_r8:dow__30_60__dur_act:dow__30_60__dur_cons:dow__30_60__dur_r8:dow__30_60__cnt_act:dow__30_60__cnt_hrs:dow__30_60__cnt_r8:dow__60_120__dur_act:dow__60_120__dur_cons:dow__60_120__dur_r8:dow__60_120__cnt_act:dow__60_120__cnt_hrs:dow__60_120__cnt_r8:dow__120_240__dur_act:dow__120_240__dur_cons:dow__120_240__dur_r8:dow__120_240__cnt_act:dow__120_240__cnt_hrs:dow__120_240__cnt_r8:dow__240_480__dur_act:dow__240_480__dur_cons:dow__240_480__dur_r8:dow__240_480__cnt_act:dow__240_480__cnt_hrs:dow__240_480__cnt_r8:dow__480_1020__dur_act:dow__480_1020__dur_cons:dow__480_1020__dur_r8:dow__480_1020__cnt_act:dow__480_1020__cnt_hrs:dow__480_1020__cnt_r8:l3d_dur_til_act_p10:l3d_dur_til_act_p25:l3d_dur_til_act_p50:l3d_dur_til_act_p75:l3d_dur_til_act_p90:l3d_dur_til_act_std:l3d___60_0__dur_act:l3d___60_0__dur_cons:l3d___60_0__dur_r8:l3d___60_0__cnt_act:l3d___60_0__cnt_hrs:l3d___60_0__cnt_r8:l3d__0_30__dur_act:l3d__0_30__dur_cons:l3d__0_30__dur_r8:l3d__0_30__cnt_act:l3d__0_30__cnt_hrs:l3d__0_30__cnt_r8:l3d__30_60__dur_act:l3d__30_60__dur_cons:l3d__30_60__dur_r8:l3d__30_60__cnt_act:l3d__30_60__cnt_hrs:l3d__30_60__cnt_r8:l3d__60_120__dur_act:l3d__60_120__dur_cons:l3d__60_120__dur_r8:l3d__60_120__cnt_act:l3d__60_120__cnt_hrs:l3d__60_120__cnt_r8:l3d__120_240__dur_act:l3d__120_240__dur_cons:l3d__120_240__dur_r8:l3d__120_240__cnt_act:l3d__120_240__cnt_hrs:l3d__120_240__cnt_r8:l3d__240_480__dur_act:l3d__240_480__dur_cons:l3d__240_480__dur_r8:l3d__240_480__cnt_act:l3d__240_480__cnt_hrs:l3d__240_480__cnt_r8:l3d__480_1020__dur_act:l3d__480_1020__dur_cons:l3d__480_1020__dur_r8:l3d__480_1020__cnt_act:l3d__480_1020__cnt_hrs:l3d__480_1020__cnt_r8:
 {
-  v89.receiver = self;
-  v89.super_class = xgb_last_lock_modelInput;
-  result = [(xgb_last_lock_modelInput *)&v89 init];
+  v72.receiver = self;
+  v72.super_class = xgb_last_lock_modelInput;
+  result = [(xgb_last_lock_modelInput *)&v72 init];
   if (result)
   {
     result->_time_since_active = a2;
@@ -74,16 +74,16 @@
     result->_woo___60_0__dur_r8 = woo___60_0__dur_cons;
     result->_woo___60_0__cnt_act = woo___60_0__dur_r8;
     result->_woo___60_0__cnt_hrs = woo___60_0__cnt_act;
-    result->_woo___60_0__cnt_r8 = a64;
-    result->_woo__0_30__dur_act = a65;
-    result->_woo__0_30__dur_cons = a66;
-    result->_woo__0_30__dur_r8 = a67;
-    result->_woo__0_30__cnt_act = a68;
-    result->_woo__0_30__cnt_hrs = a69;
-    result->_woo__0_30__cnt_r8 = a70;
-    result->_woo__30_60__dur_act = a71;
-    result->_woo__30_60__dur_cons = a72;
-    result->_woo__30_60__dur_r8 = a73;
+    result->_woo___60_0__cnt_r8 = v73;
+    result->_woo__0_30__dur_act = v74;
+    result->_woo__0_30__dur_cons = v75;
+    result->_woo__0_30__dur_r8 = v76;
+    result->_woo__0_30__cnt_act = v77;
+    result->_woo__0_30__cnt_hrs = v78;
+    result->_woo__0_30__cnt_r8 = v79;
+    result->_woo__30_60__dur_act = v80;
+    result->_woo__30_60__dur_cons = v81;
+    result->_woo__30_60__dur_r8 = v82;
     *&result->_woo__30_60__cnt_act = STACK[0x270];
     *&result->_woo__30_60__cnt_hrs = STACK[0x278];
     *&result->_woo__30_60__cnt_r8 = STACK[0x280];

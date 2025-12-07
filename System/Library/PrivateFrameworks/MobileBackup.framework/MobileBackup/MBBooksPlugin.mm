@@ -22,7 +22,7 @@
     {
       *v15 = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Managed books backup disallowed. Excluding from backup.", v15, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Managed books backup disallowed. Excluding from backup.");
     }
 
     v12 = [v7 standardizedRelativePathFor:@"/var/mobile/Media/Books/Managed"];

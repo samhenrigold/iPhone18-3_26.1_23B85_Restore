@@ -22,7 +22,7 @@
 
 - (BOOL)_next
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
   if (self->_finished || !self->_stmt)
@@ -55,17 +55,17 @@ LABEL_29:
 
   if (v5 != 100)
   {
-    v30 = self->_row;
+    v29 = self->_row;
     self->_row = 0;
 
-    v31 = [(BMSQLDatabase *)self->_database db];
-    v32 = MEMORY[0x1E696AEC0];
-    v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_cursor];
-    v34 = [v32 stringWithFormat:@"Failed to fetch row %@ in query %@", v33, self->_query];
-    v35 = v34;
-    v36 = BMSQLDatabaseError(v6, v31, [v34 UTF8String]);
-    v37 = self->_error;
-    self->_error = v36;
+    v30 = [(BMSQLDatabase *)self->_database db];
+    v31 = MEMORY[0x1E696AEC0];
+    v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_cursor];
+    v33 = [v31 stringWithFormat:@"Failed to fetch row %@ in query %@", v32, self->_query];
+    v34 = v33;
+    v35 = BMSQLDatabaseError(v6, v30, [v33 UTF8String]);
+    v36 = self->_error;
+    self->_error = v35;
 
     v11 = 0;
     self->_finished = 1;
@@ -76,12 +76,12 @@ LABEL_29:
   v7 = sqlite3_column_count(self->_stmt);
   v8 = MEMORY[0x1E695DF90];
   _keySet = [(BMSQLResultSet *)self _keySet];
-  v40 = [v8 dictionaryWithSharedKeySet:_keySet];
+  v39 = [v8 dictionaryWithSharedKeySet:_keySet];
 
   if (!v7)
   {
 LABEL_26:
-    v24 = [v40 copy];
+    v24 = [v39 copy];
     v25 = self->_row;
     self->_row = v24;
 
@@ -117,7 +117,7 @@ LABEL_18:
     }
 
 LABEL_25:
-    [v40 setObject:v15 forKeyedSubscript:v13];
+    [v39 setObject:v15 forKeyedSubscript:v13];
 
     v11 = ++v10 >= v12;
     if (v12 == v10)
@@ -159,9 +159,9 @@ LABEL_23:
   }
 
   v20 = [v19 dataUsingEncoding:4];
-  v41 = 0;
-  v15 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v20 options:0 error:&v41];
-  v21 = v41;
+  v40 = 0;
+  v15 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v20 options:0 error:&v40];
+  v21 = v40;
   v22 = v21;
   if (v15)
   {
@@ -172,13 +172,12 @@ LABEL_23:
   }
 
   self->_finished = 1;
-  v38 = self->_error;
+  v37 = self->_error;
   self->_error = v21;
 
 LABEL_27:
 LABEL_30:
   os_unfair_lock_unlock(&self->_lock);
-  v28 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

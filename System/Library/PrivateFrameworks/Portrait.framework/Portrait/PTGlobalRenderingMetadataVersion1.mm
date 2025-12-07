@@ -157,13 +157,13 @@ LABEL_14:
   *&v9 = self->_noiseScaleFactor;
   [stateCopy setNoiseScaleFactor:v9];
   [stateCopy setHwModelID:self->_hwModelID];
-  [stateCopy prepareForRendering:!v8];
+  v10 = [stateCopy prepareForRendering:!v8];
   if (!self->_readSuccessAll)
   {
-    v10 = _PTLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v10];
+      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v11];
     }
 
     v7 = 0;
@@ -189,10 +189,10 @@ LABEL_14:
 
   if (!self->_readSuccessAll)
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PTLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v8];
+      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v9];
     }
   }
 }

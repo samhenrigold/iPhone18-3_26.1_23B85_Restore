@@ -330,16 +330,18 @@ id sub_100006A18(uint64_t a1)
   return v11;
 }
 
-void sub_100007830(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_100007830(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x16u);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_100007860(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100007860(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id sub_1000079EC(uint64_t a1)
@@ -1150,10 +1152,10 @@ uint64_t start()
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = sub_10000C530;
-  v31 = sub_10000C540;
-  v32 = &off_10001AE58;
+  v31 = 0x3032000000;
+  v32 = sub_10000C530;
+  v33 = sub_10000C540;
+  v34 = &off_10001AE58;
   state64 = 0;
   if (notify_register_check("com.apple.system.console_mode_changed", &dword_10001E9F8))
   {
@@ -1182,9 +1184,9 @@ LABEL_10:
   v3 = handleForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v26 = 134217984;
-    v27 = state64;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Game mode at launch:%llu", v26, 0xCu);
+    *v28 = 134217984;
+    v29 = state64;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Game mode at launch:%llu", v28, 0xCu);
   }
 
   v4 = *(*(&buf + 1) + 40);
@@ -1202,24 +1204,24 @@ LABEL_10:
   handler[4] = &buf;
   notify_register_dispatch("com.apple.system.console_mode_changed", &dword_10001E9FC, &_dispatch_main_q, handler);
 
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10000C6A8;
+  v25[3] = &unk_100018828;
+  v25[4] = &buf;
+  xpc_activity_register("com.apple.mobilerepaird.post_install", XPC_ACTIVITY_CHECK_IN, v25);
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10000C94C;
+  v24[3] = &unk_100018828;
+  v24[4] = &buf;
+  xpc_activity_register("com.apple.mobilerepaird.cache_clean", XPC_ACTIVITY_CHECK_IN, v24);
   v23[0] = _NSConcreteStackBlock;
   v23[1] = 3221225472;
-  v23[2] = sub_10000C6A8;
+  v23[2] = sub_10000CB2C;
   v23[3] = &unk_100018828;
   v23[4] = &buf;
-  xpc_activity_register("com.apple.mobilerepaird.post_install", XPC_ACTIVITY_CHECK_IN, v23);
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10000C94C;
-  v22[3] = &unk_100018828;
-  v22[4] = &buf;
-  xpc_activity_register("com.apple.mobilerepaird.cache_clean", XPC_ACTIVITY_CHECK_IN, v22);
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10000CB2C;
-  v21[3] = &unk_100018828;
-  v21[4] = &buf;
-  xpc_activity_register("com.apple.mobilerepaird.daily_stats", XPC_ACTIVITY_CHECK_IN, v21);
+  xpc_activity_register("com.apple.mobilerepaird.daily_stats", XPC_ACTIVITY_CHECK_IN, v23);
   xpc_set_event_stream_handler("com.apple.iokit.matching", &_dispatch_main_q, &stru_100018868);
 
   xpc_set_event_stream_handler("com.apple.fsevents.matching", &_dispatch_main_q, &stru_100018888);
@@ -1232,38 +1234,39 @@ LABEL_10:
   {
     [v9 setDelegate:v8];
     [v10 resume];
-    if ((MGGetBoolAnswer() & 1) == 0)
+    v11 = MGGetBoolAnswer();
+    if ((v11 & 1) == 0)
     {
-      v11 = [[NSXPCConnection alloc] initWithMachServiceName:@"com.apple.corerepair.intentControl" options:0];
-      v12 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___CoreRepairBootIntentProtocol];
-      [v11 setRemoteObjectInterface:v12];
+      v13 = [[NSXPCConnection alloc] initWithMachServiceName:@"com.apple.corerepair.intentControl" options:0];
+      v14 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___CoreRepairBootIntentProtocol];
+      [v13 setRemoteObjectInterface:v14];
 
-      [v11 resume];
-      v13 = [v11 remoteObjectProxyWithErrorHandler:&stru_1000188E8];
-      [v13 clearBootIntent:&stru_100018928];
+      [v13 resume];
+      v15 = [v13 remoteObjectProxyWithErrorHandler:&stru_1000188E8];
+      [v15 clearBootIntent:&stru_100018928];
 
-      v14 = [[NSXPCConnection alloc] initWithMachServiceName:@"com.apple.corerepair.intentControl" options:0];
-      v15 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___CoreRepairBootIntentProtocol];
-      [v14 setRemoteObjectInterface:v15];
+      v16 = [[NSXPCConnection alloc] initWithMachServiceName:@"com.apple.corerepair.intentControl" options:0];
+      v17 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___CoreRepairBootIntentProtocol];
+      [v16 setRemoteObjectInterface:v17];
 
-      [v14 resume];
-      v16 = [v14 remoteObjectProxyWithErrorHandler:&stru_100018948];
-      [v16 clearRepairBackup:&stru_100018968];
+      [v16 resume];
+      v18 = [v16 remoteObjectProxyWithErrorHandler:&stru_100018948];
+      [v18 clearRepairBackup:&stru_100018968];
     }
 
-    sub_10000D124();
-    v17 = 0;
+    sub_10000D124(v11, v12);
+    v19 = 0;
   }
 
   else
   {
-    v18 = handleForCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = handleForCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_10000EAD4();
     }
 
-    v17 = 0xFFFFFFFFLL;
+    v19 = 0xFFFFFFFFLL;
   }
 
   _Block_object_dispose(&buf, 8);
@@ -1271,13 +1274,13 @@ LABEL_10:
   objc_autoreleasePoolPop(v0);
   if (v10)
   {
-    v19 = +[NSRunLoop currentRunLoop];
-    [v19 run];
+    v21 = +[NSRunLoop currentRunLoop];
+    [v21 run];
 
-    v17 = 0;
+    v19 = 0;
   }
 
-  return v17;
+  return v19;
 }
 
 uint64_t sub_10000C530(uint64_t result, uint64_t a2)
@@ -1569,9 +1572,9 @@ void sub_10000CF74(id a1, OS_xpc_object *a2)
   v3 = handleForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v2;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "received:%@", &v7, 0xCu);
+    v9 = 138412290;
+    v10 = v2;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "received:%@", &v9, 0xCu);
   }
 
   if ([v2 isEqualToString:@"AppleLanguagePreferencesChangedNotification"])
@@ -1579,8 +1582,8 @@ void sub_10000CF74(id a1, OS_xpc_object *a2)
     v4 = handleForCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "received a AppleLanguagePreferencesChangedNotification", &v7, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "received a AppleLanguagePreferencesChangedNotification", &v9, 2u);
     }
 
     v5 = +[MRUINotificationHelper sharedSingleton];
@@ -1592,70 +1595,70 @@ void sub_10000CF74(id a1, OS_xpc_object *a2)
     v6 = handleForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "received com.apple.mobilerepair.refreshui", &v7, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "received com.apple.mobilerepair.refreshui", &v9, 2u);
     }
 
-    sub_10000D124();
+    sub_10000D124(v7, v8);
   }
 }
 
-void sub_10000D124()
+void sub_10000D124(uint64_t a1, uint64_t a2)
 {
-  v0 = MGGetBoolAnswer();
-  v1 = MGCopyAnswer();
-  v2 = [v1 intValue];
+  v2 = MGGetBoolAnswer();
+  v3 = MGCopyAnswer();
+  v4 = [v3 intValue];
 
-  if ((v0 & 1) != 0 || (v2 <= 9 ? (v4 = ((1 << v2) & 0x24A) == 0) : (v4 = 1), v4))
+  if ((v2 & 1) != 0 || (v4 <= 9 ? (v6 = ((1 << v4) & 0x24A) == 0) : (v6 = 1), v6))
   {
-    v3 = handleForCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = handleForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v18 = v0;
-      v19 = 1024;
       v20 = v2;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "exiting Diagnostics mode:%d::deviceClass:%d", buf, 0xEu);
+      v21 = 1024;
+      v22 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "exiting Diagnostics mode:%d::deviceClass:%d", buf, 0xEu);
     }
   }
 
-  else if ((v2 & 0xD) == 1)
+  else if ((v4 & 0xD) == 1)
   {
-    v5 = +[MRBatteryComponentHandler sharedSingleton];
-    [v5 checkInAndHandleAuthStatus];
-
-    v6 = +[MRDisplayComponentHandler sharedSingleton];
-    [v6 checkInAndHandleAuthStatus];
-
-    v7 = +[MRTouchIDComponentHandler sharedSingleton];
+    v7 = +[MRBatteryComponentHandler sharedSingleton];
     [v7 checkInAndHandleAuthStatus];
 
-    v8 = +[MRCameraComponentHandler sharedSingleton];
+    v8 = +[MRDisplayComponentHandler sharedSingleton];
     [v8 checkInAndHandleAuthStatus];
 
-    v9 = +[MRFaceIDComponentHandler sharedSingleton];
+    v9 = +[MRTouchIDComponentHandler sharedSingleton];
     [v9 checkInAndHandleAuthStatus];
 
-    v10 = +[MRBackGlassComponentHandler sharedSingleton];
+    v10 = +[MRCameraComponentHandler sharedSingleton];
     [v10 checkInAndHandleAuthStatus];
 
-    v11 = +[MREnclosureComponentHandler sharedSingleton];
+    v11 = +[MRFaceIDComponentHandler sharedSingleton];
     [v11 checkInAndHandleAuthStatus];
 
-    v12 = +[MRRCamComponentHandler sharedSingleton];
+    v12 = +[MRBackGlassComponentHandler sharedSingleton];
     [v12 checkInAndHandleAuthStatus];
 
-    v13 = +[MRAudioComponentHandler sharedSingleton];
+    v13 = +[MREnclosureComponentHandler sharedSingleton];
     [v13 checkInAndHandleAuthStatus];
 
-    v14 = +[MRAudioCodecComponentHandler sharedSingleton];
+    v14 = +[MRRCamComponentHandler sharedSingleton];
     [v14 checkInAndHandleAuthStatus];
 
-    v15 = +[MRVolumeButtonComponentHandler sharedSingleton];
+    v15 = +[MRAudioComponentHandler sharedSingleton];
     [v15 checkInAndHandleAuthStatus];
 
-    v16 = +[MRCoverGlassComponentHandler sharedSingleton];
+    v16 = +[MRAudioCodecComponentHandler sharedSingleton];
     [v16 checkInAndHandleAuthStatus];
+
+    v17 = +[MRVolumeButtonComponentHandler sharedSingleton];
+    [v17 checkInAndHandleAuthStatus];
+
+    v18 = +[MRCoverGlassComponentHandler sharedSingleton];
+    [v18 checkInAndHandleAuthStatus];
   }
 }
 
@@ -1709,10 +1712,11 @@ void sub_10000D544(id a1, BOOL a2, NSError *a3)
   }
 }
 
-void sub_10000D624(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000D624(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t sub_10000D8F0(uint64_t a1)
@@ -1740,27 +1744,25 @@ id sub_10000E004(uint64_t a1)
 void sub_10000E0F8(uint64_t a1, _xpc_activity_s *a2)
 {
   v3 = [*(a1 + 32) componentName];
-  v11 = a2;
-  state = xpc_activity_get_state(a2);
-  v4 = [NSString stringWithFormat:@"Failed to set state to DEFER for activity %@ current state: %lu"];
+  v4 = [NSString stringWithFormat:@"Failed to set state to DEFER for activity %@ current state: %lu", a2, xpc_activity_get_state(a2)];
   sub_100007850();
-  sub_100007830(&_mh_execute_header, v5, v6, "[%@][%@]", v7, v8, v9, v10, v11, state, 2u);
+  sub_100007830(&_mh_execute_header, v5, v6, "[%@][%@]", v7, v8, v9, v10, v11, v12);
 }
 
 void sub_10000E1C4(uint64_t a1)
 {
   v1 = [*(a1 + 32) componentName];
-  v2 = [NSString stringWithFormat:@"[%s] unable to create sealer"];
+  v2 = [NSString stringWithFormat:@"[%s] unable to create sealer", "[MRBaseComponentHandler scheduleNetworkActivity]_block_invoke"];
   sub_100007850();
-  sub_100007830(&_mh_execute_header, v3, v4, "[%@][%@]", v5, v6, v7, v8, "[MRBaseComponentHandler scheduleNetworkActivity]_block_invoke", v9, 2u);
+  sub_100007830(&_mh_execute_header, v3, v4, "[%@][%@]", v5, v6, v7, v8, v9, v10);
 }
 
 void sub_10000E288(uint64_t a1)
 {
   v1 = [*(a1 + 32) componentName];
-  v2 = [NSString stringWithFormat:@"[%s]Unable to get FDR path"];
+  v2 = [NSString stringWithFormat:@"[%s]Unable to get FDR path", "[MRBaseComponentHandler scheduleNetworkActivity]_block_invoke"];
   sub_100007850();
-  sub_100007830(&_mh_execute_header, v3, v4, "[%@][%@]", v5, v6, v7, v8, "[MRBaseComponentHandler scheduleNetworkActivity]_block_invoke", v9, 2u);
+  sub_100007830(&_mh_execute_header, v3, v4, "[%@][%@]", v5, v6, v7, v8, v9, v10);
 }
 
 void sub_10000E34C(void *a1, void *a2, uint8_t *buf, os_log_t log)
@@ -1775,10 +1777,9 @@ void sub_10000E34C(void *a1, void *a2, uint8_t *buf, os_log_t log)
 void sub_10000E3C0(void *a1, uint64_t a2)
 {
   v3 = [a1 componentName];
-  v11 = a2;
-  v4 = [NSString stringWithFormat:@"[%s] ignoring rogue event with unlock countL: %ld"];
+  v4 = [NSString stringWithFormat:@"[%s] ignoring rogue event with unlock countL: %ld", "[MRBaseComponentHandler sendAnalyticsForCount:]", a2];
   sub_100007850();
-  sub_100007830(&_mh_execute_header, v5, v6, "[%@][%@]", v7, v8, v9, v10, "[MRBaseComponentHandler sendAnalyticsForCount:]", v11, 2u);
+  sub_100007830(&_mh_execute_header, v5, v6, "[%@][%@]", v7, v8, v9, v10, v11, v12);
 }
 
 void sub_10000E484()
@@ -1786,7 +1787,8 @@ void sub_10000E484()
   v0 = handleForCategory();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    sub_100007860(&_mh_execute_header, v1, v2, "Cannot find property config-number", v3, v4, v5, v6, 0);
+    v7 = 0;
+    sub_100007860(&_mh_execute_header, v1, v2, "Cannot find property config-number", v3, v4, v5, v6, v7);
   }
 }
 
@@ -1795,7 +1797,8 @@ void sub_10000E4E4()
   v0 = handleForCategory();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    sub_100007860(&_mh_execute_header, v1, v2, "Cannot find matching service to IOPlatformExpertDevice", v3, v4, v5, v6, 0);
+    v7 = 0;
+    sub_100007860(&_mh_execute_header, v1, v2, "Cannot find matching service to IOPlatformExpertDevice", v3, v4, v5, v6, v7);
   }
 }
 
@@ -1886,7 +1889,7 @@ void sub_10000EB14(_xpc_activity_s *a1)
 {
   xpc_activity_get_state(a1);
   sub_10000D60C();
-  sub_10000D624(&_mh_execute_header, v1, v2, "Failed to set state to DEFER for activity %@ current state: %lu", v3, v4, v5, v6, v7);
+  sub_10000D624(&_mh_execute_header, v1, v2, "Failed to set state to DEFER for activity %@ current state: %lu", v3, v4, v5, v6);
 }
 
 void sub_10000ECBC(uint64_t a1, uint64_t a2, os_log_t log)

@@ -56,23 +56,22 @@
 
 - (void)setDelegate:(id)delegate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v5 = HAENotificationsLog();
+  v5 = HAENotificationsLog(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = delegateCopy;
-    _os_log_impl(&dword_25081E000, v5, OS_LOG_TYPE_DEFAULT, "setDelegate %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = delegateCopy;
+    _os_log_impl(&dword_25081E000, v5, OS_LOG_TYPE_DEFAULT, "setDelegate %@", &v6, 0xCu);
   }
 
   objc_storeWeak(&self->_delegate, delegateCopy);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addHAENotificationEvent:(id)event completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   completionCopy = completion;
   v8 = +[HAENDefaults sharedInstance];
@@ -81,35 +80,37 @@
   if (isHAENFeatureEnabled)
   {
     [(HAENotificationCenterDelegate *)self->centerDelegate addHAENotificationEvent:eventCopy];
-    if ([eventCopy eventType] == 2003133803)
+    eventType = [eventCopy eventType];
+    if (eventType == 2003133803)
     {
-      v10 = HAENotificationsLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = HAENotificationsLog(eventType);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
-        v20 = 138412290;
-        v21 = WeakRetained;
-        _os_log_impl(&dword_25081E000, v10, OS_LOG_TYPE_DEFAULT, "sending weekly event to healthkit with delegate %@", &v20, 0xCu);
+        v22 = 138412290;
+        v23 = WeakRetained;
+        _os_log_impl(&dword_25081E000, v12, OS_LOG_TYPE_DEFAULT, "sending weekly event to healthkit with delegate %@", &v22, 0xCu);
       }
 
-      v12 = +[HAENHealthKitStore sharedInstance];
-      v13 = objc_loadWeakRetained(&self->_delegate);
-      v14 = [v12 saveNotificationEventToHealthKit:eventCopy withDelegate:v13];
+      v14 = +[HAENHealthKitStore sharedInstance];
+      v15 = objc_loadWeakRetained(&self->_delegate);
+      v16 = [v14 saveNotificationEventToHealthKit:eventCopy withDelegate:v15];
 
       goto LABEL_16;
     }
 
-    if ([eventCopy eventType] == 1818850917)
+    eventType2 = [eventCopy eventType];
+    if (eventType2 == 1818850917)
     {
-      v19 = HAENotificationsLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = HAENotificationsLog(eventType2);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_25081E000, v19, OS_LOG_TYPE_DEFAULT, "sending loud event to healthkit", &v20, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_25081E000, v21, OS_LOG_TYPE_DEFAULT, "sending loud event to healthkit", &v22, 2u);
       }
 
-      v12 = +[HAENHealthKitStore sharedInstance];
-      v14 = [v12 saveNotificationEventToHealthKit:eventCopy];
+      v14 = +[HAENHealthKitStore sharedInstance];
+      v16 = [v14 saveNotificationEventToHealthKit:eventCopy];
 LABEL_16:
 
       if (!completionCopy)
@@ -120,33 +121,31 @@ LABEL_16:
       goto LABEL_10;
     }
 
-    v16 = *"pyt!";
-    v17 = @"event type not supported";
+    v18 = *"pyt!";
+    v19 = @"event type not supported";
   }
 
   else
   {
-    v15 = HAENotificationsLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = HAENotificationsLog(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_25081E000, v15, OS_LOG_TYPE_DEFAULT, "error sending HAEN event: HAEN is disabled", &v20, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_25081E000, v17, OS_LOG_TYPE_DEFAULT, "error sending HAEN event: HAEN is disabled", &v22, 2u);
     }
 
-    v16 = *"bne!";
-    v17 = @"HAEN is disabled";
+    v18 = *"bne!";
+    v19 = @"HAEN is disabled";
   }
 
-  v14 = NSErrorWithHAENErrorCode(v16, v17);
+  v16 = NSErrorWithHAENErrorCode(v18, v19);
   if (completionCopy)
   {
 LABEL_10:
-    completionCopy[2](completionCopy, v14);
+    completionCopy[2](completionCopy, v16);
   }
 
 LABEL_11:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addHAENotificationEvent:(id)event error:(id *)error
@@ -158,11 +157,11 @@ LABEL_11:
 
   if ((isHAENFeatureEnabled & 1) == 0)
   {
-    v12 = HAENotificationsLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = HAENotificationsLog(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v17) = 0;
-      _os_log_impl(&dword_25081E000, v12, OS_LOG_TYPE_DEFAULT, "error sending HAEN event: HAEN is disabled", &v17, 2u);
+      _os_log_impl(&dword_25081E000, v13, OS_LOG_TYPE_DEFAULT, "error sending HAEN event: HAEN is disabled", &v17, 2u);
     }
 
     if (!error)
@@ -170,8 +169,8 @@ LABEL_11:
       goto LABEL_16;
     }
 
-    v13 = *"bne!";
-    v14 = @"HAEN is disabled";
+    v14 = *"bne!";
+    v15 = @"HAEN is disabled";
     goto LABEL_15;
   }
 
@@ -183,61 +182,64 @@ LABEL_11:
       goto LABEL_16;
     }
 
-    v13 = *"pyt!";
-    v14 = @"event type not supported";
+    v14 = *"pyt!";
+    v15 = @"event type not supported";
 LABEL_15:
-    NSErrorWithHAENErrorCode(v13, v14);
-    *error = v10 = 0;
+    NSErrorWithHAENErrorCode(v14, v15);
+    *error = v11 = 0;
     goto LABEL_17;
   }
 
-  v9 = [HAENHealthKitStore createHKCategorySampleForEvent:eventCopy];
-  if (!v9)
+  v10 = [HAENHealthKitStore createHKCategorySampleForEvent:eventCopy];
+  if (!v10)
   {
     if (error)
     {
-      v13 = *"skh!";
-      v14 = @"failed to create hk sample";
+      v14 = *"skh!";
+      v15 = @"failed to create hk sample";
       goto LABEL_15;
     }
 
 LABEL_16:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_17;
   }
 
-  v10 = v9;
-  v11 = HAENotificationsLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = v10;
+  v12 = HAENotificationsLog(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 138412290;
-    v18 = v10;
-    _os_log_impl(&dword_25081E000, v11, OS_LOG_TYPE_DEFAULT, "created weekly event HKSample %@", &v17, 0xCu);
+    v18 = v11;
+    _os_log_impl(&dword_25081E000, v12, OS_LOG_TYPE_DEFAULT, "created weekly event HKSample %@", &v17, 0xCu);
   }
 
 LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
 
-  return v10;
+  return v11;
 }
 
 + (void)startNotificationCenterServer
 {
-  if (+[HAENDefaults isCurrentProcessMediaserverd](HAENDefaults, "isCurrentProcessMediaserverd") && +[HAENDefaults HAENSupportedForCurrentDeviceClass])
+  if (+[HAENDefaults isCurrentProcessMediaserverd])
   {
-    v2 = HAENotificationsLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = +[HAENDefaults HAENSupportedForCurrentDeviceClass];
+    if (v2)
     {
-      *v9 = 0;
-      _os_log_impl(&dword_25081E000, v2, OS_LOG_TYPE_DEFAULT, "<< Starting HAE Notification Center Server >>", v9, 2u);
-    }
+      v3 = HAENotificationsLog(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      {
+        *v10 = 0;
+        _os_log_impl(&dword_25081E000, v3, OS_LOG_TYPE_DEFAULT, "<< Starting HAE Notification Center Server >>", v10, 2u);
+      }
 
-    v3 = +[HAENotificationCenterServer sharedInstance];
-    v4 = +[HAENotificationCenterManager sharedInstance];
-    v5 = +[HAENDefaults sharedInstance];
-    v6 = +[HAENLocationGatingHelper sharedInstance];
-    v7 = +[HAENVolumeControl sharedInstance];
-    v8 = +[HAENStatistics sharedInstance];
+      v4 = +[HAENotificationCenterServer sharedInstance];
+      v5 = +[HAENotificationCenterManager sharedInstance];
+      v6 = +[HAENDefaults sharedInstance];
+      v7 = +[HAENLocationGatingHelper sharedInstance];
+      v8 = +[HAENVolumeControl sharedInstance];
+      v9 = +[HAENStatistics sharedInstance];
+    }
   }
 }
 
@@ -255,42 +257,42 @@ LABEL_17:
   v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = +[HAENUnknownDeviceManager sharedInstance];
-  if ([v4 unknownWiredHeadsetConnectedThroughB204])
+  unknownWiredHeadsetConnectedThroughB204 = [v4 unknownWiredHeadsetConnectedThroughB204];
+  if (unknownWiredHeadsetConnectedThroughB204)
   {
     isUSBCPort = [v4 isUSBCPort];
-    v6 = +[HAENDefaults sharedInstance];
-    v7 = v6;
+    v7 = +[HAENDefaults sharedInstance];
+    v8 = v7;
     if (isUSBCPort)
     {
-      isCurrentAudioAccessoryHeadphone = [v6 isCurrentAudioAccessoryHeadphoneWithKey:dCopy];
+      isCurrentAudioAccessoryHeadphone = [v7 isCurrentAudioAccessoryHeadphoneWithKey:dCopy];
     }
 
     else
     {
-      isCurrentAudioAccessoryHeadphone = [v6 isCurrentAudioAccessoryHeadphone];
+      isCurrentAudioAccessoryHeadphone = [v7 isCurrentAudioAccessoryHeadphone];
     }
 
-    v9 = isCurrentAudioAccessoryHeadphone;
+    v10 = isCurrentAudioAccessoryHeadphone;
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  v10 = HAENotificationsLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = HAENotificationsLog(unknownWiredHeadsetConnectedThroughB204);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithBool:v9];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:v10];
     v14 = 138412546;
     v15 = dCopy;
     v16 = 2112;
-    v17 = v11;
-    _os_log_impl(&dword_25081E000, v10, OS_LOG_TYPE_DEFAULT, "wired device [%@] is headphone: %@", &v14, 0x16u);
+    v17 = v12;
+    _os_log_impl(&dword_25081E000, v11, OS_LOG_TYPE_DEFAULT, "wired device [%@] is headphone: %@", &v14, 0x16u);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (HAENotificationCenterUserDelegate)delegate

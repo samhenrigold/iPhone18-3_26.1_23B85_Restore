@@ -19,12 +19,12 @@
 
 - (SKDPipelineDescriptor)initWithSetDescription:(id)description processorNames:(id)names
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   namesCopy = names;
-  v17.receiver = self;
-  v17.super_class = SKDPipelineDescriptor;
-  v9 = [(SKDPipelineDescriptor *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = SKDPipelineDescriptor;
+  v9 = [(SKDPipelineDescriptor *)&v16 init];
   v10 = v9;
   if (v9)
   {
@@ -40,13 +40,12 @@
       {
         v14 = [(SKDPipelineDescriptor *)v10 description];
         *buf = 138412290;
-        v19 = v14;
+        v18 = v14;
         _os_log_impl(&dword_231B25000, v13, OS_LOG_TYPE_INFO, "### <%@>", buf, 0xCu);
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

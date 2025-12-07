@@ -15,7 +15,7 @@
 
 - (BOOL)conformsToOverridePatternWithKey:()LSURLOverrideAdditions
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (_os_feature_enabled_impl())
   {
@@ -40,9 +40,9 @@
         v9 = LaunchServices::URLOverrides::getLog(v10);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = 138477827;
-          v18 = v4;
-          _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "No URL pattern found for key %{private}@", &v17, 0xCu);
+          v16 = 138477827;
+          v17 = v4;
+          _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "No URL pattern found for key %{private}@", &v16, 0xCu);
         }
 
         v5 = 0;
@@ -55,7 +55,6 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

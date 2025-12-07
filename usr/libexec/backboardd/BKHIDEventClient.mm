@@ -1,5 +1,6 @@
 @interface BKHIDEventClient
 - (BKHIDEventClient)init;
+- (BKHIDEventClient)initWithPid:(int)pid sendRight:(id)right queue:(id)queue;
 - (BKHIDEventClient)initWithPid:(int)pid sendRight:(id)right queue:(id)queue processName:(id)name;
 - (BKHIDEventClientDelegate)delegate;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
@@ -284,6 +285,17 @@ LABEL_10:
 LABEL_11:
 
   return v15;
+}
+
+- (BKHIDEventClient)initWithPid:(int)pid sendRight:(id)right queue:(id)queue
+{
+  v6 = *&pid;
+  queueCopy = queue;
+  rightCopy = right;
+  v10 = BSProcessDescriptionForPID();
+  v11 = [(BKHIDEventClient *)self initWithPid:v6 sendRight:rightCopy queue:queueCopy processName:v10];
+
+  return v11;
 }
 
 - (BKHIDEventClient)init

@@ -26,11 +26,11 @@
 
 @implementation RTEventManager
 
-id __22__RTEventManager_init__block_invoke()
+id __22__RTEventManager_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
+  v2 = objc_opt_new();
 
-  return v0;
+  return v2;
 }
 
 - (RTEventManager)init
@@ -187,7 +187,7 @@ void __56__RTEventManager_transientObjectDidCreateBackingObject___block_invoke_2
   dispatch_async(queue, v7);
 }
 
-uint64_t __57__RTEventManager_transientObjectDidReleaseBackingObject___block_invoke(uint64_t a1)
+void *__57__RTEventManager_transientObjectDidReleaseBackingObject___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEqual:*(*(a1 + 40) + 48)];
   if (result)
@@ -400,31 +400,31 @@ uint64_t __67__RTEventManager_eventsSortedByEndDateBetweenStartDate_andEndDate__
   }
 }
 
-void __52__RTEventManager__fetchCurrentlyInEventWithHandler___block_invoke_2(uint64_t a1)
+void __52__RTEventManager__fetchCurrentlyInEventWithHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    v17 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  v9 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277D01448];
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v6;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v12 = [v9 errorWithDomain:v10 code:5 userInfo:v11];
-  (*(v8 + 16))(v8, 0, v12);
+  v9 = *(a1 + 40);
+  v10 = MEMORY[0x277CCA9B8];
+  v11 = *MEMORY[0x277D01448];
+  v14 = *MEMORY[0x277CCA450];
+  v15 = v7;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v13 = [v10 errorWithDomain:v11 code:5 userInfo:v12];
+  (*(v9 + 16))(v9, 0, v13);
 }
 
 void __52__RTEventManager__fetchCurrentlyInEventWithHandler___block_invoke_86(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -550,31 +550,31 @@ void __52__RTEventManager__fetchCurrentlyInEventWithHandler___block_invoke_86(ui
   }
 }
 
-void __53__RTEventManager__fetchNextFreeStartDateWithHandler___block_invoke_2(uint64_t a1)
+void __53__RTEventManager__fetchNextFreeStartDateWithHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    v17 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  v9 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277D01448];
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v6;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v12 = [v9 errorWithDomain:v10 code:5 userInfo:v11];
-  (*(v8 + 16))(v8, 0, v12);
+  v9 = *(a1 + 40);
+  v10 = MEMORY[0x277CCA9B8];
+  v11 = *MEMORY[0x277D01448];
+  v14 = *MEMORY[0x277CCA450];
+  v15 = v7;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v13 = [v10 errorWithDomain:v11 code:5 userInfo:v12];
+  (*(v9 + 16))(v9, 0, v13);
 }
 
 void __53__RTEventManager__fetchNextFreeStartDateWithHandler___block_invoke_88(uint64_t a1, void *a2, uint64_t a3)
@@ -716,31 +716,31 @@ LABEL_10:
   }
 }
 
-void __52__RTEventManager__fetchLastEventEndDateWithHandler___block_invoke_2(uint64_t a1)
+void __52__RTEventManager__fetchLastEventEndDateWithHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    v17 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  v9 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277D01448];
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v6;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v12 = [v9 errorWithDomain:v10 code:5 userInfo:v11];
-  (*(v8 + 16))(v8, 0, v12);
+  v9 = *(a1 + 40);
+  v10 = MEMORY[0x277CCA9B8];
+  v11 = *MEMORY[0x277D01448];
+  v14 = *MEMORY[0x277CCA450];
+  v15 = v7;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v13 = [v10 errorWithDomain:v11 code:5 userInfo:v12];
+  (*(v9 + 16))(v9, 0, v13);
 }
 
 - (void)fetchLastEventEndDateWithHandler:(id)handler
@@ -865,31 +865,31 @@ LABEL_16:
 LABEL_17:
 }
 
-void __114__RTEventManager__fetchFreeDateIntervalsBetweenStartDate_endDate_filterAllDayEvents_filterFreeTimeEvents_handler___block_invoke_2(uint64_t a1)
+void __114__RTEventManager__fetchFreeDateIntervalsBetweenStartDate_endDate_filterAllDayEvents_filterFreeTimeEvents_handler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    v17 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  v9 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277D01448];
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v6;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v12 = [v9 errorWithDomain:v10 code:5 userInfo:v11];
-  (*(v8 + 16))(v8, 0, v12);
+  v9 = *(a1 + 40);
+  v10 = MEMORY[0x277CCA9B8];
+  v11 = *MEMORY[0x277D01448];
+  v14 = *MEMORY[0x277CCA450];
+  v15 = v7;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v13 = [v10 errorWithDomain:v11 code:5 userInfo:v12];
+  (*(v9 + 16))(v9, 0, v13);
 }
 
 void __114__RTEventManager__fetchFreeDateIntervalsBetweenStartDate_endDate_filterAllDayEvents_filterFreeTimeEvents_handler___block_invoke_93(uint64_t a1, void *a2, void *a3)
@@ -1061,31 +1061,31 @@ BOOL __114__RTEventManager__fetchFreeDateIntervalsBetweenStartDate_endDate_filte
   }
 }
 
-void __89__RTEventManager__fetchEventsBetweenStartDate_andEndDate_includeSuggestions_withHandler___block_invoke_2(uint64_t a1)
+void __89__RTEventManager__fetchEventsBetweenStartDate_andEndDate_includeSuggestions_withHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    v17 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  v9 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277D01448];
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v6;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v12 = [v9 errorWithDomain:v10 code:5 userInfo:v11];
-  (*(v8 + 16))(v8, 0, v12);
+  v9 = *(a1 + 40);
+  v10 = MEMORY[0x277CCA9B8];
+  v11 = *MEMORY[0x277D01448];
+  v14 = *MEMORY[0x277CCA450];
+  v15 = v7;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v13 = [v10 errorWithDomain:v11 code:5 userInfo:v12];
+  (*(v9 + 16))(v9, 0, v13);
 }
 
 - (void)_fetchEventsBetweenStartDate:(id)date endDate:(id)endDate handler:(id)handler
@@ -1225,31 +1225,31 @@ LABEL_17:
 LABEL_19:
 }
 
-void __63__RTEventManager__fetchEventsBetweenStartDate_endDate_handler___block_invoke_2(uint64_t a1)
+void __63__RTEventManager__fetchEventsBetweenStartDate_endDate_handler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 48));
-  v6 = [v2 stringWithFormat:@"%@, %@, failed invoking pending invocation", v4, v5];
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 48));
+  v7 = [v3 stringWithFormat:@"%@, %@, failed invoking pending invocation", v5, v6];
 
-  v7 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _rt_log_facility_get_os_log(RTLogFacilityEvent);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v6;
-    _os_log_error_impl(&dword_2304B3000, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    v17 = v7;
+    _os_log_error_impl(&dword_2304B3000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  v9 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277D01448];
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v6;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v12 = [v9 errorWithDomain:v10 code:5 userInfo:v11];
-  (*(v8 + 16))(v8, 0, v12);
+  v9 = *(a1 + 40);
+  v10 = MEMORY[0x277CCA9B8];
+  v11 = *MEMORY[0x277D01448];
+  v14 = *MEMORY[0x277CCA450];
+  v15 = v7;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v13 = [v10 errorWithDomain:v11 code:5 userInfo:v12];
+  (*(v9 + 16))(v9, 0, v13);
 }
 
 - (void)fetchEventsBetweenStartDate:(id)date endDate:(id)endDate handler:(id)handler

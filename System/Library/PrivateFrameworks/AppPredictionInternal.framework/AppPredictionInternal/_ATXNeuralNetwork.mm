@@ -1,5 +1,6 @@
 @interface _ATXNeuralNetwork
 - (_ATXNeuralNetwork)initWithData:(id)data;
+- (double)_predict:(float *)_predict freeInputsAfterUse:(BOOL)use;
 - (double)predict:(const double *)predict;
 - (float)_runOnInputs:(float *)inputs freeInputsAfterUse:(BOOL)use;
 - (void)forInputs:(const float *)inputs computeOutputLayer:(float *)layer;
@@ -82,17 +83,12 @@
     v10 = malloc_type_malloc(4 * (var5 + v8->var1), 0x100004052888210uLL);
     if (!v10)
     {
-      v27 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-      objc_exception_throw(v27);
+      v22 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+      objc_exception_throw(v22);
     }
 
     v11 = v10;
     memcpy(v10, &self->_dataBytes[self->_layers[v7].var3], 4 * self->_layers[v7].var1);
-    v12 = &self->_layers[v7];
-    var0 = v12->var0;
-    var1 = v12->var1;
-    dataBytes = self->_dataBytes;
-    var2 = v12->var2;
     cblas_sgemv_NEWLAPACK();
     layers = self->_layers;
     var4 = layers[v7].var4;
@@ -100,60 +96,60 @@
     {
       if (var4 == 1)
       {
-        v21 = layers[v7].var1;
-        v22 = v11;
-        if (v21)
+        var1 = layers[v7].var1;
+        v17 = v11;
+        if (var1)
         {
           do
           {
-            *v22 = tanhf(*v22);
-            ++v22;
-            --v21;
+            *v17 = tanhf(*v17);
+            ++v17;
+            --var1;
           }
 
-          while (v21);
+          while (var1);
         }
       }
 
       else if (var4 == 2)
       {
-        v19 = layers[v7].var1;
-        v20 = v11;
-        if (v19)
+        v14 = layers[v7].var1;
+        v15 = v11;
+        if (v14)
         {
           do
           {
-            *v20 = fmaxf(*v20, 0.0);
-            ++v20;
-            --v19;
+            *v15 = fmaxf(*v15, 0.0);
+            ++v15;
+            --v14;
           }
 
-          while (v19);
+          while (v14);
         }
       }
     }
 
     else
     {
-      v23 = layers[v7].var1;
-      if (v23)
+      v18 = layers[v7].var1;
+      if (v18)
       {
-        v24 = v11;
+        v19 = v11;
         do
         {
-          *v24 = 1.0 / (expf(-*v24) + 1.0);
-          ++v24;
-          --v23;
+          *v19 = 1.0 / (expf(-*v19) + 1.0);
+          ++v19;
+          --v18;
         }
 
-        while (v23);
+        while (v18);
       }
     }
 
-    v25 = &layers[v7];
-    if (v25->var5)
+    v20 = &layers[v7];
+    if (v20->var5)
     {
-      memcpy(&v11[layers[v7].var1], inputsCopy, 4 * v25->var0);
+      memcpy(&v11[layers[v7].var1], inputsCopy, 4 * v20->var0);
     }
 
     if (v7 || useCopy)
@@ -166,6 +162,29 @@
   }
 
   while (v7 < self->_nlayers);
+  return v11;
+}
+
+- (double)_predict:(float *)_predict freeInputsAfterUse:(BOOL)use
+{
+  useCopy = use;
+  v7 = &self->_layers[self->_nlayers];
+  var1 = v7[-1].var1;
+  if (var1 != 1 && (var1 != 2 || !v7[-1].var6))
+  {
+    [_ATXNeuralNetwork _predict:freeInputsAfterUse:];
+  }
+
+  v9 = [(_ATXNeuralNetwork *)self _runOnInputs:_predict freeInputsAfterUse:useCopy];
+  v10 = v9;
+  v11 = *v9;
+  if (self->_layers[self->_nlayers - 1].var6)
+  {
+    v12 = exp(*v9);
+    v11 = v12 / (v12 + exp(v10[1]));
+  }
+
+  free(v10);
   return v11;
 }
 

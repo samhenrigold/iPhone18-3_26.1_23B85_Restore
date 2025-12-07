@@ -18,7 +18,7 @@
   if (v4 != *(skeleton + 6))
   {
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "jointCount == skeleton.parentIndices.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshAssetSkeleton:]", 1604);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == skeleton.parentIndices.size()) ");
     __break(1u);
     goto LABEL_23;
   }
@@ -27,7 +27,7 @@
   {
 LABEL_23:
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "jointCount == skeleton.localBindPoses.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshAssetSkeleton:]", 1605);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == skeleton.localBindPoses.size()) ");
     __break(1u);
     goto LABEL_24;
   }
@@ -36,7 +36,7 @@ LABEL_23:
   {
 LABEL_24:
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "jointCount == skeleton.inverseBindPoses.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshAssetSkeleton:]", 1606);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == skeleton.inverseBindPoses.size()) ");
     __break(1u);
     goto LABEL_25;
   }
@@ -45,7 +45,7 @@ LABEL_24:
   {
 LABEL_25:
     re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) ", "jointCount == localRestPose.scales.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshAssetSkeleton:]", 1609);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == localRestPose.scales.size()) ");
     __break(1u);
     goto LABEL_26;
   }
@@ -54,7 +54,7 @@ LABEL_25:
   {
 LABEL_26:
     re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) ", "jointCount == localRestPose.rotations.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshAssetSkeleton:]", 1610);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == localRestPose.rotations.size()) ");
     __break(1u);
     goto LABEL_27;
   }
@@ -63,13 +63,12 @@ LABEL_26:
   {
 LABEL_27:
     re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) ", "jointCount == localRestPose.translations.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshAssetSkeleton:]", 1611);
-    result = _os_crash();
+    result = _os_crash("assertion failure: (jointCount == localRestPose.translations.size()) ");
     __break(1u);
     return result;
   }
 
-  v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(skeleton + 1)];
-  v9 = v8 = objc_claimAutoreleasedReturnValue();
+  v9 = v8 = v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(skeleton + 1)];
   v10 = v19;
   v11 = v22;
   v12 = v25;
@@ -120,7 +119,7 @@ LABEL_27:
   if (v4 != *(definition + 9))
   {
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "jointCount == skeleton.parentIndices.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshSkeletonDefinition:]", 1625);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == skeleton.parentIndices.size()) ");
     __break(1u);
     goto LABEL_23;
   }
@@ -129,7 +128,7 @@ LABEL_27:
   {
 LABEL_23:
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "jointCount == skeleton.localRestPose.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshSkeletonDefinition:]", 1626);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == skeleton.localRestPose.size()) ");
     __break(1u);
     goto LABEL_24;
   }
@@ -138,7 +137,7 @@ LABEL_23:
   {
 LABEL_24:
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "jointCount == skeleton.inverseBindPoses.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshSkeletonDefinition:]", 1627);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == skeleton.inverseBindPoses.size()) ");
     __break(1u);
     goto LABEL_25;
   }
@@ -147,7 +146,7 @@ LABEL_24:
   {
 LABEL_25:
     re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) ", "jointCount == localRestPose.scales.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshSkeletonDefinition:]", 1630);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == localRestPose.scales.size()) ");
     __break(1u);
     goto LABEL_26;
   }
@@ -156,7 +155,7 @@ LABEL_25:
   {
 LABEL_26:
     re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) ", "jointCount == localRestPose.rotations.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshSkeletonDefinition:]", 1631);
-    _os_crash();
+    _os_crash("assertion failure: (jointCount == localRestPose.rotations.size()) ");
     __break(1u);
     goto LABEL_27;
   }
@@ -165,13 +164,12 @@ LABEL_26:
   {
 LABEL_27:
     re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) ", "jointCount == localRestPose.translations.size()", "[REMeshSkeletonDescriptor(REMeshAssetRuntime) initWithMeshSkeletonDefinition:]", 1632);
-    result = _os_crash();
+    result = _os_crash("assertion failure: (jointCount == localRestPose.translations.size()) ");
     __break(1u);
     return result;
   }
 
-  v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(definition + 4)];
-  v9 = v8 = objc_claimAutoreleasedReturnValue();
+  v9 = v8 = v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(definition + 4)];
   v10 = v19;
   v11 = v22;
   v12 = v25;
@@ -218,9 +216,9 @@ LABEL_27:
 
 - (MeshAssetSkeleton)meshAssetSkeleton
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   jointNames = [(REMeshSkeletonDescriptor *)self jointNames];
-  v45 = [jointNames count];
+  v63 = [jointNames count];
 
   name = [(REMeshSkeletonDescriptor *)self name];
   uTF8String = [name UTF8String];
@@ -230,153 +228,218 @@ LABEL_27:
   retstr->var1.var1 = 0;
   retstr->var1.var2 = 0;
   retstr->var1.var0 = 0;
-  v42 = jointNames2;
+  v60 = jointNames2;
   v7 = [jointNames2 count];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v8 = v42;
-  v9 = [v8 countByEnumeratingWithState:&v49 objects:&v53 count:16];
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v8 = v60;
+  v9 = [v8 countByEnumeratingWithState:&v67 objects:&v71 count:16];
   if (v9)
   {
     v10 = 0;
-    v11 = *v50;
+    v11 = *v68;
     do
     {
       v12 = 0;
       v13 = v10;
       do
       {
-        if (*v50 != v11)
+        if (*v68 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        uTF8String2 = [*(*(&v49 + 1) + 8 * v12) UTF8String];
-        v46 = 0;
-        v47 = &str_67;
+        uTF8String2 = [*(*(&v67 + 1) + 8 * v12) UTF8String];
+        v64 = 0;
+        v65 = &str_67;
         var1 = retstr->var1.var1;
         if (var1 <= v10)
         {
-          v48 = 0;
-          v25 = &v53;
-          v67 = 0u;
-          v68 = 0u;
-          memset(v66, 0, sizeof(v66));
+          v66 = 0;
+          v25 = &v71;
+          v85 = 0u;
+          v86 = 0u;
+          memset(v84, 0, sizeof(v84));
           v21 = MEMORY[0x1E69E9C10];
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v58 = 136315906;
-          v59 = "operator[]";
-          v60 = 1024;
-          v61 = 468;
-          v62 = 2048;
-          v63 = v10;
-          v64 = 2048;
-          v65 = var1;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_32:
-          v46 = 0;
-          v30 = &v53;
-          v67 = 0u;
-          v68 = 0u;
-          memset(v66, 0, sizeof(v66));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v58 = 136315906;
-          v59 = "operator[]";
-          v60 = 1024;
-          v61 = 468;
-          v62 = 2048;
-          v63 = v21;
-          v64 = 2048;
-          v65 = v25;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_33:
-          *&v49 = 0;
-          v56 = 0u;
-          v57 = 0u;
-          v54 = 0u;
-          v55 = 0u;
-          v53 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v66[0] = 136315906;
-          *&v66[1] = "operator[]";
-          LOWORD(v66[3]) = 1024;
-          *(&v66[3] + 2) = 468;
-          HIWORD(v66[4]) = 2048;
-          *&v66[5] = v21;
-          LOWORD(v66[7]) = 2048;
-          *(&v66[7] + 2) = v30;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_34:
-          *&v49 = 0;
-          v56 = 0u;
-          v57 = 0u;
-          v54 = 0u;
-          v55 = 0u;
-          v53 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v66[0] = 136315906;
-          *&v66[1] = "operator[]";
-          LOWORD(v66[3]) = 1024;
-          *(&v66[3] + 2) = 468;
-          HIWORD(v66[4]) = 2048;
-          *&v66[5] = v30;
-          LOWORD(v66[7]) = 2048;
-          *(&v66[7] + 2) = v21;
-          _os_log_send_and_compose_impl();
+          v42 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v76 = 136315906;
+          v77 = "operator[]";
+          v78 = 1024;
+          if (v42)
+          {
+            v43 = 3;
+          }
+
+          else
+          {
+            v43 = 2;
+          }
+
+          v79 = 468;
+          v80 = 2048;
+          v81 = v10;
+          v82 = 2048;
+          v83 = var1;
+          _os_log_send_and_compose_impl(v43, &v66, v84, 80, &dword_1E1C61000, v21, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v76, 38, v59, v60);
           _os_crash_msg();
           __break(1u);
 LABEL_35:
-          *&v49 = 0;
-          v56 = 0u;
-          v57 = 0u;
-          v54 = 0u;
-          v55 = 0u;
-          v53 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v66[0] = 136315906;
-          *&v66[1] = "operator[]";
-          LOWORD(v66[3]) = 1024;
-          *(&v66[3] + 2) = 468;
-          HIWORD(v66[4]) = 2048;
-          *&v66[5] = v30;
-          LOWORD(v66[7]) = 2048;
-          *(&v66[7] + 2) = v21;
-          _os_log_send_and_compose_impl();
+          v64 = 0;
+          v30 = &v71;
+          v85 = 0u;
+          v86 = 0u;
+          memset(v84, 0, sizeof(v84));
+          v44 = MEMORY[0x1E69E9C10];
+          v45 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v76 = 136315906;
+          v77 = "operator[]";
+          v78 = 1024;
+          if (v45)
+          {
+            v46 = 3;
+          }
+
+          else
+          {
+            v46 = 2;
+          }
+
+          v79 = 468;
+          v80 = 2048;
+          v81 = v21;
+          v82 = 2048;
+          v83 = v25;
+          _os_log_send_and_compose_impl(v46, &v64, v84, 80, &dword_1E1C61000, v44, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v76, 38, v59, v60);
           _os_crash_msg();
           __break(1u);
-LABEL_36:
-          *&v49 = 0;
-          v56 = 0u;
-          v57 = 0u;
-          v54 = 0u;
-          v55 = 0u;
-          v53 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v66[0] = 136315906;
-          *&v66[1] = "operator[]";
-          LOWORD(v66[3]) = 1024;
-          *(&v66[3] + 2) = 468;
-          HIWORD(v66[4]) = 2048;
-          *&v66[5] = v30;
-          LOWORD(v66[7]) = 2048;
-          *(&v66[7] + 2) = v21;
-          _os_log_send_and_compose_impl();
+LABEL_39:
+          *&v67 = 0;
+          v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
+          v71 = 0u;
+          v47 = MEMORY[0x1E69E9C10];
+          v48 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v84[0] = 136315906;
+          *&v84[1] = "operator[]";
+          LOWORD(v84[3]) = 1024;
+          if (v48)
+          {
+            v49 = 3;
+          }
+
+          else
+          {
+            v49 = 2;
+          }
+
+          *(&v84[3] + 2) = 468;
+          HIWORD(v84[4]) = 2048;
+          *&v84[5] = v21;
+          LOWORD(v84[7]) = 2048;
+          *(&v84[7] + 2) = v30;
+          _os_log_send_and_compose_impl(v49, &v67, &v71, 80, &dword_1E1C61000, v47, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v59, v60);
+          _os_crash_msg();
+          __break(1u);
+LABEL_43:
+          *&v67 = 0;
+          v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
+          v71 = 0u;
+          v50 = MEMORY[0x1E69E9C10];
+          v51 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v84[0] = 136315906;
+          *&v84[1] = "operator[]";
+          LOWORD(v84[3]) = 1024;
+          if (v51)
+          {
+            v52 = 3;
+          }
+
+          else
+          {
+            v52 = 2;
+          }
+
+          *(&v84[3] + 2) = 468;
+          HIWORD(v84[4]) = 2048;
+          *&v84[5] = v30;
+          LOWORD(v84[7]) = 2048;
+          *(&v84[7] + 2) = v21;
+          _os_log_send_and_compose_impl(v52, &v67, &v71, 80, &dword_1E1C61000, v50, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v59, v60);
+          _os_crash_msg();
+          __break(1u);
+LABEL_47:
+          *&v67 = 0;
+          v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
+          v71 = 0u;
+          v53 = MEMORY[0x1E69E9C10];
+          v54 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v84[0] = 136315906;
+          *&v84[1] = "operator[]";
+          LOWORD(v84[3]) = 1024;
+          if (v54)
+          {
+            v55 = 3;
+          }
+
+          else
+          {
+            v55 = 2;
+          }
+
+          *(&v84[3] + 2) = 468;
+          HIWORD(v84[4]) = 2048;
+          *&v84[5] = v30;
+          LOWORD(v84[7]) = 2048;
+          *(&v84[7] + 2) = v21;
+          _os_log_send_and_compose_impl(v55, &v67, &v71, 80, &dword_1E1C61000, v53, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v59, v60);
+          _os_crash_msg();
+          __break(1u);
+LABEL_51:
+          *&v67 = 0;
+          v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
+          v71 = 0u;
+          v56 = MEMORY[0x1E69E9C10];
+          v57 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v84[0] = 136315906;
+          *&v84[1] = "operator[]";
+          LOWORD(v84[3]) = 1024;
+          if (v57)
+          {
+            v58 = 3;
+          }
+
+          else
+          {
+            v58 = 2;
+          }
+
+          *(&v84[3] + 2) = 468;
+          HIWORD(v84[4]) = 2048;
+          *&v84[5] = v30;
+          LOWORD(v84[7]) = 2048;
+          *(&v84[7] + 2) = v21;
+          _os_log_send_and_compose_impl(v58, &v67, &v71, 80, &dword_1E1C61000, v56, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v59, v60);
           _os_crash_msg();
           __break(1u);
         }
 
-        v16 = re::StringID::operator=(&retstr->var1.var2[v13], &v46);
-        if (v46)
+        v16 = re::StringID::operator=(&retstr->var1.var2[v13], &v64);
+        if (v64)
         {
-          if (v46)
+          if (v64)
           {
           }
         }
@@ -387,7 +450,7 @@ LABEL_36:
       }
 
       while (v9 != v12);
-      v9 = [v8 countByEnumeratingWithState:&v49 objects:&v53 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v67 objects:&v71 count:16];
     }
 
     while (v9);
@@ -398,36 +461,36 @@ LABEL_36:
   retstr->var2.var2 = 0;
   retstr->var2.var0 = 0;
   v18 = [parentIndices count];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v19 = parentIndices;
-  v20 = [v19 countByEnumeratingWithState:&v49 objects:&v53 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v67 objects:&v71 count:16];
   if (v20)
   {
     v21 = 0;
-    v22 = *v50;
+    v22 = *v68;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v50 != v22)
+        if (*v68 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        unsignedIntValue = [*(*(&v49 + 1) + 8 * i) unsignedIntValue];
+        unsignedIntValue = [*(*(&v67 + 1) + 8 * i) unsignedIntValue];
         v25 = retstr->var2.var1;
         if (v25 <= v21)
         {
-          goto LABEL_32;
+          goto LABEL_35;
         }
 
         retstr->var2.var2[v21++] = unsignedIntValue;
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v49 objects:&v53 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v67 objects:&v71 count:16];
     }
 
     while (v20);
@@ -439,7 +502,7 @@ LABEL_36:
   retstr->var3.var0 = 0;
   retstr->var3.var1 = 0;
   retstr->var3.var2 = 0;
-  if (v45)
+  if (v63)
   {
     v29 = 0;
     v30 = 0;
@@ -448,33 +511,33 @@ LABEL_36:
       v21 = retstr->var3.var1;
       if (v21 <= v30)
       {
-        goto LABEL_34;
+        goto LABEL_43;
       }
 
       *(retstr->var3.var2 + v29) = *(localRestPoseScales + 16 * v30);
       v21 = retstr->var3.var1;
       if (v21 <= v30)
       {
-        goto LABEL_35;
+        goto LABEL_47;
       }
 
       *(retstr->var3.var2 + v29 + 16) = *(localRestPoseRotations + v30);
       v21 = retstr->var3.var1;
       if (v21 <= v30)
       {
-        goto LABEL_36;
+        goto LABEL_51;
       }
 
       *(retstr->var3.var2 + v29 + 32) = *(localRestPoseTranslations + v30++);
       v29 += 48;
     }
 
-    while (v45 != v30);
+    while (v63 != v30);
   }
 
   inverseBindPose = [(REMeshSkeletonDescriptor *)self inverseBindPose];
   inverseBindPose2 = [(REMeshSkeletonDescriptor *)self inverseBindPose];
-  v33 = (inverseBindPose2 + 64 * v45);
+  v33 = (inverseBindPose2 + 64 * v63);
   v34 = (v33 - inverseBindPose) >> 6;
   retstr->var4.var0 = 0;
   retstr->var4.var1 = 0;
@@ -489,7 +552,7 @@ LABEL_36:
       v30 = retstr->var4.var1;
       if (v30 <= v21)
       {
-        goto LABEL_33;
+        goto LABEL_39;
       }
 
       v38 = *v35;

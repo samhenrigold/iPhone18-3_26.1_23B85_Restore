@@ -18,10 +18,10 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v10[1] = *MEMORY[0x29EDCA608];
-  v9.receiver = self;
-  v9.super_class = MiroTimelineClipCollectionViewControllerAccessibility;
-  [(MiroTimelineClipCollectionViewControllerAccessibility *)&v9 _accessibilityLoadAccessibilityInformation];
+  v9[1] = *MEMORY[0x29EDCA608];
+  v8.receiver = self;
+  v8.super_class = MiroTimelineClipCollectionViewControllerAccessibility;
+  [(MiroTimelineClipCollectionViewControllerAccessibility *)&v8 _accessibilityLoadAccessibilityInformation];
   _axMiroPhotoScrubber = [(MiroTimelineClipCollectionViewControllerAccessibility *)self _axMiroPhotoScrubber];
 
   if (!_axMiroPhotoScrubber)
@@ -32,12 +32,10 @@
     v5 = [(MiroTimelineClipCollectionViewControllerAccessibility *)self safeValueForKey:@"view"];
     v6 = __UIAccessibilityCastAsClass();
 
-    v10[0] = v4;
-    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v4;
+    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
     [v6 setAccessibilityElements:v7];
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 - (void)viewDidLoad

@@ -228,7 +228,7 @@
   if (firstObject)
   {
     visibleItems = [(SBWindowingModifier *)self visibleItems];
-    v6 = [visibleItems containsObject:firstObject];
+    v6 = objc_msgSend_containsObject_(visibleItems);
 
     if ((v6 & 1) == 0)
     {

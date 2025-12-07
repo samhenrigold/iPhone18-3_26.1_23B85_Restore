@@ -381,12 +381,12 @@ LABEL_37:
 
 + (id)localizedErrorForConflictBetweenExistingService:(id)service withNewService:(id)newService localDeviceName:(id)name localization:(id)localization
 {
-  v82[4] = *MEMORY[0x277D85DE8];
+  v81[4] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   localizationCopy = localization;
   newServiceCopy = newService;
   serviceCopy = service;
-  v79 = [WiFiP2PXPCConnection convertError:5];
+  v78 = [WiFiP2PXPCConnection convertError:5];
   v13 = canonicalService(serviceCopy);
 
   v14 = canonicalService(newServiceCopy);
@@ -509,12 +509,12 @@ LABEL_24:
 
 LABEL_29:
 LABEL_30:
-  v80 = nameCopy;
-  v78 = v14;
+  v79 = nameCopy;
+  v77 = v14;
   if ([v14 isEqual:@"airplay"])
   {
     v24 = +[WiFiP2PXPCConnection frameworkBundle];
-    v77 = [v24 localizedStringForKey:@"Unable to Connect to AirPlay" value:0 table:0 localization:localizationCopy];
+    v76 = [v24 localizedStringForKey:@"Unable to Connect to AirPlay" value:0 table:0 localization:localizationCopy];
 
     if ([v13 isEqual:@"airplay"])
     {
@@ -595,7 +595,7 @@ LABEL_127:
     if ([v14 isEqual:@"RemoteCamera"])
     {
       v34 = +[WiFiP2PXPCConnection frameworkBundle];
-      v77 = [v34 localizedStringForKey:@"Unable to Connect to Continuity Camera" value:0 table:0 localization:localizationCopy];
+      v76 = [v34 localizedStringForKey:@"Unable to Connect to Continuity Camera" value:0 table:0 localization:localizationCopy];
 
       if ([v13 isEqual:@"airplay"])
       {
@@ -668,7 +668,7 @@ LABEL_127:
     if ([v14 isEqual:@"RemoteScreen"])
     {
       v39 = +[WiFiP2PXPCConnection frameworkBundle];
-      v77 = [v39 localizedStringForKey:@"Unable to Connect to iPhone Mirroring" value:0 table:0 localization:localizationCopy];
+      v76 = [v39 localizedStringForKey:@"Unable to Connect to iPhone Mirroring" value:0 table:0 localization:localizationCopy];
 
       if ([v13 isEqual:@"airplay"])
       {
@@ -741,7 +741,7 @@ LABEL_127:
     if ([v14 isEqual:@"spatialStreaming"])
     {
       v43 = +[WiFiP2PXPCConnection frameworkBundle];
-      v77 = [v43 localizedStringForKey:@"Unable to Connect to macOS Spatial Rendering" value:0 table:0 localization:localizationCopy];
+      v76 = [v43 localizedStringForKey:@"Unable to Connect to macOS Spatial Rendering" value:0 table:0 localization:localizationCopy];
 
       if ([v13 isEqual:@"airplay"])
       {
@@ -815,12 +815,12 @@ LABEL_127:
     {
       v51 = v13;
       v42 = &stru_2841A3278;
-      v77 = &stru_2841A3278;
+      v76 = &stru_2841A3278;
       goto LABEL_128;
     }
 
     v48 = +[WiFiP2PXPCConnection frameworkBundle];
-    v77 = [v48 localizedStringForKey:@"Unable to Connect to Mac Virtual Display" value:0 table:0 localization:localizationCopy];
+    v76 = [v48 localizedStringForKey:@"Unable to Connect to Mac Virtual Display" value:0 table:0 localization:localizationCopy];
 
     if ([v13 isEqual:@"airplay"])
     {
@@ -895,7 +895,7 @@ LABEL_118:
   }
 
   v30 = +[WiFiP2PXPCConnection frameworkBundle];
-  v77 = [v30 localizedStringForKey:@"Unable to Connect to Sidecar" value:0 table:0 localization:localizationCopy];
+  v76 = [v30 localizedStringForKey:@"Unable to Connect to Sidecar" value:0 table:0 localization:localizationCopy];
 
   if ([v13 isEqual:@"airplay"])
   {
@@ -970,21 +970,19 @@ LABEL_131:
 LABEL_128:
   v68 = MEMORY[0x277CCA9B8];
   v69 = *MEMORY[0x277CCA470];
-  v81[0] = *MEMORY[0x277CCA450];
-  v81[1] = v69;
-  v82[0] = v77;
-  v82[1] = nameCopy;
+  v80[0] = *MEMORY[0x277CCA450];
+  v80[1] = v69;
+  v81[0] = v76;
+  v81[1] = nameCopy;
   v70 = *MEMORY[0x277CCA498];
-  v82[2] = v42;
+  v81[2] = v42;
   v71 = *MEMORY[0x277CCA068];
-  v81[2] = v70;
-  v81[3] = v71;
-  v72 = [v79 description];
-  v82[3] = v72;
-  v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:4];
+  v80[2] = v70;
+  v80[3] = v71;
+  v72 = [v78 description];
+  v81[3] = v72;
+  v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:4];
   v74 = [v68 errorWithDomain:@"com.apple.wifip2pd" code:5 userInfo:v73];
-
-  v75 = *MEMORY[0x277D85DE8];
 
   return v74;
 }

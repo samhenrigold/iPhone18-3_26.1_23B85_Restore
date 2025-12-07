@@ -25,7 +25,7 @@
 
 - (void)publishNotificationForEvent:(id)event
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifier = [event identifier];
   v5 = *MEMORY[0x277D621D0];
   v6 = [identifier isEqualToString:*MEMORY[0x277D621D0]];
@@ -42,12 +42,12 @@
     {
       if (v11)
       {
-        v16 = 138543618;
-        v17 = objc_opt_class();
-        v18 = 2114;
-        v19 = v5;
-        v12 = v17;
-        _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] not posting %{public}@ because sensitive UI is disabled", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = objc_opt_class();
+        v17 = 2114;
+        v18 = v5;
+        v12 = v16;
+        _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] not posting %{public}@ because sensitive UI is disabled", &v15, 0x16u);
       }
     }
 
@@ -55,39 +55,35 @@
     {
       if (v11)
       {
-        v16 = 138543362;
-        v17 = objc_opt_class();
-        v13 = v17;
-        _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Posting HKSPNotificationPresentGoodMorningAlert", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = objc_opt_class();
+        v13 = v16;
+        _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Posting HKSPNotificationPresentGoodMorningAlert", &v15, 0xCu);
       }
 
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
       CFNotificationCenterPostNotification(DarwinNotifyCenter, *MEMORY[0x277D620B0], 0, 0, 1u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tearDownNotificationForEventIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([identifier isEqualToString:*MEMORY[0x277D621D0]])
   {
     v3 = HKSPLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = objc_opt_class();
-      v4 = v8;
-      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Posting HKSPNotificationDismissGoodMorningAlert", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = objc_opt_class();
+      v4 = v7;
+      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Posting HKSPNotificationDismissGoodMorningAlert", &v6, 0xCu);
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, *MEMORY[0x277D620A8], 0, 0, 1u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSPEnvironment)environment

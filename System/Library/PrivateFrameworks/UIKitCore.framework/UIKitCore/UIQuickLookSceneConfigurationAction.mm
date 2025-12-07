@@ -9,9 +9,9 @@
 {
   configurationCopy = configuration;
   role = [configurationCopy role];
-  v7 = [role isEqualToString:@"UISceneSessionRoleQuickLook"];
+  isEqualToString = objc_msgSend_isEqualToString_(role);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     role2 = [configurationCopy role];

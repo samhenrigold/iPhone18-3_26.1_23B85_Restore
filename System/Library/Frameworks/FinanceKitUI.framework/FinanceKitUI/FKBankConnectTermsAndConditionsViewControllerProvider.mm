@@ -9,11 +9,10 @@
 + (id)makeViewControllerWithTermsAndConditionsID:(id)d
 {
   v3 = type metadata accessor for BankConnectTermsAndConditionsWebView(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3);
-  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = &v17 - v8;
+  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v8 = &v16 - v7;
   sub_23875ED50();
   sub_23875ED40();
   sub_23875ECE0();
@@ -22,27 +21,27 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v10 = sub_23875EA80();
-  v12 = v11;
-  objc_allocWithZone(type metadata accessor for BankConnectTermsAndConditionsViewController());
-  v13 = swift_allocObject();
-  v13[2] = v10;
-  v13[3] = v12;
-  v13[4] = 0;
-  v13[5] = 0;
-  *v9 = sub_2386A86E4;
-  *(v9 + 1) = v13;
-  v9[16] = 0;
-  v14 = *(v3 + 20);
-  *&v9[v14] = swift_getKeyPath();
+  v9 = sub_23875EA80();
+  v11 = v10;
+  objc_allocWithZone(type metadata accessor for BankConnectTermsAndConditionsViewController(0));
+  v12 = swift_allocObject();
+  v12[2] = v9;
+  v12[3] = v11;
+  v12[4] = 0;
+  v12[5] = 0;
+  *v8 = sub_2386A86E4;
+  *(v8 + 1) = v12;
+  v8[16] = 0;
+  v13 = *(v3 + 20);
+  *&v8[v13] = swift_getKeyPath(byte_23877EA88);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DF12DF0, &unk_23877C100);
   swift_storeEnumTagMultiPayload();
-  sub_2386A8504(v9, v6);
+  sub_2386A8504(v8, v5);
 
-  v15 = sub_23875D080();
-  sub_2386A8568(v9);
+  v14 = sub_23875D080();
+  sub_2386A8568(v8);
 
-  return v15;
+  return v14;
 }
 
 + (id)makeViewControllerWithTermsAndConditionsID:(id)d completion:(id)completion

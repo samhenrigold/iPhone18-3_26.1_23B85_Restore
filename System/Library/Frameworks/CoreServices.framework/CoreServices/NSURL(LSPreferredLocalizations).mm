@@ -7,27 +7,27 @@
 
 - (id)ls_preferredLocalizations
 {
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(self a2)])
   {
-    v4 = 0;
-    [self getResourceValue:&v4 forKey:@"com.apple.launchservices.preferredLocalizations" error:0];
-    v2 = v4;
+    v5 = 0;
+    [self getResourceValue:&v5 forKey:@"com.apple.launchservices.preferredLocalizations" error:0];
+    v3 = v5;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)ls_setPreferredLocalizations:()LSPreferredLocalizations
 {
-  v4 = a3;
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  v5 = a3;
+  if ([__LSDefaultsGetSharedInstance(v5 v4)])
   {
-    [self setTemporaryResourceValue:v4 forKey:@"com.apple.launchservices.preferredLocalizations"];
+    [self setTemporaryResourceValue:v5 forKey:@"com.apple.launchservices.preferredLocalizations"];
   }
 }
 

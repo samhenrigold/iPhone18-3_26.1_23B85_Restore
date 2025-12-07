@@ -58,7 +58,6 @@ LABEL_5:
   }
 
   v5 = [v4 objectForKey:self->_propertyKey];
-  valueClass = self->_valueClass;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 

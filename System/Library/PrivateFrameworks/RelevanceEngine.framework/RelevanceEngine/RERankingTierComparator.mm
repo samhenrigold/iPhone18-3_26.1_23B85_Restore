@@ -16,11 +16,11 @@
 
 - (RERankingTierComparator)initWithFilteringRules:(id)rules
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   rulesCopy = rules;
-  v23.receiver = self;
-  v23.super_class = RERankingTierComparator;
-  v5 = [(REMLElementComparator *)&v23 initWithModel:0];
+  v22.receiver = self;
+  v22.super_class = RERankingTierComparator;
+  v5 = [(REMLElementComparator *)&v22 initWithModel:0];
   if (v5)
   {
     v6 = [rulesCopy sortedArrayWithOptions:16 usingComparator:&__block_literal_global_82];
@@ -28,34 +28,34 @@
     _filteringRules = v6;
 
     v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(_filteringRules, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v9 = _filteringRules;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         v13 = 0;
         do
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          conditionEvaluator = [*(*(&v19 + 1) + 8 * v13) conditionEvaluator];
+          conditionEvaluator = [*(*(&v18 + 1) + 8 * v13) conditionEvaluator];
           [v8 addObject:conditionEvaluator];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v11);
@@ -66,7 +66,6 @@
     _filteringEvaluators = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -89,7 +88,7 @@ uint64_t __50__RERankingTierComparator_initWithFilteringRules___block_invoke(uin
 
 - (BOOL)shouldHideElement:(id)element
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   v4 = RELogForDomain(22);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -98,7 +97,7 @@ uint64_t __50__RERankingTierComparator_initWithFilteringRules___block_invoke(uin
   }
 
   v5 = &unk_27D850000;
-  v30 = elementCopy;
+  v29 = elementCopy;
   if (![_filteringRules count])
   {
 LABEL_24:
@@ -108,22 +107,22 @@ LABEL_24:
 
   v7 = 0;
   *&v6 = 138412802;
-  v28 = v6;
+  v27 = v6;
   while (1)
   {
-    v8 = [_filteringEvaluators objectAtIndexedSubscript:{v7, v28}];
+    v8 = [_filteringEvaluators objectAtIndexedSubscript:{v7, v27}];
     v9 = [v5[295] objectAtIndexedSubscript:v7];
     featureMap = [elementCopy featureMap];
-    v32 = 0;
-    v11 = [v8 acceptsFeatureMap:featureMap predictionSet:0 explanation:&v32];
-    v12 = v32;
+    v31 = 0;
+    v11 = [v8 acceptsFeatureMap:featureMap predictionSet:0 explanation:&v31];
+    v12 = v31;
 
     if (!v11)
     {
       v24 = RELogForDomain(22);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        [(RERankingTierComparator *)v33 shouldHideElement:v8];
+        [(RERankingTierComparator *)v32 shouldHideElement:v8];
       }
 
       goto LABEL_23;
@@ -135,7 +134,7 @@ LABEL_24:
     v16 = v12;
     if (v16 && REMLExplanationsEnabled())
     {
-      v31 = objc_alloc_init(REMLExplanationFormatter);
+      v30 = objc_alloc_init(REMLExplanationFormatter);
       type = [v14 type];
       v18 = RELogForDomain(4);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -151,25 +150,25 @@ LABEL_24:
           v19 = @"Filtering";
         }
 
-        v29 = v19;
+        v28 = v19;
         v20 = [MEMORY[0x277CBEB98] setWithObject:v16];
-        v21 = [(REMLExplanationFormatter *)v31 descriptionFromExplanations:v20];
-        *buf = v28;
-        v36 = v29;
-        v37 = 2112;
-        v38 = v15;
-        v39 = 2112;
-        v40 = v21;
+        v21 = [(REMLExplanationFormatter *)v30 descriptionFromExplanations:v20];
+        *buf = v27;
+        v35 = v28;
+        v36 = 2112;
+        v37 = v15;
+        v38 = 2112;
+        v39 = v21;
         _os_log_impl(&dword_22859F000, v18, OS_LOG_TYPE_DEFAULT, "%@ %@ because %@", buf, 0x20u);
 
-        elementCopy = v30;
+        elementCopy = v29;
       }
     }
 
     v22 = RELogForDomain(22);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      [(RERankingTierComparator *)v34 shouldHideElement:v8];
+      [(RERankingTierComparator *)v33 shouldHideElement:v8];
     }
 
     type2 = [v14 type];
@@ -199,25 +198,22 @@ LABEL_26:
   v25 = 0;
 LABEL_27:
 
-  v26 = *MEMORY[0x277D85DE8];
   return (v25 | elementCopy) & 1;
 }
 
 - (void)shouldHideElement:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [a1 identifier];
   v5 = [_filteringRules count];
   v6 = [a1 featureMap];
-  v8 = 138412802;
-  v9 = v4;
-  v10 = 2048;
-  v11 = v5;
-  v12 = 2048;
-  v13 = [v6 populatedFeatureCount];
-  _os_log_debug_impl(&dword_22859F000, a2, OS_LOG_TYPE_DEBUG, "[RERankingTierComparator]: Evaluating ShouldHideElement for %@ with %lu rules with %lu populated features", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412802;
+  v8 = v4;
+  v9 = 2048;
+  v10 = v5;
+  v11 = 2048;
+  v12 = [v6 populatedFeatureCount];
+  _os_log_debug_impl(&dword_22859F000, a2, OS_LOG_TYPE_DEBUG, "[RERankingTierComparator]: Evaluating ShouldHideElement for %@ with %lu rules with %lu populated features", &v7, 0x20u);
 }
 
 - (void)shouldHideElement:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)

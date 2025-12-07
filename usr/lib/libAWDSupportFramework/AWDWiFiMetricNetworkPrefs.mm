@@ -266,7 +266,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if ((has & 0x4000) != 0)
@@ -385,29 +385,29 @@ LABEL_11:
   if ([(NSMutableArray *)self->_mostUsedNetworks count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_mostUsedNetworks, "count")}];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     mostUsedNetworks = self->_mostUsedNetworks;
-    v7 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(mostUsedNetworks);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -466,7 +466,7 @@ LABEL_41:
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithUnsignedInt:", self->_eapNetsCount), @"eapNetsCount"}];
     if ((*&self->_has & 0x200) == 0)
     {
-      goto LABEL_27;
+      return dictionary;
     }
 
     goto LABEL_26;
@@ -487,18 +487,15 @@ LABEL_26:
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithUnsignedInt:", self->_openNonCaptiveNetsCount), @"openNonCaptiveNetsCount"}];
   }
 
-LABEL_27:
-  v12 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if ((has & 0x4000) != 0)
   {
-    atjEnabled = self->_atjEnabled;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -518,7 +515,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  atjCanceledCount = self->_atjCanceledCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -533,7 +529,6 @@ LABEL_4:
   }
 
 LABEL_28:
-  atjUsedCount = self->_atjUsedCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -548,7 +543,6 @@ LABEL_5:
   }
 
 LABEL_29:
-  adhocNetsCount = self->_adhocNetsCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -563,7 +557,6 @@ LABEL_6:
   }
 
 LABEL_30:
-  prefNetsCount = self->_prefNetsCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -578,7 +571,6 @@ LABEL_7:
   }
 
 LABEL_31:
-  captiveNetsCount = self->_captiveNetsCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -593,7 +585,6 @@ LABEL_8:
   }
 
 LABEL_32:
-  applePersHotspotNetsCount = self->_applePersHotspotNetsCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -608,55 +599,51 @@ LABEL_9:
   }
 
 LABEL_33:
-  wapiNetsCount = self->_wapiNetsCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_10:
-    mostUsedCount = self->_mostUsedCount;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_11:
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   mostUsedNetworks = self->_mostUsedNetworks;
-  v7 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v7)
+  v6 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v29;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v9)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(mostUsedNetworks);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v7 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v12 = self->_has;
-  if (v12)
+  v10 = self->_has;
+  if (v10)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    v12 = self->_has;
-    if ((v12 & 0x80) == 0)
+    v10 = self->_has;
+    if ((v10 & 0x80) == 0)
     {
 LABEL_20:
-      if ((v12 & 0x1000) == 0)
+      if ((v10 & 0x1000) == 0)
       {
         goto LABEL_21;
       }
@@ -665,18 +652,17 @@ LABEL_20:
     }
   }
 
-  else if ((v12 & 0x80) == 0)
+  else if ((v10 & 0x80) == 0)
   {
     goto LABEL_20;
   }
 
-  hiddenNetsCount = self->_hiddenNetsCount;
   PBDataWriterWriteUint32Field();
-  v12 = self->_has;
-  if ((v12 & 0x1000) == 0)
+  v10 = self->_has;
+  if ((v10 & 0x1000) == 0)
   {
 LABEL_21:
-    if ((v12 & 0x2000) == 0)
+    if ((v10 & 0x2000) == 0)
     {
       goto LABEL_22;
     }
@@ -685,47 +671,42 @@ LABEL_21:
   }
 
 LABEL_37:
-  wepNetsCount = self->_wepNetsCount;
   PBDataWriterWriteUint32Field();
-  v12 = self->_has;
-  if ((v12 & 0x2000) == 0)
+  v10 = self->_has;
+  if ((v10 & 0x2000) == 0)
   {
 LABEL_22:
-    if ((v12 & 0x40) == 0)
+    if ((v10 & 0x40) == 0)
     {
       goto LABEL_23;
     }
 
-LABEL_39:
-    eapNetsCount = self->_eapNetsCount;
-    PBDataWriterWriteUint32Field();
-    if ((*&self->_has & 0x200) == 0)
+    goto LABEL_39;
+  }
+
+LABEL_38:
+  PBDataWriterWriteUint32Field();
+  v10 = self->_has;
+  if ((v10 & 0x40) == 0)
+  {
+LABEL_23:
+    if ((v10 & 0x200) == 0)
     {
-      goto LABEL_25;
+      return;
     }
 
     goto LABEL_24;
   }
 
-LABEL_38:
-  wpaNetsCount = self->_wpaNetsCount;
+LABEL_39:
   PBDataWriterWriteUint32Field();
-  v12 = self->_has;
-  if ((v12 & 0x40) != 0)
+  if ((*&self->_has & 0x200) == 0)
   {
-    goto LABEL_39;
+    return;
   }
 
-LABEL_23:
-  if ((v12 & 0x200) != 0)
-  {
 LABEL_24:
-    openNonCaptiveNetsCount = self->_openNonCaptiveNetsCount;
-    PBDataWriterWriteUint32Field();
-  }
-
-LABEL_25:
-  v14 = *MEMORY[0x29EDCA608];
+  PBDataWriterWriteUint32Field();
 }
 
 - (void)copyTo:(id)to
@@ -949,7 +930,7 @@ LABEL_21:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1075,30 +1056,30 @@ LABEL_10:
   }
 
 LABEL_11:
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   mostUsedNetworks = self->_mostUsedNetworks;
-  v9 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(mostUsedNetworks);
         }
 
-        v13 = [*(*(&v17 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
         [v6 addMostUsedNetworks:v13];
       }
 
-      v10 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [(NSMutableArray *)mostUsedNetworks countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -1158,7 +1139,7 @@ LABEL_39:
     *(v6 + 80) |= 0x40u;
     if ((*&self->_has & 0x200) == 0)
     {
-      goto LABEL_25;
+      return v6;
     }
 
     goto LABEL_24;
@@ -1181,8 +1162,6 @@ LABEL_24:
     *(v6 + 80) |= 0x200u;
   }
 
-LABEL_25:
-  v15 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1200,7 +1179,6 @@ LABEL_25:
   {
     if ((*(equal + 40) & 0x4000) != 0)
     {
-      v8 = *(equal + 76);
       if (self->_atjEnabled)
       {
         if ((*(equal + 76) & 1) == 0)
@@ -1344,29 +1322,29 @@ LABEL_4:
     has = self->_has;
   }
 
-  v10 = *(equal + 40);
+  v9 = *(equal + 40);
   if (has)
   {
-    if ((v10 & 1) == 0 || self->_timestamp != *(equal + 1))
+    if ((v9 & 1) == 0 || self->_timestamp != *(equal + 1))
     {
       goto LABEL_82;
     }
   }
 
-  else if (v10)
+  else if (v9)
   {
     goto LABEL_82;
   }
 
   if ((has & 0x80) != 0)
   {
-    if ((v10 & 0x80) == 0 || self->_hiddenNetsCount != *(equal + 10))
+    if ((v9 & 0x80) == 0 || self->_hiddenNetsCount != *(equal + 10))
     {
       goto LABEL_82;
     }
   }
 
-  else if ((v10 & 0x80) != 0)
+  else if ((v9 & 0x80) != 0)
   {
     goto LABEL_82;
   }
@@ -1399,18 +1377,18 @@ LABEL_4:
 
   if ((has & 0x40) != 0)
   {
-    if ((v10 & 0x40) == 0 || self->_eapNetsCount != *(equal + 9))
+    if ((v9 & 0x40) == 0 || self->_eapNetsCount != *(equal + 9))
     {
       goto LABEL_82;
     }
   }
 
-  else if ((v10 & 0x40) != 0)
+  else if ((v9 & 0x40) != 0)
   {
     goto LABEL_82;
   }
 
-  LOBYTE(v5) = (v10 & 0x200) == 0;
+  LOBYTE(v5) = (v9 & 0x200) == 0;
   if ((has & 0x200) != 0)
   {
     if ((*(equal + 40) & 0x200) == 0 || self->_openNonCaptiveNetsCount != *(equal + 14))
@@ -1631,7 +1609,7 @@ LABEL_26:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v5 = *(from + 40);
   if ((v5 & 0x4000) != 0)
   {
@@ -1755,29 +1733,29 @@ LABEL_10:
   }
 
 LABEL_11:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = *(from + 6);
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDWiFiMetricNetworkPrefs *)self addMostUsedNetworks:*(*(&v13 + 1) + 8 * i)];
+        [(AWDWiFiMetricNetworkPrefs *)self addMostUsedNetworks:*(*(&v12 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -1832,36 +1810,35 @@ LABEL_22:
       goto LABEL_23;
     }
 
-LABEL_39:
-    self->_eapNetsCount = *(from + 9);
-    *&self->_has |= 0x40u;
-    if ((*(from + 40) & 0x200) == 0)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_24;
+    goto LABEL_39;
   }
 
 LABEL_38:
   self->_wpaNetsCount = *(from + 18);
   *&self->_has |= 0x2000u;
   v11 = *(from + 40);
-  if ((v11 & 0x40) != 0)
+  if ((v11 & 0x40) == 0)
   {
-    goto LABEL_39;
-  }
-
 LABEL_23:
-  if ((v11 & 0x200) != 0)
-  {
-LABEL_24:
-    self->_openNonCaptiveNetsCount = *(from + 14);
-    *&self->_has |= 0x200u;
+    if ((v11 & 0x200) == 0)
+    {
+      return;
+    }
+
+    goto LABEL_24;
   }
 
-LABEL_25:
-  v12 = *MEMORY[0x29EDCA608];
+LABEL_39:
+  self->_eapNetsCount = *(from + 9);
+  *&self->_has |= 0x40u;
+  if ((*(from + 40) & 0x200) == 0)
+  {
+    return;
+  }
+
+LABEL_24:
+  self->_openNonCaptiveNetsCount = *(from + 14);
+  *&self->_has |= 0x200u;
 }
 
 @end

@@ -11,11 +11,11 @@
 
 - (TSTimeErrorAnalysis)initWithTimeErrorValues:(id)values
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
-  v23.receiver = self;
-  v23.super_class = TSTimeErrorAnalysis;
-  v5 = [(TSTimeErrorAnalysis *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = TSTimeErrorAnalysis;
+  v5 = [(TSTimeErrorAnalysis *)&v22 init];
   if (v5)
   {
     v6 = [valuesCopy count];
@@ -33,35 +33,35 @@
       v7 = malloc_type_calloc(v5->_numberOfErrors, 8uLL, 0x100004000313F17uLL);
       if (v7 && v5->_timestamps && v5->_timeErrors)
       {
-        v8 = [valuesCopy objectAtIndexedSubscript:0];
+        v8 = [valuesCopy objectAtIndexedSubscript:?];
         timestamp = [v8 timestamp];
 
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
         v20 = 0u;
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
         v10 = valuesCopy;
-        v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v11 = [v10 countByEnumeratingWithState:0 objects:? count:?];
         if (v11)
         {
           v12 = v11;
           v13 = 0;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
-            for (i = 0; i != v12; ++i)
+            for (i = 0; i != v12; i = (i + 1))
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v16 = *(*(&v19 + 1) + 8 * i);
+              v16 = *(*(&v18 + 1) + 8 * i);
               v5->_timestamps[v13] = ([v16 timestamp] - timestamp);
               v5->_timeErrors[v13++] = [v16 error];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+            v12 = [v10 countByEnumeratingWithState:? objects:? count:?];
           }
 
           while (v12);
@@ -81,15 +81,14 @@
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)performAnalysisWithThreadingOption:(int64_t)option
 {
-  analysisLimit = [(TSTimeErrorAnalysis *)self analysisLimit];
+  [(TSTimeErrorAnalysis *)self analysisLimit];
 
-  [(TSTimeErrorAnalysis *)self performAnalysisFromStartWindowSize:2 toEndWindowSize:analysisLimit stepSize:1 withThreadingOption:option];
+  [TSTimeErrorAnalysis performAnalysisFromStartWindowSize:"performAnalysisFromStartWindowSize:toEndWindowSize:stepSize:withThreadingOption:" toEndWindowSize:? stepSize:? withThreadingOption:?];
 }
 
 - (void)performAnalysisFromStartWindowSize:(int64_t)size toEndWindowSize:(int64_t)windowSize stepSize:(int64_t)stepSize withThreadingOption:(int64_t)option
@@ -112,7 +111,7 @@
 
   if (option != 1 && (option || (numberOfErrors = self->_numberOfErrors, numberOfErrors < -[TSTimeErrorAnalysis threadingLimit](self, "threadingLimit"))) || ([MEMORY[0x277CCAC38] processInfo], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "activeProcessorCount"), v14, v15 == 1))
   {
-    [(TSTimeErrorAnalysis *)self _performAnalysisFromWindowSize:sizeCopy toWindowSize:windowSize stepSize:stepSize];
+    [TSTimeErrorAnalysis _performAnalysisFromWindowSize:"_performAnalysisFromWindowSize:toWindowSize:stepSize:" toWindowSize:? stepSize:?];
   }
 
   else
@@ -121,14 +120,14 @@
     v16 = MEMORY[0x277CCACA8];
     v17 = objc_opt_class();
     v18 = NSStringFromClass(v17);
-    v19 = [v16 stringWithFormat:@"com.apple.timesync.%@.parallel", v18];
+    v19 = [v16 stringWithFormat:v18];
     uTF8String = [v19 UTF8String];
     v41 = dispatch_queue_create(uTF8String, MEMORY[0x277D85CD8]);
 
     v21 = MEMORY[0x277CCACA8];
     v22 = objc_opt_class();
     v23 = NSStringFromClass(v22);
-    v24 = [v21 stringWithFormat:@"com.apple.timesync.%@.sequence", v23];
+    v24 = [v21 stringWithFormat:v23];
     v25 = dispatch_queue_create([v24 UTF8String], 0);
 
     v26 = dispatch_semaphore_create(v15);
@@ -232,7 +231,7 @@ intptr_t __103__TSTimeErrorAnalysis_performAnalysisFromStartWindowSize_toEndWind
   if ([lCopy isFileURL])
   {
     path = [lCopy path];
-    v9 = [path stringByAppendingPathComponent:filenameCopy];
+    v9 = [path stringByAppendingPathComponent:?];
 
     v10 = fopen([v9 UTF8String], "w");
     v11 = v10 != 0;
@@ -284,40 +283,40 @@ intptr_t __103__TSTimeErrorAnalysis_performAnalysisFromStartWindowSize_toEndWind
   string = [v13 string];
   variableName = [self variableName];
   additionalScriptInitialization = [self additionalScriptInitialization];
-  [string appendFormat:@"#!/usr/bin/env python3\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport os\nimport sys\n\n%@\n", additionalScriptInitialization];
+  [string appendFormat:additionalScriptInitialization];
 
   v30 = plotPathCopy;
   v31 = pathCopy;
   if (pathCopy)
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"'%@/%@'", pathCopy, nameCopy];
+    [MEMORY[0x277CCACA8] stringWithFormat:pathCopy, nameCopy];
   }
 
   else
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"os.path.split(sys.argv[0])[0]+'/%@'", nameCopy, v28];
+    [MEMORY[0x277CCACA8] stringWithFormat:nameCopy, v28];
   }
   v19 = ;
 
   additionalScriptRecords = [self additionalScriptRecords];
-  [string appendFormat:@"%@Records = np.rec.array(np.genfromtxt(%@, dtype=None, delimiter=', ', names=True, encoding='utf-8'))\n\ntau = %@Records.observation_interval\n%@ = %@Records.%@\n\n%@\n", variableName, v19, variableName, variableName, variableName, variableName, additionalScriptRecords];
+  [string appendFormat:variableName, v19, variableName, variableName, variableName, variableName, additionalScriptRecords];
 
   uppercaseString = [variableName uppercaseString];
-  v22 = [self additionalScriptPlots:@"ax1"];
+  v22 = [self additionalScriptPlots:?];
   plotYLabel = [self plotYLabel];
   plotTitle = [self plotTitle];
-  v25 = [self plotYLimits:@"ax1"];
-  [string appendFormat:@"f1, ax1 = plt.subplots()\nl1, = ax1.plot(tau, %@, 'r-', label='%@')\n%@\nax1.set_ylabel('%@')\nax1.set_xlabel('Observation Interval (s)')\nax1.set_title('%@ - %@')\nax1.set_xscale('log')\nax1.set_yscale('log')\n%@\nax1.set_aspect(1)\nax1.grid(True)\n\nplt.subplots_adjust(left=0.05, right=0.97, bottom=0.05, top=0.97)\n", variableName, uppercaseString, v22, plotYLabel, plotTitle, titleNameCopy, v25];
+  v25 = [self plotYLimits:?];
+  [string appendFormat:variableName, uppercaseString, v22, plotYLabel, plotTitle, titleNameCopy, v25];
 
   if (v30)
   {
     plotSize = [self plotSize];
-    [string appendFormat:@"\n%@\n\nf1.savefig('%@')\n", plotSize, v30];
+    [string appendFormat:plotSize, v30];
   }
 
   if (plotCopy)
   {
-    [string appendString:@"\nplt.show()\n"];
+    [string appendString:?];
   }
 
   return string;

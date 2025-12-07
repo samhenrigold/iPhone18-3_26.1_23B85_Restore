@@ -48,42 +48,42 @@
   smoothingCopy = smoothing;
   deviceCopy = device;
   objc_storeStrong(&self->_device, device);
-  v9 = ARKitCoreBundle();
-  v10 = [v9 URLForResource:@"default" withExtension:@"metallib"];
+  v10 = ARKitCoreBundle(v9);
+  v11 = [v10 URLForResource:@"default" withExtension:@"metallib"];
 
-  v11 = [(MTLDevice *)self->_device newLibraryWithURL:v10 error:0];
+  v12 = [(MTLDevice *)self->_device newLibraryWithURL:v11 error:0];
   mattingLibrary = self->_mattingLibrary;
-  self->_mattingLibrary = v11;
+  self->_mattingLibrary = v12;
 
   self->_dilationRadius = [ARKitUserDefaults integerForKey:@"com.apple.arkit.matting.dilationRadius"];
   [ARKitUserDefaults floatForKey:@"com.apple.arkit.matting.depthScale"];
-  self->_depthScale = v13;
-  v14 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.matting.doubleMLResolutionForIPad"];
-  self->_enableDoubleMLResolutionMatting = v14;
-  if (v14)
+  self->_depthScale = v14;
+  v15 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.matting.doubleMLResolutionForIPad"];
+  self->_enableDoubleMLResolutionMatting = v15;
+  if (v15)
   {
-    LOBYTE(v14) = ARDeviceIsiPad();
+    LOBYTE(v15) = ARDeviceIsiPad(v15, v16);
   }
 
-  self->_enableDoubleMLResolutionMatting = v14;
-  v15 = [[ARDualGuidedFilter alloc] initWithDevice:self->_device useSmoothing:smoothingCopy];
+  self->_enableDoubleMLResolutionMatting = v15;
+  v17 = [[ARDualGuidedFilter alloc] initWithDevice:self->_device useSmoothing:smoothingCopy];
   dualGuidedFilter = self->_dualGuidedFilter;
-  self->_dualGuidedFilter = v15;
+  self->_dualGuidedFilter = v17;
 
-  v17 = [(MTLLibrary *)self->_mattingLibrary newFunctionWithName:@"matting_dual"];
-  v18 = [(MTLDevice *)self->_device newComputePipelineStateWithFunction:v17 error:0];
+  v19 = [(MTLLibrary *)self->_mattingLibrary newFunctionWithName:@"matting_dual"];
+  v20 = [(MTLDevice *)self->_device newComputePipelineStateWithFunction:v19 error:0];
   mattingDual = self->_mattingDual;
-  self->_mattingDual = v18;
+  self->_mattingDual = v20;
 
-  v20 = [(MTLLibrary *)self->_mattingLibrary newFunctionWithName:@"resample_alpha_linear"];
-  v21 = [(MTLDevice *)self->_device newComputePipelineStateWithFunction:v20 error:0];
+  v22 = [(MTLLibrary *)self->_mattingLibrary newFunctionWithName:@"resample_alpha_linear"];
+  v23 = [(MTLDevice *)self->_device newComputePipelineStateWithFunction:v22 error:0];
   resampleAlpha = self->_resampleAlpha;
-  self->_resampleAlpha = v21;
+  self->_resampleAlpha = v23;
 
-  v23 = [(MTLLibrary *)self->_mattingLibrary newFunctionWithName:@"dilated_mask_with_depth_k"];
-  v24 = [(MTLDevice *)self->_device newComputePipelineStateWithFunction:v23 error:0];
+  v25 = [(MTLLibrary *)self->_mattingLibrary newFunctionWithName:@"dilated_mask_with_depth_k"];
+  v26 = [(MTLDevice *)self->_device newComputePipelineStateWithFunction:v25 error:0];
   depthDilation = self->_depthDilation;
-  self->_depthDilation = v24;
+  self->_depthDilation = v26;
 
   self->_matteResolution = resolution;
 }

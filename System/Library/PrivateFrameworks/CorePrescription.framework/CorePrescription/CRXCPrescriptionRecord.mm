@@ -24,32 +24,29 @@
 {
   if (*(self + OBJC_IVAR___CRXCPrescriptionRecord_enrollmentName + 8))
   {
-    v2 = *(self + OBJC_IVAR___CRXCPrescriptionRecord_enrollmentName);
-    v3 = *(self + OBJC_IVAR___CRXCPrescriptionRecord_enrollmentName + 8);
 
-    v4 = sub_247365C44();
+    v2 = sub_247365C44();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSDate)enrollmentDate
 {
   v3 = sub_247365B94();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR___CRXCPrescriptionRecord_enrollmentDate, v3);
-  v8 = sub_247365B54();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR___CRXCPrescriptionRecord_enrollmentDate, v3);
+  v7 = sub_247365B54();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal

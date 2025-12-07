@@ -18,14 +18,22 @@
 
 - (void)setWidth:(int)width
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v7);
-  WebCore::HTMLCanvasElement::setWidth(self->super.super.super.super._internal);
-  if (v6 == 1 && v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::HTMLCanvasElement::setWidth(&v6, self->super.super.super.super._internal);
+  if (v8 == 1)
   {
-    WTF::StringImpl::destroy(v5, v4);
+    v5 = v7;
+    v7 = 0;
+    if (v5)
+    {
+      if (atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v5, v4);
+      }
+    }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v7, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
 }
 
 - (int)height
@@ -38,14 +46,22 @@
 
 - (void)setHeight:(int)height
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v7);
-  WebCore::HTMLCanvasElement::setHeight(self->super.super.super.super._internal);
-  if (v6 == 1 && v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::HTMLCanvasElement::setHeight(&v6, self->super.super.super.super._internal);
+  if (v8 == 1)
   {
-    WTF::StringImpl::destroy(v5, v4);
+    v5 = v7;
+    v7 = 0;
+    if (v5)
+    {
+      if (atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v5, v4);
+      }
+    }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v7, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
 }
 
 - (id)toDataURL:(id)l

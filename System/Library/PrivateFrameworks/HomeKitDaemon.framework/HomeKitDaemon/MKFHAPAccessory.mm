@@ -5,7 +5,7 @@
 
 void __66___MKFHAPAccessory_maybeFixUpCharacteristicWriteActionsInContext___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 service];
 
@@ -18,9 +18,9 @@ void __66___MKFHAPAccessory_maybeFixUpCharacteristicWriteActionsInContext___bloc
     [v5 setPredicate:v8];
 
     v9 = *(a1 + 48);
-    v29 = 0;
-    v10 = [v9 executeFetchRequest:v5 error:&v29];
-    v11 = v29;
+    v28 = 0;
+    v10 = [v9 executeFetchRequest:v5 error:&v28];
+    v11 = v28;
     if (v10)
     {
       v12 = [v10 firstObject];
@@ -35,11 +35,11 @@ void __66___MKFHAPAccessory_maybeFixUpCharacteristicWriteActionsInContext___bloc
         {
           v18 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v31 = v18;
-          v32 = 2112;
-          v33 = v14;
-          v34 = 2112;
-          v35 = v3;
+          v30 = v18;
+          v31 = 2112;
+          v32 = v14;
+          v33 = 2112;
+          v34 = v3;
           _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Assigning matching service %@ to action: %@", buf, 0x20u);
         }
 
@@ -57,9 +57,9 @@ void __66___MKFHAPAccessory_maybeFixUpCharacteristicWriteActionsInContext___bloc
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v31 = v27;
-          v32 = 2112;
-          v33 = v3;
+          v30 = v27;
+          v31 = 2112;
+          v32 = v3;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@No matching characteristic for action: %@", buf, 0x16u);
         }
 
@@ -76,22 +76,20 @@ void __66___MKFHAPAccessory_maybeFixUpCharacteristicWriteActionsInContext___bloc
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v31 = v23;
-        v32 = 2112;
-        v33 = v11;
+        v30 = v23;
+        v31 = 2112;
+        v32 = v11;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch characteristics: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v20);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id __39___MKFHAPAccessory_hasRGCapableService__block_invoke(uint64_t a1, void *a2)
 {
-  v2 = [a2 serviceType];
+  v2 = objc_msgSend_serviceType(a2);
   v3 = [v2 UUIDString];
 
   return v3;

@@ -17,7 +17,7 @@
 
 - (NSString)wc_connectionBundleID
 {
-  [(NSXPCConnection *)self auditToken];
+  objc_msgSend_auditToken(self, a2);
   v11 = 0;
   v3 = [LSBundleRecord bundleRecordForAuditToken:v12 error:&v11];
   v4 = v11;

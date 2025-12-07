@@ -1,5 +1,6 @@
 @interface STActivityAttribution
 + (STActivityAttribution)attributionWithAuditToken:(id *)token;
++ (STActivityAttribution)attributionWithPID:(int)d;
 - ($115C4C562B26FF47E01F9F4EA65B5887)auditToken;
 - (BOOL)_isEquivalentForBookkeepingPurposesToActivityAttribution:(id)attribution;
 - (BOOL)isEqual:(id)equal;
@@ -55,7 +56,7 @@
   if (attributedEntity)
   {
     v6 = attributedEntity;
-    [attributedEntity auditToken];
+    objc_msgSend_auditToken(attributedEntity);
     attributedEntity = v6;
   }
 
@@ -77,6 +78,13 @@
   v6 = [v4 initWithAuditToken:v8];
 
   return v6;
+}
+
++ (STActivityAttribution)attributionWithPID:(int)d
+{
+  v3 = [[self alloc] initWithPID:*&d];
+
+  return v3;
 }
 
 - (STActivityAttribution)initWithAuditToken:(id *)token

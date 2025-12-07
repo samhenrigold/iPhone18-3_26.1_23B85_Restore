@@ -33,36 +33,36 @@
   controllerCopy = controller;
   settingsCopy = settings;
   shadowSettingsCopy = shadowSettings;
-  v14 = SBLogPIP();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = SBLogPIP();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    [SBPIPBackdropView initWithFrame:];
+    [(SBPIPBackdropView *)self initWithFrame:a2];
   }
 
-  v18.receiver = self;
-  v18.super_class = SBPIPStashableWrapperViewController;
-  v15 = [(SBPIPStashableWrapperViewController *)&v18 initWithNibName:0 bundle:0];
-  v16 = v15;
-  if (v15)
+  v19.receiver = self;
+  v19.super_class = SBPIPStashableWrapperViewController;
+  v16 = [(SBPIPStashableWrapperViewController *)&v19 initWithNibName:0 bundle:0];
+  v17 = v16;
+  if (v16)
   {
-    objc_storeStrong(&v15->_settings, settings);
-    objc_storeStrong(&v16->_shadowSettings, shadowSettings);
-    v16->_cornerRadiusMetric = radius;
-    objc_storeStrong(&v16->_contentViewController, controller);
-    v16->_stashTabHidden = 1;
-    [(SBPIPStashableWrapperViewController *)v16 setAccessibilityIdentifier:@"SBPIP-StashingContainerViewController"];
-    [(PTSettings *)v16->_shadowSettings addKeyPathObserver:v16];
+    objc_storeStrong(&v16->_settings, settings);
+    objc_storeStrong(&v17->_shadowSettings, shadowSettings);
+    v17->_cornerRadiusMetric = radius;
+    objc_storeStrong(&v17->_contentViewController, controller);
+    v17->_stashTabHidden = 1;
+    [(SBPIPStashableWrapperViewController *)v17 setAccessibilityIdentifier:@"SBPIP-StashingContainerViewController"];
+    [(PTSettings *)v17->_shadowSettings addKeyPathObserver:v17];
   }
 
-  return v16;
+  return v17;
 }
 
 - (void)dealloc
 {
-  v3 = SBLogPIP();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = SBLogPIP();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [SBPIPBackdropView initWithFrame:];
+    [(SBPIPBackdropView *)self initWithFrame:a2];
   }
 
   [(PTSettings *)self->_shadowSettings removeKeyPathObserver:self];
@@ -75,9 +75,9 @@
     [(UIViewController *)self->_contentViewController removeFromParentViewController];
   }
 
-  v5.receiver = self;
-  v5.super_class = SBPIPStashableWrapperViewController;
-  [(SBPIPStashableWrapperViewController *)&v5 dealloc];
+  v6.receiver = self;
+  v6.super_class = SBPIPStashableWrapperViewController;
+  [(SBPIPStashableWrapperViewController *)&v6 dealloc];
 }
 
 - (void)setStashed:(BOOL)stashed animated:(BOOL)animated
@@ -300,18 +300,18 @@ uint64_t __66__SBPIPStashableWrapperViewController__setStashProgress_animated___
   return [v4 setBlurProgress:v5];
 }
 
-uint64_t __66__SBPIPStashableWrapperViewController__setStashProgress_animated___block_invoke_2(uint64_t result)
+void *__66__SBPIPStashableWrapperViewController__setStashProgress_animated___block_invoke_2(void *result)
 {
   v10 = *MEMORY[0x277D85DE8];
   if (*(result + 56) == 1)
   {
     v1 = result;
-    if (*(result + 40) == *(*(result + 32) + 1080))
+    if (result[5] == *(result[4] + 1080))
     {
       v2 = SBLogPIP();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = NSStringFromSelector(*(v1 + 48));
+        v3 = NSStringFromSelector(v1[6]);
         v4 = 138543874;
         v5 = v3;
         v6 = 1024;
@@ -321,8 +321,8 @@ uint64_t __66__SBPIPStashableWrapperViewController__setStashProgress_animated___
         _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "[Layout] %{public}@:%d Stash view set %{public}@", &v4, 0x1Cu);
       }
 
-      [*(*(v1 + 32) + 1024) setHidden:1];
-      return [*(v1 + 32) _resetStashTabViewsIfPossible];
+      [*(v1[4] + 1024) setHidden:1];
+      return [v1[4] _resetStashTabViewsIfPossible];
     }
   }
 

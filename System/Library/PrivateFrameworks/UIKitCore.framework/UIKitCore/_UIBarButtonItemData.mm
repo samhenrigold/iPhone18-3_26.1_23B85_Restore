@@ -1393,9 +1393,9 @@ LABEL_11:
       goto LABEL_45;
     }
 
-    v10 = [(UIImage *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (!v10)
+    if (!isEqual)
     {
       goto LABEL_46;
     }
@@ -1416,7 +1416,7 @@ LABEL_11:
       goto LABEL_45;
     }
 
-    v13 = [(UIImage *)v6 isEqual:v12];
+    v13 = objc_msgSend_isEqual_(v6);
 
     if (!v13)
     {
@@ -1432,9 +1432,9 @@ LABEL_11:
   {
     if (v6 && v15)
     {
-      v16 = [(UIImage *)v6 isEqual:v15];
+      v16 = objc_msgSend_isEqual_(v6);
 
-      if (!v16)
+      if ((v16 & 1) == 0)
       {
         goto LABEL_46;
       }
@@ -1488,7 +1488,7 @@ LABEL_24:
         goto LABEL_45;
       }
 
-      v23 = [(UIImage *)v6 isEqual:v21];
+      v23 = objc_msgSend_isEqual_(v6);
 
       if (!v23)
       {
@@ -1521,7 +1521,7 @@ LABEL_24:
         goto LABEL_45;
       }
 
-      v27 = [(UIImage *)v6 isEqual:v25];
+      v27 = objc_msgSend_isEqual_(v6);
 
       if (!v27)
       {

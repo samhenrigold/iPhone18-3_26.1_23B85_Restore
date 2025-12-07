@@ -132,36 +132,36 @@
 - (id)_dosesDescription
 {
   selfCopy = self;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self)
   {
     string = [MEMORY[0x277CCAB68] string];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     doses = [selfCopy doses];
-    v4 = [doses countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [doses countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(doses);
           }
 
           v8 = MEMORY[0x277CCACA8];
-          v9 = [*(*(&v13 + 1) + 8 * i) description];
+          v9 = [*(*(&v12 + 1) + 8 * i) description];
           v10 = [v8 stringWithFormat:@"%@\n", v9];
           [string appendString:v10];
         }
 
-        v5 = [doses countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [doses countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -169,8 +169,6 @@
 
     selfCopy = [MEMORY[0x277CCACA8] stringWithString:string];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

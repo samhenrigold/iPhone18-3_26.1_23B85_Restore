@@ -21,6 +21,7 @@
 - (void)showParkedCarBulletinForEvent:(id)event;
 - (void)showParkedCarReplacementBulletinForEvent:(id)event replacingEvent:(id)replacingEvent;
 - (void)showPredictedRouteTrafficIncidentBulletinForCommuteDetails:(id)details;
+- (void)showTrafficIncidentAlertWithID:(id)d withReroute:(BOOL)reroute title:(id)title description:(id)description;
 - (void)showVenueBulletinWithTitle:(id)title message:(id)message actionURL:(id)l;
 @end
 
@@ -128,6 +129,16 @@
 {
   notificationCenter = [(MDState *)self->_state notificationCenter];
   [notificationCenter clearNotificationsOfType:6];
+}
+
+- (void)showTrafficIncidentAlertWithID:(id)d withReroute:(BOOL)reroute title:(id)title description:(id)description
+{
+  rerouteCopy = reroute;
+  dCopy = d;
+  titleCopy = title;
+  descriptionCopy = description;
+  notificationCenter = [(MDState *)self->_state notificationCenter];
+  v13 = [notificationCenter addTrafficIncidentAlertNotificationWithAlertID:dCopy withReroute:rerouteCopy title:titleCopy description:descriptionCopy];
 }
 
 - (void)clearTrafficIncidentBulletinWithAlertID:(id)d

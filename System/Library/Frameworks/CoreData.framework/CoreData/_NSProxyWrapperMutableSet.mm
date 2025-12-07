@@ -44,16 +44,13 @@
   objectCopy = object;
   if (self->_mutationMethods->_addObjectMethod)
   {
-    container = self->super._container;
 
     method_invoke();
   }
 
   else
   {
-    v5 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:&objectCopy count:1];
-    v6 = self->super._container;
-    addMethod = self->_mutationMethods->_addMethod;
+    v3 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:&objectCopy count:1];
     method_invoke();
   }
 }
@@ -76,60 +73,56 @@
 
 - (void)intersectSet:(id)set
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (self->_mutationMethods->_intersectMethod)
   {
-    container = self->super._container;
-    v6 = *MEMORY[0x1E69E9840];
 
     method_invoke();
   }
 
   else
   {
-    v7 = [(_NSNotifyingWrapperMutableSet *)self count];
-    if (v7)
+    v5 = [(_NSNotifyingWrapperMutableSet *)self count];
+    if (v5)
     {
-      v8 = v7;
-      if (v7 >= 0x201)
+      v6 = v5;
+      if (v5 >= 0x201)
       {
-        v9 = 1;
+        v7 = 1;
       }
 
       else
       {
-        v9 = v7;
+        v7 = v5;
       }
 
-      v10 = (8 * v9 + 15) & 0xFFFFFFFFFFFFFFF0;
-      v11 = v15 - v10;
-      if (v7 > 0x200)
+      v8 = (8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0;
+      v9 = v12 - v8;
+      if (v5 > 0x200)
       {
-        v11 = NSAllocateScannedUncollectable();
+        v9 = NSAllocateScannedUncollectable();
       }
 
       else
       {
-        bzero(v15 - v10, 8 * v7);
+        bzero(v12 - v8, 8 * v5);
       }
 
-      [(_NSNotifyingWrapperMutableSet *)self getObjects:v11];
-      for (i = 0; i != v8; ++i)
+      [(_NSNotifyingWrapperMutableSet *)self getObjects:v9];
+      for (i = 0; i != v6; ++i)
       {
-        v13 = *&v11[8 * i];
-        if (([set containsObject:v13] & 1) == 0)
+        v11 = *&v9[8 * i];
+        if (([set containsObject:v11] & 1) == 0)
         {
-          [(_NSProxyWrapperMutableSet *)self removeObject:v13];
+          [(_NSProxyWrapperMutableSet *)self removeObject:v11];
         }
       }
 
-      if (v8 >= 0x201)
+      if (v6 >= 0x201)
       {
-        NSZoneFree(0, v11);
+        NSZoneFree(0, v9);
       }
     }
-
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -152,7 +145,6 @@
 {
   if (self->_mutationMethods->_setMethod)
   {
-    container = self->super._container;
     method_invoke();
   }
 
@@ -167,16 +159,13 @@
   objectCopy = object;
   if (self->_mutationMethods->_removeObjectMethod)
   {
-    container = self->super._container;
 
     method_invoke();
   }
 
   else
   {
-    v5 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:&objectCopy count:1];
-    v6 = self->super._container;
-    removeMethod = self->_mutationMethods->_removeMethod;
+    v3 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:&objectCopy count:1];
     method_invoke();
   }
 }
@@ -185,7 +174,6 @@
 {
   if (self->_mutationMethods->_setMethod)
   {
-    container = self->super._container;
 
     method_invoke();
   }

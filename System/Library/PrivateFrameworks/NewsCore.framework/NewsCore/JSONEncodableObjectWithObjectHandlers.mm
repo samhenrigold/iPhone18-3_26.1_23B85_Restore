@@ -24,13 +24,13 @@ id ___fc_JSONEncodableObjectWithObjectHandlers_block_invoke_5(uint64_t a1, uint6
   return v9;
 }
 
-id ___fc_JSONEncodableObjectWithObjectHandlers_block_invoke_6(void *a1, void *a2, void *a3)
+id ___fc_JSONEncodableObjectWithObjectHandlers_block_invoke_6(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = a1[4];
-  v8 = (*(a1[5] + 16))();
-  v9 = _fc_JSONEncodableObjectWithObjectHandlers(v8, a1[6], a1[7], a1[5], a1[8], 1);
+  v7 = *(a1 + 32);
+  v8 = (*(*(a1 + 40) + 16))();
+  v9 = _fc_JSONEncodableObjectWithObjectHandlers(v8, *(a1 + 48), *(a1 + 56), *(a1 + 40), *(a1 + 64), 1);
   v10 = (*(v7 + 16))(v7, v9, v6);
   v11 = v10;
   if (v10)
@@ -40,7 +40,7 @@ id ___fc_JSONEncodableObjectWithObjectHandlers_block_invoke_6(void *a1, void *a2
 
   else
   {
-    v12 = (*(a1[4] + 16))();
+    v12 = (*(*(a1 + 32) + 16))();
   }
 
   v13 = v12;

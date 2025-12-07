@@ -66,7 +66,7 @@ void XlParserVisitor::visit(XlParserVisitor *this, XlGcw *a2)
 {
   *(this + 18) = (*(**(this + 2) + 40))(*(this + 2));
   *v3 = (*(**(this + 2) + 80))(*(this + 2));
-  operator new[](*v3);
+  operator new[](*v3, 0x1000C8077774924);
 }
 
 uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlInterfaceHdr *a2)
@@ -120,20 +120,20 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlList *a2)
   XlStringParser::parse((this + 8), *(this + 2), v5 + v4, (a2 + 136));
   if (v6)
   {
-    XlParserVisitor::parseListColumn(this, a2);
+    XlParserVisitor::parseListColumn(this, a2, 0, v5 + v4);
   }
 
   return XlParserVisitor::endRead(this, a2);
 }
 
-void sub_25D569218(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D569218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void);
+  v6 = va_arg(va2, void);
   ChAutoPtr<XlListColumn>::~ChAutoPtr(va2);
   ChAutoPtr<XlListColumn>::~ChAutoPtr(va);
   ChAutoPtr<XlListColumn>::~ChAutoPtr(va1);
@@ -252,7 +252,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlObjProj *a2)
   *(this + 18) = (*(**(this + 2) + 40))(*(this + 2));
   if (v4)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   return XlParserVisitor::endRead(this, a2);
@@ -271,7 +271,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlParamQry *a2)
   *(a2 + 13) = (*(**(this + 2) + 72))(*(this + 2));
   if (v4)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   return XlParserVisitor::endRead(this, a2);
@@ -315,12 +315,12 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlRecipName *a2)
   v7 = v5;
   if (v4)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   if (v5)
   {
-    operator new[](v5);
+    operator new[](v5, 0x1000C8077774924);
   }
 
   return XlParserVisitor::endRead(this, a2);
@@ -361,7 +361,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlSxDB *a2)
   *(a2 + 20) = v6;
   if (v6)
   {
-    operator new[](v6);
+    operator new[](v6, 0x1000C8077774924);
   }
 
   return XlParserVisitor::endRead(this, a2);
@@ -427,42 +427,42 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlSxEx *a2)
     if (v7 >= 1)
     {
       v14 = *(a2 + 9);
-      operator new[](v7);
+      operator new[](v7, 0x1000C8077774924);
     }
 
     v8 = *(a2 + 10);
     if (v8 >= 1)
     {
       v14 = *(a2 + 10);
-      operator new[](v8);
+      operator new[](v8, 0x1000C8077774924);
     }
 
     v9 = *(a2 + 11);
     if (v9 >= 1)
     {
       v14 = *(a2 + 11);
-      operator new[](v9);
+      operator new[](v9, 0x1000C8077774924);
     }
 
     v10 = *(a2 + 21);
     if (v10 >= 1)
     {
       v14 = *(a2 + 21);
-      operator new[](v10);
+      operator new[](v10, 0x1000C8077774924);
     }
 
     v11 = *(a2 + 22);
     if (v11 >= 1)
     {
       v14 = *(a2 + 22);
-      operator new[](v11);
+      operator new[](v11, 0x1000C8077774924);
     }
 
     v12 = *(a2 + 23);
     if (v12 >= 1)
     {
       v14 = *(a2 + 23);
-      operator new[](v12);
+      operator new[](v12, 0x1000C8077774924);
     }
   }
 
@@ -528,7 +528,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlSxIVd *a2)
   *(this + 18) = (*(**(this + 2) + 40))(*(this + 2));
   if ((v4 >> 1))
   {
-    operator new[](v4 & 0x1FFFE);
+    operator new[](v4 & 0x1FFFE, 0x1000C80BDFB0063);
   }
 
   XlSxIVd::setFieldIDTable(a2, *(this + 5), v4 >> 1);
@@ -593,7 +593,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlSXLineItem *a2, unsigne
   *(this + 5) = 0;
   if (v6 >= 1)
   {
-    operator new[](2 * v6);
+    operator new[](2 * v6, 0x1000C80BDFB0063);
   }
 
   result = XlSXLineItem::setViewItemIndexTable(a2, 0, v6);
@@ -698,7 +698,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlSxTbPg *a2)
   *(this + 18) = (*(**(this + 2) + 40))(*(this + 2));
   if ((v4 >> 1))
   {
-    operator new[](v4 & 0x1FFFE);
+    operator new[](v4 & 0x1FFFE, 0x1000C80BDFB0063);
   }
 
   XlSxIVd::setFieldIDTable(a2, *(this + 6), v4 >> 1);
@@ -812,7 +812,7 @@ void XlParserVisitor::visit(XlParserVisitor *this, XlUserBView *a2)
   *(a2 + 4) = (*(**(this + 2) + 96))(*(this + 2));
   *(a2 + 5) = (*(**(this + 2) + 96))(*(this + 2));
   v4 = 16;
-  operator new[](16);
+  operator new[](16, 0x1000C8077774924);
 }
 
 uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlXct *a2)
@@ -884,7 +884,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlRangeProtection *a2)
 LABEL_16:
     (*(**(this + 2) + 16))(*(this + 2), *(this + 18), 0);
     *(a2 + 66) = 0;
-    operator new[](*v14);
+    operator new[](*v14, 0x1000C8077774924);
   }
 
   v11 = v5 + v4;
@@ -898,7 +898,7 @@ LABEL_16:
   v13 = v11 - (*(**(this + 2) + 40))(*(this + 2));
   if (v13 >= 1)
   {
-    operator new[](v13);
+    operator new[](v13, 0x1000C8077774924);
   }
 
   XlRangeProtection::takePermissionContent(a2, 0, 0, v9);
@@ -913,7 +913,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlRevisionLogEntry *a2)
   *(this + 18) = (*(**(this + 2) + 40))(*(this + 2));
   if (v4)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   XlChartGelFrame::setBinaryData(a2, *(this + 3), 0);
@@ -927,7 +927,7 @@ void XlParserVisitor::visit(XlParserVisitor *this, XlRevisionInfo *a2)
   *(a2 + 4) = (*(**(this + 2) + 96))(*(this + 2));
   *(a2 + 10) = (*(**(this + 2) + 72))(*(this + 2));
   v4 = 16;
-  operator new[](16);
+  operator new[](16, 0x1000C8077774924);
 }
 
 uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlRevisionFileLock *a2)
@@ -937,7 +937,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlRevisionFileLock *a2)
   v6 = v4;
   if (v4)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   XlChartGelFrame::setBinaryData(a2, *(this + 3), 0);
@@ -970,9 +970,9 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlRevisionExclusive *a2)
   return XlParserVisitor::endRead(this, a2);
 }
 
-void sub_25D57011C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D57011C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ChAutoPtr<XlDXf>::~ChAutoPtr(va);
   _Unwind_Resume(a1);
 }
@@ -1013,7 +1013,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlRevisionCopy *a2)
   v6 = v4;
   if (v4)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   XlChartGelFrame::setBinaryData(a2, *(this + 3), 0);
@@ -1157,7 +1157,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlVertex *a2)
   return result;
 }
 
-uint64_t CsSimpleHeapVector<XlListColumn>::pushBack(void *a1, uint64_t *a2)
+void *CsSimpleHeapVector<XlListColumn>::pushBack(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -1176,7 +1176,7 @@ uint64_t CsSimpleHeapVector<XlListColumn>::pushBack(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[1] = result;
@@ -1418,7 +1418,7 @@ void XlPtg::XlPtg(uint64_t a1, int a2, int a3)
   v4 = (a3 + 2);
   *(a1 + 8) = a2;
   *(a1 + 12) = v4;
-  operator new[](v4);
+  operator new[](v4, 0x1000C8077774924);
 }
 
 uint64_t XlPtg::operator=(uint64_t a1, uint64_t a2)
@@ -1439,7 +1439,7 @@ uint64_t XlPtg::operator=(uint64_t a1, uint64_t a2)
       v4 = *(a2 + 12);
       *(a1 + 12) = v4;
       *(a1 + 16) = *(a2 + 16);
-      operator new[](v4);
+      operator new[](v4, 0x1000C8077774924);
     }
   }
 
@@ -1460,16 +1460,16 @@ char *XlPtg::clear(XlPtg *this)
   return result;
 }
 
-uint64_t XlPtg::addDataItem(XlPtg *this, unsigned int a2)
+char *XlPtg::addDataItem(XlPtg *this, unsigned int a2)
 {
   if (a2)
   {
     if (this->var0)
     {
-      operator new[](LOWORD(this->var2) + a2 + 2);
+      operator new[](LOWORD(this->var2) + a2 + 2, 0x1000C8077774924);
     }
 
-    operator new[](a2 + 2);
+    operator new[](a2 + 2, 0x1000C8077774924);
   }
 
   return 0;
@@ -1507,7 +1507,7 @@ uint64_t XlPtg::getLastExtendedDataLength(XlPtg *this)
   return result;
 }
 
-BOOL isRef3D(_BOOL8 result)
+uint64_t isRef3D(uint64_t result)
 {
   if (result)
   {
@@ -1524,7 +1524,7 @@ BOOL isRef3D(_BOOL8 result)
   return result;
 }
 
-BOOL isRef(_BOOL8 result)
+uint64_t isRef(uint64_t result)
 {
   if (result)
   {
@@ -1539,7 +1539,7 @@ BOOL isRef(_BOOL8 result)
   return result;
 }
 
-BOOL isArea3D(_BOOL8 result)
+uint64_t isArea3D(uint64_t result)
 {
   if (result)
   {
@@ -1556,7 +1556,7 @@ BOOL isArea3D(_BOOL8 result)
   return result;
 }
 
-BOOL isArea(_BOOL8 result)
+uint64_t isArea(uint64_t result)
 {
   if (result)
   {
@@ -1595,7 +1595,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t extractOcTextFromPtgStr(XlPtg *a1)
+OcText *extractOcTextFromPtgStr(XlPtg *a1)
 {
   if (!a1)
   {
@@ -1608,7 +1608,7 @@ uint64_t extractOcTextFromPtgStr(XlPtg *a1)
   return extractOcTextFromPtgStrBuffer(LastExtendedData);
 }
 
-uint64_t extractOcTextFromPtgStrBuffer(unsigned __int8 *a1)
+OcText *extractOcTextFromPtgStrBuffer(char *a1)
 {
   if (a1)
   {
@@ -1669,7 +1669,7 @@ LABEL_16:
       v10 = *v9;
       if (*v9)
       {
-        v9[1] = v10;
+        *(v9 + 1) = v10;
         operator delete(v10);
       }
 
@@ -1682,7 +1682,7 @@ LABEL_16:
   return result;
 }
 
-void XlStringParser::parseSize(XlStringParser *this, SsrwOOStream *a2)
+void XlStringParser::parseSize(XlStringParser *this, SsrwOOStream *a2, int a3)
 {
   if (*this == 1)
   {
@@ -2014,16 +2014,16 @@ void sub_25D5733C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t XlFormulaProcessor::push(uint64_t this)
+void *XlFormulaProcessor::push(void *this)
 {
-  v2 = *(this + 72);
-  v1 = *(this + 76);
+  v2 = *(this + 18);
+  v1 = *(this + 19);
   v3 = v1 + 1;
-  *(this + 76) = v1 + 1;
+  *(this + 19) = v1 + 1;
   if (v1 + 1 == v2)
   {
     v4 = v1 + 17;
-    *(this + 72) = v4;
+    *(this + 18) = v4;
     if (v3 < v4)
     {
       operator new();
@@ -2033,7 +2033,7 @@ uint64_t XlFormulaProcessor::push(uint64_t this)
   return this;
 }
 
-uint64_t XlFormulaProcessor::toString(uint64_t a1, uint64_t *a2, __int16 a3, __int16 a4)
+OcText *XlFormulaProcessor::toString(uint64_t a1, uint64_t *a2, __int16 a3, __int16 a4)
 {
   *(a1 + 168) = a3;
   *(a1 + 170) = a4;
@@ -2105,7 +2105,7 @@ LABEL_13:
         }
       }
 
-      operator new[](2 * (v12 + 2));
+      operator new[](2 * (v12 + 2), 0x1000C80BDFB0063);
     }
   }
 
@@ -2134,7 +2134,7 @@ uint64_t XlFormulaProcessor::processOperand(XlFormulaProcessor *this, XlPtg *a2)
       v33 = WcharToChCHAR2(v32, &unk_25D700610);
       CsString::append(v29, v33);
       OcTextFromPtgStr = extractOcTextFromPtgStr(a2);
-      CsString::append(*(*(this + 3) + 8 * *(this + 19)), *(OcTextFromPtgStr + 24), *(OcTextFromPtgStr + 16));
+      CsString::append(*(*(this + 3) + 8 * *(this + 19)), OcTextFromPtgStr->var5, OcTextFromPtgStr->var3);
       v35 = *(*(this + 3) + 8 * *(this + 19));
       v36 = _ChWcslenA(&unk_25D700610);
       MEMORY[0x28223BE20](v36);
@@ -2142,7 +2142,7 @@ uint64_t XlFormulaProcessor::processOperand(XlFormulaProcessor *this, XlPtg *a2)
       bzero(v38, v37 + 2);
       v39 = WcharToChCHAR2(v38, &unk_25D700610);
       CsString::append(v35, v39);
-      (*(*OcTextFromPtgStr + 8))(OcTextFromPtgStr);
+      (*(OcTextFromPtgStr->var0 + 1))(OcTextFromPtgStr);
       goto LABEL_32;
     case 24:
       if (*(this + 160))
@@ -2945,7 +2945,7 @@ uint64_t XlFormulaProcessor::errorToString(XlFormulaProcessor *this, int a2, CsS
 
   else if (a2 == 23)
   {
-    v5 = &unk_25D700718;
+    v5 = dword_25D700718;
   }
 
   else
@@ -3653,7 +3653,7 @@ void sub_25D576894(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t XlFunctionNameForId(__int16 a1, __int16 *a2)
+CsString *XlFunctionNameForId(__int16 a1, __int16 *a2)
 {
   *a2 = -1;
   __key[0] = a1;
@@ -4014,11 +4014,11 @@ void *XlBinaryReader::read(XlBinaryReader *this, XlInterfaceTable *a2)
   return result;
 }
 
-void sub_25D577A08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25D577A08(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4115,11 +4115,11 @@ void *XlBinaryReader::read(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_25D577FF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25D577FF0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4274,11 +4274,11 @@ uint64_t XlBinaryReader::read(XlBinaryReader *this, XlPivotTable *a2)
   return result;
 }
 
-void sub_25D57895C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25D57895C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4363,7 +4363,7 @@ uint64_t OcBinaryReader::mark(uint64_t a1, uint64_t a2)
   return v2();
 }
 
-uint64_t XlBinaryReader::seek(XlBinaryReader *this, const OcMark *a2)
+uint64_t XlBinaryReader::seek(OcBinaryReader *this, const OcMark *a2)
 {
   OcBinaryReader::seek(this, a2);
   {
@@ -4372,10 +4372,10 @@ uint64_t XlBinaryReader::seek(XlBinaryReader *this, const OcMark *a2)
   }
 
   v5 = v4[12];
-  v6 = *(**(this + 164) + 16);
-  v7 = *(this + 164);
+  v6 = *(*this[164].var0 + 2);
+  var0 = this[164].var0;
 
-  return v6(v7, v5, 0);
+  return v6(var0, v5, 0);
 }
 
 uint64_t OcBinaryReader::seek(uint64_t a1, uint64_t a2)
@@ -4429,8 +4429,8 @@ void virtual thunk toXlBinaryReader::seek(XlBinaryReader *this, const EshRoot *a
 
 XlBinaryReader *XlBinaryReader::read(XlBinaryReader *this, XlCellRow *a2)
 {
-  XlHeader::XlHeader(&v17);
-  result = XlCellRow::reset(a2);
+  XlHeader::XlHeader(&v18);
+  result = XlCellRow::reset(a2, v4);
   if ((*(this + 110) & 0x80000000) != 0)
   {
     result = XlBinaryReader::setSheet(this, 0);
@@ -4439,89 +4439,89 @@ XlBinaryReader *XlBinaryReader::read(XlBinaryReader *this, XlCellRow *a2)
   if ((*(this + 101) & 0x80000000) == 0)
   {
     result = (*(*this + 424))(this, *(a2 + 1));
-    v5 = *(*(a2 + 1) + 19);
+    v6 = *(*(a2 + 1) + 19);
     *(this + 101) = -1;
-    if (v5 == 1)
+    if (v6 == 1)
     {
 LABEL_5:
-      for (i = XlParserVisitor::getHeader(*(this + 167), &v17, *(this + 1320)); ; i = XlParserVisitor::skipAhead(*(this + 167), &v17, *(this + 1320)))
+      for (i = XlParserVisitor::getHeader(*(this + 167), &v18, *(this + 1320)); ; i = XlParserVisitor::skipAhead(*(this + 167), &v18, *(this + 1320)))
       {
-        if (v17.var1 != 215 && v17.var1 != 520)
+        if (v18.var1 != 215 && v18.var1 != 520)
         {
-          result = XlBinaryReader::isCell(i, &v17);
+          result = XlBinaryReader::isCell(i, &v18);
           if (!result)
           {
             break;
           }
         }
 
-        v7 = (*(**(this + 164) + 80))(*(this + 164));
+        v8 = (*(**(this + 164) + 80))(*(this + 164));
         result = (*(**(this + 164) + 16))(*(this + 164), 4294967294, 1);
-        if (v17.var1 != 215)
+        if (v18.var1 != 215)
         {
-          if (v17.var1 == 520)
+          if (v18.var1 == 520)
           {
             if ((*(this + 101) & 0x80000000) != 0)
             {
-              v8 = (*(**(this + 164) + 40))(*(this + 164));
-              *(this + 101) = v8 - XlParserVisitor::getRecordDataOffset(*(this + 167));
+              v9 = (*(**(this + 164) + 40))(*(this + 164));
+              *(this + 101) = v9 - XlParserVisitor::getRecordDataOffset(*(this + 167));
             }
           }
 
           else
           {
-            v9 = *(*(a2 + 1) + 8);
-            if (v7 > v9)
+            v10 = *(*(a2 + 1) + 8);
+            if (v8 > v10)
             {
               if ((*(this + 101) & 0x80000000) != 0)
               {
                 while (1)
                 {
-                  var1 = v17.var1;
-                  if (v17.var1 != 215)
+                  var1 = v18.var1;
+                  if (v18.var1 != 215)
                   {
-                    result = XlBinaryReader::isCell(result, &v17);
+                    result = XlBinaryReader::isCell(result, &v18);
                     if (!result)
                     {
                       break;
                     }
                   }
 
-                  result = XlParserVisitor::skipAhead(*(this + 167), &v17, *(this + 1320));
+                  result = XlParserVisitor::skipAhead(*(this + 167), &v18, *(this + 1320));
                 }
 
                 if (var1 == 520)
                 {
-                  v15 = (*(**(this + 164) + 40))(*(this + 164));
+                  v16 = (*(**(this + 164) + 40))(*(this + 164));
                   result = XlParserVisitor::getRecordDataOffset(*(this + 167));
-                  *(this + 101) = v15 - result;
+                  *(this + 101) = v16 - result;
                 }
               }
 
               return result;
             }
 
-            if (v7 >= v9)
+            if (v8 >= v10)
             {
-              v10 = (*(**(this + 166) + 16))(*(this + 166), 3);
-              if (!v10)
+              v11 = (*(**(this + 166) + 16))(*(this + 166), 3);
+              if (!v11)
               {
                 exception = __cxa_allocate_exception(4uLL);
                 *exception = 1001;
               }
 
-              v11 = *(this + 164);
+              v12 = *(this + 164);
               RecordDataOffset = XlParserVisitor::getRecordDataOffset(*(this + 167));
-              (*(*v11 + 16))(v11, -RecordDataOffset, 1);
-              XlBinaryReader::readCell(this, v10);
-              XlCellRow::takeCell(a2, v10);
+              (*(*v12 + 16))(v12, -RecordDataOffset, 1);
+              XlBinaryReader::readCell(this, v11);
+              XlCellRow::takeCell(a2, v11);
               while (*(this + 48))
               {
-                v13 = (*(**(this + 166) + 16))(*(this + 166), 3);
-                if (v13)
+                v14 = (*(**(this + 166) + 16))(*(this + 166), 3);
+                if (v14)
                 {
-                  XlBinaryReader::processCompressed(this, v13);
-                  XlCellRow::takeCell(a2, v13);
+                  XlBinaryReader::processCompressed(this, v14);
+                  XlCellRow::takeCell(a2, v14);
                 }
               }
 
@@ -4562,17 +4562,17 @@ uint64_t XlBinaryReader::read(uint64_t this, XlRowProperties *a2)
   return this;
 }
 
-BOOL XlBinaryReader::read(uint64_t a1)
+BOOL XlBinaryReader::read(OcBinaryReader *a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = (*(*a1 + 88))(a1);
-  v3[0] = XlBinaryReader::VBA_STORAGE;
-  v3[1] = unk_25D7061A6;
-  v4 = 0;
-  result = SsrwOOStorage::hasChild(v1, v3);
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = (*(a1->var0 + 11))(a1);
+  v4[0] = XlBinaryReader::VBA_STORAGE;
+  v4[1] = unk_25D7061A6;
+  v5 = 0;
+  result = SsrwOOStorage::hasChild(v2, v4);
   if (result)
   {
-    SsrwOOStorage::openStorage(v1, v3);
+    SsrwOOStorage::openStorage(v2, v4);
   }
 
   return result;
@@ -4610,7 +4610,7 @@ uint64_t OcBinaryReader::read(OcBinaryReader *this, EshObject *a2)
   return v4(v3, a2);
 }
 
-uint64_t CsSimpleHeapVector<XlList>::pushBack(void *a1, uint64_t *a2)
+void *CsSimpleHeapVector<XlList>::pushBack(void *a1, uint64_t *a2)
 {
   v2 = *a2;
   if (!*a2)
@@ -4629,7 +4629,7 @@ uint64_t CsSimpleHeapVector<XlList>::pushBack(void *a1, uint64_t *a2)
   else
   {
     *v5 = v2;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   a1[1] = result;
@@ -4700,12 +4700,12 @@ void sub_25D579D6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void XlMark::~XlMark(XlMark *this)
 {
   *this = &unk_286ED3238;
-  EshMark::~EshMark((this + 8));
+  EshMark::~EshMark(this + 8);
 }
 
 {
   *this = &unk_286ED3238;
-  EshMark::~EshMark((this + 8));
+  EshMark::~EshMark(this + 8);
 
   JUMPOUT(0x25F897000);
 }
@@ -4713,12 +4713,12 @@ void XlMark::~XlMark(XlMark *this)
 void OcMark::~OcMark(OcMark *this)
 {
   *this = &unk_286ED3238;
-  EshMark::~EshMark((this + 8));
+  EshMark::~EshMark(this + 8);
 }
 
 {
   *this = &unk_286ED3238;
-  EshMark::~EshMark((this + 8));
+  EshMark::~EshMark(this + 8);
 
   JUMPOUT(0x25F897000);
 }
@@ -4987,14 +4987,16 @@ SsrwOOStream **XlStringExtractor::setStringLocation(SsrwOOStream **this, int a2,
       if (*(var0 + v4 + 4) == -1)
       {
         v6 = *(var0 + v4);
-        if (XlStringExtractor::tableChunkBoundary(this, *(var0 + v4)) == -1)
+        v7 = XlStringExtractor::tableChunkBoundary(this, *(var0 + v4));
+        if (v7 == -1)
         {
           v6 = (v6 + 4);
-          XlStringExtractor::tableChunkBoundary(v3, v6);
+          v7 = XlStringExtractor::tableChunkBoundary(v3, v6);
         }
 
+        v8 = v7;
         (*(v3[2]->var0 + 2))(v3[2], v6, 0);
-        XlStringParser::parseSize((v3 + 1), v3[2]);
+        XlStringParser::parseSize((v3 + 1), v3[2], v8);
       }
 
       v4 += 4;
@@ -5142,10 +5144,10 @@ uint64_t XlStreamer::replaceGarbledRecordData(OCCBinaryStreamer *this, const XlH
   {
     if (var1 == 133)
     {
-      OCCBinaryStreamer::replaceGarbledBytes(this, v6, a3);
+      OCCBinaryStreamer::replaceGarbledBytes(this, v6, a3, 4u);
     }
 
-    OCCBinaryStreamer::replaceGarbledBytes(this, v6, a3);
+    OCCBinaryStreamer::replaceGarbledBytes(this, v6, a3, a2->var0);
   }
 
   return 1;
@@ -5226,7 +5228,7 @@ uint64_t XlStreamer::replaceGarbledBytesInStream(OCCBinaryStreamer *this, SsrwOO
   {
     v6 = (*(*v4 + 40))(v4);
     v7 = (*(*this[1].var0 + 78))();
-    OCCBinaryStreamer::replaceGarbledBytes(this, v7, a2, v6);
+    OCCBinaryStreamer::replaceGarbledBytes(this, v7, a2, v6, 4u);
   }
 
   return 1;
@@ -5717,16 +5719,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -5749,9 +5751,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_25D57C440(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_25D57C440(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x25F896F30](&a10);
+  MEMORY[0x25F896F30](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -6056,9 +6058,9 @@ void sub_25D57EA64(void *exc_buf, int a2)
   JUMPOUT(0x25D57E8D8);
 }
 
-void sub_25D57F5D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D57F5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WrdDOPTypography::~WrdDOPTypography(va);
 
   _Unwind_Resume(a1);
@@ -6349,10 +6351,10 @@ void sub_25D582C80(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   _Unwind_Resume(exc_buf);
 }
 
-void sub_25D582EE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D582EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v7 = v5;
+  va_start(va, a3);
+  v8 = v6;
 
   WBParagraphReadState::~WBParagraphReadState(va);
   _Unwind_Resume(a1);
@@ -6390,22 +6392,24 @@ void WBParagraphReadState::~WBParagraphReadState(WBParagraphReadState *this)
   }
 }
 
-void sub_25D585360(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
+void sub_25D585360(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  WrdPictureProperties::~WrdPictureProperties(&a24);
+  va_start(va, a23);
+
+  WrdPictureProperties::~WrdPictureProperties(va);
   if (a2 == 3)
   {
-    v28 = __cxa_begin_catch(a1);
-    WBConvertCsException(v28);
+    v27 = __cxa_begin_catch(a1);
+    WBConvertCsException(v27);
     __cxa_end_catch();
   }
 
   else
   {
-    v29 = __cxa_begin_catch(a1);
+    v28 = __cxa_begin_catch(a1);
     if (a2 == 2)
     {
-      [v29 raise];
+      [v28 raise];
     }
 
     else
@@ -6446,7 +6450,7 @@ void sub_25D585F14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<WBTextBoxReaderInfo>::push_back[abi:ne200100](void *a1, uint64_t a2)
+uint64_t std::vector<WBTextBoxReaderInfo>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -6459,7 +6463,7 @@ uint64_t std::vector<WBTextBoxReaderInfo>::push_back[abi:ne200100](void *a1, uin
     v4 = *a2;
     *a2 = 0;
     *v3 = v4;
-    *(v3 + 8) = *(a2 + 8);
+    *(v3 + 8) = *(a2 + 4);
     result = v3 + 16;
   }
 
@@ -6493,7 +6497,7 @@ void std::vector<WBTextBoxReaderInfo>::__destroy_vector::operator()[abi:ne200100
   }
 }
 
-uint64_t std::vector<WBTextBoxReaderInfo>::__emplace_back_slow_path<WBTextBoxReaderInfo>(void *a1, uint64_t *a2)
+uint64_t std::vector<WBTextBoxReaderInfo>::__emplace_back_slow_path<WBTextBoxReaderInfo>(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -6543,9 +6547,9 @@ uint64_t std::vector<WBTextBoxReaderInfo>::__emplace_back_slow_path<WBTextBoxRea
   return v14;
 }
 
-void sub_25D586760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25D586760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<WBTextBoxReaderInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6688,17 +6692,17 @@ void sub_25D587E44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void transparentWhite(void)
+void transparentWhite(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_27FC68DD8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27FC68DD8, memory_order_acquire) & 1) == 0)
   {
     transparentWhite();
   }
 }
 
-void transparentBlack(void)
+void transparentBlack(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_27FC68DE8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27FC68DE8, memory_order_acquire) & 1) == 0)
   {
     transparentBlack();
   }
@@ -7059,7 +7063,7 @@ uint64_t WDTableCellPropertiesValues::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_25D5B6568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_25D5B6568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -7073,7 +7077,7 @@ uint64_t __Block_byref_object_copy__23(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t readEnumProperty<WDBorderStyle>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDBorderStyle>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -7109,7 +7113,7 @@ LABEL_7:
   return v14;
 }
 
-uint64_t readEnumProperty<WDLigatures>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDLigatures>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -7145,7 +7149,7 @@ LABEL_7:
   return v14;
 }
 
-uint64_t readEnumProperty<WDHighlightColor>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDHighlightColor>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7183,7 +7187,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDCharacterVerticalAlign>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDCharacterVerticalAlign>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7221,7 +7225,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDCharacterEmphasisMark>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDCharacterEmphasisMark>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7259,7 +7263,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDTwoLineBrackets>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDTwoLineBrackets>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7409,7 +7413,7 @@ void sub_25D5BC2A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t readEnumProperty<WDNumberFormat>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDNumberFormat>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7447,7 +7451,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDNoteRestart>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDNoteRestart>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7485,7 +7489,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDNotePosition>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDNotePosition>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7530,7 +7534,7 @@ void __cxx_global_array_dtor_14_0()
   }
 }
 
-uint64_t readEnumProperty<WDFontFamily>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDFontFamily>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7568,7 +7572,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDCharacterSet>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDCharacterSet>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7606,7 +7610,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDFontPitch>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDFontPitch>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7665,7 +7669,7 @@ void __cxx_global_array_dtor_149_0()
   }
 }
 
-uint64_t readEnumProperty<WDListType>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDListType>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7703,7 +7707,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDListLevelSuffix>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDListLevelSuffix>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7741,7 +7745,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDJustification>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDJustification>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7813,7 +7817,7 @@ void sub_25D5C101C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t readEnumProperty<WDATextWrappingModeType>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDATextWrappingModeType>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -7870,7 +7874,7 @@ void sub_25D5C3CFC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t readEnumProperty<WDHeightRule>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDHeightRule>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7908,7 +7912,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDHorizontalAnchor>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDHorizontalAnchor>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7946,7 +7950,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDVerticalAnchor>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDVerticalAnchor>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -7984,7 +7988,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<char>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _BYTE *a5, void *a6)
+uint64_t readEnumProperty<char>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, _BYTE *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8022,7 +8026,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDLineSpacingRule>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDLineSpacingRule>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8060,7 +8064,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDDropCapStyle>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDDropCapStyle>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8197,7 +8201,7 @@ void sub_25D5C8B44(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t readEnumProperty<WDTextDirection>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDTextDirection>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8235,7 +8239,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDSectionBreakType>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDSectionBreakType>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8273,7 +8277,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDPageOrientation>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDPageOrientation>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8311,7 +8315,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDPageBorderDepth>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDPageBorderDepth>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8349,7 +8353,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDPageBorderDisplay>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDPageBorderDisplay>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8387,7 +8391,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDPageBorderOffset>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDPageBorderOffset>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8425,7 +8429,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDLineNumberRestart>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDLineNumberRestart>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8463,7 +8467,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDVerticalJustification>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDVerticalJustification>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8501,7 +8505,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDChapterNumberSeparator>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDChapterNumberSeparator>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8595,7 +8599,7 @@ void sub_25D5CB5E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t readEnumProperty<WDShadingStyle>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDShadingStyle>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -8631,7 +8635,7 @@ LABEL_7:
   return v14;
 }
 
-uint64_t readEnumProperty<WDStyleType>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDStyleType>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -8667,7 +8671,7 @@ LABEL_7:
   return v14;
 }
 
-uint64_t readEnumProperty<WDTableStylePart>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDTableStylePart>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -8710,10 +8714,10 @@ void __cxx_global_array_dtor_47_1()
   }
 }
 
-uint64_t std::vector<long,ChAllocator<long>>::__emplace_back_slow_path<long const&>(uint64_t a1, void *a2)
+uint64_t *std::vector<long,ChAllocator<long>>::__emplace_back_slow_path<long const&>(uint64_t **a1, void *a2)
 {
-  v4 = *(a1 + 8) - *a1;
-  v5 = (*(a1 + 16) - *a1) >> 3;
+  v4 = a1[1] - *a1;
+  v5 = (a1[2] - *a1) >> 3;
   if (2 * v5 <= (v4 >> 3) + 1)
   {
     v6 = (v4 >> 3) + 1;
@@ -8746,7 +8750,7 @@ uint64_t std::vector<long,ChAllocator<long>>::__emplace_back_slow_path<long cons
   v12 = (v4 & 0x7FFFFFFF8) + 8;
   v13 = 0;
   std::vector<long,ChAllocator<long>>::__swap_out_circular_buffer(a1, &__p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v12 != v11)
   {
     v12 += (v11 - v12 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -8881,7 +8885,7 @@ LABEL_17:
   return v19;
 }
 
-uint64_t readEnumProperty<WDVerticalAlignment>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDVerticalAlignment>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8919,7 +8923,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDTableWidthType>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDTableWidthType>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -8957,7 +8961,7 @@ LABEL_7:
   return v19;
 }
 
-uint64_t readEnumProperty<WDVerticalAnchor>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDVerticalAnchor>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -8993,7 +8997,7 @@ LABEL_7:
   return v14;
 }
 
-uint64_t readEnumProperty<WDHorizontalAnchor>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDHorizontalAnchor>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -9029,7 +9033,7 @@ LABEL_7:
   return v14;
 }
 
-uint64_t readEnumProperty<WDVerticalPosition>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDVerticalPosition>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -9065,7 +9069,7 @@ LABEL_7:
   return v14;
 }
 
-uint64_t readEnumProperty<WDHorizontalPosition>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDHorizontalPosition>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -9129,7 +9133,7 @@ void __cxx_global_array_dtor_56_1()
   }
 }
 
-uint64_t readEnumProperty<WDHeightType>(_xmlNode *a1, const char *a2, const xmlChar *a3, void *a4, _DWORD *a5, void *a6)
+uint64_t readEnumProperty<WDHeightType>(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, void *a4, unsigned int *a5, void *a6)
 {
   v11 = a4;
   v12 = [a6 WXMainNamespace];
@@ -9167,7 +9171,7 @@ LABEL_7:
   return v19;
 }
 
-BOOL wmxmlGetBoolOnlyProperty(_xmlNode *a1, const char *a2, const xmlChar *a3, BOOL *a4, WXReadState *a5)
+BOOL wmxmlGetBoolOnlyProperty(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, BOOL *a4, WXReadState *a5)
 {
   v9 = [(WXReadState *)a5 WXMainNamespace];
   v10 = OCXFindChild(a1, v9, a2);
@@ -9181,7 +9185,7 @@ BOOL wmxmlGetBoolOnlyProperty(_xmlNode *a1, const char *a2, const xmlChar *a3, B
   return v10 != 0;
 }
 
-uint64_t wmxmlGetBoolProperty(_xmlNode *a1, const char *a2, const xmlChar *a3, BOOL *a4, WXReadState *a5)
+uint64_t wmxmlGetBoolProperty(_xmlNode *a1, xmlChar *a2, const xmlChar *a3, BOOL *a4, WXReadState *a5)
 {
   v9 = [(WXReadState *)a5 WXMainNamespace];
   v10 = OCXFindChild(a1, v9, a2);
@@ -9203,7 +9207,7 @@ id wmxmlGetAuthorProperty(_xmlNode *a1)
   v1 = v4;
   if (!v1)
   {
-    v2 = TCBundle();
+    v2 = TCBundle(0);
     v1 = [v2 localizedStringForKey:@"Unknown" value:&stru_286EE1130 table:@"TCCompatibility"];
   }
 
@@ -9225,7 +9229,7 @@ id wmxmlGetDateProperty(_xmlNode *a1)
   return v3;
 }
 
-uint64_t readEnumProperty<WDATextWrappingMode>(const xmlNode *a1, const xmlChar *a2, void *a3, _DWORD *a4)
+uint64_t readEnumProperty<WDATextWrappingMode>(const xmlNode *a1, const xmlChar *a2, void *a3, unsigned int *a4)
 {
   v7 = a3;
   v8 = v7;
@@ -9303,10 +9307,10 @@ void __cxx_global_array_dtor_196_0()
   }
 }
 
-void sub_25D5D7B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D5D7B4C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = WXReadState;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9640,7 +9644,7 @@ LABEL_6:
 
     v7 = v2;
     v8 = &v7;
-    v6 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v7)[5];
+    v6 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v7, &std::piecewise_construct, &v8)[5];
     if (v6)
     {
       (*(*v6 + 8))(v6);
@@ -9648,7 +9652,7 @@ LABEL_6:
 
     v7 = v2;
     v8 = &v7;
-    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v7)[5] = 0;
+    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v7, &std::piecewise_construct, &v8)[5] = 0;
 LABEL_11:
     ++v2;
   }
@@ -9701,7 +9705,7 @@ LABEL_5:
 
   v5 = a2;
   v6 = &v5;
-  return std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v5)[5];
+  return std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v5, &std::piecewise_construct, &v6)[5];
 }
 
 double WrdAutoSummaryInfo::operator=(uint64_t a1, uint64_t a2)
@@ -9735,19 +9739,19 @@ void WrdBinTable::~WrdBinTable(WrdBinTable *this)
   }
 }
 
-void std::vector<unsigned int,ChAllocator<unsigned int>>::resize(void *a1, unsigned int a2)
+void std::vector<unsigned int,ChAllocator<unsigned int>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<unsigned int,ChAllocator<unsigned int>>::__append(a1, v4);
+    std::vector<unsigned int,ChAllocator<unsigned int>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 4 * a2;
+    result[1] = *result + 4 * a2;
   }
 }
 

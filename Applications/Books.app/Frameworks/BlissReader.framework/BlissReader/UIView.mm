@@ -322,7 +322,7 @@
   layer = [(UIView *)self layer];
   if (layer)
   {
-    [(CALayer *)layer transformToScale:scale aroundBoundsPoint:v8 afterOffset:v7, x, y];
+    objc_msgSend_transformToScale_aroundBoundsPoint_afterOffset_(layer, scale, v8, v7, x, y);
   }
 
   else
@@ -348,7 +348,7 @@
   layer = [(UIView *)self layer];
   if (layer)
   {
-    [(CALayer *)layer transformToScale:scale aroundAnchorPoint:v8 afterOffset:v7, x, y];
+    objc_msgSend_transformToScale_aroundAnchorPoint_afterOffset_(layer, scale, v8, v7, x, y);
   }
 
   else

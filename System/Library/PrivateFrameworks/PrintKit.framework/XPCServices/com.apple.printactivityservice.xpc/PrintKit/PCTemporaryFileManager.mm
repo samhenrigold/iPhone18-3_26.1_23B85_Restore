@@ -4,6 +4,10 @@
 + (id)createTemporaryFileWithFilename:(id)filename;
 + (id)createTemporaryFileWithFilename:(id)filename inDirectory:(id)directory;
 + (id)createUniqueDirectoryInDirectory:(id)directory;
++ (id)proposedFileURLForFilename:(id)filename atTheRootOfDirectory:(id)directory isDirectory:(BOOL)isDirectory;
++ (id)proposedFileURLForFilename:(id)filename inDirectory:(id)directory isDirectory:(BOOL)isDirectory;
++ (id)proposedSharedTemporaryFileURLForFilename:(id)filename isDirectory:(BOOL)directory;
++ (id)proposedTemporaryFileURLForFilename:(id)filename isDirectory:(BOOL)directory;
 + (id)sharedAppGroupDirectoryURL;
 + (id)sharedTemporaryDirectoryURL;
 + (id)temporaryDirectoryURL;
@@ -288,6 +292,87 @@
   }
 
   return v10;
+}
+
++ (id)proposedFileURLForFilename:(id)filename inDirectory:(id)directory isDirectory:(BOOL)isDirectory
+{
+  isDirectoryCopy = isDirectory;
+  filenameCopy = filename;
+  directoryCopy = directory;
+  v10 = [directoryCopy URLByAppendingPathComponent:filenameCopy isDirectory:isDirectoryCopy];
+  if (v10)
+  {
+    v11 = +[NSFileManager defaultManager];
+    path = [v10 path];
+    v13 = [v11 fileExistsAtPath:path];
+
+    if (v13)
+    {
+      v14 = [self createUniqueDirectoryInDirectory:directoryCopy];
+      v15 = [v14 URLByAppendingPathComponent:filenameCopy isDirectory:isDirectoryCopy];
+
+      v10 = v15;
+    }
+  }
+
+  return v10;
+}
+
++ (id)proposedFileURLForFilename:(id)filename atTheRootOfDirectory:(id)directory isDirectory:(BOOL)isDirectory
+{
+  isDirectoryCopy = isDirectory;
+  filenameCopy = filename;
+  directoryCopy = directory;
+  v9 = [directoryCopy URLByAppendingPathComponent:filenameCopy isDirectory:isDirectoryCopy];
+  if (v9)
+  {
+    v10 = 2;
+    do
+    {
+      v11 = +[NSFileManager defaultManager];
+      path = [v9 path];
+      v13 = [v11 fileExistsAtPath:path];
+
+      if (!v13)
+      {
+        break;
+      }
+
+      v14 = directoryCopy;
+      v15 = filenameCopy;
+      v16 = [NSString stringWithFormat:@"-%lu", v10];
+      v17 = [v15 stringByAppendingString:v16];
+
+      v18 = [v14 URLByAppendingPathComponent:v17 isDirectory:isDirectoryCopy];
+
+      ++v10;
+      v9 = v18;
+    }
+
+    while (v18);
+  }
+
+  return v9;
+}
+
++ (id)proposedTemporaryFileURLForFilename:(id)filename isDirectory:(BOOL)directory
+{
+  directoryCopy = directory;
+  filenameCopy = filename;
+  temporaryDirectoryURL = [self temporaryDirectoryURL];
+  v8 = [self proposedFileURLForFilename:filenameCopy inDirectory:temporaryDirectoryURL isDirectory:directoryCopy];
+
+  return v8;
+}
+
++ (id)proposedSharedTemporaryFileURLForFilename:(id)filename isDirectory:(BOOL)directory
+{
+  directoryCopy = directory;
+  filenameCopy = filename;
+  sharedTemporaryDirectoryURL = [self sharedTemporaryDirectoryURL];
+  v8 = [self proposedFileURLForFilename:filenameCopy inDirectory:sharedTemporaryDirectoryURL isDirectory:directoryCopy];
+
+  return v8;
 }
 
 + (id)createTemporaryDirectoryWithFilename:(id)filename inDirectory:(id)directory

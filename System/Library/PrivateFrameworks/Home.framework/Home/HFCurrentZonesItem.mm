@@ -32,7 +32,7 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277D2C900]);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   room = [(HFCurrentZonesItem *)self room];
@@ -82,16 +82,14 @@
   [dictionary setObject:firstObject forKeyedSubscript:@"description"];
 LABEL_10:
 
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = objc_opt_class();
+  v20[1] = objc_opt_class();
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   [dictionary setObject:v17 forKeyedSubscript:@"dependentHomeKitClasses"];
 
   [dictionary setObject:v8 forKeyedSubscript:@"HFCurrentZonesResultKey"];
   v18 = [HFItemUpdateOutcome outcomeWithResults:dictionary];
   [v4 finishWithResult:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

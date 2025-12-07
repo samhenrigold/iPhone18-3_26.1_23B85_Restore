@@ -190,7 +190,7 @@ LABEL_26:
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedAccountsConfig];
   if (!mEMORY[0x1E698C968])
@@ -204,9 +204,9 @@ LABEL_26:
     v8 = objc_opt_class();
     v9 = AMSLogKey();
     *buf = 138543618;
-    v23 = v8;
-    v24 = 2114;
-    v25 = v9;
+    v22 = v8;
+    v23 = 2114;
+    v24 = v9;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Paid Downloads toggled", buf, 0x16u);
   }
 
@@ -229,21 +229,19 @@ LABEL_26:
   v16 = [v11 initWithAccount:account freeSetting:freeSetting paidSetting:paidSetting delegate:self bag:createBagForSubProfile];
 
   performSync = [v16 performSync];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke;
-  v20[3] = &unk_1E7F255A0;
-  v20[4] = self;
-  v21 = pathCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke;
+  v19[3] = &unk_1E7F255A0;
+  v19[4] = self;
+  v20 = pathCopy;
   v18 = pathCopy;
-  [performSync addFinishBlock:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [performSync addFinishBlock:v19];
 }
 
 void __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E698C968] sharedAccountsConfig];
   v6 = v5;
   if (a3)
@@ -256,36 +254,33 @@ void __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath
     v7 = [v6 OSLogObject];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = AMSLogKey();
+      v8 = objc_opt_class();
+      v9 = AMSLogKey();
       *buf = 138543618;
-      v24 = v9;
-      v25 = 2114;
-      v26 = v10;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v9;
       _os_log_impl(&dword_1BB036000, v7, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Paid Downloads sync failed - Toggling back", buf, 0x16u);
     }
 
-    v11 = [*(a1 + 32) paidSetting];
-    v12 = *(a1 + 32);
-    if (v11 == 1)
+    if ([*(a1 + 32) paidSetting] == 1)
     {
-      v13 = 2;
+      v10 = 2;
     }
 
     else
     {
-      v13 = 1;
+      v10 = 1;
     }
 
-    [*(a1 + 32) setPaidSetting:v13];
+    [*(a1 + 32) setPaidSetting:v10];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke_38;
     block[3] = &unk_1E7F243C0;
-    v14 = *(a1 + 40);
+    v11 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v22 = v14;
+    v17 = v11;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
@@ -296,28 +291,25 @@ void __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath
       v6 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v15 = [v6 OSLogObject];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v12 = [v6 OSLogObject];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
-      v18 = AMSLogKey();
+      v13 = objc_opt_class();
+      v14 = AMSLogKey();
       *buf = 138543618;
-      v24 = v17;
-      v25 = 2114;
-      v26 = v18;
-      _os_log_impl(&dword_1BB036000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Paid Downloads Success", buf, 0x16u);
+      v19 = v13;
+      v20 = 2114;
+      v21 = v14;
+      _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Paid Downloads Success", buf, 0x16u);
     }
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke_41;
-    v20[3] = &unk_1E7F242D0;
-    v20[4] = *(a1 + 32);
-    dispatch_async(MEMORY[0x1E69E96A0], v20);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke_41;
+    v15[3] = &unk_1E7F242D0;
+    v15[4] = *(a1 + 32);
+    dispatch_async(MEMORY[0x1E69E96A0], v15);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke_38(uint64_t a1)
@@ -362,7 +354,7 @@ void __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath
 - (void)freeDownloadsToggle:(id)toggle changedValue:(BOOL)value
 {
   valueCopy = value;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   toggleCopy = toggle;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedAccountsConfig];
   if (!mEMORY[0x1E698C968])
@@ -376,9 +368,9 @@ void __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath
     v9 = objc_opt_class();
     v10 = AMSLogKey();
     *buf = 138543618;
-    v24 = v9;
-    v25 = 2114;
-    v26 = v10;
+    v23 = v9;
+    v24 = 2114;
+    v25 = v10;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Free Downloads toggled", buf, 0x16u);
   }
 
@@ -401,21 +393,19 @@ void __73__AMSUIPasswordSettingsViewController_tableView_didSelectRowAtIndexPath
   v17 = [v12 initWithAccount:account freeSetting:freeSetting paidSetting:paidSetting delegate:self bag:createBagForSubProfile];
 
   performSync = [v17 performSync];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __72__AMSUIPasswordSettingsViewController_freeDownloadsToggle_changedValue___block_invoke;
-  v21[3] = &unk_1E7F255A0;
-  v21[4] = self;
-  v22 = toggleCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __72__AMSUIPasswordSettingsViewController_freeDownloadsToggle_changedValue___block_invoke;
+  v20[3] = &unk_1E7F255A0;
+  v20[4] = self;
+  v21 = toggleCopy;
   v19 = toggleCopy;
-  [performSync addFinishBlock:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [performSync addFinishBlock:v20];
 }
 
 void __72__AMSUIPasswordSettingsViewController_freeDownloadsToggle_changedValue___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E698C968] sharedAccountsConfig];
   v6 = v5;
   if (a3)
@@ -428,14 +418,13 @@ void __72__AMSUIPasswordSettingsViewController_freeDownloadsToggle_changedValue_
     v7 = [v6 OSLogObject];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = AMSLogKey();
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v10;
-      _os_log_impl(&dword_1BB036000, v7, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Free Download sync failed - Toggling back", &v16, 0x16u);
+      v8 = objc_opt_class();
+      v9 = AMSLogKey();
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v9;
+      _os_log_impl(&dword_1BB036000, v7, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Free Download sync failed - Toggling back", &v13, 0x16u);
     }
 
     [*(a1 + 40) setOn:{objc_msgSend(*(a1 + 40), "isOn") ^ 1}];
@@ -448,21 +437,18 @@ void __72__AMSUIPasswordSettingsViewController_freeDownloadsToggle_changedValue_
       v6 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v11 = [v6 OSLogObject];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = [v6 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 32);
-      v13 = objc_opt_class();
-      v14 = AMSLogKey();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v14;
-      _os_log_impl(&dword_1BB036000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Free Downloads Success", &v16, 0x16u);
+      v11 = objc_opt_class();
+      v12 = AMSLogKey();
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v12;
+      _os_log_impl(&dword_1BB036000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Free Downloads Success", &v13, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAuthenticateRequest:(id)request completion:(id)completion

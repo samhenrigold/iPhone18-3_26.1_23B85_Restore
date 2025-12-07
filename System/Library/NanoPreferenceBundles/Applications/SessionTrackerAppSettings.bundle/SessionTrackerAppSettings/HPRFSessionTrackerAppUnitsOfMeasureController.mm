@@ -21,6 +21,8 @@
 - (void)_trackUnitSelected:(int64_t)selected;
 - (void)dealloc;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFSessionTrackerAppUnitsOfMeasureController
@@ -72,6 +74,26 @@
   v4.receiver = self;
   v4.super_class = HPRFSessionTrackerAppUnitsOfMeasureController;
   [(HPRFSessionTrackerAppUnitsOfMeasureController *)&v4 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = HPRFSessionTrackerAppUnitsOfMeasureController;
+  [(HPRFSessionTrackerAppUnitsOfMeasureController *)&v3 viewWillAppear:appear];
+  +[HPRFSessionTrackerAppSettingsNavigationDonation donateUserVisitForUnitsOfMeasureSettings];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(_HKWheelchairUseCharacteristicCache *)self->_wheelchairUseCharacteristicCache addObserver:self];
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 addObserver:self selector:"_handleFitnessUnitPreferencesDidChange" name:kFIUIFitnessUnitPreferencesDidChangeNotification object:0];
+
+  v6.receiver = self;
+  v6.super_class = HPRFSessionTrackerAppUnitsOfMeasureController;
+  [(HPRFSessionTrackerAppUnitsOfMeasureController *)&v6 viewDidAppear:appearCopy];
 }
 
 - (void)_handleFitnessUnitPreferencesDidChange

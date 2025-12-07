@@ -9,6 +9,7 @@
 - (void)_reconnectObserver;
 - (void)dealloc;
 - (void)forwardInvocation:(id)invocation;
+- (void)noteServerConnectionStateChanged:(BOOL)changed;
 - (void)setDelegate:(id)delegate;
 - (void)setObserverFeed:(unint64_t)feed;
 @end
@@ -112,6 +113,33 @@
   actualObserverLock = self->_actualObserverLock;
 
   [(NSLock *)actualObserverLock unlock];
+}
+
+- (void)noteServerConnectionStateChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = blt_general_log(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = changedCopy;
+    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor noteServerConnectionStateChanged connected: %{BOOL}u", v8, 8u);
+  }
+
+  if (!changedCopy)
+  {
+    [(BLTBBObserver *)self _reconnectObserver];
+  }
+
+  [(NSLock *)self->_actualObserverLock lock];
+  v6 = self->_actualObserver;
+  [(NSLock *)self->_actualObserverLock unlock];
+  actualDelegate = [(BLTBBObserverDelegate *)self->_delegateSurrogate actualDelegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [actualDelegate observer:v6 noteServerConnectionStateChanged:changedCopy];
+  }
 }
 
 - (void)setObserverFeed:(unint64_t)feed

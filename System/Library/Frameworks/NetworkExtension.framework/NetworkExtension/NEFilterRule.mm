@@ -3,6 +3,7 @@
 - (NEFilterRule)initWithCoder:(id)coder;
 - (NEFilterRule)initWithNetworkRule:(NENetworkRule *)networkRule action:(NEFilterAction)action;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -41,6 +42,17 @@
   coderCopy = coder;
   [coderCopy encodeObject:networkRule forKey:@"rule"];
   [coderCopy encodeInteger:self->_action forKey:@"action"];
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v7 appendPrettyObject:self->_networkRule withName:@"networkRule" andIndent:v5 options:options];
+  v8 = [NEFilterProvider descriptionForAction:?];
+  [v7 appendPrettyObject:v8 withName:@"action" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors

@@ -94,10 +94,7 @@
 
 uint64_t __30__MSVAsyncOperation_setError___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 256);
-  *(v3 + 256) = v2;
+  *(*(a1 + 32) + 256) = [*(a1 + 40) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -127,10 +124,7 @@ uint64_t __30__MSVAsyncOperation_setError___block_invoke(uint64_t a1)
 
 uint64_t __26__MSVAsyncOperation_error__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 256) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 256) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }

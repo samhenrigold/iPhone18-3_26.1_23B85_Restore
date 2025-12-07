@@ -5,6 +5,8 @@
 - (CGRect)trackedBounds;
 - (QLPinchRotationTracker)init;
 - (_QLDismissGestureTrackingVelocity)trackedVelocity;
+- (void)startTrackingCenter:(CGPoint)center bounds:(CGRect)bounds transform:(CGAffineTransform *)transform withInitialGestureLocation:(CGPoint)location;
+- (void)trackGestureLocation:(CGPoint)location;
 - (void)trackScale:(double)scale;
 - (void)update;
 @end
@@ -23,6 +25,46 @@
   }
 
   return result;
+}
+
+- (void)startTrackingCenter:(CGPoint)center bounds:(CGRect)bounds transform:(CGAffineTransform *)transform withInitialGestureLocation:(CGPoint)location
+{
+  x = location.x;
+  self->_initialBounds = bounds;
+  self->_initialTrackingCenter = center;
+  self->_trackedCenter = center;
+  v8 = *&transform->a;
+  v9 = *&transform->c;
+  *&self->_trackedTransform.tx = *&transform->tx;
+  *&self->_trackedTransform.c = v9;
+  *&self->_trackedTransform.a = v8;
+  self->_initialGestureLocation = location;
+  self->_previousScale = 1.0;
+  self->_trackedScale = 1.0;
+  *&v8 = bounds.origin.x;
+  *&v9 = bounds.origin.y;
+  width = bounds.size.width;
+  height = bounds.size.height;
+  v12 = CGRectGetWidth(*&v8);
+  y = self->_initialGestureLocation.y;
+  v14 = x / v12;
+  v15 = CGRectGetHeight(self->_initialBounds);
+  self->_anchorPoint.x = v14;
+  self->_anchorPoint.y = y / v15;
+  v16 = self->_initialGestureLocation.x;
+  v17 = v16 - CGRectGetWidth(self->_initialBounds) * 0.5;
+  v18 = self->_initialGestureLocation.y;
+  v19 = CGRectGetHeight(self->_initialBounds);
+  self->_anchorLocationOffset.x = v17;
+  self->_anchorLocationOffset.y = v18 - v19 * 0.5;
+}
+
+- (void)trackGestureLocation:(CGPoint)location
+{
+  self->_location = location;
+  y = location.y;
+  self->_trackedCenter = vaddq_f64(vsubq_f64(location, self->_initialGestureLocation), self->_initialTrackingCenter);
+  [(QLPinchRotationTracker *)self update];
 }
 
 - (void)trackScale:(double)scale

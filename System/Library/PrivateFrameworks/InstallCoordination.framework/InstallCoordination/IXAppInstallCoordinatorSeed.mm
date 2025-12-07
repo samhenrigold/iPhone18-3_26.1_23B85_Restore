@@ -128,27 +128,25 @@ LABEL_7:
 
 - (void)initWithCoder:(os_log_t)log .cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 136315650;
-  v6 = "[IXAppInstallCoordinatorSeed initWithCoder:]";
-  v7 = 2112;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v3;
-  _os_log_fault_impl(&dword_1DA47A000, log, OS_LOG_TYPE_FAULT, "%s: Identity was nil when deserializing IXAppInstallCoordinatorSeed for bundle ID %@ with unique identifier %@", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315650;
+  v5 = "[IXAppInstallCoordinatorSeed initWithCoder:]";
+  v6 = 2112;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v3;
+  _os_log_fault_impl(&dword_1DA47A000, log, OS_LOG_TYPE_FAULT, "%s: Identity was nil when deserializing IXAppInstallCoordinatorSeed for bundle ID %@ with unique identifier %@", &v4, 0x20u);
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[IXAppInstallCoordinatorSeed initWithCoder:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_fault_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_FAULT, "%s: Both identity and bundleID were nil for %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[IXAppInstallCoordinatorSeed initWithCoder:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_fault_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_FAULT, "%s: Both identity and bundleID were nil for %@", &v2, 0x16u);
 }
 
 @end

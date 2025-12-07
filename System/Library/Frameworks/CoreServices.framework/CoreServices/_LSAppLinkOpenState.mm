@@ -60,7 +60,7 @@
   v5 = connectionCopy;
   if (connectionCopy)
   {
-    [(NSXPCConnection *)connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
     engaged = self->_auditToken.__engaged_;
     *&self->_auditToken.var0.__null_state_ = v8;
     *&self->_auditToken.var0.val[4] = v9;
@@ -150,7 +150,7 @@
     [(_LSAppLinkOpenState *)v5 setOpenConfiguration:v7];
 
     v8 = objc_opt_class();
-    v9 = XNSGetPropertyListClasses();
+    v9 = XNSGetPropertyListClasses(v8);
     v10 = [coderCopy ls_decodeDictionaryWithKeysOfClass:v8 valuesOfClasses:v9 forKey:@"browserState"];
     [(_LSAppLinkOpenState *)v5 setBrowserState:v10];
 

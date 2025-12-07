@@ -18,6 +18,7 @@
 - (id)description;
 - (id)objectForKeyedSubscript:(id)subscript;
 - (void)_notifyObserversPropertiesDidChange:(id)change thisIsAllOfThem:(BOOL)them;
+- (void)_pollPropertiesAllOfThem:(BOOL)them dontSendChanges:(BOOL)changes;
 - (void)dealloc;
 - (void)handleMDMDistributedNotification;
 - (void)handleMDMNotification:(id)notification;
@@ -1223,6 +1224,93 @@ LABEL_45:
   }
 
   [(NRLocalPropertyMonitor *)self _pollPropertiesAllOfThem:0 dontSendChanges:0];
+}
+
+- (void)_pollPropertiesAllOfThem:(BOOL)them dontSendChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  themCopy = them;
+  v7 = nr_daemon_log();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+
+  if (v8)
+  {
+    v9 = nr_daemon_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = @"NO";
+      if (themCopy)
+      {
+        v11 = @"YES";
+      }
+
+      else
+      {
+        v11 = @"NO";
+      }
+
+      if (changesCopy)
+      {
+        v10 = @"YES";
+      }
+
+      *buf = 138412546;
+      v28 = v11;
+      v29 = 2112;
+      v30 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "_pollPropertiesAllOfThem: thisIsAllOfThem=%@ dontSendChanges=%@", buf, 0x16u);
+    }
+  }
+
+  v21 = objc_alloc_init(NSMutableDictionary);
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  allKeys = [qword_1001B3A20 allKeys];
+  v13 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v23;
+    do
+    {
+      for (i = 0; i != v14; i = i + 1)
+      {
+        if (*v23 != v15)
+        {
+          objc_enumerationMutation(allKeys);
+        }
+
+        v17 = *(*(&v22 + 1) + 8 * i);
+        buf[0] = 0;
+        v18 = [(NRLocalPropertyMonitor *)self _readProperty:v17 shouldUpdateCache:!changesCopy isUpdated:buf forceLog:themCopy];
+        v19 = v18;
+        if ((buf[0] & 1) != 0 || themCopy)
+        {
+          if (v18)
+          {
+            [v21 setObject:v18 forKey:v17];
+          }
+
+          else
+          {
+            v20 = +[NSNull null];
+            [v21 setObject:v20 forKey:v17];
+          }
+        }
+      }
+
+      v14 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+    }
+
+    while (v14);
+  }
+
+  if ([v21 count] && !changesCopy)
+  {
+    [(NRLocalPropertyMonitor *)self _notifyObserversPropertiesDidChange:v21 thisIsAllOfThem:themCopy];
+  }
 }
 
 - (void)_notifyObserversPropertiesDidChange:(id)change thisIsAllOfThem:(BOOL)them

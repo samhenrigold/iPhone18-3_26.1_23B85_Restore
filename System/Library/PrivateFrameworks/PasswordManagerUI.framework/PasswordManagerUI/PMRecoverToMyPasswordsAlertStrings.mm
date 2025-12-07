@@ -84,12 +84,12 @@
 + (id)alertTitleAndMessageForRecoveringSavedAccountsToMyPasswords:(id)passwords
 {
   sub_21C6E8F4C(0, &qword_27CDF76E0, 0x277D49B20);
-  sub_21CB85824();
+  v3 = sub_21CB85824();
   swift_getObjCClassMetadata();
-  sub_21CAF2954();
-  v4 = v3;
+  sub_21CAF2954(v3);
+  v5 = v4;
 
-  return v4;
+  return v5;
 }
 
 - (PMRecoverToMyPasswordsAlertStrings)init

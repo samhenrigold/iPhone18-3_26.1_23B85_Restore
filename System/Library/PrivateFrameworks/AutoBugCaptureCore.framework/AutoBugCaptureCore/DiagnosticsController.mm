@@ -32,18 +32,16 @@
 
 + (void)initialize
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_28537A0B0;
-  v5[1] = &unk_28537A0C8;
-  v6[0] = @"process";
-  v6[1] = @"subsystem";
-  v5[2] = &unk_28537A0E0;
-  v6[2] = @"category";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
+  v5[3] = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_28537A0B0;
+  v4[1] = &unk_28537A0C8;
+  v5[0] = @"process";
+  v5[1] = @"subsystem";
+  v4[2] = &unk_28537A0E0;
+  v5[2] = @"category";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
   v3 = LogSettingToString;
   LogSettingToString = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (DiagnosticsController)initWithConfiguration:(id)configuration
@@ -89,7 +87,7 @@ void __44__DiagnosticsController__loadLoggingSupport__block_invoke()
   gLoggingSupportDyLibHandle = dlopen("/System/Library/PrivateFrameworks/LoggingSupport.framework/LoggingSupport", 6);
   if (!gLoggingSupportDyLibHandle)
   {
-    v6 = diagcollectLogHandle();
+    v6 = diagcollectLogHandle(0);
     if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_23;
@@ -121,7 +119,7 @@ LABEL_21:
 
   v4 = !v1 && gOSLogPreferencesProcess != 0 && Class != 0;
   _loadLoggingSupport_symbolsLoaded = v4;
-  v5 = diagcollectLogHandle();
+  v5 = diagcollectLogHandle(Class);
   v6 = v5;
   if (v4 != 1)
   {
@@ -161,212 +159,214 @@ LABEL_23:
   {
     if ([(DiagnosticsController *)self validateDiagnosticsConfiguration:actionsCopy])
     {
-      v8 = MEMORY[0x277CBEB38];
-      v9 = [actionsCopy objectForKeyedSubscript:@"DIAGNOSTIC_ACTIONS"];
-      v10 = [v8 dictionaryWithDictionary:v9];
+      v9 = MEMORY[0x277CBEB38];
+      v10 = [actionsCopy objectForKeyedSubscript:@"DIAGNOSTIC_ACTIONS"];
+      v11 = [v9 dictionaryWithDictionary:v10];
       actionsDict = self->_actionsDict;
-      self->_actionsDict = v10;
+      self->_actionsDict = v11;
 
-      v12 = MEMORY[0x277CBEB38];
-      v13 = [actionsCopy objectForKeyedSubscript:@"DIAGNOSTIC_SETTINGS"];
-      v14 = [v12 dictionaryWithDictionary:v13];
+      v13 = MEMORY[0x277CBEB38];
+      v14 = [actionsCopy objectForKeyedSubscript:@"DIAGNOSTIC_SETTINGS"];
+      v15 = [v13 dictionaryWithDictionary:v14];
       settingsDict = self->_settingsDict;
-      self->_settingsDict = v14;
+      self->_settingsDict = v15;
     }
   }
 
   else
   {
-    v16 = diagcollectLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = diagcollectLogHandle(v8);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEFAULT, "Not configuring for platforms without payloads", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEFAULT, "Not configuring for platforms without payloads", v18, 2u);
     }
   }
 }
 
 - (BOOL)validateDiagnosticsConfiguration:(id)configuration
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = [configurationCopy objectForKeyedSubscript:@"DIAGNOSTIC_ACTIONS"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v6 = [(DiagnosticsController *)self validateActionsDictionary:v5];
-    v7 = diagcollectLogHandle();
+    v7 = [(DiagnosticsController *)self validateActionsDictionary:v5];
     v8 = v7;
-    if (v6)
+    v9 = diagcollectLogHandle(v7);
+    v10 = v9;
+    if (v8)
     {
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         goto LABEL_11;
       }
 
-      LOWORD(v25) = 0;
-      v9 = "Finished validating actions dictionary.";
-      v10 = v8;
-      v11 = OS_LOG_TYPE_INFO;
+      LOWORD(v28) = 0;
+      v11 = "Finished validating actions dictionary.";
+      v12 = v10;
+      v13 = OS_LOG_TYPE_INFO;
     }
 
     else
     {
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_11;
       }
 
-      LOWORD(v25) = 0;
-      v9 = "Validation Failure: Errors detected while validating actions dictionary!";
-      v10 = v8;
-      v11 = OS_LOG_TYPE_ERROR;
+      LOWORD(v28) = 0;
+      v11 = "Validation Failure: Errors detected while validating actions dictionary!";
+      v12 = v10;
+      v13 = OS_LOG_TYPE_ERROR;
     }
 
-    _os_log_impl(&dword_241804000, v10, v11, v9, &v25, 2u);
+    _os_log_impl(&dword_241804000, v12, v13, v11, &v28, 2u);
   }
 
   else
   {
-    v8 = diagcollectLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = diagcollectLogHandle(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v25 = 138412546;
-      v26 = v5;
-      v27 = 2112;
-      v28 = v13;
-      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Unexpected object %@ (%@) found for actions dictionary!", &v25, 0x16u);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v28 = 138412546;
+      v29 = v5;
+      v30 = 2112;
+      v31 = v15;
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Unexpected object %@ (%@) found for actions dictionary!", &v28, 0x16u);
     }
 
-    LOBYTE(v6) = 0;
+    LOBYTE(v8) = 0;
   }
 
 LABEL_11:
 
-  v14 = [configurationCopy objectForKeyedSubscript:@"DIAGNOSTIC_SETTINGS"];
+  v16 = [configurationCopy objectForKeyedSubscript:@"DIAGNOSTIC_SETTINGS"];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v17 = objc_opt_isKindOfClass();
+  if (v17)
   {
-    v15 = [(DiagnosticsController *)self validateSettingsDictionary:v14];
-    v16 = diagcollectLogHandle();
-    v17 = v16;
-    if (v15)
+    v18 = [(DiagnosticsController *)self validateSettingsDictionary:v16];
+    v19 = v18;
+    v20 = diagcollectLogHandle(v18);
+    v21 = v20;
+    if (v19)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v25) = 0;
-        v18 = "Finished validating settings dictionary.";
-        v19 = v17;
-        v20 = OS_LOG_TYPE_DEBUG;
+        LOWORD(v28) = 0;
+        v22 = "Finished validating settings dictionary.";
+        v23 = v21;
+        v24 = OS_LOG_TYPE_DEBUG;
 LABEL_20:
-        _os_log_impl(&dword_241804000, v19, v20, v18, &v25, 2u);
+        _os_log_impl(&dword_241804000, v23, v24, v22, &v28, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v25) = 0;
-      v18 = "Validation Failure: Errors detected while validating settings dictionary!";
-      v19 = v17;
-      v20 = OS_LOG_TYPE_ERROR;
+      LOWORD(v28) = 0;
+      v22 = "Validation Failure: Errors detected while validating settings dictionary!";
+      v23 = v21;
+      v24 = OS_LOG_TYPE_ERROR;
       goto LABEL_20;
     }
   }
 
   else
   {
-    v17 = diagcollectLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = diagcollectLogHandle(v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
-      v25 = 138412546;
-      v26 = v14;
-      v27 = 2112;
-      v28 = v22;
-      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_ERROR, "Unexpected object %@ (%@) found for settings dictionary!", &v25, 0x16u);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
+      v28 = 138412546;
+      v29 = v16;
+      v30 = 2112;
+      v31 = v26;
+      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_ERROR, "Unexpected object %@ (%@) found for settings dictionary!", &v28, 0x16u);
     }
 
-    LOBYTE(v15) = 0;
+    LOBYTE(v19) = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v6 && v15;
+  return v8 & v19;
 }
 
 - (BOOL)validateActionsDictionary:(id)dictionary
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   allKeys = [dictionary allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v27;
+    v7 = *v26;
     v8 = 1;
-    v9 = 0x277CCA000uLL;
-    v10 = &dword_241804000;
+    v9 = &dword_241804000;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
-        v13 = *(v9 + 3240);
+        v11 = *(*(&v25 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v14 = v12;
-          if ([v14 length])
+          v13 = v11;
+          if ([v13 length])
           {
-            v15 = [(NSMutableDictionary *)self->_actionsDict objectForKeyedSubscript:v14];
+            v14 = [(NSMutableDictionary *)self->_actionsDict objectForKeyedSubscript:v13];
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            v15 = objc_opt_isKindOfClass();
+            if (v15)
             {
-              [(DiagnosticsController *)self validateActionsDictionaryContent:v15 identifier:v14];
+              [(DiagnosticsController *)self validateActionsDictionaryContent:v14 identifier:v13];
             }
 
-            else if (v15)
+            else if (v14)
             {
               v18 = allKeys;
               selfCopy = self;
-              v20 = v10;
-              v21 = diagcollectLogHandle();
+              v20 = v9;
+              v21 = diagcollectLogHandle(v15);
               if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
               {
                 v22 = objc_opt_class();
                 v23 = NSStringFromClass(v22);
                 *buf = 138412290;
-                v31 = v23;
+                v30 = v23;
                 _os_log_impl(v20, v21, OS_LOG_TYPE_DEBUG, "Found unexpected class for actions value: %@ (should be NSDictionary)", buf, 0xCu);
               }
 
               v8 = 0;
-              v10 = v20;
+              v9 = v20;
               self = selfCopy;
               allKeys = v18;
-              v9 = 0x277CCA000;
             }
           }
 
           else
           {
-            v15 = diagcollectLogHandle();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+            v14 = diagcollectLogHandle(0);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(v10, v15, OS_LOG_TYPE_DEBUG, "Actions identifiers must not be empty", buf, 2u);
+              _os_log_impl(v9, v14, OS_LOG_TYPE_DEBUG, "Actions identifiers must not be empty", buf, 2u);
             }
 
             v8 = 0;
@@ -375,26 +375,26 @@ LABEL_20:
 
         else
         {
-          if (!v12)
+          if (!v11)
           {
             continue;
           }
 
-          v14 = diagcollectLogHandle();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v13 = diagcollectLogHandle(isKindOfClass);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
             v16 = objc_opt_class();
             v17 = NSStringFromClass(v16);
             *buf = 138412290;
-            v31 = v17;
-            _os_log_impl(v10, v14, OS_LOG_TYPE_DEBUG, "Found unexpected class for actions identifier: %@ (should be NSString)", buf, 0xCu);
+            v30 = v17;
+            _os_log_impl(v9, v13, OS_LOG_TYPE_DEBUG, "Found unexpected class for actions identifier: %@ (should be NSString)", buf, 0xCu);
           }
 
           v8 = 0;
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (!v6)
       {
         goto LABEL_27;
@@ -405,21 +405,20 @@ LABEL_20:
   v8 = 1;
 LABEL_27:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
 - (BOOL)validateActionsDictionaryContent:(id)content identifier:(id)identifier
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   contentCopy = content;
   identifierCopy = identifier;
-  v78 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v81 = 0u;
+  v90 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   allKeys = [contentCopy allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v78 objects:v92 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v90 objects:v104 count:16];
   if (!v7)
   {
     v9 = 1;
@@ -428,95 +427,103 @@ LABEL_27:
 
   v8 = v7;
   v9 = 1;
-  v10 = *v79;
-  v63 = contentCopy;
-  v64 = *v79;
-  v62 = allKeys;
+  v10 = *v91;
+  v75 = contentCopy;
+  v76 = *v91;
+  v74 = allKeys;
   do
   {
     v11 = 0;
-    v65 = v8;
+    v77 = v8;
     do
     {
-      if (*v79 != v10)
+      if (*v91 != v10)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v67 = v11;
-      v12 = *(*(&v78 + 1) + 8 * v11);
+      v79 = v11;
+      v12 = *(*(&v90 + 1) + 8 * v11);
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v13 = v12;
-        v14 = [contentCopy objectForKeyedSubscript:v13];
-        v66 = v14;
-        if ([v13 isEqualToString:@"oslog"])
+        v14 = v12;
+        v15 = [contentCopy objectForKeyedSubscript:v14];
+        v78 = v15;
+        if ([v14 isEqualToString:@"oslog"])
         {
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v16 = objc_opt_isKindOfClass();
+          if (v16)
           {
-            v69 = v13;
-            v15 = v14;
-            v74 = 0u;
-            v75 = 0u;
-            v76 = 0u;
-            v77 = 0u;
-            allKeys2 = [v15 allKeys];
-            v17 = [allKeys2 countByEnumeratingWithState:&v74 objects:v91 count:16];
-            if (!v17)
+            v81 = v14;
+            v17 = v15;
+            v86 = 0u;
+            v87 = 0u;
+            v88 = 0u;
+            v89 = 0u;
+            allKeys2 = [v17 allKeys];
+            v19 = [allKeys2 countByEnumeratingWithState:&v86 objects:v103 count:16];
+            if (!v19)
             {
               goto LABEL_54;
             }
 
-            v18 = v17;
-            v19 = *v75;
+            v20 = v19;
+            v21 = *v87;
             while (1)
             {
-              v20 = 0;
+              v22 = 0;
               do
               {
-                if (*v75 != v19)
+                if (*v87 != v21)
                 {
                   objc_enumerationMutation(allKeys2);
                 }
 
-                v21 = *(*(&v74 + 1) + 8 * v20);
+                v23 = *(*(&v86 + 1) + 8 * v22);
                 objc_opt_class();
-                if (objc_opt_isKindOfClass())
+                v24 = objc_opt_isKindOfClass();
+                if (v24)
                 {
-                  v22 = v21;
-                  v23 = v15;
-                  v24 = [v15 objectForKeyedSubscript:v22];
-                  if ([v22 isEqualToString:@"level"])
+                  v25 = v23;
+                  v26 = v17;
+                  v27 = [v17 objectForKeyedSubscript:v25];
+                  if ([v25 isEqualToString:@"level"])
                   {
                     objc_opt_class();
-                    if (objc_opt_isKindOfClass())
+                    v28 = objc_opt_isKindOfClass();
+                    if (v28)
                     {
-                      v25 = v24;
-                      if ([v25 length])
+                      v29 = v27;
+                      if ([v29 length])
                       {
-                        if (([v25 isEqualToString:@"default"]& 1) == 0 && ([v25 isEqualToString:@"info"]& 1) == 0 && ([v25 isEqualToString:@"debug"]& 1) == 0 && ([v25 isEqualToString:@"none"]& 1) == 0)
+                        if (([v29 isEqualToString:@"default"]& 1) == 0 && ([v29 isEqualToString:@"info"]& 1) == 0 && ([v29 isEqualToString:@"debug"]& 1) == 0)
                         {
-                          v26 = diagcollectLogHandle();
-                          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+                          v30 = [v29 isEqualToString:@"none"];
+                          if ((v30 & 1) == 0)
                           {
-                            *buf = 138412290;
-                            v84 = v25;
-                            _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEBUG, "Unknown OSLog level: %@", buf, 0xCu);
-                          }
+                            v31 = diagcollectLogHandle(v30);
+                            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+                            {
+                              *buf = 138412290;
+                              v96 = v29;
+                              _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_DEBUG, "Unknown OSLog level: %@", buf, 0xCu);
+                            }
 
-                          goto LABEL_45;
+                            goto LABEL_45;
+                          }
                         }
                       }
 
                       else
                       {
-                        v26 = diagcollectLogHandle();
-                        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+                        v31 = diagcollectLogHandle(0);
+                        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 0;
-                          _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEBUG, "OSLog level setting must not be empty", buf, 2u);
+                          _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_DEBUG, "OSLog level setting must not be empty", buf, 2u);
                         }
 
                         v9 = 0;
@@ -526,47 +533,48 @@ LABEL_45:
 LABEL_46:
 
 LABEL_47:
-                      v15 = v23;
+                      v17 = v26;
                       goto LABEL_48;
                     }
 
-                    if (!v24)
+                    if (!v27)
                     {
                       goto LABEL_47;
                     }
 
-                    v25 = diagcollectLogHandle();
-                    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+                    v29 = diagcollectLogHandle(v28);
+                    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
                     {
 LABEL_40:
-                      v30 = objc_opt_class();
-                      v31 = NSStringFromClass(v30);
+                      v37 = objc_opt_class();
+                      v38 = NSStringFromClass(v37);
                       *buf = 138413058;
-                      v84 = identifierCopy;
-                      v85 = 2112;
-                      v86 = v69;
-                      v87 = 2112;
-                      v88 = v22;
-                      v89 = 2112;
-                      v90 = v31;
-                      _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEBUG, "Found unexpected class for value of oslog settings key %@.%@.%@: %@ (should be NSString)", buf, 0x2Au);
+                      v96 = identifierCopy;
+                      v97 = 2112;
+                      v98 = v81;
+                      v99 = 2112;
+                      v100 = v25;
+                      v101 = 2112;
+                      v102 = v38;
+                      _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_DEBUG, "Found unexpected class for value of oslog settings key %@.%@.%@: %@ (should be NSString)", buf, 0x2Au);
                     }
                   }
 
-                  else if (([v22 isEqualToString:@"process"]& 1) != 0 || ([v22 isEqualToString:@"category"]& 1) != 0 || [v22 isEqualToString:@"subsystem"])
+                  else if (([v25 isEqualToString:@"process"]& 1) != 0 || ([v25 isEqualToString:@"category"]& 1) != 0 || (v34 = [v25 isEqualToString:@"subsystem"], v34))
                   {
                     objc_opt_class();
-                    if (objc_opt_isKindOfClass())
+                    v35 = objc_opt_isKindOfClass();
+                    if (v35)
                     {
-                      v25 = v24;
-                      if (![v25 length])
+                      v29 = v27;
+                      if (![v29 length])
                       {
-                        v29 = diagcollectLogHandle();
-                        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+                        v36 = diagcollectLogHandle(0);
+                        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 138412290;
-                          v84 = v22;
-                          _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_DEBUG, "OSLog %@ identifier must not be empty", buf, 0xCu);
+                          v96 = v25;
+                          _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEBUG, "OSLog %@ identifier must not be empty", buf, 0xCu);
                         }
 
                         v9 = 0;
@@ -575,8 +583,8 @@ LABEL_40:
                       goto LABEL_46;
                     }
 
-                    v25 = diagcollectLogHandle();
-                    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+                    v29 = diagcollectLogHandle(v35);
+                    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
                     {
                       goto LABEL_40;
                     }
@@ -584,16 +592,16 @@ LABEL_40:
 
                   else
                   {
-                    v25 = diagcollectLogHandle();
-                    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+                    v29 = diagcollectLogHandle(v34);
+                    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412802;
-                      v84 = identifierCopy;
-                      v85 = 2112;
-                      v86 = v69;
-                      v87 = 2112;
-                      v88 = v22;
-                      _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEBUG, "Found unsupported oslog settings key: %@.%@.%@", buf, 0x20u);
+                      v96 = identifierCopy;
+                      v97 = 2112;
+                      v98 = v81;
+                      v99 = 2112;
+                      v100 = v25;
+                      _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_DEBUG, "Found unsupported oslog settings key: %@.%@.%@", buf, 0x20u);
                     }
                   }
 
@@ -601,142 +609,144 @@ LABEL_40:
                   goto LABEL_46;
                 }
 
-                if (!v21)
+                if (!v23)
                 {
                   goto LABEL_49;
                 }
 
-                v22 = diagcollectLogHandle();
-                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+                v25 = diagcollectLogHandle(v24);
+                if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
                 {
-                  v27 = objc_opt_class();
-                  v28 = NSStringFromClass(v27);
+                  v32 = objc_opt_class();
+                  v33 = NSStringFromClass(v32);
                   *buf = 138412802;
-                  v84 = identifierCopy;
-                  v85 = 2112;
-                  v86 = v69;
-                  v87 = 2112;
-                  v88 = v28;
-                  _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_DEBUG, "Found unexpected class for oslog settings key in %@.%@: %@ (should be NSString)", buf, 0x20u);
+                  v96 = identifierCopy;
+                  v97 = 2112;
+                  v98 = v81;
+                  v99 = 2112;
+                  v100 = v33;
+                  _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEBUG, "Found unexpected class for oslog settings key in %@.%@: %@ (should be NSString)", buf, 0x20u);
                 }
 
                 v9 = 0;
 LABEL_48:
 
 LABEL_49:
-                ++v20;
+                ++v22;
               }
 
-              while (v18 != v20);
-              v32 = [allKeys2 countByEnumeratingWithState:&v74 objects:v91 count:16];
-              v18 = v32;
-              if (!v32)
+              while (v20 != v22);
+              v39 = [allKeys2 countByEnumeratingWithState:&v86 objects:v103 count:16];
+              v20 = v39;
+              if (!v39)
               {
 LABEL_54:
 
-                allKeys = v62;
-                contentCopy = v63;
-                v10 = v64;
-                v8 = v65;
+                allKeys = v74;
+                contentCopy = v75;
+                v10 = v76;
+                v8 = v77;
                 goto LABEL_55;
               }
             }
           }
 
-          if (!v14)
+          if (!v15)
           {
             goto LABEL_110;
           }
 
-          v15 = diagcollectLogHandle();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v17 = diagcollectLogHandle(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
-            v39 = objc_opt_class();
-            NSStringFromClass(v39);
-            v41 = v40 = v13;
+            v47 = objc_opt_class();
+            NSStringFromClass(v47);
+            v49 = v48 = v14;
             *buf = 138412802;
-            v84 = identifierCopy;
-            v85 = 2112;
-            v86 = v40;
-            v87 = 2112;
-            v88 = v41;
-            v42 = v15;
-            v43 = "Found unexpected class for value of actions key %@.%@: %@ (should be NSDictionary)";
+            v96 = identifierCopy;
+            v97 = 2112;
+            v98 = v48;
+            v99 = 2112;
+            v100 = v49;
+            v50 = v17;
+            v51 = "Found unexpected class for value of actions key %@.%@: %@ (should be NSDictionary)";
             goto LABEL_107;
           }
 
           goto LABEL_108;
         }
 
-        if ([v13 isEqualToString:@"process"])
+        if ([v14 isEqualToString:@"process"])
         {
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v43 = objc_opt_isKindOfClass();
+          if (v43)
           {
-            if ([v14 length])
+            if ([v15 length])
             {
               goto LABEL_110;
             }
 
-            v15 = diagcollectLogHandle();
-            if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+            v17 = diagcollectLogHandle(0);
+            if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_108;
             }
 
             *buf = 0;
-            v36 = v15;
-            v37 = "OSLog process identifier must not be empty";
-            v38 = 2;
+            v44 = v17;
+            v45 = "OSLog process identifier must not be empty";
+            v46 = 2;
 LABEL_103:
-            _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEBUG, v37, buf, v38);
+            _os_log_impl(&dword_241804000, v44, OS_LOG_TYPE_DEBUG, v45, buf, v46);
             goto LABEL_108;
           }
 
-          if (!v14)
+          if (!v15)
           {
             goto LABEL_110;
           }
 
-          v15 = diagcollectLogHandle();
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v17 = diagcollectLogHandle(v43);
+          if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_108;
           }
 
 LABEL_106:
-          v58 = objc_opt_class();
-          NSStringFromClass(v58);
-          v41 = v40 = v13;
+          v71 = objc_opt_class();
+          NSStringFromClass(v71);
+          v49 = v48 = v14;
           *buf = 138412802;
-          v84 = identifierCopy;
-          v85 = 2112;
-          v86 = v40;
-          v87 = 2112;
-          v88 = v41;
-          v42 = v15;
-          v43 = "Found unexpected class for value of actions key %@.%@: %@ (should be NSString)";
+          v96 = identifierCopy;
+          v97 = 2112;
+          v98 = v48;
+          v99 = 2112;
+          v100 = v49;
+          v50 = v17;
+          v51 = "Found unexpected class for value of actions key %@.%@: %@ (should be NSString)";
 LABEL_107:
-          _os_log_impl(&dword_241804000, v42, OS_LOG_TYPE_DEBUG, v43, buf, 0x20u);
+          _os_log_impl(&dword_241804000, v50, OS_LOG_TYPE_DEBUG, v51, buf, 0x20u);
 
-          v13 = v40;
+          v14 = v48;
 LABEL_108:
           v9 = 0;
           goto LABEL_109;
         }
 
-        if ([v13 isEqualToString:@"level"])
+        if ([v14 isEqualToString:@"level"])
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v52 = objc_opt_isKindOfClass();
+          if ((v52 & 1) == 0)
           {
-            if (!v14)
+            if (!v15)
             {
               goto LABEL_110;
             }
 
-            v15 = diagcollectLogHandle();
-            if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+            v17 = diagcollectLogHandle(v52);
+            if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_108;
             }
@@ -744,78 +754,96 @@ LABEL_108:
             goto LABEL_106;
           }
 
-          v15 = v14;
-          if ([v15 length])
+          v17 = v15;
+          if ([v17 length])
           {
-            if (([v15 isEqualToString:@"default"]& 1) != 0 || ([v15 isEqualToString:@"info"]& 1) != 0 || ([v15 isEqualToString:@"debug"]& 1) != 0 || ([v15 isEqualToString:@"none"]& 1) != 0)
+            if (([v17 isEqualToString:@"default"]& 1) != 0)
             {
               goto LABEL_109;
             }
 
-            v44 = v15;
-            v45 = v13;
-            v46 = diagcollectLogHandle();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+            if (([v17 isEqualToString:@"info"]& 1) != 0)
+            {
+              goto LABEL_109;
+            }
+
+            if (([v17 isEqualToString:@"debug"]& 1) != 0)
+            {
+              goto LABEL_109;
+            }
+
+            v53 = [v17 isEqualToString:@"none"];
+            if (v53)
+            {
+              goto LABEL_109;
+            }
+
+            v54 = v17;
+            v55 = v14;
+            v56 = diagcollectLogHandle(v53);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v84 = v44;
-              v47 = v46;
-              v48 = "Unsupported OSLog level: %@";
-              v49 = 12;
+              v96 = v54;
+              v57 = v56;
+              v58 = "Unsupported OSLog level: %@";
+              v59 = 12;
               goto LABEL_116;
             }
           }
 
           else
           {
-            v44 = v15;
-            v45 = v13;
-            v46 = diagcollectLogHandle();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+            v54 = v17;
+            v55 = v14;
+            v56 = diagcollectLogHandle(0);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              v47 = v46;
-              v48 = "OSLog level setting must not be empty";
-              v49 = 2;
+              v57 = v56;
+              v58 = "OSLog level setting must not be empty";
+              v59 = 2;
 LABEL_116:
-              _os_log_impl(&dword_241804000, v47, OS_LOG_TYPE_DEBUG, v48, buf, v49);
+              _os_log_impl(&dword_241804000, v57, OS_LOG_TYPE_DEBUG, v58, buf, v59);
             }
           }
 
           v9 = 0;
-          v13 = v45;
-          v15 = v44;
+          v14 = v55;
+          v17 = v54;
           goto LABEL_109;
         }
 
-        if (![v13 isEqualToString:@"diagExt"])
+        v60 = [v14 isEqualToString:@"diagExt"];
+        if (!v60)
         {
-          v15 = diagcollectLogHandle();
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v17 = diagcollectLogHandle(v60);
+          if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_108;
           }
 
           *buf = 138412546;
-          v84 = identifierCopy;
-          v85 = 2112;
-          v86 = v13;
-          v36 = v15;
-          v37 = "Found unsupported actions key: %@.%@";
-          v38 = 22;
+          v96 = identifierCopy;
+          v97 = 2112;
+          v98 = v14;
+          v44 = v17;
+          v45 = "Found unsupported actions key: %@.%@";
+          v46 = 22;
           goto LABEL_103;
         }
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v61 = objc_opt_isKindOfClass();
+        if ((v61 & 1) == 0)
         {
-          if (!v14)
+          if (!v15)
           {
             goto LABEL_110;
           }
 
-          v15 = diagcollectLogHandle();
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v17 = diagcollectLogHandle(v61);
+          if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_108;
           }
@@ -823,56 +851,57 @@ LABEL_116:
           goto LABEL_106;
         }
 
-        v69 = v13;
-        v15 = v14;
-        v70 = 0u;
-        v71 = 0u;
-        v72 = 0u;
-        v73 = 0u;
-        v50 = [v15 countByEnumeratingWithState:&v70 objects:v82 count:16];
-        if (!v50)
+        v81 = v14;
+        v17 = v15;
+        v82 = 0u;
+        v83 = 0u;
+        v84 = 0u;
+        v85 = 0u;
+        v62 = [v17 countByEnumeratingWithState:&v82 objects:v94 count:16];
+        if (!v62)
         {
           goto LABEL_55;
         }
 
-        v51 = v50;
-        v52 = *v71;
+        v63 = v62;
+        v64 = *v83;
         while (2)
         {
-          v53 = 0;
+          v65 = 0;
 LABEL_85:
-          if (*v71 != v52)
+          if (*v83 != v64)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v17);
           }
 
-          v54 = *(*(&v70 + 1) + 8 * v53);
+          v66 = *(*(&v82 + 1) + 8 * v65);
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v67 = objc_opt_isKindOfClass();
+          if (v67)
           {
-            if (![v54 length])
+            if (![v66 length])
             {
-              v55 = diagcollectLogHandle();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+              v68 = diagcollectLogHandle(0);
+              if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 0;
-                _os_log_impl(&dword_241804000, v55, OS_LOG_TYPE_DEBUG, "Diagnostic Extension identifiers must not be empty", buf, 2u);
+                _os_log_impl(&dword_241804000, v68, OS_LOG_TYPE_DEBUG, "Diagnostic Extension identifiers must not be empty", buf, 2u);
               }
 
               goto LABEL_94;
             }
           }
 
-          else if (v54)
+          else if (v66)
           {
-            v55 = diagcollectLogHandle();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+            v68 = diagcollectLogHandle(v67);
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
             {
-              v56 = objc_opt_class();
-              v57 = NSStringFromClass(v56);
+              v69 = objc_opt_class();
+              v70 = NSStringFromClass(v69);
               *buf = 138412290;
-              v84 = v57;
-              _os_log_impl(&dword_241804000, v55, OS_LOG_TYPE_DEBUG, "Found unexpected class for Diagnostic Extension identifiers: %@ (should be NSString)", buf, 0xCu);
+              v96 = v70;
+              _os_log_impl(&dword_241804000, v68, OS_LOG_TYPE_DEBUG, "Found unexpected class for Diagnostic Extension identifiers: %@ (should be NSString)", buf, 0xCu);
             }
 
 LABEL_94:
@@ -880,18 +909,18 @@ LABEL_94:
             v9 = 0;
           }
 
-          if (v51 == ++v53)
+          if (v63 == ++v65)
           {
-            v51 = [v15 countByEnumeratingWithState:&v70 objects:v82 count:16];
-            if (!v51)
+            v63 = [v17 countByEnumeratingWithState:&v82 objects:v94 count:16];
+            if (!v63)
             {
-              v10 = v64;
-              v8 = v65;
+              v10 = v76;
+              v8 = v77;
 LABEL_55:
-              v13 = v69;
+              v14 = v81;
 LABEL_109:
 
-              v14 = v66;
+              v15 = v78;
 LABEL_110:
 
 LABEL_111:
@@ -907,90 +936,91 @@ LABEL_111:
 
       if (v12)
       {
-        v33 = diagcollectLogHandle();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v40 = diagcollectLogHandle(isKindOfClass);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
-          v34 = objc_opt_class();
-          v35 = NSStringFromClass(v34);
+          v41 = objc_opt_class();
+          v42 = NSStringFromClass(v41);
           *buf = 138412546;
-          v84 = identifierCopy;
-          v85 = 2112;
-          v86 = v35;
-          _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_DEBUG, "Found unexpected class for actions key %@: %@ (should be NSString)", buf, 0x16u);
+          v96 = identifierCopy;
+          v97 = 2112;
+          v98 = v42;
+          _os_log_impl(&dword_241804000, v40, OS_LOG_TYPE_DEBUG, "Found unexpected class for actions key %@: %@ (should be NSString)", buf, 0x16u);
         }
 
         v9 = 0;
-        v13 = v33;
+        v14 = v40;
         goto LABEL_111;
       }
 
 LABEL_112:
-      v11 = v67 + 1;
+      v11 = v79 + 1;
     }
 
-    while (v67 + 1 != v8);
-    v59 = [allKeys countByEnumeratingWithState:&v78 objects:v92 count:16];
-    v8 = v59;
+    while (v79 + 1 != v8);
+    v72 = [allKeys countByEnumeratingWithState:&v90 objects:v104 count:16];
+    v8 = v72;
   }
 
-  while (v59);
+  while (v72);
 LABEL_121:
 
-  v60 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
 - (BOOL)validateSettingsDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v20 = 0u;
+  v30 = *MEMORY[0x277D85DE8];
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
   allKeys = [dictionary allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v22;
     v8 = 1;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v11 = v10;
-          v12 = [(NSMutableDictionary *)self->_settingsDict objectForKeyedSubscript:v11];
-          if ([v11 length])
+          v12 = v10;
+          v13 = [(NSMutableDictionary *)self->_settingsDict objectForKeyedSubscript:v12];
+          if ([v12 length])
           {
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            v14 = objc_opt_isKindOfClass();
+            if (v14)
             {
-              v13 = v12;
-              v8 = [(DiagnosticsController *)self validateSettingsNodeDictionary:v13 identifier:v11 isDefault:[v11 isEqualToString:@"DEFAULTS"]];
+              v15 = v13;
+              v8 = [(DiagnosticsController *)self validateSettingsNodeDictionary:v15 identifier:v12 isDefault:[v12 isEqualToString:@"DEFAULTS"]];
               goto LABEL_20;
             }
 
-            if (v12)
+            if (v13)
             {
-              v13 = diagcollectLogHandle();
-              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+              v15 = diagcollectLogHandle(v14);
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
               {
-                v16 = objc_opt_class();
-                v17 = NSStringFromClass(v16);
+                v18 = objc_opt_class();
+                v19 = NSStringFromClass(v18);
                 *buf = 138412546;
-                v25 = v11;
-                v26 = 2112;
-                v27 = v17;
-                _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Found unexpected class for settings domain node %@: %@ (should be NSDictionary)", buf, 0x16u);
+                v26 = v12;
+                v27 = 2112;
+                v28 = v19;
+                _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Found unexpected class for settings domain node %@: %@ (should be NSDictionary)", buf, 0x16u);
               }
 
 LABEL_19:
@@ -1001,11 +1031,11 @@ LABEL_20:
             goto LABEL_22;
           }
 
-          v13 = diagcollectLogHandle();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v15 = diagcollectLogHandle(0);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Settings domain identifier must not be empty", buf, 2u);
+            _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Settings domain identifier must not be empty", buf, 2u);
           }
 
           goto LABEL_19;
@@ -1016,21 +1046,21 @@ LABEL_20:
           continue;
         }
 
-        v11 = diagcollectLogHandle();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v12 = diagcollectLogHandle(isKindOfClass);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v14 = objc_opt_class();
-          v15 = NSStringFromClass(v14);
+          v16 = objc_opt_class();
+          v17 = NSStringFromClass(v16);
           *buf = 138412290;
-          v25 = v15;
-          _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEBUG, "Found unexpected class for settings domain identifier: %@ (should be NSString)", buf, 0xCu);
+          v26 = v17;
+          _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Found unexpected class for settings domain identifier: %@ (should be NSString)", buf, 0xCu);
         }
 
         v8 = 0;
 LABEL_22:
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (!v6)
       {
         goto LABEL_27;
@@ -1041,51 +1071,51 @@ LABEL_22:
   v8 = 1;
 LABEL_27:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)validateSettingsNodeDictionary:(id)dictionary identifier:(id)identifier isDefault:(BOOL)default
 {
   defaultCopy = default;
-  v46 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   identifierCopy = identifier;
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = [dictionaryCopy allKeys];
-  v8 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+  v8 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 1;
-    v11 = *v36;
-    v32 = dictionaryCopy;
+    v11 = *v39;
+    v35 = dictionaryCopy;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v36 != v11)
+        if (*v39 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * i);
+        v13 = *(*(&v38 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v14 = v13;
-          v15 = [dictionaryCopy objectForKeyedSubscript:v14];
-          if (![v14 length])
+          v15 = v13;
+          v16 = [dictionaryCopy objectForKeyedSubscript:v15];
+          if (![v15 length])
           {
-            v16 = diagcollectLogHandle();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+            v18 = diagcollectLogHandle(0);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v40 = identifierCopy;
-              _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEBUG, "Found empty key in node %@", buf, 0xCu);
+              v43 = identifierCopy;
+              _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEBUG, "Found empty key in node %@", buf, 0xCu);
             }
 
             goto LABEL_31;
@@ -1094,23 +1124,24 @@ LABEL_27:
           if (defaultCopy)
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            v17 = objc_opt_isKindOfClass();
+            if ((v17 & 1) == 0)
             {
-              if (v15)
+              if (v16)
               {
-                v16 = diagcollectLogHandle();
-                if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+                v18 = diagcollectLogHandle(v17);
+                if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
                 {
-                  v17 = objc_opt_class();
-                  v18 = NSStringFromClass(v17);
+                  v19 = objc_opt_class();
+                  v20 = NSStringFromClass(v19);
                   *buf = 138412802;
-                  v40 = identifierCopy;
-                  v41 = 2112;
-                  v42 = v14;
-                  v43 = 2112;
-                  v44 = v18;
-                  v19 = v16;
-                  v20 = "Found unexpected class for value of default node key %@.%@: %@ (should be NSArray)";
+                  v43 = identifierCopy;
+                  v44 = 2112;
+                  v45 = v15;
+                  v46 = 2112;
+                  v47 = v20;
+                  v21 = v18;
+                  v22 = "Found unexpected class for value of default node key %@.%@: %@ (should be NSArray)";
                   goto LABEL_30;
                 }
 
@@ -1123,30 +1154,31 @@ LABEL_33:
             }
 
 LABEL_25:
-            v27 = MEMORY[0x277CCACA8];
-            v25 = v15;
-            v16 = [v27 stringWithFormat:@"%@.%@", identifierCopy, v14];
-            v26 = [(DiagnosticsController *)self validateSettingsNodeContents:v25 identifier:v16];
+            v31 = MEMORY[0x277CCACA8];
+            v28 = v16;
+            v18 = [v31 stringWithFormat:@"%@.%@", identifierCopy, v15];
+            v29 = [(DiagnosticsController *)self validateSettingsNodeContents:v28 identifier:v18];
 LABEL_26:
-            v10 = v26;
+            v10 = v29;
 
-            dictionaryCopy = v32;
+            dictionaryCopy = v35;
           }
 
           else
           {
-            if ([v14 isEqualToString:@"alwaysRun"])
+            v25 = [v15 isEqualToString:@"alwaysRun"];
+            if (v25)
             {
-              v23 = diagcollectLogHandle();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+              v26 = diagcollectLogHandle(v25);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412802;
-                v40 = @"alwaysRun";
-                v41 = 2112;
-                v42 = identifierCopy;
-                v43 = 2112;
-                v44 = v14;
-                _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "Warning: Node key %@ is reserved for default dictionaries. (Found at %@.%@)", buf, 0x20u);
+                v43 = @"alwaysRun";
+                v44 = 2112;
+                v45 = identifierCopy;
+                v46 = 2112;
+                v47 = v15;
+                _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEBUG, "Warning: Node key %@ is reserved for default dictionaries. (Found at %@.%@)", buf, 0x20u);
               }
 
               v10 = 0;
@@ -1155,41 +1187,42 @@ LABEL_26:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v24 = MEMORY[0x277CCACA8];
-              v25 = v15;
-              v16 = [v24 stringWithFormat:@"%@.%@", identifierCopy, v14];
-              v26 = [(DiagnosticsController *)self validateSettingsNodeDictionary:v25 identifier:v16 isDefault:[v14 isEqualToString:@"DEFAULTS"]];
+              v27 = MEMORY[0x277CCACA8];
+              v28 = v16;
+              v18 = [v27 stringWithFormat:@"%@.%@", identifierCopy, v15];
+              v29 = [(DiagnosticsController *)self validateSettingsNodeDictionary:v28 identifier:v18 isDefault:[v15 isEqualToString:@"DEFAULTS"]];
               goto LABEL_26;
             }
 
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            v30 = objc_opt_isKindOfClass();
+            if (v30)
             {
               goto LABEL_25;
             }
 
-            if (!v15)
+            if (!v16)
             {
               goto LABEL_33;
             }
 
-            v16 = diagcollectLogHandle();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+            v18 = diagcollectLogHandle(v30);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
-              v28 = objc_opt_class();
-              v18 = NSStringFromClass(v28);
+              v32 = objc_opt_class();
+              v20 = NSStringFromClass(v32);
               *buf = 138412802;
-              v40 = identifierCopy;
-              v41 = 2112;
-              v42 = v14;
-              v43 = 2112;
-              v44 = v18;
-              v19 = v16;
-              v20 = "Found unexpected class for value of node key %@.%@: %@ (should be NSArray or NSDictionary)";
+              v43 = identifierCopy;
+              v44 = 2112;
+              v45 = v15;
+              v46 = 2112;
+              v47 = v20;
+              v21 = v18;
+              v22 = "Found unexpected class for value of node key %@.%@: %@ (should be NSArray or NSDictionary)";
 LABEL_30:
-              _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEBUG, v20, buf, 0x20u);
+              _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEBUG, v22, buf, 0x20u);
 
-              dictionaryCopy = v32;
+              dictionaryCopy = v35;
             }
 
 LABEL_31:
@@ -1199,23 +1232,23 @@ LABEL_31:
           goto LABEL_33;
         }
 
-        v14 = diagcollectLogHandle();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v15 = diagcollectLogHandle(isKindOfClass);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          v21 = objc_opt_class();
-          v22 = NSStringFromClass(v21);
+          v23 = objc_opt_class();
+          v24 = NSStringFromClass(v23);
           *buf = 138412546;
-          v40 = identifierCopy;
-          v41 = 2112;
-          v42 = v22;
-          _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Found unexpected class for key in node %@: %@ (should be NSString)", buf, 0x16u);
+          v43 = identifierCopy;
+          v44 = 2112;
+          v45 = v24;
+          _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Found unexpected class for key in node %@: %@ (should be NSString)", buf, 0x16u);
         }
 
         v10 = 0;
 LABEL_34:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v9 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
       if (!v9)
       {
         goto LABEL_38;
@@ -1226,7 +1259,6 @@ LABEL_34:
   v10 = 1;
 LABEL_38:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -1256,34 +1288,35 @@ LABEL_38:
 
         v12 = *(*(&v18 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
           if ([v12 length])
           {
             continue;
           }
 
-          v13 = diagcollectLogHandle();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = diagcollectLogHandle(0);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
             v23 = identifierCopy;
-            _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Action identifiers must not be empty. (%@)", buf, 0xCu);
+            _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Action identifiers must not be empty. (%@)", buf, 0xCu);
           }
         }
 
         else
         {
-          v13 = diagcollectLogHandle();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = diagcollectLogHandle(isKindOfClass);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
-            v14 = objc_opt_class();
-            v15 = NSStringFromClass(v14);
+            v15 = objc_opt_class();
+            v16 = NSStringFromClass(v15);
             *buf = 138412546;
             v23 = identifierCopy;
             v24 = 2112;
-            v25 = v15;
-            _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Found unexpected class for action identifiers in node key %@: %@ (should be NSString)", buf, 0x16u);
+            v25 = v16;
+            _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Found unexpected class for action identifiers in node key %@: %@ (should be NSString)", buf, 0x16u);
           }
         }
 
@@ -1301,7 +1334,6 @@ LABEL_38:
   v10 = 1;
 LABEL_17:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -1385,7 +1417,7 @@ uint64_t __42__DiagnosticsController_loggingStateCache__block_invoke()
   actionsCopy = actions;
   actionsDict = [(DiagnosticsController *)self actionsDict];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v6 = diagcollectLogHandle();
+  v6 = diagcollectLogHandle(dictionary);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
@@ -1402,38 +1434,39 @@ uint64_t __42__DiagnosticsController_loggingStateCache__block_invoke()
   if (v7)
   {
     v8 = v7;
-    v9 = 0x277CBE000uLL;
-    v10 = *v63;
+    v9 = *v63;
     v56 = actionsDict;
     v58 = *v63;
     do
     {
-      v11 = 0;
+      v10 = 0;
       v57 = v8;
       do
       {
-        if (*v63 != v10)
+        if (*v63 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [actionsDict objectForKeyedSubscript:*(*(&v62 + 1) + 8 * v11)];
-        v13 = *(v9 + 2752);
+        v11 = [actionsDict objectForKeyedSubscript:*(*(&v62 + 1) + 8 * v10)];
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v14 = v12;
-          v15 = [v14 objectForKeyedSubscript:@"process"];
-          v16 = [v14 objectForKeyedSubscript:@"level"];
+          v13 = v11;
+          v14 = [v13 objectForKeyedSubscript:@"process"];
+          v15 = [v13 objectForKeyedSubscript:@"level"];
           objc_opt_class();
-          v61 = v16;
-          if (objc_opt_isKindOfClass())
+          v16 = objc_opt_isKindOfClass();
+          v61 = v15;
+          if (v16)
           {
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            v16 = objc_opt_isKindOfClass();
+            if (v16)
             {
-              v17 = v16;
-              v18 = v15;
+              v17 = v15;
+              v18 = v14;
               dictionary2 = [dictionary objectForKeyedSubscript:@"process"];
               if (!dictionary2)
               {
@@ -1447,15 +1480,14 @@ uint64_t __42__DiagnosticsController_loggingStateCache__block_invoke()
               [dictionary2 setObject:v21 forKeyedSubscript:v18];
               actionsDict = v56;
               v8 = v57;
-              v9 = 0x277CBE000;
-              v16 = v61;
+              v15 = v61;
               goto LABEL_20;
             }
           }
 
-          if (v15 | v16)
+          if (v14 | v15)
           {
-            dictionary2 = diagcollectLogHandle();
+            dictionary2 = diagcollectLogHandle(v16);
             if (os_log_type_enabled(dictionary2, OS_LOG_TYPE_DEBUG))
             {
               v24 = objc_opt_class();
@@ -1472,21 +1504,20 @@ uint64_t __42__DiagnosticsController_loggingStateCache__block_invoke()
               v73 = v27;
               _os_log_impl(&dword_241804000, dictionary2, OS_LOG_TYPE_DEBUG, "Found unexpected class for keys %@,%@ in the action dictionary (should be NSString): %@,%@", buf, 0x2Au);
 
-              v9 = 0x277CBE000uLL;
               v8 = v57;
             }
 
 LABEL_20:
           }
 
-          v28 = [v14 objectForKeyedSubscript:@"oslog"];
-          v29 = *(v9 + 2752);
+          v28 = [v13 objectForKeyedSubscript:@"oslog"];
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v29 = objc_opt_isKindOfClass();
+          if ((v29 & 1) == 0)
           {
             if (v28)
             {
-              v30 = diagcollectLogHandle();
+              v30 = diagcollectLogHandle(v29);
               if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
               {
                 v39 = objc_opt_class();
@@ -1503,7 +1534,7 @@ LABEL_20:
 
 LABEL_55:
 
-            v10 = v58;
+            v9 = v58;
             goto LABEL_56;
           }
 
@@ -1516,7 +1547,7 @@ LABEL_55:
           v60 = v33;
           if (!v31)
           {
-            v36 = diagcollectLogHandle();
+            v36 = diagcollectLogHandle(v34);
             if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_53;
@@ -1532,7 +1563,7 @@ LABEL_36:
 
           if (v32 && v34)
           {
-            v36 = diagcollectLogHandle();
+            v36 = diagcollectLogHandle(v34);
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
@@ -1545,16 +1576,15 @@ LABEL_53:
 
             actionsDict = v56;
             v8 = v57;
-            v9 = 0x277CBE000;
 LABEL_54:
 
-            v16 = v61;
+            v15 = v61;
             goto LABEL_55;
           }
 
           if (v33 && !v34)
           {
-            v36 = diagcollectLogHandle();
+            v36 = diagcollectLogHandle(0);
             if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_53;
@@ -1567,16 +1597,17 @@ LABEL_54:
           }
 
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v41 = objc_opt_isKindOfClass();
+          if (v41)
           {
             v36 = v31;
             if (v32)
             {
               objc_opt_class();
-              isKindOfClass = objc_opt_isKindOfClass();
+              v42 = objc_opt_isKindOfClass();
               if (v60)
               {
-                if ((isKindOfClass & 1) == 0)
+                if ((v42 & 1) == 0)
                 {
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1595,11 +1626,11 @@ LABEL_54:
             }
 
             v50 = v32;
-            v42 = v32;
+            v43 = v32;
             v51 = v60;
             v52 = v35;
-            v54 = v42;
-            if ([(__CFString *)v42 length])
+            v54 = v43;
+            if ([(__CFString *)v43 length])
             {
               dictionary3 = [dictionary objectForKeyedSubscript:@"process"];
               if (!dictionary3)
@@ -1608,7 +1639,7 @@ LABEL_54:
                 [dictionary setObject:? forKeyedSubscript:?];
               }
 
-              v49 = [dictionary3 objectForKeyedSubscript:v42];
+              v49 = [dictionary3 objectForKeyedSubscript:v43];
               v48 = [v36 maximumLogLevelString:?];
               [dictionary3 setObject:? forKeyedSubscript:?];
               v32 = v50;
@@ -1653,14 +1684,14 @@ LABEL_48:
 
           else
           {
-            v36 = diagcollectLogHandle();
+            v36 = diagcollectLogHandle(v41);
             if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_53;
             }
 
-            v43 = objc_opt_class();
-            v54 = NSStringFromClass(v43);
+            v44 = objc_opt_class();
+            v54 = NSStringFromClass(v44);
             *buf = 138412546;
             v67 = @"level";
             v68 = 2112;
@@ -1671,50 +1702,48 @@ LABEL_48:
           goto LABEL_53;
         }
 
-        if (!v12)
+        if (!v11)
         {
           goto LABEL_57;
         }
 
-        v14 = diagcollectLogHandle();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v13 = diagcollectLogHandle(isKindOfClass);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           v22 = objc_opt_class();
           v23 = NSStringFromClass(v22);
           *buf = 138412290;
           v67 = v23;
-          _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Found unexpected class in actions (should be NSDictionary): %@", buf, 0xCu);
+          _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Found unexpected class in actions (should be NSDictionary): %@", buf, 0xCu);
         }
 
 LABEL_56:
 
 LABEL_57:
-        ++v11;
+        ++v10;
       }
 
-      while (v8 != v11);
-      v44 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
-      v8 = v44;
+      while (v8 != v10);
+      v45 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v8 = v45;
     }
 
-    while (v44);
+    while (v45);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)diagActionsForSignature:(id)signature commonActions:(id)actions
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   actionsCopy = actions;
   v7 = [(__CFString *)signatureCopy objectForKeyedSubscript:@"domain"];
-  v70 = [(__CFString *)signatureCopy objectForKeyedSubscript:@"type"];
-  v68 = [(__CFString *)signatureCopy objectForKeyedSubscript:@"subtype"];
+  v79 = [(__CFString *)signatureCopy objectForKeyedSubscript:@"type"];
+  v77 = [(__CFString *)signatureCopy objectForKeyedSubscript:@"subtype"];
   v8 = @"additional";
-  v67 = [(__CFString *)signatureCopy objectForKeyedSubscript:@"additional"];
+  v76 = [(__CFString *)signatureCopy objectForKeyedSubscript:@"additional"];
   v9 = [(__CFString *)signatureCopy objectForKeyedSubscript:@"detected"];
   if (v9)
   {
@@ -1726,64 +1755,66 @@ LABEL_57:
     v10 = &stru_285368168;
   }
 
-  v69 = v7;
-  if (([v7 isEqualToString:@"UIPerformance"] & 1) != 0 || objc_msgSend(v7, "isEqualToString:", @"Performance") && objc_msgSend(v70, "isEqualToString:", @"MemoryResourceException"))
+  v11 = [v7 isEqualToString:@"UIPerformance"];
+  v78 = v7;
+  if ((v11 & 1) != 0 || [v7 isEqualToString:@"Performance"] && (v11 = objc_msgSend(v79, "isEqualToString:", @"MemoryResourceException"), v11))
   {
-    v11 = diagcollectLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = diagcollectLogHandle(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEBUG, "Will skip evaluating common diagnostic extension actions based on signature match", buf, 2u);
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Will skip evaluating common diagnostic extension actions based on signature match", buf, 2u);
     }
 
-    LOBYTE(v12) = 0;
-    v7 = v69;
+    LOBYTE(v13) = 0;
+    v7 = v78;
   }
 
   else
   {
-    LOBYTE(v12) = 1;
+    LOBYTE(v13) = 1;
   }
 
   if (actionsCopy)
   {
-    LODWORD(v12) = [actionsCopy BOOLValue];
-    v13 = diagcollectLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    bOOLValue = [actionsCopy BOOLValue];
+    LODWORD(v13) = bOOLValue;
+    v15 = diagcollectLogHandle(bOOLValue);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v14 = "not ";
-      if (v12)
+      v16 = "not ";
+      if (v13)
       {
-        v14 = "";
+        v16 = "";
       }
 
       *buf = 136315138;
-      v77 = v14;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Will %sevaluate common diagnostic extension actions based on client request", buf, 0xCu);
+      v86 = v16;
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Will %sevaluate common diagnostic extension actions based on client request", buf, 0xCu);
     }
 
-    v7 = v69;
+    v7 = v78;
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  if ([v7 length] && objc_msgSend(v70, "length"))
+  if ([v7 length] && objc_msgSend(v79, "length"))
   {
     [dictionary setObject:@"type" forKeyedSubscript:@"domain"];
-    if ([v70 length] && objc_msgSend(v68, "length"))
+    if ([v79 length] && objc_msgSend(v77, "length"))
     {
       [dictionary setObject:@"subtype" forKeyedSubscript:@"type"];
-      if (![v68 length])
+      if (![v77 length])
       {
         goto LABEL_32;
       }
 
-      if (![v67 length])
+      if (![v76 length])
       {
         goto LABEL_32;
       }
 
       [dictionary setObject:@"additional" forKeyedSubscript:@"subtype"];
-      if (![v67 length] || !-[__CFString length](v10, "length"))
+      if (![v76 length] || !-[__CFString length](v10, "length"))
       {
         goto LABEL_32;
       }
@@ -1793,7 +1824,7 @@ LABEL_31:
       goto LABEL_32;
     }
 
-    if ([v70 length])
+    if ([v79 length])
     {
       v8 = @"type";
       if ([(__CFString *)v10 length])
@@ -1813,64 +1844,64 @@ LABEL_31:
   }
 
 LABEL_32:
-  v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v82 = objc_alloc_init(MEMORY[0x277CBEB18]);
   settingsDict = [(DiagnosticsController *)self settingsDict];
-  v16 = @"domain";
-  v18 = v16;
-  v19 = "ghtStatus";
+  v18 = @"domain";
+  v20 = v18;
+  v21 = "ghtStatus";
   if (settingsDict)
   {
-    v20 = 0;
-    *&v17 = 134218242;
-    v66 = v17;
-    v72 = v10;
-    v74 = v12;
+    v22 = 0;
+    *&v19 = 134218242;
+    v75 = v19;
+    v81 = v10;
+    v83 = v13;
     while (1)
     {
-      v21 = diagcollectLogHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v23 = diagcollectLogHandle(v18);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
-        v22 = @"Top Level";
-        if (v20)
+        v24 = @"Top Level";
+        if (v22)
         {
-          v22 = v20;
+          v24 = v22;
         }
 
         *buf = 138412290;
-        v77 = v22;
-        _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEBUG, "Processing actions for [%@]", buf, 0xCu);
+        v86 = v24;
+        _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "Processing actions for [%@]", buf, 0xCu);
       }
 
-      if ((v20 != 0) | v12 & 1)
+      if ((v22 != 0) | v13 & 1)
       {
         break;
       }
 
-      v23 = diagcollectLogHandle();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v26 = diagcollectLogHandle(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v77 = signatureCopy;
-        _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_INFO, "Skipped evaluating common diagnostic extension actions for signature: %@", buf, 0xCu);
+        v86 = signatureCopy;
+        _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_INFO, "Skipped evaluating common diagnostic extension actions for signature: %@", buf, 0xCu);
       }
 
 LABEL_69:
 
-      v42 = [(__CFString *)signatureCopy objectForKeyedSubscript:v18];
+      v48 = [(__CFString *)signatureCopy objectForKeyedSubscript:v20];
 
-      if ([(__CFString *)v42 length])
+      if ([(__CFString *)v48 length])
       {
-        v43 = [settingsDict objectForKeyedSubscript:v42];
+        v49 = [settingsDict objectForKeyedSubscript:v48];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v44 = v43;
+          v50 = v49;
 
-          v45 = diagcollectLogHandle();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+          v52 = diagcollectLogHandle(v51);
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_241804000, v45, OS_LOG_TYPE_DEBUG, "We have another level to look into.", buf, 2u);
+            _os_log_impl(&dword_241804000, v52, OS_LOG_TYPE_DEBUG, "We have another level to look into.", buf, 2u);
           }
 
           goto LABEL_85;
@@ -1880,24 +1911,23 @@ LABEL_69:
         if (objc_opt_isKindOfClass())
         {
 
-          v45 = v43;
-          if ([v45 count])
+          v52 = v49;
+          if ([v52 count])
           {
-            [v73 addObjectsFromArray:v45];
-            v46 = diagcollectLogHandle();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+            v53 = diagcollectLogHandle([v82 addObjectsFromArray:v52]);
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
             {
-              v47 = [v45 count];
+              v54 = [v52 count];
               *buf = 134218498;
-              v77 = v47;
-              v78 = 2112;
-              v79 = v10;
-              v80 = 2112;
-              v81 = v45;
-              v48 = v46;
-              v49 = OS_LOG_TYPE_DEBUG;
-              v50 = "Added %ld actions for %@: %@";
-              v51 = 32;
+              v86 = v54;
+              v87 = 2112;
+              v88 = v10;
+              v89 = 2112;
+              v90 = v52;
+              v55 = v53;
+              v56 = OS_LOG_TYPE_DEBUG;
+              v57 = "Added %ld actions for %@: %@";
+              v58 = 32;
               goto LABEL_82;
             }
 
@@ -1907,57 +1937,57 @@ LABEL_69:
           goto LABEL_84;
         }
 
-        if (v43)
+        if (v49)
         {
 
-          v45 = diagcollectLogHandle();
-          if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          v52 = diagcollectLogHandle(v59);
+          if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_84;
           }
 
-          v52 = objc_opt_class();
-          v46 = NSStringFromClass(v52);
+          v60 = objc_opt_class();
+          v53 = NSStringFromClass(v60);
           *buf = 138412290;
-          v77 = v46;
-          v48 = v45;
-          v49 = OS_LOG_TYPE_ERROR;
-          v50 = "Found unexpected class: %@";
+          v86 = v53;
+          v55 = v52;
+          v56 = OS_LOG_TYPE_ERROR;
+          v57 = "Found unexpected class: %@";
           goto LABEL_81;
         }
 
-        v44 = [settingsDict objectForKeyedSubscript:v10];
+        v50 = [settingsDict objectForKeyedSubscript:v10];
 
-        if (!v44)
+        if (!v50)
         {
-          v45 = settingsDict;
+          v52 = settingsDict;
           goto LABEL_85;
         }
 
-        v45 = [settingsDict objectForKeyedSubscript:v10];
+        v52 = [settingsDict objectForKeyedSubscript:v10];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
 
-          v46 = diagcollectLogHandle();
-          if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v53 = diagcollectLogHandle(v62);
+          if (!os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_83;
           }
 
           *buf = 138412290;
-          v77 = v45;
-          v48 = v46;
-          v49 = OS_LOG_TYPE_ERROR;
-          v50 = "Unexpectedly found a dictionary instead of an array: %@";
+          v86 = v52;
+          v55 = v53;
+          v56 = OS_LOG_TYPE_ERROR;
+          v57 = "Unexpectedly found a dictionary instead of an array: %@";
 LABEL_81:
-          v51 = 12;
+          v58 = 12;
 LABEL_82:
-          _os_log_impl(&dword_241804000, v48, v49, v50, buf, v51);
+          _os_log_impl(&dword_241804000, v55, v56, v57, buf, v58);
 LABEL_83:
 
 LABEL_84:
-          v44 = 0;
+          v50 = 0;
 LABEL_85:
 
           goto LABEL_86;
@@ -1968,156 +1998,156 @@ LABEL_85:
 
         if (isKindOfClass)
         {
-          v46 = v45;
-          if (![v46 count])
+          v53 = v52;
+          if (![v53 count])
           {
             goto LABEL_83;
           }
 
-          [v73 addObjectsFromArray:v46];
-          v55 = diagcollectLogHandle();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+          v65 = diagcollectLogHandle([v82 addObjectsFromArray:v53]);
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
           {
-            v56 = [v46 count];
+            v66 = [v53 count];
             *buf = 134218498;
-            v77 = v56;
-            v78 = 2112;
-            v79 = v10;
-            v80 = 2112;
-            v81 = v46;
-            v57 = v55;
-            v58 = OS_LOG_TYPE_DEBUG;
-            v59 = "Added %ld actions for %@: %@";
-            v60 = 32;
+            v86 = v66;
+            v87 = 2112;
+            v88 = v10;
+            v89 = 2112;
+            v90 = v53;
+            v67 = v65;
+            v68 = OS_LOG_TYPE_DEBUG;
+            v69 = "Added %ld actions for %@: %@";
+            v70 = 32;
             goto LABEL_100;
           }
         }
 
         else
         {
-          if (!v45)
+          if (!v52)
           {
             goto LABEL_84;
           }
 
-          v46 = diagcollectLogHandle();
-          if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v53 = diagcollectLogHandle(v64);
+          if (!os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_83;
           }
 
-          v61 = objc_opt_class();
-          v55 = NSStringFromClass(v61);
+          v71 = objc_opt_class();
+          v65 = NSStringFromClass(v71);
           *buf = 138412290;
-          v77 = v55;
-          v57 = v46;
-          v58 = OS_LOG_TYPE_ERROR;
-          v59 = "Found unexpected class: %@";
-          v60 = 12;
+          v86 = v65;
+          v67 = v53;
+          v68 = OS_LOG_TYPE_ERROR;
+          v69 = "Found unexpected class: %@";
+          v70 = 12;
 LABEL_100:
-          _os_log_impl(&dword_241804000, v57, v58, v59, buf, v60);
+          _os_log_impl(&dword_241804000, v67, v68, v69, buf, v70);
         }
 
         goto LABEL_83;
       }
 
-      v44 = 0;
-      v43 = settingsDict;
+      v50 = 0;
+      v49 = settingsDict;
 LABEL_86:
 
-      v53 = [dictionary objectForKeyedSubscript:v18];
+      v61 = [dictionary objectForKeyedSubscript:v20];
 
-      settingsDict = v44;
-      v18 = v53;
-      v20 = v42;
-      if (!v44)
+      settingsDict = v50;
+      v20 = v61;
+      v22 = v48;
+      if (!v50)
       {
 
-        v7 = v69;
-        v19 = "preflightStatus" + 6;
+        v7 = v78;
+        v21 = "preflightStatus" + 6;
         goto LABEL_103;
       }
     }
 
-    v23 = [settingsDict objectForKeyedSubscript:@"DEFAULTS"];
+    v26 = [settingsDict objectForKeyedSubscript:@"DEFAULTS"];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v27 = objc_opt_isKindOfClass();
+    if ((v27 & 1) == 0)
     {
-      if (!v23)
+      if (!v26)
       {
         goto LABEL_69;
       }
 
-      v12 = diagcollectLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = diagcollectLogHandle(v27);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v31 = objc_opt_class();
-        v32 = NSStringFromClass(v31);
+        v36 = objc_opt_class();
+        v37 = NSStringFromClass(v36);
         *buf = 138412546;
-        v77 = @"DEFAULTS";
-        v78 = 2112;
-        v79 = v32;
-        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Found unexpected class for key %@ (should be NSDictionary): %@", buf, 0x16u);
+        v86 = @"DEFAULTS";
+        v87 = 2112;
+        v88 = v37;
+        _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Found unexpected class for key %@ (should be NSDictionary): %@", buf, 0x16u);
       }
 
       goto LABEL_68;
     }
 
-    v12 = v23;
-    v24 = diagcollectLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v13 = v26;
+    v28 = diagcollectLogHandle(v13);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_DEBUG, "Evaluating default actions.", buf, 2u);
+      _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_DEBUG, "Evaluating default actions.", buf, 2u);
     }
 
-    v25 = [v12 objectForKeyedSubscript:@"alwaysRun"];
+    v29 = [v13 objectForKeyedSubscript:@"alwaysRun"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v30 = objc_opt_isKindOfClass();
+    if (v30)
     {
-      v26 = v25;
-      if ([v26 count])
+      v31 = v29;
+      if ([v31 count])
       {
-        [v73 addObjectsFromArray:v26];
-        v27 = diagcollectLogHandle();
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v32 = diagcollectLogHandle([v82 addObjectsFromArray:v31]);
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
 LABEL_55:
 
           goto LABEL_56;
         }
 
-        v28 = [v26 count];
-        *buf = v66;
-        v77 = v28;
-        v78 = 2112;
-        v79 = v26;
-        v29 = v27;
-        v30 = "Added %ld always run actions: %@";
+        v33 = [v31 count];
+        *buf = v75;
+        v86 = v33;
+        v87 = 2112;
+        v88 = v31;
+        v34 = v32;
+        v35 = "Added %ld always run actions: %@";
 LABEL_54:
-        _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_DEBUG, v30, buf, 0x16u);
+        _os_log_impl(&dword_241804000, v34, OS_LOG_TYPE_DEBUG, v35, buf, 0x16u);
         goto LABEL_55;
       }
     }
 
     else
     {
-      if (!v25)
+      if (!v29)
       {
         goto LABEL_57;
       }
 
-      v26 = diagcollectLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v31 = diagcollectLogHandle(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        v33 = objc_opt_class();
-        v27 = NSStringFromClass(v33);
+        v38 = objc_opt_class();
+        v32 = NSStringFromClass(v38);
         *buf = 138412546;
-        v77 = @"alwaysRun";
-        v78 = 2112;
-        v79 = v27;
-        v29 = v26;
-        v30 = "Found unexpected class for key %@ (should be NSArray): %@";
+        v86 = @"alwaysRun";
+        v87 = 2112;
+        v88 = v32;
+        v34 = v31;
+        v35 = "Found unexpected class for key %@ (should be NSArray): %@";
         goto LABEL_54;
       }
     }
@@ -2125,62 +2155,62 @@ LABEL_54:
 LABEL_56:
 
 LABEL_57:
-    v34 = [v12 objectForKeyedSubscript:{v10, v66}];
+    v39 = [v13 objectForKeyedSubscript:{v10, v75}];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v40 = objc_opt_isKindOfClass();
+    if (v40)
     {
-      v35 = v34;
-      if ([v35 count])
+      v41 = v39;
+      if ([v41 count])
       {
-        [v73 addObjectsFromArray:v35];
-        v36 = diagcollectLogHandle();
-        if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+        v42 = diagcollectLogHandle([v82 addObjectsFromArray:v41]);
+        if (!os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
 LABEL_65:
 
-          v10 = v72;
+          v10 = v81;
           goto LABEL_66;
         }
 
-        v37 = [v35 count];
+        v43 = [v41 count];
         *buf = 134218498;
-        v77 = v37;
-        v78 = 2112;
-        v79 = v72;
-        v80 = 2112;
-        v81 = v35;
-        v38 = v36;
-        v39 = "Added %ld default actions for %@: %@";
-        v40 = 32;
+        v86 = v43;
+        v87 = 2112;
+        v88 = v81;
+        v89 = 2112;
+        v90 = v41;
+        v44 = v42;
+        v45 = "Added %ld default actions for %@: %@";
+        v46 = 32;
 LABEL_64:
-        _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEBUG, v39, buf, v40);
+        _os_log_impl(&dword_241804000, v44, OS_LOG_TYPE_DEBUG, v45, buf, v46);
         goto LABEL_65;
       }
     }
 
     else
     {
-      if (!v34)
+      if (!v39)
       {
 LABEL_67:
 
 LABEL_68:
-        LOBYTE(v12) = v74;
+        LOBYTE(v13) = v83;
         goto LABEL_69;
       }
 
-      v35 = diagcollectLogHandle();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v41 = diagcollectLogHandle(v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
-        v41 = objc_opt_class();
-        v36 = NSStringFromClass(v41);
+        v47 = objc_opt_class();
+        v42 = NSStringFromClass(v47);
         *buf = 138412546;
-        v77 = v72;
-        v78 = 2112;
-        v79 = v36;
-        v38 = v35;
-        v39 = "Found unexpected class for key %@ (should be NSArray): %@";
-        v40 = 22;
+        v86 = v81;
+        v87 = 2112;
+        v88 = v42;
+        v44 = v41;
+        v45 = "Found unexpected class for key %@ (should be NSArray): %@";
+        v46 = 22;
         goto LABEL_64;
       }
     }
@@ -2190,22 +2220,20 @@ LABEL_66:
     goto LABEL_67;
   }
 
-  v53 = v16;
+  v61 = v18;
 LABEL_103:
-  v62 = diagcollectLogHandle();
-  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+  v72 = diagcollectLogHandle(v18);
+  if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
   {
-    v63 = [v73 count];
-    *buf = *(v19 + 384);
-    v77 = v63;
-    v78 = 2112;
-    v79 = v73;
-    _os_log_impl(&dword_241804000, v62, OS_LOG_TYPE_DEBUG, "Result: Found %ld actions: %@", buf, 0x16u);
+    v73 = [v82 count];
+    *buf = *(v21 + 384);
+    v86 = v73;
+    v87 = 2112;
+    v88 = v82;
+    _os_log_impl(&dword_241804000, v72, OS_LOG_TYPE_DEBUG, "Result: Found %ld actions: %@", buf, 0x16u);
   }
 
-  v64 = *MEMORY[0x277D85DE8];
-
-  return v73;
+  return v82;
 }
 
 - (void)consolidateLoggingLevelsIntoSet:(id)set withCurrentState:(id)state
@@ -2233,14 +2261,15 @@ LABEL_103:
 
         v11 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v12 = diagcollectLogHandle();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = diagcollectLogHandle(isKindOfClass);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
             v21 = v11;
-            _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "sesstionState: %@", buf, 0xCu);
+            _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "sesstionState: %@", buf, 0xCu);
           }
 
           v14[0] = MEMORY[0x277D85DD0];
@@ -2257,58 +2286,58 @@ LABEL_103:
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __74__DiagnosticsController_consolidateLoggingLevelsIntoSet_withCurrentState___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = diagcollectLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = diagcollectLogHandle(isKindOfClass);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v18 = v5;
-        v19 = 2112;
-        v20 = v6;
-        _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "key: %@ object: %@", buf, 0x16u);
+        v19 = v5;
+        v20 = 2112;
+        v21 = v6;
+        _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, "key: %@ object: %@", buf, 0x16u);
       }
 
-      v8 = v6;
-      if (([v5 isEqualToString:@"process"]& 1) != 0 || ([v5 isEqualToString:@"subsystem"]& 1) != 0 || [v5 isEqualToString:@"category"])
+      v9 = v6;
+      if (([v5 isEqualToString:@"process"]& 1) != 0 || ([v5 isEqualToString:@"subsystem"]& 1) != 0 || (v10 = [v5 isEqualToString:@"category"], v10))
       {
-        v9 = [*(a1 + 32) objectForKeyedSubscript:v5];
-        if (!v9)
+        v11 = [*(a1 + 32) objectForKeyedSubscript:v5];
+        if (!v11)
         {
-          v9 = [MEMORY[0x277CBEB38] dictionary];
-          [*(a1 + 32) setObject:v9 forKeyedSubscript:v5];
+          v11 = [MEMORY[0x277CBEB38] dictionary];
+          [*(a1 + 32) setObject:v11 forKeyedSubscript:v5];
         }
 
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __74__DiagnosticsController_consolidateLoggingLevelsIntoSet_withCurrentState___block_invoke_155;
-        v15[3] = &unk_278CF0C68;
-        v16 = v9;
-        v10 = v9;
-        [v8 enumerateKeysAndObjectsUsingBlock:v15];
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __74__DiagnosticsController_consolidateLoggingLevelsIntoSet_withCurrentState___block_invoke_155;
+        v16[3] = &unk_278CF0C68;
+        v17 = v11;
+        v12 = v11;
+        [v9 enumerateKeysAndObjectsUsingBlock:v16];
       }
 
       else
       {
-        v10 = diagcollectLogHandle();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v12 = diagcollectLogHandle(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v18 = v5;
-          _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "Found unsupported log set key %@", buf, 0xCu);
+          v19 = v5;
+          _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Found unsupported log set key %@", buf, 0xCu);
         }
       }
 
@@ -2316,23 +2345,21 @@ void __74__DiagnosticsController_consolidateLoggingLevelsIntoSet_withCurrentStat
     }
   }
 
-  v8 = diagcollectLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = diagcollectLogHandle(isKindOfClass);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v11 = objc_opt_class();
-    v10 = NSStringFromClass(v11);
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
+    v13 = objc_opt_class();
+    v12 = NSStringFromClass(v13);
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
     *buf = 138412546;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v13;
-    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, "Found unexpected class %@/%@ for consolidated action set (should be NSString/NSDictionary).", buf, 0x16u);
+    v19 = v12;
+    v20 = 2112;
+    v21 = v15;
+    _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, "Found unexpected class %@/%@ for consolidated action set (should be NSString/NSDictionary).", buf, 0x16u);
 
 LABEL_13:
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __74__DiagnosticsController_consolidateLoggingLevelsIntoSet_withCurrentState___block_invoke_155(uint64_t a1, void *a2, void *a3)
@@ -2341,34 +2368,33 @@ void __74__DiagnosticsController_consolidateLoggingLevelsIntoSet_withCurrentStat
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
   {
-    v7 = *(a1 + 32);
-    v8 = v6;
-    v9 = [v7 objectForKeyedSubscript:v5];
-    v10 = [v8 maximumLogLevelString:v9];
+    v8 = *(a1 + 32);
+    v9 = v6;
+    v10 = [v8 objectForKeyedSubscript:v5];
+    v11 = [v9 maximumLogLevelString:v10];
 
-    [*(a1 + 32) setObject:v10 forKeyedSubscript:v5];
+    [*(a1 + 32) setObject:v11 forKeyedSubscript:v5];
   }
 
   else
   {
-    v11 = diagcollectLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = diagcollectLogHandle(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       v17 = 138412546;
-      v18 = v13;
+      v18 = v14;
       v19 = 2112;
-      v20 = v15;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEBUG, "Found unexpected class %@/%@ for log level setting (should be NSString/NSString).", &v17, 0x16u);
+      v20 = v16;
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Found unexpected class %@/%@ for log level setting (should be NSString/NSString).", &v17, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)raiseLoggingForActions:(id)actions identifier:(id)identifier
@@ -2378,35 +2404,35 @@ void __74__DiagnosticsController_consolidateLoggingLevelsIntoSet_withCurrentStat
   identifierCopy = identifier;
   if (![identifierCopy length])
   {
-    v8 = diagcollectLogHandle();
+    v8 = diagcollectLogHandle(0);
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_17;
     }
 
     LOWORD(v16) = 0;
-    v14 = "A valid identifier is required when raising log levels!";
+    v15 = "A valid identifier is required when raising log levels!";
 LABEL_16:
-    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, v14, &v16, 2u);
+    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, v15, &v16, 2u);
     goto LABEL_17;
   }
 
   if (![actionsCopy count])
   {
-    v8 = diagcollectLogHandle();
+    v8 = diagcollectLogHandle(0);
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_17;
     }
 
     LOWORD(v16) = 0;
-    v14 = "No actions to raise log levels for.";
+    v15 = "No actions to raise log levels for.";
     goto LABEL_16;
   }
 
   v8 = +[DiagnosticsController loggingStateCache];
   v9 = [(DiagnosticsController *)self consolidatedLogLevelSetsFromActions:actionsCopy];
-  v10 = diagcollectLogHandle();
+  v10 = diagcollectLogHandle(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v16 = 134217984;
@@ -2414,36 +2440,35 @@ LABEL_16:
     _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "Consolidated actions to %ld set(s) of log level adjustments", &v16, 0xCu);
   }
 
-  if ([v9 count])
+  v11 = [v9 count];
+  if (v11)
   {
-    v11 = diagcollectLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = diagcollectLogHandle(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       v16 = 138412290;
       v17 = identifierCopy;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEBUG, "Storing logging state for session: %@", &v16, 0xCu);
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Storing logging state for session: %@", &v16, 0xCu);
     }
 
     [v8 setObject:v9 forKeyedSubscript:identifierCopy];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    [(DiagnosticsController *)self consolidateLoggingLevelsIntoSet:dictionary withCurrentState:v8];
-    v13 = diagcollectLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = diagcollectLogHandle([(DiagnosticsController *)self consolidateLoggingLevelsIntoSet:dictionary withCurrentState:v8]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(v16) = 0;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Applying the consolidated log levels", &v16, 2u);
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Applying the consolidated log levels", &v16, 2u);
     }
 
     [(DiagnosticsController *)self applyLogLevelSets:dictionary];
   }
 
 LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lowerLoggingForIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
@@ -2451,25 +2476,23 @@ LABEL_17:
     v6 = [v5 objectForKeyedSubscript:identifierCopy];
     if ([v6 count])
     {
-      [v5 setObject:0 forKeyedSubscript:identifierCopy];
-      v7 = diagcollectLogHandle();
+      v7 = diagcollectLogHandle([v5 setObject:0 forKeyedSubscript:identifierCopy]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v15 = identifierCopy;
+        v14 = identifierCopy;
         _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, "Removed logging state for session: %@", buf, 0xCu);
       }
 
       dictionary = [MEMORY[0x277CBEB38] dictionary];
       [(DiagnosticsController *)self consolidateLoggingLevelsIntoSet:dictionary withCurrentState:v5];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __51__DiagnosticsController_lowerLoggingForIdentifier___block_invoke;
-      v12[3] = &unk_278CF0C68;
-      v13 = dictionary;
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __51__DiagnosticsController_lowerLoggingForIdentifier___block_invoke;
+      v11[3] = &unk_278CF0C68;
+      v12 = dictionary;
       v9 = dictionary;
-      [v6 enumerateKeysAndObjectsUsingBlock:v12];
-      v10 = diagcollectLogHandle();
+      v10 = diagcollectLogHandle([v6 enumerateKeysAndObjectsUsingBlock:v11]);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
@@ -2481,11 +2504,11 @@ LABEL_17:
 
     else
     {
-      v9 = diagcollectLogHandle();
+      v9 = diagcollectLogHandle(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v15 = identifierCopy;
+        v14 = identifierCopy;
         _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, "No logging state for session: %@", buf, 0xCu);
       }
     }
@@ -2493,15 +2516,13 @@ LABEL_17:
 
   else
   {
-    v5 = diagcollectLogHandle();
+    v5 = diagcollectLogHandle(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
       _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, "A valid identifier is required when lowering log levels!", buf, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__DiagnosticsController_lowerLoggingForIdentifier___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2509,71 +2530,69 @@ void __51__DiagnosticsController_lowerLoggingForIdentifier___block_invoke(uint64
   v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  if (([v5 isEqualToString:@"process"] & 1) != 0 || (objc_msgSend(v5, "isEqualToString:", @"subsystem") & 1) != 0 || objc_msgSend(v5, "isEqualToString:", @"category"))
+  if (([v5 isEqualToString:@"process"] & 1) != 0 || (objc_msgSend(v5, "isEqualToString:", @"subsystem") & 1) != 0 || (v7 = objc_msgSend(v5, "isEqualToString:", @"category"), v7))
   {
     v20 = v6;
-    v7 = v6;
-    v8 = [*(a1 + 32) objectForKeyedSubscript:v5];
-    if (!v8)
+    v8 = v6;
+    v9 = [*(a1 + 32) objectForKeyedSubscript:v5];
+    if (!v9)
     {
-      v8 = [MEMORY[0x277CBEB38] dictionary];
-      [*(a1 + 32) setObject:v8 forKeyedSubscript:v5];
+      v9 = [MEMORY[0x277CBEB38] dictionary];
+      [*(a1 + 32) setObject:v9 forKeyedSubscript:v5];
     }
 
     v23 = 0u;
     v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v9 = [v7 allKeys];
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
-    if (v10)
+    v10 = [v8 allKeys];
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v22;
+      v12 = v11;
+      v13 = *v22;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v12)
+          if (*v22 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
+          v15 = *(*(&v21 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v15 = v14;
-            v16 = [v8 objectForKeyedSubscript:v15];
-            if (!v16)
+            v16 = v15;
+            v17 = [v9 objectForKeyedSubscript:v16];
+            if (!v17)
             {
-              [v8 setObject:@"reset" forKeyedSubscript:v15];
+              [v9 setObject:@"reset" forKeyedSubscript:v16];
             }
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
-    v17 = v19;
+    v18 = v19;
     v6 = v20;
   }
 
   else
   {
-    v17 = diagcollectLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = diagcollectLogHandle(v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
       v26 = v5;
-      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEBUG, "Unsupported log setting type: %@", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEBUG, "Unsupported log setting type: %@", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyLogLevelSets:(id)sets
@@ -2629,79 +2648,81 @@ void __43__DiagnosticsController_applyLogLevelSets___block_invoke(uint64_t a1, v
 
 - (void)applyLogLevel:(id)level forIdentifier:(id)identifier logSettingType:(unint64_t)type
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   levelCopy = level;
   identifierCopy = identifier;
   _loadLoggingSupport = [(DiagnosticsController *)self _loadLoggingSupport];
-  v11 = diagcollectLogHandle();
-  v12 = v11;
-  if (_loadLoggingSupport)
+  v11 = _loadLoggingSupport;
+  v12 = diagcollectLogHandle(_loadLoggingSupport);
+  v13 = v12;
+  if (v11)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v13 = LogSettingToString;
-      v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-      v15 = [v13 objectForKeyedSubscript:v14];
-      v47 = 138412546;
-      typeCopy = v15;
-      v49 = 2112;
-      v50 = identifierCopy;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, " - %@ identifier: %@", &v47, 0x16u);
+      v14 = LogSettingToString;
+      v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+      v16 = [v14 objectForKeyedSubscript:v15];
+      v52 = 138412546;
+      typeCopy = v16;
+      v54 = 2112;
+      v55 = identifierCopy;
+      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, " - %@ identifier: %@", &v52, 0x16u);
     }
 
     switch(type)
     {
       case 3uLL:
-        v17 = [identifierCopy componentsSeparatedByString:@":"];
-        if ([v17 count] == 2)
+        v19 = [identifierCopy componentsSeparatedByString:@":"];
+        if ([v19 count] == 2)
         {
-          v18 = [v17 objectAtIndexedSubscript:0];
-          v19 = [v17 objectAtIndexedSubscript:1];
-          v20 = [[gOSLogPreferencesSubsystem alloc] initWithName:v18];
-          v12 = [[gOSLogPreferencesCategory alloc] initWithName:v19 subsystem:v20];
+          v20 = [v19 objectAtIndexedSubscript:0];
+          v21 = [v19 objectAtIndexedSubscript:1];
+          v22 = [[gOSLogPreferencesSubsystem alloc] initWithName:v20];
+          v13 = [[gOSLogPreferencesCategory alloc] initWithName:v21 subsystem:v22];
         }
 
         else
         {
-          v12 = 0;
+          v13 = 0;
         }
 
         break;
       case 2uLL:
-        v16 = [[gOSLogPreferencesSubsystem alloc] initWithName:identifierCopy];
+        v18 = [[gOSLogPreferencesSubsystem alloc] initWithName:identifierCopy];
         goto LABEL_11;
       case 1uLL:
-        v16 = [[gOSLogPreferencesProcess alloc] initWithBundleID:identifierCopy];
+        v18 = [[gOSLogPreferencesProcess alloc] initWithBundleID:identifierCopy];
 LABEL_11:
-        v12 = v16;
+        v13 = v18;
         break;
       default:
-        v21 = diagcollectLogHandle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v23 = diagcollectLogHandle(v17);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
-          v47 = 134217984;
+          v52 = 134217984;
           typeCopy = type;
-          _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEBUG, "Unsupported log setting type: %ld", &v47, 0xCu);
+          _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "Unsupported log setting type: %ld", &v52, 0xCu);
         }
 
-        v12 = 0;
+        v13 = 0;
         break;
     }
 
-    v22 = [(DiagnosticsController *)self validateOSLogPreferencesProtocol:v12];
-    v23 = diagcollectLogHandle();
-    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG);
-    if (!v22)
+    v24 = [(DiagnosticsController *)self validateOSLogPreferencesProtocol:v13];
+    v25 = v24;
+    v26 = diagcollectLogHandle(v24);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
+    if (!v25)
     {
-      if (v24)
+      if (v27)
       {
-        v47 = 138412290;
-        typeCopy = v12;
-        v32 = "OSLogPreferences object %@ no longer conforms to our expected definition!";
-        v33 = v23;
-        v34 = 12;
+        v52 = 138412290;
+        typeCopy = v13;
+        v36 = "OSLogPreferences object %@ no longer conforms to our expected definition!";
+        v37 = v26;
+        v38 = 12;
 LABEL_53:
-        _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_DEBUG, v32, &v47, v34);
+        _os_log_impl(&dword_241804000, v37, OS_LOG_TYPE_DEBUG, v36, &v52, v38);
       }
 
 LABEL_54:
@@ -2709,177 +2730,185 @@ LABEL_54:
       goto LABEL_55;
     }
 
-    if (v24)
+    if (v27)
     {
-      if ([v12 isLocked])
+      if ([v13 isLocked])
       {
-        v25 = @"On";
+        v28 = @"On";
       }
 
       else
       {
-        v25 = @"Off";
+        v28 = @"Off";
       }
 
-      effectiveEnabledLevel = [v12 effectiveEnabledLevel];
-      enabledLevel = [v12 enabledLevel];
-      effectivePersistedLevel = [v12 effectivePersistedLevel];
-      persistedLevel = [v12 persistedLevel];
-      v47 = 138413570;
-      typeCopy = v12;
-      v49 = 2112;
-      v50 = v25;
-      v51 = 2048;
-      v52 = effectiveEnabledLevel;
-      v53 = 2048;
-      v54 = enabledLevel;
-      v55 = 2048;
-      v56 = effectivePersistedLevel;
-      v57 = 2048;
-      v58 = persistedLevel;
-      _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "(Before) OSLogPreferences: %@, isLocked: %@, effectiveEnabled:%ld, enabled:%ld effectivePersisted: %ld, persisted: %ld", &v47, 0x3Eu);
+      effectiveEnabledLevel = [v13 effectiveEnabledLevel];
+      enabledLevel = [v13 enabledLevel];
+      effectivePersistedLevel = [v13 effectivePersistedLevel];
+      persistedLevel = [v13 persistedLevel];
+      v52 = 138413570;
+      typeCopy = v13;
+      v54 = 2112;
+      v55 = v28;
+      v56 = 2048;
+      v57 = effectiveEnabledLevel;
+      v58 = 2048;
+      v59 = enabledLevel;
+      v60 = 2048;
+      v61 = effectivePersistedLevel;
+      v62 = 2048;
+      v63 = persistedLevel;
+      _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEBUG, "(Before) OSLogPreferences: %@, isLocked: %@, effectiveEnabled:%ld, enabled:%ld effectivePersisted: %ld, persisted: %ld", &v52, 0x3Eu);
     }
 
-    if (([v12 isLocked]& 1) != 0)
+    isLocked = [v13 isLocked];
+    if (isLocked)
     {
-      v23 = diagcollectLogHandle();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v26 = diagcollectLogHandle(isLocked);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
-        v47 = 138412290;
-        typeCopy = v31;
-        _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "No means to adjust log levels!! (%@ is locked)", &v47, 0xCu);
+        v34 = objc_opt_class();
+        v35 = NSStringFromClass(v34);
+        v52 = 138412290;
+        typeCopy = v35;
+        _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEBUG, "No means to adjust log levels!! (%@ is locked)", &v52, 0xCu);
       }
 
       goto LABEL_54;
     }
 
-    if ([levelCopy isEqualToString:@"info"])
+    v39 = [levelCopy isEqualToString:@"info"];
+    if (v39)
     {
-      v35 = 3;
-    }
-
-    else if ([levelCopy isEqualToString:@"debug"])
-    {
-      v35 = 4;
-    }
-
-    else if ([levelCopy isEqualToString:@"none"])
-    {
-      v35 = 0;
+      v40 = 3;
     }
 
     else
     {
-      if ([levelCopy isEqualToString:@"reset"])
+      v39 = [levelCopy isEqualToString:@"debug"];
+      if (v39)
       {
-        v36 = diagcollectLogHandle();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
-        {
-          LOWORD(v47) = 0;
-          _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_DEBUG, "Resetting log level", &v47, 2u);
-        }
-
-        [v12 reset];
-LABEL_48:
-        v23 = diagcollectLogHandle();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
-        {
-          if ([v12 isLocked])
-          {
-            v41 = @"On";
-          }
-
-          else
-          {
-            v41 = @"Off";
-          }
-
-          effectiveEnabledLevel2 = [v12 effectiveEnabledLevel];
-          enabledLevel2 = [v12 enabledLevel];
-          effectivePersistedLevel2 = [v12 effectivePersistedLevel];
-          persistedLevel2 = [v12 persistedLevel];
-          v47 = 138413570;
-          typeCopy = v12;
-          v49 = 2112;
-          v50 = v41;
-          v51 = 2048;
-          v52 = effectiveEnabledLevel2;
-          v53 = 2048;
-          v54 = enabledLevel2;
-          v55 = 2048;
-          v56 = effectivePersistedLevel2;
-          v57 = 2048;
-          v58 = persistedLevel2;
-          v32 = "(After) OSLogPreferences: %@, isLocked: %@, effectiveEnabled: %ld, enabled: %ld effectivePersisted: %ld, persisted: %ld";
-          v33 = v23;
-          v34 = 62;
-          goto LABEL_53;
-        }
-
-        goto LABEL_54;
+        v40 = 4;
       }
 
-      v35 = 1;
-    }
-
-    v37 = diagcollectLogHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
-    {
-      v47 = 138412546;
-      typeCopy = levelCopy;
-      v49 = 2048;
-      v50 = v35;
-      _os_log_impl(&dword_241804000, v37, OS_LOG_TYPE_DEBUG, "Requesting log level change to: %@ (%ld)", &v47, 0x16u);
-    }
-
-    if ([v12 enabledLevel]< v35 || [v12 persistedLevel]< v35)
-    {
-      [v12 setEnabledLevel:v35];
-      [v12 setPersistedLevel:v35];
-      v38 = diagcollectLogHandle();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+      else
       {
-        persistedLevel3 = [v12 persistedLevel];
-        enabledLevel3 = [v12 enabledLevel];
-        v47 = 138413058;
+        v39 = [levelCopy isEqualToString:@"none"];
+        if (v39)
+        {
+          v40 = 0;
+        }
+
+        else
+        {
+          v39 = [levelCopy isEqualToString:@"reset"];
+          if (v39)
+          {
+            v41 = diagcollectLogHandle(v39);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+            {
+              LOWORD(v52) = 0;
+              _os_log_impl(&dword_241804000, v41, OS_LOG_TYPE_DEBUG, "Resetting log level", &v52, 2u);
+            }
+
+            reset = [v13 reset];
+LABEL_48:
+            v26 = diagcollectLogHandle(reset);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+            {
+              if ([v13 isLocked])
+              {
+                v47 = @"On";
+              }
+
+              else
+              {
+                v47 = @"Off";
+              }
+
+              effectiveEnabledLevel2 = [v13 effectiveEnabledLevel];
+              enabledLevel2 = [v13 enabledLevel];
+              effectivePersistedLevel2 = [v13 effectivePersistedLevel];
+              persistedLevel2 = [v13 persistedLevel];
+              v52 = 138413570;
+              typeCopy = v13;
+              v54 = 2112;
+              v55 = v47;
+              v56 = 2048;
+              v57 = effectiveEnabledLevel2;
+              v58 = 2048;
+              v59 = enabledLevel2;
+              v60 = 2048;
+              v61 = effectivePersistedLevel2;
+              v62 = 2048;
+              v63 = persistedLevel2;
+              v36 = "(After) OSLogPreferences: %@, isLocked: %@, effectiveEnabled: %ld, enabled: %ld effectivePersisted: %ld, persisted: %ld";
+              v37 = v26;
+              v38 = 62;
+              goto LABEL_53;
+            }
+
+            goto LABEL_54;
+          }
+
+          v40 = 1;
+        }
+      }
+    }
+
+    v43 = diagcollectLogHandle(v39);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+    {
+      v52 = 138412546;
+      typeCopy = levelCopy;
+      v54 = 2048;
+      v55 = v40;
+      _os_log_impl(&dword_241804000, v43, OS_LOG_TYPE_DEBUG, "Requesting log level change to: %@ (%ld)", &v52, 0x16u);
+    }
+
+    if ([v13 enabledLevel]< v40 || (reset = [v13 persistedLevel], reset < v40))
+    {
+      [v13 setEnabledLevel:v40];
+      v44 = diagcollectLogHandle([v13 setPersistedLevel:v40]);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+      {
+        persistedLevel3 = [v13 persistedLevel];
+        enabledLevel3 = [v13 enabledLevel];
+        v52 = 138413058;
         typeCopy = levelCopy;
-        v49 = 2048;
-        v50 = v35;
-        v51 = 2048;
-        v52 = persistedLevel3;
-        v53 = 2048;
-        v54 = enabledLevel3;
-        _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEBUG, "Adjusted log level to: %@ (%ld) - p:%ld | e:%ld", &v47, 0x2Au);
+        v54 = 2048;
+        v55 = v40;
+        v56 = 2048;
+        v57 = persistedLevel3;
+        v58 = 2048;
+        v59 = enabledLevel3;
+        _os_log_impl(&dword_241804000, v44, OS_LOG_TYPE_DEBUG, "Adjusted log level to: %@ (%ld) - p:%ld | e:%ld", &v52, 0x2Au);
       }
     }
 
     goto LABEL_48;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v47) = 0;
-    _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "The dynamic loading of LoggingSupport failed", &v47, 2u);
+    LOWORD(v52) = 0;
+    _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "The dynamic loading of LoggingSupport failed", &v52, 2u);
   }
 
 LABEL_55:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)raiseLoggingForDiagnosticCase:(id)case
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   caseCopy = case;
-  v5 = diagcollectLogHandle();
+  v5 = diagcollectLogHandle(caseCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     caseId = [caseCopy caseId];
-    v12 = 138412290;
-    v13 = caseId;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, "raiseLoggingForDiagnosticCase: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = caseId;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, "raiseLoggingForDiagnosticCase: %@", &v11, 0xCu);
   }
 
   caseId2 = [caseCopy caseId];
@@ -2891,21 +2920,19 @@ LABEL_55:
     v10 = [(DiagnosticsController *)self diagActionsForSignature:signature];
     [(DiagnosticsController *)self raiseLoggingForActions:v10 identifier:uUIDString];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lowerLoggingForDiagnosticCase:(id)case
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   caseCopy = case;
-  v5 = diagcollectLogHandle();
+  v5 = diagcollectLogHandle(caseCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     caseId = [caseCopy caseId];
-    v10 = 138412290;
-    v11 = caseId;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, "lowerLoggingForDiagnosticCase: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = caseId;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, "lowerLoggingForDiagnosticCase: %@", &v9, 0xCu);
   }
 
   caseId2 = [caseCopy caseId];
@@ -2915,16 +2942,14 @@ LABEL_55:
   {
     [(DiagnosticsController *)self lowerLoggingForIdentifier:uUIDString];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)diagnosticExtensionsForDiagnosticCase:(id)case enableCommonActions:(id)actions
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   actionsCopy = actions;
-  v6 = diagcollectLogHandle();
+  v6 = diagcollectLogHandle(actionsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     caseId = [caseCopy caseId];
@@ -2939,7 +2964,7 @@ LABEL_55:
   if ([signature count])
   {
     v9 = [(DiagnosticsController *)self diagActionsForSignature:signature commonActions:actionsCopy];
-    v10 = diagcollectLogHandle();
+    v10 = diagcollectLogHandle(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = [v9 count];
@@ -2950,121 +2975,125 @@ LABEL_55:
       _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "Looking up diagnostic extensions in %ld actions: %@", buf, 0x16u);
     }
 
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
-    v63 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     obj = v9;
-    v50 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
-    if (v50)
+    v54 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
+    if (v54)
     {
-      v49 = *v63;
+      v53 = *v67;
       do
       {
-        for (i = 0; i != v50; ++i)
+        for (i = 0; i != v54; ++i)
         {
-          if (*v63 != v49)
+          if (*v67 != v53)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v62 + 1) + 8 * i);
+          v13 = *(*(&v66 + 1) + 8 * i);
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass)
           {
-            v14 = v13;
-            v52 = [actionsDict objectForKeyedSubscript:v14];
+            v15 = v13;
+            v56 = [actionsDict objectForKeyedSubscript:v15];
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            v16 = objc_opt_isKindOfClass();
+            if (v16)
             {
-              v15 = v52;
+              v17 = v56;
               *buf = 0;
               *&buf[8] = buf;
               *&buf[16] = 0x2020000000;
-              LOBYTE(v67) = 1;
-              oslog = v15;
-              v48 = [v15 objectForKeyedSubscript:@"matchFilter"];
+              LOBYTE(v71) = 1;
+              oslog = v17;
+              v52 = [v17 objectForKeyedSubscript:@"matchFilter"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v16 = v48;
-                *&v71 = 0;
-                *(&v71 + 1) = &v71;
-                v72 = 0x2020000000;
-                v73 = 1;
-                v58[0] = MEMORY[0x277D85DD0];
-                v58[1] = 3221225472;
-                v58[2] = __83__DiagnosticsController_diagnosticExtensionsForDiagnosticCase_enableCommonActions___block_invoke;
-                v58[3] = &unk_278CF0CB8;
-                v59 = signature;
-                v60 = buf;
-                v61 = &v71;
-                [v16 enumerateKeysAndObjectsUsingBlock:v58];
-                if ((*(*(&v71 + 1) + 24) & 1) == 0)
+                v18 = v52;
+                *&v75 = 0;
+                *(&v75 + 1) = &v75;
+                v76 = 0x2020000000;
+                v77 = 1;
+                v62[0] = MEMORY[0x277D85DD0];
+                v62[1] = 3221225472;
+                v62[2] = __83__DiagnosticsController_diagnosticExtensionsForDiagnosticCase_enableCommonActions___block_invoke;
+                v62[3] = &unk_278CF0CB8;
+                v63 = signature;
+                v64 = buf;
+                v65 = &v75;
+                [v18 enumerateKeysAndObjectsUsingBlock:v62];
+                if ((*(*(&v75 + 1) + 24) & 1) == 0)
                 {
                   *(*&buf[8] + 24) = 1;
                 }
 
-                _Block_object_dispose(&v71, 8);
+                _Block_object_dispose(&v75, 8);
               }
 
               if (*(*&buf[8] + 24))
               {
-                v47 = [oslog objectForKeyedSubscript:@"diagExt"];
+                v51 = [oslog objectForKeyedSubscript:@"diagExt"];
                 objc_opt_class();
-                if (objc_opt_isKindOfClass())
+                v19 = objc_opt_isKindOfClass();
+                if (v19)
                 {
-                  v17 = v47;
-                  v54 = 0u;
-                  v55 = 0u;
-                  v56 = 0u;
-                  v57 = 0u;
-                  v18 = v17;
-                  v19 = [v18 countByEnumeratingWithState:&v54 objects:v70 count:16];
-                  if (!v19)
+                  v20 = v51;
+                  v58 = 0u;
+                  v59 = 0u;
+                  v60 = 0u;
+                  v61 = 0u;
+                  v21 = v20;
+                  v22 = [v21 countByEnumeratingWithState:&v58 objects:v74 count:16];
+                  if (!v22)
                   {
                     goto LABEL_32;
                   }
 
-                  v20 = *v55;
+                  v23 = *v59;
                   while (1)
                   {
-                    for (j = 0; j != v19; ++j)
+                    for (j = 0; j != v22; ++j)
                     {
-                      if (*v55 != v20)
+                      if (*v59 != v23)
                       {
-                        objc_enumerationMutation(v18);
+                        objc_enumerationMutation(v21);
                       }
 
-                      v22 = *(*(&v54 + 1) + 8 * j);
+                      v25 = *(*(&v58 + 1) + 8 * j);
                       objc_opt_class();
-                      if (objc_opt_isKindOfClass())
+                      v26 = objc_opt_isKindOfClass();
+                      if (v26)
                       {
-                        v23 = v22;
-                        [v8 addObject:v23];
+                        v27 = v25;
+                        [v8 addObject:v27];
                       }
 
                       else
                       {
-                        if (!v22)
+                        if (!v25)
                         {
                           continue;
                         }
 
-                        v23 = diagcollectLogHandle();
-                        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+                        v27 = diagcollectLogHandle(v26);
+                        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
                         {
-                          v24 = objc_opt_class();
-                          v25 = NSStringFromClass(v24);
-                          LODWORD(v71) = 138412290;
-                          *(&v71 + 4) = v25;
-                          _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "Found unexpected class: %@ (expected NSString)", &v71, 0xCu);
+                          v28 = objc_opt_class();
+                          v29 = NSStringFromClass(v28);
+                          LODWORD(v75) = 138412290;
+                          *(&v75 + 4) = v29;
+                          _os_log_impl(&dword_241804000, v27, OS_LOG_TYPE_DEBUG, "Found unexpected class: %@ (expected NSString)", &v75, 0xCu);
                         }
                       }
                     }
 
-                    v19 = [v18 countByEnumeratingWithState:&v54 objects:v70 count:16];
-                    if (!v19)
+                    v22 = [v21 countByEnumeratingWithState:&v58 objects:v74 count:16];
+                    if (!v22)
                     {
 LABEL_32:
 
@@ -3073,16 +3102,16 @@ LABEL_32:
                   }
                 }
 
-                if (v47)
+                if (v51)
                 {
-                  v18 = diagcollectLogHandle();
-                  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+                  v21 = diagcollectLogHandle(v19);
+                  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                   {
-                    v30 = objc_opt_class();
-                    v31 = NSStringFromClass(v30);
-                    LODWORD(v71) = 138412290;
-                    *(&v71 + 4) = v31;
-                    _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEBUG, "Found unexpected class: %@ (expected NSArray)", &v71, 0xCu);
+                    v34 = objc_opt_class();
+                    v35 = NSStringFromClass(v34);
+                    LODWORD(v75) = 138412290;
+                    *(&v75 + 4) = v35;
+                    _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEBUG, "Found unexpected class: %@ (expected NSArray)", &v75, 0xCu);
                   }
 
 LABEL_42:
@@ -3097,15 +3126,15 @@ LABEL_42:
 LABEL_45:
             }
 
-            else if (v52)
+            else if (v56)
             {
-              oslog = diagcollectLogHandle();
+              oslog = diagcollectLogHandle(v16);
               if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
               {
-                v28 = objc_opt_class();
-                v29 = NSStringFromClass(v28);
+                v32 = objc_opt_class();
+                v33 = NSStringFromClass(v32);
                 *buf = 138412290;
-                *&buf[4] = v29;
+                *&buf[4] = v33;
                 _os_log_impl(&dword_241804000, oslog, OS_LOG_TYPE_DEBUG, "Found unexpected class: %@ (expected NSDictionary)", buf, 0xCu);
               }
 
@@ -3115,73 +3144,70 @@ LABEL_45:
             goto LABEL_47;
           }
 
-          v14 = diagcollectLogHandle();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v15 = diagcollectLogHandle(isKindOfClass);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            v26 = objc_opt_class();
-            v27 = NSStringFromClass(v26);
+            v30 = objc_opt_class();
+            v31 = NSStringFromClass(v30);
             *buf = 138412290;
-            *&buf[4] = v27;
-            _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Found unexpected class: %@ (expected NSString)", buf, 0xCu);
+            *&buf[4] = v31;
+            _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Found unexpected class: %@ (expected NSString)", buf, 0xCu);
           }
 
 LABEL_47:
         }
 
-        v50 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
+        v54 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
       }
 
-      while (v50);
+      while (v54);
     }
   }
 
-  v32 = +[SystemProperties sharedInstance];
-  customerSeedBuild = [v32 customerSeedBuild];
+  v36 = +[SystemProperties sharedInstance];
+  customerSeedBuild = [v36 customerSeedBuild];
 
   if (customerSeedBuild)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v67 = __Block_byref_object_copy__2;
-    v68 = __Block_byref_object_dispose__2;
-    v69 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __83__DiagnosticsController_diagnosticExtensionsForDiagnosticCase_enableCommonActions___block_invoke_192;
-    v53[3] = &unk_278CF0CE0;
-    v53[4] = buf;
-    [v8 enumerateObjectsUsingBlock:v53];
+    v71 = __Block_byref_object_copy__2;
+    v72 = __Block_byref_object_dispose__2;
+    v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __83__DiagnosticsController_diagnosticExtensionsForDiagnosticCase_enableCommonActions___block_invoke_192;
+    v57[3] = &unk_278CF0CE0;
+    v57[4] = buf;
+    [v8 enumerateObjectsUsingBlock:v57];
     if ([*(*&buf[8] + 40) count])
     {
-      [v8 removeObjectsInArray:*(*&buf[8] + 40)];
-      v34 = diagcollectLogHandle();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      v39 = diagcollectLogHandle([v8 removeObjectsInArray:*(*&buf[8] + 40)]);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
-        v35 = [*(*&buf[8] + 40) count];
-        LODWORD(v71) = 134217984;
-        *(&v71 + 4) = v35;
-        _os_log_impl(&dword_241804000, v34, OS_LOG_TYPE_INFO, "Removed %ld diagnostic extensions that were not privacy approved for CustomerSeed", &v71, 0xCu);
+        v40 = [*(*&buf[8] + 40) count];
+        LODWORD(v75) = 134217984;
+        *(&v75 + 4) = v40;
+        _os_log_impl(&dword_241804000, v39, OS_LOG_TYPE_INFO, "Removed %ld diagnostic extensions that were not privacy approved for CustomerSeed", &v75, 0xCu);
       }
     }
 
     _Block_object_dispose(buf, 8);
   }
 
-  v36 = diagcollectLogHandle();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+  v41 = diagcollectLogHandle(v38);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
   {
-    v37 = [v8 count];
+    v42 = [v8 count];
     *buf = 134218242;
-    *&buf[4] = v37;
+    *&buf[4] = v42;
     *&buf[12] = 2112;
     *&buf[14] = v8;
-    _os_log_impl(&dword_241804000, v36, OS_LOG_TYPE_INFO, "Found %ld diagnostic extensions: %@", buf, 0x16u);
+    _os_log_impl(&dword_241804000, v41, OS_LOG_TYPE_INFO, "Found %ld diagnostic extensions: %@", buf, 0x16u);
   }
 
   array = [v8 array];
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -3192,50 +3218,52 @@ void __83__DiagnosticsController_diagnosticExtensionsForDiagnosticCase_enableCom
   v7 = a2;
   v8 = a3;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v9 = v7;
-      v10 = v8;
-      v11 = [*(a1 + 32) objectForKeyedSubscript:v9];
-      v12 = diagcollectLogHandle();
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
-      if (v11)
+      v10 = v7;
+      v11 = v8;
+      v12 = [*(a1 + 32) objectForKeyedSubscript:v10];
+      v13 = diagcollectLogHandle(v12);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+      if (v12)
       {
-        if (v13)
+        if (v14)
         {
           v20 = 138412802;
-          v21 = v9;
+          v21 = v10;
           v22 = 2112;
-          v23 = v11;
+          v23 = v12;
           v24 = 2112;
-          v25 = v10;
-          _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Found filter key '%@' with value '%@' in signature dictionary. (Expecting to match '%@')", &v20, 0x20u);
+          v25 = v11;
+          _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Found filter key '%@' with value '%@' in signature dictionary. (Expecting to match '%@')", &v20, 0x20u);
         }
 
-        if ([v11 isEqualToString:v10])
+        if ([v12 isEqualToString:v11])
         {
           goto LABEL_14;
         }
 
-        v14 = 40;
+        v15 = 40;
       }
 
       else
       {
-        if (v13)
+        if (v14)
         {
           v20 = 138412290;
-          v21 = v9;
-          _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "Did not find applicable filter key '%@' in signature dictionary. Allowing.", &v20, 0xCu);
+          v21 = v10;
+          _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Did not find applicable filter key '%@' in signature dictionary. Allowing.", &v20, 0xCu);
         }
 
-        v14 = 48;
+        v15 = 48;
       }
 
-      *(*(*(a1 + v14) + 8) + 24) = 0;
+      *(*(*(a1 + v15) + 8) + 24) = 0;
       *a4 = 1;
 LABEL_14:
 
@@ -3244,211 +3272,213 @@ LABEL_14:
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
-  v9 = diagcollectLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = diagcollectLogHandle(isKindOfClass);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
     v20 = 138413058;
     v21 = v7;
     v22 = 2112;
-    v23 = v16;
+    v23 = v17;
     v24 = 2112;
     v25 = v8;
     v26 = 2112;
-    v27 = v18;
-    _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_ERROR, "Found unexpected class in actions filter dictionary! key: %@ (%@) value: %@ (%@)", &v20, 0x2Au);
+    v27 = v19;
+    _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Found unexpected class in actions filter dictionary! key: %@ (%@) value: %@ (%@)", &v20, 0x2Au);
   }
 
 LABEL_15:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __83__DiagnosticsController_diagnosticExtensionsForDiagnosticCase_enableCommonActions___block_invoke_192(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 isEqualToString:@"com.apple.DiagnosticExtensions.tailspin"] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"com.apple.osx-tailspin") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"com.apple.DiagnosticExtensions.Microstackshot") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"com.apple.PowerlogCore.diagnosticextension") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"com.apple.DiagnosticExtensions.Cellular") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"com.apple.Search.framework.SpotlightDiagnostic") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"com.apple.diagnosticextensions.osx.spotlight") & 1) == 0)
   {
-    [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
-    v4 = diagcollectLogHandle();
+    v4 = diagcollectLogHandle([*(*(*(a1 + 32) + 8) + 40) addObject:v3]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_ERROR, "Flagging DiagnosticExtension %@ as not privacy approved for CustomerSeed", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_ERROR, "Flagging DiagnosticExtension %@ as not privacy approved for CustomerSeed", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)collectDiagnosticExtensionFilesForDiagnosticCase:(id)case parameters:(id)parameters options:(id)options queue:(id)queue reply:(id)reply
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   parametersCopy = parameters;
   optionsCopy = options;
   queueCopy = queue;
   replyCopy = reply;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v16 = diagcollectLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = diagcollectLogHandle(isKindOfClass);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v75 = optionsCopy;
-      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEBUG, "Found diagnostic extensions options dictionary: %@", buf, 0xCu);
+      v76 = optionsCopy;
+      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEBUG, "Found diagnostic extensions options dictionary: %@", buf, 0xCu);
     }
 
-    v17 = [optionsCopy objectForKeyedSubscript:@"diagextcommon"];
+    v18 = [optionsCopy objectForKeyedSubscript:@"diagextcommon"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v18 = v17;
-      v19 = diagcollectLogHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v19 = v18;
+      v20 = diagcollectLogHandle(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v75 = v18;
-        _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEBUG, "Enable common diagnostic extensions: %@", buf, 0xCu);
+        v76 = v19;
+        _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEBUG, "Enable common diagnostic extensions: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v18 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v20 = [(DiagnosticsController *)self diagnosticExtensionsForDiagnosticCase:caseCopy enableCommonActions:v18];
-  v21 = [v20 count];
-  v22 = diagcollectLogHandle();
-  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
-  if (v21)
+  v21 = [(DiagnosticsController *)self diagnosticExtensionsForDiagnosticCase:caseCopy enableCommonActions:v19];
+  v22 = [v21 count];
+  v23 = diagcollectLogHandle(v22);
+  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG);
+  if (v22)
   {
     selfCopy = self;
-    v55 = replyCopy;
-    v56 = queueCopy;
-    if (v23)
+    v56 = replyCopy;
+    v57 = queueCopy;
+    if (v24)
     {
-      v24 = [v20 count];
+      v25 = [v21 count];
       *buf = 134218498;
-      v75 = v24;
-      v76 = 2112;
-      v77 = v20;
-      v78 = 2112;
-      v79 = parametersCopy;
-      _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_DEBUG, "Ready to collect from %ld diagnostic extensions (%@) with parameters: %@", buf, 0x20u);
+      v76 = v25;
+      v77 = 2112;
+      v78 = v21;
+      v79 = 2112;
+      v80 = parametersCopy;
+      _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "Ready to collect from %ld diagnostic extensions (%@) with parameters: %@", buf, 0x20u);
     }
 
-    v57 = optionsCopy;
+    v58 = optionsCopy;
 
-    v54 = v20;
-    v25 = [MEMORY[0x277CBEB98] setWithArray:v20];
-    v52 = [v25 count];
-    v26 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCase_parameters_options_queue_reply___block_invoke;
-    v71[3] = &unk_278CF0C68;
-    v60 = v26;
-    v72 = v60;
-    v58 = parametersCopy;
-    [parametersCopy enumerateKeysAndObjectsUsingBlock:v71];
+    v55 = v21;
+    v26 = [MEMORY[0x277CBEB98] setWithArray:v21];
+    v53 = [v26 count];
     v27 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v67 = 0u;
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCase_parameters_options_queue_reply___block_invoke;
+    v72[3] = &unk_278CF0C68;
+    v61 = v27;
+    v73 = v61;
+    v59 = parametersCopy;
+    [parametersCopy enumerateKeysAndObjectsUsingBlock:v72];
+    v28 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v28 = v25;
-    v29 = [v28 countByEnumeratingWithState:&v67 objects:v73 count:16];
-    if (v29)
+    v71 = 0u;
+    v29 = v26;
+    v30 = [v29 countByEnumeratingWithState:&v68 objects:v74 count:16];
+    if (v30)
     {
-      v30 = v29;
-      v31 = *v68;
-      obj = v28;
+      v31 = v30;
+      v32 = *v69;
+      obj = v29;
       do
       {
-        for (i = 0; i != v30; ++i)
+        v33 = 0;
+        do
         {
-          if (*v68 != v31)
+          if (*v69 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v33 = *(*(&v67 + 1) + 8 * i);
-          v34 = diagcollectLogHandle();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+          v34 = *(*(&v68 + 1) + 8 * v33);
+          v35 = diagcollectLogHandle(v30);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v75 = v33;
-            _os_log_impl(&dword_241804000, v34, OS_LOG_TYPE_DEBUG, "Will call Diag Extension: %@", buf, 0xCu);
+            v76 = v34;
+            _os_log_impl(&dword_241804000, v35, OS_LOG_TYPE_DEBUG, "Will call Diag Extension: %@", buf, 0xCu);
           }
 
-          v35 = [v60 objectForKeyedSubscript:v33];
+          v36 = [v61 objectForKeyedSubscript:v34];
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v37 = objc_opt_isKindOfClass();
+          if (v37)
           {
-            dictionary = [v35 mutableCopy];
+            dictionary = [v36 mutableCopy];
           }
 
           else
           {
-            if (v35)
+            if (v36)
             {
-              v37 = diagcollectLogHandle();
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+              v39 = diagcollectLogHandle(v37);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                v38 = objc_opt_class();
-                v39 = NSStringFromClass(v38);
+                v40 = objc_opt_class();
+                v41 = NSStringFromClass(v40);
                 *buf = 138412546;
-                v75 = v39;
-                v76 = 2112;
-                v77 = v35;
-                _os_log_impl(&dword_241804000, v37, OS_LOG_TYPE_ERROR, "Expected NSDictionary, but found unexpected class %@ as a DE parameter: %@", buf, 0x16u);
+                v76 = v41;
+                v77 = 2112;
+                v78 = v36;
+                _os_log_impl(&dword_241804000, v39, OS_LOG_TYPE_ERROR, "Expected NSDictionary, but found unexpected class %@ as a DE parameter: %@", buf, 0x16u);
               }
             }
 
             dictionary = [MEMORY[0x277CBEB38] dictionary];
           }
 
-          v40 = dictionary;
+          v42 = dictionary;
 
-          [v40 setObject:@"com.apple.symptomsd" forKeyedSubscript:@"DEExtensionHostAppKey"];
-          if (([v33 isEqualToString:@"com.apple.DiagnosticExtensions.WiFi"] & 1) != 0 || objc_msgSend(v33, "isEqualToString:", @"com.apple.diagnosticextensions.osx.wifi"))
+          [v42 setObject:@"com.apple.symptomsd" forKeyedSubscript:@"DEExtensionHostAppKey"];
+          if (([v34 isEqualToString:@"com.apple.DiagnosticExtensions.WiFi"] & 1) != 0 || objc_msgSend(v34, "isEqualToString:", @"com.apple.diagnosticextensions.osx.wifi"))
           {
             signature = [caseCopy signature];
-            v42 = [signature objectForKeyedSubscript:@"subtype"];
+            v44 = [signature objectForKeyedSubscript:@"subtype"];
 
-            [v40 setObject:v42 forKeyedSubscript:@"trigger"];
+            [v42 setObject:v44 forKeyedSubscript:@"trigger"];
           }
 
-          if ([v40 count])
+          if ([v42 count])
           {
-            [v27 setValue:v40 forKey:v33];
+            [v28 setValue:v42 forKey:v34];
           }
 
           else
           {
             null = [MEMORY[0x277CBEB68] null];
-            [v27 setValue:null forKey:v33];
+            [v28 setValue:null forKey:v34];
           }
 
-          [caseCopy addRequiredAttachmentType:@"diagext" pattern:v33];
+          [caseCopy addRequiredAttachmentType:@"diagext" pattern:v34];
+
+          ++v33;
         }
 
-        v28 = obj;
-        v30 = [obj countByEnumeratingWithState:&v67 objects:v73 count:16];
+        while (v31 != v33);
+        v29 = obj;
+        v30 = [obj countByEnumeratingWithState:&v68 objects:v74 count:16];
+        v31 = v30;
       }
 
       while (v30);
@@ -3457,36 +3487,36 @@ void __83__DiagnosticsController_diagnosticExtensionsForDiagnosticCase_enableCom
     diagExtensionCollector = [(DiagnosticsController *)selfCopy diagExtensionCollector];
     caseId = [caseCopy caseId];
     uUIDString = [caseId UUIDString];
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCase_parameters_options_queue_reply___block_invoke_226;
-    v64[3] = &unk_278CF0D08;
-    replyCopy = v55;
-    v66 = v55;
-    queueCopy = v56;
-    v65 = v56;
-    [diagExtensionCollector collectDEPayloadsWithIdentifier:uUIDString diagnosticExtensionsWithParameters:v27 queue:v65 reply:v64];
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCase_parameters_options_queue_reply___block_invoke_226;
+    v65[3] = &unk_278CF0D08;
+    replyCopy = v56;
+    v67 = v56;
+    queueCopy = v57;
+    v66 = v57;
+    [diagExtensionCollector collectDEPayloadsWithIdentifier:uUIDString diagnosticExtensionsWithParameters:v28 queue:v66 reply:v65];
 
-    optionsCopy = v57;
-    parametersCopy = v58;
-    v20 = v54;
-    v47 = v52;
+    optionsCopy = v58;
+    parametersCopy = v59;
+    v21 = v55;
+    v49 = v53;
   }
 
   else
   {
-    if (v23)
+    if (v24)
     {
       caseId2 = [caseCopy caseId];
       uUIDString2 = [caseId2 UUIDString];
       *buf = 138412290;
-      v75 = uUIDString2;
-      _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_DEBUG, "No matching diagnostic extensions found for the case ID %@", buf, 0xCu);
+      v76 = uUIDString2;
+      _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "No matching diagnostic extensions found for the case ID %@", buf, 0xCu);
     }
 
     if (!replyCopy)
     {
-      v47 = 0;
+      v49 = 0;
       goto LABEL_42;
     }
 
@@ -3494,15 +3524,14 @@ void __83__DiagnosticsController_diagnosticExtensionsForDiagnosticCase_enableCom
     block[1] = 3221225472;
     block[2] = __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCase_parameters_options_queue_reply___block_invoke_229;
     block[3] = &unk_278CF0A58;
-    v63 = replyCopy;
+    v64 = replyCopy;
     dispatch_async(queueCopy, block);
-    v47 = 0;
-    v28 = v63;
+    v49 = 0;
+    v29 = v64;
   }
 
 LABEL_42:
-  v50 = *MEMORY[0x277D85DE8];
-  return v47;
+  return v49;
 }
 
 void __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCase_parameters_options_queue_reply___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3511,33 +3540,32 @@ void __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCa
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
   {
     [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
   }
 
   else
   {
-    v7 = diagcollectLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = diagcollectLogHandle(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       v13 = 138413058;
       v14 = v5;
       v15 = 2112;
-      v16 = v9;
+      v16 = v10;
       v17 = 2112;
       v18 = v6;
       v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Dropping unexpected content from DE parameters. key (%@): %@, value (%@): %@", &v13, 0x2Au);
+      v20 = v12;
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Dropping unexpected content from DE parameters. key (%@): %@, value (%@): %@", &v13, 0x2Au);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCase_parameters_options_queue_reply___block_invoke_226(uint64_t a1, void *a2, void *a3)
@@ -3545,31 +3573,30 @@ void __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCa
   v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = diagcollectLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = diagcollectLogHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v6;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEFAULT, "Collecting Diagnostic Extension payloads failed with error: %@", buf, 0xCu);
+      v15 = v7;
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Collecting Diagnostic Extension payloads failed with error: %@", buf, 0xCu);
     }
   }
 
-  v8 = *(a1 + 40);
-  if (v8)
+  v9 = *(a1 + 40);
+  if (v9)
   {
-    v9 = *(a1 + 32);
+    v10 = *(a1 + 32);
     v11[0] = MEMORY[0x277D85DD0];
     v11[1] = 3221225472;
     v11[2] = __105__DiagnosticsController_collectDiagnosticExtensionFilesForDiagnosticCase_parameters_options_queue_reply___block_invoke_227;
     v11[3] = &unk_278CEFF50;
-    v13 = v8;
+    v13 = v9;
     v12 = v5;
-    dispatch_async(v9, v11);
+    dispatch_async(v10, v11);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

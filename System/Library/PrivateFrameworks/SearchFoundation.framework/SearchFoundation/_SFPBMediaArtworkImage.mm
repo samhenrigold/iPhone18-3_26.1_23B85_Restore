@@ -313,27 +313,21 @@ LABEL_19:
 
 - (void)setUniversalLibraryID:(id)d
 {
-  v4 = [d copy];
-  universalLibraryID = self->_universalLibraryID;
-  self->_universalLibraryID = v4;
+  self->_universalLibraryID = [d copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSpotlightIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  spotlightIdentifier = self->_spotlightIdentifier;
-  self->_spotlightIdentifier = v4;
+  self->_spotlightIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPersistentID:(id)d
 {
-  v4 = [d copy];
-  persistentID = self->_persistentID;
-  self->_persistentID = v4;
+  self->_persistentID = [d copy];
 
   MEMORY[0x1EEE66BB8]();
 }

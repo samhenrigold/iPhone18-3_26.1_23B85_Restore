@@ -195,9 +195,7 @@
   cachedIndexMapping = self->_cachedIndexMapping;
   self->_cachedIndexMapping = strongToStrongObjectsMapTable;
 
-  v5 = [(CRTombstoneOrderedSet *)self generateNSOrderedIdentifierSetWithIndexMapping:self->_cachedIndexMapping];
-  cachedIdentifierSet = self->_cachedIdentifierSet;
-  self->_cachedIdentifierSet = v5;
+  self->_cachedIdentifierSet = [(CRTombstoneOrderedSet *)self generateNSOrderedIdentifierSetWithIndexMapping:self->_cachedIndexMapping];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -411,46 +409,44 @@ void __72__CRTombstoneOrderedSet_generateNSOrderedIdentifierSetWithIndexMapping_
 
 void __46__CRTombstoneOrderedSet_insertObject_atIndex___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 32);
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = *(a1 + 32);
   v2 = MEMORY[0x1E695DEC8];
   v3 = a2;
-  v4 = [v2 arrayWithObjects:&v6 count:1];
-  [v3 undoablyRemoveObjectIdentifiersFromElements:{v4, v6, v7}];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = [v2 arrayWithObjects:&v5 count:1];
+  [v3 undoablyRemoveObjectIdentifiersFromElements:{v4, v5, v6}];
 }
 
 - (void)undoablyRemoveObjectIdentifiersFromElements:(id)elements
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   elementsCopy = elements;
   elements = [(CRTombstoneOrderedSet *)self elements];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = elementsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [elements removeObject:*(*(&v15 + 1) + 8 * v10++)];
+        [elements removeObject:*(*(&v14 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -460,47 +456,45 @@ void __46__CRTombstoneOrderedSet_insertObject_atIndex___block_invoke(uint64_t a1
   if ([(CRTombstoneOrderedSet *)self wantsUndoCommands])
   {
     delegate = [(CRTombstoneOrderedSet *)self delegate];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __69__CRTombstoneOrderedSet_undoablyRemoveObjectIdentifiersFromElements___block_invoke;
-    v13[3] = &unk_1E7509FB8;
-    v14 = v6;
-    [delegate addUndoCommandsForObject:self block:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __69__CRTombstoneOrderedSet_undoablyRemoveObjectIdentifiersFromElements___block_invoke;
+    v12[3] = &unk_1E7509FB8;
+    v13 = v6;
+    [delegate addUndoCommandsForObject:self block:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)undoablyInsertObjectIdentifiersIntoElements:(id)elements
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   elementsCopy = elements;
   elements = [(CRTombstoneOrderedSet *)self elements];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = elementsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [elements addObject:*(*(&v15 + 1) + 8 * v10++)];
+        [elements addObject:*(*(&v14 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -510,15 +504,13 @@ void __46__CRTombstoneOrderedSet_insertObject_atIndex___block_invoke(uint64_t a1
   if ([(CRTombstoneOrderedSet *)self wantsUndoCommands])
   {
     delegate = [(CRTombstoneOrderedSet *)self delegate];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __69__CRTombstoneOrderedSet_undoablyInsertObjectIdentifiersIntoElements___block_invoke;
-    v13[3] = &unk_1E7509FB8;
-    v14 = v6;
-    [delegate addUndoCommandsForObject:self block:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __69__CRTombstoneOrderedSet_undoablyInsertObjectIdentifiersIntoElements___block_invoke;
+    v12[3] = &unk_1E7509FB8;
+    v13 = v6;
+    [delegate addUndoCommandsForObject:self block:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shiftCachedIndicesStartingAtIndex:(unint64_t)index by:(int64_t)by
@@ -754,7 +746,7 @@ void __65__CRTombstoneOrderedSet_moveObjectFromIndex_toIndex_mutableSafe___block
   }
 }
 
-unint64_t __61__CRTombstoneOrderedSet__removeObjectsFromOrderingAtIndices___block_invoke_2(uint64_t a1, unint64_t a2)
+void *__61__CRTombstoneOrderedSet__removeObjectsFromOrderingAtIndices___block_invoke_2(uint64_t a1, unint64_t a2)
 {
   result = [*(a1 + 32) lastIndex];
   if (result >= a2)
@@ -1074,32 +1066,28 @@ void __56__CRTombstoneOrderedSet_addUndoCommandsForObject_block___block_invoke(u
 
 - (void)insertObject:(uint64_t)a1 atIndex:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Inserting element at invalid index %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Inserting element at invalid index %lu", &v2, 0xCu);
 }
 
 - (void)moveObjectFromIndex:(uint64_t)a1 toIndex:(NSObject *)a2 mutableSafe:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Moving element at invalid index %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Moving element at invalid index %lu", &v2, 0xCu);
 }
 
 - (void)mergeWith:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "CRTombstoneOrderedSet cannot merge with object of type %{public}@.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "CRTombstoneOrderedSet cannot merge with object of type %{public}@.", &v5, 0xCu);
 }
 
 @end

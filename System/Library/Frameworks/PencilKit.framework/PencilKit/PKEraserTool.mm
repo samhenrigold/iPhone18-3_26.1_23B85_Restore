@@ -52,7 +52,7 @@
   if ([identifier isEqualToString:@"com.apple.ink.eraser"])
   {
     v5 = [(PKTool *)self ink];
-    v6 = [v5 version] > 3;
+    v6 = objc_msgSend_version(v5) > 3;
   }
 
   else
@@ -127,7 +127,7 @@
 - (double)_weight
 {
   v2 = [(PKTool *)self ink];
-  if ([v2 version] < 4)
+  if (objc_msgSend_version(v2) < 4)
   {
     v4 = NAN;
   }

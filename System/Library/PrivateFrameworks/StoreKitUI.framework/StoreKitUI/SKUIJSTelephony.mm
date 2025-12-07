@@ -39,7 +39,7 @@
 
 - (void)dealloc
 {
-  v3 = SKUICoreTelephonyFramework();
+  v3 = SKUICoreTelephonyFramework(self, a2);
   if (self->_telephonyServer)
   {
     v4 = v3;
@@ -72,20 +72,20 @@
     _telephonyServer = [(SKUIJSTelephony *)self _telephonyServer];
     if (_telephonyServer)
     {
-      v4 = _telephonyServer;
-      v5 = SKUICoreTelephonyFramework();
-      v6 = SKUIWeakLinkedSymbolForString("_CTServerConnectionRegisterForNotification", v5);
-      if (v6)
+      v5 = _telephonyServer;
+      v6 = SKUICoreTelephonyFramework(_telephonyServer, v4);
+      v7 = SKUIWeakLinkedSymbolForString("_CTServerConnectionRegisterForNotification", v6);
+      if (v7)
       {
-        v7 = v6;
-        v8 = SKUIWeakLinkedSymbolForString("kCTRegistrationDisplayStatusChangedNotification", v5);
-        v7(v4, *v8);
-        v9 = SKUIWeakLinkedSymbolForString("kCTRegistrationOperatorNameChangedNotification", v5);
-        v7(v4, *v9);
-        v10 = SKUIWeakLinkedSymbolForString("kCTRegistrationStatusChangedNotification", v5);
-        v7(v4, *v10);
-        v11 = SKUIWeakLinkedSymbolForString("kCTSettingPhoneNumberChangedNotification", v5);
-        v7(v4, *v11);
+        v8 = v7;
+        v9 = SKUIWeakLinkedSymbolForString("kCTRegistrationDisplayStatusChangedNotification", v6);
+        v8(v5, *v9);
+        v10 = SKUIWeakLinkedSymbolForString("kCTRegistrationOperatorNameChangedNotification", v6);
+        v8(v5, *v10);
+        v11 = SKUIWeakLinkedSymbolForString("kCTRegistrationStatusChangedNotification", v6);
+        v8(v5, *v11);
+        v12 = SKUIWeakLinkedSymbolForString("kCTSettingPhoneNumberChangedNotification", v6);
+        v8(v5, *v12);
       }
 
       self->_isObserving = 1;
@@ -109,7 +109,7 @@
 
 - (BOOL)isCellularRoaming
 {
-  v2 = SKUICoreTelephonyFramework();
+  v2 = SKUICoreTelephonyFramework(self, a2);
   v3 = SKUIWeakLinkedSymbolForString("CTRegistrationCopyDataStatus", v2);
   if (!v3)
   {
@@ -143,17 +143,17 @@
 
 - (NSString)mobileCountryCode
 {
-  v6 = 0;
+  v7 = 0;
   _telephonyServer = [(SKUIJSTelephony *)self _telephonyServer];
   if (_telephonyServer)
   {
-    v3 = _telephonyServer;
-    v4 = SKUICoreTelephonyFramework();
-    _telephonyServer = SKUIWeakLinkedSymbolForString("_CTServerConnectionCopyMobileCountryCode", v4);
+    v4 = _telephonyServer;
+    v5 = SKUICoreTelephonyFramework(_telephonyServer, v3);
+    _telephonyServer = SKUIWeakLinkedSymbolForString("_CTServerConnectionCopyMobileCountryCode", v5);
     if (_telephonyServer)
     {
-      (_telephonyServer)(v3, &v6);
-      _telephonyServer = v6;
+      (_telephonyServer)(v4, &v7);
+      _telephonyServer = v7;
     }
   }
 
@@ -162,17 +162,17 @@
 
 - (NSString)mobileNetworkCode
 {
-  v6 = 0;
+  v7 = 0;
   _telephonyServer = [(SKUIJSTelephony *)self _telephonyServer];
   if (_telephonyServer)
   {
-    v3 = _telephonyServer;
-    v4 = SKUICoreTelephonyFramework();
-    _telephonyServer = SKUIWeakLinkedSymbolForString("_CTServerConnectionCopyMobileNetworkCode", v4);
+    v4 = _telephonyServer;
+    v5 = SKUICoreTelephonyFramework(_telephonyServer, v3);
+    _telephonyServer = SKUIWeakLinkedSymbolForString("_CTServerConnectionCopyMobileNetworkCode", v5);
     if (_telephonyServer)
     {
-      (_telephonyServer)(v3, &v6);
-      _telephonyServer = v6;
+      (_telephonyServer)(v4, &v7);
+      _telephonyServer = v7;
     }
   }
 
@@ -208,12 +208,12 @@
   v7 = a5;
   v8 = a4;
   textCopy = text;
-  v10 = SKUICoreTelephonyFramework();
-  v11 = SKUIWeakLinkedClassForString(&cfstr_Ctmessagecente.isa, v10);
-  v14 = [SKUIWeakLinkedClassForString(&cfstr_Ctphonenumber.isa v10)];
+  v11 = SKUICoreTelephonyFramework(textCopy, v10);
+  v12 = SKUIWeakLinkedClassForString(&cfstr_Ctmessagecente.isa, v11);
+  v15 = [SKUIWeakLinkedClassForString(&cfstr_Ctphonenumber.isa v11)];
 
-  sharedMessageCenter = [v11 sharedMessageCenter];
-  canonicalFormat = [v14 canonicalFormat];
+  sharedMessageCenter = [v12 sharedMessageCenter];
+  canonicalFormat = [v15 canonicalFormat];
   [sharedMessageCenter sendSMSWithText:textCopy serviceCenter:0 toAddress:canonicalFormat];
 }
 
@@ -221,7 +221,7 @@
 {
   if (!self->_telephonyServer)
   {
-    v3 = SKUICoreTelephonyFramework();
+    v3 = SKUICoreTelephonyFramework(self, a2);
     v4 = SKUIWeakLinkedSymbolForString("_CTServerConnectionCreateWithIdentifier", v3);
     v5 = SKUIWeakLinkedSymbolForString("_CTServerConnectionSetTargetQueue", v3);
     if (v4)

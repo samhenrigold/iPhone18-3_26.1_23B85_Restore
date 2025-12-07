@@ -96,26 +96,26 @@ unint64_t SCDAMachAbsoluteTimeGetMilliseconds(unint64_t a1)
 
 id getWPHeySiriAdvertisingData()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getWPHeySiriAdvertisingDataSymbolLoc_ptr;
-  v8 = getWPHeySiriAdvertisingDataSymbolLoc_ptr;
+  v9 = getWPHeySiriAdvertisingDataSymbolLoc_ptr;
   if (!getWPHeySiriAdvertisingDataSymbolLoc_ptr)
   {
     v1 = WirelessProximityLibrary();
-    v6[3] = dlsym(v1, "WPHeySiriAdvertisingData");
-    getWPHeySiriAdvertisingDataSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "WPHeySiriAdvertisingData");
+    getWPHeySiriAdvertisingDataSymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    dlerror();
-    v4 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -123,38 +123,35 @@ id getWPHeySiriAdvertisingData()
   return v2;
 }
 
-void sub_1DA75DDCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DA75DDCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getTUCallProviderManagerClass_block_invoke(uint64_t a1)
 {
-  TelephonyUtilitiesLibraryCore();
+  TelephonyUtilitiesLibraryCore(0);
   result = objc_getClass("TUCallProviderManager");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTUCallProviderManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t TelephonyUtilitiesLibraryCore()
+uint64_t TelephonyUtilitiesLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!TelephonyUtilitiesLibraryCore_frameworkLibrary)
   {
     TelephonyUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = TelephonyUtilitiesLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return TelephonyUtilitiesLibraryCore_frameworkLibrary;
 }
 
 Class __getTUDialRequestClass_block_invoke(uint64_t a1)
 {
-  TelephonyUtilitiesLibraryCore();
+  TelephonyUtilitiesLibraryCore(0);
   result = objc_getClass("TUDialRequest");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTUDialRequestClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -163,11 +160,19 @@ Class __getTUDialRequestClass_block_invoke(uint64_t a1)
 
 void *__getTUCallSourceIdentifierSpeakerRouteSymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = TelephonyUtilitiesLibraryCore();
+  v5 = 0;
+  v2 = TelephonyUtilitiesLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "TUCallSourceIdentifierSpeakerRoute");
@@ -178,11 +183,8 @@ void *__getTUCallSourceIdentifierSpeakerRouteSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t __TelephonyUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TelephonyUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -213,10 +215,11 @@ id _SCDAAssertionCreateDescriptionOfProperties(void *a1)
   return v17;
 }
 
-void sub_1DA7642D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, char a23)
+void sub_1DA7642D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, ...)
 {
-  _Block_object_dispose(&a23, 8);
-  objc_destroyWeak((v23 + 48));
+  va_start(va, location);
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v22 + 48));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -282,7 +285,7 @@ void _SCDAAssistantPreferencesSetValueForKeyWithContext(void *a1, const __CFStri
 
 uint64_t _SCDAAssistantPreferencesBoolFromValueWithDefault(void *a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a1;
   if (objc_opt_respondsToSelector())
   {
@@ -294,36 +297,33 @@ uint64_t _SCDAAssistantPreferencesBoolFromValueWithDefault(void *a1, uint64_t a2
     v6 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315906;
-      v10 = "_SCDAAssistantPreferencesBoolFromValueWithDefault";
-      v11 = 1024;
-      v12 = a3;
-      v13 = 2112;
-      v14 = a2;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_error_impl(&dword_1DA758000, v6, OS_LOG_TYPE_ERROR, "%s Expected a value responding to -BOOLValue, but found something else. Returning %{BOOL}d. {key: %@, value: %@}", &v9, 0x26u);
+      v8 = 136315906;
+      v9 = "_SCDAAssistantPreferencesBoolFromValueWithDefault";
+      v10 = 1024;
+      v11 = a3;
+      v12 = 2112;
+      v13 = a2;
+      v14 = 2112;
+      v15 = v5;
+      _os_log_error_impl(&dword_1DA758000, v6, OS_LOG_TYPE_ERROR, "%s Expected a value responding to -BOOLValue, but found something else. Returning %{BOOL}d. {key: %@, value: %@}", &v8, 0x26u);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
 uint64_t _SCDAAssistantPreferencesDidChangeCallback(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "_SCDAAssistantPreferencesDidChangeCallback";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s Preferences Changed!", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "_SCDAAssistantPreferencesDidChangeCallback";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s Preferences Changed!", &v5, 0xCu);
   }
 
-  result = [a2 _preferencesDidChangeExternally];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [a2 _preferencesDidChangeExternally];
 }
 
 double SCDAMaxNoOperationDelay()
@@ -344,9 +344,9 @@ void __SCDAMaxNoOperationDelay_block_invoke()
   SCDAMaxNoOperationDelay_noopDelay = v0;
 }
 
-void sub_1DA76C258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1DA76C258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -383,33 +383,33 @@ id SCDAAssertionRelinquishmentOptionsGetNames(uint64_t a1)
 
 uint64_t SCDAAssertionRelinquishmentOptionsGetFromNames(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if ([v1 count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v13 = v1;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v12 = v1;
     v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v3)
     {
       v4 = v3;
       v5 = 0;
-      v6 = *v15;
+      v6 = *v14;
       do
       {
         v7 = 0;
         do
         {
-          if (*v15 != v6)
+          if (*v14 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v8 = *(*(&v14 + 1) + 8 * v7);
+          v8 = *(*(&v13 + 1) + 8 * v7);
           if ([v8 length])
           {
             if (_SCDAAssertionRelinquishmentOptionsGetFromName_onceToken != -1)
@@ -431,7 +431,7 @@ uint64_t SCDAAssertionRelinquishmentOptionsGetFromNames(void *a1)
         }
 
         while (v4 != v7);
-        v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v4);
@@ -442,7 +442,7 @@ uint64_t SCDAAssertionRelinquishmentOptionsGetFromNames(void *a1)
       v5 = 0;
     }
 
-    v1 = v13;
+    v1 = v12;
   }
 
   else
@@ -450,60 +450,56 @@ uint64_t SCDAAssertionRelinquishmentOptionsGetFromNames(void *a1)
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-void sub_1DA76D688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DA76D688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1DA76D824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DA76D824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __libAccessibilityLibraryCore_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   libAccessibilityLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t soft_MKBGetDeviceLockState()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = getMKBGetDeviceLockStateSymbolLoc_ptr;
-  v7 = getMKBGetDeviceLockStateSymbolLoc_ptr;
+  v8 = getMKBGetDeviceLockStateSymbolLoc_ptr;
   if (!getMKBGetDeviceLockStateSymbolLoc_ptr)
   {
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
-    v3[3] = &unk_1E85D3638;
-    v3[4] = &v4;
-    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v3);
-    v0 = v5[3];
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 3221225472;
+    v4[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
+    v4[3] = &unk_1E85D3638;
+    v4[4] = &v5;
+    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v4);
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    dlerror();
-    v2 = abort_report_np();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v2);
+    v2 = dlerror();
+    v3 = abort_report_np("%s", v2);
+    _Block_object_dispose(&v5, 8);
+    _Unwind_Resume(v3);
   }
 
   return v0(0);
@@ -511,23 +507,23 @@ uint64_t soft_MKBGetDeviceLockState()
 
 void *__getMKBGetDeviceLockStateSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!MobileKeyBagLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __MobileKeyBagLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E85D2FE0;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __MobileKeyBagLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E85D2FE0;
+    v7 = 0;
     MobileKeyBagLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = MobileKeyBagLibraryCore_frameworkLibrary;
     if (MobileKeyBagLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -535,7 +531,7 @@ void *__getMKBGetDeviceLockStateSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -547,17 +543,13 @@ LABEL_5:
   result = dlsym(v2, "MKBGetDeviceLockState");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getMKBGetDeviceLockStateSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MobileKeyBagLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MobileKeyBagLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -669,11 +661,12 @@ void __SCDAGoodnessScoreOverrideOptionGetFromName_block_invoke()
   SCDAGoodnessScoreOverrideOptionGetFromName_map = &unk_1F562E490;
 }
 
-void sub_1DA771090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, char a16)
+void sub_1DA771090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, ...)
 {
-  objc_destroyWeak((v16 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v15 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a16, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -686,19 +679,18 @@ uint64_t __Block_byref_object_copy__1684(uint64_t result, uint64_t a2)
 
 unsigned int SCDAGoodnessComputeExponentialBoost(double a1, double a2, double a3, double a4, double a5)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = exp(-((a2 - a1) * a4 + a3 * ((a2 - a1) * (a2 - a1)) + a5));
   v6 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "SCDAGoodnessComputeExponentialBoost";
-    v11 = 2048;
-    v12 = v5;
-    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda exponential bump %f", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "SCDAGoodnessComputeExponentialBoost";
+    v10 = 2048;
+    v11 = v5;
+    _os_log_impl(&dword_1DA758000, v6, OS_LOG_TYPE_INFO, "%s #scda exponential bump %f", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return llround(v5);
 }
 
@@ -783,19 +775,17 @@ void sub_1DA775620(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void notificationNearMissCallback(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "notificationNearMissCallback";
-    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda #feedback near miss!", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "notificationNearMissCallback";
+    _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s #scda #feedback near miss!", &v4, 0xCu);
   }
 
   [v2 _publishFeedbackArbitrationRecordForNearMiss];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 id SCDANextActionWindow(void *a1, double a2)
@@ -811,26 +801,26 @@ id SCDANextActionWindow(void *a1, double a2)
 
 id getWPHeySiriKeyManufacturerData()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getWPHeySiriKeyManufacturerDataSymbolLoc_ptr;
-  v8 = getWPHeySiriKeyManufacturerDataSymbolLoc_ptr;
+  v9 = getWPHeySiriKeyManufacturerDataSymbolLoc_ptr;
   if (!getWPHeySiriKeyManufacturerDataSymbolLoc_ptr)
   {
     v1 = WirelessProximityLibrary();
-    v6[3] = dlsym(v1, "WPHeySiriKeyManufacturerData");
-    getWPHeySiriKeyManufacturerDataSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "WPHeySiriKeyManufacturerData");
+    getWPHeySiriKeyManufacturerDataSymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    dlerror();
-    v4 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -849,56 +839,50 @@ void *__getWPHeySiriKeyManufacturerDataSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t WirelessProximityLibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!WirelessProximityLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __WirelessProximityLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E85D3658;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __WirelessProximityLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E85D3658;
+    v5 = 0;
     WirelessProximityLibraryCore_frameworkLibrary = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = WirelessProximityLibraryCore_frameworkLibrary;
     if (WirelessProximityLibraryCore_frameworkLibrary)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = WirelessProximityLibraryCore_frameworkLibrary;
-LABEL_5:
-  v2 = *MEMORY[0x1E69E9840];
-  return v0;
+  return WirelessProximityLibraryCore_frameworkLibrary;
 }
 
 uint64_t __WirelessProximityLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   WirelessProximityLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1DA7788F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1DA7788F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -935,19 +919,20 @@ void sub_1DA77FD94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1DA780F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DA780F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1DA782BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_1DA782BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
+  va_start(va, a46);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a47, 8);
-  _Block_object_dispose((v47 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v46 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -958,9 +943,9 @@ uint64_t __Block_byref_object_copy__2347(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1DA7870DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DA7870DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -977,14 +962,14 @@ Class __getWPHeySiriClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "WPHeySiri");
     return __36__SCDACoordinator_initWithDelegate___block_invoke(v3);
   }
 
   return result;
 }
 
-uint64_t carplayTriggerSeenCallback()
+void *carplayTriggerSeenCallback()
 {
   v0 = SCDALogForCategory(1);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
@@ -1002,7 +987,7 @@ uint64_t carplayTriggerSeenCallback()
   return result;
 }
 
-uint64_t inEarTriggerSeenCallback()
+void *inEarTriggerSeenCallback()
 {
   v0 = SCDALogForCategory(1);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
@@ -1020,7 +1005,7 @@ uint64_t inEarTriggerSeenCallback()
   return result;
 }
 
-uint64_t myriadDecisionRequestCallback()
+void *myriadDecisionRequestCallback()
 {
   v0 = SCDALogForCategory(1);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
@@ -1038,7 +1023,7 @@ uint64_t myriadDecisionRequestCallback()
   return result;
 }
 
-uint64_t emergencyCallback()
+void *emergencyCallback()
 {
   v0 = SCDALogForCategory(1);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
@@ -1056,7 +1041,7 @@ uint64_t emergencyCallback()
   return result;
 }
 
-uint64_t outputTriggerSeenCallback()
+void *outputTriggerSeenCallback()
 {
   result = _currentCoordinator;
   if (_currentCoordinator)
@@ -1067,7 +1052,7 @@ uint64_t outputTriggerSeenCallback()
   return result;
 }
 
-uint64_t notificationCallback()
+void *notificationCallback()
 {
   kdebug_trace();
   v0 = SCDALogForCategory(1);

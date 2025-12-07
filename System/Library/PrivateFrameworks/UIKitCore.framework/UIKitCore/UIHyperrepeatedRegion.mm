@@ -11,7 +11,7 @@ void *__39___UIHyperrepeatedRegion_copyWithZone___block_invoke(uint64_t a1, void
   return memcpy(a2, v4, v5);
 }
 
-uint64_t __39___UIHyperrepeatedRegion_copyWithZone___block_invoke_2(uint64_t a1)
+uint64_t __39___UIHyperrepeatedRegion_copyWithZone___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) _offset];
   [*(a1 + 32) _dimensions];
@@ -19,7 +19,7 @@ uint64_t __39___UIHyperrepeatedRegion_copyWithZone___block_invoke_2(uint64_t a1)
   return cblas_dcopy_NEWLAPACK();
 }
 
-uint64_t __39___UIHyperrepeatedRegion_copyWithZone___block_invoke_3(uint64_t a1)
+uint64_t __39___UIHyperrepeatedRegion_copyWithZone___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) _increment];
   [*(a1 + 32) _dimensions];

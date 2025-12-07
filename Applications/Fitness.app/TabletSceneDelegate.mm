@@ -34,7 +34,7 @@
   sceneCopy = scene;
   activityCopy = activity;
   selfCopy = self;
-  sub_1005329E0(activityCopy);
+  sub_1005329E0(activityCopy, v8);
 }
 
 - (void)sceneDidDisconnect:(id)disconnect
@@ -48,12 +48,12 @@
 
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
-  sub_1000059F8(0, &qword_1008F2028);
+  sub_1000059F8(0, &qword_1008F2028, UIOpenURLContext_ptr);
   sub_1005342B0();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;
-  sub_100532C70(v6);
+  sub_100532C70(v6, v9);
 }
 
 - (void)sceneWillEnterForeground:(id)foreground

@@ -1,6 +1,7 @@
 @interface PPEventMetricsLogger
 + (id)defaultLogger;
 + (unint64_t)numberOfDaysBetweenDate:(id)date andDate:(id)andDate;
+- (BOOL)_incrementInteractionForEventIdentifier:(id)identifier interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (BOOL)_removeInteractionsSummaryLogsFromLogsAndResetStoreAge:(id)age;
 - (BOOL)resetLogs;
 - (BOOL)storeToDisk;
@@ -13,12 +14,14 @@
 - (id)_descriptionForInterface:(unsigned __int16)interface;
 - (id)_descriptionForPPRTCCategory:(unsigned __int16)category;
 - (id)_interactionAttributesForEventHighlight:(id)highlight;
+- (id)_interactionKeyForInterface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (id)allowedLogFromLog:(id)log;
 - (id)eventsAndExtraordinaryEventsDictFromDate:(id)date;
 - (id)loggedInteractionsSummaryMetrics;
 - (id)logsToSend;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
+- (void)logEventInteractionForEventHighlight:(id)highlight interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (void)logNewInteractionSummaryWithDictionary:(id)dictionary;
 - (void)sendRTCLogsWithCompletion:(id)completion;
 - (void)updateAndScheduleDiskWrite;
@@ -90,9 +93,21 @@
   }
 }
 
+- (id)_interactionKeyForInterface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  v7 = objc_alloc(MEMORY[0x277CCACA8]);
+  v8 = [(PPEventMetricsLogger *)self _descriptionForInterface:interfaceCopy];
+  v9 = [(PPEventMetricsLogger *)self _descriptionForActionType:typeCopy];
+  v10 = [v7 initWithFormat:@"%@_%@", v8, v9];
+
+  return v10;
+}
+
 - (id)_interactionAttributesForEventHighlight:(id)highlight
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   highlightCopy = highlight;
   v5 = [v3 alloc];
@@ -100,12 +115,145 @@
 
   v7 = [features _pas_componentsJoinedByString:{@", "}];
   v8 = [v5 initWithFormat:@"[%@]", v7, @"rankingFeatures"];
-  v13[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   return v9;
+}
+
+- (BOOL)_incrementInteractionForEventIdentifier:(id)identifier interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  v28 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v9 = [(PPEventMetricsLogger *)self _interactionKeyForInterface:interfaceCopy actionType:typeCopy];
+  v10 = pp_events_log_handle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    v24 = 138412546;
+    v25 = v9;
+    v26 = 2112;
+    v27 = identifierCopy;
+    _os_log_debug_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEBUG, "PPEventMetricsLogger: log and increment interaction key: %@, for eventIdentifier: %@", &v24, 0x16u);
+  }
+
+  pthread_mutex_lock(&self->_lock);
+  if ([(NSMutableArray *)self->_loggedInteractionsSummary count])
+  {
+    v11 = 0;
+    while (1)
+    {
+      v12 = [(NSMutableArray *)self->_loggedInteractionsSummary objectAtIndexedSubscript:v11];
+      v13 = [v12 objectForKeyedSubscript:@"eventIdentifier"];
+      v14 = [v13 isEqualToString:identifierCopy];
+
+      loggedInteractionsSummary = self->_loggedInteractionsSummary;
+      if (v14)
+      {
+        break;
+      }
+
+      if (++v11 >= [(NSMutableArray *)loggedInteractionsSummary count])
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v18 = MEMORY[0x277CCABB0];
+    v19 = [(NSMutableArray *)loggedInteractionsSummary objectAtIndexedSubscript:v11];
+    v20 = [v19 objectForKeyedSubscript:v9];
+    v21 = [v18 numberWithUnsignedInteger:{objc_msgSend(v20, "unsignedIntegerValue") + 1}];
+    v22 = [(NSMutableArray *)self->_loggedInteractionsSummary objectAtIndexedSubscript:v11];
+    [v22 setObject:v21 forKeyedSubscript:v9];
+
+    pthread_mutex_unlock(&self->_lock);
+    [(PPEventMetricsLogger *)self updateAndScheduleDiskWrite];
+    v17 = 1;
+  }
+
+  else
+  {
+LABEL_7:
+    pthread_mutex_unlock(&self->_lock);
+    v16 = pp_events_log_handle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    {
+      LOWORD(v24) = 0;
+      _os_log_debug_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEBUG, "PPEventMetricsLogger: can't find eventIdentifier in loggedInteractionsSummary dictionary", &v24, 2u);
+    }
+
+    v17 = 0;
+  }
+
+  return v17;
+}
+
+- (void)logEventInteractionForEventHighlight:(id)highlight interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  highlightCopy = highlight;
+  eventIdentifier = [highlightCopy eventIdentifier];
+  if ([(PPEventMetricsLogger *)self _incrementInteractionForEventIdentifier:eventIdentifier interface:interfaceCopy actionType:typeCopy])
+  {
+
+LABEL_8:
+    v26 = pp_events_log_handle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      *v27 = 0;
+      _os_log_error_impl(&dword_23224A000, v26, OS_LOG_TYPE_ERROR, "PPEventMetricsLogger: No endDate for event", v27, 2u);
+    }
+
+    goto LABEL_11;
+  }
+
+  endDate = [highlightCopy endDate];
+
+  if (!endDate)
+  {
+    goto LABEL_8;
+  }
+
+  endDate2 = [highlightCopy endDate];
+  endDate3 = [highlightCopy endDate];
+  if (endDate3)
+  {
+    v13 = endDate3;
+    v14 = objc_opt_new();
+    v15 = [PPEventMetricsLogger numberOfDaysBetweenDate:v14 andDate:endDate2];
+
+    if (v15 >= 366)
+    {
+      v16 = objc_opt_new();
+      [v16 setYear:1];
+      currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
+      v18 = objc_opt_new();
+      v19 = [currentCalendar dateByAddingComponents:v16 toDate:v18 options:0];
+
+      endDate2 = v19;
+    }
+  }
+
+  v20 = [(PPEventMetricsLogger *)self _interactionAttributesForEventHighlight:highlightCopy];
+  v21 = [v20 mutableCopy];
+
+  v22 = [(PPEventMetricsLogger *)self _descriptionForPPRTCCategory:8];
+  [v21 setObject:v22 forKeyedSubscript:@"categoryLog"];
+
+  [v21 setObject:endDate2 forKeyedSubscript:@"expirationDate"];
+  v23 = objc_opt_new();
+  [v21 setObject:v23 forKeyedSubscript:@"creationDate"];
+
+  eventIdentifier2 = [highlightCopy eventIdentifier];
+  [v21 setObject:eventIdentifier2 forKeyedSubscript:@"eventIdentifier"];
+
+  v25 = [(PPEventMetricsLogger *)self _interactionKeyForInterface:interfaceCopy actionType:typeCopy];
+  [v21 setObject:&unk_284783C00 forKeyedSubscript:v25];
+
+  [(PPEventMetricsLogger *)self logNewInteractionSummaryWithDictionary:v21];
+LABEL_11:
 }
 
 - (id)allowedLogFromLog:(id)log
@@ -165,36 +313,36 @@ LABEL_9:
 
 - (BOOL)_removeInteractionsSummaryLogsFromLogsAndResetStoreAge:(id)age
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ageCopy = age;
   pthread_mutex_lock(&self->_lock);
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   self->_storeCreationDate = v5;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = ageCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(NSMutableArray *)self->_loggedInteractionsSummary removeObject:*(*(&v14 + 1) + 8 * v10++), v14];
+        [(NSMutableArray *)self->_loggedInteractionsSummary removeObject:*(*(&v13 + 1) + 8 * v10++), v13];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -203,7 +351,6 @@ LABEL_9:
   pthread_mutex_unlock(&self->_lock);
   storeToDisk = [(PPEventMetricsLogger *)self storeToDisk];
 
-  v12 = *MEMORY[0x277D85DE8];
   return storeToDisk;
 }
 
@@ -230,7 +377,7 @@ LABEL_9:
 
 - (id)eventsAndExtraordinaryEventsDictFromDate:(id)date
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (dateCopy)
   {
@@ -243,30 +390,30 @@ LABEL_9:
       v7 = +[PPLocalEventStore defaultStore];
       v8 = [v7 eventHighlightsFrom:v6 to:dateCopy options:1];
 
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v10)
       {
         v11 = v10;
         LODWORD(v12) = 0;
-        v13 = *v21;
+        v13 = *v20;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v21 != v13)
+            if (*v20 != v13)
             {
               objc_enumerationMutation(v9);
             }
 
-            v12 = v12 + [*(*(&v20 + 1) + 8 * i) isExtraordinary];
+            v12 = v12 + [*(*(&v19 + 1) + 8 * i) isExtraordinary];
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v20 objects:v26 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
         }
 
         while (v11);
@@ -277,13 +424,13 @@ LABEL_9:
         v12 = 0;
       }
 
-      v24[0] = @"eventHighlightsCount";
+      v23[0] = @"eventHighlightsCount";
       v16 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-      v24[1] = @"ekEventsCount";
-      v25[0] = v16;
+      v23[1] = @"ekEventsCount";
+      v24[0] = v16;
       v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject count](v9, "count")}];
-      v25[1] = v17;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+      v24[1] = v17;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
     }
 
     else
@@ -292,11 +439,11 @@ LABEL_9:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        v28 = currentCalendar;
-        v29 = 2112;
-        v30 = v5;
-        v31 = 2112;
-        v32 = dateCopy;
+        v27 = currentCalendar;
+        v28 = 2112;
+        v29 = v5;
+        v30 = 2112;
+        v31 = dateCopy;
         _os_log_fault_impl(&dword_23224A000, v9, OS_LOG_TYPE_FAULT, "eventsAndExtraordinaryEventsDictFromDate failed to get startDate from c:%@ add:%@ d:%@", buf, 0x20u);
       }
 
@@ -309,29 +456,25 @@ LABEL_9:
     v15 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (void)logNewInteractionSummaryWithDictionary:(id)dictionary
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = pp_events_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = dictionaryCopy;
-    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "PPEventMetricsLogger: log new interaction summary: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = dictionaryCopy;
+    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "PPEventMetricsLogger: log new interaction summary: %@", &v6, 0xCu);
   }
 
   pthread_mutex_lock(&self->_lock);
   [(NSMutableArray *)self->_loggedInteractionsSummary addObject:dictionaryCopy];
   pthread_mutex_unlock(&self->_lock);
   [(PPEventMetricsLogger *)self updateAndScheduleDiskWrite];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAndScheduleDiskWrite
@@ -417,7 +560,7 @@ LABEL_9:
 
 - (void)sendRTCLogsWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = pp_events_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -447,9 +590,9 @@ LABEL_9:
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v13 = [logsToSend count];
+      v12 = [logsToSend count];
       *buf = 134218242;
-      *&buf[4] = v13;
+      *&buf[4] = v12;
       *&buf[12] = 2112;
       *&buf[14] = logsToSend;
       _os_log_debug_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEBUG, "PPEventMetricsLogger: Selected logs (%lu): %@", buf, 0x16u);
@@ -459,63 +602,61 @@ LABEL_9:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v24 = 0;
-    v21[0] = 0;
-    v21[1] = v21;
-    v21[2] = 0x2020000000;
-    v22 = 0;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __50__PPEventMetricsLogger_sendRTCLogsWithCompletion___block_invoke;
-    v14[3] = &unk_2789727D0;
-    v18 = completionCopy;
-    v15 = logsToSend;
+    v23 = 0;
+    v20[0] = 0;
+    v20[1] = v20;
+    v20[2] = 0x2020000000;
+    v21 = 0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __50__PPEventMetricsLogger_sendRTCLogsWithCompletion___block_invoke;
+    v13[3] = &unk_2789727D0;
+    v17 = completionCopy;
+    v14 = logsToSend;
     selfCopy = self;
     v11 = _createRTCReporting;
-    v17 = v11;
-    v19 = buf;
-    v20 = v21;
-    [v11 startConfigurationWithCompletionHandler:v14];
+    v16 = v11;
+    v18 = buf;
+    v19 = v20;
+    [v11 startConfigurationWithCompletionHandler:v13];
 
-    _Block_object_dispose(v21, 8);
+    _Block_object_dispose(v20, 8);
     _Block_object_dispose(buf, 8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__PPEventMetricsLogger_sendRTCLogsWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v3 = *(a1 + 32);
-    v30 = [v3 countByEnumeratingWithState:&v34 objects:v42 count:16];
-    if (!v30)
+    v29 = [v3 countByEnumeratingWithState:&v33 objects:v41 count:16];
+    if (!v29)
     {
       goto LABEL_22;
     }
 
-    v31 = 0;
-    v5 = *v35;
+    v30 = 0;
+    v5 = *v34;
     *&v4 = 138412290;
-    v27 = v4;
-    v28 = *v35;
-    v29 = v3;
+    v26 = v4;
+    v27 = *v34;
+    v28 = v3;
     while (1)
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v35 != v5)
+        if (*v34 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v34 + 1) + 8 * i);
+        v7 = *(*(&v33 + 1) + 8 * i);
         v8 = [v7 mutableCopy];
         v9 = *(a1 + 40);
         v10 = [v7 objectForKeyedSubscript:@"expirationDate"];
@@ -528,49 +669,49 @@ uint64_t __50__PPEventMetricsLogger_sendRTCLogsWithCompletion___block_invoke(uin
 
         v12 = [*(a1 + 40) allowedLogFromLog:v8];
         v13 = *(a1 + 48);
-        v33 = 0;
-        v14 = [v13 sendMessageWithCategory:8 type:0 payload:v12 error:&v33];
-        v15 = v33;
+        v32 = 0;
+        v14 = [v13 sendMessageWithCategory:8 type:0 payload:v12 error:&v32];
+        v15 = v32;
         if (v14)
         {
           *(*(*(a1 + 64) + 8) + 24) = 1;
-          if (v31)
+          if (v30)
           {
-            v31 = 1;
+            v30 = 1;
             goto LABEL_20;
           }
 
-          v38 = @"storeAge";
+          v37 = @"storeAge";
           v17 = MEMORY[0x277CCABB0];
           v18 = *(a1 + 48);
           [*(a1 + 40) _storeAge];
           v19 = [v17 numberWithDouble:?];
-          v39 = v19;
-          v31 = 1;
-          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-          v32 = v15;
-          LOBYTE(v18) = [v18 sendMessageWithCategory:2 type:0 payload:v20 error:&v32];
-          v21 = v32;
+          v38 = v19;
+          v30 = 1;
+          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          v31 = v15;
+          LOBYTE(v18) = [v18 sendMessageWithCategory:2 type:0 payload:v20 error:&v31];
+          v21 = v31;
 
           if (v18)
           {
             v15 = v21;
-            v5 = v28;
-            v3 = v29;
+            v5 = v27;
+            v3 = v28;
             goto LABEL_20;
           }
 
           v16 = pp_default_log_handle();
-          v5 = v28;
-          v3 = v29;
+          v5 = v27;
+          v3 = v28;
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            *buf = v27;
-            v41 = v21;
+            *buf = v26;
+            v40 = v21;
             _os_log_error_impl(&dword_23224A000, v16, OS_LOG_TYPE_ERROR, "PPEventMetricsLogger: Unable to send logs for storeAge: %@", buf, 0xCu);
           }
 
-          v31 = 1;
+          v30 = 1;
           v15 = v21;
         }
 
@@ -579,8 +720,8 @@ uint64_t __50__PPEventMetricsLogger_sendRTCLogsWithCompletion___block_invoke(uin
           v16 = pp_default_log_handle();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            *buf = v27;
-            v41 = v15;
+            *buf = v26;
+            v40 = v15;
             _os_log_error_impl(&dword_23224A000, v16, OS_LOG_TYPE_ERROR, "PPEventMetricsLogger: Unable to send logs: %@", buf, 0xCu);
           }
         }
@@ -588,8 +729,8 @@ uint64_t __50__PPEventMetricsLogger_sendRTCLogsWithCompletion___block_invoke(uin
 LABEL_20:
       }
 
-      v30 = [v3 countByEnumeratingWithState:&v34 objects:v42 count:16];
-      if (!v30)
+      v29 = [v3 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      if (!v29)
       {
 LABEL_22:
 
@@ -622,8 +763,7 @@ LABEL_22:
           v25 = 0;
         }
 
-        result = (*(*(a1 + 56) + 16))(*(a1 + 56), v25 & 1, 0);
-        goto LABEL_35;
+        return (*(*(a1 + 56) + 16))(*(a1 + 56), v25 & 1, 0);
       }
     }
   }
@@ -635,51 +775,46 @@ LABEL_22:
     _os_log_impl(&dword_23224A000, v22, OS_LOG_TYPE_DEFAULT, "PPEventMetricsLogger: No RTC backends found, no logs will be sent at this time.", buf, 2u);
   }
 
-  result = (*(*(a1 + 56) + 16))();
-LABEL_35:
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (id)_createRTCReporting
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithInt:CFAbsoluteTimeGetCurrent()];
   v3 = *MEMORY[0x277D44040];
-  v14[0] = *MEMORY[0x277D44030];
-  v14[1] = v3;
-  v15[0] = &unk_284783BD0;
-  v15[1] = &unk_284783BE8;
+  v13[0] = *MEMORY[0x277D44030];
+  v13[1] = v3;
+  v14[0] = &unk_284783BD0;
+  v14[1] = &unk_284783BE8;
   v4 = *MEMORY[0x277D44010];
-  v14[2] = *MEMORY[0x277D44080];
-  v14[3] = v4;
-  v15[2] = v2;
-  v15[3] = MEMORY[0x277CBEC38];
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v13[2] = *MEMORY[0x277D44080];
+  v13[3] = v4;
+  v14[2] = v2;
+  v14[3] = MEMORY[0x277CBEC38];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
   v6 = *MEMORY[0x277D44098];
-  v12[0] = *MEMORY[0x277D44090];
-  v12[1] = v6;
-  v13[0] = @"Suggestions";
-  v13[1] = @"com.apple.PersonalizationPortrait";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = *MEMORY[0x277D44090];
+  v11[1] = v6;
+  v12[0] = @"Suggestions";
+  v12[1] = @"com.apple.PersonalizationPortrait";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v8 = objc_alloc(MEMORY[0x277D43FE0]);
   v9 = [v8 initWithSessionInfo:v5 userInfo:v7 frameworksToCheck:MEMORY[0x277CBEBF8]];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (BOOL)storeToDisk
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = pp_events_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     path = self->_path;
-    v9 = 138412290;
-    v10 = path;
-    _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_INFO, "PPEventMetricsLogger: Persisting some logs to disk! path: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = path;
+    _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_INFO, "PPEventMetricsLogger: Persisting some logs to disk! path: %@", &v8, 0xCu);
   }
 
   pthread_mutex_lock(&self->_lock);
@@ -687,7 +822,6 @@ LABEL_35:
   v6 = [v5 writeToFile:self->_path atomically:0];
   pthread_mutex_unlock(&self->_lock);
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -706,10 +840,10 @@ LABEL_35:
 
 - (PPEventMetricsLogger)init
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = PPEventMetricsLogger;
-  v2 = [(PPEventMetricsLogger *)&v20 init];
+  v21 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = PPEventMetricsLogger;
+  v2 = [(PPEventMetricsLogger *)&v19 init];
   v3 = v2;
   if (v2)
   {
@@ -725,12 +859,12 @@ LABEL_35:
     interactionsWriteQueue = v3->_interactionsWriteQueue;
     v3->_interactionsWriteQueue = v8;
 
-    v21.__sig = 0;
-    *v21.__opaque = 0;
-    pthread_mutexattr_init(&v21);
-    pthread_mutexattr_settype(&v21, 2);
-    pthread_mutex_init(&v3->_lock, &v21);
-    pthread_mutexattr_destroy(&v21);
+    v20.__sig = 0;
+    *v20.__opaque = 0;
+    pthread_mutexattr_init(&v20);
+    pthread_mutexattr_settype(&v20, 2);
+    pthread_mutex_init(&v3->_lock, &v20);
+    pthread_mutexattr_destroy(&v20);
     v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v11 = dispatch_queue_attr_make_with_qos_class(v10, QOS_CLASS_BACKGROUND, 0);
     v12 = dispatch_queue_create("pp-rtc-persist", v11);
@@ -739,20 +873,19 @@ LABEL_35:
     persistenceTimerSource = v3->_persistenceTimerSource;
     v3->_persistenceTimerSource = v13;
 
-    objc_initWeak(&v21, v3);
+    objc_initWeak(&v20, v3);
     v15 = v3->_persistenceTimerSource;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __28__PPEventMetricsLogger_init__block_invoke;
-    v18[3] = &unk_2789797B8;
-    objc_copyWeak(&v19, &v21);
-    dispatch_source_set_event_handler(v15, v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __28__PPEventMetricsLogger_init__block_invoke;
+    v17[3] = &unk_2789797B8;
+    objc_copyWeak(&v18, &v20);
+    dispatch_source_set_event_handler(v15, v17);
     dispatch_resume(v3->_persistenceTimerSource);
-    objc_destroyWeak(&v19);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v20);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

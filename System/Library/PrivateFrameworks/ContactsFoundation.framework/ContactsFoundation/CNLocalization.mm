@@ -1,6 +1,7 @@
 @interface CNLocalization
 + (id)localizedStringForInteger:(int64_t)integer;
 + (id)localizedStringForString:(id)string bundle:(id)bundle table:(id)table lookupBlock:(id)block returningNilIfNotFound:(BOOL)found;
++ (id)localizedStringForString:(id)string class:(Class)class lookupBlock:(id)block returningNilIfNotFound:(BOOL)found;
 @end
 
 @implementation CNLocalization
@@ -38,6 +39,19 @@
   }
 
   return v16;
+}
+
++ (id)localizedStringForString:(id)string class:(Class)class lookupBlock:(id)block returningNilIfNotFound:(BOOL)found
+{
+  foundCopy = found;
+  v10 = MEMORY[0x1E696AAE8];
+  blockCopy = block;
+  stringCopy = string;
+  v13 = [v10 bundleForClass:class];
+  v14 = NSStringFromClass(class);
+  v15 = [self localizedStringForString:stringCopy bundle:v13 table:v14 lookupBlock:blockCopy returningNilIfNotFound:foundCopy];
+
+  return v15;
 }
 
 + (id)localizedStringForInteger:(int64_t)integer

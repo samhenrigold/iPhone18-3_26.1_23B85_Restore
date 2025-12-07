@@ -21,7 +21,8 @@
       if (result)
       {
         v4 = [AssociatedObject objectAtIndexedSubscript:0];
-        if ([v4 isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}])
+        [MEMORY[0x1E695DFB0] null];
+        if (objc_msgSend_isEqual_(v4))
         {
           return 0;
         }

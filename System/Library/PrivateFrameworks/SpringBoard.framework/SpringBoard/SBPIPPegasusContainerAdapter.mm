@@ -557,7 +557,7 @@ void __117__SBPIPPegasusContainerAdapter__performStopAnimationWithFinalInterface
   }
 
   view = [(PGPictureInPictureViewController *)self->_pictureInPictureViewController view];
-  [view frame];
+  objc_msgSend_frame(view);
   v11 = v10;
   v13 = v12;
   v15 = v14;

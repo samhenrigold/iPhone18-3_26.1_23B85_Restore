@@ -72,7 +72,7 @@
         v20 = *(*(&v40 + 1) + 8 * i);
         if (contextCopy)
         {
-          objc_msgSend_textureAttributesForVariable_(contextCopy, v13, v15, v16, v17, *(*(&v40 + 1) + 8 * i));
+          objc_msgSend_textureAttributesForVariable_(contextCopy, v15, v16, v17);
           objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v21, v22, v23, v24, v36, v36, v37, v38, v39);
         }
 
@@ -124,7 +124,7 @@
   v11 = contextCopy;
   if (contextCopy)
   {
-    objc_msgSend_textureAttributesForVariable_(contextCopy, v7, v8, v9, v10, variableCopy);
+    objc_msgSend_textureAttributesForVariable_(contextCopy, v8, v9, v10);
     if (v30)
     {
       v12 = @"fboTexture2D";

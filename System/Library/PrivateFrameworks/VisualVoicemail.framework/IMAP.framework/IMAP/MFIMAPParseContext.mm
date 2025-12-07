@@ -5,6 +5,7 @@
 - (BOOL)match:(const char *)match upToSpecial:(const char *)special;
 - (BOOL)parseSpace;
 - (MFIMAPParseContext)initWithConnection:(id)connection response:(id)response start:(const char *)start end:(const char *)end;
+- (__CFArray)copyArrayAllowingNulls:(BOOL)nulls;
 - (const)nextSeparator;
 - (id)copyAString;
 - (id)copyAtom;
@@ -77,28 +78,27 @@
 
 - (void)emitWarning:(id)warning
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   warningCopy = warning;
-  v5 = getLogger_3();
+  v5 = getLogger_3(warningCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     response = self->_response;
     v7 = [(MFIMAPParseContext *)self copyStringFrom:self->_start to:self->_end withCaseOption:0];
-    v9 = 136316162;
-    v10 = "";
-    v11 = 2080;
-    v12 = "";
-    v13 = 2112;
-    v14 = response;
-    v15 = 2112;
-    v16 = warningCopy;
-    v17 = 2112;
-    v18 = v7;
-    _os_log_impl(&dword_2720B1000, v5, OS_LOG_TYPE_DEFAULT, "#W %s%s*** Warning while parsing %@: %@. Remaining text: <%@>", &v9, 0x34u);
+    v8 = 136316162;
+    v9 = "";
+    v10 = 2080;
+    v11 = "";
+    v12 = 2112;
+    v13 = response;
+    v14 = 2112;
+    v15 = warningCopy;
+    v16 = 2112;
+    v17 = v7;
+    _os_log_impl(&dword_2720B1000, v5, OS_LOG_TYPE_DEFAULT, "#W %s%s*** Warning while parsing %@: %@. Remaining text: <%@>", &v8, 0x34u);
   }
 
   _hadWarningOrError = 1;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emitError:(id)error
@@ -118,10 +118,10 @@
     v10 = [(MFIMAPParseContext *)self copyStringFrom:self->_start to:self->_end withCaseOption:0];
     v11 = [v8 stringWithFormat:@"Error while parsing IMAP response %@: %@. Remaining text: <%@>", response, errorCopy, v10];
 
-    v12 = getLogger_3();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = getLogger_3(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(MFIMAPParseContext *)v11 emitError:v12];
+      [(MFIMAPParseContext *)v11 emitError:v13];
     }
   }
 
@@ -248,20 +248,20 @@
 
 - (BOOL)literalWithResponseConsumer:(id)consumer section:(id)section
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   consumerCopy = consumer;
   sectionCopy = section;
-  v8 = getLogger_3();
+  v8 = getLogger_3(sectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
     *&buf[4] = "";
-    v33 = 2080;
-    v34 = "";
-    v35 = 2112;
-    v36 = consumerCopy;
-    v37 = 2112;
-    v38 = sectionCopy;
+    v32 = 2080;
+    v33 = "";
+    v34 = 2112;
+    v35 = consumerCopy;
+    v36 = 2112;
+    v37 = sectionCopy;
     _os_log_impl(&dword_2720B1000, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sliteralWithResponseConsumer %@ %@", buf, 0x2Au);
   }
 
@@ -271,9 +271,9 @@
     goto LABEL_40;
   }
 
-  v31 = +[MFActivityMonitor currentMonitor];
+  v30 = +[MFActivityMonitor currentMonitor];
   *buf = 0;
-  expectedLength = [v31 expectedLength];
+  expectedLength = [v30 expectedLength];
   literalChunkSize = [(MFIMAPConnection *)self->_connection literalChunkSize];
   if ([(MFIMAPParseContext *)self getNumber:buf])
   {
@@ -354,7 +354,7 @@ LABEL_11:
       }
 
 LABEL_29:
-      [v31 setPercentDone:((v13 - v19) / v17)];
+      [v30 setPercentDone:((v13 - v19) / v17)];
       goto LABEL_30;
     }
 
@@ -401,7 +401,6 @@ LABEL_39:
   [(MFIMAPConnection *)self->_connection notifyDelegateOfBodyLoadCompletion:v14 section:sectionCopy];
 
 LABEL_40:
-  v29 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -586,6 +585,73 @@ LABEL_25:
   return v7;
 }
 
+- (__CFArray)copyArrayAllowingNulls:(BOOL)nulls
+{
+  nullsCopy = nulls;
+  if (![(MFIMAPParseContext *)self match:"(")]
+  {
+    return 0;
+  }
+
+  if (nullsCopy)
+  {
+    v5 = &NullOrCFTypeArrayCallBacks;
+  }
+
+  else
+  {
+    v5 = MEMORY[0x277CBF128];
+  }
+
+  Mutable = CFArrayCreateMutable(0, 0, v5);
+  if (![(MFIMAPParseContext *)self match:"]"))
+  {
+    do
+    {
+      copyNumber = [(MFIMAPParseContext *)self copyArrayAllowingNulls:nullsCopy];
+      if (!copyNumber)
+      {
+        copyNumber = [(MFIMAPParseContext *)self copyNumber];
+        if (!copyNumber)
+        {
+          copyAtom = [(MFIMAPParseContext *)self copyAtom];
+          if (copyAtom)
+          {
+            v8 = copyAtom;
+            if (nullsCopy && ![(__CFArray *)copyAtom caseInsensitiveCompare:@"NIL"])
+            {
+
+              v8 = 0;
+            }
+
+            goto LABEL_9;
+          }
+
+          copyNumber = [(MFIMAPParseContext *)self copyQuotedString];
+          if (!copyNumber)
+          {
+            copyNumber = [(MFIMAPParseContext *)self copyLiteralString];
+            if (!copyNumber)
+            {
+              [(MFIMAPParseContext *)self emitWarning:@"Can't parse array contents"];
+              return Mutable;
+            }
+          }
+        }
+      }
+
+      v8 = copyNumber;
+LABEL_9:
+      [(MFIMAPParseContext *)self parseSpace];
+      CFArrayAppendValue(Mutable, v8);
+    }
+
+    while (![(MFIMAPParseContext *)self match:"]"));
+  }
+
+  return Mutable;
+}
+
 - (id)copyMessageSet
 {
   start = [(MFIMAPParseContext *)self start];
@@ -711,15 +777,14 @@ LABEL_11:
 
 - (void)emitError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
-  v4 = "";
-  v5 = 2080;
-  v6 = "";
-  v7 = 2112;
-  v8 = a1;
-  _os_log_error_impl(&dword_2720B1000, a2, OS_LOG_TYPE_ERROR, "#E %s%s%@", &v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 136315650;
+  v3 = "";
+  v4 = 2080;
+  v5 = "";
+  v6 = 2112;
+  v7 = a1;
+  _os_log_error_impl(&dword_2720B1000, a2, OS_LOG_TYPE_ERROR, "#E %s%s%@", &v2, 0x20u);
 }
 
 @end

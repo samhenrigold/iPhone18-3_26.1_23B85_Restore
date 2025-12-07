@@ -1125,24 +1125,24 @@ void __40__TLKImageView_tlk_updateForAppearance___block_invoke(uint64_t a1, void
   }
 }
 
-void __40__TLKImageView_tlk_updateForAppearance___block_invoke_17(uint64_t a1)
+void __40__TLKImageView_tlk_updateForAppearance___block_invoke_17(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 80) == 1)
   {
-    v2 = [TLKImage templateImageForImage:*(*(*(a1 + 56) + 8) + 40)];
-    v3 = *(*(a1 + 56) + 8);
-    v4 = *(v3 + 40);
-    *(v3 + 40) = v2;
+    v3 = [TLKImage templateImageForImage:*(*(*(a1 + 56) + 8) + 40)];
+    v4 = *(*(a1 + 56) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
   }
 
   if (*(a1 + 81) == 1)
   {
-    v5 = [objc_opt_class() imageIsProbablyOpaque:*(*(*(a1 + 56) + 8) + 40) tlkImage:*(a1 + 40)];
+    v6 = [objc_opt_class() imageIsProbablyOpaque:*(*(*(a1 + 56) + 8) + 40) tlkImage:*(a1 + 40)];
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   if (*(a1 + 82) == 1)
@@ -1150,24 +1150,24 @@ void __40__TLKImageView_tlk_updateForAppearance___block_invoke_17(uint64_t a1)
     [*(a1 + 40) cacheImage:*(*(*(a1 + 56) + 8) + 40) forScale:*(a1 + 83) isDarkStyle:*(a1 + 72)];
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __40__TLKImageView_tlk_updateForAppearance___block_invoke_2;
-  v10[3] = &unk_1E7FD8EC0;
-  v6 = *(a1 + 40);
-  v16 = v5;
-  v17 = *(a1 + 84);
-  v7 = *(a1 + 32);
-  v11 = v6;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __40__TLKImageView_tlk_updateForAppearance___block_invoke_2;
+  v11[3] = &unk_1E7FD8EC0;
+  v7 = *(a1 + 40);
+  v17 = v6;
+  v18 = *(a1 + 84);
+  v8 = *(a1 + 32);
   v12 = v7;
-  v15 = *(a1 + 72);
-  v18 = *(a1 + 83);
-  v9 = *(a1 + 48);
-  v14 = *(a1 + 64);
-  v8 = v9;
-  v13 = v9;
-  v19 = *(a1 + 80);
-  [TLKUtilities dispatchMainIfNecessary:v10];
+  v13 = v8;
+  v16 = *(a1 + 72);
+  v19 = *(a1 + 83);
+  v10 = *(a1 + 48);
+  v15 = *(a1 + 64);
+  v9 = v10;
+  v14 = v10;
+  v20 = *(a1 + 80);
+  [TLKUtilities dispatchMainIfNecessary:v11];
 }
 
 void __40__TLKImageView_tlk_updateForAppearance___block_invoke_2(uint64_t a1)

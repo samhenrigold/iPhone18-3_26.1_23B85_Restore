@@ -91,7 +91,7 @@ uint64_t __52__BMDistributedContextStreamWriter_sharedEventQueue__block_invoke()
 
 void __46__BMDistributedContextStreamWriter_postEvent___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) streamIdentifier];
   v3 = [*(a1 + 32) eventData];
   v4 = [*(a1 + 32) eventDataVersion];
@@ -185,11 +185,11 @@ LABEL_25:
       v21 = __biome_log_for_category();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = 138412546;
-        v37 = v2;
-        v38 = 2112;
-        v39 = v7;
-        _os_log_impl(&dword_244177000, v21, OS_LOG_TYPE_DEFAULT, "Posted event for identifier: %@, %@", &v36, 0x16u);
+        v35 = 138412546;
+        v36 = v2;
+        v37 = 2112;
+        v38 = v7;
+        _os_log_impl(&dword_244177000, v21, OS_LOG_TYPE_DEFAULT, "Posted event for identifier: %@, %@", &v35, 0x16u);
       }
 
       goto LABEL_27;
@@ -205,15 +205,13 @@ LABEL_25:
   }
 
 LABEL_27:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sourceForStreamWithIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_244177000, a2, a3, "failed to get stream with identifier %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_244177000, a2, a3, "failed to get stream with identifier %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)sourceForStreamWithIdentifier:.cold.2()
@@ -227,16 +225,16 @@ LABEL_27:
 
 void __46__BMDistributedContextStreamWriter_postEvent___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_244177000, a2, a3, "Could not post event with non-whitelisted identifier: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_244177000, a2, a3, "Could not post event with non-whitelisted identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __46__BMDistributedContextStreamWriter_postEvent___block_invoke_cold_3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_244177000, a2, a3, "Failed to deserialize event with identifier: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_244177000, a2, a3, "Failed to deserialize event with identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

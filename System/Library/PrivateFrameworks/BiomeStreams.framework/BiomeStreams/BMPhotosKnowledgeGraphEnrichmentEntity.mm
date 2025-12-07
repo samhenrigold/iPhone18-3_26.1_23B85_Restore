@@ -79,21 +79,19 @@ LABEL_3:
 
 - (id)jsonDict
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v10[0] = self->_name;
-  v9[0] = @"name";
-  v9[1] = @"score";
+  v9[4] = *MEMORY[0x1E69E9840];
+  v9[0] = self->_name;
+  v8[0] = @"name";
+  v8[1] = @"score";
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->_score];
   language = self->_language;
-  v10[1] = v3;
-  v10[2] = language;
-  v9[2] = @"language";
-  v9[3] = @"category";
+  v9[1] = v3;
+  v9[2] = language;
+  v8[2] = @"language";
+  v8[3] = @"category";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_category];
-  v10[3] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[3] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }

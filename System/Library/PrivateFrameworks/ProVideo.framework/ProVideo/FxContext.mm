@@ -29,7 +29,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7, v21.receiver);
+  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7);
   priv = self->_priv;
   if (priv)
   {
@@ -59,7 +59,7 @@
 
       else
       {
-        FxDebugAssert(0, &cfstr_InvalidContext.isa, v9, v10, v11, v12, v13, v14, v21.receiver);
+        FxDebugAssert(0, &cfstr_InvalidContext.isa, v9, v10, v11, v12, v13, v14);
       }
 
       goto LABEL_21;
@@ -248,7 +248,7 @@ LABEL_22:
 
 - (void)setCGImage:(CGImage *)image
 {
-  if (FxDebugAssert(self->_priv->var0 == 1, &cfstr_NonCgimageFxco.isa, image, v3, v4, v5, v6, v7, v11))
+  if (FxDebugAssert(self->_priv->var0 == 1, &cfstr_NonCgimageFxco.isa, image, v3, v4, v5, v6, v7))
   {
     var0 = self->_priv->var2.var0.var0;
     if (var0)
@@ -262,7 +262,7 @@ LABEL_22:
 
 - (CGImage)cgImage
 {
-  if (FxDebugAssert(self->_priv->var0 == 1, &cfstr_NonCgimageFxco_0.isa, v2, v3, v4, v5, v6, v7, v10))
+  if (FxDebugAssert(self->_priv->var0 == 1, &cfstr_NonCgimageFxco_0.isa, v2, v3, v4, v5, v6, v7))
   {
     return self->_priv->var2.var0.var0;
   }
@@ -275,7 +275,7 @@ LABEL_22:
 
 - (CGContext)cgContext
 {
-  if (FxDebugAssert(self->_priv->var0 == 2, &cfstr_NonCgcontextFx.isa, v2, v3, v4, v5, v6, v7, v10))
+  if (FxDebugAssert(self->_priv->var0 == 2, &cfstr_NonCgcontextFx.isa, v2, v3, v4, v5, v6, v7))
   {
     return self->_priv->var2.var0.var0;
   }
@@ -290,7 +290,7 @@ LABEL_22:
 {
   height = size.height;
   width = size.width;
-  if (FxDebugAssert(self->_priv->var0 == 3, &cfstr_NonGltextureFx.isa, texture, flipped, space, v6, v7, v8, v19))
+  if (FxDebugAssert(self->_priv->var0 == 3, &cfstr_NonGltextureFx.isa, texture, flipped, space, v6, v7, v8))
   {
     priv = self->_priv;
     var3 = priv->var2.var2.var3;
@@ -321,7 +321,7 @@ LABEL_22:
 
 - (unint64_t)glTexture
 {
-  if (FxDebugAssert(self->_priv->var0 == 3, &cfstr_NonGltextureFx_0.isa, v2, v3, v4, v5, v6, v7, v10))
+  if (FxDebugAssert(self->_priv->var0 == 3, &cfstr_NonGltextureFx_0.isa, v2, v3, v4, v5, v6, v7))
   {
     return self->_priv->var2.var2.var0;
   }
@@ -334,7 +334,7 @@ LABEL_22:
 
 - (CGSize)glTextureSize
 {
-  v9 = FxDebugAssert(self->_priv->var0 == 3, &cfstr_NonGltextureFx_1.isa, v2, v3, v4, v5, v6, v7, v13);
+  v9 = FxDebugAssert(self->_priv->var0 == 3, &cfstr_NonGltextureFx_1.isa, v2, v3, v4, v5, v6, v7);
   width = 0.0;
   height = 0.0;
   if (v9)
@@ -351,7 +351,7 @@ LABEL_22:
 
 - (CGColorSpace)glTextureColorSpace
 {
-  if (FxDebugAssert(self->_priv->var0 == 3, &cfstr_NonGltextureFx_3.isa, v2, v3, v4, v5, v6, v7, v10))
+  if (FxDebugAssert(self->_priv->var0 == 3, &cfstr_NonGltextureFx_3.isa, v2, v3, v4, v5, v6, v7))
   {
     return self->_priv->var2.var2.var3;
   }
@@ -364,7 +364,7 @@ LABEL_22:
 
 - (id)derivedCIContext
 {
-  if (FxDebugAssert(self->_priv->var0 == 4, &cfstr_NonGlcontextFx.isa, v2, v3, v4, v5, v6, v7, v10))
+  if (FxDebugAssert(self->_priv->var0 == 4, &cfstr_NonGlcontextFx.isa, v2, v3, v4, v5, v6, v7))
   {
     return self->_priv->var2.var0.var0;
   }
@@ -377,7 +377,7 @@ LABEL_22:
 
 - (void)setCIImage:(id)image
 {
-  if (FxDebugAssert(self->_priv->var0 == 6, &cfstr_NonCiimageFxco.isa, image, v3, v4, v5, v6, v7, v11))
+  if (FxDebugAssert(self->_priv->var0 == 6, &cfstr_NonCiimageFxco.isa, image, v3, v4, v5, v6, v7))
   {
     var0 = self->_priv->var2.var0.var0;
     if (var0)
@@ -390,7 +390,7 @@ LABEL_22:
 
 - (id)ciImage
 {
-  if (FxDebugAssert(self->_priv->var0 == 6, &cfstr_NonCiimageFxco_0.isa, v2, v3, v4, v5, v6, v7, v10))
+  if (FxDebugAssert(self->_priv->var0 == 6, &cfstr_NonCiimageFxco_0.isa, v2, v3, v4, v5, v6, v7))
   {
     return self->_priv->var2.var0.var0;
   }
@@ -403,7 +403,7 @@ LABEL_22:
 
 - (id)bitmap
 {
-  if (FxDebugAssert(self->_priv->var0 == 5, &cfstr_NonBitmapFxcon.isa, v2, v3, v4, v5, v6, v7, v10))
+  if (FxDebugAssert(self->_priv->var0 == 5, &cfstr_NonBitmapFxcon.isa, v2, v3, v4, v5, v6, v7))
   {
     return self->_priv->var2.var0.var0;
   }

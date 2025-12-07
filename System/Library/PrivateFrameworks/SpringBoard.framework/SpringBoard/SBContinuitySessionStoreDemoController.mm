@@ -52,7 +52,7 @@ void __74__SBContinuitySessionStoreDemoController_continuitySessionDidUpdateStat
   [v2 lockUIFromSource:27 withOptions:v3 completion:v5];
 }
 
-uint64_t __74__SBContinuitySessionStoreDemoController_continuitySessionDidUpdateState___block_invoke_2(uint64_t a1)
+void *__74__SBContinuitySessionStoreDemoController_continuitySessionDidUpdateState___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) isUILocked];
   if ((result & 1) == 0)

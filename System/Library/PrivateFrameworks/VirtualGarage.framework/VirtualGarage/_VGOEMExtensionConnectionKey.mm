@@ -14,76 +14,71 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    v6 = v5[1];
-    intent = self->_intent;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       launchId = [(INIntent *)self->_intent launchId];
       launchId2 = [v5[1] launchId];
-      v10 = [launchId isEqualToString:launchId2];
+      v8 = [launchId isEqualToString:launchId2];
 
-      if (v10)
+      if (v8)
       {
-        v11 = self->_intent;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = 1;
+          v9 = 1;
 LABEL_10:
 
           goto LABEL_11;
         }
 
-        v13 = self->_intent;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = self->_intent;
-          v15 = v5[1];
-          v16 = v14;
-          carName = [(INIntent *)v16 carName];
-          carName2 = [v15 carName];
+          intent = self->_intent;
+          v11 = v5[1];
+          v12 = intent;
+          carName = [(INIntent *)v12 carName];
+          carName2 = [v11 carName];
 
-          v12 = [carName isEqual:carName2];
+          v9 = [carName isEqual:carName2];
           goto LABEL_10;
         }
       }
     }
 
-    v12 = 0;
+    v9 = 0;
     goto LABEL_10;
   }
 
-  v12 = 0;
+  v9 = 0;
 LABEL_11:
 
-  return v12;
+  return v9;
 }
 
 - (unint64_t)hash
 {
-  intent = self->_intent;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v5 = self->_intent;
+  intent = self->_intent;
   if (isKindOfClass)
   {
-    launchId = [(INIntent *)v5 launchId];
-    v7 = [launchId hash];
+    launchId = [(INIntent *)intent launchId];
+    v6 = [launchId hash];
   }
 
   else
   {
-    v8 = v5;
-    launchId = [(INIntent *)v8 launchId];
-    v9 = [launchId hash];
-    carName = [(INIntent *)v8 carName];
+    v7 = intent;
+    launchId = [(INIntent *)v7 launchId];
+    v8 = [launchId hash];
+    carName = [(INIntent *)v7 carName];
 
-    v7 = [carName hash] ^ v9;
+    v6 = [carName hash] ^ v8;
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)description

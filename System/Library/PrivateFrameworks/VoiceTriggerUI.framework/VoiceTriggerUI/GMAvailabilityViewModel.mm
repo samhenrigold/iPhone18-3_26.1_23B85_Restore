@@ -1,5 +1,4 @@
 @interface GMAvailabilityViewModel
-+ (BOOL)shouldShowGM;
 - (BOOL)hasCameraButton;
 - (BOOL)isBuddyOrCFU;
 - (BOOL)shouldShowVisualIntelligenceIntro;
@@ -53,14 +52,6 @@
   return v3;
 }
 
-+ (BOOL)shouldShowGM
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = sub_27292D754();
-  v3 = *MEMORY[0x277D85DE8];
-  return v2 & 1;
-}
-
 - (id)titleKeyWithEnrollmentType:(unint64_t)type
 {
   if (type - 2 >= 3 && type > 1)
@@ -98,7 +89,7 @@
 - (void)sendViewDidLoadEventWithEnrollmentType:(unint64_t)type
 {
   selfCopy = self;
-  sub_272906784(type);
+  sub_272906784(type, selfCopy);
 }
 
 - (void)optInGM

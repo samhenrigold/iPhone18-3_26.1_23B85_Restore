@@ -1,5 +1,6 @@
 @interface OBNavigationController
 - (unint64_t)supportedInterfaceOrientations;
+- (void)pushViewController:(id)controller animated:(BOOL)animated;
 - (void)setViewControllers:(id)controllers;
 - (void)viewDidLoad;
 @end
@@ -15,47 +16,57 @@
   [navigationBar _setHidesShadow:1];
 }
 
+- (void)pushViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  navigationItem = [controllerCopy navigationItem];
+  [navigationItem ob_applyAutomaticScrollToEdgeBehavior];
+
+  v8.receiver = self;
+  v8.super_class = OBNavigationController;
+  [(OBNavigationController *)&v8 pushViewController:controllerCopy animated:animatedCopy];
+}
+
 - (void)setViewControllers:(id)controllers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   controllersCopy = controllers;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [controllersCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [controllersCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(controllersCopy);
         }
 
-        navigationItem = [*(*(&v12 + 1) + 8 * v8) navigationItem];
+        navigationItem = [*(*(&v11 + 1) + 8 * v8) navigationItem];
         [navigationItem ob_applyAutomaticScrollToEdgeBehavior];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [controllersCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [controllersCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v11.receiver = self;
-  v11.super_class = OBNavigationController;
-  [(OBNavigationController *)&v11 setViewControllers:controllersCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = OBNavigationController;
+  [(OBNavigationController *)&v10 setViewControllers:controllersCopy];
 }
 
 - (unint64_t)supportedInterfaceOrientations

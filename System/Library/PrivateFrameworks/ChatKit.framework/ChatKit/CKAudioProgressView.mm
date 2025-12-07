@@ -189,7 +189,7 @@
 {
   colorCopy = color;
   typeCopy = type;
-  v7 = CKAudioProgressImageCache();
+  v7 = CKAudioProgressImageCache(self);
   v15[0] = colorCopy;
   v15[1] = typeCopy;
   v15[2] = 0;
@@ -212,7 +212,7 @@
 + (id)templateImageWithType:(unsigned __int8)type
 {
   typeCopy = type;
-  v4 = CKAudioProgressImageCache();
+  v4 = CKAudioProgressImageCache(self);
   v14[0] = 0;
   v14[1] = typeCopy;
   v14[2] = 1;

@@ -12,11 +12,19 @@
 
 - (ARPersonOcclusionTechnique)init
 {
-  v3.receiver = self;
-  v3.super_class = ARPersonOcclusionTechnique;
-  if ([(ARTechnique *)&v3 init])
+  v11.receiver = self;
+  v11.super_class = ARPersonOcclusionTechnique;
+  if ([(ARTechnique *)&v11 init])
   {
-    std::allocate_shared[abi:ne200100]<arkit::RobustExpFilter<float>,std::allocator<arkit::RobustExpFilter<float>>,double,double,double,double,double,double,double,double,0>();
+    v9 = 0x3FB999999999999ALL;
+    v10 = 0x3FB999999999999ALL;
+    v7 = 0x3FC999999999999ALL;
+    v8 = 0x3FC0000000000000;
+    v5 = 0x4000000000000000;
+    v6 = 0x3FE0000000000000;
+    v4 = 0x3FD3333333333333;
+    v3 = 0x3FA999999999999ALL;
+    std::allocate_shared[abi:ne200100]<arkit::RobustExpFilter<float>,std::allocator<arkit::RobustExpFilter<float>>,double,double,double,double,double,double,double,double,0>(&v12, &v10, &v9, &v8, &v7, &v6, &v5, &v4, &v3);
   }
 
   return 0;
@@ -38,7 +46,7 @@
 
 - (void)requestResultDataAtTimestamp:(double)timestamp context:(id)context
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v116 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = [contextCopy resultDataOfClass:objc_opt_class()];
   firstObject = [v7 firstObject];
@@ -54,73 +62,73 @@
 
   if ([firstObject segmentationBuffer] && objc_msgSend(firstObject2, "depthBuffer") && firstObject3 && !firstObject4)
   {
-    [firstObject timestamp];
+    objc_msgSend_timestamp(firstObject);
     v15 = v14;
-    [firstObject2 timestamp];
+    objc_msgSend_timestamp(firstObject2);
     if (v15 != v16)
     {
-      [firstObject2 timestamp];
+      objc_msgSend_timestamp(firstObject2);
       v18 = v17;
-      [firstObject3 timestamp];
+      objc_msgSend_timestamp(firstObject3);
       if (v18 != v19)
       {
-        [firstObject timestamp];
-        [firstObject2 timestamp];
-        [firstObject3 timestamp];
-        kdebug_trace();
+        objc_msgSend_timestamp(firstObject);
+        objc_msgSend_timestamp(firstObject2);
+        objc_msgSend_timestamp(firstObject3);
+        v20 = kdebug_trace();
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           [ARPersonOcclusionTechnique requestResultDataAtTimestamp:context:];
         }
 
-        v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v21 = _ARLogTechnique();
-        v22 = v21;
-        if (v20 == 1)
+        v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v22 = _ARLogTechnique(v20);
+        v23 = v22;
+        if (v21 == 1)
         {
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v23 = objc_opt_class();
-            v24 = NSStringFromClass(v23);
-            [firstObject timestamp];
-            v26 = v25;
-            [firstObject2 timestamp];
-            v28 = v27;
-            [firstObject3 timestamp];
+            v24 = objc_opt_class();
+            v25 = NSStringFromClass(v24);
+            objc_msgSend_timestamp(firstObject);
+            v27 = v26;
+            objc_msgSend_timestamp(firstObject2);
+            v29 = v28;
+            objc_msgSend_timestamp(firstObject3);
             *buf = 138544386;
-            v102 = v24;
-            v103 = 2048;
+            v107 = v25;
+            v108 = 2048;
             selfCopy9 = self;
-            v105 = 2048;
-            v106 = v26;
-            v107 = 2048;
-            v108 = v28;
-            v109 = 2048;
-            v110 = v29;
-            _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Mismatched timestamps. (Segmentation data: %f, Depth data: %f, Detection data: %f) ", buf, 0x34u);
+            v110 = 2048;
+            v111 = v27;
+            v112 = 2048;
+            v113 = v29;
+            v114 = 2048;
+            v115 = v30;
+            _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Mismatched timestamps. (Segmentation data: %f, Depth data: %f, Detection data: %f) ", buf, 0x34u);
           }
         }
 
-        else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v66 = objc_opt_class();
-          v67 = NSStringFromClass(v66);
-          [firstObject timestamp];
-          v69 = v68;
-          [firstObject2 timestamp];
-          v71 = v70;
-          [firstObject3 timestamp];
+          v70 = objc_opt_class();
+          v71 = NSStringFromClass(v70);
+          objc_msgSend_timestamp(firstObject);
+          v73 = v72;
+          objc_msgSend_timestamp(firstObject2);
+          v75 = v74;
+          objc_msgSend_timestamp(firstObject3);
           *buf = 138544386;
-          v102 = v67;
-          v103 = 2048;
+          v107 = v71;
+          v108 = 2048;
           selfCopy9 = self;
-          v105 = 2048;
-          v106 = v69;
-          v107 = 2048;
-          v108 = v71;
-          v109 = 2048;
-          v110 = v72;
-          _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Mismatched timestamps. (Segmentation data: %f, Depth data: %f, Detection data: %f) ", buf, 0x34u);
+          v110 = 2048;
+          v111 = v73;
+          v112 = 2048;
+          v113 = v75;
+          v114 = 2048;
+          v115 = v76;
+          _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Mismatched timestamps. (Segmentation data: %f, Depth data: %f, Detection data: %f) ", buf, 0x34u);
         }
 
         delegate = [(ARTechnique *)self delegate];
@@ -130,40 +138,42 @@
       }
     }
 
-    [firstObject timestamp];
+    objc_msgSend_timestamp(firstObject);
     kdebug_trace();
     segmentationBuffer = [firstObject segmentationBuffer];
-    v38 = segmentationBuffer;
+    v39 = segmentationBuffer;
     if (segmentationBuffer)
     {
       Width = CVPixelBufferGetWidth(segmentationBuffer);
-      Height = CVPixelBufferGetHeight(v38);
-      v41 = Width;
-      v42 = Height;
+      Height = CVPixelBufferGetHeight(v39);
+      v42 = Width;
+      v43 = Height;
     }
 
     else
     {
-      v41 = *MEMORY[0x1E695F060];
-      v42 = *(MEMORY[0x1E695F060] + 8);
+      v42 = *MEMORY[0x1E695F060];
+      v43 = *(MEMORY[0x1E695F060] + 8);
     }
 
-    v98 = ARCreateCVPixelBufferFromPool(&self->_depthPixelBufferPool, 1717855600, self, @"Result Depth Map", v41, v42);
-    if (v98)
+    v51 = ARCreateCVPixelBufferFromPool(&self->_depthPixelBufferPool, 1717855600, self, @"Result Depth Map", v42, v43);
+    v103 = v51;
+    if (v51)
     {
       imageData = [contextCopy imageData];
-      if ([imageData deviceOrientation] != self->_lastDeviceOrientation)
+      deviceOrientation = [imageData deviceOrientation];
+      if (deviceOrientation != self->_lastDeviceOrientation)
       {
-        v50 = _ARLogTechnique();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+        v53 = _ARLogTechnique(deviceOrientation);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
         {
-          v51 = objc_opt_class();
-          v52 = NSStringFromClass(v51);
+          v54 = objc_opt_class();
+          v55 = NSStringFromClass(v54);
           *buf = 138543618;
-          v102 = v52;
-          v103 = 2048;
+          v107 = v55;
+          v108 = 2048;
           selfCopy9 = self;
-          _os_log_impl(&dword_1C241C000, v50, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Resetting exponential filter due to device rotation.", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v53, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Resetting exponential filter due to device rotation.", buf, 0x16u);
         }
 
         ptr = self->_varExpFilter.__ptr_;
@@ -178,100 +188,101 @@
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          [firstObject3 timestamp];
+          objc_msgSend_timestamp(firstObject3);
           kdebug_trace();
           texture = 0;
-          v55 = [(ARPersonOcclusionTechnique *)self _minFilterDepthMap:singleFrameDepthBuffer kernelSize:3 pResultBuffer:&texture];
-          [firstObject3 timestamp];
-          kdebug_trace();
-          if (v55)
+          v58 = [(ARPersonOcclusionTechnique *)self _minFilterDepthMap:singleFrameDepthBuffer kernelSize:3 pResultBuffer:&texture];
+          objc_msgSend_timestamp(firstObject3);
+          v59 = kdebug_trace();
+          if (v58)
           {
             if (ARShouldUseLogTypeError(void)::onceToken != -1)
             {
               [ARPersonOcclusionTechnique requestResultDataAtTimestamp:context:];
             }
 
-            v56 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v57 = _ARLogTechnique();
-            v58 = v57;
-            if (v56 == 1)
+            v60 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v61 = _ARLogTechnique(v59);
+            v62 = v61;
+            if (v60 == 1)
             {
-              if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
               {
-                v59 = objc_opt_class();
-                v60 = NSStringFromClass(v59);
+                v63 = objc_opt_class();
+                v64 = NSStringFromClass(v63);
                 *buf = 138543618;
-                v102 = v60;
-                v103 = 2048;
+                v107 = v64;
+                v108 = 2048;
                 selfCopy9 = self;
-                _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error creating result depth buffer", buf, 0x16u);
+                _os_log_impl(&dword_1C241C000, v62, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error creating result depth buffer", buf, 0x16u);
               }
             }
 
-            else if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
             {
-              v92 = objc_opt_class();
-              v93 = NSStringFromClass(v92);
+              v97 = objc_opt_class();
+              v98 = NSStringFromClass(v97);
               *buf = 138543618;
-              v102 = v93;
-              v103 = 2048;
+              v107 = v98;
+              v108 = 2048;
               selfCopy9 = self;
-              _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error creating result depth buffer", buf, 0x16u);
+              _os_log_impl(&dword_1C241C000, v62, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error creating result depth buffer", buf, 0x16u);
             }
 
             delegate2 = [(ARTechnique *)self delegate];
             [delegate2 technique:self didOutputResultData:MEMORY[0x1E695E0F0] timestamp:contextCopy context:timestamp];
 
-            [firstObject timestamp];
+            objc_msgSend_timestamp(firstObject);
             kdebug_trace();
-            CVPixelBufferRelease(v98);
+            CVPixelBufferRelease(v103);
 LABEL_69:
 
             goto LABEL_70;
           }
 
-          v77 = [ARMLDepthData alloc];
-          [firstObject2 timestamp];
-          v79 = -[ARMLDepthData initWithTimestamp:depthBuffer:confidenceBuffer:source:](v77, "initWithTimestamp:depthBuffer:confidenceBuffer:source:", texture, [firstObject2 singleFrameConfidenceBuffer], 2, v78);
+          v81 = [ARMLDepthData alloc];
+          objc_msgSend_timestamp(firstObject2);
+          v83 = -[ARMLDepthData initWithTimestamp:depthBuffer:confidenceBuffer:source:](v81, "initWithTimestamp:depthBuffer:confidenceBuffer:source:", texture, [firstObject2 singleFrameConfidenceBuffer], 2, v82);
 
           CVPixelBufferRelease(texture);
-          firstObject2 = v79;
+          firstObject2 = v83;
         }
       }
 
-      if (-[ARPersonOcclusionTechnique postProcessSegmentation:depthData:depthDataSource:detectionData:pResultingDepthBuffer:](self, "postProcessSegmentation:depthData:depthDataSource:detectionData:pResultingDepthBuffer:", [firstObject segmentationBuffer], firstObject2, objc_msgSend(firstObject2, "source"), firstObject3, &v98))
+      v84 = -[ARPersonOcclusionTechnique postProcessSegmentation:depthData:depthDataSource:detectionData:pResultingDepthBuffer:](self, "postProcessSegmentation:depthData:depthDataSource:detectionData:pResultingDepthBuffer:", [firstObject segmentationBuffer], firstObject2, objc_msgSend(firstObject2, "source"), firstObject3, &v103);
+      if (v84)
       {
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           [ARPersonOcclusionTechnique requestResultDataAtTimestamp:context:];
         }
 
-        v80 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v81 = _ARLogTechnique();
-        v82 = v81;
-        if (v80 == 1)
+        v85 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v86 = _ARLogTechnique(v84);
+        v87 = v86;
+        if (v85 == 1)
         {
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
           {
-            v83 = objc_opt_class();
-            v84 = NSStringFromClass(v83);
+            v88 = objc_opt_class();
+            v89 = NSStringFromClass(v88);
             *buf = 138543618;
-            v102 = v84;
-            v103 = 2048;
+            v107 = v89;
+            v108 = 2048;
             selfCopy9 = self;
-            _os_log_impl(&dword_1C241C000, v82, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Processing segmentation and depth buffer failed", buf, 0x16u);
+            _os_log_impl(&dword_1C241C000, v87, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Processing segmentation and depth buffer failed", buf, 0x16u);
           }
         }
 
-        else if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
         {
-          v89 = objc_opt_class();
-          v90 = NSStringFromClass(v89);
+          v94 = objc_opt_class();
+          v95 = NSStringFromClass(v94);
           *buf = 138543618;
-          v102 = v90;
-          v103 = 2048;
+          v107 = v95;
+          v108 = 2048;
           selfCopy9 = self;
-          _os_log_impl(&dword_1C241C000, v82, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Processing segmentation and depth buffer failed", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v87, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Processing segmentation and depth buffer failed", buf, 0x16u);
         }
 
         delegate3 = [(ARTechnique *)self delegate];
@@ -280,26 +291,26 @@ LABEL_69:
 
       else
       {
-        v85 = [ARFilteredMLDepthData alloc];
-        v86 = -[ARMLDepthData initWithTimestamp:depthBuffer:source:](v85, "initWithTimestamp:depthBuffer:source:", v98, [firstObject2 source], timestamp);
-        delegate3 = v86;
-        if (v86)
+        v90 = [ARFilteredMLDepthData alloc];
+        v91 = -[ARMLDepthData initWithTimestamp:depthBuffer:source:](v90, "initWithTimestamp:depthBuffer:source:", v103, [firstObject2 source], timestamp);
+        delegate3 = v91;
+        if (v91)
         {
-          v100 = v86;
-          v88 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v100 count:1];
+          v105 = v91;
+          v93 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v105 count:1];
         }
 
         else
         {
-          v88 = MEMORY[0x1E695E0F0];
+          v93 = MEMORY[0x1E695E0F0];
         }
 
         delegate4 = [(ARTechnique *)self delegate];
-        [delegate4 technique:self didOutputResultData:v88 timestamp:contextCopy context:timestamp];
+        [delegate4 technique:self didOutputResultData:v93 timestamp:contextCopy context:timestamp];
       }
 
-      CVPixelBufferRelease(v98);
-      [firstObject timestamp];
+      CVPixelBufferRelease(v103);
+      objc_msgSend_timestamp(firstObject);
       kdebug_trace();
       goto LABEL_69;
     }
@@ -309,91 +320,91 @@ LABEL_69:
       [ARPersonOcclusionTechnique requestResultDataAtTimestamp:context:];
     }
 
-    v61 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v62 = _ARLogTechnique();
-    v63 = v62;
-    if (v61 == 1)
+    v65 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v66 = _ARLogTechnique(v51);
+    v67 = v66;
+    if (v65 == 1)
     {
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        v64 = objc_opt_class();
-        v65 = NSStringFromClass(v64);
+        v68 = objc_opt_class();
+        v69 = NSStringFromClass(v68);
         *buf = 138543618;
-        v102 = v65;
-        v103 = 2048;
+        v107 = v69;
+        v108 = 2048;
         selfCopy9 = self;
-        _os_log_impl(&dword_1C241C000, v63, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error creating result depth buffer", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v67, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error creating result depth buffer", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
     {
-      v74 = objc_opt_class();
-      v75 = NSStringFromClass(v74);
+      v78 = objc_opt_class();
+      v79 = NSStringFromClass(v78);
       *buf = 138543618;
-      v102 = v75;
-      v103 = 2048;
+      v107 = v79;
+      v108 = 2048;
       selfCopy9 = self;
-      _os_log_impl(&dword_1C241C000, v63, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error creating result depth buffer", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v67, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error creating result depth buffer", buf, 0x16u);
     }
 
     delegate5 = [(ARTechnique *)self delegate];
     [delegate5 technique:self didOutputResultData:MEMORY[0x1E695E0F0] timestamp:contextCopy context:timestamp];
 
-    [firstObject timestamp];
+    objc_msgSend_timestamp(firstObject);
     kdebug_trace();
   }
 
   else if ([firstObject segmentationBuffer] && firstObject4)
   {
     segmentationBuffer2 = [firstObject segmentationBuffer];
-    v31 = segmentationBuffer2;
+    v32 = segmentationBuffer2;
     if (segmentationBuffer2)
     {
-      v32 = CVPixelBufferGetWidth(segmentationBuffer2);
-      v33 = CVPixelBufferGetHeight(v31);
-      v34 = v32;
+      v33 = CVPixelBufferGetWidth(segmentationBuffer2);
+      v34 = CVPixelBufferGetHeight(v32);
       v35 = v33;
+      v36 = v34;
     }
 
     else
     {
-      v34 = *MEMORY[0x1E695F060];
-      v35 = *(MEMORY[0x1E695F060] + 8);
+      v35 = *MEMORY[0x1E695F060];
+      v36 = *(MEMORY[0x1E695F060] + 8);
     }
 
-    v43 = ARCreateCVPixelBufferFromPool(&self->_depthPixelBufferPool, 1717855600, self, @"Result Depth Map", v34, v35);
-    v44 = v43;
-    if (v43)
+    v44 = ARCreateCVPixelBufferFromPool(&self->_depthPixelBufferPool, 1717855600, self, @"Result Depth Map", v35, v36);
+    v45 = v44;
+    if (v44)
     {
-      CVPixelBufferLockBaseAddress(v43, 0);
-      BaseAddress = CVPixelBufferGetBaseAddress(v44);
-      BytesPerRow = CVPixelBufferGetBytesPerRow(v44);
-      bzero(BaseAddress, (v35 * BytesPerRow));
-      CVPixelBufferUnlockBaseAddress(v44, 0);
-      v47 = -[ARMLDepthData initWithTimestamp:depthBuffer:source:]([ARFilteredMLDepthData alloc], "initWithTimestamp:depthBuffer:source:", v44, [firstObject4 source], timestamp);
-      CVPixelBufferRelease(v44);
+      CVPixelBufferLockBaseAddress(v44, 0);
+      BaseAddress = CVPixelBufferGetBaseAddress(v45);
+      BytesPerRow = CVPixelBufferGetBytesPerRow(v45);
+      bzero(BaseAddress, (v36 * BytesPerRow));
+      CVPixelBufferUnlockBaseAddress(v45, 0);
+      v48 = -[ARMLDepthData initWithTimestamp:depthBuffer:source:]([ARFilteredMLDepthData alloc], "initWithTimestamp:depthBuffer:source:", v45, [firstObject4 source], timestamp);
+      CVPixelBufferRelease(v45);
     }
 
     else
     {
-      v47 = 0;
+      v48 = 0;
     }
 
     delegate6 = [(ARTechnique *)self delegate];
-    if (v47)
+    if (v48)
     {
-      v99 = v47;
-      v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v99 count:1];
+      v104 = v48;
+      v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v104 count:1];
     }
 
     else
     {
-      v49 = MEMORY[0x1E695E0F0];
+      v50 = MEMORY[0x1E695E0F0];
     }
 
-    [delegate6 technique:self didOutputResultData:v49 timestamp:contextCopy context:timestamp];
-    if (v47)
+    [delegate6 technique:self didOutputResultData:v50 timestamp:contextCopy context:timestamp];
+    if (v48)
     {
     }
   }
@@ -425,7 +436,7 @@ LABEL_70:
     }
 
     v18 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v19 = _ARLogTechnique();
+    v19 = _ARLogTechnique(detectionDataCopy);
     v20 = v19;
     if (v18 == 1)
     {
@@ -463,7 +474,7 @@ LABEL_70:
     }
 
     v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v24 = _ARLogTechnique();
+    v24 = _ARLogTechnique(detectionDataCopy);
     v20 = v24;
     if (v23 == 1)
     {
@@ -501,7 +512,7 @@ LABEL_70:
     }
 
     v34 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v35 = _ARLogTechnique();
+    v35 = _ARLogTechnique(detectionDataCopy);
     v20 = v35;
     if (v34 == 1)
     {
@@ -539,7 +550,7 @@ LABEL_70:
     }
 
     v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v30 = _ARLogTechnique();
+    v30 = _ARLogTechnique(detectionDataCopy);
     v31 = v30;
     if (v29 == 1)
     {
@@ -579,7 +590,7 @@ LABEL_70:
     }
 
     v46 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v47 = _ARLogTechnique();
+    v47 = _ARLogTechnique(singleFrameDepthBuffer);
     v20 = v47;
     if (v46 == 1)
     {
@@ -597,10 +608,10 @@ LABEL_70:
 
     else if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
     {
-      v61 = objc_opt_class();
-      v62 = NSStringFromClass(v61);
+      v62 = objc_opt_class();
+      v63 = NSStringFromClass(v62);
       LODWORD(buf[0]) = 138543618;
-      *(buf + 4) = v62;
+      *(buf + 4) = v63;
       WORD2(buf[1]) = 2048;
       *(&buf[1] + 6) = self;
       _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Missing depth buffer", buf, 0x16u);
@@ -612,14 +623,14 @@ LABEL_44:
     goto LABEL_45;
   }
 
-  v218 = singleFrameDepthBuffer;
+  v219 = singleFrameDepthBuffer;
   if (self->_useBoundingBoxes)
   {
-    v206 = v14;
+    v207 = v14;
     detectedObjects = [v14 detectedObjects];
     v17 = [detectedObjects count] != 0;
 
-    v14 = v206;
+    v14 = v207;
   }
 
   else
@@ -628,49 +639,49 @@ LABEL_44:
   }
 
   v50 = source != 2 && self->_doExpFiltering;
-  v209 = *buffer;
+  v210 = *buffer;
   CVPixelBufferLockBaseAddress(*buffer, 0);
   CVPixelBufferLockBaseAddress(pixelBuffer, 1uLL);
-  CVPixelBufferLockBaseAddress(v218, (v50 & 1) == 0);
+  CVPixelBufferLockBaseAddress(v219, (v50 & 1) == 0);
   memset(buf, 0, 32);
-  ARWrapCVPixelBufferVImage(v218, buf);
+  ARWrapCVPixelBufferVImage(v219, buf);
+  memset(v229, 0, sizeof(v229));
+  ARWrapCVPixelBufferVImage(pixelBuffer, v229);
   memset(v228, 0, sizeof(v228));
-  ARWrapCVPixelBufferVImage(pixelBuffer, v228);
-  memset(v227, 0, sizeof(v227));
-  ARWrapCVPixelBufferVImage(v209, v227);
-  if ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(*&buf[1], *(v228 + 8)), vceqq_s64(*&buf[1], *&v227[1])))) & 1) == 0)
+  v51 = ARWrapCVPixelBufferVImage(v210, v228);
+  if ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(*&buf[1], *(v229 + 8)), vceqq_s64(*&buf[1], *&v228[1])))) & 1) == 0)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       [ARPersonOcclusionTechnique requestResultDataAtTimestamp:context:];
     }
 
-    v51 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v52 = _ARLogTechnique();
-    v53 = v52;
-    if (v51 == 1)
+    v52 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v53 = _ARLogTechnique(v51);
+    v54 = v53;
+    if (v52 == 1)
     {
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
-        v54 = objc_opt_class();
-        v55 = NSStringFromClass(v54);
-        *v229 = 138543618;
-        *&v229[4] = v55;
-        *&v229[12] = 2048;
-        *&v229[14] = self;
-        _os_log_impl(&dword_1C241C000, v53, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Dimensions of depth buffer, segmentation buffer and resulting depth buffer are not equal", v229, 0x16u);
+        v55 = objc_opt_class();
+        v56 = NSStringFromClass(v55);
+        *v230 = 138543618;
+        *&v230[4] = v56;
+        *&v230[12] = 2048;
+        *&v230[14] = self;
+        _os_log_impl(&dword_1C241C000, v54, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Dimensions of depth buffer, segmentation buffer and resulting depth buffer are not equal", v230, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
     {
-      v59 = objc_opt_class();
-      v60 = NSStringFromClass(v59);
-      *v229 = 138543618;
-      *&v229[4] = v60;
-      *&v229[12] = 2048;
-      *&v229[14] = self;
-      _os_log_impl(&dword_1C241C000, v53, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Dimensions of depth buffer, segmentation buffer and resulting depth buffer are not equal", v229, 0x16u);
+      v60 = objc_opt_class();
+      v61 = NSStringFromClass(v60);
+      *v230 = 138543618;
+      *&v230[4] = v61;
+      *&v230[12] = 2048;
+      *&v230[14] = self;
+      _os_log_impl(&dword_1C241C000, v54, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Dimensions of depth buffer, segmentation buffer and resulting depth buffer are not equal", v230, 0x16u);
     }
 
     v42 = -6681;
@@ -679,106 +690,106 @@ LABEL_44:
 
   if (v50)
   {
-    [v14 timestamp];
+    objc_msgSend_timestamp(v14);
     kdebug_trace();
-    v56 = 4 * buf[2] * buf[1];
-    v57 = arkit::RobustExpFilter<float>::filter(self->_varExpFilter.__ptr_, buf[0], v56);
-    memcpy(buf[0], v57, v56);
-    [v14 timestamp];
+    v57 = 4 * buf[2] * buf[1];
+    v58 = arkit::RobustExpFilter<float>::filter(self->_varExpFilter.__ptr_, buf[0], v57);
+    memcpy(buf[0], v58, v57);
+    objc_msgSend_timestamp(v14);
     kdebug_trace();
-    v58 = v227[1];
+    v59 = v228[1];
   }
 
   else
   {
-    v58 = buf[1];
+    v59 = buf[1];
   }
 
-  bzero(v227[0], v58 * v227[3]);
+  bzero(v228[0], v59 * v228[3]);
   if (v17)
   {
     __p = 0;
-    v225 = 0;
     v226 = 0;
-    v221 = 0;
+    v227 = 0;
     v222 = 0;
     v223 = 0;
-    *&v63 = -1;
-    *(&v63 + 1) = -1;
-    *v229 = v63;
-    *&v229[16] = 0uLL;
-    v207 = v14;
-    arkit::computeBoundingBoxes(v228, v14, &__p, &v221, v229);
-    arkit::fillInstanceDepthBufferOutsideAllDetections(buf, v228, v227, v229);
-    v202 = ~v50;
+    v224 = 0;
+    *&v64 = -1;
+    *(&v64 + 1) = -1;
+    *v230 = v64;
+    *&v230[16] = 0uLL;
+    v208 = v14;
+    arkit::computeBoundingBoxes(v229, v14, &__p, &v222, v230);
+    arkit::fillInstanceDepthBufferOutsideAllDetections(buf, v229, v228, v230);
+    v203 = ~v50;
     singleFrameConfidenceBuffer = [dataCopy singleFrameConfidenceBuffer];
     if (singleFrameConfidenceBuffer)
     {
       CVPixelBufferLockBaseAddress(singleFrameConfidenceBuffer, 1uLL);
-      ARWrapCVPixelBufferVImage(singleFrameConfidenceBuffer, v220);
-      v64 = v220[0];
-      v65 = v220[3];
+      ARWrapCVPixelBufferVImage(singleFrameConfidenceBuffer, v221);
+      v65 = v221[0];
+      v66 = v221[3];
     }
 
     else
     {
+      v66 = 0;
       v65 = 0;
-      v64 = 0;
     }
 
-    v79 = v218;
-    v80 = v225;
-    v203 = __p;
-    v208 = v225;
-    if (__p == v225)
+    v80 = v219;
+    v81 = v226;
+    v204 = __p;
+    v209 = v226;
+    if (__p == v226)
     {
       goto LABEL_119;
     }
 
-    v81 = v228[0].i64[0];
-    v82 = v228[1].i64[1];
-    v83 = buf[0];
-    v84 = buf[3];
-    v85 = v227[0];
-    v86 = v227[3];
-    v87 = __p;
+    v82 = v229[0].i64[0];
+    v83 = v229[1].i64[1];
+    v84 = buf[0];
+    v85 = buf[3];
+    v86 = v228[0];
+    v87 = v228[3];
+    v88 = __p;
     do
     {
-      v89 = *v87;
-      v88 = v87[1];
-      v90 = *(v87 + 1);
-      v91 = *(v87 + 3);
-      if (v90 >= v91)
+      v90 = *v88;
+      v89 = v88[1];
+      v91 = *(v88 + 1);
+      v92 = *(v88 + 3);
+      if (v91 >= v92)
       {
         goto LABEL_118;
       }
 
-      v92 = v14;
-      v93 = 0;
+      v93 = v14;
       v94 = 0;
-      v95 = v88 - v89;
-      v96 = &v64[4 * v89 + v65 * v90];
-      v97 = (v83 + v84 * v90 + 4 * v89);
-      v98 = (v81 + v89 + v82 * v90);
-      v99 = 0.0;
-      v100 = *(v87 + 1);
-      v101 = 0.0;
+      v95 = 0;
+      v96 = v89 - v90;
+      v97 = &v65[4 * v90 + v66 * v91];
+      v98 = (v84 + v85 * v91 + 4 * v90);
+      v99 = (v82 + v90 + v83 * v91);
+      v100 = 0.0;
+      v101 = *(v88 + 1);
+      v102 = 0.0;
       do
       {
-        if (v88 > *v87)
+        if (v89 > *v88)
         {
-          v102 = v98;
-          v103 = v97;
-          v104 = v96;
-          for (i = v95; i; --i)
+          v103 = v99;
+          v104 = v98;
+          v105 = v97;
+          for (i = v96; i; --i)
           {
-            if (*v102++)
+            if (*v103++)
             {
-              v99 = v99 + *v103;
-              if (v64)
+              v100 = v100 + *v104;
+              if (v65)
               {
-                ++v93;
-                if (*v104 <= 0.4)
+                ++v94;
+                if (*v105 <= 0.4)
                 {
                   goto LABEL_97;
                 }
@@ -786,338 +797,338 @@ LABEL_44:
 
               else
               {
-                ++v93;
+                ++v94;
               }
 
-              v101 = v101 + *v103;
-              ++v94;
+              v102 = v102 + *v104;
+              ++v95;
             }
 
 LABEL_97:
+            ++v105;
             ++v104;
-            ++v103;
           }
         }
 
-        ++v100;
-        v96 = (v65 + v96);
-        v97 = (v97 + v84);
-        v98 += v82;
+        ++v101;
+        v97 = (v66 + v97);
+        v98 = (v98 + v85);
+        v99 += v83;
       }
 
-      while (v100 != v91);
-      if (v93)
+      while (v101 != v92);
+      if (v94)
       {
-        v107 = v93;
-        v14 = v92;
-        v79 = v218;
-        if ((v93 * 0.75) >= v94 || (v99 = v101, v107 = v94, v94))
+        v108 = v94;
+        v14 = v93;
+        v80 = v219;
+        if ((v94 * 0.75) >= v95 || (v100 = v102, v108 = v95, v95))
         {
-          v108 = v99 / v107;
+          v109 = v100 / v108;
         }
 
         else
         {
-          v108 = 3.4028e38;
+          v109 = 3.4028e38;
         }
       }
 
       else
       {
-        v108 = 0.0;
-        v14 = v92;
-        v79 = v218;
+        v109 = 0.0;
+        v14 = v93;
+        v80 = v219;
       }
 
-      v80 = v208;
-      v109 = buf[3];
-      v110 = &v85[v86 * v90];
-      v111 = v81 + v82 * v90;
-      v112 = buf[0] + v90 * buf[3];
+      v81 = v209;
+      v110 = buf[3];
+      v111 = &v86[v87 * v91];
+      v112 = v82 + v83 * v91;
+      v113 = buf[0] + v91 * buf[3];
       do
       {
-        if (v93)
+        if (v94)
         {
-          v113 = *v87;
-          v114 = v88 - *v87;
-          if (v88 > *v87)
+          v114 = *v88;
+          v115 = v89 - *v88;
+          if (v89 > *v88)
           {
-            v115 = &v110[4 * v113];
-            v116 = (v111 + v113);
+            v116 = &v111[4 * v114];
+            v117 = (v112 + v114);
             do
             {
-              if (*v116++)
+              if (*v117++)
               {
-                *v115 = v108;
+                *v116 = v109;
               }
 
-              ++v115;
-              --v114;
+              ++v116;
+              --v115;
             }
 
-            while (v114);
+            while (v115);
           }
         }
 
         else
         {
-          v118 = *v87;
-          if (*v87 < v88)
+          v119 = *v88;
+          if (*v88 < v89)
           {
             do
             {
-              if (*(v111 + v118))
+              if (*(v112 + v119))
               {
-                *&v110[4 * v118] = *(v112 + 4 * v118);
+                *&v111[4 * v119] = *(v113 + 4 * v119);
               }
 
-              ++v118;
+              ++v119;
             }
 
-            while (v88 != v118);
+            while (v89 != v119);
           }
         }
 
-        ++v90;
-        v88 = v87[1];
-        v110 = v86 + v110;
-        v111 += v82;
-        v112 += v109;
+        ++v91;
+        v89 = v88[1];
+        v111 = v87 + v111;
+        v112 += v83;
+        v113 += v110;
       }
 
-      while (v90 < *(v87 + 3));
+      while (v91 < *(v88 + 3));
 LABEL_118:
-      v87 += 2;
+      v88 += 2;
     }
 
-    while (v87 != v80);
+    while (v88 != v81);
 LABEL_119:
-    v204 = v221;
-    v217 = v222;
-    if (v221 == v222)
+    v205 = v222;
+    v218 = v223;
+    if (v222 == v223)
     {
       goto LABEL_212;
     }
 
-    v214 = v228[1].i64[1];
-    v215 = v228[0].i64[0];
-    v212 = v227[3];
-    v213 = v227[0];
-    v119 = v221;
-    v216 = dataCopy;
-    v210 = buf[3];
-    v211 = buf[0];
+    v215 = v229[1].i64[1];
+    v216 = v229[0].i64[0];
+    v213 = v228[3];
+    v214 = v228[0];
+    v120 = v222;
+    v217 = dataCopy;
+    v211 = buf[3];
+    v212 = buf[0];
 LABEL_121:
-    v120 = *v119;
-    v121 = *(v119 + 8);
-    if (*v119 == v121)
+    v121 = *v120;
+    v122 = v120[1];
+    if (*v120 == v122)
     {
       goto LABEL_161;
     }
 
-    v122 = 0;
-    v123 = v228[0].i64[0];
-    v124 = v228[1].i64[1];
-    v125 = buf[0];
-    v126 = buf[3];
-    v127 = *v119;
-    v128 = v227[0];
-    v129 = v227[3];
+    v123 = 0;
+    v124 = v229[0].i64[0];
+    v125 = v229[1].i64[1];
+    v126 = buf[0];
+    v127 = buf[3];
+    v128 = *v120;
+    v129 = v228[0];
+    v130 = v228[3];
 LABEL_123:
-    v130 = v127->u64[1];
-    v131 = v127[1];
-    if (v130 >= v127[1].i64[1])
+    v131 = v128->u64[1];
+    v132 = v128[1];
+    if (v131 >= v128[1].i64[1])
     {
       goto LABEL_144;
     }
 
 LABEL_124:
-    v132 = v127->i64[0];
-    v133 = v131.i64[0];
-    if (v127->i64[0] >= v131.i64[0])
+    v133 = v128->i64[0];
+    v134 = v132.i64[0];
+    if (v128->i64[0] >= v132.i64[0])
     {
       goto LABEL_143;
     }
 
-    v134 = &v128[v129 * v130];
-    while (!*(v123 + v124 * v130 + v132))
+    v135 = &v129[v130 * v131];
+    while (!*(v124 + v125 * v131 + v133))
     {
 LABEL_141:
-      if (++v132 == v133)
+      if (++v133 == v134)
       {
-        v131 = v127[1];
+        v132 = v128[1];
 LABEL_143:
-        if (++v130 >= v131.i64[1])
+        if (++v131 >= v132.i64[1])
         {
 LABEL_144:
-          v142 = v127[2].u64[1];
-          if (v142)
+          v143 = v128[2].u64[1];
+          if (v143)
           {
-            v143 = v127[3].u64[1];
-            v144 = v143;
-            v145 = v142;
-            if ((v142 * 0.75) >= v143)
+            v144 = v128[3].u64[1];
+            v145 = v144;
+            v146 = v143;
+            if ((v143 * 0.75) >= v144)
             {
-              i32 = v127[2].i32;
+              i32 = v128[2].i32;
 LABEL_149:
-              v147 = *i32 / v145;
+              v148 = *i32 / v146;
             }
 
             else
             {
-              if (v143)
+              if (v144)
               {
-                i32 = v127[3].i32;
-                v145 = v144;
+                i32 = v128[3].i32;
+                v146 = v145;
                 goto LABEL_149;
               }
 
-              v147 = 3.4028e38;
+              v148 = 3.4028e38;
             }
 
-            *v127[4].i32 = v147;
+            *v128[4].i32 = v148;
           }
 
-          v148 = v127[6].u64[0];
-          v149 = v148;
-          v150 = v127[5].u64[0];
-          if ((v150 * 0.75) >= v148)
+          v149 = v128[6].u64[0];
+          v150 = v149;
+          v151 = v128[5].u64[0];
+          if ((v151 * 0.75) >= v149)
           {
-            if (!v150)
+            if (!v151)
             {
               goto LABEL_157;
             }
 
-            v151 = &v127[4].i32[2];
-            v149 = v150;
+            v152 = &v128[4].i32[2];
+            v150 = v151;
 LABEL_156:
-            v152 = *v151 / v149;
+            v153 = *v152 / v150;
           }
 
           else
           {
-            if (v148)
+            if (v149)
             {
-              v151 = &v127[5].i32[2];
+              v152 = &v128[5].i32[2];
               goto LABEL_156;
             }
 
 LABEL_157:
-            v152 = 3.4028e38;
+            v153 = 3.4028e38;
           }
 
-          *&v127[6].i32[2] = v152;
-          v127 += 7;
-          ++v122;
-          if (v127 == v121)
+          *&v128[6].i32[2] = v153;
+          v128 += 7;
+          ++v123;
+          if (v128 == v122)
           {
 LABEL_161:
-            v153 = *(v119 + 40);
-            v154 = *(v119 + 48);
-            if (v153 >= *(v119 + 56))
+            v154 = v120[5];
+            v155 = *(v120 + 3);
+            if (v154 >= v120[7])
             {
               goto LABEL_191;
             }
 
             while (2)
             {
-              v155 = *(v119 + 32);
-              v156 = v154;
-              if (v155 >= v154)
+              v156 = v120[4];
+              v157 = v155;
+              if (v156 >= v155)
               {
                 goto LABEL_190;
               }
 
-              v157 = &v213[v212 * v153];
+              v158 = &v214[v213 * v154];
               while (2)
               {
-                if (*(v215 + v214 * v153 + v155) && *&v157[4 * v155] == -3.4028e38)
+                if (*(v216 + v215 * v154 + v156) && *&v158[4 * v156] == -3.4028e38)
                 {
-                  if (v64)
+                  if (v65)
                   {
-                    v158 = *&v64[4 * v155 + v153 * v65] > 0.4;
+                    v159 = *&v65[4 * v156 + v154 * v66] > 0.4;
                   }
 
                   else
                   {
-                    v158 = 1;
+                    v159 = 1;
                   }
 
-                  v159 = *(v211 + v210 * v153 + 4 * v155);
-                  v160 = v120;
-                  if (v120 != v121)
+                  v160 = *(v212 + v211 * v154 + 4 * v156);
+                  v161 = v121;
+                  if (v121 != v122)
                   {
-                    v161.i64[0] = v155;
-                    v161.i64[1] = v153;
-                    v162 = 3.4028e38;
-                    v160 = v120;
-                    v163 = v120;
+                    v162.i64[0] = v156;
+                    v162.i64[1] = v154;
+                    v163 = 3.4028e38;
+                    v161 = v121;
+                    v164 = v121;
                     do
                     {
-                      v164 = vandq_s8(vcgtq_u64(v163[1], v161), vcgeq_u64(v161, *v163));
-                      if ((vandq_s8(vdupq_laneq_s64(v164, 1), v164).u64[0] & 0x8000000000000000) != 0)
+                      v165 = vandq_s8(vcgtq_u64(v164[1], v162), vcgeq_u64(v162, *v164));
+                      if ((vandq_s8(vdupq_laneq_s64(v165, 1), v165).u64[0] & 0x8000000000000000) != 0)
                       {
-                        v165 = v163[2].i64[1] ? 32 : 72;
-                        v166 = vabds_f32(v159, *(v163[2].i32 + v165));
-                        if (v166 <= v162)
+                        v166 = v164[2].i64[1] ? 32 : 72;
+                        v167 = vabds_f32(v160, *(v164[2].i32 + v166));
+                        if (v167 <= v163)
                         {
-                          v160 = v163;
-                          v162 = v166;
+                          v161 = v164;
+                          v163 = v167;
                         }
                       }
 
-                      v163 += 7;
+                      v164 += 7;
                     }
 
-                    while (v163 != v121);
+                    while (v164 != v122);
                   }
 
-                  v167 = v159 + *v160[2].i32;
-                  *v160[2].i32 = v167;
-                  v168 = v160[2].i64[1] + 1;
-                  v160[2].i64[1] = v168;
-                  if (v158)
+                  v168 = v160 + *v161[2].i32;
+                  *v161[2].i32 = v168;
+                  v169 = v161[2].i64[1] + 1;
+                  v161[2].i64[1] = v169;
+                  if (v159)
                   {
-                    *v160[3].i32 = v159 + *v160[3].i32;
-                    v169 = v160[3].i64[1] + 1;
-                    v160[3].i64[1] = v169;
+                    *v161[3].i32 = v160 + *v161[3].i32;
+                    v170 = v161[3].i64[1] + 1;
+                    v161[3].i64[1] = v170;
                   }
 
                   else
                   {
-                    v169 = v160[3].i64[1];
+                    v170 = v161[3].i64[1];
                   }
 
-                  v170 = v168;
-                  if ((v168 * 0.75) >= v169)
+                  v171 = v169;
+                  if ((v169 * 0.75) >= v170)
                   {
-                    if (!v168)
+                    if (!v169)
                     {
                       goto LABEL_186;
                     }
 
 LABEL_185:
-                    v171 = v167 / v170;
+                    v172 = v168 / v171;
                   }
 
                   else
                   {
-                    if (v169)
+                    if (v170)
                     {
-                      v167 = *v160[3].i32;
-                      v170 = v169;
+                      v168 = *v161[3].i32;
+                      v171 = v170;
                       goto LABEL_185;
                     }
 
 LABEL_186:
-                    v171 = 3.4028e38;
+                    v172 = 3.4028e38;
                   }
 
-                  *v160[4].i32 = v171;
-                  *&v157[4 * v155] = -1.0 - (0x6DB6DB6DB6DB6DB7 * (v160 - v120));
+                  *v161[4].i32 = v172;
+                  *&v158[4 * v156] = -1.0 - (0x6DB6DB6DB6DB6DB7 * (v161 - v121));
                 }
 
-                if (++v155 != v156)
+                if (++v156 != v157)
                 {
                   continue;
                 }
@@ -1125,9 +1136,9 @@ LABEL_186:
                 break;
               }
 
-              v154 = *(v119 + 48);
+              v155 = *(v120 + 3);
 LABEL_190:
-              if (++v153 < *(&v154 + 1))
+              if (++v154 < *(&v155 + 1))
               {
                 continue;
               }
@@ -1136,51 +1147,51 @@ LABEL_190:
             }
 
 LABEL_191:
-            dataCopy = v216;
-            v79 = v218;
-            if (v120 == v121)
+            dataCopy = v217;
+            v80 = v219;
+            if (v121 == v122)
             {
               goto LABEL_201;
             }
 
-            v172 = v120 + 2;
-            v173 = v120;
+            v173 = v121 + 2;
+            v174 = v121;
             while (2)
             {
-              v174 = v172[1].u64[1];
-              v175 = v174;
-              v176 = v172->u64[1];
-              v177 = v176;
-              if ((v176 * 0.75) >= v174)
+              v175 = v173[1].u64[1];
+              v176 = v175;
+              v177 = v173->u64[1];
+              v178 = v177;
+              if ((v177 * 0.75) >= v175)
               {
-                v178 = v172;
-                if (!v176)
+                v179 = v173;
+                if (!v177)
                 {
                   goto LABEL_198;
                 }
 
 LABEL_197:
-                v179 = *v178 / v177;
+                v180 = *v179 / v178;
               }
 
               else
               {
-                if (v174)
+                if (v175)
                 {
-                  v178 = v173[3].i32;
-                  v177 = v175;
+                  v179 = v174[3].i32;
+                  v178 = v176;
                   goto LABEL_197;
                 }
 
 LABEL_198:
-                v179 = 3.4028e38;
+                v180 = 3.4028e38;
               }
 
-              *v172[2].i32 = v179;
+              *v173[2].i32 = v180;
+              v174 += 7;
+              v181 = v173 + 5;
               v173 += 7;
-              v180 = v172 + 5;
-              v172 += 7;
-              if (v180 != v121)
+              if (v181 != v122)
               {
                 continue;
               }
@@ -1188,94 +1199,94 @@ LABEL_198:
               break;
             }
 
-            v154 = *(v119 + 48);
+            v155 = *(v120 + 3);
 LABEL_201:
-            v181 = *(v119 + 40);
-            if (v181 < *(&v154 + 1))
+            v182 = v120[5];
+            if (v182 < *(&v155 + 1))
             {
-              v182 = &v213[v212 * v181];
-              v183 = v215 + v214 * v181;
+              v183 = &v214[v213 * v182];
+              v184 = v216 + v215 * v182;
               do
               {
-                v184 = *(v119 + 32);
-                v185 = v154 - v184;
-                if (v154 > v184)
+                v185 = v120[4];
+                v186 = v155 - v185;
+                if (v155 > v185)
                 {
-                  v186 = &v182[4 * v184];
-                  v187 = (v183 + v184);
+                  v187 = &v183[4 * v185];
+                  v188 = (v184 + v185);
                   do
                   {
-                    v188 = *v187++;
-                    if (v188 && *v186 != 0.0)
+                    v189 = *v188++;
+                    if (v189 && *v187 != 0.0)
                     {
-                      *v186 = *v120[7 * fabs(*v186 + 1.0) + 4].i32;
+                      *v187 = *v121[7 * fabs(*v187 + 1.0) + 4].i32;
                     }
 
-                    ++v186;
-                    --v185;
+                    ++v187;
+                    --v186;
                   }
 
-                  while (v185);
-                  v154 = *(v119 + 48);
+                  while (v186);
+                  v155 = *(v120 + 3);
                 }
 
-                ++v181;
-                v182 = v212 + v182;
-                v183 += v214;
+                ++v182;
+                v183 = v213 + v183;
+                v184 += v215;
               }
 
-              while (v181 < *(&v154 + 1));
+              while (v182 < *(&v155 + 1));
             }
 
-            v119 += 64;
-            if (v119 == v217)
+            v120 += 8;
+            if (v120 == v218)
             {
 LABEL_212:
-              v14 = v207;
-              if (v217 != v204 || (v208 - v203) > 0x20)
+              v14 = v208;
+              if (v218 != v205 || (v209 - v204) > 0x20)
               {
-                v189 = *&v229[8];
-                v190 = *&v229[16];
-                if (*&v229[8] < *&v229[24])
+                v190 = *&v230[8];
+                v191 = *&v230[16];
+                if (*&v230[8] < *&v230[24])
                 {
-                  v191 = v228[1].i64[1];
-                  v192 = buf[3];
-                  v193 = v227[3];
-                  v194 = buf[0] + *&v229[8] * buf[3];
-                  v195 = v227[0] + *&v229[8] * v227[3];
-                  v196 = v228[0].i64[0] + *&v229[8] * v228[1].i64[1];
+                  v192 = v229[1].i64[1];
+                  v193 = buf[3];
+                  v194 = v228[3];
+                  v195 = buf[0] + *&v230[8] * buf[3];
+                  v196 = v228[0] + *&v230[8] * v228[3];
+                  v197 = v229[0].i64[0] + *&v230[8] * v229[1].i64[1];
                   do
                   {
-                    v197 = v190 - *v229;
-                    if (v190 > *v229)
+                    v198 = v191 - *v230;
+                    if (v191 > *v230)
                     {
-                      v198 = (v194 + 4 * *v229);
-                      v199 = (v196 + *v229);
-                      v200 = &v195[4 * *v229];
+                      v199 = (v195 + 4 * *v230);
+                      v200 = (v197 + *v230);
+                      v201 = &v196[4 * *v230];
                       do
                       {
-                        v201 = *v199++;
-                        if (v201 && *v200 == 0.0)
+                        v202 = *v200++;
+                        if (v202 && *v201 == 0.0)
                         {
-                          *v200 = *v198;
+                          *v201 = *v199;
                         }
 
-                        ++v198;
-                        ++v200;
-                        --v197;
+                        ++v199;
+                        ++v201;
+                        --v198;
                       }
 
-                      while (v197);
-                      v190 = *&v229[16];
+                      while (v198);
+                      v191 = *&v230[16];
                     }
 
-                    ++v189;
-                    v194 += v192;
-                    v195 = &v193[v195];
-                    v196 += v191;
+                    ++v190;
+                    v195 += v193;
+                    v196 = &v194[v196];
+                    v197 += v192;
                   }
 
-                  while (v189 < *(&v190 + 1));
+                  while (v190 < *(&v191 + 1));
                 }
               }
 
@@ -1284,14 +1295,14 @@ LABEL_212:
                 CVPixelBufferUnlockBaseAddress(singleFrameConfidenceBuffer, 1uLL);
               }
 
-              CVPixelBufferUnlockBaseAddress(v79, v202 & 1);
+              CVPixelBufferUnlockBaseAddress(v80, v203 & 1);
               CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
-              CVPixelBufferUnlockBaseAddress(v209, 0);
-              *v229 = &v221;
-              std::vector<arkit::BoundingBoxGroup>::__destroy_vector::operator()[abi:ne200100](v229);
+              CVPixelBufferUnlockBaseAddress(v210, 0);
+              *v230 = &v222;
+              std::vector<arkit::BoundingBoxGroup>::__destroy_vector::operator()[abi:ne200100](v230);
               if (__p)
               {
-                v225 = __p;
+                v226 = __p;
                 operator delete(__p);
               }
 
@@ -1308,119 +1319,119 @@ LABEL_212:
       }
     }
 
-    v135 = *(v125 + v126 * v130 + 4 * v132);
-    if (v64)
+    v136 = *(v126 + v127 * v131 + 4 * v133);
+    if (v65)
     {
-      v136 = *&v64[4 * v132 + v130 * v65];
-      *&v127[4].i32[2] = v135 + *&v127[4].i32[2];
-      ++v127[5].i64[0];
-      if (v136 <= 0.4)
+      v137 = *&v65[4 * v133 + v131 * v66];
+      *&v128[4].i32[2] = v136 + *&v128[4].i32[2];
+      ++v128[5].i64[0];
+      if (v137 <= 0.4)
       {
-        v137 = 0;
+        v138 = 0;
         goto LABEL_132;
       }
     }
 
     else
     {
-      *&v127[4].i32[2] = v135 + *&v127[4].i32[2];
-      ++v127[5].i64[0];
+      *&v128[4].i32[2] = v136 + *&v128[4].i32[2];
+      ++v128[5].i64[0];
     }
 
-    *&v127[5].i32[2] = v135 + *&v127[5].i32[2];
-    ++v127[6].i64[0];
-    v137 = 1;
+    *&v128[5].i32[2] = v136 + *&v128[5].i32[2];
+    ++v128[6].i64[0];
+    v138 = 1;
 LABEL_132:
-    if (*&v134[4 * v132] != -3.4028e38)
+    if (*&v135[4 * v133] != -3.4028e38)
     {
-      if (&v127[7] == v121)
+      if (&v128[7] == v122)
       {
 LABEL_137:
-        *v127[2].i32 = v135 + *v127[2].i32;
-        ++v127[2].i64[1];
-        v141 = -1.0 - v122;
-        if (v137)
+        *v128[2].i32 = v136 + *v128[2].i32;
+        ++v128[2].i64[1];
+        v142 = -1.0 - v123;
+        if (v138)
         {
-          *v127[3].i32 = v135 + *v127[3].i32;
-          ++v127[3].i64[1];
-          v141 = -1.0 - v122;
+          *v128[3].i32 = v136 + *v128[3].i32;
+          ++v128[3].i64[1];
+          v142 = -1.0 - v123;
         }
       }
 
       else
       {
-        v138.i64[0] = v132;
-        v138.i64[1] = v130;
-        v139 = v127 + 7;
+        v139.i64[0] = v133;
+        v139.i64[1] = v131;
+        v140 = v128 + 7;
         while (1)
         {
-          v140 = vandq_s8(vcgtq_u64(v139[1], v138), vcgeq_u64(v138, *v139));
-          if ((vandq_s8(vdupq_laneq_s64(v140, 1), v140).u64[0] & 0x8000000000000000) != 0)
+          v141 = vandq_s8(vcgtq_u64(v140[1], v139), vcgeq_u64(v139, *v140));
+          if ((vandq_s8(vdupq_laneq_s64(v141, 1), v141).u64[0] & 0x8000000000000000) != 0)
           {
             break;
           }
 
-          v139 += 7;
-          if (v139 == v121)
+          v140 += 7;
+          if (v140 == v122)
           {
             goto LABEL_137;
           }
         }
 
-        v141 = -3.4028e38;
+        v142 = -3.4028e38;
       }
 
-      *&v134[4 * v132] = v141;
+      *&v135[4 * v133] = v142;
     }
 
     goto LABEL_141;
   }
 
-  v66 = v228[0].i64[1];
-  if (v228[0].i64[1])
+  v67 = v229[0].i64[1];
+  if (v229[0].i64[1])
   {
-    v67 = 0;
-    v68 = v228[1];
-    v69 = buf[0];
-    v70 = buf[3];
-    v71 = v227[0];
-    v72 = v227[3];
-    v73 = v228[0].i64[0];
+    v68 = 0;
+    v69 = v229[1];
+    v70 = buf[0];
+    v71 = buf[3];
+    v72 = v228[0];
+    v73 = v228[3];
+    v74 = v229[0].i64[0];
     do
     {
-      if (v68.i64[0])
+      if (v69.i64[0])
       {
-        v74 = v73;
-        v75 = v69;
-        v76 = v71;
-        v77 = v68.i64[0];
+        v75 = v74;
+        v76 = v70;
+        v77 = v72;
+        v78 = v69.i64[0];
         do
         {
-          if (*v74++)
+          if (*v75++)
           {
-            *v76 = *v75;
+            *v77 = *v76;
           }
 
-          v76 += 4;
-          ++v75;
-          --v77;
+          v77 += 4;
+          ++v76;
+          --v78;
         }
 
-        while (v77);
+        while (v78);
       }
 
-      ++v67;
-      v71 = &v72[v71];
-      v69 = (v69 + v70);
-      v73 += v68.i64[1];
+      ++v68;
+      v72 = &v73[v72];
+      v70 = (v70 + v71);
+      v74 += v69.i64[1];
     }
 
-    while (v67 != v66);
+    while (v68 != v67);
   }
 
-  CVPixelBufferUnlockBaseAddress(v218, (v50 & 1) == 0);
+  CVPixelBufferUnlockBaseAddress(v219, (v50 & 1) == 0);
   CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
-  CVPixelBufferUnlockBaseAddress(v209, 0);
+  CVPixelBufferUnlockBaseAddress(v210, 0);
 LABEL_228:
   v42 = 0;
 LABEL_45:
@@ -1430,7 +1441,7 @@ LABEL_45:
 
 - (int)_minFilterDepthMap:(__CVBuffer *)map kernelSize:(unint64_t)size pResultBuffer:(__CVBuffer *)buffer
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (map)
   {
     Width = CVPixelBufferGetWidth(map);
@@ -1454,10 +1465,11 @@ LABEL_45:
   CVPixelBufferLockBaseAddress(v12, 0);
   memset(&src, 0, sizeof(src));
   ARWrapCVPixelBufferVImage(map, &src.data);
-  memset(&v22, 0, sizeof(v22));
-  ARWrapCVPixelBufferVImage(v12, &v22.data);
+  memset(&v23, 0, sizeof(v23));
+  ARWrapCVPixelBufferVImage(v12, &v23.data);
   kdebug_trace();
-  v13 = vImageMin_PlanarF(&src, &v22, 0, 0, 0, size, size, 0x80u);
+  v13 = vImageMin_PlanarF(&src, &v23, 0, 0, 0, size, size, 0x80u);
+  v14 = v13;
   if (v13 == self->_minFilterIntermediateBufferSize)
   {
     minFilterIntermediatePooledBuffer = self->_minFilterIntermediatePooledBuffer;
@@ -1465,39 +1477,39 @@ LABEL_45:
 
   else
   {
-    v16 = _ARLogTechnique();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = _ARLogTechnique(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
       minFilterIntermediateBufferSize = self->_minFilterIntermediateBufferSize;
       *buf = 138544130;
-      v25 = v18;
-      v26 = 2048;
+      v26 = v19;
+      v27 = 2048;
       selfCopy = self;
-      v28 = 2048;
-      v29 = minFilterIntermediateBufferSize;
-      v30 = 2048;
-      v31 = v13;
-      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Changing minFilter buffer from size (%ti) to size (%ti)", buf, 0x2Au);
+      v29 = 2048;
+      v30 = minFilterIntermediateBufferSize;
+      v31 = 2048;
+      v32 = v14;
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Changing minFilter buffer from size (%ti) to size (%ti)", buf, 0x2Au);
     }
 
-    v20 = self->_minFilterIntermediatePooledBuffer;
-    if (v20)
+    v21 = self->_minFilterIntermediatePooledBuffer;
+    if (v21)
     {
-      free(v20);
+      free(v21);
     }
 
-    self->_minFilterIntermediateBufferSize = v13;
-    minFilterIntermediatePooledBuffer = malloc_type_malloc(v13, 0x100004077774924uLL);
+    self->_minFilterIntermediateBufferSize = v14;
+    minFilterIntermediatePooledBuffer = malloc_type_malloc(v14, 0x100004077774924uLL);
     self->_minFilterIntermediatePooledBuffer = minFilterIntermediatePooledBuffer;
   }
 
-  v21 = vImageMin_PlanarF(&src, &v22, minFilterIntermediatePooledBuffer, 0, 0, size, size, 0x10u);
+  v22 = vImageMin_PlanarF(&src, &v23, minFilterIntermediatePooledBuffer, 0, 0, size, size, 0x10u);
   kdebug_trace();
   CVPixelBufferUnlockBaseAddress(map, 1uLL);
   CVPixelBufferUnlockBaseAddress(v12, 0);
-  if (v21)
+  if (v22)
   {
     CVPixelBufferRelease(v12);
     return -6660;

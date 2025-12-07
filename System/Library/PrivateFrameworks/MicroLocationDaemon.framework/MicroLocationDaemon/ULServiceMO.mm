@@ -35,62 +35,62 @@
 
 - (optional<ULServiceDO>)convertToDO
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   [(ULServiceMO *)self lastActiveTimestamp];
   v6 = v5;
   serviceUUID = [(ULServiceMO *)self serviceUUID];
   v8 = serviceUUID;
   if (serviceUUID)
   {
-    [serviceUUID boostUUID];
+    objc_msgSend_boostUUID(serviceUUID);
   }
 
   else
   {
+    v28 = 0;
     v29 = 0;
     v30 = 0;
-    v31 = 0;
   }
 
-  if (v31)
+  if (v30)
   {
     clientId = [(ULServiceMO *)self clientId];
     v10 = clientId;
     if (clientId)
     {
-      [clientId stdString];
+      objc_msgSend_stdString(clientId);
     }
 
     else
     {
-      *v20 = 0u;
-      v21 = 0u;
+      *v19 = 0u;
+      v20 = 0u;
     }
 
-    if (BYTE8(v21))
+    if (BYTE8(v20))
     {
-      if (v31 != 1 || (v13 = [(ULServiceMO *)self serviceType], (BYTE8(v21) & 1) == 0))
+      if (v30 != 1 || (v13 = [(ULServiceMO *)self serviceType], (BYTE8(v20) & 1) == 0))
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      v19 = 0;
+      v18 = 0;
       LOBYTE(__p) = 0;
-      result = ULServiceDO::ULServiceDO(buf, v29, v30, v13, v20, [(ULServiceMO *)self locationTypes], &__p, v6);
-      if (v19 < 0)
+      result = ULServiceDO::ULServiceDO(buf, v28, v29, v13, v19, [(ULServiceMO *)self locationTypes], &__p, v6);
+      if (v18 < 0)
       {
         operator delete(__p);
       }
 
-      v14 = v23;
+      v14 = v22;
       *&retstr->var0.var0 = *buf;
       *(&retstr->var0.var2.var0.var1 + 1) = v14;
-      *&retstr[1].var0.var2.var0.var1.var1 = v24;
-      v15 = v26;
-      retstr[2].var0.var1.var0 = v25;
+      *&retstr[1].var0.var2.var0.var1.var1 = v23;
+      v15 = v25;
+      retstr[2].var0.var1.var0 = v24;
       retstr[2].var0.var2.var0.var1.var1 = v15;
-      retstr[3].var0.var2.var0.var1.var1 = v28;
-      *(&retstr[2].var0.var2.var0.var1 + 1) = v27;
+      retstr[3].var0.var2.var0.var1.var1 = v27;
+      *(&retstr[2].var0.var2.var0.var1 + 1) = v26;
       retstr[3].var0.var1.var1.data[8] = 1;
     }
 
@@ -113,9 +113,9 @@
       retstr[3].var0.var1.var1.data[8] = 0;
     }
 
-    if (BYTE8(v21) == 1 && SBYTE7(v21) < 0)
+    if (BYTE8(v20) == 1 && SBYTE7(v20) < 0)
     {
-      operator delete(v20[0]);
+      operator delete(v19[0]);
     }
   }
 
@@ -138,7 +138,6 @@
     retstr[3].var0.var1.var1.data[8] = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 

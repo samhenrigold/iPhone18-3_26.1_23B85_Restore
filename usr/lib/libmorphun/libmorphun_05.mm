@@ -1,134 +1,3 @@
-_DWORD *marisa::grimoire::vector::Vector<unsigned int>::realloc(uint64_t *a1, uint64_t a2)
-{
-  result = operator new[](4 * a2, MEMORY[0x1E69E5398]);
-  v5 = a1[3];
-  if (v5)
-  {
-    v6 = a1[1];
-    v7 = result;
-    do
-    {
-      v8 = *v6++;
-      *v7++ = v8;
-      --v5;
-    }
-
-    while (v5);
-  }
-
-  v9 = *a1;
-  *a1 = result;
-  a1[1] = result;
-  a1[2] = result;
-  a1[4] = a2;
-  if (v9)
-  {
-
-    JUMPOUT(0x1BFB49140);
-  }
-
-  return result;
-}
-
-uint64_t marisa::grimoire::vector::BitVector::map(marisa::grimoire::vector::BitVector *this, marisa::grimoire::io::Mapper *a2)
-{
-  memset(v13, 0, 41);
-  memset(v17, 0, 41);
-  memset(v18, 0, 41);
-  v14 = 0u;
-  v15 = 0u;
-  memset(v16, 0, 25);
-  marisa::grimoire::vector::Vector<unsigned long long>::map(v13, a2);
-  v4 = *marisa::grimoire::io::Mapper::map_data(a2, 4uLL);
-  *&v14 = v4;
-  v5 = marisa::grimoire::io::Mapper::map_data(a2, 4uLL);
-  if (v4 < *v5)
-  {
-    exception = __cxa_allocate_exception(0x20uLL);
-    *exception = &unk_1F3CD9BC8;
-    exception[1] = "ext/lib/Marisa/marisa-trie/lib/marisa/grimoire/vector/bit-vector.h";
-    exception[2] = 0xA00000087;
-    exception[3] = "ext/lib/Marisa/marisa-trie/lib/marisa/grimoire/vector/bit-vector.h:135: MARISA_FORMAT_ERROR: temp_num_1s > size_";
-  }
-
-  *(&v14 + 1) = *v5;
-  v6 = marisa::grimoire::io::Mapper::map_data(a2, 8uLL);
-  v7 = *v6 / 0xCuLL;
-  if (*v6 % 0xCuLL)
-  {
-    v12 = __cxa_allocate_exception(0x20uLL);
-    *v12 = &unk_1F3CD9BC8;
-    v12[1] = "ext/lib/Marisa/marisa-trie/lib/marisa/grimoire/vector/vector.h";
-    v12[2] = 0xA000000CALL;
-    v12[3] = "ext/lib/Marisa/marisa-trie/lib/marisa/grimoire/vector/vector.h:202: MARISA_FORMAT_ERROR: (total_size % sizeof(T)) != 0";
-  }
-
-  v8 = marisa::grimoire::io::Mapper::map_data(a2, 12 * v7);
-  marisa::grimoire::io::Mapper::seek(a2, (-12 * v7) & 4);
-  v9 = v15;
-  v15 = 0uLL;
-  *&v16[0] = v8;
-  *(v16 + 8) = v7;
-  BYTE8(v16[1]) = 1;
-  if (v9)
-  {
-    MEMORY[0x1BFB49140](v9, 0x1000C8077774924);
-  }
-
-  marisa::grimoire::vector::Vector<unsigned int>::map(v17, a2);
-  marisa::grimoire::vector::Vector<unsigned int>::map(v18, a2);
-  marisa::grimoire::vector::BitVector::swap(this, v13);
-  if (*&v18[0])
-  {
-    MEMORY[0x1BFB49140](*&v18[0], 0x1000C8077774924);
-  }
-
-  if (*&v17[0])
-  {
-    MEMORY[0x1BFB49140](*&v17[0], 0x1000C8077774924);
-  }
-
-  if (v15)
-  {
-    MEMORY[0x1BFB49140](v15, 0x1000C8077774924);
-  }
-
-  result = *&v13[0];
-  if (*&v13[0])
-  {
-
-    JUMPOUT(0x1BFB49140);
-  }
-
-  return result;
-}
-
-void marisa::grimoire::vector::BitVector::~BitVector(marisa::grimoire::vector::BitVector *this)
-{
-  v2 = *(this + 20);
-  if (v2)
-  {
-    MEMORY[0x1BFB49140](v2, 0x1000C8077774924);
-  }
-
-  v3 = *(this + 14);
-  if (v3)
-  {
-    MEMORY[0x1BFB49140](v3, 0x1000C8077774924);
-  }
-
-  v4 = *(this + 8);
-  if (v4)
-  {
-    MEMORY[0x1BFB49140](v4, 0x1000C8077774924);
-  }
-
-  if (*this)
-  {
-    MEMORY[0x1BFB49140](*this, 0x1000C8077774924);
-  }
-}
-
 uint64_t marisa::grimoire::vector::Vector<unsigned long long>::map(uint64_t a1, marisa::grimoire::io::Mapper *this)
 {
   v4 = *marisa::grimoire::io::Mapper::map_data(this, 8uLL);
@@ -523,7 +392,7 @@ void morphun::grammar::synthesis::CaGrammarSynthesizer::addSemanticFeatures(morp
   operator new();
 }
 
-void sub_1BE5C6240(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+void sub_1BE5C6240(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
   v33 = 0;
   while (1)
@@ -536,7 +405,7 @@ void sub_1BE5C6240(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     v33 -= 24;
     if (v33 == -48)
     {
-      MEMORY[0x1BFB49160](v31, 0x10F3C40BE507067);
+      MEMORY[0x1BFB49160](v31, 0x10F3C40BE507067, a3, a4, a5, a6, a7, a8);
       if (a18 < 0)
       {
         operator delete(__p);
@@ -561,10 +430,10 @@ std::basic_string<char16_t> *morphun::util::StringUtils::appendCodePoint(std::ba
   return a1;
 }
 
-void morphun::util::StringUtils::replace(std::basic_string<char16_t> *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void morphun::util::StringUtils::replace(std::basic_string<char16_t> *a1, uint64_t **a2, unsigned __int16 *a3, std::basic_string<char16_t> *a4)
 {
   v4 = *(a2 + 23);
-  v5 = *(a2 + 8);
+  v5 = a2[1];
   if ((v4 & 0x80u) != 0)
   {
     a2 = *a2;
@@ -585,7 +454,7 @@ void morphun::util::StringUtils::replace(std::basic_string<char16_t> *a1, uint64
 
   if (v7)
   {
-    v9 = *(a3 + 8);
+    v9 = *(a3 + 1);
   }
 
   else
@@ -593,7 +462,7 @@ void morphun::util::StringUtils::replace(std::basic_string<char16_t> *a1, uint64
     v9 = *(a3 + 23);
   }
 
-  v10 = *(a4 + 23);
+  v10 = SHIBYTE(a4->__r_.__value_.__r.__words[2]);
   if (v10 >= 0)
   {
     v11 = a4;
@@ -601,25 +470,25 @@ void morphun::util::StringUtils::replace(std::basic_string<char16_t> *a1, uint64
 
   else
   {
-    v11 = *a4;
+    v11 = a4->__r_.__value_.__r.__words[0];
   }
 
   if (v10 >= 0)
   {
-    v12 = *(a4 + 23);
+    size = HIBYTE(a4->__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v12 = *(a4 + 8);
+    size = a4->__r_.__value_.__l.__size_;
   }
 
-  morphun::util::StringViewUtils::replace(a1, a2, v4, v8, v9, v11, v12);
+  morphun::util::StringViewUtils::replace(a1, a2, v4, v8, v9, v11, size);
 }
 
-_WORD *morphun::util::StringUtils::trim@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+_WORD *morphun::util::StringUtils::trim@<X0>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   if (*(a1 + 23) >= 0)
   {
     v4 = *(a1 + 23);
@@ -653,8 +522,8 @@ LABEL_19:
     std::__allocate_at_least[abi:se200100]<std::allocator<char16_t>>(v7);
   }
 
-  a2[23] = v6;
-  v8 = &a2[2 * v6];
+  *(a2 + 23) = v6;
+  v8 = a2 + v6;
   if (a2 <= result && v8 > result)
   {
     __break(1u);
@@ -670,7 +539,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t morphun::util::StringUtils::isAllLowerCase(uint64_t a1)
+BOOL morphun::util::StringUtils::isAllLowerCase(uint64_t a1)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -683,7 +552,7 @@ uint64_t morphun::util::StringUtils::isAllLowerCase(uint64_t a1)
   }
 }
 
-uint64_t morphun::util::StringUtils::isAllUpperCase(uint64_t a1)
+BOOL morphun::util::StringUtils::isAllUpperCase(uint64_t a1)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -696,7 +565,7 @@ uint64_t morphun::util::StringUtils::isAllUpperCase(uint64_t a1)
   }
 }
 
-void morphun::util::StringUtils::capitalizeFirst(UChar *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void morphun::util::StringUtils::capitalizeFirst(UChar *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = *(a1 + 1);
   if (*(a1 + 23) >= 0)
@@ -1016,9 +885,9 @@ void morphun::util::StringUtils::to_u16string(const char *a1@<X0>, std::basic_st
 
 void morphun::util::StringUtils::to_u16string(double a1@<D0>, std::basic_string<char16_t> *a2@<X8>)
 {
-  v7[0] = 0;
-  v7[1] = 0;
-  v8 = 0;
+  v6[0] = 0;
+  v6[1] = 0;
+  v7 = 0;
   std::to_string(&__p, a1);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
@@ -1032,24 +901,24 @@ void morphun::util::StringUtils::to_u16string(double a1@<D0>, std::basic_string<
 
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v5 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    v4 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v5 = __p.__r_.__value_.__r.__words[1];
+    v4 = __p.__r_.__value_.__r.__words[1];
   }
 
-  morphun::util::StringViewUtils::convert(v7, p_p, v5);
-  if (SHIBYTE(v8) < 0)
+  morphun::util::StringViewUtils::convert(v6, p_p, v4);
+  if (SHIBYTE(v7) < 0)
   {
-    std::basic_string<char16_t>::__init_copy_ctor_external(a2, v7[0], v7[1]);
+    std::basic_string<char16_t>::__init_copy_ctor_external(a2, v6[0], v6[1]);
   }
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *v7;
-    a2->__r_.__value_.__r.__words[2] = v8;
+    *&a2->__r_.__value_.__l.__data_ = *v6;
+    a2->__r_.__value_.__r.__words[2] = v7;
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1057,9 +926,9 @@ void morphun::util::StringUtils::to_u16string(double a1@<D0>, std::basic_string<
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v8) < 0)
+  if (SHIBYTE(v7) < 0)
   {
-    operator delete(v7[0]);
+    operator delete(v6[0]);
   }
 }
 
@@ -1073,9 +942,9 @@ void sub_1BE5C68E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL morphun::util::StringUtils::endsWith(uint64_t *a1, unsigned __int16 *a2)
+BOOL morphun::util::StringUtils::endsWith(uint64_t *a1, uint64_t a2)
 {
-  v2 = *(a2 + 1);
+  v2 = *(a2 + 8);
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -1143,7 +1012,7 @@ BOOL morphun::util::StringUtils::startsWith(uint64_t *a1, unsigned __int16 *a2)
   return std::u16string_view::starts_with[abi:se200100](v7, a2, v3);
 }
 
-uint64_t morphun::util::StringUtils::codePointAt(uint64_t a1, unsigned int a2)
+uint64_t morphun::util::StringUtils::codePointAt(uint64_t a1, int a2)
 {
   v3 = *(a1 + 8);
   if (*(a1 + 23) >= 0)
@@ -1234,7 +1103,7 @@ void *morphun::exception::IllegalArgumentException::IllegalArgumentException(uin
   return result;
 }
 
-uint64_t morphun::grammar::synthesis::EnGrammarSynthesizer_CaseLookupFunction::getFeatureValue(uint64_t a1, uint64_t a2)
+morphun::grammar::synthesis::GrammemeConstants *morphun::grammar::synthesis::EnGrammarSynthesizer_CaseLookupFunction::getFeatureValue(morphun::grammar::synthesis::GrammemeConstants *a1, uint64_t a2)
 {
   __p = 0;
   v22 = 0;
@@ -1301,7 +1170,7 @@ uint64_t morphun::grammar::synthesis::EnGrammarSynthesizer_CaseLookupFunction::g
     if (std::basic_string<char16_t>::ends_with[abi:se200100](&v18, L"'s") & 1) != 0 || (std::basic_string<char16_t>::ends_with[abi:se200100](&v18, word_1BE8075EA))
     {
 LABEL_18:
-      if (a1 + 16 == std::__tree<std::basic_string<char16_t>>::find<std::basic_string<char16_t>>(a1 + 8, &v18))
+      if ((a1 + 16) == std::__tree<std::basic_string<char16_t>>::find<std::basic_string<char16_t>>(a1 + 8, &v18))
       {
         operator new();
       }
@@ -1347,9 +1216,9 @@ LABEL_21:
   return 0;
 }
 
-void sub_1BE5C6DE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_1BE5C6DE4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
-  MEMORY[0x1BFB49160](v20, 0x10B3C40F7FF9C27);
+  MEMORY[0x1BFB49160](v20, 0x10B3C40F7FF9C27, a3, a4, a5, a6, a7, a8);
   if (a14 < 0)
   {
     operator delete(__p);
@@ -1376,12 +1245,12 @@ void morphun::grammar::synthesis::EnGrammarSynthesizer_CaseLookupFunction::~EnGr
   std::__tree<std::__value_type<std::basic_string<char16_t>,morphun::grammar::synthesis::SvGrammarSynthesizer::Count>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,morphun::grammar::synthesis::SvGrammarSynthesizer::Count>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,morphun::grammar::synthesis::SvGrammarSynthesizer::Count>>>::destroy(this[2]);
 }
 
-unsigned __int16 *std::__tree<std::basic_string<char16_t>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&>(uint64_t a1, unsigned __int16 *a2)
+unsigned __int16 *std::__tree<std::basic_string<char16_t>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&>(uint64_t **a1, unsigned __int16 *a2, uint64_t a3)
 {
-  result = std::__tree<std::basic_string<char16_t>>::__find_equal<std::basic_string<char16_t>>(a1, &v3, a2);
+  result = std::__tree<std::basic_string<char16_t>>::__find_equal<std::basic_string<char16_t>>(a1, &v7, a2);
   if (!*result)
   {
-    std::__tree<std::basic_string<char16_t>>::__construct_node<std::basic_string<char16_t> const&>();
+    std::__tree<std::basic_string<char16_t>>::__construct_node<std::basic_string<char16_t> const&>(v6, a1, a3);
   }
 
   return result;
@@ -1396,11 +1265,11 @@ morphun::Token *morphun::analysis::tokenizer::MorphologicalWordToken::Morphologi
   *(v11 + 13) = 0;
   *(v11 + 14) = 0;
   *(v11 + 12) = 0;
-  std::vector<morphun::analysis::tokenattributes::LemmaMapping>::__init_with_size[abi:se200100]<morphun::analysis::tokenattributes::LemmaMapping*,morphun::analysis::tokenattributes::LemmaMapping*>(v11 + 96, *a10, a10[1], 0xAAAAAAAAAAAAAAABLL * ((a10[1] - *a10) >> 4));
+  std::vector<morphun::analysis::tokenattributes::LemmaMapping>::__init_with_size[abi:se200100]<morphun::analysis::tokenattributes::LemmaMapping*,morphun::analysis::tokenattributes::LemmaMapping*>(v11 + 12, *a10, a10[1], 0xAAAAAAAAAAAAAAABLL * ((a10[1] - *a10) >> 4));
   return a1;
 }
 
-uint64_t std::vector<morphun::analysis::tokenattributes::LemmaMapping>::__init_with_size[abi:se200100]<morphun::analysis::tokenattributes::LemmaMapping*,morphun::analysis::tokenattributes::LemmaMapping*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<morphun::analysis::tokenattributes::LemmaMapping>::__init_with_size[abi:se200100]<morphun::analysis::tokenattributes::LemmaMapping*,morphun::analysis::tokenattributes::LemmaMapping*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1445,14 +1314,14 @@ void morphun::analysis::tokenizer::MorphologicalWordToken::toString(morphun::ana
     v6 = (v4 + 47);
     do
     {
-      morphun::util::StringUtils::to_u16string(*(v6 - 39), &v65);
+      morphun::util::StringUtils::to_u16string(&v65, *(v6 - 39));
       std::basic_string<char16_t>::insert(&v65, L"{surfaceFormGrammemes=", 0x16, v7);
       v66 = v65;
       memset(&v65, 0, sizeof(v65));
       std::basic_string<char16_t>::append(&v66, ",", 0x11uLL);
       v67 = v66;
       memset(&v66, 0, sizeof(v66));
-      morphun::util::StringUtils::to_u16string(*(v6 - 31), &__p);
+      morphun::util::StringUtils::to_u16string(&__p, *(v6 - 31));
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -1576,7 +1445,7 @@ void morphun::analysis::tokenizer::MorphologicalWordToken::toString(morphun::ana
 
   std::basic_string<char16_t>::basic_string[abi:se200100]<0>(&__dst, L"MorphologicalWordToken{begin=");
   v16 = (*(*this + 24))(this);
-  morphun::util::StringUtils::to_u16string(v16, &v59);
+  morphun::util::StringUtils::to_u16string(&v59, v16);
   if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v17 = &v59;
@@ -1625,7 +1494,7 @@ void morphun::analysis::tokenizer::MorphologicalWordToken::toString(morphun::ana
   v62 = v61;
   memset(&v61, 0, sizeof(v61));
   v21 = (*(*this + 32))(this);
-  morphun::util::StringUtils::to_u16string(v21, &v56);
+  morphun::util::StringUtils::to_u16string(&v56, v21);
   if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v22 = &v56;
@@ -1770,7 +1639,7 @@ void morphun::analysis::tokenizer::MorphologicalWordToken::toString(morphun::ana
   v68 = v67;
   memset(&v67, 0, sizeof(v67));
   v36 = (*(*this + 56))(this);
-  morphun::util::StringUtils::to_u16string(v36, &v49);
+  morphun::util::StringUtils::to_u16string(&v49, v36);
   if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v37 = &v49;
@@ -1982,14 +1851,14 @@ void sub_1BE5C7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (*(v84 - 121) < 0)
+  if (*(v79 - 121) < 0)
   {
-    operator delete(*(v84 - 144));
+    operator delete(*(v79 - 144));
   }
 
-  if (*(v84 - 153) < 0)
+  if (*(v79 - 153) < 0)
   {
-    operator delete(*(v84 - 176));
+    operator delete(*(v79 - 176));
   }
 
   if (a20 < 0)
@@ -1997,9 +1866,9 @@ void sub_1BE5C7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a15);
   }
 
-  if (*(v84 - 185) < 0)
+  if (*(v79 - 185) < 0)
   {
-    operator delete(*(v84 - 208));
+    operator delete(*(v79 - 208));
   }
 
   if (a26 < 0)
@@ -2007,9 +1876,9 @@ void sub_1BE5C7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a21);
   }
 
-  if (*(v84 - 217) < 0)
+  if (*(v79 - 217) < 0)
   {
-    operator delete(*(v84 - 240));
+    operator delete(*(v79 - 240));
   }
 
   if (a32 < 0)
@@ -2017,14 +1886,14 @@ void sub_1BE5C7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a27);
   }
 
-  if (a84 < 0)
+  if (a79 < 0)
   {
-    operator delete(a83);
+    operator delete(a78);
   }
 
-  if (a82 < 0)
+  if (a77 < 0)
   {
-    operator delete(a81);
+    operator delete(a76);
   }
 
   if (a38 < 0)
@@ -2032,14 +1901,14 @@ void sub_1BE5C7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a33);
   }
 
-  if (a80 < 0)
+  if (a75 < 0)
   {
-    operator delete(a79);
+    operator delete(a74);
   }
 
-  if (a78 < 0)
+  if (a73 < 0)
   {
-    operator delete(a77);
+    operator delete(a72);
   }
 
   if (a44 < 0)
@@ -2047,9 +1916,9 @@ void sub_1BE5C7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a39);
   }
 
-  if (a76 < 0)
+  if (a71 < 0)
   {
-    operator delete(a75);
+    operator delete(a70);
   }
 
   if (a50 < 0)
@@ -2057,9 +1926,9 @@ void sub_1BE5C7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a45);
   }
 
-  if (a74 < 0)
+  if (a69 < 0)
   {
-    operator delete(a73);
+    operator delete(a68);
   }
 
   if (a56 < 0)
@@ -2067,9 +1936,9 @@ void sub_1BE5C7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a51);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
   {
-    operator delete(a69);
+    operator delete(a66);
   }
 
   if (a62 < 0)
@@ -2077,31 +1946,31 @@ void sub_1BE5C7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a57);
   }
 
-  if (a68 < 0)
+  if (a65 < 0)
   {
     operator delete(a63);
   }
 
-  if (*(v84 - 89) < 0)
+  if (*(v79 - 89) < 0)
   {
-    operator delete(*(v84 - 112));
+    operator delete(*(v79 - 112));
   }
 
   _Unwind_Resume(a1);
 }
 
-morphun::Token *morphun::analysis::tokenizer::MorphologicalWordToken::MorphologicalWordToken(morphun::Token *a1, uint64_t *a2, int a3, int a4, morphun::Token *a5, unint64_t a6, morphun::Token *a7, unint64_t a8, char a9, uint64_t a10, uint64_t *a11)
+uint64_t *morphun::analysis::tokenizer::MorphologicalWordToken::MorphologicalWordToken(uint64_t *a1, uint64_t *a2, int a3, int a4, morphun::Token *a5, unint64_t a6, morphun::Token *a7, unint64_t a8, char a9, uint64_t a10, uint64_t *a11)
 {
   v13 = morphun::Token_Word::Token_Word(a1, a2 + 1, a3, a4, a5, a6, a7, a8, a9);
   v14 = *a2;
   *v13 = *a2;
   *(a1 + *(v14 - 64)) = a2[7];
   *(a1 + *(*a1 - 40)) = a2[8];
-  *(a1 + 12) = 0;
-  *(a1 + 11) = a10;
-  *(a1 + 13) = 0;
-  *(a1 + 14) = 0;
-  std::vector<morphun::analysis::tokenattributes::LemmaMapping>::__init_with_size[abi:se200100]<morphun::analysis::tokenattributes::LemmaMapping*,morphun::analysis::tokenattributes::LemmaMapping*>(a1 + 96, *a11, a11[1], 0xAAAAAAAAAAAAAAABLL * ((a11[1] - *a11) >> 4));
+  a1[12] = 0;
+  a1[11] = a10;
+  a1[13] = 0;
+  a1[14] = 0;
+  std::vector<morphun::analysis::tokenattributes::LemmaMapping>::__init_with_size[abi:se200100]<morphun::analysis::tokenattributes::LemmaMapping*,morphun::analysis::tokenattributes::LemmaMapping*>(a1 + 12, *a11, a11[1], 0xAAAAAAAAAAAAAAABLL * ((a11[1] - *a11) >> 4));
   return a1;
 }
 
@@ -2448,7 +2317,7 @@ LABEL_16:
   return a1 + 2 * v3;
 }
 
-uint64_t morphun::util::StringViewUtils::isAllLowerCase(uint64_t a1, unint64_t a2)
+BOOL morphun::util::StringViewUtils::isAllLowerCase(uint64_t a1, unint64_t a2)
 {
   if (!a2)
   {
@@ -2480,7 +2349,7 @@ uint64_t morphun::util::StringViewUtils::isAllLowerCase(uint64_t a1, unint64_t a
   return result;
 }
 
-uint64_t morphun::util::StringViewUtils::isAllUpperCase(uint64_t a1, unint64_t a2)
+BOOL morphun::util::StringViewUtils::isAllUpperCase(uint64_t a1, unint64_t a2)
 {
   if (!a2)
   {
@@ -2592,66 +2461,65 @@ uint64_t morphun::util::StringViewUtils::uppercase(uint64_t a1, const UChar *a2,
     v9 = *a1;
   }
 
-  v10 = *(a4 + 104);
   if (*(a4 + 127) >= 0)
   {
-    v11 = (a4 + 104);
+    v10 = (a4 + 104);
   }
 
   else
   {
-    v11 = *(a4 + 104);
+    v10 = *(a4 + 104);
   }
 
-  v12 = u_strToUpper(v9, a3, a2, a3, v11, &pErrorCode);
-  v13 = v12;
-  v14 = pErrorCode;
+  v11 = u_strToUpper(v9, a3, a2, a3, v10, &pErrorCode);
+  v12 = v11;
+  v13 = pErrorCode;
   if (pErrorCode == U_BUFFER_OVERFLOW_ERROR)
   {
-    std::basic_string<char16_t>::resize(a1, v12, 0);
+    std::basic_string<char16_t>::resize(a1, v11, 0);
     pErrorCode = U_ZERO_ERROR;
-    v15 = a1;
+    v14 = a1;
     if (*(a1 + 23) < 0)
     {
-      v15 = *a1;
+      v14 = *a1;
     }
 
     if (*(a4 + 127) >= 0)
     {
-      v16 = (a4 + 104);
+      v15 = (a4 + 104);
     }
 
     else
     {
-      v16 = *(a4 + 104);
+      v15 = *(a4 + 104);
     }
 
-    v13 = u_strToUpper(v15, v13, a2, a3, v16, &pErrorCode);
-    v14 = pErrorCode;
+    v12 = u_strToUpper(v14, v12, a2, a3, v15, &pErrorCode);
+    v13 = pErrorCode;
   }
 
-  if (v14 >= U_ILLEGAL_ARGUMENT_ERROR)
+  if (v13 >= U_ILLEGAL_ARGUMENT_ERROR)
   {
-    v19 = v14;
+    v18 = v13;
     exception = __cxa_allocate_exception(0x38uLL);
-    morphun::exception::ICUException::ICUException(exception, v19);
+    morphun::exception::ICUException::ICUException(exception, v18);
   }
 
-  v17 = *(a1 + 23);
-  if (v17 < 0)
+  v16 = *(a1 + 23);
+  if (v16 < 0)
   {
-    v17 = *(a1 + 8);
+    v16 = *(a1 + 8);
   }
 
-  if (v13 != v17)
+  if (v12 != v16)
   {
-    std::basic_string<char16_t>::resize(a1, v13, 0);
+    std::basic_string<char16_t>::resize(a1, v12, 0);
   }
 
   return a1;
 }
 
-void morphun::util::StringViewUtils::split(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned __int16 *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void morphun::util::StringViewUtils::split(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned __int16 *a3@<X2>, uint64_t a4@<X3>, const void **a5@<X8>)
 {
   v10 = 0;
   v11 = 0;
@@ -2668,9 +2536,11 @@ void morphun::util::StringViewUtils::split(uint64_t a1@<X0>, unint64_t a2@<X1>, 
     }
 
     v14 = v12;
+    v17 = (a1 + 2 * v12);
+    v18 = (a1 + 2 * v11);
     if (v10 >= a5[2])
     {
-      std::vector<std::basic_string<char16_t>>::__emplace_back_slow_path<char16_t const*,char16_t const*>(a5);
+      std::vector<std::basic_string<char16_t>>::__emplace_back_slow_path<char16_t const*,char16_t const*>(a5, &v18, &v17);
       v10 = v15;
     }
 
@@ -2684,9 +2554,11 @@ void morphun::util::StringViewUtils::split(uint64_t a1@<X0>, unint64_t a2@<X1>, 
     v11 = v14 + a4;
   }
 
+  v17 = (a1 + 2 * a2);
+  v18 = (a1 + 2 * v11);
   if (v10 >= a5[2])
   {
-    std::vector<std::basic_string<char16_t>>::__emplace_back_slow_path<char16_t const*,char16_t const*>(a5);
+    std::vector<std::basic_string<char16_t>>::__emplace_back_slow_path<char16_t const*,char16_t const*>(a5, &v18, &v17);
   }
 
   else
@@ -2698,9 +2570,9 @@ void morphun::util::StringViewUtils::split(uint64_t a1@<X0>, unint64_t a2@<X1>, 
   a5[1] = v16;
 }
 
-void sub_1BE5C88F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BE5C88F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:se200100](va);
   _Unwind_Resume(a1);
 }
@@ -2723,44 +2595,44 @@ _BYTE *std::vector<std::basic_string<char16_t>>::__construct_one_at_end[abi:se20
   return result;
 }
 
-void std::vector<std::basic_string<char16_t>>::__emplace_back_slow_path<char16_t const*,char16_t const*>(void *a1)
+void std::vector<std::basic_string<char16_t>>::__emplace_back_slow_path<char16_t const*,char16_t const*>(const void **a1, _BYTE **a2, _BYTE **a3)
 {
-  v1 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
-  v2 = v1 + 1;
-  if (v1 + 1 <= 0xAAAAAAAAAAAAAAALL)
+  v3 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v4 = v3 + 1;
+  if (v3 + 1 <= 0xAAAAAAAAAAAAAAALL)
   {
-    if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v2)
+    if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v4)
     {
-      v2 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v4 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
     }
 
     if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
     {
-      v4 = 0xAAAAAAAAAAAAAAALL;
+      v6 = 0xAAAAAAAAAAAAAAALL;
     }
 
     else
     {
-      v4 = v2;
+      v6 = v4;
     }
 
-    v7 = a1;
-    if (v4)
+    v9 = a1;
+    if (v6)
     {
-      std::__allocate_at_least[abi:se200100]<std::allocator<std::basic_string<char16_t>>>(v4);
+      std::__allocate_at_least[abi:se200100]<std::allocator<std::basic_string<char16_t>>>(v6);
     }
 
-    v5 = 24 * v1;
-    v6 = 0;
+    v7 = 24 * v3;
+    v8 = 0;
     __break(1u);
   }
 
   std::vector<std::pair<morphun::dialog::DefaultArticleLookupFunction const*,std::vector<std::pair<std::basic_string<char16_t>,std::vector<std::pair<morphun::dialog::SemanticFeature const* const,std::basic_string<char16_t>>>>> const>>::__throw_length_error[abi:se200100]();
 }
 
-void sub_1BE5C8A7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BE5C8A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::basic_string<char16_t>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2828,28 +2700,27 @@ void sub_1BE5C8B30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-CFArrayRef mloc_getSupportedLocalesList(morphun::util::LocaleUtils *a1)
+void mloc_getSupportedLocalesList(morphun::util::LocaleUtils *a1)
 {
-  morphun::util::LocaleUtils::getSupportedLocaleList(a1, &v4);
-  if (v6)
+  morphun::util::LocaleUtils::getSupportedLocaleList(a1, &v2);
+  if (v4)
   {
-    if (!(v6 >> 61))
+    if (!(v4 >> 61))
     {
-      std::__allocate_at_least[abi:se200100]<std::allocator<__CFLocale const*>>(v6);
+      std::__allocate_at_least[abi:se200100]<std::allocator<__CFLocale const*>>(v4);
     }
 
     std::vector<std::pair<morphun::dialog::DefaultArticleLookupFunction const*,std::vector<std::pair<std::basic_string<char16_t>,std::vector<std::pair<morphun::dialog::SemanticFeature const* const,std::basic_string<char16_t>>>>> const>>::__throw_length_error[abi:se200100]();
   }
 
-  if (v4 != &v5)
+  if (v2 != &v3)
   {
-    morphun::util::CFUtils::convert((v4 + 4), v1);
+    morphun::util::CFUtils::convert((v2 + 4), v1);
     std::__allocate_at_least[abi:se200100]<std::allocator<__CFLocale const*>>(1uLL);
   }
 
-  v2 = CFArrayCreate(0, 0, 0, &mloc_getSupportedLocalesList::callbacks);
-  std::__tree<morphun::lang::features::LanguageGrammarFeatures_GrammarFeatures>::destroy(v5);
-  return v2;
+  CFArrayCreate(0, 0, 0, &mloc_getSupportedLocalesList::callbacks);
+  std::__tree<morphun::lang::features::LanguageGrammarFeatures_GrammarFeatures>::destroy(v3);
 }
 
 void sub_1BE5C8D6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11)
@@ -2877,7 +2748,7 @@ CFLocaleRef mloc_createValidRegionAwareLanguage(__CFLocale *a1, const __CFLocale
 {
   morphun::util::CFUtils::convert(v7, a1);
   morphun::util::CFUtils::convert(v6, a2);
-  morphun::util::LocaleUtils::createValidRegionAwareLanguage(v7, v6, v8);
+  morphun::util::LocaleUtils::createValidRegionAwareLanguage(v8, v7, v6);
   v4 = morphun::util::CFUtils::convert(v8, v3);
   return v4;
 }
@@ -3200,19 +3071,19 @@ void morphun::grammar::synthesis::ArGrammarSynthesizer_PronounLookupFunction::~A
   std::__tree<std::u16string_view>::destroy(*(this + 7));
 }
 
-void *std::map<int,std::u16string_view>::map[abi:se200100](void *a1, void *a2)
+uint64_t **std::map<int,std::u16string_view>::map[abi:se200100](uint64_t **a1, void *a2)
 {
   a1[1] = 0;
-  v3 = a1 + 1;
+  v3 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   v4 = a2 + 1;
   v5 = *a2;
   if (*a2 != a2 + 1)
   {
     do
     {
-      std::__tree<std::__value_type<int,std::u16string_view>,std::__map_value_compare<int,std::__value_type<int,std::u16string_view>,std::less<int>,true>,std::allocator<std::__value_type<int,std::u16string_view>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::u16string_view> const&>(a1, v3, *(v5 + 8));
+      std::__tree<std::__value_type<int,std::u16string_view>,std::__map_value_compare<int,std::__value_type<int,std::u16string_view>,std::less<int>,true>,std::allocator<std::__value_type<int,std::u16string_view>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::u16string_view> const&>(a1, v3, *(v5 + 8), (v5 + 4));
       v6 = v5[1];
       if (v6)
       {
@@ -3265,349 +3136,302 @@ unint64_t morphun::Token::hashCode(morphun::Token *this)
   return std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:se200100](v2, 2 * v4);
 }
 
-void morphun::Token::toString(char **this@<X0>, std::basic_string<char16_t> *a2@<X8>)
+void morphun::Token::toString(morphun::Token *this@<X0>, std::basic_string<char16_t> *a2@<X8>)
 {
-  memset(&v58, 0, sizeof(v58));
-  p_size = (&v58.__r_.__value_.__r.__words[1] + 2);
+  memset(&v51, 0, sizeof(v51));
+  p_size = (&v51.__r_.__value_.__r.__words[1] + 2);
   if (!this)
   {
     goto LABEL_16;
   }
 
-  v5 = *this;
-  v6 = **this;
   {
-    v9 = *v5;
     {
-      *(&v58.__r_.__value_.__s + 23) = 4;
-      v8 = 0x6C006900610054;
+      *(&v51.__r_.__value_.__s + 23) = 4;
+      v6 = 0x6C006900610054;
       goto LABEL_7;
     }
 
-    v10 = *v5;
     {
-      *(&v58.__r_.__value_.__s + 23) = 4;
-      v7 = 0x6100650048;
+      *(&v51.__r_.__value_.__s + 23) = 4;
+      v5 = 0x6100650048;
       goto LABEL_4;
     }
 
-    v11 = *v5;
     {
-      *(&v58.__r_.__value_.__s + 23) = 5;
-      v58.__r_.__value_.__s.__data_[4] = 109;
-      v12 = &qword_1BE8076E6;
+      *(&v51.__r_.__value_.__s + 23) = 5;
+      v51.__r_.__value_.__s.__data_[4] = 109;
+      v7 = &qword_1BE8076E6;
 LABEL_17:
-      v58.__r_.__value_.__r.__words[0] = *v12;
+      v51.__r_.__value_.__r.__words[0] = *v7;
       goto LABEL_18;
     }
 
-    v13 = *v5;
     {
-      *(&v58.__r_.__value_.__s + 23) = 5;
-      v58.__r_.__value_.__s.__data_[4] = 112;
-      v12 = &qword_1BE8076F2;
+      *(&v51.__r_.__value_.__s + 23) = 5;
+      v51.__r_.__value_.__s.__data_[4] = 112;
+      v7 = &qword_1BE8076F2;
       goto LABEL_17;
     }
 
-    v14 = *v5;
     {
-      std::basic_string<char16_t>::__assign_external(&v58, word_1BE8076FE, 0xEuLL);
+      std::basic_string<char16_t>::__assign_external(&v51, word_1BE8076FE, 0xEuLL);
       goto LABEL_19;
     }
 
 LABEL_16:
-    *(&v58.__r_.__value_.__s + 23) = 5;
-    v58.__r_.__value_.__s.__data_[4] = 110;
-    v12 = L"Token";
+    *(&v51.__r_.__value_.__s + 23) = 5;
+    v51.__r_.__value_.__s.__data_[4] = 110;
+    v7 = L"Token";
     goto LABEL_17;
   }
 
-  *(&v58.__r_.__value_.__s + 23) = 4;
-  v7 = 0x72006F0057;
+  *(&v51.__r_.__value_.__s + 23) = 4;
+  v5 = 0x72006F0057;
 LABEL_4:
-  v8 = v7 & 0xFFFFFFFFFFFFLL | 0x64000000000000;
+  v6 = v5 & 0xFFFFFFFFFFFFLL | 0x64000000000000;
 LABEL_7:
-  v58.__r_.__value_.__r.__words[0] = v8;
-  p_size = &v58.__r_.__value_.__l.__size_;
+  v51.__r_.__value_.__r.__words[0] = v6;
+  p_size = &v51.__r_.__value_.__l.__size_;
 LABEL_18:
   *p_size = 0;
 LABEL_19:
   std::basic_string<char16_t>::basic_string[abi:se200100]<0>(&__dst, L"{begin=");
-  if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = &v58;
+    v9 = &v51;
   }
 
   else
   {
-    v16 = v58.__r_.__value_.__r.__words[0];
+    v9 = v51.__r_.__value_.__r.__words[0];
   }
 
-  if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v58.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v51.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v58.__r_.__value_.__l.__size_;
+    size = v51.__r_.__value_.__l.__size_;
   }
 
-  std::basic_string<char16_t>::insert(&__dst, v16, size, v15);
-  v50 = __dst;
+  std::basic_string<char16_t>::insert(&__dst, v9, size, v8);
+  v43 = __dst;
   memset(&__dst, 0, sizeof(__dst));
-  morphun::util::StringUtils::to_u16string(*(this + 2), &v48);
-  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  morphun::util::StringUtils::to_u16string(&v41, *(this + 2));
+  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v18 = &v48;
+    v11 = &v41;
   }
 
   else
   {
-    v18 = v48.__r_.__value_.__r.__words[0];
+    v11 = v41.__r_.__value_.__r.__words[0];
   }
 
-  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v19 = HIBYTE(v48.__r_.__value_.__r.__words[2]);
+    v12 = HIBYTE(v41.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v19 = v48.__r_.__value_.__l.__size_;
+    v12 = v41.__r_.__value_.__l.__size_;
   }
 
-  std::basic_string<char16_t>::append(&v50, v18, v19);
-  v51 = v50;
-  memset(&v50, 0, sizeof(v50));
-  std::basic_string<char16_t>::basic_string[abi:se200100]<0>(v46, ",");
-  if ((v47 & 0x80u) == 0)
+  std::basic_string<char16_t>::append(&v43, v11, v12);
+  v44 = v43;
+  memset(&v43, 0, sizeof(v43));
+  std::basic_string<char16_t>::basic_string[abi:se200100]<0>(v39, ",");
+  if ((v40 & 0x80u) == 0)
   {
-    v20 = v46;
+    v13 = v39;
   }
 
   else
   {
-    v20 = v46[0];
+    v13 = v39[0];
   }
 
-  if ((v47 & 0x80u) == 0)
+  if ((v40 & 0x80u) == 0)
   {
-    v21 = v47;
+    v14 = v40;
   }
 
   else
   {
-    v21 = v46[1];
+    v14 = v39[1];
   }
 
-  std::basic_string<char16_t>::append(&v51, v20, v21);
-  v52 = v51;
-  memset(&v51, 0, sizeof(v51));
-  morphun::util::StringUtils::to_u16string(*(this + 3), &v45);
-  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::basic_string<char16_t>::append(&v44, v13, v14);
+  v45 = v44;
+  memset(&v44, 0, sizeof(v44));
+  morphun::util::StringUtils::to_u16string(&v38, *(this + 3));
+  if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v22 = &v45;
+    v15 = &v38;
   }
 
   else
   {
-    v22 = v45.__r_.__value_.__r.__words[0];
+    v15 = v38.__r_.__value_.__r.__words[0];
   }
 
-  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v23 = HIBYTE(v45.__r_.__value_.__r.__words[2]);
+    v16 = HIBYTE(v38.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v23 = v45.__r_.__value_.__l.__size_;
+    v16 = v38.__r_.__value_.__l.__size_;
   }
 
-  std::basic_string<char16_t>::append(&v52, v22, v23);
-  v53 = v52;
-  memset(&v52, 0, sizeof(v52));
-  std::basic_string<char16_t>::basic_string[abi:se200100]<0>(v43, L", value='");
-  if ((v44 & 0x80u) == 0)
+  std::basic_string<char16_t>::append(&v45, v15, v16);
+  v46 = v45;
+  memset(&v45, 0, sizeof(v45));
+  std::basic_string<char16_t>::basic_string[abi:se200100]<0>(v36, L", value='");
+  if ((v37 & 0x80u) == 0)
   {
-    v24 = v43;
+    v17 = v36;
   }
 
   else
   {
-    v24 = v43[0];
+    v17 = v36[0];
   }
 
-  if ((v44 & 0x80u) == 0)
+  if ((v37 & 0x80u) == 0)
   {
-    v25 = v44;
+    v18 = v37;
   }
 
   else
   {
-    v25 = v43[1];
+    v18 = v36[1];
   }
 
-  std::basic_string<char16_t>::append(&v53, v24, v25);
-  v54 = v53;
-  memset(&v53, 0, sizeof(v53));
-  v26 = *(this + 39);
-  if (v26 >= 0)
+  std::basic_string<char16_t>::append(&v46, v17, v18);
+  v47 = v46;
+  memset(&v46, 0, sizeof(v46));
+  v19 = *(this + 39);
+  if (v19 >= 0)
   {
-    v27 = (this + 2);
+    v20 = (this + 16);
   }
 
   else
   {
-    v27 = this[2];
+    v20 = *(this + 2);
   }
 
-  if (v26 >= 0)
+  if (v19 >= 0)
   {
-    v28 = *(this + 39);
+    v21 = *(this + 39);
   }
 
   else
   {
-    v28 = this[3];
+    v21 = *(this + 3);
   }
 
-  std::basic_string<char16_t>::append(&v54, v27, v28);
-  v55 = v54;
-  memset(&v54, 0, sizeof(v54));
-  std::basic_string<char16_t>::basic_string[abi:se200100]<0>(v41, L"', cleanValue='");
-  if ((v42 & 0x80u) == 0)
+  std::basic_string<char16_t>::append(&v47, v20, v21);
+  v48 = v47;
+  memset(&v47, 0, sizeof(v47));
+  std::basic_string<char16_t>::basic_string[abi:se200100]<0>(v34, L"', cleanValue='");
+  if ((v35 & 0x80u) == 0)
   {
-    v29 = v41;
+    v22 = v34;
   }
 
   else
   {
-    v29 = v41[0];
+    v22 = v34[0];
   }
 
-  if ((v42 & 0x80u) == 0)
+  if ((v35 & 0x80u) == 0)
   {
-    v30 = v42;
+    v23 = v35;
   }
 
   else
   {
-    v30 = v41[1];
+    v23 = v34[1];
   }
 
-  std::basic_string<char16_t>::append(&v55, v29, v30);
-  v56 = v55;
-  memset(&v55, 0, sizeof(v55));
-  v33 = this[5];
-  v32 = (this + 5);
-  v31 = v33;
-  v34 = v32[23];
-  if (v34 >= 0)
+  std::basic_string<char16_t>::append(&v48, v22, v23);
+  v49 = v48;
+  memset(&v48, 0, sizeof(v48));
+  v26 = *(this + 5);
+  v25 = this + 40;
+  v24 = v26;
+  v27 = v25[23];
+  if (v27 >= 0)
   {
-    v35 = v32;
+    v28 = v25;
   }
 
   else
   {
-    v35 = v31;
+    v28 = v24;
   }
 
-  if (v34 >= 0)
+  if (v27 >= 0)
   {
-    v36 = v32[23];
+    v29 = v25[23];
   }
 
   else
   {
-    v36 = *(v32 + 1);
+    v29 = *(v25 + 1);
   }
 
-  std::basic_string<char16_t>::append(&v56, v35, v36);
-  v57 = v56;
-  memset(&v56, 0, sizeof(v56));
+  std::basic_string<char16_t>::append(&v49, v28, v29);
+  v50 = v49;
+  memset(&v49, 0, sizeof(v49));
   std::basic_string<char16_t>::basic_string[abi:se200100]<0>(__p, L"'}");
-  if ((v40 & 0x80u) == 0)
+  if ((v33 & 0x80u) == 0)
   {
-    v37 = __p;
+    v30 = __p;
   }
 
   else
   {
-    v37 = __p[0];
+    v30 = __p[0];
   }
 
-  if ((v40 & 0x80u) == 0)
+  if ((v33 & 0x80u) == 0)
   {
-    v38 = v40;
+    v31 = v33;
   }
 
   else
   {
-    v38 = __p[1];
+    v31 = __p[1];
   }
 
-  std::basic_string<char16_t>::append(&v57, v37, v38);
-  *a2 = v57;
-  memset(&v57, 0, sizeof(v57));
-  if (v40 < 0)
+  std::basic_string<char16_t>::append(&v50, v30, v31);
+  *a2 = v50;
+  memset(&v50, 0, sizeof(v50));
+  if (v33 < 0)
   {
     operator delete(__p[0]);
-    if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v57.__r_.__value_.__l.__data_);
+      operator delete(v50.__r_.__value_.__l.__data_);
     }
   }
 
-  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v56.__r_.__value_.__l.__data_);
+    operator delete(v49.__r_.__value_.__l.__data_);
   }
 
-  if (v42 < 0)
+  if (v35 < 0)
   {
-    operator delete(v41[0]);
-  }
-
-  if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v55.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v54.__r_.__value_.__l.__data_);
-  }
-
-  if (v44 < 0)
-  {
-    operator delete(v43[0]);
-  }
-
-  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v53.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v45.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v52.__r_.__value_.__l.__data_);
-  }
-
-  if (v47 < 0)
-  {
-    operator delete(v46[0]);
-  }
-
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v51.__r_.__value_.__l.__data_);
+    operator delete(v34[0]);
   }
 
   if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
@@ -3615,9 +3439,49 @@ LABEL_19:
     operator delete(v48.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v50.__r_.__value_.__l.__data_);
+    operator delete(v47.__r_.__value_.__l.__data_);
+  }
+
+  if (v37 < 0)
+  {
+    operator delete(v36[0]);
+  }
+
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v46.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v38.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
+  if (v40 < 0)
+  {
+    operator delete(v39[0]);
+  }
+
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v44.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v41.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v43.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
@@ -3625,9 +3489,9 @@ LABEL_19:
     operator delete(__dst.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v58.__r_.__value_.__l.__data_);
+    operator delete(v51.__r_.__value_.__l.__data_);
   }
 }
 
@@ -3641,7 +3505,7 @@ void sub_1BE5C9A74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t morphun::Token::operator==(char **a1, char **a2)
+BOOL morphun::Token::operator==(uint64_t a1, uint64_t a2)
 {
   if (a1 == a2)
   {
@@ -3654,7 +3518,7 @@ uint64_t morphun::Token::operator==(char **a1, char **a2)
     return 0;
   }
 
-  if (*(a1 + 3) - *(a1 + 2) != *(a2 + 3) - *(a2 + 2))
+  if (*(a1 + 12) - *(a1 + 8) != *(a2 + 12) - *(a2 + 8))
   {
     return 0;
   }
@@ -3664,45 +3528,37 @@ uint64_t morphun::Token::operator==(char **a1, char **a2)
     return 0;
   }
 
-  v5 = *a1;
-  v6 = **a1;
-  v8 = *a2;
-  v9 = **a2;
   {
     return 0;
   }
 
-  v10 = *v5;
-  v12 = *v8;
   {
     return 0;
   }
 
-  result = std::operator==[abi:se200100]<char16_t,std::char_traits<char16_t>,std::allocator<char16_t>>(a1 + 20, a2 + 20);
+  result = std::operator==[abi:se200100]<char16_t,std::char_traits<char16_t>,std::allocator<char16_t>>((a1 + 40), (a2 + 40));
   if (result)
   {
 
-    return std::operator==[abi:se200100]<char16_t,std::char_traits<char16_t>,std::allocator<char16_t>>(a1 + 8, a2 + 8);
+    return std::operator==[abi:se200100]<char16_t,std::char_traits<char16_t>,std::allocator<char16_t>>((a1 + 16), (a2 + 16));
   }
 
   return result;
 }
 
-char **morphun::Token::isHead(char **this)
+const void *morphun::Token::isHead(const void *this)
 {
   if (this)
   {
-    v1 = **this;
   }
 
   return this;
 }
 
-char **morphun::Token::isTail(char **this)
+const void *morphun::Token::isTail(const void *this)
 {
   if (this)
   {
-    v1 = **this;
   }
 
   return this;
@@ -3781,10 +3637,10 @@ void morphun::dialog::language::IsCommonConceptFactory::~IsCommonConceptFactory(
   morphun::dialog::CommonConceptFactoryImpl::~CommonConceptFactoryImpl(this, off_1F3CEF248);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,morphun::Tokenizer const*>,std::__map_value_compare<std::string,std::__value_type<std::string,morphun::Tokenizer const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,morphun::Tokenizer const*>>>::__emplace_unique_key_args<std::string,std::string const&,morphun::Tokenizer const*&>(uint64_t a1, void *a2)
+uint64_t std::__tree<std::__value_type<std::string,morphun::Tokenizer const*>,std::__map_value_compare<std::string,std::__value_type<std::string,morphun::Tokenizer const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,morphun::Tokenizer const*>>>::__emplace_unique_key_args<std::string,std::string const&,morphun::Tokenizer const*&>(uint64_t **a1, void *a2, uint64_t a3, uint64_t *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_7:
     operator new();
@@ -3794,27 +3650,27 @@ LABEL_7:
   {
     while (1)
     {
-      v4 = v2;
-      if ((std::operator<=>[abi:se200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v2 + 4) & 0x80) == 0)
+      v6 = v4;
+      if ((std::operator<=>[abi:se200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v4 + 4) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_7;
       }
     }
 
-    result = std::operator<=>[abi:se200100]<char,std::char_traits<char>,std::allocator<char>>(v4 + 4, a2);
+    result = std::operator<=>[abi:se200100]<char,std::char_traits<char>,std::allocator<char>>(v6 + 4, a2);
     if ((result & 0x80) == 0)
     {
       return result;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_7;
     }
@@ -4141,7 +3997,7 @@ uint64_t morphun::analysis::stemmer::DeStemFilter::incrementToken(morphun::analy
         v10 = *(v28[0] + 23);
         if ((v10 & 0x8000000000000000) != 0)
         {
-          v10 = *(v28[0] + 8);
+          v10 = v28[0][1];
         }
 
         if (v10 >= 2)
@@ -4469,10 +4325,9 @@ void morphun::grammar::synthesis::PtGrammarSynthesizer_ArticleLookupFunction::~P
   }
 }
 
-void morphun::grammar::synthesis::PtGrammarSynthesizer_ArticleLookupFunction::PtGrammarSynthesizer_ArticleLookupFunction(morphun::dialog::DefaultArticleLookupFunction *a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void morphun::grammar::synthesis::PtGrammarSynthesizer_ArticleLookupFunction::PtGrammarSynthesizer_ArticleLookupFunction(std::basic_string<char16_t> *a1, uint64_t a2, uint64_t a3, __int128 *a4, __int128 *a5, __int128 *a6, __int128 *a7, __int128 *a8, __int128 *a9, __int128 *a10)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  *a1 = &off_1F3CE67A8;
+  a1->__r_.__value_.__r.__words[0] = &off_1F3CE67A8;
   v11 = *(a3 + 23);
   if ((v11 & 0x80u) != 0)
   {
@@ -4480,12 +4335,12 @@ void morphun::grammar::synthesis::PtGrammarSynthesizer_ArticleLookupFunction::Pt
   }
 
   v12 = morphun::dialog::DefaultArticleLookupFunction::DefaultArticleLookupFunction(a1, off_1F3CDB8A0, a2, v11 != 0, 1);
-  *a1 = &off_1F3CD4690;
+  a1->__r_.__value_.__r.__words[0] = &off_1F3CD4690;
   v13 = morphun::util::LocaleUtils::PORTUGUESE(v12);
   Dictionary = morphun::dictionary::DictionaryMetaData::createDictionary(v13, v14);
   if (Dictionary)
   {
-    *(a1 + 3) = Dictionary;
+    a1[1].__r_.__value_.__r.__words[0] = Dictionary;
     v16 = morphun::util::LocaleUtils::PORTUGUESE(Dictionary);
     morphun::TokenizerFactory::createTokenizer(v16, v17);
   }
@@ -4717,7 +4572,7 @@ morphun::analysis::DefaultAnalyzerFactory *morphun::analysis::DefaultAnalyzerFac
     exception = __cxa_allocate_exception(0x38uLL);
     v12 = a3;
     v13 = exception;
-    morphun::util::StringUtils::to_u16string(v12, &v15);
+    morphun::util::StringUtils::to_u16string(&v15, v12);
     std::basic_string<char16_t>::insert(&v15, "U", 0x1F, v14);
     v16 = v15;
     memset(&v15, 0, sizeof(v15));
@@ -4924,7 +4779,7 @@ void morphun::analysis::filter::PunctuationFilter::skipOffset(morphun::analysis:
     v12 = 0;
     v13 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:se200100]<int *,int *>(&__p, *v3, v3[1], (v3[1] - *v3) >> 2);
+    std::vector<int>::__init_with_size[abi:se200100]<int *,int *>(&__p, *v3, *(v3 + 8), (*(v3 + 8) - *v3) >> 2);
     v4 = (*(**(this + 18) + 72))(*(this + 18));
     v5 = v12;
     if (v12 >= v13)
@@ -4987,7 +4842,7 @@ void sub_1BE5CE50C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:se200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:se200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5144,9 +4999,9 @@ const void **morphun::util::CFUtils::convert(const void **this, const std::excep
   return this;
 }
 
-void sub_1BE5CE904(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BE5CE904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   morphun::util::AutoCRelease<__CFString const*,&(CFRelease)>::~AutoCRelease(va);
   _Unwind_Resume(a1);
 }
@@ -5194,9 +5049,9 @@ CFLocaleRef morphun::util::CFUtils::convert(morphun::util::CFUtils *this, const 
   return v8;
 }
 
-void sub_1BE5CE9C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BE5CE9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   morphun::util::AutoCRelease<__CFString const*,&(CFRelease)>::~AutoCRelease(va);
   _Unwind_Resume(a1);
 }
@@ -5263,22 +5118,22 @@ void morphun::analysis::filter::NormalizeFontVariantsFilter::~NormalizeFontVaria
   morphun::analysis::TokenFilter::~TokenFilter(this, off_1F3CDA300);
 }
 
-uint64_t morphun::transliteration::MLTransliterator::transliterate(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t morphun::transliteration::MLTransliterator::transliterate(uint64_t a1, std::basic_string<char16_t>::value_type *a2, unint64_t a3, uint64_t a4)
 {
   if (a3 && *(a1 + 136))
   {
-    memset(&v32, 0, sizeof(v32));
     memset(&v31, 0, sizeof(v31));
+    memset(&v30, 0, sizeof(v30));
     v8 = 2 * a3;
-    std::basic_string<char16_t>::reserve(&v31, 2 * a3);
+    std::basic_string<char16_t>::reserve(&v30, 2 * a3);
     v9 = a2;
     do
     {
       v10 = *v9;
-      size = HIBYTE(v31.__r_.__value_.__r.__words[2]);
-      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      size = HIBYTE(v30.__r_.__value_.__r.__words[2]);
+      if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v31.__r_.__value_.__l.__size_;
+        size = v30.__r_.__value_.__l.__size_;
       }
 
       if (size)
@@ -5293,36 +5148,36 @@ uint64_t morphun::transliteration::MLTransliterator::transliterate(uint64_t a1, 
 
       if (!v12)
       {
-        std::basic_string<char16_t>::push_back(&v31, 32);
+        std::basic_string<char16_t>::push_back(&v30, 32);
       }
 
-      std::basic_string<char16_t>::push_back(&v31, v10);
+      std::basic_string<char16_t>::push_back(&v30, v10);
       ++v9;
       v8 -= 2;
     }
 
     while (v8);
-    if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v13 = &v31;
+      v13 = &v30;
     }
 
     else
     {
-      v13 = v31.__r_.__value_.__r.__words[0];
+      v13 = v30.__r_.__value_.__r.__words[0];
     }
 
-    if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v14 = HIBYTE(v31.__r_.__value_.__r.__words[2]);
+      v14 = HIBYTE(v30.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v14 = v31.__r_.__value_.__r.__words[1];
+      v14 = v30.__r_.__value_.__r.__words[1];
     }
 
-    morphun::util::StringViewUtils::convert(&v32, v13, v14);
+    morphun::util::StringViewUtils::convert(&v31, v13, v14);
     {
       operator new();
     }
@@ -5335,35 +5190,34 @@ uint64_t morphun::transliteration::MLTransliterator::transliterate(uint64_t a1, 
     }
 
     std::mutex::lock(morphun::transliteration::MLTransliterator::transliterate(std::u16string_view,std::basic_string<char16_t> *)const::mutex);
-    v16 = *(a1 + 136);
-    v17 = QuasarCPDecTranslator_translate();
+    v16 = QuasarCPDecTranslator_translate();
     std::mutex::unlock(v15);
-    if (v17)
+    if (v16)
     {
-      v18 = strlen(v17);
-      morphun::util::StringViewUtils::convert(&v31, v17, v18);
+      v17 = strlen(v16);
+      morphun::util::StringViewUtils::convert(&v30, v16, v17);
       memset(&__str, 0, sizeof(__str));
-      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v19 = &v31;
+        v18 = &v30;
       }
 
       else
       {
-        v19 = v31.__r_.__value_.__r.__words[0];
+        v18 = v30.__r_.__value_.__r.__words[0];
       }
 
-      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v20 = SHIBYTE(v31.__r_.__value_.__r.__words[2]);
+        v19 = SHIBYTE(v30.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v20 = v31.__r_.__value_.__l.__size_;
+        v19 = v30.__r_.__value_.__l.__size_;
       }
 
-      morphun::util::StringViewUtils::replace(&__str, v19, v20, &word_1BE80F394, 1uLL, &word_1BE80F080, 0);
+      morphun::util::StringViewUtils::replace(&__str, v18, v19, &word_1BE80F394, 1uLL, &word_1BE80F080, 0);
       memset(&__p, 0, sizeof(__p));
       isAllLowerCase = morphun::util::StringViewUtils::isAllLowerCase(a2, a3);
       if (isAllLowerCase)
@@ -5380,15 +5234,15 @@ uint64_t morphun::transliteration::MLTransliterator::transliterate(uint64_t a1, 
 
         if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v23 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
+          v22 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v23 = __str.__r_.__value_.__r.__words[1];
+          v22 = __str.__r_.__value_.__r.__words[1];
         }
 
-        morphun::util::StringViewUtils::lowercase(&__p, p_str, v23, a1 + 8);
+        morphun::util::StringViewUtils::lowercase(&__p, p_str, v22, a1 + 8);
       }
 
       else
@@ -5408,16 +5262,16 @@ uint64_t morphun::transliteration::MLTransliterator::transliterate(uint64_t a1, 
 
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v25 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v24 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v25 = __p.__r_.__value_.__l.__size_;
+        v24 = __p.__r_.__value_.__l.__size_;
       }
 
-      morphun::transliteration::Transliterator::matchCase(a1, a4, p_p, v25, a2, a3, isAllLowerCase);
-      free(v17);
+      morphun::transliteration::Transliterator::matchCase(a1, a4, p_p, v24, a2, a3, isAllLowerCase);
+      free(v16);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -5429,21 +5283,21 @@ uint64_t morphun::transliteration::MLTransliterator::transliterate(uint64_t a1, 
       }
     }
 
+    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v30.__r_.__value_.__l.__data_);
+    }
+
     if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v31.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v32.__r_.__value_.__l.__data_);
-      if (v17)
+      if (v16)
       {
         return 1;
       }
     }
 
-    else if (v17)
+    else if (v16)
     {
       return 1;
     }
@@ -5451,8 +5305,8 @@ uint64_t morphun::transliteration::MLTransliterator::transliterate(uint64_t a1, 
 
   if (!a4)
   {
-    v27 = __cxa_allocate_exception(0x38uLL);
-    morphun::exception::NullPointerException::NullPointerException(v27);
+    v26 = __cxa_allocate_exception(0x38uLL);
+    morphun::exception::NullPointerException::NullPointerException(v26);
   }
 
   result = 0;
@@ -5486,7 +5340,7 @@ void sub_1BE5CEF34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void morphun::transliteration::MLTransliterator::~MLTransliterator(morphun::transliteration::MLTransliterator *this)
+void morphun::transliteration::MLTransliterator::~MLTransliterator(void **this)
 {
   morphun::transliteration::MLTransliterator::~MLTransliterator(this);
 
@@ -5495,7 +5349,6 @@ void morphun::transliteration::MLTransliterator::~MLTransliterator(morphun::tran
 
 {
   *this = &unk_1F3CD9678;
-  v2 = *(this + 17);
   QuasarCPDecTranslator_delete();
   *this = &off_1F3CED650;
 }
@@ -5621,22 +5474,22 @@ void morphun::grammar::synthesis::DaGrammarSynthesizer_ArticleLookupFunction::Da
   morphun::grammar::synthesis::DaGrammarSynthesizer_ArticleLookupFunction::DaGrammarSynthesizer_ArticleLookupFunction(a1, a2, a3, v13, v12, v11);
 }
 
-void sub_1BE5CF604(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BE5CF604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
   v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
   v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   _Unwind_Resume(a1);
 }
 
@@ -5705,14 +5558,14 @@ void sub_1BE5D19F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t morphun::grammar::synthesis::FrGrammarSynthesizer::getCount(unsigned __int16 *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
   if (!a1)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   v2 = morphun::grammar::synthesis::FrGrammarSynthesizer::getCount(std::basic_string<char16_t> const*)::valueMap;
@@ -5746,36 +5599,32 @@ LABEL_10:
 
   if (npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::FrGrammarSynthesizer::Count>>(morphun::grammar::synthesis::FrGrammarSynthesizer::getCount(std::basic_string<char16_t> const*)::valueMap) + 8 == v6)
   {
-LABEL_13:
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = *(v6 + 56);
+    return *(v6 + 56);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-void sub_1BE5D2354(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_1BE5D2354(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (a14 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8);
+  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::FrGrammarSynthesizer::Count>::map[abi:se200100](void *a1, unsigned __int16 *a2, uint64_t a3)
+uint64_t **std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::FrGrammarSynthesizer::Count>::map[abi:se200100](uint64_t **a1, unsigned __int16 *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v5 = a2;
@@ -5880,14 +5729,14 @@ uint64_t npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::F
 
 uint64_t morphun::grammar::synthesis::FrGrammarSynthesizer::getGender(unsigned __int16 *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
   if (!a1)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   v2 = morphun::grammar::synthesis::FrGrammarSynthesizer::getGender(std::basic_string<char16_t> const*)::valueMap;
@@ -5921,36 +5770,32 @@ LABEL_10:
 
   if (npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::FrGrammarSynthesizer::Gender>>(morphun::grammar::synthesis::FrGrammarSynthesizer::getGender(std::basic_string<char16_t> const*)::valueMap) + 8 == v6)
   {
-LABEL_13:
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = *(v6 + 56);
+    return *(v6 + 56);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-void sub_1BE5D2800(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_1BE5D2800(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (a14 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8);
+  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::FrGrammarSynthesizer::Gender>::map[abi:se200100](void *a1, unsigned __int16 *a2, uint64_t a3)
+uint64_t **std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::FrGrammarSynthesizer::Gender>::map[abi:se200100](uint64_t **a1, unsigned __int16 *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v5 = a2;
@@ -6053,16 +5898,16 @@ uint64_t npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::F
   return result;
 }
 
-void *std::set<std::u16string_view>::set[abi:se200100](void *a1, uint64_t a2)
+uint64_t **std::set<std::u16string_view>::set[abi:se200100](uint64_t **a1, uint64_t a2)
 {
   a1[1] = 0;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::set<std::u16string_view>::insert[abi:se200100]<std::__tree_const_iterator<std::u16string_view,std::__tree_node<std::u16string_view,void *> *,long>>(a1, *a2, (a2 + 8));
   return a1;
 }
 
-void *std::set<std::u16string_view>::insert[abi:se200100]<std::__tree_const_iterator<std::u16string_view,std::__tree_node<std::u16string_view,void *> *,long>>(void *result, void *a2, void *a3)
+uint64_t **std::set<std::u16string_view>::insert[abi:se200100]<std::__tree_const_iterator<std::u16string_view,std::__tree_node<std::u16string_view,void *> *,long>>(uint64_t **result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -6070,7 +5915,7 @@ void *std::set<std::u16string_view>::insert[abi:se200100]<std::__tree_const_iter
     v5 = result;
     do
     {
-      result = std::__tree<std::u16string_view>::__emplace_hint_unique_key_args<std::u16string_view,std::u16string_view const&>(v5, v5 + 1, v4[4], v4[5]);
+      result = std::__tree<std::u16string_view>::__emplace_hint_unique_key_args<std::u16string_view,std::u16string_view const&>(v5, v5 + 1, v4[4], v4[5], v4 + 2);
       v6 = v4[1];
       if (v6)
       {
@@ -6127,16 +5972,16 @@ void morphun::tokenizer::dictionary::GermanicDecompounder::~GermanicDecompounder
   std::__tree<std::u16string_view>::destroy(this[9]);
 }
 
-void morphun::tokenizer::dictionary::GermanicDecompounder::analyze(_DWORD *a1, void *a2, uint64_t *a3, uint64_t a4, uint64_t a5, void *a6)
+void morphun::tokenizer::dictionary::GermanicDecompounder::analyze(_DWORD *a1, void *a2, uint64_t *a3, int a4, uint64_t a5, void *a6)
 {
   v9 = *a3;
   v10 = a2[1];
-  v25[0] = *a2;
-  v25[1] = v10;
+  v21[0] = *a2;
+  v21[1] = v10;
   if (v10)
   {
     atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-    morphun::tokenizer::dictionary::Segment::tie(v9, v25);
+    morphun::tokenizer::dictionary::Segment::tie(v9, v21);
     std::__shared_weak_count::__release_shared[abi:se200100](v10);
     if (a6)
     {
@@ -6148,7 +5993,7 @@ LABEL_27:
     morphun::exception::NullPointerException::NullPointerException(exception);
   }
 
-  morphun::tokenizer::dictionary::Segment::tie(v9, v25);
+  morphun::tokenizer::dictionary::Segment::tie(v9, v21);
   if (!a6)
   {
     goto LABEL_27;
@@ -6221,16 +6066,9 @@ LABEL_31:
     }
 
     v19 = a1[95];
-    if (v19 <= v18 - v19)
+    if (v19 <= v18 - v19 && v19 < a1[94])
     {
-      v23 = *(v17 + 8);
-      v24 = *v17;
-      if (v19 < a1[94])
-      {
-        v20 = *(*a3 + 24);
-        v21 = *(*a3 + 28);
-        operator new();
-      }
+      operator new();
     }
   }
 }
@@ -6465,7 +6303,7 @@ void morphun::tokenizer::TokenExtractor::getRequiredKeyAsPath(uint64_t a1, morph
     morphun::exception::InvalidConfigurationException::InvalidConfigurationException(exception, &v22.st_dev);
   }
 
-  morphun::util::ResourceLocator::getRootForLocale(a2, &v25);
+  morphun::util::ResourceLocator::getRootForLocale(&v25, a2);
   std::basic_string<char16_t>::basic_string[abi:se200100]<0>(__dst, L"/tokenizer");
   if ((v24 & 0x80u) == 0)
   {
@@ -6790,7 +6628,7 @@ void morphun::grammar::synthesis::FrGrammarSynthesizer_CountLookupFunction::dete
   v19 = a1[27];
   v20 = a1[28];
   __p.n128_u64[0] = 0;
-  if (morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(v19, &__p, v17, v18))
+  if (morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(v19, __p.n128_u64, v17, v18))
   {
     v21 = (__p.n128_u64[0] & v20) == v20;
   }
@@ -6846,9 +6684,9 @@ LABEL_50:
   }
 }
 
-void sub_1BE5D422C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26)
+void sub_1BE5D422C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26)
 {
-  (*(*v26 + 16))(v26);
+  (*(*v26 + 16))(v26, a2, a3, a4, a5, a6, a7, a8);
   if (a18 < 0)
   {
     operator delete(__p);
@@ -6862,7 +6700,7 @@ void sub_1BE5D422C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void morphun::grammar::synthesis::FrGrammarSynthesizer_CountLookupFunction::determineWord(uint64_t a1, uint64_t *a2, uint64_t a3)
+void morphun::grammar::synthesis::FrGrammarSynthesizer_CountLookupFunction::determineWord(uint64_t a1, uint64_t *a2, const UChar *a3)
 {
   morphun::dialog::DictionaryLookupFunction::determine(a2, a3, __p);
   v6 = HIBYTE(v32);
@@ -6899,7 +6737,7 @@ void morphun::grammar::synthesis::FrGrammarSynthesizer_CountLookupFunction::dete
 
   else
   {
-    v10 = *(a3 + 8);
+    v10 = *(a3 + 1);
   }
 
   CombinedBinaryType = morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(a2[27], &v30, v9, v10);
@@ -6929,7 +6767,7 @@ void morphun::grammar::synthesis::FrGrammarSynthesizer_CountLookupFunction::dete
 
     else
     {
-      v18 = *(a3 + 8);
+      v18 = *(a3 + 1);
     }
 
     if ((a2[31] & ~v30) == 0)
@@ -6954,7 +6792,7 @@ void morphun::grammar::synthesis::FrGrammarSynthesizer_CountLookupFunction::dete
         {
           morphun::dictionary::Inflector_InflectionPattern::inflectionsForSurfaceForm(&v33, v19, v17, v18, v12);
           CombinedBinaryType = v33;
-          if (0xAAAAAAAAAAAAAAABLL * ((v34 - v33) >> 3) < 2)
+          if (0xAAAAAAAAAAAAAAABLL * (v34 - v33) < 2)
           {
             break;
           }
@@ -6970,8 +6808,8 @@ void morphun::grammar::synthesis::FrGrammarSynthesizer_CountLookupFunction::dete
             v23 = v33;
             do
             {
-              v22 |= *(v23 + 2);
-              v23 = (v23 + 24);
+              v22 |= v23[2];
+              v23 += 3;
             }
 
             while (v23 != v34);
@@ -7111,7 +6949,7 @@ void morphun::grammar::synthesis::FrGrammarSynthesizer_CountLookupFunction::FrGr
   std::vector<std::basic_string<char16_t>>::__init_with_size[abi:se200100]<std::basic_string<char16_t> const*,std::basic_string<char16_t> const*>(v1, &__dst, &v4, 2uLL);
 }
 
-void sub_1BE5D4A5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
+void sub_1BE5D4A5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
 {
   v38 = &a36;
   v39 = -48;
@@ -7133,7 +6971,7 @@ void sub_1BE5D4A5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       *(v36 + 26) = 0;
       if (v42)
       {
-        (*(*v42 + 16))(v42);
+        (*(*v42 + 16))(v42, a2, a3, a4, a5, a6, a7, a8);
       }
 
       morphun::dialog::DictionaryLookupFunction::~DictionaryLookupFunction(v36, off_1F3CDBD80);
@@ -7147,353 +6985,330 @@ uint64_t morphun::tokenizer::locale::de::DeTokenExtractorIterator::reset(uint64_
   *(a1 + 40) = a2;
   *(a1 + 48) = a3;
   *(a1 + 108) = 0;
-  result = morphun::tokenizer::ICUTokenExtractorIterator::reset(a1 + 16);
+  result = morphun::tokenizer::ICUTokenExtractorIterator::reset(a1 + 16, a2, a3);
   *(a1 + 88) = *(a1 + 80);
   *(a1 + 104) = 0;
   return result;
 }
 
-uint64_t morphun::tokenizer::locale::de::DeTokenExtractorIterator::getNextBoundary(uint64_t this)
+void morphun::tokenizer::locale::de::DeTokenExtractorIterator::getNextBoundary(morphun::tokenizer::locale::de::DeTokenExtractorIterator *this)
 {
-  v1 = this;
-  v62 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 104);
-  v3 = *(this + 80);
-  v4 = (*(this + 88) - v3) >> 2;
-  if (v2 >= v4)
+  v60 = *MEMORY[0x1E69E9840];
+  v2 = *(this + 26);
+  v3 = *(this + 10);
+  v4 = (*(this + 11) - v3) >> 2;
+  if (v2 < v4)
   {
-    *(this + 88) = v3;
-    *(this + 104) = 0;
-    v6 = *(this + 24);
-    this = ubrk_next();
-    if (this == -1)
+    *(this + 26) = v2 + 1;
+    if (v4 > v2)
     {
-      v5 = 0xFFFFFFFFLL;
-      goto LABEL_92;
+      return;
     }
 
-    v5 = this;
-    v7 = *(v1 + 108);
-    v59 = (this - v7);
-    if (v59 < 6)
+LABEL_93:
+    __break(1u);
+    return;
+  }
+
+  *(this + 11) = v3;
+  *(this + 26) = 0;
+  v5 = ubrk_next();
+  if (v5 != -1)
+  {
+    v6 = v5;
+    v7 = *(this + 27);
+    v57 = (v5 - v7);
+    if (v57 < 6)
     {
-LABEL_91:
-      *(v1 + 108) = v5;
-      goto LABEL_92;
+LABEL_89:
+      *(this + 27) = v6;
+      return;
     }
 
-    v8 = *(v1 + 40);
-    if (*(v1 + 48) <= v7)
+    if (*(this + 6) <= v7)
     {
-      v9 = *(v1 + 108);
+      v8 = *(this + 27);
     }
 
     else
     {
-      v9 = *(v1 + 48);
+      v8 = *(this + 6);
     }
 
-    while (v9 != v7)
+    while (v8 != v7)
     {
-      v10 = *(v8 + 2 * v7);
-      this = uscript_hasScript();
-      if (!this)
+      if (!uscript_hasScript() && !uscript_hasScript())
       {
-        this = uscript_hasScript();
-        if (!this)
-        {
-          goto LABEL_91;
-        }
+        goto LABEL_89;
       }
 
-      if (++v7 >= v5)
+      if (++v7 >= v6)
       {
-        v58 = (v1 + 56);
-        morphun::tokenizer::locale::de::titleCase(v1 + 56, *(v1 + 40), *(v1 + 48), *(v1 + 108), v59);
-        v11 = *(v1 + 8);
-        v12 = *(v1 + 79);
-        if (!v11 || ((*(v1 + 79) & 0x80) != 0 ? (v13 = *(v1 + 56), v14 = *(v1 + 64)) : (v13 = (v1 + 56), v14 = *(v1 + 79)), v11 + 8 == std::__tree<std::__value_type<std::u16string_view,std::u16string_view>,std::__map_value_compare<std::u16string_view,std::__value_type<std::u16string_view,std::u16string_view>,std::less<std::u16string_view>,true>,std::allocator<std::__value_type<std::u16string_view,std::u16string_view>>>::find<std::u16string_view>(*(v1 + 8), v13, v14)))
+        v56 = (this + 56);
+        morphun::tokenizer::locale::de::titleCase(this + 56, *(this + 5), *(this + 6), *(this + 27), v57);
+        v9 = *(this + 1);
+        if (!v9 || ((*(this + 79) & 0x80) != 0 ? (v10 = *(this + 7), v11 = *(this + 8)) : (v10 = (this + 56), v11 = *(this + 79)), v9 + 8 == std::__tree<std::__value_type<std::u16string_view,std::u16string_view>,std::__map_value_compare<std::u16string_view,std::__value_type<std::u16string_view,std::u16string_view>,std::less<std::u16string_view>,true>,std::allocator<std::__value_type<std::u16string_view,std::u16string_view>>>::find<std::u16string_view>(*(this + 1), v10, v11)))
         {
-          v60 = 0u;
-          memset(v61, 0, sizeof(v61));
-          if (v12 < 0)
+          v58 = 0u;
+          memset(v59, 0, sizeof(v59));
+          v12 = germantok_tokenize();
+          if (v12 > 1 || v12 == 1 && *(&v58 + 1) != v57)
           {
-            v15 = *(v1 + 56);
-            v16 = *(v1 + 64);
-          }
-
-          this = germantok_tokenize();
-          if (this > 1 || this == 1 && *(&v60 + 1) != v59)
-          {
-            v17 = 0;
-            v18 = v61;
-            v19 = 1;
-            v20 = this;
+            v13 = 0;
+            v14 = v59;
+            v15 = 1;
+            v16 = v12;
             do
             {
-              v21 = *(v18 - 4);
-              v22 = *(v18 - 2);
-              v23 = v59;
-              if (v19 < this)
+              v17 = *(v14 - 4);
+              v18 = *(v14 - 2);
+              v19 = v57;
+              if (v15 < v12)
               {
-                v23 = *v18;
-                if (v22 + v21 > *v18)
+                v19 = *v14;
+                if (v18 + v17 > *v14)
                 {
-                  v22 = *v18 - v21;
+                  v18 = *v14 - v17;
                 }
               }
 
-              if (v22 + v21 < v23)
+              if (v18 + v17 < v19)
               {
-                v24 = v23 - 1;
-                v25 = *(v1 + 79);
-                if ((v25 & 0x80000000) != 0)
+                v20 = v19 - 1;
+                v21 = *(this + 79);
+                if ((v21 & 0x80000000) != 0)
                 {
-                  if (*(v1 + 64) < v24)
+                  if (*(this + 8) < v20)
                   {
-                    goto LABEL_96;
+                    goto LABEL_93;
                   }
 
-                  v26 = *v58;
+                  v22 = *v56;
                 }
 
                 else
                 {
-                  v26 = v1 + 56;
-                  if (v24 > v25)
+                  v22 = this + 56;
+                  if (v20 > v21)
                   {
-                    goto LABEL_96;
+                    goto LABEL_93;
                   }
                 }
 
-                if (*(v26 + 2 * v24) == 115 && v19 < this)
+                if (*&v22[2 * v20] == 115 && v15 < v12)
                 {
-                  --v23;
+                  --v19;
                 }
 
-                v22 = v23 - v21;
+                v18 = v19 - v17;
               }
 
-              if (v21 <= v17)
+              if (v17 <= v13)
               {
-                v34 = *(v1 + 88);
+                v30 = *(this + 11);
               }
 
               else
               {
-                v28 = *(v1 + 80);
-                v29 = *(v1 + 88);
-                if (v28 != v29 && v21 - v17 <= 6)
+                v24 = *(this + 10);
+                v25 = *(this + 11);
+                if (v24 != v25 && v17 - v13 <= 6)
                 {
-                  v29 -= 4;
-                  *(v1 + 88) = v29;
+                  v25 -= 4;
+                  *(this + 11) = v25;
                 }
 
-                v31 = (v21 - 1);
-                if (v21 >= 1)
+                v27 = (v17 - 1);
+                if (v17 >= 1)
                 {
-                  v32 = *(v1 + 79);
-                  if ((v32 & 0x80000000) != 0)
+                  v28 = *(this + 79);
+                  if ((v28 & 0x80000000) != 0)
                   {
-                    if (*(v1 + 64) < v31)
+                    if (*(this + 8) < v27)
                     {
-                      goto LABEL_96;
+                      goto LABEL_93;
                     }
 
-                    v33 = *v58;
+                    v29 = *v56;
                   }
 
                   else
                   {
-                    v33 = v1 + 56;
-                    if (v31 > v32)
+                    v29 = this + 56;
+                    if (v27 > v28)
                     {
-                      goto LABEL_96;
+                      goto LABEL_93;
                     }
                   }
 
-                  if (*(v33 + 2 * v31) == 115)
+                  if (*&v29[2 * v27] == 115)
                   {
-                    v35 = v31 + *(v1 + 108);
-                    v36 = *(v1 + 96);
-                    if (v29 >= v36)
+                    v31 = v27 + *(this + 27);
+                    v32 = *(this + 12);
+                    if (v25 >= v32)
                     {
-                      v37 = v29 - v28;
-                      v38 = (v37 >> 2) + 1;
-                      if (v38 >> 62)
+                      v33 = v25 - v24;
+                      v34 = (v33 >> 2) + 1;
+                      if (v34 >> 62)
                       {
                         std::vector<std::pair<morphun::dialog::DefaultArticleLookupFunction const*,std::vector<std::pair<std::basic_string<char16_t>,std::vector<std::pair<morphun::dialog::SemanticFeature const* const,std::basic_string<char16_t>>>>> const>>::__throw_length_error[abi:se200100]();
                       }
 
-                      v39 = v36 - v28;
-                      v40 = v39 >> 1;
-                      if (v39 >> 1 <= v38)
+                      v35 = v32 - v24;
+                      v36 = v35 >> 1;
+                      if (v35 >> 1 <= v34)
                       {
-                        v40 = (v37 >> 2) + 1;
+                        v36 = (v33 >> 2) + 1;
                       }
 
-                      if (v39 >= 0x7FFFFFFFFFFFFFFCLL)
+                      if (v35 >= 0x7FFFFFFFFFFFFFFCLL)
                       {
-                        this = 0x3FFFFFFFFFFFFFFFLL;
+                        v37 = 0x3FFFFFFFFFFFFFFFLL;
                       }
 
                       else
                       {
-                        this = v40;
+                        v37 = v36;
                       }
 
-                      if (this)
+                      if (v37)
                       {
-                        std::__allocate_at_least[abi:se200100]<std::allocator<int>>(this);
+                        std::__allocate_at_least[abi:se200100]<std::allocator<int>>(v37);
                       }
 
-                      goto LABEL_96;
+                      goto LABEL_93;
                     }
 
-                    if (!v29)
+                    if (!v25)
                     {
-                      goto LABEL_96;
+                      goto LABEL_93;
                     }
 
-                    *v29 = v35;
-                    v29 += 4;
-                    *(v1 + 88) = v29;
+                    *v25 = v31;
+                    v25 += 4;
+                    *(this + 11) = v25;
                   }
                 }
 
-                v41 = *(v1 + 96);
-                if (v29 >= v41)
+                v38 = *(this + 12);
+                if (v25 >= v38)
                 {
-                  v42 = *(v1 + 80);
-                  v43 = &v29[-v42];
-                  v44 = (v43 >> 2) + 1;
-                  if (v44 >> 62)
+                  v39 = *(this + 10);
+                  v40 = &v25[-v39];
+                  v41 = (v40 >> 2) + 1;
+                  if (v41 >> 62)
                   {
                     std::vector<std::pair<morphun::dialog::DefaultArticleLookupFunction const*,std::vector<std::pair<std::basic_string<char16_t>,std::vector<std::pair<morphun::dialog::SemanticFeature const* const,std::basic_string<char16_t>>>>> const>>::__throw_length_error[abi:se200100]();
                   }
 
-                  v45 = v41 - v42;
-                  v46 = v45 >> 1;
-                  if (v45 >> 1 <= v44)
+                  v42 = v38 - v39;
+                  v43 = v42 >> 1;
+                  if (v42 >> 1 <= v41)
                   {
-                    v46 = (v43 >> 2) + 1;
+                    v43 = (v40 >> 2) + 1;
                   }
 
-                  if (v45 >= 0x7FFFFFFFFFFFFFFCLL)
+                  if (v42 >= 0x7FFFFFFFFFFFFFFCLL)
                   {
-                    this = 0x3FFFFFFFFFFFFFFFLL;
+                    v44 = 0x3FFFFFFFFFFFFFFFLL;
                   }
 
                   else
                   {
-                    this = v46;
+                    v44 = v43;
                   }
 
-                  if (this)
+                  if (v44)
                   {
-                    std::__allocate_at_least[abi:se200100]<std::allocator<int>>(this);
+                    std::__allocate_at_least[abi:se200100]<std::allocator<int>>(v44);
                   }
 
-                  goto LABEL_96;
+                  goto LABEL_93;
                 }
 
-                if (!v29)
+                if (!v25)
                 {
-                  goto LABEL_96;
+                  goto LABEL_93;
                 }
 
-                *v29 = *(v1 + 108) + v21;
-                v34 = (v29 + 4);
-                *(v1 + 88) = v34;
+                *v25 = *(this + 27) + v17;
+                v30 = (v25 + 4);
+                *(this + 11) = v30;
               }
 
-              v17 = v22 + v21;
-              v47 = v22 + v21 + *(v1 + 108);
-              v48 = *(v1 + 96);
-              if (v34 >= v48)
+              v13 = v18 + v17;
+              v45 = v18 + v17 + *(this + 27);
+              v46 = *(this + 12);
+              if (v30 >= v46)
               {
-                v50 = *(v1 + 80);
-                v51 = v34 - v50;
-                v52 = (v51 >> 2) + 1;
-                if (v52 >> 62)
+                v48 = *(this + 10);
+                v49 = v30 - v48;
+                v50 = (v49 >> 2) + 1;
+                if (v50 >> 62)
                 {
                   std::vector<std::pair<morphun::dialog::DefaultArticleLookupFunction const*,std::vector<std::pair<std::basic_string<char16_t>,std::vector<std::pair<morphun::dialog::SemanticFeature const* const,std::basic_string<char16_t>>>>> const>>::__throw_length_error[abi:se200100]();
                 }
 
-                v53 = v48 - v50;
-                v54 = v53 >> 1;
-                if (v53 >> 1 <= v52)
+                v51 = v46 - v48;
+                v52 = v51 >> 1;
+                if (v51 >> 1 <= v50)
                 {
-                  v54 = (v51 >> 2) + 1;
+                  v52 = (v49 >> 2) + 1;
                 }
 
-                if (v53 >= 0x7FFFFFFFFFFFFFFCLL)
+                if (v51 >= 0x7FFFFFFFFFFFFFFCLL)
                 {
-                  this = 0x3FFFFFFFFFFFFFFFLL;
+                  v53 = 0x3FFFFFFFFFFFFFFFLL;
                 }
 
                 else
                 {
-                  this = v54;
+                  v53 = v52;
                 }
 
-                if (this)
+                if (v53)
                 {
-                  std::__allocate_at_least[abi:se200100]<std::allocator<int>>(this);
+                  std::__allocate_at_least[abi:se200100]<std::allocator<int>>(v53);
                 }
 
-                goto LABEL_96;
+                goto LABEL_93;
               }
 
-              if (!v34)
+              if (!v30)
               {
-                goto LABEL_96;
+                goto LABEL_93;
               }
 
-              *v34 = v47;
-              v49 = v34 + 1;
-              *(v1 + 88) = v49;
-              v18 += 4;
-              ++v19;
-              --v20;
+              *v30 = v45;
+              v47 = v30 + 1;
+              *(this + 11) = v47;
+              v14 += 4;
+              ++v15;
+              --v16;
             }
 
-            while (v20);
-            v55 = *(v1 + 104);
-            *(v1 + 104) = v55 + 1;
-            v56 = *(v1 + 80);
-            if (v55 >= (v49 - v56) >> 2)
+            while (v16);
+            v54 = *(this + 26);
+            *(this + 26) = v54 + 1;
+            v55 = *(this + 10);
+            if (v54 >= (v47 - v55) >> 2)
             {
-              break;
+              goto LABEL_93;
             }
 
-            v5 = *(v56 + 4 * v55);
+            v6 = *(v55 + 4 * v54);
           }
         }
 
-        goto LABEL_91;
+        goto LABEL_89;
       }
     }
-  }
 
-  else
-  {
-    *(this + 104) = v2 + 1;
-    if (v4 > v2)
-    {
-      v5 = *(v3 + 4 * v2);
-LABEL_92:
-      v57 = *MEMORY[0x1E69E9840];
-      return v5;
-    }
+    goto LABEL_93;
   }
-
-LABEL_96:
-  __break(1u);
-  return this;
 }
 
-void morphun::tokenizer::locale::de::titleCase(uint64_t a1, uint64_t a2, unint64_t a3, int a4, int a5)
+void morphun::tokenizer::locale::de::titleCase(uint64_t a1, uint64_t a2, unint64_t a3, int a4, unsigned int a5)
 {
   if (*(npc<std::basic_string<char16_t>>(a1) + 23) < 0)
   {
@@ -7571,7 +7386,7 @@ void morphun::tokenizer::locale::de::DeTokenExtractorIterator::~DeTokenExtractor
   morphun::tokenizer::ICUTokenExtractorIterator::~ICUTokenExtractorIterator((this + 16));
 }
 
-BOOL morphun::tokenizer::locale::de::DeTokenExtractorIterator::isIndivisibleWordNormalized(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+BOOL morphun::tokenizer::locale::de::DeTokenExtractorIterator::isIndivisibleWordNormalized(unsigned __int16 *a1, uint64_t a2, unsigned __int16 *a3, unint64_t a4)
 {
   v5 = a3;
   morphun::tokenizer::locale::de::titleCase(a1, a3, a4, 0, a4);
@@ -7580,7 +7395,7 @@ BOOL morphun::tokenizer::locale::de::DeTokenExtractorIterator::isIndivisibleWord
   v9 = v8;
   if ((v8 & 0x80u) != 0)
   {
-    v8 = *(a1 + 8);
+    v8 = *(a1 + 1);
   }
 
   if (a4 == v8)
@@ -7620,19 +7435,19 @@ BOOL morphun::tokenizer::locale::de::DeTokenExtractorIterator::isIndivisibleWord
   return result;
 }
 
-uint64_t morphun::dictionary::Inflector_InflectionPattern::constrain(void *a1, uint64_t a2, uint64_t *a3, int a4)
+void morphun::dictionary::Inflector_InflectionPattern::constrain(void *a1, uint64_t a2, uint64_t **a3, int a4)
 {
-  result = morphun::dictionary::DictionaryMetaData_MMappedDictionary::getValuesOfTypes(*(*(a2 + 32) + 192), a3);
+  ValuesOfTypes = morphun::dictionary::DictionaryMetaData_MMappedDictionary::getValuesOfTypes(*(*(a2 + 32) + 192), a3);
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
   if (*(a2 + 18) >= 1)
   {
-    v8 = result;
+    v8 = ValuesOfTypes;
     v9 = 0;
     while (1)
     {
-      result = morphun::dictionary::Inflector_InflectionPattern::getInflectionAtPosition(&v11, a2, v9);
+      morphun::dictionary::Inflector_InflectionPattern::getInflectionAtPosition(&v11, a2, v9);
       v10 = v12 & v8;
       if (a4)
       {
@@ -7647,7 +7462,7 @@ uint64_t morphun::dictionary::Inflector_InflectionPattern::constrain(void *a1, u
 LABEL_8:
       if (++v9 >= *(a2 + 18))
       {
-        return result;
+        return;
       }
     }
 
@@ -7657,11 +7472,9 @@ LABEL_8:
     }
 
 LABEL_7:
-    result = std::vector<morphun::dictionary::Inflector_Inflection>::push_back[abi:se200100](a1, &v11);
+    std::vector<morphun::dictionary::Inflector_Inflection>::push_back[abi:se200100](a1, &v11);
     goto LABEL_8;
   }
-
-  return result;
 }
 
 void sub_1BE5D54D8(_Unwind_Exception *exception_object)
@@ -7716,19 +7529,19 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *std::vector<morphun::dictionary::Inflector_Inflection>::push_back[abi:se200100](void *result, __int128 *a2)
+void std::vector<morphun::dictionary::Inflector_Inflection>::push_back[abi:se200100](void *a1, __int128 *a2)
 {
-  v2 = result[1];
-  v3 = result[2];
+  v2 = a1[1];
+  v3 = a1[2];
   if (v2 >= v3)
   {
-    v5 = 0xAAAAAAAAAAAAAAABLL * ((v2 - *result) >> 3) + 1;
+    v5 = 0xAAAAAAAAAAAAAAABLL * ((v2 - *a1) >> 3) + 1;
     if (v5 > 0xAAAAAAAAAAAAAAALL)
     {
       goto LABEL_13;
     }
 
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *result) >> 3);
+    v6 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
     if (2 * v6 > v5)
     {
       v5 = 2 * v6;
@@ -7763,8 +7576,7 @@ LABEL_13:
   v4 = *a2;
   *(v2 + 16) = *(a2 + 2);
   *v2 = v4;
-  result[1] = v2 + 24;
-  return result;
+  a1[1] = v2 + 24;
 }
 
 void std::__allocate_at_least[abi:se200100]<std::allocator<morphun::dictionary::Inflector_Inflection>>(unint64_t a1)
@@ -7868,29 +7680,22 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t morphun::dictionary::Inflector_InflectionPattern::getLemmaSuffixMatches(uint64_t result, void *a2)
+void morphun::dictionary::Inflector_InflectionPattern::getLemmaSuffixMatches(uint64_t a1, void *a2)
 {
   a2[1] = *a2;
-  if (*(result + 18) >= 1)
+  if (*(a1 + 18) >= 1)
   {
-    v3 = result;
     v4 = 0;
     do
     {
-      result = morphun::dictionary::Inflector_InflectionPattern::getInflectionAtPosition(&v12, v3, v4);
-      if (*(v3 + 16) >= 1)
+      morphun::dictionary::Inflector_InflectionPattern::getInflectionAtPosition(&v12, a1, v4);
+      if (*(a1 + 16) >= 1)
       {
         v5 = 0;
         v6 = DWORD2(v12);
-        while (1)
+        while (v6 != morphun::dictionary::metadata::CompressedArray<long long>::read(*(a1 + 32) + 200, v5 + *(a1 + 20)))
         {
-          result = morphun::dictionary::metadata::CompressedArray<long long>::read(*(v3 + 32) + 200, v5 + *(v3 + 20));
-          if (v6 == result)
-          {
-            break;
-          }
-
-          if (++v5 >= *(v3 + 16))
+          if (++v5 >= *(a1 + 16))
           {
             goto LABEL_19;
           }
@@ -7945,16 +7750,14 @@ LABEL_19:
       ++v4;
     }
 
-    while (v4 < *(v3 + 18));
+    while (v4 < *(a1 + 18));
   }
-
-  return result;
 }
 
 void morphun::dictionary::Inflector_InflectionPattern::inflectionsForSurfaceForm(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v18[0] = a3;
-  v18[1] = a4;
+  v16[0] = a3;
+  v16[1] = a4;
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
@@ -7964,42 +7767,42 @@ void morphun::dictionary::Inflector_InflectionPattern::inflectionsForSurfaceForm
     v9 = -1;
     do
     {
-      morphun::dictionary::Inflector_InflectionPattern::getInflectionAtPosition(&v16, a2, v8);
-      if ((v17 & ~a5) == 0)
+      morphun::dictionary::Inflector_InflectionPattern::getInflectionAtPosition(&v14, a2, v8);
+      if ((v15 & ~a5) == 0)
       {
-        v10 = npc<morphun::dictionary::Inflector_InflectionPattern const>(v16);
-        morphun::dictionary::metadata::StringContainer::getString((*(v10 + 32) + 144), SDWORD2(v16), &__p);
-        v11 = v15;
-        if ((v15 & 0x8000000000000000) != 0)
+        v10 = npc<morphun::dictionary::Inflector_InflectionPattern const>(v14);
+        morphun::dictionary::metadata::StringContainer::getString(&__p, (*(v10 + 32) + 144), SDWORD2(v14));
+        size = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+        if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
         {
-          v11 = v14;
-          if (v14 >= v9)
+          size = __p.__r_.__value_.__l.__size_;
+          if (__p.__r_.__value_.__l.__size_ >= v9)
           {
-            p_p = __p;
+            p_p = __p.__r_.__value_.__r.__words[0];
             goto LABEL_9;
           }
 
 LABEL_14:
-          operator delete(__p);
+          operator delete(__p.__r_.__value_.__l.__data_);
           goto LABEL_15;
         }
 
-        if (v9 <= v15)
+        if (v9 <= SHIBYTE(__p.__r_.__value_.__r.__words[2]))
         {
           p_p = &__p;
 LABEL_9:
-          if (std::u16string_view::ends_with[abi:se200100](v18, p_p, v11))
+          if (std::u16string_view::ends_with[abi:se200100](v16, p_p, size))
           {
-            if (v11 > v9)
+            if (size > v9)
             {
               a1[1] = *a1;
-              v9 = v11;
+              v9 = size;
             }
 
-            std::vector<morphun::dictionary::Inflector_Inflection>::push_back[abi:se200100](a1, &v16);
+            std::vector<morphun::dictionary::Inflector_Inflection>::push_back[abi:se200100](a1, &v14);
           }
 
-          if ((v15 & 0x80000000) == 0)
+          if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_15;
           }
@@ -8151,7 +7954,7 @@ void morphun::dictionary::Inflector_InflectionPattern::reinflectImplementation(s
     }
 
     *(&__dst->__r_.__value_.__s + 23) = a7;
-    v11 = (__dst + 2 * a7);
+    v11 = __dst + 2 * a7;
     if (__dst > __src || v11 <= __src)
     {
       if (a7)
@@ -8159,7 +7962,7 @@ void morphun::dictionary::Inflector_InflectionPattern::reinflectImplementation(s
         memmove(__dst, __src, 2 * a7);
       }
 
-      v11->__r_.__value_.__s.__data_[0] = 0;
+      *v11 = 0;
       return;
     }
 
@@ -8192,9 +7995,9 @@ LABEL_115:
     morphun::dictionary::Inflector_InflectionPattern::getInflectionAtPosition(&v69, a2, v14);
     v18 = v69.__r_.__value_.__r.__words[2];
     v19 = npc<morphun::dictionary::Inflector_InflectionPattern const>(v69.__r_.__value_.__l.__data_);
-    morphun::dictionary::metadata::StringContainer::getString((*(v19 + 32) + 144), v69.__r_.__value_.__r.__words[1], &v68);
-    v20 = (v18 & a3);
-    if (!a3 || *&v20 == v18)
+    morphun::dictionary::metadata::StringContainer::getString(&v68, (*(v19 + 32) + 144), v69.__r_.__value_.__r.__words[1]);
+    v20 = v18 & a3;
+    if (!a3 || v20 == v18)
     {
       v21 = SHIBYTE(v68.__r_.__value_.__r.__words[2]);
       if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
@@ -8297,7 +8100,7 @@ LABEL_28:
         std::basic_string<char16_t>::append(&v61, L" , inflectionGrammemes: [", 0x19uLL);
         v62 = v61;
         memset(&v61, 0, sizeof(v61));
-        morphun::dictionary::DictionaryMetaData_MMappedDictionary::getTypesOfValues(*(*(a2 + 32) + 192), v18, &v56);
+        morphun::dictionary::DictionaryMetaData_MMappedDictionary::getTypesOfValues(&v56, *(*(a2 + 32) + 192), v18);
         morphun::util::StringViewUtils::join(L", ", 2uLL, &v56, v57);
         if ((v58 & 0x80u) == 0)
         {
@@ -8325,7 +8128,7 @@ LABEL_28:
         std::basic_string<char16_t>::append(&v63, L"], Number of matches with existing grammemes: ", 0x2EuLL);
         v64 = v63;
         memset(&v63, 0, sizeof(v63));
-        morphun::util::StringUtils::to_u16string(v30, &v55);
+        morphun::util::StringUtils::to_u16string(&v55, v30);
         if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v35 = &v55;
@@ -8352,7 +8155,7 @@ LABEL_28:
         std::basic_string<char16_t>::append(&v65, ",", 0x23uLL);
         v66 = v65;
         memset(&v65, 0, sizeof(v65));
-        morphun::util::StringUtils::to_u16string(v27, &__p);
+        morphun::util::StringUtils::to_u16string(&__p, v27);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           p_p = &__p;
@@ -8587,11 +8390,11 @@ void std::__throw_bad_optional_access[abi:se200100]()
   __cxa_throw(exception, MEMORY[0x1E69E5418], MEMORY[0x1E69E52A0]);
 }
 
-void *morphun::dictionary::metadata::MarisaTrie<int>::getKey(void *a1, marisa::Trie *this, int a3)
+void *morphun::dictionary::metadata::MarisaTrie<int>::getKey(std::basic_string<char16_t> *a1, marisa::Trie *this, int a3)
 {
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
+  a1->__r_.__value_.__r.__words[0] = 0;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
   v8 = 0u;
   v6 = 0u;
   v7 = a3;
@@ -8639,14 +8442,14 @@ void morphun::transliteration::BidirectionalStringMap::getFromUnicodeSetPattern(
   if ((*(a2 + 1) - v3) <= 3)
   {
     exception = __cxa_allocate_exception(0x38uLL);
-    morphun::util::StringUtils::to_u16string(4, &v14);
+    morphun::util::StringUtils::to_u16string(&v14, 4);
     std::basic_string<char16_t>::insert(&v14, L"Input too small. Expected at least ", 0x23, v10);
     v15 = v14;
     memset(&v14, 0, sizeof(v14));
     std::basic_string<char16_t>::append(&v15, L" bytes; Available: ", 0x13uLL);
     v16 = v15;
     memset(&v15, 0, sizeof(v15));
-    morphun::util::StringUtils::to_u16string((*(a2 + 2) - *(a2 + 4)), &v13);
+    morphun::util::StringUtils::to_u16string(&v13, (*(a2 + 2) - *(a2 + 4)));
     if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v11 = &v13;
@@ -8775,14 +8578,14 @@ void *morphun::util::MemoryMappedFile::read<signed char>(void *result, _BYTE *a2
   if (result[1] == v3)
   {
     exception = __cxa_allocate_exception(0x38uLL);
-    morphun::util::StringUtils::to_u16string(1, &v9);
+    morphun::util::StringUtils::to_u16string(&v9, 1);
     std::basic_string<char16_t>::insert(&v9, L"Input too small. Expected at least ", 0x23, v5);
     v10 = v9;
     memset(&v9, 0, sizeof(v9));
     std::basic_string<char16_t>::append(&v10, L" bytes; Available: ", 0x13uLL);
     v11 = v10;
     memset(&v10, 0, sizeof(v10));
-    morphun::util::StringUtils::to_u16string((*(v2 + 2) - *(v2 + 4)), &v8);
+    morphun::util::StringUtils::to_u16string(&v8, (*(v2 + 2) - *(v2 + 4)));
     if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v6 = &v8;
@@ -8855,7 +8658,7 @@ LABEL_14:
   goto LABEL_14;
 }
 
-uint64_t morphun::transliteration::BidirectionalStringMap::BidirectionalStringMap(uint64_t a1, uint64_t a2)
+uint64_t morphun::transliteration::BidirectionalStringMap::BidirectionalStringMap(uint64_t a1, void **a2)
 {
   *a1 = &unk_1F3CD9638;
   v4 = (a1 + 8);
@@ -8865,10 +8668,10 @@ uint64_t morphun::transliteration::BidirectionalStringMap::BidirectionalStringMa
   if (strncmp(__s1.__r_.__value_.__l.__data_, "MORPHTM", 8uLL))
   {
     exception = __cxa_allocate_exception(0x38uLL);
-    std::operator+<char16_t>(&v20, "I", a2);
-    std::basic_string<char16_t>::append(&v20, " ", 0x16uLL);
-    __dst = v20;
-    memset(&v20, 0, sizeof(v20));
+    std::operator+<char16_t>(&v24, "I", a2);
+    std::basic_string<char16_t>::append(&v24, " ", 0x16uLL);
+    __dst = v24;
+    memset(&v24, 0, sizeof(v24));
     morphun::exception::IOException::IOException(exception, &__dst);
   }
 
@@ -8876,72 +8679,72 @@ uint64_t morphun::transliteration::BidirectionalStringMap::BidirectionalStringMa
   morphun::util::MemoryMappedFile::read<long long>(v4, &__dst);
   if (__dst.__r_.__value_.__r.__words[0] != 1)
   {
-    v10 = __cxa_allocate_exception(0x38uLL);
-    std::operator+<char16_t>(&v20, "I", a2);
-    std::basic_string<char16_t>::append(&v20, " ", 0x1CuLL);
-    __dst = v20;
-    memset(&v20, 0, sizeof(v20));
-    morphun::exception::IncompatibleVersionException::IncompatibleVersionException(v10, &__dst);
+    v14 = __cxa_allocate_exception(0x38uLL);
+    std::operator+<char16_t>(&v24, "I", a2);
+    std::basic_string<char16_t>::append(&v24, " ", 0x1CuLL);
+    __dst = v24;
+    memset(&v24, 0, sizeof(v24));
+    morphun::exception::IncompatibleVersionException::IncompatibleVersionException(v14, &__dst);
   }
 
   __dst.__r_.__value_.__s.__data_[0] = 0;
   morphun::util::MemoryMappedFile::read<short>(v4, &__dst);
   if (__dst.__r_.__value_.__s.__data_[0] != 1)
   {
-    v11 = __cxa_allocate_exception(0x38uLL);
-    std::operator+<char16_t>(&v20, "I", a2);
-    std::basic_string<char16_t>::append(&v20, L" was built for a different architecture", 0x27uLL);
-    __dst = v20;
-    memset(&v20, 0, sizeof(v20));
-    morphun::exception::IOException::IOException(v11, &__dst);
+    v15 = __cxa_allocate_exception(0x38uLL);
+    std::operator+<char16_t>(&v24, "I", a2);
+    std::basic_string<char16_t>::append(&v24, L" was built for a different architecture", 0x27uLL);
+    __dst = v24;
+    memset(&v24, 0, sizeof(v24));
+    morphun::exception::IOException::IOException(v15, &__dst);
   }
 
   LOBYTE(__dst.__r_.__value_.__l.__data_) = 0;
   morphun::util::MemoryMappedFile::read<signed char>(v4, &__dst);
   if (LOBYTE(__dst.__r_.__value_.__l.__data_) - 3 <= 0xFFFFFFFD)
   {
-    v12 = __cxa_allocate_exception(0x38uLL);
+    v16 = __cxa_allocate_exception(0x38uLL);
     std::basic_string<char16_t>::basic_string[abi:se200100]<0>(&__dst, L"Unexpected number of tries");
-    morphun::exception::IOException::IOException(v12, &__dst);
+    morphun::exception::IOException::IOException(v16, &__dst);
   }
 
   *(a1 + 40) = __dst.__r_.__value_.__l.__data_;
   v6 = *(a1 + 24);
   if (*(a1 + 16) == v6)
   {
-    v13 = __cxa_allocate_exception(0x38uLL);
-    morphun::util::StringUtils::to_u16string(1, &v18);
-    std::basic_string<char16_t>::insert(&v18, L"Input too small. Expected at least ", 0x23, v14);
-    __s1 = v18;
-    memset(&v18, 0, sizeof(v18));
+    v17 = __cxa_allocate_exception(0x38uLL);
+    morphun::util::StringUtils::to_u16string(&v22, 1);
+    std::basic_string<char16_t>::insert(&v22, L"Input too small. Expected at least ", 0x23, v18);
+    __s1 = v22;
+    memset(&v22, 0, sizeof(v22));
     std::basic_string<char16_t>::append(&__s1, L" bytes; Available: ", 0x13uLL);
-    v20 = __s1;
+    v24 = __s1;
     memset(&__s1, 0, sizeof(__s1));
-    morphun::util::StringUtils::to_u16string((*(a1 + 16) - *(a1 + 24)), &v17);
-    if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    morphun::util::StringUtils::to_u16string(&v21, (*(a1 + 16) - *(a1 + 24)));
+    if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v15 = &v17;
+      v19 = &v21;
     }
 
     else
     {
-      v15 = v17.__r_.__value_.__r.__words[0];
+      v19 = v21.__r_.__value_.__r.__words[0];
     }
 
-    if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v17.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v21.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v17.__r_.__value_.__l.__size_;
+      size = v21.__r_.__value_.__l.__size_;
     }
 
-    std::basic_string<char16_t>::append(&v20, v15, size);
-    __dst = v20;
-    memset(&v20, 0, sizeof(v20));
-    morphun::exception::IOException::IOException(v13, &__dst);
+    std::basic_string<char16_t>::append(&v24, v19, size);
+    __dst = v24;
+    memset(&v24, 0, sizeof(v24));
+    morphun::exception::IOException::IOException(v17, &__dst);
   }
 
   v7 = *(*(a1 + 8) + v6);
@@ -8949,20 +8752,60 @@ uint64_t morphun::transliteration::BidirectionalStringMap::BidirectionalStringMa
   morphun::util::MemoryMappedFile::read<char const*>(v4, &__dst, 4uLL);
   *(a1 + 41) = v7;
   morphun::transliteration::BidirectionalStringMap::getFromUnicodeSetPattern(&__dst, v4);
-  icu4cxx::UnicodeSet::UnicodeSet(a1 + 48);
+  if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst.__r_.__value_.__r.__words[0];
+  }
+
+  if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v9 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v9 = __dst.__r_.__value_.__l.__size_;
+  }
+
+  icu4cxx::UnicodeSet::UnicodeSet(a1 + 48, p_dst, v9);
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__dst.__r_.__value_.__l.__data_);
   }
 
   morphun::transliteration::BidirectionalStringMap::getFromUnicodeSetPattern(&__dst, v4);
-  icu4cxx::UnicodeSet::UnicodeSet(a1 + 64);
+  if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v10 = &__dst;
+  }
+
+  else
+  {
+    v10 = __dst.__r_.__value_.__r.__words[0];
+  }
+
+  if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v11 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v11 = __dst.__r_.__value_.__l.__size_;
+  }
+
+  icu4cxx::UnicodeSet::UnicodeSet(a1 + 64, v10, v11);
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__dst.__r_.__value_.__l.__data_);
   }
 
-  morphun::dictionary::metadata::MarisaTrie<int>::MarisaTrie(a1 + 80, v4);
+  morphun::dictionary::metadata::MarisaTrie<int>::MarisaTrie((a1 + 80), v4);
   if (*(a1 + 40) == 2)
   {
     operator new();
@@ -9380,14 +9223,14 @@ void morphun::grammar::synthesis::ItGrammarSynthesizer_ArticleLookupFunction::It
   morphun::grammar::synthesis::ItGrammarSynthesizer_CountLookupFunction::ItGrammarSynthesizer_CountLookupFunction((a1 + 8));
 }
 
-void sub_1BE5D84E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+void sub_1BE5D84E4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
 {
   if (a19 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1BFB49160](v19, v20);
+  MEMORY[0x1BFB49160](v19, v20, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -9410,14 +9253,14 @@ void *morphun::util::MemoryMappedFile::read<long long *>(void *result, void *a2,
   {
     v5 = a3;
     exception = __cxa_allocate_exception(0x38uLL);
-    morphun::util::StringUtils::to_u16string(v5, &v11);
+    morphun::util::StringUtils::to_u16string(&v11, v5);
     std::basic_string<char16_t>::insert(&v11, L"Input too small. Expected at least ", 0x23, v7);
     v12 = v11;
     memset(&v11, 0, sizeof(v11));
     std::basic_string<char16_t>::append(&v12, L" bytes; Available: ", 0x13uLL);
     v13 = v12;
     memset(&v12, 0, sizeof(v12));
-    morphun::util::StringUtils::to_u16string((*(v3 + 2) - *(v3 + 4)), &v10);
+    morphun::util::StringUtils::to_u16string(&v10, (*(v3 + 2) - *(v3 + 4)));
     if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v8 = &v10;
@@ -9498,14 +9341,14 @@ void *morphun::util::MemoryMappedFile::read<int *>(void *result, void *a2, unint
   {
     v5 = a3;
     exception = __cxa_allocate_exception(0x38uLL);
-    morphun::util::StringUtils::to_u16string(v5, &v11);
+    morphun::util::StringUtils::to_u16string(&v11, v5);
     std::basic_string<char16_t>::insert(&v11, L"Input too small. Expected at least ", 0x23, v7);
     v12 = v11;
     memset(&v11, 0, sizeof(v11));
     std::basic_string<char16_t>::append(&v12, L" bytes; Available: ", 0x13uLL);
     v13 = v12;
     memset(&v12, 0, sizeof(v12));
-    morphun::util::StringUtils::to_u16string((*(v3 + 2) - *(v3 + 4)), &v10);
+    morphun::util::StringUtils::to_u16string(&v10, (*(v3 + 2) - *(v3 + 4)));
     if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v8 = &v10;
@@ -9836,7 +9679,7 @@ void morphun::lang::StringFilterUtil::filteredUnaccent(void *a1@<X0>, void *a2@<
     v7 = *(a3 + 8);
   }
 
-  memset(&v28, 0, sizeof(v28));
+  memset(&v26, 0, sizeof(v26));
   if (v7 < 1)
   {
 LABEL_63:
@@ -9871,18 +9714,18 @@ LABEL_63:
 
       if (v11)
       {
-        std::basic_string<char16_t>::assign(&v28, a3, 0, v10);
+        std::basic_string<char16_t>::assign(&v26, a3, 0, v10);
       }
 
-      memset(&v27, 0, sizeof(v27));
-      morphun::util::StringUtils::appendCodePoint(&v27, v15);
+      memset(&v25, 0, sizeof(v25));
+      morphun::util::StringUtils::appendCodePoint(&v25, v15);
       memset(&__s, 0, sizeof(__s));
       {
         operator new();
       }
 
-      v18 = npc<icu4cxx::Normalizer2>(morphun::lang::NFD(void)::NFD_);
-      morphun::dictionary::PhraseProperties::normalize(v18, &v27, &__p);
+      npc<icu4cxx::Normalizer2>(morphun::lang::NFD(void)::NFD_);
+      morphun::dictionary::PhraseProperties::normalize(&v25, &__p);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -9918,8 +9761,8 @@ LABEL_37:
             operator new();
           }
 
-          v21 = npc<icu4cxx::Normalizer2>(morphun::lang::NFC(void)::NFC_);
-          morphun::dictionary::PhraseProperties::normalize(v21, &__s, &__p);
+          npc<icu4cxx::Normalizer2>(morphun::lang::NFC(void)::NFC_);
+          morphun::dictionary::PhraseProperties::normalize(&__s, &__p);
           goto LABEL_40;
         }
 
@@ -9939,25 +9782,25 @@ LABEL_37:
 LABEL_40:
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v22 = &__p;
+        v20 = &__p;
       }
 
       else
       {
-        v22 = __p.__r_.__value_.__r.__words[0];
+        v20 = __p.__r_.__value_.__r.__words[0];
       }
 
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v23 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        v21 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v23 = __p.__r_.__value_.__l.__size_;
+        v21 = __p.__r_.__value_.__l.__size_;
       }
 
-      std::basic_string<char16_t>::append(&v28, v22, v23);
+      std::basic_string<char16_t>::append(&v26, v20, v21);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -9968,38 +9811,38 @@ LABEL_40:
         operator delete(__s.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v27.__r_.__value_.__l.__data_);
+        operator delete(v25.__r_.__value_.__l.__data_);
       }
 
       v11 = 0;
       if (v15 < 0x10000)
       {
-        v24 = 1;
+        v22 = 1;
       }
 
       else
       {
-        v24 = 2;
+        v22 = 2;
       }
 
-      v10 += v24;
+      v10 += v22;
       if (v10 >= v7)
       {
         goto LABEL_65;
       }
     }
 
-    v16 = HIBYTE(v28.__r_.__value_.__r.__words[2]);
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v16 = HIBYTE(v26.__r_.__value_.__r.__words[2]);
+    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v16 = v28.__r_.__value_.__l.__size_;
+      v16 = v26.__r_.__value_.__l.__size_;
     }
 
     if (v16)
     {
-      morphun::util::StringUtils::appendCodePoint(&v28, v15);
+      morphun::util::StringUtils::appendCodePoint(&v26, v15);
     }
 
     if (v15 < 0x10000)
@@ -10023,11 +9866,11 @@ LABEL_40:
   }
 
 LABEL_65:
-  *a4 = v28;
-  memset(&v28, 0, sizeof(v28));
+  *a4 = v26;
+  memset(&v26, 0, sizeof(v26));
 LABEL_67:
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 }

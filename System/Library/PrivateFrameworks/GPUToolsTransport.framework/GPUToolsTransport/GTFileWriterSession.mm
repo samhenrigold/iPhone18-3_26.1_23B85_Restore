@@ -9,17 +9,10 @@
   optionsCopy = options;
   lCopy = l;
   entriesCopy = entries;
-  compressionAlgorithm = [optionsCopy compressionAlgorithm];
-  v13 = off_279660E20;
-  if (compressionAlgorithm)
-  {
-    v13 = off_279660E18;
-  }
+  [optionsCopy compressionAlgorithm];
+  v12 = [objc_opt_class() sessionWithFileEntries:entriesCopy relativeToURL:lCopy options:optionsCopy error:error];
 
-  v14 = *v13;
-  v15 = [objc_opt_class() sessionWithFileEntries:entriesCopy relativeToURL:lCopy options:optionsCopy error:error];
-
-  return v15;
+  return v12;
 }
 
 @end

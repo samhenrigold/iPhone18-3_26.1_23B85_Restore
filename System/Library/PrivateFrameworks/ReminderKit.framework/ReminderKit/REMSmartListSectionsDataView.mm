@@ -62,7 +62,7 @@
 
 - (id)fetchSmartListSectionsWithObjectIDs:(id)ds error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v8 = dsCopy;
   if (dsCopy)
@@ -84,41 +84,41 @@
 
       if (v19)
       {
-        v31 = v11;
-        v32 = v9;
+        v30 = v11;
+        v31 = v9;
         v20 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v19, "count")}];
+        v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
         v21 = v19;
-        v22 = [v21 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v34;
+          v24 = *v33;
           do
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v34 != v24)
+              if (*v33 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v33 + 1) + 8 * i);
+              v26 = *(*(&v32 + 1) + 8 * i);
               objectID = [v26 objectID];
               [v20 setObject:v26 forKeyedSubscript:objectID];
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v33 objects:v37 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
           }
 
           while (v23);
         }
 
-        v11 = v31;
-        v9 = v32;
+        v11 = v30;
+        v9 = v31;
       }
 
       else
@@ -145,20 +145,18 @@
     v20 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (id)fetchSmartListSectionWithObjectID:(id)d error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v8 = dCopy;
   if (dCopy)
   {
-    v16[0] = dCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = dCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     v10 = [(REMSmartListSectionsDataView *)self fetchSmartListSectionsWithObjectIDs:v9 error:error];
 
     if (v10)
@@ -199,71 +197,69 @@ LABEL_12:
   v11 = 0;
 LABEL_13:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)smartListSectionsFromAccountStorages:(id)storages smartListStorages:(id)listStorages groupStorages:(id)groupStorages smartListSectionStorages:(id)sectionStorages store:(id)store
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   storagesCopy = storages;
   listStoragesCopy = listStorages;
   groupStoragesCopy = groupStorages;
   sectionStoragesCopy = sectionStorages;
   storeCopy = store;
   v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(storagesCopy, "count")}];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   obj = storagesCopy;
-  v15 = [obj countByEnumeratingWithState:&v75 objects:v82 count:16];
+  v15 = [obj countByEnumeratingWithState:&v74 objects:v81 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v76;
+    v17 = *v75;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v76 != v17)
+        if (*v75 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = [[REMAccount alloc] initWithStore:storeCopy storage:*(*(&v75 + 1) + 8 * i)];
+        v19 = [[REMAccount alloc] initWithStore:storeCopy storage:*(*(&v74 + 1) + 8 * i)];
         objectID = [(REMAccount *)v19 objectID];
         [v14 setObject:v19 forKeyedSubscript:objectID];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v75 objects:v82 count:16];
+      v16 = [obj countByEnumeratingWithState:&v74 objects:v81 count:16];
     }
 
     while (v16);
   }
 
-  v62 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(groupStoragesCopy, "count")}];
+  v61 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(groupStoragesCopy, "count")}];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
-  v60 = groupStoragesCopy;
-  v21 = [v60 countByEnumeratingWithState:&v71 objects:v81 count:16];
+  v59 = groupStoragesCopy;
+  v21 = [v59 countByEnumeratingWithState:&v70 objects:v80 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v72;
+    v23 = *v71;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v72 != v23)
+        if (*v71 != v23)
         {
-          objc_enumerationMutation(v60);
+          objc_enumerationMutation(v59);
         }
 
-        v25 = *(*(&v71 + 1) + 8 * j);
+        v25 = *(*(&v70 + 1) + 8 * j);
         accountID = [v25 accountID];
 
         if (!accountID)
@@ -276,36 +272,36 @@ LABEL_13:
 
         v29 = [[REMList alloc] initWithStore:storeCopy account:v28 storage:v25];
         objectID2 = [(REMList *)v29 objectID];
-        [v62 setObject:v29 forKeyedSubscript:objectID2];
+        [v61 setObject:v29 forKeyedSubscript:objectID2];
       }
 
-      v22 = [v60 countByEnumeratingWithState:&v71 objects:v81 count:16];
+      v22 = [v59 countByEnumeratingWithState:&v70 objects:v80 count:16];
     }
 
     while (v22);
   }
 
   v31 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(listStoragesCopy, "count")}];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
-  v59 = listStoragesCopy;
-  v32 = [v59 countByEnumeratingWithState:&v67 objects:v80 count:16];
+  v58 = listStoragesCopy;
+  v32 = [v58 countByEnumeratingWithState:&v66 objects:v79 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v68;
+    v34 = *v67;
     do
     {
       for (k = 0; k != v33; ++k)
       {
-        if (*v68 != v34)
+        if (*v67 != v34)
         {
-          objc_enumerationMutation(v59);
+          objc_enumerationMutation(v58);
         }
 
-        v36 = *(*(&v67 + 1) + 8 * k);
+        v36 = *(*(&v66 + 1) + 8 * k);
         accountID3 = [v36 accountID];
 
         if (!accountID3)
@@ -321,7 +317,7 @@ LABEL_13:
         if (parentListID)
         {
           parentListID2 = [v36 parentListID];
-          parentListID = [v62 objectForKeyedSubscript:parentListID2];
+          parentListID = [v61 objectForKeyedSubscript:parentListID2];
         }
 
         v42 = [[REMSmartList alloc] initWithStore:storeCopy account:v39 parentList:parentListID storage:v36];
@@ -329,33 +325,33 @@ LABEL_13:
         [v31 setObject:v42 forKeyedSubscript:objectID3];
       }
 
-      v33 = [v59 countByEnumeratingWithState:&v67 objects:v80 count:16];
+      v33 = [v58 countByEnumeratingWithState:&v66 objects:v79 count:16];
     }
 
     while (v33);
   }
 
   v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(sectionStoragesCopy, "count")}];
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  v57 = sectionStoragesCopy;
-  v45 = [v57 countByEnumeratingWithState:&v63 objects:v79 count:16];
+  v56 = sectionStoragesCopy;
+  v45 = [v56 countByEnumeratingWithState:&v62 objects:v78 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v64;
+    v47 = *v63;
     do
     {
       for (m = 0; m != v46; ++m)
       {
-        if (*v64 != v47)
+        if (*v63 != v47)
         {
-          objc_enumerationMutation(v57);
+          objc_enumerationMutation(v56);
         }
 
-        v49 = *(*(&v63 + 1) + 8 * m);
+        v49 = *(*(&v62 + 1) + 8 * m);
         smartListID = [v49 smartListID];
 
         if (!smartListID)
@@ -369,38 +365,32 @@ LABEL_13:
         [v44 addObject:v53];
       }
 
-      v46 = [v57 countByEnumeratingWithState:&v63 objects:v79 count:16];
+      v46 = [v56 countByEnumeratingWithState:&v62 objects:v78 count:16];
     }
 
     while (v46);
   }
-
-  v54 = *MEMORY[0x1E69E9840];
 
   return v44;
 }
 
 - (void)fetchSmartListSectionsInSmartList:(uint64_t)a1 error:(const char *)a2 .cold.1(uint64_t a1, const char *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = NSStringFromSelector(a2);
-  v7 = [v3 stringWithFormat:@"%@.%@"];
+  v7 = [v3 stringWithFormat:@"%@.%@", v5, v6];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v5, v6, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v14, v15);
 }
 
 - (void)fetchSmartListSectionWithObjectID:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "REMSmartListSectionsDataView: Requested to fetch non-existent smartListSection {objectID: %{public}@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "REMSmartListSectionsDataView: Requested to fetch non-existent smartListSection {objectID: %{public}@}", &v2, 0xCu);
 }
 
 @end

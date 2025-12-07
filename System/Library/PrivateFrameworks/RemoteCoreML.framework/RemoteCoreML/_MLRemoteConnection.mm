@@ -56,7 +56,7 @@
 
 - (void)doReceive:(id)receive context:(id)context isComplete:(BOOL)complete error:(id)error
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   applier[0] = MEMORY[0x277D85DD0];
   applier[1] = 3221225472;
   applier[2] = __58___MLRemoteConnection_doReceive_context_isComplete_error___block_invoke;
@@ -208,19 +208,17 @@
         buffer8 = [packet21 buffer];
         v36 = [buffer8 length];
         *buf = 138413058;
-        v64 = v31;
-        v65 = 2048;
-        v66 = sizeOfPacket3;
-        v67 = 2048;
-        v68 = v36;
-        v69 = 2048;
-        v70 = v28;
+        v63 = v31;
+        v64 = 2048;
+        v65 = sizeOfPacket3;
+        v66 = 2048;
+        v67 = v36;
+        v68 = 2048;
+        v69 = v28;
         _os_log_debug_impl(&dword_261D92000, semaphore, OS_LOG_TYPE_DEBUG, "%@: Size of Packet: %zu < Size of current %zu buffer_length %zu.", buf, 0x2Au);
       }
     }
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)loadFromURL:(id)l options:(id)options error:(id *)error
@@ -311,7 +309,6 @@
 - (void)doReceive:context:isComplete:error:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_5() packet];
@@ -319,14 +316,11 @@
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doReceive:context:isComplete:error:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_5() packet];
@@ -334,47 +328,35 @@
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doReceive:(const char *)a1 context:isComplete:error:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doReceive:(const char *)a1 context:isComplete:error:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doReceive:(const char *)a1 context:isComplete:error:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doReceive:context:isComplete:error:.cold.6()
 {
   OUTLINED_FUNCTION_4();
-  v9 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_5() packet];
@@ -382,22 +364,17 @@
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)send:options:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_5() length];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

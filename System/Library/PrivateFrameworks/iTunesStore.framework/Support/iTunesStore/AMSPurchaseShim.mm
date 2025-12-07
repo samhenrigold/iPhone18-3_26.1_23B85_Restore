@@ -15,9 +15,9 @@
   purchaseCopy = purchase;
   dataCopy = data;
   identifierCopy = identifier;
-  v24.receiver = self;
-  v24.super_class = AMSPurchaseShim;
-  v11 = [(AMSPurchaseShim *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = AMSPurchaseShim;
+  v11 = [(AMSPurchaseShim *)&v23 init];
   if (v11)
   {
     newAMSPurchase = [purchaseCopy newAMSPurchase];
@@ -38,16 +38,21 @@
     shouldLog = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
     oSLogObject = [v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -57,29 +62,28 @@
       v18 = objc_opt_class();
       v19 = v18;
       v20 = AMSSetLogKeyIfNeeded();
-      v25 = 138543618;
-      v26 = v18;
-      v27 = 2114;
-      v28 = v20;
-      LODWORD(v23) = 22;
-      v21 = _os_log_send_and_compose_impl();
+      v24 = 138543618;
+      v25 = v18;
+      v26 = 2114;
+      v27 = v20;
+      v21 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%{public}@]: [%{public}@] AMSPurchaseShim is enabled for this purchase", &v24, 22);
 
       if (!v21)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v25, v23];
+      oSLogObject = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 
   return v11;
 }
@@ -96,16 +100,21 @@ LABEL_14:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [v6 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
@@ -117,22 +126,20 @@ LABEL_14:
     v62 = 2114;
     v63 = v5;
     v10 = v61;
-    LODWORD(v51) = 22;
-    v50 = &v60;
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%{public}@]: [%{public}@] Beginning a shimmed purchase", &v60, 22);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v11 encoding:4, &v60, v51];
+    oSLogObject = [NSString stringWithCString:v11 encoding:4];
     free(v11);
     v50 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   purchase = [(AMSPurchaseShim *)self purchase];
   [purchase setLogUUID:v5];
   mediaType = [purchase mediaType];
@@ -177,7 +184,7 @@ LABEL_12:
     v26 = [(AMSPurchaseShim *)self _legacyErrorFromError:v24];
     if (!v26)
     {
-      goto LABEL_39;
+      goto LABEL_42;
     }
 
     v27 = +[SSLogConfig sharedStoreServicesConfig];
@@ -186,20 +193,25 @@ LABEL_12:
       v27 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v27 shouldLog];
+    LODWORD(v28) = [v27 shouldLog];
     if ([v27 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v28) = v28 | 2;
     }
 
     oSLogObject2 = [v27 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog2 &= 2u;
+      v28 = v28;
+    }
+
+    else
+    {
+      v28 &= 2u;
     }
 
     v52 = v21;
-    if (shouldLog2)
+    if (v28)
     {
       v30 = objc_opt_class();
       v60 = 138543618;
@@ -209,30 +221,29 @@ LABEL_12:
       purchaseCopy = purchase;
       v32 = v30;
       LODWORD(v51) = 22;
-      v50 = &v60;
-      v33 = _os_log_send_and_compose_impl();
+      v33 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "[%{public}@]: [%{public}@] Shimmed purchase error was rewritten", &v60, v51);
 
       purchase = purchaseCopy;
       if (!v33)
       {
-LABEL_27:
+LABEL_29:
 
         v26 = v26;
         v34 = v26;
         v21 = v52;
-LABEL_38:
+LABEL_41:
 
         oSLogObject3 = v34;
-        goto LABEL_39;
+        goto LABEL_42;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v33 encoding:4, &v60, v51];
+      oSLogObject2 = [NSString stringWithCString:v33 encoding:4];
       free(v33);
       v50 = oSLogObject2;
       SSFileLog();
     }
 
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
   v26 = +[SSLogConfig sharedStoreServicesConfig];
@@ -241,23 +252,28 @@ LABEL_38:
     v26 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v26 shouldLog];
+  LODWORD(v35) = [v26 shouldLog];
   if ([v26 shouldLogToDisk])
   {
-    shouldLog3 |= 2u;
+    LODWORD(v35) = v35 | 2;
   }
 
   oSLogObject3 = [v26 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
   {
-    shouldLog3 &= 2u;
+    v35 = v35;
   }
 
-  if (!shouldLog3)
+  else
   {
-LABEL_37:
+    v35 &= 2u;
+  }
+
+  if (!v35)
+  {
+LABEL_40:
     v34 = 0;
-    goto LABEL_38;
+    goto LABEL_41;
   }
 
   v36 = objc_opt_class();
@@ -267,20 +283,19 @@ LABEL_37:
   v63 = v21;
   v37 = v36;
   LODWORD(v51) = 22;
-  v50 = &v60;
-  v38 = _os_log_send_and_compose_impl();
+  v38 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "[%{public}@]: [%{public}@] Shimmed purchase was successful", &v60, v51);
 
   if (v38)
   {
-    oSLogObject3 = [NSString stringWithCString:v38 encoding:4, &v60, v51];
+    oSLogObject3 = [NSString stringWithCString:v38 encoding:4];
     free(v38);
     v50 = oSLogObject3;
     SSFileLog();
-    goto LABEL_37;
+    goto LABEL_40;
   }
 
   oSLogObject3 = 0;
-LABEL_39:
+LABEL_42:
 
   if (purchase)
   {

@@ -33,42 +33,42 @@
     {
       v15 = first;
       first2 = [v12 first];
-      v17 = [v13 containsObject:first2];
+      v17 = objc_msgSend_containsObject_(v13);
 
       if ((v17 & 1) == 0)
       {
-        v18 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        v19 = __atxlog_handle_home_screen(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
-          [ATXHomeScreenStackSuggestion initWithStackIdentifier:v12 layoutOfTopWidget:v18 layoutOfSuggestedWidgets:?];
+          [ATXHomeScreenStackSuggestion initWithStackIdentifier:v12 layoutOfTopWidget:v19 layoutOfSuggestedWidgets:?];
         }
       }
     }
   }
 
-  v28.receiver = self;
-  v28.super_class = ATXHomeScreenStackSuggestion;
-  v19 = [(ATXHomeScreenStackSuggestion *)&v28 init];
-  v20 = v19;
-  if (v19)
+  v29.receiver = self;
+  v29.super_class = ATXHomeScreenStackSuggestion;
+  v20 = [(ATXHomeScreenStackSuggestion *)&v29 init];
+  v21 = v20;
+  if (v20)
   {
-    objc_storeStrong(&v19->_stackId, identifier);
+    objc_storeStrong(&v20->_stackId, identifier);
     first3 = [v12 first];
-    topWidget = v20->_topWidget;
-    v20->_topWidget = first3;
+    topWidget = v21->_topWidget;
+    v21->_topWidget = first3;
 
     second = [v12 second];
-    topWidgetSuggestions = v20->_topWidgetSuggestions;
-    v20->_topWidgetSuggestions = second;
+    topWidgetSuggestions = v21->_topWidgetSuggestions;
+    v21->_topWidgetSuggestions = second;
 
-    v25 = [MEMORY[0x1E695DFD8] setWithArray:v13];
-    suggestedWidgets = v20->_suggestedWidgets;
-    v20->_suggestedWidgets = v25;
+    v26 = [MEMORY[0x1E695DFD8] setWithArray:v13];
+    suggestedWidgets = v21->_suggestedWidgets;
+    v21->_suggestedWidgets = v26;
 
-    v20->_isLowConfidenceStackRotationForStaleStack = [widgetCopy isLowConfidenceStackRotationForStaleStack];
+    v21->_isLowConfidenceStackRotationForStaleStack = [widgetCopy isLowConfidenceStackRotationForStaleStack];
   }
 
-  return v20;
+  return v21;
 }
 
 - (id)initForDebuggingWithStackIdentifier:(id)identifier topWidget:(id)widget suggestedWidgets:(id)widgets
@@ -436,7 +436,7 @@ void __70__ATXHomeScreenStackSuggestion_stackSuggestionsFromCachedSuggestions___
     v11 = [MEMORY[0x1E69C5B88] infoSuggestionFromProactiveSuggestion:v6];
     if (!v11)
     {
-      minSuggestionListInLayout = __atxlog_handle_home_screen();
+      minSuggestionListInLayout = __atxlog_handle_home_screen(0);
       if (os_log_type_enabled(minSuggestionListInLayout, OS_LOG_TYPE_ERROR))
       {
         [(ATXHomeScreenStackSuggestion *)minSuggestionListInLayout _widgetAndSuggestionsFromSuggestionLayout:v20, v21, v22, v23, v24, v25, v26];
@@ -499,7 +499,8 @@ LABEL_9:
 
   else
   {
-    if ([layoutCopy layoutType] != 16)
+    layoutType = [layoutCopy layoutType];
+    if (layoutType != 16)
     {
       goto LABEL_14;
     }
@@ -507,16 +508,16 @@ LABEL_9:
     twoByTwoSuggestions = [layoutCopy fourByEightSuggestions];
   }
 
-  v5 = twoByTwoSuggestions;
+  v6 = twoByTwoSuggestions;
   firstObject = [twoByTwoSuggestions firstObject];
 
   if (!firstObject)
   {
 LABEL_14:
-    firstObject = __atxlog_handle_home_screen();
+    firstObject = __atxlog_handle_home_screen(layoutType);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
-      [(ATXHomeScreenStackSuggestion *)firstObject _widgetProactiveSuggestionFromLayout:v17, v18, v19, v20, v21, v22, v23];
+      [(ATXHomeScreenStackSuggestion *)firstObject _widgetProactiveSuggestionFromLayout:v19, v20, v21, v22, v23, v24, v25];
     }
 
     goto LABEL_16;
@@ -530,10 +531,10 @@ LABEL_14:
     goto LABEL_17;
   }
 
-  v9 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v11 = __atxlog_handle_home_screen(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [(ATXHomeScreenStackSuggestion *)v9 _widgetProactiveSuggestionFromLayout:v10, v11, v12, v13, v14, v15, v16];
+    [(ATXHomeScreenStackSuggestion *)v11 _widgetProactiveSuggestionFromLayout:v12, v13, v14, v15, v16, v17, v18];
   }
 
 LABEL_16:
@@ -622,7 +623,7 @@ LABEL_17:
       return 4;
     }
 
-    v5 = __atxlog_handle_home_screen();
+    v5 = __atxlog_handle_home_screen(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXHomeScreenStackSuggestion *)type _stackLayoutSizeFromUILayoutType:v5];

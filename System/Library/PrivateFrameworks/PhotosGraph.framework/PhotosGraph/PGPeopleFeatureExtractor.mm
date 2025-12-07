@@ -40,12 +40,11 @@ void __66__PGPeopleFeatureExtractor_initWithTopNumberOfPeople_graph_error___bloc
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v8 = [v3 targetsForSourceIdentifier:{objc_msgSend(v4, "identifier")}];
-  v5 = *(a1 + 40);
-  v6 = [objc_opt_class() _labelFromPersonNode:v4];
+  v7 = [v3 targetsForSourceIdentifier:{objc_msgSend(v4, "identifier")}];
+  v5 = [objc_opt_class() _labelFromPersonNode:v4];
 
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "count")}];
-  [*(a1 + 48) setObject:v7 forKeyedSubscript:v6];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
+  [*(a1 + 48) setObject:v6 forKeyedSubscript:v5];
 }
 
 - (PGPeopleFeatureExtractor)initWithGraph:(id)graph error:(id *)error
@@ -74,11 +73,10 @@ void __66__PGPeopleFeatureExtractor_initWithTopNumberOfPeople_graph_error___bloc
 
 void __48__PGPeopleFeatureExtractor_initWithGraph_error___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _labelFromPersonNode:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() _labelFromPersonNode:v3];
 
-  [*(a1 + 40) addObject:v5];
+  [*(a1 + 40) addObject:v4];
 }
 
 + (id)_fixLabels:(id)labels toLength:(unint64_t)length

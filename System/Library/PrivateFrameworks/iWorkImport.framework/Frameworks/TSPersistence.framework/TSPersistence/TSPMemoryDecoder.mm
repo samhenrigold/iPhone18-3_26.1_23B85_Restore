@@ -46,32 +46,32 @@
 
 - (TSPMemoryDecoder)initWithEncodedData:(id)data delegate:(id)delegate
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v7 = MEMORY[0x277D85CC8];
   v8 = MEMORY[0x277D85CC8];
   v9 = v7;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = v31;
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x2020000000;
-  v26[3] = 10;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = sub_276A857F0;
-  v25[3] = &unk_27A6E5C18;
-  v25[4] = v26;
-  v25[5] = &v27;
-  v11 = objc_msgSend_tsp_dispatchDataWithApplier_(data, v10, v25);
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = v30;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x2020000000;
+  v25[3] = 10;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = sub_276A857F0;
+  v24[3] = &unk_27A6E5C18;
+  v24[4] = v25;
+  v24[5] = &v26;
+  v11 = objc_msgSend_tsp_dispatchDataWithApplier_(data, v10, v24);
   size = dispatch_data_get_size(v11);
   v14 = size;
   v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = v28[3] - v31;
+  v18 = v27[3] - v30;
   if (v18 >= 0xA)
   {
     v18 = 10;
@@ -80,13 +80,13 @@
   v19 = MEMORY[0x277D85CC8];
   while (v18 != v16)
   {
-    v20 = v31[v16];
+    v20 = v30[v16];
     v17 |= (v20 & 0x7F) << v15;
     ++v16;
     v15 += 7;
     if ((v20 & 0x80) == 0)
     {
-      v28[3] = &v31[v16];
+      v27[3] = &v30[v16];
       if (v17 < size)
       {
         subrange = dispatch_data_create_subrange(v11, v16, v17);
@@ -104,10 +104,9 @@
 LABEL_10:
   v22 = objc_msgSend_initWithMetadataDispatchData_rootObjectComponentDispatchData_delegate_(self, v13, subrange, v19, delegateCopy);
 
-  _Block_object_dispose(v26, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(v25, 8);
+  _Block_object_dispose(&v26, 8);
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

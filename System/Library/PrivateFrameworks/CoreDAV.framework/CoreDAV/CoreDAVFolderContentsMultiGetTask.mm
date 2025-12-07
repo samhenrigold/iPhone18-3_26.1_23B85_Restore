@@ -24,15 +24,14 @@
 
 - (id)copyAdditionalPropElements
 {
-  appSpecificDataItemClass = self->super._appSpecificDataItemClass;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->super._appSpecificDataItemClass;
+  appSpecificDataItemClass = self->super._appSpecificDataItemClass;
 
-  return [(objc_class *)v4 copyPropertyMappingsForParser];
+  return [(objc_class *)appSpecificDataItemClass copyPropertyMappingsForParser];
 }
 
 - (void)setAdditionalProperties:(id)properties onDataItem:(id)item

@@ -38,7 +38,7 @@
 
 - (ASCSignpostPredicate)initWithSpans:(id)spans
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   spansCopy = spans;
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -47,7 +47,7 @@
   v20 = 0u;
   v21 = 0u;
   v6 = spansCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
@@ -76,11 +76,11 @@
 
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          [(ASCSignpostPredicate *)buf initWithSpans:v11, &v23];
+          [(ASCSignpostPredicate *)buf initWithSpans:v11, &buf[4]];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v8);

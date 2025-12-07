@@ -27,7 +27,7 @@
 
 - (id)_birthdayTitleForPeople
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = self->_personNodes;
   if ([(NSSet *)self->_personNodes count]!= 1)
   {
@@ -36,9 +36,9 @@
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v17 = [(NSSet *)self->_personNodes count];
+      v16 = [(NSSet *)self->_personNodes count];
       *buf = 134217984;
-      v19 = v17;
+      v18 = v16;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Trying to create birthday title with %lu people. Choosing any person.", buf, 0xCu);
     }
 
@@ -68,45 +68,43 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (BOOL)_person:(id)_person isPresentInAnyMomentOfMomentNodes:(id)nodes
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _personCopy = _person;
   nodesCopy = nodes;
   v7 = nodesCopy;
   if (_personCopy && [nodesCopy count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
-      v10 = *v15;
+      v10 = *v14;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          if ([*(*(&v14 + 1) + 8 * i) hasEdgeFromNode:{_personCopy, v14}])
+          if ([*(*(&v13 + 1) + 8 * i) hasEdgeFromNode:{_personCopy, v13}])
           {
             LOBYTE(v9) = 1;
             goto LABEL_14;
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v9)
         {
           continue;
@@ -124,7 +122,6 @@ LABEL_14:
     LOBYTE(v9) = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

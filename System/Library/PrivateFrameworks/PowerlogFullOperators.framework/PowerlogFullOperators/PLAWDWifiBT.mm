@@ -40,16 +40,14 @@
 
 + (id)entryAggregateDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"AwdWifi";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"AwdWifi";
   entryAggregateDefinitionAwdWifi = [self entryAggregateDefinitionAwdWifi];
-  v8[1] = @"AwdBT";
-  v9[0] = entryAggregateDefinitionAwdWifi;
+  v7[1] = @"AwdBT";
+  v8[0] = entryAggregateDefinitionAwdWifi;
   entryAggregateDefinitionAwdBT = [self entryAggregateDefinitionAwdBT];
-  v9[1] = entryAggregateDefinitionAwdBT;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = entryAggregateDefinitionAwdBT;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -134,14 +132,14 @@ LABEL_15:
   [runningMetrics addObject:collectionCopy];
 }
 
-uint64_t __37__PLAWDWifiBT_startMetricCollection___block_invoke(uint64_t a1)
+void *__37__PLAWDWifiBT_startMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled_2 = result;
   return result;
 }
 
-uint64_t __37__PLAWDWifiBT_startMetricCollection___block_invoke_102(uint64_t a1)
+void *__37__PLAWDWifiBT_startMetricCollection___block_invoke_102(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startMetricCollection__classDebugEnabled_101 = result;
@@ -240,14 +238,14 @@ LABEL_15:
   }
 }
 
-uint64_t __36__PLAWDWifiBT_stopMetricCollection___block_invoke(uint64_t a1)
+void *__36__PLAWDWifiBT_stopMetricCollection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopMetricCollection__classDebugEnabled_2 = result;
   return result;
 }
 
-uint64_t __36__PLAWDWifiBT_stopMetricCollection___block_invoke_111(uint64_t a1)
+void *__36__PLAWDWifiBT_stopMetricCollection___block_invoke_111(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopMetricCollection__classDebugEnabled_110 = result;
@@ -283,45 +281,43 @@ LABEL_7:
 
 + (id)entryAggregateDefinitionAwdWifi
 {
-  v27[4] = *MEMORY[0x277D85DE8];
-  v26[0] = *MEMORY[0x277D3F4E8];
+  v26[4] = *MEMORY[0x277D85DE8];
+  v25[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v24[0] = *MEMORY[0x277D3F568];
-  v24[1] = v2;
-  v25[0] = &unk_2870FEE70;
-  v25[1] = MEMORY[0x277CBEC28];
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-  v27[0] = v16;
-  v26[1] = *MEMORY[0x277D3F540];
-  v22[0] = @"WifiState";
+  v23[0] = *MEMORY[0x277D3F568];
+  v23[1] = v2;
+  v24[0] = &unk_2870FEE70;
+  v24[1] = MEMORY[0x277CBEC28];
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v26[0] = v15;
+  v25[1] = *MEMORY[0x277D3F540];
+  v21[0] = @"WifiState";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v23[0] = commonTypeDict_StringFormat;
-  v22[1] = @"Band";
+  v22[0] = commonTypeDict_StringFormat;
+  v21[1] = @"Band";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v23[1] = commonTypeDict_StringFormat2;
-  v22[2] = @"Value";
+  v22[1] = commonTypeDict_StringFormat2;
+  v21[2] = @"Value";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat_aggregateFunction_sum];
-  v23[2] = commonTypeDict_RealFormat_aggregateFunction_sum;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v27[1] = v8;
-  v26[2] = *MEMORY[0x277D3F478];
-  v20 = &unk_2870FEE80;
-  v18 = *MEMORY[0x277D3F470];
+  v22[2] = commonTypeDict_RealFormat_aggregateFunction_sum;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v26[1] = v8;
+  v25[2] = *MEMORY[0x277D3F478];
   v19 = &unk_2870FEE80;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v21 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-  v27[2] = v10;
-  v26[3] = *MEMORY[0x277D3F488];
-  v17 = @"Value";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-  v27[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D3F470];
+  v18 = &unk_2870FEE80;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v20 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v26[2] = v10;
+  v25[3] = *MEMORY[0x277D3F488];
+  v16 = @"Value";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v26[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
 
   return v12;
 }
@@ -347,11 +343,11 @@ LABEL_7:
   [wifiEventCallback requestEntry];
 }
 
-uint64_t __40__PLAWDWifiBT_startWifiMetricCollection__block_invoke(uint64_t result, uint64_t a2)
+id *__40__PLAWDWifiBT_startWifiMetricCollection__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleWifiCallback:a2];
+    return [result[4] handleWifiCallback:a2];
   }
 
   return result;
@@ -1144,105 +1140,105 @@ LABEL_145:
 LABEL_146:
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_135(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_135(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_134 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_150(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_150(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_149 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_162(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_162(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_161 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_168(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_168(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_167 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_177(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_177(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_176 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_186(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_186(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_185 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_195(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_195(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_194 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_219(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_219(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_218 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_225(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_225(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_224 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_231(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_231(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_230 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_237(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_237(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_236 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_243(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_243(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_242 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_249(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_249(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_248 = result;
   return result;
 }
 
-uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_255(uint64_t a1)
+void *__34__PLAWDWifiBT_handleWifiCallback___block_invoke_255(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleWifiCallback__classDebugEnabled_254 = result;
@@ -1251,7 +1247,7 @@ uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_255(uint64_t a1)
 
 - (BOOL)submitWiFiDataToAWDServer:(id)server withAwdConn:(id)conn
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   connCopy = conn;
   v7 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(server, "unsignedIntValue")}];
   if (v7)
@@ -1272,7 +1268,7 @@ uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_255(uint64_t a1)
     storage = [operator storage];
     v18 = [storage aggregateEntriesForKey:v15 withBucketLength:86400.0 inTimeIntervalRange:{v12, v14}];
 
-    v83 = v18;
+    v82 = v18;
     v19 = [MEMORY[0x277D3F190] summarizeAggregateEntries:v18];
     v20 = objc_opt_new();
     if ([MEMORY[0x277D3F180] debugEnabled])
@@ -1290,7 +1286,7 @@ uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_255(uint64_t a1)
 
       if (submitWiFiDataToAWDServer_withAwdConn__classDebugEnabled == 1)
       {
-        v81 = v19;
+        v80 = v19;
         v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : %@", @"*******PLAWDMetricsService*******", v19];
         v23 = MEMORY[0x277D3F178];
         v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/AwdLibrary/PLAWDWifiBT.m"];
@@ -1304,14 +1300,14 @@ uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_255(uint64_t a1)
           [PLAWDDisplay startMetricCollection:];
         }
 
-        v19 = v81;
+        v19 = v80;
       }
     }
 
     if (v20)
     {
-      v78 = v15;
-      v79 = v7;
+      v77 = v15;
+      v78 = v7;
       selfCopy = self;
       [v20 setTimestamp:0];
       [v20 setWifi2P4GHzRxDuration:0];
@@ -1333,31 +1329,31 @@ uint64_t __34__PLAWDWifiBT_handleWifiCallback___block_invoke_255(uint64_t a1)
       [v20 setWifiTotalDuration:0];
       [v20 setWifiTotalPowerMicroWatt:0];
       [v20 setTimestamp:{objc_msgSend(connCopy, "getAWDTimestamp")}];
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
       v88 = 0u;
-      v82 = v19;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
+      v81 = v19;
       v28 = v19;
-      v29 = [v28 countByEnumeratingWithState:&v87 objects:v92 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v86 objects:v91 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v88;
+        v31 = *v87;
         v32 = @"WifiPcieActiveDuration";
-        v84 = v28;
+        v83 = v28;
         do
         {
           v33 = 0;
           do
           {
             v34 = v32;
-            if (*v88 != v31)
+            if (*v87 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v35 = *(*(&v87 + 1) + 8 * v33);
+            v35 = *(*(&v86 + 1) + 8 * v33);
             v36 = objc_alloc(MEMORY[0x277CCACA8]);
             v37 = [v35 objectForKeyedSubscript:@"WifiState"];
             v38 = [v36 initWithFormat:@"%@", v37];
@@ -1401,12 +1397,12 @@ LABEL_29:
                 [v44 doubleValue];
                 [v20 setWifi5GHz20MHzTxDuration:v49];
 LABEL_27:
-                v28 = v84;
+                v28 = v83;
               }
 
               else
               {
-                v28 = v84;
+                v28 = v83;
                 if ([v39 isEqualToString:@"band_5p04_ghz"])
                 {
                   v44 = [v35 objectForKeyedSubscript:@"Value"];
@@ -1444,7 +1440,7 @@ LABEL_27:
                 goto LABEL_27;
               }
 
-              v28 = v84;
+              v28 = v83;
               if ([v39 isEqualToString:@"band_5p02_ghz"])
               {
                 v44 = [v35 objectForKeyedSubscript:@"Value"];
@@ -1531,30 +1527,30 @@ LABEL_30:
           }
 
           while (v30 != v33);
-          v61 = [v28 countByEnumeratingWithState:&v87 objects:v92 count:16];
+          v61 = [v28 countByEnumeratingWithState:&v86 objects:v91 count:16];
           v30 = v61;
         }
 
         while (v61);
       }
 
-      v7 = v79;
-      [v79 setMetric:v20];
+      v7 = v78;
+      [v78 setMetric:v20];
       self = selfCopy;
       [(PLAWDWifiBT *)selfCopy setWifiSubmitCnt:[(PLAWDWifiBT *)selfCopy wifiSubmitCnt]+ 1];
-      v19 = v82;
-      v15 = v78;
+      v19 = v81;
+      v15 = v77;
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v62 = objc_opt_class();
-        v86[0] = MEMORY[0x277D85DD0];
-        v86[1] = 3221225472;
-        v86[2] = __53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_278;
-        v86[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v86[4] = v62;
+        v85[0] = MEMORY[0x277D85DD0];
+        v85[1] = 3221225472;
+        v85[2] = __53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_278;
+        v85[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v85[4] = v62;
         if (submitWiFiDataToAWDServer_withAwdConn__defaultOnce_276 != -1)
         {
-          dispatch_once(&submitWiFiDataToAWDServer_withAwdConn__defaultOnce_276, v86);
+          dispatch_once(&submitWiFiDataToAWDServer_withAwdConn__defaultOnce_276, v85);
         }
 
         if (submitWiFiDataToAWDServer_withAwdConn__classDebugEnabled_277 == 1)
@@ -1572,26 +1568,26 @@ LABEL_30:
             [PLAWDDisplay startMetricCollection:];
           }
 
-          v19 = v82;
+          v19 = v81;
         }
       }
     }
 
-    v69 = v83;
+    v69 = v82;
     goto LABEL_63;
   }
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v70 = objc_opt_class();
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = __53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_284;
-    v85[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v85[4] = v70;
+    v84[0] = MEMORY[0x277D85DD0];
+    v84[1] = 3221225472;
+    v84[2] = __53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_284;
+    v84[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v84[4] = v70;
     if (submitWiFiDataToAWDServer_withAwdConn__defaultOnce_282 != -1)
     {
-      dispatch_once(&submitWiFiDataToAWDServer_withAwdConn__defaultOnce_282, v85);
+      dispatch_once(&submitWiFiDataToAWDServer_withAwdConn__defaultOnce_282, v84);
     }
 
     if (submitWiFiDataToAWDServer_withAwdConn__classDebugEnabled_283 == 1)
@@ -1616,25 +1612,24 @@ LABEL_63:
   [(PLAWDWifiBT *)self resetWifiTable];
   v75 = [connCopy submitMetric:v7];
 
-  v76 = *MEMORY[0x277D85DE8];
   return v75;
 }
 
-uint64_t __53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
+void *__53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitWiFiDataToAWDServer_withAwdConn__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_278(uint64_t a1)
+void *__53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_278(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitWiFiDataToAWDServer_withAwdConn__classDebugEnabled_277 = result;
   return result;
 }
 
-uint64_t __53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_284(uint64_t a1)
+void *__53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_284(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitWiFiDataToAWDServer_withAwdConn__classDebugEnabled_283 = result;
@@ -1643,41 +1638,39 @@ uint64_t __53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_
 
 + (id)entryAggregateDefinitionAwdBT
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_2870FEE90;
-  v23[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25[0] = v3;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"BTState";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_2870FEE90;
+  v22[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v24[0] = v3;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"BTState";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v20[1] = @"BTValue";
-  v21[0] = commonTypeDict_StringFormat;
+  v19[1] = @"BTValue";
+  v20[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat_aggregateFunction_sum];
-  v21[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v25[1] = v8;
-  v24[2] = *MEMORY[0x277D3F478];
-  v18 = &unk_2870FEE80;
-  v16 = *MEMORY[0x277D3F470];
+  v20[1] = commonTypeDict_RealFormat_aggregateFunction_sum;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v24[1] = v8;
+  v23[2] = *MEMORY[0x277D3F478];
   v17 = &unk_2870FEE80;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v25[2] = v10;
-  v24[3] = *MEMORY[0x277D3F488];
-  v15 = @"BTValue";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v25[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D3F470];
+  v16 = &unk_2870FEE80;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v24[2] = v10;
+  v23[3] = *MEMORY[0x277D3F488];
+  v14 = @"BTValue";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v24[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
   return v12;
 }
@@ -1717,21 +1710,21 @@ uint64_t __53__PLAWDWifiBT_submitWiFiDataToAWDServer_withAwdConn___block_invoke_
   [btPowerCallback requestEntry];
 }
 
-uint64_t __38__PLAWDWifiBT_startBtMetricCollection__block_invoke(uint64_t result, uint64_t a2)
+id *__38__PLAWDWifiBT_startBtMetricCollection__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleBTCallback:a2];
+    return [result[4] handleBTCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __38__PLAWDWifiBT_startBtMetricCollection__block_invoke_2(uint64_t result, uint64_t a2)
+id *__38__PLAWDWifiBT_startBtMetricCollection__block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleBTPowerCallback:a2];
+    return [result[4] handleBTPowerCallback:a2];
   }
 
   return result;
@@ -1855,14 +1848,14 @@ uint64_t __38__PLAWDWifiBT_startBtMetricCollection__block_invoke_2(uint64_t resu
   }
 }
 
-uint64_t __32__PLAWDWifiBT_handleBTCallback___block_invoke(uint64_t a1)
+void *__32__PLAWDWifiBT_handleBTCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBTCallback__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __32__PLAWDWifiBT_handleBTCallback___block_invoke_299(uint64_t a1)
+void *__32__PLAWDWifiBT_handleBTCallback___block_invoke_299(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBTCallback__classDebugEnabled_298 = result;
@@ -2030,21 +2023,21 @@ LABEL_17:
   }
 }
 
-uint64_t __37__PLAWDWifiBT_handleBTPowerCallback___block_invoke(uint64_t a1)
+void *__37__PLAWDWifiBT_handleBTPowerCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBTPowerCallback__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __37__PLAWDWifiBT_handleBTPowerCallback___block_invoke_308(uint64_t a1)
+void *__37__PLAWDWifiBT_handleBTPowerCallback___block_invoke_308(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBTPowerCallback__classDebugEnabled_307 = result;
   return result;
 }
 
-uint64_t __37__PLAWDWifiBT_handleBTPowerCallback___block_invoke_326(uint64_t a1)
+void *__37__PLAWDWifiBT_handleBTPowerCallback___block_invoke_326(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleBTPowerCallback__classDebugEnabled_325 = result;
@@ -2053,7 +2046,7 @@ uint64_t __37__PLAWDWifiBT_handleBTPowerCallback___block_invoke_326(uint64_t a1)
 
 - (BOOL)submitBtDataToAWDServer:(id)server withAwdConn:(id)conn
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   connCopy = conn;
   v7 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(server, "unsignedIntValue")}];
   if (v7)
@@ -2091,8 +2084,8 @@ uint64_t __37__PLAWDWifiBT_handleBTPowerCallback___block_invoke_326(uint64_t a1)
 
       if (submitBtDataToAWDServer_withAwdConn__classDebugEnabled == 1)
       {
-        v64 = v19;
-        v66 = v15;
+        v63 = v19;
+        v65 = v15;
         v22 = v20;
         v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : %@", @"*******PLAWDMetricsService*******", v19];
         v24 = MEMORY[0x277D3F178];
@@ -2107,17 +2100,17 @@ uint64_t __37__PLAWDWifiBT_handleBTPowerCallback___block_invoke_326(uint64_t a1)
           [PLAWDDisplay startMetricCollection:];
         }
 
-        v19 = v64;
-        v15 = v66;
+        v19 = v63;
+        v15 = v65;
         v20 = v22;
       }
     }
 
     if (v20)
     {
-      v61 = v18;
-      v62 = v7;
-      v67 = v15;
+      v60 = v18;
+      v61 = v7;
+      v66 = v15;
       selfCopy = self;
       [v20 setBtConnectedDuration:0];
       [v20 setBtOthersDuration:0];
@@ -2127,27 +2120,27 @@ uint64_t __37__PLAWDWifiBT_handleBTPowerCallback___block_invoke_326(uint64_t a1)
       [v20 setBtTotalPowerMicroWatt:0];
       v29 = v20;
       [v20 setTimestamp:{objc_msgSend(connCopy, "getAWDTimestamp")}];
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
-      v65 = v19;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v64 = v19;
       v30 = v19;
-      v31 = [v30 countByEnumeratingWithState:&v70 objects:v75 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v69 objects:v74 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v71;
+        v33 = *v70;
         do
         {
           for (i = 0; i != v32; ++i)
           {
-            if (*v71 != v33)
+            if (*v70 != v33)
             {
               objc_enumerationMutation(v30);
             }
 
-            v35 = *(*(&v70 + 1) + 8 * i);
+            v35 = *(*(&v69 + 1) + 8 * i);
             v36 = objc_alloc(MEMORY[0x277CCACA8]);
             v37 = [v35 objectForKeyedSubscript:@"BTState"];
             v38 = [v36 initWithFormat:@"%@", v37];
@@ -2202,31 +2195,31 @@ uint64_t __37__PLAWDWifiBT_handleBTPowerCallback___block_invoke_326(uint64_t a1)
 LABEL_28:
           }
 
-          v32 = [v30 countByEnumeratingWithState:&v70 objects:v75 count:16];
+          v32 = [v30 countByEnumeratingWithState:&v69 objects:v74 count:16];
         }
 
         while (v32);
       }
 
-      v7 = v62;
+      v7 = v61;
       v20 = v29;
-      [v62 setMetric:v29];
+      [v61 setMetric:v29];
       self = selfCopy;
       [(PLAWDWifiBT *)selfCopy setBtSubmitCnt:[(PLAWDWifiBT *)selfCopy btSubmitCnt]+ 1];
-      v19 = v65;
-      v15 = v67;
-      v18 = v61;
+      v19 = v64;
+      v15 = v66;
+      v18 = v60;
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v46 = objc_opt_class();
-        v69[0] = MEMORY[0x277D85DD0];
-        v69[1] = 3221225472;
-        v69[2] = __51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke_333;
-        v69[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v69[4] = v46;
+        v68[0] = MEMORY[0x277D85DD0];
+        v68[1] = 3221225472;
+        v68[2] = __51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke_333;
+        v68[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v68[4] = v46;
         if (submitBtDataToAWDServer_withAwdConn__defaultOnce_331 != -1)
         {
-          dispatch_once(&submitBtDataToAWDServer_withAwdConn__defaultOnce_331, v69);
+          dispatch_once(&submitBtDataToAWDServer_withAwdConn__defaultOnce_331, v68);
         }
 
         if (submitBtDataToAWDServer_withAwdConn__classDebugEnabled_332 == 1)
@@ -2244,8 +2237,8 @@ LABEL_28:
             [PLAWDDisplay startMetricCollection:];
           }
 
-          v19 = v65;
-          v15 = v67;
+          v19 = v64;
+          v15 = v66;
           v20 = v29;
         }
       }
@@ -2257,14 +2250,14 @@ LABEL_28:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v53 = objc_opt_class();
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke_339;
-    v68[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v68[4] = v53;
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke_339;
+    v67[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v67[4] = v53;
     if (submitBtDataToAWDServer_withAwdConn__defaultOnce_337 != -1)
     {
-      dispatch_once(&submitBtDataToAWDServer_withAwdConn__defaultOnce_337, v68);
+      dispatch_once(&submitBtDataToAWDServer_withAwdConn__defaultOnce_337, v67);
     }
 
     if (submitBtDataToAWDServer_withAwdConn__classDebugEnabled_338 == 1)
@@ -2289,25 +2282,24 @@ LABEL_38:
   [(PLAWDWifiBT *)self resetBTTable];
   v58 = [connCopy submitMetric:v7];
 
-  v59 = *MEMORY[0x277D85DE8];
   return v58;
 }
 
-uint64_t __51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
+void *__51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitBtDataToAWDServer_withAwdConn__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke_333(uint64_t a1)
+void *__51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke_333(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitBtDataToAWDServer_withAwdConn__classDebugEnabled_332 = result;
   return result;
 }
 
-uint64_t __51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke_339(uint64_t a1)
+void *__51__PLAWDWifiBT_submitBtDataToAWDServer_withAwdConn___block_invoke_339(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitBtDataToAWDServer_withAwdConn__classDebugEnabled_338 = result;

@@ -25,18 +25,18 @@
 
 - (id)notificationSystemSettings
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CE20B0];
   if (os_log_type_enabled(*MEMORY[0x277CE20B0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543362;
-    v23 = objc_opt_class();
-    v5 = v23;
+    v22 = objc_opt_class();
+    v5 = v22;
     _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Getting Notification System Settings", buf, 0xCu);
   }
 
-  v21 = UNShowPreviewsSettingFromBBContentPreviewSetting([(UNSSettingsGateway *)self->_settingsGateway globalContentPreviewSetting]);
+  v20 = UNShowPreviewsSettingFromBBContentPreviewSetting([(UNSSettingsGateway *)self->_settingsGateway globalContentPreviewSetting]);
   v6 = UNNotificationSettingFromBBAnnounceSetting([(UNSSettingsGateway *)self->_settingsGateway globalAnnounceSetting]);
   v7 = UNNotificationSettingFromBBAnnounceSetting([(UNSSettingsGateway *)self->_settingsGateway globalAnnounceHeadphonesSetting]);
   v8 = UNNotificationAnnouncementCarPlaySettingFromBBAnnounceCarPlaySetting([(UNSSettingsGateway *)self->_settingsGateway globalAnnounceCarPlaySetting]);
@@ -45,21 +45,19 @@
   v11 = UNNotificationSettingFromBBSystemSetting([(UNSSettingsGateway *)self->_settingsGateway globalScheduledDeliveryShowNextSummarySetting]);
   v12 = UNNotificationListDisplayStyleSettingFromBBNotificationListDisplayStyleSetting([(UNSSettingsGateway *)self->_settingsGateway globalNotificationListDisplayStyleSetting]);
   v13 = UNNotificationSettingFromBBSystemSetting([(UNSSettingsGateway *)self->_settingsGateway globalSummarizationSetting]);
-  v14 = [objc_alloc(MEMORY[0x277D77F88]) initWithShowPreviewsSetting:v21 announcementSetting:v6 announcementHeadphonesSetting:v7 announcementCarPlaySetting:v8 scheduledDeliverySetting:v9 scheduledDeliveryTimes:globalScheduledDeliveryTimes scheduledDeliveryShowNextSummarySetting:v11 notificationListDisplayStyleSetting:v12 summarizationSetting:v13 prioritizationSetting:{UNNotificationSettingFromBBSystemSetting(-[UNSSettingsGateway globalPrioritizationSetting](self->_settingsGateway, "globalPrioritizationSetting"))}];
+  v14 = [objc_alloc(MEMORY[0x277D77F88]) initWithShowPreviewsSetting:v20 announcementSetting:v6 announcementHeadphonesSetting:v7 announcementCarPlaySetting:v8 scheduledDeliverySetting:v9 scheduledDeliveryTimes:globalScheduledDeliveryTimes scheduledDeliveryShowNextSummarySetting:v11 notificationListDisplayStyleSetting:v12 summarizationSetting:v13 prioritizationSetting:{UNNotificationSettingFromBBSystemSetting(-[UNSSettingsGateway globalPrioritizationSetting](self->_settingsGateway, "globalPrioritizationSetting"))}];
   v15 = *MEMORY[0x277CE20B0];
   if (os_log_type_enabled(*MEMORY[0x277CE20B0], OS_LOG_TYPE_DEFAULT))
   {
     v16 = v15;
     v17 = objc_opt_class();
     *buf = 138543618;
-    v23 = v17;
-    v24 = 2114;
-    v25 = v14;
+    v22 = v17;
+    v23 = 2114;
+    v24 = v14;
     v18 = v17;
     _os_log_impl(&dword_270AA8000, v16, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Returning System Settings %{public}@", buf, 0x16u);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -158,57 +156,55 @@
 
 - (id)notificationSettingsForTopicsWithBundleIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [(UNSSettingsGateway *)self->_settingsGateway effectiveSectionInfoForSectionID:identifierCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   subsections = [v6 subsections];
-  v8 = [subsections countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [subsections countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(subsections);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         subsectionID = [v12 subsectionID];
         uns_notificationSettings = [v12 uns_notificationSettings];
         [v5 setObject:uns_notificationSettings forKey:subsectionID];
       }
 
-      v9 = [subsections countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [subsections countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)notificationSourceForBundleIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = MEMORY[0x277CE20B0];
   v6 = *MEMORY[0x277CE20B0];
   if (os_log_type_enabled(*MEMORY[0x277CE20B0], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
-    v13 = identifierCopy;
-    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Getting Notification Source For BundleIdentifier", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = identifierCopy;
+    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Getting Notification Source For BundleIdentifier", &v11, 0xCu);
   }
 
   v7 = [(UNSSettingsGateway *)self->_settingsGateway effectiveSectionInfoForSectionID:identifierCopy];
@@ -216,57 +212,55 @@
   v9 = *v5;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = identifierCopy;
-    v14 = 2114;
-    v15 = uns_notificationSource;
-    _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Returning Notification Source For BundleIdentifier %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = identifierCopy;
+    v13 = 2114;
+    v14 = uns_notificationSource;
+    _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Returning Notification Source For BundleIdentifier %{public}@", &v11, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return uns_notificationSource;
 }
 
 - (id)notificationSourcesForBundleIdentifiers:(id)identifiers
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = MEMORY[0x277CE20B0];
   v6 = *MEMORY[0x277CE20B0];
   if (os_log_type_enabled(*MEMORY[0x277CE20B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v23 = identifiersCopy;
+    v22 = identifiersCopy;
     _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Getting Notification Sources For BundleIdentifiers", buf, 0xCu);
   }
 
   v7 = [(UNSSettingsGateway *)self->_settingsGateway effectiveSectionInfoForSectionIDs:identifiersCopy];
   v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        uns_notificationSource = [*(*(&v18 + 1) + 8 * i) uns_notificationSource];
+        uns_notificationSource = [*(*(&v17 + 1) + 8 * i) uns_notificationSource];
         [v8 addObject:uns_notificationSource];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v11);
@@ -276,30 +270,28 @@
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v23 = identifiersCopy;
-    v24 = 2114;
-    v25 = v8;
+    v22 = identifiersCopy;
+    v23 = 2114;
+    v24 = v8;
     _os_log_impl(&dword_270AA8000, v15, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Returning Notification Sources For BundleIdentifiers %{public}@", buf, 0x16u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)notificationSourcesWithFilter:(id)filter
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   filterCopy = filter;
   v5 = *MEMORY[0x277CE20B0];
   if (os_log_type_enabled(*MEMORY[0x277CE20B0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     *buf = 138543618;
-    v46 = objc_opt_class();
-    v47 = 2114;
-    v48 = filterCopy;
-    v7 = v46;
+    v45 = objc_opt_class();
+    v46 = 2114;
+    v47 = filterCopy;
+    v7 = v45;
     _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Getting Notification Sources For Filter '%{public}@'", buf, 0x16u);
   }
 
@@ -307,41 +299,41 @@
   allEffectiveSectionInfo = [(UNSSettingsGateway *)self->_settingsGateway allEffectiveSectionInfo];
   v10 = [v8 initWithArray:allEffectiveSectionInfo];
 
-  v39 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v38 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
+  v11 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v42;
+    v13 = *v41;
     v14 = *MEMORY[0x277D77FC0];
-    v37 = *MEMORY[0x277D77FA8];
-    v40 = *MEMORY[0x277D77FB0];
+    v36 = *MEMORY[0x277D77FA8];
+    v39 = *MEMORY[0x277D77FB0];
     do
     {
       v15 = 0;
       do
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v41 + 1) + 8 * v15);
+        v16 = *(*(&v40 + 1) + 8 * v15);
         if (([(__CFString *)filterCopy isEqualToString:v14]& 1) != 0)
         {
 LABEL_9:
           uns_notificationSource = [v16 uns_notificationSource];
-          [v39 addObject:uns_notificationSource];
+          [v38 addObject:uns_notificationSource];
 
           goto LABEL_25;
         }
 
-        if (([(__CFString *)filterCopy isEqualToString:v37]& 1) != 0 || [(__CFString *)filterCopy isEqualToString:v40])
+        if (([(__CFString *)filterCopy isEqualToString:v36]& 1) != 0 || [(__CFString *)filterCopy isEqualToString:v39])
         {
           if ([v16 isRestricted])
           {
@@ -386,13 +378,13 @@ LABEL_9:
 
           if (([v16 suppressFromSettings] | v18))
           {
-            [(__CFString *)filterCopy isEqualToString:v40];
+            [(__CFString *)filterCopy isEqualToString:v39];
           }
 
           else
           {
             v27 = v26 & (isHidden ^ 1);
-            if (([(__CFString *)filterCopy isEqualToString:v40]& 1) != 0)
+            if (([(__CFString *)filterCopy isEqualToString:v39]& 1) != 0)
             {
               if (v27)
               {
@@ -418,7 +410,7 @@ LABEL_25:
       }
 
       while (v12 != v15);
-      v30 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
+      v30 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
       v12 = v30;
     }
 
@@ -437,38 +429,36 @@ LABEL_25:
 
     else
     {
-      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu of %lu", objc_msgSend(v39, "count"), objc_msgSend(obj, "count")];
+      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu of %lu", objc_msgSend(v38, "count"), objc_msgSend(obj, "count")];
     }
 
     *buf = 138543874;
-    v46 = v32;
-    v47 = 2114;
-    v48 = v34;
-    v49 = 2114;
-    v50 = filterCopy;
+    v45 = v32;
+    v46 = 2114;
+    v47 = v34;
+    v48 = 2114;
+    v49 = filterCopy;
     _os_log_impl(&dword_270AA8000, v31, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Returning %{public}@ Notification Sources For Filter '%{public}@'", buf, 0x20u);
     if ((v33 & 1) == 0)
     {
     }
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v39;
+  return v38;
 }
 
 - (void)authorizationWithOptions:(unint64_t)options forNotificationSourceIdentifier:(id)identifier withCompletionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v10 = MEMORY[0x277CE20B0];
   v11 = *MEMORY[0x277CE20B0];
   if (os_log_type_enabled(*MEMORY[0x277CE20B0], OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = identifierCopy;
-    _os_log_impl(&dword_270AA8000, v11, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Authorizing Notification Settings", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = identifierCopy;
+    _os_log_impl(&dword_270AA8000, v11, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Authorizing Notification Settings", &v16, 0xCu);
   }
 
   v12 = [MEMORY[0x277D77CB8] sourceDescriptionWithBundleIdentifier:identifierCopy];
@@ -523,22 +513,20 @@ LABEL_15:
   [(UNSSettingsGateway *)self->_settingsGateway setSectionInfo:v14 forSectionID:identifierCopy];
   handlerCopy[2](handlerCopy, 1, 0);
 LABEL_16:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revokeAuthorizationForNotificationSourceIdentifier:(id)identifier withCompletionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = MEMORY[0x277CE20B0];
   v9 = *MEMORY[0x277CE20B0];
   if (os_log_type_enabled(*MEMORY[0x277CE20B0], OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = identifierCopy;
-    _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Revoking Authorization", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = identifierCopy;
+    _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Revoking Authorization", &v16, 0xCu);
   }
 
   v10 = [MEMORY[0x277D77CB8] sourceDescriptionWithBundleIdentifier:identifierCopy];
@@ -590,35 +578,33 @@ LABEL_11:
   handlerCopy[2](handlerCopy, 1, 0);
 
 LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceNotificationSettings:(id)settings forNotificationSourceIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   identifierCopy = identifier;
   v8 = *MEMORY[0x277CE20B0];
   if (os_log_type_enabled(*MEMORY[0x277CE20B0], OS_LOG_TYPE_DEFAULT))
   {
     v9 = v8;
-    *v14 = 138543362;
-    *&v14[4] = objc_opt_class();
-    v10 = *&v14[4];
-    _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Replacing Notification Settings", v14, 0xCu);
+    *v13 = 138543362;
+    *&v13[4] = objc_opt_class();
+    v10 = *&v13[4];
+    _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Replacing Notification Settings", v13, 0xCu);
   }
 
-  v11 = [(UNSSettingsGateway *)self->_settingsGateway sectionInfoForSectionID:identifierCopy, *v14];
+  v11 = [(UNSSettingsGateway *)self->_settingsGateway sectionInfoForSectionID:identifierCopy, *v13, *&v13[8]];
   notificationSystemSettings = [(UNSNotificationSettingsService *)self notificationSystemSettings];
   [v11 uns_setPropertiesFromNotificationSettings:settingsCopy systemSettings:notificationSystemSettings];
 
   [(UNSSettingsGateway *)self->_settingsGateway setSectionInfo:v11 forSectionID:identifierCopy];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceNotificationTopicSettings:(id)settings forNotificationSourceIdentifier:(id)identifier topicIdentifier:(id)topicIdentifier
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   identifierCopy = identifier;
   topicIdentifierCopy = topicIdentifier;
@@ -627,34 +613,34 @@ LABEL_16:
   {
     v11 = v10;
     *buf = 138543362;
-    v36 = objc_opt_class();
-    v12 = v36;
+    v35 = objc_opt_class();
+    v12 = v35;
     _os_log_impl(&dword_270AA8000, v11, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Replacing Notification Topic Settings", buf, 0xCu);
   }
 
   [(UNSSettingsGateway *)self->_settingsGateway sectionInfoForSectionID:identifierCopy];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v27 = v33 = 0u;
-  subsections = [v27 subsections];
-  v14 = [subsections countByEnumeratingWithState:&v30 objects:v34 count:16];
-  v28 = identifierCopy;
+  v26 = v32 = 0u;
+  subsections = [v26 subsections];
+  v14 = [subsections countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v27 = identifierCopy;
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v31;
+    v17 = *v30;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v31 != v17)
+        if (*v30 != v17)
         {
           objc_enumerationMutation(subsections);
         }
 
-        v19 = *(*(&v30 + 1) + 8 * i);
+        v19 = *(*(&v29 + 1) + 8 * i);
         subsectionID = [v19 subsectionID];
         v21 = [subsectionID isEqualToString:topicIdentifierCopy];
 
@@ -666,7 +652,7 @@ LABEL_16:
         }
       }
 
-      v15 = [subsections countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v15 = [subsections countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v15);
@@ -683,20 +669,18 @@ LABEL_16:
   settingsGateway = self->_settingsGateway;
   sectionID = [v16 sectionID];
   [(UNSSettingsGateway *)settingsGateway setSectionInfo:v16 forSectionID:sectionID];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)setSourceSettings:(id)settings
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   allKeys = [settingsCopy allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (!v6)
   {
     v19 = 0;
@@ -705,17 +689,17 @@ LABEL_16:
 
   v7 = v6;
   v8 = 0;
-  v9 = *v23;
+  v9 = *v22;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v23 != v9)
+      if (*v22 != v9)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v11 = *(*(&v22 + 1) + 8 * i);
+      v11 = *(*(&v21 + 1) + 8 * i);
       v12 = [settingsCopy objectForKey:v11];
       v13 = [(UNSNotificationSettingsService *)self _modifySection:v11 withKeyValues:v12];
       v14 = v13;
@@ -735,7 +719,7 @@ LABEL_16:
       }
     }
 
-    v7 = [allKeys countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v21 objects:v27 count:16];
   }
 
   while (v7);
@@ -744,9 +728,9 @@ LABEL_16:
   {
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CCA5B8];
-    v26 = *MEMORY[0x277CCA450];
-    v27 = v8;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x277CCA450];
+    v26 = v8;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v19 = [v16 errorWithDomain:v17 code:1 userInfo:v18];
 
     allKeys = v8;
@@ -758,14 +742,12 @@ LABEL_15:
   v19 = 0;
 LABEL_17:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)_modifySection:(id)section withKeyValues:(id)values
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   valuesCopy = values;
   v8 = [(UNSSettingsGateway *)self->_settingsGateway sectionInfoForSectionID:sectionCopy];
@@ -776,30 +758,30 @@ LABEL_17:
   }
 
   selfCopy = self;
-  v23 = sectionCopy;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v22 = sectionCopy;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   allKeys = [valuesCopy allKeys];
-  v10 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (!v10)
   {
     goto LABEL_15;
   }
 
   v11 = v10;
-  v12 = *v25;
+  v12 = *v24;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v25 != v12)
+      if (*v24 != v12)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v14 = *(*(&v24 + 1) + 8 * i);
+      v14 = *(*(&v23 + 1) + 8 * i);
       v15 = [valuesCopy objectForKey:v14];
       if ([v14 isEqualToString:@"showPreviewsSetting"])
       {
@@ -812,8 +794,8 @@ LABEL_17:
 
         v19 = @"[%@]: Raw value of '%lu' cannot be mapped to UNShowPreviewsSetting for '%@'";
 LABEL_19:
-        sectionCopy = v23;
-        sectionCopy = [MEMORY[0x277CCACA8] stringWithFormat:v19, v23, objc_msgSend(v15, "unsignedIntegerValue"), v14];
+        sectionCopy = v22;
+        sectionCopy = [MEMORY[0x277CCACA8] stringWithFormat:v19, v22, objc_msgSend(v15, "unsignedIntegerValue"), v14];
 
         goto LABEL_20;
       }
@@ -833,7 +815,7 @@ LABEL_19:
 LABEL_13:
     }
 
-    v11 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v11 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v11)
     {
       continue;
@@ -844,19 +826,17 @@ LABEL_13:
 
 LABEL_15:
 
-  sectionCopy = v23;
-  [(UNSSettingsGateway *)selfCopy->_settingsGateway setSectionInfo:v8 forSectionID:v23];
+  sectionCopy = v22;
+  [(UNSSettingsGateway *)selfCopy->_settingsGateway setSectionInfo:v8 forSectionID:v22];
   sectionCopy = 0;
 LABEL_20:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return sectionCopy;
 }
 
 - (void)setNotificationSystemSettings:(id)settings
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = MEMORY[0x277CE20B0];
   v6 = *MEMORY[0x277CE20B0];
@@ -865,11 +845,11 @@ LABEL_20:
     v7 = v6;
     v8 = objc_opt_class();
     v9 = v8;
-    v52 = 138543618;
-    v53 = v8;
-    v54 = 2048;
+    v51 = 138543618;
+    v52 = v8;
+    v53 = 2048;
     modifiedSettings = [settingsCopy modifiedSettings];
-    _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Settings with modifiedSettings = %lu", &v52, 0x16u);
+    _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Settings with modifiedSettings = %lu", &v51, 0x16u);
   }
 
   if ([settingsCopy modifiedSettings])
@@ -879,10 +859,10 @@ LABEL_20:
     {
       v11 = v10;
       v12 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v12;
+      v51 = 138543362;
+      v52 = v12;
       v13 = v12;
-      _os_log_impl(&dword_270AA8000, v11, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Content Preview", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v11, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Content Preview", &v51, 0xCu);
     }
 
     -[UNSSettingsGateway setGlobalContentPreviewSetting:](self->_settingsGateway, "setGlobalContentPreviewSetting:", BBContentPreviewSettingFromUNShowPreviewsSetting([settingsCopy showPreviewsSetting]));
@@ -895,10 +875,10 @@ LABEL_20:
     {
       v15 = v14;
       v16 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v16;
+      v51 = 138543362;
+      v52 = v16;
       v17 = v16;
-      _os_log_impl(&dword_270AA8000, v15, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Announcement", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v15, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Announcement", &v51, 0xCu);
     }
 
     -[UNSSettingsGateway setGlobalAnnounceSetting:](self->_settingsGateway, "setGlobalAnnounceSetting:", BBAnnounceSettingFromUNNotificationSetting([settingsCopy announcementSetting]));
@@ -911,10 +891,10 @@ LABEL_20:
     {
       v19 = v18;
       v20 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v20;
+      v51 = 138543362;
+      v52 = v20;
       v21 = v20;
-      _os_log_impl(&dword_270AA8000, v19, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Announcement in Headphones", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v19, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Announcement in Headphones", &v51, 0xCu);
     }
 
     -[UNSSettingsGateway setGlobalAnnounceHeadphonesSetting:](self->_settingsGateway, "setGlobalAnnounceHeadphonesSetting:", BBAnnounceSettingFromUNNotificationSetting([settingsCopy announcementHeadphonesSetting]));
@@ -927,10 +907,10 @@ LABEL_20:
     {
       v23 = v22;
       v24 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v24;
+      v51 = 138543362;
+      v52 = v24;
       v25 = v24;
-      _os_log_impl(&dword_270AA8000, v23, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Announcement in CarPlay", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v23, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Announcement in CarPlay", &v51, 0xCu);
     }
 
     -[UNSSettingsGateway setGlobalAnnounceCarPlaySetting:](self->_settingsGateway, "setGlobalAnnounceCarPlaySetting:", BBAnnounceCarPlaySettingFromUNNotificationAnnouncementCarPlaySetting([settingsCopy announcementCarPlaySetting]));
@@ -943,10 +923,10 @@ LABEL_20:
     {
       v27 = v26;
       v28 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v28;
+      v51 = 138543362;
+      v52 = v28;
       v29 = v28;
-      _os_log_impl(&dword_270AA8000, v27, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Scheduled Delivery", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v27, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Scheduled Delivery", &v51, 0xCu);
     }
 
     -[UNSSettingsGateway setGlobalScheduledDeliverySetting:](self->_settingsGateway, "setGlobalScheduledDeliverySetting:", BBScheduledDeliverySettingFromUNNotificationSetting([settingsCopy scheduledDeliverySetting]));
@@ -959,10 +939,10 @@ LABEL_20:
     {
       v31 = v30;
       v32 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v32;
+      v51 = 138543362;
+      v52 = v32;
       v33 = v32;
-      _os_log_impl(&dword_270AA8000, v31, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Scheduled Delivery Times", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v31, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Scheduled Delivery Times", &v51, 0xCu);
     }
 
     scheduledDeliveryTimes = [settingsCopy scheduledDeliveryTimes];
@@ -976,10 +956,10 @@ LABEL_20:
     {
       v36 = v35;
       v37 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v37;
+      v51 = 138543362;
+      v52 = v37;
       v38 = v37;
-      _os_log_impl(&dword_270AA8000, v36, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Scheduled Delivery Show Next Summary", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v36, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Scheduled Delivery Show Next Summary", &v51, 0xCu);
     }
 
     -[UNSSettingsGateway setGlobalScheduledDeliveryShowNextSummarySetting:](self->_settingsGateway, "setGlobalScheduledDeliveryShowNextSummarySetting:", BBSystemSettingFromUNNotificationSetting([settingsCopy scheduledDeliveryShowNextSummarySetting]));
@@ -992,10 +972,10 @@ LABEL_20:
     {
       v40 = v39;
       v41 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v41;
+      v51 = 138543362;
+      v52 = v41;
       v42 = v41;
-      _os_log_impl(&dword_270AA8000, v40, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Notification List Display Style", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v40, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Notification List Display Style", &v51, 0xCu);
     }
 
     -[UNSSettingsGateway setGlobalNotificationListDisplayStyleSetting:](self->_settingsGateway, "setGlobalNotificationListDisplayStyleSetting:", BBNotificationListDisplayStyleSettingFromUNNotificationListDisplayStyleSetting([settingsCopy notificationListDisplayStyleSetting]));
@@ -1008,10 +988,10 @@ LABEL_20:
     {
       v44 = v43;
       v45 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v45;
+      v51 = 138543362;
+      v52 = v45;
       v46 = v45;
-      _os_log_impl(&dword_270AA8000, v44, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Summarization", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v44, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Summarization", &v51, 0xCu);
     }
 
     -[UNSSettingsGateway setGlobalSummarizationSetting:](self->_settingsGateway, "setGlobalSummarizationSetting:", BBSystemSettingFromUNNotificationSetting([settingsCopy summarizationSetting]));
@@ -1024,79 +1004,74 @@ LABEL_20:
     {
       v48 = v47;
       v49 = objc_opt_class();
-      v52 = 138543362;
-      v53 = v49;
+      v51 = 138543362;
+      v52 = v49;
       v50 = v49;
-      _os_log_impl(&dword_270AA8000, v48, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Prioritization", &v52, 0xCu);
+      _os_log_impl(&dword_270AA8000, v48, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Setting Notification System Setting for Prioritization", &v51, 0xCu);
     }
 
     -[UNSSettingsGateway setGlobalPrioritizationSetting:](self->_settingsGateway, "setGlobalPrioritizationSetting:", BBSystemSettingFromUNNotificationSetting([settingsCopy prioritizationSetting]));
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetScheduledDeliverySetting
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CE20B0];
   if (os_log_type_enabled(*MEMORY[0x277CE20B0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
-    *v7 = 138543362;
-    *&v7[4] = objc_opt_class();
-    v5 = *&v7[4];
-    _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Resetting Scheduled Delivery Setting", v7, 0xCu);
+    *v6 = 138543362;
+    *&v6[4] = objc_opt_class();
+    v5 = *&v6[4];
+    _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "UNSNotificationSettingsService [%{public}@] Resetting Scheduled Delivery Setting", v6, 0xCu);
   }
 
-  [(UNSSettingsGateway *)self->_settingsGateway setGlobalScheduledDeliverySetting:0, *v7];
+  [(UNSSettingsGateway *)self->_settingsGateway setGlobalScheduledDeliverySetting:0, *v6, *&v6[8]];
   [(UNSSettingsGateway *)self->_settingsGateway setGlobalScheduledDeliveryTimes:MEMORY[0x277CBEBF8]];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settingsGateway:(id)gateway didUpdateSectionInfoForSectionIDs:(id)ds
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_observers;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) settingsService:self didUpdateNotificationSourcesForBundleIdentifiers:{dsCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) settingsService:self didUpdateNotificationSourcesForBundleIdentifiers:{dsCopy, v11}];
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settingsGateway:(id)gateway didUpdateGlobalSettings:(id)settings
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
-  v21 = UNShowPreviewsSettingFromBBContentPreviewSetting([settingsCopy globalContentPreviewSetting]);
-  v20 = UNNotificationSettingFromBBAnnounceSetting([settingsCopy globalAnnounceSetting]);
+  v20 = UNShowPreviewsSettingFromBBContentPreviewSetting([settingsCopy globalContentPreviewSetting]);
+  v19 = UNNotificationSettingFromBBAnnounceSetting([settingsCopy globalAnnounceSetting]);
   v6 = UNNotificationSettingFromBBAnnounceSetting([settingsCopy globalAnnounceHeadphonesSetting]);
   v7 = UNNotificationAnnouncementCarPlaySettingFromBBAnnounceCarPlaySetting([settingsCopy globalAnnounceCarPlaySetting]);
   v8 = UNNotificationSettingFromBBScheduledDeliverySetting([settingsCopy globalScheduledDeliverySetting]);
@@ -1104,62 +1079,36 @@ LABEL_20:
   v10 = UNNotificationSettingFromBBSystemSetting([settingsCopy globalScheduledDeliveryShowNextSummarySetting]);
   v11 = UNNotificationListDisplayStyleSettingFromBBNotificationListDisplayStyleSetting([settingsCopy globalNotificationListDisplayStyleSetting]);
   v12 = UNNotificationSettingFromBBSystemSetting([settingsCopy globalSummarizationSetting]);
-  v13 = [objc_alloc(MEMORY[0x277D77F88]) initWithShowPreviewsSetting:v21 announcementSetting:v20 announcementHeadphonesSetting:v6 announcementCarPlaySetting:v7 scheduledDeliverySetting:v8 scheduledDeliveryTimes:globalScheduledDeliveryTimes scheduledDeliveryShowNextSummarySetting:v10 notificationListDisplayStyleSetting:v11 summarizationSetting:v12 prioritizationSetting:{UNNotificationSettingFromBBSystemSetting(objc_msgSend(settingsCopy, "globalHighlightsSetting"))}];
+  v13 = [objc_alloc(MEMORY[0x277D77F88]) initWithShowPreviewsSetting:v20 announcementSetting:v19 announcementHeadphonesSetting:v6 announcementCarPlaySetting:v7 scheduledDeliverySetting:v8 scheduledDeliveryTimes:globalScheduledDeliveryTimes scheduledDeliveryShowNextSummarySetting:v10 notificationListDisplayStyleSetting:v11 summarizationSetting:v12 prioritizationSetting:{UNNotificationSettingFromBBSystemSetting(objc_msgSend(settingsCopy, "globalHighlightsSetting"))}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v14 = self->_observers;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       v18 = 0;
       do
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [*(*(&v22 + 1) + 8 * v18++) settingsService:self didUpdateNotificationSystemSettings:v13];
+        [*(*(&v21 + 1) + 8 * v18++) settingsService:self didUpdateNotificationSystemSettings:v13];
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
-}
-
-- (void)authorizationWithOptions:forNotificationSourceIdentifier:withCompletionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_2(&dword_270AA8000, v0, v1, "[%{public}@] Notification source not configured for UserNotifications", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)authorizationWithOptions:forNotificationSourceIdentifier:withCompletionHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_2(&dword_270AA8000, v0, v1, "[%{public}@] Notification source is not permitted to use critical alerts", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)authorizationWithOptions:forNotificationSourceIdentifier:withCompletionHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_2(&dword_270AA8000, v0, v1, "[%{public}@] Notification source not found", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

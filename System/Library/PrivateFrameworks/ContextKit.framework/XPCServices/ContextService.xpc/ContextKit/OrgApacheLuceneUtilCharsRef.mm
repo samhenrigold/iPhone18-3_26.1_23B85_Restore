@@ -314,19 +314,18 @@ LABEL_28:
   if (!chars)
   {
     v13 = @"chars is null";
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   length = self->length_;
   if (length < 0)
   {
     v17 = @"length is negative: ";
-    v18 = self->length_;
 LABEL_13:
     v15 = "$I";
-LABEL_19:
+LABEL_18:
     v13 = JreStrcat(v15, a2, v2, v3, v4, v5, v6, v7, v17);
-LABEL_20:
+LABEL_19:
     v16 = new_JavaLangIllegalStateException_initWithNSString_(v13);
     objc_exception_throw(v16);
   }
@@ -335,43 +334,35 @@ LABEL_20:
   if (length > size)
   {
     v14 = @"length is out of bounds: ";
-    v23 = chars->super.size_;
-    v19 = self->length_;
-LABEL_17:
+LABEL_16:
     v13 = JreStrcat("$I$I", a2, v2, v3, v4, v5, v6, v7, v14);
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   offset = self->offset_;
   if ((offset & 0x80000000) != 0)
   {
     v17 = @"offset is negative: ";
-    v20 = self->offset_;
     goto LABEL_13;
   }
 
   if (offset > size)
   {
     v14 = @"offset out of bounds: ";
-LABEL_16:
-    v21 = self->offset_;
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   if ((offset + length) < 0)
   {
     v14 = @"offset+length is negative: offset=";
-    v24 = self->length_;
     goto LABEL_16;
   }
 
   if (offset + length > size)
   {
-    v25 = self->length_;
     v17 = @"offset+length out of bounds: offset=";
-    v22 = self->offset_;
     v15 = "$I$I$I";
-    goto LABEL_19;
+    goto LABEL_18;
   }
 
   return 1;

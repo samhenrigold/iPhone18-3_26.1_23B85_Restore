@@ -1,13 +1,13 @@
-id ActivitySharingBundle()
+id ActivitySharingBundle(uint64_t a1)
 {
   if (ActivitySharingBundle_onceToken != -1)
   {
     ActivitySharingBundle_cold_1();
   }
 
-  v1 = ActivitySharingBundle_bundle;
+  v2 = ActivitySharingBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ASSecureCloudEnabled()
@@ -78,7 +78,7 @@ double _ASMoveValueForSnapshot(void *a1)
   return v3;
 }
 
-void ASLoggingInitialize()
+void ASLoggingInitialize(uint64_t result, uint64_t a2)
 {
   if (ASLoggingInitialize_onceToken != -1)
   {
@@ -132,29 +132,27 @@ id _FakeHistoricalCompetitionsWithWinner(uint64_t a1, uint64_t a2)
 
 id ASCompetitionDurationDateComponentsForNewCompetitions()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionDurationNumberOfDays", 7);
   v1 = objc_alloc_init(MEMORY[0x277CBEAB8]);
   [v1 setDay:v0];
   [v1 setMonth:0];
   [v1 setYear:0];
-  [v1 setEra:0];
-  ASLoggingInitialize();
-  v2 = ASLogCompetitions;
+  v2 = [v1 setEra:0];
+  ASLoggingInitialize(v2, v3);
+  v4 = ASLogCompetitions;
   if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = v2;
-    v6 = 134217984;
-    v7 = [v1 day];
-    _os_log_impl(&dword_23E4FA000, v3, OS_LOG_TYPE_DEFAULT, "Competition duration is %ld days", &v6, 0xCu);
+    v5 = v4;
+    v7 = 134217984;
+    v8 = [v1 day];
+    _os_log_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Competition duration is %ld days", &v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
 
-uint64_t _ASIntegerFromUserDefaultsWithDefaultValue(void *a1, uint64_t a2)
+void *_ASIntegerFromUserDefaultsWithDefaultValue(void *a1, void *a2)
 {
   v3 = MEMORY[0x277CBEBD0];
   v4 = a1;
@@ -169,20 +167,19 @@ uint64_t _ASIntegerFromUserDefaultsWithDefaultValue(void *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t ASCompetitionMaximumPointsPerDayForNewCompetitions()
+void *ASCompetitionMaximumPointsPerDayForNewCompetitions()
 {
   v6 = *MEMORY[0x277D85DE8];
-  v0 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionMaximumPointsPerDay", 600);
-  ASLoggingInitialize();
-  v1 = ASLogCompetitions;
+  v0 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionMaximumPointsPerDay", 0x258);
+  ASLoggingInitialize(v0, v1);
+  v2 = ASLogCompetitions;
   if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 134217984;
     v5 = v0;
-    _os_log_impl(&dword_23E4FA000, v1, OS_LOG_TYPE_DEFAULT, "Competition max num points per day is %lu", &v4, 0xCu);
+    _os_log_impl(&dword_23E4FA000, v2, OS_LOG_TYPE_DEFAULT, "Competition max num points per day is %lu", &v4, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -399,98 +396,98 @@ __CFString *NSStringFromASRelationshipEventType(int a1)
 
 id _ConsolidatedEvents(void *a1)
 {
-  v105 = *MEMORY[0x277D85DE8];
-  v90 = 0u;
-  v91 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  v39 = a1;
-  obj = [v39 reverseObjectEnumerator];
-  v42 = [obj countByEnumeratingWithState:&v90 objects:v94 count:16];
-  if (v42)
+  v110 = *MEMORY[0x277D85DE8];
+  v95 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  v44 = a1;
+  obj = [v44 reverseObjectEnumerator];
+  v47 = [obj countByEnumeratingWithState:&v95 objects:v99 count:16];
+  if (v47)
   {
-    v73 = 0;
+    v78 = 0;
+    v71 = 0;
+    v72 = 0;
+    v70 = 0;
+    v68 = 0;
     v66 = 0;
     v67 = 0;
+    v64 = 0;
     v65 = 0;
+    v62 = 0;
     v63 = 0;
     v61 = 0;
-    v62 = 0;
-    v59 = 0;
+    v92 = 0;
+    v93 = 0;
     v60 = 0;
-    v57 = 0;
-    v58 = 0;
-    v56 = 0;
-    v87 = 0;
-    v88 = 0;
-    v55 = 0;
-    v41 = *v91;
-    v74 = MEMORY[0x277CBEBF8];
+    v46 = *v96;
+    v79 = MEMORY[0x277CBEBF8];
     do
     {
       v1 = 0;
       do
       {
-        if (*v91 != v41)
+        if (*v96 != v46)
         {
           v2 = v1;
           objc_enumerationMutation(obj);
           v1 = v2;
         }
 
-        v72 = v1;
-        v3 = *(*(&v90 + 1) + 8 * v1);
+        v77 = v1;
+        v3 = *(*(&v95 + 1) + 8 * v1);
         v4 = [v3 type] == 4 || objc_msgSend(v3, "type") == 104;
-        v71 = v4;
+        v76 = v4;
         v5 = [v3 type] == 8 || objc_msgSend(v3, "type") == 9;
-        v70 = v5;
-        v85 = [v3 type];
+        v75 = v5;
+        v90 = [v3 type];
         v6 = [v3 type] == 10 || objc_msgSend(v3, "type") == 105 || objc_msgSend(v3, "type") == 12 || objc_msgSend(v3, "type") == 11 || objc_msgSend(v3, "type") == 106 || objc_msgSend(v3, "type") == 14 || objc_msgSend(v3, "type") == 13;
-        v84 = v6;
-        v51 = [v3 type];
-        if (v88)
+        v89 = v6;
+        v56 = [v3 type];
+        if (v93)
         {
           v7 = [v3 type];
-          v50 = v7 == [v88 type];
+          v55 = v7 == [v93 type];
         }
 
         else
         {
-          v50 = 0;
+          v55 = 0;
         }
 
         v8 = [v3 type] == 201 || objc_msgSend(v3, "type") == 202;
-        v69 = v8;
+        v74 = v8;
+        v88 = [v3 type];
+        v87 = [v3 type];
+        v9 = [v3 type] == 204 || objc_msgSend(v3, "type") == 302 || objc_msgSend(v3, "type") == 303;
+        v57 = v9;
+        v10 = [v3 type] == 204 || objc_msgSend(v3, "type") == 302;
+        v53 = v10;
+        v54 = [v3 type];
+        v86 = [v3 type];
+        v85 = [v3 type];
+        v11 = [v3 type] == 304 || objc_msgSend(v3, "type") == 207;
+        v59 = v11;
+        v52 = [v3 type];
+        v51 = [v3 type];
+        v84 = [v3 type];
         v83 = [v3 type];
         v82 = [v3 type];
-        v9 = [v3 type] == 204 || objc_msgSend(v3, "type") == 302 || objc_msgSend(v3, "type") == 303;
-        v52 = v9;
-        v10 = [v3 type] == 204 || objc_msgSend(v3, "type") == 302;
-        v48 = v10;
-        v49 = [v3 type];
         v81 = [v3 type];
-        v80 = [v3 type];
-        v11 = [v3 type] == 304 || objc_msgSend(v3, "type") == 207;
-        v54 = v11;
-        v47 = [v3 type];
-        v46 = [v3 type];
-        v79 = [v3 type];
-        v78 = [v3 type];
-        v77 = [v3 type];
-        v76 = [v3 type];
         v12 = [v3 type] == 209 || objc_msgSend(v3, "type") == 305 || objc_msgSend(v3, "type") == 210;
-        v64 = v12;
-        v45 = [v3 type];
-        v44 = [v3 type];
-        v75 = [v3 type];
+        v69 = v12;
+        v50 = [v3 type];
+        v49 = [v3 type];
+        v80 = [v3 type];
         v13 = [v3 type];
         v14 = [v3 type];
         v15 = [v3 type];
         v16 = [v3 type] == 217 || objc_msgSend(v3, "type") == 218;
-        v68 = v16;
-        v43 = [v3 type];
+        v73 = v16;
+        v48 = [v3 type];
         v17 = [v3 type];
-        if (BYTE4(v87) & 1 | !v84)
+        if (BYTE4(v92) & 1 | !v89)
         {
           v18 = 1;
         }
@@ -498,21 +495,21 @@ id _ConsolidatedEvents(void *a1)
         else
         {
           v19 = [v3 type];
-          v20 = v74;
+          v20 = v79;
           buf = 0u;
-          v102 = 0u;
-          v103 = 0u;
-          v104 = 0u;
+          v107 = 0u;
+          v108 = 0u;
+          v109 = 0u;
           v21 = v20;
-          v22 = [v21 countByEnumeratingWithState:&buf objects:&v95 count:16];
+          v22 = [v21 countByEnumeratingWithState:&buf objects:&v100 count:16];
           if (v22)
           {
-            v23 = *v102;
+            v23 = *v107;
             while (2)
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v102 != v23)
+                if (*v107 != v23)
                 {
                   objc_enumerationMutation(v21);
                 }
@@ -524,7 +521,7 @@ id _ConsolidatedEvents(void *a1)
                 }
               }
 
-              v22 = [v21 countByEnumeratingWithState:&buf objects:&v95 count:16];
+              v22 = [v21 countByEnumeratingWithState:&buf objects:&v100 count:16];
               if (v22)
               {
                 continue;
@@ -538,49 +535,49 @@ id _ConsolidatedEvents(void *a1)
 LABEL_54:
         }
 
-        if ((v68 & v73 & 1) == 0 && (v68 & HIDWORD(v67) & 1) == 0 && ((v15 == 306) & v67) == 0 && ((v14 == 216) & BYTE4(v66)) == 0 && ((v13 == 215) & v66) == 0 && ((v75 == 214) & BYTE4(v65)) == 0 && (v64 & v65 & 1) == 0 && (v64 & v63 & 1) == 0 && ((v76 == 213) & BYTE4(v62)) == 0 && ((v77 == 212) & v62) == 0 && ((v78 == 211) & BYTE4(v61)) == 0 && ((v79 == 208) & v61) == 0 && (v54 & HIDWORD(v60) & 1) == 0 && (v54 & v60 & 1) == 0 && ((v80 == 206) & BYTE4(v59)) == 0 && ((v81 == 205) & v59) == 0 && (v52 & HIDWORD(v58) & 1) == 0 && (v52 & v58 & 1) == 0 && ((v82 == 301) & BYTE4(v57)) == 0 && ((v83 == 203) & v57) == 0 && !(v50 | v84 & HIDWORD(v87) | (v85 == 15) & v56 | v70 & v55 | v69 & HIDWORD(v56) | v87 & v18))
+        if ((v73 & v78 & 1) == 0 && (v73 & HIDWORD(v72) & 1) == 0 && ((v15 == 306) & v72) == 0 && ((v14 == 216) & BYTE4(v71)) == 0 && ((v13 == 215) & v71) == 0 && ((v80 == 214) & BYTE4(v70)) == 0 && (v69 & v70 & 1) == 0 && (v69 & v68 & 1) == 0 && ((v81 == 213) & BYTE4(v67)) == 0 && ((v82 == 212) & v67) == 0 && ((v83 == 211) & BYTE4(v66)) == 0 && ((v84 == 208) & v66) == 0 && (v59 & HIDWORD(v65) & 1) == 0 && (v59 & v65 & 1) == 0 && ((v85 == 206) & BYTE4(v64)) == 0 && ((v86 == 205) & v64) == 0 && (v57 & HIDWORD(v63) & 1) == 0 && (v57 & v63 & 1) == 0 && ((v87 == 301) & BYTE4(v62)) == 0 && ((v88 == 203) & v62) == 0 && !(v55 | v89 & HIDWORD(v92) | (v90 == 15) & v61 | v75 & v60 | v74 & HIDWORD(v61) | v92 & v18))
         {
-          LODWORD(v53) = v13 == 215;
-          HIDWORD(v53) = v14 == 216;
-          v25 = v85 == 15;
+          LODWORD(v58) = v13 == 215;
+          HIDWORD(v58) = v14 == 216;
+          v25 = v90 == 15;
           v26 = v3;
 
-          v86 = [v74 arrayByAddingObject:v26];
+          v91 = [v79 arrayByAddingObject:v26];
 
-          v55 |= v70;
-          HIDWORD(v87) |= v51 == 14;
-          LOBYTE(v56) = v56 | v25;
-          HIDWORD(v56) |= v69;
-          LOBYTE(v57) = v57 | (v83 == 203);
-          BYTE4(v57) |= v82 == 301;
-          LODWORD(v58) = v58 | (v49 == 303);
-          HIDWORD(v58) = v48 | BYTE4(v58) & 1;
-          LOBYTE(v59) = v59 | (v81 == 205);
-          BYTE4(v59) |= v80 == 206;
-          LODWORD(v60) = v60 | (v47 == 304);
-          HIDWORD(v60) |= v46 == 207;
-          LOBYTE(v61) = v61 | (v79 == 208);
-          BYTE4(v61) |= v78 == 211;
-          LOBYTE(v62) = v62 | (v77 == 212);
-          BYTE4(v62) |= v76 == 213;
-          v63 |= v45 == 305;
-          LODWORD(v65) = v65 | (v44 == 210);
-          BYTE4(v65) |= v75 == 214;
-          v66 |= v53;
-          LOBYTE(v67) = v67 | (v15 == 306);
-          HIDWORD(v67) |= v43 == 218;
-          v73 |= v17 == 217;
-          v88 = v26;
-          v74 = v86;
+          v60 |= v75;
+          HIDWORD(v92) |= v56 == 14;
+          LOBYTE(v61) = v61 | v25;
+          HIDWORD(v61) |= v74;
+          LOBYTE(v62) = v62 | (v88 == 203);
+          BYTE4(v62) |= v87 == 301;
+          LODWORD(v63) = v63 | (v54 == 303);
+          HIDWORD(v63) = v53 | BYTE4(v63) & 1;
+          LOBYTE(v64) = v64 | (v86 == 205);
+          BYTE4(v64) |= v85 == 206;
+          LODWORD(v65) = v65 | (v52 == 304);
+          HIDWORD(v65) |= v51 == 207;
+          LOBYTE(v66) = v66 | (v84 == 208);
+          BYTE4(v66) |= v83 == 211;
+          LOBYTE(v67) = v67 | (v82 == 212);
+          BYTE4(v67) |= v81 == 213;
+          v68 |= v50 == 305;
+          LODWORD(v70) = v70 | (v49 == 210);
+          BYTE4(v70) |= v80 == 214;
+          v71 |= v58;
+          LOBYTE(v72) = v72 | (v15 == 306);
+          HIDWORD(v72) |= v48 == 218;
+          v78 |= v17 == 217;
+          v93 = v26;
+          v79 = v91;
         }
 
-        LODWORD(v87) = v71 | v87;
-        v1 = v72 + 1;
+        LODWORD(v92) = v76 | v92;
+        v1 = v77 + 1;
       }
 
-      while (v72 + 1 != v42);
-      v27 = [obj countByEnumeratingWithState:&v90 objects:v94 count:16];
-      v42 = v27;
+      while (v77 + 1 != v47);
+      v27 = [obj countByEnumeratingWithState:&v95 objects:v99 count:16];
+      v47 = v27;
     }
 
     while (v27);
@@ -588,66 +585,66 @@ LABEL_54:
 
   else
   {
-    v88 = 0;
-    v74 = MEMORY[0x277CBEBF8];
+    v93 = 0;
+    v79 = MEMORY[0x277CBEBF8];
   }
 
-  v28 = [v74 reverseObjectEnumerator];
+  v28 = [v79 reverseObjectEnumerator];
   v29 = [v28 allObjects];
 
-  v95 = 0;
-  v96 = &v95;
-  v97 = 0x3032000000;
-  v98 = __Block_byref_object_copy_;
-  v99 = __Block_byref_object_dispose_;
-  v100 = MEMORY[0x277CBEBF8];
-  v89[0] = MEMORY[0x277D85DD0];
-  v89[1] = 3221225472;
-  v89[2] = ___ConsolidatedEvents_block_invoke;
-  v89[3] = &unk_278C46430;
-  v89[4] = &v95;
-  [v29 enumerateObjectsUsingBlock:v89];
-  v30 = [v96[5] count];
-  if (v30 != [v39 count])
+  v100 = 0;
+  v101 = &v100;
+  v102 = 0x3032000000;
+  v103 = __Block_byref_object_copy_;
+  v104 = __Block_byref_object_dispose_;
+  v105 = MEMORY[0x277CBEBF8];
+  v94[0] = MEMORY[0x277D85DD0];
+  v94[1] = 3221225472;
+  v94[2] = ___ConsolidatedEvents_block_invoke;
+  v94[3] = &unk_278C46430;
+  v94[4] = &v100;
+  [v29 enumerateObjectsUsingBlock:v94];
+  v30 = [v101[5] count];
+  v31 = [v44 count];
+  if (v30 != v31)
   {
-    ASLoggingInitialize();
-    v31 = ASLogRelationships;
-    if (os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT))
+    ASLoggingInitialize(v31, v32);
+    v33 = ASLogRelationships;
+    v34 = os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT);
+    if (v34)
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_23E4FA000, v31, OS_LOG_TYPE_DEFAULT, "Consolidation updated event count", &buf, 2u);
+      _os_log_impl(&dword_23E4FA000, v33, OS_LOG_TYPE_DEFAULT, "Consolidation updated event count", &buf, 2u);
     }
 
-    ASLoggingInitialize();
-    v32 = ASLogRelationships;
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    ASLoggingInitialize(v34, v35);
+    v36 = ASLogRelationships;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = _MostRecentEventsWithCount(v39, 0x64uLL);
+      v37 = _MostRecentEventsWithCount(v44, 0x64);
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v33;
-      _os_log_impl(&dword_23E4FA000, v32, OS_LOG_TYPE_DEFAULT, "Previous events: %@", &buf, 0xCu);
+      *(&buf + 4) = v37;
+      _os_log_impl(&dword_23E4FA000, v36, OS_LOG_TYPE_DEFAULT, "Previous events: %@", &buf, 0xCu);
     }
 
-    ASLoggingInitialize();
-    v34 = ASLogRelationships;
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    ASLoggingInitialize(v38, v39);
+    v40 = ASLogRelationships;
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = _MostRecentEventsWithCount(v96[5], 0x1EuLL);
+      v41 = _MostRecentEventsWithCount(v101[5], 0x1E);
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v35;
-      _os_log_impl(&dword_23E4FA000, v34, OS_LOG_TYPE_DEFAULT, "New events: %@", &buf, 0xCu);
+      *(&buf + 4) = v41;
+      _os_log_impl(&dword_23E4FA000, v40, OS_LOG_TYPE_DEFAULT, "New events: %@", &buf, 0xCu);
     }
   }
 
-  v36 = v96[5];
-  _Block_object_dispose(&v95, 8);
+  v42 = v101[5];
+  _Block_object_dispose(&v100, 8);
 
-  v37 = *MEMORY[0x277D85DE8];
-
-  return v36;
+  return v42;
 }
 
-id _MostRecentEventsWithCount(void *a1, unint64_t a2)
+id _MostRecentEventsWithCount(void *a1, _BYTE *a2)
 {
   v3 = [a1 sortedArrayUsingComparator:&__block_literal_global_2];
   v4 = [v3 count];
@@ -991,18 +988,18 @@ LABEL_38:
 
 id _ASCreateRecordsFromCloudKitCodablesAndRecordZoneID(void *a1, void *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     v10 = MEMORY[0x277CBEBF8];
     do
     {
@@ -1010,12 +1007,12 @@ id _ASCreateRecordsFromCloudKitCodablesAndRecordZoneID(void *a1, void *a2, uint6
       v12 = v10;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * v11) recordWithZoneID:v6 recordEncryptionType:a3];
+        v13 = [*(*(&v15 + 1) + 8 * v11) recordWithZoneID:v6 recordEncryptionType:a3];
         v10 = [v12 arrayByAddingObject:v13];
 
         ++v11;
@@ -1023,7 +1020,7 @@ id _ASCreateRecordsFromCloudKitCodablesAndRecordZoneID(void *a1, void *a2, uint6
       }
 
       while (v8 != v11);
-      v8 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -1033,8 +1030,6 @@ id _ASCreateRecordsFromCloudKitCodablesAndRecordZoneID(void *a1, void *a2, uint6
   {
     v10 = MEMORY[0x277CBEBF8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1132,31 +1127,31 @@ void _ASUpdateSchemaVersionOnRecord(uint64_t a1, void *a2, uint64_t a3)
 
 id ASCodableAchievementsFromAchievements(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB98] set];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       v8 = v2;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [*(*(&v12 + 1) + 8 * v7) codableAchievement];
+        v9 = [*(*(&v11 + 1) + 8 * v7) codableAchievement];
         v2 = [v8 setByAddingObject:v9];
 
         ++v7;
@@ -1164,43 +1159,41 @@ id ASCodableAchievementsFromAchievements(void *a1)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 id ASAchievementsFromCodableAchievements(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x277CBEB98] set];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [MEMORY[0x277CCDDC0] fitnessFriendAchievementWithCodableAchievement:*(*(&v15 + 1) + 8 * i) friendUUID:{v4, v15}];
+        v11 = [MEMORY[0x277CCDDC0] fitnessFriendAchievementWithCodableAchievement:*(*(&v14 + 1) + 8 * i) friendUUID:{v4, v14}];
         if (v11)
         {
           v12 = [v5 setByAddingObject:v11];
@@ -1209,13 +1202,11 @@ id ASAchievementsFromCodableAchievements(void *a1, void *a2)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1235,31 +1226,31 @@ id ASWorkoutRecordIDForUUID(void *a1, void *a2)
 
 id ASCodableWorkoutsFromWorkouts(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB98] set];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       v8 = v2;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [*(*(&v12 + 1) + 8 * v7) codableWorkout];
+        v9 = [*(*(&v11 + 1) + 8 * v7) codableWorkout];
         v2 = [v8 setByAddingObject:v9];
 
         ++v7;
@@ -1267,45 +1258,43 @@ id ASCodableWorkoutsFromWorkouts(void *a1)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 id ASWorkoutsFromCodableWorkouts(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x277CBEB98] set];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       v11 = v5;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = [MEMORY[0x277CCDDD0] fitnessFriendWorkoutWithCodableWorkout:*(*(&v15 + 1) + 8 * v10) friendUUID:{v4, v15}];
+        v12 = [MEMORY[0x277CCDDD0] fitnessFriendWorkoutWithCodableWorkout:*(*(&v14 + 1) + 8 * v10) friendUUID:{v4, v14}];
         v5 = [v11 setByAddingObject:v12];
 
         ++v10;
@@ -1313,13 +1302,11 @@ id ASWorkoutsFromCodableWorkouts(void *a1, void *a2)
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1334,16 +1321,18 @@ id ASWorkoutNotificationRecordIDForType(uint64_t a1, uint64_t a2, void *a3)
   return v8;
 }
 
-void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 __CFString *ASStringForReachabilityStatus(uint64_t a1)
@@ -1367,7 +1356,7 @@ __CFString *ASStringForReachabilityStatus(uint64_t a1)
 
 id ASSecureUnarchiveClassWithDataAndStrictness(objc_class *a1, void *a2, int a3)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (![v5 length])
   {
@@ -1379,12 +1368,12 @@ id ASSecureUnarchiveClassWithDataAndStrictness(objc_class *a1, void *a2, int a3)
   if (a3)
   {
     v7 = MEMORY[0x277CBEB98];
-    v17[0] = a1;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v18[0] = a1;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v9 = [v7 setWithArray:v8];
-    v16 = 0;
-    v10 = [v6 _strictlyUnarchivedObjectOfClasses:v9 fromData:v5 error:&v16];
-    v11 = v16;
+    v17 = 0;
+    v10 = [v6 _strictlyUnarchivedObjectOfClasses:v9 fromData:v5 error:&v17];
+    v11 = v17;
 
     if (!v11)
     {
@@ -1392,20 +1381,21 @@ id ASSecureUnarchiveClassWithDataAndStrictness(objc_class *a1, void *a2, int a3)
     }
 
 LABEL_7:
-    ASLoggingInitialize();
-    v12 = ASLogDefault;
+    ASLoggingInitialize(v12, v13);
+    v14 = ASLogDefault;
     if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_ERROR))
     {
-      ASSecureUnarchiveClassWithDataAndStrictness_cold_1(v12, a1, v11);
+      ASSecureUnarchiveClassWithDataAndStrictness_cold_1(v14, a1, v11);
     }
 
     goto LABEL_9;
   }
 
-  v15 = 0;
-  v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:a1 fromData:v5 error:&v15];
-  v11 = v15;
-  if (v11)
+  v16 = 0;
+  v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:a1 fromData:v5 error:&v16];
+  v12 = v16;
+  v11 = v12;
+  if (v12)
   {
     goto LABEL_7;
   }
@@ -1413,7 +1403,6 @@ LABEL_7:
 LABEL_9:
 
 LABEL_10:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1428,16 +1417,16 @@ id ASSecureUnarchiveClassesWithData(void *a1, void *a2, int a3)
     v8 = [MEMORY[0x277CBEB98] setWithArray:v5];
     if (a3)
     {
-      v15 = 0;
-      v9 = &v15;
-      v10 = [v7 _strictlyUnarchivedObjectOfClasses:v8 fromData:v6 error:&v15];
+      v17 = 0;
+      v9 = &v17;
+      v10 = [v7 _strictlyUnarchivedObjectOfClasses:v8 fromData:v6 error:&v17];
     }
 
     else
     {
-      v14 = 0;
-      v9 = &v14;
-      v10 = [v7 unarchivedObjectOfClasses:v8 fromData:v6 error:&v14];
+      v16 = 0;
+      v9 = &v16;
+      v10 = [v7 unarchivedObjectOfClasses:v8 fromData:v6 error:&v16];
     }
 
     v11 = v10;
@@ -1445,7 +1434,7 @@ id ASSecureUnarchiveClassesWithData(void *a1, void *a2, int a3)
 
     if (v12)
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v13, v14);
       if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_ERROR))
       {
         ASSecureUnarchiveClassesWithData_cold_1();
@@ -1463,39 +1452,37 @@ id ASSecureUnarchiveClassesWithData(void *a1, void *a2, int a3)
 
 ASCodableFriendList *ASCodableFriendListFromFriends(void *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = objc_alloc_init(ASCodableFriendList);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) codableFriendIncludingCloudKitFields:{a2, v13}];
+        v10 = [*(*(&v12 + 1) + 8 * i) codableFriendIncludingCloudKitFields:{a2, v12}];
         [(ASCodableFriendList *)v4 addFriend:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1510,39 +1497,37 @@ id ASFriendsFromCodableFriendList(void *a1)
 
 ASCodableContactList *ASCodableContactListFromContacts(void *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = objc_alloc_init(ASCodableContactList);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) codableContactIncludingCloudKitFields:{a2, v13}];
+        v10 = [*(*(&v12 + 1) + 8 * i) codableContactIncludingCloudKitFields:{a2, v12}];
         [(ASCodableContactList *)v4 addContacts:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -3192,39 +3177,37 @@ id _RawAddressForDestination(void *a1)
 
 id ASSanitizedContactDestinations(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB58] set];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = ASSanitizedContactDestination(*(*(&v11 + 1) + 8 * i));
-        [v2 addObject:{v8, v11}];
+        v8 = ASSanitizedContactDestination(*(*(&v10 + 1) + 8 * i));
+        [v2 addObject:{v8, v10}];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -3488,7 +3471,7 @@ LABEL_47:
 
 id ASContactSanitizedDestination(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (ASDestinationIsPhoneNumber(v1))
   {
@@ -3508,52 +3491,50 @@ LABEL_5:
 LABEL_7:
   v4 = IDSCopyRawAddressForDestination();
 
-  ASLoggingInitialize();
-  v5 = ASLogDefault;
+  ASLoggingInitialize(v5, v6);
+  v7 = ASLogDefault;
   if (os_log_type_enabled(ASLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_DEFAULT, "The final destination after cleanup is: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_23E4FA000, v7, OS_LOG_TYPE_DEFAULT, "The final destination after cleanup is: %@", &v9, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id _FindIntersectingDestination(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
-        if ([v4 containsObject:{v9, v12}])
+        v9 = *(*(&v11 + 1) + 8 * i);
+        if ([v4 containsObject:{v9, v11}])
         {
           v6 = v9;
           goto LABEL_11;
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -3564,8 +3545,6 @@ id _FindIntersectingDestination(void *a1, void *a2)
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -3906,259 +3885,257 @@ uint64_t ASIsAchievementValidForCompetitionSuggestion(void *a1)
 
 id ASPreferredCompetitionVictoryBadgeStylesForFriend(void *a1, void *a2)
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  ASLoggingInitialize();
-  v5 = ASLogAchievements;
+  ASLoggingInitialize(v4, v5);
+  v6 = ASLogAchievements;
   if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
-    v7 = [v3 UUID];
-    v8 = [v3 displayName];
+    v7 = v6;
+    v8 = [v3 UUID];
+    v9 = [v3 displayName];
     *buf = 138543618;
-    v107 = v7;
-    v108 = 2112;
-    v109 = v8;
-    _os_log_impl(&dword_23E4FA000, v6, OS_LOG_TYPE_DEFAULT, "Computing preferred victory badge style for friend: %{public}@ - %@", buf, 0x16u);
+    v113 = v8;
+    v114 = 2112;
+    v115 = v9;
+    _os_log_impl(&dword_23E4FA000, v7, OS_LOG_TYPE_DEFAULT, "Computing preferred victory badge style for friend: %{public}@ - %@", buf, 0x16u);
   }
 
-  v9 = v3;
-  v98[0] = MEMORY[0x277D85DD0];
-  v98[1] = 3221225472;
-  v98[2] = __ASPreferredCompetitionVictoryBadgeStylesForFriend_block_invoke;
-  v98[3] = &unk_278C464C8;
-  v65 = v9;
-  v99 = v9;
-  v64 = [v4 hk_filter:v98];
-  v10 = [v64 allObjects];
-  v12 = ASFriendsSortedByEarliestCompetitionVictoryOrPotentialVictoryDate(v10, v11);
+  v10 = v3;
+  v104[0] = MEMORY[0x277D85DD0];
+  v104[1] = 3221225472;
+  v104[2] = __ASPreferredCompetitionVictoryBadgeStylesForFriend_block_invoke;
+  v104[3] = &unk_278C464C8;
+  v71 = v10;
+  v105 = v10;
+  v70 = [v4 hk_filter:v104];
+  v11 = [v70 allObjects];
+  v13 = ASFriendsSortedByEarliestCompetitionVictoryOrPotentialVictoryDate(v11, v12);
 
-  v63 = v12;
-  v71 = [v12 hk_map:&__block_literal_global_318];
-  v13 = [v71 hk_map:&__block_literal_global_322];
-  ASLoggingInitialize();
-  v14 = ASLogAchievements;
+  v69 = v13;
+  v77 = [v13 hk_map:&__block_literal_global_318];
+  v14 = [v77 hk_map:&__block_literal_global_322];
+  ASLoggingInitialize(v14, v15);
+  v16 = ASLogAchievements;
   if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = v14;
-    v16 = ASFormattedSequence(v13);
+    v17 = v16;
+    v18 = ASFormattedSequence(v14);
     *buf = 138543362;
-    v107 = v16;
-    _os_log_impl(&dword_23E4FA000, v15, OS_LOG_TYPE_DEFAULT, "Used badge models: %{public}@", buf, 0xCu);
+    v113 = v18;
+    _os_log_impl(&dword_23E4FA000, v17, OS_LOG_TYPE_DEFAULT, "Used badge models: %{public}@", buf, 0xCu);
   }
 
-  v17 = ASLinearSequenceWithCount(5);
-  v18 = ASShuffledArray(v17);
+  v19 = ASLinearSequenceWithCount(5);
+  v20 = ASShuffledArray(v19);
 
-  v19 = ASUniqueItemsInArrayPreferringLastOccurance(v13);
-  v94 = 0u;
-  v95 = 0u;
-  v96 = 0u;
-  v97 = 0u;
-  obj = v18;
-  v20 = [obj countByEnumeratingWithState:&v94 objects:v105 count:16];
-  if (v20)
+  v21 = ASUniqueItemsInArrayPreferringLastOccurance(v14);
+  v100 = 0u;
+  v101 = 0u;
+  v102 = 0u;
+  v103 = 0u;
+  obj = v20;
+  v22 = [obj countByEnumeratingWithState:&v100 objects:v111 count:16];
+  if (v22)
   {
-    v21 = v20;
-    v22 = *v95;
+    v23 = v22;
+    v24 = *v101;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v95 != v22)
+        if (*v101 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v94 + 1) + 8 * i);
-        if (([v19 containsObject:v24] & 1) == 0)
+        v26 = *(*(&v100 + 1) + 8 * i);
+        if (([v21 containsObject:v26] & 1) == 0)
         {
-          v104 = v24;
-          v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
-          v26 = [v25 arrayByAddingObjectsFromArray:v19];
+          v110 = v26;
+          v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v110 count:1];
+          v28 = [v27 arrayByAddingObjectsFromArray:v21];
 
-          v19 = v26;
+          v21 = v28;
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v94 objects:v105 count:16];
+      v23 = [obj countByEnumeratingWithState:&v100 objects:v111 count:16];
     }
 
-    while (v21);
+    while (v23);
   }
 
-  ASLoggingInitialize();
-  v27 = ASLogAchievements;
+  ASLoggingInitialize(v29, v30);
+  v31 = ASLogAchievements;
   if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = v27;
-    v29 = ASFormattedSequence(v19);
+    v32 = v31;
+    v33 = ASFormattedSequence(v21);
     *buf = 138543362;
-    v107 = v29;
-    _os_log_impl(&dword_23E4FA000, v28, OS_LOG_TYPE_DEFAULT, "Preferred badge model order: %{public}@", buf, 0xCu);
+    v113 = v33;
+    _os_log_impl(&dword_23E4FA000, v32, OS_LOG_TYPE_DEFAULT, "Preferred badge model order: %{public}@", buf, 0xCu);
   }
 
-  v66 = v4;
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  v67 = v19;
-  v72 = [v67 countByEnumeratingWithState:&v90 objects:v103 count:16];
-  if (v72)
+  v72 = v4;
+  v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  v73 = v21;
+  v78 = [v73 countByEnumeratingWithState:&v96 objects:v109 count:16];
+  if (v78)
   {
-    v69 = *v91;
-    v30 = MEMORY[0x277CBEBF8];
-    v70 = v13;
+    v75 = *v97;
+    v34 = MEMORY[0x277CBEBF8];
+    v76 = v14;
     do
     {
-      v31 = 0;
+      v35 = 0;
       do
       {
-        if (*v91 != v69)
+        if (*v97 != v75)
         {
-          objc_enumerationMutation(v67);
+          objc_enumerationMutation(v73);
         }
 
-        v77 = v31;
-        v32 = *(*(&v90 + 1) + 8 * v31);
-        v33 = [v32 unsignedIntValue];
-        v88[0] = MEMORY[0x277D85DD0];
-        v88[1] = 3221225472;
-        v88[2] = __ASPreferredCompetitionVictoryBadgeStylesForFriend_block_invoke_324;
-        v88[3] = &__block_descriptor_34_e28___NSNumber_16__0__NSNumber_8l;
-        v89 = v33;
-        v34 = [v71 hk_map:v88];
-        v86[0] = MEMORY[0x277D85DD0];
-        v86[1] = 3221225472;
-        v86[2] = __ASPreferredCompetitionVictoryBadgeStylesForFriend_block_invoke_2_325;
-        v86[3] = &__block_descriptor_34_e28___NSNumber_16__0__NSNumber_8l;
-        v73 = v33;
-        v87 = v33;
-        v35 = [v71 hk_map:v86];
-        ASLoggingInitialize();
-        v36 = ASLogAchievements;
+        v83 = v35;
+        v36 = *(*(&v96 + 1) + 8 * v35);
+        v37 = [v36 unsignedIntValue];
+        v94[0] = MEMORY[0x277D85DD0];
+        v94[1] = 3221225472;
+        v94[2] = __ASPreferredCompetitionVictoryBadgeStylesForFriend_block_invoke_324;
+        v94[3] = &__block_descriptor_34_e28___NSNumber_16__0__NSNumber_8l;
+        v95 = v37;
+        v38 = [v77 hk_map:v94];
+        v92[0] = MEMORY[0x277D85DD0];
+        v92[1] = 3221225472;
+        v92[2] = __ASPreferredCompetitionVictoryBadgeStylesForFriend_block_invoke_2_325;
+        v92[3] = &__block_descriptor_34_e28___NSNumber_16__0__NSNumber_8l;
+        v79 = v37;
+        v93 = v37;
+        v39 = [v77 hk_map:v92];
+        ASLoggingInitialize(v39, v40);
+        v41 = ASLogAchievements;
         if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = v36;
-          v38 = ASFormattedSequence(v34);
+          v42 = v41;
+          v43 = ASFormattedSequence(v38);
           *buf = 138543618;
-          v107 = v32;
-          v108 = 2114;
-          v109 = v38;
-          _os_log_impl(&dword_23E4FA000, v37, OS_LOG_TYPE_DEFAULT, "Used colors for badge %{public}@: %{public}@", buf, 0x16u);
+          v113 = v36;
+          v114 = 2114;
+          v115 = v43;
+          _os_log_impl(&dword_23E4FA000, v42, OS_LOG_TYPE_DEFAULT, "Used colors for badge %{public}@: %{public}@", buf, 0x16u);
         }
 
-        v39 = ASLinearSequenceWithCount(10);
-        v40 = ASShuffledArray(v39);
+        v44 = ASLinearSequenceWithCount(10);
+        v45 = ASShuffledArray(v44);
 
-        v75 = v35;
-        v76 = v34;
-        v74 = [v35 arrayByAddingObjectsFromArray:v34];
-        v41 = ASUniqueItemsInArrayPreferringLastOccurance(v74);
-        v82 = 0u;
-        v83 = 0u;
+        v81 = v39;
+        v82 = v38;
+        v80 = [v39 arrayByAddingObjectsFromArray:v38];
+        v46 = ASUniqueItemsInArrayPreferringLastOccurance(v80);
+        v88 = 0u;
+        v89 = 0u;
+        v90 = 0u;
+        v91 = 0u;
+        v47 = v45;
+        v48 = [v47 countByEnumeratingWithState:&v88 objects:v108 count:16];
+        if (v48)
+        {
+          v49 = v48;
+          v50 = *v89;
+          do
+          {
+            for (j = 0; j != v49; ++j)
+            {
+              if (*v89 != v50)
+              {
+                objc_enumerationMutation(v47);
+              }
+
+              v52 = *(*(&v88 + 1) + 8 * j);
+              if (([v46 containsObject:v52] & 1) == 0)
+              {
+                v107 = v52;
+                v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v107 count:1];
+                v54 = [v53 arrayByAddingObjectsFromArray:v46];
+
+                v46 = v54;
+              }
+            }
+
+            v49 = [v47 countByEnumeratingWithState:&v88 objects:v108 count:16];
+          }
+
+          while (v49);
+        }
+
+        v86 = 0u;
+        v87 = 0u;
         v84 = 0u;
         v85 = 0u;
-        v42 = v40;
-        v43 = [v42 countByEnumeratingWithState:&v82 objects:v102 count:16];
-        if (v43)
+        v55 = v46;
+        v56 = [v55 countByEnumeratingWithState:&v84 objects:v106 count:16];
+        if (v56)
         {
-          v44 = v43;
-          v45 = *v83;
+          v57 = v56;
+          v58 = *v85;
           do
           {
-            for (j = 0; j != v44; ++j)
-            {
-              if (*v83 != v45)
-              {
-                objc_enumerationMutation(v42);
-              }
-
-              v47 = *(*(&v82 + 1) + 8 * j);
-              if (([v41 containsObject:v47] & 1) == 0)
-              {
-                v101 = v47;
-                v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v101 count:1];
-                v49 = [v48 arrayByAddingObjectsFromArray:v41];
-
-                v41 = v49;
-              }
-            }
-
-            v44 = [v42 countByEnumeratingWithState:&v82 objects:v102 count:16];
-          }
-
-          while (v44);
-        }
-
-        v80 = 0u;
-        v81 = 0u;
-        v78 = 0u;
-        v79 = 0u;
-        v50 = v41;
-        v51 = [v50 countByEnumeratingWithState:&v78 objects:v100 count:16];
-        if (v51)
-        {
-          v52 = v51;
-          v53 = *v79;
-          do
-          {
-            v54 = 0;
-            v55 = v30;
+            v59 = 0;
+            v60 = v34;
             do
             {
-              if (*v79 != v53)
+              if (*v85 != v58)
               {
-                objc_enumerationMutation(v50);
+                objc_enumerationMutation(v55);
               }
 
-              v56 = [*(*(&v78 + 1) + 8 * v54) unsignedIntValue];
-              v57 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v56 | (v73 << 16)];
-              v30 = [v55 arrayByAddingObject:v57];
+              v61 = [*(*(&v84 + 1) + 8 * v59) unsignedIntValue];
+              v62 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v61 | (v79 << 16)];
+              v34 = [v60 arrayByAddingObject:v62];
 
-              ++v54;
-              v55 = v30;
+              ++v59;
+              v60 = v34;
             }
 
-            while (v52 != v54);
-            v52 = [v50 countByEnumeratingWithState:&v78 objects:v100 count:16];
+            while (v57 != v59);
+            v57 = [v55 countByEnumeratingWithState:&v84 objects:v106 count:16];
           }
 
-          while (v52);
+          while (v57);
         }
 
-        v31 = v77 + 1;
-        v13 = v70;
+        v35 = v83 + 1;
+        v14 = v76;
       }
 
-      while (v77 + 1 != v72);
-      v72 = [v67 countByEnumeratingWithState:&v90 objects:v103 count:16];
+      while (v83 + 1 != v78);
+      v78 = [v73 countByEnumeratingWithState:&v96 objects:v109 count:16];
     }
 
-    while (v72);
+    while (v78);
   }
 
   else
   {
-    v30 = MEMORY[0x277CBEBF8];
+    v34 = MEMORY[0x277CBEBF8];
   }
 
-  ASLoggingInitialize();
-  v58 = ASLogAchievements;
+  ASLoggingInitialize(v63, v64);
+  v65 = ASLogAchievements;
   if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
   {
-    v59 = v58;
-    v60 = ASFormattedVictoryBadgeStyles(v30);
+    v66 = v65;
+    v67 = ASFormattedVictoryBadgeStyles(v34);
     *buf = 138543362;
-    v107 = v60;
-    _os_log_impl(&dword_23E4FA000, v59, OS_LOG_TYPE_DEFAULT, "Resulting preferred styles: %{public}@", buf, 0xCu);
+    v113 = v67;
+    _os_log_impl(&dword_23E4FA000, v66, OS_LOG_TYPE_DEFAULT, "Resulting preferred styles: %{public}@", buf, 0xCu);
   }
 
-  v61 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v34;
 }
 
 uint64_t __ASPreferredCompetitionVictoryBadgeStylesForFriend_block_invoke(uint64_t a1, void *a2)
@@ -4261,100 +4238,101 @@ id __ASPreferredCompetitionVictoryBadgeStylesForFriend_block_invoke_2_325(uint64
 
 uint64_t ASBestCompetitionVictoryBadgeStyleForPreferredStyles(void *a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  ASLoggingInitialize();
-  v5 = ASLogAchievements;
-  if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
+  ASLoggingInitialize(v4, v5);
+  v6 = ASLogAchievements;
+  v7 = os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT);
+  if (v7)
   {
     *buf = 0;
-    _os_log_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Searching for best style given preferred styles", buf, 2u);
+    _os_log_impl(&dword_23E4FA000, v6, OS_LOG_TYPE_DEFAULT, "Searching for best style given preferred styles", buf, 2u);
   }
 
-  ASLoggingInitialize();
-  v6 = ASLogAchievements;
-  if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = v6;
-    v8 = ASFormattedVictoryBadgeStyles(v3);
-    *buf = 138412290;
-    v37 = v8;
-    _os_log_impl(&dword_23E4FA000, v7, OS_LOG_TYPE_DEFAULT, "Styles: %@", buf, 0xCu);
-  }
-
-  ASLoggingInitialize();
+  ASLoggingInitialize(v7, v8);
   v9 = ASLogAchievements;
-  if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
+  v10 = os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT);
+  if (v10)
   {
-    v10 = v9;
-    v11 = ASFormattedVictoryBadgeStyles(v4);
+    v12 = v9;
+    v13 = ASFormattedVictoryBadgeStyles(v3);
     *buf = 138412290;
-    v37 = v11;
-    _os_log_impl(&dword_23E4FA000, v10, OS_LOG_TYPE_DEFAULT, "Other styles: %@", buf, 0xCu);
+    v43 = v13;
+    _os_log_impl(&dword_23E4FA000, v12, OS_LOG_TYPE_DEFAULT, "Styles: %@", buf, 0xCu);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v12 = v3;
-  v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v13)
+  ASLoggingInitialize(v10, v11);
+  v14 = ASLogAchievements;
+  if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = v13;
-    v15 = *v32;
-    v16 = &unk_2850DDB08;
-    v17 = 0x7FFFFFFFLL;
+    v15 = v14;
+    v16 = ASFormattedVictoryBadgeStyles(v4);
+    *buf = 138412290;
+    v43 = v16;
+    _os_log_impl(&dword_23E4FA000, v15, OS_LOG_TYPE_DEFAULT, "Other styles: %@", buf, 0xCu);
+  }
+
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v17 = v3;
+  v18 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v20 = *v38;
+    v21 = &unk_2850DDB08;
+    v22 = 0x7FFFFFFFLL;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v32 != v15)
+        if (*v38 != v20)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v17);
         }
 
-        v19 = *(*(&v31 + 1) + 8 * i);
-        v20 = [v12 indexOfObject:v19];
-        v21 = [v4 indexOfObject:v19];
-        v22 = (v20 * v20 + v21 * v21);
-        if (v17 > v22)
+        v24 = *(*(&v37 + 1) + 8 * i);
+        v25 = [v17 indexOfObject:v24];
+        v26 = [v4 indexOfObject:v24];
+        v27 = (v25 * v25 + v26 * v26);
+        if (v22 > v27)
         {
-          v23 = v19;
+          v28 = v24;
 
-          v17 = v22;
-          v16 = v23;
+          v22 = v27;
+          v21 = v28;
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
-    while (v14);
+    while (v19);
   }
 
   else
   {
-    v16 = &unk_2850DDB08;
+    v21 = &unk_2850DDB08;
   }
 
-  ASLoggingInitialize();
-  v24 = ASLogAchievements;
+  ASLoggingInitialize(v29, v30);
+  v31 = ASLogAchievements;
   if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = v24;
-    v26 = [v16 unsignedIntValue];
-    v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%d.%d]", HIWORD(v26), v26, v31];
+    v32 = v31;
+    v33 = [v21 unsignedIntValue];
+    v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%d.%d]", HIWORD(v33), v33, v37];
     *buf = 138412290;
-    v37 = v27;
-    _os_log_impl(&dword_23E4FA000, v25, OS_LOG_TYPE_DEFAULT, "Picked style: %@", buf, 0xCu);
+    v43 = v34;
+    _os_log_impl(&dword_23E4FA000, v32, OS_LOG_TYPE_DEFAULT, "Picked style: %@", buf, 0xCu);
   }
 
-  v28 = [v16 unsignedIntValue];
+  v35 = [v21 unsignedIntValue];
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v28;
+  return v35;
 }
 
 id IDSDestinationForString(void *a1)
@@ -4382,17 +4360,17 @@ LABEL_5:
 
 id _RichMessagePayload(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v35[6] = *MEMORY[0x277D85DE8];
+  v34[6] = *MEMORY[0x277D85DE8];
   v11 = MEMORY[0x277CCACA8];
   v12 = a6;
   v13 = a5;
   v14 = a4;
   v15 = a3;
   v16 = a2;
-  v34 = [v11 stringWithFormat:@"%ld", a1];
+  v33 = [v11 stringWithFormat:@"%ld", a1];
   v17 = [v15 base64EncodedStringWithOptions:0];
 
-  v18 = [MEMORY[0x277CCAD18] queryItemWithName:@"type" value:v34];
+  v18 = [MEMORY[0x277CCAD18] queryItemWithName:@"type" value:v33];
   v19 = [MEMORY[0x277CCAD18] queryItemWithName:v16 value:v17];
 
   v20 = [MEMORY[0x277CCAD18] queryItemWithName:@"message" value:v14];
@@ -4411,18 +4389,16 @@ id _RichMessagePayload(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void
   v29 = objc_opt_new();
   [v29 setScheme:@"data"];
   [v29 setHost:@"activity-sharing"];
-  v35[0] = v18;
-  v35[1] = v19;
-  v35[2] = v20;
-  v35[3] = v23;
-  v35[4] = v24;
-  v35[5] = v28;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:6];
+  v34[0] = v18;
+  v34[1] = v19;
+  v34[2] = v20;
+  v34[3] = v23;
+  v34[4] = v24;
+  v34[5] = v28;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:6];
   [v29 setQueryItems:v30];
 
   v31 = [v29 URL];
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -4489,29 +4465,29 @@ id ASRichMessagePayloadForCompetitionScore(void *a1, void *a2, void *a3, void *a
 
 id _FindQueryItemValue(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:v4 resolvingAgainstBaseURL:0];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = [v5 queryItems];
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [v10 name];
         v12 = [v11 isEqualToString:v3];
 
@@ -4522,7 +4498,7 @@ id _FindQueryItemValue(void *a1, void *a2)
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -4533,8 +4509,6 @@ id _FindQueryItemValue(void *a1, void *a2)
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -4693,29 +4667,29 @@ id ASShuffledArray(void *a1)
 
 id ASUniqueItemsInArrayPreferringLastOccurance(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [v1 reverseObjectEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     v6 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         if (([v6 containsObject:v8] & 1) == 0)
         {
           v9 = [v6 arrayByAddingObject:v8];
@@ -4724,7 +4698,7 @@ id ASUniqueItemsInArrayPreferringLastOccurance(void *a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -4737,8 +4711,6 @@ id ASUniqueItemsInArrayPreferringLastOccurance(void *a1)
 
   v10 = [v6 reverseObjectEnumerator];
   v11 = [v10 allObjects];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -4771,81 +4743,79 @@ id ASLinearSequenceWithCount(uint64_t a1)
 
 id ASCompetitionCalculateStartDateComponentsForFriend(void *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  ASLoggingInitialize();
-  v2 = ASLogCompetitions;
+  ASLoggingInitialize(v1, v2);
+  v3 = ASLogCompetitions;
   if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = v2;
-    v4 = [v1 UUID];
-    v5 = [v1 displayName];
-    v26 = 138543618;
-    v27 = v4;
-    v28 = 2112;
-    v29 = v5;
-    _os_log_impl(&dword_23E4FA000, v3, OS_LOG_TYPE_DEFAULT, "Computing competition start day for friend: %{public}@ - %@", &v26, 0x16u);
+    v4 = v3;
+    v5 = [v1 UUID];
+    v6 = [v1 displayName];
+    v31 = 138543618;
+    v32 = v5;
+    v33 = 2112;
+    v34 = v6;
+    _os_log_impl(&dword_23E4FA000, v4, OS_LOG_TYPE_DEFAULT, "Computing competition start day for friend: %{public}@ - %@", &v31, 0x16u);
   }
 
-  v6 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v7 = [MEMORY[0x277CBEAA8] date];
-  v8 = [v6 dateByAddingUnit:16 value:1 toDate:v7 options:0];
+  v7 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
+  v8 = [MEMORY[0x277CBEAA8] date];
+  v9 = [v7 dateByAddingUnit:16 value:1 toDate:v8 options:0];
 
-  v9 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v10 = *MEMORY[0x277CCE1D0];
-  v11 = [v9 components:*MEMORY[0x277CCE1D0] fromDate:v8];
+  v10 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
+  v11 = *MEMORY[0x277CCE1D0];
+  v12 = [v10 components:*MEMORY[0x277CCE1D0] fromDate:v9];
 
-  ASLoggingInitialize();
-  v12 = ASLogCompetitions;
+  ASLoggingInitialize(v13, v14);
+  v15 = ASLogCompetitions;
   if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412290;
-    v27 = v8;
-    _os_log_impl(&dword_23E4FA000, v12, OS_LOG_TYPE_DEFAULT, "My next day is %@", &v26, 0xCu);
+    v31 = 138412290;
+    v32 = v9;
+    _os_log_impl(&dword_23E4FA000, v15, OS_LOG_TYPE_DEFAULT, "My next day is %@", &v31, 0xCu);
   }
 
-  v13 = [v1 currentDateComponents];
-  v14 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v15 = [v14 dateFromComponents:v13];
+  v16 = [v1 currentDateComponents];
+  v17 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
+  v18 = [v17 dateFromComponents:v16];
 
-  v16 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v17 = [v16 dateByAddingUnit:16 value:1 toDate:v15 options:0];
+  v19 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
+  v20 = [v19 dateByAddingUnit:16 value:1 toDate:v18 options:0];
 
-  v18 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v19 = [v18 components:v10 fromDate:v17];
+  v21 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
+  v22 = [v21 components:v11 fromDate:v20];
 
-  ASLoggingInitialize();
-  v20 = ASLogCompetitions;
+  ASLoggingInitialize(v23, v24);
+  v25 = ASLogCompetitions;
   if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412290;
-    v27 = v17;
-    _os_log_impl(&dword_23E4FA000, v20, OS_LOG_TYPE_DEFAULT, "Friend next day is %@", &v26, 0xCu);
+    v31 = 138412290;
+    v32 = v20;
+    _os_log_impl(&dword_23E4FA000, v25, OS_LOG_TYPE_DEFAULT, "Friend next day is %@", &v31, 0xCu);
   }
 
-  if ([v17 hk_isAfterDate:v8])
+  if ([v20 hk_isAfterDate:v9])
   {
-    v21 = v19;
+    v26 = v22;
   }
 
   else
   {
-    v21 = v11;
+    v26 = v12;
   }
 
-  v22 = v21;
-  ASLoggingInitialize();
-  v23 = ASLogCompetitions;
+  v27 = v26;
+  ASLoggingInitialize(v27, v28);
+  v29 = ASLogCompetitions;
   if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412290;
-    v27 = v22;
-    _os_log_impl(&dword_23E4FA000, v23, OS_LOG_TYPE_DEFAULT, "Latest day is %@", &v26, 0xCu);
+    v31 = 138412290;
+    v32 = v27;
+    _os_log_impl(&dword_23E4FA000, v29, OS_LOG_TYPE_DEFAULT, "Latest day is %@", &v31, 0xCu);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v27;
 }
 
 void *ASCompetitionCalculateStartDateComponentsForFriendWithProposedStartDate(void *a1, void *a2)
@@ -4873,27 +4843,27 @@ void *ASCompetitionCalculateStartDateComponentsForFriendWithProposedStartDate(vo
   return v9;
 }
 
-uint64_t _ASNumberOfDaysSinceCompetitionStart()
+uint64_t _ASNumberOfDaysSinceCompetitionStart(uint64_t a1, uint64_t a2)
 {
-  v0 = _HKActivityCacheDateComponentsFromCacheIndex();
-  v1 = _HKActivityCacheDateComponentsFromCacheIndex();
-  v2 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v3 = [v2 dateFromComponents:v0];
-
+  v2 = _HKActivityCacheDateComponentsFromCacheIndex();
+  v3 = _HKActivityCacheDateComponentsFromCacheIndex();
   v4 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v5 = [v4 dateFromComponents:v1];
+  v5 = [v4 dateFromComponents:v2];
 
   v6 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v7 = [v6 components:16 fromDate:v3 toDate:v5 options:0];
+  v7 = [v6 dateFromComponents:v3];
 
-  v8 = [v7 day];
-  return v8;
+  v8 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
+  v9 = [v8 components:16 fromDate:v5 toDate:v7 options:0];
+
+  v10 = [v9 day];
+  return v10;
 }
 
 uint64_t ASCompetitionRequestHasExpired(void *a1)
 {
   v1 = a1;
-  v2 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionRequestExpirationNumberOfSeconds", 172800);
+  v2 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionRequestExpirationNumberOfSeconds", 0x2A300);
   v3 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
   v4 = [v3 dateByAddingUnit:128 value:v2 toDate:v1 options:0];
 
@@ -4906,10 +4876,10 @@ uint64_t ASCompetitionRequestHasExpired(void *a1)
 uint64_t ASCompetitionRequestIsStillVisible(void *a1)
 {
   v1 = a1;
-  v2 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionRequestExpirationNumberOfSeconds", 172800);
-  v3 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionRequestVisibilityAfterExpirationNumberOfSeconds", 259200);
+  v2 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionRequestExpirationNumberOfSeconds", 0x2A300);
+  v3 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionRequestVisibilityAfterExpirationNumberOfSeconds", 0x3F480);
   v4 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v5 = [v4 dateByAddingUnit:128 value:v3 + v2 toDate:v1 options:0];
+  v5 = [v4 dateByAddingUnit:128 value:&v2[v3] toDate:v1 options:0];
 
   v6 = [MEMORY[0x277CBEAA8] date];
   v7 = [v6 hk_isBeforeOrEqualToDate:v5];
@@ -4920,7 +4890,7 @@ uint64_t ASCompetitionRequestIsStillVisible(void *a1)
 double ASCompetitionRequestTimeIntervalUntilExpiration(void *a1)
 {
   v1 = a1;
-  v2 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionRequestExpirationNumberOfSeconds", 172800);
+  v2 = _ASIntegerFromUserDefaultsWithDefaultValue(@"CompetitionRequestExpirationNumberOfSeconds", 0x2A300);
   v3 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
   v4 = [v3 dateByAddingUnit:128 value:v2 toDate:v1 options:0];
 
@@ -4935,70 +4905,72 @@ uint64_t ASCompetitionIsReadyToComplete(void *a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   v7 = a1;
-  ASLoggingInitialize();
-  v8 = ASLogCompetitions;
+  ASLoggingInitialize(v7, v8);
+  v9 = ASLogCompetitions;
   if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23E4FA000, v8, OS_LOG_TYPE_DEFAULT, "Evaluating if competition is ready to complete", buf, 2u);
+    _os_log_impl(&dword_23E4FA000, v9, OS_LOG_TYPE_DEFAULT, "Evaluating if competition is ready to complete", buf, 2u);
   }
 
-  v9 = [v7 primaryRelationship];
+  v10 = [v7 primaryRelationship];
 
-  v10 = [v9 isCompetitionActive];
-  if ((v10 & 1) == 0)
+  v11 = [v10 isCompetitionActive];
+  if ((v11 & 1) == 0)
   {
-    ASLoggingInitialize();
-    v12 = ASLogCompetitions;
+    ASLoggingInitialize(v12, v13);
+    v19 = ASLogCompetitions;
     if (!os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    v18 = 0;
-    v13 = "No active competition, not ready to complete";
-    v14 = &v18;
+    v25 = 0;
+    v20 = "No active competition, not ready to complete";
+    v21 = &v25;
 LABEL_13:
-    _os_log_impl(&dword_23E4FA000, v12, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
+    _os_log_impl(&dword_23E4FA000, v19, OS_LOG_TYPE_DEFAULT, v20, v21, 2u);
     goto LABEL_14;
   }
 
-  if (([v5 hasPushedFinalScore] & 1) == 0)
+  v14 = [v5 hasPushedFinalScore];
+  if ((v14 & 1) == 0)
   {
-    ASLoggingInitialize();
-    v12 = ASLogCompetitions;
+    ASLoggingInitialize(v14, v15);
+    v19 = ASLogCompetitions;
     if (!os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    v17 = 0;
-    v13 = "We've not yet pushed a final score, not ready to complete";
-    v14 = &v17;
+    v24 = 0;
+    v20 = "We've not yet pushed a final score, not ready to complete";
+    v21 = &v24;
     goto LABEL_13;
   }
 
-  if (([v6 hasPushedFinalScore] & 1) == 0)
+  v16 = [v6 hasPushedFinalScore];
+  if ((v16 & 1) == 0)
   {
-    ASLoggingInitialize();
-    v12 = ASLogCompetitions;
+    ASLoggingInitialize(v16, v17);
+    v19 = ASLogCompetitions;
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 0;
-      v13 = "Opponent has not yet pushed a final score, not ready to complete";
-      v14 = &v16;
+      v23 = 0;
+      v20 = "Opponent has not yet pushed a final score, not ready to complete";
+      v21 = &v23;
       goto LABEL_13;
     }
 
 LABEL_14:
-    v11 = 0;
+    v18 = 0;
     goto LABEL_15;
   }
 
-  v11 = 1;
+  v18 = 1;
 LABEL_15:
 
-  return v11;
+  return v18;
 }
 
 uint64_t _ASCompetitionScoreForActivitySummary(void *a1, unint64_t a2)
@@ -5037,155 +5009,158 @@ uint64_t ASCompetitionNeedsScoreUpdateForSummary(void *a1, void *a2)
   v5 = [v3 startDateComponents];
   v6 = _HKCacheIndexFromDateComponents();
 
-  if ([v4 isPaused])
+  v7 = [v4 isPaused];
+  if (v7)
   {
-    ASLoggingInitialize();
-    v7 = ASLogCompetitions;
+    ASLoggingInitialize(v7, v8);
+    v9 = ASLogCompetitions;
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 0;
-      v8 = "Current activity summary is paused, not updating";
-      v9 = &v17;
+      v25 = 0;
+      v10 = "Current activity summary is paused, not updating";
+      v11 = &v25;
 LABEL_14:
-      _os_log_impl(&dword_23E4FA000, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
+      _os_log_impl(&dword_23E4FA000, v9, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
       goto LABEL_15;
     }
 
     goto LABEL_15;
   }
 
-  if ([v4 _activitySummaryIndex] < v6)
+  v12 = [v4 _activitySummaryIndex];
+  if (v12 < v6)
   {
-    ASLoggingInitialize();
-    v7 = ASLogCompetitions;
+    ASLoggingInitialize(v12, v13);
+    v9 = ASLogCompetitions;
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 0;
-      v8 = "Current activity summary index is less than competition start index, not updating";
-      v9 = &v16;
+      v24 = 0;
+      v10 = "Current activity summary index is less than competition start index, not updating";
+      v11 = &v24;
       goto LABEL_14;
     }
 
 LABEL_15:
-    v12 = 0;
+    v20 = 0;
     goto LABEL_16;
   }
 
-  v10 = [v4 _activitySummaryIndex];
-  if (v10 < [v3 currentCacheIndex])
+  v14 = [v4 _activitySummaryIndex];
+  v15 = [v3 currentCacheIndex];
+  if (v14 < v15)
   {
-    ASLoggingInitialize();
-    v7 = ASLogCompetitions;
+    ASLoggingInitialize(v15, v16);
+    v9 = ASLogCompetitions;
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 0;
-      v8 = "Current activity summary index is less than competition current cache index, not updating";
-      v9 = &v15;
+      v23 = 0;
+      v10 = "Current activity summary index is less than competition current cache index, not updating";
+      v11 = &v23;
       goto LABEL_14;
     }
 
     goto LABEL_15;
   }
 
-  v11 = [v3 currentCacheIndex];
-  if (v11 >= [v3 endDateCacheIndex])
+  v17 = [v3 currentCacheIndex];
+  v18 = [v3 endDateCacheIndex];
+  if (v17 >= v18)
   {
-    ASLoggingInitialize();
-    v7 = ASLogCompetitions;
+    ASLoggingInitialize(v18, v19);
+    v9 = ASLogCompetitions;
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 0;
-      v8 = "Competition current cache index is greater than competition end cache index, not updating";
-      v9 = &v14;
+      v22 = 0;
+      v10 = "Competition current cache index is greater than competition end cache index, not updating";
+      v11 = &v22;
       goto LABEL_14;
     }
 
     goto LABEL_15;
   }
 
-  v12 = 1;
+  v20 = 1;
 LABEL_16:
 
-  return v12;
+  return v20;
 }
 
 id ASCompetitionCalculateUpdatedScores(void *a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
   v8 = [v5 startDateComponents];
-  _HKCacheIndexFromDateComponents();
+  v9 = _HKCacheIndexFromDateComponents();
 
-  [v6 _activitySummaryIndex];
-  v30 = _ASNumberOfDaysSinceCompetitionStart();
-  [v7 _activitySummaryIndex];
-  v9 = _ASNumberOfDaysSinceCompetitionStart();
-  [v5 endDateCacheIndex];
-  v10 = _ASNumberOfDaysSinceCompetitionStart();
-  v31 = v9;
-  if (v10 >= v9 + 1)
+  v44 = _ASNumberOfDaysSinceCompetitionStart([v6 _activitySummaryIndex], v9);
+  v10 = _ASNumberOfDaysSinceCompetitionStart([v7 _activitySummaryIndex], v9);
+  v11 = _ASNumberOfDaysSinceCompetitionStart([v5 endDateCacheIndex], v9);
+  v45 = v10;
+  if (v11 >= v10 + 1)
   {
-    v11 = v9 + 1;
+    v12 = v10 + 1;
   }
 
   else
   {
-    v11 = v10;
+    v12 = v11;
   }
 
-  v12 = [v5 scores];
-  v13 = [v12 mutableCopy];
+  v13 = [v5 scores];
+  v14 = [v13 mutableCopy];
 
-  v14 = _ASCompetitionScoreForActivitySummary(v6, [v5 maximumNumberOfPointsPerDay]);
-  v32 = v5;
-  v33 = v7;
-  v15 = _ASCompetitionScoreForActivitySummary(v7, [v5 maximumNumberOfPointsPerDay]);
-  while ([v13 count] < v11)
+  v15 = _ASCompetitionScoreForActivitySummary(v6, [v5 maximumNumberOfPointsPerDay]);
+  v46 = v5;
+  v47 = v7;
+  v16 = _ASCompetitionScoreForActivitySummary(v7, [v5 maximumNumberOfPointsPerDay]);
+  for (i = [v14 count]; i < v12; i = objc_msgSend(v14, "count"))
   {
-    ASLoggingInitialize();
-    v16 = ASLogCompetitions;
-    if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
-    {
-      v17 = v16;
-      v18 = [v13 count];
-      *buf = 134217984;
-      v35 = v18;
-      _os_log_impl(&dword_23E4FA000, v17, OS_LOG_TYPE_DEFAULT, "Adding score for day %lu", buf, 0xCu);
-    }
-
-    [v13 addObject:&unk_2850DDB20];
-  }
-
-  if (v30 < [v13 count])
-  {
-    ASLoggingInitialize();
+    ASLoggingInitialize(i, v18);
     v19 = ASLogCompetitions;
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 0;
-      _os_log_impl(&dword_23E4FA000, v19, OS_LOG_TYPE_DEFAULT, "Updating yesterday score", buf, 2u);
+      v20 = v19;
+      v21 = [v14 count];
+      *buf = 134217984;
+      v49 = v21;
+      _os_log_impl(&dword_23E4FA000, v20, OS_LOG_TYPE_DEFAULT, "Adding score for day %lu", buf, 0xCu);
     }
 
-    v20 = [v14 unsignedIntegerValue];
-    v21 = [v13 objectAtIndexedSubscript:v30];
-    v22 = [v21 unsignedIntegerValue];
+    [v14 addObject:&unk_2850DDB20];
+  }
 
-    if (v20 >= v22)
+  v22 = [v14 count];
+  if (v44 < v22)
+  {
+    ASLoggingInitialize(v22, v23);
+    v24 = ASLogCompetitions;
+    if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
-      [v13 setObject:v14 atIndexedSubscript:v30];
+      *buf = 0;
+      _os_log_impl(&dword_23E4FA000, v24, OS_LOG_TYPE_DEFAULT, "Updating yesterday score", buf, 2u);
+    }
+
+    v25 = [v15 unsignedIntegerValue];
+    v26 = [v14 objectAtIndexedSubscript:v44];
+    v27 = [v26 unsignedIntegerValue];
+
+    if (v25 >= v27)
+    {
+      [v14 setObject:v15 atIndexedSubscript:v44];
     }
 
     else
     {
-      ASLoggingInitialize();
-      if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
+      ASLoggingInitialize(v28, v29);
+      v30 = os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR);
+      if (v30)
       {
         ASCompetitionCalculateUpdatedScores_cold_1();
       }
 
-      ASLoggingInitialize();
+      ASLoggingInitialize(v30, v31);
       if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
       {
         ASCompetitionCalculateUpdatedScores_cold_2();
@@ -5193,34 +5168,36 @@ id ASCompetitionCalculateUpdatedScores(void *a1, void *a2, void *a3)
     }
   }
 
-  if (v31 < [v13 count])
+  v32 = [v14 count];
+  if (v45 < v32)
   {
-    ASLoggingInitialize();
-    v23 = ASLogCompetitions;
+    ASLoggingInitialize(v32, v33);
+    v34 = ASLogCompetitions;
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E4FA000, v23, OS_LOG_TYPE_DEFAULT, "Updating today score", buf, 2u);
+      _os_log_impl(&dword_23E4FA000, v34, OS_LOG_TYPE_DEFAULT, "Updating today score", buf, 2u);
     }
 
-    v24 = [v15 unsignedIntegerValue];
-    v25 = [v13 objectAtIndexedSubscript:v31];
-    v26 = [v25 unsignedIntegerValue];
+    v35 = [v16 unsignedIntegerValue];
+    v36 = [v14 objectAtIndexedSubscript:v45];
+    v37 = [v36 unsignedIntegerValue];
 
-    if (v24 >= v26)
+    if (v35 >= v37)
     {
-      [v13 setObject:v15 atIndexedSubscript:v31];
+      [v14 setObject:v16 atIndexedSubscript:v45];
     }
 
     else
     {
-      ASLoggingInitialize();
-      if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
+      ASLoggingInitialize(v38, v39);
+      v40 = os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR);
+      if (v40)
       {
         ASCompetitionCalculateUpdatedScores_cold_1();
       }
 
-      ASLoggingInitialize();
+      ASLoggingInitialize(v40, v41);
       if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
       {
         ASCompetitionCalculateUpdatedScores_cold_4();
@@ -5228,11 +5205,9 @@ id ASCompetitionCalculateUpdatedScores(void *a1, void *a2, void *a3)
     }
   }
 
-  v27 = [MEMORY[0x277CBEA60] arrayWithArray:v13];
+  v42 = [MEMORY[0x277CBEA60] arrayWithArray:v14];
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v42;
 }
 
 unint64_t ASCompetitionCalculateDailyAverageScore(void *a1)
@@ -5251,39 +5226,39 @@ unint64_t ASCompetitionCalculateDailyAverageScore(void *a1)
   return v2;
 }
 
-uint64_t ASCompetitionDailyScoreForParticipantWithCacheIndex(void *a1, uint64_t a2)
+uint64_t ASCompetitionDailyScoreForParticipantWithCacheIndex(void *a1, uint64_t a2, uint64_t a3)
 {
-  v3 = a1;
-  v4 = [v3 startDateComponents];
-  _HKCacheIndexFromDateComponents();
+  v5 = a1;
+  v6 = [v5 startDateComponents];
+  v7 = _HKCacheIndexFromDateComponents();
 
   if (a2)
   {
-    [v3 opponentScores];
+    [v5 opponentScores];
   }
 
   else
   {
-    [v3 scores];
+    [v5 scores];
   }
-  v5 = ;
+  v8 = ;
 
-  v6 = _ASNumberOfDaysSinceCompetitionStart();
-  if (v6 >= [v5 count])
+  v9 = _ASNumberOfDaysSinceCompetitionStart(a3, v7);
+  if (v9 >= [v8 count])
   {
-    v8 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v7 = [v5 objectAtIndexedSubscript:v6];
-    v8 = [v7 unsignedIntegerValue];
+    v10 = [v8 objectAtIndexedSubscript:v9];
+    v11 = [v10 unsignedIntegerValue];
   }
 
-  return v8;
+  return v11;
 }
 
-uint64_t ASCompetitionCurrentScoreDelta(void *a1)
+int64_t ASCompetitionCurrentScoreDelta(void *a1)
 {
   v1 = a1;
   v2 = [v1 myTotalScore];
@@ -5365,7 +5340,7 @@ LABEL_11:
 
 id ASCompetitionWinningDayWithHighestScoreForParticipant(void *a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = v3;
   if (a2)
@@ -5377,35 +5352,35 @@ id ASCompetitionWinningDayWithHighestScoreForParticipant(void *a1, uint64_t a2)
   {
     [v3 scores];
   }
-  v22 = ;
+  v21 = ;
   [v4 daysWonByParticipant:a2];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  obj = v26 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  obj = v25 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         v12 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
         v13 = v4;
         v14 = [v4 startDate];
         v15 = [v12 components:16 fromDate:v14 toDate:v11 options:0];
 
-        v16 = [v22 objectAtIndexedSubscript:{objc_msgSend(v15, "day")}];
+        v16 = [v21 objectAtIndexedSubscript:{objc_msgSend(v15, "day")}];
         v17 = [v16 integerValue];
 
         if (v17 > v8)
@@ -5419,7 +5394,7 @@ id ASCompetitionWinningDayWithHighestScoreForParticipant(void *a1, uint64_t a2)
         v4 = v13;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
@@ -5429,8 +5404,6 @@ id ASCompetitionWinningDayWithHighestScoreForParticipant(void *a1, uint64_t a2)
   {
     v7 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -5579,37 +5552,37 @@ uint64_t __ASFriendsSortedByCompetitionEndDate_block_invoke_2(uint64_t a1, void 
 
 id ASFriendsSortedByCompetitionEndDateForFirstGlanceType(void *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a2 & 0xFFFFFFFFFFFFFFFELL;
   v3 = [a1 sortedArrayUsingComparator:&__block_literal_global_23];
   if (v2 != 2)
   {
     v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v3];
     v5 = [v3 hk_filter:&__block_literal_global_14];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           [v4 removeObject:v10];
           [v4 insertObject:v10 atIndex:0];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -5619,8 +5592,6 @@ id ASFriendsSortedByCompetitionEndDateForFirstGlanceType(void *a1, uint64_t a2)
 
     v3 = v11;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -5650,70 +5621,77 @@ uint64_t ASValidateEligibilityForOutgoingCompetitionRequest(void *a1, void *a2)
   v3 = a1;
   v4 = [v3 primaryRelationship];
   v5 = [v3 primaryRemoteRelationship];
+  v7 = v5;
   if (v3)
   {
-    if (([v4 isCompetitionActive] & 1) != 0 || objc_msgSend(v5, "isCompetitionActive"))
+    v8 = [v4 isCompetitionActive];
+    if ((v8 & 1) != 0 || (v8 = [v7 isCompetitionActive], v8))
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v8, v9);
       if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
       {
         ASValidateEligibilityForOutgoingCompetitionRequest_cold_3();
       }
 
-      v6 = MEMORY[0x277CCA9B8];
-      v7 = 3;
-    }
-
-    else if ([v4 isHidingActivityData])
-    {
-      ASLoggingInitialize();
-      if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
-      {
-        ASValidateEligibilityForOutgoingCompetitionRequest_cold_2();
-      }
-
-      v6 = MEMORY[0x277CCA9B8];
-      v7 = 7;
+      v10 = MEMORY[0x277CCA9B8];
+      v11 = 3;
     }
 
     else
     {
-      if ([v5 supportsCompetitions])
+      v16 = [v4 isHidingActivityData];
+      if (v16)
       {
-        v10 = 1;
-        goto LABEL_15;
+        ASLoggingInitialize(v16, v17);
+        if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
+        {
+          ASValidateEligibilityForOutgoingCompetitionRequest_cold_2();
+        }
+
+        v10 = MEMORY[0x277CCA9B8];
+        v11 = 7;
       }
 
-      ASLoggingInitialize();
-      if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
+      else
       {
-        ASValidateEligibilityForOutgoingCompetitionRequest_cold_1();
-      }
+        v18 = [v7 supportsCompetitions];
+        if (v18)
+        {
+          v14 = 1;
+          goto LABEL_15;
+        }
 
-      v6 = MEMORY[0x277CCA9B8];
-      v7 = 8;
+        ASLoggingInitialize(v18, v19);
+        if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
+        {
+          ASValidateEligibilityForOutgoingCompetitionRequest_cold_1();
+        }
+
+        v10 = MEMORY[0x277CCA9B8];
+        v11 = 8;
+      }
     }
   }
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v5, v6);
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
     {
       ASValidateEligibilityForOutgoingCompetitionRequest_cold_4();
     }
 
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = 1;
+    v10 = MEMORY[0x277CCA9B8];
+    v11 = 1;
   }
 
-  v8 = [v6 errorWithDomain:@"com.apple.ActivitySharing" code:v7 userInfo:0];
-  if (v8)
+  v12 = [v10 errorWithDomain:@"com.apple.ActivitySharing" code:v11 userInfo:0];
+  if (v12)
   {
     if (a2)
     {
-      v9 = v8;
-      *a2 = v8;
+      v13 = v12;
+      *a2 = v12;
     }
 
     else
@@ -5722,10 +5700,10 @@ uint64_t ASValidateEligibilityForOutgoingCompetitionRequest(void *a1, void *a2)
     }
   }
 
-  v10 = 0;
+  v14 = 0;
 LABEL_15:
 
-  return v10;
+  return v14;
 }
 
 uint64_t ASValidateEligibilityForIncomingCompetitionRequest(void *a1, void *a2)
@@ -5733,16 +5711,17 @@ uint64_t ASValidateEligibilityForIncomingCompetitionRequest(void *a1, void *a2)
   v3 = a1;
   v4 = [v3 primaryRelationship];
   v5 = [v3 primaryRemoteRelationship];
+  v7 = v5;
   if (!v3)
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v5, v6);
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
     {
       ASValidateEligibilityForIncomingCompetitionRequest_cold_3();
     }
 
-    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing" code:1 userInfo:0];
-    if (!v8)
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing" code:1 userInfo:0];
+    if (!v12)
     {
       goto LABEL_23;
     }
@@ -5757,21 +5736,22 @@ LABEL_13:
     goto LABEL_23;
   }
 
-  if (![v4 isFriendshipActive] || (objc_msgSend(v5, "isFriendshipActive") & 1) == 0)
+  v8 = [v4 isFriendshipActive];
+  if (!v8 || (v8 = [v7 isFriendshipActive], (v8 & 1) == 0))
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v8, v9);
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
     {
       ASValidateEligibilityForIncomingCompetitionRequest_cold_1();
     }
 
-    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing" code:2 userInfo:0];
-    if (v6)
+    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing" code:2 userInfo:0];
+    if (v10)
     {
       if (a2)
       {
-        v7 = v6;
-        *a2 = v6;
+        v11 = v10;
+        *a2 = v10;
       }
 
       else
@@ -5781,26 +5761,31 @@ LABEL_13:
     }
   }
 
-  if (([v4 isCompetitionActive] & 1) == 0 && !objc_msgSend(v5, "isCompetitionActive"))
+  v13 = [v4 isCompetitionActive];
+  if ((v13 & 1) == 0)
   {
-    v10 = 1;
-    goto LABEL_24;
+    v13 = [v7 isCompetitionActive];
+    if (!v13)
+    {
+      v16 = 1;
+      goto LABEL_24;
+    }
   }
 
-  ASLoggingInitialize();
+  ASLoggingInitialize(v13, v14);
   if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
   {
     ASValidateEligibilityForOutgoingCompetitionRequest_cold_3();
   }
 
-  v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing" code:3 userInfo:0];
-  if (v8)
+  v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing" code:3 userInfo:0];
+  if (v12)
   {
     if (a2)
     {
 LABEL_22:
-      v9 = v8;
-      *a2 = v8;
+      v15 = v12;
+      *a2 = v12;
       goto LABEL_23;
     }
 
@@ -5809,84 +5794,87 @@ LABEL_22:
 
 LABEL_23:
 
-  v10 = 0;
+  v16 = 0;
 LABEL_24:
 
-  return v10;
+  return v16;
 }
 
 uint64_t ASValidateEligibilityForAcceptingCompetitionRequest(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [v3 primaryRelationship];
-  v5 = v4;
+  v6 = v4;
   if (v3)
   {
-    if ([v4 hasIncomingCompetitionRequest])
+    v7 = [v4 hasIncomingCompetitionRequest];
+    if (v7)
     {
-      if ([v5 isCompetitionActive])
+      v9 = [v6 isCompetitionActive];
+      if (v9)
       {
-        ASLoggingInitialize();
+        ASLoggingInitialize(v9, v10);
         if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
         {
           ASValidateEligibilityForAcceptingCompetitionRequest_cold_3();
         }
 
-        v6 = MEMORY[0x277CCA9B8];
-        v7 = 3;
+        v11 = MEMORY[0x277CCA9B8];
+        v12 = 3;
       }
 
       else
       {
-        if (![v5 isHidingActivityData])
+        v17 = [v6 isHidingActivityData];
+        if (!v17)
         {
-          v10 = 1;
+          v15 = 1;
           goto LABEL_18;
         }
 
-        ASLoggingInitialize();
+        ASLoggingInitialize(v17, v18);
         if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
         {
           ASValidateEligibilityForOutgoingCompetitionRequest_cold_2();
         }
 
-        v6 = MEMORY[0x277CCA9B8];
-        v7 = 7;
+        v11 = MEMORY[0x277CCA9B8];
+        v12 = 7;
       }
     }
 
     else
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v7, v8);
       if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
       {
         ASValidateEligibilityForAcceptingCompetitionRequest_cold_1();
       }
 
-      v6 = MEMORY[0x277CCA9B8];
-      v7 = 0;
+      v11 = MEMORY[0x277CCA9B8];
+      v12 = 0;
     }
   }
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v4, v5);
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
     {
       ASValidateEligibilityForAcceptingCompetitionRequest_cold_4();
     }
 
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = 1;
+    v11 = MEMORY[0x277CCA9B8];
+    v12 = 1;
   }
 
-  v8 = [v6 errorWithDomain:@"com.apple.ActivitySharing" code:v7 userInfo:0];
-  if (v8)
+  v13 = [v11 errorWithDomain:@"com.apple.ActivitySharing" code:v12 userInfo:0];
+  if (v13)
   {
     if (a2)
     {
-      v9 = v8;
-      *a2 = v8;
+      v14 = v13;
+      *a2 = v13;
     }
 
     else
@@ -5895,26 +5883,26 @@ uint64_t ASValidateEligibilityForAcceptingCompetitionRequest(void *a1, void *a2)
     }
   }
 
-  v10 = 0;
+  v15 = 0;
 LABEL_18:
 
-  return v10;
+  return v15;
 }
 
 id ASCompetitionsEligibleForArchival(void *a1)
 {
   v1 = a1;
-  ASLoggingInitialize();
-  v2 = ASLogCompetitions;
+  ASLoggingInitialize(v1, v2);
+  v3 = ASLogCompetitions;
   if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_23E4FA000, v2, OS_LOG_TYPE_DEFAULT, "Validating competitions for archival", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_23E4FA000, v3, OS_LOG_TYPE_DEFAULT, "Validating competitions for archival", v6, 2u);
   }
 
-  v3 = [v1 hk_filter:&__block_literal_global_32];
+  v4 = [v1 hk_filter:&__block_literal_global_32];
 
-  return v3;
+  return v4;
 }
 
 uint64_t __ASCompetitionsEligibleForArchival_block_invoke(uint64_t a1, void *a2)
@@ -5922,14 +5910,15 @@ uint64_t __ASCompetitionsEligibleForArchival_block_invoke(uint64_t a1, void *a2)
   v2 = a2;
   if ([v2 lastPushedCacheIndex])
   {
-    v3 = [v2 lastPushedCacheIndex];
-    if (v3 >= [v2 endDateCacheIndex])
+    v4 = [v2 lastPushedCacheIndex];
+    v5 = [v2 endDateCacheIndex];
+    if (v4 >= v5)
     {
-      v4 = 1;
+      v7 = 1;
       goto LABEL_9;
     }
 
-    ASLoggingInitialize();
+    ASLoggingInitialize(v5, v6);
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
     {
       __ASCompetitionsEligibleForArchival_block_invoke_cold_1();
@@ -5938,17 +5927,17 @@ uint64_t __ASCompetitionsEligibleForArchival_block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(0, v3);
     if (os_log_type_enabled(ASLogCompetitions, OS_LOG_TYPE_ERROR))
     {
       __ASCompetitionsEligibleForArchival_block_invoke_cold_2();
     }
   }
 
-  v4 = 0;
+  v7 = 0;
 LABEL_9:
 
-  return v4;
+  return v7;
 }
 
 uint64_t ASIgnoredMostRecentCompetitionRequestFromContact(void *a1)
@@ -5974,27 +5963,26 @@ uint64_t ASIgnoredMostRecentCompetitionRequestFromContact(void *a1)
 
 uint64_t ASPairedDeviceSupportsCompetitions()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D2BCF8] sharedInstance];
   [v0 getPairedDevices];
+  v6 = 0u;
+  v7 = 0u;
   v8 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v1 = v11 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v1 = v9 = 0u;
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
-    v3 = *v9;
+    v3 = *v7;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v9 != v3)
+        if (*v7 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * i);
         NRWatchOSVersionForRemoteDevice();
         if (NRVersionIsGreaterThanOrEqual())
         {
@@ -6003,7 +5991,7 @@ uint64_t ASPairedDeviceSupportsCompetitions()
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
       if (v2)
       {
         continue;
@@ -6015,21 +6003,21 @@ uint64_t ASPairedDeviceSupportsCompetitions()
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-NSString *ASClientTaskIdentifier()
+NSString *ASClientTaskIdentifier(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 uint64_t ASCodableCloudKitActivitySnapshotReadFrom(uint64_t a1, void *a2)
@@ -7068,29 +7056,29 @@ LABEL_23:
 
 id ASSnapshotDictionaryByIndex(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = [ASSampleCollector sampleDictionaryByIndex:a1 sampleIndexBlock:&__block_literal_global_8];
   v2 = [MEMORY[0x277CBEB38] dictionary];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [v3 objectForKeyedSubscript:{*(*(&v16 + 1) + 8 * i), v16}];
+        v8 = [v3 objectForKeyedSubscript:{*(*(&v15 + 1) + 8 * i), v15}];
         v9 = MEMORY[0x277CCDDC8];
         v10 = [v8 allObjects];
         v11 = [v9 _mostSignificantSnapshotAmongSnapshots:v10];
@@ -7099,15 +7087,13 @@ id ASSnapshotDictionaryByIndex(uint64_t a1)
         [v2 setObject:v11 forKey:v12];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
 
   v13 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v2];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -8048,33 +8034,35 @@ id ASFriendAchievementFromTemplateAndEarnedInstance(void *a1, void *a2)
 
     if (v11)
     {
-      v12 = [v4 value];
-      v13 = [v3 canonicalUnit];
-      v14 = [v12 isCompatibleWithUnit:v13];
+      v14 = [v4 value];
+      v15 = [v3 canonicalUnit];
+      v16 = [v14 isCompatibleWithUnit:v15];
 
-      if (v14)
+      if (v16)
       {
-        v15 = [v4 value];
-        v16 = [v3 canonicalUnit];
-        [v15 doubleValueForUnit:v16];
-        v10 = v17;
+        v19 = [v4 value];
+        v20 = [v3 canonicalUnit];
+        [v19 doubleValueForUnit:v20];
+        v10 = v21;
       }
 
       else
       {
-        ASLoggingInitialize();
-        if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_ERROR))
+        ASLoggingInitialize(v17, v18);
+        v24 = os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_ERROR);
+        if (v24)
         {
           ASFriendAchievementFromTemplateAndEarnedInstance_cold_1();
         }
 
-        ASLoggingInitialize();
-        if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_ERROR))
+        ASLoggingInitialize(v24, v25);
+        v26 = os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_ERROR);
+        if (v26)
         {
           ASFriendAchievementFromTemplateAndEarnedInstance_cold_2();
         }
 
-        ASLoggingInitialize();
+        ASLoggingInitialize(v26, v27);
         if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_ERROR))
         {
           ASFriendAchievementFromTemplateAndEarnedInstance_cold_3();
@@ -8084,13 +8072,14 @@ id ASFriendAchievementFromTemplateAndEarnedInstance(void *a1, void *a2)
 
     else
     {
-      ASLoggingInitialize();
-      if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_ERROR))
+      ASLoggingInitialize(v12, v13);
+      v22 = os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_ERROR);
+      if (v22)
       {
         ASFriendAchievementFromTemplateAndEarnedInstance_cold_4();
       }
 
-      ASLoggingInitialize();
+      ASLoggingInitialize(v22, v23);
       if (os_log_type_enabled(ASLogAchievements, OS_LOG_TYPE_ERROR))
       {
         ASFriendAchievementFromTemplateAndEarnedInstance_cold_2();
@@ -8098,11 +8087,11 @@ id ASFriendAchievementFromTemplateAndEarnedInstance(void *a1, void *a2)
     }
   }
 
-  v18 = MEMORY[0x277CCDDC0];
-  v19 = [MEMORY[0x277CCABB0] numberWithDouble:v10];
-  v20 = [v18 achievementWithTemplateUniqueName:v5 completedDate:v8 value:v19 friendUUID:0];
+  v28 = MEMORY[0x277CCDDC0];
+  v29 = [MEMORY[0x277CCABB0] numberWithDouble:v10];
+  v30 = [v28 achievementWithTemplateUniqueName:v5 completedDate:v8 value:v29 friendUUID:0];
 
-  return v20;
+  return v30;
 }
 
 id ASEphemeralEarnedAchievement(void *a1, void *a2, void *a3)
@@ -8212,31 +8201,29 @@ id ASBuildFriendAchievementsToShare(void *a1, uint64_t a2)
   v19 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = _HKStartDateForSnapshotIndex();
-  ASLoggingInitialize();
-  v5 = ASLogActivityData;
+  ASLoggingInitialize(v4, v5);
+  v6 = ASLogActivityData;
   if (os_log_type_enabled(ASLogActivityData, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     v16 = a2;
     v17 = 2112;
     v18 = v4;
-    _os_log_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Looking for achievements for snapshot index: %lld, date: %@", buf, 0x16u);
+    _os_log_impl(&dword_23E4FA000, v6, OS_LOG_TYPE_DEFAULT, "Looking for achievements for snapshot index: %lld, date: %@", buf, 0x16u);
   }
 
-  v6 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
+  v7 = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
   v12[2] = __ASBuildFriendAchievementsToShare_block_invoke;
   v12[3] = &unk_278C46BF0;
-  v13 = v6;
+  v13 = v7;
   v14 = v4;
-  v7 = v4;
-  v8 = v6;
-  v9 = [v3 hk_map:v12];
+  v8 = v4;
+  v9 = v7;
+  v10 = [v3 hk_map:v12];
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 id __ASBuildFriendAchievementsToShare_block_invoke(uint64_t a1, void *a2)
@@ -8316,9 +8303,9 @@ void ASCleanSnapshotForUpload(void *a1)
   }
 }
 
-void sub_23E52D9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23E52D9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8827,7 +8814,7 @@ id ASFriendUUIDFromActivityAppLaunchURL(void *a1)
   return v2;
 }
 
-uint64_t ASIsM8Device()
+uint64_t ASIsM8Device(uint64_t a1, uint64_t a2)
 {
   if (ASIsM8Device_onceToken != -1)
   {
@@ -8843,7 +8830,7 @@ void __ASIsM8Device_block_invoke()
   ASIsM8Device___isM8Device = [v0 isEqualToString:@"t8002"];
 }
 
-uint64_t ASIsM9Device()
+uint64_t ASIsM9Device(uint64_t a1, uint64_t a2)
 {
   if (ASIsM9Device_onceToken != -1)
   {
@@ -8859,7 +8846,7 @@ void __ASIsM9Device_block_invoke()
   ASIsM9Device___isM9Device = [v0 isEqualToString:@"t8006"];
 }
 
-uint64_t ASShouldReducePeriodUpdateFrequency()
+uint64_t ASShouldReducePeriodUpdateFrequency(uint64_t a1, uint64_t a2)
 {
   if (ASIsM8Device_onceToken != -1)
   {
@@ -8868,7 +8855,7 @@ uint64_t ASShouldReducePeriodUpdateFrequency()
 
   if (ASIsM8Device___isM8Device)
   {
-    v0 = 1;
+    v2 = 1;
   }
 
   else
@@ -8878,10 +8865,10 @@ uint64_t ASShouldReducePeriodUpdateFrequency()
       ASIsM9Device_cold_1();
     }
 
-    v0 = ASIsM9Device___isM9Device;
+    v2 = ASIsM9Device___isM9Device;
   }
 
-  return v0 & 1;
+  return v2 & 1;
 }
 
 uint64_t __ASLoggingInitialize_block_invoke()

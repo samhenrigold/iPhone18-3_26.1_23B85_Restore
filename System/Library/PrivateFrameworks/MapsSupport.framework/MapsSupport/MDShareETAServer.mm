@@ -10,9 +10,9 @@
 - (MDShareETAServer)initWithState:(id)state
 {
   stateCopy = state;
-  v19.receiver = self;
-  v19.super_class = MDShareETAServer;
-  v6 = [(MDShareETAServer *)&v19 init];
+  v17.receiver = self;
+  v17.super_class = MDShareETAServer;
+  v6 = [(MDShareETAServer *)&v17 init];
   v7 = v6;
   if (v6)
   {
@@ -20,25 +20,23 @@
     +[MSPSharedTripServer migrateIfNeeded];
     objc_initWeak(&location, v7);
     v8 = &_dispatch_main_q;
-    v16[1] = _NSConcreteStackBlock;
-    v16[2] = 3221225472;
-    v16[3] = sub_100011F6C;
-    v16[4] = &unk_10003D0A8;
-    objc_copyWeak(&v17, &location);
-    v9 = GEOConfigMSPShareETAUserEnabled[1];
-    v10 = _GEOConfigAddBlockListenerForKey();
+    v14[1] = _NSConcreteStackBlock;
+    v14[2] = 3221225472;
+    v14[3] = sub_100011F6C;
+    v14[4] = &unk_10003D0A8;
+    objc_copyWeak(&v15, &location);
+    v9 = _GEOConfigAddBlockListenerForKey();
     userDisabledDefaultListener = v7->_userDisabledDefaultListener;
-    v7->_userDisabledDefaultListener = v10;
+    v7->_userDisabledDefaultListener = v9;
 
-    objc_copyWeak(v16, &location);
-    v12 = GEOConfigMSPSharedTripServerEnabled[1];
-    v13 = _GEOConfigAddBlockListenerForKey();
+    objc_copyWeak(v14, &location);
+    v11 = _GEOConfigAddBlockListenerForKey();
     serverDisabledDefaultListener = v7->_serverDisabledDefaultListener;
-    v7->_serverDisabledDefaultListener = v13;
+    v7->_serverDisabledDefaultListener = v11;
 
     [(MDShareETAServer *)v7 _updateSharedETAServerState];
-    objc_destroyWeak(v16);
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(v14);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 
@@ -47,19 +45,17 @@
 
 - (void)dealloc
 {
+  GEOConfigRemoveBlockListener();
+  GEOConfigRemoveBlockListener();
   userDisabledDefaultListener = self->_userDisabledDefaultListener;
-  GEOConfigRemoveBlockListener();
-  serverDisabledDefaultListener = self->_serverDisabledDefaultListener;
-  GEOConfigRemoveBlockListener();
-  v5 = self->_userDisabledDefaultListener;
   self->_userDisabledDefaultListener = 0;
 
-  v6 = self->_serverDisabledDefaultListener;
+  serverDisabledDefaultListener = self->_serverDisabledDefaultListener;
   self->_serverDisabledDefaultListener = 0;
 
-  v7.receiver = self;
-  v7.super_class = MDShareETAServer;
-  [(MDShareETAServer *)&v7 dealloc];
+  v5.receiver = self;
+  v5.super_class = MDShareETAServer;
+  [(MDShareETAServer *)&v5 dealloc];
 }
 
 - (void)updateSharedETAServerState

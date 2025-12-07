@@ -60,8 +60,8 @@
 
 - (BOOL)isPhotoLowQuality
 {
-  contacts = [(CNContactHeaderView *)self contacts];
-  firstObject = [contacts firstObject];
+  v2 = objc_msgSend_contacts(self, a2);
+  firstObject = [v2 firstObject];
   hasLowQualityImage = [firstObject hasLowQualityImage];
 
   return hasLowQualityImage;

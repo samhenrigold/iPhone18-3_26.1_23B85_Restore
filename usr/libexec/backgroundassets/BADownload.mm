@@ -88,9 +88,9 @@
 
     IOPMAssertionRelease([(BADownload *)self powerAssertionID]);
     selfCopy2 = self;
-    v10 = 0;
+    v11 = 0;
 LABEL_11:
-    [(BADownload *)selfCopy2 setPowerAssertionID:v10];
+    [(BADownload *)selfCopy2 setPowerAssertionID:v11];
     goto LABEL_12;
   }
 
@@ -105,22 +105,22 @@ LABEL_11:
       IOPMAssertionRelease([(BADownload *)self powerAssertionID]);
     }
 
-    v10 = AssertionID;
+    v11 = AssertionID;
     selfCopy2 = self;
     goto LABEL_11;
   }
 
-  v8 = sub_1000104FC();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = sub_1000104FC(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_1000481FC(v8);
+    sub_1000481FC(v9);
   }
 
 LABEL_12:
   uniqueIdentifier2 = [(BADownload *)self uniqueIdentifier];
   [uniqueIdentifier2 UTF8String];
-  v12 = os_transaction_create();
-  [(BADownload *)self setTransaction:v12];
+  v13 = os_transaction_create();
+  [(BADownload *)self setTransaction:v13];
 }
 
 - (void)_removeActivityAndPowerAssertion
@@ -205,9 +205,9 @@ LABEL_10:
 - (BADownload)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v32.receiver = self;
-  v32.super_class = BADownload;
-  v5 = [(BADownload *)&v32 init];
+  v33.receiver = self;
+  v33.super_class = BADownload;
+  v5 = [(BADownload *)&v33 init];
   if (!v5)
   {
     goto LABEL_18;
@@ -283,10 +283,10 @@ LABEL_10:
 
       if ((v26 & 1) == 0)
       {
-        v31 = sub_1000104FC();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v32 = sub_1000104FC(v27);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          sub_10004C628(v5, v31);
+          sub_10004C628(v5, v32);
         }
 
         goto LABEL_5;
@@ -296,8 +296,8 @@ LABEL_10:
       {
         agentCore = [coderCopy agentCore];
         applicationIdentifier3 = [(BADownload *)v5 applicationIdentifier];
-        v29 = [agentCore applicationInfoForIdentifier:applicationIdentifier3];
-        [(BADownload *)v5 setApplicationInfo:v29];
+        v30 = [agentCore applicationInfoForIdentifier:applicationIdentifier3];
+        [(BADownload *)v5 setApplicationInfo:v30];
       }
 
       -[BADownload setPermitInitialCellularDownload:](v5, "setPermitInitialCellularDownload:", [coderCopy decodeBoolForKey:@"permitInitialCellularDownload"]);

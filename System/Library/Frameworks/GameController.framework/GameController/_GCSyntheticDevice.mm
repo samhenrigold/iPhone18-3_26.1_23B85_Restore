@@ -76,26 +76,25 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [(_GCSyntheticDevice *)self isEqual:equalCopy, &v8];
-    v6 = v8;
+    [(_GCSyntheticDevice *)self isEqual:equalCopy, &v7];
+    v5 = v7;
   }
 
   else
   {
-    identifier = self->_identifier;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = [(NSString *)self->_identifier isEqual:equalCopy];
+      v5 = [(NSString *)self->_identifier isEqual:equalCopy];
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)debugDescription

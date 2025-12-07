@@ -384,11 +384,11 @@ void sub_9504(uint64_t a1)
   if (os_log_type_enabled(v4, v5))
   {
     v6 = objc_loadWeakRetained((a1 + 40));
-    v13 = 138412546;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_0, v4, v5, "Calendar availability (free/busy) task complete: [%@].  Error: [%@]", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_0, v4, v5, "Calendar availability (free/busy) task complete: [%@].  Error: [%@]", &v12, 0x16u);
   }
 
   if (!v3)
@@ -396,13 +396,12 @@ void sub_9504(uint64_t a1)
     v7 = objc_loadWeakRetained((a1 + 40));
     v8 = [v7 scheduleResponse];
 
-    v9 = *(a1 + 32);
-    v10 = [objc_opt_class() _parseResponse:v8 withAddresses:*(v9 + 32)];
-    v11 = v10;
-    if (v10 && [v10 count])
+    v9 = [objc_opt_class() _parseResponse:v8 withAddresses:*(*(a1 + 32) + 32)];
+    v10 = v9;
+    if (v9 && [v9 count])
     {
-      v12 = objc_loadWeakRetained((*(a1 + 32) + 40));
-      [v12 calendarAvailabilityRequestReturnedResults:v11];
+      v11 = objc_loadWeakRetained((*(a1 + 32) + 40));
+      [v11 calendarAvailabilityRequestReturnedResults:v10];
     }
   }
 
@@ -1143,7 +1142,7 @@ uint64_t sub_107E8(uint64_t a1)
   return (*(*(a1 + 40) + 16))();
 }
 
-id sub_115A8(uint64_t a1)
+NSMutableDictionary *sub_115A8(uint64_t a1)
 {
   v2 = objc_opt_new();
   v3 = *(a1 + 32);

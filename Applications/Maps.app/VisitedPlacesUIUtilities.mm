@@ -141,7 +141,7 @@
 
 + (uint64_t)openMapsSettingsURL
 {
-  v0 = sub_1000CE6B8(&unk_101909B00);
+  v0 = sub_1000CE6B8(&unk_101909B00, &unk_1011E4C10);
   __chkstk_darwin(v0 - 8);
   v2 = &v13 - v1;
   v3 = type metadata accessor for URL();

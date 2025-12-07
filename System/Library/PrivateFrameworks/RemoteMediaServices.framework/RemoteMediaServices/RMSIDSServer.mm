@@ -136,7 +136,7 @@ uint64_t __22__RMSIDSServer_server__block_invoke()
   sessionIdentifier = [(RMSSessionMessage *)v7 sessionIdentifier];
   v9 = [(RMSSessionManager *)self->_sessionManager sessionWithIdentifier:sessionIdentifier];
   v10 = objc_opt_new();
-  v11 = RMSLogger();
+  v11 = RMSLogger(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (v9)
   {
@@ -171,7 +171,7 @@ uint64_t __22__RMSIDSServer_server__block_invoke()
 - (void)_handleBeginDiscovery:(id)discovery
 {
   discoveryCopy = discovery;
-  v5 = RMSLogger();
+  v5 = RMSLogger(discoveryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -185,31 +185,32 @@ uint64_t __22__RMSIDSServer_server__block_invoke()
   v9 = +[RMSDiscoverySession localDiscoverySession];
   [v9 setDiscoveryTypes:{-[RMSBeginDiscoveryMessage discoveryTypes](v8, "discoveryTypes")}];
   [v9 setDelegate:self];
-  if ([(RMSBeginDiscoveryMessage *)v8 hasPairedNetworkNames])
+  hasPairedNetworkNames = [(RMSBeginDiscoveryMessage *)v8 hasPairedNetworkNames];
+  if (hasPairedNetworkNames)
   {
-    v10 = RMSLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = RMSLogger(hasPairedNetworkNames);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_261E98000, v10, OS_LOG_TYPE_DEFAULT, "Client supplied a list of paired network names, use this for filtering discovery", buf, 2u);
+      _os_log_impl(&dword_261E98000, v11, OS_LOG_TYPE_DEFAULT, "Client supplied a list of paired network names, use this for filtering discovery", buf, 2u);
     }
 
     pairedNetworkNames = [(RMSBeginDiscoveryMessage *)v8 pairedNetworkNames];
     [v9 setPairedNetworkNames:pairedNetworkNames];
   }
 
-  v12 = *&RMSDiscoverySessionTimeout;
+  v13 = *&RMSDiscoverySessionTimeout;
   sessionManager = self->_sessionManager;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __38__RMSIDSServer__handleBeginDiscovery___block_invoke;
-  v16[3] = &unk_279B09098;
-  v16[4] = self;
-  v17 = discoveryCopy;
-  v18 = v9;
-  v14 = v9;
-  v15 = discoveryCopy;
-  [(RMSSessionManager *)sessionManager beginSession:v14 timeout:v12 shouldTakePowerAssertion:1 completionHandler:v16];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __38__RMSIDSServer__handleBeginDiscovery___block_invoke;
+  v17[3] = &unk_279B09098;
+  v17[4] = self;
+  v18 = discoveryCopy;
+  v19 = v9;
+  v15 = v9;
+  v16 = discoveryCopy;
+  [(RMSSessionManager *)sessionManager beginSession:v15 timeout:v13 shouldTakePowerAssertion:1 completionHandler:v17];
 }
 
 void __38__RMSIDSServer__handleBeginDiscovery___block_invoke(uint64_t a1, int a2)
@@ -228,16 +229,15 @@ void __38__RMSIDSServer__handleBeginDiscovery___block_invoke(uint64_t a1, int a2
 
 void __38__RMSIDSServer__handleBeginDiscovery___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
-  [v2 setSessionIdentifier:*(a1 + 56)];
-  v3 = RMSLogger();
+  v3 = RMSLogger([v2 setSessionIdentifier:*(a1 + 56)]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 56);
-    v9 = 67109120;
-    v10 = v4;
-    _os_log_impl(&dword_261E98000, v3, OS_LOG_TYPE_DEFAULT, "[Session %d] Sending begin discovery response", &v9, 8u);
+    v10 = 67109120;
+    v11 = v4;
+    _os_log_impl(&dword_261E98000, v3, OS_LOG_TYPE_DEFAULT, "[Session %d] Sending begin discovery response", &v10, 8u);
   }
 
   v5 = *(a1 + 32);
@@ -245,15 +245,16 @@ void __38__RMSIDSServer__handleBeginDiscovery___block_invoke_2(uint64_t a1)
   [v5 _sendData:v6 type:2 timeout:10 queueOneID:0 inResponseTo:*(a1 + 40)];
 
   [*(a1 + 48) beginDiscovery];
-  if (([*(a1 + 48) isNetworkAvailable] & 1) == 0)
+  v7 = [*(a1 + 48) isNetworkAvailable];
+  if ((v7 & 1) == 0)
   {
-    v7 = RMSLogger();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = RMSLogger(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 56);
-      v9 = 67109120;
-      v10 = v8;
-      _os_log_impl(&dword_261E98000, v7, OS_LOG_TYPE_DEFAULT, "[Session %d] Network not available, immediately notify client", &v9, 8u);
+      v9 = *(a1 + 56);
+      v10 = 67109120;
+      v11 = v9;
+      _os_log_impl(&dword_261E98000, v8, OS_LOG_TYPE_DEFAULT, "[Session %d] Network not available, immediately notify client", &v10, 8u);
     }
 
     [*(a1 + 32) discoverySessionNetworkAvailabilityDidChange:*(a1 + 48)];
@@ -263,7 +264,7 @@ void __38__RMSIDSServer__handleBeginDiscovery___block_invoke_2(uint64_t a1)
 - (void)_handleUpdatePairedNetworkNames:(id)names
 {
   namesCopy = names;
-  v5 = RMSLogger();
+  v5 = RMSLogger(namesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -288,7 +289,7 @@ void __38__RMSIDSServer__handleBeginDiscovery___block_invoke_2(uint64_t a1)
 
   v7 = [(RMSSessionMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSSessionMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10[0] = 67109120;
@@ -322,30 +323,29 @@ void __36__RMSIDSServer__handleEndDiscovery___block_invoke(uint64_t a1, void *a2
   service = [(RMSUnpairServiceMessage *)v7 service];
   v10 = [(RMSService *)v8 initWithProtobuf:service];
 
-  v11 = RMSLogger();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = RMSLogger(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_261E98000, v11, OS_LOG_TYPE_DEFAULT, "Received request to unpair service", buf, 2u);
+    _os_log_impl(&dword_261E98000, v12, OS_LOG_TYPE_DEFAULT, "Received request to unpair service", buf, 2u);
   }
 
-  v12 = +[RMSPairingSession localPairingSession];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __37__RMSIDSServer__handleUnpairService___block_invoke;
-  v14[3] = &unk_279B090E0;
-  v14[4] = self;
-  v15 = serviceCopy;
-  v13 = serviceCopy;
-  [v12 unpairService:v10 completionHandler:v14];
+  v13 = +[RMSPairingSession localPairingSession];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __37__RMSIDSServer__handleUnpairService___block_invoke;
+  v15[3] = &unk_279B090E0;
+  v15[4] = self;
+  v16 = serviceCopy;
+  v14 = serviceCopy;
+  [v13 unpairService:v10 completionHandler:v15];
 }
 
 void __37__RMSIDSServer__handleUnpairService___block_invoke(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
-  [v4 setResponseCode:a2];
-  v5 = RMSLogger();
+  v5 = RMSLogger([v4 setResponseCode:a2]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromRMSResponseCode(a2);
@@ -362,7 +362,7 @@ void __37__RMSIDSServer__handleUnpairService___block_invoke(uint64_t a1, uint64_
 - (void)_handleConnectToService:(id)service
 {
   serviceCopy = service;
-  v5 = RMSLogger();
+  v5 = RMSLogger(serviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -435,8 +435,7 @@ void __40__RMSIDSServer__handleConnectToService___block_invoke_2(uint64_t a1, ui
 
   [v8 setControlInterface:v9];
   [v8 setSessionIdentifier:*(a1 + 48)];
-  [v8 setResponseData:a3];
-  v10 = RMSLogger();
+  v10 = RMSLogger([v8 setResponseData:a3]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = *(a1 + 48);
@@ -467,7 +466,7 @@ void __40__RMSIDSServer__handleConnectToService___block_invoke_2(uint64_t a1, ui
 
   v7 = [(RMSPairingChallengeResponseMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSPairingChallengeResponseMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v14[0] = 67109120;
@@ -495,7 +494,7 @@ void __40__RMSIDSServer__handleConnectToService___block_invoke_2(uint64_t a1, ui
 
   v7 = [(RMSSessionMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSSessionMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10[0] = 67109120;
@@ -515,7 +514,7 @@ void __40__RMSIDSServer__handleConnectToService___block_invoke_2(uint64_t a1, ui
 
   v7 = [(RMSPlaybackCommandMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSPlaybackCommandMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -536,7 +535,7 @@ void __40__RMSIDSServer__handleConnectToService___block_invoke_2(uint64_t a1, ui
   v7 = [(RMSSessionMessage *)v5 initWithData:data];
 
   sessionIdentifier = [(RMSSessionMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v13[0] = 67109120;
@@ -561,7 +560,7 @@ void __40__RMSIDSServer__handleConnectToService___block_invoke_2(uint64_t a1, ui
 
   v7 = [(RMSSessionMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSSessionMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -582,7 +581,7 @@ void __40__RMSIDSServer__handleConnectToService___block_invoke_2(uint64_t a1, ui
   v7 = [(RMSPickAudioRouteMessage *)v5 initWithData:data];
 
   sessionIdentifier = [(RMSPickAudioRouteMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109120;
@@ -612,8 +611,7 @@ void __38__RMSIDSServer__handlePickAudioRoute___block_invoke(uint64_t a1, uint64
 {
   v13 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
-  [v4 setResponseCode:a2];
-  v5 = RMSLogger();
+  v5 = RMSLogger([v4 setResponseCode:a2]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 48);
@@ -639,7 +637,7 @@ void __38__RMSIDSServer__handlePickAudioRoute___block_invoke(uint64_t a1, uint64
 
   v7 = [(RMSSetVolumeMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSSetVolumeMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -661,7 +659,7 @@ void __38__RMSIDSServer__handlePickAudioRoute___block_invoke(uint64_t a1, uint64
 
   v7 = [(RMSSeekToPlaybackTimeMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSSeekToPlaybackTimeMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -675,19 +673,19 @@ void __38__RMSIDSServer__handlePickAudioRoute___block_invoke(uint64_t a1, uint64
 
 - (void)_handleNowPlayingArtworkRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [RMSNowPlayingArtworkRequestMessage alloc];
   data = [requestCopy data];
   v7 = [(RMSNowPlayingArtworkRequestMessage *)v5 initWithData:data];
 
   artworkIdentifier = [(RMSNowPlayingArtworkRequestMessage *)v7 artworkIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(artworkIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412290;
-    v22 = artworkIdentifier;
-    _os_log_impl(&dword_261E98000, v9, OS_LOG_TYPE_DEFAULT, "Received artwork request for identifier: %@", &v21, 0xCu);
+    v23 = 138412290;
+    v24 = artworkIdentifier;
+    _os_log_impl(&dword_261E98000, v9, OS_LOG_TYPE_DEFAULT, "Received artwork request for identifier: %@", &v23, 0xCu);
   }
 
   v10 = +[RMSNowPlayingArtworkCache sharedArtworkCache];
@@ -698,30 +696,30 @@ void __38__RMSIDSServer__handlePickAudioRoute___block_invoke(uint64_t a1, uint64
     width = [(RMSNowPlayingArtworkRequestMessage *)v7 width];
     height = [(RMSNowPlayingArtworkRequestMessage *)v7 height];
     [(RMSNowPlayingArtworkRequestMessage *)v7 compressionQuality];
-    v15 = v14;
-    v16 = [MEMORY[0x277D755B8] imageWithData:v11];
-    LODWORD(v17) = v15;
-    v18 = [v16 rms_jpegDataScaledToSize:width compressionQuality:{height, v17}];
+    v16 = v15;
+    v17 = [MEMORY[0x277D755B8] imageWithData:v11];
+    LODWORD(v18) = v16;
+    v19 = [v17 rms_jpegDataScaledToSize:width compressionQuality:{height, v18}];
 
-    v19 = RMSLogger();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = RMSLogger(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = [v18 length];
-      v21 = 134217984;
-      v22 = v20;
-      _os_log_impl(&dword_261E98000, v19, OS_LOG_TYPE_DEFAULT, "Sending artwork, size=%zd", &v21, 0xCu);
+      v22 = [v19 length];
+      v23 = 134217984;
+      v24 = v22;
+      _os_log_impl(&dword_261E98000, v21, OS_LOG_TYPE_DEFAULT, "Sending artwork, size=%zd", &v23, 0xCu);
     }
 
-    [(RMSIDSServer *)self _sendData:v18 type:25 timeout:*MEMORY[0x277D18828] queueOneID:@"ArtworkData" inResponseTo:requestCopy];
+    [(RMSIDSServer *)self _sendData:v19 type:25 timeout:*MEMORY[0x277D18828] queueOneID:@"ArtworkData" inResponseTo:requestCopy];
   }
 
   else
   {
-    v18 = RMSLogger();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = RMSLogger(v12);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_261E98000, v18, OS_LOG_TYPE_DEFAULT, "Artwork data not found", &v21, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_261E98000, v19, OS_LOG_TYPE_DEFAULT, "Artwork data not found", &v23, 2u);
     }
   }
 }
@@ -735,7 +733,7 @@ void __38__RMSIDSServer__handlePickAudioRoute___block_invoke(uint64_t a1, uint64
   v7 = [(RMSSetLikeStateMessage *)v5 initWithData:data];
 
   sessionIdentifier = [(RMSSetLikeStateMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109120;
@@ -765,8 +763,7 @@ void __36__RMSIDSServer__handleSetLikeState___block_invoke(uint64_t a1, uint64_t
 {
   v11 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
-  [v4 setResponseCode:a2];
-  v5 = RMSLogger();
+  v5 = RMSLogger([v4 setResponseCode:a2]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromRMSResponseCode(a2);
@@ -789,7 +786,7 @@ void __36__RMSIDSServer__handleSetLikeState___block_invoke(uint64_t a1, uint64_t
   v7 = [(RMSAddToWishlistMessage *)v5 initWithData:data];
 
   sessionIdentifier = [(RMSAddToWishlistMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109120;
@@ -818,8 +815,7 @@ void __37__RMSIDSServer__handleAddToWishlist___block_invoke(uint64_t a1, uint64_
 {
   v11 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
-  [v4 setResponseCode:a2];
-  v5 = RMSLogger();
+  v5 = RMSLogger([v4 setResponseCode:a2]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromRMSResponseCode(a2);
@@ -842,7 +838,7 @@ void __37__RMSIDSServer__handleAddToWishlist___block_invoke(uint64_t a1, uint64_
 
   v7 = [(RMSTouchMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSTouchMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -863,7 +859,7 @@ void __37__RMSIDSServer__handleAddToWishlist___block_invoke(uint64_t a1, uint64_
 
   v7 = [(RMSTouchMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSTouchMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -884,7 +880,7 @@ void __37__RMSIDSServer__handleAddToWishlist___block_invoke(uint64_t a1, uint64_
 
   v7 = [(RMSNavigationCommandMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSNavigationCommandMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -899,7 +895,7 @@ void __37__RMSIDSServer__handleAddToWishlist___block_invoke(uint64_t a1, uint64_
 - (void)_handleBeginPairing:(id)pairing
 {
   pairingCopy = pairing;
-  v5 = RMSLogger();
+  v5 = RMSLogger(pairingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -944,8 +940,7 @@ void __36__RMSIDSServer__handleBeginPairing___block_invoke(uint64_t a1, uint64_t
   [*(a1 + 32) beginPairing];
   v4 = objc_opt_new();
   [v4 setSessionIdentifier:a2];
-  [v4 setResponseCode:1];
-  v5 = RMSLogger();
+  v5 = RMSLogger([v4 setResponseCode:1]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
@@ -967,7 +962,7 @@ void __36__RMSIDSServer__handleBeginPairing___block_invoke(uint64_t a1, uint64_t
 
   v7 = [(RMSSessionMessage *)v5 initWithData:data];
   sessionIdentifier = [(RMSSessionMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10[0] = 67109120;
@@ -987,7 +982,7 @@ void __36__RMSIDSServer__handleBeginPairing___block_invoke(uint64_t a1, uint64_t
   v7 = [(RMSSendTextMessage *)v5 initWithData:data];
 
   sessionIdentifier = [(RMSSendTextMessage *)v7 sessionIdentifier];
-  v9 = RMSLogger();
+  v9 = RMSLogger(sessionIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1012,8 +1007,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
-  [v4 setResponseCode:a2];
-  v5 = RMSLogger();
+  v5 = RMSLogger([v4 setResponseCode:a2]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 48);
@@ -1052,8 +1046,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
 
         v10 = *(*(&v15 + 1) + 8 * i);
         v11 = objc_opt_new();
-        [v11 setSessionIdentifier:{objc_msgSend(v10, "intValue")}];
-        v12 = RMSLogger();
+        v12 = RMSLogger([v11 setSessionIdentifier:{objc_msgSend(v10, "intValue")}]);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           intValue = [v10 intValue];
@@ -1077,7 +1070,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *&timeout;
   typeCopy = type;
-  v42[3] = *MEMORY[0x277D85DE8];
+  v43[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   toCopy = to;
   v16 = MEMORY[0x277D189F0];
@@ -1085,16 +1078,16 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   v18 = [[v16 alloc] initWithProtobufData:dataCopy type:typeCopy isResponse:toCopy != 0];
 
   v19 = objc_alloc(MEMORY[0x277CBEB38]);
-  v41[0] = *MEMORY[0x277D18650];
+  v42[0] = *MEMORY[0x277D18650];
   v20 = [MEMORY[0x277CCABB0] numberWithInt:v9];
   v21 = *MEMORY[0x277D185A0];
-  v42[0] = v20;
-  v42[1] = MEMORY[0x277CBEC38];
+  v43[0] = v20;
+  v43[1] = MEMORY[0x277CBEC38];
   v22 = *MEMORY[0x277D185F0];
-  v41[1] = v21;
-  v41[2] = v22;
-  v42[2] = MEMORY[0x277CBEC38];
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
+  v42[1] = v21;
+  v42[2] = v22;
+  v43[2] = MEMORY[0x277CBEC38];
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
   v24 = [v19 initWithDictionary:v23];
 
   if (toCopy)
@@ -1118,30 +1111,30 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
 
   idsService = self->_idsService;
   v29 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277D187E8]];
-  v35 = 0;
   v36 = 0;
-  [(IDSService *)idsService sendProtobuf:v18 toDestinations:v29 priority:priority options:v24 identifier:&v36 error:&v35];
-  v30 = v36;
-  v31 = v35;
+  v37 = 0;
+  [(IDSService *)idsService sendProtobuf:v18 toDestinations:v29 priority:priority options:v24 identifier:&v37 error:&v36];
+  v30 = v37;
+  v31 = v36;
 
-  v32 = RMSLogger();
-  v33 = v32;
+  v33 = RMSLogger(v32);
+  v34 = v33;
   if (v31)
   {
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [RMSIDSServer _sendData:typeCopy type:v31 priority:v33 timeout:? queueOneID:? inResponseTo:?];
+      [RMSIDSServer _sendData:typeCopy type:v31 priority:v34 timeout:? queueOneID:? inResponseTo:?];
     }
   }
 
-  else if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = NSStringFromRMSMessageType(typeCopy);
+    v35 = NSStringFromRMSMessageType(typeCopy);
     *buf = 138412546;
-    v38 = v34;
-    v39 = 2112;
-    v40 = v30;
-    _os_log_impl(&dword_261E98000, v33, OS_LOG_TYPE_DEFAULT, "Sent message of type: %@, IDS identifier: %@", buf, 0x16u);
+    v39 = v35;
+    v40 = 2112;
+    v41 = v30;
+    _os_log_impl(&dword_261E98000, v34, OS_LOG_TYPE_DEFAULT, "Sent message of type: %@, IDS identifier: %@", buf, 0x16u);
   }
 }
 
@@ -1157,8 +1150,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   v9 = [v6 mutableCopy];
   [v8 setServices:v9];
 
-  [v8 setSessionIdentifier:v7];
-  v10 = RMSLogger();
+  v10 = RMSLogger([v8 setSessionIdentifier:v7]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12[0] = 67109378;
@@ -1179,8 +1171,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   v5 = [(RMSSessionManager *)self->_sessionManager identifierForSession:changeCopy];
   v6 = objc_opt_new();
   [v6 setSessionIdentifier:v5];
-  [v6 setWifiAvailable:{objc_msgSend(changeCopy, "isNetworkAvailable")}];
-  v7 = RMSLogger();
+  v7 = RMSLogger([v6 setWifiAvailable:{objc_msgSend(changeCopy, "isNetworkAvailable")}]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     isNetworkAvailable = [changeCopy isNetworkAvailable];
@@ -1203,7 +1194,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
 
 - (void)controlSession:(id)session didReceivePairingChallengeRequestWithCredentials:(id)credentials completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   sessionManager = self->_sessionManager;
   credentialsCopy = credentials;
@@ -1225,12 +1216,12 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   protobuf = [credentialsCopy protobuf];
 
   [v17 setPairingCredentials:protobuf];
-  v19 = RMSLogger();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = RMSLogger(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v21[0] = 67109120;
-    v21[1] = v11;
-    _os_log_impl(&dword_261E98000, v19, OS_LOG_TYPE_DEFAULT, "[Session %d] Sending pairing request", v21, 8u);
+    v22[0] = 67109120;
+    v22[1] = v11;
+    _os_log_impl(&dword_261E98000, v20, OS_LOG_TYPE_DEFAULT, "[Session %d] Sending pairing request", v22, 8u);
   }
 
   data = [v17 data];
@@ -1247,8 +1238,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   protobuf = [infoCopy protobuf];
 
   [v9 setNowPlayingInfo:protobuf];
-  [v9 setSessionIdentifier:v8];
-  v11 = RMSLogger();
+  v11 = RMSLogger([v9 setSessionIdentifier:v8]);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13[0] = 67109120;
@@ -1262,7 +1252,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
 
 - (void)controlSession:(id)session artworkDataDidBecomeAvailable:(id)available identifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   availableCopy = available;
   sessionCopy = session;
@@ -1274,12 +1264,12 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   [v13 setSessionIdentifier:v12];
   [v13 setArtworkIdentifier:identifierCopy];
 
-  v14 = RMSLogger();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = RMSLogger(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v16[0] = 67109120;
-    v16[1] = v12;
-    _os_log_impl(&dword_261E98000, v14, OS_LOG_TYPE_DEFAULT, "[Session %d] Sending artwork updated notification", v16, 8u);
+    v17[0] = 67109120;
+    v17[1] = v12;
+    _os_log_impl(&dword_261E98000, v15, OS_LOG_TYPE_DEFAULT, "[Session %d] Sending artwork updated notification", v17, 8u);
   }
 
   data = [v13 data];
@@ -1298,8 +1288,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   v11 = [v9 mutableCopy];
   [v8 setAudioRoutes:v11];
 
-  [v8 setSessionIdentifier:v10];
-  v12 = RMSLogger();
+  v12 = RMSLogger([v8 setSessionIdentifier:v10]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v14[0] = 67109120;
@@ -1318,8 +1307,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   v7 = objc_opt_new();
   *&v8 = volume;
   [v7 setVolume:v8];
-  [v7 setSessionIdentifier:v6];
-  v9 = RMSLogger();
+  v9 = RMSLogger([v7 setSessionIdentifier:v6]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -1336,8 +1324,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   v9 = *MEMORY[0x277D85DE8];
   v4 = [(RMSSessionManager *)self->_sessionManager identifierForSession:text];
   v5 = objc_opt_new();
-  [v5 setSessionIdentifier:v4];
-  v6 = RMSLogger();
+  v6 = RMSLogger([v5 setSessionIdentifier:v4]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
@@ -1354,8 +1341,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   v9 = *MEMORY[0x277D85DE8];
   v4 = [(RMSSessionManager *)self->_sessionManager identifierForSession:text];
   v5 = objc_opt_new();
-  [v5 setSessionIdentifier:v4];
-  v6 = RMSLogger();
+  v6 = RMSLogger([v5 setSessionIdentifier:v4]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
@@ -1376,8 +1362,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
 
   if (v6)
   {
-    [v5 setSessionIdentifier:v6];
-    v7 = RMSLogger();
+    v7 = RMSLogger([v5 setSessionIdentifier:v6]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9[0] = 67109120;
@@ -1403,8 +1388,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   [v12 setServiceNetworkName:nameCopy];
   [v12 setPairingGUID:dCopy];
 
-  [v12 setSessionIdentifier:v11];
-  v13 = RMSLogger();
+  v13 = RMSLogger([v12 setSessionIdentifier:v11]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15[0] = 67109378;
@@ -1424,8 +1408,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   v4 = [(RMSSessionManager *)self->_sessionManager identifierForSession:fail];
   v5 = objc_opt_new();
   [v5 setSessionIdentifier:v4];
-  [(RMSSessionManager *)self->_sessionManager endSessionWithIdentifier:v4 completionHandler:0];
-  v6 = RMSLogger();
+  v6 = RMSLogger([(RMSSessionManager *)self->_sessionManager endSessionWithIdentifier:v4 completionHandler:0]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
@@ -1443,8 +1426,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
   v16 = *MEMORY[0x277D85DE8];
   timeoutCopy = timeout;
   v8 = objc_opt_new();
-  [v8 setSessionIdentifier:v5];
-  v9 = RMSLogger();
+  v9 = RMSLogger([v8 setSessionIdentifier:v5]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1471,7 +1453,7 @@ void __32__RMSIDSServer__handleSendText___block_invoke(uint64_t a1, uint64_t a2)
 uint64_t __64__RMSIDSServer_sessionManager_sessionDidTimeout_withIdentifier___block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = RMSLogger();
+  v2 = RMSLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -1486,7 +1468,7 @@ uint64_t __64__RMSIDSServer_sessionManager_sessionDidTimeout_withIdentifier___bl
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context
 {
   protobufCopy = protobuf;
-  v8 = RMSLogger();
+  v8 = RMSLogger(protobufCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [RMSIDSClient service:protobufCopy account:v8 incomingUnhandledProtobuf:? fromID:? context:?];

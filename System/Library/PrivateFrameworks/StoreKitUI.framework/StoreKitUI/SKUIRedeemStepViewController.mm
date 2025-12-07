@@ -8,13 +8,22 @@
 
 - (BOOL)shouldShowPassbookLearnMore
 {
-  if (os_variant_has_internal_content() && _os_feature_enabled_impl() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
+  has_internal_content = os_variant_has_internal_content();
+  if (has_internal_content)
   {
-    [SKUIRedeemStepViewController shouldShowPassbookLearnMore];
+    has_internal_content = _os_feature_enabled_impl();
+    if (has_internal_content)
+    {
+      has_internal_content = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (has_internal_content)
+      {
+        [SKUIRedeemStepViewController shouldShowPassbookLearnMore];
+      }
+    }
   }
 
-  v3 = SKUIPassKitCoreFramework();
-  v4 = SKUIWeakLinkedClassForString(&cfstr_Pkpasslibrary.isa, v3);
+  v5 = SKUIPassKitCoreFramework(has_internal_content, v4);
+  v6 = SKUIWeakLinkedClassForString(&cfstr_Pkpasslibrary.isa, v5);
   configuration = [(SKUIRedeemStepViewController *)self configuration];
   iTunesPassConfiguration = [configuration ITunesPassConfiguration];
 
@@ -23,7 +32,7 @@
     return 0;
   }
 
-  if (![v4 isPassLibraryAvailable])
+  if (![v6 isPassLibraryAvailable])
   {
     return 0;
   }
@@ -42,17 +51,17 @@
 
   if (iTunesPassSerialNumber)
   {
-    v14 = objc_alloc_init(v4);
-    v15 = [v14 passWithPassTypeIdentifier:@"pass.com.apple.itunes.storecredit" serialNumber:iTunesPassSerialNumber];
-    v9 = v15 == 0;
+    v16 = objc_alloc_init(v6);
+    v17 = [v16 passWithPassTypeIdentifier:@"pass.com.apple.itunes.storecredit" serialNumber:iTunesPassSerialNumber];
+    v11 = v17 == 0;
   }
 
   else
   {
-    v9 = 1;
+    v11 = 1;
   }
 
-  return v9;
+  return v11;
 }
 
 - (SKUIRedeemStepDelegate)redeemStepDelegate

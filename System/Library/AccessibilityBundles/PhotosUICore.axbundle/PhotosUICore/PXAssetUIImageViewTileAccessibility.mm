@@ -18,13 +18,12 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v4 = 138412546;
+  v7 = *MEMORY[0x29EDCA608];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_29C117000, log, OS_LOG_TYPE_DEBUG, "reloading asset: %@ %@", &v4, 0x16u);
-  v3 = *MEMORY[0x29EDCA608];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_29C117000, log, OS_LOG_TYPE_DEBUG, "reloading asset: %@ %@", &v3, 0x16u);
 }
 
 - (void)_updateImageView

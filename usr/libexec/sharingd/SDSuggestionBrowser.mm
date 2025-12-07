@@ -62,9 +62,9 @@
   dCopy = d;
   contextCopy = context;
   queueCopy = queue;
-  v39.receiver = self;
-  v39.super_class = SDSuggestionBrowser;
-  v15 = [(SDSuggestionBrowser *)&v39 init];
+  v40.receiver = self;
+  v40.super_class = SDSuggestionBrowser;
+  v15 = [(SDSuggestionBrowser *)&v40 init];
   if (v15)
   {
     v16 = [dCopy copy];
@@ -79,24 +79,24 @@
     v15->_predictionContext = v18;
 
     [(_PSPredictionContext *)v15->_predictionContext setSessionID:dCopy];
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2050000000;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2050000000;
     v20 = qword_100989E18;
-    v48 = qword_100989E18;
+    v49 = qword_100989E18;
     if (!qword_100989E18)
     {
       *buf = _NSConcreteStackBlock;
-      v41 = 3221225472;
-      v42 = sub_10011F9E0;
-      v43 = &unk_1008CDA20;
-      v44 = &v45;
+      v42 = 3221225472;
+      v43 = sub_10011F9E0;
+      v44 = &unk_1008CDA20;
+      v45 = &v46;
       sub_10011F9E0(buf);
-      v20 = v46[3];
+      v20 = v47[3];
     }
 
     v21 = v20;
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v46, 8);
     defaultConfiguration = [v20 defaultConfiguration];
     [defaultConfiguration setMaximumNumberOfSuggestions:{+[SDStatusMonitor shareSheetMaxSuggestions](SDStatusMonitor, "shareSheetMaxSuggestions")}];
     v23 = [objc_alloc(sub_10011C258()) initWithDaemonUsingConfiguration:defaultConfiguration];
@@ -110,30 +110,30 @@
 
     if (v15->_isAsynchronous)
     {
-      v28 = share_sheet_log();
-      v29 = share_sheet_log();
-      v30 = os_signpost_id_make_with_pointer(v29, v15);
+      v29 = share_sheet_log(v28);
+      v30 = share_sheet_log(v29);
+      v31 = os_signpost_id_make_with_pointer(v30, v15);
 
-      if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+      if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v28, OS_SIGNPOST_INTERVAL_BEGIN, v30, "CandidatesForShareSheetRanking", " enableTelemetry=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v29, OS_SIGNPOST_INTERVAL_BEGIN, v31, "CandidatesForShareSheetRanking", " enableTelemetry=YES ", buf, 2u);
       }
 
       candidatesForShareSheetRanking = [(_PSSuggester *)v15->_suggester candidatesForShareSheetRanking];
-      v32 = share_sheet_log();
-      v33 = share_sheet_log();
-      v34 = os_signpost_id_make_with_pointer(v33, v15);
+      v33 = share_sheet_log(candidatesForShareSheetRanking);
+      v34 = share_sheet_log(v33);
+      v35 = os_signpost_id_make_with_pointer(v34, v15);
 
-      if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+      if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v32, OS_SIGNPOST_INTERVAL_END, v34, "CandidatesForShareSheetRanking", " enableTelemetry=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v33, OS_SIGNPOST_INTERVAL_END, v35, "CandidatesForShareSheetRanking", " enableTelemetry=YES ", buf, 2u);
       }
 
-      v35 = [candidatesForShareSheetRanking count];
-      v15->_canExpectSuggestions = v35 != 0;
-      if (v35)
+      v36 = [candidatesForShareSheetRanking count];
+      v15->_canExpectSuggestions = v36 != 0;
+      if (v36)
       {
         _createPlaceholderSuggestions = [(SDSuggestionBrowser *)v15 _createPlaceholderSuggestions];
         suggestions = v15->_suggestions;
@@ -155,26 +155,26 @@
 - (id)_createPredictionContextWithContext:(id)context
 {
   contextCopy = context;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2050000000;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2050000000;
   v5 = qword_100989E20;
-  v23 = qword_100989E20;
+  v24 = qword_100989E20;
   if (!qword_100989E20)
   {
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v25 = sub_10011FA38;
-    v26 = &unk_1008CDA20;
-    v27 = &v20;
+    v26 = sub_10011FA38;
+    v27 = &unk_1008CDA20;
+    v28 = &v21;
     sub_10011FA38(&buf);
-    v5 = v21[3];
+    v5 = v22[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v21, 8);
   v7 = objc_alloc_init(v5);
-  [v7 setShowPotentialFamilyMembers:{objc_msgSend(contextCopy, "shouldSuggestFamilyMembers", v20)}];
+  [v7 setShowPotentialFamilyMembers:{objc_msgSend(contextCopy, "shouldSuggestFamilyMembers", v21)}];
   [v7 setIsSharePlayAvailable:{objc_msgSend(contextCopy, "isSharePlayAvailable")}];
   if ([contextCopy supportsCollaboration])
   {
@@ -197,20 +197,20 @@
   sandboxExtensionsByfileURLPath = [contextCopy sandboxExtensionsByfileURLPath];
   v15 = [(SDSuggestionBrowser *)self _createAttachmentsForURLsBeingShared:urlsBeingShared typeIdentifiersBeingShared:typeIdentifiersBeingShared photosAssetIDs:photosAssetIDs processedImageResultsData:processedImageResultsData sandboxExtensionsByfileURLPath:sandboxExtensionsByfileURLPath];
 
-  v16 = share_sheet_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = share_sheet_log(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138477827;
     *(&buf + 4) = v15;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Attachments in PredictionContext for People Suggestion = %{private}@", &buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Attachments in PredictionContext for People Suggestion = %{private}@", &buf, 0xCu);
   }
 
   [v7 setAttachments:v15];
   bundleID = [contextCopy bundleID];
   [v7 setBundleID:bundleID];
 
-  v18 = +[NSDate date];
-  [v7 setSuggestionDate:v18];
+  v19 = +[NSDate date];
+  [v7 setSuggestionDate:v19];
 
   return v7;
 }
@@ -223,56 +223,56 @@
   dataCopy = data;
   pathCopy = path;
   v11 = +[NSMutableArray array];
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x2050000000;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x2050000000;
   v12 = qword_100989E28;
-  v71 = qword_100989E28;
+  v73 = qword_100989E28;
   if (!qword_100989E28)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_10011FA90;
-    v77 = &unk_1008CDA20;
-    v78 = &v68;
+    v79 = &unk_1008CDA20;
+    v80 = &v70;
     sub_10011FA90(buf);
-    v12 = v69[3];
+    v12 = v71[3];
   }
 
   v13 = v12;
-  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v70, 8);
   if (v12)
   {
     if ([sharedCopy count])
     {
+      v68 = 0uLL;
+      v69 = 0uLL;
       v66 = 0uLL;
       v67 = 0uLL;
-      v64 = 0uLL;
-      v65 = 0uLL;
-      v14 = beingSharedCopy;
-      v15 = [v14 countByEnumeratingWithState:&v64 objects:v75 count:16];
-      if (v15)
+      v15 = beingSharedCopy;
+      v16 = [v15 countByEnumeratingWithState:&v66 objects:v77 count:16];
+      if (v16)
       {
-        v16 = *v65;
+        v17 = *v67;
         while (2)
         {
-          for (i = 0; i != v15; i = i + 1)
+          for (i = 0; i != v16; i = i + 1)
           {
-            if (*v65 != v16)
+            if (*v67 != v17)
             {
-              objc_enumerationMutation(v14);
+              objc_enumerationMutation(v15);
             }
 
-            v18 = *(*(&v64 + 1) + 8 * i);
-            if ([v18 hasSuffix:@"url"])
+            v19 = *(*(&v66 + 1) + 8 * i);
+            if ([v19 hasSuffix:@"url"])
             {
-              v19 = v18;
+              v20 = v19;
               goto LABEL_18;
             }
           }
 
-          v15 = [v14 countByEnumeratingWithState:&v64 objects:v75 count:16];
-          if (v15)
+          v16 = [v15 countByEnumeratingWithState:&v66 objects:v77 count:16];
+          if (v16)
           {
             continue;
           }
@@ -281,111 +281,111 @@
         }
       }
 
-      v19 = 0;
+      v20 = 0;
 LABEL_18:
 
+      v64 = 0u;
+      v65 = 0u;
       v62 = 0u;
       v63 = 0u;
-      v60 = 0u;
-      v61 = 0u;
       obj = sharedCopy;
-      v50 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
-      if (v50)
+      v52 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
+      if (v52)
       {
-        v49 = *v61;
+        v51 = *v63;
         do
         {
-          for (j = 0; j != v50; j = j + 1)
+          for (j = 0; j != v52; j = j + 1)
           {
-            if (*v61 != v49)
+            if (*v63 != v51)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v60 + 1) + 8 * j);
-            if ([v19 hasSuffix:@"file-url"])
+            v24 = *(*(&v62 + 1) + 8 * j);
+            if ([v20 hasSuffix:@"file-url"])
             {
-              v24 = [(SDSuggestionBrowser *)self _extractTextFromFileURL:v23];
+              v25 = [(SDSuggestionBrowser *)self _extractTextFromFileURL:v24];
             }
 
             else
             {
-              v24 = 0;
+              v25 = 0;
             }
 
-            v25 = [[v12 alloc] initWithCreationDate:0 UTI:v19 photoLocalIdentifier:0 identifier:0 cloudIdentifier:0 contentURL:v23 contentText:v24];
+            v26 = [[v12 alloc] initWithCreationDate:0 UTI:v20 photoLocalIdentifier:0 identifier:0 cloudIdentifier:0 contentURL:v24 contentText:v25];
             if (objc_opt_respondsToSelector())
             {
-              v26 = v25;
-              path = [v23 path];
-              v28 = [pathCopy objectForKeyedSubscript:path];
+              v27 = v26;
+              path = [v24 path];
+              v29 = [pathCopy objectForKeyedSubscript:path];
 
-              if (v28)
+              if (v29)
               {
-                v29 = share_sheet_log();
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+                v31 = share_sheet_log(v30);
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
                 {
-                  v30 = [v28 length];
+                  v32 = [v29 length];
                   *buf = 134218243;
-                  *&buf[4] = v30;
+                  *&buf[4] = v32;
                   *&buf[12] = 2113;
-                  *&buf[14] = v23;
-                  _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "adding urlSandboxExtension with length:%lu for url attachment:%{private}@", buf, 0x16u);
+                  *&buf[14] = v24;
+                  _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "adding urlSandboxExtension with length:%lu for url attachment:%{private}@", buf, 0x16u);
                 }
 
-                [v26 setContentURLSandboxExtension:v28];
+                [v27 setContentURLSandboxExtension:v29];
               }
             }
 
-            [v11 addObject:v25];
-            if (((dataCopy != 0) & [v19 hasSuffix:@"file-url"]) == 1)
+            [v11 addObject:v26];
+            if (((dataCopy != 0) & [v20 hasSuffix:@"file-url"]) == 1)
             {
-              v31 = [[v12 alloc] initWithCreationDate:0 UTI:@"SDShareSheetImageAnalysisIdentifier" photoLocalIdentifier:0 identifier:0 cloudIdentifier:0 contentURL:v23 contentText:v24 imageData:dataCopy];
+              v33 = [[v12 alloc] initWithCreationDate:0 UTI:@"SDShareSheetImageAnalysisIdentifier" photoLocalIdentifier:0 identifier:0 cloudIdentifier:0 contentURL:v24 contentText:v25 imageData:dataCopy];
 
-              [v11 addObject:v31];
+              [v11 addObject:v33];
             }
 
             else
             {
-              v31 = v25;
+              v33 = v26;
             }
           }
 
-          v50 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
+          v52 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
         }
 
-        while (v50);
+        while (v52);
       }
     }
 
     else
     {
+      v60 = 0uLL;
+      v61 = 0uLL;
       v58 = 0uLL;
       v59 = 0uLL;
-      v56 = 0uLL;
-      v57 = 0uLL;
-      v32 = beingSharedCopy;
-      v33 = [v32 countByEnumeratingWithState:&v56 objects:v73 count:16];
-      if (v33)
+      v34 = beingSharedCopy;
+      v35 = [v34 countByEnumeratingWithState:&v58 objects:v75 count:16];
+      if (v35)
       {
-        v34 = *v57;
+        v36 = *v59;
         do
         {
-          for (k = 0; k != v33; k = k + 1)
+          for (k = 0; k != v35; k = k + 1)
           {
-            if (*v57 != v34)
+            if (*v59 != v36)
             {
-              objc_enumerationMutation(v32);
+              objc_enumerationMutation(v34);
             }
 
-            v36 = [[v12 alloc] initWithCreationDate:0 UTI:*(*(&v56 + 1) + 8 * k) photoLocalIdentifier:0 identifier:0 cloudIdentifier:0 contentURL:0 contentText:0];
-            [v11 addObject:v36];
+            v38 = [[v12 alloc] initWithCreationDate:0 UTI:*(*(&v58 + 1) + 8 * k) photoLocalIdentifier:0 identifier:0 cloudIdentifier:0 contentURL:0 contentText:0];
+            [v11 addObject:v38];
           }
 
-          v33 = [v32 countByEnumeratingWithState:&v56 objects:v73 count:16];
+          v35 = [v34 countByEnumeratingWithState:&v58 objects:v75 count:16];
         }
 
-        while (v33);
+        while (v35);
       }
 
       if (!dataCopy)
@@ -393,53 +393,53 @@ LABEL_18:
         goto LABEL_48;
       }
 
-      v19 = [[v12 alloc] initWithCreationDate:0 UTI:@"SDShareSheetImageAnalysisIdentifier" photoLocalIdentifier:0 identifier:0 cloudIdentifier:0 contentURL:0 contentText:0 imageData:dataCopy];
-      [v11 addObject:v19];
+      v20 = [[v12 alloc] initWithCreationDate:0 UTI:@"SDShareSheetImageAnalysisIdentifier" photoLocalIdentifier:0 identifier:0 cloudIdentifier:0 contentURL:0 contentText:0 imageData:dataCopy];
+      [v11 addObject:v20];
     }
 
 LABEL_48:
+    v56 = 0u;
+    v57 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v37 = dsCopy;
-    v38 = [v37 countByEnumeratingWithState:&v52 objects:v72 count:16];
-    if (v38)
+    v39 = dsCopy;
+    v40 = [v39 countByEnumeratingWithState:&v54 objects:v74 count:16];
+    if (v40)
     {
-      v39 = *v53;
+      v41 = *v55;
       do
       {
-        for (m = 0; m != v38; m = m + 1)
+        for (m = 0; m != v40; m = m + 1)
         {
-          if (*v53 != v39)
+          if (*v55 != v41)
           {
-            objc_enumerationMutation(v37);
+            objc_enumerationMutation(v39);
           }
 
-          v41 = [[v12 alloc] initWithCreationDate:0 UTI:0 photoLocalIdentifier:*(*(&v52 + 1) + 8 * m) identifier:0 cloudIdentifier:0 contentURL:0 contentText:0];
-          [v11 addObject:v41];
+          v43 = [[v12 alloc] initWithCreationDate:0 UTI:0 photoLocalIdentifier:*(*(&v54 + 1) + 8 * m) identifier:0 cloudIdentifier:0 contentURL:0 contentText:0];
+          [v11 addObject:v43];
         }
 
-        v38 = [v37 countByEnumeratingWithState:&v52 objects:v72 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v54 objects:v74 count:16];
       }
 
-      while (v38);
+      while (v40);
     }
 
-    v21 = [v11 copy];
+    v22 = [v11 copy];
     goto LABEL_56;
   }
 
-  v20 = share_sheet_log();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v21 = share_sheet_log(v14);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     sub_10011FB98();
   }
 
-  v21 = &__NSArray0__struct;
+  v22 = &__NSArray0__struct;
 LABEL_56:
 
-  return v21;
+  return v22;
 }
 
 - (id)_extractTextFromFileURL:(id)l
@@ -469,26 +469,27 @@ LABEL_5:
 - (id)_extractTextFromTextFileURL:(id)l
 {
   lCopy = l;
-  v13 = 0;
-  v4 = [NSFileHandle fileHandleForReadingFromURL:lCopy error:&v13];
-  v5 = v13;
+  v14 = 0;
+  v4 = [NSFileHandle fileHandleForReadingFromURL:lCopy error:&v14];
+  v5 = v14;
+  v6 = v5;
   if (v4)
   {
-    v12 = 0;
-    v6 = [v4 readDataUpToLength:102400 error:&v12];
-    v7 = v12;
+    v13 = 0;
+    v7 = [v4 readDataUpToLength:102400 error:&v13];
+    v8 = v13;
 
-    if ([v6 length])
+    if ([v7 length])
     {
-      v8 = [[NSString alloc] initWithData:v6 encoding:4];
-      if (v8)
+      v9 = [[NSString alloc] initWithData:v7 encoding:4];
+      if (v9)
       {
-        v9 = v8;
+        v10 = v9;
         goto LABEL_15;
       }
 
-      v10 = share_sheet_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = share_sheet_log(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_10011FBD4();
       }
@@ -496,15 +497,15 @@ LABEL_5:
 
     else
     {
-      if (!v7)
+      if (!v8)
       {
 LABEL_14:
-        v9 = 0;
+        v10 = 0;
         goto LABEL_15;
       }
 
-      v10 = share_sheet_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = share_sheet_log(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_10011FC10();
       }
@@ -513,17 +514,17 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v6 = share_sheet_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = share_sheet_log(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_10011FC84();
   }
 
-  v9 = 0;
-  v7 = v5;
+  v10 = 0;
+  v8 = v6;
 LABEL_15:
 
-  return v9;
+  return v10;
 }
 
 - (void)setSuggestions:(id)suggestions
@@ -772,11 +773,11 @@ LABEL_10:
 
   if (disablePeopleSuggestions)
   {
-    v7 = share_sheet_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = share_sheet_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "People suggestions are disabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "People suggestions are disabled", buf, 2u);
     }
 
 LABEL_14:
@@ -785,96 +786,97 @@ LABEL_14:
   }
 
   canExpectSuggestions = [(SDSuggestionBrowser *)self canExpectSuggestions];
-  v9 = share_sheet_log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if ((canExpectSuggestions & 1) == 0)
+  v10 = canExpectSuggestions;
+  v11 = share_sheet_log(canExpectSuggestions);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if ((v10 & 1) == 0)
   {
-    if (v10)
+    if (v12)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "People suggestions are not expected.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "People suggestions are not expected.", buf, 2u);
     }
 
     goto LABEL_14;
   }
 
-  if (v10)
+  if (v12)
   {
     sessionID = [(SDSuggestionBrowser *)self sessionID];
     *buf = 138412290;
-    v39 = *&sessionID;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling into PeopleSuggester for session ID %@", buf, 0xCu);
+    v43 = *&sessionID;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling into PeopleSuggester for session ID %@", buf, 0xCu);
   }
 
-  v12 = share_sheet_log();
-  v13 = os_signpost_id_make_with_pointer(v12, self);
+  v15 = share_sheet_log(v14);
+  v16 = os_signpost_id_make_with_pointer(v15, self);
 
-  sub_10011DCC0(v13, 1, preheatingCopy, [(SDSuggestionBrowser *)self isAsynchronous]);
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_10011E258;
-  v36[3] = &unk_1008D0E58;
-  v37 = preheatingCopy;
-  v36[4] = self;
-  v36[5] = v13;
-  v14 = objc_retainBlock(v36);
+  sub_10011DCC0(v16, 1, preheatingCopy, [(SDSuggestionBrowser *)self isAsynchronous]);
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_10011E258;
+  v40[3] = &unk_1008D0E58;
+  v41 = preheatingCopy;
+  v40[4] = self;
+  v40[5] = v16;
+  v17 = objc_retainBlock(v40);
   if ([(SDSuggestionBrowser *)self isAsynchronous])
   {
     queue = [(SDSuggestionBrowser *)self queue];
-    [(SDSuggestionBrowser *)self timeout];
-    if (v16 <= 0.0)
+    timeout = [(SDSuggestionBrowser *)self timeout];
+    if (v20 <= 0.0)
     {
-      v18 = 1.79769313e308;
+      v22 = 1.79769313e308;
     }
 
     else
     {
-      [(SDSuggestionBrowser *)self timeout];
-      v18 = v17;
+      timeout = [(SDSuggestionBrowser *)self timeout];
+      v22 = v21;
     }
 
-    v23 = share_sheet_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v27 = share_sheet_log(timeout);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v39 = v18;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "fetch people suggestions asynchronously with timeout:%f", buf, 0xCu);
+      v43 = v22;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "fetch people suggestions asynchronously with timeout:%f", buf, 0xCu);
     }
 
     suggester = self->_suggester;
     predictionContext = self->_predictionContext;
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_10011E3AC;
-    v33[3] = &unk_1008D0EA8;
-    v33[4] = self;
-    v34 = queue;
-    v35 = v14;
-    v26 = v14;
-    v19 = queue;
-    [(_PSSuggester *)suggester asyncSuggestInteractionsFromContext:predictionContext timeout:v33 completionHandler:v18];
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_10011E3AC;
+    v37[3] = &unk_1008D0EA8;
+    v37[4] = self;
+    v38 = queue;
+    v39 = v17;
+    v30 = v17;
+    v23 = queue;
+    [(_PSSuggester *)suggester asyncSuggestInteractionsFromContext:predictionContext timeout:v37 completionHandler:v22];
   }
 
   else
   {
-    v27 = _NSConcreteStackBlock;
-    v28 = 3221225472;
-    v29 = sub_10011E548;
-    v30 = &unk_1008CE708;
+    v31 = _NSConcreteStackBlock;
+    v32 = 3221225472;
+    v33 = sub_10011E548;
+    v34 = &unk_1008CE708;
     selfCopy = self;
-    v32 = v14;
-    v19 = v14;
-    v20 = objc_retainBlock(&v27);
-    v21 = v20;
+    v36 = v17;
+    v23 = v17;
+    v24 = objc_retainBlock(&v31);
+    v25 = v24;
     if (preheatingCopy)
     {
-      v22 = [(SDSuggestionBrowser *)self primedSuggestionsQueue:v27];
-      dispatch_async(v22, v21);
+      v26 = [(SDSuggestionBrowser *)self primedSuggestionsQueue:v31];
+      dispatch_async(v26, v25);
     }
 
     else
     {
-      (v20[2])(v20);
+      (v24[2])(v24);
     }
   }
 }
@@ -886,17 +888,17 @@ LABEL_14:
 
   if (image)
   {
-    v10 = share_sheet_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = share_sheet_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       displayName = [suggestion displayName];
       *buf = 138412290;
-      v44 = displayName;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Contact %@ is a donated suggestion, fetching from intents", buf, 0xCu);
+      v46 = displayName;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Contact %@ is a donated suggestion, fetching from intents", buf, 0xCu);
     }
 
     conversationIdentifier = [suggestion conversationIdentifier];
-    v13 = conversationIdentifier;
+    v14 = conversationIdentifier;
     if (conversationIdentifier)
     {
       derivedIntentIdentifier = conversationIdentifier;
@@ -919,57 +921,57 @@ LABEL_14:
       goto LABEL_18;
     }
 
-    v20 = share_sheet_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = share_sheet_log(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_10011FDA4(firstObject2, suggestion, v20);
+      sub_10011FDA4(firstObject2, suggestion, v22);
     }
   }
 
   recipients = [suggestion recipients];
-  v22 = [recipients count];
+  v24 = [recipients count];
 
-  if (v22 < 2)
+  if (v24 < 2)
   {
-    v34 = [SharingXPCHelperContactIcon alloc];
+    v36 = [SharingXPCHelperContactIcon alloc];
     recipients2 = [suggestion recipients];
     firstObject = [recipients2 firstObject];
     contact = [firstObject contact];
-    contacts = [(SharingXPCHelperContactIcon *)v34 initWithContact:contact iconData:0 atIndex:0 cacheLookupKey:0];
+    contacts = [(SharingXPCHelperContactIcon *)v36 initWithContact:contact iconData:0 atIndex:0 cacheLookupKey:0];
 
-    v41 = contacts;
-    v38 = [NSArray arrayWithObjects:&v41 count:1];
+    v43 = contacts;
+    v40 = [NSArray arrayWithObjects:&v43 count:1];
     helperConnection2 = [(SDSuggestionBrowser *)self helperConnection];
-    v30 = sub_100090A2C(v38, helperConnection2);
+    v32 = sub_100090A2C(v40, helperConnection2);
 
-    firstObject2 = [(SharingXPCHelperGroupContactIcon *)v30 firstObject];
+    firstObject2 = [(SharingXPCHelperGroupContactIcon *)v32 firstObject];
   }
 
   else
   {
     contacts = [suggestion contacts];
-    v24 = [(SharingXPCHelperContactIcon *)contacts count];
+    v26 = [(SharingXPCHelperContactIcon *)contacts count];
     transientContactsCount = [suggestion transientContactsCount];
-    v26 = share_sheet_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = share_sheet_log(transientContactsCount);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = v24 - transientContactsCount;
+      v29 = v26 - transientContactsCount;
       recipients3 = [suggestion recipients];
-      v29 = [recipients3 count];
+      v31 = [recipients3 count];
       *buf = 134218240;
-      v44 = v27;
-      v45 = 2048;
       v46 = v29;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Received %ld out of %ld contacts from group recipients", buf, 0x16u);
+      v47 = 2048;
+      v48 = v31;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Received %ld out of %ld contacts from group recipients", buf, 0x16u);
     }
 
-    v30 = [[SharingXPCHelperGroupContactIcon alloc] initWithContacts:contacts iconData:0 atIndex:0 cacheLookupKey:0];
-    v42 = v30;
-    v31 = [NSArray arrayWithObjects:&v42 count:1];
+    v32 = [[SharingXPCHelperGroupContactIcon alloc] initWithContacts:contacts iconData:0 atIndex:0 cacheLookupKey:0];
+    v44 = v32;
+    v33 = [NSArray arrayWithObjects:&v44 count:1];
     helperConnection3 = [(SDSuggestionBrowser *)self helperConnection];
-    v33 = sub_100090AA0(v31, helperConnection3);
+    v35 = sub_100090AA0(v33, helperConnection3);
 
-    firstObject2 = [v33 firstObject];
+    firstObject2 = [v35 firstObject];
   }
 
   icon = [firstObject2 icon];
@@ -977,7 +979,7 @@ LABEL_14:
 LABEL_18:
 
   *icon = icon;
-  v40 = iconData;
+  v42 = iconData;
   *data = iconData;
 }
 
@@ -996,9 +998,10 @@ LABEL_18:
   v21 = v20;
 
   duetSuggestions = [(SDSuggestionBrowser *)self duetSuggestions];
+  v23 = duetSuggestions;
   if (abandonedCopy)
   {
-    abandonment = [sub_10011EC74() abandonment];
+    duetSuggestions = [sub_10011EC74() abandonment];
     goto LABEL_12;
   }
 
@@ -1034,10 +1037,10 @@ LABEL_18:
 
     v30 = dCopy;
 LABEL_11:
-    abandonment = [v27 initWithType:v28 suggestion:v29 transportBundleID:v30];
+    duetSuggestions = [v27 initWithType:v28 suggestion:v29 transportBundleID:v30];
 LABEL_12:
-    v26 = abandonment;
-    if (abandonment)
+    v26 = duetSuggestions;
+    if (duetSuggestions)
     {
       goto LABEL_13;
     }
@@ -1046,7 +1049,7 @@ LABEL_12:
   }
 
   v24 = objc_alloc(sub_10011EC74());
-  v25 = [duetSuggestions objectAtIndexedSubscript:{objc_msgSend(indexCopy, "unsignedIntValue")}];
+  v25 = [v23 objectAtIndexedSubscript:{objc_msgSend(indexCopy, "unsignedIntValue")}];
   v26 = [v24 initWithType:0 suggestion:v25 transportBundleID:dCopy];
 
   if (v26)
@@ -1059,7 +1062,7 @@ LABEL_13:
     v31 = v26;
     v37 = v31;
     selfCopy = self;
-    v39 = duetSuggestions;
+    v39 = v23;
     v40 = v21;
     v41 = v18 + 10.0;
     v32 = objc_retainBlock(v36);
@@ -1083,7 +1086,7 @@ LABEL_13:
   }
 
 LABEL_19:
-  v31 = share_sheet_log();
+  v31 = share_sheet_log(duetSuggestions);
   if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
   {
     sub_10011FE68();
@@ -1106,7 +1109,7 @@ LABEL_21:
 
   else
   {
-    v6 = share_sheet_log();
+    v6 = share_sheet_log(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10011FEA8();
@@ -1128,7 +1131,7 @@ LABEL_21:
 
   else
   {
-    v6 = share_sheet_log();
+    v6 = share_sheet_log(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10011FF18();

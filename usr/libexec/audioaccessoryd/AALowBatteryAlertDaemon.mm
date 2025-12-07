@@ -8,8 +8,13 @@
 - (BOOL)_updateSystemCharging;
 - (BOOL)_updateSystemEffectiveScreenLocked;
 - (BOOL)lowBatteryAlertVisible;
+- (double)_lowBatteryAlertThreshold:(id)threshold withType:(unsigned __int8)type;
 - (id)_lastSeenBatteryInfoWithIdentifier:(id)identifier;
+- (id)_lowBatteryDeviceWithIdentifier:(id)identifier andType:(unsigned __int8)type;
+- (id)_notificationContentForChargingNotificationWithType:(unsigned __int8)type batteryInfo:(id)info;
+- (id)_notificationWithIdentifier:(id)identifier andType:(unsigned __int8)type;
 - (id)_trackChargingReminderWithBatteryInfo:(id)info;
+- (id)_trackLowBatteryDeviceWithBatteryInfo:(id)info battery:(id)battery type:(unsigned __int8)type;
 - (id)descriptionWithLevel:(int)level;
 - (unsigned)_removeStaleLowBatteryDevices;
 - (void)_aaBatteryMonitorEnsureStarted;
@@ -19,13 +24,16 @@
 - (void)_activate;
 - (void)_backoffChargingReminderForBatteryInfo:(id)info;
 - (void)_chargingCompleteWithBatteryInfo:(id)info;
+- (void)_chargingNotificationDeliveredWithIdentifier:(id)identifier forBatteryInfo:(id)info withType:(unsigned __int8)type;
 - (void)_chargingNotificationReset;
 - (void)_chargingNotificationUpdated:(id)updated;
 - (void)_checkChargingCompleteNotificationWithUpdatedBatteryInfo:(id)info;
 - (void)_checkForLowBattery;
+- (void)_checkLowBatteryStatus:(id)status withType:(unsigned __int8)type batteries:(id)batteries;
 - (void)_checkShouldClearChargingReminderWithUpdatedBatteryInfo:(id)info;
 - (void)_clearAllNotificationWithIdentifier:(id)identifier reason:(int64_t)reason;
 - (void)_clearLastSeenBatteryInfoWithIdentifier:(id)identifier;
+- (void)_clearLowBatteryDeviceWithBatteryInfo:(id)info reason:(const char *)reason type:(unsigned __int8)type;
 - (void)_clearLowBatteryDevicesWithIdentifier:(id)identifier;
 - (void)_clearNotification:(id)notification withReason:(int64_t)reason;
 - (void)_clearUserDismissedChargingNotificationsWhileProcessNotRunning;
@@ -56,6 +64,7 @@
 - (void)_shouldPostChargingReminderForLowBatteryCaseWithBatteryInfo:(id)info;
 - (void)_showAlertForLowBatteryDevice:(id)device;
 - (void)_showAlertForLowBatteryDevice_iOS:(id)s;
+- (void)_showLowBatteryBannerIfNeededForDevice:(id)device withType:(unsigned __int8)type completion:(id)completion;
 - (void)_systemUIMonitorEnsureStarted;
 - (void)_systemUIMonitorEnsureStopped;
 - (void)_systemUIUpdatedWithLayout:(id)layout;
@@ -63,6 +72,7 @@
 - (void)_unregisterFromSystemNotifications;
 - (void)_updateCurrentLowBatteryDevicesWithBatteryInfo:(id)info;
 - (void)_updateLastSeenOnTrackerWithBatteryInfo:(id)info;
+- (void)_userDismissedNotificationWithIdentifier:(id)identifier andType:(unsigned __int8)type;
 - (void)_userNotificationCenterEnsureStarted;
 - (void)_userNotificationCenterEnsureStopped;
 - (void)activate;
@@ -111,99 +121,96 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v42 = 0;
-  NSAppendPrintF_safe();
-  v41 = 0;
+  v39 = 0;
+  NSAppendPrintF_safe(&v39, "-- AALowBatteryAlertDaemon --\n", *&level);
+  v4 = v39;
+  v38 = v4;
   lowBatteryDeviceMap = [(AALowBatteryAlertDaemon *)self lowBatteryDeviceMap];
-  v29 = [lowBatteryDeviceMap count];
-  NSAppendPrintF();
-  v5 = v41;
+  NSAppendPrintF(&v38, "-- AALowBattery (devices %u) --\n", [lowBatteryDeviceMap count]);
+  v6 = v38;
 
   Current = CFAbsoluteTimeGetCurrent();
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
   lowBatteryDeviceMap2 = [(AALowBatteryAlertDaemon *)self lowBatteryDeviceMap];
   allValues = [lowBatteryDeviceMap2 allValues];
 
   obj = allValues;
-  v9 = [allValues countByEnumeratingWithState:&v37 objects:v43 count:16];
-  if (v9)
+  v10 = [allValues countByEnumeratingWithState:&v34 objects:v40 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v38;
+    v11 = v10;
+    v12 = *v35;
     do
     {
-      v12 = 0;
-      v13 = v5;
+      v13 = 0;
+      v14 = v6;
       do
       {
-        if (*v38 != v11)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v37 + 1) + 8 * v12);
-        [v14 lastSeenTime];
-        if (v15 <= 0.0)
+        v15 = *(*(&v34 + 1) + 8 * v13);
+        [v15 lastSeenTime];
+        if (v16 <= 0.0)
         {
-          v17 = 0;
+          v18 = 0;
         }
 
         else
         {
-          [v14 lastSeenTime];
-          v17 = (Current - v16);
+          [v15 lastSeenTime];
+          v18 = (Current - v17);
         }
 
-        [v14 reportTime];
-        if (v18 <= 0.0)
+        [v15 reportTime];
+        if (v19 <= 0.0)
         {
-          v20 = 0;
+          v21 = 0;
         }
 
         else
         {
-          [v14 reportTime];
-          v20 = (Current - v19);
+          [v15 reportTime];
+          v21 = (Current - v20);
         }
 
-        deviceAddress = [v14 deviceAddress];
-        name = [v14 name];
-        [v14 lastBatteryLevel];
-        v24 = v23;
-        lastBatteryType = [v14 lastBatteryType];
-        v26 = "?";
+        v33 = v14;
+        deviceAddress = [v15 deviceAddress];
+        name = [v15 name];
+        [v15 lastBatteryLevel];
+        v25 = v24;
+        lastBatteryType = [v15 lastBatteryType];
+        v27 = "?";
         if (lastBatteryType <= 5)
         {
-          v26 = off_1002B7C00[lastBatteryType];
+          v27 = off_1002B7C00[lastBatteryType];
         }
 
-        v34 = v17;
-        v35 = v20;
-        v33 = v26;
-        v32 = v24 * 100.0;
-        v30 = deviceAddress;
-        v31 = name;
-        NSAppendPrintF();
-        v5 = v13;
+        NSAppendPrintF(&v33, "    DA %@, Name '%@', Battery %.0f%% (%s), Seen %{dur}, Report %{dur}\n", deviceAddress, name, v25 * 100.0, v27, v18, v21);
+        v6 = v33;
 
-        v12 = v12 + 1;
-        v13 = v5;
+        v13 = v13 + 1;
+        v14 = v6;
       }
 
-      while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v37 objects:v43 count:{16, deviceAddress, name, *&v32, v33, v17, v20}];
+      while (v11 != v13);
+      v11 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
-  NSAppendPrintF();
-  v27 = v5;
+  v32 = v6;
+  NSAppendPrintF(&v32, "\n");
+  v28 = v32;
+  v29 = v32;
 
-  return v5;
+  return v28;
 }
 
 - (void)activate
@@ -381,7 +388,7 @@
 
               if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
               {
-                sub_1001DA5AC();
+                sub_1001DA5AC(v16);
               }
             }
 
@@ -484,7 +491,8 @@ LABEL_31:
 
 - (void)_checkForLowBattery
 {
-  if ([(AALowBatteryAlertDaemon *)self prefLowBatteryEnabled])
+  prefLowBatteryEnabled = [(AALowBatteryAlertDaemon *)self prefLowBatteryEnabled];
+  if (prefLowBatteryEnabled)
   {
     if ([(AALowBatteryAlertDaemon *)self _checkIfUIStateConditionsForLowBatteryBannerAreMet])
     {
@@ -507,9 +515,12 @@ LABEL_31:
         return;
       }
 
-      if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6620 <= 30)
       {
-        sub_1001DA720();
+        if (dword_1002F6620 != -1 || (v9 = _LogCategory_Initialize(), v9))
+        {
+          sub_1001DA720(v9, v10, v11);
+        }
       }
 
       devices = [(AALowBatteryAlertDaemon *)self lowBatteryCheckCoalescer];
@@ -517,9 +528,12 @@ LABEL_31:
     }
   }
 
-  else if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F6620 <= 30)
   {
-    sub_1001DA704();
+    if (dword_1002F6620 != -1 || (prefLowBatteryEnabled = _LogCategory_Initialize(), prefLowBatteryEnabled))
+    {
+      sub_1001DA704(prefLowBatteryEnabled, v4, v5);
+    }
   }
 }
 
@@ -558,11 +572,169 @@ LABEL_10:
 
   if (dword_1002F6620 != -1 || (v10 = _LogCategory_Initialize()) != 0)
   {
-    sub_1001DA73C(screenActive, self);
+    sub_1001DA73C(screenActive, self, smartRoutingBannerVisible);
     goto LABEL_10;
   }
 
   return v10;
+}
+
+- (void)_checkLowBatteryStatus:(id)status withType:(unsigned __int8)type batteries:(id)batteries
+{
+  typeCopy = type;
+  statusCopy = status;
+  batteriesCopy = batteries;
+  [(AALowBatteryAlertDaemon *)self _lowBatteryAlertThreshold:statusCopy withType:typeCopy];
+  v11 = v10;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v12 = batteriesCopy;
+  v13 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v34 = typeCopy;
+    v35 = statusCopy;
+    v15 = 0;
+    v16 = 0;
+    v17 = *v37;
+    v18 = 1;
+    v19 = 1.0;
+    v20 = 1;
+    do
+    {
+      for (i = 0; i != v14; i = i + 1)
+      {
+        if (*v37 != v17)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v22 = *(*(&v36 + 1) + 8 * i);
+        if (([v22 charging] & 1) == 0)
+        {
+          [(AALowBatteryAlertDaemon *)self prefLowBatteryForceLevel];
+          v24 = v23;
+          if (v23 == 0.0)
+          {
+            [v22 level];
+            v24 = v25;
+          }
+
+          if (v24 < v19)
+          {
+            v26 = v22;
+
+            v15 = v26;
+            v19 = v24;
+          }
+
+          if (v24 >= 0.5)
+          {
+            v20 = 0;
+          }
+
+          else
+          {
+            v18 = 0;
+            v20 = 0;
+            v16 |= v24 <= v11;
+          }
+        }
+      }
+
+      v14 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    }
+
+    while (v14);
+    v27 = v19 * 100.0;
+    statusCopy = v35;
+    typeCopy = v34;
+  }
+
+  else
+  {
+    v15 = 0;
+    v16 = 0;
+    v18 = 1;
+    v27 = 100.0;
+    v20 = 1;
+  }
+
+  if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+  {
+    if (typeCopy > 2)
+    {
+      v28 = "?";
+    }
+
+    else
+    {
+      v28 = off_1002B7BE8[typeCopy];
+    }
+
+    v30 = "no";
+    if (v20)
+    {
+      v31 = "yes";
+    }
+
+    else
+    {
+      v31 = "no";
+    }
+
+    if (v18)
+    {
+      v32 = "yes";
+    }
+
+    else
+    {
+      v32 = "no";
+    }
+
+    if (v16)
+    {
+      v30 = "yes";
+    }
+
+    LogPrintF(&dword_1002F6620, "[AALowBatteryAlertDaemon _checkLowBatteryStatus:withType:batteries:]", 30, "Low battery check[%s]: Charging %s, High %s, Low %s, Lowest %.3f%%, Threshold %.3f%%, %@", v28, v31, v32, v30, *&v27, v11 * 100.0, statusCopy);
+    if (v16)
+    {
+      goto LABEL_24;
+    }
+
+LABEL_35:
+    if (v20)
+    {
+      v33 = "charging";
+    }
+
+    else
+    {
+      if ((v18 & 1) == 0)
+      {
+        goto LABEL_40;
+      }
+
+      v33 = "high";
+    }
+
+    [(AALowBatteryAlertDaemon *)self _clearLowBatteryDeviceWithBatteryInfo:statusCopy reason:v33 type:typeCopy];
+    goto LABEL_40;
+  }
+
+  if ((v16 & 1) == 0)
+  {
+    goto LABEL_35;
+  }
+
+LABEL_24:
+  v29 = [(AALowBatteryAlertDaemon *)self _trackLowBatteryDeviceWithBatteryInfo:statusCopy battery:v15 type:typeCopy];
+LABEL_40:
 }
 
 - (void)_dismissLowBatteryAlertOnIOS
@@ -571,6 +743,56 @@ LABEL_10:
   [lowBatteryBannerIOS invalidate];
 
   [(AALowBatteryAlertDaemon *)self setLowBatteryBannerIOS:0];
+}
+
+- (double)_lowBatteryAlertThreshold:(id)threshold withType:(unsigned __int8)type
+{
+  typeCopy = type;
+  thresholdCopy = threshold;
+  identifier = [thresholdCopy identifier];
+  v8 = [(AALowBatteryAlertDaemon *)self _lowBatteryDeviceWithIdentifier:identifier andType:typeCopy];
+  [v8 lastBatteryLevel];
+  if (v9 == 0.0)
+  {
+    v10 = 1.0;
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  if (typeCopy == 1)
+  {
+    v11 = 0.25;
+  }
+
+  else
+  {
+    v11 = 0.2;
+  }
+
+  productID = [thresholdCopy productID];
+
+  if (productID == 8208)
+  {
+    v11 = 0.1;
+  }
+
+  if (v10 <= v11)
+  {
+    v11 = 0.1;
+    if (v10 <= 0.1)
+    {
+      v11 = 0.05;
+      if (v10 <= 0.05)
+      {
+        v11 = v10 + -0.01;
+      }
+    }
+  }
+
+  return v11;
 }
 
 - (BOOL)lowBatteryAlertVisible
@@ -587,26 +809,29 @@ LABEL_10:
 
   if (!lowBatteryCheckCoalescer)
   {
-    if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6620 <= 30)
     {
-      sub_1001DA7FC();
+      if (dword_1002F6620 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001DA7FC(v4, v5, v6);
+      }
     }
 
-    v4 = objc_alloc_init(CUCoalescer);
-    [(AALowBatteryAlertDaemon *)self setLowBatteryCheckCoalescer:v4];
+    v7 = objc_alloc_init(CUCoalescer);
+    [(AALowBatteryAlertDaemon *)self setLowBatteryCheckCoalescer:v7];
     dispatchQueue = [(AALowBatteryAlertDaemon *)self dispatchQueue];
-    [v4 setDispatchQueue:dispatchQueue];
+    [v7 setDispatchQueue:dispatchQueue];
 
-    [v4 setMinDelay:0.05];
-    [v4 setMaxDelay:0.1];
-    [v4 setLeeway:0.05];
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_1000359E8;
-    v6[3] = &unk_1002B6D18;
-    v6[4] = v4;
-    v6[5] = self;
-    [v4 setActionHandler:v6];
+    [v7 setMinDelay:0.05];
+    [v7 setMaxDelay:0.1];
+    [v7 setLeeway:0.05];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1000359E8;
+    v9[3] = &unk_1002B6D18;
+    v9[4] = v7;
+    v9[5] = self;
+    [v7 setActionHandler:v9];
   }
 }
 
@@ -616,9 +841,12 @@ LABEL_10:
 
   if (lowBatteryCheckCoalescer)
   {
-    if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6620 <= 30)
     {
-      sub_1001DA818();
+      if (dword_1002F6620 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001DA818(v4, v5, v6);
+      }
     }
 
     lowBatteryCheckCoalescer2 = [(AALowBatteryAlertDaemon *)self lowBatteryCheckCoalescer];
@@ -716,135 +944,139 @@ LABEL_10:
 - (void)_reportLowBatteriesWithBatteryInfo:(id)info
 {
   infoCopy = info;
-  v5 = &dword_1002F6000;
-  if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+  v7 = infoCopy;
+  v8 = &dword_1002F6000;
+  if (dword_1002F6620 <= 30)
   {
-    sub_1001DA8D8();
+    if (dword_1002F6620 != -1 || (infoCopy = _LogCategory_Initialize(), infoCopy))
+    {
+      sub_1001DA8D8(infoCopy, v5, v6);
+    }
   }
 
-  v6 = +[NSMutableSet set];
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
+  v9 = +[NSMutableSet set];
   v40 = 0u;
-  v7 = infoCopy;
-  v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
-  if (v8)
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v10 = v7;
+  v11 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v11)
   {
-    v9 = v8;
-    v10 = *v38;
+    v12 = v11;
+    v13 = *v41;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v12; i = i + 1)
       {
-        if (*v38 != v10)
+        if (*v41 != v13)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v10);
         }
 
-        v12 = *(*(&v37 + 1) + 8 * i);
-        if ([v12 isConnected])
+        v15 = *(*(&v40 + 1) + 8 * i);
+        if ([v15 isConnected])
         {
-          identifier = [v12 identifier];
-          [v6 addObject:identifier];
+          identifier = [v15 identifier];
+          [v9 addObject:identifier];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
-    while (v9);
+    while (v12);
   }
 
-  v35 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v37 = 0u;
   selfCopy = self;
   lowBatteryDeviceMap = [(AALowBatteryAlertDaemon *)self lowBatteryDeviceMap];
   allValues = [lowBatteryDeviceMap allValues];
 
-  v16 = [allValues countByEnumeratingWithState:&v33 objects:v41 count:16];
-  if (!v16)
+  v19 = [allValues countByEnumeratingWithState:&v36 objects:v44 count:16];
+  if (!v19)
   {
     goto LABEL_37;
   }
 
-  v17 = v16;
-  v32 = 0;
-  v18 = *v34;
+  v20 = v19;
+  v35 = 0;
+  v21 = *v37;
   do
   {
-    for (j = 0; j != v17; j = j + 1)
+    for (j = 0; j != v20; j = j + 1)
     {
-      if (*v34 != v18)
+      if (*v37 != v21)
       {
         objc_enumerationMutation(allValues);
       }
 
-      v20 = *(*(&v33 + 1) + 8 * j);
-      if ([v20 valid])
+      v23 = *(*(&v36 + 1) + 8 * j);
+      if ([v23 valid])
       {
-        [v20 reportTime];
-        if (v21 == 0.0)
+        [v23 reportTime];
+        if (v24 == 0.0)
         {
-          v23 = v5;
-          identifier2 = [v20 identifier];
-          v25 = [v6 containsObject:identifier2];
+          v26 = v8;
+          identifier2 = [v23 identifier];
+          v28 = [v9 containsObject:identifier2];
 
-          if (v25)
+          if (v28)
           {
-            v5 = v23;
-            if (v32)
+            v8 = v26;
+            if (v35)
             {
-              [v20 lastBatteryLevel];
-              v27 = v26;
-              [v32 lastBatteryLevel];
-              if (v27 < v28)
+              [v23 lastBatteryLevel];
+              v30 = v29;
+              [v35 lastBatteryLevel];
+              if (v30 < v31)
               {
-                v29 = v20;
+                v32 = v23;
 
-                v32 = v29;
+                v35 = v32;
               }
             }
 
             else
             {
-              v32 = v20;
+              v35 = v23;
             }
           }
 
           else
           {
-            v5 = v23;
-            v30 = v23[392];
-            if (v30 <= 10 && (v30 != -1 || _LogCategory_Initialize()))
+            v8 = v26;
+            v33 = v26[392];
+            if (v33 <= 10 && (v33 != -1 || _LogCategory_Initialize()))
             {
-              sub_1001DA8F4(v20);
+              sub_1001DA8F4(v23);
             }
           }
         }
 
         else
         {
-          v22 = v5[392];
-          if (v22 <= 10 && (v22 != -1 || _LogCategory_Initialize()))
+          v25 = v8[392];
+          if (v25 <= 10 && (v25 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001DA9C0(v20);
+            sub_1001DA9C0(v23);
           }
         }
       }
     }
 
-    v17 = [allValues countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v20 = [allValues countByEnumeratingWithState:&v36 objects:v44 count:16];
   }
 
-  while (v17);
+  while (v20);
 
-  if (v32)
+  if (v35)
   {
     [(AALowBatteryAlertDaemon *)selfCopy _showAlertForLowBatteryDevice:?];
-    allValues = v32;
+    allValues = v35;
 LABEL_37:
   }
 }
@@ -935,91 +1167,208 @@ LABEL_37:
   dispatch_async(dispatchQueue, v13);
 }
 
+- (void)_showLowBatteryBannerIfNeededForDevice:(id)device withType:(unsigned __int8)type completion:(id)completion
+{
+  typeCopy = type;
+  deviceCopy = device;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v18 = _NSConcreteStackBlock;
+  v19 = 3221225472;
+  v20 = sub_1000368B8;
+  v21 = &unk_1002B74D0;
+  v23 = &v24;
+  completionCopy = completion;
+  v22 = completionCopy;
+  v10 = objc_retainBlock(&v18);
+  if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+  {
+    if (typeCopy > 2)
+    {
+      v11 = "?";
+    }
+
+    else
+    {
+      v11 = off_1002B7BE8[typeCopy];
+    }
+
+    LogPrintF(&dword_1002F6620, "[AALowBatteryAlertDaemon _showLowBatteryBannerIfNeededForDevice:withType:completion:]", 30, "Report low battery for device %@ battery type %s", deviceCopy, v11, v18, v19, v20, v21);
+  }
+
+  if ([(AALowBatteryAlertDaemon *)self _checkIfUIStateConditionsForLowBatteryBannerAreMet])
+  {
+    batteryMonitor = [(AALowBatteryAlertDaemon *)self batteryMonitor];
+    v13 = [batteryMonitor deviceWithIdentifier:deviceCopy];
+
+    if (v13)
+    {
+      v28 = v13;
+      v14 = [NSArray arrayWithObjects:&v28 count:1];
+      [(AALowBatteryAlertDaemon *)self _updateCurrentLowBatteryDevicesWithBatteryInfo:v14];
+
+      v15 = [(AALowBatteryAlertDaemon *)self _lowBatteryDeviceWithIdentifier:deviceCopy andType:typeCopy];
+      if ([v15 valid])
+      {
+        Current = CFAbsoluteTimeGetCurrent();
+        [v15 reportTime];
+        if (Current - v17 >= 10.0)
+        {
+          [(AALowBatteryAlertDaemon *)self _showAlertForLowBatteryDevice:v15];
+        }
+
+        *(v25 + 24) = 1;
+      }
+
+      else if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&dword_1002F6620, "[AALowBatteryAlertDaemon _showLowBatteryBannerIfNeededForDevice:withType:completion:]", 30, "No valid low battery device found");
+      }
+    }
+
+    else if (dword_1002F6620 <= 90 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F6620, "[AALowBatteryAlertDaemon _showLowBatteryBannerIfNeededForDevice:withType:completion:]", 90, "Battery info not found for device with identifier: %@", deviceCopy);
+    }
+  }
+
+  else if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_1002F6620, "[AALowBatteryAlertDaemon _showLowBatteryBannerIfNeededForDevice:withType:completion:]", 30, "UI conditions to show low battery banner not met");
+  }
+
+  (v10[2])(v10);
+
+  _Block_object_dispose(&v24, 8);
+}
+
+- (id)_trackLowBatteryDeviceWithBatteryInfo:(id)info battery:(id)battery type:(unsigned __int8)type
+{
+  typeCopy = type;
+  infoCopy = info;
+  batteryCopy = battery;
+  identifier = [infoCopy identifier];
+  v11 = [(AALowBatteryAlertDaemon *)self _lowBatteryDeviceWithIdentifier:identifier andType:typeCopy];
+  v12 = v11;
+  if (!v11)
+  {
+    v12 = objc_alloc_init(AALowBatteryDevice);
+    [(AALowBatteryDevice *)v12 setIdentifier:identifier];
+    [(AALowBatteryDevice *)v12 setType:typeCopy];
+    bluetoothAddress = [infoCopy bluetoothAddress];
+    [(AALowBatteryDevice *)v12 setDeviceAddress:bluetoothAddress];
+
+    -[AALowBatteryDevice setProductID:](v12, "setProductID:", [infoCopy productID]);
+  }
+
+  name = [infoCopy name];
+  [(AALowBatteryDevice *)v12 setName:name];
+
+  -[AALowBatteryDevice setColor:](v12, "setColor:", [infoCopy color]);
+  [batteryCopy level];
+  [(AALowBatteryDevice *)v12 setLastBatteryLevel:?];
+  type = [batteryCopy type];
+
+  [(AALowBatteryDevice *)v12 setLastBatteryType:type];
+  [(AALowBatteryDevice *)v12 setLastSeenTime:CFAbsoluteTimeGetCurrent()];
+  [(AALowBatteryDevice *)v12 setReportTime:0.0];
+  if (!v11 && dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+  {
+    sub_1001DAC50(infoCopy);
+  }
+
+  [(AALowBatteryAlertDaemon *)self _lowBatteryDeviceUpdated:v12];
+
+  return v12;
+}
+
 - (void)_updateCurrentLowBatteryDevicesWithBatteryInfo:(id)info
 {
   infoCopy = info;
-  v5 = infoCopy;
-  if (infoCopy && [infoCopy count])
+  v7 = infoCopy;
+  if (infoCopy && (infoCopy = [infoCopy count]) != 0)
   {
+    v27 = 0u;
+    v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v22 = v5;
-    v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
-    if (v7)
+    v24 = v7;
+    v8 = v7;
+    v9 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
+    if (v9)
     {
-      v8 = v7;
-      v9 = *v24;
+      v10 = v9;
+      v11 = *v26;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        for (i = 0; i != v10; i = i + 1)
         {
-          if (*v24 != v9)
+          if (*v26 != v11)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v8);
           }
 
-          v11 = *(*(&v23 + 1) + 8 * i);
-          batteryMain = [v11 batteryMain];
+          v13 = *(*(&v25 + 1) + 8 * i);
+          batteryMain = [v13 batteryMain];
 
           if (batteryMain)
           {
-            batteryMain2 = [v11 batteryMain];
-            v28 = batteryMain2;
-            v14 = [NSArray arrayWithObjects:&v28 count:1];
-            [(AALowBatteryAlertDaemon *)self _checkLowBatteryStatus:v11 withType:2 batteries:v14];
+            batteryMain2 = [v13 batteryMain];
+            v30 = batteryMain2;
+            v16 = [NSArray arrayWithObjects:&v30 count:1];
+            [(AALowBatteryAlertDaemon *)self _checkLowBatteryStatus:v13 withType:2 batteries:v16];
           }
 
           else
           {
-            batteryCase = [v11 batteryCase];
+            batteryCase = [v13 batteryCase];
 
             if (batteryCase)
             {
-              batteryCase2 = [v11 batteryCase];
-              v27 = batteryCase2;
-              v17 = [NSArray arrayWithObjects:&v27 count:1];
-              [(AALowBatteryAlertDaemon *)self _checkLowBatteryStatus:v11 withType:1 batteries:v17];
+              batteryCase2 = [v13 batteryCase];
+              v29 = batteryCase2;
+              v19 = [NSArray arrayWithObjects:&v29 count:1];
+              [(AALowBatteryAlertDaemon *)self _checkLowBatteryStatus:v13 withType:1 batteries:v19];
             }
 
             batteryMain2 = objc_alloc_init(NSMutableArray);
-            batteryLeft = [v11 batteryLeft];
+            batteryLeft = [v13 batteryLeft];
 
             if (batteryLeft)
             {
-              batteryLeft2 = [v11 batteryLeft];
+              batteryLeft2 = [v13 batteryLeft];
               [batteryMain2 addObject:batteryLeft2];
             }
 
-            batteryRight = [v11 batteryRight];
+            batteryRight = [v13 batteryRight];
 
             if (batteryRight)
             {
-              batteryRight2 = [v11 batteryRight];
+              batteryRight2 = [v13 batteryRight];
               [batteryMain2 addObject:batteryRight2];
             }
 
             if ([batteryMain2 count])
             {
-              [(AALowBatteryAlertDaemon *)self _checkLowBatteryStatus:v11 withType:0 batteries:batteryMain2];
+              [(AALowBatteryAlertDaemon *)self _checkLowBatteryStatus:v13 withType:0 batteries:batteryMain2];
             }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
       }
 
-      while (v8);
+      while (v10);
     }
 
-    v5 = v22;
+    v7 = v24;
   }
 
   else
   {
-    sub_1001DAC90();
+    sub_1001DAC90(infoCopy, v5, v6);
   }
 }
 
@@ -1095,7 +1444,7 @@ LABEL_37:
                 sub_1001DACF0(v12);
               }
 
-              ++v7;
+              v7 = (v7 + 1);
 
               selfCopy = v13;
             }
@@ -1112,10 +1461,15 @@ LABEL_37:
       while (v16);
     }
 
+    else
+    {
+      v7 = 0;
+    }
+
     [(AALowBatteryAlertDaemon *)selfCopy setLowBatteryInfoFromPrefsLoaded:1];
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DADB8();
+      sub_1001DADB8(v7);
     }
   }
 }
@@ -1131,6 +1485,19 @@ LABEL_37:
   [(AALowBatteryAlertDaemon *)self _persistLowBatteryDevicesWithUrgency:0];
 }
 
+- (id)_lowBatteryDeviceWithIdentifier:(id)identifier andType:(unsigned __int8)type
+{
+  typeCopy = type;
+  identifierCopy = identifier;
+  [(AALowBatteryAlertDaemon *)self _loadPersistedLowBatteryDevices];
+  v7 = [AALowBatteryDevice trackerKeyForIdentifier:identifierCopy andType:typeCopy];
+
+  lowBatteryDeviceMap = [(AALowBatteryAlertDaemon *)self lowBatteryDeviceMap];
+  v9 = [lowBatteryDeviceMap objectForKeyedSubscript:v7];
+
+  return v9;
+}
+
 - (void)_persistLowBatteryDevicesWithUrgency:(BOOL)urgency
 {
   if (urgency)
@@ -1144,32 +1511,32 @@ LABEL_37:
       self->_lowBatterySaveTimer = 0;
     }
 
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     lowBatteryDeviceMap = [(AALowBatteryAlertDaemon *)self lowBatteryDeviceMap];
     allValues = [lowBatteryDeviceMap allValues];
 
-    v9 = [allValues countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v9 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v27;
+      v12 = *v25;
       while (1)
       {
         v13 = 0;
         do
         {
-          if (*v27 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * v13);
-          v15 = [(AALowBatteryAlertDaemon *)self systemPowerMonitor:v24];
-          firstUnlocked = [v15 firstUnlocked];
+          v14 = *(*(&v24 + 1) + 8 * v13);
+          systemPowerMonitor = [(AALowBatteryAlertDaemon *)self systemPowerMonitor];
+          firstUnlocked = [systemPowerMonitor firstUnlocked];
 
           if (!firstUnlocked || (-[AALowBatteryAlertDaemon pairedDeviceManager](self, "pairedDeviceManager"), v17 = objc_claimAutoreleasedReturnValue(), [v14 deviceAddress], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v17, "isDevicePairedWithBluetoothAddress:", v18), v18, v17, (v19 & 1) != 0))
           {
@@ -1186,9 +1553,7 @@ LABEL_37:
           if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
           {
             toPrefsDict = [v14 identifier];
-            v24 = toPrefsDict;
-            v25 = v14;
-            LogPrintF();
+            LogPrintF(&dword_1002F6620, "[AALowBatteryAlertDaemon _persistLowBatteryDevicesWithUrgency:]", 30, "Skipping low battery info for unpaired device[%@]: %@", toPrefsDict, v14);
 LABEL_14:
           }
 
@@ -1196,7 +1561,7 @@ LABEL_14:
         }
 
         while (v10 != v13);
-        v21 = [allValues countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v21 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
         v10 = v21;
         if (!v21)
         {
@@ -1251,7 +1616,7 @@ LABEL_30:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DAEC4();
+      sub_1001DAEC4(infoCopy);
     }
 
     v5 = [(AALowBatteryAlertDaemon *)self _notificationContentForChargingNotificationWithType:2 batteryInfo:infoCopy];
@@ -1267,7 +1632,7 @@ LABEL_30:
 
   else if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001DAE84();
+    sub_1001DAE84(infoCopy);
   }
 }
 
@@ -1289,14 +1654,14 @@ LABEL_30:
         {
           if ([infoCopy isConnected])
           {
-            sub_1001DB130(dword_1002F6620 < 31, dword_1002F6620);
+            sub_1001DB130(dword_1002F6620 < 31, dword_1002F6620, infoCopy);
           }
 
           else
           {
             if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
             {
-              sub_1001DB0B0();
+              sub_1001DB0B0(infoCopy);
             }
 
             if ([(AALowBatteryAlertDaemon *)self _checkChargingReachedComplete:infoCopy])
@@ -1306,7 +1671,7 @@ LABEL_30:
 
             else if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
             {
-              sub_1001DB0F0();
+              sub_1001DB0F0(infoCopy);
             }
           }
         }
@@ -1315,7 +1680,7 @@ LABEL_30:
         {
           if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001DB070();
+            sub_1001DB070(infoCopy);
           }
 
           [(AALowBatteryAlertDaemon *)self _dismissChargingCompleteNotificationWithBatteryInfo:infoCopy];
@@ -1330,7 +1695,7 @@ LABEL_30:
 
     else
     {
-      sub_1001DB1A0();
+      sub_1001DB1A0(v8, v9, v10);
     }
 
     v5 = infoCopy;
@@ -1350,63 +1715,70 @@ LABEL_30:
     nonStaleBatteries = [v6 nonStaleBatteries];
     if ([nonStaleBatteries count])
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v21 = nonStaleBatteries;
-      v8 = nonStaleBatteries;
-      v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
-      if (v9)
+      v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v27 = nonStaleBatteries;
+      v11 = nonStaleBatteries;
+      v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      if (v12)
       {
-        v10 = v9;
-        v11 = *v23;
+        v13 = v12;
+        v14 = *v29;
 LABEL_5:
-        v12 = 0;
+        v15 = 0;
         while (1)
         {
-          if (*v23 != v11)
+          if (*v29 != v14)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v11);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * v12);
-          v14 = [completeCopy batteryForType:{objc_msgSend(v13, "type")}];
-          if (v14)
+          v16 = *(*(&v28 + 1) + 8 * v15);
+          v17 = [completeCopy batteryForType:{objc_msgSend(v16, "type")}];
+          if (v17)
           {
-            [v13 level];
-            v16 = v15;
-            [v14 level];
-            if (v16 < v17)
+            [v16 level];
+            v19 = v18;
+            [v17 level];
+            if (v19 < v20)
             {
               if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
               {
-                sub_1001DB200();
+                sub_1001DB200(v17);
               }
 
-              v19 = 1;
-              goto LABEL_33;
+              v23 = 1;
+              goto LABEL_34;
             }
 
             if (dword_1002F6620 > 30 || dword_1002F6620 == -1 && !_LogCategory_Initialize())
             {
               goto LABEL_17;
             }
+
+            v21 = "Charging Complete: Battery was full: %@.";
           }
 
-          else if (dword_1002F6620 > 30 || dword_1002F6620 == -1 && !_LogCategory_Initialize())
+          else
           {
-            goto LABEL_17;
+            if (dword_1002F6620 > 30 || dword_1002F6620 == -1 && !_LogCategory_Initialize())
+            {
+              goto LABEL_17;
+            }
+
+            v21 = "Charging Complete: No current battery for last seen: %@.";
           }
 
-          sub_1001DB240();
+          sub_1001DB240(v21, v16);
 LABEL_17:
 
-          if (v10 == ++v12)
+          if (v13 == ++v15)
           {
-            v18 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
-            v10 = v18;
-            if (v18)
+            v22 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+            v13 = v22;
+            if (v22)
             {
               goto LABEL_5;
             }
@@ -1416,34 +1788,41 @@ LABEL_17:
         }
       }
 
-      v19 = 0;
-LABEL_33:
-      nonStaleBatteries = v21;
+      v23 = 0;
+LABEL_34:
+      nonStaleBatteries = v27;
     }
 
     else
     {
-      CFAbsoluteTimeGetCurrent();
-      if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+      Current = CFAbsoluteTimeGetCurrent();
+      if (dword_1002F6620 <= 30)
       {
-        LogPrintF();
+        v25 = Current;
+        if (dword_1002F6620 != -1 || _LogCategory_Initialize())
+        {
+          LogPrintF(&dword_1002F6620, "[AALowBatteryAlertDaemon _checkChargingReachedComplete:]", 30, "Charging Complete: Batteries on last seen battery info are all stale[now: %d]: %@", *&v25, v6);
+        }
       }
 
-      v19 = 1;
+      v23 = 1;
     }
   }
 
   else
   {
-    if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6620 <= 30)
     {
-      sub_1001DB27C();
+      if (dword_1002F6620 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_1001DB27C(v7, v8, v9);
+      }
     }
 
-    v19 = 1;
+    v23 = 1;
   }
 
-  return v19;
+  return v23;
 }
 
 - (void)_dismissChargingCompleteNotificationWithBatteryInfo:(id)info
@@ -1463,7 +1842,7 @@ LABEL_33:
     {
       if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001DB298();
+        sub_1001DB298(infoCopy);
       }
 
       batteryCase = [infoCopy batteryCase];
@@ -1527,7 +1906,7 @@ LABEL_33:
     -[AAChargingNotificationTracker setProductID:](v8, "setProductID:", [infoCopy productID]);
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DB494();
+      sub_1001DB494(infoCopy);
     }
 
     v10 = 1;
@@ -1550,90 +1929,84 @@ LABEL_33:
 
     if (!batteryCase)
     {
-      sub_1001DB654();
+      sub_1001DB654(v6, v7, v8);
       goto LABEL_26;
     }
 
-    v6 = [(AALowBatteryAlertDaemon *)self _notificationWithIdentifier:identifier andType:1];
-    v7 = v6;
-    if (v6)
+    v9 = [(AALowBatteryAlertDaemon *)self _notificationWithIdentifier:identifier andType:1];
+    v12 = v9;
+    if (v9)
     {
-      if (![v6 cleared])
+      cleared = [v9 cleared];
+      if (!cleared)
       {
         batteryCase2 = [infoCopy batteryCase];
         charging = [batteryCase2 charging];
 
         if (!charging)
         {
-          v18 = 0;
+          v26 = 0;
           goto LABEL_17;
         }
 
-        v10 = [(AALowBatteryAlertDaemon *)self _lastSeenBatteryInfoWithIdentifier:identifier];
-        v11 = v10;
-        if (!v10)
+        v18 = [(AALowBatteryAlertDaemon *)self _lastSeenBatteryInfoWithIdentifier:identifier];
+        v19 = v18;
+        if (!v18 || ([v18 batteryCase], (v20 = objc_claimAutoreleasedReturnValue()) == 0) || (v21 = v20, objc_msgSend(v19, "batteryCase"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "stale"), v22, v21, (v23 & 1) == 0))
         {
-          goto LABEL_9;
-        }
-
-        batteryCase3 = [v10 batteryCase];
-        if (!batteryCase3 || (v13 = batteryCase3, [v11 batteryCase], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "stale"), v14, v13, (v15 & 1) == 0))
-        {
-LABEL_9:
-          batteryCase4 = [v11 batteryCase];
-          charging2 = [batteryCase4 charging];
+          batteryCase3 = [v19 batteryCase];
+          charging2 = [batteryCase3 charging];
 
           if (!charging2)
           {
-            v18 = 3;
+            v26 = 3;
             goto LABEL_16;
           }
 
           if (dword_1002F6620 <= 90 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001DB4D4();
+            sub_1001DB4D4(infoCopy);
           }
         }
 
-        v18 = 4;
+        v26 = 4;
 LABEL_16:
 
 LABEL_17:
-        batteryCase5 = [infoCopy batteryCase];
-        [batteryCase5 level];
-        v21 = v20;
-        [v7 reportBatteryLevel];
-        v23 = v22;
+        batteryCase4 = [infoCopy batteryCase];
+        [batteryCase4 level];
+        v29 = v28;
+        [v12 reportBatteryLevel];
+        v31 = v30;
 
-        if (v21 <= v23)
+        if (v29 <= v31)
         {
-          v24 = v18;
+          v32 = v26;
         }
 
         else
         {
-          v24 = 5;
+          v32 = 5;
         }
 
-        if ((v21 > v23) | charging & 1)
+        if ((v29 > v31) | charging & 1)
         {
           if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001DB51C(infoCopy, v24);
+            sub_1001DB51C(infoCopy, v32);
           }
 
-          [(AALowBatteryAlertDaemon *)self _clearNotification:v7 withReason:v24];
+          [(AALowBatteryAlertDaemon *)self _clearNotification:v12 withReason:v32];
         }
 
         goto LABEL_25;
       }
 
-      sub_1001DB594();
+      sub_1001DB594(cleared, v14, v15);
     }
 
     else
     {
-      sub_1001DB5F4();
+      sub_1001DB5F4(0, v10, v11);
     }
 
 LABEL_25:
@@ -1660,7 +2033,7 @@ LABEL_26:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DB8E4();
+      sub_1001DB8E4(infoCopy);
     }
 
     v9 = [(AALowBatteryAlertDaemon *)self _notificationContentForChargingNotificationWithType:1 batteryInfo:infoCopy];
@@ -1683,7 +2056,7 @@ LABEL_26:
     {
       if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001DB72C(self);
+        sub_1001DB72C(self, infoCopy);
       }
     }
 
@@ -1694,13 +2067,13 @@ LABEL_26:
       {
         if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001DB834(self);
+          sub_1001DB834(self, v7);
         }
 
         [(AALowBatteryAlertDaemon *)self _clearNotification:v7 withReason:12];
         if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001DB8A4();
+          sub_1001DB8A4(infoCopy);
         }
 
         [(AALowBatteryAlertDaemon *)self _shouldPostChargingReminderForLowBatteryCaseWithBatteryInfo:infoCopy];
@@ -1709,7 +2082,7 @@ LABEL_26:
 
       if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001DB7C4(self);
+        sub_1001DB7C4(self, infoCopy);
       }
     }
 
@@ -1749,7 +2122,7 @@ LABEL_25:
     [(AAChargingNotificationTracker *)v11 setReportBatteryLevel:v8];
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DBA18();
+      sub_1001DBA18(infoCopy);
     }
 
     [(AALowBatteryAlertDaemon *)self _chargingNotificationUpdated:v11];
@@ -1762,44 +2135,49 @@ LABEL_25:
 
 - (void)_triggerChargingReminderCheck
 {
-  if ([(AALowBatteryAlertDaemon *)self prefCaseBatteryNotificationsEnabled])
+  prefCaseBatteryNotificationsEnabled = [(AALowBatteryAlertDaemon *)self prefCaseBatteryNotificationsEnabled];
+  if (prefCaseBatteryNotificationsEnabled)
   {
-    if ([(AALowBatteryAlertDaemon *)self _isUserInVehicle])
+    _isUserInVehicle = [(AALowBatteryAlertDaemon *)self _isUserInVehicle];
+    if (_isUserInVehicle)
     {
-      if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6620 <= 30)
       {
-        sub_1001DBB44();
+        if (dword_1002F6620 != -1 || (_isUserInVehicle = _LogCategory_Initialize(), _isUserInVehicle))
+        {
+          sub_1001DBB44(_isUserInVehicle, v7, v8);
+        }
       }
     }
 
     else
     {
       [(AALowBatteryAlertDaemon *)self _loadNotificationsFromPref];
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
-      v14 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       batteryMonitor = [(AALowBatteryAlertDaemon *)self batteryMonitor];
       devices = [batteryMonitor devices];
 
-      v5 = [devices countByEnumeratingWithState:&v13 objects:v17 count:16];
-      if (v5)
+      v11 = [devices countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v11)
       {
-        v6 = v5;
-        v7 = *v14;
+        v12 = v11;
+        v13 = *v20;
         do
         {
-          v8 = 0;
+          v14 = 0;
           do
           {
-            if (*v14 != v7)
+            if (*v20 != v13)
             {
               objc_enumerationMutation(devices);
             }
 
-            v9 = *(*(&v13 + 1) + 8 * v8);
-            [(AALowBatteryAlertDaemon *)self _updateLastSeenOnTrackerWithBatteryInfo:v9];
-            if ([v9 isConnected])
+            v15 = *(*(&v19 + 1) + 8 * v14);
+            [(AALowBatteryAlertDaemon *)self _updateLastSeenOnTrackerWithBatteryInfo:v15];
+            if ([v15 isConnected])
             {
               if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
               {
@@ -1809,8 +2187,8 @@ LABEL_25:
 
             else
             {
-              batteryCase = [v9 batteryCase];
-              v11 = batteryCase;
+              batteryCase = [v15 batteryCase];
+              v17 = batteryCase;
               if (batteryCase)
               {
                 if ([batteryCase charging])
@@ -1821,9 +2199,9 @@ LABEL_25:
                   }
                 }
 
-                else if ([v11 isLow])
+                else if ([v17 isLow])
                 {
-                  [(AALowBatteryAlertDaemon *)self _shouldPostChargingReminderForLowBatteryCaseWithBatteryInfo:v9];
+                  [(AALowBatteryAlertDaemon *)self _shouldPostChargingReminderForLowBatteryCaseWithBatteryInfo:v15];
                 }
 
                 else if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
@@ -1838,22 +2216,25 @@ LABEL_25:
               }
             }
 
-            v8 = v8 + 1;
+            v14 = v14 + 1;
           }
 
-          while (v6 != v8);
-          v12 = [devices countByEnumeratingWithState:&v13 objects:v17 count:16];
-          v6 = v12;
+          while (v12 != v14);
+          v18 = [devices countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = v18;
         }
 
-        while (v12);
+        while (v18);
       }
     }
   }
 
-  else if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F6620 <= 30)
   {
-    sub_1001DBA58();
+    if (dword_1002F6620 != -1 || (prefCaseBatteryNotificationsEnabled = _LogCategory_Initialize(), prefCaseBatteryNotificationsEnabled))
+    {
+      sub_1001DBA58(prefCaseBatteryNotificationsEnabled, v4, v5);
+    }
   }
 }
 
@@ -2023,6 +2404,19 @@ LABEL_25:
       sub_1001DBE34(self);
     }
   }
+}
+
+- (id)_notificationWithIdentifier:(id)identifier andType:(unsigned __int8)type
+{
+  typeCopy = type;
+  identifierCopy = identifier;
+  [(AALowBatteryAlertDaemon *)self _loadNotificationsFromPref];
+  v7 = [AAChargingNotificationTracker trackerKeyForIdentifier:identifierCopy andType:typeCopy];
+
+  chargingNotificationMap = [(AALowBatteryAlertDaemon *)self chargingNotificationMap];
+  v9 = [chargingNotificationMap objectForKeyedSubscript:v7];
+
+  return v9;
 }
 
 - (void)_persistNotificationsToPrefs
@@ -2216,30 +2610,33 @@ LABEL_27:
 
   if (!systemPowerMonitor)
   {
-    if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6620 <= 30)
     {
-      sub_1001DC16C();
+      if (dword_1002F6620 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001DC16C(v4, v5, v6);
+      }
     }
 
-    v4 = objc_alloc_init(CUSystemMonitor);
-    [(AALowBatteryAlertDaemon *)self setSystemPowerMonitor:v4];
+    v7 = objc_alloc_init(CUSystemMonitor);
+    [(AALowBatteryAlertDaemon *)self setSystemPowerMonitor:v7];
     dispatchQueue = [(AALowBatteryAlertDaemon *)self dispatchQueue];
-    [v4 setDispatchQueue:dispatchQueue];
+    [v7 setDispatchQueue:dispatchQueue];
 
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10003A064;
-    v7[3] = &unk_1002B6D18;
-    v7[4] = v4;
-    v7[5] = self;
-    v6 = objc_retainBlock(v7);
-    [v4 setScreenOnChangedHandler:v6];
-    [v4 setScreenStateChangedHandler:v6];
-    [v4 setScreenLockedChangedHandler:v6];
-    [v4 setFirstUnlockHandler:v6];
-    [v4 setScreenLockedChangedHandler:v6];
-    [v4 setPowerUnlimitedChangedHandler:v6];
-    [v4 activateWithCompletion:v6];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10003A064;
+    v10[3] = &unk_1002B6D18;
+    v10[4] = v7;
+    v10[5] = self;
+    v9 = objc_retainBlock(v10);
+    [v7 setScreenOnChangedHandler:v9];
+    [v7 setScreenStateChangedHandler:v9];
+    [v7 setScreenLockedChangedHandler:v9];
+    [v7 setFirstUnlockHandler:v9];
+    [v7 setScreenLockedChangedHandler:v9];
+    [v7 setPowerUnlimitedChangedHandler:v9];
+    [v7 activateWithCompletion:v9];
   }
 }
 
@@ -2249,9 +2646,12 @@ LABEL_27:
 
   if (systemPowerMonitor)
   {
-    if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6620 <= 30)
     {
-      sub_1001DC188();
+      if (dword_1002F6620 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001DC188(v4, v5, v6);
+      }
     }
 
     systemPowerMonitor2 = [(AALowBatteryAlertDaemon *)self systemPowerMonitor];
@@ -2264,24 +2664,34 @@ LABEL_27:
 - (void)_powerMonitorStateChanged
 {
   [(AALowBatteryAlertDaemon *)self _loadPreferences];
-  if ([(AALowBatteryAlertDaemon *)self _updateSystemEffectiveScreenLocked]&& ![(AALowBatteryAlertDaemon *)self systemEffectiveScreenLocked])
+  if ([(AALowBatteryAlertDaemon *)self _updateSystemEffectiveScreenLocked])
   {
-    if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    systemEffectiveScreenLocked = [(AALowBatteryAlertDaemon *)self systemEffectiveScreenLocked];
+    if ((systemEffectiveScreenLocked & 1) == 0)
     {
-      sub_1001DC1A4();
-    }
+      if (dword_1002F6620 <= 30)
+      {
+        if (dword_1002F6620 != -1 || (systemEffectiveScreenLocked = _LogCategory_Initialize(), systemEffectiveScreenLocked))
+        {
+          sub_1001DC1A4(systemEffectiveScreenLocked, v4, v5);
+        }
+      }
 
-    [(AALowBatteryAlertDaemon *)self _checkForLowBattery];
+      [(AALowBatteryAlertDaemon *)self _checkForLowBattery];
+    }
   }
 
   if ([(AALowBatteryAlertDaemon *)self _updateSystemCharging])
   {
     if ([(AALowBatteryAlertDaemon *)self systemIsCharging])
     {
-      [(AALowBatteryAlertDaemon *)self _triggerChargingReminderCheck];
-      if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+      _triggerChargingReminderCheck = [(AALowBatteryAlertDaemon *)self _triggerChargingReminderCheck];
+      if (dword_1002F6620 <= 30)
       {
-        sub_1001DC1C0();
+        if (dword_1002F6620 != -1 || (_triggerChargingReminderCheck = _LogCategory_Initialize(), _triggerChargingReminderCheck))
+        {
+          sub_1001DC1C0(_triggerChargingReminderCheck, v7, v8);
+        }
       }
     }
   }
@@ -2293,9 +2703,12 @@ LABEL_27:
 
     if (firstUnlocked)
     {
-      if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6620 <= 30)
       {
-        sub_1001DC1DC();
+        if (dword_1002F6620 != -1 || (v11 = _LogCategory_Initialize(), v11))
+        {
+          sub_1001DC1DC(v11, v12, v13);
+        }
       }
 
       [(AALowBatteryAlertDaemon *)self setSystemFirstUnlocked:1];
@@ -2315,7 +2728,7 @@ LABEL_27:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DC1F8(self);
+      sub_1001DC1F8(self, powerUnlimited);
     }
 
     [(AALowBatteryAlertDaemon *)self setSystemIsCharging:powerUnlimited];
@@ -2353,7 +2766,7 @@ LABEL_27:
 LABEL_7:
   if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001DC268(self);
+    sub_1001DC268(self, v8);
   }
 
   [(AALowBatteryAlertDaemon *)self setSystemEffectiveScreenLocked:v8];
@@ -2367,7 +2780,7 @@ LABEL_7:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DC2D8();
+      sub_1001DC2D8(v3);
     }
 
     [(AALowBatteryAlertDaemon *)self setPrefLowBatteryEnabled:v3];
@@ -2380,7 +2793,7 @@ LABEL_7:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DC334(self);
+      sub_1001DC334(self, v5);
     }
 
     [(AALowBatteryAlertDaemon *)self setPrefLowBatteryForceLevel:v5];
@@ -2402,7 +2815,7 @@ LABEL_7:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DC384(self);
+      sub_1001DC384(self, v8);
     }
 
     [(AALowBatteryAlertDaemon *)self setPrefLowBatterySaveSeconds:v8];
@@ -2424,7 +2837,7 @@ LABEL_7:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DC3D4(self);
+      sub_1001DC3D4(self, v11);
     }
 
     [(AALowBatteryAlertDaemon *)self setPrefLowBatteryStaleSeconds:v11];
@@ -2435,7 +2848,7 @@ LABEL_7:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DC424();
+      sub_1001DC424(v13);
     }
 
     [(AALowBatteryAlertDaemon *)self setPrefCaseBatteryNotificationsEnabled:v13];
@@ -2457,7 +2870,7 @@ LABEL_7:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DC480(self);
+      sub_1001DC480(self, v15);
     }
 
     [(AALowBatteryAlertDaemon *)self setPrefChargingReminderRepeatBackoffInterval:v15];
@@ -2479,7 +2892,7 @@ LABEL_7:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DC4D0(self);
+      sub_1001DC4D0(self, v18);
     }
 
     [(AALowBatteryAlertDaemon *)self setPrefChargingReminderRepeatLastConnectedInterval:v18];
@@ -2570,21 +2983,24 @@ LABEL_7:
 
   if (!systemUIMonitor)
   {
-    if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6620 <= 30)
     {
-      sub_1001DC590();
+      if (dword_1002F6620 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001DC590(v4, v5, v6);
+      }
     }
 
-    v4 = +[FBSDisplayLayoutMonitorConfiguration configurationForDefaultMainDisplayMonitor];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100002F8C;
-    v7[3] = &unk_1002B7B90;
-    v7[4] = self;
-    [v4 setTransitionHandler:v7];
-    v5 = [FBSDisplayLayoutMonitor monitorWithConfiguration:v4];
+    v7 = +[FBSDisplayLayoutMonitorConfiguration configurationForDefaultMainDisplayMonitor];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100002F8C;
+    v10[3] = &unk_1002B7B90;
+    v10[4] = self;
+    [v7 setTransitionHandler:v10];
+    v8 = [FBSDisplayLayoutMonitor monitorWithConfiguration:v7];
     systemUIMonitor = self->_systemUIMonitor;
-    self->_systemUIMonitor = v5;
+    self->_systemUIMonitor = v8;
   }
 }
 
@@ -2592,14 +3008,18 @@ LABEL_7:
 {
   if (self->_systemUIMonitor)
   {
-    if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F6620 <= 30)
     {
-      sub_1001DC5AC();
+      if (dword_1002F6620 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001DC5AC(self, a2, v2);
+      }
     }
 
-    [(FBSDisplayLayoutMonitor *)self->_systemUIMonitor invalidate];
-    systemUIMonitor = self->_systemUIMonitor;
-    self->_systemUIMonitor = 0;
+    [(FBSDisplayLayoutMonitor *)selfCopy->_systemUIMonitor invalidate];
+    systemUIMonitor = selfCopy->_systemUIMonitor;
+    selfCopy->_systemUIMonitor = 0;
   }
 }
 
@@ -2648,7 +3068,7 @@ LABEL_7:
   {
     if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001DC5C8();
+      sub_1001DC5C8(v7 & 1);
     }
 
     [(AALowBatteryAlertDaemon *)self setSystemUIProxCardPresent:v7 & 1];
@@ -2657,6 +3077,43 @@ LABEL_7:
       [(AALowBatteryAlertDaemon *)self _checkForLowBattery];
     }
   }
+}
+
+- (id)_notificationContentForChargingNotificationWithType:(unsigned __int8)type batteryInfo:(id)info
+{
+  typeCopy = type;
+  infoCopy = info;
+  v7 = [NSBundle bundleWithPath:@"/System/Library/UserNotifications/Bundles/com.apple.AudioAccessoryUserNotifications.bundle"];
+  v8 = objc_alloc_init(UNMutableNotificationContent);
+  [v8 setCategoryIdentifier:@"AAChargingNotificationUserNotifications"];
+  unCenter = [(AALowBatteryAlertDaemon *)self unCenter];
+  v10 = [unCenter deviceIconForProductID:{objc_msgSend(infoCopy, "productID")}];
+  [v8 setIcon:v10];
+
+  v11 = CULocalizedStringEx();
+  v12 = CULocalizedStringEx();
+  name = [infoCopy name];
+  v14 = [NSString stringWithFormat:v12, name];
+
+  [v8 setTitle:v11];
+  [v8 setBody:v14];
+  [v8 setShouldHideDate:1];
+  if (typeCopy == 1)
+  {
+    [v8 setShouldIgnoreDoNotDisturb:1];
+  }
+
+  [v8 setShouldSuppressDefaultAction:1];
+  v15 = +[NSMutableDictionary dictionary];
+  identifier = [infoCopy identifier];
+  [v15 setObject:identifier forKeyedSubscript:@"deviceIdentifier"];
+
+  v17 = [NSNumber numberWithUnsignedChar:typeCopy];
+  [v15 setObject:v17 forKeyedSubscript:@"notificationType"];
+
+  [v8 setUserInfo:v15];
+
+  return v8;
 }
 
 - (void)receivedNotificationResponse:(id)response forRequest:(id)request
@@ -2804,6 +3261,37 @@ LABEL_7:
   }
 }
 
+- (void)_clearLowBatteryDeviceWithBatteryInfo:(id)info reason:(const char *)reason type:(unsigned __int8)type
+{
+  typeCopy = type;
+  infoCopy = info;
+  identifier = [infoCopy identifier];
+  v9 = [(AALowBatteryAlertDaemon *)self _lowBatteryDeviceWithIdentifier:identifier andType:typeCopy];
+  v10 = v9;
+  if (v9)
+  {
+    [v9 setLastBatteryLevel:0.0];
+    [v10 setLastBatteryType:0];
+    [v10 setLastSeenTime:CFAbsoluteTimeGetCurrent()];
+    if (dword_1002F6620 <= 30 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+    {
+      if (typeCopy > 2)
+      {
+        v11 = "?";
+      }
+
+      else
+      {
+        v11 = off_1002B7BE8[typeCopy];
+      }
+
+      LogPrintF(&dword_1002F6620, "[AALowBatteryAlertDaemon _clearLowBatteryDeviceWithBatteryInfo:reason:type:]", 30, "Low battery cleared[%s]: %@ | Reason: %s", v11, infoCopy, reason);
+    }
+
+    [(AALowBatteryAlertDaemon *)self _lowBatteryDeviceUpdated:v10];
+  }
+}
+
 - (void)_backoffChargingReminderForBatteryInfo:(id)info
 {
   identifier = [info identifier];
@@ -2835,6 +3323,44 @@ LABEL_7:
   }
 }
 
+- (void)_chargingNotificationDeliveredWithIdentifier:(id)identifier forBatteryInfo:(id)info withType:(unsigned __int8)type
+{
+  typeCopy = type;
+  identifierCopy = identifier;
+  infoCopy = info;
+  identifier = [infoCopy identifier];
+  batteryCase = [infoCopy batteryCase];
+
+  [batteryCase level];
+  v12 = v11;
+
+  v13 = [(AALowBatteryAlertDaemon *)self _notificationWithIdentifier:identifier andType:typeCopy];
+  if (v13)
+  {
+    [v13 setReportTime:CFAbsoluteTimeGetCurrent()];
+    [v13 setReportBatteryLevel:v12];
+    [v13 setNotificationIdentifier:identifierCopy];
+    [(AALowBatteryAlertDaemon *)self _chargingNotificationUpdated:v13];
+    [(AALowBatteryAlertDaemon *)self _reportMetricsForNotificationTracker:v13];
+    if ([v13 dismissed])
+    {
+      if (dword_1002F6620 <= 90 && (dword_1002F6620 != -1 || _LogCategory_Initialize()))
+      {
+        identifier2 = [v13 identifier];
+        [v13 dismissTime];
+        v15 = CUPrintDateCF();
+        [v13 reportTime];
+        v16 = CUPrintDateCF();
+        LogPrintF(&dword_1002F6620, "[AALowBatteryAlertDaemon _chargingNotificationDeliveredWithIdentifier:forBatteryInfo:withType:]", 90, "Charging notification %@ was unexpectedly dismissed before it was fully posted, removing notification. Dismissed at: %s Posted at: %s", identifier2, v15, v16);
+      }
+
+      unCenter = [(AALowBatteryAlertDaemon *)self unCenter];
+      notificationIdentifier = [v13 notificationIdentifier];
+      [unCenter dismissUserNotificationWithIdentifier:notificationIdentifier];
+    }
+  }
+}
+
 - (void)_clearUserDismissedChargingNotificationsWhileProcessNotRunning
 {
   if ([(AALowBatteryAlertDaemon *)self systemFirstUnlocked])
@@ -2847,6 +3373,20 @@ LABEL_7:
     v4[4] = self;
     [unCenter visibleNotificationWithCategoryIdentifier:@"AAChargingNotificationUserNotifications" completion:v4];
   }
+}
+
+- (void)_userDismissedNotificationWithIdentifier:(id)identifier andType:(unsigned __int8)type
+{
+  v5 = [(AALowBatteryAlertDaemon *)self _notificationWithIdentifier:identifier andType:type];
+  v6 = v5;
+  if (v5)
+  {
+    v7 = v5;
+    v5 = [(AALowBatteryAlertDaemon *)self _dismissNotification:v5 withReason:1];
+    v6 = v7;
+  }
+
+  _objc_release_x1(v5, v6);
 }
 
 - (void)_aaBatteryMonitorEnsureStarted

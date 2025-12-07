@@ -18,11 +18,11 @@ double HDLCFrameFree(uint64_t a1)
   return result;
 }
 
-uint64_t HDLCFrameCreateDownlink(uint64_t a1, char *a2, int a3, _DWORD *a4, uint64_t a5, unsigned int a6, int a7, char a8)
+uint64_t HDLCFrameCreateDownlink(uint64_t *a1, char *a2, int a3, _DWORD *a4, uint64_t a5, unsigned int a6, int a7, char a8)
 {
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   *a4 = 0;
   if (!a3)
   {
@@ -87,11 +87,11 @@ uint64_t HDLCFrameCreateDownlink(uint64_t a1, char *a2, int a3, _DWORD *a4, uint
         {
           if (!v23)
           {
-            *(a1 + 8) = 0;
+            *(a1 + 2) = 0;
 LABEL_28:
-            if (*(a1 + 24))
+            if (a1[3])
             {
-              free(*(a1 + 24));
+              free(a1[3]);
               v20 = a1;
             }
 
@@ -131,7 +131,7 @@ LABEL_28:
 
         while (!__CFADD__(v22++, 1));
         v29 = v12 - v23;
-        *(a1 + 8) = v12 - v23;
+        *(a1 + 2) = v12 - v23;
         if (v23 || v29 <= 1)
         {
           goto LABEL_28;
@@ -147,9 +147,9 @@ LABEL_28:
         }
 
         while (v31);
-        *(a1 + 16) = v24;
-        *(a1 + 8) = v29 - 2;
-        *(a1 + 12) = v12;
+        *(a1 + 8) = v24;
+        *(a1 + 2) = v29 - 2;
+        *(a1 + 3) = v12;
         v14 = 1;
         if ((a8 & 1) != 0 && v24 != a7)
         {
@@ -466,7 +466,7 @@ uint64_t HDLCFrameGetMaxEncodedLength(uint64_t a1, double a2, int32x4_t a3, doub
   v29 = v8;
   v30 = v9;
   v8 = v6 & 0xFFFFFFFC;
-  v31 = (v7->u32 + v29);
+  v31 = (v7->i32 + v29);
   v32 = v29 - v8;
   a3.i32[0] = 8585347;
   a3.i16[2] = 131;

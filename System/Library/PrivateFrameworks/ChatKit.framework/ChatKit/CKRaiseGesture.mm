@@ -190,7 +190,7 @@ void __48__CKRaiseGesture_setProximityMonitoringEnabled___block_invoke()
   setProximityMonitoringEnabled__isExtension = [v0 hasSuffix:@".appex"];
 }
 
-void *__48__CKRaiseGesture_setProximityMonitoringEnabled___block_invoke_51()
+uint64_t (*__48__CKRaiseGesture_setProximityMonitoringEnabled___block_invoke_51())(void)
 {
   result = MEMORY[0x193AF5ED0]("BKSHIDServicesRequestProximityDetectionMode", @"BackBoardServices");
   setProximityMonitoringEnabled___BKSHIDServicesRequestProximityDetectionMode = result;
@@ -297,8 +297,9 @@ void __48__CKRaiseGesture_setProximityMonitoringEnabled___block_invoke_2(uint64_
   }
 }
 
-void __29__CKRaiseGesture_setEnabled___block_invoke(uint64_t a1, int a2)
+void __29__CKRaiseGesture_setEnabled___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v9 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -306,7 +307,7 @@ void __29__CKRaiseGesture_setEnabled___block_invoke(uint64_t a1, int a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v8[0] = 67109120;
-      v8[1] = a2;
+      v8[1] = v2;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Gesture handler triggered, gestureType is %u", v8, 8u);
     }
   }
@@ -324,14 +325,14 @@ void __29__CKRaiseGesture_setEnabled___block_invoke(uint64_t a1, int a2)
       }
     }
 
-    if (a2 == 1)
+    if (v2 == 1)
     {
       v7 = 2;
     }
 
     else
     {
-      if (a2)
+      if (v2)
       {
         return;
       }

@@ -32,17 +32,17 @@
   tableStyleIndexes = self->_tableStyleIndexes;
   if (!tableStyleIndexes)
   {
-    v8 = objc_alloc_init(MEMORY[0x277CCAB58]);
-    v9 = self->_tableStyleIndexes;
-    self->_tableStyleIndexes = v8;
+    v7 = objc_alloc_init(MEMORY[0x277CCAB58]);
+    v8 = self->_tableStyleIndexes;
+    self->_tableStyleIndexes = v7;
 
     tableStyleIndexes = self->_tableStyleIndexes;
   }
 
-  objc_msgSend_addIndex_(tableStyleIndexes, a2, index, v3, v4);
+  objc_msgSend_addIndex_(tableStyleIndexes, a2, index, v3);
   TSUSizeMax();
-  self->_maximumSize.width = v10;
-  self->_maximumSize.height = v11;
+  self->_maximumSize.width = v9;
+  self->_maximumSize.height = v10;
 }
 
 - (BOOL)hasTableStyles
@@ -50,7 +50,7 @@
   tableStyleIndexes = self->_tableStyleIndexes;
   if (tableStyleIndexes)
   {
-    LOBYTE(tableStyleIndexes) = objc_msgSend_count(tableStyleIndexes, a2, v2, v3, v4) != 0;
+    LOBYTE(tableStyleIndexes) = objc_msgSend_count(tableStyleIndexes, a2, v2, v3) != 0;
   }
 
   return tableStyleIndexes;
@@ -61,7 +61,7 @@
   tableStyleIndexes = self->_tableStyleIndexes;
   if (tableStyleIndexes)
   {
-    LOBYTE(tableStyleIndexes) = objc_msgSend_containsIndex_(tableStyleIndexes, a2, index, v3, v4);
+    LOBYTE(tableStyleIndexes) = objc_msgSend_containsIndex_(tableStyleIndexes, a2, index, v3);
   }
 
   return tableStyleIndexes;
@@ -71,13 +71,13 @@
 {
   blockCopy = block;
   tableStyleIndexes = self->_tableStyleIndexes;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_2211E5CF4;
-  v10[3] = &unk_278461298;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_2211E5CF4;
+  v9[3] = &unk_278461298;
+  v10 = blockCopy;
   v6 = blockCopy;
-  objc_msgSend_enumerateIndexesUsingBlock_(tableStyleIndexes, v7, v10, v8, v9);
+  objc_msgSend_enumerateIndexesUsingBlock_(tableStyleIndexes, v7, v9, v8);
 }
 
 - (void)addCellUID:(const TSKUIDStructCoord *)d flags:(unint64_t)flags addingMaximumSize:(CGSize)size
@@ -87,71 +87,71 @@
     cellUIDs = self->_cellUIDs;
     if (!cellUIDs)
     {
-      v10 = objc_alloc_init(TSTCellUIDList);
-      v11 = self->_cellUIDs;
-      self->_cellUIDs = v10;
+      v9 = objc_alloc_init(TSTCellUIDList);
+      v10 = self->_cellUIDs;
+      self->_cellUIDs = v9;
 
       cellUIDs = self->_cellUIDs;
     }
 
-    objc_msgSend_addCellUID_(cellUIDs, a2, d, flags, v5, size.width, size.height);
+    objc_msgSend_addCellUID_(cellUIDs, a2, d, flags, size.width, size.height);
     end = self->_cellFlags.__end_;
     cap = self->_cellFlags.__cap_;
     if (end >= cap)
     {
       begin = self->_cellFlags.__begin_;
+      v15 = end - begin;
       v16 = end - begin;
-      v17 = end - begin;
-      v18 = v17 + 1;
-      if ((v17 + 1) >> 61)
+      v17 = v16 + 1;
+      if ((v16 + 1) >> 61)
       {
         sub_22107C148();
       }
 
-      v19 = cap - begin;
-      if (v19 >> 2 > v18)
+      v18 = cap - begin;
+      if (v18 >> 2 > v17)
       {
-        v18 = v19 >> 2;
+        v17 = v18 >> 2;
       }
 
-      v20 = v19 >= 0x7FFFFFFFFFFFFFF8;
-      v21 = 0x1FFFFFFFFFFFFFFFLL;
-      if (!v20)
+      v19 = v18 >= 0x7FFFFFFFFFFFFFF8;
+      v20 = 0x1FFFFFFFFFFFFFFFLL;
+      if (!v19)
       {
-        v21 = v18;
+        v20 = v17;
       }
 
-      if (v21)
+      if (v20)
       {
-        sub_2210874C4(&self->_cellFlags, v21);
+        sub_2210874C4(&self->_cellFlags, v20);
       }
 
-      v22 = end - begin;
-      v23 = (8 * v17);
-      v24 = (8 * v17 - 8 * v22);
-      *v23 = flags;
-      v14 = v23 + 1;
-      memcpy(v24, begin, v16);
-      v25 = self->_cellFlags.__begin_;
-      self->_cellFlags.__begin_ = v24;
-      self->_cellFlags.__end_ = v14;
+      v21 = end - begin;
+      v22 = (8 * v16);
+      v23 = (8 * v16 - 8 * v21);
+      *v22 = flags;
+      v13 = v22 + 1;
+      memcpy(v23, begin, v15);
+      v24 = self->_cellFlags.__begin_;
+      self->_cellFlags.__begin_ = v23;
+      self->_cellFlags.__end_ = v13;
       self->_cellFlags.__cap_ = 0;
-      if (v25)
+      if (v24)
       {
-        operator delete(v25);
+        operator delete(v24);
       }
     }
 
     else
     {
       *end = flags;
-      v14 = end + 1;
+      v13 = end + 1;
     }
 
-    self->_cellFlags.__end_ = v14;
+    self->_cellFlags.__end_ = v13;
     TSUSizeMax();
-    self->_maximumSize.width = v26;
-    self->_maximumSize.height = v27;
+    self->_maximumSize.width = v25;
+    self->_maximumSize.height = v26;
   }
 }
 
@@ -160,7 +160,7 @@
   cellUIDs = self->_cellUIDs;
   if (cellUIDs)
   {
-    LOBYTE(cellUIDs) = objc_msgSend_count(cellUIDs, a2, v2, v3, v4) != 0;
+    LOBYTE(cellUIDs) = objc_msgSend_count(cellUIDs, a2, v2, v3) != 0;
   }
 
   return cellUIDs;
@@ -170,14 +170,14 @@
 {
   blockCopy = block;
   cellUIDs = self->_cellUIDs;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_2211E5F18;
-  v10[3] = &unk_2784612C0;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_2211E5F18;
+  v9[3] = &unk_2784612C0;
+  v9[4] = self;
+  v10 = blockCopy;
   v6 = blockCopy;
-  objc_msgSend_enumerateCellUIDsUsingBlock_(cellUIDs, v7, v10, v8, v9);
+  objc_msgSend_enumerateCellUIDsUsingBlock_(cellUIDs, v7, v9, v8);
 }
 
 - (CGSize)maximumSize

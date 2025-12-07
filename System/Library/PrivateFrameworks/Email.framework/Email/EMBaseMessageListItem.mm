@@ -853,12 +853,11 @@ void __39__EMBaseMessageListItem_initWithCoder___block_invoke(uint64_t a1, void 
 {
   dsCopy = ds;
   os_unfair_lock_lock(&self->_mailboxesLock);
-  mailboxObjectIDs = self->_mailboxObjectIDs;
   if ((EFArraysAreEqual() & 1) == 0)
   {
-    v5 = [dsCopy copy];
-    v6 = self->_mailboxObjectIDs;
-    self->_mailboxObjectIDs = v5;
+    v4 = [dsCopy copy];
+    mailboxObjectIDs = self->_mailboxObjectIDs;
+    self->_mailboxObjectIDs = v4;
 
     mailboxes = self->_mailboxes;
     self->_mailboxes = 0;
@@ -1022,21 +1021,19 @@ void __39__EMBaseMessageListItem_initWithCoder___block_invoke(uint64_t a1, void 
 
 - (NSArray)senderList
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   senderAddress = [(EMBaseMessageListItem *)self senderAddress];
   v3 = senderAddress;
   if (senderAddress)
   {
-    v7[0] = senderAddress;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = senderAddress;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = MEMORY[0x1E695E0F0];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

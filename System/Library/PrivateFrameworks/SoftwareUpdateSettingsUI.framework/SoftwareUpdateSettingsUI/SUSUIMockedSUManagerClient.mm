@@ -433,14 +433,6 @@ void __54__SUSUIMockedSUManagerClient_downloadAndInstallState___block_invoke(voi
   objc_storeStrong(location, 0);
 }
 
-uint64_t __54__SUSUIMockedSUManagerClient_downloadAndInstallState___block_invoke_2(void *a1)
-{
-  v1 = a1[5];
-  v2 = a1[6];
-  v3 = a1[7];
-  return (*(a1[8] + 16))(a1[8], a1[4]);
-}
-
 - (void)updatesDownloadableWithOptions:(id)options alternateDownloadOptions:(id)downloadOptions replyHandler:(id)handler
 {
   selfCopy = self;
@@ -1054,7 +1046,6 @@ void __185__SUSUIMockedSUManagerClient_areUpdatesDownloadableWithOptions_alterna
   }
 
   objc_storeStrong(v17, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v18;
 
   return v3;

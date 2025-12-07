@@ -16,10 +16,10 @@
 
 - (TRICellularParameterManager)init
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = TRICellularParameterManager;
-  v2 = [(TRICellularParameterManager *)&v24 init];
+  v26 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = TRICellularParameterManager;
+  v2 = [(TRICellularParameterManager *)&v23 init];
   if (v2)
   {
     gotLoadHelper_x8__OBJC_CLASS___CoreTelephonyClient(v3);
@@ -30,16 +30,16 @@
     v2->_telephonyClient = v7;
 
     v9 = v2->_telephonyClient;
-    v23 = 0;
-    v10 = [(CoreTelephonyClient *)v9 getPreferredDataSubscriptionContextSync:&v23];
-    v11 = v23;
+    v22 = 0;
+    v10 = [(CoreTelephonyClient *)v9 getPreferredDataSubscriptionContextSync:&v22];
+    v11 = v22;
     if (!v10)
     {
       v12 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v26 = v11;
+        v25 = v11;
         _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Unable to get preferred data subscription context: %{public}@", buf, 0xCu);
       }
     }
@@ -66,7 +66,6 @@
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -158,16 +157,16 @@ void __68__TRICellularParameterManager__dispatchQueueForCarrierInfoGathering__bl
 
 - (id)_fetchCarrierBundleIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
     gotLoadHelper_x8__OBJC_CLASS___CTBundle(v5);
     v7 = [objc_alloc(*(v6 + 1568)) initWithBundleType:1];
     telephonyClient = self->_telephonyClient;
-    v17 = 0;
-    v9 = [(CoreTelephonyClient *)telephonyClient copyBundleIdentifier:identifierCopy bundleType:v7 error:&v17];
-    v10 = v17;
+    v16 = 0;
+    v9 = [(CoreTelephonyClient *)telephonyClient copyBundleIdentifier:identifierCopy bundleType:v7 error:&v16];
+    v10 = v16;
     v11 = TRILogCategory_ClientFramework();
     v12 = v11;
     if (v10)
@@ -175,7 +174,7 @@ void __68__TRICellularParameterManager__dispatchQueueForCarrierInfoGathering__bl
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v19 = v10;
+        v18 = v10;
         _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Unable to get carrier bundle identifier: %{public}@", buf, 0xCu);
       }
 
@@ -187,7 +186,7 @@ void __68__TRICellularParameterManager__dispatchQueueForCarrierInfoGathering__bl
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v19 = v9;
+        v18 = v9;
         _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_DEFAULT, "Fetched Carrier bundle identifier from CoreTelephony: %{public}@", buf, 0xCu);
       }
 
@@ -213,26 +212,24 @@ void __68__TRICellularParameterManager__dispatchQueueForCarrierInfoGathering__bl
     v13 = &stru_287FA0430;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)_fetchCarrierCountryIsoCode:(id)code
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (code)
   {
     telephonyClient = self->_telephonyClient;
-    v17 = 0;
-    v5 = [(CoreTelephonyClient *)telephonyClient copyLastKnownMobileSubscriberCountryCode:code error:&v17];
-    v6 = v17;
+    v16 = 0;
+    v5 = [(CoreTelephonyClient *)telephonyClient copyLastKnownMobileSubscriberCountryCode:code error:&v16];
+    v6 = v16;
     if (v5)
     {
       v7 = self->_telephonyClient;
-      v16 = v6;
-      v8 = [(CoreTelephonyClient *)v7 copyMobileSubscriberIsoCountryCode:v5 error:&v16];
-      v9 = v16;
+      v15 = v6;
+      v8 = [(CoreTelephonyClient *)v7 copyMobileSubscriberIsoCountryCode:v5 error:&v15];
+      v9 = v15;
 
       v10 = TRILogCategory_ClientFramework();
       v11 = v10;
@@ -241,7 +238,7 @@ void __68__TRICellularParameterManager__dispatchQueueForCarrierInfoGathering__bl
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v19 = v9;
+          v18 = v9;
           _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Unable to get carrier country code: %{public}@", buf, 0xCu);
         }
 
@@ -253,7 +250,7 @@ void __68__TRICellularParameterManager__dispatchQueueForCarrierInfoGathering__bl
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v19 = v8;
+          v18 = v8;
           _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_DEFAULT, "Fetched Carrier country code from CoreTelephony: %{public}@", buf, 0xCu);
         }
 
@@ -274,7 +271,7 @@ void __68__TRICellularParameterManager__dispatchQueueForCarrierInfoGathering__bl
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v19 = v6;
+        v18 = v6;
         _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Unable to get last known mobile subscriber country code: %{public}@", buf, 0xCu);
       }
 
@@ -294,8 +291,6 @@ void __68__TRICellularParameterManager__dispatchQueueForCarrierInfoGathering__bl
 
     v12 = &stru_287FA0430;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -401,14 +396,14 @@ void __51__TRICellularParameterManager_carrierBundleChange___block_invoke(uint64
 
 - (void)_updateSystemInfo
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D737A8] hostingProcessIsTriald])
   {
     v2 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_26F567000, v2, OS_LOG_TYPE_DEFAULT, "Attempting to update System info due to cellular parameter change", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_26F567000, v2, OS_LOG_TYPE_DEFAULT, "Attempting to update System info due to cellular parameter change", &v10, 2u);
     }
 
     client = [MEMORY[0x277D73660] client];
@@ -423,8 +418,8 @@ void __51__TRICellularParameterManager_carrierBundleChange___block_invoke(uint64
       v9 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "System info update successful", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "System info update successful", &v10, 2u);
       }
     }
 
@@ -433,14 +428,12 @@ void __51__TRICellularParameterManager_carrierBundleChange___block_invoke(uint64
       mEMORY[0x277D737E0] = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(mEMORY[0x277D737E0], OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412290;
-        v12 = @"TRICellularParameterManager failed to update system info";
-        _os_log_error_impl(&dword_26F567000, mEMORY[0x277D737E0], OS_LOG_TYPE_ERROR, "%@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = @"TRICellularParameterManager failed to update system info";
+        _os_log_error_impl(&dword_26F567000, mEMORY[0x277D737E0], OS_LOG_TYPE_ERROR, "%@", &v10, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

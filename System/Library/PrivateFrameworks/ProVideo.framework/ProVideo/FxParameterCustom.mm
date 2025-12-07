@@ -14,7 +14,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_customPriv != 0, &cfstr_CustomprivNull.isa, v2, v3, v4, v5, v6, v7, v9.receiver);
+  FxDebugAssert(self->_customPriv != 0, &cfstr_CustomprivNull.isa, v2, v3, v4, v5, v6, v7);
   free(self->_customPriv);
   v9.receiver = self;
   v9.super_class = FxParameterCustom;

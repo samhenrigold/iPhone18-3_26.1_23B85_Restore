@@ -44,10 +44,10 @@ uint64_t protocol witness for IteratorProtocol.next() in conformance OSLogStore.
 
 void *OSLogStore.getEntries(with:at:matching:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
-  v12[0] = 0;
-  v4 = [v3 entriesEnumeratorWithOptions:a1 position:a2 predicate:a3 error:v12];
-  v5 = v12[0];
+  v11[1] = *MEMORY[0x29EDCA608];
+  v11[0] = 0;
+  v4 = [v3 entriesEnumeratorWithOptions:a1 position:a2 predicate:a3 error:v11];
+  v5 = v11[0];
   if (v4)
   {
     v6 = v4;
@@ -62,13 +62,12 @@ void *OSLogStore.getEntries(with:at:matching:)(uint64_t a1, uint64_t a2, uint64_
 
   else
   {
-    v8 = v12[0];
+    v8 = v11[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -84,7 +83,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

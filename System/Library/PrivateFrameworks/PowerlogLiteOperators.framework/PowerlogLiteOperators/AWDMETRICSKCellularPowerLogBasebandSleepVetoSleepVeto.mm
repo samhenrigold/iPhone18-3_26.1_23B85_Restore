@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
+- (id)subsystemAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (int)StringAsSubsystem:(id)subsystem;
 - (int)state;
@@ -43,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)subsystemAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259890[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSubsystem:(id)subsystem
@@ -107,6 +124,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2782598B8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -236,19 +268,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_blockerName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    subsystem = self->_subsystem;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -267,15 +298,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_6:
-    durationMs = self->_durationMs;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:

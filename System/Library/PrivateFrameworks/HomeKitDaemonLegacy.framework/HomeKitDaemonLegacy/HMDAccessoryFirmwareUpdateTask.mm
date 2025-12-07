@@ -178,12 +178,11 @@
 
 uint64_t __45__HMDAccessoryFirmwareUpdateTask_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_160101;
-  logCategory__hmf_once_v1_160101 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_160101;
+  logCategory__hmf_once_v1_160101 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

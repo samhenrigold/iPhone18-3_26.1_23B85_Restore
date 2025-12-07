@@ -105,13 +105,13 @@ void __35__HDDeviceQueryServer__queue_start__block_invoke(void *a1, uint64_t a2)
 
 id __35__HDDeviceQueryServer__queue_start__block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) profile];
   v5 = [v4 deviceManager];
-  v12 = 0;
-  v6 = [v5 deviceForPersistentID:v3 error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [v5 deviceForPersistentID:v3 error:&v11];
+  v7 = v11;
 
   if (!v6)
   {
@@ -119,25 +119,23 @@ id __35__HDDeviceQueryServer__queue_start__block_invoke_2(uint64_t a1, void *a2)
     v8 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138543874;
-      v14 = v11;
-      v15 = 2114;
-      v16 = v3;
-      v17 = 2114;
-      v18 = v7;
+      v13 = v10;
+      v14 = 2114;
+      v15 = v3;
+      v16 = 2114;
+      v17 = v7;
       _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to lookup device for ID %{public}@: %{public}@", buf, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 uint64_t __35__HDDeviceQueryServer__queue_start__block_invoke_297(uint64_t a1, void *a2, uint64_t a3)
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [*(a1 + 32) client];
   v7 = [v6 authorizationOracle];
@@ -148,54 +146,54 @@ uint64_t __35__HDDeviceQueryServer__queue_start__block_invoke_297(uint64_t a1, v
   {
     if (([v8 authorizationStatus] == 103 || objc_msgSend(v9, "authorizationStatus") == 101) && !objc_msgSend(v9, "authorizationMode"))
     {
-      v13 = [*(a1 + 32) objectType];
-      v14 = [v7 additionalAuthorizationPredicateForObjectType:v13 error:a3];
+      v12 = [*(a1 + 32) objectType];
+      v13 = [v7 additionalAuthorizationPredicateForObjectType:v12 error:a3];
 
-      if (v14)
+      if (v13)
       {
-        v34 = [objc_msgSend(*(a1 + 40) "dataObjectClass")];
-        v15 = [*(a1 + 32) profile];
-        v16 = [v15 deviceManager];
-        v38 = [v16 deviceEntityForNoDeviceWithError:a3];
+        v33 = [objc_msgSend(*(a1 + 40) "dataObjectClass")];
+        v14 = [*(a1 + 32) profile];
+        v15 = [v14 deviceManager];
+        v37 = [v15 deviceEntityForNoDeviceWithError:a3];
 
-        v17 = MEMORY[0x277D10B18];
-        v18 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v38, "persistentID")}];
-        v39 = [v17 predicateWithProperty:@"data_provenances.device_id" notEqualToValue:v18];
+        v16 = MEMORY[0x277D10B18];
+        v17 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v37, "persistentID")}];
+        v38 = [v16 predicateWithProperty:@"data_provenances.device_id" notEqualToValue:v17];
 
-        v19 = [*(a1 + 32) objectType];
-        v36 = HDSampleEntityPredicateForDataType(v19);
+        v18 = [*(a1 + 32) objectType];
+        v35 = HDSampleEntityPredicateForDataType(v18);
 
-        v20 = [*(a1 + 32) filter];
-        v21 = [*(a1 + 32) profile];
-        v22 = [v20 predicateWithProfile:v21];
+        v19 = [*(a1 + 32) filter];
+        v20 = [*(a1 + 32) profile];
+        v21 = [v19 predicateWithProfile:v20];
 
-        v37 = v14;
-        v23 = v22;
-        v24 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v36 otherPredicate:v22];
-        v25 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v24 otherPredicate:v14];
+        v36 = v13;
+        v22 = v21;
+        v23 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v35 otherPredicate:v21];
+        v24 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v23 otherPredicate:v13];
 
-        v26 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v25 otherPredicate:v39];
+        v25 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v24 otherPredicate:v38];
 
-        v27 = objc_alloc_init(MEMORY[0x277D10B80]);
-        [v27 setEntityClass:v34];
-        [v27 setPredicate:v26];
-        v28 = objc_alloc(MEMORY[0x277D10B78]);
-        v29 = [v5 databaseForEntityClass:v34];
-        v30 = [v28 initWithDatabase:v29 descriptor:v27];
+        v26 = objc_alloc_init(MEMORY[0x277D10B80]);
+        [v26 setEntityClass:v33];
+        [v26 setPredicate:v25];
+        v27 = objc_alloc(MEMORY[0x277D10B78]);
+        v28 = [v5 databaseForEntityClass:v33];
+        v29 = [v27 initWithDatabase:v28 descriptor:v26];
 
-        v43[0] = @"data_provenances.device_id";
-        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 3221225472;
-        v40[2] = __35__HDDeviceQueryServer__queue_start__block_invoke_2_308;
-        v40[3] = &unk_27861DE20;
-        v32 = *(a1 + 64);
-        v40[4] = *(a1 + 32);
-        v42 = v32;
-        v35 = *(a1 + 48);
-        v33 = v35;
-        v41 = v35;
-        v10 = [v30 enumerateProperties:v31 error:a3 enumerationHandler:v40];
+        v42[0] = @"data_provenances.device_id";
+        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __35__HDDeviceQueryServer__queue_start__block_invoke_2_308;
+        v39[3] = &unk_27861DE20;
+        v31 = *(a1 + 64);
+        v39[4] = *(a1 + 32);
+        v41 = v31;
+        v34 = *(a1 + 48);
+        v32 = v34;
+        v40 = v34;
+        v10 = [v29 enumerateProperties:v30 error:a3 enumerationHandler:v39];
 
         goto LABEL_7;
       }
@@ -210,7 +208,6 @@ uint64_t __35__HDDeviceQueryServer__queue_start__block_invoke_297(uint64_t a1, v
   v10 = 0;
 LABEL_7:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

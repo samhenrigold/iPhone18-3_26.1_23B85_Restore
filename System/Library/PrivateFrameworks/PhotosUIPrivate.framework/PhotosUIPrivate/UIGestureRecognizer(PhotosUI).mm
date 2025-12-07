@@ -1,10 +1,10 @@
 @interface UIGestureRecognizer(PhotosUI)
-- (uint64_t)pu_cancel;
+- (void)pu_cancel;
 @end
 
 @implementation UIGestureRecognizer(PhotosUI)
 
-- (uint64_t)pu_cancel
+- (void)pu_cancel
 {
   result = [self isEnabled];
   if (result)

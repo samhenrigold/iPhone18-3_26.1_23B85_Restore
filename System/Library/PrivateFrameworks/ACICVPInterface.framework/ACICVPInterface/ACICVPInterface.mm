@@ -1,65 +1,62 @@
-uint64_t cvp::CVPInterface::loadFirmware(cvp::CVPInterface *this, const char *__filename)
+uint64_t cvp::CVPInterface::loadFirmware(ACIUKextConnection **this, const char *__filename)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = fopen(__filename, "rb");
-  if (v2)
+  v3 = fopen(__filename, "rb");
+  if (v3)
   {
-    v3 = v2;
-    fseeko(v2, 0, 2);
-    ftello(v3);
-    fseeko(v3, 0, 0);
+    v4 = v3;
+    fseeko(v3, 0, 2);
+    ftello(v4);
+    fseeko(v4, 0, 0);
     operator new[]();
   }
 
-  cvp::CVPInterface::loadFirmware();
-  v4 = *MEMORY[0x277D85DE8];
+  cvp::CVPInterface::loadFirmware(__filename);
   return 3758097124;
 }
 
 uint64_t ACIUKextConnection::call(mach_port_t *this, uint32_t a2, unint64_t *a3, uint32_t a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v8 = _aciLogGeneral();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *this;
-    v12 = 136315650;
-    v13 = "IOReturn ACIUKextConnection::call(uint32_t, uint64_t *, uint32_t)";
-    v14 = 1024;
-    v15 = 60;
-    v16 = 1024;
-    v17 = v9;
-    _os_log_impl(&dword_23C3E4000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d _ioConnection: %x", &v12, 0x18u);
+    v11 = 136315650;
+    v12 = "IOReturn ACIUKextConnection::call(uint32_t, uint64_t *, uint32_t)";
+    v13 = 1024;
+    v14 = 60;
+    v15 = 1024;
+    v16 = v9;
+    _os_log_impl(&dword_23C3E4000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d _ioConnection: %x", &v11, 0x18u);
   }
 
-  result = IOConnectCallScalarMethod(*this, a2, a3, a4, 0, 0);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*this, a2, a3, a4, 0, 0);
 }
 
-BOOL cvp::CVPInterface::isFirmwareLoaded(mach_port_t **this)
+BOOL cvp::CVPInterface::isFirmwareLoaded(ACIUKextConnection **this)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v8 = 1;
+  v15 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v7 = 1;
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "BOOL cvp::CVPInterface::isFirmwareLoaded()";
+    v10 = "BOOL cvp::CVPInterface::isFirmwareLoaded()";
     _os_log_impl(&dword_23C3E4000, v2, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v3 = ACIUKextConnection::call(this[1], 2u, &v9, &v8);
+  v3 = ACIUKextConnection::call(this[1], 2u, &v8, &v7);
   v4 = _aciLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v11 = "BOOL cvp::CVPInterface::isFirmwareLoaded()";
-    v12 = 2048;
-    v13 = v9;
-    v14 = 1024;
-    v15 = v3;
+    v10 = "BOOL cvp::CVPInterface::isFirmwareLoaded()";
+    v11 = 2048;
+    v12 = v8;
+    v13 = 1024;
+    v14 = v3;
     _os_log_impl(&dword_23C3E4000, v4, OS_LOG_TYPE_DEFAULT, "%s output: %lld, ret: %x", buf, 0x1Cu);
   }
 
@@ -70,136 +67,129 @@ BOOL cvp::CVPInterface::isFirmwareLoaded(mach_port_t **this)
 
   else
   {
-    v5 = v9 == 0;
+    v5 = v8 == 0;
   }
 
-  result = !v5;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return !v5;
 }
 
 uint64_t ACIUKextConnection::call(mach_port_t *this, uint32_t a2, unint64_t *a3, unsigned int *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v8 = _aciLogGeneral();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *this;
-    v12 = 136315650;
-    v13 = "IOReturn ACIUKextConnection::call(uint32_t, uint64_t *, uint32_t *)";
-    v14 = 1024;
-    v15 = 70;
-    v16 = 1024;
-    v17 = v9;
-    _os_log_impl(&dword_23C3E4000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d _ioConnection: %x", &v12, 0x18u);
+    v11 = 136315650;
+    v12 = "IOReturn ACIUKextConnection::call(uint32_t, uint64_t *, uint32_t *)";
+    v13 = 1024;
+    v14 = 70;
+    v15 = 1024;
+    v16 = v9;
+    _os_log_impl(&dword_23C3E4000, v8, OS_LOG_TYPE_DEFAULT, "%s:%d _ioConnection: %x", &v11, 0x18u);
   }
 
-  result = IOConnectCallScalarMethod(*this, a2, 0, 0, a3, a4);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallScalarMethod(*this, a2, 0, 0, a3, a4);
 }
 
-uint64_t cvp::CVPInterface::forgetFirmware(cvp::CVPInterface *this)
+uint64_t cvp::CVPInterface::forgetFirmware(mach_port_t **this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "IOReturn cvp::CVPInterface::forgetFirmware()";
-    _os_log_impl(&dword_23C3E4000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "IOReturn cvp::CVPInterface::forgetFirmware()";
+    _os_log_impl(&dword_23C3E4000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
-  v3 = IOConnectCallStructMethod(**(this + 1), 1u, 0, 0, 0, 0);
+  v3 = IOConnectCallStructMethod(*this[1], 1u, 0, 0, 0, 0);
   v4 = _aciLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "IOReturn cvp::CVPInterface::forgetFirmware()";
-    v9 = 1024;
-    v10 = v3;
-    _os_log_impl(&dword_23C3E4000, v4, OS_LOG_TYPE_DEFAULT, "%s ret: %x", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "IOReturn cvp::CVPInterface::forgetFirmware()";
+    v8 = 1024;
+    v9 = v3;
+    _os_log_impl(&dword_23C3E4000, v4, OS_LOG_TYPE_DEFAULT, "%s ret: %x", &v6, 0x12u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-uint64_t cvp::CVPInterface::powerOn(cvp::CVPInterface *this)
+uint64_t cvp::CVPInterface::powerOn(mach_port_t **this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "IOReturn cvp::CVPInterface::powerOn()";
-    _os_log_impl(&dword_23C3E4000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "IOReturn cvp::CVPInterface::powerOn()";
+    _os_log_impl(&dword_23C3E4000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
-  v3 = IOConnectCallStructMethod(**(this + 1), 3u, 0, 0, 0, 0);
+  v3 = IOConnectCallStructMethod(*this[1], 3u, 0, 0, 0, 0);
   v4 = _aciLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "IOReturn cvp::CVPInterface::powerOn()";
-    v9 = 1024;
-    v10 = v3;
-    _os_log_impl(&dword_23C3E4000, v4, OS_LOG_TYPE_DEFAULT, "%s ret: %x", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "IOReturn cvp::CVPInterface::powerOn()";
+    v8 = 1024;
+    v9 = v3;
+    _os_log_impl(&dword_23C3E4000, v4, OS_LOG_TYPE_DEFAULT, "%s ret: %x", &v6, 0x12u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-uint64_t cvp::CVPInterface::powerOff(cvp::CVPInterface *this)
+uint64_t cvp::CVPInterface::powerOff(mach_port_t **this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "IOReturn cvp::CVPInterface::powerOff()";
-    _os_log_impl(&dword_23C3E4000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "IOReturn cvp::CVPInterface::powerOff()";
+    _os_log_impl(&dword_23C3E4000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
-  v3 = IOConnectCallStructMethod(**(this + 1), 4u, 0, 0, 0, 0);
+  v3 = IOConnectCallStructMethod(*this[1], 4u, 0, 0, 0, 0);
   v4 = _aciLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "IOReturn cvp::CVPInterface::powerOff()";
-    v9 = 1024;
-    v10 = v3;
-    _os_log_impl(&dword_23C3E4000, v4, OS_LOG_TYPE_DEFAULT, "%s ret: %x", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "IOReturn cvp::CVPInterface::powerOff()";
+    v8 = 1024;
+    v9 = v3;
+    _os_log_impl(&dword_23C3E4000, v4, OS_LOG_TYPE_DEFAULT, "%s ret: %x", &v6, 0x12u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 BOOL cvp::CVPInterface::isPowered(mach_port_t **this)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v8 = 1;
+  v15 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v7 = 1;
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "BOOL cvp::CVPInterface::isPowered()";
+    v10 = "BOOL cvp::CVPInterface::isPowered()";
     _os_log_impl(&dword_23C3E4000, v2, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v3 = ACIUKextConnection::call(this[1], 5u, &v9, &v8);
+  v3 = ACIUKextConnection::call(this[1], 5u, &v8, &v7);
   v4 = _aciLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v11 = "BOOL cvp::CVPInterface::isPowered()";
-    v12 = 2048;
-    v13 = v9;
-    v14 = 1024;
-    v15 = v3;
+    v10 = "BOOL cvp::CVPInterface::isPowered()";
+    v11 = 2048;
+    v12 = v8;
+    v13 = 1024;
+    v14 = v3;
     _os_log_impl(&dword_23C3E4000, v4, OS_LOG_TYPE_DEFAULT, "%s output: %lld, ret: %x", buf, 0x1Cu);
   }
 
@@ -210,48 +200,46 @@ BOOL cvp::CVPInterface::isPowered(mach_port_t **this)
 
   else
   {
-    v5 = v9 == 0;
+    v5 = v8 == 0;
   }
 
-  result = !v5;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return !v5;
 }
 
-uint64_t cvp::CVPInterface::sendCommand(uint64_t a1, int *a2, unint64_t a3)
+uint64_t cvp::CVPInterface::sendCommand(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v3 = a3;
-  v17[2] = *MEMORY[0x277D85DE8];
-  v17[0] = a2;
-  v17[1] = a3;
+  v16[2] = *MEMORY[0x277D85DE8];
+  v16[0] = a2;
+  v16[1] = a3;
   if (*a1 == 1)
   {
     v6 = _aciLogGeneral();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "IOReturn cvp::CVPInterface::sendCommand(isp::sCIspCommandHeader *, size_t)";
-      v13 = 1040;
-      v14 = v3;
-      v15 = 2096;
-      v16 = a2;
-      _os_log_impl(&dword_23C3E4000, v6, OS_LOG_TYPE_DEFAULT, "%s in: %.*P", &v11, 0x1Cu);
+      v10 = 136315650;
+      v11 = "IOReturn cvp::CVPInterface::sendCommand(isp::sCIspCommandHeader *, size_t)";
+      v12 = 1040;
+      v13 = v3;
+      v14 = 2096;
+      v15 = a2;
+      _os_log_impl(&dword_23C3E4000, v6, OS_LOG_TYPE_DEFAULT, "%s in: %.*P", &v10, 0x1Cu);
     }
   }
 
-  v7 = ACIUKextConnection::call(*(a1 + 8), 6u, v17, 2u);
+  v7 = ACIUKextConnection::call(*(a1 + 8), 6u, v16, 2u);
   if (*a1 == 1)
   {
     v8 = _aciLogGeneral();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "IOReturn cvp::CVPInterface::sendCommand(isp::sCIspCommandHeader *, size_t)";
-      v13 = 1040;
-      v14 = v3;
-      v15 = 2096;
-      v16 = a2;
-      _os_log_impl(&dword_23C3E4000, v8, OS_LOG_TYPE_DEFAULT, "%s out %.*P", &v11, 0x1Cu);
+      v10 = 136315650;
+      v11 = "IOReturn cvp::CVPInterface::sendCommand(isp::sCIspCommandHeader *, size_t)";
+      v12 = 1040;
+      v13 = v3;
+      v14 = 2096;
+      v15 = a2;
+      _os_log_impl(&dword_23C3E4000, v8, OS_LOG_TYPE_DEFAULT, "%s out %.*P", &v10, 0x1Cu);
     }
   }
 
@@ -260,27 +248,24 @@ uint64_t cvp::CVPInterface::sendCommand(uint64_t a1, int *a2, unint64_t a3)
     cvp::CVPInterface::sendCommand(a2);
   }
 
-  if (a2[3])
+  if (*(a2 + 12))
   {
-    cvp::CVPInterface::sendCommand(a2, a2 + 3, &v11);
-    v7 = v11;
+    cvp::CVPInterface::sendCommand(a2, (a2 + 12), &v10);
+    return v10;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t cvp::CVPInterface::sendBuffers(cvp::CVPInterface *this, unsigned __int8 *inputStruct, size_t inputStructCnt, mach_port_t wake_port)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(this + 1);
-  v9 = 0u;
-  v10 = 0u;
-  *reference = 0u;
   v8 = 0u;
-  result = IOConnectCallAsyncMethod(*v4, 7u, wake_port, reference, 8u, 0, 0, inputStruct, inputStructCnt, 0, 0, 0, 0);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v9 = 0u;
+  *reference = 0u;
+  v7 = 0u;
+  return IOConnectCallAsyncMethod(*v4, 7u, wake_port, reference, 8u, 0, 0, inputStruct, inputStructCnt, 0, 0, 0, 0);
 }
 
 uint64_t cvp::CVPInterface::sendStart(cvp::CVPInterface *this)
@@ -406,25 +391,24 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdBuildInfo(uint64_t a1, void *a2,
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdBuildInfo(uint64_t a1, uint64_t a2)
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = @"name";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = @"name";
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2 + 16];
-  v12[0] = v3;
-  v11[1] = @"linkDate";
+  v11[0] = v3;
+  v10[1] = @"linkDate";
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2 + 48];
-  v12[1] = v4;
-  v11[2] = @"release";
+  v11[1] = v4;
+  v10[2] = @"release";
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2 + 80];
-  v12[2] = v5;
-  v11[3] = @"toolchainName";
+  v11[2] = v5;
+  v10[3] = @"toolchainName";
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2 + 112];
-  v12[3] = v6;
-  v11[4] = @"toolchainVersion";
+  v11[3] = v6;
+  v10[4] = @"toolchainVersion";
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2 + 144];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
+  v11[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -442,7 +426,7 @@ void *cvp::CVPInterface::CreateArrayFrom_sCIspCmdBuildInfo(uint64_t a1, uint64_t
   return i;
 }
 
-uint64_t cvp::CVPInterface::Dict2Struct_ModuleInfo(uint64_t a1, void *a2, _WORD *a3)
+uint64_t cvp::CVPInterface::Dict2Struct_ModuleInfo(uint64_t a1, void *a2, unsigned __int16 *a3)
 {
   v4 = a2;
   v5 = [v4 objectForKeyedSubscript:@"available"];
@@ -540,31 +524,30 @@ uint64_t cvp::CVPInterface::Dict2Struct_ModuleInfo(uint64_t a1, void *a2, _WORD 
 
 uint64_t cvp::CVPInterface::CreateDictFrom_ModuleInfo(uint64_t a1, unsigned __int16 *a2)
 {
-  v14[7] = *MEMORY[0x277D85DE8];
-  v13[0] = @"available";
+  v13[7] = *MEMORY[0x277D85DE8];
+  v12[0] = @"available";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*a2];
-  v14[0] = v3;
-  v13[1] = @"year";
+  v13[0] = v3;
+  v12[1] = @"year";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[1]];
-  v14[1] = v4;
-  v13[2] = @"work_week";
+  v13[1] = v4;
+  v12[2] = @"work_week";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[2]];
-  v14[2] = v5;
-  v13[3] = @"day_of_week";
+  v13[2] = v5;
+  v12[3] = @"day_of_week";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[3]];
-  v14[3] = v6;
-  v13[4] = @"integrator";
+  v13[3] = v6;
+  v12[4] = @"integrator";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[4]];
-  v14[4] = v7;
-  v13[5] = @"lens_id";
+  v13[4] = v7;
+  v12[5] = @"lens_id";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[5]];
-  v14[5] = v8;
-  v13[6] = @"serial";
+  v13[5] = v8;
+  v12[6] = @"serial";
   v9 = [MEMORY[0x277CBEA90] dataWithBytes:a2 + 6 length:32];
-  v14[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:7];
+  v13[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -676,34 +659,33 @@ uint64_t cvp::CVPInterface::Dict2Struct_SensorInfo(uint64_t a1, void *a2, uint64
 
 uint64_t cvp::CVPInterface::CreateDictFrom_SensorInfo(uint64_t a1, unsigned int *a2)
 {
-  v15[8] = *MEMORY[0x277D85DE8];
-  v14[0] = @"available";
+  v14[8] = *MEMORY[0x277D85DE8];
+  v13[0] = @"available";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*a2];
-  v15[0] = v3;
-  v14[1] = @"id";
+  v14[0] = v3;
+  v13[1] = @"id";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[1]];
-  v15[1] = v4;
-  v14[2] = @"num_test_patterns";
+  v14[1] = v4;
+  v13[2] = @"num_test_patterns";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[2]];
-  v15[2] = v5;
-  v14[3] = @"nvm_size";
+  v14[2] = v5;
+  v13[3] = @"nvm_size";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[3]];
-  v15[3] = v6;
-  v14[4] = @"first_pix";
+  v14[3] = v6;
+  v13[4] = @"first_pix";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[4]];
-  v15[4] = v7;
-  v14[5] = @"serial";
+  v14[4] = v7;
+  v13[5] = @"serial";
   v8 = [MEMORY[0x277CBEA90] dataWithBytes:a2 + 5 length:8];
-  v15[5] = v8;
-  v14[6] = @"camera_build";
+  v14[5] = v8;
+  v13[6] = @"camera_build";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(a2 + 14)];
-  v15[6] = v9;
-  v14[7] = @"snum";
+  v14[6] = v9;
+  v13[7] = @"snum";
   v10 = [MEMORY[0x277CBEA90] dataWithBytes:a2 + 30 length:20];
-  v15[7] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:8];
+  v14[7] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:8];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -755,19 +737,18 @@ uint64_t cvp::CVPInterface::Dict2Struct_ChannelInfo(uint64_t a1, void *a2, uint6
 
 uint64_t cvp::CVPInterface::CreateDictFrom_ChannelInfo(uint64_t a1, uint64_t a2)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"module_info";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"module_info";
   DictFrom_ModuleInfo = cvp::CVPInterface::CreateDictFrom_ModuleInfo(a1, a2);
-  v10[0] = DictFrom_ModuleInfo;
-  v9[1] = @"sensor_info";
+  v9[0] = DictFrom_ModuleInfo;
+  v8[1] = @"sensor_info";
   DictFrom_SensorInfo = cvp::CVPInterface::CreateDictFrom_SensorInfo(DictFrom_ModuleInfo, (a2 + 44));
-  v10[1] = DictFrom_SensorInfo;
-  v9[2] = @"num_configs";
+  v9[1] = DictFrom_SensorInfo;
+  v8[2] = @"num_configs";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 96)];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -850,20 +831,19 @@ LABEL_9:
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdConfigGet(uint64_t a1, uint64_t a2)
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v10[0] = @"num_channels";
+  v10[3] = *MEMORY[0x277D85DE8];
+  v9[0] = @"num_channels";
   v3 = (a2 + 16);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v11[0] = v4;
-  v10[1] = @"channel_info";
+  v10[0] = v4;
+  v9[1] = @"channel_info";
   ArrayFrom_ChannelInfo = cvp::CVPInterface::CreateArrayFrom_ChannelInfo(v4, a2 + 20, *v3);
-  v11[1] = ArrayFrom_ChannelInfo;
-  v10[2] = @"timestamp_frequency";
+  v10[1] = ArrayFrom_ChannelInfo;
+  v9[2] = @"timestamp_frequency";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 820)];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
+  v10[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1085,55 +1065,54 @@ uint64_t cvp::CVPInterface::Dict2Struct_SensorConfig(uint64_t a1, void *a2, uint
 
 uint64_t cvp::CVPInterface::CreateDictFrom_SensorConfig(uint64_t a1, unsigned __int16 *a2)
 {
-  v22[15] = *MEMORY[0x277D85DE8];
-  v21[0] = @"raw_width";
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*a2];
-  v22[0] = v20;
-  v21[1] = @"raw_height";
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[1]];
-  v22[1] = v19;
-  v21[2] = @"readout_width";
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[2]];
-  v22[2] = v18;
-  v21[3] = @"readout_height";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[3]];
-  v22[3] = v17;
-  v21[4] = @"binning_horizontal";
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 2)];
-  v22[4] = v16;
-  v21[5] = @"binning_vertical";
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 3)];
-  v22[5] = v15;
-  v21[6] = @"max_frame_rate";
+  v21[15] = *MEMORY[0x277D85DE8];
+  v20[0] = @"raw_width";
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*a2];
+  v21[0] = v19;
+  v20[1] = @"raw_height";
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[1]];
+  v21[1] = v18;
+  v20[2] = @"readout_width";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[2]];
+  v21[2] = v17;
+  v20[3] = @"readout_height";
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[3]];
+  v21[3] = v16;
+  v20[4] = @"binning_horizontal";
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 2)];
+  v21[4] = v15;
+  v20[5] = @"binning_vertical";
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 3)];
+  v21[5] = v14;
+  v20[6] = @"max_frame_rate";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 4)];
-  v22[6] = v3;
-  v21[7] = @"min_frame_rate";
+  v21[6] = v3;
+  v20[7] = @"min_frame_rate";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 5)];
-  v22[7] = v4;
-  v21[8] = @"output_format";
+  v21[7] = v4;
+  v20[8] = @"output_format";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 6)];
-  v22[8] = v5;
-  v21[9] = @"pixel_clock";
+  v21[8] = v5;
+  v20[9] = @"pixel_clock";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 7)];
-  v22[9] = v6;
-  v21[10] = @"supported_binning_modes";
+  v21[9] = v6;
+  v20[10] = @"supported_binning_modes";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 8)];
-  v22[10] = v7;
-  v21[11] = @"max_integration_time";
+  v21[10] = v7;
+  v20[11] = @"max_integration_time";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 9)];
-  v22[11] = v8;
-  v21[12] = @"min_integration_time";
+  v21[11] = v8;
+  v20[12] = @"min_integration_time";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 10)];
-  v22[12] = v9;
-  v21[13] = @"max_gain";
+  v21[12] = v9;
+  v20[13] = @"max_gain";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a2[22]];
-  v22[13] = v10;
-  v21[14] = @"black_level";
+  v21[13] = v10;
+  v20[14] = @"black_level";
   v11 = [MEMORY[0x277CCABB0] numberWithShort:a2[23]];
-  v22[14] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:15];
+  v21[14] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:15];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1189,17 +1168,16 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdCameraConfigsGet(uint64_t a1, vo
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdCameraConfigsGet(uint64_t a1, uint64_t a2)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"num_configs";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"num_configs";
   v3 = (a2 + 16);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v9[1] = @"configs";
-  v10[0] = v4;
+  v8[1] = @"configs";
+  v9[0] = v4;
   ArrayFrom_SensorConfig = cvp::CVPInterface::CreateArrayFrom_SensorConfig(v4, (a2 + 20), *v3);
-  v10[1] = ArrayFrom_SensorConfig;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = ArrayFrom_SensorConfig;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1233,13 +1211,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdCameraConfigSelect(uint64_t a1, 
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdCameraConfigSelect(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"index";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"index";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1257,7 +1234,7 @@ void *cvp::CVPInterface::CreateArrayFrom_sCIspCmdCameraConfigSelect(uint64_t a1,
   return i;
 }
 
-uint64_t cvp::CVPInterface::Dict2Struct_RasterBufferConfig(uint64_t a1, void *a2, _DWORD *a3)
+uint64_t cvp::CVPInterface::Dict2Struct_RasterBufferConfig(uint64_t a1, void *a2, unsigned int *a3)
 {
   v4 = a2;
   v5 = [v4 objectForKeyedSubscript:@"width"];
@@ -1318,22 +1295,21 @@ uint64_t cvp::CVPInterface::Dict2Struct_RasterBufferConfig(uint64_t a1, void *a2
 
 uint64_t cvp::CVPInterface::CreateDictFrom_RasterBufferConfig(uint64_t a1, unsigned int *a2)
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"width";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"width";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*a2];
-  v11[0] = v3;
-  v10[1] = @"height";
+  v10[0] = v3;
+  v9[1] = @"height";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[1]];
-  v11[1] = v4;
-  v10[2] = @"format";
+  v10[1] = v4;
+  v9[2] = @"format";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[2]];
-  v11[2] = v5;
-  v10[3] = @"stride";
+  v10[2] = v5;
+  v9[3] = @"stride";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[3]];
-  v11[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
+  v10[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1367,13 +1343,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_MetadataBufferConfig(uint64_t a1, void *
 
 uint64_t cvp::CVPInterface::CreateDictFrom_MetadataBufferConfig(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"size";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"size";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:*a2];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1391,7 +1366,7 @@ void *cvp::CVPInterface::CreateArrayFrom_MetadataBufferConfig(uint64_t a1, void 
   return i;
 }
 
-uint64_t cvp::CVPInterface::Dict2Struct_BufferPoolInfo(uint64_t a1, void *a2, _DWORD *a3)
+uint64_t cvp::CVPInterface::Dict2Struct_BufferPoolInfo(uint64_t a1, void *a2, unsigned int *a3)
 {
   v4 = a2;
   v5 = [v4 objectForKeyedSubscript:@"output"];
@@ -1466,28 +1441,27 @@ uint64_t cvp::CVPInterface::Dict2Struct_BufferPoolInfo(uint64_t a1, void *a2, _D
 
 uint64_t cvp::CVPInterface::CreateDictFrom_BufferPoolInfo(uint64_t a1, unsigned int *a2)
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"output";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"output";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*a2];
-  v13[0] = v3;
-  v12[1] = @"buffer_type";
+  v12[0] = v3;
+  v11[1] = @"buffer_type";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[1]];
-  v13[1] = v4;
-  v12[2] = @"raster_buffer_config";
+  v12[1] = v4;
+  v11[2] = @"raster_buffer_config";
   DictFrom_RasterBufferConfig = cvp::CVPInterface::CreateDictFrom_RasterBufferConfig(v4, a2 + 2);
-  v13[2] = DictFrom_RasterBufferConfig;
-  v12[3] = @"metadata_buffer_config";
+  v12[2] = DictFrom_RasterBufferConfig;
+  v11[3] = @"metadata_buffer_config";
   DictFrom_MetadataBufferConfig = cvp::CVPInterface::CreateDictFrom_MetadataBufferConfig(DictFrom_RasterBufferConfig, a2 + 1);
-  v13[3] = DictFrom_MetadataBufferConfig;
-  v12[4] = @"alignment";
+  v12[3] = DictFrom_MetadataBufferConfig;
+  v11[4] = @"alignment";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[6]];
-  v13[4] = v7;
-  v12[5] = @"min_buffer_count";
+  v12[4] = v7;
+  v11[5] = @"min_buffer_count";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[7]];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1529,13 +1503,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdBufferPoolInfoGet(uint64_t a1, v
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdBufferPoolInfoGet(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"pool_info";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"pool_info";
   ArrayFrom_BufferPoolInfo = cvp::CVPInterface::CreateArrayFrom_BufferPoolInfo(a1, (a2 + 16), 3);
-  v7[0] = ArrayFrom_BufferPoolInfo;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = ArrayFrom_BufferPoolInfo;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1553,7 +1526,7 @@ void *cvp::CVPInterface::CreateArrayFrom_sCIspCmdBufferPoolInfoGet(uint64_t a1, 
   return i;
 }
 
-uint64_t cvp::CVPInterface::Dict2Struct_AllocatedBufferPoolInfo(uint64_t a1, void *a2, _DWORD *a3)
+uint64_t cvp::CVPInterface::Dict2Struct_AllocatedBufferPoolInfo(uint64_t a1, void *a2, unsigned int *a3)
 {
   v4 = a2;
   v5 = [v4 objectForKeyedSubscript:@"output"];
@@ -1601,19 +1574,18 @@ uint64_t cvp::CVPInterface::Dict2Struct_AllocatedBufferPoolInfo(uint64_t a1, voi
 
 uint64_t cvp::CVPInterface::CreateDictFrom_AllocatedBufferPoolInfo(uint64_t a1, unsigned int *a2)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"output";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"output";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*a2];
-  v10[0] = v3;
-  v9[1] = @"id";
+  v9[0] = v3;
+  v8[1] = @"id";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[1]];
-  v10[1] = v4;
-  v9[2] = @"num_buffers";
+  v9[1] = v4;
+  v8[2] = @"num_buffers";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[2]];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1669,17 +1641,16 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdBufferPoolInfoSet(uint64_t a1, v
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdBufferPoolInfoSet(uint64_t a1, uint64_t a2)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"count";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"count";
   v3 = (a2 + 16);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v9[1] = @"pool_info";
-  v10[0] = v4;
+  v8[1] = @"pool_info";
+  v9[0] = v4;
   ArrayFrom_AllocatedBufferPoolInfo = cvp::CVPInterface::CreateArrayFrom_AllocatedBufferPoolInfo(v4, (a2 + 20), *v3);
-  v10[1] = ArrayFrom_AllocatedBufferPoolInfo;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = ArrayFrom_AllocatedBufferPoolInfo;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1713,13 +1684,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdRpcEnable(uint64_t a1, void *a2,
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdRpcEnable(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"enable";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"enable";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1737,7 +1707,7 @@ void *cvp::CVPInterface::CreateArrayFrom_sCIspCmdRpcEnable(uint64_t a1, uint64_t
   return i;
 }
 
-uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdAEFpsSetting(uint64_t a1, void *a2, _DWORD *a3)
+uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdAEFpsSetting(uint64_t a1, void *a2, unsigned int *a3)
 {
   v4 = a2;
   v5 = [v4 objectForKeyedSubscript:@"maxFps"];
@@ -1785,19 +1755,18 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdAEFpsSetting(uint64_t a1, void *
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdAEFpsSetting(uint64_t a1, unsigned int *a2)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"maxFps";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"maxFps";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*a2];
-  v10[0] = v3;
-  v9[1] = @"minFps";
+  v9[0] = v3;
+  v8[1] = @"minFps";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[1]];
-  v10[1] = v4;
-  v9[2] = @"maxExpTimeInMicroseconds";
+  v9[1] = v4;
+  v8[2] = @"maxExpTimeInMicroseconds";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[2]];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1815,7 +1784,7 @@ void *cvp::CVPInterface::CreateArrayFrom_sCIspCmdAEFpsSetting(uint64_t a1, unsig
   return i;
 }
 
-uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAEFpsSetting(uint64_t a1, void *a2, _DWORD *a3)
+uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAEFpsSetting(uint64_t a1, void *a2, unsigned int *a3)
 {
   v4 = a2;
   v5 = [v4 objectForKeyedSubscript:@"chIdx"];
@@ -1843,16 +1812,15 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAEFpsSetting(uint64_t a1, void
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEFpsSetting(uint64_t a1, unsigned int *a2)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"chIdx";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"chIdx";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*a2];
-  v8[1] = @"setting";
-  v9[0] = v3;
+  v7[1] = @"setting";
+  v8[0] = v3;
   DictFrom_sCIspCmdAEFpsSetting = cvp::CVPInterface::CreateDictFrom_sCIspCmdAEFpsSetting(v3, a2 + 1);
-  v9[1] = DictFrom_sCIspCmdAEFpsSetting;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v8[1] = DictFrom_sCIspCmdAEFpsSetting;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1908,17 +1876,16 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAEFpsUpdate(uint64_t a1, void 
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEFpsUpdate(uint64_t a1, uint64_t a2)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"numOfCh";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"numOfCh";
   v3 = (a2 + 16);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v9[1] = @"chCtrl";
-  v10[0] = v4;
+  v8[1] = @"chCtrl";
+  v9[0] = v4;
   ArrayFrom_sCIspCmdChAEFpsSetting = cvp::CVPInterface::CreateArrayFrom_sCIspCmdChAEFpsSetting(v4, (a2 + 20), *v3);
-  v10[1] = ArrayFrom_sCIspCmdChAEFpsSetting;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = ArrayFrom_sCIspCmdChAEFpsSetting;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2023,28 +1990,27 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAEManualControl(uint64_t a1, v
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEManualControl(uint64_t a1, uint64_t a2)
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"exposoureTimeUs";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"exposoureTimeUs";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v13[0] = v3;
-  v12[1] = @"sensorAnalogGain";
+  v12[0] = v3;
+  v11[1] = @"sensorAnalogGain";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(a2 + 20)];
-  v13[1] = v4;
-  v12[2] = @"ispDigitalGain";
+  v12[1] = v4;
+  v11[2] = @"ispDigitalGain";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(a2 + 22)];
-  v13[2] = v5;
-  v12[3] = @"sensorDigitalGain";
+  v12[2] = v5;
+  v11[3] = @"sensorDigitalGain";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(a2 + 24)];
-  v13[3] = v6;
-  v12[4] = @"tag";
+  v12[3] = v6;
+  v11[4] = @"tag";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 28)];
-  v13[4] = v7;
-  v12[5] = @"frameRate";
+  v12[4] = v7;
+  v11[5] = @"frameRate";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 32)];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2078,13 +2044,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAETargetSet(uint64_t a1, void 
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChAETargetSet(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"target";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"target";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2118,13 +2083,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAETargetGet(uint64_t a1, void 
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChAETargetGet(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"target";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"target";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2158,13 +2122,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAEEnable(uint64_t a1, void *a2
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEEnable(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"enable";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"enable";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2198,13 +2161,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAEStatusGet(uint64_t a1, void 
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEStatusGet(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"aeStatus";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"aeStatus";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2238,13 +2200,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAWBEnable(uint64_t a1, void *a
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChAWBEnable(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"enable";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"enable";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2278,13 +2239,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChAWBStatusGet(uint64_t a1, void
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChAWBStatusGet(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"stable";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"stable";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2323,14 +2283,13 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChSensorTemperatureGet(uint64_t 
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChSensorTemperatureGet(double a1, uint64_t a2, uint64_t a3)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"temperature";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"temperature";
   LODWORD(a1) = *(a3 + 16);
   v3 = [MEMORY[0x277CCABB0] numberWithFloat:a1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -2435,28 +2394,27 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdI2CRead(uint64_t a1, void *a2, _
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdI2CRead(uint64_t a1, unsigned int *a2)
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"bus";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"bus";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[4]];
-  v13[0] = v3;
-  v12[1] = @"address";
+  v12[0] = v3;
+  v11[1] = @"address";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[5]];
-  v13[1] = v4;
-  v12[2] = @"subaddress";
+  v12[1] = v4;
+  v11[2] = @"subaddress";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[6]];
-  v13[2] = v5;
-  v12[3] = @"subaddressLen";
+  v12[2] = v5;
+  v11[3] = @"subaddressLen";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[7]];
-  v13[3] = v6;
-  v12[4] = @"data";
+  v12[3] = v6;
+  v11[4] = @"data";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[8]];
-  v13[4] = v7;
-  v12[5] = @"dataLen";
+  v12[4] = v7;
+  v11[5] = @"dataLen";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[9]];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2561,28 +2519,27 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdI2CWrite(uint64_t a1, void *a2, 
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdI2CWrite(uint64_t a1, unsigned int *a2)
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"bus";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"bus";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[4]];
-  v13[0] = v3;
-  v12[1] = @"address";
+  v12[0] = v3;
+  v11[1] = @"address";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[5]];
-  v13[1] = v4;
-  v12[2] = @"subaddress";
+  v12[1] = v4;
+  v11[2] = @"subaddress";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[6]];
-  v13[2] = v5;
-  v12[3] = @"subaddressLen";
+  v12[2] = v5;
+  v11[3] = @"subaddressLen";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[7]];
-  v13[3] = v6;
-  v12[4] = @"data";
+  v12[3] = v6;
+  v11[4] = @"data";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[8]];
-  v13[4] = v7;
-  v12[5] = @"dataLen";
+  v12[4] = v7;
+  v11[5] = @"dataLen";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[9]];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2616,13 +2573,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChDPCEnable(uint64_t a1, void *a
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChDPCEnable(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"enabled";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"enabled";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2686,19 +2642,18 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdChSensorNVMGet(uint64_t a1, void
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdChSensorNVMGet(uint64_t a1, uint64_t a2)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"offset";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"offset";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 16)];
-  v10[0] = v3;
-  v9[1] = @"size";
+  v9[0] = v3;
+  v8[1] = @"size";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a2 + 20)];
-  v10[1] = v4;
-  v9[2] = @"nvmData";
+  v9[1] = v4;
+  v8[2] = @"nvmData";
   v5 = [MEMORY[0x277CBEA90] dataWithBytes:a2 + 24 length:0];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2732,13 +2687,12 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdOutputEnable(uint64_t a1, void *
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdOutputEnable(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"enable";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"enable";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a2 + 16)];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2804,19 +2758,18 @@ uint64_t cvp::CVPInterface::Dict2Struct_sCIspCmdOutputConfigSet(uint64_t a1, voi
 
 uint64_t cvp::CVPInterface::CreateDictFrom_sCIspCmdOutputConfigSet(uint64_t a1, unsigned int *a2)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"width";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"width";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[4]];
-  v10[0] = v3;
-  v9[1] = @"height";
+  v9[0] = v3;
+  v8[1] = @"height";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[5]];
-  v10[1] = v4;
-  v9[2] = @"format";
+  v9[1] = v4;
+  v8[2] = @"format";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2[6]];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2836,7 +2789,7 @@ void *cvp::CVPInterface::CreateArrayFrom_sCIspCmdOutputConfigSet(uint64_t a1, un
 
 uint64_t cvp::CVPInterface::sendCommandDict(cvp::CVPInterface *this, const __CFDictionary *a2, const __CFDictionary **a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [(__CFDictionary *)v5 objectForKeyedSubscript:@"id"];
   v7 = v6;
@@ -2846,8 +2799,8 @@ uint64_t cvp::CVPInterface::sendCommandDict(cvp::CVPInterface *this, const __CFD
     v12 = 3758097090;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v38[0]) = 0;
-      _os_log_impl(&dword_23C3E4000, v10, OS_LOG_TYPE_ERROR, "[ACIVERIFY]command id required", v38, 2u);
+      LOWORD(v37[0]) = 0;
+      _os_log_impl(&dword_23C3E4000, v10, OS_LOG_TYPE_ERROR, "[ACIVERIFY]command id required", v37, 2u);
     }
 
     goto LABEL_96;
@@ -2885,18 +2838,18 @@ LABEL_5:
       {
         if (v8 == 5)
         {
-          *&v39 = 0;
-          memset(v38, 0, sizeof(v38));
-          DWORD1(v38[0]) = 5;
-          DWORD2(v38[0]) = v11;
-          cvp::CVPInterface::Dict2Struct_sCIspCmdI2CRead(v9, v5, v38);
-          v32 = cvp::CVPInterface::sendCommand(this, v38, 0x28uLL);
+          *&v38 = 0;
+          memset(v37, 0, sizeof(v37));
+          DWORD1(v37[0]) = 5;
+          DWORD2(v37[0]) = v11;
+          cvp::CVPInterface::Dict2Struct_sCIspCmdI2CRead(v9, v5, v37);
+          v32 = cvp::CVPInterface::sendCommand(this, v37, 0x28uLL);
           v12 = v32;
           if (!v32)
           {
             if (a3)
             {
-              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdI2CRead(v32, v38);
+              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdI2CRead(v32, v37);
               goto LABEL_95;
             }
 
@@ -2911,18 +2864,18 @@ LABEL_5:
             goto LABEL_96;
           }
 
-          *&v39 = 0;
-          memset(v38, 0, sizeof(v38));
-          DWORD1(v38[0]) = 6;
-          DWORD2(v38[0]) = v11;
-          cvp::CVPInterface::Dict2Struct_sCIspCmdI2CWrite(v9, v5, v38);
-          v21 = cvp::CVPInterface::sendCommand(this, v38, 0x28uLL);
+          *&v38 = 0;
+          memset(v37, 0, sizeof(v37));
+          DWORD1(v37[0]) = 6;
+          DWORD2(v37[0]) = v11;
+          cvp::CVPInterface::Dict2Struct_sCIspCmdI2CWrite(v9, v5, v37);
+          v21 = cvp::CVPInterface::sendCommand(this, v37, 0x28uLL);
           v12 = v21;
           if (!v21)
           {
             if (a3)
             {
-              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdI2CWrite(v21, v38);
+              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdI2CWrite(v21, v37);
               goto LABEL_95;
             }
 
@@ -2936,9 +2889,9 @@ LABEL_5:
         switch(v8)
         {
           case 10000:
-            *&v38[0] = 0x271000000000;
-            *(&v38[0] + 1) = v11;
-            v12 = cvp::CVPInterface::sendCommand(this, v38, 0x10uLL);
+            *&v37[0] = 0x271000000000;
+            *(&v37[0] + 1) = v11;
+            v12 = cvp::CVPInterface::sendCommand(this, v37, 0x10uLL);
             if (!v12)
             {
               goto LABEL_96;
@@ -2946,9 +2899,9 @@ LABEL_5:
 
             break;
           case 10001:
-            *&v38[0] = 0x271100000000;
-            *(&v38[0] + 1) = v11;
-            v12 = cvp::CVPInterface::sendCommand(this, v38, 0x10uLL);
+            *&v37[0] = 0x271100000000;
+            *(&v37[0] + 1) = v11;
+            v12 = cvp::CVPInterface::sendCommand(this, v37, 0x10uLL);
             if (!v12)
             {
               goto LABEL_96;
@@ -2956,22 +2909,22 @@ LABEL_5:
 
             break;
           case 10003:
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
             v41 = 0u;
+            v42 = 0u;
             v39 = 0u;
-            memset(v38, 0, sizeof(v38));
-            DWORD1(v38[0]) = 10003;
-            DWORD2(v38[0]) = v11;
-            cvp::CVPInterface::Dict2Struct_sCIspCmdBufferPoolInfoGet(v9, v5, v38);
-            v18 = cvp::CVPInterface::sendCommand(this, v38, 0x70uLL);
+            v40 = 0u;
+            v38 = 0u;
+            memset(v37, 0, sizeof(v37));
+            DWORD1(v37[0]) = 10003;
+            DWORD2(v37[0]) = v11;
+            cvp::CVPInterface::Dict2Struct_sCIspCmdBufferPoolInfoGet(v9, v5, v37);
+            v18 = cvp::CVPInterface::sendCommand(this, v37, 0x70uLL);
             v12 = v18;
             if (!v18)
             {
               if (a3)
               {
-                DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdBufferPoolInfoGet(v18, v38);
+                DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdBufferPoolInfoGet(v18, v37);
                 goto LABEL_95;
               }
 
@@ -2996,9 +2949,9 @@ LABEL_5:
           goto LABEL_96;
         }
 
-        *&v38[0] = 0x100000000;
-        *(&v38[0] + 1) = v11;
-        v12 = cvp::CVPInterface::sendCommand(this, v38, 0x10uLL);
+        *&v37[0] = 0x100000000;
+        *(&v37[0] + 1) = v11;
+        v12 = cvp::CVPInterface::sendCommand(this, v37, 0x10uLL);
         if (!v12)
         {
           goto LABEL_96;
@@ -3007,9 +2960,9 @@ LABEL_5:
 
       else
       {
-        *&v38[0] = 0;
-        *(&v38[0] + 1) = v11;
-        v12 = cvp::CVPInterface::sendCommand(this, v38, 0x10uLL);
+        *&v37[0] = 0;
+        *(&v37[0] + 1) = v11;
+        v12 = cvp::CVPInterface::sendCommand(this, v37, 0x10uLL);
         if (!v12)
         {
           goto LABEL_96;
@@ -3021,27 +2974,27 @@ LABEL_5:
 
     if (v8 == 2)
     {
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      memset(v38, 0, sizeof(v38));
-      DWORD1(v38[0]) = 2;
-      DWORD2(v38[0]) = v11;
-      v12 = cvp::CVPInterface::Dict2Struct_sCIspCmdBuildInfo(v9, v5, v38);
+      v40 = 0u;
+      v38 = 0u;
+      memset(v37, 0, sizeof(v37));
+      DWORD1(v37[0]) = 2;
+      DWORD2(v37[0]) = v11;
+      v12 = cvp::CVPInterface::Dict2Struct_sCIspCmdBuildInfo(v9, v5, v37);
       if (v12)
       {
-        v35 = _aciLogGeneral();
-        cvp::CVPInterface::sendCommandDict(v35);
+        v34 = _aciLogGeneral();
+        cvp::CVPInterface::sendCommandDict(v34);
         goto LABEL_96;
       }
 
-      v24 = cvp::CVPInterface::sendCommand(this, v38, 0xB0uLL);
+      v24 = cvp::CVPInterface::sendCommand(this, v37, 0xB0uLL);
       v12 = v24;
       if (v24)
       {
@@ -3053,16 +3006,16 @@ LABEL_5:
         goto LABEL_99;
       }
 
-      DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdBuildInfo(v24, v38);
+      DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdBuildInfo(v24, v37);
     }
 
     else
     {
       if (v8 == 3)
       {
-        *&v38[0] = 0x300000000;
-        *(&v38[0] + 1) = v11;
-        v12 = cvp::CVPInterface::sendCommand(this, v38, 0x10uLL);
+        *&v37[0] = 0x300000000;
+        *(&v37[0] + 1) = v11;
+        v12 = cvp::CVPInterface::sendCommand(this, v37, 0x10uLL);
         if (!v12)
         {
           goto LABEL_96;
@@ -3071,18 +3024,18 @@ LABEL_5:
         goto LABEL_91;
       }
 
-      bzero(v38, 0x338uLL);
-      DWORD1(v38[0]) = 4;
-      DWORD2(v38[0]) = v11;
-      v12 = cvp::CVPInterface::Dict2Struct_sCIspCmdConfigGet(v15, v5, v38);
+      bzero(v37, 0x338uLL);
+      DWORD1(v37[0]) = 4;
+      DWORD2(v37[0]) = v11;
+      v12 = cvp::CVPInterface::Dict2Struct_sCIspCmdConfigGet(v15, v5, v37);
       if (v12)
       {
-        v37 = _aciLogGeneral();
-        cvp::CVPInterface::sendCommandDict(v37);
+        v36 = _aciLogGeneral();
+        cvp::CVPInterface::sendCommandDict(v36);
         goto LABEL_96;
       }
 
-      v16 = cvp::CVPInterface::sendCommand(this, v38, 0x338uLL);
+      v16 = cvp::CVPInterface::sendCommand(this, v37, 0x338uLL);
       v12 = v16;
       if (v16)
       {
@@ -3094,7 +3047,7 @@ LABEL_5:
         goto LABEL_99;
       }
 
-      DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdConfigGet(v16, v38);
+      DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdConfigGet(v16, v37);
     }
 
 LABEL_76:
@@ -3109,17 +3062,17 @@ LABEL_76:
       switch(v8)
       {
         case 20003:
-          *&v38[0] = 0x4E2300000000;
-          LODWORD(v38[1]) = 0;
-          *(&v38[0] + 1) = v11;
-          cvp::CVPInterface::Dict2Struct_sCIspCmdChAETargetGet(v9, v5, v38);
-          v25 = cvp::CVPInterface::sendCommand(this, v38, 0x14uLL);
+          *&v37[0] = 0x4E2300000000;
+          LODWORD(v37[1]) = 0;
+          *(&v37[0] + 1) = v11;
+          cvp::CVPInterface::Dict2Struct_sCIspCmdChAETargetGet(v9, v5, v37);
+          v25 = cvp::CVPInterface::sendCommand(this, v37, 0x14uLL);
           v12 = v25;
           if (!v25)
           {
             if (a3)
             {
-              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAETargetGet(v25, v38);
+              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAETargetGet(v25, v37);
               goto LABEL_95;
             }
 
@@ -3128,17 +3081,17 @@ LABEL_76:
 
           break;
         case 20004:
-          *&v38[0] = 0x4E2400000000;
-          *(&v38[0] + 1) = v11;
-          LOBYTE(v38[1]) = 0;
-          cvp::CVPInterface::Dict2Struct_sCIspCmdChAEEnable(v9, v5, v38);
-          v28 = cvp::CVPInterface::sendCommand(this, v38, 0x14uLL);
+          *&v37[0] = 0x4E2400000000;
+          *(&v37[0] + 1) = v11;
+          LOBYTE(v37[1]) = 0;
+          cvp::CVPInterface::Dict2Struct_sCIspCmdChAEEnable(v9, v5, v37);
+          v28 = cvp::CVPInterface::sendCommand(this, v37, 0x14uLL);
           v12 = v28;
           if (!v28)
           {
             if (a3)
             {
-              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEEnable(v28, v38);
+              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEEnable(v28, v37);
               goto LABEL_95;
             }
 
@@ -3147,17 +3100,17 @@ LABEL_76:
 
           break;
         case 20005:
-          *&v38[0] = 0x4E2500000000;
-          LODWORD(v38[1]) = 0;
-          *(&v38[0] + 1) = v11;
-          cvp::CVPInterface::Dict2Struct_sCIspCmdChAEStatusGet(v9, v5, v38);
-          v13 = cvp::CVPInterface::sendCommand(this, v38, 0x14uLL);
+          *&v37[0] = 0x4E2500000000;
+          LODWORD(v37[1]) = 0;
+          *(&v37[0] + 1) = v11;
+          cvp::CVPInterface::Dict2Struct_sCIspCmdChAEStatusGet(v9, v5, v37);
+          v13 = cvp::CVPInterface::sendCommand(this, v37, 0x14uLL);
           v12 = v13;
           if (!v13)
           {
             if (a3)
             {
-              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEStatusGet(v13, v38);
+              DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEStatusGet(v13, v37);
 LABEL_95:
               *a3 = DictFrom_sCIspCmdI2CRead;
               goto LABEL_96;
@@ -3181,17 +3134,17 @@ LABEL_91:
     {
       if (v8 == 40001)
       {
-        *&v38[0] = 0x9C4100000000;
-        DWORD2(v38[0]) = v11;
-        *(v38 + 12) = 0;
-        cvp::CVPInterface::Dict2Struct_sCIspCmdChSensorTemperatureGet(v9, v5, v38);
-        v29 = cvp::CVPInterface::sendCommand(this, v38, 0x14uLL);
+        *&v37[0] = 0x9C4100000000;
+        DWORD2(v37[0]) = v11;
+        *(v37 + 12) = 0;
+        cvp::CVPInterface::Dict2Struct_sCIspCmdChSensorTemperatureGet(v9, v5, v37);
+        v29 = cvp::CVPInterface::sendCommand(this, v37, 0x14uLL);
         v12 = v29;
         if (!v29)
         {
           if (a3)
           {
-            DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChSensorTemperatureGet(v30, v29, v38);
+            DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChSensorTemperatureGet(v30, v29, v37);
             goto LABEL_95;
           }
 
@@ -3206,17 +3159,17 @@ LABEL_91:
           goto LABEL_96;
         }
 
-        *&v38[0] = 0xC35000000000;
-        *(&v38[0] + 1) = v11;
-        LOBYTE(v38[1]) = 0;
-        cvp::CVPInterface::Dict2Struct_sCIspCmdChDPCEnable(v9, v5, v38);
-        v19 = cvp::CVPInterface::sendCommand(this, v38, 0x14uLL);
+        *&v37[0] = 0xC35000000000;
+        *(&v37[0] + 1) = v11;
+        LOBYTE(v37[1]) = 0;
+        cvp::CVPInterface::Dict2Struct_sCIspCmdChDPCEnable(v9, v5, v37);
+        v19 = cvp::CVPInterface::sendCommand(this, v37, 0x14uLL);
         v12 = v19;
         if (!v19)
         {
           if (a3)
           {
-            DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChDPCEnable(v19, v38);
+            DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChDPCEnable(v19, v37);
             goto LABEL_95;
           }
 
@@ -3227,18 +3180,18 @@ LABEL_91:
       goto LABEL_91;
     }
 
-    *&v38[0] = 0x9C4000000000;
-    *(&v38[0] + 1) = v11;
-    *&v38[1] = 0;
-    v12 = cvp::CVPInterface::Dict2Struct_sCIspCmdChSensorNVMGet(v9, v5, v38);
+    *&v37[0] = 0x9C4000000000;
+    *(&v37[0] + 1) = v11;
+    *&v37[1] = 0;
+    v12 = cvp::CVPInterface::Dict2Struct_sCIspCmdChSensorNVMGet(v9, v5, v37);
     if (v12)
     {
-      v36 = _aciLogGeneral();
-      cvp::CVPInterface::sendCommandDict(v36);
+      v35 = _aciLogGeneral();
+      cvp::CVPInterface::sendCommandDict(v35);
       goto LABEL_96;
     }
 
-    v26 = cvp::CVPInterface::sendCommand(this, v38, 0x18uLL);
+    v26 = cvp::CVPInterface::sendCommand(this, v37, 0x18uLL);
     v12 = v26;
     if (v26)
     {
@@ -3247,7 +3200,7 @@ LABEL_91:
 
     if (a3)
     {
-      DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChSensorNVMGet(v26, v38);
+      DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChSensorNVMGet(v26, v37);
       goto LABEL_76;
     }
 
@@ -3260,19 +3213,19 @@ LABEL_99:
   {
     if (v8 == 10004)
     {
-      *&v40 = 0;
-      v39 = 0u;
-      memset(v38, 0, sizeof(v38));
-      DWORD1(v38[0]) = 10004;
-      DWORD2(v38[0]) = v11;
-      cvp::CVPInterface::Dict2Struct_sCIspCmdBufferPoolInfoSet(v9, v5, v38);
-      v27 = cvp::CVPInterface::sendCommand(this, v38, 0x38uLL);
+      *&v39 = 0;
+      v38 = 0u;
+      memset(v37, 0, sizeof(v37));
+      DWORD1(v37[0]) = 10004;
+      DWORD2(v37[0]) = v11;
+      cvp::CVPInterface::Dict2Struct_sCIspCmdBufferPoolInfoSet(v9, v5, v37);
+      v27 = cvp::CVPInterface::sendCommand(this, v37, 0x38uLL);
       v12 = v27;
       if (!v27)
       {
         if (a3)
         {
-          DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdBufferPoolInfoSet(v27, v38);
+          DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdBufferPoolInfoSet(v27, v37);
           goto LABEL_95;
         }
 
@@ -3282,17 +3235,17 @@ LABEL_99:
 
     else
     {
-      *&v38[0] = 0x271500000000;
-      DWORD2(v38[0]) = v11;
-      *(v38 + 12) = 0uLL;
-      cvp::CVPInterface::Dict2Struct_sCIspCmdOutputConfigSet(v9, v5, v38);
-      v20 = cvp::CVPInterface::sendCommand(this, v38, 0x1CuLL);
+      *&v37[0] = 0x271500000000;
+      DWORD2(v37[0]) = v11;
+      *(v37 + 12) = 0uLL;
+      cvp::CVPInterface::Dict2Struct_sCIspCmdOutputConfigSet(v9, v5, v37);
+      v20 = cvp::CVPInterface::sendCommand(this, v37, 0x1CuLL);
       v12 = v20;
       if (!v20)
       {
         if (a3)
         {
-          DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdOutputConfigSet(v20, v38);
+          DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdOutputConfigSet(v20, v37);
           goto LABEL_95;
         }
 
@@ -3305,17 +3258,17 @@ LABEL_99:
 
   if (v8 == 10006)
   {
-    *&v38[0] = 0x271600000000;
-    *(&v38[0] + 1) = v11;
-    LOBYTE(v38[1]) = 0;
-    cvp::CVPInterface::Dict2Struct_sCIspCmdOutputEnable(v9, v5, v38);
-    v22 = cvp::CVPInterface::sendCommand(this, v38, 0x14uLL);
+    *&v37[0] = 0x271600000000;
+    *(&v37[0] + 1) = v11;
+    LOBYTE(v37[1]) = 0;
+    cvp::CVPInterface::Dict2Struct_sCIspCmdOutputEnable(v9, v5, v37);
+    v22 = cvp::CVPInterface::sendCommand(this, v37, 0x14uLL);
     v12 = v22;
     if (!v22)
     {
       if (a3)
       {
-        DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdOutputEnable(v22, v38);
+        DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdOutputEnable(v22, v37);
         goto LABEL_95;
       }
 
@@ -3327,17 +3280,17 @@ LABEL_99:
 
   if (v8 == 20000)
   {
-    *&v38[0] = 0x4E2000000000;
-    LODWORD(v38[1]) = 0;
-    *(&v38[0] + 1) = v11;
-    cvp::CVPInterface::Dict2Struct_sCIspCmdChAEFpsUpdate(v9, v5, v38);
-    v23 = cvp::CVPInterface::sendCommand(this, v38, 0x14uLL);
+    *&v37[0] = 0x4E2000000000;
+    LODWORD(v37[1]) = 0;
+    *(&v37[0] + 1) = v11;
+    cvp::CVPInterface::Dict2Struct_sCIspCmdChAEFpsUpdate(v9, v5, v37);
+    v23 = cvp::CVPInterface::sendCommand(this, v37, 0x14uLL);
     v12 = v23;
     if (!v23)
     {
       if (a3)
       {
-        DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEFpsUpdate(v23, v38);
+        DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAEFpsUpdate(v23, v37);
         goto LABEL_95;
       }
 
@@ -3352,11 +3305,11 @@ LABEL_99:
     goto LABEL_96;
   }
 
-  *&v38[0] = 0x4E2200000000;
-  LODWORD(v38[1]) = 0;
-  *(&v38[0] + 1) = v11;
-  cvp::CVPInterface::Dict2Struct_sCIspCmdChAETargetSet(v9, v5, v38);
-  v17 = cvp::CVPInterface::sendCommand(this, v38, 0x14uLL);
+  *&v37[0] = 0x4E2200000000;
+  LODWORD(v37[1]) = 0;
+  *(&v37[0] + 1) = v11;
+  cvp::CVPInterface::Dict2Struct_sCIspCmdChAETargetSet(v9, v5, v37);
+  v17 = cvp::CVPInterface::sendCommand(this, v37, 0x14uLL);
   v12 = v17;
   if (v17)
   {
@@ -3365,13 +3318,12 @@ LABEL_99:
 
   if (a3)
   {
-    DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAETargetSet(v17, v38);
+    DictFrom_sCIspCmdI2CRead = cvp::CVPInterface::CreateDictFrom_sCIspCmdChAETargetSet(v17, v37);
     goto LABEL_95;
   }
 
 LABEL_96:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -3387,36 +3339,35 @@ void cvp::CVPInterface::~CVPInterface(cvp::CVPInterface *this)
 
 uint64_t cvp::CVPInterface::test(cvp::CVPInterface *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7[0] = xmmword_23C3F1E70;
-  v7[1] = unk_23C3F1E80;
-  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v7, @"a"}];
-  v5[1] = @"b";
-  v6[0] = v1;
-  v6[1] = @"bbb";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v7 = *MEMORY[0x277D85DE8];
+  v6[0] = xmmword_23C3F1E70;
+  v6[1] = unk_23C3F1E80;
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v6, @"a"}];
+  v4[1] = @"b";
+  v5[0] = v1;
+  v5[1] = @"bbb";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   CFShow(v2);
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void ACIUKextConnection::ACIUKextConnection(ACIUKextConnection *this, const char *name)
 {
   *this = 0;
-  v3 = IOServiceMatching(name);
-  if (v3)
+  v4 = IOServiceMatching(name);
+  if (v4)
   {
-    MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD2898], v3);
+    MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD2898], v4);
     if (MatchingService)
     {
-      v5 = MatchingService;
+      v6 = MatchingService;
       if (IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, this))
       {
-        ACIUKextConnection::ACIUKextConnection();
+        ACIUKextConnection::ACIUKextConnection(name);
       }
 
-      IOObjectRelease(v5);
+      IOObjectRelease(v6);
     }
   }
 }
@@ -3439,7 +3390,7 @@ BOOL OUTLINED_FUNCTION_1(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-uint64_t aci::cvp::CFObject<aci::cvp::Device>::create<>()
+void *aci::cvp::CFObject<aci::cvp::Device>::create<>()
 {
   if (aci::cvp::CFObject<aci::cvp::Device>::alloc(24))
   {
@@ -3447,15 +3398,6 @@ uint64_t aci::cvp::CFObject<aci::cvp::Device>::create<>()
   }
 
   return 0;
-}
-
-void aci::cvp::CFObject<aci::cvp::Device>::stuff<>()
-{
-  operator new();
-}
-
-{
-  OUTLINED_FUNCTION_0_0(&aci::cvp::CFObject<aci::cvp::Device>::getTypeID(void)::once);
 }
 
 uint64_t ACICVPDeviceDestroy(uint64_t a1)
@@ -3470,7 +3412,7 @@ uint64_t ACICVPDeviceDestroy(uint64_t a1)
   return 0;
 }
 
-uint64_t ACICVPDeviceGetTypeID()
+uint64_t ACICVPDeviceGetTypeID(uint64_t a1)
 {
   if (aci::cvp::CFObject<aci::cvp::Device>::getTypeID(void)::once != -1)
   {
@@ -3516,10 +3458,10 @@ uint64_t aci::cvp::CVPixelBufferFactory::castToClass(uint64_t a1, uint64_t *a2)
 {
   if (a2 != &aci::cvp::CVPixelBufferFactory::classTypeInfo(void)::ti)
   {
-    return MEMORY[0x282137690]();
+    return MEMORY[0x282137690](a1);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t aci::cvp::CVPixelBufferWrapper::castToClass(uint64_t a1, uint64_t *a2)
@@ -3532,7 +3474,7 @@ uint64_t aci::cvp::CVPixelBufferWrapper::castToClass(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-unsigned int *aci::cvp::CVPixelBufferFactory::CVPixelBufferFactory(unsigned int *a1, const char *a2, int a3, int a4, int a5, int a6, int a7, unsigned int a8, int a9)
+aci::Factory *aci::cvp::CVPixelBufferFactory::CVPixelBufferFactory(aci::Factory *a1, const char *a2, int a3, int a4, int a5, int a6, int a7, unsigned int a8, int a9)
 {
   v17 = aci::Factory::Factory(a1);
   *v17 = &unk_284F023A8;
@@ -3582,15 +3524,15 @@ unsigned int *aci::cvp::CVPixelBufferFactory::CVPixelBufferFactory(unsigned int 
     v34 = v23;
   }
 
-  valuePtr = a1[31];
+  valuePtr = *(a1 + 31);
   v33 = CFNumberCreate(v21, kCFNumberSInt64Type, &valuePtr);
-  valuePtr = a1[32];
+  valuePtr = *(a1 + 32);
   value = CFNumberCreate(v21, kCFNumberSInt64Type, &valuePtr);
-  valuePtr = a1[33];
+  valuePtr = *(a1 + 33);
   v31 = CFNumberCreate(v21, kCFNumberSInt64Type, &valuePtr);
-  valuePtr = a1[35];
+  valuePtr = *(a1 + 35);
   v30 = CFNumberCreate(v21, kCFNumberSInt64Type, &valuePtr);
-  valuePtr = a1[34];
+  valuePtr = *(a1 + 34);
   v29 = CFNumberCreate(v21, kCFNumberSInt64Type, &valuePtr);
   CFDictionaryAddValue(v34, *MEMORY[0x277CC4EC8], v33);
   CFDictionaryAddValue(v34, *MEMORY[0x277CC4DD8], value);
@@ -3634,25 +3576,25 @@ unsigned int *aci::cvp::CVPixelBufferFactory::CVPixelBufferFactory(unsigned int 
   return aci::cvp::CVPixelBufferFactory::CVPixelBufferFactory(a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
 
-void sub_23C3ECB14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10, const void *a11, const void *a12, const void *a13, const void *a14, const void *a15, const void *a16, const void *a17, const void *a18, const void *a19)
+void sub_23C3ECB14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, const void *a12, const void *a14, const void *a16, const void *a18, const void *a20, const void *a22, const void *a24, const void *a26, const void *a28)
 {
   aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a9);
   aci::REFSP<__CFString const*,&__CFString const* aci::cvp::CFREFSPRetain<__CFString const*>,&void aci::cvp::CFREFSPRelease<__CFString const*>>::~REFSP(&a10);
-  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&a11);
-  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a12);
-  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a13);
+  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&a12);
   aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a14);
-  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a15);
   aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a16);
-  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&a17);
   aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a18);
-  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&a19);
+  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a20);
+  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a22);
+  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&a24);
+  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a26);
+  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&a28);
   aci::REFSP<__CVPixelBufferPool *,&(CVPixelBufferPoolRetain),&(CVPixelBufferPoolRelease)>::~REFSP(v20);
   aci::Factory::~Factory(v19);
   _Unwind_Resume(a1);
 }
 
-uint64_t aci::cvp::CVPixelBufferFactory::allocData(CVPixelBufferPoolRef *this)
+aci::Data *aci::cvp::CVPixelBufferFactory::allocData(CVPixelBufferPoolRef *this)
 {
   pixelBufferOut = 0;
   if (!CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x277CBECE8], this[14], &pixelBufferOut))
@@ -3664,21 +3606,20 @@ uint64_t aci::cvp::CVPixelBufferFactory::allocData(CVPixelBufferPoolRef *this)
   return 0;
 }
 
-void sub_23C3ECC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, aci::Object *a9)
+void sub_23C3ECC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  MEMORY[0x23EECFB00](v9, 0x10A1C4096B73BC4);
+  MEMORY[0x23EECFB00](v9, 0x10A1C4096B73BC4, a3, a4, a5, a6, a7, a8);
   aci::SP<aci::cvp::CVPixelBufferWrapper,&(void ACISPRetain<aci::cvp::CVPixelBufferWrapper>(aci::cvp::CVPixelBufferWrapper &)),&(void ACISPRelease<aci::cvp::CVPixelBufferWrapper>(aci::cvp::CVPixelBufferWrapper &))>::~SP(&a9);
   _Unwind_Resume(a1);
 }
 
-uint64_t aci::cvp::CVPixelBufferFactory::getDataByID(aci::cvp::CVPixelBufferFactory *this)
+uint64_t aci::cvp::CVPixelBufferFactory::getDataByID(aci::cvp::CVPixelBufferFactory *this, uint64_t a2)
 {
   v5 = 0;
   v6 = &v5;
   v7 = 0x2020000000;
   v8 = 0;
   std::mutex::lock((this + 24));
-  v2 = *(this + 11);
   aci::Array::enumerateObjectsUsingBlock();
   v3 = v6[3];
   std::mutex::unlock((this + 24));
@@ -3686,10 +3627,10 @@ uint64_t aci::cvp::CVPixelBufferFactory::getDataByID(aci::cvp::CVPixelBufferFact
   return v3;
 }
 
-void sub_23C3ECE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C3ECE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  std::mutex::unlock((v7 + 24));
+  va_start(va, a13);
+  std::mutex::unlock((v13 + 24));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3936,20 +3877,11 @@ uint64_t ___ZN3aci3cvp6Output8activateEv_block_invoke(uint64_t a1)
   v2 = *(v1 + 104);
   if (v2 == 1)
   {
-    v8 = *(v1 + 108);
-    v9 = *(v1 + 124);
-    v10 = *(v1 + 96);
-    v11 = (*(v1 + 128) + 8);
     aci::ACIObjectSP<aci::cvp::CVPixelBufferFactory,char *,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,isp::IspOutput>();
   }
 
   if (!v2)
   {
-    v3 = *(v1 + 112);
-    v4 = *(v1 + 120);
-    v5 = *(v1 + 124);
-    v6 = *(v1 + 96);
-    v7 = (*(v1 + 128) + 8);
     aci::ACIObjectSP<aci::cvp::CVPixelBufferFactory,char *,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,isp::IspOutput>();
   }
 
@@ -3958,13 +3890,13 @@ uint64_t ___ZN3aci3cvp6Output8activateEv_block_invoke(uint64_t a1)
     return 0;
   }
 
-  ___ZN3aci3cvp6Output8activateEv_block_invoke_cold_1();
+  ___ZN3aci3cvp6Output8activateEv_block_invoke_cold_1(a1);
   return 4294967275;
 }
 
-void sub_23C3ED4D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3ED4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::cvp::CVPixelBufferFactory,&(void ACISPRetain<aci::cvp::CVPixelBufferFactory>(aci::cvp::CVPixelBufferFactory &)),&(void ACISPRelease<aci::cvp::CVPixelBufferFactory>(aci::cvp::CVPixelBufferFactory &))>::~SP(va);
   _Unwind_Resume(a1);
 }
@@ -3982,11 +3914,11 @@ uint64_t ___ZN3aci3cvp6Output10deactivateEv_block_invoke(uint64_t a1)
   return 0;
 }
 
-void aci::cvp::Output::FrameDone(aci::cvp::CVPixelBufferFactory **this, void *a2, uint64_t a3, uint64_t a4, void *a5)
+void aci::cvp::Output::FrameDone(aci::cvp::CVPixelBufferFactory **this, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   if (a2)
   {
-    aci::cvp::Output::FrameDone();
+    aci::cvp::Output::FrameDone(a2);
   }
 
   else if (this)
@@ -3997,14 +3929,14 @@ void aci::cvp::Output::FrameDone(aci::cvp::CVPixelBufferFactory **this, void *a2
 
   else
   {
-    aci::cvp::Output::FrameDone();
+    aci::cvp::Output::FrameDone(0);
   }
 }
 
 void aci::cvp::Output::handleFrameDone(aci::cvp::CVPixelBufferFactory **this, uint64_t a2, uint64_t a3)
 {
   v20 = *MEMORY[0x277D85DE8];
-  DataByID = aci::cvp::CVPixelBufferFactory::getDataByID(this[18]);
+  DataByID = aci::cvp::CVPixelBufferFactory::getDataByID(this[18], a3);
   v7 = this[31];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -4029,12 +3961,11 @@ void aci::cvp::Output::handleFrameDone(aci::cvp::CVPixelBufferFactory **this, ui
 
   v10 = 1;
   aci::cvp::CVPixelBufferFactory::acquireBuffers(this[18], buf, 0x40u, &v10, aci::cvp::Output::FrameDone, this);
-  if ((*(*this[17] + 64))(this[17], buf, 56, *(this + 68)))
+  v9 = (*(*this[17] + 64))(this[17], buf, 56, *(this + 68));
+  if (v9)
   {
-    aci::cvp::Output::handleFrameDone();
+    aci::cvp::Output::handleFrameDone(v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___ZN3aci3cvp6Output15handleFrameDoneEyy_block_invoke(uint64_t a1)
@@ -4066,22 +3997,21 @@ uint64_t aci::cvp::Output::getBufferPoolInfo(uint64_t a1, _DWORD *a2)
 
 uint64_t aci::cvp::Output::sendInitialBuffers(aci::cvp::Output *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = *(this + 32);
-  v2 = v5;
-  aci::cvp::CVPixelBufferFactory::acquireBuffers(*(this + 18), v6, 0x40u, &v5, aci::cvp::Output::FrameDone, this);
-  result = (*(**(this + 17) + 64))(*(this + 17), v6, 56 * v2, *(this + 68));
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = *(this + 32);
+  v2 = v4;
+  aci::cvp::CVPixelBufferFactory::acquireBuffers(*(this + 18), v5, 0x40u, &v4, aci::cvp::Output::FrameDone, this);
+  result = (*(**(this + 17) + 64))(*(this + 17), v5, 56 * v2, *(this + 68));
   if (result)
   {
-    aci::cvp::Output::handleFrameDone();
-    result = 0xFFFFFFFFLL;
+    aci::cvp::Output::handleFrameDone(result);
+    return 0xFFFFFFFFLL;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-__CFDictionary *aci::cvp::Output::getConfiguration(aci::cvp::Output *this)
+CFMutableDictionaryRef aci::cvp::Output::getConfiguration(aci::cvp::Output *this)
 {
   v2 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
@@ -4141,38 +4071,38 @@ LABEL_7:
   return v5;
 }
 
-void sub_23C3EDD20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10, const void *a11, const void *a12, const void *a13, const void *a14, const void *a15)
+void sub_23C3EDD20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, const void *a12, const void *a14, const void *a16, const void *a18, const void *a20)
 {
   aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a9);
   aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a10);
-  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a11);
   aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a12);
-  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a13);
   aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a14);
-  aci::REFSP<__CFString const*,&__CFString const* aci::cvp::CFREFSPRetain<__CFString const*>,&void aci::cvp::CFREFSPRelease<__CFString const*>>::~REFSP(&a15);
+  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a16);
+  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&a18);
+  aci::REFSP<__CFString const*,&__CFString const* aci::cvp::CFREFSPRetain<__CFString const*>,&void aci::cvp::CFREFSPRelease<__CFString const*>>::~REFSP(&a20);
   aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP((v15 - 40));
   aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP((v15 - 32));
   _Unwind_Resume(a1);
 }
 
-uint64_t aci::cvp::Channel::castToClass(uint64_t a1, uint64_t a2)
+uint64_t aci::cvp::Channel::castToClass(uint64_t result, uint64_t a2)
 {
   if (a2 != &aci::cvp::Channel::classTypeInfo(void)::ti)
   {
-    return aci::MetaType<aci::cvp::Output,aci::Object,aci::Controller>::castToClass<aci::Object,aci::Controller>(a1, a2);
+    return aci::MetaType<aci::cvp::Output,aci::Object,aci::Controller>::castToClass<aci::Object,aci::Controller>(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t aci::MetaType<aci::cvp::Channel,aci::Object,aci::Controller>::castToClass(uint64_t a1, uint64_t a2)
+uint64_t aci::MetaType<aci::cvp::Channel,aci::Object,aci::Controller>::castToClass(uint64_t result, uint64_t a2)
 {
   if (a2 != &aci::cvp::Channel::classTypeInfo(void)::ti)
   {
-    return aci::MetaType<aci::cvp::Output,aci::Object,aci::Controller>::castToClass<aci::Object,aci::Controller>(a1, a2);
+    return aci::MetaType<aci::cvp::Output,aci::Object,aci::Controller>::castToClass<aci::Object,aci::Controller>(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t non-virtual thunk toaci::cvp::Channel::castToClass(uint64_t a1, uint64_t *a2)
@@ -4226,7 +4156,7 @@ uint64_t aci::cvp::Channel::Channel(uint64_t a1, int a2, __int128 *a3, aci::Obje
   return a1;
 }
 
-void sub_23C3EE014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, aci::Object *a9)
+void sub_23C3EE014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(&a9);
   aci::SP<aci::cvp::Interface,&(void ACISPRetain<aci::cvp::Interface>(aci::cvp::Interface &)),&(void ACISPRelease<aci::cvp::Interface>(aci::cvp::Interface &))>::~SP(v11);
@@ -4248,21 +4178,19 @@ void *aci::MetaType<aci::cvp::Channel,aci::Object,aci::Controller>::MetaType(voi
 
 uint64_t ___ZN3aci3cvp7Channel8activateEv_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  v2 = *(v1 + 96);
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v6 = 0;
   aci::Array::enumerateObjectsUsingBlock();
-  v3 = *(v6 + 6);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v1 = *(v4 + 6);
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_23C3EE2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C3EE2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4279,21 +4207,19 @@ uint64_t (***aci::_ACIDynamicCast<aci::cvp::Output,aci::Object>(uint64_t (***res
 
 uint64_t ___ZN3aci3cvp7Channel10deactivateEv_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  v2 = *(v1 + 96);
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v6 = 0;
   aci::Array::enumerateObjectsUsingBlock();
-  v3 = *(v6 + 6);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v1 = *(v4 + 6);
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_23C3EE4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C3EE4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4301,51 +4227,49 @@ void sub_23C3EE4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t ___ZN3aci3cvp7Channel7prepareEv_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x6812000000;
-  v12 = __Block_byref_object_copy_;
-  v13 = __Block_byref_object_dispose_;
-  v14 = "";
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x6812000000;
+  v10 = __Block_byref_object_copy_;
+  v11 = __Block_byref_object_dispose_;
+  v12 = "";
   v2 = 1 << *(v1 + 112);
-  v15 = 10004;
-  v16 = v2;
+  v13 = 10004;
+  v14 = v2;
   v3 = aci::Array::count(*(v1 + 96));
-  *(v10 + 16) = v3;
-  v4 = *(v1 + 96);
+  *(v8 + 16) = v3;
   aci::Array::enumerateObjectsUsingBlock();
-  v5 = *(v18 + 6);
-  if (!v5)
+  v4 = *(v16 + 6);
+  if (!v4)
   {
-    if ((*(**(v1 + 104) + 56))(*(v1 + 104), v10 + 6, 56))
+    if ((*(**(v1 + 104) + 56))(*(v1 + 104), v8 + 6, 56))
     {
-      v8 = _aciLogGeneral();
-      ___ZN3aci3cvp7Channel7prepareEv_block_invoke_cold_1(v8);
-      v5 = 0xFFFFFFFFLL;
+      v6 = _aciLogGeneral();
+      ___ZN3aci3cvp7Channel7prepareEv_block_invoke_cold_1(v6);
+      v4 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v6 = *(v1 + 96);
       aci::Array::enumerateObjectsUsingBlock();
-      v5 = *(v18 + 6);
+      v4 = *(v16 + 6);
     }
   }
 
-  _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v17, 8);
-  return v5;
+  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v15, 8);
+  return v4;
 }
 
-void sub_23C3EE778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_23C3EE778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 80), 8);
+  _Block_object_dispose((v19 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4363,21 +4287,19 @@ __n128 __Block_byref_object_copy_(uint64_t a1, uint64_t a2)
 
 uint64_t ___ZN3aci3cvp7Channel9unprepareEv_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  v2 = *(v1 + 96);
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v6 = 0;
   aci::Array::enumerateObjectsUsingBlock();
-  v3 = *(v6 + 6);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v1 = *(v4 + 6);
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_23C3EE950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C3EE950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4385,31 +4307,30 @@ void sub_23C3EE950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t ___ZN3aci3cvp7Channel5startEv_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v9 = 0;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v8 = 0;
   if (cvp::CVPInterface::sendChStart(*(*(v1 + 104) + 16), 1 << *(v1 + 112)))
   {
-    v5 = _aciLogGeneral();
-    ___ZN3aci3cvp7Channel5startEv_block_invoke_cold_1(v5, (v1 + 112));
-    v3 = 0xFFFFFFFFLL;
+    v4 = _aciLogGeneral();
+    ___ZN3aci3cvp7Channel5startEv_block_invoke_cold_1(v4);
+    v2 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v2 = *(v1 + 96);
     aci::Array::enumerateObjectsUsingBlock();
-    v3 = *(v7 + 6);
+    v2 = *(v6 + 6);
   }
 
-  _Block_object_dispose(&v6, 8);
-  return v3;
+  _Block_object_dispose(&v5, 8);
+  return v2;
 }
 
-void sub_23C3EEB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C3EEB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4417,66 +4338,62 @@ void sub_23C3EEB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t ___ZN3aci3cvp7Channel4stopEv_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  v2 = *(v1 + 96);
   aci::Array::enumerateObjectsUsingBlock();
-  v4 = *(v1 + 112);
-  v3 = (v1 + 112);
-  if (cvp::CVPInterface::sendChStop(*(*(v3 - 1) + 16), 1 << v4))
+  if (cvp::CVPInterface::sendChStop(*(*(v1 + 104) + 16), 1 << *(v1 + 112)))
   {
-    v7 = _aciLogGeneral();
-    ___ZN3aci3cvp7Channel4stopEv_block_invoke_cold_1(v7, v3);
-    v5 = 0xFFFFFFFFLL;
+    v4 = _aciLogGeneral();
+    ___ZN3aci3cvp7Channel4stopEv_block_invoke_cold_1(v4);
+    v2 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v5 = *(v9 + 6);
+    v2 = *(v6 + 6);
   }
 
-  _Block_object_dispose(&v8, 8);
-  return v5;
+  _Block_object_dispose(&v5, 8);
+  return v2;
 }
 
-void sub_23C3EED0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C3EED0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-__CFDictionary *aci::cvp::Channel::getConfiguration(aci::Array **this)
+CFMutableDictionaryRef aci::cvp::Channel::getConfiguration(aci::Array **this)
 {
   v2 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v15 = Mutable;
+  v14 = Mutable;
   if (Mutable)
   {
     CFRetain(Mutable);
   }
 
   valuePtr = aci::Array::count(this[12]);
-  v14 = CFNumberCreate(v2, kCFNumberSInt64Type, &valuePtr);
-  CFDictionaryAddValue(v15, @"outputNumber", v14);
+  v13 = CFNumberCreate(v2, kCFNumberSInt64Type, &valuePtr);
+  CFDictionaryAddValue(v14, @"outputNumber", v13);
   valuePtr = 0;
   p_valuePtr = &valuePtr;
-  v9 = 0x3812000000;
-  v10 = __Block_byref_object_copy__14;
-  v11 = __Block_byref_object_dispose__15;
-  v12 = "";
-  v13 = CFArrayCreateMutable(v2, 3, MEMORY[0x277CBF128]);
-  v4 = this[12];
+  v8 = 0x3812000000;
+  v9 = __Block_byref_object_copy__14;
+  v10 = __Block_byref_object_dispose__15;
+  v11 = "";
+  v12 = CFArrayCreateMutable(v2, 3, MEMORY[0x277CBF128]);
   aci::Array::enumerateObjectsUsingBlock();
-  CFDictionaryAddValue(v15, @"outputs", p_valuePtr[6]);
-  v5 = v15;
+  CFDictionaryAddValue(v14, @"outputs", p_valuePtr[6]);
+  v4 = v14;
   _Block_object_dispose(&valuePtr, 8);
-  aci::REFSP<__CFArray *,&__CFArray * aci::cvp::CFREFSPRetain<__CFArray *>,&void aci::cvp::CFREFSPRelease<__CFArray *>>::~REFSP(&v13);
-  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&v14);
-  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&v15);
-  return v5;
+  aci::REFSP<__CFArray *,&__CFArray * aci::cvp::CFREFSPRetain<__CFArray *>,&void aci::cvp::CFREFSPRelease<__CFArray *>>::~REFSP(&v12);
+  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&v13);
+  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&v14);
+  return v4;
 }
 
 void sub_23C3EEF30(_Unwind_Exception *a1)
@@ -4499,23 +4416,23 @@ uint64_t ___ZN3aci3cvp7Channel16getConfigurationEv_block_invoke(uint64_t a1, uin
   return 0;
 }
 
-void sub_23C3EEFE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3EEFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::REFSP<__CFDictionary const*,&__CFDictionary const* aci::cvp::CFREFSPRetain<__CFDictionary const*>,&void aci::cvp::CFREFSPRelease<__CFDictionary const*>>::~REFSP(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t aci::cvp::Channel::registerBufferCallback(aci::Array **this, BOOL (*a2)(void *, __CVBuffer *, unint64_t), uint64_t (**a3)(void, uint64_t *))
+uint64_t aci::cvp::Channel::registerBufferCallback(aci::Array **this, BOOL (*a2)(void *, __CVBuffer *, unint64_t), uint64_t (**a3)(void, uint64_t *), uint64_t a4)
 {
-  v6 = aci::Array::objectAtIndex(this[12]);
-  v7 = aci::_ACIDynamicCast<aci::cvp::Output,aci::Object>(v6);
-  if (v7)
+  v7 = aci::Array::objectAtIndex(this[12]);
+  v8 = aci::_ACIDynamicCast<aci::cvp::Output,aci::Object>(v7);
+  if (v8)
   {
-    v8 = v7;
+    v9 = v8;
     result = 0;
-    v8[29] = a2;
-    v8[30] = a3;
+    v9[29] = a2;
+    v9[30] = a3;
   }
 
   else
@@ -4535,12 +4452,12 @@ void aci::cvp::Device::Device(aci::cvp::Device *this, const void *a2)
   aci::ACIObjectSP<aci::cvp::Interface>();
 }
 
-void sub_23C3EF238(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3EF238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
-  aci::SP<aci::cvp::Interface,&(void ACISPRetain<aci::cvp::Interface>(aci::cvp::Interface &)),&(void ACISPRelease<aci::cvp::Interface>(aci::cvp::Interface &))>::~SP(v3);
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v2);
+  aci::SP<aci::cvp::Interface,&(void ACISPRetain<aci::cvp::Interface>(aci::cvp::Interface &)),&(void ACISPRelease<aci::cvp::Interface>(aci::cvp::Interface &))>::~SP(v4);
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v3);
   _Unwind_Resume(a1);
 }
 
@@ -4558,21 +4475,21 @@ void aci::cvp::Device::~Device(aci::cvp::Device *this)
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(this + 1);
 }
 
-uint64_t aci::cvp::Device::startChannel(aci::Array **this, unsigned int a2)
+uint64_t aci::cvp::Device::startChannel(aci::Array **this, uint64_t a2)
 {
   if (aci::Array::count(this[1]) <= a2)
   {
-    v5 = 3758097105;
-    aci::cvp::Device::startChannel();
+    v6 = 3758097105;
+    aci::cvp::Device::startChannel(a2);
   }
 
   else
   {
-    v3 = aci::Array::objectAtIndex(this[1]);
-    v4 = aci::_ACIDynamicCast<aci::cvp::Channel,aci::Object>(v3);
-    if (v4)
+    v4 = aci::Array::objectAtIndex(this[1]);
+    v5 = aci::_ACIDynamicCast<aci::cvp::Channel,aci::Object>(v4);
+    if (v5)
     {
-      if (((*v4)[11])(v4))
+      if (((*v5)[11])(v5))
       {
         return 3758097084;
       }
@@ -4585,12 +4502,12 @@ uint64_t aci::cvp::Device::startChannel(aci::Array **this, unsigned int a2)
 
     else
     {
-      v5 = 3758097105;
-      aci::cvp::Device::startChannel();
+      v6 = 3758097105;
+      aci::cvp::Device::startChannel(a2);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t (***aci::_ACIDynamicCast<aci::cvp::Channel,aci::Object>(uint64_t (***result)(void, uint64_t *)))(void, uint64_t *)
@@ -4603,21 +4520,21 @@ uint64_t (***aci::_ACIDynamicCast<aci::cvp::Channel,aci::Object>(uint64_t (***re
   return result;
 }
 
-uint64_t aci::cvp::Device::stopChannel(aci::Array **this, unsigned int a2)
+uint64_t aci::cvp::Device::stopChannel(aci::Array **this, uint64_t a2)
 {
   if (aci::Array::count(this[1]) <= a2)
   {
-    v5 = 3758097105;
-    aci::cvp::Device::startChannel();
+    v6 = 3758097105;
+    aci::cvp::Device::startChannel(a2);
   }
 
   else
   {
-    v3 = aci::Array::objectAtIndex(this[1]);
-    v4 = aci::_ACIDynamicCast<aci::cvp::Channel,aci::Object>(v3);
-    if (v4)
+    v4 = aci::Array::objectAtIndex(this[1]);
+    v5 = aci::_ACIDynamicCast<aci::cvp::Channel,aci::Object>(v4);
+    if (v5)
     {
-      if (((*v4)[12])(v4))
+      if (((*v5)[12])(v5))
       {
         return 3758097084;
       }
@@ -4630,42 +4547,41 @@ uint64_t aci::cvp::Device::stopChannel(aci::Array **this, unsigned int a2)
 
     else
     {
-      v5 = 3758097105;
-      aci::cvp::Device::startChannel();
+      v6 = 3758097105;
+      aci::cvp::Device::startChannel(a2);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t aci::cvp::Device::getConfiguration(aci::Array **this, const __CFDictionary **a2)
 {
   v4 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v16 = Mutable;
+  v15 = Mutable;
   if (Mutable)
   {
     CFRetain(Mutable);
   }
 
   valuePtr = aci::Array::count(this[1]);
-  v15 = CFNumberCreate(v4, kCFNumberSInt64Type, &valuePtr);
-  CFDictionaryAddValue(v16, @"channelNumber", v15);
+  v14 = CFNumberCreate(v4, kCFNumberSInt64Type, &valuePtr);
+  CFDictionaryAddValue(v15, @"channelNumber", v14);
   valuePtr = 0;
   p_valuePtr = &valuePtr;
-  v10 = 0x3812000000;
-  v11 = __Block_byref_object_copy__14;
-  v12 = __Block_byref_object_dispose__15;
-  v13 = "";
-  v14 = CFArrayCreateMutable(v4, 16, MEMORY[0x277CBF128]);
-  v6 = this[1];
+  v9 = 0x3812000000;
+  v10 = __Block_byref_object_copy__14;
+  v11 = __Block_byref_object_dispose__15;
+  v12 = "";
+  v13 = CFArrayCreateMutable(v4, 16, MEMORY[0x277CBF128]);
   aci::Array::enumerateObjectsUsingBlock();
-  CFDictionaryAddValue(v16, @"channels", p_valuePtr[6]);
-  *a2 = v16;
+  CFDictionaryAddValue(v15, @"channels", p_valuePtr[6]);
+  *a2 = v15;
   _Block_object_dispose(&valuePtr, 8);
-  aci::REFSP<__CFArray *,&__CFArray * aci::cvp::CFREFSPRetain<__CFArray *>,&void aci::cvp::CFREFSPRelease<__CFArray *>>::~REFSP(&v14);
-  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&v15);
-  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&v16);
+  aci::REFSP<__CFArray *,&__CFArray * aci::cvp::CFREFSPRetain<__CFArray *>,&void aci::cvp::CFREFSPRelease<__CFArray *>>::~REFSP(&v13);
+  aci::REFSP<__CFNumber const*,&__CFNumber const* aci::cvp::CFREFSPRetain<__CFNumber const*>,&void aci::cvp::CFREFSPRelease<__CFNumber const*>>::~REFSP(&v14);
+  aci::REFSP<__CFDictionary *,&__CFDictionary * aci::cvp::CFREFSPRetain<__CFDictionary *>,&void aci::cvp::CFREFSPRelease<__CFDictionary *>>::~REFSP(&v15);
   return 0;
 }
 
@@ -4689,9 +4605,9 @@ uint64_t ___ZN3aci3cvp6Device16getConfigurationEPPK14__CFDictionary_block_invoke
   return 0;
 }
 
-void sub_23C3EF7AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3EF7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::REFSP<__CFDictionary const*,&__CFDictionary const* aci::cvp::CFREFSPRetain<__CFDictionary const*>,&void aci::cvp::CFREFSPRelease<__CFDictionary const*>>::~REFSP(va);
   _Unwind_Resume(a1);
 }
@@ -4706,19 +4622,19 @@ uint64_t aci::cvp::Device::copyProperty(aci::Array **this, CFStringRef theString
   return 0;
 }
 
-uint64_t aci::cvp::Device::registerBufferCallback(aci::Array **this, BOOL (*a2)(void *, __CVBuffer *, unint64_t), uint64_t (**a3)(void, uint64_t *))
+uint64_t aci::cvp::Device::registerBufferCallback(aci::Array **this, BOOL (*a2)(void *, __CVBuffer *, unint64_t), uint64_t (**a3)(void, uint64_t *), uint64_t a4, uint64_t a5)
 {
-  v5 = aci::Array::objectAtIndex(this[1]);
-  v6 = aci::_ACIDynamicCast<aci::cvp::Channel,aci::Object>(v5);
-  if (v6)
+  v9 = aci::Array::objectAtIndex(this[1]);
+  v10 = aci::_ACIDynamicCast<aci::cvp::Channel,aci::Object>(v9);
+  if (v10)
   {
 
-    return aci::cvp::Channel::registerBufferCallback(v6, a2, a3);
+    return aci::cvp::Channel::registerBufferCallback(v10, a2, a3, a5);
   }
 
   else
   {
-    aci::cvp::Device::registerBufferCallback();
+    aci::cvp::Device::registerBufferCallback(a4);
     return 4294967289;
   }
 }
@@ -5071,68 +4987,52 @@ aci::Object **aci::SP<aci::cvp::Channel,&(void ACISPRetain<aci::cvp::Channel>(ac
   return a1;
 }
 
-uint64_t OUTLINED_FUNCTION_0_1(uint64_t result)
-{
-  *(*(*(v1 + 32) + 8) + 24) = result;
-  v2 = *(*(*(v1 + 32) + 8) + 24);
-  return result;
-}
-
 BOOL OUTLINED_FUNCTION_7(NSObject *a1)
 {
 
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void cvp::CVPInterface::loadFirmware()
+void cvp::CVPInterface::loadFirmware(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void cvp::CVPInterface::sendCommand(int *a1)
+void cvp::CVPInterface::sendCommand(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v3))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
-    v10 = *a1;
-    v11 = a1[1];
-    v12 = a1[2];
-    v13 = a1[3];
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v4, v5, v6, v7, v8, 0x2Au);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x2Au);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void cvp::CVPInterface::sendCommand(uint64_t a1, int *a2, int *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = _aciLogGeneral();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = *(a1 + 4);
     v8 = *a2;
-    v11[0] = 67109376;
-    v11[1] = v7;
-    v12 = 1024;
-    v13 = v8;
-    _os_log_impl(&dword_23C3E4000, v6, OS_LOG_TYPE_ERROR, "[ACIVERIFY]kACIKUserClientCommand_SendCommand 0x%x reply %d", v11, 0xEu);
+    v10[0] = 67109376;
+    v10[1] = v7;
+    v11 = 1024;
+    v12 = v8;
+    _os_log_impl(&dword_23C3E4000, v6, OS_LOG_TYPE_ERROR, "[ACIVERIFY]kACIKUserClientCommand_SendCommand 0x%x reply %d", v10, 0xEu);
   }
 
   if (*a2 == 2)
@@ -5146,7 +5046,6 @@ void cvp::CVPInterface::sendCommand(uint64_t a1, int *a2, int *a3)
   }
 
   *a3 = v9;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void cvp::CVPInterface::sendCommandDict(NSObject *a1)
@@ -5182,14 +5081,13 @@ void cvp::CVPInterface::sendCommandDict(NSObject *a1)
   }
 }
 
-void ACIUKextConnection::ACIUKextConnection()
+void ACIUKextConnection::ACIUKextConnection(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x12u);
   }
 
   __assert_rtn("ACIUKextConnection", "ACIUKextConnection.h", 24, "false");
@@ -5391,51 +5289,42 @@ uint64_t (***___ZN3aci3cvp7Channel4stopEv_block_invoke_2(uint64_t a1, uint64_t a
 void aci::cvp::CVPixelBufferFactory::CVPixelBufferFactory()
 {
   OUTLINED_FUNCTION_8();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_7(v2))
+  if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void aci::cvp::CVPixelBufferFactory::allocData(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v3))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
-    v4 = *(a1 + 16);
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v5, v6, v7, v8, v9, 0xEu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xEu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void aci::cvp::Output::Output()
 {
   OUTLINED_FUNCTION_8();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_7(v2))
+  if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void aci::cvp::Output::Output(NSObject *a1, NSObject **a2)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_9(&dword_23C3E4000, v4, v5, "[ACIVERIFY]Failed to create CFMachPortCreateRunLoopSource!", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_9(&dword_23C3E4000, v4, v5, "[ACIVERIFY]Failed to create CFMachPortCreateRunLoopSource!", v6, v7, v8, v9, v10);
   }
 
   *a2 = a1;
@@ -5444,7 +5333,8 @@ void aci::cvp::Output::Output(NSObject *a1, NSObject **a2)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_9(&dword_23C3E4000, v4, v5, "[ACIVERIFY]Failed to create CFMachPortCreateWithPort!", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_9(&dword_23C3E4000, v4, v5, "[ACIVERIFY]Failed to create CFMachPortCreateWithPort!", v6, v7, v8, v9, v10);
   }
 
   *a2 = a1;
@@ -5459,51 +5349,45 @@ void aci::cvp::Output::Output(NSObject *a1)
   }
 }
 
-void ___ZN3aci3cvp6Output8activateEv_block_invoke_cold_1()
+void ___ZN3aci3cvp6Output8activateEv_block_invoke_cold_1(uint64_t a1)
 {
-  v1 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
-void aci::cvp::Output::FrameDone()
+void aci::cvp::Output::FrameDone(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v1 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
-void aci::cvp::Output::handleFrameDone()
+void aci::cvp::Output::handleFrameDone(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void aci::cvp::Channel::Channel(NSObject *a1)
@@ -5524,72 +5408,54 @@ void ___ZN3aci3cvp7Channel7prepareEv_block_invoke_cold_1(NSObject *a1)
   }
 }
 
-void ___ZN3aci3cvp7Channel5startEv_block_invoke_cold_1(NSObject *a1, int *a2)
+void ___ZN3aci3cvp7Channel5startEv_block_invoke_cold_1(NSObject *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_7(a1))
   {
-    v11 = *a2;
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v5, v6, v7, v8, v9, 8u);
+    _os_log_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void ___ZN3aci3cvp7Channel4stopEv_block_invoke_cold_1(NSObject *a1, int *a2)
+void ___ZN3aci3cvp7Channel4stopEv_block_invoke_cold_1(NSObject *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_7(a1))
   {
-    v11 = *a2;
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v5, v6, v7, v8, v9, 8u);
+    _os_log_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void aci::cvp::Channel::registerBufferCallback(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v3))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
-    v4 = *(a1 + 112);
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v5, v6, v7, v8, v9, 0xEu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xEu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void aci::cvp::Device::Device()
 {
   OUTLINED_FUNCTION_8();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_7(v2))
+  if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_8();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_7(v2))
+  if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void aci::cvp::Device::Device(NSObject *a1)
@@ -5601,45 +5467,36 @@ void aci::cvp::Device::Device(NSObject *a1)
   }
 }
 
-void aci::cvp::Device::startChannel()
+void aci::cvp::Device::startChannel(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void aci::cvp::Device::registerBufferCallback()
+void aci::cvp::Device::registerBufferCallback(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _aciLogGeneral();
-  if (OUTLINED_FUNCTION_1(v1))
+  v2 = _aciLogGeneral();
+  if (OUTLINED_FUNCTION_1(v2))
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void operator delete[]()

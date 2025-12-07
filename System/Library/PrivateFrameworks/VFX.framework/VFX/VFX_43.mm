@@ -3,7 +3,7 @@ unint64_t sub_1AF466B88()
   result = qword_1EB6395A8;
   if (!qword_1EB6395A8)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1AFE513E4, &type metadata for KTXLoadingError, v0, v1);
     atomic_store(result, &qword_1EB6395A8);
   }
 

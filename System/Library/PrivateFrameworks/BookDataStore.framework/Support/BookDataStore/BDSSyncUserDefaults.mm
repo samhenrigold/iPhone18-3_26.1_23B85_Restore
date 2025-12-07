@@ -28,20 +28,21 @@
   {
     if ([BDSSyncUserDefaults _isServiceDisabledAlternative:kTCCServiceLiverpool])
     {
-      if ([BDSSyncUserDefaults _isServiceEnabledAlternative:kTCCServiceUbiquity])
+      v4 = [BDSSyncUserDefaults _isServiceEnabledAlternative:kTCCServiceUbiquity];
+      if (v4)
       {
-        v3 = sub_100002660();
+        v3 = sub_100002660(v4);
         if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v10[0]) = 0;
-          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "isCloudKitSyncOptedIn - liverpool OFF, ubiquity ON --> forcing liverpool ON", v10, 2u);
+          LOWORD(v12[0]) = 0;
+          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "isCloudKitSyncOptedIn - liverpool OFF, ubiquity ON --> forcing liverpool ON", v12, 2u);
         }
 
-        v4 = kTCCServiceLiverpool;
+        v5 = kTCCServiceLiverpool;
         LOBYTE(v3) = 1;
-        v5 = 1;
+        v6 = 1;
 LABEL_17:
-        [BDSSyncUserDefaults _setService:v4 enabled:v5];
+        [BDSSyncUserDefaults _setService:v5 enabled:v6];
         return v3;
       }
     }
@@ -49,27 +50,28 @@ LABEL_17:
     else
     {
       v3 = [self _isServiceEnabledAlternative:kTCCServiceUbiquity];
-      v6 = [self _isServiceDisabledAlternative:kTCCServiceUbiquity];
-      v7 = sub_100002660();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      if ((v3 & 1) != 0 || v6)
+      v7 = [self _isServiceDisabledAlternative:kTCCServiceUbiquity];
+      v8 = v7;
+      v9 = sub_100002660(v7);
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+      if ((v3 & 1) != 0 || v8)
       {
-        if (v8)
+        if (v10)
         {
-          v10[0] = 67109120;
-          v10[1] = v3;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "isCloudKitSyncOptedIn - Setting unknown liverpool value to %{BOOL}d", v10, 8u);
+          v12[0] = 67109120;
+          v12[1] = v3;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "isCloudKitSyncOptedIn - Setting unknown liverpool value to %{BOOL}d", v12, 8u);
         }
 
-        v4 = kTCCServiceLiverpool;
-        v5 = v3;
+        v5 = kTCCServiceLiverpool;
+        v6 = v3;
         goto LABEL_17;
       }
 
-      if (v8)
+      if (v10)
       {
-        LOWORD(v10[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "isCloudKitSyncOptedIn - Skip setting unknown liverpool value because ubiquity is also unknown!", v10, 2u);
+        LOWORD(v12[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "isCloudKitSyncOptedIn - Skip setting unknown liverpool value because ubiquity is also unknown!", v12, 2u);
       }
     }
 
@@ -157,7 +159,7 @@ LABEL_17:
 
   else
   {
-    v8 = sub_100002660();
+    v8 = sub_100002660(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1001BDEE8(alternative, v8);
@@ -180,7 +182,7 @@ LABEL_17:
 
   else
   {
-    v8 = sub_100002660();
+    v8 = sub_100002660(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1001BDF60(alternative, v8);
@@ -195,29 +197,30 @@ LABEL_17:
   enabledCopy = enabled;
   _booksAppBundleIdentifier = [self _booksAppBundleIdentifier];
   v7 = TCCAccessSetForBundleId();
-  v8 = sub_100002660();
-  v9 = v8;
-  if (v7)
+  v8 = v7;
+  v9 = sub_100002660(v7);
+  v10 = v9;
+  if (v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v10 = @"NO";
+      v11 = @"NO";
       if (enabledCopy)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
-      v11 = 138543618;
+      v12 = 138543618;
       serviceCopy = service;
-      v13 = 2114;
-      v14 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Successfully set %{public}@ to %{public}@.", &v11, 0x16u);
+      v14 = 2114;
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Successfully set %{public}@ to %{public}@.", &v12, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_1001BDFD8(service, enabledCopy, v9);
+    sub_1001BDFD8(service, enabledCopy, v10);
   }
 }
 

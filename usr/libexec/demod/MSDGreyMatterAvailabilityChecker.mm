@@ -6,7 +6,7 @@
 
 + (BOOL)waitForGMAvailability
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -27,7 +27,7 @@
     v5 = dispatch_time(0, 1200000000000);
     v6 = dispatch_semaphore_wait(v4, v5);
     v7 = v6 == 0;
-    v8 = sub_100063A54();
+    v8 = sub_100063A54(v6);
     v9 = v8;
     if (v6)
     {

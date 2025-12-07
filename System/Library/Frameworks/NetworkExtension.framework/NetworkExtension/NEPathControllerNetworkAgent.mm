@@ -136,7 +136,7 @@
 
 - (void)unassertAgentWithOptions:(id)options
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = [options objectForKeyedSubscript:*MEMORY[0x1E6977DF0]];
   v5 = ne_log_obj();
   v6 = v5;
@@ -146,11 +146,11 @@
     {
       agentDescription = [(NENetworkAgent *)self agentDescription];
       uUIDString = [v4 UUIDString];
-      v13 = 138412546;
-      v14 = agentDescription;
-      v15 = 2112;
-      v16 = uUIDString;
-      _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "%@ unasserted by: client=%@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = agentDescription;
+      v14 = 2112;
+      v15 = uUIDString;
+      _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "%@ unasserted by: client=%@", &v12, 0x16u);
     }
 
     if (self && objc_getProperty(self, v7, 96, 1))
@@ -164,17 +164,15 @@
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
-      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Unassert message did not contain client UUID", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Unassert message did not contain client UUID", &v12, 2u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)assertAgentWithOptions:(id)options
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = [options objectForKeyedSubscript:*MEMORY[0x1E6977DF0]];
   if (v4)
   {
@@ -191,13 +189,13 @@
         parameters = [v5 parameters];
         effectiveProcessUUID = [parameters effectiveProcessUUID];
         uUIDString2 = [effectiveProcessUUID UUIDString];
-        v22 = 138412802;
-        v23 = agentDescription;
-        v24 = 2112;
-        v25 = uUIDString;
-        v26 = 2112;
-        v27 = uUIDString2;
-        _os_log_debug_impl(&dword_1BA83C000, parameters2, OS_LOG_TYPE_DEBUG, "%@ asserted by: client=%@ process=%@", &v22, 0x20u);
+        v21 = 138412802;
+        v22 = agentDescription;
+        v23 = 2112;
+        v24 = uUIDString;
+        v25 = 2112;
+        v26 = uUIDString2;
+        _os_log_debug_impl(&dword_1BA83C000, parameters2, OS_LOG_TYPE_DEBUG, "%@ asserted by: client=%@ process=%@", &v21, 0x20u);
       }
 
       if (!self || !objc_getProperty(self, v9, 88, 1))
@@ -216,9 +214,9 @@
     else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       uUIDString3 = [v4 UUIDString];
-      v22 = 138412290;
-      v23 = uUIDString3;
-      _os_log_error_impl(&dword_1BA83C000, parameters2, OS_LOG_TYPE_ERROR, "Could not fetch path for assert message (client %@)", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = uUIDString3;
+      _os_log_error_impl(&dword_1BA83C000, parameters2, OS_LOG_TYPE_ERROR, "Could not fetch path for assert message (client %@)", &v21, 0xCu);
     }
   }
 
@@ -227,8 +225,8 @@
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v22) = 0;
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Assert message did not contain client UUID", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Assert message did not contain client UUID", &v21, 2u);
     }
 
     v6 = 0;
@@ -236,13 +234,12 @@
 
 LABEL_15:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)copyAgentData
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   advisoryInterfaceArray = [(NEPathControllerNetworkAgent *)self advisoryInterfaceArray];
   if ([advisoryInterfaceArray count])
   {
@@ -258,13 +255,13 @@ LABEL_4:
   }
 
   advisoryAgentType = [(NEPathControllerNetworkAgent *)self advisoryAgentType];
-  v29 = [advisoryAgentType length];
+  v28 = [advisoryAgentType length];
 
-  if (!v29)
+  if (!v28)
   {
-    *&v33 = 0;
+    *&v32 = 0;
+    v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     if (self)
     {
       [objc_getProperty(self v5];
@@ -273,24 +270,24 @@ LABEL_4:
 
     else
     {
-      [0 getUUIDBytes:&v31];
+      [0 getUUIDBytes:&v30];
       internalSessionType = 0;
     }
 
-    LODWORD(v32) = internalSessionType;
-    v25 = [MEMORY[0x1E695DEF0] dataWithBytes:&v31 length:40];
-    goto LABEL_31;
+    LODWORD(v31) = internalSessionType;
+    [MEMORY[0x1E695DEF0] dataWithBytes:&v30 length:40];
+    return objc_claimAutoreleasedReturnValue();
   }
 
 LABEL_5:
-  v37 = 0u;
-  memset(v38, 0, sizeof(v38));
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  memset(v37, 0, sizeof(v37));
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   if (self)
   {
     [objc_getProperty(self v5];
@@ -299,12 +296,12 @@ LABEL_5:
 
   else
   {
-    [0 getUUIDBytes:&v31];
+    [0 getUUIDBytes:&v30];
     v6 = 0;
   }
 
-  LODWORD(v32) = v6;
-  v7 = [(NEPathControllerNetworkAgent *)self advisoryInterfaceArray:v31];
+  LODWORD(v31) = v6;
+  v7 = [(NEPathControllerNetworkAgent *)self advisoryInterfaceArray:v30];
   v8 = [v7 count];
 
   if (v8 >= 4)
@@ -320,7 +317,7 @@ LABEL_5:
   if (v8)
   {
     v10 = 0;
-    v11 = &v34 + 2;
+    v11 = &v33 + 2;
     do
     {
       advisoryInterfaceArray2 = [(NEPathControllerNetworkAgent *)self advisoryInterfaceArray];
@@ -347,7 +344,7 @@ LABEL_5:
   }
 
   weakAdvisory = [(NEPathControllerNetworkAgent *)self weakAdvisory];
-  BYTE8(v35) = BYTE8(v35) & 0xFE | weakAdvisory;
+  BYTE8(v34) = BYTE8(v34) & 0xFE | weakAdvisory;
   if ([(NEPathControllerNetworkAgent *)self noAdvisoryTimer])
   {
     v20 = 2;
@@ -358,7 +355,7 @@ LABEL_5:
     v20 = 0;
   }
 
-  BYTE8(v35) = BYTE8(v35) & 0xFD | v20;
+  BYTE8(v34) = BYTE8(v34) & 0xFD | v20;
   if ([(NEPathControllerNetworkAgent *)self preferAdvisory])
   {
     v21 = 8;
@@ -369,7 +366,7 @@ LABEL_5:
     v21 = 0;
   }
 
-  BYTE8(v35) = BYTE8(v35) & 0xF7 | v21;
+  BYTE8(v34) = BYTE8(v34) & 0xF7 | v21;
   if ([(NEPathControllerNetworkAgent *)self isForcedAdvisory])
   {
     v22 = 4;
@@ -380,7 +377,7 @@ LABEL_5:
     v22 = 0;
   }
 
-  BYTE8(v35) = BYTE8(v35) & 0xFB | v22;
+  BYTE8(v34) = BYTE8(v34) & 0xFB | v22;
   advisoryAgentDomain2 = [(NEPathControllerNetworkAgent *)self advisoryAgentDomain];
   advisoryAgentType2 = [(NEPathControllerNetworkAgent *)self advisoryAgentType];
   if (advisoryAgentDomain2 && [advisoryAgentDomain2 length] <= 0x1F)
@@ -395,10 +392,8 @@ LABEL_5:
     __strlcpy_chk();
   }
 
-  v25 = [MEMORY[0x1E695DEF0] dataWithBytes:&v31 length:140];
+  v25 = [MEMORY[0x1E695DEF0] dataWithBytes:&v30 length:140];
 
-LABEL_31:
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 

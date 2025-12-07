@@ -59,7 +59,7 @@
 
 - (void)respondWithError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   completionHandler = self->_completionHandler;
   if (completionHandler)
@@ -79,19 +79,17 @@
     {
       v10 = objc_opt_class();
       identifier = [(LNNeedsValueRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)respondWithUpdates:(id)updates
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   if (self->_completionHandler)
   {
@@ -112,19 +110,17 @@
     {
       v10 = objc_opt_class();
       identifier2 = [(LNNeedsValueRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier2;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier2;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)respondWithValue:(id)value
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if (self->_completionHandler)
   {
@@ -145,14 +141,12 @@
     {
       v10 = objc_opt_class();
       identifier2 = [(LNNeedsValueRequest *)self identifier];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = identifier2;
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2114;
+      v15 = identifier2;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (LNNeedsValueRequest)initWithIdentifier:(id)identifier parameterName:(id)name dialog:(id)dialog viewSnippet:(id)snippet

@@ -22,7 +22,7 @@
 
 - (void)syncCoordinatorDidChangeSyncRestriction:(id)restriction
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   restrictionCopy = restriction;
   v5 = objc_autoreleasePoolPush();
   v6 = HMFGetOSLogHandle();
@@ -30,11 +30,11 @@
   {
     v7 = HMFGetLogIdentifier();
     v8 = -[HMDPairedSync restrictionAsString:](self, "restrictionAsString:", [restrictionCopy syncRestriction]);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Sync restriction is changing to %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Sync restriction is changing to %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -42,13 +42,11 @@
   {
     [(HMDPairedSync *)self _callStartSync];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncCoordinator:(id)coordinator didInvalidateSyncSession:(id)session
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   sessionCopy = session;
   v7 = objc_autoreleasePoolPush();
@@ -56,18 +54,17 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received delegate call syncCoordinator:didInvalidateSyncSession", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received delegate call syncCoordinator:didInvalidateSyncSession", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncCoordinator:(id)coordinator beginSyncSession:(id)session
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   sessionCopy = session;
   v8 = objc_autoreleasePoolPush();
@@ -75,15 +72,13 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v10;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Received an update to being-sync-session to watch", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Received an update to being-sync-session to watch", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDPairedSync *)self _callStartSync];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncPartiallyComplete
@@ -99,7 +94,7 @@
 
 void __38__HMDPairedSync_syncPartiallyComplete__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) currentOperationCount])
   {
     [*(a1 + 32) setCurrentOperationCount:{objc_msgSend(*(a1 + 32), "currentOperationCount") - 1}];
@@ -111,15 +106,14 @@ void __38__HMDPairedSync_syncPartiallyComplete__block_invoke(uint64_t a1)
   {
     v4 = HMFGetLogIdentifier();
     v5 = [*(a1 + 32) currentOperationCount];
-    v7 = 138543618;
-    v8 = v4;
-    v9 = 2048;
-    v10 = v5;
-    _os_log_impl(&dword_2531F8000, v3, OS_LOG_TYPE_INFO, "%{public}@Partially complete, Current operation count is %tu", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2048;
+    v9 = v5;
+    _os_log_impl(&dword_2531F8000, v3, OS_LOG_TYPE_INFO, "%{public}@Partially complete, Current operation count is %tu", &v6, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncComplete
@@ -135,7 +129,7 @@ void __38__HMDPairedSync_syncPartiallyComplete__block_invoke(uint64_t a1)
 
 void __29__HMDPairedSync_syncComplete__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) currentOperationCount])
   {
     [*(a1 + 32) setCurrentOperationCount:{objc_msgSend(*(a1 + 32), "currentOperationCount") - 1}];
@@ -148,9 +142,9 @@ void __29__HMDPairedSync_syncComplete__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v4 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v4;
-      _os_log_impl(&dword_2531F8000, v3, OS_LOG_TYPE_ERROR, "%{public}@Current operation count is already 0, cannot decrement further", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v4;
+      _os_log_impl(&dword_2531F8000, v3, OS_LOG_TYPE_ERROR, "%{public}@Current operation count is already 0, cannot decrement further", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -162,11 +156,11 @@ void __29__HMDPairedSync_syncComplete__block_invoke(uint64_t a1)
   {
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 32) currentOperationCount];
-    v15 = 138543618;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v8;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Current operation count is %tu", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v8;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Current operation count is %tu", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -177,9 +171,9 @@ void __29__HMDPairedSync_syncComplete__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Informing sync coordinator that sync is complete", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Informing sync coordinator that sync is complete", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -187,13 +181,11 @@ void __29__HMDPairedSync_syncComplete__block_invoke(uint64_t a1)
     v13 = [v12 activeSyncSession];
     [v13 syncDidComplete];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callStartSync
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   delegate = [(HMDPairedSync *)self delegate];
   if (delegate)
   {
@@ -202,9 +194,9 @@ void __29__HMDPairedSync_syncComplete__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Calling the clients to start the sync", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Calling the clients to start the sync", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -213,8 +205,6 @@ void __29__HMDPairedSync_syncComplete__block_invoke(uint64_t a1)
       [delegate pairedSyncDidStart:self];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)needToSync
@@ -230,7 +220,7 @@ void __29__HMDPairedSync_syncComplete__block_invoke(uint64_t a1)
 
 void __27__HMDPairedSync_needToSync__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setCurrentOperationCount:{objc_msgSend(*(a1 + 32), "currentOperationCount") + 1}];
   v2 = [*(a1 + 32) coordinator];
   v3 = [v2 syncRestriction];
@@ -242,13 +232,13 @@ void __27__HMDPairedSync_needToSync__block_invoke(uint64_t a1)
     v6 = HMFGetLogIdentifier();
     v7 = [*(a1 + 32) restrictionAsString:v3];
     v8 = [*(a1 + 32) currentOperationCount];
-    v13 = 138543874;
-    v14 = v6;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2050;
-    v18 = v8;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Current sync restriction state: %{public}@, operation count: %{public}tu", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v6;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2050;
+    v17 = v8;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Current sync restriction state: %{public}@, operation count: %{public}tu", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -259,9 +249,9 @@ void __27__HMDPairedSync_needToSync__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Need to wait for the begin sync to happen for HomeKit.", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Need to wait for the begin sync to happen for HomeKit.", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -271,8 +261,6 @@ void __27__HMDPairedSync_needToSync__block_invoke(uint64_t a1)
   {
     [*(a1 + 32) _callStartSync];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)restrictionAsString:(unint64_t)string

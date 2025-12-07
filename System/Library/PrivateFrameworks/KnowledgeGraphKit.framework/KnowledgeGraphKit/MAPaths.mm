@@ -3,6 +3,7 @@
 + (id)pathsWithPaths:(id)paths;
 - (MAPaths)init;
 - (id)description;
+- (id)graphRepresentationWithStrictNodes:(BOOL)nodes strictEdges:(BOOL)edges;
 - (id)pathAtIndex:(unint64_t)index;
 - (id)uniqueEdgesForLabel:(id)label;
 - (id)uniqueNodesForLabel:(id)label;
@@ -16,115 +17,111 @@
 
 - (id)uniqueEdgesForLabel:(id)label
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   v5 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = self->_paths;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) edgesForLabel:{labelCopy, v14}];
+        v11 = [*(*(&v13 + 1) + 8 * i) edgesForLabel:{labelCopy, v13}];
         [v5 addObject:v11];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)uniqueNodesForLabel:(id)label
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   v5 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = self->_paths;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) nodesForLabel:{labelCopy, v14}];
+        v11 = [*(*(&v13 + 1) + 8 * i) nodesForLabel:{labelCopy, v13}];
         [v5 addObject:v11];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)enumerateWithBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v15 = 0;
+  v14 = 0;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_paths;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v12 != v8)
+      if (*v11 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9), &v15);
-      if (v15)
+      blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9), &v14);
+      if (v14)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -134,8 +131,61 @@ LABEL_3:
       }
     }
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (id)graphRepresentationWithStrictNodes:(BOOL)nodes strictEdges:(BOOL)edges
+{
+  edgesCopy = edges;
+  nodesCopy = nodes;
+  v24 = *MEMORY[0x277D85DE8];
+  v7 = +[MAGraph graph];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v8 = self->_paths;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v20;
+    while (2)
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v20 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v19 + 1) + 8 * i);
+        graphRepresentation = [v13 graphRepresentation];
+        if (!graphRepresentation)
+        {
+          [MEMORY[0x277CBEAD8] raise:@"MAPathsInvalidGraph" format:{@"Graph invalid for path %@", v13}];
+
+          v17 = 0;
+          goto LABEL_11;
+        }
+
+        v15 = graphRepresentation;
+        v16 = [v7 mergeWithGraph:graphRepresentation strictNodes:nodesCopy strictEdges:edgesCopy];
+      }
+
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v10)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v17 = v7;
+LABEL_11:
+
+  return v17;
 }
 
 - (void)removeAllPaths
@@ -148,42 +198,41 @@ LABEL_3:
 
 - (void)setPaths:(id)paths
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [(NSMutableArray *)selfCopy->_paths removeAllObjects];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v6 = pathsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(MAPaths *)selfCopy addPath:*(*(&v11 + 1) + 8 * v9++), v11];
+        [(MAPaths *)selfCopy addPath:*(*(&v10 + 1) + 8 * v9++), v10];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPath:(id)path

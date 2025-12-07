@@ -85,21 +85,7 @@ LABEL_5:
     }
   }
 
-  if (!gammaCopy)
-  {
-    goto LABEL_14;
-  }
-
-  descriptor3 = [gammaCopy descriptor];
-  dimensionCount2 = [descriptor3 dimensionCount];
-
-  descriptor4 = [gammaCopy descriptor];
-  shape2 = [descriptor4 shape];
-  v29 = [shape2 subarrayWithRange:{dimensionCount2 - v18, v18}];
-  v30 = [v29 isEqualToArray:shapeCopy];
-
-  gammaCopy = v41;
-  if ((v30 & 1) == 0)
+  if (gammaCopy && ([gammaCopy descriptor], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "dimensionCount"), v25, objc_msgSend(gammaCopy, "descriptor"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "shape"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "subarrayWithRange:", v26 - v18, v18), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "isEqualToArray:", shapeCopy), v29, v28, gammaCopy = v41, v27, (v30 & 1) == 0))
   {
     v35 = +[MLCLog framework];
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
@@ -113,7 +99,6 @@ LABEL_5:
 
   else
   {
-LABEL_14:
     betaCopy = v42;
     if ((v42 == 0) != (gammaCopy == 0))
     {
@@ -273,20 +258,10 @@ LABEL_8:
       fusedLayers = [(MLCLayer *)self fusedLayers];
       v36 = [fusedLayers count];
 
-      if (!v36)
+      if (v36 && (-[MLCLayer fusedLayers](self, "fusedLayers"), v37 = objc_claimAutoreleasedReturnValue(), [v37 objectAtIndexedSubscript:0], v38 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v38, v37, (isKindOfClass & 1) == 0))
       {
-        goto LABEL_18;
-      }
-
-      fusedLayers2 = [(MLCLayer *)self fusedLayers];
-      v38 = [fusedLayers2 objectAtIndexedSubscript:0];
-      objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
-
-      if ((isKindOfClass & 1) == 0)
-      {
-        fusedLayers3 = [(MLCLayer *)self fusedLayers];
-        v54 = [fusedLayers3 objectAtIndexedSubscript:0];
+        fusedLayers2 = [(MLCLayer *)self fusedLayers];
+        v54 = [fusedLayers2 objectAtIndexedSubscript:0];
 
         computeEngine = [deviceCopy computeEngine];
         descriptor3 = [v54 descriptor];
@@ -301,7 +276,6 @@ LABEL_8:
 
       else
       {
-LABEL_18:
         computeEngine2 = [deviceCopy computeEngine];
         computeEngine = [(MLCLayerNormalizationLayer *)self normalizedShape];
         descriptor3 = [(MLCLayerNormalizationLayer *)self beta];
@@ -546,120 +520,90 @@ LABEL_34:
 
 - (void)initWithNormalizedShape:(const char *)a1 beta:gamma:varianceEpsilon:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithNormalizedShape:(const char *)a1 beta:gamma:varianceEpsilon:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithNormalizedShape:(const char *)a1 beta:gamma:varianceEpsilon:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithNormalizedShape:(const char *)a1 beta:gamma:varianceEpsilon:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithNormalizedShape:(const char *)a1 beta:gamma:varianceEpsilon:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(void *)a2 resultTensor:.cold.1(const char *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
   v4 = [a2 beta];
   v5 = [a2 beta];
   v6 = [v5 descriptor];
   [v6 dataType];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v7, v8, "%@: beta tensor (%@) in LayerNormalization uses an unsupported data type=%d", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v7, v8, "%@: beta tensor (%@) in LayerNormalization uses an unsupported data type=%d", v9, v10, v11, v12);
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(void *)a2 resultTensor:.cold.2(const char *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
   v4 = [a2 beta];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(void *)a2 resultTensor:.cold.3(const char *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
   v4 = [a2 gamma];
   v5 = [a2 gamma];
   v6 = [v5 descriptor];
   [v6 dataType];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v7, v8, "%@: gamma tensor (%@) in LayerNormalization uses an unsupported data type=%d", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_238C1D000, v7, v8, "%@: gamma tensor (%@) in LayerNormalization uses an unsupported data type=%d", v9, v10, v11, v12);
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(void *)a2 resultTensor:.cold.4(const char *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
   v4 = [a2 gamma];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

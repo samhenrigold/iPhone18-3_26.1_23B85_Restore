@@ -21,7 +21,7 @@
 
 - (NSString)ef_publicDescription
 {
-  v36[10] = *MEMORY[0x277D85DE8];
+  v35[10] = *MEMORY[0x277D85DE8];
   v3 = @"Read";
   hashValue = self->_storage.hashValue;
   if ((hashValue & 1) == 0)
@@ -29,8 +29,8 @@
     v3 = @"Unread";
   }
 
-  v36[0] = v3;
-  v34 = hashValue;
+  v35[0] = v3;
+  v33 = hashValue;
   if ((hashValue & 2) != 0)
   {
     null = @"Deleted";
@@ -43,8 +43,8 @@
     v6 = self->_storage.hashValue;
   }
 
-  v35 = null;
-  v36[1] = null;
+  v34 = null;
+  v35[1] = null;
   if ((v6 & 4) != 0)
   {
     null2 = @"Replied";
@@ -57,10 +57,10 @@
     v8 = self->_storage.hashValue;
   }
 
-  v30 = null2;
-  v36[2] = null2;
-  v31 = v6;
-  v33 = v8;
+  v29 = null2;
+  v35[2] = null2;
+  v30 = v6;
+  v32 = v8;
   if ((v8 & 0x20) != 0)
   {
     null3 = @"Forwarded";
@@ -72,9 +72,9 @@
     v8 = self->_storage.hashValue;
   }
 
-  v36[3] = null3;
-  v29 = null3;
-  v32 = v8;
+  v35[3] = null3;
+  v28 = null3;
+  v31 = v8;
   if ((v8 & 0x40) != 0)
   {
     LOBYTE(v11) = v8;
@@ -87,8 +87,8 @@
     v11 = self->_storage.hashValue;
   }
 
-  v36[4] = null4;
-  v28 = null4;
+  v35[4] = null4;
+  v27 = null4;
   if ((v11 & 0x10) != 0)
   {
     null5 = @"Draft";
@@ -101,8 +101,8 @@
     v13 = self->_storage.hashValue;
   }
 
-  v27 = null5;
-  v36[5] = null5;
+  v26 = null5;
+  v35[5] = null5;
   if ((v13 & 8) != 0)
   {
     v16 = MEMORY[0x277CCACA8];
@@ -116,7 +116,7 @@
     _flagColorDebugDescription = null6;
   }
 
-  v36[6] = null6;
+  v35[6] = null6;
   v17 = self->_storage.hashValue;
   if ((v17 & 0x80) != 0)
   {
@@ -129,7 +129,7 @@
   }
 
   v19 = self->_storage.hashValue;
-  v36[7] = null7;
+  v35[7] = null7;
   if ((v19 & 0x2000) != 0)
   {
     null8 = @"TouchedByCleanup";
@@ -140,10 +140,10 @@
     null8 = [MEMORY[0x277CBEB68] null];
   }
 
-  v36[8] = null8;
+  v35[8] = null8;
   _junkLevelDebugDescription = [(ECMessageFlags *)self _junkLevelDebugDescription];
-  v36[9] = _junkLevelDebugDescription;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:10];
+  v35[9] = _junkLevelDebugDescription;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:10];
 
   if ((v19 & 0x2000) == 0)
   {
@@ -161,26 +161,24 @@
   {
   }
 
-  if ((v32 & 0x40) == 0)
+  if ((v31 & 0x40) == 0)
   {
   }
 
-  if ((v33 & 0x20) == 0)
+  if ((v32 & 0x20) == 0)
   {
   }
 
-  if ((v31 & 4) == 0)
+  if ((v30 & 4) == 0)
   {
   }
 
-  if ((v34 & 2) == 0)
+  if ((v33 & 2) == 0)
   {
   }
 
   v23 = [v22 ef_filter:*MEMORY[0x277D07110]];
   v24 = [v23 componentsJoinedByString:@"|"];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

@@ -148,7 +148,7 @@ void __64__SKUIProductLockupCollectionViewCell_setPerspectiveTargetView___block_
   return v18;
 }
 
-uint64_t __86__SKUIProductLockupCollectionViewCell_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__86__SKUIProductLockupCollectionViewCell_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -211,7 +211,7 @@ uint64_t __86__SKUIProductLockupCollectionViewCell_prefetchResourcesForViewEleme
 
   if (v18)
   {
-    [(SKUIProductLockupLayout *)v18 layoutWidthsForWidth:width];
+    objc_msgSend_layoutWidthsForWidth_(v18, width);
   }
 
   v23 = [(SKUIProductLockupLayout *)v18 viewElementsForSection:4, 0, 0];
@@ -254,7 +254,7 @@ uint64_t __86__SKUIProductLockupCollectionViewCell_prefetchResourcesForViewEleme
 
   if (v17)
   {
-    [(SKUIProductLockupLayout *)v17 sizingToFitWidth:width, 0.0, 0.0, 0.0, 0];
+    objc_msgSend_sizingToFitWidth_(v17, width, 0.0, 0.0, 0.0, 0);
   }
 
   v22 = 0.0 > 0.00000011920929;
@@ -913,9 +913,9 @@ LABEL_24:
 
         v10 = *(*(&v15 + 1) + 8 * i);
         itmlID = [v10 itmlID];
-        v12 = [itmlID isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = [(NSMapTable *)self->_elementViews objectForKey:v10];
           goto LABEL_11;
@@ -940,9 +940,9 @@ LABEL_11:
 
 - (void)layoutSubviews
 {
-  v141.receiver = self;
-  v141.super_class = SKUIProductLockupCollectionViewCell;
-  [(SKUICollectionViewCell *)&v141 layoutSubviews];
+  v153.receiver = self;
+  v153.super_class = SKUIProductLockupCollectionViewCell;
+  [(SKUICollectionViewCell *)&v153 layoutSubviews];
   contentView = [(SKUIProductLockupCollectionViewCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -951,16 +951,16 @@ LABEL_11:
   v11 = v10;
 
   [(SKUIViewReuseCollectionViewCell *)self contentInset];
-  v78 = v13;
-  v79 = v12;
-  v135 = 0;
-  v136 = &v135;
-  v137 = 0x3010000000;
-  v138 = &unk_215F8ACD7;
-  v71 = v15;
-  v72 = v14;
-  v139 = v15;
-  v140 = v14;
+  v90 = v13;
+  v91 = v12;
+  v147 = 0;
+  v148 = &v147;
+  v149 = 0x3010000000;
+  v150 = &unk_215F8ACD7;
+  v83 = v15;
+  v84 = v14;
+  v151 = v15;
+  v152 = v14;
   v16 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:3];
   firstObject = [v16 firstObject];
 
@@ -969,171 +969,173 @@ LABEL_11:
     v18 = v5;
     v19 = [(NSMapTable *)self->_elementViews objectForKey:firstObject];
     [v19 frame];
-    v20 = v136[4];
-    v21 = v136[5];
-    [v19 sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
-    v23 = v22;
-    v25 = v24;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v20, v21, v22, v24, v18, v7, v9, v11);
+    v20 = v148[4];
+    v21 = v148[5];
+    v22 = [v19 sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
+    v24 = v23;
+    v26 = v25;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v20, v21, v23, v25, v18, v7, v9, v11, v22, v27);
     [v19 setFrame:?];
-    v142.origin.x = v20;
-    v142.origin.y = v21;
-    v142.size.width = v23;
-    v142.size.height = v25;
-    v136[4] = CGRectGetMaxX(v142) + 13.0;
+    v154.origin.x = v20;
+    v154.origin.y = v21;
+    v154.size.width = v24;
+    v154.size.height = v26;
+    v148[4] = CGRectGetMaxX(v154) + 13.0;
 
     v5 = v18;
   }
 
-  v82 = v136[5];
-  v83 = v136[4];
-  v26 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:5];
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
-  v80 = v11 - v79 - v82;
-  v81 = v9 - v78 - v83;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v83, v82, v81, v80, v5, v7, v9, v11);
-  if (ShouldReverseLayoutDirection)
+  v94 = v148[5];
+  v95 = v148[4];
+  v28 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:5];
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v28, v29);
+  v31 = ShouldReverseLayoutDirection;
+  v92 = v11 - v91 - v94;
+  v93 = v9 - v90 - v95;
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v95, v94, v93, v92, v5, v7, v9, v11, ShouldReverseLayoutDirection, v32);
+  if (v31)
   {
-    v28 = 7;
+    v33 = 7;
   }
 
   else
   {
-    v28 = 8;
+    v33 = 8;
   }
 
-  [(SKUIProductLockupCollectionViewCell *)self _stackElements:v26 alignment:v28 inRect:v11 - v79];
-  v77 = SKUIRectByRemovingStoreUserInterfaceLayoutDirectionInRect(v29, v30, v31, v32, v5, v7, v9, v11);
-  v69 = v34;
-  v70 = v33;
-  v68 = v35;
-  v36 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:1];
-  [(SKUIProductLockupCollectionViewCell *)self _stackBottomRightElements:v36 inRect:v83, v82, v81, v80];
-  v75 = v38;
-  v76 = v37;
-  v73 = v40;
-  v74 = v39;
-  v127 = 0;
-  v128 = &v127;
-  v129 = 0x4010000000;
-  v130 = &unk_215F8ACD7;
-  v131 = v83;
-  v132 = v82;
-  v133 = v9 - v78 - v83;
-  v134 = v11 - v79 - v82;
-  if ([v26 count])
+  v34 = [(SKUIProductLockupCollectionViewCell *)self _stackElements:v28 alignment:v33 inRect:v11 - v91];
+  v89 = SKUIRectByRemovingStoreUserInterfaceLayoutDirectionInRect(v36, v37, v38, v39, v5, v7, v9, v11, v34, v35);
+  v81 = v41;
+  v82 = v40;
+  v80 = v42;
+  v43 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:1];
+  [(SKUIProductLockupCollectionViewCell *)self _stackBottomRightElements:v43 inRect:v95, v94, v93, v92];
+  v87 = v45;
+  v88 = v44;
+  v85 = v47;
+  v86 = v46;
+  v139 = 0;
+  v140 = &v139;
+  v141 = 0x4010000000;
+  v142 = &unk_215F8ACD7;
+  v143 = v95;
+  v144 = v94;
+  v145 = v9 - v90 - v95;
+  v146 = v11 - v91 - v94;
+  if ([v28 count])
   {
-    v128[6] = v77 - 5.0 - v128[4];
+    v140[6] = v89 - 5.0 - v140[4];
   }
 
-  v41 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:4];
-  if (storeShouldReverseLayoutDirection())
+  v48 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:4];
+  v50 = storeShouldReverseLayoutDirection(v48, v49);
+  if (v50)
   {
-    v42 = 8;
+    v52 = 8;
   }
 
   else
   {
-    v42 = 7;
+    v52 = 7;
   }
 
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v128[4], v128[5], v128[6], v128[7], v5, v7, v9, v11);
-  [(SKUIProductLockupCollectionViewCell *)self _stackElements:v41 alignment:v42 inRect:?];
-  v47 = SKUIRectByRemovingStoreUserInterfaceLayoutDirectionInRect(v43, v44, v45, v46, v5, v7, v9, v11);
-  v49 = v48;
-  v51 = v50;
-  v52 = v5;
-  v54 = v53;
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v140[4], v140[5], v140[6], v140[7], v5, v7, v9, v11, v50, v51);
+  v53 = [(SKUIProductLockupCollectionViewCell *)self _stackElements:v48 alignment:v52 inRect:?];
+  v59 = SKUIRectByRemovingStoreUserInterfaceLayoutDirectionInRect(v55, v56, v57, v58, v5, v7, v9, v11, v53, v54);
+  v61 = v60;
+  v63 = v62;
+  v64 = v5;
+  v66 = v65;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke;
   aBlock[3] = &unk_2781FC338;
-  v105 = &v127;
-  v106 = v83;
-  v107 = v82;
-  v108 = v9 - v78 - v83;
-  v109 = v11 - v79 - v82;
-  v55 = v41;
-  v101 = v55;
-  v110 = v47;
-  v111 = v49;
-  v112 = v51;
-  v113 = v54;
-  v114 = v52;
-  v115 = v7;
-  v116 = v9;
-  v117 = v11;
-  v118 = v72;
-  v119 = v71;
-  v120 = v79;
-  v121 = v78;
-  v56 = v26;
-  v102 = v56;
-  v122 = v77;
-  v123 = v70;
-  v124 = v69;
-  v125 = v68;
-  v57 = v36;
-  v103 = v57;
+  v117 = &v139;
+  v118 = v95;
+  v119 = v94;
+  v120 = v9 - v90 - v95;
+  v121 = v11 - v91 - v94;
+  v67 = v48;
+  v113 = v67;
+  v122 = v59;
+  v123 = v61;
+  v124 = v63;
+  v125 = v66;
+  v126 = v64;
+  v127 = v7;
+  v128 = v9;
+  v129 = v11;
+  v130 = v84;
+  v131 = v83;
+  v132 = v91;
+  v133 = v90;
+  v68 = v28;
+  v114 = v68;
+  v134 = v89;
+  v135 = v82;
+  v136 = v81;
+  v137 = v80;
+  v69 = v43;
+  v115 = v69;
   selfCopy = self;
-  v126 = v42;
-  v58 = _Block_copy(aBlock);
-  v58[2](v76, v75, v74, v73, 0.0);
-  v59 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:0];
-  if ([v59 count])
+  v138 = v52;
+  v70 = _Block_copy(aBlock);
+  v70[2](v88, v87, v86, v85, 0.0);
+  v71 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:0];
+  if ([v71 count])
   {
     bottomLeftLayoutStyle = [(SKUIProductLockupLayout *)self->_layout bottomLeftLayoutStyle];
     if (bottomLeftLayoutStyle == 2)
     {
-      v94 = 0;
-      v95 = &v94;
-      v61 = *(v136 + 4);
-      v96 = 0x2020000000;
-      v97 = v61;
-      v99[0] = MEMORY[0x277D85DD0];
-      v99[1] = 3221225472;
-      v99[2] = __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_2;
-      v99[3] = &unk_2781FC360;
-      *&v99[6] = v9 - v78 - v83;
-      *&v99[7] = v11 - v79 - v82;
-      v99[4] = self;
-      v99[5] = &v94;
-      *&v99[8] = v52;
-      *&v99[9] = v7;
-      *&v99[10] = v9;
-      *&v99[11] = v11;
-      v99[12] = v72;
-      v99[13] = v71;
-      *&v99[14] = v79;
-      *&v99[15] = v78;
-      [v59 enumerateObjectsUsingBlock:v99];
-      if ([v57 count])
+      v106 = 0;
+      v107 = &v106;
+      v73 = *(v148 + 4);
+      v108 = 0x2020000000;
+      v109 = v73;
+      v111[0] = MEMORY[0x277D85DD0];
+      v111[1] = 3221225472;
+      v111[2] = __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_2;
+      v111[3] = &unk_2781FC360;
+      *&v111[6] = v9 - v90 - v95;
+      *&v111[7] = v11 - v91 - v94;
+      v111[4] = self;
+      v111[5] = &v106;
+      *&v111[8] = v64;
+      *&v111[9] = v7;
+      *&v111[10] = v9;
+      *&v111[11] = v11;
+      v111[12] = v84;
+      v111[13] = v83;
+      *&v111[14] = v91;
+      *&v111[15] = v90;
+      [v71 enumerateObjectsUsingBlock:v111];
+      if ([v69 count])
       {
-        v143.origin.y = v75;
-        v143.origin.x = v76;
-        v143.size.height = v73;
-        v143.size.width = v74;
-        if (CGRectGetMinX(v143) < v95[3])
+        v155.origin.y = v87;
+        v155.origin.x = v88;
+        v155.size.height = v85;
+        v155.size.width = v86;
+        if (CGRectGetMinX(v155) < v107[3])
         {
           if ([(SKUIProductLockupLayout *)self->_layout hasBottomRightElementWithRightAlignment])
           {
-            v62 = v95[3];
-            v144.origin.x = v83;
-            v144.origin.y = v82;
-            v144.size.height = v80;
-            v144.size.width = v9 - v78 - v83;
-            MinY = CGRectGetMinY(v144);
-            v145.origin.x = v83;
-            v145.origin.y = v82;
-            v145.size.height = v80;
-            v145.size.width = v81;
-            MaxX = CGRectGetMaxX(v145);
-            v146.origin.x = v83;
-            v146.origin.y = v82;
-            v146.size.height = v80;
-            v146.size.width = v81;
-            [(SKUIProductLockupCollectionViewCell *)self _stackBottomRightElements:v57 inRect:v62, MinY, MaxX - v95[3], CGRectGetHeight(v146)];
-            (v58[2])(v58);
+            v74 = v107[3];
+            v156.origin.x = v95;
+            v156.origin.y = v94;
+            v156.size.height = v92;
+            v156.size.width = v9 - v90 - v95;
+            MinY = CGRectGetMinY(v156);
+            v157.origin.x = v95;
+            v157.origin.y = v94;
+            v157.size.height = v92;
+            v157.size.width = v93;
+            MaxX = CGRectGetMaxX(v157);
+            v158.origin.x = v95;
+            v158.origin.y = v94;
+            v158.size.height = v92;
+            v158.size.width = v93;
+            [(SKUIProductLockupCollectionViewCell *)self _stackBottomRightElements:v69 inRect:v74, MinY, MaxX - v107[3], CGRectGetHeight(v158)];
+            (v70[2])(v70);
           }
         }
       }
@@ -1141,76 +1143,76 @@ LABEL_11:
 
     else
     {
-      if ([v57 count])
+      if ([v69 count])
       {
-        v65 = v76 - 5.0 - v83;
+        v77 = v88 - 5.0 - v95;
       }
 
       else
       {
-        v65 = v9 - v78 - v83;
+        v77 = v9 - v90 - v95;
       }
 
-      v94 = 0;
-      v95 = &v94;
-      v96 = 0x3010000000;
-      v97 = &unk_215F8ACD7;
-      v98 = *MEMORY[0x277CBF3A8];
-      v90 = 0;
-      v91 = &v90;
-      v92 = 0x2020000000;
-      v93 = 0;
-      v86 = 0;
-      v87 = &v86;
-      v88 = 0x2020000000;
-      v89 = 0;
-      v85[0] = MEMORY[0x277D85DD0];
-      v85[1] = 3221225472;
-      v85[2] = __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_3;
-      v85[3] = &unk_2781FC388;
-      *&v85[8] = v65;
-      *&v85[9] = v52;
-      *&v85[10] = v7;
-      *&v85[11] = v9;
-      *&v85[12] = v11;
-      v85[4] = self;
-      v85[5] = &v86;
-      v85[6] = &v94;
-      v85[7] = &v90;
-      [v59 enumerateObjectsUsingBlock:v85];
-      v66 = v95;
-      if (bottomLeftLayoutStyle && v95[4] < v65)
+      v106 = 0;
+      v107 = &v106;
+      v108 = 0x3010000000;
+      v109 = &unk_215F8ACD7;
+      v110 = *MEMORY[0x277CBF3A8];
+      v102 = 0;
+      v103 = &v102;
+      v104 = 0x2020000000;
+      v105 = 0;
+      v98 = 0;
+      v99 = &v98;
+      v100 = 0x2020000000;
+      v101 = 0;
+      v97[0] = MEMORY[0x277D85DD0];
+      v97[1] = 3221225472;
+      v97[2] = __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_3;
+      v97[3] = &unk_2781FC388;
+      *&v97[8] = v77;
+      *&v97[9] = v64;
+      *&v97[10] = v7;
+      *&v97[11] = v9;
+      *&v97[12] = v11;
+      v97[4] = self;
+      v97[5] = &v98;
+      v97[6] = &v106;
+      v97[7] = &v102;
+      [v71 enumerateObjectsUsingBlock:v97];
+      v78 = v107;
+      if (bottomLeftLayoutStyle && v107[4] < v77)
       {
-        v65 = v95[4];
+        v77 = v107[4];
       }
 
-      v95[4] = v65;
-      v91[3] = 0;
-      v136[5] = v67 - v66[5];
-      v87[3] = 0;
-      v84[0] = MEMORY[0x277D85DD0];
-      v84[1] = 3221225472;
-      v84[2] = __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_4;
-      v84[3] = &unk_2781FC3B0;
-      v84[4] = self;
-      v84[5] = &v135;
-      v84[6] = &v90;
-      v84[7] = &v86;
-      v84[8] = &v94;
-      *&v84[9] = v52;
-      *&v84[10] = v7;
-      *&v84[11] = v9;
-      *&v84[12] = v11;
-      [v59 enumerateObjectsUsingBlock:v84];
-      _Block_object_dispose(&v86, 8);
-      _Block_object_dispose(&v90, 8);
+      v107[4] = v77;
+      v103[3] = 0;
+      v148[5] = v79 - v78[5];
+      v99[3] = 0;
+      v96[0] = MEMORY[0x277D85DD0];
+      v96[1] = 3221225472;
+      v96[2] = __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_4;
+      v96[3] = &unk_2781FC3B0;
+      v96[4] = self;
+      v96[5] = &v147;
+      v96[6] = &v102;
+      v96[7] = &v98;
+      v96[8] = &v106;
+      *&v96[9] = v64;
+      *&v96[10] = v7;
+      *&v96[11] = v9;
+      *&v96[12] = v11;
+      [v71 enumerateObjectsUsingBlock:v96];
+      _Block_object_dispose(&v98, 8);
+      _Block_object_dispose(&v102, 8);
     }
 
-    _Block_object_dispose(&v94, 8);
+    _Block_object_dispose(&v106, 8);
   }
 
-  _Block_object_dispose(&v127, 8);
-  _Block_object_dispose(&v135, 8);
+  _Block_object_dispose(&v139, 8);
+  _Block_object_dispose(&v147, 8);
 }
 
 double __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke(uint64_t a1, double a2, double a3, double a4, double a5, double a6)
@@ -1271,144 +1273,144 @@ double __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke(ui
   v20 = [v19[107] viewElementsForSection:2];
   v21 = *(a1 + 232);
   v22 = *(*(a1 + 64) + 8);
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v22[4], v22[5], v22[6], v22[7], *(a1 + 136), *(a1 + 144), *(a1 + 152), *(a1 + 160));
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v22[4], v22[5], v22[6], v22[7], *(a1 + 136), *(a1 + 144), *(a1 + 152), *(a1 + 160), v20, v23);
   [v19 _stackElements:v20 alignment:v21 inRect:?];
-  v24 = v23;
+  v25 = v24;
 
-  return v24;
+  return v25;
 }
 
 void __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = [*(*(a1 + 32) + 840) objectForKey:a2];
-  if (([v9 isHidden] & 1) == 0)
+  v11 = [*(*(a1 + 32) + 840) objectForKey:a2];
+  if (([v11 isHidden] & 1) == 0)
   {
-    [v9 frame];
-    [v9 sizeThatFits:{*(a1 + 48), 1.79769313e308}];
-    v11.size.width = v3;
-    v11.size.height = v4;
-    v11.origin.x = *(*(*(a1 + 40) + 8) + 24);
-    v11.origin.y = *(a1 + 88) - *(a1 + 112) - v4;
-    v12 = CGRectIntegral(v11);
-    x = v12.origin.x;
-    y = v12.origin.y;
-    width = v12.size.width;
-    height = v12.size.height;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v12.origin.x, v12.origin.y, v12.size.width, v12.size.height, *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88));
-    [v9 setFrame:?];
-    v13.origin.x = x;
-    v13.origin.y = y;
-    v13.size.width = width;
-    v13.size.height = height;
-    *(*(*(a1 + 40) + 8) + 24) = CGRectGetMaxX(v13) + 5.0;
+    [v11 frame];
+    [v11 sizeThatFits:{*(a1 + 48), 1.79769313e308}];
+    v13.size.width = v3;
+    v13.size.height = v4;
+    v13.origin.x = *(*(*(a1 + 40) + 8) + 24);
+    v13.origin.y = *(a1 + 88) - *(a1 + 112) - v4;
+    v14 = CGRectIntegral(v13);
+    x = v14.origin.x;
+    y = v14.origin.y;
+    width = v14.size.width;
+    height = v14.size.height;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v14.origin.x, v14.origin.y, v14.size.width, v14.size.height, *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88), v9, v10);
+    [v11 setFrame:?];
+    v15.origin.x = x;
+    v15.origin.y = y;
+    v15.size.width = width;
+    v15.size.height = height;
+    *(*(*(a1 + 40) + 8) + 24) = CGRectGetMaxX(v15) + 5.0;
   }
 }
 
 void __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = a2;
+  v19 = a2;
   v3 = [*(*(a1 + 32) + 840) objectForKey:?];
   if (([v3 isHidden] & 1) == 0)
   {
     [v3 frame];
     v5 = v4;
     v7 = v6;
-    [v3 sizeThatFits:{*(a1 + 64), 1.79769313e308}];
-    v10 = v9;
-    if (v8 >= *(a1 + 64))
+    v8 = [v3 sizeThatFits:{*(a1 + 64), 1.79769313e308}];
+    v12 = v11;
+    if (v10 >= *(a1 + 64))
     {
-      v11 = *(a1 + 64);
+      v13 = *(a1 + 64);
     }
 
     else
     {
-      v11 = v8;
+      v13 = v10;
     }
 
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v5, v7, v11, v9, *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96));
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v5, v7, v13, v11, *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96), v8, v9);
     [v3 setFrame:?];
     if (*(*(*(a1 + 40) + 8) + 24) <= 0)
     {
-      v12 = v17;
+      v14 = v19;
     }
 
     else
     {
-      [*(*(a1 + 32) + 856) topPaddingForViewElement:v17];
-      v12 = v17;
-      *(*(*(a1 + 48) + 8) + 40) = v13 + *(*(*(a1 + 48) + 8) + 40);
+      [*(*(a1 + 32) + 856) topPaddingForViewElement:v19];
+      v14 = v19;
+      *(*(*(a1 + 48) + 8) + 40) = v15 + *(*(*(a1 + 48) + 8) + 40);
     }
 
-    *(*(*(a1 + 48) + 8) + 40) = v10 + *(*(*(a1 + 56) + 8) + 24) + *(*(*(a1 + 48) + 8) + 40);
-    v14 = *(*(a1 + 48) + 8);
-    v15 = *(v14 + 32);
-    if (v15 < v11)
+    *(*(*(a1 + 48) + 8) + 40) = v12 + *(*(*(a1 + 56) + 8) + 24) + *(*(*(a1 + 48) + 8) + 40);
+    v16 = *(*(a1 + 48) + 8);
+    v17 = *(v16 + 32);
+    if (v17 < v13)
     {
-      v15 = v11;
+      v17 = v13;
     }
 
-    *(v14 + 32) = v15;
-    [*(*(a1 + 32) + 856) bottomPaddingForViewElement:v12];
-    *(*(*(a1 + 56) + 8) + 24) = v16;
+    *(v16 + 32) = v17;
+    [*(*(a1 + 32) + 856) bottomPaddingForViewElement:v14];
+    *(*(*(a1 + 56) + 8) + 24) = v18;
     ++*(*(*(a1 + 40) + 8) + 24);
   }
 }
 
-void __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_4(uint64_t a1, void *a2)
+void __53__SKUIProductLockupCollectionViewCell_layoutSubviews__block_invoke_4(CGFloat *a1, void *a2)
 {
-  v20 = a2;
-  v3 = [*(*(a1 + 32) + 840) objectForKey:?];
+  v22 = a2;
+  v3 = [*(*(a1 + 4) + 840) objectForKey:?];
   if (([v3 isHidden] & 1) == 0)
   {
     [v3 frame];
     v5 = v4;
     v7 = v6;
-    v8 = *(*(*(a1 + 40) + 8) + 40) + *(*(*(a1 + 48) + 8) + 24);
-    if (*(*(*(a1 + 56) + 8) + 24) < 1)
+    v8 = *(*(*(a1 + 5) + 8) + 40) + *(*(*(a1 + 6) + 8) + 24);
+    if (*(*(*(a1 + 7) + 8) + 24) < 1)
     {
-      v9 = v20;
+      v9 = v22;
     }
 
     else
     {
-      [*(*(a1 + 32) + 856) topPaddingForViewElement:v20];
-      v9 = v20;
+      [*(*(a1 + 4) + 856) topPaddingForViewElement:v22];
+      v9 = v22;
       v8 = v8 + v10;
     }
 
     if ([v9 elementType] == 77)
     {
-      v11 = *(*(*(a1 + 40) + 8) + 32);
-      v5 = *(*(*(a1 + 64) + 8) + 32);
+      v11 = *(*(*(a1 + 5) + 8) + 32);
+      v5 = *(*(*(a1 + 8) + 8) + 32);
     }
 
     else
     {
-      v11 = *(*(*(a1 + 40) + 8) + 32);
-      if (*(*(a1 + 32) + 880) != 1)
+      v11 = *(*(*(a1 + 5) + 8) + 32);
+      if (*(*(a1 + 4) + 880) != 1)
       {
-        v11 = v11 + *(*(*(a1 + 64) + 8) + 32) - v5;
+        v11 = v11 + *(*(*(a1 + 8) + 8) + 32) - v5;
       }
     }
 
     v12 = v8;
     v13 = v5;
     v14 = v7;
-    v22 = CGRectIntegral(*&v11);
-    x = v22.origin.x;
-    y = v22.origin.y;
-    width = v22.size.width;
-    height = v22.size.height;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v22.origin.x, v22.origin.y, v22.size.width, v22.size.height, *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96));
+    v24 = CGRectIntegral(*&v11);
+    x = v24.origin.x;
+    y = v24.origin.y;
+    width = v24.size.width;
+    height = v24.size.height;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v24.origin.x, v24.origin.y, v24.size.width, v24.size.height, a1[9], a1[10], a1[11], a1[12], v19, v20);
     [v3 setFrame:?];
-    [*(*(a1 + 32) + 856) bottomPaddingForViewElement:v20];
-    *(*(*(a1 + 48) + 8) + 24) = v19;
-    v23.origin.x = x;
-    v23.origin.y = y;
-    v23.size.width = width;
-    v23.size.height = height;
-    *(*(*(a1 + 40) + 8) + 40) = CGRectGetMaxY(v23);
-    ++*(*(*(a1 + 56) + 8) + 24);
+    [*(*(a1 + 4) + 856) bottomPaddingForViewElement:v22];
+    *(*(*(a1 + 6) + 8) + 24) = v21;
+    v25.origin.x = x;
+    v25.origin.y = y;
+    v25.size.width = width;
+    v25.size.height = height;
+    *(*(*(a1 + 5) + 8) + 40) = CGRectGetMaxY(v25);
+    ++*(*(*(a1 + 7) + 8) + 24);
   }
 }
 
@@ -1640,15 +1642,15 @@ LABEL_11:
 
       else
       {
-        v16 = SKUIFontForTextStyle(10);
+        v16 = SKUIFontForTextStyle(10, v20);
         if (v18)
         {
           goto LABEL_32;
         }
       }
 
-      v20 = MEMORY[0x277D75348];
-      v21 = 0.6;
+      v21 = MEMORY[0x277D75348];
+      v22 = 0.6;
       goto LABEL_28;
     }
 
@@ -1684,7 +1686,7 @@ LABEL_15:
     case 3:
       if (!v16)
       {
-        v16 = SKUIFontForTextStyle(10);
+        v16 = SKUIFontForTextStyle(10, v20);
       }
 
       if (v18)
@@ -1692,10 +1694,10 @@ LABEL_15:
         break;
       }
 
-      v20 = MEMORY[0x277D75348];
-      v21 = 0.4;
+      v21 = MEMORY[0x277D75348];
+      v22 = 0.4;
 LABEL_28:
-      blackColor = [v20 colorWithWhite:0.0 alpha:v21];
+      blackColor = [v21 colorWithWhite:0.0 alpha:v22];
 LABEL_31:
       v18 = blackColor;
       break;
@@ -1710,8 +1712,8 @@ LABEL_31:
         break;
       }
 
-      v20 = MEMORY[0x277D75348];
-      v21 = 0.8;
+      v21 = MEMORY[0x277D75348];
+      v22 = 0.8;
       goto LABEL_28;
     case 5:
       goto LABEL_15;
@@ -1719,9 +1721,9 @@ LABEL_31:
 
 LABEL_32:
   text = [labelCopy text];
-  v24 = [text attributedStringWithDefaultFont:v16 foregroundColor:v18 style:style];
+  v25 = [text attributedStringWithDefaultFont:v16 foregroundColor:v18 style:style];
 
-  return v24;
+  return v25;
 }
 
 + (void)_requestLayoutForViewElements:(id)elements width:(double)width context:(id)context
@@ -2169,49 +2171,49 @@ void __80__SKUIProductLockupCollectionViewCell__prepareOfferConfirmationGradient
 
 void __72__SKUIProductLockupCollectionViewCell__stackBottomRightElements_inRect___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v18 = a2;
   v3 = [*(*(a1 + 32) + 840) objectForKey:?];
   if (([v3 isHidden] & 1) == 0)
   {
     [v3 sizeThatFits:{*(a1 + 80), 1.79769313e308}];
-    v18.size.width = v4;
-    v18.size.height = v5;
-    v18.origin.x = *(a1 + 64) + *(a1 + 80) - v4;
-    v18.origin.y = *(*(*(a1 + 40) + 8) + 40) - v5 - *(*(*(a1 + 48) + 8) + 24);
-    v19 = CGRectIntegral(v18);
-    x = v19.origin.x;
-    y = v19.origin.y;
-    width = v19.size.width;
-    height = v19.size.height;
-    [*(a1 + 32) bounds];
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(x, y, width, height, v10, v11, v12, v13);
+    v20.size.width = v4;
+    v20.size.height = v5;
+    v20.origin.x = *(a1 + 64) + *(a1 + 80) - v4;
+    v20.origin.y = *(*(*(a1 + 40) + 8) + 40) - v5 - *(*(*(a1 + 48) + 8) + 24);
+    v21 = CGRectIntegral(v20);
+    x = v21.origin.x;
+    y = v21.origin.y;
+    width = v21.size.width;
+    height = v21.size.height;
+    v10 = [*(a1 + 32) bounds];
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(x, y, width, height, v12, v13, v14, v15, v10, v11);
     [v3 setFrame:?];
     [v3 setNeedsLayout];
-    v14 = *(*(a1 + 40) + 8);
+    v16 = *(*(a1 + 40) + 8);
     if (*(*(*(a1 + 56) + 8) + 24))
     {
-      v21.origin.x = x;
-      v21.origin.y = y;
-      v21.size.width = width;
-      v21.size.height = height;
-      v20 = CGRectUnion(v14[1], v21);
-      y = v20.origin.y;
-      width = v20.size.width;
-      height = v20.size.height;
-      v14 = *(*(a1 + 40) + 8);
-      v14[1].origin.x = v20.origin.x;
+      v23.origin.x = x;
+      v23.origin.y = y;
+      v23.size.width = width;
+      v23.size.height = height;
+      v22 = CGRectUnion(v16[1], v23);
+      y = v22.origin.y;
+      width = v22.size.width;
+      height = v22.size.height;
+      v16 = *(*(a1 + 40) + 8);
+      v16[1].origin.x = v22.origin.x;
     }
 
     else
     {
-      v14[1].origin.x = x;
+      v16[1].origin.x = x;
     }
 
-    v14[1].origin.y = y;
-    v14[1].size.width = width;
-    v14[1].size.height = height;
-    [*(*(a1 + 32) + 856) bottomPaddingForViewElement:v16];
-    *(*(*(a1 + 48) + 8) + 24) = v15;
+    v16[1].origin.y = y;
+    v16[1].size.width = width;
+    v16[1].size.height = height;
+    [*(*(a1 + 32) + 856) bottomPaddingForViewElement:v18];
+    *(*(*(a1 + 48) + 8) + 24) = v17;
     ++*(*(*(a1 + 56) + 8) + 24);
   }
 }
@@ -2371,150 +2373,151 @@ void __71__SKUIProductLockupCollectionViewCell__stackElements_alignment_inRect__
   if (v7)
   {
     [viewCopy frame];
-    x = v41.origin.x;
-    y = v41.origin.y;
-    MaxX = CGRectGetMaxX(v41);
-    [viewCopy sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
-    v12 = v11;
-    v14 = v13;
-    ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
-    v16 = MaxX - v12;
+    x = v47.origin.x;
+    y = v47.origin.y;
+    MaxX = CGRectGetMaxX(v47);
+    v11 = [viewCopy sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
+    v13 = v12;
+    v15 = v14;
+    ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v11, v16);
+    v18 = MaxX - v13;
     if (ShouldReverseLayoutDirection)
     {
-      v16 = x;
+      v18 = x;
     }
 
-    [viewCopy setFrame:{v16, y, v12, v14}];
-    v17 = 1;
+    [viewCopy setFrame:{v18, y, v13, v15}];
+    v19 = 1;
   }
 
   else
   {
     if ([(SKUIProductLockupLayout *)self->_layout bottomLeftLayoutStyle]== 2)
     {
-      v18 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:0];
-      v37 = 0;
-      v38 = &v37;
-      v39 = 0x2020000000;
+      v20 = [(SKUIProductLockupLayout *)self->_layout viewElementsForSection:0];
+      v43 = 0;
+      v44 = &v43;
+      v45 = 0x2020000000;
       elementViews = self->_elementViews;
-      firstObject = [v18 firstObject];
-      v21 = [(NSMapTable *)elementViews objectForKey:firstObject];
-      [v21 frame];
-      v23 = v22;
+      firstObject = [v20 firstObject];
+      v23 = [(NSMapTable *)elementViews objectForKey:firstObject];
+      [v23 frame];
+      v25 = v24;
 
-      v40 = v23;
-      if (storeShouldReverseLayoutDirection())
+      v46 = v25;
+      if (storeShouldReverseLayoutDirection(v26, v27))
       {
-        v24 = self->_elementViews;
-        firstObject2 = [v18 firstObject];
-        v26 = [(NSMapTable *)v24 objectForKey:firstObject2];
-        [v26 frame];
-        v38[3] = CGRectGetMaxX(v42);
+        v28 = self->_elementViews;
+        firstObject2 = [v20 firstObject];
+        v30 = [(NSMapTable *)v28 objectForKey:firstObject2];
+        [v30 frame];
+        v44[3] = CGRectGetMaxX(v48);
       }
 
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __84__SKUIProductLockupCollectionViewCell__updateLayoutToAnimateOfferTransitionForView___block_invoke;
-      v34[3] = &unk_2781FC428;
-      v34[4] = self;
-      v36 = &v37;
-      v35 = viewCopy;
-      [v18 enumerateObjectsUsingBlock:v34];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __84__SKUIProductLockupCollectionViewCell__updateLayoutToAnimateOfferTransitionForView___block_invoke;
+      v40[3] = &unk_2781FC428;
+      v40[4] = self;
+      v42 = &v43;
+      v41 = viewCopy;
+      [v20 enumerateObjectsUsingBlock:v40];
 
-      _Block_object_dispose(&v37, 8);
+      _Block_object_dispose(&v43, 8);
     }
 
     else
     {
       [viewCopy frame];
-      v27 = v43.origin.x;
-      v28 = v43.origin.y;
-      v29 = CGRectGetMaxX(v43);
-      [viewCopy sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
-      v31 = v30;
-      v33 = v32;
-      if (!self->_offerMetadataPosition && !storeShouldReverseLayoutDirection())
+      v31 = v49.origin.x;
+      v32 = v49.origin.y;
+      v33 = CGRectGetMaxX(v49);
+      v34 = [viewCopy sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
+      v37 = v36;
+      v39 = v38;
+      if (!self->_offerMetadataPosition && !storeShouldReverseLayoutDirection(v34, v35))
       {
-        v27 = v29 - v31;
+        v31 = v33 - v37;
       }
 
-      [viewCopy setFrame:{v27, v28, v31, v33}];
+      [viewCopy setFrame:{v31, v32, v37, v39}];
     }
 
-    v17 = 0;
+    v19 = 0;
   }
 
-  [(SKUIProductLockupCollectionViewCell *)self _layoutConfirmationGradientRelativeToSection:v17 alpha:1.0];
+  [(SKUIProductLockupCollectionViewCell *)self _layoutConfirmationGradientRelativeToSection:v19 alpha:1.0];
 }
 
 uint64_t __84__SKUIProductLockupCollectionViewCell__updateLayoutToAnimateOfferTransitionForView___block_invoke(void *a1, uint64_t a2)
 {
-  v26 = [*(a1[4] + 840) objectForKey:a2];
-  v3 = [v26 isHidden];
-  v4 = v26;
+  v32 = [*(a1[4] + 840) objectForKey:a2];
+  v3 = [v32 isHidden];
+  v4 = v32;
   if ((v3 & 1) == 0)
   {
-    [v26 frame];
-    v6 = v5;
-    v8 = v7;
-    v10 = v9;
-    v12 = v11;
-    if (storeShouldReverseLayoutDirection())
+    v5 = [v32 frame];
+    v7 = v6;
+    v9 = v8;
+    v11 = v10;
+    v13 = v12;
+    if (storeShouldReverseLayoutDirection(v5, v14))
     {
-      v13 = *(*(a1[6] + 8) + 24);
-      v28.origin.x = v6;
-      v28.origin.y = v8;
-      v28.size.width = v10;
-      v28.size.height = v12;
-      v14 = v13 - CGRectGetWidth(v28);
+      v15 = *(*(a1[6] + 8) + 24);
+      v34.origin.x = v7;
+      v34.origin.y = v9;
+      v34.size.width = v11;
+      v34.size.height = v13;
+      v16 = v15 - CGRectGetWidth(v34);
     }
 
     else
     {
-      v14 = *(*(a1[6] + 8) + 24);
+      v16 = *(*(a1[6] + 8) + 24);
     }
 
-    v29.origin.x = v14;
-    v29.origin.y = v8;
-    v29.size.width = v10;
-    v29.size.height = v12;
-    MaxX = CGRectGetMaxX(v29);
-    if (v26 == a1[5])
+    v35.origin.x = v16;
+    v35.origin.y = v9;
+    v35.size.width = v11;
+    v35.size.height = v13;
+    MaxX = CGRectGetMaxX(v35);
+    v19 = v32;
+    if (v32 == a1[5])
     {
-      [v26 sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
-      v10 = v16;
-      v12 = v17;
+      v19 = [v32 sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
+      v11 = v20;
+      v13 = v21;
     }
 
-    if (storeShouldReverseLayoutDirection())
+    if (storeShouldReverseLayoutDirection(v19, v17))
     {
-      v30.origin.x = v14;
-      v30.origin.y = v8;
-      v30.size.width = v10;
-      v30.size.height = v12;
-      v14 = MaxX - CGRectGetWidth(v30);
+      v36.origin.x = v16;
+      v36.origin.y = v9;
+      v36.size.width = v11;
+      v36.size.height = v13;
+      v16 = MaxX - CGRectGetWidth(v36);
     }
 
-    [v26 setFrame:{v14, v8, v10, v12}];
-    ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
-    v19 = v14;
-    v20 = v8;
-    v21 = v10;
-    v22 = v12;
+    v22 = [v32 setFrame:{v16, v9, v11, v13}];
+    ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v22, v23);
+    v25 = v16;
+    v26 = v9;
+    v27 = v11;
+    v28 = v13;
     if (ShouldReverseLayoutDirection)
     {
-      MinX = CGRectGetMinX(*&v19);
-      v24 = -5.0;
+      MinX = CGRectGetMinX(*&v25);
+      v30 = -5.0;
     }
 
     else
     {
-      MinX = CGRectGetMaxX(*&v19);
-      v24 = 5.0;
+      MinX = CGRectGetMaxX(*&v25);
+      v30 = 5.0;
     }
 
-    *(*(a1[6] + 8) + 24) = MinX + v24;
-    v4 = v26;
+    *(*(a1[6] + 8) + 24) = MinX + v30;
+    v4 = v32;
   }
 
   return MEMORY[0x2821F96F8](v3, v4);
@@ -2567,6 +2570,60 @@ uint64_t __84__SKUIProductLockupCollectionViewCell__updateLayoutToAnimateOfferTr
 LABEL_11:
 
   return v12;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductLockupCollectionViewCell initWithFrame:]";
+}
+
++ (void)maximumPerspectiveHeightForSize:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductLockupCollectionViewCell maximumPerspectiveHeightForSize:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductLockupCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductLockupCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductLockupCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductLockupCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
+}
+
++ (void)_attributedStringForButton:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductLockupCollectionViewCell _attributedStringForButton:context:]";
+}
+
++ (void)_attributedStringForLabel:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductLockupCollectionViewCell _attributedStringForLabel:context:]";
+}
+
++ (void)_requestLayoutForViewElements:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductLockupCollectionViewCell _requestLayoutForViewElements:width:context:]";
 }
 
 @end

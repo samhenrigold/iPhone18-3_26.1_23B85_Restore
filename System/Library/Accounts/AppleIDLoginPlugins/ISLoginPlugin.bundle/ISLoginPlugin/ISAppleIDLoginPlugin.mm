@@ -34,9 +34,8 @@
   kdebug_trace();
   val = self;
   [(ISAppleIDLoginPlugin *)self setHandler:completionCopy];
-  v65 = [NSMutableDictionary dictionaryWithDictionary:responseCopy];
-  [v65 removeObjectForKey:@"password"];
-  v9 = ISAppleIDPluginLogConfig();
+  v67 = [NSMutableDictionary dictionaryWithDictionary:responseCopy];
+  v9 = ISAppleIDPluginLogConfig([v67 removeObjectForKey:@"password"]);
   if (!v9)
   {
     v9 = +[SSLogConfig sharedConfig];
@@ -63,19 +62,19 @@
   {
     v13 = objc_opt_class();
     v14 = v13;
-    NSStringFromSelector(a2);
+    v15 = NSStringFromSelector(a2);
     *from = 138543874;
     *&from[4] = v13;
-    v82 = v81 = 2114;
-    v83 = 2112;
-    v84 = v65;
-    LODWORD(v58) = 32;
-    v15 = _os_log_send_and_compose_impl();
+    v83 = 2114;
+    v84 = v15;
+    v85 = 2112;
+    v86 = v67;
+    v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: %{public}@ called. parameters = %@", from, 32);
 
-    if (v15)
+    if (v16)
     {
-      v16 = [NSString stringWithCString:v15 encoding:4, from, v58];
-      free(v15);
+      v17 = [NSString stringWithCString:v16 encoding:4];
+      free(v16);
       SSFileLog();
     }
   }
@@ -84,217 +83,225 @@
   {
   }
 
-  v63 = [[NSArray alloc] initWithObjects:{CPSharedResourcesDirectory(), @"Library", @"Cookies", @"com.apple.itunesstored.2.sqlitedb", 0}];
-  v66 = [NSString pathWithComponents:v63];
-  v62 = objc_alloc_init(NSFileManager);
-  stringByDeletingLastPathComponent = [v66 stringByDeletingLastPathComponent];
-  [v62 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
+  v65 = [[NSArray alloc] initWithObjects:{CPSharedResourcesDirectory(), @"Library", @"Cookies", @"com.apple.itunesstored.2.sqlitedb", 0}];
+  v68 = [NSString pathWithComponents:v65];
+  v64 = objc_alloc_init(NSFileManager);
+  stringByDeletingLastPathComponent = [v68 stringByDeletingLastPathComponent];
+  [v64 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
 
-  v18 = [SSVCookieStorage alloc];
-  v19 = [NSURL fileURLWithPath:v66];
-  v61 = [v18 initWithStorageLocation:v19];
+  v19 = [SSVCookieStorage alloc];
+  v20 = [NSURL fileURLWithPath:v68];
+  v63 = [v19 initWithStorageLocation:v20];
 
-  v20 = [responseCopy objectForKey:@"dsid"];
-  v67 = SSAccountGetUniqueIdentifierFromValue();
+  v21 = [responseCopy objectForKey:@"dsid"];
+  v69 = SSAccountGetUniqueIdentifierFromValue();
 
-  if (!v67)
+  if (!v69)
   {
-    v22 = ISAppleIDPluginLogConfig();
-    if (!v22)
+    v24 = ISAppleIDPluginLogConfig(v22);
+    if (!v24)
     {
-      v22 = +[SSLogConfig sharedConfig];
+      v24 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v22 shouldLog];
-    if ([v22 shouldLogToDisk])
+    shouldLog2 = [v24 shouldLog];
+    if ([v24 shouldLogToDisk])
     {
-      v24 = shouldLog2 | 2;
+      LODWORD(v26) = shouldLog2 | 2;
     }
 
     else
     {
-      v24 = shouldLog2;
+      LODWORD(v26) = shouldLog2;
     }
 
-    oSLogObject2 = [v22 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    oSLogObject2 = [v24 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v24 &= 2u;
+      v26 = v26;
     }
 
-    if (v24)
+    else
     {
-      v26 = objc_opt_class();
+      v26 &= 2u;
+    }
+
+    if (v26)
+    {
+      v28 = objc_opt_class();
       *from = 138543362;
-      *&from[4] = v26;
-      v27 = v26;
-      LODWORD(v59) = 12;
-      v57 = from;
-      v28 = _os_log_send_and_compose_impl();
+      *&from[4] = v28;
+      v29 = v28;
+      LODWORD(v61) = 12;
+      v30 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_0, oSLogObject2, 16, "%{public}@: Failing to complete login. The dsID is missing.", from, v61);
 
-      if (!v28)
+      if (!v30)
       {
-LABEL_26:
+LABEL_27:
 
-        v29 = [NSError errorWithDomain:@"ISAppleIDLoginErrorDomain" code:1 userInfo:0];
-        v30 = 0;
-        goto LABEL_35;
+        v31 = [NSError errorWithDomain:@"ISAppleIDLoginErrorDomain" code:1 userInfo:0];
+        v32 = 0;
+        goto LABEL_36;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v28 encoding:4, from, v59];
-      free(v28);
-      v57 = oSLogObject2;
+      oSLogObject2 = [NSString stringWithCString:v30 encoding:4];
+      free(v30);
+      v60 = oSLogObject2;
       SSFileLog();
     }
 
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
-  v21 = [responseCopy objectForKey:@"cookies"];
-  if (v21)
+  v23 = [responseCopy objectForKey:@"cookies"];
+  if (v23)
   {
-    [(ISAppleIDLoginPlugin *)val _setCookiesWithString:v21 userIdentifier:v67 withCookieStorage:v61];
+    [(ISAppleIDLoginPlugin *)val _setCookiesWithString:v23 userIdentifier:v69 withCookieStorage:v63];
   }
 
   else
   {
-    v31 = [responseCopy objectForKey:@"pod"];
-    [(ISAppleIDLoginPlugin *)val _setCookiesWithString:v31 userIdentifier:v67 withCookieStorage:v61];
+    v33 = [responseCopy objectForKey:@"pod"];
+    [(ISAppleIDLoginPlugin *)val _setCookiesWithString:v33 userIdentifier:v69 withCookieStorage:v63];
 
-    v32 = [responseCopy objectForKey:@"weak-token"];
-    [(ISAppleIDLoginPlugin *)val _setCookiesWithString:v32 userIdentifier:v67 withCookieStorage:v61];
+    v34 = [responseCopy objectForKey:@"weak-token"];
+    [(ISAppleIDLoginPlugin *)val _setCookiesWithString:v34 userIdentifier:v69 withCookieStorage:v63];
   }
 
-  v30 = [(ISAppleIDLoginPlugin *)val _accountWithParameters:responseCopy];
-  v33 = +[SSAccountStore defaultStore];
-  [v33 saveAccount:v30 verifyCredentials:0 error:0];
+  v32 = [(ISAppleIDLoginPlugin *)val _accountWithParameters:responseCopy];
+  v35 = +[SSAccountStore defaultStore];
+  [v35 saveAccount:v32 verifyCredentials:0 error:0];
 
-  if ([v30 isActive])
+  if ([v32 isActive])
   {
     +[SSAccountStore resetExpiration];
-    v34 = [responseCopy objectForKey:@"storefront"];
-    if (v34)
+    v36 = [responseCopy objectForKey:@"storefront"];
+    if (v36)
     {
-      v35 = +[SSDevice currentDevice];
-      [v35 setStoreFrontIdentifier:v34];
+      v37 = +[SSDevice currentDevice];
+      [v37 setStoreFrontIdentifier:v36];
     }
 
     if (PSIsRunningInAssistant())
     {
-      v36 = +[SSDevice currentDevice];
-      [v36 enableAllAutomaticDownloadKindsWithCompletionBlock:0];
+      v38 = +[SSDevice currentDevice];
+      [v38 enableAllAutomaticDownloadKindsWithCompletionBlock:0];
     }
   }
 
-  v29 = 0;
-LABEL_35:
+  v31 = 0;
+LABEL_36:
   objc_initWeak(&location, val);
-  v73[0] = _NSConcreteStackBlock;
-  v73[1] = 3221225472;
-  v73[2] = sub_1A94;
-  v73[3] = &unk_8400;
-  v73[4] = val;
-  objc_copyWeak(&v77, &location);
-  v37 = responseCopy;
-  v74 = v37;
-  v38 = v30;
-  v75 = v38;
-  v78 = v67 != 0;
-  v60 = v29;
-  v76 = v60;
-  v39 = objc_retainBlock(v73);
-  v64 = [v37 objectForKeyedSubscript:@"password"];
-  if (v38 && [v64 length])
+  v75[0] = _NSConcreteStackBlock;
+  v75[1] = 3221225472;
+  v75[2] = sub_1A94;
+  v75[3] = &unk_8400;
+  v75[4] = val;
+  objc_copyWeak(&v79, &location);
+  v39 = responseCopy;
+  v76 = v39;
+  v40 = v32;
+  v77 = v40;
+  v80 = v69 != 0;
+  v62 = v31;
+  v78 = v62;
+  v41 = objc_retainBlock(v75);
+  v66 = [v39 objectForKeyedSubscript:@"password"];
+  if (v40)
   {
-    v40 = ISAppleIDPluginLogConfig();
-    if (!v40)
+    v42 = [v66 length];
+    if (v42)
     {
-      v40 = +[SSLogConfig sharedConfig];
-    }
-
-    v41 = v40;
-    shouldLog3 = [v40 shouldLog];
-    shouldLogToDisk = [v41 shouldLogToDisk];
-    v44 = completionCopy;
-    oSLogObject3 = [v41 OSLogObject];
-    v46 = oSLogObject3;
-    if (shouldLogToDisk)
-    {
-      shouldLog3 |= 2u;
-    }
-
-    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
-    {
-      v47 = shouldLog3;
-    }
-
-    else
-    {
-      v47 = shouldLog3 & 2;
-    }
-
-    if (v47)
-    {
-      v48 = objc_opt_class();
-      accountName = [v38 accountName];
-      v50 = SSHashIfNeeded();
-      *from = 138543618;
-      *&from[4] = v48;
-      v81 = 2114;
-      v82 = v50;
-      LODWORD(v59) = 22;
-      v51 = _os_log_send_and_compose_impl();
-
-      completionCopy = v44;
-      if (!v51)
+      v43 = ISAppleIDPluginLogConfig(v42);
+      if (!v43)
       {
-LABEL_49:
-
-        v52 = +[SSMutableAuthenticationContext contextForSignIn];
-        accountName2 = [v38 accountName];
-        [v52 setAccountName:accountName2];
-
-        altDSID = [v38 altDSID];
-        [v52 setAltDSID:altDSID];
-
-        [v52 setAllowsRetry:0];
-        [v52 setCanSetActiveAccount:0];
-        [v52 setCanCreateNewAccount:0];
-        uniqueIdentifier = [v38 uniqueIdentifier];
-        [v52 setRequiredUniqueIdentifier:uniqueIdentifier];
-
-        [v52 setShouldSuppressDialogs:1];
-        [v52 setPasswordEquivalentToken:v64];
-        [v52 setPromptStyle:1];
-        v56 = [[SSAuthenticateRequest alloc] initWithAuthenticationContext:v52];
-        objc_initWeak(from, val);
-        v69[0] = _NSConcreteStackBlock;
-        v69[1] = 3221225472;
-        v69[2] = sub_23E8;
-        v69[3] = &unk_8428;
-        objc_copyWeak(&v72, from);
-        v70 = v38;
-        v71 = v39;
-        [v56 startWithAuthenticateResponseBlock:v69];
-
-        objc_destroyWeak(&v72);
-        objc_destroyWeak(from);
-
-        goto LABEL_50;
+        v43 = +[SSLogConfig sharedConfig];
       }
 
-      v46 = [NSString stringWithCString:v51 encoding:4, from, v59];
-      free(v51);
-      SSFileLog();
-    }
+      v44 = v43;
+      shouldLog3 = [v43 shouldLog];
+      shouldLogToDisk = [v44 shouldLogToDisk];
+      v47 = completionCopy;
+      oSLogObject3 = [v44 OSLogObject];
+      v49 = oSLogObject3;
+      if (shouldLogToDisk)
+      {
+        shouldLog3 |= 2u;
+      }
 
-    goto LABEL_49;
-  }
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+      {
+        v50 = shouldLog3;
+      }
 
-  (v39[2])(v39);
+      else
+      {
+        v50 = shouldLog3 & 2;
+      }
+
+      if (v50)
+      {
+        v51 = objc_opt_class();
+        accountName = [v40 accountName];
+        v53 = SSHashIfNeeded();
+        *from = 138543618;
+        *&from[4] = v51;
+        v83 = 2114;
+        v84 = v53;
+        LODWORD(v61) = 22;
+        v54 = _os_log_send_and_compose_impl(v50, 0, 0, 0, &dword_0, v49, 0, "%{public}@: Attempting to authenticate %{public}@. This will help ensure we have needed tokens.", from, v61);
+
+        completionCopy = v47;
+        if (!v54)
+        {
 LABEL_50:
 
-  objc_destroyWeak(&v77);
+          v55 = +[SSMutableAuthenticationContext contextForSignIn];
+          accountName2 = [v40 accountName];
+          [v55 setAccountName:accountName2];
+
+          altDSID = [v40 altDSID];
+          [v55 setAltDSID:altDSID];
+
+          [v55 setAllowsRetry:0];
+          [v55 setCanSetActiveAccount:0];
+          [v55 setCanCreateNewAccount:0];
+          uniqueIdentifier = [v40 uniqueIdentifier];
+          [v55 setRequiredUniqueIdentifier:uniqueIdentifier];
+
+          [v55 setShouldSuppressDialogs:1];
+          [v55 setPasswordEquivalentToken:v66];
+          [v55 setPromptStyle:1];
+          v59 = [[SSAuthenticateRequest alloc] initWithAuthenticationContext:v55];
+          objc_initWeak(from, val);
+          v71[0] = _NSConcreteStackBlock;
+          v71[1] = 3221225472;
+          v71[2] = sub_23E8;
+          v71[3] = &unk_8428;
+          objc_copyWeak(&v74, from);
+          v72 = v40;
+          v73 = v41;
+          [v59 startWithAuthenticateResponseBlock:v71];
+
+          objc_destroyWeak(&v74);
+          objc_destroyWeak(from);
+
+          goto LABEL_51;
+        }
+
+        v49 = [NSString stringWithCString:v54 encoding:4];
+        free(v54);
+        SSFileLog();
+      }
+
+      goto LABEL_50;
+    }
+  }
+
+  (v41[2])(v41);
+LABEL_51:
+
+  objc_destroyWeak(&v79);
   objc_destroyWeak(&location);
 }
 
@@ -388,422 +395,441 @@ LABEL_50:
   v5 = SSAccountGetUniqueIdentifierFromValue();
 
   v6 = +[SSAccountStore defaultStore];
-  v86 = v5;
+  v90 = v5;
   v7 = [v6 accountWithUniqueIdentifier:v5];
 
-  v8 = ISAppleIDPluginLogConfig();
-  v9 = v8;
-  v10 = &ISWeakLinkedClassForString_ptr;
+  v9 = ISAppleIDPluginLogConfig(v8);
+  v10 = v9;
+  v11 = &ISWeakLinkedClassForString_ptr;
   if (!v7)
   {
-    if (!v8)
+    if (!v9)
     {
-      v9 = +[SSLogConfig sharedConfig];
+      v10 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v9 shouldLog];
-    if ([v9 shouldLogToDisk])
+    shouldLog = [v10 shouldLog];
+    if ([v10 shouldLogToDisk])
     {
-      v21 = shouldLog | 2;
+      LODWORD(v22) = shouldLog | 2;
     }
 
     else
     {
-      v21 = shouldLog;
+      LODWORD(v22) = shouldLog;
     }
 
-    oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v21 &= 2u;
+      v22 = v22;
     }
 
-    if (v21)
+    else
     {
-      v23 = objc_opt_class();
-      v24 = v23;
-      v25 = [v86 description];
-      v26 = SSHashIfNeeded();
-      v87 = 138543618;
-      v88 = v23;
-      v89 = 2114;
-      v90 = v26;
-      LODWORD(v82) = 22;
-      v79 = &v87;
-      v27 = _os_log_send_and_compose_impl();
+      v22 &= 2u;
+    }
 
-      v10 = &ISWeakLinkedClassForString_ptr;
-      if (!v27)
+    if (v22)
+    {
+      v24 = objc_opt_class();
+      v25 = v24;
+      v26 = [v90 description];
+      v27 = SSHashIfNeeded();
+      v91 = 138543618;
+      v92 = v24;
+      v93 = 2114;
+      v94 = v27;
+      v28 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: No account with DSID %{public}@ exists. We'll create a new one.", &v91, 22);
+
+      v11 = &ISWeakLinkedClassForString_ptr;
+      if (!v28)
       {
-LABEL_26:
+LABEL_27:
 
         v7 = objc_alloc_init(SSAccount);
-        goto LABEL_27;
+        goto LABEL_28;
       }
 
-      oSLogObject = [NSString stringWithCString:v27 encoding:4, &v87, v82];
-      free(v27);
-      v79 = oSLogObject;
+      oSLogObject = [NSString stringWithCString:v28 encoding:4];
+      free(v28);
+      v83 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v9 = +[SSLogConfig sharedConfig];
+    v10 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v9 shouldLog];
-  if ([v9 shouldLogToDisk])
+  shouldLog2 = [v10 shouldLog];
+  if ([v10 shouldLogToDisk])
   {
-    v12 = shouldLog2 | 2;
+    v13 = shouldLog2 | 2;
   }
 
   else
   {
-    v12 = shouldLog2;
+    v13 = shouldLog2;
   }
 
-  oSLogObject2 = [v9 OSLogObject];
+  oSLogObject2 = [v10 OSLogObject];
   if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = v12;
+    v15 = v13;
   }
 
   else
   {
-    v14 = v12 & 2;
+    v15 = v13 & 2;
   }
 
-  if (!v14)
+  if (!v15)
   {
     goto LABEL_13;
   }
 
-  v15 = objc_opt_class();
-  v16 = v15;
-  v17 = [v86 description];
-  v18 = SSHashIfNeeded();
-  v87 = 138543618;
-  v88 = v15;
-  v10 = &ISWeakLinkedClassForString_ptr;
-  v89 = 2114;
-  v90 = v18;
-  LODWORD(v82) = 22;
-  v79 = &v87;
-  v19 = _os_log_send_and_compose_impl();
+  v16 = objc_opt_class();
+  v17 = v16;
+  v18 = [v90 description];
+  v19 = SSHashIfNeeded();
+  v91 = 138543618;
+  v92 = v16;
+  v11 = &ISWeakLinkedClassForString_ptr;
+  v93 = 2114;
+  v94 = v19;
+  v20 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_0, oSLogObject2, 0, "%{public}@: An account with DSID %{public}@ already exists. A merge will take place.", &v91, 22);
 
-  if (v19)
+  if (v20)
   {
-    oSLogObject2 = [NSString stringWithCString:v19 encoding:4, &v87, v82];
-    free(v19);
-    v79 = oSLogObject2;
+    oSLogObject2 = [NSString stringWithCString:v20 encoding:4];
+    free(v20);
+    v83 = oSLogObject2;
     SSFileLog();
 LABEL_13:
   }
 
-LABEL_27:
-  v28 = [parametersCopy objectForKeyedSubscript:{@"email", v79}];
-  [v7 setAccountName:v28];
+LABEL_28:
+  v29 = [parametersCopy objectForKeyedSubscript:{@"email", v83}];
+  [v7 setAccountName:v29];
 
-  v29 = [parametersCopy objectForKeyedSubscript:@"altDSID"];
-  [v7 setAltDSID:v29];
+  v30 = [parametersCopy objectForKeyedSubscript:@"altDSID"];
+  [v7 setAltDSID:v30];
 
   [v7 setAuthenticated:1];
-  v30 = [parametersCopy objectForKeyedSubscript:@"firstName"];
-  [v7 setFirstName:v30];
+  v31 = [parametersCopy objectForKeyedSubscript:@"firstName"];
+  [v7 setFirstName:v31];
 
-  v31 = [parametersCopy objectForKeyedSubscript:@"lastName"];
-  [v7 setLastName:v31];
+  v32 = [parametersCopy objectForKeyedSubscript:@"lastName"];
+  [v7 setLastName:v32];
 
-  v32 = [parametersCopy objectForKey:@"is-managed-id"];
-  v85 = v32;
-  if ((objc_opt_respondsToSelector() & 1) != 0 && [v32 BOOLValue])
+  v33 = [parametersCopy objectForKey:@"is-managed-id"];
+  v89 = v33;
+  if (objc_opt_respondsToSelector())
   {
-    v33 = ISAppleIDPluginLogConfig();
-    if (!v33)
+    bOOLValue = [v33 BOOLValue];
+    if (bOOLValue)
     {
-      v33 = +[SSLogConfig sharedConfig];
-    }
-
-    shouldLog3 = [v33 shouldLog];
-    if ([v33 shouldLogToDisk])
-    {
-      v35 = shouldLog3 | 2;
-    }
-
-    else
-    {
-      v35 = shouldLog3;
-    }
-
-    oSLogObject3 = [v33 OSLogObject];
-    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
-    {
-      v37 = v35;
-    }
-
-    else
-    {
-      v37 = v35 & 2;
-    }
-
-    if (v37)
-    {
-      v38 = objc_opt_class();
-      v87 = 138543362;
-      v88 = v38;
-      v39 = v38;
-      LODWORD(v82) = 12;
-      v80 = &v87;
-      v40 = _os_log_send_and_compose_impl();
-
-      if (!v40)
+      v35 = ISAppleIDPluginLogConfig(bOOLValue);
+      if (!v35)
       {
-LABEL_41:
-
-        v41 = 1;
-        v10 = &ISWeakLinkedClassForString_ptr;
-        goto LABEL_43;
+        v35 = +[SSLogConfig sharedConfig];
       }
 
-      oSLogObject3 = [NSString stringWithCString:v40 encoding:4, &v87, v82];
-      free(v40);
-      v80 = oSLogObject3;
-      SSFileLog();
-    }
+      shouldLog3 = [v35 shouldLog];
+      if ([v35 shouldLogToDisk])
+      {
+        v37 = shouldLog3 | 2;
+      }
 
-    goto LABEL_41;
+      else
+      {
+        v37 = shouldLog3;
+      }
+
+      oSLogObject3 = [v35 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+      {
+        v39 = v37;
+      }
+
+      else
+      {
+        v39 = v37 & 2;
+      }
+
+      if (v39)
+      {
+        v40 = objc_opt_class();
+        v91 = 138543362;
+        v92 = v40;
+        v41 = v40;
+        LODWORD(v86) = 12;
+        v42 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &dword_0, oSLogObject3, 0, "%{public}@: This is a managed account.", &v91, v86);
+
+        if (!v42)
+        {
+LABEL_42:
+
+          v43 = 1;
+          v11 = &ISWeakLinkedClassForString_ptr;
+          goto LABEL_44;
+        }
+
+        oSLogObject3 = [NSString stringWithCString:v42 encoding:4];
+        free(v42);
+        v84 = oSLogObject3;
+        SSFileLog();
+      }
+
+      goto LABEL_42;
+    }
   }
 
-  v41 = 0;
-LABEL_43:
-  [v7 setManagedAppleID:{v41, v80}];
-  v42 = [parametersCopy objectForKeyedSubscript:@"newCustomer"];
-  [v7 setNewCustomer:{objc_msgSend(v42, "BOOLValue")}];
+  v43 = 0;
+LABEL_44:
+  [v7 setManagedAppleID:{v43, v84}];
+  v44 = [parametersCopy objectForKeyedSubscript:@"newCustomer"];
+  [v7 setNewCustomer:{objc_msgSend(v44, "BOOLValue")}];
 
-  v43 = [parametersCopy objectForKeyedSubscript:@"strong-token"];
-  v44 = v10[92];
+  v45 = [parametersCopy objectForKeyedSubscript:@"strong-token"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v43 = 0;
+    v45 = 0;
   }
 
-  v84 = v43;
-  [v7 setSecureToken:v43];
-  v45 = [parametersCopy objectForKeyedSubscript:@"storefront"];
-  v46 = ISAppleIDPluginLogConfig();
-  if (!v46)
+  v88 = v45;
+  [v7 setSecureToken:v45];
+  v46 = [parametersCopy objectForKeyedSubscript:@"storefront"];
+  v47 = ISAppleIDPluginLogConfig(v46);
+  if (!v47)
   {
-    v46 = +[SSLogConfig sharedConfig];
+    v47 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [v46 shouldLog];
-  if ([v46 shouldLogToDisk])
+  shouldLog4 = [v47 shouldLog];
+  if ([v47 shouldLogToDisk])
   {
-    v48 = shouldLog4 | 2;
+    v49 = shouldLog4 | 2;
   }
 
   else
   {
-    v48 = shouldLog4;
+    v49 = shouldLog4;
   }
 
-  oSLogObject4 = [v46 OSLogObject];
+  oSLogObject4 = [v47 OSLogObject];
   if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    v50 = v48;
+    v51 = v49;
   }
 
   else
   {
-    v50 = v48 & 2;
+    v51 = v49 & 2;
   }
 
-  if (v50)
+  if (v51)
   {
-    v51 = objc_opt_class();
-    v52 = v51;
-    v53 = SSHashIfNeeded();
-    v87 = 138543618;
-    v88 = v51;
-    v89 = 2114;
-    v90 = v53;
-    LODWORD(v82) = 22;
-    v81 = &v87;
-    v54 = _os_log_send_and_compose_impl();
+    v52 = objc_opt_class();
+    v53 = v52;
+    v54 = SSHashIfNeeded();
+    v91 = 138543618;
+    v92 = v52;
+    v93 = 2114;
+    v94 = v54;
+    LODWORD(v86) = 22;
+    v55 = _os_log_send_and_compose_impl(v51, 0, 0, 0, &dword_0, oSLogObject4, 0, "%{public}@: Setting up storefront ID: %{public}@", &v91, v86);
 
-    if (!v54)
+    if (!v55)
     {
-      goto LABEL_57;
+      goto LABEL_58;
     }
 
-    oSLogObject4 = [v10[92] stringWithCString:v54 encoding:{4, &v87, v82}];
-    free(v54);
-    v81 = oSLogObject4;
+    oSLogObject4 = [v11[92] stringWithCString:v55 encoding:4];
+    free(v55);
+    v85 = oSLogObject4;
     SSFileLog();
   }
 
-LABEL_57:
-  [v7 setStoreFrontIdentifier:v45];
-  [v7 setUniqueIdentifier:v86];
-  v55 = +[SSAccountStore defaultStore];
-  activeAccount = [v55 activeAccount];
+LABEL_58:
+  [v7 setStoreFrontIdentifier:v46];
+  [v7 setUniqueIdentifier:v90];
+  v56 = +[SSAccountStore defaultStore];
+  activeAccount = [v56 activeAccount];
 
   if (activeAccount)
   {
-    v83 = v45;
+    v87 = v46;
     uniqueIdentifier = [activeAccount uniqueIdentifier];
     uniqueIdentifier2 = [v7 uniqueIdentifier];
-    v59 = [uniqueIdentifier isEqualToNumber:uniqueIdentifier2];
+    v61 = [uniqueIdentifier isEqualToNumber:uniqueIdentifier2];
 
-    v60 = ISAppleIDPluginLogConfig();
-    v61 = v60;
-    if (v59)
+    v63 = ISAppleIDPluginLogConfig(v62);
+    v64 = v63;
+    if (v61)
     {
-      if (!v60)
+      if (!v63)
       {
-        v61 = +[SSLogConfig sharedConfig];
+        v64 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog5 = [v61 shouldLog];
-      if ([v61 shouldLogToDisk])
+      LODWORD(v65) = [v64 shouldLog];
+      if ([v64 shouldLogToDisk])
       {
-        shouldLog5 |= 2u;
+        LODWORD(v65) = v65 | 2;
       }
 
-      oSLogObject5 = [v61 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+      oSLogObject5 = [v64 OSLogObject];
+      if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog5 &= 2u;
+        v65 = v65;
       }
 
-      if (shouldLog5)
+      else
       {
-        v64 = objc_opt_class();
-        v65 = v64;
+        v65 &= 2u;
+      }
+
+      if (v65)
+      {
+        v67 = objc_opt_class();
+        v68 = v67;
         accountName = [v7 accountName];
-        v67 = SSHashIfNeeded();
-        v87 = 138543618;
-        v88 = v64;
-        v89 = 2114;
-        v90 = v67;
-        LODWORD(v82) = 22;
-        goto LABEL_75;
+        v70 = SSHashIfNeeded();
+        v91 = 138543618;
+        v92 = v67;
+        v93 = 2114;
+        v94 = v70;
+        LODWORD(v86) = 22;
+        v71 = _os_log_send_and_compose_impl(v65, 0, 0, 0, &dword_0, oSLogObject5, 0, "%{public}@: %{public}@ is already the active account.", &v91, v86);
+        goto LABEL_78;
       }
 
-      v71 = 1;
+      v75 = 1;
     }
 
     else
     {
-      if (!v60)
+      if (!v63)
       {
-        v61 = +[SSLogConfig sharedConfig];
+        v64 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog6 = [v61 shouldLog];
-      if ([v61 shouldLogToDisk])
+      LODWORD(v76) = [v64 shouldLog];
+      if ([v64 shouldLogToDisk])
       {
-        shouldLog6 |= 2u;
+        LODWORD(v76) = v76 | 2;
       }
 
-      oSLogObject5 = [v61 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+      oSLogObject5 = [v64 OSLogObject];
+      if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog6 &= 2u;
+        v76 = v76;
       }
 
-      if (shouldLog6)
+      else
       {
-        v73 = objc_opt_class();
-        v74 = v73;
+        v76 &= 2u;
+      }
+
+      if (v76)
+      {
+        v77 = objc_opt_class();
+        v78 = v77;
         accountName2 = [v7 accountName];
-        v76 = SSHashIfNeeded();
-        v87 = 138543618;
-        v88 = v73;
-        v89 = 2114;
-        v90 = v76;
-        LODWORD(v82) = 22;
-        v70 = _os_log_send_and_compose_impl();
+        v80 = SSHashIfNeeded();
+        v91 = 138543618;
+        v92 = v77;
+        v93 = 2114;
+        v94 = v80;
+        LODWORD(v86) = 22;
+        v74 = _os_log_send_and_compose_impl(v76, 0, 0, 0, &dword_0, oSLogObject5, 0, "%{public}@: There's already an active account. We'll add %{public}@ as inactive.", &v91, v86);
 
-        v71 = 0;
-        if (v70)
+        v75 = 0;
+        if (v74)
         {
-          goto LABEL_76;
+          goto LABEL_79;
         }
 
-LABEL_85:
-        v77 = v85;
-        v45 = v83;
-        goto LABEL_92;
+LABEL_89:
+        v81 = v89;
+        v46 = v87;
+        goto LABEL_96;
       }
 
-      v71 = 0;
+      v75 = 0;
     }
 
-    v77 = v85;
+    v81 = v89;
+    goto LABEL_95;
+  }
+
+  v64 = ISAppleIDPluginLogConfig(v58);
+  if (!v64)
+  {
+    v64 = +[SSLogConfig sharedConfig];
+  }
+
+  LODWORD(v72) = [v64 shouldLog];
+  if ([v64 shouldLogToDisk])
+  {
+    LODWORD(v72) = v72 | 2;
+  }
+
+  oSLogObject5 = [v64 OSLogObject];
+  if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+  {
+    v72 = v72;
+  }
+
+  else
+  {
+    v72 &= 2u;
+  }
+
+  if (!v72)
+  {
+    v75 = 1;
     goto LABEL_91;
   }
 
-  v61 = ISAppleIDPluginLogConfig();
-  if (!v61)
-  {
-    v61 = +[SSLogConfig sharedConfig];
-  }
-
-  shouldLog7 = [v61 shouldLog];
-  if ([v61 shouldLogToDisk])
-  {
-    shouldLog7 |= 2u;
-  }
-
-  oSLogObject5 = [v61 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
-  {
-    shouldLog7 &= 2u;
-  }
-
-  if (!shouldLog7)
-  {
-    v71 = 1;
-    goto LABEL_87;
-  }
-
-  v83 = v45;
-  v69 = objc_opt_class();
-  v65 = v69;
+  v87 = v46;
+  v73 = objc_opt_class();
+  v68 = v73;
   accountName = [v7 accountName];
-  v67 = SSHashIfNeeded();
-  v87 = 138543618;
-  v88 = v69;
-  v89 = 2114;
-  v90 = v67;
-  LODWORD(v82) = 22;
-LABEL_75:
-  v70 = _os_log_send_and_compose_impl();
+  v70 = SSHashIfNeeded();
+  v91 = 138543618;
+  v92 = v73;
+  v93 = 2114;
+  v94 = v70;
+  LODWORD(v86) = 22;
+  v71 = _os_log_send_and_compose_impl(v72, 0, 0, 0, &dword_0, oSLogObject5, 0, "%{public}@: There's no active account. We'll set %{public}@ as active.", &v91, v86);
+LABEL_78:
+  v74 = v71;
 
-  v71 = 1;
-  if (!v70)
+  v75 = 1;
+  if (!v74)
   {
-    goto LABEL_85;
+    goto LABEL_89;
   }
 
-LABEL_76:
-  v45 = v83;
-  oSLogObject5 = [NSString stringWithCString:v70 encoding:4, &v87, v82];
-  free(v70);
+LABEL_79:
+  v46 = v87;
+  oSLogObject5 = [NSString stringWithCString:v74 encoding:4];
+  free(v74);
   SSFileLog();
-LABEL_87:
-  v77 = v85;
 LABEL_91:
+  v81 = v89;
+LABEL_95:
 
-LABEL_92:
-  [v7 setActive:v71];
+LABEL_96:
+  [v7 setActive:v75];
 
   return v7;
 }
@@ -815,7 +841,7 @@ LABEL_92:
   {
     storageCopy = storage;
     identifierCopy = identifier;
-    v10 = ISAppleIDPluginLogConfig();
+    v10 = ISAppleIDPluginLogConfig(identifierCopy);
     if (!v10)
     {
       v10 = +[SSLogConfig sharedConfig];
@@ -824,51 +850,55 @@ LABEL_92:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
     oSLogObject = [v10 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
 
     if (v12)
     {
-      *v20 = 138543618;
-      *&v20[4] = objc_opt_class();
-      *&v20[12] = 2112;
-      *&v20[14] = stringCopy;
-      v14 = *&v20[4];
-      LODWORD(v19) = 22;
-      v15 = _os_log_send_and_compose_impl();
+      v19 = 138543618;
+      v20 = objc_opt_class();
+      v21 = 2112;
+      v22 = stringCopy;
+      v14 = v20;
+      v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Setting cookies: %@", &v19, 22);
 
       if (!v15)
       {
-LABEL_13:
+LABEL_14:
 
         v16 = [[NSDictionary alloc] initWithObjectsAndKeys:{stringCopy, @"Set-Cookie", 0}];
         v17 = [NSURL URLWithString:@"https://itunes.apple.com"];
         v18 = [NSHTTPCookie cookiesWithResponseHeaderFields:v16 forURL:v17];
 
         [storageCopy setCookies:v18 forUserIdentifier:identifierCopy];
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v15 encoding:4, v20, v19, *v20, *&v20[16]];
+      oSLogObject = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 }
 
 - (void)_setupHomeSharingWithParameters:(id)parameters
@@ -898,7 +928,7 @@ LABEL_14:
     oSLogObject4 = [manager identities:0];
     if (![oSLogObject4 count])
     {
-      oSLogObject3 = ISAppleIDPluginLogConfig();
+      oSLogObject3 = ISAppleIDPluginLogConfig(0);
       if (!oSLogObject3)
       {
         oSLogObject3 = +[SSLogConfig sharedConfig];
@@ -907,49 +937,53 @@ LABEL_14:
       shouldLog = [oSLogObject3 shouldLog];
       if ([oSLogObject3 shouldLogToDisk])
       {
-        v23 = shouldLog | 2;
+        LODWORD(v25) = shouldLog | 2;
       }
 
       else
       {
-        v23 = shouldLog;
+        LODWORD(v25) = shouldLog;
       }
 
       oSLogObject = [oSLogObject3 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v23 &= 2u;
+        v25 = v25;
       }
 
-      if (v23)
+      else
       {
-        v33 = 138543362;
-        v34 = objc_opt_class();
-        v25 = v34;
-        LODWORD(v31) = 12;
-        v26 = _os_log_send_and_compose_impl();
+        v25 &= 2u;
+      }
 
-        if (!v26)
+      if (v25)
+      {
+        v34 = 138543362;
+        v35 = objc_opt_class();
+        v27 = v35;
+        v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Biometric setup failed for no enrolled identities", &v34, 12);
+
+        if (!v28)
         {
-          goto LABEL_47;
+          goto LABEL_51;
         }
 
-        oSLogObject = [NSString stringWithCString:v26 encoding:4, &v33, v31];
-        free(v26);
+        oSLogObject = [NSString stringWithCString:v28 encoding:4];
+        free(v28);
         SSFileLog();
       }
 
-      goto LABEL_47;
+      goto LABEL_51;
     }
 
-    v9 = [parametersCopy objectForKey:@"dsid"];
+    v10 = [parametersCopy objectForKey:@"dsid"];
     manager = SSAccountGetUniqueIdentifierFromValue();
 
-    v10 = ISAppleIDPluginLogConfig();
-    oSLogObject4 = v10;
+    v12 = ISAppleIDPluginLogConfig(v11);
+    oSLogObject4 = v12;
     if (manager)
     {
-      if (!v10)
+      if (!v12)
       {
         oSLogObject4 = +[SSLogConfig sharedConfig];
       }
@@ -957,61 +991,65 @@ LABEL_14:
       shouldLog2 = [oSLogObject4 shouldLog];
       if ([oSLogObject4 shouldLogToDisk])
       {
-        v12 = shouldLog2 | 2;
+        LODWORD(v14) = shouldLog2 | 2;
       }
 
       else
       {
-        v12 = shouldLog2;
+        LODWORD(v14) = shouldLog2;
       }
 
       oSLogObject2 = [oSLogObject4 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v12 &= 2u;
+        v14 = v14;
       }
 
-      if (v12)
+      else
       {
-        v33 = 138543618;
-        v34 = objc_opt_class();
-        v35 = 2114;
-        v36 = manager;
-        v14 = v34;
-        LODWORD(v31) = 22;
-        v15 = _os_log_send_and_compose_impl();
+        v14 &= 2u;
+      }
 
-        if (!v15)
+      if (v14)
+      {
+        v34 = 138543618;
+        v35 = objc_opt_class();
+        v36 = 2114;
+        v37 = manager;
+        v16 = v35;
+        v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_0, oSLogObject2, 0, "%{public}@: Attempting to enable biometrics for DSID: %{public}@", &v34, 22);
+
+        if (!v17)
         {
-LABEL_15:
+LABEL_16:
 
           oSLogObject4 = objc_opt_new();
           [oSLogObject4 setBiometricState:2];
           [oSLogObject4 saveIdentityMapForAccountIdentifier:manager];
           [oSLogObject4 registerAccountIdentifier:manager];
           oSLogObject3 = [[ISBiometricUpdateTouchIDSettingsOperation alloc] initWithAccountIdentifier:manager];
-          v32[0] = _NSConcreteStackBlock;
-          v32[1] = 3221225472;
-          v32[2] = sub_4008;
-          v32[3] = &unk_84A0;
-          v32[4] = self;
-          [oSLogObject3 setResultBlock:v32];
-          v17 = +[ISOperationQueue mainQueue];
-          [v17 addOperation:oSLogObject3];
+          v33[0] = _NSConcreteStackBlock;
+          v33[1] = 3221225472;
+          v33[2] = sub_4008;
+          v33[3] = &unk_84A0;
+          v33[4] = self;
+          [oSLogObject3 setResultBlock:v33];
+          v19 = +[ISOperationQueue mainQueue];
+          [v19 addOperation:oSLogObject3];
 
-LABEL_47:
-          goto LABEL_48;
+LABEL_51:
+          goto LABEL_52;
         }
 
-        oSLogObject2 = [NSString stringWithCString:v15 encoding:4, &v33, v31];
-        free(v15);
+        oSLogObject2 = [NSString stringWithCString:v17 encoding:4];
+        free(v17);
         SSFileLog();
       }
 
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
-    if (!v10)
+    if (!v12)
     {
       oSLogObject4 = +[SSLogConfig sharedConfig];
     }
@@ -1019,45 +1057,49 @@ LABEL_47:
     shouldLog3 = [oSLogObject4 shouldLog];
     if ([oSLogObject4 shouldLogToDisk])
     {
-      v28 = shouldLog3 | 2;
+      LODWORD(v30) = shouldLog3 | 2;
     }
 
     else
     {
-      v28 = shouldLog3;
+      LODWORD(v30) = shouldLog3;
     }
 
     oSLogObject3 = [oSLogObject4 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v28 &= 2u;
+      v30 = v30;
     }
 
-    if (!v28)
+    else
     {
-      goto LABEL_47;
+      v30 &= 2u;
     }
 
-    v33 = 138543362;
-    v34 = objc_opt_class();
-    v29 = v34;
-    LODWORD(v31) = 12;
-    v30 = _os_log_send_and_compose_impl();
-
-    if (v30)
+    if (!v30)
     {
-      oSLogObject3 = [NSString stringWithCString:v30 encoding:4, &v33, v31];
-      free(v30);
+      goto LABEL_51;
+    }
+
+    v34 = 138543362;
+    v35 = objc_opt_class();
+    v31 = v35;
+    v32 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_0, oSLogObject3, 0, "%{public}@: Biometric setup failed for no DSID", &v34, 12);
+
+    if (v32)
+    {
+      oSLogObject3 = [NSString stringWithCString:v32 encoding:4];
+      free(v32);
       SSFileLog();
-      goto LABEL_47;
+      goto LABEL_51;
     }
 
-LABEL_48:
+LABEL_52:
 
-    goto LABEL_49;
+    goto LABEL_53;
   }
 
-  manager = ISAppleIDPluginLogConfig();
+  manager = ISAppleIDPluginLogConfig(v7);
   if (!manager)
   {
     manager = +[SSLogConfig sharedConfig];
@@ -1066,40 +1108,44 @@ LABEL_48:
   shouldLog4 = [manager shouldLog];
   if ([manager shouldLogToDisk])
   {
-    v19 = shouldLog4 | 2;
+    LODWORD(v21) = shouldLog4 | 2;
   }
 
   else
   {
-    v19 = shouldLog4;
+    LODWORD(v21) = shouldLog4;
   }
 
   oSLogObject4 = [manager OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    v19 &= 2u;
+    v21 = v21;
   }
 
-  if (!v19)
+  else
   {
-    goto LABEL_48;
+    v21 &= 2u;
   }
 
-  v33 = 138543362;
-  v34 = objc_opt_class();
-  v20 = v34;
-  LODWORD(v31) = 12;
-  v21 = _os_log_send_and_compose_impl();
-
-  if (v21)
+  if (!v21)
   {
-    oSLogObject4 = [NSString stringWithCString:v21 encoding:4, &v33, v31];
-    free(v21);
+    goto LABEL_52;
+  }
+
+  v34 = 138543362;
+  v35 = objc_opt_class();
+  v22 = v35;
+  v23 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_0, oSLogObject4, 0, "%{public}@: Biometric setup failed for no device passcode", &v34, 12);
+
+  if (v23)
+  {
+    oSLogObject4 = [NSString stringWithCString:v23 encoding:4];
+    free(v23);
     SSFileLog();
-    goto LABEL_48;
+    goto LABEL_52;
   }
 
-LABEL_49:
+LABEL_53:
 }
 
 - (void)_setupITunesMatchWithParameters:(id)parameters
@@ -1119,48 +1165,46 @@ LABEL_49:
         activeAccount = [v8 activeAccount];
         uniqueIdentifier = [activeAccount uniqueIdentifier];
 
-        v10 = ISAppleIDPluginLogConfig();
-        if (!v10)
+        v11 = ISAppleIDPluginLogConfig(v10);
+        if (!v11)
         {
-          v10 = +[SSLogConfig sharedConfig];
+          v11 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog = [v10 shouldLog];
-        if ([v10 shouldLogToDisk])
+        shouldLog = [v11 shouldLog];
+        if ([v11 shouldLogToDisk])
         {
           shouldLog |= 2u;
         }
 
-        oSLogObject = [v10 OSLogObject];
+        oSLogObject = [v11 OSLogObject];
         if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = shouldLog;
+          v14 = shouldLog;
         }
 
         else
         {
-          v13 = shouldLog & 2;
+          v14 = shouldLog & 2;
         }
 
-        if (v13)
+        if (v14)
         {
-          v14 = objc_opt_class();
-          v15 = v14;
-          v16 = [uniqueIdentifier description];
-          v17 = SSHashIfNeeded();
-          *v53 = 138543618;
-          *&v53[4] = v14;
-          *&v53[12] = 2114;
-          *&v53[14] = v17;
-          LODWORD(v42) = 22;
-          v41 = v53;
-          v18 = _os_log_send_and_compose_impl();
+          v15 = objc_opt_class();
+          v16 = v15;
+          v17 = [uniqueIdentifier description];
+          v18 = SSHashIfNeeded();
+          *v55 = 138543618;
+          *&v55[4] = v15;
+          *&v55[12] = 2114;
+          *&v55[14] = v18;
+          v19 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_0, oSLogObject, 0, "%{public}@: Loading URL bag for dsID %{public}@.", v55, 22);
 
-          if (v18)
+          if (v19)
           {
-            v19 = [NSString stringWithCString:v18 encoding:4, v53, v42];
-            free(v18);
-            v41 = v19;
+            v20 = [NSString stringWithCString:v19 encoding:4];
+            free(v19);
+            v43 = v20;
             SSFileLog();
           }
         }
@@ -1169,41 +1213,41 @@ LABEL_49:
         {
         }
 
-        v44 = [SSURLBagContext contextWithBagType:0];
+        v46 = [SSURLBagContext contextWithBagType:0];
         if (uniqueIdentifier)
         {
-          [v44 setUserIdentifier:uniqueIdentifier];
+          [v46 setUserIdentifier:uniqueIdentifier];
         }
 
-        v20 = [[SSURLBag alloc] initWithURLBagContext:v44];
-        [v20 invalidate];
-        *v53 = 0;
-        *&v53[8] = v53;
-        *&v53[16] = 0x2020000000;
-        v54 = 0;
-        v48[0] = _NSConcreteStackBlock;
-        v48[1] = 3221225472;
-        v48[2] = sub_495C;
-        v48[3] = &unk_84C8;
-        v48[4] = self;
-        v50 = v53;
-        v21 = dispatch_semaphore_create(0);
-        v49 = v21;
-        [v20 loadWithCompletionBlock:v48];
-        dispatch_semaphore_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
-        if (*(*&v53[8] + 24) != 1)
+        v21 = [[SSURLBag alloc] initWithURLBagContext:v46];
+        [v21 invalidate];
+        *v55 = 0;
+        *&v55[8] = v55;
+        *&v55[16] = 0x2020000000;
+        v56 = 0;
+        v50[0] = _NSConcreteStackBlock;
+        v50[1] = 3221225472;
+        v50[2] = sub_495C;
+        v50[3] = &unk_84C8;
+        v50[4] = self;
+        v52 = v55;
+        v22 = dispatch_semaphore_create(0);
+        v51 = v22;
+        [v21 loadWithCompletionBlock:v50];
+        v23 = dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
+        if (*(*&v55[8] + 24) != 1)
         {
-          v33 = ISAppleIDPluginLogConfig();
-          if (!v33)
+          v35 = ISAppleIDPluginLogConfig(v23);
+          if (!v35)
           {
-            v33 = +[SSLogConfig sharedConfig];
+            v35 = +[SSLogConfig sharedConfig];
           }
 
-          v22 = v33;
-          shouldLog2 = [v33 shouldLog];
-          shouldLogToDisk = [v22 shouldLogToDisk];
-          oSLogObject2 = [v22 OSLogObject];
-          v32 = oSLogObject2;
+          v24 = v35;
+          shouldLog2 = [v35 shouldLog];
+          shouldLogToDisk = [v24 shouldLogToDisk];
+          oSLogObject2 = [v24 OSLogObject];
+          v34 = oSLogObject2;
           if (shouldLogToDisk)
           {
             shouldLog2 |= 2u;
@@ -1211,100 +1255,105 @@ LABEL_49:
 
           if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
           {
-            v37 = shouldLog2;
+            v39 = shouldLog2;
           }
 
           else
           {
-            v37 = shouldLog2 & 2;
+            v39 = shouldLog2 & 2;
           }
 
-          if (v37)
+          if (v39)
           {
-            v38 = objc_opt_class();
-            v51 = 138543362;
-            v52 = v38;
-            v39 = v38;
-            LODWORD(v42) = 12;
-            v40 = _os_log_send_and_compose_impl();
+            v40 = objc_opt_class();
+            v53 = 138543362;
+            v54 = v40;
+            v41 = v40;
+            LODWORD(v44) = 12;
+            v42 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &dword_0, v34, 0, "%{public}@: iCloud Music Library isn't available.", &v53, v44);
 
-            if (!v40)
+            if (!v42)
             {
-LABEL_40:
+LABEL_41:
 
-              _Block_object_dispose(v53, 8);
-              goto LABEL_41;
+              _Block_object_dispose(v55, 8);
+              goto LABEL_42;
             }
 
-            v32 = [NSString stringWithCString:v40 encoding:4, &v51, v42];
-            free(v40);
+            v34 = [NSString stringWithCString:v42 encoding:4];
+            free(v42);
             SSFileLog();
           }
 
-LABEL_39:
+LABEL_40:
 
-          goto LABEL_40;
+          goto LABEL_41;
         }
 
-        v22 = objc_alloc_init(HSCloudClient);
-        v43 = dispatch_semaphore_create(0);
-        v23 = ISAppleIDPluginLogConfig();
-        if (!v23)
+        v24 = objc_alloc_init(HSCloudClient);
+        v45 = dispatch_semaphore_create(0);
+        v25 = ISAppleIDPluginLogConfig(v45);
+        if (!v25)
         {
-          v23 = +[SSLogConfig sharedConfig];
+          v25 = +[SSLogConfig sharedConfig];
         }
 
-        v24 = v23;
-        shouldLog3 = [v23 shouldLog];
-        shouldLogToDisk2 = [v24 shouldLogToDisk];
-        oSLogObject3 = [v24 OSLogObject];
-        v28 = oSLogObject3;
+        v26 = v25;
+        LODWORD(v27) = [v25 shouldLog];
+        shouldLogToDisk2 = [v26 shouldLogToDisk];
+        oSLogObject3 = [v26 OSLogObject];
+        v30 = oSLogObject3;
         if (shouldLogToDisk2)
         {
-          shouldLog3 |= 2u;
+          LODWORD(v27) = v27 | 2;
         }
 
-        if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog3 &= 2u;
+          v27 = v27;
         }
 
-        if (shouldLog3)
+        else
         {
-          v29 = objc_opt_class();
-          v51 = 138543362;
-          v52 = v29;
-          v30 = v29;
-          LODWORD(v42) = 12;
-          v31 = _os_log_send_and_compose_impl();
+          v27 &= 2u;
+        }
 
-          if (!v31)
+        if (v27)
+        {
+          v31 = objc_opt_class();
+          v53 = 138543362;
+          v54 = v31;
+          v32 = v31;
+          LODWORD(v44) = 12;
+          v33 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_0, v30, 0, "%{public}@: Authenticating for iCloud Music Library.", &v53, v44);
+
+          if (!v33)
           {
-LABEL_28:
+LABEL_29:
 
-            v46[0] = _NSConcreteStackBlock;
-            v46[1] = 3221225472;
-            v46[2] = sub_4B6C;
-            v46[3] = &unk_84F0;
-            v32 = v43;
-            v47 = v32;
-            [v22 authenticateWithCompletionHandler:v46];
-            dispatch_semaphore_wait(v32, 0xFFFFFFFFFFFFFFFFLL);
+            v48[0] = _NSConcreteStackBlock;
+            v48[1] = 3221225472;
+            v48[2] = sub_4B6C;
+            v48[3] = &unk_84F0;
+            v34 = v45;
+            v49 = v34;
+            [v24 authenticateWithCompletionHandler:v48];
+            dispatch_semaphore_wait(v34, 0xFFFFFFFFFFFFFFFFLL);
 
-            goto LABEL_39;
+            goto LABEL_40;
           }
 
-          v28 = [NSString stringWithCString:v31 encoding:4, &v51, v42];
-          free(v31);
+          v30 = [NSString stringWithCString:v33 encoding:4];
+          free(v33);
           SSFileLog();
         }
 
-        goto LABEL_28;
+        goto LABEL_29;
       }
     }
   }
 
-LABEL_41:
+LABEL_42:
 }
 
 @end

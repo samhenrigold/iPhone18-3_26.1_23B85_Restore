@@ -11,19 +11,19 @@
   siloCopy = silo;
   v4 = [CLIntersiloUniverse alloc];
   v5 = objc_alloc(MEMORY[0x1E696AE50]);
-  v6 = [(CLIntersiloUniverse *)v4 initWithSilo:siloCopy vendor:v5];
+  v7 = objc_msgSend_initWithSilo_vendor_(v4, v6, siloCopy, v5);
 
-  return v6;
+  return v7;
 }
 
 + (id)newSharedVendorUniverseWithSilo:(id)silo
 {
   siloCopy = silo;
   v4 = [CLIntersiloUniverse alloc];
-  v5 = +[CLServiceVendor sharedInstance];
-  v6 = [(CLIntersiloUniverse *)v4 initWithSilo:siloCopy vendor:v5];
+  v7 = objc_msgSend_sharedInstance(CLServiceVendor, v5, v6);
+  v9 = objc_msgSend_initWithSilo_vendor_(v4, v8, siloCopy, v7);
 
-  return v6;
+  return v9;
 }
 
 - (CLIntersiloUniverse)initWithSilo:(id)silo vendor:(id)vendor

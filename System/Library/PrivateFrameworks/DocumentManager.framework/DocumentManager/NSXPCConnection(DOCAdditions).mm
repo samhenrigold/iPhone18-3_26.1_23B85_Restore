@@ -7,7 +7,7 @@
 - (BOOL)doc_hasSandboxAccessToFile:()DOCAdditions readonly:
 {
   v6 = a3;
-  [self auditToken];
+  objc_msgSend_auditToken(self);
   [v6 fileSystemRepresentation];
 
   v7 = sandbox_check_by_audit_token();

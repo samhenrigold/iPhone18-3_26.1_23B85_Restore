@@ -525,7 +525,6 @@ LABEL_94:
   objc_storeStrong(&v124, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v127;
 }
 
@@ -857,43 +856,8 @@ LABEL_60:
             MEMORY[0x277D82BD8](firstObject3);
           }
 
-          if (!v13)
+          if (!v13 || ((v96 = [v99 firstObject], v8 = objc_msgSend(v96, "objectForKey:", @"key"), objc_msgSend(selfCopy, "setKeyProperty:"), MEMORY[0x277D82BD8](v8), v9 = objc_msgSend(v96, "objectForKey:", @"type"), objc_msgSend(selfCopy, "setJoinType:"), MEMORY[0x277D82BD8](v9), v10 = objc_msgSend(v96, "objectForKey:", @"table"), objc_msgSend(selfCopy, "setJoinTable:"), MEMORY[0x277D82BD8](v10), v11 = objc_msgSend(v96, "objectForKey:", @"default_join_values"), objc_msgSend(selfCopy, "setDefaultJoinValueDict:"), MEMORY[0x277D82BD8](v11), v12 = objc_msgSend(v96, "objectForKey:", @"columns_to_fetch"), objc_msgSend(selfCopy, "setJoinRequiredColumns:"), MEMORY[0x277D82BD8](v12), objc_msgSend(selfCopy, "setJoinTableDomain:", v176), (objc_msgSend(selfCopy, "checkJoinParameters") & 1) != 0) ? (v170 = 0) : (v181 = 0, v170 = 1), objc_storeStrong(&v96, 0), !v170))
           {
-            goto LABEL_127;
-          }
-
-          firstObject4 = [v99 firstObject];
-          v8 = [firstObject4 objectForKey:@"key"];
-          [selfCopy setKeyProperty:?];
-          MEMORY[0x277D82BD8](v8);
-          v9 = [firstObject4 objectForKey:@"type"];
-          [selfCopy setJoinType:?];
-          MEMORY[0x277D82BD8](v9);
-          v10 = [firstObject4 objectForKey:@"table"];
-          [selfCopy setJoinTable:?];
-          MEMORY[0x277D82BD8](v10);
-          v11 = [firstObject4 objectForKey:@"default_join_values"];
-          [selfCopy setDefaultJoinValueDict:?];
-          MEMORY[0x277D82BD8](v11);
-          v12 = [firstObject4 objectForKey:@"columns_to_fetch"];
-          [selfCopy setJoinRequiredColumns:?];
-          MEMORY[0x277D82BD8](v12);
-          [selfCopy setJoinTableDomain:v176];
-          if ([selfCopy checkJoinParameters])
-          {
-            v170 = 0;
-          }
-
-          else
-          {
-            v181 = 0;
-            v170 = 1;
-          }
-
-          objc_storeStrong(&firstObject4, 0);
-          if (!v170)
-          {
-LABEL_127:
             v181 = MEMORY[0x277D82BE0](selfCopy);
             v170 = 1;
           }
@@ -1203,7 +1167,6 @@ LABEL_132:
   objc_storeStrong(&v178, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v181;
 }
 
@@ -1281,7 +1244,7 @@ LABEL_132:
       }
 
       objc_storeStrong(&v25, 0);
-      v35 = 0;
+      return 0;
     }
 
     else
@@ -1319,12 +1282,12 @@ LABEL_132:
           }
 
           objc_storeStrong(&v18, 0);
-          v35 = 0;
+          return 0;
         }
 
         else
         {
-          v35 = 1;
+          return 1;
         }
       }
 
@@ -1343,7 +1306,7 @@ LABEL_132:
         }
 
         objc_storeStrong(&v22, 0);
-        v35 = 0;
+        return 0;
       }
     }
   }
@@ -1361,11 +1324,8 @@ LABEL_132:
     }
 
     objc_storeStrong(&location, 0);
-    v35 = 0;
+    return 0;
   }
-
-  *MEMORY[0x277D85DE8];
-  return v35 & 1;
 }
 
 - (id)getFeatureData:(id *)data
@@ -1576,7 +1536,6 @@ LABEL_132:
   objc_storeStrong(&v61, 0);
   _Block_object_dispose(&v62, 8);
   objc_storeStrong(&v68, 0);
-  *MEMORY[0x277D85DE8];
   v8 = v72;
 
   return v8;
@@ -1856,7 +1815,6 @@ void __39__AMDFeatureDescriptor_getFeatureData___block_invoke(uint64_t a1)
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)transformTPDataForJoin:(id)join
@@ -1974,7 +1932,6 @@ void __39__AMDFeatureDescriptor_getFeatureData___block_invoke(uint64_t a1)
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v39;
 
   return v3;
@@ -2248,7 +2205,6 @@ LABEL_20:
   objc_storeStrong(&v71, 0);
   objc_storeStrong(&v72, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v75;
 
   return v3;
@@ -2580,7 +2536,6 @@ LABEL_25:
   objc_storeStrong(&v87, 0);
   objc_storeStrong(&v88, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v91;
 
   return v3;
@@ -2779,7 +2734,6 @@ LABEL_25:
   v6 = MEMORY[0x277D82BE0](v27);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -2904,7 +2858,6 @@ LABEL_25:
   v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -2979,7 +2932,6 @@ LABEL_25:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v25;
 
   return v3;

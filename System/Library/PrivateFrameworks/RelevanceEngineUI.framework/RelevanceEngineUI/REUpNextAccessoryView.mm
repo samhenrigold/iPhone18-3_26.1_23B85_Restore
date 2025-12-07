@@ -18,10 +18,10 @@
 
 - (REUpNextAccessoryView)initWithFrame:(CGRect)frame
 {
-  v34[4] = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = REUpNextAccessoryView;
-  v3 = [(REUpNextAccessoryView *)&v33 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v33[4] = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = REUpNextAccessoryView;
+  v3 = [(REUpNextAccessoryView *)&v32 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [MEMORY[0x277CBBB08] systemFontOfSize:*&kActiveLayout_0_1 weight:*MEMORY[0x277D74410]];
@@ -30,7 +30,7 @@
     label = v3->_label;
     v3->_label = v6;
 
-    v28 = v4;
+    v27 = v4;
     [(CLKUIColoringLabel *)v3->_label setFont:v4];
     [(CLKUIColoringLabel *)v3->_label setNowProvider:&__block_literal_global_2];
     v8 = v3->_label;
@@ -57,27 +57,26 @@
     [(REUpNextAccessoryView *)v3 addSubview:v3->_label];
     leadingAnchor = [(CLKUIColoringLabel *)v3->_label leadingAnchor];
     leadingAnchor2 = [(REUpNextAccessoryView *)v3 leadingAnchor];
-    v30 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:*&kActiveLayout_2_1];
-    v34[0] = v30;
+    v29 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:*&kActiveLayout_2_1];
+    v33[0] = v29;
     trailingAnchor = [(CLKUIColoringLabel *)v3->_label trailingAnchor];
     trailingAnchor2 = [(REUpNextAccessoryView *)v3 trailingAnchor];
     v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-*&kActiveLayout_2_1];
-    v34[1] = v17;
+    v33[1] = v17;
     firstBaselineAnchor = [(CLKUIColoringLabel *)v3->_label firstBaselineAnchor];
     bottomAnchor = [(REUpNextAccessoryView *)v3 bottomAnchor];
     v20 = [firstBaselineAnchor constraintEqualToAnchor:bottomAnchor constant:-*&kActiveLayout_2_1];
-    v34[2] = v20;
+    v33[2] = v20;
     topAnchor = [(REUpNextAccessoryView *)v3 topAnchor];
     firstBaselineAnchor2 = [(CLKUIColoringLabel *)v3->_label firstBaselineAnchor];
     [v4 capHeight];
     v24 = [topAnchor constraintEqualToAnchor:firstBaselineAnchor2 constant:-(v23 + *&kActiveLayout_2_1)];
-    v34[3] = v24;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
+    v33[3] = v24;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
 
     [MEMORY[0x277CCAAD0] activateConstraints:v25];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

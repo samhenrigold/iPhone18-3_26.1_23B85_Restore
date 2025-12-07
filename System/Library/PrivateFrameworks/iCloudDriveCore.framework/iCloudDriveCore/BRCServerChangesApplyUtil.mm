@@ -34,7 +34,7 @@
 + (BOOL)handleApplyChangesForUnliveServerItem:(id)item isDeleteOfShareRoot:(BOOL)root rank:(int64_t)rank scheduler:(id)scheduler zone:(id)zone session:(id)session
 {
   rootCopy = root;
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   schedulerCopy = scheduler;
   zoneCopy = zone;
@@ -45,16 +45,16 @@
   {
     v48 = @"NO";
     *buf = 138412802;
-    v62 = itemCopy;
-    v63 = 2112;
+    v61 = itemCopy;
+    v62 = 2112;
     if (rootCopy)
     {
       v48 = @"YES";
     }
 
-    v64 = v48;
-    v65 = 2112;
-    v66 = v17;
+    v63 = v48;
+    v64 = 2112;
+    v65 = v17;
     _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] handleApplyChangesForUnliveServerItem for %@\ndelete share root: %@%@", buf, 0x20u);
   }
 
@@ -72,36 +72,7 @@
       +[BRCServerChangesApplyUtil handleApplyChangesForUnliveServerItem:isDeleteOfShareRoot:rank:scheduler:zone:session:];
     }
 
-    localDiffs = [itemCopy localDiffs];
-    inFlightSyncUpDiffs = [itemCopy inFlightSyncUpDiffs];
-    if (([itemCopy needsUpload] & 1) == 0 && ((inFlightSyncUpDiffs | localDiffs) & 0x180000) == 0)
-    {
-      asDocument = [itemCopy asDocument];
-      currentVersion = [asDocument currentVersion];
-      uploadError = [currentVersion uploadError];
-      v30 = [uploadError br_isCloudDocsErrorCode:43];
-
-      if (!v30)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke;
-    v55[3] = &unk_278502F80;
-    v56 = itemCopy;
-    v31 = sessionCopy;
-    v57 = v31;
-    v58 = schedulerCopy;
-    rankCopy = rank;
-    v59 = zoneCopy;
-    v32 = MEMORY[0x22AA4A310](v55);
-    clientDB = [v31 clientDB];
-    v34 = [clientDB groupInTransaction:v32];
-
-    if ((v34 & 1) == 0)
+    if ((v24, v23, v25 = [itemCopy localDiffs], v26 = objc_msgSend(itemCopy, "inFlightSyncUpDiffs"), (objc_msgSend(itemCopy, "needsUpload") & 1) == 0) && ((v26 | v25) & 0x180000) == 0 && (objc_msgSend(itemCopy, "asDocument"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "currentVersion"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "uploadError"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "br_isCloudDocsErrorCode:", 43), v29, v28, v27, !v30) || (v54[0] = MEMORY[0x277D85DD0], v54[1] = 3221225472, v54[2] = __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke, v54[3] = &unk_278502F80, v55 = itemCopy, v31 = sessionCopy, v56 = v31, v57 = schedulerCopy, v59 = rank, v58 = zoneCopy, v32 = MEMORY[0x22AA4A310](v54), objc_msgSend(v31, "clientDB"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "groupInTransaction:", v32), v33, v32, v58, v57, v56, v55, (v34 & 1) == 0))
     {
 LABEL_34:
       if (![itemCopy isDirectory] || (objc_msgSend(itemCopy, "asDirectory"), v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v35, "hasLiveChildren"), v35, !v36))
@@ -119,7 +90,7 @@ LABEL_34:
 
       if (rootCopy)
       {
-        rankCopy2 = rank;
+        rankCopy = rank;
         v39 = [itemCopy db];
         itemID = [itemCopy itemID];
         clientZone = [itemCopy clientZone];
@@ -131,20 +102,20 @@ LABEL_34:
           do
           {
             v44 = objc_autoreleasePoolPush();
-            v53[0] = MEMORY[0x277D85DD0];
-            v53[1] = 3221225472;
-            v53[2] = __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_36;
-            v53[3] = &unk_2784FF910;
-            v54 = sessionCopy;
-            v45 = [v43 object:v53];
+            v52[0] = MEMORY[0x277D85DD0];
+            v52[1] = 3221225472;
+            v52[2] = __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_36;
+            v52[3] = &unk_2784FF910;
+            v53 = sessionCopy;
+            v45 = [v43 object:v52];
             v46 = brc_bread_crumbs();
             v47 = brc_default_log();
             if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v62 = itemCopy;
-              v63 = 2112;
-              v64 = v46;
+              v61 = itemCopy;
+              v62 = 2112;
+              v63 = v46;
               _os_log_debug_impl(&dword_223E7A000, v47, OS_LOG_TYPE_DEBUG, "[DEBUG] Marking item unknown to server %@ as rejected%@", buf, 0x16u);
             }
 
@@ -157,7 +128,7 @@ LABEL_34:
           while (([v43 next] & 1) != 0);
         }
 
-        rank = rankCopy2;
+        rank = rankCopy;
       }
 
       dbRowID2 = [zoneCopy dbRowID];
@@ -184,13 +155,12 @@ LABEL_34:
   [itemCopy saveToDBForServerEdit:1 keepAliases:0];
 LABEL_31:
 
-  v50 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 uint64_t __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke(uint64_t a1)
 {
-  v92[1] = *MEMORY[0x277D85DE8];
+  v91[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   if (![*(a1 + 32) isTopLevelSharedItem])
   {
@@ -217,10 +187,10 @@ uint64_t __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_
         v27 = [v26 debugItemIDString];
         *buf = 138412802;
         *&buf[4] = v25;
-        v85 = 2112;
-        v86 = v27;
-        v87 = 2112;
-        v88 = v23;
+        v84 = 2112;
+        v85 = v27;
+        v86 = 2112;
+        v87 = v23;
         _os_log_impl(&dword_223E7A000, v24, OS_LOG_TYPE_DEFAULT, "[WARNING] Could not find share root item %@ for item %@. Just trash ...%@", buf, 0x20u);
       }
 
@@ -271,7 +241,7 @@ uint64_t __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_
       }
     }
 
-    v79 = v10;
+    v78 = v10;
     v30 = brc_bread_crumbs();
     v31 = brc_default_log();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
@@ -281,17 +251,17 @@ uint64_t __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_
 
     v32 = [*(a1 + 40) fsImporter];
     v33 = [v13 appLibrary];
-    v83 = 0;
-    v34 = [v32 getOrCreateTrashItemInAppLibrary:v33 error:&v83];
-    v35 = v83;
+    v82 = 0;
+    v34 = [v32 getOrCreateTrashItemInAppLibrary:v33 error:&v82];
+    v35 = v82;
 
     v36 = [*(a1 + 40) fsImporter];
     v37 = [v13 st];
     v38 = [v37 logicalNameWithoutLocalBounce];
-    v82 = v35;
-    v77 = v34;
-    v6 = [v36 createAndImportNewDirectoryWithLogicalName:v38 parentItem:v34 error:&v82];
-    v7 = v82;
+    v81 = v35;
+    v76 = v34;
+    v6 = [v36 createAndImportNewDirectoryWithLogicalName:v38 parentItem:v34 error:&v81];
+    v7 = v81;
 
     v39 = [v13 computeItemPathRelativeToRoot];
     v40 = [v6 st];
@@ -304,7 +274,7 @@ uint64_t __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_
 
     if ([v6 saveToDB])
     {
-      v75 = v17;
+      v74 = v17;
       v44 = MEMORY[0x277CCACA8];
       v45 = [v6 itemID];
       v46 = [v45 itemIDString];
@@ -320,21 +290,21 @@ uint64_t __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_
         __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_cold_6();
       }
 
-      v91 = @"com.apple.clouddocs.private.recovered-bookmark#N";
+      v90 = @"com.apple.clouddocs.private.recovered-bookmark#N";
       v53 = [v50 dataUsingEncoding:4];
-      v92[0] = v53;
-      v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:&v91 count:1];
+      v91[0] = v53;
+      v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:&v90 count:1];
       [v13 updateWithXattrs:v54];
 
       [v13 saveToDB];
-      v17 = v75;
+      v17 = v74;
     }
 
     if (!v6)
     {
       v57 = brc_bread_crumbs();
       v58 = brc_default_log();
-      v10 = v79;
+      v10 = v78;
       if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -349,30 +319,30 @@ uint64_t __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_
       goto LABEL_35;
     }
 
-    v10 = v79;
+    v10 = v78;
 LABEL_29:
     v55 = brc_bread_crumbs();
     v56 = brc_default_log();
     if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
     {
-      v72 = *v2;
-      v78 = [v13 st];
-      [v78 logicalNameWithoutLocalBounce];
-      v73 = v76 = v17;
+      v71 = *v2;
+      v77 = [v13 st];
+      [v77 logicalNameWithoutLocalBounce];
+      v72 = v75 = v17;
       [v6 itemGlobalID];
-      v74 = v80 = v10;
+      v73 = v79 = v10;
       *buf = 138413058;
-      *&buf[4] = v72;
-      v85 = 2112;
-      v86 = v73;
-      v87 = 2112;
-      v88 = v74;
-      v89 = 2112;
-      v90 = v55;
+      *&buf[4] = v71;
+      v84 = 2112;
+      v85 = v72;
+      v86 = 2112;
+      v87 = v73;
+      v88 = 2112;
+      v89 = v55;
       _os_log_debug_impl(&dword_223E7A000, v56, OS_LOG_TYPE_DEBUG, "[DEBUG] Trash item %@ under folder %@ with id %@%@", buf, 0x2Au);
 
-      v10 = v80;
-      v17 = v76;
+      v10 = v79;
+      v17 = v75;
     }
 
     v5 = [v6 clientZone];
@@ -395,9 +365,9 @@ LABEL_36:
   [*(a1 + 32) _moveToZoneWhenServerItemIsDead:v5];
   v60 = [*(a1 + 40) fsImporter];
   v61 = *(a1 + 32);
-  v81 = v7;
-  v62 = [v60 trashItem:v61 parentItemInTrash:v6 error:&v81];
-  v63 = v81;
+  v80 = v7;
+  v62 = [v60 trashItem:v61 parentItemInTrash:v6 error:&v80];
+  v63 = v80;
 
   if (v62 && ([*v2 markNeedsUploadOrSyncingUp], objc_msgSend(*v2, "saveToDB")))
   {
@@ -421,7 +391,6 @@ LABEL_36:
     v69 = 0;
   }
 
-  v70 = *MEMORY[0x277D85DE8];
   return v69;
 }
 
@@ -481,7 +450,7 @@ LABEL_11:
 
 + (BOOL)handleNonRevivedItemIfNecessary:(id)necessary si:(id)si rank:(int64_t)rank scheduler:(id)scheduler zone:(id)zone hasInitialScanItemTypeMismatch:(BOOL *)mismatch
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   siCopy = si;
   schedulerCopy = scheduler;
   zoneCopy = zone;
@@ -508,11 +477,11 @@ LABEL_11:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v42 = v21;
-      v43 = 2112;
-      v44 = siCopy;
-      v45 = 2112;
-      v46 = v22;
+      v41 = v21;
+      v42 = 2112;
+      v43 = siCopy;
+      v44 = 2112;
+      v45 = v22;
       _os_log_debug_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] Found a freshly scanned item from an initial scan that path matches: %@ for server item: %@%@", buf, 0x20u);
     }
 
@@ -528,10 +497,10 @@ LABEL_11:
       goto LABEL_22;
     }
 
-    v40 = [v21 st];
-    type = [v40 type];
-    v39 = [siCopy st];
-    type2 = [v39 type];
+    v39 = [v21 st];
+    type = [v39 type];
+    v38 = [siCopy st];
+    type2 = [v38 type];
     if (type != type2)
     {
       if (type > 0xA)
@@ -648,7 +617,6 @@ LABEL_22:
   v16 = 0;
 LABEL_42:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -707,142 +675,36 @@ LABEL_8:
   return v21;
 }
 
-+ (void)handleApplyChangesForUnliveServerItem:isDeleteOfShareRoot:rank:scheduler:zone:session:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Deleting share root for document %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)handleApplyChangesForUnliveServerItem:isDeleteOfShareRoot:rank:scheduler:zone:session:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Apply Changes[%lld]: postponing rank (live child)%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)handleApplyChangesForUnliveServerItem:isDeleteOfShareRoot:rank:scheduler:zone:session:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] the fs root was remotely deleted, we need to recreate it and reupload it%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Document is under some share root%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Found share root %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_cold_3(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 itemID];
   v2 = [v1 debugItemIDString];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v3, v4, "[DEBUG] Found previously created folder in trash: %@%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v3, v4, "[DEBUG] Found previously created folder in trash: %@%@", v5, v6, v7, v8);
 }
 
 void __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_cold_4(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 debugItemIDString];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Could not find previously created folder in trash: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Could not find previously created folder in trash: %@%@", v4, v5, v6, v7);
 }
 
 void __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_cold_5(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 st];
   v2 = [v1 logicalNameWithoutLocalBounce];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v3, v4, "[DEBUG] Create folder %@ under trash%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_cold_6()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Saving trashURLBookmarkDataToSet: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_cold_7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Document is top level shared --> Just trash%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v3, v4, "[DEBUG] Create folder %@ under trash%@", v5, v6, v7, v8);
 }
 
 void __115__BRCServerChangesApplyUtil_handleApplyChangesForUnliveServerItem_isDeleteOfShareRoot_rank_scheduler_zone_session___block_invoke_cold_8(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_4(&dword_223E7A000, a2, a3, "[DEBUG] Item after trash %@%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)handleNonRevivedItemIfNecessary:si:rank:scheduler:zone:hasInitialScanItemTypeMismatch:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Item type does not match with the server item type%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)handleNonRevivedItemIfNecessary:si:rank:scheduler:zone:hasInitialScanItemTypeMismatch:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Item type matches with the server item type%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)handleNonRevivedItemIfNecessary:si:rank:scheduler:zone:hasInitialScanItemTypeMismatch:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Suspending rank since freshly scanned means either same content or conflict: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)handleEtagsChangesOnly:si:rank:scheduler:zone:diffs:needsSave:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Accepting Structural Etag update for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)handleEtagsChangesOnly:si:rank:scheduler:zone:diffs:needsSave:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Remove rank for item with no real changes: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_4(&dword_223E7A000, a2, a3, "[DEBUG] Item after trash %@%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

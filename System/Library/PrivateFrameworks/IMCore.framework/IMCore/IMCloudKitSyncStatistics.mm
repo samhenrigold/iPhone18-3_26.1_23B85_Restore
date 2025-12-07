@@ -501,12 +501,12 @@
 
 - (IMCloudKitSyncStatistics)initWithStatisticsDictionary:(id)dictionary
 {
-  sub_1A84E5D3C();
-  v3 = objc_allocWithZone(IMCloudKitSyncStatistics);
-  v4 = sub_1A847BA60();
+  v3 = sub_1A84E5D3C();
+  v4 = objc_allocWithZone(IMCloudKitSyncStatistics);
+  v5 = sub_1A847BA60(v3);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v4;
+  return v5;
 }
 
 + (id)_createSyncStatisticsDictionary:(int64_t)dictionary messageSyncCount:(int64_t)count messageUnresolvedCount:(int64_t)unresolvedCount chatCount:(int64_t)chatCount chatSyncCount:(int64_t)syncCount chatUnresolvedCount:(int64_t)chatUnresolvedCount attachmentCount:(int64_t)attachmentCount attachmentSyncCount:(int64_t)self0 attachmentUnresolvedCount:(int64_t)self1 serverRecordCounts:(id)self2 syncStoreCounts:(id)self3

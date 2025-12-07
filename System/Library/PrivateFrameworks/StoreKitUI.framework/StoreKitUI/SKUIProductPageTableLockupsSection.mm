@@ -191,7 +191,7 @@
   layout2 = [(SKUILockupItemTableViewCell *)v7 layout];
   if (v18)
   {
-    [v18 lockupStyle];
+    objc_msgSend_lockupStyle(v18);
     v20 = v24;
   }
 
@@ -338,7 +338,7 @@ void __92__SKUIProductPageTableLockupsSection_missingItemLoader_didLoadItems_inv
       v15 = 0;
       if (v5)
       {
-        [v5 lockupStyle];
+        objc_msgSend_lockupStyle(v5);
       }
 
       if ([v7 itemKind] == 17)

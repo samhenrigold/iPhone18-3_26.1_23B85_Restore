@@ -38,134 +38,131 @@ void __40__AnalyticsStoreDescriptor_defaultModel__block_invoke(uint64_t a1)
 
 void __53__AnalyticsStoreDescriptor_defaultPersistentStoreURL__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = [objc_opt_class() applicationSupportDirectoryPath];
-  if (!v2)
+  v19 = *MEMORY[0x1E69E9840];
+  v1 = [objc_opt_class() applicationSupportDirectoryPath];
+  if (!v1)
   {
-    v9 = WALogCategoryDeviceStoreHandle();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v8 = WALogCategoryDeviceStoreHandle();
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_7;
     }
 
-    v15 = 136446466;
-    v16 = "+[AnalyticsStoreDescriptor defaultPersistentStoreURL]_block_invoke";
-    v17 = 1024;
-    v18 = 202;
-    v10 = "%{public}s::%d:applicationSupportDirectoryPath is nil";
-    v11 = v9;
-    v12 = OS_LOG_TYPE_FAULT;
-    v13 = 18;
+    v13 = 136446466;
+    v14 = "+[AnalyticsStoreDescriptor defaultPersistentStoreURL]_block_invoke";
+    v15 = 1024;
+    v16 = 202;
+    v9 = "%{public}s::%d:applicationSupportDirectoryPath is nil";
+    v10 = v8;
+    v11 = OS_LOG_TYPE_FAULT;
+    v12 = 18;
     goto LABEL_6;
   }
 
-  v3 = [MEMORY[0x1E695DFF8] fileURLWithPath:v2];
-  v4 = qword_1EDE5CA60;
-  qword_1EDE5CA60 = v3;
+  v2 = [MEMORY[0x1E695DFF8] fileURLWithPath:v1];
+  v3 = qword_1EDE5CA60;
+  qword_1EDE5CA60 = v2;
 
   if (!qword_1EDE5CA60)
   {
-    v9 = WALogCategoryDeviceStoreHandle();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v8 = WALogCategoryDeviceStoreHandle();
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_7;
     }
 
-    v15 = 136446722;
-    v16 = "+[AnalyticsStoreDescriptor defaultPersistentStoreURL]_block_invoke";
-    v17 = 1024;
-    v18 = 205;
-    v19 = 2112;
-    v20 = v2;
-    v10 = "%{public}s::%d:defaultPersistentStoreURL is nil with path %@";
-    v11 = v9;
-    v12 = OS_LOG_TYPE_FAULT;
+    v13 = 136446722;
+    v14 = "+[AnalyticsStoreDescriptor defaultPersistentStoreURL]_block_invoke";
+    v15 = 1024;
+    v16 = 205;
+    v17 = 2112;
+    v18 = v1;
+    v9 = "%{public}s::%d:defaultPersistentStoreURL is nil with path %@";
+    v10 = v8;
+    v11 = OS_LOG_TYPE_FAULT;
     goto LABEL_5;
   }
 
-  v5 = [qword_1EDE5CA60 URLByAppendingPathComponent:@"DeviceAnalyticsModel"];
-  v6 = qword_1EDE5CA60;
-  qword_1EDE5CA60 = v5;
+  v4 = [qword_1EDE5CA60 URLByAppendingPathComponent:@"DeviceAnalyticsModel"];
+  v5 = qword_1EDE5CA60;
+  qword_1EDE5CA60 = v4;
 
-  v7 = [qword_1EDE5CA60 URLByAppendingPathExtension:@"sqlite"];
-  v8 = qword_1EDE5CA60;
-  qword_1EDE5CA60 = v7;
+  v6 = [qword_1EDE5CA60 URLByAppendingPathExtension:@"sqlite"];
+  v7 = qword_1EDE5CA60;
+  qword_1EDE5CA60 = v6;
 
-  v9 = WALogCategoryDeviceStoreHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v8 = WALogCategoryDeviceStoreHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v15 = 136446722;
-    v16 = "+[AnalyticsStoreDescriptor defaultPersistentStoreURL]_block_invoke";
-    v17 = 1024;
-    v18 = 209;
-    v19 = 2112;
-    v20 = qword_1EDE5CA60;
-    v10 = "%{public}s::%d:defaultPersistentStoreURL is %@";
-    v11 = v9;
-    v12 = OS_LOG_TYPE_INFO;
+    v13 = 136446722;
+    v14 = "+[AnalyticsStoreDescriptor defaultPersistentStoreURL]_block_invoke";
+    v15 = 1024;
+    v16 = 209;
+    v17 = 2112;
+    v18 = qword_1EDE5CA60;
+    v9 = "%{public}s::%d:defaultPersistentStoreURL is %@";
+    v10 = v8;
+    v11 = OS_LOG_TYPE_INFO;
 LABEL_5:
-    v13 = 28;
+    v12 = 28;
 LABEL_6:
-    _os_log_impl(&dword_1C8460000, v11, v12, v10, &v15, v13);
+    _os_log_impl(&dword_1C8460000, v10, v11, v9, &v13, v12);
   }
 
 LABEL_7:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)applicationSupportDirectoryPath
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy_;
-  v28 = __Block_byref_object_dispose_;
-  v29 = 0;
+  v37 = *MEMORY[0x1E69E9840];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = 0;
   v2 = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, 1uLL, 1);
   v3 = v2;
   if (!v2)
   {
-    v21 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v31 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]";
-      v32 = 1024;
-      v33 = 163;
+      v30 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]";
+      v31 = 1024;
+      v32 = 163;
 LABEL_19:
-      _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_ERROR, "%{public}s::%d:NSCachesDirectory paths nil", buf, 0x12u);
+      _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:NSCachesDirectory paths nil", buf, 0x12u);
     }
 
 LABEL_20:
 
 LABEL_8:
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __59__AnalyticsStoreDescriptor_applicationSupportDirectoryPath__block_invoke;
-    v22[3] = &unk_1E830D818;
-    v22[4] = &v24;
-    [WAUtil getLazyNSNumberPreference:@"applicationSupportDirectoryPathNil" domain:@"com.apple.wifi.analytics" exists:v22];
-    v16 = v25[5];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __59__AnalyticsStoreDescriptor_applicationSupportDirectoryPath__block_invoke;
+    v21[3] = &unk_1E830D818;
+    v21[4] = &v23;
+    [WAUtil getLazyNSNumberPreference:@"applicationSupportDirectoryPathNil" domain:@"com.apple.wifi.analytics" exists:v21];
+    v16 = v24[5];
     goto LABEL_12;
   }
 
   firstObject = [v2 firstObject];
-  v5 = v25[5];
-  v25[5] = firstObject;
+  v5 = v24[5];
+  v24[5] = firstObject;
 
-  v6 = v25[5];
+  v6 = v24[5];
   if (!v6)
   {
-    v21 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v31 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]";
-      v32 = 1024;
-      v33 = 166;
+      v30 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]";
+      v31 = 1024;
+      v32 = 166;
       goto LABEL_19;
     }
 
@@ -173,11 +170,11 @@ LABEL_8:
   }
 
   v7 = [v6 stringByAppendingPathComponent:@"com.apple.wifianalyticsd"];
-  v8 = v25[5];
-  v25[5] = v7;
+  v8 = v24[5];
+  v24[5] = v7;
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v10 = [defaultManager fileExistsAtPath:v25[5]];
+  v10 = [defaultManager fileExistsAtPath:v24[5]];
 
   if (v10)
   {
@@ -185,10 +182,10 @@ LABEL_8:
   }
 
   defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-  v12 = v25[5];
-  v23 = 0;
-  v13 = [defaultManager2 createDirectoryAtPath:v12 withIntermediateDirectories:1 attributes:0 error:&v23];
-  v14 = v23;
+  v12 = v24[5];
+  v22 = 0;
+  v13 = [defaultManager2 createDirectoryAtPath:v12 withIntermediateDirectories:1 attributes:0 error:&v22];
+  v14 = v22;
 
   v15 = v14 ? 0 : v13;
   if (v15)
@@ -199,23 +196,22 @@ LABEL_8:
   v17 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
   {
-    v18 = v25[5];
+    v18 = v24[5];
     *buf = 136446978;
-    v31 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]";
-    v32 = 1024;
-    v33 = 176;
-    v34 = 2112;
-    v35 = v18;
-    v36 = 2112;
-    v37 = v14;
+    v30 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]";
+    v31 = 1024;
+    v32 = 176;
+    v33 = 2112;
+    v34 = v18;
+    v35 = 2112;
+    v36 = v14;
     _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_FAULT, "%{public}s::%d:Unable to create directory at %@: %@", buf, 0x26u);
   }
 
   v16 = 0;
 LABEL_12:
 
-  _Block_object_dispose(&v24, 8);
-  v19 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
 
   return v16;
 }
@@ -234,7 +230,7 @@ LABEL_12:
 
 void __43__AnalyticsStoreDescriptor_defaultModelURL__block_invoke()
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v0 = +[WAUtil resourcePath];
   v1 = [MEMORY[0x1E695DFF8] fileURLWithPath:v0];
   v2 = qword_1EDE5CA70;
@@ -253,17 +249,17 @@ void __43__AnalyticsStoreDescriptor_defaultModelURL__block_invoke()
     v7 = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v12 = 136446722;
-      v13 = "+[AnalyticsStoreDescriptor defaultModelURL]_block_invoke";
-      v14 = 1024;
-      v15 = 227;
-      v16 = 2112;
-      v17 = qword_1EDE5CA70;
+      v11 = 136446722;
+      v12 = "+[AnalyticsStoreDescriptor defaultModelURL]_block_invoke";
+      v13 = 1024;
+      v14 = 227;
+      v15 = 2112;
+      v16 = qword_1EDE5CA70;
       v8 = "%{public}s::%d:defaultModelURL is %@";
       v9 = v7;
       v10 = OS_LOG_TYPE_INFO;
 LABEL_6:
-      _os_log_impl(&dword_1C8460000, v9, v10, v8, &v12, 0x1Cu);
+      _os_log_impl(&dword_1C8460000, v9, v10, v8, &v11, 0x1Cu);
     }
   }
 
@@ -272,20 +268,18 @@ LABEL_6:
     v7 = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136446722;
-      v13 = "+[AnalyticsStoreDescriptor defaultModelURL]_block_invoke";
-      v14 = 1024;
-      v15 = 229;
-      v16 = 2112;
-      v17 = v0;
+      v11 = 136446722;
+      v12 = "+[AnalyticsStoreDescriptor defaultModelURL]_block_invoke";
+      v13 = 1024;
+      v14 = 229;
+      v15 = 2112;
+      v16 = v0;
       v8 = "%{public}s::%d:ERROR defaultModelURL is nil with path %@";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
       goto LABEL_6;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)storeDescriptor
@@ -337,7 +331,7 @@ LABEL_6:
 
 - (AnalyticsStoreDescriptor)initWithStoreURL:(id)l modelURL:(id)rL
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   v9 = +[WAUtil customMigrationOnProcess];
@@ -360,22 +354,22 @@ LABEL_6:
 
   v16 = v15;
 
-  v51.receiver = self;
-  v51.super_class = AnalyticsStoreDescriptor;
-  v17 = [(AnalyticsStoreDescriptor *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = AnalyticsStoreDescriptor;
+  v17 = [(AnalyticsStoreDescriptor *)&v50 init];
   v18 = v17;
   if (!lCopy)
   {
-    v47 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+    v46 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446466;
-      v53 = "[AnalyticsStoreDescriptor initWithStoreURL:modelURL:]";
-      v54 = 1024;
-      v55 = 74;
-      v48 = "%{public}s::%d:storeURL is nil";
+      v52 = "[AnalyticsStoreDescriptor initWithStoreURL:modelURL:]";
+      v53 = 1024;
+      v54 = 74;
+      v47 = "%{public}s::%d:storeURL is nil";
 LABEL_28:
-      _os_log_impl(&dword_1C8460000, v47, OS_LOG_TYPE_FAULT, v48, buf, 0x12u);
+      _os_log_impl(&dword_1C8460000, v46, OS_LOG_TYPE_FAULT, v47, buf, 0x12u);
     }
 
 LABEL_29:
@@ -388,14 +382,14 @@ LABEL_29:
 
   if (!rLCopy)
   {
-    v47 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+    v46 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446466;
-      v53 = "[AnalyticsStoreDescriptor initWithStoreURL:modelURL:]";
-      v54 = 1024;
-      v55 = 75;
-      v48 = "%{public}s::%d:modelURL is nil";
+      v52 = "[AnalyticsStoreDescriptor initWithStoreURL:modelURL:]";
+      v53 = 1024;
+      v54 = 75;
+      v47 = "%{public}s::%d:modelURL is nil";
       goto LABEL_28;
     }
 
@@ -436,8 +430,8 @@ LABEL_29:
   [v28 setShouldAddStoreAsynchronously:0];
   [v28 setOption:MEMORY[0x1E695E110] forKey:*MEMORY[0x1E695D3C0]];
   [v28 setOption:&unk_1F483E158 forKey:*MEMORY[0x1E695D3D0]];
-  v49 = v12;
-  v50 = rLCopy;
+  v48 = v12;
+  v49 = rLCopy;
   if (analyticsStoreOptions)
   {
     v31 = *MEMORY[0x1E695D518];
@@ -487,7 +481,7 @@ LABEL_29:
 
     shouldMigrateStoreAutomatically = [v28 shouldMigrateStoreAutomatically];
     *buf = 136447234;
-    v53 = "[AnalyticsStoreDescriptor initWithStoreURL:modelURL:]";
+    v52 = "[AnalyticsStoreDescriptor initWithStoreURL:modelURL:]";
     if (shouldMigrateStoreAutomatically)
     {
       v44 = @"YES";
@@ -498,48 +492,45 @@ LABEL_29:
       v44 = @"NO";
     }
 
-    v54 = 1024;
-    v55 = 150;
-    v56 = 2112;
-    v57 = processName3;
-    v58 = 2112;
-    v59 = v42;
-    v60 = 2112;
-    v61 = v44;
+    v53 = 1024;
+    v54 = 150;
+    v55 = 2112;
+    v56 = processName3;
+    v57 = 2112;
+    v58 = v42;
+    v59 = 2112;
+    v60 = v44;
     _os_log_impl(&dword_1C8460000, p_super, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:processName:%@ setupXPCStore: %@ migrateIfNecessary: %@", buf, 0x30u);
   }
 
-  v12 = v49;
-  rLCopy = v50;
+  v12 = v48;
+  rLCopy = v49;
 LABEL_23:
 
-  v45 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 void __59__AnalyticsStoreDescriptor_applicationSupportDirectoryPath__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ([a2 BOOLValue])
   {
     v3 = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446722;
-      v8 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]_block_invoke";
-      v9 = 1024;
-      v10 = 188;
-      v11 = 2080;
-      v12 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]_block_invoke";
-      _os_log_impl(&dword_1C8460000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: OVERRIDING applicationSupportDirectoryPath to nil", &v7, 0x1Cu);
+      v6 = 136446722;
+      v7 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]_block_invoke";
+      v8 = 1024;
+      v9 = 188;
+      v10 = 2080;
+      v11 = "+[AnalyticsStoreDescriptor applicationSupportDirectoryPath]_block_invoke";
+      _os_log_impl(&dword_1C8460000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: OVERRIDING applicationSupportDirectoryPath to nil", &v6, 0x1Cu);
     }
 
     v4 = *(*(a1 + 32) + 8);
     v5 = *(v4 + 40);
     *(v4 + 40) = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

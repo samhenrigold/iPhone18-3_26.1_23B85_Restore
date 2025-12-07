@@ -27,7 +27,7 @@
   v5(self + OBJC_IVAR___MRDTimingEvent_endDate, 1, 1, v4);
   *(self + OBJC_IVAR___MRDTimingEvent_error) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for TimingEvent();
+  v7.super_class = type metadata accessor for TimingEvent(0);
   return [(MRDTimingEvent *)&v7 init];
 }
 
@@ -53,7 +53,6 @@
 {
   v5 = OBJC_IVAR___MRDTimingEvent_error;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = error;
   selfCopy = self;
   errorCopy = error;

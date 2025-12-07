@@ -200,36 +200,36 @@
 
 - (id)getTokensForText:(id)text
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   textCopy = text;
   if (textCopy)
   {
-    v38 = objc_msgSend_getTokenIDsForText_(self, v4, textCopy, v5, v6);
+    v37 = objc_msgSend_getTokenIDsForText_(self, v4, textCopy, v5, v6);
     v8 = objc_opt_new();
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    obj = v38;
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v42, v46, 16);
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    obj = v37;
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v41, v45, 16);
     if (v10)
     {
-      v11 = *v43;
+      v11 = *v42;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v43 != v11)
+          if (*v42 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v42 + 1) + 8 * i);
+          v13 = *(*(&v41 + 1) + 8 * i);
           v14 = objc_alloc(MEMORY[0x1E696AEC0]);
           ptr = self->_vocabulary.__ptr_;
           v20 = objc_msgSend_unsignedIntValue(v13, v16, v17, v18, v19);
           (*(*ptr + 40))(__p, ptr, v20);
-          if (v41 >= 0)
+          if (v40 >= 0)
           {
             v24 = objc_msgSend_initWithUTF8String_(v14, v21, __p, v22, v23);
           }
@@ -242,13 +242,13 @@
           v28 = v24;
           objc_msgSend_addObject_(v8, v25, v24, v26, v27);
 
-          if (v41 < 0)
+          if (v40 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
-        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v42, v46, 16);
+        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v41, v45, 16);
       }
 
       while (v10);
@@ -262,8 +262,6 @@
     v35 = objc_msgSend_errorForInvalidModelWithLocalizedDescription_(CSUError, v4, @"getTokensForText input text is nil! returning nil", v5, v6);
     v34 = 0;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v34;
 }

@@ -43,8 +43,8 @@
   v16 = [v15 localizedStringForKey:@"Invitees" value:&stru_1F4EF6790 table:0];
   [(UILabel *)v7->_titleLabel setText:v16];
 
-  contentView = [(EKEventDetailAttendeesCell *)v7 contentView];
-  [contentView addSubview:v7->_titleLabel];
+  v17 = objc_msgSend_contentView(v7);
+  [v17 addSubview:v7->_titleLabel];
 
   v18 = objc_opt_new();
   countLabel = v7->_countLabel;
@@ -58,8 +58,8 @@
   [(UILabel *)v7->_countLabel setTextColor:secondaryLabelColor];
 
   [(UILabel *)v7->_countLabel setTranslatesAutoresizingMaskIntoConstraints:0];
-  contentView2 = [(EKEventDetailAttendeesCell *)v7 contentView];
-  [contentView2 addSubview:v7->_countLabel];
+  v23 = objc_msgSend_contentView(v7);
+  [v23 addSubview:v7->_countLabel];
 
   v24 = objc_alloc(MEMORY[0x1E69DCAE0]);
   traitCollection = [(EKEventDetailAttendeesCell *)v7 traitCollection];
@@ -69,8 +69,8 @@
   v7->_disclosure = v27;
 
   [(UIImageView *)v7->_disclosure setTranslatesAutoresizingMaskIntoConstraints:0];
-  contentView3 = [(EKEventDetailAttendeesCell *)v7 contentView];
-  [contentView3 addSubview:v7->_disclosure];
+  v29 = objc_msgSend_contentView(v7);
+  [v29 addSubview:v7->_disclosure];
 
   _attendeesListView = [(EKEventDetailAttendeesCell *)v7 _attendeesListView];
   attendeesListView = v7->_attendeesListView;
@@ -79,8 +79,8 @@
   [(EKEventDetailAttendeesListView *)v7->_attendeesListView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(EKEventDetailAttendeesCell *)v7 headerInset];
   [(EKEventDetailAttendeesListView *)v7->_attendeesListView setBottomSpacingForSpinner:?];
-  contentView4 = [(EKEventDetailAttendeesCell *)v7 contentView];
-  [contentView4 addSubview:v7->_attendeesListView];
+  v32 = objc_msgSend_contentView(v7);
+  [v32 addSubview:v7->_attendeesListView];
 
   v33 = MEMORY[0x1E696ACD8];
   v34 = v7->_titleLabel;

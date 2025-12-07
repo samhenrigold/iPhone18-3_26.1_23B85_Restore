@@ -11,11 +11,14 @@
 - (int64_t)handleEntityUpdateWrite:(id)write action:(id *)action;
 - (int64_t)handleRemoteCommandWrite:(id)write;
 - (unint64_t)subscriptionCount;
+- (void)attributeIDsDidChange:(id)change entityID:(unsigned __int8)d;
 - (void)dealloc;
 - (void)mediaInfoDidChange;
 - (void)mediaPlayerDidChange;
 - (void)mediaStateDidChange;
 - (void)mediaVolumeDidChange;
+- (void)notifyAttributeIDs:(id)ds entityID:(unsigned __int8)d central:(id)central;
+- (void)notifyAttributeValue:(id)value attributeID:(unsigned __int8)d entityID:(unsigned __int8)iD central:(id)central;
 - (void)notifySupportedCommands:(id)commands central:(id)central;
 - (void)notifySupportedCommandsValue:(id)value central:(id)central;
 - (void)peripheralManager:(id)manager central:(id)central didSubscribeToCharacteristic:(id)characteristic;
@@ -313,6 +316,42 @@
   [(ServerService *)self updateValue:data2 forCharacteristic:remoteCommandCharacteristic onSubscribedCentrals:v19];
 }
 
+- (void)notifyAttributeValue:(id)value attributeID:(unsigned __int8)d entityID:(unsigned __int8)iD central:(id)central
+{
+  iDCopy = iD;
+  dCopy = d;
+  valueCopy = value;
+  centralCopy = central;
+  v12 = +[DataOutputStream outputStream];
+  buf[0] = 0;
+  v13 = [valueCopy UTF8DataWithMaxLength:objc_msgSend(centralCopy ellipsis:"maximumUpdateValueLength") - 3 isTruncated:{0, buf}];
+  v14 = buf[0];
+  [v12 writeUint8:iDCopy];
+  [v12 writeUint8:dCopy];
+  [v12 writeUint8:v14];
+  [v12 writeBytes:objc_msgSend(v13 length:{"bytes"), objc_msgSend(v13, "length")}];
+  v15 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = v15;
+    v17 = [(MediaService *)self attributeIDToString:dCopy entityID:iDCopy];
+    v18 = [(MediaService *)self entityUpdateFlagsToString:v14];
+    *buf = 138412802;
+    v24 = v17;
+    v25 = 2112;
+    v26 = v18;
+    v27 = 2112;
+    v28 = valueCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Notifying value for attribute %@ (%@): %@", buf, 0x20u);
+  }
+
+  data = [v12 data];
+  entityUpdateCharacteristic = [(MediaService *)self entityUpdateCharacteristic];
+  v22 = centralCopy;
+  v21 = [NSArray arrayWithObjects:&v22 count:1];
+  [(ServerService *)self updateValue:data forCharacteristic:entityUpdateCharacteristic onSubscribedCentrals:v21];
+}
+
 - (void)notifySupportedCommands:(id)commands central:(id)central
 {
   commandsCopy = commands;
@@ -327,6 +366,76 @@
   {
     [v8 setLastKnownSupportedCommands:commandsCopy];
     [(MediaService *)self notifySupportedCommandsValue:commandsCopy central:centralCopy];
+  }
+}
+
+- (void)notifyAttributeIDs:(id)ds entityID:(unsigned __int8)d central:(id)central
+{
+  dCopy = d;
+  dsCopy = ds;
+  centralCopy = central;
+  sessions = [(MediaService *)self sessions];
+  v24 = centralCopy;
+  v11 = [sessions objectForKeyedSubscript:centralCopy];
+
+  v23 = dsCopy;
+  v12 = [v11 notifiableAttributeIDs:dsCopy entityID:dCopy];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v26;
+    do
+    {
+      for (i = 0; i != v14; i = i + 1)
+      {
+        if (*v26 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        unsignedCharValue = [*(*(&v25 + 1) + 8 * i) unsignedCharValue];
+        v18 = [(MediaService *)self currentAttributeValueForAttributeID:unsignedCharValue entityID:dCopy];
+        v19 = [v11 lastKnownAttributeValueForAttributeID:unsignedCharValue entityID:dCopy];
+        v20 = v19;
+        if (v18)
+        {
+          v21 = v19 == 0;
+        }
+
+        else
+        {
+          v21 = 1;
+        }
+
+        if (v21)
+        {
+          if (v18 | v19)
+          {
+            goto LABEL_14;
+          }
+        }
+
+        else
+        {
+          v22 = [v18 isEqualToString:v19];
+          if ((v22 & 1) == 0)
+          {
+LABEL_14:
+            [v11 setLastKnownAttributeValue:v18 attributeID:unsignedCharValue entityID:dCopy];
+            [(MediaService *)self notifyAttributeValue:v18 attributeID:unsignedCharValue entityID:dCopy central:v24];
+          }
+        }
+      }
+
+      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    }
+
+    while (v14);
   }
 }
 
@@ -364,6 +473,44 @@
     }
 
     while (v8);
+  }
+}
+
+- (void)attributeIDsDidChange:(id)change entityID:(unsigned __int8)d
+{
+  dCopy = d;
+  changeCopy = change;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  entityUpdateCharacteristic = [(MediaService *)self entityUpdateCharacteristic];
+  subscribedCentrals = [entityUpdateCharacteristic subscribedCentrals];
+
+  v9 = [subscribedCentrals countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v14;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v14 != v11)
+        {
+          objc_enumerationMutation(subscribedCentrals);
+        }
+
+        [(MediaService *)self notifyAttributeIDs:changeCopy entityID:dCopy central:*(*(&v13 + 1) + 8 * v12)];
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [subscribedCentrals countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v10);
   }
 }
 

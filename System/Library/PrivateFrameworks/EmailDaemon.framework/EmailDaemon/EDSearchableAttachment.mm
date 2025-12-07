@@ -16,25 +16,21 @@
   receivedCopy = received;
   recipientsCopy = recipients;
   v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1C4050, &unk_1C6472830);
-  v19 = *(*(v18 - 8) + 64);
   MEMORY[0x1EEE9AC00](v18 - 8);
-  v78 = &senderCopy - v20;
-  v21 = sub_1C645C674();
-  v76 = *(v21 - 8);
-  v77 = v21;
-  v22 = *(v76 + 64);
-  v23 = MEMORY[0x1EEE9AC00](v21);
-  v75 = &senderCopy - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v74 = &senderCopy - v25;
-  v26 = sub_1C645C794();
-  v27 = *(*(v26 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v26 - 8);
-  v29 = &senderCopy - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = sub_1C645C514();
-  v31 = *(*(v30 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v30 - 8);
-  v72 = &senderCopy - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v74 = &senderCopy - v19;
+  v20 = sub_1C645C674();
+  v72 = *(v20 - 8);
+  v73 = v20;
+  v21 = MEMORY[0x1EEE9AC00](v20);
+  v71 = &senderCopy - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v70 = &senderCopy - v23;
+  v24 = sub_1C645C794();
+  MEMORY[0x1EEE9AC00](v24 - 8);
+  v26 = &senderCopy - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = sub_1C645C514();
+  MEMORY[0x1EEE9AC00](v27 - 8);
+  v68 = &senderCopy - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C645C474();
   typeCopy = type;
   nameCopy = name;
@@ -42,135 +38,128 @@
   dCopy = d;
   headerCopy = header;
   sentCopy = sent;
-  v38 = receivedCopy;
-  v66 = recipientsCopy;
-  v39 = identifierCopy;
+  v34 = receivedCopy;
+  v62 = recipientsCopy;
+  v35 = identifierCopy;
   senderCopy = sender;
   senderCopy2 = sender;
-  v65 = dateCopy;
-  identifierCopy = v29;
+  v61 = dateCopy;
+  identifierCopy = v26;
   sub_1C645C784();
 
-  v41 = sub_1C645C874();
-  receivedCopy = v42;
-  recipientsCopy = v41;
+  v37 = sub_1C645C874();
+  receivedCopy = v38;
+  recipientsCopy = v37;
 
-  if (v39)
+  if (v35)
   {
-    v43 = sub_1C645C874();
-    v67 = v44;
-    v68 = v43;
+    v39 = sub_1C645C874();
+    v63 = v40;
+    v64 = v39;
   }
 
   else
   {
-    v67 = 0;
-    v68 = 0;
+    v63 = 0;
+    v64 = 0;
   }
 
-  v45 = sub_1C645CA14();
+  v41 = sub_1C645CA14();
 
-  v46 = sub_1C645C874();
-  v48 = v47;
+  v42 = sub_1C645C874();
+  v44 = v43;
 
-  v49 = v74;
+  v45 = v70;
   sub_1C645C654();
 
-  v50 = v75;
+  v46 = v71;
   sub_1C645C654();
 
   if (senderCopy2)
   {
-    v51 = sub_1C645C874();
-    v53 = v52;
+    v47 = sub_1C645C874();
+    v49 = v48;
   }
 
   else
   {
-    v51 = 0;
-    v53 = 0;
+    v47 = 0;
+    v49 = 0;
   }
 
-  v54 = v66;
-  v55 = sub_1C645CA14();
+  v50 = v62;
+  v51 = sub_1C645CA14();
 
-  v56 = v65;
-  if (v65)
+  v52 = v61;
+  if (v61)
   {
-    v57 = v78;
+    v53 = v74;
     sub_1C645C654();
 
-    v58 = 0;
+    v54 = 0;
   }
 
   else
   {
-    v58 = 1;
-    v57 = v78;
+    v54 = 1;
+    v53 = v74;
   }
 
-  (*(v76 + 56))(v57, v58, 1, v77);
-  v63 = v57;
-  commentedAddress._countAndFlagsBits = v51;
-  commentedAddress._object = v53;
-  v59 = dCopy;
-  v60 = sub_1C64230E8(v72, identifierCopy, recipientsCopy, receivedCopy, v68, v67, v45, dCopy, v46, v48, v49, v50, commentedAddress, v55, v63);
+  (*(v72 + 56))(v53, v54, 1, v73);
+  v59 = v53;
+  commentedAddress._countAndFlagsBits = v47;
+  commentedAddress._object = v49;
+  v55 = dCopy;
+  v56 = sub_1C64230E8(v68, identifierCopy, recipientsCopy, receivedCopy, v64, v63, v41, dCopy, v42, v44, v45, v46, commentedAddress, v51, v59);
 
-  return v60;
+  return v56;
 }
 
 - (NSURL)contentURL
 {
-  v3 = type metadata accessor for SearchableAttachment();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for SearchableAttachment(0);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = &v14[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = sub_1C645C514();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v14[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_1C640DBAC(self + OBJC_IVAR___EDSearchableAttachment__underlying, v14);
+  v5 = &v13[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = sub_1C645C514();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v13[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_1C640DBAC(self + OBJC_IVAR___EDSearchableAttachment__underlying, v13);
   swift_dynamicCast();
-  (*(v8 + 16))(v11, v6, v7);
-  sub_1C642308C(v6);
-  v12 = sub_1C645C444();
-  (*(v8 + 8))(v11, v7);
+  (*(v7 + 16))(v9, v5, v6);
+  sub_1C642308C(v5, v10);
+  v11 = sub_1C645C444();
+  (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v11;
 }
 
 - (NSString)displayName
 {
-  v3 = type metadata accessor for SearchableAttachment();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for SearchableAttachment(0);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = &v12[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_1C640DBAC(self + OBJC_IVAR___EDSearchableAttachment__underlying, v12);
+  v5 = &v9[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_1C640DBAC(self + OBJC_IVAR___EDSearchableAttachment__underlying, v9);
   swift_dynamicCast();
-  v7 = &v6[*(v3 + 24)];
-  v8 = *v7;
-  v9 = v7[1];
 
-  sub_1C642308C(v6);
-  v10 = sub_1C645C844();
+  sub_1C642308C(v5, v6);
+  v7 = sub_1C645C844();
 
-  return v10;
+  return v7;
 }
 
 - (void)addToAttributes:(id)attributes
 {
-  v5 = type metadata accessor for SearchableAttachment();
-  v6 = *(*(v5 - 8) + 64);
+  v5 = type metadata accessor for SearchableAttachment(0);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v11[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = &v11[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_1C640DBAC(self + OBJC_IVAR___EDSearchableAttachment__underlying, v11);
   attributesCopy = attributes;
   selfCopy = self;
   swift_dynamicCast();
   sub_1C6438E80(attributesCopy);
 
-  sub_1C642308C(v8);
+  sub_1C642308C(v7, v10);
 }
 
 - (EDSearchableAttachment)init

@@ -21,7 +21,7 @@
       sub_1001E37FC();
     }
 
-    if ((sub_1001E0314(v5, key, qword_1005580A0, self->this$1_->toBound_) & 1) == 0)
+    if (!sub_1001E0314(v5, key, qword_1005580A0, self->this$1_->toBound_))
     {
       JreStrongAssign(&self->super.next_, 0);
     }
@@ -47,7 +47,7 @@
       sub_1001E37FC();
     }
 
-    if ((sub_1001E0314(v6, key, fromBound, qword_1005580A0) & 1) == 0)
+    if (!sub_1001E0314(v6, key, fromBound, qword_1005580A0))
     {
       JreStrongAssign(p_next, 0);
     }

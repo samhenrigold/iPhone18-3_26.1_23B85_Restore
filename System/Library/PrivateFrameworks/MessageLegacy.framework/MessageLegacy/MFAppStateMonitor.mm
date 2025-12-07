@@ -43,10 +43,10 @@ uint64_t __35__MFAppStateMonitor_sharedInstance__block_invoke(uint64_t a1)
 
 - (MFAppStateMonitor)init
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = MFAppStateMonitor;
-  v2 = [(MFAppStateMonitor *)&v19 init];
+  v19[1] = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = MFAppStateMonitor;
+  v2 = [(MFAppStateMonitor *)&v18 init];
   if (v2)
   {
     observableObserver = [MEMORY[0x277D07180] observableObserver];
@@ -61,29 +61,28 @@ uint64_t __35__MFAppStateMonitor_sharedInstance__block_invoke(uint64_t a1)
     if (bundleIdentifier)
     {
       v8 = objc_alloc(MEMORY[0x277CEEE90]);
-      v20[0] = bundleIdentifier;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+      v19[0] = bundleIdentifier;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
       v10 = [v8 initWithBundleIDs:v9 states:*MEMORY[0x277CEEE58]];
       appStateMonitor = v2->_appStateMonitor;
       v2->_appStateMonitor = v10;
 
       v2->_appState = [(BKSApplicationStateMonitor *)v2->_appStateMonitor applicationStateForApplication:bundleIdentifier];
       objc_initWeak(&location, v2);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __25__MFAppStateMonitor_init__block_invoke;
-      v14[3] = &unk_2798B6DB0;
-      objc_copyWeak(&v17, &location);
-      v15 = bundleIdentifier;
-      v16 = observableObserver;
-      [(BKSApplicationStateMonitor *)v2->_appStateMonitor setHandler:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __25__MFAppStateMonitor_init__block_invoke;
+      v13[3] = &unk_2798B6DB0;
+      objc_copyWeak(&v16, &location);
+      v14 = bundleIdentifier;
+      v15 = observableObserver;
+      [(BKSApplicationStateMonitor *)v2->_appStateMonitor setHandler:v13];
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(&location);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -152,22 +151,21 @@ void __25__MFAppStateMonitor_init__block_invoke(uint64_t a1, void *a2)
 
 void __54__MFAppStateMonitor__updateApplicationState_observer___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) unsignedIntValue];
   v3 = MFLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = _BKSApplicationStateGetDescription(*(*(a1 + 40) + 8));
     v5 = _BKSApplicationStateGetDescription(v2);
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_258BDA000, v3, OS_LOG_TYPE_INFO, "transitioning from %@ to %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_258BDA000, v3, OS_LOG_TYPE_INFO, "transitioning from %@ to %@", &v6, 0x16u);
   }
 
   *(*(a1 + 40) + 8) = v2;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

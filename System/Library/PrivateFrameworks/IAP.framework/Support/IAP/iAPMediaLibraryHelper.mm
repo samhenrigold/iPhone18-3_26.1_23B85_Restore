@@ -65,11 +65,11 @@
 
 - (unsigned)stationCount
 {
-  LODWORD(v3) = [(iAPMediaLibraryHelper *)self showMusic];
-  if ((v3 & 1) == 0)
+  LODWORD(_updateRadioLibraryList) = [(iAPMediaLibraryHelper *)self showMusic];
+  if ((_updateRadioLibraryList & 1) == 0)
   {
-    LODWORD(v3) = 0;
-    return v3;
+    LODWORD(_updateRadioLibraryList) = 0;
+    return _updateRadioLibraryList;
   }
 
   stationGetError = self->_stationGetError;
@@ -77,21 +77,21 @@
   {
 LABEL_12:
     __break(0x550Au);
-    return v3;
+    return _updateRadioLibraryList;
   }
 
   if (stationGetError)
   {
-    LODWORD(v3) = [(iAPMediaLibraryHelper *)self _updateRadioLibraryList];
-    if (v3)
+    _updateRadioLibraryList = [(iAPMediaLibraryHelper *)self _updateRadioLibraryList];
+    if (_updateRadioLibraryList)
     {
-      v3 = sub_1000388B8();
-      if (!v3 || (v3 & 7) != 0)
+      _updateRadioLibraryList = sub_1000388B8(_updateRadioLibraryList, v5);
+      if (!_updateRadioLibraryList || (_updateRadioLibraryList & 7) != 0)
       {
         goto LABEL_11;
       }
 
-      LODWORD(v3) = sub_10003DD18(v3);
+      LODWORD(_updateRadioLibraryList) = sub_10003DD18(_updateRadioLibraryList);
     }
   }
 
@@ -102,8 +102,8 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  LODWORD(v3) = self->_stationCount;
-  return v3;
+  LODWORD(_updateRadioLibraryList) = self->_stationCount;
+  return _updateRadioLibraryList;
 }
 
 - (BOOL)_updateRadioLibraryList
@@ -278,20 +278,21 @@ LABEL_22:
   }
 
   NSLog(@"%s:%d iTunesRadioEnabled=%d notification=%@", "[iAPMediaLibraryHelper _radioLibraryChanged:]", 700, [(MediaLibraryHelper *)self->_mediaLibraryHelper iTunesRadioEnabled], changed);
-  if (![(iAPMediaLibraryHelper *)self _updateRadioLibraryList])
+  _updateRadioLibraryList = [(iAPMediaLibraryHelper *)self _updateRadioLibraryList];
+  if (!_updateRadioLibraryList)
   {
     return;
   }
 
-  v4 = sub_1000388B8();
-  if (!v4 || (v4 & 7) != 0)
+  v6 = sub_1000388B8(_updateRadioLibraryList, v5);
+  if (!v6 || (v6 & 7) != 0)
   {
 LABEL_9:
     __break(0x5516u);
     return;
   }
 
-  sub_10003DD18(v4);
+  sub_10003DD18(v6);
 }
 
 - (void)iterateStationsList:(id)list
@@ -309,25 +310,26 @@ LABEL_30:
   }
 
   sub_1000DDE90(0, @"%s:%d _stationGetError=%d, try retrieve station list again", "[iAPMediaLibraryHelper iterateStationsList:]", 734, 1);
-  if ([(iAPMediaLibraryHelper *)self _updateRadioLibraryList])
+  _updateRadioLibraryList = [(iAPMediaLibraryHelper *)self _updateRadioLibraryList];
+  if (_updateRadioLibraryList)
   {
     goto LABEL_7;
   }
 
-  v6 = sub_1000388B8();
-  if (!v6 || (v6 & 7) != 0)
+  v8 = sub_1000388B8(_updateRadioLibraryList, v7);
+  if (!v8 || (v8 & 7) != 0)
   {
 LABEL_29:
     __break(0x5516u);
     goto LABEL_30;
   }
 
-  sub_10003DD18(v6);
+  sub_10003DD18(v8);
 LABEL_7:
+  v34 = 0u;
+  v35 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   p_stationsGroupList = &self->_stationsGroupList;
   if ((&self->_stationsGroupList & 7) != 0)
   {
@@ -335,90 +337,90 @@ LABEL_7:
   }
 
   obj = *p_stationsGroupList;
-  v21 = [*p_stationsGroupList countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (!v21)
+  v23 = [*p_stationsGroupList countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (!v23)
   {
     return;
   }
 
-  v8 = 0;
-  v9 = 0;
-  v23 = *v31;
+  v10 = 0;
+  v11 = 0;
+  v25 = *v33;
   do
   {
-    v10 = 0;
-    v20 = ~v8;
+    v12 = 0;
+    v22 = ~v10;
     do
     {
-      if (*v31 != v23)
+      if (*v33 != v25)
       {
         objc_enumerationMutation(obj);
       }
 
-      v24 = v10;
-      v11 = *(*(&v30 + 1) + 8 * v10);
-      stations = [v11 stations];
-      v26 = 0u;
-      v27 = 0u;
+      v26 = v12;
+      v13 = *(*(&v32 + 1) + 8 * v12);
+      stations = [v13 stations];
       v28 = 0u;
       v29 = 0u;
-      v25 = stations;
-      v13 = [stations countByEnumeratingWithState:&v26 objects:v34 count:16];
-      if (v13)
+      v30 = 0u;
+      v31 = 0u;
+      v27 = stations;
+      v15 = [stations countByEnumeratingWithState:&v28 objects:v36 count:16];
+      if (v15)
       {
-        v14 = v13;
-        v15 = 0;
-        v16 = *v27;
+        v16 = v15;
+        v17 = 0;
+        v18 = *v29;
         do
         {
-          v17 = 0;
-          v18 = ~v15;
-          v19 = ~v9;
+          v19 = 0;
+          v20 = ~v17;
+          v21 = ~v11;
           do
           {
-            if (*v27 != v16)
+            if (*v29 != v18)
             {
-              objc_enumerationMutation(v25);
+              objc_enumerationMutation(v27);
             }
 
-            if (((*(list + 2))(list, v9, v8, v15, v11, *(*(&v26 + 1) + 8 * v17)) & 1) != 0 || v9 >= dword_1001295B0)
+            if (((*(list + 2))(list, v11, v10, v17, v13, *(*(&v28 + 1) + 8 * v19)) & 1) != 0 || v11 >= dword_1001295B0)
             {
               return;
             }
 
-            if (v18 == v17 || v19 == v17)
+            if (v20 == v19 || v21 == v19)
             {
               goto LABEL_28;
             }
 
-            v15 = (v15 + 1);
-            v9 = (v9 + 1);
-            v17 = v17 + 1;
+            v17 = (v17 + 1);
+            v11 = (v11 + 1);
+            v19 = v19 + 1;
           }
 
-          while (v14 != v17);
-          v14 = [v25 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          while (v16 != v19);
+          v16 = [v27 countByEnumeratingWithState:&v28 objects:v36 count:16];
         }
 
-        while (v14);
+        while (v16);
       }
 
-      if (v24 == v20)
+      if (v26 == v22)
       {
 LABEL_28:
         __break(0x5500u);
         goto LABEL_29;
       }
 
-      v8 = (v8 + 1);
-      v10 = v24 + 1;
+      v10 = (v10 + 1);
+      v12 = v26 + 1;
     }
 
-    while ((v24 + 1) != v21);
-    v21 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+    while ((v26 + 1) != v23);
+    v23 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   }
 
-  while (v21);
+  while (v23);
 }
 
 - (id)stationForIndex:(unint64_t)index
@@ -471,9 +473,9 @@ LABEL_28:
     [qword_10012BAA0 reset];
   }
 
-  [(iAPMediaLibraryHelper *)self _updateRadioLibraryList];
-  v4 = sub_1000388B8();
-  if (!v4 || (v4 & 7) != 0)
+  _updateRadioLibraryList = [(iAPMediaLibraryHelper *)self _updateRadioLibraryList];
+  v6 = sub_1000388B8(_updateRadioLibraryList, v5);
+  if (!v6 || (v6 & 7) != 0)
   {
     __break(0x5516u);
   }
@@ -481,7 +483,7 @@ LABEL_28:
   else
   {
 
-    sub_10003DD18(v4);
+    sub_10003DD18(v6);
   }
 }
 

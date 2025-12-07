@@ -10,65 +10,63 @@ void __hoseSBAR_SetProperty_block_invoke(void *a1)
   if (v3)
   {
     v4 = a1[6];
-    v5 = *(v2 + 264);
-    v6 = *(CMBaseObjectGetVTable() + 16);
-    if (v6)
+    v5 = *(CMBaseObjectGetVTable() + 16);
+    if (v5)
     {
-      v7 = *(v6 + 56);
-      if (v7)
+      v6 = *(v5 + 56);
+      if (v6)
       {
-        v8 = *(v6 + 56);
-        v9 = v7(v3, *MEMORY[0x277D27340], v4);
+        v7 = v6(v3, *MEMORY[0x277D27340], v4);
       }
 
       else
       {
-        v9 = -19225;
+        v7 = -19225;
       }
     }
 
     else
     {
-      v9 = -19221;
+      v7 = -19221;
     }
 
-    *(*(a1[4] + 8) + 24) = v9;
-    v10 = *(*(a1[4] + 8) + 24);
-    if (v10)
+    *(*(a1[4] + 8) + 24) = v7;
+    v8 = *(*(a1[4] + 8) + 24);
+    if (v8)
     {
-      APSLogErrorAt(v10);
+      APSLogErrorAt(v8);
       goto LABEL_14;
     }
 
     v2 = a1[5];
   }
 
-  v11 = *(v2 + 296);
-  v12 = a1[6];
-  *(v2 + 296) = v12;
-  if (v12)
+  v9 = *(v2 + 296);
+  v10 = a1[6];
+  *(v2 + 296) = v10;
+  if (v10)
   {
-    CFRetain(v12);
+    CFRetain(v10);
   }
 
+  if (v9)
+  {
+    CFRelease(v9);
+  }
+
+  hoseSBAR_setPreferencesOnAudioSession(a1[7], 1);
+LABEL_14:
+  v11 = a1[6];
   if (v11)
   {
     CFRelease(v11);
   }
 
-  hoseSBAR_setPreferencesOnAudioSession(a1[7], 1);
-LABEL_14:
-  v13 = a1[6];
-  if (v13)
-  {
-    CFRelease(v13);
-  }
-
-  v14 = a1[7];
-  if (v14)
+  v12 = a1[7];
+  if (v12)
   {
 
-    CFRelease(v14);
+    CFRelease(v12);
   }
 }
 

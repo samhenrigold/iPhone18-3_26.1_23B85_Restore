@@ -11,7 +11,7 @@
 
 - (void)endTask:(unint64_t)task
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   timeoutGuards = [(MSVBackgroundTaskProvider *)self timeoutGuards];
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:task];
@@ -28,20 +28,18 @@
     v10 = os_log_create("com.apple.amp.MediaServices", "Default");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134217984;
+      v11 = 134217984;
       taskCopy = task;
-      _os_log_impl(&dword_1AC81F000, v10, OS_LOG_TYPE_DEFAULT, "[MSVBackgroundTaskProvider] Background Task #%ld ended", &v12, 0xCu);
+      _os_log_impl(&dword_1AC81F000, v10, OS_LOG_TYPE_DEFAULT, "[MSVBackgroundTaskProvider] Background Task #%ld ended", &v11, 0xCu);
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)beginTaskWithName:(id)name expirationHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_lock);
@@ -55,16 +53,16 @@
     }
 
     v9 = [MSVBlockGuard alloc];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __65__MSVBackgroundTaskProvider_beginTaskWithName_expirationHandler___block_invoke;
-    v16[3] = &unk_1E79817C8;
-    v20 = v8;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __65__MSVBackgroundTaskProvider_beginTaskWithName_expirationHandler___block_invoke;
+    v15[3] = &unk_1E79817C8;
+    v19 = v8;
     nameCopy = nameCopy;
-    v17 = nameCopy;
+    v16 = nameCopy;
     selfCopy = self;
-    v19 = handlerCopy;
-    v10 = [(MSVBlockGuard *)v9 initWithTimeout:v16 interruptionHandler:30.0];
+    v18 = handlerCopy;
+    v10 = [(MSVBlockGuard *)v9 initWithTimeout:v15 interruptionHandler:30.0];
     timeoutGuards = [(MSVBackgroundTaskProvider *)self timeoutGuards];
     v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
     [timeoutGuards setObject:v10 forKeyedSubscript:v12];
@@ -73,9 +71,9 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v22 = v8;
-      v23 = 2114;
-      v24 = nameCopy;
+      v21 = v8;
+      v22 = 2114;
+      v23 = nameCopy;
       _os_log_impl(&dword_1AC81F000, v13, OS_LOG_TYPE_DEFAULT, "[MSVBackgroundTaskProvider] Background Task #%ld started (%{public}@)", buf, 0x16u);
     }
   }
@@ -87,23 +85,22 @@
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 uint64_t __65__MSVBackgroundTaskProvider_beginTaskWithName_expirationHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = os_log_create("com.apple.amp.MediaServices", "Default");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 56);
     v6 = *(a1 + 32);
-    v10 = 134218242;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1AC81F000, v4, OS_LOG_TYPE_DEFAULT, "[MSVBackgroundTaskProvider] Background Task #%ld expired (%{public}@)", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_1AC81F000, v4, OS_LOG_TYPE_DEFAULT, "[MSVBackgroundTaskProvider] Background Task #%ld expired (%{public}@)", &v9, 0x16u);
   }
 
   if (!a2)
@@ -115,9 +112,7 @@ uint64_t __65__MSVBackgroundTaskProvider_beginTaskWithName_expirationHandler___b
     }
   }
 
-  result = [*(a1 + 40) endTask:*(a1 + 56)];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) endTask:*(a1 + 56)];
 }
 
 - (void)_locked_releaseAssertion

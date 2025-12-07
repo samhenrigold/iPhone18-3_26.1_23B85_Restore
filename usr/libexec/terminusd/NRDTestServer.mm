@@ -18,11 +18,7 @@
       dispatch_once(&qword_100228FD0, &stru_1001FADB0);
     }
 
-    v9 = 237;
-    selfCopy = self;
-    v7 = "";
-    v8 = "[NRDTestServer dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228FC8, 1, "%s%.30s:%-4d Dealloc: %@", ", "[NRDTestServer dealloc]"", 237, self);
   }
 
   if (self)
@@ -44,9 +40,9 @@
     }
   }
 
-  v11.receiver = self;
-  v11.super_class = NRDTestServer;
-  [(NRDTestServer *)&v11 dealloc:v7];
+  v7.receiver = self;
+  v7.super_class = NRDTestServer;
+  [(NRDTestServer *)&v7 dealloc];
 }
 
 @end

@@ -716,7 +716,7 @@ void __101__DBSmartWidgetViewController__updateWidgetWithPrediction_predictedSiz
   widgetView = [self widgetView];
   prediction = [widgetView prediction];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_10(&dword_248146000, v3, v4, "Current prediction (ViewController): %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_10(&dword_248146000, v3, v4, "Current prediction (ViewController): %{public}@", v5, v6, v7, v8);
 }
 
 - (void)setSmartWidgetForeground:(BOOL)foreground
@@ -1315,7 +1315,7 @@ void __54__DBSmartWidgetViewController_resolveForNoPredictions__block_invoke_col
   v2 = [v1 currentPredictions];
   [v2 count];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_10(&dword_248146000, v3, v4, "[Update Prediction] no predictions completed currentPredictions.count=%ld", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_10(&dword_248146000, v3, v4, "[Update Prediction] no predictions completed currentPredictions.count=%ld", v5, v6, v7, v8);
 }
 
 - (void)_shouldUpdateFocusForTouchpadInContext:.cold.1()
@@ -1329,21 +1329,21 @@ void __54__DBSmartWidgetViewController_resolveForNoPredictions__block_invoke_col
 {
   v1 = [a1 previouslyFocusedItem];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_10(&dword_248146000, v2, v3, "[FOCUS DEBUG] Previous: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_10(&dword_248146000, v2, v3, "[FOCUS DEBUG] Previous: %@", v4, v5, v6, v7);
 }
 
 - (void)_shouldUpdateFocusForTouchpadInContext:(void *)a1 .cold.3(void *a1)
 {
   v1 = [a1 nextFocusedItem];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_10(&dword_248146000, v2, v3, "[FOCUS DEBUG] Next: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_10(&dword_248146000, v2, v3, "[FOCUS DEBUG] Next: %@", v4, v5, v6, v7);
 }
 
 - (void)_shouldUpdateFocusForTouchpadInContext:(void *)a1 .cold.4(void *a1)
 {
   [a1 focusHeading];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_10(&dword_248146000, v1, v2, "[FOCUS DEBUG] Heading: %ld", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_10(&dword_248146000, v1, v2, "[FOCUS DEBUG] Heading: %ld", v3, v4, v5, v6);
 }
 
 @end

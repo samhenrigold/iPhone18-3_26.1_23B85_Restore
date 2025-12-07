@@ -1,8 +1,11 @@
 @interface KCellularLteRrcState
 - (BOOL)isEqual:(id)equal;
+- (id)causeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)prevStateAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsCause:(id)cause;
 - (int)StringAsPrevState:(id)state;
 - (int)StringAsState:(id)state;
@@ -48,6 +51,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100318F58[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -122,6 +140,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)prevStateAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100318F58[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevState:(id)state
@@ -211,6 +244,156 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)causeAsString:(int)string
+{
+  v4 = @"KLTE_RRC_CAUSE_EST_EMERGENCY";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_101;
+    case 1:
+      v4 = @"KLTE_RRC_CAUSE_EST_HIGH_PRIO_ACC";
+
+      break;
+    case 2:
+      v4 = @"KLTE_RRC_CAUSE_EST_MT_ACC";
+
+      break;
+    case 3:
+      v4 = @"KLTE_RRC_CAUSE_EST_MO_SIGNAL";
+
+      break;
+    case 4:
+      v4 = @"KLTE_RRC_CAUSE_EST_MO_DATA";
+
+      break;
+    case 5:
+      v4 = @"KLTE_RRC_CAUSE_EST_DELAY_TOL_ACC";
+
+      break;
+    case 6:
+      v4 = @"KLTE_RRC_CAUSE_REEST_RECFG_FAIL";
+
+      break;
+    case 7:
+      v4 = @"KLTE_RRC_CAUSE_REEST_HO_FAIL";
+
+      break;
+    case 8:
+      v4 = @"KLTE_RRC_CAUSE_REEST_OTHER_FAIL";
+
+      break;
+    case 9:
+      v4 = @"KLTE_RRC_CAUSE_REL_OTHER_RECFG_FAIL";
+
+      break;
+    case 10:
+      v4 = @"KLTE_RRC_CAUSE_REL_CONN_FAIL_IRAT_RESEL";
+
+      break;
+    case 11:
+      v4 = @"KLTE_RRC_CAUSE_REL_CONN_FAIL_T311_EXP";
+
+      break;
+    case 12:
+      v4 = @"KLTE_RRC_CAUSE_REL_CONN_FAIL_CELL_NOT_SUIT";
+
+      break;
+    case 13:
+      v4 = @"KLTE_RRC_CAUSE_REL_CONN_FAIL_REEST_REJ";
+
+      break;
+    case 14:
+      v4 = @"KLTE_RRC_CAUSE_REL_LOAD_BAL_TAU_REQD";
+
+      break;
+    case 15:
+      v4 = @"KLTE_RRC_CAUSE_REL_OTHER";
+
+      break;
+    case 16:
+      v4 = @"KLTE_RRC_CAUSE_REL_CSFB_HIGH_PRIO";
+
+      break;
+    case 17:
+      v4 = @"KLTE_RRC_CAUSE_REL_T310_EXP";
+
+      break;
+    case 18:
+      v4 = @"KLTE_RRC_CAUSE_REL_RND_ACC";
+
+      break;
+    case 19:
+      v4 = @"KLTE_RRC_CAUSE_REL_MAX_RLC_RETRANS";
+
+      break;
+    case 20:
+      v4 = @"KLTE_RRC_CAUSE_REL_SUCC_MOB_FROM_EUTRAN";
+
+      break;
+    case 21:
+      v4 = @"KLTE_RRC_CAUSE_EST_SUCC_MOB_TO_EUTRAN";
+
+      break;
+    case 22:
+      v4 = @"KLTE_RRC_CAUSE_EST_FAIL_NO_RESP_FROM_CELL";
+
+      break;
+    case 23:
+      v4 = @"KLTE_RRC_CAUSE_EST_FAIL_REJ";
+
+      break;
+    case 24:
+      v4 = @"KLTE_RRC_CAUSE_EST_FAIL_CELL_RESEL";
+
+      break;
+    case 25:
+      v4 = @"KLTE_RRC_CAUSE_EST_FAIL_ABORTED";
+
+      break;
+    case 26:
+      v4 = @"KLTE_RRC_CAUSE_EST_FAIL_CELL_BARRED";
+
+      break;
+    case 27:
+      v4 = @"KLTE_RRC_CAUSE_REEST_OTHER_FAIL_T310_EXP";
+
+      break;
+    case 28:
+      v4 = @"KLTE_RRC_CAUSE_REEST_OTHER_FAIL_RND_ACC";
+
+      break;
+    case 29:
+      v4 = @"KLTE_RRC_CAUSE_REEST_OTHER_FAIL_MAX_RLC_RETX";
+
+      break;
+    case 30:
+      v4 = @"KLTE_RRC_CAUSE_REEST_OTHER_FAIL_INTEG_CHECK";
+
+      break;
+    default:
+      if (string == 254)
+      {
+        v4 = @"KLTE_RRC_CAUSE_NO_SERVICE";
+      }
+
+      else if (string == 255)
+      {
+        v4 = @"KLTE_RRC_CAUSE_NA";
+      }
+
+      else
+      {
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_101:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsCause:(id)cause
@@ -645,7 +828,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -665,7 +847,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -680,7 +861,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  prevState = self->_prevState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -695,7 +875,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  prevStateDurMs = self->_prevStateDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -710,12 +889,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  cause = self->_cause;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_7:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

@@ -62,7 +62,7 @@
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_blending_ecosystem();
+  v7 = __atxlog_handle_blending_ecosystem(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"consumerSubType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionFeedbackResult" errorCode:-1 logHandle:v7];
 
   if (v8)
@@ -77,7 +77,7 @@
         v13 = v12;
         v14 = MEMORY[0x1E69C5D78];
         v15 = objc_opt_class();
-        v16 = __atxlog_handle_blending_ecosystem();
+        v16 = __atxlog_handle_blending_ecosystem(v15);
         v17 = [v14 robustDecodeObjectOfClass:v15 forKey:@"sessionType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionFeedbackResult" errorCode:-1 logHandle:v16];
 
         if (!v17 || ([coderCopy error], v18 = objc_claimAutoreleasedReturnValue(), v18, v18))
@@ -90,7 +90,7 @@ LABEL_34:
 
         v19 = MEMORY[0x1E69C5D78];
         v20 = objc_opt_class();
-        v21 = __atxlog_handle_blending_ecosystem();
+        v21 = __atxlog_handle_blending_ecosystem(v20);
         v22 = [v19 robustDecodeObjectOfClass:v20 forKey:@"clientCache" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionFeedbackResult" errorCode:-1 logHandle:v21];
 
         if (!v22 || ([coderCopy error], v23 = objc_claimAutoreleasedReturnValue(), v23, v23))
@@ -104,7 +104,7 @@ LABEL_33:
         v42 = v22;
         v24 = MEMORY[0x1E69C5D78];
         v25 = objc_opt_class();
-        v26 = __atxlog_handle_blending_ecosystem();
+        v26 = __atxlog_handle_blending_ecosystem(v25);
         v27 = [v24 robustDecodeObjectOfClass:v25 forKey:@"clientCache" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionFeedbackResult" errorCode:-1 logHandle:v26];
 
         if (!v27)
@@ -127,7 +127,7 @@ LABEL_32:
 
         aClassNamea = MEMORY[0x1E69C5D78];
         v29 = objc_opt_class();
-        v30 = __atxlog_handle_blending_ecosystem();
+        v30 = __atxlog_handle_blending_ecosystem(v29);
         aClassName = [(NSString *)aClassNamea robustDecodeObjectOfClass:v29 forKey:@"contextString" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionFeedbackResult" errorCode:-1 logHandle:v30];
 
         error3 = [coderCopy error];
@@ -161,7 +161,7 @@ LABEL_31:
           {
             v35 = MEMORY[0x1E69C5D78];
             v36 = objc_opt_class();
-            v37 = __atxlog_handle_blending_ecosystem();
+            v37 = __atxlog_handle_blending_ecosystem(v36);
             v38 = [v35 robustDecodeObjectOfClass:v36 forKey:@"contextString" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionFeedbackResult" errorCode:-1 logHandle:v37];
 
             if (v38)

@@ -232,7 +232,7 @@ LABEL_17:
 LABEL_18:
 }
 
-uint64_t __90__PIBrushStrokeHistory__playbackHistoryIndex_toReceiver_options_pauseInterval_completion___block_invoke(uint64_t a1)
+void *__90__PIBrushStrokeHistory__playbackHistoryIndex_toReceiver_options_pauseInterval_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) entries];
   v3 = [v2 count];
@@ -243,7 +243,7 @@ uint64_t __90__PIBrushStrokeHistory__playbackHistoryIndex_toReceiver_options_pau
     result = *(a1 + 48);
     if (result)
     {
-      v6 = *(result + 16);
+      v6 = result[2];
 
       return v6();
     }

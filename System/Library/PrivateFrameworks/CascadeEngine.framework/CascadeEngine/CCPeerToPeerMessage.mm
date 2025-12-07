@@ -52,23 +52,21 @@
 
 - (id)dictionaryRepresentation
 {
-  v12[4] = *MEMORY[0x1E69E9840];
-  v11[0] = @"syncReason";
+  v11[4] = *MEMORY[0x1E69E9840];
+  v10[0] = @"syncReason";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_syncReason];
   senderDeviceUUID = self->_senderDeviceUUID;
   protocolVersion = self->_protocolVersion;
-  v12[0] = v3;
-  v12[1] = senderDeviceUUID;
-  v11[1] = @"senderDeviceUUID";
-  v11[2] = @"protocolVersion";
+  v11[0] = v3;
+  v11[1] = senderDeviceUUID;
+  v10[1] = @"senderDeviceUUID";
+  v10[2] = @"protocolVersion";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:protocolVersion];
-  v12[2] = v6;
-  v11[3] = @"walltime";
+  v11[2] = v6;
+  v10[3] = @"walltime";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:self->_walltime];
-  v12[3] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[3] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   return v8;
 }

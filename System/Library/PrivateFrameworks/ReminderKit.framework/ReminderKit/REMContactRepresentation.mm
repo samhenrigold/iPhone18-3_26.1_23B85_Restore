@@ -93,7 +93,7 @@ LABEL_13:
 
 - (BOOL)matchesContactRepresentation:(id)representation
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = MEMORY[0x1E695DFD8];
   phones = [(REMContactRepresentation *)self phones];
@@ -125,65 +125,65 @@ LABEL_13:
 
     else
     {
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       v18 = v7;
-      v32 = [v18 countByEnumeratingWithState:&v41 objects:v46 count:16];
-      if (v32)
+      v31 = [v18 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      if (v31)
       {
-        v19 = *v42;
-        v35 = v17;
-        v36 = v7;
-        v34 = v18;
-        v31 = *v42;
+        v19 = *v41;
+        v34 = v17;
+        v35 = v7;
+        v33 = v18;
+        v30 = *v41;
         do
         {
           v20 = 0;
           do
           {
-            if (*v42 != v19)
+            if (*v41 != v19)
             {
               objc_enumerationMutation(v18);
             }
 
-            v33 = v20;
-            v21 = [objc_alloc(MEMORY[0x1E695CF50]) initWithStringValue:*(*(&v41 + 1) + 8 * v20)];
+            v32 = v20;
+            v21 = [objc_alloc(MEMORY[0x1E695CF50]) initWithStringValue:*(*(&v40 + 1) + 8 * v20)];
+            v36 = 0u;
             v37 = 0u;
             v38 = 0u;
             v39 = 0u;
-            v40 = 0u;
             v22 = v10;
-            v23 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
+            v23 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
             if (v23)
             {
               v24 = v23;
-              v25 = *v38;
+              v25 = *v37;
               while (2)
               {
                 for (i = 0; i != v24; ++i)
                 {
-                  if (*v38 != v25)
+                  if (*v37 != v25)
                   {
                     objc_enumerationMutation(v22);
                   }
 
-                  v27 = [objc_alloc(MEMORY[0x1E695CF50]) initWithStringValue:*(*(&v37 + 1) + 8 * i)];
+                  v27 = [objc_alloc(MEMORY[0x1E695CF50]) initWithStringValue:*(*(&v36 + 1) + 8 * i)];
                   v28 = [v21 isLikePhoneNumber:v27];
 
                   if (v28)
                   {
 
                     v11 = 1;
-                    v17 = v35;
-                    v7 = v36;
-                    v18 = v34;
+                    v17 = v34;
+                    v7 = v35;
+                    v18 = v33;
                     goto LABEL_23;
                   }
                 }
 
-                v24 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
+                v24 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
                 if (v24)
                 {
                   continue;
@@ -193,19 +193,19 @@ LABEL_13:
               }
             }
 
-            v20 = v33 + 1;
-            v17 = v35;
-            v7 = v36;
-            v18 = v34;
-            v19 = v31;
+            v20 = v32 + 1;
+            v17 = v34;
+            v7 = v35;
+            v18 = v33;
+            v19 = v30;
           }
 
-          while (v33 + 1 != v32);
+          while (v32 + 1 != v31);
           v11 = 0;
-          v32 = [v34 countByEnumeratingWithState:&v41 objects:v46 count:16];
+          v31 = [v33 countByEnumeratingWithState:&v40 objects:v45 count:16];
         }
 
-        while (v32);
+        while (v31);
       }
 
       else
@@ -217,7 +217,6 @@ LABEL_23:
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -295,13 +294,11 @@ LABEL_23:
 
 + (void)representationFromData:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Unable to unarchive data to create REMContactRepresentation: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Unable to unarchive data to create REMContactRepresentation: %@", &v4, 0xCu);
 }
 
 @end

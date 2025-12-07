@@ -31,10 +31,10 @@
 
 - (id)dataWithMaxSizeBytes:(unint64_t)bytes error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (![(_HKZipArchiveEntry *)self _isExtractorStateValidWithError:error])
   {
-    v12 = 0;
+    v11 = 0;
     goto LABEL_17;
   }
 
@@ -43,38 +43,35 @@
     data = self->_data;
     self->_data = 0;
 
-    entry = self->_entry;
     if (archive_entry_size_is_set())
     {
-      v9 = self->_entry;
-      v10 = archive_entry_size();
-      if (v10)
+      v8 = archive_entry_size();
+      if (v8)
       {
-        if (bytes && v10 > bytes)
+        if (bytes && v8 > bytes)
         {
-          [MEMORY[0x1E696ABC0] hk_assignError:error code:11 format:{@"Entry size %ld is larger than specified max size %ld", v10, bytes}];
-          v11 = self->_data;
+          [MEMORY[0x1E696ABC0] hk_assignError:error code:11 format:{@"Entry size %ld is larger than specified max size %ld", v8, bytes}];
+          v10 = self->_data;
           self->_data = 0;
         }
 
         else
         {
-          v17 = [(_HKZipArchiveEntry *)self _getDataWithSize:v10 error:error];
-          v11 = self->_data;
+          v17 = [(_HKZipArchiveEntry *)self _getDataWithSize:v8 error:error];
+          v10 = self->_data;
           self->_data = v17;
         }
 
         goto LABEL_15;
       }
 
-      _HKInitializeLogging();
-      v13 = HKLogInfrastructure();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      _HKInitializeLogging(0, v9);
+      v14 = HKLogInfrastructure(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = self->_entry;
         *buf = 136446210;
-        v21 = archive_entry_pathname();
-        _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "archive entry data zero bytes: %{public}s", buf, 0xCu);
+        v20 = archive_entry_pathname();
+        _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "archive entry data zero bytes: %{public}s", buf, 0xCu);
       }
     }
 
@@ -86,11 +83,10 @@ LABEL_15:
     self->_didReadEntryData = 1;
   }
 
-  v12 = self->_data;
+  v11 = self->_data;
 LABEL_17:
-  v18 = *MEMORY[0x1E69E9840];
 
-  return v12;
+  return v11;
 }
 
 - (BOOL)enumerateLinesWithError:(id *)error block:(id)block
@@ -213,7 +209,7 @@ LABEL_15:
 
 - (id)_getDataWithBufferingWithMaxSizeBytes:(unint64_t)bytes error:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_extractor);
   archive = [WeakRetained archive];
 
@@ -244,7 +240,7 @@ LABEL_6:
         }
       }
 
-      [v8 appendBytes:v14 length:?];
+      [v8 appendBytes:v13 length:?];
       data = archive_read_data();
       if (data <= 0)
       {
@@ -258,8 +254,6 @@ LABEL_6:
   v8 = v8;
   v11 = v8;
 LABEL_10:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -283,11 +277,10 @@ LABEL_10:
 
 - (void)dataWithMaxSizeBytes:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v2, 0xCu);
 }
 
 @end

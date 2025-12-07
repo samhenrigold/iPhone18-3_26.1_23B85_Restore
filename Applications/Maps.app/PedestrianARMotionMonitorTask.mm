@@ -1236,7 +1236,7 @@ LABEL_12:
 - (BOOL)isARSessionReplayingFromRecording
 {
   session = [(PedestrianARMotionMonitorTask *)self session];
-  configuration = [session configuration];
+  v3 = objc_msgSend_configuration(session);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 

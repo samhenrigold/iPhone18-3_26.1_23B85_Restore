@@ -4359,7 +4359,7 @@ uint64_t __64__HKGraphView__skipRenderingToView_yAxisView_context_chartRect___bl
   v87 = 0u;
   v88 = 0u;
   v86 = 0u;
-  [(HKGraphView *)self _xAxisCoordinateTransformWithContentOffset:x zoomScale:y chartRect:v43, v20, v22, v24, v26];
+  objc_msgSend__xAxisCoordinateTransformWithContentOffset_zoomScale_chartRect_(self, x, y, v43, v20, v22, v24, v26);
   _drawingDuringScrolling = [(HKGraphView *)self _drawingDuringScrolling];
   resolutionFromTraitCollectionAttributes = [(HKGraphView *)self resolutionFromTraitCollectionAttributes];
   v59 = [HKGraphViewRenderer alloc];
@@ -5382,7 +5382,7 @@ LABEL_11:
   v41 = 0u;
   v42 = 0u;
   v40 = 0u;
-  [(HKGraphView *)self _xAxisCoordinateTransform];
+  objc_msgSend__xAxisCoordinateTransform(self);
   v38 = 0u;
   v39 = 0u;
   v36 = 0u;
@@ -5462,7 +5462,7 @@ LABEL_11:
   _Block_object_dispose(&v7, 8);
 }
 
-uint64_t __46__HKGraphView_gestureWillBeginWithRecognizer___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__46__HKGraphView_gestureWillBeginWithRecognizer___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 supportsMultiTouchSelection];
   if ((result & 1) == 0)
@@ -5536,7 +5536,7 @@ uint64_t __46__HKGraphView_gestureWillBeginWithRecognizer___block_invoke(uint64_
   v64 = 0u;
   v65 = 0u;
   v63 = 0u;
-  [(HKGraphView *)self _xAxisCoordinateTransform];
+  objc_msgSend__xAxisCoordinateTransform(self);
   v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v61 = 0u;
   v62 = 0u;
@@ -5773,13 +5773,13 @@ void __53__HKGraphView__handleStartTouchPoint_seriesGroupRow___block_invoke_2(ui
   v9 = v8;
   [(HKGraphView *)self _dataAreaRect];
 
-  return [(HKGraphView *)self _xAxisCoordinateTransformWithContentOffset:v5 zoomScale:v7 chartRect:v9, v10, v11, v12, v13];
+  return objc_msgSend__xAxisCoordinateTransformWithContentOffset_zoomScale_chartRect_(self, v5, v7, v9, v10, v11, v12, v13);
 }
 
 - (id)_valueForXAxisLocation:(double)location
 {
   memset(&v10, 0, sizeof(v10));
-  [(HKGraphView *)self _xAxisCoordinateTransform];
+  objc_msgSend__xAxisCoordinateTransform(self, a2);
   CGAffineTransformInvert(&v10, &v9);
   v5 = round((v10.tx + v10.c * 0.0 + v10.a * location) * 864000.0) / 864000.0;
   transform = [(HKAxis *)self->_xAxis transform];
@@ -5865,7 +5865,7 @@ LABEL_7:
   [(HKGraphView *)self contentOffset];
   v29 = v28;
   v31 = v30;
-  [(HKGraphView *)self _xAxisCoordinateTransform];
+  objc_msgSend__xAxisCoordinateTransform(self);
   v38[0] = MEMORY[0x1E69E9820];
   v38[1] = 3221225472;
   v38[2] = __103__HKGraphView__closestDataPointPathToPoint_seriesGroupRow_seriesInGroup_minimumXDistance_xDistanceOut___block_invoke;
@@ -5988,7 +5988,7 @@ void __103__HKGraphView__closestDataPointPathToPoint_seriesGroupRow_seriesInGrou
     [(HKGraphView *)self contentOffset];
     v32 = v31;
     v34 = v33;
-    [(HKGraphView *)self _xAxisCoordinateTransform];
+    objc_msgSend__xAxisCoordinateTransform(self);
     v41[0] = MEMORY[0x1E69E9820];
     v41[1] = 3221225472;
     v41[2] = __89__HKGraphView__closestDataPointPathToPoint_seriesGroupRow_minimumXDistance_xDistanceOut___block_invoke;
@@ -6244,7 +6244,7 @@ LABEL_7:
               v86 = 0u;
               selectionContext2 = [v17 selectionContext];
               [selectionContext2 minimumSelectionDistance];
-              [(HKGraphView *)self _closestDataPointPathToPoint:v16 seriesGroupRow:v24 seriesInGroup:&v88 minimumXDistance:v8 xDistanceOut:v10, v26];
+              objc_msgSend__closestDataPointPathToPoint_seriesGroupRow_seriesInGroup_minimumXDistance_xDistanceOut_(self, v8, v10, v26);
 
               v83 = v85;
               v84 = v86;
@@ -6254,7 +6254,7 @@ LABEL_7:
                 closestSeriesToSelection = [selectionContext3 closestSeriesToSelection];
                 selectionContext4 = [v17 selectionContext];
                 [selectionContext4 minimumSelectionDistance];
-                [(HKGraphView *)selfCopy _closestDataPointPathToPoint:v16 seriesGroupRow:closestSeriesToSelection seriesInGroup:&v87 minimumXDistance:v13 xDistanceOut:v15, v30];
+                objc_msgSend__closestDataPointPathToPoint_seriesGroupRow_seriesInGroup_minimumXDistance_xDistanceOut_(selfCopy, v13, v15, v30);
 
                 self = selfCopy;
               }
@@ -6511,7 +6511,7 @@ LABEL_37:
         closestSeriesToSelection = [selectionContext2 closestSeriesToSelection];
         selectionContext3 = [v21 selectionContext];
         [selectionContext3 minimumSelectionDistance];
-        [(HKGraphView *)self _closestDataPointPathToPoint:v20 seriesGroupRow:closestSeriesToSelection seriesInGroup:&v87 minimumXDistance:v69 xDistanceOut:v11, v44];
+        objc_msgSend__closestDataPointPathToPoint_seriesGroupRow_seriesInGroup_minimumXDistance_xDistanceOut_(self, v69, v11, v44);
 
         v78 = 0u;
         v79 = 0u;
@@ -6540,7 +6540,7 @@ LABEL_37:
           closestSeriesToSelection3 = [selectionContext5 closestSeriesToSelection];
           selectionContext6 = [v21 selectionContext];
           [selectionContext6 minimumSelectionDistance];
-          [(HKGraphView *)self _closestDataPointPathToPoint:v20 seriesGroupRow:closestSeriesToSelection3 seriesInGroup:&v86 minimumXDistance:v64 xDistanceOut:v63, v51];
+          objc_msgSend__closestDataPointPathToPoint_seriesGroupRow_seriesInGroup_minimumXDistance_xDistanceOut_(self, v64, v63, v51);
 
           if (v86 < v66)
           {
@@ -6695,7 +6695,7 @@ LABEL_37:
   [(HKGraphView *)self contentOffset];
   v24 = v23;
   v26 = v25;
-  [(HKGraphView *)self _xAxisCoordinateTransform];
+  objc_msgSend__xAxisCoordinateTransform(self);
   v81[0] = MEMORY[0x1E69E9820];
   v81[1] = 3221225472;
   v27 = *&range->var0.var0.resolution;
@@ -7205,7 +7205,7 @@ void __51__HKGraphView__installExternalSelectionCancelTimer__block_invoke(uint64
     v41 = 0u;
     v42 = 0u;
     v40 = 0u;
-    [(HKGraphView *)self _xAxisCoordinateTransform];
+    objc_msgSend__xAxisCoordinateTransform(self);
     v8 = *&v42 + *&v41 * 0.0 + *&v40 * v7;
     xAxisDateZoom = [(HKGraphView *)self xAxisDateZoom];
     [(HKGraphView *)self _dataAreaRect];
@@ -7641,7 +7641,7 @@ void __30__HKGraphView_didMoveToWindow__block_invoke(uint64_t a1)
     [(HKGraphView *)self contentOffset];
     v17 = v16;
     v19 = v18;
-    [(HKGraphView *)self _xAxisCoordinateTransform];
+    objc_msgSend__xAxisCoordinateTransform(self);
     v20 = [primarySeries findVisibleBlockCoordinatesForChartRect:xAxis xAxis:v12 zoomScale:&v22 resolution:v4 contentOffset:v6 xAxisTransform:{v8, v10, v15, v17, v19}];
   }
 
@@ -8266,7 +8266,7 @@ void __41__HKGraphView__handleMarkDirtyCompletion__block_invoke(uint64_t a1)
     xAxis = [(HKGraphView *)self xAxis];
     v28 = *MEMORY[0x1E695EFF8];
     [xAxis offsetForValueRange:self->_effectiveVisibleRangeActive chartRect:0 zoomScaleOut:&v28 contentOffsetOut:{v21, v22, v23, v15}];
-    [(HKGraphView *)self _xAxisCoordinateTransform];
+    objc_msgSend__xAxisCoordinateTransform(self);
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3221225472;
     v25[2] = __58__HKGraphView_enumerateVisibleCoordinatesForSeries_block___block_invoke;

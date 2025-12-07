@@ -18,9 +18,9 @@
 - (BLTPreviouslySentMessageStore)initWithMessageStorePath:(id)path
 {
   pathCopy = path;
-  v26.receiver = self;
-  v26.super_class = BLTPreviouslySentMessageStore;
-  v6 = [(BLTPreviouslySentMessageStore *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = BLTPreviouslySentMessageStore;
+  v6 = [(BLTPreviouslySentMessageStore *)&v27 init];
   v7 = v6;
   if (v6)
   {
@@ -32,33 +32,34 @@
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v13 = [defaultManager contentsAtPath:pathCopy];
 
-    v25 = 0;
-    v14 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v13 error:&v25];
-    v15 = v25;
+    v26 = 0;
+    v14 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v13 error:&v26];
+    v15 = v26;
+    v16 = v15;
     if (v15)
     {
-      v16 = blt_general_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = blt_general_log(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(BLTPreviouslySentMessageStore *)v15 initWithMessageStorePath:v16];
+        [(BLTPreviouslySentMessageStore *)v16 initWithMessageStorePath:v17];
       }
     }
 
-    v17 = [v14 decodeObjectOfClasses:v11 forKey:*MEMORY[0x277CCA308]];
+    v18 = [v14 decodeObjectOfClasses:v11 forKey:*MEMORY[0x277CCA308]];
     messageDigests = v7->_messageDigests;
-    v7->_messageDigests = v17;
+    v7->_messageDigests = v18;
 
     if (!v7->_messageDigests)
     {
-      v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v20 = v7->_messageDigests;
-      v7->_messageDigests = v19;
+      v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v21 = v7->_messageDigests;
+      v7->_messageDigests = v20;
     }
 
-    v21 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v22 = dispatch_queue_create("com.apple.bulletindistributor.previouslysentmessagestore", v21);
+    v22 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v23 = dispatch_queue_create("com.apple.bulletindistributor.previouslysentmessagestore", v22);
     queue = v7->_queue;
-    v7->_queue = v22;
+    v7->_queue = v23;
   }
 
   return v7;
@@ -235,7 +236,7 @@ uint64_t __38__BLTPreviouslySentMessageStore_clear__block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __40__BLTPreviouslySentMessageStore_isEmpty__block_invoke(uint64_t a1)
+void *__40__BLTPreviouslySentMessageStore_isEmpty__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result == 0;
@@ -244,11 +245,49 @@ uint64_t __40__BLTPreviouslySentMessageStore_isEmpty__block_invoke(uint64_t a1)
 
 - (void)_save
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_0(&dword_241FB3000, v3, v4, "Error %@ writing to %@");
-  v5 = *MEMORY[0x277D85DE8];
+  [(BLTPreviouslySentMessageStore *)self _cancelSave];
+  messageDigests = self->_messageDigests;
+  v14 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:messageDigests requiringSecureCoding:1 error:&v14];
+  v5 = v14;
+  v6 = v5;
+  if (v5)
+  {
+    v7 = blt_general_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [BLTPreviouslySentMessageStore _save];
+    }
+  }
+
+  if (!v4)
+  {
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    [defaultManager removeItemAtPath:self->_path error:0];
+LABEL_11:
+
+    goto LABEL_12;
+  }
+
+  if (([v4 writeToFile:self->_path options:268435457 error:0] & 1) == 0)
+  {
+    defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
+    path = self->_path;
+    v13 = 0;
+    [defaultManager2 removeItemAtPath:path error:&v13];
+    defaultManager = v13;
+
+    v12 = blt_general_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [BLTPreviouslySentMessageStore _save];
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_12:
+  self->_dirty = 0;
 }
 
 - (void)_enqueueSave
@@ -298,21 +337,19 @@ void __45__BLTPreviouslySentMessageStore__enqueueSave__block_invoke(uint64_t a1)
 
 - (void)initWithMessageStorePath:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error initializing unarchiver for previously sent message store: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error initializing unarchiver for previously sent message store: %@", &v2, 0xCu);
 }
 
 - (void)initWithMessageStorePath:(NSObject *)a3 .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0(&dword_241FB3000, a2, a3, "Exception %@ unarchiving %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0(&dword_241FB3000, a2, a3, "Exception %@ unarchiving %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

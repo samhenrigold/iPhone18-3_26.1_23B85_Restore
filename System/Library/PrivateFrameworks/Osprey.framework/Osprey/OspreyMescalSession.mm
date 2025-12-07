@@ -12,16 +12,16 @@
 
 - (OspreyMescalSession)init
 {
-  v7.receiver = self;
-  v7.super_class = OspreyMescalSession;
-  v2 = [(OspreyMescalSession *)&v7 init];
+  v9.receiver = self;
+  v9.super_class = OspreyMescalSession;
+  v2 = [(OspreyMescalSession *)&v9 init];
   v3 = v2;
   if (v2)
   {
     zxcm2Qme0x(0, 0, &v2->_hardwareInfo);
     if (v4)
     {
-      OspreyLoggingInit();
+      OspreyLoggingInit(v4, v5);
       if (os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_ERROR))
       {
         [OspreyMescalSession init];
@@ -31,13 +31,13 @@
     else
     {
       cp2g1b9ro(&v3->_fairplayContext, &v3->_hardwareInfo);
-      if (!v5)
+      if (!v6)
       {
         v3->_state = 1;
         return v3;
       }
 
-      OspreyLoggingInit();
+      OspreyLoggingInit(v6, v7);
       if (os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_ERROR))
       {
         [OspreyMescalSession init];
@@ -53,7 +53,7 @@
 - (void)invalidate
 {
   v7 = *MEMORY[0x277D85DE8];
-  OspreyLoggingInit();
+  OspreyLoggingInit(self, a2);
   v3 = OspreyLogContextDeviceAuth;
   if (os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_INFO))
   {
@@ -89,70 +89,70 @@
 
 - (id)_exchangeData:(id)data error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fairplayContext = self->_fairplayContext;
   if (!fairplayContext)
   {
-    v15 = 0;
-LABEL_8:
     v16 = 0;
+LABEL_8:
+    v17 = 0;
     goto LABEL_15;
   }
 
+  v22 = 0;
   v21 = 0;
-  v20 = 0;
-  v19 = -1;
+  v20 = -1;
   dataCopy = data;
   dataCopy2 = data;
   bytes = [dataCopy2 bytes];
   v11 = [dataCopy2 length];
 
-  Mib5yocT(200, &self->_hardwareInfo, fairplayContext, bytes, v11, &v21, &v20, &v19);
+  Mib5yocT(200, &self->_hardwareInfo, fairplayContext, bytes, v11, &v22, &v21, &v20);
   if (v12)
   {
-    v13 = v12;
-    OspreyLoggingInit();
-    v14 = OspreyLogContextDeviceAuth;
+    v14 = v12;
+    OspreyLoggingInit(v12, v13);
+    v15 = OspreyLogContextDeviceAuth;
     if (os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[OspreyMescalSession _exchangeData:error:]";
-      v24 = 2048;
-      v25 = v13;
-      _os_log_error_impl(&dword_25DDE6000, v14, OS_LOG_TYPE_ERROR, "%s SAP exchange failed: %li", buf, 0x16u);
+      v24 = "[OspreyMescalSession _exchangeData:error:]";
+      v25 = 2048;
+      v26 = v14;
+      _os_log_error_impl(&dword_25DDE6000, v15, OS_LOG_TYPE_ERROR, "%s SAP exchange failed: %li", buf, 0x16u);
     }
 
     [(OspreyMescalSession *)self invalidate];
-    v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"OspreyDeviceAuthenticationErrorDomain" code:v13 userInfo:&unk_286FA6D60];
+    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"OspreyDeviceAuthenticationErrorDomain" code:v14 userInfo:&unk_286FA6D60];
     if (error)
     {
-      v15 = v15;
-      v16 = 0;
-      *error = v15;
+      v16 = v16;
+      v17 = 0;
+      *error = v16;
       goto LABEL_15;
     }
 
     goto LABEL_8;
   }
 
-  if (v19 == 1)
+  if (v20 == 1)
   {
-    v17 = 2;
+    v18 = 2;
     goto LABEL_13;
   }
 
-  if (!v19)
+  if (!v20)
   {
-    v17 = 3;
+    v18 = 3;
 LABEL_13:
-    self->_state = v17;
+    self->_state = v18;
   }
 
-  v16 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:v20];
-  v15 = 0;
+  v17 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:v21];
+  v16 = 0;
 LABEL_15:
 
-  return v16;
+  return v17;
 }
 
 - (id)signData:(id)data error:(id *)error

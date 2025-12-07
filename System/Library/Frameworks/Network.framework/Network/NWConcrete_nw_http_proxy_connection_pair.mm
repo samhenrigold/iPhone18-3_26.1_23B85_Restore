@@ -6,7 +6,7 @@
 
 - (void)dealloc
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (*(self + 4))
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -15,7 +15,7 @@
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+      v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
       _os_log_impl(&dword_181A37000, v3, OS_LOG_TYPE_ERROR, "%{public}s self->inbound_connection must be nil when dealloc is called", buf, 0xCu);
     }
 
@@ -23,14 +23,12 @@
     networkd_settings_init();
     v4 = gLogObj;
     *buf = 136446210;
-    v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
-    v22 = 12;
-    v21 = buf;
-    v5 = _os_log_send_and_compose_impl();
+    v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s self->inbound_connection must be nil when dealloc is called", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v24 = 0;
-    if (!__nwlog_fault(v5, &type, &v24))
+    v23 = 0;
+    if (!__nwlog_fault(v5, &type, &v23))
     {
 LABEL_9:
       if (!v5)
@@ -50,7 +48,7 @@ LABEL_9:
       if (os_log_type_enabled(v6, type))
       {
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+        v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
         _os_log_impl(&dword_181A37000, v6, v7, "%{public}s self->inbound_connection must be nil when dealloc is called", buf, 0xCu);
       }
 
@@ -59,7 +57,7 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    if (v24 != 1)
+    if (v23 != 1)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
@@ -68,7 +66,7 @@ LABEL_8:
       if (os_log_type_enabled(v6, type))
       {
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+        v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
         _os_log_impl(&dword_181A37000, v6, v19, "%{public}s self->inbound_connection must be nil when dealloc is called, backtrace limit exceeded", buf, 0xCu);
       }
 
@@ -86,7 +84,7 @@ LABEL_8:
       if (v15)
       {
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+        v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
         _os_log_impl(&dword_181A37000, v6, v14, "%{public}s self->inbound_connection must be nil when dealloc is called, no backtrace", buf, 0xCu);
       }
 
@@ -96,9 +94,9 @@ LABEL_8:
     if (v15)
     {
       *buf = 136446466;
-      v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
-      v28 = 2082;
-      v29 = backtrace_string;
+      v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+      v27 = 2082;
+      v28 = backtrace_string;
       _os_log_impl(&dword_181A37000, v6, v14, "%{public}s self->inbound_connection must be nil when dealloc is called, dumping backtrace:%{public}s", buf, 0x16u);
     }
 
@@ -122,7 +120,7 @@ LABEL_11:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446210;
-    v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+    v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
     _os_log_impl(&dword_181A37000, v8, OS_LOG_TYPE_ERROR, "%{public}s self->outbound_connection must be nil when dealloc is called", buf, 0xCu);
   }
 
@@ -130,14 +128,13 @@ LABEL_11:
   networkd_settings_init();
   v9 = gLogObj;
   *buf = 136446210;
-  v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
-  v22 = 12;
-  v21 = buf;
-  v10 = _os_log_send_and_compose_impl();
+  v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+  LODWORD(v21) = 12;
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s self->outbound_connection must be nil when dealloc is called", buf, v21);
 
   type = OS_LOG_TYPE_ERROR;
-  v24 = 0;
-  if (__nwlog_fault(v10, &type, &v24))
+  v23 = 0;
+  if (__nwlog_fault(v10, &type, &v23))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -148,12 +145,12 @@ LABEL_11:
       if (os_log_type_enabled(v11, type))
       {
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+        v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
         _os_log_impl(&dword_181A37000, v11, v12, "%{public}s self->outbound_connection must be nil when dealloc is called", buf, 0xCu);
       }
     }
 
-    else if (v24 == 1)
+    else if (v23 == 1)
     {
       v16 = __nw_create_backtrace_string();
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -166,9 +163,9 @@ LABEL_11:
         if (v18)
         {
           *buf = 136446466;
-          v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
-          v28 = 2082;
-          v29 = v16;
+          v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+          v27 = 2082;
+          v28 = v16;
           _os_log_impl(&dword_181A37000, v11, v17, "%{public}s self->outbound_connection must be nil when dealloc is called, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
@@ -184,7 +181,7 @@ LABEL_11:
       if (v18)
       {
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+        v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
         _os_log_impl(&dword_181A37000, v11, v17, "%{public}s self->outbound_connection must be nil when dealloc is called, no backtrace", buf, 0xCu);
       }
     }
@@ -198,7 +195,7 @@ LABEL_11:
       if (os_log_type_enabled(v11, type))
       {
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
+        v26 = "[NWConcrete_nw_http_proxy_connection_pair dealloc]";
         _os_log_impl(&dword_181A37000, v11, v20, "%{public}s self->outbound_connection must be nil when dealloc is called, backtrace limit exceeded", buf, 0xCu);
       }
     }
@@ -211,9 +208,9 @@ LABEL_20:
   }
 
 LABEL_21:
-  v23.receiver = self;
-  v23.super_class = NWConcrete_nw_http_proxy_connection_pair;
-  [(NWConcrete_nw_http_proxy_connection_pair *)&v23 dealloc:v21];
+  v22.receiver = self;
+  v22.super_class = NWConcrete_nw_http_proxy_connection_pair;
+  [(NWConcrete_nw_http_proxy_connection_pair *)&v22 dealloc];
 }
 
 @end

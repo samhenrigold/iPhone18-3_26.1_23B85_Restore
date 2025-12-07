@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)terminationReasonAsString:(int)string;
 - (int)StringAsTerminationReason:(id)reason;
 - (int)terminationReason;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)terminationReasonAsString:(int)string
+{
+  if (!string)
+  {
+    return @"UNRESPONSIVE_WEB_PROCESS";
+  }
+
+  if (string == 1)
+  {
+    return @"PRESENTED_DIALOG";
+  }
+
+  return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
 }
 
 - (int)StringAsTerminationReason:(id)reason
@@ -104,14 +120,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    terminationReason = self->_terminationReason;
 
     PBDataWriterWriteInt32Field();
   }

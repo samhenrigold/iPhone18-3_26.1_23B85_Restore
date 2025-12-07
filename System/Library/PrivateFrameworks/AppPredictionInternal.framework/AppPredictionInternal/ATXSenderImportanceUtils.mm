@@ -7,7 +7,7 @@
 
 + (id)contactFromHandle:(id)handle contactStore:(id)store
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   storeCopy = store;
   contactIdentifier = [handleCopy contactIdentifier];
@@ -31,12 +31,12 @@ LABEL_6:
   {
     v14 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
     v15 = *MEMORY[0x277CBD160];
-    v21[0] = v14;
-    v21[1] = v15;
+    v20[0] = v14;
+    v20[1] = v15;
     v16 = *MEMORY[0x277CBCFC0];
-    v21[2] = *MEMORY[0x277CBD098];
-    v21[3] = v16;
-    name2 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+    v20[2] = *MEMORY[0x277CBD098];
+    v20[3] = v16;
+    name2 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
 
     contactIdentifier2 = [objc_alloc(MEMORY[0x277D3A088]) initWithContactStore:storeCopy keysToFetch:name2];
     handle = [handleCopy handle];
@@ -55,8 +55,6 @@ LABEL_6:
 
   v17 = 0;
 LABEL_7:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -86,12 +84,13 @@ LABEL_7:
   v15 = [storeCopy unifiedContactsMatchingPredicate:v14 keysToFetch:v13 error:&v22];
 
   v16 = v22;
+  v17 = v16;
   if (v16)
   {
-    v17 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_notification_categorization(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(ATXSenderImportanceUtils *)v14 _contactFromName:v16 contactStore:v17];
+      [(ATXSenderImportanceUtils *)v14 _contactFromName:v17 contactStore:v18];
     }
 
     firstObject = 0;
@@ -101,32 +100,29 @@ LABEL_7:
   {
     if (![v15 count])
     {
-      v19 = __atxlog_handle_notification_categorization();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v20 = __atxlog_handle_notification_categorization(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         v24 = nameCopy;
-        _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_INFO, "No contact matches found for the given name: %@", buf, 0xCu);
+        _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_INFO, "No contact matches found for the given name: %@", buf, 0xCu);
       }
     }
 
     firstObject = [v15 firstObject];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 + (void)_contactFromName:(os_log_t)log contactStore:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Error when fetching contact for predicate %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Error when fetching contact for predicate %@: %@", &v3, 0x16u);
 }
 
 @end

@@ -32,11 +32,11 @@
 {
   sub_10007E618();
   sub_10007D3E8();
-  sub_100040A84(&qword_1000DFCF0, &type metadata accessor for UUID);
+  sub_100040A84(&qword_1000DFCF0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   selfCopy = self;
   sub_10007E108();
   sub_10007DFF8();
-  sub_100040A84(&qword_1000DFCF8, &type metadata accessor for WidgetFamily);
+  sub_100040A84(&qword_1000DFCF8, &type metadata accessor for WidgetFamily, &protocol conformance descriptor for WidgetFamily);
   sub_10007E108();
   v4 = sub_10007E5F8();
 

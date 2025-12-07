@@ -3,9 +3,8 @@
 
 @implementation UNNotificationAttachment
 
-void __98__UNNotificationAttachment_UNNotificationAttachmentBackwardCompatible__blt_swizzleEncodeWithCoder__block_invoke(uint64_t a1)
+void __98__UNNotificationAttachment_UNNotificationAttachmentBackwardCompatible__blt_swizzleEncodeWithCoder__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = objc_opt_class();
   InstanceMethod = class_getInstanceMethod(v2, sel_encodeWithCoder_);
   v4 = class_getInstanceMethod(v2, sel_blt_encodeWithCoder_);

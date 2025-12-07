@@ -48,25 +48,25 @@
 
 - (id)description
 {
-  v5 = MEMORY[0x277CC1CC8];
-  v6 = objc_msgSend_motionType(self, a2, v2, v3);
-  v12 = objc_msgSend_NCMotionTypeToString_(v5, v7, v6, v8);
-  v13 = MEMORY[0x277CCACA8];
+  v4 = MEMORY[0x277CC1CC8];
+  v5 = objc_msgSend_motionType(self, a2, v2);
+  v9 = objc_msgSend_NCMotionTypeToString_(v4, v6, v5);
+  v10 = MEMORY[0x277CCACA8];
   if (self->_isStationary)
   {
-    v14 = &stru_284E80A60;
+    v11 = &stru_284E80A60;
   }
 
   else
   {
-    v14 = @"NOT ";
+    v11 = @"NOT ";
   }
 
-  v15 = objc_msgSend_dateFormatter(NCMotionEvent, v9, v10, v11);
-  v18 = objc_msgSend_stringFromDate_(v15, v16, self->_timestamp, v17);
-  v21 = objc_msgSend_stringWithFormat_(v13, v19, @"MotionType: %@. Device: %@Stationary. Received at %@.", v20, v12, v14, v18);
+  v12 = objc_msgSend_dateFormatter(NCMotionEvent, v7, v8);
+  v14 = objc_msgSend_stringFromDate_(v12, v13, self->_timestamp);
+  v16 = objc_msgSend_stringWithFormat_(v10, v15, @"MotionType: %@. Device: %@Stationary. Received at %@.", v9, v11, v14);
 
-  return v21;
+  return v16;
 }
 
 @end

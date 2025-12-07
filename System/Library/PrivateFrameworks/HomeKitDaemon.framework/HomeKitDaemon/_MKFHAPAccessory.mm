@@ -161,30 +161,30 @@
 
 - (void)maybeFixUpCharacteristicWriteActionsInContext:(id)context
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   [contextCopy hmd_assertIsExecuting];
   v5 = +[_MKFCharacteristicWriteAction fetchRequest];
   v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"accessory", self];
   [v5 setPredicate:v6];
 
-  v24[0] = @"characteristicID";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = @"characteristicID";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   [v5 setPropertiesToFetch:v7];
 
-  v19 = 0;
-  v8 = [contextCopy executeFetchRequest:v5 error:&v19];
-  v9 = v19;
+  v18 = 0;
+  v8 = [contextCopy executeFetchRequest:v5 error:&v18];
+  v9 = v18;
   if (v8)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __66___MKFHAPAccessory_maybeFixUpCharacteristicWriteActionsInContext___block_invoke;
-    v15[3] = &unk_27867CF38;
-    v16 = @"service";
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __66___MKFHAPAccessory_maybeFixUpCharacteristicWriteActionsInContext___block_invoke;
+    v14[3] = &unk_27867CF38;
+    v15 = @"service";
     selfCopy = self;
-    v18 = contextCopy;
-    [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:v15];
+    v17 = contextCopy;
+    [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:v14];
   }
 
   else
@@ -196,16 +196,14 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v9;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v9;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch actions: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cameraSignificantEventBulletinRegistrationWithDeviceIdsIdentifier:(id)identifier user:(id)user context:(id)context
@@ -252,12 +250,12 @@
 
 - (id)bulletinRegistrationFromFetchRequest:(id)request context:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   contextCopy = context;
-  v17 = 0;
-  v8 = [contextCopy executeFetchRequest:requestCopy error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [contextCopy executeFetchRequest:requestCopy error:&v16];
+  v9 = v16;
   if (v8)
   {
     firstObject = [v8 firstObject];
@@ -272,11 +270,11 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v14;
-      v20 = 2112;
-      v21 = selfCopy;
-      v22 = 2112;
-      v23 = v9;
+      v18 = v14;
+      v19 = 2112;
+      v20 = selfCopy;
+      v21 = 2112;
+      v22 = v9;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch bulletin registrations on accessory %@: %@", buf, 0x20u);
     }
 
@@ -284,64 +282,16 @@
     firstObject = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (id)characteristicFromInstanceID:(id)d context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   v8 = +[_MKFCharacteristic fetchRequest];
   dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K.%K == %@) AND (%K == %@)", @"service", @"accessory", self, @"instanceID", dCopy];
-  [v8 setPredicate:dCopy];
-
-  v20 = 0;
-  v10 = [contextCopy executeFetchRequest:v8 error:&v20];
-  v11 = v20;
-  if (v10)
-  {
-    firstObject = [v10 firstObject];
-  }
-
-  else
-  {
-    v13 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      v16 = HMFGetLogIdentifier();
-      modelID = [(_MKFHAPAccessory *)selfCopy modelID];
-      *buf = 138544130;
-      v22 = v16;
-      v23 = 2112;
-      v24 = modelID;
-      v25 = 2112;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = v11;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch characteristics with accessory UUID %@ & instanceID %@: %@", buf, 0x2Au);
-    }
-
-    objc_autoreleasePoolPop(v13);
-    firstObject = 0;
-  }
-
-  v18 = *MEMORY[0x277D85DE8];
-
-  return firstObject;
-}
-
-- (id)serviceWithID:(id)d context:(id)context
-{
-  v26 = *MEMORY[0x277D85DE8];
-  dCopy = d;
-  contextCopy = context;
-  v8 = +[_MKFService fetchRequest];
-  dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@)", @"accessory", self, @"instanceID", dCopy];
   [v8 setPredicate:dCopy];
 
   v19 = 0;
@@ -360,20 +310,62 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      *buf = 138543874;
+      modelID = [(_MKFHAPAccessory *)selfCopy modelID];
+      *buf = 138544130;
       v21 = v16;
       v22 = 2112;
-      v23 = dCopy;
+      v23 = modelID;
       v24 = 2112;
-      v25 = v11;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch services with instanceID %@: %@", buf, 0x20u);
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = v11;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch characteristics with accessory UUID %@ & instanceID %@: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v13);
     firstObject = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  return firstObject;
+}
+
+- (id)serviceWithID:(id)d context:(id)context
+{
+  v25 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  contextCopy = context;
+  v8 = +[_MKFService fetchRequest];
+  dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@)", @"accessory", self, @"instanceID", dCopy];
+  [v8 setPredicate:dCopy];
+
+  v18 = 0;
+  v10 = [contextCopy executeFetchRequest:v8 error:&v18];
+  v11 = v18;
+  if (v10)
+  {
+    firstObject = [v10 firstObject];
+  }
+
+  else
+  {
+    v13 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v15 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v16 = HMFGetLogIdentifier();
+      *buf = 138543874;
+      v20 = v16;
+      v21 = 2112;
+      v22 = dCopy;
+      v23 = 2112;
+      v24 = v11;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch services with instanceID %@: %@", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v13);
+    firstObject = 0;
+  }
 
   return firstObject;
 }

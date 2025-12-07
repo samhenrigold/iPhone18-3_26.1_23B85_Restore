@@ -52,8 +52,8 @@
 
 - (id)dictionaryRepresentation
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"storeID";
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"storeID";
   storeID = [(NMSPodcastIdentifierSet *)self storeID];
   v4 = [storeID copy];
   v5 = v4;
@@ -67,8 +67,8 @@
     v6 = &unk_286C8D778;
   }
 
-  v14[1] = @"feedURL";
-  v15[0] = v6;
+  v13[1] = @"feedURL";
+  v14[0] = v6;
   feedURL = [(NMSPodcastIdentifierSet *)self feedURL];
   v8 = [feedURL copy];
   v9 = v8;
@@ -78,10 +78,8 @@
     v10 = v8;
   }
 
-  v15[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v11;
 }

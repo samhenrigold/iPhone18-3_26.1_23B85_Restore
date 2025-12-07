@@ -57,11 +57,10 @@
 
 - (uint64_t)_cachedOpenableStatus
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v5 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   executablePath = [self executablePath];
@@ -73,20 +72,20 @@
     {
       v5 = [ASDAppLibrary openableStatusForExecutableAtPath:v3];
       v8 = self[2];
-      *v11 = MEMORY[0x1E69E9820];
-      *&v11[8] = 3221225472;
-      *&v11[16] = __29__ASDApp__setOpenableStatus___block_invoke;
-      v12 = &unk_1E7CDBEE8;
+      *v10 = MEMORY[0x1E69E9820];
+      *&v10[8] = 3221225472;
+      *&v10[16] = __29__ASDApp__setOpenableStatus___block_invoke;
+      v11 = &unk_1E7CDBEE8;
       selfCopy = self;
-      v14 = v5;
-      ASDWithLock(v8, v11);
+      v13 = v5;
+      ASDWithLock(v8, v10);
       v6 = ASDLogHandleForCategory(13);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        *v11 = 138412546;
-        *&v11[4] = v3;
-        *&v11[12] = 1024;
-        *&v11[14] = v5;
+        *v10 = 138412546;
+        *&v10[4] = v3;
+        *&v10[12] = 1024;
+        *&v10[14] = v5;
         v7 = "[Library] Loaded openable status for '%@': %i";
         goto LABEL_13;
       }
@@ -98,13 +97,13 @@
       v6 = ASDLogHandleForCategory(13);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        *v11 = 138412546;
-        *&v11[4] = v3;
-        *&v11[12] = 1024;
-        *&v11[14] = v5;
+        *v10 = 138412546;
+        *&v10[4] = v3;
+        *&v10[12] = 1024;
+        *&v10[14] = v5;
         v7 = "[Library] Cached openable status for '%@': %i";
 LABEL_13:
-        _os_log_debug_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEBUG, v7, v11, 0x12u);
+        _os_log_debug_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEBUG, v7, v10, 0x12u);
       }
     }
 
@@ -114,8 +113,6 @@ LABEL_13:
   v5 = 255;
 LABEL_10:
 
-LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -402,7 +399,7 @@ void __24__ASDApp_updateMetadata__block_invoke(uint64_t a1)
       v3 = *(self + 80);
       *(self + 80) = v2;
 
-      MEMORY[0x1EEE66BB8]();
+      MEMORY[0x1EEE66BB8](v2, v3);
     }
 
     else if ((*(self + 8) & 1) == 0 && *(self + 104))
@@ -515,21 +512,18 @@ void __24__ASDApp_updateMetadata__block_invoke(uint64_t a1)
 
 void __40__ASDApp__loadUpdateMetadataIfNecessary__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = ASDLogHandleForCategory(13);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = ASDLogHandleForCategory(13);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v3;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Error fetching updates service: %{public}@", &v8, 0x16u);
+    v5 = 138543618;
+    v6 = objc_opt_class();
+    v7 = 2114;
+    v8 = v2;
+    v4 = v6;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[%{public}@]: Error fetching updates service: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __40__ASDApp__loadUpdateMetadataIfNecessary__block_invoke_4(uint64_t a1, void *a2)
@@ -562,7 +556,7 @@ void __40__ASDApp__loadUpdateMetadataIfNecessary__block_invoke_4(uint64_t a1, vo
   }
 }
 
-uint64_t __39__ASDApp_updateCodedPropertiesFromApp___block_invoke(uint64_t a1)
+void *__39__ASDApp_updateCodedPropertiesFromApp___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 40) artistName];
   v3 = *(a1 + 32);

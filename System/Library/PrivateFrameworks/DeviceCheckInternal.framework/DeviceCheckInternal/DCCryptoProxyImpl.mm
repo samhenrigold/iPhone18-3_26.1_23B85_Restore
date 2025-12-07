@@ -9,7 +9,7 @@
 
 - (void)fetchOpaqueBlobWithContext:(id)context completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   if (DCInternalLogSystem_onceToken_3 != -1)
@@ -51,25 +51,23 @@
 
     clientAppID = [contextCopy clientAppID];
     *buf = 136315650;
-    v23 = v14;
-    v24 = 1024;
-    v25 = 22;
-    v26 = 2112;
-    v27 = clientAppID;
+    v22 = v14;
+    v23 = 1024;
+    v24 = 22;
+    v25 = 2112;
+    v26 = clientAppID;
     _os_log_impl(&dword_2488FB000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Generating encrypted certificate. { clientAppID=%@ }", buf, 0x1Cu);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __59__DCCryptoProxyImpl_fetchOpaqueBlobWithContext_completion___block_invoke;
-  v19[3] = &unk_278F59CB0;
-  v20 = contextCopy;
-  v21 = completionCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __59__DCCryptoProxyImpl_fetchOpaqueBlobWithContext_completion___block_invoke;
+  v18[3] = &unk_278F59CB0;
+  v19 = contextCopy;
+  v20 = completionCopy;
   v16 = completionCopy;
   v17 = contextCopy;
-  [(DCCryptoProxyImpl *)self _fetchPublicKey:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(DCCryptoProxyImpl *)self _fetchPublicKey:v18];
 }
 
 void __59__DCCryptoProxyImpl_fetchOpaqueBlobWithContext_completion___block_invoke(uint64_t a1, void *a2)
@@ -95,7 +93,7 @@ void __59__DCCryptoProxyImpl_fetchOpaqueBlobWithContext_completion___block_invok
 
 void __37__DCCryptoProxyImpl__fetchPublicKey___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 publicKey];
@@ -141,11 +139,11 @@ void __37__DCCryptoProxyImpl__fetchPublicKey___block_invoke(uint64_t a1, void *a
         v14 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Interfaces/DCCryptoProxyImpl.m";
       }
 
-      v26 = 136315394;
-      v27 = v14;
-      v28 = 1024;
-      v29 = 52;
-      _os_log_impl(&dword_2488FB000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Refreshed mobile asset and fetched remote public key.", &v26, 0x12u);
+      v25 = 136315394;
+      v26 = v14;
+      v27 = 1024;
+      v28 = 52;
+      _os_log_impl(&dword_2488FB000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Refreshed mobile asset and fetched remote public key.", &v25, 0x12u);
     }
 
     v15 = *(a1 + 32);
@@ -194,13 +192,13 @@ void __37__DCCryptoProxyImpl__fetchPublicKey___block_invoke(uint64_t a1, void *a
       }
 
       v23 = [v6 localizedDescription];
-      v26 = 136315650;
-      v27 = v22;
-      v28 = 1024;
-      v29 = 55;
-      v30 = 2112;
-      v31 = v23;
-      _os_log_impl(&dword_2488FB000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Failed to fetch mobile asset, using locally cached public key. { error=%@ }", &v26, 0x1Cu);
+      v25 = 136315650;
+      v26 = v22;
+      v27 = 1024;
+      v28 = 55;
+      v29 = 2112;
+      v30 = v23;
+      _os_log_impl(&dword_2488FB000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Failed to fetch mobile asset, using locally cached public key. { error=%@ }", &v25, 0x1Cu);
     }
 
     v15 = *(a1 + 32);
@@ -209,13 +207,11 @@ void __37__DCCryptoProxyImpl__fetchPublicKey___block_invoke(uint64_t a1, void *a
 
   v24 = v16;
   (*(v15 + 16))(v15, v16);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)baaSignatureForData:(id)data completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
   if (DCInternalLogSystem_onceToken_3 != -1)
@@ -255,22 +251,20 @@ void __37__DCCryptoProxyImpl__fetchPublicKey___block_invoke(uint64_t a1, void *a
       v13 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Interfaces/DCCryptoProxyImpl.m";
     }
 
-    v16 = 136315394;
-    v17 = v13;
-    v18 = 1024;
-    v19 = 63;
-    _os_log_impl(&dword_2488FB000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Signing data with BAA certificates.", &v16, 0x12u);
+    v15 = 136315394;
+    v16 = v13;
+    v17 = 1024;
+    v18 = 63;
+    _os_log_impl(&dword_2488FB000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Signing data with BAA certificates.", &v15, 0x12u);
   }
 
   v14 = +[DCBAASigner sharedSigner];
   [v14 signatureForData:dataCopy completion:completionCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)baaSignaturesForData:(id)data completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
   if (DCInternalLogSystem_onceToken_3 != -1)
@@ -310,17 +304,15 @@ void __37__DCCryptoProxyImpl__fetchPublicKey___block_invoke(uint64_t a1, void *a
       v13 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Interfaces/DCCryptoProxyImpl.m";
     }
 
-    v16 = 136315394;
-    v17 = v13;
-    v18 = 1024;
-    v19 = 78;
-    _os_log_impl(&dword_2488FB000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Signing dictionary with BAA certificates.", &v16, 0x12u);
+    v15 = 136315394;
+    v16 = v13;
+    v17 = 1024;
+    v18 = 78;
+    _os_log_impl(&dword_2488FB000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Signing dictionary with BAA certificates.", &v15, 0x12u);
   }
 
   v14 = +[DCBAASigner sharedSigner];
   [v14 signaturesForData:dataCopy completion:completionCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -23,8 +23,9 @@
 
 - (void)setSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   selfCopy = self;
-  InCallControlButton.isSelected.setter(selected);
+  InCallControlButton.isSelected.setter(selectedCopy);
 }
 
 - (BOOL)isHighlighted
@@ -37,8 +38,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  InCallControlButton.isHighlighted.setter(highlighted);
+  InCallControlButton.isHighlighted.setter(highlightedCopy);
 }
 
 - (BOOL)isEnabled
@@ -51,8 +53,9 @@
 
 - (void)setEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  InCallControlButton.isEnabled.setter(enabled);
+  InCallControlButton.isEnabled.setter(enabledCopy);
 }
 
 - (void)layoutSubviews

@@ -38,16 +38,16 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFGenericAccessoryItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
 
 - (id)reloadItems
 {
-  home = [(HFGenericAccessoryItemProvider *)self home];
-  accessories = [home accessories];
+  v3 = objc_msgSend_home(self, a2);
+  accessories = [v3 accessories];
   v5 = [accessories na_filter:&__block_literal_global_242];
 
   objc_initWeak(&location, self);
@@ -76,7 +76,7 @@ HFGenericAccessoryItem *__45__HFGenericAccessoryItemProvider_reloadItems__block_
 {
   v3 = a2;
   v4 = [HFGenericAccessoryItem alloc];
-  v5 = [*(a1 + 32) home];
+  v5 = objc_msgSend_home(*(a1 + 32));
   v6 = [v5 hf_characteristicValueManager];
   v7 = [(HFGenericAccessoryItem *)v4 initWithAccessory:v3 valueSource:v6];
 
@@ -102,16 +102,14 @@ id __45__HFGenericAccessoryItemProvider_reloadItems__block_invoke_3(uint64_t a1,
 
 - (id)invalidationReasons
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFGenericAccessoryItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"accessory";
-  v8[1] = @"service";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFGenericAccessoryItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"accessory";
+  v7[1] = @"service";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

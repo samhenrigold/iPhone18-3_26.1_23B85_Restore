@@ -9,21 +9,21 @@
 - (XPCFinancialConnectionExtensionAuthorizationResult)initWithCoder:(id)coder
 {
   swift_getObjectType();
-  sub_23865FD74(&qword_27DF12818, type metadata accessor for FinancialConnectionExtensionAuthorizationResult.XPC);
-  sub_23865FDB8();
-  sub_23865FE0C();
+  v4 = sub_23865FD74(&qword_27DF12818, type metadata accessor for FinancialConnectionExtensionAuthorizationResult.XPC, &unk_23877B138);
+  v7 = sub_23865FDB8(v4, v5, v6);
+  sub_23865FE0C(v7, v8, v9);
   coderCopy = coder;
-  v5 = sub_238758B00();
+  v11 = sub_238758B00();
   swift_deallocPartialClassInstance();
-  return v5;
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   swift_getObjectType();
-  sub_23865FD74(&qword_27DF12818, type metadata accessor for FinancialConnectionExtensionAuthorizationResult.XPC);
-  sub_23865FDB8();
-  sub_23865FE0C();
+  v5 = sub_23865FD74(&qword_27DF12818, type metadata accessor for FinancialConnectionExtensionAuthorizationResult.XPC, &unk_23877B138);
+  v8 = sub_23865FDB8(v5, v6, v7);
+  sub_23865FE0C(v8, v9, v10);
   coderCopy = coder;
   selfCopy = self;
   sub_238758B10();

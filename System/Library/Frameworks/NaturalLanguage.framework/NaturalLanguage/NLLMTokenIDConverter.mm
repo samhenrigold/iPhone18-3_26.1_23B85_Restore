@@ -1,6 +1,7 @@
 @interface NLLMTokenIDConverter
 - (NLLMTokenIDConverter)initWithLanguageModel:(id)model;
 - (NLLanguageModel)languageModel;
+- (id)stringForTokenID:(unsigned int)d;
 - (id)stringForTokenIDs:(const unsigned int *)ds length:(unint64_t)length;
 - (unsigned)tokenIDForString:(id)string;
 - (void)enumerateTokenIDsForString:(id)string range:(_NSRange)range withBlock:(id)block;
@@ -10,20 +11,20 @@
 
 - (NLLMTokenIDConverter)initWithLanguageModel:(id)model
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   modelCopy = model;
   if (modelCopy)
   {
-    v14.receiver = self;
-    v14.super_class = NLLMTokenIDConverter;
-    v5 = [(NLLMTokenIDConverter *)&v14 init];
+    v13.receiver = self;
+    v13.super_class = NLLMTokenIDConverter;
+    v5 = [(NLLMTokenIDConverter *)&v13 init];
     v6 = v5;
     if (v5)
     {
       objc_storeWeak(&v5->_languageModel, modelCopy);
       v7 = [NLTagger alloc];
-      v15[0] = @"TokenType";
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      v14[0] = @"TokenType";
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
       v9 = [(NLTagger *)v7 initWithTagSchemes:v8];
       tagger = v6->_tagger;
       v6->_tagger = v9;
@@ -38,7 +39,6 @@
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -61,6 +61,27 @@
   }
 
   return tokenID;
+}
+
+- (id)stringForTokenID:(unsigned int)d
+{
+  v3 = *&d;
+  WeakRetained = objc_loadWeakRetained(&self->_languageModel);
+  lexicon = [WeakRetained lexicon];
+  v7 = [lexicon entryForTokenID:v3];
+
+  if (v7)
+  {
+    string = [v7 string];
+  }
+
+  else
+  {
+    v9 = objc_loadWeakRetained(&self->_languageModel);
+    string = [v9 stringForTokenID:v3];
+  }
+
+  return string;
 }
 
 - (id)stringForTokenIDs:(const unsigned int *)ds length:(unint64_t)length

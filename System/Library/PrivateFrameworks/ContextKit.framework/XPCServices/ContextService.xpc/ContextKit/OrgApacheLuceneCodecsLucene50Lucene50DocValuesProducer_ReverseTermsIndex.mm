@@ -24,7 +24,7 @@
   [(JavaUtilArrayList *)v3 addWithId:OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withOrgApacheLuceneUtilAccountable_(@"term bytes", self->terms_, v4, v5, v6, v7, v8, v9)];
   [(JavaUtilArrayList *)v3 addWithId:OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withOrgApacheLuceneUtilAccountable_(@"term addresses", self->termAddresses_, v10, v11, v12, v13, v14, v15)];
 
-  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3);
+  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3, v16);
 }
 
 - (NSString)description

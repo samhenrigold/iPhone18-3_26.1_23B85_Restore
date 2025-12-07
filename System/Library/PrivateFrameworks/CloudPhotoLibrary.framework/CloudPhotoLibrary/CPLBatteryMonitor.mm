@@ -38,38 +38,38 @@
 
 void __37__CPLBatteryMonitor_powerStatusPlist__block_invoke(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   if (isExternalPowerConnected == 1)
   {
-    v15[0] = @"plugged";
-    v14[0] = @"state";
-    v14[1] = @"batteryLevel";
+    v14[0] = @"plugged";
+    v13[0] = @"state";
+    v13[1] = @"batteryLevel";
     v2 = [MEMORY[0x1E696AD98] numberWithInt:*&batteryLevel];
-    v15[1] = v2;
+    v14[1] = v2;
     v3 = MEMORY[0x1E695DF20];
-    v4 = v15;
-    v5 = v14;
+    v4 = v14;
+    v5 = v13;
     v6 = 2;
   }
 
   else
   {
-    v12[0] = @"state";
-    v12[1] = @"lowBattery";
+    v11[0] = @"state";
+    v11[1] = @"lowBattery";
     v7 = &unk_1F57EF6C8;
     if (!hasEnoughBattery)
     {
       v7 = &unk_1F57EF6E0;
     }
 
-    v13[0] = @"battery";
-    v13[1] = v7;
-    v12[2] = @"batteryLevel";
+    v12[0] = @"battery";
+    v12[1] = v7;
+    v11[2] = @"batteryLevel";
     v2 = [MEMORY[0x1E696AD98] numberWithInt:*&batteryLevel];
-    v13[2] = v2;
+    v12[2] = v2;
     v3 = MEMORY[0x1E695DF20];
-    v4 = v13;
-    v5 = v12;
+    v4 = v12;
+    v5 = v11;
     v6 = 3;
   }
 
@@ -77,8 +77,6 @@ void __37__CPLBatteryMonitor_powerStatusPlist__block_invoke(uint64_t a1)
   v9 = *(*(a1 + 32) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (double)batteryLevel
@@ -171,7 +169,7 @@ uint64_t __32__CPLBatteryMonitor_powerStatus__block_invoke(uint64_t a1)
 
 void __47__CPLBatteryMonitor_startMonitoringPowerEvents__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = CPLCopyDefaultSerialQueueAttributes();
   v3 = dispatch_queue_create("com.apple.cpl.powermonitor", v2);
   v4 = batteryQueue;
@@ -191,21 +189,18 @@ void __47__CPLBatteryMonitor_startMonitoringPowerEvents__block_invoke(uint64_t a
       v9 = __CPLGenericOSLogDomain();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v13[0] = 67109120;
-        v13[1] = v8;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Can't monitor power: %i", v13, 8u);
+        v11[0] = 67109120;
+        v11[1] = v8;
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Can't monitor power: %i", v11, 8u);
       }
     }
-
-    v10 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v11 = *(a1 + 32);
-    v12 = *MEMORY[0x1E69E9840];
+    v10 = *(a1 + 32);
 
-    [v11 _updateBatteryWithBatteryEntry:MatchingService];
+    [v10 _updateBatteryWithBatteryEntry:MatchingService];
   }
 }
 

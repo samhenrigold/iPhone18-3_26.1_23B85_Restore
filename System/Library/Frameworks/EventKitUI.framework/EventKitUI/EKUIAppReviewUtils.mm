@@ -106,38 +106,38 @@ void __71__EKUIAppReviewUtils_displayReviewPromptIfNeededInScene_calendarModel__
 {
   v2 = [MEMORY[0x1E695DF00] now];
   v3 = v2;
-  if (NavdRecentLocationsEntitlment_block_invoke_previousAttempt && ([v2 timeIntervalSinceReferenceDate], v5 = v4, objc_msgSend(NavdRecentLocationsEntitlment_block_invoke_previousAttempt, "timeIntervalSinceReferenceDate"), v5 - v6 < 600.0))
+  if (NavdRecentLocationsEntitlment_block_invoke_previousAttempt && ([v2 timeIntervalSinceReferenceDate], v5 = v4, v6 = objc_msgSend(NavdRecentLocationsEntitlment_block_invoke_previousAttempt, "timeIntervalSinceReferenceDate"), v5 - v7 < 600.0))
   {
-    v7 = logHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = logHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D3400000, v7, OS_LOG_TYPE_INFO, "Skipping app store review prompt because it is too soon", buf, 2u);
+      _os_log_impl(&dword_1D3400000, v8, OS_LOG_TYPE_INFO, "Skipping app store review prompt because it is too soon", buf, 2u);
     }
   }
 
   else
   {
     objc_storeStrong(&NavdRecentLocationsEntitlment_block_invoke_previousAttempt, v3);
-    v8 = logHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = logHandle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D3400000, v8, OS_LOG_TYPE_INFO, "Asking whether we should attempt an app store review prompt", buf, 2u);
+      _os_log_impl(&dword_1D3400000, v10, OS_LOG_TYPE_INFO, "Asking whether we should attempt an app store review prompt", buf, 2u);
     }
 
-    v9 = [a1[6] _sharedStoreReview];
-    v10 = [v9 shouldAttemptReview];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __71__EKUIAppReviewUtils_displayReviewPromptIfNeededInScene_calendarModel___block_invoke_16;
-    v11[3] = &unk_1E8440FD8;
-    v14 = a1[6];
-    v12 = a1[4];
-    v13 = a1[5];
-    [v10 addFinishBlock:v11];
+    v11 = [a1[6] _sharedStoreReview];
+    v12 = [v11 shouldAttemptReview];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __71__EKUIAppReviewUtils_displayReviewPromptIfNeededInScene_calendarModel___block_invoke_16;
+    v13[3] = &unk_1E8440FD8;
+    v16 = a1[6];
+    v14 = a1[4];
+    v15 = a1[5];
+    [v12 addFinishBlock:v13];
 
-    v7 = v12;
+    v8 = v14;
   }
 }
 
@@ -165,50 +165,52 @@ void __71__EKUIAppReviewUtils_displayReviewPromptIfNeededInScene_calendarModel__
   v1 = (a1 + 32);
   if (!*(a1 + 32))
   {
-    if ([*(a1 + 40) BOOLValue])
+    v4 = [*(a1 + 40) BOOLValue];
+    if (v4)
     {
-      if ([*(a1 + 64) _shouldDisplayReviewPromptWithCalendarModel:*(a1 + 48)])
+      v5 = [*(a1 + 64) _shouldDisplayReviewPromptWithCalendarModel:*(a1 + 48)];
+      if (v5)
       {
-        v7[0] = MEMORY[0x1E69E9820];
-        v7[1] = 3221225472;
-        v7[2] = __71__EKUIAppReviewUtils_displayReviewPromptIfNeededInScene_calendarModel___block_invoke_17;
-        v7[3] = &unk_1E843F690;
-        v4 = *(a1 + 56);
-        v5 = *(a1 + 64);
-        v8 = v4;
-        v9 = v5;
-        dispatch_async(MEMORY[0x1E69E96A0], v7);
-        v2 = v8;
+        v9[0] = MEMORY[0x1E69E9820];
+        v9[1] = 3221225472;
+        v9[2] = __71__EKUIAppReviewUtils_displayReviewPromptIfNeededInScene_calendarModel___block_invoke_17;
+        v9[3] = &unk_1E843F690;
+        v6 = *(a1 + 56);
+        v7 = *(a1 + 64);
+        v10 = v6;
+        v11 = v7;
+        dispatch_async(MEMORY[0x1E69E96A0], v9);
+        v2 = v10;
         goto LABEL_4;
       }
 
-      v2 = logHandle();
+      v2 = logHandle(v5);
       if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         goto LABEL_4;
       }
 
       *buf = 0;
-      v6 = "Not attempting to ask for app store review because our filtering says this is not a good candidate";
+      v8 = "Not attempting to ask for app store review because our filtering says this is not a good candidate";
     }
 
     else
     {
-      v2 = logHandle();
+      v2 = logHandle(v4);
       if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         goto LABEL_4;
       }
 
       *buf = 0;
-      v6 = "Not attempting to ask for app store review because [AMSSharedStoreReview shouldAttemptReview] said NO";
+      v8 = "Not attempting to ask for app store review because [AMSSharedStoreReview shouldAttemptReview] said NO";
     }
 
-    _os_log_impl(&dword_1D3400000, v2, OS_LOG_TYPE_INFO, v6, buf, 2u);
+    _os_log_impl(&dword_1D3400000, v2, OS_LOG_TYPE_INFO, v8, buf, 2u);
     goto LABEL_4;
   }
 
-  v2 = logHandle();
+  v2 = logHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __71__EKUIAppReviewUtils_displayReviewPromptIfNeededInScene_calendarModel___block_invoke_2_cold_1(v1, v2);
@@ -219,7 +221,7 @@ LABEL_4:
 
 void __71__EKUIAppReviewUtils_displayReviewPromptIfNeededInScene_calendarModel___block_invoke_17(uint64_t a1)
 {
-  v2 = logHandle();
+  v2 = logHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -233,36 +235,37 @@ void __71__EKUIAppReviewUtils_displayReviewPromptIfNeededInScene_calendarModel__
 
 + (BOOL)_shouldDisplayReviewPromptWithCalendarModel:(id)model
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   modelCopy = model;
-  if (([self _upcomingEventCountMeetsThresholdInCalendarModel:modelCopy] & 1) == 0)
+  v5 = [self _upcomingEventCountMeetsThresholdInCalendarModel:modelCopy];
+  if ((v5 & 1) == 0)
   {
-    v14 = logHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = logHandle(v5);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       +[EKUIAppReviewUtils _shouldDisplayReviewPromptWithCalendarModel:];
     }
 
 LABEL_19:
-    v17 = 0;
+    v20 = 0;
     goto LABEL_20;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   eventStore = [modelCopy eventStore];
   sources = [eventStore sources];
 
-  v7 = [sources countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (!v7)
+  v8 = [sources countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (!v8)
   {
 LABEL_10:
 
 LABEL_17:
-    v14 = logHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = logHandle(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       +[EKUIAppReviewUtils _shouldDisplayReviewPromptWithCalendarModel:];
     }
@@ -270,31 +273,31 @@ LABEL_17:
     goto LABEL_19;
   }
 
-  v8 = v7;
-  v9 = *v30;
+  v9 = v8;
+  v10 = *v35;
 LABEL_4:
-  v10 = 0;
+  v11 = 0;
   while (1)
   {
-    if (*v30 != v9)
+    if (*v35 != v10)
     {
       objc_enumerationMutation(sources);
     }
 
-    v11 = *(*(&v29 + 1) + 8 * v10);
-    v12 = MEMORY[0x1E6992EF8];
-    externalID = [v11 externalID];
-    LOBYTE(v12) = [v12 isiCloudAccount:externalID];
+    v12 = *(*(&v34 + 1) + 8 * v11);
+    v13 = MEMORY[0x1E6992EF8];
+    externalID = [v12 externalID];
+    LOBYTE(v13) = [v13 isiCloudAccount:externalID];
 
-    if (v12)
+    if (v13)
     {
       break;
     }
 
-    if (v8 == ++v10)
+    if (v9 == ++v11)
     {
-      v8 = [sources countByEnumeratingWithState:&v29 objects:v34 count:16];
-      if (v8)
+      v9 = [sources countByEnumeratingWithState:&v34 objects:v39 count:16];
+      if (v9)
       {
         goto LABEL_4;
       }
@@ -303,45 +306,47 @@ LABEL_4:
     }
   }
 
-  v14 = v11;
+  v16 = v12;
 
-  if (!v14)
+  if (!v16)
   {
     goto LABEL_17;
   }
 
-  allCalendars = [v14 allCalendars];
-  if ([allCalendars count] < 5)
+  allCalendars = [v16 allCalendars];
+  v18 = [allCalendars count];
+  if (v18 < 5)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v16 = allCalendars;
-    v19 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
-    if (v19)
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v19 = allCalendars;
+    v22 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    if (v22)
     {
-      v20 = v19;
-      v21 = 0;
-      v22 = *v26;
+      v23 = v22;
+      v24 = 0;
+      v25 = *v31;
       while (2)
       {
-        for (i = 0; i != v20; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v26 != v22)
+          if (*v31 != v25)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v19);
           }
 
-          if ([*(*(&v25 + 1) + 8 * i) sharingStatus] == 1)
+          sharingStatus = [*(*(&v30 + 1) + 8 * i) sharingStatus];
+          if (sharingStatus == 1)
           {
-            ++v21;
+            ++v24;
           }
 
-          if (v21 >= 2)
+          if (v24 >= 2)
           {
-            v24 = logHandle();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+            v29 = logHandle(sharingStatus);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
             {
               +[EKUIAppReviewUtils _shouldDisplayReviewPromptWithCalendarModel:];
             }
@@ -350,8 +355,8 @@ LABEL_4:
           }
         }
 
-        v20 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
-        if (v20)
+        v23 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        if (v23)
         {
           continue;
         }
@@ -360,29 +365,29 @@ LABEL_4:
       }
     }
 
-    v16 = logHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v19 = logHandle(v28);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       +[EKUIAppReviewUtils _shouldDisplayReviewPromptWithCalendarModel:];
     }
 
-    v17 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v16 = logHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v19 = logHandle(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       +[EKUIAppReviewUtils _shouldDisplayReviewPromptWithCalendarModel:];
     }
 
 LABEL_37:
-    v17 = 1;
+    v20 = 1;
   }
 
 LABEL_20:
-  return v17;
+  return v20;
 }
 
 + (BOOL)_upcomingEventCountMeetsThresholdInCalendarModel:(id)model

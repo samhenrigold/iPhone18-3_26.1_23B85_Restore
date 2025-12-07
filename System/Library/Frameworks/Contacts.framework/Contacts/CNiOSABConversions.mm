@@ -91,9 +91,9 @@ void __53__CNiOSABConversions_contactPropertiesByABPropertyID__block_invoke()
     +[CNiOSABConversions contactPropertiesByABPropertyID];
   }
 
-  v0 = contactPropertiesByABPropertyID_propertiesByABPropertyID;
+  v1 = contactPropertiesByABPropertyID_propertiesByABPropertyID;
 
-  return v0;
+  return v1;
 }
 
 + (id)stringFromABBytes:(char *)bytes length:(unint64_t)length
@@ -696,66 +696,66 @@ LABEL_18:
 + (CNContactMatchInfo)contactMatchInfoFromABMatchMetadataDictionary:(uint64_t)dictionary
 {
   v2 = a2;
-  objc_opt_self();
-  v3 = objc_alloc_init(CNContactMatchInfo);
-  v4 = [v2 objectForKey:*MEMORY[0x1E698A0F8]];
-  if (v4)
+  v3 = objc_opt_self();
+  v4 = objc_alloc_init(CNContactMatchInfo);
+  v5 = [v2 objectForKey:*MEMORY[0x1E698A0F8]];
+  if (v5)
   {
-    [(CNContactMatchInfo *)v3 setRelevanceScore:v4];
-    -[CNContactMatchInfo setMatchedNameProperty:](v3, "setMatchedNameProperty:", [v4 integerValue] > 0);
+    [(CNContactMatchInfo *)v4 setRelevanceScore:v5];
+    -[CNContactMatchInfo setMatchedNameProperty:](v4, "setMatchedNameProperty:", [v5 integerValue] > 0);
   }
 
-  v5 = [v2 objectForKey:*MEMORY[0x1E698A0E8]];
-  if ([(NSMapTable *)v5 count])
+  v6 = [v2 objectForKey:*MEMORY[0x1E698A0E8]];
+  if ([(NSMapTable *)v6 count])
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v7 = +[CNiOSABConversions contactPropertiesByABPropertyID];
+    v8 = +[(CNiOSABConversions *)v3];
     memset(&enumerator, 0, sizeof(enumerator));
-    NSEnumerateMapTable(&enumerator, v5);
+    NSEnumerateMapTable(&enumerator, v6);
     key = 0;
     value = 0;
     while (NSNextMapEnumeratorPair(&enumerator, &key, &value))
     {
-      v8 = [MEMORY[0x1E696AD98] numberWithInt:(key - 1)];
-      v9 = [v7 objectForKey:v8];
-      v10 = [v9 objectAtIndexedSubscript:0];
+      v9 = [MEMORY[0x1E696AD98] numberWithInt:(key - 1)];
+      v10 = [v8 objectForKey:v9];
+      v11 = [v10 objectAtIndexedSubscript:0];
 
-      if (v10)
+      if (v11)
       {
-        v11 = [v10 key];
-        if (v11)
+        v12 = [v11 key];
+        if (v12)
         {
-          [dictionary setValue:value forKey:v11];
+          [dictionary setValue:value forKey:v12];
         }
       }
     }
 
     NSEndMapTableEnumeration(&enumerator);
-    [(CNContactMatchInfo *)v3 setMatchedProperties:dictionary];
+    [(CNContactMatchInfo *)v4 setMatchedProperties:dictionary];
   }
 
-  v12 = [v2 objectForKey:*MEMORY[0x1E698A0E0]];
-  if (v12)
+  v13 = [v2 objectForKey:*MEMORY[0x1E698A0E0]];
+  if (v13)
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v12];
-    v14 = *MEMORY[0x1E698A0D8];
-    v15 = [v13 length];
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __68__CNiOSABConversions_contactMatchInfoFromABMatchMetadataDictionary___block_invoke;
-    v23 = &unk_1E7416240;
-    v24 = v13;
-    v16 = v13;
-    [v16 enumerateAttribute:v14 inRange:0 options:v15 usingBlock:{0, &v20}];
-    v17 = objc_alloc_init(MEMORY[0x1E69967D0]);
-    [v17 finishWithResult:{v16, v20, v21, v22, v23}];
-    [(CNContactMatchInfo *)v3 setExcerpt:v17];
+    v14 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v13];
+    v15 = *MEMORY[0x1E698A0D8];
+    v16 = [v14 length];
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __68__CNiOSABConversions_contactMatchInfoFromABMatchMetadataDictionary___block_invoke;
+    v24 = &unk_1E7416240;
+    v25 = v14;
+    v17 = v14;
+    [v17 enumerateAttribute:v15 inRange:0 options:v16 usingBlock:{0, &v21}];
+    v18 = objc_alloc_init(MEMORY[0x1E69967D0]);
+    [v18 finishWithResult:{v17, v21, v22, v23, v24}];
+    [(CNContactMatchInfo *)v4 setExcerpt:v18];
   }
 
-  v18 = [v2 objectForKey:*MEMORY[0x1E698A0F0]];
-  [(CNContactMatchInfo *)v3 setMatchedTerms:v18];
+  v19 = [v2 objectForKey:*MEMORY[0x1E698A0F0]];
+  [(CNContactMatchInfo *)v4 setMatchedTerms:v19];
 
-  return v3;
+  return v4;
 }
 
 void __68__CNiOSABConversions_contactMatchInfoFromABMatchMetadataDictionary___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)

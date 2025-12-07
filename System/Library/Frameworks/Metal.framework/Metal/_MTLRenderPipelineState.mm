@@ -127,10 +127,10 @@ LABEL_5:
       *(v17 + 14) = -1;
       if (descriptor)
       {
-        [descriptor requiredThreadsPerObjectThreadgroup];
+        objc_msgSend_requiredThreadsPerObjectThreadgroup(descriptor);
         *(v17 + 12) = v25;
         *(v17 + 26) = v26;
-        [descriptor requiredThreadsPerMeshThreadgroup];
+        objc_msgSend_requiredThreadsPerMeshThreadgroup(descriptor);
       }
 
       else
@@ -243,10 +243,10 @@ LABEL_5:
     *(v18 + 18) = grid;
     if (descriptor)
     {
-      [descriptor requiredThreadsPerObjectThreadgroup];
+      objc_msgSend_requiredThreadsPerObjectThreadgroup(descriptor);
       *(v18 + 12) = v26;
       *(v18 + 26) = v27;
-      [descriptor requiredThreadsPerMeshThreadgroup];
+      objc_msgSend_requiredThreadsPerMeshThreadgroup(descriptor);
     }
 
     else
@@ -327,7 +327,7 @@ LABEL_5:
     v12[108] = [descriptor threadgroupSizeMatchesTileSize];
     if (descriptor)
     {
-      [descriptor requiredThreadsPerThreadgroup];
+      objc_msgSend_requiredThreadsPerThreadgroup(descriptor);
     }
 
     else
@@ -388,10 +388,10 @@ LABEL_3:
     *(v10 + 17) = [parent maxTotalThreadsPerMeshThreadgroup];
     if (parent)
     {
-      [parent requiredThreadsPerObjectThreadgroup];
+      objc_msgSend_requiredThreadsPerObjectThreadgroup(parent);
       *(v10 + 12) = v15;
       *(v10 + 26) = v16;
-      [parent requiredThreadsPerMeshThreadgroup];
+      objc_msgSend_requiredThreadsPerMeshThreadgroup(parent);
     }
 
     else
@@ -452,7 +452,7 @@ LABEL_3:
     *(v10 + 12) = [parent textureWriteRoundingMode];
     if (parent)
     {
-      [parent requiredThreadsPerTileThreadgroup];
+      objc_msgSend_requiredThreadsPerTileThreadgroup(parent);
     }
 
     else

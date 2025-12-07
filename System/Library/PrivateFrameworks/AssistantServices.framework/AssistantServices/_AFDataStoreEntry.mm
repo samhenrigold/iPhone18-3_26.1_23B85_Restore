@@ -11,7 +11,7 @@
 
 - (_AFDataStoreEntry)initWithPropertyListRepresentation:(id)representation error:(id *)p_isa
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v7 = objc_alloc_init(AFDictionarySchema);
   v8 = [AFCoercion typeAssertionWithClass:objc_opt_class()];
@@ -53,16 +53,15 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[_AFDataStoreEntry initWithPropertyListRepresentation:error:]";
-      v23 = 2050;
-      v24 = integerValue;
+      v21 = "[_AFDataStoreEntry initWithPropertyListRepresentation:error:]";
+      v22 = 2050;
+      v23 = integerValue;
       _os_log_error_impl(&dword_1912FE000, v17, OS_LOG_TYPE_ERROR, "%s unable to deserialize property list with version %{public}ld; returning nil", buf, 0x16u);
     }
 
     p_isa = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 

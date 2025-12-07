@@ -44,8 +44,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10003FDF4(appear);
+  sub_10003FDF4(appearCopy, selfCopy);
 }
 
 - (void)dismissViewControllerWithTransition:(int)transition completion:(id)completion
@@ -66,7 +67,7 @@
 
   selfCopy = self;
   sub_1000400A8(v4, v6, v7);
-  sub_10001F63C(v6);
+  sub_10001F63C(v6, v7);
 }
 
 - (_TtC8AppStore33PresentationContextViewController)initWithNibName:(id)name bundle:(id)bundle

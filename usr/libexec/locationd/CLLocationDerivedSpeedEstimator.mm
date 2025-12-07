@@ -31,14 +31,14 @@
 
 + (BOOL)isSupportedForDerivedSpeedEstimate
 {
-  sub_10001A3E8();
-  LODWORD(v2) = sub_10001CF04();
-  if (v2)
+  v2 = sub_10001A3E8(self, a2);
+  v4 = sub_10001CF04(v2, v3);
+  if (v4)
   {
-    return (sub_100023B30() >> 36) & 1;
+    return (sub_100023B30(v4, v5) >> 36) & 1;
   }
 
-  return v2;
+  return v4;
 }
 
 - ($1AB5FA073B851C12C2339EC22442E995)currentEstimate
@@ -66,12 +66,13 @@
 
 + (BOOL)isSupportedForAnalytics
 {
-  if ([objc_opt_class() isSupportedForDerivedSpeedEstimate])
+  isSupportedForDerivedSpeedEstimate = [objc_opt_class() isSupportedForDerivedSpeedEstimate];
+  if (isSupportedForDerivedSpeedEstimate)
   {
     return 1;
   }
 
-  sub_10001A3E8();
+  sub_10001A3E8(isSupportedForDerivedSpeedEstimate, v3);
 
   return sub_10001CF3C();
 }
@@ -92,9 +93,9 @@
 
   if ([objc_opt_class() isSupported])
   {
-    v19.receiver = self;
-    v19.super_class = CLLocationDerivedSpeedEstimator;
-    v5 = [(CLLocationDerivedSpeedEstimator *)&v19 init];
+    v22.receiver = self;
+    v22.super_class = CLLocationDerivedSpeedEstimator;
+    v5 = [(CLLocationDerivedSpeedEstimator *)&v22 init];
     v6 = v5;
     if (v5)
     {
@@ -104,18 +105,18 @@
       *&v6->_showActivityVehicular = 0;
       v6->_vehicleStateProxy = 0;
       v6->_silo = silo;
-      sub_10001A3E8();
-      if (sub_100328630())
+      v9 = sub_10001A3E8(silo, v8);
+      if (sub_100328630(v9, v10))
       {
         sub_10001CAF4(buf);
-        sub_10001CB4C(*buf, "ShowActivityVehicular", &v6->_showActivityVehicular);
+        sub_10001CB4C(*buf, "ShowActivityVehicular", &v6->_showActivityVehicular, 0xFFFFFFFFLL);
         if (*&buf[8])
         {
           sub_100008080(*&buf[8]);
         }
 
         sub_10001CAF4(buf);
-        sub_10001CB4C(*buf, "ShowActivityVehicularMounted", &v6->_showActivityVehicularMounted);
+        sub_10001CB4C(*buf, "ShowActivityVehicularMounted", &v6->_showActivityVehicularMounted, 0xFFFFFFFFLL);
         if (*&buf[8])
         {
           sub_100008080(*&buf[8]);
@@ -127,7 +128,7 @@
         sub_1018E1C6C();
       }
 
-      v8 = qword_1025D4258;
+      v11 = qword_1025D4258;
       if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_INFO))
       {
         showActivityVehicular = v6->_showActivityVehicular;
@@ -136,11 +137,11 @@
         *&buf[4] = "ShowActivityVehicular";
         *&buf[12] = 1024;
         *&buf[14] = showActivityVehicular;
-        v21 = 2080;
-        v22 = "ShowActivityVehicularMounted";
-        v23 = 1024;
-        v24 = showActivityVehicularMounted;
-        _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_INFO, "%s, %d, %s, %d", buf, 0x22u);
+        v24 = 2080;
+        v25 = "ShowActivityVehicularMounted";
+        v26 = 1024;
+        v27 = showActivityVehicularMounted;
+        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_INFO, "%s, %d, %s, %d", buf, 0x22u);
       }
 
       if (sub_10000A100(121, 2))
@@ -175,12 +176,12 @@
       [(CLLocationDerivedSpeedEstimator *)v6 registerForNotifications];
       newTimer = [(CLSilo *)v6->_silo newTimer];
       v6->_scanTimer = newTimer;
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_1005EFD30;
-      v18[3] = &unk_102447418;
-      v18[4] = v6;
-      [(CLTimer *)newTimer setHandler:v18];
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_1005EFD30;
+      v21[3] = &unk_102447418;
+      v21[4] = v6;
+      [(CLTimer *)newTimer setHandler:v21];
     }
   }
 
@@ -197,14 +198,14 @@
 {
   if (!self->_wsbClientStartTime)
   {
-    v9 = v3;
-    v10 = v2;
-    v11 = v4;
-    v12 = v5;
-    v6 = 3600;
-    v7 = 257;
-    v8 = "dndwd";
-    sub_1005F3624();
+    v7 = v3;
+    v8 = v2;
+    v9 = v4;
+    v10 = v5;
+    LODWORD(v6) = 3600;
+    WORD2(v6) = 257;
+    *(&v6 + 1) = "dndwd";
+    sub_1005F3624(&v6);
   }
 }
 
@@ -421,7 +422,7 @@
   if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    *v56 = [objc_msgSend(location "description")];
+    *v71 = [objc_msgSend(location "description")];
     _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEBUG, "VEHICULAR: leeched location, %s", buf, 0xCu);
   }
 
@@ -481,7 +482,7 @@ LABEL_62:
       {
         [location horizontalAccuracy];
         *buf = 134217984;
-        *v56 = v12;
+        *v71 = v12;
         _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "VEHICULAR: disqualified leeched location, horizontal accuracy, %f", buf, 0xCu);
       }
 
@@ -508,7 +509,7 @@ LABEL_62:
       if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v56 = v15;
+        *v71 = v15;
         _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_DEFAULT, "VEHICULAR: disqualified leeched location, age, %f", buf, 0xCu);
       }
 
@@ -530,7 +531,7 @@ LABEL_62:
     {
       type = [location type];
       *buf = 67109120;
-      *v56 = type;
+      *v71 = type;
       _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_DEFAULT, "VEHICULAR: qualified leeched location, type, %d", buf, 8u);
     }
 
@@ -573,7 +574,7 @@ LABEL_62:
       if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v56 = 0x406E000000000000;
+        *v71 = 0x406E000000000000;
         _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEFAULT, "VEHICULAR: renew previous location older than age of %f seconds", buf, 0xCu);
       }
 
@@ -600,9 +601,9 @@ LABEL_61:
       type2 = [[(CLLocationDerivedSpeedEstimator *)self prevLoc] type];
       v24 = [-[CLLocation description](-[CLLocationDerivedSpeedEstimator prevLoc](self "prevLoc")];
       *buf = 67109378;
-      *v56 = type2;
-      *&v56[4] = 2080;
-      *&v56[6] = v24;
+      *v71 = type2;
+      *&v71[4] = 2080;
+      *&v71[6] = v24;
       _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_DEBUG, "VEHICULAR: previous location, type, %d, %s", buf, 0x12u);
     }
 
@@ -639,9 +640,9 @@ LABEL_61:
     if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218240;
-      *v56 = v26;
-      *&v56[8] = 2048;
-      *&v56[10] = v34;
+      *v71 = v26;
+      *&v71[8] = 2048;
+      *&v71[10] = v34;
       _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_DEBUG, "VEHICULAR: distanceMoved, %f, elapsedTime, %f", buf, 0x16u);
     }
 
@@ -657,12 +658,12 @@ LABEL_61:
         sub_1018E1C6C();
       }
 
-      v43 = qword_1025D4258;
+      v45 = qword_1025D4258;
       if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v56 = 0x404E000000000000;
-        _os_log_impl(dword_100000000, v43, OS_LOG_TYPE_DEFAULT, "VEHICULAR: drop leeched location within %f sec", buf, 0xCu);
+        *v71 = 0x404E000000000000;
+        _os_log_impl(dword_100000000, v45, OS_LOG_TYPE_DEFAULT, "VEHICULAR: drop leeched location within %f sec", buf, 0xCu);
       }
 
       if (sub_10000A100(121, 2))
@@ -683,7 +684,7 @@ LABEL_61:
     {
       type3 = [location type];
       *buf = 67109120;
-      *v56 = type3;
+      *v71 = type3;
       _os_log_impl(dword_100000000, v36, OS_LOG_TYPE_DEFAULT, "VEHICULAR: accept qualified leeched location, type, %d", buf, 8u);
     }
 
@@ -713,17 +714,17 @@ LABEL_61:
       {
         type4 = [location type];
         *buf = 134219264;
-        *v56 = v38;
-        *&v56[8] = 2048;
-        *&v56[10] = v26 / v34;
-        *&v56[18] = 2048;
-        *&v56[20] = v39;
-        *&v56[28] = 2048;
-        *&v56[30] = v26;
-        v57 = 2048;
-        v58 = v34;
-        v59 = 1024;
-        v60 = type4;
+        *v71 = v38;
+        *&v71[8] = 2048;
+        *&v71[10] = v26 / v34;
+        *&v71[18] = 2048;
+        *&v71[20] = v39;
+        *&v71[28] = 2048;
+        *&v71[30] = v26;
+        v72 = 2048;
+        v73 = v34;
+        v74 = 1024;
+        v75 = type4;
         _os_log_impl(dword_100000000, v40, OS_LOG_TYPE_DEFAULT, "VEHICULAR: outlier, conservativeSpeed, %f, effectiveSpeed, %f, speedUncertainty, %f, distanceMoved, %f, elapsedTime, %f, type, %d", buf, 0x3Au);
       }
 
@@ -735,12 +736,26 @@ LABEL_61:
           sub_1018E1C6C();
         }
 
-        [location type];
-        v42 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLLocationDerivedSpeedEstimator _feedLocation:]", "%s\n", v42);
-        if (v42 != buf)
+        v42 = qword_1025D4258;
+        v60 = 134219264;
+        v61 = v38;
+        v62 = 2048;
+        v63 = v26 / v34;
+        v64 = 2048;
+        v65 = v39;
+        v66 = 2048;
+        v67 = v26;
+        v68 = 2048;
+        *v69 = v34;
+        *&v69[8] = 1024;
+        *&v69[10] = [location type];
+        LODWORD(v59) = 58;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v42, 0, "VEHICULAR: outlier, conservativeSpeed, %f, effectiveSpeed, %f, speedUncertainty, %f, distanceMoved, %f, elapsedTime, %f, type, %d", COERCE_DOUBLE(&v60), v59);
+        v44 = v43;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLLocationDerivedSpeedEstimator _feedLocation:]", "%s\n", v43);
+        if (v44 != buf)
         {
-          free(v42);
+          free(v44);
         }
       }
 
@@ -748,7 +763,7 @@ LABEL_61:
     }
 
     [objc_msgSend(location "timestamp")];
-    [(CLLocationDerivedSpeedEstimator *)self setCurrentEstimate:v26 / v34, v44, v39];
+    [(CLLocationDerivedSpeedEstimator *)self setCurrentEstimate:v26 / v34, v46, v39];
     if (v38 <= 6.7)
     {
       self->_numConsecutiveVehicularSpeedObservations = 0;
@@ -757,23 +772,23 @@ LABEL_61:
         sub_1018E1C6C();
       }
 
-      v51 = qword_1025D4258;
+      v53 = qword_1025D4258;
       if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_DEFAULT))
       {
         type5 = [location type];
         *buf = 134219264;
-        *v56 = v38;
-        *&v56[8] = 2048;
-        *&v56[10] = v26 / v34;
-        *&v56[18] = 2048;
-        *&v56[20] = v39;
-        *&v56[28] = 2048;
-        *&v56[30] = v26;
-        v57 = 2048;
-        v58 = v34;
-        v59 = 1024;
-        v60 = type5;
-        _os_log_impl(dword_100000000, v51, OS_LOG_TYPE_DEFAULT, "VEHICULAR: conservativeSpeed, %f, effectiveSpeed, %f, speedUncertainty, %f, distanceMoved, %f, elapsedTime, %f, type, %d", buf, 0x3Au);
+        *v71 = v38;
+        *&v71[8] = 2048;
+        *&v71[10] = v26 / v34;
+        *&v71[18] = 2048;
+        *&v71[20] = v39;
+        *&v71[28] = 2048;
+        *&v71[30] = v26;
+        v72 = 2048;
+        v73 = v34;
+        v74 = 1024;
+        v75 = type5;
+        _os_log_impl(dword_100000000, v53, OS_LOG_TYPE_DEFAULT, "VEHICULAR: conservativeSpeed, %f, effectiveSpeed, %f, speedUncertainty, %f, distanceMoved, %f, elapsedTime, %f, type, %d", buf, 0x3Au);
       }
 
       if (!sub_10000A100(121, 2))
@@ -795,20 +810,20 @@ LABEL_61:
         sub_1018E1C6C();
       }
 
-      v45 = qword_1025D4258;
+      v47 = qword_1025D4258;
       if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_DEFAULT))
       {
         numConsecutiveVehicularSpeedObservations = self->_numConsecutiveVehicularSpeedObservations;
         lastElapsedTime = self->_lastElapsedTime;
         *buf = 67109888;
-        *v56 = numConsecutiveVehicularSpeedObservations;
-        *&v56[4] = 2048;
-        *&v56[6] = v34;
-        *&v56[14] = 2048;
-        *&v56[16] = lastElapsedTime;
-        *&v56[24] = 2048;
-        *&v56[26] = v34 - lastElapsedTime;
-        _os_log_impl(dword_100000000, v45, OS_LOG_TYPE_DEFAULT, "VEHICULAR: vehicular speed detected, consecutive observations, %d, elapsedTime, %f, lastElapsedTime, %f, delta, %f", buf, 0x26u);
+        *v71 = numConsecutiveVehicularSpeedObservations;
+        *&v71[4] = 2048;
+        *&v71[6] = v34;
+        *&v71[14] = 2048;
+        *&v71[16] = lastElapsedTime;
+        *&v71[24] = 2048;
+        *&v71[26] = v34 - lastElapsedTime;
+        _os_log_impl(dword_100000000, v47, OS_LOG_TYPE_DEFAULT, "VEHICULAR: vehicular speed detected, consecutive observations, %d, elapsedTime, %f, lastElapsedTime, %f, delta, %f", buf, 0x26u);
       }
 
       if (sub_10000A100(121, 2))
@@ -816,10 +831,10 @@ LABEL_61:
         sub_1018E2898(self, v34);
       }
 
-      v48 = self->_numConsecutiveVehicularSpeedObservations;
-      if (v48 <= 0)
+      v50 = self->_numConsecutiveVehicularSpeedObservations;
+      if (v50 <= 0)
       {
-        self->_numConsecutiveVehicularSpeedObservations = v48 + 1;
+        self->_numConsecutiveVehicularSpeedObservations = v50 + 1;
         self->_lastElapsedTime = v34;
         self->_lastDistanceMoved = v26;
         [(CLLocationDerivedSpeedEstimator *)self _invalidateSpeedEstimate];
@@ -838,23 +853,23 @@ LABEL_61:
         sub_1018E1C6C();
       }
 
-      v49 = qword_1025D4258;
+      v51 = qword_1025D4258;
       if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_DEFAULT))
       {
         type6 = [location type];
         *buf = 134219264;
-        *v56 = v38;
-        *&v56[8] = 2048;
-        *&v56[10] = v26 / v34;
-        *&v56[18] = 2048;
-        *&v56[20] = v39;
-        *&v56[28] = 2048;
-        *&v56[30] = v26;
-        v57 = 2048;
-        v58 = v34;
-        v59 = 1024;
-        v60 = type6;
-        _os_log_impl(dword_100000000, v49, OS_LOG_TYPE_DEFAULT, "VEHICULAR: conservativeSpeed, %f, effectiveSpeed, %f, speedUncertainty, %f, distanceMoved, %f, elapsedTime, %f, type, %d", buf, 0x3Au);
+        *v71 = v38;
+        *&v71[8] = 2048;
+        *&v71[10] = v26 / v34;
+        *&v71[18] = 2048;
+        *&v71[20] = v39;
+        *&v71[28] = 2048;
+        *&v71[30] = v26;
+        v72 = 2048;
+        v73 = v34;
+        v74 = 1024;
+        v75 = type6;
+        _os_log_impl(dword_100000000, v51, OS_LOG_TYPE_DEFAULT, "VEHICULAR: conservativeSpeed, %f, effectiveSpeed, %f, speedUncertainty, %f, distanceMoved, %f, elapsedTime, %f, type, %d", buf, 0x3Au);
       }
 
       if (!sub_10000A100(121, 2))
@@ -869,12 +884,14 @@ LABEL_125:
       if (qword_1025D4250 == -1)
       {
 LABEL_128:
+        v55 = qword_1025D4258;
         [location type];
-        v53 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLLocationDerivedSpeedEstimator _feedLocation:]", "%s\n", v53);
-        if (v53 != buf)
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v55, 0, "VEHICULAR: conservativeSpeed, %f, effectiveSpeed, %f, speedUncertainty, %f, distanceMoved, %f, elapsedTime, %f, type, %d", &v60);
+        v57 = v56;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLLocationDerivedSpeedEstimator _feedLocation:]", "%s\n", v56);
+        if (v57 != buf)
         {
-          free(v53);
+          free(v57);
         }
 
         goto LABEL_125;
@@ -895,7 +912,7 @@ LABEL_128:
   {
     type7 = [location type];
     *buf = 67109120;
-    *v56 = type7;
+    *v71 = type7;
     _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_INFO, "VEHICULAR: disqualified leeched location, type, %d", buf, 8u);
   }
 
@@ -1508,21 +1525,21 @@ LABEL_84:
 
 - (void)logLatencyMetricsInternal
 {
-  sub_10001A3E8();
-  if (sub_100328630())
+  v3 = sub_10001A3E8(self, a2);
+  if (sub_100328630(v3, v4))
   {
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1005F29CC;
-    v16[3] = &unk_102463728;
-    v16[4] = self;
-    v3 = off_1025D75B8(@"212", @"VehicleConnection_NOT_A_CRASH", 0, 0, v16);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1005F29CC;
+    v18[3] = &unk_102463728;
+    v18[4] = self;
+    v5 = off_1025D75B8(@"212", @"VehicleConnection_NOT_A_CRASH", 0, 0, v18);
     if (qword_1025D4250 != -1)
     {
       sub_1018E1C6C();
     }
 
-    v4 = qword_1025D4258;
+    v6 = qword_1025D4258;
     if (os_log_type_enabled(qword_1025D4258, OS_LOG_TYPE_DEFAULT))
     {
       accelDetectionLatency = self->_accelDetectionLatency;
@@ -1537,35 +1554,35 @@ LABEL_84:
       btDetectionLatency = self->_btDetectionLatency;
       vehicularDuration = self->_vehicularDuration;
       *buf = 134220800;
-      v18 = accelDetectionLatency;
-      v19 = 2048;
-      v20 = gpsDetectionLatency;
+      v20 = accelDetectionLatency;
       v21 = 2048;
-      v22 = basebandDetectionLatency;
+      v22 = gpsDetectionLatency;
       v23 = 2048;
-      v24 = wifiDetectionLatency;
+      v24 = basebandDetectionLatency;
       v25 = 2048;
-      v26 = btDetectionLatency;
+      v26 = wifiDetectionLatency;
       v27 = 2048;
-      v28 = vehicularDurationExitFromNoHints;
+      v28 = btDetectionLatency;
       v29 = 2048;
-      v30 = vehicularDurationExitFromLastBTHint;
+      v30 = vehicularDurationExitFromNoHints;
       v31 = 2048;
-      v32 = vehicularDurationLastBTHintFromLastMotionHint;
-      v33 = 1024;
-      v34 = numMotionExitsWithBT;
+      v32 = vehicularDurationExitFromLastBTHint;
+      v33 = 2048;
+      v34 = vehicularDurationLastBTHintFromLastMotionHint;
       v35 = 1024;
-      v36 = sequentialVehicularIndex;
-      v37 = 2048;
-      v38 = vehicularDuration;
-      v39 = 1024;
-      v40 = v3;
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "VEHICULAR: logLatencyMetricsInternal, accel, %f, gps, %f, bb, %f, wifi, %f, bt, %f, exitFromNoHints, %f, exitFromLastBTHint, %f, BTHintFromLastMotionHintDuration, %f, motionExitsWithBTCount, %d, sequentialVehicularIndex, %d, duration, %f, success, %d", buf, 0x6Eu);
+      v36 = numMotionExitsWithBT;
+      v37 = 1024;
+      v38 = sequentialVehicularIndex;
+      v39 = 2048;
+      v40 = vehicularDuration;
+      v41 = 1024;
+      v42 = v5;
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "VEHICULAR: logLatencyMetricsInternal, accel, %f, gps, %f, bb, %f, wifi, %f, bt, %f, exitFromNoHints, %f, exitFromLastBTHint, %f, BTHintFromLastMotionHintDuration, %f, motionExitsWithBTCount, %d, sequentialVehicularIndex, %d, duration, %f, success, %d", buf, 0x6Eu);
     }
 
     if (sub_10000A100(121, 2))
     {
-      sub_1018E3B94(self, v3);
+      sub_1018E3B94(self, v5);
     }
   }
 }

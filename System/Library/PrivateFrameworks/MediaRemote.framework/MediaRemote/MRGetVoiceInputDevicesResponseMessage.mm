@@ -8,39 +8,39 @@
 
 - (MRGetVoiceInputDevicesResponseMessage)initWithDeviceIDs:(id)ds errorCode:(int64_t)code
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v20.receiver = self;
-  v20.super_class = MRGetVoiceInputDevicesResponseMessage;
-  v7 = [(MRProtocolMessage *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = MRGetVoiceInputDevicesResponseMessage;
+  v7 = [(MRProtocolMessage *)&v19 init];
   if (v7)
   {
     v8 = objc_alloc_init(_MRGetVoiceInputDevicesResponseMessageProtobuf);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v9 = dsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          -[_MRGetVoiceInputDevicesResponseMessageProtobuf addDeviceIDs:](v8, "addDeviceIDs:", [*(*(&v16 + 1) + 8 * v13++) unsignedIntValue]);
+          -[_MRGetVoiceInputDevicesResponseMessageProtobuf addDeviceIDs:](v8, "addDeviceIDs:", [*(*(&v15 + 1) + 8 * v13++) unsignedIntValue]);
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v11);
@@ -50,7 +50,6 @@
     [(MRProtocolMessage *)v7 setUnderlyingCodableMessage:v8];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

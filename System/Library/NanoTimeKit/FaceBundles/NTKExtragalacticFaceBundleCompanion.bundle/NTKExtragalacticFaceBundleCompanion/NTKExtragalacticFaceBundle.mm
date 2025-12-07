@@ -53,11 +53,10 @@
 
 - (id)galleryRowPrioritiesForDevice:(id)device
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = &unk_284E9B8F0;
-  v7[0] = &unk_284E9B908;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = &unk_284E9B8F0;
+  v6[0] = &unk_284E9B908;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -96,22 +95,20 @@
 
 - (id)_sortableFacesForDevice:(id)device
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [(NTKExtragalacticFaceBundle *)self defaultFaceForDevice:device];
   v4 = [objc_alloc(MEMORY[0x277D2C018]) initWithFace:v3 priority:1300];
   v5 = v4;
   if (v4)
   {
-    v9[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v6 = MEMORY[0x277CBEBF8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

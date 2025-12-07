@@ -64,41 +64,41 @@
 
 - (void)didSelectOptionAtIndex:(int64_t)index
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = WKDataListSuggestionsPopover;
-  [(WKDataListSuggestionsControl *)&v11 didSelectOptionAtIndex:?];
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = WKDataListSuggestionsPopover;
+  [(WKDataListSuggestionsControl *)&v10 didSelectOptionAtIndex:?];
   [(UIPopoverController *)[(WKRotatingPopover *)self->_popover.m_ptr popoverController] dismissPopoverAnimated:1];
-  [(WKDataListSuggestionsControl *)self suggestionAtIndex:index];
-  if (v9)
+  objc_msgSend_suggestionAtIndex_(self);
+  if (v8)
   {
-    atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
-    MEMORY[0x19EB00B70](&v10);
-    if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v8, 2u, memory_order_relaxed);
+    MEMORY[0x19EB00B70](&v9);
+    if (atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v9, v5);
+      WTF::StringImpl::destroy(v8, v4);
     }
   }
 
   else
   {
-    v10 = &stru_1F1147748;
-    v6 = &stru_1F1147748;
+    v9 = &stru_1F1147748;
+    v5 = &stru_1F1147748;
   }
 
-  v12[0] = [WKDataListTextSuggestion textSuggestionWithInputText:v10];
-  -[WKContentView setDataListTextSuggestions:](-[WKDataListSuggestionsControl view](self, "view"), "setDataListTextSuggestions:", [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1]);
-  v8 = v10;
-  v10 = 0;
+  v11[0] = [WKDataListTextSuggestion textSuggestionWithInputText:v9];
+  -[WKContentView setDataListTextSuggestions:](-[WKDataListSuggestionsControl view](self, "view"), "setDataListTextSuggestions:", [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1]);
+  v7 = v9;
+  v9 = 0;
+  if (v7)
+  {
+  }
+
   if (v8)
   {
-  }
-
-  if (v9)
-  {
-    if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v9, v7);
+      WTF::StringImpl::destroy(v8, v6);
     }
   }
 }

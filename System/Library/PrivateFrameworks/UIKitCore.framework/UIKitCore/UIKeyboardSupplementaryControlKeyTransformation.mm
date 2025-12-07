@@ -475,9 +475,9 @@ LABEL_19:
 
               v19 = *(*(&v27 + 1) + 8 * j);
               name = [v19 name];
-              v21 = [name isEqualToString:nameCopy];
+              isEqualToString = objc_msgSend_isEqualToString_(name);
 
-              if (v21)
+              if (isEqualToString)
               {
                 v22 = v19;
 
@@ -571,7 +571,7 @@ LABEL_19:
 
           v14 = *(*(&v20 + 1) + 8 * i);
           name = [v14 name];
-          if ([name isEqualToString:@"Undo-Key"])
+          if (objc_msgSend_isEqualToString_(name))
           {
 
 LABEL_17:
@@ -581,9 +581,9 @@ LABEL_17:
           }
 
           name2 = [v14 name];
-          v17 = [name2 isEqualToString:@"Redo-Key"];
+          isEqualToString = objc_msgSend_isEqualToString_(name2);
 
-          if (v17)
+          if (isEqualToString)
           {
             goto LABEL_17;
           }

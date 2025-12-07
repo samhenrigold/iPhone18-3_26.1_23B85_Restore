@@ -3,6 +3,7 @@
 - (UIColor)messageTintColor;
 - (_TtC25ActivityMessagesExtension17AppViewController)initWithCoder:(id)coder;
 - (_TtC25ActivityMessagesExtension17AppViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (_TtC25ActivityMessagesExtension17AppViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)willBecomeActiveWithConversation:(id)conversation;
@@ -90,6 +91,15 @@
   }
 
   return v5;
+}
+
+- (_TtC25ActivityMessagesExtension17AppViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate
+{
+  delegateCopy = delegate;
+  *(&self->super.super.super.super.isa + OBJC_IVAR____TtC25ActivityMessagesExtension17AppViewController_bubbleView) = 0;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for AppViewController();
+  return [(AppViewController *)&v5 initWithShouldBeSheetPresentationControllerDelegate:delegateCopy];
 }
 
 @end

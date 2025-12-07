@@ -757,7 +757,7 @@
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: connection to check is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: connection to check is nil", v2, v3, v4, v5);
 }
 
 - (void)isOnSameInterfacesAndQRSessionWithConnection:(os_log_t)log .cold.1(uint64_t a1, char a2, os_log_t log)
@@ -784,7 +784,7 @@
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: connection to check is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: connection to check is nil", v2, v3, v4, v5);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface TIKeyboardInputManager_zh_Toneless
 - (BOOL)supportsCandidateGeneration;
+- (TIKeyboardInputManager_zh_Toneless)initWithInputMode:(id)mode keyboardState:(id)state dynamic:(BOOL)dynamic;
 - (id)deleteFromInput:(unint64_t *)input;
 - (id)didAcceptCandidate:(id)candidate;
 - (id)groupedCandidatesFromCandidates:(id)candidates usingSortingMethod:(id)method;
@@ -15,6 +16,22 @@
 @end
 
 @implementation TIKeyboardInputManager_zh_Toneless
+
+- (TIKeyboardInputManager_zh_Toneless)initWithInputMode:(id)mode keyboardState:(id)state dynamic:(BOOL)dynamic
+{
+  dynamicCopy = dynamic;
+  v9.receiver = self;
+  v9.super_class = TIKeyboardInputManager_zh_Toneless;
+  v6 = [(TIKeyboardInputManagerBase *)&v9 initWithInputMode:mode keyboardState:state];
+  v7 = v6;
+  if (v6)
+  {
+    [(TIKeyboardInputManager_zh_Toneless *)v6 setDynamic:dynamicCopy];
+    [(TIKeyboardInputManager_zh_Toneless *)v7 setAssertDefaultKeyPlane:dynamicCopy];
+  }
+
+  return v7;
+}
 
 - (void)setPhraseBoundary:(unint64_t)boundary
 {
@@ -182,59 +199,57 @@
 
 - (id)groupedCandidatesFromCandidates:(id)candidates usingSortingMethod:(id)method
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   methodCopy = method;
-  v29.receiver = self;
-  v29.super_class = TIKeyboardInputManager_zh_Toneless;
-  v7 = [(TIKeyboardInputManagerChinese *)&v29 groupedCandidatesFromCandidates:candidates usingSortingMethod:methodCopy];
+  v28.receiver = self;
+  v28.super_class = TIKeyboardInputManager_zh_Toneless;
+  v7 = [(TIKeyboardInputManagerChinese *)&v28 groupedCandidatesFromCandidates:candidates usingSortingMethod:methodCopy];
   inlineCandidate = [(TIKeyboardInputManager_zh_Toneless *)self inlineCandidate];
   if ([methodCopy integerValue] == 1 && inlineCandidate)
   {
-    v20 = v7;
-    v21 = methodCopy;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    v19 = v7;
+    v20 = methodCopy;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = v7;
-    v9 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v9 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v26;
+      v11 = *v25;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v25 + 1) + 8 * i);
+          v13 = *(*(&v24 + 1) + 8 * i);
           candidates = [v13 candidates];
           v15 = MEMORY[0x29EDBA0A8];
-          v23[0] = MEMORY[0x29EDCA5F8];
-          v23[1] = 3221225472;
-          v23[2] = __89__TIKeyboardInputManager_zh_Toneless_groupedCandidatesFromCandidates_usingSortingMethod___block_invoke;
-          v23[3] = &unk_29F37D3F0;
-          v24 = inlineCandidate;
-          v16 = [v15 predicateWithBlock:v23];
+          v22[0] = MEMORY[0x29EDCA5F8];
+          v22[1] = 3221225472;
+          v22[2] = __89__TIKeyboardInputManager_zh_Toneless_groupedCandidatesFromCandidates_usingSortingMethod___block_invoke;
+          v22[3] = &unk_29F37D3F0;
+          v23 = inlineCandidate;
+          v16 = [v15 predicateWithBlock:v22];
           v17 = [candidates filteredOrderedSetUsingPredicate:v16];
           [v13 setCandidates:v17];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v10 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v10);
     }
 
-    v7 = v20;
-    methodCopy = v21;
+    v7 = v19;
+    methodCopy = v20;
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return v7;
 }

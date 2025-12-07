@@ -15,7 +15,7 @@
     v5 = v9;
     if (v5)
     {
-      v6 = +[REMLog cloudkit];
+      v6 = objc_msgSend_cloudkit(REMLog);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         sub_1007665BC(v5, v6);

@@ -94,11 +94,10 @@
 
 - (void)_registerForKeyBagNotifications
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_error_impl(&dword_22639A000, a2, OS_LOG_TYPE_ERROR, "Failed to determine lock state, %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22639A000, a2, OS_LOG_TYPE_ERROR, "Failed to determine lock state, %ld", &v2, 0xCu);
 }
 
 - (void)dealloc
@@ -133,25 +132,23 @@
   }
 
   [(PMMDataProtectionMonitor *)self setEncryptedDataAvailability:v6];
-  [(PMMDataProtectionMonitor *)self setDataProtectionStatus:MKBGetDeviceLockState() != 3];
-  v7 = __atxlog_handle_default();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v7 = [(PMMDataProtectionMonitor *)self setDataProtectionStatus:MKBGetDeviceLockState() != 3];
+  v8 = __atxlog_handle_default(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = [PMMDataProtectionMonitor PMMDataProtectionMonitorLockStateToString:change];
-    v9 = [PMMDataProtectionMonitor PMMDataProtectionMonitorEncryptedDataAvailabilityToString:[(PMMDataProtectionMonitor *)self encryptedDataAvailability]];
+    v9 = [PMMDataProtectionMonitor PMMDataProtectionMonitorLockStateToString:change];
+    v10 = [PMMDataProtectionMonitor PMMDataProtectionMonitorEncryptedDataAvailabilityToString:[(PMMDataProtectionMonitor *)self encryptedDataAvailability]];
     v11 = 138412546;
-    v12 = v8;
+    v12 = v9;
     v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_22639A000, v7, OS_LOG_TYPE_INFO, "received lock state change, %@, encrypted data availability, %@", &v11, 0x16u);
+    v14 = v10;
+    _os_log_impl(&dword_22639A000, v8, OS_LOG_TYPE_INFO, "received lock state change, %@, encrypted data availability, %@", &v11, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUnlockedSinceBoot
 {
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -187,17 +184,17 @@
 - (void)setEncryptedDataAvailability:(int64_t)availability
 {
   v11 = *MEMORY[0x277D85DE8];
-  pthread_rwlock_wrlock(&self->_rwlock);
+  v5 = pthread_rwlock_wrlock(&self->_rwlock);
   if (self->_encryptedDataAvailability != availability)
   {
     self->_encryptedDataAvailability = availability;
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = [PMMDataProtectionMonitor PMMDataProtectionMonitorEncryptedDataAvailabilityToString:self->_encryptedDataAvailability];
+      v7 = [PMMDataProtectionMonitor PMMDataProtectionMonitorEncryptedDataAvailabilityToString:self->_encryptedDataAvailability];
       v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_INFO, "encrypted data availability changed to, %@", &v9, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_22639A000, v6, OS_LOG_TYPE_INFO, "encrypted data availability changed to, %@", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -208,7 +205,6 @@
   }
 
   pthread_rwlock_unlock(&self->_rwlock);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)unlockedSinceBoot
@@ -223,17 +219,17 @@
 {
   bootCopy = boot;
   v10 = *MEMORY[0x277D85DE8];
-  pthread_rwlock_wrlock(&self->_rwlock);
+  v5 = pthread_rwlock_wrlock(&self->_rwlock);
   if (self->_unlockedSinceBoot != bootCopy)
   {
     self->_unlockedSinceBoot = bootCopy;
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       unlockedSinceBoot = self->_unlockedSinceBoot;
       v9[0] = 67109120;
       v9[1] = unlockedSinceBoot;
-      _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_INFO, "unlocked since boot changed to, %{BOOL}d", v9, 8u);
+      _os_log_impl(&dword_22639A000, v6, OS_LOG_TYPE_INFO, "unlocked since boot changed to, %{BOOL}d", v9, 8u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -244,7 +240,6 @@
   }
 
   pthread_rwlock_unlock(&self->_rwlock);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)dataProtectionEnabled
@@ -259,17 +254,17 @@
 {
   statusCopy = status;
   v11 = *MEMORY[0x277D85DE8];
-  pthread_rwlock_wrlock(&self->_rwlock);
+  v5 = pthread_rwlock_wrlock(&self->_rwlock);
   if (self->_dataProtectionStatus != statusCopy)
   {
     self->_dataProtectionStatus = statusCopy;
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = [PMMDataProtectionMonitor PMMDataProtectionMonitorDataProtectionStatus:self->_dataProtectionStatus];
+      v7 = [PMMDataProtectionMonitor PMMDataProtectionMonitorDataProtectionStatus:self->_dataProtectionStatus];
       v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_INFO, "data protection enabled, %@", &v9, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_22639A000, v6, OS_LOG_TYPE_INFO, "data protection enabled, %@", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -280,7 +275,6 @@
   }
 
   pthread_rwlock_unlock(&self->_rwlock);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

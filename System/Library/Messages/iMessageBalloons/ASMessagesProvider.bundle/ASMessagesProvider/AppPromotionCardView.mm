@@ -35,19 +35,21 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v4 = type metadata accessor for AppPromotionCardLayout(0);
-  __chkstk_darwin(v4 - 8);
-  v6 = (&v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  height = fits.height;
+  width = fits.width;
+  v6 = type metadata accessor for AppPromotionCardLayout(0);
+  __chkstk_darwin(v6 - 8);
+  v8 = (&v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   selfCopy = self;
-  sub_214AA8(v6);
-  v8 = sub_634F2C(selfCopy, v6);
-  v10 = v9;
+  sub_214AA8(v8);
+  v10 = sub_634F2C(selfCopy, v8, width, height);
+  v12 = v11;
 
-  sub_216E5C(v6);
-  v11 = v8;
-  v12 = v10;
-  result.height = v12;
-  result.width = v11;
+  sub_216E5C(v8);
+  v13 = v10;
+  v14 = v12;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 
@@ -56,11 +58,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider20AppPromotionCardView_lockupViewTappedAction);
   if (v3)
   {
+    v4 = *&self->shadowView[OBJC_IVAR____TtC18ASMessagesProvider20AppPromotionCardView_lockupViewTappedAction];
     selfCopy = self;
-    v5 = sub_F714(v3);
-    v3(v5);
+    v6 = sub_F714(v3, v4);
+    v3(v6);
 
-    sub_F704(v3);
+    sub_F704(v3, v4);
   }
 }
 

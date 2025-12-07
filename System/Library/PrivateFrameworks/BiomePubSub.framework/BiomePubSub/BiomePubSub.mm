@@ -1,6 +1,6 @@
 uint64_t BPSPipelineSupportsPullBasedPublishers(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v1 = a1;
   os_unfair_lock_lock(&overrideLock);
   v2 = override;
@@ -20,27 +20,27 @@ uint64_t BPSPipelineSupportsPullBasedPublishers(void *a1)
     v3 = 0;
     if (v4 & 1) != 0 && (v5 & 1) != 0 && (v6 & 1) != 0 && (v7 & 1) != 0 && (v8)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v9 = [v1 upstreamPublishers];
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v17;
+        v12 = *v16;
         while (2)
         {
           v13 = 0;
           do
           {
-            if (*v17 != v12)
+            if (*v16 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            if (!BPSPipelineSupportsPullBasedPublishers(*(*(&v16 + 1) + 8 * v13)))
+            if (!BPSPipelineSupportsPullBasedPublishers(*(*(&v15 + 1) + 8 * v13)))
             {
               v3 = 0;
               goto LABEL_18;
@@ -50,7 +50,7 @@ uint64_t BPSPipelineSupportsPullBasedPublishers(void *a1)
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v11)
           {
             continue;
@@ -65,27 +65,24 @@ LABEL_18:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
-void sub_1C871E724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C871E724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1C871EAD4()
 {
-  v1 = *(v0 + 40);
 
   return MEMORY[0x1EEE6BDD0](v0, 48, 7);
 }
 
 uint64_t sub_1C871EB0C()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
@@ -106,28 +103,24 @@ id protocol witness for PublisherProtocol.inner.getter in conformance Publisher<
 
 uint64_t sub_1C871EC20()
 {
-  v1 = *(v0 + 48);
 
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
 
 uint64_t sub_1C871EC58()
 {
-  v1 = *(v0 + 64);
 
   return MEMORY[0x1EEE6BDD0](v0, 72, 7);
 }
 
 uint64_t sub_1C871EC90()
 {
-  v1 = *(v0 + 56);
 
   return MEMORY[0x1EEE6BDD0](v0, 64, 7);
 }
 
 uint64_t sub_1C871ECC8()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
@@ -552,25 +545,25 @@ LABEL_104:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1C87303F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C87303F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8730A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8730A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C87314E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C87314E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -595,15 +588,16 @@ void sub_1C8733A90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_1C8737FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8737FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -615,9 +609,9 @@ void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_fault_impl(a1, log, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-void sub_1C873A720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1C873A720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -642,37 +636,37 @@ void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, ui
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 2u);
 }
 
-void sub_1C873E154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C873E154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getBMDSLSubscribeOnClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!BiomeDSLLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __BiomeDSLLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E8320FD0;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __BiomeDSLLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E8320FD0;
+    v5 = 0;
     BiomeDSLLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!BiomeDSLLibraryCore_frameworkLibrary)
   {
-    __getBMDSLSubscribeOnClass_block_invoke_cold_2(v4);
+    __getBMDSLSubscribeOnClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("BMDSLSubscribeOn");
@@ -683,57 +677,54 @@ Class __getBMDSLSubscribeOnClass_block_invoke(uint64_t a1)
   }
 
   getBMDSLSubscribeOnClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeDSLLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeDSLLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_1C873ED0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C873ED0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getBMDSLSubscribeOnClass_block_invoke_0(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!BiomeDSLLibraryCore_frameworkLibrary_0)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __BiomeDSLLibraryCore_block_invoke_0;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E8321008;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __BiomeDSLLibraryCore_block_invoke_0;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E8321008;
+    v5 = 0;
     BiomeDSLLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   if (!BiomeDSLLibraryCore_frameworkLibrary_0)
   {
-    __getBMDSLSubscribeOnClass_block_invoke_cold_2_0(v4);
+    __getBMDSLSubscribeOnClass_block_invoke_cold_2_0(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("BMDSLSubscribeOn");
@@ -744,21 +735,17 @@ Class __getBMDSLSubscribeOnClass_block_invoke_0(uint64_t a1)
   }
 
   getBMDSLSubscribeOnClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeDSLLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeDSLLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t BPSDemandMax(uint64_t result)
+uint64_t BPSDemandMax(uint64_t result, uint64_t a2)
 {
   if (result < 0)
   {
@@ -768,25 +755,25 @@ uint64_t BPSDemandMax(uint64_t result)
   return result;
 }
 
-void sub_1C8748844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8748844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8748EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C8748EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C87499C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C87499C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -804,11 +791,11 @@ void sub_1C874CD28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C8751688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C8751688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -819,9 +806,9 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C8751814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C8751814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -852,12 +839,11 @@ id Subscribers.Sink.__allocating_init(receiveBookmarkCompletion:receiveInput:)(u
 
 void thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ()(uint64_t a1, void *a2, uint64_t a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v7 = a2;
+  v6 = a2;
   swift_unknownObjectRetain();
-  v6(v7, a3);
+  v5(v6, a3);
 
   swift_unknownObjectRelease();
 }
@@ -869,10 +855,9 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ()(uint64_t a1)
+uint64_t thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ()(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   v2(v3);
@@ -884,30 +869,30 @@ id Subscribers.Sink.init(receiveBookmarkCompletion:receiveInput:)(uint64_t a1, u
 {
   v7 = *v4;
   v8 = *MEMORY[0x1E69E7D40];
-  v19 = a1;
-  v20 = a2;
+  v21 = a1;
+  v22 = a2;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
-  v18 = &block_descriptor_6;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
+  v20 = &block_descriptor_6;
   v9 = _Block_copy(&aBlock);
 
-  v19 = a3;
-  v20 = a4;
+  v21 = a3;
+  v22 = a4;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
-  v18 = &block_descriptor_9;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
+  v20 = &block_descriptor_9;
   v10 = _Block_copy(&aBlock);
 
-  v11 = *((v8 & v7) + 0x50);
-  v14.receiver = v4;
-  v14.super_class = type metadata accessor for Subscribers.Sink();
-  v12 = objc_msgSendSuper2(&v14, sel_initWithReceiveBookmarkCompletion_receiveInput_, v9, v10);
+  v13 = type metadata accessor for Subscribers.Sink(0, *((v8 & v7) + 0x50), v11, v12);
+  v16.receiver = v4;
+  v16.super_class = v13;
+  v14 = objc_msgSendSuper2(&v16, sel_initWithReceiveBookmarkCompletion_receiveInput_, v9, v10);
 
   _Block_release(v10);
   _Block_release(v9);
-  return v12;
+  return v14;
 }
 
 id @objc Subscribers.Sink.init(receiveBookmarkCompletion:receiveInput:)(int a1, int a2, void *aBlock, const void *a4)
@@ -947,41 +932,40 @@ id Subscribers.Sink.__allocating_init(receiveCompletion:receiveInput:)(uint64_t 
 
 void thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 id Subscribers.Sink.init(receiveCompletion:receiveInput:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = *v4;
   v8 = *MEMORY[0x1E69E7D40];
-  v19 = a1;
-  v20 = a2;
+  v21 = a1;
+  v22 = a2;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
-  v18 = &block_descriptor_18;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
+  v20 = &block_descriptor_18;
   v9 = _Block_copy(&aBlock);
 
-  v19 = a3;
-  v20 = a4;
+  v21 = a3;
+  v22 = a4;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
-  v18 = &block_descriptor_21;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
+  v20 = &block_descriptor_21;
   v10 = _Block_copy(&aBlock);
 
-  v11 = *((v8 & v7) + 0x50);
-  v14.receiver = v4;
-  v14.super_class = type metadata accessor for Subscribers.Sink();
-  v12 = objc_msgSendSuper2(&v14, sel_initWithReceiveCompletion_receiveInput_, v9, v10);
+  v13 = type metadata accessor for Subscribers.Sink(0, *((v8 & v7) + 0x50), v11, v12);
+  v16.receiver = v4;
+  v16.super_class = v13;
+  v14 = objc_msgSendSuper2(&v16, sel_initWithReceiveCompletion_receiveInput_, v9, v10);
 
   _Block_release(v10);
   _Block_release(v9);
-  return v12;
+  return v14;
 }
 
 id @objc Subscribers.Sink.init(receiveCompletion:receiveInput:)(int a1, int a2, void *aBlock, const void *a4)
@@ -1023,30 +1007,30 @@ id Subscribers.Sink.init(receiveBookmarkedCompletion:receiveInput:)(uint64_t a1,
 {
   v7 = *v4;
   v8 = *MEMORY[0x1E69E7D40];
-  v19 = a1;
-  v20 = a2;
+  v21 = a1;
+  v22 = a2;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
-  v18 = &block_descriptor_30;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
+  v20 = &block_descriptor_30;
   v9 = _Block_copy(&aBlock);
 
-  v19 = a3;
-  v20 = a4;
+  v21 = a3;
+  v22 = a4;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
-  v18 = &block_descriptor_33;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
+  v20 = &block_descriptor_33;
   v10 = _Block_copy(&aBlock);
 
-  v11 = *((v8 & v7) + 0x50);
-  v14.receiver = v4;
-  v14.super_class = type metadata accessor for Subscribers.Sink();
-  v12 = objc_msgSendSuper2(&v14, sel_initWithReceiveBookmarkedCompletion_receiveInput_, v9, v10);
+  v13 = type metadata accessor for Subscribers.Sink(0, *((v8 & v7) + 0x50), v11, v12);
+  v16.receiver = v4;
+  v16.super_class = v13;
+  v14 = objc_msgSendSuper2(&v16, sel_initWithReceiveBookmarkedCompletion_receiveInput_, v9, v10);
 
   _Block_release(v10);
   _Block_release(v9);
-  return v12;
+  return v14;
 }
 
 id @objc Subscribers.Sink.init(receiveBookmarkedCompletion:receiveInput:)(int a1, int a2, void *aBlock, const void *a4)
@@ -1088,36 +1072,35 @@ id Subscribers.DrivableSink.init(receiveBookmarkCompletion:shouldContinue:)(uint
 {
   v7 = *v4;
   v8 = *MEMORY[0x1E69E7D40];
-  v19 = a1;
-  v20 = a2;
+  v21 = a1;
+  v22 = a2;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
-  v18 = &block_descriptor_42;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
+  v20 = &block_descriptor_42;
   v9 = _Block_copy(&aBlock);
 
-  v19 = a3;
-  v20 = a4;
+  v21 = a3;
+  v22 = a4;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
-  v18 = &block_descriptor_45;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
+  v20 = &block_descriptor_45;
   v10 = _Block_copy(&aBlock);
 
-  v11 = *((v8 & v7) + 0x50);
-  v14.receiver = v4;
-  v14.super_class = type metadata accessor for Subscribers.DrivableSink();
-  v12 = objc_msgSendSuper2(&v14, sel_initWithReceiveBookmarkCompletion_shouldContinue_, v9, v10);
+  v13 = type metadata accessor for Subscribers.DrivableSink(0, *((v8 & v7) + 0x50), v11, v12);
+  v16.receiver = v4;
+  v16.super_class = v13;
+  v14 = objc_msgSendSuper2(&v16, sel_initWithReceiveBookmarkCompletion_shouldContinue_, v9, v10);
 
   _Block_release(v10);
   _Block_release(v9);
-  return v12;
+  return v14;
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool)(uint64_t a1)
+uint64_t thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool)(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   LOBYTE(v2) = v2(v3);
@@ -1165,30 +1148,30 @@ id Subscribers.DrivableSink.init(receiveCompletion:shouldContinue:)(uint64_t a1,
 {
   v7 = *v4;
   v8 = *MEMORY[0x1E69E7D40];
-  v19 = a1;
-  v20 = a2;
+  v21 = a1;
+  v22 = a2;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
-  v18 = &block_descriptor_54;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
+  v20 = &block_descriptor_54;
   v9 = _Block_copy(&aBlock);
 
-  v19 = a3;
-  v20 = a4;
+  v21 = a3;
+  v22 = a4;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
-  v18 = &block_descriptor_57;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
+  v20 = &block_descriptor_57;
   v10 = _Block_copy(&aBlock);
 
-  v11 = *((v8 & v7) + 0x50);
-  v14.receiver = v4;
-  v14.super_class = type metadata accessor for Subscribers.DrivableSink();
-  v12 = objc_msgSendSuper2(&v14, sel_initWithReceiveCompletion_shouldContinue_, v9, v10);
+  v13 = type metadata accessor for Subscribers.DrivableSink(0, *((v8 & v7) + 0x50), v11, v12);
+  v16.receiver = v4;
+  v16.super_class = v13;
+  v14 = objc_msgSendSuper2(&v16, sel_initWithReceiveCompletion_shouldContinue_, v9, v10);
 
   _Block_release(v10);
   _Block_release(v9);
-  return v12;
+  return v14;
 }
 
 id @objc Subscribers.DrivableSink.init(receiveCompletion:shouldContinue:)(int a1, int a2, void *aBlock, const void *a4)
@@ -1230,30 +1213,30 @@ id Subscribers.DrivableSink.init(receiveBookmarkedCompletion:shouldContinue:)(ui
 {
   v7 = *v4;
   v8 = *MEMORY[0x1E69E7D40];
-  v19 = a1;
-  v20 = a2;
+  v21 = a1;
+  v22 = a2;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
-  v18 = &block_descriptor_66;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
+  v20 = &block_descriptor_66;
   v9 = _Block_copy(&aBlock);
 
-  v19 = a3;
-  v20 = a4;
+  v21 = a3;
+  v22 = a4;
   aBlock = MEMORY[0x1E69E9820];
-  v16 = 1107296256;
-  v17 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
-  v18 = &block_descriptor_69;
+  v18 = 1107296256;
+  v19 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
+  v20 = &block_descriptor_69;
   v10 = _Block_copy(&aBlock);
 
-  v11 = *((v8 & v7) + 0x50);
-  v14.receiver = v4;
-  v14.super_class = type metadata accessor for Subscribers.DrivableSink();
-  v12 = objc_msgSendSuper2(&v14, sel_initWithReceiveBookmarkedCompletion_shouldContinue_, v9, v10);
+  v13 = type metadata accessor for Subscribers.DrivableSink(0, *((v8 & v7) + 0x50), v11, v12);
+  v16.receiver = v4;
+  v16.super_class = v13;
+  v14 = objc_msgSendSuper2(&v16, sel_initWithReceiveBookmarkedCompletion_shouldContinue_, v9, v10);
 
   _Block_release(v10);
   _Block_release(v9);
-  return v12;
+  return v14;
 }
 
 id @objc Subscribers.DrivableSink.init(receiveBookmarkedCompletion:shouldContinue:)(int a1, int a2, void *aBlock, const void *a4)
@@ -1277,8 +1260,8 @@ id Subscribers.Sink.__deallocating_deinit(uint64_t (*a1)(void, void))
 
 id PublisherProtocol.sink(completion:receiveInput:)(uint64_t (*a1)(), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v27 = *(a6 + 24);
-  v12 = v27(a5, a6);
+  v31 = *(a6 + 24);
+  v12 = v31(a5, a6);
   v13 = BPSPipelineSupportsPullBasedPublishers(v12);
   swift_unknownObjectRelease();
   if (v13)
@@ -1291,78 +1274,69 @@ id PublisherProtocol.sink(completion:receiveInput:)(uint64_t (*a1)(), uint64_t a
     v15[3] = a6;
     v15[4] = a3;
     v15[5] = a4;
-    v16 = *(a6 + 8);
-    swift_getAssociatedTypeWitness();
-    v17 = objc_allocWithZone(type metadata accessor for Subscribers.Sink());
-    v38 = partial apply for closure #1 in PublisherProtocol.sink(completion:receiveInput:);
-    v39 = v14;
+    AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+    v19 = objc_allocWithZone(type metadata accessor for Subscribers.Sink(0, AssociatedTypeWitness, v17, v18));
+    v42 = partial apply for closure #1 in PublisherProtocol.sink(completion:receiveInput:);
+    v43 = v14;
     aBlock = MEMORY[0x1E69E9820];
-    v35 = 1107296256;
-    v36 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
-    v37 = &block_descriptor_84;
-    v18 = _Block_copy(&aBlock);
-    v32 = partial apply for closure #2 in PublisherProtocol.sink(completion:receiveInput:);
-    v33 = v15;
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 1107296256;
-    v30 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
-    v31 = &block_descriptor_87;
-    v19 = _Block_copy(&v28);
+    v39 = 1107296256;
+    v40 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
+    v41 = &block_descriptor_84;
+    v20 = _Block_copy(&aBlock);
+    v36 = partial apply for closure #2 in PublisherProtocol.sink(completion:receiveInput:);
+    v37 = v15;
+    v32 = MEMORY[0x1E69E9820];
+    v33 = 1107296256;
+    v34 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
+    v35 = &block_descriptor_87;
+    v21 = _Block_copy(&v32);
 
-    v20 = [v17 initWithReceiveBookmarkCompletion:v18 receiveInput:v19];
-    _Block_release(v18);
-    _Block_release(v19);
+    v22 = [v19 initWithReceiveBookmarkCompletion:v20 receiveInput:v21];
+    _Block_release(v20);
+    _Block_release(v21);
 
-    [v20 subscribeTo_];
+    [v22 subscribeTo_];
   }
 
   else
   {
-    v21 = swift_allocObject();
-    v21[2] = a5;
-    v21[3] = a6;
-    v21[4] = a3;
-    v21[5] = a4;
-    v22 = *(a6 + 8);
-    swift_getAssociatedTypeWitness();
-    v23 = objc_allocWithZone(type metadata accessor for Subscribers.Sink());
-    v38 = a1;
-    v39 = a2;
+    v23 = swift_allocObject();
+    v23[2] = a5;
+    v23[3] = a6;
+    v23[4] = a3;
+    v23[5] = a4;
+    v24 = swift_getAssociatedTypeWitness();
+    v27 = objc_allocWithZone(type metadata accessor for Subscribers.Sink(0, v24, v25, v26));
+    v42 = a1;
+    v43 = a2;
     aBlock = MEMORY[0x1E69E9820];
-    v35 = 1107296256;
-    v36 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
-    v37 = &block_descriptor_72;
-    v24 = _Block_copy(&aBlock);
-    v32 = partial apply for closure #3 in PublisherProtocol.sink(completion:receiveInput:);
-    v33 = v21;
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 1107296256;
-    v30 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
-    v31 = &block_descriptor_75;
-    v25 = _Block_copy(&v28);
+    v39 = 1107296256;
+    v40 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
+    v41 = &block_descriptor_72;
+    v28 = _Block_copy(&aBlock);
+    v36 = partial apply for closure #3 in PublisherProtocol.sink(completion:receiveInput:);
+    v37 = v23;
+    v32 = MEMORY[0x1E69E9820];
+    v33 = 1107296256;
+    v34 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
+    v35 = &block_descriptor_75;
+    v29 = _Block_copy(&v32);
 
-    v20 = [v23 initWithReceiveCompletion:v24 receiveInput:v25];
-    _Block_release(v24);
-    _Block_release(v25);
+    v22 = [v27 initWithReceiveCompletion:v28 receiveInput:v29];
+    _Block_release(v28);
+    _Block_release(v29);
 
-    [v27(a5 a6)];
+    [v31(a5 a6)];
   }
 
   swift_unknownObjectRelease();
-  return v20;
-}
-
-uint64_t partial apply for closure #1 in PublisherProtocol.sink(completion:receiveInput:)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
+  return v22;
 }
 
 id PublisherProtocol.sink(completion:shouldContinue:)(uint64_t (*a1)(), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v27 = *(a6 + 24);
-  v12 = v27(a5, a6);
+  v31 = *(a6 + 24);
+  v12 = v31(a5, a6);
   v13 = BPSPipelineSupportsPullBasedPublishers(v12);
   swift_unknownObjectRelease();
   if (v13)
@@ -1375,71 +1349,69 @@ id PublisherProtocol.sink(completion:shouldContinue:)(uint64_t (*a1)(), uint64_t
     v15[3] = a6;
     v15[4] = a3;
     v15[5] = a4;
-    v16 = *(a6 + 8);
-    swift_getAssociatedTypeWitness();
-    v17 = objc_allocWithZone(type metadata accessor for Subscribers.DrivableSink());
-    v38 = partial apply for closure #1 in PublisherProtocol.sink(completion:receiveInput:);
-    v39 = v14;
+    AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+    v19 = objc_allocWithZone(type metadata accessor for Subscribers.DrivableSink(0, AssociatedTypeWitness, v17, v18));
+    v42 = partial apply for closure #1 in PublisherProtocol.sink(completion:receiveInput:);
+    v43 = v14;
     aBlock = MEMORY[0x1E69E9820];
-    v35 = 1107296256;
-    v36 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
-    v37 = &block_descriptor_105;
-    v18 = _Block_copy(&aBlock);
-    v32 = partial apply for closure #2 in PublisherProtocol.sink(completion:shouldContinue:);
-    v33 = v15;
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 1107296256;
-    v30 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
-    v31 = &block_descriptor_108;
-    v19 = _Block_copy(&v28);
+    v39 = 1107296256;
+    v40 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
+    v41 = &block_descriptor_105;
+    v20 = _Block_copy(&aBlock);
+    v36 = partial apply for closure #2 in PublisherProtocol.sink(completion:shouldContinue:);
+    v37 = v15;
+    v32 = MEMORY[0x1E69E9820];
+    v33 = 1107296256;
+    v34 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
+    v35 = &block_descriptor_108;
+    v21 = _Block_copy(&v32);
 
-    v20 = [v17 initWithReceiveCompletion:v18 shouldContinue:v19];
-    _Block_release(v18);
-    _Block_release(v19);
+    v22 = [v19 initWithReceiveCompletion:v20 shouldContinue:v21];
+    _Block_release(v20);
+    _Block_release(v21);
 
-    [v20 subscribeTo_];
+    [v22 subscribeTo_];
   }
 
   else
   {
-    v21 = swift_allocObject();
-    v21[2] = a5;
-    v21[3] = a6;
-    v21[4] = a3;
-    v21[5] = a4;
-    v22 = *(a6 + 8);
-    swift_getAssociatedTypeWitness();
-    v23 = objc_allocWithZone(type metadata accessor for Subscribers.DrivableSink());
-    v38 = a1;
-    v39 = a2;
+    v23 = swift_allocObject();
+    v23[2] = a5;
+    v23[3] = a6;
+    v23[4] = a3;
+    v23[5] = a4;
+    v24 = swift_getAssociatedTypeWitness();
+    v27 = objc_allocWithZone(type metadata accessor for Subscribers.DrivableSink(0, v24, v25, v26));
+    v42 = a1;
+    v43 = a2;
     aBlock = MEMORY[0x1E69E9820];
-    v35 = 1107296256;
-    v36 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
-    v37 = &block_descriptor_93;
-    v24 = _Block_copy(&aBlock);
-    v32 = partial apply for closure #3 in PublisherProtocol.sink(completion:shouldContinue:);
-    v33 = v21;
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 1107296256;
-    v30 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
-    v31 = &block_descriptor_96;
-    v25 = _Block_copy(&v28);
+    v39 = 1107296256;
+    v40 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion) -> ();
+    v41 = &block_descriptor_93;
+    v28 = _Block_copy(&aBlock);
+    v36 = partial apply for closure #3 in PublisherProtocol.sink(completion:shouldContinue:);
+    v37 = v23;
+    v32 = MEMORY[0x1E69E9820];
+    v33 = 1107296256;
+    v34 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
+    v35 = &block_descriptor_96;
+    v29 = _Block_copy(&v32);
 
-    v20 = [v23 initWithReceiveCompletion:v24 shouldContinue:v25];
-    _Block_release(v24);
-    _Block_release(v25);
+    v22 = [v27 initWithReceiveCompletion:v28 shouldContinue:v29];
+    _Block_release(v28);
+    _Block_release(v29);
 
-    [v27(a5 a6)];
+    [v31(a5 a6)];
   }
 
   swift_unknownObjectRelease();
-  return v20;
+  return v22;
 }
 
 id PublisherProtocol<>.sink(with:completion:receiveInput:)(uint64_t a1, uint64_t (*a2)(uint64_t a1, void *a2), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v32 = *(a7 + 24);
-  v13 = v32(a6, a7);
+  v36 = *(a7 + 24);
+  v13 = v36(a6, a7);
   v14 = BPSPipelineSupportsPullBasedPublishers(v13);
   swift_unknownObjectRelease();
   if (v14)
@@ -1452,90 +1424,87 @@ id PublisherProtocol<>.sink(with:completion:receiveInput:)(uint64_t a1, uint64_t
     v16[3] = a7;
     v16[4] = a4;
     v16[5] = a5;
-    v17 = *(a7 + 8);
-    swift_getAssociatedTypeWitness();
-    v18 = objc_allocWithZone(type metadata accessor for Subscribers.Sink());
-    v44 = partial apply for closure #1 in PublisherProtocol<>.sink(with:completion:receiveInput:);
-    v45 = v15;
+    AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+    v20 = objc_allocWithZone(type metadata accessor for Subscribers.Sink(0, AssociatedTypeWitness, v18, v19));
+    v48 = partial apply for closure #1 in PublisherProtocol<>.sink(with:completion:receiveInput:);
+    v49 = v15;
     aBlock = MEMORY[0x1E69E9820];
-    v41 = 1107296256;
-    v42 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
-    v43 = &block_descriptor_126;
-    v19 = _Block_copy(&aBlock);
-    v38 = partial apply for closure #3 in PublisherProtocol.sink(completion:receiveInput:);
-    v39 = v16;
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 1107296256;
-    v36 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
-    v37 = &block_descriptor_129;
-    v20 = _Block_copy(&v34);
+    v45 = 1107296256;
+    v46 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
+    v47 = &block_descriptor_126;
+    v21 = _Block_copy(&aBlock);
+    v42 = partial apply for closure #3 in PublisherProtocol.sink(completion:receiveInput:);
+    v43 = v16;
+    v38 = MEMORY[0x1E69E9820];
+    v39 = 1107296256;
+    v40 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
+    v41 = &block_descriptor_129;
+    v22 = _Block_copy(&v38);
 
-    v21 = [v18 initWithReceiveBookmarkCompletion:v19 receiveInput:v20];
-    _Block_release(v19);
-    _Block_release(v20);
+    v23 = [v20 initWithReceiveBookmarkCompletion:v21 receiveInput:v22];
+    _Block_release(v21);
+    _Block_release(v22);
 
-    v32(a6, a7);
+    v36(a6, a7);
     objc_opt_self();
-    v22 = swift_dynamicCastObjCClass();
-    if (v22)
+    v24 = swift_dynamicCastObjCClass();
+    if (v24)
     {
       if (a1)
       {
-        v23 = v22;
+        v25 = v24;
         objc_opt_self();
-        v24 = swift_dynamicCastObjCClass();
-        if (v24)
+        v26 = swift_dynamicCastObjCClass();
+        if (v26)
         {
-          [v23 applyBookmarkNode_];
+          [v25 applyBookmarkNode_];
         }
       }
     }
 
     swift_unknownObjectRelease();
-    [v21 subscribeTo_];
+    [v23 subscribeTo_];
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v25 = swift_allocObject();
-    v25[2] = a6;
-    v25[3] = a7;
-    v25[4] = a4;
-    v25[5] = a5;
-    v26 = *(a7 + 8);
-    swift_getAssociatedTypeWitness();
-    v27 = objc_allocWithZone(type metadata accessor for Subscribers.Sink());
-    v44 = a2;
-    v45 = a3;
+    v27 = swift_allocObject();
+    v27[2] = a6;
+    v27[3] = a7;
+    v27[4] = a4;
+    v27[5] = a5;
+    v28 = swift_getAssociatedTypeWitness();
+    v31 = objc_allocWithZone(type metadata accessor for Subscribers.Sink(0, v28, v29, v30));
+    v48 = a2;
+    v49 = a3;
     aBlock = MEMORY[0x1E69E9820];
-    v41 = 1107296256;
-    v42 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
-    v43 = &block_descriptor_114;
-    v28 = _Block_copy(&aBlock);
-    v38 = partial apply for closure #3 in PublisherProtocol.sink(completion:receiveInput:);
-    v39 = v25;
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 1107296256;
-    v36 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
-    v37 = &block_descriptor_117;
-    v29 = _Block_copy(&v34);
+    v45 = 1107296256;
+    v46 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
+    v47 = &block_descriptor_114;
+    v32 = _Block_copy(&aBlock);
+    v42 = partial apply for closure #3 in PublisherProtocol.sink(completion:receiveInput:);
+    v43 = v27;
+    v38 = MEMORY[0x1E69E9820];
+    v39 = 1107296256;
+    v40 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> ();
+    v41 = &block_descriptor_117;
+    v33 = _Block_copy(&v38);
 
-    v21 = [v27 initWithReceiveBookmarkedCompletion:v28 receiveInput:v29];
-    _Block_release(v28);
-    _Block_release(v29);
+    v23 = [v31 initWithReceiveBookmarkedCompletion:v32 receiveInput:v33];
+    _Block_release(v32);
+    _Block_release(v33);
 
-    v30 = [v32(a6 a7)];
+    v34 = [v36(a6 a7)];
     swift_unknownObjectRelease();
-    [v30 subscribe_];
+    [v34 subscribe_];
   }
 
-  return v21;
+  return v23;
 }
 
 uint64_t closure #2 in PublisherProtocol.sink(completion:receiveInput:)(uint64_t a1, void (*a2)(), uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a5 + 8);
   swift_getAssociatedTypeWitness();
   swift_unknownObjectRetain();
   swift_dynamicCast();
@@ -1543,10 +1512,10 @@ uint64_t closure #2 in PublisherProtocol.sink(completion:receiveInput:)(uint64_t
   return swift_unknownObjectRelease();
 }
 
-id PublisherProtocol<>.sink(with:completion:shouldContinue:)(uint64_t a1, uint64_t (*a2)(), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+id PublisherProtocol<>.sink(with:completion:shouldContinue:)(uint64_t a1, uint64_t (*a2)(uint64_t a1, uint64_t a2), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v32 = *(a7 + 24);
-  v13 = v32(a6, a7);
+  v36 = *(a7 + 24);
+  v13 = v36(a6, a7);
   v14 = BPSPipelineSupportsPullBasedPublishers(v13);
   swift_unknownObjectRelease();
   if (v14)
@@ -1559,85 +1528,83 @@ id PublisherProtocol<>.sink(with:completion:shouldContinue:)(uint64_t a1, uint64
     v16[3] = a7;
     v16[4] = a4;
     v16[5] = a5;
-    v17 = *(a7 + 8);
-    swift_getAssociatedTypeWitness();
-    v18 = objc_allocWithZone(type metadata accessor for Subscribers.DrivableSink());
-    v44 = partial apply for closure #1 in PublisherProtocol<>.sink(with:completion:shouldContinue:);
-    v45 = v15;
+    AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+    v20 = objc_allocWithZone(type metadata accessor for Subscribers.DrivableSink(0, AssociatedTypeWitness, v18, v19));
+    v48 = partial apply for closure #1 in PublisherProtocol<>.sink(with:completion:shouldContinue:);
+    v49 = v15;
     aBlock = MEMORY[0x1E69E9820];
-    v41 = 1107296256;
-    v42 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
-    v43 = &block_descriptor_147;
-    v19 = _Block_copy(&aBlock);
-    v38 = partial apply for closure #3 in PublisherProtocol.sink(completion:shouldContinue:);
-    v39 = v16;
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 1107296256;
-    v36 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
-    v37 = &block_descriptor_150;
-    v20 = _Block_copy(&v34);
+    v45 = 1107296256;
+    v46 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
+    v47 = &block_descriptor_147;
+    v21 = _Block_copy(&aBlock);
+    v42 = partial apply for closure #3 in PublisherProtocol.sink(completion:shouldContinue:);
+    v43 = v16;
+    v38 = MEMORY[0x1E69E9820];
+    v39 = 1107296256;
+    v40 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
+    v41 = &block_descriptor_150;
+    v22 = _Block_copy(&v38);
 
-    v21 = [v18 initWithReceiveBookmarkCompletion:v19 shouldContinue:v20];
-    _Block_release(v19);
-    _Block_release(v20);
+    v23 = [v20 initWithReceiveBookmarkCompletion:v21 shouldContinue:v22];
+    _Block_release(v21);
+    _Block_release(v22);
 
-    v32(a6, a7);
+    v36(a6, a7);
     objc_opt_self();
-    v22 = swift_dynamicCastObjCClass();
-    if (v22)
+    v24 = swift_dynamicCastObjCClass();
+    if (v24)
     {
       if (a1)
       {
-        v23 = v22;
+        v25 = v24;
         objc_opt_self();
-        v24 = swift_dynamicCastObjCClass();
-        if (v24)
+        v26 = swift_dynamicCastObjCClass();
+        if (v26)
         {
-          [v23 applyBookmarkNode_];
+          [v25 applyBookmarkNode_];
         }
       }
     }
 
     swift_unknownObjectRelease();
-    [v21 subscribeTo_];
+    [v23 subscribeTo_];
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v25 = swift_allocObject();
-    v25[2] = a6;
-    v25[3] = a7;
-    v25[4] = a4;
-    v25[5] = a5;
-    v26 = *(a7 + 8);
-    swift_getAssociatedTypeWitness();
-    v27 = objc_allocWithZone(type metadata accessor for Subscribers.DrivableSink());
-    v44 = a2;
-    v45 = a3;
+    v27 = swift_allocObject();
+    v27[2] = a6;
+    v27[3] = a7;
+    v27[4] = a4;
+    v27[5] = a5;
+    v28 = swift_getAssociatedTypeWitness();
+    v31 = objc_allocWithZone(type metadata accessor for Subscribers.DrivableSink(0, v28, v29, v30));
+    v48 = a2;
+    v49 = a3;
     aBlock = MEMORY[0x1E69E9820];
-    v41 = 1107296256;
-    v42 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
-    v43 = &block_descriptor_135;
-    v28 = _Block_copy(&aBlock);
-    v38 = partial apply for closure #3 in PublisherProtocol.sink(completion:shouldContinue:);
-    v39 = v25;
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 1107296256;
-    v36 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
-    v37 = &block_descriptor_138;
-    v29 = _Block_copy(&v34);
+    v45 = 1107296256;
+    v46 = thunk for @escaping @callee_guaranteed (@guaranteed BPSCompletion, @guaranteed BMBookmark?) -> ();
+    v47 = &block_descriptor_135;
+    v32 = _Block_copy(&aBlock);
+    v42 = partial apply for closure #3 in PublisherProtocol.sink(completion:shouldContinue:);
+    v43 = v27;
+    v38 = MEMORY[0x1E69E9820];
+    v39 = 1107296256;
+    v40 = thunk for @escaping @callee_guaranteed (@guaranteed Swift.AnyObject) -> (@unowned Bool);
+    v41 = &block_descriptor_138;
+    v33 = _Block_copy(&v38);
 
-    v21 = [v27 initWithReceiveBookmarkedCompletion:v28 shouldContinue:v29];
-    _Block_release(v28);
-    _Block_release(v29);
+    v23 = [v31 initWithReceiveBookmarkedCompletion:v32 shouldContinue:v33];
+    _Block_release(v32);
+    _Block_release(v33);
 
-    v30 = [v32(a6 a7)];
+    v34 = [v36(a6 a7)];
     swift_unknownObjectRelease();
-    [v30 subscribe_];
+    [v34 subscribe_];
   }
 
-  return v21;
+  return v23;
 }
 
 uint64_t closure #1 in PublisherProtocol<>.sink(with:completion:receiveInput:)(uint64_t a1, void *a2, void (*a3)(uint64_t, id))
@@ -1663,7 +1630,6 @@ uint64_t closure #1 in PublisherProtocol<>.sink(with:completion:receiveInput:)(u
 
 uint64_t closure #2 in PublisherProtocol.sink(completion:shouldContinue:)(uint64_t a1, uint64_t (*a2)(), uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a5 + 8);
   swift_getAssociatedTypeWitness();
   swift_unknownObjectRetain();
   swift_dynamicCast();
@@ -1798,7 +1764,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1974,161 +1939,161 @@ uint64_t instantiation function for generic protocol witness table for Publisher
   return result;
 }
 
-uint64_t type metadata instantiation function for Publishers.Collect()
+uint64_t type metadata instantiation function for Publishers.Collect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Filter()
+uint64_t type metadata instantiation function for Publishers.Filter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.FlatMap()
+uint64_t type metadata instantiation function for Publishers.FlatMap(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Last()
+uint64_t type metadata instantiation function for Publishers.Last(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Map()
+uint64_t type metadata instantiation function for Publishers.Map(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Merge()
+uint64_t type metadata instantiation function for Publishers.Merge(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.MergeMany()
+uint64_t type metadata instantiation function for Publishers.MergeMany(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.OrderedMerge()
+uint64_t type metadata instantiation function for Publishers.OrderedMerge(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Reduce()
+uint64_t type metadata instantiation function for Publishers.Reduce(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Scan()
+uint64_t type metadata instantiation function for Publishers.Scan(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Sequence()
+uint64_t type metadata instantiation function for Publishers.Sequence(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Multicast()
+uint64_t type metadata instantiation function for Publishers.Multicast(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Correlate()
+uint64_t type metadata instantiation function for Publishers.Correlate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.CombineLatest()
+uint64_t type metadata instantiation function for Publishers.CombineLatest(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Debounce()
+uint64_t type metadata instantiation function for Publishers.Debounce(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Future()
+uint64_t type metadata instantiation function for Publishers.Future(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.HandleEvents()
+uint64_t type metadata instantiation function for Publishers.HandleEvents(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.RemoveDuplicates()
+uint64_t type metadata instantiation function for Publishers.RemoveDuplicates(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Throttle()
+uint64_t type metadata instantiation function for Publishers.Throttle(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Timer()
+uint64_t type metadata instantiation function for Publishers.Timer(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Zip()
+uint64_t type metadata instantiation function for Publishers.Zip(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.ZipMany()
+uint64_t type metadata instantiation function for Publishers.ZipMany(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Publishers.Buffer()
+uint64_t type metadata instantiation function for Publishers.Buffer(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -2205,7 +2170,7 @@ uint64_t instantiation function for generic protocol witness table for Publisher
   return result;
 }
 
-uint64_t type metadata instantiation function for Publisher()
+uint64_t type metadata instantiation function for Publisher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -2214,103 +2179,102 @@ uint64_t type metadata instantiation function for Publisher()
 
 void PublisherProtocol.merge<A>(with:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
 {
-  v34 = a2;
-  v41 = a5;
+  v33 = a2;
+  v40 = a5;
   v10 = *(a3 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00]();
-  v31 = v13;
-  v14 = &v30 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1CCA7C710](v12, v15);
-  if (!v16)
+  v11 = MEMORY[0x1EEE9AC00](a1);
+  v30 = v12;
+  v13 = &v29 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1CCA7C710](v11, v14);
+  if (!v15)
   {
 LABEL_17:
-    v26 = objc_allocWithZone(MEMORY[0x1E695DF70]);
+    v25 = objc_allocWithZone(MEMORY[0x1E695DF70]);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    v28 = [v26 initWithArray_];
+    v27 = [v25 initWithArray_];
 
-    [v28 addObject_];
+    [v27 addObject_];
     swift_unknownObjectRelease();
-    v29 = [objc_allocWithZone(BPSMergeMany) initWithPublishers_];
+    v28 = [objc_allocWithZone(BPSMergeMany) initWithPublishers_];
 
-    *a6 = v29;
+    *a6 = v28;
     return;
   }
 
-  v17 = v16;
-  v44 = MEMORY[0x1E69E7CC0];
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v16 & ~(v16 >> 63), 0);
-  if (v17 < 0)
+  v16 = v15;
+  v43 = MEMORY[0x1E69E7CC0];
+  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15 & ~(v15 >> 63), 0);
+  if (v16 < 0)
   {
     goto LABEL_20;
   }
 
-  v32 = a4;
-  v33 = a6;
-  v18 = 0;
-  v19 = v44;
-  v37 = *(v41 + 24);
-  v38 = v41 + 24;
-  v39 = v17;
-  v40 = a1 & 0xFFFFFFFFFFFFFF8;
-  v35 = a1 & 0xC000000000000001;
-  v36 = (v10 + 16);
+  v31 = a4;
+  v32 = a6;
+  v17 = 0;
+  v18 = v43;
+  v36 = *(v40 + 24);
+  v37 = v40 + 24;
+  v38 = v16;
+  v39 = a1 & 0xFFFFFFFFFFFFFF8;
+  v34 = a1 & 0xC000000000000001;
+  v35 = (v10 + 16);
   while (1)
   {
-    if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && v35)
+    if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && v34)
     {
-      v25 = _ArrayBuffer._getElementSlowPath(_:)();
-      if (v31 != 8)
+      v24 = _ArrayBuffer._getElementSlowPath(_:)();
+      if (v30 != 8)
       {
         goto LABEL_21;
       }
 
-      *&v42 = v25;
-      (*v36)(v14, &v42, a3);
+      *&v41 = v24;
+      (*v35)(v13, &v41, a3);
       swift_unknownObjectRelease();
       goto LABEL_11;
     }
 
     isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType();
-    if ((v18 & 0x8000000000000000) != 0)
+    if ((v17 & 0x8000000000000000) != 0)
     {
       break;
     }
 
-    v21 = v40;
+    v20 = v39;
     if ((isClassOrObjCExistentialType & 1) == 0)
     {
-      v21 = a1;
+      v20 = a1;
     }
 
-    if (v18 >= *(v21 + 16))
+    if (v17 >= *(v20 + 16))
     {
       goto LABEL_19;
     }
 
-    (*(v10 + 16))(v14, a1 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v18, a3);
+    (*(v10 + 16))(v13, a1 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v17, a3);
 LABEL_11:
-    v22 = v37(a3, v41);
+    v21 = v36(a3, v40);
     AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-    *&v42 = v22;
-    (*(v10 + 8))(v14, a3);
-    v44 = v19;
-    v24 = *(v19 + 16);
-    v23 = *(v19 + 24);
-    if (v24 >= v23 >> 1)
+    *&v41 = v21;
+    (*(v10 + 8))(v13, a3);
+    v43 = v18;
+    v23 = *(v18 + 16);
+    v22 = *(v18 + 24);
+    if (v23 >= v22 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1);
-      v19 = v44;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1);
+      v18 = v43;
     }
 
-    ++v18;
-    *(v19 + 16) = v24 + 1;
-    outlined init with take of Any(&v42, (v19 + 32 * v24 + 32));
-    if (v39 == v18)
+    ++v17;
+    *(v18 + 16) = v23 + 1;
+    outlined init with take of Any(&v41, (v18 + 32 * v23 + 32));
+    if (v38 == v17)
     {
-      a4 = v32;
-      a6 = v33;
+      a4 = v31;
+      a6 = v32;
       goto LABEL_17;
     }
   }
@@ -2324,11 +2288,11 @@ LABEL_21:
   __break(1u);
 }
 
-void PublisherProtocol.mergeAny<A>(with:)(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void PublisherProtocol.mergeAny<A>(with:)(uint64_t a1@<X1>, void *a2@<X8>, uint64_t a3@<X0>)
 {
-  v6 = *(a2 - 8);
+  v6 = *(a1 - 8);
   v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](a1);
+  v8 = MEMORY[0x1EEE9AC00](a3);
   specialized _arrayForceCast<A, B>(_:)(v8, v9);
   v10 = objc_allocWithZone(MEMORY[0x1E695DF70]);
   isa = Array._bridgeToObjectiveC()().super.isa;
@@ -2337,7 +2301,7 @@ void PublisherProtocol.mergeAny<A>(with:)(uint64_t a1@<X0>, uint64_t a2@<X1>, vo
 
   if ((_swift_isClassOrObjCExistentialType() & 1) == 0)
   {
-    (*(v6 + 16))(&v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v3, a2);
+    (*(v6 + 16))(&v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v3, a1);
     v13 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
     goto LABEL_4;
   }
@@ -2351,7 +2315,7 @@ LABEL_4:
     swift_unknownObjectRelease();
     v14 = [objc_allocWithZone(BPSMergeMany) initWithPublishers_];
 
-    *a3 = v14;
+    *a2 = v14;
     return;
   }
 
@@ -2360,23 +2324,24 @@ LABEL_4:
 
 uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   v4 = *(a2 - 8);
   v5 = *(v4 + 64);
-  v6 = (MEMORY[0x1EEE9AC00])();
+  v6 = MEMORY[0x1EEE9AC00](a1);
   v23 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v19 - v7;
   _swift_isClassOrObjCExistentialType();
-  if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && (a1 < 0 || (a1 & 0x4000000000000000) != 0))
+  if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && (v3 < 0 || (v3 & 0x4000000000000000) != 0))
   {
     goto LABEL_21;
   }
 
   isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType();
-  v10 = a1 & 0xFFFFFFFFFFFFFF8;
+  v10 = v3 & 0xFFFFFFFFFFFFFF8;
   if ((isClassOrObjCExistentialType & 1) == 0)
   {
-    v10 = a1;
+    v10 = v3;
   }
 
   for (i = *(v10 + 16); ; i = MEMORY[0x1CCA7C780](v18))
@@ -2396,26 +2361,26 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1, uint64_t a2)
 
     __break(1u);
 LABEL_21:
-    if (a1 < 0)
+    if (v3 < 0)
     {
-      v18 = a1;
+      v18 = v3;
     }
 
     else
     {
-      v18 = a1 & 0xFFFFFFFFFFFFFF8;
+      v18 = v3 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   v13 = 0;
   v12 = v25;
   v20 = v5;
-  v21 = a1 & 0xC000000000000001;
+  v21 = v3 & 0xC000000000000001;
   v22 = (v4 + 16);
   while ((_swift_isClassOrObjCExistentialType() & 1) == 0 || !v21)
   {
-    v14 = a1;
-    (*(v4 + 16))(v8, a1 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v13, a2);
+    v14 = v3;
+    (*(v4 + 16))(v8, v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v13, a2);
 LABEL_13:
     (*(v4 + 32))(v23, v8, a2);
     swift_dynamicCast();
@@ -2431,7 +2396,7 @@ LABEL_13:
     ++v13;
     *(v12 + 16) = v16 + 1;
     outlined init with take of Any(v24, (v12 + 32 * v16 + 32));
-    a1 = v14;
+    v3 = v14;
     if (i == v13)
     {
       return v12;
@@ -2441,7 +2406,7 @@ LABEL_13:
   result = _ArrayBuffer._getElementSlowPath(_:)();
   if (v20 == 8)
   {
-    v14 = a1;
+    v14 = v3;
     *&v24[0] = result;
     (*v22)(v8, v24, a2);
     swift_unknownObjectRelease();
@@ -2452,41 +2417,40 @@ LABEL_13:
   return result;
 }
 
-uint64_t PublisherProtocol.scan<A>(_:nextPartialResult:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, Class *a7@<X7>, void *a8@<X8>, uint64_t a9, uint64_t a10)
+uint64_t PublisherProtocol.scan<A>(_:nextPartialResult:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, Class *a8@<X7>, void *a9@<X8>, uint64_t a10, uint64_t a11)
 {
-  v16 = (*(a6 + 24))(a4, a6);
-  v17 = swift_allocObject();
-  v17[2] = a4;
-  v17[3] = a5;
-  v17[4] = a6;
-  v17[5] = a2;
-  v17[6] = a3;
-  v18 = objc_allocWithZone(*a7);
-  aBlock[4] = a9;
-  aBlock[5] = v17;
+  v17 = (*(a6 + 24))(a4, a6);
+  v18 = swift_allocObject();
+  v18[2] = a4;
+  v18[3] = a5;
+  v18[4] = a6;
+  v18[5] = a2;
+  v18[6] = a3;
+  v19 = objc_allocWithZone(*a8);
+  aBlock[4] = a10;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed A, @in_guaranteed Any) -> (@owned A);
-  aBlock[3] = a10;
-  v19 = _Block_copy(aBlock);
+  aBlock[3] = a11;
+  v20 = _Block_copy(aBlock);
 
-  v20 = [v18 initWithUpstream:v16 initialResult:a1 nextPartialResult:v19];
+  v21 = [v19 initWithUpstream:v17 initialResult:a1 nextPartialResult:v20];
   swift_unknownObjectRelease();
-  _Block_release(v19);
+  _Block_release(v20);
 
-  *a8 = v20;
+  *a9 = v21;
   return result;
 }
 
 uint64_t closure #1 in PublisherProtocol.scan<A>(_:nextPartialResult:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  outlined init with copy of Any(a2, v13);
-  v10 = *(a7 + 8);
+  outlined init with copy of Any(a2, v11);
   swift_getAssociatedTypeWitness();
   swift_dynamicCast();
-  v11 = a3(a1);
+  v9 = a3(a1);
   swift_unknownObjectRelease();
-  return v11;
+  return v9;
 }
 
 uint64_t PublisherProtocol.map<A>(transform:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X4>, void *a5@<X8>)
@@ -2532,42 +2496,41 @@ uint64_t PublisherProtocol.filter(isIncluded:)@<X0>(uint64_t a1@<X0>, uint64_t a
 uint64_t PublisherProtocol.flatMap<A, B>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, void *a8@<X8>)
 {
   v15 = (*(a6 + 24))(a3, a6);
-  v16 = BPSDemandMax(1);
-  v17 = swift_allocObject();
-  v17[2] = a3;
-  v17[3] = a4;
-  v17[4] = a5;
-  v17[5] = a6;
-  v17[6] = a7;
-  v17[7] = a1;
-  v17[8] = a2;
-  v18 = objc_allocWithZone(BPSFlatMap);
+  v17 = BPSDemandMax(1, v16);
+  v18 = swift_allocObject();
+  v18[2] = a3;
+  v18[3] = a4;
+  v18[4] = a5;
+  v18[5] = a6;
+  v18[6] = a7;
+  v18[7] = a1;
+  v18[8] = a2;
+  v19 = objc_allocWithZone(BPSFlatMap);
   aBlock[4] = partial apply for closure #1 in PublisherProtocol.flatMap<A, B>(_:);
-  aBlock[5] = v17;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed A) -> (@owned B);
   aBlock[3] = &block_descriptor_18_0;
-  v19 = _Block_copy(aBlock);
+  v20 = _Block_copy(aBlock);
 
-  v20 = [v18 initWithUpstream:v15 maxPublishers:v16 transform:v19];
+  v21 = [v19 initWithUpstream:v15 maxPublishers:v17 transform:v20];
   swift_unknownObjectRelease();
-  _Block_release(v19);
+  _Block_release(v20);
 
-  *a8 = v20;
+  *a8 = v21;
   return result;
 }
 
 uint64_t closure #1 in PublisherProtocol.flatMap<A, B>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v10 = *(a6 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00]();
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15(v12);
-  v16 = (*(a8 + 24))(a6, a8);
-  (*(v10 + 8))(v14, a6);
-  return v16;
+  v11 = MEMORY[0x1EEE9AC00](a1);
+  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14(v11);
+  v15 = (*(a8 + 24))(a6, a8);
+  (*(v10 + 8))(v13, a6);
+  return v15;
 }
 
 uint64_t PublisherProtocol.orderedMerge<A>(with:comparator:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, void *a7@<X8>)
@@ -2626,55 +2589,54 @@ uint64_t PublisherProtocol.orderedMergeAny<A>(with:comparator:)@<X0>(uint64_t a1
 
 uint64_t PublisherProtocol.orderedMergeManyAny<A>(with:comparator:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, void *a8@<X8>)
 {
-  v43 = a6;
-  v50 = a7;
-  v42 = a4;
+  v42 = a6;
+  v49 = a7;
+  v41 = a4;
   v13 = *(a5 - 8);
-  v14 = *(v13 + 64);
-  v15 = MEMORY[0x1EEE9AC00](a1);
-  v38 = v16;
-  v17 = &v38 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1CCA7C710](v15, v18);
-  v41 = a3;
-  if (v19)
+  v14 = MEMORY[0x1EEE9AC00](a1);
+  v37 = v15;
+  v16 = &v37 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x1CCA7C710](v14, v17);
+  v40 = a3;
+  if (v18)
   {
-    v20 = v19;
-    v56 = MEMORY[0x1E69E7CC0];
-    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19 & ~(v19 >> 63), 0);
-    if (v20 < 0)
+    v19 = v18;
+    v55 = MEMORY[0x1E69E7CC0];
+    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18 & ~(v18 >> 63), 0);
+    if (v19 < 0)
     {
       goto LABEL_21;
     }
 
-    v39 = a2;
-    v40 = a8;
-    v22 = 0;
-    v23 = v56;
-    v46 = *(v50 + 24);
-    v47 = v50 + 24;
-    v48 = v20;
-    v49 = a1 & 0xFFFFFFFFFFFFFF8;
-    v44 = a1 & 0xC000000000000001;
-    v45 = (v13 + 16);
+    v38 = a2;
+    v39 = a8;
+    v21 = 0;
+    v22 = v55;
+    v45 = *(v49 + 24);
+    v46 = v49 + 24;
+    v47 = v19;
+    v48 = a1 & 0xFFFFFFFFFFFFFF8;
+    v43 = a1 & 0xC000000000000001;
+    v44 = (v13 + 16);
     while (1)
     {
-      if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && v44)
+      if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && v43)
       {
         result = _ArrayBuffer._getElementSlowPath(_:)();
-        if (v38 != 8)
+        if (v37 != 8)
         {
           goto LABEL_22;
         }
 
         *&aBlock = result;
-        (*v45)(v17, &aBlock, a5);
+        (*v44)(v16, &aBlock, a5);
         swift_unknownObjectRelease();
       }
 
       else
       {
         result = _swift_isClassOrObjCExistentialType();
-        if ((v22 & 0x8000000000000000) != 0)
+        if ((v21 & 0x8000000000000000) != 0)
         {
           __break(1u);
 LABEL_20:
@@ -2688,54 +2650,54 @@ LABEL_23:
           return result;
         }
 
-        v24 = v49;
+        v23 = v48;
         if ((result & 1) == 0)
         {
-          v24 = a1;
+          v23 = a1;
         }
 
-        if (v22 >= *(v24 + 16))
+        if (v21 >= *(v23 + 16))
         {
           goto LABEL_20;
         }
 
-        (*(v13 + 16))(v17, a1 + ((*(v13 + 80) + 32) & ~*(v13 + 80)) + *(v13 + 72) * v22, a5);
+        (*(v13 + 16))(v16, a1 + ((*(v13 + 80) + 32) & ~*(v13 + 80)) + *(v13 + 72) * v21, a5);
       }
 
-      v25 = v46(a5, v50);
+      v24 = v45(a5, v49);
       AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-      *&aBlock = v25;
-      (*(v13 + 8))(v17, a5);
-      v56 = v23;
-      v27 = *(v23 + 16);
-      v26 = *(v23 + 24);
-      if (v27 >= v26 >> 1)
+      *&aBlock = v24;
+      (*(v13 + 8))(v16, a5);
+      v55 = v22;
+      v26 = *(v22 + 16);
+      v25 = *(v22 + 24);
+      if (v26 >= v25 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v26 > 1), v27 + 1, 1);
-        v23 = v56;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1);
+        v22 = v55;
       }
 
-      ++v22;
-      *(v23 + 16) = v27 + 1;
-      outlined init with take of Any(&aBlock, (v23 + 32 * v27 + 32));
-      if (v48 == v22)
+      ++v21;
+      *(v22 + 16) = v26 + 1;
+      outlined init with take of Any(&aBlock, (v22 + 32 * v26 + 32));
+      if (v47 == v21)
       {
-        a2 = v39;
-        a8 = v40;
+        a2 = v38;
+        a8 = v39;
         break;
       }
     }
   }
 
-  v28 = objc_allocWithZone(MEMORY[0x1E695DF70]);
+  v27 = objc_allocWithZone(MEMORY[0x1E695DF70]);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v30 = [v28 initWithArray_];
+  v29 = [v27 initWithArray_];
 
-  [v30 addObject_];
+  [v29 addObject_];
   swift_unknownObjectRelease();
   *&aBlock = 0;
-  v31 = v30;
+  v30 = v29;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12BPSPublisher_pMd, &_sSo12BPSPublisher_pMR);
   result = static Array._forceBridgeFromObjectiveC(_:result:)();
   if (!aBlock)
@@ -2743,49 +2705,48 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v32 = swift_allocObject();
-  v33 = v41;
-  *(v32 + 16) = a2;
-  *(v32 + 24) = v33;
-  v34 = objc_allocWithZone(BPSOrderedMerge);
+  v31 = swift_allocObject();
+  v32 = v40;
+  *(v31 + 16) = a2;
+  *(v31 + 24) = v32;
+  v33 = objc_allocWithZone(BPSOrderedMerge);
 
-  v35 = Array._bridgeToObjectiveC()().super.isa;
+  v34 = Array._bridgeToObjectiveC()().super.isa;
 
-  v54 = partial apply for closure #2 in PublisherProtocol.orderedMergeManyAny<A>(with:comparator:);
-  v55 = v32;
+  v53 = partial apply for closure #2 in PublisherProtocol.orderedMergeManyAny<A>(with:comparator:);
+  v54 = v31;
   *&aBlock = MEMORY[0x1E69E9820];
   *(&aBlock + 1) = 1107296256;
-  v52 = thunk for @escaping @callee_guaranteed (@in_guaranteed Any, @in_guaranteed Any) -> (@unowned NSComparisonResult);
+  v51 = thunk for @escaping @callee_guaranteed (@in_guaranteed Any, @in_guaranteed Any) -> (@unowned NSComparisonResult);
   AssociatedTypeWitness = &block_descriptor_36_0;
-  v36 = _Block_copy(&aBlock);
-  v37 = [v34 initWithPublishers:v35 comparator:v36];
+  v35 = _Block_copy(&aBlock);
+  v36 = [v33 initWithPublishers:v34 comparator:v35];
 
-  _Block_release(v36);
+  _Block_release(v35);
 
-  *a8 = v37;
+  *a8 = v36;
   return result;
 }
 
-uint64_t PublisherProtocol.orderedMerge<A>(withOthers:comparator:)@<X0>(uint64_t a1@<X0>, void (**a2)(char *, uint64_t)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unint64_t a6@<X5>, uint64_t a7@<X6>, void *a8@<X8>)
+uint64_t PublisherProtocol.orderedMerge<A>(withOthers:comparator:)@<X0>(uint64_t a1@<X0>, uint64_t (**a2)(char *, uint64_t)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unint64_t a6@<X5>, uint64_t a7@<X6>, void *a8@<X8>)
 {
-  v47 = a7;
-  v41 = a4;
+  v45 = a7;
+  v39 = a4;
   v13 = a1;
   v15 = *(a5 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](a1);
-  v35 = v18;
-  v19 = &v34 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x1CCA7C710](v17, v20);
-  v22 = MEMORY[0x1E69E7CC0];
-  if (!v21)
+  v16 = MEMORY[0x1EEE9AC00](a1);
+  v33 = v17;
+  v18 = &v32 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = MEMORY[0x1CCA7C710](v16, v19);
+  v21 = MEMORY[0x1E69E7CC0];
+  if (!v20)
   {
 LABEL_15:
-    v49 = v22;
-    v13 = v41;
-    (*(a6 + 24))(v41, a6);
+    v47 = v21;
+    v13 = v39;
+    (*(a6 + 24))(v39, a6);
     MEMORY[0x1CCA7C6B0]();
-    if (*((v49 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v49 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    if (*((v47 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v47 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       goto LABEL_19;
     }
@@ -2793,11 +2754,11 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v23 = v21;
-  v40 = v8;
+  v22 = v20;
+  v38 = v8;
   aBlock[0] = MEMORY[0x1E69E7CC0];
   result = specialized ContiguousArray.reserveCapacity(_:)();
-  if (v23 < 0)
+  if (v22 < 0)
   {
     __break(1u);
 LABEL_21:
@@ -2805,30 +2766,30 @@ LABEL_21:
     return result;
   }
 
-  v36 = a2;
-  v37 = a6;
-  v38 = a3;
-  v39 = a8;
+  v34 = a2;
+  v35 = a6;
+  v36 = a3;
+  v37 = a8;
   a6 = 0;
-  v44 = *(v47 + 24);
-  v45 = v47 + 24;
-  v46 = v13 & 0xFFFFFFFFFFFFFF8;
-  v42 = v13 & 0xC000000000000001;
-  v43 = (v15 + 16);
+  v42 = *(v45 + 24);
+  v43 = v45 + 24;
+  v44 = v13 & 0xFFFFFFFFFFFFFF8;
+  v40 = v13 & 0xC000000000000001;
+  v41 = (v15 + 16);
   a2 = (v15 + 8);
-  a3 = v23;
+  a3 = v22;
   while (1)
   {
-    if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && v42)
+    if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && v40)
     {
       result = _ArrayBuffer._getElementSlowPath(_:)();
-      if (v35 != 8)
+      if (v33 != 8)
       {
         goto LABEL_21;
       }
 
-      v49 = result;
-      (*v43)(v19, &v49, a5);
+      v47 = result;
+      (*v41)(v18, &v47, a5);
       swift_unknownObjectRelease();
       goto LABEL_11;
     }
@@ -2839,34 +2800,33 @@ LABEL_21:
       break;
     }
 
-    v26 = v46;
+    v25 = v44;
     if ((isClassOrObjCExistentialType & 1) == 0)
     {
-      v26 = v13;
+      v25 = v13;
     }
 
-    if (a6 >= *(v26 + 16))
+    if (a6 >= *(v25 + 16))
     {
       goto LABEL_18;
     }
 
-    (*(v15 + 16))(v19, v13 + ((*(v15 + 80) + 32) & ~*(v15 + 80)) + *(v15 + 72) * a6, a5);
+    (*(v15 + 16))(v18, v13 + ((*(v15 + 80) + 32) & ~*(v15 + 80)) + *(v15 + 72) * a6, a5);
 LABEL_11:
     ++a6;
-    a8 = v44(a5, v47);
-    (*a2)(v19, a5);
+    a8 = v42(a5, v45);
+    (*a2)(v18, a5);
     specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-    v27 = *(aBlock[0] + 16);
     specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
     specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
     specialized ContiguousArray._endMutation()();
-    if (a3 == a6)
+    if (v22 == a6)
     {
-      v22 = aBlock[0];
-      a8 = v39;
-      a6 = v37;
-      a3 = v38;
-      a2 = v36;
+      v21 = aBlock[0];
+      a8 = v37;
+      a6 = v35;
+      a3 = v36;
+      a2 = v34;
       goto LABEL_15;
     }
   }
@@ -2878,47 +2838,46 @@ LABEL_19:
   specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
 LABEL_16:
   specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-  v28 = swift_allocObject();
-  v28[2] = v13;
-  v28[3] = a5;
-  v29 = v47;
-  v28[4] = a6;
-  v28[5] = v29;
-  v28[6] = a2;
-  v28[7] = a3;
-  v30 = objc_allocWithZone(BPSOrderedMerge);
+  v26 = swift_allocObject();
+  v26[2] = v13;
+  v26[3] = a5;
+  v27 = v45;
+  v26[4] = a6;
+  v26[5] = v27;
+  v26[6] = a2;
+  v26[7] = a3;
+  v28 = objc_allocWithZone(BPSOrderedMerge);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12BPSPublisher_pMd, &_sSo12BPSPublisher_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   aBlock[4] = partial apply for closure #2 in PublisherProtocol.orderedMerge<A>(withOthers:comparator:);
-  aBlock[5] = v28;
+  aBlock[5] = v26;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@in_guaranteed Any, @in_guaranteed Any) -> (@unowned NSComparisonResult);
   aBlock[3] = &block_descriptor_42_0;
-  v32 = _Block_copy(aBlock);
-  v33 = [v30 initWithPublishers:isa comparator:v32];
+  v30 = _Block_copy(aBlock);
+  v31 = [v28 initWithPublishers:isa comparator:v30];
 
-  _Block_release(v32);
+  _Block_release(v30);
 
-  *a8 = v33;
+  *a8 = v31;
   return result;
 }
 
 uint64_t closure #1 in PublisherProtocol.orderedMerge<A>(with:comparator:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  outlined init with copy of Any(a1, v16);
-  v10 = *(a7 + 8);
+  outlined init with copy of Any(a1, v14);
   swift_getAssociatedTypeWitness();
   swift_dynamicCast();
-  v11 = v15;
-  outlined init with copy of Any(a2, v14);
+  v9 = v13;
+  outlined init with copy of Any(a2, v12);
   swift_dynamicCast();
-  v12 = a3(v11);
+  v10 = a3(v9);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  return v12;
+  return v10;
 }
 
 uint64_t PublisherProtocol.last()@<X0>(uint64_t a1@<X1>, Class *a2@<X2>, void *a3@<X8>)
@@ -2981,20 +2940,20 @@ uint64_t PublisherProtocol.merge<A>(with:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X
 
 void PublisherProtocol.zip<A>(with:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unint64_t a6@<X8>)
 {
-  v38 = a5;
+  v36 = a5;
   v12 = *(a3 - 8);
   v13 = *(v12 + 64);
   v14 = MEMORY[0x1EEE9AC00](a1);
-  v15 = &v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = MEMORY[0x1CCA7C710](v14, v16);
   v18 = MEMORY[0x1E69E7CC0];
   if (!v17)
   {
 LABEL_15:
-    v40 = v18;
+    v38 = v18;
     (*(a4 + 24))(a2, a4);
     MEMORY[0x1CCA7C6B0]();
-    if (*((v40 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v40 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    if (*((v38 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v38 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       goto LABEL_19;
     }
@@ -3003,8 +2962,8 @@ LABEL_15:
   }
 
   v19 = v17;
-  v32 = v6;
-  v40 = MEMORY[0x1E69E7CC0];
+  v30 = v6;
+  v38 = MEMORY[0x1E69E7CC0];
   specialized ContiguousArray.reserveCapacity(_:)();
   if (v19 < 0)
   {
@@ -3014,29 +2973,28 @@ LABEL_21:
     return;
   }
 
-  v28 = v13;
-  v29 = a2;
-  v30 = a4;
-  v31 = a6;
+  v26 = v13;
+  v27 = a2;
+  v28 = a4;
+  v29 = a6;
   a6 = 0;
-  v35 = *(v38 + 24);
-  v36 = v38 + 24;
-  v37 = a1 & 0xFFFFFFFFFFFFFF8;
-  v33 = a1 & 0xC000000000000001;
-  v34 = (v12 + 16);
-  v20 = v19;
+  v33 = *(v36 + 24);
+  v34 = v36 + 24;
+  v35 = a1 & 0xFFFFFFFFFFFFFF8;
+  v31 = a1 & 0xC000000000000001;
+  v32 = (v12 + 16);
   while (1)
   {
-    if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && v33)
+    if ((_swift_isClassOrObjCExistentialType() & 1) != 0 && v31)
     {
-      v24 = _ArrayBuffer._getElementSlowPath(_:)();
-      if (v28 != 8)
+      v22 = _ArrayBuffer._getElementSlowPath(_:)();
+      if (v26 != 8)
       {
         goto LABEL_21;
       }
 
-      v39 = v24;
-      (*v34)(v15, &v39, a3);
+      v37 = v22;
+      (*v32)(v15, &v37, a3);
       swift_unknownObjectRelease();
       goto LABEL_11;
     }
@@ -3047,13 +3005,13 @@ LABEL_21:
       break;
     }
 
-    v22 = v37;
+    v21 = v35;
     if ((isClassOrObjCExistentialType & 1) == 0)
     {
-      v22 = a1;
+      v21 = a1;
     }
 
-    if (a6 >= *(v22 + 16))
+    if (a6 >= *(v21 + 16))
     {
       goto LABEL_18;
     }
@@ -3061,19 +3019,18 @@ LABEL_21:
     (*(v12 + 16))(v15, a1 + ((*(v12 + 80) + 32) & ~*(v12 + 80)) + *(v12 + 72) * a6, a3);
 LABEL_11:
     ++a6;
-    v35(a3, v38);
+    v33(a3, v36);
     (*(v12 + 8))(v15, a3);
     specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-    v23 = *(v40 + 16);
     specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
     specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
     specialized ContiguousArray._endMutation()();
-    if (v20 == a6)
+    if (v19 == a6)
     {
-      v18 = v40;
-      a6 = v31;
-      a2 = v29;
-      a4 = v30;
+      v18 = v38;
+      a6 = v29;
+      a2 = v27;
+      a4 = v28;
       goto LABEL_15;
     }
   }
@@ -3088,9 +3045,9 @@ LABEL_16:
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12BPSPublisher_pMd, &_sSo12BPSPublisher_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v26 = [objc_allocWithZone(BPSZipMany) initWithPublishers_];
+  v24 = [objc_allocWithZone(BPSZipMany) initWithPublishers_];
 
-  *a6 = v26;
+  *a6 = v24;
 }
 
 uint64_t PublisherProtocol.correlate<A, B, C>(_:comparator:correlateHandler:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, void *a6@<X8>, uint64_t a7, uint64_t a8)
@@ -3123,7 +3080,6 @@ uint64_t closure #1 in PublisherProtocol.orderedMergeAny<A>(with:comparator:)(vo
   v5 = a1[3];
   v6 = __swift_project_boxed_opaque_existential_0(a1, v5);
   result = _swift_isClassOrObjCExistentialType();
-  v8 = *(v5 - 8);
   if (result)
   {
     if (*(*(v5 - 8) + 64) != 8)
@@ -3132,38 +3088,37 @@ uint64_t closure #1 in PublisherProtocol.orderedMergeAny<A>(with:comparator:)(vo
       goto LABEL_11;
     }
 
-    v9 = *v6;
+    v8 = *v6;
     swift_unknownObjectRetain();
   }
 
   else
   {
     MEMORY[0x1EEE9AC00](result);
-    (*(v16 + 16))(&v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), v6, v5);
-    v9 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
+    (*(v14 + 16))(&v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v6, v5);
+    v8 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
   }
 
-  v10 = a2[3];
-  v11 = __swift_project_boxed_opaque_existential_0(a2, v10);
+  v9 = a2[3];
+  v10 = __swift_project_boxed_opaque_existential_0(a2, v9);
   result = _swift_isClassOrObjCExistentialType();
-  v12 = *(v10 - 8);
   if ((result & 1) == 0)
   {
     MEMORY[0x1EEE9AC00](result);
-    (*(v18 + 16))(&v19 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v11, v10);
-    v13 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
+    (*(v16 + 16))(&v17 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), v10, v9);
+    v11 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
     goto LABEL_7;
   }
 
-  if (*(*(v10 - 8) + 64) == 8)
+  if (*(*(v9 - 8) + 64) == 8)
   {
-    v13 = *v11;
+    v11 = *v10;
     swift_unknownObjectRetain();
 LABEL_7:
-    v14 = a3(v9, v13);
+    v12 = a3(v8, v11);
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
-    return v14;
+    return v12;
   }
 
 LABEL_11:
@@ -3273,29 +3228,29 @@ uint64_t PublisherProtocol.compactMap<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   v13 = *(a5 + 24);
 
   v14 = v13(a3, a5);
-  v15 = BPSDemandMax(1);
-  v16 = swift_allocObject();
-  v16[2] = a3;
-  v16[3] = a4;
-  v16[4] = type metadata accessor for Publishers.Sequence();
-  v16[5] = a5;
-  v16[6] = swift_getWitnessTable();
-  v16[7] = partial apply for closure #1 in PublisherProtocol.compactMap<A>(_:);
-  v16[8] = v12;
-  v17 = objc_allocWithZone(BPSFlatMap);
-  v21[4] = closure #1 in PublisherProtocol.flatMap<A, B>(_:)partial apply;
-  v21[5] = v16;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 1107296256;
-  v21[2] = thunk for @escaping @callee_guaranteed (@guaranteed A) -> (@owned B);
-  v21[3] = &block_descriptor_79;
-  v18 = _Block_copy(v21);
+  v16 = BPSDemandMax(1, v15);
+  v17 = swift_allocObject();
+  v17[2] = a3;
+  v17[3] = a4;
+  v17[4] = type metadata accessor for Publishers.Sequence(0, a4, v18, v19);
+  v17[5] = a5;
+  v17[6] = swift_getWitnessTable();
+  v17[7] = partial apply for closure #1 in PublisherProtocol.compactMap<A>(_:);
+  v17[8] = v12;
+  v20 = objc_allocWithZone(BPSFlatMap);
+  v24[4] = closure #1 in PublisherProtocol.flatMap<A, B>(_:)partial apply;
+  v24[5] = v17;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 1107296256;
+  v24[2] = thunk for @escaping @callee_guaranteed (@guaranteed A) -> (@owned B);
+  v24[3] = &block_descriptor_79;
+  v21 = _Block_copy(v24);
 
-  v19 = [v17 initWithUpstream:v14 maxPublishers:v15 transform:v18];
+  v22 = [v20 initWithUpstream:v14 maxPublishers:v16 transform:v21];
   swift_unknownObjectRelease();
-  _Block_release(v18);
+  _Block_release(v21);
 
-  *a6 = v19;
+  *a6 = v22;
   return result;
 }
 
@@ -3305,29 +3260,27 @@ void closure #1 in PublisherProtocol.compactMap<A>(_:)(uint64_t (*a1)(void)@<X1>
   if (v5)
   {
     v6 = v5;
-    v7 = getContiguousArrayStorageType<A>(for:)(a2, a2);
-    v8 = *(v7 + 52);
-    v9 = (*(v7 + 48) + 7) & 0x1FFFFFFF8;
-    v10 = swift_allocObject();
-    *(v10 + 16) = xmmword_1C8763B40;
-    *(v10 + 32) = v6;
-    v11 = objc_allocWithZone(BPSSequence);
+    getContiguousArrayStorageType<A>(for:)(a2, a2);
+    v7 = swift_allocObject();
+    *(v7 + 16) = xmmword_1C8763B40;
+    *(v7 + 32) = v6;
+    v8 = objc_allocWithZone(BPSSequence);
     swift_unknownObjectRetain();
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    v13 = [v11 initWithSequence_];
+    v10 = [v8 initWithSequence_];
 
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v14 = objc_allocWithZone(BPSSequence);
-    v15 = Array._bridgeToObjectiveC()().super.isa;
-    v13 = [v14 initWithSequence_];
+    v11 = objc_allocWithZone(BPSSequence);
+    v12 = Array._bridgeToObjectiveC()().super.isa;
+    v10 = [v11 initWithSequence_];
   }
 
-  *a3 = v13;
+  *a3 = v10;
 }
 
 void Array<A>.bmPublisher.getter(void *a1@<X8>)
@@ -3341,25 +3294,23 @@ void Array<A>.bmPublisher.getter(void *a1@<X8>)
 
 id thunk for @escaping @callee_guaranteed (@guaranteed A, @in_guaranteed Any) -> (@owned A)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v8[3] = MEMORY[0x1E69E7C98] + 8;
-  v8[0] = a3;
+  v4 = *(a1 + 32);
+  v7[3] = MEMORY[0x1E69E7C98] + 8;
+  v7[0] = a3;
 
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v6 = v5(a2, v8);
+  v5 = v4(a2, v7);
 
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_0(v8);
+  __swift_destroy_boxed_opaque_existential_0(v7);
 
-  return v6;
+  return v5;
 }
 
-id thunk for @escaping @callee_guaranteed (@guaranteed A) -> (@owned B)(uint64_t a1)
+id thunk for @escaping @callee_guaranteed (@guaranteed A) -> (@owned B)(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   v4 = v2(v3);
@@ -3371,56 +3322,51 @@ id thunk for @escaping @callee_guaranteed (@guaranteed A) -> (@owned B)(uint64_t
 
 uint64_t thunk for @escaping @callee_guaranteed (@in_guaranteed Any, @in_guaranteed Any) -> (@unowned NSComparisonResult)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v10[3] = swift_getObjectType();
-  v10[0] = a2;
+  v5 = *(a1 + 32);
   v9[3] = swift_getObjectType();
-  v9[0] = a3;
+  v9[0] = a2;
+  v8[3] = swift_getObjectType();
+  v8[0] = a3;
 
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v7 = v6(v10, v9);
+  v6 = v5(v9, v8);
 
+  __swift_destroy_boxed_opaque_existential_0(v8);
   __swift_destroy_boxed_opaque_existential_0(v9);
-  __swift_destroy_boxed_opaque_existential_0(v10);
-  return v7;
+  return v6;
 }
 
-Class thunk for @escaping @callee_guaranteed (@guaranteed A) -> (@out Date)(uint64_t a1)
+Class thunk for @escaping @callee_guaranteed (@guaranteed A) -> (@out Date)(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for Date();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v3 = type metadata accessor for Date();
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(a1 + 32);
 
-  v9 = swift_unknownObjectRetain();
-  v8(v9);
+  v8 = swift_unknownObjectRetain();
+  v7(v8);
 
   swift_unknownObjectRelease();
-  v10.super.isa = Date._bridgeToObjectiveC()().super.isa;
-  (*(v3 + 8))(v6, v2);
+  v9.super.isa = Date._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v10.super.isa;
+  return v9.super.isa;
 }
 
 uint64_t thunk for @escaping @callee_guaranteed () -> ()(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 uint64_t thunk for @escaping @callee_guaranteed (@unowned BPSDemand) -> ()(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v4(a2);
+  v3(a2);
 }
 
 uint64_t getContiguousArrayStorageType<A>(for:)(uint64_t a1, uint64_t a2)
@@ -3438,7 +3384,7 @@ uint64_t getContiguousArrayStorageType<A>(for:)(uint64_t a1, uint64_t a2)
   }
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -3539,14 +3485,6 @@ uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-void partial apply for closure #1 in PublisherProtocol.compactMap<A>(_:)(void *a1@<X8>)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 32);
-  v4 = *(v1 + 48);
-  closure #1 in PublisherProtocol.compactMap<A>(_:)(*(v1 + 40), *(v1 + 24), a1);
-}
-
 void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
@@ -3565,15 +3503,17 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 id BookmarkablePublisher.inner.getter()
@@ -3583,14 +3523,14 @@ id BookmarkablePublisher.inner.getter()
   return v0;
 }
 
-uint64_t BookmarkablePublisher.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t BookmarkablePublisher.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>)
 {
-  v4 = type metadata accessor for BMBookmarkablePublisherImpl();
-  v5 = objc_allocWithZone(v4);
-  *&v5[direct field offset for BMBookmarkablePublisherImpl.inner] = a1;
-  v7.receiver = v5;
-  v7.super_class = v4;
-  objc_msgSendSuper2(&v7, sel_init);
+  v7 = type metadata accessor for BMBookmarkablePublisherImpl(0, a3, a4, a5);
+  v8 = objc_allocWithZone(v7);
+  *&v8[direct field offset for BMBookmarkablePublisherImpl.inner] = a1;
+  v10.receiver = v8;
+  v10.super_class = v7;
+  objc_msgSendSuper2(&v10, sel_init);
   objc_opt_self();
   result = swift_dynamicCastObjCClassUnconditional();
   *a2 = result;
@@ -3651,13 +3591,12 @@ id static BMBookmarkablePublisherImpl.publisher(with:upstreams:bookmarkState:)(u
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12BPSPublisherCMd, &_sSo12BPSPublisherCMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
-  v8 = *(v3 + 80);
-  v9 = (*MEMORY[0x1E69E7D40] & *type metadata accessor for BMBookmarkablePublisherImpl());
-  v12.receiver = ObjCClassFromMetadata;
-  v12.super_class = v9;
-  v10 = objc_msgSendSuper2(&v12, sel_publisherWithPublisher_upstreams_bookmarkState_, a1, isa, a3);
+  v10 = (*MEMORY[0x1E69E7D40] & *type metadata accessor for BMBookmarkablePublisherImpl(0, *(v3 + 80), v8, v9));
+  v13.receiver = ObjCClassFromMetadata;
+  v13.super_class = v10;
+  v11 = objc_msgSendSuper2(&v13, sel_publisherWithPublisher_upstreams_bookmarkState_, a1, isa, a3);
 
-  return v10;
+  return v11;
 }
 
 id @objc static BMBookmarkablePublisherImpl.publisher(with:upstreams:bookmarkState:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
@@ -3707,12 +3646,12 @@ BOOL @objc BMBookmarkablePublisherImpl.canStorePassThroughValueInBookmark()(void
   return v2;
 }
 
-id BMBookmarkablePublisherImpl.__deallocating_deinit()
+id BMBookmarkablePublisherImpl.__deallocating_deinit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *((*MEMORY[0x1E69E7D40] & *v0) + 0x50);
-  v3.receiver = v0;
-  v3.super_class = type metadata accessor for BMBookmarkablePublisherImpl();
-  return objc_msgSendSuper2(&v3, sel_dealloc);
+  v5 = type metadata accessor for BMBookmarkablePublisherImpl(0, *((*MEMORY[0x1E69E7D40] & *v4) + 0x50), a3, a4);
+  v7.receiver = v4;
+  v7.super_class = v5;
+  return objc_msgSendSuper2(&v7, sel_dealloc);
 }
 
 uint64_t instantiation function for generic protocol witness table for BookmarkablePublisher<A>(uint64_t a1)
@@ -3722,7 +3661,7 @@ uint64_t instantiation function for generic protocol witness table for Bookmarka
   return result;
 }
 
-uint64_t type metadata instantiation function for BookmarkablePublisher()
+uint64_t type metadata instantiation function for BookmarkablePublisher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();

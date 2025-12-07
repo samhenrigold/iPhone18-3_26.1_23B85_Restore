@@ -1,4 +1,5 @@
 @interface BRCSyncConsistencyReport
++ (void)_finishReport:(id)report session:(id)session temporaryDBURL:(id)l mountFD:(int)d completionHandler:(id)handler;
 + (void)cleanupApfsSnapshotWithMountFD:(int)d;
 + (void)cleanupApfsSnapshotWithMountPath:(id)path;
 + (void)generateReportWithSession:(id)session mangledIDs:(id)ds completion:(id)completion;
@@ -6,9 +7,40 @@
 
 @implementation BRCSyncConsistencyReport
 
++ (void)_finishReport:(id)report session:(id)session temporaryDBURL:(id)l mountFD:(int)d completionHandler:(id)handler
+{
+  v8 = *&d;
+  reportCopy = report;
+  sessionCopy = session;
+  lCopy = l;
+  handlerCopy = handler;
+  if ((v8 & 0x80000000) == 0)
+  {
+    [self cleanupApfsSnapshotWithMountFD:v8];
+    close(v8);
+  }
+
+  if (lCopy)
+  {
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    [defaultManager removeItemAtURL:lCopy error:0];
+  }
+
+  clientTruthWorkloop = [sessionCopy clientTruthWorkloop];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mountFD_completionHandler___block_invoke;
+  v20[3] = &unk_278500048;
+  v21 = reportCopy;
+  v22 = handlerCopy;
+  v18 = handlerCopy;
+  v19 = reportCopy;
+  dispatch_async(clientTruthWorkloop, v20);
+}
+
 uint64_t __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mountFD_completionHandler___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) wasAbleToRun])
   {
     v2 = brc_bread_crumbs();
@@ -25,16 +57,13 @@ uint64_t __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mou
     v3 = brc_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v2;
-      _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Telemetry sync consistency report did not run%@", &v7, 0xCu);
+      v5 = 138412290;
+      v6 = v2;
+      _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Telemetry sync consistency report did not run%@", &v5, 0xCu);
     }
   }
 
-  v4 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 + (void)cleanupApfsSnapshotWithMountPath:(id)path
@@ -83,7 +112,7 @@ uint64_t __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mou
 
 + (void)generateReportWithSession:(id)session mangledIDs:(id)ds completion:(id)completion
 {
-  v136 = *MEMORY[0x277D85DE8];
+  v135 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   dsCopy = ds;
   completionCopy = completion;
@@ -95,9 +124,9 @@ uint64_t __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mou
 
   if (v15)
   {
-    v93 = completionCopy;
+    v92 = completionCopy;
     selfCopy = self;
-    v91 = v12;
+    v90 = v12;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v17 = MEMORY[0x277CBEBC0];
     sessionDirPath = [sessionCopy sessionDirPath];
@@ -109,7 +138,7 @@ uint64_t __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mou
       [defaultManager removeItemAtURL:v20 error:0];
     }
 
-    v90 = defaultManager;
+    v89 = defaultManager;
     [defaultManager createDirectoryAtURL:v20 withIntermediateDirectories:1 attributes:0 error:0];
     serverTruthWorkloop = [sessionCopy serverTruthWorkloop];
     block[0] = MEMORY[0x277D85DD0];
@@ -117,21 +146,21 @@ uint64_t __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mou
     block[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke;
     block[3] = &unk_2784FF478;
     v22 = sessionCopy;
-    v126 = v22;
+    v125 = v22;
     v23 = v20;
-    v127 = v23;
+    v126 = v23;
     dispatch_async_and_wait(serverTruthWorkloop, block);
 
     clientTruthWorkloop = [v22 clientTruthWorkloop];
-    v122[0] = MEMORY[0x277D85DD0];
-    v122[1] = 3221225472;
-    v122[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_2;
-    v122[3] = &unk_2784FF478;
+    v121[0] = MEMORY[0x277D85DD0];
+    v121[1] = 3221225472;
+    v121[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_2;
+    v121[3] = &unk_2784FF478;
     v25 = v22;
-    v123 = v25;
-    v92 = v23;
-    v124 = v92;
-    dispatch_async_and_wait(clientTruthWorkloop, v122);
+    v122 = v25;
+    v91 = v23;
+    v123 = v91;
+    dispatch_async_and_wait(clientTruthWorkloop, v121);
 
     volume2 = [v25 volume];
     mountPath = [volume2 mountPath];
@@ -145,66 +174,66 @@ uint64_t __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mou
       v36 = -1;
 LABEL_11:
       BRDiskCheckerServiceConnection();
-      v84 = v83 = v34;
+      v83 = v82 = v34;
       v39 = [MEMORY[0x277CBEBC0] fileURLWithPath:v34];
       mobileDocumentsURL = [MEMORY[0x277CFAE38] mobileDocumentsURL];
       path = [mobileDocumentsURL path];
-      v82 = v39;
+      v81 = v39;
       v42 = [v39 URLByAppendingPathComponent:path];
 
-      v85 = dsCopy;
-      v86 = mountPath;
-      v89 = v36;
-      v81 = v42;
+      v84 = dsCopy;
+      v85 = mountPath;
+      v88 = v36;
+      v80 = v42;
       if (dsCopy && [dsCopy count])
       {
-        v118[0] = MEMORY[0x277D85DD0];
-        v118[1] = 3221225472;
-        v118[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_738;
-        v118[3] = &unk_278500428;
-        v119 = v42;
-        v43 = [dsCopy br_transform:v118];
+        v117[0] = MEMORY[0x277D85DD0];
+        v117[1] = 3221225472;
+        v117[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_738;
+        v117[3] = &unk_278500428;
+        v118 = v42;
+        v43 = [dsCopy br_transform:v117];
       }
 
       else
       {
-        v129 = v42;
-        v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v129 count:1];
+        v128 = v42;
+        v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
       }
 
       v44 = objc_opt_new();
+      v113 = 0u;
       v114 = 0u;
       v115 = 0u;
       v116 = 0u;
-      v117 = 0u;
       v45 = v43;
-      v46 = [v45 countByEnumeratingWithState:&v114 objects:v128 count:16];
+      v46 = [v45 countByEnumeratingWithState:&v113 objects:v127 count:16];
       if (v46)
       {
         v47 = v46;
-        v48 = *v115;
+        v48 = *v114;
         while (2)
         {
           for (i = 0; i != v47; ++i)
           {
-            if (*v115 != v48)
+            if (*v114 != v48)
             {
               objc_enumerationMutation(v45);
             }
 
-            v50 = *(*(&v114 + 1) + 8 * i);
-            v113 = 0;
-            v51 = [MEMORY[0x277CC6438] wrapperWithURL:v50 readonly:1 error:&v113];
-            v52 = v113;
+            v50 = *(*(&v113 + 1) + 8 * i);
+            v112 = 0;
+            v51 = [MEMORY[0x277CC6438] wrapperWithURL:v50 readonly:1 error:&v112];
+            v52 = v112;
             if (v52)
             {
               lastError = v11->_lastError;
               v11->_lastError = v52;
               v59 = v52;
 
-              completionCopy = v93;
-              v33 = v92;
-              [selfCopy _finishReport:v11 session:v25 temporaryDBURL:v92 mountFD:v89 completionHandler:v93];
+              completionCopy = v92;
+              v33 = v91;
+              [selfCopy _finishReport:v11 session:v25 temporaryDBURL:v91 mountFD:v88 completionHandler:v92];
 
               v60 = v45;
               goto LABEL_32;
@@ -213,7 +242,7 @@ LABEL_11:
             [v44 addObject:v51];
           }
 
-          v47 = [v45 countByEnumeratingWithState:&v114 objects:v128 count:16];
+          v47 = [v45 countByEnumeratingWithState:&v113 objects:v127 count:16];
           if (v47)
           {
             continue;
@@ -223,67 +252,67 @@ LABEL_11:
         }
       }
 
-      v111[0] = MEMORY[0x277D85DD0];
-      v111[1] = 3221225472;
-      v111[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_2_740;
-      v111[3] = &unk_278500450;
+      v110[0] = MEMORY[0x277D85DD0];
+      v110[1] = 3221225472;
+      v110[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_2_740;
+      v110[3] = &unk_278500450;
       v53 = v25;
-      v112 = v53;
-      v54 = [dsCopy br_transform:v111];
-      v110 = 0;
-      v33 = v92;
-      v55 = [MEMORY[0x277CC6438] wrapperWithURL:v92 readonly:0 error:&v110];
-      v56 = v110;
-      v57 = v110;
+      v111 = v53;
+      v54 = [dsCopy br_transform:v110];
+      v109 = 0;
+      v33 = v91;
+      v55 = [MEMORY[0x277CC6438] wrapperWithURL:v91 readonly:0 error:&v109];
+      v56 = v109;
+      v57 = v109;
       if (v57)
       {
         objc_storeStrong(&v11->_lastError, v56);
-        [selfCopy _finishReport:v11 session:v53 temporaryDBURL:v92 mountFD:v89 completionHandler:v93];
+        [selfCopy _finishReport:v11 session:v53 temporaryDBURL:v91 mountFD:v88 completionHandler:v92];
       }
 
       else
       {
-        v103[0] = MEMORY[0x277D85DD0];
-        v103[1] = 3221225472;
-        v103[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_3;
-        v103[3] = &unk_278500478;
-        v77 = v11;
-        v104 = v77;
-        v108 = selfCopy;
+        v102[0] = MEMORY[0x277D85DD0];
+        v102[1] = 3221225472;
+        v102[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_3;
+        v102[3] = &unk_278500478;
+        v76 = v11;
+        v103 = v76;
+        v107 = selfCopy;
         v68 = v53;
-        v105 = v68;
-        v76 = v92;
-        v106 = v76;
-        v109 = v89;
-        v75 = v93;
-        v107 = v75;
-        v80 = [v84 remoteObjectProxyWithErrorHandler:v103];
-        syncConsistencyFileChecksumRate = [v91 syncConsistencyFileChecksumRate];
-        syncConsistencyPackageChecksumRate = [v91 syncConsistencyPackageChecksumRate];
-        syncConsistencyMaxEventsCount = [v91 syncConsistencyMaxEventsCount];
-        v95[0] = MEMORY[0x277D85DD0];
-        v95[1] = 3221225472;
-        v95[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_742;
-        v95[3] = &unk_2785004A0;
-        v96 = v77;
-        v101 = selfCopy;
-        v97 = v68;
-        v98 = v76;
-        v102 = v89;
-        v100 = v75;
-        v99 = v84;
-        [v80 checkTreeConsistencyWithDatabaseURL:v55 rootURLWrappers:v44 fileChecksumRatePerThousand:syncConsistencyFileChecksumRate packageChecksumRatePerThousand:syncConsistencyPackageChecksumRate maxEventsCount:syncConsistencyMaxEventsCount forZoneRowIDs:v54 reply:v95];
+        v104 = v68;
+        v75 = v91;
+        v105 = v75;
+        v108 = v88;
+        v74 = v92;
+        v106 = v74;
+        v79 = [v83 remoteObjectProxyWithErrorHandler:v102];
+        syncConsistencyFileChecksumRate = [v90 syncConsistencyFileChecksumRate];
+        syncConsistencyPackageChecksumRate = [v90 syncConsistencyPackageChecksumRate];
+        syncConsistencyMaxEventsCount = [v90 syncConsistencyMaxEventsCount];
+        v94[0] = MEMORY[0x277D85DD0];
+        v94[1] = 3221225472;
+        v94[2] = __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_742;
+        v94[3] = &unk_2785004A0;
+        v95 = v76;
+        v100 = selfCopy;
+        v96 = v68;
+        v97 = v75;
+        v101 = v88;
+        v99 = v74;
+        v98 = v83;
+        [v79 checkTreeConsistencyWithDatabaseURL:v55 rootURLWrappers:v44 fileChecksumRatePerThousand:syncConsistencyFileChecksumRate packageChecksumRatePerThousand:syncConsistencyPackageChecksumRate maxEventsCount:syncConsistencyMaxEventsCount forZoneRowIDs:v54 reply:v94];
       }
 
-      v60 = v112;
-      dsCopy = v85;
-      completionCopy = v93;
+      v60 = v111;
+      dsCopy = v84;
+      completionCopy = v92;
 LABEL_32:
-      mountPath = v86;
+      mountPath = v85;
 
-      v67 = v90;
-      v12 = v91;
-      v62 = v83;
+      v67 = v89;
+      v12 = v90;
+      v62 = v82;
       goto LABEL_37;
     }
 
@@ -293,33 +322,33 @@ LABEL_32:
       v61 = v11->_lastError;
       v11->_lastError = 0;
 
-      completionCopy = v93;
-      v33 = v92;
-      [selfCopy _finishReport:v11 session:v25 temporaryDBURL:v92 mountFD:v29 completionHandler:v93];
+      completionCopy = v92;
+      v33 = v91;
+      [selfCopy _finishReport:v11 session:v25 temporaryDBURL:v91 mountFD:v29 completionHandler:v92];
       v62 = @"/";
     }
 
     else
     {
       [selfCopy cleanupApfsSnapshotWithMountFD:v29];
-      v121 = 0;
-      v30 = BRCGenerateAPFSSnapshot(v29, @"iCloudDriveSyncConsistency", &v121);
-      v31 = v121;
+      v120 = 0;
+      v30 = BRCGenerateAPFSSnapshot(v29, @"iCloudDriveSyncConsistency", &v120);
+      v31 = v120;
       v32 = v31;
-      v33 = v92;
+      v33 = v91;
       if (!v30)
       {
-        v87 = mountPath;
+        v86 = mountPath;
         v63 = brc_bread_crumbs();
         v64 = brc_default_log();
         if (os_log_type_enabled(v64, 0x90u))
         {
           *buf = 138412802;
-          v131 = v87;
-          v132 = 2112;
-          v133 = v32;
-          v134 = 2112;
-          v135 = v63;
+          v130 = v86;
+          v131 = 2112;
+          v132 = v32;
+          v133 = 2112;
+          v134 = v63;
           _os_log_error_impl(&dword_223E7A000, v64, 0x90u, "[ERROR] Failed to generate snapshot at %@ - %@%@", buf, 0x20u);
         }
 
@@ -327,25 +356,25 @@ LABEL_32:
         v11->_lastError = v32;
         v66 = v32;
 
-        completionCopy = v93;
-        [selfCopy _finishReport:v11 session:v25 temporaryDBURL:v92 mountFD:v29 completionHandler:v93];
+        completionCopy = v92;
+        [selfCopy _finishReport:v11 session:v25 temporaryDBURL:v91 mountFD:v29 completionHandler:v92];
 
         v62 = @"/";
-        v67 = v90;
-        v12 = v91;
-        mountPath = v87;
+        v67 = v89;
+        v12 = v90;
+        mountPath = v86;
         goto LABEL_37;
       }
 
-      v120 = v31;
-      v88 = v29;
-      v34 = BRCMountAPFSSnapshot(v29, @"iCloudDriveSyncConsistency", &v120);
-      v35 = v120;
+      v119 = v31;
+      v87 = v29;
+      v34 = BRCMountAPFSSnapshot(v29, @"iCloudDriveSyncConsistency", &v119);
+      v35 = v119;
 
       if (v34)
       {
 
-        v36 = v88;
+        v36 = v87;
         goto LABEL_11;
       }
 
@@ -354,11 +383,11 @@ LABEL_32:
       if (os_log_type_enabled(v70, 0x90u))
       {
         *buf = 138412802;
-        v131 = mountPath;
-        v132 = 2112;
-        v133 = v35;
-        v134 = 2112;
-        v135 = v69;
+        v130 = mountPath;
+        v131 = 2112;
+        v132 = v35;
+        v133 = 2112;
+        v134 = v69;
         _os_log_error_impl(&dword_223E7A000, v70, 0x90u, "[ERROR] Failed to mount snapshot at %@ - %@%@", buf, 0x20u);
       }
 
@@ -366,14 +395,14 @@ LABEL_32:
       v11->_lastError = v35;
       v72 = v35;
 
-      completionCopy = v93;
-      [selfCopy _finishReport:v11 session:v25 temporaryDBURL:v92 mountFD:v88 completionHandler:v93];
+      completionCopy = v92;
+      [selfCopy _finishReport:v11 session:v25 temporaryDBURL:v91 mountFD:v87 completionHandler:v92];
 
       v62 = 0;
     }
 
-    v67 = v90;
-    v12 = v91;
+    v67 = v89;
+    v12 = v90;
 LABEL_37:
 
     goto LABEL_38;
@@ -385,8 +414,6 @@ LABEL_37:
 
   [self _finishReport:v11 session:sessionCopy temporaryDBURL:0 mountFD:0xFFFFFFFFLL completionHandler:completionCopy];
 LABEL_38:
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 void __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke(uint64_t a1)
@@ -441,7 +468,7 @@ void __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_complet
 
 void __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_completion___block_invoke_742(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -454,34 +481,34 @@ void __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_complet
   {
     [*(a1 + 56) invalidate];
     *(*(a1 + 32) + 8) = 1;
-    v29 = v7;
+    v28 = v7;
     if (v7)
     {
       v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
       v11 = v7;
-      v12 = [v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v35;
+        v14 = *v34;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v35 != v14)
+            if (*v34 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [[AppTelemetryTimeSeriesEvent alloc] initWithData:*(*(&v34 + 1) + 8 * i)];
+            v16 = [[AppTelemetryTimeSeriesEvent alloc] initWithData:*(*(&v33 + 1) + 8 * i)];
             [v10 addObject:v16];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
         }
 
         while (v13);
@@ -491,36 +518,36 @@ void __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_complet
       v18 = *(v17 + 16);
       *(v17 + 16) = v10;
 
-      v7 = v29;
+      v7 = v28;
     }
 
     if (v8)
     {
       v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
       v20 = v8;
-      v21 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v31;
+        v23 = *v30;
         do
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v31 != v23)
+            if (*v30 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = [[AppTelemetryTimeSeriesEvent alloc] initWithData:*(*(&v30 + 1) + 8 * j)];
+            v25 = [[AppTelemetryTimeSeriesEvent alloc] initWithData:*(*(&v29 + 1) + 8 * j)];
             [v19 addObject:v25];
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
         }
 
         while (v22);
@@ -530,20 +557,17 @@ void __76__BRCSyncConsistencyReport_generateReportWithSession_mangledIDs_complet
       v27 = *(v26 + 24);
       *(v26 + 24) = v19;
 
-      v7 = v29;
+      v7 = v28;
     }
   }
 
   [*(a1 + 72) _finishReport:*(a1 + 32) session:*(a1 + 40) temporaryDBURL:*(a1 + 48) mountFD:*(a1 + 80) completionHandler:*(a1 + 64)];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mountFD_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_18();
   v1 = v0;
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [*v0 telemetryErrorEvents];
   [v2 count];
   v3 = [*v1 telemetryWarningEvents];
@@ -551,24 +575,6 @@ void __91__BRCSyncConsistencyReport__finishReport_session_temporaryDBURL_mountFD
   OUTLINED_FUNCTION_9_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)cleanupApfsSnapshotWithMountFD:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] Failed to unmount old snapshot - %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)cleanupApfsSnapshotWithMountFD:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] Failed to delete old snapshot - %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

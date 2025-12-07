@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_FF874();
+  sub_FF874(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews

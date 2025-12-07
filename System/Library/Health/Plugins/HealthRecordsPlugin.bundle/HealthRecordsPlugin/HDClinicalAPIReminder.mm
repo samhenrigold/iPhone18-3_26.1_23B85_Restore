@@ -184,27 +184,21 @@ LABEL_26:
 
 - (void)_setSource:(id)source
 {
-  v4 = [source copy];
-  source = self->_source;
-  self->_source = v4;
+  self->_source = [source copy];
 
   _objc_release_x1();
 }
 
 - (void)_setCreationDate:(id)date
 {
-  v4 = [date copy];
-  creationDate = self->_creationDate;
-  self->_creationDate = v4;
+  self->_creationDate = [date copy];
 
   _objc_release_x1();
 }
 
 - (void)_setPostDate:(id)date
 {
-  v4 = [date copy];
-  postDate = self->_postDate;
-  self->_postDate = v4;
+  self->_postDate = [date copy];
 
   _objc_release_x1();
 }

@@ -17,11 +17,17 @@
 - (unint64_t)timeout;
 - (unsigned)pushFlags;
 - (void)setAckTimestamp:(unint64_t)timestamp;
+- (void)setCancelled:(BOOL)cancelled;
+- (void)setCritical:(BOOL)critical;
 - (void)setMessageID:(unint64_t)d;
 - (void)setPayloadFormat:(unint64_t)format;
 - (void)setPayloadLength:(unint64_t)length;
 - (void)setPriority:(int64_t)priority;
+- (void)setPushFlags:(unsigned int)flags;
 - (void)setPushType:(unint64_t)type;
+- (void)setSendRetried:(BOOL)retried;
+- (void)setSent:(BOOL)sent;
+- (void)setTimedOut:(BOOL)out;
 - (void)setTimeout:(unint64_t)timeout;
 @end
 
@@ -170,6 +176,30 @@
   return v4;
 }
 
+- (void)setCritical:(BOOL)critical
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:critical];
+  [(APSMessage *)self setObject:v4 forKey:@"APSCritical"];
+}
+
+- (void)setSent:(BOOL)sent
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:sent];
+  [(APSMessage *)self setObject:v4 forKey:@"APSSent"];
+}
+
+- (void)setCancelled:(BOOL)cancelled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:cancelled];
+  [(APSMessage *)self setObject:v4 forKey:@"APSCancelled"];
+}
+
+- (void)setTimedOut:(BOOL)out
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:out];
+  [(APSMessage *)self setObject:v4 forKey:@"APSTimedOut"];
+}
+
 - (void)setPayloadFormat:(unint64_t)format
 {
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:format];
@@ -202,6 +232,12 @@
   [(APSMessage *)self setObject:v4 forKey:@"APSOutgoingMessagePushType"];
 }
 
+- (void)setSendRetried:(BOOL)retried
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:retried];
+  [(APSMessage *)self setObject:v4 forKey:@"APSSendRetried"];
+}
+
 - (BOOL)sendRetried
 {
   v2 = [(APSMessage *)self objectForKey:@"APSSendRetried"];
@@ -230,6 +266,12 @@
   unsignedIntValue = [v2 unsignedIntValue];
 
   return unsignedIntValue;
+}
+
+- (void)setPushFlags:(unsigned int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(APSMessage *)self setObject:v4 forKey:@"APSOutgoingMessagePushFlags"];
 }
 
 @end

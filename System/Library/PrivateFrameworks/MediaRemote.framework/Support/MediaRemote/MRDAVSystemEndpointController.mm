@@ -40,29 +40,26 @@
 
 - (NSDictionary)systemEndpointInfo
 {
-  v3 = objc_alloc_init(NSMutableDictionary);
-  serialQueue = self->_serialQueue;
-  v7 = v3;
+  v4 = objc_alloc_init(NSMutableDictionary);
   msv_dispatch_sync_on_queue();
-  v5 = v7;
+  v2 = v4;
 
-  return v7;
+  return v4;
 }
 
 - (NSArray)recentlyDismissedRecommendationsInfo
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_100034F90;
-  v9 = sub_10003598C;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_100034F90;
+  v8 = sub_10003598C;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (MRDAVSystemEndpointController)initWithRoutingController:(id)controller
@@ -136,18 +133,17 @@
 
 - (id)activeOutputDeviceUID:(int64_t)d
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = sub_100034F90;
-  v10 = sub_10003598C;
-  v11 = 0;
-  serialQueue = self->_serialQueue;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x3032000000;
+  v8 = sub_100034F90;
+  v9 = sub_10003598C;
+  v10 = 0;
   msv_dispatch_sync_on_queue();
-  v4 = v7[5];
-  _Block_object_dispose(&v6, 8);
+  v3 = v6[5];
+  _Block_object_dispose(&v5, 8);
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)_requiresConnectionToUpdate:(id)update
@@ -427,25 +423,8 @@ LABEL_15:
             customOrigin = [externalDevice customOrigin];
 
             v13 = [(MRDNowPlayingServer *)self->_nowPlayingServer originClientForOrigin:customOrigin];
-            if (!localOriginClient)
+            if (!localOriginClient || ([localOriginClient registrationDate], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "registrationDate"), v15 = self, v16 = objc_claimAutoreleasedReturnValue(), v17 = v6, v18 = v8, v19 = objc_msgSend(v14, "compare:", v16), v16, self = v15, v14, v20 = v19 == 1, v8 = v18, v6 = v17, v20))
             {
-              goto LABEL_11;
-            }
-
-            registrationDate = [localOriginClient registrationDate];
-            [v13 registrationDate];
-            v16 = v15 = self;
-            v17 = v6;
-            v18 = v8;
-            v19 = [registrationDate compare:v16];
-
-            self = v15;
-            v20 = v19 == 1;
-            v8 = v18;
-            v6 = v17;
-            if (v20)
-            {
-LABEL_11:
               v21 = v13;
 
               localOriginClient = v21;
@@ -1727,46 +1706,27 @@ LABEL_13:
           deviceUID2 = [v7 deviceUID];
           v19 = [deviceUID2 isEqual:v16];
 
-          if ((v19 & 1) == 0)
+          if ((v19 & 1) == 0 && ([v7 deviceUID], (v20 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v7, "groupedDevices"), v21 = objc_claimAutoreleasedReturnValue(), v25 = _NSConcreteStackBlock, v26 = 3221225472, v27 = sub_10004B6F0, v28 = &unk_1004B6D58, v29 = v16, objc_msgSend(v21, "mr_first:", &v25), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "deviceUID", v25, v26, v27, v28), v20 = objc_claimAutoreleasedReturnValue(), v22, v21, v29, v20))
           {
-            deviceUID3 = [v7 deviceUID];
-            if (deviceUID3)
-            {
-              goto LABEL_12;
-            }
-          }
-
-          groupedDevices2 = [v7 groupedDevices];
-          v25 = _NSConcreteStackBlock;
-          v26 = 3221225472;
-          v27 = sub_10004B6F0;
-          v28 = &unk_1004B6D58;
-          v29 = v16;
-          v22 = [groupedDevices2 mr_first:&v25];
-          deviceUID3 = [v22 deviceUID];
-
-          if (deviceUID3)
-          {
-LABEL_12:
             v23 = _MRLogForCategory();
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v40 = deviceUID3;
+              v40 = v20;
               _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[SystemEndpointController] Requesting to move ASE to deviceUID: %{public}@ because the old ASE changed groups", buf, 0xCu);
             }
 
-            v24 = [[MRUpdateActiveSystemEndpointRequest alloc] initWithOutputDeviceUID:deviceUID3 reason:@"ASE moved to another endpoint"];
+            v24 = [[MRUpdateActiveSystemEndpointRequest alloc] initWithOutputDeviceUID:v20 reason:@"ASE moved to another endpoint"];
             [(MRDAVSystemEndpointController *)self updateSystemEndpointForRequest:v24 event:9 completion:0];
           }
 
           else
           {
-            deviceUID3 = _MRLogForCategory();
-            if (os_log_type_enabled(deviceUID3, OS_LOG_TYPE_DEFAULT))
+            v20 = _MRLogForCategory();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, deviceUID3, OS_LOG_TYPE_DEFAULT, "[SystemEndpointController] ASE changed groups, but no other devices found in old group", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[SystemEndpointController] ASE changed groups, but no other devices found in old group", buf, 2u);
             }
           }
         }

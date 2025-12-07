@@ -116,14 +116,14 @@ LABEL_13:
 
 - (void)_updateImageViews
 {
-  if (!self)
+  if (!result)
   {
     return;
   }
 
-  v2 = [*(self + 864) count];
+  v2 = [*(result + 864) count];
   v3 = [OUTLINED_FUNCTION_2_0() count];
-  if (*(self + 800))
+  if (*(result + 800))
   {
     v4 = v3 + 1;
   }
@@ -133,17 +133,17 @@ LABEL_13:
     v4 = v3;
   }
 
-  v5 = [(SFNavigationBarToggleButton *)self preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
+  v5 = [(SFNavigationBarToggleButton *)result preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
   [OUTLINED_FUNCTION_4(760) setPreferredSymbolConfiguration:?];
 
-  v6 = [(SFNavigationBarToggleButton *)self preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
+  v6 = [(SFNavigationBarToggleButton *)result preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
   [OUTLINED_FUNCTION_4(768) setPreferredSymbolConfiguration:?];
 
   if (!v2)
   {
-    [*(self + 776) setImage:0];
+    [*(result + 776) setImage:0];
 LABEL_8:
-    [*(self + 784) setImage:0];
+    [*(result + 784) setImage:0];
     goto LABEL_9;
   }
 
@@ -159,7 +159,7 @@ LABEL_8:
   v14 = [(SFNavigationBarToggleButton *)v12 _colorForAccessoryItem:v13];
   [OUTLINED_FUNCTION_10(776) setTintColor:?];
 
-  v15 = [(SFNavigationBarToggleButton *)self preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
+  v15 = [(SFNavigationBarToggleButton *)result preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
   [OUTLINED_FUNCTION_4(776) setPreferredSymbolConfiguration:?];
 
   if (v2 == 1)
@@ -179,10 +179,10 @@ LABEL_8:
   v25 = [(SFNavigationBarToggleButton *)v23 _colorForAccessoryItem:v24];
   [OUTLINED_FUNCTION_10(784) setTintColor:?];
 
-  v26 = [(SFNavigationBarToggleButton *)self preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
+  v26 = [(SFNavigationBarToggleButton *)result preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
   [OUTLINED_FUNCTION_4(784) setPreferredSymbolConfiguration:?];
 
-  if (v2 >= 3 && !*(self + 800))
+  if (v2 >= 3 && !*(result + 800))
   {
     v27 = [OUTLINED_FUNCTION_2_0() objectAtIndexedSubscript:2];
     [v27 unsignedIntegerValue];
@@ -196,22 +196,22 @@ LABEL_8:
     v34 = [(SFNavigationBarToggleButton *)v32 _colorForAccessoryItem:v33];
     [OUTLINED_FUNCTION_4(792) setTintColor:?];
 
-    v35 = [(SFNavigationBarToggleButton *)self preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
+    v35 = [(SFNavigationBarToggleButton *)result preferredSymbolConfigurationForImageAtIndex:v4 numberOfAccessories:?];
     [OUTLINED_FUNCTION_6(792) setPreferredSymbolConfiguration:?];
 
     goto LABEL_10;
   }
 
 LABEL_9:
-  [*(self + 792) setImage:0];
+  [*(result + 792) setImage:0];
 LABEL_10:
-  v16 = [(SFNavigationBarToggleButton *)self _colorForAccessoryItem:?];
-  accessoryView = [self accessoryView];
+  v16 = [(SFNavigationBarToggleButton *)result _colorForAccessoryItem:?];
+  accessoryView = [result accessoryView];
   [accessoryView setTintColor:v16];
 
-  [(SFNavigationBarToggleButton *)self _updateDefaultStateImageView];
+  [(SFNavigationBarToggleButton *)result _updateDefaultStateImageView];
 
-  [(SFNavigationBarToggleButton *)self _updateSelectedStateView];
+  [(SFNavigationBarToggleButton *)result _updateSelectedStateView];
 }
 
 - (void)_updateSelectedStateView

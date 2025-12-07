@@ -77,17 +77,20 @@
   if (customElapsedTrackTintColor != colorCopy)
   {
     v8 = colorCopy;
-    if (([(UIColor *)customElapsedTrackTintColor isEqual:colorCopy]& 1) == 0)
+    customElapsedTrackTintColor = [customElapsedTrackTintColor isEqual:colorCopy];
+    colorCopy = v8;
+    if ((customElapsedTrackTintColor & 1) == 0)
     {
-      v6 = [(UIColor *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_customElapsedTrackTintColor;
       self->_customElapsedTrackTintColor = v6;
 
-      [(PGProgressIndicator *)self _updateElapsedTrackTintColor];
+      customElapsedTrackTintColor = [(PGProgressIndicator *)self _updateElapsedTrackTintColor];
+      colorCopy = v8;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](customElapsedTrackTintColor, colorCopy);
 }
 
 - (void)setProgress:(double)progress

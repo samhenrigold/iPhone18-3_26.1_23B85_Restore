@@ -145,7 +145,7 @@
 {
   nameCopy = name;
   text = [(UILabel *)self->_artistNameLabel text];
-  if (text != nameCopy && ([text isEqualToString:nameCopy] & 1) == 0)
+  if (text != nameCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     artistNameLabel = self->_artistNameLabel;
     if (nameCopy)
@@ -180,7 +180,7 @@
 {
   categoryCopy = category;
   text = [(UILabel *)self->_categoryLabel text];
-  if (text != categoryCopy && ([text isEqualToString:categoryCopy] & 1) == 0)
+  if (text != categoryCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     categoryLabel = self->_categoryLabel;
     if (categoryCopy)
@@ -214,8 +214,8 @@
 - (void)setColoringWithColorScheme:(id)scheme
 {
   schemeCopy = scheme;
-  primaryTextColor = [schemeCopy primaryTextColor];
-  objc_storeStrong(&self->_primaryTextColor, primaryTextColor);
+  v15 = objc_msgSend_primaryTextColor(schemeCopy);
+  objc_storeStrong(&self->_primaryTextColor, v15);
   categoryLabel = self->_categoryLabel;
   if (self->_primaryTextColor)
   {
@@ -278,7 +278,7 @@
 {
   stringCopy = string;
   text = [(UILabel *)self->_itemCountLabel text];
-  if (text != stringCopy && ([text isEqualToString:stringCopy] & 1) == 0)
+  if (text != stringCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     itemCountLabel = self->_itemCountLabel;
     if (stringCopy)
@@ -313,7 +313,7 @@
 {
   priceCopy = price;
   text = [(UILabel *)self->_priceLabel text];
-  if (text != priceCopy && ([text isEqualToString:priceCopy] & 1) == 0)
+  if (text != priceCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     priceLabel = self->_priceLabel;
     if (priceCopy)
@@ -348,7 +348,7 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)

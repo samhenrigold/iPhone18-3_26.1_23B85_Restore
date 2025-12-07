@@ -247,32 +247,30 @@ LABEL_15:
 {
   toCopy = to;
   has = self->_has;
-  v15 = toCopy;
+  v7 = toCopy;
   if ((has & 8) != 0)
   {
-    persistentID = self->_persistentID;
     PBDataWriterWriteInt64Field();
-    toCopy = v15;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    dataTypeCode = self->_dataTypeCode;
     PBDataWriterWriteInt64Field();
-    toCopy = v15;
+    toCopy = v7;
   }
 
   if (self->_uuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v15;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if ((*&v8 & 0x80000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80000000) == 0)
   {
-    if ((*&v8 & 1) == 0)
+    if ((*&v6 & 1) == 0)
     {
       goto LABEL_10;
     }
@@ -280,30 +278,27 @@ LABEL_15:
     goto LABEL_9;
   }
 
-  value = self->_value;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
-  *&v8 = self->_has;
-  if (*&v8)
+  toCopy = v7;
+  *&v6 = self->_has;
+  if (*&v6)
   {
 LABEL_9:
-    count = self->_count;
     PBDataWriterWriteInt64Field();
-    toCopy = v15;
-    *&v8 = self->_has;
+    toCopy = v7;
+    *&v6 = self->_has;
   }
 
 LABEL_10:
-  if ((*&v8 & 0x40) != 0)
+  if ((*&v6 & 0x40) != 0)
   {
-    startTime = self->_startTime;
     PBDataWriterWriteDoubleField();
-    toCopy = v15;
-    *&v8 = self->_has;
-    if ((*&v8 & 4) == 0)
+    toCopy = v7;
+    *&v6 = self->_has;
+    if ((*&v6 & 4) == 0)
     {
 LABEL_12:
-      if ((*&v8 & 0x20) == 0)
+      if ((*&v6 & 0x20) == 0)
       {
         goto LABEL_13;
       }
@@ -312,19 +307,18 @@ LABEL_12:
     }
   }
 
-  else if ((*&v8 & 4) == 0)
+  else if ((*&v6 & 4) == 0)
   {
     goto LABEL_12;
   }
 
-  endTime = self->_endTime;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
-  *&v8 = self->_has;
-  if ((*&v8 & 0x20) == 0)
+  toCopy = v7;
+  *&v6 = self->_has;
+  if ((*&v6 & 0x20) == 0)
   {
 LABEL_13:
-    if ((*&v8 & 0x10) == 0)
+    if ((*&v6 & 0x10) == 0)
     {
       goto LABEL_15;
     }
@@ -333,22 +327,20 @@ LABEL_13:
   }
 
 LABEL_22:
-  sourceID = self->_sourceID;
   PBDataWriterWriteInt64Field();
-  toCopy = v15;
+  toCopy = v7;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_14:
-    seriesIndex = self->_seriesIndex;
     PBDataWriterWriteInt64Field();
-    toCopy = v15;
+    toCopy = v7;
   }
 
 LABEL_15:
   if (self->_quantitySample)
   {
     PBDataWriterWriteDataField();
-    toCopy = v15;
+    toCopy = v7;
   }
 }
 
@@ -561,7 +553,6 @@ LABEL_13:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 88);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 88) & 8) == 0 || self->_persistentID != *(equalCopy + 4))
@@ -599,7 +590,6 @@ LABEL_13:
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 88);
   if ((has & 0x80) == 0)
   {
     if ((*(equalCopy + 88) & 0x80) == 0)
@@ -608,7 +598,7 @@ LABEL_13:
     }
 
 LABEL_47:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_48;
   }
 
@@ -686,17 +676,17 @@ LABEL_17:
   quantitySample = self->_quantitySample;
   if (quantitySample | *(equalCopy + 9))
   {
-    v10 = [(NSData *)quantitySample isEqual:?];
+    v8 = [(NSData *)quantitySample isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_48:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

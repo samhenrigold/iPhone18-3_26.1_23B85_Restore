@@ -2025,7 +2025,7 @@ float CMMsl::KappaSevereCrashResult::KappaSevereCrashResult(uint64_t a1, uint64_
   return result;
 }
 
-CMMsl *CMMsl::KappaSevereCrashResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaSevereCrashResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

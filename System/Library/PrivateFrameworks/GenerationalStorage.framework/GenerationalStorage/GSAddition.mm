@@ -2,6 +2,7 @@
 - (BOOL)copyAdditionContentToURL:(id)l error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isSavedConflict;
+- (BOOL)markSavedConflictAsResolved:(BOOL)resolved error:(id *)error;
 - (BOOL)mergeUserInfo:(id)info error:(id *)error;
 - (BOOL)refreshWithError:(id *)error;
 - (BOOL)setDisplayName:(id)name error:(id *)error;
@@ -411,6 +412,23 @@ LABEL_5:
   }
 
   return v8;
+}
+
+- (BOOL)markSavedConflictAsResolved:(BOOL)resolved error:(id *)error
+{
+  resolvedCopy = resolved;
+  v7 = [(NSString *)self->_namespace isEqualToString:@"com.apple.ubiquity"];
+  if (v7)
+  {
+    v7 = [(GSAdditionStoring *)self->_storage setAdditionConflictResolved:self value:resolvedCopy error:error];
+    if (v7)
+    {
+      self->_savedConflictResolved = resolvedCopy;
+      LOBYTE(v7) = 1;
+    }
+  }
+
+  return v7;
 }
 
 @end

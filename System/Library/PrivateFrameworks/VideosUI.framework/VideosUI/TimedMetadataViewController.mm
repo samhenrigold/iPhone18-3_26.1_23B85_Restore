@@ -56,7 +56,7 @@
   height = size.height;
   width = size.width;
   selfCopy = self;
-  sub_1E3AF2EF0(width, height);
+  sub_1E3AF2EF0(selfCopy, width, height);
 }
 
 - (void)setNowPlayingTabDelegate:(id)delegate
@@ -64,7 +64,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   OUTLINED_FUNCTION_37_3();
-  sub_1E3AF30E4();
+  sub_1E3AF30E4(delegate);
   swift_unknownObjectRelease();
 }
 
@@ -84,7 +84,7 @@
 
 - (void)updatePlaybackRate:(double)rate elapsedTime:(id)time elapsedTimeTimestamp:(id)timestamp
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF28E20);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF28E20, &unk_1E42986D0);
   OUTLINED_FUNCTION_17_2(v9);
   OUTLINED_FUNCTION_5_7();
   MEMORY[0x1EEE9AC00](v10);
@@ -108,7 +108,7 @@
   OUTLINED_FUNCTION_27_0();
   sub_1E3AF3354();
 
-  sub_1E325F6F0(v5, &unk_1ECF28E20);
+  sub_1E325F6F0(v5, &unk_1ECF28E20, &unk_1E42986D0);
 }
 
 - (void)updatePlaybackInfo:(id)info

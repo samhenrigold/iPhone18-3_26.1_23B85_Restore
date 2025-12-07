@@ -3,6 +3,11 @@
 - (USBCPDAccess)initWithPDController:(id)controller;
 - (id)DeviceInAlternateMode:(BOOL *)mode;
 - (id)EnterUpdateMode:(id)mode;
+- (id)ExitUpdateMode:(id)mode remoteReset:(BOOL)reset;
+- (id)IECSReadReg:(BOOL)reg buffer:(void *)buffer bufferLength:(unsigned int)length registerAddress:(unsigned int)address returnedBufferLength:(unsigned int *)bufferLength canRetry:(BOOL)retry canRecover:(BOOL)recover;
+- (id)IECSWriteReg:(BOOL)reg buffer:(const void *)buffer bufferLength:(unsigned int)length registerAddress:(unsigned int)address canRetry:(BOOL)retry canRecover:(BOOL)recover;
+- (id)LocalExecuteCommand:(unsigned int)command withDelay:(unsigned int)delay canRetry:(BOOL)retry canRecover:(BOOL)recover;
+- (id)RemoteExecuteCommand:(unsigned int)command withDelay:(unsigned int)delay canRetry:(BOOL)retry canRecover:(BOOL)recover;
 - (id)localPollForIdle;
 - (id)remotePollForIdle;
 @end
@@ -54,9 +59,30 @@
   return [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:3840 userInfo:0];
 }
 
+- (id)ExitUpdateMode:(id)mode remoteReset:(BOOL)reset
+{
+  [(USBCPDAccess *)self doesNotRecognizeSelector:a2, reset];
+
+  return [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:3840 userInfo:0];
+}
+
 - (id)DeviceInAlternateMode:(BOOL *)mode
 {
   [(USBCPDAccess *)self doesNotRecognizeSelector:a2];
+
+  return [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:3840 userInfo:0];
+}
+
+- (id)IECSReadReg:(BOOL)reg buffer:(void *)buffer bufferLength:(unsigned int)length registerAddress:(unsigned int)address returnedBufferLength:(unsigned int *)bufferLength canRetry:(BOOL)retry canRecover:(BOOL)recover
+{
+  [(USBCPDAccess *)self doesNotRecognizeSelector:a2, buffer, *&length, *&address, bufferLength, retry];
+
+  return [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:3840 userInfo:0];
+}
+
+- (id)IECSWriteReg:(BOOL)reg buffer:(const void *)buffer bufferLength:(unsigned int)length registerAddress:(unsigned int)address canRetry:(BOOL)retry canRecover:(BOOL)recover
+{
+  [(USBCPDAccess *)self doesNotRecognizeSelector:a2, buffer, *&length, *&address, retry, recover];
 
   return [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:3840 userInfo:0];
 }
@@ -256,6 +282,206 @@ LABEL_16:
 LABEL_19:
   v10 = 0;
 LABEL_20:
+
+  return v10;
+}
+
+- (id)LocalExecuteCommand:(unsigned int)command withDelay:(unsigned int)delay canRetry:(BOOL)retry canRecover:(BOOL)recover
+{
+  recoverCopy = recover;
+  v9 = 0;
+  v10 = 0;
+  v26 = HIBYTE(command);
+  memset(v30, 0, sizeof(v30));
+  v29 = 0u;
+  v28 = 0u;
+  v25 = BYTE2(command);
+  v11 = BYTE1(command);
+  commandCopy = command;
+  v13 = command & 0xFF000000 | (BYTE2(command) << 16) | (BYTE1(command) << 8) | command;
+  do
+  {
+    v27 = v13;
+    v14 = [(USBCPDAccess *)self IECSWriteReg:1 buffer:&v27 bufferLength:4 registerAddress:8 canRetry:retry canRecover:recoverCopy];
+
+    if (v14)
+    {
+      v15 = +[NSMutableDictionary dictionary];
+      [v15 setObject:v14 forKeyedSubscript:@"Previous Error Response"];
+      v16 = [NSString stringWithFormat:@"%c%c%c%c (register write)", commandCopy, v11, v25, v26];
+      [v15 setObject:v16 forKeyedSubscript:@"Command Attempted"];
+
+      v10 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:5123 userInfo:v15];
+
+      usleep(0x2710u);
+      if (!v10)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      usleep(delay);
+      localPollForIdle = [(USBCPDAccess *)self localPollForIdle];
+      if (!localPollForIdle)
+      {
+        v10 = 0;
+        goto LABEL_17;
+      }
+
+      v18 = localPollForIdle;
+      v19 = +[NSMutableDictionary dictionary];
+      [v19 setObject:v18 forKeyedSubscript:@"Previous Error Response"];
+      v20 = [NSString stringWithFormat:@"%c%c%c%c (idle after)", commandCopy, v11, v25, v26];
+      [v19 setObject:v20 forKeyedSubscript:@"Command Attempted"];
+
+      v10 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:5122 userInfo:v19];
+
+      if (!v10)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    if (recoverCopy && ![(USBCPDAccess *)self didFailErrorRecovery:v10])
+    {
+      if (![(USBCPDAccess *)self attemptErrorRecovery:v10 lastAttempt:v9 == 3])
+      {
+        break;
+      }
+    }
+
+    else if (!retry)
+    {
+      break;
+    }
+
+    if (v9 == 3)
+    {
+      goto LABEL_17;
+    }
+
+    ++v9;
+    retry = 1;
+  }
+
+  while (![(USBCPDAccess *)self didFailErrorRecovery:v10]);
+  if (v9 == 3)
+  {
+    v21 = +[NSMutableDictionary dictionary];
+    [v21 setObject:v10 forKeyedSubscript:@"Previous Error Response"];
+    v22 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:13064 userInfo:v21];
+
+    v10 = v22;
+  }
+
+LABEL_17:
+
+  return v10;
+}
+
+- (id)RemoteExecuteCommand:(unsigned int)command withDelay:(unsigned int)delay canRetry:(BOOL)retry canRecover:(BOOL)recover
+{
+  recoverCopy = recover;
+  v9 = 0;
+  v10 = 0;
+  v27 = HIBYTE(command);
+  memset(v31, 0, sizeof(v31));
+  v30 = 0u;
+  v29 = 0u;
+  v11 = delay - 1;
+  if (!delay)
+  {
+    v11 = 0;
+  }
+
+  v25 = v11;
+  v26 = BYTE2(command);
+  v12 = BYTE1(command);
+  commandCopy = command;
+  v14 = command & 0xFF000000 | (BYTE2(command) << 16) | (BYTE1(command) << 8) | command;
+  while (1)
+  {
+    v28 = v14;
+    v15 = [(USBCPDAccess *)self IECSWriteReg:0 buffer:&v28 bufferLength:4 registerAddress:8 canRetry:retry canRecover:recoverCopy];
+
+    if (!v15)
+    {
+      break;
+    }
+
+    v16 = +[NSMutableDictionary dictionary];
+    [v16 setObject:v15 forKeyedSubscript:@"Previous Error Response"];
+    v17 = [NSString stringWithFormat:@"%c%c%c%c (register write)", commandCopy, v12, v26, v27];
+    [v16 setObject:v17 forKeyedSubscript:@"Command Attempted"];
+
+    v10 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:5379 userInfo:v16];
+
+    usleep(0);
+    if (!v10)
+    {
+      goto LABEL_19;
+    }
+
+    if (recoverCopy && ![(USBCPDAccess *)self didFailErrorRecovery:v10])
+    {
+      if (![(USBCPDAccess *)self attemptErrorRecovery:v10 lastAttempt:v9 == 3])
+      {
+        goto LABEL_16;
+      }
+    }
+
+    else if (!retry)
+    {
+      goto LABEL_16;
+    }
+
+    if (v9 == 3)
+    {
+      goto LABEL_19;
+    }
+
+    ++v9;
+    retry = 1;
+    if ([(USBCPDAccess *)self didFailErrorRecovery:v10])
+    {
+      goto LABEL_16;
+    }
+  }
+
+  usleep(v25);
+  remotePollForIdle = [(USBCPDAccess *)self remotePollForIdle];
+  if (!remotePollForIdle)
+  {
+    v10 = 0;
+    goto LABEL_19;
+  }
+
+  v19 = remotePollForIdle;
+  v20 = +[NSMutableDictionary dictionary];
+  [v20 setObject:v19 forKeyedSubscript:@"Previous Error Response"];
+  v21 = [NSString stringWithFormat:@"%c%c%c%c (idle after)", commandCopy, v12, v26, v27];
+  [v20 setObject:v21 forKeyedSubscript:@"Command Attempted"];
+
+  v10 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:5378 userInfo:v20];
+
+  if (!v10)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_16:
+  if (v9 == 3)
+  {
+    v22 = +[NSMutableDictionary dictionary];
+    [v22 setObject:v10 forKeyedSubscript:@"Previous Error Response"];
+    v23 = [NSError errorWithDomain:@"USBCAccessoryFirmwareUpdater Domain" code:13065 userInfo:v22];
+
+    v10 = v23;
+  }
+
+LABEL_19:
 
   return v10;
 }

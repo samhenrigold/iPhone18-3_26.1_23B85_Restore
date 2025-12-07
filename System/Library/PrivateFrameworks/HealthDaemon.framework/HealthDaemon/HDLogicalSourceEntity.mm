@@ -122,12 +122,12 @@ id __78__HDLogicalSourceEntity_logicalSourceIDForBundleIdentifier_transaction_er
   return v4;
 }
 
-uint64_t __78__HDLogicalSourceEntity_logicalSourceIDForBundleIdentifier_transaction_error___block_invoke_3(uint64_t a1)
+uint64_t __78__HDLogicalSourceEntity_logicalSourceIDForBundleIdentifier_transaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
   return 1;
 }
@@ -194,7 +194,7 @@ uint64_t __75__HDLogicalSourceEntity_ownerBundleIDForLogicalSourceID_transaction
 
 + (id)lookUpOrCreateLogicalSourceWithBundleIdentifier:(id)identifier owningAppBundleIdentifier:(id)bundleIdentifier transaction:(id)transaction error:(id *)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   transactionCopy = transaction;
@@ -213,34 +213,34 @@ uint64_t __75__HDLogicalSourceEntity_ownerBundleIDForLogicalSourceID_transaction
   else
   {
     v15 = [transactionCopy databaseForEntityClass:self];
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x3032000000;
-    v44 = __Block_byref_object_copy__38;
-    v45 = __Block_byref_object_dispose__38;
-    v46 = 0;
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke;
-    v38[3] = &unk_278618EF0;
-    v39 = bundleIdentifierCopy;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x3032000000;
+    v43 = __Block_byref_object_copy__38;
+    v44 = __Block_byref_object_dispose__38;
+    v45 = 0;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke;
+    v37[3] = &unk_278618EF0;
+    v38 = bundleIdentifierCopy;
     selfCopy = self;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_2;
-    v35[3] = &unk_278613038;
-    v16 = identifierCopy;
-    v36 = v16;
-    v17 = v39;
-    v37 = v17;
     v34[0] = MEMORY[0x277D85DD0];
     v34[1] = 3221225472;
-    v34[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_3;
-    v34[3] = &unk_278614620;
-    v34[4] = &v41;
-    if ([v15 executeCachedStatementForKey:&lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error__key error:error SQLGenerator:v38 bindingHandler:v35 enumerationHandler:v34])
+    v34[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_2;
+    v34[3] = &unk_278613038;
+    v16 = identifierCopy;
+    v35 = v16;
+    v17 = v38;
+    v36 = v17;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_3;
+    v33[3] = &unk_278614620;
+    v33[4] = &v40;
+    if ([v15 executeCachedStatementForKey:&lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error__key error:error SQLGenerator:v37 bindingHandler:v34 enumerationHandler:v33])
     {
-      if (v42[5])
+      if (v41[5])
       {
         v14 = [(HDSQLiteEntity *)HDLogicalSourceEntity entityWithPersistentID:?];
       }
@@ -248,27 +248,27 @@ uint64_t __75__HDLogicalSourceEntity_ownerBundleIDForLogicalSourceID_transaction
       else
       {
         v20 = [transactionCopy databaseForEntityClass:self];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_349;
-        v33[3] = &__block_descriptor_40_e15___NSString_8__0l;
-        v33[4] = self;
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_2_353;
-        v30[3] = &unk_278613038;
-        v31 = v16;
-        v32 = v17;
-        v21 = [v20 executeCachedStatementForKey:&lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error__insertKey error:error SQLGenerator:v33 bindingHandler:v30 enumerationHandler:0];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_349;
+        v32[3] = &__block_descriptor_40_e15___NSString_8__0l;
+        v32[4] = self;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_2_353;
+        v29[3] = &unk_278613038;
+        v30 = v16;
+        v31 = v17;
+        v21 = [v20 executeCachedStatementForKey:&lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error__insertKey error:error SQLGenerator:v32 bindingHandler:v29 enumerationHandler:0];
 
         if (v21)
         {
           unprotectedDatabase = [transactionCopy unprotectedDatabase];
           lastInsertRowID = [unprotectedDatabase lastInsertRowID];
-          v24 = v42[5];
-          v42[5] = lastInsertRowID;
+          v24 = v41[5];
+          v41[5] = lastInsertRowID;
 
-          v14 = [(HDSQLiteEntity *)HDLogicalSourceEntity entityWithPersistentID:v42[5]];
+          v14 = [(HDSQLiteEntity *)HDLogicalSourceEntity entityWithPersistentID:v41[5]];
         }
 
         else
@@ -288,7 +288,7 @@ uint64_t __75__HDLogicalSourceEntity_ownerBundleIDForLogicalSourceID_transaction
             }
 
             *buf = 138543362;
-            v48 = v26;
+            v47 = v26;
             _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_INFO, "Unable to insert logical source : %{public}@", buf, 0xCu);
           }
 
@@ -314,17 +314,15 @@ uint64_t __75__HDLogicalSourceEntity_ownerBundleIDForLogicalSourceID_transaction
         }
 
         *buf = 138543362;
-        v48 = v19;
+        v47 = v19;
         _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_INFO, "Unable to look up logical source: %{public}@", buf, 0xCu);
       }
 
       v14 = 0;
     }
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v40, 8);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -349,7 +347,6 @@ id __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_
 
 uint64_t __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
   if (*(a1 + 40))
   {
@@ -364,12 +361,12 @@ uint64_t __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdent
   }
 }
 
-uint64_t __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_3(uint64_t a1)
+uint64_t __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
   return 1;
 }
@@ -385,7 +382,6 @@ id __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_
 
 uint64_t __117__HDLogicalSourceEntity_lookUpOrCreateLogicalSourceWithBundleIdentifier_owningAppBundleIdentifier_transaction_error___block_invoke_2_353(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
   if (*(a1 + 40))
   {

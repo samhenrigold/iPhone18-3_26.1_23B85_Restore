@@ -1,5 +1,6 @@
 @interface BDSReadingHistoryServiceStatusInfo
 - (BDSReadingHistoryServiceStatusInfo)initWithCoder:(id)coder;
+- (BDSReadingHistoryServiceStatusInfo)initWithIsLoaded:(BOOL)loaded;
 - (BOOL)isLoaded;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -7,6 +8,22 @@
 @end
 
 @implementation BDSReadingHistoryServiceStatusInfo
+
+- (BDSReadingHistoryServiceStatusInfo)initWithIsLoaded:(BOOL)loaded
+{
+  loadedCopy = loaded;
+  v8.receiver = self;
+  v8.super_class = BDSReadingHistoryServiceStatusInfo;
+  v4 = [(BDSReadingHistoryServiceStatusInfo *)&v8 init];
+  if (v4)
+  {
+    v5 = [[BDSReadingHistoryServiceStatus alloc] initWithIsLoaded:loadedCopy];
+    status = v4->_status;
+    v4->_status = v5;
+  }
+
+  return v4;
+}
 
 - (BOOL)isLoaded
 {

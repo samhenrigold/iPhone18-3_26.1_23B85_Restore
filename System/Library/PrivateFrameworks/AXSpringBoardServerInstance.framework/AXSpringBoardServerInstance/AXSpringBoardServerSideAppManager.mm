@@ -422,7 +422,7 @@ void __68__AXSpringBoardServerSideAppManager_medusaAppBundleIdsToLayoutRoles__bl
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Tried to perform invalid side app gesture: %lu.  Allowed gestures: %@", gesture);
   }
 
   return v7;
@@ -430,45 +430,44 @@ void __68__AXSpringBoardServerSideAppManager_medusaAppBundleIdsToLayoutRoles__bl
 
 - (BOOL)hasMultipleApps
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D0AAA0] = [MEMORY[0x277D0AAA0] sharedInstance];
   currentLayout = [mEMORY[0x277D0AAA0] currentLayout];
 
   v4 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   elements = [currentLayout elements];
-  v6 = [elements countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [elements countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(elements);
         }
 
-        bundleIdentifier = [*(*(&v14 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v13 + 1) + 8 * i) bundleIdentifier];
         if ([bundleIdentifier length])
         {
           [v4 addObject:bundleIdentifier];
         }
       }
 
-      v7 = [elements countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [elements countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v4 count] > 1;
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -513,10 +512,7 @@ void __68__AXSpringBoardServerSideAppManager_medusaAppBundleIdsToLayoutRoles__bl
 
 uint64_t __77__AXSpringBoardServerSideAppManager_canLaunchAsPinnedApplicationForIconView___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) elementWithRole:1];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) elementWithRole:1];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -781,14 +777,14 @@ void __59__AXSpringBoardServerSideAppManager__performMedusaGesture___block_invok
     case 0:
       v15 = *(*(a1 + 72) + 8);
       v16 = 3;
-      goto LABEL_24;
+      goto LABEL_22;
     case 1:
     case 4:
       v3 = *(a1 + 72);
-      goto LABEL_13;
+      goto LABEL_12;
     case 2:
     case 3:
-      goto LABEL_8;
+      goto LABEL_7;
     case 5:
       v39 = [*(a1 + 32) _sbPreviousWorkspaceEntityClass];
       v40 = [v39 entityWithPreviousLayoutRole:3];
@@ -811,10 +807,10 @@ void __59__AXSpringBoardServerSideAppManager__performMedusaGesture___block_invok
       v15 = *(*(a1 + 72) + 8);
       if (v16 != 1)
       {
-        goto LABEL_24;
+        goto LABEL_22;
       }
 
-      goto LABEL_14;
+      goto LABEL_13;
     case 6:
       v50 = [*(a1 + 32) _sbPreviousWorkspaceEntityClass];
       v51 = [v50 entityWithPreviousLayoutRole:1];
@@ -837,10 +833,10 @@ void __59__AXSpringBoardServerSideAppManager__performMedusaGesture___block_invok
       v15 = *(*(a1 + 72) + 8);
       if (v16 != 1)
       {
-        goto LABEL_24;
+        goto LABEL_22;
       }
 
-      goto LABEL_9;
+      goto LABEL_8;
     case 7:
       v29 = [*(a1 + 32) _sbPreviousWorkspaceEntityClass];
       v30 = [v29 entityWithPreviousLayoutRole:2];
@@ -857,7 +853,7 @@ void __59__AXSpringBoardServerSideAppManager__performMedusaGesture___block_invok
       v37 = v36;
       v18 = 1;
       v38 = 1;
-      goto LABEL_26;
+      goto LABEL_24;
     case 8:
       v61 = [*(a1 + 32) _sbPreviousWorkspaceEntityClass];
       v62 = [v61 entityWithPreviousLayoutRole:1];
@@ -874,27 +870,27 @@ void __59__AXSpringBoardServerSideAppManager__performMedusaGesture___block_invok
       v37 = v36;
       v18 = 2;
       v38 = 2;
-LABEL_26:
+LABEL_24:
       v68 = [v36 entityWithPreviousLayoutRole:v38];
       v69 = *(*(a1 + 56) + 8);
       v70 = *(v69 + 40);
       *(v69 + 40) = v68;
 
       v28 = *(a1 + 64);
-      goto LABEL_27;
+      goto LABEL_25;
     case 9:
       *(*(*(a1 + 72) + 8) + 24) = 1;
       v3 = *(a1 + 64);
-LABEL_13:
+LABEL_12:
       v15 = *(v3 + 8);
-LABEL_14:
+LABEL_13:
       v16 = 2;
-      goto LABEL_24;
+      goto LABEL_22;
     case 0xALL:
       v16 = 1;
       *(*(*(a1 + 72) + 8) + 24) = 1;
       v15 = *(*(a1 + 64) + 8);
-      goto LABEL_24;
+      goto LABEL_22;
     case 0xBLL:
       v5 = [*(a1 + 32) _sbPreviousWorkspaceEntityClass];
       v6 = [v5 entityWithPreviousLayoutRole:2];
@@ -912,13 +908,13 @@ LABEL_14:
       v14 = *(v13 + 40);
       *(v13 + 40) = v12;
 
-LABEL_8:
+LABEL_7:
       v15 = *(*(a1 + 72) + 8);
-LABEL_9:
+LABEL_8:
       v16 = 4;
-LABEL_24:
+LABEL_22:
       *(v15 + 24) = v16;
-      return;
+      break;
     case 0xCLL:
       v17 = [*(a1 + 32) _sbPreviousWorkspaceEntityClass];
       v18 = 1;
@@ -938,15 +934,11 @@ LABEL_24:
       *(v26 + 40) = v25;
 
       v28 = *(a1 + 72);
-LABEL_27:
+LABEL_25:
       *(*(v28 + 8) + 24) = v18;
-      return;
+      break;
     case 0xDLL:
-      v72 = *(a1 + 32);
-      goto LABEL_20;
     case 0xELL:
-      v71 = *(a1 + 32);
-LABEL_20:
       AXPerformSafeBlock();
       break;
     case 0xFLL:
@@ -1164,10 +1156,7 @@ void __71__AXSpringBoardServerSideAppManager__requestFloatingAppSwitcherVisible_
 
 uint64_t __55__AXSpringBoardServerSideAppManager_launchApplication___block_invoke(uint64_t a1)
 {
-  v2 = [objc_alloc(NSClassFromString(&cfstr_Sbdeviceapplic_2.isa)) initWithApplicationForMainDisplay:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(NSClassFromString(&cfstr_Sbdeviceapplic_2.isa)) initWithApplicationForMainDisplay:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1198,10 +1187,7 @@ uint64_t __55__AXSpringBoardServerSideAppManager_launchApplication___block_invok
 
 uint64_t __76__AXSpringBoardServerSideAppManager_launchApplicationWithFullConfiguration___block_invoke(uint64_t a1)
 {
-  v2 = [objc_alloc(NSClassFromString(&cfstr_Sbdeviceapplic_2.isa)) initWithApplicationForMainDisplay:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(NSClassFromString(&cfstr_Sbdeviceapplic_2.isa)) initWithApplicationForMainDisplay:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1330,10 +1316,7 @@ void __75__AXSpringBoardServerSideAppManager_launchPinnedApplication_onLeadingSi
 
 uint64_t __75__AXSpringBoardServerSideAppManager_launchPinnedApplication_onLeadingSide___block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) newSceneIdentityForApplication:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) newSceneIdentityForApplication:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1352,20 +1335,14 @@ void __75__AXSpringBoardServerSideAppManager_launchPinnedApplication_onLeadingSi
 
 uint64_t __75__AXSpringBoardServerSideAppManager_launchPinnedApplication_onLeadingSide___block_invoke_4(uint64_t a1)
 {
-  v2 = [*(a1 + 32) fetchOrCreateApplicationSceneHandleForRequest:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) fetchOrCreateApplicationSceneHandleForRequest:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 uint64_t __75__AXSpringBoardServerSideAppManager_launchPinnedApplication_onLeadingSide___block_invoke_5(uint64_t a1)
 {
-  v2 = [objc_alloc(NSClassFromString(&cfstr_Sbdeviceapplic_2.isa)) initWithApplicationSceneHandle:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(NSClassFromString(&cfstr_Sbdeviceapplic_2.isa)) initWithApplicationSceneHandle:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1396,10 +1373,7 @@ uint64_t __75__AXSpringBoardServerSideAppManager_launchPinnedApplication_onLeadi
 
 uint64_t __63__AXSpringBoardServerSideAppManager_launchFloatingApplication___block_invoke(uint64_t a1)
 {
-  v2 = [objc_alloc(NSClassFromString(&cfstr_Sbdeviceapplic_2.isa)) initWithApplicationForMainDisplay:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(NSClassFromString(&cfstr_Sbdeviceapplic_2.isa)) initWithApplicationForMainDisplay:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1486,29 +1460,29 @@ LABEL_9:
   return v4;
 }
 
-uint64_t __72__AXSpringBoardServerSideAppManager__activeApplicationBundleIdentifiers__block_invoke(uint64_t a1)
+void *__72__AXSpringBoardServerSideAppManager__activeApplicationBundleIdentifiers__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  result = [&unk_2833B1780 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  result = [&unk_2833B1780 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v3 = result;
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       v5 = 0;
       do
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(&unk_2833B1780);
         }
 
-        v6 = [*(*(&v11 + 1) + 8 * v5) integerValue];
+        v6 = [*(*(&v10 + 1) + 8 * v5) integerValue];
         v7 = [*(a1 + 32) appForLayoutRole:v6];
         v8 = [v7 safeStringForKey:@"bundleIdentifier"];
 
@@ -1524,18 +1498,17 @@ uint64_t __72__AXSpringBoardServerSideAppManager__activeApplicationBundleIdentif
 
         [*(a1 + 40) axSafelyAddObject:v8];
 
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
-      result = [&unk_2833B1780 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      result = [&unk_2833B1780 countByEnumeratingWithState:&v10 objects:v14 count:16];
       v3 = result;
     }
 
     while (result);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1675,12 +1648,11 @@ Class __62__AXSpringBoardServerSideAppManager__sbWorkspaceMainWorkspace__block_i
 
 void __59__AXSpringBoardServerSideAppManager__performMedusaGesture___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_21FE6B000, a2, OS_LOG_TYPE_ERROR, "Attempting to perform invalid gesture: %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_21FE6B000, a2, OS_LOG_TYPE_ERROR, "Attempting to perform invalid gesture: %ld", &v3, 0xCu);
 }
 
 - (void)_isDockIconView:.cold.1()

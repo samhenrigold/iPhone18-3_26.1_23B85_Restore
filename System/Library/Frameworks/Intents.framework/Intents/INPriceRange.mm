@@ -16,8 +16,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"minimumPrice";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"minimumPrice";
   minimumPrice = self->_minimumPrice;
   null = minimumPrice;
   if (!minimumPrice)
@@ -25,8 +25,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"maximumPrice";
+  v12[0] = null;
+  v11[1] = @"maximumPrice";
   maximumPrice = self->_maximumPrice;
   null2 = maximumPrice;
   if (!maximumPrice)
@@ -34,8 +34,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"currencyCode";
+  v12[1] = null2;
+  v11[2] = @"currencyCode";
   currencyCode = self->_currencyCode;
   null3 = currencyCode;
   if (!currencyCode)
@@ -43,8 +43,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (currencyCode)
   {
     if (maximumPrice)
@@ -76,7 +76,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

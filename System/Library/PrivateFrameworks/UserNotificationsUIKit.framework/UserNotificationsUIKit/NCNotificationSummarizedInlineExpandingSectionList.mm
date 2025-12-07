@@ -686,7 +686,7 @@ void __84__NCNotificationSummarizedInlineExpandingSectionList_resetClearButtonSt
 
 - (void)_configureExpandedHeaderViewIfNecessary
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   expandedHeaderView = self->_expandedHeaderView;
   if (!expandedHeaderView)
   {
@@ -695,27 +695,27 @@ void __84__NCNotificationSummarizedInlineExpandingSectionList_resetClearButtonSt
     self->_expandedHeaderView = v4;
 
     [(NCNotificationSummaryExpandedHeaderView *)self->_expandedHeaderView setDelegate:self];
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
     requiredVisualStyleCategories = [(NCNotificationListBaseContentView *)self->_expandedHeaderView requiredVisualStyleCategories];
-    v7 = [requiredVisualStyleCategories countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v7 = [requiredVisualStyleCategories countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v24;
       do
       {
         v10 = 0;
         do
         {
-          if (*v23 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(requiredVisualStyleCategories);
           }
 
-          integerValue = [*(*(&v22 + 1) + 8 * v10) integerValue];
+          integerValue = [*(*(&v23 + 1) + 8 * v10) integerValue];
           v12 = self->_expandedHeaderView;
           v13 = [(PLPlatterView *)self->_backgroundPlatterView visualStylingProviderForCategory:integerValue];
           [(NCNotificationListBaseContentView *)v12 setVisualStylingProvider:v13 forCategory:integerValue];
@@ -724,7 +724,7 @@ void __84__NCNotificationSummarizedInlineExpandingSectionList_resetClearButtonSt
         }
 
         while (v8 != v10);
-        v8 = [requiredVisualStyleCategories countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v8 = [requiredVisualStyleCategories countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v8);
@@ -744,17 +744,17 @@ void __84__NCNotificationSummarizedInlineExpandingSectionList_resetClearButtonSt
   summaryOrderProvider3 = [(NCNotificationSummarizedSectionList *)self summaryOrderProvider];
   LODWORD(summaryOrderProvider2) = [summaryOrderProvider3 isOnboardingSummary];
 
-  v19 = self->_expandedHeaderView;
+  v20 = self->_expandedHeaderView;
   if (summaryOrderProvider2)
   {
-    v20 = NCUserNotificationsUIKitFrameworkBundle();
-    v21 = [v20 localizedStringForKey:@"NOTIFICATION_SUMMARY_ONBOARDING_SUGGESTION_EXPLANATION" value:&stru_282FE84F8 table:0];
-    [(NCNotificationSummaryExpandedHeaderView *)v19 setSubtitle:v21];
+    v21 = NCUserNotificationsUIKitFrameworkBundle(v19);
+    v22 = [v21 localizedStringForKey:@"NOTIFICATION_SUMMARY_ONBOARDING_SUGGESTION_EXPLANATION" value:&stru_282FE84F8 table:0];
+    [(NCNotificationSummaryExpandedHeaderView *)v20 setSubtitle:v22];
   }
 
   else
   {
-    [(NCNotificationSummaryExpandedHeaderView *)v19 setSubtitle:0];
+    [(NCNotificationSummaryExpandedHeaderView *)v20 setSubtitle:0];
   }
 }
 
@@ -809,7 +809,7 @@ void __84__NCNotificationSummarizedInlineExpandingSectionList_resetClearButtonSt
 {
   if (!self->_leadingPlatterViewClearControl)
   {
-    v3 = NCUserNotificationsUIKitFrameworkBundle();
+    v3 = NCUserNotificationsUIKitFrameworkBundle(self);
     v4 = [v3 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_ALL" value:&stru_282FE84F8 table:0];
     v5 = [NCToggleControl dismissControlWithMaterialRecipe:51 clearAllText:v4];
     leadingPlatterViewClearControl = self->_leadingPlatterViewClearControl;

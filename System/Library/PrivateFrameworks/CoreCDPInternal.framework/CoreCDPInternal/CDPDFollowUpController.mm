@@ -134,16 +134,16 @@ uint64_t __57__CDPDFollowUpController__identifiersAllowedForTelemetry__block_inv
 
 - (BOOL)_clearFollowUpForContext:(id)context error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = [(CDPDFollowUpFactory *)self->_followUpFactory identifierForContext:contextCopy];
   v8 = _CDPLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v24 = v7;
-    v25 = 2112;
-    v26 = contextCopy;
+    v23 = v7;
+    v24 = 2112;
+    v25 = contextCopy;
     _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Clearing a follow up: (%@) - %@", buf, 0x16u);
   }
 
@@ -151,11 +151,11 @@ uint64_t __57__CDPDFollowUpController__identifiersAllowedForTelemetry__block_inv
   {
     v9 = [objc_opt_class() analyticsEventWithEventName:*MEMORY[0x277CE4568] context:contextCopy identifier:v7];
     v10 = [(CDPDFollowUpController *)self _followUpControllerForContext:contextCopy];
-    v22 = v7;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-    v21 = 0;
-    v12 = [v10 clearPendingFollowUpItemsWithUniqueIdentifiers:v11 error:&v21];
-    v13 = v21;
+    v21 = v7;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v20 = 0;
+    v12 = [v10 clearPendingFollowUpItemsWithUniqueIdentifiers:v11 error:&v20];
+    v13 = v20;
 
     if (error)
     {
@@ -199,13 +199,12 @@ uint64_t __57__CDPDFollowUpController__identifiersAllowedForTelemetry__block_inv
     LOBYTE(v12) = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)postFollowUpItemForContext:(id)context error:(id *)error
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if ([MEMORY[0x277CFD560] hasFullCDPSupport] && -[CDPDFollowUpController _isNotAudioAccessory](self, "_isNotAudioAccessory"))
   {
@@ -213,7 +212,7 @@ uint64_t __57__CDPDFollowUpController__identifiersAllowedForTelemetry__block_inv
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v100 = contextCopy;
+      v99 = contextCopy;
       _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Processing request for context: %@", buf, 0xCu);
     }
 
@@ -230,9 +229,9 @@ uint64_t __57__CDPDFollowUpController__identifiersAllowedForTelemetry__block_inv
       else
       {
         followUpType2 = [contextCopy followUpType];
-        v15 = [followUpType2 isEqualToString:*MEMORY[0x277CFD440]];
+        v14 = [followUpType2 isEqualToString:*MEMORY[0x277CFD440]];
 
-        if (!v15)
+        if (!v14)
         {
           goto LABEL_16;
         }
@@ -248,20 +247,20 @@ LABEL_16:
         {
           informativeText = [(CDPDFollowUpController *)self informativeText];
           informativeText2 = [v9 informativeText];
-          v20 = [informativeText2 stringByAppendingString:informativeText];
-          [v9 setInformativeText:v20];
+          v19 = [informativeText2 stringByAppendingString:informativeText];
+          [v9 setInformativeText:v19];
 
           notification = [v9 notification];
           informativeText3 = [notification informativeText];
-          v23 = [informativeText3 stringByAppendingString:informativeText];
+          v22 = [informativeText3 stringByAppendingString:informativeText];
           notification2 = [v9 notification];
-          [notification2 setInformativeText:v23];
+          [notification2 setInformativeText:v22];
         }
 
         followUpController = [(CDPDFollowUpController *)self followUpController];
-        v98 = @"RepairCDPState";
-        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v98 count:1];
-        [followUpController clearPendingFollowUpItemsWithUniqueIdentifiers:v26 error:error];
+        v97 = @"RepairCDPState";
+        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
+        [followUpController clearPendingFollowUpItemsWithUniqueIdentifiers:v25 error:error];
 
         if (([contextCopy isDefaultRepairOrSOSCompatibilityFollowUp] & 1) == 0)
         {
@@ -269,8 +268,8 @@ LABEL_16:
           goto LABEL_11;
         }
 
-        v85 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v81 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v84 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v80 = objc_alloc_init(MEMORY[0x277CBEB18]);
         altDSID = [contextCopy altDSID];
 
         if (!altDSID)
@@ -280,139 +279,139 @@ LABEL_16:
           [contextCopy setAltDSID:altDSID2];
         }
 
-        v30 = MEMORY[0x277CFD498];
+        v29 = MEMORY[0x277CFD498];
         altDSID3 = [contextCopy altDSID];
-        v32 = [v30 syncingStatusForAltDSID:altDSID3];
+        v31 = [v29 syncingStatusForAltDSID:altDSID3];
 
-        v33 = MEMORY[0x277CFD540];
+        v32 = MEMORY[0x277CFD540];
         altDSID4 = [contextCopy altDSID];
-        v35 = [v33 syncingStatusForAltDSID:altDSID4];
+        v34 = [v32 syncingStatusForAltDSID:altDSID4];
 
         altDSID5 = [contextCopy altDSID];
-        v83 = [(CDPDFollowUpController *)self _hasSOSActiveDeviceForAltDSID:altDSID5];
+        v82 = [(CDPDFollowUpController *)self _hasSOSActiveDeviceForAltDSID:altDSID5];
 
         altDSID6 = [contextCopy altDSID];
-        v38 = [(CDPDFollowUpController *)self _sosCompatibilityModeContext:altDSID6];
+        v37 = [(CDPDFollowUpController *)self _sosCompatibilityModeContext:altDSID6];
 
         altDSID7 = [contextCopy altDSID];
-        v40 = [(CDPDFollowUpController *)self _cdpRepairContext:altDSID7];
+        v39 = [(CDPDFollowUpController *)self _cdpRepairContext:altDSID7];
 
-        v84 = v40;
-        v80 = v35;
-        if (v32 == 1)
+        v83 = v39;
+        v79 = v34;
+        if (v31 == 1)
         {
-          if (v35 == 1)
+          if (v34 == 1)
           {
 LABEL_38:
-            v52 = _CDPLogSystem();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+            v51 = _CDPLogSystem();
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
             {
               [CDPDFollowUpController postFollowUpItemForContext:error:];
             }
 
-            v91[0] = v40;
-            v91[1] = v38;
-            v42 = MEMORY[0x277CBEA60];
-            v43 = v91;
+            v90[0] = v39;
+            v90[1] = v37;
+            v41 = MEMORY[0x277CBEA60];
+            v42 = v90;
             goto LABEL_41;
           }
 
-          if (!v35)
+          if (!v34)
           {
-            v41 = _CDPLogSystem();
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+            v40 = _CDPLogSystem();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
             {
               [CDPDFollowUpController postFollowUpItemForContext:error:];
             }
 
-            v95[0] = v40;
-            v95[1] = v38;
-            v42 = MEMORY[0x277CBEA60];
-            v43 = v95;
+            v94[0] = v39;
+            v94[1] = v37;
+            v41 = MEMORY[0x277CBEA60];
+            v42 = v94;
 LABEL_41:
-            v50 = [v42 arrayWithObjects:v43 count:2];
-            v47 = v81;
-            [v81 addObjectsFromArray:v50];
-            v51 = v85;
+            v49 = [v41 arrayWithObjects:v42 count:2];
+            v46 = v80;
+            [v80 addObjectsFromArray:v49];
+            v50 = v84;
 LABEL_42:
 
-            if ([v51 count])
+            if ([v50 count])
             {
-              v53 = _CDPLogSystem();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+              v52 = _CDPLogSystem();
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_24510B000, v53, OS_LOG_TYPE_DEFAULT, "_handleCDPRepairCFUPosting - tearing down RK Mismatch healing CFU to post CDP Repair CFU", buf, 2u);
+                _os_log_impl(&dword_24510B000, v52, OS_LOG_TYPE_DEFAULT, "_handleCDPRepairCFUPosting - tearing down RK Mismatch healing CFU to post CDP Repair CFU", buf, 2u);
               }
 
               altDSID8 = [contextCopy altDSID];
-              v55 = [(CDPDFollowUpController *)self _rkMismatchHealingContext:altDSID8];
+              v54 = [(CDPDFollowUpController *)self _rkMismatchHealingContext:altDSID8];
 
-              [v47 addObject:v55];
+              [v46 addObject:v54];
             }
 
-            v82 = v38;
-            v88 = 0u;
-            v89 = 0u;
-            v86 = 0u;
+            v81 = v37;
             v87 = 0u;
-            v56 = v47;
-            v57 = [v56 countByEnumeratingWithState:&v86 objects:v90 count:16];
-            if (v57)
+            v88 = 0u;
+            v85 = 0u;
+            v86 = 0u;
+            v55 = v46;
+            v56 = [v55 countByEnumeratingWithState:&v85 objects:v89 count:16];
+            if (v56)
             {
-              v58 = v57;
-              v59 = *v87;
+              v57 = v56;
+              v58 = *v86;
               do
               {
-                for (i = 0; i != v58; ++i)
+                for (i = 0; i != v57; ++i)
                 {
-                  if (*v87 != v59)
+                  if (*v86 != v58)
                   {
-                    objc_enumerationMutation(v56);
+                    objc_enumerationMutation(v55);
                   }
 
-                  v61 = *(*(&v86 + 1) + 8 * i);
+                  v60 = *(*(&v85 + 1) + 8 * i);
                   telemetryFlowID = [contextCopy telemetryFlowID];
-                  [v61 setTelemetryFlowID:telemetryFlowID];
+                  [v60 setTelemetryFlowID:telemetryFlowID];
 
                   telemetryDeviceSessionID = [contextCopy telemetryDeviceSessionID];
-                  [v61 setTelemetryDeviceSessionID:telemetryDeviceSessionID];
+                  [v60 setTelemetryDeviceSessionID:telemetryDeviceSessionID];
 
-                  [(CDPDFollowUpController *)self clearFollowUpWithContext:v61 error:0];
+                  [(CDPDFollowUpController *)self clearFollowUpWithContext:v60 error:0];
                 }
 
-                v58 = [v56 countByEnumeratingWithState:&v86 objects:v90 count:16];
+                v57 = [v55 countByEnumeratingWithState:&v85 objects:v89 count:16];
               }
 
-              while (v58);
+              while (v57);
             }
 
-            v64 = v85;
-            firstObject = [v85 firstObject];
+            v63 = v84;
+            firstObject = [v84 firstObject];
 
             if (firstObject)
             {
-              firstObject2 = [v85 firstObject];
+              firstObject2 = [v84 firstObject];
               followUpFactory2 = [(CDPDFollowUpController *)self followUpFactory];
-              v68 = [followUpFactory2 followUpItemWithContext:firstObject2];
+              v67 = [followUpFactory2 followUpItemWithContext:firstObject2];
 
               followUpType3 = [firstObject2 followUpType];
-              v70 = *MEMORY[0x277CFD468];
+              v69 = *MEMORY[0x277CFD468];
               if ([followUpType3 isEqualToString:*MEMORY[0x277CFD468]])
               {
-                v71 = +[CDPDOctagonTrustProxyImpl octagonIsSOSFeatureEnabled];
+                v70 = +[CDPDOctagonTrustProxyImpl octagonIsSOSFeatureEnabled];
 
-                if (!v71)
+                if (!v70)
                 {
-                  v72 = _CDPLogSystem();
-                  if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+                  v71 = _CDPLogSystem();
+                  if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
                   {
                     [CDPDFollowUpController postFollowUpItemForContext:error:];
                   }
 
-                  v73 = 0;
+                  v72 = 0;
                   v11 = 0;
-                  v64 = v85;
+                  v63 = v84;
                   goto LABEL_66;
                 }
               }
@@ -421,34 +420,34 @@ LABEL_42:
               {
               }
 
-              v11 = [(CDPDFollowUpController *)self _postFollowUpItem:v68 context:firstObject2 error:error];
+              v11 = [(CDPDFollowUpController *)self _postFollowUpItem:v67 context:firstObject2 error:error];
 
-              v64 = v85;
+              v63 = v84;
             }
 
             else
             {
               v11 = 0;
-              v70 = *MEMORY[0x277CFD468];
+              v69 = *MEMORY[0x277CFD468];
             }
 
             followUpType4 = [contextCopy followUpType];
-            if ([followUpType4 isEqualToString:v70] && v80 != 1)
+            if ([followUpType4 isEqualToString:v69] && v79 != 1)
             {
-              v75 = v83;
-              bOOLValue = [v83 BOOLValue];
+              v74 = v82;
+              bOOLValue = [v82 BOOLValue];
 
               v11 |= bOOLValue ^ 1;
-              v73 = 1;
+              v72 = 1;
               goto LABEL_67;
             }
 
-            v73 = 1;
+            v72 = 1;
 LABEL_66:
-            v75 = v83;
+            v74 = v82;
 LABEL_67:
 
-            if (v73)
+            if (v72)
             {
               goto LABEL_11;
             }
@@ -456,68 +455,68 @@ LABEL_67:
             goto LABEL_10;
           }
 
-          if (([v83 BOOLValue] & 1) == 0 && v83)
+          if (([v82 BOOLValue] & 1) == 0 && v82)
           {
-            if (([v83 BOOLValue] & 1) == 0)
+            if (([v82 BOOLValue] & 1) == 0)
             {
-              v79 = _CDPLogSystem();
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+              v78 = _CDPLogSystem();
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
               {
                 [CDPDFollowUpController postFollowUpItemForContext:error:];
               }
 
-              v92[0] = v40;
-              v92[1] = v38;
-              v42 = MEMORY[0x277CBEA60];
-              v43 = v92;
+              v91[0] = v39;
+              v91[1] = v37;
+              v41 = MEMORY[0x277CBEA60];
+              v42 = v91;
               goto LABEL_41;
             }
 
             goto LABEL_38;
           }
 
-          v77 = _CDPLogSystem();
-          if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+          v76 = _CDPLogSystem();
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
           {
             [CDPDFollowUpController postFollowUpItemForContext:error:];
           }
 
-          v94 = v40;
-          v78 = [MEMORY[0x277CBEA60] arrayWithObjects:&v94 count:1];
-          v47 = v81;
-          [v81 addObjectsFromArray:v78];
+          v93 = v39;
+          v77 = [MEMORY[0x277CBEA60] arrayWithObjects:&v93 count:1];
+          v46 = v80;
+          [v80 addObjectsFromArray:v77];
 
-          v93 = v38;
-          v48 = MEMORY[0x277CBEA60];
-          v49 = &v93;
+          v92 = v37;
+          v47 = MEMORY[0x277CBEA60];
+          v48 = &v92;
         }
 
         else
         {
-          v45 = _CDPLogSystem();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+          v44 = _CDPLogSystem();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
           {
             [CDPDFollowUpController postFollowUpItemForContext:error:];
           }
 
-          v97 = v38;
-          v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
-          v47 = v81;
-          [v81 addObjectsFromArray:v46];
+          v96 = v37;
+          v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v96 count:1];
+          v46 = v80;
+          [v80 addObjectsFromArray:v45];
 
-          v96 = v40;
-          v48 = MEMORY[0x277CBEA60];
-          v49 = &v96;
+          v95 = v39;
+          v47 = MEMORY[0x277CBEA60];
+          v48 = &v95;
         }
 
-        v50 = [v48 arrayWithObjects:v49 count:1];
-        v51 = v85;
-        [v85 addObjectsFromArray:v50];
+        v49 = [v47 arrayWithObjects:v48 count:1];
+        v50 = v84;
+        [v84 addObjectsFromArray:v49];
         goto LABEL_42;
       }
 
-      v44 = _CDPLogSystem();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+      v43 = _CDPLogSystem();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
         [CDPDFollowUpController postFollowUpItemForContext:error:];
       }
@@ -545,7 +544,6 @@ LABEL_10:
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
@@ -601,7 +599,7 @@ LABEL_11:
 
 - (BOOL)clearFollowUpWithContext:(id)context error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   followUpType = [contextCopy followUpType];
 
@@ -614,9 +612,9 @@ LABEL_11:
     if (v9)
     {
       followUpController = [(CDPDFollowUpController *)self followUpController];
-      v16[0] = @"RepairCDPState";
+      v15[0] = @"RepairCDPState";
       v12 = 1;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
       [followUpController clearPendingFollowUpItemsWithUniqueIdentifiers:v13 error:error];
     }
 
@@ -637,7 +635,6 @@ LABEL_11:
     v12 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -723,12 +720,12 @@ LABEL_8:
 
 - (BOOL)hasPendingFollowUpWithUniqueIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   followUpController = self->_followUpController;
-  v22 = 0;
-  v6 = [(FLFollowUpController *)followUpController pendingFollowUpItems:&v22];
-  v7 = v22;
+  v21 = 0;
+  v6 = [(FLFollowUpController *)followUpController pendingFollowUpItems:&v21];
+  v7 = v21;
   v8 = v7;
   if (v6)
   {
@@ -742,25 +739,25 @@ LABEL_8:
 
   if (v9)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v10 = v6;
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v17 objects:v24 count:16];
     if (v11)
     {
-      v12 = *v19;
+      v12 = *v18;
       while (2)
       {
         for (i = 0; i != v11; i = (i + 1))
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          uniqueIdentifier = [*(*(&v18 + 1) + 8 * i) uniqueIdentifier];
+          uniqueIdentifier = [*(*(&v17 + 1) + 8 * i) uniqueIdentifier];
           v15 = [identifierCopy isEqualToString:uniqueIdentifier];
 
           if (v15)
@@ -769,7 +766,7 @@ LABEL_8:
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v24 = identifierCopy;
+              v23 = identifierCopy;
               _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Found CFU with uniqueIdentifier %@", buf, 0xCu);
             }
 
@@ -778,7 +775,7 @@ LABEL_8:
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v18 objects:v25 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v17 objects:v24 count:16];
         if (v11)
         {
           continue;
@@ -802,7 +799,6 @@ LABEL_8:
 
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -843,44 +839,38 @@ LABEL_20:
 
 - (void)_postFollowUpItem:(void *)a1 context:(NSObject *)a2 error:.cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 uniqueIdentifier];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_24510B000, a2, OS_LOG_TYPE_FAULT, "CDP was requested to post a non-allowed CFU: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24510B000, a2, OS_LOG_TYPE_FAULT, "CDP was requested to post a non-allowed CFU: %@", v4, 0xCu);
 }
 
 - (void)_clearFollowUpForContext:error:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "CDP was requested to clear a non-allowed CFU: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "CDP was requested to clear a non-allowed CFU: %@", v1, 0xCu);
 }
 
 - (void)postFollowUpItemForContext:error:.cold.6()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_24510B000, v0, OS_LOG_TYPE_DEBUG, "_handleCDPRepairCFUPosting - In OT but not in SOS circle, with hasSOSActiveDevice = %@, clear CDP Repair CFU and posting SOS Compatibility Mode CFU", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24510B000, v0, OS_LOG_TYPE_DEBUG, "_handleCDPRepairCFUPosting - In OT but not in SOS circle, with hasSOSActiveDevice = %@, clear CDP Repair CFU and posting SOS Compatibility Mode CFU", v1, 0xCu);
 }
 
 - (void)hasPendingFollowUpWithUniqueIdentifier:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24510B000, v0, OS_LOG_TYPE_ERROR, "Failed to fetch any pending CFUs, error: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24510B000, v0, OS_LOG_TYPE_ERROR, "Failed to fetch any pending CFUs, error: %{public}@", v1, 0xCu);
 }
 
 + (void)analyticsEventWithEventName:context:identifier:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "CDP was requested to process a non-allowed CFU: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "CDP was requested to process a non-allowed CFU: %@", v1, 0xCu);
 }
 
 @end

@@ -1,9 +1,30 @@
 @interface CTXPCSetRatSelectionMaskRequest
 + (id)allowedClassesForArguments;
+- (CTXPCSetRatSelectionMaskRequest)initWithDescriptor:(id)descriptor selection:(unsigned __int8)selection preferred:(unsigned __int8)preferred;
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler;
 @end
 
 @implementation CTXPCSetRatSelectionMaskRequest
+
+- (CTXPCSetRatSelectionMaskRequest)initWithDescriptor:(id)descriptor selection:(unsigned __int8)selection preferred:(unsigned __int8)preferred
+{
+  preferredCopy = preferred;
+  selectionCopy = selection;
+  v16[2] = *MEMORY[0x1E69E9840];
+  descriptorCopy = descriptor;
+  v15[0] = @"selection";
+  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:selectionCopy];
+  v15[1] = @"preferred";
+  v16[0] = v9;
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:preferredCopy];
+  v16[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14.receiver = self;
+  v14.super_class = CTXPCSetRatSelectionMaskRequest;
+  v12 = [(CTXPCSubscriptionContextRequest *)&v14 initWithDescriptor:descriptorCopy namedArguments:v11];
+
+  return v12;
+}
 
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler
 {

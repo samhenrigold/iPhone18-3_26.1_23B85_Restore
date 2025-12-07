@@ -41,7 +41,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__44__OPTTSTextToSpeechUserProfile_fl
 
 - (Offset<siri::speech::schema_fb::TextToSpeechUserProfile>)addObjectToBuffer:(void *)buffer
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   resources = [(OPTTSTextToSpeechUserProfile *)self resources];
   v6 = [resources count];
   if (v6)
@@ -54,16 +54,11 @@ apple::aiml::flatbuffers2::DetachedBuffer *__44__OPTTSTextToSpeechUserProfile_fl
     std::vector<short>::__throw_length_error[abi:ne200100]();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  memset(v14, 0, sizeof(v14));
   obj = [(OPTTSTextToSpeechUserProfile *)self resources];
-  if ([obj countByEnumeratingWithState:&v16 objects:v20 count:16])
+  if ([obj countByEnumeratingWithState:v14 objects:v15 count:16])
   {
-    *v17;
-    *v17;
-    [**(&v16 + 1) addObjectToBuffer:buffer];
+    [**(&v14[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>>(1uLL);
   }
 
@@ -80,9 +75,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__44__OPTTSTextToSpeechUserProfile_fl
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 4, v11);
   }
 
-  v12.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v10 - v9 + v8);
-  v13 = *MEMORY[0x1E69E9840];
-  return v12;
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v10 - v9 + v8);
 }
 
 - (void)resources_enumerateObjectsUsingBlock:(id)block

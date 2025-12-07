@@ -28,33 +28,51 @@ void ___CalEventPrepareForSave_block_invoke(uint64_t a1)
     CStringFromCFString = CalCreateCStringFromCFString(*(a1 + 40));
     v8 = CalCreateCStringFromCFString(*(a1 + 48));
     v9 = v6[1];
-    v10 = *(a1 + 56);
     ID = CPRecordGetID();
     sqlite3_bind_int(v9, 1, ID);
     sqlite3_bind_int(v6[1], 2, 1);
-    v12 = v6[1];
+    v11 = v6[1];
     EntityType = _CalCalendarItemGetEntityType(*(a1 + 56));
-    sqlite3_bind_int(v12, 3, EntityType);
-    v14 = v6[1];
-    v15 = *(a1 + 56);
+    sqlite3_bind_int(v11, 3, EntityType);
+    v13 = v6[1];
     Store = CPRecordGetStore();
     if (CDBLockingAssertionsEnabled == 1 && Store != 0)
     {
-      v18 = CPRecordStoreGetContext();
-      if (v18)
+      v16 = CPRecordStoreGetContext();
+      if (v16)
       {
-        os_unfair_lock_assert_owner(v18 + 20);
+        os_unfair_lock_assert_owner(v16 + 20);
       }
     }
 
     LastSequenceNumber = CPRecordStoreGetLastSequenceNumber();
-    sqlite3_bind_int(v14, 4, LastSequenceNumber);
+    sqlite3_bind_int(v13, 4, LastSequenceNumber);
     sqlite3_bind_int(v6[1], 5, *(a1 + 64));
     sqlite3_bind_int(v6[1], 6, *(a1 + 68));
     sqlite3_bind_int(v6[1], 7, *(a1 + 72));
-    v20 = MEMORY[0x1E69E9B38];
+    v18 = MEMORY[0x1E69E9B38];
     sqlite3_bind_text(v6[1], 8, CStringFromCFString, -1, MEMORY[0x1E69E9B38]);
-    sqlite3_bind_text(v6[1], 9, v8, -1, v20);
+    sqlite3_bind_text(v6[1], 9, v8, -1, v18);
+    if (CDBLockingAssertionsEnabled == 1)
+    {
+      if (*v6)
+      {
+        v19 = **v6;
+        if (v19)
+        {
+          if (*(v19 + 104))
+          {
+            v20 = CPRecordStoreGetContext();
+            if (v20)
+            {
+              os_unfair_lock_assert_owner(v20 + 20);
+            }
+          }
+        }
+      }
+    }
+
+    CPSqliteStatementPerform();
     if (CDBLockingAssertionsEnabled == 1)
     {
       if (*v6)
@@ -74,41 +92,21 @@ void ___CalEventPrepareForSave_block_invoke(uint64_t a1)
       }
     }
 
-    CPSqliteStatementPerform();
-    if (CDBLockingAssertionsEnabled == 1)
-    {
-      if (*v6)
-      {
-        v23 = **v6;
-        if (v23)
-        {
-          if (*(v23 + 104))
-          {
-            v24 = CPRecordStoreGetContext();
-            if (v24)
-            {
-              os_unfair_lock_assert_owner(v24 + 20);
-            }
-          }
-        }
-      }
-    }
-
     CPSqliteStatementReset();
   }
 
   CFRelease(@"INSERT INTO CalendarItemChanges (record, type, entity_type, sequence_number, store_id, calendar_id, old_calendar_id, external_id, old_external_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
-  v25 = *(a1 + 40);
-  if (v25)
+  v23 = *(a1 + 40);
+  if (v23)
   {
-    CFRelease(v25);
+    CFRelease(v23);
   }
 
-  v26 = *(a1 + 48);
-  if (v26)
+  v24 = *(a1 + 48);
+  if (v24)
   {
 
-    CFRelease(v26);
+    CFRelease(v24);
   }
 }
 

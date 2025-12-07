@@ -22,7 +22,7 @@
 
 - (id)buildFootnote
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   dateCreated = [(SSJournalResultBuilder *)self dateCreated];
 
   if (dateCreated)
@@ -35,10 +35,10 @@
       v6 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
       v7 = [v6 localizedStringForKey:@"Entry" value:0 table:0];
 
-      v14[0] = v7;
-      v14[1] = @" · ";
-      v14[2] = v5;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+      v13[0] = v7;
+      v13[1] = @" · ";
+      v13[2] = v5;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
       v9 = [v8 componentsJoinedByString:&stru_1F556FE60];
 
       buildFootnote = [MEMORY[0x1E69CA3A0] textWithString:v9];
@@ -47,11 +47,10 @@
     }
   }
 
-  v13.receiver = self;
-  v13.super_class = SSJournalResultBuilder;
-  buildFootnote = [(SSResultBuilder *)&v13 buildFootnote];
+  v12.receiver = self;
+  v12.super_class = SSJournalResultBuilder;
+  buildFootnote = [(SSResultBuilder *)&v12 buildFootnote];
 LABEL_6:
-  v11 = *MEMORY[0x1E69E9840];
 
   return buildFootnote;
 }

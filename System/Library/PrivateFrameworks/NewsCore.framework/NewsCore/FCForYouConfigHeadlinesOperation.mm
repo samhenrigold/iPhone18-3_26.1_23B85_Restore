@@ -11,68 +11,68 @@
 
 - (BOOL)validateOperation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   configuration = [(FCForYouConfigHeadlinesOperation *)self configuration];
 
   if (!configuration && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch ForYouConfig without a configuration"];
-    v16 = 136315906;
-    v17 = "[FCForYouConfigHeadlinesOperation validateOperation]";
-    v18 = 2080;
-    v19 = "FCForYouConfigHeadlinesOperation.m";
-    v20 = 1024;
-    v21 = 57;
-    v22 = 2114;
-    v23 = v12;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v16, 0x26u);
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch ForYouConfig without a configuration"];
+    v15 = 136315906;
+    v16 = "[FCForYouConfigHeadlinesOperation validateOperation]";
+    v17 = 2080;
+    v18 = "FCForYouConfigHeadlinesOperation.m";
+    v19 = 1024;
+    v20 = 57;
+    v21 = 2114;
+    v22 = v11;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v15, 0x26u);
   }
 
   bundleSubscriptionManager = [(FCForYouConfigHeadlinesOperation *)self bundleSubscriptionManager];
 
   if (!bundleSubscriptionManager && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch ForYouConfig headlines without a bundle subscription manager"];
-    v16 = 136315906;
-    v17 = "[FCForYouConfigHeadlinesOperation validateOperation]";
-    v18 = 2080;
-    v19 = "FCForYouConfigHeadlinesOperation.m";
-    v20 = 1024;
-    v21 = 61;
-    v22 = 2114;
-    v23 = v13;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v16, 0x26u);
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch ForYouConfig headlines without a bundle subscription manager"];
+    v15 = 136315906;
+    v16 = "[FCForYouConfigHeadlinesOperation validateOperation]";
+    v17 = 2080;
+    v18 = "FCForYouConfigHeadlinesOperation.m";
+    v19 = 1024;
+    v20 = 61;
+    v21 = 2114;
+    v22 = v12;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v15, 0x26u);
   }
 
   context = [(FCForYouConfigHeadlinesOperation *)self context];
 
   if (!context && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch ForYouConfig headlines without a context"];
-    v16 = 136315906;
-    v17 = "[FCForYouConfigHeadlinesOperation validateOperation]";
-    v18 = 2080;
-    v19 = "FCForYouConfigHeadlinesOperation.m";
-    v20 = 1024;
-    v21 = 65;
-    v22 = 2114;
-    v23 = v14;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v16, 0x26u);
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't fetch ForYouConfig headlines without a context"];
+    v15 = 136315906;
+    v16 = "[FCForYouConfigHeadlinesOperation validateOperation]";
+    v17 = 2080;
+    v18 = "FCForYouConfigHeadlinesOperation.m";
+    v19 = 1024;
+    v20 = 65;
+    v21 = 2114;
+    v22 = v13;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v15, 0x26u);
   }
 
   fields = [(FCForYouConfigHeadlinesOperation *)self fields];
   if (!fields && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must have headline fields to fetch ForYouConfig headlines"];
-    v16 = 136315906;
-    v17 = "[FCForYouConfigHeadlinesOperation validateOperation]";
-    v18 = 2080;
-    v19 = "FCForYouConfigHeadlinesOperation.m";
-    v20 = 1024;
-    v21 = 69;
-    v22 = 2114;
-    v23 = v15;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v16, 0x26u);
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must have headline fields to fetch ForYouConfig headlines"];
+    v15 = 136315906;
+    v16 = "[FCForYouConfigHeadlinesOperation validateOperation]";
+    v17 = 2080;
+    v18 = "FCForYouConfigHeadlinesOperation.m";
+    v19 = 1024;
+    v20 = 69;
+    v21 = 2114;
+    v22 = v14;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v15, 0x26u);
   }
 
   if (configuration)
@@ -85,36 +85,34 @@
     v7 = 1;
   }
 
-  result = !v7 && context != 0 && fields != 0;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v7 && context != 0 && fields != 0;
 }
 
 - (void)performOperation
 {
-  v40[6] = *MEMORY[0x1E69E9840];
+  v39[6] = *MEMORY[0x1E69E9840];
   configuration = [(FCForYouConfigHeadlinesOperation *)self configuration];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke;
-  v34[3] = &unk_1E7C36D40;
-  v34[4] = self;
-  v4 = [MEMORY[0x1E695DEC8] fc_array:v34];
   v33[0] = MEMORY[0x1E69E9820];
   v33[1] = 3221225472;
-  v33[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_2;
+  v33[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke;
   v33[3] = &unk_1E7C36D40;
   v33[4] = self;
-  v5 = [MEMORY[0x1E695DEC8] fc_array:v33];
+  v4 = [MEMORY[0x1E695DEC8] fc_array:v33];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_2;
+  v32[3] = &unk_1E7C36D40;
+  v32[4] = self;
+  v5 = [MEMORY[0x1E695DEC8] fc_array:v32];
   v6 = MEMORY[0x1E695DEC8];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_3;
-  v31[3] = &unk_1E7C3B110;
-  v31[4] = self;
-  v23 = configuration;
-  v32 = v23;
-  v7 = [v6 fc_array:v31];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_3;
+  v30[3] = &unk_1E7C3B110;
+  v30[4] = self;
+  v22 = configuration;
+  v31 = v22;
+  v7 = [v6 fc_array:v30];
   v8 = objc_alloc_init(FCRecordChainFetchOperation);
   context = [(FCForYouConfigHeadlinesOperation *)self context];
   [(FCRecordChainFetchOperation *)v8 setContext:context];
@@ -122,30 +120,30 @@
   _edgeCacheHint = [(FCForYouConfigHeadlinesOperation *)self _edgeCacheHint];
   [(FCRecordChainFetchOperation *)v8 setEdgeCacheHint:_edgeCacheHint];
 
-  v24 = v7;
+  v23 = v7;
   [(FCRecordChainFetchOperation *)v8 setTopLevelRecordIDs:v7];
-  v39[0] = @"ArticleList";
-  v38 = @"articleIDs";
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
-  v40[0] = v11;
-  v39[1] = @"Article";
-  v37[0] = @"sourceChannelTagID";
-  v37[1] = @"parentIssueID";
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
-  v40[1] = v12;
-  v40[2] = v5;
-  v39[2] = @"AudioConfig";
-  v39[3] = @"ForYouConfig";
-  v25 = v4;
-  v40[3] = v4;
-  v40[4] = MEMORY[0x1E695E0F0];
-  v39[4] = @"Issue";
-  v39[5] = @"Tag";
-  v40[5] = MEMORY[0x1E695E0F0];
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:6];
+  v38[0] = @"ArticleList";
+  v37 = @"articleIDs";
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+  v39[0] = v11;
+  v38[1] = @"Article";
+  v36[0] = @"sourceChannelTagID";
+  v36[1] = @"parentIssueID";
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+  v39[1] = v12;
+  v39[2] = v5;
+  v38[2] = @"AudioConfig";
+  v38[3] = @"ForYouConfig";
+  v24 = v4;
+  v39[3] = v4;
+  v39[4] = MEMORY[0x1E695E0F0];
+  v38[4] = @"Issue";
+  v38[5] = @"Tag";
+  v39[5] = MEMORY[0x1E695E0F0];
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:6];
   [(FCRecordChainFetchOperation *)v8 setLinkKeysByRecordType:v13];
 
-  v35[0] = @"ArticleList";
+  v34[0] = @"ArticleList";
   articleListCachePolicy = [(FCForYouConfigHeadlinesOperation *)self articleListCachePolicy];
   v15 = articleListCachePolicy;
   if (!articleListCachePolicy)
@@ -153,8 +151,8 @@
     v15 = +[FCCachePolicy defaultCachePolicy];
   }
 
-  v36[0] = v15;
-  v35[1] = @"AudioConfig";
+  v35[0] = v15;
+  v34[1] = @"AudioConfig";
   forYouConfigCachePolicy = [(FCForYouConfigHeadlinesOperation *)self forYouConfigCachePolicy];
   v17 = forYouConfigCachePolicy;
   if (!forYouConfigCachePolicy)
@@ -162,8 +160,8 @@
     v17 = +[FCCachePolicy defaultCachePolicy];
   }
 
-  v36[1] = v17;
-  v35[2] = @"ForYouConfig";
+  v35[1] = v17;
+  v34[2] = @"ForYouConfig";
   forYouConfigCachePolicy2 = [(FCForYouConfigHeadlinesOperation *)self forYouConfigCachePolicy];
   v19 = forYouConfigCachePolicy2;
   if (!forYouConfigCachePolicy2)
@@ -171,8 +169,8 @@
     v19 = +[FCCachePolicy defaultCachePolicy];
   }
 
-  v36[2] = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
+  v35[2] = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:3];
   [(FCRecordChainFetchOperation *)v8 setCachePoliciesByRecordType:v20];
 
   if (!forYouConfigCachePolicy2)
@@ -189,27 +187,25 @@
 
   if ([(FCForYouConfigHeadlinesOperation *)self shouldFetchEditorialSectionTags])
   {
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_4;
-    v28[3] = &unk_1E7C40980;
-    v29 = v23;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_4;
+    v27[3] = &unk_1E7C40980;
+    v28 = v22;
     selfCopy = self;
-    [(FCRecordChainFetchOperation *)v8 setDynamicCachePolicyBlock:v28];
+    [(FCRecordChainFetchOperation *)v8 setDynamicCachePolicyBlock:v27];
   }
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_5;
-  v26[3] = &unk_1E7C40918;
-  v26[4] = self;
-  v27 = v23;
-  v21 = v23;
-  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:v26];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_5;
+  v25[3] = &unk_1E7C40918;
+  v25[4] = self;
+  v26 = v22;
+  v21 = v22;
+  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:v25];
   [(FCOperation *)self associateChildOperation:v8];
   [(FCOperation *)v8 start];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke(uint64_t a1, void *a2)
@@ -357,7 +353,7 @@ void __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_6(uin
 
 uint64_t __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_9(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKeyedSubscript:&unk_1F2E704E8];
   v3 = [*(a1 + 32) objectForKeyedSubscript:&unk_1F2E70500];
   v4 = [*(a1 + 32) objectForKeyedSubscript:&unk_1F2E70518];
@@ -366,7 +362,7 @@ uint64_t __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_9
   v7 = [v2 onlyRecord];
   v8 = [FCForYouConfig alloc];
   v9 = [v2 onlyInterestToken];
-  v42 = v7;
+  v41 = v7;
   v10 = [(FCForYouConfig *)v8 initWithRecord:v7 interestToken:v9];
   [*(a1 + 40) setResultForYouConfig:v10];
 
@@ -375,7 +371,7 @@ uint64_t __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_9
   v13 = [v12 tagsForTagRecords:v6];
   [*(a1 + 40) setResultTagsByID:v13];
 
-  v43 = v4;
+  v42 = v4;
   v14 = [v4 transformRecordsByIDWithBlock:&__block_literal_global_74];
   [*(a1 + 40) setResultArticleListsByID:v14];
 
@@ -387,12 +383,12 @@ uint64_t __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_9
   v20 = FCHeadlinesByArticleListIDFromHeldRecordsAndArticleLists(v15, v17, v5, v6, v3, v19, 1);
   [*(a1 + 40) setResultHeadlinesByArticleListID:v20];
 
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_2_35;
-  v48[3] = &unk_1E7C371F8;
-  v48[4] = *(a1 + 40);
-  v21 = [MEMORY[0x1E695DFD8] fc_set:v48];
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_2_35;
+  v47[3] = &unk_1E7C371F8;
+  v47[4] = *(a1 + 40);
+  v21 = [MEMORY[0x1E695DFD8] fc_set:v47];
   if ([v21 count])
   {
     v22 = *(a1 + 48);
@@ -407,39 +403,39 @@ uint64_t __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_9
 
   if (v27)
   {
-    v41 = v3;
+    v40 = v3;
     v28 = [MEMORY[0x1E695DF70] array];
     v29 = [*(a1 + 40) resultHeadlinesByArticleID];
     v30 = [v29 allValues];
     [v28 addObjectsFromArray:v30];
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v31 = [*(a1 + 40) resultHeadlinesByArticleListID];
     v32 = [v31 allValues];
 
-    v33 = [v32 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v33 = [v32 countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v45;
+      v35 = *v44;
       do
       {
         v36 = 0;
         do
         {
-          if (*v45 != v35)
+          if (*v44 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          [v28 addObjectsFromArray:*(*(&v44 + 1) + 8 * v36++)];
+          [v28 addObjectsFromArray:*(*(&v43 + 1) + 8 * v36++)];
         }
 
         while (v34 != v36);
-        v34 = [v32 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v34 = [v32 countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
       while (v34);
@@ -448,14 +444,13 @@ uint64_t __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_9
     v37 = [*(a1 + 40) personalizer];
     FCAssignPersonalizationScoresToHeadlines(v28, v37, 0);
 
-    v3 = v41;
+    v3 = v40;
   }
 
   v38 = [*(a1 + 40) resultForYouConfig];
   [*(a1 + 40) setForYouConfig:v38];
 
   [*(a1 + 40) finishedPerformingOperationWithError:0];
-  v39 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -524,7 +519,7 @@ void __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_2_35(
 
 - (id)_edgeCacheHint
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (([(FCForYouConfigHeadlinesOperation *)self fields]& 4) != 0)
   {
     v4 = +[FCEdgeCacheHint edgeCacheHintForEditorial];
@@ -547,16 +542,16 @@ void __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_2_35(
         goto LABEL_11;
       }
 
-      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
-      v10 = 136315906;
-      v11 = "[FCForYouConfigHeadlinesOperation _edgeCacheHint]";
-      v12 = 2080;
-      v13 = "FCForYouConfigHeadlinesOperation.m";
-      v14 = 1024;
-      v15 = 283;
-      v16 = 2114;
-      v17 = v7;
-      v8 = MEMORY[0x1E69E9C10];
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
+      v9 = 136315906;
+      v10 = "[FCForYouConfigHeadlinesOperation _edgeCacheHint]";
+      v11 = 2080;
+      v12 = "FCForYouConfigHeadlinesOperation.m";
+      v13 = 1024;
+      v14 = 283;
+      v15 = 2114;
+      v16 = v6;
+      v7 = MEMORY[0x1E69E9C10];
     }
 
     else
@@ -566,19 +561,19 @@ void __52__FCForYouConfigHeadlinesOperation_performOperation__block_invoke_2_35(
         goto LABEL_11;
       }
 
-      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
-      v10 = 136315906;
-      v11 = "[FCForYouConfigHeadlinesOperation _edgeCacheHint]";
-      v12 = 2080;
-      v13 = "FCForYouConfigHeadlinesOperation.m";
-      v14 = 1024;
-      v15 = 284;
-      v16 = 2114;
-      v17 = v7;
-      v8 = MEMORY[0x1E69E9C10];
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
+      v9 = 136315906;
+      v10 = "[FCForYouConfigHeadlinesOperation _edgeCacheHint]";
+      v11 = 2080;
+      v12 = "FCForYouConfigHeadlinesOperation.m";
+      v13 = 1024;
+      v14 = 284;
+      v15 = 2114;
+      v16 = v6;
+      v7 = MEMORY[0x1E69E9C10];
     }
 
-    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
 
     goto LABEL_11;
   }
@@ -605,28 +600,27 @@ LABEL_10:
 LABEL_11:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected to have an edge cache hint for all ForYouConfig operations"];
-    v10 = 136315906;
-    v11 = "[FCForYouConfigHeadlinesOperation _edgeCacheHint]";
-    v12 = 2080;
-    v13 = "FCForYouConfigHeadlinesOperation.m";
-    v14 = 1024;
-    v15 = 294;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected to have an edge cache hint for all ForYouConfig operations"];
+    v9 = 136315906;
+    v10 = "[FCForYouConfigHeadlinesOperation _edgeCacheHint]";
+    v11 = 2080;
+    v12 = "FCForYouConfigHeadlinesOperation.m";
+    v13 = 1024;
+    v14 = 294;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   v4 = 0;
 LABEL_14:
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)forYouConfigRecordID
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   bundleSubscriptionManager = [(FCForYouConfigHeadlinesOperation *)self bundleSubscriptionManager];
   cachedSubscription = [bundleSubscriptionManager cachedSubscription];
   v5 = objc_getAssociatedObject(cachedSubscription, (cachedSubscription + 1));
@@ -653,14 +647,12 @@ LABEL_14:
   {
     v14 = v13;
     shortOperationDescription = [(FCOperation *)self shortOperationDescription];
-    v18 = 138543618;
-    v19 = shortOperationDescription;
-    v20 = 2114;
-    v21 = v12;
-    _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ fetching the ForYouConfig with recordID: %{public}@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = shortOperationDescription;
+    v19 = 2114;
+    v20 = v12;
+    _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ fetching the ForYouConfig with recordID: %{public}@", &v17, 0x16u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

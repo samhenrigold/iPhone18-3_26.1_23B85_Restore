@@ -1,6 +1,7 @@
 @interface MFMailComposeViewAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (BOOL)presentSearchResults:(id)results;
+- (MFMailComposeViewAccessibility)initWithFrame:(CGRect)frame options:(unint64_t)options isQuickReply:(BOOL)reply;
 - (id)_accessibilityComposeElementsForSorting;
 - (id)_searchResultsTable;
 - (id)dragSource:(id)source draggableItemsAtPoint:(CGPoint)point;
@@ -48,10 +49,10 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v23 = *MEMORY[0x29EDCA608];
-  v21.receiver = self;
-  v21.super_class = MFMailComposeViewAccessibility;
-  [(MFMailComposeViewAccessibility *)&v21 _accessibilityLoadAccessibilityInformation];
+  v22 = *MEMORY[0x29EDCA608];
+  v20.receiver = self;
+  v20.super_class = MFMailComposeViewAccessibility;
+  [(MFMailComposeViewAccessibility *)&v20 _accessibilityLoadAccessibilityInformation];
   v3 = [(MFMailComposeViewAccessibility *)self safeValueForKey:@"_toField"];
   v4 = [v3 safeValueForKey:@"_textView"];
   [v4 setAccessibilityIdentifier:@"toField"];
@@ -67,36 +68,34 @@
   [v9 setAccessibilityIdentifier:@"MessageRecipientSearchTable"];
 
   _accessibilityComposeElementsForSorting = [(MFMailComposeViewAccessibility *)self _accessibilityComposeElementsForSorting];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v11 = [_accessibilityComposeElementsForSorting countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v11 = [_accessibilityComposeElementsForSorting countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(_accessibilityComposeElementsForSorting);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * i);
+        v15 = *(*(&v16 + 1) + 8 * i);
         [v15 _accessibilitySetUsesScrollParentForOrdering:0];
         [v15 _enumerateDescendentViews:&__block_literal_global_2];
       }
 
-      v12 = [_accessibilityComposeElementsForSorting countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v12 = [_accessibilityComposeElementsForSorting countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 - (int64_t)_accessibilityCompareElement:(id)element toElement:(id)toElement
@@ -172,6 +171,16 @@ uint64_t __73__MFMailComposeViewAccessibility__accessibilityComposeElementsForSo
   isKindOfClass = objc_opt_isKindOfClass();
 
   return isKindOfClass & 1;
+}
+
+- (MFMailComposeViewAccessibility)initWithFrame:(CGRect)frame options:(unint64_t)options isQuickReply:(BOOL)reply
+{
+  v7.receiver = self;
+  v7.super_class = MFMailComposeViewAccessibility;
+  v5 = [(MFMailComposeViewAccessibility *)&v7 initWithFrame:options options:reply isQuickReply:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  [(MFMailComposeViewAccessibility *)v5 _accessibilityLoadAccessibilityInformation];
+
+  return v5;
 }
 
 - (id)_searchResultsTable
@@ -390,7 +399,7 @@ LABEL_22:
 LABEL_31:
 }
 
-uint64_t __64__MFMailComposeViewAccessibility_dropTarget_dragDidMoveToPoint___block_invoke(uint64_t a1)
+void *__64__MFMailComposeViewAccessibility_dropTarget_dragDidMoveToPoint___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _placeholderAttachmentRange];
   v3 = *(*(a1 + 40) + 8);
@@ -430,16 +439,14 @@ uint64_t __64__MFMailComposeViewAccessibility_dropTarget_dragDidMoveToPoint___bl
 
 void __62__MFMailComposeViewAccessibility__axIndexOfRecipient_inArray___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v7 = a2;
-  v8 = *(a1 + 48);
-  v12 = v7;
+  v10 = a2;
   if (objc_opt_isKindOfClass())
   {
-    v9 = [v12 safeStringForKey:@"uncommentedAddress"];
-    v10 = [*(a1 + 32) safeStringForKey:@"uncommentedAddress"];
-    v11 = [v9 isEqualToString:v10];
+    v7 = [v10 safeStringForKey:@"uncommentedAddress"];
+    v8 = [*(a1 + 32) safeStringForKey:@"uncommentedAddress"];
+    v9 = [v7 isEqualToString:v8];
 
-    if (v11)
+    if (v9)
     {
       *(*(*(a1 + 40) + 8) + 24) = a3;
       *a4 = 1;

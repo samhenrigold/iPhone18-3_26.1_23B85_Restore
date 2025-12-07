@@ -1524,7 +1524,7 @@ LABEL_15:
     }
 
     v13 = [v8 domain];
-    if ([v13 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"])
+    if (objc_msgSend_isEqualToString_(v13))
     {
       v14 = [v8 code];
 
@@ -1808,7 +1808,7 @@ void __66__PKPeerPaymentWebService_peerPaymentQuoteWithRequest_completion___bloc
     }
 
     v15 = [v8 domain];
-    if ([v15 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = [v8 code];
 

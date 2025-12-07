@@ -3663,7 +3663,7 @@ LABEL_22:
     {
       [(SCATScannerManager *)self resumeScanning];
 LABEL_23:
-      v9 = [HNDAccessibilityManager sharedManager:v46];
+      v9 = +[HNDAccessibilityManager sharedManager];
       [v9 userDidPerformSwitchAction];
       goto LABEL_24;
     }
@@ -3841,13 +3841,12 @@ LABEL_86:
           goto LABEL_23;
         }
 
-        LOBYTE(v46) = 1;
-        _AXLogWithFacility();
-        v34 = [(SCATScannerManager *)self activeScannerDriver:v46];
-        _driverForScannerState = [v34 focusContext];
-
+        _AXLogWithFacility(3, 0, 0, 0, 0, 0, 0, 0, 0.0, 1, @"Forcibly switched to manual scanning");
         activeScannerDriver3 = [(SCATScannerManager *)self activeScannerDriver];
-        v28 = activeScannerDriver3;
+        _driverForScannerState = [activeScannerDriver3 focusContext];
+
+        activeScannerDriver4 = [(SCATScannerManager *)self activeScannerDriver];
+        v28 = activeScannerDriver4;
         v29 = _driverForScannerState;
         v30 = 1;
         goto LABEL_79;
@@ -3875,8 +3874,8 @@ LABEL_52:
       {
         if (action2 == 102)
         {
-          activeScannerDriver4 = [(SCATScannerManager *)self activeScannerDriver];
-          focusContext = [activeScannerDriver4 focusContext];
+          activeScannerDriver5 = [(SCATScannerManager *)self activeScannerDriver];
+          focusContext = [activeScannerDriver5 focusContext];
 
           autoScanningDriver = [(SCATScannerManager *)self autoScanningDriver];
           [(SCATScannerManager *)self setActiveScannerDriver:autoScanningDriver];
@@ -3887,23 +3886,22 @@ LABEL_52:
 
         if (action2 != 103)
         {
-          LOBYTE(v46) = 1;
-          _AXLogWithFacility();
-          v26 = [(SCATScannerManager *)self activeScannerDriver:v46];
-          _driverForScannerState = [v26 focusContext];
+          _AXLogWithFacility(3, 0, 0, 0, 0, 0, 0, 0, 0.0, 1, @"Forcibly switched to manual scanning");
+          activeScannerDriver6 = [(SCATScannerManager *)self activeScannerDriver];
+          _driverForScannerState = [activeScannerDriver6 focusContext];
 
-          activeScannerDriver3 = [(SCATScannerManager *)self activeScannerDriver];
-          v28 = activeScannerDriver3;
+          activeScannerDriver4 = [(SCATScannerManager *)self activeScannerDriver];
+          v28 = activeScannerDriver4;
           v29 = _driverForScannerState;
           v30 = 0;
 LABEL_79:
-          v35 = [activeScannerDriver3 nextFocusContextFromContext:v29 inDirection:v30 didWrap:0];
+          v35 = [activeScannerDriver4 nextFocusContextFromContext:v29 inDirection:v30 didWrap:0];
 
           manualScanningDriver = [(SCATScannerManager *)self manualScanningDriver];
           [(SCATScannerManager *)self setActiveScannerDriver:manualScanningDriver];
 
-          activeScannerDriver5 = [(SCATScannerManager *)self activeScannerDriver];
-          [activeScannerDriver5 beginScanningWithFocusContext:v35];
+          activeScannerDriver7 = [(SCATScannerManager *)self activeScannerDriver];
+          [activeScannerDriver7 beginScanningWithFocusContext:v35];
 
           goto LABEL_22;
         }
@@ -3923,7 +3921,7 @@ LABEL_79:
 
         if (switchControlHasEmptyTopLevelMenu)
         {
-          v51 = controllerCopy;
+          v46 = controllerCopy;
           AXPerformBlockAsynchronouslyOnMainThread();
 
           goto LABEL_23;
@@ -3934,8 +3932,8 @@ LABEL_79:
 
         if (!isVisible)
         {
-          activeScannerDriver6 = [(SCATScannerManager *)self activeScannerDriver];
-          _driverForScannerState = [activeScannerDriver6 focusContext];
+          activeScannerDriver8 = [(SCATScannerManager *)self activeScannerDriver];
+          _driverForScannerState = [activeScannerDriver8 focusContext];
 
           element = [_driverForScannerState element];
 
@@ -3964,12 +3962,7 @@ LABEL_79:
 LABEL_83:
     [actionCopy action];
     _driverForScannerState = SCATActionDescription();
-    v49 = _driverForScannerState;
-    selfCopy = self;
-    v47 = @"Unable to handle unknown action: %@ (%@). manager:%@";
-    v48 = actionCopy;
-    LOBYTE(v46) = 1;
-    _AXLogWithFacility();
+    _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Unable to handle unknown action: %@ (%@). manager:%@");
     goto LABEL_22;
   }
 

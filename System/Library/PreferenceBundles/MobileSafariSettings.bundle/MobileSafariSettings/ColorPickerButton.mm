@@ -88,27 +88,26 @@ void __45__ColorPickerButton__imageForColor_selected___block_invoke(uint64_t a1)
 
   if (v2)
   {
-    v4 = *(a1 + 40);
-    v5 = [NSBundle bundleForClass:objc_opt_class()];
-    v6 = [UIImage imageNamed:@"ColorPickerClearColorImage" inBundle:v5 compatibleWithTraitCollection:0];
-    [v6 drawInRect:{7.0, 7.0, 36.0, 36.0}];
+    v4 = [NSBundle bundleForClass:objc_opt_class()];
+    v5 = [UIImage imageNamed:@"ColorPickerClearColorImage" inBundle:v4 compatibleWithTraitCollection:0];
+    [v5 drawInRect:{7.0, 7.0, 36.0, 36.0}];
   }
 
   else
   {
-    v5 = [UIBezierPath bezierPathWithOvalInRect:7.0, 7.0, 36.0, 36.0];
+    v4 = [UIBezierPath bezierPathWithOvalInRect:7.0, 7.0, 36.0, 36.0];
     [*(*(a1 + 40) + 16) setFill];
-    [v5 fill];
+    [v4 fill];
   }
 
   if (*(a1 + 56) == 1)
   {
-    v8 = [UIBezierPath bezierPathWithOvalInRect:1.5, 1.5, *(a1 + 48), *(a1 + 48)];
-    [v8 setLineWidth:3.0];
-    v7 = [*(a1 + 40) tintColor];
-    [v7 setStroke];
+    v7 = [UIBezierPath bezierPathWithOvalInRect:1.5, 1.5, *(a1 + 48), *(a1 + 48)];
+    [v7 setLineWidth:3.0];
+    v6 = [*(a1 + 40) tintColor];
+    [v6 setStroke];
 
-    [v8 stroke];
+    [v7 stroke];
   }
 }
 

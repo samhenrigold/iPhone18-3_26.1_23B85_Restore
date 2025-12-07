@@ -131,8 +131,8 @@
   v10 = -[NSArray objectAtIndexedSubscript:](self->_items, "objectAtIndexedSubscript:", [path row]);
   v5 = [PXSuggesterDebugViewController alloc];
   name = [v10 name];
-  info = [v10 info];
-  v8 = [(PXSuggesterDebugViewController *)v5 initWithName:name options:info];
+  v7 = objc_msgSend_info(v10);
+  v8 = [(PXSuggesterDebugViewController *)v5 initWithName:name options:v7];
 
   navigationController = [(PXSuggestersDebugViewController *)self navigationController];
   [navigationController pushViewController:v8 animated:1];

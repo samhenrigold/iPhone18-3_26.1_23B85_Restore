@@ -14,7 +14,7 @@
 
 - (id)nextEvent
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   upstreamStates = [(BPSOrderedMerge *)self upstreamStates];
   v4 = [upstreamStates count];
 
@@ -25,57 +25,57 @@
     v7 = [v5 initWithCapacity:{objc_msgSend(publishers, "count")}];
     [(BPSOrderedMerge *)self setUpstreamStates:v7];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     publishers2 = [(BPSOrderedMerge *)self publishers];
-    v9 = [publishers2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v9 = [publishers2 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v9)
     {
-      v10 = *v30;
+      v10 = *v29;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(publishers2);
           }
 
-          v12 = *(*(&v29 + 1) + 8 * i);
+          v12 = *(*(&v28 + 1) + 8 * i);
           v13 = objc_opt_new();
           [v13 attachUpstream:v12];
           upstreamStates2 = [(BPSOrderedMerge *)self upstreamStates];
           [upstreamStates2 addObject:v13];
         }
 
-        v9 = [publishers2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v9 = [publishers2 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v9);
     }
   }
 
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   publishers3 = [(BPSOrderedMerge *)self publishers];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __28__BPSOrderedMerge_nextEvent__block_invoke;
-  v24[3] = &unk_1E8320EB0;
-  v24[4] = self;
-  v24[5] = &v25;
-  [publishers3 enumerateObjectsUsingBlock:v24];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __28__BPSOrderedMerge_nextEvent__block_invoke;
+  v23[3] = &unk_1E8320EB0;
+  v23[4] = self;
+  v23[5] = &v24;
+  [publishers3 enumerateObjectsUsingBlock:v23];
 
   if (![(BMIndirectHeap *)self->_heap count])
   {
     goto LABEL_17;
   }
 
-  if (*(v26 + 24) != 1)
+  if (*(v25 + 24) != 1)
   {
     goto LABEL_14;
   }
@@ -112,8 +112,7 @@ LABEL_17:
   }
 
 LABEL_18:
-  _Block_object_dispose(&v25, 8);
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v24, 8);
 
   return mostRecentEvent;
 }
@@ -177,17 +176,16 @@ LABEL_3:
 
 - (BPSOrderedMerge)initWithA:(id)a b:(id)b comparator:(id)comparator
 {
-  v16[2] = *MEMORY[0x1E69E9840];
-  v16[0] = a;
-  v16[1] = b;
+  v15[2] = *MEMORY[0x1E69E9840];
+  v15[0] = a;
+  v15[1] = b;
   v8 = MEMORY[0x1E695DEC8];
   comparatorCopy = comparator;
   bCopy = b;
   aCopy = a;
-  v12 = [v8 arrayWithObjects:v16 count:2];
+  v12 = [v8 arrayWithObjects:v15 count:2];
 
   v13 = [(BPSOrderedMerge *)self initWithPublishers:v12 comparator:comparatorCopy];
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -289,7 +287,7 @@ void __29__BPSOrderedMerge_subscribe___block_invoke(uint64_t a1, void *a2, uint6
 
 - (id)validateBookmark:(id)bookmark
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -311,9 +309,9 @@ void __29__BPSOrderedMerge_subscribe___block_invoke(uint64_t a1, void *a2, uint6
     v13 = [v14 initWithFormat:@"%@ expected upstreamStates of count %lu, but received %lu", v15, objc_msgSend(upstreamPublishers2, "count"), objc_msgSend(bookmarkCopy, "count")];
 
     v17 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A578];
-    v22 = v13;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A578];
+    v21 = v13;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v9 = [v17 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v18];
   }
 
@@ -323,14 +321,13 @@ void __29__BPSOrderedMerge_subscribe___block_invoke(uint64_t a1, void *a2, uint6
     v11 = objc_opt_class();
     bookmarkCopy = [v10 initWithFormat:@"%@ expected bookmark of class %@, but received %@", v11, objc_opt_class(), bookmarkCopy];
     v12 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
-    v24[0] = bookmarkCopy;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A578];
+    v23[0] = bookmarkCopy;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v9 = [v12 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v13];
   }
 
 LABEL_7:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -370,19 +367,8 @@ void __33__BPSOrderedMerge_applyBookmark___block_invoke(uint64_t a1, void *a2, u
   if (v8)
   {
     v9 = *(a1 + 32);
-    if (!v9[5])
+    if (!v9[5] || ([v9 comparator], v10 = objc_claimAutoreleasedReturnValue(), v11 = *(*(a1 + 32) + 40), objc_msgSend(v17, "lastReturnedEvent"), v12 = objc_claimAutoreleasedReturnValue(), v13 = (v10)[2](v10, v11, v12), v12, v10, v13 == -1))
     {
-      goto LABEL_6;
-    }
-
-    v10 = [v9 comparator];
-    v11 = *(*(a1 + 32) + 40);
-    v12 = [v17 lastReturnedEvent];
-    v13 = (v10)[2](v10, v11, v12);
-
-    if (v13 == -1)
-    {
-LABEL_6:
       v14 = [v17 lastReturnedEvent];
       v15 = *(a1 + 32);
       v16 = *(v15 + 40);

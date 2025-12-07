@@ -11,23 +11,23 @@
 
 - (SCMLPeopleDetector)initWithConfiguration:(id)configuration error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  scml::SignpostInterval::SignpostInterval(&v27);
-  v6 = v27;
+  scml::SignpostInterval::SignpostInterval(&v26);
+  v6 = v26;
   v7 = v6;
-  v8 = v28;
-  if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v8 = v27;
+  if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1B8A3C000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v8, "SCMLPeopleDetector.init", "", buf, 2u);
   }
 
-  v26[0] = &unk_1F3745F68;
-  v26[1] = &v27;
-  v26[3] = v26;
-  std::__function::__value_func<void ()(void)>::operator=[abi:ne200100](&v29, v26);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v26);
+  v25[0] = &unk_1F3745F68;
+  v25[1] = &v26;
+  v25[3] = v25;
+  std::__function::__value_func<void ()(void)>::operator=[abi:ne200100](&v28, v25);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v25);
   v9 = +[SCMLLog textAnalyzer];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
@@ -40,9 +40,9 @@
     _os_log_impl(&dword_1B8A3C000, v9, OS_LOG_TYPE_DEFAULT, "Begin SCMLPeopleDetector init inst=%p loc=%{public}@", buf, 0x16u);
   }
 
-  v25.receiver = self;
-  v25.super_class = SCMLPeopleDetector;
-  v12 = [(SCMLPeopleDetector *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SCMLPeopleDetector;
+  v12 = [(SCMLPeopleDetector *)&v24 init];
   if (v12)
   {
     locale2 = [configurationCopy locale];
@@ -67,9 +67,8 @@
   }
 
   v22 = 0;
-  scml::SignpostInterval::~SignpostInterval(&v27);
+  scml::SignpostInterval::~SignpostInterval(&v26);
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -82,7 +81,7 @@
 
 void __67__SCMLPeopleDetector_detectPeopleAsynchronously_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -95,9 +94,9 @@ void __67__SCMLPeopleDetector_detectPeopleAsynchronously_completionHandler___blo
       v10 = [*(a1 + 32) string];
       v12 = scml::strEscape(v10, v11);
       *buf = 134218243;
-      v21 = v9;
-      v22 = 2117;
-      v23 = v12;
+      v20 = v9;
+      v21 = 2117;
+      v22 = v12;
       _os_log_impl(&dword_1B8A3C000, v7, OS_LOG_TYPE_DEFAULT, "End detectPeople spans=%lu %{sensitive}@", buf, 0x16u);
     }
   }
@@ -121,10 +120,10 @@ void __67__SCMLPeopleDetector_detectPeopleAsynchronously_completionHandler___blo
   }
 
   v16 = *(a1 + 48);
-  v19[0] = &unk_1F3745FE8;
-  v19[3] = v19;
-  std::__function::__value_func<void ()(void)>::operator=[abi:ne200100](v16 + 16, v19);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v19);
+  v18[0] = &unk_1F3745FE8;
+  v18[3] = v18;
+  std::__function::__value_func<void ()(void)>::operator=[abi:ne200100](v16 + 16, v18);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v18);
   v17 = *(a1 + 48);
   if (v17)
   {
@@ -133,8 +132,6 @@ void __67__SCMLPeopleDetector_detectPeopleAsynchronously_completionHandler___blo
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_detectPeopleAsynchronously:(id)asynchronously completionHandler:(id)handler
@@ -158,12 +155,12 @@ void __67__SCMLPeopleDetector_detectPeopleAsynchronously_completionHandler___blo
 
 void __68__SCMLPeopleDetector__detectPeopleAsynchronously_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v41 = v6;
-  v42 = v5;
-  v40 = a1;
+  v40 = v6;
+  v41 = v5;
+  v39 = a1;
   if (!v5)
   {
     v37 = *(a1 + 40);
@@ -173,69 +170,69 @@ void __68__SCMLPeopleDetector__detectPeopleAsynchronously_completionHandler___bl
     goto LABEL_44;
   }
 
-  v49 = *(a1 + 48);
-  v46 = [*(a1 + 32) string];
-  v45 = v5;
-  v52 = objc_alloc_init(SCMLPeopleDetection);
-  v44 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
+  v48 = *(a1 + 48);
+  v45 = [*(a1 + 32) string];
+  v44 = v5;
+  v51 = objc_alloc_init(SCMLPeopleDetection);
+  v43 = [MEMORY[0x1E695E0F0] mutableCopy];
   v58 = 0u;
-  obj = [v45 people];
-  v50 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
-  if (!v50)
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  obj = [v44 people];
+  v49 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+  if (!v49)
   {
     goto LABEL_42;
   }
 
   v7 = 0;
-  v48 = *v58;
+  v47 = *v57;
   do
   {
-    for (i = 0; i != v50; ++i)
+    for (i = 0; i != v49; ++i)
     {
-      if (*v58 != v48)
+      if (*v57 != v47)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v57 + 1) + 8 * i);
-      if ((scml::MultiwordGazetteer::hasGazetteerMatch(v49, v8) & 1) == 0)
+      v8 = *(*(&v56 + 1) + 8 * i);
+      if ((scml::MultiwordGazetteer::hasGazetteerMatch(v48, v8) & 1) == 0)
       {
-        v9 = v46;
+        v9 = v45;
         v10 = v8;
         if ([(NSString *)v10 length])
         {
-          if (v66 != v67)
+          if (v65 != v66)
           {
-            v11 = v66[1];
-            v56 = *v66;
+            v11 = v65[1];
+            v55 = *v65;
             goto LABEL_13;
           }
 
           v11 = 0;
-          v55 = 0;
-          v56 = 0x7FFFFFFFFFFFFFFFLL;
-          if (v66)
+          v54 = 0;
+          v55 = 0x7FFFFFFFFFFFFFFFLL;
+          if (v65)
           {
 LABEL_13:
-            v67 = v66;
-            operator delete(v66);
-            v55 = v11;
+            v66 = v65;
+            operator delete(v65);
+            v54 = v11;
           }
         }
 
         else
         {
+          v54 = 0;
           v55 = 0;
-          v56 = 0;
         }
 
-        if (v56 != 0x7FFFFFFFFFFFFFFFLL)
+        if (v55 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v12 = [v45 people];
-          v54 = [v12 objectForKeyedSubscript:v10];
+          v12 = [v44 people];
+          v53 = [v12 objectForKeyedSubscript:v10];
 
           if (v7)
           {
@@ -244,90 +241,90 @@ LABEL_13:
 
           else
           {
-            v13 = [v54 isGroup];
+            v13 = [v53 isGroup];
           }
 
-          [(SCMLPeopleDetection *)v52 setHasMultiplePeople:v13];
-          if ([(SCMLPeopleDetection *)v52 hasGenericPeople])
+          [(SCMLPeopleDetection *)v51 setHasMultiplePeople:v13];
+          if ([(SCMLPeopleDetection *)v51 hasGenericPeople])
           {
             v14 = 1;
           }
 
           else
           {
-            v14 = [v54 specific] ^ 1;
+            v14 = [v53 specific] ^ 1;
           }
 
-          [(SCMLPeopleDetection *)v52 setHasGenericPeople:v14];
-          if ([(SCMLPeopleDetection *)v52 hasGender])
+          [(SCMLPeopleDetection *)v51 setHasGenericPeople:v14];
+          if ([(SCMLPeopleDetection *)v51 hasGender])
           {
             v15 = 1;
           }
 
           else
           {
-            v15 = [v54 hasGender];
+            v15 = [v53 hasGender];
           }
 
-          [(SCMLPeopleDetection *)v52 setHasGender:v15];
-          if ([(SCMLPeopleDetection *)v52 hasEthnicity])
+          [(SCMLPeopleDetection *)v51 setHasGender:v15];
+          if ([(SCMLPeopleDetection *)v51 hasEthnicity])
           {
             v16 = 1;
           }
 
           else
           {
-            v16 = [v54 hasEthnicity];
+            v16 = [v53 hasEthnicity];
           }
 
-          [(SCMLPeopleDetection *)v52 setHasEthnicity:v16];
-          if ([(SCMLPeopleDetection *)v52 hasAge])
+          [(SCMLPeopleDetection *)v51 setHasEthnicity:v16];
+          if ([(SCMLPeopleDetection *)v51 hasAge])
           {
             v17 = 1;
           }
 
           else
           {
-            v17 = [v54 hasAge];
+            v17 = [v53 hasAge];
           }
 
-          [(SCMLPeopleDetection *)v52 setHasAge:v17];
+          [(SCMLPeopleDetection *)v51 setHasAge:v17];
           v18 = objc_alloc_init(SCMLPeopleDetectionSpan);
-          [(SCMLPeopleDetectionSpan *)v18 setRange:v56, v55];
-          -[SCMLPeopleDetectionSpan setIsGeneric:](v18, "setIsGeneric:", [v54 specific] ^ 1);
-          -[SCMLPeopleDetectionSpan setIsGroup:](v18, "setIsGroup:", [v54 isGroup]);
-          -[SCMLPeopleDetectionSpan setHasAge:](v18, "setHasAge:", [v54 hasAge]);
-          -[SCMLPeopleDetectionSpan setHasGender:](v18, "setHasGender:", [v54 hasGender]);
-          -[SCMLPeopleDetectionSpan setHasEthnicity:](v18, "setHasEthnicity:", [v54 hasEthnicity]);
-          v19 = [v54 age];
-          v20 = v51 = v18;
+          [(SCMLPeopleDetectionSpan *)v18 setRange:v55, v54];
+          -[SCMLPeopleDetectionSpan setIsGeneric:](v18, "setIsGeneric:", [v53 specific] ^ 1);
+          -[SCMLPeopleDetectionSpan setIsGroup:](v18, "setIsGroup:", [v53 isGroup]);
+          -[SCMLPeopleDetectionSpan setHasAge:](v18, "setHasAge:", [v53 hasAge]);
+          -[SCMLPeopleDetectionSpan setHasGender:](v18, "setHasGender:", [v53 hasGender]);
+          -[SCMLPeopleDetectionSpan setHasEthnicity:](v18, "setHasEthnicity:", [v53 hasEthnicity]);
+          v19 = [v53 age];
+          v20 = v50 = v18;
           [(SCMLPeopleDetectionSpan *)v18 setAgeSpans:v20];
 
-          v21 = [v54 gender];
+          v21 = [v53 gender];
           v22 = v9;
-          v43 = v21;
+          v42 = v21;
           v23 = [MEMORY[0x1E695E0F0] mutableCopy];
-          v63 = 0u;
-          v64 = 0u;
-          v61 = 0u;
           v62 = 0u;
-          v24 = v43;
-          v25 = [v24 countByEnumeratingWithState:&v61 objects:&v66 count:16];
+          v63 = 0u;
+          v60 = 0u;
+          v61 = 0u;
+          v24 = v42;
+          v25 = [v24 countByEnumeratingWithState:&v60 objects:&v65 count:16];
           if (v25)
           {
-            v26 = *v62;
+            v26 = *v61;
             do
             {
               for (j = 0; j != v25; ++j)
               {
-                if (*v62 != v26)
+                if (*v61 != v26)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v28 = *(*(&v61 + 1) + 8 * j);
+                v28 = *(*(&v60 + 1) + 8 * j);
                 v29 = [v28 term];
-                v69.location = v55;
+                v68.location = v54;
                 v32 = v31;
 
                 if (AttributeSpan != 0x7FFFFFFFFFFFFFFFLL)
@@ -339,19 +336,18 @@ LABEL_13:
                 }
               }
 
-              v25 = [v24 countByEnumeratingWithState:&v61 objects:&v66 count:16];
+              v25 = [v24 countByEnumeratingWithState:&v60 objects:&v65 count:16];
             }
 
             while (v25);
           }
 
-          [(SCMLPeopleDetectionSpan *)v51 setGenderSpans:v23];
-          v34 = [v54 ethnicity];
-          v35 = objc_claimAutoreleasedReturnValue();
-          [(SCMLPeopleDetectionSpan *)v51 setEthnicitySpans:v35];
+          [(SCMLPeopleDetectionSpan *)v50 setGenderSpans:v23];
+          v35 = v34 = [v53 ethnicity];
+          [(SCMLPeopleDetectionSpan *)v50 setEthnicitySpans:v35];
 
-          -[SCMLPeopleDetectionSpan setHasImplicitCategoryRequiringPersonalization:](v51, "setHasImplicitCategoryRequiringPersonalization:", [v54 hasImplicitCategoryRequiringPersonalization]);
-          [v44 addObject:v51];
+          -[SCMLPeopleDetectionSpan setHasImplicitCategoryRequiringPersonalization:](v50, "setHasImplicitCategoryRequiringPersonalization:", [v53 hasImplicitCategoryRequiringPersonalization]);
+          [v43 addObject:v50];
 
           v7 = 1;
         }
@@ -360,19 +356,17 @@ LABEL_13:
       }
     }
 
-    v50 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v49 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
   }
 
-  while (v50);
+  while (v49);
 LABEL_42:
 
-  v36 = [v44 sortedArrayUsingComparator:&__block_literal_global];
-  [(SCMLPeopleDetection *)v52 setSpans:v36];
+  v36 = [v43 sortedArrayUsingComparator:&__block_literal_global];
+  [(SCMLPeopleDetection *)v51 setSpans:v36];
 
-  (*(*(v40 + 40) + 16))();
+  (*(*(v39 + 40) + 16))();
 LABEL_44:
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)initWithConfiguration:error:
@@ -458,21 +452,19 @@ void __47__SCMLPeopleDetector_Test__detectPeople_error___block_invoke(uint64_t a
 
 - (void)initWithConfiguration:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = (*(*a1 + 16))(a1);
-  v5 = 136315138;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B8A3C000, a2, OS_LOG_TYPE_ERROR, "End SCMLPeopleDetector init with error: %s", &v5, 0xCu);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315138;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B8A3C000, a2, OS_LOG_TYPE_ERROR, "End SCMLPeopleDetector init with error: %s", &v4, 0xCu);
 }
 
 void __67__SCMLPeopleDetector_detectPeopleAsynchronously_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B8A3C000, a2, OS_LOG_TYPE_ERROR, "End detectPeople with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B8A3C000, a2, OS_LOG_TYPE_ERROR, "End detectPeople with error: %@", &v2, 0xCu);
 }
 
 @end

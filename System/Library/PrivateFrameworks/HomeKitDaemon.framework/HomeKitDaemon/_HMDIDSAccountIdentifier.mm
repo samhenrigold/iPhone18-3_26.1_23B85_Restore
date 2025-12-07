@@ -88,7 +88,7 @@
     v9 = [(_HMDAccountIdentifier *)&v14 initWithIdentifier:v8];
     if (v9)
     {
-      v10 = [stringCopy copy];
+      v10 = objc_msgSend_copy(stringCopy);
       identifierString = v9->_identifierString;
       v9->_identifierString = v10;
     }

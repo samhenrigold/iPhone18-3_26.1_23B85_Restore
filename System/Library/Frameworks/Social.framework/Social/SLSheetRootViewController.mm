@@ -29,19 +29,19 @@
 
 - (void)dealloc
 {
-  _SLLog(v2, 7, @"SLSheetRootViewController dealloc");
+  _SLLog(v7, 7, @"SLSheetRootViewController dealloc", v2, v3, v4, v5, v6, v9.receiver);
   [(SLSheetRootViewController *)self resetConfigurationItems];
-  v4.receiver = self;
-  v4.super_class = SLSheetRootViewController;
-  [(SLSheetRootViewController *)&v4 dealloc];
+  v9.receiver = self;
+  v9.super_class = SLSheetRootViewController;
+  [(SLSheetRootViewController *)&v9 dealloc];
 }
 
 - (void)loadView
 {
-  _SLLog(v2, 7, @"SLSheetRootViewController loadView");
-  v37.receiver = self;
-  v37.super_class = SLSheetRootViewController;
-  [(SLSheetRootViewController *)&v37 loadView];
+  _SLLog(v7, 7, @"SLSheetRootViewController loadView", v2, v3, v4, v5, v6, v42.receiver);
+  v42.receiver = self;
+  v42.super_class = SLSheetRootViewController;
+  [(SLSheetRootViewController *)&v42 loadView];
   view = [(SLSheetRootViewController *)self view];
   [view setOpaque:0];
 
@@ -49,9 +49,9 @@
   [view2 setAutoresizingMask:18];
 
   [(SLSheetRootViewController *)self setEdgesForExtendedLayout:0];
-  v6 = [objc_alloc(MEMORY[0x1E69DD038]) initWithStyle:0];
+  v11 = [objc_alloc(MEMORY[0x1E69DD038]) initWithStyle:0];
   tableViewController = self->_tableViewController;
-  self->_tableViewController = v6;
+  self->_tableViewController = v11;
 
   [(UITableViewController *)self->_tableViewController willMoveToParentViewController:self];
   [(SLSheetRootViewController *)self addChildViewController:self->_tableViewController];
@@ -61,12 +61,12 @@
 
   view5 = [(SLSheetRootViewController *)self view];
   [view5 bounds];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
   view6 = [(UITableViewController *)self->_tableViewController view];
-  [view6 setFrame:{v12, v14, v16, v18}];
+  [view6 setFrame:{v17, v19, v21, v23}];
 
   view7 = [(UITableViewController *)self->_tableViewController view];
   [view7 setAutoresizingMask:34];
@@ -94,15 +94,15 @@
   backgroundView2 = [tableView6 backgroundView];
   [backgroundView2 setBackgroundColor:clearColor2];
 
-  v31 = *MEMORY[0x1E69DE3D0];
+  v36 = *MEMORY[0x1E69DE3D0];
   tableView7 = [(UITableViewController *)self->_tableViewController tableView];
-  [tableView7 setRowHeight:v31];
+  [tableView7 setRowHeight:v36];
 
-  v33 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
-  [v33 lineHeight];
-  v35 = v34 + v34;
+  v38 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
+  [v38 lineHeight];
+  v40 = v39 + v39;
   tableView8 = [(UITableViewController *)self->_tableViewController tableView];
-  [tableView8 setEstimatedRowHeight:v35];
+  [tableView8 setEstimatedRowHeight:v40];
 }
 
 - (void)viewDidLoad
@@ -119,9 +119,9 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v18.receiver = self;
-  v18.super_class = SLSheetRootViewController;
-  [(SLSheetRootViewController *)&v18 viewDidLayoutSubviews];
+  v23.receiver = self;
+  v23.super_class = SLSheetRootViewController;
+  [(SLSheetRootViewController *)&v23 viewDidLayoutSubviews];
   view = [(UITableViewController *)self->_tableViewController view];
   [view frame];
   v6 = v5;
@@ -139,8 +139,8 @@
     v12 = v15;
   }
 
-  v17 = [MEMORY[0x1E696B098] valueWithCGRect:{v6, v8, v10, v12}];
-  _SLLog(v2, 7, @"SLSheetRootViewController viewDidLayoutSubviews setting _tableViewController.view.frame to %@");
+  v16 = [MEMORY[0x1E696B098] valueWithCGRect:{v6, v8, v10, v12}];
+  _SLLog(v2, 7, @"SLSheetRootViewController viewDidLayoutSubviews setting _tableViewController.view.frame to %@", v17, v18, v19, v20, v21, v16);
 
   view3 = [(UITableViewController *)self->_tableViewController view];
   [view3 setFrame:{v6, v8, v10, v12}];
@@ -193,7 +193,7 @@
 - (void)setPostButtonTitle:(id)title
 {
   titleCopy = title;
-  _SLLog(v3, 7, @"setPostButtonTitle %@");
+  _SLLog(v3, 7, @"setPostButtonTitle %@", v6, v7, v8, v9, v10, titleCopy);
   rightBarButtonItem = [(UINavigationItem *)self->_navItem rightBarButtonItem];
   [rightBarButtonItem setTitle:titleCopy];
 }
@@ -201,8 +201,7 @@
 - (void)setPostButtonEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  enabledCopy2 = enabled;
-  _SLLog(v3, 7, @"setPostButtonEnabled %d");
+  _SLLog(v8, 7, @"setPostButtonEnabled %d", v3, v4, v5, v6, v7, enabled);
   rightBarButtonItem = [(UINavigationItem *)self->_navItem rightBarButtonItem];
   [rightBarButtonItem setEnabled:enabledCopy];
 }
@@ -228,14 +227,14 @@
     self->_navItem = v6;
 
     v8 = objc_alloc(MEMORY[0x1E69DC708]);
-    v9 = SLSocialFrameworkBundle();
+    v9 = SLSocialFrameworkBundle(v8);
     v10 = [v9 localizedStringForKey:@"CANCEL" value:&stru_1F41EC300 table:@"Localizable"];
     delegate = [(SLSheetRootViewController *)self delegate];
     v12 = [v8 initWithTitle:v10 style:0 target:delegate action:sel_cancelButtonTapped_];
     [(UINavigationItem *)self->_navItem setLeftBarButtonItem:v12];
 
     v13 = objc_alloc(MEMORY[0x1E69DC708]);
-    v14 = SLSocialFrameworkBundle();
+    v14 = SLSocialFrameworkBundle(v13);
     v15 = [v14 localizedStringForKey:@"POST" value:&stru_1F41EC300 table:@"Localizable"];
     delegate2 = [(SLSheetRootViewController *)self delegate];
     v17 = [v13 initWithTitle:v15 style:2 target:delegate2 action:sel_postButtonTapped_];
@@ -265,14 +264,14 @@
 - (void)updateContentViewSize:(CGSize)size
 {
   height = size.height;
-  v12 = [MEMORY[0x1E696B098] valueWithCGSize:size.width];
-  _SLLog(v3, 7, @"SLSheetRootViewController updateContentViewSize: %@");
+  v6 = [MEMORY[0x1E696B098] valueWithCGSize:size.width];
+  _SLLog(v3, 7, @"SLSheetRootViewController updateContentViewSize: %@", v7, v8, v9, v10, v11, v6);
 
   tableView = [(SLSheetRootViewController *)self tableView];
   [tableView bounds];
-  v8 = v7;
+  v14 = v13;
   contentView = [(SLSheetRootViewController *)self contentView];
-  [contentView setFrame:{0.0, 0.0, v8, height}];
+  [contentView setFrame:{0.0, 0.0, v14, height}];
 
   if (!self->_autoCompletionViewController)
   {
@@ -289,10 +288,10 @@
 {
   controllerCopy = controller;
   blockCopy = block;
-  _SLLog(v5, 7, @"SLSheetRootViewController presentAutoCompletionViewController:");
+  _SLLog(v5, 7, @"SLSheetRootViewController presentAutoCompletionViewController:", v11, v12, v13, v14, v15, v58[0]);
   autoCompletionViewController = self->_autoCompletionViewController;
   self->_autoCompletionViewController = controllerCopy;
-  v12 = controllerCopy;
+  v17 = controllerCopy;
 
   tableView = [(SLSheetRootViewController *)self tableView];
   [tableView setTableHeaderView:0];
@@ -303,21 +302,21 @@
 
   tableView2 = [(SLSheetRootViewController *)self tableView];
   [tableView2 frame];
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
+  v29 = v28;
 
   contentView2 = [(SLSheetRootViewController *)self contentView];
   [contentView2 frame];
-  v27 = v20 + v26;
+  v32 = v25 + v31;
 
   contentView3 = [(SLSheetRootViewController *)self contentView];
   [contentView3 frame];
-  v30 = v24 - v29;
+  v35 = v29 - v34;
 
   tableView3 = [(SLSheetRootViewController *)self tableView];
-  [tableView3 setFrame:{v18, v27, v22, v30}];
+  [tableView3 setFrame:{v23, v32, v27, v35}];
 
   view2 = [(UIViewController *)self->_autoCompletionViewController view];
   [view2 setAlpha:0.0];
@@ -331,17 +330,17 @@
   [(UIViewController *)self->_autoCompletionViewController didMoveToParentViewController:self];
   view5 = [(SLSheetRootViewController *)self view];
   [view5 bounds];
-  v37 = v36;
-  v39 = v38;
-  v41 = v40;
-  v43 = v42;
+  v42 = v41;
+  v44 = v43;
+  v46 = v45;
+  v48 = v47;
 
   contentView4 = [(SLSheetRootViewController *)self contentView];
   [contentView4 frame];
-  v46 = v39 + v45 + height;
+  v51 = v44 + v50 + height;
 
   view6 = [(UIViewController *)self->_autoCompletionViewController view];
-  [view6 setFrame:{v37, v46, v41, v43 - v46}];
+  [view6 setFrame:{v42, v51, v46, v48 - v51}];
 
   view7 = [(UIViewController *)self->_autoCompletionViewController view];
   [view7 setAutoresizingMask:18];
@@ -350,15 +349,15 @@
   view9 = [(UIViewController *)self->_autoCompletionViewController view];
   [view8 bringSubviewToFront:view9];
 
-  v51 = MEMORY[0x1E69DD250];
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __110__SLSheetRootViewController_presentAutoCompletionViewController_apparentContentHeight_contentViewChangeBlock___block_invoke;
-  v53[3] = &unk_1E81759A0;
-  v53[4] = self;
-  v54 = blockCopy;
-  v52 = blockCopy;
-  [v51 animateWithDuration:v53 animations:0.200000003];
+  v56 = MEMORY[0x1E69DD250];
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __110__SLSheetRootViewController_presentAutoCompletionViewController_apparentContentHeight_contentViewChangeBlock___block_invoke;
+  v58[3] = &unk_1E81759A0;
+  v58[4] = self;
+  v59 = blockCopy;
+  v57 = blockCopy;
+  [v56 animateWithDuration:v58 animations:0.200000003];
 }
 
 uint64_t __110__SLSheetRootViewController_presentAutoCompletionViewController_apparentContentHeight_contentViewChangeBlock___block_invoke(uint64_t a1)
@@ -383,34 +382,34 @@ uint64_t __110__SLSheetRootViewController_presentAutoCompletionViewController_ap
 - (void)dismissAutoCompletionViewControllerWithContentViewChangeBlock:(id)block
 {
   blockCopy = block;
-  _SLLog(v3, 7, @"SLSheetRootViewController dismissAutoCompletionViewController");
+  _SLLog(v3, 7, @"SLSheetRootViewController dismissAutoCompletionViewController", v6, v7, v8, v9, v10, v24);
   tableView = [(SLSheetRootViewController *)self tableView];
   [tableView frame];
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
 
   contentView = [(SLSheetRootViewController *)self contentView];
   [contentView frame];
-  v15 = v14;
+  v20 = v19;
 
   tableView2 = [(SLSheetRootViewController *)self tableView];
-  [tableView2 setFrame:{v8, v15, v10, v12}];
+  [tableView2 setFrame:{v13, v20, v15, v17}];
 
-  v17 = MEMORY[0x1E69DD250];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __91__SLSheetRootViewController_dismissAutoCompletionViewControllerWithContentViewChangeBlock___block_invoke;
-  v20[3] = &unk_1E81759A0;
-  v20[4] = self;
-  v21 = blockCopy;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __91__SLSheetRootViewController_dismissAutoCompletionViewControllerWithContentViewChangeBlock___block_invoke_2;
-  v19[3] = &unk_1E8175DB8;
-  v19[4] = self;
-  v18 = blockCopy;
-  [v17 animateWithDuration:v20 animations:v19 completion:0.200000003];
+  v22 = MEMORY[0x1E69DD250];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __91__SLSheetRootViewController_dismissAutoCompletionViewControllerWithContentViewChangeBlock___block_invoke;
+  v26[3] = &unk_1E81759A0;
+  v26[4] = self;
+  v27 = blockCopy;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __91__SLSheetRootViewController_dismissAutoCompletionViewControllerWithContentViewChangeBlock___block_invoke_2;
+  v25[3] = &unk_1E8175DB8;
+  v25[4] = self;
+  v23 = blockCopy;
+  [v22 animateWithDuration:v26 animations:v25 completion:0.200000003];
 }
 
 uint64_t __91__SLSheetRootViewController_dismissAutoCompletionViewControllerWithContentViewChangeBlock___block_invoke(uint64_t a1)
@@ -444,23 +443,23 @@ void __91__SLSheetRootViewController_dismissAutoCompletionViewControllerWithCont
   [v10 frame];
   v12 = v9 + v11;
 
-  _SLLog(v1, 7, @"presentAutoCompletionViewController restored tableView.frame %g %g %g %g");
-  v13 = [*(a1 + 32) tableView];
-  [v13 setFrame:{v5, 0.0, v7, v12}];
+  _SLLog(v1, 7, @"presentAutoCompletionViewController restored tableView.frame %g %g %g %g", v13, v14, v15, v16, v17, v5);
+  v18 = [*(a1 + 32) tableView];
+  [v18 setFrame:{*&v5, 0.0, v7, v12}];
 
-  v14 = [*(a1 + 32) contentView];
-  v15 = [*(a1 + 32) tableView];
-  [v15 setTableHeaderView:v14];
+  v19 = [*(a1 + 32) contentView];
+  v20 = [*(a1 + 32) tableView];
+  [v20 setTableHeaderView:v19];
 
   [*(*(a1 + 32) + 1024) willMoveToParentViewController:0];
   [*(*(a1 + 32) + 1024) removeFromParentViewController];
-  v16 = [*(*(a1 + 32) + 1024) view];
-  [v16 removeFromSuperview];
+  v21 = [*(*(a1 + 32) + 1024) view];
+  [v21 removeFromSuperview];
 
   [*(*(a1 + 32) + 1024) didMoveToParentViewController:0];
-  v17 = *(a1 + 32);
-  v18 = *(v17 + 1024);
-  *(v17 + 1024) = 0;
+  v22 = *(a1 + 32);
+  v23 = *(v22 + 1024);
+  *(v22 + 1024) = 0;
 }
 
 - (void)resetConfigurationItems

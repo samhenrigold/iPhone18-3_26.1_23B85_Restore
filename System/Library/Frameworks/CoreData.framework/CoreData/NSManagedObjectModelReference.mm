@@ -106,14 +106,13 @@
 
 - (BOOL)resolve:(id *)resolve
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (self->_resolvedModel)
   {
-    result = 1;
-    goto LABEL_14;
+    return 1;
   }
 
-  v42 = 0;
+  v41 = 0;
   model = self->_model;
   if (model)
   {
@@ -136,7 +135,7 @@ LABEL_8:
     [(NSManagedObjectModel *)bundle _setIsEditable:0];
     if (![(NSString *)[(NSManagedObjectModel *)self->_resolvedModel versionChecksum] isEqualToString:self->_versionChecksum])
     {
-      v42 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134100 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", @"The version hash (and associated hashes) are incompatible with the current Core Data version.", @"reason", -[NSManagedObjectModel versionHash](self->_resolvedModel, "versionHash"), @"versionHash", self->_versionChecksum, @"checksum", 0)}];
+      v41 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134100 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", @"The version hash (and associated hashes) are incompatible with the current Core Data version.", @"reason", -[NSManagedObjectModel versionHash](self->_resolvedModel, "versionHash"), @"versionHash", self->_versionChecksum, @"checksum", 0)}];
 
       self->_resolvedModel = 0;
     }
@@ -153,44 +152,44 @@ LABEL_8:
       goto LABEL_8;
     }
 
-    v46 = bundle;
-    v20 = +[NSManagedObjectModel _modelPathsFromBundles:](NSManagedObjectModel, [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1]);
+    v45 = bundle;
+    v19 = +[NSManagedObjectModel _modelPathsFromBundles:](NSManagedObjectModel, [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1]);
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v21 = [v20 countByEnumeratingWithState:&v33 objects:v45 count:16];
-    if (v21)
+    v20 = [v19 countByEnumeratingWithState:&v32 objects:v44 count:16];
+    if (v20)
     {
-      v22 = v21;
-      v23 = *v34;
+      v21 = v20;
+      v22 = *v33;
 LABEL_30:
-      v24 = 0;
+      v23 = 0;
       while (1)
       {
-        if (*v34 != v23)
+        if (*v33 != v22)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v19);
         }
 
-        v25 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(&v33 + 1) + 8 * v24)];
-        v26 = [NSManagedObjectModel versionsHashesForModelAtURL:v25 error:&v42];
-        if (v42)
+        v24 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(&v32 + 1) + 8 * v23)];
+        v25 = [NSManagedObjectModel versionsHashesForModelAtURL:v24 error:&v41];
+        if (v41)
         {
           break;
         }
 
-        if ([v26 isEqualToDictionary:self->_entityVersionHashes])
+        if ([v25 isEqualToDictionary:self->_entityVersionHashes])
         {
-          resolvedModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:v25];
+          resolvedModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:v24];
           self->_resolvedModel = resolvedModel;
           goto LABEL_44;
         }
 
-        if (v22 == ++v24)
+        if (v21 == ++v23)
         {
-          v22 = [v20 countByEnumeratingWithState:&v33 objects:v45 count:16];
-          if (v22)
+          v21 = [v19 countByEnumeratingWithState:&v32 objects:v44 count:16];
+          if (v21)
           {
             goto LABEL_30;
           }
@@ -204,55 +203,55 @@ LABEL_30:
 LABEL_44:
     if (resolvedModel)
     {
-      v13 = v42;
+      v12 = v41;
       goto LABEL_49;
     }
 
-    v28 = MEMORY[0x1E696ABC0];
-    v29 = *MEMORY[0x1E696A250];
-    v43 = *MEMORY[0x1E696A578];
-    v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"A model with version hashes %@ could not be found in the bundle at %@.", self->_entityVersionHashes, -[NSBundle bundlePath](self->_bundle, "bundlePath")];
-    v30 = MEMORY[0x1E695DF20];
-    v31 = &v44;
-    v32 = &v43;
+    v27 = MEMORY[0x1E696ABC0];
+    v28 = *MEMORY[0x1E696A250];
+    v42 = *MEMORY[0x1E696A578];
+    v43 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_entityVersionHashes, [(NSBundle *)self->_bundle bundlePath]);
+    v29 = MEMORY[0x1E695DF20];
+    v30 = &v43;
+    v31 = &v42;
     goto LABEL_47;
   }
 
-  v11 = [(NSManagedObjectModel *)bundle URLForResource:modelName withExtension:@"momd"];
-  v41 = 0;
-  v12 = [NSManagedObjectModel checksumsForVersionedModelAtURL:v11 error:&v41];
-  v13 = v41;
-  if (!v41)
+  v10 = [(NSManagedObjectModel *)bundle URLForResource:modelName withExtension:@"momd"];
+  v40 = 0;
+  v11 = [NSManagedObjectModel checksumsForVersionedModelAtURL:v10 error:&v40];
+  v12 = v40;
+  if (!v40)
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
-    v14 = [(NSDictionary *)v12 countByEnumeratingWithState:&v37 objects:v49 count:16];
-    if (v14)
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v13 = [(NSDictionary *)v11 countByEnumeratingWithState:&v36 objects:v48 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v16 = *v38;
+      v14 = v13;
+      v15 = *v37;
       while (2)
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v38 != v16)
+          if (*v37 != v15)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
-          v18 = *(*(&v37 + 1) + 8 * i);
-          if ([-[NSDictionary objectForKey:](v12 objectForKey:{v18), "isEqualToString:", self->_versionChecksum}])
+          v17 = *(*(&v36 + 1) + 8 * i);
+          if ([-[NSDictionary objectForKey:](v11 objectForKey:{v17), "isEqualToString:", self->_versionChecksum}])
           {
-            v19 = -[NSManagedObjectModel initWithContentsOfURL:]([NSManagedObjectModel alloc], "initWithContentsOfURL:", [objc_msgSend(v11 URLByAppendingPathComponent:{v18), "URLByAppendingPathExtension:", @"mom"}]);
-            self->_resolvedModel = v19;
+            v18 = -[NSManagedObjectModel initWithContentsOfURL:]([NSManagedObjectModel alloc], "initWithContentsOfURL:", [objc_msgSend(v10 URLByAppendingPathComponent:{v17), "URLByAppendingPathExtension:", @"mom"}]);
+            self->_resolvedModel = v18;
             goto LABEL_39;
           }
         }
 
-        v15 = [(NSDictionary *)v12 countByEnumeratingWithState:&v37 objects:v49 count:16];
-        if (v15)
+        v14 = [(NSDictionary *)v11 countByEnumeratingWithState:&v36 objects:v48 count:16];
+        if (v14)
         {
           continue;
         }
@@ -261,45 +260,45 @@ LABEL_44:
       }
     }
 
-    v19 = self->_resolvedModel;
+    v18 = self->_resolvedModel;
 LABEL_39:
-    if (v19)
+    if (v18)
     {
-      v13 = 0;
+      v12 = 0;
       goto LABEL_49;
     }
 
-    v28 = MEMORY[0x1E696ABC0];
-    v29 = *MEMORY[0x1E696A250];
-    v47 = *MEMORY[0x1E696A578];
-    v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"A model with version checksum %@ could not be found in the bundle at %@.", self->_versionChecksum, -[NSBundle bundlePath](self->_bundle, "bundlePath")];
-    v30 = MEMORY[0x1E695DF20];
-    v31 = &v48;
-    v32 = &v47;
+    v27 = MEMORY[0x1E696ABC0];
+    v28 = *MEMORY[0x1E696A250];
+    v46 = *MEMORY[0x1E696A578];
+    v47 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_versionChecksum, [(NSBundle *)self->_bundle bundlePath]);
+    v29 = MEMORY[0x1E695DF20];
+    v30 = &v47;
+    v31 = &v46;
 LABEL_47:
-    v13 = [v28 errorWithDomain:v29 code:134504 userInfo:{objc_msgSend(v30, "dictionaryWithObjects:forKeys:count:", v31, v32, 1)}];
+    v12 = [v27 errorWithDomain:v28 code:134504 userInfo:{objc_msgSend(v29, "dictionaryWithObjects:forKeys:count:", v30, v31, 1)}];
   }
 
-  v42 = v13;
+  v41 = v12;
 LABEL_49:
-  if (!v13)
+  if (!v12)
   {
     bundle = self->_resolvedModel;
     goto LABEL_8;
   }
 
 LABEL_10:
-  v8 = v42;
-  if (resolve && v42)
+  v8 = v41;
+  if (resolve)
   {
-    *resolve = v42;
-    v8 = v42;
+    if (v41)
+    {
+      *resolve = v41;
+      v8 = v41;
+    }
   }
 
-  result = v8 == 0;
-LABEL_14:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v8 == 0;
 }
 
 @end

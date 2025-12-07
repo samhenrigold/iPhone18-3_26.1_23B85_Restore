@@ -72,7 +72,7 @@ uint64_t __32__PAAccessLogger_sharedInstance__block_invoke()
 
 - (void)handleConnectionInterrupted
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = logger_3;
   if (os_log_type_enabled(logger_3, OS_LOG_TYPE_INFO))
   {
@@ -81,61 +81,61 @@ uint64_t __32__PAAccessLogger_sharedInstance__block_invoke()
   }
 
   *buf = 0;
+  v34 = 0;
   v35 = 0;
-  v36 = 0;
-  [(PAAccessLogger *)self resyncState];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
+  objc_msgSend_resyncState(self);
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v4 = *buf;
-  v5 = [v4 countByEnumeratingWithState:&v30 objects:v39 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v29 objects:v38 count:16];
   if (v5)
   {
-    v6 = *v31;
+    v6 = *v30;
     do
     {
       v7 = 0;
       do
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [*buf objectForKeyedSubscript:*(*(&v30 + 1) + 8 * v7)];
+        v8 = [*buf objectForKeyedSubscript:*(*(&v29 + 1) + 8 * v7)];
         [(PAAccessLogger *)self log:v8 reason:1];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v30 objects:v39 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v29 objects:v38 count:16];
     }
 
     while (v5);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
-  v9 = v35;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v9 = v34;
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v10)
   {
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       v12 = 0;
       do
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * v12);
+        v13 = *(*(&v25 + 1) + 8 * v12);
         v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"PAErrorDomain" code:10 userInfo:0];
         [(PAAccessLogger *)self notifyDidLogAccess:v13 failedWithError:v14];
 
@@ -143,56 +143,54 @@ uint64_t __32__PAAccessLogger_sharedInstance__block_invoke()
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v10);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v15 = v36;
-  v16 = [v15 countByEnumeratingWithState:&v22 objects:v37 count:16];
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v15 = v35;
+  v16 = [v15 countByEnumeratingWithState:&v21 objects:v36 count:16];
   if (v16)
   {
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       v18 = 0;
       do
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v22 + 1) + 8 * v18);
-        v20 = [MEMORY[0x1E696ABC0] errorWithDomain:@"PAErrorDomain" code:11 userInfo:{0, v22}];
+        v19 = *(*(&v21 + 1) + 8 * v18);
+        v20 = [MEMORY[0x1E696ABC0] errorWithDomain:@"PAErrorDomain" code:11 userInfo:{0, v21}];
         [(PAAccessLogger *)self notifyDidLogAccess:v19 failedWithError:v20];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [v15 countByEnumeratingWithState:&v22 objects:v37 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v21 objects:v36 count:16];
     }
 
     while (v16);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (ResyncStateResult)resyncState
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
-  v26 = retstr;
+  v25 = retstr;
   maxRetryCount = [(PAAccessLogger *)self maxRetryCount];
   v5 = self->_state;
   v6 = objc_opt_new();
@@ -201,27 +199,27 @@ uint64_t __32__PAAccessLogger_sharedInstance__block_invoke()
 
   [(PAAccessLoggerState *)self->_state setLoggingEnabled:[(PAAccessLoggerState *)v5 loggingEnabled]];
   [(PAAccessLoggerState *)self->_state setTopAccessIntervalSlot:[(PAAccessLoggerState *)v5 topAccessIntervalSlot]];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   ongoingAccessIntervals = [(PAAccessLoggerState *)v5 ongoingAccessIntervals];
-  v9 = [ongoingAccessIntervals countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v9 = [ongoingAccessIntervals countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v9)
   {
-    v10 = *v33;
+    v10 = *v32;
     obj = ongoingAccessIntervals;
     do
     {
       v11 = 0;
       do
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * v11);
+        v12 = *(*(&v31 + 1) + 8 * v11);
         ongoingAccessIntervals2 = [(PAAccessLoggerState *)v5 ongoingAccessIntervals];
         v14 = [ongoingAccessIntervals2 objectForKeyedSubscript:v12];
 
@@ -250,9 +248,9 @@ uint64_t __32__PAAccessLogger_sharedInstance__block_invoke()
           {
             access3 = [v14 access];
             *buf = 134218242;
-            v37 = maxRetryCount;
-            v38 = 2112;
-            v39 = access3;
+            v36 = maxRetryCount;
+            v37 = 2112;
+            v38 = access3;
             _os_log_error_impl(&dword_1DF25B000, v15, OS_LOG_TYPE_ERROR, "Dropping interval exceeding maximum retries=%ld for access=%@", buf, 0x16u);
           }
 
@@ -266,31 +264,29 @@ uint64_t __32__PAAccessLogger_sharedInstance__block_invoke()
 
       while (v9 != v11);
       ongoingAccessIntervals = obj;
-      v9 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v9 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v9);
   }
 
-  v26->var0 = dictionary;
-  v26->var1 = array;
-  v26->var2 = array2;
+  v25->var0 = dictionary;
+  v25->var1 = array;
+  v25->var2 = array2;
 
   os_unfair_lock_unlock(&self->_lock);
-  v25 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)ensureEnablementChangedNotificationRegistered
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *self;
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 1024;
-  v8 = a2;
-  _os_log_error_impl(&dword_1DF25B000, log, OS_LOG_TYPE_ERROR, "Failed to register for %{public}@ notifications with code=%u", &v5, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 1024;
+  v7 = a2;
+  _os_log_error_impl(&dword_1DF25B000, log, OS_LOG_TYPE_ERROR, "Failed to register for %{public}@ notifications with code=%u", &v4, 0x12u);
 }
 
 - (void)lockedInvalidateState
@@ -412,35 +408,35 @@ void __22__PAAccessLogger_log___block_invoke_22(uint64_t a1, void *a2)
 
 - (id)beginIntervalForAccess:(id)access
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   accessCopy = access;
   v5 = accessCopy;
   if (self->_connection)
   {
     asIntervalBeginEvent = [accessCopy asIntervalBeginEvent];
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy__0;
-    v35 = __Block_byref_object_dispose__0;
-    v36 = 0;
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__0;
-    v29 = __Block_byref_object_dispose__0;
     v30 = 0;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __41__PAAccessLogger_beginIntervalForAccess___block_invoke;
-    v20[3] = &unk_1E86ABF98;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__0;
+    v34 = __Block_byref_object_dispose__0;
+    v35 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__0;
+    v28 = __Block_byref_object_dispose__0;
+    v29 = 0;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __41__PAAccessLogger_beginIntervalForAccess___block_invoke;
+    v19[3] = &unk_1E86ABF98;
     v7 = asIntervalBeginEvent;
-    v23 = &v31;
-    v24 = &v25;
-    v21 = v7;
+    v22 = &v30;
+    v23 = &v24;
+    v20 = v7;
     selfCopy = self;
-    [(PAAccessLogger *)self withLockedState:v20];
-    if (v32[5])
+    [(PAAccessLogger *)self withLockedState:v19];
+    if (v31[5])
     {
       [(PAAccessLogger *)self notifyDidLogAccess:v7 failedWithError:?];
       v8 = +[PAAccessInterval placeholderAccessInterval];
@@ -448,28 +444,28 @@ void __22__PAAccessLogger_log___block_invoke_22(uint64_t a1, void *a2)
 
     else
     {
-      v14 = MEMORY[0x1E69E9820];
-      v15 = 3221225472;
-      v16 = __41__PAAccessLogger_beginIntervalForAccess___block_invoke_28;
-      v17 = &unk_1E86ABF48;
+      v13 = MEMORY[0x1E69E9820];
+      v14 = 3221225472;
+      v15 = __41__PAAccessLogger_beginIntervalForAccess___block_invoke_28;
+      v16 = &unk_1E86ABF48;
       selfCopy2 = self;
-      v19 = v7;
-      _os_activity_initiate(&dword_1DF25B000, "PAAccessLogger -beginIntervalForAccess:", OS_ACTIVITY_FLAG_DEFAULT, &v14);
+      v18 = v7;
+      _os_activity_initiate(&dword_1DF25B000, "PAAccessLogger -beginIntervalForAccess:", OS_ACTIVITY_FLAG_DEFAULT, &v13);
 
       v10 = logger_3;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        slot = [v26[5] slot];
+        slot = [v25[5] slot];
         [(PAAccessLogger *)slot beginIntervalForAccess:buf, v10];
       }
 
-      v8 = v26[5];
+      v8 = v25[5];
     }
 
     v9 = v8;
 
-    _Block_object_dispose(&v25, 8);
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v30, 8);
   }
 
   else
@@ -477,12 +473,10 @@ void __22__PAAccessLogger_log___block_invoke_22(uint64_t a1, void *a2)
     v9 = +[PAAccessInterval placeholderAccessInterval];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
-void __41__PAAccessLogger_beginIntervalForAccess___block_invoke(uint64_t *a1, void *a2)
+void __41__PAAccessLogger_beginIntervalForAccess___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   if (([v3 loggingEnabled] & 1) == 0)
@@ -870,48 +864,45 @@ void __29__PAAccessLogger_log_reason___block_invoke_4(uint64_t a1, void *a2)
   slotCopy = slot;
   if ([slotCopy integerValue] >= 1 && objc_msgSend(identifiersCopy, "count"))
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__0;
-    v28 = __Block_byref_object_dispose__0;
-    v29 = 0;
-    v18 = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = __86__PAAccessLogger_recordAssetIdentifiers_withVisibilityState_accessEventCount_forSlot___block_invoke;
-    v21 = &unk_1E86ABF20;
-    v23 = &v24;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__0;
+    v27 = __Block_byref_object_dispose__0;
+    v28 = 0;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __86__PAAccessLogger_recordAssetIdentifiers_withVisibilityState_accessEventCount_forSlot___block_invoke;
+    v20 = &unk_1E86ABF20;
+    v22 = &v23;
     v12 = slotCopy;
-    v22 = v12;
-    [(PAAccessLogger *)self withLockedState:&v18];
-    if (v25[5])
+    v21 = v12;
+    [(PAAccessLogger *)self withLockedState:&v17];
+    if (v24[5])
     {
-      if ([identifiersCopy count] || (v13 = v25[5], objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_msgSend(v25[5], "tccService"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqual:", *MEMORY[0x1E69D5580]), v14, (v15 & 1) == 0))
+      if ([identifiersCopy count] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_msgSend(v24[5], "tccService"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqual:", *MEMORY[0x1E69D5580]), v13, (v14 & 1) == 0))
       {
-        v16 = [v25[5] asIntervalEventWithAssetIdentifiers:identifiersCopy visibilityState:state accessEventCount:count];
-        [(PAAccessLogger *)self log:v16 reason:0];
+        v15 = [v24[5] asIntervalEventWithAssetIdentifiers:identifiersCopy visibilityState:state accessEventCount:count];
+        [(PAAccessLogger *)self log:v15 reason:0];
       }
     }
 
     else
     {
-      v17 = logger_3;
+      v16 = logger_3;
       if (os_log_type_enabled(logger_3, OS_LOG_TYPE_ERROR))
       {
-        [PAAccessLogger recordAssetIdentifiers:v12 withVisibilityState:v17 accessEventCount:? forSlot:?];
+        [PAAccessLogger recordAssetIdentifiers:v12 withVisibilityState:v16 accessEventCount:? forSlot:?];
       }
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v23, 8);
   }
 }
 
 uint64_t __86__PAAccessLogger_recordAssetIdentifiers_withVisibilityState_accessEventCount_forSlot___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 lookupCurrentAccessForSlot:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 lookupCurrentAccessForSlot:*(a1 + 32)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1018,7 +1009,7 @@ void __51__PAAccessLogger_lockedNotifyDidSetLoggingEnabled___block_invoke(uint64
 
 - (void)notifyDidLogAccess:(id)access failedWithError:(id)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   accessCopy = access;
   errorCopy = error;
   v8 = logger_3;
@@ -1041,9 +1032,9 @@ void __51__PAAccessLogger_lockedNotifyDidSetLoggingEnabled___block_invoke(uint64
     if (os_log_type_enabled(v9, v13))
     {
       *buf = 138412546;
-      v29 = accessCopy;
-      v30 = 2114;
-      v31 = errorCopy;
+      v28 = accessCopy;
+      v29 = 2114;
+      v30 = errorCopy;
       _os_log_impl(&dword_1DF25B000, v9, v13, "Failed to log access with error: access=%@, error=%{public}@", buf, 0x16u);
     }
   }
@@ -1064,16 +1055,14 @@ void __51__PAAccessLogger_lockedNotifyDidSetLoggingEnabled___block_invoke(uint64
     block[1] = 3221225472;
     block[2] = __53__PAAccessLogger_notifyDidLogAccess_failedWithError___block_invoke;
     block[3] = &unk_1E86AC060;
-    objc_copyWeak(&v27, buf);
-    v25 = accessCopy;
-    v26 = errorCopy;
+    objc_copyWeak(&v26, buf);
+    v24 = accessCopy;
+    v25 = errorCopy;
     dispatch_async(queue, block);
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __53__PAAccessLogger_notifyDidLogAccess_failedWithError___block_invoke(uint64_t a1)
@@ -1115,19 +1104,17 @@ void __42__PAAccessLogger_notifyDidCoalesceAccess___block_invoke(uint64_t a1)
 
 void __63__PAAccessLogger_ensureEnablementChangedNotificationRegistered__block_invoke(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = logger_3;
   if (os_log_type_enabled(logger_3, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_1DF25B000, v4, OS_LOG_TYPE_INFO, "Received enablement changed notification with token=%d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_1DF25B000, v4, OS_LOG_TYPE_INFO, "Received enablement changed notification with token=%d", v6, 8u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setLoggingEnabled:1];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (PAAccessLogger)initWithConnection:(id)connection queue:(id)queue forcingOptions:(unint64_t)options error:(id *)error
@@ -1245,69 +1232,63 @@ void __73__PAAccessLogger_Testing__initWithConnection_queue_forcingOptions_error
 
 void __41__PAAccessLogger_beginIntervalForAccess___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_0(&dword_1DF25B000, a2, a3, "Logging disabled; returning placeholder interval for access=%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_0(&dword_1DF25B000, a2, a3, "Logging disabled; returning placeholder interval for access=%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __41__PAAccessLogger_beginIntervalForAccess___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1DF25B000, a2, OS_LOG_TYPE_ERROR, "Trying to begin new interval for access=%@ already associated with ongoing interval", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1DF25B000, a2, OS_LOG_TYPE_ERROR, "Trying to begin new interval for access=%@ already associated with ongoing interval", &v3, 0xCu);
 }
 
 - (void)initWithConnection:(os_log_t)log queue:enablementChangedNotificationName:options:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = 136315650;
-  v5 = "[PAAccessLogger initWithConnection:queue:enablementChangedNotificationName:options:]";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_debug_impl(&dword_1DF25B000, log, OS_LOG_TYPE_DEBUG, "%s: connection=%@, queue=%@", &v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = 136315650;
+  v4 = "[PAAccessLogger initWithConnection:queue:enablementChangedNotificationName:options:]";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_debug_impl(&dword_1DF25B000, log, OS_LOG_TYPE_DEBUG, "%s: connection=%@, queue=%@", &v3, 0x20u);
 }
 
 - (void)log:(void *)a1 reason:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v5[0] = 68157954;
-  v5[1] = [a2 length];
-  v6 = 2080;
-  v7 = [a2 bytes];
-  _os_log_debug_impl(&dword_1DF25B000, v3, OS_LOG_TYPE_DEBUG, "#QA #PAAccess %.*s", v5, 0x12u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = 68157954;
+  v4[1] = [a2 length];
+  v5 = 2080;
+  v6 = [a2 bytes];
+  _os_log_debug_impl(&dword_1DF25B000, v3, OS_LOG_TYPE_DEBUG, "#QA #PAAccess %.*s", v4, 0x12u);
 }
 
 - (void)recordAssetIdentifiers:(uint64_t)a1 withVisibilityState:(NSObject *)a2 accessEventCount:forSlot:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF25B000, a2, OS_LOG_TYPE_ERROR, "Tried to record asset identifiers for a closed interval.  Slot=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF25B000, a2, OS_LOG_TYPE_ERROR, "Tried to record asset identifiers for a closed interval.  Slot=%{public}@", &v2, 0xCu);
 }
 
 - (void)endIntervalWithSlot:(uint64_t)a3 timestampAdjustment:(uint64_t)a4 accessCount:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1DF25B000, a2, a3, "Tried to end interval with unknown slot=%{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1DF25B000, a2, a3, "Tried to end interval with unknown slot=%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)notifyDidLogAccess:(uint64_t)a3 failedWithError:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1DF25B000, a2, a3, "Logged access: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1DF25B000, a2, a3, "Logged access: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

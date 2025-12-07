@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -142,7 +143,6 @@ LABEL_4:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 36);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 36) & 4) == 0 || self->_type != *(equalCopy + 8))
@@ -154,7 +154,7 @@ LABEL_4:
   else if ((*(equalCopy + 36) & 4) != 0)
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -187,17 +187,17 @@ LABEL_19:
   rawMessage = self->_rawMessage;
   if (rawMessage | *(equalCopy + 3))
   {
-    v7 = [(PETRawMessage *)rawMessage isEqual:?];
+    v6 = [(PETRawMessage *)rawMessage isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -295,12 +295,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -319,22 +318,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  datestamp = self->_datestamp;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    bucket = self->_bucket;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_rawMessage)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -437,6 +434,21 @@ LABEL_5:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86C2840[string];
   }
 
   return v4;

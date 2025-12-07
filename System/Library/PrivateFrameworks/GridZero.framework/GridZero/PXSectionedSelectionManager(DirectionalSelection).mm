@@ -1,6 +1,4 @@
 @interface PXSectionedSelectionManager(DirectionalSelection)
-- (uint64_t)_selectInitialItemForMoveInDirection:()DirectionalSelection withDelegate:;
-- (uint64_t)_selectInitialSectionForMoveInDirection:()DirectionalSelection withDelegate:;
 - (uint64_t)moveSelectionInDirection:()DirectionalSelection withDelegate:;
 - (void)_extendSelectionFromIndexPath:()DirectionalSelection toIndexPath:inDirection:withDelegate:;
 - (void)_initialItemIndexPathForMoveInDirection:()DirectionalSelection;
@@ -8,6 +6,8 @@
 - (void)_moveItemSelectionInDirection:()DirectionalSelection withDelegate:;
 - (void)_moveSectionSelectionInDirection:()DirectionalSelection withDelegate:;
 - (void)_moveSelectionFromIndexPath:()DirectionalSelection inDirection:withDelegate:;
+- (void)_selectInitialItemForMoveInDirection:()DirectionalSelection withDelegate:;
+- (void)_selectInitialSectionForMoveInDirection:()DirectionalSelection withDelegate:;
 - (void)extendSelectionFromIndexPath:()DirectionalSelection inDirection:withDelegate:;
 - (void)extendSelectionToItemIndexPath:()DirectionalSelection withDelegate:;
 - (void)startingIndexPathForMoveInDirection:()DirectionalSelection;
@@ -17,38 +17,38 @@
 
 - (void)_moveSelectionFromIndexPath:()DirectionalSelection inDirection:withDelegate:
 {
-  v9 = a4;
-  v10 = v9;
+  v8 = a4;
+  v9 = v8;
   *a5 = 0u;
   a5[1] = 0u;
-  if (v9)
+  if (v8)
   {
-    v11 = a2[1];
-    v17[0] = *a2;
-    v17[1] = v11;
-    [v9 selectionManager:self indexPathClosestToIndexPath:v17 inDirection:a3];
-    v12 = *a5;
+    v10 = a2[1];
+    v16 = *a2;
+    v17 = v10;
+    objc_msgSend_selectionManager_indexPathClosestToIndexPath_inDirection_(v8);
+    v11 = *a5;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  if (v12 != *MEMORY[0x277D3CF78])
+  if (v11 != *MEMORY[0x277D3CF78])
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __106__PXSectionedSelectionManager_DirectionalSelection___moveSelectionFromIndexPath_inDirection_withDelegate___block_invoke;
-    v14[3] = &__block_descriptor_64_e37_v16__0___PXMutableSelectionManager__8l;
-    v13 = a5[1];
-    v15 = *a5;
-    v16 = v13;
-    [self performChanges:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __106__PXSectionedSelectionManager_DirectionalSelection___moveSelectionFromIndexPath_inDirection_withDelegate___block_invoke;
+    v13[3] = &__block_descriptor_64_e37_v16__0___PXMutableSelectionManager__8l;
+    v12 = a5[1];
+    v14 = *a5;
+    v15 = v12;
+    [self performChanges:v13];
   }
 }
 
-- (uint64_t)_selectInitialItemForMoveInDirection:()DirectionalSelection withDelegate:
+- (void)_selectInitialItemForMoveInDirection:()DirectionalSelection withDelegate:
 {
   *a2 = 0u;
   a2[1] = 0u;
@@ -68,7 +68,7 @@
   return result;
 }
 
-- (uint64_t)_selectInitialSectionForMoveInDirection:()DirectionalSelection withDelegate:
+- (void)_selectInitialSectionForMoveInDirection:()DirectionalSelection withDelegate:
 {
   *a2 = 0u;
   a2[1] = 0u;
@@ -99,7 +99,7 @@
     {
       if (dataSource)
       {
-        [dataSource firstItemIndexPath];
+        objc_msgSend_firstItemIndexPath(dataSource);
         goto LABEL_10;
       }
 
@@ -110,7 +110,7 @@
     {
       if (dataSource)
       {
-        [dataSource lastItemIndexPath];
+        objc_msgSend_lastItemIndexPath(dataSource);
         goto LABEL_10;
       }
 
@@ -173,7 +173,7 @@ LABEL_10:
   v10 = 0u;
   v11 = 0u;
   v7 = a3;
-  [self startingIndexPathForMoveInDirection:a2];
+  objc_msgSend_startingIndexPathForMoveInDirection_(self);
   v8 = *(MEMORY[0x277D3CFD8] + 16);
   *a4 = *MEMORY[0x277D3CFD8];
   a4[1] = v8;
@@ -195,7 +195,7 @@ LABEL_10:
   v10 = 0u;
   v11 = 0u;
   v7 = a3;
-  [self startingIndexPathForMoveInDirection:a2];
+  objc_msgSend_startingIndexPathForMoveInDirection_(self);
   v8 = *(MEMORY[0x277D3CFD8] + 16);
   *a4 = *MEMORY[0x277D3CFD8];
   a4[1] = v8;
@@ -252,7 +252,7 @@ LABEL_6:
     v10 = a3[1];
     v13 = *a3;
     v14 = v10;
-    [v8 selectionManager:self indexPathClosestToIndexPath:&v13 inDirection:a4];
+    objc_msgSend_selectionManager_indexPathClosestToIndexPath_inDirection_(v8);
   }
 
   v11 = a3[1];
@@ -274,7 +274,7 @@ LABEL_6:
 
   v11 = 0u;
   v12 = 0u;
-  [self startingIndexPathForMoveInDirection:0];
+  objc_msgSend_startingIndexPathForMoveInDirection_(self);
   v10[0] = v11;
   v10[1] = v12;
   v8 = a3[1];
@@ -372,7 +372,7 @@ LABEL_10:
       v27 = selectionSnapshot2;
       if (selectionSnapshot2)
       {
-        [selectionSnapshot2 firstSelectedIndexPath];
+        objc_msgSend_firstSelectedIndexPath(selectionSnapshot2);
       }
 
       else
@@ -391,7 +391,7 @@ LABEL_20:
         v30 = selectionSnapshot3;
         if (selectionSnapshot3)
         {
-          [selectionSnapshot3 lastSelectedIndexPath];
+          objc_msgSend_lastSelectedIndexPath(selectionSnapshot3);
         }
 
         else
@@ -458,7 +458,7 @@ LABEL_31:
   {
     if (selectedIndexPaths)
     {
-      [selectedIndexPaths anyItemIndexPath];
+      objc_msgSend_anyItemIndexPath(selectedIndexPaths);
     }
 
     else
@@ -477,7 +477,7 @@ LABEL_31:
   {
     if (selectionSnapshot)
     {
-      [selectionSnapshot cursorIndexPath];
+      objc_msgSend_cursorIndexPath(selectionSnapshot);
     }
 
     else
@@ -495,7 +495,7 @@ LABEL_31:
   {
     if (selectionSnapshot)
     {
-      [selectionSnapshot pendingIndexPath];
+      objc_msgSend_pendingIndexPath(selectionSnapshot);
     }
 
     else
@@ -515,7 +515,7 @@ LABEL_31:
     {
       if (selectionSnapshot)
       {
-        [selectionSnapshot lastSelectedIndexPath];
+        objc_msgSend_lastSelectedIndexPath(selectionSnapshot);
         goto LABEL_27;
       }
 
@@ -529,7 +529,7 @@ LABEL_26:
     {
       if (selectionSnapshot)
       {
-        [selectionSnapshot firstSelectedIndexPath];
+        objc_msgSend_firstSelectedIndexPath(selectionSnapshot);
 LABEL_27:
         *a3 = v11;
         a3[1] = v12;

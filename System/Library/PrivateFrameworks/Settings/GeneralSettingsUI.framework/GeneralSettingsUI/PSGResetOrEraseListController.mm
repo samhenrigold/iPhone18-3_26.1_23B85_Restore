@@ -8,6 +8,7 @@
 - (void)_resetWithMode:(int64_t)mode andOptions:(id)options withSpecifier:(id)specifier;
 - (void)_showStockholmLocallyStoredValueOfflineWarningIfNeeded:(id)needed;
 - (void)carrierBundleChange:(id)change;
+- (void)configureSpin:(BOOL)spin ofCellForSpecifier:(id)specifier setEnabled:(BOOL)enabled;
 - (void)confirmEraseCellularSettings;
 - (void)confirmationSpecifierConfirmed:(id)confirmed;
 - (void)dealloc;
@@ -18,6 +19,7 @@
 - (void)eraseSettings:(id)settings;
 - (void)loadView;
 - (void)prepareMutableSpecifiers;
+- (void)presentExitBuddyWithUpsellTradeIn:(BOOL)in;
 - (void)refreshLocationServicesAvailable;
 - (void)resetAllCellularNetworks:(id)networks;
 - (void)resetContacts;
@@ -32,6 +34,7 @@
 - (void)showResetActionSheet:(id)sheet;
 - (void)subscriberOptions:(id)options;
 - (void)updateLocationResetSpecifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -61,42 +64,40 @@
 
 - (void)viewDidLoad
 {
-  v28[4] = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = PSGResetOrEraseListController;
-  [(PSGResetOrEraseListController *)&v27 viewDidLoad];
+  v27[4] = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = PSGResetOrEraseListController;
+  [(PSGResetOrEraseListController *)&v26 viewDidLoad];
   table = [(PSGResetOrEraseListController *)self table];
   [table setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v17 = MEMORY[0x277CCAAD0];
+  v16 = MEMORY[0x277CCAAD0];
   table2 = [(PSGResetOrEraseListController *)self table];
   leadingAnchor = [table2 leadingAnchor];
   view = [(PSGResetOrEraseListController *)self view];
   leadingAnchor2 = [view leadingAnchor];
-  v22 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v28[0] = v22;
+  v21 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v27[0] = v21;
   table3 = [(PSGResetOrEraseListController *)self table];
   trailingAnchor = [table3 trailingAnchor];
   view2 = [(PSGResetOrEraseListController *)self view];
   trailingAnchor2 = [view2 trailingAnchor];
-  v16 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v28[1] = v16;
+  v15 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v27[1] = v15;
   table4 = [(PSGResetOrEraseListController *)self table];
   topAnchor = [table4 topAnchor];
   view3 = [(PSGResetOrEraseListController *)self view];
   topAnchor2 = [view3 topAnchor];
   v7 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v28[2] = v7;
+  v27[2] = v7;
   table5 = [(PSGResetOrEraseListController *)self table];
   bottomAnchor = [table5 bottomAnchor];
   view4 = [(PSGResetOrEraseListController *)self view];
   bottomAnchor2 = [view4 bottomAnchor];
   v12 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v28[3] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
-  [v17 activateConstraints:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v27[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
+  [v16 activateConstraints:v13];
 }
 
 - (void)loadView
@@ -109,6 +110,14 @@
 
   table2 = [(PSGResetOrEraseListController *)self table];
   [table2 _setTopPadding:0.0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PSGResetOrEraseListController;
+  [(PSGResetOrEraseListController *)&v4 viewDidAppear:appear];
+  [(PSGResetOrEraseListController *)self didAppear];
 }
 
 - (void)dealloc
@@ -152,6 +161,31 @@
   }
 }
 
+- (void)configureSpin:(BOOL)spin ofCellForSpecifier:(id)specifier setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  spinCopy = spin;
+  v7 = [specifier propertyForKey:*MEMORY[0x277D40148]];
+  if (v7)
+  {
+    v9 = v7;
+    if (spinCopy)
+    {
+      v8 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
+      [v8 startAnimating];
+      [v9 setAccessoryView:v8];
+    }
+
+    else
+    {
+      [v7 setAccessoryView:0];
+    }
+
+    [v9 setCellEnabled:enabledCopy];
+    v7 = v9;
+  }
+}
+
 - (void)didAcceptEnteredPIN:(id)n
 {
   nCopy = n;
@@ -159,25 +193,25 @@
   v5 = [(PSSpecifier *)self->_currentSpecifier propertyForKey:*MEMORY[0x277D400B8]];
   v6 = [v5 isEqualToString:@"DevicePINController"];
 
-  passcode = _PSGLoggingFacility();
-  v8 = os_log_type_enabled(passcode, OS_LOG_TYPE_DEFAULT);
+  passcode = _PSGLoggingFacility(v7);
+  v9 = os_log_type_enabled(passcode, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
       _os_log_impl(&dword_21CF20000, passcode, OS_LOG_TYPE_DEFAULT, "Accepted passcode.", buf, 2u);
     }
 
-    v9 = nCopy;
+    v10 = nCopy;
     passcode = self->_passcode;
-    self->_passcode = v9;
+    self->_passcode = v10;
   }
 
-  else if (v8)
+  else if (v9)
   {
-    *v10 = 0;
-    _os_log_impl(&dword_21CF20000, passcode, OS_LOG_TYPE_DEFAULT, "Accepted restrictions passcode.", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_21CF20000, passcode, OS_LOG_TYPE_DEFAULT, "Accepted restrictions passcode.", v11, 2u);
   }
 
   self->_returningFromPINSheetWithSuccess = 1;
@@ -187,20 +221,19 @@
 {
   if (self->_returningFromPINSheetWithSuccess)
   {
-    currentSpecifier = self->_currentSpecifier;
     if (self->_codesEntered >= self->_codesNeeded)
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v5 = self->_currentSpecifier;
+      currentSpecifier = self->_currentSpecifier;
       if (isKindOfClass)
       {
-        [(PSGResetOrEraseListController *)self showConfirmationViewForSpecifier:v5];
+        [(PSGResetOrEraseListController *)self showConfirmationViewForSpecifier:currentSpecifier];
       }
 
       else
       {
-        [(PSGResetOrEraseListController *)self performButtonActionForSpecifier:v5];
+        [(PSGResetOrEraseListController *)self performButtonActionForSpecifier:currentSpecifier];
       }
     }
 
@@ -217,7 +250,7 @@
 
 - (void)resetKeyboardDictionary:(id)dictionary
 {
-  v3 = _PSGLoggingFacility();
+  v3 = _PSGLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -227,11 +260,12 @@
   [MEMORY[0x277D75658] removeAllDynamicDictionaries];
 }
 
-void __52__PSGResetOrEraseListController_resetIconPositions___block_invoke(uint64_t a1, int a2)
+void __52__PSGResetOrEraseListController_resetIconPositions___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = _PSGLoggingFacility();
+  v2 = a2;
+  v3 = _PSGLoggingFacility(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (a2)
+  if (v2)
   {
     if (v4)
     {
@@ -271,136 +305,110 @@ LABEL_6:
   mEMORY[0x277D75D80] = [MEMORY[0x277D75D80] sharedPolicyDecider];
   [mEMORY[0x277D75D80] clearAllCaches];
 
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2050000000;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2050000000;
   v9 = getFMDFMIPManagerClass_softClass;
-  v58 = getFMDFMIPManagerClass_softClass;
+  v32 = getFMDFMIPManagerClass_softClass;
   if (!getFMDFMIPManagerClass_softClass)
   {
-    v50 = MEMORY[0x277D85DD0];
-    v51 = 3221225472;
-    v52 = __getFMDFMIPManagerClass_block_invoke;
-    v53 = &unk_278325308;
-    v54 = &v55;
-    __getFMDFMIPManagerClass_block_invoke(&v50);
-    v9 = v56[3];
+    v24 = MEMORY[0x277D85DD0];
+    v25 = 3221225472;
+    v26 = __getFMDFMIPManagerClass_block_invoke;
+    v27 = &unk_278325308;
+    v28 = &v29;
+    __getFMDFMIPManagerClass_block_invoke(&v24);
+    v9 = v30[3];
   }
 
   v10 = v9;
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v29, 8);
   sharedInstance = [v9 sharedInstance];
   [sharedInstance clearData:1 completion:&__block_literal_global_67];
 
   [(PSGResetOrEraseListController *)self resetNetworkPrivacy];
   [(PSGResetOrEraseListController *)self resetContacts];
   TCCAccessResetAll();
-  v12 = *MEMORY[0x277D6C100];
   TCCAccessReset();
-  v13 = *MEMORY[0x277D6C118];
   TCCAccessReset();
-  v14 = *MEMORY[0x277D6C1D0];
   TCCAccessReset();
-  v15 = *MEMORY[0x277D6C1D8];
   TCCAccessReset();
-  v16 = *MEMORY[0x277D6C1E0];
   TCCAccessReset();
-  v17 = MEMORY[0x277D6C110];
-  v18 = *MEMORY[0x277D6C110];
   TCCAccessReset();
-  v19 = *v17;
   TCCAccessReset();
-  v20 = *MEMORY[0x277D6C1A8];
   TCCAccessReset();
-  v21 = *MEMORY[0x277D6C218];
   TCCAccessReset();
-  v22 = *MEMORY[0x277D6C120];
   TCCAccessReset();
-  v23 = *MEMORY[0x277D6C168];
   TCCAccessReset();
-  v24 = *MEMORY[0x277D6C180];
   TCCAccessReset();
-  v25 = *MEMORY[0x277D6C190];
   TCCAccessReset();
-  v26 = *MEMORY[0x277D6C200];
   TCCAccessReset();
-  v27 = MEMORY[0x277D6C1B0];
-  v28 = *MEMORY[0x277D6C1B0];
   TCCAccessReset();
-  v29 = *MEMORY[0x277D6C188];
   TCCAccessReset();
-  v30 = *MEMORY[0x277D6C258];
   TCCAccessReset();
-  v31 = *MEMORY[0x277D6C148];
   TCCAccessReset();
-  v32 = *MEMORY[0x277D6C1A0];
   TCCAccessReset();
-  v33 = *MEMORY[0x277D6C210];
   TCCAccessReset();
-  v34 = MEMORY[0x277D6C158];
-  v35 = *MEMORY[0x277D6C158];
   TCCAccessReset();
-  v36 = *MEMORY[0x277D6C248];
   TCCAccessReset();
-  v37 = *v27;
   TCCAccessSetOverride();
-  v38 = *v34;
   TCCAccessSetOverride();
-  if (SensorKitLibraryCore())
+  if (SensorKitLibraryCore(0))
   {
-    v55 = 0;
-    v56 = &v55;
-    v57 = 0x2020000000;
-    v39 = getSRResetAllAuthorizationsSymbolLoc_ptr;
-    v58 = getSRResetAllAuthorizationsSymbolLoc_ptr;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
+    v12 = getSRResetAllAuthorizationsSymbolLoc_ptr;
+    v32 = getSRResetAllAuthorizationsSymbolLoc_ptr;
     if (!getSRResetAllAuthorizationsSymbolLoc_ptr)
     {
-      v50 = MEMORY[0x277D85DD0];
-      v51 = 3221225472;
-      v52 = __getSRResetAllAuthorizationsSymbolLoc_block_invoke;
-      v53 = &unk_278325308;
-      v54 = &v55;
-      v40 = SensorKitLibrary();
-      v41 = dlsym(v40, "SRResetAllAuthorizations");
-      *(v54[1] + 24) = v41;
-      getSRResetAllAuthorizationsSymbolLoc_ptr = *(v54[1] + 24);
-      v39 = v56[3];
+      v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __getSRResetAllAuthorizationsSymbolLoc_block_invoke;
+      v27 = &unk_278325308;
+      v28 = &v29;
+      v13 = SensorKitLibrary();
+      v14 = dlsym(v13, "SRResetAllAuthorizations");
+      *(v28[1] + 24) = v14;
+      getSRResetAllAuthorizationsSymbolLoc_ptr = *(v28[1] + 24);
+      v12 = v30[3];
     }
 
-    _Block_object_dispose(&v55, 8);
-    if (!v39)
+    _Block_object_dispose(&v29, 8);
+    if (!v12)
     {
-      v49 = [PSGResetOrEraseListController resetPrivacyWarnings:];
-      _Block_object_dispose(&v55, 8);
-      _Unwind_Resume(v49);
+      [PSGResetOrEraseListController resetPrivacyWarnings:];
+      v23 = v22;
+      _Block_object_dispose(&v29, 8);
+      _Unwind_Resume(v23);
     }
 
-    v39();
-    v55 = 0;
-    v56 = &v55;
-    v57 = 0x2050000000;
-    v42 = getSRAuthorizationClientClass_softClass;
-    v58 = getSRAuthorizationClientClass_softClass;
+    v12();
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2050000000;
+    v15 = getSRAuthorizationClientClass_softClass;
+    v32 = getSRAuthorizationClientClass_softClass;
     if (!getSRAuthorizationClientClass_softClass)
     {
-      v50 = MEMORY[0x277D85DD0];
-      v51 = 3221225472;
-      v52 = __getSRAuthorizationClientClass_block_invoke;
-      v53 = &unk_278325308;
-      v54 = &v55;
-      __getSRAuthorizationClientClass_block_invoke(&v50);
-      v42 = v56[3];
+      v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __getSRAuthorizationClientClass_block_invoke;
+      v27 = &unk_278325308;
+      v28 = &v29;
+      __getSRAuthorizationClientClass_block_invoke(&v24);
+      v15 = v30[3];
     }
 
-    v43 = v42;
-    _Block_object_dispose(&v55, 8);
-    sharedInstance2 = [v42 sharedInstance];
+    v16 = v15;
+    _Block_object_dispose(&v29, 8);
+    sharedInstance2 = [v15 sharedInstance];
     [sharedInstance2 setFirstRunOnboardingCompleted:0];
   }
 
   [(PSGResetOrEraseListController *)self resetImproveSiriAndDictation];
-  v45 = CFPreferencesCopyAppValue(@"SBParentalControlsCapabilities", @"com.apple.springboard");
-  if (([v45 containsObject:@"advertising"] & 1) == 0)
+  v18 = CFPreferencesCopyAppValue(@"SBParentalControlsCapabilities", @"com.apple.springboard");
+  if (([v18 containsObject:@"advertising"] & 1) == 0)
   {
     mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
     [mEMORY[0x277D262A0] setBoolValue:0 forSetting:*MEMORY[0x277D25F40]];
@@ -419,18 +427,17 @@ void __54__PSGResetOrEraseListController_resetPrivacyWarnings___block_invoke(uin
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _PSGLoggingFacility(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_21CF20000, v3, OS_LOG_TYPE_DEFAULT, "Error clearing FMDFMIPManager %@", &v5, 0xCu);
+      v6 = v3;
+      _os_log_impl(&dword_21CF20000, v4, OS_LOG_TYPE_DEFAULT, "Error clearing FMDFMIPManager %@", &v5, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetContacts
@@ -472,15 +479,15 @@ void __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_inv
   objc_destroyWeak(&v7);
 }
 
-void __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_invoke_2(uint64_t a1)
+void __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = (a1 + 32);
+  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _PSGLoggingFacility(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_invoke_2_cold_1(a1, v1, v3);
+      __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_invoke_2_cold_1(a1, v2, v4);
     }
   }
 }
@@ -488,35 +495,36 @@ void __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_inv
 - (void)resetPersonalHandwritingStyle:(id)style
 {
   styleCopy = style;
-  v4 = _PSGLoggingFacility();
+  v4 = _PSGLoggingFacility(styleCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7[0]) = 0;
-    _os_log_impl(&dword_21CF20000, v4, OS_LOG_TYPE_DEFAULT, "Resetting personal handwriting style", v7, 2u);
+    LOWORD(v8[0]) = 0;
+    _os_log_impl(&dword_21CF20000, v4, OS_LOG_TYPE_DEFAULT, "Resetting personal handwriting style", v8, 2u);
   }
 
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v5 = getCHResetInventorySymbolLoc_ptr;
-  v11 = getCHResetInventorySymbolLoc_ptr;
+  v12 = getCHResetInventorySymbolLoc_ptr;
   if (!getCHResetInventorySymbolLoc_ptr)
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __getCHResetInventorySymbolLoc_block_invoke;
-    v7[3] = &unk_278325308;
-    v7[4] = &v8;
-    __getCHResetInventorySymbolLoc_block_invoke(v7);
-    v5 = v9[3];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __getCHResetInventorySymbolLoc_block_invoke;
+    v8[3] = &unk_278325308;
+    v8[4] = &v9;
+    __getCHResetInventorySymbolLoc_block_invoke(v8);
+    v5 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v5)
   {
-    v6 = [PSGResetOrEraseListController resetPrivacyWarnings:];
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v6);
+    [PSGResetOrEraseListController resetPrivacyWarnings:];
+    v7 = v6;
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v7);
   }
 
   v5();
@@ -607,30 +615,28 @@ void __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_inv
 LABEL_16:
   if (specifierCopy)
   {
-    [(PSGResetOrEraseListController *)self configureSpin:1 ofCellForSpecifier:specifierCopy setEnabled:0];
+    v20 = [(PSGResetOrEraseListController *)self configureSpin:1 ofCellForSpecifier:specifierCopy setEnabled:0];
   }
 
-  v20 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = _PSGLoggingFacility(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
     *&buf[4] = mode;
     LOWORD(v32) = 2112;
     *(&v32 + 2) = optionsCopy;
-    _os_log_impl(&dword_21CF20000, v20, OS_LOG_TYPE_DEFAULT, "########### Calling DDRReset with mode: %d; options: %@", buf, 0x12u);
+    _os_log_impl(&dword_21CF20000, v21, OS_LOG_TYPE_DEFAULT, "########### Calling DDRReset with mode: %d; options: %@", buf, 0x12u);
   }
 
-  v21 = dispatch_get_global_queue(0, 0);
+  v22 = dispatch_get_global_queue(0, 0);
   v24[0] = MEMORY[0x277D85DD0];
   v24[1] = 3221225472;
   v24[2] = __73__PSGResetOrEraseListController__resetWithMode_andOptions_withSpecifier___block_invoke;
   v24[3] = &unk_278325218;
   v25 = optionsCopy;
   modeCopy = mode;
-  v22 = optionsCopy;
-  dispatch_async(v21, v24);
-
-  v23 = *MEMORY[0x277D85DE8];
+  v23 = optionsCopy;
+  dispatch_async(v22, v24);
 }
 
 void __73__PSGResetOrEraseListController__resetWithMode_andOptions_withSpecifier___block_invoke(uint64_t a1)
@@ -678,22 +684,11 @@ void __73__PSGResetOrEraseListController__resetWithMode_andOptions_withSpecifier
 
 - (BOOL)_networkConnectivityAvailable
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   flags = 0;
   address = xmmword_21CF58A90;
   _networkConnectivityAvailable_reachability = SCNetworkReachabilityCreateWithAddress(*MEMORY[0x277CBECE8], &address);
-  if (SCNetworkReachabilityGetFlags(_networkConnectivityAvailable_reachability, &flags))
-  {
-    result = (flags & 2) != 0;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return SCNetworkReachabilityGetFlags(_networkConnectivityAvailable_reachability, &flags) && (flags & 2) != 0;
 }
 
 - (void)_showStockholmLocallyStoredValueOfflineWarningIfNeeded:(id)needed
@@ -703,7 +698,7 @@ void __73__PSGResetOrEraseListController__resetWithMode_andOptions_withSpecifier
   _networkConnectivityAvailable = [(PSGResetOrEraseListController *)self _networkConnectivityAvailable];
   v6 = PSStockholmLocallyStoredValuePassNames();
   v7 = [v6 count];
-  v8 = _PSGLoggingFacility();
+  v8 = _PSGLoggingFacility(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
@@ -715,22 +710,22 @@ void __73__PSGResetOrEraseListController__resetWithMode_andOptions_withSpecifier
 
   if (v7)
   {
-    v9 = _networkConnectivityAvailable;
+    v10 = _networkConnectivityAvailable;
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  v10 = _PSGLoggingFacility();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-  if (v9)
+  v11 = _PSGLoggingFacility(v9);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (v10)
   {
-    if (v11)
+    if (v12)
     {
       *buf = 0;
-      _os_log_impl(&dword_21CF20000, v10, OS_LOG_TYPE_DEFAULT, "_showStockholmLocallyStoredValueOfflineWarningIfNeeded completed directly", buf, 2u);
+      _os_log_impl(&dword_21CF20000, v11, OS_LOG_TYPE_DEFAULT, "_showStockholmLocallyStoredValueOfflineWarningIfNeeded completed directly", buf, 2u);
     }
 
     neededCopy[2](neededCopy, 1);
@@ -738,75 +733,73 @@ void __73__PSGResetOrEraseListController__resetWithMode_andOptions_withSpecifier
 
   else
   {
-    if (v11)
+    if (v12)
     {
       *buf = 0;
-      _os_log_impl(&dword_21CF20000, v10, OS_LOG_TYPE_DEFAULT, "Showing payment card warning.", buf, 2u);
+      _os_log_impl(&dword_21CF20000, v11, OS_LOG_TYPE_DEFAULT, "Showing payment card warning.", buf, 2u);
     }
 
-    v12 = MEMORY[0x277CCACA8];
-    v13 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_TITLE_SINGLE");
+    v13 = MEMORY[0x277CCACA8];
+    v14 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_TITLE_SINGLE");
     firstObject = [v6 firstObject];
-    v15 = [v12 stringWithFormat:v13, firstObject];
+    v16 = [v13 stringWithFormat:v14, firstObject];
 
-    v16 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_MSG_SINGLE");
+    v17 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_MSG_SINGLE");
     if ([v6 count] >= 2)
     {
-      v17 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_TITLE_MULTIPLE");
+      v18 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_TITLE_MULTIPLE");
 
-      v18 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_MSG_MULTIPLE");
+      v19 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_MSG_MULTIPLE");
 
+      v17 = v19;
       v16 = v18;
-      v15 = v17;
     }
 
-    v19 = [MEMORY[0x277D75110] alertControllerWithTitle:v15 message:v16 preferredStyle:1];
-    v20 = MEMORY[0x277D750F8];
-    v21 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_ALERT_CANCEL");
+    v20 = [MEMORY[0x277D75110] alertControllerWithTitle:v16 message:v17 preferredStyle:1];
+    v21 = MEMORY[0x277D750F8];
+    v22 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_ALERT_CANCEL");
     v30[0] = MEMORY[0x277D85DD0];
     v30[1] = 3221225472;
     v30[2] = __88__PSGResetOrEraseListController__showStockholmLocallyStoredValueOfflineWarningIfNeeded___block_invoke;
     v30[3] = &unk_278325240;
-    v22 = neededCopy;
-    v31 = v22;
-    v23 = [v20 actionWithTitle:v21 style:0 handler:v30];
-    [v19 addAction:v23];
+    v23 = neededCopy;
+    v31 = v23;
+    v24 = [v21 actionWithTitle:v22 style:0 handler:v30];
+    [v20 addAction:v24];
 
-    v24 = MEMORY[0x277D750F8];
-    v25 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_ALERT_ACCEPT");
+    v25 = MEMORY[0x277D750F8];
+    v26 = PSG_LocalizedStringForReset(@"ERASE_STOCKHOLM_STORED_VALUE_OFFLINE_ALERT_ACCEPT");
     v28[0] = MEMORY[0x277D85DD0];
     v28[1] = 3221225472;
     v28[2] = __88__PSGResetOrEraseListController__showStockholmLocallyStoredValueOfflineWarningIfNeeded___block_invoke_112;
     v28[3] = &unk_278325240;
-    v29 = v22;
-    v26 = [v24 actionWithTitle:v25 style:2 handler:v28];
-    [v19 addAction:v26];
+    v29 = v23;
+    v27 = [v25 actionWithTitle:v26 style:2 handler:v28];
+    [v20 addAction:v27];
 
-    [(PSGResetOrEraseListController *)self presentViewController:v19 animated:1 completion:0];
+    [(PSGResetOrEraseListController *)self presentViewController:v20 animated:1 completion:0];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __88__PSGResetOrEraseListController__showStockholmLocallyStoredValueOfflineWarningIfNeeded___block_invoke(uint64_t a1)
+uint64_t __88__PSGResetOrEraseListController__showStockholmLocallyStoredValueOfflineWarningIfNeeded___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _PSGLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_21CF20000, v2, OS_LOG_TYPE_DEFAULT, "Payment card warning: Cancelled.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_21CF20000, v3, OS_LOG_TYPE_DEFAULT, "Payment card warning: Cancelled.", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t __88__PSGResetOrEraseListController__showStockholmLocallyStoredValueOfflineWarningIfNeeded___block_invoke_112(uint64_t a1)
+uint64_t __88__PSGResetOrEraseListController__showStockholmLocallyStoredValueOfflineWarningIfNeeded___block_invoke_112(uint64_t a1, uint64_t a2)
 {
-  v2 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _PSGLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_21CF20000, v2, OS_LOG_TYPE_DEFAULT, "Payment card warning: Erase.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_21CF20000, v3, OS_LOG_TYPE_DEFAULT, "Payment card warning: Erase.", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -815,7 +808,7 @@ uint64_t __88__PSGResetOrEraseListController__showStockholmLocallyStoredValueOff
 - (void)confirmationSpecifierConfirmed:(id)confirmed
 {
   confirmedCopy = confirmed;
-  v5 = _PSGLoggingFacility();
+  v5 = _PSGLoggingFacility(confirmedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -855,35 +848,35 @@ uint64_t __88__PSGResetOrEraseListController__showStockholmLocallyStoredValueOff
     v15 = PSG_LocalizedStringForReset(v12);
     [v6 setPrompt:v15];
 
-    v16 = _PSGLoggingFacility();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = _PSGLoggingFacility(v16);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_13;
     }
 
-    v25 = 0;
-    v17 = "Showing second confirmation for Settings Erase.";
-    v18 = &v25;
+    v27 = 0;
+    v18 = "Showing second confirmation for Settings Erase.";
+    v19 = &v27;
     goto LABEL_12;
   }
 
   identifier2 = [confirmedCopy identifier];
-  v20 = [identifier2 isEqualToString:@"cellularErase"];
+  v21 = [identifier2 isEqualToString:@"cellularErase"];
 
-  if (v20)
+  if (v21)
   {
     [v6 setConfirmationAction:sel_resetAllCellularNetworks_];
-    v21 = PSG_LocalizedStringForReset(@"RESET_CONFIRMATION_ALERT_ACCEPT");
-    [v6 setOkButton:v21];
+    v22 = PSG_LocalizedStringForReset(@"RESET_CONFIRMATION_ALERT_ACCEPT");
+    [v6 setOkButton:v22];
 
-    v22 = PSG_LocalizedStringForReset(@"REMOVE_ALL_CELLULAR_PLANS_LABEL");
-    [v6 setTitle:v22];
+    v23 = PSG_LocalizedStringForReset(@"REMOVE_ALL_CELLULAR_PLANS_LABEL");
+    [v6 setTitle:v23];
 
-    v23 = PSG_LocalizedStringForReset(@"REMOVE_ALL_CELLULAR_PLANS_MSG_CONFIRM");
-    [v6 setPrompt:v23];
+    v24 = PSG_LocalizedStringForReset(@"REMOVE_ALL_CELLULAR_PLANS_MSG_CONFIRM");
+    [v6 setPrompt:v24];
 
-    v16 = _PSGLoggingFacility();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = _PSGLoggingFacility(v25);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_13:
 
@@ -891,11 +884,11 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    *v24 = 0;
-    v17 = "Showing second confirmation for Erase All Cellular Networks.";
-    v18 = v24;
+    *v26 = 0;
+    v18 = "Showing second confirmation for Erase All Cellular Networks.";
+    v19 = v26;
 LABEL_12:
-    _os_log_impl(&dword_21CF20000, v16, OS_LOG_TYPE_DEFAULT, v17, v18, 2u);
+    _os_log_impl(&dword_21CF20000, v17, OS_LOG_TYPE_DEFAULT, v18, v19, 2u);
     goto LABEL_13;
   }
 
@@ -932,31 +925,33 @@ void __47__PSGResetOrEraseListController_eraseSettings___block_invoke(uint64_t a
     if (v7)
     {
       v8 = dispatch_semaphore_create(0);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __54__PSGResetOrEraseListController_resetNetworkSettings___block_invoke;
-      v14[3] = &unk_278325070;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __54__PSGResetOrEraseListController_resetNetworkSettings___block_invoke;
+      v17[3] = &unk_278325070;
       v9 = v8;
-      v15 = v9;
-      if (([v7 resetDataForKeys:0 reply:v14]& 1) != 0)
+      v18 = v9;
+      v10 = [v7 resetDataForKeys:0 reply:v17];
+      if (v10)
       {
-        v10 = dispatch_time(0, 2000000000);
-        if (dispatch_semaphore_wait(v9, v10))
+        v11 = dispatch_time(0, 2000000000);
+        v12 = dispatch_semaphore_wait(v9, v11);
+        if (v12)
         {
-          v11 = _PSGLoggingFacility();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v13 = _PSGLoggingFacility(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21CF20000, v11, OS_LOG_TYPE_DEFAULT, "resetDataForKeys did not complete. Bailing to avoid a hang", buf, 2u);
+            _os_log_impl(&dword_21CF20000, v13, OS_LOG_TYPE_DEFAULT, "resetDataForKeys did not complete. Bailing to avoid a hang", buf, 2u);
           }
         }
 
-        lockdown_delete_pair_records();
-        v12 = _PSGLoggingFacility();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v14 = lockdown_delete_pair_records();
+        v15 = _PSGLoggingFacility(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21CF20000, v12, OS_LOG_TYPE_DEFAULT, "Proceed reset network settings", buf, 2u);
+          _os_log_impl(&dword_21CF20000, v15, OS_LOG_TYPE_DEFAULT, "Proceed reset network settings", buf, 2u);
         }
 
         [(PSGResetOrEraseListController *)self _resetWithMode:2 andOptions:0 withSpecifier:settingsCopy];
@@ -964,18 +959,18 @@ void __47__PSGResetOrEraseListController_eraseSettings___block_invoke(uint64_t a
 
       else
       {
-        v13 = _PSGLoggingFacility();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v16 = _PSGLoggingFacility(v10);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21CF20000, v13, OS_LOG_TYPE_DEFAULT, "resetDataForKeys unable to contact service", buf, 2u);
+          _os_log_impl(&dword_21CF20000, v16, OS_LOG_TYPE_DEFAULT, "resetDataForKeys unable to contact service", buf, 2u);
         }
       }
     }
 
     else
     {
-      v9 = _PSGLoggingFacility();
+      v9 = _PSGLoggingFacility(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -986,7 +981,7 @@ void __47__PSGResetOrEraseListController_eraseSettings___block_invoke(uint64_t a
 
   else
   {
-    v7 = _PSGLoggingFacility();
+    v7 = _PSGLoggingFacility(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -995,11 +990,11 @@ void __47__PSGResetOrEraseListController_eraseSettings___block_invoke(uint64_t a
   }
 }
 
-intptr_t __54__PSGResetOrEraseListController_resetNetworkSettings___block_invoke(uint64_t a1, char a2)
+intptr_t __54__PSGResetOrEraseListController_resetNetworkSettings___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = _PSGLoggingFacility();
+    v3 = _PSGLoggingFacility(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -1013,7 +1008,7 @@ intptr_t __54__PSGResetOrEraseListController_resetNetworkSettings___block_invoke
 - (void)resetSceneUnderstandingData:(id)data
 {
   dataCopy = data;
-  v5 = _PSGLoggingFacility();
+  v5 = _PSGLoggingFacility(dataCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1041,12 +1036,13 @@ intptr_t __54__PSGResetOrEraseListController_resetNetworkSettings___block_invoke
 void __58__PSGResetOrEraseListController_resetAllCellularNetworks___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _PSGLoggingFacility(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __58__PSGResetOrEraseListController_resetAllCellularNetworks___block_invoke_cold_1(v4, v5);
+      __58__PSGResetOrEraseListController_resetAllCellularNetworks___block_invoke_cold_1(v5, v6);
     }
   }
 
@@ -1211,7 +1207,7 @@ LABEL_18:
 
 - (void)showResetActionSheet:(id)sheet
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277D75110] alertControllerWithTitle:0 message:0 preferredStyle:0];
   [(PSGResetOrEraseListController *)self prepareMutableSpecifiers];
   mutableSpecifiers = self->_mutableSpecifiers;
@@ -1222,43 +1218,43 @@ LABEL_18:
   v8 = [(NSMutableArray *)v7 specifierForID:@"fullEraseIPod"];
   [(NSMutableArray *)v7 removeObject:v8];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   selfCopy = self;
   v10 = self->_mutableSpecifiers;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v24 + 1) + 8 * i);
         if ([v15 cellType] == 13)
         {
           v16 = MEMORY[0x277D750F8];
           name = [v15 name];
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __54__PSGResetOrEraseListController_showResetActionSheet___block_invoke;
-          v24[3] = &unk_2783250E0;
-          v24[4] = selfCopy;
-          v24[5] = v15;
-          v18 = [v16 actionWithTitle:name style:0 handler:v24];
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __54__PSGResetOrEraseListController_showResetActionSheet___block_invoke;
+          v23[3] = &unk_2783250E0;
+          v23[4] = selfCopy;
+          v23[5] = v15;
+          v18 = [v16 actionWithTitle:name style:0 handler:v23];
           [v4 addAction:v18];
         }
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v12);
@@ -1266,16 +1262,15 @@ LABEL_18:
 
   v19 = MEMORY[0x277D750F8];
   v20 = PSG_LocalizedStringForReset(@"RESET_CONFIRMATION_CANCEL");
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __54__PSGResetOrEraseListController_showResetActionSheet___block_invoke_2;
-  v23[3] = &unk_278325290;
-  v23[4] = selfCopy;
-  v21 = [v19 actionWithTitle:v20 style:1 handler:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __54__PSGResetOrEraseListController_showResetActionSheet___block_invoke_2;
+  v22[3] = &unk_278325290;
+  v22[4] = selfCopy;
+  v21 = [v19 actionWithTitle:v20 style:1 handler:v22];
   [v4 addAction:v21];
 
   [(PSGResetOrEraseListController *)selfCopy presentViewController:v4 animated:1 completion:0];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSelectAlertAction:(id)action
@@ -1299,11 +1294,11 @@ LABEL_18:
 
   self->_codesNeeded = 0;
   self->_codesEntered = 0;
-  v9 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _PSGLoggingFacility(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21CF20000, v9, OS_LOG_TYPE_DEFAULT, "erase require user enter passcode", buf, 2u);
+    _os_log_impl(&dword_21CF20000, v10, OS_LOG_TYPE_DEFAULT, "erase require user enter passcode", buf, 2u);
   }
 
   if (!self->_requireRestrictionsCode)
@@ -1311,36 +1306,36 @@ LABEL_18:
     goto LABEL_17;
   }
 
-  v10 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = _PSGLoggingFacility(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v21 = 0;
-    _os_log_impl(&dword_21CF20000, v10, OS_LOG_TYPE_DEFAULT, "Restrictions passcode required.", v21, 2u);
+    *v23 = 0;
+    _os_log_impl(&dword_21CF20000, v12, OS_LOG_TYPE_DEFAULT, "Restrictions passcode required.", v23, 2u);
   }
 
-  v11 = [(PSGResetOrEraseListController *)self specifierForID:@"RESET_KEYBOARD_DICTIONARY_LABEL"];
-  if (v11 == actionCopy)
+  v13 = [(PSGResetOrEraseListController *)self specifierForID:@"RESET_KEYBOARD_DICTIONARY_LABEL"];
+  if (v13 == actionCopy)
   {
 LABEL_14:
 
     goto LABEL_17;
   }
 
-  v12 = [(PSGResetOrEraseListController *)self specifierForID:@"RESET_NETWORK_LABEL"];
-  v13 = v12;
-  if (v12 == actionCopy)
+  v14 = [(PSGResetOrEraseListController *)self specifierForID:@"RESET_NETWORK_LABEL"];
+  v15 = v14;
+  if (v14 == actionCopy)
   {
 
     goto LABEL_14;
   }
 
-  v14 = [(PSGResetOrEraseListController *)self specifierForID:@"RESET_PRIVACY_LABEL"];
-  v15 = v14;
-  if (v14 == actionCopy)
+  v16 = [(PSGResetOrEraseListController *)self specifierForID:@"RESET_PRIVACY_LABEL"];
+  v17 = v16;
+  if (v16 == actionCopy)
   {
-    v16 = PSIsLocationRestricted();
+    v18 = PSIsLocationRestricted();
 
-    if (!v16)
+    if (!v18)
     {
       goto LABEL_17;
     }
@@ -1351,24 +1346,24 @@ LABEL_14:
   }
 
   ++self->_codesNeeded;
-  v17 = [MEMORY[0x277CCABB0] numberWithInt:3];
-  [actionCopy setProperty:v17 forKey:@"mode"];
+  v19 = [MEMORY[0x277CCABB0] numberWithInt:3];
+  [actionCopy setProperty:v19 forKey:@"mode"];
 
   [actionCopy setProperty:@"PSRestrictionsPINController" forKey:*MEMORY[0x277D400B8]];
-  [actionCopy setProperty:MEMORY[0x277CBEC38] forKey:@"screenTimePinEntry"];
+  v11 = [actionCopy setProperty:MEMORY[0x277CBEC38] forKey:@"screenTimePinEntry"];
 LABEL_17:
   if (self->_requirePasscode)
   {
-    v18 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = _PSGLoggingFacility(v11);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_21CF20000, v18, OS_LOG_TYPE_DEFAULT, "Passcode required.", v20, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_21CF20000, v20, OS_LOG_TYPE_DEFAULT, "Passcode required.", v22, 2u);
     }
 
     ++self->_codesNeeded;
-    v19 = [MEMORY[0x277CCABB0] numberWithInt:3];
-    [actionCopy setProperty:v19 forKey:@"mode"];
+    v21 = [MEMORY[0x277CCABB0] numberWithInt:3];
+    [actionCopy setProperty:v21 forKey:@"mode"];
 
     [(PSSpecifier *)self->_currentSpecifier setProperty:MEMORY[0x277CBEC28] forKey:@"screenTimePinEntry"];
     [actionCopy setProperty:@"DevicePINController" forKey:*MEMORY[0x277D400B8]];
@@ -1398,16 +1393,16 @@ LABEL_26:
 
 - (void)showPINSheetFromParentViewController:(id)controller
 {
-  v24[7] = *MEMORY[0x277D85DE8];
+  v23[7] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___block_invoke;
-  v21[3] = &unk_278324FE8;
-  v21[4] = self;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___block_invoke;
+  v20[3] = &unk_278324FE8;
+  v20[4] = self;
   v5 = controllerCopy;
-  v22 = v5;
-  v6 = MEMORY[0x223D38F60](v21);
+  v21 = v5;
+  v6 = MEMORY[0x223D38F60](v20);
   isRatchetFeatureAvailableAndEnabled = [(PSGResetOrEraseListController *)self isRatchetFeatureAvailableAndEnabled];
   identifier = [v5 identifier];
   v9 = [identifier isEqualToString:@"settingsErase"];
@@ -1415,41 +1410,39 @@ LABEL_26:
   if (v9 && isRatchetFeatureAvailableAndEnabled)
   {
     v10 = [objc_alloc(MEMORY[0x277CD47A8]) initWithIdentifier:@"ResetAllSettings"];
-    v23[0] = &unk_282E8FE48;
+    v22[0] = &unk_282E8FE48;
     v11 = PSG_LocalizedStringForReset(@"DTO_GENERIC_SECURITY_DELAY_BEGIN_TITLE");
-    v24[0] = v11;
-    v23[1] = &unk_282E8FE60;
+    v23[0] = v11;
+    v22[1] = &unk_282E8FE60;
     v12 = PSG_LocalizedStringForReset(@"DTO_GENERIC_SECURITY_DELAY_BEGIN_DESCRIPTION");
-    v24[1] = v12;
-    v23[2] = &unk_282E8FE78;
+    v23[1] = v12;
+    v22[2] = &unk_282E8FE78;
     v13 = PSG_LocalizedStringForReset(@"DTO_GENERIC_IN_PROGRESS_COUNTDOWN_DESCRIPTION");
-    v24[2] = v13;
-    v23[3] = &unk_282E8FE30;
+    v23[2] = v13;
+    v22[3] = &unk_282E8FE30;
     v14 = PSG_LocalizedStringForReset(@"DTO_GENERIC_SECURITY_DELAY_BEGIN_DESCRIPTION");
-    v24[3] = v14;
-    v23[4] = &unk_282E8FE90;
+    v23[3] = v14;
+    v22[4] = &unk_282E8FE90;
     v15 = PSG_LocalizedStringForReset(@"DTO_NOTIFICATION_DESCRIPTION_DEFAULT");
-    v24[4] = v15;
-    v23[5] = &unk_282E8FEA8;
+    v23[4] = v15;
+    v22[5] = &unk_282E8FEA8;
     v16 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=PASSCODE"];
-    v23[6] = &unk_282E8FEC0;
-    v24[5] = v16;
-    v24[6] = MEMORY[0x277CBEC38];
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___block_invoke_225;
-    v19[3] = &unk_2783252E0;
-    v20 = v6;
-    [v10 armWithOptions:v17 completion:v19];
+    v22[6] = &unk_282E8FEC0;
+    v23[5] = v16;
+    v23[6] = MEMORY[0x277CBEC38];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:7];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___block_invoke_225;
+    v18[3] = &unk_2783252E0;
+    v19 = v6;
+    [v10 armWithOptions:v17 completion:v18];
   }
 
   else
   {
     v6[2](v6);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___block_invoke(uint64_t a1)
@@ -1482,28 +1475,28 @@ void __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___
     v8 = 0;
   }
 
-  v9 = _PSGLoggingFacility();
-  v10 = v9;
+  v10 = _PSGLoggingFacility(v9);
+  v11 = v10;
   if (v8)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21CF20000, v10, OS_LOG_TYPE_DEFAULT, "Ratchet: Proceeding to perform critical operation as gating was successful", buf, 2u);
+      _os_log_impl(&dword_21CF20000, v11, OS_LOG_TYPE_DEFAULT, "Ratchet: Proceeding to perform critical operation as gating was successful", buf, 2u);
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___block_invoke_230;
     block[3] = &unk_2783252B8;
-    v12 = *(a1 + 32);
+    v13 = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    v10 = v12;
+    v11 = v13;
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___block_invoke_225_cold_1(v6, v5, v10);
+    __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___block_invoke_225_cold_1(v6, v5, v11);
   }
 }
 
@@ -1514,44 +1507,43 @@ void __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___
   v48 = 0u;
   v49 = 0;
   v47[6] = self;
-  v4 = *MEMORY[0x277CBECE8];
-  v5 = _CTServerConnectionCreate();
-  if (v5)
+  v4 = _CTServerConnectionCreate();
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
     buf[0] = 0;
     _CTServerConnectionGetResetCellularAccountSettingsIsAllowed();
-    CFRelease(v6);
+    CFRelease(v5);
   }
 
-  v7 = MEMORY[0x277D75110];
-  v8 = PSG_LocalizedStringForReset(@"SUBSCRIBER_SERVICES");
-  v9 = [v7 alertControllerWithTitle:v8 message:0 preferredStyle:1];
+  v6 = MEMORY[0x277D75110];
+  v7 = PSG_LocalizedStringForReset(@"SUBSCRIBER_SERVICES");
+  v8 = [v6 alertControllerWithTitle:v7 message:0 preferredStyle:1];
 
-  v10 = 0x277D75000uLL;
-  v11 = MEMORY[0x277D750F8];
-  v12 = PSG_LocalizedStringForReset(@"SUBSCRIBER_SERVICES_CANCEL");
-  v13 = [v11 actionWithTitle:v12 style:1 handler:0];
-  [v9 addAction:v13];
+  v9 = 0x277D75000uLL;
+  v10 = MEMORY[0x277D750F8];
+  v11 = PSG_LocalizedStringForReset(@"SUBSCRIBER_SERVICES_CANCEL");
+  v12 = [v10 actionWithTitle:v11 style:1 handler:0];
+  [v8 addAction:v12];
 
-  v14 = MEMORY[0x277D750F8];
-  v15 = PSG_LocalizedStringForReset(@"REPROVISION_ACCOUNT");
+  v13 = MEMORY[0x277D750F8];
+  v14 = PSG_LocalizedStringForReset(@"REPROVISION_ACCOUNT");
   v47[0] = MEMORY[0x277D85DD0];
   v47[1] = 3221225472;
   v47[2] = __51__PSGResetOrEraseListController_subscriberOptions___block_invoke;
   v47[3] = &unk_278325290;
   v47[4] = self;
-  v16 = [v14 actionWithTitle:v15 style:0 handler:v47];
-  [v9 addAction:v16];
+  v15 = [v13 actionWithTitle:v14 style:0 handler:v47];
+  [v8 addAction:v15];
 
   _client = [(PSGResetOrEraseListController *)self _client];
   v46 = 0;
-  v18 = [_client getSubscriptionInfoWithError:&v46];
-  v19 = v46;
+  v17 = [_client getSubscriptionInfoWithError:&v46];
+  v18 = v46;
 
-  if (v19)
+  if (v18)
   {
-    v20 = _PSGLoggingFacility();
+    v20 = _PSGLoggingFacility(v19);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [PSGResetOrEraseListController subscriberOptions:];
@@ -1565,19 +1557,19 @@ void __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    obj = [v18 subscriptions];
+    obj = [v17 subscriptions];
     v22 = [obj countByEnumeratingWithState:&v42 objects:v54 count:16];
     if (v22)
     {
       v23 = v22;
-      v37 = v18;
-      v38 = v9;
-      v19 = 0;
+      v37 = v17;
+      v38 = v8;
+      v18 = 0;
       v24 = *v43;
       while (2)
       {
         v25 = 0;
-        v26 = v19;
+        v26 = v18;
         do
         {
           if (*v43 != v24)
@@ -1589,46 +1581,47 @@ void __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___
           _client2 = [(PSGResetOrEraseListController *)self _client];
           v41 = v26;
           v29 = [_client2 copyCarrierBundleValueWithDefault:v27 key:@"AllowAKEYEditing" bundleType:v21 error:&v41];
-          v19 = v41;
+          v18 = v41;
 
           if (v29)
           {
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            isKindOfClass = objc_opt_isKindOfClass();
+            if (isKindOfClass)
             {
               objc_opt_class();
-              v31 = v29;
+              v32 = v29;
               if (objc_opt_isKindOfClass())
               {
-                v32 = v31;
+                v33 = v32;
               }
 
               else
               {
-                v32 = 0;
+                v33 = 0;
               }
 
-              v20 = v32;
+              v20 = v33;
 
               goto LABEL_24;
             }
           }
 
-          if (v19)
+          if (v18)
           {
-            v30 = _PSGLoggingFacility();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v31 = _PSGLoggingFacility(isKindOfClass);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
               v51 = "[PSGResetOrEraseListController subscriberOptions:]";
               v52 = 2114;
-              v53 = v19;
-              _os_log_error_impl(&dword_21CF20000, v30, OS_LOG_TYPE_ERROR, "%s: Error retrieving value: %{public}@.", buf, 0x16u);
+              v53 = v18;
+              _os_log_error_impl(&dword_21CF20000, v31, OS_LOG_TYPE_ERROR, "%s: Error retrieving value: %{public}@.", buf, 0x16u);
             }
           }
 
           ++v25;
-          v26 = v19;
+          v26 = v18;
         }
 
         while (v23 != v25);
@@ -1643,46 +1636,43 @@ void __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___
 
       v20 = 0;
 LABEL_24:
-      v9 = v38;
-      v18 = v37;
-      v10 = 0x277D75000;
+      v8 = v38;
+      v17 = v37;
+      v9 = 0x277D75000;
     }
 
     else
     {
       v20 = 0;
-      v19 = 0;
+      v18 = 0;
     }
 
     if ([v20 BOOLValue])
     {
-      v33 = *(v10 + 248);
-      v34 = PSG_LocalizedStringForReset(@"RESET_AKEY");
+      v34 = *(v9 + 248);
+      v35 = PSG_LocalizedStringForReset(@"RESET_AKEY");
       v40[0] = MEMORY[0x277D85DD0];
       v40[1] = 3221225472;
       v40[2] = __51__PSGResetOrEraseListController_subscriberOptions___block_invoke_248;
       v40[3] = &unk_278325290;
       v40[4] = self;
-      v35 = [v33 actionWithTitle:v34 style:0 handler:v40];
-      [v9 addAction:v35];
+      v36 = [v34 actionWithTitle:v35 style:0 handler:v40];
+      [v8 addAction:v36];
     }
 
-    [(PSGResetOrEraseListController *)self presentViewController:v9 animated:1 completion:0];
+    [(PSGResetOrEraseListController *)self presentViewController:v8 animated:1 completion:0];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eraseCellularSettings
 {
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = _CTServerConnectionCreate();
-  if (v3)
+  v2 = _CTServerConnectionCreate();
+  if (v2)
   {
-    v4 = v3;
+    v3 = v2;
     _CTServerConnectionEraseBasebandSettings();
     _CTServerConnectionResetModem();
-    CFRelease(v4);
+    CFRelease(v3);
   }
 }
 
@@ -1706,13 +1696,20 @@ LABEL_24:
   [(PSGResetOrEraseListController *)self showConfirmationViewForSpecifier:v7];
 }
 
+- (void)presentExitBuddyWithUpsellTradeIn:(BOOL)in
+{
+  inCopy = in;
+  defaultConfiguration = [MEMORY[0x277D05538] defaultConfiguration];
+  [defaultConfiguration setUpsellTradeIn:inCopy];
+  [MEMORY[0x277D05548] presentUsingParentViewController:self configuration:defaultConfiguration completion:0];
+}
+
 - (void)refreshLocationServicesAvailable
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_21CF20000, v0, OS_LOG_TYPE_ERROR, "%s: Error retrieving subscription info: %{public}@.", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21CF20000, v0, OS_LOG_TYPE_ERROR, "%s: Error retrieving subscription info: %{public}@.", v1, 0x16u);
 }
 
 - (void)carrierBundleChange:(id)change
@@ -1736,13 +1733,13 @@ LABEL_24:
   }
 }
 
-uint64_t __53__PSGResetOrEraseListController_carrierBundleChange___block_invoke(uint64_t a1)
+uint64_t __53__PSGResetOrEraseListController_carrierBundleChange___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _PSGLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_21CF20000, v2, OS_LOG_TYPE_DEFAULT, "carrier bundle change", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_21CF20000, v3, OS_LOG_TYPE_DEFAULT, "carrier bundle change", v5, 2u);
   }
 
   return [*(a1 + 32) carrierBundleChange:*(a1 + 40)];
@@ -1804,60 +1801,54 @@ uint64_t __53__PSGResetOrEraseListController_carrierBundleChange___block_invoke(
   return isFeatureEnabled;
 }
 
-- (uint64_t)resetPrivacyWarnings:.cold.1()
+- (void)resetPrivacyWarnings:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_invoke_2_cold_1(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_invoke_2_cold_1(v1, v2, v3);
 }
 
 void __61__PSGResetOrEraseListController_resetImproveSiriAndDictation__block_invoke_2_cold_1(uint64_t a1, uint64_t *a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
   v8 = *a2;
-  v10 = 138412802;
-  v11 = v7;
-  v12 = 2112;
-  v13 = &unk_282E8FE30;
-  v14 = 2112;
-  v15 = v8;
-  _os_log_error_impl(&dword_21CF20000, a3, OS_LOG_TYPE_ERROR, "%@: Encountered error while setting Siri Analytics Status to '%@': %@", &v10, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412802;
+  v10 = v7;
+  v11 = 2112;
+  v12 = &unk_282E8FE30;
+  v13 = 2112;
+  v14 = v8;
+  _os_log_error_impl(&dword_21CF20000, a3, OS_LOG_TYPE_ERROR, "%@: Encountered error while setting Siri Analytics Status to '%@': %@", &v9, 0x20u);
 }
 
 void __58__PSGResetOrEraseListController_resetAllCellularNetworks___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21CF20000, a2, OS_LOG_TYPE_ERROR, "Failed to reset cellular plans: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21CF20000, a2, OS_LOG_TYPE_ERROR, "Failed to reset cellular plans: %@", &v2, 0xCu);
 }
 
 void __70__PSGResetOrEraseListController_showPINSheetFromParentViewController___block_invoke_225_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 description];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_21CF20000, a3, OS_LOG_TYPE_ERROR, "Ratchet: Cannot proceed to perform critical operation as gating failed - Error: %{public}@ - %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_21CF20000, a3, OS_LOG_TYPE_ERROR, "Ratchet: Cannot proceed to perform critical operation as gating failed - Error: %{public}@ - %@", &v6, 0x16u);
 }
 
 - (void)subscriberOptions:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_21CF20000, v0, OS_LOG_TYPE_ERROR, "%s: Error retrieving subscription info: %{public}@.", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21CF20000, v0, OS_LOG_TYPE_ERROR, "%s: Error retrieving subscription info: %{public}@.", v1, 0x16u);
 }
 
 @end

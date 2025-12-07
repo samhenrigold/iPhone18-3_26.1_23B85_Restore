@@ -603,19 +603,24 @@
               oSLogObject3 = +[SSLogConfig sharedConfig];
             }
 
-            shouldLog = [oSLogObject3 shouldLog];
+            LODWORD(v36) = [oSLogObject3 shouldLog];
             if ([oSLogObject3 shouldLogToDisk])
             {
-              shouldLog |= 2u;
+              LODWORD(v36) = v36 | 2;
             }
 
             oSLogObject = [oSLogObject3 OSLogObject];
-            if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
             {
-              shouldLog &= 2u;
+              v36 = v36;
             }
 
-            if (shouldLog)
+            else
+            {
+              v36 &= 2u;
+            }
+
+            if (v36)
             {
               v38 = objc_opt_class();
               v53 = 138412546;
@@ -624,22 +629,21 @@
               v56 = v14;
               v39 = v38;
               LODWORD(v43) = 22;
-              v42 = &v53;
-              v40 = _os_log_send_and_compose_impl();
+              v40 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@]: Skipping store download %@ due to lack of bundleID", &v53, v43);
 
               nameCopy = v47;
               if (!v40)
               {
-                goto LABEL_44;
+                goto LABEL_45;
               }
 
-              oSLogObject = [NSString stringWithCString:v40 encoding:4, &v53, v43];
+              oSLogObject = [NSString stringWithCString:v40 encoding:4];
               free(v40);
               v42 = oSLogObject;
               SSFileLog();
             }
 
-            goto LABEL_44;
+            goto LABEL_45;
           }
 
           if (!v20)
@@ -647,21 +651,21 @@
             oSLogObject3 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog2 = [oSLogObject3 shouldLog];
+          shouldLog = [oSLogObject3 shouldLog];
           if ([oSLogObject3 shouldLogToDisk])
           {
-            shouldLog2 |= 2u;
+            shouldLog |= 2u;
           }
 
           oSLogObject2 = [oSLogObject3 OSLogObject];
           if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
           {
-            v24 = shouldLog2;
+            v24 = shouldLog;
           }
 
           else
           {
-            v24 = shouldLog2 & 2;
+            v24 = shouldLog & 2;
           }
 
           if (v24)
@@ -674,15 +678,14 @@
             v55 = 2112;
             v56 = bundleID2;
             LODWORD(v43) = 22;
-            v42 = &v53;
-            v28 = _os_log_send_and_compose_impl();
+            v28 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "[%@]: Adding download with bundleID: %@", &v53, v43);
 
             dCopy = v45;
             nameCopy = v47;
 
             if (v28)
             {
-              oSLogObject2 = [NSString stringWithCString:v28 encoding:4, &v53, v43];
+              oSLogObject2 = [NSString stringWithCString:v28 encoding:4];
               free(v28);
               v42 = oSLogObject2;
               SSFileLog();
@@ -710,7 +713,7 @@ LABEL_18:
           }
 
           blockCopy[2](blockCopy, copyJobActivity);
-          goto LABEL_45;
+          goto LABEL_46;
         }
 
         copyJobActivity = +[SSLogConfig sharedDaemonConfig];
@@ -719,26 +722,26 @@ LABEL_18:
           copyJobActivity = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog3 = [copyJobActivity shouldLog];
+        shouldLog2 = [copyJobActivity shouldLog];
         if ([copyJobActivity shouldLogToDisk])
         {
-          shouldLog3 |= 2u;
+          shouldLog2 |= 2u;
         }
 
         oSLogObject3 = [copyJobActivity OSLogObject];
         if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = shouldLog3;
+          v31 = shouldLog2;
         }
 
         else
         {
-          v31 = shouldLog3 & 2;
+          v31 = shouldLog2 & 2;
         }
 
         if (!v31)
         {
-          goto LABEL_44;
+          goto LABEL_45;
         }
 
         v32 = objc_opt_class();
@@ -749,25 +752,24 @@ LABEL_18:
         v55 = 2112;
         v56 = kind2;
         LODWORD(v43) = 22;
-        v42 = &v53;
-        v35 = _os_log_send_and_compose_impl();
+        v35 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "[%@]: Skipped over unexpected download kind %@", &v53, v43);
 
         if (v35)
         {
-          oSLogObject3 = [NSString stringWithCString:v35 encoding:4, &v53, v43];
+          oSLogObject3 = [NSString stringWithCString:v35 encoding:4];
           free(v35);
           v42 = oSLogObject3;
           SSFileLog();
           dCopy = v45;
           nameCopy = v47;
-LABEL_44:
+LABEL_45:
 
-          goto LABEL_45;
+          goto LABEL_46;
         }
 
         dCopy = v45;
         nameCopy = v47;
-LABEL_45:
+LABEL_46:
 
         v13 = v13 + 1;
       }
@@ -830,19 +832,24 @@ LABEL_45:
               v22 = +[SSLogConfig sharedConfig];
             }
 
-            shouldLog = [v22 shouldLog];
+            LODWORD(v23) = [v22 shouldLog];
             if ([v22 shouldLogToDisk])
             {
-              shouldLog |= 2u;
+              LODWORD(v23) = v23 | 2;
             }
 
             oSLogObject = [v22 OSLogObject];
-            if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
             {
-              shouldLog &= 2u;
+              v23 = v23;
             }
 
-            if (shouldLog)
+            else
+            {
+              v23 &= 2u;
+            }
+
+            if (v23)
             {
               v25 = objc_opt_class();
               v26 = nameCopy;
@@ -854,8 +861,7 @@ LABEL_45:
               v53 = 2112;
               v54 = bundleID2;
               LODWORD(v41) = 22;
-              v40 = &v51;
-              v30 = _os_log_send_and_compose_impl();
+              v30 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@]: Adding download with bundleID: %@", &v51, v41);
 
               v13 = v43;
               dCopy = v27;
@@ -864,17 +870,17 @@ LABEL_45:
 
               if (v30)
               {
-                oSLogObject = [NSString stringWithCString:v30 encoding:4, &v51, v41];
+                oSLogObject = [NSString stringWithCString:v30 encoding:4];
                 free(v30);
                 v40 = oSLogObject;
                 SSFileLog();
-                goto LABEL_17;
+                goto LABEL_18;
               }
             }
 
             else
             {
-LABEL_17:
+LABEL_18:
             }
 
             clientIdentifier = [v45 clientIdentifier];
@@ -893,9 +899,9 @@ LABEL_17:
 
             [copyJobActivity setIsFromStore:{1, v40}];
             v32 = [v44 addActivity:copyJobActivity];
-LABEL_35:
+LABEL_37:
 
-            goto LABEL_36;
+            goto LABEL_38;
           }
 
           if (!v21)
@@ -903,19 +909,24 @@ LABEL_35:
             v22 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog2 = [v22 shouldLog];
+          shouldLog = [v22 shouldLog];
           if ([v22 shouldLogToDisk])
           {
-            v34 = shouldLog2 | 2;
+            LODWORD(v34) = shouldLog | 2;
           }
 
           else
           {
-            v34 = shouldLog2;
+            LODWORD(v34) = shouldLog;
           }
 
           oSLogObject2 = [v22 OSLogObject];
-          if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+          {
+            v34 = v34;
+          }
+
+          else
           {
             v34 &= 2u;
           }
@@ -929,30 +940,29 @@ LABEL_35:
             v54 = v15;
             v37 = v36;
             LODWORD(v41) = 22;
-            v40 = &v51;
-            v38 = _os_log_send_and_compose_impl();
+            v38 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "[%@]: Skipping store download %@ due to lack of bundleID", &v51, v41);
 
             v13 = v43;
             if (v38)
             {
-              oSLogObject2 = [NSString stringWithCString:v38 encoding:4, &v51, v41];
+              oSLogObject2 = [NSString stringWithCString:v38 encoding:4];
               free(v38);
               v40 = oSLogObject2;
               SSFileLog();
-              goto LABEL_33;
+              goto LABEL_35;
             }
           }
 
           else
           {
-LABEL_33:
+LABEL_35:
           }
 
           v12 = v46;
-          goto LABEL_35;
+          goto LABEL_37;
         }
 
-LABEL_36:
+LABEL_38:
         v14 = v14 + 1;
       }
 

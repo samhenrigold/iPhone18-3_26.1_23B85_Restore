@@ -66,7 +66,7 @@ void __34__BADownloadManager_sharedManager__block_invoke()
 
   if (v3)
   {
-    [(BADownloadManager *)v4 initWithApplicationIdentifier:v3, &v13];
+    [(BADownloadManager *)v4 initWithApplicationIdentifier:v3, v13];
 LABEL_3:
 
     return;
@@ -84,9 +84,9 @@ LABEL_3:
 
 + (void)_enforceCallerConformsToRequirements
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "BADownloadManager requires the app and extension to contain an Info.plist";
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (BADownloadManager)init
@@ -169,10 +169,10 @@ LABEL_6:
   v7 = performHandler;
   if (!v7)
   {
-    v20 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-    if (v20)
+    v21 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+    if (v21)
     {
-      [(BADownloadManager *)v20 performWithExclusiveControl:v21, v22, v23, v24, v25, v26, v27];
+      [(BADownloadManager *)v21 performWithExclusiveControl:v22, v23, v24, v25, v26, v27, v28];
     }
 
     qword_27DE88540 = "BUG IN CLIENT OF BackgroundAssets: Calling 'performWithExclusiveControl' must be called with a valid performHandler.";
@@ -184,16 +184,17 @@ LABEL_13:
 
   v3 = v7;
   extensionConnection = [(BADownloadManager *)self extensionConnection];
+  v4 = extensionConnection;
   if (!extensionConnection)
   {
-    [(BADownloadManager *)self performWithExclusiveControl:v28, v3];
+    [(BADownloadManager *)self performWithExclusiveControl:v29, v3];
     goto LABEL_8;
   }
 
-  v8 = BAClientLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = BAClientLogObject(extensionConnection);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    [(BADownloadManager *)self performWithExclusiveControl:v8, v9, v10, v11, v12, v13, v14];
+    [(BADownloadManager *)self performWithExclusiveControl:v9, v10, v11, v12, v13, v14, v15];
   }
 
   extensionConnection2 = [(BADownloadManager *)self extensionConnection];
@@ -204,18 +205,18 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  Property = objc_getProperty(self, v16, 56, 1);
+  Property = objc_getProperty(self, v17, 56, 1);
 LABEL_7:
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __49__BADownloadManager_performWithExclusiveControl___block_invoke;
-  v29[3] = &unk_278A0D288;
-  v29[4] = self;
-  v30 = v3;
-  v31 = acquireWakeAssertion;
-  v18 = acquireWakeAssertion;
-  v19 = v3;
-  [(BAAgentClientProxy *)Property acquireExclusiveControlWithHandler:v29];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __49__BADownloadManager_performWithExclusiveControl___block_invoke;
+  v30[3] = &unk_278A0D288;
+  v30[4] = self;
+  v31 = v3;
+  v32 = acquireWakeAssertion;
+  v19 = acquireWakeAssertion;
+  v20 = v3;
+  [(BAAgentClientProxy *)Property acquireExclusiveControlWithHandler:v30];
 
 LABEL_8:
 }
@@ -226,10 +227,10 @@ LABEL_8:
   v9 = performHandler;
   if (!v9)
   {
-    v22 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-    if (v22)
+    v23 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+    if (v23)
     {
-      [(BADownloadManager *)v22 performWithExclusiveControlBeforeDate:v23 performHandler:v24, v25, v26, v27, v28, v29];
+      [(BADownloadManager *)v23 performWithExclusiveControlBeforeDate:v24 performHandler:v25, v26, v27, v28, v29, v30];
     }
 
     qword_27DE88540 = "BUG IN CLIENT OF BackgroundAssets: Calling 'performWithExclusiveControlBeforeDate' must be called with a valid performHandler.";
@@ -242,10 +243,10 @@ LABEL_8:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_14:
-    v30 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-    if (v30)
+    v31 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+    if (v31)
     {
-      [(BADownloadManager *)v30 performWithExclusiveControlBeforeDate:v31 performHandler:v32, v33, v34, v35, v36, v37];
+      [(BADownloadManager *)v31 performWithExclusiveControlBeforeDate:v32 performHandler:v33, v34, v35, v36, v37, v38];
     }
 
     qword_27DE88540 = "BUG IN CLIENT OF BackgroundAssets: Calling 'performWithExclusiveControlBeforeDate' must be called with a valid date.";
@@ -256,16 +257,17 @@ LABEL_17:
   }
 
   extensionConnection = [(BADownloadManager *)self extensionConnection];
+  v4 = extensionConnection;
   if (!extensionConnection)
   {
-    [(BADownloadManager *)self performWithExclusiveControlBeforeDate:v38 performHandler:performHandler, v8];
+    [(BADownloadManager *)self performWithExclusiveControlBeforeDate:v39 performHandler:performHandler, v8];
     goto LABEL_9;
   }
 
-  v10 = BAClientLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = BAClientLogObject(extensionConnection);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    [(BADownloadManager *)self performWithExclusiveControl:v10, v11, v12, v13, v14, v15, v16];
+    [(BADownloadManager *)self performWithExclusiveControl:v11, v12, v13, v14, v15, v16, v17];
   }
 
   extensionConnection2 = [(BADownloadManager *)self extensionConnection];
@@ -276,18 +278,18 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  Property = objc_getProperty(self, v18, 56, 1);
+  Property = objc_getProperty(self, v19, 56, 1);
 LABEL_8:
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __74__BADownloadManager_performWithExclusiveControlBeforeDate_performHandler___block_invoke;
-  v39[3] = &unk_278A0D288;
-  v39[4] = self;
-  v40 = performHandler;
-  v41 = acquireWakeAssertion;
-  v20 = acquireWakeAssertion;
-  v21 = performHandler;
-  [(BAAgentClientProxy *)Property acquireExclusiveControlBeforeDate:v8 handler:v39];
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __74__BADownloadManager_performWithExclusiveControlBeforeDate_performHandler___block_invoke;
+  v40[3] = &unk_278A0D288;
+  v40[4] = self;
+  v41 = performHandler;
+  v42 = acquireWakeAssertion;
+  v21 = acquireWakeAssertion;
+  v22 = performHandler;
+  [(BAAgentClientProxy *)Property acquireExclusiveControlBeforeDate:v8 handler:v40];
 
 LABEL_9:
 }
@@ -381,30 +383,30 @@ LABEL_6:
 
 - (void)syncDownloads:(id)downloads
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   downloadsCopy = downloads;
   os_unfair_lock_lock(&self->_stateLock);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v5 = downloadsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v17 + 1) + 8 * v10);
         if (self)
         {
           Property = objc_getProperty(self, v7, 72, 1);
@@ -433,7 +435,7 @@ LABEL_6:
       }
 
       while (v8 != v10);
-      v16 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v16 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       v8 = v16;
     }
 
@@ -441,7 +443,6 @@ LABEL_6:
   }
 
   os_unfair_lock_unlock(&self->_stateLock);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __65__BADownloadManager_XPCDownloadSync__downloadIdentifierDidBegin___block_invoke(uint64_t a1)
@@ -510,16 +511,16 @@ void __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandbo
   {
     v5 = [MEMORY[0x277CCAA00] defaultManager];
     v6 = *(a1 + 32);
-    v10 = 0;
-    v7 = [v5 removeItemAtURL:v6 error:&v10];
-    v8 = v10;
+    v11 = 0;
+    v7 = [v5 removeItemAtURL:v6 error:&v11];
+    v8 = v11;
 
     if ((v7 & 1) == 0)
     {
-      v9 = BAClientLogObject();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = BAClientLogObject(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_3_cold_1(a1, v8, v9);
+        __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_3_cold_1(a1, v8, v10);
       }
     }
   }
@@ -556,7 +557,7 @@ void __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandbo
 
 void __51__BADownloadManager_initWithApplicationIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = a2;
   os_unfair_lock_lock((*(a1 + 32) + 8));
   Property = *(a1 + 32);
@@ -567,27 +568,27 @@ void __51__BADownloadManager_initWithApplicationIdentifier___block_invoke(uint64
   }
 
   [Property removeAllObjects];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v10 = v4;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       v14 = 0;
       do
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * v14);
+        v15 = *(*(&v22 + 1) + 8 * v14);
         v16 = *(a1 + 32);
         if (v16)
         {
@@ -604,19 +605,17 @@ void __51__BADownloadManager_initWithApplicationIdentifier___block_invoke(uint64
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
   }
 
   os_unfair_lock_unlock((*(a1 + 32) + 8));
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __49__BADownloadManager_performWithExclusiveControl___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = *(a1 + 32);
   if (v7)
@@ -630,20 +629,19 @@ void __49__BADownloadManager_performWithExclusiveControl___block_invoke(uint64_t
   LOBYTE(v36) = a2;
   v8 = v6;
   OUTLINED_FUNCTION_19(v8, v9, v10, v11, v12, v13, v14, v15, v25, v27, v29, __49__BADownloadManager_performWithExclusiveControl___block_invoke_2, &unk_278A0D260, v33);
-  v16 = BAClientLogObject();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = BAClientLogObject(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v23 = *(a1 + 32);
-    if (v23)
+    v24 = *(a1 + 32);
+    if (v24)
     {
-      OUTLINED_FUNCTION_15(v23, v17);
+      OUTLINED_FUNCTION_15(v24, v18);
     }
 
-    OUTLINED_FUNCTION_21(&dword_236E28000, v17, v18, "Releasing exclusive control extension wake assertion for: %{public}@", v19, v20, v21, v22, v26, v28, v30, v31, v32, v34, v35, v36, 2u);
+    OUTLINED_FUNCTION_21(&dword_236E28000, v18, v19, "Releasing exclusive control extension wake assertion for: %{public}@", v20, v21, v22, v23, v26, v28, v30, v31, v32, v34, v35, v36);
   }
 
   (*(*(a1 + 48) + 16))();
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __49__BADownloadManager_performWithExclusiveControl___block_invoke_43(uint64_t a1, void *a2, void *a3)
@@ -665,7 +663,6 @@ void __49__BADownloadManager_performWithExclusiveControl___block_invoke_43(uint6
 
 void __74__BADownloadManager_performWithExclusiveControlBeforeDate_performHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = *(a1 + 32);
   if (v7)
@@ -679,20 +676,19 @@ void __74__BADownloadManager_performWithExclusiveControlBeforeDate_performHandle
   LOBYTE(v36) = a2;
   v8 = v6;
   OUTLINED_FUNCTION_19(v8, v9, v10, v11, v12, v13, v14, v15, v25, v27, v29, __74__BADownloadManager_performWithExclusiveControlBeforeDate_performHandler___block_invoke_2, &unk_278A0D260, v33);
-  v16 = BAClientLogObject();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = BAClientLogObject(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v23 = *(a1 + 32);
-    if (v23)
+    v24 = *(a1 + 32);
+    if (v24)
     {
-      OUTLINED_FUNCTION_15(v23, v17);
+      OUTLINED_FUNCTION_15(v24, v18);
     }
 
-    OUTLINED_FUNCTION_21(&dword_236E28000, v17, v18, "Releasing exclusive control extension wake assertion for: %{public}@", v19, v20, v21, v22, v26, v28, v30, v31, v32, v34, v35, v36, 2u);
+    OUTLINED_FUNCTION_21(&dword_236E28000, v18, v19, "Releasing exclusive control extension wake assertion for: %{public}@", v20, v21, v22, v23, v26, v28, v30, v31, v32, v34, v35, v36);
   }
 
   (*(*(a1 + 48) + 16))();
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __74__BADownloadManager_performWithExclusiveControlBeforeDate_performHandler___block_invoke_50(uint64_t a1, void *a2, void *a3)
@@ -1026,7 +1022,7 @@ LABEL_12:
 - (void)downloadIdentifierDidFinish:(id)finish sandboxExtensionToken:(id)token wasHandled:(id)handled
 {
   OUTLINED_FUNCTION_10_1();
-  v111 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   v9 = v8;
   v10 = v5;
   v11 = v6;
@@ -1046,11 +1042,11 @@ LABEL_12:
   os_unfair_lock_unlock(v7 + 2);
   if (!v17)
   {
-    v23 = BASystemLogObject();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = BASystemLogObject(v18);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_236E28000, v23, OS_LOG_TYPE_ERROR, "Download finished but the local app has no knowledge of the download.", buf, 2u);
+      _os_log_error_impl(&dword_236E28000, v25, OS_LOG_TYPE_ERROR, "Download finished but the local app has no knowledge of the download.", buf, 2u);
     }
 
     goto LABEL_27;
@@ -1058,11 +1054,11 @@ LABEL_12:
 
   if (!v10)
   {
-    v24 = BASystemLogObject();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = BASystemLogObject(v18);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      OUTLINED_FUNCTION_20(&dword_236E28000, v25, v26, "Download finished but did not pass sandbox token.");
+      OUTLINED_FUNCTION_20(&dword_236E28000, v27, v28, "Download finished but did not pass sandbox token.");
     }
 
     [(os_unfair_lock_s *)v7 delegate];
@@ -1072,21 +1068,21 @@ LABEL_12:
     }
 
     delegate = [OUTLINED_FUNCTION_12_1() delegate];
-    v28 = objc_opt_respondsToSelector();
+    v30 = objc_opt_respondsToSelector();
 
-    if ((v28 & 1) == 0)
+    if ((v30 & 1) == 0)
     {
       goto LABEL_27;
     }
 
     if (v7)
     {
-      v31 = OUTLINED_FUNCTION_5_1(v29, v30);
+      v33 = OUTLINED_FUNCTION_5_1(v31, v32);
     }
 
     else
     {
-      v31 = 0;
+      v33 = 0;
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -1094,270 +1090,269 @@ LABEL_12:
     block[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke;
     block[3] = &unk_278A0D300;
     block[4] = v7;
-    v106 = v17;
-    dispatch_async(v31, block);
-    v32 = v106;
+    v109 = v17;
+    dispatch_async(v33, block);
+    v34 = v109;
     goto LABEL_26;
   }
 
   [v10 UTF8String];
   if (sandbox_extension_consume() != -1)
   {
-    v101 = 0;
-    v102 = 0;
-    v18 = [v17 cloneDownloadToFinalDestinationURL:&v102 error:&v101];
-    v19 = v102;
-    v20 = v101;
-    if ((v18 & 1) == 0)
+    v104 = 0;
+    v105 = 0;
+    v19 = [v17 cloneDownloadToFinalDestinationURL:&v105 error:&v104];
+    v20 = v105;
+    v21 = v104;
+    v22 = v21;
+    if ((v19 & 1) == 0)
     {
-      v43 = BAClientLogObject();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v45 = BAClientLogObject(v21);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         identifier = [v17 identifier];
-        v77 = [v20 description];
+        v80 = [v22 description];
         *buf = 138543618;
-        v108 = identifier;
-        v109 = 2114;
-        v110 = v77;
-        OUTLINED_FUNCTION_22(&dword_236E28000, v43, v78, "Download %{public}@ failed to be cloned after download. Error:%{public}@", buf);
+        v111 = identifier;
+        v112 = 2114;
+        v113 = v80;
+        OUTLINED_FUNCTION_22(&dword_236E28000, v45, v81, "Download %{public}@ failed to be cloned after download. Error:%{public}@", buf);
       }
 
       [(BADownload *)v17 setInternalState:?];
       delegate2 = [(os_unfair_lock_s *)v7 delegate];
       if (delegate2)
       {
-        v45 = delegate2;
-        v46 = v19;
+        v47 = delegate2;
+        v48 = v20;
         delegate3 = [(os_unfair_lock_s *)v7 delegate];
-        v48 = objc_opt_respondsToSelector();
+        v50 = objc_opt_respondsToSelector();
 
-        if (v48)
+        if (v50)
         {
           if (v7)
           {
-            v51 = OUTLINED_FUNCTION_5_1(v49, v50);
+            v53 = OUTLINED_FUNCTION_5_1(v51, v52);
           }
 
           else
           {
-            v51 = 0;
+            v53 = 0;
           }
 
-          v19 = v46;
-          v98[0] = MEMORY[0x277D85DD0];
-          v98[1] = 3221225472;
-          v98[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_111;
-          v98[3] = &unk_278A0D328;
-          v98[4] = v7;
-          v99 = v17;
-          v22 = v20;
-          v100 = v22;
-          dispatch_async(v51, v98);
+          v20 = v48;
+          v101[0] = MEMORY[0x277D85DD0];
+          v101[1] = 3221225472;
+          v101[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_111;
+          v101[3] = &unk_278A0D328;
+          v101[4] = v7;
+          v102 = v17;
+          v24 = v22;
+          v103 = v24;
+          dispatch_async(v53, v101);
 
-          v52 = 0;
+          v54 = 0;
         }
 
         else
         {
-          v52 = 0;
-          v22 = v20;
-          v19 = v46;
+          v54 = 0;
+          v24 = v22;
+          v20 = v48;
         }
       }
 
       else
       {
-        v52 = 0;
-        v22 = v20;
+        v54 = 0;
+        v24 = v22;
       }
 
       goto LABEL_49;
     }
 
-    v86 = v19;
+    v89 = v20;
     if (([(BADownload *)v17 isForManagedAssetPack]& 1) != 0)
     {
-      v22 = v20;
+      v24 = v22;
     }
 
     else
     {
       if (v7)
       {
-        v53 = OUTLINED_FUNCTION_13(v7, v21);
+        v55 = OUTLINED_FUNCTION_13(v7, v23);
       }
 
       else
       {
-        v53 = 0;
+        v55 = 0;
       }
 
-      v97 = v20;
-      v54 = [(BAAgentClientProxy *)v53 markPurgeableWithFileURL:v19 error:&v97];
-      v22 = v97;
+      v100 = v22;
+      v56 = [(BAAgentClientProxy *)v55 markPurgeableWithFileURL:v20 error:&v100];
+      v24 = v100;
 
-      if ((v54 & 1) == 0)
+      if ((v56 & 1) == 0)
       {
-        v64 = BAClientLogObject();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+        v66 = BAClientLogObject(v57);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           identifier2 = [v17 identifier];
-          v80 = [v22 description];
-          OUTLINED_FUNCTION_9_1(v80, 5.8382e-34);
-          OUTLINED_FUNCTION_22(&dword_236E28000, v64, v81, "Download %{public}@ failed to mark cloned file as purgeable. Error:%{public}@", buf);
+          v83 = [v24 description];
+          OUTLINED_FUNCTION_9_1(v83, 5.8382e-34);
+          OUTLINED_FUNCTION_22(&dword_236E28000, v66, v84, "Download %{public}@ failed to mark cloned file as purgeable. Error:%{public}@", buf);
         }
 
         [(BADownload *)v17 setInternalState:?];
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v96 = 0;
-        v66 = [defaultManager removeItemAtURL:v86 error:&v96];
-        v67 = v96;
+        v99 = 0;
+        v68 = [defaultManager removeItemAtURL:v89 error:&v99];
+        v69 = v99;
 
-        if ((v66 & 1) == 0)
+        if ((v68 & 1) == 0)
         {
-          v68 = BAClientLogObject();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+          v71 = BAClientLogObject(v70);
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
           {
             identifier3 = [v17 identifier];
-            v85 = [v67 description];
-            OUTLINED_FUNCTION_9_1(v85, 5.8382e-34);
-            OUTLINED_FUNCTION_22(&dword_236E28000, v68, v83, "Download %{public}@ failed to remove cloned file failing to be marked as purgeable. Error:%{public}@", buf);
+            v88 = [v69 description];
+            OUTLINED_FUNCTION_9_1(v88, 5.8382e-34);
+            OUTLINED_FUNCTION_22(&dword_236E28000, v71, v86, "Download %{public}@ failed to remove cloned file failing to be marked as purgeable. Error:%{public}@", buf);
           }
         }
 
-        v84 = v67;
+        v87 = v69;
         delegate4 = [(os_unfair_lock_s *)v7 delegate];
         if (delegate4)
         {
-          v70 = delegate4;
+          v73 = delegate4;
           delegate5 = [(os_unfair_lock_s *)v7 delegate];
-          v72 = objc_opt_respondsToSelector();
+          v75 = objc_opt_respondsToSelector();
 
-          if (v72)
+          if (v75)
           {
             if (v7)
             {
-              v75 = OUTLINED_FUNCTION_5_1(v73, v74);
+              v78 = OUTLINED_FUNCTION_5_1(v76, v77);
             }
 
             else
             {
-              v75 = 0;
+              v78 = 0;
             }
 
-            v93[0] = MEMORY[0x277D85DD0];
-            v93[1] = 3221225472;
-            v93[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_113;
-            v93[3] = &unk_278A0D328;
-            v93[4] = v7;
-            v94 = v17;
-            v95 = v22;
-            dispatch_async(v75, v93);
+            v96[0] = MEMORY[0x277D85DD0];
+            v96[1] = 3221225472;
+            v96[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_113;
+            v96[3] = &unk_278A0D328;
+            v96[4] = v7;
+            v97 = v17;
+            v98 = v24;
+            dispatch_async(v78, v96);
           }
         }
 
-        v52 = 0;
-        v19 = v86;
+        v54 = 0;
+        v20 = v89;
         goto LABEL_49;
       }
     }
 
     delegate6 = [(os_unfair_lock_s *)v7 delegate];
-    if (delegate6 && (v57 = delegate6, [(os_unfair_lock_s *)v7 delegate], v58 = objc_claimAutoreleasedReturnValue(), v59 = objc_opt_respondsToSelector(), v58, v57, (v59 & 1) != 0))
+    if (delegate6 && (v60 = delegate6, [(os_unfair_lock_s *)v7 delegate], v61 = objc_claimAutoreleasedReturnValue(), v62 = objc_opt_respondsToSelector(), v61, v60, (v62 & 1) != 0))
     {
-      v19 = v86;
+      v20 = v89;
       if (v7)
       {
-        v60 = OUTLINED_FUNCTION_5_1(delegate6, v56);
+        v63 = OUTLINED_FUNCTION_5_1(delegate6, v59);
       }
 
       else
       {
-        v60 = 0;
+        v63 = 0;
       }
 
-      v90[0] = MEMORY[0x277D85DD0];
-      v90[1] = 3221225472;
-      v90[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_2;
-      v90[3] = &unk_278A0D328;
-      v90[4] = v7;
-      v91 = v17;
-      v92 = v86;
-      dispatch_async(v60, v90);
+      v93[0] = MEMORY[0x277D85DD0];
+      v93[1] = 3221225472;
+      v93[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_2;
+      v93[3] = &unk_278A0D328;
+      v93[4] = v7;
+      v94 = v17;
+      v95 = v89;
+      dispatch_async(v63, v93);
 
-      v52 = 1;
+      v54 = 1;
     }
 
     else
     {
-      v52 = 0;
-      v19 = v86;
+      v54 = 0;
+      v20 = v89;
     }
 
     if (v7)
     {
-      v7 = OUTLINED_FUNCTION_5_1(delegate6, v56);
+      v7 = OUTLINED_FUNCTION_5_1(delegate6, v59);
     }
 
-    v87[0] = MEMORY[0x277D85DD0];
-    v87[1] = 3221225472;
-    v87[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_3;
-    v87[3] = &unk_278A0D300;
-    v88 = v19;
-    v89 = v17;
-    dispatch_async(v7, v87);
+    v90[0] = MEMORY[0x277D85DD0];
+    v90[1] = 3221225472;
+    v90[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_3;
+    v90[3] = &unk_278A0D300;
+    v91 = v20;
+    v92 = v17;
+    dispatch_async(v7, v90);
 
 LABEL_49:
     sandbox_extension_release();
-    v61 = OUTLINED_FUNCTION_4_0();
-    v62(v61, v52);
+    v64 = OUTLINED_FUNCTION_4_0();
+    v65(v64, v54);
 
     goto LABEL_50;
   }
 
-  v33 = BASystemLogObject();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  v35 = BASystemLogObject(-1);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    OUTLINED_FUNCTION_20(&dword_236E28000, v34, v35, "Download finished but sandbox_extension_consume() failed.");
+    OUTLINED_FUNCTION_20(&dword_236E28000, v36, v37, "Download finished but sandbox_extension_consume() failed.");
   }
 
   [(os_unfair_lock_s *)v7 delegate];
   if (objc_claimAutoreleasedReturnValue())
   {
     delegate7 = [OUTLINED_FUNCTION_12_1() delegate];
-    v37 = objc_opt_respondsToSelector();
+    v39 = objc_opt_respondsToSelector();
 
-    if (v37)
+    if (v39)
     {
       if (v7)
       {
-        v40 = OUTLINED_FUNCTION_5_1(v38, v39);
+        v42 = OUTLINED_FUNCTION_5_1(v40, v41);
       }
 
       else
       {
-        v40 = 0;
+        v42 = 0;
       }
 
-      v103[0] = MEMORY[0x277D85DD0];
-      v103[1] = 3221225472;
-      v103[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_110;
-      v103[3] = &unk_278A0D300;
-      v103[4] = v7;
-      v104 = v17;
-      dispatch_async(v40, v103);
-      v32 = v104;
+      v106[0] = MEMORY[0x277D85DD0];
+      v106[1] = 3221225472;
+      v106[2] = __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_110;
+      v106[3] = &unk_278A0D300;
+      v106[4] = v7;
+      v107 = v17;
+      dispatch_async(v42, v106);
+      v34 = v107;
 LABEL_26:
     }
   }
 
 LABEL_27:
-  v41 = OUTLINED_FUNCTION_4_0();
-  v42(v41, 0);
+  v43 = OUTLINED_FUNCTION_4_0();
+  v44(v43, 0);
 LABEL_50:
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDownloadIdentifier:(id)identifier
@@ -1381,9 +1376,9 @@ LABEL_50:
 
 - (void)initWithApplicationIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "BADownloadManager requires the app and extension to have a valid bundle identifier";
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithApplicationIdentifier:(id *)a3 .cold.2(uint64_t a1, void *a2, id *a3)
@@ -1422,16 +1417,14 @@ LABEL_50:
 
 - (void)scheduleDownload:(uint64_t)a3 error:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)scheduleDownload:(uint64_t)a3 error:(uint64_t)a4 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)scheduleDownload:(uint64_t)a3 error:.cold.3(os_unfair_lock_s *a1, void *a2, uint64_t a3)
@@ -1457,21 +1450,20 @@ LABEL_50:
 
 - (void)scheduleDownload:(uint64_t)a3 error:(uint64_t)a4 .cold.4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-- (void)performWithExclusiveControl:(uint64_t)a3 .cold.1(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+- (void)performWithExclusiveControl:(uint64_t)a3 .cold.1(id a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    OUTLINED_FUNCTION_15(a1, a2);
+    a1 = OUTLINED_FUNCTION_15(a1, a2);
   }
 
-  OUTLINED_FUNCTION_18(&dword_236E28000, a2, a3, "Acquiring exclusive control extension wake assertion for: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_18(&dword_236E28000, a2, a3, "Acquiring exclusive control extension wake assertion for: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)performWithExclusiveControl:(void *)a3 .cold.2(void *a1, uint64_t a2, void *a3)
@@ -1498,16 +1490,16 @@ LABEL_50:
 
 - (void)performWithExclusiveControl:(uint64_t)a3 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Calling 'performWithExclusiveControl' must be called with a valid performHandler.";
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)performWithExclusiveControlBeforeDate:(uint64_t)a3 performHandler:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Calling 'performWithExclusiveControlBeforeDate' must be called with a valid date.";
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)performWithExclusiveControlBeforeDate:(void *)a3 performHandler:(void *)a4 .cold.3(void *a1, uint64_t a2, void *a3, void *a4)
@@ -1534,37 +1526,33 @@ LABEL_50:
 
 - (void)performWithExclusiveControlBeforeDate:(uint64_t)a3 performHandler:(uint64_t)a4 .cold.4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Calling 'performWithExclusiveControlBeforeDate' must be called with a valid performHandler.";
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startForegroundDownload:(uint64_t)a3 error:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startForegroundDownload:(uint64_t)a3 error:(uint64_t)a4 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startForegroundDownload:(uint64_t)a3 error:(uint64_t)a4 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)cancelDownload:(uint64_t)a3 error:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)cancelDownload:(void *)a3 error:(_BYTE *)a4 .cold.2(id a1, char *a2, void *a3, _BYTE *a4)
@@ -1579,17 +1567,15 @@ LABEL_50:
 
 void __99__BADownloadManager_XPCDownloadSync__downloadIdentifierDidFinish_sandboxExtensionToken_wasHandled___block_invoke_3_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [*(a1 + 40) identifier];
   objc_claimAutoreleasedReturnValue();
   v5 = [OUTLINED_FUNCTION_9() description];
-  v8 = 138543618;
-  v9 = v3;
-  v10 = 2114;
-  v11 = v5;
-  OUTLINED_FUNCTION_22(&dword_236E28000, a3, v6, "Download %{public}@ failed to remove cloned file after the client serviced the download. Error:%{public}@", &v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = v3;
+  v9 = 2114;
+  v10 = v5;
+  OUTLINED_FUNCTION_22(&dword_236E28000, a3, v6, "Download %{public}@ failed to remove cloned file after the client serviced the download. Error:%{public}@", &v7);
 }
 
 @end

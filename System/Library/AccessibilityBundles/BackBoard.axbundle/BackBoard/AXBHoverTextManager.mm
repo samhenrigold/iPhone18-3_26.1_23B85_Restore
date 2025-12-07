@@ -41,7 +41,7 @@ void __40__AXBHoverTextManager_initializeMonitor__block_invoke()
 {
   typingCopy = typing;
   enabledCopy = enabled;
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v6 = _os_feature_enabled_impl();
   v7 = HTLogCommon();
   v8 = v7;
@@ -62,23 +62,23 @@ void __40__AXBHoverTextManager_initializeMonitor__block_invoke()
       _os_log_impl(&dword_29BBBD000, v8, OS_LOG_TYPE_DEFAULT, "HoverText monitor asked to %@ HoverText. isTyping = %i", buf, 0x12u);
     }
 
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     v10 = getHoverTextObjcSymbolLoc_ptr;
-    v24 = getHoverTextObjcSymbolLoc_ptr;
+    v23 = getHoverTextObjcSymbolLoc_ptr;
     if (!getHoverTextObjcSymbolLoc_ptr)
     {
       *buf = MEMORY[0x29EDCA5F8];
       *&buf[8] = 3221225472;
       *&buf[16] = __getHoverTextObjcSymbolLoc_block_invoke;
-      v26 = &unk_29F2A4FB0;
-      v27 = &v21;
+      v25 = &unk_29F2A4FB0;
+      v26 = &v20;
       __getHoverTextObjcSymbolLoc_block_invoke(buf);
-      v10 = v22[3];
+      v10 = v21[3];
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
     if (!v10)
     {
       [AXBHoverTextManager setHoverTextEnabled:isTyping:];
@@ -90,31 +90,31 @@ void __40__AXBHoverTextManager_initializeMonitor__block_invoke()
     {
       if (typingCopy)
       {
-        v20 = 0;
-        v12 = [v11 startHoverTextTypingAndReturnError:&v20];
-        v13 = v20;
+        v19 = 0;
+        v12 = [v11 startHoverTextTypingAndReturnError:&v19];
+        v13 = v19;
       }
 
       else
       {
-        v19 = 0;
-        v12 = [v11 startHoverTextAndReturnError:&v19];
-        v13 = v19;
+        v18 = 0;
+        v12 = [v11 startHoverTextAndReturnError:&v18];
+        v13 = v18;
       }
     }
 
     else if (typingCopy)
     {
-      v18 = 0;
-      v12 = [v11 stopHoverTextTypingAndReturnError:&v18];
-      v13 = v18;
+      v17 = 0;
+      v12 = [v11 stopHoverTextTypingAndReturnError:&v17];
+      v13 = v17;
     }
 
     else
     {
-      v17 = 0;
-      v12 = [v11 stopHoverTextAndReturnError:&v17];
-      v13 = v17;
+      v16 = 0;
+      v12 = [v11 stopHoverTextAndReturnError:&v16];
+      v13 = v16;
     }
 
     v14 = v13;
@@ -133,8 +133,6 @@ void __40__AXBHoverTextManager_initializeMonitor__block_invoke()
     *buf = 0;
     _os_log_impl(&dword_29BBBD000, v8, OS_LOG_TYPE_INFO, "Asked to enable/disable HoverText but feature flag is off, so no", buf, 2u);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 - (void)updateHoverTextSettings
@@ -155,11 +153,10 @@ void __40__AXBHoverTextManager_initializeMonitor__block_invoke()
 
 - (void)setHoverTextEnabled:(uint64_t)a1 isTyping:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error toggling HoverText: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error toggling HoverText: %@", &v2, 0xCu);
 }
 
 - (void)setHoverTextEnabled:isTyping:.cold.2()

@@ -27,10 +27,13 @@
 - (void)fetchResumableSessionTickets;
 - (void)removeProxyAgents;
 - (void)reportErrorForDNSAgent:(id)agent error:(int)error withOptions:(id)options;
+- (void)reportErrorForNetworkRegistration:(id)registration error:(int)error withOptions:(id)options;
 - (void)resetFallbackProxyAgent;
 - (void)resetQUICProxyAgentForceUpdateDelegate:(BOOL)delegate;
 - (void)resetResolverAgentForceUpdateDelegate:(BOOL)delegate;
 - (void)resetResumableSessionTickets;
+- (void)setupProxyAgentsForceUpdateDelegate:(BOOL)delegate;
+- (void)startDoHConnectionForSessionTicketsWithEndpoint:(id)endpoint parameters:(id)parameters dohQueryType:(unsigned __int16)type completionHandler:(id)handler;
 - (void)startPvDConnectionForSessionTicketsWithEndpoint:(id)endpoint parameters:(id)parameters completionHandler:(id)handler;
 @end
 
@@ -624,6 +627,132 @@ LABEL_12:
   return egressProxy;
 }
 
+- (void)reportErrorForNetworkRegistration:(id)registration error:(int)error withOptions:(id)options
+{
+  v6 = *&error;
+  registrationCopy = registration;
+  buffer = 0u;
+  memset(v30, 0, sizeof(v30));
+  v9 = [options objectForKeyedSubscript:NWNetworkAgentStartOptionClientUUID];
+  if (!v9)
+  {
+    v11 = 0;
+    goto LABEL_7;
+  }
+
+  v10 = [NWPath pathForClientID:v9];
+  v11 = v10;
+  if (!v10)
+  {
+LABEL_7:
+    v16 = 0;
+    interface = 0;
+    goto LABEL_13;
+  }
+
+  interface = [v10 interface];
+  parameters = [v11 parameters];
+  v14 = [parameters pid];
+  if (!v14)
+  {
+LABEL_11:
+    v16 = 0;
+    goto LABEL_12;
+  }
+
+  v15 = v14;
+  if (proc_pidinfo(v14, 13, 1uLL, &buffer, 64) != 64)
+  {
+    v17 = nplog_obj();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v27 = 67109120;
+      *v28 = v15;
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to convert from PID (%d) to process name", &v27, 8u);
+    }
+
+    goto LABEL_11;
+  }
+
+  v16 = v30;
+LABEL_12:
+
+LABEL_13:
+  delegate2 = nplog_obj();
+  v19 = os_log_type_enabled(delegate2, OS_LOG_TYPE_DEFAULT);
+  if (v6)
+  {
+    if (v19)
+    {
+      if (v16)
+      {
+        v20 = v16;
+      }
+
+      else
+      {
+        v20 = "none";
+      }
+
+      v21 = sub_1000423BC(registrationCopy);
+      interfaceName = [interface interfaceName];
+      v27 = 67109890;
+      *v28 = v6;
+      *&v28[4] = 2080;
+      *&v28[6] = v20;
+      *&v28[14] = 2112;
+      *&v28[16] = v21;
+      *&v28[24] = 2112;
+      *&v28[26] = interfaceName;
+      _os_log_impl(&_mh_execute_header, delegate2, OS_LOG_TYPE_DEFAULT, "Received error (%d) from %s for content-specific %@ agent on interface %@", &v27, 0x26u);
+    }
+
+    if (v6 == 1303)
+    {
+      v25 = nplog_obj();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(v27) = 0;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Flushing resolved addresses", &v27, 2u);
+      }
+
+      [(NSPProxiedContentPath *)self setResolvedAddresses:0];
+      [(NSPProxiedContentPath *)self resetQUICProxyAgentForceUpdateDelegate:0];
+      [(NSPProxiedContentPath *)self resetResolverAgentForceUpdateDelegate:0];
+      delegate = [(NSPProxiedContentPath *)self delegate];
+      [delegate updateUserEventAgentData];
+
+      [(NSPProxiedContentPath *)self fetchResumableSessionTickets];
+    }
+
+    else if (v6 == 35)
+    {
+      [(NSPProxiedContentPath *)self resetResumableSessionTickets];
+    }
+
+    delegate2 = [(NSPProxiedContentPath *)self delegate];
+    [delegate2 reportProxiedContentPathError:v6 interface:interface proxiedContentPath:self registration:registrationCopy];
+  }
+
+  else if (v19)
+  {
+    if (!v16)
+    {
+      v16 = "none";
+    }
+
+    v23 = sub_1000423BC(registrationCopy);
+    interfaceName2 = [interface interfaceName];
+    v27 = 136315650;
+    *v28 = v16;
+    *&v28[8] = 2112;
+    *&v28[10] = v23;
+    *&v28[18] = 2112;
+    *&v28[20] = interfaceName2;
+    _os_log_impl(&_mh_execute_header, delegate2, OS_LOG_TYPE_DEFAULT, "Received success indication from %s for content-specific %@ agent on interface %@", &v27, 0x20u);
+  }
+}
+
 - (void)reportErrorForDNSAgent:(id)agent error:(int)error withOptions:(id)options
 {
   agentCopy = agent;
@@ -973,6 +1102,51 @@ LABEL_15:
   return v4;
 }
 
+- (void)startDoHConnectionForSessionTicketsWithEndpoint:(id)endpoint parameters:(id)parameters dohQueryType:(unsigned __int16)type completionHandler:(id)handler
+{
+  typeCopy = type;
+  endpointCopy = endpoint;
+  parametersCopy = parameters;
+  handlerCopy = handler;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_100001F14;
+  v29 = sub_100005818;
+  v30 = nw_connection_create(endpointCopy, parametersCopy);
+  v13 = v26[5];
+  v14 = NPGetInternalQueue();
+  nw_connection_set_queue(v13, v14);
+
+  location[1] = _NSConcreteStackBlock;
+  location[2] = 3221225472;
+  location[3] = sub_10000F994;
+  location[4] = &unk_100109678;
+  location[5] = &v25;
+  nw_connection_set_event_handler();
+  hostname = nw_endpoint_get_hostname(endpointCopy);
+  v16 = [(NSPProxiedContentPath *)self createDoHQueryForName:hostname type:typeCopy];
+  v17 = [(NSPProxiedContentPath *)self createDoHMessageForQuery:v16 name:hostname];
+  nw_connection_send(v26[5], v16, v17, 1, _nw_connection_send_idempotent_content);
+  nw_connection_start(v26[5]);
+  objc_initWeak(location, self);
+  v18 = v26[5];
+  completion[0] = _NSConcreteStackBlock;
+  completion[1] = 3221225472;
+  completion[2] = sub_10000FAC8;
+  completion[3] = &unk_1001096A0;
+  objc_copyWeak(&v23, location);
+  v19 = handlerCopy;
+  v21 = v19;
+  v22 = &v25;
+  nw_connection_receive_message(v18, completion);
+
+  objc_destroyWeak(&v23);
+  objc_destroyWeak(location);
+
+  _Block_object_dispose(&v25, 8);
+}
+
 - (void)startPvDConnectionForSessionTicketsWithEndpoint:(id)endpoint parameters:(id)parameters completionHandler:(id)handler
 {
   endpointCopy = endpoint;
@@ -980,57 +1154,56 @@ LABEL_15:
   handlerCopy = handler;
   v11 = nw_parameters_copy(parametersCopy);
   v12 = nw_parameters_copy_default_protocol_stack(v11);
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_100001F14;
-  v40 = sub_100005818;
-  v41 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_100001F14;
+  v39 = sub_100005818;
+  v40 = 0;
   iterate_block[0] = _NSConcreteStackBlock;
   iterate_block[1] = 3221225472;
   iterate_block[2] = sub_10000FE8C;
   iterate_block[3] = &unk_1001096C8;
-  iterate_block[4] = &v36;
+  iterate_block[4] = &v35;
   nw_protocol_stack_iterate_application_protocols(v12, iterate_block);
-  if (v37[5])
+  if (v36[5])
   {
     nw_protocol_stack_remove_protocol();
   }
 
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = sub_100001F14;
-  v33 = sub_100005818;
-  v34 = nw_connection_create(endpointCopy, v11);
-  v13 = v30[5];
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_100001F14;
+  v32 = sub_100005818;
+  v33 = nw_connection_create(endpointCopy, v11);
+  v13 = v29[5];
   v14 = NPGetInternalQueue();
   nw_connection_set_queue(v13, v14);
 
-  v15 = v30[5];
-  v24 = _NSConcreteStackBlock;
-  v25 = 3221225472;
-  v26 = sub_10000FF10;
-  v27 = &unk_100109678;
-  v28 = &v29;
+  v23 = _NSConcreteStackBlock;
+  v24 = 3221225472;
+  v25 = sub_10000FF10;
+  v26 = &unk_100109678;
+  v27 = &v28;
   nw_connection_set_event_handler();
-  v16 = [(NSPProxiedContentPath *)self createPvDRequestForName:nw_endpoint_get_hostname(endpointCopy)];
-  nw_connection_send(v30[5], &_dispatch_data_empty, v16, 1, _nw_connection_send_idempotent_content);
-  nw_connection_start(v30[5]);
-  v17 = v30[5];
+  v15 = [(NSPProxiedContentPath *)self createPvDRequestForName:nw_endpoint_get_hostname(endpointCopy)];
+  nw_connection_send(v29[5], &_dispatch_data_empty, v15, 1, _nw_connection_send_idempotent_content);
+  nw_connection_start(v29[5]);
+  v16 = v29[5];
   completion[0] = _NSConcreteStackBlock;
   completion[1] = 3221225472;
   completion[2] = sub_100010044;
   completion[3] = &unk_100109718;
-  v18 = endpointCopy;
+  v17 = endpointCopy;
+  v20 = v17;
+  v18 = handlerCopy;
   v21 = v18;
-  v19 = handlerCopy;
-  v22 = v19;
-  v23 = &v29;
-  nw_connection_receive_message(v17, completion);
+  v22 = &v28;
+  nw_connection_receive_message(v16, completion);
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v35, 8);
 }
 
 - (id)bootstrapAddresses
@@ -1133,194 +1306,192 @@ LABEL_15:
         if (isKindOfClass)
         {
           selfCopy = self;
-          v57 = v7;
-          v58 = configurationCopy;
-          v72 = 0u;
-          v73 = 0u;
+          v55 = v7;
+          v56 = configurationCopy;
           v70 = 0u;
           v71 = 0u;
-          v56 = v13;
+          v68 = 0u;
+          v69 = 0u;
+          v54 = v13;
           v15 = v13;
-          v16 = [v15 countByEnumeratingWithState:&v70 objects:v83 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v68 objects:v81 count:16];
           if (!v16)
           {
-            v61 = 0;
+            v59 = 0;
             goto LABEL_87;
           }
 
           v17 = v16;
-          v61 = 0;
-          v18 = *v71;
-          v19 = NEPolicySession_ptr;
-          v62 = v15;
-          v63 = *v71;
-          v59 = v11;
+          v59 = 0;
+          v18 = *v69;
+          v60 = v15;
+          v61 = *v69;
+          v57 = v11;
           while (1)
           {
             for (i = 0; i != v17; i = i + 1)
             {
-              if (*v71 != v18)
+              if (*v69 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v21 = *(*(&v70 + 1) + 8 * i);
-              v22 = v19[75];
+              v20 = *(*(&v68 + 1) + 8 * i);
               objc_opt_class();
-              if (v21)
+              if (v20)
               {
-                v23 = objc_opt_isKindOfClass();
+                v21 = objc_opt_isKindOfClass();
 
-                if (v23)
+                if (v21)
                 {
-                  v24 = [v21 objectForKeyedSubscript:@"identifier"];
+                  v22 = [v20 objectForKeyedSubscript:@"identifier"];
                   objc_opt_class();
-                  if (v24 && (v25 = objc_opt_isKindOfClass(), v24, (v25 & 1) != 0))
+                  if (v22 && (v23 = objc_opt_isKindOfClass(), v22, (v23 & 1) != 0))
                   {
-                    v26 = [v21 objectForKeyedSubscript:@"proxy"];
+                    v24 = [v20 objectForKeyedSubscript:@"proxy"];
                     objc_opt_class();
-                    if (v26 && (v27 = objc_opt_isKindOfClass(), v26, (v27 & 1) != 0))
+                    if (v24 && (v25 = objc_opt_isKindOfClass(), v24, (v25 & 1) != 0))
                     {
-                      v28 = [NSURL URLWithString:v26];
-                      host = [v28 host];
+                      v26 = [NSURL URLWithString:v24];
+                      host = [v26 host];
 
-                      v64 = v28;
+                      v62 = v26;
                       if (host)
                       {
-                        host2 = [v28 host];
+                        host2 = [v26 host];
                         host3 = [v11 host];
-                        v32 = [host2 isEqualToString:host3];
+                        v30 = [host2 isEqualToString:host3];
 
-                        if ((v32 & 1) == 0)
+                        if ((v30 & 1) == 0)
                         {
-                          v33 = nplog_obj();
-                          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+                          v31 = nplog_obj();
+                          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
                           {
-                            host4 = [v28 host];
+                            host4 = [v26 host];
                             host5 = [v11 host];
                             *buf = 138413058;
+                            v74 = v24;
+                            v75 = 2112;
                             v76 = v26;
                             v77 = 2112;
-                            v78 = v28;
+                            v78 = host4;
                             v79 = 2112;
-                            v80 = host4;
-                            v81 = 2112;
-                            v82 = host5;
-                            _os_log_debug_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "Unable to match proxy URL %@ proxyURL %@ proxyURL.host %@ in PvD to %@", buf, 0x2Au);
+                            v80 = host5;
+                            _os_log_debug_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "Unable to match proxy URL %@ proxyURL %@ proxyURL.host %@ in PvD to %@", buf, 0x2Au);
                           }
 
                           goto LABEL_69;
                         }
 
 LABEL_38:
-                        v15 = v62;
-                        v18 = v63;
-                        if (!v61)
+                        v15 = v60;
+                        v18 = v61;
+                        if (!v59)
                         {
-                          v40 = nplog_obj();
-                          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+                          v38 = nplog_obj();
+                          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
                           {
                             *buf = 138412546;
-                            v76 = v24;
-                            v77 = 2112;
-                            v78 = v64;
-                            _os_log_debug_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, "Detected proxy identifier %@ from PvD-provided proxy URL %@", buf, 0x16u);
+                            v74 = v22;
+                            v75 = 2112;
+                            v76 = v62;
+                            _os_log_debug_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "Detected proxy identifier %@ from PvD-provided proxy URL %@", buf, 0x16u);
                           }
 
-                          v61 = v24;
+                          v59 = v22;
                         }
 
                         if (algorithm)
                         {
-                          v33 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v21 key:@"apple_algorithm" oldKey:@"appleTLSCurve"];
+                          v31 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v20 key:@"apple_algorithm" oldKey:@"appleTLSCurve"];
                           objc_opt_class();
-                          if (v33)
+                          if (v31)
                           {
-                            v41 = objc_opt_isKindOfClass();
+                            v39 = objc_opt_isKindOfClass();
 
-                            if (v41)
+                            if (v39)
                             {
-                              v68 = 0u;
-                              v69 = 0u;
                               v66 = 0u;
                               v67 = 0u;
-                              v33 = v33;
-                              v42 = [v33 countByEnumeratingWithState:&v66 objects:v74 count:16];
-                              if (v42)
+                              v64 = 0u;
+                              v65 = 0u;
+                              v31 = v31;
+                              v40 = [v31 countByEnumeratingWithState:&v64 objects:v72 count:16];
+                              if (v40)
                               {
-                                v43 = v42;
-                                v44 = *v67;
+                                v41 = v40;
+                                v42 = *v65;
                                 do
                                 {
-                                  for (j = 0; j != v43; j = j + 1)
+                                  for (j = 0; j != v41; j = j + 1)
                                   {
-                                    if (*v67 != v44)
+                                    if (*v65 != v42)
                                     {
-                                      objc_enumerationMutation(v33);
+                                      objc_enumerationMutation(v31);
                                     }
 
-                                    v46 = *(*(&v66 + 1) + 8 * j);
+                                    v44 = *(*(&v64 + 1) + 8 * j);
                                     objc_opt_class();
-                                    if (v46)
+                                    if (v44)
                                     {
-                                      v47 = objc_opt_isKindOfClass();
+                                      v45 = objc_opt_isKindOfClass();
 
-                                      if (v47)
+                                      if (v45)
                                       {
-                                        v48 = nplog_obj();
-                                        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+                                        v46 = nplog_obj();
+                                        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
                                         {
                                           *buf = 138412546;
-                                          v76 = v46;
-                                          v77 = 2112;
-                                          v78 = v64;
-                                          _os_log_debug_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "Detected proxy algorithm %@ from PvD-provided proxy URL %@", buf, 0x16u);
+                                          v74 = v44;
+                                          v75 = 2112;
+                                          v76 = v62;
+                                          _os_log_debug_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEBUG, "Detected proxy algorithm %@ from PvD-provided proxy URL %@", buf, 0x16u);
                                         }
 
-                                        v49 = v46;
-                                        if (([v49 isEqualToString:@"NOT_SET"]& 1) != 0)
+                                        v47 = v44;
+                                        if (([v47 isEqualToString:@"NOT_SET"]& 1) != 0)
                                         {
-                                          v50 = 0;
+                                          v48 = 0;
                                         }
 
-                                        else if (([v49 isEqualToString:@"P384"]& 1) != 0)
+                                        else if (([v47 isEqualToString:@"P384"]& 1) != 0)
                                         {
-                                          v50 = 1;
+                                          v48 = 1;
                                         }
 
-                                        else if (([v49 isEqualToString:@"X25519"]& 1) != 0)
+                                        else if (([v47 isEqualToString:@"X25519"]& 1) != 0)
                                         {
-                                          v50 = 2;
+                                          v48 = 2;
                                         }
 
-                                        else if ([v49 isEqualToString:@"X25519_MLKEM768"])
+                                        else if ([v47 isEqualToString:@"X25519_MLKEM768"])
                                         {
-                                          v50 = 3;
+                                          v48 = 3;
                                         }
 
                                         else
                                         {
-                                          v50 = 0;
+                                          v48 = 0;
                                         }
 
-                                        if (!*algorithm || v50 == 3)
+                                        if (!*algorithm || v48 == 3)
                                         {
-                                          *algorithm = v50;
+                                          *algorithm = v48;
                                         }
                                       }
                                     }
                                   }
 
-                                  v43 = [v33 countByEnumeratingWithState:&v66 objects:v74 count:16];
+                                  v41 = [v31 countByEnumeratingWithState:&v64 objects:v72 count:16];
                                 }
 
-                                while (v43);
+                                while (v41);
                               }
 
-                              v11 = v59;
+                              v11 = v57;
 LABEL_69:
-                              v15 = v62;
-                              v18 = v63;
+                              v15 = v60;
+                              v18 = v61;
                             }
                           }
 
@@ -1330,112 +1501,111 @@ LABEL_69:
 
                       else
                       {
-                        v33 = [v26 componentsSeparatedByString:@":"];
-                        if ([v33 count]== 2)
+                        v31 = [v24 componentsSeparatedByString:@":"];
+                        if ([v31 count]== 2)
                         {
-                          firstObject = [v33 firstObject];
+                          firstObject = [v31 firstObject];
                           host6 = [v11 host];
-                          v39 = [firstObject isEqual:host6];
+                          v37 = [firstObject isEqual:host6];
 
-                          v15 = v62;
-                          v18 = v63;
-                          if (v39)
+                          v15 = v60;
+                          v18 = v61;
+                          if (v37)
                           {
 
                             goto LABEL_38;
                           }
                         }
 
-                        v51 = nplog_obj();
-                        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+                        v49 = nplog_obj();
+                        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
                         {
                           host7 = [v11 host];
                           *buf = 138412546;
-                          v76 = v26;
-                          v77 = 2112;
-                          v78 = host7;
-                          _os_log_debug_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEBUG, "Unable to match proxy %@ in PvD to %@", buf, 0x16u);
+                          v74 = v24;
+                          v75 = 2112;
+                          v76 = host7;
+                          _os_log_debug_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "Unable to match proxy %@ in PvD to %@", buf, 0x16u);
 
-                          v18 = v63;
+                          v18 = v61;
                         }
 
 LABEL_73:
                       }
 
-                      v36 = v64;
+                      v34 = v62;
                     }
 
                     else
                     {
-                      v36 = nplog_obj();
-                      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+                      v34 = nplog_obj();
+                      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 0;
-                        _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "Missing proxy URL in proxy dictionary in PvD proxies array", buf, 2u);
+                        _os_log_debug_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "Missing proxy URL in proxy dictionary in PvD proxies array", buf, 2u);
                       }
                     }
                   }
 
                   else
                   {
-                    v26 = nplog_obj();
-                    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+                    v24 = nplog_obj();
+                    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 0;
-                      _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "Missing proxy identifier in proxy dictionary in PvD proxies array", buf, 2u);
+                      _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "Missing proxy identifier in proxy dictionary in PvD proxies array", buf, 2u);
                     }
                   }
 
-                  v19 = NEPolicySession_ptr;
                   goto LABEL_77;
                 }
               }
 
-              v24 = nplog_obj();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+              v22 = nplog_obj();
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 0;
-                _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "Invalid proxy dictionary in PvD proxies array", buf, 2u);
+                _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Invalid proxy dictionary in PvD proxies array", buf, 2u);
               }
 
 LABEL_77:
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v70 objects:v83 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v68 objects:v81 count:16];
             if (!v17)
             {
 LABEL_87:
 
-              v53 = v61;
-              v7 = v57;
-              configurationCopy = v58;
-              v13 = v56;
+              v51 = v59;
+              v7 = v55;
+              configurationCopy = v56;
+              v13 = v54;
               goto LABEL_88;
             }
           }
         }
       }
 
-      v54 = nplog_obj();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+      v52 = nplog_obj();
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEBUG, "No proxies array in PvD", buf, 2u);
+        _os_log_debug_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEBUG, "No proxies array in PvD", buf, 2u);
       }
 
-      v53 = 0;
+      v51 = 0;
 LABEL_88:
 
-      v8 = v53;
+      v8 = v51;
     }
 
     else
     {
-      v53 = nplog_obj();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+      v51 = nplog_obj();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "No proxy URL to match to PvD, ignoring", buf, 2u);
+        _os_log_debug_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEBUG, "No proxy URL to match to PvD, ignoring", buf, 2u);
       }
 
       v8 = 0;
@@ -1472,121 +1642,116 @@ LABEL_88:
 
       if (isKindOfClass)
       {
-        v115 = 0u;
-        v116 = 0u;
-        v113 = 0u;
-        v114 = 0u;
+        v109 = 0u;
+        v110 = 0u;
+        v107 = 0u;
+        v108 = 0u;
         v11 = v9;
-        v12 = [v11 countByEnumeratingWithState:&v113 objects:v123 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v107 objects:v117 count:16];
         if (!v12)
         {
           v14 = 0;
-          goto LABEL_107;
+          goto LABEL_105;
         }
 
         v13 = v12;
         selfCopy = self;
         v14 = 0;
-        v91 = *v114;
-        v89 = configurationCopy;
-        v95 = v8;
-        v93 = v11;
+        v85 = *v108;
+        v83 = configurationCopy;
+        v89 = v8;
+        v87 = v11;
         while (1)
         {
-          v90 = v14;
+          v84 = v14;
           v15 = 0;
-          v16 = NEPolicySession_ptr;
-          v17 = v91;
-          v18 = NEPolicySession_ptr;
-          v92 = v13;
+          v16 = v85;
+          v86 = v13;
           do
           {
-            if (*v114 != v17)
+            if (*v108 != v16)
             {
               objc_enumerationMutation(v11);
             }
 
-            v19 = *(*(&v113 + 1) + 8 * v15);
-            v20 = v18[75];
+            v17 = *(*(&v107 + 1) + 8 * v15);
             objc_opt_class();
-            if (!v19 || (v21 = objc_opt_isKindOfClass(), v19, (v21 & 1) == 0))
+            if (!v17 || (v18 = objc_opt_isKindOfClass(), v17, (v18 & 1) == 0))
             {
-              v22 = nplog_obj();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+              v19 = nplog_obj();
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 0;
-                _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Invalid proxy match dictionary in PvD", buf, 2u);
+                _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Invalid proxy match dictionary in PvD", buf, 2u);
               }
 
-              goto LABEL_53;
+              goto LABEL_52;
             }
 
-            v22 = [v19 objectForKeyedSubscript:@"mandatory"];
-            v23 = v16[70];
+            v19 = [v17 objectForKeyedSubscript:@"mandatory"];
             objc_opt_class();
-            if (v22)
+            if (v19)
             {
-              v24 = objc_opt_isKindOfClass();
+              v20 = objc_opt_isKindOfClass();
 
-              if (v24)
+              if (v20)
               {
-                v111 = 0u;
-                v112 = 0u;
-                v109 = 0u;
-                v110 = 0u;
-                v25 = v22;
-                v26 = [v25 countByEnumeratingWithState:&v109 objects:v122 count:16];
-                if (v26)
+                v105 = 0u;
+                v106 = 0u;
+                v103 = 0u;
+                v104 = 0u;
+                v21 = v19;
+                v22 = [v21 countByEnumeratingWithState:&v103 objects:v116 count:16];
+                if (v22)
                 {
-                  v27 = v26;
-                  v28 = *v110;
+                  v23 = v22;
+                  v24 = *v104;
                   while (2)
                   {
-                    for (i = 0; i != v27; i = i + 1)
+                    for (i = 0; i != v23; i = i + 1)
                     {
-                      if (*v110 != v28)
+                      if (*v104 != v24)
                       {
-                        objc_enumerationMutation(v25);
+                        objc_enumerationMutation(v21);
                       }
 
-                      v30 = *(*(&v109 + 1) + 8 * i);
+                      v26 = *(*(&v103 + 1) + 8 * i);
                       objc_opt_class();
-                      if (!v30)
+                      if (!v26)
                       {
-                        goto LABEL_112;
+                        goto LABEL_110;
                       }
 
-                      v31 = objc_opt_isKindOfClass();
+                      v27 = objc_opt_isKindOfClass();
 
-                      if ((v31 & 1) == 0)
+                      if ((v27 & 1) == 0)
                       {
-                        goto LABEL_112;
+                        goto LABEL_110;
                       }
 
-                      if (![(NSPProxiedContentPath *)selfCopy isKnownProxyMatchKey:v30])
+                      if (![(NSPProxiedContentPath *)selfCopy isKnownProxyMatchKey:v26])
                       {
-                        v75 = nplog_obj();
-                        if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+                        v69 = nplog_obj();
+                        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 138412290;
-                          v121 = v30;
-                          _os_log_debug_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEBUG, "Ignoring proxy match dictionary, cannot understand mandatory key %@", buf, 0xCu);
+                          v115 = v26;
+                          _os_log_debug_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEBUG, "Ignoring proxy match dictionary, cannot understand mandatory key %@", buf, 0xCu);
                         }
 
-LABEL_112:
-LABEL_113:
+LABEL_110:
+LABEL_111:
 
-                        v73 = 0;
-                        configurationCopy = v89;
-                        v74 = v90;
-                        v8 = v95;
-                        goto LABEL_114;
+                        v67 = 0;
+                        configurationCopy = v83;
+                        v68 = v84;
+                        v8 = v89;
+                        goto LABEL_112;
                       }
                     }
 
-                    v27 = [v25 countByEnumeratingWithState:&v109 objects:v122 count:16];
-                    v16 = NEPolicySession_ptr;
-                    if (v27)
+                    v23 = [v21 countByEnumeratingWithState:&v103 objects:v116 count:16];
+                    if (v23)
                     {
                       continue;
                     }
@@ -1595,140 +1760,136 @@ LABEL_113:
                   }
                 }
 
-                v17 = v91;
+                v16 = v85;
               }
             }
 
-            v32 = [v19 objectForKeyedSubscript:{@"apple_builds", v77}];
-            v33 = v16[70];
+            v28 = [v17 objectForKeyedSubscript:{@"apple_builds", v71}];
             objc_opt_class();
-            if (v32)
+            if (v28)
             {
-              v34 = objc_opt_isKindOfClass();
+              v29 = objc_opt_isKindOfClass();
 
-              if (v34)
+              if (v29)
               {
-                if (os_variant_has_internal_content() && ([v32 containsObject:@"Internal"] & 1) == 0)
+                if (os_variant_has_internal_content() && ([v28 containsObject:@"Internal"] & 1) == 0)
                 {
-                  v35 = nplog_obj();
-                  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+                  v30 = nplog_obj();
+                  if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
                   {
-                    *buf = 0;
-                    v36 = v35;
-                    v37 = "Ignoring proxy match dictionary, not applicable for internal";
-LABEL_92:
-                    _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, v37, buf, 2u);
+                    goto LABEL_35;
                   }
+
+                  *buf = 0;
+                  v31 = v30;
+                  v32 = "Ignoring proxy match dictionary, not applicable for internal";
+                  goto LABEL_90;
                 }
 
-                else
+                if (([v28 containsObject:@"Public"] & 1) == 0)
                 {
-                  if ([v32 containsObject:@"Public"])
+                  v30 = nplog_obj();
+                  if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
                   {
+LABEL_35:
+
                     goto LABEL_36;
                   }
 
-                  v35 = nplog_obj();
-                  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
-                  {
-                    *buf = 0;
-                    v36 = v35;
-                    v37 = "Ignoring proxy match dictionary, not applicable for public";
-                    goto LABEL_92;
-                  }
+                  *buf = 0;
+                  v31 = v30;
+                  v32 = "Ignoring proxy match dictionary, not applicable for public";
+LABEL_90:
+                  _os_log_debug_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, v32, buf, 2u);
+                  goto LABEL_35;
                 }
               }
             }
 
 LABEL_36:
-            v38 = [v19 objectForKeyedSubscript:@"proxies"];
-            v39 = v16[70];
+            v33 = [v17 objectForKeyedSubscript:@"proxies"];
             objc_opt_class();
-            if (v38 && (v40 = objc_opt_isKindOfClass(), v38, (v40 & 1) != 0))
+            if (v33 && (v34 = objc_opt_isKindOfClass(), v33, (v34 & 1) != 0))
             {
-              v107 = 0u;
-              v108 = 0u;
-              v105 = 0u;
-              v106 = 0u;
-              obj = v38;
-              v41 = [obj countByEnumeratingWithState:&v105 objects:v119 count:16];
-              if (v41)
+              v101 = 0u;
+              v102 = 0u;
+              v99 = 0u;
+              v100 = 0u;
+              obj = v33;
+              v35 = [obj countByEnumeratingWithState:&v99 objects:v113 count:16];
+              if (v35)
               {
-                v42 = v41;
-                v43 = *v106;
+                v36 = v35;
+                v37 = *v100;
                 while (2)
                 {
-                  for (j = 0; j != v42; j = j + 1)
+                  for (j = 0; j != v36; j = j + 1)
                   {
-                    if (*v106 != v43)
+                    if (*v100 != v37)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v45 = *(*(&v105 + 1) + 8 * j);
+                    v39 = *(*(&v99 + 1) + 8 * j);
                     objc_opt_class();
-                    if (!v45 || (v46 = objc_opt_isKindOfClass(), v45, (v46 & 1) == 0))
+                    if (!v39 || (v40 = objc_opt_isKindOfClass(), v39, (v40 & 1) == 0))
                     {
 
-                      goto LABEL_113;
+                      goto LABEL_111;
                     }
 
-                    if ([v45 isEqualToString:v95])
+                    if ([v39 isEqualToString:v89])
                     {
 
-                      v48 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v19 key:@"apple_bundleIDs" oldKey:@"appleBundleIDs"];
-                      v49 = [v19 objectForKeyedSubscript:@"domains"];
-                      v50 = v48;
-                      v16 = NEPolicySession_ptr;
+                      v42 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v17 key:@"apple_bundleIDs" oldKey:@"appleBundleIDs"];
+                      v43 = [v17 objectForKeyedSubscript:@"domains"];
+                      v44 = v42;
                       objc_opt_class();
-                      v88 = v50;
-                      if (v50 && (v51 = objc_opt_isKindOfClass(), v50, (v51 & 1) != 0) && (v52 = v49, objc_opt_class(), v52) && (v53 = objc_opt_isKindOfClass(), v52, (v53 & 1) != 0))
+                      v82 = v44;
+                      if (v44 && (v45 = objc_opt_isKindOfClass(), v44, (v45 & 1) != 0) && (v46 = v43, objc_opt_class(), v46) && (v47 = objc_opt_isKindOfClass(), v46, (v47 & 1) != 0))
                       {
-                        v77 = v49;
-                        v103 = 0u;
-                        v104 = 0u;
-                        v101 = 0u;
-                        v102 = 0u;
-                        v86 = v50;
-                        v54 = [v86 countByEnumeratingWithState:&v101 objects:v118 count:16];
-                        if (v54)
+                        v71 = v43;
+                        v97 = 0u;
+                        v98 = 0u;
+                        v95 = 0u;
+                        v96 = 0u;
+                        v80 = v44;
+                        v48 = [v80 countByEnumeratingWithState:&v95 objects:v112 count:16];
+                        if (v48)
                         {
-                          v55 = v54;
-                          v56 = *v102;
-                          v82 = v52;
+                          v49 = v48;
+                          v50 = *v96;
+                          v76 = v46;
                           while (2)
                           {
-                            for (k = 0; k != v55; k = k + 1)
+                            for (k = 0; k != v49; k = k + 1)
                             {
-                              if (*v102 != v56)
+                              if (*v96 != v50)
                               {
-                                objc_enumerationMutation(v86);
+                                objc_enumerationMutation(v80);
                               }
 
-                              v58 = *(*(&v101 + 1) + 8 * k);
+                              v52 = *(*(&v95 + 1) + 8 * k);
                               objc_opt_class();
-                              if (v58)
+                              if (v52)
                               {
-                                v59 = objc_opt_isKindOfClass();
+                                v53 = objc_opt_isKindOfClass();
 
-                                if (v59)
+                                if (v53)
                                 {
                                   continue;
                                 }
                               }
 
-                              v65 = v86;
-                              v16 = NEPolicySession_ptr;
-LABEL_95:
-                              v17 = v91;
-                              v18 = NEPolicySession_ptr;
-                              goto LABEL_96;
+                              v59 = v80;
+LABEL_93:
+                              v16 = v85;
+                              goto LABEL_94;
                             }
 
-                            v55 = [v86 countByEnumeratingWithState:&v101 objects:v118 count:16];
-                            v16 = NEPolicySession_ptr;
-                            v52 = v82;
-                            if (v55)
+                            v49 = [v80 countByEnumeratingWithState:&v95 objects:v112 count:16];
+                            v46 = v76;
+                            if (v49)
                             {
                               continue;
                             }
@@ -1737,39 +1898,39 @@ LABEL_95:
                           }
                         }
 
-                        v99 = 0u;
-                        v100 = 0u;
-                        v97 = 0u;
-                        v98 = 0u;
-                        v78 = v52;
-                        v83 = [v78 countByEnumeratingWithState:&v97 objects:v117 count:16];
-                        v60 = 0;
-                        if (v83)
+                        v93 = 0u;
+                        v94 = 0u;
+                        v91 = 0u;
+                        v92 = 0u;
+                        v72 = v46;
+                        v77 = [v72 countByEnumeratingWithState:&v91 objects:v111 count:16];
+                        v54 = 0;
+                        if (v77)
                         {
-                          v80 = *v98;
+                          v74 = *v92;
                           while (2)
                           {
-                            for (m = 0; m != v83; m = m + 1)
+                            for (m = 0; m != v77; m = m + 1)
                             {
-                              v62 = v60;
-                              if (*v98 != v80)
+                              v56 = v54;
+                              if (*v92 != v74)
                               {
-                                objc_enumerationMutation(v78);
+                                objc_enumerationMutation(v72);
                               }
 
-                              v63 = *(*(&v97 + 1) + 8 * m);
+                              v57 = *(*(&v91 + 1) + 8 * m);
                               objc_opt_class();
-                              if (!v63 || (v64 = objc_opt_isKindOfClass(), v63, (v64 & 1) == 0))
+                              if (!v57 || (v58 = objc_opt_isKindOfClass(), v57, (v58 & 1) == 0))
                               {
-                                v65 = v78;
-                                goto LABEL_95;
+                                v59 = v72;
+                                goto LABEL_93;
                               }
 
-                              v60 = [v63 hasPrefix:@"*."] ^ 1 | v62;
+                              v54 = [v57 hasPrefix:@"*."] ^ 1 | v56;
                             }
 
-                            v83 = [v78 countByEnumeratingWithState:&v97 objects:v117 count:16];
-                            if (v83)
+                            v77 = [v72 countByEnumeratingWithState:&v91 objects:v111 count:16];
+                            if (v77)
                             {
                               continue;
                             }
@@ -1778,85 +1939,80 @@ LABEL_95:
                           }
                         }
 
-                        v65 = objc_alloc_init(NSPPrivacyProxyProxiedContentMap);
-                        [v65 setEnabled:1];
-                        v84 = v95;
-                        v66 = v86;
-                        if ([v86 count]|| (v66 = v78, [v78 count]))
+                        v59 = objc_alloc_init(NSPPrivacyProxyProxiedContentMap);
+                        [v59 setEnabled:1];
+                        v78 = v89;
+                        v60 = v80;
+                        if ([v80 count]|| (v60 = v72, [v72 count]))
                         {
-                          firstObject = [v66 firstObject];
+                          firstObject = [v60 firstObject];
 
-                          v68 = firstObject;
-                          v17 = v91;
+                          v62 = firstObject;
+                          v16 = v85;
                         }
 
                         else
                         {
-                          v17 = v91;
-                          v68 = v84;
+                          v16 = v85;
+                          v62 = v78;
                         }
 
-                        v85 = v68;
-                        [v65 setIdentifier:v77];
-                        [v65 setProcesses:v86];
-                        [v65 setHostnames:v78];
-                        v87 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v19 key:@"apple_matchExactHostnames" oldKey:@"appleMatchExactHostnames"];
-                        v81 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v19 key:@"apple_systemProcessesOnly" oldKey:@"appleSystemProcessesOnly"];
-                        v79 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v19 key:@"apple_supportsReverse" oldKey:@"appleSupportsReverse"];
-                        v69 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v19 key:@"apple_percentEnabled" oldKey:@"applePercentEnabled"];
-                        v18 = NEPolicySession_ptr;
-                        if (v87)
+                        v79 = v62;
+                        [v59 setIdentifier:v71];
+                        [v59 setProcesses:v80];
+                        [v59 setHostnames:v72];
+                        v81 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v17 key:@"apple_matchExactHostnames" oldKey:@"appleMatchExactHostnames"];
+                        v75 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v17 key:@"apple_systemProcessesOnly" oldKey:@"appleSystemProcessesOnly"];
+                        v73 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v17 key:@"apple_supportsReverse" oldKey:@"appleSupportsReverse"];
+                        v63 = [(NSPProxiedContentPath *)selfCopy objectFromDictionary:v17 key:@"apple_percentEnabled" oldKey:@"applePercentEnabled"];
+                        if (v81)
                         {
-                          LOBYTE(v60) = [v87 BOOLValue];
+                          LOBYTE(v54) = [v81 BOOLValue];
                         }
 
-                        [v65 setMatchExactHostnames:v60 & 1];
-                        -[NSObject setSystemProcessOnly:](v65, "setSystemProcessOnly:", [v81 BOOLValue]);
-                        -[NSObject setSupportsReverseProxying:](v65, "setSupportsReverseProxying:", [v79 BOOLValue]);
-                        -[NSObject setPercentEnabled:](v65, "setPercentEnabled:", [v69 unsignedIntValue]);
-                        v70 = v90;
-                        v16 = NEPolicySession_ptr;
-                        if (!v90)
+                        [v59 setMatchExactHostnames:v54 & 1];
+                        -[NSObject setSystemProcessOnly:](v59, "setSystemProcessOnly:", [v75 BOOLValue]);
+                        -[NSObject setSupportsReverseProxying:](v59, "setSupportsReverseProxying:", [v73 BOOLValue]);
+                        -[NSObject setPercentEnabled:](v59, "setPercentEnabled:", [v63 unsignedIntValue]);
+                        v64 = v84;
+                        if (!v84)
                         {
-                          v70 = objc_alloc_init(NSMutableArray);
+                          v64 = objc_alloc_init(NSMutableArray);
                         }
 
-                        v90 = v70;
-                        [v70 addObject:v65];
-                        v71 = nplog_obj();
-                        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
+                        v84 = v64;
+                        [v64 addObject:v59];
+                        v65 = nplog_obj();
+                        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 138412290;
-                          v121 = v65;
-                          _os_log_debug_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEBUG, "Parsed discovered proxied content map: %@", buf, 0xCu);
+                          v115 = v59;
+                          _os_log_debug_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEBUG, "Parsed discovered proxied content map: %@", buf, 0xCu);
                         }
 
-LABEL_96:
-                        v49 = v77;
+LABEL_94:
+                        v43 = v71;
                       }
 
                       else
                       {
-                        v65 = nplog_obj();
-                        v17 = v91;
-                        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+                        v59 = nplog_obj();
+                        v16 = v85;
+                        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 0;
-                          _os_log_debug_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEBUG, "Proxy match dictionary does not include bundle IDs or match domains, ignoring", buf, 2u);
+                          _os_log_debug_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEBUG, "Proxy match dictionary does not include bundle IDs or match domains, ignoring", buf, 2u);
                         }
-
-                        v18 = NEPolicySession_ptr;
                       }
 
-                      v13 = v92;
-                      v11 = v93;
-                      goto LABEL_53;
+                      v13 = v86;
+                      v11 = v87;
+                      goto LABEL_52;
                     }
                   }
 
-                  v42 = [obj countByEnumeratingWithState:&v105 objects:v119 count:16];
-                  v16 = NEPolicySession_ptr;
-                  if (v42)
+                  v36 = [obj countByEnumeratingWithState:&v99 objects:v113 count:16];
+                  if (v36)
                   {
                     continue;
                   }
@@ -1865,57 +2021,56 @@ LABEL_96:
                 }
               }
 
-              v13 = v92;
-              v11 = v93;
-              v17 = v91;
+              v13 = v86;
+              v11 = v87;
+              v16 = v85;
             }
 
             else
             {
-              v47 = nplog_obj();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+              v41 = nplog_obj();
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 0;
-                _os_log_debug_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEBUG, "Proxy match dictionary in PvD missing proxies array", buf, 2u);
+                _os_log_debug_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "Proxy match dictionary in PvD missing proxies array", buf, 2u);
               }
 
-              v13 = v92;
-              v11 = v93;
+              v13 = v86;
+              v11 = v87;
             }
 
-            v18 = NEPolicySession_ptr;
-LABEL_53:
+LABEL_52:
 
             v15 = v15 + 1;
           }
 
           while (v15 != v13);
-          v72 = [v11 countByEnumeratingWithState:&v113 objects:v123 count:16];
-          v13 = v72;
-          configurationCopy = v89;
-          v14 = v90;
-          v8 = v95;
-          if (!v72)
+          v66 = [v11 countByEnumeratingWithState:&v107 objects:v117 count:16];
+          v13 = v66;
+          configurationCopy = v83;
+          v14 = v84;
+          v8 = v89;
+          if (!v66)
           {
-LABEL_107:
+LABEL_105:
 
-            v74 = v14;
-            v73 = v74;
-            goto LABEL_114;
+            v68 = v14;
+            v67 = v68;
+            goto LABEL_112;
           }
         }
       }
     }
 
-    v74 = nplog_obj();
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+    v68 = nplog_obj();
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_debug_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEBUG, "No proxy match list in PvD, ignoring", buf, 2u);
+      _os_log_debug_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEBUG, "No proxy match list in PvD, ignoring", buf, 2u);
     }
 
-    v73 = 0;
-LABEL_114:
+    v67 = 0;
+LABEL_112:
   }
 
   else
@@ -1927,10 +2082,10 @@ LABEL_114:
       _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "No PvD configuration or proxy identifier, ignoring", buf, 2u);
     }
 
-    v73 = 0;
+    v67 = 0;
   }
 
-  return v73;
+  return v67;
 }
 
 - (void)fetchResumableSessionTickets
@@ -2232,7 +2387,7 @@ LABEL_114:
         if (os_log_type_enabled(fallbackAgentUUID2, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
-          v105 = "[NSPProxiedContentPath resetQUICProxyAgentForceUpdateDelegate:]";
+          v104 = "[NSPProxiedContentPath resetQUICProxyAgentForceUpdateDelegate:]";
           _os_log_fault_impl(&_mh_execute_header, fallbackAgentUUID2, OS_LOG_TYPE_FAULT, "%s called with null self.quicRegistration", buf, 0xCu);
         }
 
@@ -2247,7 +2402,7 @@ LABEL_114:
       fallbackRegistration = [(NSPProxiedContentPath *)self fallbackRegistration];
       if (!fallbackRegistration)
       {
-        v102 = 0;
+        v101 = 0;
         fallbackAgentUUID2 = 0;
         goto LABEL_10;
       }
@@ -2259,14 +2414,14 @@ LABEL_114:
       {
         fallbackAgentUUID2 = [(NSPProxiedContentPath *)self fallbackAgentUUID];
         fallbackRegistration2 = [(NSPProxiedContentPath *)self fallbackRegistration];
-        v102 = sub_100042F70(fallbackRegistration2);
+        v101 = sub_100042F70(fallbackRegistration2);
 LABEL_10:
 
         goto LABEL_12;
       }
     }
 
-    v102 = 0;
+    v101 = 0;
     fallbackAgentUUID2 = 0;
 LABEL_12:
     delegate = [(NSPProxiedContentPath *)self delegate];
@@ -2384,8 +2539,8 @@ LABEL_12:
       v38 = 0;
     }
 
-    v86 = v38;
-    proxyVersion2 = [v86 proxyVersion];
+    v85 = v38;
+    proxyVersion2 = [v85 proxyVersion];
     if (v23)
     {
       v39 = *(v23 + 24);
@@ -2396,8 +2551,8 @@ LABEL_12:
       v39 = 0;
     }
 
-    v85 = v39;
-    supportsResumption = [v85 supportsResumption];
+    v84 = v39;
+    supportsResumption = [v84 supportsResumption];
     if (egressProxy2)
     {
       v40 = *(egressProxy2 + 24);
@@ -2408,8 +2563,8 @@ LABEL_12:
       v40 = 0;
     }
 
-    v84 = v40;
-    supportsResumption2 = [v84 supportsResumption];
+    v83 = v40;
+    supportsResumption2 = [v83 supportsResumption];
     if (v23)
     {
       v41 = *(v23 + 24);
@@ -2420,8 +2575,8 @@ LABEL_12:
       v41 = 0;
     }
 
-    v83 = v41;
-    v78 = [(NSPProxiedContentPath *)self shouldUsePQTLSWithProxyInfo:?];
+    v82 = v41;
+    v77 = [(NSPProxiedContentPath *)self shouldUsePQTLSWithProxyInfo:?];
     if (egressProxy2)
     {
       v42 = *(egressProxy2 + 24);
@@ -2432,10 +2587,10 @@ LABEL_12:
       v42 = 0;
     }
 
-    v81 = v42;
-    usesPQTLS = [v81 usesPQTLS];
-    v80 = sub_100004F70(v23);
-    if (v80)
+    v80 = v42;
+    usesPQTLS = [v80 usesPQTLS];
+    v79 = sub_100004F70(v23);
+    if (v79)
     {
       if (v23)
       {
@@ -2447,16 +2602,16 @@ LABEL_12:
         v43 = 0;
       }
 
-      v96 = v43;
+      v95 = v43;
     }
 
     else
     {
-      v96 = 0;
+      v95 = 0;
     }
 
-    v76 = sub_100004F70(egressProxy2);
-    if (v76)
+    v75 = sub_100004F70(egressProxy2);
+    if (v75)
     {
       if (egressProxy2)
       {
@@ -2468,16 +2623,16 @@ LABEL_12:
         v44 = 0;
       }
 
-      v75 = v44;
+      v74 = v44;
     }
 
     else
     {
-      v75 = 0;
+      v74 = 0;
     }
 
-    v89 = v33;
-    v87 = v37;
+    v88 = v33;
+    v86 = v37;
     if (v23)
     {
       v45 = *(v23 + 24);
@@ -2491,11 +2646,11 @@ LABEL_12:
     v46 = v45;
     tokenChallenge = [v46 tokenChallenge];
     v48 = tokenChallenge;
-    v95 = v23;
-    v94 = egressProxy2;
-    v92 = v27;
-    v90 = v31;
-    v88 = v35;
+    v94 = v23;
+    v93 = egressProxy2;
+    v91 = v27;
+    v89 = v31;
+    v87 = v35;
     v49 = quicRegistration3;
     if (egressProxy2)
     {
@@ -2514,15 +2669,13 @@ LABEL_12:
     selfCopy = self;
     associatedMaps = [(NSPProxiedContentPath *)self associatedMaps];
     firstObject = [associatedMaps firstObject];
-    BYTE1(v73) = tokenChallenge2 != 0;
-    LOBYTE(v73) = v51;
-    sub_10004648C(v49, proxyURL, proxyURL2, proxyKeyInfos, proxyKeyInfos2, proxyVersion, proxyVersion2, supportsResumption, supportsResumption2, v78, usesPQTLS, v96, v75, v73, resolvedAddresses2, fallbackAgentUUID2, v102, [firstObject isPrivacyProxy]);
+    sub_10004648C(v49, proxyURL, proxyURL2, proxyKeyInfos, proxyKeyInfos2, proxyVersion, proxyVersion2, supportsResumption, supportsResumption2, v77, usesPQTLS, v95, v74, v51, tokenChallenge2 != 0, resolvedAddresses2, fallbackAgentUUID2, v101, [firstObject isPrivacyProxy]);
 
-    if (v76)
+    if (v75)
     {
     }
 
-    if (v80)
+    if (v79)
     {
     }
 
@@ -2531,7 +2684,7 @@ LABEL_12:
     if (resolver)
     {
       v59 = resolver;
-      v60 = [v57 isEqualToData:v92];
+      v60 = [v57 isEqualToData:v91];
 
       if ((v60 & 1) == 0)
       {
@@ -2539,9 +2692,9 @@ LABEL_12:
       }
     }
 
-    if (v95)
+    if (v94)
     {
-      v61 = v95[3];
+      v61 = v94[3];
     }
 
     else
@@ -2572,9 +2725,9 @@ LABEL_12:
         {
           shortName2 = [(NSPProxiedContentPath *)selfCopy shortName];
           *buf = 138412546;
-          v105 = shortName2;
-          v106 = 1024;
-          v107 = tokenCount;
+          v104 = shortName2;
+          v105 = 1024;
+          v106 = tokenCount;
           _os_log_debug_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEBUG, "proxied content path [%@] has %u tickets, not fetching more", buf, 0x12u);
         }
       }
@@ -2585,9 +2738,9 @@ LABEL_12:
         {
           shortName3 = [(NSPProxiedContentPath *)selfCopy shortName];
           *buf = 138412546;
-          v105 = shortName3;
-          v106 = 1024;
-          v107 = tokenCount;
+          v104 = shortName3;
+          v105 = 1024;
+          v106 = tokenCount;
           _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "proxied content path [%@] has %u tickets, fetching more", buf, 0x12u);
         }
 
@@ -2612,7 +2765,7 @@ LABEL_87:
         goto LABEL_88;
       }
 
-      if (v74)
+      if (v73)
       {
       }
 
@@ -2630,7 +2783,7 @@ LABEL_89:
       }
     }
 
-    else if ((v74 & 1) == 0 && [(NSPProxiedContentPath *)selfCopy proxiedContentAgentRegistered])
+    else if ((v73 & 1) == 0 && [(NSPProxiedContentPath *)selfCopy proxiedContentAgentRegistered])
     {
       goto LABEL_88;
     }
@@ -2658,22 +2811,8 @@ LABEL_89:
 
     fallbackRegistration = [(NSPProxiedContentPath *)self fallbackRegistration];
 
-    if (fallbackRegistration)
+    if (fallbackRegistration || (v7 = [NSPPrivacyProxyProxiedContentFallbackNetworkRegistration alloc], [(NSPProxiedContentPath *)self fallbackAgentUUID], v8 = objc_claimAutoreleasedReturnValue(), [(NSPProxiedContentPath *)self shortName], v9 = objc_claimAutoreleasedReturnValue(), v10 = sub_100046F60(&v7->super.super, v8, v9, self), [(NSPProxiedContentPath *)self setFallbackRegistration:v10], v10, v9, v8, [(NSPProxiedContentPath *)self fallbackRegistration], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
     {
-      goto LABEL_7;
-    }
-
-    v7 = [NSPPrivacyProxyProxiedContentFallbackNetworkRegistration alloc];
-    fallbackAgentUUID2 = [(NSPProxiedContentPath *)self fallbackAgentUUID];
-    shortName = [(NSPProxiedContentPath *)self shortName];
-    v10 = sub_100046F60(&v7->super.super, fallbackAgentUUID2, shortName, self);
-    [(NSPProxiedContentPath *)self setFallbackRegistration:v10];
-
-    fallbackRegistration2 = [(NSPProxiedContentPath *)self fallbackRegistration];
-
-    if (fallbackRegistration2)
-    {
-LABEL_7:
       ingressProxy = [(NSPProxiedContentPath *)self ingressProxy];
       if (ingressProxy)
       {
@@ -2684,7 +2823,7 @@ LABEL_7:
       {
         [(NSPProxiedContentPath *)self egressProxy];
       }
-      v66 = ;
+      v65 = ;
 
       ingressProxy2 = [(NSPProxiedContentPath *)self ingressProxy];
       if (ingressProxy2)
@@ -2697,10 +2836,10 @@ LABEL_7:
         egressProxy2 = 0;
       }
 
-      fallbackRegistration3 = [(NSPProxiedContentPath *)self fallbackRegistration];
-      if (v66)
+      fallbackRegistration2 = [(NSPProxiedContentPath *)self fallbackRegistration];
+      if (v65)
       {
-        v16 = v66[3];
+        v16 = v65[3];
       }
 
       else
@@ -2722,9 +2861,9 @@ LABEL_7:
 
       v20 = v19;
       tcpProxyFqdn2 = [v20 tcpProxyFqdn];
-      if (v66)
+      if (v65)
       {
-        v22 = v66[3];
+        v22 = v65[3];
       }
 
       else
@@ -2746,9 +2885,9 @@ LABEL_7:
 
       v26 = v25;
       proxyKeyInfos2 = [v26 proxyKeyInfos];
-      if (v66)
+      if (v65)
       {
-        v27 = v66[3];
+        v27 = v65[3];
       }
 
       else
@@ -2756,8 +2895,8 @@ LABEL_7:
         v27 = 0;
       }
 
-      v56 = v27;
-      proxyVersion = [v56 proxyVersion];
+      v55 = v27;
+      proxyVersion = [v55 proxyVersion];
       if (egressProxy2)
       {
         v28 = egressProxy2[3];
@@ -2768,11 +2907,11 @@ LABEL_7:
         v28 = 0;
       }
 
-      v55 = v28;
-      proxyVersion2 = [v55 proxyVersion];
-      if (v66)
+      v54 = v28;
+      proxyVersion2 = [v54 proxyVersion];
+      if (v65)
       {
-        v29 = v66[3];
+        v29 = v65[3];
       }
 
       else
@@ -2780,8 +2919,8 @@ LABEL_7:
         v29 = 0;
       }
 
-      v54 = v29;
-      supportsResumption = [v54 supportsResumption];
+      v53 = v29;
+      supportsResumption = [v53 supportsResumption];
       if (egressProxy2)
       {
         v30 = egressProxy2[3];
@@ -2792,14 +2931,14 @@ LABEL_7:
         v30 = 0;
       }
 
-      v53 = v30;
-      supportsResumption2 = [v53 supportsResumption];
-      v52 = sub_100004F70(v66);
-      if (v52)
+      v52 = v30;
+      supportsResumption2 = [v52 supportsResumption];
+      v51 = sub_100004F70(v65);
+      if (v51)
       {
-        if (v66)
+        if (v65)
         {
-          v31 = v66[6];
+          v31 = v65[6];
         }
 
         else
@@ -2807,16 +2946,16 @@ LABEL_7:
           v31 = 0;
         }
 
-        v62 = v31;
+        v61 = v31;
       }
 
       else
       {
-        v62 = 0;
+        v61 = 0;
       }
 
-      v49 = sub_100004F70(egressProxy2);
-      if (v49)
+      v48 = sub_100004F70(egressProxy2);
+      if (v48)
       {
         if (egressProxy2)
         {
@@ -2836,11 +2975,11 @@ LABEL_7:
         v33 = 0;
       }
 
-      v59 = v23;
-      v48 = v33;
-      if (v66)
+      v58 = v23;
+      v47 = v33;
+      if (v65)
       {
-        v34 = v66[3];
+        v34 = v65[3];
       }
 
       else
@@ -2848,15 +2987,15 @@ LABEL_7:
         v34 = 0;
       }
 
-      v47 = v34;
-      tokenChallenge = [v47 tokenChallenge];
+      v46 = v34;
+      tokenChallenge = [v46 tokenChallenge];
       v36 = tokenChallenge;
-      v61 = v17;
-      v60 = tcpProxyFqdn2;
-      v57 = v26;
-      v58 = proxyKeyInfos;
+      v60 = v17;
+      v59 = tcpProxyFqdn2;
+      v56 = v26;
+      v57 = proxyKeyInfos;
       v37 = tcpProxyFqdn;
-      v38 = fallbackRegistration3;
+      v38 = fallbackRegistration2;
       if (egressProxy2)
       {
         v39 = egressProxy2[3];
@@ -2872,15 +3011,13 @@ LABEL_7:
       tokenChallenge2 = [v41 tokenChallenge];
       associatedMaps = [(NSPProxiedContentPath *)self associatedMaps];
       firstObject = [associatedMaps firstObject];
-      HIBYTE(v46) = tokenChallenge2 != 0;
-      LOBYTE(v46) = v40;
-      sub_100047014(v38, v37, v60, v58, proxyKeyInfos2, proxyVersion, proxyVersion2, supportsResumption, supportsResumption2, v62, v48, v46, [firstObject isPrivacyProxy]);
+      sub_100047014(v38, v37, v59, v57, proxyKeyInfos2, proxyVersion, proxyVersion2, supportsResumption, supportsResumption2, v61, v47, v40, tokenChallenge2 != 0, [firstObject isPrivacyProxy]);
 
-      if (v49)
+      if (v48)
       {
       }
 
-      if (v52)
+      if (v51)
       {
       }
     }
@@ -2891,7 +3028,7 @@ LABEL_7:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v68 = "[NSPProxiedContentPath resetFallbackProxyAgent]";
+        v67 = "[NSPProxiedContentPath resetFallbackProxyAgent]";
         _os_log_fault_impl(&_mh_execute_header, v45, OS_LOG_TYPE_FAULT, "%s called with null self.fallbackRegistration", buf, 0xCu);
       }
     }
@@ -2904,7 +3041,7 @@ LABEL_7:
 
   if (resolver)
   {
-    v6 = sub_100053E68();
+    v6 = sub_100053E68(NSPServer);
     v8 = sub_100074784(v6, v7);
 
     resolverAgentUUID = [(NSPProxiedContentPath *)self resolverAgentUUID];
@@ -3109,6 +3246,18 @@ LABEL_28:
 LABEL_36:
 
     goto LABEL_37;
+  }
+}
+
+- (void)setupProxyAgentsForceUpdateDelegate:(BOOL)delegate
+{
+  delegateCopy = delegate;
+  if ([(NSPProxiedContentPath *)self pathReady])
+  {
+    [(NSPProxiedContentPath *)self resetFallbackProxyAgent];
+    [(NSPProxiedContentPath *)self resetQUICProxyAgentForceUpdateDelegate:delegateCopy];
+
+    [(NSPProxiedContentPath *)self resetResolverAgentForceUpdateDelegate:delegateCopy];
   }
 }
 

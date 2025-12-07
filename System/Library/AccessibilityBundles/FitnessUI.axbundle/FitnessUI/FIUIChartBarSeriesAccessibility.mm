@@ -78,28 +78,28 @@
 
   if (v6 == unitCopy)
   {
-    v9 = AXTimeStringForType();
+    v10 = AXTimeStringForType();
     goto LABEL_5;
   }
 
-  v7 = accessibilityUnitManager();
-  userActiveEnergyBurnedUnit = [v7 userActiveEnergyBurnedUnit];
+  v8 = accessibilityUnitManager(v7);
+  userActiveEnergyBurnedUnit = [v8 userActiveEnergyBurnedUnit];
 
-  if (userActiveEnergyBurnedUnit != unitCopy || ([HKQuantity quantityWithUnit:unitCopy doubleValue:value], (v12 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (userActiveEnergyBurnedUnit != unitCopy || ([HKQuantity quantityWithUnit:unitCopy doubleValue:value], (v13 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v9 = AXFormatInteger();
+    v10 = AXFormatInteger();
 LABEL_5:
-    v10 = v9;
+    v11 = v10;
     goto LABEL_6;
   }
 
-  v13 = v12;
-  v14 = accessibilityFormattingManager();
-  v10 = [v14 localizedStringWithActiveEnergy:v13 unitStyle:3];
+  v14 = v13;
+  v15 = accessibilityFormattingManager(v13);
+  v11 = [v15 localizedStringWithActiveEnergy:v14 unitStyle:3];
 
 LABEL_6:
 
-  return v10;
+  return v11;
 }
 
 @end

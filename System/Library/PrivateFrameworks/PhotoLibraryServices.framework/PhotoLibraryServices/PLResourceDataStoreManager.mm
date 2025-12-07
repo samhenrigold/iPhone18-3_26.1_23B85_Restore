@@ -230,7 +230,7 @@ LABEL_33:
         v51 = *(*(&v69 + 1) + 8 * j);
         v52 = [v51 updateDerivativeResourcesForAsset:v12 forLifecycleEvent:v7];
         [v13 unionSet:v52];
-        if ([v52 count])
+        if (objc_msgSend_count(v52))
         {
           v53 = PLImageManagerGetLog();
           if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
@@ -374,8 +374,8 @@ LABEL_13:
   v6 = [s_dataStoresByClassIDByLibraryID objectForKeyedSubscript:dCopy];
   allValues = [v6 allValues];
   os_unfair_lock_unlock(&s_lock);
-  v8 = [allValues count];
-  if (v8 < [storesForLibraryID__defaultStoreClassIDs count])
+  v8 = objc_msgSend_count(allValues);
+  if (v8 < objc_msgSend_count(storesForLibraryID__defaultStoreClassIDs))
   {
     if (!allValues)
     {

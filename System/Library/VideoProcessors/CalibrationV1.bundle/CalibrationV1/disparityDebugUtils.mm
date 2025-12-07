@@ -1,6 +1,8 @@
 @interface disparityDebugUtils
 + (void)createPathIfNeeded:(id)needed;
 - (disparityDebugUtils)initWithMetalContext:(id)context;
+- (void)ApplyColorWheelAndWrite:(unsigned int)write height:(unsigned int)height data:(float *)data fileFullPath:(const char *)path;
+- (void)WriteBinDataToFile:(void *)file length:(unsigned int)length fileFullPath:(const char *)path;
 - (void)computeRobustMinMaxForF16DisparityBuffer:(__CVBuffer *)buffer WithDisparityScale:(float)scale AndPercentile:(float)percentile OutSignalMin:(float *)min OutSignalMax:(float *)max;
 - (void)convertRGB10A2ToRGBA8:(char *)a8 rbs:(unint64_t)rbs ToRGBA:(char *)a outWidth:(unsigned int)width outHeight:(unsigned int)height;
 - (void)convertVUYA444:(char *)rbs44 rbs:(unint64_t)rbs ToRGBA:(char *)a ofSize:(CGSize)size;
@@ -35,6 +37,8 @@
 - (void)saveRGBA8Texture:(id)texture AsPPMFile:(const char *)file;
 - (void)saveRGBAF16PixelBuffer:(__CVBuffer *)buffer AsPPMFile:(const char *)file;
 - (void)saveRGBAF16PixelBuffer:(__CVBuffer *)buffer AsPPMFileWithAlpha:(const char *)alpha;
+- (void)saveRGBAF16PixelBuffer:(__CVBuffer *)buffer out_width:(unsigned int)out_width out_height:(unsigned int)out_height AsPPMFile:(const char *)file;
+- (void)saveRGBAF16PixelBuffer:(__CVBuffer *)buffer out_width:(unsigned int)out_width out_height:(unsigned int)out_height AsPPMFileWithAlpha:(const char *)alpha;
 - (void)saveRGBATexture:(id)texture AsPPMFile:(const char *)file;
 - (void)saveRGF16ShiftmapTexture:(id)texture AsPPMFileSx:(id)sx AsPPMFileSy:(id)sy;
 - (void)saveRGF16Texture:(id)texture AsF32BinaryFile0:(id)file0 AsF32BinaryFile1:(id)file1;
@@ -42,6 +46,7 @@
 - (void)saveU16Texture:(id)texture AsPGMFile:(const char *)file;
 - (void)saveU8Buffer:(__CVBuffer *)buffer AsPPMFile:(const char *)file;
 - (void)saveU8Texture:(id)texture AsPGMFile:(const char *)file;
+- (void)saveVUYA4444PixelBuffer:(__CVBuffer *)buffer out_width:(unsigned int)out_width out_height:(unsigned int)out_height AsBinaryFile:(const char *)file;
 - (void)saveVUYA4444PixelBuffer:(__CVBuffer *)buffer out_width:(unsigned int)out_width out_height:(unsigned int)out_height AsPPMFile:(const char *)file;
 - (void)saveVUYA4444Texture:(id)texture AsBinaryFile:(const char *)file;
 - (void)saveVUYA4444Texture:(id)texture AsPPMFile:(const char *)file;
@@ -264,7 +269,7 @@
         {
           v19 = vdupq_n_s16((BaseAddress[v18] * 255.0));
           v19.i16[3] = 255;
-          *(v9 + v18++) = vmovn_s16(v19).u32[0];
+          *&v9[4 * v18++] = vmovn_s16(v19).u32[0];
           --v17;
         }
 
@@ -310,7 +315,7 @@
         {
           v22 = vdupq_n_s16(BaseAddress[v20]);
           v22.i16[3] = 255;
-          *(v10 + v21++) = vmovn_s16(v22).u32[0];
+          *&v10[4 * v21++] = vmovn_s16(v22).u32[0];
           ++v20;
           --v19;
         }
@@ -367,6 +372,57 @@
 
   objc_msgSend_WriteBinDataToFile_length_fileFullPath_(self, v25, v19, 4 * v12 * v18, file, v26);
   free(v19);
+}
+
+- (void)saveVUYA4444PixelBuffer:(__CVBuffer *)buffer out_width:(unsigned int)out_width out_height:(unsigned int)out_height AsBinaryFile:(const char *)file
+{
+  Height = out_height;
+  Width = out_width;
+  v9 = sub_2956EEA7C(file, a2, buffer, *&out_width, *&out_height, file);
+  if (!v9)
+  {
+    return;
+  }
+
+  v10 = v9;
+  CVPixelBufferLockBaseAddress(buffer, 1uLL);
+  if (!Width)
+  {
+    Width = CVPixelBufferGetWidth(buffer);
+    if (Height)
+    {
+      goto LABEL_4;
+    }
+
+LABEL_12:
+    Height = CVPixelBufferGetHeight(buffer);
+    goto LABEL_4;
+  }
+
+  if (!Height)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_4:
+  BytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
+  BaseAddress = CVPixelBufferGetBaseAddress(buffer);
+  if (Height)
+  {
+    v13 = BaseAddress;
+    do
+    {
+      fwrite(v13, 4uLL, Width, v10);
+      v13 += BytesPerRow;
+      --Height;
+    }
+
+    while (Height);
+  }
+
+  fclose(v10);
+
+  CVPixelBufferUnlockBaseAddress(buffer, 1uLL);
 }
 
 - (void)saveVUYA4444PixelBuffer:(__CVBuffer *)buffer out_width:(unsigned int)out_width out_height:(unsigned int)out_height AsPPMFile:(const char *)file
@@ -1037,10 +1093,10 @@ LABEL_23:
         do
         {
           v39 = ~(((v36[v37] - _S9) / v34) * 255.0);
-          *(v28 + v38 - 3) = v39;
-          *(v28 + v38 - 2) = v39;
-          *(v28 + v38 - 1) = v39;
-          *(v28 + v38) = -1;
+          v28[v38 - 3] = v39;
+          v28[v38 - 2] = v39;
+          v28[v38 - 1] = v39;
+          v28[v38] = -1;
           ++v37;
           v38 += 4;
         }
@@ -1173,10 +1229,10 @@ LABEL_23:
         do
         {
           v56 = ~(((v53[v54] - v44) / v51) * 255.0);
-          *(v45 + v55 - 3) = v56;
-          *(v45 + v55 - 2) = v56;
-          *(v45 + v55 - 1) = v56;
-          *(v45 + v55) = -1;
+          v45[v55 - 3] = v56;
+          v45[v55 - 2] = v56;
+          v45[v55 - 1] = v56;
+          v45[v55] = -1;
           ++v54;
           v55 += 4;
         }
@@ -1196,6 +1252,17 @@ LABEL_23:
   free(v47);
   free(v24);
   free(v27);
+}
+
+- (void)ApplyColorWheelAndWrite:(unsigned int)write height:(unsigned int)height data:(float *)data fileFullPath:(const char *)path
+{
+  v8 = *&height;
+  v16 = sub_2956EDF08(80, 30, 20, 20, 30, 0, 0, 1, 0.0);
+  v10 = malloc_type_malloc(4 * write * v8, 0x7C78171DuLL);
+  sub_2956EE624(v16, write, v8, data, 4 * write, 4, v10, 4 * write, v11, v12, v13, v14, 4);
+  sub_2956EF080(write, v8, 4 * write, v10, path, v15);
+  free(v10);
+  sub_2956EE500(&v16);
 }
 
 - (void)saveF16DisparityBuffer:(__CVBuffer *)buffer AsBinaryFile:(const char *)file
@@ -1764,12 +1831,160 @@ LABEL_18:
   MEMORY[0x2A1C70FE8](self, sel_saveRGBAF16PixelBuffer_out_width_out_height_AsPPMFile_, buffer, Width, Height, file);
 }
 
+- (void)saveRGBAF16PixelBuffer:(__CVBuffer *)buffer out_width:(unsigned int)out_width out_height:(unsigned int)out_height AsPPMFile:(const char *)file
+{
+  v10 = sub_2956EEA7C(file, a2, buffer, *&out_width, *&out_height, file);
+  if (v10)
+  {
+    v11 = v10;
+    CVPixelBufferLockBaseAddress(buffer, 1uLL);
+    v12 = malloc_type_malloc(3 * out_width, 0x100004077774924uLL);
+    BaseAddress = CVPixelBufferGetBaseAddress(buffer);
+    BytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
+    fprintf(v11, "P6 %u %u 255\n", out_width, out_height);
+    if (out_height)
+    {
+      v15 = 0;
+      v16 = BytesPerRow >> 1;
+      do
+      {
+        if (out_width)
+        {
+          v17 = 0;
+          v18 = 2;
+          do
+          {
+            _H0 = *&BaseAddress[2 * v17];
+            __asm { FCVT            S0, H0 }
+
+            v12[v18 - 2] = vcvtms_s32_f32(_S0 * 255.0);
+            LOWORD(_S0) = *&BaseAddress[2 * (v17 + 1)];
+            __asm { FCVT            S0, H0 }
+
+            v12[v18 - 1] = vcvtms_s32_f32(_S0 * 255.0);
+            LOWORD(_S0) = *&BaseAddress[2 * (v17 + 2)];
+            __asm { FCVT            S0, H0 }
+
+            v12[v18] = vcvtms_s32_f32(_S0 * 255.0);
+            v18 += 3;
+            v17 += 4;
+          }
+
+          while (4 * out_width != v17);
+        }
+
+        fwrite(v12, 3uLL, out_width, v11);
+        BaseAddress += 2 * v16;
+        ++v15;
+      }
+
+      while (v15 != out_height);
+    }
+
+    CVPixelBufferUnlockBaseAddress(buffer, 1uLL);
+    fclose(v11);
+
+    free(v12);
+  }
+
+  else
+  {
+    if (qword_2A1388C80 != -1)
+    {
+      sub_2957017C4();
+    }
+
+    v27 = qword_2A1388C78;
+    if (os_log_type_enabled(qword_2A1388C78, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      fileCopy = file;
+      _os_log_impl(&dword_2956ED000, v27, OS_LOG_TYPE_DEFAULT, "Could not create %s", buf, 0xCu);
+    }
+  }
+}
+
 - (void)saveRGBAF16PixelBuffer:(__CVBuffer *)buffer AsPPMFileWithAlpha:(const char *)alpha
 {
   Width = CVPixelBufferGetWidth(buffer);
   Height = CVPixelBufferGetHeight(buffer);
 
   MEMORY[0x2A1C70FE8](self, sel_saveRGBAF16PixelBuffer_out_width_out_height_AsPPMFileWithAlpha_, buffer, Width, Height, alpha);
+}
+
+- (void)saveRGBAF16PixelBuffer:(__CVBuffer *)buffer out_width:(unsigned int)out_width out_height:(unsigned int)out_height AsPPMFileWithAlpha:(const char *)alpha
+{
+  v10 = sub_2956EEA7C(alpha, a2, buffer, *&out_width, *&out_height, alpha);
+  if (v10)
+  {
+    v11 = v10;
+    CVPixelBufferLockBaseAddress(buffer, 1uLL);
+    v12 = malloc_type_malloc(4 * out_width, 0x100004077774924uLL);
+    BaseAddress = CVPixelBufferGetBaseAddress(buffer);
+    BytesPerRow = CVPixelBufferGetBytesPerRow(buffer);
+    fprintf(v11, "P7\nWIDTH %u\nHEIGHT %u\nDEPTH 4\nMAXVAL 255\nTUPLTYPE RGB_ALPHA\nENDHDR", out_width, out_height);
+    if (out_height)
+    {
+      v15 = 0;
+      v16 = BytesPerRow >> 1;
+      do
+      {
+        if (out_width)
+        {
+          v17 = 0;
+          do
+          {
+            _H0 = *&BaseAddress[2 * v17];
+            __asm { FCVT            S0, H0 }
+
+            v12[v17] = vcvtms_s32_f32(_S0 * 255.0);
+            LOWORD(_S0) = *&BaseAddress[2 * (v17 + 1)];
+            __asm { FCVT            S0, H0 }
+
+            v12[(v17 + 1)] = vcvtms_s32_f32(_S0 * 255.0);
+            LOWORD(_S0) = *&BaseAddress[2 * (v17 + 2)];
+            __asm { FCVT            S0, H0 }
+
+            v12[(v17 + 2)] = vcvtms_s32_f32(_S0 * 255.0);
+            LOWORD(_S0) = *&BaseAddress[2 * (v17 + 3)];
+            __asm { FCVT            S0, H0 }
+
+            v12[(v17 + 3)] = vcvtms_s32_f32(_S0 * 255.0);
+            v17 += 4;
+          }
+
+          while (4 * out_width != v17);
+        }
+
+        fwrite(v12, 4uLL, out_width, v11);
+        BaseAddress += 2 * v16;
+        ++v15;
+      }
+
+      while (v15 != out_height);
+    }
+
+    CVPixelBufferUnlockBaseAddress(buffer, 1uLL);
+    fclose(v11);
+
+    free(v12);
+  }
+
+  else
+  {
+    if (qword_2A1388C80 != -1)
+    {
+      sub_2957017C4();
+    }
+
+    v27 = qword_2A1388C78;
+    if (os_log_type_enabled(qword_2A1388C78, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      alphaCopy = alpha;
+      _os_log_impl(&dword_2956ED000, v27, OS_LOG_TYPE_DEFAULT, "Could not create %s", buf, 0xCu);
+    }
+  }
 }
 
 - (void)saveF16Texture:(id)texture AsF32BinaryFile:(const char *)file
@@ -2067,6 +2282,18 @@ LABEL_38:
   v15 = v22;
   v21 = objc_msgSend_UTF8String(v22, v16, v17, v18, v19, v20);
   MEMORY[0x29C250900](v21, buffer);
+}
+
+- (void)WriteBinDataToFile:(void *)file length:(unsigned int)length fileFullPath:(const char *)path
+{
+  v8 = sub_2956EEA7C(path, a2, file, *&length, path, v5);
+  if (v8)
+  {
+    v9 = v8;
+    fwrite(file, 1uLL, length, v8);
+
+    fclose(v9);
+  }
 }
 
 + (void)createPathIfNeeded:(id)needed

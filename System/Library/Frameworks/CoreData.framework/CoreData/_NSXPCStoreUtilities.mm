@@ -1,5 +1,5 @@
 @interface _NSXPCStoreUtilities
-+ (_PFArray)_decodeResultSetData:(NSFetchRequest *)data forFetchRequest:(uint64_t)request options:(NSPersistentStore *)options store:(void *)store context:(void *)context rowCacheRows:(void *)rows error:;
++ (_PFArray)_decodeResultSetData:(NSFetchRequest *)data forFetchRequest:(uint64_t)request options:(NSPersistentStore *)options store:(NSManagedObjectContext *)store context:(void *)context rowCacheRows:(void *)rows error:;
 + (_PFResultArray)_decodeBufferResultSetData:(void *)data forFetchRequest:(uint64_t)request options:(uint64_t)options store:(uint64_t)store context:(uint64_t)context rowCacheRows:(uint64_t *)rows error:;
 + (id)newSecureArchivedDataWithRootObject:(uint64_t)object;
 + (uint64_t)classesForErrorArchive;
@@ -17,8 +17,7 @@
   objc_opt_self();
   if (!classesForFetchArchive_archiveClasses)
   {
-    v0 = objc_alloc(MEMORY[0x1E695DFA8]);
-    v1 = objc_opt_class();
+    v1 = objc_alloc(MEMORY[0x1E695DFA8]);
     v2 = objc_opt_class();
     v3 = objc_opt_class();
     v4 = objc_opt_class();
@@ -27,25 +26,26 @@
     v7 = objc_opt_class();
     v8 = objc_opt_class();
     v9 = objc_opt_class();
-    v10 = [v0 initWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
-    v11 = NSClassFromString(@"_NSPredicateUtilities");
-    [v10 unionSet:{-[objc_class _compoundPredicateClassesForSecureCoding](NSClassFromString(@"_NSPredicateUtilities"), "_compoundPredicateClassesForSecureCoding")}];
-    [v10 unionSet:{-[objc_class _extendedExpressionClassesForSecureCoding](v11, "_extendedExpressionClassesForSecureCoding")}];
-    [v10 unionSet:{-[objc_class _operatorClassesForSecureCoding](v11, "_operatorClassesForSecureCoding")}];
-    [v10 unionSet:{-[objc_class _constantValueClassesForSecureCoding](v11, "_constantValueClassesForSecureCoding")}];
-    [v10 addObject:NSClassFromString(@"NSBoundedByPredicateOperator")];
-    [v10 addObjectsFromArray:{+[NSKnownKeysDictionary classesForArchiving](NSKnownKeysDictionary, "classesForArchiving")}];
-    v12 = NSClassFromString(@"_NSXPCStoreObjectIDArrayConstantValueExpression");
-    if (v12)
+    v10 = objc_opt_class();
+    v11 = [v1 initWithObjects:{v2, v3, v4, v5, v6, v7, v8, v9, v10, objc_opt_class(), 0}];
+    v12 = NSClassFromString(@"_NSPredicateUtilities");
+    [v11 unionSet:{-[objc_class _compoundPredicateClassesForSecureCoding](NSClassFromString(@"_NSPredicateUtilities"), "_compoundPredicateClassesForSecureCoding")}];
+    [v11 unionSet:{-[objc_class _extendedExpressionClassesForSecureCoding](v12, "_extendedExpressionClassesForSecureCoding")}];
+    [v11 unionSet:{-[objc_class _operatorClassesForSecureCoding](v12, "_operatorClassesForSecureCoding")}];
+    [v11 unionSet:{-[objc_class _constantValueClassesForSecureCoding](v12, "_constantValueClassesForSecureCoding")}];
+    [v11 addObject:NSClassFromString(@"NSBoundedByPredicateOperator")];
+    [v11 addObjectsFromArray:{+[NSKnownKeysDictionary classesForArchiving](NSKnownKeysDictionary, "classesForArchiving")}];
+    v13 = NSClassFromString(@"_NSXPCStoreObjectIDArrayConstantValueExpression");
+    if (v13)
     {
-      [v10 addObject:v12];
+      [v11 addObject:v13];
     }
 
-    v13 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithSet:v10];
+    v14 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithSet:v11];
 
-    v14 = 0;
-    atomic_compare_exchange_strong(&classesForFetchArchive_archiveClasses, &v14, v13);
-    if (v14)
+    v15 = 0;
+    atomic_compare_exchange_strong(&classesForFetchArchive_archiveClasses, &v15, v14);
+    if (v15)
     {
     }
   }
@@ -58,15 +58,14 @@
   objc_opt_self();
   if (!classesForSaveArchive_archiveClasses)
   {
-    v21 = objc_alloc(MEMORY[0x1E695DFA8]);
+    v22 = objc_alloc(MEMORY[0x1E695DFA8]);
+    v21 = objc_opt_class();
     v20 = objc_opt_class();
     v19 = objc_opt_class();
     v18 = objc_opt_class();
     v17 = objc_opt_class();
     v16 = objc_opt_class();
     v15 = objc_opt_class();
-    v14 = objc_opt_class();
-    v0 = objc_opt_class();
     v1 = objc_opt_class();
     v2 = objc_opt_class();
     v3 = objc_opt_class();
@@ -76,14 +75,15 @@
     v7 = objc_opt_class();
     v8 = objc_opt_class();
     v9 = objc_opt_class();
-    v10 = [v21 initWithObjects:{v20, v19, v18, v17, v16, v15, v14, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
-    [v10 addObjectsFromArray:{+[NSKnownKeysDictionary classesForArchiving](NSKnownKeysDictionary, "classesForArchiving")}];
-    [v10 unionSet:{-[objc_class _constantValueClassesForSecureCoding](NSClassFromString(@"_NSPredicateUtilities"), "_constantValueClassesForSecureCoding")}];
-    v11 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithSet:v10];
+    v10 = objc_opt_class();
+    v11 = [v22 initWithObjects:{v21, v20, v19, v18, v17, v16, v15, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, objc_opt_class(), 0}];
+    [v11 addObjectsFromArray:{+[NSKnownKeysDictionary classesForArchiving](NSKnownKeysDictionary, "classesForArchiving")}];
+    [v11 unionSet:{-[objc_class _constantValueClassesForSecureCoding](NSClassFromString(@"_NSPredicateUtilities"), "_constantValueClassesForSecureCoding")}];
+    v12 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithSet:v11];
 
-    v12 = 0;
-    atomic_compare_exchange_strong(&classesForSaveArchive_archiveClasses, &v12, v11);
-    if (v12)
+    v13 = 0;
+    atomic_compare_exchange_strong(&classesForSaveArchive_archiveClasses, &v13, v12);
+    if (v13)
     {
     }
   }
@@ -108,12 +108,13 @@
   objc_opt_self();
   if (component)
   {
-    NSLog(@"%@", [MEMORY[0x1E696AEC0] stringWithFormat:@"CoreData: XPC: %@", component]);
+    v3 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], component);
+    NSLog(@"%@", v3);
   }
 
   else
   {
-    v3 = objc_autoreleasePoolPush();
+    v4 = objc_autoreleasePoolPush();
     _pflogInitialize(8);
     if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
     {
@@ -129,27 +130,27 @@
 
       else
       {
-        v5 = _PFLogGetLogStream(8);
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v6 = _PFLogGetLogStream(8);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          *v7 = 0;
-          _os_log_impl(&dword_18565F000, v5, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Someone tried to log something but failed because they didn't tell me what to log.\n", v7, 2u);
+          *v8 = 0;
+          _os_log_impl(&dword_18565F000, v6, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Someone tried to log something but failed because they didn't tell me what to log.\n", v8, 2u);
         }
       }
     }
 
     if (_pflogging_catastrophic_mode)
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = 8;
+      v7 = 8;
     }
 
-    _NSCoreDataLog_console(v6, "Someone tried to log something but failed because they didn't tell me what to log.");
-    objc_autoreleasePoolPop(v3);
+    _NSCoreDataLog_console(v7, "Someone tried to log something but failed because they didn't tell me what to log.");
+    objc_autoreleasePoolPop(v4);
   }
 }
 
@@ -158,17 +159,17 @@
   objc_opt_self();
   if (!classesForErrorArchive_archiveClasses)
   {
-    v0 = objc_alloc(MEMORY[0x1E695DFA8]);
-    v1 = objc_opt_class();
+    v1 = objc_alloc(MEMORY[0x1E695DFA8]);
     v2 = objc_opt_class();
-    v3 = [v0 initWithObjects:{v1, v2, objc_opt_class(), 0}];
-    [v3 unionSet:+[_NSXPCStoreUtilities classesForSaveArchive]()];
-    [v3 unionSet:+[_NSXPCStoreUtilities classesForFetchArchive]()];
-    v4 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithSet:v3];
+    v3 = objc_opt_class();
+    v4 = [v1 initWithObjects:{v2, v3, objc_opt_class(), 0}];
+    [v4 unionSet:+[_NSXPCStoreUtilities classesForSaveArchive](_NSXPCStoreUtilities)];
+    [v4 unionSet:+[_NSXPCStoreUtilities classesForFetchArchive](_NSXPCStoreUtilities)];
+    v5 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithSet:v4];
 
-    v5 = 0;
-    atomic_compare_exchange_strong(&classesForErrorArchive_archiveClasses, &v5, v4);
-    if (v5)
+    v6 = 0;
+    atomic_compare_exchange_strong(&classesForErrorArchive_archiveClasses, &v6, v5);
+    if (v6)
     {
     }
   }
@@ -188,14 +189,14 @@
 
 + (uint64_t)newUserInfoFromException:(uint64_t)exception
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [v3 setValue:objc_msgSend(a2 forKey:{"name"), @"exception name"}];
   [v3 setValue:objc_msgSend(a2 forKey:{"reason"), @"exception reason"}];
-  if ([objc_msgSend(a2 "userInfo")])
+  if (objc_msgSend_valueForKey_([a2 userInfo]))
   {
-    [v3 setObject:objc_msgSend(objc_msgSend(a2 forKey:{"userInfo"), "valueForKey:", @"NSSQLiteErrorDomain", @"NSSQLiteErrorDomain"}];
+    [v3 setObject:objc_msgSend_valueForKey_(objc_msgSend(a2 forKey:{"userInfo")), @"NSSQLiteErrorDomain"}];
   }
 
   objc_opt_class();
@@ -214,7 +215,7 @@
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v28 = a2;
+        v27 = a2;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Error: Exception raised: %@\n", buf, 0xCu);
       }
     }
@@ -225,7 +226,7 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = a2;
+        v27 = a2;
         _os_log_impl(&dword_18565F000, v6, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Error: Exception raised: %@\n", buf, 0xCu);
       }
     }
@@ -254,7 +255,7 @@
       {
         callStackSymbols = [a2 callStackSymbols];
         *buf = 138412290;
-        v28 = callStackSymbols;
+        v27 = callStackSymbols;
         _os_log_error_impl(&dword_18565F000, v9, OS_LOG_TYPE_ERROR, "CoreData: error: Error: Callstack: %@\n", buf, 0xCu);
       }
     }
@@ -266,7 +267,7 @@
       {
         callStackSymbols2 = [a2 callStackSymbols];
         *buf = 138412290;
-        v28 = callStackSymbols2;
+        v27 = callStackSymbols2;
         _os_log_impl(&dword_18565F000, v11, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Error: Callstack: %@\n", buf, 0xCu);
       }
     }
@@ -293,7 +294,7 @@
       {
         userInfo = [a2 userInfo];
         *buf = 138412290;
-        v28 = userInfo;
+        v27 = userInfo;
         _os_log_error_impl(&dword_18565F000, v17, OS_LOG_TYPE_ERROR, "CoreData: error: Error: UserInfo: %@\n", buf, 0xCu);
       }
     }
@@ -305,7 +306,7 @@
       {
         userInfo2 = [a2 userInfo];
         *buf = 138412290;
-        v28 = userInfo2;
+        v27 = userInfo2;
         _os_log_impl(&dword_18565F000, v19, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Error: UserInfo: %@\n", buf, 0xCu);
       }
     }
@@ -323,13 +324,12 @@
   objc_autoreleasePoolPop(v16);
   v24 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v3, @"exception info", 0}];
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 + (_PFResultArray)_decodeBufferResultSetData:(void *)data forFetchRequest:(uint64_t)request options:(uint64_t)options store:(uint64_t)store context:(uint64_t)context rowCacheRows:(uint64_t *)rows error:
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   bytes = [a2 bytes];
   v13 = [a2 length];
@@ -342,22 +342,22 @@
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v55 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
-        v56 = 1024;
-        v57 = 1292;
+        v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
+        v54 = 1024;
+        v55 = 1292;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
       v16 = _PFLogGetLogStream(17);
       if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        goto LABEL_52;
+        return 0;
       }
 
       *buf = 136315394;
-      v55 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
-      v56 = 1024;
-      v57 = 1292;
+      v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
+      v54 = 1024;
+      v55 = 1292;
       goto LABEL_51;
     }
 
@@ -366,14 +366,10 @@ LABEL_16:
     {
       v18 = 0;
       *rows = v14;
-LABEL_53:
-      v46 = *MEMORY[0x1E69E9840];
       return v18;
     }
 
-LABEL_52:
-    v18 = 0;
-    goto LABEL_53;
+    return 0;
   }
 
   if (v13 <= 0)
@@ -384,29 +380,29 @@ LABEL_52:
       goto LABEL_16;
     }
 
-    v45 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v44 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v55 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
-      v56 = 1024;
-      v57 = 1308;
-      _os_log_error_impl(&dword_18565F000, v45, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+      v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
+      v54 = 1024;
+      v55 = 1308;
+      _os_log_error_impl(&dword_18565F000, v44, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
     }
 
     v16 = _PFLogGetLogStream(17);
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_52;
+      return 0;
     }
 
     *buf = 136315394;
-    v55 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
-    v56 = 1024;
-    v57 = 1308;
+    v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
+    v54 = 1024;
+    v55 = 1308;
 LABEL_51:
     _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-    goto LABEL_52;
+    return 0;
   }
 
   if (*bytes == 1)
@@ -423,22 +419,22 @@ LABEL_51:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v55 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
-        v56 = 1024;
-        v57 = 1321;
+        v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
+        v54 = 1024;
+        v55 = 1321;
         _os_log_error_impl(&dword_18565F000, v17, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
       v16 = _PFLogGetLogStream(17);
       if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        goto LABEL_52;
+        return 0;
       }
 
       *buf = 136315394;
-      v55 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
-      v56 = 1024;
-      v57 = 1321;
+      v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/XPCStore/_NSXPCStoreUtilities.m";
+      v54 = 1024;
+      v55 = 1321;
       goto LABEL_51;
     }
 
@@ -464,25 +460,25 @@ LABEL_51:
         entity = [data entity];
         v27 = entity ? [objc_msgSend(entity "propertiesByName")] : 0;
         propertiesToFetch = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v27, "count")}];
+        v47 = 0u;
+        v48 = 0u;
         v49 = 0u;
         v50 = 0u;
-        v51 = 0u;
-        v52 = 0u;
-        v28 = [v27 countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v47 objects:v51 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v50;
+          v30 = *v48;
           do
           {
             for (i = 0; i != v29; ++i)
             {
-              if (*v50 != v30)
+              if (*v48 != v30)
               {
                 objc_enumerationMutation(v27);
               }
 
-              v32 = *(*(&v49 + 1) + 8 * i);
+              v32 = *(*(&v47 + 1) + 8 * i);
               entity2 = [data entity];
               if (entity2)
               {
@@ -498,14 +494,14 @@ LABEL_51:
               }
             }
 
-            v29 = [v27 countByEnumeratingWithState:&v49 objects:v53 count:16];
+            v29 = [v27 countByEnumeratingWithState:&v47 objects:v51 count:16];
           }
 
           while (v29);
         }
       }
 
-      v36 = -[NSKnownKeysMappingStrategy initForKeys:]([NSKnownKeysMappingStrategy alloc], "initForKeys:", [propertiesToFetch valueForKey:@"name"]);
+      v36 = [[NSKnownKeysMappingStrategy alloc] initForKeys:objc_msgSend_valueForKey_(propertiesToFetch)];
       v37 = [propertiesToFetch count];
       v38 = v37;
       if (v37 <= 1)
@@ -528,7 +524,7 @@ LABEL_51:
         v40 = v39;
       }
 
-      v41 = &v49 - ((8 * v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v41 = &v47 - ((8 * v40 + 15) & 0xFFFFFFFFFFFFFFF0);
       if (v37 > 0x200)
       {
         v41 = NSAllocateScannedUncollectable();
@@ -536,80 +532,79 @@ LABEL_51:
 
       else
       {
-        bzero(&v49 - ((8 * v40 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v39);
+        bzero(&v47 - ((8 * v40 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v39);
       }
 
       if ([propertiesToFetch count])
       {
-        v47 = 0;
+        v45 = 0;
         do
         {
-          *&v41[8 * v47] = [propertiesToFetch objectAtIndexedSubscript:v47];
-          ++v47;
+          *&v41[8 * v45] = [propertiesToFetch objectAtIndexedSubscript:v45];
+          ++v45;
         }
 
-        while ([propertiesToFetch count] > v47);
+        while ([propertiesToFetch count] > v45);
       }
 
-      v48 = [[NSKnownKeysDictionary alloc] initWithSearchStrategy:v36];
-      [(NSKnownKeysDictionary *)v48 setValues:v41];
+      v46 = [[NSKnownKeysDictionary alloc] initWithSearchStrategy:v36];
+      [(NSKnownKeysDictionary *)v46 setValues:v41];
       if (v38 >= 0x201)
       {
         NSZoneFree(0, v41);
       }
 
-      v18 = [[_PFResultArray alloc] initWithObjects:v24 count:v19 store:options metadata:v48];
+      v18 = [[_PFResultArray alloc] initWithObjects:v24 count:v19 store:options metadata:v46];
 
-      goto LABEL_53;
+      return v18;
     }
   }
 
   v42 = NSArray_EmptyArray;
-  v43 = *MEMORY[0x1E69E9840];
 
   return v42;
 }
 
-+ (_PFArray)_decodeResultSetData:(NSFetchRequest *)data forFetchRequest:(uint64_t)request options:(NSPersistentStore *)options store:(void *)store context:(void *)context rowCacheRows:(void *)rows error:
++ (_PFArray)_decodeResultSetData:(NSFetchRequest *)data forFetchRequest:(uint64_t)request options:(NSPersistentStore *)options store:(NSManagedObjectContext *)store context:(void *)context rowCacheRows:(void *)rows error:
 {
-  v333[2] = *MEMORY[0x1E69E9840];
+  v329[2] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   bytes = [a2 bytes];
   v16 = [a2 length];
   if (v16 <= 7)
   {
-    if (!rows)
+    if (rows)
     {
-      goto LABEL_400;
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = *MEMORY[0x1E696A250];
+      v19 = MEMORY[0x1E695DF20];
+      v20 = @"CoreData: XPC: Suspect response from server (bad size)";
+LABEL_11:
+      v22 = [v19 dictionaryWithObject:v20 forKey:@"Reason"];
+      v23 = v17;
+      v24 = v18;
+LABEL_12:
+      v25 = 0;
+      *rows = [v23 errorWithDomain:v24 code:134060 userInfo:v22];
+      return v25;
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A250];
-    v19 = MEMORY[0x1E695DF20];
-    v20 = @"CoreData: XPC: Suspect response from server (bad size)";
-LABEL_11:
-    v22 = [v19 dictionaryWithObject:v20 forKey:@"Reason"];
-    v23 = v17;
-    v24 = v18;
-LABEL_12:
-    v25 = 0;
-    *rows = [v23 errorWithDomain:v24 code:134060 userInfo:v22];
-    goto LABEL_401;
+    return 0;
   }
 
   v21 = v16;
   if (v16 <= 0)
   {
-    if (!rows)
+    if (rows)
     {
-      goto LABEL_400;
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = *MEMORY[0x1E696A250];
+      v19 = MEMORY[0x1E695DF20];
+      v20 = @"CoreData: XPC: Suspect response from server (no result)";
+      goto LABEL_11;
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A250];
-    v19 = MEMORY[0x1E695DF20];
-    v20 = @"CoreData: XPC: Suspect response from server (no result)";
-    goto LABEL_11;
+    return 0;
   }
 
   if (*bytes != 1)
@@ -619,75 +614,74 @@ LABEL_12:
 
   if (v16 <= 0x13)
   {
-    if (!rows)
+    if (rows)
     {
-      goto LABEL_400;
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = *MEMORY[0x1E696A250];
+      v19 = MEMORY[0x1E695DF20];
+      v20 = @"CoreData: XPC: Suspect response from server (missing size)";
+      goto LABEL_11;
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A250];
-    v19 = MEMORY[0x1E695DF20];
-    v20 = @"CoreData: XPC: Suspect response from server (missing size)";
-    goto LABEL_11;
+    return 0;
   }
 
   if (!*(bytes + 16))
   {
 LABEL_17:
     v26 = NSArray_EmptyArray;
-    v27 = *MEMORY[0x1E69E9840];
 
     return v26;
   }
 
   if ((v16 - 16) <= 0x6F)
   {
-    if (!rows)
+    if (rows)
     {
-      goto LABEL_400;
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = *MEMORY[0x1E696A250];
+      v19 = MEMORY[0x1E695DF20];
+      v20 = @"CoreData: XPC: Suspect response from server (not enough room for fetch results header)";
+      goto LABEL_11;
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A250];
-    v19 = MEMORY[0x1E695DF20];
-    v20 = @"CoreData: XPC: Suspect response from server (not enough room for fetch results header)";
-    goto LABEL_11;
+    return 0;
   }
 
   *(bytes + 40) = *(bytes + 40);
   *(bytes + 96) = bytes + 128;
-  v29 = *(bytes + 52);
-  if (v16 - 128 < 8 * ((v29 + 1) + v29))
+  v28 = *(bytes + 52);
+  if (v16 - 128 < 8 * ((v28 + 1) + v28))
   {
-    if (!rows)
+    if (rows)
     {
-      goto LABEL_400;
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = *MEMORY[0x1E696A250];
+      v19 = MEMORY[0x1E695DF20];
+      v20 = @"CoreData: XPC: Suspect response from server (not enough room for buffers and sizes)";
+      goto LABEL_11;
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A250];
-    v19 = MEMORY[0x1E695DF20];
-    v20 = @"CoreData: XPC: Suspect response from server (not enough room for buffers and sizes)";
-    goto LABEL_11;
+    return 0;
   }
 
-  v30 = bytes + 128 + 8 * v29 + 8;
-  *(bytes + 104) = v30;
-  if (v29)
+  v29 = bytes + 128 + 8 * v28 + 8;
+  *(bytes + 104) = v29;
+  if (v28)
   {
-    v31 = 0;
-    v32 = 8 * v29;
-    v33 = v30 + v32;
+    v30 = 0;
+    v31 = 8 * v28;
+    v32 = v29 + v31;
     do
     {
-      *(*(bytes + 96) + v31) = bytes + *(v33 + v31);
-      v31 += 8;
+      *(*(bytes + 96) + v30) = bytes + *(v32 + v30);
+      v30 += 8;
     }
 
-    while (v32 != v31);
-    v34 = **(bytes + 96);
-    *(bytes + 112) = v34;
-    *(bytes + 120) = v34;
+    while (v31 != v30);
+    v33 = **(bytes + 96);
+    *(bytes + 112) = v33;
+    *(bytes + 120) = v33;
   }
 
   requestCopy = request;
@@ -695,52 +689,92 @@ LABEL_17:
   *(bytes + 80) |= 2u;
   if (*(bytes + 36) >> 30)
   {
-    v35 = 0;
+    v34 = 0;
   }
 
   else
   {
-    v35 = *(bytes + 36);
+    v34 = *(bytes + 36);
   }
 
-  v36 = PF_ALLOCATE_OBJECT_ARRAY(v35);
-  if (v36)
+  v35 = PF_ALLOCATE_OBJECT_ARRAY(v34);
+  if (v35)
   {
-    v37 = v35;
+    v36 = v34;
   }
 
   else
   {
-    v37 = 0;
+    v36 = 0;
   }
 
-  v303 = v37;
+  v299 = v36;
   storeCopy = store;
   Initialize = fetchPlanAllocateInitialize(data, options, store);
-  if ([(NSFetchRequest *)data resultType]== 2 || ![(NSFetchRequest *)data resultType]&& [(NSArray *)[(NSFetchRequest *)data propertiesToFetch] count])
+  if ([(NSFetchRequest *)data resultType]!= 2 && ([(NSFetchRequest *)data resultType]|| ![(NSArray *)[(NSFetchRequest *)data propertiesToFetch] count]))
   {
-    v39 = objc_opt_class();
-    v40 = objc_opt_class();
-    optionsCopy = options;
-    if (v39 != v40)
-    {
-      optionsCopy = [(NSPersistentStore *)options sqlCore];
-    }
+    v49 = Initialize;
+    v298 = v35;
+    v42 = 0;
+    propertyMapping = 0;
+    v308 = 0;
+    v285 = 0;
+    v311 = 0;
+    v306 = 1;
+    goto LABEL_44;
+  }
 
-    v42 = optionsCopy;
-    if (!v42)
-    {
-      if (!rows)
-      {
-        goto LABEL_400;
-      }
+  v38 = objc_opt_class();
+  v39 = objc_opt_class();
+  optionsCopy = options;
+  if (v38 != v39)
+  {
+    optionsCopy = [(NSPersistentStore *)options sqlCore];
+  }
 
-      v328[0] = @"Reason";
-      v328[1] = @"FetchRequest";
-      v329[0] = @"CoreData: XPC: Store is missing core";
+  v41 = optionsCopy;
+  if (!v41)
+  {
+    if (rows)
+    {
+      v324[0] = @"Reason";
+      v324[1] = @"FetchRequest";
+      v325[0] = @"CoreData: XPC: Store is missing core";
       if (data)
       {
-        v77 = [(NSFetchRequest *)data description];
+        v76 = [(NSFetchRequest *)data description];
+      }
+
+      else
+      {
+        v76 = @"no fetch request";
+      }
+
+      v325[1] = v76;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v325 forKeys:v324 count:2];
+      v23 = MEMORY[0x1E696ABC0];
+      v24 = *MEMORY[0x1E696A250];
+      goto LABEL_12;
+    }
+
+    return 0;
+  }
+
+  v42 = v41;
+  v298 = v35;
+  v43 = [(NSFetchRequest *)data copy];
+  [v43 setPredicate:0];
+  v44 = [(NSSQLiteAdapter *)[(NSPersistentStore *)v42 adapter] newSelectStatementWithFetchRequest:v43 ignoreInheritance:0];
+  if (!v44)
+  {
+    if (rows)
+    {
+      v328[0] = @"Reason";
+      v328[1] = @"FetchRequest";
+      v329[0] = @"CoreData: XPC: Suspect fetch request failed to generate statement";
+      if (v43)
+      {
+        v77 = [v43 description];
       }
 
       else
@@ -749,1730 +783,1674 @@ LABEL_17:
       }
 
       v329[1] = v77;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v329 forKeys:v328 count:2];
-      v23 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A250];
-      goto LABEL_12;
+      v225 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v329 forKeys:v328 count:2];
+      *rows = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v225];
     }
 
-    v43 = v42;
-    v302 = v36;
-    v44 = [(NSFetchRequest *)data copy];
-    [v44 setPredicate:0];
-    v45 = [(NSSQLiteAdapter *)[(NSPersistentStore *)v43 adapter] newSelectStatementWithFetchRequest:v44 ignoreInheritance:0];
-    if (v45)
+    if (Initialize)
     {
-      v46 = v45;
-      v47 = *(v45 + 48);
-      if (v47)
-      {
-        Initialize->statement_entity = v47;
-        *&Initialize->flags &= ~1u;
-        v315 = v47;
-        plan_for_entity = _sql_read_only_fetch_plan_for_entity(v47);
-        statement_entity = Initialize->statement_entity;
-        v289 = v46;
-        if (statement_entity)
-        {
-          propertyMapping = statement_entity->_propertyMapping;
-        }
-
-        else
-        {
-          propertyMapping = 0;
-        }
-
-        v50 = Initialize;
-        v312 = plan_for_entity;
-
-        v310 = 0;
-        goto LABEL_44;
-      }
-
-      if (rows)
-      {
-        v330[0] = @"Reason";
-        v330[1] = @"FetchRequest";
-        v331[0] = @"CoreData: XPC: Suspect statement generated - entity missing";
-        if (v44)
-        {
-          v103 = [v44 description];
-        }
-
-        else
-        {
-          v103 = @"no fetch request";
-        }
-
-        v331[1] = v103;
-        v242 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v331 forKeys:v330 count:2];
-        *rows = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v242];
-      }
-
-      if (Initialize)
-      {
-      }
     }
 
-    else
-    {
-      if (rows)
-      {
-        v332[0] = @"Reason";
-        v332[1] = @"FetchRequest";
-        v333[0] = @"CoreData: XPC: Suspect fetch request failed to generate statement";
-        if (v44)
-        {
-          v78 = [v44 description];
-        }
-
-        else
-        {
-          v78 = @"no fetch request";
-        }
-
-        v333[1] = v78;
-        v226 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v333 forKeys:v332 count:2];
-        *rows = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v226];
-      }
-
-      if (Initialize)
-      {
-      }
-    }
-
-    goto LABEL_400;
+    goto LABEL_399;
   }
 
-  v50 = Initialize;
-  v302 = v36;
-  v43 = 0;
-  propertyMapping = 0;
-  v312 = 0;
-  v289 = 0;
-  v315 = 0;
-  v310 = 1;
+  v45 = v44;
+  v46 = *(v44 + 48);
+  if (!v46)
+  {
+    if (rows)
+    {
+      v326[0] = @"Reason";
+      v326[1] = @"FetchRequest";
+      v327[0] = @"CoreData: XPC: Suspect statement generated - entity missing";
+      if (v43)
+      {
+        v102 = [v43 description];
+      }
+
+      else
+      {
+        v102 = @"no fetch request";
+      }
+
+      v327[1] = v102;
+      v241 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v327 forKeys:v326 count:2];
+      *rows = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v241];
+    }
+
+    if (Initialize)
+    {
+    }
+
+LABEL_399:
+    return 0;
+  }
+
+  Initialize->statement_entity = v46;
+  *&Initialize->flags &= ~1u;
+  v311 = v46;
+  plan_for_entity = _sql_read_only_fetch_plan_for_entity(v46);
+  statement_entity = Initialize->statement_entity;
+  v285 = v45;
+  if (statement_entity)
+  {
+    propertyMapping = statement_entity->_propertyMapping;
+  }
+
+  else
+  {
+    propertyMapping = 0;
+  }
+
+  v49 = Initialize;
+  v308 = plan_for_entity;
+
+  v306 = 0;
 LABEL_44:
   model = [(NSPersistentStore *)options model];
   if (model)
   {
-    v52 = model;
-    v53 = *(model + 60);
+    v51 = model;
+    v52 = *(model + 60);
   }
 
   else
   {
+    v51 = 0;
     v52 = 0;
-    v53 = 0;
   }
 
-  v316 = v43;
-  p_isa = &v50->super.isa;
-  model2 = [(NSSQLEntity *)v315 model];
+  v312 = v42;
+  p_isa = &v49->super.isa;
+  model2 = [(NSSQLEntity *)v311 model];
   if (model2)
   {
-    v55 = *(model2 + 60);
+    v54 = *(model2 + 60);
   }
 
   else
   {
-    v55 = 0;
+    v54 = 0;
   }
 
-  v56 = v52;
-  if (v53 == v55)
+  v55 = v51;
+  if (v52 != v54)
   {
+    v319 = 0u;
+    v320 = 0u;
+    v317 = 0u;
+    v318 = 0u;
+    ancillarySQLModels = [(NSPersistentStore *)v312 ancillarySQLModels];
+    v61 = [ancillarySQLModels countByEnumeratingWithState:&v317 objects:v323 count:16];
+    if (!v61)
+    {
+      goto LABEL_66;
+    }
+
+    v62 = v61;
+    v63 = *v318;
+    while (1)
+    {
+      v64 = 0;
+      do
+      {
+        if (*v318 != v63)
+        {
+          objc_enumerationMutation(ancillarySQLModels);
+        }
+
+        v55 = [-[NSPersistentStore ancillarySQLModels](v312 "ancillarySQLModels")];
+        model3 = [(NSSQLEntity *)v311 model];
+        if (model3)
+        {
+          v66 = *(model3 + 60);
+          if (v55)
+          {
+            goto LABEL_59;
+          }
+        }
+
+        else
+        {
+          v66 = 0;
+          if (v55)
+          {
+LABEL_59:
+            v67 = *(v55 + 60);
+            goto LABEL_60;
+          }
+        }
+
+        v67 = 0;
+LABEL_60:
+        if (v66 == v67)
+        {
+          goto LABEL_49;
+        }
+
+        ++v64;
+      }
+
+      while (v62 != v64);
+      v68 = [ancillarySQLModels countByEnumeratingWithState:&v317 objects:v323 count:16];
+      v62 = v68;
+      if (!v68)
+      {
+LABEL_66:
+        v69 = p_isa;
+        v70 = v312;
+        v71 = v285;
+        if (rows)
+        {
+          v322[0] = @"CoreData: XPC: Unable to find entity in model";
+          v321[0] = @"Reason";
+          v321[1] = @"EntityOffset";
+          v72 = MEMORY[0x1E696AD98];
+          model4 = [(NSSQLEntity *)v311 model];
+          if (model4)
+          {
+            v74 = *(model4 + 60);
+          }
+
+          else
+          {
+            v74 = 0;
+          }
+
+          v322[1] = [v72 numberWithUnsignedInt:v74];
+          v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v322 forKeys:v321 count:2];
+          *rows = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v75];
+        }
+
+        if (v69)
+        {
+        }
+
+        return 0;
+      }
+    }
+  }
+
 LABEL_49:
-    v290 = v56;
-    defaultFaultHandler = 0;
-    v294 = *(p_isa + 18);
-    v58 = (v294 >> 2) & 7;
-    v59 = **(bytes + 96);
-    v278 = v58;
-    if (options)
+  v286 = v55;
+  defaultFaultHandler = 0;
+  v290 = *(p_isa + 18);
+  v57 = (v290 >> 2) & 7;
+  v58 = **(bytes + 96);
+  v274 = v57;
+  if (options)
+  {
+    v59 = requestCopy;
+    v60 = v308;
+    if (v57 == 3)
     {
-      v60 = requestCopy;
-      v61 = v312;
-      if (v58 == 3)
-      {
-        defaultFaultHandler = options->_defaultFaultHandler;
-      }
+      defaultFaultHandler = options->_defaultFaultHandler;
+    }
+  }
+
+  else
+  {
+    v59 = requestCopy;
+    v60 = v308;
+  }
+
+  v270 = defaultFaultHandler;
+  _disablePersistentStoreResultCaching = [p_isa[1] _disablePersistentStoreResultCaching];
+  v269 = _disablePersistentStoreResultCaching;
+  v79 = (v59 & 1) != 0 || (p_isa[9] & 1) == 0;
+  v279 = &v252;
+  if ((v290 & 2) != 0)
+  {
+    v80 = 0;
+  }
+
+  else
+  {
+    v80 = v306;
+  }
+
+  v287 = v80;
+  v81 = v306 & v79;
+  MEMORY[0x1EEE9AC00](_disablePersistentStoreResultCaching);
+  v280 = v84;
+  if (v84 > 0x200)
+  {
+    v85 = NSAllocateScannedUncollectable();
+    v291 = v85;
+  }
+
+  else
+  {
+    v291 = &v252 - v83;
+    bzero(&v252 - v83, 8 * v82);
+  }
+
+  MEMORY[0x1EEE9AC00](v85);
+  v88 = 8 * v86;
+  v281 = v89;
+  if (v89 > 0x200)
+  {
+    v284 = NSAllocateScannedUncollectable();
+    v278 = NSAllocateScannedUncollectable();
+  }
+
+  else
+  {
+    v284 = &v252 - v87;
+    bzero(&v252 - v87, 8 * v86);
+    MEMORY[0x1EEE9AC00](v90);
+    v278 = &v252 - ((v88 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v278, v88);
+  }
+
+  v297 = bytes + v21;
+  v91 = v81 & (v291 == 0);
+  v92 = v286;
+  if ((v91 & 1) != 0 || v287 && (!v284 || !v278))
+  {
+    PF_FREE_OBJECT_ARRAY(v298);
+    v298 = 0;
+    v299 = 0;
+  }
+
+  if (v297 - v58 <= 31)
+  {
+    v93 = v280;
+    v94 = v312;
+    v95 = v281;
+    if (rows)
+    {
+      *rows = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", @"CoreData: XPC: Suspect response from server (not enough room for first row)", @"Reason"}];
     }
 
-    else
+    goto LABEL_436;
+  }
+
+  if (v306)
+  {
+    v268 = [(NSPersistentStore *)options objectIDFactoryForSQLEntity:p_isa[5]];
+  }
+
+  else
+  {
+    v268 = 0;
+  }
+
+  v259 = sel_setForeignEntityKeySlot_entityKey_;
+  v258 = [NSSQLRow instanceMethodForSelector:?];
+  v257 = sel_setForeignOrderKeySlot_orderKey_;
+  v256 = [NSSQLRow instanceMethodForSelector:?];
+  v263 = sel_setForeignKeySlot_int64_;
+  v262 = [NSSQLRow instanceMethodForSelector:?];
+  v261 = sel_setOptLock_;
+  v96 = [NSSQLRow instanceMethodForSelector:?];
+  v260 = v96;
+  if ((v306 & 1) == 0)
+  {
+    v101 = p_isa[8];
+    v275 = sel_entityForID_;
+    v276 = v101;
+    goto LABEL_121;
+  }
+
+  if (!v79)
+  {
+    v275 = 0;
+    v276 = 0;
+LABEL_121:
+    v103 = v299;
+    if (!v299)
     {
-      v60 = requestCopy;
-      v61 = v312;
-    }
-
-    v274 = defaultFaultHandler;
-    _disablePersistentStoreResultCaching = [p_isa[1] _disablePersistentStoreResultCaching];
-    v273 = _disablePersistentStoreResultCaching;
-    v80 = (v60 & 1) != 0 || (p_isa[9] & 1) == 0;
-    v283 = &v256;
-    if ((v294 & 2) != 0)
-    {
-      v81 = 0;
-    }
-
-    else
-    {
-      v81 = v310;
-    }
-
-    v291 = v81;
-    v82 = v310 & v80;
-    MEMORY[0x1EEE9AC00](_disablePersistentStoreResultCaching);
-    v284 = v85;
-    if (v85 > 0x200)
-    {
-      v86 = NSAllocateScannedUncollectable();
-      v295 = v86;
-    }
-
-    else
-    {
-      v295 = &v256 - v84;
-      bzero(&v256 - v84, 8 * v83);
-    }
-
-    MEMORY[0x1EEE9AC00](v86);
-    v89 = 8 * v87;
-    v285 = v90;
-    if (v90 > 0x200)
-    {
-      v288 = NSAllocateScannedUncollectable();
-      v282 = NSAllocateScannedUncollectable();
-    }
-
-    else
-    {
-      v288 = &v256 - v88;
-      bzero(&v256 - v88, 8 * v87);
-      MEMORY[0x1EEE9AC00](v91);
-      v282 = &v256 - ((v89 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v282, v89);
-    }
-
-    v301 = bytes + v21;
-    v92 = v82 & (v295 == 0);
-    v93 = v290;
-    if ((v92 & 1) != 0 || v291 && (!v288 || !v282))
-    {
-      PF_FREE_OBJECT_ARRAY(v302);
-      v302 = 0;
-      v303 = 0;
-    }
-
-    if (v301 - v59 <= 31)
-    {
-      v94 = v284;
-      v95 = v316;
-      v96 = v285;
-      if (rows)
-      {
-        *rows = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", @"CoreData: XPC: Suspect response from server (not enough room for first row)", @"Reason"}];
-      }
-
-LABEL_437:
-      if (v96 >= 0x201)
-      {
-        NSZoneFree(0, v288);
-        NSZoneFree(0, v282);
-      }
-
-      if (v94 >= 0x201)
-      {
-        NSZoneFree(0, v295);
-      }
-
-      PF_FREE_OBJECT_ARRAY(v302);
-
-      if (p_isa)
-      {
-      }
-
-      v25 = 0;
-      goto LABEL_401;
-    }
-
-    if (v310)
-    {
-      v272 = [(NSPersistentStore *)options objectIDFactoryForSQLEntity:p_isa[5]];
-    }
-
-    else
-    {
-      v272 = 0;
-    }
-
-    v263 = sel_setForeignEntityKeySlot_entityKey_;
-    v262 = [NSSQLRow instanceMethodForSelector:?];
-    v261 = sel_setForeignOrderKeySlot_orderKey_;
-    v260 = [NSSQLRow instanceMethodForSelector:?];
-    v267 = sel_setForeignKeySlot_int64_;
-    v266 = [NSSQLRow instanceMethodForSelector:?];
-    v265 = sel_setOptLock_;
-    v97 = [NSSQLRow instanceMethodForSelector:?];
-    v264 = v97;
-    if (v310)
-    {
-      if (v80)
-      {
-        v98 = v303;
-        v97 = [(objc_class *)v272 allocateBatch:v295 count:v303];
-        if (v98 != v97)
-        {
-          v100 = objc_autoreleasePoolPush();
-          if (_NSCoreDataIsOSLogEnabled(8))
-          {
-            if (_pflogging_catastrophic_mode)
-            {
-              LogStream = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-              {
-                LOWORD(v320[0]) = 0;
-                _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Decoding failed: No oids.\n", v320, 2u);
-              }
-            }
-
-            else
-            {
-              v248 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v248, OS_LOG_TYPE_DEFAULT))
-              {
-                LOWORD(v320[0]) = 0;
-                _os_log_impl(&dword_18565F000, v248, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Decoding failed: No oids.\n", v320, 2u);
-              }
-            }
-          }
-
-          v249 = "Decoding failed: No oids.";
-          goto LABEL_415;
-        }
-
-        v99 = v303;
-        if ((v294 & 2) != 0 || !v303)
-        {
-          if (!v303)
-          {
-LABEL_419:
-            v225 = v302;
-            goto LABEL_420;
-          }
-        }
-
-        else
-        {
-          v97 = [NSSQLRow newBatchRowAllocation:v288 count:v303 forSQLEntity:p_isa[5] withOwnedObjectIDs:v295 andTimestamp:*(bytes + 40)];
-          if (v99 != v97)
-          {
-            v100 = objc_autoreleasePoolPush();
-            if (_NSCoreDataIsOSLogEnabled(8))
-            {
-              if (_pflogging_catastrophic_mode)
-              {
-                v101 = _PFLogGetLogStream(1);
-                if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
-                {
-                  LOWORD(v320[0]) = 0;
-                  _os_log_error_impl(&dword_18565F000, v101, OS_LOG_TYPE_ERROR, "CoreData: error: Decoding failed: No rows.\n", v320, 2u);
-                }
-              }
-
-              else
-              {
-                v255 = _PFLogGetLogStream(8);
-                if (os_log_type_enabled(v255, OS_LOG_TYPE_DEFAULT))
-                {
-                  LOWORD(v320[0]) = 0;
-                  _os_log_impl(&dword_18565F000, v255, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Decoding failed: No rows.\n", v320, 2u);
-                }
-              }
-            }
-
-            v249 = "Decoding failed: No rows.";
-LABEL_415:
-            if (_pflogging_catastrophic_mode)
-            {
-              v250 = 1;
-            }
-
-            else
-            {
-              v250 = 8;
-            }
-
-            _NSCoreDataLog_console(v250, v249);
-            objc_autoreleasePoolPop(v100);
-            goto LABEL_419;
-          }
-        }
-
-        v279 = 0;
-        v280 = 0;
-        v104 = v303;
-LABEL_122:
-        v268 = v80;
-        if (v104 >= 1)
-        {
-          v105 = 0;
-          v256 = 0;
-          v257 = 0;
-          v269 = 0;
-          v106 = 0;
-          v258 = 0;
-          v298 = @"TOMBSTONE";
-          v270 = v303;
-          while (1)
-          {
-            if (v310)
-            {
-              v107 = 0;
-            }
-
-            else
-            {
-              v107 = v61[1];
-            }
-
-            v293 = v105;
-            v281 = &v256;
-            MEMORY[0x1EEE9AC00](v97);
-            v110 = &v256 - v109;
-            if (v107 > 0x200)
-            {
-              v97 = NSAllocateScannedUncollectable();
-              v110 = v97;
-            }
-
-            else
-            {
-              bzero(&v256 - v109, 8 * v108);
-            }
-
-            v309 = v110;
-            isa = v59->isa;
-            v277 = v107;
-            if (isa < 0)
-            {
-              do
-              {
-                v59 = &v59->data[*(*(bytes + 96) + 8 * HIDWORD(v59->isa))];
-              }
-
-              while ((v59->isa & 0x80000000) != 0);
-            }
-
-            v112 = v301 - v59;
-            if (v301 - v59 <= 31)
-            {
-              v94 = v284;
-              v95 = v316;
-              if (rows)
-              {
-                v244 = MEMORY[0x1E696ABC0];
-                v245 = *MEMORY[0x1E696A250];
-                v246 = MEMORY[0x1E695DF20];
-                v293 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CoreData: XPC: Suspect response from server (not enough room for row %d)", v293];
-                goto LABEL_435;
-              }
-
-              goto LABEL_436;
-            }
-
-            if (v310)
-            {
-              v113 = _sqlEntityForEntityID(v93, LODWORD(v59->info));
-              if (v113 != v269)
-              {
-                v272 = [(NSPersistentStore *)options objectIDFactoryForSQLEntity:v113];
-                v269 = v113;
-              }
-
-              v308 = v113;
-              if (v268)
-              {
-                v312 = v61;
-                v314 = v106;
-                v114 = v295;
-                v115 = v293;
-                v116 = *&v295[8 * v293];
-                v97 = _PFSetPrimaryKey(v116, v59->length);
-                if (v116 == v97)
-                {
-                  v93 = v290;
-                  v106 = v314;
-                  if ((v294 & 2) != 0)
-                  {
-                    v125 = v116;
-                    v124 = v278;
-                    v118 = v293;
-LABEL_346:
-                    v61 = v312;
-LABEL_347:
-                    if (v124 > 2)
-                    {
-                      if (v124 != 3 && v124 != 5)
-                      {
-                        goto LABEL_356;
-                      }
-
-LABEL_353:
-                      v221 = [NSManagedObjectContext _retainedObjectWithID:storeCopy optionalHandler:v125 withInlineStorage:v274];
-
-                      v118 = v293;
-                      v125 = v221;
-                      goto LABEL_357;
-                    }
-
-                    if (!v124)
-                    {
-                      goto LABEL_353;
-                    }
-
-                    if (v124 != 1)
-                    {
-                      goto LABEL_356;
-                    }
-
-                    goto LABEL_357;
-                  }
-                }
-
-                else
-                {
-                  v117 = v97;
-                  *&v114[8 * v115] = v97;
-                  v118 = v115;
-                  if ((v294 & 2) != 0)
-                  {
-                    v93 = v290;
-                    v124 = v278;
-                    v106 = v314;
-                    v125 = v97;
-                    goto LABEL_346;
-                  }
-
-                  [*&v288[8 * v115] setObjectID:v97];
-                  v116 = v117;
-                  v106 = v314;
-                }
-
-                v123 = *&v288[8 * v293];
-                v259 = v116;
-                v119 = v308;
-              }
-
-              else
-              {
-                v97 = [[v272 alloc] initWithPK64:v59->length];
-                v120 = v97;
-                if ((v294 & 2) != 0)
-                {
-                  v124 = v278;
-                  v118 = v293;
-                  v125 = v97;
-                  goto LABEL_347;
-                }
-
-                v119 = v308;
-                v121 = [NSSQLRow allocForSQLEntity:v308];
-                v122 = *(bytes + 40);
-                v259 = v120;
-                v123 = [v121 initWithSQLEntity:v119 ownedObjectID:v120 andTimestamp:v122];
-                *&v288[8 * v293] = v123;
-              }
-
-              v271 = v123;
-              v126 = atomic_load(v123 + 5);
-              v286 = v126;
-              v61 = _sql_fetch_plan_for_entity(v119);
-            }
-
-            else
-            {
-              if ((v294 & 2) != 0)
-              {
-                v124 = v278;
-                v118 = v293;
-                v125 = 0;
-                goto LABEL_347;
-              }
-
-              v106 = 0;
-              v119 = v315;
-              v271 = 0;
-              v259 = 0;
-              v286 = 0;
-            }
-
-            if (v112 < *v61)
-            {
-              v94 = v284;
-              v95 = v316;
-              if (rows)
-              {
-                v244 = MEMORY[0x1E696ABC0];
-                v245 = *MEMORY[0x1E696A250];
-                v246 = MEMORY[0x1E695DF20];
-                v293 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CoreData: XPC: Suspect response from server (remaining space for %d smaller than estimated size)", v293];
-                goto LABEL_435;
-              }
-
-LABEL_436:
-              v96 = v285;
-              goto LABEL_437;
-            }
-
-            v127 = v61[1];
-            v128 = v309;
-            if (v127)
-            {
-              ancillarySQLModels = 0;
-              v307 = 0;
-              v308 = v119;
-              intValue = 0;
-              v318 = 0;
-              v299 = 0;
-              v312 = v61;
-              v313 = v59 + 1;
-              v305 = v309 != 0;
-              v276 = v286 + 28;
-              v304 = 24 * v127;
-              v129 = 0;
-              v306 = v59;
-              do
-              {
-                v314 = v106;
-                v317 = v129;
-                v130 = (v61 + v129);
-                v131 = *(v61 + v129 + 20);
-                if ((v131 - 2) > 6)
-                {
-                  v132 = 3;
-                }
-
-                else
-                {
-                  v132 = qword_18592E2D8[(v131 - 2)];
-                }
-
-                v133 = ((v313 + v132) & ~v132);
-                if (v130[4])
-                {
-                  isa_low = LOBYTE(v133->isa);
-                  v133 = (v133 + 1);
-                  v134 = isa_low != 0;
-                }
-
-                else
-                {
-                  v134 = 0;
-                }
-
-                v136 = 0;
-                v311 = v130;
-                if (((ancillarySQLModels > 6) & v318) == 1 && (v134 & 1) == 0)
-                {
-                  LODWORD(v313) = v134;
-                  v137 = v133;
-                  v138 = v307;
-                  if (!v307)
-                  {
-                    model3 = [(NSPersistentStore *)options model];
-                    v138 = v280(model3, v279, intValue);
-                  }
-
-                  v140 = [_PFPersistentHistoryModel _retainedTombstonesForEntity:v138];
-                  v141 = [objc_msgSend(*(v312 + v317 + 24) "propertyDescription")];
-                  v142 = [objc_msgSend(v141 stringByReplacingOccurrencesOfString:v298 withString:{&stru_1EF3F1768), "intValue"}];
-                  v143 = [v140 count];
-                  v307 = v138;
-                  if (v142 >= v143)
-                  {
-                    v136 = 0;
-                  }
-
-                  else
-                  {
-                    v144 = [v140 objectAtIndexedSubscript:v142];
-                    if (v138)
-                    {
-                      v136 = [*(v138 + 40) objectForKey:v144];
-                    }
-
-                    else
-                    {
-                      v136 = 0;
-                    }
-
-                    v131 = 17;
-                  }
-
-                  v133 = v137;
-                  v134 = v313;
-                }
-
-                v145 = ~v132;
-                if (v131 <= 6)
-                {
-                  if ((v131 - 4) < 3)
-                  {
-                    goto LABEL_209;
-                  }
-
-                  if ((v131 - 2) < 2)
-                  {
-                    v320[0] = 0;
-                    v150 = ((v133 + v132) & v145);
-                    if (!v134)
-                    {
-                      v133 = (v150 + 1);
-                    }
-
-                    v151 = v320;
-                    if (!v134)
-                    {
-                      v151 = v150;
-                    }
-
-                    v61 = v312;
-                    v152 = v317;
-                    v153 = *(v312 + v317 + 21);
-                    v313 = v133;
-                    if (v153 == 6)
-                    {
-                      v59 = v306;
-                      v148 = v308;
-                      if (v310)
-                      {
-                        v264(v271, v265, *v151);
-                      }
-
-                      v149 = v314;
-                      goto LABEL_238;
-                    }
-
-                    v59 = v306;
-                    v148 = v308;
-                    if (v153 == 3)
-                    {
-                      v149 = v314;
-                      if (v310)
-                      {
-                        v266(v271, v267, v311[2], *v151);
-LABEL_238:
-                        v128 = v309;
-                        goto LABEL_319;
-                      }
-
-                      if (v299)
-                      {
-                        v195 = v309[v314 - 1];
-                        v149 = v314 - 1;
-                      }
-
-                      else
-                      {
-                        v197 = v134;
-                        v198 = [objc_msgSend(*(v312 + v317 + 24) "toOneRelationship")];
-                        LOBYTE(v134) = v197;
-                        v195 = v198;
-                      }
-
-                      if ((v134 & 1) != 0 || !*v150)
-                      {
-                        v200 = 0;
-                      }
-
-                      else
-                      {
-                        if (v195 != v256)
-                        {
-                          v199 = [(NSPersistentStore *)options objectIDFactoryForSQLEntity:v195];
-                          v256 = v195;
-                          v257 = v199;
-                        }
-
-                        v200 = [[v257 alloc] initWithPK64:*v150];
-                      }
-
-                      v299 = 0;
-                      v128 = v309;
-                      v309[v149] = v200;
-                      goto LABEL_243;
-                    }
-
-                    v149 = v314;
-                    if (v153 != 1)
-                    {
-                      goto LABEL_238;
-                    }
-
-                    if (v310)
-                    {
-                      v154 = v311[2];
-                      if (v134)
-                      {
-                        v276[v154 >> 3] |= 1 << (v154 & 7);
-                      }
-
-                      else
-                      {
-                        snapshot_set_int64(v286, v154, *v150);
-                      }
-
-                      goto LABEL_238;
-                    }
-
-                    if (byte_1ED4BEEC6 & v134)
-                    {
-                      v177 = 0;
-                    }
-
-                    else
-                    {
-                      if (byte_1ED4BEEC6)
-                      {
-                        v201 = v150;
-                      }
-
-                      else
-                      {
-                        v201 = v151;
-                      }
-
-                      v177 = CFNumberCreate(0, kCFNumberLongLongType, v201);
-                    }
-
-                    v299 = 0;
-                    v128 = v309;
-                    goto LABEL_318;
-                  }
-
-                  if (v131 == 1)
-                  {
-                    LODWORD(v320[0]) = 0;
-                    v163 = ((v133 + v132) & v145);
-                    if (!v134)
-                    {
-                      v133 = (v163 + 1);
-                    }
-
-                    v164 = v320;
-                    if (!v134)
-                    {
-                      v164 = v163;
-                    }
-
-                    v61 = v312;
-                    v152 = v317;
-                    v165 = *(v312 + v317 + 21);
-                    v313 = v133;
-                    if (v165 == 10)
-                    {
-                      v59 = v306;
-                      v128 = v309;
-                      if (v310)
-                      {
-                        v260(v271, v261, v311[2], *v164);
-                      }
-
-                      v149 = v314;
-                      goto LABEL_243;
-                    }
-
-                    v59 = v306;
-                    v128 = v309;
-                    if (v165 == 4)
-                    {
-                      v149 = v314;
-                      if (v310)
-                      {
-                        v262(v271, v263, v311[2], *v164);
-                      }
-
-                      else
-                      {
-                        if (v134)
-                        {
-                          v309[v314] = 0;
-                        }
-
-                        else
-                        {
-                          v128[v149] = v280(v290, v279, *v163);
-                        }
-
-                        v299 = 1;
-                      }
-
-                      goto LABEL_243;
-                    }
-
-                    v149 = v314;
-                    if (v165 != 1)
-                    {
-                      goto LABEL_243;
-                    }
-
-                    if (v310)
-                    {
-                      v166 = v311[2];
-                      if (v134)
-                      {
-                        v276[v166 >> 3] |= 1 << (v166 & 7);
-                      }
-
-                      else
-                      {
-                        type = snapshot_get_type(v286, v166);
-                        v211 = v311[2];
-                        v212 = *v163;
-                        if (type == 115)
-                        {
-                          snapshot_set_int16(v286, v211, v212);
-                        }
-
-                        else if (type == 99)
-                        {
-                          snapshot_set_int8(v286, v211, v212);
-                        }
-
-                        else
-                        {
-                          snapshot_set_int32(v286, v211, v212);
-                        }
-                      }
-
-                      goto LABEL_243;
-                    }
-
-                    if (byte_1ED4BEEC6 & v134)
-                    {
-                      v177 = 0;
-                    }
-
-                    else
-                    {
-                      if (byte_1ED4BEEC6)
-                      {
-                        v213 = v163;
-                      }
-
-                      else
-                      {
-                        v213 = v164;
-                      }
-
-                      v177 = CFNumberCreate(0, kCFNumberIntType, v213);
-                    }
-
-LABEL_316:
-                    v148 = v308;
-                    goto LABEL_317;
-                  }
-                }
-
-                else if (v131 <= 11)
-                {
-                  if ((v131 - 7) < 2)
-                  {
-                    if (v310)
-                    {
-                      v61 = v312;
-                      if ((v134 & 1) == 0)
-                      {
-                        v155 = ((v133 + v132) & v145);
-                        v313 = (v155 + 1);
-                        v156 = v311;
-                        v157 = v311[2];
-                        v59 = v306;
-                        if (*(v311 + 20) == 7)
-                        {
-                          v158 = v286;
-                          v159 = snapshot_get_type(v286, v157);
-                          v160 = v156[2];
-                          v161 = *v155;
-                          v149 = v314;
-                          v128 = v309;
-                          if (v159 == 102)
-                          {
-                            v162 = v161;
-                            snapshot_set_float(v158, v160, v162);
-                          }
-
-                          else
-                          {
-                            snapshot_set_double(v158, v160, v161);
-                          }
-
-                          goto LABEL_300;
-                        }
-
-                        snapshot_set_double(v286, v157, *v155);
-LABEL_213:
-                        v149 = v314;
-                        goto LABEL_299;
-                      }
-
-LABEL_211:
-                      v313 = v133;
-                      v276[v311[2] >> 3] |= 1 << (v311[2] & 7);
-                      goto LABEL_212;
-                    }
-
-                    v61 = v312;
-                    v148 = v308;
-                    if (v134)
-                    {
-                      v313 = v133;
-                      v177 = 0;
-                      v59 = v306;
-                    }
-
-                    else
-                    {
-                      v178 = ((v133 + v132) & v145);
-                      v313 = (v178 + 1);
-                      v59 = v306;
-                      if (*(v311 + 20) == 7)
-                      {
-                        v177 = CFNumberCreate(0, kCFNumberDoubleType, v178);
-                      }
-
-                      else
-                      {
-                        v177 = CFDateCreate(0, *v178);
-                      }
-                    }
-
-                    v149 = v314;
-                    v128 = v309;
-                    goto LABEL_266;
-                  }
-
-                  if (v131 == 9)
-                  {
-LABEL_209:
-                    if (!v310)
-                    {
-                      v61 = v312;
-                      if (v134)
-                      {
-                        v313 = v133;
-                        v167 = 0;
-                        v59 = v306;
-                        v149 = v314;
-                        v152 = v317;
-LABEL_242:
-                        v299 = 0;
-                        v128 = v309;
-                        v309[v149] = v167;
-LABEL_243:
-                        v148 = v308;
-                        goto LABEL_319;
-                      }
-
-                      v174 = ((v133 + v132) & v145);
-                      v59 = v306;
-                      if (v301 - (v174 + 4) < *v174)
-                      {
-                        v94 = v284;
-                        v95 = v316;
-                        if (!rows)
-                        {
-                          goto LABEL_436;
-                        }
-
-                        v244 = MEMORY[0x1E696ABC0];
-                        v245 = *MEMORY[0x1E696A250];
-                        v246 = MEMORY[0x1E695DF20];
-                        v293 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CoreData: XPC: Suspect response from server (remaining space for %@ insufficient (2))", *(v312 + v317 + 24)];
-                        goto LABEL_435;
-                      }
-
-                      v167 = CFStringCreateWithCString(0, v174 + 4, 0x8000100u);
-                      v313 = &v174[*v174 + 4];
-                      v175 = *(v311 + 20);
-                      v149 = v314;
-                      if (v175 == 12)
-                      {
-                        v176 = [MEMORY[0x1E695DFF8] URLWithString:v167];
-                        v152 = v317;
-                      }
-
-                      else
-                      {
-                        v152 = v317;
-                        if (v175 != 4)
-                        {
-                          goto LABEL_242;
-                        }
-
-                        v176 = [objc_alloc(MEMORY[0x1E696AB90]) initWithString:v167];
-                      }
-
-                      CFRelease(v167);
-                      v167 = v176;
-                      goto LABEL_242;
-                    }
-
-                    v61 = v312;
-                    if ((v134 & 1) == 0)
-                    {
-                      v168 = ((v133 + v132) & v145);
-                      v169 = (v168 + 4);
-                      v59 = v306;
-                      if (v301 - (v168 + 4) < *v168)
-                      {
-                        v94 = v284;
-                        v95 = v316;
-                        if (!rows)
-                        {
-                          goto LABEL_436;
-                        }
-
-                        v244 = MEMORY[0x1E696ABC0];
-                        v245 = *MEMORY[0x1E696A250];
-                        v246 = MEMORY[0x1E695DF20];
-                        v293 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CoreData: XPC: Suspect response from server (remaining space for %@ insufficient (1))", *(v312 + v317 + 24)];
-                        goto LABEL_435;
-                      }
-
-                      v170 = CFStringCreateWithCString(0, v168 + 4, 0x8000100u);
-                      v171 = *v168;
-                      v172 = *(v311 + 20);
-                      v149 = v314;
-                      if (v172 == 12)
-                      {
-                        v173 = [MEMORY[0x1E695DFF8] URLWithString:v170];
-                        goto LABEL_297;
-                      }
-
-                      if (v172 == 4)
-                      {
-                        v173 = [objc_alloc(MEMORY[0x1E696AB90]) initWithString:v170];
-                        goto LABEL_297;
-                      }
-
-                      goto LABEL_298;
-                    }
-
-                    goto LABEL_211;
-                  }
-                }
-
-                else
-                {
-                  if ((v131 - 13) < 2)
-                  {
-                    v313 = v133;
-                    v299 = 0;
-                    goto LABEL_196;
-                  }
-
-                  if (v131 == 12)
-                  {
-                    goto LABEL_209;
-                  }
-
-                  if (v131 == 16)
-                  {
-                    v146 = v134;
-                    v147 = [objc_msgSend(*(v312 + v317 + 24) "propertyDescription")];
-                    LOBYTE(v134) = v146;
-                    if (v147)
-                    {
-                      if (v146)
-                      {
-                        v313 = v133;
-                        v148 = v308;
-                        if (v310)
-                        {
-                          v61 = v312;
-                          v276[v311[2] >> 3] |= 1 << (v311[2] & 7);
-                          v59 = v306;
-                          v149 = v314;
-                          v128 = v309;
-                        }
-
-                        else
-                        {
-                          v299 = 0;
-                          v196 = v314;
-                          v128 = v309;
-                          v309[v314] = 0;
-                          v61 = v312;
-                          v59 = v306;
-                          v149 = v196;
-                        }
-
-                        goto LABEL_301;
-                      }
-
-                      v188 = ((v133 + v132) & v145);
-                      v189 = v188 + 1;
-                      if (v301 - (v188 + 1) < *v188)
-                      {
-                        v94 = v284;
-                        v95 = v316;
-                        if (!rows)
-                        {
-                          goto LABEL_436;
-                        }
-
-                        v254 = v312 + v317;
-                        v244 = MEMORY[0x1E696ABC0];
-                        v245 = *MEMORY[0x1E696A250];
-                        v246 = MEMORY[0x1E695DF20];
-                        v253 = MEMORY[0x1E696AEC0];
-                        goto LABEL_434;
-                      }
-
-                      v190 = [MEMORY[0x1E695DEF0] dataWithBytes:v188 + 1 length:?];
-                      v191 = *v188;
-                      v61 = v312;
-                      fileBackedFuturesDirectory = v258;
-                      if (!v258)
-                      {
-                        fileBackedFuturesDirectory = [(NSPersistentStore *)options fileBackedFuturesDirectory];
-                      }
-
-                      v313 = (v189 + v191);
-                      v193 = [_NSDataFileBackedFuture alloc];
-                      v258 = fileBackedFuturesDirectory;
-                      v194 = -[_NSDataFileBackedFuture initWithStoreMetadata:directory:](v193, "initWithStoreMetadata:directory:", v190, [MEMORY[0x1E695DFF8] fileURLWithPath:fileBackedFuturesDirectory isDirectory:1]);
-                      v59 = v306;
-                      if (v310)
-                      {
-                        snapshot_set_object(v286, v311[2], v194);
-                        goto LABEL_213;
-                      }
-
-                      v299 = 0;
-                      v149 = v314;
-                      v128 = v309;
-                      v309[v314] = v194;
-LABEL_300:
-                      v148 = v308;
-LABEL_301:
-                      v152 = v317;
-                      goto LABEL_319;
-                    }
-                  }
-                }
-
-                if (v310)
-                {
-                  if (v134)
-                  {
-                    v313 = v133;
-                    v276[v311[2] >> 3] |= 1 << (v311[2] & 7);
-LABEL_196:
-                    v61 = v312;
-LABEL_212:
-                    v59 = v306;
-                    goto LABEL_213;
-                  }
-
-                  v179 = ((v133 + v132) & v145);
-                  v169 = (v179 + 4);
-                  v180 = *v179;
-                  v61 = v312;
-                  if (v301 - (v179 + 4) < v180)
-                  {
-                    v94 = v284;
-                    v95 = v316;
-                    if (!rows)
-                    {
-                      goto LABEL_436;
-                    }
-
-                    v244 = MEMORY[0x1E696ABC0];
-                    v245 = *MEMORY[0x1E696A250];
-                    v246 = MEMORY[0x1E695DF20];
-                    v253 = MEMORY[0x1E696AEC0];
-                    v254 = v312 + v317;
-LABEL_434:
-                    v293 = [v253 stringWithFormat:@"CoreData: XPC: Suspect response from server (remaining space for %@ insufficient (3))", *(v254 + 3)];
-                    goto LABEL_435;
-                  }
-
-                  v181 = CFDataCreate(0, v179 + 4, v180);
-                  v170 = v181;
-                  v171 = *v179;
-                  v182 = *(v311 + 20);
-                  v59 = v306;
-                  if (v182 == 11)
-                  {
-                    v202 = [(__CFData *)v181 length];
-                    v149 = v314;
-                    if (v202 == 16)
-                    {
-                      v313 = objc_alloc(MEMORY[0x1E696AFB0]);
-                      bytes2 = [(__CFString *)v170 bytes];
-                      v173 = [(__CFString *)v313 initWithUUIDBytes:bytes2];
-LABEL_297:
-                      v313 = v173;
-                      CFRelease(v170);
-                      v170 = v313;
-                    }
-                  }
-
-                  else
-                  {
-                    v149 = v314;
-                    if (v182 == 15)
-                    {
-                      v173 = +[PFFaultingTransformedValue transformedValueWithData:forAttribute:](PFFaultingTransformedValue, v181, [*(v61 + v317 + 24) propertyDescription]);
-                      goto LABEL_297;
-                    }
-                  }
-
-LABEL_298:
-                  v313 = (v169 + v171);
-                  snapshot_set_object(v286, v311[2], v170);
-LABEL_299:
-                  v128 = v309;
-                  goto LABEL_300;
-                }
-
-                if ((v134 & 1) == 0)
-                {
-                  v183 = ((v133 + v132) & v145);
-                  v184 = *v183;
-                  if (v301 - (v183 + 4) < v184)
-                  {
-                    v94 = v284;
-                    v95 = v316;
-                    if (!rows)
-                    {
-                      goto LABEL_436;
-                    }
-
-                    v244 = MEMORY[0x1E696ABC0];
-                    v245 = *MEMORY[0x1E696A250];
-                    v246 = MEMORY[0x1E695DF20];
-                    v293 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CoreData: XPC: Suspect response from server (remaining space for %@ insufficient (4))", *(v312 + v317 + 24)];
-LABEL_435:
-                    *rows = [v244 errorWithDomain:v245 code:134060 userInfo:{objc_msgSend(v246, "dictionaryWithObject:forKey:", v293, @"Reason"}];
-                    goto LABEL_436;
-                  }
-
-                  v177 = CFDataCreate(0, v183 + 4, v184);
-                  v313 = &v183[*v183 + 4];
-                  if (v131 != 17 || (v185 = v177, v186 = [v136 sqlType] == 10, v177 = v185, v186))
-                  {
-                    v61 = v312;
-                    v187 = *(v311 + 20);
-                    v128 = v309;
-                    v152 = v317;
-                    if (v187 == 11)
-                    {
-                      v311 = v177;
-                      v208 = [(__CFNumber *)v177 length];
-                      v59 = v306;
-                      if (v208 != 16)
-                      {
-                        v149 = v314;
-                        v148 = v308;
-                        v177 = v311;
-                        goto LABEL_317;
-                      }
-
-                      v209 = objc_alloc(MEMORY[0x1E696AFB0]);
-                      v207 = [v209 initWithUUIDBytes:{objc_msgSend(v311, "bytes")}];
-                    }
-
-                    else
-                    {
-                      v59 = v306;
-                      if (v187 != 15)
-                      {
-                        v149 = v314;
-                        v148 = v308;
-                        if (v187 == 18)
-                        {
-                          objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Codable is not supported in the XPC store" userInfo:0]);
-                        }
-
-                        goto LABEL_317;
-                      }
-
-                      v205 = v177;
-                      propertyDescription = [*(v312 + v317 + 24) propertyDescription];
-                      v311 = v205;
-                      v207 = [_PFRoutines retainedDecodeValue:v205 forTransformableAttribute:propertyDescription];
-                    }
-
-                    v204 = v207;
-                    v149 = v314;
-                  }
-
-                  else
-                  {
-                    v61 = v312;
-                    v152 = v317;
-                    [*(v312 + v317 + 24) propertyDescription];
-                    v311 = v185;
-                    v204 = _swizzleManifestTypeDataXPC(v185, v136);
-                    v59 = v306;
-                    v149 = v314;
-                    v128 = v309;
-                  }
-
-                  CFRelease(v311);
-                  v177 = v204;
-                  goto LABEL_316;
-                }
-
-                v313 = v133;
-                v177 = 0;
-                v61 = v312;
-                v59 = v306;
-                v149 = v314;
-                v148 = v308;
-                v128 = v309;
-LABEL_266:
-                v152 = v317;
-LABEL_317:
-                v299 = 0;
-LABEL_318:
-                v128[v149] = v177;
-LABEL_319:
-                if (v148 && v152 == 72 && *(v148 + 46) == 16001)
-                {
-                  v214 = [v128[v149] intValue] == 2;
-                  v318 |= v214;
-                }
-
-                else if (v152 == 120 && (v318 & 1) != 0)
-                {
-                  intValue = [v128[v149] intValue];
-                  v318 = 1;
-                }
-
-                v106 = (v149 + v305);
-                ++ancillarySQLModels;
-                v129 = v152 + 24;
-              }
-
-              while (v304 != v129);
-            }
-
-            if (v310)
-            {
-              v215 = v271;
-              [v271 knownKeyValuesPointer];
-              v216 = v293;
-              *&v282[8 * v293] = v215;
-              v217 = v286;
-              v97 = v286;
-              *&v288[8 * v216] = v97;
-              v93 = v290;
-              if (requestCopy)
-              {
-                v97 = v217;
-              }
-
-              else
-              {
-                if (v278 > 2)
-                {
-                  v125 = v259;
-                  if (v278 != 3 && v278 != 5)
-                  {
-                    v118 = v216;
-LABEL_356:
-                    v125 = 0;
-                    goto LABEL_357;
-                  }
-                }
-
-                else
-                {
-                  v125 = v259;
-                  if (v278)
-                  {
-                    if (v278 == 1)
-                    {
-                      v97 = _PFfastOidRetain(0, v259);
-                    }
-
-                    else
-                    {
-                      v125 = 0;
-                    }
-
-                    goto LABEL_344;
-                  }
-                }
-
-                v97 = [NSManagedObjectContext _retainedObjectWithID:storeCopy optionalHandler:v125 withInlineStorage:v274];
-              }
-
-              v125 = v97;
-LABEL_344:
-              v118 = v293;
-              goto LABEL_357;
-            }
-
-            v218 = [NSKnownKeysDictionary alloc];
-            v219 = [(NSKnownKeysDictionary *)v218 initWithSearchStrategy:propertyMapping];
-            v220 = v128;
-            v125 = v219;
-            v97 = [(NSKnownKeysDictionary *)v219 _setValues:v220 retain:0];
-            v118 = v293;
-            v93 = v290;
-LABEL_357:
-            *(v302 + v118) = v125;
-            isa_high = HIDWORD(v59->isa);
-            if ((isa_high & 0x80000000) == 0)
-            {
-              v223 = *(*(bytes + 96) + 8 * isa_high);
-              if (v223)
-              {
-                data = v59->data;
-                if (v277 >= 0x201)
-                {
-                  NSZoneFree(0, v309);
-                  v118 = v293;
-                }
-
-                v59 = &data[v223];
-                v105 = v118 + 1;
-                if (v105 != v270)
-                {
-                  continue;
-                }
-              }
-            }
-
-            break;
-          }
-        }
-
-        if (v278 > 5)
-        {
-          v228 = 10;
-        }
-
-        else
-        {
-          v228 = dword_18592E310[v278];
-        }
-
-        v229 = v284;
-        v230 = [_PFArray alloc];
-        v25 = [(_PFArray *)v230 initWithObjects:v302 count:v303 andFlags:v228 andContext:storeCopy];
-        v231 = v291 ^ 1;
-        if ((v291 ^ 1 | v273))
-        {
-          v232 = 0;
-        }
-
-        else
-        {
-          v233 = contextCopy;
-          v232 = contextCopy != 0;
-          if (contextCopy)
-          {
-            v234 = [_PFArray alloc];
-            *v233 = [(_PFArray *)v234 initWithObjects:v282 count:v303 andFlags:26 andContext:storeCopy];
-          }
-
-          if (v303 < 1)
-          {
-            goto LABEL_387;
-          }
-
-          v235 = v303;
-          v236 = v288;
-          do
-          {
-            v237 = *v236++;
-
-            --v235;
-          }
-
-          while (v235);
-        }
-
-        if (((v232 | v231) & 1) == 0 && v303 >= 1)
-        {
-          v238 = v303;
-          v239 = v282;
-          do
-          {
-            v240 = *v239++;
-
-            --v238;
-          }
-
-          while (v238);
-        }
-
-LABEL_387:
-        if (v285 >= 0x201)
-        {
-          NSZoneFree(0, v288);
-          NSZoneFree(0, v282);
-        }
-
-        if (v229 >= 0x201)
-        {
-          NSZoneFree(0, v295);
-        }
-
-        v241 = v316;
-        if (p_isa)
-        {
-        }
-
-        goto LABEL_401;
-      }
-
-      v279 = 0;
-      v280 = 0;
-    }
-
-    else
-    {
-      v102 = p_isa[8];
-      v279 = sel_entityForID_;
-      v280 = v102;
-    }
-
-    v104 = v303;
-    if (!v303)
-    {
-      v225 = v302;
-      if (!v302)
+      v224 = v298;
+      if (!v298)
       {
 LABEL_421:
-        v251 = v284;
-        v252 = v316;
-        if (v285 >= 0x201 && v288)
+        v249 = v280;
+        v250 = v312;
+        if (v281 >= 0x201 && v284)
         {
-          NSZoneFree(0, v288);
-          NSZoneFree(0, v282);
+          NSZoneFree(0, v284);
+          NSZoneFree(0, v278);
         }
 
-        if (v251 >= 0x201 && v295)
+        if (v249 >= 0x201 && v291)
         {
-          NSZoneFree(0, v295);
+          NSZoneFree(0, v291);
         }
 
-        v25 = NSArray_EmptyArray;
-        goto LABEL_401;
+        return NSArray_EmptyArray;
       }
 
 LABEL_420:
-      PF_FREE_OBJECT_ARRAY(v225);
+      PF_FREE_OBJECT_ARRAY(v224);
       goto LABEL_421;
     }
 
     goto LABEL_122;
   }
 
-  v323 = 0u;
-  v324 = 0u;
-  v321 = 0u;
-  v322 = 0u;
-  ancillarySQLModels = [(NSPersistentStore *)v316 ancillarySQLModels];
-  v62 = [ancillarySQLModels countByEnumeratingWithState:&v321 objects:v327 count:16];
-  if (!v62)
+  v97 = v299;
+  v96 = [(objc_class *)v268 allocateBatch:v291 count:v299];
+  if (v97 != v96)
   {
-    goto LABEL_66;
-  }
-
-  v63 = v62;
-  v64 = *v322;
-  do
-  {
-    v65 = 0;
-    do
+    v99 = objc_autoreleasePoolPush();
+    if (_NSCoreDataIsOSLogEnabled(8))
     {
-      if (*v322 != v64)
+      if (_pflogging_catastrophic_mode)
       {
-        objc_enumerationMutation(ancillarySQLModels);
-      }
-
-      v56 = [-[NSPersistentStore ancillarySQLModels](v316 "ancillarySQLModels")];
-      model4 = [(NSSQLEntity *)v315 model];
-      if (model4)
-      {
-        v67 = *(model4 + 60);
-        if (v56)
+        LogStream = _PFLogGetLogStream(1);
+        if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_59;
+          LOWORD(v316[0]) = 0;
+          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Decoding failed: No oids.\n", v316, 2u);
         }
       }
 
       else
       {
-        v67 = 0;
-        if (v56)
+        v246 = _PFLogGetLogStream(8);
+        if (os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT))
         {
-LABEL_59:
-          v68 = *(v56 + 60);
-          goto LABEL_60;
+          LOWORD(v316[0]) = 0;
+          _os_log_impl(&dword_18565F000, v246, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Decoding failed: No oids.\n", v316, 2u);
+        }
+      }
+    }
+
+    v247 = "Decoding failed: No oids.";
+    goto LABEL_415;
+  }
+
+  v98 = v299;
+  if ((v290 & 2) != 0 || !v299)
+  {
+    if (!v299)
+    {
+LABEL_419:
+      v224 = v298;
+      goto LABEL_420;
+    }
+  }
+
+  else
+  {
+    v96 = [NSSQLRow newBatchRowAllocation:v284 count:v299 forSQLEntity:p_isa[5] withOwnedObjectIDs:v291 andTimestamp:*(bytes + 40)];
+    if (v98 != v96)
+    {
+      v99 = objc_autoreleasePoolPush();
+      if (_NSCoreDataIsOSLogEnabled(8))
+      {
+        if (_pflogging_catastrophic_mode)
+        {
+          v100 = _PFLogGetLogStream(1);
+          if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+          {
+            LOWORD(v316[0]) = 0;
+            _os_log_error_impl(&dword_18565F000, v100, OS_LOG_TYPE_ERROR, "CoreData: error: Decoding failed: No rows.\n", v316, 2u);
+          }
+        }
+
+        else
+        {
+          v251 = _PFLogGetLogStream(8);
+          if (os_log_type_enabled(v251, OS_LOG_TYPE_DEFAULT))
+          {
+            LOWORD(v316[0]) = 0;
+            _os_log_impl(&dword_18565F000, v251, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Decoding failed: No rows.\n", v316, 2u);
+          }
         }
       }
 
-      v68 = 0;
-LABEL_60:
-      if (v67 == v68)
+      v247 = "Decoding failed: No rows.";
+LABEL_415:
+      if (_pflogging_catastrophic_mode)
       {
-        goto LABEL_49;
+        v248 = 1;
       }
 
-      ++v65;
-    }
+      else
+      {
+        v248 = 8;
+      }
 
-    while (v63 != v65);
-    v69 = [ancillarySQLModels countByEnumeratingWithState:&v321 objects:v327 count:16];
-    v63 = v69;
+      _NSCoreDataLog_console(v248, v247);
+      objc_autoreleasePoolPop(v99);
+      goto LABEL_419;
+    }
   }
 
-  while (v69);
-LABEL_66:
-  v70 = p_isa;
-  v71 = v316;
-  v72 = v289;
-  if (rows)
+  v275 = 0;
+  v276 = 0;
+  v103 = v299;
+LABEL_122:
+  v264 = v79;
+  if (v103 < 1)
   {
-    v326[0] = @"CoreData: XPC: Unable to find entity in model";
-    v325[0] = @"Reason";
-    v325[1] = @"EntityOffset";
-    v73 = MEMORY[0x1E696AD98];
-    model5 = [(NSSQLEntity *)v315 model];
-    if (model5)
+LABEL_373:
+    if (v274 > 5)
     {
-      v75 = *(model5 + 60);
+      v227 = 10;
     }
 
     else
     {
-      v75 = 0;
+      v227 = dword_18592E310[v274];
     }
 
-    v326[1] = [v73 numberWithUnsignedInt:v75];
-    v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v326 forKeys:v325 count:2];
-    *rows = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v76];
+    v228 = v280;
+    v229 = [_PFArray alloc];
+    v25 = [(_PFArray *)v229 initWithObjects:v298 count:v299 andFlags:v227 andContext:storeCopy];
+    v230 = v287 ^ 1;
+    if ((v287 ^ 1 | v269))
+    {
+      v231 = 0;
+    }
+
+    else
+    {
+      v232 = contextCopy;
+      v231 = contextCopy != 0;
+      if (contextCopy)
+      {
+        v233 = [_PFArray alloc];
+        *v232 = [(_PFArray *)v233 initWithObjects:v278 count:v299 andFlags:26 andContext:storeCopy];
+      }
+
+      if (v299 < 1)
+      {
+        goto LABEL_387;
+      }
+
+      v234 = v299;
+      v235 = v284;
+      do
+      {
+        v236 = *v235++;
+
+        --v234;
+      }
+
+      while (v234);
+    }
+
+    if (((v231 | v230) & 1) == 0 && v299 >= 1)
+    {
+      v237 = v299;
+      v238 = v278;
+      do
+      {
+        v239 = *v238++;
+
+        --v237;
+      }
+
+      while (v237);
+    }
+
+LABEL_387:
+    if (v281 >= 0x201)
+    {
+      NSZoneFree(0, v284);
+      NSZoneFree(0, v278);
+    }
+
+    if (v228 >= 0x201)
+    {
+      NSZoneFree(0, v291);
+    }
+
+    v240 = v312;
+    if (p_isa)
+    {
+    }
+
+    return v25;
   }
 
-  if (v70)
+  v104 = 0;
+  v252 = 0;
+  v253 = 0;
+  v265 = 0;
+  v105 = 0;
+  v254 = 0;
+  v294 = @"TOMBSTONE";
+  v266 = v299;
+  while (1)
+  {
+    if (v306)
+    {
+      v106 = 0;
+    }
+
+    else
+    {
+      v106 = v60[1];
+    }
+
+    v289 = v104;
+    v277 = &v252;
+    MEMORY[0x1EEE9AC00](v96);
+    v109 = &v252 - v108;
+    if (v106 > 0x200)
+    {
+      v96 = NSAllocateScannedUncollectable();
+      v109 = v96;
+    }
+
+    else
+    {
+      bzero(&v252 - v108, 8 * v107);
+    }
+
+    v305 = v109;
+    isa = v58->isa;
+    v273 = v106;
+    if (isa < 0)
+    {
+      do
+      {
+        v58 = &v58->data[*(*(bytes + 96) + 8 * HIDWORD(v58->isa))];
+      }
+
+      while ((v58->isa & 0x80000000) != 0);
+    }
+
+    v111 = v297 - v58;
+    if (v297 - v58 <= 31)
+    {
+      v93 = v280;
+      v94 = v312;
+      if (!rows)
+      {
+        goto LABEL_435;
+      }
+
+      goto LABEL_405;
+    }
+
+    if (!v306)
+    {
+      if ((v290 & 2) == 0)
+      {
+        v105 = 0;
+        v118 = v311;
+        v267 = 0;
+        v255 = 0;
+        v282 = 0;
+        goto LABEL_149;
+      }
+
+      v123 = v274;
+      v117 = v289;
+      v124 = 0;
+      goto LABEL_347;
+    }
+
+    v112 = _sqlEntityForEntityID(v92, LODWORD(v58->info));
+    if (v112 != v265)
+    {
+      v268 = [(NSPersistentStore *)options objectIDFactoryForSQLEntity:v112];
+      v265 = v112;
+    }
+
+    v304 = v112;
+    if (v264)
+    {
+      v308 = v60;
+      v310 = v105;
+      v113 = v291;
+      v114 = v289;
+      v115 = *&v291[8 * v289];
+      v96 = _PFSetPrimaryKey(v115, v58->length);
+      if (v115 == v96)
+      {
+        v92 = v286;
+        v105 = v310;
+        if ((v290 & 2) == 0)
+        {
+          goto LABEL_147;
+        }
+
+        v124 = v115;
+        v123 = v274;
+        v117 = v289;
+      }
+
+      else
+      {
+        v116 = v96;
+        *&v113[8 * v114] = v96;
+        v117 = v114;
+        if ((v290 & 2) == 0)
+        {
+          [*&v284[8 * v114] setObjectID:v96];
+          v115 = v116;
+          v105 = v310;
+LABEL_147:
+          v122 = *&v284[8 * v289];
+          v255 = v115;
+          v118 = v304;
+          goto LABEL_148;
+        }
+
+        v92 = v286;
+        v123 = v274;
+        v105 = v310;
+        v124 = v96;
+      }
+
+      v60 = v308;
+LABEL_347:
+      if (v123 > 2)
+      {
+        if (v123 != 3 && v123 != 5)
+        {
+          goto LABEL_356;
+        }
+
+LABEL_353:
+        v220 = [NSManagedObjectContext _retainedObjectWithID:storeCopy optionalHandler:v124 withInlineStorage:v270];
+
+        v117 = v289;
+        v124 = v220;
+        goto LABEL_357;
+      }
+
+      if (!v123)
+      {
+        goto LABEL_353;
+      }
+
+      if (v123 != 1)
+      {
+        goto LABEL_356;
+      }
+
+      goto LABEL_357;
+    }
+
+    v96 = [[v268 alloc] initWithPK64:v58->length];
+    v119 = v96;
+    if ((v290 & 2) != 0)
+    {
+      v123 = v274;
+      v117 = v289;
+      v124 = v96;
+      goto LABEL_347;
+    }
+
+    v118 = v304;
+    v120 = [NSSQLRow allocForSQLEntity:v304];
+    v121 = *(bytes + 40);
+    v255 = v119;
+    v122 = [v120 initWithSQLEntity:v118 ownedObjectID:v119 andTimestamp:v121];
+    *&v284[8 * v289] = v122;
+LABEL_148:
+    v267 = v122;
+    v125 = atomic_load(v122 + 5);
+    v282 = v125;
+    v60 = _sql_fetch_plan_for_entity(v118);
+LABEL_149:
+    if (v111 < *v60)
+    {
+      v93 = v280;
+      v94 = v312;
+      if (!rows)
+      {
+        goto LABEL_435;
+      }
+
+LABEL_405:
+      v242 = MEMORY[0x1E696ABC0];
+      v243 = *MEMORY[0x1E696A250];
+      v244 = MEMORY[0x1E695DF20];
+      v245 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v289);
+      goto LABEL_434;
+    }
+
+    v126 = v60[1];
+    v127 = v305;
+    if (v126)
+    {
+      break;
+    }
+
+LABEL_331:
+    if (v306)
+    {
+      v214 = v267;
+      [v267 knownKeyValuesPointer];
+      v215 = v289;
+      *&v278[8 * v289] = v214;
+      v216 = v282;
+      v96 = v282;
+      *&v284[8 * v215] = v96;
+      v92 = v286;
+      if (requestCopy)
+      {
+        v96 = v216;
+      }
+
+      else
+      {
+        if (v274 > 2)
+        {
+          v124 = v255;
+          if (v274 != 3 && v274 != 5)
+          {
+            v117 = v215;
+LABEL_356:
+            v124 = 0;
+            goto LABEL_357;
+          }
+        }
+
+        else
+        {
+          v124 = v255;
+          if (v274)
+          {
+            if (v274 == 1)
+            {
+              v96 = _PFfastOidRetain(0, v255);
+            }
+
+            else
+            {
+              v124 = 0;
+            }
+
+            goto LABEL_344;
+          }
+        }
+
+        v96 = [NSManagedObjectContext _retainedObjectWithID:storeCopy optionalHandler:v124 withInlineStorage:v270];
+      }
+
+      v124 = v96;
+LABEL_344:
+      v117 = v289;
+      goto LABEL_357;
+    }
+
+    v217 = [NSKnownKeysDictionary alloc];
+    v218 = [(NSKnownKeysDictionary *)v217 initWithSearchStrategy:propertyMapping];
+    v219 = v127;
+    v124 = v218;
+    v96 = [(NSKnownKeysDictionary *)v218 _setValues:v219 retain:0];
+    v117 = v289;
+    v92 = v286;
+LABEL_357:
+    *(v298 + v117) = v124;
+    isa_high = HIDWORD(v58->isa);
+    if ((isa_high & 0x80000000) == 0)
+    {
+      v222 = *(*(bytes + 96) + 8 * isa_high);
+      if (v222)
+      {
+        data = v58->data;
+        if (v273 >= 0x201)
+        {
+          NSZoneFree(0, v305);
+          v117 = v289;
+        }
+
+        v58 = &data[v222];
+        v104 = v117 + 1;
+        if (v104 != v266)
+        {
+          continue;
+        }
+      }
+    }
+
+    goto LABEL_373;
+  }
+
+  ancillarySQLModels = 0;
+  v303 = 0;
+  v304 = v118;
+  intValue = 0;
+  v314 = 0;
+  v295 = 0;
+  v308 = v60;
+  v309 = v58 + 1;
+  v301 = v305 != 0;
+  v272 = v282 + 28;
+  v300 = 24 * v126;
+  v128 = 0;
+  v302 = v58;
+  while (1)
+  {
+    v310 = v105;
+    v313 = v128;
+    v129 = (v60 + v128);
+    v130 = *(v60 + v128 + 20);
+    if ((v130 - 2) > 6)
+    {
+      v131 = 3;
+    }
+
+    else
+    {
+      v131 = qword_18592E2D8[(v130 - 2)];
+    }
+
+    v132 = ((v309 + v131) & ~v131);
+    if (v129[4])
+    {
+      isa_low = LOBYTE(v132->isa);
+      v132 = (v132 + 1);
+      v133 = isa_low != 0;
+    }
+
+    else
+    {
+      v133 = 0;
+    }
+
+    v135 = 0;
+    v307 = v129;
+    if (((ancillarySQLModels > 6) & v314) == 1 && (v133 & 1) == 0)
+    {
+      LODWORD(v309) = v133;
+      v136 = v132;
+      v137 = v303;
+      if (!v303)
+      {
+        model5 = [(NSPersistentStore *)options model];
+        v137 = v276(model5, v275, intValue);
+      }
+
+      v139 = [_PFPersistentHistoryModel _retainedTombstonesForEntity:v137];
+      v140 = [objc_msgSend(*(v308 + v313 + 24) "propertyDescription")];
+      v141 = [objc_msgSend(v140 stringByReplacingOccurrencesOfString:v294 withString:{&stru_1EF3F1768), "intValue"}];
+      v142 = [v139 count];
+      v303 = v137;
+      if (v141 >= v142)
+      {
+        v135 = 0;
+      }
+
+      else
+      {
+        v143 = [v139 objectAtIndexedSubscript:v141];
+        if (v137)
+        {
+          v135 = [*(v137 + 40) objectForKey:v143];
+        }
+
+        else
+        {
+          v135 = 0;
+        }
+
+        v130 = 17;
+      }
+
+      v132 = v136;
+      v133 = v309;
+    }
+
+    v144 = ~v131;
+    if (v130 <= 6)
+    {
+      if ((v130 - 4) < 3)
+      {
+        goto LABEL_209;
+      }
+
+      if ((v130 - 2) < 2)
+      {
+        v316[0] = 0;
+        v149 = ((v132 + v131) & v144);
+        if (!v133)
+        {
+          v132 = (v149 + 1);
+        }
+
+        v150 = v316;
+        if (!v133)
+        {
+          v150 = v149;
+        }
+
+        v60 = v308;
+        v151 = v313;
+        v152 = *(v308 + v313 + 21);
+        v309 = v132;
+        if (v152 == 6)
+        {
+          v58 = v302;
+          v147 = v304;
+          if (v306)
+          {
+            v260(v267, v261, *v150);
+          }
+
+          v148 = v310;
+          goto LABEL_238;
+        }
+
+        v58 = v302;
+        v147 = v304;
+        if (v152 == 3)
+        {
+          v148 = v310;
+          if (v306)
+          {
+            v262(v267, v263, v307[2], *v150);
+LABEL_238:
+            v127 = v305;
+            goto LABEL_319;
+          }
+
+          if (v295)
+          {
+            v194 = v305[v310 - 1];
+            v148 = v310 - 1;
+          }
+
+          else
+          {
+            v196 = v133;
+            v197 = [objc_msgSend(*(v308 + v313 + 24) "toOneRelationship")];
+            LOBYTE(v133) = v196;
+            v194 = v197;
+          }
+
+          if ((v133 & 1) != 0 || !*v149)
+          {
+            v199 = 0;
+          }
+
+          else
+          {
+            if (v194 != v252)
+            {
+              v198 = [(NSPersistentStore *)options objectIDFactoryForSQLEntity:v194];
+              v252 = v194;
+              v253 = v198;
+            }
+
+            v199 = [[v253 alloc] initWithPK64:*v149];
+          }
+
+          v295 = 0;
+          v127 = v305;
+          v305[v148] = v199;
+          goto LABEL_243;
+        }
+
+        v148 = v310;
+        if (v152 != 1)
+        {
+          goto LABEL_238;
+        }
+
+        if (v306)
+        {
+          v153 = v307[2];
+          if (v133)
+          {
+            v272[v153 >> 3] |= 1 << (v153 & 7);
+          }
+
+          else
+          {
+            snapshot_set_int64(v282, v153, *v149);
+          }
+
+          goto LABEL_238;
+        }
+
+        if (byte_1ED4BEEC6 & v133)
+        {
+          v176 = 0;
+        }
+
+        else
+        {
+          if (byte_1ED4BEEC6)
+          {
+            v200 = v149;
+          }
+
+          else
+          {
+            v200 = v150;
+          }
+
+          v176 = CFNumberCreate(0, kCFNumberLongLongType, v200);
+        }
+
+        v295 = 0;
+        v127 = v305;
+        goto LABEL_318;
+      }
+
+      if (v130 == 1)
+      {
+        LODWORD(v316[0]) = 0;
+        v162 = ((v132 + v131) & v144);
+        if (!v133)
+        {
+          v132 = (v162 + 1);
+        }
+
+        v163 = v316;
+        if (!v133)
+        {
+          v163 = v162;
+        }
+
+        v60 = v308;
+        v151 = v313;
+        v164 = *(v308 + v313 + 21);
+        v309 = v132;
+        if (v164 == 10)
+        {
+          v58 = v302;
+          v127 = v305;
+          if (v306)
+          {
+            v256(v267, v257, v307[2], *v163);
+          }
+
+          v148 = v310;
+          goto LABEL_243;
+        }
+
+        v58 = v302;
+        v127 = v305;
+        if (v164 == 4)
+        {
+          v148 = v310;
+          if (v306)
+          {
+            v258(v267, v259, v307[2], *v163);
+          }
+
+          else
+          {
+            if (v133)
+            {
+              v305[v310] = 0;
+            }
+
+            else
+            {
+              v127[v148] = v276(v286, v275, *v162);
+            }
+
+            v295 = 1;
+          }
+
+          goto LABEL_243;
+        }
+
+        v148 = v310;
+        if (v164 != 1)
+        {
+          goto LABEL_243;
+        }
+
+        if (v306)
+        {
+          v165 = v307[2];
+          if (v133)
+          {
+            v272[v165 >> 3] |= 1 << (v165 & 7);
+          }
+
+          else
+          {
+            type = snapshot_get_type(v282, v165);
+            v210 = v307[2];
+            v211 = *v162;
+            if (type == 115)
+            {
+              snapshot_set_int16(v282, v210, v211);
+            }
+
+            else if (type == 99)
+            {
+              snapshot_set_int8(v282, v210, v211);
+            }
+
+            else
+            {
+              snapshot_set_int32(v282, v210, v211);
+            }
+          }
+
+          goto LABEL_243;
+        }
+
+        if (byte_1ED4BEEC6 & v133)
+        {
+          v176 = 0;
+        }
+
+        else
+        {
+          if (byte_1ED4BEEC6)
+          {
+            v212 = v162;
+          }
+
+          else
+          {
+            v212 = v163;
+          }
+
+          v176 = CFNumberCreate(0, kCFNumberIntType, v212);
+        }
+
+LABEL_316:
+        v147 = v304;
+        goto LABEL_317;
+      }
+
+      goto LABEL_216;
+    }
+
+    if (v130 > 11)
+    {
+      break;
+    }
+
+    if ((v130 - 7) < 2)
+    {
+      if (!v306)
+      {
+        v60 = v308;
+        v147 = v304;
+        if (v133)
+        {
+          v309 = v132;
+          v176 = 0;
+          v58 = v302;
+        }
+
+        else
+        {
+          v177 = ((v132 + v131) & v144);
+          v309 = (v177 + 1);
+          v58 = v302;
+          if (*(v307 + 20) == 7)
+          {
+            v176 = CFNumberCreate(0, kCFNumberDoubleType, v177);
+          }
+
+          else
+          {
+            v176 = CFDateCreate(0, *v177);
+          }
+        }
+
+        v148 = v310;
+        v127 = v305;
+        goto LABEL_266;
+      }
+
+      v60 = v308;
+      if ((v133 & 1) == 0)
+      {
+        v154 = ((v132 + v131) & v144);
+        v309 = (v154 + 1);
+        v155 = v307;
+        v156 = v307[2];
+        v58 = v302;
+        if (*(v307 + 20) == 7)
+        {
+          v157 = v282;
+          v158 = snapshot_get_type(v282, v156);
+          v159 = v155[2];
+          v160 = *v154;
+          v148 = v310;
+          v127 = v305;
+          if (v158 == 102)
+          {
+            v161 = v160;
+            snapshot_set_float(v157, v159, v161);
+          }
+
+          else
+          {
+            snapshot_set_double(v157, v159, v160);
+          }
+
+          goto LABEL_300;
+        }
+
+        snapshot_set_double(v282, v156, *v154);
+LABEL_213:
+        v148 = v310;
+        goto LABEL_299;
+      }
+
+LABEL_211:
+      v309 = v132;
+      v272[v307[2] >> 3] |= 1 << (v307[2] & 7);
+      goto LABEL_212;
+    }
+
+    if (v130 == 9)
+    {
+LABEL_209:
+      if (v306)
+      {
+        v60 = v308;
+        if ((v133 & 1) == 0)
+        {
+          v167 = ((v132 + v131) & v144);
+          v168 = (v167 + 4);
+          v58 = v302;
+          if (v297 - (v167 + 4) < *v167)
+          {
+            v93 = v280;
+            v94 = v312;
+            if (!rows)
+            {
+              goto LABEL_435;
+            }
+
+            goto LABEL_433;
+          }
+
+          v169 = CFStringCreateWithCString(0, v167 + 4, 0x8000100u);
+          v170 = *v167;
+          v171 = *(v307 + 20);
+          v148 = v310;
+          if (v171 == 12)
+          {
+            v172 = [MEMORY[0x1E695DFF8] URLWithString:v169];
+          }
+
+          else
+          {
+            if (v171 != 4)
+            {
+              goto LABEL_298;
+            }
+
+            v172 = [objc_alloc(MEMORY[0x1E696AB90]) initWithString:v169];
+          }
+
+LABEL_297:
+          v309 = v172;
+          CFRelease(v169);
+          v169 = v309;
+          goto LABEL_298;
+        }
+
+        goto LABEL_211;
+      }
+
+      v60 = v308;
+      if (v133)
+      {
+        v309 = v132;
+        v166 = 0;
+        v58 = v302;
+        v148 = v310;
+        v151 = v313;
+LABEL_242:
+        v295 = 0;
+        v127 = v305;
+        v305[v148] = v166;
+LABEL_243:
+        v147 = v304;
+        goto LABEL_319;
+      }
+
+      v173 = ((v132 + v131) & v144);
+      v58 = v302;
+      if (v297 - (v173 + 4) < *v173)
+      {
+        v93 = v280;
+        v94 = v312;
+        if (!rows)
+        {
+          goto LABEL_435;
+        }
+
+        goto LABEL_433;
+      }
+
+      v166 = CFStringCreateWithCString(0, v173 + 4, 0x8000100u);
+      v309 = &v173[*v173 + 4];
+      v174 = *(v307 + 20);
+      v148 = v310;
+      if (v174 == 12)
+      {
+        v175 = [MEMORY[0x1E695DFF8] URLWithString:v166];
+        v151 = v313;
+      }
+
+      else
+      {
+        v151 = v313;
+        if (v174 != 4)
+        {
+          goto LABEL_242;
+        }
+
+        v175 = [objc_alloc(MEMORY[0x1E696AB90]) initWithString:v166];
+      }
+
+      CFRelease(v166);
+      v166 = v175;
+      goto LABEL_242;
+    }
+
+LABEL_216:
+    if (v306)
+    {
+      if (v133)
+      {
+        v309 = v132;
+        v272[v307[2] >> 3] |= 1 << (v307[2] & 7);
+        goto LABEL_196;
+      }
+
+      v178 = ((v132 + v131) & v144);
+      v168 = (v178 + 4);
+      v179 = *v178;
+      v60 = v308;
+      if (v297 - (v178 + 4) < v179)
+      {
+        v93 = v280;
+        v94 = v312;
+        if (!rows)
+        {
+          goto LABEL_435;
+        }
+
+        goto LABEL_433;
+      }
+
+      v180 = CFDataCreate(0, v178 + 4, v179);
+      v169 = v180;
+      v170 = *v178;
+      v181 = *(v307 + 20);
+      v58 = v302;
+      if (v181 == 11)
+      {
+        v201 = [(__CFData *)v180 length];
+        v148 = v310;
+        if (v201 == 16)
+        {
+          v309 = objc_alloc(MEMORY[0x1E696AFB0]);
+          bytes2 = [(__CFString *)v169 bytes];
+          v172 = [(__CFString *)v309 initWithUUIDBytes:bytes2];
+          goto LABEL_297;
+        }
+      }
+
+      else
+      {
+        v148 = v310;
+        if (v181 == 15)
+        {
+          v172 = +[PFFaultingTransformedValue transformedValueWithData:forAttribute:](PFFaultingTransformedValue, v180, [*(v60 + v313 + 24) propertyDescription]);
+          goto LABEL_297;
+        }
+      }
+
+LABEL_298:
+      v309 = (v168 + v170);
+      snapshot_set_object(v282, v307[2], v169);
+LABEL_299:
+      v127 = v305;
+      goto LABEL_300;
+    }
+
+    if ((v133 & 1) == 0)
+    {
+      v182 = ((v132 + v131) & v144);
+      v183 = *v182;
+      if (v297 - (v182 + 4) < v183)
+      {
+        v93 = v280;
+        v94 = v312;
+        if (!rows)
+        {
+          goto LABEL_435;
+        }
+
+        goto LABEL_433;
+      }
+
+      v176 = CFDataCreate(0, v182 + 4, v183);
+      v309 = &v182[*v182 + 4];
+      if (v130 != 17 || (v184 = v176, v185 = [v135 sqlType] == 10, v176 = v184, v185))
+      {
+        v60 = v308;
+        v186 = *(v307 + 20);
+        v127 = v305;
+        v151 = v313;
+        if (v186 == 11)
+        {
+          v307 = v176;
+          v207 = [(__CFNumber *)v176 length];
+          v58 = v302;
+          if (v207 != 16)
+          {
+            v148 = v310;
+            v147 = v304;
+            v176 = v307;
+            goto LABEL_317;
+          }
+
+          v208 = objc_alloc(MEMORY[0x1E696AFB0]);
+          v206 = [v208 initWithUUIDBytes:{objc_msgSend(v307, "bytes")}];
+        }
+
+        else
+        {
+          v58 = v302;
+          if (v186 != 15)
+          {
+            v148 = v310;
+            v147 = v304;
+            if (v186 == 18)
+            {
+              objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Codable is not supported in the XPC store" userInfo:0]);
+            }
+
+            goto LABEL_317;
+          }
+
+          v204 = v176;
+          propertyDescription = [*(v308 + v313 + 24) propertyDescription];
+          v307 = v204;
+          v206 = [_PFRoutines retainedDecodeValue:v204 forTransformableAttribute:propertyDescription];
+        }
+
+        v203 = v206;
+        v148 = v310;
+      }
+
+      else
+      {
+        v60 = v308;
+        v151 = v313;
+        [*(v308 + v313 + 24) propertyDescription];
+        v307 = v184;
+        v203 = _swizzleManifestTypeDataXPC(v184, v135);
+        v58 = v302;
+        v148 = v310;
+        v127 = v305;
+      }
+
+      CFRelease(v307);
+      v176 = v203;
+      goto LABEL_316;
+    }
+
+    v309 = v132;
+    v176 = 0;
+    v60 = v308;
+    v58 = v302;
+    v148 = v310;
+    v147 = v304;
+    v127 = v305;
+LABEL_266:
+    v151 = v313;
+LABEL_317:
+    v295 = 0;
+LABEL_318:
+    v127[v148] = v176;
+LABEL_319:
+    if (v147 && v151 == 72 && *(v147 + 46) == 16001)
+    {
+      v213 = [v127[v148] intValue] == 2;
+      v314 |= v213;
+    }
+
+    else if (v151 == 120 && (v314 & 1) != 0)
+    {
+      intValue = [v127[v148] intValue];
+      v314 = 1;
+    }
+
+    v105 = (v148 + v301);
+    ++ancillarySQLModels;
+    v128 = v151 + 24;
+    if (v300 == v128)
+    {
+      goto LABEL_331;
+    }
+  }
+
+  if ((v130 - 13) < 2)
+  {
+    v309 = v132;
+    v295 = 0;
+LABEL_196:
+    v60 = v308;
+LABEL_212:
+    v58 = v302;
+    goto LABEL_213;
+  }
+
+  if (v130 == 12)
+  {
+    goto LABEL_209;
+  }
+
+  if (v130 != 16)
+  {
+    goto LABEL_216;
+  }
+
+  v145 = v133;
+  v146 = [objc_msgSend(*(v308 + v313 + 24) "propertyDescription")];
+  LOBYTE(v133) = v145;
+  if (!v146)
+  {
+    goto LABEL_216;
+  }
+
+  if (v145)
+  {
+    v309 = v132;
+    v147 = v304;
+    if (v306)
+    {
+      v60 = v308;
+      v272[v307[2] >> 3] |= 1 << (v307[2] & 7);
+      v58 = v302;
+      v148 = v310;
+      v127 = v305;
+    }
+
+    else
+    {
+      v295 = 0;
+      v195 = v310;
+      v127 = v305;
+      v305[v310] = 0;
+      v60 = v308;
+      v58 = v302;
+      v148 = v195;
+    }
+
+    goto LABEL_301;
+  }
+
+  v187 = ((v132 + v131) & v144);
+  v188 = v187 + 1;
+  if (v297 - (v187 + 1) >= *v187)
+  {
+    v189 = [MEMORY[0x1E695DEF0] dataWithBytes:v187 + 1 length:?];
+    v190 = *v187;
+    v60 = v308;
+    fileBackedFuturesDirectory = v254;
+    if (!v254)
+    {
+      fileBackedFuturesDirectory = [(NSPersistentStore *)options fileBackedFuturesDirectory];
+    }
+
+    v309 = (v188 + v190);
+    v192 = [_NSDataFileBackedFuture alloc];
+    v254 = fileBackedFuturesDirectory;
+    v193 = -[_NSDataFileBackedFuture initWithStoreMetadata:directory:](v192, "initWithStoreMetadata:directory:", v189, [MEMORY[0x1E695DFF8] fileURLWithPath:fileBackedFuturesDirectory isDirectory:1]);
+    v58 = v302;
+    if (v306)
+    {
+      snapshot_set_object(v282, v307[2], v193);
+      goto LABEL_213;
+    }
+
+    v295 = 0;
+    v148 = v310;
+    v127 = v305;
+    v305[v310] = v193;
+LABEL_300:
+    v147 = v304;
+LABEL_301:
+    v151 = v313;
+    goto LABEL_319;
+  }
+
+  v93 = v280;
+  v94 = v312;
+  if (!rows)
+  {
+    goto LABEL_435;
+  }
+
+LABEL_433:
+  v242 = MEMORY[0x1E696ABC0];
+  v243 = *MEMORY[0x1E696A250];
+  v244 = MEMORY[0x1E695DF20];
+  v245 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(v308 + v313 + 24));
+LABEL_434:
+  *rows = [v242 errorWithDomain:v243 code:134060 userInfo:{objc_msgSend(v244, "dictionaryWithObject:forKey:", v245, @"Reason"}];
+LABEL_435:
+  v95 = v281;
+LABEL_436:
+  if (v95 >= 0x201)
+  {
+    NSZoneFree(0, v284);
+    NSZoneFree(0, v278);
+  }
+
+  if (v93 >= 0x201)
+  {
+    NSZoneFree(0, v291);
+  }
+
+  PF_FREE_OBJECT_ARRAY(v298);
+
+  if (p_isa)
   {
   }
 
-LABEL_400:
-  v25 = 0;
-LABEL_401:
-  v243 = *MEMORY[0x1E69E9840];
-  return v25;
+  return 0;
 }
 
 @end

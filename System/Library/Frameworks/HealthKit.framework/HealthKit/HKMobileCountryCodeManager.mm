@@ -19,9 +19,9 @@
 
 - (HKMobileCountryCodeManager)init
 {
-  v11.receiver = self;
-  v11.super_class = HKMobileCountryCodeManager;
-  v2 = [(HKMobileCountryCodeManager *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = HKMobileCountryCodeManager;
+  v2 = [(HKMobileCountryCodeManager *)&v10 init];
   v3 = v2;
   if (v2)
   {
@@ -31,11 +31,10 @@
     v3->_coreTelephonyClient = v5;
 
     [(CoreTelephonyClient *)v3->_coreTelephonyClient setDelegate:v3];
-    v7 = *MEMORY[0x1E695E480];
     v3->_coreTelephonyServerConnection = _CTServerConnectionCreateOnTargetQueue();
-    v8 = objc_alloc_init(MEMORY[0x1E698B6B0]);
+    v7 = objc_alloc_init(MEMORY[0x1E698B6B0]);
     radiosPreferences = v3->_radiosPreferences;
-    v3->_radiosPreferences = v8;
+    v3->_radiosPreferences = v7;
   }
 
   return v3;
@@ -76,51 +75,52 @@ void __76__HKMobileCountryCodeManager_fetchISOCountryCodeFromCellularWithComplet
 
 - (void)fetchMobileCountryCodeFromCellularWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v15 = 0;
-  v5 = [(HKMobileCountryCodeManager *)self _isLocationAvailableWithError:&v15];
-  v6 = v15;
+  v18 = 0;
+  v5 = [(HKMobileCountryCodeManager *)self _isLocationAvailableWithError:&v18];
+  v6 = v18;
   if (v5)
   {
     _overrideISOCountryCode = [objc_opt_class() _overrideISOCountryCode];
+    v9 = _overrideISOCountryCode;
     if (_overrideISOCountryCode)
     {
-      _HKInitializeLogging();
-      v8 = HKLogInfrastructure();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      _HKInitializeLogging(_overrideISOCountryCode, v8);
+      v12 = HKLogInfrastructure(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = objc_opt_class();
+        v13 = objc_opt_class();
         *buf = 138543618;
-        v17 = v9;
-        v18 = 2114;
-        v19 = _overrideISOCountryCode;
-        _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Returning ISO country code override override: %{public}@", buf, 0x16u);
+        v20 = v13;
+        v21 = 2114;
+        v22 = v9;
+        _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Returning ISO country code override override: %{public}@", buf, 0x16u);
       }
 
-      if ([_overrideISOCountryCode isEqualToString:@"NONE"])
+      if ([v9 isEqualToString:@"NONE"])
       {
-        v10 = [MEMORY[0x1E696ABC0] hk_error:109 description:@"OVERRIDE: No estimate available"];
-        completionCopy[2](completionCopy, 0, v10);
+        v14 = [MEMORY[0x1E696ABC0] hk_error:109 description:@"OVERRIDE: No estimate available"];
+        completionCopy[2](completionCopy, 0, v14);
       }
 
       else
       {
-        v10 = [[HKMobileCountryCode alloc] initWithMobileCountryCode:&stru_1F05FF230 ISOCode:_overrideISOCountryCode isOverridden:1];
-        (completionCopy)[2](completionCopy, v10, 0);
+        v14 = [[HKMobileCountryCode alloc] initWithMobileCountryCode:&stru_1F05FF230 ISOCode:v9 isOverridden:1];
+        (completionCopy)[2](completionCopy, v14, 0);
       }
     }
 
     else
     {
       coreTelephonyClient = self->_coreTelephonyClient;
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke;
-      v13[3] = &unk_1E73801A8;
-      v13[4] = self;
-      v14 = completionCopy;
-      [(CoreTelephonyClient *)coreTelephonyClient getCurrentDataSubscriptionContext:v13];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke;
+      v16[3] = &unk_1E73801A8;
+      v16[4] = self;
+      v17 = completionCopy;
+      [(CoreTelephonyClient *)coreTelephonyClient getCurrentDataSubscriptionContext:v16];
     }
   }
 
@@ -128,8 +128,6 @@ void __76__HKMobileCountryCodeManager_fetchISOCountryCodeFromCellularWithComplet
   {
     completionCopy[2](completionCopy, 0, v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -140,21 +138,21 @@ void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithComp
     v7 = *(a1 + 32);
     v6 = *(a1 + 40);
     v8 = *(v7 + 8);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke_29;
-    v11[3] = &unk_1E7380180;
-    v11[4] = v7;
-    v12 = v6;
-    [v8 copyMobileCountryCode:a2 completion:v11];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke_29;
+    v14[3] = &unk_1E7380180;
+    v14[4] = v7;
+    v15 = v6;
+    [v8 copyMobileCountryCode:a2 completion:v14];
   }
 
   else
   {
     v9 = [MEMORY[0x1E696ABC0] hk_error:109 description:@"Failed to get current data subscription context" underlyingError:v5];
-    _HKInitializeLogging();
-    v10 = HKLogInfrastructure();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v9, v10);
+    v13 = HKLogInfrastructure(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke_cold_1();
     }
@@ -171,134 +169,134 @@ void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithComp
   {
     v6 = v5;
     v7 = [MEMORY[0x1E696ABC0] hk_error:109 description:@"Failed to get mobile country code" underlyingError:v5];
-    _HKInitializeLogging();
-    v8 = HKLogInfrastructure();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v7, v8);
+    v11 = HKLogInfrastructure(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke_29_cold_1();
     }
 
     [*(a1 + 32) _submitAnalyticsForError:@"Error getting mobile country code" mobileCountryCode:0];
-    v9 = *(*(a1 + 40) + 16);
+    v12 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v10 = *(a1 + 32);
-    v12 = 0;
-    v7 = [v10 _wrapperWithMobileCountryCode:a2 error:&v12];
-    v6 = v12;
-    if (v6)
+    v13 = *(a1 + 32);
+    v19 = 0;
+    v7 = [v13 _wrapperWithMobileCountryCode:a2 error:&v19];
+    v14 = v19;
+    v6 = v14;
+    if (v14)
     {
-      _HKInitializeLogging();
-      v11 = HKLogInfrastructure();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v14, v15);
+      v18 = HKLogInfrastructure(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke_29_cold_2();
       }
 
-      v9 = *(*(a1 + 40) + 16);
+      v12 = *(*(a1 + 40) + 16);
     }
 
     else
     {
-      v9 = *(*(a1 + 40) + 16);
+      v12 = *(*(a1 + 40) + 16);
     }
   }
 
-  v9();
+  v12();
 }
 
 - (id)mobileCountryCodeFromCellularWithError:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if ([(HKMobileCountryCodeManager *)self _isLocationAvailableWithError:?])
   {
     _overrideISOCountryCode = [objc_opt_class() _overrideISOCountryCode];
+    v7 = _overrideISOCountryCode;
     if (_overrideISOCountryCode)
     {
-      _HKInitializeLogging();
-      v6 = HKLogInfrastructure();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      _HKInitializeLogging(_overrideISOCountryCode, v6);
+      v10 = HKLogInfrastructure(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v21 = objc_opt_class();
-        v22 = 2114;
-        v23 = _overrideISOCountryCode;
-        _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Returning ISO country code override override: %{public}@", buf, 0x16u);
+        v32 = objc_opt_class();
+        v33 = 2114;
+        v34 = v7;
+        _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Returning ISO country code override override: %{public}@", buf, 0x16u);
       }
 
-      if ([_overrideISOCountryCode isEqualToString:@"NONE"])
+      if ([v7 isEqualToString:@"NONE"])
       {
         [MEMORY[0x1E696ABC0] hk_assignError:error code:109 description:@"OVERRIDE: No estimate available"];
-        v7 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v7 = [[HKMobileCountryCode alloc] initWithMobileCountryCode:&stru_1F05FF230 ISOCode:_overrideISOCountryCode isOverridden:1];
+        v11 = [[HKMobileCountryCode alloc] initWithMobileCountryCode:&stru_1F05FF230 ISOCode:v7 isOverridden:1];
       }
     }
 
     else
     {
       coreTelephonyClient = self->_coreTelephonyClient;
-      v19 = 0;
-      v9 = [(CoreTelephonyClient *)coreTelephonyClient getCurrentDataSubscriptionContextSync:&v19];
-      v10 = v19;
-      if (v9)
+      v30 = 0;
+      v13 = [(CoreTelephonyClient *)coreTelephonyClient getCurrentDataSubscriptionContextSync:&v30];
+      v14 = v30;
+      if (v13)
       {
-        v11 = self->_coreTelephonyClient;
-        v18 = v10;
-        v12 = [(CoreTelephonyClient *)v11 copyMobileCountryCode:v9 error:&v18];
-        v13 = v18;
+        v15 = self->_coreTelephonyClient;
+        v29 = v14;
+        v16 = [(CoreTelephonyClient *)v15 copyMobileCountryCode:v13 error:&v29];
+        v17 = v29;
 
-        if (v13)
+        if (v17)
         {
-          [MEMORY[0x1E696ABC0] hk_assignError:error code:109 description:@"Failed to get mobile country code" underlyingError:v13];
-          _HKInitializeLogging();
-          v14 = HKLogInfrastructure();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v18 = [MEMORY[0x1E696ABC0] hk_assignError:error code:109 description:@"Failed to get mobile country code" underlyingError:v17];
+          _HKInitializeLogging(v18, v19);
+          v22 = HKLogInfrastructure(v20, v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             [HKMobileCountryCodeManager mobileCountryCodeFromCellularWithError:];
           }
 
           [(HKMobileCountryCodeManager *)self _submitAnalyticsForError:@"Error getting mobile country code" mobileCountryCode:0];
-          v7 = 0;
+          v11 = 0;
         }
 
         else
         {
-          v7 = [(HKMobileCountryCodeManager *)self _wrapperWithMobileCountryCode:v12 error:error];
+          v11 = [(HKMobileCountryCodeManager *)self _wrapperWithMobileCountryCode:v16 error:error];
         }
 
-        v10 = v13;
+        v14 = v17;
       }
 
       else
       {
-        [MEMORY[0x1E696ABC0] hk_assignError:error code:109 description:@"Failed to get current data subscription context" underlyingError:v10];
-        _HKInitializeLogging();
-        v15 = HKLogInfrastructure();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v23 = [MEMORY[0x1E696ABC0] hk_assignError:error code:109 description:@"Failed to get current data subscription context" underlyingError:v14];
+        _HKInitializeLogging(v23, v24);
+        v27 = HKLogInfrastructure(v25, v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           [HKMobileCountryCodeManager mobileCountryCodeFromCellularWithError:];
         }
 
         [(HKMobileCountryCodeManager *)self _submitAnalyticsForError:@"Nil data subscription context" mobileCountryCode:0];
-        v7 = 0;
+        v11 = 0;
       }
     }
   }
 
   else
   {
-    v7 = 0;
+    v11 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v11;
 }
 
 - (BOOL)_isLocationAvailableWithError:(id *)error
@@ -307,12 +305,12 @@ void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithComp
   airplaneMode = [(RadiosPreferences *)self->_radiosPreferences airplaneMode];
   if (airplaneMode)
   {
-    [MEMORY[0x1E696ABC0] hk_assignError:error code:109 description:@"Location not available"];
-    _HKInitializeLogging();
-    v6 = HKLogInfrastructure();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = [MEMORY[0x1E696ABC0] hk_assignError:error code:109 description:@"Location not available"];
+    _HKInitializeLogging(v6, v7);
+    v10 = HKLogInfrastructure(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [HKMobileCountryCodeManager _isLocationAvailableWithError:];
+      [HKMobileCountryCodeManager _isLocationAvailableWithError:?];
     }
   }
 
@@ -410,7 +408,7 @@ void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithComp
 
 + (id)overrideMobileCountryCode
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (+[_HKBehavior isAppleInternalInstall])
   {
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -419,15 +417,15 @@ void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithComp
 
     if (hk_copyNonEmptyString)
     {
-      _HKInitializeLogging();
-      v5 = HKLogInfrastructure();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      _HKInitializeLogging(v5, v6);
+      v9 = HKLogInfrastructure(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138543618;
-        v9 = objc_opt_class();
-        v10 = 2114;
-        v11 = hk_copyNonEmptyString;
-        _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Returning overridden MCC %{public}@.", &v8, 0x16u);
+        v11 = 138543618;
+        v12 = objc_opt_class();
+        v13 = 2114;
+        v14 = hk_copyNonEmptyString;
+        _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Returning overridden MCC %{public}@.", &v11, 0x16u);
       }
     }
   }
@@ -437,172 +435,151 @@ void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithComp
     hk_copyNonEmptyString = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return hk_copyNonEmptyString;
 }
 
 - (void)_submitAnalyticsForError:(id)error mobileCountryCode:(id)code
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   codeCopy = code;
   overrideMobileCountryCode = [objc_opt_class() overrideMobileCountryCode];
 
   if (!overrideMobileCountryCode)
   {
-    v13[0] = @"Error";
-    v13[1] = @"MobileCountryCode";
+    v12[0] = @"Error";
+    v12[1] = @"MobileCountryCode";
     v8 = @"-1";
     if (codeCopy)
     {
       v8 = codeCopy;
     }
 
-    v14[0] = errorCopy;
-    v14[1] = v8;
-    v13[2] = @"UserLocale";
+    v13[0] = errorCopy;
+    v13[1] = v8;
+    v12[2] = @"UserLocale";
     currentLocale = [MEMORY[0x1E695DF58] currentLocale];
     localeIdentifier = [currentLocale localeIdentifier];
-    v14[2] = localeIdentifier;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+    v13[2] = localeIdentifier;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
     AnalyticsSendEvent();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)currentCountryCode
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v2 = [(HKMobileCountryCodeManager *)self mobileCountryCodeFromCellularWithError:&v10];
-  v3 = v10;
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v2 = [(HKMobileCountryCodeManager *)self mobileCountryCodeFromCellularWithError:&v13];
+  v3 = v13;
+  v5 = v3;
   if (!v2)
   {
-    _HKInitializeLogging();
-    v4 = HKLogInfrastructure();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v3, v4);
+    v8 = HKLogInfrastructure(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
+      v9 = objc_opt_class();
       *buf = 138543618;
-      v12 = v5;
-      v13 = 2114;
-      v14 = v3;
-      v6 = v5;
-      _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Failed to retrieve country code: %{public}@", buf, 0x16u);
+      v15 = v9;
+      v16 = 2114;
+      v17 = v5;
+      v10 = v9;
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Failed to retrieve country code: %{public}@", buf, 0x16u);
     }
   }
 
   iSOCode = [v2 ISOCode];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return iSOCode;
 }
 
 - (id)currentEstimate
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v2 = [(HKMobileCountryCodeManager *)self mobileCountryCodeFromCellularWithError:&v12];
-  v3 = v12;
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v2 = [(HKMobileCountryCodeManager *)self mobileCountryCodeFromCellularWithError:&v15];
+  v3 = v15;
+  v5 = v3;
   if (v2)
   {
-    v4 = [HKRegulatoryDomainEstimate alloc];
+    v6 = [HKRegulatoryDomainEstimate alloc];
     iSOCode = [v2 ISOCode];
     timestamp = [v2 timestamp];
-    v7 = -[HKRegulatoryDomainEstimate initWithISOCode:timestamp:provenance:](v4, "initWithISOCode:timestamp:provenance:", iSOCode, timestamp, [v2 provenance]);
+    v9 = -[HKRegulatoryDomainEstimate initWithISOCode:timestamp:provenance:](v6, "initWithISOCode:timestamp:provenance:", iSOCode, timestamp, [v2 provenance]);
   }
 
   else
   {
-    _HKInitializeLogging();
-    iSOCode = HKLogInfrastructure();
+    _HKInitializeLogging(v3, v4);
+    iSOCode = HKLogInfrastructure(v10, v11);
     if (os_log_type_enabled(iSOCode, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
+      v12 = objc_opt_class();
       *buf = 138543618;
-      v14 = v8;
-      v15 = 2114;
-      v16 = v3;
-      v9 = v8;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v5;
+      v13 = v12;
       _os_log_impl(&dword_19197B000, iSOCode, OS_LOG_TYPE_DEFAULT, "[%{public}@] Failed to retrieve country code: %{public}@", buf, 0x16u);
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v9;
 }
 
 void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_6();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(v0 + 32);
   objc_opt_class();
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_2_9();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke_29_cold_1()
 {
   OUTLINED_FUNCTION_2_6();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(v0 + 32);
   objc_opt_class();
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_2_9();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __79__HKMobileCountryCodeManager_fetchMobileCountryCodeFromCellularWithCompletion___block_invoke_29_cold_2()
 {
   OUTLINED_FUNCTION_2_6();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *v0;
   objc_opt_class();
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_2_9();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)mobileCountryCodeFromCellularWithError:.cold.1()
 {
   OUTLINED_FUNCTION_2_6();
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mobileCountryCodeFromCellularWithError:.cold.2()
 {
   OUTLINED_FUNCTION_2_6();
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_0_29();
   OUTLINED_FUNCTION_2_9();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_isLocationAvailableWithError:.cold.1()
+- (void)_isLocationAvailableWithError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_2_9();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 @end

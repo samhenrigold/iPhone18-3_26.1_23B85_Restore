@@ -32,7 +32,7 @@
   return v2;
 }
 
-uint64_t __56__RTTUIConversationControllerCoordinator_sharedInstance__block_invoke()
+uint64_t __56__RTTUIConversationControllerCoordinator_sharedInstance__block_invoke(uint64_t a1)
 {
   sharedInstance_Coordinator = objc_opt_new();
 
@@ -399,17 +399,17 @@ void __65__RTTUIConversationControllerCoordinator_registerForCallUpdates___block
   }
 }
 
-void __65__RTTUIConversationControllerCoordinator_registerForCallUpdates___block_invoke_53(uint64_t a1, void *a2, void *a3, void *a4)
+void __65__RTTUIConversationControllerCoordinator_registerForCallUpdates___block_invoke_53(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  v13 = *(a1 + 40);
-  v14 = v7;
-  v15 = v9;
-  v10 = v9;
-  v11 = v8;
-  v12 = v7;
+  v8 = a2;
+  v9 = a3;
+  v10 = a4;
+  v14 = *(a1 + 40);
+  v15 = v8;
+  v16 = v10;
+  v11 = v10;
+  v12 = v9;
+  v13 = v8;
   AXPerformBlockAsynchronouslyOnMainThread();
 }
 
@@ -493,14 +493,14 @@ LABEL_14:
 LABEL_16:
 }
 
-void __65__RTTUIConversationControllerCoordinator_registerForCallUpdates___block_invoke_56(uint64_t a1, void *a2, void *a3)
+void __65__RTTUIConversationControllerCoordinator_registerForCallUpdates___block_invoke_56(uint64_t a1, void *a2, void *a3, char a4)
 {
-  v5 = a2;
-  v6 = a3;
-  v9 = *(a1 + 40);
-  v10 = v6;
-  v7 = v6;
-  v8 = v5;
+  v6 = a2;
+  v7 = a3;
+  v10 = *(a1 + 40);
+  v11 = v7;
+  v8 = v7;
+  v9 = v6;
   AXPerformBlockAsynchronouslyOnMainThread();
 }
 
@@ -1220,11 +1220,11 @@ void __62__RTTUIConversationControllerCoordinator_hearingServerDidDie___block_in
   }
 }
 
-- (uint64_t)registerForCallUpdates:.cold.1()
+- (void)registerForCallUpdates:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [(RTTUIConversationViewController *)v0 isCurrentCallReceivingOnHold];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [(RTTUIConversationViewController *)v1 isCurrentCallReceivingOnHold];
 }
 
 @end

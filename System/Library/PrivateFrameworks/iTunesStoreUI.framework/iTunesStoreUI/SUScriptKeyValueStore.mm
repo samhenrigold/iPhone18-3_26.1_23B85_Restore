@@ -62,7 +62,7 @@
   }
 }
 
-void __54__SUScriptKeyValueStore_getValueForKey_usingFunction___block_invoke(uint64_t a1, uint64_t a2)
+void __54__SUScriptKeyValueStore_getValueForKey_usingFunction___block_invoke(uint64_t a1, void *a2)
 {
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)

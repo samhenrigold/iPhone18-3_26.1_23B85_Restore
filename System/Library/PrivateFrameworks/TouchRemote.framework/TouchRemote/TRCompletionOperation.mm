@@ -6,23 +6,23 @@
 
 - (void)execute
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if ([(TRCompletionOperation *)self isCancelled])
+  v12 = *MEMORY[0x277D85DE8];
+  isCancelled = [(TRCompletionOperation *)self isCancelled];
+  if (isCancelled)
   {
     userCancelledError = [objc_opt_class() userCancelledError];
     [(TROperation *)self finishWithError:userCancelledError];
-    v3 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (_TRLogEnabled == 1)
     {
-      v4 = TRLogHandle();
+      v4 = TRLogHandle(isCancelled);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v12 = "[TRCompletionOperation execute]";
+        v11 = "[TRCompletionOperation execute]";
         _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "%s Send Completion Request", buf, 0xCu);
       }
     }
@@ -31,17 +31,15 @@
     [(TRSetupCompletionRequest *)v5 setCompletedSuccessfully:1];
     objc_initWeak(buf, self);
     session = [(TROperation *)self session];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __32__TRCompletionOperation_execute__block_invoke;
-    v9[3] = &unk_279DCECD0;
-    objc_copyWeak(&v10, buf);
-    [session sendRequest:v5 withResponseHandler:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __32__TRCompletionOperation_execute__block_invoke;
+    v8[3] = &unk_279DCECD0;
+    objc_copyWeak(&v9, buf);
+    [session sendRequest:v5 withResponseHandler:v8];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 

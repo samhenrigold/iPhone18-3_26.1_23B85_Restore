@@ -54,7 +54,7 @@
     latitude = self->_position.latitude;
     longitude = self->_position.longitude;
     altitude = self->_position.altitude;
-    [v8 position];
+    objc_msgSend_position(v8);
     if (vabdd_f64(latitude, v14) < 0.000001 && vabdd_f64(longitude, v12) < 0.000001 && vabdd_f64(altitude, v13) < 0.000001 && ([v8 routeCoordinate], GEOPolylineCoordinateEqualEps()) && (v15 = self->_displayText._obj, objc_msgSend(v8, "displayText"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqualToString:](v15, "isEqualToString:", v16), v16, v15, v17))
     {
       maneuverHeading = self->_maneuverHeading;

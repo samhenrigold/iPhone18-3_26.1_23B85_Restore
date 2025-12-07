@@ -74,7 +74,6 @@ uint64_t CMMsl::InEarTransitionEntry::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::InEarTransitionEntry::operator==(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 132);
   if (*(a1 + 132))
   {
     if ((*(a2 + 132) & 1) == 0 || *(a1 + 120) != *(a2 + 120))
@@ -106,64 +105,64 @@ BOOL CMMsl::InEarTransitionEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v7 = *(a2 + 32);
-  if (v5 - v6 != *(a2 + 40) - v7)
+  v5 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v6 = *(a2 + 32);
+  if (v4 - v5 != *(a2 + 40) - v6)
   {
     return 0;
   }
 
-  while (v6 != v5)
+  while (v5 != v4)
   {
-    if (*v6 != *v7)
+    if (*v5 != *v6)
     {
       return 0;
     }
 
+    ++v5;
     ++v6;
-    ++v7;
   }
 
-  v9 = *(a1 + 8);
-  v8 = *(a1 + 16);
-  v10 = *(a2 + 8);
-  if (v8 - v9 != *(a2 + 16) - v10)
+  v8 = *(a1 + 8);
+  v7 = *(a1 + 16);
+  v9 = *(a2 + 8);
+  if (v7 - v8 != *(a2 + 16) - v9)
   {
     return 0;
   }
 
-  while (v9 != v8)
+  while (v8 != v7)
   {
-    if (*v9 != *v10)
+    if (*v8 != *v9)
     {
       return 0;
     }
 
+    ++v8;
     ++v9;
-    ++v10;
   }
 
-  v11 = *(a1 + 64);
-  v12 = *(a2 + 64);
-  if (v11)
+  v10 = *(a1 + 64);
+  v11 = *(a2 + 64);
+  if (v10)
   {
-    if (!v12 || !CMMsl::ClefMeasurement::operator==(v11, v12))
+    if (!v11 || !CMMsl::ClefMeasurement::operator==(v10, v11))
     {
       return 0;
     }
   }
 
-  else if (v12)
+  else if (v11)
   {
     return 0;
   }
 
-  v13 = *(a1 + 56);
-  v14 = *(a2 + 56);
-  if (!v13)
+  v12 = *(a1 + 56);
+  v13 = *(a2 + 56);
+  if (!v12)
   {
-    if (!v14)
+    if (!v13)
     {
       goto LABEL_30;
     }
@@ -171,13 +170,12 @@ BOOL CMMsl::InEarTransitionEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if (!v14 || !CMMsl::ClefMeasurement::operator==(v13, v14))
+  if (!v13 || !CMMsl::ClefMeasurement::operator==(v12, v13))
   {
     return 0;
   }
 
 LABEL_30:
-  v15 = *(a2 + 132);
   if ((*(a1 + 132) & 8) != 0)
   {
     if ((*(a2 + 132) & 8) == 0 || *(a1 + 129) != *(a2 + 129))
@@ -259,83 +257,79 @@ LABEL_3:
 
   v3 = 0;
 LABEL_6:
-  v4 = sub_10007A320(&v33, this + 9);
-  v5 = *(this + 4);
-  v6 = *(this + 5);
-  v7 = PBHashBytes();
-  v8 = *(this + 1);
-  v9 = *(this + 2);
-  v10 = PBHashBytes();
-  v11 = *(this + 8);
-  if (v11)
+  v4 = sub_10007A320(&v29, this + 9);
+  v5 = PBHashBytes();
+  v6 = PBHashBytes();
+  v7 = *(this + 8);
+  if (v7)
   {
-    v12 = *(v11 + 16);
-    v13 = *(v11 + 8);
-    v14 = *(v11 + 12);
-    v15 = v13 == 0.0 || (v12 & 1) == 0;
-    v16 = LODWORD(v13);
-    if (v15)
+    v8 = *(v7 + 16);
+    v9 = *(v7 + 8);
+    v10 = *(v7 + 12);
+    v11 = v9 == 0.0 || (v8 & 1) == 0;
+    v12 = LODWORD(v9);
+    if (v11)
     {
-      v16 = 0;
+      v12 = 0;
     }
 
-    v17 = v12 & 2;
-    v18 = v14 == 0.0 || v17 == 0;
-    v19 = LODWORD(v14);
-    if (v18)
+    v13 = v8 & 2;
+    v14 = v10 == 0.0 || v13 == 0;
+    v15 = LODWORD(v10);
+    if (v14)
     {
-      v19 = 0;
+      v15 = 0;
     }
 
-    v11 = v19 ^ v16;
+    v7 = v15 ^ v12;
   }
 
-  v20 = *(this + 7);
-  if (v20)
+  v16 = *(this + 7);
+  if (v16)
   {
-    v21 = *(v20 + 16);
-    v22 = *(v20 + 8);
-    v23 = *(v20 + 12);
-    v24 = v22 == 0.0 || (v21 & 1) == 0;
-    v25 = LODWORD(v22);
-    if (v24)
+    v17 = *(v16 + 16);
+    v18 = *(v16 + 8);
+    v19 = *(v16 + 12);
+    v20 = v18 == 0.0 || (v17 & 1) == 0;
+    v21 = LODWORD(v18);
+    if (v20)
     {
-      v25 = 0;
+      v21 = 0;
     }
 
-    v26 = v21 & 2;
-    v27 = v23 == 0.0 || v26 == 0;
-    v28 = LODWORD(v23);
-    if (v27)
+    v22 = v17 & 2;
+    v23 = v19 == 0.0 || v22 == 0;
+    v24 = LODWORD(v19);
+    if (v23)
     {
-      v28 = 0;
+      v24 = 0;
     }
 
-    v20 = v28 ^ v25;
+    v16 = v24 ^ v21;
   }
 
   if ((*(this + 132) & 8) != 0)
   {
-    v29 = *(this + 129);
+    v25 = *(this + 129);
     if ((*(this + 132) & 4) != 0)
     {
       goto LABEL_32;
     }
 
 LABEL_34:
-    v30 = 0;
-    return v3 ^ v2 ^ v4 ^ v7 ^ v10 ^ v11 ^ v20 ^ v29 ^ v30 ^ sub_100127E38(&v32, this + 12);
+    v26 = 0;
+    return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ v16 ^ v25 ^ v26 ^ sub_100127E38(&v28, this + 12);
   }
 
-  v29 = 0;
+  v25 = 0;
   if ((*(this + 132) & 4) == 0)
   {
     goto LABEL_34;
   }
 
 LABEL_32:
-  v30 = *(this + 128);
-  return v3 ^ v2 ^ v4 ^ v7 ^ v10 ^ v11 ^ v20 ^ v29 ^ v30 ^ sub_100127E38(&v32, this + 12);
+  v26 = *(this + 128);
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ v16 ^ v25 ^ v26 ^ sub_100127E38(&v28, this + 12);
 }
 
 uint64_t sub_100127E38(uint64_t a1, uint64_t **a2)
@@ -371,9 +365,9 @@ uint64_t sub_100127E38(uint64_t a1, uint64_t **a2)
   return result;
 }
 
-uint64_t CMMsl::InEarTransitionEntry::makeMinimum(uint64_t this)
+void *CMMsl::InEarTransitionEntry::makeMinimum(void *this)
 {
-  if (!*(this + 64))
+  if (!this[8])
   {
     operator new();
   }
@@ -381,9 +375,9 @@ uint64_t CMMsl::InEarTransitionEntry::makeMinimum(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::InEarTransitionEntry::makeBaseline(uint64_t this)
+void *CMMsl::InEarTransitionEntry::makeBaseline(void *this)
 {
-  if (!*(this + 56))
+  if (!this[7])
   {
     operator new();
   }
@@ -784,7 +778,7 @@ float CMMsl::InertialOdometry::InertialOdometry(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::InertialOdometry::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::InertialOdometry::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2320,12 +2314,12 @@ void CMMsl::InitialHistoricalMeanSeaLevelPressure::~InitialHistoricalMeanSeaLeve
   operator delete();
 }
 
-CMMsl::InitialHistoricalMeanSeaLevelPressure *CMMsl::InitialHistoricalMeanSeaLevelPressure::InitialHistoricalMeanSeaLevelPressure(char **this, char **a2)
+char **CMMsl::InitialHistoricalMeanSeaLevelPressure::InitialHistoricalMeanSeaLevelPressure(char **this, char **a2)
 {
   *(this + 1) = 0u;
-  v4 = this + 1;
+  v4 = (this + 1);
   *(this + 7) = 0u;
-  v5 = this + 7;
+  v5 = (this + 7);
   *this = off_10041F378;
   *(this + 22) = 0;
   *(this + 3) = 0u;
@@ -3200,30 +3194,24 @@ BOOL CMMsl::InitialHistoricalMeanSeaLevelPressure::operator==(uint64_t a1, uint6
 
 uint64_t CMMsl::InitialHistoricalMeanSeaLevelPressure::hash_value(CMMsl::InitialHistoricalMeanSeaLevelPressure *this)
 {
-  v2 = *(this + 4);
-  v3 = *(this + 5);
+  v2 = PBHashBytes();
+  v3 = PBHashBytes();
   v4 = PBHashBytes();
-  v5 = *(this + 1);
-  v6 = *(this + 2);
-  v7 = PBHashBytes();
-  v8 = *(this + 7);
-  v9 = *(this + 8);
-  v10 = PBHashBytes();
   if (*(this + 88))
   {
-    v11 = *(this + 10);
-    if (v11 == 0.0)
+    v5 = *(this + 10);
+    if (v5 == 0.0)
     {
-      v11 = 0.0;
+      v5 = 0.0;
     }
   }
 
   else
   {
-    v11 = 0.0;
+    v5 = 0.0;
   }
 
-  return v7 ^ v4 ^ v10 ^ *&v11;
+  return v3 ^ v2 ^ v4 ^ *&v5;
 }
 
 void *CMMsl::InterpolatedAccessoryAccel::InterpolatedAccessoryAccel(void *this)
@@ -3258,11 +3246,11 @@ void CMMsl::InterpolatedAccessoryAccel::~InterpolatedAccessoryAccel(CMMsl::Inter
   operator delete();
 }
 
-void *CMMsl::InterpolatedAccessoryAccel::InterpolatedAccessoryAccel(void *this, const CMMsl::InterpolatedAccessoryAccel *a2)
+CMMsl::InterpolatedAccessoryAccel *CMMsl::InterpolatedAccessoryAccel::InterpolatedAccessoryAccel(CMMsl::InterpolatedAccessoryAccel *this, const CMMsl::Accel ***a2)
 {
   *this = off_10041F3B0;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -3270,13 +3258,13 @@ void *CMMsl::InterpolatedAccessoryAccel::InterpolatedAccessoryAccel(void *this, 
   return this;
 }
 
-const CMMsl::InterpolatedAccessoryAccel *CMMsl::InterpolatedAccessoryAccel::operator=(const CMMsl::InterpolatedAccessoryAccel *a1, const CMMsl::InterpolatedAccessoryAccel *a2)
+uint64_t CMMsl::InterpolatedAccessoryAccel::operator=(uint64_t a1, const CMMsl::Accel ***a2)
 {
   if (a1 != a2)
   {
     CMMsl::InterpolatedAccessoryAccel::InterpolatedAccessoryAccel(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::InterpolatedAccessoryAccel::~InterpolatedAccessoryAccel(&v5);
   }
@@ -3504,9 +3492,9 @@ CMMsl::AccessoryAccel *CMMsl::InterpolatedAccessoryAccel::hash_value(CMMsl::Inte
   return result;
 }
 
-uint64_t CMMsl::InterpolatedAccessoryAccel::makeSuper(uint64_t this)
+void *CMMsl::InterpolatedAccessoryAccel::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -3561,12 +3549,12 @@ void CMMsl::IntersiloNSCodingData::~IntersiloNSCodingData(CMMsl::IntersiloNSCodi
   operator delete();
 }
 
-void *CMMsl::IntersiloNSCodingData::IntersiloNSCodingData(void *this, const CMMsl::IntersiloNSCodingData *a2)
+CMMsl::IntersiloNSCodingData *CMMsl::IntersiloNSCodingData::IntersiloNSCodingData(CMMsl::IntersiloNSCodingData *this, const CMMsl::IntersiloNSCodingData *a2)
 {
   *this = off_10041F3E8;
-  this[1] = 0;
-  this[2] = 0;
-  this[3] = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   if (*(a2 + 2))
   {
     operator new();
@@ -3956,7 +3944,7 @@ unint64_t CMMsl::IntersiloNSCodingData::hash_value(CMMsl::IntersiloNSCodingData 
   v2 = *(this + 2);
   if (v2)
   {
-    v3 = sub_100011074(&v11, v2);
+    v3 = sub_100011074(&v8, v2);
   }
 
   else
@@ -3967,7 +3955,7 @@ unint64_t CMMsl::IntersiloNSCodingData::hash_value(CMMsl::IntersiloNSCodingData 
   v4 = *(this + 3);
   if (v4)
   {
-    v5 = sub_100011074(&v12, v4);
+    v5 = sub_100011074(&v9, v4);
   }
 
   else
@@ -3975,20 +3963,17 @@ unint64_t CMMsl::IntersiloNSCodingData::hash_value(CMMsl::IntersiloNSCodingData 
     v5 = 0;
   }
 
-  v6 = *(this + 1);
-  if (v6)
+  if (*(this + 1))
   {
-    v7 = *v6;
-    v8 = v6[1];
-    v9 = PBHashBytes();
+    v6 = PBHashBytes();
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  return v5 ^ v3 ^ v9;
+  return v5 ^ v3 ^ v6;
 }
 
 CMMsl::Item *CMMsl::Item::Item(CMMsl::Item *this)

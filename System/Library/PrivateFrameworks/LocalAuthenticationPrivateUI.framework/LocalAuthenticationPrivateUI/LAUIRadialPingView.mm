@@ -455,7 +455,7 @@ void __42__LAUIRadialPingView__setPulse_withDelay___block_invoke(uint64_t a1)
       v51 = 0u;
       to = 0u;
       v49 = 0u;
-      [v11 transform];
+      objc_msgSend_transform(v11);
       v46 = 0u;
       v47 = 0u;
       v44 = 0u;
@@ -466,7 +466,7 @@ void __42__LAUIRadialPingView__setPulse_withDelay___block_invoke(uint64_t a1)
       v41 = 0u;
       if (layer)
       {
-        [layer transform];
+        objc_msgSend_transform(layer);
       }
 
       v15 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"transform"];
@@ -707,7 +707,7 @@ void __60__LAUIRadialPingView__updateExpandForBlurAtIndex_withDelay___block_invo
     memset(&v25, 0, sizeof(v25));
     if (v13)
     {
-      [v13 transform];
+      objc_msgSend_transform(v13);
     }
 
     v14 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"transform"];

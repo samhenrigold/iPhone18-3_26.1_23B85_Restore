@@ -47,112 +47,112 @@
 - (optional<ULBluetoothIdentityDO>)convertToDO
 {
   v2 = v1;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   bluetoothId = [v1 bluetoothId];
   v5 = bluetoothId;
   if (bluetoothId)
   {
-    [bluetoothId boostUUID];
+    objc_msgSend_boostUUID(bluetoothId);
   }
 
   else
   {
+    v31 = 0;
     v32 = 0;
     v33 = 0;
-    v34 = 0;
   }
 
-  if ((v34 & 1) == 0)
+  if ((v33 & 1) == 0)
   {
+    v31 = 0;
     v32 = 0;
-    v33 = 0;
-    v34 = 1;
+    v33 = 1;
   }
 
   deviceName = [v2 deviceName];
   v7 = deviceName;
   if (deviceName)
   {
-    [deviceName stdString];
+    objc_msgSend_stdString(deviceName);
   }
 
   else
   {
-    *v24 = 0u;
-    v25 = 0u;
+    *v23 = 0u;
+    v24 = 0u;
   }
 
-  if (BYTE8(v25))
+  if (BYTE8(v24))
   {
     stableIdentifier = [v2 stableIdentifier];
     v9 = stableIdentifier;
     if (stableIdentifier)
     {
-      [stableIdentifier stdString];
+      objc_msgSend_stdString(stableIdentifier);
     }
 
     else
     {
-      *v22 = 0u;
-      v23 = 0u;
+      *v21 = 0u;
+      v22 = 0u;
     }
 
-    if (BYTE8(v23))
+    if (BYTE8(v22))
     {
       [v2 lastSeenTimeStamp];
-      if (v34 != 1 || (BYTE8(v25) & 1) == 0)
+      if (v33 != 1 || (BYTE8(v24) & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
       v13 = v12;
-      v14 = v32;
-      v15 = v33;
-      if (SBYTE7(v25) < 0)
+      v14 = v31;
+      v15 = v32;
+      if (SBYTE7(v24) < 0)
       {
-        std::string::__init_copy_ctor_external(&v21, v24[0], v24[1]);
+        std::string::__init_copy_ctor_external(&v20, v23[0], v23[1]);
       }
 
       else
       {
-        *&v21.__r_.__value_.__l.__data_ = *v24;
-        v21.__r_.__value_.__r.__words[2] = v25;
+        *&v20.__r_.__value_.__l.__data_ = *v23;
+        v20.__r_.__value_.__r.__words[2] = v24;
       }
 
-      if ((BYTE8(v23) & 1) == 0)
+      if ((BYTE8(v22) & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      if (SBYTE7(v23) < 0)
+      if (SBYTE7(v22) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, v22[0], v22[1]);
+        std::string::__init_copy_ctor_external(&__p, v21[0], v21[1]);
       }
 
       else
       {
-        *&__p.__r_.__value_.__l.__data_ = *v22;
-        __p.__r_.__value_.__r.__words[2] = v23;
+        *&__p.__r_.__value_.__l.__data_ = *v21;
+        __p.__r_.__value_.__r.__words[2] = v22;
       }
 
-      result = ULBluetoothIdentityDO::ULBluetoothIdentityDO(buf, v14, v15, &v21, &__p, v13);
+      result = ULBluetoothIdentityDO::ULBluetoothIdentityDO(buf, v14, v15, &v20, &__p, v13);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v21.__r_.__value_.__l.__data_);
+        operator delete(v20.__r_.__value_.__l.__data_);
       }
 
-      v17 = v27;
+      v17 = v26;
       *&retstr->var0.var0 = *buf;
       *retstr->var0.var1.var1.var0.var0.var0 = v17;
-      *(&retstr->var0.var1.var1.var0.var1 + 2) = v28;
-      *retstr->var1.var0.var0.var0 = v29;
-      v18 = v31;
-      *(&retstr->var1.var0.var1 + 2) = v30;
+      *(&retstr->var0.var1.var1.var0.var1 + 2) = v27;
+      *retstr->var1.var0.var0.var0 = v28;
+      v18 = v30;
+      *(&retstr->var1.var0.var1 + 2) = v29;
       *&retstr[1].var0.var0 = v18;
       retstr[1].var0.var1.var0.data[8] = 1;
     }
@@ -176,9 +176,9 @@
       retstr[1].var0.var1.var0.data[8] = 0;
     }
 
-    if (BYTE8(v23) == 1 && SBYTE7(v23) < 0)
+    if (BYTE8(v22) == 1 && SBYTE7(v22) < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v21[0]);
     }
   }
 
@@ -201,12 +201,11 @@
     retstr[1].var0.var1.var0.data[8] = 0;
   }
 
-  if (BYTE8(v25) == 1 && SBYTE7(v25) < 0)
+  if (BYTE8(v24) == 1 && SBYTE7(v24) < 0)
   {
-    operator delete(v24[0]);
+    operator delete(v23[0]);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 

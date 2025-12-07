@@ -122,8 +122,9 @@
 
 - (void)setUserTapEventsRequested:(BOOL)requested
 {
+  requestedCopy = requested;
   selfCopy = self;
-  sub_100006370(requested);
+  sub_100006370(requestedCopy);
 }
 
 - (unint64_t)supportedMotionEffectsMode

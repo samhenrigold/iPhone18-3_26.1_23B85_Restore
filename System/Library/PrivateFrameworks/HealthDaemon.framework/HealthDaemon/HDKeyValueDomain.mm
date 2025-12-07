@@ -41,15 +41,15 @@
 
 - (id)_wristTemperatureSerialNumbersBySourceIdentifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   isAppleInternalInstall = [mEMORY[0x277CCDD30] isAppleInternalInstall];
 
   if (isAppleInternalInstall)
   {
-    v12 = 0;
-    v5 = [(HDKeyValueDomain *)self allValuesWithError:&v12];
-    v6 = v12;
+    v11 = 0;
+    v5 = [(HDKeyValueDomain *)self allValuesWithError:&v11];
+    v6 = v11;
     v7 = v5;
     if (!v5)
     {
@@ -58,7 +58,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v14 = v6;
+        v13 = v6;
         _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "[Wrist Temperature] Failed to retrieve serial numbers by source identifier: %{public}@", buf, 0xCu);
       }
 
@@ -72,8 +72,6 @@
   {
     v9 = MEMORY[0x277CBEC10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -148,7 +146,7 @@ void __109__HDKeyValueDomain_WristTemperatureIdentifiers___wristTemperatureResol
   if (v10)
   {
     v10->_category = category;
-    v12 = [nameCopy copy];
+    v12 = objc_msgSend_copy(nameCopy);
     domainName = v11->_domainName;
     v11->_domainName = v12;
 

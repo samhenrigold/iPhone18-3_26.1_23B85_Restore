@@ -56,10 +56,11 @@ LABEL_7:
   v5 = [(PKPassView *)v3 initWithPass:pass content:4 suppressedContent:2039];
 
   PKPassFrontFaceContentSize();
-  PKFloatRoundToPixel();
-  v7 = [(PKPassView *)v5 snapshotOfFrontFaceWithRequestedSize:66.0, v6];
+  v8.n128_f64[0] = v7.n128_f64[0] / v6 * 66.0;
+  PKFloatRoundToPixel(v8, v7);
+  v10 = [(PKPassView *)v5 snapshotOfFrontFaceWithRequestedSize:66.0, v9];
 
-  return v7;
+  return v10;
 }
 
 - (id)_censoredPANTextForPass:(id)pass

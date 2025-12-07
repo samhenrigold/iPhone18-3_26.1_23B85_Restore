@@ -155,7 +155,7 @@ LABEL_16:
     memset(&v9[1], 0, sizeof(CMTime));
     if (v6)
     {
-      [v6 duration];
+      objc_msgSend_duration(v6);
     }
 
     v9[0] = v9[1];

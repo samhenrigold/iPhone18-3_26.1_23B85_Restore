@@ -27,7 +27,7 @@
 {
   swift_beginAccess();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE938E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE938E0, &unk_2483A2CC0);
   v2 = sub_248383B00();
 
   return v2;
@@ -35,7 +35,7 @@
 
 - (void)setOverlays:(id)overlays
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE938E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE938E0, &unk_2483A2CC0);
   v4 = sub_248383B10();
   v5 = OBJC_IVAR____TtC9DashBoard30DBAutomakerOverlayStateMonitor_overlays;
   swift_beginAccess();
@@ -57,14 +57,14 @@
 {
   accessoriesCopy = accessories;
   selfCopy = self;
-  _s9DashBoard30DBAutomakerOverlayStateMonitorC23carDidUpdateAccessoriesyySo6CAFCarCF_0();
+  _s9DashBoard30DBAutomakerOverlayStateMonitorC23carDidUpdateAccessoriesyySo6CAFCarCF_0(v5);
 }
 
 - (void)overlayViewService:(id)service didUpdateOn:(BOOL)on
 {
   serviceCopy = service;
   selfCopy = self;
-  DBAutomakerOverlayStateMonitor.overlayViewService(_:didUpdateOn:)(serviceCopy, on);
+  DBAutomakerOverlayStateMonitor.overlayViewService(_:didUpdateOn:)(serviceCopy, on, v7);
 }
 
 @end

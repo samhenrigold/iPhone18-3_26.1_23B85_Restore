@@ -43,20 +43,19 @@
   else
   {
     v8 = objc_autoreleasePoolPush();
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = HMFGetOSLogHandle(0, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = HMFGetLogIdentifier(0);
+      v11 = HMFGetLogIdentifier(0);
       *buf = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_ERROR, "%{public}@A valid object is required", buf, 0xCu);
+      v15 = v11;
+      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_ERROR, "%{public}@A valid object is required", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     selfCopy = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

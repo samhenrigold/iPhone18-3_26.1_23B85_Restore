@@ -47,7 +47,7 @@ uint64_t __42__SYBacklinkMonitor_userActivityDidChange__block_invoke(uint64_t a1
 
 - (void)_evaluatePendingRequests
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   _monitorQueue = [(SYBacklinkMonitor *)self _monitorQueue];
   dispatch_assert_queue_V2(_monitorQueue);
 
@@ -95,9 +95,9 @@ uint64_t __42__SYBacklinkMonitor_userActivityDidChange__block_invoke(uint64_t a1
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
-          v25 = v11;
-          v26 = 2048;
-          v27 = v15;
+          v24 = v11;
+          v25 = 2048;
+          v26 = v15;
           _os_log_impl(&dword_225901000, v16, OS_LOG_TYPE_DEFAULT, "BacklinkMonitor: ignoring request to process activity change because last request was %0.2fs ago, scheduling re-evaluation in %0.2fs.", buf, 0x16u);
         }
 
@@ -129,8 +129,6 @@ LABEL_13:
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__SYBacklinkMonitor__evaluatePendingRequests__block_invoke(uint64_t a1)

@@ -45,7 +45,7 @@
 
 - (id)receiverForParticipantAccessoryUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDMediaGroupsLocalDataStorage *)self dataSource];
   v6 = dataSource;
@@ -62,25 +62,23 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = dCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to get receiver for participant accessory UUID: %@ due to no data source", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = dCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to get receiver for participant accessory UUID: %@ due to no data source", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)routerForParticipantAccessoryUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDMediaGroupsLocalDataStorage *)self dataSource];
   v6 = dataSource;
@@ -97,25 +95,23 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = dCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to get router for participant accessory UUID: %@ due to no data source", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = dCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to get router for participant accessory UUID: %@ due to no data source", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)removeGroupWithIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -123,11 +119,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = identifierCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Remove group with identifier: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = identifierCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Remove group with identifier: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -135,13 +131,11 @@
   os_unfair_lock_lock_with_options();
   [(NSMutableDictionary *)selfCopy->_groups removeObjectForKey:identifierCopy];
   os_unfair_lock_unlock(&selfCopy->_lock);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateGroup:(id)group
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -149,11 +143,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = groupCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Update group: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = groupCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Update group: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -163,12 +157,11 @@
   [(NSMutableDictionary *)groups setObject:groupCopy forKey:identifier];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBackedUpGroup:(id)group
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   os_unfair_lock_lock_with_options();
   groups = self->_groups;
@@ -188,24 +181,24 @@
       if (v12)
       {
         v13 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v13;
-        v22 = 2112;
-        v23 = groupCopy;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Already added backed up group: %@", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v13;
+        v21 = 2112;
+        v22 = groupCopy;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Already added backed up group: %@", &v19, 0x16u);
       }
     }
 
     else if (v12)
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543874;
-      v21 = v18;
-      v22 = 2112;
-      v23 = groupCopy;
-      v24 = 2112;
-      v25 = v7;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Dropping backed up group: %@ existing group: %@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v18;
+      v21 = 2112;
+      v22 = groupCopy;
+      v23 = 2112;
+      v24 = v7;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Dropping backed up group: %@ existing group: %@", &v19, 0x20u);
     }
   }
 
@@ -222,16 +215,15 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = groupCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Added backed up group: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = groupCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Added backed up group: %@", &v19, 0x16u);
     }
   }
 
   objc_autoreleasePoolPop(v9);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBackedUpGroups:(id)groups
@@ -265,7 +257,7 @@
 
 - (void)setParticipantAccessoryUUID:(id)d associatedGroupIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
   identifierCopy = identifier;
   v8 = objc_autoreleasePoolPush();
@@ -274,13 +266,13 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v15 = 138543874;
-    v16 = v11;
-    v17 = 2112;
-    v18 = dCopy;
-    v19 = 2112;
-    v20 = identifierCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Setting participant accessory uuid: %@ associated group identifier: %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2112;
+    v17 = dCopy;
+    v18 = 2112;
+    v19 = identifierCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Setting participant accessory uuid: %@ associated group identifier: %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -298,8 +290,6 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nullSentinelUUID
@@ -311,7 +301,7 @@
 
 - (void)unsetParticipantAccessoryUUIDsWithAssociatedGroupIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -320,26 +310,25 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = identifierCopy;
+    v14 = v8;
+    v15 = 2112;
+    v16 = identifierCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Unsetting participant accessory uuids with associated group identifier: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   os_unfair_lock_lock_with_options();
   allKeys = [(NSMutableDictionary *)selfCopy->_participantAccessoryUUIDToAssociatedGroupIdentifier allKeys];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __94__HMDMediaGroupsLocalDataStorage_unsetParticipantAccessoryUUIDsWithAssociatedGroupIdentifier___block_invoke;
-  v12[3] = &unk_278677FA0;
-  v12[4] = selfCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __94__HMDMediaGroupsLocalDataStorage_unsetParticipantAccessoryUUIDsWithAssociatedGroupIdentifier___block_invoke;
+  v11[3] = &unk_278677FA0;
+  v11[4] = selfCopy;
   v10 = identifierCopy;
-  v13 = v10;
-  [allKeys na_each:v12];
+  v12 = v10;
+  [allKeys na_each:v11];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __94__HMDMediaGroupsLocalDataStorage_unsetParticipantAccessoryUUIDsWithAssociatedGroupIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -421,7 +410,7 @@ void __94__HMDMediaGroupsLocalDataStorage_unsetParticipantAccessoryUUIDsWithAsso
 
 - (id)associatedGroupsWithGroupIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   groups = [(HMDMediaGroupsLocalDataStorage *)self groups];
   v6 = [groups mutableCopy];
@@ -432,13 +421,13 @@ void __94__HMDMediaGroupsLocalDataStorage_unsetParticipantAccessoryUUIDsWithAsso
     v8 = MEMORY[0x277D85DD0];
     while (1)
     {
-      v18[0] = v8;
-      v18[1] = 3221225472;
-      v18[2] = __70__HMDMediaGroupsLocalDataStorage_associatedGroupsWithGroupIdentifier___block_invoke;
-      v18[3] = &unk_278689080;
+      v17[0] = v8;
+      v17[1] = 3221225472;
+      v17[2] = __70__HMDMediaGroupsLocalDataStorage_associatedGroupsWithGroupIdentifier___block_invoke;
+      v17[3] = &unk_278689080;
       v9 = identifierCopy;
-      v19 = v9;
-      v10 = [v6 na_firstObjectPassingTest:v18];
+      v18 = v9;
+      v10 = [v6 na_firstObjectPassingTest:v17];
       if (!v10)
       {
         break;
@@ -462,9 +451,9 @@ void __94__HMDMediaGroupsLocalDataStorage_unsetParticipantAccessoryUUIDsWithAsso
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v9;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v9;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to find associated group with identifier: %@", buf, 0x16u);
     }
 
@@ -472,8 +461,6 @@ void __94__HMDMediaGroupsLocalDataStorage_unsetParticipantAccessoryUUIDsWithAsso
   }
 
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -526,7 +513,7 @@ void __44__HMDMediaGroupsLocalDataStorage_backupData__block_invoke(uint64_t a1, 
 
 - (void)updateGroup:(id)group participantAccessoryUUIDs:(id)ds
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   dsCopy = ds;
   v8 = objc_autoreleasePoolPush();
@@ -536,11 +523,11 @@ void __44__HMDMediaGroupsLocalDataStorage_backupData__block_invoke(uint64_t a1, 
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v22 = v11;
-    v23 = 2112;
-    v24 = groupCopy;
-    v25 = 2112;
-    v26 = dsCopy;
+    v21 = v11;
+    v22 = 2112;
+    v23 = groupCopy;
+    v24 = 2112;
+    v25 = dsCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating using group: %@ participant accessory uuids: %@", buf, 0x20u);
   }
 
@@ -548,17 +535,15 @@ void __44__HMDMediaGroupsLocalDataStorage_backupData__block_invoke(uint64_t a1, 
   identifier = [groupCopy identifier];
   [(HMDMediaGroupsLocalDataStorage *)selfCopy unsetParticipantAccessoryUUIDsWithAssociatedGroupIdentifier:identifier];
 
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __72__HMDMediaGroupsLocalDataStorage_updateGroup_participantAccessoryUUIDs___block_invoke;
-  v18 = &unk_278677FA0;
-  v19 = selfCopy;
-  v20 = groupCopy;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __72__HMDMediaGroupsLocalDataStorage_updateGroup_participantAccessoryUUIDs___block_invoke;
+  v17 = &unk_278677FA0;
+  v18 = selfCopy;
+  v19 = groupCopy;
   v13 = groupCopy;
-  [dsCopy na_each:&v15];
-  [(HMDMediaGroupsLocalDataStorage *)selfCopy updateGroup:v13, v15, v16, v17, v18, v19];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [dsCopy na_each:&v14];
+  [(HMDMediaGroupsLocalDataStorage *)selfCopy updateGroup:v13, v14, v15, v16, v17, v18];
 }
 
 void __72__HMDMediaGroupsLocalDataStorage_updateGroup_participantAccessoryUUIDs___block_invoke(uint64_t a1, void *a2)
@@ -572,7 +557,7 @@ void __72__HMDMediaGroupsLocalDataStorage_updateGroup_participantAccessoryUUIDs_
 
 - (void)updateUsingParticipantAccessoryUUID:(id)d associatedGroupIdentifier:(id)identifier backedUpGroupData:(id)data
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   identifierCopy = identifier;
   dataCopy = data;
@@ -583,15 +568,15 @@ void __72__HMDMediaGroupsLocalDataStorage_updateGroup_participantAccessoryUUIDs_
   {
     v14 = HMFGetLogIdentifier();
     v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "count")}];
-    v24 = 138544130;
-    v25 = v14;
-    v26 = 2112;
-    v27 = dCopy;
-    v28 = 2112;
-    v29 = identifierCopy;
-    v30 = 2112;
-    v31 = v15;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating using participant accessory uuid: %@ associated group identifier: %@ backup data count: %@", &v24, 0x2Au);
+    v23 = 138544130;
+    v24 = v14;
+    v25 = 2112;
+    v26 = dCopy;
+    v27 = 2112;
+    v28 = identifierCopy;
+    v29 = 2112;
+    v30 = v15;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating using participant accessory uuid: %@ associated group identifier: %@ backup data count: %@", &v23, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -612,19 +597,17 @@ void __72__HMDMediaGroupsLocalDataStorage_updateGroup_participantAccessoryUUIDs_
     {
       v21 = HMFGetLogIdentifier();
       v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "count")}];
-      v24 = 138543874;
-      v25 = v21;
-      v26 = 2112;
-      v27 = v22;
-      v28 = 2112;
-      v29 = v16;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Failed to decode all encoded groups of count: %@ decoded groups: %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v21;
+      v25 = 2112;
+      v26 = v22;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Failed to decode all encoded groups of count: %@ decoded groups: %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaGroupsLocalDataStorage)initWithIdentifier:(id)identifier backupSender:(id)sender
@@ -666,10 +649,9 @@ void __72__HMDMediaGroupsLocalDataStorage_updateGroup_participantAccessoryUUIDs_
 
 void __45__HMDMediaGroupsLocalDataStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v25_104002;
-  logCategory__hmf_once_v25_104002 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v25_104002;
+  logCategory__hmf_once_v25_104002 = v0;
 }
 
 @end

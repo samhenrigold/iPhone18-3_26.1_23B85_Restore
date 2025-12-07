@@ -77,7 +77,7 @@
 
 - (BOOL)showWebPage:(id)page completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pageCopy = page;
   handlerCopy = handler;
   connection = [(WFUIPresenter *)self connection];
@@ -86,26 +86,26 @@
   if (v9)
   {
     connection2 = [(WFUIPresenter *)self connection];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __47__WFUIPresenter_showWebPage_completionHandler___block_invoke;
-    v19[3] = &unk_1E837BE38;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __47__WFUIPresenter_showWebPage_completionHandler___block_invoke;
+    v18[3] = &unk_1E837BE38;
     v11 = handlerCopy;
-    v20 = v11;
-    v12 = [connection2 synchronousPresenterWithErrorHandler:v19];
+    v19 = v11;
+    v12 = [connection2 synchronousPresenterWithErrorHandler:v18];
 
     v13 = v12 != 0;
     if (v12)
     {
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __47__WFUIPresenter_showWebPage_completionHandler___block_invoke_2;
-      v17[3] = &unk_1E83758B0;
-      v18 = v11;
-      [v12 openURL:pageCopy completionHandler:v17];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __47__WFUIPresenter_showWebPage_completionHandler___block_invoke_2;
+      v16[3] = &unk_1E83758B0;
+      v17 = v11;
+      [v12 openURL:pageCopy completionHandler:v16];
     }
 
-    v14 = v20;
+    v14 = v19;
   }
 
   else
@@ -114,14 +114,13 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v22 = "[WFUIPresenter showWebPage:completionHandler:]";
+      v21 = "[WFUIPresenter showWebPage:completionHandler:]";
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, "%s Unable to show web page, because the presenter does not offer a synchronous presenter", buf, 0xCu);
     }
 
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -134,7 +133,7 @@ void __47__WFUIPresenter_showWebPage_completionHandler___block_invoke_2(uint64_t
 
 - (void)dismissPresentedContentForRunningContext:(id)context completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   connection = [(WFUIPresenter *)self connection];
@@ -176,40 +175,36 @@ void __47__WFUIPresenter_showWebPage_completionHandler___block_invoke_2(uint64_t
     v17 = getWFDialogLogObject();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315138;
-      v21 = "[WFUIPresenter dismissPresentedContentForRunningContext:completionHandler:]";
-      _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_DEFAULT, "%s Not reaching out to UI for dismissal, this shortcut hasn't presented any UI", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[WFUIPresenter dismissPresentedContentForRunningContext:completionHandler:]";
+      _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_DEFAULT, "%s Not reaching out to UI for dismissal, this shortcut hasn't presented any UI", &v19, 0xCu);
     }
 
     handlerCopy[2](handlerCopy, 0);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __76__WFUIPresenter_dismissPresentedContentForRunningContext_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFDialogLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFUIPresenter dismissPresentedContentForRunningContext:completionHandler:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to dismiss presented content: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFUIPresenter dismissPresentedContentForRunningContext:completionHandler:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to dismiss presented content: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applicationWillLaunchInForegroundForRunningContext:(id)context isLastAction:(id)action
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   actionCopy = action;
   connection = [(WFUIPresenter *)self connection];
@@ -225,38 +220,34 @@ void __76__WFUIPresenter_dismissPresentedContentForRunningContext_completionHand
     v10 = getWFDialogLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[WFUIPresenter applicationWillLaunchInForegroundForRunningContext:isLastAction:]";
-      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Did not get a UI presenter to update the run view source.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[WFUIPresenter applicationWillLaunchInForegroundForRunningContext:isLastAction:]";
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Did not get a UI presenter to update the run view source.", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __81__WFUIPresenter_applicationWillLaunchInForegroundForRunningContext_isLastAction___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFDialogLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFUIPresenter applicationWillLaunchInForegroundForRunningContext:isLastAction:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (beginPersistentModeWithRunningContext): %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFUIPresenter applicationWillLaunchInForegroundForRunningContext:isLastAction:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (beginPersistentModeWithRunningContext): %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAttribution:(id)attribution runningContext:(id)context
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   attributionCopy = attribution;
   contextCopy = context;
   connection = [(WFUIPresenter *)self connection];
@@ -272,49 +263,45 @@ void __81__WFUIPresenter_applicationWillLaunchInForegroundForRunningContext_isLa
     v10 = getWFDialogLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[WFUIPresenter updateAttribution:runningContext:]";
-      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Did not get a UI presenter to update the run view source.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[WFUIPresenter updateAttribution:runningContext:]";
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Did not get a UI presenter to update the run view source.", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __50__WFUIPresenter_updateAttribution_runningContext___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFDialogLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFUIPresenter updateAttribution:runningContext:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (beginPersistentModeWithRunningContext): %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFUIPresenter updateAttribution:runningContext:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (beginPersistentModeWithRunningContext): %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)showDialogRequest:(id)request runningContext:(id)context completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   contextCopy = context;
   handlerCopy = handler;
   connection = [(WFUIPresenter *)self connection];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __68__WFUIPresenter_showDialogRequest_runningContext_completionHandler___block_invoke;
-  v36[3] = &unk_1E837BE38;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __68__WFUIPresenter_showDialogRequest_runningContext_completionHandler___block_invoke;
+  v35[3] = &unk_1E837BE38;
   v12 = handlerCopy;
-  v37 = v12;
-  v13 = [connection presenterWithErrorHandler:v36];
+  v36 = v12;
+  v13 = [connection presenterWithErrorHandler:v35];
 
   if (!v13)
   {
@@ -352,9 +339,9 @@ LABEL_15:
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
-              v39 = "[WFUIPresenter showDialogRequest:runningContext:completionHandler:]";
-              v40 = 2112;
-              v41 = contextCopy;
+              v38 = "[WFUIPresenter showDialogRequest:runningContext:completionHandler:]";
+              v39 = 2112;
+              v40 = contextCopy;
               _os_log_impl(&dword_1CA256000, v24, OS_LOG_TYPE_DEFAULT, "%s Workflow (%@) is running from the app and the display is off, we need to suspend the request before we pass it to the presenter", buf, 0x16u);
             }
 
@@ -381,47 +368,44 @@ LABEL_15:
     }
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __68__WFUIPresenter_showDialogRequest_runningContext_completionHandler___block_invoke_203;
-  v32[3] = &unk_1E8373318;
-  v32[4] = self;
-  v33 = requestCopy;
-  v34 = contextCopy;
-  v35 = v12;
-  [v13 showDialogRequest:v33 runningContext:v34 completionHandler:v32];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __68__WFUIPresenter_showDialogRequest_runningContext_completionHandler___block_invoke_203;
+  v31[3] = &unk_1E8373318;
+  v31[4] = self;
+  v32 = requestCopy;
+  v33 = contextCopy;
+  v34 = v12;
+  [v13 showDialogRequest:v32 runningContext:v33 completionHandler:v31];
 
 LABEL_16:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __68__WFUIPresenter_showDialogRequest_runningContext_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = getWFDialogLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "[WFUIPresenter showDialogRequest:runningContext:completionHandler:]_block_invoke";
-      v10 = 2112;
-      v11 = v3;
-      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (showDialogRequest): %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[WFUIPresenter showDialogRequest:runningContext:completionHandler:]_block_invoke";
+      v9 = 2112;
+      v10 = v3;
+      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (showDialogRequest): %@", &v7, 0x16u);
     }
   }
 
   v5 = *(a1 + 32);
   v6 = [objc_alloc(MEMORY[0x1E69E0AB8]) initWithResponseCode:1];
   (*(v5 + 16))(v5, v6, v3);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __68__WFUIPresenter_showDialogRequest_runningContext_completionHandler___block_invoke_203(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v5 responseCode] == 3)
@@ -449,11 +433,11 @@ LABEL_12:
       v13 = getWFWorkflowExecutionLogObject();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = 136315394;
-        v17 = "[WFUIPresenter showDialogRequest:runningContext:completionHandler:]_block_invoke";
-        v18 = 2112;
-        v19 = v6;
-        _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Show dialog request failed with error: %@", &v16, 0x16u);
+        v15 = 136315394;
+        v16 = "[WFUIPresenter showDialogRequest:runningContext:completionHandler:]_block_invoke";
+        v17 = 2112;
+        v18 = v6;
+        _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Show dialog request failed with error: %@", &v15, 0x16u);
       }
 
       v14 = *(a1 + 56);
@@ -465,22 +449,20 @@ LABEL_12:
     v12 = getWFDialogLogObject();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315394;
-      v17 = "[WFUIPresenter showDialogRequest:runningContext:completionHandler:]_block_invoke";
-      v18 = 2112;
-      v19 = v5;
-      _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEFAULT, "%s Received dialog response: %@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[WFUIPresenter showDialogRequest:runningContext:completionHandler:]_block_invoke";
+      v17 = 2112;
+      v18 = v5;
+      _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEFAULT, "%s Received dialog response: %@", &v15, 0x16u);
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRunViewSource:(id)source
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   connection = [(WFUIPresenter *)self connection];
   v6 = [connection presenterWithErrorHandler:&__block_literal_global_195];
@@ -495,33 +477,29 @@ LABEL_12:
     v7 = getWFDialogLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[WFUIPresenter updateRunViewSource:]";
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Did not get a UI presenter to update the run view source.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[WFUIPresenter updateRunViewSource:]";
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Did not get a UI presenter to update the run view source.", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __37__WFUIPresenter_updateRunViewSource___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFDialogLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFUIPresenter updateRunViewSource:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (beginPersistentModeWithRunningContext): %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFUIPresenter updateRunViewSource:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (beginPersistentModeWithRunningContext): %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completePersistentModeWithSuccess:(id)success runningContext:(id)context completionHandler:(id)handler
@@ -549,22 +527,20 @@ void __37__WFUIPresenter_updateRunViewSource___block_invoke(uint64_t a1, void *a
 
 void __84__WFUIPresenter_completePersistentModeWithSuccess_runningContext_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFDialogLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFUIPresenter completePersistentModeWithSuccess:runningContext:completionHandler:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (completePersistentModeWithSuccess): %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFUIPresenter completePersistentModeWithSuccess:runningContext:completionHandler:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (completePersistentModeWithSuccess): %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginPersistentModeWithRunningContext:(id)context attribution:(id)attribution completionHandler:(id)handler
@@ -594,22 +570,20 @@ void __84__WFUIPresenter_completePersistentModeWithSuccess_runningContext_comple
 
 void __85__WFUIPresenter_beginPersistentModeWithRunningContext_attribution_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFDialogLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFUIPresenter beginPersistentModeWithRunningContext:attribution:completionHandler:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (beginPersistentModeWithRunningContext): %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFUIPresenter beginPersistentModeWithRunningContext:attribution:completionHandler:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (beginPersistentModeWithRunningContext): %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resumeDialogPresentationWithCompletionHandler:(id)handler
@@ -632,22 +606,20 @@ void __85__WFUIPresenter_beginPersistentModeWithRunningContext_attribution_compl
 
 void __63__WFUIPresenter_resumeDialogPresentationWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFDialogLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFUIPresenter resumeDialogPresentationWithCompletionHandler:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (resumeDialogPresentation): %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFUIPresenter resumeDialogPresentationWithCompletionHandler:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (resumeDialogPresentation): %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pauseDialogPresentationForDuration:(id)duration withCompletionHandler:(id)handler
@@ -671,22 +643,20 @@ void __63__WFUIPresenter_resumeDialogPresentationWithCompletionHandler___block_i
 
 void __74__WFUIPresenter_pauseDialogPresentationForDuration_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFDialogLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFUIPresenter pauseDialogPresentationForDuration:withCompletionHandler:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (pauseDialogPresentation): %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFUIPresenter pauseDialogPresentationForDuration:withCompletionHandler:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Presenter connection failed with error (pauseDialogPresentation): %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (WFUIPresenter)initWithConnection:(id)connection

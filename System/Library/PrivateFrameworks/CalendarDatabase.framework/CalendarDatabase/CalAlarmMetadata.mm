@@ -25,12 +25,11 @@
 uint64_t __53__CalAlarmMetadata_isRecognizedProperty_inComponent___block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
-  v1 = *MEMORY[0x1E69E3E98];
-  v2 = [v0 initWithObjects:{*MEMORY[0x1E69E3E90], *MEMORY[0x1E69E3E98], *MEMORY[0x1E69E3FA8], *MEMORY[0x1E69E4010], *MEMORY[0x1E69E4020], *MEMORY[0x1E69E3D38], *MEMORY[0x1E69E3D58], *MEMORY[0x1E69E3DA8], *MEMORY[0x1E69E3DF0], *MEMORY[0x1E69E3E78], 0}];
-  v3 = isRecognizedProperty_inComponent__recognizedProperties;
-  isRecognizedProperty_inComponent__recognizedProperties = v2;
+  v1 = [v0 initWithObjects:{*MEMORY[0x1E69E3E90], *MEMORY[0x1E69E3E98], *MEMORY[0x1E69E3FA8], *MEMORY[0x1E69E4010], *MEMORY[0x1E69E4020], *MEMORY[0x1E69E3D38], *MEMORY[0x1E69E3D58], *MEMORY[0x1E69E3DA8], *MEMORY[0x1E69E3DF0], *MEMORY[0x1E69E3E78], 0}];
+  v2 = isRecognizedProperty_inComponent__recognizedProperties;
+  isRecognizedProperty_inComponent__recognizedProperties = v1;
 
-  return MEMORY[0x1EEE66BB8](v2, v3);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (BOOL)isRecognizedParameter:(id)parameter forProperty:(id)property inComponent:(id)component
@@ -51,18 +50,16 @@ uint64_t __53__CalAlarmMetadata_isRecognizedProperty_inComponent___block_invoke(
 
 void __66__CalAlarmMetadata_isRecognizedParameter_forProperty_inComponent___block_invoke()
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v5[2] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E69E3E88], *MEMORY[0x1E69E3E80], *MEMORY[0x1E69E3DB0], 0}];
-  v5[0] = *MEMORY[0x1E69E4010];
+  v4[0] = *MEMORY[0x1E69E4010];
   v1 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E69E4030], 0}];
-  v5[1] = *MEMORY[0x1E69E3DF0];
-  v6[0] = v1;
-  v6[1] = v0;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v4[1] = *MEMORY[0x1E69E3DF0];
+  v5[0] = v1;
+  v5[1] = v0;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
   v3 = isRecognizedParameter_forProperty_inComponent__recognizedParametersByPropertyName;
   isRecognizedParameter_forProperty_inComponent__recognizedParametersByPropertyName = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)shouldSkipSavingUnrecognizedParametersForProperty:(id)property inComponent:(id)component
@@ -91,29 +88,27 @@ uint64_t __82__CalAlarmMetadata_shouldSkipSavingUnrecognizedParametersForPropert
 
 + (id)metadataWithData:(id)data
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v11.receiver = self;
-  v11.super_class = &OBJC_METACLASS___CalAlarmMetadata;
-  v5 = objc_msgSendSuper2(&v11, sel_metadataWithData_, dataCopy);
+  v10.receiver = self;
+  v10.super_class = &OBJC_METACLASS___CalAlarmMetadata;
+  v5 = objc_msgSendSuper2(&v10, sel_metadataWithData_, dataCopy);
   if (!v5)
   {
-    v10 = 0;
-    v5 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v10];
-    v6 = v10;
+    v9 = 0;
+    v5 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v9];
+    v6 = v9;
     if (!v5)
     {
       v7 = CDBiCalendarConversionHandle;
       if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v13 = v6;
+        v12 = v6;
         _os_log_impl(&dword_1DEBB1000, v7, OS_LOG_TYPE_ERROR, "Error unarchiving alarm metadata: %@", buf, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -153,26 +148,24 @@ uint64_t __82__CalAlarmMetadata_shouldSkipSavingUnrecognizedParametersForPropert
   return v10;
 }
 
-void __34__CalAlarmMetadata_initWithCoder___block_invoke()
+void __34__CalAlarmMetadata_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
+  v11[2] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v4 = [v2 setWithArray:v3];
+  v5 = initWithCoder__attachmentClasses;
+  initWithCoder__attachmentClasses = v4;
+
+  v6 = MEMORY[0x1E695DFD8];
   v10[0] = objc_opt_class();
   v10[1] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
-  v2 = [v0 setWithArray:v1];
-  v3 = initWithCoder__attachmentClasses;
-  initWithCoder__attachmentClasses = v2;
-
-  v4 = MEMORY[0x1E695DFD8];
-  v9[0] = objc_opt_class();
-  v9[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
-  v6 = [v4 setWithArray:v5];
-  v7 = initWithCoder__attendeeClasses;
-  initWithCoder__attendeeClasses = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v8 = [v6 setWithArray:v7];
+  v9 = initWithCoder__attendeeClasses;
+  initWithCoder__attendeeClasses = v8;
 }
 
 @end

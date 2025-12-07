@@ -5,23 +5,22 @@
 - (BWPixelTransferNode)initWithfractionalSourceRectEnabled:(BOOL)enabled;
 - (CGFloat)_getUpdatedPrimaryCaptureRectForOutputSampleBuffer:(uint64_t)buffer inputDimensions:(CMAttachmentBearerRef)target;
 - (CGRect)inputCropRect;
+- (VTPixelTransferSessionRef)_ensureTransferSession;
+- (double)_makeCurrentConfigurationLive;
+- (id)_updateInputRequirements;
+- (id)_updateOutputRequirements;
 - (int)maxLossyCompressionLevel;
-- (uint64_t)_convertUsingHDRProcessing:(__CVBuffer *)processing toSDR:;
+- (uint64_t)_convertUsingHDRProcessing:(__CVBuffer *)processing toSDR:(uint64_t)r;
 - (uint64_t)_emitIfMarkerBuffer:(uint64_t)result;
 - (uint64_t)_ensureDeviceOrientationMonitor;
 - (uint64_t)_ensureIntermediatePoolWithDimensions:(uint64_t)dimensions;
 - (uint64_t)_ensureRotationSession;
-- (uint64_t)_ensureTransferSession;
-- (uint64_t)_intermediateBufferDimensionsForInputDimensions:(uint64_t)dimensions outputDimensions:;
-- (uint64_t)_makeCurrentConfigurationLive;
 - (uint64_t)_supportedOutputPixelFormats;
-- (uint64_t)_updateInputRequirements;
 - (uint64_t)_updateLiveRotationAndFlipsToApplyUprightExifOrientation:(uint64_t)result;
 - (uint64_t)_updateMetadataForOutputSampleBuffer:(uint64_t)result destinationRect:;
-- (uint64_t)_updateOutputRequirements;
-- (uint64_t)_updatePassthroughModes;
 - (unsigned)_updateLiveDeviceOrientationAffectedMetadataForOutputSampleBuffer:(double)buffer inputDims:(double)dims inputCropRect:(double)rect;
 - (void)_ensureIntermediatePixelBufferForStillHDRToSDRConversionIfNeeded;
+- (void)_updatePassthroughModes;
 - (void)_updatePrimaryCaptureRect:(uint64_t)rect forOutputSampleBuffer:(const void *)buffer;
 - (void)_updateUprightExifOrientationOnSampleBufferIfNeeded:(uint64_t)needed;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
@@ -48,29 +47,29 @@
 
 @implementation BWPixelTransferNode
 
-- (uint64_t)_updateOutputRequirements
+- (id)_updateOutputRequirements
 {
   if (result)
   {
     v1 = result;
-    formatRequirements = [*(result + 16) formatRequirements];
-    videoFormat = [*(v1 + 8) videoFormat];
+    formatRequirements = [result[2] formatRequirements];
+    videoFormat = [v1[1] videoFormat];
     v4 = videoFormat;
-    width = *(v1 + 240);
+    width = v1[30];
     if (!width)
     {
       width = [videoFormat width];
     }
 
     [formatRequirements setWidth:width];
-    height = *(v1 + 248);
+    height = v1[31];
     if (!height)
     {
       height = [v4 height];
     }
 
     [formatRequirements setHeight:height];
-    if (*(v1 + 256))
+    if (*(v1 + 64))
     {
       v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
       [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
@@ -81,10 +80,10 @@
     {
       [(BWPixelTransferNode *)v1 _supportedOutputPixelFormats];
       [OUTLINED_FUNCTION_17() setSupportedPixelFormats:?];
-      result = [formatRequirements setPreferredPixelFormats:*(v1 + 264)];
+      result = [formatRequirements setPreferredPixelFormats:v1[33]];
     }
 
-    if (*(v1 + 272))
+    if (*(v1 + 68))
     {
       v9 = [MEMORY[0x1E696AD98] numberWithInt:?];
       v7 = &v9;
@@ -149,13 +148,13 @@
   return v2;
 }
 
-- (uint64_t)_updateInputRequirements
+- (id)_updateInputRequirements
 {
   if (result)
   {
     v1 = result;
-    formatRequirements = [*(result + 8) formatRequirements];
-    v3 = ptn_supportedPixelFormats(*(v1 + 296));
+    formatRequirements = [result[1] formatRequirements];
+    v3 = ptn_supportedPixelFormats(*(v1 + 74));
 
     return [formatRequirements setSupportedPixelFormats:v3];
   }
@@ -163,7 +162,7 @@
   return result;
 }
 
-- (uint64_t)_updatePassthroughModes
+- (void)_updatePassthroughModes
 {
   if (!result)
   {
@@ -171,9 +170,9 @@
   }
 
   v1 = result;
-  if (*(result + 128) == 3)
+  if (*(result + 32) == 3)
   {
-    v2 = *(result + 8);
+    v2 = result[1];
     v3 = 1;
     v4 = 1;
   }
@@ -181,7 +180,7 @@
   else
   {
     v5 = *(result + 201);
-    v2 = *(result + 8);
+    v2 = result[1];
     if (v5 != 1)
     {
       [v2 setPassthroughMode:0];
@@ -195,9 +194,9 @@
 
   [v2 setPassthroughMode:v4];
 LABEL_8:
-  [*(v1 + 16) setPassthroughMode:v3];
-  v6 = [*(v1 + 8) passthroughMode] != 0;
-  v7 = *(v1 + 8);
+  [v1[2] setPassthroughMode:v3];
+  v6 = [v1[1] passthroughMode] != 0;
+  v7 = v1[1];
 
   return [v7 setConversionToPassthroughModeNeverAllowed:v6];
 }
@@ -302,36 +301,34 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
   return result;
 }
 
-- (uint64_t)_makeCurrentConfigurationLive
+- (double)_makeCurrentConfigurationLive
 {
-  if (result)
+  if (self)
   {
-    v1 = result;
-    *(result + 132) = *(result + 128);
-    *(result + 200) = !CGRectEqualToRect(*(result + 136), *MEMORY[0x1E695F058]);
-    v2 = *(v1 + 152);
-    *(v1 + 168) = *(v1 + 136);
-    *(v1 + 184) = v2;
-    *(v1 + 202) = *(v1 + 201);
-    *(v1 + 239) = *(v1 + 238);
-    *(v1 + 284) = *(v1 + 276);
-    *(v1 + 204) = *(v1 + 203);
-    *(v1 + 212) = *(v1 + 208);
-    *(v1 + 217) = *(v1 + 216);
-    *(v1 + 219) = *(v1 + 218);
-    result = [(BWPixelTransferNode *)v1 _zeroFillBuffers];
-    *(v1 + 220) = result;
-    *(v1 + 222) = *(v1 + 221);
-    *(v1 + 237) = *(v1 + 236);
-    *(v1 + 385) = *(v1 + 384);
-    if (*(v1 + 200) == 1 && *(v1 + 432) == 1)
+    *(self + 132) = *(self + 128);
+    *(self + 200) = !CGRectEqualToRect(*(self + 136), *MEMORY[0x1E695F058]);
+    v2 = *(self + 152);
+    *(self + 168) = *(self + 136);
+    *(self + 184) = v2;
+    *(self + 202) = *(self + 201);
+    *(self + 239) = *(self + 238);
+    *(self + 284) = *(self + 276);
+    *(self + 204) = *(self + 203);
+    *(self + 212) = *(self + 208);
+    *(self + 217) = *(self + 216);
+    *(self + 219) = *(self + 218);
+    *(self + 220) = [(BWPixelTransferNode *)self _zeroFillBuffers];
+    *(self + 222) = *(self + 221);
+    *(self + 237) = *(self + 236);
+    *(self + 385) = *(self + 384);
+    if (*(self + 200) == 1 && *(self + 432) == 1)
     {
       if (dword_1ED844550)
       {
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         OUTLINED_FUNCTION_2_4();
-        return fig_log_call_emit_and_clean_up_after_send_and_compose();
+        fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
     }
   }
@@ -388,12 +385,9 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
   if (*(v1 + 324) != *(v1 + 272))
   {
     v12 = [BWVideoFormat pixelBufferAttachmentsForColorSpaceProperties:?];
-    [v12 objectForKeyedSubscript:*MEMORY[0x1E6965F98]];
-    OUTLINED_FUNCTION_6_16();
-    [v12 objectForKeyedSubscript:*MEMORY[0x1E6965D88]];
-    OUTLINED_FUNCTION_6_16();
-    [v12 objectForKeyedSubscript:*MEMORY[0x1E6965F30]];
-    result = OUTLINED_FUNCTION_6_16();
+    OUTLINED_FUNCTION_6_16([v12 objectForKeyedSubscript:*MEMORY[0x1E6965F98]]);
+    OUTLINED_FUNCTION_6_16([v12 objectForKeyedSubscript:*MEMORY[0x1E6965D88]]);
+    result = OUTLINED_FUNCTION_6_16([v12 objectForKeyedSubscript:*MEMORY[0x1E6965F30]]);
     *(v1 + 324) = *(v1 + 272);
   }
 
@@ -461,7 +455,7 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
     [(BWNodeOutput *)v8 setIndexOfInputWhichDrivesThisOutput:0];
 
     [(BWNode *)v4 addOutput:v8];
-    [(BWPixelTransferNode *)v4 _updateOutputRequirements];
+    [(BWPixelTransferNode *)&v4->super.super.isa _updateOutputRequirements];
     [(BWNode *)v4 setSupportsLiveReconfiguration:1];
     [(BWNode *)v4 setSupportsPrepareWhileRunning:1];
     v10 = [BWLimitedGMErrorLogger alloc];
@@ -526,7 +520,7 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
   {
     self->_passesBuffersThroughWhenPossible = 0;
 
-    [(BWPixelTransferNode *)self _updateOutputRequirements];
+    [(BWPixelTransferNode *)&self->super.super.isa _updateOutputRequirements];
   }
 }
 
@@ -603,10 +597,10 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
     }
   }
 
-  [(BWPixelTransferNode *)self _makeCurrentConfigurationLive];
-  v10.receiver = self;
-  v10.super_class = BWPixelTransferNode;
-  [(BWNode *)&v10 configurationWithID:d updatedFormat:format didBecomeLiveForInput:input];
+  CurrentConfiguration = [(BWPixelTransferNode *)self _makeCurrentConfigurationLive];
+  v11.receiver = self;
+  v11.super_class = BWPixelTransferNode;
+  [(BWNode *)&v11 configurationWithID:d updatedFormat:format didBecomeLiveForInput:input, CurrentConfiguration];
 }
 
 - (void)didReachEndOfDataForConfigurationID:(id)d input:(id)input
@@ -648,12 +642,12 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
   bufferCopy = buffer;
-  v6 = MEMORY[0x1E695FF58];
+  v7 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    BWGetOriginalPresentationTimeStampFromBuffer(buffer, &v387);
-    time[0].origin = *&v387.value;
-    *&time[0].size.width = v387.epoch;
+    BWGetOriginalPresentationTimeStampFromBuffer(buffer, &v414);
+    time[0].origin = *&v414.value;
+    *&time[0].size.width = v414.epoch;
     CMTimeGetSeconds(time);
     kdebug_trace();
   }
@@ -670,32 +664,32 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
       LODWORD(origin.f64[0]) = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v9 = LODWORD(origin.f64[0]);
+      v10 = LODWORD(origin.f64[0]);
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type[0]))
       {
-        v10 = v9;
+        v11 = v10;
       }
 
       else
       {
-        v10 = v9 & 0xFFFFFFFE;
+        v11 = v10 & 0xFFFFFFFE;
       }
 
-      if (v10)
+      if (v11)
       {
         name = [(BWNode *)self name];
         CMSampleBufferGetPresentationTimeStamp(time, bufferCopy);
         Seconds = CMTimeGetSeconds(time);
-        LODWORD(v387.value) = 136315906;
-        *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-        LOWORD(v387.flags) = 2112;
-        *(&v387.flags + 2) = name;
-        HIWORD(v387.epoch) = 2048;
+        LODWORD(v414.value) = 136315906;
+        *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+        LOWORD(v414.flags) = 2112;
+        *(&v414.flags + 2) = name;
+        HIWORD(v414.epoch) = 2048;
         selfCopy22 = self;
-        v389 = 2048;
-        *v390 = Seconds;
-        LODWORD(v345) = 42;
-        v341 = &v387;
+        v416 = 2048;
+        *v417 = Seconds;
+        LODWORD(v354) = 42;
+        v347 = &v414;
         _os_log_send_and_compose_impl();
       }
 
@@ -708,10 +702,10 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
       dispatch_semaphore_wait(emitSampleBufferSemaphore, 0xFFFFFFFFFFFFFFFFLL);
     }
 
-    v378 = *(MEMORY[0x1E695F058] + 16);
-    v381 = *MEMORY[0x1E695F058];
+    v405 = *(MEMORY[0x1E695F058] + 16);
+    v408 = *MEMORY[0x1E695F058];
     origin = *MEMORY[0x1E695F058];
-    v397 = v378;
+    v424 = v405;
     pixelBuffer = CMSampleBufferGetImageBuffer(bufferCopy);
     fractionalSourceRectEnabled = self->_fractionalSourceRectEnabled;
     *type = 0;
@@ -728,61 +722,61 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
     {
       if (liveCropMode == 1)
       {
-        v28 = CMGetAttachment(bufferCopy, *off_1E798A3C8, 0);
-        if (v28)
+        v29 = CMGetAttachment(bufferCopy, *off_1E798A3C8, 0);
+        if (v29)
         {
-          v29 = v28;
-          v30 = *off_1E798A5C8;
+          v30 = v29;
+          v31 = *off_1E798A5C8;
           if (FigCFDictionaryGetCGRectIfPresent())
           {
             rect = origin;
-            v31 = v397.f64[1];
+            v32 = v424.f64[1];
             Width = CVPixelBufferGetWidth(pixelBuffer);
             Height = CVPixelBufferGetHeight(pixelBuffer);
-            v34.i64[0] = Width;
-            v34.i64[1] = Height;
-            v35 = vcvtq_f64_u64(v34);
-            v36 = vmulq_f64(origin, v35);
+            v35.i64[0] = Width;
+            v35.i64[1] = Height;
+            v36 = vcvtq_f64_u64(v35);
+            v37 = vmulq_f64(origin, v36);
             if (fractionalSourceRectEnabled)
             {
-              v37 = vmulq_f64(v397, v35);
+              v38 = vmulq_f64(v424, v36);
             }
 
             else
             {
               __asm { FMOV            V2.2D, #0.5 }
 
-              v45 = vrndaq_f64(vmulq_f64(v36, _Q2));
-              v36 = vaddq_f64(v45, v45);
-              v46 = vrndaq_f64(vmulq_f64(vmulq_f64(v397, v35), _Q2));
+              v46 = vrndaq_f64(vmulq_f64(v37, _Q2));
               v37 = vaddq_f64(v46, v46);
+              v47 = vrndaq_f64(vmulq_f64(vmulq_f64(v424, v36), _Q2));
+              v38 = vaddq_f64(v47, v47);
             }
 
-            origin = v36;
-            v397 = v37;
-            CFDictionaryRemoveValue(v29, v30);
+            origin = v37;
+            v424 = v38;
+            CFDictionaryRemoveValue(v30, v31);
             if (self->_liveUpdatesSampleBufferMetadataForIrisVIS)
             {
-              LODWORD(v387.value) = 0;
-              v47 = *off_1E798B328;
+              LODWORD(v414.value) = 0;
+              v48 = *off_1E798B328;
               if (FigCFDictionaryGetInt32IfPresent())
               {
-                CFDictionarySetValue(v29, v47, [MEMORY[0x1E696AD98] numberWithInt:(v31 * SLODWORD(v387.value))]);
+                CFDictionarySetValue(v30, v48, [MEMORY[0x1E696AD98] numberWithInt:(v32 * SLODWORD(v414.value))]);
               }
 
-              time[0].origin = v381;
-              time[0].size = v378;
+              time[0].origin = v408;
+              time[0].size = v405;
               if (FigCFDictionaryGetCGRectIfPresent())
               {
-                *v394 = 0;
+                *v421 = 0;
                 FigCFDictionaryGetInt32IfPresent();
                 FigCFDictionaryGetInt32IfPresent();
-                v48 = vmulq_f64(rect, time[0].size);
+                v49 = vmulq_f64(rect, time[0].size);
                 _D4 = 2.0;
-                time[0].origin = vaddq_f64(time[0].origin, vbslq_s8(vcltzq_f64(v48), vrndpq_f64(v48), vrndmq_f64(v48)));
+                time[0].origin = vaddq_f64(time[0].origin, vbslq_s8(vcltzq_f64(v49), vrndpq_f64(v49), vrndmq_f64(v49)));
                 __asm { FMLS            D3, D4, V0.D[1] }
 
-                time[0].size.width = *&v394[4] - 2.0 * time[0].origin.x;
+                time[0].size.width = *&v421[4] - 2.0 * time[0].origin.x;
                 time[0].size.height = _D3;
                 FigCFDictionarySetCGRect();
               }
@@ -803,40 +797,40 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
       haveLiveInputCropRect = self->_haveLiveInputCropRect;
       size = self->_liveInputCropRect.size;
       origin = self->_liveInputCropRect.origin;
-      v397 = size;
+      v424 = size;
       if ([(BWPixelTransferNode *)self appliesPrimaryCaptureRect])
       {
-        v17 = *off_1E798A430;
-        v18 = CMGetAttachment(bufferCopy, *off_1E798A430, 0);
-        if (v18)
+        v18 = *off_1E798A430;
+        v19 = CMGetAttachment(bufferCopy, *off_1E798A430, 0);
+        if (v19)
         {
-          v19 = v18;
+          v20 = v19;
           memset(time, 0, 32);
-          v20 = CVPixelBufferGetWidth(pixelBuffer);
-          v21 = CVPixelBufferGetHeight(pixelBuffer);
-          CGRectMakeWithDictionaryRepresentation(v19, time);
-          FigCaptureMetadataUtilitiesDenormalizeCropRect(time[0].origin.x, time[0].origin.y, time[0].size.width, time[0].size.height);
-          time[0].origin.x = v22;
-          time[0].origin.y = v23;
-          time[0].size.width = v24;
-          time[0].size.height = v25;
-          CMSetAttachment(bufferCopy, v17, 0, 1u);
+          v21 = CVPixelBufferGetWidth(pixelBuffer);
+          v22 = CVPixelBufferGetHeight(pixelBuffer);
+          CGRectMakeWithDictionaryRepresentation(v20, time);
+          FigCaptureMetadataUtilitiesDenormalizeCropRect(time[0].origin.x, time[0].origin.y, time[0].size.width, time[0].size.height, v21, v22);
+          time[0].origin.x = v23;
+          time[0].origin.y = v24;
+          time[0].size.width = v25;
+          time[0].size.height = v26;
+          CMSetAttachment(bufferCopy, v18, 0, 1u);
           if (haveLiveInputCropRect)
           {
-            v26 = v397.f64[0];
-            v27 = v397.f64[1];
+            v27 = v424.f64[0];
+            v28 = v424.f64[1];
           }
 
           else
           {
-            v26 = v20;
             v27 = v21;
+            v28 = v22;
           }
 
-          origin.f64[0] = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(time[0].origin.x, time[0].origin.y, time[0].size.width, time[0].size.height, v26 / v27);
-          origin.f64[1] = v51;
-          v397.f64[0] = v52;
-          v397.f64[1] = v53;
+          origin.f64[0] = FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(time[0].origin.x, time[0].origin.y, time[0].size.width, time[0].size.height, v27 / v28);
+          origin.f64[1] = v52;
+          v424.f64[0] = v53;
+          v424.f64[1] = v54;
           goto LABEL_44;
         }
       }
@@ -844,17 +838,17 @@ BOOL __51__BWPixelTransferNode__supportedOutputPixelFormats__block_invoke(uint64
       if (!haveLiveInputCropRect)
       {
 LABEL_33:
-        v38 = CVPixelBufferGetWidth(pixelBuffer);
-        v39 = 0;
-        v40 = CVPixelBufferGetHeight(pixelBuffer);
+        v39 = CVPixelBufferGetWidth(pixelBuffer);
+        v40 = 0;
+        v41 = CVPixelBufferGetHeight(pixelBuffer);
         goto LABEL_45;
       }
     }
 
 LABEL_44:
-    v38 = v397.f64[0];
-    v40 = v397.f64[1];
-    v39 = 1;
+    v39 = v424.f64[0];
+    v41 = v424.f64[1];
+    v40 = 1;
 LABEL_45:
     if (!self->_liveDeviceOrientationCorrectionEnabled)
     {
@@ -862,103 +856,103 @@ LABEL_45:
     }
 
     [(BWPixelTransferNode *)self _ensureDeviceOrientationMonitor];
-    v180 = CMGetAttachment(bufferCopy, *off_1E798A3C8, 0);
-    v181 = [v180 objectForKeyedSubscript:*off_1E798B540];
-    v372 = v39;
-    if ([v181 isEqualToString:*off_1E798A0E0])
+    v181 = CMGetAttachment(bufferCopy, *off_1E798A3C8, 0);
+    v182 = [v181 objectForKeyedSubscript:*off_1E798B540];
+    v399 = v40;
+    if (objc_msgSend_isEqualToString_(v182))
     {
-      v182 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
-      v182 = [v181 isEqualToString:*off_1E798A0F8];
+      isEqualToString = objc_msgSend_isEqualToString_(v182);
     }
 
-    IsExtensionDeviceType = BWDeviceTypeIsExtensionDeviceType([objc_msgSend(v180 objectForKeyedSubscript:{*off_1E798B238, v341, v345), "integerValue"}]);
+    IsExtensionDeviceType = BWDeviceTypeIsExtensionDeviceType([objc_msgSend(v181 objectForKeyedSubscript:{*off_1E798B238, v347, v354), "integerValue"}]);
     mostRecentPortraitLandscapeOrientation = [(BWDeviceOrientationMonitor *)self->_deviceOrientationMonitor mostRecentPortraitLandscapeOrientation];
-    liveRotationDegrees = [(BWDeviceOrientationMonitor *)self->_deviceOrientationMonitor rotationDegreesFromOrientation:mostRecentPortraitLandscapeOrientation isFrontCamera:v182 isExternalCamera:IsExtensionDeviceType isMirrored:0 clientExpectsCameraMountedInLandscapeOrientation:[(BWGraph *)[(BWNode *)self graph] clientExpectsCameraMountedInLandscapeOrientation]];
+    liveRotationDegrees = [(BWDeviceOrientationMonitor *)self->_deviceOrientationMonitor rotationDegreesFromOrientation:mostRecentPortraitLandscapeOrientation isFrontCamera:isEqualToString isExternalCamera:IsExtensionDeviceType isMirrored:0 clientExpectsCameraMountedInLandscapeOrientation:[(BWGraph *)[(BWNode *)self graph] clientExpectsCameraMountedInLandscapeOrientation]];
     self->_liveRotationDegrees = liveRotationDegrees;
     if (self->_prevLiveDeviceOrientationCorrectionDegrees == liveRotationDegrees)
     {
-      v6 = MEMORY[0x1E695FF58];
+      v7 = MEMORY[0x1E695FF58];
     }
 
     else
     {
-      v6 = MEMORY[0x1E695FF58];
+      v7 = MEMORY[0x1E695FF58];
       if (dword_1ED844550)
       {
-        v385 = bufferCopy;
-        *&v394[4] = 0;
-        v394[0] = OS_LOG_TYPE_DEFAULT;
-        v206 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v207 = *&v394[4];
-        if (os_log_type_enabled(v206, v394[0]))
+        v412 = bufferCopy;
+        *&v421[4] = 0;
+        v421[0] = OS_LOG_TYPE_DEFAULT;
+        v207 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v208 = *&v421[4];
+        if (os_log_type_enabled(v207, v421[0]))
         {
-          v208 = v207;
+          v209 = v208;
         }
 
         else
         {
-          v208 = v207 & 0xFFFFFFFE;
+          v209 = v208 & 0xFFFFFFFE;
         }
 
-        if (v208)
+        if (v209)
         {
           name2 = [(BWNode *)self name];
-          LODWORD(v387.value) = 136315906;
-          *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-          LOWORD(v387.flags) = 2112;
-          *(&v387.flags + 2) = name2;
-          HIWORD(v387.epoch) = 2048;
+          LODWORD(v414.value) = 136315906;
+          *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+          LOWORD(v414.flags) = 2112;
+          *(&v414.flags + 2) = name2;
+          HIWORD(v414.epoch) = 2048;
           selfCopy22 = self;
-          v389 = 1024;
-          *v390 = mostRecentPortraitLandscapeOrientation;
-          LODWORD(v345) = 38;
-          v341 = &v387;
+          v416 = 1024;
+          *v417 = mostRecentPortraitLandscapeOrientation;
+          LODWORD(v354) = 38;
+          v347 = &v414;
           _os_log_send_and_compose_impl();
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        v6 = MEMORY[0x1E695FF58];
-        bufferCopy = v385;
+        v7 = MEMORY[0x1E695FF58];
+        bufferCopy = v412;
         if (dword_1ED844550)
         {
-          v237 = MEMORY[0x1E695FF58];
-          *&v394[4] = 0;
-          v394[0] = OS_LOG_TYPE_DEFAULT;
-          v238 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v239 = *&v394[4];
-          if (os_log_type_enabled(v238, v394[0]))
+          v243 = MEMORY[0x1E695FF58];
+          *&v421[4] = 0;
+          v421[0] = OS_LOG_TYPE_DEFAULT;
+          v244 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v245 = *&v421[4];
+          if (os_log_type_enabled(v244, v421[0]))
           {
-            v240 = v239;
+            v246 = v245;
           }
 
           else
           {
-            v240 = v239 & 0xFFFFFFFE;
+            v246 = v245 & 0xFFFFFFFE;
           }
 
-          if (v240)
+          if (v246)
           {
             name3 = [(BWNode *)self name];
-            LODWORD(v387.value) = 136315906;
-            *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-            LOWORD(v387.flags) = 2112;
-            *(&v387.flags + 2) = name3;
-            HIWORD(v387.epoch) = 2048;
+            LODWORD(v414.value) = 136315906;
+            *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+            LOWORD(v414.flags) = 2112;
+            *(&v414.flags + 2) = name3;
+            HIWORD(v414.epoch) = 2048;
             selfCopy22 = self;
-            v389 = 1024;
-            *v390 = liveRotationDegrees;
-            LODWORD(v345) = 38;
-            v341 = &v387;
+            v416 = 1024;
+            *v417 = liveRotationDegrees;
+            LODWORD(v354) = 38;
+            v347 = &v414;
             _os_log_send_and_compose_impl();
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
-          bufferCopy = v385;
-          v6 = v237;
+          bufferCopy = v412;
+          v7 = v243;
         }
       }
 
@@ -967,63 +961,63 @@ LABEL_45:
       self->_prevLiveDeviceOrientationCorrectionDegrees = liveRotationDegrees;
     }
 
-    v39 = v372;
+    v40 = v399;
     if (liveRotationDegrees)
     {
-      v298 = v40;
-      v299 = v38;
+      v304 = v41;
+      v305 = v39;
       if (liveRotationDegrees != 90)
       {
-        v298 = v40;
-        v299 = v38;
+        v304 = v41;
+        v305 = v39;
         if (liveRotationDegrees != 270)
         {
-          v298 = v38;
-          v299 = v40;
+          v304 = v39;
+          v305 = v41;
         }
       }
 
-      origin.f64[0] = FigCaptureMakeRectWithAspectRatioInsideDimensions(v38 | (v40 << 32), 0, v298 / v299);
-      origin.f64[1] = v300;
-      v397.f64[0] = v301;
-      v397.f64[1] = v302;
-      v39 = 1;
+      origin.f64[0] = FigCaptureMakeRectWithAspectRatioInsideDimensions(v39 | (v41 << 32), 0, v304 / v305);
+      origin.f64[1] = v306;
+      v424.f64[0] = v307;
+      v424.f64[1] = v308;
+      v40 = 1;
       if (!self->_doGMLogging || !dword_1ED844550)
       {
 LABEL_46:
-        if (self->_liveCropMode == 3 && [(BWNodeInput *)self->super._input passthroughMode]== 1 && [(BWNodeOutput *)self->super._output passthroughMode]== 1 || (v39 & 1) == 0 && self->_livePassesBuffersThroughWhenPossible)
+        if (self->_liveCropMode == 3 && [(BWNodeInput *)self->super._input passthroughMode]== 1 && [(BWNodeOutput *)self->super._output passthroughMode]== 1 || (v40 & 1) == 0 && self->_livePassesBuffersThroughWhenPossible)
         {
           if (self->_doGMLogging && dword_1ED844550)
           {
-            *&v394[4] = 0;
-            v394[0] = OS_LOG_TYPE_DEFAULT;
-            v54 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v55 = *&v394[4];
-            if (os_log_type_enabled(v54, v394[0]))
+            *&v421[4] = 0;
+            v421[0] = OS_LOG_TYPE_DEFAULT;
+            v55 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v56 = *&v421[4];
+            if (os_log_type_enabled(v55, v421[0]))
             {
-              v56 = v55;
+              v57 = v56;
             }
 
             else
             {
-              v56 = v55 & 0xFFFFFFFE;
+              v57 = v56 & 0xFFFFFFFE;
             }
 
-            if (v56)
+            if (v57)
             {
               name4 = [(BWNode *)self name];
               CMSampleBufferGetPresentationTimeStamp(time, bufferCopy);
-              v58 = CMTimeGetSeconds(time);
-              LODWORD(v387.value) = 136315906;
-              *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-              LOWORD(v387.flags) = 2112;
-              *(&v387.flags + 2) = name4;
-              HIWORD(v387.epoch) = 2048;
+              v59 = CMTimeGetSeconds(time);
+              LODWORD(v414.value) = 136315906;
+              *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+              LOWORD(v414.flags) = 2112;
+              *(&v414.flags + 2) = name4;
+              HIWORD(v414.epoch) = 2048;
               selfCopy22 = self;
-              v389 = 2048;
-              *v390 = v58;
-              LODWORD(v345) = 42;
-              v341 = &v387;
+              v416 = 2048;
+              *v417 = v59;
+              LODWORD(v354) = 42;
+              v347 = &v414;
               _os_log_send_and_compose_impl();
             }
 
@@ -1031,22 +1025,22 @@ LABEL_46:
           }
 
           self->_doGMLogging = 0;
-          [(BWNodeOutput *)self->super._output emitSampleBuffer:bufferCopy, v341, v345];
-          LODWORD(v179) = 0;
+          [(BWNodeOutput *)self->super._output emitSampleBuffer:bufferCopy, v347, v354];
+          LODWORD(v180) = 0;
 LABEL_296:
           if (*type)
           {
             CFRelease(*type);
           }
 
-          if (v179)
+          if (v180)
           {
             CMSampleBufferGetPresentationTimeStamp(time, bufferCopy);
-            v297 = [BWDroppedSample newDroppedSampleWithReason:0x1F219BF10 pts:time];
-            [(BWNodeOutput *)self->super._output emitDroppedSample:v297];
+            v303 = [BWDroppedSample newDroppedSampleWithReason:0x1F219BF10 pts:time];
+            [(BWNodeOutput *)self->super._output emitDroppedSample:v303];
           }
 
-          if (*v6 == 1)
+          if (*v7 == 1)
           {
             kdebug_trace();
           }
@@ -1056,11 +1050,11 @@ LABEL_296:
 
         if (self->_liveAppliesUprightExifOrientationTransformToInput)
         {
-          v210 = [CMGetAttachment(bufferCopy @"UprightExifOrientation"];
-          [(BWPixelTransferNode *)self _updateLiveRotationAndFlipsToApplyUprightExifOrientation:v210];
+          v211 = [CMGetAttachment(bufferCopy @"UprightExifOrientation"];
+          [(BWPixelTransferNode *)self _updateLiveRotationAndFlipsToApplyUprightExifOrientation:v211];
         }
 
-        newPixelBuffer = [(BWPixelBufferPool *)[(BWNodeOutput *)self->super._output livePixelBufferPool:v341] newPixelBuffer];
+        newPixelBuffer = [(BWPixelBufferPool *)[(BWNodeOutput *)self->super._output livePixelBufferPool:v347] newPixelBuffer];
         if (newPixelBuffer)
         {
           BWCMSampleBufferCreateCopyWithNewPixelBuffer(bufferCopy, newPixelBuffer, &self->_outputFormatDescription, type);
@@ -1068,338 +1062,338 @@ LABEL_296:
 
         if (*type)
         {
-          v60 = CVPixelBufferGetWidth(newPixelBuffer);
+          v61 = CVPixelBufferGetWidth(newPixelBuffer);
           destinationBuffer = newPixelBuffer;
-          v61 = CVPixelBufferGetHeight(newPixelBuffer);
-          v62 = v38;
-          v379 = [BWPixelTransferNode _getUpdatedPrimaryCaptureRectForOutputSampleBuffer:*type inputDimensions:?];
-          v373 = v64;
-          recta = v63;
-          v66 = v65;
-          if (v39)
+          v62 = CVPixelBufferGetHeight(newPixelBuffer);
+          v63 = v39;
+          v406 = [BWPixelTransferNode _getUpdatedPrimaryCaptureRectForOutputSampleBuffer:*type inputDimensions:?];
+          v400 = v65;
+          recta = v64;
+          v67 = v66;
+          if (v40)
           {
-            v382 = origin.f64[1];
-            v368 = origin.f64[0];
-            v68 = v397.f64[1];
-            v67 = v397.f64[0];
+            v409 = origin.f64[1];
+            v395 = origin.f64[0];
+            v69 = v424.f64[1];
+            v68 = v424.f64[0];
           }
 
           else
           {
-            v67 = v38;
-            v68 = v40;
-            v382 = 0.0;
-            v368 = 0.0;
+            v68 = v39;
+            v69 = v41;
+            v409 = 0.0;
+            v395 = 0.0;
           }
 
           LOBYTE(time[0].origin.x) = 0;
-          v69 = ptn_rotationDegreesAndMirroringFromLiveConfiguration(self->_liveRotationDegrees, self->_liveFlipHorizontal, self->_liveFlipVertical, time);
-          v399.origin.x = v379;
-          v399.origin.y = v66;
-          v399.size.width = recta;
-          v399.size.height = v373;
-          IsNull = CGRectIsNull(v399);
-          v71 = 0.0;
+          v70 = ptn_rotationDegreesAndMirroringFromLiveConfiguration(self->_liveRotationDegrees, self->_liveFlipHorizontal, self->_liveFlipVertical, time);
+          v426.origin.x = v406;
+          v426.origin.y = v67;
+          v426.size.width = recta;
+          v426.size.height = v400;
+          IsNull = CGRectIsNull(v426);
+          v72 = 0.0;
           if (IsNull)
           {
-            v72 = v61;
-            v73 = v60;
-            v74 = v60;
-            v75 = 0.0;
-            v76 = v61;
-            v77 = v382;
-            v78 = v368;
+            v73 = v62;
+            v74 = v61;
+            v75 = v61;
+            v76 = 0.0;
+            v77 = v62;
+            v78 = v409;
+            v79 = v395;
           }
 
           else
           {
-            v369 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(v379, v66, recta, v373, v368, v382, v67);
-            v383 = v79;
-            v67 = v80;
+            v396 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(v406, v67, recta, v400, v395, v409, v68);
+            v410 = v80;
             v68 = v81;
-            v73 = v60;
-            v82 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(v379, v66, recta, v373, 0.0, 0.0, v60);
-            v78 = v369;
-            v77 = v383;
-            v75 = v82;
-            v71 = v83;
-            v74 = v84;
-            v72 = v85;
-            v76 = v61;
+            v69 = v82;
+            v74 = v61;
+            v83 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(v406, v67, recta, v400, 0.0, 0.0, v61);
+            v79 = v396;
+            v78 = v410;
+            v76 = v83;
+            v72 = v84;
+            v75 = v85;
+            v73 = v86;
+            v77 = v62;
           }
 
-          v86 = v60 | (v61 << 32);
-          BWUpdateCameraIntrinsicsMatrixOnSampleBuffer(*type, *MEMORY[0x1E6960470], v69, LOBYTE(time[0].origin.x), v78, v77, v67, v68, v75, v71, v74, v72);
-          v87 = *off_1E798A3C8;
-          v384 = bufferCopy;
+          v87 = v61 | (v62 << 32);
+          BWUpdateCameraIntrinsicsMatrixOnSampleBuffer(*type, *MEMORY[0x1E6960470], v70, LOBYTE(time[0].origin.x), v79, v78, v68, v69, v76, v72, v75, v73);
+          v88 = *off_1E798A3C8;
+          v411 = bufferCopy;
           CMGetAttachment(bufferCopy, *off_1E798A3C8, 0);
           time[0].origin.x = 1.0;
           FigCFDictionaryGetCGFloatIfPresent();
-          v88 = self->_liveRotationDegrees;
-          v89 = v73;
-          if (v88 == 270 || (v90 = v76, v88 == 90))
+          v89 = self->_liveRotationDegrees;
+          v90 = v74;
+          if (v89 == 270 || (v91 = v77, v89 == 90))
           {
-            v90 = v73;
+            v91 = v74;
           }
 
-          time[0].origin.x = time[0].origin.x * v90 / v40;
-          v91 = v373;
+          time[0].origin.x = time[0].origin.x * v91 / v41;
+          v92 = v400;
           if (time[0].origin.x > 1.0)
           {
             FigCFDictionarySetCGFloat();
           }
 
-          v92 = [(BWPixelTransferNode *)self _intermediateBufferDimensionsForInputDimensions:v86 outputDimensions:?];
+          v93 = [(BWPixelTransferNode *)self _intermediateBufferDimensionsForInputDimensions:v87 outputDimensions:?];
           cf = 0;
-          v93 = HIDWORD(v92);
-          if (!HIDWORD(v92) || (v94 = v92, !v92))
+          v94 = HIDWORD(v93);
+          if (!HIDWORD(v93) || (v95 = v93, !v93))
           {
-            v118 = v39;
+            v119 = v40;
             goto LABEL_92;
           }
 
-          v362 = origin;
-          v370 = v397.f64[0];
+          v389 = origin;
+          v397 = v424.f64[0];
           if (fractionalSourceRectEnabled)
           {
-            *&v358 = v66;
+            *&v385 = v67;
             __asm { FMOV            V0.2D, #0.5 }
 
-            v96 = vrndmq_f64(vmulq_f64(origin, _Q0));
-            v97 = vaddq_f64(v96, v96);
-            v98 = vrndpq_f64(vmulq_f64(vaddq_f64(v397, vsubq_f64(v97, v97)), _Q0));
-            origin = v97;
-            v397 = vaddq_f64(v98, v98);
+            v97 = vrndmq_f64(vmulq_f64(origin, _Q0));
+            v98 = vaddq_f64(v97, v97);
+            v99 = vrndpq_f64(vmulq_f64(vaddq_f64(v424, vsubq_f64(v98, v98)), _Q0));
+            origin = v98;
+            v424 = vaddq_f64(v99, v99);
             memset(time, 0, 32);
-            v99 = *MEMORY[0x1E695F058];
-            v100 = *(MEMORY[0x1E695F058] + 8);
-            v101 = CVPixelBufferGetWidth(pixelBuffer);
-            v102 = CVPixelBufferGetHeight(pixelBuffer);
-            time[0].origin.x = v99;
-            time[0].origin.y = v100;
-            time[0].size.width = v101;
-            time[0].size.height = v102;
-            v103 = [CMGetAttachment(bufferCopy v87];
-            CGRectMakeWithDictionaryRepresentation(v103, time);
-            v104 = origin.f64[0];
-            v105 = v397.f64[0];
+            v100 = *MEMORY[0x1E695F058];
+            v101 = *(MEMORY[0x1E695F058] + 8);
+            v102 = CVPixelBufferGetWidth(pixelBuffer);
+            v103 = CVPixelBufferGetHeight(pixelBuffer);
+            time[0].origin.x = v100;
+            time[0].origin.y = v101;
+            time[0].size.width = v102;
+            time[0].size.height = v103;
+            v104 = [CMGetAttachment(bufferCopy v88];
+            CGRectMakeWithDictionaryRepresentation(v104, time);
+            v105 = origin.f64[0];
+            v106 = v424.f64[0];
             x = time[0].origin.x;
             y = time[0].origin.y;
-            v109 = time[0].size.width;
-            v108 = time[0].size.height;
-            if (time[0].size.width < v397.f64[0])
+            v110 = time[0].size.width;
+            v109 = time[0].size.height;
+            if (time[0].size.width < v424.f64[0])
             {
-              v105 = time[0].size.width;
+              v106 = time[0].size.width;
             }
 
-            if (v105 >= 0.0)
+            if (v106 >= 0.0)
             {
-              v110 = v105;
-            }
-
-            else
-            {
-              v110 = 0.0;
-            }
-
-            if (time[0].size.height >= v397.f64[1])
-            {
-              v111 = v397.f64[1];
+              v111 = v106;
             }
 
             else
-            {
-              v111 = time[0].size.height;
-            }
-
-            if (v111 < 0.0)
             {
               v111 = 0.0;
             }
 
-            v353 = origin.f64[1];
-            v355 = v111;
-            MinX = CGRectGetMinX(time[0]);
-            v400.origin.x = x;
-            v400.origin.y = y;
-            v400.size.width = v109;
-            v400.size.height = v108;
-            cfa = v110;
-            propertyKey = v104;
-            if (CGRectGetMaxX(v400) - v110 < v104)
+            if (time[0].size.height >= v424.f64[1])
             {
-              v401.origin.x = x;
-              v401.origin.y = y;
-              v401.size.width = v109;
-              v401.size.height = v108;
-              v104 = CGRectGetMaxX(v401) - v110;
+              v112 = v424.f64[1];
             }
 
-            v112 = x;
-            if (MinX <= v104)
+            else
             {
-              v242 = y;
-              v243 = v109;
-              v244 = v108;
-              v117 = v353;
-              v116 = v355;
-              if (CGRectGetMaxX(*&v112) - cfa < propertyKey)
+              v112 = time[0].size.height;
+            }
+
+            if (v112 < 0.0)
+            {
+              v112 = 0.0;
+            }
+
+            v380 = origin.f64[1];
+            v382 = v112;
+            MinX = CGRectGetMinX(time[0]);
+            v427.origin.x = x;
+            v427.origin.y = y;
+            v427.size.width = v110;
+            v427.size.height = v109;
+            cfa = v111;
+            propertyKey = v105;
+            if (CGRectGetMaxX(v427) - v111 < v105)
+            {
+              v428.origin.x = x;
+              v428.origin.y = y;
+              v428.size.width = v110;
+              v428.size.height = v109;
+              v105 = CGRectGetMaxX(v428) - v111;
+            }
+
+            v113 = x;
+            if (MinX <= v105)
+            {
+              v248 = y;
+              v249 = v110;
+              v250 = v109;
+              v118 = v380;
+              v117 = v382;
+              if (CGRectGetMaxX(*&v113) - cfa < propertyKey)
               {
-                v405.origin.x = x;
-                v405.origin.y = y;
-                v405.size.width = v109;
-                v405.size.height = v108;
-                propertyKey = CGRectGetMaxX(v405) - cfa;
+                v432.origin.x = x;
+                v432.origin.y = y;
+                v432.size.width = v110;
+                v432.size.height = v109;
+                propertyKey = CGRectGetMaxX(v432) - cfa;
               }
             }
 
             else
             {
-              v113 = y;
-              v114 = v109;
-              v115 = v108;
-              propertyKey = CGRectGetMinX(*&v112);
-              v117 = v353;
-              v116 = v355;
+              v114 = y;
+              v115 = v110;
+              v116 = v109;
+              propertyKey = CGRectGetMinX(*&v113);
+              v118 = v380;
+              v117 = v382;
             }
 
-            v406.origin.x = x;
-            v406.origin.y = y;
-            v406.size.width = v109;
-            v406.size.height = v108;
-            MinY = CGRectGetMinY(v406);
-            v407.origin.x = x;
-            v407.origin.y = y;
-            v407.size.width = v109;
-            v407.size.height = v108;
-            _NF = CGRectGetMaxY(v407) - v116 < v117;
-            v245 = v117;
+            v433.origin.x = x;
+            v433.origin.y = y;
+            v433.size.width = v110;
+            v433.size.height = v109;
+            MinY = CGRectGetMinY(v433);
+            v434.origin.x = x;
+            v434.origin.y = y;
+            v434.size.width = v110;
+            v434.size.height = v109;
+            _NF = CGRectGetMaxY(v434) - v117 < v118;
+            v251 = v118;
             if (_NF)
             {
-              v408.origin.x = x;
-              v408.origin.y = y;
-              v408.size.width = v109;
-              v408.size.height = v108;
-              v245 = CGRectGetMaxY(v408) - v116;
+              v435.origin.x = x;
+              v435.origin.y = y;
+              v435.size.width = v110;
+              v435.size.height = v109;
+              v251 = CGRectGetMaxY(v435) - v117;
             }
 
-            if (MinY <= v245)
+            if (MinY <= v251)
             {
-              v410.origin.x = x;
-              v410.origin.y = y;
-              v410.size.width = v109;
-              v410.size.height = v108;
-              if (CGRectGetMaxY(v410) - v116 < v117)
+              v437.origin.x = x;
+              v437.origin.y = y;
+              v437.size.width = v110;
+              v437.size.height = v109;
+              if (CGRectGetMaxY(v437) - v117 < v118)
               {
-                v411.origin.x = x;
-                v411.origin.y = y;
-                v411.size.width = v109;
-                v411.size.height = v108;
-                v117 = CGRectGetMaxY(v411) - v116;
+                v438.origin.x = x;
+                v438.origin.y = y;
+                v438.size.width = v110;
+                v438.size.height = v109;
+                v118 = CGRectGetMaxY(v438) - v117;
               }
             }
 
             else
             {
-              v409.origin.x = x;
-              v409.origin.y = y;
-              v409.size.width = v109;
-              v409.size.height = v108;
-              v117 = CGRectGetMinY(v409);
+              v436.origin.x = x;
+              v436.origin.y = y;
+              v436.size.width = v110;
+              v436.size.height = v109;
+              v118 = CGRectGetMinY(v436);
             }
 
             origin.f64[0] = propertyKey;
-            origin.f64[1] = v117;
-            v397.f64[0] = cfa;
-            v397.f64[1] = v116;
-            v66 = *&v358;
-            v91 = v373;
+            origin.f64[1] = v118;
+            v424.f64[0] = cfa;
+            v424.f64[1] = v117;
+            v67 = *&v385;
+            v92 = v400;
           }
 
-          [(BWPixelTransferNode *)self _ensureIntermediatePoolWithDimensions:v94];
-          [(BWPixelTransferNode *)self _ensureTransferSession];
+          [(BWPixelTransferNode *)self _ensureIntermediatePoolWithDimensions:v95];
+          [(BWPixelTransferNode *)&self->super.super.isa _ensureTransferSession];
           cf = [(BWPixelBufferPool *)self->_intermediateBufferPool newPixelBuffer];
           if (cf)
           {
-            if (v39)
+            if (v40)
             {
-              v246 = v397.f64[0];
-              if (v397.f64[0] < 16.0)
+              v252 = v424.f64[0];
+              if (v424.f64[0] < 16.0)
               {
-                v397.f64[0] = 16.0;
-                v247 = origin.f64[0] - ((16 - v246) / 2);
-                if (v247 < 0.0)
+                v424.f64[0] = 16.0;
+                v253 = origin.f64[0] - ((16 - v252) / 2);
+                if (v253 < 0.0)
                 {
-                  v247 = 0.0;
+                  v253 = 0.0;
                 }
 
-                origin.f64[0] = v247;
+                origin.f64[0] = v253;
               }
 
-              v248 = v397.f64[1];
-              if (v397.f64[1] < 16.0)
+              v254 = v424.f64[1];
+              if (v424.f64[1] < 16.0)
               {
-                v397.f64[1] = 16.0;
-                v249 = origin.f64[1] - ((16 - v248) / 2);
-                if (v249 < 0.0)
+                v424.f64[1] = 16.0;
+                v255 = origin.f64[1] - ((16 - v254) / 2);
+                if (v255 < 0.0)
                 {
-                  v249 = 0.0;
+                  v255 = 0.0;
                 }
 
-                origin.f64[1] = v249;
+                origin.f64[1] = v255;
               }
 
               PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
               IsTenBitPacked = FigCapturePixelFormatIsTenBitPacked(PixelFormatType);
-              v252 = origin.f64[0];
+              v258 = origin.f64[0];
               if (IsTenBitPacked)
               {
-                v253 = origin.f64[0];
-                v252 = FigCaptureRoundFloatToMultipleOf(6, v253);
-                origin.f64[0] = v252;
+                v259 = origin.f64[0];
+                v258 = FigCaptureRoundFloatToMultipleOf(6, v259);
+                origin.f64[0] = v258;
               }
 
-              v254 = origin.f64[1];
-              v255 = v397;
-              DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*&v252);
+              v260 = origin.f64[1];
+              v261 = v424;
+              DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*&v258);
               if (self->_doGMLogging && dword_1ED844550)
               {
-                *&v394[4] = 0;
-                v394[0] = OS_LOG_TYPE_DEFAULT;
-                v257 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v258 = *&v394[4];
-                if (os_log_type_enabled(v257, v394[0]))
+                *&v421[4] = 0;
+                v421[0] = OS_LOG_TYPE_DEFAULT;
+                v263 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v264 = *&v421[4];
+                if (os_log_type_enabled(v263, v421[0]))
                 {
-                  v259 = v258;
+                  v265 = v264;
                 }
 
                 else
                 {
-                  v259 = v258 & 0xFFFFFFFE;
+                  v265 = v264 & 0xFFFFFFFE;
                 }
 
-                if (v259)
+                if (v265)
                 {
                   name5 = [(BWNode *)self name];
-                  v261 = BWStringFromCGRect(origin.f64[0], origin.f64[1], v397.f64[0], v397.f64[1]);
-                  LODWORD(v387.value) = 136316418;
-                  *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                  LOWORD(v387.flags) = 2112;
-                  *(&v387.flags + 2) = name5;
-                  HIWORD(v387.epoch) = 2048;
+                  v267 = BWStringFromCGRect(origin.f64[0], origin.f64[1], v424.f64[0], v424.f64[1]);
+                  LODWORD(v414.value) = 136316418;
+                  *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                  LOWORD(v414.flags) = 2112;
+                  *(&v414.flags + 2) = name5;
+                  HIWORD(v414.epoch) = 2048;
                   selfCopy22 = self;
-                  v389 = 2112;
-                  *v390 = v261;
-                  *&v390[8] = 1024;
-                  *&v390[10] = v94;
-                  *&v390[14] = 1024;
-                  *&v390[16] = v93;
-                  LODWORD(v346) = 54;
-                  v342 = &v387;
+                  v416 = 2112;
+                  *v417 = v267;
+                  *&v417[8] = 1024;
+                  *&v417[10] = v95;
+                  *&v417[14] = 1024;
+                  *&v417[16] = v94;
+                  LODWORD(v355) = 54;
+                  v348 = &v414;
                   _os_log_send_and_compose_impl();
                 }
 
-                bufferCopy = v384;
+                bufferCopy = v411;
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
             }
@@ -1409,15 +1403,15 @@ LABEL_296:
               DictionaryRepresentation = 0;
             }
 
-            v179 = VTSessionSetProperty(self->_transferSession, *MEMORY[0x1E6983E40], DictionaryRepresentation);
-            if (v179)
+            v180 = VTSessionSetProperty(self->_transferSession, *MEMORY[0x1E6983E40], DictionaryRepresentation);
+            if (v180)
             {
               limitedGMErrorLogger = self->_limitedGMErrorLogger;
-              v314 = MEMORY[0x1E696AEC0];
+              v320 = MEMORY[0x1E696AEC0];
               name6 = [(BWNode *)self name];
-              v315 = v314;
-              bufferCopy = v384;
-              -[BWLimitedGMErrorLogger logErrorNumber:errorString:](limitedGMErrorLogger, "logErrorNumber:errorString:", v179, [v315 stringWithFormat:@"%@: %p: %p: setting source crop rect transfer property to %@", name6, self, self->_transferSession, DictionaryRepresentation]);
+              v321 = v320;
+              bufferCopy = v411;
+              -[BWLimitedGMErrorLogger logErrorNumber:errorString:](limitedGMErrorLogger, "logErrorNumber:errorString:", v180, [v321 stringWithFormat:@"%@: %p: %p: setting source crop rect transfer property to %@", name6, self, self->_transferSession, DictionaryRepresentation]);
             }
 
             if (DictionaryRepresentation)
@@ -1425,68 +1419,25 @@ LABEL_296:
               CFRelease(DictionaryRepresentation);
             }
 
-            if (v179)
+            if (v180)
             {
-              [BWPixelTransferNode renderSampleBuffer:forInput:];
-              v296 = cf;
+              [BWPixelTransferNode renderSampleBuffer:v180 forInput:?];
+              v302 = cf;
               goto LABEL_361;
             }
 
-            v316 = VTPixelTransferSessionTransferImage(self->_transferSession, pixelBuffer, cf);
-            v179 = v316;
+            v322 = VTPixelTransferSessionTransferImage(self->_transferSession, pixelBuffer, cf);
+            v180 = v322;
             doGMLogging = self->_doGMLogging;
-            v318 = dword_1ED844550;
+            v324 = dword_1ED844550;
             if (doGMLogging && dword_1ED844550)
             {
-              v319 = v316;
-              *&v394[4] = 0;
-              v394[0] = OS_LOG_TYPE_DEFAULT;
-              v320 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v321 = *&v394[4];
-              if (os_log_type_enabled(v320, v394[0]))
-              {
-                v322 = v321;
-              }
-
-              else
-              {
-                v322 = v321 & 0xFFFFFFFE;
-              }
-
-              if (v322)
-              {
-                name7 = [(BWNode *)self name];
-                transferSession = self->_transferSession;
-                LODWORD(v387.value) = 136316162;
-                *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                LOWORD(v387.flags) = 2112;
-                *(&v387.flags + 2) = name7;
-                HIWORD(v387.epoch) = 2048;
-                selfCopy22 = self;
-                v389 = 1024;
-                *v390 = v319;
-                *&v390[4] = 2112;
-                *&v390[6] = transferSession;
-                LODWORD(v346) = 48;
-                v342 = &v387;
-                _os_log_send_and_compose_impl();
-              }
-
-              fig_log_call_emit_and_clean_up_after_send_and_compose();
-              v318 = dword_1ED844550;
-              LOBYTE(doGMLogging) = self->_doGMLogging;
-              bufferCopy = v384;
-              v179 = v319;
-            }
-
-            if (doGMLogging && v318)
-            {
-              v325 = v179;
-              *&v394[4] = 0;
-              v394[0] = OS_LOG_TYPE_DEFAULT;
+              v325 = v322;
+              *&v421[4] = 0;
+              v421[0] = OS_LOG_TYPE_DEFAULT;
               v326 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v327 = *&v394[4];
-              if (os_log_type_enabled(v326, v394[0]))
+              v327 = *&v421[4];
+              if (os_log_type_enabled(v326, v421[0]))
               {
                 v328 = v327;
               }
@@ -1498,94 +1449,138 @@ LABEL_296:
 
               if (v328)
               {
-                name8 = [(BWNode *)self name];
-                LODWORD(v387.value) = 136315906;
-                *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                LOWORD(v387.flags) = 2112;
-                *(&v387.flags + 2) = name8;
-                HIWORD(v387.epoch) = 2048;
+                name7 = [(BWNode *)self name];
+                transferSession = self->_transferSession;
+                LODWORD(v414.value) = 136316162;
+                *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                LOWORD(v414.flags) = 2112;
+                *(&v414.flags + 2) = name7;
+                HIWORD(v414.epoch) = 2048;
                 selfCopy22 = self;
-                v389 = 2112;
-                *v390 = pixelBuffer;
-                LODWORD(v346) = 42;
-                v342 = &v387;
+                v416 = 1024;
+                *v417 = v325;
+                *&v417[4] = 2112;
+                *&v417[6] = transferSession;
+                LODWORD(v355) = 48;
+                v348 = &v414;
                 _os_log_send_and_compose_impl();
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              v318 = dword_1ED844550;
+              v324 = dword_1ED844550;
               LOBYTE(doGMLogging) = self->_doGMLogging;
-              bufferCopy = v384;
-              v179 = v325;
+              bufferCopy = v411;
+              v180 = v325;
             }
 
-            if (doGMLogging && v318)
+            if (doGMLogging && v324)
             {
-              v330 = v179;
-              *&v394[4] = 0;
-              v394[0] = OS_LOG_TYPE_DEFAULT;
-              v331 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v332 = *&v394[4];
-              if (os_log_type_enabled(v331, v394[0]))
+              v331 = v180;
+              *&v421[4] = 0;
+              v421[0] = OS_LOG_TYPE_DEFAULT;
+              v332 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v333 = *&v421[4];
+              if (os_log_type_enabled(v332, v421[0]))
               {
-                v333 = v332;
+                v334 = v333;
               }
 
               else
               {
-                v333 = v332 & 0xFFFFFFFE;
+                v334 = v333 & 0xFFFFFFFE;
               }
 
-              if (v333)
+              if (v334)
               {
-                name9 = [(BWNode *)self name];
-                LODWORD(v387.value) = 136315906;
-                *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                LOWORD(v387.flags) = 2112;
-                *(&v387.flags + 2) = name9;
-                HIWORD(v387.epoch) = 2048;
+                name8 = [(BWNode *)self name];
+                LODWORD(v414.value) = 136315906;
+                *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                LOWORD(v414.flags) = 2112;
+                *(&v414.flags + 2) = name8;
+                HIWORD(v414.epoch) = 2048;
                 selfCopy22 = self;
-                v389 = 2112;
-                *v390 = cf;
-                LODWORD(v346) = 42;
-                v342 = &v387;
+                v416 = 2112;
+                *v417 = pixelBuffer;
+                LODWORD(v355) = 42;
+                v348 = &v414;
                 _os_log_send_and_compose_impl();
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              bufferCopy = v384;
-              v179 = v330;
+              v324 = dword_1ED844550;
+              LOBYTE(doGMLogging) = self->_doGMLogging;
+              bufferCopy = v411;
+              v180 = v331;
             }
 
-            if (v179)
+            if (doGMLogging && v324)
             {
-              v335 = self->_limitedGMErrorLogger;
-              v336 = MEMORY[0x1E696AEC0];
+              v336 = v180;
+              *&v421[4] = 0;
+              v421[0] = OS_LOG_TYPE_DEFAULT;
+              v337 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v338 = *&v421[4];
+              if (os_log_type_enabled(v337, v421[0]))
+              {
+                v339 = v338;
+              }
+
+              else
+              {
+                v339 = v338 & 0xFFFFFFFE;
+              }
+
+              if (v339)
+              {
+                name9 = [(BWNode *)self name];
+                LODWORD(v414.value) = 136315906;
+                *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                LOWORD(v414.flags) = 2112;
+                *(&v414.flags + 2) = name9;
+                HIWORD(v414.epoch) = 2048;
+                selfCopy22 = self;
+                v416 = 2112;
+                *v417 = cf;
+                LODWORD(v355) = 42;
+                v348 = &v414;
+                _os_log_send_and_compose_impl();
+              }
+
+              fig_log_call_emit_and_clean_up_after_send_and_compose();
+              bufferCopy = v411;
+              v180 = v336;
+            }
+
+            if (v180)
+            {
+              v341 = self->_limitedGMErrorLogger;
+              v342 = MEMORY[0x1E696AEC0];
               name10 = [(BWNode *)self name];
               CMSampleBufferGetPresentationTimeStamp(time, bufferCopy);
-              v296 = cf;
-              -[BWLimitedGMErrorLogger logErrorNumber:errorString:](v335, "logErrorNumber:errorString:", v179, [v336 stringWithFormat:@"%@: %p: %.4lf: %p: transferring from %p to %p", name10, self, CMTimeGetSeconds(time), self->_transferSession, pixelBuffer, cf]);
-              FigDebugAssert3();
+              v302 = cf;
+              -[BWLimitedGMErrorLogger logErrorNumber:errorString:](v341, "logErrorNumber:errorString:", v180, [v342 stringWithFormat:@"%@: %p: %.4lf: %p: transferring from %p to %p", name10, self, CMTimeGetSeconds(time), self->_transferSession, pixelBuffer, cf]);
+              LODWORD(v353) = v180;
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v353, v4, v358, v361, v365, v369, v370, v374);
 LABEL_361:
               newPixelBuffer = destinationBuffer;
-              v6 = MEMORY[0x1E695FF58];
+              v7 = MEMORY[0x1E695FF58];
 LABEL_293:
-              CFRelease(v296);
+              CFRelease(v302);
               goto LABEL_294;
             }
 
             if (fractionalSourceRectEnabled)
             {
-              origin.f64[0] = ptn_rectBoundedByDimensions(v94, v94 / v397.f64[0] * (v362.f64[0] - origin.f64[0]), v93 / v397.f64[1] * (v362.f64[1] - origin.f64[1]), v94 / v397.f64[0] * v370);
-              origin.f64[1] = v338;
-              v397.f64[0] = v339;
-              v397.f64[1] = v340;
-              v118 = 1;
+              origin.f64[0] = ptn_rectBoundedByDimensions(v95, v95 / v424.f64[0] * (v389.f64[0] - origin.f64[0]), v94 / v424.f64[1] * (v389.f64[1] - origin.f64[1]), v95 / v424.f64[0] * v397);
+              origin.f64[1] = v344;
+              v424.f64[0] = v345;
+              v424.f64[1] = v346;
+              v119 = 1;
             }
 
             else
             {
-              v118 = 0;
+              v119 = 0;
             }
 
             pixelBuffer = cf;
@@ -1593,228 +1588,229 @@ LABEL_92:
             [(BWPixelTransferNode *)self _ensureRotationSession];
             if (self->_generatesHistogram)
             {
-              v402.origin.x = v379;
-              v402.origin.y = v66;
-              v402.size.width = recta;
-              v402.size.height = v91;
-              v119 = CGRectIsNull(v402);
-              v120 = 0.0;
-              v121 = v76;
-              v122 = v89;
-              v123 = 0.0;
-              if (!v119)
+              v429.origin.x = v406;
+              v429.origin.y = v67;
+              v429.size.width = recta;
+              v429.size.height = v92;
+              v120 = CGRectIsNull(v429);
+              v121 = 0.0;
+              v122 = v77;
+              v123 = v90;
+              v124 = 0.0;
+              if (!v120)
               {
-                FigCaptureMetadataUtilitiesDenormalizeCropRect(v379, v66, recta, v91);
-                v125 = v124;
-                v127 = v126;
-                v129 = v128;
-                *&v130 = v130;
-                v123 = FigCaptureRoundFloatToMultipleOf(2, *&v130);
-                v131 = v125;
-                v120 = FigCaptureRoundFloatToMultipleOf(2, v131);
-                v132 = v127;
-                v122 = FigCaptureRoundFloatToMultipleOf(2, v132);
-                v133 = v129;
-                v121 = FigCaptureRoundFloatToMultipleOf(2, v133);
+                FigCaptureMetadataUtilitiesDenormalizeCropRect(v406, v67, recta, v92, v90, v77);
+                v126 = v125;
+                v128 = v127;
+                v130 = v129;
+                *&v131 = v131;
+                v124 = FigCaptureRoundFloatToMultipleOf(2, *&v131);
+                v132 = v126;
+                v121 = FigCaptureRoundFloatToMultipleOf(2, v132);
+                v133 = v128;
+                v123 = FigCaptureRoundFloatToMultipleOf(2, v133);
+                v134 = v130;
+                v122 = FigCaptureRoundFloatToMultipleOf(2, v134);
               }
 
-              v134 = v123;
-              v135 = v120;
-              v136 = v122;
-              v137 = CGRectCreateDictionaryRepresentation(*(&v121 - 3));
-              VTSessionSetProperty(self->_rotationSession, *MEMORY[0x1E6983D90], v137);
-              if (v137)
+              v135 = v124;
+              v136 = v121;
+              v137 = v123;
+              v138 = CGRectCreateDictionaryRepresentation(*(&v122 - 3));
+              VTSessionSetProperty(self->_rotationSession, *MEMORY[0x1E6983D90], v138);
+              if (v138)
               {
-                CFRelease(v137);
+                CFRelease(v138);
               }
             }
 
-            v371 = v118;
-            if (v118)
+            v398 = v119;
+            if (v119)
             {
-              v138 = 0.0;
+              v139 = 0.0;
               newPixelBuffer = destinationBuffer;
-              if (self->_liveCropMode == 2 && (v139 = self->_liveValidOutputDimensions.width, v139 >= 1) && (v140 = self->_liveValidOutputDimensions.height, v140 >= 1))
+              if (self->_liveCropMode == 2 && (v140 = self->_liveValidOutputDimensions.width, v140 >= 1) && (v141 = self->_liveValidOutputDimensions.height, v141 >= 1))
               {
-                v403.origin.x = 0.0;
-                v403.origin.y = 0.0;
-                v403.size.width = v89;
-                v403.size.height = v76;
-                v404 = CGRectInset(v403, (v89 - v139) * 0.5, (v76 - v140) * 0.5);
-                v141 = v404.origin.y;
-                v89 = v404.size.width;
-                v76 = v404.size.height;
-                *&v404.origin.x = v404.origin.x;
-                v142 = FigCaptureRoundFloatToMultipleOf(2, *&v404.origin.x);
-                v143 = v141;
-                v138 = FigCaptureRoundFloatToMultipleOf(2, v143);
+                v430.origin.x = 0.0;
+                v430.origin.y = 0.0;
+                v430.size.width = v90;
+                v430.size.height = v77;
+                v431 = CGRectInset(v430, (v90 - v140) * 0.5, (v77 - v141) * 0.5);
+                v142 = v431.origin.y;
+                v90 = v431.size.width;
+                v77 = v431.size.height;
+                *&v431.origin.x = v431.origin.x;
+                v143 = FigCaptureRoundFloatToMultipleOf(2, *&v431.origin.x);
+                v144 = v142;
+                v139 = FigCaptureRoundFloatToMultipleOf(2, v144);
               }
 
               else
               {
-                v142 = 0.0;
+                v143 = 0.0;
               }
 
-              v158 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-              if (FigCapturePixelFormatIsTenBitPacked(v158))
+              v159 = CVPixelBufferGetPixelFormatType(pixelBuffer);
+              if (FigCapturePixelFormatIsTenBitPacked(v159))
               {
-                v159 = origin.f64[0];
-                origin.f64[0] = FigCaptureRoundFloatToMultipleOf(6, v159);
+                v160 = origin.f64[0];
+                origin.f64[0] = FigCaptureRoundFloatToMultipleOf(6, v160);
               }
 
-              v160 = VTPixelRotationSessionRotateSubImage();
-              v161 = self->_doGMLogging;
-              v162 = dword_1ED844550;
-              if (v161 && dword_1ED844550)
+              v161 = VTPixelRotationSessionRotateSubImage();
+              v162 = self->_doGMLogging;
+              v163 = dword_1ED844550;
+              if (v162 && dword_1ED844550)
               {
-                *&v394[4] = 0;
-                v394[0] = OS_LOG_TYPE_DEFAULT;
-                v163 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v164 = *&v394[4];
-                if (os_log_type_enabled(v163, v394[0]))
+                *&v421[4] = 0;
+                v421[0] = OS_LOG_TYPE_DEFAULT;
+                v164 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v165 = *&v421[4];
+                if (os_log_type_enabled(v164, v421[0]))
                 {
-                  v165 = v164;
+                  v166 = v165;
                 }
 
                 else
                 {
-                  v165 = v164 & 0xFFFFFFFE;
+                  v166 = v165 & 0xFFFFFFFE;
                 }
 
-                if (v165)
+                if (v166)
                 {
                   name11 = [(BWNode *)self name];
-                  v167 = v160;
-                  v168 = BWStringFromCGRect(origin.f64[0], origin.f64[1], v397.f64[0], v397.f64[1]);
-                  v169 = BWStringFromCGRect(v142, v138, v89, v76);
+                  v168 = v161;
+                  v169 = BWStringFromCGRect(origin.f64[0], origin.f64[1], v424.f64[0], v424.f64[1]);
+                  v170 = BWStringFromCGRect(v143, v139, v90, v77);
                   rotationSession = self->_rotationSession;
-                  LODWORD(v387.value) = 136316674;
-                  *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                  LOWORD(v387.flags) = 2112;
-                  *(&v387.flags + 2) = name11;
-                  HIWORD(v387.epoch) = 2048;
+                  LODWORD(v414.value) = 136316674;
+                  *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                  LOWORD(v414.flags) = 2112;
+                  *(&v414.flags + 2) = name11;
+                  HIWORD(v414.epoch) = 2048;
                   selfCopy22 = self;
-                  v389 = 2112;
-                  *v390 = v168;
-                  v160 = v167;
-                  *&v390[8] = 2112;
-                  *&v390[10] = v169;
-                  *&v390[18] = 1024;
-                  v391 = v167;
-                  v392 = 2112;
-                  v393 = rotationSession;
-                  LODWORD(v346) = 68;
-                  v342 = &v387;
+                  v416 = 2112;
+                  *v417 = v169;
+                  v161 = v168;
+                  *&v417[8] = 2112;
+                  *&v417[10] = v170;
+                  *&v417[18] = 1024;
+                  v418 = v168;
+                  v419 = 2112;
+                  v420 = rotationSession;
+                  LODWORD(v355) = 68;
+                  v348 = &v414;
                   _os_log_send_and_compose_impl();
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                v162 = dword_1ED844550;
-                LOBYTE(v161) = self->_doGMLogging;
-                bufferCopy = v384;
-                v118 = v371;
+                v163 = dword_1ED844550;
+                LOBYTE(v162) = self->_doGMLogging;
+                bufferCopy = v411;
+                v119 = v398;
               }
 
-              if (v161 && v162)
+              if (v162 && v163)
               {
-                *&v394[4] = 0;
-                v394[0] = OS_LOG_TYPE_DEFAULT;
-                v183 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v184 = *&v394[4];
-                if (os_log_type_enabled(v183, v394[0]))
+                *&v421[4] = 0;
+                v421[0] = OS_LOG_TYPE_DEFAULT;
+                v184 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v185 = *&v421[4];
+                if (os_log_type_enabled(v184, v421[0]))
                 {
-                  v185 = v184;
+                  v186 = v185;
                 }
 
                 else
                 {
-                  v185 = v184 & 0xFFFFFFFE;
+                  v186 = v185 & 0xFFFFFFFE;
                 }
 
-                if (v185)
+                if (v186)
                 {
                   name12 = [(BWNode *)self name];
-                  LODWORD(v387.value) = 136315906;
-                  *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                  LOWORD(v387.flags) = 2112;
-                  *(&v387.flags + 2) = name12;
-                  HIWORD(v387.epoch) = 2048;
+                  LODWORD(v414.value) = 136315906;
+                  *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                  LOWORD(v414.flags) = 2112;
+                  *(&v414.flags + 2) = name12;
+                  HIWORD(v414.epoch) = 2048;
                   selfCopy22 = self;
-                  v389 = 2112;
-                  *v390 = pixelBuffer;
-                  LODWORD(v346) = 42;
-                  v342 = &v387;
+                  v416 = 2112;
+                  *v417 = pixelBuffer;
+                  LODWORD(v355) = 42;
+                  v348 = &v414;
                   _os_log_send_and_compose_impl();
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                v162 = dword_1ED844550;
-                LOBYTE(v161) = self->_doGMLogging;
-                bufferCopy = v384;
-                v118 = v371;
+                v163 = dword_1ED844550;
+                LOBYTE(v162) = self->_doGMLogging;
+                bufferCopy = v411;
+                v119 = v398;
               }
 
-              if (v161 && v162)
+              if (v162 && v163)
               {
-                *&v394[4] = 0;
-                v394[0] = OS_LOG_TYPE_DEFAULT;
-                v187 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v188 = *&v394[4];
-                if (os_log_type_enabled(v187, v394[0]))
+                *&v421[4] = 0;
+                v421[0] = OS_LOG_TYPE_DEFAULT;
+                v188 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v189 = *&v421[4];
+                if (os_log_type_enabled(v188, v421[0]))
                 {
-                  v189 = v188;
+                  v190 = v189;
                 }
 
                 else
                 {
-                  v189 = v188 & 0xFFFFFFFE;
+                  v190 = v189 & 0xFFFFFFFE;
                 }
 
-                if (v189)
+                if (v190)
                 {
                   name13 = [(BWNode *)self name];
-                  LODWORD(v387.value) = 136315906;
-                  *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                  LOWORD(v387.flags) = 2112;
-                  *(&v387.flags + 2) = name13;
-                  HIWORD(v387.epoch) = 2048;
+                  LODWORD(v414.value) = 136315906;
+                  *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                  LOWORD(v414.flags) = 2112;
+                  *(&v414.flags + 2) = name13;
+                  HIWORD(v414.epoch) = 2048;
                   selfCopy22 = self;
-                  v389 = 2112;
-                  *v390 = destinationBuffer;
-                  LODWORD(v346) = 42;
-                  v342 = &v387;
+                  v416 = 2112;
+                  *v417 = destinationBuffer;
+                  LODWORD(v355) = 42;
+                  v348 = &v414;
                   _os_log_send_and_compose_impl();
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                bufferCopy = v384;
-                v118 = v371;
+                bufferCopy = v411;
+                v119 = v398;
               }
 
-              if (v160)
+              if (v161)
               {
-                v191 = self->_limitedGMErrorLogger;
-                v192 = MEMORY[0x1E696AEC0];
+                v192 = self->_limitedGMErrorLogger;
+                v193 = MEMORY[0x1E696AEC0];
                 name14 = [(BWNode *)self name];
                 CMSampleBufferGetPresentationTimeStamp(time, bufferCopy);
-                v194 = CMTimeGetSeconds(time);
-                v195 = self->_rotationSession;
-                v196 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-                v197 = BWStringFromCVPixelFormatType(v196);
-                v198 = BWStringFromCGRect(origin.f64[0], origin.f64[1], v397.f64[0], v397.f64[1]);
-                v199 = CVPixelBufferGetPixelFormatType(destinationBuffer);
-                v200 = v160;
-                v201 = BWStringFromCVPixelFormatType(v199);
-                v202 = BWStringFromCGRect(v142, v138, v89, v76);
-                v349 = v201;
-                v179 = v200;
+                v195 = CMTimeGetSeconds(time);
+                v196 = self->_rotationSession;
+                v197 = CVPixelBufferGetPixelFormatType(pixelBuffer);
+                v198 = BWStringFromCVPixelFormatType(v197);
+                v199 = BWStringFromCGRect(origin.f64[0], origin.f64[1], v424.f64[0], v424.f64[1]);
+                v200 = CVPixelBufferGetPixelFormatType(destinationBuffer);
+                v201 = v161;
+                v202 = BWStringFromCVPixelFormatType(v200);
+                v203 = BWStringFromCGRect(v143, v139, v90, v77);
+                v371 = v202;
+                v180 = v201;
                 newPixelBuffer = destinationBuffer;
-                v348 = v198;
-                bufferCopy = v384;
-                v343 = name14;
-                v6 = MEMORY[0x1E695FF58];
-                -[BWLimitedGMErrorLogger logErrorNumber:errorString:](v191, "logErrorNumber:errorString:", v179, [v192 stringWithFormat:@"%@: %p: %.4lf: %p: rotating sub-image with input %@ rect %@, dest %@ rect %@", v343, self, *&v194, v195, v197, v348, v349, v202]);
-                FigDebugAssert3();
+                v366 = v199;
+                bufferCopy = v411;
+                v349 = name14;
+                v7 = MEMORY[0x1E695FF58];
+                -[BWLimitedGMErrorLogger logErrorNumber:errorString:](v192, "logErrorNumber:errorString:", v180, [v193 stringWithFormat:@"%@: %p: %.4lf: %p: rotating sub-image with input %@ rect %@, dest %@ rect %@", v349, self, *&v195, v196, v198, v366, v371, v203]);
+                LODWORD(v350) = v180;
+                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v350, v4, v356, v359, v362, v367, v372, v375);
                 goto LABEL_292;
               }
 
@@ -1822,17 +1818,17 @@ LABEL_258:
               if (self->_generatesHistogram)
               {
                 time[0].origin.x = 0.0;
-                LODWORD(v179) = VTSessionCopyProperty(self->_rotationSession, *MEMORY[0x1E6983D88], *MEMORY[0x1E695E480], time);
-                v270 = [*&time[0].origin.x copy];
-                if (!v179)
+                LODWORD(v180) = VTSessionCopyProperty(self->_rotationSession, *MEMORY[0x1E6983D88], *MEMORY[0x1E695E480], time);
+                v276 = [*&time[0].origin.x copy];
+                if (!v180)
                 {
-                  CMSetAttachment(*type, *off_1E798A520, v270, 1u);
+                  CMSetAttachment(*type, *off_1E798A520, v276, 1u);
                 }
               }
 
               else
               {
-                LODWORD(v179) = 0;
+                LODWORD(v180) = 0;
               }
 
               [BWPixelTransferNode _updateMetadataForOutputSampleBuffer:? destinationRect:?];
@@ -1847,89 +1843,89 @@ LABEL_258:
 
                 FormatDescription = CMSampleBufferGetFormatDescription(bufferCopy);
                 Dimensions = CMVideoFormatDescriptionGetDimensions(FormatDescription);
-                [(BWPixelTransferNode *)self _updateLiveDeviceOrientationAffectedMetadataForOutputSampleBuffer:Dimensions.width inputDims:Dimensions.height inputCropRect:origin.f64[0], origin.f64[1], v397.f64[0], v397.f64[1]];
+                [(BWPixelTransferNode *)self _updateLiveDeviceOrientationAffectedMetadataForOutputSampleBuffer:Dimensions.width inputDims:Dimensions.height inputCropRect:origin.f64[0], origin.f64[1], v424.f64[0], v424.f64[1]];
               }
 
               if (self->_liveRotationDegrees)
               {
-                v273 = [MEMORY[0x1E696AD98] numberWithInt:self->_rotationDegrees];
+                v279 = [MEMORY[0x1E696AD98] numberWithInt:self->_rotationDegrees];
                 goto LABEL_270;
               }
 
 LABEL_268:
-              if (!v118)
+              if (!v119)
               {
                 goto LABEL_271;
               }
 
-              v273 = CMGetAttachment(pixelBuffer, @"RotationDegrees", 0);
+              v279 = CMGetAttachment(pixelBuffer, @"RotationDegrees", 0);
 LABEL_270:
-              CMSetAttachment(newPixelBuffer, @"RotationDegrees", v273, 1u);
+              CMSetAttachment(newPixelBuffer, @"RotationDegrees", v279, 1u);
 LABEL_271:
               if (self->_liveFlipHorizontal)
               {
-                v274 = @"MirroredHorizontal";
+                v280 = @"MirroredHorizontal";
               }
 
               else
               {
                 if (!self->_liveFlipVertical)
                 {
-                  if (!v118)
+                  if (!v119)
                   {
                     goto LABEL_277;
                   }
 
-                  v287 = CMGetAttachment(pixelBuffer, @"MirroredHorizontal", 0);
-                  CMSetAttachment(newPixelBuffer, @"MirroredHorizontal", v287, 1u);
-                  v275 = CMGetAttachment(pixelBuffer, @"MirroredVertical", 0);
-                  v276 = newPixelBuffer;
-                  v274 = @"MirroredVertical";
+                  v293 = CMGetAttachment(pixelBuffer, @"MirroredHorizontal", 0);
+                  CMSetAttachment(newPixelBuffer, @"MirroredHorizontal", v293, 1u);
+                  v281 = CMGetAttachment(pixelBuffer, @"MirroredVertical", 0);
+                  v282 = newPixelBuffer;
+                  v280 = @"MirroredVertical";
 LABEL_276:
-                  CMSetAttachment(v276, v274, v275, 1u);
+                  CMSetAttachment(v282, v280, v281, 1u);
 LABEL_277:
-                  v277 = *MEMORY[0x1E6965F18];
-                  v278 = CMGetAttachment(pixelBuffer, *MEMORY[0x1E6965F18], 0);
-                  CMSetAttachment(newPixelBuffer, v277, v278, 1u);
-                  v279 = CMGetAttachment(pixelBuffer, @"AmbientViewingEnvironmentStrength", 0);
-                  if (v279)
+                  v283 = *MEMORY[0x1E6965F18];
+                  v284 = CMGetAttachment(pixelBuffer, *MEMORY[0x1E6965F18], 0);
+                  CMSetAttachment(newPixelBuffer, v283, v284, 1u);
+                  v285 = CMGetAttachment(pixelBuffer, @"AmbientViewingEnvironmentStrength", 0);
+                  if (v285)
                   {
-                    v280 = v279;
+                    v286 = v285;
                     IOSurface = CVPixelBufferGetIOSurface(newPixelBuffer);
-                    BWUtilitiesApplyAVEStrength(IOSurface, v280);
+                    BWUtilitiesApplyAVEStrength(IOSurface, v286);
                   }
 
                   if (self->_doGMLogging && dword_1ED844550)
                   {
-                    *&v394[4] = 0;
-                    v394[0] = OS_LOG_TYPE_DEFAULT;
-                    v282 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                    v283 = *&v394[4];
-                    if (os_log_type_enabled(v282, v394[0]))
+                    *&v421[4] = 0;
+                    v421[0] = OS_LOG_TYPE_DEFAULT;
+                    v288 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                    v289 = *&v421[4];
+                    if (os_log_type_enabled(v288, v421[0]))
                     {
-                      v284 = v283;
+                      v290 = v289;
                     }
 
                     else
                     {
-                      v284 = v283 & 0xFFFFFFFE;
+                      v290 = v289 & 0xFFFFFFFE;
                     }
 
-                    if (v284)
+                    if (v290)
                     {
                       name15 = [(BWNode *)self name];
                       CMSampleBufferGetPresentationTimeStamp(time, *type);
-                      v286 = CMTimeGetSeconds(time);
-                      LODWORD(v387.value) = 136315906;
-                      *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                      LOWORD(v387.flags) = 2112;
-                      *(&v387.flags + 2) = name15;
-                      HIWORD(v387.epoch) = 2048;
+                      v292 = CMTimeGetSeconds(time);
+                      LODWORD(v414.value) = 136315906;
+                      *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                      LOWORD(v414.flags) = 2112;
+                      *(&v414.flags + 2) = name15;
+                      HIWORD(v414.epoch) = 2048;
                       selfCopy22 = self;
-                      v389 = 2048;
-                      *v390 = v286;
-                      LODWORD(v346) = 42;
-                      v342 = &v387;
+                      v416 = 2048;
+                      *v417 = v292;
+                      LODWORD(v355) = 42;
+                      v348 = &v414;
                       _os_log_send_and_compose_impl();
                     }
 
@@ -1938,10 +1934,10 @@ LABEL_277:
                   }
 
                   self->_doGMLogging = 0;
-                  [(BWNodeOutput *)self->super._output emitSampleBuffer:*type, v342, v346];
-                  v6 = MEMORY[0x1E695FF58];
+                  [(BWNodeOutput *)self->super._output emitSampleBuffer:*type, v348, v355];
+                  v7 = MEMORY[0x1E695FF58];
 LABEL_292:
-                  v296 = cf;
+                  v302 = cf;
                   if (!cf)
                   {
                     goto LABEL_294;
@@ -1950,11 +1946,11 @@ LABEL_292:
                   goto LABEL_293;
                 }
 
-                v274 = @"MirroredVertical";
+                v280 = @"MirroredVertical";
               }
 
-              v275 = MEMORY[0x1E695E118];
-              v276 = newPixelBuffer;
+              v281 = MEMORY[0x1E695E118];
+              v282 = newPixelBuffer;
               goto LABEL_276;
             }
 
@@ -1962,322 +1958,323 @@ LABEL_292:
             if ((conversionMethodForStillImagesDuringHDRVideo == 4 || conversionMethodForStillImagesDuringHDRVideo == 2) && self->_intermediatePixelBufferForStillHDRToSDRConversion)
             {
               Attributes = CVPixelBufferGetAttributes();
-              v146 = *MEMORY[0x1E6983DE0];
-              v356 = *MEMORY[0x1E6965F98];
+              v147 = *MEMORY[0x1E6983DE0];
+              v383 = *MEMORY[0x1E6965F98];
               [Attributes objectForKeyedSubscript:?];
-              propertyKeya = v146;
+              propertyKeya = v147;
               VTPixelRotationSessionSetProperty();
-              v147 = *MEMORY[0x1E6983DC0];
-              v352 = *MEMORY[0x1E6965D88];
+              v148 = *MEMORY[0x1E6983DC0];
+              v379 = *MEMORY[0x1E6965D88];
               [Attributes objectForKeyedSubscript:?];
-              v359 = v147;
+              v386 = v148;
               VTPixelRotationSessionSetProperty();
-              v148 = *MEMORY[0x1E6983DD8];
-              v350 = *MEMORY[0x1E6965F30];
+              v149 = *MEMORY[0x1E6983DD8];
+              v377 = *MEMORY[0x1E6965F30];
               [Attributes objectForKeyedSubscript:?];
-              v354 = v148;
+              v381 = v149;
               VTPixelRotationSessionSetProperty();
-              v149 = VTPixelRotationSessionRotateImage(self->_rotationSession, pixelBuffer, self->_intermediatePixelBufferForStillHDRToSDRConversion);
-              v150 = self->_doGMLogging;
-              v151 = dword_1ED844550;
-              v152 = v149;
-              if (v150)
+              v150 = VTPixelRotationSessionRotateImage(self->_rotationSession, pixelBuffer, self->_intermediatePixelBufferForStillHDRToSDRConversion);
+              v151 = self->_doGMLogging;
+              v152 = dword_1ED844550;
+              v153 = v150;
+              if (v151)
               {
-                v118 = 0;
+                v119 = 0;
                 if (dword_1ED844550)
                 {
-                  *&v394[4] = 0;
-                  v394[0] = OS_LOG_TYPE_DEFAULT;
-                  v153 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                  v154 = *&v394[4];
-                  if (os_log_type_enabled(v153, v394[0]))
+                  *&v421[4] = 0;
+                  v421[0] = OS_LOG_TYPE_DEFAULT;
+                  v154 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                  v155 = *&v421[4];
+                  if (os_log_type_enabled(v154, v421[0]))
                   {
-                    v155 = v154;
+                    v156 = v155;
                   }
 
                   else
                   {
-                    v155 = v154 & 0xFFFFFFFE;
+                    v156 = v155 & 0xFFFFFFFE;
                   }
 
-                  if (v155)
+                  if (v156)
                   {
                     name16 = [(BWNode *)self name];
-                    v157 = self->_rotationSession;
-                    LODWORD(v387.value) = 136316162;
-                    *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                    LOWORD(v387.flags) = 2112;
-                    *(&v387.flags + 2) = name16;
-                    HIWORD(v387.epoch) = 2048;
+                    v158 = self->_rotationSession;
+                    LODWORD(v414.value) = 136316162;
+                    *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                    LOWORD(v414.flags) = 2112;
+                    *(&v414.flags + 2) = name16;
+                    HIWORD(v414.epoch) = 2048;
                     selfCopy22 = self;
-                    v389 = 1024;
-                    *v390 = v152;
-                    *&v390[4] = 2112;
-                    *&v390[6] = v157;
-                    LODWORD(v346) = 48;
-                    v342 = &v387;
+                    v416 = 1024;
+                    *v417 = v153;
+                    *&v417[4] = 2112;
+                    *&v417[6] = v158;
+                    LODWORD(v355) = 48;
+                    v348 = &v414;
                     _os_log_send_and_compose_impl();
                   }
 
                   fig_log_call_emit_and_clean_up_after_send_and_compose();
-                  v151 = dword_1ED844550;
-                  LOBYTE(v150) = self->_doGMLogging;
-                  bufferCopy = v384;
+                  v152 = dword_1ED844550;
+                  LOBYTE(v151) = self->_doGMLogging;
+                  bufferCopy = v411;
                 }
               }
 
               else
               {
-                v118 = 0;
+                v119 = 0;
               }
 
-              if (v150 && v151)
+              if (v151 && v152)
               {
-                *&v394[4] = 0;
-                v394[0] = OS_LOG_TYPE_DEFAULT;
-                v219 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v220 = *&v394[4];
-                if (os_log_type_enabled(v219, v394[0]))
+                *&v421[4] = 0;
+                v421[0] = OS_LOG_TYPE_DEFAULT;
+                v220 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v221 = *&v421[4];
+                if (os_log_type_enabled(v220, v421[0]))
                 {
-                  v221 = v220;
+                  v222 = v221;
                 }
 
                 else
                 {
-                  v221 = v220 & 0xFFFFFFFE;
+                  v222 = v221 & 0xFFFFFFFE;
                 }
 
-                if (v221)
+                if (v222)
                 {
                   name17 = [(BWNode *)self name];
-                  LODWORD(v387.value) = 136315906;
-                  *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                  LOWORD(v387.flags) = 2112;
-                  *(&v387.flags + 2) = name17;
-                  HIWORD(v387.epoch) = 2048;
+                  LODWORD(v414.value) = 136315906;
+                  *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                  LOWORD(v414.flags) = 2112;
+                  *(&v414.flags + 2) = name17;
+                  HIWORD(v414.epoch) = 2048;
                   selfCopy22 = self;
-                  v389 = 2112;
-                  *v390 = pixelBuffer;
-                  LODWORD(v346) = 42;
-                  v342 = &v387;
+                  v416 = 2112;
+                  *v417 = pixelBuffer;
+                  LODWORD(v355) = 42;
+                  v348 = &v414;
                   _os_log_send_and_compose_impl();
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                v151 = dword_1ED844550;
-                LOBYTE(v150) = self->_doGMLogging;
-                bufferCopy = v384;
+                v152 = dword_1ED844550;
+                LOBYTE(v151) = self->_doGMLogging;
+                bufferCopy = v411;
               }
 
-              if (v150 && v151)
+              if (v151 && v152)
               {
-                *&v394[4] = 0;
-                v394[0] = OS_LOG_TYPE_DEFAULT;
-                v223 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v224 = *&v394[4];
-                if (os_log_type_enabled(v223, v394[0]))
+                *&v421[4] = 0;
+                v421[0] = OS_LOG_TYPE_DEFAULT;
+                v224 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v225 = *&v421[4];
+                if (os_log_type_enabled(v224, v421[0]))
                 {
-                  v225 = v224;
+                  v226 = v225;
                 }
 
                 else
                 {
-                  v225 = v224 & 0xFFFFFFFE;
+                  v226 = v225 & 0xFFFFFFFE;
                 }
 
-                if (v225)
+                if (v226)
                 {
                   name18 = [(BWNode *)self name];
                   intermediatePixelBufferForStillHDRToSDRConversion = self->_intermediatePixelBufferForStillHDRToSDRConversion;
-                  LODWORD(v387.value) = 136315906;
-                  *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                  LOWORD(v387.flags) = 2112;
-                  *(&v387.flags + 2) = name18;
-                  HIWORD(v387.epoch) = 2048;
+                  LODWORD(v414.value) = 136315906;
+                  *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                  LOWORD(v414.flags) = 2112;
+                  *(&v414.flags + 2) = name18;
+                  HIWORD(v414.epoch) = 2048;
                   selfCopy22 = self;
-                  v389 = 2112;
-                  *v390 = intermediatePixelBufferForStillHDRToSDRConversion;
-                  LODWORD(v346) = 42;
-                  v342 = &v387;
+                  v416 = 2112;
+                  *v417 = intermediatePixelBufferForStillHDRToSDRConversion;
+                  LODWORD(v355) = 42;
+                  v348 = &v414;
                   _os_log_send_and_compose_impl();
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                bufferCopy = v384;
-                v118 = 0;
+                bufferCopy = v411;
+                v119 = 0;
               }
 
-              [(BWPixelTransferNode *)self _ensureTransferSession];
-              v228 = [BWVideoFormat pixelBufferAttachmentsForColorSpaceProperties:self->_outputColorSpaceProperties];
-              VTSessionSetProperty(self->_transferSession, propertyKeya, [v228 objectForKeyedSubscript:v356]);
-              VTSessionSetProperty(self->_transferSession, v359, [v228 objectForKeyedSubscript:v352]);
-              VTSessionSetProperty(self->_transferSession, v354, [v228 objectForKeyedSubscript:v350]);
+              [(BWPixelTransferNode *)&self->super.super.isa _ensureTransferSession];
+              v229 = [BWVideoFormat pixelBufferAttachmentsForColorSpaceProperties:self->_outputColorSpaceProperties];
+              VTSessionSetProperty(self->_transferSession, propertyKeya, [v229 objectForKeyedSubscript:v383]);
+              VTSessionSetProperty(self->_transferSession, v386, [v229 objectForKeyedSubscript:v379]);
+              VTSessionSetProperty(self->_transferSession, v381, [v229 objectForKeyedSubscript:v377]);
               VTSessionSetProperty(self->_transferSession, *MEMORY[0x1E6983D58], MEMORY[0x1E695E110]);
-              if (v152)
+              if (v153)
               {
                 goto LABEL_289;
               }
 
-              v229 = self->_conversionMethodForStillImagesDuringHDRVideo;
-              if (v229 != 2)
+              v235 = self->_conversionMethodForStillImagesDuringHDRVideo;
+              if (v235 != 2)
               {
                 newPixelBuffer = destinationBuffer;
-                if (v229 == 4)
+                if (v235 == 4)
                 {
-                  [(BWPixelTransferNode *)self _convertUsingHDRProcessing:destinationBuffer toSDR:?];
+                  [(BWPixelTransferNode *)self _convertUsingHDRProcessing:destinationBuffer toSDR:v230, v231, v232, v233, v234];
                 }
 
                 goto LABEL_258;
               }
 
               newPixelBuffer = destinationBuffer;
-              v363 = VTPixelTransferSessionTransferImage(self->_transferSession, self->_intermediatePixelBufferForStillHDRToSDRConversion, destinationBuffer);
-              v230 = self->_doGMLogging;
-              v231 = dword_1ED844550;
-              if (v230 && dword_1ED844550)
+              v390 = VTPixelTransferSessionTransferImage(self->_transferSession, self->_intermediatePixelBufferForStillHDRToSDRConversion, destinationBuffer);
+              v236 = self->_doGMLogging;
+              v237 = dword_1ED844550;
+              if (v236 && dword_1ED844550)
               {
-                *&v394[4] = 0;
-                v394[0] = OS_LOG_TYPE_DEFAULT;
-                v232 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v233 = *&v394[4];
-                if (os_log_type_enabled(v232, v394[0]))
+                *&v421[4] = 0;
+                v421[0] = OS_LOG_TYPE_DEFAULT;
+                v238 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v239 = *&v421[4];
+                if (os_log_type_enabled(v238, v421[0]))
                 {
-                  v234 = v233;
+                  v240 = v239;
                 }
 
                 else
                 {
-                  v234 = v233 & 0xFFFFFFFE;
+                  v240 = v239 & 0xFFFFFFFE;
                 }
 
-                if (v234)
+                if (v240)
                 {
                   name19 = [(BWNode *)self name];
-                  v236 = self->_transferSession;
-                  LODWORD(v387.value) = 136316162;
-                  *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                  LOWORD(v387.flags) = 2112;
-                  *(&v387.flags + 2) = name19;
-                  HIWORD(v387.epoch) = 2048;
+                  v242 = self->_transferSession;
+                  LODWORD(v414.value) = 136316162;
+                  *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                  LOWORD(v414.flags) = 2112;
+                  *(&v414.flags + 2) = name19;
+                  HIWORD(v414.epoch) = 2048;
                   selfCopy22 = self;
-                  v389 = 1024;
-                  *v390 = v363;
-                  *&v390[4] = 2112;
-                  *&v390[6] = v236;
-                  LODWORD(v346) = 48;
-                  v342 = &v387;
+                  v416 = 1024;
+                  *v417 = v390;
+                  *&v417[4] = 2112;
+                  *&v417[6] = v242;
+                  LODWORD(v355) = 48;
+                  v348 = &v414;
                   _os_log_send_and_compose_impl();
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                v231 = dword_1ED844550;
-                LOBYTE(v230) = self->_doGMLogging;
-                bufferCopy = v384;
-                v118 = 0;
+                v237 = dword_1ED844550;
+                LOBYTE(v236) = self->_doGMLogging;
+                bufferCopy = v411;
+                v119 = 0;
               }
 
-              if (v230)
+              if (v236)
               {
-                v171 = v363;
-                if (v231)
+                v172 = v390;
+                if (v237)
                 {
-                  *&v394[4] = 0;
-                  v394[0] = OS_LOG_TYPE_DEFAULT;
-                  v262 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                  v263 = *&v394[4];
-                  if (os_log_type_enabled(v262, v394[0]))
+                  *&v421[4] = 0;
+                  v421[0] = OS_LOG_TYPE_DEFAULT;
+                  v268 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                  v269 = *&v421[4];
+                  if (os_log_type_enabled(v268, v421[0]))
                   {
-                    v264 = v263;
+                    v270 = v269;
                   }
 
                   else
                   {
-                    v264 = v263 & 0xFFFFFFFE;
+                    v270 = v269 & 0xFFFFFFFE;
                   }
 
-                  if (v264)
+                  if (v270)
                   {
                     name20 = [(BWNode *)self name];
-                    v266 = self->_intermediatePixelBufferForStillHDRToSDRConversion;
-                    LODWORD(v387.value) = 136315906;
-                    *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                    LOWORD(v387.flags) = 2112;
-                    *(&v387.flags + 2) = name20;
-                    HIWORD(v387.epoch) = 2048;
+                    v272 = self->_intermediatePixelBufferForStillHDRToSDRConversion;
+                    LODWORD(v414.value) = 136315906;
+                    *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                    LOWORD(v414.flags) = 2112;
+                    *(&v414.flags + 2) = name20;
+                    HIWORD(v414.epoch) = 2048;
                     selfCopy22 = self;
-                    v389 = 2112;
-                    *v390 = v266;
-                    LODWORD(v346) = 42;
-                    v342 = &v387;
+                    v416 = 2112;
+                    *v417 = v272;
+                    LODWORD(v355) = 42;
+                    v348 = &v414;
                     _os_log_send_and_compose_impl();
                   }
 
                   fig_log_call_emit_and_clean_up_after_send_and_compose();
-                  v231 = dword_1ED844550;
-                  LOBYTE(v230) = self->_doGMLogging;
-                  bufferCopy = v384;
-                  v118 = 0;
+                  v237 = dword_1ED844550;
+                  LOBYTE(v236) = self->_doGMLogging;
+                  bufferCopy = v411;
+                  v119 = 0;
                 }
               }
 
               else
               {
-                v171 = v363;
+                v172 = v390;
               }
 
-              if (!v230 || !v231)
+              if (!v236 || !v237)
               {
 LABEL_257:
-                if (!v171)
+                if (!v172)
                 {
                   goto LABEL_258;
                 }
 
-                v152 = v171;
+                v153 = v172;
 LABEL_289:
-                v380 = self->_limitedGMErrorLogger;
+                v407 = self->_limitedGMErrorLogger;
                 rectb = MEMORY[0x1E696AEC0];
-                v374 = [(BWNode *)self name:v342];
+                v401 = [(BWNode *)self name:v348];
                 CMSampleBufferGetPresentationTimeStamp(time, bufferCopy);
-                v288 = CMTimeGetSeconds(time);
-                v289 = self->_rotationSession;
-                v290 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-                v291 = BWStringFromCVPixelFormatType(v290);
-                v179 = CVPixelBufferGetWidth(pixelBuffer);
-                v292 = CVPixelBufferGetHeight(pixelBuffer);
+                v294 = CMTimeGetSeconds(time);
+                v295 = self->_rotationSession;
+                v296 = CVPixelBufferGetPixelFormatType(pixelBuffer);
+                v297 = BWStringFromCVPixelFormatType(v296);
+                v180 = CVPixelBufferGetWidth(pixelBuffer);
+                v298 = CVPixelBufferGetHeight(pixelBuffer);
                 newPixelBuffer = destinationBuffer;
-                v293 = CVPixelBufferGetPixelFormatType(destinationBuffer);
-                v294 = BWStringFromCVPixelFormatType(v293);
-                v295 = CVPixelBufferGetWidth(destinationBuffer);
-                v347 = v291;
-                bufferCopy = v384;
-                -[BWLimitedGMErrorLogger logErrorNumber:errorString:](v380, "logErrorNumber:errorString:", v152, [rectb stringWithFormat:@"%@: %p: %.4lf: %p: rotating scaler rect %@ 0, 0, %lu x %lu, output %@ %lu x %lu, input %p, output %p", v374, self, *&v288, v289, v347, v179, v292, v294, v295, CVPixelBufferGetHeight(destinationBuffer), pixelBuffer, destinationBuffer]);
-                FigDebugAssert3();
-                v6 = MEMORY[0x1E695FF58];
-                LODWORD(v179) = v152;
+                v299 = CVPixelBufferGetPixelFormatType(destinationBuffer);
+                v300 = BWStringFromCVPixelFormatType(v299);
+                v301 = CVPixelBufferGetWidth(destinationBuffer);
+                v363 = v297;
+                bufferCopy = v411;
+                -[BWLimitedGMErrorLogger logErrorNumber:errorString:](v407, "logErrorNumber:errorString:", v153, [rectb stringWithFormat:@"%@: %p: %.4lf: %p: rotating scaler rect %@ 0, 0, %lu x %lu, output %@ %lu x %lu, input %p, output %p", v401, self, *&v294, v295, v363, v180, v298, v300, v301, CVPixelBufferGetHeight(destinationBuffer), pixelBuffer, destinationBuffer]);
+                LODWORD(v351) = v153;
+                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v351, v4, v357, v360, v364, v368, v373, v376);
+                v7 = MEMORY[0x1E695FF58];
+                LODWORD(v180) = v153;
                 goto LABEL_292;
               }
 
-              *&v394[4] = 0;
-              v394[0] = OS_LOG_TYPE_DEFAULT;
-              v267 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v268 = *&v394[4];
-              if (os_log_type_enabled(v267, v394[0]))
+              *&v421[4] = 0;
+              v421[0] = OS_LOG_TYPE_DEFAULT;
+              v273 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v274 = *&v421[4];
+              if (os_log_type_enabled(v273, v421[0]))
               {
-                v269 = v268;
+                v275 = v274;
               }
 
               else
               {
-                v269 = v268 & 0xFFFFFFFE;
+                v275 = v274 & 0xFFFFFFFE;
               }
 
-              if (!v269)
+              if (!v275)
               {
 LABEL_256:
-                v118 = 0;
+                v119 = 0;
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                bufferCopy = v384;
+                bufferCopy = v411;
                 goto LABEL_257;
               }
             }
@@ -2285,139 +2282,139 @@ LABEL_256:
             else
             {
               newPixelBuffer = destinationBuffer;
-              v171 = VTPixelRotationSessionRotateImage(self->_rotationSession, pixelBuffer, destinationBuffer);
-              v172 = self->_doGMLogging;
-              v173 = dword_1ED844550;
-              if (v172 && dword_1ED844550)
+              v172 = VTPixelRotationSessionRotateImage(self->_rotationSession, pixelBuffer, destinationBuffer);
+              v173 = self->_doGMLogging;
+              v174 = dword_1ED844550;
+              if (v173 && dword_1ED844550)
               {
-                *&v394[4] = 0;
-                v394[0] = OS_LOG_TYPE_DEFAULT;
-                v174 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v175 = *&v394[4];
-                if (os_log_type_enabled(v174, v394[0]))
+                *&v421[4] = 0;
+                v421[0] = OS_LOG_TYPE_DEFAULT;
+                v175 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v176 = *&v421[4];
+                if (os_log_type_enabled(v175, v421[0]))
                 {
-                  v176 = v175;
+                  v177 = v176;
                 }
 
                 else
                 {
-                  v176 = v175 & 0xFFFFFFFE;
+                  v177 = v176 & 0xFFFFFFFE;
                 }
 
-                if (v176)
+                if (v177)
                 {
                   name21 = [(BWNode *)self name];
-                  v178 = self->_rotationSession;
-                  LODWORD(v387.value) = 136316162;
-                  *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                  LOWORD(v387.flags) = 2112;
-                  *(&v387.flags + 2) = name21;
-                  HIWORD(v387.epoch) = 2048;
+                  v179 = self->_rotationSession;
+                  LODWORD(v414.value) = 136316162;
+                  *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                  LOWORD(v414.flags) = 2112;
+                  *(&v414.flags + 2) = name21;
+                  HIWORD(v414.epoch) = 2048;
                   selfCopy22 = self;
-                  v389 = 1024;
-                  *v390 = v171;
-                  *&v390[4] = 2112;
-                  *&v390[6] = v178;
-                  LODWORD(v346) = 48;
-                  v342 = &v387;
+                  v416 = 1024;
+                  *v417 = v172;
+                  *&v417[4] = 2112;
+                  *&v417[6] = v179;
+                  LODWORD(v355) = 48;
+                  v348 = &v414;
                   _os_log_send_and_compose_impl();
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                v173 = dword_1ED844550;
-                LOBYTE(v172) = self->_doGMLogging;
-                bufferCopy = v384;
-                v118 = 0;
+                v174 = dword_1ED844550;
+                LOBYTE(v173) = self->_doGMLogging;
+                bufferCopy = v411;
+                v119 = 0;
               }
 
-              if (v172 && v173)
+              if (v173 && v174)
               {
-                *&v394[4] = 0;
-                v394[0] = OS_LOG_TYPE_DEFAULT;
-                v211 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v212 = *&v394[4];
-                if (os_log_type_enabled(v211, v394[0]))
+                *&v421[4] = 0;
+                v421[0] = OS_LOG_TYPE_DEFAULT;
+                v212 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v213 = *&v421[4];
+                if (os_log_type_enabled(v212, v421[0]))
                 {
-                  v213 = v212;
+                  v214 = v213;
                 }
 
                 else
                 {
-                  v213 = v212 & 0xFFFFFFFE;
+                  v214 = v213 & 0xFFFFFFFE;
                 }
 
-                if (v213)
+                if (v214)
                 {
                   name22 = [(BWNode *)self name];
-                  LODWORD(v387.value) = 136315906;
-                  *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-                  LOWORD(v387.flags) = 2112;
-                  *(&v387.flags + 2) = name22;
-                  HIWORD(v387.epoch) = 2048;
+                  LODWORD(v414.value) = 136315906;
+                  *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+                  LOWORD(v414.flags) = 2112;
+                  *(&v414.flags + 2) = name22;
+                  HIWORD(v414.epoch) = 2048;
                   selfCopy22 = self;
-                  v389 = 2112;
-                  *v390 = pixelBuffer;
-                  LODWORD(v346) = 42;
-                  v342 = &v387;
+                  v416 = 2112;
+                  *v417 = pixelBuffer;
+                  LODWORD(v355) = 42;
+                  v348 = &v414;
                   _os_log_send_and_compose_impl();
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
-                v173 = dword_1ED844550;
-                LOBYTE(v172) = self->_doGMLogging;
-                bufferCopy = v384;
-                v118 = 0;
+                v174 = dword_1ED844550;
+                LOBYTE(v173) = self->_doGMLogging;
+                bufferCopy = v411;
+                v119 = 0;
               }
 
-              if (!v172 || !v173)
+              if (!v173 || !v174)
               {
                 goto LABEL_257;
               }
 
-              *&v394[4] = 0;
-              v394[0] = OS_LOG_TYPE_DEFAULT;
-              v215 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v216 = *&v394[4];
-              if (os_log_type_enabled(v215, v394[0]))
+              *&v421[4] = 0;
+              v421[0] = OS_LOG_TYPE_DEFAULT;
+              v216 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v217 = *&v421[4];
+              if (os_log_type_enabled(v216, v421[0]))
               {
-                v217 = v216;
+                v218 = v217;
               }
 
               else
               {
-                v217 = v216 & 0xFFFFFFFE;
+                v218 = v217 & 0xFFFFFFFE;
               }
 
-              if (!v217)
+              if (!v218)
               {
                 goto LABEL_256;
               }
             }
 
             name23 = [(BWNode *)self name];
-            LODWORD(v387.value) = 136315906;
-            *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-            LOWORD(v387.flags) = 2112;
-            *(&v387.flags + 2) = name23;
-            HIWORD(v387.epoch) = 2048;
+            LODWORD(v414.value) = 136315906;
+            *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+            LOWORD(v414.flags) = 2112;
+            *(&v414.flags + 2) = name23;
+            HIWORD(v414.epoch) = 2048;
             selfCopy22 = self;
-            v389 = 2112;
-            *v390 = newPixelBuffer;
-            LODWORD(v346) = 42;
-            v342 = &v387;
+            v416 = 2112;
+            *v417 = newPixelBuffer;
+            LODWORD(v355) = 42;
+            v348 = &v414;
             _os_log_send_and_compose_impl();
             goto LABEL_256;
           }
 
           [BWPixelTransferNode renderSampleBuffer:? forInput:?];
-          LODWORD(v179) = LODWORD(time[0].origin.x);
+          LODWORD(v180) = LODWORD(time[0].origin.x);
           newPixelBuffer = destinationBuffer;
-          v6 = MEMORY[0x1E695FF58];
+          v7 = MEMORY[0x1E695FF58];
         }
 
         else
         {
-          LODWORD(v179) = -12780;
+          LODWORD(v180) = -12780;
         }
 
 LABEL_294:
@@ -2429,56 +2426,11 @@ LABEL_294:
         goto LABEL_296;
       }
 
-      *&v394[4] = 0;
-      v394[0] = OS_LOG_TYPE_DEFAULT;
-      v303 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v304 = *&v394[4];
-      if (os_log_type_enabled(v303, v394[0]))
-      {
-        v305 = v304;
-      }
-
-      else
-      {
-        v305 = v304 & 0xFFFFFFFE;
-      }
-
-      if (v305)
-      {
-        name24 = [(BWNode *)self name];
-        v307 = self->_liveRotationDegrees;
-        v308 = BWStringFromCGRect(origin.f64[0], origin.f64[1], v397.f64[0], v397.f64[1]);
-        LODWORD(v387.value) = 136316162;
-        *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-        LOWORD(v387.flags) = 2112;
-        *(&v387.flags + 2) = name24;
-        HIWORD(v387.epoch) = 2048;
-        selfCopy22 = self;
-        v389 = 1024;
-        *v390 = v307;
-        *&v390[4] = 2112;
-        *&v390[6] = v308;
-        LODWORD(v345) = 48;
-        v341 = &v387;
-        _os_log_send_and_compose_impl();
-      }
-
-      v39 = 1;
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    else
-    {
-      if (!self->_doGMLogging || !dword_1ED844550)
-      {
-        goto LABEL_46;
-      }
-
-      *&v394[4] = 0;
-      v394[0] = OS_LOG_TYPE_DEFAULT;
+      *&v421[4] = 0;
+      v421[0] = OS_LOG_TYPE_DEFAULT;
       v309 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v310 = *&v394[4];
-      if (os_log_type_enabled(v309, v394[0]))
+      v310 = *&v421[4];
+      if (os_log_type_enabled(v309, v421[0]))
       {
         v311 = v310;
       }
@@ -2490,22 +2442,67 @@ LABEL_294:
 
       if (v311)
       {
-        name25 = [(BWNode *)self name];
-        LODWORD(v387.value) = 136315650;
-        *(&v387.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
-        LOWORD(v387.flags) = 2112;
-        *(&v387.flags + 2) = name25;
-        HIWORD(v387.epoch) = 2048;
+        name24 = [(BWNode *)self name];
+        v313 = self->_liveRotationDegrees;
+        v314 = BWStringFromCGRect(origin.f64[0], origin.f64[1], v424.f64[0], v424.f64[1]);
+        LODWORD(v414.value) = 136316162;
+        *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+        LOWORD(v414.flags) = 2112;
+        *(&v414.flags + 2) = name24;
+        HIWORD(v414.epoch) = 2048;
         selfCopy22 = self;
-        LODWORD(v345) = 32;
-        v341 = &v387;
+        v416 = 1024;
+        *v417 = v313;
+        *&v417[4] = 2112;
+        *&v417[6] = v314;
+        LODWORD(v354) = 48;
+        v347 = &v414;
+        _os_log_send_and_compose_impl();
+      }
+
+      v40 = 1;
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
+
+    else
+    {
+      if (!self->_doGMLogging || !dword_1ED844550)
+      {
+        goto LABEL_46;
+      }
+
+      *&v421[4] = 0;
+      v421[0] = OS_LOG_TYPE_DEFAULT;
+      v315 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v316 = *&v421[4];
+      if (os_log_type_enabled(v315, v421[0]))
+      {
+        v317 = v316;
+      }
+
+      else
+      {
+        v317 = v316 & 0xFFFFFFFE;
+      }
+
+      if (v317)
+      {
+        name25 = [(BWNode *)self name];
+        LODWORD(v414.value) = 136315650;
+        *(&v414.value + 4) = "[BWPixelTransferNode renderSampleBuffer:forInput:]";
+        LOWORD(v414.flags) = 2112;
+        *(&v414.flags + 2) = name25;
+        HIWORD(v414.epoch) = 2048;
+        selfCopy22 = self;
+        LODWORD(v354) = 32;
+        v347 = &v414;
         _os_log_send_and_compose_impl();
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v6 = MEMORY[0x1E695FF58];
+    v7 = MEMORY[0x1E695FF58];
     goto LABEL_46;
   }
 }
@@ -2546,14 +2543,14 @@ LABEL_294:
   return rect.origin.x;
 }
 
-- (uint64_t)_ensureTransferSession
+- (VTPixelTransferSessionRef)_ensureTransferSession
 {
   if (result)
   {
     v1 = result;
-    if (!*(result + 336))
+    if (!result[42])
     {
-      VTPixelTransferSessionCreate(*MEMORY[0x1E695E480], (result + 336));
+      VTPixelTransferSessionCreate(*MEMORY[0x1E695E480], result + 42);
       *(v1 + 432) = 1;
       context = objc_autoreleasePoolPush();
       v2 = malloc_type_malloc(0x2800uLL, 0x9FD05F99uLL);
@@ -2562,8 +2559,8 @@ LABEL_294:
         [BWPixelTransferNode _ensureTransferSession];
       }
 
-      name = [v1 name];
-      v4 = *(v1 + 336);
+      name = [(VTPixelTransferSessionRef *)v1 name];
+      v4 = v1[42];
       v33 = 138412802;
       v34 = name;
       v35 = 2048;
@@ -2684,18 +2681,18 @@ LABEL_294:
       }
 
       objc_autoreleasePoolPop(context);
-      v22 = *(v29 + 424);
-      if (*(v29 + 336))
+      v22 = v29[53];
+      if (v29[42])
       {
-        result = [v22 resetCurrentLoggingCounter];
+        result = [(OpaqueVTPixelTransferSession *)v22 resetCurrentLoggingCounter];
       }
 
       else
       {
-        result = [v22 logErrorNumber:4294954516 errorString:@"failed to create transfer session"];
+        result = [(OpaqueVTPixelTransferSession *)v22 logErrorNumber:4294954516 errorString:@"failed to create transfer session"];
       }
 
-      if (!*(v29 + 336))
+      if (!v29[42])
       {
         [BWPixelTransferNode _ensureTransferSession];
       }
@@ -2705,103 +2702,103 @@ LABEL_294:
   return result;
 }
 
-- (uint64_t)_convertUsingHDRProcessing:(__CVBuffer *)processing toSDR:
+- (uint64_t)_convertUsingHDRProcessing:(__CVBuffer *)processing toSDR:(uint64_t)r
 {
   if (result)
   {
-    v3 = result;
+    v8 = result;
     if (*(result + 408))
     {
       if (*(result + 416))
       {
-        v6 = objc_alloc_init(MEMORY[0x1E695DEF0]);
-        v7 = MEMORY[0x1E695DF90];
-        v45 = 0;
-        v46 = &v45;
-        v47 = 0x2020000000;
-        v8 = getkHDRProcessingDolbyVisionRPUDataKeySymbolLoc_ptr;
-        v48 = getkHDRProcessingDolbyVisionRPUDataKeySymbolLoc_ptr;
+        v11 = objc_alloc_init(MEMORY[0x1E695DEF0]);
+        v12 = MEMORY[0x1E695DF90];
+        v78 = 0;
+        v79 = &v78;
+        v80 = 0x2020000000;
+        v13 = getkHDRProcessingDolbyVisionRPUDataKeySymbolLoc_ptr;
+        v81 = getkHDRProcessingDolbyVisionRPUDataKeySymbolLoc_ptr;
         if (!getkHDRProcessingDolbyVisionRPUDataKeySymbolLoc_ptr)
         {
-          v43[0] = MEMORY[0x1E69E9820];
-          v43[1] = 3221225472;
-          v43[2] = __getkHDRProcessingDolbyVisionRPUDataKeySymbolLoc_block_invoke;
-          v43[3] = &unk_1E798FC38;
-          v44 = &v45;
-          v9 = HDRProcessingLibrary();
-          v46[3] = dlsym(v9, "kHDRProcessingDolbyVisionRPUDataKey");
-          getkHDRProcessingDolbyVisionRPUDataKeySymbolLoc_ptr = *(v44[1] + 24);
-          v8 = v46[3];
+          v76[0] = MEMORY[0x1E69E9820];
+          v76[1] = 3221225472;
+          v76[2] = __getkHDRProcessingDolbyVisionRPUDataKeySymbolLoc_block_invoke;
+          v76[3] = &unk_1E798FC38;
+          v77 = &v78;
+          v14 = HDRProcessingLibrary();
+          v79[3] = dlsym(v14, "kHDRProcessingDolbyVisionRPUDataKey");
+          getkHDRProcessingDolbyVisionRPUDataKeySymbolLoc_ptr = *(v77[1] + 24);
+          v13 = v79[3];
         }
 
-        _Block_object_dispose(&v45, 8);
-        if (!v8)
+        _Block_object_dispose(&v78, 8);
+        if (!v13)
         {
           [BWPixelTransferNode _convertUsingHDRProcessing:toSDR:];
         }
 
-        v10 = [v7 dictionaryWithObject:v6 forKey:*v8];
+        v15 = [v12 dictionaryWithObject:v11 forKey:*v13];
         IOSurface = CVPixelBufferGetIOSurface(a2);
         if (IOSurface)
         {
-          v12 = IOSurface;
-          v13 = CVPixelBufferGetIOSurface(processing);
-          if (v13)
+          v24 = IOSurface;
+          v25 = CVPixelBufferGetIOSurface(processing);
+          if (v25)
           {
-            v14 = v13;
-            v42 = 0;
-            v40 = 0u;
-            v41 = 0u;
-            v38 = 0u;
-            v39 = 0u;
-            v36 = 0u;
-            v37 = 0u;
-            v34 = 0u;
-            v35 = 0u;
-            WORD5(v37) = 3073;
-            BYTE12(v37) = 18;
+            v33 = v25;
+            v75 = 0;
+            v73 = 0u;
+            v74 = 0u;
+            v71 = 0u;
+            v72 = 0u;
+            v69 = 0u;
+            v70 = 0u;
+            v67 = 0u;
+            v68 = 0u;
+            WORD5(v70) = 3073;
+            BYTE12(v70) = 18;
             if (IOSurfaceSetBulkAttachments2())
             {
-              [BWPixelTransferNode _convertUsingHDRProcessing:v43 toSDR:?];
+              [(BWPixelTransferNode *)v76 _convertUsingHDRProcessing:v34 toSDR:v35, v36, v37, v38, v39, v40];
             }
 
             else
             {
-              v33 = 0;
-              v31 = 0u;
-              v32 = 0u;
-              v29 = 0u;
-              v30 = 0u;
-              v27 = 0u;
-              v28 = 0u;
-              v25 = 0u;
-              v26 = 0u;
-              WORD5(v28) = 3073;
-              BYTE12(v28) = 1;
+              v66 = 0;
+              v64 = 0u;
+              v65 = 0u;
+              v62 = 0u;
+              v63 = 0u;
+              v60 = 0u;
+              v61 = 0u;
+              v58 = 0u;
+              v59 = 0u;
+              WORD5(v61) = 3073;
+              BYTE12(v61) = 1;
               if (!IOSurfaceSetBulkAttachments2())
               {
-                v24 = 0;
-                if ([*(v3 + 408) generateMSRColorConfigWithOperation:4 inputSurface:v12 outputSurface:v14 metadata:v10 histogram:0 config:&v24] == -17000)
+                v57 = 0;
+                if ([*(v8 + 408) generateMSRColorConfigWithOperation:4 inputSurface:v24 outputSurface:v33 metadata:v15 histogram:0 config:&v57] == -17000)
                 {
-                  v15 = malloc_type_malloc(0x28uLL, 0x10000407607B2BCuLL);
-                  *v15 = 3;
-                  v15[1] = [v24 bytes];
-                  *(v15 + 4) = [v24 length];
-                  *(v15 + 28) = 0;
-                  *(v15 + 20) = 0;
-                  v16 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v15 length:40 freeWhenDone:1];
-                  v17 = *MEMORY[0x1E69A8498];
-                  v21 = v16;
-                  v22[0] = v17;
-                  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
-                  v19 = *MEMORY[0x1E69A84D8];
-                  v23[0] = v18;
-                  v23[1] = MEMORY[0x1E695E118];
-                  v20 = *MEMORY[0x1E69A85B8];
-                  v22[1] = v19;
-                  v22[2] = v20;
-                  v23[2] = MEMORY[0x1E695E110];
-                  [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
+                  v48 = malloc_type_malloc(0x28uLL, 0x10000407607B2BCuLL);
+                  *v48 = 3;
+                  v48[1] = [v57 bytes];
+                  *(v48 + 4) = [v57 length];
+                  *(v48 + 28) = 0;
+                  *(v48 + 20) = 0;
+                  v49 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v48 length:40 freeWhenDone:1];
+                  v50 = *MEMORY[0x1E69A8498];
+                  v54 = v49;
+                  v55[0] = v50;
+                  v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
+                  v52 = *MEMORY[0x1E69A84D8];
+                  v56[0] = v51;
+                  v56[1] = MEMORY[0x1E695E118];
+                  v53 = *MEMORY[0x1E69A85B8];
+                  v55[1] = v52;
+                  v55[2] = v53;
+                  v56[2] = MEMORY[0x1E695E110];
+                  [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:3];
                   result = IOSurfaceAcceleratorTransformSurface();
                   if (!result)
                   {
@@ -2819,34 +2816,34 @@ LABEL_294:
                 return 4294954514;
               }
 
-              [BWPixelTransferNode _convertUsingHDRProcessing:v43 toSDR:?];
+              [(BWPixelTransferNode *)v76 _convertUsingHDRProcessing:v41 toSDR:v42, v43, v44, v45, v46, v47];
             }
           }
 
           else
           {
-            [BWPixelTransferNode _convertUsingHDRProcessing:v43 toSDR:?];
+            [(BWPixelTransferNode *)v76 _convertUsingHDRProcessing:v26 toSDR:v27, v28, v29, v30, v31, v32];
           }
         }
 
         else
         {
-          [BWPixelTransferNode _convertUsingHDRProcessing:v43 toSDR:?];
+          [(BWPixelTransferNode *)v76 _convertUsingHDRProcessing:v17 toSDR:v18, v19, v20, v21, v22, v23];
         }
       }
 
       else
       {
-        [BWPixelTransferNode _convertUsingHDRProcessing:v43 toSDR:?];
+        [(BWPixelTransferNode *)v76 _convertUsingHDRProcessing:a2 toSDR:processing, r, a5, a6, a7, a8];
       }
     }
 
     else
     {
-      [BWPixelTransferNode _convertUsingHDRProcessing:v43 toSDR:?];
+      [(BWPixelTransferNode *)v76 _convertUsingHDRProcessing:a2 toSDR:processing, r, a5, a6, a7, a8];
     }
 
-    return LODWORD(v43[0]);
+    return LODWORD(v76[0]);
   }
 
   return result;
@@ -2905,7 +2902,7 @@ LABEL_294:
   if (self->_outputWidth != width)
   {
     self->_outputWidth = width;
-    [(BWPixelTransferNode *)self _updateOutputRequirements];
+    [(BWPixelTransferNode *)&self->super.super.isa _updateOutputRequirements];
   }
 }
 
@@ -2914,7 +2911,7 @@ LABEL_294:
   if (self->_outputHeight != height)
   {
     self->_outputHeight = height;
-    [(BWPixelTransferNode *)self _updateOutputRequirements];
+    [(BWPixelTransferNode *)&self->super.super.isa _updateOutputRequirements];
   }
 }
 
@@ -2923,7 +2920,7 @@ LABEL_294:
   if (self->_outputPixelFormat != format)
   {
     self->_outputPixelFormat = format;
-    [(BWPixelTransferNode *)self _updateOutputRequirements];
+    [(BWPixelTransferNode *)&self->super.super.isa _updateOutputRequirements];
   }
 }
 
@@ -2931,7 +2928,7 @@ LABEL_294:
 {
   if (([formats isEqualToArray:self->_preferredOutputPixelFormats] & 1) == 0)
   {
-    [(BWPixelTransferNode *)&self->_preferredOutputPixelFormats setPreferredOutputPixelFormats:formats, self];
+    [(BWPixelTransferNode *)&self->_preferredOutputPixelFormats setPreferredOutputPixelFormats:formats, &self->super.super.isa];
   }
 }
 
@@ -2940,7 +2937,7 @@ LABEL_294:
   if (self->_outputColorSpaceProperties != properties)
   {
     self->_outputColorSpaceProperties = properties;
-    [(BWPixelTransferNode *)self _updateOutputRequirements];
+    [(BWPixelTransferNode *)&self->super.super.isa _updateOutputRequirements];
   }
 }
 
@@ -2970,7 +2967,7 @@ LABEL_294:
   if (self->_maxInputLossyCompressionLevel != level)
   {
     self->_maxInputLossyCompressionLevel = level;
-    [(BWPixelTransferNode *)self _updateInputRequirements];
+    [(BWPixelTransferNode *)&self->super.super.isa _updateInputRequirements];
   }
 }
 
@@ -2979,7 +2976,7 @@ LABEL_294:
   if (self->_maxOutputLossyCompressionLevel != level)
   {
     self->_maxOutputLossyCompressionLevel = level;
-    [(BWPixelTransferNode *)self _updateOutputRequirements];
+    [(BWPixelTransferNode *)&self->super.super.isa _updateOutputRequirements];
   }
 }
 
@@ -3004,7 +3001,7 @@ LABEL_294:
   {
     self->_conversionMethodForStillImagesDuringHDRVideo = videos;
 
-    [(BWPixelTransferNode *)self _updateOutputRequirements];
+    [(BWPixelTransferNode *)&self->super.super.isa _updateOutputRequirements];
   }
 }
 
@@ -3013,7 +3010,7 @@ LABEL_294:
   if (self->_allows422To420Conversion != conversion)
   {
     self->_allows422To420Conversion = conversion;
-    [(BWPixelTransferNode *)self _updateOutputRequirements];
+    [(BWPixelTransferNode *)&self->super.super.isa _updateOutputRequirements];
   }
 }
 
@@ -3096,139 +3093,6 @@ LABEL_294:
   return result;
 }
 
-- (uint64_t)_intermediateBufferDimensionsForInputDimensions:(uint64_t)dimensions outputDimensions:
-{
-  if (result)
-  {
-    v3 = *(result + 212);
-    v4 = COERCE_DOUBLE(vrev64_s32(__PAIR64__(a2, HIDWORD(a2))));
-    if (v3 == 270)
-    {
-      v4 = COERCE_DOUBLE(__PAIR64__(a2, HIDWORD(a2)));
-    }
-
-    _ZF = v3 == 90;
-    v6 = v3 == 90 || v3 == 270;
-    if (_ZF)
-    {
-      v4 = COERCE_DOUBLE(__PAIR64__(a2, HIDWORD(a2)));
-    }
-
-    v7 = vcvt_f32_s32(vext_s8(__PAIR64__(dimensions, HIDWORD(dimensions)), *&v4, 4uLL));
-    *&v4 = vdiv_f32(v7, vdup_lane_s32(v7, 1)).f32[0];
-    v8 = SHIDWORD(dimensions) / SHIDWORD(v4);
-    if (*&v4 <= 4.0)
-    {
-      if (*&v4 < 0.25 && v8 > 4.0)
-      {
-        goto LABEL_32;
-      }
-
-      if (v8 <= 4.0)
-      {
-        if (*&v4 >= 0.25 && v8 >= 0.25)
-        {
-          v20 = 0;
-          v18 = 0;
-          return v18 | v20;
-        }
-
-        v22.i64[0] = SHIDWORD(a2);
-        v22.i64[1] = a2;
-        __asm { FMOV            V3.2D, #0.25 }
-
-        v24 = vmulq_f64(vcvtq_f64_s64(v22), _Q3);
-        __asm { FMOV            V3.2D, #0.5 }
-
-        *&v24.f64[0] = vmovn_s64(vcvtq_s64_f64(vrndpq_f64(vmulq_f64(v24, _Q3))));
-        v16 = COERCE_DOUBLE(vadd_s32(*&v24.f64[0], *&v24.f64[0]));
-        v22.i64[0] = SHIDWORD(dimensions);
-        v22.i64[1] = dimensions;
-        __asm { FMOV            V4.2D, #4.0 }
-
-        v27 = vmovn_s64(vcvtq_s64_f64(vrndmq_f64(vmulq_f64(vmulq_f64(vcvtq_f64_s64(v22), _Q4), _Q3))));
-        v28 = COERCE_DOUBLE(vadd_s32(v27, v27));
-        if (!_ZF)
-        {
-          v28 = 0.0;
-        }
-
-        if (*(result + 132))
-        {
-          v16 = v28;
-        }
-
-LABEL_19:
-        if (v6)
-        {
-          v17 = HIDWORD(v16);
-        }
-
-        else
-        {
-          v17 = LODWORD(v16);
-        }
-
-        if (v6)
-        {
-          LODWORD(v18) = LODWORD(v16);
-        }
-
-        else
-        {
-          LODWORD(v18) = HIDWORD(v16);
-        }
-
-        if (v18 <= 16)
-        {
-          v18 = 16;
-        }
-
-        else
-        {
-          v18 = v18;
-        }
-
-        if (v17 <= 16)
-        {
-          v19 = 16;
-        }
-
-        else
-        {
-          v19 = v17;
-        }
-
-        v20 = v19 << 32;
-        return v18 | v20;
-      }
-    }
-
-    else if (v8 < 0.25)
-    {
-LABEL_32:
-      OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
-      v20 = 0;
-      v18 = 0;
-      return v18 | v20;
-    }
-
-    v10.i64[0] = SHIDWORD(dimensions);
-    v10.i64[1] = dimensions;
-    __asm { FMOV            V1.2D, #0.25 }
-
-    v14 = vmulq_f64(vcvtq_f64_s64(v10), _Q1);
-    __asm { FMOV            V1.2D, #0.5 }
-
-    *&v14.f64[0] = vmovn_s64(vcvtq_s64_f64(vrndpq_f64(vmulq_f64(v14, _Q1))));
-    v16 = COERCE_DOUBLE(vadd_s32(*&v14.f64[0], *&v14.f64[0]));
-    goto LABEL_19;
-  }
-
-  return result;
-}
-
 - (uint64_t)_ensureIntermediatePoolWithDimensions:(uint64_t)dimensions
 {
   if (dimensions)
@@ -3248,10 +3112,10 @@ LABEL_32:
       v9 = [(__CFString *)name stringByAppendingString:@" Intermediate"];
       [(BWVideoFormatRequirements *)v6 setWidth:a2];
       [(BWVideoFormatRequirements *)v6 setHeight:a2 >> 32];
-      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(liveFormat, "pixelFormat")}];
-      -[BWVideoFormatRequirements setSupportedPixelFormats:](v6, "setSupportedPixelFormats:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1]);
-      v14 = v6;
-      v10 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1]);
+      v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(liveFormat, "pixelFormat")}];
+      -[BWVideoFormatRequirements setSupportedPixelFormats:](v6, "setSupportedPixelFormats:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1]);
+      v22 = v6;
+      v10 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1]);
       if (v10)
       {
         v11 = v10;
@@ -3271,7 +3135,7 @@ LABEL_32:
       else
       {
         OUTLINED_FUNCTION_0();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, v17, v18, v19, v20, v21);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -3530,7 +3394,7 @@ LABEL_5:
                       if (v25)
                       {
                         v29 = CGRectMakeWithDictionaryRepresentation(v25, &rect);
-                        OUTLINED_FUNCTION_0_23(v37, v38, v39, v40, v41, v42, v43, v44, v29, v30, v31, v32, v33, v34, v35, v36, v93, v94, v95, v96, v97, v98, obj, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, rectCopy, v122, bufferCopy, dimsCopy, v125, v126, v127, v128, v129, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+                        OUTLINED_FUNCTION_0_23(v37, v38, v39, v40, v29, v30, v31, v32, v33, v34, v35, v36, v41, v42, v43, v44, v93, v94, v95, v96, v97, v98, obj, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, rectCopy, v122, bufferCopy, dimsCopy, v125, v126, v127, v128, v129, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
                         v27 = v45;
                         v26 = v46;
                       }
@@ -3546,7 +3410,7 @@ LABEL_5:
                         if (v47)
                         {
                           v52 = CGRectMakeWithDictionaryRepresentation(v47, &rect);
-                          v51 = OUTLINED_FUNCTION_0_23(v60, v61, v62, v63, v64, v65, v66, v67, v52, v53, v54, v55, v56, v57, v58, v59, v93, v94, v95, v96, v97, v98, obj, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, rectCopy, v122, bufferCopy, dimsCopy, v125, v126, v127, v128, v129, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+                          v51 = OUTLINED_FUNCTION_0_23(v60, v61, v62, v63, v52, v53, v54, v55, v56, v57, v58, v59, v64, v65, v66, v67, v93, v94, v95, v96, v97, v98, obj, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, rectCopy, v122, bufferCopy, dimsCopy, v125, v126, v127, v128, v129, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
                           v49 = v68;
                         }
 
@@ -3557,7 +3421,7 @@ LABEL_5:
                         if (v69)
                         {
                           v70 = CGRectMakeWithDictionaryRepresentation(v69, &rect);
-                          OUTLINED_FUNCTION_0_23(v78, v79, v80, v81, v82, v83, v84, v85, v70, v71, v72, v73, v74, v75, v76, v77, v93, v94, v95, v96, v97, v98, obj, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, rectCopy, v122, bufferCopy, dimsCopy, v125, v126, v127, v128, v129, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+                          OUTLINED_FUNCTION_0_23(v78, v79, v80, v81, v70, v71, v72, v73, v74, v75, v76, v77, v82, v83, v84, v85, v93, v94, v95, v96, v97, v98, obj, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, rectCopy, v122, bufferCopy, dimsCopy, v125, v126, v127, v128, v129, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
                           v15 = v86;
                           v14 = v87;
                         }
@@ -3678,43 +3542,44 @@ LABEL_5:
 
 - (uint64_t)renderSampleBuffer:(uint64_t)a1 forInput:(_BYTE *)a2 .cold.1(uint64_t a1, _BYTE *a2)
 {
-  [(BWPixelTransferNode *)a1 _makeCurrentConfigurationLive];
+  CurrentConfiguration = [(BWPixelTransferNode *)a1 _makeCurrentConfigurationLive];
   *a2 = 0;
   return [*(a1 + 16) makeConfiguredFormatLive];
 }
 
 - (uint64_t)renderSampleBuffer:(_DWORD *)a1 forInput:.cold.3(_DWORD *a1)
 {
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  v6 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v1, v8, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844548, 0xFFFFCE0ELL, "<<<< BWPixelTransferNode >>>>", 0x2E3, v1, v3, v4, v7);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)_convertUsingHDRProcessing:(_DWORD *)a1 toSDR:.cold.1(_DWORD *a1)
+- (uint64_t)_convertUsingHDRProcessing:(uint64_t)a3 toSDR:(uint64_t)a4 .cold.1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844548, 0xFFFFCE14, "<<<< BWPixelTransferNode >>>>", 0x8AA, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)_convertUsingHDRProcessing:(_DWORD *)a1 toSDR:.cold.2(_DWORD *a1)
+- (uint64_t)_convertUsingHDRProcessing:(uint64_t)a3 toSDR:(uint64_t)a4 .cold.2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844548, 0xFFFFCE14, "<<<< BWPixelTransferNode >>>>", 0x8B3, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)_convertUsingHDRProcessing:(_DWORD *)a1 toSDR:.cold.5(_DWORD *a1)
+- (uint64_t)_convertUsingHDRProcessing:(uint64_t)a3 toSDR:(uint64_t)a4 .cold.5(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844548, 0xFFFFCE14, "<<<< BWPixelTransferNode >>>>", 0x8A1, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)_convertUsingHDRProcessing:(_DWORD *)a1 toSDR:.cold.6(_DWORD *a1)
+- (uint64_t)_convertUsingHDRProcessing:(uint64_t)a3 toSDR:(uint64_t)a4 .cold.6(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844548, 0xFFFFCE14, "<<<< BWPixelTransferNode >>>>", 0x89F, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -3726,21 +3591,21 @@ LABEL_5:
   __break(1u);
 }
 
-- (uint64_t)_convertUsingHDRProcessing:(_DWORD *)a1 toSDR:.cold.8(_DWORD *a1)
+- (uint64_t)_convertUsingHDRProcessing:(uint64_t)a3 toSDR:(uint64_t)a4 .cold.8(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844548, 0xFFFFCE14, "<<<< BWPixelTransferNode >>>>", 0x899, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)_convertUsingHDRProcessing:(_DWORD *)a1 toSDR:.cold.9(_DWORD *a1)
+- (uint64_t)_convertUsingHDRProcessing:(uint64_t)a3 toSDR:(uint64_t)a4 .cold.9(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844548, 0xFFFFCE14, "<<<< BWPixelTransferNode >>>>", 0x898, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)setPreferredOutputPixelFormats:(uint64_t)a3 .cold.1(id *a1, void *a2, uint64_t a3)
+- (id)setPreferredOutputPixelFormats:(id *)a3 .cold.1(id *a1, void *a2, id *a3)
 {
   *a1 = [a2 copy];
 

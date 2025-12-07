@@ -7,16 +7,16 @@
 - (IMTransientMessagePartChatItem)initWithGUID:(id)d
 {
   dCopy = d;
-  v9.receiver = self;
-  v9.super_class = IMTransientMessagePartChatItem;
-  v5 = [(IMTransientMessagePartChatItem *)&v9 init];
-  v7 = v5;
+  v8.receiver = self;
+  v8.super_class = IMTransientMessagePartChatItem;
+  v5 = [(IMTransientMessagePartChatItem *)&v8 init];
+  v6 = v5;
   if (v5)
   {
-    objc_msgSend__setGUID_(v5, v6, dCopy);
+    [(IMTranscriptChatItem *)v5 _setGUID:dCopy];
   }
 
-  return v7;
+  return v6;
 }
 
 @end

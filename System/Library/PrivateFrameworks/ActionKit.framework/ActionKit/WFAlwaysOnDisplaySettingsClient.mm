@@ -9,9 +9,39 @@
 + (void)getBookmarkForFirstEventAfterBookmark:(id)bookmark completionHandler:(id)handler;
 + (void)getReversalStateWithBookmark:(id)bookmark completionHandler:(id)handler;
 - (void)getStateWithCompletionHandler:(id)handler;
+- (void)setState:(BOOL)state completionHandler:(id)handler;
 @end
 
 @implementation WFAlwaysOnDisplaySettingsClient
+
+- (void)setState:(BOOL)state completionHandler:(id)handler
+{
+  stateCopy = state;
+  v13 = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  if (+[WFAlwaysOnDisplaySettingsClient canRunIntent])
+  {
+    v6 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.springboard"];
+    [v6 setBool:stateCopy forKey:@"SBEnableAlwaysOn"];
+    v7 = getWFBundledIntentsLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v10 = "[WFAlwaysOnDisplaySettingsClient setState:completionHandler:]";
+      v11 = 1024;
+      v12 = stateCopy;
+      _os_log_impl(&dword_23DE30000, v7, OS_LOG_TYPE_DEFAULT, "%s Shortcuts action set Always On enabled to: %i", buf, 0x12u);
+    }
+
+    handlerCopy[2](handlerCopy, 0);
+  }
+
+  else
+  {
+    v8 = WFSettingsClientError();
+    (handlerCopy[2])(handlerCopy);
+  }
+}
 
 - (void)getStateWithCompletionHandler:(id)handler
 {
@@ -53,16 +83,15 @@ void __82__WFAlwaysOnDisplaySettingsClient_getReversalStateWithBookmark_completi
   {
     v3 = [a2 userSetState] == 1;
     v4 = *(a1 + 32);
-    v7 = [MEMORY[0x277CCABB0] numberWithBool:v3];
-    (*(v4 + 16))(v4, v7, 0);
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:v3];
+    (*(v4 + 16))(v4, v6, 0);
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
@@ -166,36 +195,34 @@ void __91__WFAlwaysOnDisplaySettingsClient_getBookmarkForFirstEventAfterBookmark
 
 + (id)filteredPublisherForAlwaysOnPublisher:(id)publisher
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   publisherCopy = publisher;
   v4 = getWFAlwaysOnSettingsClientLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315138;
-    v9 = "+[WFAlwaysOnDisplaySettingsClient filteredPublisherForAlwaysOnPublisher:]";
-    _os_log_impl(&dword_23DE30000, v4, OS_LOG_TYPE_DEBUG, "%s Filtering publisher", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "+[WFAlwaysOnDisplaySettingsClient filteredPublisherForAlwaysOnPublisher:]";
+    _os_log_impl(&dword_23DE30000, v4, OS_LOG_TYPE_DEBUG, "%s Filtering publisher", &v7, 0xCu);
   }
 
   v5 = [publisherCopy filterWithIsIncluded:&__block_literal_global_181];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 BOOL __73__WFAlwaysOnDisplaySettingsClient_filteredPublisherForAlwaysOnPublisher___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = getWFAlwaysOnSettingsClientLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [v2 timestamp];
-    v15 = 136315394;
-    v16 = "+[WFAlwaysOnDisplaySettingsClient filteredPublisherForAlwaysOnPublisher:]_block_invoke";
-    v17 = 2048;
-    v18 = v4;
-    _os_log_impl(&dword_23DE30000, v3, OS_LOG_TYPE_DEBUG, "%s Iterating over %f", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "+[WFAlwaysOnDisplaySettingsClient filteredPublisherForAlwaysOnPublisher:]_block_invoke";
+    v16 = 2048;
+    v17 = v4;
+    _os_log_impl(&dword_23DE30000, v3, OS_LOG_TYPE_DEBUG, "%s Iterating over %f", &v14, 0x16u);
   }
 
   v5 = [v2 eventBody];
@@ -208,28 +235,27 @@ BOOL __73__WFAlwaysOnDisplaySettingsClient_filteredPublisherForAlwaysOnPublisher
     if (v9)
     {
       [v2 timestamp];
-      v15 = 136315394;
-      v16 = "+[WFAlwaysOnDisplaySettingsClient filteredPublisherForAlwaysOnPublisher:]_block_invoke";
-      v17 = 2048;
-      v18 = v10;
+      v14 = 136315394;
+      v15 = "+[WFAlwaysOnDisplaySettingsClient filteredPublisherForAlwaysOnPublisher:]_block_invoke";
+      v16 = 2048;
+      v17 = v10;
       v11 = "%s Accepting %f";
 LABEL_8:
-      _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_DEBUG, v11, &v15, 0x16u);
+      _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_DEBUG, v11, &v14, 0x16u);
     }
   }
 
   else if (v9)
   {
     [v2 timestamp];
-    v15 = 136315394;
-    v16 = "+[WFAlwaysOnDisplaySettingsClient filteredPublisherForAlwaysOnPublisher:]_block_invoke";
-    v17 = 2048;
-    v18 = v12;
+    v14 = 136315394;
+    v15 = "+[WFAlwaysOnDisplaySettingsClient filteredPublisherForAlwaysOnPublisher:]_block_invoke";
+    v16 = 2048;
+    v17 = v12;
     v11 = "%s Filtering %f out because user set state != resolved state";
     goto LABEL_8;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6 == v7;
 }
 

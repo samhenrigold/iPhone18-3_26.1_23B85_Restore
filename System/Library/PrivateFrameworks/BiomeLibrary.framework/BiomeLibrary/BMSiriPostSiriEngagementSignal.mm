@@ -147,7 +147,7 @@ LABEL_31:
 
 - (id)jsonDictionary
 {
-  v26[6] = *MEMORY[0x1E69E9840];
+  v25[6] = *MEMORY[0x1E69E9840];
   domain = [(BMSiriPostSiriEngagementSignal *)self domain];
   action = [(BMSiriPostSiriEngagementSignal *)self action];
   if ([(BMSiriPostSiriEngagementSignal *)self hasIsPostSiriEngagement])
@@ -177,58 +177,58 @@ LABEL_31:
     v11 = [v10 numberWithDouble:?];
   }
 
-  v25[0] = @"domain";
+  v24[0] = @"domain";
   null = domain;
   if (!domain)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v23 = action;
-  v26[0] = null;
-  v25[1] = @"action";
+  v20 = null;
+  v22 = action;
+  v25[0] = null;
+  v24[1] = @"action";
   null2 = action;
   if (!action)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[1] = null2;
-  v25[2] = @"isPostSiriEngagement";
+  v25[1] = null2;
+  v24[2] = @"isPostSiriEngagement";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = domain;
-  v26[2] = null3;
-  v25[3] = @"pseDelta";
+  v23 = domain;
+  v25[2] = null3;
+  v24[3] = @"pseDelta";
   null4 = jsonDictionary;
   if (!jsonDictionary)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[3] = null4;
-  v25[4] = @"pseContents";
+  v25[3] = null4;
+  v24[4] = @"pseContents";
   null5 = _pseContentsJSONArray;
   if (!_pseContentsJSONArray)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v25[5] = @"donatedTimestamp";
+  v25[4] = null5;
+  v24[5] = @"donatedTimestamp";
   null6 = v11;
   if (!v11)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[5] = null6;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:{6, v21}];
+  v25[5] = null6;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:{6, v20}];
   if (v11)
   {
     if (_pseContentsJSONArray)
@@ -264,9 +264,9 @@ LABEL_23:
   {
   }
 
-  if (v23)
+  if (v22)
   {
-    if (v24)
+    if (v23)
     {
       goto LABEL_27;
     }
@@ -275,62 +275,59 @@ LABEL_23:
   else
   {
 
-    if (v24)
+    if (v23)
     {
       goto LABEL_27;
     }
   }
 
 LABEL_27:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (id)_pseContentsJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   pseContents = [(BMSiriPostSiriEngagementSignal *)self pseContents];
-  v5 = [pseContents countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [pseContents countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(pseContents);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [pseContents countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [pseContents countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMSiriPostSiriEngagementSignal)initWithJSONDictionary:(id)dictionary error:(id *)p_isa
 {
-  v96[1] = *MEMORY[0x1E69E9840];
+  v95[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"domain"];
-  v70 = p_isa;
+  v69 = p_isa;
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -341,10 +338,10 @@ LABEL_27:
         v29 = p_isa;
         v30 = objc_alloc(MEMORY[0x1E696ABC0]);
         v31 = *MEMORY[0x1E698F240];
-        v95 = *MEMORY[0x1E696A578];
+        v94 = *MEMORY[0x1E696A578];
         v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"domain"];
-        v96[0] = v11;
-        v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:&v95 count:1];
+        v95[0] = v11;
+        v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v95 forKeys:&v94 count:1];
         v32 = [v30 initWithDomain:v31 code:2 userInfo:?];
         v8 = 0;
         p_isa = 0;
@@ -365,24 +362,24 @@ LABEL_27:
   }
 
   v9 = [dictionaryCopy objectForKeyedSubscript:@"action"];
-  v71 = v9;
+  v70 = v9;
   if (v9 && (v10 = v9, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      if (v70)
+      if (v69)
       {
         v33 = objc_alloc(MEMORY[0x1E696ABC0]);
         v34 = *MEMORY[0x1E698F240];
-        v93 = *MEMORY[0x1E696A578];
+        v92 = *MEMORY[0x1E696A578];
         v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"action"];
-        v94 = v35;
-        v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+        v93 = v35;
+        v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
         v37 = [v33 initWithDomain:v34 code:2 userInfo:v36];
         v11 = 0;
         p_isa = 0;
-        *v70 = v37;
+        *v69 = v37;
         goto LABEL_72;
       }
 
@@ -406,19 +403,19 @@ LABEL_27:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v36 = v12;
-      p_isa = v70;
-      if (v70)
+      p_isa = v69;
+      if (v69)
       {
         v38 = objc_alloc(MEMORY[0x1E696ABC0]);
         v39 = *MEMORY[0x1E698F240];
-        v91 = *MEMORY[0x1E696A578];
+        v90 = *MEMORY[0x1E696A578];
         v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isPostSiriEngagement"];
-        v92 = v27;
-        v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+        v91 = v27;
+        v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
         v40 = [v38 initWithDomain:v39 code:2 userInfo:?];
-        v69 = 0;
+        v68 = 0;
         p_isa = 0;
-        *v70 = v40;
+        *v69 = v40;
 
         goto LABEL_71;
       }
@@ -427,14 +424,14 @@ LABEL_27:
       goto LABEL_72;
     }
 
-    v66 = v12;
-    v69 = v12;
+    v65 = v12;
+    v68 = v12;
   }
 
   else
   {
-    v66 = v12;
-    v69 = 0;
+    v65 = v12;
+    v68 = 0;
   }
 
   v13 = [dictionaryCopy objectForKeyedSubscript:@"pseDelta"];
@@ -447,21 +444,21 @@ LABEL_27:
       if (objc_opt_isKindOfClass())
       {
         v27 = v13;
-        v79 = 0;
-        v67 = [[BMSiriPostSiriEngagementSignalDeltaEvent alloc] initWithJSONDictionary:v27 error:&v79];
-        v28 = v79;
+        v78 = 0;
+        v66 = [[BMSiriPostSiriEngagementSignalDeltaEvent alloc] initWithJSONDictionary:v27 error:&v78];
+        v28 = v78;
         if (!v28)
         {
-          v63 = v13;
-          v64 = v7;
+          v62 = v13;
+          v63 = v7;
 
           goto LABEL_13;
         }
 
-        if (v70)
+        if (v69)
         {
           v28 = v28;
-          *v70 = v28;
+          *v69 = v28;
         }
 
         p_isa = 0;
@@ -469,34 +466,34 @@ LABEL_27:
 
       else
       {
-        if (!v70)
+        if (!v69)
         {
           p_isa = 0;
-          v36 = v66;
+          v36 = v65;
           v27 = v13;
           goto LABEL_71;
         }
 
-        v73 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v65 = *MEMORY[0x1E698F240];
-        v89 = *MEMORY[0x1E696A578];
-        v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"pseDelta"];
-        v90 = v67;
-        v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
-        *v70 = [v73 initWithDomain:v65 code:2 userInfo:v41];
+        v72 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v64 = *MEMORY[0x1E698F240];
+        v88 = *MEMORY[0x1E696A578];
+        v66 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"pseDelta"];
+        v89 = v66;
+        v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+        *v69 = [v72 initWithDomain:v64 code:2 userInfo:v41];
 
         p_isa = 0;
         v27 = v13;
       }
 
-      v36 = v66;
+      v36 = v65;
       goto LABEL_70;
     }
   }
 
-  v63 = v13;
-  v64 = v7;
-  v67 = 0;
+  v62 = v13;
+  v63 = v7;
+  v66 = 0;
 LABEL_13:
   v14 = [dictionaryCopy objectForKeyedSubscript:@"pseContents"];
   null = [MEMORY[0x1E695DFB0] null];
@@ -504,8 +501,8 @@ LABEL_13:
 
   if (v16)
   {
-    v60 = v11;
-    v61 = v8;
+    v59 = v11;
+    v60 = v8;
     selfCopy2 = self;
 
     v14 = 0;
@@ -518,79 +515,79 @@ LABEL_13:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        if (!v70)
+        if (!v69)
         {
           p_isa = 0;
-          v36 = v66;
+          v36 = v65;
           goto LABEL_69;
         }
 
         v50 = objc_alloc(MEMORY[0x1E696ABC0]);
         v51 = *MEMORY[0x1E698F240];
-        v87 = *MEMORY[0x1E696A578];
-        v72 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"pseContents"];
-        v88 = v72;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+        v86 = *MEMORY[0x1E696A578];
+        v71 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"pseContents"];
+        v87 = v71;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
         v52 = [v50 initWithDomain:v51 code:2 userInfo:v26];
         p_isa = 0;
-        *v70 = v52;
+        *v69 = v52;
 LABEL_62:
-        v36 = v66;
+        v36 = v65;
         goto LABEL_68;
       }
     }
 
-    v60 = v11;
-    v61 = v8;
+    v59 = v11;
+    v60 = v8;
     selfCopy2 = self;
   }
 
-  v72 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v14, "count")}];
+  v71 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v14, "count")}];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   v14 = v14;
-  v17 = [v14 countByEnumeratingWithState:&v75 objects:v86 count:16];
+  v17 = [v14 countByEnumeratingWithState:&v74 objects:v85 count:16];
   if (!v17)
   {
     goto LABEL_32;
   }
 
   v18 = v17;
-  v19 = *v76;
-  v59 = dictionaryCopy;
+  v19 = *v75;
+  v58 = dictionaryCopy;
   while (2)
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v76 != v19)
+      if (*v75 != v19)
       {
         objc_enumerationMutation(v14);
       }
 
-      v21 = *(*(&v75 + 1) + 8 * i);
+      v21 = *(*(&v74 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if (v70)
+        if (v69)
         {
           v42 = objc_alloc(MEMORY[0x1E696ABC0]);
           v43 = *MEMORY[0x1E698F240];
-          v84 = *MEMORY[0x1E696A578];
+          v83 = *MEMORY[0x1E696A578];
           v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"pseContents"];
-          v85 = v22;
-          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
-          *v70 = [v42 initWithDomain:v43 code:2 userInfo:v44];
+          v84 = v22;
+          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          *v69 = [v42 initWithDomain:v43 code:2 userInfo:v44];
 
 LABEL_55:
           p_isa = 0;
           v26 = v14;
-          dictionaryCopy = v59;
-          v11 = v60;
-          v8 = v61;
+          dictionaryCopy = v58;
+          v11 = v59;
+          v8 = v60;
           self = selfCopy2;
-          v36 = v66;
+          v36 = v65;
           goto LABEL_67;
         }
 
@@ -600,15 +597,15 @@ LABEL_55:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        if (v70)
+        if (v69)
         {
           v45 = objc_alloc(MEMORY[0x1E696ABC0]);
           v46 = *MEMORY[0x1E698F240];
-          v82 = *MEMORY[0x1E696A578];
+          v81 = *MEMORY[0x1E696A578];
           v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"pseContents"];
-          v83 = v22;
-          v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-          *v70 = [v45 initWithDomain:v46 code:2 userInfo:v47];
+          v82 = v22;
+          v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+          *v69 = [v45 initWithDomain:v46 code:2 userInfo:v47];
 
           goto LABEL_55;
         }
@@ -616,42 +613,42 @@ LABEL_55:
 LABEL_61:
         p_isa = 0;
         v26 = v14;
-        dictionaryCopy = v59;
-        v11 = v60;
-        v8 = v61;
+        dictionaryCopy = v58;
+        v11 = v59;
+        v8 = v60;
         self = selfCopy2;
         goto LABEL_62;
       }
 
       v22 = v21;
       v23 = [BMSiriPostSiriEngagementSignalContent alloc];
-      v74 = 0;
-      v24 = [(BMSiriPostSiriEngagementSignalContent *)v23 initWithJSONDictionary:v22 error:&v74];
-      v25 = v74;
+      v73 = 0;
+      v24 = [(BMSiriPostSiriEngagementSignalContent *)v23 initWithJSONDictionary:v22 error:&v73];
+      v25 = v73;
       if (v25)
       {
         v48 = v25;
-        v36 = v66;
-        if (v70)
+        v36 = v65;
+        if (v69)
         {
           v49 = v25;
-          *v70 = v48;
+          *v69 = v48;
         }
 
         p_isa = 0;
         v26 = v14;
-        dictionaryCopy = v59;
-        v11 = v60;
-        v8 = v61;
+        dictionaryCopy = v58;
+        v11 = v59;
+        v8 = v60;
         self = selfCopy2;
         goto LABEL_67;
       }
 
-      [v72 addObject:v24];
+      [v71 addObject:v24];
     }
 
-    v18 = [v14 countByEnumeratingWithState:&v75 objects:v86 count:16];
-    dictionaryCopy = v59;
+    v18 = [v14 countByEnumeratingWithState:&v74 objects:v85 count:16];
+    dictionaryCopy = v58;
     if (v18)
     {
       continue;
@@ -666,9 +663,9 @@ LABEL_32:
   if (v22)
   {
     objc_opt_class();
-    v8 = v61;
+    v8 = v60;
     self = selfCopy2;
-    v11 = v60;
+    v11 = v59;
     if (objc_opt_isKindOfClass())
     {
       v26 = 0;
@@ -676,23 +673,23 @@ LABEL_32:
     }
 
     objc_opt_class();
-    v36 = v66;
+    v36 = v65;
     if (objc_opt_isKindOfClass())
     {
       v26 = v22;
       goto LABEL_66;
     }
 
-    p_isa = v70;
-    if (v70)
+    p_isa = v69;
+    if (v69)
     {
-      v58 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v55 = *MEMORY[0x1E698F240];
-      v80 = *MEMORY[0x1E696A578];
-      v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"donatedTimestamp"];
-      v81 = v56;
-      v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-      *v70 = [v58 initWithDomain:v55 code:2 userInfo:v57];
+      v57 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v54 = *MEMORY[0x1E698F240];
+      v79 = *MEMORY[0x1E696A578];
+      v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"donatedTimestamp"];
+      v80 = v55;
+      v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+      *v69 = [v57 initWithDomain:v54 code:2 userInfo:v56];
 
       v26 = 0;
       p_isa = 0;
@@ -707,13 +704,13 @@ LABEL_32:
   else
   {
     v26 = 0;
-    v8 = v61;
+    v8 = v60;
     self = selfCopy2;
-    v11 = v60;
+    v11 = v59;
 LABEL_65:
-    v36 = v66;
+    v36 = v65;
 LABEL_66:
-    self = [(BMSiriPostSiriEngagementSignal *)self initWithDomain:v8 action:v11 isPostSiriEngagement:v69 pseDelta:v67 pseContents:v72 donatedTimestamp:v26];
+    self = [(BMSiriPostSiriEngagementSignal *)self initWithDomain:v8 action:v11 isPostSiriEngagement:v68 pseDelta:v66 pseContents:v71 donatedTimestamp:v26];
     p_isa = &self->super.super.isa;
   }
 
@@ -722,18 +719,17 @@ LABEL_67:
 LABEL_68:
 LABEL_69:
 
-  v27 = v63;
-  v7 = v64;
+  v27 = v62;
+  v7 = v63;
 LABEL_70:
 
 LABEL_71:
-  v35 = v69;
+  v35 = v68;
 LABEL_72:
 
 LABEL_73:
 LABEL_74:
 
-  v53 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -748,7 +744,7 @@ LABEL_74:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_domain)
   {
@@ -762,60 +758,56 @@ LABEL_74:
 
   if (self->_hasIsPostSiriEngagement)
   {
-    isPostSiriEngagement = self->_isPostSiriEngagement;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_pseDelta)
   {
-    v18 = 0;
+    v15 = 0;
     PBDataWriterPlaceMark();
     [(BMSiriPostSiriEngagementSignalDeltaEvent *)self->_pseDelta writeTo:toCopy];
     PBDataWriterRecallMark();
   }
 
-  v16 = 0u;
-  v17 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = self->_pseContents;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
-  if (v7)
+  v11 = 0u;
+  v12 = 0u;
+  v5 = self->_pseContents;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v15;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v12 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
-        v18 = 0;
+        v10 = *(*(&v11 + 1) + 8 * v9);
+        v15 = 0;
         PBDataWriterPlaceMark();
-        [v11 writeTo:{toCopy, v14}];
+        [v10 writeTo:{toCopy, v11}];
         PBDataWriterRecallMark();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_hasDonatedTimestamp)
   {
-    donatedTimestamp = self->_donatedTimestamp;
     PBDataWriterWriteDoubleField();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -1108,65 +1100,61 @@ LABEL_55:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"domain" number:1 type:13 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"action" number:2 type:13 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isPostSiriEngagement" number:3 type:12 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pseDelta" number:4 type:14 subMessageClass:objc_opt_class()];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pseContents" number:5 type:14 subMessageClass:objc_opt_class()];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"donatedTimestamp" number:6 type:0 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"domain" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"action" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isPostSiriEngagement" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:12 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"pseDelta_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_332];
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"pseContents_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_334];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"donatedTimestamp" dataType:1 requestOnly:0 fieldNumber:6 protoDataType:0 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
-id __41__BMSiriPostSiriEngagementSignal_columns__block_invoke_2(uint64_t a1, void *a2)
+id __41__BMSiriPostSiriEngagementSignal_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _pseContentsJSONArray];
-  v4 = BMConvertObjectToJSONString();
-
-  return v4;
-}
-
-id __41__BMSiriPostSiriEngagementSignal_columns__block_invoke(uint64_t a1, void *a2)
-{
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 pseDelta];
-  v4 = [v3 jsonDictionary];
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _pseContentsJSONArray];
   v5 = BMConvertObjectToJSONString();
 
   return v5;
+}
+
+id __41__BMSiriPostSiriEngagementSignal_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 pseDelta];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
+
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

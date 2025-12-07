@@ -1,10 +1,10 @@
-uint64_t sub_1390()
+uint64_t sub_1390(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_150C();
   sub_14FC();
-  v0 = sub_14EC();
+  v3 = sub_14EC();
 
-  return v0;
+  return v3;
 }
 
 unint64_t sub_1454()

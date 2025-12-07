@@ -11,8 +11,8 @@
   v31 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [[PLDescriptionBuilder alloc] initWithObject:self style:3 indent:0];
-  entity = [self entity];
-  propertiesByName = [entity propertiesByName];
+  v6 = objc_msgSend_entity(self);
+  propertiesByName = [v6 propertiesByName];
 
   v28 = 0u;
   v29 = 0u;
@@ -50,7 +50,7 @@
           v14 = v19;
           if (isToMany)
           {
-            [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu objects", objc_msgSend(v19, "count")];
+            [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu objects", objc_msgSend_count(v19)];
           }
 
           else
@@ -80,7 +80,7 @@ LABEL_25:
               objc_opt_class();
               if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
               {
-                v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu objects", objc_msgSend(v15, "count")];
+                v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu objects", objc_msgSend_count(v15)];
 
                 v15 = v20;
                 self = selfCopy;

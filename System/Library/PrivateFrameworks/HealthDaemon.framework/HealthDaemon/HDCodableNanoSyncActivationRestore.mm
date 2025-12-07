@@ -1,4 +1,5 @@
 @interface HDCodableNanoSyncActivationRestore
++ (id)activationRestoreWithRestoreUUID:(id)d sequenceNumber:(int64_t)number statusCode:(int)code;
 - (BOOL)hasRequiredFields;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
@@ -7,6 +8,7 @@
 - (id)decodedRestoreUUID;
 - (id)dictionaryRepresentation;
 - (id)nanoSyncDescription;
+- (id)statusCodeAsString:(int)string;
 - (int)StringAsStatusCode:(id)code;
 - (int)statusCode;
 - (unint64_t)hash;
@@ -46,6 +48,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)statusCodeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278615820[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStatusCode:(id)code
@@ -156,7 +173,7 @@
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_restoreIdentifier)
   {
@@ -166,14 +183,12 @@
   has = self->_has;
   if (has)
   {
-    sequenceNumber = self->_sequenceNumber;
     PBDataWriterWriteInt64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    statusCode = self->_statusCode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -182,36 +197,33 @@
     PBDataWriterWriteStringField();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v8 = self->_obliteratedHealthPairingUUIDs;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_obliteratedHealthPairingUUIDs;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteDataField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -261,7 +273,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSData *)self->_restoreIdentifier copyWithZone:zone];
   v7 = *(v5 + 32);
@@ -285,36 +297,35 @@
   v10 = *(v5 + 16);
   *(v5 + 16) = v9;
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = self->_obliteratedHealthPairingUUIDs;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(&v19 + 1) + 8 * i) copyWithZone:{zone, v19}];
+        v16 = [*(*(&v18 + 1) + 8 * i) copyWithZone:{zone, v18}];
         [v5 addObliteratedHealthPairingUUIDs:v16];
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -335,7 +346,6 @@
     }
   }
 
-  v6 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_sequenceNumber != *(equalCopy + 1))
@@ -347,7 +357,7 @@
   else if (*(equalCopy + 44))
   {
 LABEL_18:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -373,17 +383,17 @@ LABEL_18:
   obliteratedHealthPairingUUIDs = self->_obliteratedHealthPairingUUIDs;
   if (obliteratedHealthPairingUUIDs | *(equalCopy + 3))
   {
-    v9 = [(NSMutableArray *)obliteratedHealthPairingUUIDs isEqual:?];
+    v8 = [(NSMutableArray *)obliteratedHealthPairingUUIDs isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -417,7 +427,7 @@ LABEL_6:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 4))
   {
@@ -443,35 +453,47 @@ LABEL_6:
     [(HDCodableNanoSyncActivationRestore *)self setDefaultSourceBundleIdentifier:?];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(fromCopy + 3);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(HDCodableNanoSyncActivationRestore *)self addObliteratedHealthPairingUUIDs:*(*(&v12 + 1) + 8 * i), v12];
+        [(HDCodableNanoSyncActivationRestore *)self addObliteratedHealthPairingUUIDs:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
++ (id)activationRestoreWithRestoreUUID:(id)d sequenceNumber:(int64_t)number statusCode:(int)code
+{
+  v5 = *&code;
+  dCopy = d;
+  v8 = objc_alloc_init(HDCodableNanoSyncActivationRestore);
+  hk_dataForUUIDBytes = [dCopy hk_dataForUUIDBytes];
+
+  [(HDCodableNanoSyncActivationRestore *)v8 setRestoreIdentifier:hk_dataForUUIDBytes];
+  [(HDCodableNanoSyncActivationRestore *)v8 setSequenceNumber:number];
+  [(HDCodableNanoSyncActivationRestore *)v8 setStatusCode:v5];
+
+  return v8;
 }
 
 - (BOOL)hasRequiredFields
@@ -501,43 +523,41 @@ LABEL_6:
 
 - (void)encodeObliteratedHealthPairingUUIDs:(id)ds
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   [(HDCodableNanoSyncActivationRestore *)self clearObliteratedHealthPairingUUIDs];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = dsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        hk_dataForUUIDBytes = [*(*(&v12 + 1) + 8 * v9) hk_dataForUUIDBytes];
+        hk_dataForUUIDBytes = [*(*(&v11 + 1) + 8 * v9) hk_dataForUUIDBytes];
         [(HDCodableNanoSyncActivationRestore *)self addObliteratedHealthPairingUUIDs:hk_dataForUUIDBytes];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nanoSyncDescription

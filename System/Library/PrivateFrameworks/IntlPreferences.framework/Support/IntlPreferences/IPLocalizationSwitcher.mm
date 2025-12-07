@@ -15,7 +15,7 @@
   languageCopy = language;
   [(IPLocalizationSwitcher *)self notifyPreferredLanguageChangedForBundleID:dCopy];
   v11 = [LSApplicationProxy applicationProxyForIdentifier:dCopy];
-  v12 = sub_100002938();
+  v12 = sub_100002938(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;

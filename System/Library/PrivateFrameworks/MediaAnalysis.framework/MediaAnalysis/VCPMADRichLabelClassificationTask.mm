@@ -76,7 +76,7 @@
   dispatch_sync(cancelQueue, block);
 }
 
-uint64_t __43__VCPMADRichLabelClassificationTask_cancel__block_invoke(uint64_t a1)
+void *__43__VCPMADRichLabelClassificationTask_cancel__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 56) cancel];
   atomic_store(1u, (*(a1 + 32) + 48));
@@ -236,14 +236,15 @@ uint64_t __60__VCPMADRichLabelClassificationTask_allSupportedDomainTypes__block_
 
 - (int)run
 {
-  v56[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADRichLabelClassificationTask running...", buf, 2u);
   }
 
-  if ([(VCPMADServiceImageAsset *)self->_imageAsset fromGenerativePlayground])
+  fromGenerativePlayground = [(VCPMADServiceImageAsset *)self->_imageAsset fromGenerativePlayground];
+  if (fromGenerativePlayground)
   {
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
@@ -252,18 +253,18 @@ uint64_t __60__VCPMADRichLabelClassificationTask_allSupportedDomainTypes__block_
     }
 
     request = self->_request;
-    v4 = objc_alloc(MEMORY[0x1E69AE3D0]);
-    v5 = [v4 initWithResultItems:MEMORY[0x1E695E0F0]];
-    v56[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:1];
-    [(MADRichLabelClassificationRequest *)request setResults:v6];
+    v6 = objc_alloc(MEMORY[0x1E69AE3D0]);
+    v7 = [v6 initWithResultItems:MEMORY[0x1E695E0F0]];
+    v58[0] = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:1];
+    [(MADRichLabelClassificationRequest *)request setResults:v8];
 
 LABEL_9:
-    v7 = 0;
+    v9 = 0;
     goto LABEL_24;
   }
 
-  if (VCPPhotosParseCachingEnabled() && [(VCPMADServiceImageAsset *)self->_imageAsset hasCachedParseData])
+  if (VCPPhotosParseCachingEnabled(fromGenerativePlayground, v4) && [(VCPMADServiceImageAsset *)self->_imageAsset hasCachedParseData])
   {
     cachedParseData = [(VCPMADServiceImageAsset *)self->_imageAsset cachedParseData];
     if (!cachedParseData)
@@ -274,12 +275,12 @@ LABEL_9:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[RichLabel] Cached parse result empty; returning empty result", buf, 2u);
       }
 
-      v9 = self->_request;
-      v10 = objc_alloc(MEMORY[0x1E69AE3D0]);
-      v5 = [v10 initWithResultItems:MEMORY[0x1E695E0F0]];
-      v55 = v5;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
-      [(MADRichLabelClassificationRequest *)v9 setResults:v11];
+      v11 = self->_request;
+      v12 = objc_alloc(MEMORY[0x1E69AE3D0]);
+      v7 = [v12 initWithResultItems:MEMORY[0x1E695E0F0]];
+      v57 = v7;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
+      [(MADRichLabelClassificationRequest *)v11 setResults:v13];
 
       goto LABEL_9;
     }
@@ -291,85 +292,85 @@ LABEL_9:
   }
 
   *buf = 0;
-  v50 = buf;
-  v51 = 0x2020000000;
-  v52 = 0;
+  v52 = buf;
+  v53 = 0x2020000000;
+  v54 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __40__VCPMADRichLabelClassificationTask_run__block_invoke;
   aBlock[3] = &unk_1E834BE08;
   aBlock[4] = self;
   aBlock[5] = buf;
-  v33 = _Block_copy(aBlock);
-  v12 = objc_alloc(MEMORY[0x1E69E0460]);
+  v35 = _Block_copy(aBlock);
+  v14 = objc_alloc(MEMORY[0x1E69E0460]);
   [(VCPMADServiceImageAsset *)self->_imageAsset resolution];
-  v32 = [v12 initWithImageLoader:v33 imageSize:?];
-  v13 = [MEMORY[0x1E695DFA8] set];
+  v34 = [v14 initWithImageLoader:v35 imageSize:?];
+  v15 = [MEMORY[0x1E695DFA8] set];
   domains = [(MADRichLabelClassificationRequest *)self->_request domains];
-  v15 = [domains count] == 0;
+  v17 = [domains count] == 0;
 
-  if (v15)
+  if (v17)
   {
-    v16 = +[VCPMADRichLabelClassificationTask allSupportedDomainTypes];
-    [(MADRichLabelClassificationRequest *)self->_request setDomains:v16];
+    v18 = +[VCPMADRichLabelClassificationTask allSupportedDomainTypes];
+    [(MADRichLabelClassificationRequest *)self->_request setDomains:v18];
   }
 
   domains2 = [(MADRichLabelClassificationRequest *)self->_request domains];
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __40__VCPMADRichLabelClassificationTask_run__block_invoke_349;
-  v46[3] = &unk_1E834BE30;
-  v18 = v13;
-  v47 = v18;
-  [domains2 enumerateIndexesUsingBlock:v46];
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __40__VCPMADRichLabelClassificationTask_run__block_invoke_349;
+  v48[3] = &unk_1E834BE30;
+  v20 = v15;
+  v49 = v20;
+  [domains2 enumerateIndexesUsingBlock:v48];
 
-  v19 = [objc_alloc(MEMORY[0x1E69E04C8]) initWithImage:v32 annotation:0 normalizedRegionOfInterest:v18 domainsOfInterest:0 queryContext:{0.0, 0.0, 1.0, 1.0}];
-  v20 = +[VCPMADVIVisualSearchResource sharedResource];
-  v21 = +[VCPMADResourceManager sharedManager];
-  v22 = [v21 activateResource:v20];
+  v21 = [objc_alloc(MEMORY[0x1E69E04C8]) initWithImage:v34 annotation:0 normalizedRegionOfInterest:v20 domainsOfInterest:0 queryContext:{0.0, 0.0, 1.0, 1.0}];
+  v22 = +[VCPMADVIVisualSearchResource sharedResource];
+  v23 = +[VCPMADResourceManager sharedManager];
+  v24 = [v23 activateResource:v22];
 
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
-  v23 = dispatch_group_create();
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
+  v25 = dispatch_group_create();
   cancelQueue = self->_cancelQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __40__VCPMADRichLabelClassificationTask_run__block_invoke_2;
   block[3] = &unk_1E834BE80;
   block[4] = self;
-  v40 = &v42;
-  v25 = v23;
-  v35 = v25;
-  v26 = v20;
-  v36 = v26;
-  v27 = v19;
+  v42 = &v44;
+  v27 = v25;
   v37 = v27;
-  v28 = cachedParseData;
+  v28 = v22;
   v38 = v28;
-  v29 = v18;
+  v29 = v21;
   v39 = v29;
-  v41 = buf;
+  v30 = cachedParseData;
+  v40 = v30;
+  v31 = v20;
+  v41 = v31;
+  v43 = buf;
   dispatch_sync(cancelQueue, block);
-  dispatch_group_wait(v25, 0xFFFFFFFFFFFFFFFFLL);
-  [v22 reset];
+  dispatch_group_wait(v27, 0xFFFFFFFFFFFFFFFFLL);
+  [v24 reset];
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
-    v30 = *(v43 + 6);
-    *v53 = 67109120;
-    v54 = v30;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADRichLabelClassificationTask complete (%d)", v53, 8u);
+    v32 = *(v45 + 6);
+    *v55 = 67109120;
+    v56 = v32;
+    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADRichLabelClassificationTask complete (%d)", v55, 8u);
   }
 
-  v7 = *(v43 + 6);
+  v9 = *(v45 + 6);
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v44, 8);
   _Block_object_dispose(buf, 8);
-  v5 = v28;
+  v7 = v30;
 LABEL_24:
 
-  return v7;
+  return v9;
 }
 
 id __40__VCPMADRichLabelClassificationTask_run__block_invoke(uint64_t a1)
@@ -409,7 +410,7 @@ void __40__VCPMADRichLabelClassificationTask_run__block_invoke_349(uint64_t a1, 
 
 void __40__VCPMADRichLabelClassificationTask_run__block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = atomic_load((*(a1 + 32) + 48));
   if (v2)
   {
@@ -419,79 +420,79 @@ void __40__VCPMADRichLabelClassificationTask_run__block_invoke_2(uint64_t a1)
   else
   {
     dispatch_group_enter(*(a1 + 40));
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy_;
-    v26 = __Block_byref_object_dispose_;
-    v27 = objc_alloc_init(VCPTimeMeasurement);
-    [v23[5] start];
-    v3 = VCPSignPostLog();
-    v4 = os_signpost_id_generate(v3);
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy_;
+    v28 = __Block_byref_object_dispose_;
+    v29 = objc_alloc_init(VCPTimeMeasurement);
+    v3 = objc_msgSend_start(v25[5]);
+    v4 = VCPSignPostLog(v3);
+    v5 = os_signpost_id_generate(v4);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v7 = VCPSignPostLog(v6);
+    v8 = v7;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
-      v7 = *(*(a1 + 32) + 24);
+      v9 = *(*(a1 + 32) + 24);
       *buf = 138412290;
-      v29 = v7;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VIService_RichLabelClassification", "%@", buf, 0xCu);
+      v31 = v9;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VIService_RichLabelClassification", "%@", buf, 0xCu);
     }
 
-    v8 = [*(a1 + 48) service];
-    v9 = *(a1 + 56);
-    v10 = *(a1 + 64);
-    v11 = *(a1 + 72);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __40__VCPMADRichLabelClassificationTask_run__block_invoke_355;
-    v16[3] = &unk_1E834BE58;
-    v20 = v4;
-    v21 = 0;
-    v12 = *(a1 + 40);
-    v16[4] = *(a1 + 32);
-    v18 = &v22;
-    v19 = vextq_s8(*(a1 + 80), *(a1 + 80), 8uLL);
-    v17 = v12;
-    v13 = [v8 parseForENLabelWithVisualQuery:v9 cachedResults:v10 domains:v11 completion:v16];
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 56);
-    *(v14 + 56) = v13;
+    v10 = [*(a1 + 48) service];
+    v11 = *(a1 + 56);
+    v12 = *(a1 + 64);
+    v13 = *(a1 + 72);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __40__VCPMADRichLabelClassificationTask_run__block_invoke_355;
+    v18[3] = &unk_1E834BE58;
+    v22 = v5;
+    v23 = 0;
+    v14 = *(a1 + 40);
+    v18[4] = *(a1 + 32);
+    v20 = &v24;
+    v21 = vextq_s8(*(a1 + 80), *(a1 + 80), 8uLL);
+    v19 = v14;
+    v15 = [v10 parseForENLabelWithVisualQuery:v11 cachedResults:v12 domains:v13 completion:v18];
+    v16 = *(a1 + 32);
+    v17 = *(v16 + 56);
+    *(v16 + 56) = v15;
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v24, 8);
   }
 }
 
 void __40__VCPMADRichLabelClassificationTask_run__block_invoke_355(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = VCPSignPostLog();
+  v10 = VCPSignPostLog(v9);
   v11 = v10;
   v12 = *(a1 + 72);
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v13 = *(*(a1 + 32) + 24);
-    v20 = 138412290;
-    v21 = v13;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v12, "VIService_RichLabelClassification", "%@", &v20, 0xCu);
+    v23 = 138412290;
+    v24 = v13;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v12, "VIService_RichLabelClassification", "%@", &v23, 0xCu);
   }
 
   if (*(a1 + 80))
   {
-    mach_absolute_time();
-    VCPPerformance_LogMeasurement();
+    v14 = mach_absolute_time();
+    VCPPerformance_LogMeasurement("VIService_RichLabelClassification", v14 - *(a1 + 80));
   }
 
   [*(*(*(a1 + 48) + 8) + 40) stop];
-  v14 = *(a1 + 32);
+  v15 = *(a1 + 32);
   if (v9)
   {
-    v15 = atomic_load(v14 + 48);
-    if (v15)
+    v16 = atomic_load(v15 + 48);
+    if (v16)
     {
       *(*(*(a1 + 64) + 8) + 24) = -128;
     }
@@ -504,25 +505,26 @@ void __40__VCPMADRichLabelClassificationTask_run__block_invoke_355(uint64_t a1, 
 
   else
   {
-    [v14 storeResults:v7];
-    v16 = [*(*(a1 + 32) + 8) results];
-    v17 = [v16 firstObject];
+    [v15 storeResults:v7];
+    v17 = [*(*(a1 + 32) + 8) results];
+    v18 = [v17 firstObject];
     [*(*(*(a1 + 48) + 8) + 40) elapsedTimeSeconds];
-    [v17 setExecutionNanoseconds:(v18 * 1000000000.0)];
+    [v18 setExecutionNanoseconds:(v19 * 1000000000.0)];
 
     if (*(*(*(a1 + 56) + 8) + 24) == 1)
     {
-      v19 = [*(*(a1 + 32) + 16) hasValidSceneProcessing];
+      v20 = [*(*(a1 + 32) + 16) hasValidSceneProcessing];
+      v22 = v20;
     }
 
     else
     {
-      v19 = 0;
+      v22 = 0;
     }
 
-    if (VCPPhotosParseCachingEnabled() && v19 & 1 | (([*(*(a1 + 32) + 16) hasCachedParseData] & 1) == 0))
+    if (VCPPhotosParseCachingEnabled(v20, v21) && v22 & 1 | (([*(*(a1 + 32) + 16) hasCachedParseData] & 1) == 0))
     {
-      [*(*(a1 + 32) + 16) setCachedParseData:v8 overwriteExisting:v19];
+      [*(*(a1 + 32) + 16) setCachedParseData:v8 overwriteExisting:v22];
     }
   }
 

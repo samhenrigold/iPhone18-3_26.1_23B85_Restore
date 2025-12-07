@@ -18,6 +18,7 @@
 - (id)specifiers;
 - (void)didSelectThresholdValue:(id)value;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFHeartRateThresholdController
@@ -87,6 +88,36 @@
   bundleIdentifier = [bundle bundleIdentifier];
 
   return bundleIdentifier;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v23.receiver = self;
+  v23.super_class = HPRFHeartRateThresholdController;
+  [(HPRFHeartRateThresholdController *)&v23 viewWillAppear:appear];
+  v4 = [_NSLocalizedStringResource alloc];
+  paneTitleLocalizationKey = [objc_opt_class() paneTitleLocalizationKey];
+  v6 = +[NSLocale currentLocale];
+  v7 = HKHRHeartHealthBundle();
+  bundleURL = [v7 bundleURL];
+  v22 = [v4 initWithKey:paneTitleLocalizationKey table:@"HeartRateSettings" locale:v6 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  v11 = HKHRHeartHealthBundle();
+  bundleURL2 = [v11 bundleURL];
+  v13 = [v9 initWithKey:@"PANE_TITLE" table:@"HeartRateSettings" locale:v10 bundleURL:bundleURL2];
+
+  bundle = [(HPRFHeartRateThresholdController *)self bundle];
+  bundleIdentifier = [bundle bundleIdentifier];
+  v24 = v13;
+  v16 = [NSArray arrayWithObjects:&v24 count:1];
+  bundle2 = [(HPRFHeartRateThresholdController *)self bundle];
+  bundleIdentifier2 = [bundle2 bundleIdentifier];
+  specifierIdentifier = [objc_opt_class() specifierIdentifier];
+  v20 = [NSString stringWithFormat:@"bridge:root=%@&path=%@", bundleIdentifier2, specifierIdentifier];
+  v21 = [NSURL URLWithString:v20];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v22 localizedNavigationComponents:v16 deepLink:v21];
 }
 
 - (id)specifiers
@@ -247,7 +278,7 @@ LABEL_13:
 
 + (BOOL)isDetectionEnabled
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
   NSRequestConcreteImplementation();
   return 0;
@@ -255,7 +286,7 @@ LABEL_13:
 
 + (id)detectionEnabledDefaultsKey
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
   NSRequestConcreteImplementation();
   return 0;
@@ -263,7 +294,7 @@ LABEL_13:
 
 + (int64_t)thresholdHeartRate
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
   NSRequestConcreteImplementation();
   return 0;
@@ -271,7 +302,7 @@ LABEL_13:
 
 + (int64_t)thresholdHeartRateDefault
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
   NSRequestConcreteImplementation();
   return 0;
@@ -279,7 +310,7 @@ LABEL_13:
 
 + (id)thresholdHeartRateDefaultsKey
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
   NSRequestConcreteImplementation();
   return 0;
@@ -287,7 +318,7 @@ LABEL_13:
 
 + (id)thresholdHeartRateOptions
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
   NSRequestConcreteImplementation();
   return 0;
@@ -295,7 +326,7 @@ LABEL_13:
 
 + (void)saveThresholdValue:(id)value
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
 
   NSRequestConcreteImplementation();
@@ -303,7 +334,7 @@ LABEL_13:
 
 + (id)footerText
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
   NSRequestConcreteImplementation();
   return 0;
@@ -311,7 +342,7 @@ LABEL_13:
 
 + (id)paneTitleLocalizationKey
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
   NSRequestConcreteImplementation();
   return 0;
@@ -319,7 +350,7 @@ LABEL_13:
 
 + (id)specifierIdentifier
 {
-  sub_21BC();
+  sub_21BC(self);
   sub_21AC();
   NSRequestConcreteImplementation();
   return 0;

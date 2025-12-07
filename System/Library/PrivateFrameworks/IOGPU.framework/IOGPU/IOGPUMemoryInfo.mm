@@ -21,7 +21,7 @@
   return _ioGPUMemoryInfo;
 }
 
-uint64_t __29__IOGPUMemoryInfo_initialize__block_invoke()
+void *__29__IOGPUMemoryInfo_initialize__block_invoke()
 {
   _ioGPUMemoryInfo = objc_alloc_init(IOGPUMemoryInfo);
   result = [_ioGPUMemoryInfo addDataSource:&__block_literal_global_3_0];

@@ -70,7 +70,7 @@
   swift_unknownObjectRelease();
   sub_21D80AB90();
 
-  __swift_destroy_boxed_opaque_existential_0(&v5);
+  __swift_destroy_boxed_opaque_existential_0(v5);
 }
 
 - (void)didTapCommit:(id)commit

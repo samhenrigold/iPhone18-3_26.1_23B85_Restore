@@ -348,19 +348,19 @@ LABEL_8:
   return v5;
 }
 
-void __42__PNPPencilView__hardwareImageForVariant___block_invoke()
+void __42__PNPPencilView__hardwareImageForVariant___block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x277D755B8];
-  v1 = PencilPairingUIBundle();
-  v2 = [v0 imageNamed:@"hw_pencilpairingui" inBundle:v1 compatibleWithTraitCollection:0];
-  v3 = _hardwareImageForVariant____hardwareImageForPencilPairingUI;
-  _hardwareImageForVariant____hardwareImageForPencilPairingUI = v2;
+  v1 = MEMORY[0x277D755B8];
+  v2 = PencilPairingUIBundle(a1);
+  v3 = [v1 imageNamed:@"hw_pencilpairingui" inBundle:v2 compatibleWithTraitCollection:0];
+  v4 = _hardwareImageForVariant____hardwareImageForPencilPairingUI;
+  _hardwareImageForVariant____hardwareImageForPencilPairingUI = v3;
 
-  v4 = MEMORY[0x277D755B8];
-  v7 = PencilPairingUIBundle();
-  v5 = [v4 imageNamed:@"hw_settings" inBundle:v7 compatibleWithTraitCollection:0];
-  v6 = _hardwareImageForVariant____hardwareImageForSettings;
-  _hardwareImageForVariant____hardwareImageForSettings = v5;
+  v5 = MEMORY[0x277D755B8];
+  v9 = PencilPairingUIBundle(v6);
+  v7 = [v5 imageNamed:@"hw_settings" inBundle:v9 compatibleWithTraitCollection:0];
+  v8 = _hardwareImageForVariant____hardwareImageForSettings;
+  _hardwareImageForVariant____hardwareImageForSettings = v7;
 }
 
 - (void)setSpinning:(BOOL)spinning

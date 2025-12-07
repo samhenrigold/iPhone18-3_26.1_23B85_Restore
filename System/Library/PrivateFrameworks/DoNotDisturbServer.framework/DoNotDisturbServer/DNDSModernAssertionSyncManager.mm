@@ -5,7 +5,9 @@
 - (DNDSAssertionSyncManagerDataSource)dataSource;
 - (DNDSAssertionSyncManagerDelegate)delegate;
 - (DNDSModernAssertionSyncManager)initWithClientDetailsProvider:(id)provider localSyncService:(id)service cloudSyncService:(id)syncService keybag:(id)keybag;
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted;
 - (void)_loadMetadataFromBackingStore;
+- (void)_queue_handleDidSendRequestIdentifier:(id)identifier withSuccess:(BOOL)success error:(id)error;
 - (void)_queue_handleMessage:(id)message withVersionNumber:(unint64_t)number fromDeviceIdentifier:(id)identifier;
 - (void)_queue_sendStateSnapshotToPairedDevices:(id)devices force:(BOOL)force;
 - (void)_queue_updateDevices;
@@ -15,6 +17,7 @@
 - (void)keybagDidUnlockForTheFirstTime:(id)time;
 - (void)resume;
 - (void)syncService:(id)service didReceiveMessage:(id)message withVersionNumber:(unint64_t)number messageType:(id)type fromDeviceIdentifier:(id)identifier;
+- (void)syncService:(id)service didSendWithRequestIdentifier:(id)identifier withSuccess:(BOOL)success error:(id)error;
 - (void)updateDevices:(id)devices force:(BOOL)force shouldFuzz:(BOOL)fuzz;
 - (void)updateForModeAssertionUpdateResult:(id)result;
 - (void)updateForStateUpdate:(id)update;
@@ -101,7 +104,7 @@
 
 void __40__DNDSModernAssertionSyncManager_resume__block_invoke(uint64_t a1)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 24) delegate];
 
   if (!v2)
@@ -124,7 +127,7 @@ void __40__DNDSModernAssertionSyncManager_resume__block_invoke(uint64_t a1)
   handler[1] = 3221225472;
   handler[2] = __40__DNDSModernAssertionSyncManager_resume__block_invoke_2;
   handler[3] = &unk_278F8AC08;
-  objc_copyWeak(&v19, &location);
+  objc_copyWeak(&v18, &location);
   dispatch_source_set_event_handler(v4, handler);
   dispatch_source_set_timer(*(*(a1 + 32) + 16), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL);
   dispatch_resume(*(*(a1 + 32) + 16));
@@ -139,17 +142,17 @@ void __40__DNDSModernAssertionSyncManager_resume__block_invoke(uint64_t a1)
   {
     if (v10)
     {
-      *v17 = 0;
-      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Sending forced update to local paired device on resume.", v17, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Sending forced update to local paired device on resume.", v16, 2u);
     }
 
     v11 = *(a1 + 32);
-    v22[0] = v6;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = v6;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     [v11 updateDevices:v12 force:1 shouldFuzz:1];
 
-    v21 = v6;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v20 = v6;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
     v14 = [v8 bs_differenceWithArray:v13];
 
     v8 = v14;
@@ -157,8 +160,8 @@ void __40__DNDSModernAssertionSyncManager_resume__block_invoke(uint64_t a1)
 
   else if (v10)
   {
-    *v17 = 0;
-    _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Skipping initial state sync on resume because there isn't a paired device.", v17, 2u);
+    *v16 = 0;
+    _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Skipping initial state sync on resume because there isn't a paired device.", v16, 2u);
   }
 
   if ([v8 count])
@@ -166,16 +169,15 @@ void __40__DNDSModernAssertionSyncManager_resume__block_invoke(uint64_t a1)
     v15 = DNDSLogModernAssertionSync;
     if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Sending update to cloud devices on resume.", v17, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Sending update to cloud devices on resume.", v16, 2u);
     }
 
     [*(a1 + 32) updateDevices:v8 force:0 shouldFuzz:1];
   }
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __40__DNDSModernAssertionSyncManager_resume__block_invoke_2(uint64_t a1)
@@ -186,65 +188,49 @@ void __40__DNDSModernAssertionSyncManager_resume__block_invoke_2(uint64_t a1)
 
 - (void)keybagDidUnlockForTheFirstTime:(id)time
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   dataSource = [(DNDSModernAssertionSyncManager *)self dataSource];
   v5 = [dataSource currentlyActivePairedDeviceForSyncManager:self];
 
   if (v5)
   {
-    v8[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [(DNDSModernAssertionSyncManager *)self updateDevices:v6 force:1 shouldFuzz:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateForModeAssertionUpdateResult:(id)result
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 1;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 1;
   dataSource = [(DNDSModernAssertionSyncManager *)self dataSource];
   assertions = [resultCopy assertions];
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke;
-  v48[3] = &unk_278F8B010;
-  v48[4] = &v49;
-  v8 = [assertions bs_containsObjectPassingTest:v48];
-
-  if (v8)
-  {
-    goto LABEL_3;
-  }
-
-  invalidations = [resultCopy invalidations];
   v47[0] = MEMORY[0x277D85DD0];
   v47[1] = 3221225472;
-  v47[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_2;
-  v47[3] = &unk_278F8B038;
-  v47[4] = &v49;
-  v10 = [invalidations bs_containsObjectPassingTest:v47];
+  v47[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke;
+  v47[3] = &unk_278F8B010;
+  v47[4] = &v48;
+  v8 = [assertions bs_containsObjectPassingTest:v47];
 
-  if (v10)
+  if ((v8 & 1) != 0 || ([resultCopy invalidations], v9 = objc_claimAutoreleasedReturnValue(), v46[0] = MEMORY[0x277D85DD0], v46[1] = 3221225472, v46[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_2, v46[3] = &unk_278F8B038, v46[4] = &v48, v10 = objc_msgSend(v9, "bs_containsObjectPassingTest:", v46), v9, v10))
   {
-LABEL_3:
     v11 = [dataSource pairedDevicesForSyncManager:self];
     allObjects = [v11 allObjects];
     goto LABEL_4;
   }
 
-  v15 = [dataSource currentlyActivePairedDeviceForSyncManager:self];
-  v11 = v15;
-  if (v15)
+  v14 = [dataSource currentlyActivePairedDeviceForSyncManager:self];
+  v11 = v14;
+  if (v14)
   {
-    v16 = [v15 supportsKettle] ^ 1;
-    v17 = [v11 isICloudEnabled] ^ 1;
-    if (v16)
+    v15 = [v14 supportsKettle] ^ 1;
+    v16 = [v11 isICloudEnabled] ^ 1;
+    if (v15)
     {
       goto LABEL_15;
     }
@@ -252,11 +238,11 @@ LABEL_3:
 
   else
   {
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
   }
 
-  if (!v17)
+  if (!v16)
   {
     allObjects = 0;
     goto LABEL_4;
@@ -265,18 +251,18 @@ LABEL_3:
 LABEL_15:
   deviceIdentifier = [v11 deviceIdentifier];
   assertions2 = [resultCopy assertions];
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_3;
-  v45[3] = &unk_278F8A0B0;
-  v20 = deviceIdentifier;
-  v46 = v20;
-  v38 = [assertions2 bs_containsObjectPassingTest:v45];
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_3;
+  v44[3] = &unk_278F8A0B0;
+  v19 = deviceIdentifier;
+  v45 = v19;
+  v37 = [assertions2 bs_containsObjectPassingTest:v44];
 
-  if (v38)
+  if (v37)
   {
-    v21 = 1;
-    if (!v16)
+    v20 = 1;
+    if (!v15)
     {
       goto LABEL_21;
     }
@@ -284,82 +270,82 @@ LABEL_15:
 
   else
   {
-    invalidations2 = [resultCopy invalidations];
-    v3 = v43;
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_4;
-    v43[3] = &unk_278F8A950;
-    v44 = v20;
-    v21 = [invalidations2 bs_containsObjectPassingTest:v43];
+    invalidations = [resultCopy invalidations];
+    v3 = v42;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_4;
+    v42[3] = &unk_278F8A950;
+    v43 = v19;
+    v20 = [invalidations bs_containsObjectPassingTest:v42];
 
-    v36 = &v44;
-    if (!v16)
+    v35 = &v43;
+    if (!v15)
     {
       goto LABEL_21;
     }
   }
 
-  invalidations3 = [resultCopy invalidations];
-  v24 = [invalidations3 bs_containsObjectPassingTest:&__block_literal_global_17];
+  invalidations2 = [resultCopy invalidations];
+  v23 = [invalidations2 bs_containsObjectPassingTest:&__block_literal_global_17];
 
-  if (v24)
+  if (v23)
   {
+    v24 = 1;
     v25 = 1;
     v26 = 1;
-    v27 = 1;
     goto LABEL_24;
   }
 
 LABEL_21:
   assertions3 = [resultCopy assertions];
-  v3 = v41;
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_6;
-  v41[3] = &unk_278F8A0B0;
-  v29 = v20;
-  v42 = v29;
-  v30 = [assertions3 bs_containsObjectPassingTest:v41];
+  v3 = v40;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_6;
+  v40[3] = &unk_278F8A0B0;
+  v28 = v19;
+  v41 = v28;
+  v29 = [assertions3 bs_containsObjectPassingTest:v40];
 
-  v37 = &v42;
-  if (v30)
+  v36 = &v41;
+  if (v29)
   {
-    v27 = 0;
+    v26 = 0;
+    v24 = 1;
     v25 = 1;
-    v26 = 1;
   }
 
   else
   {
-    invalidations4 = [resultCopy invalidations];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_7;
-    v39[3] = &unk_278F8A950;
-    v40 = v29;
-    v25 = [invalidations4 bs_containsObjectPassingTest:v39];
+    invalidations3 = [resultCopy invalidations];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke_7;
+    v38[3] = &unk_278F8A950;
+    v39 = v28;
+    v24 = [invalidations3 bs_containsObjectPassingTest:v38];
 
+    v25 = 0;
     v26 = 0;
-    v27 = 0;
-    v3 = &v40;
+    v3 = &v39;
   }
 
 LABEL_24:
-  if ((v21 & v25) == 1)
+  if ((v20 & v24) == 1)
   {
-    v32 = [dataSource pairedDevicesForSyncManager:self];
-    allObjects2 = [v32 allObjects];
+    v31 = [dataSource pairedDevicesForSyncManager:self];
+    allObjects2 = [v31 allObjects];
   }
 
   else
   {
-    if (!v21)
+    if (!v20)
     {
-      if (v25)
+      if (v24)
       {
-        v55[0] = v11;
-        allObjects = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:1];
+        v54[0] = v11;
+        allObjects = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
       }
 
       else
@@ -370,34 +356,34 @@ LABEL_24:
       goto LABEL_29;
     }
 
-    v34 = [dataSource pairedDevicesForSyncManager:self];
-    v32 = [v34 mutableCopy];
+    v33 = [dataSource pairedDevicesForSyncManager:self];
+    v31 = [v33 mutableCopy];
 
-    v35 = [MEMORY[0x277CBEB98] setWithObject:v11];
-    [v32 minusSet:v35];
+    v34 = [MEMORY[0x277CBEB98] setWithObject:v11];
+    [v31 minusSet:v34];
 
-    allObjects2 = [v32 allObjects];
+    allObjects2 = [v31 allObjects];
   }
 
   allObjects = allObjects2;
 
 LABEL_29:
+  if ((v25 & 1) == 0)
+  {
+  }
+
   if ((v26 & 1) == 0)
   {
   }
 
-  if ((v27 & 1) == 0)
-  {
-  }
-
-  if ((v38 & 1) == 0)
+  if ((v37 & 1) == 0)
   {
   }
 
 LABEL_4:
   if ([allObjects count])
   {
-    [(DNDSModernAssertionSyncManager *)self updateDevices:allObjects force:0 shouldFuzz:*(v50 + 24)];
+    [(DNDSModernAssertionSyncManager *)self updateDevices:allObjects force:0 shouldFuzz:*(v49 + 24)];
   }
 
   else
@@ -406,13 +392,12 @@ LABEL_4:
     if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v54 = resultCopy;
+      v53 = resultCopy;
       _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Skipping update as it should not require sync: result=%{public}@", buf, 0xCu);
     }
   }
 
-  _Block_object_dispose(&v49, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
 }
 
 uint64_t __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult___block_invoke(uint64_t a1, void *a2)
@@ -586,21 +571,22 @@ uint64_t __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult
 
 - (void)updateForStateUpdate:(id)update
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ([update reason] == 3)
   {
     dataSource = [(DNDSModernAssertionSyncManager *)self dataSource];
     v5 = [dataSource currentlyActivePairedDeviceForSyncManager:self];
 
-    if (v5 && ([v5 supportsKettle] & 1) == 0)
+    if (v5)
     {
-      v8[0] = v5;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-      [(DNDSModernAssertionSyncManager *)self updateDevices:v6];
+      if (([v5 supportsKettle] & 1) == 0)
+      {
+        v7[0] = v5;
+        v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+        [(DNDSModernAssertionSyncManager *)self updateDevices:v6];
+      }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceUpdateAllDevices
@@ -616,7 +602,7 @@ uint64_t __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult
 {
   fuzzCopy = fuzz;
   forceCopy = force;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   os_unfair_lock_lock(&self->_timerLock);
   if (forceCopy)
@@ -645,7 +631,7 @@ uint64_t __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult
       [v15 floatValue];
       v17 = [v13 numberWithDouble:v16 / 1000.0];
       *buf = 138412290;
-      v31 = v17;
+      v30 = v17;
       _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_DEFAULT, "Delaying sync of fuzzable change by %@ seconds.", buf, 0xCu);
     }
 
@@ -665,7 +651,7 @@ uint64_t __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult
       v23 = v21;
       v24 = [v22 numberWithUnsignedLongLong:v20];
       *buf = 138412290;
-      v31 = v24;
+      v30 = v24;
       _os_log_impl(&dword_24912E000, v23, OS_LOG_TYPE_INFO, "Delaying sync for %@ seconds to coalesce update.", buf, 0xCu);
     }
 
@@ -688,7 +674,6 @@ uint64_t __69__DNDSModernAssertionSyncManager_updateForModeAssertionUpdateResult
   }
 
   os_unfair_lock_unlock(&self->_timerLock);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __65__DNDSModernAssertionSyncManager_updateDevices_force_shouldFuzz___block_invoke(uint64_t a1)
@@ -806,7 +791,7 @@ LABEL_20:
 
 - (void)syncService:(id)service didReceiveMessage:(id)message withVersionNumber:(unint64_t)number messageType:(id)type fromDeviceIdentifier:(id)identifier
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   messageCopy = message;
   identifierCopy = identifier;
@@ -814,35 +799,71 @@ LABEL_20:
   if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_INFO))
   {
     *buf = 134218754;
-    v24 = serviceCopy;
-    v25 = 2114;
-    v26 = messageCopy;
-    v27 = 2048;
+    v23 = serviceCopy;
+    v24 = 2114;
+    v25 = messageCopy;
+    v26 = 2048;
     numberCopy = number;
-    v29 = 2114;
-    v30 = identifierCopy;
+    v28 = 2114;
+    v29 = identifierCopy;
     _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_INFO, "Received message from sync service; syncService=%p, message=%{public}@, versionNumber=%lu, deviceIdentifier=%{public}@", buf, 0x2Au);
   }
 
   queue = self->_queue;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __115__DNDSModernAssertionSyncManager_syncService_didReceiveMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke;
-  v19[3] = &unk_278F8AA28;
-  v19[4] = self;
-  v20 = messageCopy;
-  v21 = identifierCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __115__DNDSModernAssertionSyncManager_syncService_didReceiveMessage_withVersionNumber_messageType_fromDeviceIdentifier___block_invoke;
+  v18[3] = &unk_278F8AA28;
+  v18[4] = self;
+  v19 = messageCopy;
+  v20 = identifierCopy;
   numberCopy2 = number;
   v16 = identifierCopy;
   v17 = messageCopy;
-  dispatch_sync(queue, v19);
+  dispatch_sync(queue, v18);
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)syncService:(id)service didSendWithRequestIdentifier:(id)identifier withSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  v32 = *MEMORY[0x277D85DE8];
+  serviceCopy = service;
+  identifierCopy = identifier;
+  errorCopy = error;
+  v13 = DNDSLogModernAssertionSync;
+  if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_INFO))
+  {
+    v14 = MEMORY[0x277CCABB0];
+    v15 = v13;
+    v16 = [v14 numberWithBool:successCopy];
+    *buf = 134218754;
+    v25 = serviceCopy;
+    v26 = 2114;
+    v27 = identifierCopy;
+    v28 = 2112;
+    v29 = v16;
+    v30 = 2114;
+    v31 = errorCopy;
+    _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_INFO, "Sent message from sync service; syncService=%p, requestIdentifier=%{public}@, success=%@, error=%{public}@", buf, 0x2Au);
+  }
+
+  queue = self->_queue;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __93__DNDSModernAssertionSyncManager_syncService_didSendWithRequestIdentifier_withSuccess_error___block_invoke;
+  v20[3] = &unk_278F89F20;
+  v20[4] = self;
+  v21 = identifierCopy;
+  v23 = successCopy;
+  v22 = errorCopy;
+  v18 = errorCopy;
+  v19 = identifierCopy;
+  dispatch_sync(queue, v20);
 }
 
 - (void)_queue_handleMessage:(id)message withVersionNumber:(unint64_t)number fromDeviceIdentifier:(id)identifier
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_queue);
@@ -881,16 +902,16 @@ LABEL_20:
           if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543874;
-            v49 = identifierCopy;
-            v50 = 2114;
-            v51 = v14;
-            v52 = 2114;
-            v53 = v20;
+            v48 = identifierCopy;
+            v49 = 2114;
+            v50 = v14;
+            v51 = 2114;
+            v52 = v20;
             _os_log_impl(&dword_24912E000, v21, OS_LOG_TYPE_DEFAULT, "Received store from %{public}@ is older (%{public}@) than the last received store (%{public}@).", buf, 0x20u);
           }
         }
 
-        v42 = v20;
+        v41 = v20;
         lastReceivedStoreDate2 = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata lastReceivedStoreDate];
         deviceIdentifier2 = [v11 deviceIdentifier];
         [lastReceivedStoreDate2 setObject:v14 forKeyedSubscript:deviceIdentifier2];
@@ -919,17 +940,17 @@ LABEL_20:
         v32 = [lastUpdateDate compare:v30];
 
         delegate = [(DNDSModernAssertionSyncManager *)self delegate];
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __94__DNDSModernAssertionSyncManager__queue_handleMessage_withVersionNumber_fromDeviceIdentifier___block_invoke;
-        v43[3] = &unk_278F8B080;
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __94__DNDSModernAssertionSyncManager__queue_handleMessage_withVersionNumber_fromDeviceIdentifier___block_invoke;
+        v42[3] = &unk_278F8B080;
         v34 = v13;
-        v44 = v34;
+        v43 = v34;
         v35 = v11;
-        v45 = v35;
+        v44 = v35;
         v14 = v14;
-        v46 = v14;
-        [delegate syncManager:self performModeAssertionUpdatesWithHandler:v43];
+        v45 = v14;
+        [delegate syncManager:self performModeAssertionUpdatesWithHandler:v42];
 
         if (v32 == -1)
         {
@@ -940,16 +961,16 @@ LABEL_20:
             deviceIdentifier4 = [v35 deviceIdentifier];
             lastUpdateDate2 = [v34 lastUpdateDate];
             *buf = 138543874;
-            v49 = deviceIdentifier4;
-            v50 = 2114;
-            v51 = lastUpdateDate2;
-            v52 = 2114;
-            v53 = v30;
+            v48 = deviceIdentifier4;
+            v49 = 2114;
+            v50 = lastUpdateDate2;
+            v51 = 2114;
+            v52 = v30;
             _os_log_impl(&dword_24912E000, log, OS_LOG_TYPE_DEFAULT, "Incoming store from %{public}@ was older (%{public}@) than the store it replaced (%{public}@). Will re-send...", buf, 0x20u);
           }
 
-          v47 = v35;
-          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+          v46 = v35;
+          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
           [(DNDSModernAssertionSyncManager *)self updateDevices:v38 force:1 shouldFuzz:1];
         }
 
@@ -982,35 +1003,33 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __94__DNDSModernAssertionSyncManager__queue_handleMessage_withVersionNumber_fromDeviceIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v50 = a1;
+  v49 = a1;
   v4 = [*(a1 + 32) invalidations];
-  v5 = [v4 countByEnumeratingWithState:&v59 objects:v69 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v58 objects:v68 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v60;
+    v7 = *v59;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v60 != v7)
+        if (*v59 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v59 + 1) + 8 * i) assertion];
+        v9 = [*(*(&v58 + 1) + 8 * i) assertion];
         v10 = [v9 UUID];
         v11 = [v9 details];
         v12 = [v9 source];
@@ -1018,68 +1037,68 @@ uint64_t __94__DNDSModernAssertionSyncManager__queue_handleMessage_withVersionNu
         v14 = [v3 takeAssertionWithUUID:v10 details:v11 source:v12 startDate:v13];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v59 objects:v69 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v58 objects:v68 count:16];
     }
 
     while (v6);
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
-  v15 = [*(v50 + 32) invalidationRequests];
-  v16 = [v15 countByEnumeratingWithState:&v55 objects:v68 count:16];
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v15 = [*(v49 + 32) invalidationRequests];
+  v16 = [v15 countByEnumeratingWithState:&v54 objects:v67 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v56;
+    v18 = *v55;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v56 != v18)
+        if (*v55 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [v3 invalidateAssertionsForRequest:*(*(&v55 + 1) + 8 * j)];
+        v20 = [v3 invalidateAssertionsForRequest:*(*(&v54 + 1) + 8 * j)];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v55 objects:v68 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v54 objects:v67 count:16];
     }
 
     while (v17);
   }
 
   v21 = MEMORY[0x277D05938];
-  v22 = [*(v50 + 40) deviceIdentifier];
+  v22 = [*(v49 + 40) deviceIdentifier];
   v23 = [v21 predicateForModeAssertionsWithDeviceIdentifier:v22];
 
-  v49 = v23;
-  v48 = [v3 modeAssertionsMatchingPredicate:v23];
-  v47 = [v48 bs_mapNoNulls:&__block_literal_global_57];
-  v24 = [v47 mutableCopy];
+  v48 = v23;
+  v47 = [v3 modeAssertionsMatchingPredicate:v23];
+  v46 = [v47 bs_mapNoNulls:&__block_literal_global_57];
+  v24 = [v46 mutableCopy];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v25 = [*(v50 + 32) assertions];
-  v26 = [v25 countByEnumeratingWithState:&v51 objects:v67 count:16];
+  v25 = [*(v49 + 32) assertions];
+  v26 = [v25 countByEnumeratingWithState:&v50 objects:v66 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v52;
+    v28 = *v51;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v52 != v28)
+        if (*v51 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v51 + 1) + 8 * k);
+        v30 = *(*(&v50 + 1) + 8 * k);
         v31 = [v30 UUID];
         v32 = [v30 details];
         v33 = [v30 source];
@@ -1089,7 +1108,7 @@ uint64_t __94__DNDSModernAssertionSyncManager__queue_handleMessage_withVersionNu
         [v24 removeObject:v31];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v51 objects:v67 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v50 objects:v66 count:16];
     }
 
     while (v27);
@@ -1103,56 +1122,55 @@ uint64_t __94__DNDSModernAssertionSyncManager__queue_handleMessage_withVersionNu
     if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v64 = v37;
-      v65 = 2114;
-      v66 = v24;
+      v63 = v37;
+      v64 = 2114;
+      v65 = v24;
       _os_log_impl(&dword_24912E000, v38, OS_LOG_TYPE_DEFAULT, "%lu assertion(s) were abandoned by the remote device, will invalidate: UUIDs=%{public}@", buf, 0x16u);
     }
 
     v39 = [DNDSModeAssertionInvalidationPredicate predicateForAssertionUUIDs:v24];
     v40 = objc_alloc(MEMORY[0x277D05988]);
-    v41 = [*(v50 + 40) deviceIdentifier];
+    v41 = [*(v49 + 40) deviceIdentifier];
     v42 = [v40 initWithClientIdentifier:@"com.apple.donotdisturb.sync" deviceIdentifier:v41];
 
-    v43 = [DNDSModeAssertionInvalidationRequest requestWithPredicate:v39 requestDate:*(v50 + 48) details:0 source:v42 reason:0 reasonOverride:0];
+    v43 = [DNDSModeAssertionInvalidationRequest requestWithPredicate:v39 requestDate:*(v49 + 48) details:0 source:v42 reason:0 reasonOverride:0];
     v44 = [v3 invalidateAssertionsForRequest:v43];
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)_queue_sendStateSnapshotToPairedDevices:(id)devices force:(BOOL)force
 {
   forceCopy = force;
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   queue = self->_queue;
   devicesCopy = devices;
   dispatch_assert_queue_V2(queue);
   WeakRetained = objc_loadWeakRetained(&self->_dataSource);
   v8 = [WeakRetained pairedDevicesForSyncManager:self];
 
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke;
-  v55[3] = &unk_278F8B0A8;
-  v37 = v8;
-  v56 = v37;
-  v9 = [devicesCopy bs_filter:v55];
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke;
+  v54[3] = &unk_278F8B0A8;
+  v36 = v8;
+  v55 = v36;
+  v9 = [devicesCopy bs_filter:v54];
 
   delegate = [(DNDSModernAssertionSyncManager *)self delegate];
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__9;
-  v53 = __Block_byref_object_dispose__9;
-  v54 = 0;
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_66;
-  v48[3] = &unk_278F8B0D0;
-  v48[4] = &v49;
-  [delegate syncManager:self performModeAssertionUpdatesWithHandler:v48];
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__9;
+  v52 = __Block_byref_object_dispose__9;
+  v53 = 0;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_66;
+  v47[3] = &unk_278F8B0D0;
+  v47[4] = &v48;
+  [delegate syncManager:self performModeAssertionUpdatesWithHandler:v47];
   v10 = DNDSLogModernAssertionSync;
   v11 = os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT);
   if (forceCopy)
@@ -1163,7 +1181,7 @@ uint64_t __94__DNDSModernAssertionSyncManager__queue_handleMessage_withVersionNu
     }
 
     *buf = 138412290;
-    v58 = v9;
+    v57 = v9;
     v12 = "Sending forced update to devices: %@";
   }
 
@@ -1175,41 +1193,41 @@ uint64_t __94__DNDSModernAssertionSyncManager__queue_handleMessage_withVersionNu
     }
 
     *buf = 138412290;
-    v58 = v9;
+    v57 = v9;
     v12 = "Sending update to devices: %@";
   }
 
   _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
 LABEL_7:
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = v9;
-  v13 = [obj countByEnumeratingWithState:&v44 objects:v63 count:16];
+  v13 = [obj countByEnumeratingWithState:&v43 objects:v62 count:16];
   if (v13)
   {
-    v41 = *v45;
+    v40 = *v44;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v45 != v41)
+        if (*v44 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v44 + 1) + 8 * i);
-        v16 = [v50[5] mutableCopy];
+        v15 = *(*(&v43 + 1) + 8 * i);
+        v16 = [v49[5] mutableCopy];
         v17 = DNDSLogModernAssertionSync;
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           deviceIdentifier = [v15 deviceIdentifier];
           *buf = 138412546;
-          v58 = deviceIdentifier;
-          v59 = 2112;
-          v60 = v16;
+          v57 = deviceIdentifier;
+          v58 = 2112;
+          v59 = v16;
           _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_INFO, "Generating message for sync to %@: %@", buf, 0x16u);
         }
 
@@ -1257,17 +1275,17 @@ LABEL_7:
           if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v58 = v15;
-            v59 = 2114;
-            v60 = lastUpdateDate;
-            v61 = 2114;
-            v62 = v25;
+            v57 = v15;
+            v58 = 2114;
+            v59 = lastUpdateDate;
+            v60 = 2114;
+            v61 = v25;
             _os_log_impl(&dword_24912E000, v27, OS_LOG_TYPE_DEFAULT, "Skipping sending store to %@ as it is the same as or earlier than the previous (current: %{public}@; previous: %{public}@)", buf, 0x20u);
           }
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v44 objects:v63 count:16];
+      v13 = [obj countByEnumeratingWithState:&v43 objects:v62 count:16];
     }
 
     while (v13);
@@ -1282,26 +1300,25 @@ LABEL_7:
     if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v58 = bs_flatten;
+      v57 = bs_flatten;
       _os_log_impl(&dword_24912E000, v35, OS_LOG_TYPE_DEFAULT, "Preparing to sync to %@", buf, 0xCu);
     }
 
     [delegate syncManager:self prepareForSyncToDevices:bs_flatten];
   }
 
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_70;
-  v43[3] = &unk_278F8B168;
-  v43[4] = self;
-  [dictionary enumerateKeysAndObjectsUsingBlock:v43];
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_70;
+  v42[3] = &unk_278F8B168;
+  v42[4] = self;
+  [dictionary enumerateKeysAndObjectsUsingBlock:v42];
   if ([dictionary count])
   {
     [(DNDSModernAssertionSyncManager *)self _saveMetadataToBackingStore];
   }
 
-  _Block_object_dispose(&v49, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
 }
 
 uint64_t __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_66(uint64_t a1, void *a2)
@@ -1317,7 +1334,7 @@ uint64_t __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDe
 
 void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_70(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = MEMORY[0x277CBEB98];
@@ -1343,11 +1360,11 @@ void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevice
       v18 = DNDSStringFromSyncServiceType([v5 serviceType]);
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "protocolVersion")}];
       *buf = 138543874;
-      v31 = v18;
-      v32 = 2112;
-      v33 = v19;
-      v34 = 2112;
-      v35 = v15;
+      v30 = v18;
+      v31 = 2112;
+      v32 = v19;
+      v33 = 2112;
+      v34 = v15;
       _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Syncing on %{public}@ version %@: %@", buf, 0x20u);
     }
 
@@ -1372,17 +1389,17 @@ void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevice
 LABEL_12:
     objc_initWeak(buf, *(a1 + 32));
     v23 = [v5 protocolVersion];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_75;
-    v25[3] = &unk_278F8B140;
-    v26 = v5;
-    v27 = v9;
-    objc_copyWeak(&v29, buf);
-    v28 = v11;
-    [v22 sendMessage:v15 withVersionNumber:v23 messageType:0 toDestinations:v27 identifyingCompletionHandler:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_75;
+    v24[3] = &unk_278F8B140;
+    v25 = v5;
+    v26 = v9;
+    objc_copyWeak(&v28, buf);
+    v27 = v11;
+    [v22 sendMessage:v15 withVersionNumber:v23 messageType:0 toDestinations:v26 identifyingCompletionHandler:v24];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
 
     goto LABEL_13;
@@ -1394,8 +1411,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_75(id *a1, char a2, void *a3, void *a4)
@@ -1434,7 +1449,7 @@ void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevice
 
 void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_76(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = DNDSLogModernAssertionSync;
   if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_INFO))
   {
@@ -1442,11 +1457,11 @@ void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevice
     v4 = v2;
     v5 = DNDSStringFromSyncServiceType([v3 serviceType]);
     v6 = *(a1 + 40);
-    v12 = 138543618;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_INFO, "Sending %{public}@ assertions pending with identifier %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_INFO, "Sending %{public}@ assertions pending with identifier %{public}@", &v11, 0x16u);
   }
 
   v7 = [_DNDSPendingMessageRecipients alloc];
@@ -1454,44 +1469,211 @@ void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevice
   v9 = [(_DNDSPendingMessageRecipients *)v7 initWithLastUpdateDate:v8 deviceIdentifiers:*(a1 + 64)];
   v10 = [*(*(a1 + 48) + 48) pendingLastSentStoreDate];
   [v10 setObject:v9 forKeyedSubscript:*(a1 + 40)];
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)_queue_handleDidSendRequestIdentifier:(id)identifier withSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  v55 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  errorCopy = error;
+  dispatch_assert_queue_V2(self->_queue);
+  pendingLastSentStoreDate = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata pendingLastSentStoreDate];
+  v11 = [pendingLastSentStoreDate objectForKeyedSubscript:identifierCopy];
+
+  if (v11)
+  {
+    pendingLastSentStoreDate2 = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata pendingLastSentStoreDate];
+    [pendingLastSentStoreDate2 setObject:0 forKeyedSubscript:identifierCopy];
+
+    if (successCopy)
+    {
+      v39 = errorCopy;
+      v40 = identifierCopy;
+      lastUpdateDate = [v11 lastUpdateDate];
+      v42 = 0u;
+      v43 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      obj = [v11 deviceIdentifiers];
+      v14 = [obj countByEnumeratingWithState:&v42 objects:v54 count:16];
+      if (!v14)
+      {
+        goto LABEL_23;
+      }
+
+      v15 = v14;
+      v16 = *v43;
+      while (1)
+      {
+        for (i = 0; i != v15; ++i)
+        {
+          if (*v43 != v16)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v18 = *(*(&v42 + 1) + 8 * i);
+          lastSentStoreDate = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata lastSentStoreDate];
+          v20 = [lastSentStoreDate objectForKeyedSubscript:v18];
+          v21 = v20;
+          if (v20)
+          {
+            distantPast = v20;
+          }
+
+          else
+          {
+            distantPast = [MEMORY[0x277CBEAA8] distantPast];
+          }
+
+          v23 = distantPast;
+
+          v24 = [v23 compare:lastUpdateDate];
+          switch(v24)
+          {
+            case 1:
+              goto LABEL_18;
+            case 0:
+              v29 = DNDSLogModernAssertionSync;
+              if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_INFO))
+              {
+                *buf = 138544130;
+                v47 = v18;
+                v48 = 2114;
+                v49 = v40;
+                v50 = 2114;
+                v51 = lastUpdateDate;
+                v52 = 2114;
+                v53 = v23;
+                _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_INFO, "Leaving lastUpdateDate unchanged for %{public}@ (%{public}@). Got %{public}@ and already have %{public}@", buf, 0x2Au);
+              }
+
+LABEL_18:
+              v30 = DNDSLogModernAssertionSync;
+              if (!os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_INFO))
+              {
+                break;
+              }
+
+              *buf = 138544130;
+              v47 = v18;
+              v48 = 2114;
+              v49 = v40;
+              v50 = 2114;
+              v51 = lastUpdateDate;
+              v52 = 2114;
+              v53 = v23;
+              v26 = v30;
+              v27 = "Rewinding lastUpdateDate for %{public}@ (%{public}@). Got %{public}@ but already have %{public}@";
+              v28 = 42;
+LABEL_20:
+              _os_log_impl(&dword_24912E000, v26, OS_LOG_TYPE_INFO, v27, buf, v28);
+              break;
+            case -1:
+              v25 = DNDSLogModernAssertionSync;
+              if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_INFO))
+              {
+                *buf = 138543874;
+                v47 = v18;
+                v48 = 2114;
+                v49 = v23;
+                v50 = 2114;
+                v51 = lastUpdateDate;
+                v26 = v25;
+                v27 = "Bumping lastUpdateDate for %{public}@ from %{public}@ to %{public}@";
+                v28 = 32;
+                goto LABEL_20;
+              }
+
+              break;
+          }
+
+          lastSentStoreDate2 = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata lastSentStoreDate];
+          [lastSentStoreDate2 setObject:lastUpdateDate forKeyedSubscript:v18];
+        }
+
+        v15 = [obj countByEnumeratingWithState:&v42 objects:v54 count:16];
+        if (!v15)
+        {
+LABEL_23:
+
+          [(DNDSModernAssertionSyncManager *)self _saveMetadataToBackingStore];
+          identifierCopy = v40;
+          errorCopy = v39;
+          goto LABEL_28;
+        }
+      }
+    }
+
+    v36 = DNDSLogModernAssertionSync;
+    if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_ERROR))
+    {
+      v37 = v36;
+      deviceIdentifiers = [v11 deviceIdentifiers];
+      *buf = 138543874;
+      v47 = identifierCopy;
+      v48 = 2114;
+      v49 = errorCopy;
+      v50 = 2114;
+      v51 = deviceIdentifiers;
+      _os_log_error_impl(&dword_24912E000, v37, OS_LOG_TYPE_ERROR, "Send request %{public}@ failed with error %{public}@. Recipients: %{public}@", buf, 0x20u);
+    }
+  }
+
+  else
+  {
+    v32 = DNDSLogModernAssertionSync;
+    if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
+    {
+      v33 = MEMORY[0x277CCABB0];
+      v34 = v32;
+      v35 = [v33 numberWithBool:successCopy];
+      *buf = 138543874;
+      v47 = identifierCopy;
+      v48 = 2112;
+      v49 = v35;
+      v50 = 2114;
+      v51 = errorCopy;
+      _os_log_impl(&dword_24912E000, v34, OS_LOG_TYPE_DEFAULT, "Got send results from unrecognized identifier %{public}@. success: %@, error: %{public}@", buf, 0x20u);
+    }
+  }
+
+LABEL_28:
 }
 
 - (void)_loadMetadataFromBackingStore
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_maintainMetadataBackingStore
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   array = [MEMORY[0x277CBEB18] array];
   lastReceivedStoreDate = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata lastReceivedStoreDate];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __63__DNDSModernAssertionSyncManager__maintainMetadataBackingStore__block_invoke;
-  v44[3] = &unk_278F8B190;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __63__DNDSModernAssertionSyncManager__maintainMetadataBackingStore__block_invoke;
+  v43[3] = &unk_278F8B190;
   v6 = date;
-  v45 = v6;
+  v44 = v6;
   v7 = array;
-  v46 = v7;
-  [lastReceivedStoreDate bs_each:v44];
+  v45 = v7;
+  [lastReceivedStoreDate bs_each:v43];
 
   v8 = [v7 count];
-  v35 = v8 != 0;
+  v34 = v8 != 0;
   if (v8)
   {
     v9 = DNDSLogModernAssertionSync;
     if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = v7;
+      v48 = v7;
       _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Retiring device(s) from last seen metadata: %@", buf, 0xCu);
     }
 
@@ -1502,59 +1684,59 @@ void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevice
   array2 = [MEMORY[0x277CBEB18] array];
 
   lastSentStoreDate = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata lastSentStoreDate];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __63__DNDSModernAssertionSyncManager__maintainMetadataBackingStore__block_invoke_84;
-  v41[3] = &unk_278F8B190;
-  v36 = v6;
-  v42 = v36;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __63__DNDSModernAssertionSyncManager__maintainMetadataBackingStore__block_invoke_84;
+  v40[3] = &unk_278F8B190;
+  v35 = v6;
+  v41 = v35;
   v13 = array2;
-  v43 = v13;
-  [lastSentStoreDate bs_each:v41];
+  v42 = v13;
+  [lastSentStoreDate bs_each:v40];
 
-  v34 = v13;
+  v33 = v13;
   if ([v13 count])
   {
     v14 = DNDSLogModernAssertionSync;
     if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = v13;
+      v48 = v13;
       _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_DEFAULT, "Retiring device(s) from last sent metadata: %@", buf, 0xCu);
     }
 
     lastSentStoreDate2 = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata lastSentStoreDate];
     [lastSentStoreDate2 removeObjectsForKeys:v13];
 
-    v35 = 1;
+    v34 = 1;
   }
 
   array3 = [MEMORY[0x277CBEB18] array];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   pendingLastSentStoreDate = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata pendingLastSentStoreDate];
-  v18 = [pendingLastSentStoreDate countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v18 = [pendingLastSentStoreDate countByEnumeratingWithState:&v36 objects:v46 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v38;
+    v20 = *v37;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v38 != v20)
+        if (*v37 != v20)
         {
           objc_enumerationMutation(pendingLastSentStoreDate);
         }
 
-        v22 = *(*(&v37 + 1) + 8 * i);
+        v22 = *(*(&v36 + 1) + 8 * i);
         selfCopy = self;
         pendingLastSentStoreDate2 = [(DNDSModernAssertionSyncMetadataStore *)self->_metadata pendingLastSentStoreDate];
         v25 = [pendingLastSentStoreDate2 objectForKeyedSubscript:v22];
         lastUpdateDate = [v25 lastUpdateDate];
-        [v36 timeIntervalSinceDate:lastUpdateDate];
+        [v35 timeIntervalSinceDate:lastUpdateDate];
         v28 = v27;
 
         if (v28 > 86400.0)
@@ -1565,20 +1747,20 @@ void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevice
         self = selfCopy;
       }
 
-      v19 = [pendingLastSentStoreDate countByEnumeratingWithState:&v37 objects:v47 count:16];
+      v19 = [pendingLastSentStoreDate countByEnumeratingWithState:&v36 objects:v46 count:16];
     }
 
     while (v19);
   }
 
-  v29 = v35;
+  v29 = v34;
   if ([array3 count])
   {
     v30 = DNDSLogModernAssertionSync;
     if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = array3;
+      v48 = array3;
       _os_log_impl(&dword_24912E000, v30, OS_LOG_TYPE_DEFAULT, "Retiring pending message(s) from metadata: %@", buf, 0xCu);
     }
 
@@ -1588,7 +1770,6 @@ void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevice
     v29 = 1;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -1614,12 +1795,12 @@ void __63__DNDSModernAssertionSyncManager__maintainMetadataBackingStore__block_i
 
 - (BOOL)_saveMetadataToBackingStore
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   metadata = self->_metadata;
   metadataBackingStore = self->_metadataBackingStore;
-  v13 = 0;
-  v4 = [(DNDSBackingStore *)metadataBackingStore writeRecord:metadata error:&v13];
-  v5 = v13;
+  v12 = 0;
+  v4 = [(DNDSBackingStore *)metadataBackingStore writeRecord:metadata error:&v12];
+  v5 = v12;
   if (v4)
   {
     if (v4 == 1)
@@ -1628,7 +1809,7 @@ void __63__DNDSModernAssertionSyncManager__maintainMetadataBackingStore__block_i
       if (os_log_type_enabled(DNDSLogModernAssertionSync, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v15 = v5;
+        v14 = v5;
         v7 = "Failed to write assertion sync metadata store, but error can be ignored; error=%{public}@";
         v8 = v10;
         v9 = 12;
@@ -1661,39 +1842,55 @@ LABEL_8:
     _DNDSRequestRadar(@"Failed to write sync metadata", v5, 0, @"/Library/Caches/com.apple.xbs/Sources/DoNotDisturbServer/DoNotDisturbServer/DNDSModernAssertionSyncManager.m", 885);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4 == 2;
+}
+
+- (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted
+{
+  v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{3, redacted}];
+  queue = self->_queue;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __66__DNDSModernAssertionSyncManager_sysdiagnoseDataForDate_redacted___block_invoke;
+  v13 = &unk_278F89F48;
+  selfCopy = self;
+  v15 = v5;
+  v7 = v5;
+  dispatch_sync(queue, &v10);
+  v8 = [v7 copy];
+
+  return v8;
 }
 
 void __66__DNDSModernAssertionSyncManager_sysdiagnoseDataForDate_redacted___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 48) lastReceivedStoreDate];
-  v43 = v1;
+  v42 = v1;
   if ([v2 count])
   {
     v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v52 objects:v58 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v51 objects:v57 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v53;
+      v7 = *v52;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v53 != v7)
+          if (*v52 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v52 + 1) + 8 * i);
+          v9 = *(*(&v51 + 1) + 8 * i);
           v10 = MEMORY[0x277CCA968];
           v11 = [v4 objectForKeyedSubscript:v9];
           v12 = [v10 localizedStringFromDate:v11 dateStyle:1 timeStyle:1];
@@ -1701,15 +1898,15 @@ void __66__DNDSModernAssertionSyncManager_sysdiagnoseDataForDate_redacted___bloc
           [v3 setObject:v12 forKeyedSubscript:v13];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v52 objects:v58 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v51 objects:v57 count:16];
       }
 
       while (v6);
     }
 
     v14 = [v3 copy];
-    v1 = v43;
-    [*(v43 + 40) setObject:v14 forKeyedSubscript:@"last-received-dates"];
+    v1 = v42;
+    [*(v42 + 40) setObject:v14 forKeyedSubscript:@"last-received-dates"];
   }
 
   v15 = [*(*(v1 + 32) + 48) lastSentStoreDate];
@@ -1717,27 +1914,27 @@ void __66__DNDSModernAssertionSyncManager_sysdiagnoseDataForDate_redacted___bloc
   if ([v15 count])
   {
     v16 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v15, "count")}];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
-    v41 = v15;
+    v40 = v15;
     v17 = v15;
-    v18 = [v17 countByEnumeratingWithState:&v48 objects:v57 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v47 objects:v56 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v49;
+      v20 = *v48;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v49 != v20)
+          if (*v48 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v48 + 1) + 8 * j);
+          v22 = *(*(&v47 + 1) + 8 * j);
           v23 = MEMORY[0x277CCA968];
           v24 = [v17 objectForKeyedSubscript:v22];
           v25 = [v23 localizedStringFromDate:v24 dateStyle:1 timeStyle:1];
@@ -1745,17 +1942,17 @@ void __66__DNDSModernAssertionSyncManager_sysdiagnoseDataForDate_redacted___bloc
           [v16 setObject:v25 forKeyedSubscript:v26];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v48 objects:v57 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v47 objects:v56 count:16];
       }
 
       while (v19);
     }
 
     v27 = [v16 copy];
-    v1 = v43;
-    [*(v43 + 40) setObject:v27 forKeyedSubscript:@"last-sent-dates"];
+    v1 = v42;
+    [*(v42 + 40) setObject:v27 forKeyedSubscript:@"last-sent-dates"];
 
-    v15 = v41;
+    v15 = v40;
   }
 
   v28 = [*(*(v1 + 32) + 48) pendingLastSentStoreDate];
@@ -1763,46 +1960,44 @@ void __66__DNDSModernAssertionSyncManager_sysdiagnoseDataForDate_redacted___bloc
   if ([v28 count])
   {
     v29 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v28, "count")}];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v42 = v28;
+    v41 = v28;
     v30 = v28;
-    v31 = [v30 countByEnumeratingWithState:&v44 objects:v56 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v43 objects:v55 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v45;
+      v33 = *v44;
       do
       {
         for (k = 0; k != v32; ++k)
         {
-          if (*v45 != v33)
+          if (*v44 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v35 = *(*(&v44 + 1) + 8 * k);
+          v35 = *(*(&v43 + 1) + 8 * k);
           v36 = [v30 objectForKeyedSubscript:v35];
           v37 = [v36 description];
           v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"message %@", v35];
           [v29 setObject:v37 forKeyedSubscript:v38];
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v44 objects:v56 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v43 objects:v55 count:16];
       }
 
       while (v32);
     }
 
     v39 = [v29 copy];
-    [*(v43 + 40) setObject:v39 forKeyedSubscript:@"pending-messages"];
+    [*(v42 + 40) setObject:v39 forKeyedSubscript:@"pending-messages"];
 
-    v28 = v42;
+    v28 = v41;
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (DNDSAssertionSyncManagerDataSource)dataSource
@@ -1821,98 +2016,80 @@ void __66__DNDSModernAssertionSyncManager_sysdiagnoseDataForDate_redacted___bloc
 
 void __65__DNDSModernAssertionSyncManager_updateDevices_force_shouldFuzz___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCABB0];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v2 numberWithUnsignedLongLong:v3];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_24912E000, v4, OS_LOG_TYPE_ERROR, "Coalescing timer has delayed sync for %@ seconds. This may indicate a rogue trigger.", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24912E000, v4, OS_LOG_TYPE_ERROR, "Coalescing timer has delayed sync for %@ seconds. This may indicate a rogue trigger.", v6, 0xCu);
 }
 
 - (void)syncService:shouldAcceptIncomingMessage:withVersionNumber:messageType:fromDeviceIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncService:shouldAcceptIncomingMessage:withVersionNumber:messageType:fromDeviceIdentifier:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_24912E000, v1, OS_LOG_TYPE_ERROR, "Rejecting incoming message as it is not from the active device: deviceIdentifier=%{public}@, pairedDevice=%{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_24912E000, v1, OS_LOG_TYPE_ERROR, "Rejecting incoming message as it is not from the active device: deviceIdentifier=%{public}@, pairedDevice=%{public}@", v2, 0x16u);
 }
 
 - (void)syncService:shouldAcceptIncomingMessage:withVersionNumber:messageType:fromDeviceIdentifier:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleMessage:withVersionNumber:fromDeviceIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleMessage:withVersionNumber:fromDeviceIdentifier:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_70_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __80__DNDSModernAssertionSyncManager__queue_sendStateSnapshotToPairedDevices_force___block_invoke_75_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = DNDSStringFromSyncServiceType([v5 serviceType]);
-  v8 = *(a1 + 40);
+  v13 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 32);
+  v5 = a2;
+  v6 = DNDSStringFromSyncServiceType([v4 serviceType]);
   OUTLINED_FUNCTION_4();
-  v12 = 2112;
-  v13 = v9;
-  v14 = 2114;
-  v15 = a3;
-  _os_log_error_impl(&dword_24912E000, v6, OS_LOG_TYPE_ERROR, "Error sending %{public}@ assertions to %@: error=%{public}@", v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = 2112;
+  v10 = v7;
+  v11 = 2114;
+  v12 = a3;
+  _os_log_error_impl(&dword_24912E000, v5, OS_LOG_TYPE_ERROR, "Error sending %{public}@ assertions to %@: error=%{public}@", v8, 0x20u);
 }
 
 - (void)_saveMetadataToBackingStore
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

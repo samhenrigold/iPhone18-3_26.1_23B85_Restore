@@ -47,11 +47,11 @@
 
 - (HMAccessoryAllowedHost)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = HMAccessoryAllowedHost;
-  v5 = [(HMAccessoryAllowedHost *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = HMAccessoryAllowedHost;
+  v5 = [(HMAccessoryAllowedHost *)&v15 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMAAH.name"];
@@ -61,9 +61,9 @@
     v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMAAH.purpose"];
     v5->_purpose = [v8 unsignedIntegerValue];
     v9 = MEMORY[0x1E695DFD8];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
     v11 = [v9 setWithArray:v10];
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"HMAAH.hostAddresses"];
     addresses = v5->_addresses;
@@ -72,7 +72,6 @@
     v5->_unrestricted = [coderCopy decodeBoolForKey:@"HMAAH.unrestricted"];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

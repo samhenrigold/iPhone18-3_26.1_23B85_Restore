@@ -125,13 +125,11 @@
   toCopy = to;
   if ([(_INPBTimestamp *)self hasNanos])
   {
-    nanos = self->_nanos;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBTimestamp *)self hasSeconds])
   {
-    seconds = self->_seconds;
     PBDataWriterWriteInt64Field();
   }
 }

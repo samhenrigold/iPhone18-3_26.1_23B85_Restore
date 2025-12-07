@@ -48,7 +48,7 @@
   [underlyingProxy fetchScreenshotDataWithMaximumSizeInPixels:v10 completion:{width, height}];
 }
 
-uint64_t __90__CRKDeadmanScreenshotServiceProxy_fetchScreenshotDataWithMaximumSizeInPixels_completion___block_invoke(uint64_t a1)
+void *__90__CRKDeadmanScreenshotServiceProxy_fetchScreenshotDataWithMaximumSizeInPixels_completion___block_invoke(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
   [*(a1 + 32) setCountOfInFlightRequests:{objc_msgSend(*(a1 + 32), "countOfInFlightRequests") - 1}];
@@ -69,26 +69,26 @@ uint64_t __90__CRKDeadmanScreenshotServiceProxy_fetchScreenshotDataWithMaximumSi
 
   if (!timer)
   {
-    v4 = _CRKLogGeneral_14();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _CRKLogGeneral_14(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_243550000, v4, OS_LOG_TYPE_DEFAULT, "Starting ScreenshotService deadman timer", buf, 2u);
+      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "Starting ScreenshotService deadman timer", buf, 2u);
     }
 
     objc_initWeak(buf, self);
-    v5 = MEMORY[0x277CBEBB8];
+    v6 = MEMORY[0x277CBEBB8];
     [(CRKDeadmanScreenshotServiceProxy *)self timeout];
-    v7 = v6;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __46__CRKDeadmanScreenshotServiceProxy_startTimer__block_invoke;
-    v9[3] = &unk_278DC2F98;
-    objc_copyWeak(&v10, buf);
-    v8 = [v5 scheduledTimerWithTimeInterval:0 repeats:v9 block:v7];
-    [(CRKDeadmanScreenshotServiceProxy *)self setTimer:v8];
+    v8 = v7;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __46__CRKDeadmanScreenshotServiceProxy_startTimer__block_invoke;
+    v10[3] = &unk_278DC2F98;
+    objc_copyWeak(&v11, buf);
+    v9 = [v6 scheduledTimerWithTimeInterval:0 repeats:v10 block:v8];
+    [(CRKDeadmanScreenshotServiceProxy *)self setTimer:v9];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
 }
@@ -96,17 +96,18 @@ uint64_t __90__CRKDeadmanScreenshotServiceProxy_fetchScreenshotDataWithMaximumSi
 void __46__CRKDeadmanScreenshotServiceProxy_startTimer__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = _CRKLogGeneral_14();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _CRKLogGeneral_14(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_243550000, v2, OS_LOG_TYPE_DEFAULT, "ScreenshotService deadman timer fired. Tearing down connection", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_243550000, v3, OS_LOG_TYPE_DEFAULT, "ScreenshotService deadman timer fired. Tearing down connection", v4, 2u);
     }
 
-    [WeakRetained setUnderlyingProxy:0];
-    [WeakRetained setTimer:0];
+    [v2 setUnderlyingProxy:0];
+    [v2 setTimer:0];
   }
 }
 
@@ -116,11 +117,11 @@ void __46__CRKDeadmanScreenshotServiceProxy_startTimer__block_invoke(uint64_t a1
 
   if (timer)
   {
-    v4 = _CRKLogGeneral_14();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _CRKLogGeneral_14(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_243550000, v4, OS_LOG_TYPE_DEFAULT, "Invalidating ScreenshotService deadman timer", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "Invalidating ScreenshotService deadman timer", v7, 2u);
     }
 
     timer2 = [(CRKDeadmanScreenshotServiceProxy *)self timer];

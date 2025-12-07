@@ -406,9 +406,9 @@ LABEL_14:
 - (id)_initWithCSIData:(id)data forKey:(const _renditionkeytoken *)key version:(unsigned int)version
 {
   v5 = *&version;
-  v21.receiver = self;
-  v21.super_class = CUIPlaceholderCUIThemeRendition;
-  result = [(CUIPlaceholderCUIThemeRendition *)&v21 init];
+  v14.receiver = self;
+  v14.super_class = CUIPlaceholderCUIThemeRendition;
+  result = [(CUIPlaceholderCUIThemeRendition *)&v14 init];
   if (result)
   {
     v9 = result;
@@ -440,8 +440,7 @@ LABEL_14:
 
     else
     {
-      v14 = [CUIPlaceholderCUIRenditionKey renditionKeyWithKeyList:key];
-      _CUILog(4, "CoreUI: Error while decoding CSIData for key %@", v15, v16, v17, v18, v19, v20, v14);
+      _CUILog(4, "CoreUI: Error while decoding CSIData for key %@", [CUIPlaceholderCUIRenditionKey renditionKeyWithKeyList:key]);
 
       return 0;
     }

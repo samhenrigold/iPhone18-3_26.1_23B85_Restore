@@ -9,22 +9,23 @@
 - (id)init:(id)init
 {
   initCopy = init;
-  v10.receiver = self;
-  v10.super_class = KernelMsgSignalHandlerSDXC;
-  v6 = [(KernelMsgSignalHandlerSDXC *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = KernelMsgSignalHandlerSDXC;
+  v6 = [(KernelMsgSignalHandlerSDXC *)&v11 init];
+  v7 = v6;
   if (v6)
   {
-    v7 = adminLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = adminLogHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, " StorageKernelSignal: KernelMsgSignalHandler init ++ \n", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, " StorageKernelSignal: KernelMsgSignalHandler init ++ \n", v10, 2u);
     }
 
     objc_storeStrong(&adminABC, init);
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setupListener:(id)listener
@@ -58,15 +59,15 @@
   {
     IONotificationPortDestroy(gNotifyPort);
     gNotifyPort = 0;
-    v2 = adminLogHandle();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = adminLogHandle(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_241804000, v2, OS_LOG_TYPE_DEFAULT, "StorageKernelSignal: notification port destroyed\n", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_DEFAULT, "StorageKernelSignal: notification port destroyed\n", v5, 2u);
     }
   }
 
-  v3 = adminABC;
+  v4 = adminABC;
   adminABC = 0;
 }
 

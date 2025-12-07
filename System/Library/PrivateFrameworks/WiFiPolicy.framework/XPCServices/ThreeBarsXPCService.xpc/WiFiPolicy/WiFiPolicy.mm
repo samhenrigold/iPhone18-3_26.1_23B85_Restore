@@ -35,7 +35,7 @@ void sub_100001264(uint64_t a1, void *a2, void *a3, int a4)
   v8 = v7;
   if (v7)
   {
-    (*(v7 + 2))(v7);
+    v7[2](v7);
   }
 
   if (a4)

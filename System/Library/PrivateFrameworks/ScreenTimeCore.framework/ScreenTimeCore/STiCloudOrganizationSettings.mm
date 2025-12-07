@@ -191,7 +191,7 @@
 
 - (void)didChangeValueForKey:(id)key
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if ([keyCopy isEqualToString:@"user"])
   {
@@ -204,28 +204,28 @@
 
     if (!passcode)
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       organization = [(STiCloudOrganizationSettings *)self organization];
       blueprints = [organization blueprints];
 
-      v8 = [blueprints countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [blueprints countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v19;
+        v10 = *v18;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v19 != v10)
+            if (*v18 != v10)
             {
               objc_enumerationMutation(blueprints);
             }
 
-            v12 = *(*(&v18 + 1) + 8 * i);
+            v12 = *(*(&v17 + 1) + 8 * i);
             users = [v12 users];
             user = [(STiCloudOrganizationSettings *)self user];
             v15 = [users containsObject:user];
@@ -236,7 +236,7 @@
             }
           }
 
-          v9 = [blueprints countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v9 = [blueprints countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v9);
@@ -244,11 +244,9 @@
     }
   }
 
-  v17.receiver = self;
-  v17.super_class = STiCloudOrganizationSettings;
-  [(STiCloudOrganizationSettings *)&v17 didChangeValueForKey:keyCopy];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = STiCloudOrganizationSettings;
+  [(STiCloudOrganizationSettings *)&v16 didChangeValueForKey:keyCopy];
 }
 
 - (BOOL)validateForUpdate:(id *)update
@@ -284,7 +282,7 @@
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STiCloudOrganizationSettings validateForUpdate:update];
+      [STiCloudOrganizationSettings validateForUpdate:];
     }
 
     v7 = 0;
@@ -326,7 +324,7 @@
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STiCloudOrganizationSettings validateForInsert:insert];
+      [STiCloudOrganizationSettings validateForInsert:];
     }
 
     v7 = 0;
@@ -344,20 +342,20 @@
 
 - (BOOL)_validateNumberOfCloudSettings:(id)settings
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   v4 = +[STiCloudOrganizationSettings fetchRequest];
-  v13 = 0;
-  v5 = [v4 execute:&v13];
-  v6 = v13;
+  v12 = 0;
+  v5 = [v4 execute:&v12];
+  v6 = v12;
   if (v5)
   {
     if ([v5 count] >= 2)
     {
       v7 = MEMORY[0x1E696ABC0];
-      v14 = *MEMORY[0x1E696A578];
-      v15[0] = @"There must be no more than one cloud settings object.";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x1E696A578];
+      v14[0] = @"There must be no more than one cloud settings object.";
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       v9 = [v7 errorWithDomain:@"STErrorDomain" code:533 userInfo:v8];
       [settingsCopy addObject:v9];
     }
@@ -371,13 +369,12 @@
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BOOL)_validateUser:(id)user
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   userCopy = user;
   user = [(STiCloudOrganizationSettings *)self user];
   localUserDeviceState = [user localUserDeviceState];
@@ -385,60 +382,53 @@
   if (!localUserDeviceState)
   {
     v7 = MEMORY[0x1E696ABC0];
-    v13 = *MEMORY[0x1E696A578];
-    v14[0] = @"Cloud settings are assigned to a remote user. Cloud settings can only be assigned to a local user.";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696A578];
+    v13[0] = @"Cloud settings are assigned to a remote user. Cloud settings can only be assigned to a local user.";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v9 = [v7 errorWithDomain:@"STErrorDomain" code:534 userInfo:v8];
     [userCopy addObject:v9];
   }
 
   v10 = [userCopy count] == 0;
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)updateWithDictionaryRepresentation:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_6();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)validateForUpdate:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForUpdate:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)validateForUpdate:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for update on CloudOrganizationSettings failed with error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for update on CloudOrganizationSettings failed with error: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)validateForInsert:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForInsert:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)validateForInsert:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for Insert on CloudOrganizationSettings failed with error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for Insert on CloudOrganizationSettings failed with error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

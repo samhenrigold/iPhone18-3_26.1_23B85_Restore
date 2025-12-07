@@ -48,28 +48,26 @@
 
 void __92__WFTrelloBoardSubstitutableState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a5;
   v9 = +[WFDiskCache workflowCache];
   v10 = MEMORY[0x277CBEB98];
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = objc_opt_class();
+  v20[1] = objc_opt_class();
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v12 = [v10 setWithArray:v11];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __92__WFTrelloBoardSubstitutableState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
-  v17[3] = &unk_278C18E08;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __92__WFTrelloBoardSubstitutableState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
+  v16[3] = &unk_278C18E08;
   v13 = *(a1 + 32);
-  v19 = v8;
-  v20 = v13;
-  v18 = v7;
+  v18 = v8;
+  v19 = v13;
+  v17 = v7;
   v14 = v8;
   v15 = v7;
-  [v9 objectOfClasses:v12 forKey:@"WFTrelloBoards" completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [v9 objectOfClasses:v12 forKey:@"WFTrelloBoards" completion:v16];
 }
 
 void __92__WFTrelloBoardSubstitutableState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2(void *a1, void *a2)
@@ -81,7 +79,7 @@ void __92__WFTrelloBoardSubstitutableState_processWithContext_userInputRequiredH
 
 + (id)valueFromSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v6 = objc_opt_class();
   v7 = representationCopy;
@@ -90,16 +88,16 @@ void __92__WFTrelloBoardSubstitutableState_processWithContext_userInputRequiredH
     v9 = getWFGeneralLogObject();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v14 = 136315906;
-      v15 = "WFEnforceClass";
-      v16 = 2114;
-      v17 = v7;
-      v18 = 2114;
-      v19 = objc_opt_class();
-      v20 = 2114;
-      v21 = v6;
-      v10 = v19;
-      _os_log_impl(&dword_23DE30000, v9, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v14, 0x2Au);
+      v13 = 136315906;
+      v14 = "WFEnforceClass";
+      v15 = 2114;
+      v16 = v7;
+      v17 = 2114;
+      v18 = objc_opt_class();
+      v19 = 2114;
+      v20 = v6;
+      v10 = v18;
+      _os_log_impl(&dword_23DE30000, v9, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v13, 0x2Au);
     }
 
     v8 = 0;
@@ -119,8 +117,6 @@ void __92__WFTrelloBoardSubstitutableState_processWithContext_userInputRequiredH
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

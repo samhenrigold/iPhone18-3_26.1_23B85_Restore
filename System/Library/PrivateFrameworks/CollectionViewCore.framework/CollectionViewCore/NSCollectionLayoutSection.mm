@@ -373,7 +373,7 @@ void __84__NSCollectionLayoutSection__checkForDuplicateSupplementaryItemKindsAnd
   return v2;
 }
 
-uint64_t __67__NSCollectionLayoutSection_pinnedBoundarySupplementaryItemIndexes__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__67__NSCollectionLayoutSection_pinnedBoundarySupplementaryItemIndexes__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 pinToVisibleBounds];
   if (result)

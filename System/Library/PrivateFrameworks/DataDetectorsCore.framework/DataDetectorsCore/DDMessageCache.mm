@@ -152,31 +152,31 @@ uint64_t __57__DDMessageCache_stringWithElement_conversationID_range___block_inv
 
 - (void)_pruneIgnoringFirst:(BOOL)first
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = [(NSMutableArray *)self->_indexLRU copy];
   v6 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-90000.0];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v7 = v5;
   selfCopy = self;
   obj = v7;
-  v9 = [v7 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v9 = [v7 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v36;
-    v31 = selfCopy;
-    v32 = *v36;
+    v12 = *v35;
+    v30 = selfCopy;
+    v31 = *v35;
     do
     {
       v13 = 0;
-      v33 = v10;
+      v32 = v10;
       do
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(obj);
         }
@@ -188,31 +188,12 @@ uint64_t __57__DDMessageCache_stringWithElement_conversationID_range___block_inv
 
         else
         {
-          v14 = *(*(&v35 + 1) + 8 * v13);
+          v14 = *(*(&v34 + 1) + 8 * v13);
           v15 = [(NSMutableDictionary *)selfCopy->_cache objectForKeyedSubscript:v14];
           v16 = [v15 count];
-          if (v11 > 0x14)
+          if (v11 > 0x14 || (v17 = v16) == 0 || ([v15 lastObject], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "date"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "compare:", v6), v19, v12 = v31, v18, v21 = v20 == -1, v10 = v32, v21))
           {
-            goto LABEL_16;
-          }
-
-          v17 = v16;
-          if (!v16)
-          {
-            goto LABEL_16;
-          }
-
-          lastObject = [v15 lastObject];
-          date = [lastObject date];
-          v20 = [date compare:v6];
-
-          v12 = v32;
-          v21 = v20 == -1;
-          v10 = v33;
-          if (v21)
-          {
-LABEL_16:
-            [(NSMutableDictionary *)selfCopy->_cache setObject:0 forKeyedSubscript:v14, v31];
+            [(NSMutableDictionary *)selfCopy->_cache setObject:0 forKeyedSubscript:v14, v30];
             [(NSMutableArray *)selfCopy->_indexLRU removeObjectIdenticalTo:v14];
           }
 
@@ -223,9 +204,9 @@ LABEL_16:
             {
               while (1)
               {
-                v23 = [v15 objectAtIndexedSubscript:{v22, v31}];
-                date2 = [v23 date];
-                v25 = [date2 compare:v6];
+                v23 = [v15 objectAtIndexedSubscript:{v22, v30}];
+                date = [v23 date];
+                v25 = [date compare:v6];
 
                 if (v25 == -1)
                 {
@@ -240,13 +221,13 @@ LABEL_16:
 
               v27 = [v15 subarrayWithRange:{v22 + 1, v17 - (v22 + 1)}];
               v28 = [v27 mutableCopy];
-              [(NSMutableDictionary *)v31->_cache setObject:v28 forKeyedSubscript:v14];
+              [(NSMutableDictionary *)v30->_cache setObject:v28 forKeyedSubscript:v14];
 
 LABEL_21:
               ++v11;
-              selfCopy = v31;
-              v12 = v32;
-              v10 = v33;
+              selfCopy = v30;
+              v12 = v31;
+              v10 = v32;
             }
           }
         }
@@ -256,15 +237,13 @@ LABEL_21:
       }
 
       while (v13 != v10);
-      v29 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v29 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       v10 = v29;
       first = 0;
     }
 
     while (v29);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (DDMessageCache)init

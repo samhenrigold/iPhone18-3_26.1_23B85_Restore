@@ -51,81 +51,82 @@
   demosaic2xCopy = demosaic2x;
   lumaCopy = luma;
   aCopy = a;
-  v208 = vcvts_n_f32_u64(self->_metadataParameters.rawSensorWidth - objc_msgSend_width(demosaic2xCopy, v13, v14, v15, v16, v17, v18, v19, v20), 1uLL);
-  v207 = vcvts_n_f32_u64(self->_metadataParameters.rawSensorHeight - objc_msgSend_height(demosaic2xCopy, v21, v22, v23, v24, v25, v26, v27, v208), 1uLL) + self->_metadataParameters.outputOffsetY;
-  v206 = (objc_msgSend_width(self->_lscGainsTex, v28, v29, v30, v31, v32, v33, v34, v207) + -1.0) / (self->_metadataParameters.rawSensorWidth + -1.0);
-  v49 = (objc_msgSend_height(self->_lscGainsTex, v35, v36, v37, v38, v39, v40, v41, v206) + -1.0) / (self->_metadataParameters.rawSensorHeight + -1.0);
-  *&v50 = v206;
-  *(&v50 + 1) = v49;
-  *self->_anon_88 = __PAIR64__(LODWORD(v207), LODWORD(v208));
-  *&self->_anon_88[8] = v50;
+  v209 = vcvts_n_f32_u64(self->_metadataParameters.rawSensorWidth - objc_msgSend_width(demosaic2xCopy, v13, v14, v15, v16, v17, v18, v19, v20), 1uLL);
+  v208 = vcvts_n_f32_u64(self->_metadataParameters.rawSensorHeight - objc_msgSend_height(demosaic2xCopy, v21, v22, v23, v24, v25, v26, v27, v209), 1uLL) + self->_metadataParameters.outputOffsetY;
+  *&v35 = (objc_msgSend_width(self->_lscGainsTex, v28, v29, v30, v31, v32, v33, v34, v208) + -1.0) / (self->_metadataParameters.rawSensorWidth + -1.0);
+  v207 = v35;
+  v50 = (objc_msgSend_height(self->_lscGainsTex, v36, v37, v38, v39, v40, v41, v42, *&v35) + -1.0) / (self->_metadataParameters.rawSensorHeight + -1.0);
+  LODWORD(v51) = v207;
+  *(&v51 + 1) = v50;
+  *self->_anon_88 = __PAIR64__(LODWORD(v208), LODWORD(v209));
+  *&self->_anon_88[8] = v51;
   if (format == 1919379252)
   {
-    v51 = 0;
+    v52 = 0;
     *&self->_anon_88[16] = 0;
   }
 
   else if (format == 1650943796)
   {
-    v51 = 0;
+    v52 = 0;
     *&self->_anon_88[16] = 1;
   }
 
   else
   {
     fig_log_get_emitter();
-    v51 = FigSignalErrorAtGM();
+    v52 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v207, DWORD2(v207), LODWORD(v208));
   }
 
-  v52 = objc_msgSend_commandQueue(self->_metalContext, v42, v43, v44, v45, v46, v47, v48, v49);
-  v61 = objc_msgSend_commandBuffer(v52, v53, v54, v55, v56, v57, v58, v59, v60);
+  v53 = objc_msgSend_commandQueue(self->_metalContext, v43, v44, v45, v46, v47, v48, v49, v50);
+  v62 = objc_msgSend_commandBuffer(v53, v54, v55, v56, v57, v58, v59, v60, v61);
 
-  if (v61)
+  if (v62)
   {
-    v209 = v51;
-    v70 = objc_msgSend_computeCommandEncoder(v61, v62, v63, v64, v65, v66, v67, v68, v69);
-    v71 = self->_pipelineStates[0];
-    objc_msgSend_setComputePipelineState_(v70, v72, v71, v73, v74, v75, v76, v77, v78);
-    objc_msgSend_setTexture_atIndex_(v70, v79, demosaic2xCopy, 0, v80, v81, v82, v83, v84);
-    objc_msgSend_setTexture_atIndex_(v70, v85, self->_lscGainsTex, 1, v86, v87, v88, v89, v90);
-    v91 = lumaCopy;
-    objc_msgSend_setTexture_atIndex_(v70, v92, lumaCopy, 2, v93, v94, v95, v96, v97);
-    objc_msgSend_setTexture_atIndex_(v70, v98, aCopy, 3, v99, v100, v101, v102, v103);
-    objc_msgSend_setBytes_length_atIndex_(v70, v104, &self->_metadataParameters, 112, 0, v105, v106, v107, v108);
-    v117 = objc_msgSend_threadExecutionWidth(v71, v109, v110, v111, v112, v113, v114, v115, v116);
-    v126 = objc_msgSend_maxTotalThreadsPerThreadgroup(v71, v118, v119, v120, v121, v122, v123, v124, v125) / v117;
-    v211[0] = objc_msgSend_width(aCopy, v127, v128, v129, v130, v131, v132, v133, v134);
-    v211[1] = objc_msgSend_height(aCopy, v135, v136, v137, v138, v139, v140, v141, v142);
+    v210 = v52;
+    v71 = objc_msgSend_computeCommandEncoder(v62, v63, v64, v65, v66, v67, v68, v69, v70);
+    v72 = self->_pipelineStates[0];
+    objc_msgSend_setComputePipelineState_(v71, v73, v72, v74, v75, v76, v77, v78, v79);
+    objc_msgSend_setTexture_atIndex_(v71, v80, demosaic2xCopy, 0, v81, v82, v83, v84, v85);
+    objc_msgSend_setTexture_atIndex_(v71, v86, self->_lscGainsTex, 1, v87, v88, v89, v90, v91);
+    v92 = lumaCopy;
+    objc_msgSend_setTexture_atIndex_(v71, v93, lumaCopy, 2, v94, v95, v96, v97, v98);
+    objc_msgSend_setTexture_atIndex_(v71, v99, aCopy, 3, v100, v101, v102, v103, v104);
+    objc_msgSend_setBytes_length_atIndex_(v71, v105, &self->_metadataParameters, 112, 0, v106, v107, v108, v109);
+    v118 = objc_msgSend_threadExecutionWidth(v72, v110, v111, v112, v113, v114, v115, v116, v117);
+    v127 = objc_msgSend_maxTotalThreadsPerThreadgroup(v72, v119, v120, v121, v122, v123, v124, v125, v126) / v118;
+    v212[0] = objc_msgSend_width(aCopy, v128, v129, v130, v131, v132, v133, v134, v135);
+    v212[1] = objc_msgSend_height(aCopy, v136, v137, v138, v139, v140, v141, v142, v143);
+    v212[2] = 1;
+    v211[0] = v118;
+    v211[1] = v127;
     v211[2] = 1;
-    v210[0] = v117;
-    v210[1] = v126;
-    v210[2] = 1;
-    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v70, v143, v211, v210, v144, v145, v146, v147, v148);
-    objc_msgSend_endEncoding(v70, v149, v150, v151, v152, v153, v154, v155, v156);
+    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v71, v144, v212, v211, v145, v146, v147, v148, v149);
+    objc_msgSend_endEncoding(v71, v150, v151, v152, v153, v154, v155, v156, v157);
     if (*MEMORY[0x29EDB9270])
     {
-      v165 = objc_msgSend_commandQueue(v61, v157, v158, v159, v160, v161, v162, v163, v164);
-      v174 = objc_msgSend_commandBuffer(v165, v166, v167, v168, v169, v170, v171, v172, v173);
+      v166 = objc_msgSend_commandQueue(v62, v158, v159, v160, v161, v162, v163, v164, v165);
+      v175 = objc_msgSend_commandBuffer(v166, v167, v168, v169, v170, v171, v172, v173, v174);
 
-      objc_msgSend_setLabel_(v174, v175, @"KTRACE_MTLCMDBUF", v176, v177, v178, v179, v180, v181);
-      objc_msgSend_addCompletedHandler_(v174, v182, &unk_2A1C9B1D8, v183, v184, v185, v186, v187, v188);
-      objc_msgSend_commit(v174, v189, v190, v191, v192, v193, v194, v195, v196);
-      objc_msgSend_addCompletedHandler_(v61, v197, &unk_2A1C9B1F8, v198, v199, v200, v201, v202, v203);
+      objc_msgSend_setLabel_(v175, v176, @"KTRACE_MTLCMDBUF", v177, v178, v179, v180, v181, v182);
+      objc_msgSend_addCompletedHandler_(v175, v183, &unk_2A1C9B1D8, v184, v185, v186, v187, v188, v189);
+      objc_msgSend_commit(v175, v190, v191, v192, v193, v194, v195, v196, v197);
+      objc_msgSend_addCompletedHandler_(v62, v198, &unk_2A1C9B1F8, v199, v200, v201, v202, v203, v204);
     }
 
-    objc_msgSend_commit(v61, v157, v158, v159, v160, v161, v162, v163, v164);
+    objc_msgSend_commit(v62, v158, v159, v160, v161, v162, v163, v164, v165);
 
-    v204 = v209;
-    lumaCopy = v91;
+    v205 = v210;
+    lumaCopy = v92;
   }
 
   else
   {
-    sub_295765E18(v211);
-    v204 = v211[0];
+    sub_295765E18(v212);
+    v205 = v212[0];
   }
 
-  return v204;
+  return v205;
 }
 
 - (int)convertLinearRGB:(id)b toLuma:(id)luma

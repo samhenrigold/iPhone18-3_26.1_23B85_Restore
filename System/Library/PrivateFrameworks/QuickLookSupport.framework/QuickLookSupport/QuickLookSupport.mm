@@ -222,6 +222,13 @@ LABEL_49:
   return v32;
 }
 
+void sub_2615AFAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -341,16 +348,16 @@ LABEL_23:
   objc_autoreleasePoolPop(v9);
 }
 
-id QLFrameworkBundle()
+id QLFrameworkBundle(uint64_t a1)
 {
   if (QLFrameworkBundle_onceToken != -1)
   {
     QLFrameworkBundle_cold_1();
   }
 
-  v1 = QLFrameworkBundle_QLBundle;
+  v2 = QLFrameworkBundle_QLBundle;
 
-  return v1;
+  return v2;
 }
 
 void __QLFrameworkBundle_block_invoke()
@@ -546,7 +553,7 @@ uint64_t QLCheckIsPlatformWithExtensionAuditToken(_OWORD *a1)
   return v5;
 }
 
-const void *_QLDictionaryValueForKey(const __CFDictionary *a1, const void *a2, CFTypeID a3, uint64_t a4)
+uint64_t _QLDictionaryValueForKey(const __CFDictionary *a1, const void *a2, CFTypeID a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -987,10 +994,11 @@ id extensionLog()
   return v1;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_2615B1938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -1026,28 +1034,28 @@ CGColorSpaceRef QLDrawGrayLinearGradient(CGContext *a1, CGFloat a2, CGFloat a3, 
   result = CGColorSpaceCreateDeviceGray();
   if (result)
   {
-    v30 = result;
+    v23 = result;
     components[0] = a8;
     components[1] = a9;
     components[2] = a12;
     components[3] = a13;
-    v31 = CGGradientCreateWithColorComponents(result, components, 0, 2uLL);
-    CFRelease(v30);
-    if (v31)
+    v24 = CGGradientCreateWithColorComponents(result, components, 0, 2uLL);
+    CFRelease(v23);
+    if (v24)
     {
       CGContextSaveGState(a1);
-      v35.origin.x = a2;
-      v35.origin.y = a3;
-      v35.size.width = a4;
-      v35.size.height = a5;
-      CGContextClipToRect(a1, v35);
-      v33.x = a6;
-      v33.y = a7;
-      v34.x = a10;
-      v34.y = a11;
-      CGContextDrawLinearGradient(a1, v31, v33, v34, 0);
+      v28.origin.x = a2;
+      v28.origin.y = a3;
+      v28.size.width = a4;
+      v28.size.height = a5;
+      CGContextClipToRect(a1, v28);
+      v26.x = a6;
+      v26.y = a7;
+      v27.x = a10;
+      v27.y = a11;
+      CGContextDrawLinearGradient(a1, v24, v26, v27, 0);
       CGContextRestoreGState(a1);
-      CFRelease(v31);
+      CFRelease(v24);
       return 1;
     }
 
@@ -1553,22 +1561,23 @@ double QLGetCGPDFPageProxyRect(void *a1, uint64_t a2, int a3)
   return v8;
 }
 
-CGFloat QLDrawPDFPage(CGContext *a1, void *a2, CGPDFBox a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
+CGFloat QLDrawPDFPage(CGContext *a1, void *a2, uint64_t a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
 {
   v13 = [a2 pageRef];
 
   return QLDrawCGPDFPage(a1, v13, a3, a4, a5, a6, a7);
 }
 
-CGFloat QLDrawCGPDFPage(CGContext *a1, CGPDFPage *a2, CGPDFBox a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
+CGFloat QLDrawCGPDFPage(CGContext *a1, CGPDFPage *a2, uint64_t a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
 {
+  v7 = a3;
   QLContextSetGrayFillColor(a1, 1.0, 1.0);
   v19.origin.x = a4;
   v19.origin.y = a5;
   v19.size.width = a6;
   v19.size.height = a7;
   CGContextFillRect(a1, v19);
-  QLGetCGPDFDrawRect(a2, a3, a4, a5, a6, a7);
+  QLGetCGPDFDrawRect(a2, v7, a4, a5, a6, a7);
   x = v20.origin.x;
   y = v20.origin.y;
   width = v20.size.width;
@@ -1578,7 +1587,7 @@ CGFloat QLDrawCGPDFPage(CGContext *a1, CGPDFPage *a2, CGPDFBox a3, CGFloat a4, C
     return *MEMORY[0x277CBF3A0];
   }
 
-  QLDrawCGPDFPageInRect(a1, a2, a3, x, y, width, height);
+  QLDrawCGPDFPageInRect(a1, a2, v7, x, y, width, height);
   return x;
 }
 
@@ -1642,7 +1651,7 @@ double QLGetThumbnailSizeSatisfyingParameters(int a1, float64x2_t a2, float64_t 
   return v8;
 }
 
-CGFloat QLGetPDFDrawingTransformWithThumbnailSize@<D0>(uint64_t a1@<X8>, double a2@<D0>, double a3@<D1>, double a4@<D4>, double a5@<D5>, CGFloat a6, CGFloat a7, double a8, double a9)
+CGFloat QLGetPDFDrawingTransformWithThumbnailSize@<D0>(uint64_t a1@<X8>, double a2@<D0>, double a3@<D1>, CGFloat a4@<D4>, CGFloat a5@<D5>, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
 {
   if (a5 <= a9)
   {
@@ -1709,18 +1718,18 @@ BOOL QLGetDrawRectAndTransformWithMinimumDimension(uint64_t a1, _OWORD *a2, floa
   {
     if (a1)
     {
-      v37 = *(MEMORY[0x277CBF3A0] + 16);
+      v31 = *(MEMORY[0x277CBF3A0] + 16);
       *a1 = *MEMORY[0x277CBF3A0];
-      *(a1 + 16) = v37;
+      *(a1 + 16) = v31;
     }
 
     if (a2)
     {
-      v38 = MEMORY[0x277CBF2C0];
-      v39 = *(MEMORY[0x277CBF2C0] + 16);
+      v32 = MEMORY[0x277CBF2C0];
+      v33 = *(MEMORY[0x277CBF2C0] + 16);
       *a2 = *MEMORY[0x277CBF2C0];
-      a2[1] = v39;
-      v36 = *(v38 + 32);
+      a2[1] = v33;
+      v30 = *(v32 + 32);
       goto LABEL_16;
     }
   }
@@ -1728,47 +1737,47 @@ BOOL QLGetDrawRectAndTransformWithMinimumDimension(uint64_t a1, _OWORD *a2, floa
   else
   {
     a3.f64[0] = a5;
-    v25 = QLGetThumbnailSizeSatisfyingParameters(1, a3, a6, a9, a10, a11, 1.0);
-    v27 = v25;
-    v28 = v26;
-    if (v25 >= a9)
+    v19 = QLGetThumbnailSizeSatisfyingParameters(1, a3, a6, a9, a10, a11, 1.0);
+    v21 = v19;
+    v22 = v20;
+    if (v19 >= a9)
     {
-      v29 = a9;
+      v23 = a9;
     }
 
     else
     {
-      v29 = v25;
+      v23 = v19;
     }
 
-    if (v26 >= a10)
+    if (v20 >= a10)
     {
-      v30 = a10;
+      v24 = a10;
     }
 
     else
     {
-      v30 = v26;
+      v24 = v20;
     }
 
-    v31 = QLAdaptSizeToRectWithRounding2(1, CGFloor, CGCeiling, a7, a8, a9, a10, v29, v30);
+    v25 = QLAdaptSizeToRectWithRounding2(1, CGFloor, CGCeiling, a7, a8, a9, a10, v23, v24);
     if (a1)
     {
-      *a1 = v31;
-      *(a1 + 8) = v32;
-      *(a1 + 16) = v33;
-      *(a1 + 24) = v34;
+      *a1 = v25;
+      *(a1 + 8) = v26;
+      *(a1 + 16) = v27;
+      *(a1 + 24) = v28;
     }
 
     if (a2)
     {
-      QLGetPDFDrawingTransformWithThumbnailSize(v41, a5, a6, v27, v28, v31, v32, v33, v34);
-      v35 = v41[1];
-      *a2 = v41[0];
-      a2[1] = v35;
-      v36 = v41[2];
+      QLGetPDFDrawingTransformWithThumbnailSize(v35, a5, a6, v21, v22, v25, v26, v27, v28);
+      v29 = v35[1];
+      *a2 = v35[0];
+      a2[1] = v29;
+      v30 = v35[2];
 LABEL_16:
-      a2[2] = v36;
+      a2[2] = v30;
     }
   }
 
@@ -1777,11 +1786,11 @@ LABEL_16:
 
 double QLGetDrawRectFromPageRectWithMinimumDimension(float64x2_t a1, double a2, double a3, float64_t a4, CGFloat a5, CGFloat a6, float64_t a7, float64_t a8, double a9)
 {
-  v17 = *(MEMORY[0x277CBF3A0] + 16);
-  v19[0] = *MEMORY[0x277CBF3A0];
-  v19[1] = v17;
-  QLGetDrawRectAndTransformWithMinimumDimension(v19, 0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
-  return *v19;
+  v9 = *(MEMORY[0x277CBF3A0] + 16);
+  v11[0] = *MEMORY[0x277CBF3A0];
+  v11[1] = v9;
+  QLGetDrawRectAndTransformWithMinimumDimension(v11, 0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
+  return *v11;
 }
 
 double QLGetPDFDrawRectWithMinimumDimension(CGPDFPage *a1, CGPDFBox a2, CGFloat a3, CGFloat a4, float64_t a5, float64_t a6, double a7)
@@ -2234,8 +2243,9 @@ CGFloat QLDrawPDFPageWithMinimumDimension(CGContext *a1, CGPDFPage *a2, CGPDFBox
   return v16->origin.x;
 }
 
-id QLPlistDataForFile(void *a1, uint64_t a2, _BYTE *a3, char a4)
+id QLPlistDataForFile(void *a1, uint64_t a2, _BYTE *a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = a1;
   v8 = [MEMORY[0x277CE1CB8] typeWithIdentifier:a2];
   v9 = *MEMORY[0x277CE1E38];
@@ -2251,7 +2261,7 @@ id QLPlistDataForFile(void *a1, uint64_t a2, _BYTE *a3, char a4)
     *a3 = 1;
   }
 
-  if ((a4 & 1) == 0 && ![v8 isEqual:v9])
+  if ((v4 & 1) == 0 && ![v8 isEqual:v9])
   {
     v14 = 0;
     goto LABEL_21;
@@ -2284,7 +2294,7 @@ id QLPlistDataForFile(void *a1, uint64_t a2, _BYTE *a3, char a4)
 
     if (v15)
     {
-      v14 = QLPlistDataForData(v15, v8, a3, a4);
+      v14 = QLPlistDataForData(v15, v8, a3, v4);
     }
 
     else
@@ -2386,9 +2396,9 @@ LABEL_20:
   return v10;
 }
 
-void sub_2615B59A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2615B59A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2400,21 +2410,21 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-id QLSLogHandle()
+id QLSLogHandle(uint64_t a1, uint64_t a2)
 {
-  v0 = _qlsLogHandle;
+  v2 = _qlsLogHandle;
   if (!_qlsLogHandle)
   {
-    QLSInitLogging();
-    v0 = _qlsLogHandle;
+    QLSInitLogging(0, a2);
+    v2 = _qlsLogHandle;
   }
 
-  return v0;
+  return v2;
 }
 
-void sub_2615B7874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2615B7874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2427,9 +2437,9 @@ uint64_t QLUTIManagerTypeIsInternallyClaimedType(uint64_t a1)
   return v3;
 }
 
-void sub_2615B7C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2615B7C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2673,13 +2683,14 @@ uint64_t _QLMachGetMinimumSequenceNumber(mach_port_name_t name, _DWORD *a2)
   return result;
 }
 
-id QLScaledImageFromImageURL(const __CFURL *a1, int a2, _BYTE *a3, uint64_t a4, double a5, double a6, double a7, double a8)
+id QLScaledImageFromImageURL(const __CFURL *a1, uint64_t a2, _BYTE *a3, uint64_t a4, double a5, double a6, double a7, double a8)
 {
+  v10 = a2;
   v15 = CGImageSourceCreateWithURL(a1, 0);
   if (v15)
   {
     v16 = v15;
-    v17 = QLThumbnailingImageIOCreateThumbnailOfMinimumSizeWithImageSourceAndContentType(v15, a5, a6, a7, a8, 0, a2, a3, a4, 1);
+    v17 = QLThumbnailingImageIOCreateThumbnailOfMinimumSizeWithImageSourceAndContentType(v15, a5, a6, a7, a8, 0, v10, a3, a4, 1);
     if (v17)
     {
       v18 = v17;
@@ -3202,7 +3213,7 @@ double QLThumbnailingImageIOGetSizeFromImageSourceAtIndex(CGImageSource *a1, siz
   return v7;
 }
 
-CGImageSource *QLThumbnailingImageIOCreateThumbnailFromData(const __CFData *a1, _BYTE *a2, double a3, double a4)
+CGImageSourceRef QLThumbnailingImageIOCreateThumbnailFromData(const __CFData *a1, _BYTE *a2, double a3, double a4)
 {
   result = CGImageSourceCreateWithData(a1, 0);
   if (result)
@@ -3791,7 +3802,7 @@ CGImageSourceRef QLThumbnailingImageIOCreateImageSourceFromData(const __CFData *
   return v11;
 }
 
-void QLSInitLogging()
+void QLSInitLogging(uint64_t result, uint64_t a2)
 {
   if (QLSInitLogging_once != -1)
   {
@@ -3821,7 +3832,7 @@ void sub_2615BC94C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t QLCreateReservedBitmapContextWithSize(CGColorSpace *a1)
+CGContextRef QLCreateReservedBitmapContextWithSize(CGColorSpace *a1, uint64_t (*a2)(size_t), void (*a3)(void *, size_t), double a4, double a5)
 {
   if (a1)
   {
@@ -3875,24 +3886,24 @@ CGImageRef QLCreateImageWithMallocedBitmapContextTransferData(CGContext *a1)
   return v13;
 }
 
-CGImageRef QLCreateImageWithBlock(void *a1)
+CGImageRef QLCreateImageWithBlock(void *a1, double a2, double a3)
 {
-  v1 = a1;
-  v2 = QLCreateReservedBitmapContextWithSize(0);
-  if (v2)
+  v5 = a1;
+  v6 = QLCreateReservedBitmapContextWithSize(0, _MallocReserve, _MallocDiscard, a2, a3);
+  if (v6)
   {
-    v3 = v2;
-    v1[2](v1, v2);
-    v4 = QLCreateImageWithMallocedBitmapContextTransferData(v3);
-    CFRelease(v3);
+    v7 = v6;
+    v5[2](v5, v6);
+    v8 = QLCreateImageWithMallocedBitmapContextTransferData(v7);
+    CFRelease(v7);
   }
 
   else
   {
-    v4 = 0;
+    v8 = 0;
   }
 
-  return v4;
+  return v8;
 }
 
 CGContext *_QLDestroyReservedBitmapContext(CGContext *result, uint64_t (*a2)(CGContext *, size_t))
@@ -4046,10 +4057,11 @@ void sub_2615C24DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -4103,6 +4115,27 @@ void _QLMachDispatchIncomingMessageAndReplyIfNecessary_cold_2(os_log_t log)
   v1 = 136315138;
   v2 = "mach_msg_return_t _QLMachDispatchIncomingMessageAndReplyIfNecessary(mach_msg_header_t *, BOOLean_t (*)(mach_msg_header_t *, mach_msg_header_t *), mach_msg_size_t, mach_msg_options_t, BOOLean_t *)";
   _os_log_debug_impl(&dword_2615AE000, log, OS_LOG_TYPE_DEBUG, "_QLMachDispatchIncomingMessageAndReplyIfNecessary: Sent last message without voucher. (%s)", &v1, 0xCu);
+}
+
+void _QLMachGetMachPortCount_cold_1(mach_error_t a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = mach_error_string(a1);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v1, v2, "Can't get task port list: %s", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void _QLMachGetMachPortCount_cold_2(mach_error_t a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = mach_error_string(a1);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v1, v2, "Can't deallocate port names array: %s", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void _QLMachGetMachPortCount_cold_3(mach_error_t a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = mach_error_string(a1);
+  OUTLINED_FUNCTION_0_0(&dword_2615AE000, v1, v2, "Can't deallocate port types array: %s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void QLThumbnailingImageIOCreateThumbnailOfMinimumSizeWithImageSourceAndContentType_cold_2(os_log_t log, double a2, double a3)

@@ -34,7 +34,7 @@
 
 + (id)withCKKSExternalKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   uuid = [keyCopy uuid];
   v6 = [self _uuidFromStringPermissive:uuid];
@@ -59,17 +59,15 @@
       uuid2 = [keyCopy uuid];
       keyData2 = [keyCopy keyData];
       base64 = [keyData2 base64];
-      v20 = 138412546;
-      v21 = uuid2;
-      v22 = 2112;
-      v23 = base64;
-      _os_log_impl(&dword_1C7B9A000, v14, OS_LOG_TYPE_ERROR, "Couldn't convert from UUID String %@ %@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = uuid2;
+      v21 = 2112;
+      v22 = base64;
+      _os_log_impl(&dword_1C7B9A000, v14, OS_LOG_TYPE_ERROR, "Couldn't convert from UUID String %@ %@", &v19, 0x16u);
     }
 
     v13 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -89,7 +87,7 @@
 
 + (id)_uuidFromStringPermissive:(id)permissive
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   permissiveCopy = permissive;
   v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:permissiveCopy];
   v5 = v4;
@@ -111,16 +109,14 @@
       v8 = SESDefaultLogObject();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412290;
-        v12 = permissiveCopy;
-        _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Failed to permissive decode UUID %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = permissiveCopy;
+        _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Failed to permissive decode UUID %@", &v10, 0xCu);
       }
 
       v6 = 0;
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

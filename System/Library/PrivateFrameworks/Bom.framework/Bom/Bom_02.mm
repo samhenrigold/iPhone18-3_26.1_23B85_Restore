@@ -1,1618 +1,4 @@
-uint64_t make_path(NSObject *a1, char *__s1, void *a3)
-{
-  v24 = *MEMORY[0x277D85DE8];
-  v6 = strdup(__s1);
-  if (!v6)
-  {
-    v15 = *__error();
-    v16 = __error();
-    v17 = strerror(*v16);
-    BOMCopierErrorCapture(a3, v15, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3553, "make_path", "Could not duplicate %s: %s", __s1, v17);
-    goto LABEL_23;
-  }
-
-  v7 = v6;
-  v8 = *v6;
-  v9 = v8 == 47;
-  if (v8 == 47)
-  {
-    ++v6;
-  }
-
-  v10 = strchr(v6, 47);
-  if (!v10)
-  {
-LABEL_13:
-    if (mkdir(v7, 0x1EDu))
-    {
-      if (*__error() != 17)
-      {
-        v13 = *__error();
-        v14 = __error();
-        strerror(*v14);
-        BOMCopierErrorCapture(a3, v13, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3614, "make_path", "Could not mkdir %s: %s");
-        goto LABEL_22;
-      }
-    }
-
-    else if (a1 && os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315138;
-      v23 = v7;
-      _os_log_impl(&dword_241C0E000, a1, OS_LOG_TYPE_DEFAULT, "Created directory %s", buf, 0xCu);
-    }
-
-    free(v7);
-    result = 0;
-    goto LABEL_24;
-  }
-
-  v11 = v10;
-  v12 = &v7[v9 + 1];
-  while (1)
-  {
-    *v11 = 0;
-    if (!mkdir(v7, 0x1EDu))
-    {
-      if (a1 && os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136315138;
-        v23 = v7;
-        _os_log_impl(&dword_241C0E000, a1, OS_LOG_TYPE_DEFAULT, "Created directory %s", buf, 0xCu);
-      }
-
-      goto LABEL_8;
-    }
-
-    if (*__error() != 17)
-    {
-      break;
-    }
-
-LABEL_8:
-    *v11 = 47;
-    v11 = strchr(v12++, 47);
-    if (!v11)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  v19 = *__error();
-  v20 = __error();
-  strerror(*v20);
-  BOMCopierErrorCapture(a3, v19, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3577, "make_path", "Could not mkdir %s: %s");
-LABEL_22:
-  free(v7);
-LABEL_23:
-  result = 1;
-LABEL_24:
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t get_volume_state(const char *a1, BOOL *a2, void *a3)
-{
-  v18 = *MEMORY[0x277D85DE8];
-  memset(&v17, 0, 512);
-  if (!statfs(a1, &v17))
-  {
-    f_flags = v17.f_flags;
-    *a2 = (v17.f_flags & 0x80) != 0;
-    a2[1] = (f_flags & 8) == 0;
-    v15 = xmmword_241C78E18;
-    v16 = 0;
-    v13 = xmmword_241C78E2C;
-    v14 = 0;
-    if (getattrlist(a1, &v13, &v15, 0x14uLL, 0))
-    {
-      if (*__error() != 22)
-      {
-        v11 = *__error();
-        v12 = __error();
-        strerror(*v12);
-        BOMCopierErrorCapture(a3, v11, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8718, "get_volume_state", "Could not getattrlist %s: %s\n");
-        goto LABEL_3;
-      }
-
-      if (*v17.f_fstypename == 7562856)
-      {
-        a2[2] = 1;
-      }
-
-      if (*v17.f_fstypename ^ 0x73667061 | v17.f_fstypename[4])
-      {
-LABEL_10:
-        result = 0;
-        goto LABEL_4;
-      }
-    }
-
-    else if ((BYTE6(v15) & 1) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    result = 0;
-    a2[2] = 1;
-    goto LABEL_4;
-  }
-
-  v6 = *__error();
-  v7 = __error();
-  strerror(*v7);
-  BOMCopierErrorCapture(a3, v6, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8689, "get_volume_state", "Could not statfs %s: %s");
-LABEL_3:
-  result = 1;
-LABEL_4:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-CFIndex libarchive_write_callback(int a1, uint64_t a2, UInt8 *buffer, CFIndex bufferLength)
-{
-  if (a2)
-  {
-    return CFWriteStreamWrite(*(a2 + 56), buffer, bufferLength);
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-CFIndex apple_archive_write_callback(uint64_t a1, const UInt8 *a2, CFIndex a3)
-{
-  if (a1)
-  {
-    return CFWriteStreamWrite(*(a1 + 56), a2, a3);
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-void *BOMCopierDestinationSetLog(void *result, uint64_t a2)
-{
-  if (result)
-  {
-    if (a2)
-    {
-      *result = a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t BOMCopierDestinationSetAllowBom(uint64_t a1, uint64_t a2, void *a3)
-{
-  if (a1)
-  {
-    v3 = 0;
-    *(a1 + 80) = a2;
-  }
-
-  else
-  {
-    v3 = 22;
-    BOMCopierErrorCapture(a3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1304, "BOMCopierDestinationSetAllowBom", "copier_destination is NULL");
-  }
-
-  return v3;
-}
-
-uint64_t BOMCopierDestinationSetDenyBom(uint64_t a1, uint64_t a2, void *a3)
-{
-  if (a1)
-  {
-    v3 = 0;
-    *(a1 + 88) = a2;
-  }
-
-  else
-  {
-    v3 = 22;
-    BOMCopierErrorCapture(a3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1326, "BOMCopierDestinationSetDenyBom", "copier_destination is NULL");
-  }
-
-  return v3;
-}
-
-uint64_t BOMCopierDestinationSetChecksumBom(uint64_t a1, uint64_t a2, void *a3)
-{
-  if (a1)
-  {
-    *(a1 + 96) = a2;
-    if (!a2)
-    {
-      return 0;
-    }
-
-    if (*(a1 + 104))
-    {
-      return 0;
-    }
-
-    v5 = BOMCopierDataAnalyzerNew(2, a3);
-    *(a1 + 104) = v5;
-    if (v5)
-    {
-      return 0;
-    }
-
-    else
-    {
-      v6 = 1;
-      BOMCopierErrorCapture(a3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1365, "BOMCopierDestinationSetChecksumBom", "Could not create BOMCopierDataAnalyzer");
-    }
-  }
-
-  else
-  {
-    v6 = 22;
-    BOMCopierErrorCapture(a3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1348, "BOMCopierDestinationSetChecksumBom", "copier_destination is NULL");
-  }
-
-  return v6;
-}
-
-uint64_t BOMCopierDestinationSetRedirectCallback(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  if (a1)
-  {
-    v4 = 0;
-    *(a1 + 208) = a2;
-    *(a1 + 216) = a3;
-  }
-
-  else
-  {
-    v4 = 22;
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1387, "BOMCopierDestinationSetRedirectCallback", "copier_destination is NULL");
-  }
-
-  return v4;
-}
-
-uint64_t BOMCopierDestinationSetConflictResolver(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  if (a1)
-  {
-    v4 = 0;
-    *(a1 + 224) = a2;
-    *(a1 + 232) = a3;
-  }
-
-  else
-  {
-    v4 = 22;
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1410, "BOMCopierDestinationSetConflictResolver", "copier_destination is NULL");
-  }
-
-  return v4;
-}
-
-uint64_t BOMCopierDestinationSetFinalizationCallback(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  if (a1)
-  {
-    v4 = 0;
-    *(a1 + 264) = a2;
-    *(a1 + 272) = a3;
-  }
-
-  else
-  {
-    v4 = 22;
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1433, "BOMCopierDestinationSetFinalizationCallback", "copier_destination is NULL");
-  }
-
-  return v4;
-}
-
-uint64_t BOMCopierDestinationGetCopyOperation(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 240);
-  }
-
-  BOMCopierErrorCapture(a1, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1453, "BOMCopierDestinationGetCopyOperation", "copier_destination is NULL", v1, v2);
-  return 2;
-}
-
-uint64_t BOMCopierDestinationGetCopyResult(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 244);
-  }
-
-  BOMCopierErrorCapture(a1, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1470, "BOMCopierDestinationGetCopyResult", "copier_destination is NULL", v1, v2);
-  return 1;
-}
-
-uint64_t BOMCopierDestinationSetDataWrittenCallback(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  if (a1)
-  {
-    v4 = 0;
-    *(a1 + 248) = a2;
-    *(a1 + 256) = a3;
-  }
-
-  else
-  {
-    v4 = 22;
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1490, "BOMCopierDestinationSetDataWrittenCallback", "copier_destination is NULL");
-  }
-
-  return v4;
-}
-
-uint64_t BOMCopierDestinationCreateEntry(uint64_t a1, unsigned int *a2, char a3, void *a4)
-{
-  if (!a1)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1513, "BOMCopierDestinationCreateEntry", "copier_destination is NULL");
-    return 0;
-  }
-
-  if (!a2)
-  {
-    BOMCopierErrorCapture(a4, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1519, "BOMCopierDestinationCreateEntry", "source_entry is NULL");
-    return 0;
-  }
-
-  if (*(a1 + 80) && (BOMCopierSourceEntryIsRoot(a2) & 1) == 0)
-  {
-    Path = BOMCopierSourceEntryGetPath(a2);
-    v8 = !BOMBomFSObjectExistsAtPath(*(a1 + 80), Path);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (*(a1 + 88) && (BOMCopierSourceEntryIsRoot(a2) & 1) == 0)
-  {
-    v10 = BOMCopierSourceEntryGetPath(a2);
-    v8 |= BOMBomFSObjectExistsAtPath(*(a1 + 88), v10);
-  }
-
-  v11 = malloc_type_calloc(1uLL, 0x178uLL, 0x10300404E91E69FuLL);
-  if (!v11)
-  {
-    v13 = *__error();
-    v14 = __error();
-    strerror(*v14);
-    BOMCopierErrorCapture(a4, v13, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1584, "BOMCopierDestinationCreateEntry", "Could not allocate empty destination entry: %s");
-    return 0;
-  }
-
-  v12 = v11;
-  v11[8] = -1;
-  *v11 = *(a1 + 44);
-  v11[1] = a2;
-  if ((v8 & 1) == 0)
-  {
-    BOMCopierDataAnalyzerReset(*(a1 + 104));
-    *(v12 + 24) = *(a1 + 104);
-    *(v12 + 32) = 1;
-    if (BOMCopierSourceEntryGetType(a2) == 8)
-    {
-      *(v12 + 56) = BOMCopierSourceEntryGetSize(a2);
-      if (BOMCopierSourceEntryGetBinaryType(a2))
-      {
-        v19 = 0u;
-        v20 = 0u;
-        v18 = 0u;
-        LODWORD(v18) = *(a1 + 192);
-        *(&v18 + 1) = *(a1 + 200);
-        if (BOMCopierMatchBinary(a2, &v18, a4))
-        {
-          BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3662, "match_binary", "Could not match the binary");
-          BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1639, "BOMCopierDestinationCreateEntry", "Could not match the source binary");
-LABEL_32:
-          BOMCopierDestinationEntryFree(v12);
-          return 0;
-        }
-
-        *(v12 + 32) = v19;
-        *(v12 + 48) = v20;
-        *(v12 + 56) = *(&v20 + 1);
-      }
-    }
-
-    if (*(v12 + 32) == 2)
-    {
-      return v12;
-    }
-
-    v16 = *(a1 + 44);
-    if (v16 == 2)
-    {
-      entry_apple_archive = create_entry_apple_archive(a1, a2, v12, a4);
-    }
-
-    else if (v16 == 1)
-    {
-      entry_apple_archive = create_entry_libarchive(a1, a2, v12, a4);
-    }
-
-    else
-    {
-      if (v16)
-      {
-        return v12;
-      }
-
-      entry_apple_archive = create_entry_filesystem(a1, a2, v12, a3, a4);
-    }
-
-    if (!entry_apple_archive)
-    {
-      return v12;
-    }
-
-    BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1679, "BOMCopierDestinationCreateEntry", "Could not create the entry");
-    goto LABEL_32;
-  }
-
-  *(v11 + 16) = 1;
-  return v12;
-}
-
-void BOMCopierDestinationEntryFree(void *a1)
-{
-  if (a1)
-  {
-    v2 = a1[45];
-    if (v2)
-    {
-      free(v2);
-    }
-
-    v3 = a1[43];
-    if (v3)
-    {
-      free(v3);
-    }
-
-    if (a1[10])
-    {
-      archive_entry_free();
-    }
-
-    v4 = a1[40];
-    if (v4)
-    {
-      free(v4);
-    }
-
-    if (a1[20])
-    {
-      if (ParallelCompressionAFSCStreamClose())
-      {
-        v5 = *MEMORY[0x277D85DF8];
-        v6 = __error();
-        v7 = strerror(*v6);
-        fprintf(v5, "Could not close compressor stream: %s", v7);
-      }
-
-      a1[20] = 0;
-    }
-
-    v8 = *(a1 + 17);
-    if (v8 != *(a1 + 16))
-    {
-      close(v8);
-      v8 = *(a1 + 16);
-    }
-
-    if (v8 != -1)
-    {
-      close(v8);
-    }
-
-    v9 = a1[18];
-    if (v9)
-    {
-      free(v9);
-    }
-
-    v10 = a1[17];
-    if (v10)
-    {
-      free(v10);
-    }
-
-    v11 = a1[16];
-    if (v11)
-    {
-      free(v11);
-    }
-
-    v12 = a1[15];
-    if (v12)
-    {
-      free(v12);
-    }
-
-    v13 = a1[5];
-    if (v13)
-    {
-      free(v13);
-    }
-
-    free(a1);
-  }
-}
-
-uint64_t create_entry_filesystem(uint64_t a1, unsigned int *a2, uint64_t a3, char a4, void *a5)
-{
-  v219 = *MEMORY[0x277D85DE8];
-  *(a1 + 240) = 0;
-  Type = BOMCopierSourceEntryGetType(a2);
-  Path = BOMCopierSourceEntryGetPath(a2);
-  v12 = *a1;
-  if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136315394;
-    *&buf[4] = string_for_entry_type(Type);
-    *&buf[12] = 2080;
-    *&buf[14] = Path;
-    _os_log_impl(&dword_241C0E000, v12, OS_LOG_TYPE_DEFAULT, "entry_path: [%s] %s", buf, 0x16u);
-  }
-
-  v13 = strlen(Path);
-  if (!v13)
-  {
-    BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7882, "construct_filesystem_destination", "The entry path is empty");
-LABEL_94:
-    v68 = 1;
-    BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3705, "create_entry_filesystem", "Could not construct filesystem destinations");
-    goto LABEL_95;
-  }
-
-  v14 = v13;
-  if (!strncmp(Path, ".", v13))
-  {
-    ++Path;
-  }
-
-  else if (v14 >= 3)
-  {
-    v15 = *Path;
-    if (v15 != 46)
-    {
-      goto LABEL_12;
-    }
-
-    Path += 2 * (Path[1] == 47);
-  }
-
-  v15 = *Path;
-LABEL_12:
-  if (BOMCopierSourceEntryIsRoot(a2))
-  {
-    if (Type == 6 || !*(a1 + 284) || (*(a1 + 285) & 1) == 0)
-    {
-LABEL_16:
-      v16 = strdup(*(a1 + 288));
-      *(a3 + 120) = v16;
-      if (!v16)
-      {
-        v17 = *__error();
-        v18 = *(a1 + 288);
-        v19 = __error();
-        strerror(*v19);
-        BOMCopierErrorCapture(a5, v17, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7999, "construct_filesystem_destination", "Could not construct destination path from %s: %s");
-        goto LABEL_94;
-      }
-
-      goto LABEL_21;
-    }
-  }
-
-  else if (!v15)
-  {
-    goto LABEL_16;
-  }
-
-  if (asprintf((a3 + 120), "%s/%s", *(a1 + 288), Path) < 0 || !*(a3 + 120))
-  {
-    v50 = *__error();
-    v51 = *(a1 + 288);
-    v52 = __error();
-    strerror(*v52);
-    BOMCopierErrorCapture(a5, v50, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8007, "construct_filesystem_destination", "Could not construct destination path from %s and %s: %s", v51);
-    goto LABEL_94;
-  }
-
-LABEL_21:
-  v20 = *(a1 + 208);
-  if (v20)
-  {
-    *buf = 0;
-    v20(a1, buf, *(a1 + 216));
-    if (*buf)
-    {
-      free(*(a3 + 120));
-      *(a3 + 120) = *buf;
-    }
-
-    *(a1 + 208) = 0;
-    *(a1 + 216) = 0;
-  }
-
-  v21 = malloc_type_calloc(1uLL, 0x400uLL, 0xE55DC7D5uLL);
-  *(a3 + 128) = v21;
-  if (!v21)
-  {
-    v53 = *__error();
-    v54 = __error();
-    strerror(*v54);
-    BOMCopierErrorCapture(a5, v53, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8035, "construct_filesystem_destination", "Could not allocate destination name: %s");
-    goto LABEL_94;
-  }
-
-  v22 = (a3 + 120);
-  basename_r(*(a3 + 120), v21);
-  v23 = malloc_type_calloc(1uLL, 0x400uLL, 0x9C9811BEuLL);
-  *(a3 + 136) = v23;
-  if (!v23)
-  {
-    v55 = *__error();
-    v56 = __error();
-    strerror(*v56);
-    BOMCopierErrorCapture(a5, v55, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8045, "construct_filesystem_destination", "Could not allocate destination parent: %s");
-    goto LABEL_94;
-  }
-
-  dirname_r(*v22, v23);
-  v24 = *a1;
-  if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-  {
-    v25 = *v22;
-    *buf = 136315138;
-    *&buf[4] = v25;
-    _os_log_impl(&dword_241C0E000, v24, OS_LOG_TYPE_DEFAULT, "destination_path: %s", buf, 0xCu);
-  }
-
-  if (*(a1 + 297) == 1 && (Type - 7 < 4 || Type == 5) && (BOMCopierSourceEntryIsSegmentedFile(a2) & 1) == 0)
-  {
-    *buf = 0;
-    if (asprintf(buf, "%s/%s", *(a3 + 136), ".BCD.T_XXXXXX") < 0 || !*buf)
-    {
-      v65 = *__error();
-      v66 = *(a3 + 136);
-      v67 = __error();
-      strerror(*v67);
-      BOMCopierErrorCapture(a5, v65, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8090, "construct_filesystem_destination", "Could not construct atomic template path from %s and %s: %s", v66);
-      goto LABEL_94;
-    }
-
-    v60 = mktemp(*buf);
-    if (v60 != *buf)
-    {
-      v61 = *__error();
-      v62 = *buf;
-      v63 = __error();
-      v64 = strerror(*v63);
-      BOMCopierErrorCapture(a5, v61, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8100, "construct_filesystem_destination", "Could not mktemp %s and %s: %s", v62, v64, v211);
-      free(*buf);
-      goto LABEL_94;
-    }
-
-    v26 = v60;
-    *(a3 + 144) = *buf;
-    *(a3 + 152) = 1;
-  }
-
-  else
-  {
-    v26 = strdup(*(a3 + 120));
-    *(a3 + 144) = v26;
-    if (!v26)
-    {
-      v57 = *__error();
-      v58 = *v22;
-      v59 = __error();
-      strerror(*v59);
-      BOMCopierErrorCapture(a5, v57, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8124, "construct_filesystem_destination", "Could not duplicate %s: %s");
-      goto LABEL_94;
-    }
-  }
-
-  v27 = *a1;
-  if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136315138;
-    *&buf[4] = v26;
-    _os_log_impl(&dword_241C0E000, v27, OS_LOG_TYPE_DEFAULT, "destination_staging_path: %s", buf, 0xCu);
-  }
-
-  v28 = 1;
-  while (1)
-  {
-    v29 = v28;
-    *(a3 + 153) = 1;
-    if (lstat(*(a3 + 120), (a3 + 168)))
-    {
-      if (*__error() != 2)
-      {
-        v79 = *__error();
-        v80 = *v22;
-        v81 = __error();
-        strerror(*v81);
-        BOMCopierErrorCapture(a5, v79, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8157, "resolve_filesystem_conflict", "Could not lstat %s: %s");
-        goto LABEL_103;
-      }
-
-      *(a3 + 153) = 0;
-      goto LABEL_106;
-    }
-
-    v30 = BOMCopierSourceEntryGetType(a2);
-    v31 = v30;
-    v32 = *a1;
-    v33 = *(a3 + 172) & 0xF000;
-    if (v30 <= 2)
-    {
-      if (v30)
-      {
-        if (v30 == 1)
-        {
-          BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8419, "check_filesystem_conflict", "The source entry is a circular directory");
-        }
-
-        else
-        {
-          if (v30 != 2)
-          {
-            goto LABEL_44;
-          }
-
-          BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8425, "check_filesystem_conflict", "The source entry is an unreadable directory");
-        }
-      }
-
-      else
-      {
-        BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8413, "check_filesystem_conflict", "The source entry is unknown");
-      }
-
-      v71 = *v22;
-      BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8182, "resolve_filesystem_conflict", "Could not check for a destination conflict for %s");
-      goto LABEL_103;
-    }
-
-    if (v30 != 6)
-    {
-      if ((v30 - 13) < 7 || v30 == 3)
-      {
-        goto LABEL_106;
-      }
-
-LABEL_44:
-      if (v33 != 0x4000)
-      {
-        goto LABEL_106;
-      }
-
-      if (v32 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        v34 = v32;
-        v35 = "Filesystem Conflict: The source entry is not a Directory but the destination entry is.";
-LABEL_53:
-        _os_log_impl(&dword_241C0E000, v34, OS_LOG_TYPE_DEFAULT, v35, buf, 2u);
-        goto LABEL_54;
-      }
-
-      goto LABEL_54;
-    }
-
-    if (v33 == 0x4000)
-    {
-      goto LABEL_106;
-    }
-
-    if (v32 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      v34 = v32;
-      v35 = "Filesystem Conflict: The source entry is a Directory but the destination entry is not.";
-      goto LABEL_53;
-    }
-
-LABEL_54:
-    v36 = *a1;
-    if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-    {
-      v37 = *(a3 + 120);
-      v38 = *(a3 + 144);
-      *buf = 136315394;
-      *&buf[4] = v37;
-      *&buf[12] = 2080;
-      *&buf[14] = v38;
-      _os_log_impl(&dword_241C0E000, v36, OS_LOG_TYPE_DEFAULT, "%s conflicts with %s", buf, 0x16u);
-    }
-
-    if (v31 != 6 || (v39 = *(a3 + 172), (v39 & 0xF000) != 0xA000))
-    {
-      v48 = *(a1 + 224);
-      if (!v48)
-      {
-        string_for_mode(*(a3 + 172));
-        string_for_entry_type(v31);
-        BOMCopierErrorCapture(a5, 21, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8382, "resolve_filesystem_conflict", "%s: conflict replacing %s with %s", *(a3 + 120));
-        goto LABEL_103;
-      }
-
-      goto LABEL_77;
-    }
-
-    v40 = *(a1 + 280);
-    if (!v40)
-    {
-      break;
-    }
-
-    if (v40 != 2)
-    {
-      if (v40 == 1)
-      {
-        if (unlink(*v22))
-        {
-          v82 = *__error();
-          v83 = *v22;
-          v84 = __error();
-          strerror(*v84);
-          BOMCopierErrorCapture(a5, v82, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8259, "resolve_filesystem_conflict", "Could not unlink %s: %s");
-          goto LABEL_103;
-        }
-
-        *(a3 + 153) = 0;
-        v132 = *a1;
-        if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_241C0E000, v132, OS_LOG_TYPE_DEFAULT, "Conflicting symlink unlinked", buf, 2u);
-        }
-      }
-
-      goto LABEL_106;
-    }
-
-    if (stat(*v22, (a3 + 168)))
-    {
-      v85 = *__error();
-      v86 = *v22;
-      v87 = __error();
-      strerror(*v87);
-      BOMCopierErrorCapture(a5, v85, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8273, "resolve_filesystem_conflict", "Could not stat %s: %s");
-      goto LABEL_103;
-    }
-
-    if ((*(a3 + 172) & 0xF000) != 0x4000)
-    {
-      v88 = *v22;
-      BOMCopierErrorCapture(a5, 20, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8279, "resolve_filesystem_conflict", "%s: Not a directory");
-      goto LABEL_103;
-    }
-
-    if (!basename_r(*v22, buf))
-    {
-      v89 = *__error();
-      v90 = *v22;
-      v91 = __error();
-      strerror(*v91);
-      BOMCopierErrorCapture(a5, v89, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8291, "resolve_filesystem_conflict", "Could not basename %s: %s");
-      goto LABEL_103;
-    }
-
-    v41 = realpath_DARWIN_EXTSN(*v22, 0);
-    if (!v41)
-    {
-      v92 = *__error();
-      v93 = *v22;
-      v94 = __error();
-      strerror(*v94);
-      BOMCopierErrorCapture(a5, v92, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8298, "resolve_filesystem_conflict", "Could not resolve %s: %s");
-      goto LABEL_103;
-    }
-
-    v42 = v41;
-    free(*v22);
-    *v22 = 0;
-    asprintf((a3 + 120), "%s/%s", v42, buf);
-    if (!*v22)
-    {
-      v95 = *__error();
-      v96 = __error();
-      v97 = strerror(*v96);
-      BOMCopierErrorCapture(a5, v95, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8308, "resolve_filesystem_conflict", "Could not reconstruct destination path: %s", v97);
-      free(v42);
-      goto LABEL_103;
-    }
-
-    v43 = *(a3 + 136);
-    if (v43)
-    {
-      free(v43);
-    }
-
-    *(a3 + 136) = v42;
-    v44 = *(a3 + 144);
-    if (v44)
-    {
-      free(v44);
-    }
-
-    v45 = strdup(*(a3 + 120));
-    *(a3 + 144) = v45;
-    if (!v45)
-    {
-      v98 = *__error();
-      v99 = *v22;
-      v100 = __error();
-      strerror(*v100);
-      BOMCopierErrorCapture(a5, v98, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8328, "resolve_filesystem_conflict", "Could not duplicate %s: %s");
-      goto LABEL_103;
-    }
-
-    v46 = *a1;
-    if (*a1)
-    {
-      if (!os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT) || (*v214 = 0, _os_log_impl(&dword_241C0E000, v46, OS_LOG_TYPE_DEFAULT, "Conflicting symlink followed", v214, 2u), (v46 = *a1) != 0))
-      {
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
-        {
-          v47 = *v22;
-          *v214 = 136315138;
-          *&v214[4] = v47;
-          _os_log_impl(&dword_241C0E000, v46, OS_LOG_TYPE_DEFAULT, "destination_path: %s", v214, 0xCu);
-        }
-      }
-    }
-
-LABEL_78:
-    v28 = 0;
-    if ((v29 & 1) == 0)
-    {
-      goto LABEL_106;
-    }
-  }
-
-  v48 = *(a1 + 224);
-  if (!v48)
-  {
-    string_for_mode(v39);
-    BOMCopierErrorCapture(a5, 20, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 8249, "resolve_filesystem_conflict", "%s: conflict replacing %s with %s", *v22);
-LABEL_103:
-    v68 = 1;
-    BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3720, "create_entry_filesystem", "Could not resolve filesystem conflict", v208, v209);
-    goto LABEL_95;
-  }
-
-LABEL_77:
-  *(a1 + 240) = 0;
-  v49 = v48(a1, a2, a3, *(a1 + 232), a5);
-  switch(v49)
-  {
-    case 3:
-      goto LABEL_78;
-    case 2:
-      *(a1 + 240) = 2;
-      goto LABEL_192;
-    case 1:
-      *(a1 + 240) = 0x100000001;
-      goto LABEL_192;
-  }
-
-LABEL_106:
-  if (*(a1 + 240))
-  {
-    goto LABEL_192;
-  }
-
-  v72 = BOMCopierSourceEntryGetType(a2);
-  IsSegmentedFile = BOMCopierSourceEntryIsSegmentedFile(a2);
-  v74 = IsSegmentedFile;
-  if (*(a1 + 297))
-  {
-    goto LABEL_108;
-  }
-
-  v75 = *(a3 + 153);
-  if (v75 != 1 || v72 > 0xA)
-  {
-    goto LABEL_133;
-  }
-
-  if (((1 << v72) & 0x6B0) != 0)
-  {
-    if (unlink(*v22))
-    {
-      v76 = *__error();
-      v77 = *v22;
-      v78 = __error();
-      strerror(*v78);
-      BOMCopierErrorCapture(a5, v76, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3761, "create_entry_filesystem", "Could not unlink %s: %s");
-      goto LABEL_192;
-    }
-
-    v101 = *a1;
-    if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-    {
-      v102 = *v22;
-      *buf = 136315138;
-      *&buf[4] = v102;
-      _os_log_impl(&dword_241C0E000, v101, OS_LOG_TYPE_DEFAULT, "Unlinked %s", buf, 0xCu);
-    }
-
-LABEL_108:
-    v75 = *(a3 + 153);
-LABEL_133:
-    if (!v75)
-    {
-      if (!make_path(*a1, *(a3 + 136), a5))
-      {
-        goto LABEL_144;
-      }
-
-      v108 = *__error();
-      v109 = *(a3 + 136);
-      v110 = __error();
-      strerror(*v110);
-      BOMCopierErrorCapture(a5, v108, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3802, "create_entry_filesystem", "Could not make_path %s: %s");
-      goto LABEL_192;
-    }
-
-    if (v72 == 8)
-    {
-      goto LABEL_135;
-    }
-
-LABEL_144:
-    if (*(a1 + 298) != 1)
-    {
-      goto LABEL_148;
-    }
-
-    v111 = strlen(*(a1 + 288));
-    v112 = realpath_DARWIN_EXTSN(*(a3 + 136), 0);
-    if (!v112)
-    {
-      v120 = *__error();
-      v121 = *(a3 + 136);
-      v122 = __error();
-      strerror(*v122);
-      BOMCopierErrorCapture(a5, v120, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3863, "create_entry_filesystem", "Could not realpath parent %s: %s");
-      goto LABEL_192;
-    }
-
-    v113 = v112;
-    v114 = strncmp(*(a1 + 288), v112, v111);
-    free(v113);
-    if (v114)
-    {
-      v115 = *(a3 + 136);
-      v210 = *(a1 + 288);
-      v68 = 1;
-      BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3873, "create_entry_filesystem", "%s resolves outside of %s");
-      goto LABEL_95;
-    }
-
-LABEL_148:
-    if (v72 > 12)
-    {
-      if ((v72 - 13) < 7)
-      {
-LABEL_150:
-        v68 = 0;
-        goto LABEL_95;
-      }
-
-LABEL_157:
-      BOMCopierSourceEntryTypeString(v72);
-      BOMCopierErrorCapture(a5, 45, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4315, "create_entry_filesystem", "Unsupported BOMCopierSourceEntryType: %s");
-LABEL_192:
-      v68 = 1;
-      goto LABEL_95;
-    }
-
-    if (v72 == 6)
-    {
-      if (*(a3 + 153))
-      {
-        goto LABEL_150;
-      }
-
-      Mode = BOMCopierSourceEntryGetMode(a2);
-      v124 = *(a1 + 296) ? 493 : Mode;
-      if (!mkdir(*v22, v124))
-      {
-        goto LABEL_150;
-      }
-
-      v125 = *__error();
-      v126 = *v22;
-      v127 = __error();
-      strerror(*v127);
-      BOMCopierErrorCapture(a5, v125, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3897, "create_entry_filesystem", "Could not create directory at %s: %s");
-      goto LABEL_192;
-    }
-
-    if (v72 != 8)
-    {
-      if (v72 != 9)
-      {
-        goto LABEL_157;
-      }
-
-      SymlinkTarget = BOMCopierSourceEntryGetSymlinkTarget(a2);
-      if (symlink(SymlinkTarget, *(a3 + 144)))
-      {
-        v117 = *__error();
-        v118 = *(a3 + 144);
-        v119 = __error();
-        strerror(*v119);
-        BOMCopierErrorCapture(a5, v117, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4267, "create_entry_filesystem", "Could not create symlink at %s: %s");
-        goto LABEL_192;
-      }
-
-      v137 = *a1;
-      if (!*a1 || !os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_150;
-      }
-
-      v138 = *(a3 + 144);
-      *buf = 136315394;
-      *&buf[4] = v138;
-      *&buf[12] = 2080;
-      *&buf[14] = SymlinkTarget;
-      v139 = "Created symlink %s -> %s";
-      v140 = v137;
-      v141 = 22;
-LABEL_177:
-      _os_log_impl(&dword_241C0E000, v140, OS_LOG_TYPE_DEFAULT, v139, buf, v141);
-      goto LABEL_150;
-    }
-
-    if (BOMCopierSourceEntryGetHardlinkCount(a2) >= 2)
-    {
-      Device = BOMCopierSourceEntryGetDevice(a2);
-      Inode = BOMCopierSourceEntryGetInode(a2);
-      v212 = 0;
-      Size = BOMCopierSourceEntryGetSize(a2);
-      if (BOMHardLinkTableGetPathAndData(*(a1 + 72), Device, Inode, buf, &v212))
-      {
-        BOMHardLinkTableSetPathAndData(*(a1 + 72), Device, Inode, *v22, &Size, 8uLL);
-      }
-
-      else if (*v212 == Size)
-      {
-        if (*(a3 + 153) == 1 && unlink(*v22))
-        {
-          v145 = *__error();
-          v146 = *v22;
-          v147 = __error();
-          strerror(*v147);
-          BOMCopierErrorCapture(a5, v145, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3971, "create_entry_filesystem", "Could not unlink %s: %s");
-          goto LABEL_192;
-        }
-
-        if (link(buf, *v22))
-        {
-          if (*__error() != 18)
-          {
-            v148 = *__error();
-            v149 = *v22;
-            v150 = __error();
-            strerror(*v150);
-            BOMCopierErrorCapture(a5, v148, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3983, "create_entry_filesystem", "Could not create hardlink %s to %s: %s", v149);
-            goto LABEL_192;
-          }
-        }
-
-        else
-        {
-          *(a1 + 244) = 2;
-          *(a3 + 154) = 1;
-          *(a3 + 152) = 0;
-          v151 = *a1;
-          if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-          {
-            v152 = *v22;
-            *v214 = 136315394;
-            *&v214[4] = v152;
-            v215 = 2080;
-            v216 = buf;
-            _os_log_impl(&dword_241C0E000, v151, OS_LOG_TYPE_DEFAULT, "Hardlinked %s to %s", v214, 0x16u);
-          }
-        }
-      }
-    }
-
-    if (*(a1 + 304) == 1)
-    {
-      buf[0] = 0;
-      if (BOMCopierSourceEntryClone(a2, *(a3 + 144), buf, a5))
-      {
-        v153 = *__error();
-        v154 = *(a3 + 144);
-        v155 = __error();
-        strerror(*v155);
-        BOMCopierErrorCapture(a5, v153, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4018, "create_entry_filesystem", "Could not clone source entry to %s: %s");
-        goto LABEL_192;
-      }
-
-      if (buf[0] == 1)
-      {
-        *(a3 + 154) = buf[0];
-      }
-    }
-
-    if (*(a3 + 154))
-    {
-      goto LABEL_150;
-    }
-
-    if (v74)
-    {
-      v156 = open(*(a3 + 144), 1, 420);
-      if (v156 == -1)
-      {
-        v166 = *__error();
-        v167 = *(a3 + 144);
-        v168 = __error();
-        strerror(*v168);
-        BOMCopierErrorCapture(a5, v166, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4143, "create_entry_filesystem", "Could not open regular file at %s: %s");
-        goto LABEL_192;
-      }
-
-      v157 = v156;
-      if (lseek(v156, 0, 2) == -1)
-      {
-        v181 = *__error();
-        v182 = *(a3 + 144);
-        v183 = __error();
-        strerror(*v183);
-        BOMCopierErrorCapture(a5, v181, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4152, "create_entry_filesystem", "Could not seek to the end of %s: %s");
-        goto LABEL_192;
-      }
-
-      v158 = *a1;
-      if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-      {
-        v159 = *(a3 + 144);
-        *buf = 136315138;
-        *&buf[4] = v159;
-        _os_log_impl(&dword_241C0E000, v158, OS_LOG_TYPE_DEFAULT, "Opened segmented file at %s", buf, 0xCu);
-      }
-
-      v160 = v157;
-    }
-
-    else
-    {
-      v161 = *(a3 + 144);
-      if (*(a1 + 12) == 1)
-      {
-        v162 = open_dprotected_np(v161, 1537, *(a1 + 16), 0, 420);
-      }
-
-      else
-      {
-        v162 = open(v161, 513, 420);
-      }
-
-      v160 = v162;
-      if (v162 == -1)
-      {
-        v169 = *__error();
-        v170 = *(a3 + 144);
-        v171 = __error();
-        strerror(*v171);
-        BOMCopierErrorCapture(a5, v169, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4057, "create_entry_filesystem", "Could not create regular file at %s: %s");
-        goto LABEL_192;
-      }
-
-      v163 = *a1;
-      if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-      {
-        v164 = *(a3 + 144);
-        *buf = 136315138;
-        *&buf[4] = v164;
-        _os_log_impl(&dword_241C0E000, v163, OS_LOG_TYPE_DEFAULT, "Created file at %s", buf, 0xCu);
-      }
-
-      if ((BOMCopierSourceEntryIsStreamed(a2) & 1) == 0)
-      {
-        v165 = BOMCopierSourceEntryGetSize(a2);
-        if (v165 >= 1)
-        {
-          *&buf[16] = v165;
-          v218 = 0;
-          *buf = 0x300000004;
-          *&buf[8] = 0;
-          if (fcntl(v160, 42, buf))
-          {
-            if (*__error() != 45)
-            {
-              v202 = *__error();
-              v203 = *(a3 + 144);
-              v204 = __error();
-              strerror(*v204);
-              BOMCopierErrorCapture(a5, v202, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4098, "create_entry_filesystem", "Could not preallocate regular file at %s for %llu: %s", v203);
-              goto LABEL_192;
-            }
-          }
-        }
-      }
-
-      if ((a4 & 2) != 0)
-      {
-        *v214 = 0;
-        asprintf(v214, "%s%s", *(a3 + 144), "/..namedfork/rsrc");
-        if (!*v214)
-        {
-          v184 = *__error();
-          v185 = *(a3 + 144);
-          v186 = __error();
-          strerror(*v186);
-          BOMCopierErrorCapture(a5, v184, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4116, "create_entry_filesystem", "Could not create rsrc path for %s: %s");
-          goto LABEL_192;
-        }
-
-        v172 = open(*v214, 513, 420);
-        if (v172 == -1)
-        {
-          v200 = *__error();
-          v201 = __error();
-          strerror(*v201);
-          BOMCopierErrorCapture(a5, v200, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4123, "create_entry_filesystem", "Could not create resource fork at %s: %s");
-          goto LABEL_192;
-        }
-
-        v157 = v172;
-        v173 = *a1;
-        if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315138;
-          *&buf[4] = *v214;
-          _os_log_impl(&dword_241C0E000, v173, OS_LOG_TYPE_DEFAULT, "Open resource fork at %s", buf, 0xCu);
-        }
-
-        free(*v214);
-      }
-
-      else
-      {
-        v157 = v160;
-      }
-    }
-
-    v174 = *(a1 + 41);
-    if (v174 == 1 && fcntl(v160, 68, 1))
-    {
-      v175 = *__error();
-      v176 = *(a3 + 144);
-      v177 = __error();
-      strerror(*v177);
-      BOMCopierErrorCapture(a5, v175, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4172, "create_entry_filesystem", "Could not set F_SETSTATICCONTENT for %s: %s");
-      goto LABEL_192;
-    }
-
-    if (*(a1 + 42) == 1)
-    {
-      if (fcntl(v160, 76, 1))
-      {
-        v178 = *__error();
-        v179 = *(a3 + 144);
-        v180 = __error();
-        strerror(*v180);
-        BOMCopierErrorCapture(a5, v178, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4184, "create_entry_filesystem", "Could not set F_SINGLE_WRITER for %s: %s");
-        goto LABEL_192;
-      }
-
-      if (*(a1 + 40) == 1)
-      {
-LABEL_236:
-        if (fcntl(v160, 48, 1))
-        {
-          v187 = *__error();
-          v188 = *(a3 + 144);
-          v189 = __error();
-          strerror(*v189);
-          BOMCopierErrorCapture(a5, v187, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4196, "create_entry_filesystem", "Could not F_NOCACHE %s: %s\n");
-          goto LABEL_192;
-        }
-      }
-
-      goto LABEL_238;
-    }
-
-    if (*(a1 + 40))
-    {
-      goto LABEL_236;
-    }
-
-    if (v174)
-    {
-LABEL_238:
-      v190 = *a1;
-      if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-      {
-        v191 = "";
-        if (*(a1 + 41))
-        {
-          v192 = "F_SETSTATICCONTENT ";
-        }
-
-        else
-        {
-          v192 = "";
-        }
-
-        if (*(a1 + 42))
-        {
-          v193 = "F_SINGLE_WRITER ";
-        }
-
-        else
-        {
-          v193 = "";
-        }
-
-        v194 = *(a1 + 40);
-        *buf = 136315650;
-        *&buf[4] = v192;
-        *&buf[12] = 2080;
-        *&buf[14] = v193;
-        if (v194)
-        {
-          v191 = "F_NOCACHE ";
-        }
-
-        *&buf[22] = 2080;
-        v218 = v191;
-        _os_log_impl(&dword_241C0E000, v190, OS_LOG_TYPE_DEFAULT, "Set %s%s%s", buf, 0x20u);
-      }
-    }
-
-    *(a3 + 64) = v160;
-    *(a3 + 68) = v157;
-    if (BOMCopierSourceEntryGetSize(a2) <= 0x4000)
-    {
-      goto LABEL_150;
-    }
-
-    v68 = 0;
-    if ((((a4 & 1) == 0) & (*(a1 + 112) ^ 1)) == 0 && *(a1 + 300))
-    {
-      v195 = *(a1 + 116);
-      v196 = *(a1 + 120);
-      v197 = ParallelCompressionAFSCStreamOpen();
-      if (!v197)
-      {
-        v205 = *__error();
-        v206 = *v22;
-        v207 = __error();
-        strerror(*v207);
-        BOMCopierErrorCapture(a5, v205, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4249, "create_entry_filesystem", "Could not create ParallelCompression AFSC stream for %s: %s");
-        goto LABEL_192;
-      }
-
-      *(a3 + 160) = v197;
-      v198 = *a1;
-      if (!*a1 || !os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_150;
-      }
-
-      v199 = *(a3 + 144);
-      *buf = 136315138;
-      *&buf[4] = v199;
-      v139 = "Enabled filesystem compression for %s";
-      v140 = v198;
-      v141 = 12;
-      goto LABEL_177;
-    }
-  }
-
-  else
-  {
-    if (v72 != 8)
-    {
-      goto LABEL_133;
-    }
-
-    if ((IsSegmentedFile & 1) == 0)
-    {
-      if (!unlink(*v22))
-      {
-        goto LABEL_108;
-      }
-
-      v134 = *__error();
-      v135 = *v22;
-      v136 = __error();
-      strerror(*v136);
-      BOMCopierErrorCapture(a5, v134, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3779, "create_entry_filesystem", "Could not unlink %s: %s");
-      goto LABEL_192;
-    }
-
-LABEL_135:
-    if (*(a1 + 301) != 1)
-    {
-      goto LABEL_144;
-    }
-
-    v103 = getxattr(*v22, "com.apple.rootless", 0, 0, 0, 1);
-    if (v103 == -1)
-    {
-      if (*__error() == 93)
-      {
-        goto LABEL_144;
-      }
-
-      v130 = *v22;
-      v131 = __error();
-      strerror(*v131);
-      v68 = 1;
-      BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3819, "create_entry_filesystem", "Could not get size for rootless attribute %s: %s");
-    }
-
-    else
-    {
-      v104 = v103;
-      if (v103 < 1)
-      {
-        goto LABEL_144;
-      }
-
-      v105 = malloc_type_malloc(v103, 0x716AF5B3uLL);
-      if (!v105)
-      {
-        v133 = *__error();
-        BOMCopierErrorCapture(a5, v133, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3829, "create_entry_filesystem", "Could not allocate attribute buffer: %s");
-        goto LABEL_192;
-      }
-
-      v106 = v105;
-      v107 = getxattr(*v22, "com.apple.rootless", v105, v104, 0, 1);
-      if (v107 != -1)
-      {
-        *(a3 + 312) = v107;
-        *(a3 + 320) = v106;
-        goto LABEL_144;
-      }
-
-      v142 = *v22;
-      v143 = __error();
-      v144 = strerror(*v143);
-      v68 = 1;
-      BOMCopierErrorCapture(a5, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 3836, "create_entry_filesystem", "Could not get rootless attribute for xattr %s: %s", v142, v144);
-      free(v106);
-    }
-  }
-
-LABEL_95:
-  v69 = *MEMORY[0x277D85DE8];
-  return v68;
-}
-
-uint64_t create_entry_libarchive(uint64_t a1, uint64_t a2, void *a3, void *a4)
+uint64_t create_entry_libarchive(void *a1, uint64_t a2, void *a3, void *a4)
 {
   v8 = archive_entry_new();
   if (v8)
@@ -1630,7 +16,7 @@ uint64_t create_entry_libarchive(uint64_t a1, uint64_t a2, void *a3, void *a4)
       Type = BOMCopierSourceEntryGetType(a2);
       if (Type == 8 && HardlinkCount >= 2)
       {
-        v15 = BOMHardLinkTableGet(*(a1 + 72), Device, Inode);
+        v15 = BOMHardLinkTableGet(a1[9], Device, Inode);
         if (v15)
         {
           *bytes = *v15;
@@ -1638,24 +24,24 @@ uint64_t create_entry_libarchive(uint64_t a1, uint64_t a2, void *a3, void *a4)
 
         else
         {
-          v18 = *(a1 + 72);
-          *bytes = *(a1 + 64);
+          v18 = a1[9];
+          *bytes = a1[8];
           BOMHardLinkTableSet(v18, Device, Inode, bytes, 8);
-          ++*(a1 + 64);
+          ++a1[8];
         }
       }
 
       else
       {
-        *bytes = *(a1 + 64);
-        *(a1 + 64) = *bytes + 1;
+        *bytes = a1[8];
+        a1[8] = *bytes + 1;
       }
 
       BOMCopierSourceEntryGetMode(a2);
       BOMCopierSourceEntryGetUserID(a2);
       BOMCopierSourceEntryGetGroupID(a2);
-      v27 = 0uLL;
-      if (BOMCopierSourceEntryGetAccessTime(a2, &v27))
+      v24 = 0uLL;
+      if (BOMCopierSourceEntryGetAccessTime(a2, &v24))
       {
         v16 = 1;
         BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4418, "create_entry_libarchive", "Could not get source entry access time");
@@ -1664,16 +50,16 @@ LABEL_35:
         return v16;
       }
 
-      v26 = 0uLL;
-      if (BOMCopierSourceEntryGetModificationTime(a2, &v26))
+      v23 = 0uLL;
+      if (BOMCopierSourceEntryGetModificationTime(a2, &v23))
       {
         v16 = 1;
         BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4428, "create_entry_libarchive", "Could not get source entry modification time");
         goto LABEL_35;
       }
 
-      v25 = 0uLL;
-      if (BOMCopierSourceEntryGetStatusTime(a2, &v25))
+      v22 = 0uLL;
+      if (BOMCopierSourceEntryGetStatusTime(a2, &v22))
       {
         v16 = 1;
         BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4438, "create_entry_libarchive", "Could not get source entry status time");
@@ -1687,7 +73,6 @@ LABEL_35:
       archive_entry_set_mode();
       archive_entry_set_uid();
       archive_entry_set_gid();
-      v19 = a3[7];
       archive_entry_set_size();
       archive_entry_set_atime();
       archive_entry_set_mtime();
@@ -1699,12 +84,12 @@ LABEL_35:
           if (Type == 8)
           {
             archive_entry_set_filetype();
-            a3[9] = *(a1 + 136);
-            v20 = *(a1 + 152);
-            if (v20 >= 1 && a3[7] >> 33)
+            a3[9] = a1[17];
+            v19 = a1[19];
+            if (v19 >= 1 && a3[7] >> 33)
             {
-              a3[11] = v20;
-              a3[12] = v20;
+              a3[11] = v19;
+              a3[12] = v19;
               archive_entry_set_size();
             }
           }
@@ -1743,7 +128,6 @@ LABEL_38:
           }
 
 LABEL_33:
-          v21 = *(a1 + 136);
           if (!archive_write_header())
           {
             v16 = 0;
@@ -1751,7 +135,6 @@ LABEL_33:
             return v16;
           }
 
-          v22 = *(a1 + 136);
           archive_error_string();
           v16 = 1;
           BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 4539, "create_entry_libarchive", "Could not write archive entry: %s (%d)");
@@ -2026,7 +409,7 @@ LABEL_6:
 
         BOMCopierDataAnalyzerReset(a2[3]);
         Path = BOMCopierSourceEntryGetPath(a2[1]);
-        FSObjectAtPath = BOMBomGetFSObjectAtPath(*(v5 + 96), Path);
+        FSObjectAtPath = BOMBomGetFSObjectAtPath(v5[12], Path);
         if (!FSObjectAtPath)
         {
           BOMCopierErrorCapture(a3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 1866, "BOMCopierDestinationFinalizeEntry", "Could not lookup %s in checksum bom");
@@ -2045,7 +428,7 @@ LABEL_6:
 
       if (*(a2 + 8) != 2)
       {
-        v17 = *(v5 + 44);
+        v17 = *(v5 + 11);
         if (v17 == 2)
         {
           if (finalize_entry_apple_archive(a2, a3))
@@ -2073,15 +456,15 @@ LABEL_6:
         goto LABEL_33;
       }
 
-      v6 = *(v5 + 264);
+      v6 = v5[33];
       if (!v6)
       {
         goto LABEL_33;
       }
 
-      v10 = *(v5 + 244);
+      v10 = *(v5 + 61);
       v7 = a2[1];
-      v8 = *(v5 + 272);
+      v8 = v5[34];
       a1 = v5;
       v9 = a2;
       goto LABEL_6;
@@ -2100,939 +483,894 @@ LABEL_6:
   return v11;
 }
 
-void finalize_entry_filesystem(uint64_t a1, uint64_t a2, void *a3)
+void finalize_entry_filesystem(NSObject **a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v216 = *MEMORY[0x277D85DE8];
-  if (*(a2 + 154) != 1)
+  v197 = *MEMORY[0x277D85DE8];
+  if (*(a2 + 154) == 1)
   {
-    v7 = *(a2 + 8);
-    Type = BOMCopierSourceEntryGetType(v7);
-    v9 = Type;
-    if (Type <= 16)
+
+    apply_retention_policy(a1, a2, a3);
+    return;
+  }
+
+  v6 = *(a2 + 8);
+  Type = BOMCopierSourceEntryGetType(v6);
+  v8 = Type;
+  if (Type <= 16)
+  {
+    if (Type == 8)
     {
-      if (Type == 8)
+      v24 = *(a2 + 64);
+      if (v24 != -1)
       {
-        v27 = *(a2 + 64);
-        if (v27 != -1)
+        if (*(a2 + 160))
         {
-          if (*(a2 + 160))
+          if (ParallelCompressionAFSCStreamClose())
           {
-            v28 = *(a2 + 160);
-            if (ParallelCompressionAFSCStreamClose())
-            {
-              v29 = *__error();
-              v30 = *(a2 + 144);
-              v31 = __error();
-              strerror(*v31);
-              BOMCopierErrorCapture(v3, v29, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5220, "finalize_entry_filesystem", "Could not close AFSC stream for %s: %s");
-              goto LABEL_226;
-            }
-
-            *(a2 + 160) = 0;
-            v27 = *(a2 + 64);
+            v25 = *__error();
+            v26 = __error();
+            strerror(*v26);
+            BOMCopierErrorCapture(v3, v25, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5220, "finalize_entry_filesystem", "Could not close AFSC stream for %s: %s");
+            return;
           }
 
-          if (*(a2 + 68) != v27)
-          {
-            close(*(a2 + 68));
-            v27 = *(a2 + 64);
-          }
-
-          *(a2 + 68) = -1;
-          close(v27);
-          *(a2 + 64) = -1;
+          *(a2 + 160) = 0;
+          v24 = *(a2 + 64);
         }
-      }
 
-      else if (Type == 16)
+        if (*(a2 + 68) != v24)
+        {
+          close(*(a2 + 68));
+          v24 = *(a2 + 64);
+        }
+
+        *(a2 + 68) = -1;
+        close(v24);
+        *(a2 + 64) = -1;
+      }
+    }
+
+    else if (Type == 16)
+    {
+      memset(&__bp, 0, sizeof(__bp));
+      if (lstat(*(a2 + 120), &__bp))
       {
-        memset(&__bp, 0, sizeof(__bp));
-        if (lstat(*(a2 + 120), &__bp))
-        {
-          v17 = *__error();
-          v18 = *(a2 + 120);
-          BOMCopierErrorCapture(v3, v17, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5248, "finalize_entry_filesystem", "Missing symlink target for %s");
-          goto LABEL_226;
-        }
-
-        if ((__bp.st_mode & 0xF000) != 0x8000)
-        {
-          v51 = *(a2 + 120);
-          BOMCopierErrorCapture(v3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5254, "finalize_entry_filesystem", "%s is not a regular file");
-          goto LABEL_226;
-        }
-
-        if (__bp.st_size >= 1025)
-        {
-          v190 = *(a2 + 120);
-          BOMCopierErrorCapture(v3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5260, "finalize_entry_filesystem", "%s is too large (%luu) to hold a symlink target");
-          goto LABEL_226;
-        }
-
-        v85 = malloc_type_calloc(1uLL, __bp.st_size + 1, 0x756E8579uLL);
-        if (!v85)
-        {
-          v139 = *__error();
-          v140 = __error();
-          strerror(*v140);
-          BOMCopierErrorCapture(v3, v139, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5269, "finalize_entry_filesystem", "Could not allocate target buffer %lu: %s");
-          goto LABEL_226;
-        }
-
-        v65 = v85;
-        v86 = open(*(a2 + 120), 0);
-        if (v86 == -1)
-        {
-          v148 = *__error();
-          v149 = *(a2 + 120);
-          v150 = __error();
-          strerror(*v150);
-          BOMCopierErrorCapture(v3, v148, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5276, "finalize_entry_filesystem", "Could not open %s: %s");
-          goto LABEL_75;
-        }
-
-        v87 = v86;
-        v88 = read(v86, v65, __bp.st_size);
-        if (v88 != __bp.st_size)
-        {
-          v151 = *__error();
-          v152 = *(a2 + 120);
-          st_size = __bp.st_size;
-          v154 = __error();
-          v155 = strerror(*v154);
-          BOMCopierErrorCapture(v3, v151, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5284, "finalize_entry_filesystem", "Could not read %s %lu: %s", v152, st_size, v155);
-          close(v87);
-          goto LABEL_75;
-        }
-
-        close(v87);
-        if (unlink(*(a2 + 120)))
-        {
-          v89 = *__error();
-          v90 = *(a2 + 120);
-          v91 = __error();
-          strerror(*v91);
-          BOMCopierErrorCapture(v3, v89, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5295, "finalize_entry_filesystem", "Could not unlink %s: %s");
-          goto LABEL_75;
-        }
-
-        if (symlink(v65, *(a2 + 120)))
-        {
-          v172 = *__error();
-          v173 = *(a2 + 120);
-          v174 = __error();
-          strerror(*v174);
-          BOMCopierErrorCapture(v3, v172, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5303, "finalize_entry_filesystem", "Could not symlink %s to %s: %s", v173);
-          goto LABEL_75;
-        }
-
-        v188 = *a1;
-        if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-        {
-          v189 = *(a2 + 120);
-          *v195 = 136315394;
-          *&v195[4] = v189;
-          *&v195[12] = 2080;
-          *&v195[14] = v65;
-          _os_log_impl(&dword_241C0E000, v188, OS_LOG_TYPE_DEFAULT, "Transmogrified symlink: %s to %s", v195, 0x16u);
-        }
-
-        free(v65);
+        v16 = *__error();
+        BOMCopierErrorCapture(v3, v16, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5248, "finalize_entry_filesystem", "Missing symlink target for %s");
+        return;
       }
+
+      if ((__bp.st_mode & 0xF000) != 0x8000)
+      {
+        BOMCopierErrorCapture(v3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5254, "finalize_entry_filesystem", "%s is not a regular file");
+        return;
+      }
+
+      if (__bp.st_size >= 1025)
+      {
+        BOMCopierErrorCapture(v3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5260, "finalize_entry_filesystem", "%s is too large (%luu) to hold a symlink target");
+        return;
+      }
+
+      v75 = malloc_type_calloc(1uLL, __bp.st_size + 1, 0x756E8579uLL);
+      if (!v75)
+      {
+        v124 = *__error();
+        v125 = __error();
+        strerror(*v125);
+        BOMCopierErrorCapture(v3, v124, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5269, "finalize_entry_filesystem", "Could not allocate target buffer %lu: %s");
+        return;
+      }
+
+      v57 = v75;
+      v76 = open(*(a2 + 120), 0);
+      if (v76 == -1)
+      {
+        v132 = *__error();
+        v133 = __error();
+        strerror(*v133);
+        BOMCopierErrorCapture(v3, v132, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5276, "finalize_entry_filesystem", "Could not open %s: %s");
+        goto LABEL_75;
+      }
+
+      v77 = v76;
+      v78 = read(v76, v57, __bp.st_size);
+      if (v78 != __bp.st_size)
+      {
+        v134 = *__error();
+        v135 = *(a2 + 120);
+        st_size = __bp.st_size;
+        v137 = __error();
+        v138 = strerror(*v137);
+        BOMCopierErrorCapture(v3, v134, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5284, "finalize_entry_filesystem", "Could not read %s %lu: %s", v135, st_size, v138);
+        close(v77);
+        goto LABEL_75;
+      }
+
+      close(v77);
+      if (unlink(*(a2 + 120)))
+      {
+        v79 = *__error();
+        v80 = __error();
+        strerror(*v80);
+        BOMCopierErrorCapture(v3, v79, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5295, "finalize_entry_filesystem", "Could not unlink %s: %s");
+        goto LABEL_75;
+      }
+
+      if (symlink(v57, *(a2 + 120)))
+      {
+        v155 = *__error();
+        v156 = *(a2 + 120);
+        v157 = __error();
+        strerror(*v157);
+        BOMCopierErrorCapture(v3, v155, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5303, "finalize_entry_filesystem", "Could not symlink %s to %s: %s", v156);
+        goto LABEL_75;
+      }
+
+      v170 = *a1;
+      if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
+      {
+        v171 = *(a2 + 120);
+        *v176 = 136315394;
+        *&v176[4] = v171;
+        *&v176[12] = 2080;
+        *&v176[14] = v57;
+        _os_log_impl(&dword_241C0E000, v170, OS_LOG_TYPE_DEFAULT, "Transmogrified symlink: %s to %s", v176, 0x16u);
+      }
+
+      free(v57);
+    }
 
 LABEL_58:
-      v191 = a1;
-      ExtendedAttributeCount = BOMCopierSourceEntryGetExtendedAttributeCount(v7, v3);
-      if (ExtendedAttributeCount)
+    v172 = a1;
+    ExtendedAttributeCount = BOMCopierSourceEntryGetExtendedAttributeCount(v6, v3);
+    if (ExtendedAttributeCount)
+    {
+      v45 = ExtendedAttributeCount;
+      for (i = 0; v45 != i; ++i)
       {
-        v53 = ExtendedAttributeCount;
-        for (i = 0; v53 != i; ++i)
+        ExtendedAttributeName = BOMCopierSourceEntryGetExtendedAttributeName(v6, i, v3);
+        if (!ExtendedAttributeName)
         {
-          ExtendedAttributeName = BOMCopierSourceEntryGetExtendedAttributeName(v7, i, v3);
-          if (!ExtendedAttributeName)
-          {
-            BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5710, "finalize_entry_filesystem", "Could not get xattr name for index %d");
-            goto LABEL_226;
-          }
-
-          v56 = ExtendedAttributeName;
-          if (strcmp(ExtendedAttributeName, "com.apple.ResourceFork") || (*(a2 + 155) & 1) == 0)
-          {
-            ExtendedAttributeSize = BOMCopierSourceEntryGetExtendedAttributeSize(v7, i, v3);
-            if (!ExtendedAttributeSize)
-            {
-              BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5737, "finalize_entry_filesystem", "Could not get xattr size for index %d: %s");
-              goto LABEL_226;
-            }
-
-            v58 = ExtendedAttributeSize;
-            v59 = v3;
-            v60 = malloc_type_malloc(ExtendedAttributeSize, 0x8EE9F9C3uLL);
-            if (!v60)
-            {
-              v79 = __error();
-              strerror(*v79);
-              BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5744, "finalize_entry_filesystem", "Could not allocate buffer for value: %s\n");
-              goto LABEL_226;
-            }
-
-            v61 = v60;
-            if (BOMCopierSourceEntryCopyExtendedAttribute(v7, i, v60, v58, 0, v59) != v58)
-            {
-              BOMCopierErrorCapture(v59, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5751, "finalize_entry_filesystem", "Could not copy attribute value for index %d: %s\n");
-              goto LABEL_226;
-            }
-
-            if (setxattr(*(a2 + 144), v56, v61, v58, 0, 1))
-            {
-              v80 = *__error();
-              v81 = *(a2 + 144);
-              v82 = __error();
-              strerror(*v82);
-              BOMCopierErrorCapture(v59, v80, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5758, "finalize_entry_filesystem", "Could not set xattr %s on %s: %s", v56);
-              goto LABEL_226;
-            }
-
-            v62 = *v191;
-            if (*v191 && os_log_type_enabled(*v191, OS_LOG_TYPE_DEFAULT))
-            {
-              v63 = *(a2 + 120);
-              __bp.st_dev = 136315394;
-              *&__bp.st_mode = v56;
-              WORD2(__bp.st_ino) = 2080;
-              *(&__bp.st_ino + 6) = v63;
-              _os_log_impl(&dword_241C0E000, v62, OS_LOG_TYPE_DEFAULT, "Applied xattr %s to %s", &__bp, 0x16u);
-            }
-
-            free(v61);
-            v3 = v59;
-          }
-        }
-      }
-
-      v64 = *(a2 + 312);
-      if (v64)
-      {
-        v65 = *(a2 + 320);
-        if (setxattr(*(a2 + 144), "com.apple.rootless", v65, v64, 0, 1))
-        {
-          v66 = *__error();
-          v67 = *(a2 + 144);
-          v68 = __error();
-          strerror(*v68);
-          BOMCopierErrorCapture(v3, v66, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5780, "finalize_entry_filesystem", "Could not set rootless xattr %s: %s");
-LABEL_75:
-          v69 = v65;
-LABEL_199:
-          free(v69);
-          goto LABEL_226;
-        }
-
-        v70 = *v191;
-        if (*v191 && os_log_type_enabled(*v191, OS_LOG_TYPE_DEFAULT))
-        {
-          v71 = *(a2 + 120);
-          __bp.st_dev = 136315138;
-          *&__bp.st_mode = v71;
-          _os_log_impl(&dword_241C0E000, v70, OS_LOG_TYPE_DEFAULT, "Applied xattr com.apple.rootless to %s", &__bp, 0xCu);
-        }
-      }
-
-      to = 0;
-      ACL = BOMCopierSourceEntryGetACL(v7, &to, v3);
-      if (ACL && to)
-      {
-        v73 = acl_from_text(ACL);
-        if (!v73)
-        {
-          v83 = *__error();
-          v84 = __error();
-          strerror(*v84);
-          BOMCopierErrorCapture(v3, v83, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5811, "finalize_entry_filesystem", "Could not create ACL from text [%s]: %s");
-LABEL_226:
-          v187 = *MEMORY[0x277D85DE8];
+          BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5710, "finalize_entry_filesystem", "Could not get xattr name for index %d");
           return;
         }
 
-        v74 = v73;
-        v75 = *(a2 + 144);
-        if (v9 == 9)
+        v48 = ExtendedAttributeName;
+        if (strcmp(ExtendedAttributeName, "com.apple.ResourceFork") || (*(a2 + 155) & 1) == 0)
         {
-          v76 = open(v75, 0x200000);
-          if (v76 == -1)
+          ExtendedAttributeSize = BOMCopierSourceEntryGetExtendedAttributeSize(v6, i, v3);
+          if (!ExtendedAttributeSize)
           {
-            v141 = *__error();
-            v142 = *(a2 + 144);
-            v143 = __error();
-            strerror(*v143);
-            BOMCopierErrorCapture(v3, v141, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5824, "finalize_entry_filesystem", "Unable to open the symlink %s: %s\n");
-            goto LABEL_226;
+            BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5737, "finalize_entry_filesystem", "Could not get xattr size for index %d: %s");
+            return;
           }
 
-          v77 = v76;
-          v78 = acl_set_fd_np(v76, v74, ACL_TYPE_EXTENDED);
-          close(v77);
+          v50 = ExtendedAttributeSize;
+          v51 = v3;
+          v52 = malloc_type_malloc(ExtendedAttributeSize, 0x8EE9F9C3uLL);
+          if (!v52)
+          {
+            v70 = __error();
+            strerror(*v70);
+            BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5744, "finalize_entry_filesystem", "Could not allocate buffer for value: %s\n");
+            return;
+          }
+
+          v53 = v52;
+          if (BOMCopierSourceEntryCopyExtendedAttribute(v6, i, v52, v50, 0, v51) != v50)
+          {
+            BOMCopierErrorCapture(v51, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5751, "finalize_entry_filesystem", "Could not copy attribute value for index %d: %s\n");
+            return;
+          }
+
+          if (setxattr(*(a2 + 144), v48, v53, v50, 0, 1))
+          {
+            v71 = *__error();
+            v72 = __error();
+            strerror(*v72);
+            BOMCopierErrorCapture(v51, v71, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5758, "finalize_entry_filesystem", "Could not set xattr %s on %s: %s", v48);
+            return;
+          }
+
+          v54 = *v172;
+          if (*v172 && os_log_type_enabled(*v172, OS_LOG_TYPE_DEFAULT))
+          {
+            v55 = *(a2 + 120);
+            __bp.st_dev = 136315394;
+            *&__bp.st_mode = v48;
+            WORD2(__bp.st_ino) = 2080;
+            *(&__bp.st_ino + 6) = v55;
+            _os_log_impl(&dword_241C0E000, v54, OS_LOG_TYPE_DEFAULT, "Applied xattr %s to %s", &__bp, 0x16u);
+          }
+
+          free(v53);
+          v3 = v51;
+        }
+      }
+    }
+
+    v56 = *(a2 + 312);
+    if (v56)
+    {
+      v57 = *(a2 + 320);
+      if (setxattr(*(a2 + 144), "com.apple.rootless", v57, v56, 0, 1))
+      {
+        v58 = *__error();
+        v59 = __error();
+        strerror(*v59);
+        BOMCopierErrorCapture(v3, v58, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5780, "finalize_entry_filesystem", "Could not set rootless xattr %s: %s");
+LABEL_75:
+        v60 = v57;
+LABEL_199:
+        free(v60);
+        return;
+      }
+
+      v61 = *v172;
+      if (*v172 && os_log_type_enabled(*v172, OS_LOG_TYPE_DEFAULT))
+      {
+        v62 = *(a2 + 120);
+        __bp.st_dev = 136315138;
+        *&__bp.st_mode = v62;
+        _os_log_impl(&dword_241C0E000, v61, OS_LOG_TYPE_DEFAULT, "Applied xattr com.apple.rootless to %s", &__bp, 0xCu);
+      }
+    }
+
+    to = 0;
+    ACL = BOMCopierSourceEntryGetACL(v6, &to, v3);
+    if (ACL && to)
+    {
+      v64 = acl_from_text(ACL);
+      if (!v64)
+      {
+        v73 = *__error();
+        v74 = __error();
+        strerror(*v74);
+        BOMCopierErrorCapture(v3, v73, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5811, "finalize_entry_filesystem", "Could not create ACL from text [%s]: %s");
+        return;
+      }
+
+      v65 = v64;
+      v66 = *(a2 + 144);
+      if (v8 == 9)
+      {
+        v67 = open(v66, 0x200000);
+        if (v67 == -1)
+        {
+          v126 = *__error();
+          v127 = __error();
+          strerror(*v127);
+          BOMCopierErrorCapture(v3, v126, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5824, "finalize_entry_filesystem", "Unable to open the symlink %s: %s\n");
+          return;
+        }
+
+        v68 = v67;
+        v69 = acl_set_fd_np(v67, v65, ACL_TYPE_EXTENDED);
+        close(v68);
+      }
+
+      else
+      {
+        v69 = acl_set_file(v66, ACL_TYPE_EXTENDED, v65);
+      }
+
+      acl_free(v65);
+      if (v69)
+      {
+        v85 = __error();
+        strerror(*v85);
+        BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5839, "finalize_entry_filesystem", "Could not set ACL on %s: %s");
+        return;
+      }
+
+      v93 = *v172;
+      if (*v172 && os_log_type_enabled(*v172, OS_LOG_TYPE_DEFAULT))
+      {
+        v94 = *(a2 + 144);
+        __bp.st_dev = 136315138;
+        *&__bp.st_mode = v94;
+        _os_log_impl(&dword_241C0E000, v93, OS_LOG_TYPE_DEFAULT, "Applied ACL to %s", &__bp, 0xCu);
+      }
+    }
+
+    if (v8 == 8)
+    {
+      v95 = v172[3];
+      if (v95)
+      {
+        if (setxattr(*(a2 + 144), "com.apple.provenance", v95, v172[4], 0, 1))
+        {
+          v96 = *__error();
+          v97 = __error();
+          strerror(*v97);
+          BOMCopierErrorCapture(v3, v96, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5864, "finalize_entry_filesystem", "Could not set provenance xattr %s: %s");
+          return;
+        }
+
+        v122 = *v172;
+        if (*v172 && os_log_type_enabled(*v172, OS_LOG_TYPE_DEFAULT))
+        {
+          v123 = *(a2 + 120);
+          __bp.st_dev = 136315138;
+          *&__bp.st_mode = v123;
+          _os_log_impl(&dword_241C0E000, v122, OS_LOG_TYPE_DEFAULT, "Applied xattr com.apple.provenance to %s", &__bp, 0xCu);
+        }
+      }
+    }
+
+    else if (v8 != 6)
+    {
+      goto LABEL_145;
+    }
+
+    Flags = BOMCopierSourceEntryGetFlags(v6);
+    if (*(v172 + 302))
+    {
+      v99 = Flags;
+    }
+
+    else
+    {
+      v99 = Flags & 0xFFF7FFFF;
+    }
+
+    if (*(a2 + 153) == 1 && *(v172 + 303) == 1)
+    {
+      v99 |= *(a2 + 284) & 0x80000;
+    }
+
+    memset(&__bp, 0, sizeof(__bp));
+    if (lstat(*(a2 + 144), &__bp))
+    {
+      v100 = *__error();
+      v101 = __error();
+      strerror(*v101);
+      BOMCopierErrorCapture(v3, v100, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5919, "finalize_entry_filesystem", "Could not lstat %s: %s\n");
+      return;
+    }
+
+    if (BOMCopierSourceEntryIsCompressed(v6) && !*(v172 + 113))
+    {
+      v99 &= ~0x20u;
+    }
+
+    if (*(v172 + 112) == 1 && (__bp.st_flags & 0x40000020) == 0x20)
+    {
+      v99 |= 0x20u;
+    }
+
+    v102 = geteuid();
+    v103 = v99 & 0xC000FFFF;
+    if (!v102)
+    {
+      v103 = v99;
+    }
+
+    if ((~v103 & 0x40000020) != 0)
+    {
+      v104 = v103;
+    }
+
+    else
+    {
+      v104 = v103 & 0xBFFFFFDF;
+    }
+
+    if (v104)
+    {
+      if (change_flags(*(a2 + 144), __bp.st_flags, v104) && *__error() != 45)
+      {
+        v139 = *__error();
+        v140 = *(a2 + 144);
+        st_flags = __bp.st_flags;
+        v142 = __error();
+        strerror(*v142);
+        BOMCopierErrorCapture(v3, v139, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5982, "finalize_entry_filesystem", "Could not change file flags on %s from %u to %u: %s. Calling error handler", v140, st_flags);
+        return;
+      }
+
+      v105 = *v172;
+      if (*v172 && os_log_type_enabled(*v172, OS_LOG_TYPE_DEFAULT))
+      {
+        v106 = *(a2 + 120);
+        *v176 = 136315650;
+        *&v176[4] = v106;
+        *&v176[12] = 1024;
+        *&v176[14] = __bp.st_flags;
+        *&v176[18] = 1024;
+        *&v176[20] = v104;
+        _os_log_impl(&dword_241C0E000, v105, OS_LOG_TYPE_DEFAULT, "Changed file flags on %s from %u to %u", v176, 0x18u);
+      }
+    }
+
+LABEL_145:
+    apply_retention_policy(v172, a2, v3);
+    if (v107)
+    {
+      BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6000, "finalize_entry_filesystem", "Could not apply retention policy");
+      return;
+    }
+
+    v108 = *(v172 + 2);
+    UserID = BOMCopierSourceEntryGetUserID(v6);
+    GroupID = BOMCopierSourceEntryGetGroupID(v6);
+    Mode = BOMCopierSourceEntryGetMode(v6);
+    v112 = Mode;
+    if (*(v172 + 2) || (*(v172 + 305) & 1) != 0)
+    {
+      v113 = (v8 == 8) & *(v172 + 306);
+    }
+
+    else
+    {
+      if ((*(v172 + 20) & 1) == 0)
+      {
+        if (v8 != 8 || (*(v172 + 306) & 1) == 0)
+        {
+          goto LABEL_159;
+        }
+
+        v113 = 1;
+        v114 = Mode;
+LABEL_151:
+        if (v113)
+        {
+          v115 = v114 & 0xFFB6;
         }
 
         else
         {
-          v78 = acl_set_file(v75, ACL_TYPE_EXTENDED, v74);
+          v115 = v114;
         }
 
-        acl_free(v74);
-        if (v78)
+        if (v112 != v115)
         {
-          v97 = *(a2 + 144);
-          v98 = __error();
-          strerror(*v98);
-          BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5839, "finalize_entry_filesystem", "Could not set ACL on %s: %s");
-          goto LABEL_226;
+          v195 = 0u;
+          memset(v196, 0, sizeof(v196));
+          v193 = 0u;
+          v194 = 0u;
+          v191 = 0u;
+          v192 = 0u;
+          memset(&__bp, 0, sizeof(__bp));
+          strmode(v112, &__bp);
+          v188 = 0u;
+          memset(v189, 0, sizeof(v189));
+          v186 = 0u;
+          v187 = 0u;
+          v184 = 0u;
+          v185 = 0u;
+          v182 = 0u;
+          v183 = 0u;
+          v181 = 0u;
+          v179 = 0u;
+          v180 = 0u;
+          v177 = 0u;
+          v178 = 0u;
+          memset(v176, 0, sizeof(v176));
+          strmode(v115, v176);
+          v116 = *v172;
+          if (*v172 && os_log_type_enabled(*v172, OS_LOG_TYPE_DEFAULT))
+          {
+            v117 = *(a2 + 120);
+            *buf = 136315650;
+            *&buf[4] = v117;
+            *&buf[12] = 2080;
+            *&buf[14] = &__bp;
+            *&buf[22] = 2080;
+            v175 = v176;
+            _os_log_impl(&dword_241C0E000, v116, OS_LOG_TYPE_DEFAULT, "Filtering the mode for %s from %s to %s", buf, 0x20u);
+          }
+
+          LOWORD(v112) = v115;
         }
-
-        v106 = *v191;
-        if (*v191 && os_log_type_enabled(*v191, OS_LOG_TYPE_DEFAULT))
-        {
-          v107 = *(a2 + 144);
-          __bp.st_dev = 136315138;
-          *&__bp.st_mode = v107;
-          _os_log_impl(&dword_241C0E000, v106, OS_LOG_TYPE_DEFAULT, "Applied ACL to %s", &__bp, 0xCu);
-        }
-      }
-
-      if (v9 == 8)
-      {
-        v108 = *(v191 + 24);
-        if (v108)
-        {
-          if (setxattr(*(a2 + 144), "com.apple.provenance", v108, *(v191 + 32), 0, 1))
-          {
-            v109 = *__error();
-            v110 = *(a2 + 144);
-            v111 = __error();
-            strerror(*v111);
-            BOMCopierErrorCapture(v3, v109, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5864, "finalize_entry_filesystem", "Could not set provenance xattr %s: %s");
-            goto LABEL_226;
-          }
-
-          v137 = *v191;
-          if (*v191 && os_log_type_enabled(*v191, OS_LOG_TYPE_DEFAULT))
-          {
-            v138 = *(a2 + 120);
-            __bp.st_dev = 136315138;
-            *&__bp.st_mode = v138;
-            _os_log_impl(&dword_241C0E000, v137, OS_LOG_TYPE_DEFAULT, "Applied xattr com.apple.provenance to %s", &__bp, 0xCu);
-          }
-        }
-      }
-
-      else if (v9 != 6)
-      {
-        goto LABEL_145;
-      }
-
-      Flags = BOMCopierSourceEntryGetFlags(v7);
-      if (*(v191 + 302))
-      {
-        v113 = Flags;
-      }
-
-      else
-      {
-        v113 = Flags & 0xFFF7FFFF;
-      }
-
-      if (*(a2 + 153) == 1 && *(v191 + 303) == 1)
-      {
-        v113 |= *(a2 + 284) & 0x80000;
-      }
-
-      memset(&__bp, 0, sizeof(__bp));
-      if (lstat(*(a2 + 144), &__bp))
-      {
-        v114 = *__error();
-        v115 = *(a2 + 144);
-        v116 = __error();
-        strerror(*v116);
-        BOMCopierErrorCapture(v3, v114, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5919, "finalize_entry_filesystem", "Could not lstat %s: %s\n");
-        goto LABEL_226;
-      }
-
-      if (BOMCopierSourceEntryIsCompressed(v7) && !*(v191 + 113))
-      {
-        v113 &= ~0x20u;
-      }
-
-      if (*(v191 + 112) == 1 && (__bp.st_flags & 0x40000020) == 0x20)
-      {
-        v113 |= 0x20u;
-      }
-
-      v117 = geteuid();
-      v118 = v113 & 0xC000FFFF;
-      if (!v117)
-      {
-        v118 = v113;
-      }
-
-      if ((~v118 & 0x40000020) != 0)
-      {
-        v119 = v118;
-      }
-
-      else
-      {
-        v119 = v118 & 0xBFFFFFDF;
-      }
-
-      if (v119)
-      {
-        if (change_flags(*(a2 + 144), __bp.st_flags, v119) && *__error() != 45)
-        {
-          v156 = *__error();
-          v157 = *(a2 + 144);
-          st_flags = __bp.st_flags;
-          v159 = __error();
-          strerror(*v159);
-          BOMCopierErrorCapture(v3, v156, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5982, "finalize_entry_filesystem", "Could not change file flags on %s from %u to %u: %s. Calling error handler", v157, st_flags);
-          goto LABEL_226;
-        }
-
-        v120 = *v191;
-        if (*v191 && os_log_type_enabled(*v191, OS_LOG_TYPE_DEFAULT))
-        {
-          v121 = *(a2 + 120);
-          *v195 = 136315650;
-          *&v195[4] = v121;
-          *&v195[12] = 1024;
-          *&v195[14] = __bp.st_flags;
-          *&v195[18] = 1024;
-          *&v195[20] = v119;
-          _os_log_impl(&dword_241C0E000, v120, OS_LOG_TYPE_DEFAULT, "Changed file flags on %s from %u to %u", v195, 0x18u);
-        }
-      }
-
-LABEL_145:
-      apply_retention_policy(v191, a2, v3);
-      if (v122)
-      {
-        BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6000, "finalize_entry_filesystem", "Could not apply retention policy");
-        goto LABEL_226;
-      }
-
-      v123 = *(v191 + 8);
-      UserID = BOMCopierSourceEntryGetUserID(v7);
-      GroupID = BOMCopierSourceEntryGetGroupID(v7);
-      Mode = BOMCopierSourceEntryGetMode(v7);
-      v127 = Mode;
-      if (*(v191 + 8) || (*(v191 + 305) & 1) != 0)
-      {
-        v128 = (v9 == 8) & *(v191 + 306);
-      }
-
-      else
-      {
-        if ((*(v191 + 20) & 1) == 0)
-        {
-          if (v9 != 8 || (*(v191 + 306) & 1) == 0)
-          {
-            goto LABEL_159;
-          }
-
-          v128 = 1;
-          v129 = Mode;
-LABEL_151:
-          if (v128)
-          {
-            v130 = v129 & 0xFFB6;
-          }
-
-          else
-          {
-            v130 = v129;
-          }
-
-          if (v127 != v130)
-          {
-            v214 = 0u;
-            memset(v215, 0, sizeof(v215));
-            v212 = 0u;
-            v213 = 0u;
-            v210 = 0u;
-            v211 = 0u;
-            memset(&__bp, 0, sizeof(__bp));
-            strmode(v127, &__bp);
-            v207 = 0u;
-            memset(v208, 0, sizeof(v208));
-            v205 = 0u;
-            v206 = 0u;
-            v203 = 0u;
-            v204 = 0u;
-            v201 = 0u;
-            v202 = 0u;
-            v200 = 0u;
-            v198 = 0u;
-            v199 = 0u;
-            v196 = 0u;
-            v197 = 0u;
-            memset(v195, 0, sizeof(v195));
-            strmode(v130, v195);
-            v131 = *v191;
-            if (*v191 && os_log_type_enabled(*v191, OS_LOG_TYPE_DEFAULT))
-            {
-              v132 = *(a2 + 120);
-              *buf = 136315650;
-              *&buf[4] = v132;
-              *&buf[12] = 2080;
-              *&buf[14] = &__bp;
-              *&buf[22] = 2080;
-              v194 = v195;
-              _os_log_impl(&dword_241C0E000, v131, OS_LOG_TYPE_DEFAULT, "Filtering the mode for %s from %s to %s", buf, 0x20u);
-            }
-
-            LOWORD(v127) = v130;
-          }
 
 LABEL_159:
-          v133 = "symlink";
-          if (v9 > 13)
+        v118 = "symlink";
+        if (v8 > 13)
+        {
+          if (v8 <= 15)
           {
-            if (v9 <= 15)
+            if (v8 != 14)
             {
-              if (v9 != 14)
-              {
 LABEL_172:
-                if (v9 == 15)
-                {
-                  v144 = "extra regular file";
-                }
-
-                else
-                {
-                  v144 = "regular file";
-                }
-
-                if (!v123 && chown(*(a2 + 120), UserID, GroupID))
-                {
-                  v184 = *__error();
-                  v185 = *(a2 + 120);
-                  v186 = __error();
-                  strerror(*v186);
-                  BOMCopierErrorCapture(v3, v184, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6176, "finalize_entry_filesystem", "Could not chown %s to %d:%d: %s", v185, UserID);
-                  goto LABEL_226;
-                }
-
-                if (chmod(*(a2 + 120), v127))
-                {
-                  v214 = 0u;
-                  memset(v215, 0, sizeof(v215));
-                  v212 = 0u;
-                  v213 = 0u;
-                  v210 = 0u;
-                  v211 = 0u;
-                  memset(&__bp, 0, sizeof(__bp));
-                  strmode(v127, &__bp);
-                  v145 = *__error();
-                  v146 = *(a2 + 120);
-                  v147 = __error();
-                  strerror(*v147);
-                  BOMCopierErrorCapture(v3, v145, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6188, "finalize_entry_filesystem", "Could not chmod %s %s to %s: %s", v144, v146);
-                  goto LABEL_226;
-                }
-
-LABEL_215:
-                if (set_timestamps(v7, a2, *v191, v3))
-                {
-                  BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6248, "finalize_entry_filesystem", "Could not set timestamps on destination entry");
-                }
-
-                goto LABEL_226;
+              if (v8 == 15)
+              {
+                v128 = "extra regular file";
               }
 
-              v162 = "extra directory";
-LABEL_210:
-              if (!v123 && chown(*(a2 + 120), UserID, GroupID))
+              else
               {
-                v181 = *__error();
-                v182 = *(a2 + 120);
-                v183 = __error();
-                strerror(*v183);
-                BOMCopierErrorCapture(v3, v181, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6124, "finalize_entry_filesystem", "Could not chown %s to %d:%d: %s", v182, UserID);
-                goto LABEL_226;
+                v128 = "regular file";
               }
 
-              if ((*(a2 + 153) != 1 || *(v191 + 43)) && chmod(*(a2 + 120), v127))
+              if (!v108 && chown(*(a2 + 120), UserID, GroupID))
               {
-                v214 = 0u;
-                memset(v215, 0, sizeof(v215));
-                v212 = 0u;
-                v213 = 0u;
-                v210 = 0u;
-                v211 = 0u;
+                v167 = *__error();
+                v168 = *(a2 + 120);
+                v169 = __error();
+                strerror(*v169);
+                BOMCopierErrorCapture(v3, v167, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6176, "finalize_entry_filesystem", "Could not chown %s to %d:%d: %s", v168, UserID);
+                return;
+              }
+
+              if (chmod(*(a2 + 120), v112))
+              {
+                v195 = 0u;
+                memset(v196, 0, sizeof(v196));
+                v193 = 0u;
+                v194 = 0u;
+                v191 = 0u;
+                v192 = 0u;
                 memset(&__bp, 0, sizeof(__bp));
-                strmode(v127, &__bp);
-                v178 = *__error();
-                v179 = *(a2 + 120);
-                v180 = __error();
-                strerror(*v180);
-                BOMCopierErrorCapture(v3, v178, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6154, "finalize_entry_filesystem", "Could not chmod %s %s to %s: %s", v162, v179);
-                goto LABEL_226;
+                strmode(v112, &__bp);
+                v129 = *__error();
+                v130 = *(a2 + 120);
+                v131 = __error();
+                strerror(*v131);
+                BOMCopierErrorCapture(v3, v129, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6188, "finalize_entry_filesystem", "Could not chmod %s %s to %s: %s", v128, v130);
+                return;
               }
 
               goto LABEL_215;
             }
 
-            if (v9 != 16)
-            {
-              if (v9 != 18)
-              {
-                goto LABEL_220;
-              }
-
-              v133 = "replay symlink";
-            }
+            v145 = "extra directory";
+            goto LABEL_210;
           }
 
-          else
+          if (v8 != 16)
           {
-            if (v9 <= 8)
+            if (v8 != 18)
             {
-              if (v9 != 6)
-              {
-                if (v9 != 8)
-                {
-                  goto LABEL_220;
-                }
-
-                goto LABEL_172;
-              }
-
-              v162 = "directory";
-              goto LABEL_210;
+              goto LABEL_220;
             }
 
-            if (v9 != 9)
-            {
-              if (v9 == 13)
-              {
-                v162 = "post-order directory";
-                goto LABEL_210;
-              }
-
-LABEL_220:
-              BOMCopierSourceEntryTypeString(v9);
-              BOMCopierErrorCapture(v3, 45, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6232, "finalize_entry_filesystem", "Unsupported BOMCopierSourceEntryType: %s");
-              goto LABEL_226;
-            }
-          }
-
-          if (!v123 && lchown(*(a2 + 120), UserID, GroupID))
-          {
-            v175 = *__error();
-            v176 = *(a2 + 120);
-            v177 = __error();
-            strerror(*v177);
-            BOMCopierErrorCapture(v3, v175, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6213, "finalize_entry_filesystem", "Could not lchown %s to %d:%d: %s", v176, UserID);
-            goto LABEL_226;
-          }
-
-          if (lchmod(*(a2 + 120), v127))
-          {
-            v214 = 0u;
-            memset(v215, 0, sizeof(v215));
-            v212 = 0u;
-            v213 = 0u;
-            v210 = 0u;
-            v211 = 0u;
-            memset(&__bp, 0, sizeof(__bp));
-            strmode(v127, &__bp);
-            v163 = *__error();
-            v164 = *(a2 + 120);
-            v165 = __error();
-            strerror(*v165);
-            BOMCopierErrorCapture(v3, v163, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6225, "finalize_entry_filesystem", "Could not lchmod %s %s to %s: %s", v133, v164);
-            goto LABEL_226;
-          }
-
-          goto LABEL_215;
-        }
-
-        HonorsSetuid = BOMCopierSourceEntryGetHonorsSetuid(v7);
-        v128 = (v9 == 8) & *(v191 + 306);
-        if ((v9 == 8) & *(v191 + 306)) == 0 && (HonorsSetuid)
-        {
-          goto LABEL_159;
-        }
-
-        v129 = v127;
-        if (HonorsSetuid)
-        {
-          goto LABEL_151;
-        }
-      }
-
-      v129 = v127 & 0xF1FF;
-      goto LABEL_151;
-    }
-
-    if (Type != 17)
-    {
-      if (Type == 18)
-      {
-        SymlinkTarget = BOMCopierSourceEntryGetSymlinkTarget(*(a2 + 8));
-        if (!SymlinkTarget)
-        {
-          v35 = *__error();
-          v36 = *(a2 + 120);
-          BOMCopierErrorCapture(v3, v35, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5322, "finalize_entry_filesystem", "Missing symlink target for %s");
-          goto LABEL_226;
-        }
-
-        v23 = SymlinkTarget;
-        if (unlink(*(a2 + 120)))
-        {
-          v24 = *__error();
-          v25 = *(a2 + 120);
-          v26 = __error();
-          strerror(*v26);
-          BOMCopierErrorCapture(v3, v24, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5329, "finalize_entry_filesystem", "Could not unlink placeholder at %s: %s");
-          goto LABEL_226;
-        }
-
-        if (symlink(v23, *(a2 + 120)))
-        {
-          v48 = *__error();
-          v49 = *(a2 + 120);
-          v50 = __error();
-          strerror(*v50);
-          BOMCopierErrorCapture(v3, v48, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5336, "finalize_entry_filesystem", "Could not symlink %s to %s: %s", v49);
-          goto LABEL_226;
-        }
-      }
-
-      else if (Type == 19)
-      {
-        if (*(a1 + 8) || (v37 = BOMCopierSourceEntryGetUserID(v7), v38 = BOMCopierSourceEntryGetGroupID(v7), !chown(*(a2 + 120), v37, v38)))
-        {
-          v10 = BOMCopierSourceEntryGetMode(v7);
-          if ((*(a1 + 8) || (*(a1 + 305) & 1) != 0 || *(a1 + 20) == 1 && (BOMCopierSourceEntryGetHonorsSetuid(v7) & 1) == 0) && (v10 & 0xE00) != 0)
-          {
-            v11 = v10 & 0xF1FF;
-            v214 = 0u;
-            memset(v215, 0, sizeof(v215));
-            v212 = 0u;
-            v213 = 0u;
-            v210 = 0u;
-            v211 = 0u;
-            memset(&__bp, 0, sizeof(__bp));
-            strmode(v10, &__bp);
-            v207 = 0u;
-            memset(v208, 0, sizeof(v208));
-            v205 = 0u;
-            v206 = 0u;
-            v203 = 0u;
-            v204 = 0u;
-            v201 = 0u;
-            v202 = 0u;
-            v200 = 0u;
-            v198 = 0u;
-            v199 = 0u;
-            v196 = 0u;
-            v197 = 0u;
-            memset(v195, 0, sizeof(v195));
-            strmode(v10 & 0xF1FF, v195);
-            v12 = *a1;
-            if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-            {
-              v13 = *(a2 + 120);
-              *buf = 136315650;
-              *&buf[4] = v13;
-              *&buf[12] = 2080;
-              *&buf[14] = &__bp;
-              *&buf[22] = 2080;
-              v194 = v195;
-              _os_log_impl(&dword_241C0E000, v12, OS_LOG_TYPE_DEFAULT, "Filtering the mode for %s from %s to %s", buf, 0x20u);
-            }
-
-            LOWORD(v10) = v11;
-          }
-
-          if (chmod(*(a2 + 120), v10))
-          {
-            v214 = 0u;
-            memset(v215, 0, sizeof(v215));
-            v212 = 0u;
-            v213 = 0u;
-            v210 = 0u;
-            v211 = 0u;
-            memset(&__bp, 0, sizeof(__bp));
-            strmode(v10, &__bp);
-            v14 = *__error();
-            v15 = *(a2 + 120);
-            v16 = __error();
-            strerror(*v16);
-            BOMCopierErrorCapture(v3, v14, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5669, "finalize_entry_filesystem", "Could not chmod relay directory %s to %s: %s", v15);
-          }
-
-          else if (set_timestamps(v7, a2, *a1, v3))
-          {
-            BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5684, "finalize_entry_filesystem", "Could not set timestamps on destination entry");
+            v118 = "replay symlink";
           }
         }
 
         else
         {
-          v39 = *__error();
-          v40 = *(a2 + 120);
-          v41 = __error();
-          strerror(*v41);
-          BOMCopierErrorCapture(v3, v39, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5602, "finalize_entry_filesystem", "Could not chown %s to %d:%d: %s", v40, v37);
+          if (v8 <= 8)
+          {
+            if (v8 != 6)
+            {
+              if (v8 != 8)
+              {
+                goto LABEL_220;
+              }
+
+              goto LABEL_172;
+            }
+
+            v145 = "directory";
+            goto LABEL_210;
+          }
+
+          if (v8 != 9)
+          {
+            if (v8 == 13)
+            {
+              v145 = "post-order directory";
+LABEL_210:
+              if (!v108 && chown(*(a2 + 120), UserID, GroupID))
+              {
+                v164 = *__error();
+                v165 = *(a2 + 120);
+                v166 = __error();
+                strerror(*v166);
+                BOMCopierErrorCapture(v3, v164, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6124, "finalize_entry_filesystem", "Could not chown %s to %d:%d: %s", v165, UserID);
+                return;
+              }
+
+              if ((*(a2 + 153) != 1 || *(v172 + 43)) && chmod(*(a2 + 120), v112))
+              {
+                v195 = 0u;
+                memset(v196, 0, sizeof(v196));
+                v193 = 0u;
+                v194 = 0u;
+                v191 = 0u;
+                v192 = 0u;
+                memset(&__bp, 0, sizeof(__bp));
+                strmode(v112, &__bp);
+                v161 = *__error();
+                v162 = *(a2 + 120);
+                v163 = __error();
+                strerror(*v163);
+                BOMCopierErrorCapture(v3, v161, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6154, "finalize_entry_filesystem", "Could not chmod %s %s to %s: %s", v145, v162);
+                return;
+              }
+
+              goto LABEL_215;
+            }
+
+LABEL_220:
+            BOMCopierSourceEntryTypeString(v8);
+            BOMCopierErrorCapture(v3, 45, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6232, "finalize_entry_filesystem", "Unsupported BOMCopierSourceEntryType: %s");
+            return;
+          }
         }
 
-        goto LABEL_226;
+        if (!v108 && lchown(*(a2 + 120), UserID, GroupID))
+        {
+          v158 = *__error();
+          v159 = *(a2 + 120);
+          v160 = __error();
+          strerror(*v160);
+          BOMCopierErrorCapture(v3, v158, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6213, "finalize_entry_filesystem", "Could not lchown %s to %d:%d: %s", v159, UserID);
+          return;
+        }
+
+        if (lchmod(*(a2 + 120), v112))
+        {
+          v195 = 0u;
+          memset(v196, 0, sizeof(v196));
+          v193 = 0u;
+          v194 = 0u;
+          v191 = 0u;
+          v192 = 0u;
+          memset(&__bp, 0, sizeof(__bp));
+          strmode(v112, &__bp);
+          v146 = *__error();
+          v147 = *(a2 + 120);
+          v148 = __error();
+          strerror(*v148);
+          BOMCopierErrorCapture(v3, v146, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6225, "finalize_entry_filesystem", "Could not lchmod %s %s to %s: %s", v118, v147);
+          return;
+        }
+
+LABEL_215:
+        if (set_timestamps(v6, a2, *v172, v3))
+        {
+          BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6248, "finalize_entry_filesystem", "Could not set timestamps on destination entry");
+        }
+
+        return;
       }
 
-      goto LABEL_58;
-    }
-
-    AppleDoubleTarget = BOMCopierSourceEntryGetAppleDoubleTarget(v7);
-    to = 0;
-    asprintf(&to, "%s/%s", *(a2 + 136), AppleDoubleTarget);
-    if (!to)
-    {
-      v32 = *__error();
-      v33 = *(a2 + 136);
-      v34 = __error();
-      strerror(*v34);
-      BOMCopierErrorCapture(v3, v32, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5354, "finalize_entry_filesystem", "Could not construct target path for %s and %s: %s", v33);
-      goto LABEL_226;
-    }
-
-    memset(&__bp, 0, sizeof(__bp));
-    if (lstat(to, &__bp))
-    {
-      v20 = *__error();
-      v21 = __error();
-      strerror(*v21);
-      BOMCopierErrorCapture(v3, v20, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5362, "finalize_entry_filesystem", "Could not lstat %s: %s");
-      goto LABEL_226;
-    }
-
-    if (*(a1 + 160))
-    {
-      v42 = 9175045;
-    }
-
-    else
-    {
-      v42 = 9175044;
-    }
-
-    if (copyfile(*(a2 + 120), to, 0, v42) < 0)
-    {
-      if (*__error() == 45)
+      HonorsSetuid = BOMCopierSourceEntryGetHonorsSetuid(v6);
+      v113 = (v8 == 8) & *(v172 + 306);
+      if ((v8 == 8) & *(v172 + 306)) == 0 && (HonorsSetuid)
       {
-        free(to);
-        v92 = *a1;
-        if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
-        {
-          v93 = *(a2 + 120);
-          *v195 = 136315138;
-          *&v195[4] = v93;
-          _os_log_impl(&dword_241C0E000, v92, OS_LOG_TYPE_DEFAULT, "AppleDouble merge not supported on this filesystem. Unlinking %s", v195, 0xCu);
-        }
-
-        if (unlink(*(a2 + 120)))
-        {
-          v94 = *__error();
-          v95 = *(a2 + 120);
-          v96 = __error();
-          strerror(*v96);
-          BOMCopierErrorCapture(v3, v94, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5436, "finalize_entry_filesystem", "Could not unlink %s: %s");
-        }
-
-        goto LABEL_226;
+        goto LABEL_159;
       }
 
-      v134 = *__error();
-      v135 = *(a2 + 120);
-      v136 = __error();
-      strerror(*v136);
-      BOMCopierErrorCapture(v3, v134, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5443, "finalize_entry_filesystem", "Could not merge %s to %s: %s", v135);
-      goto LABEL_198;
+      v114 = v112;
+      if (HonorsSetuid)
+      {
+        goto LABEL_151;
+      }
     }
 
-    v43 = *a1;
-    if (v43 && os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v114 = v112 & 0xF1FF;
+    goto LABEL_151;
+  }
+
+  if (Type != 17)
+  {
+    if (Type == 18)
     {
-      v44 = *(a2 + 120);
-      *v195 = 136315394;
-      *&v195[4] = v44;
-      *&v195[12] = 2080;
-      *&v195[14] = to;
-      _os_log_impl(&dword_241C0E000, v43, OS_LOG_TYPE_DEFAULT, "Merged AppleDouble %s to %s", v195, 0x16u);
+      SymlinkTarget = BOMCopierSourceEntryGetSymlinkTarget(*(a2 + 8));
+      if (!SymlinkTarget)
+      {
+        v30 = *__error();
+        BOMCopierErrorCapture(v3, v30, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5322, "finalize_entry_filesystem", "Missing symlink target for %s");
+        return;
+      }
+
+      v21 = SymlinkTarget;
+      if (unlink(*(a2 + 120)))
+      {
+        v22 = *__error();
+        v23 = __error();
+        strerror(*v23);
+        BOMCopierErrorCapture(v3, v22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5329, "finalize_entry_filesystem", "Could not unlink placeholder at %s: %s");
+        return;
+      }
+
+      if (symlink(v21, *(a2 + 120)))
+      {
+        v41 = *__error();
+        v42 = *(a2 + 120);
+        v43 = __error();
+        strerror(*v43);
+        BOMCopierErrorCapture(v3, v41, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5336, "finalize_entry_filesystem", "Could not symlink %s to %s: %s", v42);
+        return;
+      }
+    }
+
+    else if (Type == 19)
+    {
+      if (*(a1 + 2) || (v31 = BOMCopierSourceEntryGetUserID(v6), v32 = BOMCopierSourceEntryGetGroupID(v6), !chown(*(a2 + 120), v31, v32)))
+      {
+        v9 = BOMCopierSourceEntryGetMode(v6);
+        if ((*(a1 + 2) || (*(a1 + 305) & 1) != 0 || *(a1 + 20) == 1 && (BOMCopierSourceEntryGetHonorsSetuid(v6) & 1) == 0) && (v9 & 0xE00) != 0)
+        {
+          v10 = v9 & 0xF1FF;
+          v195 = 0u;
+          memset(v196, 0, sizeof(v196));
+          v193 = 0u;
+          v194 = 0u;
+          v191 = 0u;
+          v192 = 0u;
+          memset(&__bp, 0, sizeof(__bp));
+          strmode(v9, &__bp);
+          v188 = 0u;
+          memset(v189, 0, sizeof(v189));
+          v186 = 0u;
+          v187 = 0u;
+          v184 = 0u;
+          v185 = 0u;
+          v182 = 0u;
+          v183 = 0u;
+          v181 = 0u;
+          v179 = 0u;
+          v180 = 0u;
+          v177 = 0u;
+          v178 = 0u;
+          memset(v176, 0, sizeof(v176));
+          strmode(v9 & 0xF1FF, v176);
+          v11 = *a1;
+          if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
+          {
+            v12 = *(a2 + 120);
+            *buf = 136315650;
+            *&buf[4] = v12;
+            *&buf[12] = 2080;
+            *&buf[14] = &__bp;
+            *&buf[22] = 2080;
+            v175 = v176;
+            _os_log_impl(&dword_241C0E000, v11, OS_LOG_TYPE_DEFAULT, "Filtering the mode for %s from %s to %s", buf, 0x20u);
+          }
+
+          LOWORD(v9) = v10;
+        }
+
+        if (chmod(*(a2 + 120), v9))
+        {
+          v195 = 0u;
+          memset(v196, 0, sizeof(v196));
+          v193 = 0u;
+          v194 = 0u;
+          v191 = 0u;
+          v192 = 0u;
+          memset(&__bp, 0, sizeof(__bp));
+          strmode(v9, &__bp);
+          v13 = *__error();
+          v14 = *(a2 + 120);
+          v15 = __error();
+          strerror(*v15);
+          BOMCopierErrorCapture(v3, v13, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5669, "finalize_entry_filesystem", "Could not chmod relay directory %s to %s: %s", v14);
+        }
+
+        else if (set_timestamps(v6, a2, *a1, v3))
+        {
+          BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5684, "finalize_entry_filesystem", "Could not set timestamps on destination entry");
+        }
+      }
+
+      else
+      {
+        v33 = *__error();
+        v34 = *(a2 + 120);
+        v35 = __error();
+        strerror(*v35);
+        BOMCopierErrorCapture(v3, v33, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5602, "finalize_entry_filesystem", "Could not chown %s to %d:%d: %s", v34, v31);
+      }
+
+      return;
+    }
+
+    goto LABEL_58;
+  }
+
+  AppleDoubleTarget = BOMCopierSourceEntryGetAppleDoubleTarget(v6);
+  to = 0;
+  asprintf(&to, "%s/%s", *(a2 + 136), AppleDoubleTarget);
+  if (!to)
+  {
+    v27 = *__error();
+    v28 = *(a2 + 136);
+    v29 = __error();
+    strerror(*v29);
+    BOMCopierErrorCapture(v3, v27, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5354, "finalize_entry_filesystem", "Could not construct target path for %s and %s: %s", v28);
+    return;
+  }
+
+  memset(&__bp, 0, sizeof(__bp));
+  if (lstat(to, &__bp))
+  {
+    v18 = *__error();
+    v19 = __error();
+    strerror(*v19);
+    BOMCopierErrorCapture(v3, v18, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5362, "finalize_entry_filesystem", "Could not lstat %s: %s");
+    return;
+  }
+
+  if (*(a1 + 160))
+  {
+    v36 = 9175045;
+  }
+
+  else
+  {
+    v36 = 9175044;
+  }
+
+  if ((copyfile(*(a2 + 120), to, 0, v36) & 0x80000000) == 0)
+  {
+    v37 = *a1;
+    if (v37 && os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    {
+      v38 = *(a2 + 120);
+      *v176 = 136315394;
+      *&v176[4] = v38;
+      *&v176[12] = 2080;
+      *&v176[14] = to;
+      _os_log_impl(&dword_241C0E000, v37, OS_LOG_TYPE_DEFAULT, "Merged AppleDouble %s to %s", v176, 0x16u);
     }
 
     if (unlink(*(a2 + 120)))
     {
-      v45 = *__error();
-      v46 = *(a2 + 120);
-      v47 = __error();
-      strerror(*v47);
-      BOMCopierErrorCapture(v3, v45, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5454, "finalize_entry_filesystem", "Could not unlink %s: %s");
+      v39 = *__error();
+      v40 = __error();
+      strerror(*v40);
+      BOMCopierErrorCapture(v3, v39, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5454, "finalize_entry_filesystem", "Could not unlink %s: %s");
 LABEL_198:
-      v69 = to;
+      v60 = to;
       goto LABEL_199;
     }
 
     file = acl_get_file(to, ACL_TYPE_EXTENDED);
     if (file)
     {
-      v100 = file;
-      v101 = acl_init(0);
-      if (!v101)
+      v87 = file;
+      v88 = acl_init(0);
+      if (!v88)
       {
-        v160 = *__error();
-        v161 = __error();
-        strerror(*v161);
-        BOMCopierErrorCapture(v3, v160, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5483, "finalize_entry_filesystem", "Could not create empty ACL for %s: %s");
+        v143 = *__error();
+        v144 = __error();
+        strerror(*v144);
+        BOMCopierErrorCapture(v3, v143, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5483, "finalize_entry_filesystem", "Could not create empty ACL for %s: %s");
         goto LABEL_198;
       }
 
-      v102 = v101;
-      v103 = acl_set_file(to, ACL_TYPE_EXTENDED, v101);
-      free(v102);
-      if (v103)
+      v89 = v88;
+      v90 = acl_set_file(to, ACL_TYPE_EXTENDED, v88);
+      free(v89);
+      if (v90)
       {
-        v104 = *__error();
-        v105 = __error();
-        strerror(*v105);
-        BOMCopierErrorCapture(v3, v104, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5494, "finalize_entry_filesystem", "Could not remove saved ACL from %s: %s");
+        v91 = *__error();
+        v92 = __error();
+        strerror(*v92);
+        BOMCopierErrorCapture(v3, v91, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5494, "finalize_entry_filesystem", "Could not remove saved ACL from %s: %s");
         goto LABEL_198;
       }
 
-      v167 = acl_set_file(to, ACL_TYPE_EXTENDED, v100);
-      acl_free(v100);
-      if (v167)
+      v150 = acl_set_file(to, ACL_TYPE_EXTENDED, v87);
+      acl_free(v87);
+      if (v150)
       {
-        v168 = *__error();
-        v169 = __error();
-        strerror(*v169);
-        BOMCopierErrorCapture(v3, v168, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5534, "finalize_entry_filesystem", "Could not re-apply saved ACL to %s: %s");
+        v151 = *__error();
+        v152 = __error();
+        strerror(*v152);
+        BOMCopierErrorCapture(v3, v151, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5534, "finalize_entry_filesystem", "Could not re-apply saved ACL to %s: %s");
         goto LABEL_198;
       }
     }
 
     *&buf[16] = 0;
     *buf = xmmword_241C78E00;
-    *v195 = __bp.st_mtimespec;
-    *&v195[16] = __bp.st_atimespec;
-    if (setattrlist(to, buf, v195, 0x20uLL, 1u) && *__error() != 13)
+    *v176 = __bp.st_mtimespec;
+    *&v176[16] = __bp.st_atimespec;
+    if (setattrlist(to, buf, v176, 0x20uLL, 1u) && *__error() != 13)
     {
-      v170 = *__error();
-      v171 = __error();
-      strerror(*v171);
-      BOMCopierErrorCapture(v3, v170, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5570, "finalize_entry_filesystem", "Could not setattrlist timestamps for %s: %s");
+      v153 = *__error();
+      v154 = __error();
+      strerror(*v154);
+      BOMCopierErrorCapture(v3, v153, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5570, "finalize_entry_filesystem", "Could not setattrlist timestamps for %s: %s");
     }
 
     else
@@ -3040,12 +1378,36 @@ LABEL_198:
       free(to);
     }
 
-    goto LABEL_226;
+    return;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  if (*__error() != 45)
+  {
+    v119 = *__error();
+    v120 = *(a2 + 120);
+    v121 = __error();
+    strerror(*v121);
+    BOMCopierErrorCapture(v3, v119, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5443, "finalize_entry_filesystem", "Could not merge %s to %s: %s", v120);
+    goto LABEL_198;
+  }
 
-  apply_retention_policy(a1, a2, a3);
+  free(to);
+  v81 = *a1;
+  if (*a1 && os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
+  {
+    v82 = *(a2 + 120);
+    *v176 = 136315138;
+    *&v176[4] = v82;
+    _os_log_impl(&dword_241C0E000, v81, OS_LOG_TYPE_DEFAULT, "AppleDouble merge not supported on this filesystem. Unlinking %s", v176, 0xCu);
+  }
+
+  if (unlink(*(a2 + 120)))
+  {
+    v83 = *__error();
+    v84 = __error();
+    strerror(*v84);
+    BOMCopierErrorCapture(v3, v83, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 5436, "finalize_entry_filesystem", "Could not unlink %s: %s");
+  }
 }
 
 uint64_t finalize_entry_apple_archive(uint64_t a1, void *a2)
@@ -3420,44 +1782,39 @@ uint64_t write_data_libarchive(void *a1, uint64_t a2, uint64_t a3, void *a4)
       }
     }
 
-    v14 = a1[9];
-    v15 = archive_write_data();
-    if (!v15)
+    v14 = archive_write_data();
+    if (!v14)
     {
 LABEL_18:
       a1[14] += v8;
       return v8;
     }
 
-    v16 = v15;
-    if (v15 == -1)
+    v15 = v14;
+    if (v14 == -1)
     {
-      v26 = a1[9];
-      v27 = archive_error_string();
-      BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6899, "write_data_libarchive", "Could not archive file data (%ld bytes): %s\n", v9, v27);
+      v22 = archive_error_string();
+      BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6899, "write_data_libarchive", "Could not archive file data (%ld bytes): %s\n", v9, v22);
       return -1;
     }
 
-    v8 += v15;
-    v17 = a1[11];
-    if (v17 >= 1)
+    v8 += v14;
+    v16 = a1[11];
+    if (v16 >= 1)
     {
-      v18 = a1[12];
-      v19 = a1[13] + v15;
-      a1[13] = v19;
-      if (v18 == v19)
+      v17 = a1[12];
+      v18 = a1[13] + v14;
+      a1[13] = v18;
+      if (v17 == v18)
       {
-        v20 = a1[7];
-        v21 = v20 - a1[14] - v8;
-        v22 = v21 >= v17 ? v17 : v20 - a1[14] - v8;
-        a1[12] = v22;
+        v19 = a1[7];
+        v20 = v19 - a1[14] - v8;
+        v21 = v20 >= v16 ? v16 : v19 - a1[14] - v8;
+        a1[12] = v21;
         a1[13] = 0;
-        if (v21 >= 1)
+        if (v20 >= 1)
         {
-          v23 = a1[10];
           archive_entry_set_size();
-          v24 = a1[9];
-          v25 = a1[10];
           if (archive_write_header())
           {
             break;
@@ -3466,21 +1823,20 @@ LABEL_18:
       }
     }
 
-    a2 += v16;
+    a2 += v15;
     if (v8 == a3)
     {
       goto LABEL_18;
     }
   }
 
-  v29 = a1[9];
-  v30 = archive_error_string();
+  v24 = archive_error_string();
   v8 = 1;
-  BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6959, "write_data_libarchive", "Could not write next segment archive entry: %s\n", v30);
+  BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6959, "write_data_libarchive", "Could not write next segment archive entry: %s\n", v24);
   return v8;
 }
 
-uint64_t BOMCopierDestinationEntrySeek(int *a1, void *data, unint64_t a3, off_t len, void *a5)
+uint64_t BOMCopierDestinationEntrySeek(AAArchiveStream *a1, void *data, unint64_t a3, off_t len, void *a5)
 {
   if (!a1)
   {
@@ -3494,10 +1850,10 @@ uint64_t BOMCopierDestinationEntrySeek(int *a1, void *data, unint64_t a3, off_t 
   {
     if (v10 != 1)
     {
-      if (!v10 && lseek(a1[17], len, 1) == -1)
+      if (!v10 && lseek(*(a1 + 17), len, 1) == -1)
       {
         v11 = *__error();
-        v12 = a1[17];
+        v12 = *(a1 + 17);
         v13 = __error();
         v14 = strerror(*v13);
         BOMCopierErrorCapture(a5, v11, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7006, "seek_filesystem", "Could not lseek in the destination %d:%lu: %s", v12, len, v14);
@@ -3521,7 +1877,7 @@ uint64_t BOMCopierDestinationEntrySeek(int *a1, void *data, unint64_t a3, off_t 
       return v15;
     }
 
-    if (!*(a1 + 9))
+    if (!a1[9])
     {
       v15 = 22;
       BOMCopierErrorCapture(a5, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2295, "BOMCopierDestinationEntrySeek", "destination_entry->archive is NULL");
@@ -3552,7 +1908,7 @@ uint64_t BOMCopierDestinationEntrySeek(int *a1, void *data, unint64_t a3, off_t 
     }
 
 LABEL_26:
-    v21 = *(a1 + 3);
+    v21 = a1[3];
     if (!v21 || !BOMCopierDataAnalyzerUpdate(v21, data, len, a5))
     {
       return 0;
@@ -3573,7 +1929,7 @@ LABEL_26:
   {
     v19 = len - v18 >= a3 ? a3 : len - v18;
     v20.ikey = 5521732;
-    if (AAArchiveStreamWriteBlob(*(a1 + 42), v20, data, v19))
+    if (AAArchiveStreamWriteBlob(a1[42], v20, data, v19))
     {
       break;
     }
@@ -3749,49 +2105,47 @@ void BOMCopierDestinationSetRelease(void *a1)
   }
 }
 
-uint64_t BOMCopierCopySourceEntryToDestinationSet(unsigned int *a1, unsigned int *a2, void *a3)
+uint64_t BOMCopierCopySourceEntryToDestinationSet(int *a1, unsigned int *a2, void *a3)
 {
   v3 = a3;
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     v26 = 22;
     BOMCopierErrorCapture(a3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2527, "BOMCopierCopySourceEntryToDestinationSet", "source_entry is NULL");
-    goto LABEL_37;
+    return v26;
   }
 
   if (!a2)
   {
     v26 = 22;
     BOMCopierErrorCapture(a3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2533, "BOMCopierCopySourceEntryToDestinationSet", "destination_set is NULL");
-    goto LABEL_37;
+    return v26;
   }
 
   if (!*(a2 + 4))
   {
     v26 = 22;
     BOMCopierErrorCapture(a3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2539, "BOMCopierCopySourceEntryToDestinationSet", "zero_buffer is NULL");
-    goto LABEL_37;
+    return v26;
   }
 
   if (!*(a2 + 5))
   {
     v26 = 22;
     BOMCopierErrorCapture(a3, 22, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2545, "BOMCopierCopySourceEntryToDestinationSet", "zero_buffer_size is 0");
-    goto LABEL_37;
+    return v26;
   }
 
   v6 = *a2;
   v7 = malloc_type_calloc(1uLL, 0x48uLL, 0x1030040A1FD43D8uLL);
   if (!v7)
   {
-    v29 = *__error();
-    v30 = __error();
-    v31 = strerror(*v30);
-    BOMCopierErrorCapture(v3, v29, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2574, "BOMCopierCopySourceEntryToDestinationSet", "Could not allocate copy state: %s", v31);
-LABEL_40:
-    v26 = 1;
-    goto LABEL_37;
+    v28 = *__error();
+    v29 = __error();
+    v30 = strerror(*v29);
+    BOMCopierErrorCapture(v3, v28, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2574, "BOMCopierCopySourceEntryToDestinationSet", "Could not allocate copy state: %s", v30);
+    return 1;
   }
 
   v8 = v7;
@@ -3804,17 +2158,17 @@ LABEL_40:
   v9 = malloc_type_calloc(v6, 0x20uLL, 0x79791115uLL);
   if (!v9)
   {
-    v32 = *__error();
-    v33 = __error();
-    v34 = strerror(*v33);
-    BOMCopierErrorCapture(v3, v32, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2592, "BOMCopierCopySourceEntryToDestinationSet", "Could not allocate copy target list: %s", v34);
+    v31 = *__error();
+    v32 = __error();
+    v33 = strerror(*v32);
+    BOMCopierErrorCapture(v3, v31, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2592, "BOMCopierCopySourceEntryToDestinationSet", "Could not allocate copy target list: %s", v33);
     release_copy_state(v8);
-    goto LABEL_40;
+    return 1;
   }
 
   if (v6)
   {
-    *v132 = v8;
+    *v131 = v8;
     v10 = 0;
     v11 = *(a2 + 1);
     do
@@ -3826,11 +2180,11 @@ LABEL_40:
 
     while (32 * v6 != v10);
     v13 = v3;
-    *(*v132 + 56) = v9;
-    v133 = (*v132 + 56);
+    *(*v131 + 56) = v9;
+    v132 = (*v131 + 56);
     IsCompressed = BOMCopierSourceEntryIsCompressed(a1);
-    *(*v132 + 64) = 0;
-    v15 = (*v132 + 64);
+    *(*v131 + 64) = 0;
+    v15 = (*v131 + 64);
     if (IsCompressed)
     {
       v16 = 0;
@@ -3883,12 +2237,12 @@ LABEL_40:
         {
           v26 = 1;
           BOMCopierErrorCapture(v13, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2730, "BOMCopierCopySourceEntryToDestinationSet", "Could not create destination entry");
-          v48 = *v132;
+          v47 = *v131;
           goto LABEL_88;
         }
 
-        v24 = *(Entry + 32);
-        v25 = *v133 + v19;
+        v24 = *(Entry + 8);
+        v25 = *v132 + v19;
         *v25 = v21;
         *(v25 + 8) = Entry;
         *(v25 + 16) = v24;
@@ -3902,46 +2256,46 @@ LABEL_40:
     }
 
     v3 = v13;
-    v8 = *v132;
+    v8 = *v131;
   }
 
   else
   {
     *(v8 + 7) = v9;
-    v133 = v8 + 14;
+    v132 = v8 + 14;
     BOMCopierSourceEntryIsCompressed(a1);
     *(v8 + 64) = 0;
     v15 = v8 + 16;
   }
 
-  v35 = *(v8 + 5);
+  v34 = *(v8 + 5);
   if (BOMCopierSourceEntryGetType(a1) != 8)
   {
     goto LABEL_78;
   }
 
   Size = BOMCopierSourceEntryGetSize(a1);
-  v37 = BOMCopierSourceEntryIsCompressed(a1);
-  v38 = 0;
-  v39 = Size;
+  v36 = BOMCopierSourceEntryIsCompressed(a1);
+  v37 = 0;
+  v38 = Size;
   if (Size < 1)
   {
 LABEL_63:
-    v40 = a1;
+    v39 = a1;
     goto LABEL_64;
   }
 
-  v40 = a1;
-  if (v37)
+  v39 = a1;
+  if (v36)
   {
     if (*v15 == 1)
     {
       ExtendedAttributeCount = BOMCopierSourceEntryGetExtendedAttributeCount(a1, v3);
       if (ExtendedAttributeCount)
       {
-        v42 = ExtendedAttributeCount;
-        v43 = 0;
-        for (j = 0; j != v42; ++j)
+        v41 = ExtendedAttributeCount;
+        v42 = 0;
+        for (j = 0; j != v41; ++j)
         {
           ExtendedAttributeName = BOMCopierSourceEntryGetExtendedAttributeName(a1, j, v3);
           if (!ExtendedAttributeName)
@@ -3951,7 +2305,7 @@ LABEL_63:
             goto LABEL_87;
           }
 
-          v46 = ExtendedAttributeName;
+          v45 = ExtendedAttributeName;
           if (!strcmp(ExtendedAttributeName, "com.apple.ResourceFork"))
           {
             ActualPath = BOMCopierSourceEntryGetActualPath(a1);
@@ -3962,56 +2316,56 @@ LABEL_63:
               goto LABEL_87;
             }
 
-            v114 = BOMCopierSourceEntryNewFromResourceFork(ActualPath, v3);
-            if (!v114)
+            v113 = BOMCopierSourceEntryNewFromResourceFork(ActualPath, v3);
+            if (!v113)
             {
               v26 = 1;
               BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7269, "copy_entry_to_destinations", "Could not create resource fork entry for %s");
               goto LABEL_87;
             }
 
-            v38 = v114;
-            v115 = *v8;
-            v39 = 1;
-            if (v115)
+            v37 = v113;
+            v114 = *v8;
+            v38 = 1;
+            if (v114)
             {
-              v116 = *v133 + 8;
+              v115 = *v132 + 8;
               do
               {
-                if (*v116)
+                if (*v115)
                 {
-                  *(*v116 + 155) = 1;
+                  *(*v115 + 155) = 1;
                 }
 
-                v116 += 32;
-                --v115;
+                v115 += 32;
+                --v114;
               }
 
-              while (v115);
-              v40 = v114;
+              while (v114);
+              v39 = v113;
             }
 
             else
             {
-              v40 = v114;
+              v39 = v113;
             }
 
             goto LABEL_64;
           }
 
-          v43 |= strcmp(v46, "com.apple.decmpfs") == 0;
+          v42 |= strcmp(v45, "com.apple.decmpfs") == 0;
         }
 
         BOMCopierSourceEntrySetSize(a1, 0);
-        if ((v43 & 1) == 0)
+        if ((v42 & 1) == 0)
         {
           goto LABEL_58;
         }
 
-        if (v35 && os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        if (v34 && os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v47 = "Skipping copying com.apple.decmpfs until finalization";
+          v46 = "Skipping copying com.apple.decmpfs until finalization";
           goto LABEL_61;
         }
       }
@@ -4020,266 +2374,266 @@ LABEL_63:
       {
         BOMCopierSourceEntrySetSize(a1, 0);
 LABEL_58:
-        if (v35 && os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        if (v34 && os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v47 = "Source entry claims to be compressed but there is no com.apple.decmpfs extended attribute. Assuming zero-length file.";
+          v46 = "Source entry claims to be compressed but there is no com.apple.decmpfs extended attribute. Assuming zero-length file.";
 LABEL_61:
-          _os_log_impl(&dword_241C0E000, v35, OS_LOG_TYPE_DEFAULT, v47, buf, 2u);
+          _os_log_impl(&dword_241C0E000, v34, OS_LOG_TYPE_DEFAULT, v46, buf, 2u);
         }
       }
 
-      v39 = 0;
       v38 = 0;
+      v37 = 0;
     }
 
     else
     {
-      v38 = 0;
-      v39 = 1;
+      v37 = 0;
+      v38 = 1;
     }
 
     goto LABEL_63;
   }
 
 LABEL_64:
-  v125 = v39;
-  v49 = v133;
-  v126 = v38;
-  if (BOMCopierSourceEntryGetBinaryType(v40) && *v8)
+  v124 = v38;
+  v48 = v132;
+  v125 = v37;
+  if (BOMCopierSourceEntryGetBinaryType(v39) && *v8)
   {
-    v50 = 0;
-    v51 = (*v133 + 16);
-    v52 = *v8;
+    v49 = 0;
+    v50 = (*v132 + 16);
+    v51 = *v8;
     do
     {
-      v53 = *v51;
-      v51 += 8;
-      if (v53 == 1)
+      v52 = *v50;
+      v50 += 8;
+      if (v52 == 1)
       {
-        ++v50;
+        ++v49;
       }
 
-      --v52;
+      --v51;
     }
 
-    while (v52);
-    if (v50 != *v8)
+    while (v51);
+    if (v49 != *v8)
     {
-      v124 = Size;
+      v123 = Size;
+      v83 = 0;
       v84 = 0;
-      v85 = 0;
       do
       {
-        v86 = *v133 + v84;
-        v87 = *(v86 + 8);
-        if (v87)
+        v85 = *v132 + v83;
+        v86 = *(v85 + 8);
+        if (v86)
         {
-          v88 = *(v86 + 16);
-          snprintf(*(v8 + 6), 0x400uLL, "%s", *(v87 + 120));
-          if (v88 == 4 || v88 == 1 && BOMCopierSourceEntryGetBinaryType(v40) - 3 <= 1)
+          v87 = *(v85 + 16);
+          snprintf(*(v8 + 6), 0x400uLL, "%s", *(v86 + 120));
+          if (v87 == 4 || v87 == 1 && BOMCopierSourceEntryGetBinaryType(v39) - 3 <= 1)
           {
             *buf = 0;
-            if ((*(v87 + 16) & 1) == 0 && (*(v87 + 154) & 1) == 0)
+            if ((*(v86 + 16) & 1) == 0 && (*(v86 + 154) & 1) == 0)
             {
-              if (BOMCopierDestinationEntryWriteFatHeader(v87, buf, v3))
+              if (BOMCopierDestinationEntryWriteFatHeader(v86, buf, v3))
               {
-                BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7640, "copy_binary_entry_to_destinations", "Could not write fat header\n", v118);
+                BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7640, "copy_binary_entry_to_destinations", "Could not write fat header\n", v117);
                 goto LABEL_205;
               }
 
-              *(*v133 + v84 + 24) += *buf;
+              *(*v132 + v83 + 24) += *buf;
             }
           }
         }
 
-        ++v85;
-        v84 += 32;
+        ++v84;
+        v83 += 32;
       }
 
-      while (v85 < *v8);
-      ArchCount = BOMCopierSourceEntryGetArchCount(v40);
-      Size = v124;
+      while (v84 < *v8);
+      ArchCount = BOMCopierSourceEntryGetArchCount(v39);
+      Size = v123;
       if (!ArchCount)
       {
         goto LABEL_73;
       }
 
+      v89 = 0;
       v90 = 0;
-      v91 = 0;
-      v128 = ArchCount;
-      v92 = 0uLL;
+      v127 = ArchCount;
+      v91 = 0uLL;
       while (1)
       {
-        *buf = v92;
-        *&buf[16] = v92;
-        if (BOMCopierSourceEntryGetArchRecord(v40, v90, buf, v3))
+        *buf = v91;
+        *&buf[16] = v91;
+        if (BOMCopierSourceEntryGetArchRecord(v39, v89, buf, v3))
         {
           BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7668, "copy_binary_entry_to_destinations", "Could not get arch record at index %d\n");
           goto LABEL_205;
         }
 
-        v93 = *&buf[8] - v91;
-        if (*&buf[8] != v91)
+        v92 = *&buf[8] - v90;
+        if (*&buf[8] != v90)
         {
-          v91 = *&buf[8];
-          if (BOMCopierSourceEntrySeek(v40, v93, *(v8 + 1), *(v8 + 2), v3))
+          v90 = *&buf[8];
+          if (BOMCopierSourceEntrySeek(v39, v92, *(v8 + 1), *(v8 + 2), v3))
           {
             BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7684, "copy_binary_entry_to_destinations", "Could not seek to beginning of matching slice\n");
             goto LABEL_205;
           }
         }
 
-        v130 = v91;
-        v94 = *v8;
-        v92 = 0uLL;
-        if (v94)
+        v129 = v90;
+        v93 = *v8;
+        v91 = 0uLL;
+        if (v93)
         {
-          v95 = 0;
-          for (k = 0; k < v94; ++k)
+          v94 = 0;
+          for (k = 0; k < v93; ++k)
           {
-            v97 = *(*v49 + v95 + 8);
-            if (v97)
+            v96 = *(*v48 + v94 + 8);
+            if (v96)
             {
-              snprintf(*(v8 + 6), 0x400uLL, "%s", *(v97 + 120));
-              if ((*(v97 + 16) & 1) == 0)
+              snprintf(*(v8 + 6), 0x400uLL, "%s", *(v96 + 120));
+              if ((*(v96 + 16) & 1) == 0)
               {
-                if (*(v97 + 36) <= v90)
+                if (*(v96 + 36) <= v89)
                 {
-                  BOMCopierErrorCapture(v3, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2002, "BOMCopierDestinationEntryGetMatchRecord", "index %d is out of range", v90);
+                  BOMCopierErrorCapture(v3, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2002, "BOMCopierDestinationEntryGetMatchRecord", "index %d is out of range", v89);
                   BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7719, "copy_binary_entry_to_destinations", "Could not get match record at index %d\n");
                   goto LABEL_205;
                 }
 
-                v98 = *(v97 + 40) + 40 * v90;
-                if (*v98)
+                v97 = *(v96 + 40) + 40 * v89;
+                if (*v97)
                 {
-                  v99 = *(v98 + 16);
-                  if (v99 == -1)
+                  v98 = *(v97 + 16);
+                  if (v98 == -1)
                   {
-                    BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7733, "copy_binary_entry_to_destinations", "dude offset is wack", v118);
+                    BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7733, "copy_binary_entry_to_destinations", "dude offset is wack", v117);
                     goto LABEL_205;
                   }
 
-                  v100 = *(*v49 + v95 + 24);
-                  v101 = v99 - v100;
-                  if (v99 != v100)
+                  v99 = *(*v48 + v94 + 24);
+                  v100 = v98 - v99;
+                  if (v98 != v99)
                   {
-                    if (BOMCopierDestinationEntrySeek(v97, *(v8 + 3), *(v8 + 4), v99 - v100, v3))
+                    if (BOMCopierDestinationEntrySeek(v96, *(v8 + 3), *(v8 + 4), v98 - v99, v3))
                     {
                       BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7745, "copy_binary_entry_to_destinations", "Could not seek %ld bytes to beginning of new slice");
                       goto LABEL_205;
                     }
 
-                    *(*v49 + v95 + 24) += v101;
+                    *(*v48 + v94 + 24) += v100;
                   }
                 }
               }
 
-              v94 = *v8;
-              v92 = 0uLL;
+              v93 = *v8;
+              v91 = 0uLL;
             }
 
-            v95 += 32;
+            v94 += 32;
           }
         }
 
-        v102 = *&buf[16];
+        v101 = *&buf[16];
         if (*&buf[16])
         {
-          v103 = 0;
-          v91 = v130;
-          v122 = v3;
+          v102 = 0;
+          v90 = v129;
+          v121 = v3;
           do
           {
-            v104 = v102 - v103;
-            if (v104 >= *(v8 + 2))
+            v103 = v101 - v102;
+            if (v103 >= *(v8 + 2))
             {
-              v105 = *(v8 + 2);
+              v104 = *(v8 + 2);
             }
 
             else
             {
-              v105 = v104;
+              v104 = v103;
             }
 
-            if (BOMCopierSourceEntryRead(v40, *(v8 + 1), v105, v3) != v105)
+            if (BOMCopierSourceEntryRead(v39, *(v8 + 1), v104, v3) != v104)
             {
               BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7771, "copy_binary_entry_to_destinations", "Could not read %ld bytes from source");
               goto LABEL_205;
             }
 
-            v131 = v91;
-            v106 = *v8;
-            v92 = 0uLL;
-            if (v106)
+            v130 = v90;
+            v105 = *v8;
+            v91 = 0uLL;
+            if (v105)
             {
-              v107 = 0;
-              for (m = 0; m < v106; ++m)
+              v106 = 0;
+              for (m = 0; m < v105; ++m)
               {
-                v109 = *(*v133 + v107 + 8);
-                if (v109)
+                v108 = *(*v132 + v106 + 8);
+                if (v108)
                 {
-                  snprintf(*(v8 + 6), 0x400uLL, "%s", *(v109 + 120));
-                  if ((*(v109 + 16) & 1) == 0)
+                  snprintf(*(v8 + 6), 0x400uLL, "%s", *(v108 + 120));
+                  if ((*(v108 + 16) & 1) == 0)
                   {
-                    if (*(v109 + 36) <= v90)
+                    if (*(v108 + 36) <= v89)
                     {
-                      v3 = v122;
-                      BOMCopierErrorCapture(v122, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2002, "BOMCopierDestinationEntryGetMatchRecord", "index %d is out of range", v90);
-                      BOMCopierErrorCapture(v122, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7801, "copy_binary_entry_to_destinations", "Could not get match record at index %d\n");
+                      v3 = v121;
+                      BOMCopierErrorCapture(v121, 34, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 2002, "BOMCopierDestinationEntryGetMatchRecord", "index %d is out of range", v89);
+                      BOMCopierErrorCapture(v121, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7801, "copy_binary_entry_to_destinations", "Could not get match record at index %d\n");
 LABEL_205:
                       v26 = 1;
-                      BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7356, "copy_entry_to_destinations", "Could not copy file entry to destination entry list", v121);
+                      BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7356, "copy_entry_to_destinations", "Could not copy file entry to destination entry list", v120);
                       goto LABEL_87;
                     }
 
-                    if ((*(*(v109 + 40) + 40 * v90) & 1) != 0 && (*(v109 + 154) & 1) == 0)
+                    if ((*(*(v108 + 40) + 40 * v89) & 1) != 0 && (*(v108 + 154) & 1) == 0)
                     {
-                      if (BOMCopierDestinationEntryWrite(v109, *(v8 + 1), v105, v122) != v105)
+                      if (BOMCopierDestinationEntryWrite(v108, *(v8 + 1), v104, v121) != v104)
                       {
-                        v3 = v122;
-                        BOMCopierErrorCapture(v122, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7815, "copy_binary_entry_to_destinations", "Could not write %ld bytes to destination: %s\n");
+                        v3 = v121;
+                        BOMCopierErrorCapture(v121, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7815, "copy_binary_entry_to_destinations", "Could not write %ld bytes to destination: %s\n");
                         goto LABEL_205;
                       }
 
-                      v110 = (*v133 + v107);
-                      v110[3] += v105;
-                      v111 = *v110;
-                      v112 = *(*v110 + 248);
-                      if (v112)
+                      v109 = (*v132 + v106);
+                      v109[3] += v104;
+                      v110 = *v109;
+                      v111 = *(*v109 + 248);
+                      if (v111)
                       {
-                        v112(v111, v40, v109, *(v111 + 256));
+                        v111(v110, v39, v108, *(v110 + 256));
                       }
                     }
                   }
 
-                  v106 = *v8;
-                  v92 = 0uLL;
+                  v105 = *v8;
+                  v91 = 0uLL;
                 }
 
-                v107 += 32;
+                v106 += 32;
               }
             }
 
-            v91 = v105 + v131;
-            v103 += v105;
-            v102 = *&buf[16];
-            v3 = v122;
+            v90 = v104 + v130;
+            v102 += v104;
+            v101 = *&buf[16];
+            v3 = v121;
           }
 
-          while (v103 != *&buf[16]);
+          while (v102 != *&buf[16]);
         }
 
         else
         {
-          v91 = v130;
+          v90 = v129;
         }
 
-        ++v90;
-        v49 = v133;
-        Size = v124;
-        if (v90 == v128)
+        ++v89;
+        v48 = v132;
+        Size = v123;
+        if (v89 == v127)
         {
           goto LABEL_73;
         }
@@ -4287,175 +2641,175 @@ LABEL_205:
     }
   }
 
-  v54 = BOMCopierSourceEntryGetSize(v40);
-  IsStreamed = BOMCopierSourceEntryIsStreamed(v40);
-  v56 = v54 == 0;
-  if (!v54 && (IsStreamed & 1) == 0)
+  v53 = BOMCopierSourceEntryGetSize(v39);
+  IsStreamed = BOMCopierSourceEntryIsStreamed(v39);
+  v55 = v53 == 0;
+  if (!v53 && (IsStreamed & 1) == 0)
   {
     goto LABEL_73;
   }
 
-  v123 = Size;
-  v65 = 0;
-  v66 = v56 & IsStreamed;
-  v129 = v54;
-  v127 = v56 & IsStreamed;
+  v122 = Size;
+  v64 = 0;
+  v65 = v55 & IsStreamed;
+  v128 = v53;
+  v126 = v55 & IsStreamed;
   while (1)
   {
-    v67 = (v54 - v65) >= *(v8 + 2) ? *(v8 + 2) : v54 - v65;
-    v68 = v66 ? *(v8 + 2) : v67;
-    v69 = BOMCopierSourceEntryRead(v40, *(v8 + 1), v68, v3);
-    v70 = v66;
-    v71 = v69;
-    if (v70)
+    v66 = (v53 - v64) >= *(v8 + 2) ? *(v8 + 2) : v53 - v64;
+    v67 = v65 ? *(v8 + 2) : v66;
+    v68 = BOMCopierSourceEntryRead(v39, *(v8 + 1), v67, v3);
+    v69 = v65;
+    v70 = v68;
+    if (v69)
     {
       break;
     }
 
-    if ((v69 & 0x8000000000000000) != 0)
+    if ((v68 & 0x8000000000000000) != 0)
     {
       BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7525, "copy_file_entry_to_destinations", "Could not read %lu bytes from source");
       goto LABEL_185;
     }
 
-    if (!v69)
+    if (!v68)
     {
-      v117 = *(v8 + 5);
-      Size = v123;
-      if (!v117 || !os_log_type_enabled(*(v8 + 5), OS_LOG_TYPE_DEFAULT))
+      v116 = *(v8 + 5);
+      Size = v122;
+      if (!v116 || !os_log_type_enabled(*(v8 + 5), OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_73;
       }
 
       *buf = 0;
-      v81 = "Read 0 bytes from deterministic source.";
+      v80 = "Read 0 bytes from deterministic source.";
       goto LABEL_192;
     }
 
 LABEL_102:
     if (*v8)
     {
-      v72 = 0;
+      v71 = 0;
       for (n = 0; n < *v8; ++n)
       {
-        v74 = *(*v49 + v72 + 8);
-        if (v74)
+        v73 = *(*v48 + v71 + 8);
+        if (v73)
         {
-          snprintf(*(v8 + 6), 0x400uLL, "%s", *(v74 + 120));
-          if ((*(v74 + 16) & 1) == 0 && (*(v74 + 154) & 1) == 0)
+          snprintf(*(v8 + 6), 0x400uLL, "%s", *(v73 + 120));
+          if ((*(v73 + 16) & 1) == 0 && (*(v73 + 154) & 1) == 0)
           {
-            v75 = *(v8 + 5);
-            if (v75 && os_log_type_enabled(*(v8 + 5), OS_LOG_TYPE_DEFAULT))
+            v74 = *(v8 + 5);
+            if (v74 && os_log_type_enabled(*(v8 + 5), OS_LOG_TYPE_DEFAULT))
             {
-              v76 = *(v74 + 120);
+              v75 = *(v73 + 120);
               *buf = 134218242;
-              *&buf[4] = v71;
+              *&buf[4] = v70;
               *&buf[12] = 2080;
-              *&buf[14] = v76;
-              _os_log_impl(&dword_241C0E000, v75, OS_LOG_TYPE_DEFAULT, "Copying %lu bytes to %s", buf, 0x16u);
+              *&buf[14] = v75;
+              _os_log_impl(&dword_241C0E000, v74, OS_LOG_TYPE_DEFAULT, "Copying %lu bytes to %s", buf, 0x16u);
             }
 
-            if (BOMCopierDestinationEntryWrite(v74, *(v8 + 1), v71, v3) != v71)
+            if (BOMCopierDestinationEntryWrite(v73, *(v8 + 1), v70, v3) != v70)
             {
               BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7559, "copy_file_entry_to_destinations", "Could not write %ld bytes to destination");
               goto LABEL_185;
             }
 
-            v49 = v133;
-            v77 = *(*v133 + v72);
-            v78 = *(v77 + 248);
-            if (v78)
+            v48 = v132;
+            v76 = *(*v132 + v71);
+            v77 = *(v76 + 248);
+            if (v77)
             {
-              v78(v77, v40, v74, *(v77 + 256));
+              v77(v76, v39, v73, *(v76 + 256));
             }
           }
         }
 
-        v72 += 32;
+        v71 += 32;
       }
     }
 
-    v65 += v71;
-    v54 = v129;
-    v66 = v127;
-    if (v65 == v129)
+    v64 += v70;
+    v53 = v128;
+    v65 = v126;
+    if (v64 == v128)
     {
-      v79 = v127;
+      v78 = v126;
     }
 
     else
     {
-      v79 = 1;
+      v78 = 1;
     }
 
-    if ((v79 & 1) == 0)
+    if ((v78 & 1) == 0)
     {
-      v80 = *(v8 + 5);
-      Size = v123;
-      if (v80 && os_log_type_enabled(*(v8 + 5), OS_LOG_TYPE_DEFAULT))
+      v79 = *(v8 + 5);
+      Size = v122;
+      if (v79 && os_log_type_enabled(*(v8 + 5), OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *&buf[4] = v129;
-        v81 = "Read %llu total bytes from the source.";
-        v82 = v80;
-        v83 = 12;
+        *&buf[4] = v128;
+        v80 = "Read %llu total bytes from the source.";
+        v81 = v79;
+        v82 = 12;
         goto LABEL_193;
       }
 
 LABEL_73:
-      if (v126)
+      if (v125)
       {
-        BOMCopierSourceEntryFree(v126);
+        BOMCopierSourceEntryFree(v125);
       }
 
-      if (Size >= 1 && !v125)
+      if (Size >= 1 && !v124)
       {
         BOMCopierSourceEntrySetSize(a1, Size);
       }
 
 LABEL_78:
-      v57 = BOMCopierSourceEntrySkip(a1, *(v8 + 1), *(v8 + 2), v3);
-      if (v57)
+      v56 = BOMCopierSourceEntrySkip(a1, *(v8 + 1), *(v8 + 2), v3);
+      if (v56)
       {
-        v26 = v57;
-        BOMCopierErrorCapture(v3, v57, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7390, "copy_entry_to_destinations", "Could not skip remaning source entry data\n", v118);
+        v26 = v56;
+        BOMCopierErrorCapture(v3, v56, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7390, "copy_entry_to_destinations", "Could not skip remaning source entry data\n", v117);
         goto LABEL_87;
       }
 
-      v58 = *v8;
-      if (!v58)
+      v57 = *v8;
+      if (!v57)
       {
 LABEL_86:
         v26 = 0;
         goto LABEL_87;
       }
 
+      v58 = 0;
       v59 = 0;
-      v60 = 0;
-      v61 = *v133;
+      v60 = *v132;
       while (1)
       {
-        v62 = *(v61 + v59 + 8);
-        if (v62)
+        v61 = *(v60 + v58 + 8);
+        if (v61)
         {
-          v63 = *(v61 + v59);
-          snprintf(*(v8 + 6), 0x400uLL, "%s", *(v62 + 120));
-          v64 = BOMCopierDestinationFinalizeEntry(v63, v62, v3);
-          if (v64)
+          v62 = *(v60 + v58);
+          snprintf(*(v8 + 6), 0x400uLL, "%s", *(v61 + 120));
+          v63 = BOMCopierDestinationFinalizeEntry(v62, v61, v3);
+          if (v63)
           {
-            v26 = v64;
-            BOMCopierErrorCapture(v3, v64, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7410, "copy_entry_to_destinations", "Could not finalize destination entry\n", v119);
+            v26 = v63;
+            BOMCopierErrorCapture(v3, v63, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7410, "copy_entry_to_destinations", "Could not finalize destination entry\n", v118);
             goto LABEL_87;
           }
 
-          v61 = *(v8 + 7);
-          *(v61 + v59 + 8) = 0;
-          v58 = *v8;
+          v60 = *(v8 + 7);
+          *(v60 + v58 + 8) = 0;
+          v57 = *v8;
         }
 
-        ++v60;
-        v59 += 32;
-        if (v60 >= v58)
+        ++v59;
+        v58 += 32;
+        if (v59 >= v57)
         {
           goto LABEL_86;
         }
@@ -4463,24 +2817,24 @@ LABEL_86:
     }
   }
 
-  if ((v69 & 0x8000000000000000) == 0)
+  if ((v68 & 0x8000000000000000) == 0)
   {
-    if (!v69)
+    if (!v68)
     {
-      v117 = *(v8 + 5);
-      Size = v123;
-      if (!v117 || !os_log_type_enabled(*(v8 + 5), OS_LOG_TYPE_DEFAULT))
+      v116 = *(v8 + 5);
+      Size = v122;
+      if (!v116 || !os_log_type_enabled(*(v8 + 5), OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_73;
       }
 
       *buf = 0;
-      v81 = "Read 0 bytes from non-deterministic source.";
+      v80 = "Read 0 bytes from non-deterministic source.";
 LABEL_192:
-      v82 = v117;
-      v83 = 2;
+      v81 = v116;
+      v82 = 2;
 LABEL_193:
-      _os_log_impl(&dword_241C0E000, v82, OS_LOG_TYPE_DEFAULT, v81, buf, v83);
+      _os_log_impl(&dword_241C0E000, v81, OS_LOG_TYPE_DEFAULT, v80, buf, v82);
       goto LABEL_73;
     }
 
@@ -4490,13 +2844,11 @@ LABEL_193:
   BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7514, "copy_file_entry_to_destinations", "Could not read %lu bytes from non-deterministic source");
 LABEL_185:
   v26 = 1;
-  BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7348, "copy_entry_to_destinations", "Could not copy file entry to destination entry list", v120);
+  BOMCopierErrorCapture(v3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 7348, "copy_entry_to_destinations", "Could not copy file entry to destination entry list", v119);
 LABEL_87:
-  v48 = v8;
+  v47 = v8;
 LABEL_88:
-  release_copy_state(v48);
-LABEL_37:
-  v27 = *MEMORY[0x277D85DE8];
+  release_copy_state(v47);
   return v26;
 }
 
@@ -4782,7 +3134,7 @@ uint64_t populate_aa_header_xattr(uint64_t a1, uint64_t a2, AAHeader_impl *a3, v
 
 void apply_retention_policy(uint64_t a1, uint64_t a2, void *a3)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 8);
   if (BOMCopierSourceEntryGetType(v6) == 8)
   {
@@ -4794,7 +3146,7 @@ void apply_retention_policy(uint64_t a1, uint64_t a2, void *a3)
       {
         if (!BinaryType)
         {
-          goto LABEL_43;
+          goto LABEL_42;
         }
 
 LABEL_11:
@@ -4804,31 +3156,30 @@ LABEL_11:
         {
           if (make_path(*a1, v12, a3))
           {
-            v13 = *(a1 + 344);
-            v14 = __error();
-            strerror(*v14);
+            v13 = __error();
+            strerror(*v13);
             BOMCopierErrorCapture(a3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6513, "apply_retention_policy", "Could not make the kept file directory %s: %s");
-            goto LABEL_51;
+            return;
           }
 
           if (*(a1 + 352) == 1)
           {
             if (!*(a1 + 360))
             {
-              v20 = malloc_type_calloc(1uLL, 0x400uLL, 0x8832F60FuLL);
-              *(a1 + 360) = v20;
-              if (!v20)
+              v17 = malloc_type_calloc(1uLL, 0x400uLL, 0x8832F60FuLL);
+              *(a1 + 360) = v17;
+              if (!v17)
               {
-                v52 = *__error();
-                v53 = __error();
-                strerror(*v53);
-                BOMCopierErrorCapture(a3, v52, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6532, "apply_retention_policy", "Could not allocate kept file subdirectory path: %s");
-                goto LABEL_51;
+                v42 = *__error();
+                v43 = __error();
+                strerror(*v43);
+                BOMCopierErrorCapture(a3, v42, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6532, "apply_retention_policy", "Could not allocate kept file subdirectory path: %s");
+                return;
               }
             }
 
-            v21 = *(a1 + 312);
-            if (!v21 || !(v21 % *(a1 + 356)))
+            v18 = *(a1 + 312);
+            if (!v18 || !(v18 % *(a1 + 356)))
             {
               memset(out, 0, sizeof(out));
               uuid_generate_random(out);
@@ -4837,15 +3188,11 @@ LABEL_11:
               snprintf(*(a1 + 360), 0x400uLL, "%s/%c%c/%c%c/%c%c/%s", *(a1 + 344), buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf);
               if (make_path(*a1, *(a1 + 360), a3))
               {
-                v22 = *(a1 + 360);
-                v23 = __error();
-                strerror(*v23);
+                v19 = __error();
+                strerror(*v19);
                 BOMCopierErrorCapture(a3, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6559, "apply_retention_policy", "Could not make the kept file subdirectory %s: %s");
-                goto LABEL_51;
+                return;
               }
-
-              v27 = *(a1 + 360);
-              v28 = *(a1 + 312);
             }
 
             asprintf(&__to, "%s/%lu");
@@ -4853,102 +3200,97 @@ LABEL_11:
 
           else
           {
-            v24 = *(a1 + 344);
-            v25 = *(a2 + 128);
             getpid();
-            v26 = *(a1 + 312);
             asprintf(&__to, "%s/%s.dittoKeptBinary.%d.%lu");
           }
         }
 
         else
         {
-          v17 = *(a2 + 120);
           getpid();
-          v18 = *(a1 + 312);
           asprintf(&__to, "%s.dittoKeptBinary.%d.%lu");
         }
 
-        v29 = __to;
+        v20 = __to;
         if (!__to)
         {
-          v35 = *__error();
-          v36 = __error();
-          strerror(*v36);
-          BOMCopierErrorCapture(a3, v35, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6579, "apply_retention_policy", "Could not asprintf kept path: %s\n");
-          goto LABEL_51;
+          v26 = *__error();
+          v27 = __error();
+          strerror(*v27);
+          BOMCopierErrorCapture(a3, v26, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6579, "apply_retention_policy", "Could not asprintf kept path: %s\n");
+          return;
         }
 
         ++*(a1 + 312);
-        v30 = *(a2 + 120);
-        v31 = *a1;
+        v21 = *(a2 + 120);
+        v22 = *a1;
         if (*a1)
         {
-          if (!os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT) || (*buf = 136315138, *&buf[4] = v30, _os_log_impl(&dword_241C0E000, v31, OS_LOG_TYPE_DEFAULT, "kept old: %s", buf, 0xCu), (v31 = *a1) != 0))
+          if (!os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT) || (*buf = 136315138, *&buf[4] = v21, _os_log_impl(&dword_241C0E000, v22, OS_LOG_TYPE_DEFAULT, "kept old: %s", buf, 0xCu), (v22 = *a1) != 0))
           {
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              *&buf[4] = v29;
-              _os_log_impl(&dword_241C0E000, v31, OS_LOG_TYPE_DEFAULT, "kept new: %s", buf, 0xCu);
+              *&buf[4] = v20;
+              _os_log_impl(&dword_241C0E000, v22, OS_LOG_TYPE_DEFAULT, "kept new: %s", buf, 0xCu);
             }
           }
         }
 
-        rename(v30, v29, v19);
-        if (v32)
+        rename(v21, v20, v16);
+        if (v23)
         {
-          v33 = *__error();
-          v34 = __error();
-          strerror(*v34);
-          BOMCopierErrorCapture(a3, v33, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6594, "apply_retention_policy", "Could not rename kept %s to %s: %s", v30);
-LABEL_34:
+          v24 = *__error();
+          v25 = __error();
+          strerror(*v25);
+          BOMCopierErrorCapture(a3, v24, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6594, "apply_retention_policy", "Could not rename kept %s to %s: %s", v21);
+LABEL_33:
           free(__to);
-          goto LABEL_51;
+          return;
         }
 
-        v37 = *(a1 + 320);
-        if (v37)
+        v28 = *(a1 + 320);
+        if (v28)
         {
-          v38 = *(a1 + 328);
-          if (v38 == -1)
+          v29 = *(a1 + 328);
+          if (v29 == -1)
           {
-            v39 = open(v37, 1545, 420);
-            if (v39 == -1)
+            v30 = open(v28, 1545, 420);
+            if (v30 == -1)
             {
-              v54 = *__error();
-              v55 = __error();
-              strerror(*v55);
-              BOMCopierErrorCapture(a3, v54, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6617, "apply_retention_policy", "Could not open %s: %s");
-              goto LABEL_34;
+              v44 = *__error();
+              v45 = __error();
+              strerror(*v45);
+              BOMCopierErrorCapture(a3, v44, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6617, "apply_retention_policy", "Could not open %s: %s");
+              goto LABEL_33;
             }
 
-            v38 = v39;
-            *(a1 + 328) = v39;
+            v29 = v30;
+            *(a1 + 328) = v30;
           }
 
-          v40 = strlen(__to);
-          if (write(v38, __to, v40) != v40)
+          v31 = strlen(__to);
+          if (write(v29, __to, v31) != v31)
           {
-            v48 = *__error();
-            v49 = __error();
-            strerror(*v49);
-            BOMCopierErrorCapture(a3, v48, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6633, "apply_retention_policy", "Could not write to %s: %s");
-            goto LABEL_34;
+            v38 = *__error();
+            v39 = __error();
+            strerror(*v39);
+            BOMCopierErrorCapture(a3, v38, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6633, "apply_retention_policy", "Could not write to %s: %s");
+            goto LABEL_33;
           }
 
-          if (write(v38, "\n", 1uLL) != 1)
+          if (write(v29, "\n", 1uLL) != 1)
           {
-            v50 = *__error();
-            v51 = __error();
-            strerror(*v51);
-            BOMCopierErrorCapture(a3, v50, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6642, "apply_retention_policy", "Could not write to %s: %s");
-            goto LABEL_34;
+            v40 = *__error();
+            v41 = __error();
+            strerror(*v41);
+            BOMCopierErrorCapture(a3, v40, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6642, "apply_retention_policy", "Could not write to %s: %s");
+            goto LABEL_33;
           }
         }
 
         free(__to);
-        goto LABEL_43;
+        goto LABEL_42;
       }
     }
 
@@ -4956,7 +3298,7 @@ LABEL_34:
     {
       if (!*(a1 + 336))
       {
-        goto LABEL_43;
+        goto LABEL_42;
       }
 
       v9 = 0;
@@ -4968,60 +3310,57 @@ LABEL_34:
     {
       if (v11 != 1)
       {
-        v15 = *__error();
-        v16 = __error();
-        strerror(*v16);
-        BOMCopierErrorCapture(a3, v15, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6483, "apply_retention_policy", "Could not regexec %s: %s\n");
-        goto LABEL_51;
+        v14 = *__error();
+        v15 = __error();
+        strerror(*v15);
+        BOMCopierErrorCapture(a3, v14, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6483, "apply_retention_policy", "Could not regexec %s: %s\n");
+        return;
       }
 
       if (!v9)
       {
-        goto LABEL_43;
+        goto LABEL_42;
       }
     }
 
     goto LABEL_11;
   }
 
-LABEL_43:
+LABEL_42:
   if (*(a2 + 152) == 1)
   {
-    v41 = *(a2 + 144);
-    v42 = *(a2 + 120);
-    v43 = *a1;
+    v32 = *(a2 + 144);
+    v33 = *(a2 + 120);
+    v34 = *a1;
     if (*a1)
     {
-      if (!os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT) || (*buf = 136315138, *&buf[4] = v41, _os_log_impl(&dword_241C0E000, v43, OS_LOG_TYPE_DEFAULT, "rename old: %s", buf, 0xCu), (v43 = *a1) != 0))
+      if (!os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT) || (*buf = 136315138, *&buf[4] = v32, _os_log_impl(&dword_241C0E000, v34, OS_LOG_TYPE_DEFAULT, "rename old: %s", buf, 0xCu), (v34 = *a1) != 0))
       {
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          *&buf[4] = v42;
-          _os_log_impl(&dword_241C0E000, v43, OS_LOG_TYPE_DEFAULT, "rename new: %s", buf, 0xCu);
+          *&buf[4] = v33;
+          _os_log_impl(&dword_241C0E000, v34, OS_LOG_TYPE_DEFAULT, "rename new: %s", buf, 0xCu);
         }
       }
     }
 
-    rename(v41, v42, v7);
-    if (v44)
+    rename(v32, v33, v7);
+    if (v35)
     {
-      v45 = *__error();
-      v46 = __error();
-      strerror(*v46);
-      BOMCopierErrorCapture(a3, v45, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6663, "apply_retention_policy", "Could not rename staged %s to %s: %s", v41);
+      v36 = *__error();
+      v37 = __error();
+      strerror(*v37);
+      BOMCopierErrorCapture(a3, v36, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6663, "apply_retention_policy", "Could not rename staged %s to %s: %s", v32);
     }
   }
-
-LABEL_51:
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t set_timestamps(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v23 = 0uLL;
-  if (BOMCopierSourceEntryGetModificationTime(a1, &v23))
+  v33 = *MEMORY[0x277D85DE8];
+  v22 = 0uLL;
+  if (BOMCopierSourceEntryGetModificationTime(a1, &v22))
   {
     a3 = 1;
     BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6694, "set_timestamps", "Could not retrieve the entry modification time");
@@ -5029,8 +3368,8 @@ uint64_t set_timestamps(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
   else
   {
-    v22 = 0uLL;
-    if (BOMCopierSourceEntryGetAccessTime(a1, &v22))
+    v21 = 0uLL;
+    if (BOMCopierSourceEntryGetAccessTime(a1, &v21))
     {
       a3 = 1;
       BOMCopierErrorCapture(a4, 1, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6703, "set_timestamps", "Could not retrieve the entry access time");
@@ -5038,53 +3377,52 @@ uint64_t set_timestamps(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
     else
     {
-      v21 = 0;
-      v20 = xmmword_241C78E00;
-      v11 = *(&v23 + 1);
-      v10 = v23;
-      v17 = v23;
-      if (v22 != 0)
+      v20 = 0;
+      v19 = xmmword_241C78E00;
+      v10 = *(&v22 + 1);
+      v9 = v22;
+      v16 = v22;
+      if (v21 != 0)
       {
-        v11 = *(&v22 + 1);
-        v10 = v22;
+        v10 = *(&v21 + 1);
+        v9 = v21;
       }
 
+      v17 = v9;
       v18 = v10;
-      v19 = v11;
-      if (setattrlist(*(a2 + 120), &v20, &v17, 0x20uLL, 1u))
+      if (setattrlist(*(a2 + 120), &v19, &v16, 0x20uLL, 1u))
       {
-        v12 = *__error();
-        v13 = *(a2 + 120);
-        v14 = __error();
-        v15 = strerror(*v14);
-        BOMCopierErrorCapture(a4, v12, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6733, "set_timestamps", "Could not setattrlist timestamps for %s: %s", v13, v15);
-        a3 = 1;
+        v11 = *__error();
+        v12 = *(a2 + 120);
+        v13 = __error();
+        v14 = strerror(*v13);
+        BOMCopierErrorCapture(a4, v11, "/Library/Caches/com.apple.xbs/Sources/Bom/Copier/BOMCopierDestination.c", 6733, "set_timestamps", "Could not setattrlist timestamps for %s: %s", v12, v14);
+        return 1;
       }
 
       else if (a3)
       {
         if (os_log_type_enabled(a3, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = *(a2 + 120);
+          v15 = *(a2 + 120);
           *buf = 134219010;
-          v25 = v17;
-          v26 = 2048;
-          v27 = *(&v17 + 1);
-          v28 = 2048;
-          v29 = v18;
-          v30 = 2048;
-          v31 = v19;
-          v32 = 2080;
-          v33 = v16;
+          v24 = v16;
+          v25 = 2048;
+          v26 = *(&v16 + 1);
+          v27 = 2048;
+          v28 = v17;
+          v29 = 2048;
+          v30 = v18;
+          v31 = 2080;
+          v32 = v15;
           _os_log_impl(&dword_241C0E000, a3, OS_LOG_TYPE_DEFAULT, "Set mtime [%ld.%ld] and atime [%ld.%ld] on %s", buf, 0x34u);
         }
 
-        a3 = 0;
+        return 0;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return a3;
 }
 
@@ -5132,9 +3470,9 @@ void *data_read_stream_new(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void data_read_stream_free(void *__b)
+void data_read_stream_free(_DWORD *__b)
 {
-  if (__b && *__b == 1919246692 && *(__b + 25) == 1684104557)
+  if (__b && *__b == 1919246692 && __b[25] == 1684104557)
   {
     v2 = *(__b + 11);
     if (v2)
@@ -5554,7 +3892,7 @@ LABEL_12:
   return v11;
 }
 
-uint64_t BOMBomHLIndexNew(uint64_t a1)
+void *BOMBomHLIndexNew(uint64_t a1)
 {
   v2 = BOM_malloczero(0x20uLL);
   v3 = v2;
@@ -5629,16 +3967,17 @@ LABEL_10:
   return 0;
 }
 
-uint64_t BOMBomHLIndexOpen(uint64_t a1, int a2)
+void *BOMBomHLIndexOpen(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = BOM_malloczero(0x20uLL);
   v5 = v4;
   if (v4)
   {
     *v4 = a1;
-    v6 = BOMTreeOpenWithName(a1, "HLIndex", a2);
+    v6 = BOMTreeOpenWithName(a1, "HLIndex", v2);
     *(v5 + 8) = v6;
-    if (!v6 || a2 && (Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], 0), (*(v5 + 16) = Mutable) == 0))
+    if (!v6 || v2 && (Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], 0), (*(v5 + 16) = Mutable) == 0))
     {
       BOMBomHLIndexFree(v5);
       return 0;
@@ -5709,7 +4048,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t BOMBomHLIndexCount(uint64_t a1, unsigned int a2)
+uint64_t BOMBomHLIndexCount(uint64_t *a1, unsigned int a2)
 {
   v5 = 0;
   if (!a1)
@@ -5728,7 +4067,7 @@ uint64_t BOMBomHLIndexCount(uint64_t a1, unsigned int a2)
     return 0;
   }
 
-  TreeFor = *(a1 + 8);
+  TreeFor = a1[1];
   if (!TreeFor)
   {
     return 0;
@@ -5744,12 +4083,12 @@ LABEL_4:
   return v3;
 }
 
-const void *_hl_findTreeFor(uint64_t a1, unsigned int a2, char *a3)
+const void *_hl_findTreeFor(uint64_t *a1, unsigned int a2, char *a3)
 {
   v4 = a2;
   valuePtr = a2;
   IsOpenForWriting = BOMStorageIsOpenForWriting(*a1);
-  if (*(a1 + 16))
+  if (a1[2])
   {
     v7 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
     if (!v7)
@@ -5758,7 +4097,7 @@ const void *_hl_findTreeFor(uint64_t a1, unsigned int a2, char *a3)
     }
 
     v8 = v7;
-    Value = CFDictionaryGetValue(*(a1 + 16), v7);
+    Value = CFDictionaryGetValue(a1[2], v7);
     CFRelease(v8);
     if (Value)
     {
@@ -5770,7 +4109,7 @@ const void *_hl_findTreeFor(uint64_t a1, unsigned int a2, char *a3)
 
   valuePtr = bswap32(v4);
   v10 = *a1;
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   v12 = BOMTreeGetValue(v11, &valuePtr, 4uLL);
   if (v12)
   {
@@ -5820,7 +4159,7 @@ LABEL_18:
     BOMTreeSetValue(v11, &valuePtr, 4uLL, &v21, 4);
   }
 
-  if (!*(a1 + 16))
+  if (!a1[2])
   {
     goto LABEL_18;
   }
@@ -5833,7 +4172,7 @@ LABEL_18:
   }
 
   v18 = v17;
-  CFDictionarySetValue(*(a1 + 16), v17, Value);
+  CFDictionarySetValue(a1[2], v17, Value);
   CFRelease(v18);
   if (a3)
   {
@@ -5884,7 +4223,7 @@ uint64_t BOMBomHLIndexBlock(uint64_t a1, unsigned int a2)
   return v7;
 }
 
-uint64_t BOMBomHLIndexGet(uint64_t a1, unsigned int a2, unsigned int a3, void *a4, size_t *a5)
+uint64_t BOMBomHLIndexGet(uint64_t *a1, unsigned int a2, unsigned int a3, void *a4, size_t *a5)
 {
   v5 = 0;
   v15 = 0;
@@ -6200,7 +4539,7 @@ uint64_t _BOMCFArrayPrint(const __CFArray *a1)
   return v9;
 }
 
-uint64_t BOMCopierNewWithSys(void *a1)
+vm_address_t *BOMCopierNewWithSys(void *a1)
 {
   v2 = BOM_malloczero(0x3310uLL);
   v3 = v2;
@@ -6534,13 +4873,11 @@ void _resetCopier(uint64_t a1)
 
 uint64_t BOMCopierCopyWithOptions(uint64_t a1, char *a2, char *a3, const void *a4)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     v22 = 1;
     fwrite("Invalid BOMCopier\n", 0x12uLL, 1uLL, *MEMORY[0x277D85DF8]);
-LABEL_23:
-    v35 = *MEMORY[0x277D85DE8];
     return v22;
   }
 
@@ -6582,7 +4919,7 @@ LABEL_6:
       {
         if (_parseCopierOptions(a1, a4))
         {
-          BOMCopierNotifyFatalError(a1, "Could not parse the options dictionary", v21, v9, v10, v11, v12, v13, v61);
+          BOMCopierNotifyFatalError(a1, "Could not parse the options dictionary", v21, v9, v10, v11, v12, v13);
           goto LABEL_20;
         }
 
@@ -6592,43 +4929,43 @@ LABEL_18:
           goto LABEL_20;
         }
 
-        v36 = *(a1 + 12712);
-        if (v36)
+        v34 = *(a1 + 12712);
+        if (v34)
         {
-          v37 = *(a1 + 12964);
-          *(a1 + 12992) = v37;
+          v35 = *(a1 + 12964);
+          *(a1 + 12992) = v35;
           if (!*(a1 + 12813))
           {
-            v37 |= 0x10u;
-            *(a1 + 12992) = v37;
+            v35 |= 0x10u;
+            *(a1 + 12992) = v35;
           }
 
-          if (v36 == 1)
+          if (v34 == 1)
           {
-            v38 = getenv("BOM_ASYNC");
-            if (!v38 || ((v39 = *v38, v39 != 48) ? (v40 = 48 - v39) : (v40 = -v38[1]), v40))
+            v36 = getenv("BOM_ASYNC");
+            if (!v36 || ((v37 = *v36, v37 != 48) ? (v38 = 48 - v37) : (v38 = -v36[1]), v38))
             {
-              v37 |= 0x20u;
-              *(a1 + 12992) = v37;
+              v35 |= 0x20u;
+              *(a1 + 12992) = v35;
             }
           }
 
           if (a2)
           {
-            v41 = *a2;
-            if (v41 == 45)
+            v39 = *a2;
+            if (v39 == 45)
             {
-              v42 = -a2[1];
+              v40 = -a2[1];
             }
 
             else
             {
-              v42 = 45 - v41;
+              v40 = 45 - v39;
             }
 
-            if (v42)
+            if (v40)
             {
-              if (!BOMFileOpenWithSys((a1 + 12976), a2, 0, 0, v37, *(a1 + 12832)))
+              if (!BOMFileOpenWithSys((a1 + 12976), a2, 0, 0, v35, *(a1 + 12832)))
               {
                 goto LABEL_58;
               }
@@ -6636,59 +4973,59 @@ LABEL_18:
               goto LABEL_51;
             }
 
-            if (BOMFileOpenSTDIN((a1 + 12976), v37))
+            if (BOMFileOpenSTDIN((a1 + 12976), v35))
             {
 LABEL_51:
-              v49 = __error();
-              v45 = *(a1 + 64);
-              if (!v45)
+              v47 = __error();
+              v43 = *(a1 + 64);
+              if (!v43)
               {
                 goto LABEL_20;
               }
 
-              v46 = *v49;
-              v47 = a1;
-              v48 = a2;
+              v44 = *v47;
+              v45 = a1;
+              v46 = a2;
               goto LABEL_53;
             }
           }
 
           else
           {
-            v43 = *(a1 + 12984);
-            if (v43 == -1)
+            v41 = *(a1 + 12984);
+            if (v41 == -1)
             {
-              v50 = *(a1 + 12944);
-              if (v50 && BOMFileNewFromCFReadStream((a1 + 12976), v50, v37))
+              v48 = *(a1 + 12944);
+              if (v48 && BOMFileNewFromCFReadStream((a1 + 12976), v48, v35))
               {
-                v51 = __error();
-                v45 = *(a1 + 64);
-                if (!v45)
+                v49 = __error();
+                v43 = *(a1 + 64);
+                if (!v43)
                 {
                   goto LABEL_20;
                 }
 
-                v46 = *v51;
-                v48 = "CFReadStream";
-                v47 = a1;
+                v44 = *v49;
+                v46 = "CFReadStream";
+                v45 = a1;
                 goto LABEL_53;
               }
             }
 
-            else if (BOMFileNewFromFDWithSys((a1 + 12976), v43, v37, "rb", *(a1 + 12832)))
+            else if (BOMFileNewFromFDWithSys((a1 + 12976), v41, v35, "rb", *(a1 + 12832)))
             {
-              v44 = __error();
-              v45 = *(a1 + 64);
-              if (!v45)
+              v42 = __error();
+              v43 = *(a1 + 64);
+              if (!v43)
               {
                 goto LABEL_20;
               }
 
-              v46 = *v44;
-              v47 = a1;
-              v48 = 0;
+              v44 = *v42;
+              v45 = a1;
+              v46 = 0;
 LABEL_53:
-              v45(v47, v48, v46);
+              v43(v45, v46, v44);
               goto LABEL_20;
             }
           }
@@ -6698,43 +5035,41 @@ LABEL_53:
         {
           if (!a2)
           {
-            BOMCopierNotifyFatalError(a1, "If the source is a filesystem, the fromObj argument cannot be nil", v29, v30, v31, v32, v33, v34, v61);
+            BOMCopierNotifyFatalError(a1, "If the source is a filesystem, the fromObj argument cannot be nil", v28, v29, v30, v31, v32, v33);
             _resetCopier(a1);
             goto LABEL_20;
           }
 
           if (*(a1 + 12968))
           {
-            v29 = *(a1 + 152);
-            if (v29)
+            v28 = *(a1 + 152);
+            if (v28)
             {
-              BOMCopierSandbox_boxup(a1, a2, v29);
+              BOMCopierSandbox_boxup(a1, a2, v28);
             }
           }
         }
 
 LABEL_58:
-        if (!*(a1 + 12712) && (*(*(a1 + 12832) + 160))(*(*(a1 + 12832) + 8), a2, v62) != v62)
+        if (!*(a1 + 12712) && (*(*(a1 + 12832) + 160))(*(*(a1 + 12832) + 8), a2, v59) != v59)
         {
-          BOMCopierNotifyFatalError(a1, "Cannot get the real path for source '%s'", v29, v30, v31, v32, v33, v34, a2);
+          BOMCopierNotifyFatalError(a1, "Cannot get the real path for source '%s'", v28, v29, v30, v31, v32, v33, a2);
           goto LABEL_20;
         }
 
-        if (_prepareCopierDestination(a1, a3, v29, v30, v31, v32, v33, v34))
+        if (_prepareCopierDestination(a1, a3, v28, v29, v30, v31, v32, v33))
         {
 LABEL_20:
           _resetCopier(a1);
-LABEL_22:
-          v22 = 1;
-          goto LABEL_23;
+          return 1;
         }
 
-        v59 = *(a1 + 12712);
-        if (v59 > 1)
+        v57 = *(a1 + 12712);
+        if (v57 > 1)
         {
-          if (v59 != 2)
+          if (v57 != 2)
           {
-            if (v59 == 3)
+            if (v57 == 3)
             {
               v22 = 1;
               goto LABEL_73;
@@ -6743,75 +5078,74 @@ LABEL_22:
             goto LABEL_72;
           }
 
-          v60 = _BOMCopierCopyFromPKZip(a1, *(a1 + 12976), a3, v54, v55, v56, v57, v58);
+          v58 = _BOMCopierCopyFromPKZip(a1, *(a1 + 12976), a3, v52, v53, v54, v55, v56);
         }
 
         else
         {
-          if (v59)
+          if (v57)
           {
-            if (v59 == 1)
+            if (v57 == 1)
             {
-              v60 = _BOMCopierCopyFromCPIO(a1, *(a1 + 12976), a3, v54, v55, v56, v57, v58);
+              v58 = _BOMCopierCopyFromCPIO(a1, *(a1 + 12976), a3, v52, v53, v54, v55, v56);
               goto LABEL_71;
             }
 
 LABEL_72:
-            v22 = _finalizeCopierDestination(a1, v52, v53, v54, v55, v56, v57, v58);
+            v22 = _finalizeCopierDestination(a1, v50, v51, v52, v53, v54, v55, v56);
             goto LABEL_73;
           }
 
-          v60 = _BOMCopierCopyFromFilesystem(a1, a2, a3);
+          v58 = _BOMCopierCopyFromFilesystem(a1, a2, a3);
         }
 
 LABEL_71:
-        v22 = v60;
-        if (!v60)
+        v22 = v58;
+        if (!v58)
         {
           goto LABEL_72;
         }
 
 LABEL_73:
         _resetCopier(a1);
-        goto LABEL_23;
+        return v22;
       }
 
 LABEL_21:
-      BOMCopierNotifyFatalError(a1, "The options dictionary is not a CFDictionary", v15, v16, v17, v18, v19, v20, v61);
-      goto LABEL_22;
+      BOMCopierNotifyFatalError(a1, "The options dictionary is not a CFDictionary", v15, v16, v17, v18, v19, v20);
+      return 1;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return BOMCopierCopyWithOptions2(a1, a2, a3, a4);
 }
 
-void BOMCopierNotifyFatalError(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void BOMCopierNotifyFatalError(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (a1 && *(a1 + 56))
   {
-    v14 = 0;
-    if (vasprintf(&v14, a2, &a9) == -1)
+    v13 = 0;
+    if (vasprintf(&v13, a2, va) == -1)
     {
-      v10 = *MEMORY[0x277D85DF8];
-      v11 = __error();
-      strerror(*v11);
-      fprintf(v10, "Could not create fatal message: %s\n");
+      v9 = *MEMORY[0x277D85DF8];
+      v10 = __error();
+      strerror(*v10);
+      fprintf(v9, "Could not create fatal message: %s\n");
     }
 
-    else if (v14)
+    else if (v13)
     {
       (*(a1 + 56))(a1);
-      free(v14);
+      free(v13);
     }
 
     else
     {
-      v12 = *MEMORY[0x277D85DF8];
-      v13 = __error();
-      strerror(*v13);
-      fprintf(v12, "Could not allocate fatal message: %s\n");
+      v11 = *MEMORY[0x277D85DF8];
+      v12 = __error();
+      strerror(*v12);
+      fprintf(v11, "Could not allocate fatal message: %s\n");
     }
   }
 }
@@ -7749,7 +6083,7 @@ LABEL_154:
   }
 
 LABEL_273:
-  BOMCopierNotifyFatalError(a1, v67, v11, v12, v13, v14, v15, v16, v152);
+  BOMCopierNotifyFatalError(a1, v67, v11, v12, v13, v14, v15, v16);
   return 1;
 }
 
@@ -7784,7 +6118,7 @@ uint64_t _verifyCopierOptions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   {
     v11 = "sequesterResources is only for PKZip archives";
 LABEL_23:
-    BOMCopierNotifyFatalError(a1, v11, a3, a4, a5, a6, a7, a8, v21);
+    BOMCopierNotifyFatalError(a1, v11, a3, a4, a5, a6, a7, a8);
     return 1;
   }
 
@@ -7949,25 +6283,25 @@ uint64_t _prepareCopierState(uint64_t a1)
     *(a1 + 152) = v3;
     if (!v3)
     {
-      v33 = *(a1 + 12896);
+      v34 = *(a1 + 12896);
 LABEL_27:
-      v54 = v33;
+      v55 = v34;
       v12 = "Cannot open BOM at '%s'";
       goto LABEL_28;
     }
   }
 
-  v56 = 0;
+  v58 = 0;
   v10 = *(a1 + 12880);
   if (v10)
   {
-    v11 = _parse_arch_list(a1, v10, *(a1 + 12888), (a1 + 144), &v56);
+    v11 = _parse_arch_list(a1, v10, *(a1 + 12888), (a1 + 144), &v58);
     *(a1 + 136) = v11;
     if (!v11)
     {
       v12 = "Could not parse the Mach-O architectures to copy";
 LABEL_28:
-      BOMCopierNotifyFatalError(a1, v12, v4, v5, v6, v7, v8, v9, v54);
+      BOMCopierNotifyFatalError(a1, v12, v4, v5, v6, v7, v8, v9, v55);
       return 1;
     }
   }
@@ -7980,24 +6314,24 @@ LABEL_28:
   v13 = *(a1 + 152);
   if (v13)
   {
-    v14 = BOMBomNewFromBomWithOptions(0, v13, 1, v56, 0);
+    v14 = BOMBomNewFromBomWithOptions(0, v13, 1, v58, 0);
     if (!v14)
     {
-      BOMCopierNotifyFatalError(a1, "Cannot thin the index bom", v15, v16, v17, v18, v19, v20, v54);
-      if (v56)
+      BOMCopierNotifyFatalError(a1, "Cannot thin the index bom", v15, v16, v17, v18, v19, v20);
+      if (v58)
       {
-        v34 = *v56;
-        if (*v56)
+        v35 = *v58;
+        if (*v58)
         {
-          v35 = 8;
+          v36 = 8;
           do
           {
-            free(v34);
-            v34 = *(v56 + v35);
-            v35 += 8;
+            free(v35);
+            v35 = *(v58 + v36);
+            v36 += 8;
           }
 
-          while (v34);
+          while (v35);
         }
       }
 
@@ -8010,19 +6344,19 @@ LABEL_28:
   }
 
 LABEL_10:
-  v22 = v56;
-  if (v56)
+  v22 = v58;
+  if (v58)
   {
-    v23 = *v56;
-    if (*v56)
+    v23 = *v58;
+    if (*v58)
     {
       v24 = 0;
       do
       {
         free(v23);
-        *(v56 + v24) = 0;
-        v22 = v56;
-        v23 = *(v56 + v24 + 8);
+        *(v58 + v24) = 0;
+        v22 = v58;
+        v23 = *(v58 + v24 + 8);
         v24 += 8;
       }
 
@@ -8039,47 +6373,48 @@ LABEL_10:
     *(a1 + 160) = v26;
     if (!v26)
     {
-      v33 = *(a1 + 12904);
+      v34 = *(a1 + 12904);
       goto LABEL_27;
     }
   }
 
-  if (*(a1 + 12920))
+  v27 = *(a1 + 12920);
+  if (v27)
   {
-    if (_mkdirs_parent(a1))
+    if (_mkdirs_parent(a1, v27))
     {
-      BOMCopierNotifyFatalError(a1, "Cannot create parent directory for %s", v27, v28, v29, v30, v31, v32, *(a1 + 12920));
+      BOMCopierNotifyFatalError(a1, "Cannot create parent directory for %s", v28, v29, v30, v31, v32, v33, *(a1 + 12920));
       return 1;
     }
 
-    v55 = 0;
-    if (BOMFileOpenWithSys(&v55, *(a1 + 12920), 1545, 420, 0, *(a1 + 12832)))
+    v57 = 0;
+    if (BOMFileOpenWithSys(&v57, *(a1 + 12920), 1545, 420, 0, *(a1 + 12832)))
     {
-      v37 = *(a1 + 12920);
-      v38 = __error();
-      strerror(*v38);
-      BOMCopierNotifyFatalError(a1, "Cannot open file %s for writing: %s", v39, v40, v41, v42, v43, v44, v37);
+      v38 = *(a1 + 12920);
+      v39 = __error();
+      v56 = strerror(*v39);
+      BOMCopierNotifyFatalError(a1, "Cannot open file %s for writing: %s", v40, v41, v42, v43, v44, v45, v38, v56);
       return 1;
     }
 
-    *(a1 + 176) = v55;
+    *(a1 + 176) = v57;
   }
 
-  v45 = *(a1 + 12928);
-  if (v45)
+  v46 = *(a1 + 12928);
+  if (v46)
   {
-    v46 = BOMPatternCompileString(v45);
-    *(a1 + 184) = v46;
-    if (!v46)
+    v47 = BOMPatternCompileString(v46);
+    *(a1 + 184) = v47;
+    if (!v47)
     {
-      BOMCopierNotifyFatalError(a1, "Cannot compile %s as a regular expression pattern", v47, v48, v49, v50, v51, v52, *(a1 + 12928));
+      BOMCopierNotifyFatalError(a1, "Cannot compile %s as a regular expression pattern", v48, v49, v50, v51, v52, v53, *(a1 + 12928));
       return 1;
     }
   }
 
-  v53 = geteuid();
-  *(a1 + 10496) = v53;
-  if (v53 && _initGroupList(a1))
+  v54 = geteuid();
+  *(a1 + 10496) = v54;
+  if (v54 && _initGroupList(a1))
   {
     return 1;
   }
@@ -8102,7 +6437,7 @@ uint64_t _prepareCopierDestination(uint64_t a1, const char *a2, uint64_t a3, uin
   v10 = *(a1 + 12716);
   if (v10 != 3)
   {
-    v46 = 0;
+    v45 = 0;
     v19 = *(a1 + 12964);
     *(a1 + 12992) = v19;
     if (!*(a1 + 12814))
@@ -8140,7 +6475,7 @@ LABEL_16:
     {
       if (*a2 == 45 && !a2[1])
       {
-        if (BOMFileOpenSTDOUT(&v46, v19))
+        if (BOMFileOpenSTDOUT(&v45, v19))
         {
           v31 = __error();
           v24 = *(a1 + 64);
@@ -8158,15 +6493,15 @@ LABEL_16:
 
       else
       {
-        if (_mkdirs_parent(a1))
+        if (_mkdirs_parent(a1, a2))
         {
-          LOBYTE(v45) = a2;
+          v44 = a2;
 LABEL_21:
-          BOMCopierNotifyFatalError(a1, "Cannot create parent directory for %s", v13, v14, v15, v16, v17, v18, v45);
+          BOMCopierNotifyFatalError(a1, "Cannot create parent directory for %s", v13, v14, v15, v16, v17, v18, v44);
           return 1;
         }
 
-        if (BOMFileOpenWithSys(&v46, a2, 1537, 420, *(a1 + 12992), *(a1 + 12832)))
+        if (BOMFileOpenWithSys(&v45, a2, 1537, 420, *(a1 + 12992), *(a1 + 12832)))
         {
           v27 = __error();
           v24 = *(a1 + 64);
@@ -8187,24 +6522,24 @@ LABEL_38:
 LABEL_41:
       if (*(a1 + 12716) == 4)
       {
-        if (!BOMCPIONew((a1 + 12736), v46, 1, *(a1 + 12960)))
+        if (!BOMCPIONew((a1 + 12736), v45, 1, *(a1 + 12960)))
         {
           return 0;
         }
 
-        BOMFileClose(v46);
-        BOMCopierNotifyFatalError(a1, "Cannot create CPIO file at %s", v32, v33, v34, v35, v36, v37, v46);
+        BOMFileClose(v45);
+        BOMCopierNotifyFatalError(a1, "Cannot create CPIO file at %s", v32, v33, v34, v35, v36, v37, v45);
       }
 
       else
       {
-        if (!BOMPKZipNew((a1 + 12760), v46, 1))
+        if (!BOMPKZipNew((a1 + 12760), v45, 1))
         {
           return 0;
         }
 
-        BOMFileClose(v46);
-        BOMCopierNotifyFatalError(a1, "Cannot create PKZip file at %s", v38, v39, v40, v41, v42, v43, v46);
+        BOMFileClose(v45);
+        BOMCopierNotifyFatalError(a1, "Cannot create PKZip file at %s", v38, v39, v40, v41, v42, v43, v45);
       }
 
       return 1;
@@ -8214,7 +6549,7 @@ LABEL_41:
     if (v22 == -1)
     {
       v29 = *(a1 + 12952);
-      if (!v29 || !BOMFileNewFromCFWriteStream(&v46, v29, v19))
+      if (!v29 || !BOMFileNewFromCFWriteStream(&v45, v29, v19))
       {
         goto LABEL_41;
       }
@@ -8232,7 +6567,7 @@ LABEL_41:
 
     else
     {
-      if (!BOMFileNewFromFDWithSys(&v46, v22, v19, "wb", *(a1 + 12832)))
+      if (!BOMFileNewFromFDWithSys(&v45, v22, v19, "wb", *(a1 + 12832)))
       {
         goto LABEL_41;
       }
@@ -8263,27 +6598,27 @@ LABEL_41:
         return result;
       }
 
-      v45 = *(a1 + 12936);
+      v44 = *(a1 + 12936);
       goto LABEL_21;
     }
 
     return 0;
   }
 
-  BOMCopierNotifyFatalError(a1, "If the destination is a filesystem, the toObj argument cannot be nil", a3, a4, a5, a6, a7, a8, v44);
+  BOMCopierNotifyFatalError(a1, "If the destination is a filesystem, the toObj argument cannot be nil", a3, a4, a5, a6, a7, a8);
   _resetCopier(a1);
   return 1;
 }
 
 uint64_t _BOMCopierCopyFromFilesystem(uint64_t a1, const char *a2, const char *a3)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
+  v73 = 0uLL;
   v72 = 0uLL;
-  v71 = 0uLL;
-  v70 = 0;
+  v71 = 0;
   if (!a2 || !*a2 || *(a1 + 12716) == 3 && (!a3 || !*a3))
   {
-    goto LABEL_21;
+    return 1;
   }
 
   *(a1 + 168) = 0;
@@ -8297,10 +6632,8 @@ uint64_t _BOMCopierCopyFromFilesystem(uint64_t a1, const char *a2, const char *a
     {
       v14 = "Can't find . in bom file";
 LABEL_12:
-      BOMCopierNotifyFatalError(a1, v14, v7, v8, v9, v10, v11, v12, v69);
-LABEL_21:
-      result = 1;
-      goto LABEL_22;
+      BOMCopierNotifyFatalError(a1, v14, v7, v8, v9, v10, v11, v12, v68, v69, v70);
+      return 1;
     }
   }
 
@@ -8309,21 +6642,23 @@ LABEL_21:
     v13 = 0;
   }
 
-  if (strlen(a2) >= 0x3FF)
+  v15 = strlen(a2);
+  if (v15 >= 0x3FF)
   {
-    v69 = a2;
+    v69 = v15;
+    v70 = 1023;
+    v68 = a2;
     v14 = "source path ('%s') too long [%lu >= %lu]!";
     goto LABEL_12;
   }
 
-  v88 = 0u;
   v89 = 0u;
-  v86 = 0u;
+  v90 = 0u;
   v87 = 0u;
-  v84 = 0u;
+  v88 = 0u;
   v85 = 0u;
-  v83 = 0u;
-  v73 = 0u;
+  v86 = 0u;
+  v84 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
@@ -8332,34 +6667,34 @@ LABEL_21:
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  memset(v82, 0, sizeof(v82));
+  v82 = 0u;
+  memset(v83, 0, sizeof(v83));
   __strlcpy_chk();
-  v15 = (a1 + 248);
+  v16 = (a1 + 248);
   if ((*(*(a1 + 12832) + 160))(*(*(a1 + 12832) + 8), __s, a1 + 248) != a1 + 248)
   {
     goto LABEL_14;
   }
 
-  if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a1 + 248, v82))
+  if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a1 + 248, v83))
   {
 LABEL_18:
-    v21 = __error();
-    v17 = *(a1 + 64);
-    if (!v17)
+    v22 = __error();
+    v18 = *(a1 + 64);
+    if (!v18)
     {
-      goto LABEL_21;
+      return 1;
     }
 
-    v18 = *v21;
-    v20 = a1;
-    v19 = (a1 + 248);
+    v19 = *v22;
+    v21 = a1;
+    v20 = (a1 + 248);
 LABEL_20:
-    v17(v20, v19, v18);
-    goto LABEL_21;
+    v18(v21, v20, v19);
+    return 1;
   }
 
-  v24 = WORD2(v82[0]) & 0xF000;
-  v73 = 0u;
+  v24 = WORD2(v83[0]) & 0xF000;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
@@ -8368,87 +6703,78 @@ LABEL_20:
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
   if (*(a1 + 12716) == 3)
   {
-    if (strlen(a3) >= 0x3FF)
+    v25 = strlen(a3);
+    if (v25 >= 0x3FF)
     {
-      BOMCopierNotifyFatalError(a1, "destination path ('%s') too long [%lu >= %lu]!", v25, v26, v27, v28, v29, v30, a3);
-      goto LABEL_21;
+      BOMCopierNotifyFatalError(a1, "destination path ('%s') too long [%lu >= %lu]!", v26, v27, v28, v29, v30, v31, a3, v25, 1023);
+      return 1;
     }
 
     __strlcpy_chk();
-    v34 = (*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), __s, &v73);
-    v33 = *__error();
-    if (v34 && v33 != 2 && v33 != 63)
+    v35 = (*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), __s, &v74);
+    v34 = *__error();
+    if (v35 && v34 != 2 && v34 != 63)
     {
       goto LABEL_14;
     }
 
-    v45 = WORD2(v73) & 0xF000;
-    if (v34)
+    v46 = WORD2(v74) & 0xF000;
+    if (v35)
     {
-      v45 = v24;
+      v46 = v24;
     }
 
-    v46 = v45 == 0x4000;
-    if (!v34 && v24 != 0x4000 && v45 == 0x4000)
+    v47 = v46 == 0x4000;
+    if (!v35 && v24 != 0x4000 && v46 == 0x4000)
     {
-      v47 = strrchr((a1 + 248), 47);
-      if (v47)
+      strrchr((a1 + 248), 47);
+      __strlcat_chk();
+      __strlcat_chk();
+      v35 = (*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), __s, &v74);
+      if (v35)
       {
-        v48 = v47;
+        v48 = 0;
       }
 
       else
       {
-        v48 = (a1 + 248);
+        v48 = (WORD2(v74) & 0xF000) == 0x4000;
       }
 
-      *v48;
-      __strlcat_chk();
-      __strlcat_chk();
-      v34 = (*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), __s, &v73);
-      if (v34)
-      {
-        v49 = 0;
-      }
-
-      else
-      {
-        v49 = (WORD2(v73) & 0xF000) == 0x4000;
-      }
-
-      v46 = v49;
+      v47 = v48;
     }
 
-    if (v24 == 0x4000 && !v34 && !v46)
+    if (v24 == 0x4000 && !v35 && !v47)
     {
-      BOMCopierNotifyFatalError(a1, "Can't copy directory %s into a file %s.", v39, v40, v41, v42, v43, v44, a1 - 8);
-      goto LABEL_21;
+      BOMCopierNotifyFatalError(a1, "Can't copy directory %s into a file %s.", v40, v41, v42, v43, v44, v45, a1 + 248, __s);
+      return 1;
     }
 
-    if (!v34 && v82[1] == *(&v73 + 1) && LODWORD(v82[0]) == v73)
+    if (!v35 && v83[1] == *(&v74 + 1) && LODWORD(v83[0]) == v74)
     {
-      BOMCopierNotifyFatalError(a1, "%s and %s are identical (not copied).", v39, v40, v41, v42, v43, v44, a1 - 8);
-      goto LABEL_21;
+      BOMCopierNotifyFatalError(a1, "%s and %s are identical (not copied).", v40, v41, v42, v43, v44, v45, a1 + 248, __s);
+      return 1;
     }
 
     __strlcpy_chk();
-    v32 = !v46;
+    v33 = !v47;
   }
 
   else
   {
-    v31 = "<unknown>";
+    v32 = "<unknown>";
     if (a3)
     {
-      v31 = a3;
+      v32 = a3;
     }
 
-    snprintf((a1 + 3328), 0x400uLL, "%s:", v31);
-    v32 = 0;
+    snprintf((a1 + 3328), 0x400uLL, "%s:", v32);
     v33 = 0;
-    v34 = -1;
+    v34 = 0;
+    v35 = -1;
   }
 
   if (v24 == 0x4000)
@@ -8460,16 +6786,16 @@ LABEL_20:
   else
   {
     _extractFileAndPath((a1 + 248), (a1 + 2304));
-    if ((*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), a1 + 248, v82))
+    if ((*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), a1 + 248, v83))
     {
       goto LABEL_18;
     }
 
-    if (v32)
+    if (v33)
     {
       _extractFileAndPath((a1 + 3328), (a1 + 6400));
-      v34 = (*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), a1 + 3328, &v73);
-      v33 = *__error();
+      v35 = (*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), a1 + 3328, &v74);
+      v34 = *__error();
     }
 
     else
@@ -8480,256 +6806,265 @@ LABEL_20:
 
   if (!*(a1 + 193))
   {
-    v50 = strlen((a1 + 248));
-    if (v50 != 1 || ((v51 = *v15, v51 != 47) ? (v52 = 47 - v51) : (v52 = -*(a1 + 249)), v52))
+    v49 = strlen((a1 + 248));
+    if (v49 != 1 || ((v50 = *v16, v50 != 47) ? (v51 = 47 - v50) : (v51 = -*(a1 + 249)), v51))
     {
       __strlcat_chk();
-      v38 = &v15[v50];
-      goto LABEL_72;
+      v39 = &v16[v49];
+      goto LABEL_69;
     }
 
     __strlcat_chk();
-LABEL_74:
-    v53 = a1 + 249;
-    goto LABEL_75;
+LABEL_71:
+    v52 = (a1 + 249);
+    goto LABEL_72;
   }
 
   __strlcpy_chk();
-  v35 = strrchr(__s, 47);
-  if (!v35)
+  v36 = strrchr(__s, 47);
+  if (!v36)
   {
-    goto LABEL_76;
+    goto LABEL_73;
   }
 
-  v36 = v35;
-  if (v35 == __s)
+  v37 = v36;
+  if (v36 == __s)
   {
     __strlcpy_chk();
-    goto LABEL_74;
+    goto LABEL_71;
   }
 
-  *v35 = 0;
-  v37 = strlen(__s);
-  snprintf((a1 + 248), 0x400uLL, "%s/./%s", __s, v36 + 1);
-  v38 = &v15[v37];
+  *v36 = 0;
+  v38 = strlen(__s);
+  snprintf((a1 + 248), 0x400uLL, "%s/./%s", __s, v37 + 1);
+  v39 = &v16[v38];
+LABEL_69:
+  v52 = v39 + 1;
 LABEL_72:
-  v53 = (v38 + 1);
-LABEL_75:
-  *(a1 + 2296) = v53;
-LABEL_76:
-  *(a1 + 232) = v82[0];
-  memset(&v90, 0, 512);
-  if (statfs((a1 + 248), &v90))
+  *(a1 + 2296) = v52;
+LABEL_73:
+  *(a1 + 232) = v83[0];
+  memset(&v91, 0, 512);
+  if (statfs((a1 + 248), &v91))
   {
     goto LABEL_18;
   }
 
-  *(a1 + 210) = (v90.f_flags & 8) == 0;
-  v54 = *(a1 + 12716);
-  if (v54 == 5)
+  *(a1 + 210) = (v91.f_flags & 8) == 0;
+  v53 = *(a1 + 12716);
+  if (v53 == 5)
   {
-    if (BOMPKZipWriteLocalHeader(*(a1 + 12760), ".", v82, 0, 0) || v24 == 0x4000 && *(a1 + 193) && BOMPKZipWriteLocalHeader(*(a1 + 12760), *(a1 + 2296), v82, 0, 0))
+    if (BOMPKZipWriteLocalHeader(*(a1 + 12760), ".", v83, 0, 0) || v24 == 0x4000 && *(a1 + 193) && BOMPKZipWriteLocalHeader(*(a1 + 12760), *(a1 + 2296), v83, 0, 0))
     {
-      goto LABEL_96;
+      goto LABEL_93;
     }
 
-    goto LABEL_102;
+    goto LABEL_99;
   }
 
-  if (v54 == 4)
+  if (v53 == 4)
   {
     if (!*(a1 + 12745))
     {
       if (*(a1 + 12746))
       {
-        _applyIndexBomOwnershipForTargetArchive(a1, ".", v82);
+        _applyIndexBomOwnershipForTargetArchive(a1, ".", v83);
       }
 
-      if (!BOMCPIOWriteDirectory(*(a1 + 12736), ".", v82) && (v24 != 0x4000 || !*(a1 + 193) || !BOMCPIOWriteDirectory(*(a1 + 12736), *(a1 + 2296), v82)))
+      if (!BOMCPIOWriteDirectory(*(a1 + 12736), ".", v83) && (v24 != 0x4000 || !*(a1 + 193) || !BOMCPIOWriteDirectory(*(a1 + 12736), *(a1 + 2296), v83)))
       {
-        v56 = 0;
         v55 = 0;
-        goto LABEL_103;
+        v54 = 0;
+        goto LABEL_100;
       }
 
-LABEL_96:
-      v57 = __error();
-      v17 = *(a1 + 64);
-      if (!v17)
+LABEL_93:
+      v56 = __error();
+      v18 = *(a1 + 64);
+      if (!v18)
       {
-        goto LABEL_21;
+        return 1;
       }
 
-      v18 = *v57;
-      v19 = (a1 + 3328);
+      v19 = *v56;
+      v20 = (a1 + 3328);
 LABEL_16:
-      v20 = a1;
+      v21 = a1;
       goto LABEL_20;
     }
 
-LABEL_102:
-    v56 = 0;
+LABEL_99:
     v55 = 0;
-    goto LABEL_103;
+    v54 = 0;
+    goto LABEL_100;
   }
 
-  if (v54 != 3)
+  if (v53 != 3)
   {
-    v56 = 0;
-    v55 = 1;
-    goto LABEL_103;
+    v55 = 0;
+    v54 = 1;
+    goto LABEL_100;
   }
 
-  *(a1 + 236) = v73;
-  *(a1 + 240) = *(&v73 + 1);
+  *(a1 + 236) = v74;
+  *(a1 + 240) = *(&v74 + 1);
   __strlcpy_chk();
-  if (v34)
+  if (v35)
   {
-    *__error() = v33;
+    *__error() = v34;
     if (*__error() != 2 && *__error() != 63)
     {
       goto LABEL_14;
     }
 
-    v55 = 0;
+    v54 = 0;
   }
 
   else
   {
-    if ((WORD2(v73) & 0xF000) != 0x4000)
+    if ((WORD2(v74) & 0xF000) != 0x4000)
     {
-      v17 = *(a1 + 64);
-      if (!v17)
+      v18 = *(a1 + 64);
+      if (!v18)
       {
-        goto LABEL_21;
+        return 1;
       }
 
-      v19 = __s;
-      v20 = a1;
-      v18 = 20;
+      v20 = __s;
+      v21 = a1;
+      v19 = 20;
       goto LABEL_20;
     }
 
-    v55 = 1;
+    v54 = 1;
     if (!*(a1 + 12822))
     {
-      v56 = 0;
-      goto LABEL_122;
+      v55 = 0;
+      goto LABEL_119;
     }
   }
 
-  if (_makeDestDir(a1, __s, 1, v82, &v70))
+  if (_makeDestDir(a1, __s, 1, v83, &v71))
   {
     goto LABEL_14;
   }
 
-  v56 = WORD2(v82[0]);
-  if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), __s, &v73))
+  v55 = WORD2(v83[0]);
+  if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), __s, &v74))
   {
     goto LABEL_14;
   }
 
-  v71 = v84;
-  v72 = v83;
-LABEL_122:
+  v72 = v85;
+  v73 = v84;
+LABEL_119:
   if ((*(*(a1 + 12832) + 160))(*(*(a1 + 12832) + 8), __s, a1 + 3328) != a1 + 3328)
   {
 LABEL_14:
-    v16 = __error();
-    v17 = *(a1 + 64);
-    if (!v17)
+    v17 = __error();
+    v18 = *(a1 + 64);
+    if (!v18)
     {
-      goto LABEL_21;
+      return 1;
     }
 
-    v18 = *v16;
-    v19 = __s;
+    v19 = *v17;
+    v20 = __s;
     goto LABEL_16;
   }
 
   _initializeAFSCData(a1);
-  if (statfs((a1 + 3328), &v90))
+  if (statfs((a1 + 3328), &v91))
   {
-    v67 = __error();
-    v17 = *(a1 + 64);
-    if (!v17)
+    v66 = __error();
+    v18 = *(a1 + 64);
+    if (!v18)
     {
-      goto LABEL_21;
+      return 1;
     }
 
-    v18 = *v67;
-    v20 = a1;
-    v19 = (a1 + 3328);
+    v19 = *v66;
+    v21 = a1;
+    v20 = (a1 + 3328);
     goto LABEL_20;
   }
 
-  *(a1 + 209) = (v90.f_flags & 8) == 0;
+  *(a1 + 209) = (v91.f_flags & 8) == 0;
   if (*(a1 + 211) == 1)
   {
     *(a1 + 211) = volume_has_data_protection((a1 + 3328));
   }
 
-LABEL_103:
-  v58 = v24;
-  v59 = strlen((a1 + 248));
-  v60 = strlen((a1 + 3328));
+LABEL_100:
+  v57 = v24;
+  v58 = strlen((a1 + 248));
+  v59 = strlen((a1 + 3328));
+  v60 = 1024 - v58;
   v61 = 1024 - v59;
-  v62 = 1024 - v60;
-  v63 = &v15[v59];
-  v64 = (a1 + 3328 + v60);
-  if (v58 == 0x4000)
+  v62 = &v16[v58];
+  v63 = (a1 + 3328 + v59);
+  if (v57 == 0x4000)
   {
-    result = _copyFromDirToDir(a1, v82, v63, v61, v64, v62, v13);
+    result = _copyFromDirToDir(a1, v83, v62, v60, v63, v61, v13);
   }
 
   else
   {
-    result = _copyFromFileToDir(a1, v82, v63, v61, v64, v62, v13, v55);
+    result = _copyFromFileToDir(a1, v83, v62, v60, v63, v61, v13, v54);
   }
 
   if (!result)
   {
-    if ((v55 & 1) == 0 && *(a1 + 12716) == 3 && (!*(a1 + 170) && !*(a1 + 169) || !_copyExtendedAttributes(a1, a1 + 248, v82, 0, 0)) && (!*(a1 + 171) || !_copyACLs(a1, (a1 + 248), 0, 0, 0)))
+    if ((v54 & 1) != 0 || *(a1 + 12716) != 3 || (*(a1 + 170) || *(a1 + 169)) && _copyExtendedAttributes(a1, a1 + 248, v83, 0, 0) || *(a1 + 171) && _copyACLs(a1, (a1 + 248), 0, 0, 0))
     {
-      if (!v70 || !(*(*(a1 + 12832) + 200))(*(*(a1 + 12832) + 8), a1 + 3328, v56))
-      {
-        result = set_timestamps_0((a1 + 3328), &v72, &v71);
-        if (!result)
-        {
-          goto LABEL_22;
-        }
-
-        if (*__error() == 13 || *__error() == 1)
-        {
-          v68 = __error();
-          result = 0;
-          *v68 = 0;
-          goto LABEL_22;
-        }
-      }
-
-      v65 = __error();
-      v66 = *(a1 + 64);
-      if (v66)
-      {
-        v66(a1, a1 + 3328, *v65);
-      }
+      return 0;
     }
 
-    result = 0;
+    if (v71 && (*(*(a1 + 12832) + 200))(*(*(a1 + 12832) + 8), a1 + 3328, v55))
+    {
+LABEL_113:
+      v64 = __error();
+      v65 = *(a1 + 64);
+      if (v65)
+      {
+        v65(a1, a1 + 3328, *v64);
+      }
+
+      return 0;
+    }
+
+    result = set_timestamps_0((a1 + 3328), &v73, &v72);
+    if (result)
+    {
+      if (*__error() == 13 || *__error() == 1)
+      {
+        v67 = __error();
+        result = 0;
+        *v67 = 0;
+        return result;
+      }
+
+      goto LABEL_113;
+    }
   }
 
-LABEL_22:
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _BOMCopierCopyFromCPIO(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _BOMCopierCopyFromCPIO(uint64_t a1, int *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v33 = 0;
+  v41 = 0;
+  v39 = 0u;
+  v40 = 0u;
   v10 = (a1 + 12288);
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  memset(v32, 0, sizeof(v32));
+  v32 = 0u;
   v29 = 0u;
   v30 = 0u;
   v27 = 0u;
@@ -8742,7 +7077,7 @@ uint64_t _BOMCopierCopyFromCPIO(uint64_t a1, uint64_t a2, char *a3, uint64_t a4,
   {
     if (!a3)
     {
-      BOMCopierNotifyFatalError(a1, "dstPath is NULL", 0, a4, a5, a6, a7, a8, v23);
+      BOMCopierNotifyFatalError(a1, "dstPath is NULL", 0, a4, a5, a6, a7, a8, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40);
       goto LABEL_17;
     }
 
@@ -8813,7 +7148,7 @@ LABEL_17:
   v13 = strlen((a1 + 3328));
   v14 = (a1 + 3328 + v13);
   *v14 = 47;
-  if (BOMCPIONew(&v33, a2, 1, 0))
+  if (BOMCPIONew(&v41, a2, 1, 0))
   {
     BOMFileClose(a2);
     v15 = __error();
@@ -8833,9 +7168,9 @@ LABEL_10:
 
   *(a1 + 248) = 0;
   *(a1 + 2296) = a1 + 248;
-  *(a1 + 12728) = v33;
+  *(a1 + 12728) = v41;
   v10[433] = 1;
-  v20 = _copyFromCPIO(a1, v32, &v23, v14 + 1, ((0x40000000000 - (v13 << 32)) >> 32) - 1, v12);
+  v20 = _copyFromCPIO(a1, &v32, &v23, v14 + 1, ((0x40000000000 - (v13 << 32)) >> 32) - 1, v12);
   if (!v20)
   {
     v20 = _restoreSymlinks(a1, 0);
@@ -8847,38 +7182,39 @@ LABEL_18:
     _restoreSymlinks(a1, 1);
   }
 
-  if (v33)
+  if (v41)
   {
-    BOMCPIOFree(v33);
+    BOMCPIOFree(v41);
   }
 
   return v20;
 }
 
-uint64_t _BOMCopierCopyFromPKZip(uint64_t a1, uint64_t a2, char *__s, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _BOMCopierCopyFromPKZip(uint64_t a1, int *a2, char *__s, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v113 = *MEMORY[0x277D85DE8];
-  v111 = 0;
-  v110 = 0;
-  memset(v109, 0, sizeof(v109));
-  memset(v108, 0, sizeof(v108));
+  v116 = *MEMORY[0x277D85DE8];
+  v114 = 0;
+  v113 = 0;
+  memset(v112, 0, sizeof(v112));
+  memset(v111, 0, sizeof(v111));
   if (*(a1 + 12716) != 3)
   {
-    v17 = 0xFFFFFFFFLL;
+    v18 = 0xFFFFFFFFLL;
     goto LABEL_8;
   }
 
   if (!__s)
   {
-    BOMCopierNotifyFatalError(a1, "dstPath is NULL", 0, a4, a5, a6, a7, a8, v101);
+    BOMCopierNotifyFatalError(a1, "dstPath is NULL", 0, a4, a5, a6, a7, a8);
     goto LABEL_7;
   }
 
-  if (strlen(__s) >= 0x3FF)
+  v11 = strlen(__s);
+  if (v11 >= 0x3FF)
   {
-    BOMCopierNotifyFatalError(a1, "Filename('%s') too long [%lu >= %lu]!", v11, v12, v13, v14, v15, v16, __s);
+    BOMCopierNotifyFatalError(a1, "Filename('%s') too long [%lu >= %lu]!", v12, v13, v14, v15, v16, v17, __s, v11, 1023);
 LABEL_7:
-    v17 = 1;
+    v18 = 1;
     goto LABEL_8;
   }
 
@@ -8902,7 +7238,7 @@ LABEL_7:
     __strlcpy_chk();
   }
 
-  if ((*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), a1 + 3328, v108) && (*__error() != 2 && *__error() != 63 || _mkdirs(a1, a1 + 3328)))
+  if ((*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), a1 + 3328, v111) && (*__error() != 2 && *__error() != 63 || _mkdirs(a1, a1 + 3328)))
   {
     v21 = __error();
     v22 = *(a1 + 64);
@@ -8924,7 +7260,7 @@ LABEL_28:
   v27 = (v20 + v26);
   *v27 = 47;
   v28 = v27 + 1;
-  if (BOMPKZipNew(&v111, a2, 1))
+  if (BOMPKZipNew(&v114, a2, 1))
   {
     BOMFileClose(a2);
     v29 = __error();
@@ -8941,8 +7277,8 @@ LABEL_28:
 
   *(a1 + 248) = 0;
   *(a1 + 2296) = a1 + 248;
-  v30 = v111;
-  *(a1 + 12752) = v111;
+  v30 = v114;
+  *(a1 + 12752) = v114;
   *(a1 + 12721) = 1;
   if (*(a1 + 12716) == 3 && *(a1 + 12768))
   {
@@ -8967,11 +7303,11 @@ LABEL_27:
     }
 
     snprintf(v32, (*(a1 + 12780) + 1), "%s%s", (a1 + 3328), "__MACOSX");
-    v30 = v111;
+    v30 = v114;
   }
 
   BOMPKZipLoadCentralDirectory(v30);
-  v17 = _copyFromPKZip(a1, v109, v108, v28, 1024 - v26 - 1);
+  v18 = _copyFromPKZip(a1, v112, v111, v28, 1024 - v26 - 1);
   v33 = *(a1 + 12784);
   if (v33)
   {
@@ -8980,7 +7316,7 @@ LABEL_27:
     *(a1 + 12780) = 0;
   }
 
-  if (!v17)
+  if (!v18)
   {
     NumLocalHeaders = BOMPKZipGetNumLocalHeaders(*(a1 + 12752));
     if (NumLocalHeaders)
@@ -8996,7 +7332,7 @@ LABEL_27:
           goto LABEL_109;
         }
 
-        if (BOMPKZipReadCentralHeader(*(a1 + 12752), (a1 + 248), v109, &v110))
+        if (BOMPKZipReadCentralHeader(*(a1 + 12752), (a1 + 248), v112, &v113))
         {
           v74 = "Couldn't read pkzip central header";
           goto LABEL_109;
@@ -9026,17 +7362,17 @@ LABEL_27:
         }
 
         snprintf((a1 + 7424), 0x400uLL, "%s/%s", __s, v45);
-        v46 = WORD2(v109[0]);
-        if ((WORD2(v109[0]) & 0x1FF) == 0)
+        v46 = WORD2(v112[0]);
+        if ((WORD2(v112[0]) & 0x1FF) == 0)
         {
-          if ((WORD2(v109[0]) & 0xF000) == 0x4000)
+          if ((WORD2(v112[0]) & 0xF000) == 0x4000)
           {
             v47 = 493;
           }
 
           else
           {
-            if ((WORD2(v109[0]) & 0xF000) != 0x8000)
+            if ((WORD2(v112[0]) & 0xF000) != 0x8000)
             {
               goto LABEL_52;
             }
@@ -9044,8 +7380,8 @@ LABEL_27:
             v47 = 420;
           }
 
-          v46 = WORD2(v109[0]) | v47;
-          WORD2(v109[0]) |= v47;
+          v46 = WORD2(v112[0]) | v47;
+          WORD2(v112[0]) |= v47;
         }
 
 LABEL_52:
@@ -9054,53 +7390,53 @@ LABEL_52:
         {
           if (v48 == 40960)
           {
-            v107 = 0;
-            v105 = 0u;
-            memset(v106, 0, sizeof(v106));
-            v103 = 0u;
-            v104 = 0u;
-            memset(v102, 0, sizeof(v102));
-            if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a1 + 7424, v102))
+            v110 = 0;
+            v108 = 0u;
+            memset(v109, 0, sizeof(v109));
+            v106 = 0u;
+            v107 = 0u;
+            memset(v105, 0, sizeof(v105));
+            if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a1 + 7424, v105))
             {
               v81 = __error();
-              strerror(*v81);
-              BOMCopierNotifyFatalError(a1, "Could not lstat %s: %s", v82, v83, v84, v85, v86, v87, a1);
+              v103 = strerror(*v81);
+              BOMCopierNotifyFatalError(a1, "Could not lstat %s: %s", v82, v83, v84, v85, v86, v87, a1 + 7424, v103);
               goto LABEL_110;
             }
 
-            if (v103 >= 1024)
+            if (v106 >= 1024)
             {
-              BOMCopierNotifyFatalError(a1, "%s is too large: %ld", v49, v50, v51, v52, v53, v54, a1);
+              BOMCopierNotifyFatalError(a1, "%s is too large: %ld", v49, v50, v51, v52, v53, v54, a1 + 7424, v106);
               goto LABEL_110;
             }
 
             v55 = v42;
-            if (BOMFileOpenWithSys(&v107, a1 + 7424, 0, 0, 16, *(a1 + 12832)))
+            if (BOMFileOpenWithSys(&v110, a1 + 7424, 0, 0, 16, *(a1 + 12832)))
             {
-              BOMCopierNotifyFatalError(a1, "Could not open symlink %s", v56, v57, v58, v59, v60, v61, a1);
+              BOMCopierNotifyFatalError(a1, "Could not open symlink %s", v56, v57, v58, v59, v60, v61, a1 + 7424, v102);
               goto LABEL_110;
             }
 
             v62 = v43;
-            v63 = BOMFileRead(v107, (a1 + 3328), v103);
-            if (v63 != v103)
+            v63 = BOMFileRead(v110, (a1 + 3328), v106);
+            if (v63 != v106)
             {
-              BOMCopierNotifyFatalError(a1, "Could not read %s", v64, v65, v66, v67, v68, v69, a1);
+              BOMCopierNotifyFatalError(a1, "Could not read %s", v64, v65, v66, v67, v68, v69, a1 + 7424, v102);
               goto LABEL_110;
             }
 
             *(v20 + v63) = 0;
-            BOMFileClose(v107);
-            _parentPath((a1 + 7424), v112, 0x400uLL);
-            v70 = (*(*(a1 + 12832) + 184))(*(*(a1 + 12832) + 8), v112, 2);
+            BOMFileClose(v110);
+            _parentPath((a1 + 7424), v115, 0x400uLL);
+            v70 = (*(*(a1 + 12832) + 184))(*(*(a1 + 12832) + 8), v115, 2);
             if (v70)
             {
-              if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), v112, v106))
+              if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), v115, v109))
               {
                 goto LABEL_110;
               }
 
-              if ((*(*(a1 + 12832) + 200))(*(*(a1 + 12832) + 8), v112, WORD2(v106[0]) | 0x1C0u))
+              if ((*(*(a1 + 12832) + 200))(*(*(a1 + 12832) + 8), v115, WORD2(v109[0]) | 0x1C0u))
               {
 LABEL_89:
                 v76 = __error();
@@ -9111,7 +7447,7 @@ LABEL_89:
                 }
 
                 v78 = *v76;
-                v79 = v112;
+                v79 = v115;
                 v80 = a1;
 LABEL_97:
                 v77(v80, v79, v78);
@@ -9144,7 +7480,7 @@ LABEL_97:
               goto LABEL_97;
             }
 
-            if (v70 && (*(*(a1 + 12832) + 200))(*(*(a1 + 12832) + 8), v112, WORD2(v106[0]) & 0xFFF))
+            if (v70 && (*(*(a1 + 12832) + 200))(*(*(a1 + 12832) + 8), v115, WORD2(v109[0]) & 0xFFF))
             {
               goto LABEL_89;
             }
@@ -9160,13 +7496,13 @@ LABEL_97:
           }
         }
 
-        if (_chPerms(a1, (a1 + 7424), v109, 0, 0) == -1)
+        if (_chPerms(a1, (a1 + 7424), v112, 0, 0) == -1)
         {
           if (*__error() != 2 && *__error() != 63)
           {
             v94 = __error();
-            strerror(*v94);
-            BOMCopierNotifyFatalError(a1, "Could not chmod %s: %s", v95, v96, v97, v98, v99, v100, a1);
+            v104 = strerror(*v94);
+            BOMCopierNotifyFatalError(a1, "Could not chmod %s: %s", v95, v96, v97, v98, v99, v100, a1 + 7424, v104);
             goto LABEL_110;
           }
 
@@ -9192,7 +7528,7 @@ LABEL_73:
       {
         v74 = "Could not skip the digital signature.";
 LABEL_109:
-        BOMCopierNotifyFatalError(a1, v74, v35, v36, v37, v38, v39, v40, v101);
+        BOMCopierNotifyFatalError(a1, v74, v35, v36, v37, v38, v39, v40, v101, v102);
         goto LABEL_110;
       }
 
@@ -9253,12 +7589,12 @@ LABEL_88:
 
     if (*(a1 + 12768))
     {
-      v89 = BOMPKZipQuarantinePathCount(v111);
+      v89 = BOMPKZipQuarantinePathCount(v114);
       if (v89 - 1 >= 0)
       {
         v90 = v89;
         v91 = (a1 + 7424);
-        while (!BOMPKZipCopyQuarantinePath(v111, --v90, (a1 + 7424)))
+        while (!BOMPKZipCopyQuarantinePath(v114, --v90, (a1 + 7424)))
         {
           v92 = *v91;
           if (v92 == 46 && *(a1 + 7425) == 47)
@@ -9273,7 +7609,7 @@ LABEL_88:
 
           snprintf((a1 + 3328), 0x400uLL, "%s/%s", __s, &v91[v93]);
           (*(*(a1 + 12832) + 232))(*(*(a1 + 12832) + 8), a1 + 3328);
-          v17 = 0;
+          v18 = 0;
           if (v90 <= 0)
           {
             goto LABEL_8;
@@ -9286,17 +7622,16 @@ LABEL_88:
     }
 
 LABEL_110:
-    v17 = 0;
+    v18 = 0;
   }
 
 LABEL_8:
-  if (v111)
+  if (v114)
   {
-    BOMPKZipFree(v111);
+    BOMPKZipFree(v114);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v18;
 }
 
 uint64_t _finalizeCopierDestination(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -9433,22 +7768,20 @@ uint64_t BOMCopierCancelCopy(uint64_t result)
   return result;
 }
 
-uint64_t BOMCopierCountFilesInArchive(uint64_t a1, char *__s, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMCopierCountFilesInArchive(uint64_t a1, char *__s, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   keys[1] = *MEMORY[0x277D85DE8];
   if (!__s)
   {
-    BOMCopierNotifyFatalError(a1, "BOMCopierCountFilesInArchive: missing path", a3, a4, a5, a6, a7, a8, v73);
-    goto LABEL_5;
+    BOMCopierNotifyFatalError(a1, "BOMCopierCountFilesInArchive: missing path", a3, a4, a5, a6, a7, a8);
+    return 22;
   }
 
   v12 = strlen(__s);
   if (v12 >= 0x400)
   {
     BOMCopierNotifyFatalError(a1, "BOMCopierCountFilesInArchive: maximum path length exceeded: %ld", v13, v14, v15, v16, v17, v18, v12);
-LABEL_5:
-    Code = 22;
-    goto LABEL_32;
+    return 22;
   }
 
   values = *MEMORY[0x277CBED28];
@@ -9456,39 +7789,39 @@ LABEL_5:
   v20 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!v20)
   {
-    BOMCopierNotifyFatalError(a1, "Could not create empty BOMCopierSource options", v21, v22, v23, v24, v25, v26, v73);
+    BOMCopierNotifyFatalError(a1, "Could not create empty BOMCopierSource options", v21, v22, v23, v24, v25, v26);
     _resetCopier(a1);
-    goto LABEL_31;
+    return 1;
   }
 
   v27 = v20;
-  v75 = 0;
-  v28 = BOMCopierSourceNew(__s, v20, 0, &v75);
+  v63 = 0;
+  v28 = BOMCopierSourceNew(__s, v20, 0, &v63);
   if (!v28)
   {
-    Code = BOMCopierErrorGetCode(v75);
-    BOMCopierErrorGetMessage(v75);
-    BOMCopierNotifyFatalError(a1, "Could not create BOMCopierSource from %s: %s", v59, v60, v61, v62, v63, v64, __s);
+    Code = BOMCopierErrorGetCode(v63);
+    Message = BOMCopierErrorGetMessage(v63);
+    BOMCopierNotifyFatalError(a1, "Could not create BOMCopierSource from %s: %s", v48, v49, v50, v51, v52, v53, __s, Message);
     CFRelease(v27);
-    BOMCopierErrorFree(v75);
-    goto LABEL_32;
+    BOMCopierErrorFree(v63);
+    return Code;
   }
 
   v29 = v28;
-  v74 = a4;
+  v62 = a4;
   CFRelease(v27);
-  v36 = BOMCopierSourceNext(v29, &v75, v30, v31, v32, v33, v34, v35);
-  if (v36)
+  v30 = BOMCopierSourceNext(v29, &v63);
+  if (v30)
   {
-    v37 = v36;
-    v38 = 0;
-    v39 = 0;
+    v31 = v30;
+    v32 = 0;
+    v33 = 0;
     while (1)
     {
-      Type = BOMCopierSourceEntryGetType(v37);
+      Type = BOMCopierSourceEntryGetType(v31);
       if (Type == 9)
       {
-        SymlinkTarget = BOMCopierSourceEntryGetSymlinkTarget(v37);
+        SymlinkTarget = BOMCopierSourceEntryGetSymlinkTarget(v31);
         if (!SymlinkTarget)
         {
           goto LABEL_16;
@@ -9501,63 +7834,59 @@ LABEL_5:
       {
         if (!Type)
         {
-          BOMCopierNotifyFatalError(a1, "Unknown BOMCopierSourceEntry", v41, v42, v43, v44, v45, v46, v73);
-          BOMCopierSourceEntryFree(v37);
+          BOMCopierNotifyFatalError(a1, "Unknown BOMCopierSourceEntry", v35, v36, v37, v38, v39, v40);
+          BOMCopierSourceEntryFree(v31);
           BOMCopierSourceFree(v29);
-LABEL_31:
-          Code = 1;
-          goto LABEL_32;
+          return 1;
         }
 
-        Size = BOMCopierSourceEntryGetSize(v37);
+        Size = BOMCopierSourceEntryGetSize(v31);
       }
 
-      v39 += Size;
+      v33 += Size;
 LABEL_16:
       if (a1 && *(a1 + 88))
       {
-        Path = BOMCopierSourceEntryGetPath(v37);
-        Mode = BOMCopierSourceEntryGetMode(v37);
-        v51 = BOMCopierSourceEntryGetSize(v37);
-        v52 = BOMFSObjectTypeForMode(Mode);
-        (*(a1 + 88))(a1, Path, v52, v51);
+        Path = BOMCopierSourceEntryGetPath(v31);
+        Mode = BOMCopierSourceEntryGetMode(v31);
+        v45 = BOMCopierSourceEntryGetSize(v31);
+        v46 = BOMFSObjectTypeForMode(Mode);
+        (*(a1 + 88))(a1, Path, v46, v45);
       }
 
-      BOMCopierSourceEntryFree(v37);
-      v37 = BOMCopierSourceNext(v29, &v75, v53, v54, v55, v56, v57, v58);
-      ++v38;
-      if (!v37)
+      BOMCopierSourceEntryFree(v31);
+      v31 = BOMCopierSourceNext(v29, &v63);
+      ++v32;
+      if (!v31)
       {
         goto LABEL_24;
       }
     }
   }
 
-  v39 = 0;
-  v38 = 0;
+  v33 = 0;
+  v32 = 0;
 LABEL_24:
   BOMCopierSourceFree(v29);
-  if (v75)
+  if (v63)
   {
-    BOMCopierErrorGetMessage(v75);
-    BOMCopierNotifyFatalError(a1, "Could not enumerate %s: %s", v65, v66, v67, v68, v69, v70, __s);
-    BOMCopierErrorFree(v75);
-    goto LABEL_31;
+    v54 = BOMCopierErrorGetMessage(v63);
+    BOMCopierNotifyFatalError(a1, "Could not enumerate %s: %s", v55, v56, v57, v58, v59, v60, __s, v54);
+    BOMCopierErrorFree(v63);
+    return 1;
   }
 
   if (a3)
   {
-    *a3 = v38;
+    *a3 = v32;
   }
 
   Code = 0;
-  if (v74)
+  if (v62)
   {
-    *v74 = v39;
+    *v62 = v33;
   }
 
-LABEL_32:
-  v71 = *MEMORY[0x277D85DE8];
   return Code;
 }
 
@@ -9570,7 +7899,7 @@ uint64_t BOMCopierCountFilesInDirectory(uint64_t a1, char *__s, const __CFDictio
 
   if (!__s)
   {
-    BOMCopierNotifyFatalError(a1, "missing path parameter", a3, a4, a5, a6, a7, a8, v87);
+    BOMCopierNotifyFatalError(a1, "missing path parameter", a3, a4, a5, a6, a7, a8);
     return 1;
   }
 
@@ -9587,7 +7916,7 @@ uint64_t BOMCopierCountFilesInDirectory(uint64_t a1, char *__s, const __CFDictio
     {
       v26 = "Could not parse the options dictionary";
 LABEL_54:
-      BOMCopierNotifyFatalError(a1, v26, v20, v21, v22, v23, v24, v25, v87);
+      BOMCopierNotifyFatalError(a1, v26, v20, v21, v22, v23, v24, v25);
       goto LABEL_55;
     }
 
@@ -9624,16 +7953,16 @@ LABEL_55:
     CFDictionarySetValue(v28, @"crossDevices", *v29);
   }
 
-  *v91 = 0u;
-  v92 = 0u;
-  v90 = 0u;
-  v89 = 0;
-  if (*(a1 + 136) && (CFDictionarySetValue(v28, @"discoverBinaries", *v29), BOMCopierPrepareMatchContext(a3, &v90, &v89)) || (v30 = BOMCopierSourceNew(__s, v28, 0, &v89)) == 0)
+  *v79 = 0u;
+  v80 = 0u;
+  v78 = 0u;
+  v77 = 0;
+  if (*(a1 + 136) && (CFDictionarySetValue(v28, @"discoverBinaries", *v29), BOMCopierPrepareMatchContext(a3, &v78, &v77)) || (v30 = BOMCopierSourceNew(__s, v28, 0, &v77)) == 0)
   {
-    BOMCopierErrorGetMessage(v89);
-    BOMCopierNotifyFatalError(a1, "Could not create BOMCopierSource from %s: %s", v64, v65, v66, v67, v68, v69, __s);
+    Message = BOMCopierErrorGetMessage(v77);
+    BOMCopierNotifyFatalError(a1, "Could not create BOMCopierSource from %s: %s", v53, v54, v55, v56, v57, v58, __s, Message);
     CFRelease(v28);
-    BOMCopierErrorFree(v89);
+    BOMCopierErrorFree(v77);
     return 1;
   }
 
@@ -9643,17 +7972,17 @@ LABEL_55:
   {
     *(a1 + 12680) = 1;
     *(a1 + 12688) = 0;
-    v88.tv_sec = 0;
-    *&v88.tv_usec = 0;
-    gettimeofday(&v88, 0);
-    v38 = *(a1 + 12680) + v88.tv_sec;
-    *(a1 + 12696) = v38;
-    v39 = *(a1 + 12688) + v88.tv_usec;
-    *(a1 + 12704) = v39;
-    if (v39 > 999999)
+    v76.tv_sec = 0;
+    *&v76.tv_usec = 0;
+    gettimeofday(&v76, 0);
+    v32 = *(a1 + 12680) + v76.tv_sec;
+    *(a1 + 12696) = v32;
+    v33 = *(a1 + 12688) + v76.tv_usec;
+    *(a1 + 12704) = v33;
+    if (v33 > 999999)
     {
-      *(a1 + 12696) = v38 + 1;
-      *(a1 + 12704) = v39 - 1000000;
+      *(a1 + 12696) = v32 + 1;
+      *(a1 + 12704) = v33 - 1000000;
     }
   }
 
@@ -9667,15 +7996,15 @@ LABEL_55:
     *a5 = 0;
   }
 
-  v40 = BOMCopierSourceNext(v31, 0, v32, v33, v34, v35, v36, v37);
-  if (v40)
+  v34 = BOMCopierSourceNext(v31, 0);
+  if (v34)
   {
-    v41 = v40;
-    v42 = 0;
-    v43 = 0;
+    v35 = v34;
+    v36 = 0;
+    v37 = 0;
     while (1)
     {
-      Type = BOMCopierSourceEntryGetType(v41);
+      Type = BOMCopierSourceEntryGetType(v35);
       if (Type > 0xB)
       {
         goto LABEL_48;
@@ -9683,40 +8012,40 @@ LABEL_55:
 
       if (((1 << Type) & 0xAB0) != 0 || Type == 6)
       {
-        ++v42;
+        ++v36;
         goto LABEL_32;
       }
 
       if (Type == 8)
       {
-        if (BOMCopierSourceEntryGetBinaryType(v41))
+        if (BOMCopierSourceEntryGetBinaryType(v35))
         {
-          matched = BOMCopierMatchBinary(v41, &v90, &v89);
+          matched = BOMCopierMatchBinary(v35, &v78, &v77);
           if (matched)
           {
-            v70 = matched;
-            Message = BOMCopierErrorGetMessage(v89);
-            BOMCopierNotifyFatalError(a1, Message, v81, v82, v83, v84, v85, v86, v87);
-            BOMCopierErrorFree(v89);
-            BOMCopierSourceEntryFree(v41);
+            v59 = matched;
+            v69 = BOMCopierErrorGetMessage(v77);
+            BOMCopierNotifyFatalError(a1, v69, v70, v71, v72, v73, v74, v75);
+            BOMCopierErrorFree(v77);
+            BOMCopierSourceEntryFree(v35);
             BOMCopierSourceFree(v31);
-            return v70;
+            return v59;
           }
 
-          Size = *(&v92 + 1);
-          if (v91[1])
+          Size = *(&v80 + 1);
+          if (v79[1])
           {
-            free(v91[1]);
+            free(v79[1]);
           }
         }
 
         else
         {
-          Size = BOMCopierSourceEntryGetSize(v41);
+          Size = BOMCopierSourceEntryGetSize(v35);
         }
 
-        v43 += Size;
-        v42 += !BOMCopierSourceEntryIsResourceFork(v41);
+        v37 += Size;
+        v36 += !BOMCopierSourceEntryIsResourceFork(v35);
       }
 
       else
@@ -9724,82 +8053,1778 @@ LABEL_55:
 LABEL_48:
         if (!Type)
         {
-          BOMCopierNotifyFatalError(a1, "Unknown BOMCopierSourceEntry", v45, v46, v47, v48, v49, v50, v87);
-          BOMCopierSourceEntryFree(v41);
+          BOMCopierNotifyFatalError(a1, "Unknown BOMCopierSourceEntry", v39, v40, v41, v42, v43, v44);
+          BOMCopierSourceEntryFree(v35);
           BOMCopierSourceFree(v31);
           return 1;
         }
       }
 
 LABEL_32:
-      BOMCopierSourceEntryFree(v41);
+      BOMCopierSourceEntryFree(v35);
       if (*(a1 + 120))
       {
-        v88.tv_sec = 0;
-        *&v88.tv_usec = 0;
-        gettimeofday(&v88, 0);
-        tv_sec = v88.tv_sec;
-        v58 = *(a1 + 12696);
-        if (v88.tv_sec == v58)
+        v76.tv_sec = 0;
+        *&v76.tv_usec = 0;
+        gettimeofday(&v76, 0);
+        tv_sec = v76.tv_sec;
+        v46 = *(a1 + 12696);
+        if (v76.tv_sec == v46)
         {
-          tv_usec = v88.tv_usec;
-          if (v88.tv_usec >= *(a1 + 12704))
+          tv_usec = v76.tv_usec;
+          if (v76.tv_usec >= *(a1 + 12704))
           {
             goto LABEL_44;
           }
         }
 
-        else if (v88.tv_sec >= v58)
+        else if (v76.tv_sec >= v46)
         {
-          tv_usec = v88.tv_usec;
+          tv_usec = v76.tv_usec;
 LABEL_44:
-          (*(a1 + 120))(a1, v42, v43);
-          v62 = *(a1 + 12680) + tv_sec;
-          *(a1 + 12696) = v62;
-          v63 = *(a1 + 12688) + tv_usec;
-          *(a1 + 12704) = v63;
-          if (v63 > 999999)
+          (*(a1 + 120))(a1, v36, v37);
+          v50 = *(a1 + 12680) + tv_sec;
+          *(a1 + 12696) = v50;
+          v51 = *(a1 + 12688) + tv_usec;
+          *(a1 + 12704) = v51;
+          if (v51 > 999999)
           {
-            *(a1 + 12696) = v62 + 1;
-            *(a1 + 12704) = v63 - 1000000;
+            *(a1 + 12696) = v50 + 1;
+            *(a1 + 12704) = v51 - 1000000;
           }
         }
       }
 
-      v41 = BOMCopierSourceNext(v31, 0, v51, v52, v53, v54, v55, v56);
-      if (!v41)
+      v35 = BOMCopierSourceNext(v31, 0);
+      if (!v35)
       {
         goto LABEL_59;
       }
     }
   }
 
-  v43 = 0;
-  v42 = 0;
+  v37 = 0;
+  v36 = 0;
 LABEL_59:
   BOMCopierSourceFree(v31);
-  v72 = BOMCopierReleaseMatchContext(&v90, &v89);
-  if (v72)
+  v61 = BOMCopierReleaseMatchContext(&v78, &v77);
+  if (v61)
   {
-    v70 = v72;
-    v73 = BOMCopierErrorGetMessage(v89);
-    BOMCopierNotifyFatalError(a1, v73, v74, v75, v76, v77, v78, v79, v87);
-    BOMCopierErrorFree(v89);
+    v59 = v61;
+    v62 = BOMCopierErrorGetMessage(v77);
+    BOMCopierNotifyFatalError(a1, v62, v63, v64, v65, v66, v67, v68);
+    BOMCopierErrorFree(v77);
   }
 
   else
   {
     if (a4)
     {
-      *a4 = v42;
+      *a4 = v36;
     }
 
-    v70 = 0;
+    v59 = 0;
     if (a5)
     {
-      *a5 = v43;
+      *a5 = v37;
     }
   }
 
-  return v70;
+  return v59;
+}
+
+uint64_t BOMCopierSetUserData(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 48) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierUserData(uint64_t result)
+{
+  if (result)
+  {
+    return *(result + 48);
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierSetFatalErrorHandler(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 56) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierSetFatalFileErrorHandler(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 64) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierSetFileErrorHandler(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 72) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierSetFileConflictErrorHandler(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 80) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierSetCopyFileStartedHandler(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 88) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierSetCopyFileFinishedHandler(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 96) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierSetCopyFileUpdateHandler(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 104) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierSetCountFilesUpdateHandler(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 120) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierSetPKZipPasswordRequester(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    *(result + 128) = a2;
+  }
+
+  return result;
+}
+
+uint64_t BOMCopierGetArchiveFileDescriptor(uint64_t a1)
+{
+  if (!a1)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v1 = *(a1 + 12712);
+  if (v1 == 2)
+  {
+    v4 = *(a1 + 12752);
+    if (v4)
+    {
+      File = BOMPKZipGetFile(v4);
+      goto LABEL_8;
+    }
+
+    return 0xFFFFFFFFLL;
+  }
+
+  if (v1 != 1)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v2 = *(a1 + 12728);
+  if (!v2)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  File = BOMCPIOGetFile(v2);
+LABEL_8:
+
+  return BOMFileGetFileDescriptor(File);
+}
+
+size_t _extractFileAndPath(char *a1, char *a2)
+{
+  v4 = strrchr(a1, 47);
+  if (v4)
+  {
+    *v4 = 0;
+    result = strlcpy(a2, v4 + 1, 0x400uLL);
+    if (*a1)
+    {
+      return result;
+    }
+
+    v6 = 47;
+  }
+
+  else
+  {
+    result = strlcpy(a2, a1, 0x400uLL);
+    v6 = 46;
+  }
+
+  *a1 = v6;
+  return result;
+}
+
+uint64_t _initializeAFSCData(uint64_t a1)
+{
+  result = __strlcpy_chk();
+  if (!*(a1 + 195))
+  {
+    goto LABEL_7;
+  }
+
+  if (*(a1 + 12712) || (result = VolumeSupportsCompression(), (result & 1) == 0))
+  {
+    *(a1 + 195) = 0;
+    goto LABEL_7;
+  }
+
+  if (!*(a1 + 195))
+  {
+LABEL_7:
+    if (!*(a1 + 12848))
+    {
+      return result;
+    }
+  }
+
+  if (*(a1 + 12716) == 3 && (result = VolumeSupportsCompression(), result))
+  {
+    if (*(a1 + 12848))
+    {
+      if (!*(a1 + 12864))
+      {
+        result = CreateStreamCompressorQueueWithOptions();
+        *(a1 + 12864) = result;
+      }
+    }
+  }
+
+  else
+  {
+    *(a1 + 195) = 0;
+    *(a1 + 12848) = 0;
+  }
+
+  return result;
+}
+
+void _applyIndexBomOwnershipForTargetArchive(uint64_t a1, char *a2, uint64_t a3)
+{
+  v3 = *(a1 + 152);
+  if (v3)
+  {
+    FSObjectAtPath = BOMBomGetFSObjectAtPath(v3, a2);
+    if (FSObjectAtPath)
+    {
+      v6 = FSObjectAtPath;
+      *(a3 + 16) = BOMFSObjectUserID(FSObjectAtPath);
+      *(a3 + 20) = BOMFSObjectGroupID(v6);
+
+      BOMFSObjectFree(v6);
+    }
+  }
+}
+
+uint64_t _copyFromDirToDir(uint64_t a1, _DWORD *a2, _BYTE *a3, uint64_t a4, _BYTE *a5, uint64_t a6, unsigned int a7)
+{
+  v79 = *MEMORY[0x277D85DE8];
+  v76 = 0;
+  v74 = 0;
+  memset(v78, 0, 512);
+  memset(v73, 0, sizeof(v73));
+  memset(&v72[2], 0, 112);
+  *a3 = 47;
+  *a5 = 47;
+  a3[1] = 0;
+  v13 = a3 + 1;
+  memset(v72, 0, 32);
+  a5[1] = 0;
+  v14 = a5 + 1;
+  if (*(a1 + 192) == 1)
+  {
+    if (*(a1 + 232) == *a2)
+    {
+      goto LABEL_11;
+    }
+
+    memset(&v77, 0, 512);
+    if (!statfs((a1 + 248), &v77))
+    {
+      *(a1 + 210) = (v77.f_flags & 8) == 0;
+      goto LABEL_11;
+    }
+
+    v15 = __error();
+    v16 = *(a1 + 64);
+    if (v16)
+    {
+      v16(a1, a1 + 248, *v15);
+    }
+
+    return 0;
+  }
+
+  if (!*(a1 + 192) && *(a1 + 232) != *a2)
+  {
+    return 0;
+  }
+
+LABEL_11:
+  v18 = (*(*(a1 + 12832) + 272))(*(*(a1 + 12832) + 8), a1 + 248);
+  if (!v18)
+  {
+    *a5 = 0;
+    *a3 = 0;
+    __error();
+    return _checkCopyFileError(a1);
+  }
+
+  v19 = v18;
+  v70 = a7;
+  v20 = a6 - 1;
+  v21 = a4 - 1;
+  v75 = 0;
+  __size = a6 - 1;
+  if (a6 - 1 >= (a4 - 1))
+  {
+    v20 = a4 - 1;
+  }
+
+  v66 = a3;
+  v67 = v20;
+  v22 = (*(*(a1 + 12832) + 296))(*(*(a1 + 12832) + 8), v18, v78, &v74);
+  v23 = 0;
+  v17 = 0;
+  v24 = v22 == 0;
+  v71 = 0;
+  if (!v22)
+  {
+    v25 = v74;
+    if (v74)
+    {
+      v23 = 0;
+      v65 = 0;
+      v71 = 0;
+      v17 = 0;
+      v69 = 0;
+      while (1)
+      {
+        v75 = 0;
+        if (_ignore_readdir_entry(v25))
+        {
+          goto LABEL_43;
+        }
+
+        if (*(a1 + 168))
+        {
+          goto LABEL_105;
+        }
+
+        if (strlcpy(v13, (v74 + 21), v21) >= v21)
+        {
+          goto LABEL_40;
+        }
+
+        v26 = *(a1 + 152);
+        if (v26)
+        {
+          v69 = BOMBomPathIDForKey(v26, v70, (v74 + 21));
+          if (!v69)
+          {
+            v69 = 0;
+            goto LABEL_43;
+          }
+        }
+
+        v27 = *(a1 + 160);
+        v28 = v27 && BOMBomFSObjectExistsAtPath(v27, *(a1 + 2296));
+        if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a1 + 248, v73))
+        {
+          break;
+        }
+
+        if (*(a1 + 12746) && *(a1 + 12716) == 4)
+        {
+          _applyIndexBomOwnershipForTargetArchive(a1, *(a1 + 2296), v73);
+        }
+
+        if (*(v74 + 18) > 0xF9u)
+        {
+          v63 = v28;
+          v77.f_bfree = 0;
+          *&v77.f_bsize = xmmword_241C78E98;
+          v31 = BOM_malloczero(0x30CuLL);
+          if ((*(*(a1 + 12832) + 120))(*(*(a1 + 12832) + 8), a1 + 248, &v77, v31, 780, 1))
+          {
+            free(v31);
+            __error();
+            v17 = _checkCopyFileError(a1);
+            if (v17 > 1)
+            {
+              goto LABEL_105;
+            }
+
+            goto LABEL_43;
+          }
+
+          if (v67 < v31[2])
+          {
+            free(v31);
+LABEL_40:
+            v29 = a1;
+LABEL_41:
+            if (_checkCopyFileError(v29))
+            {
+              goto LABEL_105;
+            }
+
+            v17 = 0;
+            goto LABEL_43;
+          }
+
+          v61 = v31[1];
+          v62 = v31[2];
+          strlcpy(v14, v31 + v61 + 4, __size);
+          strlcpy(v13, v31 + v61 + 4, v21);
+          free(v31);
+          v30 = v62 - 1;
+          v28 = v63;
+        }
+
+        else
+        {
+          if (strlcpy(v14, (v74 + 21), __size) >= __size)
+          {
+            goto LABEL_40;
+          }
+
+          v30 = *(v74 + 18);
+        }
+
+        v33 = _checkForDestinationConflict(a1, (a1 + 3328), v73, v72, &v76, &v75);
+        if (v75 == 1)
+        {
+          if (v33 == 1)
+          {
+            v17 = v33;
+          }
+
+          else if (v33)
+          {
+LABEL_105:
+            v17 = 2;
+            goto LABEL_106;
+          }
+        }
+
+        else
+        {
+          v34 = WORD2(v73[0]) & 0xF000;
+          if (v28)
+          {
+            if (v34 != 0x4000)
+            {
+              goto LABEL_43;
+            }
+
+LABEL_66:
+            HIDWORD(v45) = v34 - 0x2000;
+            LODWORD(v45) = v34 - 0x2000;
+            v44 = v45 >> 13;
+            if (v44 <= 1)
+            {
+              if (!v44)
+              {
+                goto LABEL_74;
+              }
+
+              if (v44 != 1)
+              {
+                goto LABEL_43;
+              }
+
+              v46 = _copyDir(a1, v73, v72, v30, v76, v13, v21, v14, __size, v69, v28);
+            }
+
+            else
+            {
+              if (v44 != 2)
+              {
+                if (v44 == 4)
+                {
+                  v46 = _copyLink(a1, v73, v72, v76);
+                }
+
+                else
+                {
+                  if (v44 != 3)
+                  {
+                    goto LABEL_43;
+                  }
+
+                  v46 = _copyFile(a1, v73, v72, v76, *(a1 + 136), &v75, 0);
+                }
+
+                goto LABEL_76;
+              }
+
+LABEL_74:
+              v46 = _copyDevice(a1, v73);
+            }
+
+LABEL_76:
+            if (v46 == 1)
+            {
+              v17 = 1;
+            }
+
+            else if (v46 == 2)
+            {
+              v17 = v46;
+              goto LABEL_106;
+            }
+
+            goto LABEL_43;
+          }
+
+          if (v34 != 0x8000)
+          {
+            goto LABEL_66;
+          }
+
+          if (*(a1 + 12716) != 3)
+          {
+            v34 = 0x8000;
+            goto LABEL_66;
+          }
+
+          if (!BOMAppleDoubleIsADFile((a1 + 248)))
+          {
+            v34 = WORD2(v73[0]) & 0xF000;
+            goto LABEL_66;
+          }
+
+          v41 = v65;
+          if (v65)
+          {
+            if (v65 == v23)
+            {
+              v42 = BOM_realloc(v71, 32 * v23);
+              v41 = 2 * v23;
+              v43 = v42;
+            }
+
+            else
+            {
+              v43 = v71;
+            }
+          }
+
+          else
+          {
+            v43 = BOM_malloc(0x40uLL);
+            v41 = 4;
+          }
+
+          v65 = v41;
+          if (!v43)
+          {
+            BOMCopierNotifyFatalError(a1, "Could not allocate space for Apple Double files.", v35, v36, v37, v38, v39, v40);
+            v17 = 2;
+            goto LABEL_111;
+          }
+
+          v47 = BOM_malloc(v30 + 1);
+          if (!v47)
+          {
+            BOMCopierNotifyFatalError(a1, "Could not allocate space for Apple Double filename.", v48, v49, v50, v51, v52, v53);
+LABEL_100:
+            v17 = 2;
+            if (!v23)
+            {
+LABEL_110:
+              free(v43);
+              goto LABEL_111;
+            }
+
+LABEL_108:
+            v59 = v43;
+            do
+            {
+              free(*v59);
+              *v59 = 0;
+              v59 += 2;
+              --v23;
+            }
+
+            while (v23);
+            goto LABEL_110;
+          }
+
+          v54 = v30;
+          v55 = v47;
+          v64 = v54;
+          strlcpy(v47, v13, v54 + 1);
+          v71 = v43;
+          v56 = &v43[16 * v23];
+          *v56 = v55;
+          v56[1] = v64;
+          ++v23;
+        }
+
+LABEL_43:
+        v24 = (*(*(a1 + 12832) + 296))(*(*(a1 + 12832) + 8), v19, v78, &v74) == 0;
+        v25 = v74;
+        if (!v24 || v74 == 0)
+        {
+          goto LABEL_85;
+        }
+      }
+
+      __error();
+      v29 = a1;
+      goto LABEL_41;
+    }
+  }
+
+LABEL_85:
+  (*(*(a1 + 12832) + 280))(*(*(a1 + 12832) + 8), v19);
+  if (!v24)
+  {
+    v17 = _checkCopyFileError(a1);
+    goto LABEL_104;
+  }
+
+  if (v17)
+  {
+LABEL_104:
+    v19 = 0;
+LABEL_106:
+    v43 = v71;
+    if (!v71)
+    {
+      goto LABEL_111;
+    }
+
+LABEL_107:
+    if (!v23)
+    {
+      goto LABEL_110;
+    }
+
+    goto LABEL_108;
+  }
+
+  v43 = v71;
+  if (v71 && v23)
+  {
+    v57 = v71;
+    for (i = v23; i; --i)
+    {
+      v75 = 0;
+      if (*v57)
+      {
+        if (*(a1 + 168))
+        {
+          goto LABEL_99;
+        }
+
+        if ((v57[1] + 1) > v67 || (strlcpy(v14, *v57, __size), strncpy(v13, *v57, v21), (*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a1 + 248, v73)))
+        {
+          __error();
+          if (_checkCopyFileError(a1))
+          {
+            goto LABEL_99;
+          }
+        }
+
+        else if (_checkForDestinationConflict(a1, (a1 + 3328), v73, v72, &v76, &v75) != 1 && _copyFile(a1, v73, v72, v76, *(a1 + 136), &v75, 0) == 2)
+        {
+LABEL_99:
+          v19 = 0;
+          goto LABEL_100;
+        }
+      }
+
+      v57 += 2;
+    }
+  }
+
+  v19 = 0;
+  v17 = 0;
+  *a5 = 0;
+  *v66 = 0;
+  if (v71)
+  {
+    goto LABEL_107;
+  }
+
+LABEL_111:
+  if (v19)
+  {
+    (*(*(a1 + 12832) + 280))(*(*(a1 + 12832) + 8), v19);
+  }
+
+  return v17;
+}
+
+uint64_t _copyFromFileToDir(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4, _BYTE *a5, uint64_t a6, unsigned int a7, int a8)
+{
+  v26 = 0;
+  v25 = 0;
+  *a3 = 47;
+  *a5 = 47;
+  v15 = a5 + 1;
+  if (strlcpy(a3 + 1, (a1 + 2304), a4 - 1) >= a4 - 1)
+  {
+    return 1;
+  }
+
+  v16 = *(a1 + 152);
+  if (v16)
+  {
+    if (!BOMBomPathIDForKey(v16, a7, (a1 + 2304)))
+    {
+      return 1;
+    }
+  }
+
+  v17 = *(a1 + 160);
+  if (v17)
+  {
+    if (BOMBomFSObjectExistsAtPath(v17, *(a1 + 2296)))
+    {
+      return 1;
+    }
+  }
+
+  memset(v24, 0, sizeof(v24));
+  memset(v23, 0, sizeof(v23));
+  if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a1 + 248, v24))
+  {
+LABEL_7:
+    __error();
+    return _checkCopyFileError(a1);
+  }
+
+  v19 = a6 - 1;
+  if (*(a1 + 12746) && *(a1 + 12716) == 4)
+  {
+    _applyIndexBomOwnershipForTargetArchive(a1, *(a1 + 2296), v24);
+  }
+
+  v20 = (*(a1 + 6400) ? a1 + 6400 : a1 + 2304);
+  if (strlcpy(v15, v20, v19) >= v19)
+  {
+    return 1;
+  }
+
+  if (a8)
+  {
+    result = _checkForDestinationConflict(a1, (a1 + 3328), v24, v23, &v26, &v25);
+    if (v25 == 1)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    v26 = 0;
+    result = 1;
+  }
+
+  HIDWORD(v22) = (WORD2(v24[0]) & 0xF000) - 0x2000;
+  LODWORD(v22) = HIDWORD(v22);
+  v21 = v22 >> 13;
+  if (v21 > 2)
+  {
+    if (v21 == 4)
+    {
+      result = _copyLink(a1, v24, v23, v26);
+    }
+
+    else if (v21 == 3)
+    {
+      result = _copyFile(a1, v24, v23, v26, *(a1 + 136), &v25, 0);
+    }
+  }
+
+  else if (!v21 || v21 == 2)
+  {
+    result = _copyDevice(a1, v24);
+  }
+
+  if (!result)
+  {
+    *a5 = 0;
+    *a3 = 0;
+    *(a1 + 2304) = 0;
+    if (a8 || *(a1 + 12716) != 3)
+    {
+      return 0;
+    }
+
+    else
+    {
+      result = set_timestamps_0((a1 + 3328), (a2 + 32), (a2 + 48));
+      if (result)
+      {
+        goto LABEL_7;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t _copyExtendedAttributes(uint64_t a1, uint64_t a2, uint64_t a3, int a4, _DWORD *a5)
+{
+  v10 = *(a1 + 12716);
+  if (v10 != 3)
+  {
+    if (*(a1 + 11616))
+    {
+      v11 = (a1 + 10592);
+    }
+
+    else
+    {
+      v11 = *(a1 + 2296);
+    }
+
+    strncpy((a1 + 7424), v11, 0x400uLL);
+  }
+
+  if (a5)
+  {
+    if (v10 == 3 && *a5 == 2)
+    {
+      return 0;
+    }
+  }
+
+  if ((*(a3 + 116) & 0x40000020) == 0x20 && *(a1 + 195))
+  {
+    if (*(a1 + 196))
+    {
+      v13 = 1;
+    }
+
+    else
+    {
+      v13 = 33;
+    }
+  }
+
+  else
+  {
+    v13 = 1;
+  }
+
+  v14 = (*(*(a1 + 12832) + 144))(*(*(a1 + 12832) + 8), a2, 0, 0, v13);
+  if (v14 != -1)
+  {
+    v15 = v14;
+    if (!v14)
+    {
+      if (a5)
+      {
+        v16 = 0;
+        *a5 = 1;
+        return v16;
+      }
+
+      return 0;
+    }
+
+    v18 = BOM_malloc(v14);
+    if (v18)
+    {
+      v19 = v18;
+      v20 = (*(*(a1 + 12832) + 144))(*(*(a1 + 12832) + 8), a2, v18, v15, v13);
+      if (v20 != -1)
+      {
+        if (v20 < 1)
+        {
+          v21 = 0;
+LABEL_52:
+          v16 = 0;
+          if (a5)
+          {
+            *a5 = 0;
+          }
+
+          if (v21)
+          {
+LABEL_57:
+            free(v21);
+          }
+
+LABEL_58:
+          free(v19);
+          return v16;
+        }
+
+        v21 = 0;
+        v22 = &v19[v20];
+        v23 = 3328;
+        if (a4)
+        {
+          v23 = 7424;
+        }
+
+        v33 = v19;
+        v34 = v23;
+        v24 = v19;
+        v32 = &v19[v20];
+        while (1)
+        {
+          if (!strcmp(v24, "com.apple.FinderInfo") || !strcmp(v24, "com.apple.ResourceFork"))
+          {
+            if (!*(a1 + 169))
+            {
+              goto LABEL_46;
+            }
+          }
+
+          else if (!*(a1 + 170))
+          {
+            goto LABEL_46;
+          }
+
+          v25 = (*(*(a1 + 12832) + 128))(*(*(a1 + 12832) + 8), a2, v24, 0, 0, 0, v13);
+          if (v25 == -1)
+          {
+            __error();
+            v16 = _checkCopyFileError(a1);
+            if (v21)
+            {
+              goto LABEL_57;
+            }
+
+            goto LABEL_58;
+          }
+
+          v26 = v25;
+          if (!v21)
+          {
+            v21 = BOM_malloc(0x800000uLL);
+            if (!v21)
+            {
+              __error();
+              v16 = _checkCopyFileError(a1);
+              goto LABEL_58;
+            }
+          }
+
+          if (v26)
+          {
+            v27 = 0;
+            v28 = 0;
+            while (1)
+            {
+              v29 = (v26 - v28) >= 0x800000 ? 0x800000 : v26 - v28;
+              v30 = (*(*(a1 + 12832) + 128))(*(*(a1 + 12832) + 8), a2, v24, v21, v29, v27, v13);
+              if (v30 == -1)
+              {
+                break;
+              }
+
+              v31 = v30;
+              if ((*(*(a1 + 12832) + 136))(*(*(a1 + 12832) + 8), a1 + v34, v24, v21, v30, v27, 1) == -1)
+              {
+                break;
+              }
+
+              v28 += v31;
+              v27 = (v27 + v31);
+              if (v28 == v26)
+              {
+                v22 = v32;
+                v19 = v33;
+                goto LABEL_46;
+              }
+            }
+
+            __error();
+            v16 = _checkCopyFileError(a1);
+            v19 = v33;
+            goto LABEL_57;
+          }
+
+LABEL_46:
+          v24 += strlen(v24) + 1;
+          if (v24 >= v22)
+          {
+            goto LABEL_52;
+          }
+        }
+      }
+    }
+  }
+
+  __error();
+
+  return _checkCopyFileError(a1);
+}
+
+uint64_t _copyACLs(uint64_t a1, char *path_p, int a3, int a4, _DWORD *a5)
+{
+  v21 = 0;
+  entry_p = 0;
+  acl_p = 0;
+  if (*(a1 + 12716) != 3)
+  {
+    return 0;
+  }
+
+  flagset_d = 0;
+  if (a4)
+  {
+    link_np = acl_get_link_np(path_p, ACL_TYPE_EXTENDED);
+    if (link_np)
+    {
+      v10 = link_np;
+      v11 = acl_get_link_np((a1 + 3328), ACL_TYPE_EXTENDED);
+      goto LABEL_8;
+    }
+
+LABEL_26:
+    if (*__error() == 2)
+    {
+      v12 = 0;
+      if (a5)
+      {
+        *a5 = 0;
+      }
+    }
+
+    else
+    {
+      __error();
+      v12 = _checkCopyFileError(a1);
+    }
+
+    goto LABEL_36;
+  }
+
+  file = acl_get_file(path_p, ACL_TYPE_EXTENDED);
+  if (!file)
+  {
+    goto LABEL_26;
+  }
+
+  v10 = file;
+  v11 = acl_get_file((a1 + 3328), ACL_TYPE_EXTENDED);
+LABEL_8:
+  acl_p = v11;
+  if (!v11)
+  {
+    if (*__error() != 2 && *__error() != 63)
+    {
+      goto LABEL_34;
+    }
+
+    acl_p = acl_init(4);
+  }
+
+  v14 = v10;
+  v15 = 0;
+  while (!acl_get_entry(v14, v15, &entry_p))
+  {
+    acl_get_flagset_np(entry_p, &flagset_d);
+    if (!acl_get_flag_np(flagset_d, ACL_ENTRY_INHERITED) && (acl_create_entry(&acl_p, &v21) == -1 || acl_copy_entry(v21, entry_p) == -1))
+    {
+      goto LABEL_34;
+    }
+
+    if (entry_p)
+    {
+      v15 = -1;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    v14 = v10;
+  }
+
+  if (a3)
+  {
+    v16 = (a1 + 7424);
+  }
+
+  else
+  {
+    v16 = (a1 + 3328);
+  }
+
+  if (a4)
+  {
+    v17 = acl_set_link_np(v16, ACL_TYPE_EXTENDED, acl_p);
+  }
+
+  else
+  {
+    v17 = acl_set_file(v16, ACL_TYPE_EXTENDED, acl_p);
+  }
+
+  if (v17 != -1)
+  {
+    v12 = 0;
+    if (a5)
+    {
+      *a5 = 0;
+    }
+
+    goto LABEL_35;
+  }
+
+LABEL_34:
+  __error();
+  v12 = _checkCopyFileError(a1);
+LABEL_35:
+  acl_free(v10);
+LABEL_36:
+  if (acl_p)
+  {
+    acl_free(acl_p);
+  }
+
+  return v12;
+}
+
+uint64_t _checkForDestinationConflict(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, _BYTE *a5, _DWORD *a6)
+{
+  *a5 = 0;
+  *a6 = 0;
+  if (*(a1 + 12820))
+  {
+    v12 = dirname_r(a2, (a1 + 9472));
+    if (!v12 || !(*(*(a1 + 12832) + 160))(*(*(a1 + 12832) + 8), v12, a1 + 8448) && *__error() != 2)
+    {
+      goto LABEL_31;
+    }
+
+    v13 = strlen((a1 + 4352));
+    if (strncmp((a1 + 4352), (a1 + 8448), v13))
+    {
+      *a6 = 1;
+      v14 = a1;
+LABEL_33:
+
+      return _checkCopyFileError(v14);
+    }
+  }
+
+  if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a2, a4))
+  {
+LABEL_8:
+    if (*__error() == 2 || *__error() == 63)
+    {
+      goto LABEL_10;
+    }
+
+    goto LABEL_31;
+  }
+
+  v16 = 1;
+  while (1)
+  {
+    v17 = *(a4 + 4);
+    v18 = v17 & 0xF000;
+    if ((*(a3 + 4) & 0xF000) != 0x4000)
+    {
+      if (v18 != 0x4000)
+      {
+        goto LABEL_37;
+      }
+
+LABEL_21:
+      if ((v16 & 1) == 0 || (BOMFSObjectTypeForMode(v17), BOMFSObjectTypeForMode(*(a3 + 4)), _checkCopyFileConflictError(a1) != 3))
+      {
+        *a6 = 1;
+        goto LABEL_32;
+      }
+
+      goto LABEL_23;
+    }
+
+    if (v18 == 0x4000)
+    {
+      goto LABEL_37;
+    }
+
+    if (v18 != 40960)
+    {
+      goto LABEL_21;
+    }
+
+    v19 = *(a1 + 12816);
+    if (v19 != 2)
+    {
+      break;
+    }
+
+    if ((v16 & 1) == 0)
+    {
+      goto LABEL_38;
+    }
+
+    BOMFSObjectTypeForMode(v17);
+    BOMFSObjectTypeForMode(*(a3 + 4));
+    if (_checkCopyFileConflictError(a1) != 3)
+    {
+      goto LABEL_38;
+    }
+
+LABEL_23:
+    v20 = (*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a2, a4);
+    v16 = 0;
+    if (v20)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  if (v19 == 1)
+  {
+    if ((*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), a2, a4))
+    {
+      goto LABEL_31;
+    }
+
+    if ((*(a4 + 4) & 0xF000) == 0x4000)
+    {
+LABEL_37:
+      *a5 = 1;
+      return 0;
+    }
+
+LABEL_38:
+    *a6 = 1;
+    v14 = a1;
+    goto LABEL_33;
+  }
+
+  if (v19)
+  {
+    return 0;
+  }
+
+  if ((*(*(a1 + 12832) + 224))(*(*(a1 + 12832) + 8), a1 + 3328))
+  {
+LABEL_31:
+    *a6 = 1;
+    __error();
+LABEL_32:
+    v14 = a1;
+    goto LABEL_33;
+  }
+
+LABEL_10:
+  *a5 = 0;
+  return 0;
+}
+
+uint64_t _copyFile(uint64_t a1, uint64_t a2, uint64_t a3, char a4, _DWORD *a5, unsigned int *a6, int a7)
+{
+  v68[0] = a4;
+  v67 = 0;
+  v66 = 0;
+  v65 = 0;
+  v11 = (a1 + 11616);
+  v64 = 0uLL;
+  v63 = 0uLL;
+  if (*(a1 + 12712))
+  {
+LABEL_2:
+    v12 = 0;
+    v13 = 0;
+    v14 = (a2 + 116);
+    v55 = (*(a2 + 116) & 0x40000020) == 32;
+    v15 = *(a2 + 96);
+    goto LABEL_3;
+  }
+
+  if (BOMAppleDoubleIsADFile((a1 + 248)))
+  {
+    if (*(a1 + 169))
+    {
+      goto LABEL_21;
+    }
+
+    goto LABEL_2;
+  }
+
+  v14 = (a2 + 116);
+  v55 = (*(a2 + 116) & 0x40000020) == 32;
+  if ((*(a2 + 116) & 0x40000020) == 0x20)
+  {
+    if (*(a1 + 195))
+    {
+      v30 = 33;
+    }
+
+    else
+    {
+      v30 = 1;
+    }
+  }
+
+  else
+  {
+    v30 = 1;
+  }
+
+  v31 = *(a2 + 96);
+  v32 = (*(*(a1 + 12832) + 128))(*(*(a1 + 12832) + 8), a1 + 248, "com.apple.ResourceFork", 0, 0, 0, v30);
+  if (v32 == -1)
+  {
+    if (*__error() != 2 && *__error() != 93 && *__error() != 45)
+    {
+      v38 = __error();
+      v32 = 0;
+      v13 = *v38;
+      goto LABEL_45;
+    }
+
+    v32 = 0;
+  }
+
+  v13 = 0;
+LABEL_45:
+  v15 = v32 + v31;
+  v12 = 1;
+LABEL_3:
+  if (*(a1 + 12712))
+  {
+    v16 = a1 + 248;
+  }
+
+  else
+  {
+    v16 = *(a1 + 2296);
+  }
+
+  v17 = BOMFSObjectTypeForMode(*(a2 + 4));
+  *v11 = 0;
+  v11[1025] = 0;
+  v18 = *(a1 + 88);
+  v57 = v16;
+  v56 = v17;
+  if (v18)
+  {
+    v19 = v16;
+    v20 = v15;
+    v21 = v18(a1, v19, v17, v15);
+  }
+
+  else
+  {
+    v20 = v15;
+    v21 = 0;
+  }
+
+  if (*(a1 + 168))
+  {
+    v22 = 2;
+  }
+
+  else
+  {
+    v22 = v21;
+  }
+
+  if (v22 == 1)
+  {
+LABEL_21:
+    *a6 = 1;
+    v25 = *(a1 + 12712);
+    if (v25 == 2)
+    {
+      File = BOMPKZipGetFile(*(a1 + 12752));
+      v28 = File;
+      if (v11[1153] && BOMFileSetCompression(File, 1, 1, *(a1 + 12792)))
+      {
+        __error();
+        _checkCopyFileError(a1);
+        v22 = 2;
+        goto LABEL_139;
+      }
+
+      if (*(a1 + 12776))
+      {
+        BOMFileSetPartialRead(v28, 1);
+      }
+
+      v26 = _skipPKZipFile();
+    }
+
+    else
+    {
+      if (v25 != 1)
+      {
+        goto LABEL_138;
+      }
+
+      v26 = _skipCPIOFile(a1, a2);
+    }
+
+    v22 = 2 * (v26 != 0);
+    goto LABEL_139;
+  }
+
+  if (v22 != 2)
+  {
+    if (v13)
+    {
+      v23 = a1;
+LABEL_19:
+      v24 = _checkCopyFileError(v23);
+LABEL_20:
+      v22 = v24;
+      goto LABEL_139;
+    }
+
+    if (*v11)
+    {
+      LODWORD(v60[0]) = 0;
+      v29 = (a1 + 10592);
+      v24 = _checkForDestinationConflict(a1, (a1 + 10592), a2, a3, v68, v60);
+      if (LODWORD(v60[0]) == 1)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      v29 = (a1 + 3328);
+    }
+
+    v54 = v29;
+    if (v11[1025] && !*(a1 + 12712))
+    {
+      v33 = (a1 + 11617);
+      if ((*(*(a1 + 12832) + 96))(*(*(a1 + 12832) + 8), a1 + 11617, a2) == -1)
+      {
+LABEL_85:
+        __error();
+        v23 = a1;
+        goto LABEL_19;
+      }
+
+      if ((*(a2 + 4) & 0xF000) != 0x8000)
+      {
+        v23 = a1;
+        goto LABEL_19;
+      }
+    }
+
+    else
+    {
+      v33 = (a1 + 248);
+    }
+
+    if (*(a1 + 12716) == 3)
+    {
+      v53 = *v14;
+    }
+
+    else
+    {
+      v53 = 0;
+    }
+
+    *(a1 + 196) = 1;
+    v34 = a5;
+    v35 = a6;
+    v36 = _copyDataFork(a1, v33, a2, a3, v68[0], v34, a6, a7);
+    if (v36)
+    {
+      v22 = v36;
+      if (*(a1 + 12716) != 3)
+      {
+        goto LABEL_139;
+      }
+
+LABEL_55:
+      (*(*(a1 + 12832) + 224))(*(*(a1 + 12832) + 8), a1 + 7424);
+      goto LABEL_139;
+    }
+
+    if (*a6)
+    {
+      v67 = *a6;
+    }
+
+    else
+    {
+      if (*(a1 + 12716) == 3)
+      {
+        if (v11[1232] || (v37 = *(a1 + 195), *(a1 + 195)))
+        {
+          v65 = AFSCLockFilePath();
+          if (!v65)
+          {
+LABEL_89:
+            __error();
+            (*(*(a1 + 12832) + 224))(*(*(a1 + 12832) + 8), a1 + 7424);
+LABEL_90:
+            v23 = a1;
+            goto LABEL_19;
+          }
+
+          v37 = *a6;
+        }
+      }
+
+      else
+      {
+        v37 = 0;
+      }
+
+      v67 = v37;
+      if (v37)
+      {
+        v39 = 0;
+      }
+
+      else
+      {
+        v39 = v12;
+      }
+
+      if (v39 == 1)
+      {
+        if (*(a1 + 12716) == 3)
+        {
+          if (*(a1 + 170) || *(a1 + 169))
+          {
+            v22 = _copyExtendedAttributes(a1, v33, a2, 1, &v67);
+          }
+
+          else
+          {
+            v22 = 0;
+          }
+
+          if (*(a1 + 171) && !v22)
+          {
+            v22 = _copyACLs(a1, v33, 1, 0, &v67);
+          }
+
+          if (v22)
+          {
+            goto LABEL_55;
+          }
+        }
+
+        else
+        {
+          v24 = _copyAppleDoubleToArchive(a1, v33, a2, &v67);
+          if (v24)
+          {
+            goto LABEL_20;
+          }
+        }
+      }
+    }
+
+    v40 = *(a1 + 216);
+    if (v40 && setxattr((a1 + 7424), "com.apple.provenance", v40, *(a1 + 224), 0, 1))
+    {
+      goto LABEL_85;
+    }
+
+    v41 = v20;
+    if (!*a6 && *(a1 + 12716) == 3)
+    {
+      if (_chPerms(a1, (a1 + 7424), a2, &v66, 1))
+      {
+        goto LABEL_89;
+      }
+
+      v42 = *(a2 + 32);
+      v63 = *(a2 + 48);
+      v64 = v42;
+      if (set_timestamps_0((a1 + 7424), &v64, &v63))
+      {
+        if (*__error() != 13 && *__error() != 1)
+        {
+          goto LABEL_89;
+        }
+
+        *__error() = 0;
+      }
+
+      if (*(a1 + 12712) && *(a1 + 12716) == 3 && *(a1 + 169) && BOMAppleDoubleIsADFile(v54))
+      {
+        __strlcpy_chk();
+        __strlcat_chk();
+        if ((*(*(a1 + 12832) + 264))(*(*(a1 + 12832) + 8), a1 + 7424, a1 + 8448))
+        {
+          goto LABEL_89;
+        }
+
+        v35 = a6;
+        if (v57 == a1 + 248)
+        {
+          __strlcat_chk();
+        }
+      }
+
+      else if (!v11[1207] && (a7 & 1) == 0 && (*(*(a1 + 12832) + 264))(*(*(a1 + 12832) + 8), a1 + 7424, v54))
+      {
+        goto LABEL_89;
+      }
+
+      if (v53)
+      {
+        if (*(a1 + 10496))
+        {
+          v43 = v53 & 0xC000FFFF;
+        }
+
+        else
+        {
+          v43 = v53;
+        }
+
+        if (v55 && (!*(a1 + 195) || *(a1 + 196)))
+        {
+          v43 = v43 & 0xFFFFFFDF;
+        }
+
+        if (v43)
+        {
+          v44 = *v14;
+          v61 = 0u;
+          v62 = 0u;
+          memset(v60, 0, sizeof(v60));
+          if (!(*(*(a1 + 12832) + 80))(*(*(a1 + 12832) + 8), v54, v60))
+          {
+            v44 = DWORD1(v61);
+            if ((DWORD1(v61) & 0x40000020) == 0x20)
+            {
+              v45 = v43 | 0x20;
+            }
+
+            else
+            {
+              v45 = v43;
+            }
+
+            if (v11[1232])
+            {
+              v46 = v45;
+            }
+
+            else
+            {
+              v46 = v43;
+            }
+
+            if ((~v46 & 0x40000020) != 0)
+            {
+              v43 = v46;
+            }
+
+            else
+            {
+              v43 = v46 & 0xBFFFFFDF;
+            }
+          }
+
+          if (change_flags_0(a1, v54, v44, v43) || set_timestamps_0(v54, &v64, &v63))
+          {
+            __error();
+            goto LABEL_90;
+          }
+
+          v41 = v20;
+        }
+      }
+
+      if (*(a1 + 197))
+      {
+        FSObjectAtPath = BOMBomGetFSObjectAtPath(*(a1 + 152), *(a1 + 2296));
+        v48 = v41;
+        v49 = BOMFSObjectChecksum(FSObjectAtPath);
+        BOMFSObjectFree(FSObjectAtPath);
+        v50 = v49 == *(a1 + 200);
+        v41 = v48;
+        if (!v50)
+        {
+          if (*(a1 + 56))
+          {
+            goto LABEL_90;
+          }
+        }
+      }
+    }
+
+    if (*(a1 + 12712) == 2 && *(a1 + 12776))
+    {
+      v41 = *(a2 + 96);
+    }
+
+    v51 = *(a1 + 96);
+    if (v51)
+    {
+      v51(a1, v57, v56, v41, *v35);
+    }
+
+LABEL_138:
+    v22 = 0;
+  }
+
+LABEL_139:
+  _unlockAFSCFileLock(&v65);
+  return v22;
 }

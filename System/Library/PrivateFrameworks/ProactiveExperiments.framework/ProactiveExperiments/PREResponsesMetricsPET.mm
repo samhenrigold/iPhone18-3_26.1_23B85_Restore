@@ -58,7 +58,7 @@
 
 - (void)registerResponseTapped:(id)tapped
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
   v5 = tappedCopy;
   if (tappedCopy)
@@ -89,9 +89,9 @@
       responses = [responsesGeneratedEvent3 responses];
       v17 = [responses count];
 
-      v49 = v9;
-      v50 = v5;
-      v47 = unsignedIntegerValue;
+      v48 = v9;
+      v49 = v5;
+      v46 = unsignedIntegerValue;
       selfCopy = self;
       if (v17 <= unsignedIntegerValue)
       {
@@ -127,29 +127,29 @@
       responses3 = [responsesGeneratedEvent3 responses];
       [v13 setNumberOfResponsesGenerated:{objc_msgSend(responses3, "count")}];
 
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
       v52 = 0u;
-      v46 = responsesGeneratedEvent3;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v45 = responsesGeneratedEvent3;
       responses4 = [responsesGeneratedEvent3 responses];
-      v28 = [responses4 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v28 = [responses4 countByEnumeratingWithState:&v50 objects:v55 count:16];
       if (v28)
       {
         v29 = v28;
         v30 = 0;
         v31 = 0;
-        v32 = *v52;
+        v32 = *v51;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v52 != v32)
+            if (*v51 != v32)
             {
               objc_enumerationMutation(responses4);
             }
 
-            v34 = *(*(&v51 + 1) + 8 * i);
+            v34 = *(*(&v50 + 1) + 8 * i);
             isCustomResponse2 = [v34 isCustomResponse];
             bOOLValue = [isCustomResponse2 BOOLValue];
 
@@ -167,7 +167,7 @@
             }
           }
 
-          v29 = [responses4 countByEnumeratingWithState:&v51 objects:v56 count:16];
+          v29 = [responses4 countByEnumeratingWithState:&v50 objects:v55 count:16];
         }
 
         while (v29);
@@ -182,9 +182,9 @@
       [v13 setNumberOfCustomResponses:v31];
       [v13 setNumberOfRobotResponses:v30];
 
-      v9 = v49;
-      v5 = v50;
-      unsignedIntegerValue = v47;
+      v9 = v48;
+      v5 = v49;
+      unsignedIntegerValue = v46;
       self = selfCopy;
     }
 
@@ -243,13 +243,11 @@
       _os_log_impl(&dword_260CE3000, v9, OS_LOG_TYPE_DEFAULT, "PREResponseTappedEvent is nil. Skip logging", buf, 2u);
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_responseListFromGeneratedEvent:(id)event
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   resolver = self->_resolver;
   language = [eventCopy language];
@@ -264,7 +262,7 @@
   treatmentId = [experimentIdentifiers2 treatmentId];
   [v8 setTreatmentId:treatmentId];
 
-  v34 = v7;
+  v33 = v7;
   treatmentName = [v7 treatmentName];
   [v8 setTreatmentModelName:treatmentName];
 
@@ -278,32 +276,32 @@
 
   [v14 setIsApricotDevice:self->_isApricotDevice];
   [v14 setCharCount:{objc_msgSend(eventCopy, "messageCharCount")}];
-  v33 = v14;
+  v32 = v14;
   [v14 setHasQuestionMark:{objc_msgSend(eventCopy, "hasQuestionMark")}];
   v17 = objc_alloc(MEMORY[0x277CBEB18]);
   responses = [eventCopy responses];
   v19 = [v17 initWithCapacity:{objc_msgSend(responses, "count")}];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   responses2 = [eventCopy responses];
-  v21 = [responses2 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v21 = [responses2 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v36;
+    v23 = *v35;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v36 != v23)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(responses2);
         }
 
-        v25 = *(*(&v35 + 1) + 8 * i);
+        v25 = *(*(&v34 + 1) + 8 * i);
         v26 = objc_opt_new();
         modelId = [v25 modelId];
         [v26 setModelId:{objc_msgSend(modelId, "unsignedIntegerValue")}];
@@ -319,7 +317,7 @@
         [v19 addObject:v26];
       }
 
-      v22 = [responses2 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v22 = [responses2 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v22);
@@ -327,13 +325,11 @@
 
   v30 = objc_opt_new();
   [v30 setExperiment:v8];
-  [v30 setMsgMetadata:v33];
+  [v30 setMsgMetadata:v32];
   [v30 setItems:v19];
   [v30 setIsCached:{objc_msgSend(eventCopy, "isCached")}];
   [v30 setResponseTimePerf:{objc_msgSend(eventCopy, "responseTimePerf")}];
   [v30 setGenerationStatus:{objc_msgSend(eventCopy, "generationStatus")}];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

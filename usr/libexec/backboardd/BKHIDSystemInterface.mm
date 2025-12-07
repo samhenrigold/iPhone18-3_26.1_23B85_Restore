@@ -36,32 +36,31 @@
 - (void)postEvent:(__IOHIDEvent *)event fromSender:(id)sender
 {
   v4 = [BKHIDSystemInterface destinationsForEvent:"destinationsForEvent:fromSender:" fromSender:?];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v10 + 1) + 8 * v8);
         BKSendHIDEventToClientWithDestination();
-        v8 = v8 + 1;
+        ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -129,7 +128,7 @@
   v8 = 0u;
   if (tokenCopy)
   {
-    [tokenCopy realToken];
+    objc_msgSend_realToken(tokenCopy, v7, v8);
   }
 
   if ([v4 auditTokenRepresentsSystemApp:&v7])
@@ -164,7 +163,7 @@
 
 - (void)startServer
 {
-  v3 = sub_1000300C0("BKHIDSystem MiG server");
+  v3 = sub_1000300C0("BKHIDSystem MiG server", "com.apple.backboard.hid.services", &off_1000FD668);
   HIDSystemChannel = self->_HIDSystemChannel;
   self->_HIDSystemChannel = v3;
 

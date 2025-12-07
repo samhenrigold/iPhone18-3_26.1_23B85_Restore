@@ -25,7 +25,7 @@
 - (void)systemOnboardingStarted
 {
   selfCopy = self;
-  sub_10026D5EC();
+  sub_10026D5EC(selfCopy);
 }
 
 - (_TtC6FindMy31FMAccessoryDiscoveryCoordinator)init
@@ -45,7 +45,7 @@
 {
   onboardingCopy = onboarding;
   selfCopy = self;
-  sub_1002718C8();
+  sub_1002718C8(selfCopy);
 }
 
 @end

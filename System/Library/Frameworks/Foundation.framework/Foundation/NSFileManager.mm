@@ -108,7 +108,7 @@
   }
 }
 
-uint64_t __31__NSFileManager_defaultManager__block_invoke(uint64_t a1)
+void *__31__NSFileManager_defaultManager__block_invoke(uint64_t a1)
 {
   result = [objc_allocWithZone(*(a1 + 32)) init];
   qword_1ED43F320 = result;
@@ -815,24 +815,24 @@ uint64_t __49__NSFileManager__URLForReplacingItemAtURL_error___block_invoke_3()
 {
   v4 = [NSMutableString stringWithCapacity:512];
   stringByStandardizingPath = [path stringByStandardizingPath];
-  if (([stringByStandardizingPath isEqualToString:&stru_1EEEFDF90] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(stringByStandardizingPath) & 1) == 0)
   {
     do
     {
-      if ([stringByStandardizingPath isEqualToString:@"/"])
+      if (objc_msgSend_isEqualToString_(stringByStandardizingPath))
       {
         break;
       }
 
       -[NSMutableString insertString:atIndex:](v4, "insertString:atIndex:", [+[NSFileManager defaultManager](NSFileManager displayNameAtPath:"displayNameAtPath:", stringByStandardizingPath], 0);
       stringByStandardizingPath = [stringByStandardizingPath stringByDeletingLastPathComponent];
-      if (([stringByStandardizingPath isEqualToString:&stru_1EEEFDF90] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(stringByStandardizingPath) & 1) == 0)
       {
         [(NSMutableString *)v4 insertString:@"/" atIndex:0];
       }
     }
 
-    while (![stringByStandardizingPath isEqualToString:&stru_1EEEFDF90]);
+    while (!objc_msgSend_isEqualToString_(stringByStandardizingPath));
   }
 
   if ([(NSString *)v4 isAbsolutePath])
@@ -1333,7 +1333,7 @@ LABEL_13:
 
   if ([v15 code] == 4)
   {
-    if ([objc_msgSend(v15 "domain")])
+    if (objc_msgSend_isEqualToString_([v15 domain]))
     {
       v13 = 4;
     }
@@ -1476,7 +1476,7 @@ LABEL_9:
     if (error && (v9 & 1) == 0)
     {
       v11 = v17[0];
-      if ([objc_msgSend(v17[0] "domain")])
+      if (objc_msgSend_isEqualToString_([v17[0] domain]))
       {
         v12 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{objc_msgSend(v11, "userInfo")}];
         code = [v11 code];
@@ -1824,7 +1824,7 @@ void __62__NSFileManager_setUbiquitous_itemAtURL_destinationURL_error___block_in
   dispatch_release(v3);
 }
 
-uint64_t __62__NSFileManager_setUbiquitous_itemAtURL_destinationURL_error___block_invoke_3(void *a1, uint64_t a2, uint64_t a3)
+void *__62__NSFileManager_setUbiquitous_itemAtURL_destinationURL_error___block_invoke_3(void *a1, uint64_t a2, uint64_t a3)
 {
   result = (*(a1[5] + 16))();
   *(*(a1[6] + 8) + 24) = result;
@@ -2690,7 +2690,7 @@ id __92__NSFileManager_synchronouslyGetFileProviderServiceWithName_forItemAtURL_
     lastPathComponent = [path lastPathComponent];
     if ([lastPathComponent length])
     {
-      if (([lastPathComponent isEqualToString:@"/"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(lastPathComponent) & 1) == 0)
       {
         v4 |= unlink([objc_msgSend(objc_msgSend(path "stringByDeletingLastPathComponent")]);
       }
@@ -2786,11 +2786,11 @@ id __92__NSFileManager_synchronouslyGetFileProviderServiceWithName_forItemAtURL_
     v11 = [(NSFileManager *)self attributesOfItemAtPath:path_nowarnCopy error:0];
     if (v11)
     {
-      v12 = [-[NSDictionary objectForKey:](v11 objectForKey:{@"NSFileType", "isEqualToString:", @"NSFileTypeDirectory"}];
+      isEqualToString = objc_msgSend_isEqualToString_([(NSDictionary *)v11 objectForKey:@"NSFileType"]);
       LOBYTE(v11) = 1;
       if (directory)
       {
-        if (v12)
+        if (isEqualToString)
         {
           *directory = 1;
         }
@@ -2829,7 +2829,7 @@ id __92__NSFileManager_synchronouslyGetFileProviderServiceWithName_forItemAtURL_
     else
     {
       path_nowarnCopy = path_nowarn;
-      while (([path_nowarnCopy isEqualToString:@"/"] & 1) == 0)
+      while ((objc_msgSend_isEqualToString_(path_nowarnCopy) & 1) == 0)
       {
         path_nowarnCopy = [path_nowarnCopy stringByDeletingLastPathComponent];
         if ([(NSFileManager *)self _web_fileExistsAtPath_nowarn:path_nowarnCopy isDirectory:&v15 traverseLink:1])
@@ -2850,7 +2850,7 @@ id __92__NSFileManager_synchronouslyGetFileProviderServiceWithName_forItemAtURL_
       v13 = v11 - 1;
       if (v11 != 1)
       {
-        while (![(NSString *)v9 isEqualToString:path_nowarnCopy])
+        while ((objc_msgSend_isEqualToString_(v9) & 1) == 0)
         {
           if (v12)
           {

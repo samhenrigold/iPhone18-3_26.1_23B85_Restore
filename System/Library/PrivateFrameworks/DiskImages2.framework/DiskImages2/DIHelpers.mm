@@ -124,29 +124,25 @@ LABEL_16:
 
 + (id)copyDevicePathWithStatfs:(statfs *)statfs
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (statfs && !_FSGetLocationFromStatfs(statfs, v8, 0x400uLL))
+  v8 = *MEMORY[0x277D85DE8];
+  if (!statfs || _FSGetLocationFromStatfs(statfs, v7, 0x400uLL))
   {
-    v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"/dev/%s", v8];
-    if ([v4 hasPrefix:@"/dev/disk"])
-    {
-      v5 = v4;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v5 = 0;
-    }
-
-    v3 = v5;
+  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"/dev/%s", v7];
+  if ([v4 hasPrefix:@"/dev/disk"])
+  {
+    v5 = v4;
   }
 
   else
   {
-    v3 = 0;
+    v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v5;
+
   return v3;
 }
 

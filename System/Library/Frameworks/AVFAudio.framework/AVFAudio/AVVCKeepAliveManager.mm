@@ -29,7 +29,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   if (impl)
   {
@@ -57,17 +57,16 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "AVVCKeepAliveManager.mm";
-    v11 = 1024;
-    v12 = 147;
+    v9 = "AVVCKeepAliveManager.mm";
+    v10 = 1024;
+    v11 = 147;
     _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Dealloced AVVCKeepAliveManager", buf, 0x12u);
   }
 
 LABEL_10:
-  v8.receiver = self;
-  v8.super_class = AVVCKeepAliveManager;
-  [(AVVCKeepAliveManager *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = AVVCKeepAliveManager;
+  [(AVVCKeepAliveManager *)&v7 dealloc];
 }
 
 - (void)destroyWithCompletion:(id)completion
@@ -137,10 +136,10 @@ void __44__AVVCKeepAliveManager_startWithCompletion___block_invoke(uint64_t a1)
 
 - (AVVCKeepAliveManager)init
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = AVVCKeepAliveManager;
-  v2 = [(AVVCKeepAliveManager *)&v9 init];
+  v9 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = AVVCKeepAliveManager;
+  v2 = [(AVVCKeepAliveManager *)&v8 init];
   v3 = v2;
   if (v2)
   {
@@ -161,13 +160,12 @@ void __44__AVVCKeepAliveManager_startWithCompletion___block_invoke(uint64_t a1)
     v3->mKeepAliveDispatchQueue = v5;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 void __37__AVVCKeepAliveManager_sharedManager__block_invoke(Class *a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = PlatformUtilities_iOS::GetProductType(a1) - 108;
   v3 = (v2 < 0x11) & (0x18003u >> v2);
   if (isDarwinOSProduct(void)::onceToken != -1)
@@ -175,79 +173,76 @@ void __37__AVVCKeepAliveManager_sharedManager__block_invoke(Class *a1)
     dispatch_once(&isDarwinOSProduct(void)::onceToken, &__block_literal_global_164);
   }
 
-  if (((v3 | isDarwinOSProduct(void)::isDarwinOS) & 1) == 0)
+  if ((v3 | isDarwinOSProduct(void)::isDarwinOS))
   {
-    v6 = objc_alloc_init(a1[4]);
-    v7 = sSharedManager;
-    sSharedManager = v6;
+    v4 = sSharedManager;
+    sSharedManager = 0;
 
     if (kAVVCScope)
     {
       v5 = *kAVVCScope;
       if (!v5)
       {
-        goto LABEL_18;
+        return;
       }
     }
 
     else
     {
       v5 = MEMORY[0x1E69E9C10];
-      v12 = MEMORY[0x1E69E9C10];
+      v8 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
+      v13 = 136315394;
+      v14 = "AVVCKeepAliveManager.mm";
+      v15 = 1024;
+      v16 = 105;
+      v9 = "%25s:%-5d AVVCKeepAliveManager not supported on this device";
+      v10 = v5;
+      v11 = 18;
+LABEL_16:
+      _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
       goto LABEL_17;
     }
 
-    v14 = 136315650;
-    v15 = "AVVCKeepAliveManager.mm";
-    v16 = 1024;
-    v17 = 101;
-    v18 = 2048;
-    v19 = sSharedManager;
-    v9 = "%25s:%-5d Created AVVCKeepAliveManager (%p)";
-    v10 = v5;
-    v11 = 28;
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-  v4 = sSharedManager;
-  sSharedManager = 0;
+  v6 = objc_alloc_init(a1[4]);
+  v7 = sSharedManager;
+  sSharedManager = v6;
 
-  if (kAVVCScope)
-  {
-    v5 = *kAVVCScope;
-    if (!v5)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  else
+  if (!kAVVCScope)
   {
     v5 = MEMORY[0x1E69E9C10];
-    v8 = MEMORY[0x1E69E9C10];
-  }
-
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v14 = 136315394;
-    v15 = "AVVCKeepAliveManager.mm";
-    v16 = 1024;
-    v17 = 105;
-    v9 = "%25s:%-5d AVVCKeepAliveManager not supported on this device";
-    v10 = v5;
-    v11 = 18;
-LABEL_16:
-    _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
-  }
+    v12 = MEMORY[0x1E69E9C10];
+LABEL_14:
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = 136315650;
+      v14 = "AVVCKeepAliveManager.mm";
+      v15 = 1024;
+      v16 = 101;
+      v17 = 2048;
+      v18 = sSharedManager;
+      v9 = "%25s:%-5d Created AVVCKeepAliveManager (%p)";
+      v10 = v5;
+      v11 = 28;
+      goto LABEL_16;
+    }
 
 LABEL_17:
 
-LABEL_18:
-  v13 = *MEMORY[0x1E69E9840];
+    return;
+  }
+
+  v5 = *kAVVCScope;
+  if (v5)
+  {
+    goto LABEL_14;
+  }
 }
 
 @end

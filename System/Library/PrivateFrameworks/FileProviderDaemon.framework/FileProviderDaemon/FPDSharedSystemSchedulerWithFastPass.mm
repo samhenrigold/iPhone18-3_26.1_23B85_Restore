@@ -74,16 +74,15 @@
 {
   if (self->_shouldRunInFastPass)
   {
-    fastPassCriteriaBuilder = self->_fastPassCriteriaBuilder;
     buildNewTaskRequest = (*(self->_fastPassCriteriaBuilder + 2))();
     [buildNewTaskRequest setSemanticVersion:self->_semanticVersion];
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = FPDSharedSystemSchedulerWithFastPass;
-    buildNewTaskRequest = [(FPDSharedSystemScheduler *)&v6 buildNewTaskRequest];
+    v5.receiver = self;
+    v5.super_class = FPDSharedSystemSchedulerWithFastPass;
+    buildNewTaskRequest = [(FPDSharedSystemScheduler *)&v5 buildNewTaskRequest];
   }
 
   return buildNewTaskRequest;

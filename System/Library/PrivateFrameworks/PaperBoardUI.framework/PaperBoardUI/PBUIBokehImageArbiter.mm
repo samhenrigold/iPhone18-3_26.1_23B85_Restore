@@ -17,13 +17,13 @@
     diameterCopy = diameter;
   }
 
-  v5 = (diameterCopy + -40.0) / -130.0 + 1.0;
-  if (v5 < 0.0)
+  v7 = (diameterCopy + -40.0) / -130.0 + 1.0;
+  if (v7 < 0.0)
   {
-    v5 = 0.0;
+    v7 = 0.0;
   }
 
-  return blurTable[vcvtad_u64_f64(fmin(v5, 1.0) * 11.0)];
+  return blurTable[vcvtad_u64_f64(fmin(v7, 1.0) * 11.0)];
 }
 
 + (id)imageForBokehImage:(uint64_t)image

@@ -41,7 +41,7 @@
 
 - (void)currentActivitySummaryHelper:(id)helper didUpdateTodayActivitySummary:(id)summary changedFields:(unint64_t)fields
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   clientProxy = [(HDQueryServer *)self clientProxy];
   if (clientProxy)
@@ -76,19 +76,17 @@
   p_super = ACHLogXPC();
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = summaryCopy;
-    _os_log_impl(&dword_221DDC000, p_super, OS_LOG_TYPE_DEFAULT, "Not calling query client with todayActivitySummary: %@, same as lastTodaySummary.", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = summaryCopy;
+    _os_log_impl(&dword_221DDC000, p_super, OS_LOG_TYPE_DEFAULT, "Not calling query client with todayActivitySummary: %@, same as lastTodaySummary.", &v14, 0xCu);
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentActivitySummaryHelper:(id)helper didUpdateYesterdayActivitySummary:(id)summary changedFields:(unint64_t)fields
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   clientProxy = [(HDQueryServer *)self clientProxy];
   if (clientProxy)
@@ -123,38 +121,33 @@ LABEL_11:
   p_super = ACHLogXPC();
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = summaryCopy;
-    _os_log_impl(&dword_221DDC000, p_super, OS_LOG_TYPE_DEFAULT, "Not calling query client with yesterdayActivitySummary: %@, same as lastYesterdaySummary.", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = summaryCopy;
+    _os_log_impl(&dword_221DDC000, p_super, OS_LOG_TYPE_DEFAULT, "Not calling query client with yesterdayActivitySummary: %@, same as lastYesterdaySummary.", &v14, 0xCu);
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentActivitySummaryHelper:didUpdateTodayActivitySummary:changedFields:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_221DDC000, v0, OS_LOG_TYPE_DEBUG, "Calling query client with today summary: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_221DDC000, v0, OS_LOG_TYPE_DEBUG, "Calling query client with today summary: %@", v1, 0xCu);
 }
 
 - (void)currentActivitySummaryHelper:didUpdateTodayActivitySummary:changedFields:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Missing query client for server %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Missing query client for server %@", v1, 0xCu);
 }
 
 - (void)currentActivitySummaryHelper:didUpdateYesterdayActivitySummary:changedFields:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_221DDC000, v0, OS_LOG_TYPE_DEBUG, "Calling query client with yesterday summary: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_221DDC000, v0, OS_LOG_TYPE_DEBUG, "Calling query client with yesterday summary: %@", v1, 0xCu);
 }
 
 @end

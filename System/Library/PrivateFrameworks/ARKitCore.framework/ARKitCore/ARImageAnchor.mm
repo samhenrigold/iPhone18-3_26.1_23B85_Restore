@@ -54,7 +54,7 @@
     [v6 appendFormat:@" name=%@", name2];
   }
 
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self);
   v14 = ARMatrix4x4Description(0, v10, v11, v12, v13);
   [v6 appendFormat:@" transform=%@", v14];
 

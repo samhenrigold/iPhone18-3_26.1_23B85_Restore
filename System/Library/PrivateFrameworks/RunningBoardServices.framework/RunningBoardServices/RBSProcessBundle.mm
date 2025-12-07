@@ -37,7 +37,7 @@
 
 - (id)bundleInfoValueForKey:(id)key
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   NSClassFromString(&cfstr_Nsstring.isa);
   if (!keyCopy)
@@ -50,24 +50,22 @@
     [(RBSProcessBundle *)a2 bundleInfoValueForKey:?];
   }
 
-  v11[0] = keyCopy;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = keyCopy;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v7 = [(RBSProcessBundle *)self bundleInfoValuesForKeys:v6];
   v8 = [v7 objectForKey:keyCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)bundleInfoValuesForKeys:(id)keys
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   if ([keysCopy count])
   {
     WeakRetained = objc_loadWeakRetained(&self->_dataSource);
-    v35 = WeakRetained;
+    v34 = WeakRetained;
     if (WeakRetained)
     {
       v5 = [WeakRetained bundleInfoValuesForKeys:keysCopy];
@@ -77,38 +75,38 @@
     {
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      v33 = [MEMORY[0x1E695DFD8] setWithArray:keysCopy];
-      v34 = [v33 mutableCopy];
+      v32 = [MEMORY[0x1E695DFD8] setWithArray:keysCopy];
+      v33 = [v32 mutableCopy];
       v7 = MEMORY[0x1E695DFD8];
       allKeys = [(NSDictionary *)selfCopy->_plistValues allKeys];
       v9 = [v7 setWithArray:allKeys];
-      [v34 minusSet:v9];
+      [v33 minusSet:v9];
 
-      if ([v34 count])
+      if ([v33 count])
       {
         v10 = +[RBSConnection sharedInstance];
         v11 = [v10 infoPlistResultForInstance:self->_instance forKeys:keysCopy error:0];
 
         v12 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:selfCopy->_plistValues];
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
         v42 = 0u;
-        v13 = v34;
-        v14 = [v13 countByEnumeratingWithState:&v41 objects:v48 count:16];
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v13 = v33;
+        v14 = [v13 countByEnumeratingWithState:&v40 objects:v47 count:16];
         if (v14)
         {
-          v15 = *v42;
+          v15 = *v41;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v42 != v15)
+              if (*v41 != v15)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v17 = *(*(&v41 + 1) + 8 * i);
+              v17 = *(*(&v40 + 1) + 8 * i);
               v18 = [v11 objectForKey:v17];
               if (v18)
               {
@@ -122,7 +120,7 @@
               }
             }
 
-            v14 = [v13 countByEnumeratingWithState:&v41 objects:v48 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v40 objects:v47 count:16];
           }
 
           while (v14);
@@ -134,25 +132,25 @@
       }
 
       v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
-      v22 = v33;
-      v23 = [v22 countByEnumeratingWithState:&v37 objects:v47 count:16];
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v22 = v32;
+      v23 = [v22 countByEnumeratingWithState:&v36 objects:v46 count:16];
       if (v23)
       {
-        v24 = *v38;
+        v24 = *v37;
         do
         {
           for (j = 0; j != v23; ++j)
           {
-            if (*v38 != v24)
+            if (*v37 != v24)
             {
               objc_enumerationMutation(v22);
             }
 
-            v26 = *(*(&v37 + 1) + 8 * j);
+            v26 = *(*(&v36 + 1) + 8 * j);
             v27 = [(NSDictionary *)selfCopy->_plistValues objectForKey:v26];
             if (v27)
             {
@@ -166,7 +164,7 @@
             }
           }
 
-          v23 = [v22 countByEnumeratingWithState:&v37 objects:v47 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v36 objects:v46 count:16];
         }
 
         while (v23);
@@ -177,7 +175,7 @@
 
     else
     {
-      v30 = rbs_process_log();
+      v30 = rbs_process_log(0);
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
@@ -193,8 +191,6 @@
   {
     v5 = 0;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

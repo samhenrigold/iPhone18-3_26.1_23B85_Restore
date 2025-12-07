@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"sessionType";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"sessionType";
   sessionType = [(ICASSessionSummaryArrayItemData *)self sessionType];
   if (sessionType)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = sessionType2;
-  v16[0] = sessionType2;
-  v15[1] = @"sessionDuration";
+  v15[0] = sessionType2;
+  v14[1] = @"sessionDuration";
   sessionDuration = [(ICASSessionSummaryArrayItemData *)self sessionDuration];
   if (sessionDuration)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = sessionDuration2;
-  v16[1] = sessionDuration2;
-  v15[2] = @"sessionCount";
+  v15[1] = sessionDuration2;
+  v14[2] = @"sessionCount";
   sessionCount = [(ICASSessionSummaryArrayItemData *)self sessionCount];
   if (sessionCount)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = sessionCount2;
-  v16[2] = sessionCount2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = sessionCount2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

@@ -24,7 +24,7 @@
   v5 = MEMORY[0x1E69DCAB8];
   v6 = a4;
   v7 = a3;
-  v8 = CKFrameworkBundle();
+  v8 = CKFrameworkBundle(v7);
   v9 = [v5 imageNamed:v7 inBundle:v8 compatibleWithTraitCollection:v6];
 
   return v9;
@@ -162,7 +162,7 @@
       }
 
       v13 = MEMORY[0x1E69DCAB8];
-      [selfCopy duration];
+      objc_msgSend_duration(selfCopy);
       v14 = [v13 animatedImageWithImages:v6 duration:?];
     }
 

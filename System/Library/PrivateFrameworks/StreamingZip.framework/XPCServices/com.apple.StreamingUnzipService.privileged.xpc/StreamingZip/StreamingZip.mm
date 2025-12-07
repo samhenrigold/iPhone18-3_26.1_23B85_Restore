@@ -1048,16 +1048,16 @@ void sub_10000393C(uint64_t a1, void *a2)
   }
 }
 
-void sub_100003D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1111,8 +1111,8 @@ void sub_100003F64(uint64_t a1, const Bytef *a2, uint64_t a3, void *a4)
     goto LABEL_543;
   }
 
-  v546 = a2;
-  v545 = a3;
+  v543 = a2;
+  v542 = a3;
   v9 = (a1 + 64);
   v8 = *(a1 + 64);
   if (!v8)
@@ -1120,13 +1120,13 @@ void sub_100003F64(uint64_t a1, const Bytef *a2, uint64_t a3, void *a4)
     v301 = sub_10000126C();
     if (os_log_type_enabled(v301, OS_LOG_TYPE_ERROR))
     {
-      v591.st_dev = 138412290;
-      *&v591.st_mode = 0;
-      _os_log_error_impl(&_mh_execute_header, v301, OS_LOG_TYPE_ERROR, "Unzipper did not have any state! Client should suspend stream and resume from the given offset. : %@", &v591, 0xCu);
+      v588.st_dev = 138412290;
+      *&v588.st_mode = 0;
+      _os_log_error_impl(&_mh_execute_header, v301, OS_LOG_TYPE_ERROR, "Unzipper did not have any state! Client should suspend stream and resume from the given offset. : %@", &v588, 0xCu);
     }
 
-    v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 494, @"SZExtractorErrorDomain", 3, 0, 0, @"Unzipper did not have any state! Client should suspend stream and resume from the given offset.", v302, v474);
-    v498 = 0;
+    v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 494, @"SZExtractorErrorDomain", 3, 0, 0, @"Unzipper did not have any state! Client should suspend stream and resume from the given offset.", v302, v471);
+    v495 = 0;
 LABEL_424:
     v257 = 0;
     if (v10)
@@ -1137,52 +1137,52 @@ LABEL_424:
     goto LABEL_542;
   }
 
-  v498 = [v8 unzipPath];
+  v495 = [v8 unzipPath];
   v10 = 0;
-  p_st_uid = &v591.st_uid;
-  v496 = NSFilePathErrorKey;
-  v492 = NSPOSIXErrorDomain;
+  p_st_uid = &v588.st_uid;
+  v493 = NSFilePathErrorKey;
+  v489 = NSPOSIXErrorDomain;
   *&v11 = 138412546;
-  v489 = v11;
-  *&v11 = 136315138;
-  v485 = v11;
-  *&v11 = 136315394;
-  v488 = v11;
-  *&v11 = 136316162;
   v486 = v11;
-  *&v11 = 138412802;
-  v483 = v11;
-  *&v11 = 138412290;
-  v491 = v11;
-  *&v11 = 134218754;
-  v480 = v11;
-  *&v11 = 138413058;
-  v490 = v11;
-  *&v11 = 134217984;
-  v493 = v11;
-  *&v11 = 67109632;
-  v487 = v11;
-  *&v11 = 134218240;
-  v477 = v11;
-  *&v11 = 67109376;
-  v478 = v11;
-  *&v11 = 136315650;
+  *&v11 = 136315138;
   v482 = v11;
-  *&v11 = 136316418;
+  *&v11 = 136315394;
+  v485 = v11;
+  *&v11 = 136316162;
+  v483 = v11;
+  *&v11 = 138412802;
+  v480 = v11;
+  *&v11 = 138412290;
+  v488 = v11;
+  *&v11 = 134218754;
+  v477 = v11;
+  *&v11 = 138413058;
+  v487 = v11;
+  *&v11 = 134217984;
+  v490 = v11;
+  *&v11 = 67109632;
+  v484 = v11;
+  *&v11 = 134218240;
+  v474 = v11;
+  *&v11 = 67109376;
+  v475 = v11;
+  *&v11 = 136315650;
   v479 = v11;
+  *&v11 = 136316418;
+  v476 = v11;
   *&v11 = 136315906;
-  v481 = v11;
-  v497 = v7;
-  v502 = (a1 + 64);
+  v478 = v11;
+  v494 = v7;
+  v499 = (a1 + 64);
   while (1)
   {
-    v12 = v545;
-    if (!v545)
+    v12 = v542;
+    if (!v542)
     {
       goto LABEL_424;
     }
 
-    v501 = objc_autoreleasePoolPush();
+    v498 = objc_autoreleasePoolPush();
     v13 = [*v9 streamState];
     if (v13 >= 3)
     {
@@ -1200,13 +1200,13 @@ LABEL_424:
             if (v13 != 8)
             {
 LABEL_613:
-              v466 = sub_10000126C();
-              if (os_log_type_enabled(v466, OS_LOG_TYPE_ERROR))
+              v465 = sub_10000126C();
+              if (os_log_type_enabled(v465, OS_LOG_TYPE_ERROR))
               {
-                v467 = [*v502 streamState];
-                v591.st_dev = 67109120;
-                *&v591.st_mode = v467;
-                _os_log_error_impl(&_mh_execute_header, v466, OS_LOG_TYPE_ERROR, "Invalid unzip state encountered: %hhu", &v591, 8u);
+                v466 = [*v499 streamState];
+                v588.st_dev = 67109120;
+                *&v588.st_mode = v466;
+                _os_log_error_impl(&_mh_execute_header, v465, OS_LOG_TYPE_ERROR, "Invalid unzip state encountered: %hhu", &v588, 8u);
               }
 
               __assert_rtn("[StreamingUnzipper _supplyBytes:length:withReply:]", "StreamingUnzipper.m", 1651, "false");
@@ -1228,7 +1228,7 @@ LABEL_448:
             [*v9 setCurrentOffset:{objc_msgSend(*v9, "currentOffset") + v12}];
             v329 = *v9;
             v330 = [*v9 currentOffset];
-            v27 = [v329 updateHashFromOffset:&v330[-v12] withBytes:v546 length:v12];
+            v27 = [v329 updateHashFromOffset:&v330[-v12] withBytes:v543 length:v12];
 
             if (v27)
             {
@@ -1236,9 +1236,9 @@ LABEL_448:
             }
 
             v331 = [*v9 fileWriter];
-            v504 = 0;
-            v332 = [v331 writeBuffer:v546 length:v545 error:&v504];
-            v10 = v504;
+            v501 = 0;
+            v332 = [v331 writeBuffer:v543 length:v542 error:&v501];
+            v10 = v501;
 
             if (v332)
             {
@@ -1262,7 +1262,7 @@ LABEL_534:
 
           v316 = *v9;
           v317 = [*v9 currentOffset];
-          v27 = [v316 updateHashFromOffset:v317 withBytes:v546 length:v12 onlyFinishCurrentChunk:1];
+          v27 = [v316 updateHashFromOffset:v317 withBytes:v543 length:v12 onlyFinishCurrentChunk:1];
 
           [*v9 setCurrentOffset:{objc_msgSend(*v9, "currentOffset") + v12}];
           if (v27)
@@ -1272,7 +1272,7 @@ LABEL_534:
 
           if ([*v9 bytesHashedInChunk])
           {
-            if (v12 != v545)
+            if (v12 != v542)
             {
               __assert_rtn("[StreamingUnzipper _supplyBytes:length:withReply:]", "StreamingUnzipper.m", 1638, "lengthToRead == length");
             }
@@ -1315,11 +1315,11 @@ LABEL_78:
                 v77 = sub_10000126C();
                 if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
                 {
-                  LOWORD(v591.st_dev) = 0;
-                  _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "Couldn't get filename for stream metadata file; entering passthrough mode", &v591, 2u);
+                  LOWORD(v588.st_dev) = 0;
+                  _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "Couldn't get filename for stream metadata file; entering passthrough mode", &v588, 2u);
                 }
 
-                v10 = sub_100009408(a1, v546, v12);
+                v10 = sub_100009408(a1, v543, v12);
 
                 v55 = 2;
               }
@@ -1334,17 +1334,17 @@ LABEL_78:
                 v82 = sub_10000126C();
                 if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
                 {
-                  v591.st_dev = v488;
-                  *&v591.st_mode = v81;
-                  WORD2(v591.st_ino) = 2112;
-                  *(&v591.st_ino + 6) = 0;
-                  _os_log_error_impl(&_mh_execute_header, v82, OS_LOG_TYPE_ERROR, "Couldn't get filename for current file %s : %@", &v591, 0x16u);
+                  v588.st_dev = v485;
+                  *&v588.st_mode = v81;
+                  WORD2(v588.st_ino) = 2112;
+                  *(&v588.st_ino + 6) = 0;
+                  _os_log_error_impl(&_mh_execute_header, v82, OS_LOG_TYPE_ERROR, "Couldn't get filename for current file %s : %@", &v588, 0x16u);
                 }
 
-                v557 = @"SZExtractorFileOffsetErrorKey";
+                v554 = @"SZExtractorFileOffsetErrorKey";
                 v83 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-                v558 = v83;
-                v84 = [NSDictionary dictionaryWithObjects:&v558 forKeys:&v557 count:1];
+                v555 = v83;
+                v84 = [NSDictionary dictionaryWithObjects:&v555 forKeys:&v554 count:1];
                 v55 = 2;
                 v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1302, @"SZExtractorErrorDomain", 2, 0, v84, @"Couldn't get filename for current file %s", v85, v81);
 
@@ -1360,7 +1360,7 @@ LABEL_78:
               {
                 if (([*v9 currentLFMode] & 0xF000) == 0xA000)
                 {
-                  v72 = [v498 stringByAppendingPathComponent:v69];
+                  v72 = [v495 stringByAppendingPathComponent:v69];
                   if ([*v9 storeCurrentFileInMemory])
                   {
                     v73 = [*v9 inMemoryFileData];
@@ -1369,44 +1369,44 @@ LABEL_78:
                       __assert_rtn("[StreamingUnzipper _supplyBytes:length:withReply:]", "StreamingUnzipper.m", 1438, "_currentState.inMemoryFileData");
                     }
 
-                    v503 = v10;
+                    v500 = v10;
 
                     v74 = [*v9 inMemoryFileData];
                   }
 
                   else
                   {
-                    v509 = 0;
-                    v74 = [NSMutableData dataWithContentsOfFile:v72 options:3 error:&v509];
-                    v101 = v509;
+                    v506 = 0;
+                    v74 = [NSMutableData dataWithContentsOfFile:v72 options:3 error:&v506];
+                    v101 = v506;
                     if (!v74)
                     {
                       v132 = v10;
                       v133 = sub_10000126C();
                       if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
                       {
-                        v591.st_dev = v489;
-                        *&v591.st_mode = v72;
-                        WORD2(v591.st_ino) = 2112;
-                        *(&v591.st_ino + 6) = v101;
-                        _os_log_error_impl(&_mh_execute_header, v133, OS_LOG_TYPE_ERROR, "Failed to read symlink path from %@ : %@", &v591, 0x16u);
+                        v588.st_dev = v486;
+                        *&v588.st_mode = v72;
+                        WORD2(v588.st_ino) = 2112;
+                        *(&v588.st_ino + 6) = v101;
+                        _os_log_error_impl(&_mh_execute_header, v133, OS_LOG_TYPE_ERROR, "Failed to read symlink path from %@ : %@", &v588, 0x16u);
                       }
 
-                      v555 = v496;
-                      v556 = v72;
-                      v134 = [NSDictionary dictionaryWithObjects:&v556 forKeys:&v555 count:1];
+                      v552 = v493;
+                      v553 = v72;
+                      v134 = [NSDictionary dictionaryWithObjects:&v553 forKeys:&v552 count:1];
                       v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1444, @"SZExtractorErrorDomain", 5, v101, v134, @"Failed to read symlink path from %@", v135, v72);
 
                       goto LABEL_280;
                     }
 
-                    v503 = v10;
+                    v500 = v10;
                     v102 = +[NSFileManager defaultManager];
                     [v102 removeItemAtPath:v72 error:0];
                   }
 
-                  v508 = 0;
-                  [v74 appendBytes:&v508 length:1];
+                  v505 = 0;
+                  [v74 appendBytes:&v505 length:1];
                   v103 = [v74 bytes];
                   v104 = [v72 fileSystemRepresentation];
                   if ([*v9 denyInvalidSymlinks])
@@ -1416,18 +1416,18 @@ LABEL_78:
                       v105 = sub_10000126C();
                       if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
                       {
-                        v591.st_dev = v482;
-                        *&v591.st_mode = v104;
-                        WORD2(v591.st_ino) = 2080;
-                        *(&v591.st_ino + 6) = v103;
-                        HIWORD(v591.st_gid) = 2112;
-                        *&v591.st_rdev = 0;
-                        _os_log_error_impl(&_mh_execute_header, v105, OS_LOG_TYPE_ERROR, "Invalid symlink: %s -> %s (absolute symlinks are forbidden) : %@", &v591, 0x20u);
+                        v588.st_dev = v479;
+                        *&v588.st_mode = v104;
+                        WORD2(v588.st_ino) = 2080;
+                        *(&v588.st_ino + 6) = v103;
+                        HIWORD(v588.st_gid) = 2112;
+                        *&v588.st_rdev = 0;
+                        _os_log_error_impl(&_mh_execute_header, v105, OS_LOG_TYPE_ERROR, "Invalid symlink: %s -> %s (absolute symlinks are forbidden) : %@", &v588, 0x20u);
                       }
 
-                      v553 = v496;
-                      v554 = v72;
-                      v106 = [NSDictionary dictionaryWithObjects:&v554 forKeys:&v553 count:1];
+                      v550 = v493;
+                      v551 = v72;
+                      v106 = [NSDictionary dictionaryWithObjects:&v551 forKeys:&v550 count:1];
                       sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1462, @"SZExtractorErrorDomain", 5, 0, v106, @"Invalid symlink: %s -> %s (absolute symlinks are forbidden)", v107, v104);
                       v10 = LABEL_201:;
 
@@ -1435,25 +1435,25 @@ LABEL_202:
                       goto LABEL_203;
                     }
 
-                    v585 = 0;
-                    v544 = 0;
-                    if (!sub_10000A4B0([v69 fileSystemRepresentation], 0, &v544) || !sub_10000A4B0(v103, v544, &v585))
+                    v582 = 0;
+                    v541 = 0;
+                    if (!sub_10000A4B0([v69 fileSystemRepresentation], 0, &v541) || !sub_10000A4B0(v103, v541, &v582))
                     {
                       v146 = sub_10000126C();
                       if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
                       {
-                        v591.st_dev = v482;
-                        *&v591.st_mode = v104;
-                        WORD2(v591.st_ino) = 2080;
-                        *(&v591.st_ino + 6) = v103;
-                        HIWORD(v591.st_gid) = 2112;
-                        *&v591.st_rdev = 0;
-                        _os_log_error_impl(&_mh_execute_header, v146, OS_LOG_TYPE_ERROR, "Invalid symlink: %s -> %s : %@", &v591, 0x20u);
+                        v588.st_dev = v479;
+                        *&v588.st_mode = v104;
+                        WORD2(v588.st_ino) = 2080;
+                        *(&v588.st_ino + 6) = v103;
+                        HIWORD(v588.st_gid) = 2112;
+                        *&v588.st_rdev = 0;
+                        _os_log_error_impl(&_mh_execute_header, v146, OS_LOG_TYPE_ERROR, "Invalid symlink: %s -> %s : %@", &v588, 0x20u);
                       }
 
-                      v551 = v496;
-                      v552 = v72;
-                      v106 = [NSDictionary dictionaryWithObjects:&v552 forKeys:&v551 count:1];
+                      v548 = v493;
+                      v549 = v72;
+                      v106 = [NSDictionary dictionaryWithObjects:&v549 forKeys:&v548 count:1];
                       sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1475, @"SZExtractorErrorDomain", 5, 0, v106, @"Invalid symlink: %s -> %s", v147, v104);
                       goto LABEL_201;
                     }
@@ -1466,75 +1466,75 @@ LABEL_202:
                     if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
                     {
                       v272 = strerror(v126);
-                      v591.st_dev = v481;
-                      *&v591.st_mode = v104;
-                      WORD2(v591.st_ino) = 2080;
-                      *(&v591.st_ino + 6) = v103;
-                      HIWORD(v591.st_gid) = 2080;
-                      *&v591.st_rdev = v272;
-                      LOWORD(v591.st_atimespec.tv_sec) = 2112;
-                      *(&v591.st_atimespec.tv_sec + 2) = 0;
-                      _os_log_error_impl(&_mh_execute_header, v127, OS_LOG_TYPE_ERROR, "Failed to create symlink at %s to %s: %s : %@", &v591, 0x2Au);
+                      v588.st_dev = v478;
+                      *&v588.st_mode = v104;
+                      WORD2(v588.st_ino) = 2080;
+                      *(&v588.st_ino + 6) = v103;
+                      HIWORD(v588.st_gid) = 2080;
+                      *&v588.st_rdev = v272;
+                      LOWORD(v588.st_atimespec.tv_sec) = 2112;
+                      *(&v588.st_atimespec.tv_sec + 2) = 0;
+                      _os_log_error_impl(&_mh_execute_header, v127, OS_LOG_TYPE_ERROR, "Failed to create symlink at %s to %s: %s : %@", &v588, 0x2Au);
                     }
 
-                    v549 = v496;
-                    v550 = v72;
-                    v128 = [NSDictionary dictionaryWithObjects:&v550 forKeys:&v549 count:1];
+                    v546 = v493;
+                    v547 = v72;
+                    v128 = [NSDictionary dictionaryWithObjects:&v547 forKeys:&v546 count:1];
                     strerror(v126);
-                    v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1483, v492, v126, 0, v128, @"Failed to create symlink at %s to %s: %s", v129, v104);
+                    v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1483, v489, v126, 0, v128, @"Failed to create symlink at %s to %s: %s", v129, v104);
 
                     goto LABEL_202;
                   }
 
                   lchmod(v104, [*v9 currentLFMode]);
-                  v585 = -1;
-                  v544 = -1;
-                  if ([*v9 resolveOwnershipWithExtraField:v68 outUID:&v585 outGID:&v544] && lchown(v104, v585, v544))
+                  v582 = -1;
+                  v541 = -1;
+                  if ([*v9 resolveOwnershipWithExtraField:v68 outUID:&v582 outGID:&v541] && lchown(v104, v582, v541))
                   {
-                    v500 = a1;
+                    v497 = a1;
                     v142 = *__error();
                     v143 = sub_10000126C();
                     if (os_log_type_enabled(v143, OS_LOG_TYPE_ERROR))
                     {
-                      v298 = v585;
-                      v299 = v544;
+                      v298 = v582;
+                      v299 = v541;
                       v300 = strerror(v142);
-                      v591.st_dev = v479;
-                      *&v591.st_mode = v104;
-                      WORD2(v591.st_ino) = 1024;
-                      *(&v591.st_ino + 6) = v298;
-                      HIWORD(v591.st_uid) = 1024;
-                      v591.st_gid = v299;
-                      LOWORD(v591.st_rdev) = 1024;
-                      *(&v591.st_rdev + 2) = v142;
-                      *(&v591.st_rdev + 3) = 2080;
-                      v591.st_atimespec.tv_sec = v300;
-                      LOWORD(v591.st_atimespec.tv_nsec) = 2112;
-                      *(&v591.st_atimespec.tv_nsec + 2) = 0;
-                      _os_log_error_impl(&_mh_execute_header, v143, OS_LOG_TYPE_ERROR, "Failed to lchown %s to (%d:%d) : %d (%s) : %@", &v591, 0x32u);
+                      v588.st_dev = v476;
+                      *&v588.st_mode = v104;
+                      WORD2(v588.st_ino) = 1024;
+                      *(&v588.st_ino + 6) = v298;
+                      HIWORD(v588.st_uid) = 1024;
+                      v588.st_gid = v299;
+                      LOWORD(v588.st_rdev) = 1024;
+                      *(&v588.st_rdev + 2) = v142;
+                      *(&v588.st_rdev + 3) = 2080;
+                      v588.st_atimespec.tv_sec = v300;
+                      LOWORD(v588.st_atimespec.tv_nsec) = 2112;
+                      *(&v588.st_atimespec.tv_nsec + 2) = 0;
+                      _os_log_error_impl(&_mh_execute_header, v143, OS_LOG_TYPE_ERROR, "Failed to lchown %s to (%d:%d) : %d (%s) : %@", &v588, 0x32u);
                     }
 
-                    v547 = v496;
-                    v548 = v72;
-                    v144 = [NSDictionary dictionaryWithObjects:&v548 forKeys:&v547 count:1];
+                    v544 = v493;
+                    v545 = v72;
+                    v144 = [NSDictionary dictionaryWithObjects:&v545 forKeys:&v544 count:1];
                     strerror(v142);
-                    v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1494, v492, v142, 0, v144, @"Failed to lchown %s to (%d:%d) : %d (%s)", v145, v104);
+                    v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1494, v489, v142, 0, v144, @"Failed to lchown %s to (%d:%d) : %d (%s)", v145, v104);
 
-                    a1 = v500;
+                    a1 = v497;
                     goto LABEL_203;
                   }
 
                   if ([*v9 denyInvalidSymlinks])
                   {
                     v206 = a1;
-                    v207 = v503;
-                    v507 = v503;
-                    v208 = sub_1000031FC(v72, v498, &v507);
-                    v10 = v507;
+                    v207 = v500;
+                    v504 = v500;
+                    v208 = sub_1000031FC(v72, v495, &v504);
+                    v10 = v504;
 
                     a1 = v206;
-                    v9 = v502;
-                    v503 = v10;
+                    v9 = v499;
+                    v500 = v10;
                     if (!v208)
                     {
 LABEL_203:
@@ -1542,31 +1542,31 @@ LABEL_203:
 LABEL_280:
                       v55 = 2;
 LABEL_281:
-                      v7 = v497;
+                      v7 = v494;
 LABEL_406:
 
-                      v56 = v501;
+                      v56 = v498;
                       goto LABEL_407;
                     }
                   }
 
                   if (v68)
                   {
-                    *&v591.st_dev = *(v68 + 4);
-                    LODWORD(v591.st_ino) = 0;
-                    *&v591.st_uid = *(v68 + 8);
+                    *&v588.st_dev = *(v68 + 4);
+                    LODWORD(v588.st_ino) = 0;
+                    *&v588.st_uid = *(v68 + 8);
                   }
 
                   else
                   {
-                    *&v591.st_dev = sub_100001984(*([*v9 currentLFRecord] + 10));
-                    LODWORD(v591.st_ino) = 0;
-                    *&v591.st_uid = *&v591.st_dev;
+                    *&v588.st_dev = sub_100001984(*([*v9 currentLFRecord] + 10));
+                    LODWORD(v588.st_ino) = 0;
+                    *&v588.st_uid = *&v588.st_dev;
                   }
 
-                  v591.st_rdev = 0;
-                  lutimes(v104, &v591);
-                  v10 = v503;
+                  v588.st_rdev = 0;
+                  lutimes(v104, &v588);
+                  v10 = v500;
                 }
 
                 else if ([*v9 storeCurrentFileInMemory])
@@ -1574,9 +1574,9 @@ LABEL_406:
                   v72 = sub_10000126C();
                   if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
                   {
-                    v591.st_dev = v491;
-                    *&v591.st_mode = v69;
-                    _os_log_debug_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEBUG, "Not doing anything with data for file %@", &v591, 0xCu);
+                    v588.st_dev = v488;
+                    *&v588.st_mode = v69;
+                    _os_log_debug_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEBUG, "Not doing anything with data for file %@", &v588, 0xCu);
                   }
                 }
 
@@ -1597,12 +1597,12 @@ LABEL_406:
                   v136 = [*v9 currentLFRecord];
                   if (v136[*(v136 + 13) + 29] == 47)
                   {
-                    v72 = [v498 stringByAppendingPathComponent:v69];
-                    *&v591.st_dev = v109;
-                    v591.st_ino = 0;
-                    *&v591.st_uid = v108;
-                    *&v591.st_rdev = 0;
-                    lutimes([v72 fileSystemRepresentation], &v591);
+                    v72 = [v495 stringByAppendingPathComponent:v69];
+                    *&v588.st_dev = v109;
+                    v588.st_ino = 0;
+                    *&v588.st_uid = v108;
+                    *&v588.st_rdev = 0;
+                    lutimes([v72 fileSystemRepresentation], &v588);
                   }
 
                   else
@@ -1618,11 +1618,11 @@ LABEL_406:
                     if ([*v9 expectAppleDoubleFiles])
                     {
                       v139 = [v69 lastPathComponent];
-                      v503 = v10;
+                      v500 = v10;
                       v140 = v139;
                       v141 = [v139 hasPrefix:@"._"];
 
-                      v10 = v503;
+                      v10 = v500;
                       if (v141)
                       {
                         v138 = v138 | 0x100;
@@ -1639,9 +1639,9 @@ LABEL_406:
                       v141 = 0;
                     }
 
-                    v506 = v10;
-                    v148 = [v72 finalizeFileWithAccessTime:v109 modTime:0 mode:v108 error:0, v138, &v506];
-                    v149 = v506;
+                    v503 = v10;
+                    v148 = [v72 finalizeFileWithAccessTime:v109 modTime:0 mode:v108 error:0, v138, &v503];
+                    v149 = v503;
                     v150 = v10;
                     v10 = v149;
 
@@ -1651,9 +1651,9 @@ LABEL_406:
                     }
 
                     [*v9 setFileWriter:0];
-                    v505 = v10;
-                    v151 = [v72 closeOutputFDWithError:&v505];
-                    v152 = v505;
+                    v502 = v10;
+                    v151 = [v72 closeOutputFDWithError:&v502];
+                    v152 = v502;
 
                     if ((v141 & v151) != 1)
                     {
@@ -1667,13 +1667,13 @@ LABEL_406:
 
                       v10 = v152;
 LABEL_396:
-                      v7 = v497;
+                      v7 = v494;
                       v284 = sub_100001314();
                       if (os_signpost_enabled(v284))
                       {
-                        v591.st_dev = v491;
-                        *&v591.st_mode = v69;
-                        _os_signpost_emit_with_name_impl(&_mh_execute_header, v284, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "EXTRACTION", "Extraction completed successfully for file %@", &v591, 0xCu);
+                        v588.st_dev = v488;
+                        *&v588.st_mode = v69;
+                        _os_signpost_emit_with_name_impl(&_mh_execute_header, v284, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "EXTRACTION", "Extraction completed successfully for file %@", &v588, 0xCu);
                       }
 
                       [*(a1 + 64) setPerformingExtraction:0];
@@ -1698,14 +1698,14 @@ LABEL_396:
                             if (v290)
                             {
                               v291 = [a1 inProcessDelegateQueue];
-                              *&v591.st_dev = _NSConcreteStackBlock;
-                              v591.st_ino = 3221225472;
-                              *&v591.st_uid = sub_10000A58C;
-                              *&v591.st_rdev = &unk_100028810;
+                              *&v588.st_dev = _NSConcreteStackBlock;
+                              v588.st_ino = 3221225472;
+                              *&v588.st_uid = sub_10000A58C;
+                              *&v588.st_rdev = &unk_100028810;
                               v288 = v288;
-                              v591.st_atimespec.tv_sec = v288;
-                              v591.st_atimespec.tv_nsec = v285;
-                              dispatch_async(v291, &v591);
+                              v588.st_atimespec.tv_sec = v288;
+                              v588.st_atimespec.tv_nsec = v285;
+                              dispatch_async(v291, &v588);
                             }
                           }
                         }
@@ -1746,20 +1746,20 @@ LABEL_395:
 
               else
               {
-                v117 = [v498 stringByAppendingPathComponent:v69];
-                v538 = 0;
-                v72 = [NSData dataWithContentsOfFile:v117 options:3 error:&v538];
-                v118 = v538;
+                v117 = [v495 stringByAppendingPathComponent:v69];
+                v535 = 0;
+                v72 = [NSData dataWithContentsOfFile:v117 options:3 error:&v535];
+                v118 = v535;
                 if (!v72)
                 {
                   v119 = sub_10000126C();
                   if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
                   {
-                    v591.st_dev = v489;
-                    *&v591.st_mode = v117;
-                    WORD2(v591.st_ino) = 2112;
-                    *(&v591.st_ino + 6) = v118;
-                    _os_log_error_impl(&_mh_execute_header, v119, OS_LOG_TYPE_ERROR, "Failed to read fixed stream metadata from %@: %@", &v591, 0x16u);
+                    v588.st_dev = v486;
+                    *&v588.st_mode = v117;
+                    WORD2(v588.st_ino) = 2112;
+                    *(&v588.st_ino + 6) = v118;
+                    _os_log_error_impl(&_mh_execute_header, v119, OS_LOG_TYPE_ERROR, "Failed to read fixed stream metadata from %@: %@", &v588, 0x16u);
                   }
                 }
               }
@@ -1776,9 +1776,9 @@ LABEL_395:
                 v125 = sub_10000126C();
                 if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
                 {
-                  v591.st_dev = v493;
-                  *&v591.st_mode = v124;
-                  _os_log_error_impl(&_mh_execute_header, v125, OS_LOG_TYPE_ERROR, "Got a fixed metadata file that did not match expected content (length %lu). Ignoring.", &v591, 0xCu);
+                  v588.st_dev = v490;
+                  *&v588.st_mode = v124;
+                  _os_log_error_impl(&_mh_execute_header, v125, OS_LOG_TYPE_ERROR, "Got a fixed metadata file that did not match expected content (length %lu). Ignoring.", &v588, 0xCu);
                 }
 
                 goto LABEL_395;
@@ -1788,13 +1788,13 @@ LABEL_395:
               v216 = *v9;
               if (*v9)
               {
-                [v216 hashContext];
+                objc_msgSend_hashContext(v216);
                 v216 = *v9;
-                v217 = v524 + 1;
+                v217 = v521 + 1;
                 if (*v9)
                 {
-                  v216 = [v216 hashContext];
-                  v218 = v510;
+                  v216 = objc_msgSend_hashContext(v216);
+                  v218 = v507;
                   goto LABEL_386;
                 }
 
@@ -1803,39 +1803,39 @@ LABEL_395:
 
               else
               {
-                v537 = 0;
+                v534 = 0;
                 v271 = 0uLL;
-                v535 = 0u;
-                v536 = 0u;
-                v533 = 0u;
-                v534 = 0u;
-                v531 = 0u;
                 v532 = 0u;
-                v529 = 0u;
+                v533 = 0u;
                 v530 = 0u;
-                v527 = 0u;
+                v531 = 0u;
                 v528 = 0u;
-                v525 = 0u;
+                v529 = 0u;
                 v526 = 0u;
-                v217 = 1;
+                v527 = 0u;
                 v524 = 0u;
+                v525 = 0u;
+                v522 = 0u;
+                v523 = 0u;
+                v217 = 1;
+                v521 = 0u;
               }
 
               v218 = 0;
-              v523 = 0;
-              v521 = v271;
-              v522 = v271;
-              v519 = v271;
-              v520 = v271;
-              v517 = v271;
+              v520 = 0;
               v518 = v271;
-              v515 = v271;
+              v519 = v271;
               v516 = v271;
-              v513 = v271;
+              v517 = v271;
               v514 = v271;
-              v511 = v271;
+              v515 = v271;
               v512 = v271;
+              v513 = v271;
               v510 = v271;
+              v511 = v271;
+              v508 = v271;
+              v509 = v271;
+              v507 = v271;
 LABEL_386:
               v274 = v120[4];
               if (v217 == v274)
@@ -1850,36 +1850,36 @@ LABEL_386:
                   if (v124 >= v279)
                   {
                     __chkstk_darwin(v216, v121, v122, v123);
-                    v294 = &v474 - v293;
-                    bzero(&v474 - v293, v278);
+                    v294 = &v471 - v293;
+                    bzero(&v471 - v293, v278);
                     if (!memcmp(v294, v120 + 7, v278))
                     {
                       v296 = sub_10000126C();
                       a1 = v215;
                       if (os_log_type_enabled(v296, OS_LOG_TYPE_DEBUG))
                       {
-                        LOWORD(v591.st_dev) = 0;
-                        _os_log_debug_impl(&_mh_execute_header, v296, OS_LOG_TYPE_DEBUG, "Found last chunk partial hash data but the hash was not computed.", &v591, 2u);
+                        LOWORD(v588.st_dev) = 0;
+                        _os_log_debug_impl(&_mh_execute_header, v296, OS_LOG_TYPE_DEBUG, "Found last chunk partial hash data but the hash was not computed.", &v588, 2u);
                       }
                     }
 
                     else
                     {
                       v295 = sub_10000A428(v120 + 7, v278);
-                      [*v502 setLastChunkPartialHash:v295];
+                      [*v499 setLastChunkPartialHash:v295];
 
                       v296 = sub_10000126C();
                       a1 = v215;
                       if (os_log_type_enabled(v296, OS_LOG_TYPE_DEBUG))
                       {
-                        v297 = [*v502 lastChunkPartialHash];
-                        v591.st_dev = v491;
-                        *&v591.st_mode = v297;
-                        _os_log_debug_impl(&_mh_execute_header, v296, OS_LOG_TYPE_DEBUG, "Got last chunk partial hash %@", &v591, 0xCu);
+                        v297 = [*v499 lastChunkPartialHash];
+                        v588.st_dev = v488;
+                        *&v588.st_mode = v297;
+                        _os_log_debug_impl(&_mh_execute_header, v296, OS_LOG_TYPE_DEBUG, "Got last chunk partial hash %@", &v588, 0xCu);
                       }
                     }
 
-                    v9 = v502;
+                    v9 = v499;
                     goto LABEL_395;
                   }
 
@@ -1889,10 +1889,10 @@ LABEL_386:
                     goto LABEL_394;
                   }
 
-                  v591.st_dev = v477;
-                  *&v591.st_mode = v124;
-                  WORD2(v591.st_ino) = 2048;
-                  *(&v591.st_ino + 6) = v279;
+                  v588.st_dev = v474;
+                  *&v588.st_mode = v124;
+                  WORD2(v588.st_ino) = 2048;
+                  *(&v588.st_ino + 6) = v279;
                   v281 = v280;
                   v282 = "Got incomplete data length %lu but need at least length %lu to hold full hash. Ignoring.";
                   v283 = 22;
@@ -1908,10 +1908,10 @@ LABEL_394:
                   goto LABEL_395;
                 }
 
-                v591.st_dev = v478;
-                *&v591.st_mode = v276;
-                LOWORD(v591.st_ino) = 1024;
-                *(&v591.st_ino + 2) = v277;
+                v588.st_dev = v475;
+                *&v588.st_mode = v276;
+                LOWORD(v588.st_ino) = 1024;
+                *(&v588.st_ino + 2) = v277;
                 v281 = v280;
                 v282 = "Got hash length %hu in archive metadata but expected hash length %hu based on options. Ignoring.";
               }
@@ -1924,17 +1924,17 @@ LABEL_394:
                   goto LABEL_394;
                 }
 
-                v591.st_dev = v478;
-                *&v591.st_mode = v274;
-                LOWORD(v591.st_ino) = 1024;
-                *(&v591.st_ino + 2) = v217;
+                v588.st_dev = v475;
+                *&v588.st_mode = v274;
+                LOWORD(v588.st_ino) = 1024;
+                *(&v588.st_ino + 2) = v217;
                 v281 = v280;
                 v282 = "Got hash type %hhu in archive metadata but expected hash type %hhu based on options. Ignoring.";
               }
 
               v283 = 14;
 LABEL_420:
-              _os_log_error_impl(&_mh_execute_header, v281, OS_LOG_TYPE_ERROR, v282, &v591, v283);
+              _os_log_error_impl(&_mh_execute_header, v281, OS_LOG_TYPE_ERROR, v282, &v588, v283);
               goto LABEL_394;
             }
 
@@ -1948,9 +1948,9 @@ LABEL_420:
               }
 
               v87 = [*v9 inMemoryFileData];
-              v540 = 0;
-              v72 = [NSPropertyListSerialization propertyListWithData:v87 options:0 format:0 error:&v540];
-              v88 = v540;
+              v537 = 0;
+              v72 = [NSPropertyListSerialization propertyListWithData:v87 options:0 format:0 error:&v537];
+              v88 = v537;
               if (v72)
               {
                 objc_opt_class();
@@ -1963,9 +1963,9 @@ LABEL_146:
                   v112 = sub_10000126C();
                   if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
                   {
-                    v591.st_dev = v491;
-                    *&v591.st_mode = v72;
-                    _os_log_debug_impl(&_mh_execute_header, v112, OS_LOG_TYPE_DEBUG, "Got stream metadata: %@", &v591, 0xCu);
+                    v588.st_dev = v488;
+                    *&v588.st_mode = v72;
+                    _os_log_debug_impl(&_mh_execute_header, v112, OS_LOG_TYPE_DEBUG, "Got stream metadata: %@", &v588, 0xCu);
                   }
 
                   v87 = [v72 objectForKey:@"Version"];
@@ -1996,15 +1996,15 @@ LABEL_146:
                       }
 
                       v115 = [v72 objectForKey:@"IncludesAppleDouble"];
-                      v503 = v10;
+                      v500 = v10;
                       if (v115 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                       {
                         v116 = [v115 BOOLValue];
-                        v499 = sub_10000126C();
-                        if (os_log_type_enabled(v499, OS_LOG_TYPE_DEFAULT))
+                        v496 = sub_10000126C();
+                        if (os_log_type_enabled(v496, OS_LOG_TYPE_DEFAULT))
                         {
-                          LOWORD(v591.st_dev) = 0;
-                          _os_log_impl(&_mh_execute_header, v499, OS_LOG_TYPE_DEFAULT, "Archive configured to include AppleDouble content", &v591, 2u);
+                          LOWORD(v588.st_dev) = 0;
+                          _os_log_impl(&_mh_execute_header, v496, OS_LOG_TYPE_DEFAULT, "Archive configured to include AppleDouble content", &v588, 2u);
                         }
                       }
 
@@ -2015,7 +2015,7 @@ LABEL_146:
 
                       [*v9 setExpectAppleDoubleFiles:v116];
 
-                      v10 = v503;
+                      v10 = v500;
                       goto LABEL_395;
                     }
                   }
@@ -2024,11 +2024,11 @@ LABEL_146:
                   v157 = sub_10000126C();
                   if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
                   {
-                    LOWORD(v591.st_dev) = 0;
-                    _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_DEFAULT, "Stream metadata was incompatible version or not present; entering passthrough mode", &v591, 2u);
+                    LOWORD(v588.st_dev) = 0;
+                    _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_DEFAULT, "Stream metadata was incompatible version or not present; entering passthrough mode", &v588, 2u);
                   }
 
-                  v10 = sub_100009408(a1, v546, v12);
+                  v10 = sub_100009408(a1, v543, v12);
 
 LABEL_279:
                   goto LABEL_280;
@@ -2039,23 +2039,23 @@ LABEL_279:
               v131 = sub_10000126C();
               if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
               {
-                LOWORD(v591.st_dev) = 0;
-                _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_DEFAULT, "Failed to decode stream metadata; entering passthrough mode", &v591, 2u);
+                LOWORD(v588.st_dev) = 0;
+                _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_DEFAULT, "Failed to decode stream metadata; entering passthrough mode", &v588, 2u);
               }
 
-              v10 = sub_100009408(a1, v546, v12);
+              v10 = sub_100009408(a1, v543, v12);
             }
 
             else
             {
-              v87 = [v498 stringByAppendingPathComponent:v69];
+              v87 = [v495 stringByAppendingPathComponent:v69];
               v111 = [NSInputStream inputStreamWithFileAtPath:v87];
               if (v111)
               {
                 v88 = v111;
-                v539 = 0;
-                v72 = [NSPropertyListSerialization propertyListWithStream:v111 options:0 format:0 error:&v539];
-                v89 = v539;
+                v536 = 0;
+                v72 = [NSPropertyListSerialization propertyListWithStream:v111 options:0 format:0 error:&v536];
+                v89 = v536;
                 if (v72)
                 {
                   objc_opt_class();
@@ -2070,11 +2070,11 @@ LABEL_279:
                 v155 = sub_10000126C();
                 if (os_log_type_enabled(v155, OS_LOG_TYPE_DEFAULT))
                 {
-                  LOWORD(v591.st_dev) = 0;
-                  _os_log_impl(&_mh_execute_header, v155, OS_LOG_TYPE_DEFAULT, "Failed to decode stream metadata; entering passthrough mode", &v591, 2u);
+                  LOWORD(v588.st_dev) = 0;
+                  _os_log_impl(&_mh_execute_header, v155, OS_LOG_TYPE_DEFAULT, "Failed to decode stream metadata; entering passthrough mode", &v588, 2u);
                 }
 
-                v10 = sub_100009408(a1, v546, v12);
+                v10 = sub_100009408(a1, v543, v12);
 
                 v130 = v89;
               }
@@ -2085,12 +2085,12 @@ LABEL_279:
                 v209 = sub_10000126C();
                 if (os_log_type_enabled(v209, OS_LOG_TYPE_DEFAULT))
                 {
-                  v591.st_dev = v491;
-                  *&v591.st_mode = v87;
-                  _os_log_impl(&_mh_execute_header, v209, OS_LOG_TYPE_DEFAULT, "Failed to read stream metadata from %@; entering passthrough mode", &v591, 0xCu);
+                  v588.st_dev = v488;
+                  *&v588.st_mode = v87;
+                  _os_log_impl(&_mh_execute_header, v209, OS_LOG_TYPE_DEFAULT, "Failed to read stream metadata from %@; entering passthrough mode", &v588, 0xCu);
                 }
 
-                v10 = sub_100009408(a1, v546, v12);
+                v10 = sub_100009408(a1, v543, v12);
                 v88 = 0;
                 v72 = 0;
               }
@@ -2100,27 +2100,27 @@ LABEL_279:
           }
 
           v319 = sub_100009D94(v67);
-          v559[0] = @"SZExtractorFileOffsetErrorKey";
+          v556[0] = @"SZExtractorFileOffsetErrorKey";
           v324 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-          v559[1] = v496;
-          v560[0] = v324;
-          v560[1] = v319;
-          v321 = [NSDictionary dictionaryWithObjects:v560 forKeys:v559 count:2];
+          v556[1] = v493;
+          v557[0] = v324;
+          v557[1] = v319;
+          v321 = [NSDictionary dictionaryWithObjects:v557 forKeys:v556 count:2];
 
           v325 = sub_10000126C();
           if (os_log_type_enabled(v325, OS_LOG_TYPE_ERROR))
           {
-            v428 = [*v9 currentCRC32];
-            v429 = sub_10000A35C(*v9);
-            v591.st_dev = v480;
-            *&v591.st_mode = v428;
-            WORD2(v591.st_ino) = 1024;
-            *(&v591.st_ino + 6) = v429;
-            HIWORD(v591.st_uid) = 2112;
-            *&v591.st_gid = v319;
-            *(&v591.st_rdev + 2) = 2112;
-            *(&v591.st_rdev + 6) = 0;
-            _os_log_error_impl(&_mh_execute_header, v325, OS_LOG_TYPE_ERROR, "CRC mismatch; got: 0x%lx expected: 0x%x for file %@ : %@", &v591, 0x26u);
+            v427 = [*v9 currentCRC32];
+            v428 = sub_10000A35C(*v9);
+            v588.st_dev = v477;
+            *&v588.st_mode = v427;
+            WORD2(v588.st_ino) = 1024;
+            *(&v588.st_ino + 6) = v428;
+            HIWORD(v588.st_uid) = 2112;
+            *&v588.st_gid = v319;
+            *(&v588.st_rdev + 2) = 2112;
+            *(&v588.st_rdev + 6) = 0;
+            _os_log_error_impl(&_mh_execute_header, v325, OS_LOG_TYPE_ERROR, "CRC mismatch; got: 0x%lx expected: 0x%x for file %@ : %@", &v588, 0x26u);
           }
 
           v326 = [*v9 currentCRC32];
@@ -2131,27 +2131,27 @@ LABEL_279:
         else
         {
           v319 = sub_100009D94([v64 currentLFRecord]);
-          v561[0] = @"SZExtractorFileOffsetErrorKey";
+          v558[0] = @"SZExtractorFileOffsetErrorKey";
           v320 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-          v561[1] = v496;
-          v562[0] = v320;
-          v562[1] = v319;
-          v321 = [NSDictionary dictionaryWithObjects:v562 forKeys:v561 count:2];
+          v558[1] = v493;
+          v559[0] = v320;
+          v559[1] = v319;
+          v321 = [NSDictionary dictionaryWithObjects:v559 forKeys:v558 count:2];
 
           v322 = sub_10000126C();
           if (os_log_type_enabled(v322, OS_LOG_TYPE_ERROR))
           {
-            v426 = [*v9 uncompressedBytesOutput];
-            v427 = sub_100009B78(*v9);
-            v591.st_dev = v490;
-            *&v591.st_mode = v319;
-            WORD2(v591.st_ino) = 2048;
-            *(&v591.st_ino + 6) = v426;
-            HIWORD(v591.st_gid) = 2048;
-            *&v591.st_rdev = v427;
-            LOWORD(v591.st_atimespec.tv_sec) = 2112;
-            *(&v591.st_atimespec.tv_sec + 2) = 0;
-            _os_log_error_impl(&_mh_execute_header, v322, OS_LOG_TYPE_ERROR, "Decompression failed to produce all expected output data for file %@; produced %llu bytes, expected %llu : %@", &v591, 0x2Au);
+            v425 = [*v9 uncompressedBytesOutput];
+            v426 = sub_100009B78(*v9);
+            v588.st_dev = v487;
+            *&v588.st_mode = v319;
+            WORD2(v588.st_ino) = 2048;
+            *(&v588.st_ino + 6) = v425;
+            HIWORD(v588.st_gid) = 2048;
+            *&v588.st_rdev = v426;
+            LOWORD(v588.st_atimespec.tv_sec) = 2112;
+            *(&v588.st_atimespec.tv_sec + 2) = 0;
+            _os_log_error_impl(&_mh_execute_header, v322, OS_LOG_TYPE_ERROR, "Decompression failed to produce all expected output data for file %@; produced %llu bytes, expected %llu : %@", &v588, 0x2Au);
           }
 
           [*v9 uncompressedBytesOutput];
@@ -2179,16 +2179,16 @@ LABEL_279:
         v15 = 16;
       }
 
-      v16 = sub_1000092F8([*v9 dataDescriptor], v15, *v9, &v546, &v545);
+      v16 = sub_1000092F8([*v9 dataDescriptor], v15, *v9, &v543, &v542);
 
       if (v16)
       {
         goto LABEL_457;
       }
 
-      v12 = v545;
+      v12 = v542;
       v17 = *v9;
-      if (!v545)
+      if (!v542)
       {
         goto LABEL_445;
       }
@@ -2209,33 +2209,33 @@ LABEL_279:
           v388 = a1;
           if (os_log_type_enabled(v334, OS_LOG_TYPE_ERROR))
           {
-            v438 = *[*v9 dataDescriptor];
-            v439 = *([*v9 dataDescriptor] + 1);
-            v440 = *([*v9 dataDescriptor] + 2);
-            v441 = *([*v9 dataDescriptor] + 3);
-            v591.st_dev = 67110146;
-            *&v591.st_mode = v438;
-            LOWORD(v591.st_ino) = 1024;
-            *(&v591.st_ino + 2) = v439;
-            HIWORD(v591.st_ino) = 1024;
-            v591.st_uid = v440;
-            LOWORD(v591.st_gid) = 1024;
-            *(&v591.st_gid + 2) = v441;
-            HIWORD(v591.st_rdev) = 2112;
-            *(&v591.st_rdev + 1) = 0;
-            _os_log_error_impl(&_mh_execute_header, v335, OS_LOG_TYPE_ERROR, "Data descriptor did not match expected signature (found 0x%02hhx%02hhx%02hhx%02hhx). : %@", &v591, 0x24u);
+            v437 = *[*v9 dataDescriptor];
+            v438 = *([*v9 dataDescriptor] + 1);
+            v439 = *([*v9 dataDescriptor] + 2);
+            v440 = *([*v9 dataDescriptor] + 3);
+            v588.st_dev = 67110146;
+            *&v588.st_mode = v437;
+            LOWORD(v588.st_ino) = 1024;
+            *(&v588.st_ino + 2) = v438;
+            HIWORD(v588.st_ino) = 1024;
+            v588.st_uid = v439;
+            LOWORD(v588.st_gid) = 1024;
+            *(&v588.st_gid + 2) = v440;
+            HIWORD(v588.st_rdev) = 2112;
+            *(&v588.st_rdev + 1) = 0;
+            _os_log_error_impl(&_mh_execute_header, v335, OS_LOG_TYPE_ERROR, "Data descriptor did not match expected signature (found 0x%02hhx%02hhx%02hhx%02hhx). : %@", &v588, 0x24u);
           }
 
-          v563 = @"SZExtractorFileOffsetErrorKey";
+          v560 = @"SZExtractorFileOffsetErrorKey";
           v389 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-          v564 = v389;
-          v390 = [NSDictionary dictionaryWithObjects:&v564 forKeys:&v563 count:1];
+          v561 = v389;
+          v390 = [NSDictionary dictionaryWithObjects:&v561 forKeys:&v560 count:1];
           v391 = *[*v9 dataDescriptor];
-          v392 = *([*v9 dataDescriptor] + 1);
-          v469 = *([*v9 dataDescriptor] + 2);
-          v472 = *([*v502 dataDescriptor] + 3);
-          v9 = v502;
-          v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1258, @"SZExtractorErrorDomain", 2, 0, v390, @"Data descriptor did not match expected signature (found 0x%02hhx%02hhx%02hhx%02hhx).", v393, v391);
+          [*v9 dataDescriptor];
+          [*v9 dataDescriptor];
+          [*v499 dataDescriptor];
+          v9 = v499;
+          v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1258, @"SZExtractorErrorDomain", 2, 0, v390, @"Data descriptor did not match expected signature (found 0x%02hhx%02hhx%02hhx%02hhx).", v392, v391);
 
           v257 = 0;
           a1 = v388;
@@ -2247,23 +2247,23 @@ LABEL_279:
           v336 = [*v9 dataDescriptor];
           v337 = a1;
           v338 = *v336;
-          v339 = *([*v502 dataDescriptor] + 1);
-          v340 = *([*v502 dataDescriptor] + 2);
-          v341 = *([*v502 dataDescriptor] + 3);
-          v591.st_dev = 67109888;
-          *&v591.st_mode = v338;
+          v339 = *([*v499 dataDescriptor] + 1);
+          v340 = *([*v499 dataDescriptor] + 2);
+          v341 = *([*v499 dataDescriptor] + 3);
+          v588.st_dev = 67109888;
+          *&v588.st_mode = v338;
           a1 = v337;
-          v9 = v502;
-          LOWORD(v591.st_ino) = 1024;
-          *(&v591.st_ino + 2) = v339;
-          HIWORD(v591.st_ino) = 1024;
-          v591.st_uid = v340;
-          LOWORD(v591.st_gid) = 1024;
-          *(&v591.st_gid + 2) = v341;
-          _os_log_impl(&_mh_execute_header, v335, OS_LOG_TYPE_DEFAULT, "Data descriptor did not match expected signature (found 0x%02hhx%02hhx%02hhx%02hhx); entering passthrough mode", &v591, 0x1Au);
+          v9 = v499;
+          LOWORD(v588.st_ino) = 1024;
+          *(&v588.st_ino + 2) = v339;
+          HIWORD(v588.st_ino) = 1024;
+          v588.st_uid = v340;
+          LOWORD(v588.st_gid) = 1024;
+          *(&v588.st_gid + 2) = v341;
+          _os_log_impl(&_mh_execute_header, v335, OS_LOG_TYPE_DEFAULT, "Data descriptor did not match expected signature (found 0x%02hhx%02hhx%02hhx%02hhx); entering passthrough mode", &v588, 0x1Au);
         }
 
-        v342 = v546;
+        v342 = v543;
         v343 = a1;
         v344 = v12;
 LABEL_484:
@@ -2281,18 +2281,18 @@ LABEL_484:
           v21 = *([*v9 dataDescriptor] + 1);
           v22 = *([*v9 dataDescriptor] + 2);
           v23 = *([*v9 dataDescriptor] + 1);
-          v591.st_dev = v487;
-          *&v591.st_mode = v21;
+          v588.st_dev = v484;
+          *&v588.st_mode = v21;
           a1 = v20;
-          LOWORD(v591.st_ino) = 2048;
-          *(&v591.st_ino + 2) = v22;
-          HIWORD(v591.st_uid) = 2048;
-          *&v591.st_gid = v23;
+          LOWORD(v588.st_ino) = 2048;
+          *(&v588.st_ino + 2) = v22;
+          HIWORD(v588.st_uid) = 2048;
+          *&v588.st_gid = v23;
           v24 = v18;
           v25 = "Got data descriptor with CRC 0x%x, uncompressed size %llu, compressed size %llu";
           v26 = 28;
 LABEL_283:
-          _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, v25, &v591, v26);
+          _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, v25, &v588, v26);
         }
       }
 
@@ -2302,13 +2302,13 @@ LABEL_283:
         v212 = *([*v9 dataDescriptor] + 1);
         v213 = *([*v9 dataDescriptor] + 3);
         v214 = *([*v9 dataDescriptor] + 2);
-        v591.st_dev = v487;
-        *&v591.st_mode = v212;
+        v588.st_dev = v484;
+        *&v588.st_mode = v212;
         a1 = v211;
-        LOWORD(v591.st_ino) = 1024;
-        *(&v591.st_ino + 2) = v213;
-        HIWORD(v591.st_ino) = 1024;
-        v591.st_uid = v214;
+        LOWORD(v588.st_ino) = 1024;
+        *(&v588.st_ino + 2) = v213;
+        HIWORD(v588.st_ino) = 1024;
+        v588.st_uid = v214;
         v24 = v18;
         v25 = "Got data descriptor with CRC 0x%x, uncompressed size %u, compressed size %u";
         v26 = 20;
@@ -2327,7 +2327,7 @@ LABEL_283:
         __assert_rtn("[StreamingUnzipper _supplyBytes:length:withReply:]", "StreamingUnzipper.m", 509, "_currentState.currentLFRecord");
       }
 
-      v27 = sub_1000092F8([*v9 currentLFRecord], 4, *v9, &v546, &v545);
+      v27 = sub_1000092F8([*v9 currentLFRecord], 4, *v9, &v543, &v542);
 
       if (v27)
       {
@@ -2367,159 +2367,159 @@ LABEL_61:
           v362 = [*v9 currentLFRecord];
           v363 = a1;
           v364 = *v362;
-          v365 = *([*v502 currentLFRecord] + 1);
-          v366 = *([*v502 currentLFRecord] + 2);
-          v367 = *([*v502 currentLFRecord] + 3);
-          v591.st_dev = 67109888;
-          *&v591.st_mode = v364;
+          v365 = *([*v499 currentLFRecord] + 1);
+          v366 = *([*v499 currentLFRecord] + 2);
+          v367 = *([*v499 currentLFRecord] + 3);
+          v588.st_dev = 67109888;
+          *&v588.st_mode = v364;
           a1 = v363;
-          v9 = v502;
-          LOWORD(v591.st_ino) = 1024;
-          *(&v591.st_ino + 2) = v365;
-          HIWORD(v591.st_ino) = 1024;
-          v591.st_uid = v366;
-          LOWORD(v591.st_gid) = 1024;
-          *(&v591.st_gid + 2) = v367;
-          _os_log_impl(&_mh_execute_header, v361, OS_LOG_TYPE_DEFAULT, "Got unexpected local file signature %c%c%c%c ; entering passthrough mode", &v591, 0x1Au);
+          v9 = v499;
+          LOWORD(v588.st_ino) = 1024;
+          *(&v588.st_ino + 2) = v365;
+          HIWORD(v588.st_ino) = 1024;
+          v588.st_uid = v366;
+          LOWORD(v588.st_gid) = 1024;
+          *(&v588.st_gid + 2) = v367;
+          _os_log_impl(&_mh_execute_header, v361, OS_LOG_TYPE_DEFAULT, "Got unexpected local file signature %c%c%c%c ; entering passthrough mode", &v588, 0x1Au);
         }
 
-        v342 = v546;
-        v344 = v545;
+        v342 = v543;
+        v344 = v542;
         v343 = a1;
         goto LABEL_484;
       }
 
       if (*[*v9 currentLFRecord] != 33639248)
       {
-        v402 = sub_10000126C();
-        if (os_log_type_enabled(v402, OS_LOG_TYPE_ERROR))
+        v401 = sub_10000126C();
+        if (os_log_type_enabled(v401, OS_LOG_TYPE_ERROR))
         {
-          v591.st_dev = v491;
-          *&v591.st_mode = 0;
-          _os_log_error_impl(&_mh_execute_header, v402, OS_LOG_TYPE_ERROR, "Encountered unexpectedly non-stream-compliant data in stream! : %@", &v591, 0xCu);
+          v588.st_dev = v488;
+          *&v588.st_mode = 0;
+          _os_log_error_impl(&_mh_execute_header, v401, OS_LOG_TYPE_ERROR, "Encountered unexpectedly non-stream-compliant data in stream! : %@", &v588, 0xCu);
         }
 
-        v604 = @"SZExtractorFileOffsetErrorKey";
+        v601 = @"SZExtractorFileOffsetErrorKey";
         v382 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-        v605 = v382;
-        v384 = [NSDictionary dictionaryWithObjects:&v605 forKeys:&v604 count:1];
-        v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 576, @"SZExtractorErrorDomain", 2, 0, v384, @"Encountered unexpectedly non-stream-compliant data in stream!", v403, v474);
+        v602 = v382;
+        v384 = [NSDictionary dictionaryWithObjects:&v602 forKeys:&v601 count:1];
+        v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 576, @"SZExtractorErrorDomain", 2, 0, v384, @"Encountered unexpectedly non-stream-compliant data in stream!", v402, v471);
         goto LABEL_533;
       }
 
       if ([*v9 bytesHashedInChunk])
       {
-        v431 = [*v9 lastChunkPartialHash];
+        v430 = [*v9 lastChunkPartialHash];
 
-        if (!v431)
+        if (!v430)
         {
-          v434 = sub_10000126C();
-          if (os_log_type_enabled(v434, OS_LOG_TYPE_DEBUG))
+          v433 = sub_10000126C();
+          if (os_log_type_enabled(v433, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v591.st_dev) = 0;
-            _os_log_debug_impl(&_mh_execute_header, v434, OS_LOG_TYPE_DEBUG, "No last chunk partial hash; will need full chunk to validate.", &v591, 2u);
+            LOWORD(v588.st_dev) = 0;
+            _os_log_debug_impl(&_mh_execute_header, v433, OS_LOG_TYPE_DEBUG, "No last chunk partial hash; will need full chunk to validate.", &v588, 2u);
           }
 
-          v433 = 0;
+          v432 = 0;
 LABEL_582:
-          v443 = a1;
+          v442 = a1;
 
-          v444 = sub_10000126C();
-          if (os_log_type_enabled(v444, OS_LOG_TYPE_DEBUG))
+          v443 = sub_10000126C();
+          if (os_log_type_enabled(v443, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v591.st_dev) = 0;
-            _os_log_debug_impl(&_mh_execute_header, v444, OS_LOG_TYPE_DEBUG, "Finished central directory signature; updating hash with remainder of stream data", &v591, 2u);
+            LOWORD(v588.st_dev) = 0;
+            _os_log_debug_impl(&_mh_execute_header, v443, OS_LOG_TYPE_DEBUG, "Finished central directory signature; updating hash with remainder of stream data", &v588, 2u);
           }
 
-          v445 = v545;
-          v446 = v502;
-          if ([*v502 hashedChunkSize])
+          v444 = v542;
+          v445 = v499;
+          if ([*v499 hashedChunkSize])
           {
-            v447 = [*v446 hashedChunkSize];
-            v448 = [*v446 bytesHashedInChunk];
-            if (v447 - v448 >= v445)
+            v446 = [*v445 hashedChunkSize];
+            v447 = [*v445 bytesHashedInChunk];
+            if (v446 - v447 >= v444)
             {
-              v449 = v445;
+              v448 = v444;
             }
 
             else
             {
-              v449 = v447 - v448;
+              v448 = v446 - v447;
             }
           }
 
           else
           {
-            v449 = v445;
+            v448 = v444;
           }
 
-          v450 = *v446;
-          v451 = [*v446 currentOffset];
-          v10 = [v450 updateHashFromOffset:v451 withBytes:v546 length:v449 onlyFinishCurrentChunk:1];
+          v449 = *v445;
+          v450 = [*v445 currentOffset];
+          v10 = [v449 updateHashFromOffset:v450 withBytes:v543 length:v448 onlyFinishCurrentChunk:1];
 
-          [*v446 setCurrentOffset:{objc_msgSend(*v446, "currentOffset") + v449}];
+          [*v445 setCurrentOffset:{objc_msgSend(*v445, "currentOffset") + v448}];
           if (v10)
           {
             v257 = 0;
-            a1 = v443;
+            a1 = v442;
 LABEL_435:
-            v9 = v502;
+            v9 = v499;
           }
 
           else
           {
-            if ([*v502 bytesHashedInChunk])
+            if ([*v499 bytesHashedInChunk])
             {
-              if (v449 != v445)
+              if (v448 != v444)
               {
                 __assert_rtn("[StreamingUnzipper _supplyBytes:length:withReply:]", "StreamingUnzipper.m", 567, "lengthToRead == length");
               }
 
-              v452 = sub_10000126C();
-              if (os_log_type_enabled(v452, OS_LOG_TYPE_DEBUG))
+              v451 = sub_10000126C();
+              if (os_log_type_enabled(v451, OS_LOG_TYPE_DEBUG))
               {
-                LOWORD(v591.st_dev) = 0;
-                _os_log_debug_impl(&_mh_execute_header, v452, OS_LOG_TYPE_DEBUG, "After hitting Central Directory, we need more data to finish the chunk", &v591, 2u);
+                LOWORD(v588.st_dev) = 0;
+                _os_log_debug_impl(&_mh_execute_header, v451, OS_LOG_TYPE_DEBUG, "After hitting Central Directory, we need more data to finish the chunk", &v588, 2u);
               }
 
-              v453 = v502;
-              [*v502 setStreamState:6];
+              v452 = v499;
+              [*v499 setStreamState:6];
               v10 = 0;
               v257 = 0;
             }
 
             else
             {
-              v463 = sub_10000126C();
-              if (os_log_type_enabled(v463, OS_LOG_TYPE_DEBUG))
+              v462 = sub_10000126C();
+              if (os_log_type_enabled(v462, OS_LOG_TYPE_DEBUG))
               {
-                LOWORD(v591.st_dev) = 0;
-                _os_log_debug_impl(&_mh_execute_header, v463, OS_LOG_TYPE_DEBUG, "After hitting Central Directory, we had enough data already to finish the chunk", &v591, 2u);
+                LOWORD(v588.st_dev) = 0;
+                _os_log_debug_impl(&_mh_execute_header, v462, OS_LOG_TYPE_DEBUG, "After hitting Central Directory, we had enough data already to finish the chunk", &v588, 2u);
               }
 
-              v453 = v502;
-              [*v502 setStreamState:7];
+              v452 = v499;
+              [*v499 setStreamState:7];
               v10 = 0;
               v257 = 1;
             }
 
-            v7 = v497;
-            a1 = v443;
-            v9 = v453;
+            v7 = v494;
+            a1 = v442;
+            v9 = v452;
           }
 
           goto LABEL_535;
         }
 
-        v432 = [*v9 checkLastChunkPartialHash];
-        if (v432)
+        v431 = [*v9 checkLastChunkPartialHash];
+        if (v431)
         {
-          v433 = v432;
-          v434 = sub_10000126C();
-          if (os_log_type_enabled(v434, OS_LOG_TYPE_ERROR))
+          v432 = v431;
+          v433 = sub_10000126C();
+          if (os_log_type_enabled(v433, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v591.st_dev) = 0;
-            _os_log_error_impl(&_mh_execute_header, v434, OS_LOG_TYPE_ERROR, "Last chunk's partial hash did not validate (store hashed chunk size mismatch?); consuming more data to check full chunk.", &v591, 2u);
+            LOWORD(v588.st_dev) = 0;
+            _os_log_error_impl(&_mh_execute_header, v433, OS_LOG_TYPE_ERROR, "Last chunk's partial hash did not validate (store hashed chunk size mismatch?); consuming more data to check full chunk.", &v588, 2u);
           }
 
           goto LABEL_582;
@@ -2528,13 +2528,13 @@ LABEL_435:
 
       else
       {
-        v436 = sub_10000126C();
-        if (os_log_type_enabled(v436, OS_LOG_TYPE_DEBUG))
+        v435 = sub_10000126C();
+        if (os_log_type_enabled(v435, OS_LOG_TYPE_DEBUG))
         {
-          v465 = [*v9 currentOffset];
-          v591.st_dev = v493;
-          *&v591.st_mode = v465;
-          _os_log_debug_impl(&_mh_execute_header, v436, OS_LOG_TYPE_DEBUG, "Finished central directory signature at offset %llu and we are also at a chunk boundary.", &v591, 0xCu);
+          v464 = [*v9 currentOffset];
+          v588.st_dev = v490;
+          *&v588.st_mode = v464;
+          _os_log_debug_impl(&_mh_execute_header, v435, OS_LOG_TYPE_DEBUG, "Finished central directory signature at offset %llu and we are also at a chunk boundary.", &v588, 0xCu);
         }
       }
 
@@ -2558,7 +2558,7 @@ LABEL_435:
 
     if ([*v9 thisStageBytesComplete] <= 0x1D)
     {
-      v27 = sub_1000092F8([*v9 currentLFRecord], 30, *v9, &v546, &v545);
+      v27 = sub_1000092F8([*v9 currentLFRecord], 30, *v9, &v543, &v542);
 
       if (v27)
       {
@@ -2581,43 +2581,43 @@ LABEL_435:
           goto LABEL_34;
         }
 
-        v424 = [*v9 unsureData];
+        v423 = [*v9 unsureData];
 
-        v425 = sub_10000126C();
-        v356 = v425;
-        if (v424)
+        v424 = sub_10000126C();
+        v356 = v424;
+        if (v423)
         {
-          if (!os_log_type_enabled(v425, OS_LOG_TYPE_DEFAULT))
+          if (!os_log_type_enabled(v424, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_479;
           }
 
-          v591.st_dev = 67109120;
-          *&v591.st_mode = v30;
+          v588.st_dev = 67109120;
+          *&v588.st_mode = v30;
           v357 = "Got unexpected compression method: %hu; entering passthrough mode";
           v358 = v356;
           v359 = 8;
           goto LABEL_478;
         }
 
-        if (os_log_type_enabled(v425, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v424, OS_LOG_TYPE_ERROR))
         {
-          v464 = [*v9 currentOffset];
-          v591.st_dev = 67109634;
-          *&v591.st_mode = v30;
-          LOWORD(v591.st_ino) = 2048;
-          *(&v591.st_ino + 2) = v464;
-          HIWORD(v591.st_uid) = 2112;
-          *&v591.st_gid = 0;
-          _os_log_error_impl(&_mh_execute_header, v356, OS_LOG_TYPE_ERROR, "Encountered unsupported compression method %hu in stream at offset %llu : %@", &v591, 0x1Cu);
+          v463 = [*v9 currentOffset];
+          v588.st_dev = 67109634;
+          *&v588.st_mode = v30;
+          LOWORD(v588.st_ino) = 2048;
+          *(&v588.st_ino + 2) = v463;
+          HIWORD(v588.st_uid) = 2112;
+          *&v588.st_gid = 0;
+          _os_log_error_impl(&_mh_execute_header, v356, OS_LOG_TYPE_ERROR, "Encountered unsupported compression method %hu in stream at offset %llu : %@", &v588, 0x1Cu);
         }
 
-        v600 = @"SZExtractorFileOffsetErrorKey";
-        v399 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-        v601 = v399;
-        v400 = [NSDictionary dictionaryWithObjects:&v601 forKeys:&v600 count:1];
+        v597 = @"SZExtractorFileOffsetErrorKey";
+        v398 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
+        v598 = v398;
+        v399 = [NSDictionary dictionaryWithObjects:&v598 forKeys:&v597 count:1];
         [*v9 currentOffset];
-        sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 625, @"SZExtractorErrorDomain", 2, 0, v400, @"Encountered unsupported compression method %hu in stream at offset %llu", v435, v30);
+        sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 625, @"SZExtractorErrorDomain", 2, 0, v399, @"Encountered unsupported compression method %hu in stream at offset %llu", v434, v30);
       }
 
       else
@@ -2632,36 +2632,36 @@ LABEL_435:
           {
 LABEL_479:
 
-            v27 = sub_100009408(a1, v546, v545);
+            v27 = sub_100009408(a1, v543, v542);
 
             goto LABEL_520;
           }
 
-          LOWORD(v591.st_dev) = 0;
+          LOWORD(v588.st_dev) = 0;
           v357 = "Got zero-length filename; entering passthrough mode";
           v358 = v356;
           v359 = 2;
 LABEL_478:
-          _os_log_impl(&_mh_execute_header, v358, OS_LOG_TYPE_DEFAULT, v357, &v591, v359);
+          _os_log_impl(&_mh_execute_header, v358, OS_LOG_TYPE_DEFAULT, v357, &v588, v359);
           goto LABEL_479;
         }
 
         if (os_log_type_enabled(v355, OS_LOG_TYPE_ERROR))
         {
-          v454 = [*v9 currentOffset];
-          v591.st_dev = 134218242;
-          *&v591.st_mode = v454;
-          WORD2(v591.st_ino) = 2112;
-          *(&v591.st_ino + 6) = 0;
-          _os_log_error_impl(&_mh_execute_header, v356, OS_LOG_TYPE_ERROR, "Encountered zero-length filename for local file record at offset %llu : %@", &v591, 0x16u);
+          v453 = [*v9 currentOffset];
+          v588.st_dev = 134218242;
+          *&v588.st_mode = v453;
+          WORD2(v588.st_ino) = 2112;
+          *(&v588.st_ino + 6) = 0;
+          _os_log_error_impl(&_mh_execute_header, v356, OS_LOG_TYPE_ERROR, "Encountered zero-length filename for local file record at offset %llu : %@", &v588, 0x16u);
         }
 
-        v602 = @"SZExtractorFileOffsetErrorKey";
-        v399 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-        v603 = v399;
-        v400 = [NSDictionary dictionaryWithObjects:&v603 forKeys:&v602 count:1];
-        v471 = [*v9 currentOffset];
-        sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 613, @"SZExtractorErrorDomain", 2, 0, v400, @"Encountered zero-length filename for local file record at offset %llu", v401, v471);
+        v599 = @"SZExtractorFileOffsetErrorKey";
+        v398 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
+        v600 = v398;
+        v399 = [NSDictionary dictionaryWithObjects:&v600 forKeys:&v599 count:1];
+        v469 = [*v9 currentOffset];
+        sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 613, @"SZExtractorErrorDomain", 2, 0, v399, @"Encountered zero-length filename for local file record at offset %llu", v400, v469);
       }
       v16 = ;
 
@@ -2672,9 +2672,9 @@ LABEL_457:
     }
 
 LABEL_34:
-    v31 = v545;
+    v31 = v542;
     v32 = *v9;
-    if (!v545)
+    if (!v542)
     {
       [v32 markResumptionPoint];
       goto LABEL_493;
@@ -2695,12 +2695,12 @@ LABEL_34:
         v368 = sub_10000126C();
         if (os_log_type_enabled(v368, OS_LOG_TYPE_ERROR))
         {
-          v591.st_dev = v491;
-          *&v591.st_mode = 0;
-          _os_log_error_impl(&_mh_execute_header, v368, OS_LOG_TYPE_ERROR, "Could not allocate memory for local file record : %@", &v591, 0xCu);
+          v588.st_dev = v488;
+          *&v588.st_mode = 0;
+          _os_log_error_impl(&_mh_execute_header, v368, OS_LOG_TYPE_ERROR, "Could not allocate memory for local file record : %@", &v588, 0xCu);
         }
 
-        v370 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 648, v492, 12, 0, 0, @"Could not allocate memory for local file record", v369, v474);
+        v370 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 648, v489, 12, 0, 0, @"Could not allocate memory for local file record", v369, v471);
         goto LABEL_499;
       }
 
@@ -2709,22 +2709,22 @@ LABEL_34:
 
     if ([*v9 thisStageBytesComplete] < v34)
     {
-      v35 = sub_1000092F8([*v9 currentLFRecord], v34, *v9, &v546, &v545);
+      v35 = sub_1000092F8([*v9 currentLFRecord], v34, *v9, &v543, &v542);
 
       if (v35)
       {
         goto LABEL_501;
       }
 
-      v31 = v545;
-      if (!v545)
+      v31 = v542;
+      if (!v542)
       {
         [*v9 markResumptionPoint];
         v10 = 0;
 LABEL_493:
         v257 = 0;
 LABEL_502:
-        v7 = v497;
+        v7 = v494;
         goto LABEL_535;
       }
 
@@ -2751,31 +2751,31 @@ LABEL_502:
         {
           if (os_log_type_enabled(v372, OS_LOG_TYPE_ERROR))
           {
-            v455 = [*v9 currentOffset];
-            v591.st_dev = 134218242;
-            *&v591.st_mode = v455;
-            WORD2(v591.st_ino) = 2112;
-            *(&v591.st_ino + 6) = 0;
-            _os_log_error_impl(&_mh_execute_header, v373, OS_LOG_TYPE_ERROR, "Encountered inconsistency in stream data: file at offset %llu has a 0-length compressed size but a non-zero uncompressed size : %@", &v591, 0x16u);
+            v454 = [*v9 currentOffset];
+            v588.st_dev = 134218242;
+            *&v588.st_mode = v454;
+            WORD2(v588.st_ino) = 2112;
+            *(&v588.st_ino + 6) = 0;
+            _os_log_error_impl(&_mh_execute_header, v373, OS_LOG_TYPE_ERROR, "Encountered inconsistency in stream data: file at offset %llu has a 0-length compressed size but a non-zero uncompressed size : %@", &v588, 0x16u);
           }
 
-          v598 = @"SZExtractorFileOffsetErrorKey";
-          v405 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-          v599 = v405;
-          v406 = [NSDictionary dictionaryWithObjects:&v599 forKeys:&v598 count:1];
-          v407 = [*v9 currentOffset];
-          v409 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 682, @"SZExtractorErrorDomain", 2, 0, v406, @"Encountered inconsistency in stream data: file at offset %llu has a 0-length compressed size but a non-zero uncompressed size", v408, v407);
+          v595 = @"SZExtractorFileOffsetErrorKey";
+          v404 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
+          v596 = v404;
+          v405 = [NSDictionary dictionaryWithObjects:&v596 forKeys:&v595 count:1];
+          v406 = [*v9 currentOffset];
+          v408 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 682, @"SZExtractorErrorDomain", 2, 0, v405, @"Encountered inconsistency in stream data: file at offset %llu has a 0-length compressed size but a non-zero uncompressed size", v407, v406);
 LABEL_557:
 
           v257 = 0;
-          v10 = v409;
+          v10 = v408;
           goto LABEL_502;
         }
 
         if (os_log_type_enabled(v372, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v591.st_dev) = 0;
-          _os_log_impl(&_mh_execute_header, v373, OS_LOG_TYPE_DEFAULT, "File has 0-length compressed size but non-zero uncompressed size; entering passthrough mode", &v591, 2u);
+          LOWORD(v588.st_dev) = 0;
+          _os_log_impl(&_mh_execute_header, v373, OS_LOG_TYPE_DEFAULT, "File has 0-length compressed size but non-zero uncompressed size; entering passthrough mode", &v588, 2u);
         }
       }
 
@@ -2794,24 +2794,24 @@ LABEL_557:
         {
           if (os_log_type_enabled(v375, OS_LOG_TYPE_ERROR))
           {
-            v456 = [*v9 currentOffset];
-            v591.st_dev = v480;
-            *&v591.st_mode = v456;
-            WORD2(v591.st_ino) = 2048;
-            *(&v591.st_ino + 6) = v36;
-            HIWORD(v591.st_gid) = 2048;
-            *&v591.st_rdev = v37;
-            LOWORD(v591.st_atimespec.tv_sec) = 2112;
-            *(&v591.st_atimespec.tv_sec + 2) = 0;
-            _os_log_error_impl(&_mh_execute_header, v376, OS_LOG_TYPE_ERROR, "Encountered inconsistency in stream data: file at offset %llu is stored without compression but the uncompressed and compressed sizes are not equal (%llu != %llu) : %@", &v591, 0x2Au);
+            v455 = [*v9 currentOffset];
+            v588.st_dev = v477;
+            *&v588.st_mode = v455;
+            WORD2(v588.st_ino) = 2048;
+            *(&v588.st_ino + 6) = v36;
+            HIWORD(v588.st_gid) = 2048;
+            *&v588.st_rdev = v37;
+            LOWORD(v588.st_atimespec.tv_sec) = 2112;
+            *(&v588.st_atimespec.tv_sec + 2) = 0;
+            _os_log_error_impl(&_mh_execute_header, v376, OS_LOG_TYPE_ERROR, "Encountered inconsistency in stream data: file at offset %llu is stored without compression but the uncompressed and compressed sizes are not equal (%llu != %llu) : %@", &v588, 0x2Au);
           }
 
-          v596 = @"SZExtractorFileOffsetErrorKey";
-          v410 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-          v597 = v410;
-          v411 = [NSDictionary dictionaryWithObjects:&v597 forKeys:&v596 count:1];
-          v412 = [*v9 currentOffset];
-          v35 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 695, @"SZExtractorErrorDomain", 2, 0, v411, @"Encountered inconsistency in stream data: file at offset %llu is stored without compression but the uncompressed and compressed sizes are not equal (%llu != %llu)", v413, v412);
+          v593 = @"SZExtractorFileOffsetErrorKey";
+          v409 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
+          v594 = v409;
+          v410 = [NSDictionary dictionaryWithObjects:&v594 forKeys:&v593 count:1];
+          v411 = [*v9 currentOffset];
+          v35 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 695, @"SZExtractorErrorDomain", 2, 0, v410, @"Encountered inconsistency in stream data: file at offset %llu is stored without compression but the uncompressed and compressed sizes are not equal (%llu != %llu)", v412, v411);
 
 LABEL_500:
 LABEL_501:
@@ -2822,12 +2822,12 @@ LABEL_501:
 
         if (os_log_type_enabled(v375, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v591.st_dev) = 0;
-          _os_log_impl(&_mh_execute_header, v376, OS_LOG_TYPE_DEFAULT, "Stored file has compressed size != uncompressed size; entering passthrough mode", &v591, 2u);
+          LOWORD(v588.st_dev) = 0;
+          _os_log_impl(&_mh_execute_header, v376, OS_LOG_TYPE_DEFAULT, "Stored file has compressed size != uncompressed size; entering passthrough mode", &v588, 2u);
         }
       }
 
-      v370 = sub_100009408(a1, v546, v31);
+      v370 = sub_100009408(a1, v543, v31);
 LABEL_499:
       v35 = v370;
       goto LABEL_500;
@@ -2843,50 +2843,50 @@ LABEL_49:
 
       v346 = sub_10000126C();
       v347 = v346;
-      v495 = v39;
+      v492 = v39;
       if (v345)
       {
         if (!os_log_type_enabled(v346, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_471:
 
-          v27 = sub_100009408(a1, v546, v31);
+          v27 = sub_100009408(a1, v543, v31);
 LABEL_518:
-          v7 = v497;
+          v7 = v494;
           goto LABEL_519;
         }
 
-        LOWORD(v591.st_dev) = 0;
+        LOWORD(v588.st_dev) = 0;
         v348 = "Failed to get filename for file; entering passthrough mode";
         v349 = v347;
         v350 = 2;
 LABEL_470:
-        _os_log_impl(&_mh_execute_header, v349, OS_LOG_TYPE_DEFAULT, v348, &v591, v350);
+        _os_log_impl(&_mh_execute_header, v349, OS_LOG_TYPE_DEFAULT, v348, &v588, v350);
         goto LABEL_471;
       }
 
       if (os_log_type_enabled(v346, OS_LOG_TYPE_ERROR))
       {
-        v442 = [*v9 currentOffset];
-        v591.st_dev = 134218242;
-        *&v591.st_mode = v442;
-        WORD2(v591.st_ino) = 2112;
-        *(&v591.st_ino + 6) = 0;
-        _os_log_error_impl(&_mh_execute_header, v347, OS_LOG_TYPE_ERROR, "Failed to get filename for file at offset %llu. : %@", &v591, 0x16u);
+        v441 = [*v9 currentOffset];
+        v588.st_dev = 134218242;
+        *&v588.st_mode = v441;
+        WORD2(v588.st_ino) = 2112;
+        *(&v588.st_ino + 6) = 0;
+        _os_log_error_impl(&_mh_execute_header, v347, OS_LOG_TYPE_ERROR, "Failed to get filename for file at offset %llu. : %@", &v588, 0x16u);
       }
 
-      v594 = @"SZExtractorFileOffsetErrorKey";
-      v394 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-      v595 = v394;
-      v395 = [NSDictionary dictionaryWithObjects:&v595 forKeys:&v594 count:1];
-      v470 = [*v9 currentOffset];
-      sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 710, @"SZExtractorErrorDomain", 2, 0, v395, @"Failed to get filename for file at offset %llu.", v396, v470);
+      v591 = @"SZExtractorFileOffsetErrorKey";
+      v393 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
+      v592 = v393;
+      v394 = [NSDictionary dictionaryWithObjects:&v592 forKeys:&v591 count:1];
+      v468 = [*v9 currentOffset];
+      sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 710, @"SZExtractorErrorDomain", 2, 0, v394, @"Failed to get filename for file at offset %llu.", v395, v468);
       v27 = LABEL_517:;
 
       goto LABEL_518;
     }
 
-    v503 = v10;
+    v500 = v10;
     v42 = [v41 currentLFRecord];
     v43 = v42[*(v42 + 13) + 29];
     [*v9 setPerformingExtraction:1];
@@ -2898,15 +2898,15 @@ LABEL_470:
     {
       if (v47)
       {
-        v591.st_dev = v489;
-        *&v591.st_mode = v39;
-        WORD2(v591.st_ino) = 1024;
-        *(&v591.st_ino + 6) = v44;
+        v588.st_dev = v486;
+        *&v588.st_mode = v39;
+        WORD2(v588.st_ino) = 1024;
+        *(&v588.st_ino + 6) = v44;
         v48 = v46;
         v49 = "Processing file %@ (csize: ??; usize: ??; cmethod: %hu)";
         v50 = 18;
 LABEL_66:
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v48, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "EXTRACTION", v49, &v591, v50);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v48, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "EXTRACTION", v49, &v588, v50);
       }
     }
 
@@ -2914,14 +2914,14 @@ LABEL_66:
     {
       v57 = sub_100009C68(*v9);
       v58 = sub_100009B78(*v9);
-      v591.st_dev = v490;
-      *&v591.st_mode = v39;
-      WORD2(v591.st_ino) = 2048;
-      *(&v591.st_ino + 6) = v57;
-      HIWORD(v591.st_gid) = 2048;
-      *&v591.st_rdev = v58;
-      LOWORD(v591.st_atimespec.tv_sec) = 1024;
-      *(&v591.st_atimespec.tv_sec + 2) = v44;
+      v588.st_dev = v487;
+      *&v588.st_mode = v39;
+      WORD2(v588.st_ino) = 2048;
+      *(&v588.st_ino + 6) = v57;
+      HIWORD(v588.st_gid) = 2048;
+      *&v588.st_rdev = v58;
+      LOWORD(v588.st_atimespec.tv_sec) = 1024;
+      *(&v588.st_atimespec.tv_sec + 2) = v44;
       v48 = v46;
       v49 = "Processing file %@ (csize: %llu; usize: %llu; cmethod: %hu)";
       v50 = 38;
@@ -2930,41 +2930,41 @@ LABEL_66:
 
     if (v43 == 47 && ([*v9 currentLFRequiresDataDescriptor] & 1) == 0 && sub_100009C68(*v9))
     {
-      v397 = [*v9 unsureData];
+      v396 = [*v9 unsureData];
 
-      v398 = sub_10000126C();
-      v347 = v398;
-      v10 = v503;
-      v495 = v39;
-      if (v397)
+      v397 = sub_10000126C();
+      v347 = v397;
+      v10 = v500;
+      v492 = v39;
+      if (v396)
       {
-        if (!os_log_type_enabled(v398, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(v397, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_471;
         }
 
-        v591.st_dev = v485;
-        *&v591.st_mode = v40;
+        v588.st_dev = v482;
+        *&v588.st_mode = v40;
         v348 = "Got directory %s with non-zero compressed data size; entering passthrough mode";
         v349 = v347;
         v350 = 12;
         goto LABEL_470;
       }
 
-      if (os_log_type_enabled(v398, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v397, OS_LOG_TYPE_ERROR))
       {
-        v591.st_dev = v488;
-        *&v591.st_mode = v40;
-        WORD2(v591.st_ino) = 2112;
-        *(&v591.st_ino + 6) = 0;
-        _os_log_error_impl(&_mh_execute_header, v347, OS_LOG_TYPE_ERROR, "Directory %s has a non-zero compressed size; directories aren't supposed to have data. : %@", &v591, 0x16u);
+        v588.st_dev = v485;
+        *&v588.st_mode = v40;
+        WORD2(v588.st_ino) = 2112;
+        *(&v588.st_ino + 6) = 0;
+        _os_log_error_impl(&_mh_execute_header, v347, OS_LOG_TYPE_ERROR, "Directory %s has a non-zero compressed size; directories aren't supposed to have data. : %@", &v588, 0x16u);
       }
 
-      v592 = @"SZExtractorFileOffsetErrorKey";
-      v394 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-      v593 = v394;
-      v395 = [NSDictionary dictionaryWithObjects:&v593 forKeys:&v592 count:1];
-      sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 732, @"SZExtractorErrorDomain", 2, 0, v395, @"Directory %s has a non-zero compressed size; directories aren't supposed to have data.", v430, v40);
+      v589 = @"SZExtractorFileOffsetErrorKey";
+      v393 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
+      v590 = v393;
+      v394 = [NSDictionary dictionaryWithObjects:&v590 forKeys:&v589 count:1];
+      sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 732, @"SZExtractorErrorDomain", 2, 0, v394, @"Directory %s has a non-zero compressed size; directories aren't supposed to have data.", v429, v40);
       goto LABEL_517;
     }
 
@@ -3000,9 +3000,9 @@ LABEL_111:
         v90 = sub_10000126C();
         if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
         {
-          v591.st_dev = v485;
-          *&v591.st_mode = v40;
-          _os_log_debug_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEBUG, "File %s is metadata file, so keeping in memory", &v591, 0xCu);
+          v588.st_dev = v482;
+          *&v588.st_mode = v40;
+          _os_log_debug_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEBUG, "File %s is metadata file, so keeping in memory", &v588, 0xCu);
         }
 
         [*v9 setStoreCurrentFileInMemory:1];
@@ -3010,23 +3010,23 @@ LABEL_111:
       }
 
 LABEL_472:
-      v495 = v39;
+      v492 = v39;
       v351 = sub_10000126C();
       if (os_log_type_enabled(v351, OS_LOG_TYPE_DEFAULT))
       {
         v352 = [*v9 recordsProcessed];
-        v591.st_dev = 134218498;
-        *&v591.st_mode = v352;
-        WORD2(v591.st_ino) = 2080;
-        *(&v591.st_ino + 6) = v40;
-        HIWORD(v591.st_gid) = 2080;
-        *&v591.st_rdev = "META-INF/";
-        _os_log_impl(&_mh_execute_header, v351, OS_LOG_TYPE_DEFAULT, "Item %lld (%s) in archive was not 'mimetype' or %s; entering passthrough mode", &v591, 0x20u);
+        v588.st_dev = 134218498;
+        *&v588.st_mode = v352;
+        WORD2(v588.st_ino) = 2080;
+        *(&v588.st_ino + 6) = v40;
+        HIWORD(v588.st_gid) = 2080;
+        *&v588.st_rdev = "META-INF/";
+        _os_log_impl(&_mh_execute_header, v351, OS_LOG_TYPE_DEFAULT, "Item %lld (%s) in archive was not 'mimetype' or %s; entering passthrough mode", &v588, 0x20u);
       }
 
-      v27 = sub_100009408(a1, v546, v31);
-      v7 = v497;
-      v10 = v503;
+      v27 = sub_100009408(a1, v543, v31);
+      v7 = v494;
+      v10 = v500;
 LABEL_519:
 
       goto LABEL_520;
@@ -3051,16 +3051,16 @@ LABEL_114:
       v91 = sub_10000126C();
       if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
       {
-        v591.st_dev = v485;
-        *&v591.st_mode = v40;
-        _os_log_debug_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEBUG, "File %s is fixed metadata file, so keeping in memory", &v591, 0xCu);
+        v588.st_dev = v482;
+        *&v588.st_mode = v40;
+        _os_log_debug_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEBUG, "File %s is fixed metadata file, so keeping in memory", &v588, 0xCu);
       }
 
       [*v9 setStoreCurrentFileInMemory:1];
     }
 
-    v92 = [v498 stringByAppendingPathComponent:v39];
-    v499 = [v92 fileSystemRepresentation];
+    v92 = [v495 stringByAppendingPathComponent:v39];
+    v496 = [v92 fileSystemRepresentation];
     v93 = [*v9 streamInfoDict];
 
     v94 = *v9;
@@ -3125,11 +3125,11 @@ LABEL_216:
       if (os_log_type_enabled(v158, OS_LOG_TYPE_DEBUG))
       {
         v210 = [*v9 currentLFMode];
-        v591.st_dev = v488;
-        *&v591.st_mode = v40;
-        WORD2(v591.st_ino) = 1024;
-        *(&v591.st_ino + 6) = v210;
-        _os_log_debug_impl(&_mh_execute_header, v158, OS_LOG_TYPE_DEBUG, "File %s is a symlink (mode = 0%o), so keeping in memory", &v591, 0x12u);
+        v588.st_dev = v485;
+        *&v588.st_mode = v40;
+        WORD2(v588.st_ino) = 1024;
+        *(&v588.st_ino + 6) = v210;
+        _os_log_debug_impl(&_mh_execute_header, v158, OS_LOG_TYPE_DEBUG, "File %s is a symlink (mode = 0%o), so keeping in memory", &v588, 0x12u);
       }
 
       [*v9 setStoreCurrentFileInMemory:1];
@@ -3142,22 +3142,22 @@ LABEL_216:
       v161 = sub_10000126C();
       if (os_log_type_enabled(v161, OS_LOG_TYPE_DEBUG))
       {
-        v591.st_dev = v488;
-        *&v591.st_mode = v40;
-        WORD2(v591.st_ino) = 2048;
-        *(&v591.st_ino + 6) = v160;
-        _os_log_debug_impl(&_mh_execute_header, v161, OS_LOG_TYPE_DEBUG, "File %s is larger than 5 MB (%llu) so not keeping in memory", &v591, 0x16u);
+        v588.st_dev = v485;
+        *&v588.st_mode = v40;
+        WORD2(v588.st_ino) = 2048;
+        *(&v588.st_ino + 6) = v160;
+        _os_log_debug_impl(&_mh_execute_header, v161, OS_LOG_TYPE_DEBUG, "File %s is larger than 5 MB (%llu) so not keeping in memory", &v588, 0x16u);
       }
 
       [*v9 setStoreCurrentFileInMemory:0];
     }
 
     v162 = [v92 stringByDeletingLastPathComponent];
-    if (([v162 isEqualToString:v498] & 1) == 0)
+    if (([v162 isEqualToString:v495] & 1) == 0)
     {
       v163 = [v162 fileSystemRepresentation];
-      memset(&v591, 0, sizeof(v591));
-      if (stat(v163, &v591))
+      memset(&v588, 0, sizeof(v588));
+      if (stat(v163, &v588))
       {
         if (*__error() != 2)
         {
@@ -3166,20 +3166,20 @@ LABEL_216:
           if (os_log_type_enabled(v190, OS_LOG_TYPE_ERROR))
           {
             v269 = strerror(v189);
-            v585 = v483;
-            v586 = v162;
-            v587 = 2080;
-            v588 = v269;
-            v589 = 2112;
-            v590 = 0;
-            _os_log_error_impl(&_mh_execute_header, v190, OS_LOG_TYPE_ERROR, "Can't determine if parent path exists %@: %s : %@", &v585, 0x20u);
+            v582 = v480;
+            v583 = v162;
+            v584 = 2080;
+            v585 = v269;
+            v586 = 2112;
+            v587 = 0;
+            _os_log_error_impl(&_mh_execute_header, v190, OS_LOG_TYPE_ERROR, "Can't determine if parent path exists %@: %s : %@", &v582, 0x20u);
           }
 
-          v581 = v496;
-          v582 = v162;
-          v191 = [NSDictionary dictionaryWithObjects:&v582 forKeys:&v581 count:1];
+          v578 = v493;
+          v579 = v162;
+          v191 = [NSDictionary dictionaryWithObjects:&v579 forKeys:&v578 count:1];
           strerror(v189);
-          v193 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 905, v492, v189, 0, v191, @"Can't determine if parent path exists %@: %s", v192, v162);
+          v193 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 905, v489, v189, 0, v191, @"Can't determine if parent path exists %@: %s", v192, v162);
 
           goto LABEL_260;
         }
@@ -3187,9 +3187,9 @@ LABEL_216:
         v164 = sub_10000126C();
         if (os_log_type_enabled(v164, OS_LOG_TYPE_DEBUG))
         {
-          v585 = v491;
-          v586 = v162;
-          _os_log_debug_impl(&_mh_execute_header, v164, OS_LOG_TYPE_DEBUG, "Parent path %@ did not exist", &v585, 0xCu);
+          v582 = v488;
+          v583 = v162;
+          _os_log_debug_impl(&_mh_execute_header, v164, OS_LOG_TYPE_DEBUG, "Parent path %@ did not exist", &v582, 0xCu);
         }
 
         v165 = mkpath_np(v163, 0x1EDu);
@@ -3198,30 +3198,30 @@ LABEL_216:
         v167 = 1;
         if (v165 && v165 != 17)
         {
-          LODWORD(v494) = v44;
+          LODWORD(v491) = v44;
           v168 = sub_10000126C();
           if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
           {
             v292 = strerror(v166);
-            v585 = v483;
-            v586 = v162;
-            v587 = 2080;
-            v588 = v292;
-            v589 = 2112;
-            v590 = 0;
-            _os_log_error_impl(&_mh_execute_header, v168, OS_LOG_TYPE_ERROR, "Failed to create parent directory %@: %s : %@", &v585, 0x20u);
+            v582 = v480;
+            v583 = v162;
+            v584 = 2080;
+            v585 = v292;
+            v586 = 2112;
+            v587 = 0;
+            _os_log_error_impl(&_mh_execute_header, v168, OS_LOG_TYPE_ERROR, "Failed to create parent directory %@: %s : %@", &v582, 0x20u);
           }
 
-          v583 = v496;
-          v584 = v162;
-          v169 = [NSDictionary dictionaryWithObjects:&v584 forKeys:&v583 count:1];
+          v580 = v493;
+          v581 = v162;
+          v169 = [NSDictionary dictionaryWithObjects:&v581 forKeys:&v580 count:1];
           strerror(v166);
-          v171 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 858, v492, v166, 0, v169, @"Failed to create parent directory %@: %s", v170, v162);
+          v171 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 858, v489, v166, 0, v169, @"Failed to create parent directory %@: %s", v170, v162);
 
           v167 = 0;
           v55 = 2;
-          v503 = v171;
-          v44 = v494;
+          v500 = v171;
+          v44 = v491;
         }
 
         if (v166 && v166 != 17 && !v167)
@@ -3231,18 +3231,18 @@ LABEL_216:
       }
     }
 
-    v172 = v502;
-    v173 = sub_1000018A8([*v502 currentLFRecord], &word_10001A710, 8u);
+    v172 = v499;
+    v173 = sub_1000018A8([*v499 currentLFRecord], &word_10001A710, 8u);
     v174 = *v172;
     if (v43 != 47)
     {
       if ([v174 storeCurrentFileInMemory])
       {
-        v178 = v503;
+        v178 = v500;
         goto LABEL_295;
       }
 
-      v499 = v173;
+      v496 = v173;
       v186 = v44;
       [*v172 fileWriter];
       if (objc_claimAutoreleasedReturnValue())
@@ -3257,36 +3257,36 @@ LABEL_216:
 LABEL_293:
         v219 = [*(a1 + 64) performCachedWrites];
         v220 = *(a1 + 96);
-        v221 = v503;
-        v543 = v503;
-        v222 = [StreamingFileWriter fileWriterForPath:v92 withOpenFlags:1538 mode:384 quarantineInfo:0 useFSCompression:v187 performCachedWrites:v219 expectedSize:v188 asyncTrackingGroup:v220 errorDelegate:a1 error:&v543];
-        v223 = v543;
+        v221 = v500;
+        v540 = v500;
+        v222 = [StreamingFileWriter fileWriterForPath:v92 withOpenFlags:1538 mode:384 quarantineInfo:0 useFSCompression:v187 performCachedWrites:v219 expectedSize:v188 asyncTrackingGroup:v220 errorDelegate:a1 error:&v540];
+        v223 = v540;
 
         if (!v222)
         {
           v266 = sub_10000126C();
           if (os_log_type_enabled(v266, OS_LOG_TYPE_ERROR))
           {
-            v591.st_dev = v489;
-            *&v591.st_mode = v92;
-            WORD2(v591.st_ino) = 2112;
-            *(&v591.st_ino + 6) = v223;
-            _os_log_error_impl(&_mh_execute_header, v266, OS_LOG_TYPE_ERROR, "Failed to open output file at path %@ : %@", &v591, 0x16u);
+            v588.st_dev = v486;
+            *&v588.st_mode = v92;
+            WORD2(v588.st_ino) = 2112;
+            *(&v588.st_ino + 6) = v223;
+            _os_log_error_impl(&_mh_execute_header, v266, OS_LOG_TYPE_ERROR, "Failed to open output file at path %@ : %@", &v588, 0x16u);
           }
 
-          v577 = v496;
-          v578 = v92;
-          v267 = [NSDictionary dictionaryWithObjects:&v578 forKeys:&v577 count:1];
-          v503 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 988, @"SZExtractorErrorDomain", 1, v223, v267, @"Failed to open output file at path %@", v268, v92);
+          v574 = v493;
+          v575 = v92;
+          v267 = [NSDictionary dictionaryWithObjects:&v575 forKeys:&v574 count:1];
+          v500 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 988, @"SZExtractorErrorDomain", 1, v223, v267, @"Failed to open output file at path %@", v268, v92);
 
           v55 = 2;
           goto LABEL_298;
         }
 
-        v591.st_dev = -1;
-        v585 = -1;
-        v224 = [*v172 resolveOwnershipWithExtraField:v499 outUID:&v591 outGID:&v585];
-        [v222 configureFileAndSetOwnership:v224 toUID:v591.st_dev GID:v585];
+        v588.st_dev = -1;
+        v582 = -1;
+        v224 = [*v172 resolveOwnershipWithExtraField:v496 outUID:&v588 outGID:&v582];
+        [v222 configureFileAndSetOwnership:v224 toUID:v588.st_dev GID:v582];
         [*v172 setFileWriter:v222];
 
         v178 = v223;
@@ -3314,11 +3314,11 @@ LABEL_293:
       {
         v200 = a1;
         v201 = 93 * v198;
-        if ((v198 * 93) >> 64 != (93 * v198) >> 63 || (v202 = sub_100009C68(*v502), v203 = ((v201 >> 2) * 0x28F5C28F5C28F5C3uLL) >> 64, v202 <= (93 * v188 / 0x64)))
+        if ((v198 * 93) >> 64 != (93 * v198) >> 63 || (v202 = sub_100009C68(*v499), v203 = ((v201 >> 2) * 0x28F5C28F5C28F5C3uLL) >> 64, v202 <= (93 * v188 / 0x64)))
         {
           v187 = 1;
           a1 = v200;
-          v172 = v502;
+          v172 = v499;
           goto LABEL_293;
         }
 
@@ -3326,19 +3326,19 @@ LABEL_293:
         v205 = sub_10000126C();
         if (os_log_type_enabled(v205, OS_LOG_TYPE_DEBUG))
         {
-          v591.st_dev = v480;
-          *&v591.st_mode = v204;
-          WORD2(v591.st_ino) = 2048;
-          *(&v591.st_ino + 6) = v188;
-          HIWORD(v591.st_gid) = 2048;
-          *&v591.st_rdev = v203 >> 2;
-          LOWORD(v591.st_atimespec.tv_sec) = 2112;
-          *(&v591.st_atimespec.tv_sec + 2) = v92;
-          _os_log_debug_impl(&_mh_execute_header, v205, OS_LOG_TYPE_DEBUG, "Skipping FS compression because archive compression ratio was insufficient: c:%llu u:%llu maxC:%llu : %@", &v591, 0x2Au);
+          v588.st_dev = v477;
+          *&v588.st_mode = v204;
+          WORD2(v588.st_ino) = 2048;
+          *(&v588.st_ino + 6) = v188;
+          HIWORD(v588.st_gid) = 2048;
+          *&v588.st_rdev = v203 >> 2;
+          LOWORD(v588.st_atimespec.tv_sec) = 2112;
+          *(&v588.st_atimespec.tv_sec + 2) = v92;
+          _os_log_debug_impl(&_mh_execute_header, v205, OS_LOG_TYPE_DEBUG, "Skipping FS compression because archive compression ratio was insufficient: c:%llu u:%llu maxC:%llu : %@", &v588, 0x2Au);
         }
 
         a1 = v200;
-        v172 = v502;
+        v172 = v499;
       }
 
       else
@@ -3346,9 +3346,9 @@ LABEL_293:
         v205 = sub_10000126C();
         if (os_log_type_enabled(v205, OS_LOG_TYPE_DEBUG))
         {
-          v591.st_dev = v491;
-          *&v591.st_mode = v92;
-          _os_log_debug_impl(&_mh_execute_header, v205, OS_LOG_TYPE_DEBUG, "Skipping FS compression because file was uncompressed in archive: %@", &v591, 0xCu);
+          v588.st_dev = v488;
+          *&v588.st_mode = v92;
+          _os_log_debug_impl(&_mh_execute_header, v205, OS_LOG_TYPE_DEBUG, "Skipping FS compression because file was uncompressed in archive: %@", &v588, 0xCu);
         }
       }
 
@@ -3357,9 +3357,9 @@ LABEL_293:
     }
 
     v175 = [v174 currentLFMode];
-    v176 = v499;
-    v177 = mkdir(v499, v175 | 0xC0);
-    v178 = v503;
+    v176 = v496;
+    v177 = mkdir(v496, v175 | 0xC0);
+    v178 = v500;
     if (!v177)
     {
       goto LABEL_244;
@@ -3374,47 +3374,47 @@ LABEL_293:
         if (os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
         {
           v273 = strerror(v179);
-          v591.st_dev = v489;
-          *&v591.st_mode = v92;
-          WORD2(v591.st_ino) = 2080;
-          *(&v591.st_ino + 6) = v273;
-          _os_log_error_impl(&_mh_execute_header, v180, OS_LOG_TYPE_ERROR, "Failed to set proper mode on directory %@: %s", &v591, 0x16u);
+          v588.st_dev = v486;
+          *&v588.st_mode = v92;
+          WORD2(v588.st_ino) = 2080;
+          *(&v588.st_ino + 6) = v273;
+          _os_log_error_impl(&_mh_execute_header, v180, OS_LOG_TYPE_ERROR, "Failed to set proper mode on directory %@: %s", &v588, 0x16u);
         }
 
-        v176 = v499;
+        v176 = v496;
       }
 
 LABEL_244:
-      v585 = -1;
-      v544 = -1;
-      if ([*v172 resolveOwnershipWithExtraField:v173 outUID:&v585 outGID:&v544] && lchown(v176, v585, v544))
+      v582 = -1;
+      v541 = -1;
+      if ([*v172 resolveOwnershipWithExtraField:v173 outUID:&v582 outGID:&v541] && lchown(v176, v582, v541))
       {
         v181 = *__error();
         v182 = sub_10000126C();
         if (os_log_type_enabled(v182, OS_LOG_TYPE_DEFAULT))
         {
           v183 = a1;
-          v184 = v585;
-          LODWORD(v499) = v544;
+          v184 = v582;
+          LODWORD(v496) = v541;
           v185 = strerror(v181);
-          v591.st_dev = v486;
-          *&v591.st_mode = v176;
-          WORD2(v591.st_ino) = 1024;
-          *(&v591.st_ino + 6) = v184;
+          v588.st_dev = v483;
+          *&v588.st_mode = v176;
+          WORD2(v588.st_ino) = 1024;
+          *(&v588.st_ino + 6) = v184;
           a1 = v183;
-          v172 = v502;
-          HIWORD(v591.st_uid) = 1024;
-          v591.st_gid = v499;
-          LOWORD(v591.st_rdev) = 1024;
-          *(&v591.st_rdev + 2) = v181;
-          *(&v591.st_rdev + 3) = 2080;
-          v591.st_atimespec.tv_sec = v185;
-          _os_log_impl(&_mh_execute_header, v182, OS_LOG_TYPE_DEFAULT, "Failed to lchown %s to (%d:%d) : %d (%s)", &v591, 0x28u);
+          v172 = v499;
+          HIWORD(v588.st_uid) = 1024;
+          v588.st_gid = v496;
+          LOWORD(v588.st_rdev) = 1024;
+          *(&v588.st_rdev + 2) = v181;
+          *(&v588.st_rdev + 3) = 2080;
+          v588.st_atimespec.tv_sec = v185;
+          _os_log_impl(&_mh_execute_header, v182, OS_LOG_TYPE_DEFAULT, "Failed to lchown %s to (%d:%d) : %d (%s)", &v588, 0x28u);
         }
       }
 
 LABEL_295:
-      v503 = v178;
+      v500 = v178;
       if (([*v172 currentLFRequiresDataDescriptor] & 1) != 0 || sub_100009C68(*v172))
       {
         [*v172 setStreamState:2];
@@ -3435,42 +3435,42 @@ LABEL_295:
     if (os_log_type_enabled(v195, OS_LOG_TYPE_ERROR))
     {
       v270 = strerror(v194);
-      v591.st_dev = v483;
-      *&v591.st_mode = v92;
-      WORD2(v591.st_ino) = 2080;
-      *(&v591.st_ino + 6) = v270;
-      HIWORD(v591.st_gid) = 2112;
-      *&v591.st_rdev = 0;
-      _os_log_error_impl(&_mh_execute_header, v195, OS_LOG_TYPE_ERROR, "Failed to create directory at path %@: %s : %@", &v591, 0x20u);
+      v588.st_dev = v480;
+      *&v588.st_mode = v92;
+      WORD2(v588.st_ino) = 2080;
+      *(&v588.st_ino + 6) = v270;
+      HIWORD(v588.st_gid) = 2112;
+      *&v588.st_rdev = 0;
+      _os_log_error_impl(&_mh_execute_header, v195, OS_LOG_TYPE_ERROR, "Failed to create directory at path %@: %s : %@", &v588, 0x20u);
     }
 
-    v579 = v496;
-    v580 = v92;
-    v196 = [NSDictionary dictionaryWithObjects:&v580 forKeys:&v579 count:1];
+    v576 = v493;
+    v577 = v92;
+    v196 = [NSDictionary dictionaryWithObjects:&v577 forKeys:&v576 count:1];
     strerror(v194);
-    v193 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 920, v492, v194, 0, v196, @"Failed to create directory at path %@: %s", v197, v92);
+    v193 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 920, v489, v194, 0, v196, @"Failed to create directory at path %@: %s", v197, v92);
 
 LABEL_260:
     v55 = 2;
-    v503 = v193;
+    v500 = v193;
 LABEL_298:
 
     if (v55)
     {
-      v7 = v497;
-      v56 = v501;
-      v10 = v503;
+      v7 = v494;
+      v56 = v498;
+      v10 = v500;
       goto LABEL_407;
     }
 
-    v12 = v545;
-    v7 = v497;
-    v9 = v502;
-    v10 = v503;
+    v12 = v542;
+    v7 = v494;
+    v9 = v499;
+    v10 = v500;
 LABEL_301:
     v225 = [*v9 currentLFRequiresDataDescriptor];
     v226 = *([*v9 currentLFRecord] + 4);
-    LODWORD(v495) = v225;
+    LODWORD(v492) = v225;
     if (!v225 || (v227 = v12, !v226))
     {
       v228 = sub_100009C68(*v9);
@@ -3498,7 +3498,7 @@ LABEL_301:
     }
 
 LABEL_366:
-    if (v495 && *([*v9 currentLFRecord] + 4))
+    if (v492 && *([*v9 currentLFRecord] + 4))
     {
       if (v227)
       {
@@ -3524,7 +3524,7 @@ LABEL_372:
       }
 
       v264 = *v9;
-      if (v495)
+      if (v492)
       {
         goto LABEL_372;
       }
@@ -3535,11 +3535,11 @@ LABEL_372:
 LABEL_62:
     v55 = 3;
 LABEL_63:
-    v56 = v501;
+    v56 = v498;
 LABEL_407:
     objc_autoreleasePoolPop(v56);
     v289 = v55 == 3;
-    v9 = v502;
+    v9 = v499;
     if (!v289)
     {
       goto LABEL_424;
@@ -3552,10 +3552,10 @@ LABEL_407:
   }
 
 LABEL_310:
-  v503 = v10;
-  v475 = 0;
-  v476 = v226;
-  v500 = a1;
+  v500 = v10;
+  v472 = 0;
+  v473 = v226;
+  v497 = a1;
   while (2)
   {
     if (v227 >= 0x7FFFFFFF)
@@ -3568,31 +3568,31 @@ LABEL_310:
       v230 = v227;
     }
 
-    v494 = v227 - v230;
+    v491 = v227 - v230;
     if (v226 > 13)
     {
       if (v226 != 14 && v226 != 99)
       {
 LABEL_506:
         v382 = sub_100009D94([*v9 currentLFRecord]);
-        v565[0] = @"SZExtractorFileOffsetErrorKey";
+        v562[0] = @"SZExtractorFileOffsetErrorKey";
         v383 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-        v565[1] = v496;
-        v566[0] = v383;
-        v566[1] = v382;
-        v384 = [NSDictionary dictionaryWithObjects:v566 forKeys:v565 count:2];
+        v562[1] = v493;
+        v563[0] = v383;
+        v563[1] = v382;
+        v384 = [NSDictionary dictionaryWithObjects:v563 forKeys:v562 count:2];
 
         v385 = sub_10000126C();
         if (os_log_type_enabled(v385, OS_LOG_TYPE_ERROR))
         {
-          v437 = *([*v9 currentLFRecord] + 4);
-          v591.st_dev = 67109634;
-          *&v591.st_mode = v437;
-          LOWORD(v591.st_ino) = 2112;
-          *(&v591.st_ino + 2) = v382;
-          HIWORD(v591.st_uid) = 2112;
-          *&v591.st_gid = 0;
-          _os_log_error_impl(&_mh_execute_header, v385, OS_LOG_TYPE_ERROR, "Unknown compression method %hu for file %@ : %@", &v591, 0x1Cu);
+          v436 = *([*v9 currentLFRecord] + 4);
+          v588.st_dev = 67109634;
+          *&v588.st_mode = v436;
+          LOWORD(v588.st_ino) = 2112;
+          *(&v588.st_ino + 2) = v382;
+          HIWORD(v588.st_uid) = 2112;
+          *&v588.st_gid = 0;
+          _os_log_error_impl(&_mh_execute_header, v385, OS_LOG_TYPE_ERROR, "Unknown compression method %hu for file %@ : %@", &v588, 0x1Cu);
         }
 
         v386 = [*v9 currentLFRecord];
@@ -3618,26 +3618,26 @@ LABEL_320:
           v378 = sub_10000126C();
           if (os_log_type_enabled(v378, OS_LOG_TYPE_ERROR))
           {
-            v591.st_dev = 67109378;
-            *&v591.st_mode = v377;
-            LOWORD(v591.st_ino) = 2112;
-            *(&v591.st_ino + 2) = 0;
-            _os_log_error_impl(&_mh_execute_header, v378, OS_LOG_TYPE_ERROR, "Failed to initialize compression: %d : %@", &v591, 0x12u);
+            v588.st_dev = 67109378;
+            *&v588.st_mode = v377;
+            LOWORD(v588.st_ino) = 2112;
+            *(&v588.st_ino + 2) = 0;
+            _os_log_error_impl(&_mh_execute_header, v378, OS_LOG_TYPE_ERROR, "Failed to initialize compression: %d : %@", &v588, 0x12u);
           }
 
-          v575 = @"SZExtractorCompressionLibErrorKey";
+          v572 = @"SZExtractorCompressionLibErrorKey";
           v379 = [NSNumber numberWithInt:v377];
-          v576 = v379;
-          v380 = [NSDictionary dictionaryWithObjects:&v576 forKeys:&v575 count:1];
+          v573 = v379;
+          v380 = [NSDictionary dictionaryWithObjects:&v573 forKeys:&v572 count:1];
           v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1091, @"SZExtractorErrorDomain", 1, 0, v380, @"Failed to initialize compression: %d", v381, v377);
 
           goto LABEL_534;
         }
       }
 
-      LODWORD(v499) = 0;
-      src_ptr = v546;
-      v231->src_ptr = v546;
+      LODWORD(v496) = 0;
+      src_ptr = v543;
+      v231->src_ptr = v543;
       v231->src_size = v230;
       while (1)
       {
@@ -3649,9 +3649,9 @@ LABEL_320:
         v237 = sub_10000126C();
         if (os_log_type_enabled(v237, OS_LOG_TYPE_DEBUG))
         {
-          v591.st_dev = v493;
-          *&v591.st_mode = v230 - src_size;
-          _os_log_debug_impl(&_mh_execute_header, v237, OS_LOG_TYPE_DEBUG, "compression_stream_process consumed %zu bytes", &v591, 0xCu);
+          v588.st_dev = v490;
+          *&v588.st_mode = v230 - src_size;
+          _os_log_debug_impl(&_mh_execute_header, v237, OS_LOG_TYPE_DEBUG, "compression_stream_process consumed %zu bytes", &v588, 0xCu);
         }
 
         [*v9 setCurrentOffset:{objc_msgSend(*v9, "currentOffset") + v236}];
@@ -3664,28 +3664,28 @@ LABEL_320:
 
         if (!v234 && v230 && v230 == src_size && dst_size == 0x10000)
         {
-          v573[0] = @"SZExtractorFileOffsetErrorKey";
-          v9 = v502;
-          v303 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v502 currentOffset]);
-          v574[0] = v303;
-          v573[1] = v496;
+          v570[0] = @"SZExtractorFileOffsetErrorKey";
+          v9 = v499;
+          v303 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v499 currentOffset]);
+          v571[0] = v303;
+          v570[1] = v493;
           v304 = sub_100009D94([*v9 currentLFRecord]);
-          v574[1] = v304;
-          v305 = [NSDictionary dictionaryWithObjects:v574 forKeys:v573 count:2];
+          v571[1] = v304;
+          v305 = [NSDictionary dictionaryWithObjects:v571 forKeys:v570 count:2];
 
           v306 = sub_10000126C();
           if (os_log_type_enabled(v306, OS_LOG_TYPE_ERROR))
           {
             v353 = sub_100009D94([*v9 currentLFRecord]);
-            v591.st_dev = v490;
-            *&v591.st_mode = v353;
-            WORD2(v591.st_ino) = 2048;
-            *(&v591.st_ino + 6) = v230;
-            HIWORD(v591.st_gid) = 2048;
-            *&v591.st_rdev = 0x10000;
-            LOWORD(v591.st_atimespec.tv_sec) = 2112;
-            *(&v591.st_atimespec.tv_sec + 2) = 0;
-            _os_log_error_impl(&_mh_execute_header, v306, OS_LOG_TYPE_ERROR, "compression_stream_process did not consume data for output file %@; input buffer size: %zu, output buffer size: %zu : %@", &v591, 0x2Au);
+            v588.st_dev = v487;
+            *&v588.st_mode = v353;
+            WORD2(v588.st_ino) = 2048;
+            *(&v588.st_ino + 6) = v230;
+            HIWORD(v588.st_gid) = 2048;
+            *&v588.st_rdev = 0x10000;
+            LOWORD(v588.st_atimespec.tv_sec) = 2112;
+            *(&v588.st_atimespec.tv_sec + 2) = 0;
+            _os_log_error_impl(&_mh_execute_header, v306, OS_LOG_TYPE_ERROR, "compression_stream_process did not consume data for output file %@; input buffer size: %zu, output buffer size: %zu : %@", &v588, 0x2Au);
           }
 
           v307 = sub_100009D94([*v9 currentLFRecord]);
@@ -3696,26 +3696,26 @@ LABEL_320:
 
         if (v234 >= 2)
         {
-          v571[0] = @"SZExtractorCompressionLibErrorKey";
+          v568[0] = @"SZExtractorCompressionLibErrorKey";
           v309 = [NSNumber numberWithInt:v234];
-          v572[0] = v309;
-          v571[1] = @"SZExtractorFileOffsetErrorKey";
-          v9 = v502;
-          v310 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v502 currentOffset]);
-          v572[1] = v310;
-          v571[2] = v496;
+          v569[0] = v309;
+          v568[1] = @"SZExtractorFileOffsetErrorKey";
+          v9 = v499;
+          v310 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v499 currentOffset]);
+          v569[1] = v310;
+          v568[2] = v493;
           v311 = sub_100009D94([*v9 currentLFRecord]);
-          v572[2] = v311;
-          v305 = [NSDictionary dictionaryWithObjects:v572 forKeys:v571 count:3];
+          v569[2] = v311;
+          v305 = [NSDictionary dictionaryWithObjects:v569 forKeys:v568 count:3];
 
           v312 = sub_10000126C();
           if (os_log_type_enabled(v312, OS_LOG_TYPE_ERROR))
           {
-            v591.st_dev = 67109378;
-            *&v591.st_mode = v234;
-            LOWORD(v591.st_ino) = 2112;
-            *(&v591.st_ino + 2) = 0;
-            _os_log_error_impl(&_mh_execute_header, v312, OS_LOG_TYPE_ERROR, "compression_stream_process returned unexpected result %d : %@", &v591, 0x12u);
+            v588.st_dev = 67109378;
+            *&v588.st_mode = v234;
+            LOWORD(v588.st_ino) = 2112;
+            *(&v588.st_ino + 2) = 0;
+            _os_log_error_impl(&_mh_execute_header, v312, OS_LOG_TYPE_ERROR, "compression_stream_process returned unexpected result %d : %@", &v588, 0x12u);
           }
 
           v10 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1144, @"SZExtractorErrorDomain", 2, 0, v305, @"compression_stream_process returned unexpected result %d", v313, v234);
@@ -3723,35 +3723,35 @@ LABEL_432:
 
           v257 = 0;
 LABEL_433:
-          v7 = v497;
-          a1 = v500;
+          v7 = v494;
+          a1 = v497;
           goto LABEL_535;
         }
 
         if (v230 == src_size)
         {
-          a1 = v500;
-          v10 = v503;
+          a1 = v497;
+          v10 = v500;
         }
 
         else
         {
-          v10 = [*v502 updateHashFromOffset:objc_msgSend(*v502 withBytes:"currentOffset") - v236 length:{src_ptr, v230 - src_size}];
+          v10 = [*v499 updateHashFromOffset:objc_msgSend(*v499 withBytes:"currentOffset") - v236 length:{src_ptr, v230 - src_size}];
 
-          a1 = v500;
+          a1 = v497;
           if (v10)
           {
             v257 = 0;
-            v7 = v497;
+            v7 = v494;
             goto LABEL_435;
           }
 
-          LODWORD(v499) = v499 + v236;
+          LODWORD(v496) = v496 + v236;
         }
 
         if (dst_size == 0x10000)
         {
-          v9 = v502;
+          v9 = v499;
         }
 
         else
@@ -3766,13 +3766,13 @@ LABEL_433:
             v242 = [v241 inMemoryFileData];
             [v242 appendBytes:*(a1 + 56) length:0x10000 - dst_size];
 
-            v9 = v502;
+            v9 = v499;
           }
 
           else
           {
             v243 = [v241 fileWriter];
-            v244 = v502;
+            v244 = v499;
             if (!v243)
             {
               __assert_rtn("[StreamingUnzipper _supplyBytes:length:withReply:]", "StreamingUnzipper.m", 1165, "_currentState.fileWriter");
@@ -3780,16 +3780,16 @@ LABEL_433:
 
             v245 = [*(a1 + 64) fileWriter];
             v246 = *(a1 + 56);
-            v541 = v10;
-            v247 = [v245 writeBuffer:v246 length:v239 error:&v541];
-            v248 = v541;
+            v538 = v10;
+            v247 = [v245 writeBuffer:v246 length:v239 error:&v538];
+            v248 = v538;
 
             if (!v247)
             {
               v257 = 0;
               v10 = v248;
-              v7 = v497;
-              v318 = v501;
+              v7 = v494;
+              v318 = v498;
               v9 = v244;
               goto LABEL_536;
             }
@@ -3805,7 +3805,7 @@ LABEL_433:
           }
         }
 
-        v503 = v10;
+        v500 = v10;
         if (v234)
         {
           break;
@@ -3820,94 +3820,94 @@ LABEL_433:
         src_ptr = v231->src_ptr;
       }
 
-      if (v495)
+      if (v492)
       {
-        v494 = 0;
-        v475 = 1;
+        v491 = 0;
+        v472 = 1;
         goto LABEL_363;
       }
 
       v260 = sub_100009C68(*v9);
       if (v260 != [*v9 thisStageBytesComplete])
       {
-        v414 = sub_10000126C();
-        if (os_log_type_enabled(v414, OS_LOG_TYPE_ERROR))
+        v413 = sub_10000126C();
+        if (os_log_type_enabled(v413, OS_LOG_TYPE_ERROR))
         {
-          v457 = sub_100009C68(*v9);
-          v458 = v457 - [*v9 thisStageBytesComplete];
-          v459 = sub_100009D94([*v9 currentLFRecord]);
-          v591.st_dev = 134218498;
-          *&v591.st_mode = v458;
-          WORD2(v591.st_ino) = 2112;
-          *(&v591.st_ino + 6) = v459;
-          HIWORD(v591.st_gid) = 2112;
-          *&v591.st_rdev = 0;
-          _os_log_error_impl(&_mh_execute_header, v414, OS_LOG_TYPE_ERROR, "Hit compression stream end with %llu compressed bytes remaining for file %@ : %@", &v591, 0x20u);
+          v456 = sub_100009C68(*v9);
+          v457 = v456 - [*v9 thisStageBytesComplete];
+          v458 = sub_100009D94([*v9 currentLFRecord]);
+          v588.st_dev = 134218498;
+          *&v588.st_mode = v457;
+          WORD2(v588.st_ino) = 2112;
+          *(&v588.st_ino + 6) = v458;
+          HIWORD(v588.st_gid) = 2112;
+          *&v588.st_rdev = 0;
+          _os_log_error_impl(&_mh_execute_header, v413, OS_LOG_TYPE_ERROR, "Hit compression stream end with %llu compressed bytes remaining for file %@ : %@", &v588, 0x20u);
         }
 
-        v569 = @"SZExtractorFileOffsetErrorKey";
-        v415 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-        v570 = v415;
-        v416 = [NSDictionary dictionaryWithObjects:&v570 forKeys:&v569 count:1];
-        v417 = sub_100009C68(*v9);
-        v418 = v417 - [*v9 thisStageBytesComplete];
-        v473 = sub_100009D94([*v9 currentLFRecord]);
-        v420 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1187, @"SZExtractorErrorDomain", 2, 0, v416, @"Hit compression stream end with %llu compressed bytes remaining for file %@", v419, v418);
+        v566 = @"SZExtractorFileOffsetErrorKey";
+        v414 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
+        v567 = v414;
+        v415 = [NSDictionary dictionaryWithObjects:&v567 forKeys:&v566 count:1];
+        v416 = sub_100009C68(*v9);
+        v417 = v416 - [*v9 thisStageBytesComplete];
+        v470 = sub_100009D94([*v9 currentLFRecord]);
+        v419 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1187, @"SZExtractorErrorDomain", 2, 0, v415, @"Hit compression stream end with %llu compressed bytes remaining for file %@", v418, v417);
 
         v257 = 0;
-        v10 = v420;
+        v10 = v419;
         goto LABEL_433;
       }
 
       v261 = sub_100009B78(*v9);
       if (v261 != [*v9 uncompressedBytesOutput])
       {
-        v421 = sub_10000126C();
-        if (os_log_type_enabled(v421, OS_LOG_TYPE_ERROR))
+        v420 = sub_10000126C();
+        if (os_log_type_enabled(v420, OS_LOG_TYPE_ERROR))
         {
-          v460 = [*v9 uncompressedBytesOutput];
-          v461 = sub_100009D94([*v9 currentLFRecord]);
-          v462 = sub_100009B78(*v9);
-          v591.st_dev = v480;
-          *&v591.st_mode = v460;
-          WORD2(v591.st_ino) = 2112;
-          *(&v591.st_ino + 6) = v461;
-          HIWORD(v591.st_gid) = 2048;
-          *&v591.st_rdev = v462;
-          LOWORD(v591.st_atimespec.tv_sec) = 2112;
-          *(&v591.st_atimespec.tv_sec + 2) = 0;
-          _os_log_error_impl(&_mh_execute_header, v421, OS_LOG_TYPE_ERROR, "Hit compression stream end at %llu bytes output for file %@, but expected uncompressed file size of %llu bytes : %@", &v591, 0x2Au);
+          v459 = [*v9 uncompressedBytesOutput];
+          v460 = sub_100009D94([*v9 currentLFRecord]);
+          v461 = sub_100009B78(*v9);
+          v588.st_dev = v477;
+          *&v588.st_mode = v459;
+          WORD2(v588.st_ino) = 2112;
+          *(&v588.st_ino + 6) = v460;
+          HIWORD(v588.st_gid) = 2048;
+          *&v588.st_rdev = v461;
+          LOWORD(v588.st_atimespec.tv_sec) = 2112;
+          *(&v588.st_atimespec.tv_sec + 2) = 0;
+          _os_log_error_impl(&_mh_execute_header, v420, OS_LOG_TYPE_ERROR, "Hit compression stream end at %llu bytes output for file %@, but expected uncompressed file size of %llu bytes : %@", &v588, 0x2Au);
         }
 
-        v567 = @"SZExtractorFileOffsetErrorKey";
-        v405 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
-        v568 = v405;
-        v406 = [NSDictionary dictionaryWithObjects:&v568 forKeys:&v567 count:1];
-        v422 = [*v9 uncompressedBytesOutput];
-        v468 = sub_100009D94([*v9 currentLFRecord]);
+        v564 = @"SZExtractorFileOffsetErrorKey";
+        v404 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*v9 currentOffset]);
+        v565 = v404;
+        v405 = [NSDictionary dictionaryWithObjects:&v565 forKeys:&v564 count:1];
+        v421 = [*v9 uncompressedBytesOutput];
+        v467 = sub_100009D94([*v9 currentLFRecord]);
         sub_100009B78(*v9);
-        v409 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1190, @"SZExtractorErrorDomain", 2, 0, v406, @"Hit compression stream end at %llu bytes output for file %@, but expected uncompressed file size of %llu bytes", v423, v422);
+        v408 = sub_1000015F4("[StreamingUnzipper _supplyBytes:length:withReply:]", 1190, @"SZExtractorErrorDomain", 2, 0, v405, @"Hit compression stream end at %llu bytes output for file %@, but expected uncompressed file size of %llu bytes", v422, v421);
 
         goto LABEL_557;
       }
 
 LABEL_363:
-      LODWORD(v230) = v499;
-      v7 = v497;
+      LODWORD(v230) = v496;
+      v7 = v494;
 LABEL_364:
       v262 = [*v9 unsureData];
-      v263 = v546;
-      [v262 appendBytes:v546 length:v230];
+      v263 = v543;
+      [v262 appendBytes:v543 length:v230];
 
-      v12 = v545 - v230;
-      v545 = v12;
-      v546 = &v263[v230];
-      v226 = v476;
-      v227 = v494;
-      if (!v494)
+      v12 = v542 - v230;
+      v542 = v12;
+      v543 = &v263[v230];
+      v226 = v473;
+      v227 = v491;
+      if (!v491)
       {
-        v10 = v503;
-        LOBYTE(v227) = v475;
+        v10 = v500;
+        LOBYTE(v227) = v472;
         goto LABEL_366;
       }
 
@@ -3928,8 +3928,8 @@ LABEL_364:
   }
 
   v249 = [*v9 currentCRC32];
-  v250 = v546;
-  [*v9 setCurrentCRC32:{crc32(v249, v546, v230)}];
+  v250 = v543;
+  [*v9 setCurrentCRC32:{crc32(v249, v543, v230)}];
   v251 = [*v9 storeCurrentFileInMemory];
   v252 = *v9;
   if (v251)
@@ -3949,12 +3949,12 @@ LABEL_357:
 
     v258 = *v9;
     v259 = [*v9 currentOffset];
-    v27 = [v258 updateHashFromOffset:&v259[-v230] withBytes:v546 length:v230];
+    v27 = [v258 updateHashFromOffset:&v259[-v230] withBytes:v543 length:v230];
 
     if (!v27)
     {
       [*v9 markResumptionPoint];
-      v503 = 0;
+      v500 = 0;
       goto LABEL_364;
     }
 
@@ -3971,21 +3971,21 @@ LABEL_520:
     }
 
     v255 = [*v9 fileWriter];
-    v256 = v503;
-    v542 = v503;
-    v257 = [v255 writeBuffer:v250 length:v230 error:&v542];
-    v27 = v542;
+    v256 = v500;
+    v539 = v500;
+    v257 = [v255 writeBuffer:v250 length:v230 error:&v539];
+    v27 = v539;
 
     if (v257)
     {
-      v503 = v27;
+      v500 = v27;
       goto LABEL_357;
     }
   }
 
   v10 = v27;
 LABEL_535:
-  v318 = v501;
+  v318 = v498;
 LABEL_536:
   objc_autoreleasePoolPop(v318);
   if (v10)
@@ -3993,11 +3993,11 @@ LABEL_536:
 LABEL_537:
     if ([*v9 performingExtraction])
     {
-      v404 = sub_100001314();
-      if (os_signpost_enabled(v404))
+      v403 = sub_100001314();
+      if (os_signpost_enabled(v403))
       {
-        LOWORD(v591.st_dev) = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v404, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "EXTRACTION", "Extraction failed", &v591, 2u);
+        LOWORD(v588.st_dev) = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v403, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "EXTRACTION", "Extraction failed", &v588, 2u);
       }
 
       [*v9 setPerformingExtraction:0];
@@ -4935,7 +4935,7 @@ LABEL_13:
   return v13;
 }
 
-uint64_t sub_10000BD98(void *a1, const void *a2, size_t a3, uint64_t a4)
+size_t sub_10000BD98(void *a1, const void *a2, size_t a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -4962,7 +4962,7 @@ uint64_t sub_10000BD98(void *a1, const void *a2, size_t a3, uint64_t a4)
   return a3;
 }
 
-uint64_t sub_10000BE48(void *a1, const void *a2, size_t a3)
+size_t sub_10000BE48(void *a1, const void *a2, size_t a3)
 {
   if (!a1)
   {
@@ -4987,7 +4987,7 @@ uint64_t sub_10000BE48(void *a1, const void *a2, size_t a3)
   return v6;
 }
 
-uint64_t sub_10000BED8(void *a1, void *a2, size_t a3, uint64_t a4)
+size_t sub_10000BED8(void *a1, void *a2, size_t a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -5017,7 +5017,7 @@ uint64_t sub_10000BED8(void *a1, void *a2, size_t a3, uint64_t a4)
   return a3;
 }
 
-uint64_t sub_10000BF8C(void *a1, void *a2, size_t a3)
+size_t sub_10000BF8C(void *a1, void *a2, size_t a3)
 {
   if (!a1)
   {
@@ -5230,7 +5230,7 @@ uint64_t sub_10000D8E8(char *a1, __int16 a2, uint64_t a3, char a4, uint64_t a5, 
     v25 = a3;
   }
 
-  v10 = open(a1, a2, v25);
+  v10 = open(a1, a2, a3, v25);
   v11 = v10;
   if ((v10 & 0x80000000) == 0)
   {
@@ -5487,19 +5487,7 @@ LABEL_42:
 
   v10 = v8;
   v11 = objc_opt_class();
-  if (!sub_100016584(v10, @"SZExtractorOptionsHashType", v11))
-  {
-    goto LABEL_31;
-  }
-
-  v12 = objc_opt_class();
-  if (!sub_100016584(v10, @"SZExtractorOptionsHashesArray", v12))
-  {
-    goto LABEL_31;
-  }
-
-  v13 = objc_opt_class();
-  if (sub_100016584(v10, @"SZExtractorOptionsHashedChunkSize", v13) && (v14 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsDenyInvalidSymlinks", v14)) && (v15 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsPerformCachedWrites", v15)) && (v16 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsQuarantineInfo", v16)) && (v17 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsOwnerUserID", v17)) && (v18 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsOwnerGroupID", v18)) && (v19 = objc_opt_class(), (sub_100016584(v10, @"SZExtractorOptionsUseFilesystemCompression", v19) & 1) != 0))
+  if (sub_100016584(v10, @"SZExtractorOptionsHashType", v11) && (v12 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsHashesArray", v12)) && (v13 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsHashedChunkSize", v13)) && (v14 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsDenyInvalidSymlinks", v14)) && (v15 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsPerformCachedWrites", v15)) && (v16 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsQuarantineInfo", v16)) && (v17 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsOwnerUserID", v17)) && (v18 = objc_opt_class(), sub_100016584(v10, @"SZExtractorOptionsOwnerGroupID", v18)) && (v19 = objc_opt_class(), (sub_100016584(v10, @"SZExtractorOptionsUseFilesystemCompression", v19) & 1) != 0))
   {
     v20 = objc_opt_class();
     v21 = sub_100016584(v10, @"SZExtractorOptionsApplyAppleDoubleFiles", v20);
@@ -6625,7 +6613,6 @@ LABEL_225:
 
   else
   {
-LABEL_31:
   }
 
   v43 = sub_10000126C();

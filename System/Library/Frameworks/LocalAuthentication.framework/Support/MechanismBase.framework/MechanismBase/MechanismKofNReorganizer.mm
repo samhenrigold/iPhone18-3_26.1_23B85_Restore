@@ -28,7 +28,7 @@
 
 - (id)reorganizeMechanisms:(id)mechanisms k:(int64_t)k error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   mechanismsCopy = mechanisms;
   v9 = objc_opt_new();
   if ([mechanismsCopy count] >= self->_min && objc_msgSend(mechanismsCopy, "count") <= self->_max)
@@ -36,61 +36,60 @@
     k = self->_k;
     if (k && [(NSNumber *)k integerValue]!= k)
     {
-      v30 = MEMORY[0x277CD47F0];
-      v31 = MEMORY[0x277CCACA8];
-      v32 = [MEMORY[0x277CCABB0] numberWithInteger:k];
-      v33 = [v31 stringWithFormat:@"k is %@, but should be %@", v32, self->_k];
-      v16 = [v30 internalErrorWithMessage:v33];
+      v28 = MEMORY[0x277CD47F0];
+      v29 = MEMORY[0x277CCACA8];
+      v30 = [MEMORY[0x277CCABB0] numberWithInteger:k];
+      v31 = [v29 stringWithFormat:@"k is %@, but should be %@", v30, self->_k];
+      v16 = [v28 internalErrorWithMessage:v31];
     }
 
     else
     {
       if ([mechanismsCopy count])
       {
-        v37 = 0u;
-        v38 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v23 = mechanismsCopy;
-        v24 = [v23 countByEnumeratingWithState:&v35 objects:v39 count:16];
-        if (v24)
+        v33 = 0u;
+        v34 = 0u;
+        v22 = mechanismsCopy;
+        v23 = [v22 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        if (v23)
         {
-          v25 = v24;
-          v26 = *v36;
+          v24 = v23;
+          v25 = *v34;
           do
           {
-            v27 = 0;
+            v26 = 0;
             do
             {
-              if (*v36 != v26)
+              if (*v34 != v25)
               {
-                objc_enumerationMutation(v23);
+                objc_enumerationMutation(v22);
               }
 
-              v28 = *(*(&v35 + 1) + 8 * v27);
-              v29 = (*(self->_apply + 2))();
-              if (v29)
+              v27 = (*(self->_apply + 2))();
+              if (v27)
               {
-                [v9 addObject:v29];
+                [v9 addObject:v27];
               }
 
-              ++v27;
+              ++v26;
             }
 
-            while (v25 != v27);
-            v25 = [v23 countByEnumeratingWithState:&v35 objects:v39 count:16];
+            while (v24 != v26);
+            v24 = [v22 countByEnumeratingWithState:&v33 objects:v37 count:16];
           }
 
-          while (v25);
+          while (v24);
         }
       }
 
       else
       {
-        v34 = (*(self->_apply + 2))();
-        if (v34)
+        v32 = (*(self->_apply + 2))();
+        if (v32)
         {
-          [v9 addObject:v34];
+          [v9 addObject:v32];
         }
       }
 
@@ -127,7 +126,6 @@
 
   v19 = v18;
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

@@ -3,7 +3,7 @@
 
 @implementation UITableViewShadowUpdatesController
 
-uint64_t __67___UITableViewShadowUpdatesController_sectionsBeforeShadowUpdates___block_invoke(uint64_t a1, uint64_t a2)
+void *__67___UITableViewShadowUpdatesController_sectionsBeforeShadowUpdates___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) initialSectionIndexForFinalSectionIndex:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -17,7 +17,7 @@ uint64_t __67___UITableViewShadowUpdatesController_sectionsBeforeShadowUpdates__
   return result;
 }
 
-void __87___UITableViewShadowUpdatesController_sectionsAfterShadowUpdates_allowAppendingInsert___block_invoke(uint64_t a1, uint64_t a2)
+void __87___UITableViewShadowUpdatesController_sectionsAfterShadowUpdates_allowAppendingInsert___block_invoke(uint64_t a1, void *a2)
 {
   v4 = [*(a1 + 32) finalSectionIndexForInitialSectionIndex:a2];
   v5 = v4;

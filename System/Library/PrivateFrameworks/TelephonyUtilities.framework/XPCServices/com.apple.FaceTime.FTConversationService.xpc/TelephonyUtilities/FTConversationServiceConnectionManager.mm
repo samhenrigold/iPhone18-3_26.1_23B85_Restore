@@ -9,6 +9,7 @@
 - (void)removeConnection:(id)connection;
 - (void)removeConversationLinkDescriptorsWithPredicate:(id)predicate deleteReason:(int64_t)reason reply:(id)reply;
 - (void)removeLinkDescriptorsFromDataSourceWithPredicate:(id)predicate reply:(id)reply;
+- (void)setActivated:(BOOL)activated withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate reply:(id)reply;
 - (void)setExpirationDate:(id)date withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate reply:(id)reply;
 - (void)setInteger:(int64_t)integer forKey:(id)key reply:(id)reply;
 - (void)setInvitedHandles:(id)handles withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate reply:(id)reply;
@@ -79,14 +80,14 @@
   replyCopy = reply;
   descriptorsCopy = descriptors;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v13 = 0;
-  v9 = [dataSource addConversationLinkDescriptors:descriptorsCopy error:&v13];
+  v15 = 0;
+  v9 = [dataSource addConversationLinkDescriptors:descriptorsCopy error:&v15];
 
-  v10 = v13;
+  v10 = v15;
   if ((v9 & 1) == 0 && v10)
   {
-    v11 = FTCServiceLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10000C818();
     }
@@ -101,14 +102,14 @@
   replyCopy = reply;
   descriptorsCopy = descriptors;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v13 = 0;
-  v9 = [dataSource addOrUpdateConversationLinkDescriptors:descriptorsCopy error:&v13];
+  v15 = 0;
+  v9 = [dataSource addOrUpdateConversationLinkDescriptors:descriptorsCopy error:&v15];
 
-  v10 = v13;
+  v10 = v15;
   if ((v9 & 1) == 0 && v10)
   {
-    v11 = FTCServiceLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10000C880();
     }
@@ -123,14 +124,14 @@
   replyCopy = reply;
   predicateCopy = predicate;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v13 = 0;
-  v9 = [dataSource conversationLinkDescriptorCountWithPredicate:predicateCopy error:&v13];
+  v15 = 0;
+  v9 = [dataSource conversationLinkDescriptorCountWithPredicate:predicateCopy error:&v15];
 
-  v10 = v13;
+  v10 = v15;
   if (!v9 && v10)
   {
-    v11 = FTCServiceLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10000C8E8();
     }
@@ -145,14 +146,14 @@
   replyCopy = reply;
   predicateCopy = predicate;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v17 = 0;
-  v13 = [dataSource conversationLinkDescriptorsWithPredicate:predicateCopy limit:limit offset:offset error:&v17];
+  v19 = 0;
+  v13 = [dataSource conversationLinkDescriptorsWithPredicate:predicateCopy limit:limit offset:offset error:&v19];
 
-  v14 = v17;
+  v14 = v19;
   if (!v13 && v14)
   {
-    v15 = FTCServiceLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = FTCServiceLog(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10000C950();
     }
@@ -167,14 +168,14 @@
   replyCopy = reply;
   predicateCopy = predicate;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v15 = 0;
-  v11 = [dataSource removeConversationLinkDescriptorsWithPredicate:predicateCopy deleteReason:reason error:&v15];
+  v17 = 0;
+  v11 = [dataSource removeConversationLinkDescriptorsWithPredicate:predicateCopy deleteReason:reason error:&v17];
 
-  v12 = v15;
+  v12 = v17;
   if (!v11 && v12)
   {
-    v13 = FTCServiceLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = FTCServiceLog(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10000C9B8();
     }
@@ -189,14 +190,14 @@
   replyCopy = reply;
   predicateCopy = predicate;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v13 = 0;
-  v9 = [dataSource removeLinkDescriptorsFromDataSourceWithPredicate:predicateCopy error:&v13];
+  v15 = 0;
+  v9 = [dataSource removeLinkDescriptorsFromDataSourceWithPredicate:predicateCopy error:&v15];
 
-  v10 = v13;
+  v10 = v15;
   if (!v9 && v10)
   {
-    v11 = FTCServiceLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10000CA20();
     }
@@ -206,20 +207,43 @@
   replyCopy[2](replyCopy, v9, conversationServiceDataSourceError);
 }
 
+- (void)setActivated:(BOOL)activated withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate reply:(id)reply
+{
+  activatedCopy = activated;
+  replyCopy = reply;
+  predicateCopy = predicate;
+  dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
+  v19 = 0;
+  v13 = [dataSource setActivated:activatedCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy error:&v19];
+
+  v14 = v19;
+  if (!v13 && v14)
+  {
+    v17 = FTCServiceLog(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000CA88();
+    }
+  }
+
+  conversationServiceDataSourceError = [v14 conversationServiceDataSourceError];
+  replyCopy[2](replyCopy, v13, conversationServiceDataSourceError);
+}
+
 - (void)setExpirationDate:(id)date withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate reply:(id)reply
 {
   replyCopy = reply;
   predicateCopy = predicate;
   dateCopy = date;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v18 = 0;
-  v14 = [dataSource setExpirationDate:dateCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy error:&v18];
+  v20 = 0;
+  v14 = [dataSource setExpirationDate:dateCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy error:&v20];
 
-  v15 = v18;
+  v15 = v20;
   if (!v14 && v15)
   {
-    v16 = FTCServiceLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = FTCServiceLog(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10000CA88();
     }
@@ -235,14 +259,14 @@
   predicateCopy = predicate;
   handlesCopy = handles;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v18 = 0;
-  v14 = [dataSource setInvitedHandles:handlesCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy error:&v18];
+  v20 = 0;
+  v14 = [dataSource setInvitedHandles:handlesCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy error:&v20];
 
-  v15 = v18;
+  v15 = v20;
   if (!v14 && v15)
   {
-    v16 = FTCServiceLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = FTCServiceLog(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10000CA88();
     }
@@ -258,14 +282,14 @@
   predicateCopy = predicate;
   nameCopy = name;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v18 = 0;
-  v14 = [dataSource setName:nameCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy error:&v18];
+  v20 = 0;
+  v14 = [dataSource setName:nameCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy error:&v20];
 
-  v15 = v18;
+  v15 = v20;
   if (!v14 && v15)
   {
-    v16 = FTCServiceLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = FTCServiceLog(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10000CA88();
     }
@@ -280,14 +304,14 @@
   replyCopy = reply;
   keyCopy = key;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v15 = 0;
-  v11 = [dataSource setInteger:integer forKey:keyCopy error:&v15];
+  v17 = 0;
+  v11 = [dataSource setInteger:integer forKey:keyCopy error:&v17];
 
-  v12 = v15;
+  v12 = v17;
   if ((v11 & 1) == 0 && v12)
   {
-    v13 = FTCServiceLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = FTCServiceLog(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10000CAF0();
     }
@@ -302,14 +326,14 @@
   replyCopy = reply;
   keyCopy = key;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v13 = 0;
-  v9 = [dataSource integerForKey:keyCopy error:&v13];
+  v15 = 0;
+  v9 = [dataSource integerForKey:keyCopy error:&v15];
 
-  v10 = v13;
+  v10 = v15;
   if (!v9 && v10)
   {
-    v11 = FTCServiceLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10000CAF0();
     }
@@ -325,14 +349,14 @@
   keyCopy = key;
   stringCopy = string;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v16 = 0;
-  v12 = [dataSource setString:stringCopy forKey:keyCopy error:&v16];
+  v18 = 0;
+  v12 = [dataSource setString:stringCopy forKey:keyCopy error:&v18];
 
-  v13 = v16;
+  v13 = v18;
   if ((v12 & 1) == 0 && v13)
   {
-    v14 = FTCServiceLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = FTCServiceLog(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10000CB58();
     }
@@ -347,14 +371,14 @@
   replyCopy = reply;
   keyCopy = key;
   dataSource = [(FTConversationServiceConnectionManager *)self dataSource];
-  v13 = 0;
-  v9 = [dataSource stringForKey:keyCopy error:&v13];
+  v15 = 0;
+  v9 = [dataSource stringForKey:keyCopy error:&v15];
 
-  v10 = v13;
+  v10 = v15;
   if (!v9 && v10)
   {
-    v11 = FTCServiceLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10000CAF0();
     }

@@ -570,20 +570,18 @@ void __78__LAPSPasscodeChangeUICoordinator_fetchNewPasscodeCoordinator_verifyPas
 
 - (void)containerViewControllerViewDidDisappear:(id)disappear
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   disappearCopy = disappear;
   v5 = LACLogPasscodeService();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = disappearCopy;
-    _os_log_impl(&dword_238BCD000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ did disappear", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = disappearCopy;
+    _os_log_impl(&dword_238BCD000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ did disappear", &v7, 0xCu);
   }
 
   delegate = [(LAPSPasscodeChangeUICoordinator *)self delegate];
   [delegate passcodeChangeUIDidDisappear:self];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configurePasscodeSubPromptForConfig:(id)config request:(id)request

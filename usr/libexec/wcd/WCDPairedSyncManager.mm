@@ -31,23 +31,28 @@
 
 - (NSString)state
 {
+  v16 = 0;
   v3 = objc_opt_class();
-  v9 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF(&v16, "%@\n", v4);
+  v5 = v16;
 
-  NSAppendPrintF();
-  v5 = v4;
+  v15 = v5;
+  NSAppendPrintF(&v15, "-------------\n");
+  v6 = v15;
 
+  v14 = v6;
   coordinator = [(WCDPairedSyncManager *)self coordinator];
-  NSAppendPrintF();
-  v6 = v5;
+  NSAppendPrintF(&v14, "Coordinator: %@", coordinator);
+  v8 = v14;
 
+  v13 = v8;
   identifiersToSyncSessions = [(WCDPairedSyncManager *)self identifiersToSyncSessions];
-  NSAppendPrintF();
-  v7 = v6;
+  NSAppendPrintF(&v13, "Sync Session Identifiers To Sync Sessions: %@", identifiersToSyncSessions);
+  v10 = v13;
+  v11 = v13;
 
-  return v6;
+  return v10;
 }
 
 - (void)handlePairedSyncForComplicationsAckWithIdentifier:(id)identifier success:(BOOL)success

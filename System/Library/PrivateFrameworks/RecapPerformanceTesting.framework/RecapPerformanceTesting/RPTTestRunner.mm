@@ -66,11 +66,11 @@
 
 - (RPTTestRunner)initWithInteractionOptions:(id)options
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v14.receiver = self;
-  v14.super_class = RPTTestRunner;
-  v5 = [(RPTTestRunner *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = RPTTestRunner;
+  v5 = [(RPTTestRunner *)&v15 init];
   if (v5)
   {
     if (optionsCopy)
@@ -94,12 +94,12 @@
     inlinePlayer = v5->_inlinePlayer;
     v5->_inlinePlayer = v10;
 
-    v12 = RPTLogTestRunning();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = RPTLogTestRunning(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = optionsCopy;
-      _os_log_impl(&dword_261A17000, v12, OS_LOG_TYPE_DEFAULT, "RPT: [RPTTestRunner initWithOptions:]", buf, 0xCu);
+      v17 = optionsCopy;
+      _os_log_impl(&dword_261A17000, v13, OS_LOG_TYPE_DEFAULT, "RPT: [RPTTestRunner initWithOptions:]", buf, 0xCu);
     }
   }
 
@@ -197,9 +197,9 @@
 
 - (void)_runTestWithParameters:(id)parameters
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
-  v5 = RPTLogTestRunning();
+  v5 = RPTLogTestRunning(parametersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138543362;
@@ -212,96 +212,97 @@
   recapOverrideFileURL = [settings recapOverrideFileURL];
   v9 = recapOverrideFileURL != 0;
 
-  v10 = RPTLogTestRunning();
-  if (os_signpost_enabled(v10))
+  v11 = RPTLogTestRunning(v10);
+  if (os_signpost_enabled(v11))
   {
     LODWORD(buf) = 138543362;
     *(&buf + 4) = testName;
-    _os_signpost_emit_with_name_impl(&dword_261A17000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "RunTestWithParameters", "<testName>=%{public, name=testName}@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_261A17000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "RunTestWithParameters", "<testName>=%{public, name=testName}@", &buf, 0xCu);
   }
 
-  v37 = 0;
-  v11 = [(RPTTestRunner *)self checkTestRequirementsWithError:&v37];
-  v12 = v37;
-  if (v11)
+  v40 = 0;
+  v12 = [(RPTTestRunner *)self checkTestRequirementsWithError:&v40];
+  v13 = v40;
+  v14 = v13;
+  if (v12)
   {
-    v13 = RPTLogTestRunning();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = RPTLogTestRunning(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       testName2 = [parametersCopy testName];
       LODWORD(buf) = 138543362;
       *(&buf + 4) = testName2;
-      _os_log_impl(&dword_261A17000, v13, OS_LOG_TYPE_DEFAULT, "RPT: PrepareForTest begin %{public}@", &buf, 0xCu);
+      _os_log_impl(&dword_261A17000, v15, OS_LOG_TYPE_DEFAULT, "RPT: PrepareForTest begin %{public}@", &buf, 0xCu);
     }
 
-    v15 = RPTLogTestRunning();
-    if (os_signpost_enabled(v15))
+    v18 = RPTLogTestRunning(v17);
+    if (os_signpost_enabled(v18))
     {
       LODWORD(buf) = 138543362;
       *(&buf + 4) = testName;
-      _os_signpost_emit_with_name_impl(&dword_261A17000, v15, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PrepareForTest", "<testName>=%{public, name=testName}@", &buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_261A17000, v18, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PrepareForTest", "<testName>=%{public, name=testName}@", &buf, 0xCu);
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v39 = 0x3032000000;
-    v40 = __Block_byref_object_copy__0;
-    v41 = __Block_byref_object_dispose__0;
-    v42 = 0;
-    v16 = makeRCPPlayerPlaybackOptions();
+    v42 = 0x3032000000;
+    v43 = __Block_byref_object_copy__0;
+    v44 = __Block_byref_object_dispose__0;
+    v45 = 0;
+    v19 = makeRCPPlayerPlaybackOptions();
     interactionOptions = [(RPTTestRunner *)self interactionOptions];
     RCPSyntheticEventStreamClass = getRCPSyntheticEventStreamClass();
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke;
-    v32[3] = &unk_279AF39F0;
-    v36 = v9;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke;
+    v35[3] = &unk_279AF39F0;
+    v39 = v9;
     p_buf = &buf;
-    v19 = interactionOptions;
-    v33 = v19;
-    v20 = parametersCopy;
-    v34 = v20;
-    v21 = [RCPSyntheticEventStreamClass eventStreamWithEventActions:v32];
+    v22 = interactionOptions;
+    v36 = v22;
+    v23 = parametersCopy;
+    v37 = v23;
+    v24 = [RCPSyntheticEventStreamClass eventStreamWithEventActions:v35];
     inlinePlayer = [(RPTTestRunner *)self inlinePlayer];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_2;
-    v24[3] = &unk_279AF3AE0;
-    v25 = v20;
-    v26 = 0;
-    v31 = v9;
-    selfCopy = self;
-    v30 = &buf;
-    v23 = v19;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_2;
+    v27[3] = &unk_279AF3AE0;
     v28 = v23;
-    v29 = testName;
-    [inlinePlayer playEventStream:v21 options:v16 completion:v24];
+    v29 = 0;
+    v34 = v9;
+    selfCopy = self;
+    v33 = &buf;
+    v26 = v22;
+    v31 = v26;
+    v32 = testName;
+    [inlinePlayer playEventStream:v24 options:v19 completion:v27];
 
     _Block_object_dispose(&buf, 8);
   }
 
   else
   {
-    [(RPTTestRunner *)self _failWithParameters:parametersCopy error:v12];
+    [(RPTTestRunner *)self _failWithParameters:parametersCopy error:v13];
   }
 }
 
-uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke(uint64_t result, void *a2)
+_BYTE *__40__RPTTestRunner__runTestWithParameters___block_invoke(_BYTE *result, void *a2)
 {
-  if ((*(result + 56) & 1) == 0)
+  if ((result[56] & 1) == 0)
   {
     v3 = result;
     v4 = a2;
-    v5 = [[RPTDefaultPointerAndFingerInteroppingComposer alloc] initFromWrapping:v4 interactionOptions:*(v3 + 32)];
-    v6 = *(*(v3 + 48) + 8);
+    v5 = [[RPTDefaultPointerAndFingerInteroppingComposer alloc] initFromWrapping:v4 interactionOptions:*(v3 + 4)];
+    v6 = *(*(v3 + 6) + 8);
     v7 = *(v6 + 40);
     *(v6 + 40) = v5;
 
-    v8 = [*(v3 + 32) senderProperties];
+    v8 = [*(v3 + 4) senderProperties];
     [v4 setSenderProperties:v8];
 
-    v9 = *(v3 + 40);
-    v10 = *(*(*(v3 + 48) + 8) + 40);
+    v9 = *(v3 + 5);
+    v10 = *(*(*(v3 + 6) + 8) + 40);
 
     return [v9 prepareWithComposer:v10];
   }
@@ -311,56 +312,56 @@ uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke(uint64_t resu
 
 void __40__RPTTestRunner__runTestWithParameters___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = RPTLogTestRunning();
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = RPTLogTestRunning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) testName];
     *buf = 138543362;
-    v19 = v3;
+    v20 = v3;
     _os_log_impl(&dword_261A17000, v2, OS_LOG_TYPE_DEFAULT, "RPT: PrepareForTest end %{public}@", buf, 0xCu);
   }
 
-  v4 = RPTLogTestRunning();
-  if (os_signpost_enabled(v4))
+  v5 = RPTLogTestRunning(v4);
+  if (os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_261A17000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PrepareForTest", &unk_261A2A217, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_261A17000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PrepareForTest", &unk_261A2A217, buf, 2u);
   }
 
-  v5 = dispatch_time(0, 1000000000);
+  v6 = dispatch_time(0, 1000000000);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_80;
   block[3] = &unk_279AF3AE0;
-  v6 = *(a1 + 40);
-  v17 = *(a1 + 80);
-  *&v7 = v6;
-  *(&v7 + 1) = *(a1 + 48);
-  v11 = v7;
-  v8 = *(a1 + 32);
-  v16 = *(a1 + 72);
-  v9 = *(a1 + 56);
-  *&v10 = v8;
-  *(&v10 + 1) = v9;
-  v13 = v11;
-  v14 = v10;
-  v15 = *(a1 + 64);
-  dispatch_after(v5, MEMORY[0x277D85CD0], block);
+  v7 = *(a1 + 40);
+  v18 = *(a1 + 80);
+  *&v8 = v7;
+  *(&v8 + 1) = *(a1 + 48);
+  v12 = v8;
+  v9 = *(a1 + 32);
+  v17 = *(a1 + 72);
+  v10 = *(a1 + 56);
+  *&v11 = v9;
+  *(&v11 + 1) = v10;
+  v14 = v12;
+  v15 = v11;
+  v16 = *(a1 + 64);
+  dispatch_after(v6, MEMORY[0x277D85CD0], block);
 }
 
 void __40__RPTTestRunner__runTestWithParameters___block_invoke_80(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = makeRCPPlayerPlaybackOptions();
   if (*(a1 + 80) == 1)
   {
     RCPEventStreamClass = getRCPEventStreamClass();
     v4 = [*(a1 + 40) settings];
     v5 = [v4 recapOverrideFileURL];
-    v29 = 0;
-    v6 = [RCPEventStreamClass eventStreamWithFileURL:v5 error:&v29];
-    v7 = v29;
+    v31 = 0;
+    v6 = [RCPEventStreamClass eventStreamWithFileURL:v5 error:&v31];
+    v7 = v31;
 
     if (!v6)
     {
@@ -372,60 +373,60 @@ void __40__RPTTestRunner__runTestWithParameters___block_invoke_80(uint64_t a1)
   else
   {
     RCPSyntheticEventStreamClass = getRCPSyntheticEventStreamClass();
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_2_81;
-    v25[3] = &unk_279AF3A18;
-    v28 = *(a1 + 72);
-    v26 = *(a1 + 56);
-    v27 = *(a1 + 48);
-    v6 = [RCPSyntheticEventStreamClass eventStreamWithEventActions:v25];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_2_81;
+    v27[3] = &unk_279AF3A18;
+    v30 = *(a1 + 72);
+    v28 = *(a1 + 56);
+    v29 = *(a1 + 48);
+    v6 = [RCPSyntheticEventStreamClass eventStreamWithEventActions:v27];
 
-    v7 = v26;
+    v7 = v28;
   }
 
-  v9 = RPTLogTestRunning();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = RPTLogTestRunning(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [*(a1 + 48) testName];
+    v11 = [*(a1 + 48) testName];
     *buf = 138543362;
-    v31 = v10;
-    _os_log_impl(&dword_261A17000, v9, OS_LOG_TYPE_DEFAULT, "RPT: PrewarmForTest begin %{public}@", buf, 0xCu);
+    v33 = v11;
+    _os_log_impl(&dword_261A17000, v10, OS_LOG_TYPE_DEFAULT, "RPT: PrewarmForTest begin %{public}@", buf, 0xCu);
   }
 
-  v11 = RPTLogTestRunning();
-  if (os_signpost_enabled(v11))
+  v13 = RPTLogTestRunning(v12);
+  if (os_signpost_enabled(v13))
   {
-    v12 = *(a1 + 64);
-    v13 = @"NO";
+    v14 = *(a1 + 64);
+    v15 = @"NO";
     if (*(a1 + 80))
     {
-      v13 = @"YES";
+      v15 = @"YES";
     }
 
     *buf = 138543618;
-    v31 = v12;
-    v32 = 2114;
-    v33 = v13;
-    _os_signpost_emit_with_name_impl(&dword_261A17000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PrewarmForTest", "<testName>=%{public, name=testName}@ <isOverride>=%{public, name=isOverride}@", buf, 0x16u);
+    v33 = v14;
+    v34 = 2114;
+    v35 = v15;
+    _os_signpost_emit_with_name_impl(&dword_261A17000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PrewarmForTest", "<testName>=%{public, name=testName}@ <isOverride>=%{public, name=isOverride}@", buf, 0x16u);
   }
 
-  v14 = [*(a1 + 40) inlinePlayer];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_88;
-  v18[3] = &unk_279AF3AB8;
-  v15 = *(a1 + 48);
-  v16 = *(a1 + 40);
-  v19 = v15;
-  v20 = v16;
-  v17 = *(a1 + 64);
-  v24 = *(a1 + 80);
+  v16 = [*(a1 + 40) inlinePlayer];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_88;
+  v20[3] = &unk_279AF3AB8;
+  v17 = *(a1 + 48);
+  v18 = *(a1 + 40);
   v21 = v17;
-  v22 = v6;
-  v23 = v2;
+  v22 = v18;
+  v19 = *(a1 + 64);
+  v26 = *(a1 + 80);
+  v23 = v19;
+  v24 = v6;
+  v25 = v2;
   v7 = v6;
-  [v14 prewarmForEventStream:v7 completion:v18];
+  [v16 prewarmForEventStream:v7 completion:v20];
 
 LABEL_12:
 }
@@ -444,132 +445,134 @@ void __40__RPTTestRunner__runTestWithParameters___block_invoke_2_81(uint64_t a1,
 
 void __40__RPTTestRunner__runTestWithParameters___block_invoke_88(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = RPTLogTestRunning();
+  v4 = RPTLogTestRunning(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) testName];
     *buf = 138543362;
-    v26 = v5;
+    v29 = v5;
     _os_log_impl(&dword_261A17000, v4, OS_LOG_TYPE_DEFAULT, "RPT: PrewarmForTest end %{public}@", buf, 0xCu);
   }
 
-  v6 = RPTLogTestRunning();
-  if (os_signpost_enabled(v6))
+  v7 = RPTLogTestRunning(v6);
+  if (os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_261A17000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PrewarmForTest", &unk_261A2A217, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_261A17000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PrewarmForTest", &unk_261A2A217, buf, 2u);
   }
 
-  v7 = *(a1 + 40);
+  v8 = *(a1 + 40);
   if (v3)
   {
-    [v7 _failWithParameters:*(a1 + 32) error:v3];
+    [v8 _failWithParameters:*(a1 + 32) error:v3];
   }
 
   else
   {
-    if ([v7 _managePPTLifetimeEvent:0 forParameters:*(a1 + 32)])
+    v9 = [v8 _managePPTLifetimeEvent:0 forParameters:*(a1 + 32)];
+    if (v9)
     {
-      v8 = [MEMORY[0x277D75128] sharedApplication];
-      [v8 startedTest:*(a1 + 48)];
+      v10 = [MEMORY[0x277D75128] sharedApplication];
+      [v10 startedTest:*(a1 + 48)];
     }
 
-    v9 = RPTLogTestRunning();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = RPTLogTestRunning(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [*(a1 + 32) testName];
+      v12 = [*(a1 + 32) testName];
       *buf = 138543362;
-      v26 = v10;
-      _os_log_impl(&dword_261A17000, v9, OS_LOG_TYPE_DEFAULT, "RPT: PerformTest begin %{public}@", buf, 0xCu);
+      v29 = v12;
+      _os_log_impl(&dword_261A17000, v11, OS_LOG_TYPE_DEFAULT, "RPT: PerformTest begin %{public}@", buf, 0xCu);
     }
 
-    v11 = RPTLogTestRunning();
-    if (os_signpost_enabled(v11))
+    v14 = RPTLogTestRunning(v13);
+    if (os_signpost_enabled(v14))
     {
-      v12 = *(a1 + 48);
-      v13 = @"NO";
+      v15 = *(a1 + 48);
+      v16 = @"NO";
       if (*(a1 + 72))
       {
-        v13 = @"YES";
+        v16 = @"YES";
       }
 
       *buf = 138543618;
-      v26 = v12;
-      v27 = 2114;
-      v28 = v13;
-      _os_signpost_emit_with_name_impl(&dword_261A17000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PerformTest", "<testName>=%{public, name=testName}@ <isOverride>=%{public, name=isOverride}@ isAnimation=YES ", buf, 0x16u);
+      v29 = v15;
+      v30 = 2114;
+      v31 = v16;
+      _os_signpost_emit_with_name_impl(&dword_261A17000, v14, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PerformTest", "<testName>=%{public, name=testName}@ <isOverride>=%{public, name=isOverride}@ isAnimation=YES ", buf, 0x16u);
     }
 
-    v14 = [*(a1 + 40) inlinePlayer];
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 64);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_90;
-    v20[3] = &unk_279AF3A90;
-    v17 = *(a1 + 32);
-    v18 = *(a1 + 40);
-    v19 = *(a1 + 48);
-    v21 = v17;
-    v22 = v18;
-    v23 = v19;
-    v24 = *(a1 + 72);
-    [v14 playEventStream:v15 options:v16 completion:v20];
+    v17 = [*(a1 + 40) inlinePlayer];
+    v18 = *(a1 + 56);
+    v19 = *(a1 + 64);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_90;
+    v23[3] = &unk_279AF3A90;
+    v20 = *(a1 + 32);
+    v21 = *(a1 + 40);
+    v22 = *(a1 + 48);
+    v24 = v20;
+    v25 = v21;
+    v26 = v22;
+    v27 = *(a1 + 72);
+    [v17 playEventStream:v18 options:v19 completion:v23];
   }
 }
 
 void __40__RPTTestRunner__runTestWithParameters___block_invoke_90(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_2_91;
-  v15[3] = &unk_279AF3A40;
+  v25 = *MEMORY[0x277D85DE8];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_2_91;
+  v17[3] = &unk_279AF3A40;
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v16 = v2;
-  v17 = v3;
-  v18 = v4;
-  v5 = MEMORY[0x2667162B0](v15);
-  if (objc_opt_respondsToSelector())
+  v18 = v2;
+  v19 = v3;
+  v20 = v4;
+  v5 = MEMORY[0x2667162B0](v17);
+  v6 = objc_opt_respondsToSelector();
+  if (v6)
   {
-    v6 = RPTLogTestRunning();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = RPTLogTestRunning(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 32) testName];
+      v8 = [*(a1 + 32) testName];
       *buf = 138543362;
-      v20 = v7;
-      _os_log_impl(&dword_261A17000, v6, OS_LOG_TYPE_DEFAULT, "RPT: PostEventStreamPerformTest begin %{public}@", buf, 0xCu);
+      v22 = v8;
+      _os_log_impl(&dword_261A17000, v7, OS_LOG_TYPE_DEFAULT, "RPT: PostEventStreamPerformTest begin %{public}@", buf, 0xCu);
     }
 
-    v8 = RPTLogTestRunning();
-    if (os_signpost_enabled(v8))
+    v10 = RPTLogTestRunning(v9);
+    if (os_signpost_enabled(v10))
     {
-      v9 = *(a1 + 48);
-      v10 = @"NO";
+      v11 = *(a1 + 48);
+      v12 = @"NO";
       if (*(a1 + 56))
       {
-        v10 = @"YES";
+        v12 = @"YES";
       }
 
       *buf = 138543618;
-      v20 = v9;
-      v21 = 2114;
-      v22 = v10;
-      _os_signpost_emit_with_name_impl(&dword_261A17000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PostEventStreamPerformTest", "<testName>=%{public, name=testName}@ <isOverride>=%{public, name=isOverride}@", buf, 0x16u);
+      v22 = v11;
+      v23 = 2114;
+      v24 = v12;
+      _os_signpost_emit_with_name_impl(&dword_261A17000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PostEventStreamPerformTest", "<testName>=%{public, name=testName}@ <isOverride>=%{public, name=isOverride}@", buf, 0x16u);
     }
 
-    v11 = *(a1 + 32);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_94;
-    v12[3] = &unk_279AF3A68;
-    v13 = v11;
-    v14 = v5;
-    [v13 waitForPostEventStreamDelayWithHandler:v12];
+    v13 = *(a1 + 32);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __40__RPTTestRunner__runTestWithParameters___block_invoke_94;
+    v14[3] = &unk_279AF3A68;
+    v15 = v13;
+    v16 = v5;
+    [v15 waitForPostEventStreamDelayWithHandler:v14];
   }
 
   else
@@ -580,51 +583,51 @@ void __40__RPTTestRunner__runTestWithParameters___block_invoke_90(uint64_t a1)
 
 uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_2_91(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = RPTLogTestRunning();
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = RPTLogTestRunning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) testName];
-    v12 = 138543362;
-    v13 = v3;
-    _os_log_impl(&dword_261A17000, v2, OS_LOG_TYPE_DEFAULT, "RPT: PerformTest end %{public}@", &v12, 0xCu);
+    v15 = 138543362;
+    v16 = v3;
+    _os_log_impl(&dword_261A17000, v2, OS_LOG_TYPE_DEFAULT, "RPT: PerformTest end %{public}@", &v15, 0xCu);
   }
 
-  v4 = RPTLogTestRunning();
-  if (os_signpost_enabled(v4))
+  v5 = RPTLogTestRunning(v4);
+  if (os_signpost_enabled(v5))
   {
-    LOWORD(v12) = 0;
-    _os_signpost_emit_with_name_impl(&dword_261A17000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PerformTest", &unk_261A2A217, &v12, 2u);
+    LOWORD(v15) = 0;
+    _os_signpost_emit_with_name_impl(&dword_261A17000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PerformTest", &unk_261A2A217, &v15, 2u);
   }
 
   if ([*(a1 + 40) _managePPTLifetimeEvent:1 forParameters:*(a1 + 32)])
   {
-    v5 = [MEMORY[0x277D75128] sharedApplication];
-    [v5 finishedTest:*(a1 + 48) waitForCommit:1 extraResults:0];
+    v6 = [MEMORY[0x277D75128] sharedApplication];
+    [v6 finishedTest:*(a1 + 48) waitForCommit:1 extraResults:0];
   }
 
-  v6 = [*(a1 + 32) completionHandler];
+  v7 = [*(a1 + 32) completionHandler];
 
-  if (v6)
+  if (v7)
   {
-    v7 = [*(a1 + 32) completionHandler];
-    v7[2]();
+    v9 = [*(a1 + 32) completionHandler];
+    v9[2]();
   }
 
-  v8 = RPTLogTestRunning();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = RPTLogTestRunning(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [*(a1 + 32) testName];
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_261A17000, v8, OS_LOG_TYPE_DEFAULT, "RPT: RunTestWithParameters end %{public}@", &v12, 0xCu);
+    v11 = [*(a1 + 32) testName];
+    v15 = 138543362;
+    v16 = v11;
+    _os_log_impl(&dword_261A17000, v10, OS_LOG_TYPE_DEFAULT, "RPT: RunTestWithParameters end %{public}@", &v15, 0xCu);
   }
 
-  v10 = RPTLogTestRunning();
-  if (os_signpost_enabled(v10))
+  v13 = RPTLogTestRunning(v12);
+  if (os_signpost_enabled(v13))
   {
-    LOWORD(v12) = 0;
-    _os_signpost_emit_with_name_impl(&dword_261A17000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "RunTestWithParameters", &unk_261A2A217, &v12, 2u);
+    LOWORD(v15) = 0;
+    _os_signpost_emit_with_name_impl(&dword_261A17000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "RunTestWithParameters", &unk_261A2A217, &v15, 2u);
   }
 
   return [*(a1 + 40) _finishWithParameters:*(a1 + 32)];
@@ -632,21 +635,21 @@ uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_2_91(uint64_t
 
 uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_94(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = RPTLogTestRunning();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = RPTLogTestRunning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) testName];
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_261A17000, v2, OS_LOG_TYPE_DEFAULT, "RPT: PostEventStreamPerformTest end %{public}@", &v6, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_261A17000, v2, OS_LOG_TYPE_DEFAULT, "RPT: PostEventStreamPerformTest end %{public}@", &v7, 0xCu);
   }
 
-  v4 = RPTLogTestRunning();
-  if (os_signpost_enabled(v4))
+  v5 = RPTLogTestRunning(v4);
+  if (os_signpost_enabled(v5))
   {
-    LOWORD(v6) = 0;
-    _os_signpost_emit_with_name_impl(&dword_261A17000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PostEventStreamPerformTest", &unk_261A2A217, &v6, 2u);
+    LOWORD(v7) = 0;
+    _os_signpost_emit_with_name_impl(&dword_261A17000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PostEventStreamPerformTest", &unk_261A2A217, &v7, 2u);
   }
 
   return (*(*(a1 + 40) + 16))();
@@ -690,7 +693,7 @@ uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_94(uint64_t a
 
 - (void)_finishWithParameters:(id)parameters
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   delegate = [(RPTTestRunner *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -701,12 +704,12 @@ uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_94(uint64_t a
     [delegate2 testRunner:self didFinishRunningParameters:parametersCopy];
   }
 
-  v8 = RPTLogTestRunning();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = RPTLogTestRunning(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = parametersCopy;
-    _os_log_impl(&dword_261A17000, v8, OS_LOG_TYPE_DEFAULT, "RPT: [RPTTestRunner _finishWithParameters:]", &v9, 0xCu);
+    v10 = 138543362;
+    v11 = parametersCopy;
+    _os_log_impl(&dword_261A17000, v9, OS_LOG_TYPE_DEFAULT, "RPT: [RPTTestRunner _finishWithParameters:]", &v10, 0xCu);
   }
 
   [(RPTTestRunner *)self _endSerializedRunner];
@@ -714,7 +717,7 @@ uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_94(uint64_t a
 
 - (void)_failWithParameters:(id)parameters error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   errorCopy = error;
   testName = [parametersCopy testName];
@@ -732,13 +735,13 @@ uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_94(uint64_t a
     }
   }
 
-  v14 = RPTLogTestRunning();
+  v14 = RPTLogTestRunning(testName);
   if (os_signpost_enabled(v14))
   {
     v15 = [errorCopy debugDescription];
-    v20 = 138412290;
-    v21 = v15;
-    _os_signpost_emit_with_name_impl(&dword_261A17000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "RunTestWithParameters", "<failure?>=%@", &v20, 0xCu);
+    v21 = 138412290;
+    v22 = v15;
+    _os_signpost_emit_with_name_impl(&dword_261A17000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "RunTestWithParameters", "<failure?>=%@", &v21, 0xCu);
   }
 
   delegate = [(RPTTestRunner *)self delegate];
@@ -750,10 +753,10 @@ uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_94(uint64_t a
     [delegate2 testRunner:self didFailRunningParameters:parametersCopy withError:errorCopy];
   }
 
-  v19 = RPTLogTestRunning();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v20 = RPTLogTestRunning(v18);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    [(RPTTestRunner *)parametersCopy _failWithParameters:errorCopy error:v19];
+    [(RPTTestRunner *)parametersCopy _failWithParameters:errorCopy error:v20];
   }
 
   [(RPTTestRunner *)self _endSerializedRunner];
@@ -792,7 +795,7 @@ uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_94(uint64_t a
 {
   v23[3] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
-  if (!RecapLibraryCore())
+  if (!RecapLibraryCore(0))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = *MEMORY[0x277CCA470];
@@ -838,7 +841,7 @@ uint64_t __40__RPTTestRunner__runTestWithParameters___block_invoke_94(uint64_t a
 
   else
   {
-    v12 = RPTLogTestRunning();
+    v12 = RPTLogTestRunning(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [RPTTestRunner checkTestRequirementsWithError:v12];

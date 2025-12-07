@@ -2,7 +2,10 @@
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)deviceModeAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)requiredProtocolVersionAsString:(int)string;
+- (id)supportedProtocolVersionAsString:(int)string;
 - (int)StringAsDeviceMode:(id)mode;
 - (int)StringAsRequiredProtocolVersion:(id)version;
 - (int)StringAsSupportedProtocolVersion:(id)version;
@@ -80,6 +83,26 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)deviceModeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Basic";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"Satellite";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDeviceMode:(id)mode
 {
   modeCopy = mode;
@@ -128,6 +151,29 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)supportedProtocolVersionAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Yukon";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Tigris";
+  }
+
+  return v4;
+}
+
 - (int)StringAsSupportedProtocolVersion:(id)version
 {
   versionCopy = version;
@@ -170,6 +216,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)requiredProtocolVersionAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Yukon";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Tigris";
+  }
+
+  return v4;
 }
 
 - (int)StringAsRequiredProtocolVersion:(id)version
@@ -381,57 +450,54 @@ LABEL_39:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_ownerIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_pendingOwnerIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    order = self->_order;
     PBDataWriterWriteInt64Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_pendingSyncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x20) != 0)
   {
-    isChild = self->_isChild;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_storeIdentifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    active = self->_active;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -450,9 +516,8 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  deviceMode = self->_deviceMode;
   PBDataWriterWriteInt32Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -466,40 +531,38 @@ LABEL_18:
   }
 
 LABEL_33:
-  supportedProtocolVersion = self->_supportedProtocolVersion;
   PBDataWriterWriteInt32Field();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_19:
-    requiredProtocolVersion = self->_requiredProtocolVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_20:
   if (self->_systemBuildVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_productType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_deviceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_shardPredicate)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 }
 
@@ -750,7 +813,6 @@ LABEL_10:
     }
   }
 
-  v7 = *(equalCopy + 116);
   if (*&self->_has)
   {
     if ((*(equalCopy + 116) & 1) == 0 || self->_order != *(equalCopy + 1))
@@ -780,7 +842,7 @@ LABEL_10:
   }
 
   has = self->_has;
-  v11 = *(equalCopy + 116);
+  v10 = *(equalCopy + 116);
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 116) & 0x20) == 0)
@@ -788,7 +850,6 @@ LABEL_10:
       goto LABEL_57;
     }
 
-    v13 = *(equalCopy + 113);
     if (self->_isChild)
     {
       if ((*(equalCopy + 113) & 1) == 0)
@@ -817,27 +878,26 @@ LABEL_10:
     }
 
     has = self->_has;
-    v11 = *(equalCopy + 116);
+    v10 = *(equalCopy + 116);
   }
 
   if ((has & 0x10) == 0)
   {
-    if ((v11 & 0x10) == 0)
+    if ((v10 & 0x10) == 0)
     {
       goto LABEL_22;
     }
 
 LABEL_57:
-    v19 = 0;
+    v16 = 0;
     goto LABEL_58;
   }
 
-  if ((v11 & 0x10) == 0)
+  if ((v10 & 0x10) == 0)
   {
     goto LABEL_57;
   }
 
-  v14 = *(equalCopy + 112);
   if (self->_active)
   {
     if ((*(equalCopy + 112) & 1) == 0)
@@ -854,39 +914,39 @@ LABEL_57:
 LABEL_22:
   if ((has & 2) != 0)
   {
-    if ((v11 & 2) == 0 || self->_deviceMode != *(equalCopy + 4))
+    if ((v10 & 2) == 0 || self->_deviceMode != *(equalCopy + 4))
     {
       goto LABEL_57;
     }
   }
 
-  else if ((v11 & 2) != 0)
+  else if ((v10 & 2) != 0)
   {
     goto LABEL_57;
   }
 
   if ((has & 8) != 0)
   {
-    if ((v11 & 8) == 0 || self->_supportedProtocolVersion != *(equalCopy + 22))
+    if ((v10 & 8) == 0 || self->_supportedProtocolVersion != *(equalCopy + 22))
     {
       goto LABEL_57;
     }
   }
 
-  else if ((v11 & 8) != 0)
+  else if ((v10 & 8) != 0)
   {
     goto LABEL_57;
   }
 
   if ((has & 4) != 0)
   {
-    if ((v11 & 4) == 0 || self->_requiredProtocolVersion != *(equalCopy + 16))
+    if ((v10 & 4) == 0 || self->_requiredProtocolVersion != *(equalCopy + 16))
     {
       goto LABEL_57;
     }
   }
 
-  else if ((v11 & 4) != 0)
+  else if ((v10 & 4) != 0)
   {
     goto LABEL_57;
   }
@@ -918,17 +978,17 @@ LABEL_22:
   shardPredicate = self->_shardPredicate;
   if (shardPredicate | *(equalCopy + 9))
   {
-    v19 = [(HDCloudSyncCodableShardPredicate *)shardPredicate isEqual:?];
+    v16 = [(HDCloudSyncCodableShardPredicate *)shardPredicate isEqual:?];
   }
 
   else
   {
-    v19 = 1;
+    v16 = 1;
   }
 
 LABEL_58:
 
-  return v19;
+  return v16;
 }
 
 - (unint64_t)hash

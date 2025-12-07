@@ -29,7 +29,7 @@
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_21D3EB248();
+  sub_21D3EB248(selfCopy);
 }
 
 - (void)buttonAction:(id)action

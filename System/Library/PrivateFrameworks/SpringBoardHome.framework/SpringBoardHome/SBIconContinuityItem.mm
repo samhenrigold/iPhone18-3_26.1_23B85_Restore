@@ -80,13 +80,13 @@
   nameCopy = name;
   if (!type)
   {
-    [SBIconContinuityItem initWithBadgeType:a2 systemImageName:?];
+    [SBIconContinuityItem initWithBadgeType:a2 systemImageName:self];
   }
 
   v9 = nameCopy;
   if (!nameCopy)
   {
-    [SBIconContinuityItem initWithBadgeType:a2 systemImageName:?];
+    [SBIconContinuityItem initWithBadgeType:a2 systemImageName:self];
   }
 
   v13.receiver = self;
@@ -144,9 +144,9 @@
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v17 = 0;
-    v7 = [MEMORY[0x1E69A8A40] symbolForTypeIdentifier:identifierCopy withResolutionStrategy:1 variantOptions:1 error:&v17];
-    v8 = v17;
+    v18 = 0;
+    v7 = [MEMORY[0x1E69A8A40] symbolForTypeIdentifier:identifierCopy withResolutionStrategy:1 variantOptions:1 error:&v18];
+    v8 = v18;
     if (v7)
     {
       name = [v7 name];
@@ -156,71 +156,72 @@ LABEL_6:
       goto LABEL_23;
     }
 
-    if ([identifierCopy isEqualToString:@"com.apple.mac"])
+    v10 = [identifierCopy isEqualToString:@"com.apple.mac"];
+    if (v10)
     {
       name = @"display";
       goto LABEL_6;
     }
 
-    v10 = SBLogContinuity();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SBLogContinuity(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [SBIconContinuityItem _resolvedItemForExplicitBadgeType:identifierCopy deviceTypeIdentifier:v10];
+      [SBIconContinuityItem _resolvedItemForExplicitBadgeType:identifierCopy deviceTypeIdentifier:v11];
     }
   }
 
   if (type > 3)
   {
-    v12 = @"airpods";
-    v13 = @"location.fill";
-    v15 = @"alarm";
+    v13 = @"airpods";
+    v14 = @"location.fill";
+    v16 = @"alarm";
     if (type != 6)
     {
-      v15 = 0;
+      v16 = 0;
     }
 
     if (type != 5)
     {
-      v13 = v15;
+      v14 = v16;
     }
 
-    v14 = type == 4;
+    v15 = type == 4;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
     if (type < 2)
     {
       goto LABEL_24;
     }
 
-    v12 = @"headphones";
-    v13 = @"bluetooth";
+    v13 = @"headphones";
+    v14 = @"bluetooth";
     if (type != 3)
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    v14 = type == 2;
+    v15 = type == 2;
   }
 
-  if (v14)
-  {
-    name = v12;
-  }
-
-  else
+  if (v15)
   {
     name = v13;
   }
 
+  else
+  {
+    name = v14;
+  }
+
 LABEL_23:
-  v11 = [[self alloc] initWithBadgeType:type systemImageName:name];
+  v12 = [[self alloc] initWithBadgeType:type systemImageName:name];
 
 LABEL_24:
 
-  return v11;
+  return v12;
 }
 
 + (int64_t)_continuityBadgeTypeForNSString:(id)string
@@ -338,46 +339,46 @@ LABEL_24:
   return v8;
 }
 
-- (void)initWithBadgeType:(const char *)a1 systemImageName:.cold.1(const char *a1)
+- (void)initWithBadgeType:(const char *)a1 systemImageName:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemImageName != ((void*)0)"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemImageName != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    v8 = @"SBIconContinuityItem.m";
-    v9 = 1024;
-    v10 = 64;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBIconContinuityItem.m";
+    v10 = 1024;
+    v11 = 64;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1BEB18000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithBadgeType:(const char *)a1 systemImageName:.cold.2(const char *a1)
+- (void)initWithBadgeType:(const char *)a1 systemImageName:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"badgeType != SBIconContinuityBadgeTypeNone"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"badgeType != SBIconContinuityBadgeTypeNone"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_1();
-    v8 = @"SBIconContinuityItem.m";
-    v9 = 1024;
-    v10 = 63;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBIconContinuityItem.m";
+    v10 = 1024;
+    v11 = 63;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1BEB18000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -75,7 +75,7 @@
   v3 = SecTaskCreateWithAuditToken(0, &v10);
   if (!v3)
   {
-    sub_100032B80();
+    sub_100032B80(0);
     return 0;
   }
 
@@ -96,7 +96,7 @@
 
   else
   {
-    sub_100032A14();
+    sub_100032A14(v6);
     v8 = 0;
   }
 
@@ -157,7 +157,7 @@
 
 - (BOOL)updateSignedManifest
 {
-  v2 = sub_100021268();
+  v2 = sub_100021268(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -174,7 +174,7 @@
 - (BOOL)migratePreferencesFile:(id)file
 {
   fileCopy = file;
-  v4 = sub_100021268();
+  v4 = sub_100021268(fileCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -196,101 +196,101 @@
   v4 = [processCopy objectForKey:@"ForBackgroundDownload"];
   bOOLValue = [v4 BOOLValue];
 
-  v6 = sub_100021268();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100021268(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v45 = "[MSDHMessageResponder stageDeviceForUpdateProcess:]";
-    v46 = 2114;
-    v47 = processCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Entering %s with parameter: %{public}@", buf, 0x16u);
+    v47 = "[MSDHMessageResponder stageDeviceForUpdateProcess:]";
+    v48 = 2114;
+    v49 = processCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Entering %s with parameter: %{public}@", buf, 0x16u);
   }
 
-  v7 = +[NSMutableArray array];
   v8 = +[NSMutableArray array];
   v9 = +[NSMutableArray array];
-  v33 = processCopy;
-  v32 = bOOLValue;
+  v10 = +[NSMutableArray array];
+  v35 = processCopy;
+  v34 = bOOLValue;
   if (bOOLValue)
   {
-    [v7 addObjectsFromArray:&off_1000566E8];
-    v10 = &off_100056700;
-    v11 = v8;
+    [v8 addObjectsFromArray:&off_1000566E8];
+    v11 = &off_100056700;
+    v12 = v9;
   }
 
   else
   {
-    [v7 addObjectsFromArray:&off_100056718];
-    [v8 addObjectsFromArray:&off_100056730];
-    v10 = &off_100056748;
-    v11 = v9;
+    [v8 addObjectsFromArray:&off_100056718];
+    [v9 addObjectsFromArray:&off_100056730];
+    v11 = &off_100056748;
+    v12 = v10;
   }
 
-  [v11 addObjectsFromArray:v10];
+  [v12 addObjectsFromArray:v11];
+  v42 = 0u;
+  v43 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v12 = v8;
-  v13 = [v12 countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v13)
+  v13 = v9;
+  v14 = [v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v39;
+    v15 = v14;
+    v16 = *v41;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v15; i = i + 1)
       {
-        if (*v39 != v15)
+        if (*v41 != v16)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v38 + 1) + 8 * i);
-        v18 = +[MSDHOperations sharedInstance];
-        [v18 removeDirectory:v17];
+        v18 = *(*(&v40 + 1) + 8 * i);
+        v19 = +[MSDHOperations sharedInstance];
+        [v19 removeDirectory:v18];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
+  v38 = 0u;
+  v39 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v19 = v7;
-  v20 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
-  if (v20)
+  v20 = v8;
+  v21 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  if (v21)
   {
-    v21 = v20;
-    v22 = *v35;
+    v22 = v21;
+    v23 = *v37;
     while (2)
     {
-      for (j = 0; j != v21; j = j + 1)
+      for (j = 0; j != v22; j = j + 1)
       {
-        if (*v35 != v22)
+        if (*v37 != v23)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v20);
         }
 
-        v24 = *(*(&v34 + 1) + 8 * j);
-        v25 = [v9 containsObject:v24];
-        v26 = +[MSDHOperations sharedInstance];
-        LOBYTE(v25) = [v26 prepareDirectory:v24 writableByNonRoot:v25 ^ 1];
+        v25 = *(*(&v36 + 1) + 8 * j);
+        v26 = [v10 containsObject:v25];
+        v27 = +[MSDHOperations sharedInstance];
+        LOBYTE(v26) = [v27 prepareDirectory:v25 writableByNonRoot:v26 ^ 1];
 
-        if ((v25 & 1) == 0)
+        if ((v26 & 1) == 0)
         {
-          sub_100032C38();
-          v30 = v19;
+          sub_100032C38(v25);
+          v32 = v20;
           goto LABEL_24;
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
-      if (v21)
+      v22 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      if (v22)
       {
         continue;
       }
@@ -299,28 +299,28 @@
     }
   }
 
-  v27 = +[MSDHOperations sharedInstance];
-  v28 = [v27 prepareWorkContainerInUserHome:v32];
+  v28 = +[MSDHOperations sharedInstance];
+  v29 = [v28 prepareWorkContainerInUserHome:v34];
 
-  if (v28)
+  if (v29)
   {
-    v29 = 1;
+    v31 = 1;
   }
 
   else
   {
-    v30 = sub_100021268();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v32 = sub_100021268(v30);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_100032CD8();
     }
 
 LABEL_24:
 
-    v29 = 0;
+    v31 = 0;
   }
 
-  return v29;
+  return v31;
 }
 
 - (BOOL)clearStagedDeviceAfterUpdateProcess
@@ -328,21 +328,21 @@ LABEL_24:
   v2 = +[NSFileManager defaultManager];
   v3 = [v2 fileExistsAtPath:@"/var/MSDWorkContainer/.MSD_cache_manifest"];
 
-  v4 = sub_100021268();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100021268(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[MSDHMessageResponder clearStagedDeviceAfterUpdateProcess]";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Entering %s with parameter", &v16, 0xCu);
+    v21 = 136315138;
+    v22 = "[MSDHMessageResponder clearStagedDeviceAfterUpdateProcess]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Entering %s with parameter", &v21, 0xCu);
   }
 
-  v5 = +[MSDHOperations sharedInstance];
-  v6 = [v5 removeDirectory:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/MSDWorkContainer"];
+  v6 = +[MSDHOperations sharedInstance];
+  v7 = [v6 removeDirectory:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/MSDWorkContainer"];
 
-  if ((v6 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v15 = sub_100021268();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v20 = sub_100021268(v8);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_100032D18();
     }
@@ -352,24 +352,24 @@ LABEL_24:
 
   if (v3)
   {
-    v7 = sub_100021268();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100021268(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
-      v17 = @"/var/MSDWorkContainer";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Factory cache exists so spare the work container: %{public}@", &v16, 0xCu);
+      v21 = 138543362;
+      v22 = @"/var/MSDWorkContainer";
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Factory cache exists so spare the work container: %{public}@", &v21, 0xCu);
     }
   }
 
   else
   {
-    v8 = +[MSDHOperations sharedInstance];
-    v9 = [v8 removeDirectory:@"/var/MSDWorkContainer"];
+    v10 = +[MSDHOperations sharedInstance];
+    v11 = [v10 removeDirectory:@"/var/MSDWorkContainer"];
 
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      v15 = sub_100021268();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v20 = sub_100021268(v12);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_100032D98();
       }
@@ -378,21 +378,21 @@ LABEL_24:
     }
   }
 
-  v10 = +[MSDHOperations sharedInstance];
-  v11 = [v10 removeDirectory:@"/private/var/.backup"];
+  v13 = +[MSDHOperations sharedInstance];
+  v14 = [v13 removeDirectory:@"/private/var/.backup"];
 
-  if (v11)
+  if (v14)
   {
-    v12 = +[MSDHOperations sharedInstance];
-    destroyWorkContainerInUserHome = [v12 destroyWorkContainerInUserHome];
+    v16 = +[MSDHOperations sharedInstance];
+    destroyWorkContainerInUserHome = [v16 destroyWorkContainerInUserHome];
 
     if (destroyWorkContainerInUserHome)
     {
       return 1;
     }
 
-    v15 = sub_100021268();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v20 = sub_100021268(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_100032E98();
     }
@@ -400,8 +400,8 @@ LABEL_24:
 
   else
   {
-    v15 = sub_100021268();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v20 = sub_100021268(v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_100032E18();
     }
@@ -415,7 +415,7 @@ LABEL_20:
 - (BOOL)prepareWorkDirectory:(id)directory
 {
   directoryCopy = directory;
-  v4 = sub_100021268();
+  v4 = sub_100021268(directoryCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315394;
@@ -436,7 +436,7 @@ LABEL_20:
 - (BOOL)removeWorkDirectory:(id)directory
 {
   directoryCopy = directory;
-  v4 = sub_100021268();
+  v4 = sub_100021268(directoryCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -488,7 +488,7 @@ LABEL_20:
 - (BOOL)createDeviceManifest:(id)manifest
 {
   manifestCopy = manifest;
-  v4 = sub_100021268();
+  v4 = sub_100021268(manifestCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 136315394;
@@ -512,7 +512,7 @@ LABEL_20:
 - (BOOL)fileExistsAtPath:(id)path
 {
   pathCopy = path;
-  v4 = sub_100021268();
+  v4 = sub_100021268(pathCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -531,7 +531,7 @@ LABEL_20:
 - (BOOL)readPlistFile:(id)file outContent:(id *)content
 {
   fileCopy = file;
-  v6 = sub_100021268();
+  v6 = sub_100021268(fileCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136315394;
@@ -556,7 +556,7 @@ LABEL_20:
 - (BOOL)touchFile:(id)file
 {
   fileCopy = file;
-  v4 = sub_100021268();
+  v4 = sub_100021268(fileCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 136315394;
@@ -595,7 +595,7 @@ LABEL_20:
 - (BOOL)cloneFile:(id)file
 {
   fileCopy = file;
-  v4 = sub_100021268();
+  v4 = sub_100021268(fileCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_100032ED8(fileCopy, v4);
@@ -614,7 +614,7 @@ LABEL_20:
 - (BOOL)restoreBackupAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  v4 = sub_100021268();
+  v4 = sub_100021268(attributesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 136315394;
@@ -640,7 +640,7 @@ LABEL_20:
 - (BOOL)restoreAppDataAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  v4 = sub_100021268();
+  v4 = sub_100021268(attributesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 136315394;
@@ -664,7 +664,7 @@ LABEL_20:
 - (BOOL)deleteNvram:(id)nvram
 {
   nvramCopy = nvram;
-  v4 = sub_100021268();
+  v4 = sub_100021268(nvramCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -683,7 +683,7 @@ LABEL_20:
 - (BOOL)writeNvram:(id)nvram
 {
   nvramCopy = nvram;
-  v4 = sub_100021268();
+  v4 = sub_100021268(nvramCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315394;
@@ -704,14 +704,14 @@ LABEL_20:
 - (BOOL)manageVolume:(id)volume
 {
   volumeCopy = volume;
-  v4 = sub_100021268();
+  v4 = sub_100021268(volumeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "[MSDHMessageResponder manageVolume:]";
-    v14 = 2114;
-    v15 = volumeCopy;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Entering %s with parameter: %{public}@", &v12, 0x16u);
+    v13 = 136315394;
+    v14 = "[MSDHMessageResponder manageVolume:]";
+    v15 = 2114;
+    v16 = volumeCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Entering %s with parameter: %{public}@", &v13, 0x16u);
   }
 
   v5 = [volumeCopy objectForKey:@"Target"];
@@ -732,21 +732,22 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  if ([v5 isEqualToString:@"User"])
+  v11 = [v5 isEqualToString:@"User"];
+  if (v11)
   {
     v7 = [volumeCopy objectForKey:@"UserName"];
-    v11 = +[MSDHOperations sharedInstance];
-    v9 = [v11 manageUserVolume:v6 forUser:v7];
+    v12 = +[MSDHOperations sharedInstance];
+    v9 = [v12 manageUserVolume:v6 forUser:v7];
   }
 
   else
   {
-    v7 = sub_100021268();
+    v7 = sub_100021268(v11);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = v5;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Unknown volume target: %{public}@", &v12, 0xCu);
+      v13 = 138543362;
+      v14 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Unknown volume target: %{public}@", &v13, 0xCu);
     }
 
     v9 = 0;
@@ -760,7 +761,7 @@ LABEL_8:
 - (BOOL)moveStagingToFinal:(id)final
 {
   finalCopy = final;
-  v4 = sub_100021268();
+  v4 = sub_100021268(finalCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -836,7 +837,7 @@ LABEL_16:
 - (BOOL)switchToBackupFolder:(id)folder
 {
   folderCopy = folder;
-  v4 = sub_100021268();
+  v4 = sub_100021268(folderCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -855,7 +856,7 @@ LABEL_16:
 - (BOOL)disableLaunchdServicesForWatch:(id)watch
 {
   watchCopy = watch;
-  v4 = sub_100021268();
+  v4 = sub_100021268(watchCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -874,7 +875,7 @@ LABEL_16:
 - (BOOL)reboot:(id)reboot
 {
   rebootCopy = reboot;
-  v4 = sub_100021268();
+  v4 = sub_100021268(rebootCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -893,7 +894,7 @@ LABEL_16:
 - (BOOL)quitHelper:(id)helper
 {
   helperCopy = helper;
-  v4 = sub_100021268();
+  v4 = sub_100021268(helperCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -912,7 +913,7 @@ LABEL_16:
 - (BOOL)collectDemoLogsToFolder:(id)folder
 {
   folderCopy = folder;
-  v4 = sub_100021268();
+  v4 = sub_100021268(folderCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315394;
@@ -952,47 +953,47 @@ LABEL_16:
 - (BOOL)setComputerNameAndHostname:(id)hostname
 {
   hostnameCopy = hostname;
-  v4 = sub_100021268();
+  v4 = sub_100021268(hostnameCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "[MSDHMessageResponder setComputerNameAndHostname:]";
-    v14 = 2114;
-    v15 = hostnameCopy;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s - request:  %{public}@", &v12, 0x16u);
+    v13 = 136315394;
+    v14 = "[MSDHMessageResponder setComputerNameAndHostname:]";
+    v15 = 2114;
+    v16 = hostnameCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s - request:  %{public}@", &v13, 0x16u);
   }
 
   v5 = [hostnameCopy objectForKey:@"ComputerName"];
   v6 = [hostnameCopy objectForKey:@"Encoding"];
   unsignedIntValue = [v6 unsignedIntValue];
 
-  v8 = sub_100021268();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = sub_100021268(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_100032F64(v5, unsignedIntValue, v8);
+    sub_100032F64(v5, unsignedIntValue, v9);
   }
 
-  v9 = +[MSDHOperations sharedInstance];
-  v10 = [v9 setComputerNameAndHostname:v5 encoding:unsignedIntValue];
+  v10 = +[MSDHOperations sharedInstance];
+  v11 = [v10 setComputerNameAndHostname:v5 encoding:unsignedIntValue];
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)executeTestScriptOfIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v4 = sub_100021268();
+  v4 = sub_100021268(identifierCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[MSDHMessageResponder executeTestScriptOfIdentifier:]";
-    v9 = 2114;
-    v10 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Entering %s with parameter: %{public}@", &v7, 0x16u);
+    v8 = 136315394;
+    v9 = "[MSDHMessageResponder executeTestScriptOfIdentifier:]";
+    v10 = 2114;
+    v11 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Entering %s with parameter: %{public}@", &v8, 0x16u);
   }
 
-  v5 = sub_100021268();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = sub_100021268(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_100032FEC();
   }
@@ -1003,7 +1004,7 @@ LABEL_16:
 - (BOOL)preserveSecondPartyAppDataToShelter:(id)shelter outErrorDict:(id *)dict
 {
   shelterCopy = shelter;
-  v6 = sub_100021268();
+  v6 = sub_100021268(shelterCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1036,26 +1037,26 @@ LABEL_16:
   v6 = [preferencesCopy objectForKey:@"ApplicationId"];
   v7 = [preferencesCopy objectForKey:@"UserName"];
 
-  v8 = sub_100021268();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100021268(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136316162;
-    v13 = "[MSDHMessageResponder setPreferences:]";
-    v14 = 2114;
-    v15 = v4;
-    v16 = 2114;
-    v17 = v5;
-    v18 = 2114;
-    v19 = v6;
-    v20 = 2114;
-    v21 = v7;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: entered - key:  %{public}@ - value:  %{public}@ - appId:  %{public}@ - user:  %{public}@", &v12, 0x34u);
+    v13 = 136316162;
+    v14 = "[MSDHMessageResponder setPreferences:]";
+    v15 = 2114;
+    v16 = v4;
+    v17 = 2114;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v6;
+    v21 = 2114;
+    v22 = v7;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: entered - key:  %{public}@ - value:  %{public}@ - appId:  %{public}@ - user:  %{public}@", &v13, 0x34u);
   }
 
-  v9 = +[MSDHOperations sharedInstance];
-  v10 = [v9 setPreferencesForKey:v4 withValue:v5 forApplication:v6 andUser:v7];
+  v10 = +[MSDHOperations sharedInstance];
+  v11 = [v10 setPreferencesForKey:v4 withValue:v5 forApplication:v6 andUser:v7];
 
-  return v10;
+  return v11;
 }
 
 - (void)_handleXPCMessage:(id)message fromConnection:(id)connection
@@ -1063,50 +1064,53 @@ LABEL_16:
   messageCopy = message;
   connectionCopy = connection;
   v12 = [NSSet setWithObjects:@"readPlistFile:outContent:", @"preserveSecondPartyAppDataToShelter:outErrorDict:", 0];
-  if ([(MSDHMessageResponder *)self hasEntitlementMobileStoreDemod:connectionCopy])
+  v13 = [(MSDHMessageResponder *)self hasEntitlementMobileStoreDemod:connectionCopy];
+  if (v13)
   {
-    v13 = [NSDictionary dictionaryWithXPCDictionary:messageCopy];
-    v14 = v13;
-    if (!v13)
+    v14 = [NSDictionary dictionaryWithXPCDictionary:messageCopy];
+    v15 = v14;
+    if (!v14)
     {
       sub_1000248C8();
       goto LABEL_10;
     }
 
-    v4 = [v13 objectForKey:@"command"];
-    v5 = [v14 objectForKey:@"payload"];
-    if ([(MSDHMessageResponder *)self isCommandAllowed:v4])
+    v4 = [v14 objectForKey:@"command"];
+    v5 = [v15 objectForKey:@"payload"];
+    v16 = [(MSDHMessageResponder *)self isCommandAllowed:v4];
+    if (v16)
     {
-      v15 = NSSelectorFromString(v4);
-      if (v15)
+      v17 = NSSelectorFromString(v4);
+      if (v17)
       {
-        v16 = v15;
-        if (objc_opt_respondsToSelector())
+        v18 = v17;
+        v19 = objc_opt_respondsToSelector();
+        if (v19)
         {
-          v17 = [(MSDHMessageResponder *)self methodForSelector:v16];
+          v20 = [(MSDHMessageResponder *)self methodForSelector:v18];
           if ([v12 containsObject:v4])
           {
-            v22 = 0;
-            v6 = v17(self, v16, v5, &v22);
-            v7 = v22;
+            v25 = 0;
+            v6 = v20(self, v18, v5, &v25);
+            v7 = v25;
             goto LABEL_10;
           }
 
-          v6 = (v17)(self, v16, v5);
+          v6 = (v20)(self, v18, v5);
 LABEL_9:
           v7 = 0;
           goto LABEL_10;
         }
 
-        v19 = sub_100021268();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v22 = sub_100021268(v19);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v21 = [objc_opt_class() description];
+          v24 = [objc_opt_class() description];
           *buf = 138543618;
-          v24 = v21;
-          v25 = 2114;
-          v26 = v4;
-          _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@ does not respond to %{public}@.", buf, 0x16u);
+          v27 = v24;
+          v28 = 2114;
+          v29 = v4;
+          _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%{public}@ does not respond to %{public}@.", buf, 0x16u);
         }
 
 LABEL_22:
@@ -1115,43 +1119,43 @@ LABEL_22:
         goto LABEL_9;
       }
 
-      v19 = sub_100021268();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = sub_100021268(0);
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
       }
 
       *buf = 138543362;
-      v24 = v4;
-      v20 = "selector is nil for command: %{public}@";
+      v27 = v4;
+      v23 = "selector is nil for command: %{public}@";
     }
 
     else
     {
-      v19 = sub_100021268();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = sub_100021268(v16);
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
       }
 
       *buf = 138543362;
-      v24 = v4;
-      v20 = "Command not allowed: %{public}@";
+      v27 = v4;
+      v23 = "Command not allowed: %{public}@";
     }
 
-    _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, v20, buf, 0xCu);
+    _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, v23, buf, 0xCu);
     goto LABEL_22;
   }
 
-  v18 = sub_100021268();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v21 = sub_100021268(v13);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "The client does not have proper entitlement", buf, 2u);
+    _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "The client does not have proper entitlement", buf, 2u);
   }
 
   sub_1000248C8();
-  v14 = 0;
+  v15 = 0;
 LABEL_10:
   [(MSDHMessageResponder *)self sendResponse:v6 withPayload:v7 forRequest:messageCopy fromConnection:connectionCopy];
 }

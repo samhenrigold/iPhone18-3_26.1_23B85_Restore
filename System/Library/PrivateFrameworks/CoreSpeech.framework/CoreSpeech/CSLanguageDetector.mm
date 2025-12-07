@@ -49,19 +49,19 @@
 
 void __63__CSLanguageDetector_startOfSpeechDetector_foundStartSampleAt___block_invoke(uint64_t a1)
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 8) = 1;
   v2 = [*(*(a1 + 32) + 48) sampleCount];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = *(v3 + 104);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __63__CSLanguageDetector_startOfSpeechDetector_foundStartSampleAt___block_invoke_2;
-  v25[3] = &unk_2784C6EC0;
-  v25[4] = v3;
-  v25[5] = v4;
-  dispatch_async(v5, v25);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __63__CSLanguageDetector_startOfSpeechDetector_foundStartSampleAt___block_invoke_2;
+  v24[3] = &unk_2784C6EC0;
+  v24[4] = v3;
+  v24[5] = v4;
+  dispatch_async(v5, v24);
   v6 = v2 - *(a1 + 40);
   if (v6 > [*(*(a1 + 32) + 48) bufferLength])
   {
@@ -81,13 +81,13 @@ void __63__CSLanguageDetector_startOfSpeechDetector_foundStartSampleAt___block_i
     v11 = [MEMORY[0x277D01788] sharedPreferences];
     v12 = [v11 getStartOfSpeechAudioLogFilePath];
 
-    v32[0] = @"SpgRegportedStartSampleId";
+    v31[0] = @"SpgRegportedStartSampleId";
     v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 40)];
-    v33[0] = v13;
-    v32[1] = @"EffectiveStartSampleId";
+    v32[0] = v13;
+    v31[1] = @"EffectiveStartSampleId";
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v4];
-    v33[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v32[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
     v16 = *(a1 + 32);
     v17 = [v12 stringByAppendingString:@"-result.json"];
@@ -100,11 +100,11 @@ void __63__CSLanguageDetector_startOfSpeechDetector_foundStartSampleAt___block_i
       if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v27 = "[CSLanguageDetector startOfSpeechDetector:foundStartSampleAt:]_block_invoke";
-        v28 = 2050;
-        v29 = v4;
-        v30 = 2050;
-        v31 = v2;
+        v26 = "[CSLanguageDetector startOfSpeechDetector:foundStartSampleAt:]_block_invoke";
+        v27 = 2050;
+        v28 = v4;
+        v29 = 2050;
+        v30 = v2;
         _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_DEFAULT, "%s Saving circular buffer from %{public}lu to %{public}lu", buf, 0x20u);
       }
 
@@ -115,8 +115,6 @@ void __63__CSLanguageDetector_startOfSpeechDetector_foundStartSampleAt___block_i
       [v20 saveAudioChunck:v18 toURL:v23];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __63__CSLanguageDetector_startOfSpeechDetector_foundStartSampleAt___block_invoke_2(uint64_t a1)
@@ -151,16 +149,16 @@ void __63__CSLanguageDetector_startOfSpeechDetector_foundStartSampleAt___block_i
 
 void *__72__CSLanguageDetector_languageDetectorDidCompleteProcessing_loggingInfo___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 56);
-    v14 = 136315394;
-    v15 = "[CSLanguageDetector languageDetectorDidCompleteProcessing:loggingInfo:]_block_invoke";
-    v16 = 2048;
-    v17 = v3;
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s LanguageDetector State: %ld", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[CSLanguageDetector languageDetectorDidCompleteProcessing:loggingInfo:]_block_invoke";
+    v15 = 2048;
+    v16 = v3;
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s LanguageDetector State: %ld", &v13, 0x16u);
   }
 
   result = *(a1 + 32);
@@ -198,13 +196,12 @@ LABEL_6:
 
 LABEL_7:
   result[7] = 0;
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)languageDetector:(id)detector result:(id)result
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   detectorCopy = detector;
   resultCopy = result;
   confidences = [resultCopy confidences];
@@ -213,36 +210,36 @@ LABEL_7:
   {
     v10 = v9;
     *buf = 136315650;
-    v40 = "[CSLanguageDetector languageDetector:result:]";
-    v41 = 2114;
-    v42 = confidences;
-    v43 = 1026;
+    v39 = "[CSLanguageDetector languageDetector:result:]";
+    v40 = 2114;
+    v41 = confidences;
+    v42 = 1026;
     isConfident = [resultCopy isConfident];
     _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_DEFAULT, "%s %{public}@ isConfident %{public}d", buf, 0x1Cu);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v11 = confidences;
-  v12 = [v11 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v35;
+    v15 = *v34;
     v16 = -1.0;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v35 != v15)
+        if (*v34 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v34 + 1) + 8 * i);
+        v18 = *(*(&v33 + 1) + 8 * i);
         v19 = [v11 objectForKeyedSubscript:v18];
         [v19 floatValue];
         v21 = v20;
@@ -258,7 +255,7 @@ LABEL_7:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v13);
@@ -270,20 +267,18 @@ LABEL_7:
   }
 
   queue = self->_queue;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __46__CSLanguageDetector_languageDetector_result___block_invoke;
-  v30[3] = &unk_2784C5EA0;
-  v30[4] = self;
-  v31 = v14;
-  v32 = v11;
-  v33 = resultCopy;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __46__CSLanguageDetector_languageDetector_result___block_invoke;
+  v29[3] = &unk_2784C5EA0;
+  v29[4] = self;
+  v30 = v14;
+  v31 = v11;
+  v32 = resultCopy;
   v26 = resultCopy;
   v27 = v11;
   v28 = v14;
-  dispatch_async(queue, v30);
-
-  v29 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v29);
 }
 
 void __46__CSLanguageDetector_languageDetector_result___block_invoke(uint64_t a1)
@@ -311,7 +306,7 @@ void __46__CSLanguageDetector_languageDetector_result___block_invoke(uint64_t a1
 
 - (void)_logLanguageDetectorMetricsForLoggingInfo:(id)info
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = MEMORY[0x277D015D8];
   v6 = *MEMORY[0x277D015D8];
@@ -319,11 +314,11 @@ void __46__CSLanguageDetector_languageDetector_result___block_invoke(uint64_t a1
   {
     v7 = v6;
     loggingDict = [infoCopy loggingDict];
-    v18 = 136315394;
-    v19 = "[CSLanguageDetector _logLanguageDetectorMetricsForLoggingInfo:]";
-    v20 = 2114;
-    v21 = loggingDict;
-    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s _EARLanguageDetectorLoggingInfo = %{public}@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[CSLanguageDetector _logLanguageDetectorMetricsForLoggingInfo:]";
+    v19 = 2114;
+    v20 = loggingDict;
+    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s _EARLanguageDetectorLoggingInfo = %{public}@", &v17, 0x16u);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -353,26 +348,24 @@ void __46__CSLanguageDetector_languageDetector_result___block_invoke(uint64_t a1
   v15 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315394;
-    v19 = "[CSLanguageDetector _logLanguageDetectorMetricsForLoggingInfo:]";
-    v20 = 2114;
-    v21 = dictionary;
-    _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s _EARLanguageDetectorLoggingInfo analytics context %{public}@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[CSLanguageDetector _logLanguageDetectorMetricsForLoggingInfo:]";
+    v19 = 2114;
+    v20 = dictionary;
+    _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s _EARLanguageDetectorLoggingInfo analytics context %{public}@", &v17, 0x16u);
   }
 
   mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
   [mEMORY[0x277CEF158] logEventWithType:4703 context:dictionary contextNoCopy:0];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logSoSResult:(id)result toPath:(id)path
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v12 = 0;
-  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:result options:3 error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:result options:3 error:&v11];
+  v7 = v11;
   if (v7)
   {
     v8 = *MEMORY[0x277D015D8];
@@ -381,9 +374,9 @@ void __46__CSLanguageDetector_languageDetector_result___block_invoke(uint64_t a1
       v9 = v8;
       localizedDescription = [v7 localizedDescription];
       *buf = 136315394;
-      v14 = "[CSLanguageDetector _logSoSResult:toPath:]";
-      v15 = 2114;
-      v16 = localizedDescription;
+      v13 = "[CSLanguageDetector _logSoSResult:toPath:]";
+      v14 = 2114;
+      v15 = localizedDescription;
       _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Error writing out SoS info meta: %{public}@", buf, 0x16u);
     }
   }
@@ -392,8 +385,6 @@ void __46__CSLanguageDetector_languageDetector_result___block_invoke(uint64_t a1
   {
     [v6 writeToFile:pathCopy atomically:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getDefaultValues
@@ -408,13 +399,13 @@ void __46__CSLanguageDetector_languageDetector_result___block_invoke(uint64_t a1
 
 - (id)_readJsonDictionaryAt:(id)at
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   atCopy = at;
-  v20 = 0;
+  v19 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v7 = [defaultManager fileExistsAtPath:atCopy isDirectory:&v20];
+  v7 = [defaultManager fileExistsAtPath:atCopy isDirectory:&v19];
 
-  if (v20)
+  if (v19)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"CSLanguageDetector.m" lineNumber:269 description:{@"Unexpected!! Received dir for: %@", atCopy}];
@@ -422,20 +413,20 @@ void __46__CSLanguageDetector_languageDetector_result___block_invoke(uint64_t a1
     if (v7)
     {
 LABEL_3:
-      v19 = 0;
-      v8 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:atCopy options:0 error:&v19];
-      v9 = v19;
+      v18 = 0;
+      v8 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:atCopy options:0 error:&v18];
+      v9 = v18;
       if (v9 || !v8)
       {
         v12 = *MEMORY[0x277D015D8];
         if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v22 = "[CSLanguageDetector _readJsonDictionaryAt:]";
-          v23 = 2114;
-          v24 = atCopy;
-          v25 = 2114;
-          v26 = v9;
+          v21 = "[CSLanguageDetector _readJsonDictionaryAt:]";
+          v22 = 2114;
+          v23 = atCopy;
+          v24 = 2114;
+          v25 = v9;
           _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_DEFAULT, "%s Could not read Json file at: %{public}@, err: %{public}@", buf, 0x20u);
         }
 
@@ -444,20 +435,20 @@ LABEL_3:
 
       else
       {
-        v18 = 0;
-        v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v18];
-        v9 = v18;
+        v17 = 0;
+        v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v17];
+        v9 = v17;
         if (v9 || !v10)
         {
           v13 = *MEMORY[0x277D015D8];
           if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v22 = "[CSLanguageDetector _readJsonDictionaryAt:]";
-            v23 = 2114;
-            v24 = atCopy;
-            v25 = 2114;
-            v26 = v9;
+            v21 = "[CSLanguageDetector _readJsonDictionaryAt:]";
+            v22 = 2114;
+            v23 = atCopy;
+            v24 = 2114;
+            v25 = v9;
             _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_DEFAULT, "%s Failed to parse json at: %{public}@, err: %{public}@", buf, 0x20u);
           }
 
@@ -483,23 +474,21 @@ LABEL_3:
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v22 = "[CSLanguageDetector _readJsonDictionaryAt:]";
-    v23 = 2114;
-    v24 = atCopy;
+    v21 = "[CSLanguageDetector _readJsonDictionaryAt:]";
+    v22 = 2114;
+    v23 = atCopy;
     _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s Json file doesnt exist at: %{public}@", buf, 0x16u);
   }
 
   v11 = 0;
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)_setNumLatestLangFromConfigFile:(id)file
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [(CSLanguageDetector *)self _readJsonDictionaryAt:file];
   v5 = [v4 objectForKeyedSubscript:@"NumLatestLanguages"];
 
@@ -518,43 +507,41 @@ LABEL_20:
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     numLatestLanguages = self->_numLatestLanguages;
-    v10 = 136315394;
-    v11 = "[CSLanguageDetector _setNumLatestLangFromConfigFile:]";
-    v12 = 2050;
-    v13 = numLatestLanguages;
-    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Setting NumLatestLanguages to %{public}lu ", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[CSLanguageDetector _setNumLatestLangFromConfigFile:]";
+    v11 = 2050;
+    v12 = numLatestLanguages;
+    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Setting NumLatestLanguages to %{public}lu ", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_constructLangPriors
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = self->_latestDetectedLanguages;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = v3;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v29 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
-        v12 = [v4 objectForKey:{v11, v19}];
+        v11 = *(*(&v18 + 1) + 8 * i);
+        v12 = [v4 objectForKey:{v11, v18}];
 
         if (v12)
         {
@@ -573,7 +560,7 @@ LABEL_20:
         [v4 setObject:v8 forKey:v11];
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v29 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v28 count:16];
     }
 
     while (v7);
@@ -583,15 +570,13 @@ LABEL_20:
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v24 = "[CSLanguageDetector _constructLangPriors]";
-    v25 = 2112;
-    v26 = v5;
-    v27 = 2112;
-    v28 = v4;
+    v23 = "[CSLanguageDetector _constructLangPriors]";
+    v24 = 2112;
+    v25 = v5;
+    v26 = 2112;
+    v27 = v4;
     _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_DEFAULT, "%s Recoreded language array: %@ Language Prior Dictionary: %@", buf, 0x20u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -646,7 +631,7 @@ uint64_t __55__CSLanguageDetector_setMostRecentRecognitionLanguage___block_invok
 
 - (void)_initializeStartOfSpeechDetector:(id)detector samplingRate:(float)rate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   detectorCopy = detector;
   startOfSpeechDetectorConfigFile = [detectorCopy startOfSpeechDetectorConfigFile];
   _getDefaultValues = [(CSLanguageDetector *)self _readJsonDictionaryAt:startOfSpeechDetectorConfigFile];
@@ -681,13 +666,11 @@ uint64_t __55__CSLanguageDetector_setMostRecentRecognitionLanguage___block_invok
     v20 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315138;
-      v23 = "[CSLanguageDetector _initializeStartOfSpeechDetector:samplingRate:]";
-      _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_DEFAULT, "%s Failed to initialize StartOfSpeechDetector !", &v22, 0xCu);
+      v21 = 136315138;
+      v22 = "[CSLanguageDetector _initializeStartOfSpeechDetector:samplingRate:]";
+      _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_DEFAULT, "%s Failed to initialize StartOfSpeechDetector !", &v21, 0xCu);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInteractionIDforCurrentRequest:(id)request
@@ -706,24 +689,22 @@ uint64_t __55__CSLanguageDetector_setMostRecentRecognitionLanguage___block_invok
 
 void __56__CSLanguageDetector_setInteractionIDforCurrentRequest___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 136315394;
-    v9 = "[CSLanguageDetector setInteractionIDforCurrentRequest:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Setting interaction ID for current request: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSLanguageDetector setInteractionIDforCurrentRequest:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Setting interaction ID for current request: %@", &v7, 0x16u);
   }
 
   v4 = [*(a1 + 32) copy];
   v5 = *(a1 + 40);
   v6 = *(v5 + 96);
   *(v5 + 96) = v4;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelCurrentRequest
@@ -739,19 +720,17 @@ void __56__CSLanguageDetector_setInteractionIDforCurrentRequest___block_invoke(u
 
 void __42__CSLanguageDetector_cancelCurrentRequest__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 56) = 3;
   [*(*(a1 + 32) + 40) endAudio];
   [*(*(a1 + 32) + 32) endAudio];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSLanguageDetector cancelCurrentRequest]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Current LanguageDetector request cancelled", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSLanguageDetector cancelCurrentRequest]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Current LanguageDetector request cancelled", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetStartOfSpeechDetector
@@ -902,40 +881,37 @@ void __41__CSLanguageDetector_resetForNewRequest___block_invoke_2(uint64_t a1, v
 
 void __41__CSLanguageDetector_resetForNewRequest___block_invoke_3(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2)
   {
     objc_storeStrong((a1[6] + 88), v2);
     v3 = a1[6];
     v4 = a1[7];
-    v5 = *MEMORY[0x277D85DE8];
 
     [v3 _setupLanguageDetectorWithOption:v4];
   }
 
   else
   {
-    v6 = *MEMORY[0x277D015D8];
+    v5 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[5];
-      v9 = v6;
-      v10 = [v8 localizedDescription];
-      v11 = 136315394;
-      v12 = "[CSLanguageDetector resetForNewRequest:]_block_invoke_3";
-      v13 = 2114;
-      v14 = v10;
-      _os_log_error_impl(&dword_222E4D000, v9, OS_LOG_TYPE_ERROR, "%s Cannot access asset : %{public}@", &v11, 0x16u);
+      v6 = a1[5];
+      v7 = v5;
+      v8 = [v6 localizedDescription];
+      v9 = 136315394;
+      v10 = "[CSLanguageDetector resetForNewRequest:]_block_invoke_3";
+      v11 = 2114;
+      v12 = v8;
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Cannot access asset : %{public}@", &v9, 0x16u);
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_setupLanguageDetectorWithOption:(id)option
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   optionCopy = option;
   hashFromResourcePath = [(CSAsset *)self->_currentAsset hashFromResourcePath];
   v6 = [hashFromResourcePath copy];
@@ -952,11 +928,11 @@ void __41__CSLanguageDetector_resetForNewRequest___block_invoke_3(void *a1)
     v11 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 136315394;
-      v25 = "[CSLanguageDetector _setupLanguageDetectorWithOption:]";
-      v26 = 2114;
-      v27 = languageDetectorConfigFile;
-      _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s Creating LanguageDetector with config: %{public}@", &v24, 0x16u);
+      v23 = 136315394;
+      v24 = "[CSLanguageDetector _setupLanguageDetectorWithOption:]";
+      v25 = 2114;
+      v26 = languageDetectorConfigFile;
+      _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s Creating LanguageDetector with config: %{public}@", &v23, 0x16u);
     }
 
     v12 = [objc_alloc(MEMORY[0x277D07258]) initWithConfigFile:languageDetectorConfigFile];
@@ -986,18 +962,16 @@ void __41__CSLanguageDetector_resetForNewRequest___block_invoke_3(void *a1)
     v22 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v24 = 136315138;
-      v25 = "[CSLanguageDetector _setupLanguageDetectorWithOption:]";
-      _os_log_error_impl(&dword_222E4D000, v22, OS_LOG_TYPE_ERROR, "%s Cannot initialize language detector since model file is not exits", &v24, 0xCu);
+      v23 = 136315138;
+      v24 = "[CSLanguageDetector _setupLanguageDetectorWithOption:]";
+      _os_log_error_impl(&dword_222E4D000, v22, OS_LOG_TYPE_ERROR, "%s Cannot initialize language detector since model file is not exits", &v23, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startMonitorLanguageDetectorAssetDownload
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_notifyToken == -1)
   {
     queue = self->_queue;
@@ -1015,12 +989,10 @@ void __41__CSLanguageDetector_resetForNewRequest___block_invoke_3(void *a1)
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v7 = "[CSLanguageDetector _startMonitorLanguageDetectorAssetDownload]";
+      v6 = "[CSLanguageDetector _startMonitorLanguageDetectorAssetDownload]";
       _os_log_error_impl(&dword_222E4D000, v2, OS_LOG_TYPE_ERROR, "%s Cannot start monitoring language detector asset, since we already registered", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

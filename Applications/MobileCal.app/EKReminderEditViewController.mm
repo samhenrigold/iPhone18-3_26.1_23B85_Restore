@@ -43,7 +43,7 @@
   *(self + OBJC_IVAR____TtC9MobileCal28EKReminderEditViewController_ignoreUnsavedChanges) = 0;
   *(self + OBJC_IVAR____TtC9MobileCal28EKReminderEditViewController_model) = model;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for EKReminderEditViewController();
+  v9.super_class = type metadata accessor for EKReminderEditViewController(0);
   modelCopy = model;
   return [(EKReminderEditViewController *)&v9 initWithNibName:0 bundle:0];
 }
@@ -119,12 +119,12 @@
 
   selfCopy = self;
   sub_10016D440(v7, v6);
-  sub_10015F010(v7);
+  sub_10015F010(v7, v6);
 }
 
 - (void)cancelEditing
 {
-  v3 = sub_10015E0CC(&qword_100251560);
+  v3 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -154,7 +154,7 @@
 
 - (void)presentationControllerDidAttemptToDismiss:(id)dismiss
 {
-  v4 = sub_10015E0CC(&qword_100251560);
+  v4 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for TaskPriority();

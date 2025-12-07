@@ -12,40 +12,39 @@
 
 - (id)userDataControllerWithDelegate:(id)delegate dataSource:(id)source queue:(id)queue userID:(id)d homeID:(id)iD sharedSettingsController:(id)controller privateSettingsController:(id)settingsController isCurrentUser:(BOOL)self0
 {
-  LODWORD(v32) = user;
-  v33 = sub_253CCFF58();
-  v14 = *(v33 - 8);
-  v15 = *(v14 + 64);
-  v16 = MEMORY[0x28223BE20](v33);
-  v18 = &v30 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16);
-  v20 = &v30 - v19;
+  LODWORD(v31) = user;
+  v32 = sub_253CCFF58();
+  v14 = *(v32 - 8);
+  v15 = MEMORY[0x28223BE20](v32);
+  v17 = &v29 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v29 - v18;
   sub_253CCFF38();
   sub_253CCFF38();
-  v31 = objc_allocWithZone(HMDUserDataController);
+  v30 = objc_allocWithZone(HMDUserDataController);
   swift_unknownObjectRetain();
   sourceCopy = source;
   swift_unknownObjectRetain();
   queueCopy = queue;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
+  v22 = sub_253CCFF18();
   v23 = sub_253CCFF18();
-  v24 = sub_253CCFF18();
-  LOBYTE(v29) = v32;
-  v32 = [v31 initWithDelegate:delegate dataSource:sourceCopy queue:queueCopy userID:v23 homeID:v24 sharedSettingsController:controller privateSettingsController:settingsController isCurrentUser:v29];
+  LOBYTE(v28) = v31;
+  v31 = [v30 initWithDelegate:delegate dataSource:sourceCopy queue:queueCopy userID:v22 homeID:v23 sharedSettingsController:controller privateSettingsController:settingsController isCurrentUser:v28];
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  v25 = *(v14 + 8);
-  v26 = v33;
-  v25(v18, v33);
-  v25(v20, v26);
-  v27 = v32;
+  v24 = *(v14 + 8);
+  v25 = v32;
+  v24(v17, v32);
+  v24(v19, v25);
+  v26 = v31;
 
-  return v27;
+  return v26;
 }
 
 - (id)userDataBackingStoreControllerWithDelegate:(id)delegate queue:(id)queue zoneName:(id)name shareMessenger:(id)messenger

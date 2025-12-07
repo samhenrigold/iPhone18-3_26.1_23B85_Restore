@@ -86,7 +86,7 @@
   _Block_object_dispose(v10, 8);
 }
 
-uint64_t __87__SBAnalyticsEventsControllerForIconController__analyticsLoggingForOptimizedHomeScreen__block_invoke(uint64_t a1, void *a2)
+void *__87__SBAnalyticsEventsControllerForIconController__analyticsLoggingForOptimizedHomeScreen__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isApplicationIcon];
   if (result)
@@ -97,7 +97,7 @@ uint64_t __87__SBAnalyticsEventsControllerForIconController__analyticsLoggingFor
   return result;
 }
 
-uint64_t __87__SBAnalyticsEventsControllerForIconController__analyticsLoggingForOptimizedHomeScreen__block_invoke_2(uint64_t a1, void *a2)
+void *__87__SBAnalyticsEventsControllerForIconController__analyticsLoggingForOptimizedHomeScreen__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isApplicationIcon];
   if (result)
@@ -154,10 +154,10 @@ id __83__SBAnalyticsEventsControllerForIconController__analyticsLoggingForDispla
   [rootFolder enumerateListsWithOptions:4 usingBlock:&__block_literal_global_166];
 }
 
-void __85__SBAnalyticsEventsControllerForIconController__analyticsLoggingForFixedIconLocation__block_invoke(uint64_t a1, void *a2)
+void __85__SBAnalyticsEventsControllerForIconController__analyticsLoggingForFixedIconLocation__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v2 = v3;
+  v4 = a2;
+  v3 = v4;
   AnalyticsSendEventLazy();
 }
 

@@ -48,15 +48,15 @@
 
 - (void)notificationPosted:(id)posted
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   postedCopy = posted;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = postedCopy;
-    _os_log_impl(&dword_24B55B000, v5, OS_LOG_TYPE_DEFAULT, "Removing goal completion types for content %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = postedCopy;
+    _os_log_impl(&dword_24B55B000, v5, OS_LOG_TYPE_DEFAULT, "Removing goal completion types for content %@", &v9, 0xCu);
   }
 
   v6 = MEMORY[0x277CBEB98];
@@ -64,13 +64,12 @@
   v8 = [v6 setWithArray:completedGoalTypes];
 
   -[FCGoalCompletionCoordinator notificationPostedForGoalTypes:activitySummaryIndex:](self, "notificationPostedForGoalTypes:activitySummaryIndex:", v8, [postedCopy activitySummaryIndex]);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)runDailyGoalCompletionDetectionForGoalType:(int64_t)type activitySummaryIndex:(int64_t)index previousValue:(double)value currentValue:(double)currentValue goalValue:(double)goalValue shouldAlert:(BOOL)alert goalMetHandler:(id)handler
 {
   alertCopy = alert;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (![(FCGoalCompletionCoordinator *)self _goalTypeAllowed:type])
   {
@@ -78,9 +77,9 @@
     v21 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      *v39 = 67109120;
-      *&v39[4] = type;
-      _os_log_impl(&dword_24B55B000, v21, OS_LOG_TYPE_DEFAULT, "Goal type %d not allowed on device", v39, 8u);
+      *v38 = 67109120;
+      *&v38[4] = type;
+      _os_log_impl(&dword_24B55B000, v21, OS_LOG_TYPE_DEFAULT, "Goal type %d not allowed on device", v38, 8u);
     }
 
     goto LABEL_12;
@@ -127,35 +126,35 @@ LABEL_12:
   {
     if (v27)
     {
-      *v39 = 138413314;
-      *&v39[4] = v20;
-      *&v39[12] = 2048;
-      *&v39[14] = index;
-      *&v39[22] = 2048;
+      *v38 = 138413314;
+      *&v38[4] = v20;
+      *&v38[12] = 2048;
+      *&v38[14] = index;
+      *&v38[22] = 2048;
       valueCopy = value;
-      *v41 = 2048;
-      *&v41[2] = currentValue;
-      *&v41[10] = 2048;
-      *&v41[12] = goalValue;
+      *v40 = 2048;
+      *&v40[2] = currentValue;
+      *&v40[10] = 2048;
+      *&v40[12] = goalValue;
       v28 = "Goal type %@ for summary index %lld went from %f to %f; goal is %f";
       v29 = v26;
       v30 = 52;
 LABEL_19:
-      _os_log_impl(&dword_24B55B000, v29, OS_LOG_TYPE_DEFAULT, v28, v39, v30);
+      _os_log_impl(&dword_24B55B000, v29, OS_LOG_TYPE_DEFAULT, v28, v38, v30);
     }
   }
 
   else if (v27)
   {
-    *v39 = 138412290;
-    *&v39[4] = v20;
+    *v38 = 138412290;
+    *&v38[4] = v20;
     v28 = "Goal type %@ today value updated";
     v29 = v26;
     v30 = 12;
     goto LABEL_19;
   }
 
-  if ([(FCGoalCompletionStore *)self->_goalCompletionStore isDailyGoalTypeMet:type activitySummaryIndex:index, *v39, *&v39[16], *&valueCopy, *v41, *&v41[16], v42])
+  if ([(FCGoalCompletionStore *)self->_goalCompletionStore isDailyGoalTypeMet:type activitySummaryIndex:index, *v38, *&v38[8], *&valueCopy, *v40, *&v40[8], v41])
   {
     _HKInitializeLogging();
     v31 = *v25;
@@ -164,13 +163,13 @@ LABEL_19:
       goalCompletionStore = self->_goalCompletionStore;
       v33 = v31;
       v34 = [(FCGoalCompletionStore *)goalCompletionStore allGoalTypesMetForActivitySummaryIndex:index];
-      *v39 = 138543874;
-      *&v39[4] = v20;
-      *&v39[12] = 2048;
-      *&v39[14] = index;
-      *&v39[22] = 2112;
+      *v38 = 138543874;
+      *&v38[4] = v20;
+      *&v38[12] = 2048;
+      *&v38[14] = index;
+      *&v38[22] = 2112;
       valueCopy = *&v34;
-      _os_log_impl(&dword_24B55B000, v33, OS_LOG_TYPE_DEFAULT, "Attempted to add goal type %{public}@ that was already added for activitySummaryIndex: %lld; existing set is %@", v39, 0x20u);
+      _os_log_impl(&dword_24B55B000, v33, OS_LOG_TYPE_DEFAULT, "Attempted to add goal type %{public}@ that was already added for activitySummaryIndex: %lld; existing set is %@", v38, 0x20u);
     }
   }
 
@@ -184,9 +183,9 @@ LABEL_19:
     {
       if (v36)
       {
-        *v39 = 138543362;
-        *&v39[4] = v20;
-        _os_log_impl(&dword_24B55B000, v35, OS_LOG_TYPE_DEFAULT, "Goal type %{public}@ was just met, notifying", v39, 0xCu);
+        *v38 = 138543362;
+        *&v38[4] = v20;
+        _os_log_impl(&dword_24B55B000, v35, OS_LOG_TYPE_DEFAULT, "Goal type %{public}@ was just met, notifying", v38, 0xCu);
       }
 
       [(FCGoalCompletionStore *)self->_goalCompletionStore addGoalTypeToNotify:type activitySummaryIndex:index];
@@ -194,22 +193,21 @@ LABEL_19:
 
     else if (v36)
     {
-      *v39 = 138543362;
-      *&v39[4] = v20;
-      _os_log_impl(&dword_24B55B000, v35, OS_LOG_TYPE_DEFAULT, "Goal type %{public}@ was just met, but we are told not to notify (paused rings)", v39, 0xCu);
+      *v38 = 138543362;
+      *&v38[4] = v20;
+      _os_log_impl(&dword_24B55B000, v35, OS_LOG_TYPE_DEFAULT, "Goal type %{public}@ was just met, but we are told not to notify (paused rings)", v38, 0xCu);
     }
   }
 
   v23 = 1;
 LABEL_30:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (void)concludeGoalDetectionRun
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   v4 = [(FCGoalCompletionCoordinator *)self _activitySummaryIndexForDate:date];
 
@@ -221,9 +219,9 @@ LABEL_30:
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
       v7 = v6;
-      v15 = 134217984;
-      v16 = [v5 count];
-      _os_log_impl(&dword_24B55B000, v7, OS_LOG_TYPE_DEFAULT, "Goal Completion Coordinator requesting notification for %ld completed goal types", &v15, 0xCu);
+      v14 = 134217984;
+      v15 = [v5 count];
+      _os_log_impl(&dword_24B55B000, v7, OS_LOG_TYPE_DEFAULT, "Goal Completion Coordinator requesting notification for %ld completed goal types", &v14, 0xCu);
     }
 
     v8 = objc_alloc(MEMORY[0x277D09CA0]);
@@ -235,8 +233,6 @@ LABEL_30:
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained coordinator:self postGoalCompletionNotification:v12];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_activitySummaryIndexForDate:(id)date
@@ -280,13 +276,12 @@ LABEL_30:
 
 - (void)runDailyGoalCompletionDetectionForGoalType:(os_log_t)log activitySummaryIndex:previousValue:currentValue:goalValue:shouldAlert:goalMetHandler:.cold.1(char a1, char a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a1 & 1;
-  v5 = 1024;
-  v6 = a2 & 1;
-  _os_log_debug_impl(&dword_24B55B000, log, OS_LOG_TYPE_DEBUG, "Goal previously met %{BOOL}d, currently met %{BOOL}d", v4, 0xEu);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a1 & 1;
+  v4 = 1024;
+  v5 = a2 & 1;
+  _os_log_debug_impl(&dword_24B55B000, log, OS_LOG_TYPE_DEBUG, "Goal previously met %{BOOL}d, currently met %{BOOL}d", v3, 0xEu);
 }
 
 @end

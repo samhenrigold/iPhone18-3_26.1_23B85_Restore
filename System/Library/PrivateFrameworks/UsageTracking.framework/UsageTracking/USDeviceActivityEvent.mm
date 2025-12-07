@@ -1,7 +1,9 @@
 @interface USDeviceActivityEvent
 - (BOOL)includesAllActivity;
 - (BOOL)isEqual:(id)equal;
+- (USDeviceActivityEvent)initWithApplicationTokens:(id)tokens categoryTokens:(id)categoryTokens webDomainTokens:(id)domainTokens threshold:(id)threshold includesPastActivity:(BOOL)activity;
 - (USDeviceActivityEvent)initWithApplicationTokens:(id)tokens exemptApplicationTokens:(id)applicationTokens categoryTokens:(id)categoryTokens webDomainTokens:(id)domainTokens threshold:(id)threshold includesPastActivity:(BOOL)activity;
+- (USDeviceActivityEvent)initWithBundleIdentifiers:(id)identifiers categoryIdentifiers:(id)categoryIdentifiers webDomains:(id)domains threshold:(id)threshold includesPastActivity:(BOOL)activity;
 - (USDeviceActivityEvent)initWithBundleIdentifiers:(id)identifiers exemptBundleIdentifiers:(id)bundleIdentifiers categoryIdentifiers:(id)categoryIdentifiers webDomains:(id)domains threshold:(id)threshold includesPastActivity:(BOOL)activity;
 - (USDeviceActivityEvent)initWithCoder:(id)coder;
 - (id)description;
@@ -10,6 +12,19 @@
 @end
 
 @implementation USDeviceActivityEvent
+
+- (USDeviceActivityEvent)initWithApplicationTokens:(id)tokens categoryTokens:(id)categoryTokens webDomainTokens:(id)domainTokens threshold:(id)threshold includesPastActivity:(BOOL)activity
+{
+  activityCopy = activity;
+  thresholdCopy = threshold;
+  domainTokensCopy = domainTokens;
+  categoryTokensCopy = categoryTokens;
+  tokensCopy = tokens;
+  v16 = objc_opt_new();
+  v17 = [(USDeviceActivityEvent *)self initWithApplicationTokens:tokensCopy exemptApplicationTokens:v16 categoryTokens:categoryTokensCopy webDomainTokens:domainTokensCopy threshold:thresholdCopy includesPastActivity:activityCopy];
+
+  return v17;
+}
 
 - (USDeviceActivityEvent)initWithApplicationTokens:(id)tokens exemptApplicationTokens:(id)applicationTokens categoryTokens:(id)categoryTokens webDomainTokens:(id)domainTokens threshold:(id)threshold includesPastActivity:(BOOL)activity
 {
@@ -61,6 +76,19 @@
   v18->_isUntokenized = 0;
   v18->_includesPastActivity = activity;
   return v18;
+}
+
+- (USDeviceActivityEvent)initWithBundleIdentifiers:(id)identifiers categoryIdentifiers:(id)categoryIdentifiers webDomains:(id)domains threshold:(id)threshold includesPastActivity:(BOOL)activity
+{
+  activityCopy = activity;
+  thresholdCopy = threshold;
+  domainsCopy = domains;
+  categoryIdentifiersCopy = categoryIdentifiers;
+  identifiersCopy = identifiers;
+  v16 = objc_opt_new();
+  v17 = [(USDeviceActivityEvent *)self initWithBundleIdentifiers:identifiersCopy exemptBundleIdentifiers:v16 categoryIdentifiers:categoryIdentifiersCopy webDomains:domainsCopy threshold:thresholdCopy includesPastActivity:activityCopy];
+
+  return v17;
 }
 
 - (USDeviceActivityEvent)initWithBundleIdentifiers:(id)identifiers exemptBundleIdentifiers:(id)bundleIdentifiers categoryIdentifiers:(id)categoryIdentifiers webDomains:(id)domains threshold:(id)threshold includesPastActivity:(BOOL)activity

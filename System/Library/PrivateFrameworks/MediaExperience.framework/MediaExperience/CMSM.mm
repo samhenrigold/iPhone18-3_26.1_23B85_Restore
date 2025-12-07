@@ -5,25 +5,19 @@
 
 void __CMSM_IDSServer_StartAutomaticOwnershipTransferToPhoneTimer_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v1 = *MEMORY[0x1E69E9840];
   CMSM_IDSServer_CancelAutomaticOwnershipTransferToPhoneTimer();
   if (FigRoutingManagerUtilities_IsSystemAudioRouteBuiltIn())
   {
-    v0 = *MEMORY[0x1E69E9840];
 
-    CMSM_IDSConnection_RouteToSharedAudioRouteUponReceivingOwnership();
+    CMSM_IDSConnection_RouteToSharedAudioRouteUponReceivingOwnership(5);
   }
 
-  else
+  else if (dword_1EB75DE40)
   {
-    if (dword_1EB75DE40)
-    {
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    v2 = *MEMORY[0x1E69E9840];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 }
 
@@ -45,9 +39,9 @@ void __CMSM_IDSClient_SendMessageAsyncAndCopyIdentifier_block_invoke(uint64_t a1
   }
 }
 
-uint64_t __CMSM_IDSConnection_Initialize_block_invoke()
+void *__CMSM_IDSConnection_Initialize_block_invoke()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [gIDSConnection updateNearbyPairedDevice];
   sIDSConnectedInitializationDone = 1;
   v0 = [gIDSConnection copyNearbyPairedDevice];
@@ -66,7 +60,7 @@ uint64_t __CMSM_IDSConnection_Initialize_block_invoke()
   {
     CMSM_IDSClient_NotifyRemote_LocalIsBeingInitialized();
     CMSM_IDSClient_QueryRemote_BTDeviceConnectionStatus();
-    result = CMSM_IDSClient_QueryRemote_PlayingInfo();
+    return CMSM_IDSClient_QueryRemote_PlayingInfo();
   }
 
   else
@@ -74,13 +68,11 @@ uint64_t __CMSM_IDSConnection_Initialize_block_invoke()
     byte_1EB75CCC8 = 1;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __CMSM_IDSConnection_CopyMXCoreSession_block_invoke()
 {
-  v6 = *MEMORY[0x1E69E9840];
   if (CMSessionCreate(&sIDSInfo))
   {
     v0 = 1;
@@ -101,8 +93,6 @@ void __CMSM_IDSConnection_CopyMXCoreSession_block_invoke()
       CFRelease(sIDSInfo);
       sIDSInfo = 0;
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -115,7 +105,6 @@ void __CMSM_IDSConnection_CopyMXCoreSession_block_invoke()
     _CMSessionSetProperty(sIDSInfo, @"DoesntActuallyPlayAudio", [MEMORY[0x1E696AD98] numberWithBool:1]);
     v2 = sIDSInfo;
     v3 = [MEMORY[0x1E696AD98] numberWithBool:0];
-    v4 = *MEMORY[0x1E69E9840];
 
     _CMSessionSetProperty(v2, @"HandsOverInterruptionsToInterruptor", v3);
   }
@@ -130,9 +119,9 @@ void __CMSM_IDSConnection_DeactivateIDSMXCoreSession_block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __CMSM_IDSConnection_StartWaitForRemoteToReplyWithInitialPlayingInfoTimer_block_invoke()
+double __CMSM_IDSConnection_StartWaitForRemoteToReplyWithInitialPlayingInfoTimer_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -141,7 +130,7 @@ uint64_t __CMSM_IDSConnection_StartWaitForRemoteToReplyWithInitialPlayingInfoTim
   }
 
   byte_1EB75CCC8 = 1;
-  CMSM_IDSConnection_RouteToSharedAudioRouteUponReceivingOwnership();
+  CMSM_IDSConnection_RouteToSharedAudioRouteUponReceivingOwnership(1);
   FigSimpleMutexLock();
   if (qword_1EB75CCD0)
   {
@@ -153,12 +142,11 @@ uint64_t __CMSM_IDSConnection_StartWaitForRemoteToReplyWithInitialPlayingInfoTim
     }
   }
 
-  result = FigSimpleMutexUnlock();
-  v2 = *MEMORY[0x1E69E9840];
+  FigSimpleMutexUnlock();
   return result;
 }
 
-uint64_t __CMSM_IDSConnection_StopWaitForRemoteToReplyWithInitialPlayingInfoTimer_block_invoke()
+double __CMSM_IDSConnection_StopWaitForRemoteToReplyWithInitialPlayingInfoTimer_block_invoke()
 {
   FigSimpleMutexLock();
   if (qword_1EB75CCD0)
@@ -171,23 +159,23 @@ uint64_t __CMSM_IDSConnection_StopWaitForRemoteToReplyWithInitialPlayingInfoTime
     }
   }
 
-  return FigSimpleMutexUnlock();
+  FigSimpleMutexUnlock();
+  return result;
 }
 
-void __CMSM_IDSConnection_DelaySharedAudioRoutingUntilRemoteInitialPlayingInfoIsReceived_block_invoke(uint64_t a1)
+void __CMSM_IDSConnection_DelaySharedAudioRoutingUntilRemoteInitialPlayingInfoIsReceived_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MXGetSerialQueue();
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = __CMSM_IDSConnection_DelaySharedAudioRoutingUntilRemoteInitialPlayingInfoIsReceived_block_invoke_2;
-  v3[3] = &__block_descriptor_48_e5_v8__0l;
-  v4 = *(a1 + 32);
-  MXDispatchAsync("CMSM_IDSConnection_DelaySharedAudioRoutingUntilRemoteInitialPlayingInfoIsReceived_block_invoke", "CMSessionManager_IDSConnection.m", 844, 0, 0, v2, v3);
+  v3 = MXGetSerialQueue(a1, a2);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __CMSM_IDSConnection_DelaySharedAudioRoutingUntilRemoteInitialPlayingInfoIsReceived_block_invoke_2;
+  v4[3] = &__block_descriptor_48_e5_v8__0l;
+  v5 = *(a1 + 32);
+  MXDispatchAsync("CMSM_IDSConnection_DelaySharedAudioRoutingUntilRemoteInitialPlayingInfoIsReceived_block_invoke", "CMSessionManager_IDSConnection.m", 844, 0, 0, v3, v4);
 }
 
 void __CMSM_IDSConnection_DelaySharedAudioRoutingUntilRemoteInitialPlayingInfoIsReceived_block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
   if (byte_1EB75CCA4)
   {
     if (dword_1EB75DE40)
@@ -223,17 +211,17 @@ void __CMSM_IDSConnection_DelaySharedAudioRoutingUntilRemoteInitialPlayingInfoIs
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
+      v7 = 11;
       if (!byte_1EB75CCA3)
       {
 LABEL_17:
-        vaemTakeOwnershipOnSharedAudioRoute(*(a1 + 32));
+        vaemTakeOwnershipOnSharedAudioRoute(*(a1 + 32), v7);
 LABEL_18:
         A2DPPort = cmsmGetA2DPPort(*(a1 + 32));
         if (vaeGetBTPortOwnsSharedAudioConnection(A2DPPort) && (!vaeDoesBTPortSupportInEarDetection(A2DPPort) || vaeDoesBTPortSupportInEarDetection(A2DPPort) && CMSMVAUtility_ShouldBTPortBeTreatedAsInEar(A2DPPort)))
         {
           PortListArrayFromPortID = vaeCreatePortListArrayFromPortID(A2DPPort);
           Routable = cmsmCopyPartnerPortsToMakeRoutable(PortListArrayFromPortID);
-          v10 = *MEMORY[0x1E695E480];
           UInt32 = FigCFNumberCreateUInt32();
           CFArrayAppendValue(Routable, UInt32);
           if (dword_1EB75DE40)
@@ -272,7 +260,7 @@ LABEL_18:
           CFRelease(v14);
         }
 
-        goto LABEL_34;
+        return;
       }
     }
 
@@ -285,6 +273,7 @@ LABEL_18:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
+      v7 = 10;
       if (!byte_1EB75CCA3)
       {
         goto LABEL_17;
@@ -302,9 +291,6 @@ LABEL_18:
     os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-LABEL_34:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 dispatch_queue_t __CMSM_IDSConnection_GetMessagingQueue_block_invoke()

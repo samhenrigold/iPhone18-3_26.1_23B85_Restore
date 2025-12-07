@@ -328,14 +328,14 @@ uint64_t __123__BWDisparityFilteringInferenceProvider_submitForSampleBuffer_usin
   return result;
 }
 
-uint64_t __123__BWDisparityFilteringInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke_2()
+uint64_t __123__BWDisparityFilteringInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke_2(uint64_t result)
 {
   if (*MEMORY[0x1E695FF58] == 1)
   {
     return kdebug_trace();
   }
 
-  return result;
+  return v1;
 }
 
 - (void)setCustomInferenceIdentifier:(id)identifier
@@ -409,61 +409,12 @@ uint64_t __123__BWDisparityFilteringInferenceProvider_submitForSampleBuffer_usin
   }
 }
 
-- (uint64_t)initWithDisparityInputRequirement:disparityOutputRequirement:resourceProvider:configuration:isPreprocessing:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithDisparityInputRequirement:disparityOutputRequirement:resourceProvider:configuration:isPreprocessing:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
 - (uint64_t)prepareForSubmissionWithWorkQueue:(_DWORD *)a1 .cold.1(_DWORD *a1)
 {
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFF842ALL, "<<<< BWDisparityFilteringInferenceProvider >>>>", 0xBE, v1, v4, v5, v7);
   *a1 = result;
   return result;
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)propagateInferenceResultsToInferenceDictionary:usingStorage:inputSampleBuffer:propagationSampleBuffer:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

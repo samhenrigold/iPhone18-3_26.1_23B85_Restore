@@ -304,12 +304,13 @@ LABEL_6:
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  if (SKUIUserInterfaceIdiom(self->_clientContext) == 1)
+  v2 = SKUIUserInterfaceIdiom(self->_clientContext);
+  if (v2 == 1)
   {
     return 30;
   }
 
-  if (SKUIAllowsLandscapePhone())
+  if (SKUIAllowsLandscapePhone(v2, v3))
   {
     return 26;
   }
@@ -929,9 +930,9 @@ LABEL_10:
   }
 
   pageType = [pageCopy pageType];
-  v10 = [pageType isEqualToString:@"itml"];
+  isEqualToString = objc_msgSend_isEqualToString_(pageType);
 
-  if (v10)
+  if (isEqualToString)
   {
     metricsPageEvent = [(SKUIStorePageViewController *)self clientContext];
     iTMLData = [pageCopy ITMLData];
@@ -1052,11 +1053,11 @@ LABEL_11:
   }
 }
 
-uint64_t __62__SKUIStorePageViewController__showProductPage_withPageEvent___block_invoke(uint64_t result, char a2)
+id *__62__SKUIStorePageViewController__showProductPage_withPageEvent___block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) dismissViewControllerAnimated:1 completion:0];
+    return [result[4] dismissViewControllerAnimated:1 completion:0];
   }
 
   return result;

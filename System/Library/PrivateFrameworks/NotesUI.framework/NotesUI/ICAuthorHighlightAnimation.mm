@@ -10,13 +10,13 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  duration = [(ICAuthorHighlightAnimation *)self duration];
+  v6 = objc_msgSend_duration(self);
   fromValue = [(ICAuthorHighlightAnimation *)self fromValue];
   toValue = [(ICAuthorHighlightAnimation *)self toValue];
   color = [(ICAuthorHighlightAnimation *)self color];
   v10 = [MEMORY[0x1E696AD98] numberWithBool:{-[ICAuthorHighlightAnimation isAboveExistingHighlights](self, "isAboveExistingHighlights")}];
   v11 = [MEMORY[0x1E696AD98] numberWithBool:{-[ICAuthorHighlightAnimation isRemovedOnCompletion](self, "isRemovedOnCompletion")}];
-  v12 = [v3 stringWithFormat:@"<%@: %p, duration: %@, fromValue: %@, toValue: %@, color: %@, aboveExistingHighlights: %@, removedOnCompletion: %@>", v5, self, duration, fromValue, toValue, color, v10, v11];
+  v12 = [v3 stringWithFormat:@"<%@: %p, duration: %@, fromValue: %@, toValue: %@, color: %@, aboveExistingHighlights: %@, removedOnCompletion: %@>", v5, self, v6, fromValue, toValue, color, v10, v11];
 
   return v12;
 }
@@ -29,9 +29,9 @@
     objc_opt_class();
     v5 = ICDynamicCast();
 
-    duration = [v5 duration];
-    duration2 = [(ICAuthorHighlightAnimation *)self duration];
-    if (![duration isEqual:duration2])
+    v6 = objc_msgSend_duration(v5);
+    v7 = objc_msgSend_duration(self);
+    if (![v6 isEqual:v7])
     {
       LOBYTE(v23) = 0;
 LABEL_26:

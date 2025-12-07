@@ -13,7 +13,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = BCCloudKitLog();
+    v7 = BCCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E8C64();
@@ -66,7 +66,7 @@ LABEL_7:
 
     else
     {
-      v16 = BCCloudKitLog();
+      v16 = BCCloudKitLog(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_1E8CA0();
@@ -85,7 +85,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    fileURL = BCCloudKitLog();
+    fileURL = BCCloudKitLog(0);
     if (os_log_type_enabled(fileURL, OS_LOG_TYPE_ERROR))
     {
       sub_1E8D54();
@@ -122,7 +122,7 @@ LABEL_7:
 
     else
     {
-      p_super = BCReadingStatisticsLog();
+      p_super = BCReadingStatisticsLog(0);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         sub_1E8CDC();
@@ -147,9 +147,9 @@ LABEL_11:
 
 - (id)configuredRecordFromAttributes
 {
-  v12.receiver = self;
-  v12.super_class = BCMutableReadingStatisticsSync;
-  configuredRecordFromAttributes = [(BCMutableReadingStatisticsSync *)&v12 configuredRecordFromAttributes];
+  v13.receiver = self;
+  v13.super_class = BCMutableReadingStatisticsSync;
+  configuredRecordFromAttributes = [(BCMutableReadingStatisticsSync *)&v13 configuredRecordFromAttributes];
   assetVersion = [(BCMutableReadingStatisticsSync *)self assetVersion];
   [configuredRecordFromAttributes setObject:assetVersion forKey:@"assetVersion"];
 
@@ -162,14 +162,14 @@ LABEL_11:
 
   if (v5)
   {
-    v9 = [[CKAsset alloc] initWithFileURL:v7];
-    [configuredRecordFromAttributes setObject:v9 forKey:@"assetStatistics"];
+    v10 = [[CKAsset alloc] initWithFileURL:v7];
+    [configuredRecordFromAttributes setObject:v10 forKey:@"assetStatistics"];
   }
 
   else
   {
-    v10 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCReadingStatisticsLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1E8D90();
     }

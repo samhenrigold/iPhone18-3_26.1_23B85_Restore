@@ -7,25 +7,17 @@
 - (Class)dataObjectClass
 {
   code = [(HKObjectType *)self code];
-  if (code == 102)
+  if (code == 102 || code == 119)
   {
-    v3 = off_1E73757C8;
-    goto LABEL_5;
+    v3 = objc_opt_class();
   }
 
-  if (code == 119)
+  else
   {
-    v3 = off_1E73750D0;
-LABEL_5:
-    v4 = *v3;
-    v5 = objc_opt_class();
-    goto LABEL_7;
+    v3 = 0;
   }
 
-  v5 = 0;
-LABEL_7:
-
-  return v5;
+  return v3;
 }
 
 @end

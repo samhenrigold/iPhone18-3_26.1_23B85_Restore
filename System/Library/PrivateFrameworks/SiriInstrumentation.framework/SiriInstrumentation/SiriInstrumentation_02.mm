@@ -9363,7 +9363,7 @@ LABEL_31:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1A9C64DAC()
+void sub_1A9C64DAC(uint64_t a1)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_71();
@@ -9371,13 +9371,13 @@ void sub_1A9C64DAC()
   OUTLINED_FUNCTION_24();
   while (1)
   {
-    if (v0 == v1)
+    if (v1 == v2)
     {
       OUTLINED_FUNCTION_74();
       return;
     }
 
-    if (v3)
+    if (v4)
     {
       OUTLINED_FUNCTION_88();
     }
@@ -9385,7 +9385,7 @@ void sub_1A9C64DAC()
     else
     {
       OUTLINED_FUNCTION_80();
-      if (v4)
+      if (v5)
       {
         goto LABEL_11;
       }
@@ -9394,18 +9394,18 @@ void sub_1A9C64DAC()
     }
 
     OUTLINED_FUNCTION_65();
-    if (v5)
+    if (v6)
     {
       break;
     }
 
-    v6 = [v2 enumeration];
-    v7 = [v6 typeIdentifier];
+    v7 = [v3 enumeration];
+    v8 = [v7 typeIdentifier];
 
-    v8 = [v7 custom];
+    v9 = [v8 custom];
     OUTLINED_FUNCTION_107();
 
-    ++v1;
+    ++v2;
   }
 
   __break(1u);
@@ -9413,7 +9413,7 @@ LABEL_11:
   __break(1u);
 }
 
-void sub_1A9C64E84()
+void sub_1A9C64E84(uint64_t a1)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_71();
@@ -9421,13 +9421,13 @@ void sub_1A9C64E84()
   OUTLINED_FUNCTION_24();
   while (1)
   {
-    if (v0 == v1)
+    if (v1 == v2)
     {
       OUTLINED_FUNCTION_74();
       return;
     }
 
-    if (v3)
+    if (v4)
     {
       OUTLINED_FUNCTION_88();
     }
@@ -9435,7 +9435,7 @@ void sub_1A9C64E84()
     else
     {
       OUTLINED_FUNCTION_80();
-      if (v4)
+      if (v5)
       {
         goto LABEL_11;
       }
@@ -9444,18 +9444,18 @@ void sub_1A9C64E84()
     }
 
     OUTLINED_FUNCTION_65();
-    if (v5)
+    if (v6)
     {
       break;
     }
 
-    v6 = [v2 entity];
-    v7 = [v6 typeIdentifier];
+    v7 = [v3 entity];
+    v8 = [v7 typeIdentifier];
 
-    v8 = [v7 custom];
+    v9 = [v8 custom];
     OUTLINED_FUNCTION_107();
 
-    ++v1;
+    ++v2;
   }
 
   __break(1u);
@@ -9463,7 +9463,7 @@ LABEL_11:
   __break(1u);
 }
 
-void sub_1A9C64F5C()
+void sub_1A9C64F5C(uint64_t a1)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_71();
@@ -9471,13 +9471,13 @@ void sub_1A9C64F5C()
   OUTLINED_FUNCTION_24();
   while (1)
   {
-    if (v0 == v1)
+    if (v1 == v2)
     {
       OUTLINED_FUNCTION_74();
       return;
     }
 
-    if (v3)
+    if (v4)
     {
       OUTLINED_FUNCTION_88();
     }
@@ -9485,7 +9485,7 @@ void sub_1A9C64F5C()
     else
     {
       OUTLINED_FUNCTION_80();
-      if (v4)
+      if (v5)
       {
         goto LABEL_11;
       }
@@ -9494,18 +9494,18 @@ void sub_1A9C64F5C()
     }
 
     OUTLINED_FUNCTION_65();
-    if (v5)
+    if (v6)
     {
       break;
     }
 
-    v6 = [v2 query];
-    v7 = [v6 typeIdentifier];
+    v7 = [v3 query];
+    v8 = [v7 typeIdentifier];
 
-    v8 = [v7 custom];
+    v9 = [v8 custom];
     OUTLINED_FUNCTION_107();
 
-    ++v1;
+    ++v2;
   }
 
   __break(1u);
@@ -9513,7 +9513,7 @@ LABEL_11:
   __break(1u);
 }
 
-void sub_1A9C65034()
+void sub_1A9C65034(uint64_t a1)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_71();
@@ -9521,13 +9521,13 @@ void sub_1A9C65034()
   OUTLINED_FUNCTION_24();
   while (1)
   {
-    if (v0 == v1)
+    if (v1 == v2)
     {
       OUTLINED_FUNCTION_74();
       return;
     }
 
-    if (v3)
+    if (v4)
     {
       OUTLINED_FUNCTION_88();
     }
@@ -9535,7 +9535,7 @@ void sub_1A9C65034()
     else
     {
       OUTLINED_FUNCTION_80();
-      if (v4)
+      if (v5)
       {
         goto LABEL_11;
       }
@@ -9544,18 +9544,18 @@ void sub_1A9C65034()
     }
 
     OUTLINED_FUNCTION_65();
-    if (v5)
+    if (v6)
     {
       break;
     }
 
-    v6 = [v2 value];
-    v7 = [v6 primitive];
+    v7 = [v3 value];
+    v8 = [v7 primitive];
 
-    v8 = [v7 app];
+    v9 = [v8 app];
     OUTLINED_FUNCTION_107();
 
-    ++v1;
+    ++v2;
   }
 
   __break(1u);
@@ -9563,7 +9563,7 @@ LABEL_11:
   __break(1u);
 }
 
-void sub_1A9C6510C()
+void sub_1A9C6510C(uint64_t a1)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_71();
@@ -9571,13 +9571,13 @@ void sub_1A9C6510C()
   OUTLINED_FUNCTION_24();
   while (1)
   {
-    if (v0 == v1)
+    if (v1 == v2)
     {
       OUTLINED_FUNCTION_74();
       return;
     }
 
-    if (v3)
+    if (v4)
     {
       OUTLINED_FUNCTION_88();
     }
@@ -9585,7 +9585,7 @@ void sub_1A9C6510C()
     else
     {
       OUTLINED_FUNCTION_80();
-      if (v4)
+      if (v5)
       {
         goto LABEL_11;
       }
@@ -9594,18 +9594,18 @@ void sub_1A9C6510C()
     }
 
     OUTLINED_FUNCTION_65();
-    if (v5)
+    if (v6)
     {
       break;
     }
 
-    v6 = [v2 collection];
-    v7 = [v6 typeIdentifier];
+    v7 = [v3 collection];
+    v8 = [v7 typeIdentifier];
 
-    v8 = [v7 custom];
+    v9 = [v8 custom];
     OUTLINED_FUNCTION_107();
 
-    ++v1;
+    ++v2;
   }
 
   __break(1u);
@@ -9613,7 +9613,7 @@ LABEL_11:
   __break(1u);
 }
 
-void *sub_1A9C65238@<X0>(void *a1@<X8>)
+void *sub_1A9C65238@<X0>(uint64_t *a1@<X8>)
 {
   result = sub_1A9CB0E70();
   *a1 = result;

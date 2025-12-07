@@ -24,7 +24,7 @@
 void __53__BAAgentClientProxy_currentDownloadsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = BAClientLogObject();
+  v4 = BAClientLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __53__BAAgentClientProxy_currentDownloadsWithCompletion___block_invoke_cold_1(v3);
@@ -87,7 +87,7 @@ void __53__BAAgentClientProxy_currentDownloadsWithCompletion___block_invoke(uint
 void __39__BAAgentClientProxy_currentDownloads___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = BAClientLogObject();
+  v4 = BAClientLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __39__BAAgentClientProxy_currentDownloads___block_invoke_cold_1(v3);
@@ -172,7 +172,7 @@ void __39__BAAgentClientProxy_currentDownloads___block_invoke_110(uint64_t a1, v
 void __45__BAAgentClientProxy_scheduleDownload_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = BAClientLogObject();
+  v4 = BAClientLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __45__BAAgentClientProxy_scheduleDownload_error___block_invoke_cold_1(v3);
@@ -186,7 +186,7 @@ void __45__BAAgentClientProxy_scheduleDownload_error___block_invoke(uint64_t a1,
 void __57__BAAgentClientProxy_acquireExclusiveControlWithHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = BAClientLogObject();
+  v4 = BAClientLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __57__BAAgentClientProxy_acquireExclusiveControlWithHandler___block_invoke_cold_1(v3);
@@ -210,7 +210,7 @@ void __57__BAAgentClientProxy_acquireExclusiveControlWithHandler___block_invoke_
 void __64__BAAgentClientProxy_acquireExclusiveControlBeforeDate_handler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = BAClientLogObject();
+  v4 = BAClientLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __64__BAAgentClientProxy_acquireExclusiveControlBeforeDate_handler___block_invoke_cold_1(v3);
@@ -234,7 +234,7 @@ void __64__BAAgentClientProxy_acquireExclusiveControlBeforeDate_handler___block_
 void __54__BAAgentClientProxy__exclusiveControlEndedWithToken___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = BAClientLogObject();
+  v3 = BAClientLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __54__BAAgentClientProxy__exclusiveControlEndedWithToken___block_invoke_cold_1(v2);
@@ -294,7 +294,7 @@ void __54__BAAgentClientProxy__exclusiveControlEndedWithToken___block_invoke(uin
 void __52__BAAgentClientProxy_startForegroundDownload_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = BAClientLogObject();
+  v4 = BAClientLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __52__BAAgentClientProxy_startForegroundDownload_error___block_invoke_cold_1(v3);
@@ -366,7 +366,7 @@ void __52__BAAgentClientProxy_startForegroundDownload_error___block_invoke_116(u
 void __43__BAAgentClientProxy_cancelDownload_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = BAClientLogObject();
+  v4 = BAClientLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __43__BAAgentClientProxy_cancelDownload_error___block_invoke_cold_1(v3);
@@ -379,7 +379,7 @@ void __43__BAAgentClientProxy_cancelDownload_error___block_invoke(uint64_t a1, v
 
 - (uint64_t)markPurgeableWithFileURL:(void *)l error:
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v6 = a2;
   if (self)
   {
@@ -388,56 +388,54 @@ void __43__BAAgentClientProxy_cancelDownload_error___block_invoke(uint64_t a1, v
     Property = objc_getProperty(self, v7, 8, 1);
     if (Property)
     {
-      [Property auditToken];
+      objc_msgSend_auditToken(Property);
     }
 
     else
     {
-      v22 = 0u;
-      v23 = 0u;
+      v19 = 0u;
+      v20 = 0u;
     }
 
-    v9 = *MEMORY[0x277D861C0];
-    v10 = *MEMORY[0x277D861E8];
-    v11 = sandbox_extension_issue_file_to_process();
-    if (v11)
+    v9 = sandbox_extension_issue_file_to_process();
+    if (v9)
     {
-      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-      free(v11);
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:v9];
+      free(v9);
+      v23 = 0;
+      v24 = &v23;
+      v25 = 0x2020000000;
       v26 = 0;
-      v27 = &v26;
-      v28 = 0x2020000000;
-      v29 = 0;
-      *&v22 = 0;
-      *(&v22 + 1) = &v22;
-      *&v23 = 0x3032000000;
-      *(&v23 + 1) = __Block_byref_object_copy__0;
-      v24 = __Block_byref_object_dispose__0;
-      v25 = 0;
-      v14 = objc_getProperty(self, v13, 8, 1);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __53__BAAgentClientProxy_markPurgeableWithFileURL_error___block_invoke;
-      v21[3] = &unk_278A0D0B8;
-      v21[4] = &v22;
-      v15 = [v14 synchronousRemoteObjectProxyWithErrorHandler:v21];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __53__BAAgentClientProxy_markPurgeableWithFileURL_error___block_invoke_122;
-      v20[3] = &unk_278A0CFA0;
-      v20[4] = &v26;
-      v20[5] = &v22;
-      [v15 markPurgeableWithFileURL:v6 sandboxToken:v12 reply:v20];
+      *&v19 = 0;
+      *(&v19 + 1) = &v19;
+      *&v20 = 0x3032000000;
+      *(&v20 + 1) = __Block_byref_object_copy__0;
+      v21 = __Block_byref_object_dispose__0;
+      v22 = 0;
+      v12 = objc_getProperty(self, v11, 8, 1);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __53__BAAgentClientProxy_markPurgeableWithFileURL_error___block_invoke;
+      v18[3] = &unk_278A0D0B8;
+      v18[4] = &v19;
+      v13 = [v12 synchronousRemoteObjectProxyWithErrorHandler:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __53__BAAgentClientProxy_markPurgeableWithFileURL_error___block_invoke_122;
+      v17[3] = &unk_278A0CFA0;
+      v17[4] = &v23;
+      v17[5] = &v19;
+      [v13 markPurgeableWithFileURL:v6 sandboxToken:v10 reply:v17];
 
       if (l)
       {
-        *l = *(*(&v22 + 1) + 40);
+        *l = *(*(&v19 + 1) + 40);
       }
 
-      LOBYTE(self) = *(v27 + 24);
-      _Block_object_dispose(&v22, 8);
+      LOBYTE(self) = *(v24 + 24);
+      _Block_object_dispose(&v19, 8);
 
-      _Block_object_dispose(&v26, 8);
+      _Block_object_dispose(&v23, 8);
     }
 
     else
@@ -448,28 +446,27 @@ void __43__BAAgentClientProxy_cancelDownload_error___block_invoke(uint64_t a1, v
         goto LABEL_12;
       }
 
-      v16 = MEMORY[0x277CCA9B8];
+      v14 = MEMORY[0x277CCA9B8];
       self = *__error();
-      v30 = @"FileURL";
-      v31[0] = v6;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-      v12 = [v16 errorWithDomain:*MEMORY[0x277CCA5B8] code:self userInfo:v17];
+      v27 = @"FileURL";
+      v28[0] = v6;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      v10 = [v14 errorWithDomain:*MEMORY[0x277CCA5B8] code:self userInfo:v15];
 
-      NSErrorWithBAErrorDomainCodeUnderlying(@"BAErrorDomain", -107, v12);
+      NSErrorWithBAErrorDomainCodeUnderlying(@"BAErrorDomain", -107, v10);
       *l = LOBYTE(self) = 0;
     }
   }
 
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
   return self & 1;
 }
 
 void __53__BAAgentClientProxy_markPurgeableWithFileURL_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = BAClientLogObject();
+  v4 = BAClientLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __53__BAAgentClientProxy_markPurgeableWithFileURL_error___block_invoke_cold_1(v3);
@@ -619,92 +616,74 @@ void __38__BAAgentClientProxy__setupConnection__block_invoke_2(uint64_t a1)
 
 void __53__BAAgentClientProxy_currentDownloadsWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136446466;
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 void __39__BAAgentClientProxy_currentDownloads___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136446466;
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 void __45__BAAgentClientProxy_scheduleDownload_error___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136446466;
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 void __57__BAAgentClientProxy_acquireExclusiveControlWithHandler___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136446466;
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 void __64__BAAgentClientProxy_acquireExclusiveControlBeforeDate_handler___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136446466;
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 void __54__BAAgentClientProxy__exclusiveControlEndedWithToken___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136446466;
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 void __52__BAAgentClientProxy_startForegroundDownload_error___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136446466;
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 void __43__BAAgentClientProxy_cancelDownload_error___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136446466;
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 void __53__BAAgentClientProxy_markPurgeableWithFileURL_error___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136446466;
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_236E28000, v2, v3, "Message failed: %{public}s error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 @end

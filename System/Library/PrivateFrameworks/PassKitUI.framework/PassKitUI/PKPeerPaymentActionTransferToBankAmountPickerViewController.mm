@@ -311,9 +311,9 @@ void __71__PKPeerPaymentActionTransferToBankAmountPickerViewController_loadView_
 
 - (void)viewWillLayoutSubviews
 {
-  v35.receiver = self;
-  v35.super_class = PKPeerPaymentActionTransferToBankAmountPickerViewController;
-  [(PKPeerPaymentActionTransferToBankAmountPickerViewController *)&v35 viewWillLayoutSubviews];
+  v53.receiver = self;
+  v53.super_class = PKPeerPaymentActionTransferToBankAmountPickerViewController;
+  [(PKPeerPaymentActionTransferToBankAmountPickerViewController *)&v53 viewWillLayoutSubviews];
   view = [(PKPeerPaymentActionTransferToBankAmountPickerViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -349,15 +349,15 @@ void __71__PKPeerPaymentActionTransferToBankAmountPickerViewController_loadView_
     }
   }
 
-  v33 = width;
-  v34 = x;
-  v36.origin.x = x;
-  v36.origin.y = y;
-  v36.size.width = width;
-  v32 = height;
-  v36.size.height = height;
+  v51 = width;
+  v52 = x;
+  v54.origin.x = x;
+  v54.origin.y = y;
+  v54.size.width = width;
+  v50 = height;
+  v54.size.height = height;
   v18 = 0.0;
-  if (!CGRectIsNull(v36))
+  if (!CGRectIsNull(v54))
   {
     [view bounds];
     v18 = fmax(v19 + v20 - y, 0.0);
@@ -371,21 +371,33 @@ void __71__PKPeerPaymentActionTransferToBankAmountPickerViewController_loadView_
   v27 = v5;
   v29 = v28;
   [(PKEnterCurrencyAmountPassView *)self->_amountPassView setFrame:v22, v24, v25, v28];
-  v37.origin.x = v22;
-  v37.origin.y = v24;
-  v37.size.width = v26;
-  v37.size.height = v29;
-  [(UIScrollView *)self->_scrollView setContentSize:v27, v18 + CGRectGetMaxY(v37) + 15.0];
-  self->_lastKeyboardFrame.origin.x = v34;
+  v55.origin.x = v22;
+  v55.origin.y = v24;
+  v55.size.width = v26;
+  v55.size.height = v29;
+  [(UIScrollView *)self->_scrollView setContentSize:v27, v18 + CGRectGetMaxY(v55) + 15.0];
+  self->_lastKeyboardFrame.origin.x = v52;
   self->_lastKeyboardFrame.origin.y = y;
-  self->_lastKeyboardFrame.size.width = v33;
-  self->_lastKeyboardFrame.size.height = v32;
+  self->_lastKeyboardFrame.size.width = v51;
+  self->_lastKeyboardFrame.size.height = v50;
   PKSetupViewConstantsViewMargin();
   _UISolariumFeatureFlagEnabled();
   UIRectInset();
-  [(PKPaymentSetupFooterView *)self->_footerView sizeThatFits:v30, v31];
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v31 = v30;
+  v33 = v32;
+  v35 = *&v34;
+  v37 = *&v36;
+  [(PKPaymentSetupFooterView *)self->_footerView sizeThatFits:v34, v36];
+  v39 = v38;
+  v41 = v40;
+  v42 = PKContentAlignmentMake();
+  v43.n128_u64[0] = v39;
+  v44.n128_u64[0] = v41;
+  v45.n128_u64[0] = v31;
+  v46.n128_u64[0] = v33;
+  v47.n128_u64[0] = v35;
+  v48.n128_u64[0] = v37;
+  PKSizeAlignedInRect(v42, v43, v44, v45, v46, v47, v48, v49);
   [(PKPaymentSetupFooterView *)self->_footerView setFrame:?];
 }
 

@@ -76,7 +76,7 @@
   [lCopy createDirectoryAtURL:v8 withIntermediateDirectories:1 attributes:0 error:error];
   if (*error && os_log_type_enabled(qword_1006DF770, OS_LOG_TYPE_ERROR))
   {
-    sub_100594638(error);
+    sub_100594638();
   }
 
   return v8;

@@ -212,28 +212,28 @@ id __42___MKOfflineRegionsOverlayManager__update__block_invoke_3(uint64_t a1, vo
 {
   v26 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = [v2 region];
+  v3 = objc_msgSend_region(v2);
   [v3 northLat];
   v5 = v4;
-  v6 = [v2 region];
+  v6 = objc_msgSend_region(v2);
   [v6 westLng];
   v25[0] = CLLocationCoordinate2DMake(v5, v7);
-  v8 = [v2 region];
+  v8 = objc_msgSend_region(v2);
   [v8 northLat];
   v10 = v9;
-  v11 = [v2 region];
+  v11 = objc_msgSend_region(v2);
   [v11 eastLng];
   v25[1] = CLLocationCoordinate2DMake(v10, v12);
-  v13 = [v2 region];
+  v13 = objc_msgSend_region(v2);
   [v13 southLat];
   v15 = v14;
-  v16 = [v2 region];
+  v16 = objc_msgSend_region(v2);
   [v16 eastLng];
   v25[2] = CLLocationCoordinate2DMake(v15, v17);
-  v18 = [v2 region];
+  v18 = objc_msgSend_region(v2);
   [v18 southLat];
   v20 = v19;
-  v21 = [v2 region];
+  v21 = objc_msgSend_region(v2);
 
   [v21 westLng];
   v25[3] = CLLocationCoordinate2DMake(v20, v22);

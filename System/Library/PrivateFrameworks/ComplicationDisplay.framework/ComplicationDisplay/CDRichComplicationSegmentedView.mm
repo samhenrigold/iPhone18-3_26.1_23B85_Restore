@@ -96,7 +96,7 @@ void __61__CDRichComplicationSegmentedView__updateSegmentsWithColors___block_inv
 
 - (void)_addSegmentsToLayer:(id)layer
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   if (![(NSMutableArray *)self->_segments count])
   {
@@ -153,51 +153,50 @@ LABEL_9:
   v17 = atan2(v9, v14);
   [(CDRichComplicationSegmentedView *)self _arcAngleWithOuterRadius:[(NSMutableArray *)self->_segments count] segmentGapAngle:v14 numberOfSegments:v17];
   segments = self->_segments;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __55__CDRichComplicationSegmentedView__addSegmentsToLayer___block_invoke;
-  v30[3] = &unk_278DF3678;
-  v30[4] = self;
-  v32 = v19;
-  v33 = v16;
-  v34 = v14;
-  v35 = v9;
-  v36 = v10;
-  v37 = v17;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __55__CDRichComplicationSegmentedView__addSegmentsToLayer___block_invoke;
+  v29[3] = &unk_278DF3678;
+  v29[4] = self;
+  v31 = v19;
+  v32 = v16;
+  v33 = v14;
+  v34 = v9;
+  v35 = v10;
+  v36 = v17;
   v20 = v5;
-  v31 = v20;
-  [(NSMutableArray *)segments enumerateObjectsUsingBlock:v30];
+  v30 = v20;
+  [(NSMutableArray *)segments enumerateObjectsUsingBlock:v29];
   [layerCopy setSublayers:0];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v11 = v20;
-  v21 = [v11 countByEnumeratingWithState:&v26 objects:v39 count:16];
+  v21 = [v11 countByEnumeratingWithState:&v25 objects:v38 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v27;
+    v23 = *v26;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v27 != v23)
+        if (*v26 != v23)
         {
           objc_enumerationMutation(v11);
         }
 
-        [layerCopy addSublayer:{*(*(&v26 + 1) + 8 * i), v26}];
+        [layerCopy addSublayer:{*(*(&v25 + 1) + 8 * i), v25}];
       }
 
-      v22 = [v11 countByEnumeratingWithState:&v26 objects:v39 count:16];
+      v22 = [v11 countByEnumeratingWithState:&v25 objects:v38 count:16];
     }
 
     while (v22);
   }
 
 LABEL_19:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __55__CDRichComplicationSegmentedView__addSegmentsToLayer___block_invoke(uint64_t a1, void *a2, unint64_t a3)

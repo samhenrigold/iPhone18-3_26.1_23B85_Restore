@@ -8,10 +8,10 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend__item(self, v5, v6);
-  v9 = objc_msgSend__initWithItem_service_handle_(v4, v8, v7, self->_service, self->_handle);
+  _item = [(IMChatItem *)self _item];
+  v6 = [v4 _initWithItem:_item service:self->_service handle:self->_handle];
 
-  return v9;
+  return v6;
 }
 
 - (id)_initWithItem:(id)item service:(id)service handle:(id)handle
@@ -19,33 +19,47 @@
   itemCopy = item;
   serviceCopy = service;
   handleCopy = handle;
-  v34.receiver = self;
-  v34.super_class = IMServiceChatItem;
-  v11 = [(IMChatItem *)&v34 _initWithItem:itemCopy];
+  v27.receiver = self;
+  v27.super_class = IMServiceChatItem;
+  v11 = [(IMChatItem *)&v27 _initWithItem:itemCopy];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(v11 + 8, service);
     objc_storeStrong(v12 + 9, handle);
-    v15 = objc_msgSend_name(serviceCopy, v13, v14);
-    v16 = v15;
-    if (v15)
+    name = [serviceCopy name];
+    v14 = name;
+    if (name)
     {
-      v17 = v15;
+      v15 = name;
     }
 
     else
     {
-      v17 = &stru_1F1B76F98;
+      v15 = &stru_1F1B76F98;
     }
 
-    v18 = v17;
+    v16 = v15;
 
-    v21 = objc_msgSend_ID(handleCopy, v19, v20);
-    v22 = v21;
-    if (v21)
+    v17 = [handleCopy ID];
+    v18 = v17;
+    if (v17)
     {
-      v23 = v21;
+      v19 = v17;
+    }
+
+    else
+    {
+      v19 = &stru_1F1B76F98;
+    }
+
+    v20 = v19;
+
+    guid = [itemCopy guid];
+    v22 = guid;
+    if (guid)
+    {
+      v23 = guid;
     }
 
     else
@@ -55,22 +69,8 @@
 
     v24 = v23;
 
-    v27 = objc_msgSend_guid(itemCopy, v25, v26);
-    v28 = v27;
-    if (v27)
-    {
-      v29 = v27;
-    }
-
-    else
-    {
-      v29 = &stru_1F1B76F98;
-    }
-
-    v30 = v29;
-
-    v31 = sub_1A83AC604();
-    objc_msgSend__setGUID_(v12, v32, v31);
+    v25 = sub_1A83AC604();
+    [v12 _setGUID:v25];
   }
 
   return v12;

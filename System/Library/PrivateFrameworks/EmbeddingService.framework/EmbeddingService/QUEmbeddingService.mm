@@ -93,9 +93,9 @@ void __34__QUEmbeddingService_isUnitTested__block_invoke()
 {
   localeCopy = locale;
   versionCopy = version;
-  v24.receiver = self;
-  v24.super_class = QUEmbeddingService;
-  v9 = [(QUEmbeddingService *)&v24 init];
+  v21.receiver = self;
+  v21.super_class = QUEmbeddingService;
+  v9 = [(QUEmbeddingService *)&v21 init];
   v10 = v9;
   if (v9)
   {
@@ -119,11 +119,8 @@ void __34__QUEmbeddingService_isUnitTested__block_invoke()
       [localeIdentifier UTF8String];
       v10->_icuCollator = ucol_open();
 
-      icuCollator = v10->_icuCollator;
       ucol_setAttribute();
-      v21 = v10->_icuCollator;
       ucol_setAttribute();
-      v22 = v10->_icuCollator;
       ucol_setAttribute();
     }
   }
@@ -172,26 +169,23 @@ void __34__QUEmbeddingService_isUnitTested__block_invoke()
       {
         [queryCopy getCharacters:icuQueryBuffer range:{0, objc_msgSend(queryCopy, "length")}];
         [stringCopy getCharacters:self->_icuPatternBuffer range:{0, objc_msgSend(stringCopy, "length")}];
-        icuPatternBuffer = self->_icuPatternBuffer;
         [stringCopy length];
-        v16 = self->_icuQueryBuffer;
         [queryCopy length];
-        icuCollator = self->_icuCollator;
-        v18 = usearch_openFromCollator();
+        v15 = usearch_openFromCollator();
         usearch_setAttribute();
         v12 = 0;
         v14 = 0x7FFFFFFFFFFFFFFFLL;
-        if (v18)
+        if (v15)
         {
           usearch_setOffset();
           v12 = 0;
-          v19 = usearch_following();
-          if (v19 != -1)
+          v16 = usearch_following();
+          if (v16 != -1)
           {
             MatchedLength = usearch_getMatchedLength();
-            if (MatchedLength + v19 <= location + length)
+            if (MatchedLength + v16 <= location + length)
             {
-              v14 = v19;
+              v14 = v16;
               v12 = MatchedLength;
             }
 
@@ -213,10 +207,10 @@ void __34__QUEmbeddingService_isUnitTested__block_invoke()
     v14 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v21 = v14;
-  v22 = v12;
-  result.length = v22;
-  result.location = v21;
+  v18 = v14;
+  v19 = v12;
+  result.length = v19;
+  result.location = v18;
   return result;
 }
 
@@ -332,17 +326,15 @@ void __48__QUEmbeddingService_loadWithCompletionHandler___block_invoke_2(uint64_
 
 void __48__QUEmbeddingService_loadWithCompletionHandler___block_invoke_99(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
+  v3 = a2;
+  v4 = [objc_opt_class() signpostLog];
   v5 = [objc_opt_class() signpostLog];
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() signpostLog];
-  v8 = os_signpost_id_make_with_pointer(v7, *(a1 + 32));
+  v6 = os_signpost_id_make_with_pointer(v5, *(a1 + 32));
 
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&dword_249FBC000, v5, OS_SIGNPOST_INTERVAL_END, v8, "CDMClient setup", &unk_249FBF3B3, v9, 2u);
+    *v7 = 0;
+    _os_signpost_emit_with_name_impl(&dword_249FBC000, v4, OS_SIGNPOST_INTERVAL_END, v6, "CDMClient setup", &unk_249FBF3B3, v7, 2u);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -350,7 +342,7 @@ void __48__QUEmbeddingService_loadWithCompletionHandler___block_invoke_99(uint64
 
 - (void)getEmbeddingForQuery:(id)query completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   handlerCopy = handler;
   if (gTestEmbeddings)
@@ -368,10 +360,10 @@ void __48__QUEmbeddingService_loadWithCompletionHandler___block_invoke_99(uint64
     block[1] = 3221225472;
     block[2] = __61__QUEmbeddingService_getEmbeddingForQuery_completionHandler___block_invoke;
     block[3] = &unk_278FC0CF0;
-    v11 = &v27;
-    v12 = &v26;
-    v26 = v9;
-    v27 = handlerCopy;
+    v11 = &v26;
+    v12 = &v25;
+    v25 = v9;
+    v26 = handlerCopy;
     v13 = v9;
     v14 = handlerCopy;
     dispatch_async(v10, block);
@@ -387,31 +379,29 @@ void __48__QUEmbeddingService_loadWithCompletionHandler___block_invoke_99(uint64
     if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(signpostLog))
     {
       *buf = 138412290;
-      v29 = queryCopy;
+      v28 = queryCopy;
       _os_signpost_emit_with_name_impl(&dword_249FBC000, signpostLog, OS_SIGNPOST_INTERVAL_BEGIN, v17, "CDMClient getEmbeddingForQuery", "Query = %@", buf, 0xCu);
     }
 
     cdmClient = self->_cdmClient;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __61__QUEmbeddingService_getEmbeddingForQuery_completionHandler___block_invoke_101;
-    v22[3] = &unk_278FC0D18;
-    v11 = &v24;
-    v24 = handlerCopy;
-    v12 = v23;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __61__QUEmbeddingService_getEmbeddingForQuery_completionHandler___block_invoke_101;
+    v21[3] = &unk_278FC0D18;
+    v11 = &v23;
+    v23 = handlerCopy;
+    v12 = v22;
     v19 = queryCopy;
-    v23[0] = v19;
-    v23[1] = self;
+    v22[0] = v19;
+    v22[1] = self;
     v20 = handlerCopy;
-    [(CDMClient *)cdmClient processEmbeddingRequest:v19 completionHandler:v22];
+    [(CDMClient *)cdmClient processEmbeddingRequest:v19 completionHandler:v21];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __61__QUEmbeddingService_getEmbeddingForQuery_completionHandler___block_invoke_101(uint64_t a1, void *a2, void *a3)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -422,51 +412,51 @@ void __61__QUEmbeddingService_getEmbeddingForQuery_completionHandler___block_inv
   }
 
   v8 = [MEMORY[0x277CBEB18] array];
-  v76 = [MEMORY[0x277CBEB18] array];
-  v75 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v76, "count")}];
-  v74 = [MEMORY[0x277CBEB18] array];
+  v69 = [MEMORY[0x277CBEB18] array];
+  v68 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v69, "count")}];
+  v67 = [MEMORY[0x277CBEB18] array];
   v9 = [v5 subwordTokenChain];
   v10 = [MEMORY[0x277CCAB68] string];
-  v84 = [*(a1 + 32) length];
-  v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v90 = 0u;
+  v77 = [*(a1 + 32) length];
+  v80 = 0u;
+  v81 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   v11 = [v9 subwordTokens];
-  v73 = v8;
-  v83 = a1;
-  v79 = [v11 countByEnumeratingWithState:&v87 objects:v95 count:16];
-  if (!v79)
+  v66 = v8;
+  v76 = a1;
+  v72 = [v11 countByEnumeratingWithState:&v80 objects:v88 count:16];
+  if (!v72)
   {
     goto LABEL_47;
   }
 
-  v70 = v9;
-  v71 = v5;
-  v80 = 0;
+  v63 = v9;
+  v64 = v5;
+  v73 = 0;
   v12 = 0;
-  v72 = 0;
-  v81 = 0;
+  v65 = 0;
+  v74 = 0;
   v13 = 0;
   obj = v11;
-  v78 = *v88;
-  v82 = 0x7FFFFFFFFFFFFFFFLL;
+  v71 = *v81;
+  v75 = 0x7FFFFFFFFFFFFFFFLL;
   do
   {
-    for (i = 0; i != v79; ++i)
+    for (i = 0; i != v72; ++i)
     {
-      if (*v88 != v78)
+      if (*v81 != v71)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v87 + 1) + 8 * i);
+      v15 = *(*(&v80 + 1) + 8 * i);
       v16 = [v15 value];
       [v8 addObject:v16];
 
       if ([v15 tokenIndex] == v13)
       {
-        ++v81;
+        ++v74;
       }
 
       else
@@ -474,21 +464,21 @@ void __61__QUEmbeddingService_getEmbeddingForQuery_completionHandler___block_inv
         if (v13 >= 1)
         {
           v17 = [v10 copy];
-          [v76 addObject:v17];
+          [v69 addObject:v17];
 
-          v18 = [MEMORY[0x277CCABB0] numberWithInt:v81];
-          [v74 addObject:v18];
+          v18 = [MEMORY[0x277CCABB0] numberWithInt:v74];
+          [v67 addObject:v18];
 
-          v19 = [MEMORY[0x277CCAE60] valueWithRange:{v82, v80}];
-          [v75 addObject:v19];
+          v19 = [MEMORY[0x277CCAE60] valueWithRange:{v75, v73}];
+          [v68 addObject:v19];
         }
 
         v20 = [MEMORY[0x277CCAB68] string];
 
         v13 = [v15 tokenIndex];
-        v80 = 0;
-        v81 = 1;
-        v82 = 0x7FFFFFFFFFFFFFFFLL;
+        v73 = 0;
+        v74 = 1;
+        v75 = 0x7FFFFFFFFFFFFFFFLL;
         v10 = v20;
       }
 
@@ -502,7 +492,7 @@ void __61__QUEmbeddingService_getEmbeddingForQuery_completionHandler___block_inv
       }
 
       [v10 appendString:v21];
-      v24 = [*(a1 + 40) rangeOfSubtoken:v21 range:v12 query:{v84 - v12, *(a1 + 32)}];
+      v24 = [*(a1 + 40) rangeOfSubtoken:v21 range:v12 query:{v77 - v12, *(a1 + 32)}];
       if (v24 == 0x7FFFFFFFFFFFFFFFLL)
       {
         v26 = v12;
@@ -515,39 +505,39 @@ void __61__QUEmbeddingService_getEmbeddingForQuery_completionHandler___block_inv
           if (v28)
           {
             v26 = v12;
-            if (v84 > v12)
+            if (v77 > v12)
             {
               v26 = v12;
               while (1)
               {
                 v29 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-                v30 = [v29 characterIsMember:{objc_msgSend(*(v83 + 32), "characterAtIndex:", v26)}];
+                v30 = [v29 characterIsMember:{objc_msgSend(*(v76 + 32), "characterAtIndex:", v26)}];
 
                 if (!v30)
                 {
                   break;
                 }
 
-                if (v84 == ++v26)
+                if (v77 == ++v26)
                 {
-                  v26 = v84;
+                  v26 = v77;
                   goto LABEL_32;
                 }
               }
 
               v33 = [MEMORY[0x277CCA900] punctuationCharacterSet];
-              v34 = [v33 characterIsMember:{objc_msgSend(*(v83 + 32), "characterAtIndex:", v26)}];
+              v34 = [v33 characterIsMember:{objc_msgSend(*(v76 + 32), "characterAtIndex:", v26)}];
 
               if (v34)
               {
                 v25 = 1;
-                v8 = v73;
-                a1 = v83;
+                v8 = v66;
+                a1 = v76;
                 goto LABEL_24;
               }
 
 LABEL_32:
-              v8 = v73;
+              v8 = v66;
             }
           }
         }
@@ -555,31 +545,30 @@ LABEL_32:
         if ([v21 isEqualToString:@"[CLS]"])
         {
           v12 = v26;
-          a1 = v83;
+          a1 = v76;
         }
 
         else
         {
-          a1 = v83;
+          a1 = v76;
           if (([v21 isEqualToString:@"[SEP]"] & 1) == 0 && (objc_msgSend(v21, "isEqualToString:", &stru_285D23990) & 1) == 0)
           {
-            v35 = *(v83 + 40);
-            v36 = [objc_opt_class() log];
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v35 = [objc_opt_class() log];
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
-              v97.location = v12;
-              v97.length = v84 - v12;
-              v37 = NSStringFromRange(v97);
+              v90.location = v12;
+              v90.length = v77 - v12;
+              v36 = NSStringFromRange(v90);
               *buf = 138412546;
-              v92 = v21;
-              v93 = 2112;
-              v94 = v37;
-              _os_log_impl(&dword_249FBC000, v36, OS_LOG_TYPE_DEFAULT, "[QPNLU] Could not find %@ with range %@", buf, 0x16u);
+              v85 = v21;
+              v86 = 2112;
+              v87 = v36;
+              _os_log_impl(&dword_249FBC000, v35, OS_LOG_TYPE_DEFAULT, "[QPNLU] Could not find %@ with range %@", buf, 0x16u);
 
-              a1 = v83;
+              a1 = v76;
             }
 
-            v72 = 1;
+            v65 = 1;
           }
 
           v12 = v26;
@@ -590,137 +579,131 @@ LABEL_32:
       {
         v26 = v24;
 LABEL_24:
-        v31 = v82;
-        v32 = v82 == 0x7FFFFFFFFFFFFFFFLL || v22 == 9601;
+        v31 = v75;
+        v32 = v75 == 0x7FFFFFFFFFFFFFFFLL || v22 == 9601;
         if (v32)
         {
           v31 = v26;
         }
 
         v12 = v26 + v25;
-        v82 = v31;
-        v80 = v26 + v25 - v31;
+        v75 = v31;
+        v73 = v26 + v25 - v31;
       }
     }
 
-    v79 = [obj countByEnumeratingWithState:&v87 objects:v95 count:16];
+    v72 = [obj countByEnumeratingWithState:&v80 objects:v88 count:16];
   }
 
-  while (v79);
+  while (v72);
 
-  if (v72)
+  if (v65)
   {
-    v38 = *(a1 + 40);
     v11 = [objc_opt_class() log];
-    v5 = v71;
+    v5 = v64;
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_249FBC000, v11, OS_LOG_TYPE_FAULT, "[QPNLU] Could not find ranges of one or more tokens in the input query string.", buf, 2u);
     }
 
-    v9 = v70;
+    v9 = v63;
 LABEL_47:
 
     goto LABEL_49;
   }
 
-  v9 = v70;
-  v5 = v71;
+  v9 = v63;
+  v5 = v64;
 LABEL_49:
-  v39 = [v5 subwordTokenEmbedding];
-  v40 = [v39 embeddingTensor];
-  v86 = 0;
-  v41 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_285D23EF0 dataType:65568 error:&v86];
-  v7 = v86;
-  if ([v40 embeddingDim] == 192 && (v42 = objc_msgSend(v40, "numToken"), objc_msgSend(v9, "subwordTokens"), v43 = objc_claimAutoreleasedReturnValue(), v44 = objc_msgSend(v43, "count") - 2, v43, v32 = v42 == v44, v8 = v73, v32))
+  v37 = [v5 subwordTokenEmbedding];
+  v38 = [v37 embeddingTensor];
+  v79 = 0;
+  v39 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_285D23EF0 dataType:65568 error:&v79];
+  v7 = v79;
+  if ([v38 embeddingDim] == 192 && (v40 = objc_msgSend(v38, "numToken"), objc_msgSend(v9, "subwordTokens"), v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v41, "count") - 2, v41, v32 = v40 == v42, v8 = v66, v32))
   {
     for (j = 0; j != 5376; ++j)
     {
-      [v41 setObject:&unk_285D23F08 atIndexedSubscript:j];
+      [v39 setObject:&unk_285D23F08 atIndexedSubscript:j];
     }
 
-    v46 = [v40 numToken];
-    if ([v40 embeddingDim] * v46)
+    v44 = [v38 numToken];
+    if ([v38 embeddingDim] * v44)
     {
-      v47 = 0;
+      v45 = 0;
       do
       {
-        v48 = MEMORY[0x277CCABB0];
-        LODWORD(v49) = *([v40 values] + 4 * v47);
-        v50 = [v48 numberWithFloat:v49];
-        [v41 setObject:v50 atIndexedSubscript:v47 + 192];
+        v46 = MEMORY[0x277CCABB0];
+        LODWORD(v47) = *([v38 values] + 4 * v45);
+        v48 = [v46 numberWithFloat:v47];
+        [v39 setObject:v48 atIndexedSubscript:v45 + 192];
 
-        ++v47;
-        v51 = [v40 numToken];
+        ++v45;
+        v49 = [v38 numToken];
       }
 
-      while ([v40 embeddingDim] * v51 > v47);
+      while ([v38 embeddingDim] * v49 > v45);
     }
 
-    v85 = v10;
-    v52 = objc_alloc_init(QUEmbeddingOutput);
-    [(QUEmbeddingOutput *)v52 setEmbedding:v41];
-    v53 = [v76 copy];
-    [(QUEmbeddingOutput *)v52 setTokens:v53];
+    v78 = v10;
+    v50 = objc_alloc_init(QUEmbeddingOutput);
+    [(QUEmbeddingOutput *)v50 setEmbedding:v39];
+    v51 = [v69 copy];
+    [(QUEmbeddingOutput *)v50 setTokens:v51];
 
-    v54 = [v75 copy];
-    [(QUEmbeddingOutput *)v52 setTokenRanges:v54];
+    v52 = [v68 copy];
+    [(QUEmbeddingOutput *)v50 setTokenRanges:v52];
 
-    v55 = [v74 copy];
-    [(QUEmbeddingOutput *)v52 setSubtokenLenForTokens:v55];
+    v53 = [v67 copy];
+    [(QUEmbeddingOutput *)v50 setSubtokenLenForTokens:v53];
 
-    v56 = [v73 subarrayWithRange:{1, objc_msgSend(v73, "count") - 2}];
-    [(QUEmbeddingOutput *)v52 setSubtokens:v56];
+    v54 = [v66 subarrayWithRange:{1, objc_msgSend(v66, "count") - 2}];
+    [(QUEmbeddingOutput *)v50 setSubtokens:v54];
 
-    v57 = *(v83 + 40);
-    v58 = [objc_opt_class() log];
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+    v55 = [objc_opt_class() log];
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
     {
-      v59 = [(QUEmbeddingOutput *)v52 tokens];
-      v60 = [(QUEmbeddingOutput *)v52 tokenRanges];
+      v56 = [(QUEmbeddingOutput *)v50 tokens];
+      v57 = [(QUEmbeddingOutput *)v50 tokenRanges];
       *buf = 138740227;
-      v92 = v59;
-      v93 = 2112;
-      v94 = v60;
-      _os_log_impl(&dword_249FBC000, v58, OS_LOG_TYPE_INFO, "[QPNLU] QUEmbeddingOutput: tokens: %{sensitive}@, tokenRanges: %@", buf, 0x16u);
+      v85 = v56;
+      v86 = 2112;
+      v87 = v57;
+      _os_log_impl(&dword_249FBC000, v55, OS_LOG_TYPE_INFO, "[QPNLU] QUEmbeddingOutput: tokens: %{sensitive}@, tokenRanges: %@", buf, 0x16u);
     }
 
-    v61 = *(v83 + 40);
-    v62 = [objc_opt_class() signpostLog];
-    v63 = *(v83 + 40);
-    v64 = [objc_opt_class() signpostLog];
-    v65 = os_signpost_id_make_with_pointer(v64, *(v83 + 40));
+    v58 = [objc_opt_class() signpostLog];
+    v59 = [objc_opt_class() signpostLog];
+    v60 = os_signpost_id_make_with_pointer(v59, *(v76 + 40));
 
-    if (v65 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v62))
+    if (v60 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_249FBC000, v62, OS_SIGNPOST_INTERVAL_END, v65, "CDMClient getEmbeddingForQuery", &unk_249FBF3B3, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_249FBC000, v58, OS_SIGNPOST_INTERVAL_END, v60, "CDMClient getEmbeddingForQuery", &unk_249FBF3B3, buf, 2u);
     }
 
-    (*(*(v83 + 48) + 16))();
-    v8 = v73;
-    v10 = v85;
+    (*(*(v76 + 48) + 16))();
+    v8 = v66;
+    v10 = v78;
   }
 
   else
   {
-    v66 = *(v83 + 40);
-    v67 = [objc_opt_class() log];
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+    v61 = [objc_opt_class() log];
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
     {
-      v68 = *(v83 + 32);
+      v62 = *(v76 + 32);
       *buf = 138412290;
-      v92 = v68;
-      _os_log_impl(&dword_249FBC000, v67, OS_LOG_TYPE_FAULT, "[QPNLU] Invalid embedding from query: %@", buf, 0xCu);
+      v85 = v62;
+      _os_log_impl(&dword_249FBC000, v61, OS_LOG_TYPE_FAULT, "[QPNLU] Invalid embedding from query: %@", buf, 0xCu);
     }
 
-    v52 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.QueryParser.QUEmbeddingServiceError" code:-1001 userInfo:0];
-    (*(*(v83 + 48) + 16))();
+    v50 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.QueryParser.QUEmbeddingServiceError" code:-1001 userInfo:0];
+    (*(*(v76 + 48) + 16))();
   }
 
 LABEL_67:
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 @end

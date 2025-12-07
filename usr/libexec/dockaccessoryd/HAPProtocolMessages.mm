@@ -1,6 +1,7 @@
 @interface HAPProtocolMessages
 + (BOOL)_parseEmptyResponse:(id)response expectedTID:(unsigned __int8)d withHeader:(BOOL)header;
 + (BOOL)parseTokenResponse:(id)response expectedTID:(unsigned __int8)d withHeader:(BOOL)header outToken:(id *)token outUUID:(id *)iD;
++ (BOOL)parseTokenUpdateResponse:(id)response expectedTID:(unsigned __int8)d withHeader:(BOOL)header;
 + (id)constructInfoRequest:(id)request serviceUUID:(id)d outTID:(char *)iD;
 + (id)constructRequestHeaderFor:(unint64_t)for instanceID:(id)d outTID:(char *)iD;
 + (id)constructTokenUpdateRequest:(id)request token:(id)token outTID:(char *)d;
@@ -125,7 +126,7 @@
       v18 = v17;
       [tokenCopy getBytes:v38 range:{v13, v17}];
       selfCopy = self;
-      v20 = sub_10007FAA0();
+      v20 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         v21 = sub_10007FAFC(selfCopy);
@@ -152,7 +153,7 @@
     v25 = v22;
     TLV8BufferFree();
     v26 = selfCopy;
-    v27 = sub_10007FAA0();
+    v27 = sub_10007FAA0(v26);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       v28 = sub_10007FAFC(v26);
@@ -228,7 +229,7 @@ LABEL_15:
     if (v27 != dCopy)
     {
       selfCopy4 = self;
-      v14 = sub_10007FAA0();
+      v14 = sub_10007FAA0(selfCopy4);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = sub_10007FAFC(selfCopy4);
@@ -253,7 +254,7 @@ LABEL_19:
     if (v26)
     {
       selfCopy4 = self;
-      v14 = sub_10007FAA0();
+      v14 = sub_10007FAA0(selfCopy4);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = sub_10007FAFC(selfCopy4);
@@ -277,7 +278,7 @@ LABEL_18:
     if ([selfCopy5 length] < 2)
     {
       selfCopy4 = self;
-      v14 = sub_10007FAA0();
+      v14 = sub_10007FAA0(selfCopy4);
       if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_19;
@@ -321,7 +322,7 @@ LABEL_8:
     }
 
     selfCopy4 = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy4);
     if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_19;
@@ -340,7 +341,7 @@ LABEL_8:
   }
 
   selfCopy5 = self;
-  selfCopy4 = sub_10007FAA0();
+  selfCopy4 = sub_10007FAA0(selfCopy5);
   if (os_log_type_enabled(selfCopy4, OS_LOG_TYPE_ERROR))
   {
     v14 = sub_10007FAFC(selfCopy5);
@@ -366,7 +367,7 @@ LABEL_20:
     if (!v7)
     {
       selfCopy = self;
-      v10 = sub_10007FAA0();
+      v10 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v14 = sub_10007FAFC(selfCopy);
@@ -383,7 +384,7 @@ LABEL_20:
     if (v19 != dCopy)
     {
       selfCopy2 = self;
-      v10 = sub_10007FAA0();
+      v10 = sub_10007FAA0(selfCopy2);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v16 = sub_10007FAFC(selfCopy2);
@@ -402,7 +403,7 @@ LABEL_20:
     if (v18)
     {
       selfCopy3 = self;
-      v10 = sub_10007FAA0();
+      v10 = sub_10007FAA0(selfCopy3);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = sub_10007FAFC(selfCopy3);
@@ -431,6 +432,35 @@ LABEL_15:
   return v12;
 }
 
++ (BOOL)parseTokenUpdateResponse:(id)response expectedTID:(unsigned __int8)d withHeader:(BOOL)header
+{
+  headerCopy = header;
+  dCopy = d;
+  responseCopy = response;
+  selfCopy = self;
+  v10 = sub_10007FAA0(selfCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = sub_10007FAFC(selfCopy);
+    v12 = @"No";
+    v15 = 138543874;
+    v16 = v11;
+    v17 = 2112;
+    if (headerCopy)
+    {
+      v12 = @"Yes";
+    }
+
+    v18 = responseCopy;
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%{public}@Received Token Update Response: %@ withHeader: %@", &v15, 0x20u);
+  }
+
+  v13 = [selfCopy _parseEmptyResponse:responseCopy expectedTID:dCopy withHeader:headerCopy];
+  return v13;
+}
+
 + (id)parseInfoResponse:(id)response expectedTID:(unsigned __int8)d withHeader:(BOOL)header
 {
   headerCopy = header;
@@ -451,7 +481,7 @@ LABEL_15:
   if (!selfCopy)
   {
     selfCopy = self;
-    selfCopy5 = sub_10007FAA0();
+    selfCopy5 = sub_10007FAA0(selfCopy);
     if (!os_log_type_enabled(selfCopy5, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_23;
@@ -467,7 +497,7 @@ LABEL_15:
   if (v25 != dCopy)
   {
     selfCopy5 = self;
-    selfCopy4 = sub_10007FAA0();
+    selfCopy4 = sub_10007FAA0(selfCopy5);
     if (os_log_type_enabled(selfCopy4, OS_LOG_TYPE_ERROR))
     {
       v20 = sub_10007FAFC(selfCopy5);
@@ -488,7 +518,7 @@ LABEL_15:
     if ([selfCopy length] < 2)
     {
       selfCopy5 = self;
-      selfCopy4 = sub_10007FAA0();
+      selfCopy4 = sub_10007FAA0(selfCopy5);
       if (!os_log_type_enabled(selfCopy4, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
@@ -534,7 +564,7 @@ LABEL_8:
     }
 
     selfCopy4 = self;
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(selfCopy4);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       v21 = sub_10007FAFC(selfCopy4);
@@ -549,7 +579,7 @@ LABEL_8:
   }
 
   selfCopy5 = self;
-  selfCopy4 = sub_10007FAA0();
+  selfCopy4 = sub_10007FAA0(selfCopy5);
   if (os_log_type_enabled(selfCopy4, OS_LOG_TYPE_ERROR))
   {
     v13 = sub_10007FAFC(selfCopy5);

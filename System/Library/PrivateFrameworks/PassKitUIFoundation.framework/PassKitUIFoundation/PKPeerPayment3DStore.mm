@@ -29,9 +29,11 @@
 
 uint64_t __38__PKPeerPayment3DStore_sharedInstance__block_invoke()
 {
-  sharedInstance_store = [[PKPeerPayment3DStore alloc] _init];
+  v0 = [[PKPeerPayment3DStore alloc] _init];
+  v1 = sharedInstance_store;
+  sharedInstance_store = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_init
@@ -209,34 +211,34 @@ void __61__PKPeerPayment3DStore_newSceneWithCompletion_synchronously___block_inv
 
 - (void)motionManager:(id)manager didReceiveMotion:(id)motion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   attitude = [motion attitude];
   [attitude quaternion];
-  v27 = v6;
+  v26 = v6;
 
-  v34 = 0;
-  v35 = 1065353216;
-  *&v38.x = &v34;
-  *&v38.q[2] = 1;
-  GLKQuaternionRotateVector3Array(v38, v7, v8);
-  v10 = *(&v34 + 1);
-  v9 = *&v34;
-  if (*&v34 > 0.6)
+  v33 = 0;
+  v34 = 1065353216;
+  *&v37.x = &v33;
+  *&v37.q[2] = 1;
+  GLKQuaternionRotateVector3Array(v37, v7, v8);
+  v10 = *(&v33 + 1);
+  v9 = *&v33;
+  if (*&v33 > 0.6)
   {
     v9 = 0.6;
   }
 
-  if (*&v34 < -0.6)
+  if (*&v33 < -0.6)
   {
     v9 = -0.6;
   }
 
-  if (*(&v34 + 1) > 0.6)
+  if (*(&v33 + 1) > 0.6)
   {
     v10 = 0.6;
   }
 
-  if (*(&v34 + 1) >= -0.6)
+  if (*(&v33 + 1) >= -0.6)
   {
     v11 = v10;
   }
@@ -246,49 +248,49 @@ void __61__PKPeerPayment3DStore_newSceneWithCompletion_synchronously___block_inv
     v11 = -0.6;
   }
 
-  v28 = asinf(v9);
+  v27 = asinf(v9);
   v12 = asinf(v11);
   v13 = *self->_lastRollPitch;
-  *&v14 = v28;
-  if (vabds_f32(v28, *&v13) > 0.01 || vabds_f32(v12, *(&v13 + 1)) > 0.01)
+  *&v14 = v27;
+  if (vabds_f32(v27, *&v13) > 0.01 || vabds_f32(v12, *(&v13 + 1)) > 0.01)
   {
     *(&v14 + 1) = v12;
-    v29 = v14;
+    v28 = v14;
     *self->_lastRollPitch = v14;
-    [PKPeerPayment3DScene rotationMatrixForRollPitch:v14, v27];
+    [PKPeerPayment3DScene rotationMatrixForRollPitch:v14, v26];
     *self->_anon_30 = v15;
     *&self->_anon_30[16] = v16;
     *&self->_anon_30[32] = v17;
     *&self->_anon_30[48] = v18;
-    [PKPeerPayment3DScene skewForRollPitch:v29];
+    [PKPeerPayment3DScene skewForRollPitch:v28];
     *self->_skew = v19;
     os_unfair_lock_lock(&self->_lock);
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v20 = [(NSMutableArray *)self->_activeScenes copy];
-    v21 = [v20 countByEnumeratingWithState:&v30 objects:v36 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v31;
+      v23 = *v30;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v31 != v23)
+          if (*v30 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v30 + 1) + 8 * i);
+          v25 = *(*(&v29 + 1) + 8 * i);
           [v25 setCurrentRotationMatrix:{*self->_anon_30, *&self->_anon_30[16], *&self->_anon_30[32], *&self->_anon_30[48]}];
           [v25 setCurrentSkew:*self->_skew];
-          [v25 setCurrentRollPitch:v29];
+          [v25 setCurrentRollPitch:v28];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v29 objects:v35 count:16];
       }
 
       while (v22);
@@ -296,13 +298,11 @@ void __61__PKPeerPayment3DStore_newSceneWithCompletion_synchronously___block_inv
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)material
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   textMaterial = self->_textMaterial;
   if (!textMaterial)
   {
@@ -311,19 +311,19 @@ void __61__PKPeerPayment3DStore_newSceneWithCompletion_synchronously___block_inv
     self->_textMaterial = material;
 
     v6 = self->_textMaterial;
-    v19[0] = *MEMORY[0x277CDBC10];
+    v18[0] = *MEMORY[0x277CDBC10];
     v7 = MEMORY[0x277CCACA8];
     v8 = PKPassKitUIFoundationBundle();
     v9 = [v8 URLForResource:@"TextShader" withExtension:@"txt"];
     v10 = [v7 stringWithContentsOfURL:v9 encoding:1 error:0];
-    v20[0] = v10;
-    v19[1] = *MEMORY[0x277CDBC18];
+    v19[0] = v10;
+    v18[1] = *MEMORY[0x277CDBC18];
     v11 = MEMORY[0x277CCACA8];
     v12 = PKPassKitUIFoundationBundle();
     v13 = [v12 URLForResource:@"TextGeometry" withExtension:@"txt"];
     v14 = [v11 stringWithContentsOfURL:v13 encoding:1 error:0];
-    v20[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v19[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
     [(SCNMaterial *)v6 setShaderModifiers:v15];
 
     [(SCNMaterial *)self->_textMaterial setValue:&unk_286FD12B0 forKey:@"colorAmount"];
@@ -331,7 +331,6 @@ void __61__PKPeerPayment3DStore_newSceneWithCompletion_synchronously___block_inv
   }
 
   v16 = [(SCNMaterial *)textMaterial copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -418,7 +417,7 @@ void __67__PKPeerPayment3DStore_charactersForText_completion_synchronously___blo
 
 - (id)nodeForCharacter:(id)character
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   characterCopy = character;
   if (!characterCopy)
   {
@@ -483,7 +482,7 @@ LABEL_16:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v27 = characterCopy;
+        v26 = characterCopy;
         _os_log_impl(&dword_25E0A9000, v21, OS_LOG_TYPE_DEFAULT, "Missing character for %{public}@", buf, 0xCu);
       }
 
@@ -503,8 +502,6 @@ LABEL_16:
 
 LABEL_17:
 LABEL_18:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return clone;
 }

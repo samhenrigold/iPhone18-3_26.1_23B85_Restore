@@ -1,438 +1,3 @@
-void llvm::orc::JITDylib::replace(uint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  v18 = 0;
-  std::recursive_mutex::lock(*(a1 + 32));
-  v6 = atomic_load((*(a2 + 8) + 8));
-  if (v6)
-  {
-    operator new();
-  }
-
-  v7 = *a3;
-  if (*(*a3 + 16))
-  {
-    v8 = *(v7 + 8);
-    v9 = *(v7 + 24);
-    if (v9)
-    {
-      v10 = 16 * v9;
-      v11 = v8;
-      while ((*v11 | 8) == 0xFFFFFFFFFFFFFFF8)
-      {
-        v11 += 2;
-        v10 -= 16;
-        if (!v10)
-        {
-          goto LABEL_17;
-        }
-      }
-    }
-
-    else
-    {
-      v11 = v8;
-    }
-
-    v12 = &v8[2 * v9];
-    while (v11 != v12)
-    {
-      v23 = 0;
-      if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((a1 + 160), v11, &v23) && v23 != *(a1 + 160) + 72 * *(a1 + 176) && *(v23 + 48) != *(v23 + 56))
-      {
-        v14 = *(a2 + 8);
-        v15 = *a3;
-        v16 = *(*a3 + 8);
-        *(v15 + 8) = 0;
-        v21 = *(v15 + 16);
-        *(v15 + 16) = 0;
-        v22 = *(v15 + 24);
-        *(v15 + 24) = 0;
-        v17 = *a3;
-        v19 = *(*a3 + 32);
-        v20 = v16;
-        *(v17 + 32) = 0;
-        llvm::orc::ExecutionSession::createMaterializationResponsibility(&v23, v14);
-      }
-
-      do
-      {
-        v11 += 2;
-        if (v11 == v12)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      while ((*v11 | 8) == 0xFFFFFFFFFFFFFFF8);
-    }
-  }
-
-LABEL_17:
-  v13 = *(a2 + 8);
-  operator new();
-}
-
-void llvm::orc::JITDylib::getRequestedSymbols(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = *(a1 + 32);
-  std::recursive_mutex::lock(v6);
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  if (*(a2 + 8))
-  {
-    v7 = *a2;
-    v8 = *(a2 + 16);
-    if (v8)
-    {
-      v9 = 16 * v8;
-      v10 = *a2;
-      while ((*v10 | 8) == 0xFFFFFFFFFFFFFFF8)
-      {
-        v10 += 2;
-        v9 -= 16;
-        if (!v9)
-        {
-          goto LABEL_15;
-        }
-      }
-    }
-
-    else
-    {
-      v10 = *a2;
-    }
-
-    v11 = &v7[2 * v8];
-    if (v10 != v11)
-    {
-LABEL_9:
-      v12 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::find(a1 + 160, v10);
-      if (*(a1 + 160) + 72 * *(a1 + 176) != v12 && *(v12 + 48) != *(v12 + 56))
-      {
-        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(a3, v10, &v13);
-      }
-
-      while (1)
-      {
-        v10 += 2;
-        if (v10 == v11)
-        {
-          break;
-        }
-
-        if ((*v10 | 8) != 0xFFFFFFFFFFFFFFF8)
-        {
-          if (v10 != v11)
-          {
-            goto LABEL_9;
-          }
-
-          break;
-        }
-      }
-    }
-  }
-
-LABEL_15:
-  std::recursive_mutex::unlock(v6);
-}
-
-void llvm::orc::JITDylib::resolve(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
-{
-  v57[0] = 0;
-  v57[1] = 0;
-  v56 = v57;
-  v8 = *(a1 + 32);
-  std::recursive_mutex::lock(v8);
-  v9 = atomic_load((*(a2 + 8) + 8));
-  if (v9)
-  {
-    operator new();
-  }
-
-  if (*(a1 + 40))
-  {
-    std::operator+<char>();
-    v10 = std::string::append(&v61, " is defunct");
-    v11 = v10->__r_.__value_.__r.__words[2];
-    *__p = *&v10->__r_.__value_.__l.__data_;
-    *&v63 = v11;
-    v10->__r_.__value_.__l.__size_ = 0;
-    v10->__r_.__value_.__r.__words[2] = 0;
-    v10->__r_.__value_.__r.__words[0] = 0;
-    getErrorErrorCat();
-    v59 = 3;
-    *&v60 = &getErrorErrorCat(void)::ErrorErrorCat;
-    llvm::make_error<llvm::StringError,std::string,std::error_code>();
-  }
-
-  v55 = a4;
-  memset(&v61, 0, 20);
-  v59 = 0;
-  v60 = 0uLL;
-  v12 = *(a3 + 8);
-  if (v12)
-  {
-    std::__split_buffer<llvm::orc::JITDylib::resolve(llvm::orc::MaterializationResponsibility &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>> const&)::$_0::operator() const(void)::WorklistEntry,std::allocator<llvm::orc::JITDylib::resolve(llvm::orc::MaterializationResponsibility &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>> const&)::$_0::operator() const(void)::WorklistEntry> &>::__split_buffer(__p, v12, 0, &v59);
-    v13 = __p[1] - (v60 - v59);
-    memcpy(v13, v59, v60 - v59);
-    v14 = v59;
-    v15 = *(&v60 + 1);
-    v59 = v13;
-    v60 = v63;
-    *&v63 = v14;
-    *(&v63 + 1) = v15;
-    __p[0] = v14;
-    __p[1] = v14;
-    if (v14)
-    {
-      operator delete(v14);
-    }
-
-    if (*(a3 + 8))
-    {
-      v16 = *a3;
-      v17 = *(a3 + 16);
-      if (v17)
-      {
-        v18 = 24 * v17;
-        v19 = *a3;
-        while ((*v19 | 8) == 0xFFFFFFFFFFFFFFF8)
-        {
-          v19 += 3;
-          v18 -= 24;
-          if (!v18)
-          {
-            goto LABEL_36;
-          }
-        }
-      }
-
-      else
-      {
-        v19 = *a3;
-      }
-
-      v20 = &v16[3 * v17];
-      if (v19 != v20)
-      {
-LABEL_16:
-        __p[0] = 0;
-        v21 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(a1 + 112), *(a1 + 128), *v19, __p);
-        v22 = *(a1 + 112);
-        v23 = *(a1 + 128);
-        v24 = v22 + 24 * v23;
-        if (v21)
-        {
-          v25 = __p[0];
-        }
-
-        else
-        {
-          v25 = (v22 + 24 * v23);
-        }
-
-        v26 = v25[8];
-        if ((v26 & 0x100) != 0)
-        {
-          llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v61, v19, __p);
-        }
-
-        else
-        {
-          v27 = v19[1];
-          v28 = v60;
-          if (v60 >= *(&v60 + 1))
-          {
-            v30 = (v60 - v59) >> 5;
-            v31 = v30 + 1;
-            if ((v30 + 1) >> 59)
-            {
-              std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
-            }
-
-            v32 = *(&v60 + 1) - v59;
-            if ((*(&v60 + 1) - v59) >> 4 > v31)
-            {
-              v31 = v32 >> 4;
-            }
-
-            if (v32 >= 0x7FFFFFFFFFFFFFE0)
-            {
-              v33 = 0x7FFFFFFFFFFFFFFLL;
-            }
-
-            else
-            {
-              v33 = v31;
-            }
-
-            std::__split_buffer<llvm::orc::JITDylib::resolve(llvm::orc::MaterializationResponsibility &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>> const&)::$_0::operator() const(void)::WorklistEntry,std::allocator<llvm::orc::JITDylib::resolve(llvm::orc::MaterializationResponsibility &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>> const&)::$_0::operator() const(void)::WorklistEntry> &>::__split_buffer(__p, v33, v30, &v59);
-            v34 = v63;
-            *v63 = v25;
-            *(v34 + 8) = v24;
-            *(v34 + 16) = v27;
-            *(v34 + 24) = v26;
-            *&v63 = v63 + 32;
-            v35 = __p[1] - (v60 - v59);
-            memcpy(v35, v59, v60 - v59);
-            v36 = v59;
-            v37 = *(&v60 + 1);
-            v59 = v35;
-            v38 = v63;
-            v60 = v63;
-            *&v63 = v36;
-            *(&v63 + 1) = v37;
-            __p[0] = v36;
-            __p[1] = v36;
-            if (v36)
-            {
-              v54 = v38;
-              operator delete(v36);
-              v38 = v54;
-            }
-
-            v29 = v38;
-          }
-
-          else
-          {
-            *v60 = v25;
-            *(v28 + 8) = v24;
-            *(v28 + 16) = v27;
-            v29 = v28 + 32;
-            *(v28 + 24) = v26;
-          }
-
-          *&v60 = v29;
-        }
-
-        while (1)
-        {
-          v19 += 3;
-          if (v19 == v20)
-          {
-            break;
-          }
-
-          if ((*v19 | 8) != 0xFFFFFFFFFFFFFFF8)
-          {
-            if (v19 != v20)
-            {
-              goto LABEL_16;
-            }
-
-            break;
-          }
-        }
-      }
-    }
-  }
-
-LABEL_36:
-  if (LODWORD(v61.__r_.__value_.__r.__words[1]))
-  {
-    operator new();
-  }
-
-  v41 = v59;
-  for (i = v60; v59 != v60; i = v60)
-  {
-    v45 = *(i - 32);
-    v43 = i - 32;
-    v44 = v45;
-    v46 = *(v43 + 16);
-    v47 = *(v43 + 24);
-    *&v60 = v43;
-    *(v45 + 8) = v46;
-    *(v45 + 16) = v47;
-    *(v45 + 18) = *(v45 + 18) & 0x80 | 3;
-    __p[0] = 0;
-    if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((a1 + 160), v45, __p) && __p[0] != (*(a1 + 160) + 72 * *(a1 + 176)))
-    {
-      llvm::orc::JITDylib::MaterializingInfo::takeQueriesMeeting(__p, __p[0] + 8, 3u);
-      v48 = __p[0];
-      v49 = __p[1];
-      while (v48 != v49)
-      {
-        llvm::orc::AsynchronousSymbolQuery::notifySymbolMetRequiredState(*v48, v44, v46, v47);
-        llvm::orc::AsynchronousSymbolQuery::removeQueryDependence(*v48, a1, v44);
-        v50 = *v48;
-        if (!*(*v48 + 80))
-        {
-          v51 = v57[0];
-          if (!v57[0])
-          {
-LABEL_56:
-            operator new();
-          }
-
-          while (1)
-          {
-            while (1)
-            {
-              v52 = v51;
-              v53 = v51[4];
-              if (v53 <= v50)
-              {
-                break;
-              }
-
-              v51 = *v52;
-              if (!*v52)
-              {
-                goto LABEL_56;
-              }
-            }
-
-            if (v53 >= v50)
-            {
-              break;
-            }
-
-            v51 = v52[1];
-            if (!v51)
-            {
-              goto LABEL_56;
-            }
-          }
-        }
-
-        v48 += 2;
-      }
-
-      v58 = __p;
-      std::vector<std::shared_ptr<llvm::orc::DefinitionGenerator>>::__destroy_vector::operator()[abi:nn200100](&v58);
-    }
-
-    v41 = v59;
-  }
-
-  *v55 = 0;
-  if (v41)
-  {
-    *&v60 = v41;
-    operator delete(v41);
-  }
-
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v61);
-  std::recursive_mutex::unlock(v8);
-  if (!*v55)
-  {
-    if (v56 != v57)
-    {
-      v39 = v56[4];
-      v40 = *(a1 + 32);
-      llvm::orc::AsynchronousSymbolQuery::handleComplete();
-    }
-
-    *v55 = 0;
-  }
-
-  std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::destroy(&v56, v57[0]);
-}
-
 void llvm::orc::JITDylib::unlinkMaterializationResponsibility(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 32);
@@ -568,17 +133,17 @@ void llvm::orc::JITDylib::MaterializingInfo::takeQueriesMeeting(uint64_t a1, uin
 
 uint64_t llvm::orc::JITDylib::JITDylib(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = *a3;
-  v10[0] = a3[1];
-  *(v10 + 7) = *(a3 + 15);
+  v9[0] = a3[1];
+  *(v9 + 7) = *(a3 + 15);
   v5 = *(a3 + 23);
   a3[1] = 0;
   a3[2] = 0;
   *a3 = 0;
-  *(a1 + 23) = *(v10 + 7);
-  v6 = v10[0];
+  *(a1 + 23) = *(v9 + 7);
+  v6 = v9[0];
   *(a1 + 8) = v4;
   *(a1 + 16) = v6;
   *(a1 + 31) = v5;
@@ -604,17 +169,16 @@ uint64_t llvm::orc::JITDylib::JITDylib(uint64_t a1, uint64_t a2, uint64_t *a3)
   *(a1 + 216) = 0u;
   *(a1 + 232) = 0u;
   *(a1 + 244) = 0u;
-  *&v9 = a1;
-  DWORD2(v9) = 1;
-  std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>::push_back[abi:nn200100](a1 + 208, &v9);
-  v7 = *MEMORY[0x277D85DE8];
+  *&v8 = a1;
+  DWORD2(v8) = 1;
+  std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>::push_back[abi:nn200100](a1 + 208, &v8);
   return a1;
 }
 
-int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>>,llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>>::erase(uint64_t a1, uint64_t a2)
+int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>>,llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>>::erase(int32x2_t *a1, uint64_t a2)
 {
   v6 = 0;
-  if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*a1, *(a1 + 16), a2, &v6))
+  if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*a1, a1[2].i32[0], a2, &v6))
   {
     v4 = v6;
     v5 = *(v6 + 16);
@@ -629,8 +193,8 @@ int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,std::shar
     }
 
     *v4 = -16;
-    result = vadd_s32(*(a1 + 8), 0x1FFFFFFFFLL);
-    *(a1 + 8) = result;
+    result = vadd_s32(a1[1], 0x1FFFFFFFFLL);
+    a1[1] = result;
   }
 
   return result;
@@ -657,8 +221,6 @@ void *std::vector<llvm::orc::SymbolStringPtr>::reserve(void *result, unint64_t a
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(result, a2);
     }
 
@@ -668,7 +230,7 @@ void *std::vector<llvm::orc::SymbolStringPtr>::reserve(void *result, unint64_t a
   return result;
 }
 
-uint64_t *llvm::orc::JITDylib::defineImpl@<X0>(llvm::orc::JITDylib *this@<X0>, llvm::orc::MaterializationUnit *a2@<X1>, void *a3@<X8>)
+uint64_t *llvm::orc::JITDylib::defineImpl@<X0>(uint64_t *__return_ptr a1@<X8>, llvm::orc::JITDylib *this@<X0>, int32x2_t *a3@<X1>)
 {
   v45 = 0;
   v46 = 0;
@@ -679,16 +241,16 @@ uint64_t *llvm::orc::JITDylib::defineImpl@<X0>(llvm::orc::JITDylib *this@<X0>, l
   v39 = 0;
   v40 = 0;
   v41 = 0;
-  if (*(a2 + 4))
+  if (a3[2].i32[0])
   {
-    v6 = *(a2 + 6);
+    v6 = a3[3].u32[0];
     if (v6)
     {
       v7 = 16 * v6;
-      v8 = *(a2 + 1);
-      while ((*v8 | 8) == 0xFFFFFFFFFFFFFFF8)
+      v8 = a3[1];
+      while ((**&v8 | 8) == 0xFFFFFFFFFFFFFFF8)
       {
-        v8 += 16;
+        *&v8 += 16;
         v7 -= 16;
         if (!v7)
         {
@@ -699,15 +261,15 @@ uint64_t *llvm::orc::JITDylib::defineImpl@<X0>(llvm::orc::JITDylib *this@<X0>, l
 
     else
     {
-      v8 = *(a2 + 1);
+      v8 = a3[1];
     }
 
-    v9 = *(a2 + 1) + 16 * v6;
-    if (v8 != v9)
+    v9 = *&a3[1] + 16 * v6;
+    if (*&v8 != v9)
     {
 LABEL_9:
       __dst = 0;
-      if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(this + 14), *(this + 32), *v8, &__dst))
+      if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(this + 14), *(this + 32), **&v8, &__dst))
       {
         v10 = __dst == (*(this + 14) + 24 * *(this + 32));
       }
@@ -719,7 +281,7 @@ LABEL_9:
 
       if (!v10)
       {
-        if ((*(v8 + 9) & 6) != 0)
+        if ((*(*&v8 + 9) & 6) != 0)
         {
           v11 = &v39;
         }
@@ -728,28 +290,28 @@ LABEL_9:
         {
           if ((__dst[2] & 0x600) == 0 || (*(__dst + 18) & 0x7E) != 0)
           {
-            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v45, v8, &__dst);
+            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v45, *&v8, &__dst);
             goto LABEL_19;
           }
 
           v11 = &v42;
         }
 
-        std::vector<llvm::orc::SymbolStringPtr>::push_back[abi:nn200100](v11, v8);
+        std::vector<llvm::orc::SymbolStringPtr>::push_back[abi:nn200100](v11, *&v8);
       }
 
 LABEL_19:
       while (1)
       {
-        v8 += 16;
-        if (v8 == v9)
+        *&v8 += 16;
+        if (*&v8 == v9)
         {
           break;
         }
 
-        if ((*v8 | 8) != 0xFFFFFFFFFFFFFFF8)
+        if ((**&v8 | 8) != 0xFFFFFFFFFFFFFFF8)
         {
-          if (v8 != v9)
+          if (*&v8 != v9)
           {
             goto LABEL_9;
           }
@@ -796,7 +358,7 @@ LABEL_30:
           }
 
           *(&__dst + v14) = 0;
-          v35 = (*(*a2 + 16))(a2);
+          v35 = (*(*a3 + 16))(a3);
           if (!v35)
           {
             v37[0] = 0;
@@ -832,7 +394,7 @@ LABEL_72:
       v17 = v40;
       while (v16 != v17)
       {
-        llvm::orc::MaterializationUnit::doDiscard(a2, this, v16++);
+        llvm::orc::MaterializationUnit::doDiscard(a3, this, v16++);
       }
     }
   }
@@ -861,17 +423,17 @@ LABEL_37:
     while (v20 != v19);
   }
 
-  if (*(a2 + 4))
+  if (a3[2].i32[0])
   {
-    v24 = *(a2 + 1);
-    v25 = *(a2 + 6);
+    v24 = a3[1];
+    v25 = a3[3].u32[0];
     if (v25)
     {
       v26 = 16 * v25;
-      v27 = *(a2 + 1);
-      while ((*v27 | 8) == 0xFFFFFFFFFFFFFFF8)
+      v27 = a3[1];
+      while ((**&v27 | 8) == 0xFFFFFFFFFFFFFFF8)
       {
-        v27 += 16;
+        *&v27 += 16;
         v26 -= 16;
         if (!v26)
         {
@@ -882,27 +444,27 @@ LABEL_37:
 
     else
     {
-      v27 = *(a2 + 1);
+      v27 = a3[1];
     }
 
-    v28 = v24 + 16 * v25;
-    if (v27 != v28)
+    v28 = *&v24 + 16 * v25;
+    if (*&v27 != v28)
     {
 LABEL_50:
       __dst = 0;
-      v29 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(this + 14), *(this + 32), *v27, &__dst);
+      v29 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(this + 14), *(this + 32), **&v27, &__dst);
       v30 = __dst;
       if ((v29 & 1) == 0)
       {
-        v31 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::InsertIntoBucketImpl<llvm::orc::SymbolStringPtr>(this + 112, v27, __dst);
+        v31 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::InsertIntoBucketImpl<llvm::orc::SymbolStringPtr>(this + 112, *&v27, __dst);
         v30 = v31;
         if (*v31 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
         {
           atomic_fetch_add(*v31 + 1, 0xFFFFFFFFFFFFFFFFLL);
         }
 
-        v32 = *v27;
-        *v31 = *v27;
+        v32 = **&v27;
+        *v31 = **&v27;
         if ((v32 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
         {
           atomic_fetch_add((v32 + 8), 1uLL);
@@ -912,19 +474,19 @@ LABEL_50:
         v31[2] = 0;
       }
 
-      *(v30 + 8) = *(v27 + 8);
+      *(v30 + 8) = *(*&v27 + 8);
       *(v30 + 18) = -127;
       while (1)
       {
-        v27 += 16;
-        if (v27 == v28)
+        *&v27 += 16;
+        if (*&v27 == v28)
         {
           break;
         }
 
-        if ((*v27 | 8) != 0xFFFFFFFFFFFFFFF8)
+        if ((**&v27 | 8) != 0xFFFFFFFFFFFFFFF8)
         {
-          if (v27 != v28)
+          if (*&v27 != v28)
           {
             goto LABEL_50;
           }
@@ -936,7 +498,7 @@ LABEL_50:
   }
 
 LABEL_60:
-  *a3 = 0;
+  *a1 = 0;
   __dst = &v39;
   std::vector<llvm::orc::SymbolStringPtr>::__destroy_vector::operator()[abi:nn200100](&__dst);
   __dst = &v42;
@@ -944,15 +506,15 @@ LABEL_60:
   return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v45);
 }
 
-uint64_t llvm::orc::MaterializationUnit::doDiscard(void *a1, uint64_t a2, void *a3)
+uint64_t llvm::orc::MaterializationUnit::doDiscard(int32x2_t *a1, uint64_t a2, void *a3)
 {
-  v6.n128_u64[0] = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::erase((a1 + 1), a3);
+  v6.n128_u64[0] = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::erase(a1 + 1, a3);
   v7 = a1[4];
-  if (v7 == *a3)
+  if (*&v7 == *a3)
   {
-    if ((v7 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+    if ((*&v7 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
     {
-      atomic_fetch_add((v7 + 8), 0xFFFFFFFFFFFFFFFFLL);
+      atomic_fetch_add((*&v7 + 8), 0xFFFFFFFFFFFFFFFFLL);
     }
 
     a1[4] = 0;
@@ -963,16 +525,16 @@ uint64_t llvm::orc::MaterializationUnit::doDiscard(void *a1, uint64_t a2, void *
   return v8(a1, a2, a3, v6);
 }
 
-void llvm::orc::JITDylib::installMaterializationUnit(uint64_t a1, uint64_t *a2, uint64_t a3)
+void llvm::orc::JITDylib::installMaterializationUnit(uint64_t a1, std::__shared_weak_count_vtbl **a2, uint64_t a3)
 {
   if (*(a1 + 232) != a3)
   {
     v12 = a3;
     v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ResourceTracker *,std::vector<llvm::orc::SymbolStringPtr>,llvm::DenseMapInfo<llvm::orc::ResourceTracker *,void>,llvm::detail::DenseMapPair<llvm::orc::ResourceTracker *,std::vector<llvm::orc::SymbolStringPtr>>>,llvm::orc::ResourceTracker *,std::vector<llvm::orc::SymbolStringPtr>,llvm::DenseMapInfo<llvm::orc::ResourceTracker *,void>,llvm::detail::DenseMapPair<llvm::orc::ResourceTracker *,std::vector<llvm::orc::SymbolStringPtr>>>::FindAndConstruct(a1 + 240, &v12);
     v5 = v4 + 1;
-    std::vector<llvm::orc::SymbolStringPtr>::reserve(v4 + 1, *(*a2 + 16) + ((v4[2] - v4[1]) >> 3));
+    std::vector<llvm::orc::SymbolStringPtr>::reserve(v4 + 1, LODWORD((*a2)->__on_zero_shared) + ((v4[2] - v4[1]) >> 3));
     v6 = *a2;
-    if (*(*a2 + 16))
+    if (LODWORD((*a2)->__on_zero_shared))
     {
       v7 = *(v6 + 8);
       v8 = *(v6 + 24);
@@ -1144,7 +706,7 @@ uint64_t llvm::orc::ExecutionSession::ExecutionSession(uint64_t a1, uint64_t *a2
   return a1;
 }
 
-uint64_t *llvm::orc::ExecutionSession::logErrorsToStdErr(llvm *a1)
+const void **llvm::orc::ExecutionSession::logErrorsToStdErr(llvm *a1)
 {
   v5 = *a1;
   *a1 = 0;
@@ -1155,7 +717,7 @@ uint64_t *llvm::orc::ExecutionSession::logErrorsToStdErr(llvm *a1)
   result = v5;
   if (v5)
   {
-    return (*(*v5 + 8))(v5);
+    return (*(*v5 + 1))(v5);
   }
 
   return result;
@@ -1196,7 +758,7 @@ void llvm::orc::ExecutionSession::~ExecutionSession(llvm::orc::ExecutionSession 
   std::recursive_mutex::~recursive_mutex(this);
 }
 
-void llvm::orc::ExecutionSession::endSession(std::recursive_mutex *this@<X0>, uint64_t **a2@<X8>)
+void llvm::orc::ExecutionSession::endSession(const void ***__return_ptr a1@<X8>, std::recursive_mutex *this@<X0>)
 {
   std::recursive_mutex::lock(this);
   LOBYTE(this[1].__m_.__sig) = 0;
@@ -1221,10 +783,10 @@ void llvm::orc::ExecutionSession::endSession(std::recursive_mutex *this@<X0>, ui
   v12 = 0;
   v13 = 0;
   v14 = 0;
-  llvm::orc::ExecutionSession::removeJITDylibs(this, v11, a2);
+  llvm::orc::ExecutionSession::removeJITDylibs(this, v11, a1);
   v16 = v11;
   std::vector<llvm::IntrusiveRefCntPtr<llvm::orc::JITDylib>>::__destroy_vector::operator()[abi:nn200100](&v16);
-  v7 = *a2;
+  v7 = *a1;
   (*(**this[1].__m_.__opaque + 48))(&v9);
   v15 = v9;
   v16 = v7;
@@ -1241,7 +803,7 @@ void llvm::orc::ExecutionSession::endSession(std::recursive_mutex *this@<X0>, ui
   }
 
   v8 = v9;
-  *a2 = v10;
+  *a1 = v10;
   v10 = 0;
   if (v8)
   {
@@ -1252,7 +814,7 @@ void llvm::orc::ExecutionSession::endSession(std::recursive_mutex *this@<X0>, ui
   std::vector<llvm::IntrusiveRefCntPtr<llvm::orc::JITDylib>>::__destroy_vector::operator()[abi:nn200100](&v16);
 }
 
-void llvm::orc::ExecutionSession::removeJITDylibs(uint64_t a1@<X0>, atomic_uint ***a2@<X1>, uint64_t **a3@<X8>)
+void llvm::orc::ExecutionSession::removeJITDylibs(uint64_t a1@<X0>, atomic_uint ***a2@<X1>, const void ***a3@<X8>)
 {
   std::recursive_mutex::lock(a1);
   v6 = *a2;
@@ -1353,7 +915,7 @@ void llvm::orc::ExecutionSession::removeJITDylibs(uint64_t a1@<X0>, atomic_uint 
 
       if (v29)
       {
-        (*(*v29 + 8))(v29);
+        (*(*v29 + 1))(v29);
       }
 
       v18 = v27;
@@ -1372,7 +934,7 @@ void llvm::orc::ExecutionSession::removeJITDylibs(uint64_t a1@<X0>, atomic_uint 
 
         if (v29)
         {
-          (*(*v29 + 8))(v29);
+          (*(*v29 + 1))(v29);
         }
 
         v18 = v27;
@@ -1507,15 +1069,15 @@ void llvm::orc::ExecutionSession::createJITDylib(std::recursive_mutex *a1, uint6
 {
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v3, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v4, *a2, *(a2 + 8));
   }
 
   else
   {
-    v3 = *a2;
+    v4 = *a2;
   }
 
-  llvm::orc::ExecutionSession::createBareJITDylib(a1);
+  llvm::orc::ExecutionSession::createBareJITDylib(a1, &v4);
 }
 
 void llvm::orc::ExecutionSession::dispatchOutstandingMUs(llvm::orc::ExecutionSession *this)
@@ -1557,82 +1119,82 @@ void llvm::orc::ExecutionSession::dispatchOutstandingMUs(llvm::orc::ExecutionSes
   while ((v6 & 1) != 0);
 }
 
-void llvm::orc::ExecutionSession::lookup(uint64_t a1, uint64_t a2, uint64_t *a3)
+void llvm::orc::ExecutionSession::lookup(llvm::orc::ExecutionSession *a1, __int128 **a2, uint64_t *a3)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v6[0] = *a3;
-  if ((v6[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+  v8[4] = *MEMORY[0x277D85DE8];
+  v8[0] = *a3;
+  if ((v8[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
   {
-    atomic_fetch_add((v6[0] + 8), 1uLL);
+    atomic_fetch_add((v8[0] + 8), 1uLL);
   }
 
-  llvm::orc::SymbolLookupSet::SymbolLookupSet(&v3, v6, 1uLL, 0);
-  if ((v6[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+  llvm::orc::SymbolLookupSet::SymbolLookupSet(&v5, v8, 1uLL, 0);
+  if ((v8[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
   {
-    atomic_fetch_add((v6[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
+    atomic_fetch_add((v8[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
   }
 
-  v3 = 0uLL;
-  v4 = 0;
-  std::__function::__value_func<void ()(llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>> const&)>::__value_func[abi:nn200100](v5, &llvm::orc::NoDependenciesToRegister);
+  v5 = 0uLL;
+  v6 = 0;
+  std::__function::__value_func<void ()(llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>> const&)>::__value_func[abi:nn200100](v7, &llvm::orc::NoDependenciesToRegister);
   llvm::orc::ExecutionSession::lookup();
 }
 
-void llvm::orc::ExecutionSession::lookup(uint64_t a1, uint64_t *a2, unint64_t a3, uint64_t *a4)
+void llvm::orc::ExecutionSession::lookup(llvm::orc::ExecutionSession *a1, uint64_t *a2, unint64_t a3, uint64_t *a4)
 {
   memset(__p, 0, sizeof(__p));
   std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>::reserve(__p, a3);
   if (a3)
   {
-    v8 = 8 * a3;
+    v10 = 8 * a3;
     do
     {
-      v9 = *a2++;
-      *&v13 = v9;
-      DWORD2(v13) = 0;
-      std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>::push_back[abi:nn200100](__p, &v13);
-      v8 -= 8;
+      v11 = *a2++;
+      *&v15 = v11;
+      DWORD2(v15) = 0;
+      std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>::push_back[abi:nn200100](__p, &v15);
+      v10 -= 8;
     }
 
-    while (v8);
+    while (v10);
   }
 
-  v10 = *a4;
-  v11 = v10;
-  if ((v10 - 1) < 0xFFFFFFFFFFFFFFE0)
+  v12 = *a4;
+  v13 = v12;
+  if ((v12 - 1) < 0xFFFFFFFFFFFFFFE0)
   {
-    atomic_fetch_add((v10 + 8), 1uLL);
-    llvm::orc::ExecutionSession::lookup(a1, __p, &v11);
+    atomic_fetch_add((v12 + 8), 1uLL);
+    llvm::orc::ExecutionSession::lookup(a1, __p, &v13);
   }
 
-  llvm::orc::ExecutionSession::lookup(a1, __p, &v11);
+  llvm::orc::ExecutionSession::lookup(a1, __p, &v13);
 }
 
-void llvm::orc::ExecutionSession::lookup(uint64_t a1, uint64_t *a2, unint64_t a3, uint64_t *a4, unint64_t a5)
+void llvm::orc::ExecutionSession::lookup(llvm::orc::ExecutionSession *a1, uint64_t *a2, unint64_t a3, uint64_t *a4, size_t a5)
 {
-  v10 = *(*(a1 + 72) + 8);
-  std::mutex::lock(v10);
-  v13 = 0;
-  v11 = *llvm::StringMap<std::atomic<unsigned long>,llvm::MallocAllocator>::try_emplace<int>(&v10[1], a4, a5, &v13);
-  v12 = v11;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+  v12 = *(*(a1 + 9) + 8);
+  std::mutex::lock(v12);
+  v15 = 0;
+  v13 = *llvm::StringMap<std::atomic<unsigned long>,llvm::MallocAllocator>::try_emplace<int>(&v12[1], a4, a5, &v15);
+  v14 = v13;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
   {
-    atomic_fetch_add(v11 + 1, 1uLL);
+    atomic_fetch_add(v13 + 1, 1uLL);
   }
 
-  std::mutex::unlock(v10);
-  llvm::orc::ExecutionSession::lookup(a1, a2, a3, &v12);
+  std::mutex::unlock(v12);
+  llvm::orc::ExecutionSession::lookup(a1, a2, a3, &v14);
 }
 
 void llvm::orc::ExecutionSession::runJITDispatchHandler(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v28[4] = *MEMORY[0x277D85DE8];
-  v27 = a3;
+  v27[4] = *MEMORY[0x277D85DE8];
+  v26 = a3;
   std::mutex::lock((a1 + 256));
-  v18[0] = 0;
-  if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>,llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>::LookupBucketFor<llvm::orc::ExecutorAddr>(*(a1 + 320), *(a1 + 336), a3, v18))
+  v17[0] = 0;
+  if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>,llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>::LookupBucketFor<llvm::orc::ExecutorAddr>(*(a1 + 320), *(a1 + 336), a3, v17))
   {
-    v10 = v18[0] == *(a1 + 320) + 24 * *(a1 + 336);
+    v10 = v17[0] == *(a1 + 320) + 24 * *(a1 + 336);
   }
 
   else
@@ -1648,8 +1210,8 @@ void llvm::orc::ExecutionSession::runJITDispatchHandler(uint64_t a1, __int128 *a
 
   else
   {
-    v12 = *(v18[0] + 8);
-    v11 = *(v18[0] + 16);
+    v12 = *(v17[0] + 8);
+    v11 = *(v17[0] + 16);
     if (v11)
     {
       atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1658,31 +1220,31 @@ void llvm::orc::ExecutionSession::runJITDispatchHandler(uint64_t a1, __int128 *a
     std::mutex::unlock((a1 + 256));
     if (v12)
     {
-      llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v28, a2);
+      llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v27, a2);
       v13 = v12[3];
       if ((v13 & 2) == 0)
       {
         v12 = *v12;
       }
 
-      (*(v13 & 0xFFFFFFFFFFFFFFF8))(v12, v28, a4, a5);
-      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v28);
+      (*(v13 & 0xFFFFFFFFFFFFFFF8))(v12, v27, a4, a5);
+      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v27);
       goto LABEL_25;
     }
   }
 
-  v18[0] = "{0:x16}";
-  v18[1] = 7;
-  v18[2] = &v20;
-  v18[3] = 1;
-  v19[0] = &unk_2883EBA18;
-  v19[1] = &v27;
-  v20 = v19;
-  v21[0] = "No function registered for tag ";
-  v21[2] = v18;
-  v22 = 1539;
-  llvm::Twine::str(v21, __p);
-  if (v24 >= 0)
+  v17[0] = "{0:x16}";
+  v17[1] = 7;
+  v17[2] = &v19;
+  v17[3] = 1;
+  v18[0] = &unk_2883EBA18;
+  v18[1] = &v26;
+  v19 = v18;
+  v20[0] = "No function registered for tag ";
+  v20[2] = v17;
+  v21 = 1539;
+  llvm::Twine::str(v20, __p);
+  if (v23 >= 0)
   {
     v14 = __p;
   }
@@ -1692,33 +1254,33 @@ void llvm::orc::ExecutionSession::runJITDispatchHandler(uint64_t a1, __int128 *a
     v14 = __p[0];
   }
 
-  llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(v14, &v25);
+  llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(&v24, v14);
   v15 = *(a2 + 3);
   if ((v15 & 2) == 0)
   {
     a2 = *a2;
   }
 
-  (*(v15 & 0xFFFFFFFFFFFFFFF8))(a2, &v25);
-  if (v26 >= 9)
+  (*(v15 & 0xFFFFFFFFFFFFFFF8))(a2, &v24);
+  if (v25 >= 9)
   {
-    v16 = v25;
+    v16 = v24;
 LABEL_22:
     free(v16);
     goto LABEL_23;
   }
 
-  if (!v26)
+  if (!v25)
   {
-    v16 = v25;
-    if (v25)
+    v16 = v24;
+    if (v24)
     {
       goto LABEL_22;
     }
   }
 
 LABEL_23:
-  if (v24 < 0)
+  if (v23 < 0)
   {
     operator delete(__p[0]);
   }
@@ -1728,8 +1290,6 @@ LABEL_25:
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::ExecutionSession::destroyResourceTracker(llvm::orc::ResourceTracker &)::$_0>(std::recursive_mutex *a1, llvm::orc::ResourceTracker **a2)
@@ -1740,7 +1300,7 @@ void llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::ExecutionSession::
   if ((v5 & 1) == 0)
   {
     v6 = atomic_load(*a2 + 1);
-    llvm::orc::JITDylib::getDefaultResourceTracker((v6 & 0xFFFFFFFFFFFFFFFELL), &v8);
+    llvm::orc::JITDylib::getDefaultResourceTracker(&v8, (v6 & 0xFFFFFFFFFFFFFFFELL));
     v7 = v8;
     llvm::orc::ExecutionSession::transferResourceTracker(v4, v8, *a2);
     llvm::ThreadSafeRefCountedBase<llvm::orc::ResourceTracker>::Release(v7);
@@ -1749,24 +1309,22 @@ void llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::ExecutionSession::
   std::recursive_mutex::unlock(a1);
 }
 
-uint64_t llvm::orc::ExecutionSession::IL_updateCandidatesFor(uint64_t result, uint64_t a2, uint64_t a3, int a4, uint64_t *a5, uint64_t *a6)
+void llvm::orc::ExecutionSession::IL_updateCandidatesFor(void *a1, uint64_t a2, uint64_t a3, int a4, llvm::orc::SymbolLookupSet *a5, uint64_t *a6)
 {
-  v6 = result;
-  v29 = *MEMORY[0x277D85DE8];
+  v6 = a1;
+  v28 = *MEMORY[0x277D85DE8];
   v7 = *a5;
-  if (a5[1] != *a5)
+  if (*(a5 + 1) != *a5)
   {
-    v24 = result;
     v12 = 0;
     do
     {
       v13 = v7 + 16 * v12;
       v14 = *(v13 + 8);
-      v25 = 0;
-      result = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(a3 + 112), *(a3 + 128), *v13, &v25);
-      if (result)
+      v24 = 0;
+      if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(a3 + 112), *(a3 + 128), *v13, &v24))
       {
-        v15 = v25 == *(a3 + 112) + 24 * *(a3 + 128);
+        v15 = v24 == *(a3 + 112) + 24 * *(a3 + 128);
       }
 
       else
@@ -1781,7 +1339,7 @@ uint64_t llvm::orc::ExecutionSession::IL_updateCandidatesFor(uint64_t result, ui
 
       else
       {
-        v16 = *(v25 + 17);
+        v16 = *(v24 + 17);
         if (a4 | v16 & 0x10)
         {
           if (v14 != 1 && (v16 & 0x40) != 0)
@@ -1789,8 +1347,8 @@ uint64_t llvm::orc::ExecutionSession::IL_updateCandidatesFor(uint64_t result, ui
             v19 = *(a2 + 72);
             v21 = *(v19 + 8);
             v20 = *(v19 + 16);
-            v27 = v21;
-            v28 = v20;
+            v26 = v21;
+            v27 = v20;
             if (v20)
             {
               atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
@@ -1804,7 +1362,7 @@ uint64_t llvm::orc::ExecutionSession::IL_updateCandidatesFor(uint64_t result, ui
             operator new();
           }
 
-          if (*(v25 + 17))
+          if (*(v24 + 17))
           {
             operator new();
           }
@@ -1818,28 +1376,26 @@ uint64_t llvm::orc::ExecutionSession::IL_updateCandidatesFor(uint64_t result, ui
             atomic_fetch_add((v17 + 8), 1uLL);
           }
 
-          v25 = v17;
-          LODWORD(v26) = v14;
-          std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>>::push_back[abi:nn200100](a6, &v25);
-          if ((v25 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          v24 = v17;
+          LODWORD(v25) = v14;
+          std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>>::push_back[abi:nn200100](a6, &v24);
+          if ((v24 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v25 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((v24 + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
         }
 
-        result = llvm::orc::SymbolLookupSet::remove(a5, v12);
+        llvm::orc::SymbolLookupSet::remove(a5, v12);
       }
 
       v7 = *a5;
     }
 
-    while (v12 != (a5[1] - *a5) >> 4);
-    v6 = v24;
+    while (v12 != (*(a5 + 1) - *a5) >> 4);
+    v6 = a1;
   }
 
   *v6 = 0;
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void llvm::orc::ExecutionSession::OL_resumeLookupAfterGeneration(llvm::orc::ExecutionSession *this, llvm::orc::InProgressLookupState *a2)
@@ -1918,7 +1474,7 @@ void llvm::orc::ExecutionSession::OL_resumeLookupAfterGeneration(llvm::orc::Exec
   std::__shared_weak_count::__release_shared[abi:nn200100](v6);
 }
 
-void *llvm::orc::SymbolLookupSet::getSymbolNames(llvm::orc::SymbolLookupSet *this, uint64_t **a2)
+void *llvm::orc::SymbolLookupSet::getSymbolNames(llvm::orc::SymbolLookupSet *this, char **a2)
 {
   *this = 0;
   *(this + 1) = 0;
@@ -1929,19 +1485,19 @@ void *llvm::orc::SymbolLookupSet::getSymbolNames(llvm::orc::SymbolLookupSet *thi
   while (v5 != v6)
   {
     result = std::vector<llvm::orc::SymbolStringPtr>::push_back[abi:nn200100](this, v5);
-    v5 += 2;
+    v5 += 16;
   }
 
   return result;
 }
 
-uint64_t llvm::orc::ExecutionSession::simplifyDepGroups@<X0>(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+uint64_t llvm::orc::ExecutionSession::simplifyDepGroups@<X0>(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
   v5 = a2;
   v88 = *a1;
   *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  a4[1] = 0;
+  *(a4 + 4) = 0;
   if (a3)
   {
     v8 = (4 * a3 / 3u + 1) | ((4 * a3 / 3u + 1) >> 1);
@@ -2237,10 +1793,10 @@ LABEL_85:
   v98 = 0u;
   v96 = 0u;
   v25 = a4;
-  if (*(a4 + 8))
+  if (*(a4 + 2))
   {
     v26 = *a4;
-    v27 = *(a4 + 16);
+    v27 = *(a4 + 4);
     v28 = *a4;
     if (v27)
     {
@@ -2271,7 +1827,7 @@ LABEL_119:
           v84 = *v28 + 32;
           if (v84 != v104[0] + 48)
           {
-            llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::copyFrom(v104[0] + 48, v84);
+            llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::copyFrom((v104[0] + 48), v84);
           }
 
           std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(&v96, v28);
@@ -2295,7 +1851,7 @@ LABEL_119:
   }
 
 LABEL_36:
-  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::deque(&v92, &v96);
+  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::deque(v92, &v96);
   for (i = v95; v95; i = v95)
   {
     v31 = (*(v93 + ((v94 >> 6) & 0x3FFFFFFFFFFFFF8)))[v94 & 0x1FF];
@@ -2323,7 +1879,7 @@ LABEL_36:
         v103 = *v37;
         v104[0] = 0;
         v39 = *v25;
-        v40 = *(v25 + 16);
+        v40 = *(v25 + 4);
         if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(*v25, v40, v103, v104))
         {
           v41 = v104[0];
@@ -2386,7 +1942,7 @@ LABEL_36:
                   {
                     if (!*(v89 + 48))
                     {
-                      std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(&v92, &v103);
+                      std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(v92, &v103);
                     }
 
                     v53 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct(v89 + 40, v45) + 1;
@@ -2438,39 +1994,32 @@ LABEL_72:
       while (v37 != v36);
     }
 
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::clear((v32 + 6));
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::clear(v32 + 12);
   }
 
-  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::~deque[abi:nn200100](&v92);
+  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::~deque[abi:nn200100](v92);
   std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::~deque[abi:nn200100](&v96);
   return MEMORY[0x277C69E30](v99, 8);
 }
 
 uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::find(uint64_t a1, void *a2)
 {
-  v7 = 0;
-  if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v7))
+  v4 = 0;
+  if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v4))
   {
-    result = v7;
-    v4 = *a1;
-    v5 = *(a1 + 16);
+    return v4;
   }
 
   else
   {
-    v5 = *(a1 + 16);
-    result = *a1 + 16 * v5;
+    return *a1 + 16 * *(a1 + 16);
   }
-
-  v6 = *a1 + 16 * v5;
-  return result;
 }
 
-void *std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(void *result, void *a2)
+void std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  v5 = result[2];
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
     v6 = 0;
@@ -2481,22 +2030,22 @@ void *std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(void *result
     v6 = ((v5 - v4) << 6) - 1;
   }
 
-  v8 = result[4];
-  v7 = result[5];
+  v8 = a1[4];
+  v7 = a1[5];
   v9 = v7 + v8;
   if (v6 == v7 + v8)
   {
     if (v8 < 0x200)
     {
-      v10 = result[3];
-      v11 = v10 - *result;
+      v10 = a1[3];
+      v11 = v10 - *a1;
       if (v5 - v4 < v11)
       {
         operator new();
       }
 
       v12 = v11 >> 2;
-      if (v10 == *result)
+      if (v10 == *a1)
       {
         v13 = 1;
       }
@@ -2506,22 +2055,21 @@ void *std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(void *result
         v13 = v12;
       }
 
-      v15 = v3;
+      v15 = a1;
       std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::JITDylib::EmissionDepUnit **>>(v13);
     }
 
-    result[4] = v8 - 512;
+    a1[4] = v8 - 512;
     *&v14 = *v4;
-    result[1] = v4 + 8;
-    result = std::__split_buffer<llvm::orc::JITDylib::EmissionDepUnit **>::emplace_back<llvm::orc::JITDylib::EmissionDepUnit **&>(result, &v14);
-    v4 = v3[1];
-    v7 = v3[5];
-    v9 = v3[4] + v7;
+    a1[1] = (v4 + 1);
+    std::__split_buffer<llvm::orc::JITDylib::EmissionDepUnit **>::emplace_back<llvm::orc::JITDylib::EmissionDepUnit **&>(a1, &v14);
+    v4 = a1[1];
+    v7 = a1[5];
+    v9 = a1[4] + v7;
   }
 
-  *(*&v4[(v9 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  *(*(v4 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  a1[5] = v7 + 1;
 }
 
 int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::erase(uint64_t a1, uint64_t a2)
@@ -2538,11 +2086,11 @@ int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet
   return result;
 }
 
-void llvm::orc::ExecutionSession::makeJDClosedError(uint64_t a1, uint64_t a2, uint64_t a3)
+void llvm::orc::ExecutionSession::makeJDClosedError(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v31[0] = 0;
-  v31[1] = 0;
-  v32 = 0;
+  v29[0] = 0;
+  v29[1] = 0;
+  v30 = 0;
   if (*(a2 + 16))
   {
     v5 = *(a2 + 24);
@@ -2570,16 +2118,16 @@ void llvm::orc::ExecutionSession::makeJDClosedError(uint64_t a1, uint64_t a2, ui
     while (v7 != v8)
     {
       v9 = *v7;
-      v33 = v9;
+      v31 = v9;
       if ((v9 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
       {
         atomic_fetch_add((v9 + 8), 1uLL);
       }
 
-      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(v31, &v33, &v34);
-      if ((v33 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(v29, &v31, &v32);
+      if ((v31 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
       {
-        atomic_fetch_add((v33 + 8), 0xFFFFFFFFFFFFFFFFLL);
+        atomic_fetch_add((v31 + 8), 0xFFFFFFFFFFFFFFFFLL);
       }
 
       do
@@ -2596,11 +2144,11 @@ void llvm::orc::ExecutionSession::makeJDClosedError(uint64_t a1, uint64_t a2, ui
   }
 
 LABEL_16:
-  v29[0] = 0;
-  v29[1] = 0;
-  v30 = 0;
-  v34 = a3;
-  v10 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct(a2 + 32, &v34);
+  v27[0] = 0;
+  v27[1] = 0;
+  v28 = 0;
+  v32 = a3;
+  v10 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct(a2 + 32, &v32);
   v11 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin((v10 + 1));
   v13 = v10[1] + 8 * *(v10 + 6);
   if (v13 != v11)
@@ -2609,8 +2157,8 @@ LABEL_16:
     v15 = v12;
     do
     {
-      v33 = a3;
-      v16 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::FindAndConstruct(v29, &v33);
+      v31 = a3;
+      v16 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::FindAndConstruct(v27, &v31);
       v17 = *v14;
       __p = v17;
       if (v17 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
@@ -2618,7 +2166,7 @@ LABEL_16:
         atomic_fetch_add(v17 + 1, 1uLL);
       }
 
-      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>((v16 + 1), &__p, &v34);
+      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>((v16 + 1), &__p, &v32);
       if (__p - 1 <= 0xFFFFFFFFFFFFFFDFLL)
       {
         atomic_fetch_add(__p + 1, 0xFFFFFFFFFFFFFFFFLL);
@@ -2635,56 +2183,54 @@ LABEL_16:
     while (v14 != v13);
   }
 
-  v18 = *(*(a3 + 32) + 72);
-  v20 = *(v18 + 8);
-  v19 = *(v18 + 16);
-  if (v19)
+  v18 = *(*(*(a3 + 32) + 72) + 16);
+  if (v18)
   {
-    atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
   }
 
   if (*(a3 + 31) >= 0)
   {
-    v21 = *(a3 + 31);
+    v19 = *(a3 + 31);
   }
 
   else
   {
-    v21 = *(a3 + 16);
+    v19 = *(a3 + 16);
   }
 
   p_p = &__p;
-  std::string::basic_string[abi:nn200100](&__p, v21 + 10);
-  if (v28 < 0)
+  std::string::basic_string[abi:nn200100](&__p, v19 + 10);
+  if (v26 < 0)
   {
     p_p = __p;
   }
 
-  if (v21)
+  if (v19)
   {
-    v25 = *(a3 + 8);
-    v24 = (a3 + 8);
-    v23 = v25;
-    if (v24[23] >= 0)
+    v23 = *(a3 + 8);
+    v22 = (a3 + 8);
+    v21 = v23;
+    if (v22[23] >= 0)
     {
-      v26 = v24;
+      v24 = v22;
     }
 
     else
     {
-      v26 = v23;
+      v24 = v21;
     }
 
-    memmove(p_p, v26, v21);
+    memmove(p_p, v24, v19);
   }
 
-  strcpy(p_p + v21, " is closed");
+  strcpy(p_p + v19, " is closed");
   operator new();
 }
 
-uint64_t llvm::orc::ExecutionSession::IL_emit@<X0>(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+void llvm::orc::ExecutionSession::IL_emit(uint64_t *a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
 {
-  v245 = *MEMORY[0x277D85DE8];
+  v241 = *MEMORY[0x277D85DE8];
   v5 = atomic_load((a1[1] + 8));
   if (v5)
   {
@@ -2695,10 +2241,10 @@ uint64_t llvm::orc::ExecutionSession::IL_emit@<X0>(uint64_t *a1@<X1>, uint64_t a
   if (*(*a1 + 40))
   {
     std::operator+<char>();
-    v7 = std::string::append(v231, " is defunct");
+    v7 = std::string::append(v227, " is defunct");
     v8 = v7->__r_.__value_.__r.__words[2];
     *__p = *&v7->__r_.__value_.__l.__data_;
-    v241[0] = v8;
+    v237[0] = v8;
     v7->__r_.__value_.__l.__size_ = 0;
     v7->__r_.__value_.__r.__words[2] = 0;
     v7->__r_.__value_.__r.__words[0] = 0;
@@ -2707,15 +2253,15 @@ uint64_t llvm::orc::ExecutionSession::IL_emit@<X0>(uint64_t *a1@<X1>, uint64_t a
   }
 
   v9 = a2;
-  v232 = 0u;
-  memset(v231, 0, sizeof(v231));
-  v200 = a3;
-  if (!*(a2 + 8))
+  v228 = 0u;
+  memset(v227, 0, sizeof(v227));
+  v196 = a3;
+  if (!*(a2 + 2))
   {
     goto LABEL_182;
   }
 
-  v10 = *(a2 + 16);
+  v10 = *(a2 + 4);
   if (v10)
   {
     v11 = 72 * v10;
@@ -2747,7 +2293,7 @@ LABEL_183:
   }
 
 LABEL_13:
-  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(v231, v12);
+  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(v227, v12);
   while (1)
   {
     v12 += 9;
@@ -2767,27 +2313,27 @@ LABEL_13:
     }
   }
 
-  v15 = *&v231[16];
-  v14 = *&v231[8];
-  if (*&v231[16] == *&v231[8])
+  v14 = *&v227[8];
+  v15 = *&v227[16];
+  if (*&v227[16] == *&v227[8])
   {
     goto LABEL_183;
   }
 
-  v16 = (*&v231[8] + 8 * (v232 >> 9));
-  v3 = *v16 + 8 * (v232 & 0x1FF);
-  v206 = *(*&v231[8] + (((*(&v232 + 1) + v232) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(&v232 + 1) + v232) & 0x1FF);
-  if (v3 != v206)
+  v16 = (*&v227[8] + 8 * (v228 >> 9));
+  v3 = *v16 + 8 * (v228 & 0x1FF);
+  v202 = *(*&v227[8] + (((*(&v228 + 1) + v228) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(&v228 + 1) + v228) & 0x1FF);
+  if (v3 != v202)
   {
-    v213 = v6;
-    v201 = v9;
+    v209 = v6;
+    v197 = v9;
     do
     {
-      v230 = *v3;
-      v17 = v230;
-      v217 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v9, &v230) + 1;
-      v242 = v244;
-      v243 = 0x600000000;
+      v226 = *v3;
+      v17 = v226;
+      v213 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v9, &v226) + 1;
+      v238 = v240;
+      v239 = 0x600000000;
       if (*(v17 + 40))
       {
         v18 = *(v17 + 48);
@@ -2805,12 +2351,12 @@ LABEL_13:
             }
           }
 
-          v210 = v3;
+          v206 = v3;
         }
 
         else
         {
-          v210 = v3;
+          v206 = v3;
           v20 = *(v17 + 32);
         }
 
@@ -2820,16 +2366,16 @@ LABEL_13:
           goto LABEL_127;
         }
 
-        v203 = v16;
+        v199 = v16;
 LABEL_30:
         if (*(*v20 + 40))
         {
-          llvm::orc::ExecutionSession::makeJDClosedError(&v229, v230, *v20);
+          llvm::orc::ExecutionSession::makeJDClosedError(&v225, v226, *v20);
         }
 
-        v227 = 0;
-        memset(v228, 0, 12);
-        __p[0] = v241;
+        v223 = 0;
+        memset(v224, 0, 12);
+        __p[0] = v237;
         __p[1] = 0x600000000;
         v22 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin(v20 + 8);
         v24 = *(v20 + 8) + 8 * *(v20 + 24);
@@ -2847,15 +2393,15 @@ LABEL_30:
               atomic_fetch_add((v28 + 8), 1uLL);
             }
 
-            v239[0] = 0;
-            if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(v27 + 112), *(v27 + 128), v28, v239))
+            *&v235 = 0;
+            if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(v27 + 112), *(v27 + 128), v28, &v235))
             {
-              v30 = v239[0];
+              v30 = v235;
             }
 
             else
             {
-              v30 = (*(v27 + 112) + 24 * *(v27 + 128));
+              v30 = *(v27 + 112) + 24 * *(v27 + 128);
             }
 
             if (v29 <= 0xFFFFFFFFFFFFFFDFLL)
@@ -2863,19 +2409,19 @@ LABEL_30:
               atomic_fetch_add((v28 + 8), 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            if (v30 == (*(*v20 + 112) + 24 * *(*v20 + 128)) || (v30[2] & 0x100) != 0)
+            if (v30 == *(*v20 + 112) + 24 * *(*v20 + 128) || (*(v30 + 16) & 0x100) != 0)
             {
               v46 = *v25;
-              *&v238 = v46;
+              *&v234 = v46;
               if ((v46 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
               {
                 atomic_fetch_add((v46 + 8), 1uLL);
               }
 
-              llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v227, &v238, v239);
-              if ((v238 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+              llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v223, &v234, &v235);
+              if ((v234 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
               {
-                atomic_fetch_add((v238 + 8), 0xFFFFFFFFFFFFFFFFLL);
+                atomic_fetch_add((v234 + 8), 0xFFFFFFFFFFFFFFFFLL);
               }
             }
 
@@ -2885,7 +2431,7 @@ LABEL_30:
               v32 = LODWORD(__p[1]);
               if (LODWORD(__p[1]) >= HIDWORD(__p[1]))
               {
-                llvm::SmallVectorBase<unsigned int>::grow_pod(__p, v241, LODWORD(__p[1]) + 1, 8);
+                llvm::SmallVectorBase<unsigned int>::grow_pod(__p, v237, LODWORD(__p[1]) + 1, 8);
                 v32 = LODWORD(__p[1]);
               }
 
@@ -2895,29 +2441,29 @@ LABEL_30:
               {
                 v33 = *v20;
                 v34 = *v25;
-                v239[0] = v34;
+                *&v235 = v34;
                 if ((v34 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                 {
                   atomic_fetch_add((v34 + 8), 1uLL);
                 }
 
-                v35 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::FindAndConstruct((v33 + 160), v239);
+                v35 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::FindAndConstruct((v33 + 160), &v235);
                 v36 = v35;
-                if (v239[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                if ((v235 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                 {
-                  atomic_fetch_add(v239[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+                  atomic_fetch_add((v235 + 8), 0xFFFFFFFFFFFFFFFFLL);
                 }
 
-                v239[0] = v35[1];
-                v37 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v9, v239);
+                *&v235 = v35[1];
+                v37 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v9, &v235);
                 if (!v37[1])
                 {
-                  v38 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v9, &v230);
+                  v38 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v9, &v226);
                   v40 = v36[1];
                   v39 = v36[2];
                   if (v39)
                   {
-                    atomic_fetch_add_explicit(v39 + 1, 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit((v39 + 8), 1uLL, memory_order_relaxed);
                   }
 
                   v41 = v37[2];
@@ -2929,18 +2475,18 @@ LABEL_30:
                     v40 = v37[1];
                   }
 
-                  v217 = v38 + 1;
-                  if (*(v40 + 10))
+                  v213 = v38 + 1;
+                  if (*(v40 + 40))
                   {
-                    v42 = v40[4];
-                    v43 = *(v40 + 12);
+                    v42 = *(v40 + 32);
+                    v43 = *(v40 + 48);
                     if (v43)
                     {
                       v44 = 32 * v43;
                       v45 = v42;
                       while ((*v45 | 0x1000) == 0xFFFFFFFFFFFFF000)
                       {
-                        v45 += 4;
+                        v45 += 32;
                         v44 -= 32;
                         if (!v44)
                         {
@@ -2954,38 +2500,38 @@ LABEL_30:
                       v45 = v42;
                     }
 
-                    v48 = &v42[4 * v43];
+                    v48 = v42 + 32 * v43;
 LABEL_73:
                     if (v45 != v48)
                     {
-                      if (*v45 == v213)
+                      if (*v45 == v209)
                       {
-                        v50 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin((v45 + 1));
-                        v198 = v45[1] + 8 * *(v45 + 6);
-                        if (v198 != v50)
+                        v50 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin(v45 + 8);
+                        v195 = *(v45 + 8) + 8 * *(v45 + 24);
+                        if (v195 != v50)
                         {
                           v52 = v50;
                           v53 = v51;
                           do
                           {
                             v54 = *v52;
-                            *&v238 = v54;
+                            *&v234 = v54;
                             if ((v54 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                             {
                               atomic_fetch_add((v54 + 8), 1uLL);
                             }
 
-                            v239[0] = 0;
-                            v55 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1 + 2, &v238, v239);
-                            if ((v238 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+                            *&v235 = 0;
+                            v55 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1 + 2, &v234, &v235);
+                            if ((v234 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                             {
-                              atomic_fetch_add((v238 + 8), 0xFFFFFFFFFFFFFFFFLL);
+                              atomic_fetch_add((v234 + 8), 0xFFFFFFFFFFFFFFFFLL);
                             }
 
                             if ((v55 & 1) == 0)
                             {
                               v56 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct((v37 + 6), v45);
-                              llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(v239, (v56 + 1), v52);
+                              llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v235, (v56 + 1), v52);
                             }
 
                             do
@@ -2996,7 +2542,7 @@ LABEL_73:
                             while (v52 != v53 && (*v52 | 8) == 0xFFFFFFFFFFFFFFF8);
                           }
 
-                          while (v52 != v198);
+                          while (v52 != v195);
                         }
                       }
 
@@ -3005,13 +2551,13 @@ LABEL_73:
                         v49 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct((v37 + 6), v45);
                         if (v45 != v49)
                         {
-                          llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::copyFrom((v49 + 1), (v45 + 1));
+                          llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::copyFrom((v49 + 1), v45 + 8);
                         }
                       }
 
                       while (1)
                       {
-                        v45 += 4;
+                        v45 += 32;
                         if (v45 == v48)
                         {
                           break;
@@ -3025,18 +2571,18 @@ LABEL_73:
                     }
 
 LABEL_60:
-                    v9 = v201;
+                    v9 = v197;
                   }
                 }
 
-                llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::try_emplace<llvm::detail::DenseSetEmpty&>(v239, (v37 + 3), &v230);
+                llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v235, (v37 + 3), &v226);
               }
             }
 
             else
             {
-              v47 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct((v217 + 5), v20);
-              llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(v239, (v47 + 1), v25);
+              v47 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct((v213 + 5), v20);
+              llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v235, (v47 + 1), v25);
             }
 
             do
@@ -3048,24 +2594,24 @@ LABEL_60:
           }
 
           while (v25 != v24);
-          if (LODWORD(v228[0]))
+          if (LODWORD(v224[0]))
           {
             v57 = *v20;
-            v224 = v227;
-            v225 = v228[0];
-            v58 = *(v228 + 4);
-            v227 = 0;
-            memset(v228, 0, 12);
-            v226 = v58;
-            v236 = 0;
-            v235 = 0uLL;
-            if (*(v230 + 16))
+            v220 = v223;
+            v221 = v224[0];
+            v58 = *(v224 + 4);
+            v223 = 0;
+            memset(v224, 0, 12);
+            v222 = v58;
+            v232 = 0;
+            v231 = 0uLL;
+            if (*(v226 + 16))
             {
-              v59 = *(v230 + 24);
+              v59 = *(v226 + 24);
               if (v59)
               {
                 v60 = 16 * v59;
-                v61 = *(v230 + 8);
+                v61 = *(v226 + 8);
                 while ((*v61 | 8) == 0xFFFFFFFFFFFFFFF8)
                 {
                   v61 += 2;
@@ -3079,25 +2625,25 @@ LABEL_60:
 
               else
               {
-                v61 = *(v230 + 8);
+                v61 = *(v226 + 8);
               }
 
-              v65 = *(v230 + 8) + 16 * v59;
+              v65 = *(v226 + 8) + 16 * v59;
               if (v61 != v65)
               {
                 v66 = *v61;
                 do
                 {
-                  *&v238 = v66;
+                  *&v234 = v66;
                   if ((v66 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                   {
                     atomic_fetch_add((v66 + 8), 1uLL);
                   }
 
-                  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v235, &v238, v239);
-                  if ((v238 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+                  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v231, &v234, &v235);
+                  if ((v234 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                   {
-                    atomic_fetch_add((v238 + 8), 0xFFFFFFFFFFFFFFFFLL);
+                    atomic_fetch_add((v234 + 8), 0xFFFFFFFFFFFFFFFFLL);
                   }
 
                   do
@@ -3119,26 +2665,24 @@ LABEL_60:
             }
 
 LABEL_114:
-            v233[0] = 0;
-            v233[1] = 0;
-            v234 = 0;
-            v239[0] = v57;
-            v67 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::FindAndConstruct(v233, v239);
-            llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::operator=(v67 + 1, &v224);
-            v68 = *(*(v57 + 32) + 72);
-            v69 = *(v68 + 16);
-            v199 = *(v68 + 8);
-            if (v69)
+            v229[0] = 0;
+            v229[1] = 0;
+            v230 = 0;
+            *&v235 = v57;
+            v67 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::FindAndConstruct(v229, &v235);
+            llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::operator=(v67 + 1, &v220);
+            v68 = *(*(*(v57 + 32) + 72) + 16);
+            if (v68)
             {
-              atomic_fetch_add_explicit((v69 + 8), 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit((v68 + 8), 1uLL, memory_order_relaxed);
             }
 
             operator new();
           }
         }
 
-        v6 = v213;
-        v16 = v203;
+        v6 = v209;
+        v16 = v199;
         if (LODWORD(__p[1]))
         {
           v62 = __p[0];
@@ -3155,15 +2699,15 @@ LABEL_114:
 
         if (!*(v20 + 16))
         {
-          llvm::SmallVectorTemplateBase<void *,true>::push_back(&v242, *v20);
+          llvm::SmallVectorTemplateBase<void *,true>::push_back(&v238, *v20);
         }
 
-        if (__p[0] != v241)
+        if (__p[0] != v237)
         {
           free(__p[0]);
         }
 
-        llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v227);
+        llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v223);
         while (1)
         {
           v20 += 32;
@@ -3183,42 +2727,42 @@ LABEL_114:
           }
         }
 
-        v17 = v230;
-        if (!v243)
+        v17 = v226;
+        if (!v239)
         {
 LABEL_127:
-          v3 = v210;
+          v3 = v206;
         }
 
         else
         {
-          v70 = v242;
-          v71 = 8 * v243;
-          v3 = v210;
+          v69 = v238;
+          v70 = 8 * v239;
+          v3 = v206;
           do
           {
-            v72 = *v70++;
-            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::erase(v17 + 32, v72);
-            v71 -= 8;
+            v71 = *v69++;
+            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::erase(v17 + 32, v71);
+            v70 -= 8;
           }
 
-          while (v71);
+          while (v70);
         }
       }
 
 LABEL_128:
       if (*(v17 + 16))
       {
-        v73 = *(v17 + 24);
-        if (v73)
+        v72 = *(v17 + 24);
+        if (v72)
         {
-          v74 = 16 * v73;
-          v75 = *(v17 + 8);
-          while ((*v75 | 8) == 0xFFFFFFFFFFFFFFF8)
+          v73 = 16 * v72;
+          v74 = *(v17 + 8);
+          while ((*v74 | 8) == 0xFFFFFFFFFFFFFFF8)
           {
-            v75 += 2;
-            v74 -= 16;
-            if (!v74)
+            v74 += 2;
+            v73 -= 16;
+            if (!v73)
             {
               goto LABEL_176;
             }
@@ -3227,80 +2771,80 @@ LABEL_128:
 
         else
         {
-          v75 = *(v17 + 8);
+          v74 = *(v17 + 8);
         }
 
-        v76 = *(v17 + 8) + 16 * v73;
-        while (v75 != v76)
+        v75 = *(v17 + 8) + 16 * v72;
+        while (v74 != v75)
         {
-          v211 = v3;
-          v77 = *v75;
-          v239[0] = v77;
-          if ((v77 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          v207 = v3;
+          v76 = *v74;
+          *&v235 = v76;
+          if ((v76 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v77 + 8), 1uLL);
+            atomic_fetch_add((v76 + 8), 1uLL);
           }
 
           __p[0] = 0;
-          v78 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v6 + 20, v239, __p);
-          v79 = v6[20];
-          v80 = *(v6 + 44);
-          if (v78)
+          v77 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v6 + 20, &v235, __p);
+          v78 = v6[20];
+          v79 = *(v6 + 44);
+          if (v77)
           {
-            v81 = __p[0];
+            v80 = __p[0];
           }
 
           else
           {
-            v81 = (v79 + 72 * v80);
+            v80 = (v78 + 72 * v79);
           }
 
-          if (v239[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+          if ((v235 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add(v239[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
-            v79 = v6[20];
-            v80 = *(v6 + 44);
+            atomic_fetch_add((v235 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            v78 = v6[20];
+            v79 = *(v6 + 44);
           }
 
-          if (v81 != (v79 + 72 * v80) && v81[8])
+          if (v80 != (v78 + 72 * v79) && v80[8])
           {
-            v204 = v16;
-            v82 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin((v81 + 6));
-            v84 = *(v81 + 3) + 8 * v81[10];
-            if (v84 != v82)
+            v200 = v16;
+            v81 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin((v80 + 6));
+            v83 = *(v80 + 3) + 8 * v80[10];
+            if (v83 != v81)
             {
+              v84 = v81;
               v85 = v82;
-              v86 = v83;
               do
               {
-                v87 = *v85;
-                v88 = *v75;
-                __p[0] = v213;
-                v89 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct((v87 + 4), __p);
-                llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::erase((v89 + 1), v88);
-                if (!*(v89 + 4))
+                v86 = *v84;
+                v87 = *v74;
+                __p[0] = v209;
+                v88 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct((v86 + 4), __p);
+                llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::erase((v88 + 1), v87);
+                if (!*(v88 + 4))
                 {
-                  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::erase((v87 + 4), v213);
-                  if (!*(v87 + 10))
+                  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::erase((v86 + 4), v209);
+                  if (!*(v86 + 10))
                   {
-                    __p[0] = v87;
-                    v90 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v201, __p);
-                    if (!v90[1])
+                    __p[0] = v86;
+                    v89 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v197, __p);
+                    if (!v89[1])
                     {
-                      v91 = v90;
-                      v92 = v87[1];
-                      v93 = *(v87 + 6);
-                      v94 = &v92[2 * v93];
-                      if (*(v87 + 4))
+                      v90 = v89;
+                      v91 = v86[1];
+                      v92 = *(v86 + 6);
+                      v93 = &v91[2 * v92];
+                      if (*(v86 + 4))
                       {
-                        if (v93)
+                        if (v92)
                         {
-                          v95 = 16 * v93;
-                          while ((*v92 | 8) == 0xFFFFFFFFFFFFFFF8)
+                          v94 = 16 * v92;
+                          while ((*v91 | 8) == 0xFFFFFFFFFFFFFFF8)
                           {
-                            v92 += 2;
-                            v95 -= 16;
-                            if (!v95)
+                            v91 += 2;
+                            v94 -= 16;
+                            if (!v94)
                             {
                               goto LABEL_156;
                             }
@@ -3311,79 +2855,79 @@ LABEL_128:
                       else
                       {
 LABEL_156:
-                        v92 = v94;
+                        v91 = v93;
                       }
 
-                      v96 = *v87;
-                      v97 = *v92;
-                      v239[0] = v97;
-                      if ((v97 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+                      v95 = *v86;
+                      v96 = *v91;
+                      *&v235 = v96;
+                      if ((v96 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                       {
-                        atomic_fetch_add((v97 + 8), 1uLL);
+                        atomic_fetch_add((v96 + 8), 1uLL);
                       }
 
                       __p[0] = 0;
-                      v98 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v96 + 160), v239, __p);
-                      v99 = __p[0];
-                      if (!v98)
+                      v97 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v95 + 160), &v235, __p);
+                      v98 = __p[0];
+                      if (!v97)
                       {
-                        v99 = (*(v96 + 160) + 72 * *(v96 + 176));
+                        v98 = (*(v95 + 160) + 72 * *(v95 + 176));
                       }
 
-                      if (v239[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                      if ((v235 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                       {
-                        atomic_fetch_add(v239[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+                        atomic_fetch_add((v235 + 8), 0xFFFFFFFFFFFFFFFFLL);
                       }
 
-                      v101 = v99[1];
-                      v100 = v99[2];
-                      if (v100)
+                      v100 = v98[1];
+                      v99 = v98[2];
+                      if (v99)
                       {
-                        atomic_fetch_add_explicit((v100 + 8), 1uLL, memory_order_relaxed);
+                        atomic_fetch_add_explicit((v99 + 8), 1uLL, memory_order_relaxed);
                       }
 
-                      v102 = v91[2];
-                      v91[1] = v101;
-                      v91[2] = v100;
-                      if (v102)
+                      v101 = v90[2];
+                      v90[1] = v100;
+                      v90[2] = v99;
+                      if (v101)
                       {
-                        std::__shared_weak_count::__release_shared[abi:nn200100](v102);
+                        std::__shared_weak_count::__release_shared[abi:nn200100](v101);
                       }
 
-                      v217 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v201, &v230) + 1;
+                      v213 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v197, &v226) + 1;
                     }
                   }
                 }
 
-                llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::try_emplace<llvm::detail::DenseSetEmpty&>(__p, (v217 + 2), v85);
+                llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::try_emplace<llvm::detail::DenseSetEmpty&>(__p, (v213 + 2), v84);
                 do
                 {
-                  ++v85;
+                  ++v84;
                 }
 
-                while (v85 != v86 && (*v85 | 0x1000) == 0xFFFFFFFFFFFFF000);
+                while (v84 != v85 && (*v84 | 0x1000) == 0xFFFFFFFFFFFFF000);
               }
 
-              while (v85 != v84);
+              while (v84 != v83);
             }
 
-            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::clear(v81 + 24);
-            v9 = v201;
-            v16 = v204;
-            v6 = v213;
+            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::clear(v80 + 24);
+            v9 = v197;
+            v16 = v200;
+            v6 = v209;
           }
 
-          v75 += 2;
-          v3 = v211;
-          if (v75 == v76)
+          v74 += 2;
+          v3 = v207;
+          if (v74 == v75)
           {
             break;
           }
 
-          while ((*v75 | 8) == 0xFFFFFFFFFFFFFFF8)
+          while ((*v74 | 8) == 0xFFFFFFFFFFFFFFF8)
           {
-            v75 += 2;
-            if (v75 == v76)
+            v74 += 2;
+            if (v74 == v75)
             {
               goto LABEL_176;
             }
@@ -3392,70 +2936,70 @@ LABEL_156:
       }
 
 LABEL_176:
-      if (v242 != v244)
+      if (v238 != v240)
       {
-        free(v242);
+        free(v238);
       }
 
       v3 += 8;
       if (v3 - *v16 == 4096)
       {
-        v103 = v16[1];
+        v102 = v16[1];
         ++v16;
-        v3 = v103;
+        v3 = v102;
       }
     }
 
-    while (v3 != v206);
-    v15 = *&v231[16];
-    v14 = *&v231[8];
+    while (v3 != v202);
+    v14 = *&v227[8];
+    v15 = *&v227[16];
   }
 
 LABEL_184:
-  *(&v232 + 1) = 0;
-  v104 = v15 - v14;
-  if (v104 >= 3)
+  *(&v228 + 1) = 0;
+  v103 = v15 - v14;
+  if (v103 >= 3)
   {
     do
     {
       operator delete(*v14);
-      v14 = (*&v231[8] + 8);
-      *&v231[8] = v14;
-      v104 = (*&v231[16] - v14) >> 3;
+      v14 = (*&v227[8] + 8);
+      *&v227[8] = v14;
+      v103 = (*&v227[16] - v14) >> 3;
     }
 
-    while (v104 > 2);
+    while (v103 > 2);
   }
 
-  if (v104 == 1)
+  if (v103 == 1)
   {
-    v105 = 256;
+    v104 = 256;
   }
 
   else
   {
-    if (v104 != 2)
+    if (v103 != 2)
     {
       goto LABEL_191;
     }
 
-    v105 = 512;
+    v104 = 512;
   }
 
-  *&v232 = v105;
+  *&v228 = v104;
 LABEL_191:
-  if (*(v9 + 8))
+  if (*(v9 + 2))
   {
-    v106 = *(v9 + 16);
-    if (v106)
+    v105 = *(v9 + 4);
+    if (v105)
     {
-      v107 = 72 * v106;
-      v108 = *v9;
-      while ((*v108 | 0x1000) == 0xFFFFFFFFFFFFF000)
+      v106 = 72 * v105;
+      v107 = *v9;
+      while ((*v107 | 0x1000) == 0xFFFFFFFFFFFFF000)
       {
-        v108 += 72;
-        v107 -= 72;
-        if (!v107)
+        v107 += 72;
+        v106 -= 72;
+        if (!v106)
         {
           goto LABEL_196;
         }
@@ -3464,36 +3008,36 @@ LABEL_191:
 
     else
     {
-      v108 = *v9;
+      v107 = *v9;
     }
 
-    v142 = *v9 + 72 * v106;
+    v141 = *v9 + 72 * v105;
 LABEL_251:
-    if (v108 != v142)
+    if (v107 != v141)
     {
-      if (*(v108 + 32))
+      if (*(v107 + 32))
       {
-        v143 = *v108;
-        if (*(*v108 + 40))
+        v142 = *v107;
+        if (*(*v107 + 40))
         {
-          if (v143 + 32 != v108 + 48 && *(v108 + 56) == 0)
+          if (v142 + 32 != v107 + 48 && *(v107 + 56) == 0)
           {
-            llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::copyFrom(v108 + 48, v143 + 32);
+            llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::copyFrom((v107 + 48), v142 + 32);
           }
 
-          std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(v231, v108);
+          std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(v227, v107);
         }
       }
 
       while (1)
       {
-        v108 += 72;
-        if (v108 == v142)
+        v107 += 72;
+        if (v107 == v141)
         {
           break;
         }
 
-        if ((*v108 | 0x1000) != 0xFFFFFFFFFFFFF000)
+        if ((*v107 | 0x1000) != 0xFFFFFFFFFFFFF000)
         {
           goto LABEL_251;
         }
@@ -3502,71 +3046,71 @@ LABEL_251:
   }
 
 LABEL_196:
-  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::deque(&v220, v231);
-  v109 = v223;
-  if (v223)
+  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::deque(&v216, v227);
+  v108 = v219;
+  if (v219)
   {
-    v202 = v9;
+    v198 = v9;
     do
     {
-      v110 = (*(v221 + ((v222 >> 6) & 0x3FFFFFFFFFFFFF8)))[v222 & 0x1FF];
-      ++v222;
-      v223 = v109 - 1;
-      if (v222 >= 0x400)
+      v109 = (*(v217 + ((v218 >> 6) & 0x3FFFFFFFFFFFFF8)))[v218 & 0x1FF];
+      ++v218;
+      v219 = v108 - 1;
+      if (v218 >= 0x400)
       {
-        operator delete(*v221++);
-        v222 -= 512;
+        operator delete(*v217++);
+        v218 -= 512;
       }
 
-      v242 = v110;
-      v111 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v9, &v242);
-      v112 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin((v111 + 3));
-      v114 = v111[3];
-      v115 = (v114 + 8 * *(v111 + 10));
-      if (v115 != v112)
+      v238 = v109;
+      v110 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(v9, &v238);
+      v111 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin((v110 + 3));
+      v113 = v110[3];
+      v114 = (v113 + 8 * *(v110 + 10));
+      if (v114 != v111)
       {
-        v3 = v112;
-        v116 = v113;
-        v205 = (v114 + 8 * *(v111 + 10));
-        v207 = v111;
+        v3 = v111;
+        v115 = v112;
+        v201 = (v113 + 8 * *(v110 + 10));
+        v203 = v110;
         do
         {
-          *&v238 = *v3;
-          v242 = 0;
-          if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(*v9, *(v9 + 16), v238, &v242))
+          *&v234 = *v3;
+          v238 = 0;
+          if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(*v9, *(v9 + 4), v234, &v238))
           {
-            v117 = v242;
+            v116 = v238;
           }
 
           else
           {
-            v117 = (*v9 + 72 * *(v9 + 16));
+            v116 = (*v9 + 72 * *(v9 + 4));
           }
 
-          v214 = v117;
-          v218 = *v9 + 72 * *(v9 + 16);
-          if (v117 == v218)
+          v210 = v116;
+          v214 = *v9 + 72 * *(v9 + 4);
+          if (v116 == v214)
           {
-            v118 = 0;
+            v117 = 0;
           }
 
           else
           {
-            v118 = v117 + 1;
+            v117 = v116 + 1;
           }
 
-          if (*(v111 + 14))
+          if (*(v110 + 14))
           {
-            v119 = *(v111 + 16);
-            if (v119)
+            v118 = *(v110 + 16);
+            if (v118)
             {
-              v120 = 32 * v119;
-              v121 = v111[6];
-              while ((*v121 | 0x1000) == 0xFFFFFFFFFFFFF000)
+              v119 = 32 * v118;
+              v120 = v110[6];
+              while ((*v120 | 0x1000) == 0xFFFFFFFFFFFFF000)
               {
-                v121 += 32;
-                v120 -= 32;
-                if (!v120)
+                v120 += 32;
+                v119 -= 32;
+                if (!v119)
                 {
                   goto LABEL_238;
                 }
@@ -3575,94 +3119,94 @@ LABEL_196:
 
             else
             {
-              v121 = v111[6];
+              v120 = v110[6];
             }
 
-            v122 = v111[6] + 32 * v119;
-            if (v121 != v122)
+            v121 = v110[6] + 32 * v118;
+            if (v120 != v121)
             {
-              v209 = v122;
-              v212 = v118;
+              v205 = v121;
+              v208 = v117;
               do
               {
-                v123 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct(v238 + 32, v121);
-                v124 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin(v121 + 8);
-                v126 = *(v121 + 8) + 8 * *(v121 + 24);
-                if (v126 != v124)
+                v122 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct(v234 + 32, v120);
+                v123 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin(v120 + 8);
+                v125 = *(v120 + 8) + 8 * *(v120 + 24);
+                if (v125 != v123)
                 {
+                  v126 = v123;
                   v127 = v124;
-                  v128 = v125;
-                  v129 = 0;
+                  v128 = 0;
                   do
                   {
-                    v130 = *v127;
-                    v237 = *v127;
-                    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v242, (v123 + 1), &v237);
-                    if (v244[0] == 1)
+                    v129 = *v126;
+                    v233 = *v126;
+                    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v238, (v122 + 1), &v233);
+                    if (v240[0] == 1)
                     {
-                      v131 = v238;
-                      v132 = *v121;
-                      __p[0] = v130;
-                      if (v130 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                      v130 = v234;
+                      v131 = *v120;
+                      __p[0] = v129;
+                      if (v129 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                       {
-                        atomic_fetch_add(v130 + 1, 1uLL);
+                        atomic_fetch_add(v129 + 1, 1uLL);
                       }
 
-                      v133 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::FindAndConstruct((v132 + 160), __p);
-                      v239[0] = v131;
-                      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v242, (v133 + 3), v239);
+                      v132 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::FindAndConstruct((v131 + 160), __p);
+                      *&v235 = v130;
+                      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v238, (v132 + 3), &v235);
                       if (__p[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                       {
                         atomic_fetch_add(__p[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
                       }
 
-                      if (v214 != v218)
+                      if (v210 != v214)
                       {
-                        if (!v129)
+                        if (!v128)
                         {
-                          if (!*(v212 + 12))
+                          if (!*(v208 + 12))
                           {
-                            std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(&v220, &v238);
+                            std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::push_back(&v216, &v234);
                           }
 
-                          v129 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct((v212 + 5), v121) + 1;
+                          v128 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::FindAndConstruct((v208 + 5), v120) + 1;
                         }
 
-                        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v242, v129, &v237);
+                        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>,llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v238, v128, &v233);
                       }
                     }
 
                     do
                     {
-                      ++v127;
+                      ++v126;
                     }
 
-                    while (v127 != v128 && (*v127 | 8) == 0xFFFFFFFFFFFFFFF8);
+                    while (v126 != v127 && (*v126 | 8) == 0xFFFFFFFFFFFFFFF8);
                   }
 
-                  while (v127 != v126);
+                  while (v126 != v125);
                 }
 
-                v121 += 32;
-                v111 = v207;
-                v9 = v202;
-                v115 = v205;
-                if (v121 == v209)
+                v120 += 32;
+                v110 = v203;
+                v9 = v198;
+                v114 = v201;
+                if (v120 == v205)
                 {
                   break;
                 }
 
-                while ((*v121 | 0x1000) == 0xFFFFFFFFFFFFF000)
+                while ((*v120 | 0x1000) == 0xFFFFFFFFFFFFF000)
                 {
-                  v121 += 32;
-                  if (v121 == v209)
+                  v120 += 32;
+                  if (v120 == v205)
                   {
                     goto LABEL_238;
                   }
                 }
               }
 
-              while (v121 != v209);
+              while (v120 != v205);
             }
           }
 
@@ -3672,36 +3216,36 @@ LABEL_238:
             v3 += 8;
           }
 
-          while (v3 != v116 && (*v3 | 0x1000) == 0xFFFFFFFFFFFFF000);
+          while (v3 != v115 && (*v3 | 0x1000) == 0xFFFFFFFFFFFFF000);
         }
 
-        while (v3 != v115);
+        while (v3 != v114);
       }
 
-      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::clear((v111 + 6));
-      v109 = v223;
+      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::clear(v110 + 12);
+      v108 = v219;
     }
 
-    while (v223);
+    while (v219);
   }
 
-  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::~deque[abi:nn200100](&v220);
+  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::~deque[abi:nn200100](&v216);
   __p[1] = 0;
-  v241[0] = 0;
+  v237[0] = 0;
   __p[0] = &__p[1];
-  if (*(v9 + 8))
+  if (*(v9 + 2))
   {
-    v134 = *(v9 + 16);
-    v135 = v200;
-    if (v134)
+    v133 = *(v9 + 4);
+    v134 = v196;
+    if (v133)
     {
-      v136 = 72 * v134;
-      v137 = *v9;
-      while ((*v137 | 0x1000) == 0xFFFFFFFFFFFFF000)
+      v135 = 72 * v133;
+      v136 = *v9;
+      while ((*v136 | 0x1000) == 0xFFFFFFFFFFFFF000)
       {
-        v137 += 9;
-        v136 -= 72;
-        if (!v136)
+        v136 += 9;
+        v135 -= 72;
+        if (!v135)
         {
           goto LABEL_378;
         }
@@ -3710,189 +3254,189 @@ LABEL_238:
 
     else
     {
-      v137 = *v9;
+      v136 = *v9;
     }
 
-    v145 = *v9 + 72 * v134;
-    if (v137 == v145)
+    v144 = *v9 + 72 * v133;
+    if (v136 == v144)
     {
 LABEL_378:
+      v137 = 0;
       v138 = 0;
       v139 = 0;
-      v140 = 0;
-      v141 = &__p[1];
+      v140 = &__p[1];
     }
 
     else
     {
       do
       {
-        v146 = v137[1];
-        v147 = *(*v137 + 40);
-        v148 = v137[2];
-        v137[1] = 0;
-        v137[2] = 0;
-        v149 = *(v146 + 16);
-        v150 = *(v146 + 8);
-        v219 = *v146;
-        v151 = *(v146 + 24);
-        v152 = &v150[2 * v151];
-        if (v147)
+        v145 = v136[1];
+        v146 = *(*v136 + 40);
+        v147 = v136[2];
+        v136[1] = 0;
+        v136[2] = 0;
+        v148 = *(v145 + 16);
+        v149 = *(v145 + 8);
+        v215 = *v145;
+        v150 = *(v145 + 24);
+        v151 = &v149[2 * v150];
+        if (v146)
         {
-          if (v149)
+          if (v148)
           {
-            if (v151)
+            if (v150)
             {
-              v153 = 16 * v151;
-              while ((*v150 | 8) == 0xFFFFFFFFFFFFFFF8)
+              v152 = 16 * v150;
+              while ((*v149 | 8) == 0xFFFFFFFFFFFFFFF8)
               {
-                v150 += 2;
-                v153 -= 16;
-                if (!v153)
+                v149 += 2;
+                v152 -= 16;
+                if (!v152)
                 {
                   goto LABEL_312;
                 }
               }
             }
 
-            if (v150 != v152)
+            if (v149 != v151)
             {
-              v155 = *v150;
-              v215 = v148;
+              v154 = *v149;
+              v211 = v147;
               do
               {
-                v242 = v155;
-                if (v155 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                v238 = v154;
+                if (v154 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                 {
-                  atomic_fetch_add(v155 + 1, 1uLL);
+                  atomic_fetch_add(v154 + 1, 1uLL);
                 }
 
-                v156 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::FindAndConstruct(v219 + 112, &v242);
-                v157 = v156;
-                if (v242 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                v155 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::FindAndConstruct(v215 + 112, &v238);
+                v156 = v155;
+                if (v238 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                 {
-                  atomic_fetch_add(v242 + 1, 0xFFFFFFFFFFFFFFFFLL);
+                  atomic_fetch_add(v238 + 1, 0xFFFFFFFFFFFFFFFFLL);
                 }
 
-                v158 = *(v156 + 18);
-                v148 = v215;
-                if ((v158 & 0x7F) == 4)
+                v157 = *(v155 + 18);
+                v147 = v211;
+                if ((v157 & 0x7F) == 4)
                 {
                   break;
                 }
 
-                *(v157 + 18) = v158 & 0x80 | 4;
-                v242 = *v150;
-                if (v242 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                *(v156 + 18) = v157 & 0x80 | 4;
+                v238 = *v149;
+                if (v238 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                 {
-                  atomic_fetch_add(v242 + 1, 1uLL);
+                  atomic_fetch_add(v238 + 1, 1uLL);
                 }
 
-                v159 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::FindAndConstruct((v219 + 160), &v242);
-                v160 = v159;
-                if (v242 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                v158 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::FindAndConstruct((v215 + 160), &v238);
+                v159 = v158;
+                if (v238 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                 {
-                  atomic_fetch_add(v242 + 1, 0xFFFFFFFFFFFFFFFFLL);
+                  atomic_fetch_add(v238 + 1, 0xFFFFFFFFFFFFFFFFLL);
                 }
 
-                if (v215)
+                if (v211)
                 {
-                  atomic_fetch_add_explicit(&v215->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v211->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                v161 = v159[2];
-                v160[1] = v146;
-                v160[2] = v215;
-                if (v161)
+                v160 = v158[2];
+                v159[1] = v145;
+                v159[2] = v211;
+                if (v160)
                 {
-                  std::__shared_weak_count::__release_shared[abi:nn200100](v161);
+                  std::__shared_weak_count::__release_shared[abi:nn200100](v160);
                 }
 
-                llvm::orc::JITDylib::MaterializingInfo::takeQueriesMeeting(&v242, (v160 + 1), 4u);
-                v163 = v242;
-                v162 = v243;
-                while (v163 != v162)
+                llvm::orc::JITDylib::MaterializingInfo::takeQueriesMeeting(&v238, (v159 + 1), 4u);
+                v162 = v238;
+                v161 = v239;
+                while (v162 != v161)
                 {
-                  v164 = *v163;
-                  v165 = *v150;
-                  v239[0] = v165;
-                  if (v165 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                  v163 = *v162;
+                  v164 = *v149;
+                  *&v235 = v164;
+                  if (v164 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                   {
-                    atomic_fetch_add(v165 + 1, 1uLL);
+                    atomic_fetch_add(v164 + 1, 1uLL);
                   }
 
-                  v3 = v3 & 0xFFFFFFFFFFFF0000 | *(v157 + 8);
-                  llvm::orc::AsynchronousSymbolQuery::notifySymbolMetRequiredState(v164, v239, v157[1], v3);
-                  if (v239[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                  v3 = v3 & 0xFFFFFFFFFFFF0000 | *(v156 + 8);
+                  llvm::orc::AsynchronousSymbolQuery::notifySymbolMetRequiredState(v163, &v235, v156[1], v3);
+                  if ((v235 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                   {
-                    atomic_fetch_add(v239[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+                    atomic_fetch_add((v235 + 8), 0xFFFFFFFFFFFFFFFFLL);
                   }
 
-                  v166 = *v163;
-                  if (!*(*v163 + 10))
+                  v165 = *v162;
+                  if (!*(*v162 + 80))
                   {
-                    std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::__emplace_unique_key_args<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>,std::shared_ptr<llvm::orc::AsynchronousSymbolQuery> const&>(__p, v166);
-                    v166 = *v163;
+                    std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::__emplace_unique_key_args<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>,std::shared_ptr<llvm::orc::AsynchronousSymbolQuery> const&>(__p, v165, v162);
+                    v165 = *v162;
                   }
 
-                  v167 = *v150;
-                  v239[0] = v167;
-                  if (v167 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                  v166 = *v149;
+                  *&v235 = v166;
+                  if (v166 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                   {
-                    atomic_fetch_add(v167 + 1, 1uLL);
+                    atomic_fetch_add(v166 + 1, 1uLL);
                   }
 
-                  llvm::orc::AsynchronousSymbolQuery::removeQueryDependence(v166, v219, v239);
-                  if (v239[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                  llvm::orc::AsynchronousSymbolQuery::removeQueryDependence(v165, v215, &v235);
+                  if ((v235 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                   {
-                    atomic_fetch_add(v239[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+                    atomic_fetch_add((v235 + 8), 0xFFFFFFFFFFFFFFFFLL);
                   }
 
-                  v163 += 2;
+                  v162 += 2;
                 }
 
-                v239[0] = &v242;
-                std::vector<std::shared_ptr<llvm::orc::DefinitionGenerator>>::__destroy_vector::operator()[abi:nn200100](v239);
-                v150 += 2;
-                v148 = v215;
-                if (v150 == v152)
+                *&v235 = &v238;
+                std::vector<std::shared_ptr<llvm::orc::DefinitionGenerator>>::__destroy_vector::operator()[abi:nn200100](&v235);
+                v149 += 2;
+                v147 = v211;
+                if (v149 == v151)
                 {
                   break;
                 }
 
                 while (1)
                 {
-                  v155 = *v150;
-                  if ((*v150 | 8) != 0xFFFFFFFFFFFFFFF8)
+                  v154 = *v149;
+                  if ((*v149 | 8) != 0xFFFFFFFFFFFFFFF8)
                   {
                     break;
                   }
 
-                  v150 += 2;
-                  if (v150 == v152)
+                  v149 += 2;
+                  if (v149 == v151)
                   {
                     goto LABEL_312;
                   }
                 }
               }
 
-              while (v150 != v152);
+              while (v149 != v151);
             }
           }
 
 LABEL_312:
-          if (*(v146 + 40))
+          if (*(v145 + 40))
           {
-            v168 = *(v146 + 48);
-            if (v168)
+            v167 = *(v145 + 48);
+            if (v167)
             {
-              v169 = 32 * v168;
-              v170 = *(v146 + 32);
-              while ((*v170 | 0x1000) == 0xFFFFFFFFFFFFF000)
+              v168 = 32 * v167;
+              v169 = *(v145 + 32);
+              while ((*v169 | 0x1000) == 0xFFFFFFFFFFFFF000)
               {
-                v170 += 4;
-                v169 -= 32;
-                if (!v169)
+                v169 += 4;
+                v168 -= 32;
+                if (!v168)
                 {
                   goto LABEL_370;
                 }
@@ -3901,59 +3445,59 @@ LABEL_312:
 
             else
             {
-              v170 = *(v146 + 32);
+              v169 = *(v145 + 32);
             }
 
-            v3 = *(v146 + 32) + 32 * v168;
-            while (v170 != v3)
+            v3 = *(v145 + 32) + 32 * v167;
+            while (v169 != v3)
             {
-              v171 = v148;
-              v172 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin((v170 + 1));
-              v174 = v170[1] + 8 * *(v170 + 6);
-              if (v174 != v172)
+              v170 = v147;
+              v171 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin((v169 + 1));
+              v173 = v169[1] + 8 * *(v169 + 6);
+              if (v173 != v171)
               {
+                v174 = v171;
                 v175 = v172;
-                v176 = v173;
                 do
                 {
-                  v177 = *v170;
-                  v178 = *v175;
-                  v239[0] = v178;
-                  if ((v178 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+                  v176 = *v169;
+                  v177 = *v174;
+                  *&v235 = v177;
+                  if ((v177 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                   {
-                    atomic_fetch_add((v178 + 8), 1uLL);
+                    atomic_fetch_add((v177 + 8), 1uLL);
                   }
 
-                  v179 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::FindAndConstruct((v177 + 160), v239);
-                  *&v238 = v146;
-                  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v242, (v179 + 3), &v238);
-                  if (v239[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                  v178 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::FindAndConstruct((v176 + 160), &v235);
+                  *&v234 = v145;
+                  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseSetPair<llvm::orc::JITDylib::EmissionDepUnit *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v238, (v178 + 3), &v234);
+                  if ((v235 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                   {
-                    atomic_fetch_add(v239[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+                    atomic_fetch_add((v235 + 8), 0xFFFFFFFFFFFFFFFFLL);
                   }
 
                   do
                   {
-                    ++v175;
+                    ++v174;
                   }
 
-                  while (v175 != v176 && (*v175 | 8) == 0xFFFFFFFFFFFFFFF8);
+                  while (v174 != v175 && (*v174 | 8) == 0xFFFFFFFFFFFFFFF8);
                 }
 
-                while (v175 != v174);
+                while (v174 != v173);
               }
 
-              v170 += 4;
-              v148 = v171;
-              if (v170 == v3)
+              v169 += 4;
+              v147 = v170;
+              if (v169 == v3)
               {
                 break;
               }
 
-              while ((*v170 | 0x1000) == 0xFFFFFFFFFFFFF000)
+              while ((*v169 | 0x1000) == 0xFFFFFFFFFFFFF000)
               {
-                v170 += 4;
-                if (v170 == v3)
+                v169 += 4;
+                if (v169 == v3)
                 {
                   goto LABEL_370;
                 }
@@ -3962,147 +3506,147 @@ LABEL_312:
           }
         }
 
-        else if (v149)
+        else if (v148)
         {
-          if (v151)
+          if (v150)
           {
-            v154 = 16 * v151;
-            while ((*v150 | 8) == 0xFFFFFFFFFFFFFFF8)
+            v153 = 16 * v150;
+            while ((*v149 | 8) == 0xFFFFFFFFFFFFFFF8)
             {
-              v150 += 2;
-              v154 -= 16;
-              if (!v154)
+              v149 += 2;
+              v153 -= 16;
+              if (!v153)
               {
                 goto LABEL_370;
               }
             }
           }
 
-          if (v150 != v152)
+          if (v149 != v151)
           {
-            v180 = *v150;
-            v216 = v148;
+            v179 = *v149;
+            v212 = v147;
 LABEL_336:
-            v242 = v180;
-            if (v180 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+            v238 = v179;
+            if (v179 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add(v180 + 1, 1uLL);
+              atomic_fetch_add(v179 + 1, 1uLL);
             }
 
-            v181 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::FindAndConstruct(v219 + 112, &v242);
-            v182 = v181;
-            if (v242 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+            v180 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::FindAndConstruct(v215 + 112, &v238);
+            v181 = v180;
+            if (v238 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add(v242 + 1, 0xFFFFFFFFFFFFFFFFLL);
+              atomic_fetch_add(v238 + 1, 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            *(v181 + 18) = *(v181 + 18) & 0x80 | 0x3F;
-            v183 = *v150;
-            v239[0] = v183;
-            if (v183 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+            *(v180 + 18) = *(v180 + 18) & 0x80 | 0x3F;
+            v182 = *v149;
+            *&v235 = v182;
+            if (v182 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add(v183 + 1, 1uLL);
+              atomic_fetch_add(v182 + 1, 1uLL);
             }
 
-            v242 = 0;
-            v184 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v219 + 160), v239, &v242);
-            v185 = *(v219 + 160);
-            v186 = *(v219 + 176);
-            if (v184)
+            v238 = 0;
+            v183 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v215 + 160), &v235, &v238);
+            v184 = *(v215 + 160);
+            v185 = *(v215 + 176);
+            if (v183)
             {
-              v187 = v242;
+              v186 = v238;
             }
 
             else
             {
-              v187 = (v185 + 72 * v186);
+              v186 = (v184 + 72 * v185);
             }
 
-            if (v239[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+            if ((v235 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add(v239[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
-              v185 = *(v219 + 160);
-              v186 = *(v219 + 176);
+              atomic_fetch_add((v235 + 8), 0xFFFFFFFFFFFFFFFFLL);
+              v184 = *(v215 + 160);
+              v185 = *(v215 + 176);
             }
 
-            if ((v185 + 72 * v186) != v187)
+            if ((v184 + 72 * v185) != v186)
             {
-              llvm::orc::JITDylib::MaterializingInfo::takeQueriesMeeting(&v242, (v187 + 1), 0x3Fu);
-              v188 = v242;
-              v189 = v243;
-              while (v188 != v189)
+              llvm::orc::JITDylib::MaterializingInfo::takeQueriesMeeting(&v238, (v186 + 1), 0x3Fu);
+              v187 = v238;
+              v188 = v239;
+              while (v187 != v188)
               {
-                v190 = *v188;
-                v191 = *v150;
-                v239[0] = v191;
-                if (v191 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                v189 = *v187;
+                v190 = *v149;
+                *&v235 = v190;
+                if (v190 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                 {
-                  atomic_fetch_add(v191 + 1, 1uLL);
+                  atomic_fetch_add(v190 + 1, 1uLL);
                 }
 
-                v3 = v3 & 0xFFFFFFFFFFFF0000 | *(v182 + 8);
-                llvm::orc::AsynchronousSymbolQuery::notifySymbolMetRequiredState(v190, v239, v182[1], v3);
-                if (v239[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                v3 = v3 & 0xFFFFFFFFFFFF0000 | *(v181 + 8);
+                llvm::orc::AsynchronousSymbolQuery::notifySymbolMetRequiredState(v189, &v235, v181[1], v3);
+                if ((v235 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                 {
-                  atomic_fetch_add(v239[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+                  atomic_fetch_add((v235 + 8), 0xFFFFFFFFFFFFFFFFLL);
                 }
 
-                v192 = *v188;
-                if (!*(*v188 + 10))
+                v191 = *v187;
+                if (!*(*v187 + 80))
                 {
-                  std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::__emplace_unique_key_args<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>,std::shared_ptr<llvm::orc::AsynchronousSymbolQuery> const&>(__p, v192);
-                  v192 = *v188;
+                  std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::__emplace_unique_key_args<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>,std::shared_ptr<llvm::orc::AsynchronousSymbolQuery> const&>(__p, v191, v187);
+                  v191 = *v187;
                 }
 
-                v193 = *v150;
-                v239[0] = v193;
-                if (v193 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                v192 = *v149;
+                *&v235 = v192;
+                if (v192 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
                 {
-                  atomic_fetch_add(v193 + 1, 1uLL);
+                  atomic_fetch_add(v192 + 1, 1uLL);
                 }
 
-                llvm::orc::AsynchronousSymbolQuery::removeQueryDependence(v192, v219, v239);
-                if (v239[0] - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+                llvm::orc::AsynchronousSymbolQuery::removeQueryDependence(v191, v215, &v235);
+                if ((v235 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
                 {
-                  atomic_fetch_add(v239[0] + 1, 0xFFFFFFFFFFFFFFFFLL);
+                  atomic_fetch_add((v235 + 8), 0xFFFFFFFFFFFFFFFFLL);
                 }
 
-                v188 += 2;
+                v187 += 2;
               }
 
-              v239[0] = &v242;
-              std::vector<std::shared_ptr<llvm::orc::DefinitionGenerator>>::__destroy_vector::operator()[abi:nn200100](v239);
-              v242 = (v187 + 6);
-              std::vector<std::shared_ptr<llvm::orc::DefinitionGenerator>>::__destroy_vector::operator()[abi:nn200100](&v242);
-              MEMORY[0x277C69E30](v187[3], 8);
-              v194 = v187[2];
-              if (v194)
+              *&v235 = &v238;
+              std::vector<std::shared_ptr<llvm::orc::DefinitionGenerator>>::__destroy_vector::operator()[abi:nn200100](&v235);
+              v238 = (v186 + 6);
+              std::vector<std::shared_ptr<llvm::orc::DefinitionGenerator>>::__destroy_vector::operator()[abi:nn200100](&v238);
+              MEMORY[0x277C69E30](v186[3], 8);
+              v193 = v186[2];
+              if (v193)
               {
-                std::__shared_weak_count::__release_shared[abi:nn200100](v194);
+                std::__shared_weak_count::__release_shared[abi:nn200100](v193);
               }
 
-              if (*v187 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+              if (*v186 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
               {
-                atomic_fetch_add(*v187 + 1, 0xFFFFFFFFFFFFFFFFLL);
+                atomic_fetch_add(*v186 + 1, 0xFFFFFFFFFFFFFFFFLL);
               }
 
-              *v187 = -16;
-              *(v219 + 168) = vadd_s32(*(v219 + 168), 0x1FFFFFFFFLL);
+              *v186 = -16;
+              *(v215 + 168) = vadd_s32(*(v215 + 168), 0x1FFFFFFFFLL);
             }
 
-            v148 = v216;
+            v147 = v212;
             while (1)
             {
-              v150 += 2;
-              if (v150 == v152)
+              v149 += 2;
+              if (v149 == v151)
               {
                 break;
               }
 
-              v180 = *v150;
-              if ((*v150 | 8) != 0xFFFFFFFFFFFFFFF8)
+              v179 = *v149;
+              if ((*v149 | 8) != 0xFFFFFFFFFFFFFFF8)
               {
-                if (v150 != v152)
+                if (v149 != v151)
                 {
                   goto LABEL_336;
                 }
@@ -4114,108 +3658,103 @@ LABEL_336:
         }
 
 LABEL_370:
-        if (v148)
+        if (v147)
         {
-          std::__shared_weak_count::__release_shared[abi:nn200100](v148);
+          std::__shared_weak_count::__release_shared[abi:nn200100](v147);
         }
 
-        v137 += 9;
-        v135 = v200;
-        if (v137 == v145)
+        v136 += 9;
+        v134 = v196;
+        if (v136 == v144)
         {
           break;
         }
 
-        while ((*v137 | 0x1000) == 0xFFFFFFFFFFFFF000)
+        while ((*v136 | 0x1000) == 0xFFFFFFFFFFFFF000)
         {
-          v137 += 9;
-          if (v137 == v145)
+          v136 += 9;
+          if (v136 == v144)
           {
             goto LABEL_377;
           }
         }
       }
 
-      while (v137 != v145);
+      while (v136 != v144);
 LABEL_377:
-      v141 = __p[0];
-      v138 = __p[1];
-      v139 = v241[0];
-      v140 = __p[1];
+      v140 = __p[0];
+      v137 = __p[1];
+      v138 = v237[0];
+      v139 = __p[1];
     }
   }
 
   else
   {
+    v137 = 0;
     v138 = 0;
     v139 = 0;
-    v140 = 0;
-    v141 = &__p[1];
-    v135 = v200;
+    v140 = &__p[1];
+    v134 = v196;
   }
 
-  *(v135 + 24) &= ~1u;
-  *v135 = v141;
-  *(v135 + 8) = v140;
-  v195 = v135 + 8;
-  *(v135 + 16) = v139;
-  if (v139)
+  *(v134 + 24) &= ~1u;
+  *v134 = v140;
+  *(v134 + 8) = v139;
+  v194 = v134 + 8;
+  *(v134 + 16) = v138;
+  if (v138)
   {
-    v138 = 0;
-    v140[2] = v195;
+    v137 = 0;
+    v139[2] = v194;
     __p[0] = &__p[1];
     __p[1] = 0;
-    v241[0] = 0;
+    v237[0] = 0;
   }
 
   else
   {
-    *v135 = v195;
+    *v134 = v194;
   }
 
-  std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::destroy(__p, v138);
-  result = std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::~deque[abi:nn200100](v231);
-  v197 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::destroy(__p, v137);
+  std::deque<llvm::orc::JITDylib::EmissionDepUnit *>::~deque[abi:nn200100](v227);
 }
 
-uint64_t llvm::orc::ExecutionSession::OL_notifyEmitted@<X0>(std::recursive_mutex *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+uint64_t llvm::orc::ExecutionSession::OL_notifyEmitted@<X0>(std::recursive_mutex *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  llvm::orc::ExecutionSession::simplifyDepGroups(a2, a3, a4, v12);
+  v15 = *MEMORY[0x277D85DE8];
+  llvm::orc::ExecutionSession::simplifyDepGroups(a2, a3, a4, v10);
   std::recursive_mutex::lock(a1);
-  v13[0] = 0;
-  v13[1] = 0;
-  v14 = 0;
-  llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::copyFrom(v13, v12);
-  llvm::orc::ExecutionSession::IL_emit(a2, v13, &v15);
-  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::destroyAll(v13);
-  MEMORY[0x277C69E30](v13[0], 8);
+  v11[0] = 0;
+  v11[1] = 0;
+  v12 = 0;
+  llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::copyFrom(v11, v10);
+  llvm::orc::ExecutionSession::IL_emit(a2, v11, &v13);
+  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::destroyAll(v11);
+  MEMORY[0x277C69E30](v11[0], 8);
   std::recursive_mutex::unlock(a1);
-  if (v16[16])
+  if (v14[16])
   {
-    v8 = v15;
-    v15 = 0;
+    v8 = v13;
+    v13 = 0;
   }
 
   else
   {
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::clear((a2 + 16));
-    if (v15 != v16)
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::clear(a2 + 16);
+    if (v13 != v14)
     {
-      v9 = *(v15 + 32);
-      llvm::orc::AsynchronousSymbolQuery::handleComplete();
+      llvm::orc::AsynchronousSymbolQuery::handleComplete(*(v13 + 32), a1);
     }
 
     v8 = 0;
   }
 
   *a5 = v8;
-  llvm::Expected<std::set<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>>::~Expected(&v15);
-  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::destroyAll(v12);
-  result = MEMORY[0x277C69E30](*v12, 8);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  llvm::Expected<std::set<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>>::~Expected(&v13);
+  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::destroyAll(v10);
+  return MEMORY[0x277C69E30](v10[0], 8);
 }
 
 char *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::clear(char *result)
@@ -4256,32 +3795,32 @@ char *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymb
   return result;
 }
 
-uint64_t llvm::orc::ExecutionSession::OL_defineMaterializing@<X0>(uint64_t *a1@<X1>, int32x2_t *a2@<X2>, void *a3@<X8>)
+uint64_t llvm::orc::ExecutionSession::OL_defineMaterializing@<X0>(int32x2_t **a1@<X1>, size_t ***a2@<X2>, void *a3@<X8>)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = *a1;
-  v13[0] = *a2;
-  v13[1] = a2[1];
+  v12[0] = *a2;
+  v12[1] = a2[1];
   *a2 = 0;
   a2[1] = 0;
-  v14 = a2[2].i32[0];
-  a2[2].i32[0] = 0;
-  llvm::orc::JITDylib::defineMaterializing(v5, a1, v13, &v15);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v13);
-  if (v18)
+  v13 = *(a2 + 4);
+  *(a2 + 4) = 0;
+  llvm::orc::JITDylib::defineMaterializing(v5, a1, v12, &v14);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v12);
+  if (v17)
   {
-    v6 = v15;
-    v15 = 0;
+    v6 = v14;
+    v14 = 0;
   }
 
   else
   {
-    if (v16)
+    if (v15)
     {
-      if (v17)
+      if (v16)
       {
-        v7 = 16 * v17;
-        v8 = v15;
+        v7 = 16 * v16;
+        v8 = v14;
         while ((*v8 | 8) == 0xFFFFFFFFFFFFFFF8)
         {
           v8 += 16;
@@ -4295,14 +3834,14 @@ uint64_t llvm::orc::ExecutionSession::OL_defineMaterializing@<X0>(uint64_t *a1@<
 
       else
       {
-        v8 = v15;
+        v8 = v14;
       }
 
-      v9 = v15 + 16 * v17;
+      v9 = v14 + 16 * v16;
       if (v8 != v9)
       {
 LABEL_11:
-        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::try_emplace<llvm::JITSymbolFlags const&>((a1 + 2), v8, (v8 + 8), v12);
+        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::try_emplace<llvm::JITSymbolFlags const&>((a1 + 2), v8, (v8 + 8), v11);
         while (1)
         {
           v8 += 16;
@@ -4331,12 +3870,10 @@ LABEL_16:
 
 LABEL_17:
   *a3 = v6;
-  result = llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>>::~Expected(&v15);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>>::~Expected(&v14);
 }
 
-int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::erase(uint64_t a1, void *a2)
+int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::erase(int32x2_t *a1, void *a2)
 {
   v6 = 0;
   if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v6))
@@ -4357,23 +3894,23 @@ int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc
     }
 
     *v4 = -16;
-    result = vadd_s32(*(a1 + 8), 0x1FFFFFFFFLL);
-    *(a1 + 8) = result;
+    result = vadd_s32(a1[1], 0x1FFFFFFFFLL);
+    a1[1] = result;
   }
 
   return result;
 }
 
-void llvm::orc::ExecutionSession::OL_notifyFailed(uint64_t a1, char *a2)
+void llvm::orc::ExecutionSession::OL_notifyFailed(uint64_t a1, uint64_t a2)
 {
-  if (*(a2 + 6))
+  if (*(a2 + 24))
   {
     memset(v22, 0, sizeof(v22));
-    v4 = *(a2 + 8);
+    v4 = *(a2 + 32);
     if (v4)
     {
       v5 = 16 * v4;
-      v6 = *(a2 + 2);
+      v6 = *(a2 + 16);
       while ((*v6 | 8) == 0xFFFFFFFFFFFFFFF8)
       {
         v6 += 2;
@@ -4387,18 +3924,18 @@ void llvm::orc::ExecutionSession::OL_notifyFailed(uint64_t a1, char *a2)
 
     else
     {
-      v6 = *(a2 + 2);
+      v6 = *(a2 + 16);
     }
 
-    v13 = *(a2 + 2) + 16 * v4;
+    v11 = *(a2 + 16) + 16 * v4;
 LABEL_20:
-    if (v6 != v13)
+    if (v6 != v11)
     {
       std::vector<llvm::orc::SymbolStringPtr>::push_back[abi:nn200100](v22, v6);
       while (1)
       {
         v6 += 2;
-        if (v6 == v13)
+        if (v6 == v11)
         {
           break;
         }
@@ -4411,47 +3948,47 @@ LABEL_20:
     }
 
 LABEL_6:
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::clear(a2 + 16);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::clear((a2 + 16));
     v21[0] = 0;
     v21[1] = 0;
     v19 = 0;
     v20 = v21;
     v18 = 0;
     std::recursive_mutex::lock(a1);
-    v7 = atomic_load((*(a2 + 1) + 8));
+    v7 = atomic_load((*(a2 + 8) + 8));
     if ((v7 & 1) == 0)
     {
-      v8 = *a2;
-      llvm::orc::ExecutionSession::IL_failSymbols();
+      llvm::orc::ExecutionSession::IL_failSymbols(&v14, *a2, v22);
     }
 
-    v15 = v16;
-    memset(v16, 0, sizeof(v16));
+    *&v14 = &v14 + 8;
+    *(&v14 + 1) = 0;
+    v16 = 0;
     v17 = 0;
+    v15 = 0;
     std::recursive_mutex::unlock(a1);
-    v14[0] = &v20;
-    v14[1] = &v18;
-    std::tuple<std::set<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>> &,std::shared_ptr<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>> &>::operator=[abi:nn200100]<std::set<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>,std::shared_ptr<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>>,0>(v14, &v15);
+    v13[0] = &v20;
+    v13[1] = &v18;
+    std::tuple<std::set<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>> &,std::shared_ptr<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>> &>::operator=[abi:nn200100]<std::set<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>,std::shared_ptr<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>>,0>(v13, &v14);
     if (v17)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v17);
     }
 
-    std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::destroy(&v15, v16[0]);
+    std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::destroy(&v14, *(&v14 + 1));
     if (v20 != v21)
     {
-      v9 = v20[4];
-      v10 = *(a1 + 72);
-      v12 = *(v10 + 8);
-      v11 = *(v10 + 16);
-      v15 = v12;
-      v16[0] = v11;
-      if (v11)
+      v8 = *(a1 + 72);
+      v10 = *(v8 + 8);
+      v9 = *(v8 + 16);
+      *&v14 = v10;
+      *(&v14 + 1) = v9;
+      if (v9)
       {
-        atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
       }
 
-      llvm::make_error<llvm::orc::FailedToMaterialize,std::shared_ptr<llvm::orc::SymbolStringPool>,std::shared_ptr<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>> &>();
+      llvm::make_error<llvm::orc::FailedToMaterialize,std::shared_ptr<llvm::orc::SymbolStringPool>,std::shared_ptr<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>> &>(&v12, &v14, &v18);
     }
 
     if (v19)
@@ -4460,8 +3997,8 @@ LABEL_6:
     }
 
     std::__tree<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::destroy(&v20, v21[0]);
-    v15 = v22;
-    std::vector<llvm::orc::SymbolStringPtr>::__destroy_vector::operator()[abi:nn200100](&v15);
+    *&v14 = v22;
+    std::vector<llvm::orc::SymbolStringPtr>::__destroy_vector::operator()[abi:nn200100](&v14);
   }
 }
 
@@ -4503,10 +4040,10 @@ uint64_t *std::tuple<std::set<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery
   return a1;
 }
 
-void llvm::orc::ExecutionSession::OL_replace(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void llvm::orc::ExecutionSession::OL_replace(void x0_0, int32x2_t *a1, uint64_t *a2)
 {
-  v5 = *a3;
-  if (*(*a3 + 16))
+  v5 = *a2;
+  if (*(*a2 + 16))
   {
     v6 = *(v5 + 24);
     if (v6)
@@ -4534,7 +4071,7 @@ void llvm::orc::ExecutionSession::OL_replace(uint64_t a1, uint64_t *a2, uint64_t
     {
       do
       {
-        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::erase((a2 + 2), v8);
+        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::erase(a1 + 2, v8);
         do
         {
           v8 += 2;
@@ -4549,37 +4086,37 @@ void llvm::orc::ExecutionSession::OL_replace(uint64_t a1, uint64_t *a2, uint64_t
 
       while (v8 != v9);
 LABEL_13:
-      v5 = *a3;
+      v5 = *a2;
     }
   }
 
 LABEL_14:
   v10 = *(v5 + 32);
-  v11 = a2[5];
-  if (v10 == v11)
+  v11 = a1[5];
+  if (v10 == *&v11)
   {
     if ((v10 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
     {
-      atomic_fetch_add((v11 + 8), 0xFFFFFFFFFFFFFFFFLL);
+      atomic_fetch_add((*&v11 + 8), 0xFFFFFFFFFFFFFFFFLL);
     }
 
-    a2[5] = 0;
-    v5 = *a3;
+    a1[5] = 0;
+    v5 = *a2;
   }
 
-  v12 = *a2;
-  *a3 = 0;
+  v12 = *a1;
+  *a2 = 0;
   v13 = v5;
-  llvm::orc::JITDylib::replace(v12, a2, &v13);
+  llvm::orc::JITDylib::replace(v12, a1, &v13);
 }
 
-void llvm::orc::ExecutionSession::OL_delegate(uint64_t a1, uint64_t *a2, uint64_t a3)
+void llvm::orc::ExecutionSession::OL_delegate(void x0_0, uint64_t *a1, uint64_t a2)
 {
   v22 = 0;
   v23 = 0;
   v24 = 0;
-  v5 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin(a3);
-  v7 = *a3 + 8 * *(a3 + 16);
+  v5 = llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::begin(a2);
+  v7 = *a2 + 8 * *(a2 + 16);
   if (v7 == v5)
   {
     v15 = 0;
@@ -4596,21 +4133,21 @@ void llvm::orc::ExecutionSession::OL_delegate(uint64_t a1, uint64_t *a2, uint64_
     do
     {
       v26[0] = 0;
-      if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a2 + 2, v8, v26))
+      if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1 + 2, v8, v26))
       {
         v11 = v26[0];
       }
 
       else
       {
-        v11 = (a2[2] + 16 * *(a2 + 8));
+        v11 = (a1[2] + 16 * *(a1 + 8));
       }
 
       llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::FindAndConstruct(&v22, v8)[4] = v11[4];
-      v12 = a2[5];
+      v12 = a1[5];
       if (*v8 == v12)
       {
-        a2[5] = v10;
+        a1[5] = v10;
         v10 = v12;
       }
 
@@ -4620,7 +4157,7 @@ void llvm::orc::ExecutionSession::OL_delegate(uint64_t a1, uint64_t *a2, uint64_
       }
 
       *v11 = -16;
-      a2[3] = vadd_s32(a2[3], 0x1FFFFFFFFLL);
+      a1[3] = vadd_s32(a1[3], 0x1FFFFFFFFLL);
       do
       {
         ++v8;
@@ -4635,7 +4172,7 @@ void llvm::orc::ExecutionSession::OL_delegate(uint64_t a1, uint64_t *a2, uint64_
     v15 = v24;
   }
 
-  v16 = *a2;
+  v16 = *a1;
   v19 = v13;
   v22 = 0;
   v23 = 0;
@@ -4643,10 +4180,10 @@ void llvm::orc::ExecutionSession::OL_delegate(uint64_t a1, uint64_t *a2, uint64_
   v21 = v15;
   v24 = 0;
   std::recursive_mutex::lock(*(v16 + 32));
-  v17 = atomic_load((a2[1] + 8));
+  v17 = atomic_load((a1[1] + 8));
   if ((v17 & 1) == 0)
   {
-    v18 = a2[1];
+    v18 = a1[1];
     v25 = v10;
     v26[0] = v19;
     v26[1] = v20;
@@ -4654,7 +4191,7 @@ void llvm::orc::ExecutionSession::OL_delegate(uint64_t a1, uint64_t *a2, uint64_
     v20 = 0;
     v27 = v21;
     v21 = 0;
-    llvm::orc::ExecutionSession::createMaterializationResponsibility(&v28, v18);
+    llvm::orc::ExecutionSession::createMaterializationResponsibility(&v28, v18, v26, &v25);
   }
 
   operator new();
@@ -4996,14 +4533,12 @@ uint64_t *std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLook
   return result;
 }
 
-void *std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<std::pair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolLookupFlags>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>>(result, a2);
     }
 
@@ -5102,7 +4637,7 @@ void std::vector<llvm::IntrusiveRefCntPtr<llvm::orc::ResourceTracker>>::push_bac
   *(a1 + 8) = v5;
 }
 
-void std::vector<llvm::orc::NonOwningSymbolStringPtr>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<llvm::orc::NonOwningSymbolStringPtr>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -5410,7 +4945,7 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::Dense
         }
 
         v6 += 2;
-        v11 += 4;
+        v11 += 32;
       }
 
       while (v9 != v6);
@@ -5427,9 +4962,9 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::Dense
   return result;
 }
 
-uint64_t *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::copyFrom(uint64_t a1, uint64_t a2)
+uint64_t *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::copyFrom(void **a1, uint64_t a2)
 {
-  v4 = *(a1 + 16);
+  v4 = *(a1 + 4);
   v5 = *a1;
   if (v4)
   {
@@ -5451,7 +4986,7 @@ uint64_t *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::D
 
   result = MEMORY[0x277C69E30](v5, 8);
   v8 = *(a2 + 16);
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   if (v8)
   {
     *a1 = operator new(16 * v8, 8uLL);
@@ -5462,7 +4997,7 @@ uint64_t *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::D
   else
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
+    a1[1] = 0;
   }
 
   return result;
@@ -5576,7 +5111,7 @@ char *llvm::DenseMap<llvm::orc::MaterializationResponsibility *,llvm::detail::De
         }
 
         v11 += 2;
-        v16 += 2;
+        v16 += 16;
       }
 
       while (v14 != v11);
@@ -5630,7 +5165,7 @@ char *llvm::DenseMap<llvm::orc::MaterializationResponsibility *,llvm::detail::De
       }
 
       v21 += 2;
-      v26 += 2;
+      v26 += 16;
     }
 
     while (v24 != v21);
@@ -5667,22 +5202,16 @@ uint64_t **std::unique_ptr<llvm::orc::MaterializationResponsibility>::reset[abi:
 
 uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::find(uint64_t a1, void *a2)
 {
-  v7 = 0;
-  if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v7))
+  v4 = 0;
+  if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v4))
   {
-    result = v7;
-    v4 = *a1;
-    v5 = *(a1 + 16);
+    return v4;
   }
 
   else
   {
-    v5 = *(a1 + 16);
-    result = *a1 + 72 * v5;
+    return *a1 + 72 * *(a1 + 16);
   }
-
-  v6 = *a1 + 72 * v5;
-  return result;
 }
 
 uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(uint64_t *a1, void *a2, void *a3)
@@ -5751,10 +5280,10 @@ LABEL_5:
   return result;
 }
 
-void *std::__split_buffer<llvm::orc::JITDylib::resolve(llvm::orc::MaterializationResponsibility &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>> const&)::$_0::operator() const(void)::WorklistEntry,std::allocator<llvm::orc::JITDylib::resolve(llvm::orc::MaterializationResponsibility &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>> const&)::$_0::operator() const(void)::WorklistEntry> &>::__split_buffer(void *result, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__split_buffer<llvm::orc::JITDylib::resolve(llvm::orc::MaterializationResponsibility &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>> const&)::$_0::operator() const(void)::WorklistEntry,std::allocator<llvm::orc::JITDylib::resolve(llvm::orc::MaterializationResponsibility &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>> const&)::$_0::operator() const(void)::WorklistEntry> &>::__split_buffer(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result[3] = 0;
-  result[4] = a4;
+  a1[3] = 0;
+  a1[4] = a4;
   if (a2)
   {
     if (!(a2 >> 59))
@@ -5765,11 +5294,11 @@ void *std::__split_buffer<llvm::orc::JITDylib::resolve(llvm::orc::Materializatio
     std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
   }
 
-  *result = 0;
-  result[1] = 32 * a3;
-  result[2] = 32 * a3;
-  result[3] = 0;
-  return result;
+  *a1 = 0;
+  a1[1] = 32 * a3;
+  a1[2] = 32 * a3;
+  a1[3] = 0;
+  return a1;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::IntrusiveRefCntPtr<llvm::orc::JITDylib>>>(unint64_t a1)
@@ -6119,7 +5648,7 @@ char *llvm::DenseMap<llvm::orc::JITDylib *,std::vector<std::shared_ptr<llvm::orc
         }
 
         v11 += 2;
-        v16 += 8;
+        v16 += 64;
       }
 
       while (v14 != v11);
@@ -6184,7 +5713,7 @@ char *llvm::DenseMap<llvm::orc::JITDylib *,std::vector<std::shared_ptr<llvm::orc
       }
 
       v23 += 2;
-      v28 += 8;
+      v28 += 64;
     }
 
     while (v26 != v23);
@@ -6479,7 +6008,7 @@ void *llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetE
   return result;
 }
 
-uint64_t *llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::copyFrom(unsigned int *a1, uint64_t a2)
+void *llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::copyFrom(unsigned int *a1, uint64_t a2)
 {
   llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::destroyAll(a1);
   result = MEMORY[0x277C69E30](*a1, 8);
@@ -6522,7 +6051,7 @@ void llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,ll
         }
       }
 
-      v3 += 9;
+      v3 += 18;
       v2 -= 72;
     }
 
@@ -6530,7 +6059,7 @@ void llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,ll
   }
 }
 
-uint64_t *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::copyFrom<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>>(uint64_t *result, uint64_t *a2)
+void *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::copyFrom<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>>(void *result, uint64_t *a2)
 {
   result[1] = a2[1];
   v2 = *(result + 4);
@@ -6582,8 +6111,8 @@ uint64_t *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit
         *v16 = 0;
         *(v16 + 8) = 0;
         *(v16 + 16) = 0;
-        result = llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::copyFrom(v7 + v6, v9 + v6);
-        v2 = *(v4 + 4);
+        result = llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::copyFrom((v7 + v6), v9 + v6);
+        v2 = *(v4 + 16);
       }
 
       ++v5;
@@ -6596,9 +6125,9 @@ uint64_t *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit
   return result;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::destroyAll(uint64_t result)
+unsigned int *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::destroyAll(unsigned int *result)
 {
-  v1 = *(result + 16);
+  v1 = result[4];
   if (v1)
   {
     v2 = 32 * v1;
@@ -6620,18 +6149,18 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<
   return result;
 }
 
-void *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::copyFrom(uint64_t a1, uint64_t a2)
+void *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::copyFrom(unsigned int *a1, uint64_t a2)
 {
   llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::destroyAll(a1);
   result = MEMORY[0x277C69E30](*a1, 8);
   v5 = *(a2 + 16);
-  *(a1 + 16) = v5;
+  a1[4] = v5;
   if (v5)
   {
     result = operator new(32 * v5, 8uLL);
     *a1 = result;
-    *(a1 + 8) = *(a2 + 8);
-    v6 = *(a1 + 16);
+    *(a1 + 1) = *(a2 + 8);
+    v6 = a1[4];
     if (v6)
     {
       v7 = 0;
@@ -6648,7 +6177,7 @@ void *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSy
           v12 = v9 + v7 + 8;
           *(v12 + 16) = 0;
           result = llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::NonOwningSymbolStringPtr>>::copyFrom(v12, v11 + 8);
-          v6 = *(a1 + 16);
+          v6 = a1[4];
         }
 
         v7 += 32;
@@ -6659,13 +6188,13 @@ void *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSy
   else
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
+    *(a1 + 1) = 0;
   }
 
   return result;
 }
 
-size_t *std::vector<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::push_back[abi:nn200100](size_t *result, __int128 *a2)
+const void **std::vector<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::push_back[abi:nn200100](const void **result, __int128 *a2)
 {
   v2 = result;
   v3 = result[1];
@@ -6711,7 +6240,7 @@ size_t *std::vector<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::push_b
 
     v6 = (v11 + 16);
     v13 = v2[1] - *v2;
-    v14 = v11 - v13;
+    v14 = (v11 - v13);
     memcpy((v11 - v13), *v2, v13);
     v15 = *v2;
     *v2 = v14;
@@ -6729,13 +6258,13 @@ size_t *std::vector<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::push_b
   {
     v5 = *(a2 + 1);
     *v3 = *a2;
-    v3[1] = v5;
+    *(v3 + 1) = v5;
     if (v5)
     {
       atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v6 = v3 + 2;
+    v6 = v3 + 16;
   }
 
   v2[1] = v6;
@@ -6856,7 +6385,7 @@ char *llvm::DenseMap<llvm::orc::ResourceTracker *,llvm::DenseSet<llvm::orc::Mate
         }
 
         v11 += 2;
-        v16 += 8;
+        v16 += 64;
       }
 
       while (v14 != v11);
@@ -6926,7 +6455,7 @@ char *llvm::DenseMap<llvm::orc::ResourceTracker *,llvm::DenseSet<llvm::orc::Mate
       }
 
       v23 += 2;
-      v28 += 8;
+      v28 += 64;
     }
 
     while (v26 != v23);
@@ -6990,7 +6519,7 @@ char *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStrin
         }
 
         v6 += 2;
-        v11 += 8;
+        v11 += 64;
       }
 
       while (v9 != v6);
@@ -7050,7 +6579,7 @@ void llvm::orc::AsynchronousSymbolQuery::handleComplete(llvm::orc::ExecutionSess
   JUMPOUT(0x277C69E40);
 }
 
-llvm::raw_ostream *llvm::orc::AsynchronousSymbolQuery::handleComplete(llvm::orc::ExecutionSession &)::RunQueryCompleteTask::printDescription(int a1, llvm::raw_ostream *this)
+llvm::raw_ostream *llvm::orc::AsynchronousSymbolQuery::handleComplete(llvm::orc::ExecutionSession &)::RunQueryCompleteTask::printDescription(uint64_t a1, llvm::raw_ostream *this)
 {
   v3 = *(this + 4);
   if (*(this + 3) - v3 > 0x23uLL)
@@ -7067,16 +6596,16 @@ llvm::raw_ostream *llvm::orc::AsynchronousSymbolQuery::handleComplete(llvm::orc:
   return llvm::orc::operator<<(this);
 }
 
-uint64_t llvm::orc::AsynchronousSymbolQuery::handleComplete(llvm::orc::ExecutionSession &)::RunQueryCompleteTask::run(uint64_t a1)
+uint64_t *llvm::orc::AsynchronousSymbolQuery::handleComplete(llvm::orc::ExecutionSession &)::RunQueryCompleteTask::run(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
-  v8 = 0;
-  v6[0] = *(a1 + 8);
-  v6[1] = *(a1 + 16);
+  v7 = 0;
+  v5[0] = *(a1 + 8);
+  v5[1] = *(a1 + 16);
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  v7 = *(a1 + 24);
+  v6 = *(a1 + 24);
   *(a1 + 24) = 0;
   v3 = *(a1 + 56);
   if ((v3 & 2) == 0)
@@ -7084,10 +6613,8 @@ uint64_t llvm::orc::AsynchronousSymbolQuery::handleComplete(llvm::orc::Execution
     v2 = *v2;
   }
 
-  (*(v3 & 0xFFFFFFFFFFFFFFF8))(v2, v6);
-  result = llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  (*(v3 & 0xFFFFFFFFFFFFFFF8))(v2, v5);
+  return llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v5);
 }
 
 void *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::FindAndConstruct(uint64_t *a1, uint64_t *a2)
@@ -7136,9 +6663,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -7153,7 +6680,7 @@ char *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStrin
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(32 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -7163,8 +6690,8 @@ char *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStrin
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -7187,7 +6714,7 @@ char *llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStrin
       }
 
       v11 += 2;
-      v16 += 8;
+      v16 += 64;
     }
 
     while (v14 != v11);
@@ -7356,22 +6883,22 @@ uint64_t *std::allocator_traits<std::allocator<llvm::orc::SymbolDependenceGroup>
   return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(a2);
 }
 
-uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallImpl<llvm::orc::ReExportsMaterializationUnit::materialize(std::unique_ptr<llvm::orc::MaterializationResponsibility>)::$_1>(char ***a1, uint64_t a2, __n128 a3)
+uint64_t *llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallImpl<llvm::orc::ReExportsMaterializationUnit::materialize(std::unique_ptr<llvm::orc::MaterializationResponsibility>)::$_1>(uint64_t **a1, uint64_t a2, __n128 a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v28 = *(a2 + 24) & 1;
+  v28 = *MEMORY[0x277D85DE8];
+  v27 = *(a2 + 24) & 1;
   v4 = *a2;
-  if (v28)
+  if (v27)
   {
     *a2 = 0;
-    v26[0] = v4;
+    v25[0] = v4;
     v5 = *(***a1 + 32);
-    v26[0] = 0;
-    v20 = v4;
-    llvm::orc::ExecutionSession::reportError(v5, &v20);
-    if (v20)
+    v25[0] = 0;
+    v19 = v4;
+    llvm::orc::ExecutionSession::reportError(v5, &v19);
+    if (v19)
     {
-      (*(*v20 + 8))(v20);
+      (*(*v19 + 8))(v19);
     }
 
     llvm::orc::ExecutionSession::OL_notifyFailed(*(***a1 + 32), **a1);
@@ -7380,18 +6907,18 @@ uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llv
   else
   {
     a3.n128_u64[0] = 0;
-    v26[1] = *(a2 + 8);
-    v27 = *(a2 + 16);
+    v25[1] = *(a2 + 8);
+    v26 = *(a2 + 16);
     *(a2 + 16) = 0;
     *a2 = a3;
-    v26[0] = v4;
+    v25[0] = v4;
     v6 = *a1;
     v7 = **a1;
     v8 = *v7;
     v9 = *(*v7 + 32);
-    v25 = 0;
-    v24[0] = 0;
-    v24[1] = 0;
+    v24 = 0;
+    v23[0] = 0;
+    v23[1] = 0;
     if (*(v6 + 4))
     {
       v10 = v6[1];
@@ -7416,15 +6943,15 @@ uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llv
         v13 = v10;
       }
 
-      v14 = &v10[24 * v11];
+      v14 = v10 + 24 * v11;
       if (v13 != v14)
       {
 LABEL_13:
-        if ((v13[17] & 0x40) == 0)
+        if ((*(v13 + 17) & 0x40) == 0)
         {
-          v15 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(v26, v13 + 1)[1];
-          v16 = *(v13 + 8);
-          v17 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(v24, v13);
+          v15 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(v25, (v13 + 8))[1];
+          v16 = *(v13 + 16);
+          v17 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(v23, v13);
           v17[1] = v15;
           *(v17 + 8) = v16;
         }
@@ -7454,54 +6981,51 @@ LABEL_13:
     }
 
 LABEL_19:
-    llvm::orc::JITDylib::resolve(v8, v7, v24, &v23);
-    if (v23)
+    llvm::orc::JITDylib::resolve(v8, v7, v23, &v22);
+    if (v22)
     {
-      v22 = v23;
-      v23 = 0;
-      llvm::orc::ExecutionSession::reportError(v9, &v22);
-      if (v22)
+      v21 = v22;
+      v22 = 0;
+      llvm::orc::ExecutionSession::reportError(v9, &v21);
+      if (v21)
       {
-        (*(*v22 + 8))(v22);
+        (*(*v21 + 8))(v21);
       }
 
       llvm::orc::ExecutionSession::OL_notifyFailed(*(***a1 + 32), **a1);
-      if (v23)
+      if (v22)
       {
-        (*(*v23 + 8))(v23);
+        (*(*v22 + 8))(v22);
       }
     }
 
     else
     {
-      llvm::orc::ExecutionSession::OL_notifyEmitted(*(***a1 + 32), **a1, (*a1)[4], 0xAAAAAAAAAAAAAAABLL * (((*a1)[5] - (*a1)[4]) >> 4), &v23);
-      if (v23)
+      llvm::orc::ExecutionSession::OL_notifyEmitted(*(***a1 + 32), **a1, (*a1)[4], 0xAAAAAAAAAAAAAAABLL * (((*a1)[5] - (*a1)[4]) >> 4), &v22);
+      if (v22)
       {
-        v21 = v23;
-        llvm::orc::ExecutionSession::reportError(v9, &v21);
-        if (v21)
+        v20 = v22;
+        llvm::orc::ExecutionSession::reportError(v9, &v20);
+        if (v20)
         {
-          (*(*v21 + 8))(v21);
+          (*(*v20 + 8))(v20);
         }
 
         llvm::orc::ExecutionSession::OL_notifyFailed(*(***a1 + 32), **a1);
       }
     }
 
-    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(v24);
+    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(v23);
   }
 
-  result = llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v26);
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v25);
 }
 
 __n128 llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::MoveImpl<llvm::orc::ReExportsMaterializationUnit::materialize(std::unique_ptr<llvm::orc::MaterializationResponsibility>)::$_1>(__n128 *a1, __n128 *a2)
 {
   result = *a2;
   *a1 = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
@@ -7576,13 +7100,13 @@ void std::__function::__func<llvm::orc::ReExportsMaterializationUnit::materializ
 
 uint64_t std::__function::__func<llvm::orc::ReExportsMaterializationUnit::materialize(std::unique_ptr<llvm::orc::MaterializationResponsibility>)::$_0,std::allocator<llvm::orc::ReExportsMaterializationUnit::materialize(std::unique_ptr<llvm::orc::MaterializationResponsibility>)::$_0>,void ()(llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>> const&)>::operator()(uint64_t result, uint64_t a2)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   if (*(a2 + 8))
   {
     v3 = result;
     v4 = *(result + 24);
-    v24[0] = 0;
-    v5 = result ? v24[0] : *a2 + 32 * *(a2 + 16);
+    v23[0] = 0;
+    v5 = result ? v23[0] : *a2 + 32 * *(a2 + 16);
     v6 = *(v3 + 8);
     if (*(v6 + 16))
     {
@@ -7591,62 +7115,60 @@ uint64_t std::__function::__func<llvm::orc::ReExportsMaterializationUnit::materi
       if (v8)
       {
         v9 = 24 * v8;
-        v10 = v7;
-        while ((*v10 | 8) == 0xFFFFFFFFFFFFFFF8)
+        for (i = v7; (*i | 8) == 0xFFFFFFFFFFFFFFF8; i += 3)
         {
-          v10 += 3;
           v9 -= 24;
           if (!v9)
           {
-            goto LABEL_34;
+            return result;
           }
         }
       }
 
       else
       {
-        v10 = v7;
+        i = v7;
       }
 
       v11 = &v7[3 * v8];
-      if (v10 != v11)
+      if (i != v11)
       {
 LABEL_13:
-        v24[0] = 0;
-        result = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v5 + 8), v10 + 1, v24);
+        v23[0] = 0;
+        result = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v5 + 8), i + 1, v23);
         if (result)
         {
           v12 = *(v3 + 8);
-          v32[0] = *v10;
-          if ((v32[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          v31[0] = *i;
+          if ((v31[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v32[0] + 8), 1uLL);
+            atomic_fetch_add((v31[0] + 8), 1uLL);
           }
 
-          llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::DenseSetImpl(v24, v32, 1);
+          llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::DenseSetImpl(v23, v31, 1);
           v13 = *(v3 + 24);
-          v14 = v10[1];
-          v28 = v14;
+          v14 = i[1];
+          v27 = v14;
           if ((v14 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
             atomic_fetch_add((v14 + 8), 1uLL);
           }
 
-          llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::DenseSetImpl(v23, &v28, 1);
-          v29 = v13;
-          v30[0] = 0;
-          v30[1] = 0;
-          v31 = 0;
-          llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::copyFrom(v30, v23);
-          v26 = 4;
+          llvm::detail::DenseSetImpl<llvm::orc::SymbolStringPtr,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>::DenseSetImpl(v22, &v27, 1);
+          v28 = v13;
+          v29[0] = 0;
+          v29[1] = 0;
+          v30 = 0;
+          llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::copyFrom(v29, v22);
+          v25 = 4;
           v15 = operator new(0x80uLL, 8uLL);
-          v25[0] = v15;
-          v25[1] = 0;
-          if (v26)
+          v24[0] = v15;
+          v24[1] = 0;
+          if (v25)
           {
             v16 = 0;
-            v17 = ((v26 + 0x7FFFFFFFFFFFFFFLL) & 0x7FFFFFFFFFFFFFFLL) - ((v26 - 1) & 1) + 2;
-            v18 = vdupq_n_s64((v26 + 0x7FFFFFFFFFFFFFFLL) & 0x7FFFFFFFFFFFFFFLL);
+            v17 = ((v25 + 0x7FFFFFFFFFFFFFFLL) & 0x7FFFFFFFFFFFFFFLL) - ((v25 - 1) & 1) + 2;
+            v18 = vdupq_n_s64((v25 + 0x7FFFFFFFFFFFFFFLL) & 0x7FFFFFFFFFFFFFFLL);
             v19 = v15 + 32;
             do
             {
@@ -7668,80 +7190,78 @@ LABEL_13:
             while (v17 != v16);
           }
 
-          v27 = 0;
-          if ((llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet>>,llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet>>::LookupBucketFor<llvm::orc::JITDylib const*>(v25, &v29, &v27) & 1) == 0)
+          v26 = 0;
+          if ((llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet>>,llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet>>::LookupBucketFor<llvm::orc::JITDylib const*>(v24, &v28, &v26) & 1) == 0)
           {
-            v21 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::InsertIntoBucketImpl<llvm::orc::JITDylib *>(v25, &v29, &v29, v27);
-            *v21 = v29;
+            v21 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::InsertIntoBucketImpl<llvm::orc::JITDylib *>(v24, &v28, &v28, v26);
+            *v21 = v28;
             v21[2] = 0;
             *(v21 + 6) = 0;
             v21[1] = 0;
-            llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::copyFrom((v21 + 1), v30);
+            llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::copyFrom(v21 + 1, v29);
           }
 
-          std::vector<llvm::orc::SymbolDependenceGroup>::push_back[abi:nn200100]((v12 + 32), v24);
-          llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::destroyAll(v25);
-          MEMORY[0x277C69E30](v25[0], 8);
-          llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(v24);
-          llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(v30);
-          result = llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(v23);
-          if ((v28 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          std::vector<llvm::orc::SymbolDependenceGroup>::push_back[abi:nn200100](v12 + 32, v23);
+          llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::destroyAll(v24);
+          MEMORY[0x277C69E30](v24[0], 8);
+          llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(v23);
+          llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(v29);
+          result = llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(v22);
+          if ((v27 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v28 + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((v27 + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
 
-          if ((v32[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+          if ((v31[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
           {
-            atomic_fetch_add((v32[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
+            atomic_fetch_add((v31[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
           }
         }
 
         while (1)
         {
-          v10 += 3;
-          if (v10 == v11)
+          i += 3;
+          if (i == v11)
           {
             break;
           }
 
-          if ((*v10 | 8) != 0xFFFFFFFFFFFFFFF8)
+          if ((*i | 8) != 0xFFFFFFFFFFFFFFF8)
           {
-            if (v10 != v11)
+            if (i != v11)
             {
               goto LABEL_13;
             }
 
-            break;
+            return result;
           }
         }
       }
     }
   }
 
-LABEL_34:
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t std::vector<llvm::orc::SymbolDependenceGroup>::push_back[abi:nn200100](uint64_t *a1, uint64_t a2)
+unint64_t std::vector<llvm::orc::SymbolDependenceGroup>::push_back[abi:nn200100](uint64_t a1, uint64_t a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = std::vector<llvm::orc::SymbolDependenceGroup>::__emplace_back_slow_path<llvm::orc::SymbolDependenceGroup>(a1, a2);
   }
 
   else
   {
-    std::allocator_traits<std::allocator<llvm::orc::SymbolDependenceGroup>>::construct[abi:nn200100]<llvm::orc::SymbolDependenceGroup,llvm::orc::SymbolDependenceGroup,0>(a1, a1[1], a2);
+    std::allocator_traits<std::allocator<llvm::orc::SymbolDependenceGroup>>::construct[abi:nn200100]<llvm::orc::SymbolDependenceGroup,llvm::orc::SymbolDependenceGroup,0>(a1, *(a1 + 8), a2);
     result = v3 + 48;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
-uint64_t std::vector<llvm::orc::SymbolDependenceGroup>::__emplace_back_slow_path<llvm::orc::SymbolDependenceGroup>(uint64_t *a1, uint64_t a2)
+unint64_t std::vector<llvm::orc::SymbolDependenceGroup>::__emplace_back_slow_path<llvm::orc::SymbolDependenceGroup>(uint64_t **a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -7840,7 +7360,7 @@ uint64_t *std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<l
     do
     {
       std::allocator_traits<std::allocator<llvm::orc::SymbolDependenceGroup>>::construct[abi:nn200100]<llvm::orc::SymbolDependenceGroup,llvm::orc::SymbolDependenceGroup,0>(v7, a4, v8);
-      v8 += 48;
+      v8 += 6;
       a4 += 48;
     }
 
@@ -7857,7 +7377,7 @@ uint64_t *std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<l
   return result;
 }
 
-uint64_t *std::__split_buffer<llvm::orc::SymbolDependenceGroup>::~__split_buffer(uint64_t *a1)
+void **std::__split_buffer<llvm::orc::SymbolDependenceGroup>::~__split_buffer(void **a1)
 {
   std::__split_buffer<llvm::orc::SymbolDependenceGroup>::clear[abi:nn200100](a1);
   if (*a1)
@@ -7889,9 +7409,9 @@ uint64_t *std::__split_buffer<llvm::orc::SymbolDependenceGroup>::clear[abi:nn200
   return result;
 }
 
-uint64_t llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::copyFrom(uint64_t a1, uint64_t a2)
+uint64_t llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::copyFrom(void **a1, uint64_t a2)
 {
-  v4 = *(a1 + 16);
+  v4 = *(a1 + 4);
   v5 = *a1;
   if (v4)
   {
@@ -7913,7 +7433,7 @@ uint64_t llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,l
 
   result = MEMORY[0x277C69E30](v5, 8);
   v8 = *(a2 + 16);
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   if (v8)
   {
     *a1 = operator new(8 * v8, 8uLL);
@@ -7924,7 +7444,7 @@ uint64_t llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,l
   else
   {
     *a1 = 0;
-    *(a1 + 8) = 0;
+    a1[1] = 0;
   }
 
   return result;
@@ -8377,7 +7897,6 @@ void std::__shared_ptr_emplace<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseS
 void std::__shared_ptr_emplace<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>>::__on_zero_shared(uint64_t a1)
 {
   llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::destroyAll((a1 + 24));
-  v2 = *(a1 + 24);
 
   JUMPOUT(0x277C69E30);
 }
@@ -8409,7 +7928,7 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std:
   return a3;
 }
 
-void std::vector<llvm::orc::SymbolStringPtr>::__vdeallocate(void **a1)
+void std::vector<llvm::orc::SymbolStringPtr>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -8525,7 +8044,7 @@ char *llvm::DenseMap<llvm::orc::ResourceTracker *,std::vector<llvm::orc::SymbolS
         }
 
         v11 += 2;
-        v16 += 8;
+        v16 += 64;
       }
 
       while (v14 != v11);
@@ -8590,7 +8109,7 @@ char *llvm::DenseMap<llvm::orc::ResourceTracker *,std::vector<llvm::orc::SymbolS
       }
 
       v23 += 2;
-      v28 += 8;
+      v28 += 64;
     }
 
     while (v26 != v23);
@@ -8635,21 +8154,21 @@ void std::__shared_ptr_emplace<llvm::orc::Platform::lookupInitSymbolsAsync(llvm:
   std::mutex::~mutex((a1 + 24));
 }
 
-uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallImpl<llvm::orc::Platform::lookupInitSymbolsAsync(llvm::unique_function<void ()(llvm::Error)>,llvm::orc::ExecutionSession &,llvm::DenseMap<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet>> const&)::$_0>(std::mutex **a1, uint64_t a2)
+uint64_t *llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallImpl<llvm::orc::Platform::lookupInitSymbolsAsync(llvm::unique_function<void ()(llvm::Error)>,llvm::orc::ExecutionSession &,llvm::DenseMap<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet>> const&)::$_0>(std::mutex **a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v13 = *(a2 + 24) & 1;
+  v13 = *MEMORY[0x277D85DE8];
+  v12 = *(a2 + 24) & 1;
   v2 = *a2;
-  if (v13)
+  if (v12)
   {
     v3 = 0;
   }
 
   else
   {
-    v11[1] = *(a2 + 8);
+    v10[1] = *(a2 + 8);
     *(a2 + 8) = 0;
-    v12 = *(a2 + 16);
+    v11 = *(a2 + 16);
     *(a2 + 16) = 0;
     v3 = v2;
     v2 = 0;
@@ -8657,36 +8176,33 @@ uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llv
 
   *a2 = 0;
   v4 = *a1;
-  v11[0] = v3;
+  v10[0] = v3;
   std::mutex::lock(v4);
   sig = v4[1].__m_.__sig;
   v4[1].__m_.__sig = 0;
-  v9 = v2;
-  v10 = sig;
-  llvm::ErrorList::join(&v10, &v9, &v8);
+  v8 = v2;
+  v9 = sig;
+  llvm::ErrorList::join(&v9, &v8, &v7);
+  if (v8)
+  {
+    (*(*v8 + 8))(v8);
+  }
+
   if (v9)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v9 + 1))(v9);
   }
 
-  if (v10)
-  {
-    (*(*v10 + 8))(v10);
-  }
-
-  v4[1].__m_.__sig = v8;
+  v4[1].__m_.__sig = v7;
   std::mutex::unlock(v4);
-  result = llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v11);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v10);
 }
 
 __n128 llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::MoveImpl<llvm::orc::Platform::lookupInitSymbolsAsync(llvm::unique_function<void ()(llvm::Error)>,llvm::orc::ExecutionSession &,llvm::DenseMap<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::orc::SymbolLookupSet>> const&)::$_0>(__n128 *a1, __n128 *a2)
 {
   result = *a2;
   *a1 = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
@@ -8786,7 +8302,7 @@ uint64_t llvm::orc::InProgressLookupState::InProgressLookupState(uint64_t a1, in
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
   *(a1 + 88) = 0u;
-  v6 = a1 + 88;
+  v6 = (a1 + 88);
   *(a1 + 64) = a5;
   *(a1 + 72) = 0;
   *(a1 + 80) = 1;
@@ -8952,7 +8468,7 @@ void llvm::orc::InProgressFullLookupState::~InProgressFullLookupState(llvm::orc:
   JUMPOUT(0x277C69E40);
 }
 
-uint64_t llvm::orc::InProgressFullLookupState::complete(uint64_t a1, uint64_t ***a2)
+uint64_t llvm::orc::InProgressFullLookupState::complete(uint64_t a1, char ***a2)
 {
   v135 = *MEMORY[0x277D85DE8];
   v2 = *(**(a1 + 16) + 32);
@@ -8966,14 +8482,14 @@ uint64_t llvm::orc::InProgressFullLookupState::complete(uint64_t a1, uint64_t **
   v120 = 0;
   v121 = 0;
   v122 = 0;
-  v111 = v2;
+  v110 = v2;
   std::recursive_mutex::lock(v2);
-  v117 = v3[2];
-  v119 = v5;
-  v112 = v3[3];
-  v113 = v3;
-  v115 = v4;
-  if (v117 != v112)
+  v116 = v3[2];
+  v118 = v5;
+  v111 = v3[3];
+  v112 = v3;
+  v114 = v4;
+  if (v116 != v111)
   {
     while (1)
     {
@@ -8983,26 +8499,27 @@ uint64_t llvm::orc::InProgressFullLookupState::complete(uint64_t a1, uint64_t **
         break;
       }
 
-LABEL_122:
-      v117 += 2;
-      if (v117 == v112)
+LABEL_115:
+      v119 = 0;
+      v116 += 16;
+      if (v116 == v111)
       {
         goto LABEL_123;
       }
     }
 
     v7 = 0;
-    v8 = *v117;
-    v9 = *(v117 + 2);
-    v116 = v9;
+    v8 = *v116;
+    v9 = *(v116 + 2);
+    v115 = v9;
     while (1)
     {
-      v10 = &v6[2 * v7];
+      v10 = &v6[16 * v7];
       v11 = *(v10 + 2);
-      v132[0] = 0;
-      if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(v8 + 112), *(v8 + 128), *v10, v132) && v132[0] != (*(v8 + 112) + 24 * *(v8 + 128)))
+      *&v131 = 0;
+      if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(v8 + 112), *(v8 + 128), *v10, &v131) && v131 != *(v8 + 112) + 24 * *(v8 + 128))
       {
-        v13 = *(v132[0] + 8);
+        v13 = *(v131 + 16);
         if ((v13 >> 8) & 0x10 | v9)
         {
           break;
@@ -9014,17 +8531,17 @@ LABEL_110:
       v6 = v3[5];
       if (v7 == (v3[6] - v6) >> 4)
       {
-        goto LABEL_122;
+        goto LABEL_115;
       }
     }
 
     if (v11 != 1 && (v13 & 0x4000) != 0)
     {
-      v85 = *v111[1].__m_.__opaque;
+      v85 = *v110[1].__m_.__opaque;
       v87 = *(v85 + 8);
       v86 = *(v85 + 16);
-      v128 = v87;
-      v129 = v86;
+      *&v128 = v87;
+      *(&v128 + 1) = v86;
       if (v86)
       {
         atomic_fetch_add_explicit((v86 + 8), 1uLL, memory_order_relaxed);
@@ -9043,23 +8560,23 @@ LABEL_110:
       operator new();
     }
 
-    if ((*(v132[0] + 18) & 0x7Fu) >= *(v5 + 88))
+    if ((*(v131 + 18) & 0x7Fu) >= *(v5 + 88))
     {
-      llvm::orc::AsynchronousSymbolQuery::notifySymbolMetRequiredState(v5, v10, v132[0][1], v13);
+      llvm::orc::AsynchronousSymbolQuery::notifySymbolMetRequiredState(v5, v10, *(v131 + 8), v13);
 LABEL_109:
       llvm::orc::SymbolLookupSet::remove(v3 + 5, v7);
       goto LABEL_110;
     }
 
-    if ((*(v132[0] + 18) & 0x80) == 0)
+    if ((*(v131 + 18) & 0x80) == 0)
     {
 LABEL_58:
-      v132[0] = 0;
-      v44 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v8 + 160), v10, v132);
-      v45 = v132[0];
+      *&v131 = 0;
+      v44 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v8 + 160), v10, &v131);
+      v45 = v131;
       if ((v44 & 1) == 0)
       {
-        v46 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::InsertIntoBucketImpl<llvm::orc::SymbolStringPtr>(v8 + 160, v10, v132[0]);
+        v46 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::MaterializingInfo>>::InsertIntoBucketImpl<llvm::orc::SymbolStringPtr>(v8 + 160, v10, v131);
         v45 = v46;
         if ((*v46 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
         {
@@ -9144,7 +8661,7 @@ LABEL_58:
           v64 = v61;
         }
 
-        v131 = v45 + 6;
+        v130 = v45 + 6;
         if (v64)
         {
           std::__allocate_at_least[abi:nn200100]<std::allocator<std::weak_ptr<llvm::orc::DefinitionGenerator>>>(v64);
@@ -9153,7 +8670,7 @@ LABEL_58:
         v65 = v53 - v49;
         v66 = (v53 - v49) >> 4;
         v67 = 16 * v66;
-        *(&v130 + 1) = 0;
+        *(&v129 + 1) = 0;
         if (v66)
         {
           v69 = (16 * v66);
@@ -9174,7 +8691,7 @@ LABEL_58:
               v77 = v76;
             }
 
-            v132[4] = v45 + 6;
+            v132 = v45 + 6;
             std::__allocate_at_least[abi:nn200100]<std::allocator<std::weak_ptr<llvm::orc::DefinitionGenerator>>>(v77);
           }
 
@@ -9183,25 +8700,25 @@ LABEL_58:
           v67 = v68;
         }
 
-        *v69 = v119;
-        v69[1] = v115;
+        *v69 = v118;
+        v69[1] = v114;
         memcpy(v69 + 2, v53, v45[7] - v53);
         v78 = v45[6];
-        *&v130 = v69 + v45[7] - v53 + 16;
+        *&v129 = v69 + v45[7] - v53 + 16;
         v45[7] = v53;
         v79 = (v67 - (v53 - v78));
-        v4 = v115;
+        v4 = v114;
         memcpy(v79, v78, v53 - v78);
         v80 = v45[6];
         v45[6] = v79;
         v81 = v45[8];
-        *(v45 + 7) = v130;
-        *&v130 = v80;
-        *(&v130 + 1) = v81;
-        v128 = v80;
-        v129 = v80;
+        *(v45 + 7) = v129;
+        *&v129 = v80;
+        *(&v129 + 1) = v81;
+        *&v128 = v80;
+        *(&v128 + 1) = v80;
         std::__split_buffer<std::shared_ptr<llvm::orc::AsynchronousSymbolQuery>>::~__split_buffer(&v128);
-        v3 = v113;
+        v3 = v112;
       }
 
       else
@@ -9217,7 +8734,7 @@ LABEL_58:
           else
           {
             *v48 = *v59;
-            v60 = (v48 + 16);
+            v60 = v48 + 16;
             *v59 = 0;
             *(v48 - 8) = 0;
           }
@@ -9249,9 +8766,9 @@ LABEL_58:
           }
 
           v75 = v53[1];
-          *v53 = v119;
+          *v53 = v118;
           v53[1] = v4;
-          v9 = v116;
+          v9 = v115;
           if (v75)
           {
             std::__shared_weak_count::__release_shared[abi:nn200100](v75);
@@ -9260,12 +8777,12 @@ LABEL_58:
           goto LABEL_105;
         }
 
-        *v48 = v119;
+        *v48 = v118;
         *(v48 + 8) = v4;
-        v45[7] = (v48 + 16);
+        v45[7] = v48 + 16;
       }
 
-      v9 = v116;
+      v9 = v115;
 LABEL_105:
       v82 = *v10;
       v127 = v82;
@@ -9274,10 +8791,10 @@ LABEL_105:
         atomic_fetch_add((v82 + 8), 1uLL);
       }
 
-      v128 = v8;
-      v5 = v119;
-      v83 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::FindAndConstruct(v119 + 4, &v128);
-      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>((v83 + 1), &v127, v132);
+      *&v128 = v8;
+      v5 = v118;
+      v83 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>>::FindAndConstruct(v118 + 4, &v128);
+      llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>((v83 + 1), &v127, &v131);
       if ((v127 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
       {
         atomic_fetch_add((v127 + 8), 0xFFFFFFFFFFFFFFFFLL);
@@ -9286,17 +8803,17 @@ LABEL_105:
       goto LABEL_109;
     }
 
-    v132[0] = 0;
-    v15 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(v8 + 136), *(v8 + 152), *v10, v132);
-    v16 = v132[0];
+    *&v131 = 0;
+    v15 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(v8 + 136), *(v8 + 152), *v10, &v131);
+    v16 = v131;
     if (!v15)
     {
-      v16 = (*(v8 + 136) + 24 * *(v8 + 152));
+      v16 = *(v8 + 136) + 24 * *(v8 + 152);
     }
 
-    v17 = *(v16 + 1);
-    v114 = v17;
-    v18 = v16[2];
+    v17 = *(v16 + 8);
+    v113 = v17;
+    v18 = *(v16 + 16);
     if (*(&v17 + 1))
     {
       atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -9331,18 +8848,18 @@ LABEL_105:
 LABEL_47:
       if (v23 != v36)
       {
-        v132[0] = 0;
-        v37 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(v8 + 112), *(v8 + 128), *v23, v132);
-        v38 = v132[0];
+        *&v131 = 0;
+        v37 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>,llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::JITDylib::SymbolTableEntry>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(*(v8 + 112), *(v8 + 128), *v23, &v131);
+        v38 = v131;
         if (!v37)
         {
-          v38 = (*(v8 + 112) + 24 * *(v8 + 128));
+          v38 = *(v8 + 112) + 24 * *(v8 + 128);
         }
 
         *(v38 + 18) = 2;
         v39 = *v23;
         v23 += 2;
-        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>>,llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>>::erase(v8 + 136, v39);
+        llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>>,llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>>::erase((v8 + 136), v39);
         while (v23 != v36)
         {
           if ((*v23 | 8) != 0xFFFFFFFFFFFFFFF8)
@@ -9356,9 +8873,9 @@ LABEL_47:
     }
 
 LABEL_27:
-    v132[0] = 0;
+    *&v131 = 0;
     v24 = v122;
-    v26 = v132[0];
+    v26 = v131;
     if (v25)
     {
 LABEL_33:
@@ -9391,7 +8908,7 @@ LABEL_33:
           v35 = v33;
         }
 
-        v4 = v115;
+        v4 = v114;
         if (v35)
         {
           if (!(v35 >> 60))
@@ -9405,7 +8922,7 @@ LABEL_33:
         v40 = v32;
         v41 = (16 * v32);
         v42 = &v41[-v40];
-        *v41 = v114;
+        *v41 = v113;
         v29 = v41 + 1;
         memcpy(v42, v30, v31);
         v43 = v26[1];
@@ -9417,15 +8934,15 @@ LABEL_33:
           operator delete(v43);
         }
 
-        v3 = v113;
+        v3 = v112;
       }
 
       else
       {
-        *v28 = v114;
+        *v28 = v113;
         *(v28 + 1) = v18;
         v29 = v28 + 16;
-        v4 = v115;
+        v4 = v114;
       }
 
       v26[2] = v29;
@@ -9459,8 +8976,8 @@ LABEL_30:
     }
 
     llvm::DenseMap<llvm::orc::JITDylib *,std::vector<std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,std::vector<std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>>>::grow(&v120, v84);
-    v132[0] = 0;
-    v26 = v132[0];
+    *&v131 = 0;
+    v26 = v131;
     goto LABEL_30;
   }
 
@@ -9472,20 +8989,20 @@ LABEL_123:
     v90 = 0;
     do
     {
-      v91 = &v89[2 * v90];
+      v91 = &v89[16 * v90];
       if (*(v91 + 2) == 1)
       {
-        v132[0] = 0;
-        v92 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v5 + 56), v91, v132);
-        v93 = v132[0];
+        *&v131 = 0;
+        v92 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v5 + 56), v91, &v131);
+        v93 = v131;
         if (!v92)
         {
-          v93 = (*(v5 + 56) + 24 * *(v5 + 72));
+          v93 = *(v5 + 56) + 24 * *(v5 + 72);
         }
 
-        if (*v93 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+        if ((*v93 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
         {
-          atomic_fetch_add(*v93 + 1, 0xFFFFFFFFFFFFFFFFLL);
+          atomic_fetch_add((*v93 + 8), 0xFFFFFFFFFFFFFFFFLL);
         }
 
         *v93 = -16;
@@ -9505,25 +9022,25 @@ LABEL_123:
     while (v90 != (v88 - v89) >> 4);
     if (v89 != v88)
     {
-      v94 = *v111[1].__m_.__opaque;
+      v94 = *v110[1].__m_.__opaque;
       v96 = *(v94 + 8);
       v95 = *(v94 + 16);
-      v128 = v96;
-      v129 = v95;
+      *&v128 = v96;
+      *(&v128 + 1) = v95;
       if (v95)
       {
         atomic_fetch_add_explicit((v95 + 8), 1uLL, memory_order_relaxed);
       }
 
-      llvm::orc::SymbolLookupSet::getSymbolNames(v132, v3 + 5);
-      llvm::make_error<llvm::orc::SymbolsNotFound,std::shared_ptr<llvm::orc::SymbolStringPool>,std::vector<llvm::orc::SymbolStringPtr>>();
+      llvm::orc::SymbolLookupSet::getSymbolNames(&v131, v3 + 5);
+      llvm::make_error<llvm::orc::SymbolsNotFound,std::shared_ptr<llvm::orc::SymbolStringPool>,std::vector<llvm::orc::SymbolStringPtr>>(&v119, &v128, &v131);
     }
   }
 
   v97 = *(v5 + 80);
   if (v121)
   {
-    std::recursive_mutex::lock((v111 + 168));
+    std::recursive_mutex::lock((v110 + 168));
     if (v122)
     {
       v98 = 32 * v122;
@@ -9544,10 +9061,10 @@ LABEL_123:
       v99 = v120;
     }
 
-    v100 = (v120 + 32 * v122);
+    v100 = &v120[4 * v122];
     if (v99 != v100)
     {
-      v118 = v97;
+      v117 = v97;
       do
       {
         v101 = v99[1];
@@ -9567,11 +9084,11 @@ LABEL_123:
           v105 = **v101;
           v123 = *(v105 + 32);
           *(v105 + 32) = 0;
-          llvm::orc::ExecutionSession::createMaterializationResponsibility(&v128, v102);
+          llvm::orc::ExecutionSession::createMaterializationResponsibility(&v128, v102, &v124, &v123);
         }
 
         v99 += 4;
-        v97 = v118;
+        v97 = v117;
         if (v99 == v100)
         {
           break;
@@ -9591,8 +9108,8 @@ LABEL_123:
     }
 
 LABEL_153:
-    std::recursive_mutex::unlock((v111 + 168));
-    v5 = v119;
+    std::recursive_mutex::unlock((v110 + 168));
+    v5 = v118;
   }
 
   if (v134 && *(v5 + 40))
@@ -9600,24 +9117,24 @@ LABEL_153:
     (*(*v134 + 48))();
   }
 
-  std::recursive_mutex::unlock(v111);
+  std::recursive_mutex::unlock(v110);
   if (!v97)
   {
-    llvm::orc::AsynchronousSymbolQuery::handleComplete();
+    llvm::orc::AsynchronousSymbolQuery::handleComplete(v5, v110);
   }
 
-  llvm::orc::ExecutionSession::dispatchOutstandingMUs(v111);
+  llvm::orc::ExecutionSession::dispatchOutstandingMUs(v110);
   v106 = v120;
   if (v122)
   {
-    v107 = (v120 + 8);
+    v107 = v120 + 1;
     v108 = 32 * v122;
     do
     {
       if ((*(v107 - 1) | 0x1000) != 0xFFFFFFFFFFFFF000)
       {
-        v132[0] = v107;
-        std::vector<std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>::__destroy_vector::operator()[abi:nn200100](v132);
+        *&v131 = v107;
+        std::vector<std::shared_ptr<llvm::orc::JITDylib::UnmaterializedInfo>>::__destroy_vector::operator()[abi:nn200100](&v131);
       }
 
       v107 += 4;
@@ -9629,18 +9146,17 @@ LABEL_153:
 
   MEMORY[0x277C69E30](v106, 8);
   std::__function::__value_func<void ()(llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>> const&)>::~__value_func[abi:nn200100](v133);
-  if (v115)
+  if (v114)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v115);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v114);
   }
 
-  result = v113;
-  if (v113)
+  result = v112;
+  if (v112)
   {
-    result = ((*v113)[1])(v113);
+    return (*(*v112 + 8))(v112);
   }
 
-  v110 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9696,38 +9212,36 @@ uint64_t std::__assoc_state<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc:
   return v2(a1);
 }
 
-uint64_t llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallImpl<llvm::orc::ExecutionSession::lookup(std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>> const&,llvm::orc::SymbolLookupSet,llvm::orc::LookupKind,llvm::orc::SymbolState,std::function<void ()(llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>> const&)>)::$_0>(uint64_t **a1, uint64_t a2, __n128 a3)
+uint64_t *llvm::detail::UniqueFunctionBase<void,llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>>::CallImpl<llvm::orc::ExecutionSession::lookup(std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>> const&,llvm::orc::SymbolLookupSet,llvm::orc::LookupKind,llvm::orc::SymbolState,std::function<void ()(llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>> const&)>)::$_0>(uint64_t **a1, uint64_t a2, __n128 a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v11 = *(a2 + 24) & 1;
+  v11 = *MEMORY[0x277D85DE8];
+  v10 = *(a2 + 24) & 1;
   v3 = *a2;
-  if (v11)
+  if (v10)
   {
     *a2 = 0;
-    v9[0] = 0;
+    v8[0] = 0;
     v4 = *a1;
     *a1[1] = v3;
-    v7[0] = 0;
-    v7[1] = 0;
-    v8 = 0;
-    std::promise<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::set_value(*v4, v7);
-    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(v7);
+    v6[0] = 0;
+    v6[1] = 0;
+    v7 = 0;
+    std::promise<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::set_value(*v4, v6);
+    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::~DenseMap(v6);
   }
 
   else
   {
     a3.n128_u64[0] = 0;
-    v9[1] = *(a2 + 8);
-    v10 = *(a2 + 16);
+    v8[1] = *(a2 + 8);
+    v9 = *(a2 + 16);
     *(a2 + 16) = 0;
     *a2 = a3;
-    v9[0] = v3;
-    std::promise<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::set_value(**a1, v9);
+    v8[0] = v3;
+    std::promise<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::set_value(**a1, v8);
   }
 
-  result = llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v9);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(v8);
 }
 
 void std::promise<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::set_value(uint64_t a1, uint64_t a2)
@@ -9765,6 +9279,559 @@ void std::promise<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorS
     std::__throw_future_error[abi:nn200100]();
   }
 
-  v7 = std::__throw_future_error[abi:nn200100]();
+  std::__throw_future_error[abi:nn200100]();
   llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>,llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>::LookupBucketFor<llvm::orc::ExecutorAddr>(v7, v8, v9, v10);
+}
+
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>,llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>::LookupBucketFor<llvm::orc::ExecutorAddr>(uint64_t a1, int a2, uint64_t a3, void *a4)
+{
+  if (a2)
+  {
+    v4 = a2 - 1;
+    v5 = (37 * a3) & (a2 - 1);
+    v6 = (a1 + 24 * v5);
+    v7 = *v6;
+    if (*v6 == a3)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 1;
+      while (v7 != -1)
+      {
+        if (v10)
+        {
+          v12 = 0;
+        }
+
+        else
+        {
+          v12 = v7 == -2;
+        }
+
+        if (v12)
+        {
+          v10 = v6;
+        }
+
+        v13 = v5 + v11++;
+        v5 = v13 & v4;
+        v6 = (a1 + 24 * (v13 & v4));
+        v7 = *v6;
+        v8 = 1;
+        if (*v6 == a3)
+        {
+          goto LABEL_5;
+        }
+      }
+
+      v8 = 0;
+      if (v10)
+      {
+        v6 = v10;
+      }
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
+  }
+
+LABEL_5:
+  *a4 = v6;
+  return v8;
+}
+
+void *llvm::DenseMap<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>::grow(uint64_t a1, int a2)
+{
+  v3 = *(a1 + 16);
+  v4 = *a1;
+  v5 = (a2 - 1) | ((a2 - 1) >> 1);
+  v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
+  v7 = ((v6 | (v6 >> 8)) >> 16) | v6 | (v6 >> 8);
+  if ((v7 + 1) > 0x40)
+  {
+    v8 = v7 + 1;
+  }
+
+  else
+  {
+    v8 = 64;
+  }
+
+  *(a1 + 16) = v8;
+  result = operator new(24 * v8, 8uLL);
+  *a1 = result;
+  if (v4)
+  {
+    *(a1 + 8) = 0;
+    v10 = *(a1 + 16);
+    if (v10)
+    {
+      v11 = 0;
+      v12 = 24 * v10 - 24;
+      v13 = vdupq_n_s64(v12 / 0x18);
+      do
+      {
+        v14 = vmovn_s64(vcgeq_u64(v13, vorrq_s8(vdupq_n_s64(v11), xmmword_2750C1210)));
+        if (v14.i8[0])
+        {
+          *result = -1;
+        }
+
+        if (v14.i8[4])
+        {
+          result[3] = -1;
+        }
+
+        v11 += 2;
+        result += 6;
+      }
+
+      while (((v12 / 0x18 + 2) & 0x1FFFFFFFFFFFFFFELL) != v11);
+    }
+
+    if (v3)
+    {
+      v15 = 24 * v3;
+      v16 = v4 + 8;
+      do
+      {
+        v17 = *(v16 - 8);
+        if (v17 <= 0xFFFFFFFFFFFFFFFDLL)
+        {
+          v24 = 0;
+          llvm::DenseMapBase<llvm::DenseMap<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>,llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>,llvm::DenseMapInfo<llvm::orc::ExecutorAddr,void>,llvm::detail::DenseMapPair<llvm::orc::ExecutorAddr,std::shared_ptr<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>>>::LookupBucketFor<llvm::orc::ExecutorAddr>(*a1, *(a1 + 16), v17, &v24);
+          v18 = v24;
+          *v24 = *(v16 - 8);
+          *(v18 + 1) = *v16;
+          *v16 = 0;
+          *(v16 + 8) = 0;
+          ++*(a1 + 8);
+        }
+
+        v16 += 24;
+        v15 -= 24;
+      }
+
+      while (v15);
+    }
+
+    JUMPOUT(0x277C69E30);
+  }
+
+  *(a1 + 8) = 0;
+  v19 = *(a1 + 16);
+  if (v19)
+  {
+    v20 = 0;
+    v21 = 24 * v19 - 24;
+    v22 = vdupq_n_s64(v21 / 0x18);
+    do
+    {
+      v23 = vmovn_s64(vcgeq_u64(v22, vorrq_s8(vdupq_n_s64(v20), xmmword_2750C1210)));
+      if (v23.i8[0])
+      {
+        *result = -1;
+      }
+
+      if (v23.i8[4])
+      {
+        result[3] = -1;
+      }
+
+      v20 += 2;
+      result += 6;
+    }
+
+    while (((v21 / 0x18 + 2) & 0x1FFFFFFFFFFFFFFELL) != v20);
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_emplace<llvm::unique_function<void ()(llvm::unique_function<void ()(llvm::orc::shared::WrapperFunctionResult)>,char const*,unsigned long)>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_2883EBFD8;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x277C69E40);
+}
+
+void std::__split_buffer<llvm::orc::LookupState *>::emplace_back<llvm::orc::LookupState *&>(unint64_t *a1, void *a2)
+{
+  v4 = a1[2];
+  if (v4 == a1[3])
+  {
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
+    {
+      if (v4 == *a1)
+      {
+        v11 = 1;
+      }
+
+      else
+      {
+        v11 = &v4[-*a1] >> 2;
+      }
+
+      std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::IntrusiveRefCntPtr<llvm::orc::JITDylib>>>(v11);
+    }
+
+    v7 = ((v6 >> 3) + 1) / -2;
+    v8 = ((v6 >> 3) + 1) / 2;
+    v9 = &v5[-8 * v8];
+    v10 = v4 - v5;
+    if (v4 != v5)
+    {
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
+    }
+
+    v4 = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
+  }
+
+  *v4 = *a2;
+  a1[2] += 8;
+}
+
+void *llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::grow(uint64_t *a1, int a2)
+{
+  v3 = *(a1 + 4);
+  v4 = *a1;
+  v5 = (a2 - 1) | ((a2 - 1) >> 1);
+  v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
+  v7 = ((v6 | (v6 >> 8)) >> 16) | v6 | (v6 >> 8);
+  if ((v7 + 1) > 0x40)
+  {
+    v8 = v7 + 1;
+  }
+
+  else
+  {
+    v8 = 64;
+  }
+
+  *(a1 + 4) = v8;
+  result = operator new(72 * v8, 8uLL);
+  *a1 = result;
+  if (v4)
+  {
+    a1[1] = 0;
+    v10 = *(a1 + 4);
+    if (v10)
+    {
+      v11 = 0;
+      v12 = 72 * v10 - 72;
+      v13 = vdupq_n_s64(v12 / 0x48);
+      do
+      {
+        v14 = vmovn_s64(vcgeq_u64(v13, vorrq_s8(vdupq_n_s64(v11), xmmword_2750C1210)));
+        if (v14.i8[0])
+        {
+          *result = -4096;
+        }
+
+        if (v14.i8[4])
+        {
+          result[9] = -4096;
+        }
+
+        v11 += 2;
+        result += 18;
+      }
+
+      while (((v12 / 0x48 + 2) & 0x7FFFFFFFFFFFFFELL) != v11);
+    }
+
+    if (v3)
+    {
+      v15 = 72 * v3;
+      v16 = (v4 + 32);
+      do
+      {
+        v17 = *(v16 - 4);
+        if ((v17 | 0x1000) != 0xFFFFFFFFFFFFF000)
+        {
+          v29 = 0;
+          llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(*a1, *(a1 + 4), v17, &v29);
+          v18 = v29;
+          *v29 = *(v16 - 4);
+          *(v18 + 1) = *(v16 - 6);
+          *(v16 - 3) = 0;
+          *(v16 - 2) = 0;
+          v18[3] = 0;
+          v18[4] = 0;
+          *(v18 + 10) = 0;
+          v18[3] = *(v16 - 1);
+          *(v16 - 1) = 0;
+          *(v18 + 8) = *v16;
+          *v16 = 0;
+          v19 = *(v18 + 9);
+          *(v18 + 9) = v16[1];
+          v16[1] = v19;
+          v20 = *(v18 + 10);
+          *(v18 + 10) = v16[2];
+          v16[2] = v20;
+          v18[6] = 0;
+          v18[7] = 0;
+          *(v18 + 16) = 0;
+          v18[6] = *(v16 + 2);
+          *(v16 + 2) = 0;
+          *(v18 + 14) = v16[6];
+          v16[6] = 0;
+          v21 = *(v18 + 15);
+          *(v18 + 15) = v16[7];
+          v16[7] = v21;
+          v22 = *(v18 + 16);
+          *(v18 + 16) = v16[8];
+          v16[8] = v22;
+          ++*(a1 + 2);
+          llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::destroyAll(v16 + 4);
+          MEMORY[0x277C69E30](*(v16 + 2), 8);
+          MEMORY[0x277C69E30](*(v16 - 1), 8);
+          v23 = *(v16 - 2);
+          if (v23)
+          {
+            std::__shared_weak_count::__release_shared[abi:nn200100](v23);
+          }
+        }
+
+        v16 += 18;
+        v15 -= 72;
+      }
+
+      while (v15);
+    }
+
+    JUMPOUT(0x277C69E30);
+  }
+
+  a1[1] = 0;
+  v24 = *(a1 + 4);
+  if (v24)
+  {
+    v25 = 0;
+    v26 = 72 * v24 - 72;
+    v27 = vdupq_n_s64(v26 / 0x48);
+    do
+    {
+      v28 = vmovn_s64(vcgeq_u64(v27, vorrq_s8(vdupq_n_s64(v25), xmmword_2750C1210)));
+      if (v28.i8[0])
+      {
+        *result = -4096;
+      }
+
+      if (v28.i8[4])
+      {
+        result[9] = -4096;
+      }
+
+      v25 += 2;
+      result += 18;
+    }
+
+    while (((v26 / 0x48 + 2) & 0x7FFFFFFFFFFFFFELL) != v25);
+  }
+
+  return result;
+}
+
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(uint64_t a1, int a2, uint64_t a3, void *a4)
+{
+  if (a2)
+  {
+    v4 = a2 - 1;
+    v5 = ((a3 >> 4) ^ (a3 >> 9)) & (a2 - 1);
+    v6 = (a1 + 72 * v5);
+    v7 = *v6;
+    if (*v6 == a3)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 1;
+      while (v7 != -4096)
+      {
+        if (v10)
+        {
+          v12 = 0;
+        }
+
+        else
+        {
+          v12 = v7 == -8192;
+        }
+
+        if (v12)
+        {
+          v10 = v6;
+        }
+
+        v13 = v5 + v11++;
+        v5 = v13 & v4;
+        v6 = (a1 + 72 * (v13 & v4));
+        v7 = *v6;
+        v8 = 1;
+        if (*v6 == a3)
+        {
+          goto LABEL_5;
+        }
+      }
+
+      v8 = 0;
+      if (v10)
+      {
+        v6 = v10;
+      }
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
+  }
+
+LABEL_5:
+  *a4 = v6;
+  return v8;
+}
+
+void std::__shared_ptr_emplace<llvm::orc::JITDylib::EmissionDepUnit>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_2883EC010;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x277C69E40);
+}
+
+void std::__shared_ptr_emplace<llvm::orc::JITDylib::EmissionDepUnit>::__on_zero_shared(uint64_t a1)
+{
+  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>,llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::NonOwningSymbolStringPtr,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>>>>::destroyAll((a1 + 56));
+  MEMORY[0x277C69E30](*(a1 + 56), 8);
+
+  JUMPOUT(0x277C69E30);
+}
+
+void *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::FindAndConstruct(uint64_t a1, uint64_t *a2)
+{
+  v7 = 0;
+  v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(*a1, *(a1 + 16), *a2, &v7);
+  v5 = v7;
+  if ((v4 & 1) == 0)
+  {
+    v5 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::InsertIntoBucketImpl<llvm::orc::JITDylib::EmissionDepUnit *>(a1, a2, v7);
+    *v5 = *a2;
+    *(v5 + 7) = 0u;
+    *(v5 + 5) = 0u;
+    *(v5 + 3) = 0u;
+    *(v5 + 1) = 0u;
+  }
+
+  return v5;
+}
+
+void *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::InsertIntoBucketImpl<llvm::orc::JITDylib::EmissionDepUnit *>(uint64_t a1, uint64_t *a2, void *a3)
+{
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 16);
+  if (4 * v5 + 4 >= 3 * v6)
+  {
+    v6 *= 2;
+  }
+
+  else if (v6 + ~v5 - *(a1 + 12) > v6 >> 3)
+  {
+    goto LABEL_3;
+  }
+
+  llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::grow(a1, v6);
+  v8 = 0;
+  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>,llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo,llvm::DenseMapInfo<llvm::orc::JITDylib::EmissionDepUnit *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib::EmissionDepUnit *,llvm::orc::JITDylib::EmissionDepUnitInfo>>::LookupBucketFor<llvm::orc::JITDylib::EmissionDepUnit *>(*a1, *(a1 + 16), *a2, &v8);
+  a3 = v8;
+LABEL_3:
+  ++*(a1 + 8);
+  if (*a3 != -4096)
+  {
+    --*(a1 + 12);
+  }
+
+  return a3;
+}
+
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::NonOwningSymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::NonOwningSymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::NonOwningSymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::NonOwningSymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::NonOwningSymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::NonOwningSymbolStringPtr>(uint64_t a1, int a2, uint64_t a3, void *a4)
+{
+  if (a2)
+  {
+    v4 = a2 - 1;
+    v5 = ((a3 >> 4) ^ (a3 >> 9)) & (a2 - 1);
+    v6 = (a1 + 16 * v5);
+    v7 = *v6;
+    if (*v6 == a3)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = 1;
+      while (v7 != -8)
+      {
+        if (v10)
+        {
+          v12 = 0;
+        }
+
+        else
+        {
+          v12 = v7 == -16;
+        }
+
+        if (v12)
+        {
+          v10 = v6;
+        }
+
+        v13 = v5 + v11++;
+        v5 = v13 & v4;
+        v6 = (a1 + 16 * (v13 & v4));
+        v7 = *v6;
+        v8 = 1;
+        if (*v6 == a3)
+        {
+          goto LABEL_5;
+        }
+      }
+
+      v8 = 0;
+      if (v10)
+      {
+        v6 = v10;
+      }
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
+  }
+
+LABEL_5:
+  *a4 = v6;
+  return v8;
 }

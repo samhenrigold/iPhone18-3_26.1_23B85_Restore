@@ -390,7 +390,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x1000) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -410,7 +409,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  navigationStartToRedirectStartMillis = self->_navigationStartToRedirectStartMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -425,7 +423,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  redirectStartToRedirectEndMillis = self->_redirectStartToRedirectEndMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -440,7 +437,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  redirectEndToFetchStartMillis = self->_redirectEndToFetchStartMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -455,7 +451,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  fetchStartToDomainLookupStartMillis = self->_fetchStartToDomainLookupStartMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -470,7 +465,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  domainLookupStartToDomainLookupEndMillis = self->_domainLookupStartToDomainLookupEndMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -485,7 +479,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  domainLookupEndToConnectStartMillis = self->_domainLookupEndToConnectStartMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -500,7 +493,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  connectStartToSecureConnectionStartMillis = self->_connectStartToSecureConnectionStartMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -515,7 +507,6 @@ LABEL_10:
   }
 
 LABEL_23:
-  connectStartToConnectEndMillis = self->_connectStartToConnectEndMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -530,7 +521,6 @@ LABEL_11:
   }
 
 LABEL_24:
-  secureConnectionStartToConnectEndMillis = self->_secureConnectionStartToConnectEndMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -542,7 +532,6 @@ LABEL_12:
     }
 
 LABEL_26:
-    requestStartToResponseStartMillis = self->_requestStartToResponseStartMillis;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x400) == 0)
     {
@@ -553,7 +542,6 @@ LABEL_26:
   }
 
 LABEL_25:
-  connectEndToRequestStartMillis = self->_connectEndToRequestStartMillis;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x200) != 0)
@@ -568,7 +556,6 @@ LABEL_13:
   }
 
 LABEL_27:
-  responseStartToResponseEndMillis = self->_responseStartToResponseEndMillis;
 
   PBDataWriterWriteUint64Field();
 }

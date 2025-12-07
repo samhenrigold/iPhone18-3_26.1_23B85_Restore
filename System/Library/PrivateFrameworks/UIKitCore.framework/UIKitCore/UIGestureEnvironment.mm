@@ -1,15 +1,15 @@
 @interface UIGestureEnvironment
 - (BOOL)_hasGesturesNeedingUpdate;
 - (UIGestureEnvironment)init;
+- (id)_clearGestureNeedsUpdate:(id *)result;
 - (id)_gesturesWithDelayedTouchForTouch:(uint64_t)touch event:(void *)event;
 - (id)_nodeForGestureRecognizer:(id *)recognizer;
 - (id)nodeCoordinator;
+- (id)setGestureNeedsUpdate:(id *)result;
 - (uint64_t)_activeRelationshipsForGestureRecognizer:(uint64_t)recognizer;
-- (uint64_t)_clearGestureNeedsUpdate:(uint64_t)result;
 - (uint64_t)gestureRecognizer:(uint64_t)recognizer requiresGestureRecognizerToFail:;
-- (uint64_t)setGestureNeedsUpdate:(uint64_t)result;
 - (uint64_t)unmetRequirementsForGestureRecognizer:(uint64_t)recognizer;
-- (void)_cancelGestureRecognizers:(uint64_t)recognizers;
+- (void)_cancelGestureRecognizers:(id *)recognizers;
 - (void)_forceUpdateForSpringBoardOnly;
 - (void)_gestureNeedsReset:(uint64_t)reset;
 - (void)_notifyDependentsGestureRecognizerHasCompleted:(uint64_t)completed;
@@ -164,7 +164,7 @@ void __39__UIGestureEnvironment_nodeCoordinator__block_invoke(uint64_t a1)
   if (WeakRetained)
   {
     v2 = WeakRetained;
-    [UIGestureEnvironment _runTouchContinuationActions];
+    [(UIGestureEnvironment *)WeakRetained _runTouchContinuationActions];
     WeakRetained = v2;
   }
 }
@@ -684,9 +684,9 @@ LABEL_18:
 void __95__UIGestureEnvironment_removeRequirementForGestureRecognizer_requiringGestureRecognizerToFail___block_invoke(uint64_t a1, void *a2)
 {
   v4 = [a2 label];
-  v5 = [v4 isEqualToString:@"failureRequirement"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = *(*(a1 + 32) + 88);
 
@@ -1391,7 +1391,7 @@ LABEL_19:
   [v5 _gestureRecognizerNoLongerNeedsSendEvent:a2];
 }
 
-- (uint64_t)setGestureNeedsUpdate:(uint64_t)result
+- (id)setGestureNeedsUpdate:(id *)result
 {
   if (result)
   {
@@ -1426,7 +1426,7 @@ LABEL_9:
 
         if (container)
         {
-          return [*(v3 + 16) addObject:a2];
+          return [v3[2] addObject:a2];
         }
 
         else
@@ -1952,7 +1952,7 @@ void __47__UIGestureEnvironment__updateForEvent_window___block_invoke_35(uint64_
   }
 }
 
-- (void)_cancelGestureRecognizers:(uint64_t)recognizers
+- (void)_cancelGestureRecognizers:(id *)recognizers
 {
   v44 = *MEMORY[0x1E69E9840];
   if (!recognizers)
@@ -2125,7 +2125,7 @@ LABEL_40:
   }
 }
 
-- (uint64_t)_clearGestureNeedsUpdate:(uint64_t)result
+- (id)_clearGestureNeedsUpdate:(id *)result
 {
   if (result)
   {
@@ -2148,7 +2148,7 @@ LABEL_40:
 
         if (a2)
         {
-          return [*(v3 + 16) removeObject:a2];
+          return [v3[2] removeObject:a2];
         }
 
         goto LABEL_14;
@@ -2164,14 +2164,14 @@ LABEL_40:
 
     if (a2)
     {
-      return [*(v3 + 16) removeObject:a2];
+      return [v3[2] removeObject:a2];
     }
 
 LABEL_14:
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:sel__clearGestureNeedsUpdate_ object:v3 file:@"UIGestureEnvironment.m" lineNumber:1151 description:{@"Invalid parameter not satisfying: %@", @"gestureRecognizer"}];
 
-    return [*(v3 + 16) removeObject:a2];
+    return [v3[2] removeObject:a2];
   }
 
   return result;

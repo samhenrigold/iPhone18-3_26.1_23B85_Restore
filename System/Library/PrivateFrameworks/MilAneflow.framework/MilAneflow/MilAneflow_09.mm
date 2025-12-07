@@ -1,2383 +1,3 @@
-uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::operator()(uint64_t a1, __int16 *a2)
-{
-  v5 = *a2;
-  Float = MIL::Fp16::GetFloat(&v5);
-  if (v3 < 0.0)
-  {
-    v3 = 0.0;
-  }
-
-  return MIL::Fp16::FromFloat(Float, v3);
-}
-
-uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#1}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::operator()(uint64_t a1, __int16 *a2)
-{
-  v5 = *a2;
-  Float = MIL::Fp16::GetFloat(&v5);
-  if (v3 < 0.0)
-  {
-    v3 = 0.0;
-  }
-
-  return MIL::Fp16::FromFloat(Float, v3);
-}
-
-uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#1}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::operator()(uint64_t a1, __int16 *a2)
-{
-  v5 = *a2;
-  Float = MIL::Fp16::GetFloat(&v5);
-  if (v3 < 0.0)
-  {
-    v3 = 0.0;
-  }
-
-  return MIL::Fp16::FromFloat(Float, v3);
-}
-
-uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,MIL::Fp16>(MIL::Fp16 const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(MIL::Fp16)#2}>,MIL::Fp16 ()(MIL::Fp16)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1}>,unsigned char ()(unsigned char)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1}>,unsigned char ()(unsigned char)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,unsigned char>(unsigned char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(unsigned char)#1}>,unsigned char ()(unsigned char)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2},std::allocator<std::vector<MIL::Fp16> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<MIL::Fp16,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2},std::allocator<std::vector<unsigned char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<unsigned char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#1}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2},std::allocator<std::vector<signed char> MIL::ANEMachineIR::Interpreter::anonymous namespace::ComputeValueAvgPool<signed char,signed char>(signed char const*,unsigned long long,std::vector<unsigned long long> const&,std::vector<unsigned long long> const&,std::vector<int> const&,std::vector<int> const&,std::array<std::pair<int,int>,3ul> const&,MIL::Fp16,BOOL,BOOL,std::function<float ()(float)>)::{lambda(signed char)#2}>,signed char ()(signed char)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void ANEMachineIR::H2020::BasePeElementWiseBinary::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2599E597C(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 104);
-  *(v2 - 104) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 80), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x310], 0);
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeAdd::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeAdd;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeAddAbs::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeAddAbs;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeAddMul::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeAddMul;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeAddSquare::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeAddSquare;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E65E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeEqual::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeEqual;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E66C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeGreater::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeGreater;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E67A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeGreaterEqual::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeGreaterEqual;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6880(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeLess::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeLess;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeLessEqual::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeLessEqual;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6A40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeMaximum::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeMaximum;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6B20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeMinimum::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeMinimum;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6C00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeMul::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeMul;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6CE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeNotEqual::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeNotEqual;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseBinary::Make();
-}
-
-void sub_2599E6DC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::BasePeElementWiseUnary::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2599E8388(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 104);
-  *(v2 - 104) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 80), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x260], 0);
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeAbs::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeAbs;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseUnary::Make();
-}
-
-void sub_2599E8BB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::PeSquare::Make(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeSquare;
-  v4[3] = v4;
-  ANEMachineIR::H2020::BasePeElementWiseUnary::Make();
-}
-
-void sub_2599E8C94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](&a15);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::NeActivation::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2599E9980(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 80);
-  *(v2 - 80) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::NeAdd::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2599EB26C(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 80);
-  *(v2 - 80) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::NeMaximum::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2599EC93C(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 80);
-  *(v2 - 80) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::NeMinimum::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2599EDF1C(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 80);
-  *(v2 - 80) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::NeMul::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2599EF790(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 80);
-  *(v2 - 80) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
-  _Unwind_Resume(a1);
-}
-
-void ANEMachineIR::H2020::NeSquare::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2599F0CF4(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 80);
-  *(v2 - 80) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 112), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 216), 0);
-  _Unwind_Resume(a1);
-}
-
-void MilTranslator::Passes::FuseConvScale::Match(uint64_t a1@<X1>, void *a2@<X8>)
-{
-  v67 = *MEMORY[0x277D85DE8];
-  MIL::Builder::BlockBuilder::GetOperations(&v58, *a1);
-  v4 = v58;
-  v5 = v59;
-  if (v58 == v59)
-  {
-LABEL_12:
-    __p = &v58;
-    std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&__p);
-    v10 = 0;
-LABEL_13:
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
-    if (!v10)
-    {
-      goto LABEL_15;
-    }
-
-LABEL_14:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-    goto LABEL_15;
-  }
-
-  while (1)
-  {
-    Operator = MIL::Builder::OperationBuilder::GetOperator(*v4);
-    v7 = (*(*Operator + 16))(Operator);
-    v8 = *(v7 + 23);
-    if (v8 < 0)
-    {
-      break;
-    }
-
-    if (v8 == 7)
-    {
-      goto LABEL_7;
-    }
-
-LABEL_11:
-    v4 += 16;
-    if (v4 == v5)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  if (*(v7 + 8) != 7)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = *v7;
-LABEL_7:
-  if (*v7 != 1667196270 || *(v7 + 3) != 1986948963)
-  {
-    goto LABEL_11;
-  }
-
-  v12 = *v4;
-  v10 = *(v4 + 8);
-  if (v10)
-  {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  __p = &v58;
-  std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&__p);
-  if (!v12)
-  {
-    goto LABEL_13;
-  }
-
-  MIL::Builder::OperationBuilder::GetChildOperations(&v58, v12);
-  if (v61 != 1 || (MIL::Builder::OperationBuilder::GetBlocks(&__p, v12), v13 = __p, v14 = v64, p_p = &__p, std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&p_p), v13 != v14))
-  {
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
-    goto LABEL_22;
-  }
-
-  v16 = *(v60 + 16);
-  v15 = *(v60 + 24);
-  if (v15)
-  {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v17 = MIL::Builder::OperationBuilder::GetOperator(v16);
-  v18 = (*(*v17 + 16))(v17);
-  v19 = *(v18 + 23);
-  if (v19 < 0)
-  {
-    if (*(v18 + 8) != 6)
-    {
-      goto LABEL_35;
-    }
-
-    v18 = *v18;
-  }
-
-  else if (v19 != 6)
-  {
-    goto LABEL_35;
-  }
-
-  if (*v18 != 1834968430 || *(v18 + 4) != 27765)
-  {
-LABEL_35:
-    v21 = MIL::Builder::OperationBuilder::GetOperator(v16);
-    v22 = (*(*v21 + 16))(v21);
-    v23 = *(v22 + 23);
-    if (v23 < 0)
-    {
-      if (*(v22 + 8) != 6)
-      {
-        goto LABEL_84;
-      }
-
-      v22 = *v22;
-    }
-
-    else if (v23 != 6)
-    {
-      goto LABEL_84;
-    }
-
-    if (*v22 != 1834968432 || *(v22 + 4) != 27765)
-    {
-LABEL_84:
-      *a2 = 0;
-      a2[1] = 0;
-      a2[2] = 0;
-      goto LABEL_85;
-    }
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "x");
-  ArgumentForParameter = MIL::Builder::OperationBuilder::GetArgumentForParameter();
-  if (SHIBYTE(v65) < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "y");
-  v26 = MIL::Builder::OperationBuilder::GetArgumentForParameter();
-  if (SHIBYTE(v65) < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (ArgumentForParameter != MIL::Builder::OperationBuilder::GetOutput(v12) && v26 != MIL::Builder::OperationBuilder::GetOutput(v12))
-  {
-    goto LABEL_84;
-  }
-
-  Output = MIL::Builder::OperationBuilder::GetOutput(v12);
-  v28 = (ArgumentForParameter == Output ? v26 : ArgumentForParameter);
-  Value = MIL::Builder::Variable::TryGetValue(v28);
-  if (!Value)
-  {
-    goto LABEL_84;
-  }
-
-  v30 = (ArgumentForParameter == Output ? ArgumentForParameter : v26);
-  Type = MIL::Builder::Variable::TryGetType(v30);
-  if (!Type)
-  {
-    goto LABEL_84;
-  }
-
-  v32 = MIL::IRValueType::AsTensorType(Type);
-  v33 = (*(*Value + 32))(Value);
-  v34 = (*(*v33 + 24))(v33);
-  if (!v32)
-  {
-    goto LABEL_84;
-  }
-
-  v35 = v34;
-  if (!v34)
-  {
-    goto LABEL_84;
-  }
-
-  v36 = (*(*v32 + 96))(v32);
-  v37 = (*(*v35 + 96))(v35);
-  v38 = *v37;
-  v39 = v37[1];
-  if (*v37 != v39)
-  {
-    v40 = v36[1];
-    if (v40 == *v36)
-    {
-      goto LABEL_96;
-    }
-
-    if (*(v40 - 8) != *(v39 - 8))
-    {
-      goto LABEL_84;
-    }
-
-    v41 = v39 - v38;
-    if (v41 != 8)
-    {
-      v42 = 0;
-      v43 = v41 >> 3;
-      while (v43 > v42)
-      {
-        v44 = MIL::IRDimension::AsConstant(*(v38 + 8 * v42));
-        if ((*(*v44 + 48))(v44) != 1)
-        {
-          goto LABEL_84;
-        }
-
-        ++v42;
-        v38 = *v37;
-        v43 = (v37[1] - *v37) >> 3;
-        if (v42 >= v43 - 1)
-        {
-          goto LABEL_69;
-        }
-      }
-
-LABEL_96:
-      std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-    }
-  }
-
-LABEL_69:
-  v45 = MIL::Builder::OperationBuilder::GetOutput(v12);
-  v46 = MIL::Builder::Variable::TryGetType(v45);
-  if (v46)
-  {
-    v47 = MIL::IRValueType::AsTensorType(v46);
-    if ((*(*v47 + 88))(v47) != 4)
-    {
-      goto LABEL_84;
-    }
-  }
-
-  v56 = v12;
-  v57 = v10;
-  if (v10)
-  {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "post_scale");
-  v48 = ANEMachineIR::Utils::TryGetArgumentForParameter(&v56);
-  if (SHIBYTE(v65) < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v57)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v57);
-  }
-
-  if (v48 && !MIL::Builder::Variable::TryGetType(v48))
-  {
-    goto LABEL_84;
-  }
-
-  v49 = *(a1 + 8);
-  v54 = *a1;
-  v55 = v49;
-  if (v49)
-  {
-    atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  OutputName = MIL::Builder::OperationBuilder::GetOutputName(v16);
-  IsBlockOutput = ANEMachineIR::Utils::IsBlockOutput(&v54, OutputName);
-  if (v55)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v55);
-  }
-
-  if (IsBlockOutput)
-  {
-    goto LABEL_84;
-  }
-
-  __p = v12;
-  v64 = v10;
-  if (v10)
-  {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v65 = v16;
-  v66 = v15;
-  if (v15)
-  {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::OperationBuilder> const*,std::shared_ptr<MIL::Builder::OperationBuilder> const*>(a2, &__p, &v67, 2uLL);
-  for (i = 24; i != -8; i -= 16)
-  {
-    v53 = *(&__p + i);
-    if (v53)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v53);
-    }
-  }
-
-LABEL_85:
-  if (v15)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-  }
-
-LABEL_22:
-  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(&v58);
-  if (v10)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_15:
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2599F1804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
-{
-  v29 = 24;
-  while (1)
-  {
-    v30 = *(v27 + v29);
-    if (v30)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
-    }
-
-    v29 -= 16;
-    if (v29 == -8)
-    {
-      if (v26)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-      }
-
-      std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(&a14);
-      if (v25)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
-      }
-
-      _Unwind_Resume(a1);
-    }
-  }
-}
-
-void MilTranslator::Passes::FuseConvScale::Replace(uint64_t *a1@<X1>, MIL::Builder::OperationBuilder ***a2@<X2>, uint64_t a3@<X8>)
-{
-  v4 = *a2;
-  if (a2[1] - *a2 == 32)
-  {
-    v135 = a3;
-    v7 = *v4;
-    v6 = v4[1];
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-      v4 = *a2;
-      if ((a2[1] - *a2) <= 0x10)
-      {
-        std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-      }
-    }
-
-    v8 = v4[3];
-    v136 = v4[2];
-    if (v8)
-    {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v134 = v8;
-    v9 = *a1;
-    std::string::basic_string[abi:ne200100]<0>(&v227, "ne_conv");
-    v219 = v136;
-    v220 = v134;
-    if (v134)
-    {
-      atomic_fetch_add_explicit(&v134->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    MIL::Builder::BlockBuilder::AddOperation();
-    if (v220)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v220);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "x");
-    std::string::basic_string[abi:ne200100]<0>(&v227, "x");
-    ArgumentForParameter = MIL::Builder::OperationBuilder::GetArgumentForParameter();
-    Name = MIL::Builder::Variable::GetName(ArgumentForParameter);
-    if (*(Name + 23) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v215, *Name, *(Name + 8));
-    }
-
-    else
-    {
-      v12 = *Name;
-      v215.__r_.__value_.__r.__words[2] = *(Name + 16);
-      *&v215.__r_.__value_.__l.__data_ = v12;
-    }
-
-    MIL::Builder::OperationBuilder::AddInput();
-    if (v218)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
-    }
-
-    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v215.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    if (v217 < 0)
-    {
-      operator delete(__p);
-    }
-
-    v15 = std::string::basic_string[abi:ne200100]<0>(&v227, "dense_kernel");
-    v213 = v7;
-    v214 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v211 = v221;
-    v212 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v15, &v213, &v211);
-    if (v212)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v212);
-    }
-
-    if (v214)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v214);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v16 = std::string::basic_string[abi:ne200100]<0>(&v227, "strides");
-    v209 = v7;
-    v210 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v207 = v221;
-    v208 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v16, &v209, &v207);
-    if (v208)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v208);
-    }
-
-    if (v210)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v210);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v17 = std::string::basic_string[abi:ne200100]<0>(&v227, "pad_mode");
-    v205 = v7;
-    v206 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v203 = v221;
-    v204 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v17, &v205, &v203);
-    if (v204)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v204);
-    }
-
-    if (v206)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v206);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v18 = std::string::basic_string[abi:ne200100]<0>(&v227, "pad");
-    v201 = v7;
-    v202 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v199 = v221;
-    v200 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v18, &v201, &v199);
-    if (v200)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v200);
-    }
-
-    if (v202)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v202);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v19 = std::string::basic_string[abi:ne200100]<0>(&v227, "dilations");
-    v197 = v7;
-    v198 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v195 = v221;
-    v196 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v19, &v197, &v195);
-    if (v196)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v196);
-    }
-
-    if (v198)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v198);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v20 = std::string::basic_string[abi:ne200100]<0>(&v227, "num_groups");
-    v193 = v7;
-    v194 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v191 = v221;
-    v192 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v20, &v193, &v191);
-    if (v192)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v192);
-    }
-
-    if (v194)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v194);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v21 = std::string::basic_string[abi:ne200100]<0>(&v227, "group_kernel_reuse");
-    v189 = v7;
-    v190 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v187 = v221;
-    v188 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v21, &v189, &v187);
-    if (v188)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v188);
-    }
-
-    if (v190)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v190);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v22 = std::string::basic_string[abi:ne200100]<0>(&v227, "bias");
-    v185 = v7;
-    v186 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v183 = v221;
-    v184 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v22, &v185, &v183);
-    if (v184)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v184);
-    }
-
-    if (v186)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v186);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v23 = std::string::basic_string[abi:ne200100]<0>(&v227, "acc_left_shift");
-    v181 = v7;
-    v182 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v179 = v221;
-    v180 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v23, &v181, &v179);
-    if (v180)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v180);
-    }
-
-    if (v182)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v182);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v24 = std::string::basic_string[abi:ne200100]<0>(&v227, "acc_bias_shift");
-    v177 = v7;
-    v178 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v175 = v221;
-    v176 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v24, &v177, &v175);
-    if (v176)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v176);
-    }
-
-    if (v178)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v178);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v25 = std::string::basic_string[abi:ne200100]<0>(&v227, "post_right_shift");
-    v173 = v7;
-    v174 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v171 = v221;
-    v172 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v25, &v173, &v171);
-    if (v172)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v172);
-    }
-
-    if (v174)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v174);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v26 = std::string::basic_string[abi:ne200100]<0>(&v227, "transposed");
-    v169 = v7;
-    v170 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v167 = v221;
-    v168 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v26, &v169, &v167);
-    if (v168)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v168);
-    }
-
-    if (v170)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v170);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v27 = std::string::basic_string[abi:ne200100]<0>(&v227, "pre_relu");
-    v165 = v7;
-    v166 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v163 = v221;
-    v164 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v27, &v165, &v163);
-    if (v164)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v164);
-    }
-
-    if (v166)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v166);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v28 = std::string::basic_string[abi:ne200100]<0>(&v227, "alternative_format_kernel_coefficients");
-    v161 = v7;
-    v162 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v159 = v221;
-    v160 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v28, &v161, &v159);
-    if (v160)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v160);
-    }
-
-    if (v162)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v162);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v29 = std::string::basic_string[abi:ne200100]<0>(&v227, "sparse_mask");
-    v157 = v7;
-    v158 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v155 = v221;
-    v156 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v29, &v157, &v155);
-    if (v156)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v156);
-    }
-
-    if (v158)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v158);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v30 = std::string::basic_string[abi:ne200100]<0>(&v227, "sparse_num_nonzero");
-    v153 = v7;
-    v154 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v151 = v221;
-    v152 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v30, &v153, &v151);
-    if (v152)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v152);
-    }
-
-    if (v154)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v154);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v31 = std::string::basic_string[abi:ne200100]<0>(&v227, "sparse_num_nonzero_per_filter");
-    v149 = v7;
-    v150 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v147 = v221;
-    v148 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v31, &v149, &v147);
-    if (v148)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v148);
-    }
-
-    if (v150)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v150);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    v32 = std::string::basic_string[abi:ne200100]<0>(&v227, "palette_table");
-    v145 = v7;
-    v146 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v143 = v221;
-    v144 = v222;
-    if (v222)
-    {
-      atomic_fetch_add_explicit(&v222->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v32, &v145, &v143);
-    if (v144)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v144);
-    }
-
-    if (v146)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v146);
-    }
-
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v227, "x");
-    v33 = MIL::Builder::OperationBuilder::GetArgumentForParameter();
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v227, "y");
-    v34 = MIL::Builder::OperationBuilder::GetArgumentForParameter();
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    if (v33 == MIL::Builder::OperationBuilder::GetOutput(v7))
-    {
-      v35 = v34;
-    }
-
-    else
-    {
-      v35 = v33;
-    }
-
-    Value = MIL::Builder::Variable::GetValue(v35);
-    v37 = MIL::IRValue::AsTensor(Value);
-    v141 = v7;
-    v142 = v6;
-    if (v6)
-    {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&v227, "post_scale");
-    v38 = ANEMachineIR::Utils::TryGetArgumentForParameter(&v141);
-    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v227.__r_.__value_.__l.__data_);
-    }
-
-    if (v142)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v142);
-    }
-
-    memset(&v227, 0, sizeof(v227));
-    if (v38)
-    {
-      Type = MIL::Builder::Variable::TryGetType(v38);
-      v40 = MIL::IRValueType::AsTensorType(Type);
-      if (MIL::IRTensorValueType::IsScalar(v40))
-      {
-        LOWORD(__src.__r_.__value_.__l.__data_) = MIL::Builder::Variable::GetScalarValue<MIL::Fp16>();
-        std::vector<MIL::Fp16>::__assign_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v227, &__src, &__src.__r_.__value_.__s.__data_[2], 1uLL);
-      }
-
-      else
-      {
-        v43 = (*(*Type + 16))(Type);
-        std::vector<MIL::Fp16>::reserve(&v227, v43);
-        v44 = MIL::Builder::Variable::GetValue(v38);
-        MIL::IRValue::AsTensor(v44);
-        v45 = 0;
-        __src.__r_.__value_.__r.__words[0] = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-        __src.__r_.__value_.__l.__size_ = v46;
-        while (v45 < (*(*Type + 16))(Type))
-        {
-          v47 = MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::At(&__src, v45);
-          size = v227.__r_.__value_.__l.__size_;
-          if (v227.__r_.__value_.__l.__size_ >= v227.__r_.__value_.__r.__words[2])
-          {
-            v50 = v227.__r_.__value_.__r.__words[0];
-            v51 = v227.__r_.__value_.__l.__size_ - v227.__r_.__value_.__r.__words[0];
-            v52 = (v227.__r_.__value_.__l.__size_ - v227.__r_.__value_.__r.__words[0]) >> 1;
-            if (v52 <= -2)
-            {
-              std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
-            }
-
-            if (v227.__r_.__value_.__r.__words[2] - v227.__r_.__value_.__r.__words[0] <= v52 + 1)
-            {
-              v53 = v52 + 1;
-            }
-
-            else
-            {
-              v53 = v227.__r_.__value_.__r.__words[2] - v227.__r_.__value_.__r.__words[0];
-            }
-
-            if (v227.__r_.__value_.__r.__words[2] - v227.__r_.__value_.__r.__words[0] >= 0x7FFFFFFFFFFFFFFELL)
-            {
-              v54 = 0x7FFFFFFFFFFFFFFFLL;
-            }
-
-            else
-            {
-              v54 = v53;
-            }
-
-            if (v54)
-            {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<MIL::Fp16>>(&v227, v54);
-            }
-
-            v55 = (2 * v52);
-            v56 = &v55[-((v227.__r_.__value_.__l.__size_ - v227.__r_.__value_.__r.__words[0]) >> 1)];
-            *v55 = *v47;
-            v49 = (v55 + 1);
-            memcpy(v56, v50, v51);
-            v57 = v227.__r_.__value_.__r.__words[0];
-            v227.__r_.__value_.__r.__words[0] = v56;
-            *&v227.__r_.__value_.__r.__words[1] = v49;
-            if (v57)
-            {
-              operator delete(v57);
-            }
-          }
-
-          else
-          {
-            *v227.__r_.__value_.__l.__size_ = *v47;
-            v49 = size + 2;
-          }
-
-          v227.__r_.__value_.__l.__size_ = v49;
-          ++v45;
-        }
-      }
-    }
-
-    else
-    {
-      v41 = (*(*v37 + 32))(v37);
-      IsScalar = MIL::IRTensorValueType::IsScalar(v41);
-      if (IsScalar)
-      {
-        LOWORD(__src.__r_.__value_.__l.__data_) = MIL::Fp16::FromFloat(IsScalar, 1.0);
-        std::vector<MIL::Fp16>::__assign_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v227, &__src, &__src.__r_.__value_.__s.__data_[2], 1uLL);
-      }
-
-      else
-      {
-        v58 = MIL::IRValue::AsTensor(v37);
-        v59 = (*(*v58 + 32))(v58);
-        v60 = (*(*v59 + 16))(v59);
-        for (i = std::vector<MIL::Fp16>::reserve(&v227, v60); v60; --v60)
-        {
-          i = MIL::Fp16::FromFloat(i, 1.0);
-          v62 = v227.__r_.__value_.__l.__size_;
-          if (v227.__r_.__value_.__l.__size_ >= v227.__r_.__value_.__r.__words[2])
-          {
-            v64 = v227.__r_.__value_.__r.__words[0];
-            v65 = v227.__r_.__value_.__l.__size_ - v227.__r_.__value_.__r.__words[0];
-            v66 = (v227.__r_.__value_.__l.__size_ - v227.__r_.__value_.__r.__words[0]) >> 1;
-            if (v66 <= -2)
-            {
-              std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
-            }
-
-            if (v227.__r_.__value_.__r.__words[2] - v227.__r_.__value_.__r.__words[0] <= v66 + 1)
-            {
-              v67 = v66 + 1;
-            }
-
-            else
-            {
-              v67 = v227.__r_.__value_.__r.__words[2] - v227.__r_.__value_.__r.__words[0];
-            }
-
-            if (v227.__r_.__value_.__r.__words[2] - v227.__r_.__value_.__r.__words[0] >= 0x7FFFFFFFFFFFFFFELL)
-            {
-              v68 = 0x7FFFFFFFFFFFFFFFLL;
-            }
-
-            else
-            {
-              v68 = v67;
-            }
-
-            if (v68)
-            {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<MIL::Fp16>>(&v227, v68);
-            }
-
-            v69 = (2 * v66);
-            v70 = &v69[-((v227.__r_.__value_.__l.__size_ - v227.__r_.__value_.__r.__words[0]) >> 1)];
-            *v69 = i;
-            v63 = (v69 + 1);
-            memcpy(v70, v64, v65);
-            i = v227.__r_.__value_.__r.__words[0];
-            v227.__r_.__value_.__r.__words[0] = v70;
-            *&v227.__r_.__value_.__r.__words[1] = v63;
-            if (i)
-            {
-              operator delete(i);
-            }
-          }
-
-          else
-          {
-            *v227.__r_.__value_.__l.__size_ = i;
-            v63 = v62 + 2;
-          }
-
-          v227.__r_.__value_.__l.__size_ = v63;
-        }
-      }
-    }
-
-    v71 = (*(*v37 + 32))(v37);
-    v72 = (*(*v71 + 88))(v71);
-    switch(v72)
-    {
-      case 14:
-        v83 = (*(*v37 + 32))(v37);
-        if (!MIL::IRTensorValueType::IsScalar(v83))
-        {
-          Data = MIL::IRTensorValue::GetDataView<unsigned char>();
-          v226 = v114;
-          if (v114)
-          {
-            v115 = 0;
-            v116 = 0;
-            v117 = v227.__r_.__value_.__r.__words[0];
-            do
-            {
-              if (v116 >= (v227.__r_.__value_.__l.__size_ - v117) >> 1)
-              {
-                std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-              }
-
-              MIL::Fp16::GetFloat((v117 + v115));
-              v119 = v118;
-              v120 = MIL::Util::Span<unsigned char const,18446744073709551615ul>::At(&Data, v116);
-              LOBYTE(v121) = *v120;
-              v122 = MIL::Fp16::FromFloat(v120, v119 * v121);
-              v117 = v227.__r_.__value_.__r.__words[0];
-              *(v227.__r_.__value_.__r.__words[0] + 2 * v116++) = v122;
-              v115 += 2;
-            }
-
-            while (v116 < v226);
-          }
-
-          goto LABEL_337;
-        }
-
-        v84 = MEMORY[0x259CA9410](v37);
-        std::string::basic_string[abi:ne200100]<0>(&__src, "post_scale");
-        if (v227.__r_.__value_.__l.__size_ == v227.__r_.__value_.__r.__words[0])
-        {
-          std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-        }
-
-        Float = MIL::Fp16::GetFloat(v227.__r_.__value_.__l.__data_);
-        LOBYTE(v86) = *v84;
-        MIL::Fp16::FromFloat(Float, v87 * v86);
-        MIL::Builder::OperationBuilder::AddInputFloat16();
-        break;
-      case 9:
-        v79 = (*(*v37 + 32))(v37);
-        if (!MIL::IRTensorValueType::IsScalar(v79))
-        {
-          Data = MIL::IRTensorValue::GetDataView<signed char>();
-          v226 = v106;
-          if (v106)
-          {
-            v107 = 0;
-            v108 = 0;
-            v109 = v227.__r_.__value_.__r.__words[0];
-            do
-            {
-              if (v108 >= (v227.__r_.__value_.__l.__size_ - v109) >> 1)
-              {
-                std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-              }
-
-              MIL::Fp16::GetFloat((v109 + v107));
-              v111 = v110;
-              v112 = MIL::Util::Span<signed char const,18446744073709551615ul>::At(&Data, v108);
-              v113 = MIL::Fp16::FromFloat(v112, v111 * *v112);
-              v109 = v227.__r_.__value_.__r.__words[0];
-              *(v227.__r_.__value_.__r.__words[0] + 2 * v108++) = v113;
-              v107 += 2;
-            }
-
-            while (v108 < v226);
-          }
-
-          goto LABEL_337;
-        }
-
-        v80 = MEMORY[0x259CA93E0](v37);
-        std::string::basic_string[abi:ne200100]<0>(&__src, "post_scale");
-        if (v227.__r_.__value_.__l.__size_ == v227.__r_.__value_.__r.__words[0])
-        {
-          std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-        }
-
-        v81 = MIL::Fp16::GetFloat(v227.__r_.__value_.__l.__data_);
-        MIL::Fp16::FromFloat(v81, v82 * *v80);
-        MIL::Builder::OperationBuilder::AddInputFloat16();
-        break;
-      case 4:
-        v73 = (*(*v37 + 32))(v37);
-        if (MIL::IRTensorValueType::IsScalar(v73))
-        {
-          v74 = MEMORY[0x259CA93C0](v37);
-          std::string::basic_string[abi:ne200100]<0>(&__src, "post_scale");
-          if (v227.__r_.__value_.__l.__size_ == v227.__r_.__value_.__r.__words[0])
-          {
-            std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-          }
-
-          MIL::Fp16::GetFloat(v227.__r_.__value_.__l.__data_);
-          v76 = v75;
-          v77 = MIL::Fp16::GetFloat(v74);
-          MIL::Fp16::FromFloat(v77, v76 * v78);
-          MIL::Builder::OperationBuilder::AddInputFloat16();
-          break;
-        }
-
-        Data = MIL::IRTensorValue::GetDataView<MIL::Fp16>();
-        v226 = v123;
-        if (v123)
-        {
-          v124 = 0;
-          v125 = 0;
-          v126 = v227.__r_.__value_.__r.__words[0];
-          do
-          {
-            if (v125 >= (v227.__r_.__value_.__l.__size_ - v126) >> 1)
-            {
-              std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
-            }
-
-            MIL::Fp16::GetFloat((v126 + v124));
-            v128 = v127;
-            v129 = MIL::Util::Span<MIL::Fp16 const,18446744073709551615ul>::At(&Data, v125);
-            v130 = MIL::Fp16::GetFloat(v129);
-            v132 = MIL::Fp16::FromFloat(v130, v128 * v131);
-            v126 = v227.__r_.__value_.__r.__words[0];
-            *(v227.__r_.__value_.__r.__words[0] + 2 * v125++) = v132;
-            v124 += 2;
-          }
-
-          while (v125 < v226);
-        }
-
-LABEL_337:
-        std::string::basic_string[abi:ne200100]<0>(&__src, "post_scale");
-        MIL::Builder::OperationBuilder::AddInputFloat16();
-        v88 = v223;
-        if (!v223)
-        {
-          goto LABEL_268;
-        }
-
-        goto LABEL_267;
-      default:
-        v90 = "Unsupported scale data type, must be one of [fp16, int8, uint8]";
-        v89 = 11;
-LABEL_272:
-        *v135 = v89;
-        v91 = (v135 + 8);
-        std::string::basic_string[abi:ne200100]<0>((v135 + 8), v90);
-        if (v227.__r_.__value_.__r.__words[0])
-        {
-          v227.__r_.__value_.__l.__size_ = v227.__r_.__value_.__r.__words[0];
-          operator delete(v227.__r_.__value_.__l.__data_);
-        }
-
-        if (!*v135)
-        {
-          if (*(v135 + 31) < 0)
-          {
-            operator delete(*v91);
-          }
-
-          Output = MIL::Builder::OperationBuilder::GetOutput(v136);
-          v93 = MIL::Builder::Variable::GetName(Output);
-          if (*(v93 + 23) < 0)
-          {
-            std::string::__init_copy_ctor_external(&v227, *v93, *(v93 + 8));
-          }
-
-          else
-          {
-            v94 = *v93;
-            v227.__r_.__value_.__r.__words[2] = *(v93 + 16);
-            *&v227.__r_.__value_.__l.__data_ = v94;
-          }
-
-          if ((v227.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v95 = HIBYTE(v227.__r_.__value_.__r.__words[2]);
-          }
-
-          else
-          {
-            v95 = v227.__r_.__value_.__l.__size_;
-          }
-
-          std::string::basic_string[abi:ne200100](&__src, v95 + 6);
-          if ((__src.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            p_src = &__src;
-          }
-
-          else
-          {
-            p_src = __src.__r_.__value_.__r.__words[0];
-          }
-
-          if (v95)
-          {
-            if ((v227.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v97 = &v227;
-            }
-
-            else
-            {
-              v97 = v227.__r_.__value_.__r.__words[0];
-            }
-
-            memmove(p_src, v97, v95);
-          }
-
-          strcpy(p_src + v95, "_fused");
-          if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
-          {
-            std::string::__init_copy_ctor_external(&v139, __src.__r_.__value_.__l.__data_, __src.__r_.__value_.__l.__size_);
-          }
-
-          else
-          {
-            v139 = __src;
-          }
-
-          v98 = MIL::Builder::OperationBuilder::GetOutput(v136);
-          MIL::Builder::Variable::TryGetType(v98);
-          MIL::Builder::OperationBuilder::AddOutput();
-          if (v140)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v140);
-          }
-
-          if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v139.__r_.__value_.__l.__data_);
-          }
-
-          v99 = *a1;
-          if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
-          {
-            std::string::__init_copy_ctor_external(&v138, __src.__r_.__value_.__l.__data_, __src.__r_.__value_.__l.__size_);
-          }
-
-          else
-          {
-            v138 = __src;
-          }
-
-          MIL::Builder::BlockBuilder::ReplaceUsesOfInputVariable();
-          if (SHIBYTE(v138.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v138.__r_.__value_.__l.__data_);
-          }
-
-          v100 = *a2;
-          v101 = a2[1];
-          if (*a2 != v101)
-          {
-            do
-            {
-              v102 = *v100;
-              v103 = v100[1];
-              if (v103)
-              {
-                atomic_fetch_add_explicit(&v103->__shared_owners_, 1uLL, memory_order_relaxed);
-                v104 = *a1;
-                v137 = v103;
-                atomic_fetch_add_explicit(&v103->__shared_owners_, 1uLL, memory_order_relaxed);
-              }
-
-              else
-              {
-                v105 = *a1;
-                v137 = 0;
-              }
-
-              MIL::Builder::BlockBuilder::RemoveOperation();
-              if (v137)
-              {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v137);
-              }
-
-              if (v103)
-              {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v103);
-              }
-
-              v100 += 2;
-            }
-
-            while (v100 != v101);
-          }
-
-          *v135 = 0;
-          std::string::basic_string[abi:ne200100]<0>(v91, &unk_259A4D977);
-          if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__src.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v227.__r_.__value_.__l.__data_);
-          }
-        }
-
-        if (v222)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v222);
-        }
-
-        if (v134)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v134);
-        }
-
-        if (v6)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-        }
-
-        return;
-    }
-
-    v88 = v226;
-    if (!v226)
-    {
-LABEL_268:
-      if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__src.__r_.__value_.__l.__data_);
-      }
-
-      v89 = 0;
-      v90 = &unk_259A4D977;
-      goto LABEL_272;
-    }
-
-LABEL_267:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v88);
-    goto LABEL_268;
-  }
-
-  *a3 = 14;
-  std::operator+<char>();
-  v13 = std::string::append(&v227, "'s pattern");
-  v14 = *&v13->__r_.__value_.__l.__data_;
-  *(a3 + 24) = *(&v13->__r_.__value_.__l + 2);
-  *(a3 + 8) = v14;
-  v13->__r_.__value_.__l.__size_ = 0;
-  v13->__r_.__value_.__r.__words[2] = 0;
-  v13->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v227.__r_.__value_.__l.__data_);
-  }
-}
-
 void sub_2599F2DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
 {
   if (*(v11 - 161) < 0)
@@ -2418,7 +38,7 @@ void MilTranslator::Passes::FuseConvScale::~FuseConvScale(void **this)
   JUMPOUT(0x259CA9760);
 }
 
-void *std::vector<MIL::Fp16>::__assign_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<MIL::Fp16>::__assign_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2494,8 +114,7 @@ void *std::vector<MIL::Fp16>::__assign_with_size[abi:ne200100]<MIL::Fp16 const*,
       {
         v16 = *v13;
         v13 += 2;
-        *v15 = v16;
-        v15 += 2;
+        *v15++ = v16;
         v14 += 2;
       }
 
@@ -2512,16 +131,16 @@ void *std::vector<MIL::Fp16>::__assign_with_size[abi:ne200100]<MIL::Fp16 const*,
 void MilTranslator::Passes::Pass::~Pass(void **this)
 {
   *this = &unk_286AB1EB8;
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((this + 4));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 4);
   if (*(this + 31) < 0)
   {
     operator delete(this[1]);
   }
 }
 
-uint64_t std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -2554,7 +173,7 @@ void std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash
   }
 }
 
-uint64_t std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::OperationBuilder> const*,std::shared_ptr<MIL::Builder::OperationBuilder> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::OperationBuilder> const*,std::shared_ptr<MIL::Builder::OperationBuilder> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2571,7 +190,7 @@ void sub_2599F34EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2647,13 +266,13 @@ void ANEMachineIR::H2022::Opsets::aneflowh2022Opset::Register(ANEMachineIR::H202
   operator new();
 }
 
-void sub_2599F3740(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, MIL::IROpset *a10, uint64_t *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_2599F3740(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, MIL::IROpset *a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   v18 = a11;
   a11 = 0;
   if (v18)
   {
-    ANEMachineIR::H2021::Opsets::aneflowh2021Opset::Register(v18);
+    ANEMachineIR::H2021::Opsets::aneflowh2021Opset::Register();
   }
 
   std::unique_ptr<ANEMachineIR::H2021::Opsets::aneflowh2021Opset>::~unique_ptr[abi:ne200100](&a10);
@@ -2665,20 +284,20 @@ void sub_2599F3740(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2599F3818(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2599F3818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2022::Opsets::aneflowh2022Opset::GetOps(uint64_t a1@<X8>)
+void ANEMachineIR::H2022::Opsets::aneflowh2022Opset::GetOps(uint64_t *__return_ptr a1@<X8>, ANEMachineIR::H2022::Opsets::aneflowh2022Opset *this@<X0>)
 {
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::string::basic_string[abi:ne200100]<0>(&v3, "base_ne_matmul");
-  ANEMachineIR::H2022::BaseNeMatmul::Make();
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  std::string::basic_string[abi:ne200100]<0>(v3, "base_ne_matmul");
+  ANEMachineIR::H2022::BaseNeMatmul::Make(this, v3);
 }
 
 void sub_2599F4BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2687,7 +306,7 @@ void sub_2599F4BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v15 - 40) = 0;
   if (v17)
   {
-    ANEMachineIR::H2021::Opsets::aneflowh2021Opset::GetOps(v17);
+    ANEMachineIR::H2021::Opsets::aneflowh2021Opset::GetOps();
   }
 
   if (a14 < 0)
@@ -2782,74 +401,74 @@ void MilTranslator::OpTranslator::TranslateElementWiseBinary(MilTranslator::OpTr
   v6 = (*(*a2 + 56))(a2);
   if (*(v6 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v98, *v6, *(v6 + 8));
+    std::string::__init_copy_ctor_external(&v94, *v6, *(v6 + 8));
   }
 
   else
   {
     v7 = *v6;
-    v98.__r_.__value_.__r.__words[2] = *(v6 + 16);
-    *&v98.__r_.__value_.__l.__data_ = v7;
+    v94.__r_.__value_.__r.__words[2] = *(v6 + 16);
+    *&v94.__r_.__value_.__l.__data_ = v7;
   }
 
   {
     *a3 = 4;
     std::operator+<char>();
-    v9 = std::string::append(&v69, "' not implemented");
+    v9 = std::string::append(&v65, "' not implemented");
     v10 = *&v9->__r_.__value_.__l.__data_;
     *(a3 + 24) = *(&v9->__r_.__value_.__l + 2);
     *(a3 + 8) = v10;
     v9->__r_.__value_.__l.__size_ = 0;
     v9->__r_.__value_.__r.__words[2] = 0;
     v9->__r_.__value_.__r.__words[0] = 0;
-    if ((SHIBYTE(v69.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v65.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_122;
     }
 
-    v11 = v69.__r_.__value_.__r.__words[0];
+    v11 = v65.__r_.__value_.__r.__words[0];
     goto LABEL_121;
   }
 
-  v69.__r_.__value_.__r.__words[0] = &v98;
+  v65.__r_.__value_.__r.__words[0] = &v94;
   if (*(v8 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(&v97, v8[5], v8[6]);
+    std::string::__init_copy_ctor_external(&v93, v8[5], v8[6]);
   }
 
   else
   {
-    v97 = *(v8 + 5);
+    v93 = *(v8 + 5);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v69, "x");
-  v12 = (*(*a2 + 120))(a2, &v69, 0);
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v65, "x");
+  v12 = (*(*a2 + 120))(a2, &v65, 0);
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v69.__r_.__value_.__l.__data_);
+    operator delete(v65.__r_.__value_.__l.__data_);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v69, "y");
-  v13 = (*(*a2 + 120))(a2, &v69, 0);
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v65, "y");
+  v13 = (*(*a2 + 120))(a2, &v65, 0);
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v69.__r_.__value_.__l.__data_);
+    operator delete(v65.__r_.__value_.__l.__data_);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v69, "x");
+  std::string::basic_string[abi:ne200100]<0>(&v65, "x");
   ParameterType = MIL::IROperation::GetParameterType();
   v15 = MIL::IRValueType::AsTensorType(ParameterType);
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v69.__r_.__value_.__l.__data_);
+    operator delete(v65.__r_.__value_.__l.__data_);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v69, "y");
+  std::string::basic_string[abi:ne200100]<0>(&v65, "y");
   v16 = MIL::IROperation::GetParameterType();
   v17 = MIL::IRValueType::AsTensorType(v16);
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v69.__r_.__value_.__l.__data_);
+    operator delete(v65.__r_.__value_.__l.__data_);
     if (!v12)
     {
       goto LABEL_26;
@@ -2863,8 +482,8 @@ void MilTranslator::OpTranslator::TranslateElementWiseBinary(MilTranslator::OpTr
 
   if (v13)
   {
-    MilTranslator::OpTranslator::GetChannelLastTensorNameMayInsertTranspose(this, v12, v15, &v96);
-    MilTranslator::OpTranslator::GetChannelLastTensorNameMayInsertTranspose(this, v13, v17, &v95);
+    MilTranslator::OpTranslator::GetChannelLastTensorNameMayInsertTranspose(this, v12, v15, &v92);
+    MilTranslator::OpTranslator::GetChannelLastTensorNameMayInsertTranspose(this, v13, v17, &v91);
     v18 = (*(*a2 + 176))(a2);
     v19 = *v18;
     if (v18[1] == *v18)
@@ -2881,24 +500,21 @@ void MilTranslator::OpTranslator::TranslateElementWiseBinary(MilTranslator::OpTr
 
     Type = MIL::IRNamedValueType::GetType(v21);
     v23 = MIL::IRValueType::AsTensorType(Type);
-    ANEMachineIR::Utils::GetStaticTensorShape(v15, v24, v94);
-    ANEMachineIR::Utils::GetStaticTensorShape(v17, v25, v93);
-    ANEMachineIR::Utils::GetStaticTensorShape(v23, v26, &v91);
+    ANEMachineIR::Utils::GetStaticTensorShape(v90, v15, v24);
+    ANEMachineIR::Utils::GetStaticTensorShape(v89, v17, v25);
+    ANEMachineIR::Utils::GetStaticTensorShape(&v87, v23, v26);
     v27 = (*(*v15 + 96))(v15);
     MilTranslator::OpTranslator::InferChannelLastTransposeInfo(this, v12, (v27[1] - *v27) >> 3, &__s);
-    MilTranslator::OpTranslator::GetTransposeOpParamPerm(&__s, (v92 - v91) >> 3, v87);
-    MilTranslator::OpTranslator::InferTransposedShape(v94, v87, v86);
-    MilTranslator::OpTranslator::InferTransposedShape(v93, v87, v85);
-    MilTranslator::OpTranslator::InferTransposedShape(&v91, v87, v84);
-    v28 = *(this + 1);
+    MilTranslator::OpTranslator::GetTransposeOpParamPerm(&__s, (v88 - v87) >> 3, v83);
+    MilTranslator::OpTranslator::InferTransposedShape(v90, v83, v82);
+    MilTranslator::OpTranslator::InferTransposedShape(v89, v83, v81);
+    MilTranslator::OpTranslator::InferTransposedShape(&v87, v83, v80);
     (*(*v15 + 88))(v15);
-    v29 = MIL::IRTensorValueType::Make();
-    v30 = *(this + 1);
+    v28 = MIL::IRTensorValueType::Make();
     (*(*v17 + 88))(v17);
-    v31 = MIL::IRTensorValueType::Make();
-    v32 = *(this + 1);
+    v29 = MIL::IRTensorValueType::Make();
     (*(*v23 + 88))(v23);
-    v33 = MIL::IRTensorValueType::Make();
+    v30 = MIL::IRTensorValueType::Make();
     Name = MIL::IRNamedValueType::GetName(v21);
     if (*(Name + 23) < 0)
     {
@@ -2907,121 +523,93 @@ void MilTranslator::OpTranslator::TranslateElementWiseBinary(MilTranslator::OpTr
 
     else
     {
-      v35 = *Name;
+      v32 = *Name;
       __str.__r_.__value_.__r.__words[2] = *(Name + 16);
-      *&__str.__r_.__value_.__l.__data_ = v35;
+      *&__str.__r_.__value_.__l.__data_ = v32;
     }
 
-    IsTransposeRequired = MilTranslator::OpTranslator::IsTransposeRequired(v87);
+    IsTransposeRequired = MilTranslator::OpTranslator::IsTransposeRequired(v83);
     if (IsTransposeRequired)
     {
       std::string::append(&__str, "_channel_last");
       if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v66, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v62, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v66 = __s;
+        v62 = __s;
       }
 
-      v67 = v89;
-      v68 = v90;
-      std::string::operator=(&v66, &__str);
-      v41 = MIL::IRNamedValueType::GetName(v21);
-      std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>::pair[abi:ne200100]<std::string const&,std::pair<std::string,std::array<unsigned char,5ul>>&,0>(&v69, v41, &v66);
-      IsTransposeRequired = std::__hash_table<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>>(this + 37, &v69.__r_.__value_.__l.__data_);
-      if (v71 < 0)
+      v63 = v85;
+      v64 = v86;
+      std::string::operator=(&v62, &__str);
+      v38 = MIL::IRNamedValueType::GetName(v21);
+      std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>::pair[abi:ne200100]<std::string const&,std::pair<std::string,std::array<unsigned char,5ul>>&,0>(&v65, v38, &v62);
+      IsTransposeRequired = std::__hash_table<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>>(this + 37, &v65, &v65);
+      if (v67 < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v69.__r_.__value_.__l.__data_);
+        operator delete(v65.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v66.__r_.__value_.__l.__data_);
+        operator delete(v62.__r_.__value_.__l.__data_);
       }
     }
 
-    LODWORD(v69.__r_.__value_.__l.__data_) = 1065353216;
-    v69.__r_.__value_.__s.__data_[4] = 1;
-    LODWORD(v69.__r_.__value_.__r.__words[1]) = 1065353216;
-    v69.__r_.__value_.__s.__data_[12] = 1;
-    LOWORD(v69.__r_.__value_.__r.__words[2]) = MIL::Fp16::FromFloat(IsTransposeRequired, 1.0);
-    v69.__r_.__value_.__s.__data_[18] = 1;
+    LODWORD(v65.__r_.__value_.__l.__data_) = 1065353216;
+    v65.__r_.__value_.__s.__data_[4] = 1;
+    LODWORD(v65.__r_.__value_.__r.__words[1]) = 1065353216;
+    v65.__r_.__value_.__s.__data_[12] = 1;
+    LOWORD(v65.__r_.__value_.__r.__words[2]) = MIL::Fp16::FromFloat(IsTransposeRequired, 1.0);
+    v65.__r_.__value_.__s.__data_[18] = 1;
     LOBYTE(__p) = 0;
+    v68 = 0;
+    LOBYTE(v69) = 0;
+    v71 = 0;
     v72 = 0;
-    LOBYTE(v73) = 0;
+    v73 = 0;
+    v74 = 0;
     v75 = 0;
-    v76 = 0;
-    v77 = 0;
+    LOBYTE(v76) = 0;
     v78 = 0;
-    v79 = 0;
-    LOBYTE(v80) = 0;
-    v82 = 0;
     LocationPtr = MIL::IRObject::GetLocationPtr(a2);
-    v43 = *(this + 12);
-    ANEMachineIR::Validators::ValidatePeElementWiseBinary(LocationPtr, &v97, v29, v31, v33, &v66);
-    if (MIL::ValidationResult::IsGood(&v66))
+    ANEMachineIR::Validators::ValidatePeElementWiseBinary(LocationPtr, &v93, v28, v29, v30, &v62);
+    if (MIL::ValidationResult::IsGood(&v62))
     {
-      MEMORY[0x259CA8F00](&v66);
-      if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
+      MEMORY[0x259CA8F00](&v62);
+      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v61, v97.__r_.__value_.__l.__data_, v97.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v57, v93.__r_.__value_.__l.__data_, v93.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v61 = v97;
+        v57 = v93;
       }
 
       MilTranslator::OpTranslator::AddOperation(this);
-      if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v61.__r_.__value_.__l.__data_);
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(&v58, "x");
-      if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v57, v96.__r_.__value_.__l.__data_, v96.__r_.__value_.__l.__size_);
-      }
-
-      else
-      {
-        v57 = v96;
-      }
-
-      MIL::Builder::OperationBuilder::AddInput();
-      if (v60)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v60);
-      }
-
       if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v57.__r_.__value_.__l.__data_);
       }
 
-      if (v59 < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v54, "x");
+      if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v58);
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(&v54, "y");
-      if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v53, v95.__r_.__value_.__l.__data_, v95.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v53, v92.__r_.__value_.__l.__data_, v92.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v53 = v95;
+        v53 = v92;
       }
 
       MIL::Builder::OperationBuilder::AddInput();
@@ -3040,106 +628,133 @@ void MilTranslator::OpTranslator::TranslateElementWiseBinary(MilTranslator::OpTr
         operator delete(v54);
       }
 
-      if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v50, "y");
+      if (SHIBYTE(v91.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v51, __str.__r_.__value_.__l.__data_, __str.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v49, v91.__r_.__value_.__l.__data_, v91.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v51 = __str;
+        v49 = v91;
       }
 
-      MIL::Builder::OperationBuilder::AddOutput();
+      MIL::Builder::OperationBuilder::AddInput();
       if (v52)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v52);
       }
 
-      if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v51.__r_.__value_.__l.__data_);
+        operator delete(v49.__r_.__value_.__l.__data_);
+      }
+
+      if (v51 < 0)
+      {
+        operator delete(v50);
+      }
+
+      if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v47, __str.__r_.__value_.__l.__data_, __str.__r_.__value_.__l.__size_);
+      }
+
+      else
+      {
+        v47 = __str;
+      }
+
+      MIL::Builder::OperationBuilder::AddOutput();
+      if (v48)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v48);
+      }
+
+      if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v47.__r_.__value_.__l.__data_);
       }
 
       *a3 = 0;
       std::string::basic_string[abi:ne200100]<0>((a3 + 8), &unk_259A4D977);
-      if (v66.__r_.__value_.__l.__size_)
+      if (v62.__r_.__value_.__l.__size_)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v66.__r_.__value_.__l.__size_);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v62.__r_.__value_.__l.__size_);
       }
     }
 
     else
     {
       *a3 = 6;
-      v44 = a3 + 8;
+      v40 = a3 + 8;
       (*(*a2 + 56))(a2);
       std::operator+<char>();
-      v45 = std::string::append(&v64, "', violations: ");
+      v41 = std::string::append(&v60, "', violations: ");
+      v42 = *&v41->__r_.__value_.__l.__data_;
+      v61.__r_.__value_.__r.__words[2] = v41->__r_.__value_.__r.__words[2];
+      *&v61.__r_.__value_.__l.__data_ = v42;
+      v41->__r_.__value_.__l.__size_ = 0;
+      v41->__r_.__value_.__r.__words[2] = 0;
+      v41->__r_.__value_.__r.__words[0] = 0;
+      MIL::MILResult::GetMessageWithLocation(v58, &v62);
+      if ((v59 & 0x80u) == 0)
+      {
+        v43 = v58;
+      }
+
+      else
+      {
+        v43 = v58[0];
+      }
+
+      if ((v59 & 0x80u) == 0)
+      {
+        v44 = v59;
+      }
+
+      else
+      {
+        v44 = v58[1];
+      }
+
+      v45 = std::string::append(&v61, v43, v44);
       v46 = *&v45->__r_.__value_.__l.__data_;
-      v65.__r_.__value_.__r.__words[2] = v45->__r_.__value_.__r.__words[2];
-      *&v65.__r_.__value_.__l.__data_ = v46;
+      *(v40 + 16) = *(&v45->__r_.__value_.__l + 2);
+      *v40 = v46;
       v45->__r_.__value_.__l.__size_ = 0;
       v45->__r_.__value_.__r.__words[2] = 0;
       v45->__r_.__value_.__r.__words[0] = 0;
-      MIL::MILResult::GetMessageWithLocation(v62, &v66);
-      if ((v63 & 0x80u) == 0)
+      if (v59 < 0)
       {
-        v47 = v62;
+        operator delete(v58[0]);
       }
 
-      else
+      if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
       {
-        v47 = v62[0];
+        operator delete(v61.__r_.__value_.__l.__data_);
       }
 
-      if ((v63 & 0x80u) == 0)
+      if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
       {
-        v48 = v63;
+        operator delete(v60.__r_.__value_.__l.__data_);
       }
 
-      else
-      {
-        v48 = v62[1];
-      }
-
-      v49 = std::string::append(&v65, v47, v48);
-      v50 = *&v49->__r_.__value_.__l.__data_;
-      *(v44 + 16) = *(&v49->__r_.__value_.__l + 2);
-      *v44 = v50;
-      v49->__r_.__value_.__l.__size_ = 0;
-      v49->__r_.__value_.__r.__words[2] = 0;
-      v49->__r_.__value_.__r.__words[0] = 0;
-      if (v63 < 0)
-      {
-        operator delete(v62[0]);
-      }
-
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v65.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v64.__r_.__value_.__l.__data_);
-      }
-
-      MEMORY[0x259CA8F00](&v66);
+      MEMORY[0x259CA8F00](&v62);
     }
 
-    if (v82 == 1 && v81 < 0)
+    if (v78 == 1 && v77 < 0)
     {
-      operator delete(v80);
+      operator delete(v76);
     }
 
-    if (v75 == 1 && v73)
+    if (v71 == 1 && v69)
     {
-      v74 = v73;
-      operator delete(v73);
+      v70 = v69;
+      operator delete(v69);
     }
 
-    if (v72 == 1 && v71 < 0)
+    if (v68 == 1 && v67 < 0)
     {
       operator delete(__p);
     }
@@ -3149,28 +764,28 @@ void MilTranslator::OpTranslator::TranslateElementWiseBinary(MilTranslator::OpTr
       operator delete(__str.__r_.__value_.__l.__data_);
     }
 
-    if (v84[0])
+    if (v80[0])
     {
-      v84[1] = v84[0];
-      operator delete(v84[0]);
+      v80[1] = v80[0];
+      operator delete(v80[0]);
     }
 
-    if (v85[0])
+    if (v81[0])
     {
-      v85[1] = v85[0];
-      operator delete(v85[0]);
+      v81[1] = v81[0];
+      operator delete(v81[0]);
     }
 
-    if (v86[0])
+    if (v82[0])
     {
-      v86[1] = v86[0];
-      operator delete(v86[0]);
+      v82[1] = v82[0];
+      operator delete(v82[0]);
     }
 
-    if (v87[0])
+    if (v83[0])
     {
-      v87[1] = v87[0];
-      operator delete(v87[0]);
+      v83[1] = v83[0];
+      operator delete(v83[0]);
     }
 
     if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
@@ -3178,22 +793,22 @@ void MilTranslator::OpTranslator::TranslateElementWiseBinary(MilTranslator::OpTr
       operator delete(__s.__r_.__value_.__l.__data_);
     }
 
-    if (v91)
+    if (v87)
     {
-      v92 = v91;
-      operator delete(v91);
+      v88 = v87;
+      operator delete(v87);
     }
 
-    if (v93[0])
+    if (v89[0])
     {
-      v93[1] = v93[0];
-      operator delete(v93[0]);
+      v89[1] = v89[0];
+      operator delete(v89[0]);
     }
 
-    if (v94[0])
+    if (v90[0])
     {
-      v94[1] = v94[0];
-      operator delete(v94[0]);
+      v90[1] = v90[0];
+      operator delete(v90[0]);
     }
 
     if (v20)
@@ -3201,52 +816,52 @@ void MilTranslator::OpTranslator::TranslateElementWiseBinary(MilTranslator::OpTr
       std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
 
-    if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v91.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v95.__r_.__value_.__l.__data_);
+      operator delete(v91.__r_.__value_.__l.__data_);
     }
 
-    if ((SHIBYTE(v96.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v92.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_119;
     }
 
-    v39 = v96.__r_.__value_.__r.__words[0];
+    v36 = v92.__r_.__value_.__r.__words[0];
     goto LABEL_118;
   }
 
 LABEL_26:
   *a3 = 4;
-  v36 = a3 + 8;
+  v33 = a3 + 8;
   (*(*a2 + 56))(a2);
   std::operator+<char>();
-  v37 = std::string::append(&v69, "' does not handle immediate values");
-  v38 = *&v37->__r_.__value_.__l.__data_;
-  *(v36 + 16) = *(&v37->__r_.__value_.__l + 2);
-  *v36 = v38;
-  v37->__r_.__value_.__l.__size_ = 0;
-  v37->__r_.__value_.__r.__words[2] = 0;
-  v37->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  v34 = std::string::append(&v65, "' does not handle immediate values");
+  v35 = *&v34->__r_.__value_.__l.__data_;
+  *(v33 + 16) = *(&v34->__r_.__value_.__l + 2);
+  *v33 = v35;
+  v34->__r_.__value_.__l.__size_ = 0;
+  v34->__r_.__value_.__r.__words[2] = 0;
+  v34->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    v39 = v69.__r_.__value_.__r.__words[0];
+    v36 = v65.__r_.__value_.__r.__words[0];
 LABEL_118:
-    operator delete(v39);
+    operator delete(v36);
   }
 
 LABEL_119:
-  if ((SHIBYTE(v97.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v93.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_122;
   }
 
-  v11 = v97.__r_.__value_.__r.__words[0];
+  v11 = v93.__r_.__value_.__r.__words[0];
 LABEL_121:
   operator delete(v11);
 LABEL_122:
-  if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v98.__r_.__value_.__l.__data_);
+    operator delete(v94.__r_.__value_.__l.__data_);
   }
 }
 
@@ -3263,37 +878,37 @@ void sub_2599F5FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   ANEMachineIR::Validators::PeElementWiseBinaryParamValues::~PeElementWiseBinaryParamValues(&a55);
-  if (a73 < 0)
+  if (a66 < 0)
   {
-    operator delete(a72);
+    operator delete(a65);
   }
 
-  v77 = a74;
-  if (a74)
+  v70 = a67;
+  if (a67)
   {
-    STACK[0x200] = a74;
-    operator delete(v77);
+    STACK[0x200] = a67;
+    operator delete(v70);
   }
 
-  v78 = STACK[0x210];
+  v71 = STACK[0x210];
   if (STACK[0x210])
   {
-    STACK[0x218] = v78;
-    operator delete(v78);
+    STACK[0x218] = v71;
+    operator delete(v71);
   }
 
-  v79 = STACK[0x228];
+  v72 = STACK[0x228];
   if (STACK[0x228])
   {
-    STACK[0x230] = v79;
-    operator delete(v79);
+    STACK[0x230] = v72;
+    operator delete(v72);
   }
 
-  v80 = STACK[0x240];
+  v73 = STACK[0x240];
   if (STACK[0x240])
   {
-    STACK[0x248] = v80;
-    operator delete(v80);
+    STACK[0x248] = v73;
+    operator delete(v73);
   }
 
   if (SLOBYTE(STACK[0x26F]) < 0)
@@ -3301,59 +916,59 @@ void sub_2599F5FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x258]);
   }
 
-  v81 = STACK[0x278];
+  v74 = STACK[0x278];
   if (STACK[0x278])
   {
-    STACK[0x280] = v81;
-    operator delete(v81);
+    STACK[0x280] = v74;
+    operator delete(v74);
   }
 
-  v82 = *(v75 - 240);
-  if (v82)
+  v75 = *(v68 - 240);
+  if (v75)
   {
-    *(v75 - 232) = v82;
-    operator delete(v82);
+    *(v68 - 232) = v75;
+    operator delete(v75);
   }
 
-  v83 = *(v75 - 216);
-  if (v83)
+  v76 = *(v68 - 216);
+  if (v76)
   {
-    *(v75 - 208) = v83;
-    operator delete(v83);
+    *(v68 - 208) = v76;
+    operator delete(v76);
   }
 
-  if (v74)
+  if (v67)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v67);
   }
 
-  if (*(v75 - 169) < 0)
+  if (*(v68 - 169) < 0)
   {
-    operator delete(*(v75 - 192));
+    operator delete(*(v68 - 192));
   }
 
-  if (*(v75 - 145) < 0)
+  if (*(v68 - 145) < 0)
   {
-    operator delete(*(v75 - 168));
+    operator delete(*(v68 - 168));
   }
 
-  if (*(v75 - 121) < 0)
+  if (*(v68 - 121) < 0)
   {
-    operator delete(*(v75 - 144));
+    operator delete(*(v68 - 144));
   }
 
-  if (*(v75 - 89) < 0)
+  if (*(v68 - 89) < 0)
   {
-    operator delete(*(v75 - 112));
+    operator delete(*(v68 - 112));
   }
 
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -3367,10 +982,10 @@ void sub_2599F62EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[11],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[11],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -3384,7 +999,7 @@ void sub_2599F6340(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::unordered_map<std::string,std::string>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_map<std::string,std::string>::unordered_map(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -3394,7 +1009,7 @@ uint64_t std::unordered_map<std::string,std::string>::unordered_map(uint64_t a1,
     v5 = 48 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, a2, a2);
       a2 += 6;
       v5 -= 48;
     }
@@ -3405,35 +1020,35 @@ uint64_t std::unordered_map<std::string,std::string>::unordered_map(uint64_t a1,
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::pair<std::string const,std::string> const&>();
@@ -3441,49 +1056,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_2599F6620(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2599F6620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3527,35 +1142,35 @@ void sub_2599F6728(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3563,63 +1178,63 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_2599F69A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2599F69A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t _GLOBAL__sub_I_TranslateElementWiseBinary_cpp()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v4, "add", "pe_add");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v5, "mul", "pe_mul");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[11],0>(v6, "maximum", "pe_maximum");
+  v5[6] = *MEMORY[0x277D85DE8];
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v3, "add", "pe_add");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v4, "mul", "pe_mul");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[11],0>(v5, "maximum", "pe_maximum");
   for (i = 0; i != -18; i -= 6)
   {
-    v1 = &v4[i];
-    if (v6[i * 8 + 47] < 0)
+    v1 = &v3[i];
+    if (SHIBYTE(v5[i + 5]) < 0)
     {
       operator delete(v1[15]);
     }
@@ -3629,9 +1244,6 @@ uint64_t _GLOBAL__sub_I_TranslateElementWiseBinary_cpp()
       operator delete(v1[12]);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_2599F6B8C(_Unwind_Exception *a1)
@@ -3650,25 +1262,25 @@ void sub_2599F6B8C(_Unwind_Exception *a1)
 
 void ANEMachineIR::H2020::Reshape::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
-void sub_2599F76CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *a59, uint64_t a60)
+void sub_2599F76CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *a59, uint64_t a60)
 {
   v63 = *(v61 - 80);
   *(v61 - 80) = 0;
   if (v63)
   {
-    (*(*v63 + 8))(v63);
+    (*(*v63 + 8))(v63, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v64 = *v60;
   *v60 = 0;
   if (v64)
   {
-    (*(*v64 + 8))(v64);
+    (*(*v64 + 8))(v64, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v61 - 88), 0);
@@ -3678,8 +1290,8 @@ void sub_2599F76CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ANEMachineIR::H2020::Transpose::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -3932,25 +1544,25 @@ void sub_2599F91BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ANEMachineIR::H2021::Reshape::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
-void sub_2599F9D98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *a59, uint64_t a60)
+void sub_2599F9D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *a59, uint64_t a60)
 {
   v63 = *(v61 - 80);
   *(v61 - 80) = 0;
   if (v63)
   {
-    (*(*v63 + 8))(v63);
+    (*(*v63 + 8))(v63, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v64 = *v60;
   *v60 = 0;
   if (v64)
   {
-    (*(*v64 + 8))(v64);
+    (*(*v64 + 8))(v64, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v61 - 88), 0);
@@ -3960,8 +1572,8 @@ void sub_2599F9D98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ANEMachineIR::H2021::Transpose::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -3988,8 +1600,8 @@ void sub_2599FAF30(_Unwind_Exception *a1)
 
 void ANEMachineIR::H2020::BaseNePool::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -4016,8 +1628,8 @@ void sub_2599FCB3C(_Unwind_Exception *a1)
 
 void ANEMachineIR::H2020::NeAvgPool::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -4042,17 +1654,15 @@ void sub_2599FEDB4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::NeMaxPool::Make(uint64_t a1, uint64_t a2)
+void ANEMachineIR::H2020::NeMaxPool::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
   *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidateNeMaxPool;
-  v4[3] = v4;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidateNeMaxPool;
+  v3[3] = v3;
   ANEMachineIR::H2020::BaseNePool::Make();
 }
 
@@ -4067,17 +1677,15 @@ void sub_2599FF714(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::NeMinPool::Make(uint64_t a1, uint64_t a2)
+void ANEMachineIR::H2020::NeMinPool::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
   *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidateNeMinPool;
-  v4[3] = v4;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidateNeMinPool;
+  v3[3] = v3;
   ANEMachineIR::H2020::BaseNePool::Make();
 }
 
@@ -4094,8 +1702,8 @@ void sub_2599FF7F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ANEMachineIR::H2020::BasePePool::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -4122,8 +1730,8 @@ void sub_259A00DF0(_Unwind_Exception *a1)
 
 void ANEMachineIR::H2020::PeAvgPool::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -4148,17 +1756,15 @@ void sub_259A02CD8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::PeMaxPool::Make(uint64_t a1, uint64_t a2)
+void ANEMachineIR::H2020::PeMaxPool::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
   *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeMaxPool;
-  v4[3] = v4;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeMaxPool;
+  v3[3] = v3;
   ANEMachineIR::H2020::BasePePool::Make();
 }
 
@@ -4173,17 +1779,15 @@ void sub_259A03578(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2020::PeMinPool::Make(uint64_t a1, uint64_t a2)
+void ANEMachineIR::H2020::PeMinPool::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  *__p = *a2;
-  v2 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  v3[4] = *MEMORY[0x277D85DE8];
+  a2[1] = 0;
+  a2[2] = 0;
   *a2 = 0;
-  v4[0] = &unk_286AADC48;
-  v4[1] = ANEMachineIR::H2020::Validators::ValidatePeMinPool;
-  v4[3] = v4;
+  v3[0] = &unk_286AADC48;
+  v3[1] = ANEMachineIR::H2020::Validators::ValidatePeMinPool;
+  v3[3] = v3;
   ANEMachineIR::H2020::BasePePool::Make();
 }
 
@@ -4198,10 +1802,10 @@ void sub_259A03658(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::H2021::BaseNeMatmul::Make()
+void ANEMachineIR::H2021::BaseNeMatmul::Make(MIL::IRUnknownDimension *a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v3 = *MEMORY[0x277D85DE8];
+  v2 = 0;
   operator new();
 }
 
@@ -4224,8 +1828,8 @@ void sub_259A03B44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ANEMachineIR::H2021::NeBatchMatmul::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -4252,8 +1856,8 @@ void sub_259A05B6C(_Unwind_Exception *a1)
 
 void ANEMachineIR::H2021::NeMatmul::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -4281,16 +1885,16 @@ void sub_259A07FE0(_Unwind_Exception *a1)
 void ANEMachineIR::Validators::ValidateNeAdd(MIL::IRObject *a1@<X0>, MIL::ValidationResult *a2@<X8>)
 {
   v4 = 0;
-  v63 = *MEMORY[0x277D85DE8];
-  v61[0] = "x";
-  v61[1] = "y";
+  v62 = *MEMORY[0x277D85DE8];
+  v60[0] = "x";
+  v60[1] = "y";
   do
   {
-    std::string::basic_string[abi:ne200100]<0>(v59, v61[v4]);
+    std::string::basic_string[abi:ne200100]<0>(v58, v60[v4]);
     LocationPtr = MIL::IRObject::GetLocationPtr(a1);
     v6 = LocationPtr[1];
-    v57 = *LocationPtr;
-    v58 = v6;
+    v56 = *LocationPtr;
+    v57 = v6;
     if (v6)
     {
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -4299,46 +1903,46 @@ void ANEMachineIR::Validators::ValidateNeAdd(MIL::IRObject *a1@<X0>, MIL::Valida
     ParameterType = MIL::IROperation::GetParameterType();
     v8 = MIL::IRValueType::AsTensorType(ParameterType);
     v9 = (*(*a1 + 56))(a1);
-    ANEMachineIR::Validators::ValidateLiveTensorSize(&v57, v8, v59, v9, a2);
-    if (v58)
+    ANEMachineIR::Validators::ValidateLiveTensorSize(&v56, v8, v58, v9, a2);
+    if (v57)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v58);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v57);
     }
 
     if (!MIL::ValidationResult::IsGood(a2))
     {
-      if (v60 < 0)
+      if (v59 < 0)
       {
-        operator delete(v59[0]);
+        operator delete(v58[0]);
       }
 
-      goto LABEL_54;
+      return;
     }
 
     MEMORY[0x259CA8F00](a2);
-    if (v60 < 0)
+    if (v59 < 0)
     {
-      operator delete(v59[0]);
+      operator delete(v58[0]);
     }
 
     ++v4;
   }
 
   while (v4 != 2);
-  std::string::basic_string[abi:ne200100]<0>(v59, "x");
+  std::string::basic_string[abi:ne200100]<0>(v58, "x");
   v10 = MIL::IROperation::GetParameterType();
   v11 = MIL::IRValueType::AsTensorType(v10);
-  if (v60 < 0)
+  if (v59 < 0)
   {
-    operator delete(v59[0]);
+    operator delete(v58[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v59, "y");
+  std::string::basic_string[abi:ne200100]<0>(v58, "y");
   v12 = MIL::IROperation::GetParameterType();
   v13 = MIL::IRValueType::AsTensorType(v12);
-  if (v60 < 0)
+  if (v59 < 0)
   {
-    operator delete(v59[0]);
+    operator delete(v58[0]);
   }
 
   v14 = (*(*a1 + 176))(a1);
@@ -4351,123 +1955,123 @@ void ANEMachineIR::Validators::ValidateNeAdd(MIL::IRObject *a1@<X0>, MIL::Valida
   v16 = MIL::IRValueType::AsTensorType(Type);
   v17 = MIL::IRObject::GetLocationPtr(a1);
   v18 = (*(*a1 + 56))(a1);
-  std::string::basic_string[abi:ne200100]<0>(v59, "x");
-  std::string::basic_string[abi:ne200100]<0>(v61, "y");
-  if (v62 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v58, "x");
+  std::string::basic_string[abi:ne200100]<0>(v60, "y");
+  if (v61 < 0)
   {
-    operator delete(v61[0]);
+    operator delete(v60[0]);
   }
 
-  if (v60 < 0)
+  if (v59 < 0)
   {
-    operator delete(v59[0]);
+    operator delete(v58[0]);
   }
 
   if (MIL::ValidationResult::IsGood(a2))
   {
     MEMORY[0x259CA8F00](a2);
-    v56 = 0;
-    std::string::basic_string[abi:ne200100]<0>(v59, "post_right_shift");
-    MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<signed char>(a1, &v56, &v56 + 1, a2);
-    if (v60 < 0)
+    v55 = 0;
+    std::string::basic_string[abi:ne200100]<0>(v58, "post_right_shift");
+    MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<signed char>(a1, &v55, &v55 + 1, a2);
+    if (v59 < 0)
     {
-      operator delete(v59[0]);
+      operator delete(v58[0]);
     }
 
     if (MIL::ValidationResult::IsGood(a2))
     {
       v19 = MEMORY[0x259CA8F00](a2);
-      if (v56 != 1)
+      if (v55 != 1)
       {
         goto LABEL_30;
       }
 
       v20 = MIL::IRObject::GetLocationPtr(a1);
       v21 = v20[1];
-      *&v54[3] = *v20;
-      v55 = v21;
+      *&v53[3] = *v20;
+      v54 = v21;
       if (v21)
       {
         atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       ANEMachineIR::Validators::ValidatePostRightShiftRange(a2);
-      if (v55)
+      if (v54)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v55);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v54);
       }
 
       if (MIL::ValidationResult::IsGood(a2))
       {
         v19 = MEMORY[0x259CA8F00](a2);
 LABEL_30:
-        LOWORD(v61[0]) = MIL::Fp16::FromFloat(v19, 1.0);
-        HIBYTE(v54[2]) = 0;
-        std::string::basic_string[abi:ne200100]<0>(v59, "post_scale");
-        MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, &v54[2] + 1, v61, a2);
-        if (v60 < 0)
+        LOWORD(v60[0]) = MIL::Fp16::FromFloat(v19, 1.0);
+        HIBYTE(v53[2]) = 0;
+        std::string::basic_string[abi:ne200100]<0>(v58, "post_scale");
+        MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, &v53[2] + 1, v60, a2);
+        if (v59 < 0)
         {
-          operator delete(v59[0]);
+          operator delete(v58[0]);
         }
 
         if (MIL::ValidationResult::IsGood(a2))
         {
           v22 = MEMORY[0x259CA8F00](a2);
-          v54[1] = MIL::Fp16::FromFloat(v22, 0.0);
-          HIBYTE(v54[0]) = 0;
-          std::string::basic_string[abi:ne200100]<0>(v59, "bias");
-          MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, v54 + 1, &v54[1], a2);
-          if (v60 < 0)
+          v53[1] = MIL::Fp16::FromFloat(v22, 0.0);
+          HIBYTE(v53[0]) = 0;
+          std::string::basic_string[abi:ne200100]<0>(v58, "bias");
+          MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, v53 + 1, &v53[1], a2);
+          if (v59 < 0)
           {
-            operator delete(v59[0]);
+            operator delete(v58[0]);
           }
 
           if (MIL::ValidationResult::IsGood(a2))
           {
             MEMORY[0x259CA8F00](a2);
-            LOBYTE(v54[0]) = 0;
-            v53 = 0;
-            std::string::basic_string[abi:ne200100]<0>(v59, "acc_left_shift");
-            MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<signed char>(a1, &v53, v54, a2);
-            if (v60 < 0)
+            LOBYTE(v53[0]) = 0;
+            v52 = 0;
+            std::string::basic_string[abi:ne200100]<0>(v58, "acc_left_shift");
+            MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<signed char>(a1, &v52, v53, a2);
+            if (v59 < 0)
             {
-              operator delete(v59[0]);
+              operator delete(v58[0]);
             }
 
             if (MIL::ValidationResult::IsGood(a2))
             {
               MEMORY[0x259CA8F00](a2);
-              v52 = 0;
               v51 = 0;
-              std::string::basic_string[abi:ne200100]<0>(v59, "acc_bias_shift");
-              MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<signed char>(a1, &v51, &v52, a2);
-              if (v60 < 0)
+              v50 = 0;
+              std::string::basic_string[abi:ne200100]<0>(v58, "acc_bias_shift");
+              MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<signed char>(a1, &v50, &v51, a2);
+              if (v59 < 0)
               {
-                operator delete(v59[0]);
+                operator delete(v58[0]);
               }
 
               if (MIL::ValidationResult::IsGood(a2))
               {
                 v23 = MEMORY[0x259CA8F00](a2);
-                v50 = MIL::Fp16::FromFloat(v23, 1.0);
-                v49 = 0;
-                std::string::basic_string[abi:ne200100]<0>(v59, "x_scale");
-                MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, &v49, &v50, a2);
-                if (v60 < 0)
+                v49 = MIL::Fp16::FromFloat(v23, 1.0);
+                v48 = 0;
+                std::string::basic_string[abi:ne200100]<0>(v58, "x_scale");
+                MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, &v48, &v49, a2);
+                if (v59 < 0)
                 {
-                  operator delete(v59[0]);
+                  operator delete(v58[0]);
                 }
 
                 if (MIL::ValidationResult::IsGood(a2))
                 {
                   v24 = MEMORY[0x259CA8F00](a2);
-                  v48 = MIL::Fp16::FromFloat(v24, 1.0);
-                  v47 = 0;
-                  std::string::basic_string[abi:ne200100]<0>(v59, "y_scale");
-                  MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, &v47, &v48, a2);
-                  if (v60 < 0)
+                  v47 = MIL::Fp16::FromFloat(v24, 1.0);
+                  v46 = 0;
+                  std::string::basic_string[abi:ne200100]<0>(v58, "y_scale");
+                  MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, &v46, &v47, a2);
+                  if (v59 < 0)
                   {
-                    operator delete(v59[0]);
+                    operator delete(v58[0]);
                   }
 
                   if (MIL::ValidationResult::IsGood(a2))
@@ -4475,91 +2079,91 @@ LABEL_30:
                     MEMORY[0x259CA8F00](a2);
                     v25 = (*(*v11 + 88))(v11) == 4;
                     v26 = ANEMachineIR::Validators::BinaryPointFormatOffsets(1, v25);
-                    if (ANEMachineIR::Validators::NeuralEngineComputedBinaryPointAndShiftLegal(SLOBYTE(v54[0]), SHIBYTE(v56), v26))
+                    if (ANEMachineIR::Validators::NeuralEngineComputedBinaryPointAndShiftLegal(SLOBYTE(v53[0]), SHIBYTE(v55), v26))
                     {
-                      if (ANEMachineIR::Validators::NeuralEngineBiasShifterExponentLegal(v54[1], v52, SLOBYTE(v54[0]), SHIBYTE(v26)))
+                      if (ANEMachineIR::Validators::NeuralEngineBiasShifterExponentLegal(v53[1], v51, SLOBYTE(v53[0]), SHIBYTE(v26)))
                       {
-                        if (ANEMachineIR::Validators::NeuralEngineAccumulatorInitLegal(v54[1], v52, v54[0], v26))
+                        if (ANEMachineIR::Validators::NeuralEngineAccumulatorInitLegal(v53[1], v51, v53[0], v26))
                         {
                           MIL::ValidationResult::ValidationResult(a2);
-                          goto LABEL_54;
+                          return;
                         }
 
-                        v33 = MIL::IRObject::GetLocationPtr(a1);
-                        v34 = v33[1];
-                        v37 = *v33;
-                        v38 = v34;
-                        if (v34)
+                        v32 = MIL::IRObject::GetLocationPtr(a1);
+                        v33 = v32[1];
+                        v36 = *v32;
+                        v37 = v33;
+                        if (v33)
                         {
-                          atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+                          atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
                         }
 
-                        std::string::basic_string[abi:ne200100]<0>(v35, "Initialized bias out of bounds of hardware constraints.");
-                        MEMORY[0x259CA8EE0](a2, &v37, 309, v35);
-                        if (v36 < 0)
+                        std::string::basic_string[abi:ne200100]<0>(v34, "Initialized bias out of bounds of hardware constraints.");
+                        MEMORY[0x259CA8EE0](a2, &v36, 309, v34);
+                        if (v35 < 0)
                         {
-                          operator delete(v35[0]);
+                          operator delete(v34[0]);
                         }
 
-                        v30 = v38;
-                        if (v38)
+                        v29 = v37;
+                        if (v37)
                         {
                           goto LABEL_72;
                         }
 
-                        goto LABEL_54;
+                        return;
                       }
 
-                      v31 = MIL::IRObject::GetLocationPtr(a1);
-                      v32 = v31[1];
-                      v41 = *v31;
-                      v42 = v32;
-                      if (v32)
+                      v30 = MIL::IRObject::GetLocationPtr(a1);
+                      v31 = v30[1];
+                      v40 = *v30;
+                      v41 = v31;
+                      if (v31)
                       {
-                        atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
+                        atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
                       }
 
-                      std::string::basic_string[abi:ne200100]<0>(v39, "Bias shift exponent outside of hardware capabilities. Computed shift must 32 bit and be <= 11.");
-                      MEMORY[0x259CA8EE0](a2, &v41, 309, v39);
-                      if (v40 < 0)
+                      std::string::basic_string[abi:ne200100]<0>(v38, "Bias shift exponent outside of hardware capabilities. Computed shift must 32 bit and be <= 11.");
+                      MEMORY[0x259CA8EE0](a2, &v40, 309, v38);
+                      if (v39 < 0)
                       {
-                        operator delete(v39[0]);
+                        operator delete(v38[0]);
                       }
 
-                      v30 = v42;
-                      if (!v42)
+                      v29 = v41;
+                      if (!v41)
                       {
-                        goto LABEL_54;
+                        return;
                       }
                     }
 
                     else
                     {
-                      v28 = MIL::IRObject::GetLocationPtr(a1);
-                      v29 = v28[1];
-                      v45 = *v28;
-                      v46 = v29;
-                      if (v29)
+                      v27 = MIL::IRObject::GetLocationPtr(a1);
+                      v28 = v27[1];
+                      v44 = *v27;
+                      v45 = v28;
+                      if (v28)
                       {
-                        atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
+                        atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
                       }
 
                       std::string::basic_string[abi:ne200100]<0>(__p, "Computed binary point plus post-right shift bounded by accumulator dest size. See op definition.");
-                      MEMORY[0x259CA8EE0](a2, &v45, 309, __p);
-                      if (v44 < 0)
+                      MEMORY[0x259CA8EE0](a2, &v44, 309, __p);
+                      if (v43 < 0)
                       {
                         operator delete(__p[0]);
                       }
 
-                      v30 = v46;
-                      if (!v46)
+                      v29 = v45;
+                      if (!v45)
                       {
-                        goto LABEL_54;
+                        return;
                       }
                     }
 
 LABEL_72:
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
                   }
                 }
               }
@@ -4569,9 +2173,6 @@ LABEL_72:
       }
     }
   }
-
-LABEL_54:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void sub_259A08F90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, std::__shared_weak_count *a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37)
@@ -5142,16 +2743,16 @@ void sub_259A09934(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void ANEMachineIR::Validators::ValidateNeMaximum(MIL::IRObject *a1@<X0>, MIL::ValidationResult *a2@<X8>)
 {
   v4 = 0;
-  v39 = *MEMORY[0x277D85DE8];
-  v37[0] = "x";
-  v37[1] = "y";
+  v38 = *MEMORY[0x277D85DE8];
+  v36[0] = "x";
+  v36[1] = "y";
   do
   {
-    std::string::basic_string[abi:ne200100]<0>(__p, v37[v4]);
+    std::string::basic_string[abi:ne200100]<0>(__p, v36[v4]);
     LocationPtr = MIL::IRObject::GetLocationPtr(a1);
     v6 = LocationPtr[1];
-    *&v33[1] = *LocationPtr;
-    v34 = v6;
+    *&v32[1] = *LocationPtr;
+    v33 = v6;
     if (v6)
     {
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -5160,24 +2761,24 @@ void ANEMachineIR::Validators::ValidateNeMaximum(MIL::IRObject *a1@<X0>, MIL::Va
     ParameterType = MIL::IROperation::GetParameterType();
     v8 = MIL::IRValueType::AsTensorType(ParameterType);
     v9 = (*(*a1 + 56))(a1);
-    ANEMachineIR::Validators::ValidateLiveTensorSize(&v33[1], v8, __p, v9, a2);
-    if (v34)
+    ANEMachineIR::Validators::ValidateLiveTensorSize(&v32[1], v8, __p, v9, a2);
+    if (v33)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v33);
     }
 
     if (!MIL::ValidationResult::IsGood(a2))
     {
-      if (v36 < 0)
+      if (v35 < 0)
       {
         operator delete(__p[0]);
       }
 
-      goto LABEL_37;
+      return;
     }
 
     MEMORY[0x259CA8F00](a2);
-    if (v36 < 0)
+    if (v35 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5189,7 +2790,7 @@ void ANEMachineIR::Validators::ValidateNeMaximum(MIL::IRObject *a1@<X0>, MIL::Va
   std::string::basic_string[abi:ne200100]<0>(__p, "x");
   v10 = MIL::IROperation::GetParameterType();
   v11 = MIL::IRValueType::AsTensorType(v10);
-  if (v36 < 0)
+  if (v35 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5197,7 +2798,7 @@ void ANEMachineIR::Validators::ValidateNeMaximum(MIL::IRObject *a1@<X0>, MIL::Va
   std::string::basic_string[abi:ne200100]<0>(__p, "y");
   v12 = MIL::IROperation::GetParameterType();
   v13 = MIL::IRValueType::AsTensorType(v12);
-  if (v36 < 0)
+  if (v35 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5213,13 +2814,13 @@ void ANEMachineIR::Validators::ValidateNeMaximum(MIL::IRObject *a1@<X0>, MIL::Va
   v17 = MIL::IRObject::GetLocationPtr(a1);
   v18 = (*(*a1 + 56))(a1);
   std::string::basic_string[abi:ne200100]<0>(__p, "x");
-  std::string::basic_string[abi:ne200100]<0>(v37, "y");
-  if (v38 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v36, "y");
+  if (v37 < 0)
   {
-    operator delete(v37[0]);
+    operator delete(v36[0]);
   }
 
-  if (v36 < 0)
+  if (v35 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5227,10 +2828,10 @@ void ANEMachineIR::Validators::ValidateNeMaximum(MIL::IRObject *a1@<X0>, MIL::Va
   if (MIL::ValidationResult::IsGood(a2))
   {
     MEMORY[0x259CA8F00](a2);
-    v33[0] = 0;
+    v32[0] = 0;
     std::string::basic_string[abi:ne200100]<0>(__p, "post_right_shift");
-    MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<signed char>(a1, v33, v33 + 1, a2);
-    if (v36 < 0)
+    MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<signed char>(a1, v32, v32 + 1, a2);
+    if (v35 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5238,14 +2839,14 @@ void ANEMachineIR::Validators::ValidateNeMaximum(MIL::IRObject *a1@<X0>, MIL::Va
     if (MIL::ValidationResult::IsGood(a2))
     {
       MEMORY[0x259CA8F00](a2);
-      if (LOBYTE(v33[0]) != 1)
+      if (LOBYTE(v32[0]) != 1)
       {
 LABEL_30:
-        LOWORD(v37[0]) = 0;
-        v30 = 0;
+        LOWORD(v36[0]) = 0;
+        v29 = 0;
         std::string::basic_string[abi:ne200100]<0>(__p, "post_scale");
-        MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, &v30, v37, a2);
-        if (v36 < 0)
+        MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(a1, &v29, v36, a2);
+        if (v35 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5255,52 +2856,52 @@ LABEL_30:
           MEMORY[0x259CA8F00](a2);
           v21 = (*(*v11 + 88))(v11) == 4;
           v22 = ANEMachineIR::Validators::BinaryPointFormatOffsets(1, v21);
-          if (ANEMachineIR::Validators::NeuralEngineComputedBinaryPointAndShiftLegal(0, SHIBYTE(v33[0]), v22))
+          if (ANEMachineIR::Validators::NeuralEngineComputedBinaryPointAndShiftLegal(0, SHIBYTE(v32[0]), v22))
           {
             MIL::ValidationResult::ValidationResult(a2);
           }
 
           else
           {
-            v24 = MIL::IRObject::GetLocationPtr(a1);
-            v25 = v24[1];
-            v28 = *v24;
-            v29 = v25;
-            if (v25)
+            v23 = MIL::IRObject::GetLocationPtr(a1);
+            v24 = v23[1];
+            v27 = *v23;
+            v28 = v24;
+            if (v24)
             {
-              atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v26, "Computed binary point plus post-right shift bounded by accumulator dest size. See op definition.");
-            MEMORY[0x259CA8EE0](a2, &v28, 309, v26);
-            if (v27 < 0)
+            std::string::basic_string[abi:ne200100]<0>(v25, "Computed binary point plus post-right shift bounded by accumulator dest size. See op definition.");
+            MEMORY[0x259CA8EE0](a2, &v27, 309, v25);
+            if (v26 < 0)
             {
-              operator delete(v26[0]);
+              operator delete(v25[0]);
             }
 
-            if (v29)
+            if (v28)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v28);
             }
           }
         }
 
-        goto LABEL_37;
+        return;
       }
 
       v19 = MIL::IRObject::GetLocationPtr(a1);
       v20 = v19[1];
-      v31 = *v19;
-      v32 = v20;
+      v30 = *v19;
+      v31 = v20;
       if (v20)
       {
         atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       ANEMachineIR::Validators::ValidatePostRightShiftRange(a2);
-      if (v32)
+      if (v31)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v31);
       }
 
       if (MIL::ValidationResult::IsGood(a2))
@@ -5310,9 +2911,6 @@ LABEL_30:
       }
     }
   }
-
-LABEL_37:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_259A09FE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -5332,11 +2930,11 @@ void sub_259A09FE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ANEMachineIR::Validators::ParsePeElementWiseUnaryParamValues@<X0>(ANEMachineIR::Validators *this@<X0>, const MIL::IROperation *a2@<X1>, MIL::ValidationResult *a3@<X8>)
 {
-  v13 = 0;
   v12 = 0;
+  v11 = 0;
   std::string::basic_string[abi:ne200100]<0>(&__p, "post_scale");
-  MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(this, &v12, &v13, a3);
-  if (v11 < 0)
+  MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(this, &v11, &v12, a3);
+  if (v10 < 0)
   {
     operator delete(__p);
   }
@@ -5344,15 +2942,15 @@ uint64_t ANEMachineIR::Validators::ParsePeElementWiseUnaryParamValues@<X0>(ANEMa
   result = MIL::ValidationResult::IsGood(a3);
   if (result)
   {
-    v8 = MEMORY[0x259CA8F00](a3);
-    if (v12 == 1)
+    v7 = MEMORY[0x259CA8F00](a3);
+    if (v11 == 1)
     {
-      v9 = v13;
+      v8 = v12;
     }
 
     else
     {
-      v9 = MIL::Fp16::FromFloat(v8, 1.0);
+      v8 = MIL::Fp16::FromFloat(v7, 1.0);
     }
 
     if ((*(a2 + 2) & 1) == 0)
@@ -5360,97 +2958,97 @@ uint64_t ANEMachineIR::Validators::ParsePeElementWiseUnaryParamValues@<X0>(ANEMa
       *(a2 + 2) = 1;
     }
 
-    *a2 = v9;
+    *a2 = v8;
     return MIL::ValidationResult::ValidationResult(a3);
   }
 
   return result;
 }
 
-uint64_t ANEMachineIR::Validators::ParsePeElementWiseBinaryParamValues@<X0>(ANEMachineIR::Validators *this@<X0>, const MIL::IROperation *a2@<X1>, MIL::ValidationResult *a3@<X8>)
+uint64_t *ANEMachineIR::Validators::ParsePeElementWiseBinaryParamValues@<X0>(MIL::ValidationResult *__return_ptr a1@<X8>, ANEMachineIR::Validators *this@<X0>, const MIL::IROperation *a3@<X1>)
 {
-  v21 = 0;
   v20 = 0;
+  v19 = 0;
   std::string::basic_string[abi:ne200100]<0>(__p, "post_scale");
-  MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(this, &v20, &v21, a3);
-  if (v19 < 0)
+  MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<MIL::Fp16>(this, &v19, &v20, a1);
+  if (v18 < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = MIL::ValidationResult::IsGood(a3);
+  result = MIL::ValidationResult::IsGood(a1);
   if (result)
   {
-    v8 = MEMORY[0x259CA8F00](a3);
-    if (v20 == 1)
+    v7 = MEMORY[0x259CA8F00](a1);
+    if (v19 == 1)
     {
-      v9 = v21;
+      v8 = v20;
     }
 
     else
     {
-      v9 = MIL::Fp16::FromFloat(v8, 1.0);
+      v8 = MIL::Fp16::FromFloat(v7, 1.0);
     }
 
-    if ((*(a2 + 18) & 1) == 0)
+    if ((*(a3 + 18) & 1) == 0)
     {
-      *(a2 + 18) = 1;
+      *(a3 + 18) = 1;
     }
 
-    *(a2 + 8) = v9;
-    v17 = 0.0;
-    v16 = 0;
+    *(a3 + 8) = v8;
+    v16 = 0.0;
+    v15 = 0;
     std::string::basic_string[abi:ne200100]<0>(__p, "x_scale");
-    MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<float>(this, &v16, &v17, a3);
-    if (v19 < 0)
+    MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<float>(this, &v15, &v16, a1);
+    if (v18 < 0)
     {
       operator delete(__p[0]);
     }
 
-    result = MIL::ValidationResult::IsGood(a3);
+    result = MIL::ValidationResult::IsGood(a1);
     if (result)
     {
-      MEMORY[0x259CA8F00](a3);
+      MEMORY[0x259CA8F00](a1);
+      v9 = v15;
       v10 = v16;
-      v11 = v17;
-      if ((*(a2 + 4) & 1) == 0)
+      if ((*(a3 + 4) & 1) == 0)
       {
-        *(a2 + 4) = 1;
+        *(a3 + 4) = 1;
       }
 
-      if (!v10)
+      if (!v9)
       {
-        v11 = 1.0;
+        v10 = 1.0;
       }
 
-      *a2 = v11;
-      v15 = 0.0;
-      v14 = 0;
+      *a3 = v10;
+      v14 = 0.0;
+      v13 = 0;
       std::string::basic_string[abi:ne200100]<0>(__p, "y_scale");
-      MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<float>(this, &v14, &v15, a3);
-      if (v19 < 0)
+      MIL::ANEMachineIR::ExpectCorrectlyTypedOptional<float>(this, &v13, &v14, a1);
+      if (v18 < 0)
       {
         operator delete(__p[0]);
       }
 
-      result = MIL::ValidationResult::IsGood(a3);
+      result = MIL::ValidationResult::IsGood(a1);
       if (result)
       {
-        MEMORY[0x259CA8F00](a3);
+        MEMORY[0x259CA8F00](a1);
+        v11 = v13;
         v12 = v14;
-        v13 = v15;
-        if ((*(a2 + 12) & 1) == 0)
+        if ((*(a3 + 12) & 1) == 0)
         {
-          *(a2 + 12) = 1;
+          *(a3 + 12) = 1;
         }
 
-        if (!v12)
+        if (!v11)
         {
-          v13 = 1.0;
+          v12 = 1.0;
         }
 
-        *(a2 + 2) = v13;
-        return MIL::ValidationResult::ValidationResult(a3);
+        *(a3 + 2) = v12;
+        return MIL::ValidationResult::ValidationResult(a1);
       }
     }
   }
@@ -5458,7 +3056,7 @@ uint64_t ANEMachineIR::Validators::ParsePeElementWiseBinaryParamValues@<X0>(ANEM
   return result;
 }
 
-uint64_t ANEMachineIR::Validators::ValidatePeElementWiseUnary@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, MIL::ValidationResult *a5@<X8>)
+uint64_t ANEMachineIR::Validators::ValidatePeElementWiseUnary@<X0>(uint64_t *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, MIL::ValidationResult *a5@<X8>)
 {
   v10 = a1[1];
   v18 = *a1;
@@ -5515,7 +3113,7 @@ uint64_t ANEMachineIR::Validators::ValidatePeElementWiseUnary@<X0>(uint64_t *a1@
   return result;
 }
 
-uint64_t ANEMachineIR::Validators::ValidatePeElementWiseBinary@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, MIL::ValidationResult *a6@<X8>)
+uint64_t ANEMachineIR::Validators::ValidatePeElementWiseBinary@<X0>(std::string::size_type *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, MIL::ValidationResult *a6@<X8>)
 {
   v12 = a1[1];
   v62 = *a1;
@@ -5899,14 +3497,14 @@ LABEL_84:
   return result;
 }
 
-void sub_259A0AB98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48)
+void sub_259A0AB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x259CA8F00](&a43);
+  MEMORY[0x259CA8F00](&a43, a2, a3, a4, a5, a6, a7, a8);
   v50 = *(v48 - 176);
   if (v50)
   {
@@ -6014,7 +3612,7 @@ void ANEMachineIR::Validators::ValidatePeElementWiseBinary(ANEMachineIR::Validat
   v24 = 0;
   LOBYTE(v25) = 0;
   v27 = 0;
-  ANEMachineIR::Validators::ParsePeElementWiseBinaryParamValues(a1, v15, a2);
+  ANEMachineIR::Validators::ParsePeElementWiseBinaryParamValues(a2, a1, v15);
   if (MIL::ValidationResult::IsGood(a2))
   {
     MEMORY[0x259CA8F00](a2);
@@ -6086,17 +3684,17 @@ void ANEMachineIR::Validators::PeElementWiseUnaryParamValues::~PeElementWiseUnar
   }
 }
 
-void MilTranslator::Passes::FuseConvActivation::Match(MIL::Builder::BlockBuilder **a1@<X1>, void *a2@<X8>)
+void MilTranslator::Passes::FuseConvActivation::Match(MIL::Builder::BlockBuilder **a1@<X1>, uint64_t *a2@<X8>)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  MIL::Builder::BlockBuilder::GetOperations(&v35, *a1);
-  v3 = v35;
-  v4 = v36;
-  if (v35 == v36)
+  v43 = *MEMORY[0x277D85DE8];
+  MIL::Builder::BlockBuilder::GetOperations(&v34, *a1);
+  v3 = v34;
+  v4 = v35;
+  if (v34 == v35)
   {
 LABEL_12:
-    v40 = &v35;
-    std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v40);
+    v39 = &v34;
+    std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v39);
     v9 = 0;
 LABEL_13:
     *a2 = 0;
@@ -6104,12 +3702,10 @@ LABEL_13:
     a2[2] = 0;
     if (!v9)
     {
-      goto LABEL_15;
+      return;
     }
 
-LABEL_14:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   while (1)
@@ -6147,22 +3743,22 @@ LABEL_7:
     goto LABEL_11;
   }
 
-  v11 = *v3;
-  v9 = *(v3 + 8);
+  v10 = *v3;
+  v9 = *(v3 + 1);
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v40 = &v35;
-  std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v40);
-  if (!v11)
+  v39 = &v34;
+  std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v39);
+  if (!v10)
   {
     goto LABEL_13;
   }
 
-  MIL::Builder::OperationBuilder::GetChildOperations(&v35, v11);
-  if (v38 != 1 || (MIL::Builder::OperationBuilder::GetBlocks(&v40, v11), v12 = v40, v13 = &v41->__vftable, v39 = &v40, std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v39), v12 != v13))
+  MIL::Builder::OperationBuilder::GetChildOperations(&v34, v10);
+  if (v37 != 1 || (MIL::Builder::OperationBuilder::GetBlocks(&v39, v10), v11 = v39, v12 = &v40->__vftable, v38 = &v39, std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v38), v11 != v12))
   {
     *a2 = 0;
     a2[1] = 0;
@@ -6170,104 +3766,88 @@ LABEL_7:
     goto LABEL_22;
   }
 
-  v15 = *(v37 + 16);
-  v14 = *(v37 + 24);
-  if (v14)
+  v14 = *(v36 + 16);
+  v13 = *(v36 + 24);
+  if (v13)
   {
-    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v16 = MIL::Builder::OperationBuilder::GetOperator(v15);
-  v17 = (*(*v16 + 16))(v16);
-  v18 = *(v17 + 23);
-  if (v18 < 0)
+  v15 = MIL::Builder::OperationBuilder::GetOperator(v14);
+  v16 = (*(*v15 + 16))(v15);
+  v17 = *(v16 + 23);
+  if (v17 < 0)
   {
-    if (*(v17 + 8) != 13)
+    if (*(v16 + 8) != 13)
     {
       goto LABEL_53;
     }
 
-    v17 = *v17;
+    v16 = *v16;
   }
 
-  else if (v18 != 13)
+  else if (v17 != 13)
   {
     goto LABEL_53;
   }
 
-  v19 = *v17 == 0x76697463615F656ELL && *(v17 + 5) == 0x6E6F697461766974;
-  if (v19 && (MIL::Builder::OperationBuilder::GetBlocks(&v40, v15), v20 = v41 - v40, v39 = &v40, std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v39), v20 == 16))
+  v18 = *v16 == 0x76697463615F656ELL && *(v16 + 5) == 0x6E6F697461766974;
+  if (v18 && (MIL::Builder::OperationBuilder::GetBlocks(&v39, v14), v19 = v40 - v39, v38 = &v39, std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v38), v19 == 16))
   {
-    MIL::Builder::OperationBuilder::GetBlocks(&v40, v15);
-    v22 = *v40;
-    v21 = v40[1];
-    if (v21)
+    MIL::Builder::OperationBuilder::GetBlocks(&v39, v14);
+    v21 = *v39;
+    v20 = v39[1];
+    if (v20)
     {
-      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v39 = &v40;
-    std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v39);
-    MIL::Builder::BlockBuilder::GetOperations(&v40, v22);
-    v23 = v41 - v40;
-    v39 = &v40;
-    std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v39);
-    if (v23 != 16)
+    v38 = &v39;
+    std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v38);
+    MIL::Builder::BlockBuilder::GetOperations(&v39, v21);
+    v22 = v40 - v39;
+    v38 = &v39;
+    std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v38);
+    if (v22 == 16 && (Output = MIL::Builder::OperationBuilder::GetOutput(v10), Type = MIL::Builder::Variable::TryGetType(Output), v25 = MIL::Builder::OperationBuilder::GetOutput(v14), v26 = MIL::Builder::Variable::TryGetType(v25), Type) && (v27 = v26) != 0 && (v28 = MIL::IRValueType::AsTensorType(Type), v29 = (*(*v28 + 88))(v28), v30 = MIL::IRValueType::AsTensorType(v27), v29 == (*(*v30 + 88))(v30)) && (v31 = MIL::IRValueType::AsTensorType(v27), (*(*v31 + 88))(v31) == 4))
     {
-      goto LABEL_56;
-    }
-
-    Output = MIL::Builder::OperationBuilder::GetOutput(v11);
-    Type = MIL::Builder::Variable::TryGetType(Output);
-    v26 = MIL::Builder::OperationBuilder::GetOutput(v15);
-    v27 = MIL::Builder::Variable::TryGetType(v26);
-    if (!Type)
-    {
-      goto LABEL_56;
-    }
-
-    v28 = v27;
-    if (v27 && (v29 = MIL::IRValueType::AsTensorType(Type), v30 = (*(*v29 + 88))(v29), v31 = MIL::IRValueType::AsTensorType(v28), v30 == (*(*v31 + 88))(v31)) && (v32 = MIL::IRValueType::AsTensorType(v28), (*(*v32 + 88))(v32) == 4))
-    {
-      v40 = v11;
-      v41 = v9;
+      v39 = v10;
+      v40 = v9;
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v42 = v15;
-      v43 = v14;
-      if (v14)
+      v41 = v14;
+      v42 = v13;
+      if (v13)
       {
-        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       *a2 = 0;
       a2[1] = 0;
       a2[2] = 0;
-      std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::OperationBuilder> const*,std::shared_ptr<MIL::Builder::OperationBuilder> const*>(a2, &v40, &v44, 2uLL);
+      std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::OperationBuilder> const*,std::shared_ptr<MIL::Builder::OperationBuilder> const*>(a2, &v39, &v43, 2uLL);
       for (i = 3; i != -1; i -= 2)
       {
-        v34 = (&v40)[i];
-        if (v34)
+        v33 = (&v39)[i];
+        if (v33)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v33);
         }
       }
     }
 
     else
     {
-LABEL_56:
       *a2 = 0;
       a2[1] = 0;
       a2[2] = 0;
     }
 
-    if (v21)
+    if (v20)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
   }
 
@@ -6279,51 +3859,49 @@ LABEL_53:
     a2[2] = 0;
   }
 
-  if (v14)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
 LABEL_22:
-  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(&v35);
+  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(&v34);
   if (v9)
   {
-    goto LABEL_14;
+LABEL_14:
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
-
-LABEL_15:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_259A0B670(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_259A0B670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v7 = 24;
+  va_start(va, a3);
+  v8 = 24;
   while (1)
   {
-    v8 = *(v4 + v7);
-    if (v8)
+    v9 = *(v5 + v8);
+    if (v9)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
 
-    v7 -= 16;
-    if (v7 == -8)
+    v8 -= 16;
+    if (v8 == -8)
     {
-      if (v5)
+      if (v6)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
       }
 
-      if (v3)
+      if (v4)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v4);
       }
 
       std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(va);
-      if (v2)
+      if (v3)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v3);
       }
 
       _Unwind_Resume(a1);
@@ -6331,134 +3909,102 @@ void sub_259A0B670(_Unwind_Exception *a1, uint64_t a2, ...)
   }
 }
 
-void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuilder **a1@<X1>, uint64_t **a2@<X2>, uint64_t a3@<X8>)
+void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuilder **a2@<X1>, char **a3@<X2>, uint64_t a4@<X8>)
 {
-  v4 = *a2;
-  if (a2[1] - *a2 == 32)
+  v5 = *a3;
+  if (a3[1] - *a3 == 32)
   {
-    v8 = *v4;
-    v7 = v4[1];
-    if (v7)
+    v9 = *v5;
+    v8 = *(v5 + 1);
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      v4 = *a2;
-      if ((a2[1] - *a2) <= 0x10)
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+      v5 = *a3;
+      if ((a3[1] - *a3) <= 0x10)
       {
         std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
       }
     }
 
-    v10 = v4[2];
-    v9 = v4[3];
-    if (v9)
+    v11 = *(v5 + 2);
+    v10 = *(v5 + 3);
+    if (v10)
     {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v11 = *a1;
-    std::string::basic_string[abi:ne200100]<0>(&v156, "ne_conv");
-    v152 = v10;
-    v153 = v9;
-    if (v9)
+    std::string::basic_string[abi:ne200100]<0>(&v152, "ne_conv");
+    v148 = v11;
+    v149 = v10;
+    if (v10)
     {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     MIL::Builder::BlockBuilder::AddOperation();
-    if (v153)
+    if (v149)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v153);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v149);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v149, "x");
-    std::string::basic_string[abi:ne200100]<0>(&v156, "x");
+    std::string::basic_string[abi:ne200100]<0>(&v145, "x");
+    std::string::basic_string[abi:ne200100]<0>(&v152, "x");
     ArgumentForParameter = MIL::Builder::OperationBuilder::GetArgumentForParameter();
     Name = MIL::Builder::Variable::GetName(ArgumentForParameter);
     if (*(Name + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v148, *Name, *(Name + 8));
+      std::string::__init_copy_ctor_external(&v144, *Name, *(Name + 8));
     }
 
     else
     {
       v14 = *Name;
-      v148.__r_.__value_.__r.__words[2] = *(Name + 16);
-      *&v148.__r_.__value_.__l.__data_ = v14;
+      v144.__r_.__value_.__r.__words[2] = *(Name + 16);
+      *&v144.__r_.__value_.__l.__data_ = v14;
     }
 
     MIL::Builder::OperationBuilder::AddInput();
-    if (v151)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v151);
-    }
-
-    if (SHIBYTE(v148.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v148.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v156.__r_.__value_.__l.__data_);
-    }
-
-    if (v150 < 0)
-    {
-      operator delete(v149);
-    }
-
-    v17 = std::string::basic_string[abi:ne200100]<0>(&v156, "dense_kernel");
-    v146 = v8;
-    v147 = v7;
-    if (v7)
-    {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v144 = v154;
-    v145 = v155;
-    if (v155)
-    {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v17, &v146, &v144);
-    if (v145)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v145);
-    }
-
     if (v147)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v147);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v144.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v144.__r_.__value_.__l.__data_);
     }
 
-    v18 = std::string::basic_string[abi:ne200100]<0>(&v156, "strides");
-    v142 = v8;
-    v143 = v7;
-    if (v7)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v140 = v154;
-    v141 = v155;
-    if (v155)
+    if (v146 < 0)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      operator delete(v145);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v18, &v142, &v140);
+    v17 = std::string::basic_string[abi:ne200100]<0>(&v152, "dense_kernel");
+    v142 = v9;
+    v143 = v8;
+    if (v8)
+    {
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v140 = v150;
+    v141 = v151;
+    if (v151)
+    {
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v17, &v142, &v140);
     if (v141)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v141);
@@ -6469,27 +4015,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v143);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v19 = std::string::basic_string[abi:ne200100]<0>(&v156, "pad_mode");
-    v138 = v8;
-    v139 = v7;
-    if (v7)
+    v18 = std::string::basic_string[abi:ne200100]<0>(&v152, "strides");
+    v138 = v9;
+    v139 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v136 = v154;
-    v137 = v155;
-    if (v155)
+    v136 = v150;
+    v137 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v19, &v138, &v136);
+    ANEMachineIR::Utils::TryCopyOpInput(v18, &v138, &v136);
     if (v137)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v137);
@@ -6500,27 +4046,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v139);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v20 = std::string::basic_string[abi:ne200100]<0>(&v156, "pad");
-    v134 = v8;
-    v135 = v7;
-    if (v7)
+    v19 = std::string::basic_string[abi:ne200100]<0>(&v152, "pad_mode");
+    v134 = v9;
+    v135 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v132 = v154;
-    v133 = v155;
-    if (v155)
+    v132 = v150;
+    v133 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v20, &v134, &v132);
+    ANEMachineIR::Utils::TryCopyOpInput(v19, &v134, &v132);
     if (v133)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v133);
@@ -6531,27 +4077,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v135);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v21 = std::string::basic_string[abi:ne200100]<0>(&v156, "dilations");
-    v130 = v8;
-    v131 = v7;
-    if (v7)
+    v20 = std::string::basic_string[abi:ne200100]<0>(&v152, "pad");
+    v130 = v9;
+    v131 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v128 = v154;
-    v129 = v155;
-    if (v155)
+    v128 = v150;
+    v129 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v21, &v130, &v128);
+    ANEMachineIR::Utils::TryCopyOpInput(v20, &v130, &v128);
     if (v129)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v129);
@@ -6562,27 +4108,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v131);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v22 = std::string::basic_string[abi:ne200100]<0>(&v156, "num_groups");
-    v126 = v8;
-    v127 = v7;
-    if (v7)
+    v21 = std::string::basic_string[abi:ne200100]<0>(&v152, "dilations");
+    v126 = v9;
+    v127 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v124 = v154;
-    v125 = v155;
-    if (v155)
+    v124 = v150;
+    v125 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v22, &v126, &v124);
+    ANEMachineIR::Utils::TryCopyOpInput(v21, &v126, &v124);
     if (v125)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v125);
@@ -6593,27 +4139,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v127);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v23 = std::string::basic_string[abi:ne200100]<0>(&v156, "group_kernel_reuse");
-    v122 = v8;
-    v123 = v7;
-    if (v7)
+    v22 = std::string::basic_string[abi:ne200100]<0>(&v152, "num_groups");
+    v122 = v9;
+    v123 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v120 = v154;
-    v121 = v155;
-    if (v155)
+    v120 = v150;
+    v121 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v23, &v122, &v120);
+    ANEMachineIR::Utils::TryCopyOpInput(v22, &v122, &v120);
     if (v121)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v121);
@@ -6624,27 +4170,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v123);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v24 = std::string::basic_string[abi:ne200100]<0>(&v156, "bias");
-    v118 = v8;
-    v119 = v7;
-    if (v7)
+    v23 = std::string::basic_string[abi:ne200100]<0>(&v152, "group_kernel_reuse");
+    v118 = v9;
+    v119 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v116 = v154;
-    v117 = v155;
-    if (v155)
+    v116 = v150;
+    v117 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v24, &v118, &v116);
+    ANEMachineIR::Utils::TryCopyOpInput(v23, &v118, &v116);
     if (v117)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v117);
@@ -6655,27 +4201,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v119);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v25 = std::string::basic_string[abi:ne200100]<0>(&v156, "acc_left_shift");
-    v114 = v8;
-    v115 = v7;
-    if (v7)
+    v24 = std::string::basic_string[abi:ne200100]<0>(&v152, "bias");
+    v114 = v9;
+    v115 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v112 = v154;
-    v113 = v155;
-    if (v155)
+    v112 = v150;
+    v113 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v25, &v114, &v112);
+    ANEMachineIR::Utils::TryCopyOpInput(v24, &v114, &v112);
     if (v113)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v113);
@@ -6686,27 +4232,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v115);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v26 = std::string::basic_string[abi:ne200100]<0>(&v156, "acc_bias_shift");
-    v110 = v8;
-    v111 = v7;
-    if (v7)
+    v25 = std::string::basic_string[abi:ne200100]<0>(&v152, "acc_left_shift");
+    v110 = v9;
+    v111 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v108 = v154;
-    v109 = v155;
-    if (v155)
+    v108 = v150;
+    v109 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v26, &v110, &v108);
+    ANEMachineIR::Utils::TryCopyOpInput(v25, &v110, &v108);
     if (v109)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v109);
@@ -6717,27 +4263,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v111);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v27 = std::string::basic_string[abi:ne200100]<0>(&v156, "post_right_shift");
-    v106 = v8;
-    v107 = v7;
-    if (v7)
+    v26 = std::string::basic_string[abi:ne200100]<0>(&v152, "acc_bias_shift");
+    v106 = v9;
+    v107 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v104 = v154;
-    v105 = v155;
-    if (v155)
+    v104 = v150;
+    v105 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v27, &v106, &v104);
+    ANEMachineIR::Utils::TryCopyOpInput(v26, &v106, &v104);
     if (v105)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v105);
@@ -6748,27 +4294,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v107);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v28 = std::string::basic_string[abi:ne200100]<0>(&v156, "transposed");
-    v102 = v8;
-    v103 = v7;
-    if (v7)
+    v27 = std::string::basic_string[abi:ne200100]<0>(&v152, "post_right_shift");
+    v102 = v9;
+    v103 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v100 = v154;
-    v101 = v155;
-    if (v155)
+    v100 = v150;
+    v101 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v28, &v102, &v100);
+    ANEMachineIR::Utils::TryCopyOpInput(v27, &v102, &v100);
     if (v101)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v101);
@@ -6779,27 +4325,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v103);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v29 = std::string::basic_string[abi:ne200100]<0>(&v156, "pre_relu");
-    v98 = v8;
-    v99 = v7;
-    if (v7)
+    v28 = std::string::basic_string[abi:ne200100]<0>(&v152, "transposed");
+    v98 = v9;
+    v99 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v96 = v154;
-    v97 = v155;
-    if (v155)
+    v96 = v150;
+    v97 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v29, &v98, &v96);
+    ANEMachineIR::Utils::TryCopyOpInput(v28, &v98, &v96);
     if (v97)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v97);
@@ -6810,27 +4356,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v99);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v30 = std::string::basic_string[abi:ne200100]<0>(&v156, "alternative_format_kernel_coefficients");
-    v94 = v8;
-    v95 = v7;
-    if (v7)
+    v29 = std::string::basic_string[abi:ne200100]<0>(&v152, "pre_relu");
+    v94 = v9;
+    v95 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v92 = v154;
-    v93 = v155;
-    if (v155)
+    v92 = v150;
+    v93 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v30, &v94, &v92);
+    ANEMachineIR::Utils::TryCopyOpInput(v29, &v94, &v92);
     if (v93)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v93);
@@ -6841,27 +4387,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v95);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v31 = std::string::basic_string[abi:ne200100]<0>(&v156, "sparse_mask");
-    v90 = v8;
-    v91 = v7;
-    if (v7)
+    v30 = std::string::basic_string[abi:ne200100]<0>(&v152, "alternative_format_kernel_coefficients");
+    v90 = v9;
+    v91 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v88 = v154;
-    v89 = v155;
-    if (v155)
+    v88 = v150;
+    v89 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v31, &v90, &v88);
+    ANEMachineIR::Utils::TryCopyOpInput(v30, &v90, &v88);
     if (v89)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v89);
@@ -6872,27 +4418,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v91);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v32 = std::string::basic_string[abi:ne200100]<0>(&v156, "sparse_num_nonzero");
-    v86 = v8;
-    v87 = v7;
-    if (v7)
+    v31 = std::string::basic_string[abi:ne200100]<0>(&v152, "sparse_mask");
+    v86 = v9;
+    v87 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v84 = v154;
-    v85 = v155;
-    if (v155)
+    v84 = v150;
+    v85 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v32, &v86, &v84);
+    ANEMachineIR::Utils::TryCopyOpInput(v31, &v86, &v84);
     if (v85)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v85);
@@ -6903,27 +4449,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v87);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v33 = std::string::basic_string[abi:ne200100]<0>(&v156, "sparse_num_nonzero_per_filter");
-    v82 = v8;
-    v83 = v7;
-    if (v7)
+    v32 = std::string::basic_string[abi:ne200100]<0>(&v152, "sparse_num_nonzero");
+    v82 = v9;
+    v83 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v80 = v154;
-    v81 = v155;
-    if (v155)
+    v80 = v150;
+    v81 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v33, &v82, &v80);
+    ANEMachineIR::Utils::TryCopyOpInput(v32, &v82, &v80);
     if (v81)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v81);
@@ -6934,27 +4480,27 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v83);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    v34 = std::string::basic_string[abi:ne200100]<0>(&v156, "palette_table");
-    v78 = v8;
-    v79 = v7;
-    if (v7)
+    v33 = std::string::basic_string[abi:ne200100]<0>(&v152, "sparse_num_nonzero_per_filter");
+    v78 = v9;
+    v79 = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v76 = v154;
-    v77 = v155;
-    if (v155)
+    v76 = v150;
+    v77 = v151;
+    if (v151)
     {
-      atomic_fetch_add_explicit(&v155->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ANEMachineIR::Utils::TryCopyOpInput(v34, &v78, &v76);
+    ANEMachineIR::Utils::TryCopyOpInput(v33, &v78, &v76);
     if (v77)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v77);
@@ -6965,39 +4511,70 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v79);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    MIL::Builder::BlockBuilder::GetOpsetName(*a1);
+    v34 = std::string::basic_string[abi:ne200100]<0>(&v152, "palette_table");
+    v74 = v9;
+    v75 = v8;
+    if (v8)
+    {
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v72 = v150;
+    v73 = v151;
+    if (v151)
+    {
+      atomic_fetch_add_explicit(&v151->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    ANEMachineIR::Utils::TryCopyOpInput(v34, &v74, &v72);
+    if (v73)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v73);
+    }
+
+    if (v75)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v75);
+    }
+
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v152.__r_.__value_.__l.__data_);
+    }
+
+    MIL::Builder::BlockBuilder::GetOpsetName(*a2);
     MIL::Builder::OperationBuilder::AddBlock();
-    MIL::Builder::OperationBuilder::GetBlocks(&__p, v10);
-    MIL::Builder::BlockBuilder::GetOperations(&v156, *__p.__r_.__value_.__l.__data_);
-    v36 = *v156.__r_.__value_.__l.__data_;
-    v35 = *(v156.__r_.__value_.__r.__words[0] + 8);
+    MIL::Builder::OperationBuilder::GetBlocks(&__p, v11);
+    MIL::Builder::BlockBuilder::GetOperations(&v152, *__p.__r_.__value_.__l.__data_);
+    v36 = *v152.__r_.__value_.__l.__data_;
+    v35 = *(v152.__r_.__value_.__r.__words[0] + 8);
     if (v35)
     {
       atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    p_p = &v156;
+    p_p = &v152;
     std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&p_p);
     p_p = &__p;
     std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&p_p);
-    std::string::basic_string[abi:ne200100]<0>(&v156, "x");
+    std::string::basic_string[abi:ne200100]<0>(&v152, "x");
     v37 = MIL::Builder::OperationBuilder::GetArgumentForParameter();
     v38 = MIL::Builder::Variable::GetName(v37);
     if (*(v38 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v73, *v38, *(v38 + 8));
+      std::string::__init_copy_ctor_external(&v69, *v38, *(v38 + 8));
     }
 
     else
     {
       v39 = *v38;
-      v73.__r_.__value_.__r.__words[2] = *(v38 + 16);
-      *&v73.__r_.__value_.__l.__data_ = v39;
+      v69.__r_.__value_.__r.__words[2] = *(v38 + 16);
+      *&v69.__r_.__value_.__l.__data_ = v39;
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, "x");
@@ -7009,72 +4586,72 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v73.__r_.__value_.__l.__data_);
+      operator delete(v69.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
     Operator = MIL::Builder::OperationBuilder::GetOperator(v36);
     (*(*Operator + 16))(Operator);
-    v69 = 0;
-    v70 = 0;
+    v65 = 0;
+    v66 = 0;
     MIL::Builder::BlockBuilder::AddOperation();
-    v42 = std::string::basic_string[abi:ne200100]<0>(&v156, "x");
-    v67 = v36;
-    v68 = v35;
+    v42 = std::string::basic_string[abi:ne200100]<0>(&v152, "x");
+    v63 = v36;
+    v64 = v35;
     if (v35)
     {
       atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v65 = p_p;
-    v66 = v72;
-    if (v72)
-    {
-      atomic_fetch_add_explicit(&v72->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    ANEMachineIR::Utils::TryCopyOpInput(v42, &v67, &v65);
-    if (v66)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v66);
-    }
-
+    v61 = p_p;
+    v62 = v68;
     if (v68)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v68);
+      atomic_fetch_add_explicit(&v68->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    ANEMachineIR::Utils::TryCopyOpInput(v42, &v63, &v61);
+    if (v62)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v62);
     }
 
-    MIL::Builder::OperationBuilder::GetOutputs(&v156, v36);
-    v43 = MIL::Builder::Variable::GetName(*v156.__r_.__value_.__l.__data_);
+    if (v64)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+    }
+
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v152.__r_.__value_.__l.__data_);
+    }
+
+    MIL::Builder::OperationBuilder::GetOutputs(&v152, v36);
+    v43 = MIL::Builder::Variable::GetName(*v152.__r_.__value_.__l.__data_);
     if (*(v43 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v63, *v43, *(v43 + 8));
+      std::string::__init_copy_ctor_external(&v59, *v43, *(v43 + 8));
     }
 
     else
     {
       v44 = *v43;
-      v63.__r_.__value_.__r.__words[2] = *(v43 + 16);
-      *&v63.__r_.__value_.__l.__data_ = v44;
+      v59.__r_.__value_.__r.__words[2] = *(v43 + 16);
+      *&v59.__r_.__value_.__l.__data_ = v44;
     }
 
     MIL::Builder::OperationBuilder::GetOutputs(&__p, v36);
     MIL::Builder::Variable::TryGetType(*__p.__r_.__value_.__l.__data_);
     MIL::Builder::OperationBuilder::AddOutput();
-    if (v64)
+    if (v60)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v60);
     }
 
     if (__p.__r_.__value_.__r.__words[0])
@@ -7083,48 +4660,48 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v63.__r_.__value_.__l.__data_);
+      operator delete(v59.__r_.__value_.__l.__data_);
     }
 
-    if (v156.__r_.__value_.__r.__words[0])
+    if (v152.__r_.__value_.__r.__words[0])
     {
-      v156.__r_.__value_.__l.__size_ = v156.__r_.__value_.__r.__words[0];
-      operator delete(v156.__r_.__value_.__l.__data_);
+      v152.__r_.__value_.__l.__size_ = v152.__r_.__value_.__r.__words[0];
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    MIL::Builder::OperationBuilder::GetOutputs(&v156, p_p);
-    MIL::Builder::Variable::GetName(*v156.__r_.__value_.__l.__data_);
+    MIL::Builder::OperationBuilder::GetOutputs(&v152, p_p);
+    MIL::Builder::Variable::GetName(*v152.__r_.__value_.__l.__data_);
     MIL::Builder::BlockBuilder::AddOutput();
-    if (v156.__r_.__value_.__r.__words[0])
+    if (v152.__r_.__value_.__r.__words[0])
     {
-      v156.__r_.__value_.__l.__size_ = v156.__r_.__value_.__r.__words[0];
-      operator delete(v156.__r_.__value_.__l.__data_);
+      v152.__r_.__value_.__l.__size_ = v152.__r_.__value_.__r.__words[0];
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    Output = MIL::Builder::OperationBuilder::GetOutput(v10);
+    Output = MIL::Builder::OperationBuilder::GetOutput(v11);
     v46 = MIL::Builder::Variable::GetName(Output);
     if (*(v46 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v156, *v46, *(v46 + 8));
+      std::string::__init_copy_ctor_external(&v152, *v46, *(v46 + 8));
     }
 
     else
     {
       v47 = *v46;
-      v156.__r_.__value_.__r.__words[2] = *(v46 + 16);
-      *&v156.__r_.__value_.__l.__data_ = v47;
+      v152.__r_.__value_.__r.__words[2] = *(v46 + 16);
+      *&v152.__r_.__value_.__l.__data_ = v47;
     }
 
-    if ((v156.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v152.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v156.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v152.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v156.__r_.__value_.__l.__size_;
+      size = v152.__r_.__value_.__l.__size_;
     }
 
     v49 = &__p;
@@ -7136,14 +4713,14 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
 
     if (size)
     {
-      if ((v156.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v152.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v50 = &v156;
+        v50 = &v152;
       }
 
       else
       {
-        v50 = v156.__r_.__value_.__r.__words[0];
+        v50 = v152.__r_.__value_.__r.__words[0];
       }
 
       memmove(v49, v50, size);
@@ -7152,98 +4729,94 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
     strcpy(v49 + size, "_fused");
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v61, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v57, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v61 = __p;
+      v57 = __p;
     }
 
-    v51 = MIL::Builder::OperationBuilder::GetOutput(v10);
+    v51 = MIL::Builder::OperationBuilder::GetOutput(v11);
     MIL::Builder::Variable::TryGetType(v51);
     MIL::Builder::OperationBuilder::AddOutput();
-    if (v62)
+    if (v58)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v62);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v58);
     }
 
-    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v61.__r_.__value_.__l.__data_);
+      operator delete(v57.__r_.__value_.__l.__data_);
     }
 
-    v52 = *a1;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v60, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v56, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v60 = __p;
+      v56 = __p;
     }
 
     MIL::Builder::BlockBuilder::ReplaceUsesOfInputVariable();
-    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v60.__r_.__value_.__l.__data_);
+      operator delete(v56.__r_.__value_.__l.__data_);
     }
 
-    v53 = *a2;
-    v54 = a2[1];
-    if (*a2 != v54)
+    v52 = *a3;
+    v53 = a3[1];
+    if (*a3 != v53)
     {
       do
       {
-        v55 = *v53;
-        v56 = v53[1];
-        if (v56)
+        v54 = *(v52 + 1);
+        if (v54)
         {
-          atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
-          v57 = *a1;
-          v59 = v56;
-          atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
+          v55 = v54;
+          atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
         else
         {
-          v58 = *a1;
-          v59 = 0;
+          v55 = 0;
         }
 
         MIL::Builder::BlockBuilder::RemoveOperation();
-        if (v59)
+        if (v55)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v59);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v55);
         }
 
-        if (v56)
+        if (v54)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v56);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v54);
         }
 
-        v53 += 2;
+        v52 += 16;
       }
 
-      while (v53 != v54);
+      while (v52 != v53);
     }
 
-    *a3 = 0;
-    std::string::basic_string[abi:ne200100]<0>((a3 + 8), &unk_259A4D977);
+    *a4 = 0;
+    std::string::basic_string[abi:ne200100]<0>((a4 + 8), &unk_259A4D977);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    if (v72)
+    if (v68)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v68);
     }
 
     if (v35)
@@ -7251,41 +4824,41 @@ void MilTranslator::Passes::FuseConvActivation::Replace(MIL::Builder::BlockBuild
       std::__shared_weak_count::__release_shared[abi:ne200100](v35);
     }
 
-    if (v75)
+    if (v71)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v75);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v71);
     }
 
-    if (v155)
+    if (v151)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v155);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v151);
     }
 
-    if (v9)
+    if (v10)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
     }
 
-    if (v7)
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
   }
 
   else
   {
-    *a3 = 14;
+    *a4 = 14;
     std::operator+<char>();
-    v15 = std::string::append(&v156, "'s pattern");
+    v15 = std::string::append(&v152, "'s pattern");
     v16 = *&v15->__r_.__value_.__l.__data_;
-    *(a3 + 24) = *(&v15->__r_.__value_.__l + 2);
-    *(a3 + 8) = v16;
+    *(a4 + 24) = *(&v15->__r_.__value_.__l + 2);
+    *(a4 + 8) = v16;
     v15->__r_.__value_.__l.__size_ = 0;
     v15->__r_.__value_.__r.__words[2] = 0;
     v15->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v156.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v156.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
   }
 }
@@ -7297,24 +4870,24 @@ void MilTranslator::Passes::FuseConvActivation::~FuseConvActivation(void **this)
   JUMPOUT(0x259CA9760);
 }
 
-_BYTE *MIL::ANEMachineIR::Interpreter::ConstCpu::Run@<X0>(_DWORD *a1@<X8>)
+void *MIL::ANEMachineIR::Interpreter::ConstCpu::Run@<X0>(_DWORD *a2@<X8>)
 {
   std::string::basic_string[abi:ne200100]<0>(&__p, "val");
   Attribute = MIL::IRObject::TryGetAttribute();
-  v3 = Attribute;
-  if (v8 < 0)
+  v4 = Attribute;
+  if (v9 < 0)
   {
     operator delete(__p);
-    if (v3)
+    if (v4)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    *a1 = 2;
-    v4 = "No value.";
-    v5 = a1 + 2;
-    return std::string::basic_string[abi:ne200100]<0>(v5, v4);
+    *a2 = 2;
+    v5 = "No value.";
+    v6 = a2 + 2;
+    return std::string::basic_string[abi:ne200100]<0>(v6, v5);
   }
 
   if (!Attribute)
@@ -7323,20 +4896,20 @@ LABEL_6:
   }
 
 LABEL_3:
-  if ((*(*v3 + 40))(v3))
+  if ((*(*v4 + 40))(v4))
   {
-    *a1 = 0;
-    v4 = &unk_259A4D977;
+    *a2 = 0;
+    v5 = &unk_259A4D977;
   }
 
   else
   {
-    *a1 = 3;
-    v4 = "Value is not a tensor.";
+    *a2 = 3;
+    v5 = "Value is not a tensor.";
   }
 
-  v5 = a1 + 2;
-  return std::string::basic_string[abi:ne200100]<0>(v5, v4);
+  v6 = a2 + 2;
+  return std::string::basic_string[abi:ne200100]<0>(v6, v5);
 }
 
 void sub_259A0CC58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7351,45 +4924,43 @@ void sub_259A0CC58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ANEMachineIR::H2020::Const::Make(uint64_t a1, uint64_t a2)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   *__p = *a2;
   v2 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v7[0] = &unk_286AADC48;
-  v7[1] = ANEMachineIR::H2020::Validators::ValidateConst;
-  v7[3] = v7;
-  v5 = HIBYTE(v2);
-  v6[0] = &unk_286AB29C0;
+  v6[0] = &unk_286AADC48;
+  v6[1] = ANEMachineIR::H2020::Validators::ValidateConst;
   v6[3] = v6;
+  v4 = HIBYTE(v2);
+  v5[0] = &unk_286AB29C0;
+  v5[3] = v5;
   MIL::IROperator::Make();
-  std::__function::__value_func<std::shared_ptr<MIL::IRValue const> ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](v6);
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](v7);
-  if (v5 < 0)
+  std::__function::__value_func<std::shared_ptr<MIL::IRValue const> ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](v5);
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](v6);
+  if (v4 < 0)
   {
     operator delete(__p[0]);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void sub_259A0CDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, std::__shared_weak_count *a5, ...)
+void sub_259A0CDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, std::__shared_weak_count *a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
   std::__function::__value_func<std::shared_ptr<MIL::IRValue const> ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](va2);
-  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](v5 - 56);
-  if (a5)
+  std::__function::__value_func<MIL::ValidationResult ()(MIL::IROperation const&)>::~__value_func[abi:ne200100](v9 - 56);
+  if (a9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a9);
   }
 
   ANEMachineIR::H2022::Const::Make(va, va1);
@@ -7649,14 +5220,14 @@ LABEL_55:
   }
 }
 
-void sub_259A0D448(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
+void sub_259A0D448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
 {
   if (v47)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v47);
   }
 
-  MEMORY[0x259CA8F00](&a27);
+  MEMORY[0x259CA8F00](&a27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -7676,61 +5247,60 @@ void ANEMachineIR::Validators::ValidateTranspose(MIL::IROperation *a1@<X0>, MIL:
   if ((ANEMachineIR::Utils::IsStaticTensorType(OutputType, v5) & 1) == 0)
   {
     LocationPtr = MIL::IRObject::GetLocationPtr(a1);
-    v35 = LocationPtr[1];
-    v169 = *LocationPtr;
-    v170 = v35;
-    if (v35)
+    v34 = LocationPtr[1];
+    v168 = *LocationPtr;
+    v169 = v34;
+    if (v34)
     {
-      atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v167, "Output must be tensor with static shape");
-    MEMORY[0x259CA8EE0](a2, &v169, 315, v167);
-    if (v168 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v166, "Output must be tensor with static shape");
+    MEMORY[0x259CA8EE0](a2, &v168, 315, v166);
+    if (v167 < 0)
     {
-      operator delete(v167[0]);
+      operator delete(v166[0]);
     }
 
-    v36 = v170;
-    if (!v170)
+    v35 = v169;
+    if (!v169)
     {
       return;
     }
 
 LABEL_41:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
     return;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v164, "x");
+  std::string::basic_string[abi:ne200100]<0>(&v163, "x");
   ParameterType = MIL::IROperation::GetParameterType();
-  if (v166 < 0)
+  if (v165 < 0)
   {
-    operator delete(v164);
+    operator delete(v163);
   }
 
   IsStaticTensorType = ANEMachineIR::Utils::IsStaticTensorType(ParameterType, v6);
   v9 = MIL::IRObject::GetLocationPtr(a1);
-  v10 = *v9;
   if ((IsStaticTensorType & 1) == 0)
   {
-    v37 = v9[1];
-    v162 = *v9;
-    v163 = v37;
-    if (v37)
+    v36 = v9[1];
+    v161 = *v9;
+    v162 = v36;
+    if (v36)
     {
-      atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v160, "'x' must be tensor with static shape");
-    MEMORY[0x259CA8EE0](a2, &v162, 315, v160);
-    if (v161 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v159, "'x' must be tensor with static shape");
+    MEMORY[0x259CA8EE0](a2, &v161, 315, v159);
+    if (v160 < 0)
     {
-      operator delete(v160[0]);
+      operator delete(v159[0]);
     }
 
-    v36 = v163;
-    if (!v163)
+    v35 = v162;
+    if (!v162)
     {
       return;
     }
@@ -7738,267 +5308,262 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v11 = v9[1];
-  v158 = *v9;
-  v159 = v11;
-  if (v11)
+  v10 = v9[1];
+  v157 = *v9;
+  v158 = v10;
+  if (v10)
   {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v12 = MIL::IRValueType::AsTensorType(ParameterType);
-  std::string::basic_string[abi:ne200100]<0>(&v164, "x");
-  v13 = (*(*a1 + 56))(a1);
-  ANEMachineIR::Validators::ValidateLiveTensorSize(&v158, v12, &v164, v13, a2);
-  if (v166 < 0)
+  v11 = MIL::IRValueType::AsTensorType(ParameterType);
+  std::string::basic_string[abi:ne200100]<0>(&v163, "x");
+  v12 = (*(*a1 + 56))(a1);
+  ANEMachineIR::Validators::ValidateLiveTensorSize(&v157, v11, &v163, v12, a2);
+  if (v165 < 0)
   {
-    operator delete(v164);
+    operator delete(v163);
   }
 
-  if (v159)
+  if (v158)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v159);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v158);
   }
 
   if (MIL::ValidationResult::IsGood(a2))
   {
     MEMORY[0x259CA8F00](a2);
-    v14 = MIL::IRValueType::AsTensorType(ParameterType);
-    ANEMachineIR::Utils::GetStaticTensorShape(v14, v15, &v164);
-    v17 = v164;
-    v16 = v165;
-    std::string::basic_string[abi:ne200100]<0>(&v153, "perm");
+    v13 = MIL::IRValueType::AsTensorType(ParameterType);
+    ANEMachineIR::Utils::GetStaticTensorShape(&v163, v13, v14);
+    v16 = v163;
+    v15 = v164;
+    std::string::basic_string[abi:ne200100]<0>(&v152, "perm");
     ParameterValue = MIL::IROperation::TryGetParameterValue();
     MIL::IRValue::AsTensor(ParameterValue);
     Data = MIL::IRTensorValue::GetDataView<int>();
-    v157 = v19;
-    if (SHIBYTE(v155) < 0)
+    v156 = v18;
+    if (SHIBYTE(v154) < 0)
     {
-      operator delete(v153);
-      v19 = v157;
+      operator delete(v152);
+      v18 = v156;
     }
 
+    v152 = 0;
     v153 = 0;
     v154 = 0;
-    v155 = 0;
-    if (v19)
+    if (v18)
     {
-      v20 = 0;
+      v19 = 0;
       do
       {
-        v21 = MIL::Util::Span<int const,18446744073709551615ul>::At(&Data, v20);
-        v22 = v154;
-        if (v154 >= v155)
+        v20 = MIL::Util::Span<int const,18446744073709551615ul>::At(&Data, v19);
+        v21 = v153;
+        if (v153 >= v154)
         {
-          v24 = v153;
-          v25 = v154 - v153;
-          v26 = (v154 - v153) >> 2;
-          v27 = v26 + 1;
-          if ((v26 + 1) >> 62)
+          v23 = v152;
+          v24 = v153 - v152;
+          v25 = (v153 - v152) >> 2;
+          v26 = v25 + 1;
+          if ((v25 + 1) >> 62)
           {
             std::vector<MIL::Fp16>::__throw_length_error[abi:ne200100]();
           }
 
-          v28 = v155 - v153;
-          if ((v155 - v153) >> 1 > v27)
+          v27 = v154 - v152;
+          if ((v154 - v152) >> 1 > v26)
           {
-            v27 = v28 >> 1;
+            v26 = v27 >> 1;
           }
 
-          if (v28 >= 0x7FFFFFFFFFFFFFFCLL)
+          if (v27 >= 0x7FFFFFFFFFFFFFFCLL)
           {
-            v29 = 0x3FFFFFFFFFFFFFFFLL;
+            v28 = 0x3FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v29 = v27;
+            v28 = v26;
           }
 
-          if (v29)
+          if (v28)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&v153, v29);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&v152, v28);
           }
 
-          v30 = (4 * v26);
-          v31 = &v30[-((v154 - v153) >> 2)];
-          *v30 = *v21;
-          v23 = (v30 + 1);
-          memcpy(v31, v24, v25);
-          v32 = v153;
-          v153 = v31;
-          v154 = v23;
-          v155 = 0;
-          if (v32)
+          v29 = (4 * v25);
+          v30 = &v29[-((v153 - v152) >> 2)];
+          *v29 = *v20;
+          v22 = (v29 + 1);
+          memcpy(v30, v23, v24);
+          v31 = v152;
+          v152 = v30;
+          v153 = v22;
+          v154 = 0;
+          if (v31)
           {
-            operator delete(v32);
+            operator delete(v31);
           }
         }
 
         else
         {
-          *v154 = *v21;
-          v23 = v22 + 4;
+          *v153 = *v20;
+          v22 = v21 + 4;
         }
 
-        v154 = v23;
-        ++v20;
+        v153 = v22;
+        ++v19;
       }
 
-      while (v157 > v20);
-      v33 = (v23 - v153) >> 2;
+      while (v156 > v19);
+      v32 = (v22 - v152) >> 2;
     }
 
     else
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    if (v33 == (v165 - v164) >> 3)
+    if (v32 == v164 - v163)
     {
-      ANEMachineIR::Utils::InferPositiveAxes(&v153, &v148);
-      memset(&v147, 0, sizeof(v147));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v147, v148.__r_.__value_.__l.__data_, v148.__r_.__value_.__l.__size_, (v148.__r_.__value_.__l.__size_ - v148.__r_.__value_.__r.__words[0]) >> 2);
+      ANEMachineIR::Utils::InferPositiveAxes(&v152, &v147);
+      memset(&v146, 0, sizeof(v146));
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v146, v147.__r_.__value_.__l.__data_, v147.__r_.__value_.__l.__size_, (v147.__r_.__value_.__l.__size_ - v147.__r_.__value_.__r.__words[0]) >> 2);
       std::__sort<std::__less<int,int> &,int *>();
-      if (v147.__r_.__value_.__l.__size_ == v147.__r_.__value_.__r.__words[0])
+      if (v146.__r_.__value_.__l.__size_ == v146.__r_.__value_.__r.__words[0])
       {
 LABEL_50:
-        v40 = MIL::IROperation::GetOutputType(a1);
-        v41 = MIL::IRValueType::AsTensorType(v40);
-        ANEMachineIR::Utils::GetStaticTensorShape(v41, v42, &v146.__r_.__value_.__l.__data_);
-        v43 = (v165 - v164) >> 3;
-        if (v43 != (v148.__r_.__value_.__l.__size_ - v148.__r_.__value_.__r.__words[0]) >> 2)
+        v39 = MIL::IROperation::GetOutputType(a1);
+        v40 = MIL::IRValueType::AsTensorType(v39);
+        ANEMachineIR::Utils::GetStaticTensorShape(&v145.__r_.__value_.__l.__data_, v40, v41);
+        v42 = v164 - v163;
+        if (v42 != (v147.__r_.__value_.__l.__size_ - v147.__r_.__value_.__r.__words[0]) >> 2)
         {
           __assert_rtn("InferTransposeOutputShape", "ShapeValidators.cpp", 97, "input_shape.size() == perm_positive.size()");
         }
 
-        memset(&v145, 0, sizeof(v145));
-        std::vector<unsigned long long>::resize(&v145, v43);
-        v44 = v148.__r_.__value_.__r.__words[0];
-        if (v148.__r_.__value_.__l.__size_ != v148.__r_.__value_.__r.__words[0])
+        memset(&v144, 0, sizeof(v144));
+        std::vector<unsigned long long>::resize(&v144, v42);
+        v43 = v147.__r_.__value_.__r.__words[0];
+        if (v147.__r_.__value_.__l.__size_ != v147.__r_.__value_.__r.__words[0])
         {
-          v45 = (v148.__r_.__value_.__l.__size_ - v148.__r_.__value_.__r.__words[0]) >> 2;
-          v46 = v164;
-          v47 = (v165 - v164) >> 3;
-          v48 = v145.__r_.__value_.__r.__words[0];
-          if (v45 <= 1)
+          v44 = (v147.__r_.__value_.__l.__size_ - v147.__r_.__value_.__r.__words[0]) >> 2;
+          v45 = v163;
+          v46 = v164 - v163;
+          v47 = v144.__r_.__value_.__r.__words[0];
+          if (v44 <= 1)
           {
-            v45 = 1;
+            v44 = 1;
           }
 
           do
           {
-            v50 = *v44++;
-            v49 = v50;
-            if (v47 <= v50)
+            v49 = *v43++;
+            v48 = v49;
+            if (v46 <= v49)
             {
               std::vector<unsigned long long>::__throw_out_of_range[abi:ne200100]();
             }
 
-            *v48++ = v46[v49];
-            --v45;
+            *v47++ = v45[v48];
+            --v44;
           }
 
-          while (v45);
+          while (v44);
         }
 
-        if (v145.__r_.__value_.__l.__size_ - v145.__r_.__value_.__r.__words[0] == v146.__r_.__value_.__l.__size_ - v146.__r_.__value_.__r.__words[0])
+        if (v144.__r_.__value_.__l.__size_ - v144.__r_.__value_.__r.__words[0] == v145.__r_.__value_.__l.__size_ - v145.__r_.__value_.__r.__words[0])
         {
-          if (!memcmp(v145.__r_.__value_.__l.__data_, v146.__r_.__value_.__l.__data_, v145.__r_.__value_.__l.__size_ - v145.__r_.__value_.__r.__words[0]))
+          if (!memcmp(v144.__r_.__value_.__l.__data_, v145.__r_.__value_.__l.__data_, v144.__r_.__value_.__l.__size_ - v144.__r_.__value_.__r.__words[0]))
           {
-            v115 = MIL::IRObject::GetLocationPtr(a1);
-            v116 = v115[1];
-            v122 = *v115;
-            v123 = v116;
-            if (v116)
+            v114 = MIL::IRObject::GetLocationPtr(a1);
+            v115 = v114[1];
+            v121 = *v114;
+            v122 = v115;
+            if (v115)
             {
-              atomic_fetch_add_explicit(&v116->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v115->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            v117 = MIL::IROperation::GetOutputType(a1);
-            v118 = MIL::IRValueType::AsTensorType(v117);
-            (*(*a1 + 200))(&v144, a1);
-            v119 = v144.__r_.__value_.__r.__words[0];
-            v120 = (*(*a1 + 56))(a1);
-            ANEMachineIR::Validators::ValidateLiveTensorSize(&v122, v118, v119, v120, a2);
-            v143.__r_.__value_.__r.__words[0] = &v144;
-            std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v143);
-            if (v123)
+            v116 = MIL::IROperation::GetOutputType(a1);
+            v117 = MIL::IRValueType::AsTensorType(v116);
+            (*(*a1 + 200))(&v143, a1);
+            v118 = v143.__r_.__value_.__r.__words[0];
+            v119 = (*(*a1 + 56))(a1);
+            ANEMachineIR::Validators::ValidateLiveTensorSize(&v121, v117, v118, v119, a2);
+            v142.__r_.__value_.__r.__words[0] = &v143;
+            std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v142);
+            if (v122)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v123);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v122);
             }
 
             if (MIL::ValidationResult::IsGood(a2))
             {
-              v121 = MEMORY[0x259CA8F00](a2);
-              MIL::ValidationResult::ValidationResult(v121);
+              v120 = MEMORY[0x259CA8F00](a2);
+              MIL::ValidationResult::ValidationResult(v120);
             }
           }
 
           else
           {
-            ANEMachineIR::Utils::ShapeString(&v146);
             ANEMachineIR::Utils::ShapeString(&v145);
-            v51 = MIL::IRObject::GetLocationPtr(a1);
-            v52 = v51[1];
-            v126 = *v51;
-            v127 = v52;
-            if (v52)
+            ANEMachineIR::Utils::ShapeString(&v144);
+            v50 = MIL::IRObject::GetLocationPtr(a1);
+            v51 = v50[1];
+            v125 = *v50;
+            v126 = v51;
+            if (v51)
             {
-              atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             std::operator+<char>();
-            v53 = std::string::append(&v136, " does not match inferred shape ");
-            v54 = *&v53->__r_.__value_.__l.__data_;
-            v141.__r_.__value_.__r.__words[2] = v53->__r_.__value_.__r.__words[2];
-            *&v141.__r_.__value_.__l.__data_ = v54;
-            v53->__r_.__value_.__l.__size_ = 0;
-            v53->__r_.__value_.__r.__words[2] = 0;
-            v53->__r_.__value_.__r.__words[0] = 0;
-            if ((v143.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            v52 = std::string::append(&v135, " does not match inferred shape ");
+            v53 = *&v52->__r_.__value_.__l.__data_;
+            v140.__r_.__value_.__r.__words[2] = v52->__r_.__value_.__r.__words[2];
+            *&v140.__r_.__value_.__l.__data_ = v53;
+            v52->__r_.__value_.__l.__size_ = 0;
+            v52->__r_.__value_.__r.__words[2] = 0;
+            v52->__r_.__value_.__r.__words[0] = 0;
+            if ((v142.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v55 = &v143;
+              v54 = &v142;
             }
 
             else
             {
-              v55 = v143.__r_.__value_.__r.__words[0];
+              v54 = v142.__r_.__value_.__r.__words[0];
             }
 
-            if ((v143.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v142.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              size = HIBYTE(v143.__r_.__value_.__r.__words[2]);
+              size = HIBYTE(v142.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              size = v143.__r_.__value_.__l.__size_;
+              size = v142.__r_.__value_.__l.__size_;
             }
 
-            v57 = std::string::append(&v141, v55, size);
-            v58 = *&v57->__r_.__value_.__l.__data_;
-            v142.__r_.__value_.__r.__words[2] = v57->__r_.__value_.__r.__words[2];
-            *&v142.__r_.__value_.__l.__data_ = v58;
-            v57->__r_.__value_.__l.__size_ = 0;
-            v57->__r_.__value_.__r.__words[2] = 0;
-            v57->__r_.__value_.__r.__words[0] = 0;
-            v59 = std::string::append(&v142, ".");
-            v60 = *&v59->__r_.__value_.__l.__data_;
-            v125 = v59->__r_.__value_.__r.__words[2];
-            *__p = v60;
-            v59->__r_.__value_.__l.__size_ = 0;
-            v59->__r_.__value_.__r.__words[2] = 0;
-            v59->__r_.__value_.__r.__words[0] = 0;
-            MEMORY[0x259CA8EE0](a2, &v126, 313, __p);
-            if (SHIBYTE(v125) < 0)
+            v56 = std::string::append(&v140, v54, size);
+            v57 = *&v56->__r_.__value_.__l.__data_;
+            v141.__r_.__value_.__r.__words[2] = v56->__r_.__value_.__r.__words[2];
+            *&v141.__r_.__value_.__l.__data_ = v57;
+            v56->__r_.__value_.__l.__size_ = 0;
+            v56->__r_.__value_.__r.__words[2] = 0;
+            v56->__r_.__value_.__r.__words[0] = 0;
+            v58 = std::string::append(&v141, ".");
+            v59 = *&v58->__r_.__value_.__l.__data_;
+            v124 = v58->__r_.__value_.__r.__words[2];
+            *__p = v59;
+            v58->__r_.__value_.__l.__size_ = 0;
+            v58->__r_.__value_.__r.__words[2] = 0;
+            v58->__r_.__value_.__r.__words[0] = 0;
+            MEMORY[0x259CA8EE0](a2, &v125, 313, __p);
+            if (SHIBYTE(v124) < 0)
             {
               operator delete(__p[0]);
-            }
-
-            if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v142.__r_.__value_.__l.__data_);
             }
 
             if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
@@ -8006,108 +5571,108 @@ LABEL_50:
               operator delete(v141.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v140.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v136.__r_.__value_.__l.__data_);
+              operator delete(v140.__r_.__value_.__l.__data_);
             }
 
-            if (v127)
+            if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v127);
+              operator delete(v135.__r_.__value_.__l.__data_);
+            }
+
+            if (v126)
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](v126);
+            }
+
+            if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(v142.__r_.__value_.__l.__data_);
             }
 
             if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(v143.__r_.__value_.__l.__data_);
             }
-
-            if (SHIBYTE(v144.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v144.__r_.__value_.__l.__data_);
-            }
           }
         }
 
         else
         {
-          v79 = MIL::IRObject::GetLocationPtr(a1);
-          v80 = v79[1];
-          v130 = *v79;
-          v131 = v80;
-          if (v80)
+          v78 = MIL::IRObject::GetLocationPtr(a1);
+          v79 = v78[1];
+          v129 = *v78;
+          v130 = v79;
+          if (v79)
           {
-            atomic_fetch_add_explicit(&v80->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          std::to_string(&v141, (v146.__r_.__value_.__l.__size_ - v146.__r_.__value_.__r.__words[0]) >> 3);
-          v81 = std::string::insert(&v141, 0, "Output rank ");
-          v82 = *&v81->__r_.__value_.__l.__data_;
-          v142.__r_.__value_.__r.__words[2] = v81->__r_.__value_.__r.__words[2];
-          *&v142.__r_.__value_.__l.__data_ = v82;
-          v81->__r_.__value_.__l.__size_ = 0;
-          v81->__r_.__value_.__r.__words[2] = 0;
-          v81->__r_.__value_.__r.__words[0] = 0;
-          v83 = std::string::append(&v142, " does not match rank of inferred shape ");
-          v84 = *&v83->__r_.__value_.__l.__data_;
-          v143.__r_.__value_.__r.__words[2] = v83->__r_.__value_.__r.__words[2];
-          *&v143.__r_.__value_.__l.__data_ = v84;
-          v83->__r_.__value_.__l.__size_ = 0;
-          v83->__r_.__value_.__r.__words[2] = 0;
-          v83->__r_.__value_.__r.__words[0] = 0;
-          std::to_string(&v136, (v145.__r_.__value_.__l.__size_ - v145.__r_.__value_.__r.__words[0]) >> 3);
-          if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::to_string(&v140, (v145.__r_.__value_.__l.__size_ - v145.__r_.__value_.__r.__words[0]) >> 3);
+          v80 = std::string::insert(&v140, 0, "Output rank ");
+          v81 = *&v80->__r_.__value_.__l.__data_;
+          v141.__r_.__value_.__r.__words[2] = v80->__r_.__value_.__r.__words[2];
+          *&v141.__r_.__value_.__l.__data_ = v81;
+          v80->__r_.__value_.__l.__size_ = 0;
+          v80->__r_.__value_.__r.__words[2] = 0;
+          v80->__r_.__value_.__r.__words[0] = 0;
+          v82 = std::string::append(&v141, " does not match rank of inferred shape ");
+          v83 = *&v82->__r_.__value_.__l.__data_;
+          v142.__r_.__value_.__r.__words[2] = v82->__r_.__value_.__r.__words[2];
+          *&v142.__r_.__value_.__l.__data_ = v83;
+          v82->__r_.__value_.__l.__size_ = 0;
+          v82->__r_.__value_.__r.__words[2] = 0;
+          v82->__r_.__value_.__r.__words[0] = 0;
+          std::to_string(&v135, (v144.__r_.__value_.__l.__size_ - v144.__r_.__value_.__r.__words[0]) >> 3);
+          if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v85 = &v136;
-          }
-
-          else
-          {
-            v85 = v136.__r_.__value_.__r.__words[0];
-          }
-
-          if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v86 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
+            v84 = &v135;
           }
 
           else
           {
-            v86 = v136.__r_.__value_.__l.__size_;
+            v84 = v135.__r_.__value_.__r.__words[0];
           }
 
-          v87 = std::string::append(&v143, v85, v86);
-          v88 = *&v87->__r_.__value_.__l.__data_;
-          v144.__r_.__value_.__r.__words[2] = v87->__r_.__value_.__r.__words[2];
-          *&v144.__r_.__value_.__l.__data_ = v88;
-          v87->__r_.__value_.__l.__size_ = 0;
-          v87->__r_.__value_.__r.__words[2] = 0;
-          v87->__r_.__value_.__r.__words[0] = 0;
-          v89 = std::string::append(&v144, ".");
-          v90 = *&v89->__r_.__value_.__l.__data_;
-          v129 = v89->__r_.__value_.__r.__words[2];
-          *v128 = v90;
-          v89->__r_.__value_.__l.__size_ = 0;
-          v89->__r_.__value_.__r.__words[2] = 0;
-          v89->__r_.__value_.__r.__words[0] = 0;
-          MEMORY[0x259CA8EE0](a2, &v130, 313, v128);
-          if (SHIBYTE(v129) < 0)
+          if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            operator delete(v128[0]);
+            v85 = HIBYTE(v135.__r_.__value_.__r.__words[2]);
           }
 
-          if (SHIBYTE(v144.__r_.__value_.__r.__words[2]) < 0)
+          else
           {
-            operator delete(v144.__r_.__value_.__l.__data_);
+            v85 = v135.__r_.__value_.__l.__size_;
           }
 
-          if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
+          v86 = std::string::append(&v142, v84, v85);
+          v87 = *&v86->__r_.__value_.__l.__data_;
+          v143.__r_.__value_.__r.__words[2] = v86->__r_.__value_.__r.__words[2];
+          *&v143.__r_.__value_.__l.__data_ = v87;
+          v86->__r_.__value_.__l.__size_ = 0;
+          v86->__r_.__value_.__r.__words[2] = 0;
+          v86->__r_.__value_.__r.__words[0] = 0;
+          v88 = std::string::append(&v143, ".");
+          v89 = *&v88->__r_.__value_.__l.__data_;
+          v128 = v88->__r_.__value_.__r.__words[2];
+          *v127 = v89;
+          v88->__r_.__value_.__l.__size_ = 0;
+          v88->__r_.__value_.__r.__words[2] = 0;
+          v88->__r_.__value_.__r.__words[0] = 0;
+          MEMORY[0x259CA8EE0](a2, &v129, 313, v127);
+          if (SHIBYTE(v128) < 0)
           {
-            operator delete(v136.__r_.__value_.__l.__data_);
+            operator delete(v127[0]);
           }
 
           if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v143.__r_.__value_.__l.__data_);
+          }
+
+          if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v135.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
@@ -8120,10 +5685,21 @@ LABEL_50:
             operator delete(v141.__r_.__value_.__l.__data_);
           }
 
-          if (v131)
+          if (SHIBYTE(v140.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v131);
+            operator delete(v140.__r_.__value_.__l.__data_);
           }
+
+          if (v130)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v130);
+          }
+        }
+
+        if (v144.__r_.__value_.__r.__words[0])
+        {
+          v144.__r_.__value_.__l.__size_ = v144.__r_.__value_.__r.__words[0];
+          operator delete(v144.__r_.__value_.__l.__data_);
         }
 
         if (v145.__r_.__value_.__r.__words[0])
@@ -8131,174 +5707,158 @@ LABEL_50:
           v145.__r_.__value_.__l.__size_ = v145.__r_.__value_.__r.__words[0];
           operator delete(v145.__r_.__value_.__l.__data_);
         }
-
-        if (v146.__r_.__value_.__r.__words[0])
-        {
-          v146.__r_.__value_.__l.__size_ = v146.__r_.__value_.__r.__words[0];
-          operator delete(v146.__r_.__value_.__l.__data_);
-        }
       }
 
       else
       {
-        v38 = 0;
-        v39 = (v147.__r_.__value_.__l.__size_ - v147.__r_.__value_.__r.__words[0]) >> 2;
-        if (v39 <= 1)
+        v37 = 0;
+        v38 = (v146.__r_.__value_.__l.__size_ - v146.__r_.__value_.__r.__words[0]) >> 2;
+        if (v38 <= 1)
         {
-          v39 = 1;
+          v38 = 1;
         }
 
-        while (v38 == *(v147.__r_.__value_.__r.__words[0] + 4 * v38))
+        while (v37 == *(v146.__r_.__value_.__r.__words[0] + 4 * v37))
         {
-          if (v39 == ++v38)
+          if (v38 == ++v37)
           {
             goto LABEL_50;
           }
         }
 
-        v91 = MIL::IRObject::GetLocationPtr(a1);
-        v92 = v91[1];
-        v139 = *v91;
-        v140 = v92;
-        if (v92)
+        v90 = MIL::IRObject::GetLocationPtr(a1);
+        v91 = v90[1];
+        v138 = *v90;
+        v139 = v91;
+        if (v91)
         {
-          atomic_fetch_add_explicit(&v92->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v91->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v135, "perm");
-        v93 = std::string::insert(&v135, 0, "Values of '");
-        v94 = *&v93->__r_.__value_.__l.__data_;
-        v136.__r_.__value_.__r.__words[2] = v93->__r_.__value_.__r.__words[2];
-        *&v136.__r_.__value_.__l.__data_ = v94;
-        v93->__r_.__value_.__l.__size_ = 0;
-        v93->__r_.__value_.__r.__words[2] = 0;
-        v93->__r_.__value_.__r.__words[0] = 0;
-        v95 = std::string::append(&v136, "' ");
-        v96 = *&v95->__r_.__value_.__l.__data_;
-        v141.__r_.__value_.__r.__words[2] = v95->__r_.__value_.__r.__words[2];
-        *&v141.__r_.__value_.__l.__data_ = v96;
-        v95->__r_.__value_.__l.__size_ = 0;
-        v95->__r_.__value_.__r.__words[2] = 0;
-        v95->__r_.__value_.__r.__words[0] = 0;
-        std::to_string(&v134, (v154 - v153) >> 2);
-        if ((v134.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v97 = &v134;
-        }
-
-        else
-        {
-          v97 = v134.__r_.__value_.__r.__words[0];
-        }
-
-        if ((v134.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v98 = HIBYTE(v134.__r_.__value_.__r.__words[2]);
-        }
-
-        else
-        {
-          v98 = v134.__r_.__value_.__l.__size_;
-        }
-
-        v99 = std::string::append(&v141, v97, v98);
-        v100 = *&v99->__r_.__value_.__l.__data_;
-        v142.__r_.__value_.__r.__words[2] = v99->__r_.__value_.__r.__words[2];
-        *&v142.__r_.__value_.__l.__data_ = v100;
-        v99->__r_.__value_.__l.__size_ = 0;
-        v99->__r_.__value_.__r.__words[2] = 0;
-        v99->__r_.__value_.__r.__words[0] = 0;
-        v101 = std::string::append(&v142, " must be in range [-");
-        v102 = *&v101->__r_.__value_.__l.__data_;
-        v143.__r_.__value_.__r.__words[2] = v101->__r_.__value_.__r.__words[2];
-        *&v143.__r_.__value_.__l.__data_ = v102;
-        v101->__r_.__value_.__l.__size_ = 0;
-        v101->__r_.__value_.__r.__words[2] = 0;
-        v101->__r_.__value_.__r.__words[0] = 0;
-        std::to_string(&v133, (v16 - v17) >> 3);
+        std::string::basic_string[abi:ne200100]<0>(&v134, "perm");
+        v92 = std::string::insert(&v134, 0, "Values of '");
+        v93 = *&v92->__r_.__value_.__l.__data_;
+        v135.__r_.__value_.__r.__words[2] = v92->__r_.__value_.__r.__words[2];
+        *&v135.__r_.__value_.__l.__data_ = v93;
+        v92->__r_.__value_.__l.__size_ = 0;
+        v92->__r_.__value_.__r.__words[2] = 0;
+        v92->__r_.__value_.__r.__words[0] = 0;
+        v94 = std::string::append(&v135, "' ");
+        v95 = *&v94->__r_.__value_.__l.__data_;
+        v140.__r_.__value_.__r.__words[2] = v94->__r_.__value_.__r.__words[2];
+        *&v140.__r_.__value_.__l.__data_ = v95;
+        v94->__r_.__value_.__l.__size_ = 0;
+        v94->__r_.__value_.__r.__words[2] = 0;
+        v94->__r_.__value_.__r.__words[0] = 0;
+        std::to_string(&v133, (v153 - v152) >> 2);
         if ((v133.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v103 = &v133;
+          v96 = &v133;
         }
 
         else
         {
-          v103 = v133.__r_.__value_.__r.__words[0];
+          v96 = v133.__r_.__value_.__r.__words[0];
         }
 
         if ((v133.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v104 = HIBYTE(v133.__r_.__value_.__r.__words[2]);
+          v97 = HIBYTE(v133.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v104 = v133.__r_.__value_.__l.__size_;
+          v97 = v133.__r_.__value_.__l.__size_;
         }
 
-        v105 = std::string::append(&v143, v103, v104);
-        v106 = *&v105->__r_.__value_.__l.__data_;
-        v144.__r_.__value_.__r.__words[2] = v105->__r_.__value_.__r.__words[2];
-        *&v144.__r_.__value_.__l.__data_ = v106;
-        v105->__r_.__value_.__l.__size_ = 0;
-        v105->__r_.__value_.__r.__words[2] = 0;
-        v105->__r_.__value_.__r.__words[0] = 0;
-        v107 = std::string::append(&v144, ", ");
-        v108 = *&v107->__r_.__value_.__l.__data_;
-        v145.__r_.__value_.__r.__words[2] = v107->__r_.__value_.__r.__words[2];
-        *&v145.__r_.__value_.__l.__data_ = v108;
-        v107->__r_.__value_.__l.__size_ = 0;
-        v107->__r_.__value_.__r.__words[2] = 0;
-        v107->__r_.__value_.__r.__words[0] = 0;
-        std::to_string(&v132, (v16 - v17) >> 3);
+        v98 = std::string::append(&v140, v96, v97);
+        v99 = *&v98->__r_.__value_.__l.__data_;
+        v141.__r_.__value_.__r.__words[2] = v98->__r_.__value_.__r.__words[2];
+        *&v141.__r_.__value_.__l.__data_ = v99;
+        v98->__r_.__value_.__l.__size_ = 0;
+        v98->__r_.__value_.__r.__words[2] = 0;
+        v98->__r_.__value_.__r.__words[0] = 0;
+        v100 = std::string::append(&v141, " must be in range [-");
+        v101 = *&v100->__r_.__value_.__l.__data_;
+        v142.__r_.__value_.__r.__words[2] = v100->__r_.__value_.__r.__words[2];
+        *&v142.__r_.__value_.__l.__data_ = v101;
+        v100->__r_.__value_.__l.__size_ = 0;
+        v100->__r_.__value_.__r.__words[2] = 0;
+        v100->__r_.__value_.__r.__words[0] = 0;
+        std::to_string(&v132, v15 - v16);
         if ((v132.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v109 = &v132;
+          v102 = &v132;
         }
 
         else
         {
-          v109 = v132.__r_.__value_.__r.__words[0];
+          v102 = v132.__r_.__value_.__r.__words[0];
         }
 
         if ((v132.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v110 = HIBYTE(v132.__r_.__value_.__r.__words[2]);
+          v103 = HIBYTE(v132.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v110 = v132.__r_.__value_.__l.__size_;
+          v103 = v132.__r_.__value_.__l.__size_;
         }
 
-        v111 = std::string::append(&v145, v109, v110);
-        v112 = *&v111->__r_.__value_.__l.__data_;
-        v146.__r_.__value_.__r.__words[2] = v111->__r_.__value_.__r.__words[2];
-        *&v146.__r_.__value_.__l.__data_ = v112;
-        v111->__r_.__value_.__l.__size_ = 0;
-        v111->__r_.__value_.__r.__words[2] = 0;
-        v111->__r_.__value_.__r.__words[0] = 0;
-        v113 = std::string::append(&v146, ")");
-        v114 = *&v113->__r_.__value_.__l.__data_;
-        v138 = v113->__r_.__value_.__r.__words[2];
-        *v137 = v114;
-        v113->__r_.__value_.__l.__size_ = 0;
-        v113->__r_.__value_.__r.__words[2] = 0;
-        v113->__r_.__value_.__r.__words[0] = 0;
-        MEMORY[0x259CA8EE0](a2, &v139, 315, v137);
-        if (SHIBYTE(v138) < 0)
+        v104 = std::string::append(&v142, v102, v103);
+        v105 = *&v104->__r_.__value_.__l.__data_;
+        v143.__r_.__value_.__r.__words[2] = v104->__r_.__value_.__r.__words[2];
+        *&v143.__r_.__value_.__l.__data_ = v105;
+        v104->__r_.__value_.__l.__size_ = 0;
+        v104->__r_.__value_.__r.__words[2] = 0;
+        v104->__r_.__value_.__r.__words[0] = 0;
+        v106 = std::string::append(&v143, ", ");
+        v107 = *&v106->__r_.__value_.__l.__data_;
+        v144.__r_.__value_.__r.__words[2] = v106->__r_.__value_.__r.__words[2];
+        *&v144.__r_.__value_.__l.__data_ = v107;
+        v106->__r_.__value_.__l.__size_ = 0;
+        v106->__r_.__value_.__r.__words[2] = 0;
+        v106->__r_.__value_.__r.__words[0] = 0;
+        std::to_string(&v131, v15 - v16);
+        if ((v131.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          operator delete(v137[0]);
+          v108 = &v131;
         }
 
-        if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
+        else
         {
-          operator delete(v146.__r_.__value_.__l.__data_);
+          v108 = v131.__r_.__value_.__r.__words[0];
         }
 
-        if (SHIBYTE(v132.__r_.__value_.__r.__words[2]) < 0)
+        if ((v131.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          operator delete(v132.__r_.__value_.__l.__data_);
+          v109 = HIBYTE(v131.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v109 = v131.__r_.__value_.__l.__size_;
+        }
+
+        v110 = std::string::append(&v144, v108, v109);
+        v111 = *&v110->__r_.__value_.__l.__data_;
+        v145.__r_.__value_.__r.__words[2] = v110->__r_.__value_.__r.__words[2];
+        *&v145.__r_.__value_.__l.__data_ = v111;
+        v110->__r_.__value_.__l.__size_ = 0;
+        v110->__r_.__value_.__r.__words[2] = 0;
+        v110->__r_.__value_.__r.__words[0] = 0;
+        v112 = std::string::append(&v145, ")");
+        v113 = *&v112->__r_.__value_.__l.__data_;
+        v137 = v112->__r_.__value_.__r.__words[2];
+        *v136 = v113;
+        v112->__r_.__value_.__l.__size_ = 0;
+        v112->__r_.__value_.__r.__words[2] = 0;
+        v112->__r_.__value_.__r.__words[0] = 0;
+        MEMORY[0x259CA8EE0](a2, &v138, 315, v136);
+        if (SHIBYTE(v137) < 0)
+        {
+          operator delete(v136[0]);
         }
 
         if (SHIBYTE(v145.__r_.__value_.__r.__words[2]) < 0)
@@ -8306,14 +5866,14 @@ LABEL_50:
           operator delete(v145.__r_.__value_.__l.__data_);
         }
 
+        if (SHIBYTE(v131.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v131.__r_.__value_.__l.__data_);
+        }
+
         if (SHIBYTE(v144.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v144.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v133.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v133.__r_.__value_.__l.__data_);
         }
 
         if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
@@ -8321,14 +5881,14 @@ LABEL_50:
           operator delete(v143.__r_.__value_.__l.__data_);
         }
 
+        if (SHIBYTE(v132.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v132.__r_.__value_.__l.__data_);
+        }
+
         if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v142.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v134.__r_.__value_.__l.__data_);
         }
 
         if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
@@ -8336,9 +5896,14 @@ LABEL_50:
           operator delete(v141.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v133.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v136.__r_.__value_.__l.__data_);
+          operator delete(v133.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v140.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v140.__r_.__value_.__l.__data_);
         }
 
         if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
@@ -8346,10 +5911,21 @@ LABEL_50:
           operator delete(v135.__r_.__value_.__l.__data_);
         }
 
-        if (v140)
+        if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v140);
+          operator delete(v134.__r_.__value_.__l.__data_);
         }
+
+        if (v139)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v139);
+        }
+      }
+
+      if (v146.__r_.__value_.__r.__words[0])
+      {
+        v146.__r_.__value_.__l.__size_ = v146.__r_.__value_.__r.__words[0];
+        operator delete(v146.__r_.__value_.__l.__data_);
       }
 
       if (v147.__r_.__value_.__r.__words[0])
@@ -8357,124 +5933,108 @@ LABEL_50:
         v147.__r_.__value_.__l.__size_ = v147.__r_.__value_.__r.__words[0];
         operator delete(v147.__r_.__value_.__l.__data_);
       }
-
-      if (v148.__r_.__value_.__r.__words[0])
-      {
-        v148.__r_.__value_.__l.__size_ = v148.__r_.__value_.__r.__words[0];
-        operator delete(v148.__r_.__value_.__l.__data_);
-      }
     }
 
     else
     {
-      v61 = MIL::IRObject::GetLocationPtr(a1);
-      v62 = v61[1];
-      v151 = *v61;
-      v152 = v62;
-      if (v62)
+      v60 = MIL::IRObject::GetLocationPtr(a1);
+      v61 = v60[1];
+      v150 = *v60;
+      v151 = v61;
+      if (v61)
       {
-        atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v61->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v143, "perm");
-      v63 = std::string::insert(&v143, 0, "Size of '");
-      v64 = *&v63->__r_.__value_.__l.__data_;
-      v144.__r_.__value_.__r.__words[2] = v63->__r_.__value_.__r.__words[2];
-      *&v144.__r_.__value_.__l.__data_ = v64;
-      v63->__r_.__value_.__l.__size_ = 0;
-      v63->__r_.__value_.__r.__words[2] = 0;
-      v63->__r_.__value_.__r.__words[0] = 0;
-      v65 = std::string::append(&v144, "' ");
-      v66 = *&v65->__r_.__value_.__l.__data_;
-      v145.__r_.__value_.__r.__words[2] = v65->__r_.__value_.__r.__words[2];
-      *&v145.__r_.__value_.__l.__data_ = v66;
-      v65->__r_.__value_.__l.__size_ = 0;
-      v65->__r_.__value_.__r.__words[2] = 0;
-      v65->__r_.__value_.__r.__words[0] = 0;
-      std::to_string(&v142, (v154 - v153) >> 2);
-      if ((v142.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v67 = &v142;
-      }
-
-      else
-      {
-        v67 = v142.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v142.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v68 = HIBYTE(v142.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        v68 = v142.__r_.__value_.__l.__size_;
-      }
-
-      v69 = std::string::append(&v145, v67, v68);
-      v70 = *&v69->__r_.__value_.__l.__data_;
-      v146.__r_.__value_.__r.__words[2] = v69->__r_.__value_.__r.__words[2];
-      *&v146.__r_.__value_.__l.__data_ = v70;
-      v69->__r_.__value_.__l.__size_ = 0;
-      v69->__r_.__value_.__r.__words[2] = 0;
-      v69->__r_.__value_.__r.__words[0] = 0;
-      v71 = std::string::append(&v146, " does not match rank of x ");
-      v72 = *&v71->__r_.__value_.__l.__data_;
-      v147.__r_.__value_.__r.__words[2] = v71->__r_.__value_.__r.__words[2];
-      *&v147.__r_.__value_.__l.__data_ = v72;
-      v71->__r_.__value_.__l.__size_ = 0;
-      v71->__r_.__value_.__r.__words[2] = 0;
-      v71->__r_.__value_.__r.__words[0] = 0;
-      std::to_string(&v141, (v16 - v17) >> 3);
+      std::string::basic_string[abi:ne200100]<0>(&v142, "perm");
+      v62 = std::string::insert(&v142, 0, "Size of '");
+      v63 = *&v62->__r_.__value_.__l.__data_;
+      v143.__r_.__value_.__r.__words[2] = v62->__r_.__value_.__r.__words[2];
+      *&v143.__r_.__value_.__l.__data_ = v63;
+      v62->__r_.__value_.__l.__size_ = 0;
+      v62->__r_.__value_.__r.__words[2] = 0;
+      v62->__r_.__value_.__r.__words[0] = 0;
+      v64 = std::string::append(&v143, "' ");
+      v65 = *&v64->__r_.__value_.__l.__data_;
+      v144.__r_.__value_.__r.__words[2] = v64->__r_.__value_.__r.__words[2];
+      *&v144.__r_.__value_.__l.__data_ = v65;
+      v64->__r_.__value_.__l.__size_ = 0;
+      v64->__r_.__value_.__r.__words[2] = 0;
+      v64->__r_.__value_.__r.__words[0] = 0;
+      std::to_string(&v141, (v153 - v152) >> 2);
       if ((v141.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v73 = &v141;
+        v66 = &v141;
       }
 
       else
       {
-        v73 = v141.__r_.__value_.__r.__words[0];
+        v66 = v141.__r_.__value_.__r.__words[0];
       }
 
       if ((v141.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v74 = HIBYTE(v141.__r_.__value_.__r.__words[2]);
+        v67 = HIBYTE(v141.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v74 = v141.__r_.__value_.__l.__size_;
+        v67 = v141.__r_.__value_.__l.__size_;
       }
 
-      v75 = std::string::append(&v147, v73, v74);
-      v76 = *&v75->__r_.__value_.__l.__data_;
-      v148.__r_.__value_.__r.__words[2] = v75->__r_.__value_.__r.__words[2];
-      *&v148.__r_.__value_.__l.__data_ = v76;
-      v75->__r_.__value_.__l.__size_ = 0;
-      v75->__r_.__value_.__r.__words[2] = 0;
-      v75->__r_.__value_.__r.__words[0] = 0;
-      v77 = std::string::append(&v148, ".");
-      v78 = *&v77->__r_.__value_.__l.__data_;
-      v150 = v77->__r_.__value_.__r.__words[2];
-      *v149 = v78;
-      v77->__r_.__value_.__l.__size_ = 0;
-      v77->__r_.__value_.__r.__words[2] = 0;
-      v77->__r_.__value_.__r.__words[0] = 0;
-      MEMORY[0x259CA8EE0](a2, &v151, 315, v149);
-      if (SHIBYTE(v150) < 0)
+      v68 = std::string::append(&v144, v66, v67);
+      v69 = *&v68->__r_.__value_.__l.__data_;
+      v145.__r_.__value_.__r.__words[2] = v68->__r_.__value_.__r.__words[2];
+      *&v145.__r_.__value_.__l.__data_ = v69;
+      v68->__r_.__value_.__l.__size_ = 0;
+      v68->__r_.__value_.__r.__words[2] = 0;
+      v68->__r_.__value_.__r.__words[0] = 0;
+      v70 = std::string::append(&v145, " does not match rank of x ");
+      v71 = *&v70->__r_.__value_.__l.__data_;
+      v146.__r_.__value_.__r.__words[2] = v70->__r_.__value_.__r.__words[2];
+      *&v146.__r_.__value_.__l.__data_ = v71;
+      v70->__r_.__value_.__l.__size_ = 0;
+      v70->__r_.__value_.__r.__words[2] = 0;
+      v70->__r_.__value_.__r.__words[0] = 0;
+      std::to_string(&v140, v15 - v16);
+      if ((v140.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        operator delete(v149[0]);
+        v72 = &v140;
       }
 
-      if (SHIBYTE(v148.__r_.__value_.__r.__words[2]) < 0)
+      else
       {
-        operator delete(v148.__r_.__value_.__l.__data_);
+        v72 = v140.__r_.__value_.__r.__words[0];
       }
 
-      if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+      if ((v140.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        operator delete(v141.__r_.__value_.__l.__data_);
+        v73 = HIBYTE(v140.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v73 = v140.__r_.__value_.__l.__size_;
+      }
+
+      v74 = std::string::append(&v146, v72, v73);
+      v75 = *&v74->__r_.__value_.__l.__data_;
+      v147.__r_.__value_.__r.__words[2] = v74->__r_.__value_.__r.__words[2];
+      *&v147.__r_.__value_.__l.__data_ = v75;
+      v74->__r_.__value_.__l.__size_ = 0;
+      v74->__r_.__value_.__r.__words[2] = 0;
+      v74->__r_.__value_.__r.__words[0] = 0;
+      v76 = std::string::append(&v147, ".");
+      v77 = *&v76->__r_.__value_.__l.__data_;
+      v149 = v76->__r_.__value_.__r.__words[2];
+      *v148 = v77;
+      v76->__r_.__value_.__l.__size_ = 0;
+      v76->__r_.__value_.__r.__words[2] = 0;
+      v76->__r_.__value_.__r.__words[0] = 0;
+      MEMORY[0x259CA8EE0](a2, &v150, 315, v148);
+      if (SHIBYTE(v149) < 0)
+      {
+        operator delete(v148[0]);
       }
 
       if (SHIBYTE(v147.__r_.__value_.__r.__words[2]) < 0)
@@ -8482,19 +6042,24 @@ LABEL_50:
         operator delete(v147.__r_.__value_.__l.__data_);
       }
 
+      if (SHIBYTE(v140.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v140.__r_.__value_.__l.__data_);
+      }
+
       if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v146.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v142.__r_.__value_.__l.__data_);
-      }
-
       if (SHIBYTE(v145.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v145.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v141.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v141.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(v144.__r_.__value_.__r.__words[2]) < 0)
@@ -8507,40 +6072,45 @@ LABEL_50:
         operator delete(v143.__r_.__value_.__l.__data_);
       }
 
-      if (v152)
+      if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v152);
+        operator delete(v142.__r_.__value_.__l.__data_);
+      }
+
+      if (v151)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v151);
       }
     }
 
-    if (v153)
+    if (v152)
     {
-      v154 = v153;
-      operator delete(v153);
+      v153 = v152;
+      operator delete(v152);
     }
 
-    if (v164)
+    if (v163)
     {
-      v165 = v164;
-      operator delete(v164);
+      v164 = v163;
+      operator delete(v163);
     }
   }
 }
 
-void std::vector<unsigned long long>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned long long>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned long long>::__append(a1, a2 - v2);
+    std::vector<unsigned long long>::__append(result, a2 - v2);
   }
 }
 
@@ -8605,10 +6175,10 @@ void std::vector<unsigned long long>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void ANEMachineIR::H2020::BaseNeMatmul::Make()
+void ANEMachineIR::H2020::BaseNeMatmul::Make(MIL::IRUnknownDimension *a1, uint64_t a2)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v3 = *MEMORY[0x277D85DE8];
+  v2 = 0;
   operator new();
 }
 
@@ -8631,8 +6201,8 @@ void sub_259A0EEA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ANEMachineIR::H2020::NeBatchMatmul::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8659,8 +6229,8 @@ void sub_259A10ED0(_Unwind_Exception *a1)
 
 void ANEMachineIR::H2020::NeMatmul::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8687,80 +6257,80 @@ void sub_259A13344(_Unwind_Exception *a1)
 
 void MilTranslator::OpTranslator::TranslateActivation(MilTranslator::OpTranslator *this@<X0>, const MIL::IROperation *a2@<X1>, uint64_t a3@<X8>)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   v6 = (*(*a2 + 56))(a2);
   if (*(v6 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v92, *v6, *(v6 + 8));
+    std::string::__init_copy_ctor_external(&v89, *v6, *(v6 + 8));
   }
 
   else
   {
     v7 = *v6;
-    v92.__r_.__value_.__r.__words[2] = *(v6 + 16);
-    *&v92.__r_.__value_.__l.__data_ = v7;
+    v89.__r_.__value_.__r.__words[2] = *(v6 + 16);
+    *&v89.__r_.__value_.__l.__data_ = v7;
   }
 
   {
     *a3 = 4;
     std::operator+<char>();
-    v9 = std::string::append(&v93, "' not implemented");
+    v9 = std::string::append(&v90, "' not implemented");
     v10 = *&v9->__r_.__value_.__l.__data_;
     *(a3 + 24) = *(&v9->__r_.__value_.__l + 2);
     *(a3 + 8) = v10;
     v9->__r_.__value_.__l.__size_ = 0;
     v9->__r_.__value_.__r.__words[2] = 0;
     v9->__r_.__value_.__r.__words[0] = 0;
-    if ((SHIBYTE(v93.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v90.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_150;
     }
 
-    v11 = v93.__r_.__value_.__r.__words[0];
+    v11 = v90.__r_.__value_.__r.__words[0];
     goto LABEL_149;
   }
 
-  v93.__r_.__value_.__r.__words[0] = &v92;
+  v90.__r_.__value_.__r.__words[0] = &v89;
   if (*(v8 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(&v91, v8[5], v8[6]);
+    std::string::__init_copy_ctor_external(&v88, v8[5], v8[6]);
   }
 
   else
   {
-    v91 = *(v8 + 5);
+    v88 = *(v8 + 5);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v93, "x");
-  v12 = (*(*a2 + 120))(a2, &v93, 0);
+  std::string::basic_string[abi:ne200100]<0>(&v90, "x");
+  v12 = (*(*a2 + 120))(a2, &v90, 0);
   v13 = v12;
-  if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v93.__r_.__value_.__l.__data_);
+    operator delete(v90.__r_.__value_.__l.__data_);
     if (v13)
     {
 LABEL_12:
       if (*(v13 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v90, *v13, *(v13 + 8));
+        std::string::__init_copy_ctor_external(&v87, *v13, *(v13 + 8));
       }
 
       else
       {
         v14 = *v13;
-        v90.__r_.__value_.__r.__words[2] = *(v13 + 16);
-        *&v90.__r_.__value_.__l.__data_ = v14;
+        v87.__r_.__value_.__r.__words[2] = *(v13 + 16);
+        *&v87.__r_.__value_.__l.__data_ = v14;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v93, "x");
+      std::string::basic_string[abi:ne200100]<0>(&v90, "x");
       ParameterType = MIL::IROperation::GetParameterType();
       v16 = MIL::IRValueType::AsTensorType(ParameterType);
-      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v93.__r_.__value_.__l.__data_);
+        operator delete(v90.__r_.__value_.__l.__data_);
       }
 
-      MilTranslator::OpTranslator::GetChannelLastTensorNameMayInsertTranspose(this, &v90, v16, &__s);
+      MilTranslator::OpTranslator::GetChannelLastTensorNameMayInsertTranspose(this, &v87, v16, &__s);
       v17 = (*(*a2 + 176))(a2);
       v18 = *v17;
       if (v17[1] == *v17)
@@ -8777,14 +6347,13 @@ LABEL_12:
 
       Type = MIL::IRNamedValueType::GetType(v20);
       v22 = MIL::IRValueType::AsTensorType(Type);
-      ANEMachineIR::Utils::GetStaticTensorShape(v22, v23, &v87);
+      ANEMachineIR::Utils::GetStaticTensorShape(&v84, v22, v23);
       v24 = (*(*v16 + 96))(v16);
-      MilTranslator::OpTranslator::InferChannelLastTransposeInfo(this, &v90, (v24[1] - *v24) >> 3, &__sz);
-      MilTranslator::OpTranslator::GetTransposeOpParamPerm(&__sz, (v88 - v87) >> 3, v83);
-      MilTranslator::OpTranslator::InferTransposedShape(&v87, v83, &v81);
-      v25 = *(this + 1);
+      MilTranslator::OpTranslator::InferChannelLastTransposeInfo(this, &v87.__r_.__value_.__l.__data_, (v24[1] - *v24) >> 3, &__sz);
+      MilTranslator::OpTranslator::GetTransposeOpParamPerm(&__sz, (v85 - v84) >> 3, v80);
+      MilTranslator::OpTranslator::InferTransposedShape(&v84, v80, &v78);
       (*(*v22 + 88))(v22);
-      v26 = MIL::IRTensorValueType::Make();
+      v25 = MIL::IRTensorValueType::Make();
       Name = MIL::IRNamedValueType::GetName(v20);
       if (*(Name + 23) < 0)
       {
@@ -8793,103 +6362,103 @@ LABEL_12:
 
       else
       {
-        v28 = *Name;
+        v27 = *Name;
         __str.__r_.__value_.__r.__words[2] = *(Name + 16);
-        *&__str.__r_.__value_.__l.__data_ = v28;
+        *&__str.__r_.__value_.__l.__data_ = v27;
       }
 
-      if (MilTranslator::OpTranslator::IsTransposeRequired(v83))
+      if (MilTranslator::OpTranslator::IsTransposeRequired(v80))
       {
         std::string::append(&__str, "_channel_last");
         if (SHIBYTE(__sz.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v77, __sz.__r_.__value_.__l.__data_, __sz.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v74, __sz.__r_.__value_.__l.__data_, __sz.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v77 = __sz;
+          v74 = __sz;
         }
 
-        v78 = v85;
-        v79 = v86;
-        std::string::operator=(&v77, &__str);
-        v29 = MIL::IRNamedValueType::GetName(v20);
-        std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>::pair[abi:ne200100]<std::string const&,std::pair<std::string,std::array<unsigned char,5ul>>&,0>(&v93, v29, &v77);
-        std::__hash_table<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>>(this + 37, &v93.__r_.__value_.__l.__data_);
-        if (v95 < 0)
+        v75 = v82;
+        v76 = v83;
+        std::string::operator=(&v74, &__str);
+        v28 = MIL::IRNamedValueType::GetName(v20);
+        std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>::pair[abi:ne200100]<std::string const&,std::pair<std::string,std::array<unsigned char,5ul>>&,0>(&v90, v28, &v74);
+        std::__hash_table<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<std::string,std::array<unsigned char,5ul>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::pair<std::string,std::array<unsigned char,5ul>>>>(this + 37, &v90, &v90);
+        if (v92 < 0)
         {
-          operator delete(v94);
+          operator delete(v91);
         }
 
-        if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v93.__r_.__value_.__l.__data_);
+          operator delete(v90.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v77.__r_.__value_.__l.__data_);
+          operator delete(v74.__r_.__value_.__l.__data_);
         }
       }
 
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v76, __str.__r_.__value_.__l.__data_, __str.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v73, __str.__r_.__value_.__l.__data_, __str.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v76 = __str;
+        v73 = __str;
       }
 
       MIL::IRNamedValueType::Make();
-      v93.__r_.__value_.__r.__words[0] = __p.__r_.__value_.__r.__words[0];
+      v90.__r_.__value_.__r.__words[0] = __p.__r_.__value_.__r.__words[0];
       if (__p.__r_.__value_.__r.__words[0])
       {
         operator new();
       }
 
-      *&v93.__r_.__value_.__l.__data_ = 0uLL;
+      *&v90.__r_.__value_.__l.__data_ = 0uLL;
       __p.__r_.__value_.__r.__words[0] = 0;
-      memset(&v77, 0, sizeof(v77));
-      std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType> const*,std::shared_ptr<MIL::IRNamedValueType> const*>(&v77, &v93, &v93.__r_.__value_.__r.__words[2], 1uLL);
-      if (v93.__r_.__value_.__l.__size_)
+      memset(&v74, 0, sizeof(v74));
+      std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType> const*,std::shared_ptr<MIL::IRNamedValueType> const*>(&v74, &v90, &v90.__r_.__value_.__r.__words[2], 1uLL);
+      if (v90.__r_.__value_.__l.__size_)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v93.__r_.__value_.__l.__size_);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v90.__r_.__value_.__l.__size_);
       }
 
       std::unique_ptr<MIL::IRNamedValueType>::~unique_ptr[abi:ne200100](&__p);
-      if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v76.__r_.__value_.__l.__data_);
+        operator delete(v73.__r_.__value_.__l.__data_);
       }
 
       LocationPtr = MIL::IRObject::GetLocationPtr(a2);
-      v31 = LocationPtr[1];
-      v74 = *LocationPtr;
-      v75 = v31;
-      if (v31)
+      v30 = LocationPtr[1];
+      v71 = *LocationPtr;
+      v72 = v30;
+      if (v30)
       {
-        atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       std::string::basic_string[abi:ne200100]<0>(&__p, "ne_activation");
-      ANEMachineIR::Validators::ValidateLiveTensorSize(&v74, v26, &__str, &__p, &v93);
+      ANEMachineIR::Validators::ValidateLiveTensorSize(&v71, v25, &__str, &__p, &v90);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (v75)
+      if (v72)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v75);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v72);
       }
 
-      if ((MIL::ValidationResult::IsGood(&v93) & 1) == 0)
+      if ((MIL::ValidationResult::IsGood(&v90) & 1) == 0)
       {
         *a3 = 12;
-        Message = MIL::MILResult::GetMessage(&v93);
+        Message = MIL::MILResult::GetMessage(&v90);
         if (*(Message + 23) < 0)
         {
           std::string::__init_copy_ctor_external((a3 + 8), *Message, *(Message + 8));
@@ -8897,30 +6466,30 @@ LABEL_12:
 
         else
         {
-          v33 = *Message;
+          v32 = *Message;
           *(a3 + 24) = *(Message + 16);
-          *(a3 + 8) = v33;
+          *(a3 + 8) = v32;
         }
 
-        MEMORY[0x259CA8F00](&v93);
+        MEMORY[0x259CA8F00](&v90);
 LABEL_131:
-        v93.__r_.__value_.__r.__words[0] = &v77;
-        std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v93);
+        v90.__r_.__value_.__r.__words[0] = &v74;
+        std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100](&v90);
         if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__str.__r_.__value_.__l.__data_);
         }
 
-        if (v81)
+        if (v78)
         {
-          v82 = v81;
-          operator delete(v81);
+          v79 = v78;
+          operator delete(v78);
         }
 
-        if (v83[0])
+        if (v80[0])
         {
-          v83[1] = v83[0];
-          operator delete(v83[0]);
+          v80[1] = v80[0];
+          operator delete(v80[0]);
         }
 
         if (SHIBYTE(__sz.__r_.__value_.__r.__words[2]) < 0)
@@ -8928,10 +6497,10 @@ LABEL_131:
           operator delete(__sz.__r_.__value_.__l.__data_);
         }
 
-        if (v87)
+        if (v84)
         {
-          v88 = v87;
-          operator delete(v87);
+          v85 = v84;
+          operator delete(v84);
         }
 
         if (v19)
@@ -8944,152 +6513,151 @@ LABEL_131:
           operator delete(__s.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v90.__r_.__value_.__l.__data_);
+          operator delete(v87.__r_.__value_.__l.__data_);
         }
 
         goto LABEL_147;
       }
 
-      MEMORY[0x259CA8F00](&v93);
-      std::string::basic_string[abi:ne200100]<0>(&v70, "ne_activation");
+      MEMORY[0x259CA8F00](&v90);
+      std::string::basic_string[abi:ne200100]<0>(&v67, "ne_activation");
       MilTranslator::OpTranslator::AddOperation(this);
-      if (v71 < 0)
-      {
-        operator delete(v70);
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(&v67, "x");
-      if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v66, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
-      }
-
-      else
-      {
-        v66 = __s;
-      }
-
-      MIL::Builder::OperationBuilder::AddInput();
-      if (v69)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v69);
-      }
-
-      if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v66.__r_.__value_.__l.__data_);
-      }
-
       if (v68 < 0)
       {
         operator delete(v67);
       }
 
-      v34 = MIL::IRNamedValueType::GetName(v20);
-      v35 = v34;
-      if (*(v34 + 23) >= 0)
+      std::string::basic_string[abi:ne200100]<0>(&v64, "x");
+      if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
       {
-        v36 = *(v34 + 23);
+        std::string::__init_copy_ctor_external(&v63, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v36 = *(v34 + 8);
+        v63 = __s;
       }
 
-      std::string::basic_string[abi:ne200100](&v93, v36 + 1);
-      if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      MIL::Builder::OperationBuilder::AddInput();
+      if (v66)
       {
-        v37 = &v93;
+        std::__shared_weak_count::__release_shared[abi:ne200100](v66);
+      }
+
+      if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v63.__r_.__value_.__l.__data_);
+      }
+
+      if (v65 < 0)
+      {
+        operator delete(v64);
+      }
+
+      v33 = MIL::IRNamedValueType::GetName(v20);
+      v34 = v33;
+      if (*(v33 + 23) >= 0)
+      {
+        v35 = *(v33 + 23);
       }
 
       else
       {
-        v37 = v93.__r_.__value_.__r.__words[0];
+        v35 = *(v33 + 8);
       }
 
-      if (v36)
+      std::string::basic_string[abi:ne200100](&v90, v35 + 1);
+      if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        if (v35[23] >= 0)
+        v36 = &v90;
+      }
+
+      else
+      {
+        v36 = v90.__r_.__value_.__r.__words[0];
+      }
+
+      if (v35)
+      {
+        if (v34[23] >= 0)
         {
-          v38 = v35;
+          v37 = v34;
         }
 
         else
         {
-          v38 = *v35;
+          v37 = *v34;
         }
 
-        memmove(v37, v38, v36);
+        memmove(v36, v37, v35);
       }
 
-      *(&v37->__r_.__value_.__l.__data_ + v36) = 95;
-      v39 = std::string::append(&v93, "pre_activation");
-      v40 = v39->__r_.__value_.__r.__words[0];
-      size = v39->__r_.__value_.__l.__size_;
-      v65[0] = v39->__r_.__value_.__r.__words[2];
-      *(v65 + 3) = *(&v39->__r_.__value_.__r.__words[2] + 3);
-      v42 = SHIBYTE(v39->__r_.__value_.__r.__words[2]);
-      v39->__r_.__value_.__l.__size_ = 0;
-      v39->__r_.__value_.__r.__words[2] = 0;
-      v39->__r_.__value_.__r.__words[0] = 0;
-      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+      *(&v36->__r_.__value_.__l.__data_ + v35) = 95;
+      v38 = std::string::append(&v90, "pre_activation");
+      v39 = v38->__r_.__value_.__r.__words[0];
+      size = v38->__r_.__value_.__l.__size_;
+      v62[0] = v38->__r_.__value_.__r.__words[2];
+      *(v62 + 3) = *(&v38->__r_.__value_.__r.__words[2] + 3);
+      v41 = SHIBYTE(v38->__r_.__value_.__r.__words[2]);
+      v38->__r_.__value_.__l.__size_ = 0;
+      v38->__r_.__value_.__r.__words[2] = 0;
+      v38->__r_.__value_.__r.__words[0] = 0;
+      if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v93.__r_.__value_.__l.__data_);
+        operator delete(v90.__r_.__value_.__l.__data_);
       }
 
-      v43 = MIL::IRNamedValueType::GetName(v20);
-      v44 = v43;
-      if (*(v43 + 23) >= 0)
+      v42 = MIL::IRNamedValueType::GetName(v20);
+      v43 = v42;
+      if (*(v42 + 23) >= 0)
       {
-        v45 = *(v43 + 23);
+        v44 = *(v42 + 23);
       }
 
       else
       {
-        v45 = *(v43 + 8);
+        v44 = *(v42 + 8);
       }
 
       p_p = &__p;
-      std::string::basic_string[abi:ne200100](&__p, v45 + 1);
+      std::string::basic_string[abi:ne200100](&__p, v44 + 1);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
         p_p = __p.__r_.__value_.__r.__words[0];
       }
 
-      if (v45)
+      if (v44)
       {
-        if (v44[23] >= 0)
+        if (v43[23] >= 0)
         {
-          v47 = v44;
+          v46 = v43;
         }
 
         else
         {
-          v47 = *v44;
+          v46 = *v43;
         }
 
-        memmove(p_p, v47, v45);
+        memmove(p_p, v46, v44);
       }
 
-      *(&p_p->__r_.__value_.__l.__data_ + v45) = 95;
-      v48 = std::string::append(&__p, "post_activation");
-      v49 = *&v48->__r_.__value_.__l.__data_;
-      v93.__r_.__value_.__r.__words[2] = v48->__r_.__value_.__r.__words[2];
-      *&v93.__r_.__value_.__l.__data_ = v49;
-      v48->__r_.__value_.__l.__size_ = 0;
-      v48->__r_.__value_.__r.__words[2] = 0;
-      v48->__r_.__value_.__r.__words[0] = 0;
+      *(&p_p->__r_.__value_.__l.__data_ + v44) = 95;
+      v47 = std::string::append(&__p, "post_activation");
+      v48 = *&v47->__r_.__value_.__l.__data_;
+      v90.__r_.__value_.__r.__words[2] = v47->__r_.__value_.__r.__words[2];
+      *&v90.__r_.__value_.__l.__data_ = v48;
+      v47->__r_.__value_.__l.__size_ = 0;
+      v47->__r_.__value_.__r.__words[2] = 0;
+      v47->__r_.__value_.__r.__words[0] = 0;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v50 = *(this + 1);
       memset(&__p, 0, sizeof(__p));
-      std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, v81, v82, (v82 - v81) >> 3);
+      std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, v78, v79, (v79 - v78) >> 3);
       MIL::IRTensorValueType::Make();
       if (__p.__r_.__value_.__r.__words[0])
       {
@@ -9105,101 +6673,101 @@ LABEL_131:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (v42 < 0)
+      if (v41 < 0)
       {
-        std::string::__init_copy_ctor_external(&v63, v40, size);
+        std::string::__init_copy_ctor_external(&v60, v39, size);
       }
 
       else
       {
-        v63.__r_.__value_.__r.__words[0] = v40;
-        v63.__r_.__value_.__l.__size_ = size;
-        LODWORD(v63.__r_.__value_.__r.__words[2]) = v65[0];
-        *(&v63.__r_.__value_.__r.__words[2] + 3) = *(v65 + 3);
-        *(&v63.__r_.__value_.__s + 23) = v42;
+        v60.__r_.__value_.__r.__words[0] = v39;
+        v60.__r_.__value_.__l.__size_ = size;
+        LODWORD(v60.__r_.__value_.__r.__words[2]) = v62[0];
+        *(&v60.__r_.__value_.__r.__words[2] + 3) = *(v62 + 3);
+        *(&v60.__r_.__value_.__s + 23) = v41;
       }
 
       MIL::Builder::BlockBuilder::AddInput();
-      if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v63.__r_.__value_.__l.__data_);
+        operator delete(v60.__r_.__value_.__l.__data_);
       }
 
-      v61 = 0;
-      v62 = 0;
+      v58 = 0;
+      v59 = 0;
       MIL::Builder::BlockBuilder::AddOperation();
-      std::string::basic_string[abi:ne200100]<0>(&v58, "x");
-      if (v42 < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v55, "x");
+      if (v41 < 0)
       {
-        std::string::__init_copy_ctor_external(&v57, v40, size);
+        std::string::__init_copy_ctor_external(&v54, v39, size);
       }
 
       else
       {
-        v57.__r_.__value_.__r.__words[0] = v40;
-        v57.__r_.__value_.__l.__size_ = size;
-        LODWORD(v57.__r_.__value_.__r.__words[2]) = v65[0];
-        *(&v57.__r_.__value_.__r.__words[2] + 3) = *(v65 + 3);
-        *(&v57.__r_.__value_.__s + 23) = v42;
+        v54.__r_.__value_.__r.__words[0] = v39;
+        v54.__r_.__value_.__l.__size_ = size;
+        LODWORD(v54.__r_.__value_.__r.__words[2]) = v62[0];
+        *(&v54.__r_.__value_.__r.__words[2] + 3) = *(v62 + 3);
+        *(&v54.__r_.__value_.__s + 23) = v41;
       }
 
       MIL::Builder::OperationBuilder::AddInput();
-      if (v60)
+      if (v57)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v60);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v57);
       }
 
-      if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v57.__r_.__value_.__l.__data_);
+        operator delete(v54.__r_.__value_.__l.__data_);
       }
 
-      if (v59 < 0)
+      if (v56 < 0)
       {
-        operator delete(v58);
+        operator delete(v55);
       }
 
-      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v55, v93.__r_.__value_.__l.__data_, v93.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v52, v90.__r_.__value_.__l.__data_, v90.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v55 = v93;
+        v52 = v90;
       }
 
       MIL::Builder::OperationBuilder::AddOutput();
-      if (v56)
+      if (v53)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v56);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v53);
       }
 
-      if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v55.__r_.__value_.__l.__data_);
+        operator delete(v52.__r_.__value_.__l.__data_);
       }
 
       MIL::Builder::BlockBuilder::AddOutput();
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v53, __str.__r_.__value_.__l.__data_, __str.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v50, __str.__r_.__value_.__l.__data_, __str.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v53 = __str;
+        v50 = __str;
       }
 
       MIL::Builder::OperationBuilder::AddOutput();
-      if (v54)
+      if (v51)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v51);
       }
 
-      if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v53.__r_.__value_.__l.__data_);
+        operator delete(v50.__r_.__value_.__l.__data_);
       }
 
       *a3 = 0;
@@ -9209,30 +6777,30 @@ LABEL_131:
         std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__size_);
       }
 
-      if (v64)
+      if (v61)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v61);
       }
 
-      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v93.__r_.__value_.__l.__data_);
-        if ((v42 & 0x80000000) == 0)
+        operator delete(v90.__r_.__value_.__l.__data_);
+        if ((v41 & 0x80000000) == 0)
         {
           goto LABEL_129;
         }
       }
 
-      else if ((v42 & 0x80000000) == 0)
+      else if ((v41 & 0x80000000) == 0)
       {
         goto LABEL_129;
       }
 
-      operator delete(v40);
+      operator delete(v39);
 LABEL_129:
-      if (v72)
+      if (v69)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v69);
       }
 
       goto LABEL_131;
@@ -9247,21 +6815,19 @@ LABEL_129:
   *a3 = 4;
   std::string::basic_string[abi:ne200100]<0>((a3 + 8), "Immediate value inputs not handled.");
 LABEL_147:
-  if ((SHIBYTE(v91.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v88.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_150;
   }
 
-  v11 = v91.__r_.__value_.__r.__words[0];
+  v11 = v88.__r_.__value_.__r.__words[0];
 LABEL_149:
   operator delete(v11);
 LABEL_150:
-  if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v92.__r_.__value_.__l.__data_);
+    operator delete(v89.__r_.__value_.__l.__data_);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void sub_259A147C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, std::__shared_weak_count *a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, uint64_t a52, uint64_t a53, std::__shared_weak_count *a54, void *a55, std::__shared_weak_count *a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -9281,14 +6847,14 @@ void sub_259A147C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a40);
   }
 
-  if (*(v77 - 137) < 0)
+  if (*(v71 - 137) < 0)
   {
-    operator delete(*(v77 - 160));
+    operator delete(*(v71 - 160));
   }
 
-  if (v76 < 0)
+  if (v70 < 0)
   {
-    operator delete(v75);
+    operator delete(v69);
   }
 
   if (a54)
@@ -9296,24 +6862,24 @@ void sub_259A147C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a54);
   }
 
-  *(v77 - 160) = &a64;
-  std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100]((v77 - 160));
-  if (a72 < 0)
+  *(v71 - 160) = &a64;
+  std::vector<std::shared_ptr<MIL::IRParameter>>::__destroy_vector::operator()[abi:ne200100]((v71 - 160));
+  if (a66 < 0)
   {
-    operator delete(a68);
+    operator delete(a65);
   }
 
-  if (a73)
+  if (a67)
   {
-    a74 = a73;
-    operator delete(a73);
+    a68 = a67;
+    operator delete(a67);
   }
 
-  v79 = a75;
-  if (a75)
+  v73 = a69;
+  if (a69)
   {
-    STACK[0x200] = a75;
-    operator delete(v79);
+    STACK[0x200] = a69;
+    operator delete(v73);
   }
 
   if (SLOBYTE(STACK[0x227]) < 0)
@@ -9321,11 +6887,11 @@ void sub_259A147C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x210]);
   }
 
-  v80 = STACK[0x230];
+  v74 = STACK[0x230];
   if (STACK[0x230])
   {
-    STACK[0x238] = v80;
-    operator delete(v80);
+    STACK[0x238] = v74;
+    operator delete(v74);
   }
 
   if (a10)
@@ -9338,28 +6904,28 @@ void sub_259A147C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x248]);
   }
 
-  if (*(v77 - 233) < 0)
+  if (*(v71 - 233) < 0)
   {
-    operator delete(*(v77 - 256));
+    operator delete(*(v71 - 256));
   }
 
-  if (*(v77 - 201) < 0)
+  if (*(v71 - 201) < 0)
   {
-    operator delete(*(v77 - 224));
+    operator delete(*(v71 - 224));
   }
 
-  if (*(v77 - 169) < 0)
+  if (*(v71 - 169) < 0)
   {
-    operator delete(*(v77 - 192));
+    operator delete(*(v71 - 192));
   }
 
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[5],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[5],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -9373,10 +6939,10 @@ void sub_259A14BD8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -9390,7 +6956,7 @@ void sub_259A14C2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType> const*,std::shared_ptr<MIL::IRNamedValueType> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType> const*,std::shared_ptr<MIL::IRNamedValueType> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9452,13 +7018,13 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
 
 uint64_t _GLOBAL__sub_I_TranslateActivation_cpp()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[5],0>(v4, "relu", "relu");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[8],0>(v5, "sigmoid", "sigmoid");
+  v4[6] = *MEMORY[0x277D85DE8];
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[5],0>(v3, "relu", "relu");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[8],0>(v4, "sigmoid", "sigmoid");
   for (i = 0; i != -12; i -= 6)
   {
-    v1 = &v4[i];
-    if (v5[i * 8 + 47] < 0)
+    v1 = &v3[i];
+    if (SHIBYTE(v4[i + 5]) < 0)
     {
       operator delete(v1[9]);
     }
@@ -9468,9 +7034,6 @@ uint64_t _GLOBAL__sub_I_TranslateActivation_cpp()
       operator delete(v1[6]);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_259A14E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
@@ -9487,14 +7050,14 @@ void sub_259A14E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t MilTranslator::Passes::PassManager::Register(uint64_t result, uint64_t *a2)
+void *MilTranslator::Passes::PassManager::Register(void *result, uint64_t *a2)
 {
   v3 = result;
-  v5 = *(result + 16);
-  v4 = *(result + 24);
+  v5 = result[2];
+  v4 = result[3];
   if (v5 >= v4)
   {
-    v8 = result + 8;
+    v8 = (result + 1);
     v9 = v3[1];
     v10 = v5 - v9;
     v11 = (v5 - v9) >> 3;
@@ -9555,7 +7118,7 @@ uint64_t MilTranslator::Passes::PassManager::Register(uint64_t result, uint64_t 
   return result;
 }
 
-uint64_t MilTranslator::Passes::PassManager::Run@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void **MilTranslator::Passes::PassManager::Run@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   memset(v30, 0, sizeof(v30));
   v31 = 1065353216;
@@ -9581,7 +7144,7 @@ LABEL_18:
       }
 
 LABEL_5:
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v29);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v29.__r_.__value_.__l.__data_);
       v8 = *v4;
       v9 = a2[1];
       v23 = *a2;
@@ -9620,7 +7183,7 @@ LABEL_5:
         *&v29.__r_.__value_.__l.__data_ = v11;
       }
 
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v30, &v29.__r_.__value_.__l.__data_);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v30, &v29, &v29);
       if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v29.__r_.__value_.__l.__data_);
@@ -9717,7 +7280,7 @@ LABEL_5:
       operator delete(v26.__r_.__value_.__l.__data_);
     }
 
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v29);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v29.__r_.__value_.__l.__data_);
   }
 
   return std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v30);
@@ -9736,7 +7299,7 @@ void sub_259A1525C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a37);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v42 - 112);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v42 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -9786,35 +7349,35 @@ void *std::__split_buffer<std::unique_ptr<MilTranslator::Passes::Pass>>::__destr
   return result;
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -9822,82 +7385,82 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 uint64_t ANEMachineIR::Utils::ShapeString(uint64_t **a1)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v8);
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  v3 = *a1;
+  v4 = a1[1];
+  if (*a1 != v4)
   {
-    v4 = 91;
+    v5 = 91;
     do
     {
-      v5 = *v2;
-      v13 = v4;
-      v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, &v13, 1);
-      MEMORY[0x259CA9640](v6, v5);
-      ++v2;
-      v4 = 44;
+      v6 = *v3;
+      v14 = v5;
+      v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, &v14, 1);
+      MEMORY[0x259CA9640](v7, v6);
+      ++v3;
+      v5 = 44;
     }
 
-    while (v2 != v3);
+    while (v3 != v4);
   }
 
-  v13 = 93;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, &v13, 1);
+  v14 = 93;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, &v14, 1);
   std::stringbuf::str();
-  v8 = *MEMORY[0x277D82828];
-  *(&v8 + *(v8 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v9 = MEMORY[0x277D82878] + 16;
-  if (v11 < 0)
+  v9 = *MEMORY[0x277D82828];
+  *(&v9 + *(v9 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v10 = MEMORY[0x277D82878] + 16;
+  if (v12 < 0)
   {
-    operator delete(v10[7].__locale_);
+    operator delete(v11[7].__locale_);
   }
 
-  v9 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v10);
+  v10 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v11);
   std::ostream::~ostream();
-  return MEMORY[0x259CA96D0](&v12);
+  return MEMORY[0x259CA96D0](&v13);
 }
 
 void sub_259A15820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
@@ -9907,17 +7470,17 @@ void sub_259A15820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::Utils::BroadcastShapes(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X3>, MIL::ValidationResult *a5@<X8>)
+void ANEMachineIR::Utils::BroadcastShapes(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X3>, MIL::ValidationResult *a5@<X8>)
 {
   a4[1] = *a4;
   v101 = 0;
   v102 = 0;
   v103 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v101, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v101, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   v98 = 0;
   v99 = 0;
   v100 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v98, *a3, a3[1], (a3[1] - *a3) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v98, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
   v10 = v101;
   v9 = v102;
   v11 = (v102 - v101) >> 3;
@@ -9951,7 +7514,7 @@ LABEL_7:
       v89 = v53;
       if (v53)
       {
-        atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v53 + 8), 1uLL, memory_order_relaxed);
       }
 
       std::to_string(&v91, v15);
@@ -10036,7 +7599,7 @@ LABEL_13:
     if (v14 > v11)
     {
       v92.__r_.__value_.__r.__words[0] = 1;
-      std::vector<unsigned long long>::vector[abi:ne200100](&v93, v14 - v11);
+      std::vector<unsigned long long>::vector[abi:ne200100](&v93, v14 - v11, &v92);
       std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long *>,std::__wrap_iter<unsigned long long *>>(&v101, v101, v93.__r_.__value_.__l.__data_, v93.__r_.__value_.__l.__size_, (v93.__r_.__value_.__l.__size_ - v93.__r_.__value_.__r.__words[0]) >> 3);
       if (v93.__r_.__value_.__r.__words[0])
       {
@@ -10053,7 +7616,7 @@ LABEL_13:
     if (v11 > v14)
     {
       v92.__r_.__value_.__r.__words[0] = 1;
-      std::vector<unsigned long long>::vector[abi:ne200100](&v93, v11 - v14);
+      std::vector<unsigned long long>::vector[abi:ne200100](&v93, v11 - v14, &v92);
       std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long *>,std::__wrap_iter<unsigned long long *>>(&v98, v98, v93.__r_.__value_.__l.__data_, v93.__r_.__value_.__l.__size_, (v93.__r_.__value_.__l.__size_ - v93.__r_.__value_.__r.__words[0]) >> 3);
       if (v93.__r_.__value_.__r.__words[0])
       {
@@ -10175,7 +7738,7 @@ LABEL_60:
             v85 = v62;
             if (v62)
             {
-              atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit((v62 + 8), 1uLL, memory_order_relaxed);
             }
 
             std::to_string(&v81, v17);
@@ -10346,7 +7909,7 @@ LABEL_138:
 LABEL_56:
             v40 = v27;
             v41 = (8 * v27);
-            v38 = 8 * v30;
+            v38 = (8 * v30);
             v39 = &v41[-v40];
             *v41 = v18;
             v21 = v41 + 1;
@@ -10404,7 +7967,7 @@ LABEL_59:
   v97 = v43;
   if (v43)
   {
-    atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v43 + 8), 1uLL, memory_order_relaxed);
   }
 
   std::to_string(&v91, v12);
@@ -10560,20 +8123,20 @@ void sub_259A16018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ANEMachineIR::Utils::GetStaticTensorShape(ANEMachineIR::Utils *this@<X0>, const MIL::IRTensorValueType *a2@<X1>, const void **a3@<X8>)
+void ANEMachineIR::Utils::GetStaticTensorShape(const void **__return_ptr a1@<X8>, ANEMachineIR::Utils *this@<X0>, const MIL::IRTensorValueType *a3@<X1>)
 {
-  v4 = (*(*this + 96))(this, a2);
-  a3[1] = 0;
-  a3[2] = 0;
-  *a3 = 0;
-  std::vector<unsigned long long>::reserve(a3, v4[1] - *v4);
+  v4 = (*(*this + 96))(this, a3);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  std::vector<unsigned long long>::reserve(a1, v4[1] - *v4);
   v6 = *v4;
   v5 = v4[1];
   while (v6 != v5)
   {
     v7 = MIL::IRDimension::AsConstant(*v6);
     v8 = (*(*v7 + 48))(v7);
-    std::vector<unsigned long long>::push_back[abi:ne200100](a3, &v8);
+    std::vector<unsigned long long>::push_back[abi:ne200100](a1, &v8);
     ++v6;
   }
 }
@@ -10653,7 +8216,7 @@ uint64_t ANEMachineIR::Utils::IsStaticTensorType(ANEMachineIR::Utils *this, cons
 
 uint64_t ANEMachineIR::Utils::GetNumberOfElementsFromStaticTensorShape(ANEMachineIR::Utils *this, const MIL::IRTensorValueType *a2)
 {
-  ANEMachineIR::Utils::GetStaticTensorShape(this, a2, &v6);
+  ANEMachineIR::Utils::GetStaticTensorShape(&v6, this, a2);
   v2 = 1;
   if (v6 != v7)
   {
@@ -10690,10 +8253,10 @@ uint64_t ANEMachineIR::Utils::GetNumberOfElementsFromStaticTensorShape(uint64_t 
   return result;
 }
 
-uint64_t ANEMachineIR::Utils::InferPositiveAxes@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t *ANEMachineIR::Utils::InferPositiveAxes@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = *a1;
-  v4 = a1[1];
+  v4 = *(a1 + 8);
   if (*a1 == v4)
   {
 LABEL_5:
@@ -10725,7 +8288,7 @@ LABEL_5:
     {
       v10 = (v8 >> 2);
       v11 = *a1;
-      v12 = (a1[1] - *a1) >> 2;
+      v12 = (*(a1 + 8) - *a1) >> 2;
       v13 = *a2;
       if (v10 <= 1)
       {
@@ -10786,6 +8349,19 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
+uint64_t *std::vector<unsigned long long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned long long>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_259A16868(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -10798,7 +8374,7 @@ void sub_259A16868(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long *>,std::__wrap_iter<unsigned long long *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long *>,std::__wrap_iter<unsigned long long *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -10807,8 +8383,8 @@ char *std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<std::__w
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 3)
   {
     v11 = *a1;
@@ -10846,23 +8422,24 @@ char *std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<std::__w
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
 
     while (v34);
-    memcpy((v33 + 8 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 8 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 8 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 8 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -10877,14 +8454,14 @@ char *std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<std::__w
   {
     v29 = &__dst[8 * a5];
     v30 = (v10 - 8 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[8 * a5], __dst, v10 - v29);
@@ -10899,11 +8476,11 @@ char *std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<std::__w
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[8 * a5];
@@ -10923,7 +8500,7 @@ char *std::vector<unsigned long long>::__insert_with_size[abi:ne200100]<std::__w
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[8 * a5], v5, v21 - v22);
@@ -10962,7 +8539,7 @@ void make_milaneflow_context(MIL::MILContext *a1)
 
 void sub_259A16B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  MEMORY[0x259CA9760](v10, 0x20C40A4A59CD2);
+  MEMORY[0x259CA9760](v10, 0x20C40A4A59CD2, a3, a4, a5, a6, a7, a8);
   if (a10)
   {
     (*(*a10 + 8))(a10);
@@ -11118,7 +8695,7 @@ uint64_t milaneflow_try_program_from_file(uint64_t *a1, char *a2, char *a3)
 void sub_259A16E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   v13 = v12;
-  MEMORY[0x259CA9760](v13, 0x20C40A4A59CD2);
+  MEMORY[0x259CA9760](v13, 0x20C40A4A59CD2, a3, a4, a5, a6, a7, a8);
   if (a12)
   {
     (*(*a12 + 8))(a12);
@@ -11129,14 +8706,14 @@ void sub_259A16E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t anonymous namespace::ParseProgramShared(MIL::ParserOptions *a1, char *a2, int a3, char *a4, void *a5)
 {
-  MIL::ParserOptions::Make(&v22, a1);
-  (*(*v22 + 64))(v22, 1);
+  MIL::ParserOptions::Make(&v23, a1);
+  (*(*v23 + 64))(v23, 1);
   if (a4)
   {
-    v10 = v22;
+    v11 = v23;
     std::string::basic_string[abi:ne200100]<0>(__p, a4);
-    (*(*v10 + 48))(v10, __p);
-    if (v21 < 0)
+    (*(*v11 + 48))(v11, __p);
+    if (v22 < 0)
     {
       operator delete(__p[0]);
     }
@@ -11145,48 +8722,48 @@ uint64_t anonymous namespace::ParseProgramShared(MIL::ParserOptions *a1, char *a
   *a5 = 0;
   if (a3)
   {
-    v11 = v22;
-    std::string::basic_string[abi:ne200100]<0>(v18, a2);
-    (*(*v11 + 32))(v11, v18, 1);
-    if (v19 < 0)
+    v12 = v23;
+    std::string::basic_string[abi:ne200100]<0>(v19, a2);
+    (*(*v12 + 32))(v12, v19, 1);
+    if (v20 < 0)
     {
-      operator delete(v18[0]);
+      operator delete(v19[0]);
     }
 
-    v17 = *a1;
+    v18 = *a1;
     *a1 = 0;
     *(a1 + 1) = 0;
     MIL::Text::ParseProgramFromFile();
-    v12 = *(&v17 + 1);
-    if (!*(&v17 + 1))
+    v13 = *(&v18 + 1);
+    if (!*(&v18 + 1))
     {
       goto LABEL_13;
     }
 
 LABEL_12:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     goto LABEL_13;
   }
 
-  v16 = *a1;
+  v17 = *a1;
   *a1 = 0;
   *(a1 + 1) = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v14, a2);
+  std::string::basic_string[abi:ne200100]<0>(&v15, a2);
   MIL::Text::ParseProgram();
-  if (v15 < 0)
+  if (v16 < 0)
   {
-    operator delete(v14);
+    operator delete(v15);
   }
 
-  v12 = *(&v16 + 1);
-  if (*(&v16 + 1))
+  v13 = *(&v17 + 1);
+  if (*(&v17 + 1))
   {
     goto LABEL_12;
   }
 
 LABEL_13:
-  result = v22;
-  v22 = 0;
+  result = v23;
+  v23 = 0;
   if (result)
   {
     return (*(*result + 8))(result);
@@ -11251,7 +8828,7 @@ uint64_t milaneflow_try_program_from_string(uint64_t *a1, char *a2, char *a3)
 void sub_259A17404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   v13 = v12;
-  MEMORY[0x259CA9760](v13, 0x20C40A4A59CD2);
+  MEMORY[0x259CA9760](v13, 0x20C40A4A59CD2, a3, a4, a5, a6, a7, a8);
   if (a12)
   {
     (*(*a12 + 8))(a12);
@@ -11292,16 +8869,16 @@ uint64_t milaneflow_free_program_handle(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t milaneflow_free_function_handle(uint64_t result, uint64_t a2)
+void *milaneflow_free_function_handle(void *result, uint64_t a2)
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 64);
+    v4 = result[8];
     if (v4)
     {
-      v5 = *(result + 72);
-      v6 = *(result + 64);
+      v5 = result[9];
+      v6 = result[8];
       if (v5 != v4)
       {
         do
@@ -11425,18 +9002,18 @@ LABEL_7:
   operator new();
 }
 
-void sub_259A1796C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_259A1796C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x259CA9760](v15, v16);
+  MEMORY[0x259CA9760](v15, v16, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-uint64_t milaneflow_function_name_list(void *a1)
+unint64_t milaneflow_function_name_list(void *a1)
 {
   if (*((*(**a1 + 72))(*a1) + 24))
   {
@@ -11491,7 +9068,7 @@ void sub_259A17C00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t milaneflow_function_input_name_list(uint64_t a1)
+unint64_t milaneflow_function_input_name_list(uint64_t a1)
 {
   if (*((*(**(a1 + 16) + 128))(*(a1 + 16)) + 16))
   {
@@ -11501,7 +9078,7 @@ uint64_t milaneflow_function_input_name_list(uint64_t a1)
   return 0;
 }
 
-uint64_t milaneflow_function_output_name_list(uint64_t a1)
+unint64_t milaneflow_function_output_name_list(uint64_t a1)
 {
   v1 = (*(**(a1 + 24) + 88))(*(a1 + 24));
   if (v1[1] - *v1)
@@ -11546,14 +9123,14 @@ LABEL_5:
   return v5;
 }
 
-void sub_259A17F34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_259A17F34(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x259CA9760](v15, v16);
+  MEMORY[0x259CA9760](v15, v16, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -11583,14 +9160,14 @@ LABEL_5:
   return v5;
 }
 
-void sub_259A180D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_259A180D0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x259CA9760](v15, v16);
+  MEMORY[0x259CA9760](v15, v16, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -11614,7 +9191,7 @@ void milaneflow_free_io_handle(uint64_t a1, uint64_t a2)
 
 uint64_t milaneflow_function_io_dtype(uint64_t a1, uint64_t a2, int *a3)
 {
-  result = (*(*a1 + 24))(a1);
+  result = (*(*a1 + 24))(a1, a2);
   if (result)
   {
     v5 = (*(*result + 88))(result);
@@ -11641,7 +9218,7 @@ LABEL_8:
 
 BOOL milaneflow_function_io_rank(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v4 = (*(*a1 + 24))(a1);
+  v4 = (*(*a1 + 24))(a1, a2);
   v5 = v4;
   if (v4)
   {
@@ -11654,7 +9231,7 @@ BOOL milaneflow_function_io_rank(uint64_t a1, uint64_t a2, uint64_t *a3)
 
 uint64_t milaneflow_function_io_dim_size(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
-  result = (*(*a1 + 24))(a1);
+  result = (*(*a1 + 24))(a1, a2);
   if (result)
   {
     v7 = result;
@@ -12167,7 +9744,7 @@ LABEL_46:
   return 1;
 }
 
-void sub_259A1945C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44)
+void sub_259A1945C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44)
 {
   if (*(v44 + 23) < 0)
   {
@@ -12199,7 +9776,7 @@ void sub_259A1945C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(*(v45 - 200));
   }
 
-  MEMORY[0x259CA9760](v44, 0x1012C403467C318);
+  MEMORY[0x259CA9760](v44, 0x1012C403467C318, a3, a4, a5, a6, a7, a8);
   if (a9)
   {
     operator delete(a9);
@@ -12585,7 +10162,7 @@ LABEL_46:
   return 1;
 }
 
-void sub_259A1A484(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44)
+void sub_259A1A484(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44)
 {
   if (*(v44 + 23) < 0)
   {
@@ -12617,7 +10194,7 @@ void sub_259A1A484(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(*(v45 - 200));
   }
 
-  MEMORY[0x259CA9760](v44, 0x1012C403467C318);
+  MEMORY[0x259CA9760](v44, 0x1012C403467C318, a3, a4, a5, a6, a7, a8);
   if (a9)
   {
     operator delete(a9);
@@ -12641,12 +10218,12 @@ void sub_259A1A484(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void milaneflow_execute_function(MIL::ANEMachineIR::Interpreter::DelegateByNameOp *a1)
+void milaneflow_execute_function(uint64_t a1)
 {
   v1 = 0u;
   v2 = 0u;
   v3 = 1065353216;
-  MIL::ANEMachineIR::Interpreter::DelegateByNameOp::MakeWithDefaultTable(a1);
+  MIL::ANEMachineIR::Interpreter::DelegateByNameOp::MakeWithDefaultTable();
 }
 
 void sub_259A1BCB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36)

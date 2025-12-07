@@ -1,11 +1,13 @@
 @interface TRIFactorPackStorage
 + (id)relPathForMAReferenceWithFactorName:(id)name;
 - (BOOL)_linkAssetsUpdatingFactorLevel:(id)level fromFactorPackWithId:(id)id usingAssetStore:(id)store currentFactorPackPath:(id)path futureFactorPackPath:(id)packPath;
+- (BOOL)_referenceMAAssetWithId:(id)id assetStore:(id)store forFactorName:(id)name isFileFactor:(BOOL)factor currentFactorPackPath:(id)path futureFactorPackPath:(id)packPath;
 - (BOOL)_removeUnreferencedFactorPackSetsWithNamespaceName:(id)name removedCount:(unsigned int *)count;
 - (BOOL)_removeUnreferencedFactorPackSetsWithParentDir:(id)dir removedCount:(unsigned int *)count;
 - (BOOL)removeUnreferencedFactorPacksWithRemovedCount:(unsigned int *)count;
 - (BOOL)saveFactorPack:(id)pack populatingAssetsForFactorNames:(id)names aliasToUnaliasMap:(id)map factorPackByNamePath:(id *)path factorPackByIdPath:(id *)idPath;
 - (BOOL)saveFactorPackToGlobal:(id)global forFactorNames:(id)names aliasToUnaliasMap:(id)map;
+- (BOOL)updateSavedFactorPackWithId:(id)id namespaceName:(id)name deletingAssetsWithFactorNames:(id)names inUseAssetBehavior:(unsigned __int8)behavior;
 - (BOOL)updateSavedFactorPackWithId:(id)id namespaceName:(id)name populatingAssetsForFactorNames:(id)names aliasToUnaliasMap:(id)map;
 - (BOOL)updateSavedGlobalFactorPackAt:(id)at deletingAssetsWithFactorNames:(id)names;
 - (BOOL)updateSavedGlobalFactorPackAt:(id)at populatingAssetsForFactorNames:(id)names;
@@ -58,7 +60,7 @@
 
 - (BOOL)saveFactorPack:(id)pack populatingAssetsForFactorNames:(id)names aliasToUnaliasMap:(id)map factorPackByNamePath:(id *)path factorPackByIdPath:(id *)idPath
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   packCopy = pack;
   namesCopy = names;
   mapCopy = map;
@@ -92,23 +94,23 @@ LABEL_17:
 
   if (!v20)
   {
-    v37 = TRILogCategory_Server();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v36 = TRILogCategory_Server();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       factorPackId2 = [packCopy factorPackId];
       selectedNamespace2 = [packCopy selectedNamespace];
       name2 = [selectedNamespace2 name];
       *buf = 138543618;
-      v47 = factorPackId2;
-      v48 = 2114;
-      v49 = name2;
-      _os_log_error_impl(&dword_26F567000, v37, OS_LOG_TYPE_ERROR, "Failed to resolve location for factor pack %{public}@ with namespace %{public}@.", buf, 0x16u);
+      v46 = factorPackId2;
+      v47 = 2114;
+      v48 = name2;
+      _os_log_error_impl(&dword_26F567000, v36, OS_LOG_TYPE_ERROR, "Failed to resolve location for factor pack %{public}@ with namespace %{public}@.", buf, 0x16u);
     }
 
     goto LABEL_17;
   }
 
-  v44 = v20;
+  v43 = v20;
   idPathCopy = idPath;
   v21 = [TRIAssetStore alloc];
   paths = self->_paths;
@@ -120,36 +122,36 @@ LABEL_17:
   localTempDir = [(TRIPaths *)self->_paths localTempDir];
   v28 = [(TRITempDirScopeGuard *)v26 initWithPath:localTempDir];
 
-  v45 = v28;
+  v44 = v28;
   if (v28)
   {
-    v29 = v44;
-    v30 = [(TRIFactorPackStorage *)self _writeFactorPack:packCopy futurePath:v44 forFactorNames:namesCopy aliasToUnaliasMap:mapCopy assetStore:v25 tempDirRef:v28];
+    v29 = v43;
+    v30 = [(TRIFactorPackStorage *)self _writeFactorPack:packCopy futurePath:v43 forFactorNames:namesCopy aliasToUnaliasMap:mapCopy assetStore:v25 tempDirRef:v28];
     if (v30)
     {
-      v41 = v30;
-      stringByDeletingLastPathComponent = [v44 stringByDeletingLastPathComponent];
+      v40 = v30;
+      stringByDeletingLastPathComponent = [v43 stringByDeletingLastPathComponent];
       v32 = [MEMORY[0x277CCAA00] triIdempotentCreateDirectoryOrFaultWithPath:stringByDeletingLastPathComponent];
 
       if (v32)
       {
-        v29 = v44;
-        if ([MEMORY[0x277CCAA00] triForceRenameWithSourcePath:v41 destPath:v44])
+        v29 = v43;
+        if ([MEMORY[0x277CCAA00] triForceRenameWithSourcePath:v40 destPath:v43])
         {
           v33 = TRILogCategory_Server();
           if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v47 = v17;
-            v48 = 2114;
-            v49 = v44;
+            v46 = v17;
+            v47 = 2114;
+            v48 = v43;
             _os_log_impl(&dword_26F567000, v33, OS_LOG_TYPE_DEFAULT, "Wrote factor pack %{public}@ --> %{public}@", buf, 0x16u);
           }
 
-          v34 = [(TRIFactorPackStorage *)self _writeFactorPackToLegacyPath:packCopy forFactorNames:namesCopy aliasToUnaliasMap:mapCopy assetStore:v25 tempDirRef:v45];
+          v34 = [(TRIFactorPackStorage *)self _writeFactorPackToLegacyPath:packCopy forFactorNames:namesCopy aliasToUnaliasMap:mapCopy assetStore:v25 tempDirRef:v44];
           if (pathCopy)
           {
-            objc_storeStrong(pathCopy, v44);
+            objc_storeStrong(pathCopy, v43);
           }
 
           if (idPathCopy)
@@ -169,10 +171,10 @@ LABEL_17:
       else
       {
         LOBYTE(v28) = 0;
-        v29 = v44;
+        v29 = v43;
       }
 
-      v30 = v41;
+      v30 = v40;
     }
 
     else
@@ -183,19 +185,18 @@ LABEL_17:
 
   else
   {
-    v29 = v44;
+    v29 = v43;
   }
 
 LABEL_18:
   objc_autoreleasePoolPop(v15);
 
-  v35 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 - (id)_writeFactorPackToLegacyPath:(id)path forFactorNames:(id)names aliasToUnaliasMap:(id)map assetStore:(id)store tempDirRef:(id)ref
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   namesCopy = names;
   mapCopy = map;
@@ -221,11 +222,11 @@ LABEL_18:
           v24 = TRILogCategory_Server();
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            v31 = 138543618;
-            v32 = v18;
-            v33 = 2114;
-            v34 = v21;
-            _os_log_impl(&dword_26F567000, v24, OS_LOG_TYPE_DEFAULT, "Wrote factor pack %{public}@ --> %{public}@ (legacy id-based directory).", &v31, 0x16u);
+            v30 = 138543618;
+            v31 = v18;
+            v32 = 2114;
+            v33 = v21;
+            _os_log_impl(&dword_26F567000, v24, OS_LOG_TYPE_DEFAULT, "Wrote factor pack %{public}@ --> %{public}@ (legacy id-based directory).", &v30, 0x16u);
           }
 
           v25 = v21;
@@ -251,11 +252,11 @@ LABEL_18:
         factorPackId2 = [pathCopy factorPackId];
         selectedNamespace2 = [pathCopy selectedNamespace];
         name2 = [selectedNamespace2 name];
-        v31 = 138543618;
-        v32 = factorPackId2;
-        v33 = 2114;
-        v34 = name2;
-        _os_log_impl(&dword_26F567000, v21, OS_LOG_TYPE_INFO, "Failed to resolve id based location for factor pack %{public}@ with namespace %{public}@.", &v31, 0x16u);
+        v30 = 138543618;
+        v31 = factorPackId2;
+        v32 = 2114;
+        v33 = name2;
+        _os_log_impl(&dword_26F567000, v21, OS_LOG_TYPE_INFO, "Failed to resolve id based location for factor pack %{public}@ with namespace %{public}@.", &v30, 0x16u);
       }
 
       v25 = 0;
@@ -267,14 +268,12 @@ LABEL_18:
     v25 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (BOOL)saveFactorPackToGlobal:(id)global forFactorNames:(id)names aliasToUnaliasMap:(id)map
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   globalCopy = global;
   namesCopy = names;
   mapCopy = map;
@@ -283,8 +282,8 @@ LABEL_18:
     v12 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      *v46 = 0;
-      _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failed to find factor pack identifier when saving factor pack globally", v46, 2u);
+      *v45 = 0;
+      _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failed to find factor pack identifier when saving factor pack globally", v45, 2u);
     }
 
     goto LABEL_11;
@@ -306,21 +305,21 @@ LABEL_11:
   selectedNamespace = [globalCopy selectedNamespace];
   name = [selectedNamespace name];
   v18 = [v15 initWithFormat:@"%@/factorPacks/%@", name, v12];
-  v38 = [v14 stringByAppendingPathComponent:v18];
+  v37 = [v14 stringByAppendingPathComponent:v18];
 
   objc_autoreleasePoolPop(v13);
-  if (!v38)
+  if (!v37)
   {
-    v33 = TRILogCategory_Server();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = TRILogCategory_Server();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       selectedNamespace2 = [globalCopy selectedNamespace];
       name2 = [selectedNamespace2 name];
-      *v46 = 138543618;
-      *&v46[4] = v12;
-      *&v46[12] = 2114;
-      *&v46[14] = name2;
-      _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "Failed to resolve location for factor pack %{public}@ with namespace %{public}@.", v46, 0x16u);
+      *v45 = 138543618;
+      *&v45[4] = v12;
+      *&v45[12] = 2114;
+      *&v45[14] = name2;
+      _os_log_error_impl(&dword_26F567000, v32, OS_LOG_TYPE_ERROR, "Failed to resolve location for factor pack %{public}@ with namespace %{public}@.", v45, 0x16u);
     }
 
     goto LABEL_11;
@@ -330,7 +329,7 @@ LABEL_11:
   paths = self->_paths;
   extractor = self->_extractor;
   v22 = [[TRIRemoteAssetPatcher alloc] initWithMonitoredActivity:0];
-  v37 = [(TRIAssetStore *)v19 initWithPaths:paths extractor:extractor patcher:v22];
+  v36 = [(TRIAssetStore *)v19 initWithPaths:paths extractor:extractor patcher:v22];
 
   v23 = [TRITempDirScopeGuard alloc];
   localTempDir = [(TRIPaths *)self->_paths localTempDir];
@@ -338,24 +337,24 @@ LABEL_11:
 
   if (v25)
   {
-    v26 = [(TRIFactorPackStorage *)self _writeFactorPack:globalCopy futurePath:v38 forFactorNames:namesCopy aliasToUnaliasMap:mapCopy assetStore:v37 tempDirRef:v25];
+    v26 = [(TRIFactorPackStorage *)self _writeFactorPack:globalCopy futurePath:v37 forFactorNames:namesCopy aliasToUnaliasMap:mapCopy assetStore:v36 tempDirRef:v25];
     if (v26)
     {
-      *v46 = 0;
-      *&v46[8] = v46;
-      *&v46[16] = 0x3032000000;
-      v47 = __Block_byref_object_copy__32;
-      v48 = __Block_byref_object_dispose__32;
-      v49 = objc_alloc_init(MEMORY[0x277CBEB58]);
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __80__TRIFactorPackStorage_saveFactorPackToGlobal_forFactorNames_aliasToUnaliasMap___block_invoke;
-      v39[3] = &unk_279DDF720;
-      v40 = namesCopy;
-      v41 = v46;
-      [globalCopy enumerateFactorLevelsWithBlock:v39];
+      *v45 = 0;
+      *&v45[8] = v45;
+      *&v45[16] = 0x3032000000;
+      v46 = __Block_byref_object_copy__32;
+      v47 = __Block_byref_object_dispose__32;
+      v48 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __80__TRIFactorPackStorage_saveFactorPackToGlobal_forFactorNames_aliasToUnaliasMap___block_invoke;
+      v38[3] = &unk_279DDF720;
+      v39 = namesCopy;
+      v40 = v45;
+      [globalCopy enumerateFactorLevelsWithBlock:v38];
       v27 = [[TRIRemoteAssetStoreOperator alloc] initWithPaths:self->_paths];
-      v28 = [(TRIRemoteAssetStoreOperator *)v27 saveFactorPackToGlobalPath:v38 fromTemporaryPath:v26 factors:*(*&v46[8] + 40)];
+      v28 = [(TRIRemoteAssetStoreOperator *)v27 saveFactorPackToGlobalPath:v37 fromTemporaryPath:v26 factors:*(*&v45[8] + 40)];
       v29 = TRILogCategory_Server();
       v30 = v29;
       if (v28)
@@ -363,9 +362,9 @@ LABEL_11:
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v43 = v12;
-          v44 = 2114;
-          v45 = v38;
+          v42 = v12;
+          v43 = 2114;
+          v44 = v37;
           _os_log_impl(&dword_26F567000, v30, OS_LOG_TYPE_DEFAULT, "Wrote global factor pack %{public}@ --> %{public}@", buf, 0x16u);
         }
       }
@@ -373,20 +372,20 @@ LABEL_11:
       else if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v43 = v38;
+        v42 = v37;
         _os_log_error_impl(&dword_26F567000, v30, OS_LOG_TYPE_ERROR, "Failed to write global factor pack to %@", buf, 0xCu);
       }
 
-      _Block_object_dispose(v46, 8);
+      _Block_object_dispose(v45, 8);
     }
 
     else
     {
-      v34 = TRILogCategory_Server();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v33 = TRILogCategory_Server();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        *v46 = 0;
-        _os_log_error_impl(&dword_26F567000, v34, OS_LOG_TYPE_ERROR, "Failed to create or copy global factor pack to a temporary directory.", v46, 2u);
+        *v45 = 0;
+        _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "Failed to create or copy global factor pack to a temporary directory.", v45, 2u);
       }
 
       LOBYTE(v28) = 0;
@@ -399,7 +398,6 @@ LABEL_11:
   }
 
 LABEL_12:
-  v31 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -433,7 +431,7 @@ LABEL_6:
 
 - (id)_writeFactorPack:(id)pack futurePath:(id)path forFactorNames:(id)names aliasToUnaliasMap:(id)map assetStore:(id)store tempDirRef:(id)ref
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   packCopy = pack;
   pathCopy = path;
   namesCopy = names;
@@ -479,35 +477,35 @@ LABEL_12:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v50 = 0x2020000000;
-  v51 = 0;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __107__TRIFactorPackStorage__writeFactorPack_futurePath_forFactorNames_aliasToUnaliasMap_assetStore_tempDirRef___block_invoke;
-  v36[3] = &unk_279DE2B60;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __107__TRIFactorPackStorage__writeFactorPack_futurePath_forFactorNames_aliasToUnaliasMap_assetStore_tempDirRef___block_invoke;
+  v35[3] = &unk_279DE2B60;
   p_buf = &buf;
-  v37 = mapCopy;
-  v38 = namesCopy;
+  v36 = mapCopy;
+  v37 = namesCopy;
   selfCopy = self;
   v20 = v20;
-  v40 = v20;
-  v41 = storeCopy;
+  v39 = v20;
+  v40 = storeCopy;
   v27 = v26;
-  v42 = v27;
-  v43 = pathCopy;
-  v33 = MEMORY[0x2743948D0](v36);
+  v41 = v27;
+  v42 = pathCopy;
+  v32 = MEMORY[0x2743948D0](v35);
   v28 = [v27 stringByAppendingPathComponent:@"factorPack.pb"];
-  v35 = 0;
-  if (([MEMORY[0x277D73678] copySourceFactorPack:packCopy toDestPath:v28 error:&v35 modifyFactorLevel:v33] & 1) == 0)
+  v34 = 0;
+  if (([MEMORY[0x277D73678] copySourceFactorPack:packCopy toDestPath:v28 error:&v34 modifyFactorLevel:v32] & 1) == 0)
   {
     v29 = TRILogCategory_Server();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      *v45 = 138543618;
-      v46 = v27;
-      v47 = 2114;
-      v48 = v35;
-      _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "Failed to copy factor pack to %{public}@: %{public}@", v45, 0x16u);
+      *v44 = 138543618;
+      v45 = v27;
+      v46 = 2114;
+      v47 = v34;
+      _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "Failed to copy factor pack to %{public}@: %{public}@", v44, 0x16u);
     }
 
     goto LABEL_18;
@@ -518,9 +516,9 @@ LABEL_12:
     v29 = TRILogCategory_Server();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      *v45 = 138412290;
-      v46 = v20;
-      _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "Failed to link assets for factor pack with Id: %@", v45, 0xCu);
+      *v44 = 138412290;
+      v45 = v20;
+      _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "Failed to link assets for factor pack with Id: %@", v44, 0xCu);
     }
 
 LABEL_18:
@@ -541,14 +539,12 @@ LABEL_20:
   _Block_object_dispose(&buf, 8);
 LABEL_13:
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 id __107__TRIFactorPackStorage__writeFactorPack_futurePath_forFactorNames_aliasToUnaliasMap_assetStore_tempDirRef___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (*(*(*(a1 + 88) + 8) + 24))
@@ -578,11 +574,11 @@ LABEL_9:
         v9 = TRILogCategory_Server();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v21 = [v4 factor];
-          v22 = [v21 name];
-          v23 = 138543362;
-          v24 = v22;
-          _os_log_debug_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEBUG, "Populating system default cloudKitContainer on asset for %{public}@", &v23, 0xCu);
+          v20 = [v4 factor];
+          v21 = [v20 name];
+          v22 = 138543362;
+          v23 = v21;
+          _os_log_debug_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEBUG, "Populating system default cloudKitContainer on asset for %{public}@", &v22, 0xCu);
         }
 
         v7 = [v6 asset];
@@ -618,16 +614,15 @@ LABEL_10:
     v18 = TRILogCategory_Server();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = 138412290;
-      v24 = v15;
-      _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "Failed to link asset for factor name: %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = v15;
+      _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "Failed to link asset for factor name: %@", &v22, 0xCu);
     }
 
     *(*(*(a1 + 88) + 8) + 24) = 1;
   }
 
 LABEL_20:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -650,7 +645,64 @@ LABEL_20:
 
 - (id)loadFactorPackWithDir:(id)dir
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  dirCopy = dir;
+  v4 = objc_autoreleasePoolPush();
+  v5 = [dirCopy stringByAppendingPathComponent:@"factorPack.pb"];
+  v14 = 0;
+  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v5 options:8 error:&v14];
+  v7 = v14;
+  v8 = v7;
+  v15 = v7;
+  if (v6)
+  {
+    v15 = 0;
+
+    v9 = [objc_alloc(MEMORY[0x277D73670]) initWithData:v6 error:&v15];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = v10;
+      goto LABEL_10;
+    }
+
+    v12 = TRILogCategory_Server();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543618;
+      v17 = v5;
+      v18 = 2114;
+      v19 = v15;
+      _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failed to parse TRIClientFactorPack at %{public}@: %{public}@", buf, 0x16u);
+    }
+
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = TRILogCategory_Server();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543618;
+      v17 = dirCopy;
+      v18 = 2114;
+      v19 = v8;
+      _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Failed to load TRIClientFactorPack from factor pack directory at %{public}@: %{public}@", buf, 0x16u);
+    }
+  }
+
+  v11 = 0;
+LABEL_10:
+
+  objc_autoreleasePoolPop(v4);
+
+  return v11;
+}
+
+- (id)loadParsedFactorPackWithDir:(id)dir
+{
+  v20 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   v4 = objc_autoreleasePoolPush();
   v5 = [dirCopy stringByAppendingPathComponent:@"factorPack.pb"];
@@ -658,12 +710,12 @@ LABEL_20:
   v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v5 options:8 error:&v15];
   v7 = v15;
   v8 = v7;
-  v16 = v7;
   if (v6)
   {
-    v16 = 0;
 
-    v9 = [objc_alloc(MEMORY[0x277D73670]) initWithData:v6 error:&v16];
+    v14 = 0;
+    v9 = [MEMORY[0x277D73AD8] parseFromData:v6 error:&v14];
+    v8 = v14;
     if (v9)
     {
       v10 = v9;
@@ -675,9 +727,9 @@ LABEL_20:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v18 = v5;
-      v19 = 2114;
-      v20 = v16;
+      v17 = v5;
+      v18 = 2114;
+      v19 = v8;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failed to parse TRIClientFactorPack at %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -690,9 +742,9 @@ LABEL_20:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v18 = dirCopy;
-      v19 = 2114;
-      v20 = v8;
+      v17 = dirCopy;
+      v18 = 2114;
+      v19 = v8;
       _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Failed to load TRIClientFactorPack from factor pack directory at %{public}@: %{public}@", buf, 0x16u);
     }
   }
@@ -701,65 +753,6 @@ LABEL_20:
 LABEL_10:
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v11;
-}
-
-- (id)loadParsedFactorPackWithDir:(id)dir
-{
-  v21 = *MEMORY[0x277D85DE8];
-  dirCopy = dir;
-  v4 = objc_autoreleasePoolPush();
-  v5 = [dirCopy stringByAppendingPathComponent:@"factorPack.pb"];
-  v16 = 0;
-  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v5 options:8 error:&v16];
-  v7 = v16;
-  v8 = v7;
-  if (v6)
-  {
-
-    v15 = 0;
-    v9 = [MEMORY[0x277D73AD8] parseFromData:v6 error:&v15];
-    v8 = v15;
-    if (v9)
-    {
-      v10 = v9;
-      v11 = v10;
-      goto LABEL_10;
-    }
-
-    v12 = TRILogCategory_Server();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138543618;
-      v18 = v5;
-      v19 = 2114;
-      v20 = v8;
-      _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failed to parse TRIClientFactorPack at %{public}@: %{public}@", buf, 0x16u);
-    }
-
-    v10 = 0;
-  }
-
-  else
-  {
-    v10 = TRILogCategory_Server();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138543618;
-      v18 = dirCopy;
-      v19 = 2114;
-      v20 = v8;
-      _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Failed to load TRIClientFactorPack from factor pack directory at %{public}@: %{public}@", buf, 0x16u);
-    }
-  }
-
-  v11 = 0;
-LABEL_10:
-
-  objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -787,7 +780,7 @@ LABEL_10:
 
 - (BOOL)updateSavedFactorPackWithId:(id)id namespaceName:(id)name populatingAssetsForFactorNames:(id)names aliasToUnaliasMap:(id)map
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   idCopy = id;
   nameCopy = name;
   namesCopy = names;
@@ -833,29 +826,29 @@ LABEL_8:
         v21 = 0;
 LABEL_17:
         v22 = (v20 | v21) != 0;
-        v36 = v14;
-        v37 = v21;
+        v35 = v14;
+        v36 = v21;
         if (v20 | v21)
         {
-          v35 = v20;
+          v34 = v20;
           if (v20)
           {
-            v32 = MEMORY[0x277CCAA00];
+            v31 = MEMORY[0x277CCAA00];
             v23 = [v15 stringByAppendingPathComponent:@"factorPack.pb"];
-            LODWORD(v20) = [v32 triRenameOrFaultWithSourcePath:v20 destPath:v23];
+            LODWORD(v20) = [v31 triRenameOrFaultWithSourcePath:v20 destPath:v23];
 
-            v21 = v37;
+            v21 = v36;
           }
 
           if (v21)
           {
             v24 = v21;
-            v31 = MEMORY[0x277CCAA00];
+            v30 = MEMORY[0x277CCAA00];
             [v16 stringByAppendingPathComponent:@"factorPack.pb"];
-            v20 = v33 = v20;
-            LODWORD(v24) = [v31 triRenameOrFaultWithSourcePath:v24 destPath:v20];
+            v20 = v32 = v20;
+            LODWORD(v24) = [v30 triRenameOrFaultWithSourcePath:v24 destPath:v20];
 
-            LODWORD(v20) = v33;
+            LODWORD(v20) = v32;
             v25 = v24;
           }
 
@@ -864,7 +857,7 @@ LABEL_17:
             v25 = 0;
           }
 
-          v26 = v35;
+          v26 = v34;
           if (((v20 | v25) & 1) == 0)
           {
             v22 = 0;
@@ -873,18 +866,18 @@ LABEL_17:
 
           if (v20)
           {
-            v34 = v25;
+            v33 = v25;
             v28 = TRILogCategory_Server();
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              *v39 = idCopy;
-              *&v39[8] = 2114;
-              *&v39[10] = v15;
+              *v38 = idCopy;
+              *&v38[8] = 2114;
+              *&v38[10] = v15;
               _os_log_impl(&dword_26F567000, v28, OS_LOG_TYPE_DEFAULT, "Updated factor pack %{public}@ --> %{public}@", buf, 0x16u);
             }
 
-            v25 = v34;
+            v25 = v33;
           }
 
           if (!v25)
@@ -897,9 +890,9 @@ LABEL_17:
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            *v39 = idCopy;
-            *&v39[8] = 2114;
-            *&v39[10] = v16;
+            *v38 = idCopy;
+            *&v38[8] = 2114;
+            *&v38[10] = v16;
             _os_log_impl(&dword_26F567000, v27, OS_LOG_TYPE_DEFAULT, "Updated factor pack %{public}@ --> %{public}@", buf, 0x16u);
           }
         }
@@ -911,19 +904,19 @@ LABEL_17:
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109890;
-            *v39 = 1;
-            *&v39[4] = 2114;
-            *&v39[6] = v15;
-            *&v39[14] = 1024;
-            *&v39[16] = 1;
-            v40 = 2114;
-            v41 = v16;
+            *v38 = 1;
+            *&v38[4] = 2114;
+            *&v38[6] = v15;
+            *&v38[14] = 1024;
+            *&v38[16] = 1;
+            v39 = 2114;
+            v40 = v16;
             _os_log_error_impl(&dword_26F567000, v27, OS_LOG_TYPE_ERROR, "updateSavedFactorPackWithId failed to link temp based factor pack for: name based directory (%d): %{public}@ OR identifier based directory (%d): %{public}@.", buf, 0x22u);
           }
         }
 
 LABEL_36:
-        v14 = v36;
+        v14 = v35;
         goto LABEL_37;
       }
     }
@@ -934,7 +927,7 @@ LABEL_36:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *v39 = idCopy;
+        *v38 = idCopy;
         _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "updateSavedFactorPackWithId failed because preexisting factor pack %{public}@ is not present on disk.", buf, 0xCu);
       }
     }
@@ -949,7 +942,7 @@ LABEL_37:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *v39 = idCopy;
+    *v38 = idCopy;
     _os_log_impl(&dword_26F567000, v15, OS_LOG_TYPE_DEFAULT, "Updating factor pack %{public}@ was a no-op. No factor names specified", buf, 0xCu);
   }
 
@@ -957,7 +950,6 @@ LABEL_37:
 LABEL_38:
 
   objc_autoreleasePoolPop(v14);
-  v29 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -997,7 +989,7 @@ LABEL_38:
 
 - (BOOL)_linkAssetsUpdatingFactorLevel:(id)level fromFactorPackWithId:(id)id usingAssetStore:(id)store currentFactorPackPath:(id)path futureFactorPackPath:(id)packPath
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   levelCopy = level;
   idCopy = id;
   storeCopy = store;
@@ -1010,7 +1002,7 @@ LABEL_38:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v63 = idCopy;
+      v62 = idCopy;
       _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "Factor pack %{public}@ has factor with missing or empty name.", buf, 0xCu);
     }
 
@@ -1029,9 +1021,9 @@ LABEL_13:
 
     name = [factor name];
     *buf = 138543618;
-    v63 = idCopy;
-    v64 = 2114;
-    v65 = name;
+    v62 = idCopy;
+    v63 = 2114;
+    v64 = name;
     _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "Factor pack %{public}@ has factor %{public}@ with missing level.", buf, 0x16u);
     goto LABEL_27;
   }
@@ -1059,11 +1051,11 @@ LABEL_13:
 
       if ([mobileAssetReferenceValue hasAssetType] && objc_msgSend(mobileAssetReferenceValue, "hasAssetSpecifier") && (objc_msgSend(mobileAssetReferenceValue, "hasAssetVersion") & 1) != 0)
       {
-        v54 = objc_alloc(MEMORY[0x277D73740]);
+        v53 = objc_alloc(MEMORY[0x277D73740]);
         assetType = [mobileAssetReferenceValue assetType];
         assetSpecifier = [mobileAssetReferenceValue assetSpecifier];
         assetVersion = [mobileAssetReferenceValue assetVersion];
-        v55 = [v54 initWithType:assetType specifier:assetSpecifier version:?];
+        v54 = [v53 initWithType:assetType specifier:assetSpecifier version:?];
 
         factor3 = [levelCopy factor];
         name2 = [factor3 name];
@@ -1077,9 +1069,9 @@ LABEL_13:
           isFileFactor = 0;
         }
 
-        v53 = [(TRIFactorPackStorage *)self _referenceMAAssetWithId:v55 assetStore:storeCopy forFactorName:name2 isFileFactor:isFileFactor currentFactorPackPath:pathCopy futureFactorPackPath:packPathCopy];
+        v52 = [(TRIFactorPackStorage *)self _referenceMAAssetWithId:v54 assetStore:storeCopy forFactorName:name2 isFileFactor:isFileFactor currentFactorPackPath:pathCopy futureFactorPackPath:packPathCopy];
 
-        if (v53)
+        if (v52)
         {
           goto LABEL_42;
         }
@@ -1087,30 +1079,30 @@ LABEL_13:
 
       else
       {
-        v46 = TRILogCategory_Server();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v45 = TRILogCategory_Server();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           name3 = [factor name];
           *buf = 138543618;
-          v63 = idCopy;
-          v64 = 2114;
-          v65 = name3;
-          _os_log_error_impl(&dword_26F567000, v46, OS_LOG_TYPE_ERROR, "Factor pack %{public}@ has factor %{public}@ with incomplete MobileAssetReference.", buf, 0x16u);
+          v62 = idCopy;
+          v63 = 2114;
+          v64 = name3;
+          _os_log_error_impl(&dword_26F567000, v45, OS_LOG_TYPE_ERROR, "Factor pack %{public}@ has factor %{public}@ with incomplete MobileAssetReference.", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v47 = TRILogCategory_Server();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v46 = TRILogCategory_Server();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         name4 = [factor name];
         *buf = 138543618;
-        v63 = idCopy;
-        v64 = 2114;
-        v65 = name4;
-        _os_log_error_impl(&dword_26F567000, v47, OS_LOG_TYPE_ERROR, "Factor pack %{public}@ has factor %{public}@ with missing namespaceString.", buf, 0x16u);
+        v62 = idCopy;
+        v63 = 2114;
+        v64 = name4;
+        _os_log_error_impl(&dword_26F567000, v46, OS_LOG_TYPE_ERROR, "Factor pack %{public}@ has factor %{public}@ with missing namespaceString.", buf, 0x16u);
       }
     }
 
@@ -1128,10 +1120,10 @@ LABEL_13:
     {
       name5 = [factor name];
       *buf = 138543618;
-      v63 = idCopy;
-      v64 = 2114;
-      v65 = name5;
-      v45 = "Factor pack %{public}@ has factor %{public}@ with missing namespaceString.";
+      v62 = idCopy;
+      v63 = 2114;
+      v64 = name5;
+      v44 = "Factor pack %{public}@ has factor %{public}@ with missing namespaceString.";
       goto LABEL_39;
     }
 
@@ -1147,12 +1139,12 @@ LABEL_27:
     {
       name5 = [factor name];
       *buf = 138543618;
-      v63 = idCopy;
-      v64 = 2114;
-      v65 = name5;
-      v45 = "Factor pack %{public}@ has factor %{public}@ with missing assetId.";
+      v62 = idCopy;
+      v63 = 2114;
+      v64 = name5;
+      v44 = "Factor pack %{public}@ has factor %{public}@ with missing assetId.";
 LABEL_39:
-      _os_log_error_impl(&dword_26F567000, name, OS_LOG_TYPE_ERROR, v45, buf, 0x16u);
+      _os_log_error_impl(&dword_26F567000, name, OS_LOG_TYPE_ERROR, v44, buf, 0x16u);
 
       goto LABEL_27;
     }
@@ -1164,7 +1156,7 @@ LABEL_39:
   assetId = [asset assetId];
   v27 = TRIValidateAssetId();
 
-  v58 = v27;
+  v57 = v27;
   if (!v27)
   {
     name = TRILogCategory_Server();
@@ -1175,11 +1167,11 @@ LABEL_39:
       factor5 = [levelCopy factor];
       name6 = [factor5 name];
       *buf = 138543874;
-      v63 = idCopy;
-      v64 = 2114;
-      v65 = assetId2;
-      v66 = 2114;
-      v67 = name6;
+      v62 = idCopy;
+      v63 = 2114;
+      v64 = assetId2;
+      v65 = 2114;
+      v66 = name6;
       _os_log_error_impl(&dword_26F567000, name, OS_LOG_TYPE_ERROR, "Factor pack %{public}@ has unsuitable asset id %{public}@ for factor %{public}@.", buf, 0x20u);
     }
 
@@ -1188,7 +1180,7 @@ LABEL_39:
 
   factor6 = [levelCopy factor];
   name7 = [factor6 name];
-  v30 = [(TRIFactorPackStorage *)self _linkAssetWithId:v58 assetStore:storeCopy forFactorName:name7 currentFactorPackPath:pathCopy futureFactorPackPath:packPathCopy];
+  v30 = [(TRIFactorPackStorage *)self _linkAssetWithId:v57 assetStore:storeCopy forFactorName:name7 currentFactorPackPath:pathCopy futureFactorPackPath:packPathCopy];
 
   if (v30)
   {
@@ -1201,13 +1193,12 @@ LABEL_42:
   }
 
 LABEL_14:
-  v32 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 - (id)_linkAssetsForFactorNames:(id)names aliasToUnaliasMap:(id)map copyingModifiedFactorPackWithPath:(id)path tempDirRef:(id)ref
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   mapCopy = map;
   pathCopy = path;
@@ -1232,37 +1223,37 @@ LABEL_14:
   v23 = [[TRIRemoteAssetPatcher alloc] initWithMonitoredActivity:0];
   v24 = [(TRIAssetStore *)v20 initWithPaths:paths extractor:extractor patcher:v23];
 
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __113__TRIFactorPackStorage__linkAssetsForFactorNames_aliasToUnaliasMap_copyingModifiedFactorPackWithPath_tempDirRef___block_invoke;
-  v33[3] = &unk_279DE2B88;
-  v39 = &v40;
-  v34 = mapCopy;
-  v35 = namesCopy;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __113__TRIFactorPackStorage__linkAssetsForFactorNames_aliasToUnaliasMap_copyingModifiedFactorPackWithPath_tempDirRef___block_invoke;
+  v32[3] = &unk_279DE2B88;
+  v38 = &v39;
+  v33 = mapCopy;
+  v34 = namesCopy;
   selfCopy = self;
   v25 = v24;
-  v37 = v25;
-  v38 = pathCopy;
-  v26 = MEMORY[0x2743948D0](v33);
-  v32 = 0;
-  if (([MEMORY[0x277D73678] copySourceFactorPack:v13 toDestPath:v19 error:&v32 modifyFactorLevel:v26] & 1) == 0)
+  v36 = v25;
+  v37 = pathCopy;
+  v26 = MEMORY[0x2743948D0](v32);
+  v31 = 0;
+  if (([MEMORY[0x277D73678] copySourceFactorPack:v13 toDestPath:v19 error:&v31 modifyFactorLevel:v26] & 1) == 0)
   {
     v28 = TRILogCategory_Server();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v45 = v32;
+      v44 = v31;
       _os_log_error_impl(&dword_26F567000, v28, OS_LOG_TYPE_ERROR, "Failed to make modified copy of factor pack: %{public}@", buf, 0xCu);
     }
 
     goto LABEL_10;
   }
 
-  if ((v41[3] & 1) != 0 || ![MEMORY[0x277CCAA00] triRemoveFileProtectionIfPresentForPath:v19])
+  if ((v40[3] & 1) != 0 || ![MEMORY[0x277CCAA00] triRemoveFileProtectionIfPresentForPath:v19])
   {
 LABEL_10:
     v27 = 0;
@@ -1272,17 +1263,15 @@ LABEL_10:
   v27 = v19;
 LABEL_11:
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
 LABEL_12:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
 id __113__TRIFactorPackStorage__linkAssetsForFactorNames_aliasToUnaliasMap_copyingModifiedFactorPackWithPath_tempDirRef___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = v4;
   if (*(*(*(a1 + 72) + 8) + 24) == 1 || ![v4 hasFactor] || (objc_msgSend(v5, "factor"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "hasName"), v6, (v7 & 1) == 0))
@@ -1303,8 +1292,8 @@ id __113__TRIFactorPackStorage__linkAssetsForFactorNames_aliasToUnaliasMap_copyi
 
   else
   {
-    v18 = [v5 factor];
-    v14 = [v18 name];
+    v17 = [v5 factor];
+    v14 = [v17 name];
 
     if (!v8)
     {
@@ -1315,59 +1304,59 @@ id __113__TRIFactorPackStorage__linkAssetsForFactorNames_aliasToUnaliasMap_copyi
 LABEL_13:
   if ([*(a1 + 40) containsObject:v14])
   {
-    v19 = [v5 level];
-    v20 = [v19 fileOrDirectoryLevelWithIsDir:0];
+    v18 = [v5 level];
+    v19 = [v18 fileOrDirectoryLevelWithIsDir:0];
 
-    if (v20)
+    if (v19)
     {
-      if ([v20 hasPath])
+      if ([v19 hasPath])
       {
         goto LABEL_37;
       }
 
-      if (![v20 hasAsset])
+      if (![v19 hasAsset])
       {
         goto LABEL_37;
       }
 
-      v21 = [v20 asset];
-      v22 = [v21 hasAssetId];
+      v20 = [v19 asset];
+      v21 = [v20 hasAssetId];
 
-      if ((v22 & 1) == 0)
+      if ((v21 & 1) == 0)
       {
         goto LABEL_37;
       }
 
-      v23 = [v20 asset];
-      v24 = [v23 assetId];
-      v25 = TRIValidateAssetId();
+      v22 = [v19 asset];
+      v23 = [v22 assetId];
+      v24 = TRIValidateAssetId();
 
-      if (!v25)
+      if (!v24)
       {
         goto LABEL_37;
       }
 
-      v26 = *(a1 + 48);
-      v27 = *(a1 + 56);
-      v28 = [v5 factor];
-      v29 = [v28 name];
-      v30 = [v26 _linkAssetWithId:v25 assetStore:v27 forFactorName:v29 currentFactorPackPath:*(a1 + 64) futureFactorPackPath:*(a1 + 64)];
+      v25 = *(a1 + 48);
+      v26 = *(a1 + 56);
+      v27 = [v5 factor];
+      v28 = [v27 name];
+      v29 = [v25 _linkAssetWithId:v24 assetStore:v26 forFactorName:v28 currentFactorPackPath:*(a1 + 64) futureFactorPackPath:*(a1 + 64)];
 
-      if (v30)
+      if (v29)
       {
-        v31 = [*(a1 + 64) stringByAppendingPathComponent:v30];
-        if (![TRIReferenceManagedDir saveFromGarbageCollectionItemWithPath:v31])
+        v30 = [*(a1 + 64) stringByAppendingPathComponent:v29];
+        if (![TRIReferenceManagedDir saveFromGarbageCollectionItemWithPath:v30])
         {
-          v32 = TRILogCategory_Server();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v31 = TRILogCategory_Server();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
-            v49 = 138543362;
-            v50 = v31;
-            _os_log_error_impl(&dword_26F567000, v32, OS_LOG_TYPE_ERROR, "Unable to prevent newly linked asset at path %{public}@ from being garbage collected in the future", &v49, 0xCu);
+            v48 = 138543362;
+            v49 = v30;
+            _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "Unable to prevent newly linked asset at path %{public}@ from being garbage collected in the future", &v48, 0xCu);
           }
         }
 
-        [v20 setPath:v31];
+        [v19 setPath:v30];
 
         goto LABEL_36;
       }
@@ -1375,50 +1364,50 @@ LABEL_13:
 
     else
     {
-      v34 = [v5 level];
-      v35 = [v34 levelOneOfCase];
+      v33 = [v5 level];
+      v34 = [v33 levelOneOfCase];
 
-      if (v35 != 104)
+      if (v34 != 104)
       {
 LABEL_37:
-        v48 = v5;
+        v47 = v5;
         goto LABEL_38;
       }
 
-      v36 = [v5 level];
-      v25 = [v36 mobileAssetReferenceValue];
+      v35 = [v5 level];
+      v24 = [v35 mobileAssetReferenceValue];
 
-      if (![v25 hasAssetType] || !objc_msgSend(v25, "hasAssetSpecifier") || (objc_msgSend(v25, "hasAssetVersion") & 1) == 0)
+      if (![v24 hasAssetType] || !objc_msgSend(v24, "hasAssetSpecifier") || (objc_msgSend(v24, "hasAssetVersion") & 1) == 0)
       {
-        v46 = v5;
+        v45 = v5;
 
 LABEL_38:
         goto LABEL_39;
       }
 
-      v37 = objc_alloc(MEMORY[0x277D73740]);
-      v38 = [v25 assetType];
-      v39 = [v25 assetSpecifier];
-      v40 = [v25 assetVersion];
-      v30 = [v37 initWithType:v38 specifier:v39 version:v40];
+      v36 = objc_alloc(MEMORY[0x277D73740]);
+      v37 = [v24 assetType];
+      v38 = [v24 assetSpecifier];
+      v39 = [v24 assetVersion];
+      v29 = [v36 initWithType:v37 specifier:v38 version:v39];
 
-      v41 = *(a1 + 48);
-      v42 = *(a1 + 56);
-      v43 = [v5 factor];
-      v44 = [v43 name];
-      if ([v25 hasIsFileFactor])
+      v40 = *(a1 + 48);
+      v41 = *(a1 + 56);
+      v42 = [v5 factor];
+      v43 = [v42 name];
+      if ([v24 hasIsFileFactor])
       {
-        v45 = [v25 isFileFactor];
+        v44 = [v24 isFileFactor];
       }
 
       else
       {
-        v45 = 0;
+        v44 = 0;
       }
 
-      v47 = [v41 _referenceMAAssetWithId:v30 assetStore:v42 forFactorName:v44 isFileFactor:v45 currentFactorPackPath:*(a1 + 64) futureFactorPackPath:*(a1 + 64)];
+      v46 = [v40 _referenceMAAssetWithId:v29 assetStore:v41 forFactorName:v43 isFileFactor:v44 currentFactorPackPath:*(a1 + 64) futureFactorPackPath:*(a1 + 64)];
 
-      if (v47)
+      if (v46)
       {
 LABEL_36:
 
@@ -1430,11 +1419,10 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v33 = v5;
+  v32 = v5;
 LABEL_39:
 
 LABEL_8:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1479,9 +1467,270 @@ LABEL_8:
   return v4;
 }
 
+- (BOOL)_referenceMAAssetWithId:(id)id assetStore:(id)store forFactorName:(id)name isFileFactor:(BOOL)factor currentFactorPackPath:(id)path futureFactorPackPath:(id)packPath
+{
+  factorCopy = factor;
+  packPathCopy = packPath;
+  pathCopy = path;
+  nameCopy = name;
+  storeCopy = store;
+  idCopy = id;
+  v18 = [objc_opt_class() relPathForMAReferenceWithFactorName:nameCopy];
+
+  v19 = [pathCopy stringByAppendingPathComponent:v18];
+  stringByDeletingLastPathComponent = [v19 stringByDeletingLastPathComponent];
+
+  [MEMORY[0x277CCAA00] triIdempotentCreateDirectoryOrFaultWithPath:stringByDeletingLastPathComponent];
+  v21 = [pathCopy stringByAppendingPathComponent:v18];
+
+  v22 = [packPathCopy stringByAppendingPathComponent:v18];
+
+  LOBYTE(factorCopy) = [storeCopy referenceMAAutoAssetWithId:idCopy isFileFactor:factorCopy usingCurrentPath:v21 futurePath:v22];
+  return factorCopy;
+}
+
+- (BOOL)updateSavedFactorPackWithId:(id)id namespaceName:(id)name deletingAssetsWithFactorNames:(id)names inUseAssetBehavior:(unsigned __int8)behavior
+{
+  behaviorCopy = behavior;
+  v82 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  nameCopy = name;
+  namesCopy = names;
+  v13 = objc_autoreleasePoolPush();
+  v14 = [(TRIFactorPackStorage *)self pathForFactorPackWithId:idCopy namespaceName:nameCopy];
+  v15 = [(TRIFactorPackStorage *)self legacyPathForFactorPackWithId:idCopy namespaceName:nameCopy];
+  v16 = v15;
+  if (!(v14 | v15))
+  {
+    v19 = TRILogCategory_Server();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543362;
+      v79 = idCopy;
+      _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "updateSavedFactorPackWithId failed because preexisting factor pack %{public}@ is not present on disk.", buf, 0xCu);
+    }
+
+    v23 = 0;
+    goto LABEL_50;
+  }
+
+  v65 = v15;
+  v17 = [TRITempDirScopeGuard alloc];
+  localTempDir = [(TRIPaths *)self->_paths localTempDir];
+  v19 = [(TRITempDirScopeGuard *)v17 initWithPath:localTempDir];
+
+  if (!v19)
+  {
+    v23 = 0;
+    v16 = v65;
+    goto LABEL_50;
+  }
+
+  v20 = objc_opt_new();
+  v21 = objc_opt_new();
+  v68 = v21;
+  v64 = v20;
+  if (v14)
+  {
+    v22 = [(TRIFactorPackStorage *)self _removeAssetsWithFactorNames:namesCopy copyingModifiedFactorPackWithPath:v14 appendingToPathsToRemove:v20 appendingToMARefsToRemove:v21 tempDirRef:v19];
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v16 = v65;
+  v63 = v22;
+  if (v65)
+  {
+    v24 = [(TRIFactorPackStorage *)self _removeAssetsWithFactorNames:namesCopy copyingModifiedFactorPackWithPath:v65 appendingToPathsToRemove:v64 appendingToMARefsToRemove:0 tempDirRef:v19];
+    v22 = v63;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  if (!(v22 | v24))
+  {
+    v23 = 0;
+    goto LABEL_49;
+  }
+
+  v61 = v19;
+  v62 = v24;
+  v25 = v22;
+  if (v22)
+  {
+    v26 = MEMORY[0x277CCAA00];
+    v27 = [v14 stringByAppendingPathComponent:@"factorPack.pb"];
+    LODWORD(v25) = [v26 triRenameOrFaultWithSourcePath:v25 destPath:v27];
+
+    v24 = v62;
+  }
+
+  if (v24)
+  {
+    v28 = v24;
+    v29 = MEMORY[0x277CCAA00];
+    v30 = [v65 stringByAppendingPathComponent:@"factorPack.pb"];
+    v31 = [v29 triRenameOrFaultWithSourcePath:v28 destPath:v30];
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  if (((v25 | v31) & 1) == 0)
+  {
+    v23 = 0;
+    goto LABEL_48;
+  }
+
+  if (v25)
+  {
+    v32 = TRILogCategory_Server();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543618;
+      v79 = idCopy;
+      v80 = 2114;
+      v81 = v14;
+      _os_log_impl(&dword_26F567000, v32, OS_LOG_TYPE_DEFAULT, "Updated factor pack %{public}@ --> %{public}@", buf, 0x16u);
+    }
+  }
+
+  v58 = namesCopy;
+  if (v31)
+  {
+    v33 = TRILogCategory_Server();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543618;
+      v79 = idCopy;
+      v80 = 2114;
+      v81 = v65;
+      _os_log_impl(&dword_26F567000, v33, OS_LOG_TYPE_DEFAULT, "Updated factor pack %{public}@ --> %{public}@", buf, 0x16u);
+    }
+  }
+
+  v56 = v14;
+  v57 = v13;
+  v59 = nameCopy;
+  v60 = idCopy;
+  v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v34 = v64;
+  v35 = [v34 countByEnumeratingWithState:&v73 objects:v77 count:16];
+  if (!v35)
+  {
+    LOBYTE(v38) = 1;
+    goto LABEL_47;
+  }
+
+  v36 = v35;
+  v37 = *v74;
+  v38 = 1;
+  v39 = off_279DDE000;
+  v40 = v68;
+  v67 = behaviorCopy;
+  v66 = v34;
+  do
+  {
+    for (i = 0; i != v36; ++i)
+    {
+      if (*v74 != v37)
+      {
+        objc_enumerationMutation(v34);
+      }
+
+      v42 = *(*(&v73 + 1) + 8 * i);
+      v72 = 0;
+      if (![(__objc2_class *)v39[9] removeFileInManagedDirWithPath:v42 inUseDeletionBehavior:behaviorCopy wasDeleted:&v72, v56, v57])
+      {
+        v44 = TRILogCategory_Server();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543362;
+          v79 = v42;
+          _os_log_error_impl(&dword_26F567000, v44, OS_LOG_TYPE_ERROR, "Failed to remove file %{public}@ in managed dir", buf, 0xCu);
+        }
+
+        v38 = 0;
+        goto LABEL_41;
+      }
+
+      if (behaviorCopy == 3)
+      {
+        v43 = [v40 objectForKeyedSubscript:v42];
+
+        if (v43)
+        {
+          v44 = [v40 objectForKeyedSubscript:v42];
+          v45 = objc_opt_new();
+          v46 = objc_alloc(MEMORY[0x277D73740]);
+          [v44 assetType];
+          v47 = v69 = v38;
+          assetSpecifier = [v44 assetSpecifier];
+          [v44 assetVersion];
+          v50 = v49 = v39;
+          v51 = [v46 initWithType:v47 specifier:assetSpecifier version:v50];
+
+          v39 = v49;
+          v52 = [v45 createAutoAssetWithId:v51 decryptionKey:0 error:0];
+          assetSelector = [v52 assetSelector];
+          v70[0] = MEMORY[0x277D85DD0];
+          v70[1] = 3221225472;
+          v70[2] = __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_deletingAssetsWithFactorNames_inUseAssetBehavior___block_invoke;
+          v70[3] = &unk_279DE25E8;
+          v71 = v52;
+          v54 = v52;
+          [v45 eliminateAllForSelector:assetSelector completion:v70];
+
+          v38 = v69;
+          behaviorCopy = v67;
+
+          v40 = v68;
+          v34 = v66;
+
+LABEL_41:
+          continue;
+        }
+      }
+    }
+
+    v36 = [v34 countByEnumeratingWithState:&v73 objects:v77 count:16];
+  }
+
+  while (v36);
+LABEL_47:
+  v23 = v38;
+
+  nameCopy = v59;
+  idCopy = v60;
+  v13 = v57;
+  namesCopy = v58;
+  v14 = v56;
+LABEL_48:
+  v16 = v65;
+  v19 = v61;
+  v24 = v62;
+LABEL_49:
+
+LABEL_50:
+  objc_autoreleasePoolPop(v13);
+
+  return v23 & 1;
+}
+
 void __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_deletingAssetsWithFactorNames_inUseAssetBehavior___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = TRILogCategory_Server();
   v6 = v5;
@@ -1490,28 +1739,26 @@ void __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_delet
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v7 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v4;
-      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Failed to eliminate MAAutoAsset %{public}@: %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v4;
+      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Failed to eliminate MAAutoAsset %{public}@: %{public}@", &v9, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Eliminated MAAutoAsset: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Eliminated MAAutoAsset: %{public}@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateSavedGlobalFactorPackAt:(id)at deletingAssetsWithFactorNames:(id)names
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   atCopy = at;
   namesCopy = names;
   v8 = NSTemporaryDirectory();
@@ -1530,39 +1777,39 @@ void __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_delet
 
     if (v15)
     {
-      v28 = v14;
-      v29 = v12;
-      v30 = namesCopy;
-      v31 = atCopy;
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
+      v27 = v14;
+      v28 = v12;
+      v29 = namesCopy;
+      v30 = atCopy;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v17 = v13;
-      v18 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v34;
+        v20 = *v33;
         v21 = 1;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v34 != v20)
+            if (*v33 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v23 = *(*(&v33 + 1) + 8 * i);
-            v32 = 0;
-            if (![TRIReferenceManagedDir removeFileInManagedDirWithPath:v23 inUseDeletionBehavior:2 wasDeleted:&v32, v28])
+            v23 = *(*(&v32 + 1) + 8 * i);
+            v31 = 0;
+            if (![TRIReferenceManagedDir removeFileInManagedDirWithPath:v23 inUseDeletionBehavior:2 wasDeleted:&v31, v27])
             {
               v24 = TRILogCategory_Server();
               if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
               {
                 buf = 138543362;
-                v39 = v23;
+                v38 = v23;
                 _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "Failed to remove file %{public}@ in global managed dir", &buf, 0xCu);
               }
 
@@ -1570,7 +1817,7 @@ void __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_delet
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
         }
 
         while (v19);
@@ -1582,16 +1829,16 @@ void __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_delet
       }
 
       v25 = TRILogCategory_Server();
-      v14 = v28;
+      v14 = v27;
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         LOWORD(buf) = 0;
         _os_log_impl(&dword_26F567000, v25, OS_LOG_TYPE_INFO, "Successfuly removed factors from global path.", &buf, 2u);
       }
 
-      namesCopy = v30;
-      atCopy = v31;
-      v12 = v29;
+      namesCopy = v29;
+      atCopy = v30;
+      v12 = v28;
     }
 
     else
@@ -1600,9 +1847,9 @@ void __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_delet
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         buf = 138543618;
-        v39 = v14;
-        v40 = 2114;
-        v41 = atCopy;
+        v38 = v14;
+        v39 = 2114;
+        v40 = atCopy;
         _os_log_error_impl(&dword_26F567000, v25, OS_LOG_TYPE_ERROR, "Failed to move the temp factorPack.pb file in %{public}@ to the global path %{public}@", &buf, 0x16u);
       }
 
@@ -1622,13 +1869,12 @@ void __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_delet
     v21 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v21 & 1;
 }
 
 - (id)_removeAssetsWithFactorNames:(id)names copyingModifiedFactorPackWithPath:(id)path appendingToPathsToRemove:(id)remove appendingToMARefsToRemove:(id)toRemove tempDirRef:(id)ref
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   pathCopy = path;
   removeCopy = remove;
@@ -1641,7 +1887,7 @@ void __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_delet
     goto LABEL_11;
   }
 
-  v35 = refCopy;
+  v34 = refCopy;
   path = [refCopy path];
   selfCopy = self;
   v19 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -1661,24 +1907,24 @@ void __115__TRIFactorPackStorage_updateSavedFactorPackWithId_namespaceName_delet
   pathCopy = v22;
   v17 = v21;
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __149__TRIFactorPackStorage__removeAssetsWithFactorNames_copyingModifiedFactorPackWithPath_appendingToPathsToRemove_appendingToMARefsToRemove_tempDirRef___block_invoke;
-  v37[3] = &unk_279DE2BB0;
-  v38 = namesCopy;
-  v39 = v26;
-  v40 = selfCopy;
-  v41 = pathCopy;
-  v42 = toRemoveCopy;
-  v29 = MEMORY[0x2743948D0](v37);
-  v36 = 0;
-  if (([MEMORY[0x277D73678] copySourceFactorPack:v17 toDestPath:v28 error:&v36 modifyFactorLevel:v29] & 1) == 0)
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __149__TRIFactorPackStorage__removeAssetsWithFactorNames_copyingModifiedFactorPackWithPath_appendingToPathsToRemove_appendingToMARefsToRemove_tempDirRef___block_invoke;
+  v36[3] = &unk_279DE2BB0;
+  v37 = namesCopy;
+  v38 = v26;
+  v39 = selfCopy;
+  v40 = pathCopy;
+  v41 = toRemoveCopy;
+  v29 = MEMORY[0x2743948D0](v36);
+  v35 = 0;
+  if (([MEMORY[0x277D73678] copySourceFactorPack:v17 toDestPath:v28 error:&v35 modifyFactorLevel:v29] & 1) == 0)
   {
     v31 = TRILogCategory_Server();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v44 = v36;
+      v43 = v35;
       _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "Failed to make modified copy of factor pack: %{public}@", buf, 0xCu);
     }
 
@@ -1694,17 +1940,16 @@ LABEL_9:
 
   v30 = v28;
 LABEL_10:
-  refCopy = v35;
+  refCopy = v34;
 
 LABEL_11:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
 
 id __149__TRIFactorPackStorage__removeAssetsWithFactorNames_copyingModifiedFactorPackWithPath_appendingToPathsToRemove_appendingToMARefsToRemove_tempDirRef___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 factor];
   v5 = [v4 hasName];
@@ -1751,84 +1996,71 @@ id __149__TRIFactorPackStorage__removeAssetsWithFactorNames_copyingModifiedFacto
       v16 = [v3 level];
       v17 = [v16 mobileAssetReferenceValue];
 
-      if (![v17 isOnDemand])
+      if ([v17 isOnDemand] && (v18 = *(a1 + 32), objc_msgSend(v3, "factor"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "name"), v20 = objc_claimAutoreleasedReturnValue(), LOBYTE(v18) = objc_msgSend(v18, "containsObject:", v20), v20, v19, (v18 & 1) != 0))
       {
-        goto LABEL_24;
-      }
+        v21 = objc_opt_class();
+        v22 = [v3 factor];
+        v23 = [v22 name];
+        v24 = [v21 relPathForMAReferenceWithFactorName:v23];
 
-      v18 = *(a1 + 32);
-      v19 = [v3 factor];
-      v20 = [v19 name];
-      LOBYTE(v18) = [v18 containsObject:v20];
+        v25 = [*(a1 + 56) stringByAppendingPathComponent:v24];
+        v26 = [MEMORY[0x277CCAA00] defaultManager];
+        v27 = [v26 fileExistsAtPath:v25];
 
-      if (v18)
-      {
-        v21 = *(a1 + 48);
-        v22 = objc_opt_class();
-        v23 = [v3 factor];
-        v24 = [v23 name];
-        v25 = [v22 relPathForMAReferenceWithFactorName:v24];
-
-        v26 = [*(a1 + 56) stringByAppendingPathComponent:v25];
-        v27 = [MEMORY[0x277CCAA00] defaultManager];
-        v28 = [v27 fileExistsAtPath:v26];
-
-        if (v28)
+        if (v27)
         {
-          [*(a1 + 40) addObject:v26];
-          v29 = *(a1 + 64);
-          if (v29)
+          [*(a1 + 40) addObject:v25];
+          v28 = *(a1 + 64);
+          if (v28)
           {
-            [v29 setObject:v17 forKey:v26];
+            [v28 setObject:v17 forKey:v25];
           }
 
-          v30 = objc_opt_new();
-          v40 = 0;
-          v31 = [v30 writeToFile:v26 options:0x10000000 error:&v40];
-          v32 = v40;
+          v29 = objc_opt_new();
+          v38 = 0;
+          v30 = [v29 writeToFile:v25 options:0x10000000 error:&v38];
+          v31 = v38;
 
-          if ((v31 & 1) == 0)
+          if ((v30 & 1) == 0)
           {
-            v33 = TRILogCategory_Server();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v32 = TRILogCategory_Server();
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v42 = v26;
-              _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "Unable to nil out MARef by creating a blank file at %{public}@", buf, 0xCu);
+              v40 = v25;
+              _os_log_error_impl(&dword_26F567000, v32, OS_LOG_TYPE_ERROR, "Unable to nil out MARef by creating a blank file at %{public}@", buf, 0xCu);
             }
           }
 
-          v34 = v3;
+          v33 = v3;
         }
 
         else
         {
-          v39 = v3;
+          v37 = v3;
         }
       }
 
       else
       {
-LABEL_24:
-        v38 = v3;
+        v36 = v3;
       }
 
       goto LABEL_20;
     }
   }
 
-  v35 = v3;
+  v34 = v3;
 LABEL_20:
 
 LABEL_21:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)pathForFactorPackWithId:(id)id namespaceName:(id)name
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [(TRIFactorPackStorage *)self _pathForFactorPackWithId:id namespaceName:name];
   if (v4)
   {
@@ -1844,16 +2076,14 @@ LABEL_21:
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = v4;
-      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Factor pack does not exist at %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v4;
+      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Factor pack does not exist at %{public}@", &v10, 0xCu);
     }
   }
 
   v7 = 0;
 LABEL_8:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1880,7 +2110,7 @@ LABEL_8:
 
 - (id)_parentDirForFactorPackWithNamespaceName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy length])
   {
@@ -1898,14 +2128,12 @@ LABEL_8:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v13 = "[TRIFactorPackStorage _parentDirForFactorPackWithNamespaceName:]";
+      v12 = "[TRIFactorPackStorage _parentDirForFactorPackWithNamespaceName:]";
       _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "%s has empty path arg: namespaceName", buf, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1959,7 +2187,7 @@ LABEL_8:
 
 - (id)_legacyParentDirForFactorPackWithNamespaceName:(id)name
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy length])
   {
@@ -1986,7 +2214,7 @@ LABEL_8:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v16 = "[TRIFactorPackStorage _legacyParentDirForFactorPackWithNamespaceName:]";
+      v15 = "[TRIFactorPackStorage _legacyParentDirForFactorPackWithNamespaceName:]";
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "%s has empty path arg: namespaceName", buf, 0xCu);
     }
   }
@@ -1994,15 +2222,13 @@ LABEL_8:
   v11 = 0;
 LABEL_8:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (BOOL)removeUnreferencedFactorPacksWithRemovedCount:(unsigned int *)count
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v22 = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v21 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = MEMORY[0x277CBEBC0];
   treatmentsDir = [(TRIPaths *)self->_paths treatmentsDir];
@@ -2017,22 +2243,22 @@ LABEL_8:
     nextObject2 = nextObject;
     v8 = 1;
     *&v12 = 134217984;
-    v19 = v12;
+    v18 = v12;
     do
     {
       lastPathComponent = [nextObject2 lastPathComponent];
       if (lastPathComponent)
       {
-        v21 = -1;
-        if ([MEMORY[0x277D73748] convertFromString:lastPathComponent usingBase:10 toI64:&v21])
+        v20 = -1;
+        if ([MEMORY[0x277D73748] convertFromString:lastPathComponent usingBase:10 toI64:&v20])
         {
-          if ((v21 - 1) > 0x7FFFFFFE)
+          if ((v20 - 1) > 0x7FFFFFFE)
           {
             v16 = TRILogCategory_Server();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v19;
-              v24 = v21;
+              *buf = v18;
+              v23 = v20;
               _os_log_debug_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEBUG, "Skipping removal of factor packs for unrecognized id-based namespace: %lld", buf, 0xCu);
             }
           }
@@ -2040,11 +2266,11 @@ LABEL_8:
           else
           {
             v15 = TRINamespace_NamespaceId_EnumDescriptor();
-            v16 = [v15 textFormatNameForValue:v21];
+            v16 = [v15 textFormatNameForValue:v20];
 
             if (v16)
             {
-              v8 &= [(TRIFactorPackStorage *)self _removeUnreferencedFactorPackSetsWithNamespaceName:v16 removedCount:&v22];
+              v8 &= [(TRIFactorPackStorage *)self _removeUnreferencedFactorPackSetsWithNamespaceName:v16 removedCount:&v21];
             }
 
             else
@@ -2052,8 +2278,8 @@ LABEL_8:
               v16 = TRILogCategory_Server();
               if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
               {
-                *buf = v19;
-                v24 = v21;
+                *buf = v18;
+                v23 = v20;
                 _os_log_debug_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEBUG, "Skipping removal of factor packs for unrecognized id-based namespace: %lld", buf, 0xCu);
               }
             }
@@ -2062,7 +2288,7 @@ LABEL_8:
 
         else
         {
-          v8 &= [(TRIFactorPackStorage *)self _removeUnreferencedFactorPackSetsWithNamespaceName:lastPathComponent removedCount:&v22];
+          v8 &= [(TRIFactorPackStorage *)self _removeUnreferencedFactorPackSetsWithNamespaceName:lastPathComponent removedCount:&v21];
         }
       }
 
@@ -2077,16 +2303,15 @@ LABEL_8:
   objc_autoreleasePoolPop(v10);
   if (count)
   {
-    *count = v22;
+    *count = v21;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
 - (BOOL)_removeUnreferencedFactorPackSetsWithNamespaceName:(id)name removedCount:(unsigned int *)count
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!count)
   {
@@ -2101,42 +2326,42 @@ LABEL_8:
     v10 = v9;
     if (v8 && v9)
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
-      v28[0] = v8;
-      v28[1] = v9;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-      v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v27[0] = v8;
+      v27[1] = v9;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+      v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v12)
       {
         v13 = v12;
-        v22 = v10;
-        v23 = v8;
-        v14 = *v25;
+        v21 = v10;
+        v22 = v8;
+        v14 = *v24;
         v15 = 1;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v25 != v14)
+            if (*v24 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v24 + 1) + 8 * i);
+            v17 = *(*(&v23 + 1) + 8 * i);
             v18 = objc_autoreleasePoolPush();
             v15 &= [(TRIFactorPackStorage *)self _removeUnreferencedFactorPackSetsWithParentDir:v17 removedCount:count];
             objc_autoreleasePoolPop(v18);
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
         }
 
         while (v13);
-        v10 = v22;
-        v8 = v23;
+        v10 = v21;
+        v8 = v22;
       }
 
       else
@@ -2151,7 +2376,7 @@ LABEL_8:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v31 = nameCopy;
+        v30 = nameCopy;
         _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Unable to determine parent dir(s) for factor pack with namespace name: %{public}@", buf, 0xCu);
       }
 
@@ -2165,14 +2390,13 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v31 = "[TRIFactorPackStorage _removeUnreferencedFactorPackSetsWithNamespaceName:removedCount:]";
+      v30 = "[TRIFactorPackStorage _removeUnreferencedFactorPackSetsWithNamespaceName:removedCount:]";
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "%s has empty path arg: namespaceName", buf, 0xCu);
     }
 
     LOBYTE(v15) = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

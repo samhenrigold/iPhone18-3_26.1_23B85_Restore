@@ -7,11 +7,11 @@
 
 - (void)main
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v32 = array;
+  v31 = array;
   objc_storeStrong(&self->_candidates, array);
   objc_storeStrong(&self->_proactiveTriggers, array2);
   objc_storeStrong(&self->_candidateRefsDictionary, dictionary);
@@ -21,27 +21,27 @@
   selfCopy = self;
   v9 = [wordSearch generatePredictionsWithCandidateContext:committedCandidates stringContext:prefixContext option:{-[GeneratePredictionsOperation predictionOptions](self, "predictionOptions")}];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v10 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v39;
+    v12 = *v38;
     v13 = *MEMORY[0x277D6FD88];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v39 != v12)
+        if (*v38 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v38 + 1) + 8 * i);
+        v15 = *(*(&v37 + 1) + 8 * i);
         if (MecabraCandidateGetType() == 6)
         {
           v16 = MecabraCandidateGetAttributes();
@@ -62,7 +62,7 @@
         {
           v16 = [objc_alloc(MEMORY[0x277D6F448]) initWithMecabraCandidate:v15];
           [v16 setTypingEngine:6];
-          [v32 addObject:v16];
+          [v31 addObject:v16];
           mecabraCandidatePointerValue = [v16 mecabraCandidatePointerValue];
           [dictionary setObject:v15 forKeyedSubscript:mecabraCandidatePointerValue];
         }
@@ -70,7 +70,7 @@
 LABEL_11:
       }
 
-      v11 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v11 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v11);
@@ -81,9 +81,9 @@ LABEL_11:
     v20 = TIOSLogFacility();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: Mecabra found prediction proactive triggers: %@", "-[GeneratePredictionsOperation main]", array2];
+      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: Mecabra found prediction proactive triggers: %@", "-[GeneratePredictionsOperation main]", array2];
       LODWORD(location[0]) = 138412290;
-      *(location + 4) = v30;
+      *(location + 4) = v29;
       _os_log_debug_impl(&dword_26D460000, v20, OS_LOG_TYPE_DEBUG, "%@", location, 0xCu);
     }
   }
@@ -104,20 +104,18 @@ LABEL_11:
       v27 = dispatch_group_create();
       dispatch_group_enter(v27);
       objc_initWeak(location, selfCopy);
-      v34 = stickerCandidateGenerator;
-      v35 = v26;
-      objc_copyWeak(&v37, location);
-      v36 = v27;
+      v33 = stickerCandidateGenerator;
+      v34 = v26;
+      objc_copyWeak(&v36, location);
+      v35 = v27;
       v28 = v27;
       TIDispatchAsync();
       dispatch_group_wait(v28, 0xFFFFFFFFFFFFFFFFLL);
 
-      objc_destroyWeak(&v37);
+      objc_destroyWeak(&v36);
       objc_destroyWeak(location);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __36__GeneratePredictionsOperation_main__block_invoke(uint64_t a1)

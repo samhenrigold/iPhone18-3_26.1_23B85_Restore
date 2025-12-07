@@ -160,7 +160,6 @@ LABEL_26:
   toCopy = to;
   if ([(_CPEndLocalSearchFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -168,7 +167,6 @@ LABEL_26:
 
   if (uuid)
   {
-    uuid = self->_uuid;
     PBDataWriterWriteStringField();
   }
 
@@ -182,13 +180,11 @@ LABEL_26:
 
   if ([(_CPEndLocalSearchFeedback *)self l1ToL2ResultCount])
   {
-    l1ToL2ResultCount = self->_l1ToL2ResultCount;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPEndLocalSearchFeedback *)self coreSpotlightIndexCount])
   {
-    coreSpotlightIndexCount = self->_coreSpotlightIndexCount;
     PBDataWriterWriteUint32Field();
   }
 
@@ -202,13 +198,13 @@ LABEL_26:
 
   embeddingState = [(_CPEndLocalSearchFeedback *)self embeddingState];
 
-  v14 = toCopy;
+  v10 = toCopy;
   if (embeddingState)
   {
     embeddingState2 = [(_CPEndLocalSearchFeedback *)self embeddingState];
     PBDataWriterWriteSubmessage();
 
-    v14 = toCopy;
+    v10 = toCopy;
   }
 }
 

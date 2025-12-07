@@ -1,272 +1,3 @@
-uint64_t MRContentItemGetIsSharable(void *a1)
-{
-  v1 = [a1 metadata];
-  v2 = [v1 isSharable];
-
-  return v2;
-}
-
-void MRContentItemSetIsSharable(void *a1, uint64_t a2)
-{
-  if (!a1)
-  {
-    return;
-  }
-
-  MRCreateItemMetadataIfNotPresent(a1);
-  v8 = a1;
-  v4 = [v8 metadata];
-  if ([v4 isSharable] != a2)
-  {
-
-LABEL_6:
-    v7 = [v8 metadata];
-    [v7 setSharable:a2];
-
-    goto LABEL_7;
-  }
-
-  v5 = [v8 metadata];
-  v6 = [v5 hasSharable];
-
-  if ((v6 & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_7:
-}
-
-uint64_t MRContentItemGetIsLiked(void *a1)
-{
-  v1 = [a1 metadata];
-  v2 = [v1 isLiked];
-
-  return v2;
-}
-
-void MRContentItemSetIsLiked(void *a1, uint64_t a2)
-{
-  if (!a1)
-  {
-    return;
-  }
-
-  MRCreateItemMetadataIfNotPresent(a1);
-  v8 = a1;
-  v4 = [v8 metadata];
-  if ([v4 isLiked] != a2)
-  {
-
-LABEL_6:
-    v7 = [v8 metadata];
-    [v7 setLiked:a2];
-
-    goto LABEL_7;
-  }
-
-  v5 = [v8 metadata];
-  v6 = [v5 hasLiked];
-
-  if ((v6 & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_7:
-}
-
-uint64_t MRContentItemGetIsInWishList(void *a1)
-{
-  v1 = [a1 metadata];
-  v2 = [v1 isInWishList];
-
-  return v2;
-}
-
-void MRContentItemSetIsInWishList(void *a1, uint64_t a2)
-{
-  if (!a1)
-  {
-    return;
-  }
-
-  MRCreateItemMetadataIfNotPresent(a1);
-  v8 = a1;
-  v4 = [v8 metadata];
-  if ([v4 isInWishList] != a2)
-  {
-
-LABEL_6:
-    v7 = [v8 metadata];
-    [v7 setInWishList:a2];
-
-    goto LABEL_7;
-  }
-
-  v5 = [v8 metadata];
-  v6 = [v5 hasInWishList];
-
-  if ((v6 & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_7:
-}
-
-uint64_t MRContentItemGetIsAlwaysLive(void *a1)
-{
-  v1 = [a1 metadata];
-  v2 = [v1 isAlwaysLive];
-
-  return v2;
-}
-
-void MRContentItemSetIsAlwaysLive(void *a1, uint64_t a2)
-{
-  if (!a1)
-  {
-    return;
-  }
-
-  MRCreateItemMetadataIfNotPresent(a1);
-  v8 = a1;
-  v4 = [v8 metadata];
-  if ([v4 isAlwaysLive] != a2)
-  {
-
-LABEL_6:
-    v7 = [v8 metadata];
-    [v7 setAlwaysLive:a2];
-
-    goto LABEL_7;
-  }
-
-  v5 = [v8 metadata];
-  v6 = [v5 hasAlwaysLive];
-
-  if ((v6 & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_7:
-}
-
-CFTypeRef MRContentItemGetLocalizedDurationString(void *a1)
-{
-  v1 = [a1 metadata];
-  v2 = [v1 localizedDurationString];
-
-  if (!v2)
-  {
-    return 0;
-  }
-
-  return CFAutorelease(v2);
-}
-
-void MRContentItemSetLocalizedDurationString(void *a1, void *a2)
-{
-  if (objc_opt_respondsToSelector())
-  {
-    a2 = [a2 performSelector:sel_stringValue];
-  }
-
-  if (a2)
-  {
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      MRContentItemSetLocalizedDurationString_cold_1();
-    }
-  }
-
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __MRContentItemSetLocalizedDurationString_block_invoke;
-  v4[3] = &__block_descriptor_40_e27_B24__0__MRContentItem_8_v16l;
-  v4[4] = a2;
-  MRContentItemSetMetadataRef(a1, a2, v4);
-}
-
-BOOL __MRContentItemSetLocalizedDurationString_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = [v5 metadata];
-  v7 = [v6 localizedDurationString];
-  v8 = v7;
-  v9 = v7 != a3;
-  if (v7 == a3)
-  {
-
-LABEL_8:
-    goto LABEL_9;
-  }
-
-  if (!a3)
-  {
-
-    goto LABEL_7;
-  }
-
-  v10 = [v5 metadata];
-  v11 = [v10 localizedDurationString];
-  v12 = [v11 isEqualToString:a3];
-
-  if ((v12 & 1) == 0)
-  {
-LABEL_7:
-    v13 = *(a1 + 32);
-    v6 = [v5 metadata];
-    [v6 setLocalizedDurationString:v13];
-    goto LABEL_8;
-  }
-
-  v9 = 0;
-LABEL_9:
-
-  return v9;
-}
-
-CFTypeRef MRContentItemGetDurationStringLocalizationKey(void *a1)
-{
-  v1 = [a1 metadata];
-  v2 = [v1 durationStringLocalizationKey];
-
-  if (!v2)
-  {
-    return 0;
-  }
-
-  return CFAutorelease(v2);
-}
-
-void MRContentItemSetDurationStringLocalizationKey(void *a1, void *a2)
-{
-  if (objc_opt_respondsToSelector())
-  {
-    a2 = [a2 performSelector:sel_stringValue];
-  }
-
-  if (a2)
-  {
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      MRContentItemSetDurationStringLocalizationKey_cold_1();
-    }
-  }
-
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __MRContentItemSetDurationStringLocalizationKey_block_invoke;
-  v4[3] = &__block_descriptor_40_e27_B24__0__MRContentItem_8_v16l;
-  v4[4] = a2;
-  MRContentItemSetMetadataRef(a1, a2, v4);
-}
-
 BOOL __MRContentItemSetDurationStringLocalizationKey_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -289,9 +20,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 durationStringLocalizationKey];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -431,7 +162,7 @@ uint64_t MRContentItemGetEditingStyleFlags(void *a1)
   return v2;
 }
 
-void MRContentItemSetEditingStyleFlags(void *a1, uint64_t a2)
+void MRContentItemSetEditingStyleFlags(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -470,7 +201,7 @@ uint64_t MRContentItemGetPlaylistType(void *a1)
   return v2;
 }
 
-void MRContentItemSetPlaylistType(void *a1, uint64_t a2)
+void MRContentItemSetPlaylistType(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -509,7 +240,7 @@ uint64_t MRContentItemGetRadioStationType(void *a1)
   return v2;
 }
 
-void MRContentItemSetRadioStationType(void *a1, uint64_t a2)
+void MRContentItemSetRadioStationType(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -734,9 +465,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 artworkIdentifier];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -810,9 +541,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 artworkMIMEType];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -966,7 +697,7 @@ CFTypeRef MRContentItemGetAvailableLanguageOptions(void *a1)
 
 void MRContentItemSetAvailableLanguageOptions(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (v4)
@@ -983,37 +714,37 @@ void MRContentItemSetAvailableLanguageOptions(void *a1, void *a2)
       }
 
       v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
       v12 = v5;
-      v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v21;
+        v15 = *v20;
         do
         {
           v16 = 0;
           do
           {
-            if (*v21 != v15)
+            if (*v20 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = MRLanguageOptionGroupCreateFromExternalRepresentation(*(*(&v20 + 1) + 8 * v16));
+            v17 = MRLanguageOptionGroupCreateFromExternalRepresentation(*(*(&v19 + 1) + 8 * v16));
             if (v17)
             {
-              [v11 addObject:{v17, v20}];
+              [v11 addObject:{v17, v19}];
             }
 
             ++v16;
           }
 
           while (v14 != v16);
-          v14 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
         }
 
         while (v14);
@@ -1033,8 +764,6 @@ void MRContentItemSetAvailableLanguageOptions(void *a1, void *a2)
 
   v18 = [v11 mutableCopy];
   [v3 setAvailableLanguageOptions:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 CFTypeRef MRContentItemGetCurrentLanguageOptions(void *a1)
@@ -1051,7 +780,7 @@ CFTypeRef MRContentItemGetCurrentLanguageOptions(void *a1)
 
 void MRContentItemSetCurrentLanguageOptions(void *a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = [v4 firstObject];
@@ -1065,37 +794,37 @@ void MRContentItemSetCurrentLanguageOptions(void *a1, void *a2)
     }
 
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v11 = v4;
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         v15 = 0;
         do
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = MRLanguageOptionCreateFromExternalRepresentation(*(*(&v19 + 1) + 8 * v15));
+          v16 = MRLanguageOptionCreateFromExternalRepresentation(*(*(&v18 + 1) + 8 * v15));
           if (v16)
           {
-            [v10 addObject:{v16, v19}];
+            [v10 addObject:{v16, v18}];
           }
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v13);
@@ -1109,8 +838,6 @@ void MRContentItemSetCurrentLanguageOptions(void *a1, void *a2)
 
   v17 = [v10 mutableCopy];
   [v3 setCurrentLanguageOptions:v17];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void MRContentItemSetHasLanguageOptions(void *a1, uint64_t a2)
@@ -1171,7 +898,7 @@ uint64_t MRContentItemGetNumberOfSections(void *a1)
   return v2;
 }
 
-void MRContentItemSetNumberOfSections(void *a1, uint64_t a2)
+void MRContentItemSetNumberOfSections(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -1498,9 +1225,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 radioStationName];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -1574,9 +1301,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 radioStationString];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -1599,7 +1326,7 @@ uint64_t MRContentItemGetRadioStationIdentifier(void *a1)
   return v2;
 }
 
-void MRContentItemSetRadioStationIdentifier(void *a1, uint64_t a2)
+void MRContentItemSetRadioStationIdentifier(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -1630,7 +1357,7 @@ void MRContentItemSetRadioStationIdentifier(void *a1, uint64_t a2)
 LABEL_8:
 }
 
-void MRContentItemSetITunesStoreIdentifier(void *a1, uint64_t a2)
+void MRContentItemSetITunesStoreIdentifier(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -1669,7 +1396,7 @@ uint64_t MRContentItemGetITunesStoreSubscriptionIdentifier(void *a1)
   return v2;
 }
 
-void MRContentItemSetITunesStoreSubscriptionIdentifier(void *a1, uint64_t a2)
+void MRContentItemSetITunesStoreSubscriptionIdentifier(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -1708,7 +1435,7 @@ uint64_t MRContentItemGetITunesStoreArtistIdentifier(void *a1)
   return v2;
 }
 
-void MRContentItemSetITunesStoreArtistIdentifier(void *a1, uint64_t a2)
+void MRContentItemSetITunesStoreArtistIdentifier(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -1747,7 +1474,7 @@ uint64_t MRContentItemGetITunesStoreAlbumIdentifier(void *a1)
   return v2;
 }
 
-void MRContentItemSetITunesStoreAlbumIdentifier(void *a1, uint64_t a2)
+void MRContentItemSetITunesStoreAlbumIdentifier(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -2065,7 +1792,7 @@ uint64_t MRContentItemGetLegacyUniqueIdentifier(void *a1)
   return v2;
 }
 
-void MRContentItemSetLegacyUniqueIdentifier(void *a1, uint64_t a2)
+void MRContentItemSetLegacyUniqueIdentifier(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -2155,9 +1882,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 collectionIdentifier];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -2373,9 +2100,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 contentIdentifier];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -2449,9 +2176,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 serviceIdentifier];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -2512,9 +2239,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 profileIdentifier];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -2575,9 +2302,9 @@ LABEL_8:
 
   v10 = [v5 metadata];
   v11 = [v10 brandIdentifier];
-  v12 = [v11 isEqualToString:a3];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if ((v12 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_7:
     v13 = *(a1 + 32);
@@ -2644,7 +2371,7 @@ uint64_t MRContentItemGetEpisodeType(void *a1)
   return v2;
 }
 
-void MRContentItemSetEpisodeType(void *a1, uint64_t a2)
+void MRContentItemSetEpisodeType(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -2687,7 +2414,7 @@ CFTypeRef MRContentItemGetRequestIdentifier(void *a1)
   return result;
 }
 
-void MRContentItemSetReportingAdamID(void *a1, uint64_t a2)
+void MRContentItemSetReportingAdamID(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -2726,7 +2453,7 @@ uint64_t MRContentItemGetReportingAdamID(void *a1)
   return v2;
 }
 
-void MRContentItemSetLyricsAdamID(void *a1, uint64_t a2)
+void MRContentItemSetLyricsAdamID(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -2765,7 +2492,7 @@ uint64_t MRContentItemGetLyricsAdamID(void *a1)
   return v2;
 }
 
-void MRContentItemSetITunesStoreAlbumArtistIdentifier(void *a1, uint64_t a2)
+void MRContentItemSetITunesStoreAlbumArtistIdentifier(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -3013,14 +2740,14 @@ LABEL_9:
   return v9;
 }
 
-uint64_t MRContentItemCreateFromNowPlayingInfo(uint64_t a1)
+MRContentItem *MRContentItemCreateFromNowPlayingInfo(uint64_t a1)
 {
   v2 = [MRContentItem alloc];
 
   return [(MRContentItem *)v2 initWithNowPlayingInfo:a1];
 }
 
-uint64_t MRContentItemCreateFromExternalRepresentation(uint64_t a1, uint64_t a2)
+MRContentItem *MRContentItemCreateFromExternalRepresentation(uint64_t a1, uint64_t a2)
 {
   v3 = [MRContentItem alloc];
 
@@ -3059,36 +2786,36 @@ void *MRContentItemsCreateExternalRepresentation(void *result)
 
 void *MRContentItemsCopyIdentifiers(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (v1)
   {
     v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v12 + 1) + 8 * i) identifier];
+          v9 = [*(*(&v11 + 1) + 8 * i) identifier];
           [v3 addObject:v9];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -3100,7 +2827,6 @@ void *MRContentItemsCopyIdentifiers(void *a1)
     v3 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -3274,9 +3000,9 @@ void MRVirtualVoiceInputProcessAudioData(unsigned int a1, const char *a2, double
   MRMediaRemoteServiceVirtualVoiceProcessAudioData(v10, a1, a2, a3, a4, a5);
 }
 
-void sub_1A2AB6C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2AB6C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3651,66 +3377,67 @@ void sub_1A2AB8924(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AB8B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AB8B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AB8D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1A2AB9DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1A2ABC0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1A2AB8D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
   va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ABC510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2AB9DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A2ABC0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+{
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A2ABC510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ABCAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1A2ABCAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 176), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ABE454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2ABE454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ABE5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2ABE5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4363,14 +4090,14 @@ LABEL_46:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t MRPlaybackQueueRequestCreateWithIdentifiers(uint64_t a1)
+MRPlaybackQueueRequest *MRPlaybackQueueRequestCreateWithIdentifiers(uint64_t a1)
 {
   v2 = [MRPlaybackQueueRequest alloc];
 
   return [(MRPlaybackQueueRequest *)v2 initWithIdentifiers:a1];
 }
 
-uint64_t MRPlaybackQueueRequestCreateWithCurrentState(uint64_t a1, uint64_t a2, uint64_t a3)
+MRPlaybackQueueRequest *MRPlaybackQueueRequestCreateWithCurrentState(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = [MRPlaybackQueueRequest alloc];
 
@@ -4725,7 +4452,7 @@ uint64_t MRPlaybackQueueRequestHasRange(void *a1)
   return [a1 hasRange];
 }
 
-uint64_t MRPlaybackQueueRequestCreateFromExternalRepresentation(uint64_t a1)
+MRPlaybackQueueRequest *MRPlaybackQueueRequestCreateFromExternalRepresentation(uint64_t a1)
 {
   v2 = [MRPlaybackQueueRequest alloc];
 
@@ -4889,17 +4616,17 @@ void sub_1A2AC8D48(_Unwind_Exception *a1)
 uint64_t MRBundlePermittedForJoiningGroupSessions(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"com.apple.Music"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
-    v2 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v2 = [v1 isEqualToString:@"com.apple.MediaRemoteUI"];
+    isEqualToString = objc_msgSend_isEqualToString_(v1);
   }
 
-  return v2;
+  return isEqualToString;
 }
 
 uint64_t MRGroupSessionRouteTypeFromModelIdentifier(void *a1)
@@ -5007,35 +4734,33 @@ void MRGroupSessionJoinSessionWithToken(void *a1, void *a2)
     _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRGroupSession] Requesting to join session with token: %@", buf, 0xCu);
   }
 
-  v7 = MRGroupSessionSubsystemGetQueue();
+  v8 = MRGroupSessionSubsystemGetQueue(v7);
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
   v11[2] = __MRGroupSessionJoinSessionWithToken_block_invoke;
   v11[3] = &unk_1E76A3D68;
   v12 = v3;
   v13 = v4;
-  v8 = v3;
-  v9 = v4;
-  [v5 joinGroupSessionWithToken:v8 queue:v7 completion:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = v3;
+  v10 = v4;
+  [v5 joinGroupSessionWithToken:v9 queue:v8 completion:v11];
 }
 
-id MRGroupSessionSubsystemGetQueue()
+id MRGroupSessionSubsystemGetQueue(uint64_t a1)
 {
   if (MRGroupSessionSubsystemGetQueue_onceToken != -1)
   {
     MRGroupSessionSubsystemGetQueue_cold_1();
   }
 
-  v1 = MRGroupSessionSubsystemGetQueue___queue;
+  v2 = MRGroupSessionSubsystemGetQueue___queue;
 
-  return v1;
+  return v2;
 }
 
 void __MRGroupSessionJoinSessionWithToken_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -5046,7 +4771,7 @@ void __MRGroupSessionJoinSessionWithToken_block_invoke(uint64_t a1, void *a2, vo
       v8 = _MRLogForCategory(0xCuLL);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __MRGroupSessionJoinSessionWithToken_block_invoke_cold_1(a1);
+        __MRGroupSessionJoinSessionWithToken_block_invoke_cold_1();
       }
 
       (*(*(a1 + 40) + 16))();
@@ -5078,65 +4803,64 @@ void __MRGroupSessionJoinSessionWithToken_block_invoke(uint64_t a1, void *a2, vo
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v32 = 0x3032000000;
-      v33 = __Block_byref_object_copy__44;
-      v34 = __Block_byref_object_dispose__44;
-      v35 = 0;
-      v29[0] = 0;
-      v29[1] = v29;
-      v29[2] = 0x2020000000;
-      v30 = 0;
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __MRGroupSessionJoinSessionWithToken_block_invoke_334;
-      v23[3] = &unk_1E76A3D40;
-      v27 = v29;
+      v31 = 0x3032000000;
+      v32 = __Block_byref_object_copy__44;
+      v33 = __Block_byref_object_dispose__44;
+      v34 = 0;
+      v28[0] = 0;
+      v28[1] = v28;
+      v28[2] = 0x2020000000;
+      v29 = 0;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __MRGroupSessionJoinSessionWithToken_block_invoke_334;
+      v22[3] = &unk_1E76A3D40;
+      v26 = v28;
       v14 = v12;
-      v24 = v14;
+      v23 = v14;
       p_buf = &buf;
-      v25 = v5;
-      v26 = *(a1 + 40);
-      v15 = MEMORY[0x1A58E3570](v23);
+      v24 = v5;
+      v25 = *(a1 + 40);
+      v15 = MEMORY[0x1A58E3570](v22);
       v16 = [MEMORY[0x1E696AD88] defaultCenter];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __MRGroupSessionJoinSessionWithToken_block_invoke_338;
-      v21[3] = &unk_1E769E710;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __MRGroupSessionJoinSessionWithToken_block_invoke_338;
+      v20[3] = &unk_1E769E710;
       v17 = v15;
-      v22 = v17;
-      v18 = [v16 addObserverForName:@"kMRMediaRemoteActiveSystemEndpointDidChangeNotification" object:0 queue:0 usingBlock:v21];
+      v21 = v17;
+      v18 = [v16 addObserverForName:@"kMRMediaRemoteActiveSystemEndpointDidChangeNotification" object:0 queue:0 usingBlock:v20];
       v19 = *(*(&buf + 1) + 40);
       *(*(&buf + 1) + 40) = v18;
 
       v17[2](v17);
-      _Block_object_dispose(v29, 8);
+      _Block_object_dispose(v28, 8);
       _Block_object_dispose(&buf, 8);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1A2ACB9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1A2ACB9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __MRGroupSessionJoinSessionWithToken_block_invoke_334(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = MRGroupSessionSubsystemGetQueue();
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = MRGroupSessionSubsystemGetQueue(a1);
   dispatch_assert_queue_V2(v2);
 
   if ((*(*(a1[7] + 8) + 24) & 1) == 0)
   {
     v3 = +[MRNowPlayingOriginClientManager sharedManager];
     v4 = [v3 activeSystemEndpointOutputDeviceUIDForType:0];
-    v5 = [v4 isEqualToString:a1[4]];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-    if (v5)
+    if (isEqualToString)
     {
       *(*(a1[7] + 8) + 24) = 1;
       v6 = [MEMORY[0x1E696AD88] defaultCenter];
@@ -5146,22 +4870,19 @@ void __MRGroupSessionJoinSessionWithToken_block_invoke_334(void *a1)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = a1[5];
-        v11 = 138412290;
-        v12 = v8;
-        _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRGroupSession] Resolved ASE to session: %@", &v11, 0xCu);
+        v9 = 138412290;
+        v10 = v8;
+        _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRGroupSession] Resolved ASE to session: %@", &v9, 0xCu);
       }
 
-      v9 = a1[5];
       (*(a1[6] + 16))();
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __MRGroupSessionJoinSessionWithToken_block_invoke_338(uint64_t a1)
 {
-  v2 = MRGroupSessionSubsystemGetQueue();
+  v2 = MRGroupSessionSubsystemGetQueue(a1);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __MRGroupSessionJoinSessionWithToken_block_invoke_2;
@@ -5189,48 +4910,44 @@ void MRGroupSessionLeaveSessionWithIdentifier(void *a1, void *a2)
     _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRGroupSession] Requesting to leave session with identifier: %@", buf, 0xCu);
   }
 
-  v7 = MRGroupSessionSubsystemGetQueue();
+  v8 = MRGroupSessionSubsystemGetQueue(v7);
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __MRGroupSessionLeaveSessionWithIdentifier_block_invoke;
   v10[3] = &unk_1E769AD80;
   v11 = v4;
-  v8 = v4;
-  [v5 leaveGroupSessionWithIdentifier:v3 queue:v7 completion:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = v4;
+  [v5 leaveGroupSessionWithIdentifier:v3 queue:v8 completion:v10];
 }
 
 void __MRGroupSessionLeaveSessionWithIdentifier_block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = _MRLogForCategory(0xCuLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRGroupSession] Failed to leave session with error: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRGroupSession] Failed to leave session with error: %@", &v5, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-id MRGroupSessionSubsystemGetNotificationQueue()
+id MRGroupSessionSubsystemGetNotificationQueue(uint64_t a1)
 {
   if (MRGroupSessionSubsystemGetNotificationQueue_onceToken != -1)
   {
     MRGroupSessionSubsystemGetNotificationQueue_cold_1();
   }
 
-  v1 = MRGroupSessionSubsystemGetNotificationQueue___queue;
+  v2 = MRGroupSessionSubsystemGetNotificationQueue___queue;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A2ACC298(_Unwind_Exception *a1)
@@ -5255,72 +4972,72 @@ __CFString *MRGroupSessionRouteTypeDescription(unsigned int a1)
   return v2;
 }
 
-void sub_1A2ACCBEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2ACCBEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ACCD1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2ACCD1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ACCE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2ACCE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ACCFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2ACCFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ACD194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2ACD194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ACD338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2ACD338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ACD4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2ACD4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ACD628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2ACD628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ACD7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2ACD7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2ACD988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2ACD988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5339,12 +5056,19 @@ void sub_1A2ACE35C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_1A2ACE790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void MRGroupSessionSendEvent(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
   v6 = MRGetSharedService();
-  v5 = MRGroupSessionSubsystemGetQueue();
+  v5 = MRGroupSessionSubsystemGetQueue(v6);
   [v6 sendEvent:v4 queue:v5 completion:v3];
 }
 
@@ -5456,27 +5180,27 @@ uint64_t MROutputDeviceSubtypeFromGroupSessionRoute(int a1)
 
 uint64_t MRGroupSessionRouteTypeForOutputDevices(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v17;
+    v4 = *v16;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v17 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v16 + 1) + 8 * i);
+        v6 = *(*(&v15 + 1) + 8 * i);
         if ([v6 deviceType] == 3)
         {
           v13 = 2;
@@ -5541,7 +5265,7 @@ LABEL_27:
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v15 objects:v19 count:16];
       v13 = 0;
       if (v3)
       {
@@ -5559,7 +5283,6 @@ LABEL_27:
 
 LABEL_32:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -5703,28 +5426,29 @@ void sub_1A2AD4490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AD4B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+void sub_1A2AD4B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
+  va_start(va, a52);
   _Block_object_dispose(&a41, 8);
   _Block_object_dispose(&a47, 8);
-  _Block_object_dispose(&a53, 8);
-  _Block_object_dispose((v53 - 240), 8);
-  _Block_object_dispose((v53 - 192), 8);
-  _Block_object_dispose((v53 - 144), 8);
-  _Block_object_dispose((v53 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v52 - 240), 8);
+  _Block_object_dispose((v52 - 192), 8);
+  _Block_object_dispose((v52 - 144), 8);
+  _Block_object_dispose((v52 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AD733C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AD733C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2AD746C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2AD746C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7598,7 +7322,7 @@ _MRLyricsEventProtobuf *MRLyricsEventCreateEnd(uint64_t a1, uint64_t a2, uint64_
   return v6;
 }
 
-uint64_t MRLyricsItemTokenCreateFromExternalRepresentation(uint64_t a1)
+_MRLyricsTokenProtobuf *MRLyricsItemTokenCreateFromExternalRepresentation(uint64_t a1)
 {
   v2 = [_MRLyricsTokenProtobuf alloc];
 
@@ -7612,7 +7336,7 @@ void *MRLyricsEventGetToken(void *a1)
   return v1;
 }
 
-uint64_t MRLyricsEventCreateFromExternalRepresentation(uint64_t a1)
+_MRLyricsEventProtobuf *MRLyricsEventCreateFromExternalRepresentation(uint64_t a1)
 {
   v2 = [_MRLyricsEventProtobuf alloc];
 
@@ -7665,27 +7389,27 @@ void MRMediaRemoteRemoteSendLyricsEvent(uint64_t a1, uint64_t a2, void *a3)
 
 void MRMediaRemoteRemoteSendLyricsEventForPlayer(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = _MRLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = a2;
-    v9 = 2112;
-    v10 = a1;
-    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "Sending Lyrics Event: %@ for PlayerPath %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = a2;
+    v8 = 2112;
+    v9 = a1;
+    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "Sending Lyrics Event: %@ for PlayerPath %@", &v6, 0x16u);
   }
 
   v5 = MRGetSharedService();
   MRMediaRemoteServiceSendLyricsEvent(v5, a1, a2);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1A2AE7B34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
+void sub_1A2AE7B34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  objc_sync_exit(v24);
+  va_start(va, a23);
+  objc_sync_exit(v23);
   _Block_object_dispose(&a18, 8);
-  _Block_object_dispose(&a24, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7763,18 +7487,18 @@ LABEL_5:
 
 id _onQueue_MRCreateSectionsForRequest(void *a1, void *a2, void *a3, void *a4)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
   v9 = a3;
   v10 = a4;
-  v29 = v7;
+  v28 = v7;
   if (!v7)
   {
     _onQueue_MRCreateSectionsForRequest_cold_1();
   }
 
-  v30 = v9;
+  v29 = v9;
   if (!v9)
   {
     _onQueue_MRCreateSectionsForRequest_cold_2();
@@ -7799,38 +7523,38 @@ id _onQueue_MRCreateSectionsForRequest(void *a1, void *a2, void *a3, void *a4)
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v47 = __Block_byref_object_copy__47;
-  v48 = __Block_byref_object_dispose__47;
-  v49 = MEMORY[0x1E695E0F0];
+  v46 = __Block_byref_object_copy__47;
+  v47 = __Block_byref_object_dispose__47;
+  v48 = MEMORY[0x1E695E0F0];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = v8;
-  v13 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v13 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v13)
   {
-    v14 = *v41;
+    v14 = *v40;
 LABEL_11:
     v15 = 0;
     while (1)
     {
-      if (*v41 != v14)
+      if (*v40 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v40 + 1) + 8 * v15);
+      v16 = *(*(&v39 + 1) + 8 * v15);
       v17 = [v16 queue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = ___onQueue_MRCreateSectionsForRequest_block_invoke;
       block[3] = &unk_1E76A42C8;
       block[4] = v16;
-      v36 = v10;
-      v39 = buf;
-      v37 = v7;
-      v38 = v30;
+      v35 = v10;
+      v38 = buf;
+      v36 = v7;
+      v37 = v29;
       dispatch_sync(v17, block);
 
       LOBYTE(v17) = *(*&buf[8] + 40) == 0;
@@ -7841,7 +7565,7 @@ LABEL_11:
 
       if (v13 == ++v15)
       {
-        v13 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v13 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
         if (v13)
         {
           goto LABEL_11;
@@ -7852,32 +7576,32 @@ LABEL_11:
     }
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v18 = *(*&buf[8] + 40);
-  v19 = [v18 countByEnumeratingWithState:&v31 objects:v44 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v30 objects:v43 count:16];
   if (v19)
   {
-    v20 = *v32;
+    v20 = *v31;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v32 != v20)
+        if (*v31 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        v22 = *(*(&v31 + 1) + 8 * i);
+        v22 = *(*(&v30 + 1) + 8 * i);
         Identifier = MRContentItemGetIdentifier(v10);
         MRContentItemSetParentIdentifier(v22, Identifier);
         AncestorIdentifier = MRContentItemGetAncestorIdentifier(v10);
         MRContentItemSetAncestorIdentifier(v22, AncestorIdentifier);
       }
 
-      v19 = [v18 countByEnumeratingWithState:&v31 objects:v44 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v30 objects:v43 count:16];
     }
 
     while (v19);
@@ -7885,8 +7609,6 @@ LABEL_11:
 
   v25 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -7929,68 +7651,68 @@ MRPlaybackQueue *_onClientQueue_MRCreatePlaybackQueueForOffset(uint64_t a1, uint
 
 id _onQueue_MRCreatePlaybackQueueForOffset(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v19 = a2;
+  v18 = a2;
   if (!v3)
   {
     _onQueue_MRCreatePlaybackQueueForOffset_cold_1();
   }
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__47;
-  v30 = __Block_byref_object_dispose__47;
-  v31 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__47;
+  v29 = __Block_byref_object_dispose__47;
+  v30 = 0;
   v4 = [v3 range];
   v6 = v5;
-  v18 = v3;
+  v17 = v3;
   if (v5)
   {
     v7 = v4;
-    v20 = 0;
+    v19 = 0;
     while (1)
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
-      v8 = v19;
-      v9 = [v8 countByEnumeratingWithState:&v22 objects:v32 count:{16, v18}];
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v8 = v18;
+      v9 = [v8 countByEnumeratingWithState:&v21 objects:v31 count:{16, v17}];
       if (v9)
       {
-        v10 = *v23;
+        v10 = *v22;
 LABEL_7:
         v11 = 0;
         while (1)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * v11);
+          v12 = *(*(&v21 + 1) + 8 * v11);
           v13 = [v12 queue];
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = ___onQueue_MRCreatePlaybackQueueForOffset_block_invoke;
           block[3] = &unk_1E76A42F0;
           block[4] = v12;
-          block[5] = &v26;
-          block[6] = v20 + v7;
+          block[5] = &v25;
+          block[6] = v19 + v7;
           block[7] = v7;
           block[8] = v6;
           dispatch_sync(v13, block);
 
-          if (v27[5])
+          if (v26[5])
           {
             break;
           }
 
           if (v9 == ++v11)
           {
-            v9 = [v8 countByEnumeratingWithState:&v22 objects:v32 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v21 objects:v31 count:16];
             if (v9)
             {
               goto LABEL_7;
@@ -8001,13 +7723,13 @@ LABEL_7:
         }
       }
 
-      v14 = v27[5];
+      v14 = v26[5];
       if (v14)
       {
         break;
       }
 
-      if (++v20 == v6)
+      if (++v19 == v6)
       {
         v14 = 0;
         break;
@@ -8017,106 +7739,111 @@ LABEL_7:
 
   else
   {
-    v14 = v27[5];
+    v14 = v26[5];
   }
 
   v15 = v14;
-  _Block_object_dispose(&v26, 8);
-
-  v16 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
   return v15;
 }
 
+void sub_1A2AE9418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 MRPlaybackQueue *_onQueue_MRCreatePlaybackQueueForIdentifier(void *a1, void *a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v28 = a2;
+  v27 = a2;
   if (!v3)
   {
     _onQueue_MRCreatePlaybackQueueForIdentifier_cold_1();
   }
 
-  v25 = v3;
+  v24 = v3;
   v4 = [v3 contentItemIdentifiers];
-  v24 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v4];
-  v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v24, "count")}];
+  v23 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v4];
+  v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v23, "count")}];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = v4;
-  v6 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
-  v7 = v28;
+  v6 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v7 = v27;
   if (v6)
   {
     v8 = v6;
-    v9 = *v40;
-    v26 = *MEMORY[0x1E695E480];
-    v27 = *v40;
+    v9 = *v39;
+    v25 = *MEMORY[0x1E695E480];
+    v26 = *v39;
     do
     {
       v10 = 0;
-      v29 = v8;
+      v28 = v8;
       do
       {
-        if (*v40 != v9)
+        if (*v39 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v39 + 1) + 8 * v10);
+        v11 = *(*(&v38 + 1) + 8 * v10);
         if ([v7 count])
         {
-          v37 = 0u;
-          v38 = 0u;
-          v35 = 0u;
           v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
           v12 = v7;
-          v13 = [v12 countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v13 = [(MRContentItem *)v12 countByEnumeratingWithState:&v34 objects:v42 count:16];
           if (v13)
           {
             v14 = v13;
-            v31 = v10;
-            v15 = *v36;
+            v30 = v10;
+            v15 = *v35;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v36 != v15)
+                if (*v35 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v35 + 1) + 8 * i);
+                v17 = *(*(&v34 + 1) + 8 * i);
                 v18 = [v17 block];
                 v19 = [v17 queue];
                 block[0] = MEMORY[0x1E69E9820];
                 block[1] = 3221225472;
                 block[2] = ___onQueue_MRCreatePlaybackQueueForIdentifier_block_invoke;
                 block[3] = &unk_1E769AC18;
-                v34 = v18;
+                v33 = v18;
                 block[4] = v11;
-                v33 = v5;
+                v32 = v5;
                 v20 = v18;
                 dispatch_sync(v19, block);
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v35 objects:v43 count:16];
+              v14 = [(MRContentItem *)v12 countByEnumeratingWithState:&v34 objects:v42 count:16];
             }
 
             while (v14);
-            v9 = v27;
-            v7 = v28;
-            v8 = v29;
-            v10 = v31;
+            v9 = v26;
+            v7 = v27;
+            v8 = v28;
+            v10 = v30;
           }
         }
 
         else
         {
-          v12 = MRContentItemCreate(v26, v11);
+          v12 = MRContentItemCreate(v25, v11);
           [v5 addObject:v12];
         }
 
@@ -8124,21 +7851,20 @@ MRPlaybackQueue *_onQueue_MRCreatePlaybackQueueForIdentifier(void *a1, void *a2)
       }
 
       while (v10 != v8);
-      v8 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v8 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v8);
   }
 
   v21 = [[MRPlaybackQueue alloc] initWithContentItems:v5];
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 void _MREnqueueAndHandlePlaybackQueueRequest(void *a1, void *a2, void *a3)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -8186,76 +7912,74 @@ void _MREnqueueAndHandlePlaybackQueueRequest(void *a1, void *a2, void *a3)
     _MREnqueueAndHandlePlaybackQueueRequest_cold_4();
   }
 
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke;
-  v52[3] = &unk_1E769FD28;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke;
+  v51[3] = &unk_1E769FD28;
   v15 = v6;
-  v53 = v15;
+  v52 = v15;
   v16 = v8;
-  v54 = v16;
+  v53 = v16;
   v17 = v7;
-  v55 = v17;
-  v18 = MEMORY[0x1A58E3570](v52);
+  v54 = v17;
+  v18 = MEMORY[0x1A58E3570](v51);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v57 = 0x3032000000;
-  v58 = __Block_byref_object_copy__47;
-  v59 = __Block_byref_object_dispose__47;
-  v60 = 0;
+  v56 = 0x3032000000;
+  v57 = __Block_byref_object_copy__47;
+  v58 = __Block_byref_object_dispose__47;
+  v59 = 0;
   v19 = +[MRNowPlayingOriginClientManager sharedManager];
   v20 = [v19 playbackQueueDataSourceOperationQueue];
 
   v21 = objc_alloc(MEMORY[0x1E69B14D8]);
   v22 = dispatch_get_global_queue(21, 0);
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_108;
-  v49[3] = &unk_1E769C018;
-  v51 = 0x401C000000000000;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_108;
+  v48[3] = &unk_1E769C018;
+  v50 = 0x401C000000000000;
   v23 = v15;
-  v50 = v23;
-  v24 = [v21 initWithInterval:0 repeats:v22 queue:v49 block:7.0];
+  v49 = v23;
+  v24 = [v21 initWithInterval:0 repeats:v22 queue:v48 block:7.0];
 
   v25 = objc_alloc(MEMORY[0x1E69B14D8]);
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_109;
-  v46[3] = &unk_1E76A4368;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_109;
+  v45[3] = &unk_1E76A4368;
   p_buf = &buf;
   v26 = v18;
-  v47 = v26;
-  v27 = [v25 initWithInterval:0 repeats:v22 queue:v46 block:30.0];
+  v46 = v26;
+  v27 = [v25 initWithInterval:0 repeats:v22 queue:v45 block:30.0];
 
   v28 = [MROperation alloc];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_2;
-  v40[3] = &unk_1E76A4390;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_2;
+  v39[3] = &unk_1E76A4390;
   v29 = v24;
-  v41 = v29;
+  v40 = v29;
   v30 = v27;
-  v42 = v30;
+  v41 = v30;
   v31 = v5;
-  v43 = v31;
+  v42 = v31;
   v32 = v23;
-  v44 = v32;
+  v43 = v32;
   v33 = v26;
-  v45 = v33;
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_4;
-  v38[3] = &unk_1E76A43E0;
+  v44 = v33;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = ___MREnqueueAndHandlePlaybackQueueRequest_block_invoke_4;
+  v37[3] = &unk_1E76A43E0;
   v34 = v20;
-  v39 = v34;
-  v35 = [(MROperation *)v28 initWithBlock:v40 completionHandler:v38];
+  v38 = v34;
+  v35 = [(MROperation *)v28 initWithBlock:v39 completionHandler:v37];
   v36 = *(*(&buf + 1) + 40);
   *(*(&buf + 1) + 40) = v35;
 
   [v34 addOperation:*(*(&buf + 1) + 40)];
   _Block_object_dispose(&buf, 8);
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _MRPlaybackQueueContextProtobufReadFrom(uint64_t a1, void *a2)
@@ -8425,14 +8149,14 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1A2AF0AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_1A2AF0AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a53, 8);
   _Block_object_dispose(&a57, 8);
   _Block_object_dispose(&a61, 8);
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x200], 8);
   _Block_object_dispose(&STACK[0x230], 8);
   _Unwind_Resume(a1);
@@ -9139,7 +8863,7 @@ LABEL_3:
   return v4;
 }
 
-uint64_t MRDiagnosticCreateFromExternalRepresentation(uint64_t a1)
+_MRDiagnosticProtobuf *MRDiagnosticCreateFromExternalRepresentation(uint64_t a1)
 {
   v2 = [_MRDiagnosticProtobuf alloc];
 
@@ -9466,4 +9190,91 @@ LABEL_76:
   }
 
   return [a2 hasError] ^ 1;
+}
+
+void MRMediaRemoteSetSystemAppPlaybackQueueWithContext(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
+{
+  v9 = a4;
+  v10 = a5;
+  if (MRSystemAppPlaybackQueueGetType(a1, v11) == 3 || !MRShouldUseLegacyMusicApplicationAsSystemMediaApp())
+  {
+    v12 = @"(System Media Application)";
+  }
+
+  else
+  {
+    v12 = @"com.apple.LegacyMusic";
+  }
+
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __MRMediaRemoteSetSystemAppPlaybackQueueWithContext_block_invoke;
+  v14[3] = &unk_1E769F1D0;
+  v15 = v10;
+  v13 = v10;
+  MRMediaRemoteSetAppPlaybackQueueWithContext(v12, a1, a2, a3, v9, v14);
+}
+
+void MRMediaRemoteSetAppPlaybackQueueWithContext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
+{
+  v11 = a6;
+  v12 = a5;
+  v14 = [[MRClient alloc] initWithProcessIdentifier:0 bundleIdentifier:a1];
+  v13 = [[MRPlayerPath alloc] initWithOrigin:a3 client:v14 player:0];
+  MRMediaRemoteSetAppPlaybackQueueForPlayer(a2, 0, v13, a4, v12, v11);
+}
+
+uint64_t __MRMediaRemoteSetSystemAppPlaybackQueueWithContext_block_invoke(uint64_t a1, int a2, unint64_t a3)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    if (!a2)
+    {
+      _MRSendCommandReplyContainsSuccessfulStatus(a3);
+      result = *(a1 + 32);
+    }
+
+    v5 = *(result + 16);
+
+    return v5();
+  }
+
+  return result;
+}
+
+unint64_t _MRSendCommandReplyContainsSuccessfulStatus(unint64_t result)
+{
+  if (result)
+  {
+    v1 = result;
+    result = CFArrayGetCount(result);
+    valuePtr = 0;
+    if (result)
+    {
+      v2 = result;
+      v3 = 0;
+      v4 = 1;
+      do
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(v1, v3);
+        CFNumberGetValue(ValueAtIndex, kCFNumberIntType, &valuePtr);
+        result = valuePtr == 0;
+        v3 = v4++;
+        if (valuePtr)
+        {
+          v6 = v2 > v3;
+        }
+
+        else
+        {
+          v6 = 0;
+        }
+      }
+
+      while (v6);
+    }
+  }
+
+  return result;
 }

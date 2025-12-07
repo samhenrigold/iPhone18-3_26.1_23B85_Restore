@@ -288,7 +288,7 @@
 
 - (void)releaseResources
 {
-  [(PXGViewRenderer *)self interactionState];
+  objc_msgSend_interactionState(self, a2);
   if ((v9 & 1) == 0)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -316,7 +316,7 @@ void __35__PXGViewRenderer_releaseResources__block_invoke(uint64_t a1, void *a2,
   v6 = v5;
   if (v5)
   {
-    if (![*(v5 + 5) canUnloadWhenInvisible])
+    if (![v5[5] canUnloadWhenInvisible])
     {
       goto LABEL_5;
     }
@@ -454,7 +454,7 @@ LABEL_6:
     lastPresentationDataStore = self->_lastPresentationDataStore;
     if (lastPresentationDataStore)
     {
-      [(PXGSpriteDataStore *)lastPresentationDataStore sprites];
+      objc_msgSend_sprites(lastPresentationDataStore);
     }
 
     else
@@ -556,7 +556,7 @@ LABEL_9:
   v212 = 0u;
   if (storeCopy)
   {
-    [storeCopy sprites];
+    objc_msgSend_sprites(storeCopy);
     v30 = 0uLL;
   }
 
@@ -566,7 +566,7 @@ LABEL_9:
   v142 = dataStoreCopy;
   if (dataStoreCopy)
   {
-    [dataStoreCopy sprites];
+    objc_msgSend_sprites(dataStoreCopy);
     v146 = *(&v209 + 1);
     v150 = v209;
     v154 = v210;
@@ -606,7 +606,7 @@ LABEL_9:
   width = v219.size.width;
   height = v219.size.height;
 
-  indexSet = [MEMORY[0x277CCAB58] indexSet];
+  v50 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
   v204 = 0u;
   v205 = 0u;
   v206 = 0u;
@@ -636,7 +636,7 @@ LABEL_9:
         v201 = y;
         v202 = width;
         v203 = height;
-        v198 = indexSet;
+        v198 = v50;
         [v56 enumerateSpriteIndexes:v197];
       }
 
@@ -646,16 +646,16 @@ LABEL_9:
     while (v53);
   }
 
-  indexSet2 = [MEMORY[0x277CCAB58] indexSet];
+  v57 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
   selfCopy2 = self;
   reusableViewInfoBySpriteIndex = self->_reusableViewInfoBySpriteIndex;
   v194[0] = MEMORY[0x277D85DD0];
   v194[1] = 3221225472;
   v194[2] = __110__PXGViewRenderer_renderSpritesWithTextures_dataStore_presentationDataStore_presentationMetadataStore_layout___block_invoke_2;
   v194[3] = &unk_2782AA6A8;
-  v60 = indexSet;
+  v60 = v50;
   v195 = v60;
-  v61 = indexSet2;
+  v61 = v57;
   v196 = v61;
   [(NSMutableDictionary *)reusableViewInfoBySpriteIndex enumerateKeysAndObjectsUsingBlock:v194];
   v193[0] = MEMORY[0x277D85DD0];
@@ -1205,28 +1205,28 @@ LABEL_127:
   selfCopy->_spritesNeedUpate = 0;
 }
 
-uint64_t __110__PXGViewRenderer_renderSpritesWithTextures_dataStore_presentationDataStore_presentationMetadataStore_layout___block_invoke(uint64_t result, unsigned int a2)
+void *__110__PXGViewRenderer_renderSpritesWithTextures_dataStore_presentationDataStore_presentationMetadataStore_layout___block_invoke(void *result, unsigned int a2)
 {
-  v2 = *(result + 40) + 32 * a2;
-  v3 = *(result + 48);
+  v2 = *(result + 5) + 32 * a2;
+  v3 = *(result + 6);
   v4 = vmul_f32(*(v2 + 24), 0x3F0000003F000000);
-  if (*v2 - v4.f32[0] <= v3 + *(result + 64) && *v2 + v4.f32[0] >= v3)
+  if (*v2 - v4.f32[0] <= v3 + *(result + 8) && *v2 + v4.f32[0] >= v3)
   {
-    v6 = *(result + 56);
+    v6 = *(result + 7);
     v7 = *(v2 + 8);
     v8 = v4.f32[1];
     v9 = v7 - v8;
     v10 = v7 + v8;
-    if (v9 <= *(result + 72) + v6 && v10 >= v6)
+    if (v9 <= *(result + 9) + v6 && v10 >= v6)
     {
-      return [*(result + 32) addIndex:v10];
+      return [*(result + 4) addIndex:v10];
     }
   }
 
   return result;
 }
 
-uint64_t __110__PXGViewRenderer_renderSpritesWithTextures_dataStore_presentationDataStore_presentationMetadataStore_layout___block_invoke_2(uint64_t a1, void *a2)
+void *__110__PXGViewRenderer_renderSpritesWithTextures_dataStore_presentationDataStore_presentationMetadataStore_layout___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = [a2 unsignedIntegerValue];
   result = [*(a1 + 32) containsIndex:v3];

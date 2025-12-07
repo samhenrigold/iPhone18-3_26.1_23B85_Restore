@@ -33,7 +33,7 @@
 
 - (void)setupWithLibraryManager:(id)manager
 {
-  v8[3] = sub_10000A7C4(0, &qword_100AD9BD0);
+  v8[3] = sub_10000A7C4(0, &qword_100AD9BD0, BKLibraryManager_ptr);
   v8[4] = &off_100A300A0;
   v8[0] = manager;
   v5 = OBJC_IVAR___BKPersonalizationEventDonor_libraryAssetProvider;

@@ -85,15 +85,15 @@
 
   else
   {
-    memset(v7, 0, sizeof(v7));
+    memset(v8, 0, sizeof(v8));
     selfCopy2 = self;
   }
 
   UIViewController.endFirstResponderEditing()();
   v6 = sub_100017E3C(&OBJC_IVAR____TtC9Reminders30TTRIEditSectionsViewController____lazy_storage___cancelButton, &selRef_didTapCancel_, 1);
-  sub_10023E540(v6);
+  sub_10023E540(v6, v7);
 
-  sub_1000079B4(v7, &qword_10076AE40);
+  sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)didTapDone:(id)done
@@ -111,14 +111,14 @@
 
   v6 = type metadata accessor for Logger();
   sub_100003E30(v6, qword_100775E20);
-  sub_100008E04(_swiftEmptyArrayStorage);
-  sub_10000FD44();
+  v7 = sub_100008E04(_swiftEmptyArrayStorage);
+  sub_10000FD44("Edit Sections Done", 18, 2, v7);
 
   sub_10000C36C(v5 + 11, v5[14]);
   dispatch thunk of TTREditSectionsInteractorType.editSectionsDidCommit()();
   sub_10000C36C(v5 + 6, v5[9]);
   sub_1005CB448();
-  sub_100004758(&v7);
+  sub_100004758(v8);
 }
 
 - (void)didToggleHideEmptySections:(id)sections
@@ -149,18 +149,18 @@
   text = [editingCopy text];
   if (text)
   {
-    v7 = text;
-    v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v10 = v9;
+    v8 = text;
+    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v11 = v10;
   }
 
   else
   {
-    v8 = 0;
-    v10 = 0xE000000000000000;
+    v9 = 0;
+    v11 = 0xE000000000000000;
   }
 
-  sub_10023DA48(v8, v10, editingCopy);
+  sub_10023DA48(v9, v11, editingCopy, v7);
 }
 
 - (void)textFieldDidEndEditing:(id)editing

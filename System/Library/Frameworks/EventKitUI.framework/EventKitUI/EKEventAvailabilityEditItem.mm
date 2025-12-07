@@ -181,8 +181,8 @@ LABEL_6:
     [v16 setMenu:v18];
 
     [v16 setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView = [v27 contentView];
-    [contentView addSubview:v16];
+    v19 = objc_msgSend_contentView(v27);
+    [v19 addSubview:v16];
 
     v20 = MEMORY[0x1E696ACD8];
     textLabel2 = [v27 textLabel];
@@ -190,8 +190,8 @@ LABEL_6:
     [v22 setActive:1];
 
     v23 = MEMORY[0x1E696ACD8];
-    contentView2 = [v27 contentView];
-    v25 = [v23 constraintWithItem:v16 attribute:6 relatedBy:0 toItem:contentView2 attribute:6 multiplier:1.0 constant:-20.0];
+    v24 = objc_msgSend_contentView(v27);
+    v25 = [v23 constraintWithItem:v16 attribute:6 relatedBy:0 toItem:v24 attribute:6 multiplier:1.0 constant:-20.0];
     [v25 setActive:1];
   }
 

@@ -1935,7 +1935,6 @@ LABEL_115:
   has = self->_has;
   if ((has & 0x2000000) != 0)
   {
-    itemNumber = self->_itemNumber;
     PBDataWriterWriteInt64Field();
     has = *p_has;
     if ((*p_has & 0x80000000000) == 0)
@@ -1955,7 +1954,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  itemType = self->_itemType;
   PBDataWriterWriteInt32Field();
   has = *p_has;
   if ((*p_has & 0x40000000000) == 0)
@@ -1970,7 +1968,6 @@ LABEL_4:
   }
 
 LABEL_120:
-  dataProtectionClass = self->_dataProtectionClass;
   PBDataWriterWriteInt32Field();
   has = *p_has;
   if ((*p_has & 0x800000000000000) == 0)
@@ -1985,7 +1982,6 @@ LABEL_5:
   }
 
 LABEL_121:
-  isOwnedByLoggedInUser = self->_isOwnedByLoggedInUser;
   PBDataWriterWriteBOOLField();
   has = *p_has;
   if ((*p_has & 0x1000000000000000) == 0)
@@ -2000,7 +1996,6 @@ LABEL_6:
   }
 
 LABEL_122:
-  isOwnedByRoot = self->_isOwnedByRoot;
   PBDataWriterWriteBOOLField();
   has = *p_has;
   if ((*p_has & 0x200000000000) == 0)
@@ -2015,7 +2010,6 @@ LABEL_7:
   }
 
 LABEL_123:
-  xattrCount = self->_xattrCount;
   PBDataWriterWriteInt32Field();
   has = *p_has;
   if ((*p_has & 0x100000000000000) == 0)
@@ -2030,7 +2024,6 @@ LABEL_8:
   }
 
 LABEL_124:
-  isAppleDouble = self->_isAppleDouble;
   PBDataWriterWriteBOOLField();
   has = *p_has;
   if ((*p_has & 0x8000000000000000) == 0)
@@ -2045,12 +2038,10 @@ LABEL_9:
   }
 
 LABEL_125:
-  isResourceFork = self->_isResourceFork;
   PBDataWriterWriteBOOLField();
   if ((*p_has & 0x4000000000000000) != 0)
   {
 LABEL_10:
-    isQuarantined = self->_isQuarantined;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2062,26 +2053,23 @@ LABEL_11:
 
   if ((*(&self->_has + 7) & 2) != 0)
   {
-    isBundleBit = self->_isBundleBit;
     PBDataWriterWriteBOOLField();
   }
 
   if (*(&self->_has + 4))
   {
-    isSparseFile = self->_isSparseFile;
     PBDataWriterWriteBOOLField();
   }
 
-  v9 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x20000000000) != 0)
   {
-    compressionType = self->_compressionType;
     PBDataWriterWriteInt32Field();
-    v9 = *p_has;
+    v6 = *p_has;
     if ((*p_has & 0x100000000) == 0)
     {
 LABEL_19:
-      if ((v9 & 0x20) == 0)
+      if ((v6 & 0x20) == 0)
       {
         goto LABEL_20;
       }
@@ -2090,18 +2078,17 @@ LABEL_19:
     }
   }
 
-  else if ((v9 & 0x100000000) == 0)
+  else if ((v6 & 0x100000000) == 0)
   {
     goto LABEL_19;
   }
 
-  readErrorCode = self->_readErrorCode;
   PBDataWriterWriteInt64Field();
-  v9 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x20) == 0)
   {
 LABEL_20:
-    if ((v9 & 0x100000000000) == 0)
+    if ((v6 & 0x100000000000) == 0)
     {
       goto LABEL_21;
     }
@@ -2110,13 +2097,12 @@ LABEL_20:
   }
 
 LABEL_129:
-  cloneErrorCode = self->_cloneErrorCode;
   PBDataWriterWriteInt64Field();
-  v9 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x100000000000) == 0)
   {
 LABEL_21:
-    if ((v9 & 0x10000000) == 0)
+    if ((v6 & 0x10000000) == 0)
     {
       goto LABEL_22;
     }
@@ -2125,13 +2111,12 @@ LABEL_21:
   }
 
 LABEL_130:
-  syncRootEnum = self->_syncRootEnum;
   PBDataWriterWriteInt32Field();
-  v9 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x10000000) == 0)
   {
 LABEL_22:
-    if ((v9 & 0x200000) == 0)
+    if ((v6 & 0x200000) == 0)
     {
       goto LABEL_23;
     }
@@ -2140,13 +2125,12 @@ LABEL_22:
   }
 
 LABEL_131:
-  pathLength = self->_pathLength;
   PBDataWriterWriteInt64Field();
-  v9 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x200000) == 0)
   {
 LABEL_23:
-    if ((v9 & 0x400000000) == 0)
+    if ((v6 & 0x400000000) == 0)
     {
       goto LABEL_24;
     }
@@ -2155,13 +2139,12 @@ LABEL_23:
   }
 
 LABEL_132:
-  fileNameLength = self->_fileNameLength;
   PBDataWriterWriteInt64Field();
-  v9 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x400000000) == 0)
   {
 LABEL_24:
-    if ((v9 & 0x200000000) == 0)
+    if ((v6 & 0x200000000) == 0)
     {
       goto LABEL_25;
     }
@@ -2170,13 +2153,12 @@ LABEL_24:
   }
 
 LABEL_133:
-  stMode = self->_stMode;
   PBDataWriterWriteInt64Field();
-  v9 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x200000000) == 0)
   {
 LABEL_25:
-    if ((v9 & 0x40000000000000) == 0)
+    if ((v6 & 0x40000000000000) == 0)
     {
       goto LABEL_27;
     }
@@ -2185,45 +2167,38 @@ LABEL_25:
   }
 
 LABEL_134:
-  stFlags = self->_stFlags;
   PBDataWriterWriteInt64Field();
   if ((*p_has & 0x40000000000000) != 0)
   {
 LABEL_26:
-    hasAcls = self->_hasAcls;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_27:
   if ((*(&self->_has + 4) & 0x20) != 0)
   {
-    parentHasAcls = self->_parentHasAcls;
     PBDataWriterWriteBOOLField();
   }
 
   if ((*(&self->_has + 7) & 0x20) != 0)
   {
-    isPurgable = self->_isPurgable;
     PBDataWriterWriteBOOLField();
   }
 
-  v13 = *(&self->_has + 4);
-  if ((v13 & 4) != 0)
+  v7 = *(&self->_has + 4);
+  if ((v7 & 4) != 0)
   {
-    isUrgent = self->_isUrgent;
     PBDataWriterWriteBOOLField();
-    v13 = *(&self->_has + 4);
+    v7 = *(&self->_has + 4);
   }
 
-  if ((v13 & 2) != 0)
+  if ((v7 & 2) != 0)
   {
-    isUnderDirStatFolder = self->_isUnderDirStatFolder;
     PBDataWriterWriteBOOLField();
   }
 
   if ((*(&self->_has + 7) & 4) != 0)
   {
-    isFileNameNonAscii = self->_isFileNameNonAscii;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2232,16 +2207,15 @@ LABEL_27:
     PBDataWriterWriteStringField();
   }
 
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x1000000) != 0)
   {
-    hasMoreLinks = self->_hasMoreLinks;
     PBDataWriterWriteInt64Field();
-    v17 = *p_has;
+    v8 = *p_has;
     if ((*p_has & 0x400000) == 0)
     {
 LABEL_41:
-      if ((v17 & 0x8000) == 0)
+      if ((v8 & 0x8000) == 0)
       {
         goto LABEL_42;
       }
@@ -2250,18 +2224,17 @@ LABEL_41:
     }
   }
 
-  else if ((v17 & 0x400000) == 0)
+  else if ((v8 & 0x400000) == 0)
   {
     goto LABEL_41;
   }
 
-  fsGenCount = self->_fsGenCount;
   PBDataWriterWriteInt64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x8000) == 0)
   {
 LABEL_42:
-    if ((v17 & 0x80000000000000) == 0)
+    if ((v8 & 0x80000000000000) == 0)
     {
       goto LABEL_43;
     }
@@ -2270,13 +2243,12 @@ LABEL_42:
   }
 
 LABEL_138:
-  dbGenCount = self->_dbGenCount;
   PBDataWriterWriteInt64Field();
-  v17 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x80000000000000) == 0)
   {
 LABEL_43:
-    if ((v17 & 0x10000000000000) == 0)
+    if ((v8 & 0x10000000000000) == 0)
     {
       goto LABEL_45;
     }
@@ -2285,12 +2257,10 @@ LABEL_43:
   }
 
 LABEL_139:
-  hasLocalChanges = self->_hasLocalChanges;
   PBDataWriterWriteBOOLField();
   if ((*p_has & 0x10000000000000) != 0)
   {
 LABEL_44:
-    doGenCountsMatchInFileId = self->_doGenCountsMatchInFileId;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2302,21 +2272,18 @@ LABEL_45:
 
   if ((*(&self->_has + 3) & 8) != 0)
   {
-    pathDepth = self->_pathDepth;
     PBDataWriterWriteInt64Field();
   }
 
-  v20 = *(&self->_has + 4);
-  if ((v20 & 0x200) != 0)
+  v9 = *(&self->_has + 4);
+  if ((v9 & 0x200) != 0)
   {
-    xattrHasDemotion = self->_xattrHasDemotion;
     PBDataWriterWriteBOOLField();
-    v20 = *(&self->_has + 4);
+    v9 = *(&self->_has + 4);
   }
 
-  if ((v20 & 0x400) != 0)
+  if ((v9 & 0x400) != 0)
   {
-    xattrHasPromotion = self->_xattrHasPromotion;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2325,16 +2292,15 @@ LABEL_45:
     PBDataWriterWriteStringField();
   }
 
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x100) != 0)
   {
-    dbErrorCode = self->_dbErrorCode;
     PBDataWriterWriteInt64Field();
-    v23 = *p_has;
+    v10 = *p_has;
     if ((*p_has & 0x40) == 0)
     {
 LABEL_57:
-      if ((v23 & 0x20000) == 0)
+      if ((v10 & 0x20000) == 0)
       {
         goto LABEL_58;
       }
@@ -2343,18 +2309,17 @@ LABEL_57:
     }
   }
 
-  else if ((v23 & 0x40) == 0)
+  else if ((v10 & 0x40) == 0)
   {
     goto LABEL_57;
   }
 
-  dbCapabilities = self->_dbCapabilities;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x20000) == 0)
   {
 LABEL_58:
-    if ((v23 & 0x10000) == 0)
+    if ((v10 & 0x10000) == 0)
     {
       goto LABEL_59;
     }
@@ -2363,13 +2328,12 @@ LABEL_58:
   }
 
 LABEL_143:
-  dbTransferState = self->_dbTransferState;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x10000) == 0)
   {
 LABEL_59:
-    if ((v23 & 0x2000000000000) == 0)
+    if ((v10 & 0x2000000000000) == 0)
     {
       goto LABEL_60;
     }
@@ -2378,13 +2342,12 @@ LABEL_59:
   }
 
 LABEL_144:
-  dbSharingState = self->_dbSharingState;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x2000000000000) == 0)
   {
 LABEL_60:
-    if ((v23 & 0x80) == 0)
+    if ((v10 & 0x80) == 0)
     {
       goto LABEL_61;
     }
@@ -2393,13 +2356,12 @@ LABEL_60:
   }
 
 LABEL_145:
-  dbIsApplibrary = self->_dbIsApplibrary;
   PBDataWriterWriteBOOLField();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x80) == 0)
   {
 LABEL_61:
-    if ((v23 & 0x4000000000000) == 0)
+    if ((v10 & 0x4000000000000) == 0)
     {
       goto LABEL_62;
     }
@@ -2408,13 +2370,12 @@ LABEL_61:
   }
 
 LABEL_146:
-  dbEffectiveContentPolicy = self->_dbEffectiveContentPolicy;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x4000000000000) == 0)
   {
 LABEL_62:
-    if ((v23 & 0x1000) == 0)
+    if ((v10 & 0x1000) == 0)
     {
       goto LABEL_63;
     }
@@ -2423,13 +2384,12 @@ LABEL_62:
   }
 
 LABEL_147:
-  dbIsPackage = self->_dbIsPackage;
   PBDataWriterWriteBOOLField();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x1000) == 0)
   {
 LABEL_63:
-    if ((v23 & 0x200) == 0)
+    if ((v10 & 0x200) == 0)
     {
       goto LABEL_64;
     }
@@ -2438,13 +2398,12 @@ LABEL_63:
   }
 
 LABEL_148:
-  dbFsContentStatus = self->_dbFsContentStatus;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x200) == 0)
   {
 LABEL_64:
-    if ((v23 & 0x2000) == 0)
+    if ((v10 & 0x2000) == 0)
     {
       goto LABEL_65;
     }
@@ -2453,13 +2412,12 @@ LABEL_64:
   }
 
 LABEL_149:
-  dbFpContentStatus = self->_dbFpContentStatus;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x2000) == 0)
   {
 LABEL_65:
-    if ((v23 & 0x400) == 0)
+    if ((v10 & 0x400) == 0)
     {
       goto LABEL_66;
     }
@@ -2468,13 +2426,12 @@ LABEL_65:
   }
 
 LABEL_150:
-  dbFsDeletionStatus = self->_dbFsDeletionStatus;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x400) == 0)
   {
 LABEL_66:
-    if ((v23 & 0x4000) == 0)
+    if ((v10 & 0x4000) == 0)
     {
       goto LABEL_67;
     }
@@ -2483,13 +2440,12 @@ LABEL_66:
   }
 
 LABEL_151:
-  dbFpDeletionStatus = self->_dbFpDeletionStatus;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x4000) == 0)
   {
 LABEL_67:
-    if ((v23 & 0x800) == 0)
+    if ((v10 & 0x800) == 0)
     {
       goto LABEL_68;
     }
@@ -2498,13 +2454,12 @@ LABEL_67:
   }
 
 LABEL_152:
-  dbFsImportStatus = self->_dbFsImportStatus;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x800) == 0)
   {
 LABEL_68:
-    if ((v23 & 0x8000000000000) == 0)
+    if ((v10 & 0x8000000000000) == 0)
     {
       goto LABEL_69;
     }
@@ -2513,13 +2468,12 @@ LABEL_68:
   }
 
 LABEL_153:
-  dbFpImportStatus = self->_dbFpImportStatus;
   PBDataWriterWriteInt64Field();
-  v23 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 0x8000000000000) == 0)
   {
 LABEL_69:
-    if ((v23 & 0x800000) == 0)
+    if ((v10 & 0x800000) == 0)
     {
       goto LABEL_71;
     }
@@ -2528,44 +2482,38 @@ LABEL_69:
   }
 
 LABEL_154:
-  dbIsSuper = self->_dbIsSuper;
   PBDataWriterWriteBOOLField();
   if ((*p_has & 0x800000) != 0)
   {
 LABEL_70:
-    gencountDiff = self->_gencountDiff;
     PBDataWriterWriteInt64Field();
   }
 
 LABEL_71:
   if ((*(&self->_has + 4) & 0x40) != 0)
   {
-    parentMatches = self->_parentMatches;
     PBDataWriterWriteBOOLField();
   }
 
   if ((*(&self->_has + 5) & 0x80) != 0)
   {
-    appLibraryMatches = self->_appLibraryMatches;
     PBDataWriterWriteBOOLField();
   }
 
   if ((*(&self->_has + 4) & 8) != 0)
   {
-    mTimeBeforeMigrationStarted = self->_mTimeBeforeMigrationStarted;
     PBDataWriterWriteBOOLField();
   }
 
-  v28 = *p_has;
+  v11 = *p_has;
   if ((*p_has & 0x20000000000000) != 0)
   {
-    docIDMatches = self->_docIDMatches;
     PBDataWriterWriteBOOLField();
-    v28 = *p_has;
+    v11 = *p_has;
     if ((*p_has & 0x4000000) == 0)
     {
 LABEL_79:
-      if ((v28 & 0x10) == 0)
+      if ((v11 & 0x10) == 0)
       {
         goto LABEL_80;
       }
@@ -2574,18 +2522,17 @@ LABEL_79:
     }
   }
 
-  else if ((v28 & 0x4000000) == 0)
+  else if ((v11 & 0x4000000) == 0)
   {
     goto LABEL_79;
   }
 
-  mTime = self->_mTime;
   PBDataWriterWriteInt64Field();
-  v28 = *p_has;
+  v11 = *p_has;
   if ((*p_has & 0x10) == 0)
   {
 LABEL_80:
-    if ((v28 & 0x1000000000000) == 0)
+    if ((v11 & 0x1000000000000) == 0)
     {
       goto LABEL_82;
     }
@@ -2594,19 +2541,16 @@ LABEL_80:
   }
 
 LABEL_158:
-  bTime = self->_bTime;
   PBDataWriterWriteInt64Field();
   if ((*p_has & 0x1000000000000) != 0)
   {
 LABEL_81:
-    bTimeIsBusy = self->_bTimeIsBusy;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_82:
   if ((*(&self->_has + 4) & 0x100) != 0)
   {
-    xattrHasBeforeBounce = self->_xattrHasBeforeBounce;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2617,40 +2561,35 @@ LABEL_82:
 
   if ((*(&self->_has + 4) & 0x10) != 0)
   {
-    nameIsTrashed = self->_nameIsTrashed;
     PBDataWriterWriteBOOLField();
   }
 
-  v32 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x8000000000) != 0)
   {
-    sysPageSize = self->_sysPageSize;
     PBDataWriterWriteInt64Field();
-    v32 = *p_has;
+    v12 = *p_has;
   }
 
-  if ((v32 & 0x10000000000) != 0)
+  if ((v12 & 0x10000000000) != 0)
   {
-    sysUID = self->_sysUID;
     PBDataWriterWriteInt64Field();
   }
 
   if ((*(&self->_has + 4) & 0x80) != 0)
   {
-    sysDocIDResolutionOK = self->_sysDocIDResolutionOK;
     PBDataWriterWriteBOOLField();
   }
 
-  v36 = *p_has;
+  v13 = *p_has;
   if ((*p_has & 0x40000000) != 0)
   {
-    purgeGenCount = self->_purgeGenCount;
     PBDataWriterWriteInt64Field();
-    v36 = *p_has;
+    v13 = *p_has;
     if ((*p_has & 0x20000000) == 0)
     {
 LABEL_96:
-      if ((v36 & 0x80000000) == 0)
+      if ((v13 & 0x80000000) == 0)
       {
         goto LABEL_97;
       }
@@ -2659,18 +2598,17 @@ LABEL_96:
     }
   }
 
-  else if ((v36 & 0x20000000) == 0)
+  else if ((v13 & 0x20000000) == 0)
   {
     goto LABEL_96;
   }
 
-  purgeATime = self->_purgeATime;
   PBDataWriterWriteInt64Field();
-  v36 = *p_has;
+  v13 = *p_has;
   if ((*p_has & 0x80000000) == 0)
   {
 LABEL_97:
-    if ((v36 & 0x80000) == 0)
+    if ((v13 & 0x80000) == 0)
     {
       goto LABEL_98;
     }
@@ -2679,13 +2617,12 @@ LABEL_97:
   }
 
 LABEL_162:
-  purgeSyncRoot = self->_purgeSyncRoot;
   PBDataWriterWriteInt64Field();
-  v36 = *p_has;
+  v13 = *p_has;
   if ((*p_has & 0x80000) == 0)
   {
 LABEL_98:
-    if ((v36 & 0x40000) == 0)
+    if ((v13 & 0x40000) == 0)
     {
       goto LABEL_99;
     }
@@ -2694,13 +2631,12 @@ LABEL_98:
   }
 
 LABEL_163:
-  diagFailuresBitmap = self->_diagFailuresBitmap;
   PBDataWriterWriteInt64Field();
-  v36 = *p_has;
+  v13 = *p_has;
   if ((*p_has & 0x40000) == 0)
   {
 LABEL_99:
-    if ((v36 & 0x100000) == 0)
+    if ((v13 & 0x100000) == 0)
     {
       goto LABEL_101;
     }
@@ -2709,12 +2645,10 @@ LABEL_99:
   }
 
 LABEL_164:
-  diagErrorCode = self->_diagErrorCode;
   PBDataWriterWriteInt64Field();
   if ((*p_has & 0x100000) != 0)
   {
 LABEL_100:
-    diagUnderlyingErrorCode = self->_diagUnderlyingErrorCode;
     PBDataWriterWriteInt64Field();
   }
 
@@ -2729,16 +2663,15 @@ LABEL_101:
     PBDataWriterWriteStringField();
   }
 
-  v38 = *p_has;
+  v14 = *p_has;
   if (*p_has)
   {
-    apfsAvailableSpace = self->_apfsAvailableSpace;
     PBDataWriterWriteInt64Field();
-    v38 = *p_has;
+    v14 = *p_has;
     if ((*p_has & 4) == 0)
     {
 LABEL_107:
-      if ((v38 & 2) == 0)
+      if ((v14 & 2) == 0)
       {
         goto LABEL_108;
       }
@@ -2747,18 +2680,17 @@ LABEL_107:
     }
   }
 
-  else if ((v38 & 4) == 0)
+  else if ((v14 & 4) == 0)
   {
     goto LABEL_107;
   }
 
-  apfsFlags = self->_apfsFlags;
   PBDataWriterWriteInt64Field();
-  v38 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 2) == 0)
   {
 LABEL_108:
-    if ((v38 & 8) == 0)
+    if ((v14 & 8) == 0)
     {
       goto LABEL_109;
     }
@@ -2767,13 +2699,12 @@ LABEL_108:
   }
 
 LABEL_168:
-  apfsBlockSize = self->_apfsBlockSize;
   PBDataWriterWriteInt64Field();
-  v38 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 8) == 0)
   {
 LABEL_109:
-    if ((v38 & 0x400000000000) == 0)
+    if ((v14 & 0x400000000000) == 0)
     {
       goto LABEL_110;
     }
@@ -2782,13 +2713,12 @@ LABEL_109:
   }
 
 LABEL_169:
-  apfsRole = self->_apfsRole;
   PBDataWriterWriteInt64Field();
-  v38 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x400000000000) == 0)
   {
 LABEL_110:
-    if ((v38 & 0x1000000000) == 0)
+    if ((v14 & 0x1000000000) == 0)
     {
       goto LABEL_111;
     }
@@ -2797,13 +2727,12 @@ LABEL_110:
   }
 
 LABEL_170:
-  apfsEncrypted = self->_apfsEncrypted;
   PBDataWriterWriteBOOLField();
-  v38 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x1000000000) == 0)
   {
 LABEL_111:
-    if ((v38 & 0x2000000000) == 0)
+    if ((v14 & 0x2000000000) == 0)
     {
       goto LABEL_112;
     }
@@ -2812,13 +2741,12 @@ LABEL_111:
   }
 
 LABEL_171:
-  statDocID = self->_statDocID;
   PBDataWriterWriteInt64Field();
-  v38 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x2000000000) == 0)
   {
 LABEL_112:
-    if ((v38 & 0x4000000000) == 0)
+    if ((v14 & 0x4000000000) == 0)
     {
       goto LABEL_113;
     }
@@ -2827,13 +2755,12 @@ LABEL_112:
   }
 
 LABEL_172:
-  statLogicalSize = self->_statLogicalSize;
   PBDataWriterWriteInt64Field();
-  v38 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x4000000000) == 0)
   {
 LABEL_113:
-    if ((v38 & 0x800000000) == 0)
+    if ((v14 & 0x800000000) == 0)
     {
       goto LABEL_115;
     }
@@ -2842,12 +2769,10 @@ LABEL_113:
   }
 
 LABEL_173:
-  statPhysicalSize = self->_statPhysicalSize;
   PBDataWriterWriteInt64Field();
   if ((*p_has & 0x800000000) != 0)
   {
 LABEL_114:
-    statDirEntryCount = self->_statDirEntryCount;
     PBDataWriterWriteInt64Field();
   }
 
@@ -4769,7 +4694,6 @@ LABEL_101:
       goto LABEL_483;
     }
 
-    v9 = equalCopy[433];
     if (self->_isOwnedByLoggedInUser)
     {
       if ((equalCopy[433] & 1) == 0)
@@ -4796,7 +4720,6 @@ LABEL_101:
       goto LABEL_483;
     }
 
-    v10 = equalCopy[434];
     if (self->_isOwnedByRoot)
     {
       if ((equalCopy[434] & 1) == 0)
@@ -4836,7 +4759,6 @@ LABEL_101:
       goto LABEL_483;
     }
 
-    v15 = equalCopy[430];
     if (self->_isAppleDouble)
     {
       if ((equalCopy[430] & 1) == 0)
@@ -4863,7 +4785,6 @@ LABEL_101:
       goto LABEL_483;
     }
 
-    v16 = equalCopy[437];
     if (self->_isResourceFork)
     {
       if ((equalCopy[437] & 1) == 0)
@@ -4890,7 +4811,6 @@ LABEL_101:
       goto LABEL_483;
     }
 
-    v17 = equalCopy[436];
     if (self->_isQuarantined)
     {
       if ((equalCopy[436] & 1) == 0)
@@ -4921,15 +4841,14 @@ LABEL_101:
     has = *p_has;
   }
 
-  v12 = *v7;
+  v10 = *v7;
   if ((has & 0x200000000000000) != 0)
   {
-    if ((v12 & 0x200000000000000) == 0)
+    if ((v10 & 0x200000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v18 = equalCopy[431];
     if (self->_isBundleBit)
     {
       if ((equalCopy[431] & 1) == 0)
@@ -4944,21 +4863,20 @@ LABEL_101:
     }
   }
 
-  else if ((v12 & 0x200000000000000) != 0)
+  else if ((v10 & 0x200000000000000) != 0)
   {
     goto LABEL_483;
   }
 
-  v13 = *(&self->_has + 4);
-  v14 = *(equalCopy + 230);
-  if (v13)
+  v11 = *(&self->_has + 4);
+  v12 = *(equalCopy + 230);
+  if (v11)
   {
-    if ((v14 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
       goto LABEL_483;
     }
 
-    v19 = equalCopy[438];
     if (self->_isSparseFile)
     {
       if ((equalCopy[438] & 1) == 0)
@@ -4973,123 +4891,122 @@ LABEL_101:
     }
   }
 
-  else if (v14)
+  else if (v12)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x20000000000) != 0)
   {
-    if ((v12 & 0x20000000000) == 0 || self->_compressionType != *(equalCopy + 84))
+    if ((v10 & 0x20000000000) == 0 || self->_compressionType != *(equalCopy + 84))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v12 & 0x20000000000) != 0)
+  else if ((v10 & 0x20000000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x100000000) != 0)
   {
-    if ((v12 & 0x100000000) == 0 || self->_readErrorCode != *(equalCopy + 33))
+    if ((v10 & 0x100000000) == 0 || self->_readErrorCode != *(equalCopy + 33))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v12 & 0x100000000) != 0)
+  else if ((v10 & 0x100000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x20) != 0)
   {
-    if ((v12 & 0x20) == 0 || self->_cloneErrorCode != *(equalCopy + 6))
+    if ((v10 & 0x20) == 0 || self->_cloneErrorCode != *(equalCopy + 6))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v12 & 0x20) != 0)
+  else if ((v10 & 0x20) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x100000000000) != 0)
   {
-    if ((v12 & 0x100000000000) == 0 || self->_syncRootEnum != *(equalCopy + 100))
+    if ((v10 & 0x100000000000) == 0 || self->_syncRootEnum != *(equalCopy + 100))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v12 & 0x100000000000) != 0)
+  else if ((v10 & 0x100000000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x10000000) != 0)
   {
-    if ((v12 & 0x10000000) == 0 || self->_pathLength != *(equalCopy + 29))
+    if ((v10 & 0x10000000) == 0 || self->_pathLength != *(equalCopy + 29))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v12 & 0x10000000) != 0)
+  else if ((v10 & 0x10000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x200000) != 0)
   {
-    if ((v12 & 0x200000) == 0 || self->_fileNameLength != *(equalCopy + 22))
+    if ((v10 & 0x200000) == 0 || self->_fileNameLength != *(equalCopy + 22))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v12 & 0x200000) != 0)
+  else if ((v10 & 0x200000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x400000000) != 0)
   {
-    if ((v12 & 0x400000000) == 0 || self->_stMode != *(equalCopy + 35))
+    if ((v10 & 0x400000000) == 0 || self->_stMode != *(equalCopy + 35))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v12 & 0x400000000) != 0)
+  else if ((v10 & 0x400000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x200000000) != 0)
   {
-    if ((v12 & 0x200000000) == 0 || self->_stFlags != *(equalCopy + 34))
+    if ((v10 & 0x200000000) == 0 || self->_stFlags != *(equalCopy + 34))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v12 & 0x200000000) != 0)
+  else if ((v10 & 0x200000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x40000000000000) != 0)
   {
-    if ((v12 & 0x40000000000000) == 0)
+    if ((v10 & 0x40000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v20 = equalCopy[428];
     if (self->_hasAcls)
     {
       if ((equalCopy[428] & 1) == 0)
@@ -5104,19 +5021,18 @@ LABEL_101:
     }
   }
 
-  else if ((v12 & 0x40000000000000) != 0)
+  else if ((v10 & 0x40000000000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v13 & 0x20) != 0)
+  if ((v11 & 0x20) != 0)
   {
-    if ((v14 & 0x20) == 0)
+    if ((v12 & 0x20) == 0)
     {
       goto LABEL_483;
     }
 
-    v21 = equalCopy[443];
     if (self->_parentHasAcls)
     {
       if ((equalCopy[443] & 1) == 0)
@@ -5131,19 +5047,18 @@ LABEL_101:
     }
   }
 
-  else if ((v14 & 0x20) != 0)
+  else if ((v12 & 0x20) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x2000000000000000) != 0)
   {
-    if ((v12 & 0x2000000000000000) == 0)
+    if ((v10 & 0x2000000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v24 = equalCopy[435];
     if (self->_isPurgable)
     {
       if ((equalCopy[435] & 1) == 0)
@@ -5158,19 +5073,18 @@ LABEL_101:
     }
   }
 
-  else if ((v12 & 0x2000000000000000) != 0)
+  else if ((v10 & 0x2000000000000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v13 & 4) != 0)
+  if ((v11 & 4) != 0)
   {
-    if ((v14 & 4) == 0)
+    if ((v12 & 4) == 0)
     {
       goto LABEL_483;
     }
 
-    v25 = equalCopy[440];
     if (self->_isUrgent)
     {
       if ((equalCopy[440] & 1) == 0)
@@ -5185,19 +5099,18 @@ LABEL_101:
     }
   }
 
-  else if ((v14 & 4) != 0)
+  else if ((v12 & 4) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v13 & 2) != 0)
+  if ((v11 & 2) != 0)
   {
-    if ((v14 & 2) == 0)
+    if ((v12 & 2) == 0)
     {
       goto LABEL_483;
     }
 
-    v26 = equalCopy[439];
     if (self->_isUnderDirStatFolder)
     {
       if ((equalCopy[439] & 1) == 0)
@@ -5212,19 +5125,18 @@ LABEL_101:
     }
   }
 
-  else if ((v14 & 2) != 0)
+  else if ((v12 & 2) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x400000000000000) != 0)
   {
-    if ((v12 & 0x400000000000000) == 0)
+    if ((v10 & 0x400000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v27 = equalCopy[432];
     if (self->_isFileNameNonAscii)
     {
       if ((equalCopy[432] & 1) == 0)
@@ -5239,7 +5151,7 @@ LABEL_101:
     }
   }
 
-  else if ((v12 & 0x400000000000000) != 0)
+  else if ((v10 & 0x400000000000000) != 0)
   {
     goto LABEL_483;
   }
@@ -5255,54 +5167,53 @@ LABEL_101:
     has = *p_has;
   }
 
-  v23 = *v7;
+  v14 = *v7;
   if ((has & 0x1000000) != 0)
   {
-    if ((v23 & 0x1000000) == 0 || self->_hasMoreLinks != *(equalCopy + 25))
+    if ((v14 & 0x1000000) == 0 || self->_hasMoreLinks != *(equalCopy + 25))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v23 & 0x1000000) != 0)
+  else if ((v14 & 0x1000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x400000) != 0)
   {
-    if ((v23 & 0x400000) == 0 || self->_fsGenCount != *(equalCopy + 23))
+    if ((v14 & 0x400000) == 0 || self->_fsGenCount != *(equalCopy + 23))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v23 & 0x400000) != 0)
+  else if ((v14 & 0x400000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x8000) != 0)
   {
-    if ((v23 & 0x8000) == 0 || self->_dbGenCount != *(equalCopy + 16))
+    if ((v14 & 0x8000) == 0 || self->_dbGenCount != *(equalCopy + 16))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v23 & 0x8000) != 0)
+  else if ((v14 & 0x8000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x80000000000000) != 0)
   {
-    if ((v23 & 0x80000000000000) == 0)
+    if ((v14 & 0x80000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v30 = equalCopy[429];
     if (self->_hasLocalChanges)
     {
       if ((equalCopy[429] & 1) == 0)
@@ -5317,19 +5228,18 @@ LABEL_101:
     }
   }
 
-  else if ((v23 & 0x80000000000000) != 0)
+  else if ((v14 & 0x80000000000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x10000000000000) != 0)
   {
-    if ((v23 & 0x10000000000000) == 0)
+    if ((v14 & 0x10000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v31 = equalCopy[426];
     if (self->_doGenCountsMatchInFileId)
     {
       if ((equalCopy[426] & 1) == 0)
@@ -5344,7 +5254,7 @@ LABEL_101:
     }
   }
 
-  else if ((v23 & 0x10000000000000) != 0)
+  else if ((v14 & 0x10000000000000) != 0)
   {
     goto LABEL_483;
   }
@@ -5360,21 +5270,20 @@ LABEL_101:
     has = *p_has;
   }
 
-  v29 = *v7;
+  v16 = *v7;
   if ((has & 0x8000000) != 0)
   {
-    if ((v29 & 0x8000000) == 0 || self->_pathDepth != *(equalCopy + 28))
+    if ((v16 & 0x8000000) == 0 || self->_pathDepth != *(equalCopy + 28))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v29 & 0x8000000) != 0)
+  else if ((v16 & 0x8000000) != 0)
   {
     goto LABEL_483;
   }
 
-  v32 = *(equalCopy + 230);
   if ((*(&self->_has + 4) & 0x200) != 0)
   {
     if ((*(equalCopy + 230) & 0x200) == 0)
@@ -5382,7 +5291,6 @@ LABEL_101:
       goto LABEL_483;
     }
 
-    v33 = equalCopy[447];
     if (self->_xattrHasDemotion)
     {
       if ((equalCopy[447] & 1) == 0)
@@ -5409,7 +5317,6 @@ LABEL_101:
       goto LABEL_483;
     }
 
-    v36 = equalCopy[448];
     if (self->_xattrHasPromotion)
     {
       if ((equalCopy[448] & 1) == 0)
@@ -5440,67 +5347,66 @@ LABEL_101:
     has = *p_has;
   }
 
-  v35 = *v7;
+  v18 = *v7;
   if ((has & 0x100) != 0)
   {
-    if ((v35 & 0x100) == 0 || self->_dbErrorCode != *(equalCopy + 9))
+    if ((v18 & 0x100) == 0 || self->_dbErrorCode != *(equalCopy + 9))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x100) != 0)
+  else if ((v18 & 0x100) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x40) != 0)
   {
-    if ((v35 & 0x40) == 0 || self->_dbCapabilities != *(equalCopy + 7))
+    if ((v18 & 0x40) == 0 || self->_dbCapabilities != *(equalCopy + 7))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x40) != 0)
+  else if ((v18 & 0x40) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x20000) != 0)
   {
-    if ((v35 & 0x20000) == 0 || self->_dbTransferState != *(equalCopy + 18))
+    if ((v18 & 0x20000) == 0 || self->_dbTransferState != *(equalCopy + 18))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x20000) != 0)
+  else if ((v18 & 0x20000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x10000) != 0)
   {
-    if ((v35 & 0x10000) == 0 || self->_dbSharingState != *(equalCopy + 17))
+    if ((v18 & 0x10000) == 0 || self->_dbSharingState != *(equalCopy + 17))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x10000) != 0)
+  else if ((v18 & 0x10000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x2000000000000) != 0)
   {
-    if ((v35 & 0x2000000000000) == 0)
+    if ((v18 & 0x2000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v37 = equalCopy[423];
     if (self->_dbIsApplibrary)
     {
       if ((equalCopy[423] & 1) == 0)
@@ -5515,32 +5421,31 @@ LABEL_101:
     }
   }
 
-  else if ((v35 & 0x2000000000000) != 0)
+  else if ((v18 & 0x2000000000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x80) != 0)
   {
-    if ((v35 & 0x80) == 0 || self->_dbEffectiveContentPolicy != *(equalCopy + 8))
+    if ((v18 & 0x80) == 0 || self->_dbEffectiveContentPolicy != *(equalCopy + 8))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x80) != 0)
+  else if ((v18 & 0x80) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x4000000000000) != 0)
   {
-    if ((v35 & 0x4000000000000) == 0)
+    if ((v18 & 0x4000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v38 = equalCopy[424];
     if (self->_dbIsPackage)
     {
       if ((equalCopy[424] & 1) == 0)
@@ -5555,97 +5460,96 @@ LABEL_101:
     }
   }
 
-  else if ((v35 & 0x4000000000000) != 0)
+  else if ((v18 & 0x4000000000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x1000) != 0)
   {
-    if ((v35 & 0x1000) == 0 || self->_dbFsContentStatus != *(equalCopy + 13))
+    if ((v18 & 0x1000) == 0 || self->_dbFsContentStatus != *(equalCopy + 13))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x1000) != 0)
+  else if ((v18 & 0x1000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x200) != 0)
   {
-    if ((v35 & 0x200) == 0 || self->_dbFpContentStatus != *(equalCopy + 10))
+    if ((v18 & 0x200) == 0 || self->_dbFpContentStatus != *(equalCopy + 10))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x200) != 0)
+  else if ((v18 & 0x200) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x2000) != 0)
   {
-    if ((v35 & 0x2000) == 0 || self->_dbFsDeletionStatus != *(equalCopy + 14))
+    if ((v18 & 0x2000) == 0 || self->_dbFsDeletionStatus != *(equalCopy + 14))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x2000) != 0)
+  else if ((v18 & 0x2000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x400) != 0)
   {
-    if ((v35 & 0x400) == 0 || self->_dbFpDeletionStatus != *(equalCopy + 11))
+    if ((v18 & 0x400) == 0 || self->_dbFpDeletionStatus != *(equalCopy + 11))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x400) != 0)
+  else if ((v18 & 0x400) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x4000) != 0)
   {
-    if ((v35 & 0x4000) == 0 || self->_dbFsImportStatus != *(equalCopy + 15))
+    if ((v18 & 0x4000) == 0 || self->_dbFsImportStatus != *(equalCopy + 15))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x4000) != 0)
+  else if ((v18 & 0x4000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x800) != 0)
   {
-    if ((v35 & 0x800) == 0 || self->_dbFpImportStatus != *(equalCopy + 12))
+    if ((v18 & 0x800) == 0 || self->_dbFpImportStatus != *(equalCopy + 12))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x800) != 0)
+  else if ((v18 & 0x800) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x8000000000000) != 0)
   {
-    if ((v35 & 0x8000000000000) == 0)
+    if ((v18 & 0x8000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v39 = equalCopy[425];
     if (self->_dbIsSuper)
     {
       if ((equalCopy[425] & 1) == 0)
@@ -5660,34 +5564,33 @@ LABEL_101:
     }
   }
 
-  else if ((v35 & 0x8000000000000) != 0)
+  else if ((v18 & 0x8000000000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x800000) != 0)
   {
-    if ((v35 & 0x800000) == 0 || self->_gencountDiff != *(equalCopy + 24))
+    if ((v18 & 0x800000) == 0 || self->_gencountDiff != *(equalCopy + 24))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x800000) != 0)
+  else if ((v18 & 0x800000) != 0)
   {
     goto LABEL_483;
   }
 
-  v40 = *(&self->_has + 4);
-  v41 = *(equalCopy + 230);
-  if ((v40 & 0x40) != 0)
+  v19 = *(&self->_has + 4);
+  v20 = *(equalCopy + 230);
+  if ((v19 & 0x40) != 0)
   {
-    if ((v41 & 0x40) == 0)
+    if ((v20 & 0x40) == 0)
     {
       goto LABEL_483;
     }
 
-    v42 = equalCopy[444];
     if (self->_parentMatches)
     {
       if ((equalCopy[444] & 1) == 0)
@@ -5702,19 +5605,18 @@ LABEL_101:
     }
   }
 
-  else if ((v41 & 0x40) != 0)
+  else if ((v20 & 0x40) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x800000000000) != 0)
   {
-    if ((v35 & 0x800000000000) == 0)
+    if ((v18 & 0x800000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v43 = equalCopy[421];
     if (self->_appLibraryMatches)
     {
       if ((equalCopy[421] & 1) == 0)
@@ -5729,19 +5631,18 @@ LABEL_101:
     }
   }
 
-  else if ((v35 & 0x800000000000) != 0)
+  else if ((v18 & 0x800000000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v40 & 8) != 0)
+  if ((v19 & 8) != 0)
   {
-    if ((v41 & 8) == 0)
+    if ((v20 & 8) == 0)
     {
       goto LABEL_483;
     }
 
-    v44 = equalCopy[441];
     if (self->_mTimeBeforeMigrationStarted)
     {
       if ((equalCopy[441] & 1) == 0)
@@ -5756,19 +5657,18 @@ LABEL_101:
     }
   }
 
-  else if ((v41 & 8) != 0)
+  else if ((v20 & 8) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x20000000000000) != 0)
   {
-    if ((v35 & 0x20000000000000) == 0)
+    if ((v18 & 0x20000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v45 = equalCopy[427];
     if (self->_docIDMatches)
     {
       if ((equalCopy[427] & 1) == 0)
@@ -5783,45 +5683,44 @@ LABEL_101:
     }
   }
 
-  else if ((v35 & 0x20000000000000) != 0)
+  else if ((v18 & 0x20000000000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x4000000) != 0)
   {
-    if ((v35 & 0x4000000) == 0 || self->_mTime != *(equalCopy + 27))
+    if ((v18 & 0x4000000) == 0 || self->_mTime != *(equalCopy + 27))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x4000000) != 0)
+  else if ((v18 & 0x4000000) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x10) != 0)
   {
-    if ((v35 & 0x10) == 0 || self->_bTime != *(equalCopy + 5))
+    if ((v18 & 0x10) == 0 || self->_bTime != *(equalCopy + 5))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v35 & 0x10) != 0)
+  else if ((v18 & 0x10) != 0)
   {
     goto LABEL_483;
   }
 
   if ((has & 0x1000000000000) != 0)
   {
-    if ((v35 & 0x1000000000000) == 0)
+    if ((v18 & 0x1000000000000) == 0)
     {
       goto LABEL_483;
     }
 
-    v46 = equalCopy[422];
     if (self->_bTimeIsBusy)
     {
       if ((equalCopy[422] & 1) == 0)
@@ -5836,7 +5735,7 @@ LABEL_101:
     }
   }
 
-  else if ((v35 & 0x1000000000000) != 0)
+  else if ((v18 & 0x1000000000000) != 0)
   {
     goto LABEL_483;
   }
@@ -5848,7 +5747,6 @@ LABEL_101:
       goto LABEL_483;
     }
 
-    v47 = equalCopy[446];
     if (self->_xattrHasBeforeBounce)
     {
       if ((equalCopy[446] & 1) == 0)
@@ -5876,18 +5774,17 @@ LABEL_101:
       goto LABEL_483;
     }
 
-    v40 = *(&self->_has + 4);
+    v19 = *(&self->_has + 4);
   }
 
-  v49 = *(equalCopy + 230);
-  if ((v40 & 0x10) != 0)
+  v22 = *(equalCopy + 230);
+  if ((v19 & 0x10) != 0)
   {
-    if ((v49 & 0x10) == 0)
+    if ((v22 & 0x10) == 0)
     {
       goto LABEL_483;
     }
 
-    v50 = equalCopy[442];
     if (self->_nameIsTrashed)
     {
       if ((equalCopy[442] & 1) == 0)
@@ -5902,47 +5799,46 @@ LABEL_101:
     }
   }
 
-  else if ((v49 & 0x10) != 0)
+  else if ((v22 & 0x10) != 0)
   {
     goto LABEL_483;
   }
 
-  v51 = *p_has;
-  v52 = *v7;
+  v23 = *p_has;
+  v24 = *v7;
   if ((*p_has & 0x8000000000) != 0)
   {
-    if ((v52 & 0x8000000000) == 0 || self->_sysPageSize != *(equalCopy + 40))
+    if ((v24 & 0x8000000000) == 0 || self->_sysPageSize != *(equalCopy + 40))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v52 & 0x8000000000) != 0)
+  else if ((v24 & 0x8000000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v51 & 0x10000000000) != 0)
+  if ((v23 & 0x10000000000) != 0)
   {
-    if ((v52 & 0x10000000000) == 0 || self->_sysUID != *(equalCopy + 41))
+    if ((v24 & 0x10000000000) == 0 || self->_sysUID != *(equalCopy + 41))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v52 & 0x10000000000) != 0)
+  else if ((v24 & 0x10000000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v40 & 0x80) != 0)
+  if ((v19 & 0x80) != 0)
   {
-    if ((v49 & 0x80) == 0)
+    if ((v22 & 0x80) == 0)
     {
       goto LABEL_483;
     }
 
-    v53 = equalCopy[445];
     if (self->_sysDocIDResolutionOK)
     {
       if ((equalCopy[445] & 1) == 0)
@@ -5957,85 +5853,85 @@ LABEL_101:
     }
   }
 
-  else if ((v49 & 0x80) != 0)
+  else if ((v22 & 0x80) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v51 & 0x40000000) != 0)
+  if ((v23 & 0x40000000) != 0)
   {
-    if ((v52 & 0x40000000) == 0 || self->_purgeGenCount != *(equalCopy + 31))
+    if ((v24 & 0x40000000) == 0 || self->_purgeGenCount != *(equalCopy + 31))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v52 & 0x40000000) != 0)
+  else if ((v24 & 0x40000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v51 & 0x20000000) != 0)
+  if ((v23 & 0x20000000) != 0)
   {
-    if ((v52 & 0x20000000) == 0 || self->_purgeATime != *(equalCopy + 30))
+    if ((v24 & 0x20000000) == 0 || self->_purgeATime != *(equalCopy + 30))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v52 & 0x20000000) != 0)
+  else if ((v24 & 0x20000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v51 & 0x80000000) != 0)
+  if ((v23 & 0x80000000) != 0)
   {
-    if ((v52 & 0x80000000) == 0 || self->_purgeSyncRoot != *(equalCopy + 32))
+    if ((v24 & 0x80000000) == 0 || self->_purgeSyncRoot != *(equalCopy + 32))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v52 & 0x80000000) != 0)
+  else if ((v24 & 0x80000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v51 & 0x80000) != 0)
+  if ((v23 & 0x80000) != 0)
   {
-    if ((v52 & 0x80000) == 0 || self->_diagFailuresBitmap != *(equalCopy + 20))
+    if ((v24 & 0x80000) == 0 || self->_diagFailuresBitmap != *(equalCopy + 20))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v52 & 0x80000) != 0)
+  else if ((v24 & 0x80000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v51 & 0x40000) != 0)
+  if ((v23 & 0x40000) != 0)
   {
-    if ((v52 & 0x40000) == 0 || self->_diagErrorCode != *(equalCopy + 19))
+    if ((v24 & 0x40000) == 0 || self->_diagErrorCode != *(equalCopy + 19))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v52 & 0x40000) != 0)
+  else if ((v24 & 0x40000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v51 & 0x100000) != 0)
+  if ((v23 & 0x100000) != 0)
   {
-    if ((v52 & 0x100000) == 0 || self->_diagUnderlyingErrorCode != *(equalCopy + 21))
+    if ((v24 & 0x100000) == 0 || self->_diagUnderlyingErrorCode != *(equalCopy + 21))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v52 & 0x100000) != 0)
+  else if ((v24 & 0x100000) != 0)
   {
     goto LABEL_483;
   }
@@ -6055,65 +5951,64 @@ LABEL_101:
     }
   }
 
-  v56 = *p_has;
-  v57 = *v7;
+  v27 = *p_has;
+  v28 = *v7;
   if (*p_has)
   {
-    if ((v57 & 1) == 0 || self->_apfsAvailableSpace != *(equalCopy + 1))
+    if ((v28 & 1) == 0 || self->_apfsAvailableSpace != *(equalCopy + 1))
     {
       goto LABEL_483;
     }
   }
 
-  else if (v57)
+  else if (v28)
   {
     goto LABEL_483;
   }
 
-  if ((v56 & 4) != 0)
+  if ((v27 & 4) != 0)
   {
-    if ((v57 & 4) == 0 || self->_apfsFlags != *(equalCopy + 3))
+    if ((v28 & 4) == 0 || self->_apfsFlags != *(equalCopy + 3))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v57 & 4) != 0)
+  else if ((v28 & 4) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v56 & 2) != 0)
+  if ((v27 & 2) != 0)
   {
-    if ((v57 & 2) == 0 || self->_apfsBlockSize != *(equalCopy + 2))
+    if ((v28 & 2) == 0 || self->_apfsBlockSize != *(equalCopy + 2))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v57 & 2) != 0)
+  else if ((v28 & 2) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v56 & 8) != 0)
+  if ((v27 & 8) != 0)
   {
-    if ((v57 & 8) == 0 || self->_apfsRole != *(equalCopy + 4))
+    if ((v28 & 8) == 0 || self->_apfsRole != *(equalCopy + 4))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v57 & 8) != 0)
+  else if ((v28 & 8) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v56 & 0x400000000000) != 0)
+  if ((v27 & 0x400000000000) != 0)
   {
-    if ((v57 & 0x400000000000) != 0)
+    if ((v28 & 0x400000000000) != 0)
     {
-      v58 = equalCopy[420];
       if (self->_apfsEncrypted)
       {
         if ((equalCopy[420] & 1) == 0)
@@ -6131,73 +6026,73 @@ LABEL_101:
     }
 
 LABEL_483:
-    v59 = 0;
+    v29 = 0;
     goto LABEL_484;
   }
 
-  if ((v57 & 0x400000000000) != 0)
+  if ((v28 & 0x400000000000) != 0)
   {
     goto LABEL_483;
   }
 
 LABEL_463:
-  if ((v56 & 0x1000000000) != 0)
+  if ((v27 & 0x1000000000) != 0)
   {
-    if ((v57 & 0x1000000000) == 0 || self->_statDocID != *(equalCopy + 37))
+    if ((v28 & 0x1000000000) == 0 || self->_statDocID != *(equalCopy + 37))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v57 & 0x1000000000) != 0)
+  else if ((v28 & 0x1000000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v56 & 0x2000000000) != 0)
+  if ((v27 & 0x2000000000) != 0)
   {
-    if ((v57 & 0x2000000000) == 0 || self->_statLogicalSize != *(equalCopy + 38))
+    if ((v28 & 0x2000000000) == 0 || self->_statLogicalSize != *(equalCopy + 38))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v57 & 0x2000000000) != 0)
+  else if ((v28 & 0x2000000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v56 & 0x4000000000) != 0)
+  if ((v27 & 0x4000000000) != 0)
   {
-    if ((v57 & 0x4000000000) == 0 || self->_statPhysicalSize != *(equalCopy + 39))
+    if ((v28 & 0x4000000000) == 0 || self->_statPhysicalSize != *(equalCopy + 39))
     {
       goto LABEL_483;
     }
   }
 
-  else if ((v57 & 0x4000000000) != 0)
+  else if ((v28 & 0x4000000000) != 0)
   {
     goto LABEL_483;
   }
 
-  if ((v56 & 0x800000000) != 0)
+  if ((v27 & 0x800000000) != 0)
   {
-    if ((v57 & 0x800000000) == 0 || self->_statDirEntryCount != *(equalCopy + 36))
+    if ((v28 & 0x800000000) == 0 || self->_statDirEntryCount != *(equalCopy + 36))
     {
       goto LABEL_483;
     }
 
-    v59 = 1;
+    v29 = 1;
   }
 
   else
   {
-    v59 = (v57 & 0x800000000) == 0;
+    v29 = (v28 & 0x800000000) == 0;
   }
 
 LABEL_484:
 
-  return v59;
+  return v29;
 }
 
 - (unint64_t)hash

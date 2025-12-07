@@ -20,9 +20,7 @@
 
 - (void)_handleStart
 {
-  v3 = objc_opt_new();
-  convention = self->_convention;
-  self->_convention = v3;
+  self->_convention = objc_opt_new();
 
   MEMORY[0x2821F96F8]();
 }

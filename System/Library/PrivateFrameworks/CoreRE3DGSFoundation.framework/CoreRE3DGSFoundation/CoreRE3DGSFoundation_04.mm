@@ -1,3 +1,430 @@
+void sub_247446E14(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+{
+  if (a22 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a15 < 0)
+  {
+    operator delete(a10);
+  }
+
+  if (*(v22 + 23) < 0)
+  {
+    operator delete(*v22);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t nlohmann::json_abi_v3_11_2::detail::parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::sax_parse_internal<nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>(uint64_t a1, uint64_t a2)
+{
+  v4 = (a1 + 120);
+  v41 = 0;
+  v42 = 0;
+  v43 = 0;
+  while (1)
+  {
+    while (1)
+    {
+LABEL_2:
+      v5 = *(a1 + 32);
+      if (v5 <= 5)
+      {
+        if (v5 > 2)
+        {
+          if (v5 == 3)
+          {
+            v38.__vftable = 0;
+            nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<decltype(nullptr)>(a2);
+          }
+
+          else
+          {
+            if (v5 == 4)
+            {
+              nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<std::string&>(a2, v4);
+            }
+
+            v38.__vftable = *(a1 + 160);
+            nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<unsigned long long &>(a2, &v38);
+          }
+
+          goto LABEL_32;
+        }
+
+        if (v5 == 1)
+        {
+          LOBYTE(v38.__vftable) = 1;
+          nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<BOOL &>(a2, &v38);
+          goto LABEL_32;
+        }
+
+        if (v5 == 2)
+        {
+          LOBYTE(v38.__vftable) = 0;
+          nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<BOOL &>(a2, &v38);
+          goto LABEL_32;
+        }
+
+LABEL_64:
+        nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(a1 + 40, &v40);
+        v37 = *(a1 + 72);
+        v35 = 5;
+        strcpy(v34, "value");
+        nlohmann::json_abi_v3_11_2::detail::parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(a1, 16, v34, &__p);
+        nlohmann::json_abi_v3_11_2::detail::parse_error::create<decltype(nullptr),0>(101, &v37, &v38, &__p);
+        *(a2 + 40) = 1;
+        if (*(a2 + 41) == 1)
+        {
+          exception = __cxa_allocate_exception(0x28uLL);
+          v33 = nlohmann::json_abi_v3_11_2::detail::parse_error::parse_error(exception, &v38);
+        }
+
+        goto LABEL_65;
+      }
+
+      if (v5 <= 7)
+      {
+        if (v5 == 6)
+        {
+          v38.__vftable = *(a1 + 152);
+          nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<long long &>(a2, &v38);
+        }
+
+        else
+        {
+          if ((*(a1 + 168) & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+          {
+            v31 = *(a1 + 72);
+            nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(a1 + 40, &v40);
+            nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(a1 + 40, &__p);
+            LOBYTE(v34[0]) = 39;
+            nlohmann::json_abi_v3_11_2::detail::concat<std::string,char const(&)[26],std::string,char>("number overflow parsing '", &__p, v34, &v37);
+            nlohmann::json_abi_v3_11_2::detail::out_of_range::create<decltype(nullptr),0>(406, &v37, &v38);
+            v21 = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::parse_error<nlohmann::json_abi_v3_11_2::detail::out_of_range>(a2, v31, &v40, &v38);
+            nlohmann::json_abi_v3_11_2::detail::exception::~exception(&v38);
+            if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(v37.__r_.__value_.__l.__data_);
+            }
+
+            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+            {
+              v30 = __p.__r_.__value_.__r.__words[0];
+LABEL_79:
+              operator delete(v30);
+            }
+
+LABEL_80:
+            if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(v40.__r_.__value_.__l.__data_);
+            }
+
+            goto LABEL_58;
+          }
+
+          v38.__vftable = *(a1 + 168);
+          nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<double &>(a2, &v38);
+        }
+
+LABEL_32:
+        v12 = v42;
+        if (v42)
+        {
+          while (1)
+          {
+LABEL_33:
+            if ((*&v41[((v12 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v12 - 1)))
+            {
+              v13 = nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan((a1 + 40));
+              *(a1 + 32) = v13;
+              if (v13 == 13)
+              {
+                goto LABEL_44;
+              }
+
+              if (v13 != 10)
+              {
+                v25 = *(a1 + 72);
+                nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(a1 + 40, &v40);
+                v37 = *(a1 + 72);
+                std::string::basic_string[abi:ne200100]<0>(v34, "array");
+                nlohmann::json_abi_v3_11_2::detail::parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(a1, 10, v34, &__p);
+                nlohmann::json_abi_v3_11_2::detail::parse_error::create<decltype(nullptr),0>(101, &v37, &v38, &__p);
+                v26 = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::parse_error<nlohmann::json_abi_v3_11_2::detail::parse_error>(a2, v25, &v40, &v38);
+                goto LABEL_75;
+              }
+            }
+
+            else
+            {
+              v14 = nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan((a1 + 40));
+              *(a1 + 32) = v14;
+              if (v14 == 13)
+              {
+                v15 = nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan((a1 + 40));
+                *(a1 + 32) = v15;
+                if (v15 != 4)
+                {
+                  goto LABEL_73;
+                }
+
+                v16 = *(*(*(a2 + 16) - 8) + 8);
+                v38.__vftable = v4;
+                *(a2 + 32) = std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v16, &v4->~exception, &std::piecewise_construct, &v38) + 7;
+                v17 = nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan((a1 + 40));
+                *(a1 + 32) = v17;
+                if (v17 == 12)
+                {
+LABEL_44:
+                  *(a1 + 32) = nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan((a1 + 40));
+                  goto LABEL_2;
+                }
+
+LABEL_74:
+                v29 = *(a1 + 72);
+                nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(a1 + 40, &v40);
+                v37 = *(a1 + 72);
+                std::string::basic_string[abi:ne200100]<0>(v34, "object separator");
+                nlohmann::json_abi_v3_11_2::detail::parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(a1, 12, v34, &__p);
+                nlohmann::json_abi_v3_11_2::detail::parse_error::create<decltype(nullptr),0>(101, &v37, &v38, &__p);
+                v26 = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::parse_error<nlohmann::json_abi_v3_11_2::detail::parse_error>(a2, v29, &v40, &v38);
+LABEL_75:
+                v21 = v26;
+                nlohmann::json_abi_v3_11_2::detail::exception::~exception(&v38);
+                if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+                {
+                  operator delete(__p.__r_.__value_.__l.__data_);
+                }
+
+                if (v35 < 0)
+                {
+                  v30 = v34[0];
+                  goto LABEL_79;
+                }
+
+                goto LABEL_80;
+              }
+
+              if (v14 != 11)
+              {
+                v27 = *(a1 + 72);
+                nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(a1 + 40, &v40);
+                v37 = *(a1 + 72);
+                std::string::basic_string[abi:ne200100]<0>(v34, "object");
+                nlohmann::json_abi_v3_11_2::detail::parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(a1, 11, v34, &__p);
+                nlohmann::json_abi_v3_11_2::detail::parse_error::create<decltype(nullptr),0>(101, &v37, &v38, &__p);
+                v26 = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::parse_error<nlohmann::json_abi_v3_11_2::detail::parse_error>(a2, v27, &v40, &v38);
+                goto LABEL_75;
+              }
+            }
+
+            *(a2 + 16) -= 8;
+            v12 = v42 - 1;
+            v42 = v12;
+            if (!v12)
+            {
+              goto LABEL_57;
+            }
+          }
+        }
+
+        goto LABEL_57;
+      }
+
+      if (v5 != 8)
+      {
+        break;
+      }
+
+      v40.__r_.__value_.__s.__data_[0] = 2;
+      v38.__vftable = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<nlohmann::json_abi_v3_11_2::detail::value_t>(a2, &v40);
+      std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *>>::push_back[abi:ne200100](a2 + 8, &v38);
+      v11 = nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan((a1 + 40));
+      *(a1 + 32) = v11;
+      if (v11 == 10)
+      {
+LABEL_28:
+        *(a2 + 16) -= 8;
+        v12 = v42;
+        if (v42)
+        {
+          goto LABEL_33;
+        }
+
+LABEL_57:
+        v21 = 1;
+        goto LABEL_58;
+      }
+
+      v18 = v42;
+      if (v42 == v43 << 6)
+      {
+        if ((v42 + 1) < 0)
+        {
+          std::vector<char>::__throw_length_error[abi:ne200100]();
+        }
+
+        v19 = v43 << 7;
+        if (v43 << 7 <= (v42 & 0x3FFFFFFFFFFFFFC0) + 64)
+        {
+          v19 = (v42 & 0x3FFFFFFFFFFFFFC0) + 64;
+        }
+
+        if (v42 <= 0x3FFFFFFFFFFFFFFELL)
+        {
+          v20 = v19;
+        }
+
+        else
+        {
+          v20 = 0x7FFFFFFFFFFFFFFFLL;
+        }
+
+        std::vector<BOOL>::reserve(&v41, v20);
+        v18 = v42;
+      }
+
+      v42 = v18 + 1;
+      *&v41[(v18 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v18;
+    }
+
+    if (v5 != 9)
+    {
+      break;
+    }
+
+    v40.__r_.__value_.__s.__data_[0] = 1;
+    v38.__vftable = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<nlohmann::json_abi_v3_11_2::detail::value_t>(a2, &v40);
+    std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *>>::push_back[abi:ne200100](a2 + 8, &v38);
+    v6 = nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan((a1 + 40));
+    *(a1 + 32) = v6;
+    if (v6 == 11)
+    {
+      goto LABEL_28;
+    }
+
+    if (v6 != 4)
+    {
+LABEL_73:
+      v28 = *(a1 + 72);
+      nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(a1 + 40, &v40);
+      v37 = *(a1 + 72);
+      std::string::basic_string[abi:ne200100]<0>(v34, "object key");
+      nlohmann::json_abi_v3_11_2::detail::parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(a1, 4, v34, &__p);
+      nlohmann::json_abi_v3_11_2::detail::parse_error::create<decltype(nullptr),0>(101, &v37, &v38, &__p);
+      v26 = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::parse_error<nlohmann::json_abi_v3_11_2::detail::parse_error>(a2, v28, &v40, &v38);
+      goto LABEL_75;
+    }
+
+    v7 = *(*(*(a2 + 16) - 8) + 8);
+    v38.__vftable = v4;
+    *(a2 + 32) = std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v7, &v4->~exception, &std::piecewise_construct, &v38) + 7;
+    v8 = nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan((a1 + 40));
+    *(a1 + 32) = v8;
+    if (v8 != 12)
+    {
+      goto LABEL_74;
+    }
+
+    v9 = v42;
+    if (v42 == v43 << 6)
+    {
+      if ((v42 + 1) < 0)
+      {
+        std::vector<char>::__throw_length_error[abi:ne200100]();
+      }
+
+      if (v42 > 0x3FFFFFFFFFFFFFFELL)
+      {
+        v10 = 0x7FFFFFFFFFFFFFFFLL;
+      }
+
+      else if (v43 << 7 <= (v42 & 0x3FFFFFFFFFFFFFC0) + 64)
+      {
+        v10 = (v42 & 0x3FFFFFFFFFFFFFC0) + 64;
+      }
+
+      else
+      {
+        v10 = v43 << 7;
+      }
+
+      std::vector<BOOL>::reserve(&v41, v10);
+      v9 = v42;
+    }
+
+    v42 = v9 + 1;
+    *&v41[(v9 >> 3) & 0x1FFFFFFFFFFFFFF8] &= ~(1 << v9);
+    *(a1 + 32) = nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::scan((a1 + 40));
+  }
+
+  if (v5 != 14)
+  {
+    goto LABEL_64;
+  }
+
+  nlohmann::json_abi_v3_11_2::detail::lexer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::get_token_string(a1 + 40, &v40);
+  v37 = *(a1 + 72);
+  v35 = 5;
+  strcpy(v34, "value");
+  nlohmann::json_abi_v3_11_2::detail::parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,nlohmann::json_abi_v3_11_2::detail::iterator_input_adapter<std::__wrap_iter<char const*>>>::exception_message(a1, 0, v34, &__p);
+  nlohmann::json_abi_v3_11_2::detail::parse_error::create<decltype(nullptr),0>(101, &v37, &v38, &__p);
+  *(a2 + 40) = 1;
+  if (*(a2 + 41) == 1)
+  {
+    v23 = __cxa_allocate_exception(0x28uLL);
+    v24 = nlohmann::json_abi_v3_11_2::detail::parse_error::parse_error(v23, &v38);
+  }
+
+LABEL_65:
+  v38.__vftable = &unk_28593CBA8;
+  MEMORY[0x24C1A1B70](&v39);
+  std::exception::~exception(&v38);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+    if (v35 < 0)
+    {
+      goto LABEL_70;
+    }
+
+LABEL_67:
+    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    {
+LABEL_71:
+      operator delete(v40.__r_.__value_.__l.__data_);
+    }
+  }
+
+  else
+  {
+    if ((v35 & 0x80000000) == 0)
+    {
+      goto LABEL_67;
+    }
+
+LABEL_70:
+    operator delete(v34[0]);
+    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    {
+      goto LABEL_71;
+    }
+  }
+
+  v21 = 0;
+LABEL_58:
+  if (v41)
+  {
+    operator delete(v41);
+  }
+
+  return v21;
+}
+
 void sub_247447834(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
 {
   nlohmann::json_abi_v3_11_2::detail::exception::~exception(&a27);
@@ -35,7 +462,7 @@ LABEL_10:
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::parse_error<nlohmann::json_abi_v3_11_2::detail::parse_error>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::parse_error<nlohmann::json_abi_v3_11_2::detail::parse_error>(uint64_t a1, uint64_t a2, uint64_t a3, const nlohmann::json_abi_v3_11_2::detail::parse_error *a4)
 {
   *(a1 + 40) = 1;
   if (*(a1 + 41) == 1)
@@ -154,9 +581,9 @@ LABEL_7:
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(uint64_t a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > *(a1 + 16) << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -165,24 +592,22 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::start_object(uint64_t a1, unint64_t a2)
+uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::start_object(unsigned __int8 **a1, unint64_t a2)
 {
-  v3 = a1 + 8;
-  LODWORD(v23.__r_.__value_.__l.__data_) = (*(a1 + 16) - *(a1 + 8)) >> 3;
-  v22.__r_.__value_.__s.__data_[0] = 0;
-  v4 = *(a1 + 120);
+  v3 = a1 + 1;
+  LODWORD(v22.__r_.__value_.__l.__data_) = (a1[2] - a1[1]) >> 3;
+  v21.__r_.__value_.__s.__data_[0] = 0;
+  v4 = a1[15];
   if (!v4)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v6 = (*(*v4 + 48))(v4, &v23, &v22, a1 + 136);
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
+  v6 = (*(*v4 + 48))(v4, &v22, &v21, a1 + 17);
+  v7 = a1[5];
+  v8 = a1[6];
   if (v7 == v8 << 6)
   {
     if ((v7 + 1) < 0)
@@ -206,32 +631,32 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
       v10 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    std::vector<BOOL>::reserve(a1 + 32, v10);
-    v7 = *(a1 + 40);
+    std::vector<BOOL>::reserve((a1 + 4), v10);
+    v7 = a1[5];
   }
 
-  *(a1 + 40) = v7 + 1;
-  v11 = *(a1 + 32);
+  a1[5] = (v7 + 1);
+  v11 = a1[4];
   v12 = v7 >> 6;
   v13 = 1 << v7;
   if (v6)
   {
-    v14 = *(v11 + 8 * v12) | v13;
+    v14 = *&v11[8 * v12] | v13;
   }
 
   else
   {
-    v14 = *(v11 + 8 * v12) & ~v13;
+    v14 = *&v11[8 * v12] & ~v13;
   }
 
-  *(v11 + 8 * v12) = v14;
-  v23.__r_.__value_.__s.__data_[0] = 1;
-  v24 = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<nlohmann::json_abi_v3_11_2::detail::value_t>(a1, &v23, 1);
-  v25 = v15;
-  std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *>>::push_back[abi:ne200100](v3, &v25);
+  *&v11[8 * v12] = v14;
+  v22.__r_.__value_.__s.__data_[0] = 1;
+  v23 = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<nlohmann::json_abi_v3_11_2::detail::value_t>(a1, &v22, 1);
+  v24 = v15;
+  std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *>>::push_back[abi:ne200100](v3, &v24);
   if (a2 != -1)
   {
-    v16 = *(*(a1 + 16) - 8);
+    v16 = *(a1[2] - 1);
     if (v16)
     {
       v17 = *v16;
@@ -248,10 +673,9 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
       if (v18 < a2)
       {
         exception = __cxa_allocate_exception(0x20uLL);
-        std::to_string(&v22, a2);
-        nlohmann::json_abi_v3_11_2::detail::concat<std::string,char const(&)[39],std::string>("excessive object size: ", &v22, &v23);
-        v21 = *(*(a1 + 16) - 8);
-        nlohmann::json_abi_v3_11_2::detail::out_of_range::create<decltype(nullptr),0>(408, &v23, exception);
+        std::to_string(&v21, a2);
+        nlohmann::json_abi_v3_11_2::detail::concat<std::string,char const(&)[39],std::string>("excessive object size: ", &v21, &v22);
+        nlohmann::json_abi_v3_11_2::detail::out_of_range::create<decltype(nullptr),0>(408, &v22, exception);
       }
     }
   }
@@ -285,14 +709,14 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::end_object(uint64_t a1)
+uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::end_object(unsigned __int8 *a1)
 {
-  v2 = *(a1 + 16);
+  v2 = *(a1 + 2);
   if (*(v2 - 8))
   {
-    LODWORD(v27) = ((v2 - *(a1 + 8)) >> 3) - 1;
+    LODWORD(v27) = ((v2 - *(a1 + 1)) >> 3) - 1;
     LOBYTE(v24) = 1;
-    v3 = *(a1 + 120);
+    v3 = *(a1 + 15);
     if (!v3)
     {
       std::__throw_bad_function_call[abi:ne200100]();
@@ -300,8 +724,8 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
 
     if (((*(*v3 + 48))(v3, &v27, &v24) & 1) == 0)
     {
-      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::basic_json(v30, (a1 + 136));
-      v4 = *(*(a1 + 16) - 8);
+      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::basic_json(v30, a1 + 136);
+      v4 = *(*(a1 + 2) - 8);
       v5 = *v4;
       *v4 = v30[0];
       v30[0] = v5;
@@ -312,11 +736,11 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
     }
   }
 
-  v8 = *(a1 + 8);
-  v7 = *(a1 + 16);
+  v8 = *(a1 + 1);
+  v7 = *(a1 + 2);
   v9 = v7 - 8;
-  *(a1 + 16) = v7 - 8;
-  --*(a1 + 40);
+  *(a1 + 2) = v7 - 8;
+  --*(a1 + 5);
   if (v8 != v7 - 8)
   {
     v10 = *(v7 - 16);
@@ -380,7 +804,7 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
           if (v17 == 2)
           {
             *(&v28 + 1) += 16;
-            v9 = *(a1 + 16);
+            v9 = *(a1 + 2);
           }
 
           else if (v17 == 1)
@@ -411,21 +835,21 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
             }
 
             *&v28 = v20;
-            v9 = *(a1 + 16);
+            v9 = *(a1 + 2);
           }
 
           else
           {
             ++v29;
-            v9 = *(a1 + 16);
+            v9 = *(a1 + 2);
           }
         }
 
-        v21 = *(*(a1 + 16) - 8);
+        v21 = *(*(a1 + 2) - 8);
         v24 = v27;
         v25 = v28;
         v26 = v29;
-        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::erase<nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,0>(v21, &v24, &v23);
+        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::erase<nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,0>(v21, &v24, v23);
       }
     }
   }
@@ -433,34 +857,35 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
   return 1;
 }
 
-void sub_2474483AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_2474483AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(&a9);
-  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(&a11);
-  _Unwind_Resume(a1);
-}
-
-void sub_2474483E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::start_array(uint64_t a1, unint64_t a2)
+void sub_2474483E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  v3 = a1 + 8;
-  LODWORD(v23.__r_.__value_.__l.__data_) = (*(a1 + 16) - *(a1 + 8)) >> 3;
-  v22.__r_.__value_.__s.__data_[0] = 2;
-  v4 = *(a1 + 120);
+  va_start(va, a5);
+  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::start_array(unsigned __int8 **a1, unint64_t a2)
+{
+  v3 = a1 + 1;
+  LODWORD(v22.__r_.__value_.__l.__data_) = (a1[2] - a1[1]) >> 3;
+  v21.__r_.__value_.__s.__data_[0] = 2;
+  v4 = a1[15];
   if (!v4)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v6 = (*(*v4 + 48))(v4, &v23, &v22, a1 + 136);
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
+  v6 = (*(*v4 + 48))(v4, &v22, &v21, a1 + 17);
+  v7 = a1[5];
+  v8 = a1[6];
   if (v7 == v8 << 6)
   {
     if ((v7 + 1) < 0)
@@ -484,32 +909,32 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
       v10 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    std::vector<BOOL>::reserve(a1 + 32, v10);
-    v7 = *(a1 + 40);
+    std::vector<BOOL>::reserve((a1 + 4), v10);
+    v7 = a1[5];
   }
 
-  *(a1 + 40) = v7 + 1;
-  v11 = *(a1 + 32);
+  a1[5] = (v7 + 1);
+  v11 = a1[4];
   v12 = v7 >> 6;
   v13 = 1 << v7;
   if (v6)
   {
-    v14 = *(v11 + 8 * v12) | v13;
+    v14 = *&v11[8 * v12] | v13;
   }
 
   else
   {
-    v14 = *(v11 + 8 * v12) & ~v13;
+    v14 = *&v11[8 * v12] & ~v13;
   }
 
-  *(v11 + 8 * v12) = v14;
-  v23.__r_.__value_.__s.__data_[0] = 2;
-  v24 = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<nlohmann::json_abi_v3_11_2::detail::value_t>(a1, &v23, 1);
-  v25 = v15;
-  std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *>>::push_back[abi:ne200100](v3, &v25);
+  *&v11[8 * v12] = v14;
+  v22.__r_.__value_.__s.__data_[0] = 2;
+  v23 = nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<nlohmann::json_abi_v3_11_2::detail::value_t>(a1, &v22, 1);
+  v24 = v15;
+  std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *>>::push_back[abi:ne200100](v3, &v24);
   if (a2 != -1)
   {
-    v16 = *(*(a1 + 16) - 8);
+    v16 = *(a1[2] - 1);
     if (v16)
     {
       v17 = *v16;
@@ -526,10 +951,9 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
       if (v18 < a2)
       {
         exception = __cxa_allocate_exception(0x20uLL);
-        std::to_string(&v22, a2);
-        nlohmann::json_abi_v3_11_2::detail::concat<std::string,char const(&)[39],std::string>("excessive array size: ", &v22, &v23);
-        v21 = *(*(a1 + 16) - 8);
-        nlohmann::json_abi_v3_11_2::detail::out_of_range::create<decltype(nullptr),0>(408, &v23, exception);
+        std::to_string(&v21, a2);
+        nlohmann::json_abi_v3_11_2::detail::concat<std::string,char const(&)[39],std::string>("excessive array size: ", &v21, &v22);
+        nlohmann::json_abi_v3_11_2::detail::out_of_range::create<decltype(nullptr),0>(408, &v22, exception);
       }
     }
   }
@@ -563,20 +987,20 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::end_array(uint64_t a1)
+uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::end_array(unsigned __int8 *a1)
 {
-  v2 = *(a1 + 16);
+  v2 = *(a1 + 2);
   v4 = *(v2 - 8);
   v3 = v2 - 8;
   if (!v4)
   {
-    *(a1 + 16) = v3;
+    *(a1 + 2) = v3;
     goto LABEL_6;
   }
 
-  v21 = ((*(a1 + 16) - *(a1 + 8)) >> 3) - 1;
+  v21 = ((*(a1 + 2) - *(a1 + 1)) >> 3) - 1;
   v20 = 3;
-  v5 = *(a1 + 120);
+  v5 = *(a1 + 15);
   if (!v5)
   {
     std::__throw_bad_function_call[abi:ne200100]();
@@ -584,14 +1008,14 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
 
   if ((*(*v5 + 48))(v5, &v21, &v20))
   {
-    *(a1 + 16) -= 8;
+    *(a1 + 2) -= 8;
 LABEL_6:
-    --*(a1 + 40);
+    --*(a1 + 5);
     return 1;
   }
 
-  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::basic_json(v18, (a1 + 136));
-  v7 = *(*(a1 + 16) - 8);
+  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::basic_json(v18, a1 + 136);
+  v7 = *(*(a1 + 2) - 8);
   v8 = *v7;
   *v7 = v18[0];
   v18[0] = v8;
@@ -599,10 +1023,10 @@ LABEL_6:
   *(v7 + 1) = v19;
   v19 = v9;
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v19, v8);
-  v11 = *(a1 + 8);
-  v10 = *(a1 + 16);
-  *(a1 + 16) = v10 - 8;
-  --*(a1 + 40);
+  v11 = *(a1 + 1);
+  v10 = *(a1 + 2);
+  *(a1 + 2) = v10 - 8;
+  --*(a1 + 5);
   if (v11 == v10 - 8)
   {
     return 1;
@@ -720,8 +1144,7 @@ void sub_247448998(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void nlohmann::json_abi_v3_11_2::detail::concat<std::string,char const(&)[26],std::string,char>(const char *a1@<X0>, uint64_t a2@<X1>, std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  a4->__r_.__value_.__r.__words[0] = 0;
-  a4->__r_.__value_.__l.__size_ = 0;
+  *&a4->__r_.__value_.__l.__data_ = 0uLL;
   a4->__r_.__value_.__r.__words[2] = 0;
   v8 = strlen(a1);
   v9 = *(a2 + 23);
@@ -794,40 +1217,39 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
   if ((*&a1[4][((a1[5] - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (*(a1 + 40) - 1)))
   {
     v5 = *a2;
-    v32[0] = v5;
-    nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::json_value(&v33, v5);
+    v29[0] = v5;
+    nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::json_value(&v30, v5);
     if (a3)
     {
       goto LABEL_5;
     }
 
-    v35 = (a1[2] - a1[1]) >> 3;
-    v34 = 5;
+    v32 = (a1[2] - a1[1]) >> 3;
+    v31 = 5;
     v6 = a1[15];
     if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    if ((*(*v6 + 48))(v6, &v35, &v34, v32))
+    if ((*(*v6 + 48))(v6, &v32, &v31, v29))
     {
 LABEL_5:
       v7 = a1[2];
       if (a1[1] == v7)
       {
-        v13 = v32[0];
-        v14 = v33;
-        v32[0] = 0;
-        v33 = 0;
+        v13 = v29[0];
+        v14 = v30;
+        v29[0] = 0;
+        v30 = 0;
         v15 = *a1;
         v16 = **a1;
         *v15 = v13;
-        v30 = v16;
+        v27 = v16;
         v17 = *(v15 + 8);
         *(v15 + 8) = v14;
-        v31 = v17;
-        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v31, v16);
-        v18 = *a1;
+        v28 = v17;
+        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v28, v16);
 LABEL_17:
         v12 = 1;
         goto LABEL_18;
@@ -842,40 +1264,38 @@ LABEL_17:
           v10 = *(v9 + 8);
           if (v10 >= *(v9 + 16))
           {
-            v11 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v9, v32);
+            v11 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v9, v29);
           }
 
           else
           {
-            *v10 = v32[0];
-            *(v10 + 8) = v33;
-            v32[0] = 0;
-            v33 = 0;
+            *v10 = v29[0];
+            *(v10 + 8) = v30;
+            v29[0] = 0;
+            v30 = 0;
             v11 = v10 + 16;
           }
 
           *(v9 + 8) = v11;
-          v27 = *(*(*(a1[2] - 1) + 8) + 8) - 16;
           goto LABEL_17;
         }
 
-        v19 = (a1[8] - 1);
-        v20 = *&a1[7][(v19 >> 3) & 0x1FFFFFFFFFFFFFF8];
-        a1[8] = v19;
-        if ((v20 >> v19))
+        v18 = a1[8] - 1;
+        v19 = *&a1[7][(v18 >> 3) & 0x1FFFFFFFFFFFFFF8];
+        a1[8] = v18;
+        if ((v19 >> v18))
         {
-          v21 = v32[0];
-          v22 = v33;
-          v32[0] = 0;
-          v33 = 0;
-          v23 = a1[10];
-          v24 = *v23;
-          *v23 = v21;
-          v25 = *(v23 + 1);
-          *(v23 + 1) = v22;
-          v29 = v25;
-          nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v29, v24);
-          v26 = a1[10];
+          v20 = v29[0];
+          v21 = v30;
+          v29[0] = 0;
+          v30 = 0;
+          v22 = a1[10];
+          v23 = *v22;
+          *v22 = v20;
+          v24 = *(v22 + 1);
+          *(v22 + 1) = v21;
+          v26 = v24;
+          nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v26, v23);
           goto LABEL_17;
         }
       }
@@ -883,16 +1303,16 @@ LABEL_17:
 
     v12 = 0;
 LABEL_18:
-    nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v33, v32[0]);
+    nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v30, v29[0]);
     return v12;
   }
 
   return 0;
 }
 
-void sub_247448D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_247448D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -983,11 +1403,9 @@ unsigned __int8 *nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_ab
 
   if (a1[3])
   {
-    v4 = a1;
     exception = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v7, "cannot get value");
-    v6 = *v4;
-    nlohmann::json_abi_v3_11_2::detail::invalid_iterator::create<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,0>(214, v7, exception);
+    std::string::basic_string[abi:ne200100]<0>(v5, "cannot get value");
+    nlohmann::json_abi_v3_11_2::detail::invalid_iterator::create<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,0>(214, v5, exception);
   }
 
   return result;
@@ -1251,7 +1669,7 @@ void *std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basi
     v5 = a2;
     do
     {
-      v4 = v5[2];
+      v4 = *(v5 + 16);
       v6 = *v4 == v5;
       v5 = v4;
     }
@@ -1297,7 +1715,7 @@ uint64_t **std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(uin
       }
 
 LABEL_6:
-      v6[1] = v2;
+      *(v6 + 8) = v2;
       v8 = *(v3 + 24);
       if (v3 == a2)
       {
@@ -1379,7 +1797,7 @@ LABEL_10:
 
   else
   {
-    v7 = v6[1];
+    v7 = *(v6 + 8);
     v8 = *(v3 + 24);
     if (v3 != a2)
     {
@@ -1409,7 +1827,6 @@ LABEL_21:
   {
     v14 = v7[2];
     v15 = *v14;
-    v16 = *(v7 + 24);
     if (*v14 == v7)
     {
       break;
@@ -1419,19 +1836,19 @@ LABEL_21:
     {
       *(v7 + 24) = 1;
       *(v14 + 24) = 0;
-      v17 = v14[1];
-      v18 = *v17;
-      v14[1] = *v17;
-      if (v18)
+      v16 = *(v14 + 8);
+      v17 = *v16;
+      *(v14 + 8) = *v16;
+      if (v17)
       {
-        *(v18 + 16) = v14;
+        *(v17 + 16) = v14;
       }
 
-      v19 = v14[2];
-      v17[2] = v19;
-      v19[*v19 != v14] = v17;
-      *v17 = v14;
-      v14[2] = v17;
+      v18 = *(v14 + 16);
+      v16[2] = v18;
+      v18[*v18 != v14] = v16;
+      *v16 = v14;
+      *(v14 + 16) = v16;
       if (result == *v7)
       {
         result = v7;
@@ -1440,63 +1857,63 @@ LABEL_21:
       v7 = *(*v7 + 8);
     }
 
-    v20 = *v7;
-    if (*v7 && *(v20 + 24) != 1)
+    v19 = *v7;
+    if (*v7 && *(v19 + 24) != 1)
     {
-      v21 = v7[1];
-      if (!v21)
+      v20 = v7[1];
+      if (!v20)
       {
         goto LABEL_62;
       }
 
 LABEL_61:
-      if (*(v21 + 24) == 1)
+      if (*(v20 + 24) == 1)
       {
 LABEL_62:
-        *(v20 + 24) = 1;
+        *(v19 + 24) = 1;
         *(v7 + 24) = 0;
-        v29 = v20[1];
-        *v7 = v29;
-        if (v29)
+        v28 = v19[1];
+        *v7 = v28;
+        if (v28)
         {
-          *(v29 + 16) = v7;
+          *(v28 + 16) = v7;
         }
 
-        v30 = v7[2];
-        v30[*v30 != v7] = v20;
-        v20[1] = v7;
-        v20[2] = v30;
-        v7[2] = v20;
-        v21 = v7;
+        v29 = v7[2];
+        v29[*v29 != v7] = v19;
+        v19[1] = v7;
+        v19[2] = v29;
+        v7[2] = v19;
+        v20 = v7;
       }
 
       else
       {
-        v20 = v7;
+        v19 = v7;
       }
 
-      v31 = v20[2];
-      *(v20 + 24) = *(v31 + 24);
-      *(v31 + 24) = 1;
-      *(v21 + 24) = 1;
-      v32 = *(v31 + 8);
-      v33 = *v32;
-      *(v31 + 8) = *v32;
-      if (v33)
+      v30 = v19[2];
+      *(v19 + 24) = *(v30 + 24);
+      *(v30 + 24) = 1;
+      *(v20 + 24) = 1;
+      v31 = *(v30 + 8);
+      v32 = *v31;
+      *(v30 + 8) = *v31;
+      if (v32)
       {
-        *(v33 + 16) = v31;
+        *(v32 + 16) = v30;
       }
 
-      v34 = *(v31 + 16);
-      v32[2] = v34;
-      v34[*v34 != v31] = v32;
-      *v32 = v31;
-      *(v31 + 16) = v32;
+      v33 = *(v30 + 16);
+      v31[2] = v33;
+      v33[*v33 != v30] = v31;
+      *v31 = v30;
+      *(v30 + 16) = v31;
       return result;
     }
 
-    v21 = v7[1];
-    if (v21 && *(v21 + 24) != 1)
+    v20 = v7[1];
+    if (v20 && *(v20 + 24) != 1)
     {
       goto LABEL_61;
     }
@@ -1516,35 +1933,35 @@ LABEL_28:
   {
     *(v7 + 24) = 1;
     *(v14 + 24) = 0;
-    v22 = v15[1];
-    *v14 = v22;
-    if (v22)
+    v21 = v15[1];
+    *v14 = v21;
+    if (v21)
     {
-      v22[2] = v14;
+      *(v21 + 16) = v14;
     }
 
-    v23 = v14[2];
-    v23[*v23 != v14] = v15;
+    v22 = *(v14 + 16);
+    v22[*v22 != v14] = v15;
     v15[1] = v14;
-    v15[2] = v23;
-    v14[2] = v15;
-    v24 = v7[1];
-    if (result == v24)
+    v15[2] = v22;
+    *(v14 + 16) = v15;
+    v23 = v7[1];
+    if (result == v23)
     {
       result = v7;
     }
 
-    v7 = *v24;
+    v7 = *v23;
   }
 
-  v25 = *v7;
-  if (*v7 && *(v25 + 24) != 1)
+  v24 = *v7;
+  if (*v7 && *(v24 + 24) != 1)
   {
     goto LABEL_69;
   }
 
-  v26 = v7[1];
-  if (!v26 || *(v26 + 24) == 1)
+  v25 = v7[1];
+  if (!v25 || *(v25 + 24) == 1)
   {
     *(v7 + 24) = 0;
     v12 = v7[2];
@@ -1558,146 +1975,146 @@ LABEL_59:
     goto LABEL_28;
   }
 
-  if (v25 && (v25[3] & 1) == 0)
+  if (v24 && (v24[3] & 1) == 0)
   {
 LABEL_69:
-    v26 = v7;
+    v25 = v7;
   }
 
   else
   {
-    *(v26 + 24) = 1;
+    *(v25 + 24) = 1;
     *(v7 + 24) = 0;
-    v27 = *v26;
-    v7[1] = *v26;
-    if (v27)
+    v26 = *v25;
+    v7[1] = *v25;
+    if (v26)
     {
-      *(v27 + 16) = v7;
+      *(v26 + 16) = v7;
     }
 
-    v28 = v7[2];
-    v26[2] = v28;
-    v28[*v28 != v7] = v26;
-    *v26 = v7;
-    v7[2] = v26;
-    v25 = v7;
+    v27 = v7[2];
+    v25[2] = v27;
+    v27[*v27 != v7] = v25;
+    *v25 = v7;
+    v7[2] = v25;
+    v24 = v7;
   }
 
-  v35 = v26[2];
-  *(v26 + 24) = *(v35 + 24);
-  *(v35 + 24) = 1;
-  *(v25 + 24) = 1;
-  v36 = *v35;
-  v37 = *(*v35 + 8);
-  *v35 = v37;
-  if (v37)
+  v34 = v25[2];
+  *(v25 + 24) = *(v34 + 24);
+  *(v34 + 24) = 1;
+  *(v24 + 24) = 1;
+  v35 = *v34;
+  v36 = *(*v34 + 8);
+  *v34 = v36;
+  if (v36)
   {
-    *(v37 + 16) = v35;
+    *(v36 + 16) = v34;
   }
 
-  v38 = v35[2];
-  v38[*v38 != v35] = v36;
-  *(v36 + 8) = v35;
-  *(v36 + 16) = v38;
-  v35[2] = v36;
+  v37 = *(v34 + 16);
+  v37[*v37 != v34] = v35;
+  *(v35 + 8) = v34;
+  *(v35 + 16) = v37;
+  *(v34 + 16) = v35;
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_27:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v4 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v6 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v5 >= 0)
   {
-    v5 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v5 = a2[1];
+    v7 = a2[1];
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      v11 = v10 >= 0 ? v7 : v8;
-      v12 = v10 >= 0 ? *(v7 + 23) : v7[1];
-      v13 = (v12 >= v5 ? v5 : v12);
-      v14 = memcmp(v4, v11, v13);
-      if (v14)
+      v8 = v4;
+      v11 = v4[4];
+      v9 = v4 + 4;
+      v10 = v11;
+      v12 = *(v9 + 23);
+      v13 = v12 >= 0 ? v9 : v10;
+      v14 = v12 >= 0 ? *(v9 + 23) : v9[1];
+      v15 = (v14 >= v7 ? v7 : v14);
+      v16 = memcmp(v6, v13, v15);
+      if (v16)
       {
         break;
       }
 
-      if (v5 >= v12)
+      if (v7 >= v14)
       {
         goto LABEL_22;
       }
 
 LABEL_8:
-      v2 = *v6;
-      if (!*v6)
+      v4 = *v8;
+      if (!*v8)
       {
         goto LABEL_27;
       }
     }
 
-    if (v14 < 0)
+    if (v16 < 0)
     {
       goto LABEL_8;
     }
 
 LABEL_22:
-    v15 = memcmp(v11, v4, v13);
-    if (v15)
+    v17 = memcmp(v13, v6, v15);
+    if (v17)
     {
-      if ((v15 & 0x80000000) == 0)
+      if ((v17 & 0x80000000) == 0)
       {
-        return v6;
+        return v8;
       }
 
       goto LABEL_26;
     }
 
-    if (v12 >= v5)
+    if (v14 >= v7)
     {
-      return v6;
+      return v8;
     }
 
 LABEL_26:
-    v2 = v6[1];
-    if (!v2)
+    v4 = v8[1];
+    if (!v4)
     {
       goto LABEL_27;
     }
   }
 }
 
-void sub_247449AB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_247449AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1734,7 +2151,7 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::out_of_range::out_of_range(uint64_t
   return a1;
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<double &>(unsigned __int8 **a1, uint64_t *a2, char a3)
+uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<double &>(unsigned __int8 **a1, void ***a2, char a3)
 {
   if (((*&a1[4][((a1[5] - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (*(a1 + 40) - 1)) & 1) == 0)
   {
@@ -1742,42 +2159,41 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
   }
 
   v4 = *a2;
-  v31[0] = 7;
-  v32 = v4;
+  v28[0] = 7;
+  v29 = v4;
   if (a3)
   {
     goto LABEL_5;
   }
 
-  v34 = (a1[2] - a1[1]) >> 3;
-  v33 = 5;
+  v31 = (a1[2] - a1[1]) >> 3;
+  v30 = 5;
   v5 = a1[15];
   if (!v5)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  if ((*(*v5 + 48))(v5, &v34, &v33, v31))
+  if ((*(*v5 + 48))(v5, &v31, &v30, v28))
   {
 LABEL_5:
     v6 = a1[2];
     if (a1[1] == v6)
     {
-      v12 = v31[0];
-      v13 = v32;
-      v31[0] = 0;
-      v32 = 0;
+      v12 = v28[0];
+      v13 = v29;
+      v28[0] = 0;
+      v29 = 0;
       v14 = *a1;
       v15 = **a1;
       *v14 = v12;
-      v29 = v15;
+      v26 = v15;
       v16 = *(v14 + 8);
       *(v14 + 8) = v13;
-      v30 = v16;
-      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v30, v15);
-      v17 = *a1;
+      v27 = v16;
+      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v27, v15);
 LABEL_17:
-      v26 = 1;
+      v24 = 1;
       goto LABEL_18;
     }
 
@@ -1790,54 +2206,52 @@ LABEL_17:
         v9 = *(v8 + 8);
         if (v9 >= *(v8 + 16))
         {
-          v10 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v8, v31);
+          v10 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v8, v28);
         }
 
         else
         {
-          *v9 = v31[0];
-          *(v9 + 8) = v32;
-          v31[0] = 0;
-          v32 = 0;
+          *v9 = v28[0];
+          *(v9 + 8) = v29;
+          v28[0] = 0;
+          v29 = 0;
           v10 = v9 + 16;
         }
 
         *(v8 + 8) = v10;
-        v27 = *(*(*(a1[2] - 1) + 8) + 8) - 16;
         goto LABEL_17;
       }
 
-      v18 = (a1[8] - 1);
-      v19 = *&a1[7][(v18 >> 3) & 0x1FFFFFFFFFFFFFF8];
-      a1[8] = v18;
-      if ((v19 >> v18))
+      v17 = a1[8] - 1;
+      v18 = *&a1[7][(v17 >> 3) & 0x1FFFFFFFFFFFFFF8];
+      a1[8] = v17;
+      if ((v18 >> v17))
       {
-        v20 = v31[0];
-        v21 = v32;
-        v31[0] = 0;
-        v32 = 0;
-        v22 = a1[10];
-        v23 = *v22;
-        *v22 = v20;
-        v24 = *(v22 + 1);
-        *(v22 + 1) = v21;
-        v28 = v24;
-        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v28, v23);
-        v25 = a1[10];
+        v19 = v28[0];
+        v20 = v29;
+        v28[0] = 0;
+        v29 = 0;
+        v21 = a1[10];
+        v22 = *v21;
+        *v21 = v19;
+        v23 = *(v21 + 1);
+        *(v21 + 1) = v20;
+        v25 = v23;
+        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v25, v22);
         goto LABEL_17;
       }
     }
   }
 
-  v26 = 0;
+  v24 = 0;
 LABEL_18:
-  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v32, v31[0]);
-  return v26;
+  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v29, v28[0]);
+  return v24;
 }
 
-void sub_247449DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_247449DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -1850,42 +2264,41 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
   }
 
   v4 = *a2;
-  v31[0] = 4;
-  v32 = v4;
+  v28[0] = 4;
+  v29 = v4;
   if (a3)
   {
     goto LABEL_5;
   }
 
-  v34 = (a1[2] - a1[1]) >> 3;
-  v33 = 5;
+  v31 = (a1[2] - a1[1]) >> 3;
+  v30 = 5;
   v5 = a1[15];
   if (!v5)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  if ((*(*v5 + 48))(v5, &v34, &v33, v31))
+  if ((*(*v5 + 48))(v5, &v31, &v30, v28))
   {
 LABEL_5:
     v6 = a1[2];
     if (a1[1] == v6)
     {
-      v12 = v31[0];
-      v13 = v32;
-      v31[0] = 0;
-      v32 = 0;
+      v12 = v28[0];
+      v13 = v29;
+      v28[0] = 0;
+      v29 = 0;
       v14 = *a1;
       v15 = **a1;
       *v14 = v12;
-      v29 = v15;
+      v26 = v15;
       v16 = *(v14 + 8);
       *(v14 + 8) = v13;
-      v30 = v16;
-      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v30, v15);
-      v17 = *a1;
+      v27 = v16;
+      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v27, v15);
 LABEL_17:
-      v26 = 1;
+      v24 = 1;
       goto LABEL_18;
     }
 
@@ -1898,54 +2311,52 @@ LABEL_17:
         v9 = *(v8 + 8);
         if (v9 >= *(v8 + 16))
         {
-          v10 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v8, v31);
+          v10 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v8, v28);
         }
 
         else
         {
-          *v9 = v31[0];
-          *(v9 + 8) = v32;
-          v31[0] = 0;
-          v32 = 0;
+          *v9 = v28[0];
+          *(v9 + 8) = v29;
+          v28[0] = 0;
+          v29 = 0;
           v10 = v9 + 16;
         }
 
         *(v8 + 8) = v10;
-        v27 = *(*(*(a1[2] - 1) + 8) + 8) - 16;
         goto LABEL_17;
       }
 
-      v18 = (a1[8] - 1);
-      v19 = *&a1[7][(v18 >> 3) & 0x1FFFFFFFFFFFFFF8];
-      a1[8] = v18;
-      if ((v19 >> v18))
+      v17 = a1[8] - 1;
+      v18 = *&a1[7][(v17 >> 3) & 0x1FFFFFFFFFFFFFF8];
+      a1[8] = v17;
+      if ((v18 >> v17))
       {
-        v20 = v31[0];
-        v21 = v32;
-        v31[0] = 0;
-        v32 = 0;
-        v22 = a1[10];
-        v23 = *v22;
-        *v22 = v20;
-        v24 = *(v22 + 1);
-        *(v22 + 1) = v21;
-        v28 = v24;
-        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v28, v23);
-        v25 = a1[10];
+        v19 = v28[0];
+        v20 = v29;
+        v28[0] = 0;
+        v29 = 0;
+        v21 = a1[10];
+        v22 = *v21;
+        *v21 = v19;
+        v23 = *(v21 + 1);
+        *(v21 + 1) = v20;
+        v25 = v23;
+        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v25, v22);
         goto LABEL_17;
       }
     }
   }
 
-  v26 = 0;
+  v24 = 0;
 LABEL_18:
-  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v32, v31[0]);
-  return v26;
+  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v29, v28[0]);
+  return v24;
 }
 
-void sub_247449FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_247449FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -1957,42 +2368,41 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
     return 0;
   }
 
-  v30[0] = 0;
-  v31 = 0;
+  v27[0] = 0;
+  v28 = 0;
   if (a3)
   {
     goto LABEL_5;
   }
 
-  v33 = (a1[2] - a1[1]) >> 3;
-  v32 = 5;
+  v30 = (a1[2] - a1[1]) >> 3;
+  v29 = 5;
   v4 = a1[15];
   if (!v4)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  if ((*(*v4 + 48))(v4, &v33, &v32, v30))
+  if ((*(*v4 + 48))(v4, &v30, &v29, v27))
   {
 LABEL_5:
     v5 = a1[2];
     if (a1[1] == v5)
     {
-      v11 = v30[0];
-      v12 = v31;
-      v30[0] = 0;
-      v31 = 0;
+      v11 = v27[0];
+      v12 = v28;
+      v27[0] = 0;
+      v28 = 0;
       v13 = *a1;
       v14 = **a1;
       *v13 = v11;
-      v28 = v14;
+      v25 = v14;
       v15 = *(v13 + 8);
       *(v13 + 8) = v12;
-      v29 = v15;
-      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v29, v14);
-      v16 = *a1;
+      v26 = v15;
+      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v26, v14);
 LABEL_17:
-      v25 = 1;
+      v23 = 1;
       goto LABEL_18;
     }
 
@@ -2005,59 +2415,57 @@ LABEL_17:
         v8 = *(v7 + 8);
         if (v8 >= *(v7 + 16))
         {
-          v9 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v7, v30);
+          v9 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v7, v27);
         }
 
         else
         {
-          *v8 = v30[0];
-          *(v8 + 8) = v31;
-          v30[0] = 0;
-          v31 = 0;
+          *v8 = v27[0];
+          *(v8 + 8) = v28;
+          v27[0] = 0;
+          v28 = 0;
           v9 = v8 + 16;
         }
 
         *(v7 + 8) = v9;
-        v26 = *(*(*(a1[2] - 1) + 8) + 8) - 16;
         goto LABEL_17;
       }
 
-      v17 = (a1[8] - 1);
-      v18 = *&a1[7][(v17 >> 3) & 0x1FFFFFFFFFFFFFF8];
-      a1[8] = v17;
-      if ((v18 >> v17))
+      v16 = a1[8] - 1;
+      v17 = *&a1[7][(v16 >> 3) & 0x1FFFFFFFFFFFFFF8];
+      a1[8] = v16;
+      if ((v17 >> v16))
       {
-        v19 = v30[0];
-        v20 = v31;
-        v30[0] = 0;
-        v31 = 0;
-        v21 = a1[10];
-        v22 = *v21;
-        *v21 = v19;
-        v23 = *(v21 + 1);
-        *(v21 + 1) = v20;
-        v27 = v23;
-        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v27, v22);
-        v24 = a1[10];
+        v18 = v27[0];
+        v19 = v28;
+        v27[0] = 0;
+        v28 = 0;
+        v20 = a1[10];
+        v21 = *v20;
+        *v20 = v18;
+        v22 = *(v20 + 1);
+        *(v20 + 1) = v19;
+        v24 = v22;
+        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v24, v21);
         goto LABEL_17;
       }
     }
   }
 
-  v25 = 0;
+  v23 = 0;
 LABEL_18:
-  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v31, v30[0]);
-  return v25;
+  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v28, v27[0]);
+  return v23;
 }
 
-void sub_24744A214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_24744A214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<long long &>(unsigned __int8 **a1, uint64_t *a2, char a3)
+uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<long long &>(unsigned __int8 **a1, void ***a2, char a3)
 {
   if (((*&a1[4][((a1[5] - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (*(a1 + 40) - 1)) & 1) == 0)
   {
@@ -2065,42 +2473,41 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
   }
 
   v4 = *a2;
-  v31[0] = 5;
-  v32 = v4;
+  v28[0] = 5;
+  v29 = v4;
   if (a3)
   {
     goto LABEL_5;
   }
 
-  v34 = (a1[2] - a1[1]) >> 3;
-  v33 = 5;
+  v31 = (a1[2] - a1[1]) >> 3;
+  v30 = 5;
   v5 = a1[15];
   if (!v5)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  if ((*(*v5 + 48))(v5, &v34, &v33, v31))
+  if ((*(*v5 + 48))(v5, &v31, &v30, v28))
   {
 LABEL_5:
     v6 = a1[2];
     if (a1[1] == v6)
     {
-      v12 = v31[0];
-      v13 = v32;
-      v31[0] = 0;
-      v32 = 0;
+      v12 = v28[0];
+      v13 = v29;
+      v28[0] = 0;
+      v29 = 0;
       v14 = *a1;
       v15 = **a1;
       *v14 = v12;
-      v29 = v15;
+      v26 = v15;
       v16 = *(v14 + 8);
       *(v14 + 8) = v13;
-      v30 = v16;
-      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v30, v15);
-      v17 = *a1;
+      v27 = v16;
+      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v27, v15);
 LABEL_17:
-      v26 = 1;
+      v24 = 1;
       goto LABEL_18;
     }
 
@@ -2113,61 +2520,59 @@ LABEL_17:
         v9 = *(v8 + 8);
         if (v9 >= *(v8 + 16))
         {
-          v10 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v8, v31);
+          v10 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v8, v28);
         }
 
         else
         {
-          *v9 = v31[0];
-          *(v9 + 8) = v32;
-          v31[0] = 0;
-          v32 = 0;
+          *v9 = v28[0];
+          *(v9 + 8) = v29;
+          v28[0] = 0;
+          v29 = 0;
           v10 = v9 + 16;
         }
 
         *(v8 + 8) = v10;
-        v27 = *(*(*(a1[2] - 1) + 8) + 8) - 16;
         goto LABEL_17;
       }
 
-      v18 = (a1[8] - 1);
-      v19 = *&a1[7][(v18 >> 3) & 0x1FFFFFFFFFFFFFF8];
-      a1[8] = v18;
-      if ((v19 >> v18))
+      v17 = a1[8] - 1;
+      v18 = *&a1[7][(v17 >> 3) & 0x1FFFFFFFFFFFFFF8];
+      a1[8] = v17;
+      if ((v18 >> v17))
       {
-        v20 = v31[0];
-        v21 = v32;
-        v31[0] = 0;
-        v32 = 0;
-        v22 = a1[10];
-        v23 = *v22;
-        *v22 = v20;
-        v24 = *(v22 + 1);
-        *(v22 + 1) = v21;
-        v28 = v24;
-        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v28, v23);
-        v25 = a1[10];
+        v19 = v28[0];
+        v20 = v29;
+        v28[0] = 0;
+        v29 = 0;
+        v21 = a1[10];
+        v22 = *v21;
+        *v21 = v19;
+        v23 = *(v21 + 1);
+        *(v21 + 1) = v20;
+        v25 = v23;
+        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v25, v22);
         goto LABEL_17;
       }
     }
   }
 
-  v26 = 0;
+  v24 = 0;
 LABEL_18:
-  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v32, v31[0]);
-  return v26;
+  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v29, v28[0]);
+  return v24;
 }
 
-void sub_24744A440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_24744A440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<std::string&>(uint64_t a1)
+uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<std::string&>(unsigned __int8 **a1, uint64_t a2, char a3)
 {
-  if ((*(*(a1 + 32) + (((*(a1 + 40) - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (*(a1 + 40) - 1)))
+  if ((*&a1[4][((a1[5] - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (*(a1 + 40) - 1)))
   {
     operator new();
   }
@@ -2175,14 +2580,14 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
   return 0;
 }
 
-void sub_24744A6C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_24744A6C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<unsigned long long &>(unsigned __int8 **a1, uint64_t *a2, char a3)
+uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<unsigned long long &>(unsigned __int8 **a1, void ***a2, char a3)
 {
   if (((*&a1[4][((a1[5] - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (*(a1 + 40) - 1)) & 1) == 0)
   {
@@ -2190,42 +2595,41 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_callback_parser<nlohma
   }
 
   v4 = *a2;
-  v31[0] = 6;
-  v32 = v4;
+  v28[0] = 6;
+  v29 = v4;
   if (a3)
   {
     goto LABEL_5;
   }
 
-  v34 = (a1[2] - a1[1]) >> 3;
-  v33 = 5;
+  v31 = (a1[2] - a1[1]) >> 3;
+  v30 = 5;
   v5 = a1[15];
   if (!v5)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  if ((*(*v5 + 48))(v5, &v34, &v33, v31))
+  if ((*(*v5 + 48))(v5, &v31, &v30, v28))
   {
 LABEL_5:
     v6 = a1[2];
     if (a1[1] == v6)
     {
-      v12 = v31[0];
-      v13 = v32;
-      v31[0] = 0;
-      v32 = 0;
+      v12 = v28[0];
+      v13 = v29;
+      v28[0] = 0;
+      v29 = 0;
       v14 = *a1;
       v15 = **a1;
       *v14 = v12;
-      v29 = v15;
+      v26 = v15;
       v16 = *(v14 + 8);
       *(v14 + 8) = v13;
-      v30 = v16;
-      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v30, v15);
-      v17 = *a1;
+      v27 = v16;
+      nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v27, v15);
 LABEL_17:
-      v26 = 1;
+      v24 = 1;
       goto LABEL_18;
     }
 
@@ -2238,54 +2642,52 @@ LABEL_17:
         v9 = *(v8 + 8);
         if (v9 >= *(v8 + 16))
         {
-          v10 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v8, v31);
+          v10 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(v8, v28);
         }
 
         else
         {
-          *v9 = v31[0];
-          *(v9 + 8) = v32;
-          v31[0] = 0;
-          v32 = 0;
+          *v9 = v28[0];
+          *(v9 + 8) = v29;
+          v28[0] = 0;
+          v29 = 0;
           v10 = v9 + 16;
         }
 
         *(v8 + 8) = v10;
-        v27 = *(*(*(a1[2] - 1) + 8) + 8) - 16;
         goto LABEL_17;
       }
 
-      v18 = (a1[8] - 1);
-      v19 = *&a1[7][(v18 >> 3) & 0x1FFFFFFFFFFFFFF8];
-      a1[8] = v18;
-      if ((v19 >> v18))
+      v17 = a1[8] - 1;
+      v18 = *&a1[7][(v17 >> 3) & 0x1FFFFFFFFFFFFFF8];
+      a1[8] = v17;
+      if ((v18 >> v17))
       {
-        v20 = v31[0];
-        v21 = v32;
-        v31[0] = 0;
-        v32 = 0;
-        v22 = a1[10];
-        v23 = *v22;
-        *v22 = v20;
-        v24 = *(v22 + 1);
-        *(v22 + 1) = v21;
-        v28 = v24;
-        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v28, v23);
-        v25 = a1[10];
+        v19 = v28[0];
+        v20 = v29;
+        v28[0] = 0;
+        v29 = 0;
+        v21 = a1[10];
+        v22 = *v21;
+        *v21 = v19;
+        v23 = *(v21 + 1);
+        *(v21 + 1) = v20;
+        v25 = v23;
+        nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v25, v22);
         goto LABEL_17;
       }
     }
   }
 
-  v26 = 0;
+  v24 = 0;
 LABEL_18:
-  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v32, v31[0]);
-  return v26;
+  nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(&v29, v28[0]);
+  return v24;
 }
 
-void sub_24744A8F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_24744A8F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -2309,47 +2711,46 @@ void nlohmann::json_abi_v3_11_2::detail::parse_error::~parse_error(std::exceptio
   JUMPOUT(0x24C1A2010);
 }
 
-std::string *nlohmann::json_abi_v3_11_2::detail::concat<std::string,std::string,char const(&)[12],std::string,char const(&)[3],std::string,std::string const&>@<X0>(char *__s@<X1>, uint64_t a2@<X0>, uint64_t a3@<X2>, const char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, std::string *a7@<X8>)
+std::string *nlohmann::json_abi_v3_11_2::detail::concat<std::string,std::string,char const(&)[12],std::string,char const(&)[3],std::string,std::string const&>@<X0>(std::string *__return_ptr a1@<X8>, char *__s@<X1>, uint64_t a3@<X0>, uint64_t a4@<X2>, const char *a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>)
 {
-  a7->__r_.__value_.__r.__words[0] = 0;
-  a7->__r_.__value_.__l.__size_ = 0;
-  a7->__r_.__value_.__r.__words[2] = 0;
-  v12 = *(a2 + 23);
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  v12 = *(a3 + 23);
   v13 = v12;
-  v14 = *(a2 + 8);
+  v14 = *(a3 + 8);
   if ((v12 & 0x80u) == 0)
   {
-    v15 = *(a2 + 23);
+    v15 = *(a3 + 23);
   }
 
   else
   {
-    v15 = *(a2 + 8);
+    v15 = *(a3 + 8);
   }
 
   v40 = v15;
   v16 = strlen(__s);
-  if (*(a3 + 23) >= 0)
+  if (*(a4 + 23) >= 0)
   {
-    v17 = *(a3 + 23);
+    v17 = *(a4 + 23);
   }
 
   else
   {
-    v17 = *(a3 + 8);
+    v17 = *(a4 + 8);
   }
 
-  v18 = strlen(a4);
-  v19 = *(a5 + 23);
+  v18 = strlen(a5);
+  v19 = *(a6 + 23);
   if ((v19 & 0x80u) != 0)
   {
-    v19 = *(a5 + 8);
+    v19 = *(a6 + 8);
   }
 
-  v20 = *(a6 + 23);
+  v20 = *(a7 + 23);
   if ((v20 & 0x80u) != 0)
   {
-    v20 = *(a6 + 8);
+    v20 = *(a7 + 8);
   }
 
   v21 = v40 + v16 + v18 + v17 + v19 + v20;
@@ -2371,20 +2772,20 @@ std::string *nlohmann::json_abi_v3_11_2::detail::concat<std::string,std::string,
       v23 = v22;
     }
 
-    std::string::__shrink_or_extend[abi:ne200100](a7, v23);
-    v12 = *(a2 + 23);
-    v14 = *(a2 + 8);
-    v13 = *(a2 + 23);
+    std::string::__shrink_or_extend[abi:ne200100](a1, v23);
+    v12 = *(a3 + 23);
+    v14 = *(a3 + 8);
+    v13 = *(a3 + 23);
   }
 
   if (v13 >= 0)
   {
-    v24 = a2;
+    v24 = a3;
   }
 
   else
   {
-    v24 = *a2;
+    v24 = *a3;
   }
 
   if (v13 >= 0)
@@ -2397,77 +2798,77 @@ std::string *nlohmann::json_abi_v3_11_2::detail::concat<std::string,std::string,
     v25 = v14;
   }
 
-  std::string::append(a7, v24, v25);
+  std::string::append(a1, v24, v25);
   v26 = strlen(__s);
-  std::string::append(a7, __s, v26);
-  v27 = *(a3 + 23);
+  std::string::append(a1, __s, v26);
+  v27 = *(a4 + 23);
   if (v27 >= 0)
   {
-    v28 = a3;
+    v28 = a4;
   }
 
   else
   {
-    v28 = *a3;
+    v28 = *a4;
   }
 
   if (v27 >= 0)
   {
-    v29 = *(a3 + 23);
+    v29 = *(a4 + 23);
   }
 
   else
   {
-    v29 = *(a3 + 8);
+    v29 = *(a4 + 8);
   }
 
-  std::string::append(a7, v28, v29);
-  v30 = strlen(a4);
-  std::string::append(a7, a4, v30);
-  v31 = *(a5 + 23);
+  std::string::append(a1, v28, v29);
+  v30 = strlen(a5);
+  std::string::append(a1, a5, v30);
+  v31 = *(a6 + 23);
   if (v31 >= 0)
   {
-    v32 = a5;
+    v32 = a6;
   }
 
   else
   {
-    v32 = *a5;
+    v32 = *a6;
   }
 
   if (v31 >= 0)
   {
-    v33 = *(a5 + 23);
+    v33 = *(a6 + 23);
   }
 
   else
   {
-    v33 = *(a5 + 8);
+    v33 = *(a6 + 8);
   }
 
-  std::string::append(a7, v32, v33);
-  v34 = *(a6 + 23);
+  std::string::append(a1, v32, v33);
+  v34 = *(a7 + 23);
   if (v34 >= 0)
   {
-    v35 = a6;
+    v35 = a7;
   }
 
   else
   {
-    v35 = *a6;
+    v35 = *a7;
   }
 
   if (v34 >= 0)
   {
-    v36 = *(a6 + 23);
+    v36 = *(a7 + 23);
   }
 
   else
   {
-    v36 = *(a6 + 8);
+    v36 = *(a7 + 8);
   }
 
-  return std::string::append(a7, v35, v36);
+  return std::string::append(a1, v35, v36);
 }
 
 void sub_24744ABD0(_Unwind_Exception *exception_object)
@@ -2527,8 +2928,7 @@ LABEL_3:
 
 void nlohmann::json_abi_v3_11_2::detail::concat<std::string,char const*,char const(&)[15],std::string,char>(const char **a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, std::string::value_type *a4@<X3>, std::string *a5@<X8>)
 {
-  a5->__r_.__value_.__r.__words[0] = 0;
-  a5->__r_.__value_.__l.__size_ = 0;
+  *&a5->__r_.__value_.__l.__data_ = 0uLL;
   a5->__r_.__value_.__r.__words[2] = 0;
   v10 = *a1;
   v11 = strlen(*a1);
@@ -2658,7 +3058,7 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
   return 0;
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<nlohmann::json_abi_v3_11_2::detail::value_t>(unsigned __int8 **a1, unsigned __int8 *a2)
+unsigned __int8 *nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<nlohmann::json_abi_v3_11_2::detail::value_t>(unsigned __int8 **a1, unsigned __int8 *a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -2694,12 +3094,12 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
         v7 = *a2;
         *v6 = v7;
         nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::json_value((v6 + 8), v7);
-        v8 = v6 + 16;
+        v8 = (v6 + 16);
         *(v5 + 8) = v6 + 16;
       }
 
       *(v5 + 8) = v8;
-      return *(*(*(a1[2] - 1) + 8) + 8) - 16;
+      return (*(*(*(a1[2] - 1) + 8) + 8) - 16);
     }
 
     else
@@ -2719,7 +3119,7 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
   }
 }
 
-uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::detail::value_t>(uint64_t **a1, unsigned __int8 *a2)
+void ***std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<nlohmann::json_abi_v3_11_2::detail::value_t>(void ****a1, unsigned __int8 *a2)
 {
   v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
@@ -2754,25 +3154,25 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v18 = (16 * v2);
+  v17 = 16 * v2;
   v7 = *a2;
-  *v18 = v7;
+  *v17 = v7;
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::json_value((16 * v2 + 8), v7);
-  v8 = 16 * v2 + 16;
+  v8 = (16 * v2 + 16);
   v9 = *a1;
   v10 = a1[1];
-  v11 = &v18[*a1 - v10];
+  v11 = (v17 + *a1 - v10);
   if (*a1 != v10)
   {
     v12 = *a1;
-    v13 = &v18[*a1 - v10];
+    v13 = (v17 + *a1 - v10);
     do
     {
       *v13 = *v12;
-      *(v13 + 1) = v12[1];
+      *(v13 + 1) = *(v12 + 1);
       *v12 = 0;
-      v12[1] = 0;
-      v12 += 2;
+      *(v12 + 1) = 0;
+      v12 += 16;
       v13 += 16;
     }
 
@@ -2780,9 +3180,9 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     do
     {
       v15 = *v9;
-      v14 = v9 + 1;
+      v14 = (v9 + 8);
       nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(v14, v15);
-      v9 = v14 + 1;
+      v9 = (v14 + 1);
     }
 
     while (v9 != v10);
@@ -2791,7 +3191,6 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
 
   *a1 = v11;
   a1[1] = v8;
-  v16 = a1[2];
   a1[2] = 0;
   if (v9)
   {
@@ -2801,14 +3200,14 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
   return v8;
 }
 
-void sub_24744B1EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24744B1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<double &>(unsigned __int8 **a1, uint64_t *a2)
+unsigned __int8 *nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<double &>(unsigned __int8 **a1, uint64_t *a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -2831,8 +3230,8 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
     if (*v4 == 2)
     {
       v5 = *(v4 + 8);
-      v6 = v5[1];
-      if (v6 >= v5[2])
+      v6 = *(v5 + 8);
+      if (v6 >= *(v5 + 16))
       {
         v8 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<double &>(v5, a2);
       }
@@ -2846,8 +3245,8 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
         v8 = v6 + 16;
       }
 
-      v5[1] = v8;
-      return *(*(*(a1[2] - 1) + 8) + 8) - 16;
+      *(v5 + 8) = v8;
+      return (*(*(*(a1[2] - 1) + 8) + 8) - 16);
     }
 
     else
@@ -2865,11 +3264,11 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
   }
 }
 
-uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<double &>(uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<double &>(void ****a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = a1[1];
-  v4 = &v3[-*a1] >> 4;
+  v4 = (v3 - *a1) >> 4;
   v5 = v4 + 1;
   if ((v4 + 1) >> 60)
   {
@@ -2902,12 +3301,12 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v9 = &v3[-*a1] >> 4;
+  v9 = (v3 - *a1) >> 4;
   v10 = 16 * v4;
   v11 = *a2;
   *v10 = 7;
   *(v10 + 8) = v11;
-  v12 = v10 - 16 * v9;
+  v12 = (v10 - 16 * v9);
   if (v2 != v3)
   {
     v13 = v2;
@@ -2915,11 +3314,11 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     do
     {
       *v14 = *v13;
-      *(v14 + 8) = v13[1];
+      v14[1] = v13[1];
       *v13 = 0;
       v13[1] = 0;
       v13 += 2;
-      v14 += 16;
+      v14 += 2;
     }
 
     while (v13 != v3);
@@ -2936,7 +3335,7 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
   }
 
   *a1 = v12;
-  a1[1] = v10 + 16;
+  a1[1] = (v10 + 16);
   a1[2] = 0;
   if (v2)
   {
@@ -2946,7 +3345,7 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
   return v10 + 16;
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<BOOL &>(unsigned __int8 **a1, unsigned __int8 *a2)
+unsigned __int8 *nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<BOOL &>(unsigned __int8 **a1, unsigned __int8 *a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -2969,8 +3368,8 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
     if (*v4 == 2)
     {
       v5 = *(v4 + 8);
-      v6 = v5[1];
-      if (v6 >= v5[2])
+      v6 = *(v5 + 8);
+      if (v6 >= *(v5 + 16))
       {
         v8 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<BOOL &>(v5, a2);
       }
@@ -2984,8 +3383,8 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
         v8 = v6 + 16;
       }
 
-      v5[1] = v8;
-      return *(*(*(a1[2] - 1) + 8) + 8) - 16;
+      *(v5 + 8) = v8;
+      return (*(*(*(a1[2] - 1) + 8) + 8) - 16);
     }
 
     else
@@ -3003,11 +3402,11 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
   }
 }
 
-uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<BOOL &>(uint64_t *a1, unsigned __int8 *a2)
+uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<BOOL &>(void ****a1, unsigned __int8 *a2)
 {
   v2 = *a1;
   v3 = a1[1];
-  v4 = &v3[-*a1] >> 4;
+  v4 = (v3 - *a1) >> 4;
   v5 = v4 + 1;
   if ((v4 + 1) >> 60)
   {
@@ -3040,12 +3439,12 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v9 = &v3[-*a1] >> 4;
+  v9 = (v3 - *a1) >> 4;
   v10 = 16 * v4;
   v11 = *a2;
   *v10 = 4;
   *(v10 + 8) = v11;
-  v12 = v10 - 16 * v9;
+  v12 = (v10 - 16 * v9);
   if (v2 != v3)
   {
     v13 = v2;
@@ -3053,11 +3452,11 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     do
     {
       *v14 = *v13;
-      *(v14 + 8) = v13[1];
+      v14[1] = v13[1];
       *v13 = 0;
       v13[1] = 0;
       v13 += 2;
-      v14 += 16;
+      v14 += 2;
     }
 
     while (v13 != v3);
@@ -3074,7 +3473,7 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
   }
 
   *a1 = v12;
-  a1[1] = v10 + 16;
+  a1[1] = (v10 + 16);
   a1[2] = 0;
   if (v2)
   {
@@ -3084,7 +3483,7 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
   return v10 + 16;
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<decltype(nullptr)>(unsigned __int8 **a1)
+unsigned __int8 *nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<decltype(nullptr)>(unsigned __int8 **a1)
 {
   v2 = a1[2];
   if (a1[1] == v2)
@@ -3120,7 +3519,7 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
       }
 
       v4[1] = v6;
-      return *(*(*(a1[2] - 1) + 8) + 8) - 16;
+      return (*(*(*(a1[2] - 1) + 8) + 8) - 16);
     }
 
     else
@@ -3141,7 +3540,7 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
 {
   v1 = *a1;
   v2 = a1[1];
-  v3 = &v2[-*a1] >> 4;
+  v3 = (v2 - *a1) >> 4;
   v4 = v3 + 1;
   if ((v3 + 1) >> 60)
   {
@@ -3174,7 +3573,7 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v8 = &v2[-*a1] >> 4;
+  v8 = (v2 - *a1) >> 4;
   v9 = 16 * v3;
   *v9 = 0;
   *(v9 + 8) = 0;
@@ -3217,7 +3616,7 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
   return v9 + 16;
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<long long &>(unsigned __int8 **a1, uint64_t *a2)
+unsigned __int8 *nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<long long &>(unsigned __int8 **a1, uint64_t *a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -3240,8 +3639,8 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
     if (*v4 == 2)
     {
       v5 = *(v4 + 8);
-      v6 = v5[1];
-      if (v6 >= v5[2])
+      v6 = *(v5 + 8);
+      if (v6 >= *(v5 + 16))
       {
         v8 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<long long &>(v5, a2);
       }
@@ -3255,8 +3654,8 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
         v8 = v6 + 16;
       }
 
-      v5[1] = v8;
-      return *(*(*(a1[2] - 1) + 8) + 8) - 16;
+      *(v5 + 8) = v8;
+      return (*(*(*(a1[2] - 1) + 8) + 8) - 16);
     }
 
     else
@@ -3274,11 +3673,11 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
   }
 }
 
-uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<long long &>(uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<long long &>(void ****a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = a1[1];
-  v4 = &v3[-*a1] >> 4;
+  v4 = (v3 - *a1) >> 4;
   v5 = v4 + 1;
   if ((v4 + 1) >> 60)
   {
@@ -3311,12 +3710,12 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v9 = &v3[-*a1] >> 4;
+  v9 = (v3 - *a1) >> 4;
   v10 = 16 * v4;
   v11 = *a2;
   *v10 = 5;
   *(v10 + 8) = v11;
-  v12 = v10 - 16 * v9;
+  v12 = (v10 - 16 * v9);
   if (v2 != v3)
   {
     v13 = v2;
@@ -3324,11 +3723,11 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     do
     {
       *v14 = *v13;
-      *(v14 + 8) = v13[1];
+      v14[1] = v13[1];
       *v13 = 0;
       v13[1] = 0;
       v13 += 2;
-      v14 += 16;
+      v14 += 2;
     }
 
     while (v13 != v3);
@@ -3345,7 +3744,7 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
   }
 
   *a1 = v12;
-  a1[1] = v10 + 16;
+  a1[1] = (v10 + 16);
   a1[2] = 0;
   if (v2)
   {
@@ -3355,24 +3754,24 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
   return v10 + 16;
 }
 
-void nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<std::string&>(uint64_t a1)
+void nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<std::string&>(unsigned __int8 **a1, uint64_t a2)
 {
-  v1 = *(a1 + 16);
-  if (*(a1 + 8) != v1)
+  v2 = a1[2];
+  if (a1[1] != v2)
   {
-    v2 = *(v1 - 8);
-    if (*v2 == 2)
+    v3 = *(v2 - 1);
+    if (*v3 == 2)
     {
-      v3 = *(v2 + 8);
-      v4 = v3[1];
-      if (v4 < v3[2])
+      v4 = *(v3 + 8);
+      v5 = *(v4 + 8);
+      if (v5 < *(v4 + 16))
       {
-        *(v4 + 8) = 0;
-        *v4 = 3;
+        *(v5 + 8) = 0;
+        *v5 = 3;
         operator new();
       }
 
-      std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<std::string&>(v3);
+      std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<std::string&>(v4, a2);
     }
 
     operator new();
@@ -3388,31 +3787,31 @@ void sub_24744BDB8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<std::string&>(void *a1)
+void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<std::string&>(void ****a1, uint64_t a2)
 {
-  v1 = (a1[1] - *a1) >> 4;
-  v2 = v1 + 1;
-  if (!((v1 + 1) >> 60))
+  v2 = (a1[1] - *a1) >> 4;
+  v3 = v2 + 1;
+  if (!((v2 + 1) >> 60))
   {
-    v3 = a1[2] - *a1;
-    if (v3 >> 3 > v2)
+    v4 = a1[2] - *a1;
+    if (v4 >> 3 > v3)
     {
-      v2 = v3 >> 3;
+      v3 = v4 >> 3;
     }
 
-    if (v3 >= 0x7FFFFFFFFFFFFFF0)
+    if (v4 >= 0x7FFFFFFFFFFFFFF0)
     {
-      v4 = 0xFFFFFFFFFFFFFFFLL;
+      v5 = 0xFFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v4 = v2;
+      v5 = v3;
     }
 
-    if (v4)
+    if (v5)
     {
-      if (!(v4 >> 60))
+      if (!(v5 >> 60))
       {
         operator new();
       }
@@ -3420,30 +3819,31 @@ void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v5 = 16 * v1;
-    *(v5 + 8) = 0;
-    *v5 = 3;
+    v6 = 16 * v2;
+    *(v6 + 8) = 0;
+    *v6 = 3;
     operator new();
   }
 
   std::vector<char>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_24744BFA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_24744BFA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  operator delete(v10);
-  std::__split_buffer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::~__split_buffer(&a10);
-  _Unwind_Resume(a1);
-}
-
-void sub_24744BFC4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a9);
+  operator delete(v9);
   std::__split_buffer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<unsigned long long &>(unsigned __int8 **a1, uint64_t *a2)
+void sub_24744BFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__split_buffer<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+unsigned __int8 *nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::handle_value<unsigned long long &>(unsigned __int8 **a1, uint64_t *a2)
 {
   v3 = a1[2];
   if (a1[1] == v3)
@@ -3466,8 +3866,8 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
     if (*v4 == 2)
     {
       v5 = *(v4 + 8);
-      v6 = v5[1];
-      if (v6 >= v5[2])
+      v6 = *(v5 + 8);
+      if (v6 >= *(v5 + 16))
       {
         v8 = std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<unsigned long long &>(v5, a2);
       }
@@ -3481,8 +3881,8 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
         v8 = v6 + 16;
       }
 
-      v5[1] = v8;
-      return *(*(*(a1[2] - 1) + 8) + 8) - 16;
+      *(v5 + 8) = v8;
+      return (*(*(*(a1[2] - 1) + 8) + 8) - 16);
     }
 
     else
@@ -3500,11 +3900,11 @@ uint64_t nlohmann::json_abi_v3_11_2::detail::json_sax_dom_parser<nlohmann::json_
   }
 }
 
-uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<unsigned long long &>(uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__emplace_back_slow_path<unsigned long long &>(void ****a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = a1[1];
-  v4 = &v3[-*a1] >> 4;
+  v4 = (v3 - *a1) >> 4;
   v5 = v4 + 1;
   if ((v4 + 1) >> 60)
   {
@@ -3537,12 +3937,12 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v9 = &v3[-*a1] >> 4;
+  v9 = (v3 - *a1) >> 4;
   v10 = 16 * v4;
   v11 = *a2;
   *v10 = 6;
   *(v10 + 8) = v11;
-  v12 = v10 - 16 * v9;
+  v12 = (v10 - 16 * v9);
   if (v2 != v3)
   {
     v13 = v2;
@@ -3550,11 +3950,11 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
     do
     {
       *v14 = *v13;
-      *(v14 + 8) = v13[1];
+      v14[1] = v13[1];
       *v13 = 0;
       v13[1] = 0;
       v13 += 2;
-      v14 += 16;
+      v14 += 2;
     }
 
     while (v13 != v3);
@@ -3571,7 +3971,7 @@ uint64_t std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector
   }
 
   *a1 = v12;
-  a1[1] = v10 + 16;
+  a1[1] = (v10 + 16);
   a1[2] = 0;
   if (v2)
   {
@@ -3656,13 +4056,11 @@ uint64_t nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string
     {
       if (v2 == 1)
       {
-        v6 = *(a2 + 1);
         operator new();
       }
 
       if (v2 == 2)
       {
-        v3 = *(a2 + 1);
         operator new();
       }
 
@@ -3671,25 +4069,23 @@ uint64_t nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string
 
     if (v2 == 3)
     {
-      v7 = *(a2 + 1);
       operator new();
     }
 
-    v5 = a2[8];
+    v3 = a2[8];
 LABEL_13:
-    *(result + 8) = v5;
+    *(result + 8) = v3;
     return result;
   }
 
   if (v2 < 8)
   {
-    v5 = *(a2 + 1);
+    v3 = *(a2 + 1);
     goto LABEL_13;
   }
 
   if (v2 == 8)
   {
-    v4 = *(a2 + 1);
     operator new();
   }
 
@@ -3703,30 +4099,30 @@ void sub_24744C638(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>> const&>(uint64_t **a1, uint64_t *a2, const void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>> const&>(uint64_t **a1, uint64_t *a2, const void **a3, uint64_t a4)
 {
-  v3 = std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!*v3)
+  v4 = std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__find_equal<std::string>(a1, a2, &v7, v6, a3);
+  if (!*v4)
   {
     operator new();
   }
 
-  return *v3;
+  return *v4;
 }
 
-void sub_24744C75C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24744C75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_24744C770(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24744C770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 55) < 0)
+  va_start(va, a3);
+  if (*(v3 + 55) < 0)
   {
-    operator delete(*(v2 + 32));
+    operator delete(*(v3 + 32));
   }
 
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,void *>>>>::~unique_ptr[abi:ne200100](va);
@@ -3968,7 +4364,7 @@ LABEL_64:
               goto LABEL_69;
             }
 
-            v8 = v33 + 1;
+            v8 = (v33 + 1);
             v32 = v33[1];
             if (!v32)
             {
@@ -4062,7 +4458,7 @@ LABEL_21:
     v46 = *(a4 + 55);
     if (v46 >= 0)
     {
-      v47 = (a4 + 4);
+      v47 = a4 + 4;
     }
 
     else
@@ -4114,8 +4510,8 @@ LABEL_116:
       while (1)
       {
         v52 = v51;
-        v55 = v51[4];
-        v53 = v51 + 4;
+        v55 = *(v51 + 32);
+        v53 = v51 + 32;
         v54 = v55;
         v56 = *(v53 + 23);
         if (v56 >= 0)
@@ -4135,7 +4531,7 @@ LABEL_116:
 
         else
         {
-          v58 = v53[1];
+          v58 = *(v53 + 8);
         }
 
         if (v58 >= v12)
@@ -4171,7 +4567,7 @@ LABEL_111:
             goto LABEL_116;
           }
 
-          v8 = v52 + 1;
+          v8 = (v52 + 1);
           v51 = v52[1];
           if (!v51)
           {
@@ -4212,7 +4608,7 @@ LABEL_97:
   return a4;
 }
 
-void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__init_with_size[abi:ne200100]<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>*,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__init_with_size[abi:ne200100]<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>*,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>*>(uint64_t result, unsigned __int8 *a2, unsigned __int8 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4225,10 +4621,11 @@ void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std
   }
 }
 
-void sub_24744CC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, char a11)
+void sub_24744CC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, ...)
 {
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>*>>::~__exception_guard_exceptions[abi:ne200100](&a11);
-  *(v11 + 8) = v12;
+  va_start(va, a10);
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>*>>::~__exception_guard_exceptions[abi:ne200100](va);
+  *(v10 + 8) = v11;
   std::__exception_guard_exceptions<std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -4238,9 +4635,8 @@ BOOL nlohmann::json_abi_v3_11_2::detail::iter_impl<nlohmann::json_abi_v3_11_2::b
   if (*a1 != *a2)
   {
     exception = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v9, "cannot compare iterators of different containers");
-    v8 = *a1;
-    nlohmann::json_abi_v3_11_2::detail::invalid_iterator::create<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,0>(212, v9, exception);
+    std::string::basic_string[abi:ne200100]<0>(v7, "cannot compare iterators of different containers");
+    nlohmann::json_abi_v3_11_2::detail::invalid_iterator::create<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,0>(212, v7, exception);
   }
 
   v2 = **a1;
@@ -4356,7 +4752,7 @@ LABEL_6:
   _Unwind_Resume(a1);
 }
 
-void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__append(uint64_t *a1, unint64_t a2)
+void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__append(void ****a1, unint64_t a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -4364,12 +4760,12 @@ void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std
   {
     if (a2)
     {
-      v9 = v3 + 16 * a2;
+      v9 = &v3[2 * a2];
       do
       {
         *v3 = 0;
-        *(v3 + 8) = 0;
-        v3 += 16;
+        v3[1] = 0;
+        v3 += 2;
       }
 
       while (v3 != v9);
@@ -4415,7 +4811,7 @@ void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std
     }
 
     v10 = 16 * v5;
-    v11 = 16 * v5 + 16 * a2;
+    v11 = (16 * v5 + 16 * a2);
     v12 = 16 * v5;
     do
     {
@@ -4427,7 +4823,7 @@ void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std
     while (v12 != v11);
     v13 = *a1;
     v14 = a1[1];
-    v15 = v10 + *a1 - v14;
+    v15 = (v10 + *a1 - v14);
     if (v14 != *a1)
     {
       v16 = *a1;
@@ -4435,11 +4831,11 @@ void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std
       do
       {
         *v17 = *v16;
-        *(v17 + 8) = v16[1];
+        v17[1] = *(v16 + 1);
         *v16 = 0;
-        v16[1] = 0;
-        v16 += 2;
-        v17 += 16;
+        *(v16 + 1) = 0;
+        v16 += 16;
+        v17 += 2;
       }
 
       while (v16 != v14);
@@ -4547,7 +4943,7 @@ void **nlohmann::json_abi_v3_11_2::detail::from_json<nlohmann::json_abi_v3_11_2:
     v3 = v2[23];
     if (*(a2 + 23) < 0)
     {
-      if ((v3 & 0x80u) == 0)
+      if (v3 >= 0)
       {
         v5 = result[1];
       }
@@ -4557,7 +4953,7 @@ void **nlohmann::json_abi_v3_11_2::detail::from_json<nlohmann::json_abi_v3_11_2:
         v5 = *v2;
       }
 
-      if ((v3 & 0x80u) == 0)
+      if (v3 >= 0)
       {
         v6 = v2[23];
       }
@@ -4610,7 +5006,7 @@ LABEL_6:
   _Unwind_Resume(a1);
 }
 
-void nlohmann::json_abi_v3_11_2::detail::external_constructor<(nlohmann::json_abi_v3_11_2::detail::value_t)3>::construct<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,char [5],0>(uint64_t *a1)
+void nlohmann::json_abi_v3_11_2::detail::external_constructor<(nlohmann::json_abi_v3_11_2::detail::value_t)3>::construct<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,char [5],0>(unsigned __int8 *a1, const char *a2)
 {
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::json_value::destroy(a1 + 1, *a1);
   *a1 = 3;
@@ -4662,8 +5058,8 @@ LABEL_14:
       if ((v11 & 1) == 0)
       {
         exception = __cxa_allocate_exception(0x20uLL);
-        std::string::basic_string[abi:ne200100]<0>(v14, "cannot create object from initializer list");
-        nlohmann::json_abi_v3_11_2::detail::type_error::create<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,0>(301, v14, exception);
+        std::string::basic_string[abi:ne200100]<0>(&v14, "cannot create object from initializer list");
+        nlohmann::json_abi_v3_11_2::detail::type_error::create<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void> *,0>(301, &v14, exception);
       }
 
       if (!v12)
@@ -4697,9 +5093,9 @@ LABEL_10:
   goto LABEL_12;
 }
 
-void sub_24744D68C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24744D68C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -4759,99 +5155,99 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__emplace_unique_key_args<std::string,std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>>>::__emplace_unique_key_args<std::string,std::string,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_27:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v4 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v6 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v5 >= 0)
   {
-    v5 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v5 = a2[1];
+    v7 = a2[1];
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      v11 = v10 >= 0 ? v7 : v8;
-      v12 = v10 >= 0 ? *(v7 + 23) : v7[1];
-      v13 = (v12 >= v5 ? v5 : v12);
-      v14 = memcmp(v4, v11, v13);
-      if (v14)
+      v8 = v4;
+      v11 = v4[4];
+      v9 = v4 + 4;
+      v10 = v11;
+      v12 = *(v9 + 23);
+      v13 = v12 >= 0 ? v9 : v10;
+      v14 = v12 >= 0 ? *(v9 + 23) : v9[1];
+      v15 = (v14 >= v7 ? v7 : v14);
+      v16 = memcmp(v6, v13, v15);
+      if (v16)
       {
         break;
       }
 
-      if (v5 >= v12)
+      if (v7 >= v14)
       {
         goto LABEL_22;
       }
 
 LABEL_8:
-      v2 = *v6;
-      if (!*v6)
+      v4 = *v8;
+      if (!*v8)
       {
         goto LABEL_27;
       }
     }
 
-    if (v14 < 0)
+    if (v16 < 0)
     {
       goto LABEL_8;
     }
 
 LABEL_22:
-    v15 = memcmp(v11, v4, v13);
-    if (v15)
+    v17 = memcmp(v13, v6, v15);
+    if (v17)
     {
-      if ((v15 & 0x80000000) == 0)
+      if ((v17 & 0x80000000) == 0)
       {
-        return v6;
+        return v8;
       }
 
       goto LABEL_26;
     }
 
-    if (v12 >= v5)
+    if (v14 >= v7)
     {
-      return v6;
+      return v8;
     }
 
 LABEL_26:
-    v2 = v6[1];
-    if (!v2)
+    v4 = v8[1];
+    if (!v4)
     {
       goto LABEL_27;
     }
   }
 }
 
-void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__init_with_size[abi:ne200100]<nlohmann::json_abi_v3_11_2::detail::json_ref<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>> const*,nlohmann::json_abi_v3_11_2::detail::json_ref<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>> const*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__init_with_size[abi:ne200100]<nlohmann::json_abi_v3_11_2::detail::json_ref<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>> const*,nlohmann::json_abi_v3_11_2::detail::json_ref<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>> const*>(uint64_t result, char *a2, char *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4864,10 +5260,11 @@ void std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std
   }
 }
 
-void sub_24744DA80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, char a11)
+void sub_24744DA80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, ...)
 {
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>*>>::~__exception_guard_exceptions[abi:ne200100](&a11);
-  *(v11 + 8) = v12;
+  va_start(va, a10);
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>,nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>*>>::~__exception_guard_exceptions[abi:ne200100](va);
+  *(v10 + 8) = v11;
   std::__exception_guard_exceptions<std::vector<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -4905,12 +5302,12 @@ _DWORD *cv3d::aspenbase::concurrency::SpinLock::SpinLock(_DWORD *this)
 
 cv3d::aspenbase::concurrency::Semaphore *cv3d::aspenbase::concurrency::Semaphore::Semaphore(cv3d::aspenbase::concurrency::Semaphore *this)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  pthread_mutexattr_init(&v4);
-  pthread_mutexattr_settype(&v4, 1);
-  pthread_mutexattr_setprotocol(&v4, 0);
-  pthread_mutex_init(this, &v4);
-  pthread_mutexattr_destroy(&v4);
+  v4 = *MEMORY[0x277D85DE8];
+  pthread_mutexattr_init(&v3);
+  pthread_mutexattr_settype(&v3, 1);
+  pthread_mutexattr_setprotocol(&v3, 0);
+  pthread_mutex_init(this, &v3);
+  pthread_mutexattr_destroy(&v3);
   *(this + 16) = 0;
   if (!pthread_cond_init((this + 72), 0))
   {
@@ -4919,30 +5316,27 @@ cv3d::aspenbase::concurrency::Semaphore *cv3d::aspenbase::concurrency::Semaphore
     pthread_mutex_unlock(this);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
 pthread_mutex_t *cv3d::aspenbase::concurrency::Mutex::Mutex(pthread_mutex_t *this)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  pthread_mutexattr_init(&v4);
-  pthread_mutexattr_settype(&v4, 1);
-  pthread_mutexattr_setprotocol(&v4, 0);
-  pthread_mutex_init(this, &v4);
-  pthread_mutexattr_destroy(&v4);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  pthread_mutexattr_init(&v3);
+  pthread_mutexattr_settype(&v3, 1);
+  pthread_mutexattr_setprotocol(&v3, 0);
+  pthread_mutex_init(this, &v3);
+  pthread_mutexattr_destroy(&v3);
   return this;
 }
 
 {
-  v5 = *MEMORY[0x277D85DE8];
-  pthread_mutexattr_init(&v4);
-  pthread_mutexattr_settype(&v4, 1);
-  pthread_mutexattr_setprotocol(&v4, 0);
-  pthread_mutex_init(this, &v4);
-  pthread_mutexattr_destroy(&v4);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  pthread_mutexattr_init(&v3);
+  pthread_mutexattr_settype(&v3, 1);
+  pthread_mutexattr_setprotocol(&v3, 0);
+  pthread_mutex_init(this, &v3);
+  pthread_mutexattr_destroy(&v3);
   return this;
 }
 
@@ -4970,12 +5364,12 @@ void cv3d::aspenbase::concurrency::Mutex::~Mutex(pthread_mutex_t *this)
 
 cv3d::aspenbase::concurrency::Semaphore *cv3d::aspenbase::concurrency::Semaphore::Semaphore(cv3d::aspenbase::concurrency::Semaphore *this, int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  pthread_mutexattr_init(&v6);
-  pthread_mutexattr_settype(&v6, 1);
-  pthread_mutexattr_setprotocol(&v6, 0);
-  pthread_mutex_init(this, &v6);
-  pthread_mutexattr_destroy(&v6);
+  v6 = *MEMORY[0x277D85DE8];
+  pthread_mutexattr_init(&v5);
+  pthread_mutexattr_settype(&v5, 1);
+  pthread_mutexattr_setprotocol(&v5, 0);
+  pthread_mutex_init(this, &v5);
+  pthread_mutexattr_destroy(&v5);
   *(this + 16) = 0;
   if (!pthread_cond_init((this + 72), 0))
   {
@@ -4984,7 +5378,6 @@ cv3d::aspenbase::concurrency::Semaphore *cv3d::aspenbase::concurrency::Semaphore
     pthread_mutex_unlock(this);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -5268,12 +5661,11 @@ uint64_t cv3d::aspenbase::concurrency::Thread::Run(cv3d::aspenbase::concurrency:
 
 uint64_t cv3d::aspenbase::concurrency::Thread::Start(pthread_t *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  pthread_attr_init(&v5);
-  pthread_attr_setdetachstate(&v5, 1);
-  v2 = pthread_create(this + 1, &v5, cv3d::aspenbase::concurrency::Thread::thread_func, this);
-  pthread_attr_destroy(&v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  pthread_attr_init(&v4);
+  pthread_attr_setdetachstate(&v4, 1);
+  v2 = pthread_create(this + 1, &v4, cv3d::aspenbase::concurrency::Thread::thread_func, this);
+  pthread_attr_destroy(&v4);
   return v2;
 }
 
@@ -5401,14 +5793,12 @@ void cv3d::aspenbase::concurrency::Thread::~Thread(cv3d::aspenbase::concurrency:
 
 uint64_t cv3d::aspenbase::concurrency::Mutex::CreateMutex(pthread_mutex_t *this)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  pthread_mutexattr_init(&v4);
-  pthread_mutexattr_settype(&v4, 1);
-  pthread_mutexattr_setprotocol(&v4, 0);
-  pthread_mutex_init(this, &v4);
-  result = pthread_mutexattr_destroy(&v4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = *MEMORY[0x277D85DE8];
+  pthread_mutexattr_init(&v3);
+  pthread_mutexattr_settype(&v3, 1);
+  pthread_mutexattr_setprotocol(&v3, 0);
+  pthread_mutex_init(this, &v3);
+  return pthread_mutexattr_destroy(&v3);
 }
 
 void cv3d::aspenbase::concurrency::ThreadPool::~ThreadPool(cv3d::aspenbase::concurrency::ThreadPool *this)
@@ -6023,43 +6413,46 @@ uint64_t cv3d::aspenbase::concurrency::Channel<BOOL>::Close(uint64_t a1)
 
 unint64_t *cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(unint64_t *result, unint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = result[43];
   if (v5)
   {
     v6 = *(a3 + 24);
     if (v6)
     {
+      v7 = a4;
       if (v6 == a3)
       {
-        v19 = v18;
-        (*(*v6 + 24))(v6, v18);
+        v17 = v16;
+        (*(*v6 + 24))(v6, v16);
       }
 
       else
       {
-        v19 = (*(*v6 + 16))(v6);
+        v17 = (*(*v6 + 16))(v6);
       }
+
+      a4 = v7;
     }
 
     else
     {
-      v19 = 0;
+      v17 = 0;
     }
 
-    cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(v5, a2, v18);
-    result = v19;
-    if (v19 == v18)
+    cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(v5, a2, v16, a4);
+    result = v17;
+    if (v17 == v16)
     {
-      result = (*(*v19 + 32))(v19);
+      return (*(*v17 + 32))(v17);
     }
 
-    else if (v19)
+    if (v17)
     {
-      result = (*(*v19 + 40))(v19);
+      return (*(*v17 + 40))(v17);
     }
 
-    goto LABEL_28;
+    return result;
   }
 
   if (a4)
@@ -6075,64 +6468,60 @@ unint64_t *cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(unint64_t *resul
 LABEL_7:
     if (a2)
     {
-      v7 = result[34];
       v8 = *(a3 + 24);
       if (v8)
       {
         if (v8 == a3)
         {
-          v15 = v14;
-          (*(*v8 + 24))(v8, v14);
+          v13 = v12;
+          (*(*v8 + 24))(v8, v12);
         }
 
         else
         {
-          v15 = (*(*v8 + 16))(v8);
+          v13 = (*(*v8 + 16))(v8);
         }
       }
 
       else
       {
-        v15 = 0;
+        v13 = 0;
       }
 
-      v16 = 0;
-      v17 = 0;
+      v14 = 0;
+      v15 = 0;
       operator new();
     }
 
-    goto LABEL_28;
+    return result;
   }
 
   if (a2)
   {
-    v9 = result[34];
-    v10 = *(a3 + 24);
-    if (v10)
+    v9 = *(a3 + 24);
+    if (v9)
     {
-      if (v10 == a3)
+      if (v9 == a3)
       {
-        v13 = v12;
-        (*(*v10 + 24))(v10, v12);
+        v11 = v10;
+        (*(*v9 + 24))(v9, v10);
       }
 
       else
       {
-        v13 = (*(*v10 + 16))(v10);
+        v11 = (*(*v9 + 16))(v9);
       }
     }
 
     else
     {
-      v13 = 0;
+      v11 = 0;
     }
 
-    v17 = 0;
+    v15 = 0;
     operator new();
   }
 
-LABEL_28:
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6312,10 +6701,10 @@ uint64_t std::__bind<cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(unsign
   }
 }
 
-uint64_t cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+_BYTE *cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(void *a1, unint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 344);
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = a1[43];
   v7 = *(a3 + 24);
   if (!v6)
   {
@@ -6323,22 +6712,22 @@ uint64_t cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(uint64_t a1, uint6
     {
       if (v7 == a3)
       {
-        v11 = v10;
-        (*(*v7 + 24))(v7, v10);
+        v10 = v9;
+        (*(*v7 + 24))(v7, v9);
       }
 
       else
       {
-        v11 = (*(*v7 + 16))(v7);
+        v10 = (*(*v7 + 16))(v7);
       }
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
 
-    v12 = 0;
+    v11 = 0;
     operator new();
   }
 
@@ -6346,34 +6735,33 @@ uint64_t cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(uint64_t a1, uint6
   {
     if (v7 == a3)
     {
-      v14 = v13;
-      (*(*v7 + 24))(v7, v13);
+      v13 = v12;
+      (*(*v7 + 24))(v7, v12);
     }
 
     else
     {
-      v14 = (*(*v7 + 16))(v7);
+      v13 = (*(*v7 + 16))(v7);
     }
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(v6, a2, v13, a4);
-  result = v14;
-  if (v14 == v13)
+  cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(v6, a2, v12, a4);
+  result = v13;
+  if (v13 == v12)
   {
-    result = (*(*v14 + 32))();
+    return (*(*v13 + 32))();
   }
 
-  else if (v14)
+  if (v13)
   {
-    result = (*(*v14 + 40))(v14);
+    return (*(*v13 + 40))(v13);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6387,34 +6775,34 @@ void sub_247451238(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_247451254(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_247451254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>::~function(va1);
   std::function<void ()(unsigned long)>::~function(va);
   _Unwind_Resume(a1);
 }
 
-void sub_247451270(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_247451270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<void ()(unsigned long)>::~function(va);
   _Unwind_Resume(a1);
 }
 
-void sub_247451284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_247451284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::function<void ()(unsigned long)>::~function(va);
   _Unwind_Resume(a1);
 }
 
-void cv3d::aspenbase::concurrency::AsyncManager::For(unint64_t *a1, unint64_t a2, uint64_t a3, unint64_t a4)
+void cv3d::aspenbase::concurrency::AsyncManager::For(cv3d::aspenbase::concurrency::AsyncManager *a1, unint64_t a2, uint64_t a3, unint64_t a4)
 {
   v11 = *MEMORY[0x277D85DE8];
   v5 = *(a3 + 24);
@@ -6456,16 +6844,64 @@ void cv3d::aspenbase::concurrency::AsyncManager::For(unint64_t *a1, unint64_t a2
   do
   {
     v8 = a1;
-    a1 = a1[43];
+    a1 = *(a1 + 43);
   }
 
   while (a1);
   cv3d::aspenbase::concurrency::AsyncManager::Start(v8);
 }
 
-void sub_2474513F8(_Unwind_Exception *a1, uint64_t a2, ...)
 {
-  va_start(va, a2);
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = *(a3 + 24);
+  if (v5)
+  {
+    v6 = a2;
+    v7 = a4;
+    if (v5 == a3)
+    {
+      v10 = v9;
+      (*(*v5 + 24))(v5, v9);
+    }
+
+    else
+    {
+      v10 = (*(*v5 + 16))(v5);
+    }
+
+    a4 = v7;
+    a2 = v6;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(a1, a2, v9, a4);
+  if (v10 == v9)
+  {
+    (*(*v10 + 32))(v10);
+  }
+
+  else if (v10)
+  {
+    (*(*v10 + 40))();
+  }
+
+  do
+  {
+    v8 = a1;
+    a1 = *(a1 + 43);
+  }
+
+  while (a1);
+  cv3d::aspenbase::concurrency::AsyncManager::Start(v8);
+}
+
+void sub_2474513F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -6482,58 +6918,9 @@ void cv3d::aspenbase::concurrency::AsyncManager::Flush(cv3d::aspenbase::concurre
   cv3d::aspenbase::concurrency::AsyncManager::Start(v1);
 }
 
-void cv3d::aspenbase::concurrency::AsyncManager::For(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_247451584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = *(a3 + 24);
-  if (v5)
-  {
-    v6 = a2;
-    v7 = a4;
-    if (v5 == a3)
-    {
-      v10 = v9;
-      (*(*v5 + 24))(v5, v9);
-    }
-
-    else
-    {
-      v10 = (*(*v5 + 16))(v5);
-    }
-
-    a4 = v7;
-    a2 = v6;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(a1, a2, v9, a4);
-  if (v10 == v9)
-  {
-    (*(*v10 + 32))(v10);
-  }
-
-  else if (v10)
-  {
-    (*(*v10 + 40))();
-  }
-
-  do
-  {
-    v8 = a1;
-    a1 = *(a1 + 344);
-  }
-
-  while (a1);
-  cv3d::aspenbase::concurrency::AsyncManager::Start(v8);
-}
-
-void sub_247451584(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<void ()(unsigned long)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -6545,9 +6932,8 @@ void std::vector<std::shared_ptr<cv3d::aspenbase::concurrency::AsyncManager::Thr
   if (v4 < v3)
   {
     *v4 = *a2;
-    v5 = v4 + 1;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    v5 = v4 + 16;
+    *a2 = 0uLL;
 LABEL_3:
     a1[1] = v5;
     return;
@@ -6588,8 +6974,7 @@ LABEL_3:
 
   v10 = (16 * v6);
   v11 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v12 = *a1;
   v13 = a1[1] - *a1;
   v14 = v10 - v13;
@@ -6663,25 +7048,24 @@ LABEL_5:
     goto LABEL_11;
   }
 
-  v6 = *(a1 + 1);
-  v7 = *(a1 + 3);
-  v8 = *(a1 + 2);
-  v9 = ((v7 - v8) << 9) - 1;
-  if (v7 == v8)
+  v6 = *(a1 + 3);
+  v7 = *(a1 + 2);
+  v8 = ((v6 - v7) << 9) - 1;
+  if (v6 == v7)
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v10 = *(a1 + 5) + v4;
-  if (v9 == v10)
+  v9 = *(a1 + 5) + v4;
+  if (v8 == v9)
   {
     std::deque<BOOL>::__add_back_capacity(a1 + 1);
-    v8 = *(a1 + 2);
+    v7 = *(a1 + 2);
     v4 = *(a1 + 6);
-    v10 = *(a1 + 5) + v4;
+    v9 = *(a1 + 5) + v4;
   }
 
-  *(*(v8 + ((v10 >> 9) & 0x7FFFFFFFFFFFF8)) + (v10 & 0xFFF)) = *a2;
+  *(*(v7 + ((v9 >> 9) & 0x7FFFFFFFFFFFF8)) + (v9 & 0xFFF)) = *a2;
   *(a1 + 6) = v4 + 1;
   pthread_cond_signal((a1 + 32));
   v5 = 1;
@@ -6762,19 +7146,19 @@ LABEL_4:
   return v7;
 }
 
-void *std::deque<BOOL>::__add_back_capacity(void *a1)
+void std::deque<BOOL>::__add_back_capacity(void **a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x1000;
   v3 = v1 - 4096;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -6782,18 +7166,18 @@ void *std::deque<BOOL>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -6803,9 +7187,9 @@ void *std::deque<BOOL>::__add_back_capacity(void *a1)
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
+  v10 = *v4;
   a1[1] = v4 + 1;
-  return std::__split_buffer<BOOL *>::emplace_back<BOOL *&>(a1, &v11);
+  std::__split_buffer<BOOL *>::emplace_back<BOOL *&>(a1, &v10);
 }
 
 void sub_247451DD8(_Unwind_Exception *a1)
@@ -6815,18 +7199,17 @@ void sub_247451DD8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<BOOL *>::emplace_back<BOOL *&>(void *result, void *a2)
+void std::__split_buffer<BOOL *>::emplace_back<BOOL *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      v11 = &v4[-*result] >> 2;
-      if (v4 == *result)
+      v11 = &v4[-*a1] >> 2;
+      if (v4 == *a1)
       {
         v11 = 1;
       }
@@ -6845,27 +7228,25 @@ void *std::__split_buffer<BOOL *>::emplace_back<BOOL *&>(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v7], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
+    a1[1] = &v5[8 * v8];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
+  a1[2] = (v4 + 8);
 }
 
-const void **std::__split_buffer<BOOL *>::emplace_front<BOOL *>(const void **result, void *a2)
+void std::__split_buffer<BOOL *>::emplace_front<BOOL *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       v9 = (v7 - v4) >> 2;
@@ -6886,21 +7267,20 @@ const void **std::__split_buffer<BOOL *>::emplace_front<BOOL *>(const void **res
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[2] = &v6[8 * v8];
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v5 - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = (v5 - 8);
 }
 
 void std::__shared_ptr_emplace<cv3d::aspenbase::concurrency::Channel<BOOL>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -6913,7 +7293,7 @@ void std::__shared_ptr_emplace<cv3d::aspenbase::concurrency::Channel<BOOL>>::~__
 
 uint64_t cv3d::aspenbase::concurrency::Channel<BOOL>::Channel(uint64_t a1, int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   *(a1 + 8) = 0u;
   *a1 = a2;
   *(a1 + 24) = 0u;
@@ -6921,11 +7301,11 @@ uint64_t cv3d::aspenbase::concurrency::Channel<BOOL>::Channel(uint64_t a1, int a
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  pthread_mutexattr_init(&v6);
-  pthread_mutexattr_settype(&v6, 1);
-  pthread_mutexattr_setprotocol(&v6, 0);
-  pthread_mutex_init((a1 + 176), &v6);
-  pthread_mutexattr_destroy(&v6);
+  pthread_mutexattr_init(&v5);
+  pthread_mutexattr_settype(&v5, 1);
+  pthread_mutexattr_setprotocol(&v5, 0);
+  pthread_mutex_init((a1 + 176), &v5);
+  pthread_mutexattr_destroy(&v5);
   v3 = *a1;
   if (*a1 >= 0x7FFFFFFFu)
   {
@@ -6941,7 +7321,6 @@ uint64_t cv3d::aspenbase::concurrency::Channel<BOOL>::Channel(uint64_t a1, int a
   *a1 = v3;
   pthread_cond_init((a1 + 80), 0);
   pthread_cond_init((a1 + 128), 0);
-  v4 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -7029,19 +7408,19 @@ uint64_t cv3d::aspenbase::concurrency::Channel<BOOL>::~Channel(uint64_t a1)
   return a1;
 }
 
-void *std::deque<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>>::__add_back_capacity(void *a1)
+void std::deque<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>>::__add_back_capacity(void **a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x80;
   v3 = v1 - 128;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -7049,18 +7428,18 @@ void *std::deque<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManage
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -7070,9 +7449,9 @@ void *std::deque<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManage
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
+  v10 = *v4;
   a1[1] = v4 + 1;
-  return std::__split_buffer<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *,std::allocator<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *>>::emplace_back<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *&>(a1, &v11);
+  std::__split_buffer<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *,std::allocator<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *>>::emplace_back<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *&>(a1, &v10);
 }
 
 void sub_2474527C0(_Unwind_Exception *a1)
@@ -7082,18 +7461,17 @@ void sub_2474527C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *,std::allocator<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *>>::emplace_back<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *&>(void *result, void *a2)
+void std::__split_buffer<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *,std::allocator<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *>>::emplace_back<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      v11 = &v4[-*result] >> 2;
-      if (v4 == *result)
+      v11 = &v4[-*a1] >> 2;
+      if (v4 == *a1)
       {
         v11 = 1;
       }
@@ -7112,27 +7490,25 @@ void *std::__split_buffer<std::function<void ()(cv3d::aspenbase::concurrency::As
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v7], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
+    a1[1] = &v5[8 * v8];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
+  a1[2] = (v4 + 8);
 }
 
-const void **std::__split_buffer<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *,std::allocator<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *>>::emplace_front<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *>(const void **result, void *a2)
+void std::__split_buffer<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *,std::allocator<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *>>::emplace_front<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       v9 = (v7 - v4) >> 2;
@@ -7153,21 +7529,20 @@ const void **std::__split_buffer<std::function<void ()(cv3d::aspenbase::concurre
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[2] = &v6[8 * v8];
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v5 - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = (v5 - 8);
 }
 
 void *std::__function::__func<std::__bind<std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> &,unsigned long &,std::placeholders::__ph<1> const&>,std::allocator<std::__bind<std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)> &,unsigned long &,std::placeholders::__ph<1> const&>>,void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>::~__func(void *a1)
@@ -7430,9 +7805,9 @@ void std::__function::__func<std::__bind<cv3d::aspenbase::concurrency::AsyncMana
   operator delete(v4);
 }
 
-uint64_t std::__function::__func<std::__bind<cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(unsigned long,std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>,unsigned long)::$_0 &,unsigned long &,unsigned long &,unsigned long &,std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>&,std::placeholders::__ph<1> const&>,std::allocator<std::__bind<cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(unsigned long,std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>,unsigned long)::$_0 &,unsigned long &,unsigned long &,unsigned long &,std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>&,std::placeholders::__ph<1> const&>>,void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>::operator()(void *a1, uint64_t a2)
+_BYTE *std::__function::__func<std::__bind<cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(unsigned long,std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>,unsigned long)::$_0 &,unsigned long &,unsigned long &,unsigned long &,std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>&,std::placeholders::__ph<1> const&>,std::allocator<std::__bind<cv3d::aspenbase::concurrency::AsyncManager::AsyncFor(unsigned long,std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>,unsigned long)::$_0 &,unsigned long &,unsigned long &,unsigned long &,std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>&,std::placeholders::__ph<1> const&>>,void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>::operator()(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a1[2];
   v5 = a1[3];
   v6 = a1[4];
@@ -7441,19 +7816,19 @@ uint64_t std::__function::__func<std::__bind<cv3d::aspenbase::concurrency::Async
   {
     if (v7 == a1 + 5)
     {
-      v12 = v11;
-      (*(*v7 + 24))(v7, v11);
+      v11 = v10;
+      (*(*v7 + 24))(v7, v10);
     }
 
     else
     {
-      v12 = (*(*v7 + 16))(v7);
+      v11 = (*(*v7 + 16))(v7);
     }
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   if (v6 + v4 < v5)
@@ -7465,44 +7840,43 @@ uint64_t std::__function::__func<std::__bind<cv3d::aspenbase::concurrency::Async
   {
     do
     {
-      v10 = v4;
-      if (!v12)
+      v9 = v4;
+      if (!v11)
       {
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      (*(*v12 + 48))(v12, &v10, a2);
+      (*(*v11 + 48))(v11, &v9, a2);
       ++v4;
     }
 
     while (v5 != v4);
   }
 
-  result = v12;
-  if (v12 == v11)
+  result = v11;
+  if (v11 == v10)
   {
-    result = (*(*v12 + 32))(v12);
+    return (*(*v11 + 32))(v11);
   }
 
-  else if (v12)
+  if (v11)
   {
-    result = (*(*v12 + 40))(v12);
+    return (*(*v11 + 40))(v11);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_24745366C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24745366C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>::~function(va);
   _Unwind_Resume(a1);
 }
 
-void sub_247453680(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_247453680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<void ()(unsigned long,cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -7687,7 +8061,7 @@ void std::__shared_ptr_emplace<cv3d::aspenbase::concurrency::Channel<std::functi
 
 uint64_t cv3d::aspenbase::concurrency::Channel<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>>::Channel(uint64_t a1, int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   *(a1 + 8) = 0u;
   *a1 = a2;
   *(a1 + 24) = 0u;
@@ -7695,11 +8069,11 @@ uint64_t cv3d::aspenbase::concurrency::Channel<std::function<void ()(cv3d::aspen
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  pthread_mutexattr_init(&v6);
-  pthread_mutexattr_settype(&v6, 1);
-  pthread_mutexattr_setprotocol(&v6, 0);
-  pthread_mutex_init((a1 + 176), &v6);
-  pthread_mutexattr_destroy(&v6);
+  pthread_mutexattr_init(&v5);
+  pthread_mutexattr_settype(&v5, 1);
+  pthread_mutexattr_setprotocol(&v5, 0);
+  pthread_mutex_init((a1 + 176), &v5);
+  pthread_mutexattr_destroy(&v5);
   v3 = *a1;
   if (*a1 >= 0x7FFFFFFFu)
   {
@@ -7715,7 +8089,6 @@ uint64_t cv3d::aspenbase::concurrency::Channel<std::function<void ()(cv3d::aspen
   *a1 = v3;
   pthread_cond_init((a1 + 80), 0);
   pthread_cond_init((a1 + 128), 0);
-  v4 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -7955,11 +8328,11 @@ void cv3d::aspenbase::concurrency::Thread::ThreadFuncWrapper<std::__bind<cv3d::a
 
 void cv3d::aspenbase::concurrency::Thread::ThreadFuncWrapper<std::__bind<cv3d::aspenbase::concurrency::AsyncManager::Start(unsigned long)::$_0 &,anonymous namespace::AsyncCallContext &>>::ThreadFunc(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = a1[3];
   v1 = a1[4];
   v3 = a1[5];
-  v14 = v3;
+  v13 = v3;
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -7967,7 +8340,7 @@ void cv3d::aspenbase::concurrency::Thread::ThreadFuncWrapper<std::__bind<cv3d::a
 
   v5 = a1[6];
   v4 = a1[7];
-  v15 = v4;
+  v14 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -7979,7 +8352,7 @@ void cv3d::aspenbase::concurrency::Thread::ThreadFuncWrapper<std::__bind<cv3d::a
     atomic_fetch_add_explicit((*(&v6 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  v13 = *(&v6 + 1);
+  v12 = *(&v6 + 1);
   v7 = cv3d::aspenbase::concurrency::Channel<BOOL>::Pop(v1);
   if ((v7 & 0x100) == 0 || (v7 & 1) == 0)
   {
@@ -7988,19 +8361,19 @@ void cv3d::aspenbase::concurrency::Thread::ThreadFuncWrapper<std::__bind<cv3d::a
 
   while (2)
   {
-    cv3d::aspenbase::concurrency::Channel<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>>::Pop(*v2, v19);
-    while (v20 && (v21 & 1) != 0)
+    cv3d::aspenbase::concurrency::Channel<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>>::Pop(*v2, v18);
+    while (v19 && (v20 & 1) != 0)
     {
-      (*(*v20 + 48))();
-      cv3d::aspenbase::concurrency::Channel<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>>::Pop(*v2, v16);
-      v8 = v20;
-      v20 = 0;
-      if (v8 == v19)
+      (*(*v19 + 48))();
+      cv3d::aspenbase::concurrency::Channel<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>>::Pop(*v2, v15);
+      v8 = v19;
+      v19 = 0;
+      if (v8 == v18)
       {
         (*(*v8 + 32))(v8);
-        v9 = v17;
-        v10 = &v20;
-        if (!v17)
+        v9 = v16;
+        v10 = &v19;
+        if (!v16)
         {
           goto LABEL_21;
         }
@@ -8013,44 +8386,44 @@ void cv3d::aspenbase::concurrency::Thread::ThreadFuncWrapper<std::__bind<cv3d::a
           (*(*v8 + 40))(v8);
         }
 
-        v9 = v17;
-        v10 = &v20;
-        if (!v17)
+        v9 = v16;
+        v10 = &v19;
+        if (!v16)
         {
           goto LABEL_21;
         }
       }
 
-      if (v9 == v16)
+      if (v9 == v15)
       {
-        v20 = v19;
-        (*(*v9 + 24))(v9, v19);
+        v19 = v18;
+        (*(*v9 + 24))(v9, v18);
         goto LABEL_23;
       }
 
-      v20 = v9;
-      v10 = &v17;
+      v19 = v9;
+      v10 = &v16;
 LABEL_21:
       *v10 = 0;
 LABEL_23:
-      v21 = v18;
-      if (v17 == v16)
+      v20 = v17;
+      if (v16 == v15)
       {
-        (*(*v17 + 32))(v17);
+        (*(*v16 + 32))(v16);
       }
 
-      else if (v17)
+      else if (v16)
       {
-        (*(*v17 + 40))();
+        (*(*v16 + 40))();
       }
     }
 
-    v16[0] = 1;
-    cv3d::aspenbase::concurrency::Channel<BOOL>::Push(v5, v16);
+    LOBYTE(v15[0]) = 1;
+    cv3d::aspenbase::concurrency::Channel<BOOL>::Push(v5, v15);
     v11 = cv3d::aspenbase::concurrency::Channel<BOOL>::Pop(v1);
-    if (v20 == v19)
+    if (v19 == v18)
     {
-      (*(*v20 + 32))(v20);
+      (*(*v19 + 32))(v19);
       if ((v11 & 0x100) != 0)
       {
 LABEL_32:
@@ -8065,9 +8438,9 @@ LABEL_32:
 
     else
     {
-      if (v20)
+      if (v19)
       {
-        (*(*v20 + 40))();
+        (*(*v19 + 40))();
       }
 
       if ((v11 & 0x100) != 0)
@@ -8080,16 +8453,10 @@ LABEL_32:
   }
 
 LABEL_33:
-  if (v13 && !atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v12 && !atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v13->__on_zero_shared)(v13);
-    std::__shared_weak_count::__release_weak(v13);
-  }
-
-  if (v15 && !atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v15->__on_zero_shared)(v15);
-    std::__shared_weak_count::__release_weak(v15);
+    (v12->__on_zero_shared)(v12);
+    std::__shared_weak_count::__release_weak(v12);
   }
 
   if (v14 && !atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -8098,25 +8465,29 @@ LABEL_33:
     std::__shared_weak_count::__release_weak(v14);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  if (v13 && !atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v13->__on_zero_shared)(v13);
+    std::__shared_weak_count::__release_weak(v13);
+  }
 }
 
-void sub_2474547C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2474547C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::shared_ptr<apple3dgs::Asset>::~shared_ptr[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
 uint64_t cv3d::aspenbase::concurrency::Channel<std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>>::Pop@<X0>(unsigned int *a1@<X0>, uint64_t a2@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((a1 + 44));
   if (*(a1 + 6))
   {
@@ -8127,8 +8498,8 @@ LABEL_4:
     {
       if (v5 == v4)
       {
-        v15 = v14;
-        (*(**(v4 + 24) + 24))(*(v4 + 24), v14);
+        v14 = v13;
+        (*(**(v4 + 24) + 24))(*(v4 + 24), v13);
 LABEL_10:
         v6 = *(*(a1 + 2) + ((*(a1 + 5) >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (*(a1 + 5) & 0x7FLL);
         v7 = *(v6 + 24);
@@ -8159,10 +8530,10 @@ LABEL_10:
         else if (v8.i64[1] >= *a1)
         {
 LABEL_19:
-          v10 = v15;
-          if (v15)
+          v10 = v14;
+          if (v14)
           {
-            if (v15 == v14)
+            if (v14 == v13)
             {
               *(a2 + 24) = a2;
               (*(*v10 + 24))(v10, a2);
@@ -8170,12 +8541,12 @@ LABEL_19:
 
             else
             {
-              *(a2 + 24) = (*(*v15 + 16))();
+              *(a2 + 24) = (*(*v14 + 16))();
             }
 
-            v11 = v15;
+            v11 = v14;
             *(a2 + 32) = 1;
-            if (v11 == v14)
+            if (v11 == v13)
             {
               (*(*v11 + 32))(v11);
             }
@@ -8192,7 +8563,7 @@ LABEL_19:
             *(a2 + 32) = 1;
           }
 
-          goto LABEL_28;
+          return pthread_mutex_unlock((a1 + 44));
         }
 
         pthread_cond_signal((a1 + 20));
@@ -8202,7 +8573,7 @@ LABEL_19:
       v5 = (*(*v5 + 16))(v5);
     }
 
-    v15 = v5;
+    v14 = v5;
     goto LABEL_10;
   }
 
@@ -8219,34 +8590,31 @@ LABEL_19:
 
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
-LABEL_28:
-  result = pthread_mutex_unlock((a1 + 44));
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return pthread_mutex_unlock((a1 + 44));
 }
 
-void sub_247454B18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_247454B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<void ()(cv3d::aspenbase::concurrency::AsyncManager::ThreadContext &)>::~function(va);
-  pthread_mutex_unlock((v2 + 176));
+  pthread_mutex_unlock((v3 + 176));
   _Unwind_Resume(a1);
 }
 
-id _gs_log()
+id _gs_log(uint64_t a1)
 {
   if (qword_27EE511C8 == -1)
   {
-    v1 = _MergedGlobals_0;
+    v2 = _MergedGlobals_0;
   }
 
   else
   {
     _gs_log_cold_1();
-    v1 = _MergedGlobals_0;
+    v2 = _MergedGlobals_0;
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gs_log_block_invoke()
@@ -8456,75 +8824,76 @@ LABEL_9:
 
 float32x4_t apple3dgs::GetFrustumPlanes@<Q0>(int32x4_t *this@<X0>, float32x4_t *a2@<X8>)
 {
-  v3 = this[1];
-  v4 = this[2];
-  v5 = this[3];
-  v6 = vzip1q_s32(*this, v4);
-  v7 = vzip2q_s32(*this, v4);
-  v8 = vzip1q_s32(v3, v5);
-  v9 = vzip2q_s32(v3, v5);
-  v10 = vzip1q_s32(v6, v8);
-  v11 = vzip2q_s32(v6, v8);
-  v12 = vzip1q_s32(v7, v9);
-  v13 = vzip2q_s32(v7, v9);
-  v14 = vaddq_f32(v13, v10);
-  v15 = vsubq_f32(v13, v10);
-  v16 = vaddq_f32(v13, v11);
-  v17 = vsubq_f32(v13, v11);
-  v18 = vmulq_f32(v14, v14);
-  v11.f32[0] = v18.f32[2] + vaddv_f32(*v18.f32);
-  result = vsubq_f32(v13, v12);
-  *v12.f32 = vrsqrte_f32(v11.u32[0]);
-  *v12.f32 = vmul_f32(*v12.f32, vrsqrts_f32(v11.u32[0], vmul_f32(*v12.f32, *v12.f32)));
-  v20 = vmulq_n_f32(v14, vmul_f32(*v12.f32, vrsqrts_f32(v11.u32[0], vmul_f32(*v12.f32, *v12.f32))).f32[0]);
-  v20.i32[3] = v14.i32[3];
-  v21 = vmulq_f32(v15, v15);
-  v14.f32[0] = v21.f32[2] + vaddv_f32(*v21.f32);
-  v22 = vrsqrte_f32(v14.u32[0]);
-  v23 = vmul_f32(v22, vrsqrts_f32(v14.u32[0], vmul_f32(v22, v22)));
-  v24 = vmulq_n_f32(v15, vmul_f32(v23, vrsqrts_f32(v14.u32[0], vmul_f32(v23, v23))).f32[0]);
-  v24.i32[3] = v15.i32[3];
-  v25 = vmulq_f32(v16, v16);
-  v23.f32[0] = v25.f32[2] + vaddv_f32(*v25.f32);
-  *v25.f32 = vrsqrte_f32(v23.u32[0]);
-  *v25.f32 = vmul_f32(*v25.f32, vrsqrts_f32(v23.u32[0], vmul_f32(*v25.f32, *v25.f32)));
-  v26 = vmulq_n_f32(v16, vmul_f32(*v25.f32, vrsqrts_f32(v23.u32[0], vmul_f32(*v25.f32, *v25.f32))).f32[0]);
-  v26.i32[3] = v16.i32[3];
-  v27 = vmulq_f32(v17, v17);
-  v23.f32[0] = v27.f32[2] + vaddv_f32(*v27.f32);
-  *a2 = v20;
-  a2[1] = v24;
-  *v27.f32 = vrsqrte_f32(v23.u32[0]);
-  *v27.f32 = vmul_f32(*v27.f32, vrsqrts_f32(v23.u32[0], vmul_f32(*v27.f32, *v27.f32)));
-  v28 = vmulq_n_f32(v17, vmul_f32(*v27.f32, vrsqrts_f32(v23.u32[0], vmul_f32(*v27.f32, *v27.f32))).f32[0]);
-  v28.i32[3] = v17.i32[3];
-  a2[2] = v26;
-  a2[3] = v28;
-  v29 = vmulq_f32(v13, v13);
-  v28.f32[0] = v29.f32[2] + vaddv_f32(*v29.f32);
-  *v29.f32 = vrsqrte_f32(v28.u32[0]);
-  *v29.f32 = vmul_f32(*v29.f32, vrsqrts_f32(v28.u32[0], vmul_f32(*v29.f32, *v29.f32)));
-  v30 = vmulq_n_f32(v13, vmul_f32(*v29.f32, vrsqrts_f32(v28.u32[0], vmul_f32(*v29.f32, *v29.f32))).f32[0]);
-  v30.i32[3] = v13.i32[3];
-  v31 = vmulq_f32(result, result);
-  v21.f32[0] = v31.f32[2] + vaddv_f32(*v31.f32);
-  *v31.f32 = vrsqrte_f32(v21.u32[0]);
-  *v31.f32 = vmul_f32(*v31.f32, vrsqrts_f32(v21.u32[0], vmul_f32(*v31.f32, *v31.f32)));
-  v32 = vmulq_n_f32(result, vmul_f32(*v31.f32, vrsqrts_f32(v21.u32[0], vmul_f32(*v31.f32, *v31.f32))).f32[0]);
-  v32.i32[3] = result.i32[3];
-  a2[4] = v30;
-  a2[5] = v32;
+  v2 = this[1];
+  v3 = this[2];
+  v4 = this[3];
+  v5 = vzip1q_s32(*this, v3);
+  v6 = vzip2q_s32(*this, v3);
+  v7 = vzip1q_s32(v2, v4);
+  v8 = vzip2q_s32(v2, v4);
+  v9 = vzip1q_s32(v5, v7);
+  v10 = vzip2q_s32(v5, v7);
+  v11 = vzip1q_s32(v6, v8);
+  v12 = vzip2q_s32(v6, v8);
+  v13 = vaddq_f32(v12, v9);
+  v14 = vsubq_f32(v12, v9);
+  v15 = vaddq_f32(v12, v10);
+  v16 = vsubq_f32(v12, v10);
+  v17 = vmulq_f32(v13, v13);
+  v10.f32[0] = v17.f32[2] + vaddv_f32(*v17.f32);
+  result = vsubq_f32(v12, v11);
+  *v11.f32 = vrsqrte_f32(v10.u32[0]);
+  *v11.f32 = vmul_f32(*v11.f32, vrsqrts_f32(v10.u32[0], vmul_f32(*v11.f32, *v11.f32)));
+  v19 = vmulq_n_f32(v13, vmul_f32(*v11.f32, vrsqrts_f32(v10.u32[0], vmul_f32(*v11.f32, *v11.f32))).f32[0]);
+  v19.i32[3] = v13.i32[3];
+  v20 = vmulq_f32(v14, v14);
+  v13.f32[0] = v20.f32[2] + vaddv_f32(*v20.f32);
+  v21 = vrsqrte_f32(v13.u32[0]);
+  v22 = vmul_f32(v21, vrsqrts_f32(v13.u32[0], vmul_f32(v21, v21)));
+  v23 = vmulq_n_f32(v14, vmul_f32(v22, vrsqrts_f32(v13.u32[0], vmul_f32(v22, v22))).f32[0]);
+  v23.i32[3] = v14.i32[3];
+  v24 = vmulq_f32(v15, v15);
+  v22.f32[0] = v24.f32[2] + vaddv_f32(*v24.f32);
+  *v24.f32 = vrsqrte_f32(v22.u32[0]);
+  *v24.f32 = vmul_f32(*v24.f32, vrsqrts_f32(v22.u32[0], vmul_f32(*v24.f32, *v24.f32)));
+  v25 = vmulq_n_f32(v15, vmul_f32(*v24.f32, vrsqrts_f32(v22.u32[0], vmul_f32(*v24.f32, *v24.f32))).f32[0]);
+  v25.i32[3] = v15.i32[3];
+  v26 = vmulq_f32(v16, v16);
+  v22.f32[0] = v26.f32[2] + vaddv_f32(*v26.f32);
+  *a2 = v19;
+  a2[1] = v23;
+  *v26.f32 = vrsqrte_f32(v22.u32[0]);
+  *v26.f32 = vmul_f32(*v26.f32, vrsqrts_f32(v22.u32[0], vmul_f32(*v26.f32, *v26.f32)));
+  v27 = vmulq_n_f32(v16, vmul_f32(*v26.f32, vrsqrts_f32(v22.u32[0], vmul_f32(*v26.f32, *v26.f32))).f32[0]);
+  v27.i32[3] = v16.i32[3];
+  a2[2] = v25;
+  a2[3] = v27;
+  v28 = vmulq_f32(v12, v12);
+  v27.f32[0] = v28.f32[2] + vaddv_f32(*v28.f32);
+  *v28.f32 = vrsqrte_f32(v27.u32[0]);
+  *v28.f32 = vmul_f32(*v28.f32, vrsqrts_f32(v27.u32[0], vmul_f32(*v28.f32, *v28.f32)));
+  v29 = vmulq_n_f32(v12, vmul_f32(*v28.f32, vrsqrts_f32(v27.u32[0], vmul_f32(*v28.f32, *v28.f32))).f32[0]);
+  v29.i32[3] = v12.i32[3];
+  v30 = vmulq_f32(result, result);
+  v20.f32[0] = v30.f32[2] + vaddv_f32(*v30.f32);
+  *v30.f32 = vrsqrte_f32(v20.u32[0]);
+  *v30.f32 = vmul_f32(*v30.f32, vrsqrts_f32(v20.u32[0], vmul_f32(*v30.f32, *v30.f32)));
+  v31 = vmulq_n_f32(result, vmul_f32(*v30.f32, vrsqrts_f32(v20.u32[0], vmul_f32(*v30.f32, *v30.f32))).f32[0]);
+  v31.i32[3] = result.i32[3];
+  a2[4] = v29;
+  a2[5] = v31;
   return result;
 }
 
 uint64_t apple3dgs::SortWorker::SortWorker(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = a2;
   v8 = *(a3 + 2);
   *a1 = *a3;
   *(a1 + 2) = v8;
   MetalContext::MetalContext(a1 + 8, v7, *(a3 + 2));
-  apple3dgs::RadixSorter::RadixSorter(a1 + 128, v7, a4, 0, *(a3 + 2));
+  apple3dgs::RadixSorter::RadixSorter(a1 + 128, v7, v4, 0, *(a3 + 2));
   *(a1 + 552) = 0u;
   *(a1 + 568) = 0u;
   *(a1 + 520) = 0u;
@@ -8578,9 +8947,9 @@ uint64_t apple3dgs::SortWorker::SortWorker(uint64_t a1, void *a2, uint64_t a3, u
   *(a1 + 1000) = 0u;
   apple3dgs::CheckAlloc((a1 + 648), 0x10uLL, v7, 0);
   [*(a1 + 648) setLabel:@"Indirect Render Buffer"];
-  if (a4)
+  if (v4)
   {
-    apple3dgs::SortWorker::Allocate(a1, a4);
+    apple3dgs::SortWorker::Allocate(a1, v4);
   }
 
   return a1;
@@ -8992,11 +9361,10 @@ void apple3dgs::SortWorker::SetInstanceCount(apple3dgs::SortWorker *this, int a2
   std::mutex::unlock((this + 584));
 }
 
-uint64_t apple3dgs::SortWorker::StartCPUSort(uint64_t this)
+void apple3dgs::SortWorker::StartCPUSort(apple3dgs::SortWorker *this)
 {
   if ((*(this + 664) & 1) == 0)
   {
-    v1 = this;
     v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "Start CPU async sorting thread", 30);
     std::ios_base::getloc((v2 + *(*v2 - 24)));
     v3 = std::locale::use_facet(&v13, MEMORY[0x277D82680]);
@@ -9004,21 +9372,21 @@ uint64_t apple3dgs::SortWorker::StartCPUSort(uint64_t this)
     std::locale::~locale(&v13);
     std::ostream::put();
     std::ostream::flush();
-    std::mutex::lock((v1 + 736));
-    v4 = *(v1 + 984);
-    v5 = *(v1 + 992);
+    std::mutex::lock((this + 736));
+    v4 = *(this + 123);
+    v5 = *(this + 124);
     if (v5 == v4)
     {
-      *(v1 + 1016) = 0;
+      *(this + 127) = 0;
       v11 = 0;
     }
 
     else
     {
-      v6 = *(v1 + 1008);
+      v6 = *(this + 126);
       v7 = &v4[v6 / 0x55];
       v8 = *v7 + 48 * (v6 % 0x55);
-      v9 = v4[(*(v1 + 1016) + v6) / 0x55] + 48 * ((*(v1 + 1016) + v6) % 0x55);
+      v9 = v4[(*(this + 127) + v6) / 0x55] + 48 * ((*(this + 127) + v6) % 0x55);
       if (v8 != v9)
       {
         do
@@ -9034,20 +9402,20 @@ uint64_t apple3dgs::SortWorker::StartCPUSort(uint64_t this)
         }
 
         while (v8 != v9);
-        v5 = *(v1 + 992);
-        v4 = *(v1 + 984);
+        v5 = *(this + 124);
+        v4 = *(this + 123);
       }
 
-      *(v1 + 1016) = 0;
+      *(this + 127) = 0;
       v11 = v5 - v4;
       if (v11 >= 3)
       {
         do
         {
           operator delete(*v4);
-          v4 = (*(v1 + 984) + 8);
-          *(v1 + 984) = v4;
-          v11 = (*(v1 + 992) - v4) >> 3;
+          v4 = (*(this + 123) + 8);
+          *(this + 123) = v4;
+          v11 = (*(this + 124) - v4) >> 3;
         }
 
         while (v11 > 2);
@@ -9069,28 +9437,26 @@ uint64_t apple3dgs::SortWorker::StartCPUSort(uint64_t this)
       v12 = 85;
     }
 
-    *(v1 + 1008) = v12;
+    *(this + 126) = v12;
 LABEL_17:
-    std::mutex::unlock((v1 + 736));
-    *(v1 + 664) = 1;
+    std::mutex::unlock((this + 736));
+    *(this + 664) = 1;
     operator new();
   }
-
-  return this;
 }
 
-void sub_2474560D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2474560D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2474560FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2474560FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, uint64_t *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, uint64_t *);
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,apple3dgs::SortWorker::StartCPUSort(void)::$_0>>::~unique_ptr[abi:ne200100](va);
   std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -9099,58 +9465,57 @@ void sub_2474560FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 void apple3dgs::SortWorker::AddJobCPU(apple3dgs::SortWorker *this, const apple3dgs::SortWorker::Job *a2)
 {
   std::mutex::lock((this + 736));
-  v4 = *(this + 984);
-  v5 = *(this + 124);
-  v6 = *(this + 123);
-  v7 = 85 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = *(this + 124);
+  v5 = *(this + 123);
+  v6 = 85 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(this + 127) + *(this + 126);
-  if (v7 == v8)
+  v7 = *(this + 127) + *(this + 126);
+  if (v6 == v7)
   {
     std::deque<apple3dgs::SortWorker::Job>::__add_back_capacity(this + 122);
-    v6 = *(this + 123);
-    v8 = *(this + 127) + *(this + 126);
+    v5 = *(this + 123);
+    v7 = *(this + 127) + *(this + 126);
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x55));
-  v10 = v8 % 0x55;
-  v11 = *(a2 + 1);
-  v12 = (v9 + 48 * v10);
-  *v12 = *a2;
-  v12[1] = v11;
-  if (v11)
+  v8 = *(v5 + 8 * (v7 / 0x55));
+  v9 = v7 % 0x55;
+  v10 = *(a2 + 1);
+  v11 = (v8 + 48 * v9);
+  *v11 = *a2;
+  v11[1] = v10;
+  if (v10)
   {
-    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v13 = *(a2 + 3);
-  v12[2] = *(a2 + 2);
-  v12[3] = v13;
+  v12 = *(a2 + 3);
+  v11[2] = *(a2 + 2);
+  v11[3] = v12;
+  if (v12)
+  {
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v13 = *(a2 + 5);
+  v11[4] = *(a2 + 4);
+  v11[5] = v13;
   if (v13)
   {
     atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v14 = *(a2 + 5);
-  v12[4] = *(a2 + 4);
-  v12[5] = v14;
-  if (v14)
-  {
-    atomic_fetch_add_explicit((v14 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v15 = *(this + 127) + 1;
-  *(this + 127) = v15;
-  if (v15 >= 0x64)
+  v14 = *(this + 127) + 1;
+  *(this + 127) = v14;
+  if (v14 >= 0x64)
   {
     std::__destroy_at[abi:ne200100]<apple3dgs::SortWorker::Job,0>((*(*(this + 123) + 8 * (*(this + 126) / 0x55uLL)) + 48 * (*(this + 126) % 0x55uLL)));
-    v16 = vaddq_s64(*(this + 63), xmmword_247479930);
-    *(this + 63) = v16;
-    if (v16.i64[0] >= 0xAAuLL)
+    v15 = vaddq_s64(*(this + 63), xmmword_247479930);
+    *(this + 63) = v15;
+    if (v15.i64[0] >= 0xAAuLL)
     {
       operator delete(**(this + 123));
       *(this + 123) += 8;
@@ -9166,8 +9531,8 @@ void apple3dgs::SortWorker::StartRunning(apple3dgs::SortWorker *this)
   v2 = objc_autoreleasePoolPush();
   if (*(this + 664) == 1)
   {
+    v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     do
     {
       std::mutex::lock((this + 736));
@@ -9177,23 +9542,23 @@ void apple3dgs::SortWorker::StartRunning(apple3dgs::SortWorker *this)
         v4 = (*(*(this + 123) + 8 * ((v3 + *(this + 126) - 1) / 0x55uLL)) + 48 * ((v3 + *(this + 126) - 1) % 0x55uLL));
         __ns.__rep_ = *v4;
         v5 = v4[1];
-        v29 = v5;
+        v28 = v5;
         if (v5)
         {
           atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
         }
 
-        v30 = v4[2];
+        v29 = v4[2];
         v6 = v4[3];
-        v31 = v6;
+        v30 = v6;
         if (v6)
         {
           atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
         }
 
-        v32 = v4[4];
+        v31 = v4[4];
         v7 = v4[5];
-        v33 = v7;
+        v32 = v7;
         if (v7)
         {
           atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
@@ -9208,43 +9573,42 @@ void apple3dgs::SortWorker::StartRunning(apple3dgs::SortWorker *this)
         v13 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v8, COERCE_FLOAT(*(__ns.__rep_ + 32))), _Q1, *(__ns.__rep_ + 32), 1), _Q2, *(__ns.__rep_ + 32), 2), v11, *(__ns.__rep_ + 32), 3);
         v14 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v8, COERCE_FLOAT(*(__ns.__rep_ + 48))), _Q1, *(__ns.__rep_ + 48), 1), _Q2, *(__ns.__rep_ + 48), 2), v11, *(__ns.__rep_ + 48), 3);
         _Q0 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v8, COERCE_FLOAT(*(__ns.__rep_ + 64))), _Q1, *(__ns.__rep_ + 64), 1), _Q2, *(__ns.__rep_ + 64), 2), v11, *(__ns.__rep_ + 64), 3);
-        v16 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, COERCE_FLOAT(*v32[50].f32)), v13, v32[50], 1), v14, *v32[50].f32, 2), _Q0, *v32[50].f32, 3);
-        v17 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, COERCE_FLOAT(*v32[52].f32)), v13, v32[52], 1), v14, *v32[52].f32, 2), _Q0, *v32[52].f32, 3);
-        v18 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, COERCE_FLOAT(*v32[54].f32)), v13, v32[54], 1), v14, *v32[54].f32, 2), _Q0, *v32[54].f32, 3);
+        v16 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, COERCE_FLOAT(*v31[50].f32)), v13, v31[50], 1), v14, *v31[50].f32, 2), _Q0, *v31[50].f32, 3);
+        v17 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, COERCE_FLOAT(*v31[54].f32)), v13, v31[54], 1), v14, *v31[54].f32, 2), _Q0, *v31[54].f32, 3);
         _Q0.i32[0] = v16.i32[2];
-        _Q2.i32[2] = DWORD2(v26);
+        _Q2.i32[2] = DWORD2(v25);
         __asm { FMLA            S1, S0, V2.S[2] }
 
-        _Q0.i32[0] = v18.i32[2];
-        _Q2.i32[2] = DWORD2(v27);
+        _Q0.i32[0] = v17.i32[2];
+        _Q2.i32[2] = DWORD2(v26);
         __asm { FMLA            S1, S0, V2.S[2] }
 
         if (fabsf(_Q1.f32[0] + -1.0) >= 0.01)
         {
-          DWORD2(v26) = v16.i32[2];
-          DWORD2(v27) = v18.i32[2];
+          DWORD2(v25) = v16.i32[2];
+          DWORD2(v26) = v17.i32[2];
           apple3dgs::SortWorker::Process(this, &__ns);
         }
 
-        v23 = v33;
-        if (v33 && !atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v22 = v32;
+        if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v22->__on_zero_shared)(v22);
+          std::__shared_weak_count::__release_weak(v22);
+        }
+
+        v23 = v30;
+        if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v23->__on_zero_shared)(v23);
           std::__shared_weak_count::__release_weak(v23);
         }
 
-        v24 = v31;
-        if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v24 = v28;
+        if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v24->__on_zero_shared)(v24);
           std::__shared_weak_count::__release_weak(v24);
-        }
-
-        v25 = v29;
-        if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v25->__on_zero_shared)(v25);
-          std::__shared_weak_count::__release_weak(v25);
         }
       }
 
@@ -9262,14 +9626,14 @@ void apple3dgs::SortWorker::StartRunning(apple3dgs::SortWorker *this)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_2474565B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2474565B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   apple3dgs::SortWorker::Job::~Job(va);
   _Unwind_Resume(a1);
 }
 
-void apple3dgs::SortWorker::Process(apple3dgs::SortWorker *this, int32x4_t **a2)
+void apple3dgs::SortWorker::Process(apple3dgs::SortWorker *this, float32x4_t **a2)
 {
   v4 = objc_autoreleasePoolPush();
   v223 = 1953719636;
@@ -9436,182 +9800,156 @@ LABEL_20:
 LABEL_23:
       _Q0 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v200, v20.f32[0]), v199, *v20.f32, 1), v198, v20, 2);
       v60 = vaddq_f32(v197, _Q0);
-      if (!a2[2]->i32[3])
+      if (!a2[2]->i32[3] || (_Q0.i32[0] = *(v191 + 4 * v21), v61 = vmulq_f32(v190, v60), v62 = vmulq_f32(v189, v60), *v62.i8 = vadd_f32(*v62.i8, *&vextq_s8(v62, v62, 8uLL)), v63 = vmulq_f32(v188, v60), *v63.i8 = vadd_f32(*v63.i8, *&vextq_s8(v63, v63, 8uLL)), v64 = vmulq_f32(v187, v60), *v64.i8 = vadd_f32(*v64.i8, *&vextq_s8(v64, v64, 8uLL)), *v65.f32 = vzip1_s32(*v64.i8, *v63.i8), v65.i32[2] = v62.i32[0], *v61.i8 = vadd_f32(*v61.i8, *&vextq_s8(v61, v61, 8uLL)), v65.i32[3] = v61.i32[0], *v66.f32 = vzip2_s32(*v64.i8, *v63.i8), v66.i32[2] = vdup_lane_s32(*v62.i8, 1).u32[0], v66.i32[3] = v61.i32[1], (vmaxv_u16(vmovn_s32(vcltzq_f32(vaddq_f32(vaddq_f32(v65, v66), vdupq_lane_s32(*_Q0.f32, 0))))) & 1) == 0) && (v67 = vmulq_f32(v186, v60), _Q0.f32[0] = vaddv_f32(vadd_f32(*v67.i8, *&vextq_s8(v67, v67, 8uLL))) + _Q0.f32[0], _Q0.f32[0] >= 0.0))
       {
-        goto LABEL_26;
-      }
-
-      _Q0.i32[0] = *(v191 + 4 * v21);
-      v61 = vmulq_f32(v190, v60);
-      v62 = vmulq_f32(v189, v60);
-      *v62.i8 = vadd_f32(*v62.i8, *&vextq_s8(v62, v62, 8uLL));
-      v63 = vmulq_f32(v188, v60);
-      *v63.i8 = vadd_f32(*v63.i8, *&vextq_s8(v63, v63, 8uLL));
-      v64 = vmulq_f32(v187, v60);
-      *v64.i8 = vadd_f32(*v64.i8, *&vextq_s8(v64, v64, 8uLL));
-      *v65.f32 = vzip1_s32(*v64.i8, *v63.i8);
-      v65.i32[2] = v62.i32[0];
-      *v61.i8 = vadd_f32(*v61.i8, *&vextq_s8(v61, v61, 8uLL));
-      v65.i32[3] = v61.i32[0];
-      *v66.f32 = vzip2_s32(*v64.i8, *v63.i8);
-      v66.i32[2] = vdup_lane_s32(*v62.i8, 1).u32[0];
-      v66.i32[3] = v61.i32[1];
-      if ((vmaxv_u16(vmovn_s32(vcltzq_f32(vaddq_f32(vaddq_f32(v65, v66), vdupq_lane_s32(*_Q0.f32, 0))))) & 1) == 0)
-      {
-        v67 = vmulq_f32(v186, v60);
-        _Q0.f32[0] = vaddv_f32(vadd_f32(*v67.i8, *&vextq_s8(v67, v67, 8uLL))) + _Q0.f32[0];
-        if (_Q0.f32[0] >= 0.0)
+        v202 = v60;
+        v204 = v20;
+        if (v5[35].i32[0])
         {
-LABEL_26:
-          v202 = v60;
-          v204 = v20;
-          if (v5[35].i32[0])
-          {
-            operator new();
-          }
+          operator new();
+        }
 
-          v68 = (*a2)[28].u32[0];
-          if (v68 >= v23)
-          {
-            v68 = v23;
-          }
+        v68 = (*a2)[28].u32[0];
+        if (v68 >= v23)
+        {
+          v68 = v23;
+        }
 
-          v69.i64[0] = 0x3F0000003F000000;
-          v69.i64[1] = 0x3F0000003F000000;
-          _Q22 = vmlaq_f32(v69, v193, MEMORY[0]);
-          if (v68)
+        v69.i64[0] = 0x3F0000003F000000;
+        v69.i64[1] = 0x3F0000003F000000;
+        _Q22 = vmlaq_f32(v69, v193, MEMORY[0]);
+        if (v68)
+        {
+          v71 = vsubq_f32(v20, v185);
+          v72 = vmulq_f32(v71, v71);
+          *&v73 = v72.f32[2] + vaddv_f32(*v72.f32);
+          *v72.f32 = vrsqrte_f32(v73);
+          *v72.f32 = vmul_f32(*v72.f32, vrsqrts_f32(v73, vmul_f32(*v72.f32, *v72.f32)));
+          v74 = vrsqrts_f32(v73, vmul_f32(*v72.f32, *v72.f32));
+          *v72.f32 = vmul_f32(*v72.f32, v74);
+          v75 = vmulq_n_f32(v71, v72.f32[0]);
+          v74.f32[0] = vmuls_lane_f32(0.4886, *v75.f32, 1);
+          v72.f32[0] = 0.4886 * v75.f32[0];
+          _Q22 = vmlsq_lane_f32(vmlaq_n_f32(vmlsq_lane_f32(_Q22, MEMORY[0x10], v74, 0), MEMORY[0x20], vmuls_lane_f32(0.4886, v75, 2)), MEMORY[0x30], *v72.f32, 0);
+          if (v68 != 1)
           {
-            v71 = vsubq_f32(v20, v185);
-            v72 = vmulq_f32(v71, v71);
-            *&v73 = v72.f32[2] + vaddv_f32(*v72.f32);
-            *v72.f32 = vrsqrte_f32(v73);
-            *v72.f32 = vmul_f32(*v72.f32, vrsqrts_f32(v73, vmul_f32(*v72.f32, *v72.f32)));
-            v74 = vrsqrts_f32(v73, vmul_f32(*v72.f32, *v72.f32));
-            *v72.f32 = vmul_f32(*v72.f32, v74);
-            v75 = vmulq_n_f32(v71, v72.f32[0]);
-            v74.f32[0] = vmuls_lane_f32(0.4886, *v75.f32, 1);
-            v72.f32[0] = 0.4886 * v75.f32[0];
-            _Q22 = vmlsq_lane_f32(vmlaq_n_f32(vmlsq_lane_f32(_Q22, MEMORY[0x10], v74, 0), MEMORY[0x20], vmuls_lane_f32(0.4886, v75, 2)), MEMORY[0x30], *v72.f32, 0);
-            if (v68 != 1)
+            v76 = vmulq_f32(v75, v75).f32[0];
+            v78 = v76 - (v75.f32[1] * v75.f32[1]);
+            _Q22 = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(_Q22, MEMORY[0x40], (v75.f32[0] * v75.f32[1]) * 1.0925), MEMORY[0x50], (v75.f32[1] * v75.f32[2]) * -1.0925), MEMORY[0x60], (-(v76 - ((v75.f32[2] * v75.f32[2]) * 2.0)) - (v75.f32[1] * v75.f32[1])) * 0.31539), MEMORY[0x70], (v75.f32[0] * v75.f32[2]) * -1.0925), MEMORY[0x80], v78 * 0.54627);
+            if (v68 >= 3)
             {
-              v76 = vmulq_f32(v75, v75).f32[0];
-              v78 = v76 - (v75.f32[1] * v75.f32[1]);
-              _Q22 = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(_Q22, MEMORY[0x40], (v75.f32[0] * v75.f32[1]) * 1.0925), MEMORY[0x50], (v75.f32[1] * v75.f32[2]) * -1.0925), MEMORY[0x60], (-(v76 - ((v75.f32[2] * v75.f32[2]) * 2.0)) - (v75.f32[1] * v75.f32[1])) * 0.31539), MEMORY[0x70], (v75.f32[0] * v75.f32[2]) * -1.0925), MEMORY[0x80], v78 * 0.54627);
-              if (v68 >= 3)
-              {
-                v77 = v75.f32[1] * v75.f32[1];
-                _Q22 = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(_Q22, MEMORY[0x90], (v75.f32[1] * -0.59004) * -(v77 - (v76 * 3.0))), MEMORY[0xA0], v75.f32[2] * ((v75.f32[0] * v75.f32[1]) * 2.8906)), MEMORY[0xB0], (v75.f32[1] * -0.45705) * ((((v75.f32[2] * v75.f32[2]) * 4.0) - v76) - v77)), MEMORY[0xC0], (v75.f32[2] * 0.37318) * (((v76 * -3.0) + ((v75.f32[2] * v75.f32[2]) * 2.0)) + (v77 * -3.0))), MEMORY[0xD0], (v75.f32[0] * -0.45705) * ((((v75.f32[2] * v75.f32[2]) * 4.0) - v76) - v77)), MEMORY[0xE0], (v75.f32[2] * 1.4453) * v78), MEMORY[0xF0], (v75.f32[0] * -0.59004) * (v76 + (v77 * -3.0)));
-              }
+              v77 = v75.f32[1] * v75.f32[1];
+              _Q22 = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(_Q22, MEMORY[0x90], (v75.f32[1] * -0.59004) * -(v77 - (v76 * 3.0))), MEMORY[0xA0], v75.f32[2] * ((v75.f32[0] * v75.f32[1]) * 2.8906)), MEMORY[0xB0], (v75.f32[1] * -0.45705) * ((((v75.f32[2] * v75.f32[2]) * 4.0) - v76) - v77)), MEMORY[0xC0], (v75.f32[2] * 0.37318) * (((v76 * -3.0) + ((v75.f32[2] * v75.f32[2]) * 2.0)) + (v77 * -3.0))), MEMORY[0xD0], (v75.f32[0] * -0.45705) * ((((v75.f32[2] * v75.f32[2]) * 4.0) - v76) - v77)), MEMORY[0xE0], (v75.f32[2] * 1.4453) * v78), MEMORY[0xF0], (v75.f32[0] * -0.59004) * (v76 + (v77 * -3.0)));
             }
           }
+        }
 
-          v79 = v5[15].i64[0];
-          v80 = v5[14].i64[0];
-          v81 = v5[13].i64[1] + v5[14].i64[1] * v21;
-          if (v80 == 28)
+        v79 = v5[15].i64[0];
+        v80 = v5[14].i64[0];
+        v81 = v5[13].i64[1] + v5[14].i64[1] * v21;
+        if (v80 == 28)
+        {
+          _S0 = *(v81 + v79);
+          __asm { FCVT            H0, S0 }
+
+          v82 = *&_S0;
+LABEL_38:
+          _H0 = v82;
+          v85 = v5[35].i32[2];
+          if (v85 == 2)
           {
-            _S0 = *(v81 + v79);
+            goto LABEL_42;
+          }
+        }
+
+        else
+        {
+          if (v80 == 53)
+          {
+            v82 = *(v81 + v79);
+            goto LABEL_38;
+          }
+
+          LOWORD(_H0) = 0;
+          v85 = v5[35].i32[2];
+          if (v85 == 2)
+          {
+LABEL_42:
+            _H0 = -_H0;
+            __asm { FCVT            S0, H0; float }
+
+            v196 = _Q22;
+            _S0 = expf(_S0);
+            _Q22 = v196;
+            v60 = v202;
             __asm { FCVT            H0, S0 }
 
-            v82 = *&_S0;
-LABEL_38:
-            _H0 = v82;
-            v85 = v5[35].i32[2];
-            if (v85 == 2)
-            {
-              goto LABEL_42;
-            }
+            _H0 = COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0)) / (*&_S0 + COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0)));
+            goto LABEL_43;
+          }
+        }
+
+        if (v85 == 1)
+        {
+          __asm { FCVT            S0, H0; float }
+
+          v195 = _Q22;
+          _S0 = expf(_S0);
+          _Q22 = v195;
+          v60 = v202;
+          __asm { FCVT            H0, S0 }
+        }
+
+LABEL_43:
+        __asm { FCVT            H1, S22 }
+
+        _S2 = _Q22.i32[1];
+        __asm { FCVT            H2, S2 }
+
+        _S3 = _Q22.i32[2];
+        __asm { FCVT            H3, S3 }
+
+        v94 = *(this + 61) + 8 * v21;
+        *v94 = _H1;
+        *(v94 + 2) = _S2;
+        *(v94 + 4) = _S3;
+        *(v94 + 6) = _H0;
+        v95 = a2[2]->i32[0];
+        if (v95)
+        {
+          if (v95 == 1)
+          {
+            v96 = vmulq_f32(v60, v60);
+            v50 = sqrtf(v96.f32[2] + vaddv_f32(*v96.f32));
+LABEL_6:
+            v51 = 1.0 / v50;
+            *(*(this + 55) + 4 * v21) = v51;
           }
 
           else
           {
-            if (v80 == 53)
-            {
-              v82 = *(v81 + v79);
-              goto LABEL_38;
-            }
-
-            LOWORD(_H0) = 0;
-            v85 = v5[35].i32[2];
-            if (v85 == 2)
-            {
-LABEL_42:
-              _H0 = -_H0;
-              __asm { FCVT            S0, H0; float }
-
-              v196 = _Q22;
-              _S0 = expf(_S0);
-              _Q22 = v196;
-              v60 = v202;
-              __asm { FCVT            H0, S0 }
-
-              _H0 = COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0)) / (*&_S0 + COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0)));
-              goto LABEL_43;
-            }
+            v51 = *(*(this + 55) + 4 * v21);
           }
 
-          if (v85 == 1)
+          (*v18)->i32[v22] = v21;
+          if (v49 < v51)
           {
-            __asm { FCVT            S0, H0; float }
-
-            v195 = _Q22;
-            _S0 = expf(_S0);
-            _Q22 = v195;
-            v60 = v202;
-            __asm { FCVT            H0, S0 }
+            v49 = v51;
           }
 
-LABEL_43:
-          __asm { FCVT            H1, S22 }
-
-          _S2 = _Q22.i32[1];
-          __asm { FCVT            H2, S2 }
-
-          _S3 = _Q22.i32[2];
-          __asm { FCVT            H3, S3 }
-
-          v94 = *(this + 61) + 8 * v21;
-          *v94 = _H1;
-          *(v94 + 2) = _S2;
-          *(v94 + 4) = _S3;
-          *(v94 + 6) = _H0;
-          v95 = a2[2]->i32[0];
-          if (v95)
+          if (v51 < v48)
           {
-            if (v95 == 1)
-            {
-              v96 = vmulq_f32(v60, v60);
-              v50 = sqrtf(v96.f32[2] + vaddv_f32(*v96.f32));
-LABEL_6:
-              v51 = 1.0 / v50;
-              *(*(this + 55) + 4 * v21) = v51;
-            }
-
-            else
-            {
-              v51 = *(*(this + 55) + 4 * v21);
-            }
-
-            (*v18)->i32[v22] = v21;
-            if (v49 < v51)
-            {
-              v49 = v51;
-            }
-
-            if (v51 < v48)
-            {
-              v48 = v51;
-            }
-
-            v22 = (v22 + 1);
-            operator delete(0);
-            v20 = v204;
-            goto LABEL_12;
+            v48 = v51;
           }
 
-          v50 = fabsf(v60.f32[2]);
-          goto LABEL_6;
+          v22 = (v22 + 1);
+          operator delete(0);
+          v20 = v204;
+          goto LABEL_12;
         }
+
+        v50 = fabsf(v60.f32[2]);
+        goto LABEL_6;
       }
 
 LABEL_12:

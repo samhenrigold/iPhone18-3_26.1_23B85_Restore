@@ -462,11 +462,11 @@ LABEL_44:
   return v7;
 }
 
-uint64_t __36__TSTCellRegion_region_addingRange___block_invoke(uint64_t result, unint64_t a2)
+void *__36__TSTCellRegion_region_addingRange___block_invoke(void *result, unint64_t a2)
 {
   v2 = result;
   v20 = a2;
-  if (*(*(*(result + 40) + 8) + 24) >= 1)
+  if (*(*(result[5] + 8) + 24) >= 1)
   {
     v3 = 0;
     while (1)
@@ -856,7 +856,7 @@ LABEL_45:
   return v7;
 }
 
-uint64_t __42__TSTCellRegion_region_intersectingRange___block_invoke(uint64_t result, unint64_t a2)
+void *__42__TSTCellRegion_region_intersectingRange___block_invoke(void *result, unint64_t a2)
 {
   v2 = 0;
   v3 = 16711680;
@@ -887,10 +887,10 @@ uint64_t __42__TSTCellRegion_region_intersectingRange___block_invoke(uint64_t re
   }
 
   v2 = 0;
-  v6 = *(result + 40);
+  v6 = *(result + 5);
   v3 = 16711680;
   v4 = 0xFFFFLL;
-  if (*(result + 40) == 0xFFFF)
+  if (*(result + 20) == 0xFFFF)
   {
     goto LABEL_23;
   }
@@ -928,7 +928,7 @@ LABEL_23:
 
       if (a2 <= v6)
       {
-        v8 = *(result + 40);
+        v8 = *(result + 5);
       }
 
       else
@@ -969,7 +969,7 @@ LABEL_24:
   v11 = v3 | v4 | v2 | v5;
   if (v11 != 0xFFFF && (v11 & 0xFF0000) != 0xFF0000 && HIWORD(v11) != 0 && (v11 & 0xFFFF00000000) != 0)
   {
-    return [*(result + 32) p_insertRangeIntoRegion:?];
+    return [*(result + 4) p_insertRangeIntoRegion:?];
   }
 
   return result;
@@ -1036,7 +1036,7 @@ unint64_t __51__TSTCellRegion_unionEveryRangeInRegion_withRange___block_invoke(u
   return v6;
 }
 
-uint64_t __37__TSTCellRegion_region_addingRegion___block_invoke(uint64_t a1, uint64_t a2)
+void *__37__TSTCellRegion_region_addingRegion___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [objc_opt_class() region:*(*(*(a1 + 40) + 8) + 40) addingRange:a2];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1063,7 +1063,7 @@ uint64_t __37__TSTCellRegion_region_addingRegion___block_invoke(uint64_t a1, uin
   return v6;
 }
 
-uint64_t __42__TSTCellRegion_region_subtractingRegion___block_invoke(uint64_t a1, uint64_t a2)
+void *__42__TSTCellRegion_region_subtractingRegion___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [objc_opt_class() region:*(*(*(a1 + 40) + 8) + 40) subtractingRange:a2];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1439,7 +1439,7 @@ uint64_t __48__TSTCellRegion_regionByIntersectingRowIndices___block_invoke(uint6
   return [v3 enumerateCellRangesUsingBlock:v5];
 }
 
-uint64_t __48__TSTCellRegion_regionByIntersectingRowIndices___block_invoke_2(uint64_t result, unint64_t a2)
+void *__48__TSTCellRegion_regionByIntersectingRowIndices___block_invoke_2(void *result, unint64_t a2)
 {
   v2 = 0;
   v3 = 16711680;
@@ -1470,10 +1470,10 @@ uint64_t __48__TSTCellRegion_regionByIntersectingRowIndices___block_invoke_2(uin
   }
 
   v2 = 0;
-  v6 = *(result + 40);
+  v6 = *(result + 5);
   v3 = 16711680;
   v4 = 0xFFFFLL;
-  if (*(result + 40) == 0xFFFF)
+  if (*(result + 20) == 0xFFFF)
   {
     goto LABEL_23;
   }
@@ -1511,7 +1511,7 @@ LABEL_23:
 
       if (a2 <= v6)
       {
-        v8 = *(result + 40);
+        v8 = *(result + 5);
       }
 
       else
@@ -1552,7 +1552,7 @@ LABEL_24:
   v11 = v3 | v4 | v2 | v5;
   if (v11 != 0xFFFF && (v11 & 0xFF0000) != 0xFF0000 && HIWORD(v11) != 0 && (v11 & 0xFFFF00000000) != 0)
   {
-    return [*(result + 32) p_insertRangeIntoRegion:?];
+    return [*(result + 4) p_insertRangeIntoRegion:?];
   }
 
   return result;
@@ -1594,7 +1594,7 @@ uint64_t __51__TSTCellRegion_regionByIntersectingColumnIndices___block_invoke(ui
   return [v4 enumerateCellRangesUsingBlock:v6];
 }
 
-uint64_t __51__TSTCellRegion_regionByIntersectingColumnIndices___block_invoke_2(uint64_t result, unint64_t a2)
+void *__51__TSTCellRegion_regionByIntersectingColumnIndices___block_invoke_2(void *result, unint64_t a2)
 {
   v2 = 0;
   v3 = 16711680;
@@ -1625,10 +1625,10 @@ uint64_t __51__TSTCellRegion_regionByIntersectingColumnIndices___block_invoke_2(
   }
 
   v2 = 0;
-  v6 = *(result + 40);
+  v6 = *(result + 5);
   v3 = 16711680;
   v4 = 0xFFFFLL;
-  if (*(result + 40) == 0xFFFF)
+  if (*(result + 20) == 0xFFFF)
   {
     goto LABEL_23;
   }
@@ -1666,7 +1666,7 @@ LABEL_23:
 
       if (a2 <= v6)
       {
-        v8 = *(result + 40);
+        v8 = *(result + 5);
       }
 
       else
@@ -1707,7 +1707,7 @@ LABEL_24:
   v11 = v3 | v4 | v2 | v5;
   if (v11 != 0xFFFF && (v11 & 0xFF0000) != 0xFF0000 && HIWORD(v11) != 0 && (v11 & 0xFFFF00000000) != 0)
   {
-    return [*(result + 32) p_insertRangeIntoRegion:?];
+    return [*(result + 4) p_insertRangeIntoRegion:?];
   }
 
   return result;
@@ -1956,7 +1956,7 @@ uint64_t __39__TSTCellRegion_regionByAddingColumns___block_invoke_2(uint64_t a1,
   return v5;
 }
 
-uint64_t __44__TSTCellRegion_regionByApplyingRowMapping___block_invoke(uint64_t result, unint64_t a2)
+id *__44__TSTCellRegion_regionByApplyingRowMapping___block_invoke(id *result, unint64_t a2)
 {
   v2 = a2;
   v3 = a2 + HIWORD(a2) - 1;
@@ -1976,7 +1976,7 @@ uint64_t __44__TSTCellRegion_regionByApplyingRowMapping___block_invoke(uint64_t 
     v6 = a2 & 0xFF0000 | (v5 << 32) | 0x1000000000000;
     do
     {
-      result = [*(v4 + 40) p_insertRangeIntoRegion:{v6 | objc_msgSend(*(v4 + 32), "mapIndex:", v2++)}];
+      result = [v4[5] p_insertRangeIntoRegion:{v6 | objc_msgSend(v4[4], "mapIndex:", v2++)}];
     }
 
     while (v2 <= v3);
@@ -3119,7 +3119,7 @@ uint64_t __57__TSTCellRegion_p_calculateUpperLeftAndBottomRightCellID__block_inv
       v8 = 0;
       do
       {
-        std::__tree<TSUColumnRowRect,TSTCellRangeRowMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, &self->mCellRanges[v7]);
+        std::__tree<TSUColumnRowRect,TSTCellRangeRowMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, &self->mCellRanges[v7], &self->mCellRanges[v7]);
         ++v8;
         ++v7;
       }
@@ -3135,14 +3135,14 @@ uint64_t __57__TSTCellRegion_p_calculateUpperLeftAndBottomRightCellID__block_inv
     {
       v10 = self->mCellRanges[v9];
       v10.var0.var1 = ~(*&v10.var1 + HIWORD(*&v10.var0));
-      std::__tree<TSUColumnRowRect,TSTCellRangeRowMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, &v10);
+      std::__tree<TSUColumnRowRect,TSTCellRangeRowMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, &v10, &v10);
       ++v9;
     }
 
     while (v9 < self->mCellRangesCount);
   }
 
-  std::__tree<TSUColumnRowRect,TSTCellRangeRowMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, TSTInvalidCellRange);
+  std::__tree<TSUColumnRowRect,TSTCellRangeRowMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, TSTInvalidCellRange, TSTInvalidCellRange);
 }
 
 - (void)fillCellRangeColMajorSet:(void *)set leftToRight:(BOOL)right
@@ -3156,7 +3156,7 @@ uint64_t __57__TSTCellRegion_p_calculateUpperLeftAndBottomRightCellID__block_inv
       v8 = 0;
       do
       {
-        std::__tree<TSUColumnRowRect,TSTCellRangeColumnMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, &self->mCellRanges[v7]);
+        std::__tree<TSUColumnRowRect,TSTCellRangeColumnMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, &self->mCellRanges[v7], &self->mCellRanges[v7]);
         ++v8;
         ++v7;
       }
@@ -3172,14 +3172,14 @@ uint64_t __57__TSTCellRegion_p_calculateUpperLeftAndBottomRightCellID__block_inv
     {
       v10 = self->mCellRanges[v9];
       v10.var0.var1 = ~(*&v10.var1 + HIWORD(*&v10.var0));
-      std::__tree<TSUColumnRowRect,TSTCellRangeColumnMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, &v10);
+      std::__tree<TSUColumnRowRect,TSTCellRangeColumnMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, &v10, &v10);
       ++v9;
     }
 
     while (v9 < self->mCellRangesCount);
   }
 
-  std::__tree<TSUColumnRowRect,TSTCellRangeColumnMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, TSTInvalidCellRange);
+  std::__tree<TSUColumnRowRect,TSTCellRangeColumnMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(set, TSTInvalidCellRange, TSTInvalidCellRange);
 }
 
 @end

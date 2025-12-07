@@ -9,29 +9,29 @@
 
 - (id)initForRequest:(id)request
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = [objc_msgSend(request "propertiesToUpdate")];
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
     selfCopy = self;
     v8 = 0;
-    v9 = *v24;
+    v9 = *v23;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v24 != v9)
+      if (*v23 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v23 + 1) + 8 * v10);
+      v11 = *(*(&v22 + 1) + 8 * v10);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -52,7 +52,7 @@ LABEL_3:
       v8 += v12;
       if (v7 == ++v10)
       {
-        v7 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -76,7 +76,7 @@ LABEL_3:
         if (v17)
         {
           *buf = 138412290;
-          v28 = v11;
+          v27 = v11;
 LABEL_24:
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Unsupported Expression with the XPC Store: %@\n", buf, 0xCu);
         }
@@ -85,7 +85,7 @@ LABEL_24:
       else if (v17)
       {
         *buf = 138412290;
-        v28 = v11;
+        v27 = v11;
         goto LABEL_24;
       }
     }
@@ -93,15 +93,14 @@ LABEL_24:
     _NSCoreDataLog_console(1, "Unsupported Expression with the XPC Store: %@", v11);
     objc_autoreleasePoolPop(v14);
 
-    v18 = 0;
-    goto LABEL_22;
+    return 0;
   }
 
   v13 = 0;
 LABEL_18:
-  v22.receiver = self;
-  v22.super_class = NSBatchUpdateRequestEncodingToken;
-  v18 = [(NSBatchUpdateRequestEncodingToken *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = NSBatchUpdateRequestEncodingToken;
+  v18 = [(NSBatchUpdateRequestEncodingToken *)&v21 init];
   if (v18)
   {
     v18->_entityName = [objc_msgSend(request "entityName")];
@@ -113,8 +112,6 @@ LABEL_18:
     v18->_secure = [request _secureOperation];
   }
 
-LABEL_22:
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -163,37 +160,37 @@ LABEL_22:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   [coder encodeObject:self->_entityName forKey:@"entityName"];
   coderCopy = coder;
   [coder encodeObject:self->_predicate forKey:@"predicate"];
-  v19 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSDictionary count](self->_columnsToUpdate, "count")}];
+  v18 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSDictionary count](self->_columnsToUpdate, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   columnsToUpdate = self->_columnsToUpdate;
-  v6 = [(NSDictionary *)columnsToUpdate countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v6 = [(NSDictionary *)columnsToUpdate countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(columnsToUpdate);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * v9);
+        v10 = *(*(&v19 + 1) + 8 * v9);
         v11 = [(NSDictionary *)self->_columnsToUpdate objectForKey:v10];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          [v19 setObject:v11 forKey:{objc_msgSend(v10, "name")}];
+          [v18 setObject:v11 forKey:{objc_msgSend(v10, "name")}];
           goto LABEL_14;
         }
 
@@ -216,7 +213,7 @@ LABEL_22:
           {
 LABEL_16:
             *buf = 138412290;
-            v25 = v11;
+            v24 = v11;
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Unsupported Expression for the XPC Store: %@\n", buf, 0xCu);
           }
         }
@@ -228,20 +225,19 @@ LABEL_14:
       }
 
       while (v7 != v9);
-      v16 = [(NSDictionary *)columnsToUpdate countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v16 = [(NSDictionary *)columnsToUpdate countByEnumeratingWithState:&v19 objects:v25 count:16];
       v7 = v16;
     }
 
     while (v16);
   }
 
-  [coderCopy encodeObject:v19 forKey:@"columnsToUpdate"];
+  [coderCopy encodeObject:v18 forKey:@"columnsToUpdate"];
 
   [coderCopy encodeInteger:self->_nullValueCount forKey:@"nullValueCount"];
   [coderCopy encodeInteger:self->_resultType forKey:@"resultType"];
   [coderCopy encodeBool:self->_includeSubEntities forKey:@"includeSubEntities"];
   [coderCopy encodeBool:self->_secure forKey:@"secure"];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

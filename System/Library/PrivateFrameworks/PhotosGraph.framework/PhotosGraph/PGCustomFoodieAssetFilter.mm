@@ -26,7 +26,7 @@
 
 - (BOOL)_passesWithAsset:(id)asset curationContext:(id)context
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   contextCopy = context;
   curationModel = [assetCopy curationModel];
@@ -39,44 +39,44 @@
     goto LABEL_33;
   }
 
-  v47 = [(CLSSceneConfidenceThresholdHelper *)self->_foodScenesHelper confidenceThresholdBySceneIdentifierWithCurationModel:curationModel];
-  v46 = [(CLSSceneConfidenceThresholdHelper *)self->_drinkScenesHelper confidenceThresholdBySceneIdentifierWithCurationModel:curationModel];
-  v49 = [(CLSSceneConfidenceThresholdHelper *)self->_forbiddenScenesHelper confidenceThresholdBySceneIdentifierWithCurationModel:curationModel];
+  v46 = [(CLSSceneConfidenceThresholdHelper *)self->_foodScenesHelper confidenceThresholdBySceneIdentifierWithCurationModel:curationModel];
+  v45 = [(CLSSceneConfidenceThresholdHelper *)self->_drinkScenesHelper confidenceThresholdBySceneIdentifierWithCurationModel:curationModel];
+  v48 = [(CLSSceneConfidenceThresholdHelper *)self->_forbiddenScenesHelper confidenceThresholdBySceneIdentifierWithCurationModel:curationModel];
   junkClassificationModel = [curationModel junkClassificationModel];
   foodOrDrinkNode = [junkClassificationModel foodOrDrinkNode];
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   clsSceneClassifications = [assetCopy clsSceneClassifications];
-  v48 = [clsSceneClassifications countByEnumeratingWithState:&v50 objects:v54 count:16];
-  if (!v48)
+  v47 = [clsSceneClassifications countByEnumeratingWithState:&v49 objects:v53 count:16];
+  if (!v47)
   {
 
     v38 = 0;
     goto LABEL_41;
   }
 
-  v43 = curationModel;
+  v42 = curationModel;
   obj = clsSceneClassifications;
-  v41 = assetCopy;
-  v42 = contextCopy;
+  v40 = assetCopy;
+  v41 = contextCopy;
   v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = *v51;
+  v18 = *v50;
   v19 = 0x277CCA000uLL;
 LABEL_6:
   v20 = 0;
   while (1)
   {
-    if (*v51 != v18)
+    if (*v50 != v18)
     {
       objc_enumerationMutation(obj);
     }
 
-    v21 = *(*(&v50 + 1) + 8 * v20);
+    v21 = *(*(&v49 + 1) + 8 * v20);
     if ([curationModel filterForFoodieWithClassification:v21])
     {
       goto LABEL_38;
@@ -85,7 +85,7 @@ LABEL_6:
     v22 = [*(v19 + 2992) numberWithUnsignedInteger:{objc_msgSend(v21, "extendedSceneIdentifier")}];
     [v21 confidence];
     v24 = v23;
-    v25 = [v49 objectForKeyedSubscript:v22];
+    v25 = [v48 objectForKeyedSubscript:v22];
     v26 = v25;
     if (v25)
     {
@@ -108,7 +108,7 @@ LABEL_6:
     else
     {
       v32 = v18;
-      v33 = [v47 objectForKeyedSubscript:v22];
+      v33 = [v46 objectForKeyedSubscript:v22];
       v34 = v33;
       v16 = 0;
       if (v33)
@@ -121,7 +121,7 @@ LABEL_6:
       }
 
       v18 = v32;
-      curationModel = v43;
+      curationModel = v42;
       v19 = 0x277CCA000;
       if ((v17 & 1) == 0)
       {
@@ -145,7 +145,7 @@ LABEL_26:
     }
 
 LABEL_15:
-    v28 = [v46 objectForKeyedSubscript:v22];
+    v28 = [v45 objectForKeyedSubscript:v22];
     v29 = v28;
     v31 = 0;
     if (v28)
@@ -170,10 +170,10 @@ LABEL_27:
       goto LABEL_36;
     }
 
-    if (v48 == ++v20)
+    if (v47 == ++v20)
     {
-      v48 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
-      if (v48)
+      v47 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+      if (v47)
       {
         goto LABEL_6;
       }
@@ -193,54 +193,51 @@ LABEL_38:
 LABEL_39:
   v38 = 0;
 LABEL_40:
-  assetCopy = v41;
-  contextCopy = v42;
+  assetCopy = v40;
+  contextCopy = v41;
 LABEL_41:
 
 LABEL_33:
-  v39 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
 - (id)filteredAssetsFromAssets:(id)assets curationContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   contextCopy = context;
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = assetsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
-        if ([(PGCustomFoodieAssetFilter *)self _passesWithAsset:v14 curationContext:contextCopy, v17])
+        v14 = *(*(&v16 + 1) + 8 * i);
+        if ([(PGCustomFoodieAssetFilter *)self _passesWithAsset:v14 curationContext:contextCopy, v16])
         {
           [array addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }

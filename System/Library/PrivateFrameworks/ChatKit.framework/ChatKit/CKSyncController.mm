@@ -61,7 +61,7 @@ void __34__CKSyncController_sharedInstance__block_invoke()
 
 - (void)prioritizeAttachmentAtPath:(id)path
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (IMOSLoggingEnabled())
   {
@@ -70,18 +70,18 @@ void __34__CKSyncController_sharedInstance__block_invoke()
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v7 = pathCopy;
+      v13 = pathCopy;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_DEBUG, "Prioritize attachment at path %@", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    _CKLog();
+    _CKLog(0x2Eu, @"Prioritize attachment at path %@", v5, v6, v7, v8, v9, v10, pathCopy);
   }
 
-  v5 = objc_alloc_init(MEMORY[0x193AF5EC0](@"ATConnection", @"AirTraffic"));
-  [v5 prioritizeAsset:pathCopy forDataclass:@"MessagePart"];
+  v11 = objc_alloc_init(MEMORY[0x193AF5EC0](@"ATConnection", @"AirTraffic"));
+  [v11 prioritizeAsset:pathCopy forDataclass:@"MessagePart"];
 }
 
 - (void)updateRestoreState

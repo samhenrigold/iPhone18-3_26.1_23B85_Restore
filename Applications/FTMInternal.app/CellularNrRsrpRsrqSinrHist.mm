@@ -295,56 +295,52 @@ LABEL_27:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v8 = self->_rsrpRsrqPerAntennaPanels;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v9)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_rsrpRsrqPerAntennaPanels;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v30;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v11)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v14 = self->_has;
-  if ((v14 & 0x10) != 0)
+  v11 = self->_has;
+  if ((v11 & 0x10) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v14 = self->_has;
-    if ((v14 & 4) == 0)
+    v11 = self->_has;
+    if ((v11 & 4) == 0)
     {
 LABEL_14:
-      if ((v14 & 8) == 0)
+      if ((v11 & 8) == 0)
       {
         goto LABEL_16;
       }
@@ -358,12 +354,10 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_15:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -373,38 +367,36 @@ LABEL_16:
     PBDataWriterWriteDataField();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v16 = self->_rsrpRsrqPerAntennaPanelSas;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
-  if (v17)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v12 = self->_rsrpRsrqPerAntennaPanelSas;
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v13)
   {
-    v18 = v17;
-    v19 = *v26;
+    v14 = v13;
+    v15 = *v18;
     do
     {
-      for (j = 0; j != v18; j = j + 1)
+      for (j = 0; j != v14; ++j)
       {
-        if (*v26 != v19)
+        if (*v18 != v15)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v12);
         }
 
-        v21 = *(*(&v25 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v18);
+    while (v14);
   }
 
   if ((*&self->_has & 0x20) != 0)
   {
-    isDataPreferred = self->_isDataPreferred;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -633,7 +625,6 @@ LABEL_16:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 64);
   if (has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -671,7 +662,6 @@ LABEL_16:
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 64);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 64) & 0x10) == 0 || self->_subsId != *(equalCopy + 14))
@@ -726,7 +716,7 @@ LABEL_16:
     }
   }
 
-  v11 = (*(equalCopy + 64) & 0x20) == 0;
+  v9 = (*(equalCopy + 64) & 0x20) == 0;
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 64) & 0x20) != 0)
@@ -744,17 +734,17 @@ LABEL_16:
         goto LABEL_36;
       }
 
-      v11 = 1;
+      v9 = 1;
       goto LABEL_37;
     }
 
 LABEL_36:
-    v11 = 0;
+    v9 = 0;
   }
 
 LABEL_37:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

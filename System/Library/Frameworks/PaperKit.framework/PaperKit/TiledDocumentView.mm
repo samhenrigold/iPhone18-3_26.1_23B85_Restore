@@ -18,14 +18,15 @@
   swift_beginAccess();
   selfCopy = self;
 
-  v5 = specialized Sequence.flatMap<A>(_:)(v4);
+  specialized Sequence.flatMap<A>(_:)(v4);
+  v6 = v5;
 
-  specialized _arrayForceCast<A, B>(_:)(v5);
+  specialized _arrayForceCast<A, B>(_:)(v6);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12PKAttachment_pMd);
-  v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12PKAttachment_pMd, &_sSo12PKAttachment_pMR);
+  v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v6.super.isa;
+  return v7.super.isa;
 }
 
 - (void)_canvasView:(id)view didCompleteRefinementEntry:(id)entry

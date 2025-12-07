@@ -1,6 +1,7 @@
 @interface CNHTMLParser
 + (id)extractHTMLDocData:(id)data;
 + (id)extractXMLDoc:(id)doc;
++ (id)markupElementWithName:(id)name required:(BOOL)required type:(Class)type;
 + (id)parserReadyData:(id)data;
 + (id)supportedHTMLElements;
 + (id)supportedWISPrAuthPollReplyXMLElements;
@@ -242,6 +243,15 @@ LABEL_39:
 
   (handlerCopy[2])(handlerCopy, 1, self->_htmlDictionary);
 LABEL_55:
+}
+
++ (id)markupElementWithName:(id)name required:(BOOL)required type:(Class)type
+{
+  requiredCopy = required;
+  nameCopy = name;
+  v8 = [[_CNMarkupElement alloc] initWithElementName:nameCopy required:requiredCopy type:type];
+
+  return v8;
 }
 
 + (id)supportedHTMLElements
@@ -942,51 +952,13 @@ LABEL_10:
   v4 = [[NSString alloc] initWithData:dataCopy encoding:4];
   v5 = [[NSScanner alloc] initWithString:v4];
   [v5 setCharactersToBeSkipped:0];
-  if (![v5 scanUpToString:@"<html" intoString:0])
-  {
-    goto LABEL_9;
-  }
-
-  scanLocation = [v5 scanLocation];
-  string = [v5 string];
-  v8 = [string length];
-
-  if (scanLocation >= v8)
-  {
-    goto LABEL_9;
-  }
-
-  scanLocation2 = [v5 scanLocation];
-  if (!scanLocation2)
-  {
-    goto LABEL_9;
-  }
-
-  v10 = scanLocation2;
-  if (![v5 scanUpToString:@"</html>" intoString:0])
-  {
-    goto LABEL_9;
-  }
-
-  scanLocation3 = [v5 scanLocation];
-  string2 = [v5 string];
-  v13 = [string2 length];
-
-  if (scanLocation3 >= v13)
-  {
-    goto LABEL_9;
-  }
-
-  scanLocation4 = [v5 scanLocation];
-  v15 = &scanLocation4[[@"</html>" length]];
-  if (v15 && ([v5 string], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "substringWithRange:", v10, v15 - v10), v17 = objc_claimAutoreleasedReturnValue(), v16, v17))
+  if ([v5 scanUpToString:@"<html" intoString:0] && (v6 = objc_msgSend(v5, "scanLocation"), objc_msgSend(v5, "string"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v6 < v8) && (v9 = objc_msgSend(v5, "scanLocation")) != 0 && (v10 = v9, objc_msgSend(v5, "scanUpToString:intoString:", @"</html>", 0)) && (v11 = objc_msgSend(v5, "scanLocation"), objc_msgSend(v5, "string"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "length"), v12, v11 < v13) && (v14 = objc_msgSend(v5, "scanLocation"), (v15 = &v14[objc_msgSend(@"</html>", "length")]) != 0) && (objc_msgSend(v5, "string"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "substringWithRange:", v10, v15 - v10), v17 = objc_claimAutoreleasedReturnValue(), v16, v17))
   {
     v18 = [v17 dataUsingEncoding:4];
   }
 
   else
   {
-LABEL_9:
     v18 = dataCopy;
   }
 

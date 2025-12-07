@@ -23,32 +23,30 @@
 
 void __34__HMDResidentUserModel_properties__block_invoke(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v12.receiver = *(a1 + 32);
-  v12.super_class = &OBJC_METACLASS___HMDResidentUserModel;
-  v2 = objc_msgSendSuper2(&v12, sel_properties);
+  v11.receiver = *(a1 + 32);
+  v11.super_class = &OBJC_METACLASS___HMDResidentUserModel;
+  v2 = objc_msgSendSuper2(&v11, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_2007;
   properties__properties_2007 = v3;
 
   v5 = properties__properties_2007;
-  v13[0] = @"device";
+  v12[0] = @"device";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v14[0] = v6;
-  v13[1] = @"configState";
+  v13[0] = v6;
+  v12[1] = @"configState";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v14[1] = v7;
-  v13[2] = @"displayName";
+  v13[1] = v7;
+  v12[2] = @"displayName";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v14[2] = v8;
-  v13[3] = @"deviceIdentifier";
+  v13[2] = v8;
+  v12[3] = @"deviceIdentifier";
   v9 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v14[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
   [v5 addEntriesFromDictionary:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

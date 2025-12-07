@@ -52,48 +52,46 @@ void __55__NWStatsAppEventListener__applicationStateMonitorInit__block_invoke_3(
 
 - (void)_applicationStateMonitorInit
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v3 = dlopen("/System/Library/PrivateFrameworks/RunningBoardServices.framework/RunningBoardServices", 4);
-  self->_runningBoradDylibHandle = v3;
-  if (v3 && (self->_RBSProcessMonitorClass = objc_getClass("RBSProcessMonitor"), self->_RBSProcessPredicateClass = objc_getClass("RBSProcessPredicate"), Class = objc_getClass("RBSProcessStateDescriptor"), self->_RBSProcessStateDescriptorClass = Class, self->_runningBoradDylibHandle) && (v5 = Class, (v6 = self->_RBSProcessMonitorClass) != 0) && self->_RBSProcessPredicateClass && v5)
+  v21 = *MEMORY[0x277D85DE8];
+  Class = dlopen("/System/Library/PrivateFrameworks/RunningBoardServices.framework/RunningBoardServices", 4);
+  self->_runningBoradDylibHandle = Class;
+  if (Class && (self->_RBSProcessMonitorClass = objc_getClass("RBSProcessMonitor"), self->_RBSProcessPredicateClass = objc_getClass("RBSProcessPredicate"), Class = objc_getClass("RBSProcessStateDescriptor"), self->_RBSProcessStateDescriptorClass = Class, self->_runningBoradDylibHandle) && (v4 = Class, (Class = self->_RBSProcessMonitorClass) != 0) && self->_RBSProcessPredicateClass && v4)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __55__NWStatsAppEventListener__applicationStateMonitorInit__block_invoke;
-    v15[3] = &unk_27996DB20;
-    v15[4] = self;
-    v7 = [(objc_class *)v6 monitorWithConfiguration:v15];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __55__NWStatsAppEventListener__applicationStateMonitorInit__block_invoke;
+    v12[3] = &unk_27996DB20;
+    v12[4] = self;
+    v5 = [Class monitorWithConfiguration:v12];
     appStateMonitor = self->_appStateMonitor;
-    self->_appStateMonitor = v7;
+    self->_appStateMonitor = v5;
   }
 
   else
   {
-    v9 = NStatGetLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v7 = NStatGetLog(Class);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       RBSProcessMonitorClass = self->_RBSProcessMonitorClass;
       RBSProcessPredicateClass = self->_RBSProcessPredicateClass;
       RBSProcessStateDescriptorClass = self->_RBSProcessStateDescriptorClass;
       runningBoradDylibHandle = self->_runningBoradDylibHandle;
       *buf = 134218752;
-      v17 = runningBoradDylibHandle;
-      v18 = 2048;
-      v19 = RBSProcessMonitorClass;
-      v20 = 2048;
-      v21 = RBSProcessPredicateClass;
-      v22 = 2048;
-      v23 = RBSProcessStateDescriptorClass;
-      _os_log_impl(&dword_25BA3A000, v9, OS_LOG_TYPE_FAULT, "RB Mapping dylib failure handle %p proc monitor %p predicate %p descriptor %p", buf, 0x2Au);
+      v14 = runningBoradDylibHandle;
+      v15 = 2048;
+      v16 = RBSProcessMonitorClass;
+      v17 = 2048;
+      v18 = RBSProcessPredicateClass;
+      v19 = 2048;
+      v20 = RBSProcessStateDescriptorClass;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_FAULT, "RB Mapping dylib failure handle %p proc monitor %p predicate %p descriptor %p", buf, 0x2Au);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__NWStatsAppEventListener__applicationStateMonitorInit__block_invoke(id *a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = a1[4];
   a1 += 4;
@@ -102,21 +100,19 @@ void __55__NWStatsAppEventListener__applicationStateMonitorInit__block_invoke(id
   [v5 setEndowmentNamespaces:&unk_286D3E558];
   [v3 setStateDescriptor:v5];
   [v3 setEvents:1];
-  v11[0] = [*(*a1 + 3) performSelector:NSSelectorFromString(&cfstr_Predicateforsy.isa)];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = [*(*a1 + 3) performSelector:NSSelectorFromString(&cfstr_Predicateforsy.isa)];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [v3 setPredicates:v6];
 
   objc_initWeak(&location, *a1);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __55__NWStatsAppEventListener__applicationStateMonitorInit__block_invoke_2;
-  v8[3] = &unk_27996DAF8;
-  objc_copyWeak(&v9, &location);
-  [v3 setUpdateHandler:v8];
-  objc_destroyWeak(&v9);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __55__NWStatsAppEventListener__applicationStateMonitorInit__block_invoke_2;
+  v7[3] = &unk_27996DAF8;
+  objc_copyWeak(&v8, &location);
+  [v3 setUpdateHandler:v7];
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

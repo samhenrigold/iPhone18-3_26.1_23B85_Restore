@@ -26,7 +26,7 @@
 
 + (id)parametersWithConfiguration:(id)configuration error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if (!configurationCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -81,16 +81,16 @@ LABEL_17:
   }
 
   unsignedIntegerValue = [v6 unsignedIntegerValue];
-  v13 = [configurationCopy objectForKey:@"fieldValueSets"];
-  if (!v13)
+  v12 = [configurationCopy objectForKey:@"fieldValueSets"];
+  if (!v12)
   {
     if (!error)
     {
       goto LABEL_43;
     }
 
-    v21 = LABEL_42:;
-    *error = [FedStatsPluginError errorWithCode:300 description:v21];
+    v20 = LABEL_42:;
+    *error = [FedStatsPluginError errorWithCode:300 description:v20];
 
     goto LABEL_43;
   }
@@ -106,7 +106,7 @@ LABEL_17:
     goto LABEL_42;
   }
 
-  if (![v13 count])
+  if (![v12 count])
   {
     if (error)
     {
@@ -118,30 +118,30 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (!v15)
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v13 = v12;
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (!v14)
   {
     goto LABEL_35;
   }
 
-  v16 = v15;
-  v17 = *v26;
-  v24 = unsignedIntegerValue;
+  v15 = v14;
+  v16 = *v25;
+  v23 = unsignedIntegerValue;
   while (2)
   {
-    for (i = 0; i != v16; ++i)
+    for (i = 0; i != v15; ++i)
     {
-      if (*v26 != v17)
+      if (*v25 != v16)
       {
-        objc_enumerationMutation(v14);
+        objc_enumerationMutation(v13);
       }
 
-      v19 = *(*(&v25 + 1) + 8 * i);
+      v18 = *(*(&v24 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -151,20 +151,20 @@ LABEL_53:
 
           goto LABEL_43;
         }
-        v20 = ;
-        *error = [FedStatsPluginError errorWithCode:300 description:v20];
+        v19 = ;
+        *error = [FedStatsPluginError errorWithCode:300 description:v19];
         goto LABEL_52;
       }
 
-      v20 = [v14 objectForKey:v19];
+      v19 = [v13 objectForKey:v18];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         if (error)
         {
 LABEL_51:
-          v23 = [MEMORY[0x277CCACA8] stringWithFormat:v22, @"fieldValueSets", v19];
-          *error = [FedStatsPluginError errorWithCode:300 description:v23];
+          v22 = [MEMORY[0x277CCACA8] stringWithFormat:v21, @"fieldValueSets", v18];
+          *error = [FedStatsPluginError errorWithCode:300 description:v22];
         }
 
 LABEL_52:
@@ -172,7 +172,7 @@ LABEL_52:
         goto LABEL_53;
       }
 
-      if (![v20 count])
+      if (![v19 count])
       {
         if (error)
         {
@@ -183,9 +183,9 @@ LABEL_52:
       }
     }
 
-    v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
-    unsignedIntegerValue = v24;
-    if (v16)
+    v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    unsignedIntegerValue = v23;
+    if (v15)
     {
       continue;
     }
@@ -195,44 +195,42 @@ LABEL_52:
 
 LABEL_35:
 
-  v8 = [[FedStatsPluginMaskingDataParameters alloc] initWithResultCap:unsignedIntegerValue fieldValueSets:v14];
+  v8 = [[FedStatsPluginMaskingDataParameters alloc] initWithResultCap:unsignedIntegerValue fieldValueSets:v13];
 LABEL_44:
 
 LABEL_18:
 LABEL_19:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)maskingData
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
   fieldValueSets = [(FedStatsPluginMaskingDataParameters *)self fieldValueSets];
   v5 = [v3 dictionaryWithCapacity:{objc_msgSend(fieldValueSets, "count")}];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   fieldValueSets2 = [(FedStatsPluginMaskingDataParameters *)self fieldValueSets];
-  v7 = [fieldValueSets2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [fieldValueSets2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(fieldValueSets2);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         fieldValueSets3 = [(FedStatsPluginMaskingDataParameters *)self fieldValueSets];
         v13 = [fieldValueSets3 objectForKey:v11];
 
@@ -240,7 +238,7 @@ LABEL_19:
         [v5 setObject:v14 forKey:v11];
       }
 
-      v8 = [fieldValueSets2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [fieldValueSets2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -252,8 +250,6 @@ LABEL_19:
   {
     [(FedStatsPluginMaskingDataParameters *)v5 maskingData];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -290,11 +286,10 @@ LABEL_19:
 
 - (void)maskingData
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_24AB24000, a2, OS_LOG_TYPE_DEBUG, "Masking data = %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24AB24000, a2, OS_LOG_TYPE_DEBUG, "Masking data = %@", &v2, 0xCu);
 }
 
 @end

@@ -13,20 +13,18 @@
 
 - (NSArray)attributeDescriptions
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = HMCameraClipVideoAssetContext;
-  attributeDescriptions = [(HMCameraClipAssetContext *)&v13 attributeDescriptions];
+  v13[1] = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = HMCameraClipVideoAssetContext;
+  attributeDescriptions = [(HMCameraClipAssetContext *)&v12 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   v5 = MEMORY[0x1E696AD98];
   hlsPlaylist = [(HMCameraClipVideoAssetContext *)self hlsPlaylist];
   v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(hlsPlaylist, "length")}];
   v8 = [v4 initWithName:@"HLS Playlist Byte Count" value:v7];
-  v14[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v10 = [attributeDescriptions arrayByAddingObjectsFromArray:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

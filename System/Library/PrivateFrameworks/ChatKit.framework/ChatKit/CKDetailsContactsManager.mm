@@ -605,8 +605,9 @@ LABEL_11:
   }
 }
 
-void __37__CKDetailsContactsManager_sendEmail__block_invoke(uint64_t a1, int a2)
+void __37__CKDetailsContactsManager_sendEmail__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -615,7 +616,7 @@ void __37__CKDetailsContactsManager_sendEmail__block_invoke(uint64_t a1, int a2)
     {
       v5 = @"NO";
       v6 = *(a1 + 32);
-      if (a2)
+      if (v2)
       {
         v5 = @"YES";
       }
@@ -821,92 +822,93 @@ LABEL_11:
 - (id)callActionsForEntity:(id)entity
 {
   entityCopy = entity;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__83;
+  v44 = __Block_byref_object_dispose__83;
+  v45 = 0;
+  v38[0] = 0;
+  v38[1] = v38;
+  v38[2] = 0x3032000000;
+  v38[3] = __Block_byref_object_copy__83;
+  v38[4] = __Block_byref_object_dispose__83;
   v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__83;
-  v43 = __Block_byref_object_dispose__83;
-  v44 = 0;
-  v37[0] = 0;
-  v37[1] = v37;
-  v37[2] = 0x3032000000;
-  v37[3] = __Block_byref_object_copy__83;
-  v37[4] = __Block_byref_object_dispose__83;
-  v38 = 0;
   objc_initWeak(&location, self);
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __49__CKDetailsContactsManager_callActionsForEntity___block_invoke;
-  v35[3] = &unk_1E72F8978;
-  v35[4] = &v39;
-  v35[5] = v37;
-  [(CKDetailsContactsManager *)self callableAddressesForEntity:entityCopy withResult:v35];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __49__CKDetailsContactsManager_callActionsForEntity___block_invoke;
+  v36[3] = &unk_1E72F8978;
+  v36[4] = &v40;
+  v36[5] = v38;
+  [(CKDetailsContactsManager *)self callableAddressesForEntity:entityCopy withResult:v36];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   propertyType = [entityCopy propertyType];
 
-  if ([(CKDetailsContactsManager *)self isFaceTimeAudioAvailableForEntity:entityCopy])
+  v7 = [(CKDetailsContactsManager *)self isFaceTimeAudioAvailableForEntity:entityCopy];
+  if (v7)
   {
-    v7 = CKFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"FACE_TIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = CKFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"FACE_TIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v9 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"phone"];
-    v10 = MEMORY[0x1E69DC628];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __49__CKDetailsContactsManager_callActionsForEntity___block_invoke_2;
-    v31[3] = &unk_1E72F89A0;
-    v32 = entityCopy;
-    objc_copyWeak(&v34, &location);
-    v33 = &v39;
-    v11 = [v10 actionWithTitle:v8 image:v9 identifier:v8 handler:v31];
-    [v5 addObject:v11];
+    v10 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"phone"];
+    v11 = MEMORY[0x1E69DC628];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __49__CKDetailsContactsManager_callActionsForEntity___block_invoke_2;
+    v32[3] = &unk_1E72F89A0;
+    v33 = entityCopy;
+    objc_copyWeak(&v35, &location);
+    v34 = &v40;
+    v12 = [v11 actionWithTitle:v9 image:v10 identifier:v9 handler:v32];
+    [v5 addObject:v12];
 
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v35);
   }
 
   if (propertyType == *MEMORY[0x1E695C330])
   {
-    v13 = CKFrameworkBundle();
-    v14 = [v13 localizedStringForKey:@"VOICE_CALL" value:&stru_1F04268F8 table:@"ChatKit"];
+    v14 = CKFrameworkBundle(v7);
+    v15 = [v14 localizedStringForKey:@"VOICE_CALL" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v15 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"phone"];
-    v16 = MEMORY[0x1E69DC628];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __49__CKDetailsContactsManager_callActionsForEntity___block_invoke_3;
-    v28[3] = &unk_1E72F4F58;
-    v29 = entityCopy;
-    objc_copyWeak(&v30, &location);
-    v17 = [v16 actionWithTitle:v14 image:v15 identifier:v14 handler:v28];
-    [v5 addObject:v17];
+    v16 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"phone"];
+    v17 = MEMORY[0x1E69DC628];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __49__CKDetailsContactsManager_callActionsForEntity___block_invoke_3;
+    v29[3] = &unk_1E72F4F58;
+    v30 = entityCopy;
+    objc_copyWeak(&v31, &location);
+    v18 = [v17 actionWithTitle:v15 image:v16 identifier:v15 handler:v29];
+    [v5 addObject:v18];
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v31);
   }
 
   else
   {
-    v12 = v40[5];
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __49__CKDetailsContactsManager_callActionsForEntity___block_invoke_4;
-    v23 = &unk_1E72F89C8;
-    v26 = v37;
-    objc_copyWeak(&v27, &location);
-    v24 = entityCopy;
-    v25 = v5;
-    [v12 enumerateObjectsUsingBlock:&v20];
+    v13 = v41[5];
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __49__CKDetailsContactsManager_callActionsForEntity___block_invoke_4;
+    v24 = &unk_1E72F89C8;
+    v27 = v38;
+    objc_copyWeak(&v28, &location);
+    v25 = entityCopy;
+    v26 = v5;
+    [v13 enumerateObjectsUsingBlock:&v21];
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v28);
   }
 
-  v18 = [v5 copy];
+  v19 = [v5 copy];
 
   objc_destroyWeak(&location);
-  _Block_object_dispose(v37, 8);
+  _Block_object_dispose(v38, 8);
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v40, 8);
 
-  return v18;
+  return v19;
 }
 
 void __49__CKDetailsContactsManager_callActionsForEntity___block_invoke(uint64_t a1, void *a2, void *a3)

@@ -116,7 +116,7 @@
 
 uint64_t __184__HDHealthEntity_Sync__enumerateEntitiesForSyncWithProperties_predicate_syncEntityClass_session_syncAnchorRange_orderingTerms_limit_lastSyncAnchor_distinct_healthDatabase_error_block___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 32);
   v7 = [*(a1 + 40) isEqualToString:*MEMORY[0x277D10A40]];
@@ -137,8 +137,8 @@ uint64_t __184__HDHealthEntity_Sync__enumerateEntitiesForSyncWithProperties_pred
 
       else
       {
-        v29[0] = *(a1 + 40);
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+        v28[0] = *(a1 + 40);
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
       }
 
       v6 = v11;
@@ -153,26 +153,25 @@ uint64_t __184__HDHealthEntity_Sync__enumerateEntitiesForSyncWithProperties_pred
   v14 = [v5 databaseForEntityClass:v13];
   v15 = [(HDHealthEntity *)v13 _syncQueryWithDatabase:v14 predicate:v12 orderingTerms:*(a1 + 64) limit:*(a1 + 120) anchorProperty:*(a1 + 40) distinct:*(a1 + 128)];
 
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x2020000000;
-  v28[3] = 0;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __184__HDHealthEntity_Sync__enumerateEntitiesForSyncWithProperties_predicate_syncEntityClass_session_syncAnchorRange_orderingTerms_limit_lastSyncAnchor_distinct_healthDatabase_error_block___block_invoke_2;
-  v22[3] = &unk_27861F228;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x2020000000;
+  v27[3] = 0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __184__HDHealthEntity_Sync__enumerateEntitiesForSyncWithProperties_predicate_syncEntityClass_session_syncAnchorRange_orderingTerms_limit_lastSyncAnchor_distinct_healthDatabase_error_block___block_invoke_2;
+  v21[3] = &unk_27861F228;
   v16 = *(a1 + 88);
-  v27 = v7;
-  v25 = v16;
-  v26 = v8;
-  v21 = *(a1 + 72);
-  v17 = v21;
-  v23 = v21;
-  v24 = v28;
-  v18 = [v15 enumeratePersistentIDsAndProperties:v6 error:a3 enumerationHandler:v22];
+  v26 = v7;
+  v24 = v16;
+  v25 = v8;
+  v20 = *(a1 + 72);
+  v17 = v20;
+  v22 = v20;
+  v23 = v27;
+  v18 = [v15 enumeratePersistentIDsAndProperties:v6 error:a3 enumerationHandler:v21];
 
-  _Block_object_dispose(v28, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v27, 8);
   return v18;
 }
 
@@ -190,23 +189,21 @@ uint64_t __184__HDHealthEntity_Sync__enumerateEntitiesForSyncWithProperties_pred
   return v18;
 }
 
-uint64_t __184__HDHealthEntity_Sync__enumerateEntitiesForSyncWithProperties_predicate_syncEntityClass_session_syncAnchorRange_orderingTerms_limit_lastSyncAnchor_distinct_healthDatabase_error_block___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+uint64_t __184__HDHealthEntity_Sync__enumerateEntitiesForSyncWithProperties_predicate_syncEntityClass_session_syncAnchorRange_orderingTerms_limit_lastSyncAnchor_distinct_healthDatabase_error_block___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v5 = a3;
-  v6 = [objc_alloc(*(a1 + 56)) initWithPersistentID:a2];
+  v6 = a3;
+  v7 = [objc_alloc(*(a1 + 56)) initWithPersistentID:a2];
   if ((*(a1 + 72) & 1) == 0)
   {
-    v7 = *(a1 + 64);
     a2 = HDSQLiteColumnAsInt64();
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
   v8 = *(a1 + 32);
-  v9 = *(*(*(a1 + 40) + 8) + 24);
   ++*(*(*(a1 + 48) + 8) + 24);
-  v10 = (*(v8 + 16))();
+  v9 = (*(v8 + 16))();
 
-  return v10 & 1;
+  return v9 & 1;
 }
 
 + (BOOL)enumerateEntitiesForSyncWithProperties:(id)properties predicate:(id)predicate healthDatabase:(id)database error:(id *)error block:(id)block
@@ -309,19 +306,19 @@ uint64_t __100__HDHealthEntity_Sync__enumerateEntitiesForSyncWithProperties_pred
   return v26;
 }
 
-uint64_t __129__HDHealthEntity_Sync__nextSyncAnchorWithStartAnchor_predicate_syncEntityClass_session_orderingTerms_limit_healthDatabase_error___block_invoke(uint64_t a1, void *a2)
+uint64_t __129__HDHealthEntity_Sync__nextSyncAnchorWithStartAnchor_predicate_syncEntityClass_session_orderingTerms_limit_healthDatabase_error___block_invoke(void *a1, void *a2)
 {
-  v3 = *(a1 + 72);
-  v4 = *(a1 + 80);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 88);
+  v3 = a1[9];
+  v4 = a1[10];
+  v5 = a1[4];
+  v6 = a1[5];
+  v7 = a1[11];
   v8 = a2;
   v9 = HDSyncAnchorRangeMake(v7, 0x7FFFFFFFFFFFFFFFLL);
   v11 = [v3 predicateForSyncWithPredicate:v5 syncEntityClass:v4 session:v6 syncAnchorRange:{v9, v10}];
-  v12 = [(HDHealthEntity *)*(a1 + 72) _syncQueryDescriptorWithPredicate:v11 orderingTerms:*(a1 + 48) limit:*(a1 + 96) anchorProperty:*(a1 + 56) distinct:0];
-  v13 = *(a1 + 72);
-  v14 = *(a1 + 56);
+  v12 = [(HDHealthEntity *)a1[9] _syncQueryDescriptorWithPredicate:v11 orderingTerms:a1[6] limit:a1[12] anchorProperty:a1[7] distinct:0];
+  v13 = a1[9];
+  v14 = a1[7];
   v15 = *MEMORY[0x277D10A90];
   v16 = [v8 databaseForEntityClass:v13];
 
@@ -336,17 +333,17 @@ uint64_t __129__HDHealthEntity_Sync__nextSyncAnchorWithStartAnchor_predicate_syn
 
   else
   {
-    v19 = *(a1 + 88);
+    v19 = a1[11];
   }
 
-  *(*(*(a1 + 64) + 8) + 24) = v19;
+  *(*(a1[8] + 8) + 24) = v19;
 
   return 1;
 }
 
 + (id)_syncQueryDescriptorWithPredicate:(void *)predicate orderingTerms:(uint64_t)terms limit:(void *)limit anchorProperty:(uint64_t)property distinct:
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   limitCopy = limit;
   v12 = a2;
@@ -365,12 +362,10 @@ uint64_t __129__HDHealthEntity_Sync__nextSyncAnchorWithStartAnchor_predicate_syn
   else
   {
     v15 = [MEMORY[0x277D10B68] orderingTermWithProperty:limitCopy entityClass:v13 ascending:1];
-    v19[0] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     [v14 setOrderingTerms:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -479,27 +474,25 @@ id __94__HDHealthEntity_Sync__predicateForSyncWithPredicate_syncEntityClass_sess
 
 + (id)createValidationError:(id)error rowId:(id)id
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   idCopy = id;
   v8 = [MEMORY[0x277CCA9B8] hk_error:120 description:errorCopy];
-  v17[0] = *MEMORY[0x277CCBD78];
+  v16[0] = *MEMORY[0x277CCBD78];
   databaseTable = [self databaseTable];
   v10 = *MEMORY[0x277CCA7E8];
-  v18[0] = databaseTable;
-  v18[1] = v8;
+  v17[0] = databaseTable;
+  v17[1] = v8;
   v11 = *MEMORY[0x277CCBD70];
-  v17[1] = v10;
-  v17[2] = v11;
-  v18[2] = idCopy;
-  v17[3] = *MEMORY[0x277CCBD88];
+  v16[1] = v10;
+  v16[2] = v11;
+  v17[2] = idCopy;
+  v16[3] = *MEMORY[0x277CCBD88];
   idCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"ROWID %@", idCopy];
-  v18[3] = idCopy;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v17[3] = idCopy;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
 
   v14 = [MEMORY[0x277CCA9B8] hk_error:120 userInfo:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1365,30 +1358,30 @@ uint64_t __71__HDHealthEntity_Conveniences__stringForProperty_healthDatabase_err
 
 - (id)dateForProperty:(id)property transaction:(id)transaction error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   transactionCopy = transaction;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__118;
-  v24 = __Block_byref_object_dispose__118;
-  v25 = 0;
-  v26[0] = propertyCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__118;
+  v23 = __Block_byref_object_dispose__118;
+  v24 = 0;
+  v25[0] = propertyCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   v11 = [transactionCopy databaseForEntityProtectionClass:{objc_msgSend(objc_opt_class(), "protectionClass")}];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __66__HDHealthEntity_Conveniences__dateForProperty_transaction_error___block_invoke;
-  v17[3] = &unk_278623FF8;
-  v19 = &v20;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __66__HDHealthEntity_Conveniences__dateForProperty_transaction_error___block_invoke;
+  v16[3] = &unk_278623FF8;
+  v18 = &v19;
   v12 = propertyCopy;
-  v18 = v12;
-  LODWORD(error) = [(HDSQLiteEntity *)self getValuesForProperties:v10 database:v11 error:error handler:v17];
+  v17 = v12;
+  LODWORD(error) = [(HDSQLiteEntity *)self getValuesForProperties:v10 database:v11 error:error handler:v16];
 
   if (error)
   {
-    v13 = v21[5];
+    v13 = v20[5];
   }
 
   else
@@ -1398,79 +1391,69 @@ uint64_t __71__HDHealthEntity_Conveniences__stringForProperty_healthDatabase_err
 
   v14 = v13;
 
-  _Block_object_dispose(&v20, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 
   return v14;
 }
 
-uint64_t __66__HDHealthEntity_Conveniences__dateForProperty_transaction_error___block_invoke(uint64_t a1)
+uint64_t __66__HDHealthEntity_Conveniences__dateForProperty_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  v3 = HDSQLiteColumnWithNameAsDate();
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = HDSQLiteColumnWithNameAsDate();
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8](v3, v5);
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 - (BOOL)setDate:(id)date forProperty:(id)property transaction:(id)transaction error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   propertyCopy = property;
   transactionCopy = transaction;
-  v22[0] = propertyCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = propertyCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v14 = [transactionCopy databaseForEntityProtectionClass:{objc_msgSend(objc_opt_class(), "protectionClass")}];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __70__HDHealthEntity_Conveniences__setDate_forProperty_transaction_error___block_invoke;
-  v19[3] = &unk_278624020;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __70__HDHealthEntity_Conveniences__setDate_forProperty_transaction_error___block_invoke;
+  v18[3] = &unk_278624020;
   v15 = propertyCopy;
-  v20 = v15;
+  v19 = v15;
   v16 = dateCopy;
-  v21 = v16;
-  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v13 database:v14 error:error bindingHandler:v19];
+  v20 = v16;
+  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v13 database:v14 error:error bindingHandler:v18];
 
-  v17 = *MEMORY[0x277D85DE8];
   return error;
-}
-
-void __70__HDHealthEntity_Conveniences__setDate_forProperty_transaction_error___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  JUMPOUT(0x22AAC6B50);
 }
 
 - (id)stringForProperty:(id)property transaction:(id)transaction error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   transactionCopy = transaction;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__118;
-  v24 = __Block_byref_object_dispose__118;
-  v25 = 0;
-  v26[0] = propertyCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__118;
+  v23 = __Block_byref_object_dispose__118;
+  v24 = 0;
+  v25[0] = propertyCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   v11 = [transactionCopy databaseForEntityProtectionClass:{objc_msgSend(objc_opt_class(), "protectionClass")}];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __68__HDHealthEntity_Conveniences__stringForProperty_transaction_error___block_invoke;
-  v17[3] = &unk_278623FF8;
-  v19 = &v20;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __68__HDHealthEntity_Conveniences__stringForProperty_transaction_error___block_invoke;
+  v16[3] = &unk_278623FF8;
+  v18 = &v19;
   v12 = propertyCopy;
-  v18 = v12;
-  LODWORD(error) = [(HDSQLiteEntity *)self getValuesForProperties:v10 database:v11 error:error handler:v17];
+  v17 = v12;
+  LODWORD(error) = [(HDSQLiteEntity *)self getValuesForProperties:v10 database:v11 error:error handler:v16];
 
   if (error)
   {
-    v13 = v21[5];
+    v13 = v20[5];
   }
 
   else
@@ -1480,79 +1463,69 @@ void __70__HDHealthEntity_Conveniences__setDate_forProperty_transaction_error___
 
   v14 = v13;
 
-  _Block_object_dispose(&v20, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 
   return v14;
 }
 
-uint64_t __68__HDHealthEntity_Conveniences__stringForProperty_transaction_error___block_invoke(uint64_t a1)
+uint64_t __68__HDHealthEntity_Conveniences__stringForProperty_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  v3 = HDSQLiteColumnWithNameAsString();
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = HDSQLiteColumnWithNameAsString();
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8](v3, v5);
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 - (BOOL)setString:(id)string forProperty:(id)property transaction:(id)transaction error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   propertyCopy = property;
   transactionCopy = transaction;
-  v22[0] = propertyCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = propertyCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v14 = [transactionCopy databaseForEntityProtectionClass:{objc_msgSend(objc_opt_class(), "protectionClass")}];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __72__HDHealthEntity_Conveniences__setString_forProperty_transaction_error___block_invoke;
-  v19[3] = &unk_278624020;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __72__HDHealthEntity_Conveniences__setString_forProperty_transaction_error___block_invoke;
+  v18[3] = &unk_278624020;
   v15 = propertyCopy;
-  v20 = v15;
+  v19 = v15;
   v16 = stringCopy;
-  v21 = v16;
-  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v13 database:v14 error:error bindingHandler:v19];
+  v20 = v16;
+  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v13 database:v14 error:error bindingHandler:v18];
 
-  v17 = *MEMORY[0x277D85DE8];
   return error;
-}
-
-void __72__HDHealthEntity_Conveniences__setString_forProperty_transaction_error___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  JUMPOUT(0x22AAC6BD0);
 }
 
 - (id)numberForProperty:(id)property transaction:(id)transaction error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   transactionCopy = transaction;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__118;
-  v24 = __Block_byref_object_dispose__118;
-  v25 = 0;
-  v26[0] = propertyCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__118;
+  v23 = __Block_byref_object_dispose__118;
+  v24 = 0;
+  v25[0] = propertyCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   v11 = [transactionCopy databaseForEntityProtectionClass:{objc_msgSend(objc_opt_class(), "protectionClass")}];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __68__HDHealthEntity_Conveniences__numberForProperty_transaction_error___block_invoke;
-  v17[3] = &unk_278623FF8;
-  v19 = &v20;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __68__HDHealthEntity_Conveniences__numberForProperty_transaction_error___block_invoke;
+  v16[3] = &unk_278623FF8;
+  v18 = &v19;
   v12 = propertyCopy;
-  v18 = v12;
-  LODWORD(error) = [(HDSQLiteEntity *)self getValuesForProperties:v10 database:v11 error:error handler:v17];
+  v17 = v12;
+  LODWORD(error) = [(HDSQLiteEntity *)self getValuesForProperties:v10 database:v11 error:error handler:v16];
 
   if (error)
   {
-    v13 = v21[5];
+    v13 = v20[5];
   }
 
   else
@@ -1562,80 +1535,70 @@ void __72__HDHealthEntity_Conveniences__setString_forProperty_transaction_error_
 
   v14 = v13;
 
-  _Block_object_dispose(&v20, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 
   return v14;
 }
 
-uint64_t __68__HDHealthEntity_Conveniences__numberForProperty_transaction_error___block_invoke(uint64_t a1)
+uint64_t __68__HDHealthEntity_Conveniences__numberForProperty_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  v3 = HDSQLiteColumnWithNameAsNumber();
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = HDSQLiteColumnWithNameAsNumber();
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8](v3, v5);
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 - (BOOL)setNumber:(id)number forProperty:(id)property transaction:(id)transaction error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   numberCopy = number;
   propertyCopy = property;
   transactionCopy = transaction;
-  v22[0] = propertyCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = propertyCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v14 = [transactionCopy databaseForEntityProtectionClass:{objc_msgSend(objc_opt_class(), "protectionClass")}];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __72__HDHealthEntity_Conveniences__setNumber_forProperty_transaction_error___block_invoke;
-  v19[3] = &unk_278624020;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __72__HDHealthEntity_Conveniences__setNumber_forProperty_transaction_error___block_invoke;
+  v18[3] = &unk_278624020;
   v15 = propertyCopy;
-  v20 = v15;
+  v19 = v15;
   v16 = numberCopy;
-  v21 = v16;
-  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v13 database:v14 error:error bindingHandler:v19];
+  v20 = v16;
+  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v13 database:v14 error:error bindingHandler:v18];
 
-  v17 = *MEMORY[0x277D85DE8];
   return error;
-}
-
-void __72__HDHealthEntity_Conveniences__setNumber_forProperty_transaction_error___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  JUMPOUT(0x22AAC6BB0);
 }
 
 - (id)foreignKeyEntity:(Class)entity forProperty:(id)property transaction:(id)transaction error:(id *)error
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   transactionCopy = transaction;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__118;
-  v27 = __Block_byref_object_dispose__118;
-  v28 = 0;
-  v29[0] = propertyCopy;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__118;
+  v26 = __Block_byref_object_dispose__118;
+  v27 = 0;
+  v28[0] = propertyCopy;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   v13 = [transactionCopy databaseForEntity:self];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __79__HDHealthEntity_Conveniences__foreignKeyEntity_forProperty_transaction_error___block_invoke;
-  v19[3] = &unk_278624048;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __79__HDHealthEntity_Conveniences__foreignKeyEntity_forProperty_transaction_error___block_invoke;
+  v18[3] = &unk_278624048;
   v14 = propertyCopy;
-  v20 = v14;
-  v21 = &v23;
+  v19 = v14;
+  v20 = &v22;
   entityCopy = entity;
-  LODWORD(error) = [(HDSQLiteEntity *)self getValuesForProperties:v12 database:v13 error:error handler:v19];
+  LODWORD(error) = [(HDSQLiteEntity *)self getValuesForProperties:v12 database:v13 error:error handler:v18];
 
   if (error)
   {
-    v15 = v24[5];
+    v15 = v23[5];
   }
 
   else
@@ -1645,26 +1608,22 @@ void __72__HDHealthEntity_Conveniences__setNumber_forProperty_transaction_error_
 
   v16 = v15;
 
-  _Block_object_dispose(&v23, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 
   return v16;
 }
 
-uint64_t __79__HDHealthEntity_Conveniences__foreignKeyEntity_forProperty_transaction_error___block_invoke(uint64_t a1)
+uint64_t __79__HDHealthEntity_Conveniences__foreignKeyEntity_forProperty_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
   result = HDSQLiteColumnWithNameIsNull();
   if ((result & 1) == 0)
   {
-    v4 = objc_alloc(*(a1 + 48));
-    v5 = *(a1 + 32);
-    v6 = [v4 initWithPersistentID:HDSQLiteColumnWithNameAsInt64()];
-    v7 = *(*(a1 + 40) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v5 = [objc_alloc(*(a1 + 48)) initWithPersistentID:HDSQLiteColumnWithNameAsInt64()];
+    v6 = *(*(a1 + 40) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
 
-    return MEMORY[0x2821F96F8](v6, v8);
+    return MEMORY[0x2821F96F8](v5, v7);
   }
 
   return result;
@@ -1672,39 +1631,35 @@ uint64_t __79__HDHealthEntity_Conveniences__foreignKeyEntity_forProperty_transac
 
 - (BOOL)setForeignKeyEntity:(id)entity forProperty:(id)property transaction:(id)transaction error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   propertyCopy = property;
   transactionCopy = transaction;
-  v22[0] = propertyCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = propertyCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v14 = [transactionCopy databaseForEntity:self];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __82__HDHealthEntity_Conveniences__setForeignKeyEntity_forProperty_transaction_error___block_invoke;
-  v19[3] = &unk_278624020;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __82__HDHealthEntity_Conveniences__setForeignKeyEntity_forProperty_transaction_error___block_invoke;
+  v18[3] = &unk_278624020;
   v15 = entityCopy;
-  v20 = v15;
+  v19 = v15;
   v16 = propertyCopy;
-  v21 = v16;
-  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v13 database:v14 error:error bindingHandler:v19];
+  v20 = v16;
+  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v13 database:v14 error:error bindingHandler:v18];
 
-  v17 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 void __82__HDHealthEntity_Conveniences__setForeignKeyEntity_forProperty_transaction_error___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  if (v2)
+  v1 = *(a1 + 32);
+  if (v1)
   {
-    [v2 persistentID];
+    [v1 persistentID];
 
     JUMPOUT(0x22AAC6B90);
   }
-
-  v4 = *(a1 + 40);
 
   JUMPOUT(0x22AAC6BA0);
 }
@@ -1720,7 +1675,7 @@ void __82__HDHealthEntity_Conveniences__setForeignKeyEntity_forProperty_transact
 
 + (id)updateSQLForTimeOffsetWithBindingCount:(unint64_t *)count
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   columnNamesForTimeOffset = [self columnNamesForTimeOffset];
   v5 = [columnNamesForTimeOffset count];
   if (v5)
@@ -1730,21 +1685,21 @@ void __82__HDHealthEntity_Conveniences__setForeignKeyEntity_forProperty_transact
     v8 = [v6 stringWithFormat:@"UPDATE %@ SET ", disambiguatedDatabaseTable];
     countCopy = count;
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v9 = columnNamesForTimeOffset;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       v12 = 1;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v9);
           }
@@ -1759,11 +1714,11 @@ void __82__HDHealthEntity_Conveniences__setForeignKeyEntity_forProperty_transact
             v14 = ", ";
           }
 
-          [v8 appendFormat:@"%@ = %@ + ?%s", *(*(&v19 + 1) + 8 * i), *(*(&v19 + 1) + 8 * i), v14];
+          [v8 appendFormat:@"%@ = %@ + ?%s", *(*(&v18 + 1) + 8 * i), *(*(&v18 + 1) + 8 * i), v14];
           ++v12;
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -1779,8 +1734,6 @@ void __82__HDHealthEntity_Conveniences__setForeignKeyEntity_forProperty_transact
   {
     v8 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

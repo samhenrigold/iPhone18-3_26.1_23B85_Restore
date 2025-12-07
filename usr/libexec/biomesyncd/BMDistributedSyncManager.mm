@@ -1,6 +1,8 @@
 @interface BMDistributedSyncManager
++ (id)atomFileHandleForLocation:(id)location flags:(int)flags protectionClass:(unint64_t)class fileName:(id)name suffix:(id)suffix;
 + (id)writeAtomBatchData:(id)data atomBatchVectors:(id)vectors forLocation:(id)location protectionClass:(unint64_t)class sessionContext:(id)context db:(id)db;
 - (BMDistributedSyncManager)initWithStreamConfiguration:(id)configuration streamCRDT:(id)t database:(id)database localSiteIdentifier:(id)identifier changeReporter:(id)reporter;
+- (id)atomBatchesForChangesSinceClockVector:(id)vector ckFormatVersion:(unsigned __int8)version chunker:(id)chunker transportType:(unint64_t)type;
 - (id)deletedLocations;
 - (unint64_t)handleDeferredDeletedLocationsForStream:(id)stream;
 - (void)mergeAtomBatch:(id)batch deletedLocations:(id)locations sessionContext:(id)context;
@@ -123,6 +125,66 @@
 
     while (v25);
   }
+}
+
++ (id)atomFileHandleForLocation:(id)location flags:(int)flags protectionClass:(unint64_t)class fileName:(id)name suffix:(id)suffix
+{
+  v10 = *&flags;
+  locationCopy = location;
+  nameCopy = name;
+  suffixCopy = suffix;
+  v14 = +[BMPaths syncDirectory];
+  v15 = +[BMStoreDirectory pendingBatches];
+  v16 = [v14 stringByAppendingPathComponent:v15];
+
+  v17 = [BMFileManager fileManagerWithDirectAccessToDirectory:v16 cachingOptions:0];
+  v18 = v17;
+  v19 = 0;
+  if ((v10 & 0x200) != 0)
+  {
+    v29 = 0;
+    [v17 createDirectoryAtPath:v16 error:&v29];
+    v19 = v29;
+  }
+
+  if (nameCopy)
+  {
+    v20 = nameCopy;
+  }
+
+  else
+  {
+    v21 = [locationCopy atomBatchFileNameWithSuffix:suffixCopy];
+    v20 = [v16 stringByAppendingPathComponent:v21];
+  }
+
+  v22 = __biome_log_for_category();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v31 = v20;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "atomBatchFileName: %@", buf, 0xCu);
+  }
+
+  v28 = v19;
+  v23 = [v18 fileHandleForFileAtPath:v20 flags:v10 protection:+[BMDataProtection biomeProtectionClassToOSProtectionClass:](BMDataProtection error:{"biomeProtectionClassToOSProtectionClass:", class), &v28}];
+  v24 = v28;
+
+  if (v23)
+  {
+    v25 = v23;
+  }
+
+  else
+  {
+    v26 = __biome_log_for_category();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004BAF0();
+    }
+  }
+
+  return v23;
 }
 
 + (id)writeAtomBatchData:(id)data atomBatchVectors:(id)vectors forLocation:(id)location protectionClass:(unint64_t)class sessionContext:(id)context db:(id)db
@@ -555,6 +617,27 @@ LABEL_17:
 LABEL_12:
 
   return v19;
+}
+
+- (id)atomBatchesForChangesSinceClockVector:(id)vector ckFormatVersion:(unsigned __int8)version chunker:(id)chunker transportType:(unint64_t)type
+{
+  versionCopy = version;
+  chunkerCopy = chunker;
+  vectorCopy = vector;
+  [(BMDistributedSyncManager *)self updateClockVectorByUnionWithUnseenSiteIdentifiers:vectorCopy];
+  v11 = objc_opt_new();
+  streamCRDT = self->_streamCRDT;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1000329F8;
+  v16[3] = &unk_1000798A0;
+  v17 = v11;
+  v13 = v11;
+  [(BMStreamCKCRDT *)streamCRDT atomsForChangesSinceClockVector:vectorCopy ckFormatVersion:versionCopy chunker:chunkerCopy transportType:2 enumerateWithBlock:v16];
+
+  v14 = [NSArray arrayWithArray:v13];
+
+  return v14;
 }
 
 - (id)deletedLocations

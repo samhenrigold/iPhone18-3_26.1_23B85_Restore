@@ -11,6 +11,7 @@
 - (int)removeNode:(__SFNode *)node;
 - (void)dealloc;
 - (void)invalidate;
+- (void)nodeBrowser:(id)browser nodesChangedForParent:(__SFNode *)parent protocol:(id)protocol error:(int)error;
 - (void)setMode:(int64_t)mode;
 - (void)setOptions:(id)options;
 @end
@@ -62,6 +63,14 @@
   v5.receiver = self;
   v5.super_class = SDNetworkBrowser;
   [(SDNetworkBrowser *)&v5 dealloc];
+}
+
+- (void)nodeBrowser:(id)browser nodesChangedForParent:(__SFNode *)parent protocol:(id)protocol error:(int)error
+{
+  v6 = *&error;
+  protocolCopy = protocol;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained networkBrowser:self nodesChangedForParent:parent protocol:protocolCopy error:v6];
 }
 
 - (int)openNode:(__SFNode *)rootNode forProtocol:(id)protocol flags:(unint64_t)flags

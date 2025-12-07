@@ -50,14 +50,14 @@ void __85__UIWindowScene_SafariServicesExtras___sf_openFaceTimeMultiWayURL_compl
 
 void __55__UIWindowScene_SafariServicesExtras___sf_destroyScene__block_invoke(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXUserInterface();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXUserInterface(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = v2;
-    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "Scene destruction request, %@", &v4, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_DEFAULT, "Scene destruction request, %@", &v5, 0xCu);
   }
 }
 

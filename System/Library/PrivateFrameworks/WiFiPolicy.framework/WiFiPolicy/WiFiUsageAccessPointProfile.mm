@@ -9,6 +9,7 @@
 + (id)beaconsAndWPSInfo;
 + (id)errorStringForTelemetry:(id)telemetry;
 + (id)longProfileForBSSID:(id)d withError:(id *)error;
++ (id)profileForBSSID:(id)d onlyIfCurrent:(BOOL)current withError:(id *)error;
 + (id)profileFromBeaconData:(id)data andParsedIE:(id)e;
 + (id)shortProfileForBSSID:(id)d withError:(id *)error;
 + (void)_applyMask:(id)mask FromStart:(unint64_t)start WithLen:(unint64_t)len WithMask:(id)withMask AppendTo:(id)to;
@@ -87,7 +88,7 @@
 
 + (void)updateConfig
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [WiFiUsageAccessPointProfileConfiguration getConfigForKey:@"apProfileVersion"];
   p_info = TBTileMO.info;
   if (v3)
@@ -336,13 +337,11 @@ LABEL_44:
   {
     [self _cleanUpStaleProfiles];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_isProfileValidForStorage:(id)storage
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   v4 = [storageCopy objectForKey:@"apProfileVersion"];
   v5 = [storageCopy objectForKey:@"apProfileCacheTimestampCreated"];
@@ -374,49 +373,48 @@ LABEL_5:
   v8 = 0;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "+[WiFiUsageAccessPointProfile _isProfileValidForStorage:]";
-    v14 = 2112;
-    v15 = v4;
-    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: unknown version format: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "+[WiFiUsageAccessPointProfile _isProfileValidForStorage:]";
+    v13 = 2112;
+    v14 = v4;
+    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: unknown version format: %@", &v11, 0x16u);
     v8 = 0;
   }
 
 LABEL_10:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (void)_cleanUpStaleProfiles
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   _getDefaults = [self _getDefaults];
   dictionaryRepresentation = [_getDefaults dictionaryRepresentation];
 
   array = [MEMORY[0x277CBEB18] array];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   allKeys = [dictionaryRepresentation allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v49 objects:v62 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v48 objects:v61 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v50;
+    v8 = *v49;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v50 != v8)
+        if (*v49 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v49 + 1) + 8 * i);
+        v10 = *(*(&v48 + 1) + 8 * i);
         v11 = [WiFiUsagePrivacyFilter reformatMACAddress:v10];
 
         if (v11)
@@ -435,7 +433,7 @@ LABEL_10:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v49 objects:v62 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v48 objects:v61 count:16];
     }
 
     while (v7);
@@ -446,13 +444,13 @@ LABEL_10:
     v14 = [array count];
     v15 = [dictionary count];
     *buf = 136315906;
-    v55 = "+[WiFiUsageAccessPointProfile _cleanUpStaleProfiles]";
-    v56 = 2048;
-    v57 = v14;
-    v58 = 2048;
-    v59 = v15;
-    v60 = 2048;
-    v61 = _maxProfiles;
+    v54 = "+[WiFiUsageAccessPointProfile _cleanUpStaleProfiles]";
+    v55 = 2048;
+    v56 = v14;
+    v57 = 2048;
+    v58 = v15;
+    v59 = 2048;
+    v60 = _maxProfiles;
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s - staleEntries:%lu validEntries:%lu _maxProfiles:%lu", buf, 0x2Au);
   }
 
@@ -468,7 +466,7 @@ LABEL_10:
       v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v19, "UTF8String")];
       uTF8String = [v20 UTF8String];
       *buf = 136446210;
-      v55 = uTF8String;
+      v54 = uTF8String;
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
 
@@ -488,9 +486,9 @@ LABEL_10:
           v27 = [v18 objectAtIndexedSubscript:v23];
           v28 = [dictionary objectForKeyedSubscript:v27];
           *buf = 136315394;
-          v55 = "+[WiFiUsageAccessPointProfile _cleanUpStaleProfiles]";
-          v56 = 2112;
-          v57 = v28;
+          v54 = "+[WiFiUsageAccessPointProfile _cleanUpStaleProfiles]";
+          v55 = 2112;
+          v56 = v28;
           _os_log_impl(&dword_2332D7000, v24, OS_LOG_TYPE_DEFAULT, "%s - marking %@ as stale", buf, 0x16u);
         }
 
@@ -507,42 +505,42 @@ LABEL_10:
     v30 = [array count];
     v31 = [dictionary count];
     *buf = 136315906;
-    v55 = "+[WiFiUsageAccessPointProfile _cleanUpStaleProfiles]";
-    v56 = 2048;
-    v57 = v30;
-    v58 = 2048;
-    v59 = v31;
-    v60 = 2048;
-    v61 = _maxProfiles;
+    v54 = "+[WiFiUsageAccessPointProfile _cleanUpStaleProfiles]";
+    v55 = 2048;
+    v56 = v30;
+    v57 = 2048;
+    v58 = v31;
+    v59 = 2048;
+    v60 = _maxProfiles;
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s - staleEntries:%lu validEntries:%lu _maxProfiles:%lu", buf, 0x2Au);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v32 = array;
-  v33 = [v32 countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v46;
+    v35 = *v45;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v46 != v35)
+        if (*v45 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = *(*(&v45 + 1) + 8 * j);
+        v37 = *(*(&v44 + 1) + 8 * j);
         v38 = [dictionaryRepresentation objectForKeyedSubscript:v37];
         v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"stale (from %s)", "+[WiFiUsageAccessPointProfile _cleanUpStaleProfiles]"];
         [self _submitProfileFor:v37 withCachedDict:v38 AndEraseWithLog:v39];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
     while (v34);
@@ -552,44 +550,43 @@ LABEL_10:
   [_getDefaults2 synchronize];
 
   objc_autoreleasePoolPop(context);
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_endPrevAssoc
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   _getDefaults = [self _getDefaults];
   dictionaryRepresentation = [_getDefaults dictionaryRepresentation];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v30 = dictionaryRepresentation;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v29 = dictionaryRepresentation;
   obj = [dictionaryRepresentation allKeys];
-  v4 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
+  v4 = [obj countByEnumeratingWithState:&v30 objects:v44 count:16];
   if (v4)
   {
     v6 = v4;
     v7 = 0;
-    v8 = *v32;
+    v8 = *v31;
     *&v5 = 136316162;
-    v27 = v5;
+    v26 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
-        v11 = [WiFiUsagePrivacyFilter reformatMACAddress:v10, v27];
+        v10 = *(*(&v30 + 1) + 8 * i);
+        v11 = [WiFiUsagePrivacyFilter reformatMACAddress:v10, v26];
 
         if (v11)
         {
-          v12 = [v30 objectForKey:v10];
+          v12 = [v29 objectForKey:v10];
           v13 = [v12 objectForKeyedSubscript:@"apProfileMaxAssocTime"];
           unsignedIntegerValue = [v13 unsignedIntegerValue];
 
@@ -629,16 +626,16 @@ LABEL_10:
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
                   v24 = [selfCopy2 profileForBSSID:v10 withError:0];
-                  *buf = v27;
-                  v36 = "+[WiFiUsageAccessPointProfile _endPrevAssoc]";
-                  v37 = 2160;
-                  v38 = 1752392040;
-                  v39 = 2112;
-                  v40 = v10;
-                  v41 = 2160;
-                  v42 = 1752392040;
-                  v43 = 2112;
-                  v44 = v24;
+                  *buf = v26;
+                  v35 = "+[WiFiUsageAccessPointProfile _endPrevAssoc]";
+                  v36 = 2160;
+                  v37 = 1752392040;
+                  v38 = 2112;
+                  v39 = v10;
+                  v40 = 2160;
+                  v41 = 1752392040;
+                  v42 = 2112;
+                  v43 = v24;
                   _os_log_impl(&dword_2332D7000, v23, OS_LOG_TYPE_DEFAULT, "%s: profile for %{mask.hash}@ is valid: %{mask.hash}@", buf, 0x34u);
                 }
               }
@@ -654,7 +651,7 @@ LABEL_10:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
+      v6 = [obj countByEnumeratingWithState:&v30 objects:v44 count:16];
     }
 
     while (v6);
@@ -662,13 +659,11 @@ LABEL_10:
 
   _getDefaults2 = [self _getDefaults];
   [_getDefaults2 synchronize];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_compareBytes:(id)bytes FromStart:(unint64_t)start WithLen:(unint64_t)len With:(id)with
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   bytesCopy = bytes;
   withCopy = with;
   v11 = [bytesCopy length];
@@ -677,17 +672,17 @@ LABEL_10:
     v14 = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 136316162;
-      *&v17[4] = "+[WiFiUsageAccessPointProfile _compareBytes:FromStart:WithLen:With:]";
-      v18 = 2048;
-      v19 = [bytesCopy length];
-      v20 = 2048;
+      *v16 = 136316162;
+      *&v16[4] = "+[WiFiUsageAccessPointProfile _compareBytes:FromStart:WithLen:With:]";
+      v17 = 2048;
+      v18 = [bytesCopy length];
+      v19 = 2048;
       startCopy = start;
-      v22 = 2048;
+      v21 = 2048;
       lenCopy = len;
-      v24 = 2048;
-      v25 = 4;
-      _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s - fieldData len is %lu but start=%lu and len=%lu (<= %lu) - returning FALSE", v17, 0x34u);
+      v23 = 2048;
+      v24 = 4;
+      _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s - fieldData len is %lu but start=%lu and len=%lu (<= %lu) - returning FALSE", v16, 0x34u);
       v14 = 0;
     }
   }
@@ -695,14 +690,14 @@ LABEL_10:
   else
   {
     bytes = [bytesCopy bytes];
-    *v17 = [withCopy unsignedIntValue];
+    *v16 = [withCopy unsignedIntValue];
     if (len)
     {
       v13 = (bytes + start);
       v14 = 1;
       do
       {
-        v14 = v14 && v17[--len] == *v13++;
+        v14 = v14 && v16[--len] == *v13++;
       }
 
       while (len);
@@ -714,7 +709,6 @@ LABEL_10:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -756,7 +750,7 @@ LABEL_10:
 
 + (void)_extractFieldsFor:(id)for From:(id)from Into:(id)into
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   forCopy = for;
   fromCopy = from;
   intoCopy = into;
@@ -825,65 +819,83 @@ LABEL_10:
 
   if (v12)
   {
-    v47 = v18;
-    v48 = v15;
-    v51 = intoCopy;
-    v49 = v12;
-    v50 = forCopy;
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
+    v37 = v18;
+    v38 = v15;
+    v41 = intoCopy;
+    v39 = v12;
+    v40 = forCopy;
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     obj = v12;
-    v19 = [obj countByEnumeratingWithState:&v55 objects:v67 count:16];
-    v20 = 0x277CCA000uLL;
+    v19 = [obj countByEnumeratingWithState:&v45 objects:v57 count:16];
     if (v19)
     {
-      v21 = v19;
-      v54 = *v56;
+      v20 = v19;
+      v44 = *v46;
       do
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v56 != v54)
+          if (*v46 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v55 + 1) + 8 * i);
-          v24 = [v23 objectForKeyedSubscript:{@"start", v47, v48, v49, v50}];
-          if (v24)
+          v22 = *(*(&v45 + 1) + 8 * i);
+          v23 = [v22 objectForKeyedSubscript:{@"start", v37, v38, v39, v40}];
+          if (v23)
           {
-            v25 = [v23 objectForKeyedSubscript:@"start"];
-            v26 = *(v20 + 2992);
+            v24 = [v22 objectForKeyedSubscript:@"start"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v27 = [v23 objectForKeyedSubscript:@"start"];
+              v25 = [v22 objectForKeyedSubscript:@"start"];
             }
 
             else
             {
-              v27 = 0;
+              v25 = 0;
             }
           }
 
           else
           {
-            v27 = 0;
+            v25 = 0;
           }
 
-          v28 = fromCopy;
+          v26 = fromCopy;
 
-          v29 = [v23 objectForKeyedSubscript:@"len"];
-          if (v29)
+          v27 = [v22 objectForKeyedSubscript:@"len"];
+          if (v27)
           {
-            v30 = [v23 objectForKeyedSubscript:@"len"];
-            v31 = *(v20 + 2992);
+            v28 = [v22 objectForKeyedSubscript:@"len"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v32 = [v23 objectForKeyedSubscript:@"len"];
+              v29 = [v22 objectForKeyedSubscript:@"len"];
+            }
+
+            else
+            {
+              v29 = 0;
+            }
+          }
+
+          else
+          {
+            v29 = 0;
+          }
+
+          v30 = [v22 objectForKeyedSubscript:@"mask"];
+          if (v30)
+          {
+            v31 = [v22 objectForKeyedSubscript:@"mask"];
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v32 = [v22 objectForKeyedSubscript:@"mask"];
             }
 
             else
@@ -897,123 +909,90 @@ LABEL_10:
             v32 = 0;
           }
 
-          v33 = [v23 objectForKeyedSubscript:@"mask"];
-          if (v33)
+          fromCopy = v26;
+          if ([v26 length])
           {
-            v34 = [v23 objectForKeyedSubscript:@"mask"];
-            v35 = v20;
-            v36 = v34;
-            v37 = *(v35 + 2992);
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            if (v29 && v25)
             {
-              v38 = [v23 objectForKeyedSubscript:@"mask"];
-            }
-
-            else
-            {
-              v38 = 0;
-            }
-
-            v20 = 0x277CCA000;
-          }
-
-          else
-          {
-            v38 = 0;
-          }
-
-          fromCopy = v28;
-          if ([v28 length])
-          {
-            if (v32 && v27)
-            {
-              integerValue = [v27 integerValue];
-              unsignedIntValue = [v32 unsignedIntValue];
-              v41 = integerValue;
-              v20 = 0x277CCA000;
-              [self _applyMask:v28 FromStart:v41 WithLen:unsignedIntValue WithMask:v38 AppendTo:v51];
+              [self _applyMask:v26 FromStart:objc_msgSend(v25 WithLen:"integerValue") WithMask:objc_msgSend(v29 AppendTo:{"unsignedIntValue"), v32, v41}];
             }
 
             else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              unsignedIntValue2 = [v27 unsignedIntValue];
-              unsignedIntValue3 = [v32 unsignedIntValue];
+              unsignedIntValue = [v25 unsignedIntValue];
+              unsignedIntValue2 = [v29 unsignedIntValue];
               *buf = 136315906;
-              v60 = "+[WiFiUsageAccessPointProfile _extractFieldsFor:From:Into:]";
-              v61 = 1024;
-              v62 = unsignedIntValue2;
-              v20 = 0x277CCA000;
-              v63 = 1024;
-              v64 = unsignedIntValue3;
-              v65 = 2112;
-              v66 = v23;
+              v50 = "+[WiFiUsageAccessPointProfile _extractFieldsFor:From:Into:]";
+              v51 = 1024;
+              v52 = unsignedIntValue;
+              v53 = 1024;
+              v54 = unsignedIntValue2;
+              v55 = 2112;
+              v56 = v22;
               _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s - Subfield has wrong format (start:%u, len:%u) - ignoring %@", buf, 0x22u);
             }
           }
         }
 
-        v21 = [obj countByEnumeratingWithState:&v55 objects:v67 count:16];
+        v20 = [obj countByEnumeratingWithState:&v45 objects:v57 count:16];
       }
 
-      while (v21);
+      while (v20);
     }
 
-    v12 = v49;
-    forCopy = v50;
-    intoCopy = v51;
-    v18 = v47;
-    v15 = v48;
+    v12 = v39;
+    forCopy = v40;
+    intoCopy = v41;
+    v18 = v37;
+    v15 = v38;
   }
 
   else
   {
-    v44 = [fromCopy length];
-    if (v44 >= [v15 unsignedIntValue])
+    v35 = [fromCopy length];
+    if (v35 >= [v15 unsignedIntValue])
     {
-      unsignedIntValue4 = [v15 unsignedIntValue];
+      unsignedIntValue3 = [v15 unsignedIntValue];
     }
 
     else
     {
-      unsignedIntValue4 = [fromCopy length];
+      unsignedIntValue3 = [fromCopy length];
     }
 
-    [self _applyMask:fromCopy FromStart:0 WithLen:unsignedIntValue4 WithMask:v18 AppendTo:intoCopy];
+    [self _applyMask:fromCopy FromStart:0 WithLen:unsignedIntValue3 WithMask:v18 AppendTo:intoCopy];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_toMobileAssetsProfile:(id)profile
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v90 = objc_opt_new();
-  v85 = objc_alloc_init(MEMORY[0x277CCABB8]);
-  [v85 setNumberStyle:1];
-  v117 = 0u;
-  v118 = 0u;
-  v115 = 0u;
+  v89 = objc_opt_new();
+  v84 = objc_alloc_init(MEMORY[0x277CCABB8]);
+  [v84 setNumberStyle:1];
   v116 = 0u;
+  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
   obj = _apProfileFields;
-  v3 = [obj countByEnumeratingWithState:&v115 objects:v131 count:16];
+  v3 = [obj countByEnumeratingWithState:&v114 objects:v130 count:16];
   if (v3)
   {
     v4 = v3;
-    v97 = *v116;
+    v96 = *v115;
     do
     {
       v5 = 0;
-      v92 = v4;
+      v91 = v4;
       do
       {
-        if (*v116 != v97)
+        if (*v115 != v96)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v115 + 1) + 8 * v5);
+        v6 = *(*(&v114 + 1) + 8 * v5);
         v7 = [v6 objectForKeyedSubscript:@"name"];
         if (v7)
         {
@@ -1082,21 +1061,21 @@ LABEL_10:
           if ([v9 hasPrefix:@"EL "])
           {
             v16 = [v9 substringFromIndex:{objc_msgSend(@"EL ", "length")}];
-            v17 = [v85 numberFromString:v16];
+            v17 = [v84 numberFromString:v16];
             taggedIEList = [profileCopy taggedIEList];
             v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"BeaconInformationElement_", v16];
             v20 = [taggedIEList objectForKeyedSubscript:v19];
 
-            [v90 appendFormat:@"%02X", objc_msgSend(v17, "unsignedIntValue")];
+            [v89 appendFormat:@"%02X", objc_msgSend(v17, "unsignedIntValue")];
             if (_apProfileIncludeIELen == 1)
             {
-              [v90 appendFormat:@"%02X", objc_msgSend(v20, "length")];
-              v4 = v92;
+              [v89 appendFormat:@"%02X", objc_msgSend(v20, "length")];
+              v4 = v91;
             }
 
             else
             {
-              v4 = v92;
+              v4 = v91;
               if (v20)
               {
                 v26 = @"1";
@@ -1107,10 +1086,10 @@ LABEL_10:
                 v26 = @"0";
               }
 
-              [v90 appendString:v26];
+              [v89 appendString:v26];
             }
 
-            [self _extractFieldsFor:v6 From:v20 Into:v90];
+            [self _extractFieldsFor:v6 From:v20 Into:v89];
           }
 
           else
@@ -1132,12 +1111,12 @@ LABEL_10:
 
                   if ([v12 longValue] == -1)
                   {
-                    [v90 appendFormat:@"%lu", unsignedLongValue];
+                    [v89 appendFormat:@"%lu", unsignedLongValue];
                   }
 
                   else
                   {
-                    [v90 appendFormat:v29, unsignedLongValue];
+                    [v89 appendFormat:v29, unsignedLongValue];
                   }
                 }
 
@@ -1145,13 +1124,13 @@ LABEL_10:
                 {
                   longValue = [v12 longValue];
                   *buf = 136315906;
-                  v124 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
-                  v125 = 2112;
-                  v126 = v6;
-                  v127 = 2048;
-                  v128 = longValue;
-                  v129 = 2048;
-                  v130 = 8;
+                  v123 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
+                  v124 = 2112;
+                  v125 = v6;
+                  v126 = 2048;
+                  v127 = longValue;
+                  v128 = 2048;
+                  v129 = 8;
                   v31 = MEMORY[0x277D86220];
                   v32 = "%s - Field %@ len (%ld) is too large for non TLV values (max=%lu)";
                   v33 = 42;
@@ -1162,9 +1141,9 @@ LABEL_10:
               else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315394;
-                v124 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
-                v125 = 2112;
-                v126 = v6;
+                v123 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
+                v124 = 2112;
+                v125 = v6;
                 v31 = MEMORY[0x277D86220];
                 v32 = "%s - Field %@ has wrong format (missing len) - ignoring";
                 v33 = 22;
@@ -1176,21 +1155,21 @@ LABEL_51:
             }
 
             v21 = [v9 substringFromIndex:{objc_msgSend(@"exEL ", "length")}];
-            v22 = [v85 numberFromString:v21];
+            v22 = [v84 numberFromString:v21];
             extendedIEList = [profileCopy extendedIEList];
             v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@255_%@", @"BeaconInformationElement_", v21];
             v25 = [extendedIEList objectForKeyedSubscript:v24];
 
-            [v90 appendString:@"FF"];
+            [v89 appendString:@"FF"];
             if (_apProfileIncludeIELen == 1)
             {
-              [v90 appendFormat:@"%02X", objc_msgSend(v25, "length")];
-              v4 = v92;
+              [v89 appendFormat:@"%02X", objc_msgSend(v25, "length")];
+              v4 = v91;
             }
 
             else
             {
-              v4 = v92;
+              v4 = v91;
               if (v25)
               {
                 v34 = @"1";
@@ -1201,20 +1180,20 @@ LABEL_51:
                 v34 = @"0";
               }
 
-              [v90 appendString:v34];
+              [v89 appendString:v34];
             }
 
-            [v90 appendFormat:@"%02X", objc_msgSend(v22, "unsignedIntValue")];
-            [self _extractFieldsFor:v6 From:v25 Into:v90];
+            [v89 appendFormat:@"%02X", objc_msgSend(v22, "unsignedIntValue")];
+            [self _extractFieldsFor:v6 From:v25 Into:v89];
           }
         }
 
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v124 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
-          v125 = 2112;
-          v126 = v6;
+          v123 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
+          v124 = 2112;
+          v125 = v6;
           _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s - Field has wrong format (missing name) - ignoring : %@", buf, 0x16u);
         }
 
@@ -1224,69 +1203,69 @@ LABEL_57:
       }
 
       while (v4 != v5);
-      v4 = [obj countByEnumeratingWithState:&v115 objects:v131 count:16];
+      v4 = [obj countByEnumeratingWithState:&v114 objects:v130 count:16];
     }
 
     while (v4);
   }
 
-  v87 = objc_opt_new();
+  v86 = objc_opt_new();
+  v110 = 0u;
   v111 = 0u;
   v112 = 0u;
   v113 = 0u;
-  v114 = 0u;
   vendorIEList = [profileCopy vendorIEList];
   allKeys = [vendorIEList allKeys];
   v37 = [allKeys sortedArrayUsingSelector:?];
 
-  v86 = v37;
-  v89 = [v37 countByEnumeratingWithState:&v111 objects:v122 count:16];
-  v38 = v90;
-  if (!v89)
+  v85 = v37;
+  v88 = [v37 countByEnumeratingWithState:&v110 objects:v121 count:16];
+  v38 = v89;
+  if (!v88)
   {
     goto LABEL_127;
   }
 
-  v88 = *v112;
+  v87 = *v111;
   do
   {
-    for (i = 0; i != v89; i = v75 + 1)
+    for (i = 0; i != v88; i = v75 + 1)
     {
-      if (*v112 != v88)
+      if (*v111 != v87)
       {
-        objc_enumerationMutation(v86);
+        objc_enumerationMutation(v85);
       }
 
-      v93 = i;
-      v40 = *(*(&v111 + 1) + 8 * i);
+      v92 = i;
+      v40 = *(*(&v110 + 1) + 8 * i);
       vendorIEList2 = [profileCopy vendorIEList];
       obja = [vendorIEList2 objectForKeyedSubscript:v40];
 
       if (_apProfileListVendorIEs == 1)
       {
-        v109 = 0u;
-        v110 = 0u;
-        v107 = 0u;
         v108 = 0u;
-        v98 = _apProfileVendorExcludeFields;
-        v42 = [v98 countByEnumeratingWithState:&v107 objects:v121 count:16];
+        v109 = 0u;
+        v106 = 0u;
+        v107 = 0u;
+        v97 = _apProfileVendorExcludeFields;
+        v42 = [v97 countByEnumeratingWithState:&v106 objects:v120 count:16];
         if (!v42)
         {
           goto LABEL_92;
         }
 
         v43 = v42;
-        v44 = *v108;
+        v44 = *v107;
         while (1)
         {
           for (j = 0; j != v43; ++j)
           {
-            if (*v108 != v44)
+            if (*v107 != v44)
             {
-              objc_enumerationMutation(v98);
+              objc_enumerationMutation(v97);
             }
 
-            v46 = *(*(&v107 + 1) + 8 * j);
+            v46 = *(*(&v106 + 1) + 8 * j);
             v47 = [v46 objectForKeyedSubscript:@"match_len"];
             if (v47)
             {
@@ -1318,13 +1297,13 @@ LABEL_88:
               if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315906;
-                v124 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
-                v125 = 2112;
-                v126 = v49;
-                v127 = 2112;
-                v128 = v53;
-                v129 = 2112;
-                v130 = v46;
+                v123 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
+                v124 = 2112;
+                v125 = v49;
+                v126 = 2112;
+                v127 = v53;
+                v128 = 2112;
+                v129 = v46;
                 _os_log_impl(&dword_2332D7000, v54, OS_LOG_TYPE_DEFAULT, "%s - Field has wrong format (missing match_len (%@) and|or match_value (%@) and|or matchLen is larger than 8) - ignoring : %@", buf, 0x2Au);
               }
 
@@ -1359,8 +1338,8 @@ LABEL_88:
             if (v55 >= [v49 unsignedIntValue] && objc_msgSend(self, "_compareBytes:FromStart:WithLen:With:", obja, 0, objc_msgSend(v49, "unsignedIntValue"), v53))
             {
 
-              v38 = v90;
-              v75 = v93;
+              v38 = v89;
+              v75 = v92;
               v76 = obja;
               goto LABEL_124;
             }
@@ -1368,7 +1347,7 @@ LABEL_88:
 LABEL_90:
           }
 
-          v43 = [v98 countByEnumeratingWithState:&v107 objects:v121 count:16];
+          v43 = [v97 countByEnumeratingWithState:&v106 objects:v120 count:16];
           if (!v43)
           {
 LABEL_92:
@@ -1378,29 +1357,29 @@ LABEL_92:
         }
       }
 
-      v105 = 0u;
-      v106 = 0u;
-      v103 = 0u;
       v104 = 0u;
-      v98 = _apProfileVendorFields;
-      v56 = [v98 countByEnumeratingWithState:&v103 objects:v120 count:16];
+      v105 = 0u;
+      v102 = 0u;
+      v103 = 0u;
+      v97 = _apProfileVendorFields;
+      v56 = [v97 countByEnumeratingWithState:&v102 objects:v119 count:16];
       if (!v56)
       {
         goto LABEL_120;
       }
 
       v57 = v56;
-      v58 = *v104;
+      v58 = *v103;
       do
       {
         for (k = 0; k != v57; ++k)
         {
-          if (*v104 != v58)
+          if (*v103 != v58)
           {
-            objc_enumerationMutation(v98);
+            objc_enumerationMutation(v97);
           }
 
-          v60 = *(*(&v103 + 1) + 8 * k);
+          v60 = *(*(&v102 + 1) + 8 * k);
           v61 = [v60 objectForKeyedSubscript:@"match_len"];
           if (v61)
           {
@@ -1432,13 +1411,13 @@ LABEL_116:
             if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315906;
-              v124 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
-              v125 = 2112;
-              v126 = v63;
-              v127 = 2112;
-              v128 = v67;
-              v129 = 2112;
-              v130 = v60;
+              v123 = "+[WiFiUsageAccessPointProfile _toMobileAssetsProfile:]";
+              v124 = 2112;
+              v125 = v63;
+              v126 = 2112;
+              v127 = v67;
+              v128 = 2112;
+              v129 = v60;
               _os_log_impl(&dword_2332D7000, v68, OS_LOG_TYPE_DEFAULT, "%s - Field has wrong format (missing match_len (%@) and|or match_value (%@) and|or matchLen is larger than 8) - ignoring : %@", buf, 0x2Au);
             }
 
@@ -1476,24 +1455,24 @@ LABEL_116:
             v74 = v60;
             v76 = obja;
             [self _extractFieldsFor:v74 From:obja Into:v73];
-            [v87 addObject:v73];
+            [v86 addObject:v73];
 
-            v38 = v90;
-            v75 = v93;
+            v38 = v89;
+            v75 = v92;
             goto LABEL_124;
           }
 
 LABEL_118:
         }
 
-        v57 = [v98 countByEnumeratingWithState:&v103 objects:v120 count:16];
+        v57 = [v97 countByEnumeratingWithState:&v102 objects:v119 count:16];
       }
 
       while (v57);
 LABEL_120:
 
-      v38 = v90;
-      v75 = v93;
+      v38 = v89;
+      v75 = v92;
       v76 = obja;
       if (_apProfileListVendorIEs == 1)
       {
@@ -1505,56 +1484,54 @@ LABEL_120:
           v72 = [obja length];
         }
 
-        v98 = [WiFiUsagePrivacyFilter toHEXString:bytes length:v72];
-        [v87 addObject:?];
+        v97 = [WiFiUsagePrivacyFilter toHEXString:bytes length:v72];
+        [v86 addObject:?];
 LABEL_124:
       }
     }
 
-    v89 = [v86 countByEnumeratingWithState:&v111 objects:v122 count:16];
+    v88 = [v85 countByEnumeratingWithState:&v110 objects:v121 count:16];
   }
 
-  while (v89);
+  while (v88);
 LABEL_127:
 
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
   v100 = 0u;
-  allObjects = [v87 allObjects];
+  v101 = 0u;
+  v98 = 0u;
+  v99 = 0u;
+  allObjects = [v86 allObjects];
   v78 = [allObjects sortedArrayUsingSelector:sel_compare_];
 
-  v79 = [v78 countByEnumeratingWithState:&v99 objects:v119 count:16];
+  v79 = [v78 countByEnumeratingWithState:&v98 objects:v118 count:16];
   if (v79)
   {
     v80 = v79;
-    v81 = *v100;
+    v81 = *v99;
     do
     {
       for (m = 0; m != v80; ++m)
       {
-        if (*v100 != v81)
+        if (*v99 != v81)
         {
           objc_enumerationMutation(v78);
         }
 
-        [v38 appendFormat:@"DD%@", *(*(&v99 + 1) + 8 * m)];
+        [v38 appendFormat:@"DD%@", *(*(&v98 + 1) + 8 * m)];
       }
 
-      v80 = [v78 countByEnumeratingWithState:&v99 objects:v119 count:16];
+      v80 = [v78 countByEnumeratingWithState:&v98 objects:v118 count:16];
     }
 
     while (v80);
   }
-
-  v83 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
 
 + (id)_loadFromUserDefaults:(id)defaults withKey:(id)key withCachedData:(id)data withError:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   keyCopy = key;
   dataCopy = data;
@@ -1613,9 +1590,9 @@ LABEL_11:
       if (error)
       {
         v29 = MEMORY[0x277CCA9B8];
-        v34 = *MEMORY[0x277CCA470];
-        v35[0] = @"Unknown";
-        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+        v33 = *MEMORY[0x277CCA470];
+        v34[0] = @"Unknown";
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
         *error = [v29 errorWithDomain:@"com.apple.wifi.policy.approfile" code:3 userInfo:v30];
 
 LABEL_17:
@@ -1656,7 +1633,6 @@ LABEL_18:
   errorCopy = error;
 
 LABEL_19:
-  v32 = *MEMORY[0x277D85DE8];
 
   return errorCopy;
 }
@@ -1697,7 +1673,7 @@ LABEL_19:
 
 + (id)profileFromBeaconData:(id)data andParsedIE:(id)e
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   eCopy = e;
   v8 = eCopy;
@@ -1720,8 +1696,8 @@ LABEL_19:
       *&buf[4] = "+[WiFiUsageAccessPointProfile profileFromBeaconData:andParsedIE:]";
       *&buf[12] = 2112;
       *&buf[14] = v11;
-      v110 = 2112;
-      v111 = v12;
+      v109 = 2112;
+      v110 = v12;
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: unable to learn currentBSSID (ParsedIE:%@ bssid:%@)", buf, 0x20u);
     }
 
@@ -1754,7 +1730,7 @@ LABEL_19:
   v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF BEGINSWITH[c] '00:17:F2-6' OR SELF BEGINSWITH[c] '00:17:F2-9'"];
   v19 = [allKeys filteredArrayUsingPredicate:v18];
 
-  v108 = v14;
+  v107 = v14;
   if ([(__CFString *)v19 count])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1764,17 +1740,17 @@ LABEL_19:
       *&buf[4] = "+[WiFiUsageAccessPointProfile profileFromBeaconData:andParsedIE:]";
       *&buf[12] = 2160;
       *&buf[14] = 1752392040;
-      v110 = 2112;
-      v111 = bssid2;
-      v112 = 2112;
-      v113 = v19;
+      v109 = 2112;
+      v110 = bssid2;
+      v111 = 2112;
+      v112 = v19;
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: (%{mask.hash}@) contains PersonalHotspotIEs:%@ -- skip", buf, 0x2Au);
     }
 
     goto LABEL_72;
   }
 
-  v106 = v19;
+  v105 = v19;
   taggedIEList = [(WiFiUsageParsedBeacon *)v14 taggedIEList];
   v23 = MEMORY[0x277CBEC28];
   v24 = [taggedIEList allKeysForObject:MEMORY[0x277CBEC28]];
@@ -1799,67 +1775,67 @@ LABEL_19:
     *&buf[4] = "+[WiFiUsageAccessPointProfile profileFromBeaconData:andParsedIE:]";
     *&buf[12] = 2160;
     *&buf[14] = 1752392040;
-    v110 = 2112;
+    v109 = 2112;
     if (parsingSuccessful2)
     {
       v32 = @"YES";
     }
 
-    v111 = bssid3;
-    v112 = 2112;
-    v113 = v32;
-    v114 = 2112;
-    v115 = v24;
-    v116 = 2112;
-    v117 = v26;
+    v110 = bssid3;
+    v111 = 2112;
+    v112 = v32;
+    v113 = 2112;
+    v114 = v24;
+    v115 = 2112;
+    v116 = v26;
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: (%{mask.hash}@) parsingSuccessful: %@ invalidElements:%@ invalidExtElements:%@ -- skip", buf, 0x3Eu);
   }
 
   if (+[WiFiUsagePrivacyFilter isInternalInstall])
   {
 LABEL_26:
-    v102 = v26;
+    v101 = v26;
     bssid4 = [v13 bssid];
-    v104 = [WiFiUsageAccessPointProfile _cachedProfile:bssid4];
+    v103 = [WiFiUsageAccessPointProfile _cachedProfile:bssid4];
 
     bssid5 = [v13 bssid];
     v35 = [WiFiUsageAccessPointProfile _loadFromUserDefaults:bssid5 withKey:@"apProfileBeaconInfoOccurrencies" withCachedData:0];
     unsignedIntegerValue = [v35 unsignedIntegerValue];
 
     bssid6 = [v13 bssid];
-    v103 = [WiFiUsageAccessPointProfile _loadFromUserDefaults:bssid6 withKey:@"apProfileCacheTimestamp" withCachedData:0];
+    v102 = [WiFiUsageAccessPointProfile _loadFromUserDefaults:bssid6 withKey:@"apProfileCacheTimestamp" withCachedData:0];
 
     bssid7 = [v13 bssid];
-    v105 = [WiFiUsageAccessPointProfile _loadFromUserDefaults:bssid7 withKey:@"apProfile_shortID" withCachedData:0];
+    v104 = [WiFiUsageAccessPointProfile _loadFromUserDefaults:bssid7 withKey:@"apProfile_shortID" withCachedData:0];
 
-    v28 = v108;
+    v28 = v107;
     if (_apProfileVersion == 1)
     {
-      v39 = [WiFiUsageAccessPointProfile _toMobileAssetsProfile:v108];
+      v39 = [WiFiUsageAccessPointProfile _toMobileAssetsProfile:v107];
       [v13 setApProfile:v39];
     }
 
     apProfile = [v13 apProfile];
-    v41 = v106;
+    v41 = v105;
     if (!apProfile)
     {
-      v101 = 0;
+      v100 = 0;
 LABEL_65:
-      v43 = v103;
+      v43 = v102;
       goto LABEL_66;
     }
 
     v42 = apProfile;
-    v43 = v103;
-    if (v103)
+    v43 = v102;
+    if (v102)
     {
-      [v103 timeIntervalSinceNow];
+      [v102 timeIntervalSinceNow];
       v45 = -v44;
       v46 = *&_apProfileMinSecsBetweenOccurrencies;
 
       if (v46 >= v45)
       {
-        v101 = 0;
+        v100 = 0;
 LABEL_66:
         bssid8 = [v13 bssid];
         v91 = [bssid8 isEqualToString:v10];
@@ -1875,8 +1851,8 @@ LABEL_66:
         [v13 setHasColocatedMLOs:{objc_msgSend(v94, "length") != 0}];
 
         v47 = 1;
-        v26 = v102;
-        v48 = v101;
+        v26 = v101;
+        v48 = v100;
         goto LABEL_69;
       }
     }
@@ -1886,13 +1862,13 @@ LABEL_66:
     }
 
     apProfile2 = [v13 apProfile];
-    v50 = [apProfile2 isEqualToString:v104];
+    v50 = [apProfile2 isEqualToString:v103];
 
-    if (unsignedIntegerValue && unsignedIntegerValue + v50 && v50 && v105 && (v51 = [v105 length], v51 == 2 * _shortProfileBytesLen))
+    if (unsignedIntegerValue && unsignedIntegerValue + v50 && v50 && v104 && (v51 = [v104 length], v51 == 2 * _shortProfileBytesLen))
     {
-      v98 = unsignedIntegerValue + v50;
-      v101 = 0;
-      v52 = v108;
+      v97 = unsignedIntegerValue + v50;
+      v100 = 0;
+      v52 = v107;
       v53 = 0x2789C5000;
     }
 
@@ -1942,32 +1918,32 @@ LABEL_66:
       [WiFiUsageAccessPointProfile _saveToUserDefaults:bssid12 withKey:@"apProfile_shortID" andValue:v63];
       v53 = 0x2789C5000uLL;
       bssid13 = [v13 bssid];
-      v52 = v108;
-      dictionaryRepresentation2 = [(WiFiUsageParsedBeacon *)v108 dictionaryRepresentation];
+      v52 = v107;
+      dictionaryRepresentation2 = [(WiFiUsageParsedBeacon *)v107 dictionaryRepresentation];
       [WiFiUsageAccessPointProfile _saveToUserDefaults:bssid13 withKey:@"apProfileBeaconInfo" andValue:dictionaryRepresentation2];
 
       bssid14 = [v13 bssid];
       [WiFiUsageAccessPointProfile _saveToUserDefaults:bssid14 withKey:@"apProfileBeaconRaw" andValue:dataCopy];
 
-      v98 = 1;
-      v101 = 1;
+      v97 = 1;
+      v100 = 1;
     }
 
     v68 = *(v53 + 3472);
     bssid15 = [v13 bssid];
     v70 = [v68 _loadFromUserDefaults:bssid15 withKey:@"apProfileBeaconInfo" withCachedData:0];
 
-    v97 = v70;
-    v100 = [v70 objectForKey:@"apName"];
+    v96 = v70;
+    v99 = [v70 objectForKey:@"apName"];
     apName = [(WiFiUsageParsedBeacon *)v52 apName];
     if (apName)
     {
       v72 = apName;
-      if (v100)
+      if (v99)
       {
-        v52 = v108;
-        apName2 = [(WiFiUsageParsedBeacon *)v108 apName];
-        v74 = [apName2 isEqualToString:v100];
+        v52 = v107;
+        apName2 = [(WiFiUsageParsedBeacon *)v107 apName];
+        v74 = [apName2 isEqualToString:v99];
 
         v53 = 0x2789C5000;
         if (v74)
@@ -1979,7 +1955,7 @@ LABEL_66:
       else
       {
 
-        v52 = v108;
+        v52 = v107;
         v53 = 0x2789C5000uLL;
       }
 
@@ -1999,7 +1975,7 @@ LABEL_56:
     v82 = MEMORY[0x277CCABB0];
     if ([(WiFiUsageParsedBeacon *)v52 parsingSuccessful])
     {
-      v41 = v106;
+      v41 = v105;
       v83 = v29;
       if ([v29 count])
       {
@@ -2008,7 +1984,7 @@ LABEL_56:
 
       else
       {
-        v84 = [v102 count] == 0;
+        v84 = [v101 count] == 0;
       }
     }
 
@@ -2016,36 +1992,36 @@ LABEL_56:
     {
       v83 = v29;
       v84 = 0;
-      v41 = v106;
+      v41 = v105;
     }
 
     v85 = [v82 numberWithBool:v84];
     [v80 _saveToUserDefaults:bssid18 withKey:@"apProfileBeaconInfoParsingSuccessful" andValue:v85];
 
     bssid19 = [v13 bssid];
-    if ([(WiFiUsageParsedBeacon *)v108 parsingSuccessful])
+    if ([(WiFiUsageParsedBeacon *)v107 parsingSuccessful])
     {
       [WiFiUsageAccessPointProfile _saveToUserDefaults:bssid19 withKey:@"apProfileBeaconInfoParsingErrorAfter" andValue:0];
     }
 
     else
     {
-      lastParsedOK = [(WiFiUsageParsedBeacon *)v108 lastParsedOK];
+      lastParsedOK = [(WiFiUsageParsedBeacon *)v107 lastParsedOK];
       [WiFiUsageAccessPointProfile _saveToUserDefaults:bssid19 withKey:@"apProfileBeaconInfoParsingErrorAfter" andValue:lastParsedOK];
     }
 
     bssid20 = [v13 bssid];
-    v89 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v98];
+    v89 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v97];
     [WiFiUsageAccessPointProfile _saveToUserDefaults:bssid20 withKey:@"apProfileBeaconInfoOccurrencies" andValue:v89];
 
-    v28 = v108;
+    v28 = v107;
     v29 = v83;
     goto LABEL_65;
   }
 
   v47 = 0;
   v48 = 0;
-  v41 = v106;
+  v41 = v105;
 LABEL_69:
 
   if (!v47)
@@ -2066,14 +2042,13 @@ LABEL_17:
 LABEL_73:
 
 LABEL_74:
-  v95 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 + (void)updateWithWPS:(id)s
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   sCopy = s;
   v4 = sCopy;
   if (sCopy)
@@ -2141,18 +2116,16 @@ LABEL_74:
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315138;
-      v23 = "+[WiFiUsageAccessPointProfile updateWithWPS:]";
-      _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: no BSSID in ParsedIE", &v22, 0xCu);
+      v21 = 136315138;
+      v22 = "+[WiFiUsageAccessPointProfile updateWithWPS:]";
+      _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: no BSSID in ParsedIE", &v21, 0xCu);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (void)updateWithAssocTime:(double)time forBssid:(id)bssid
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = [WiFiUsagePrivacyFilter reformatMACAddress:bssid];
   v7 = [WiFiUsageAccessPointProfile _loadFromUserDefaults:v6 withKey:@"apProfileVersion" withCachedData:0];
   if (v7)
@@ -2171,17 +2144,17 @@ LABEL_74:
       if (!v12 && [self _isProfileValidForUse:v6 withCachedDict:0 withError:0] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         v13 = [self profileForBSSID:v6 withError:0];
-        v15 = 136316162;
-        v16 = "+[WiFiUsageAccessPointProfile updateWithAssocTime:forBssid:]";
-        v17 = 2160;
-        v18 = 1752392040;
-        v19 = 2112;
-        v20 = v6;
-        v21 = 2160;
-        v22 = 1752392040;
-        v23 = 2112;
-        v24 = v13;
-        _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: profile for %{mask.hash}@ is valid: %{mask.hash}@", &v15, 0x34u);
+        v14 = 136316162;
+        v15 = "+[WiFiUsageAccessPointProfile updateWithAssocTime:forBssid:]";
+        v16 = 2160;
+        v17 = 1752392040;
+        v18 = 2112;
+        v19 = v6;
+        v20 = 2160;
+        v21 = 1752392040;
+        v22 = 2112;
+        v23 = v13;
+        _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: profile for %{mask.hash}@ is valid: %{mask.hash}@", &v14, 0x34u);
       }
     }
 
@@ -2190,13 +2163,11 @@ LABEL_74:
       [WiFiUsageAccessPointProfile _saveToUserDefaults:v6 withKey:@"apProfileForLatestAssoc" andValue:MEMORY[0x277CBEC28]];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_submitProfileFor:(id)for withCachedDict:(id)dict AndEraseWithLog:(id)log
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   forCopy = for;
   dictCopy = dict;
   logCopy = log;
@@ -2256,17 +2227,17 @@ LABEL_74:
       }
 
       *buf = 136316418;
-      v30 = "+[WiFiUsageAccessPointProfile _submitProfileFor:withCachedDict:AndEraseWithLog:]";
-      v31 = 2112;
-      v32 = forCopy;
-      v33 = 2112;
-      v34 = v18;
-      v35 = 2112;
-      v36 = v19;
-      v37 = 2112;
-      v38 = v20;
-      v39 = 2112;
-      v40 = logCopy;
+      v29 = "+[WiFiUsageAccessPointProfile _submitProfileFor:withCachedDict:AndEraseWithLog:]";
+      v30 = 2112;
+      v31 = forCopy;
+      v32 = 2112;
+      v33 = v18;
+      v34 = 2112;
+      v35 = v19;
+      v36 = 2112;
+      v37 = v20;
+      v38 = 2112;
+      v39 = logCopy;
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: profile for %@ is %@valid and %@already sentToCA%@ (%@)", buf, 0x3Eu);
       v17 = 0x2789C5000uLL;
     }
@@ -2304,13 +2275,13 @@ LABEL_74:
     {
       v27 = [*(v17 + 3912) reformatMACAddress:forCopy];
       *buf = 136315906;
-      v30 = "+[WiFiUsageAccessPointProfile _submitProfileFor:withCachedDict:AndEraseWithLog:]";
-      v31 = 2160;
-      v32 = 1752392040;
-      v33 = 2112;
-      v34 = v27;
-      v35 = 2112;
-      v36 = logCopy;
+      v29 = "+[WiFiUsageAccessPointProfile _submitProfileFor:withCachedDict:AndEraseWithLog:]";
+      v30 = 2160;
+      v31 = 1752392040;
+      v32 = 2112;
+      v33 = v27;
+      v34 = 2112;
+      v35 = logCopy;
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: removed %{mask.hash}@ from defaults: %@", buf, 0x2Au);
     }
   }
@@ -2319,13 +2290,11 @@ LABEL_74:
   {
     v21 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (void)submitToCAForBSSID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = [WiFiUsagePrivacyFilter reformatMACAddress:d];
   v5 = [WiFiUsageAccessPointProfile _loadFromUserDefaults:v4 withKey:@"apProfileVersion" withCachedData:0];
   if (!v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -2360,17 +2329,15 @@ LABEL_74:
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
 
-    v13 = v9;
+    v12 = v9;
     AnalyticsSendEventLazy();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_isProfileValidForUse:(id)use withCachedDict:(id)dict onlyIfCurrent:(BOOL)current withError:(id *)error
 {
   currentCopy = current;
-  v80[1] = *MEMORY[0x277D85DE8];
+  v79[1] = *MEMORY[0x277D85DE8];
   useCopy = use;
   dictCopy = dict;
   if (useCopy)
@@ -2408,13 +2375,13 @@ LABEL_41:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v56 = "+[WiFiUsageAccessPointProfile _isProfileValidForUse:withCachedDict:onlyIfCurrent:withError:]";
-          v57 = 2160;
-          v58 = 1752392040;
-          v59 = 2112;
-          v60 = v11;
-          v61 = 2112;
-          v62 = v17;
+          v55 = "+[WiFiUsageAccessPointProfile _isProfileValidForUse:withCachedDict:onlyIfCurrent:withError:]";
+          v56 = 2160;
+          v57 = 1752392040;
+          v58 = 2112;
+          v59 = v11;
+          v60 = 2112;
+          v61 = v17;
           _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: bssid %{mask.hash}@ has not been derived from a beacon retrieved after the current association (last updated: %@)", buf, 0x2Au);
         }
 
@@ -2424,9 +2391,9 @@ LABEL_41:
         }
 
         v24 = MEMORY[0x277CCA9B8];
-        v77 = *MEMORY[0x277CCA470];
-        v78 = @"WUAPProfileErrorProfileNotCurrent";
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+        v76 = *MEMORY[0x277CCA470];
+        v77 = @"WUAPProfileErrorProfileNotCurrent";
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
         v26 = v24;
         v27 = 2;
         goto LABEL_16;
@@ -2457,52 +2424,52 @@ LABEL_41:
               v32 = @"NO";
             }
 
-            v46 = _apProfileMinAssoc;
+            v45 = _apProfileMinAssoc;
             if (bOOLValue)
             {
               v31 = @"YES";
             }
 
-            v44 = _apProfileMinOccurrencies;
-            v45 = v31;
+            v43 = _apProfileMinOccurrencies;
+            v44 = v31;
             [v17 timeIntervalSinceNow];
             *buf = 136317698;
-            v56 = "+[WiFiUsageAccessPointProfile _isProfileValidForUse:withCachedDict:onlyIfCurrent:withError:]";
-            v57 = 2112;
-            v58 = v11;
-            v59 = 2112;
-            v60 = v12;
-            v61 = 2112;
-            v62 = v30;
-            v63 = 2112;
-            v64 = v32;
-            v65 = 2048;
-            v66 = unsignedIntegerValue;
-            v67 = 2048;
-            v68 = v44;
-            v69 = 2048;
-            v70 = unsignedIntegerValue2;
-            v71 = 2048;
-            v72 = v46;
-            v73 = 2112;
-            v74 = v45;
-            v75 = 2048;
-            v76 = -v33;
+            v55 = "+[WiFiUsageAccessPointProfile _isProfileValidForUse:withCachedDict:onlyIfCurrent:withError:]";
+            v56 = 2112;
+            v57 = v11;
+            v58 = 2112;
+            v59 = v12;
+            v60 = 2112;
+            v61 = v30;
+            v62 = 2112;
+            v63 = v32;
+            v64 = 2048;
+            v65 = unsignedIntegerValue;
+            v66 = 2048;
+            v67 = v43;
+            v68 = 2048;
+            v69 = unsignedIntegerValue2;
+            v70 = 2048;
+            v71 = v45;
+            v72 = 2112;
+            v73 = v44;
+            v74 = 2048;
+            v75 = -v33;
             _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Profile for bssid: %@ is NOT valid: version:%@ (current:%@) parsingSuccessful:%@ occurrencies:%lu (>=%lu) maxAssocTime(sec):%lu (>=%f) isCurrent:%@ lastUpdated/currentAssocTime(sec):%f", buf, 0x70u);
           }
 
           v23 = v28;
           if ((bOOLValue2 & 1) == 0)
           {
-            v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"Parsing Failed. Last Parsed: %@", v28];
-            v25 = v37;
+            v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Parsing Failed. Last Parsed: %@", v28];
+            v25 = v36;
             if (error)
             {
-              v38 = MEMORY[0x277CCA9B8];
-              v53 = *MEMORY[0x277CCA470];
-              v54 = v37;
-              v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-              *error = [v38 errorWithDomain:@"com.apple.wifi.policy.approfile" code:4 userInfo:v39];
+              v37 = MEMORY[0x277CCA9B8];
+              v52 = *MEMORY[0x277CCA470];
+              v53 = v36;
+              v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+              *error = [v37 errorWithDomain:@"com.apple.wifi.policy.approfile" code:4 userInfo:v38];
 
               v23 = v28;
             }
@@ -2512,8 +2479,8 @@ LABEL_41:
 
           if (unsignedIntegerValue >= _apProfileMinOccurrencies)
           {
-            v40 = unsignedIntegerValue2;
-            v41 = *&_apProfileMinAssoc;
+            v39 = unsignedIntegerValue2;
+            v40 = *&_apProfileMinAssoc;
             if (*&_apProfileMinAssoc <= unsignedIntegerValue2)
             {
               if (!bOOLValue)
@@ -2528,9 +2495,9 @@ LABEL_41:
                 goto LABEL_40;
               }
 
-              v40 = -v42;
-              v41 = *&_apProfileMinAssoc;
-              if (*&_apProfileMinAssoc >= v40)
+              v39 = -v41;
+              v40 = *&_apProfileMinAssoc;
+              if (*&_apProfileMinAssoc >= v39)
               {
                 goto LABEL_40;
               }
@@ -2541,11 +2508,11 @@ LABEL_41:
               goto LABEL_18;
             }
 
-            v43 = MEMORY[0x277CCA9B8];
-            v49 = *MEMORY[0x277CCA470];
-            v50 = @"WUAPProfileErrorMinAssocTimeNotMet";
-            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:{1, v40, v41}];
-            v26 = v43;
+            v42 = MEMORY[0x277CCA9B8];
+            v48 = *MEMORY[0x277CCA470];
+            v49 = @"WUAPProfileErrorMinAssocTimeNotMet";
+            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:{1, v39, v40}];
+            v26 = v42;
             v27 = 6;
           }
 
@@ -2557,9 +2524,9 @@ LABEL_41:
             }
 
             v34 = MEMORY[0x277CCA9B8];
-            v51 = *MEMORY[0x277CCA470];
-            v52 = @"WUAPProfileErrorMinOccurrencesNotMet";
-            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+            v50 = *MEMORY[0x277CCA470];
+            v51 = @"WUAPProfileErrorMinOccurrencesNotMet";
+            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
             v26 = v34;
             v27 = 5;
           }
@@ -2585,9 +2552,9 @@ LABEL_40:
     if (error)
     {
       v14 = MEMORY[0x277CCA9B8];
-      v79 = *MEMORY[0x277CCA470];
-      v80[0] = @"WUAPProfileErrorPreInit";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:&v79 count:1];
+      v78 = *MEMORY[0x277CCA470];
+      v79[0] = @"WUAPProfileErrorPreInit";
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:&v78 count:1];
       [v14 errorWithDomain:@"com.apple.wifi.policy.approfile" code:1 userInfo:v12];
       *error = v13 = 0;
       goto LABEL_41;
@@ -2602,8 +2569,44 @@ LABEL_40:
   v13 = 0;
 LABEL_42:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v13;
+}
+
++ (id)profileForBSSID:(id)d onlyIfCurrent:(BOOL)current withError:(id *)error
+{
+  currentCopy = current;
+  dCopy = d;
+  if (dCopy)
+  {
+    v9 = dCopy;
+    v10 = [WiFiUsagePrivacyFilter reformatMACAddress:dCopy];
+
+    if (_useShortProfile)
+    {
+      v11 = @"apProfile_shortID";
+    }
+
+    else
+    {
+      v11 = @"apProfileID";
+    }
+
+    v12 = v11;
+    v13 = [self _isProfileValidForUse:v10 withCachedDict:0 onlyIfCurrent:currentCopy withError:error];
+    v14 = 0;
+    if (v13)
+    {
+      v15 = [WiFiUsageAccessPointProfile _loadFromUserDefaults:v10 withKey:v12 withCachedData:0];
+      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", _apProfileVersionString, v15];
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  return v14;
 }
 
 + (id)longProfileForBSSID:(id)d withError:(id *)error
@@ -2656,31 +2659,31 @@ LABEL_42:
 
 + (id)beaconsAndWPSInfo
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   _getDefaults = [self _getDefaults];
   dictionaryRepresentation = [_getDefaults dictionaryRepresentation];
 
-  v30 = objc_opt_new();
+  v29 = objc_opt_new();
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = [dictionaryRepresentation allKeys];
-  v5 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v5 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
+    v7 = *v32;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * i);
+        v9 = *(*(&v31 + 1) + 8 * i);
         v10 = [WiFiUsagePrivacyFilter reformatMACAddress:v9];
 
         if (v10)
@@ -2722,20 +2725,18 @@ LABEL_42:
 
           if (v11 && v27)
           {
-            [v30 setObject:v11 forKey:v27];
+            [v29 setObject:v11 forKey:v27];
           }
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v6);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v29;
 }
 
 + (id)apNameForBSSID:(id)d
@@ -2758,39 +2759,36 @@ LABEL_42:
 
 + (void)submitToCAForBSSID:.cold.1()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: profile for bssid %@ doesn't exist", v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: profile for bssid %@ doesn't exist", v0, 0x16u);
 }
 
 + (void)submitToCAForBSSID:.cold.2()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: profile for bssid %@ is not valid", v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: profile for bssid %@ is not valid", v0, 0x16u);
 }
 
 + (void)submitToCAForBSSID:(uint64_t)a1 .cold.3(uint64_t a1, char a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = "not yet";
-  v5 = "+[WiFiUsageAccessPointProfile submitToCAForBSSID:]";
-  v4 = 136315650;
+  v4 = "+[WiFiUsageAccessPointProfile submitToCAForBSSID:]";
+  v3 = 136315650;
   if (a2)
   {
     v2 = "already sent";
   }
 
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2080;
-  v9 = v2;
-  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: profile for bssid %@ is %s sent to CA", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2080;
+  v8 = v2;
+  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: profile for bssid %@ is %s sent to CA", &v3, 0x20u);
 }
 
 @end

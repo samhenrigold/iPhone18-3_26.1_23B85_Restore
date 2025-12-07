@@ -38,7 +38,7 @@
     selfCopy = self;
     if (self[48] == 1)
     {
-      v4 = (self + 24);
+      v4 = self + 24;
       v3 = *(self + 3);
       if (v3)
       {
@@ -55,7 +55,7 @@ LABEL_7:
 
     else
     {
-      v4 = (self + 16);
+      v4 = self + 16;
     }
 
     v3 = *v4;
@@ -330,7 +330,7 @@ LABEL_8:
 
 - (sqlite3_stmt)_prepareStatementForSQL:(void *)l error:
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -340,9 +340,9 @@ LABEL_8:
     if (v7 >= 0x7FFFFFFF)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[HDSQLiteStatementCache _prepareStatementForSQL:error:]"];
-      v34 = NSStringFromSelector(sel__prepareStatementForSQL_error_);
-      [currentHandler handleFailureInFunction:v33 file:@"HDSQLiteStatementCache.m" lineNumber:170 description:{@"NSString passed to %@ (%lu bytes) is larger than maximum allowed SQLite statement string (%lu bytes)", v34, v7, 0x7FFFFFFFLL}];
+      v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[HDSQLiteStatementCache _prepareStatementForSQL:error:]"];
+      v33 = NSStringFromSelector(sel__prepareStatementForSQL_error_);
+      [currentHandler handleFailureInFunction:v32 file:@"HDSQLiteStatementCache.m" lineNumber:170 description:{@"NSString passed to %@ (%lu bytes) is larger than maximum allowed SQLite statement string (%lu bytes)", v33, v7, 0x7FFFFFFFLL}];
     }
 
     v8 = MEMORY[0x277CCC2A0];
@@ -429,21 +429,21 @@ LABEL_19:
         }
 
         v22 = MEMORY[0x277CCA9B8];
-        v37 = *MEMORY[0x277CCA450];
-        v38 = @"Unknown error during sqlite3_prepare_v2";
+        v36 = *MEMORY[0x277CCA450];
+        v37 = @"Unknown error during sqlite3_prepare_v2";
         v23 = MEMORY[0x277CBEAC0];
-        v24 = &v38;
-        v25 = &v37;
+        v24 = &v37;
+        v25 = &v36;
       }
 
       else
       {
         v22 = MEMORY[0x277CCA9B8];
-        v39 = *MEMORY[0x277CCA450];
-        v40 = @"SQL string is empty";
+        v38 = *MEMORY[0x277CCA450];
+        v39 = @"SQL string is empty";
         v23 = MEMORY[0x277CBEAC0];
-        v24 = &v40;
-        v25 = &v39;
+        v24 = &v39;
+        v25 = &v38;
       }
 
       v26 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:1];
@@ -479,7 +479,6 @@ LABEL_19:
     v18 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

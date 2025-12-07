@@ -347,7 +347,7 @@ id sub_31D8(xmlTextReader *a1, void *a2)
   return result;
 }
 
-uint64_t sub_331C(void *a1, int a2)
+id sub_331C(void *a1, int a2)
 {
   v3 = [a1 documentState];
   if ([v3 objectStackDepth] > a2)
@@ -380,10 +380,10 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  return 3;
+  return &dword_0 + 3;
 }
 
-uint64_t sub_3430(void *a1)
+void sub_3430(void *a1)
 {
   *a1 = off_84F88;
   v2 = a1[1];
@@ -393,7 +393,7 @@ uint64_t sub_3430(void *a1)
     operator delete(v2);
   }
 
-  return nullsub_2(a1);
+  nullsub_2();
 }
 
 uint64_t sub_3494(xmlTextReader *a1, void *a2)
@@ -453,29 +453,29 @@ id sub_35E0(uint64_t a1, void *a2)
   return [v7 beginDrawables:v5];
 }
 
-uint64_t sub_36A8(void *a1)
+id sub_36A8(void *a1)
 {
   v2 = [a1 documentState];
   v3 = [v2 topObjectOfClass:objc_opt_class()];
   if (v3[72] != 1)
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   if ([v3 isHidden])
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   if (![a1 generator])
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   v4 = [v2 currentDrawablesGenerator];
   if (!v4)
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   v5 = [v4 endDrawables:v2];
@@ -751,12 +751,12 @@ uint64_t sub_5554(uint64_t a1, void *a2)
   return 1;
 }
 
-uint64_t sub_55F4(void *a1, int a2)
+id sub_55F4(void *a1, int a2)
 {
   v4 = [a1 documentState];
   if ([v4 objectStackDepth] <= a2)
   {
-    return 3;
+    return &dword_0 + 3;
   }
 
   v5 = [v4 popRetainedObject];
@@ -1129,7 +1129,7 @@ uint64_t sub_6AB8(xmlTextReader *a1, void *a2)
 
 uint64_t sub_6B70(uint64_t a1, void *a2)
 {
-  v3 = sub_37BA0(&unk_A2888, a1, a2);
+  v3 = sub_37BA0(qword_A2888, a1, a2);
   if (v3 == 1)
   {
     v4 = [a2 documentState];
@@ -1230,7 +1230,7 @@ uint64_t sub_7524(xmlTextReader *a1, void *a2)
 
 uint64_t sub_75A4(uint64_t a1, void *a2)
 {
-  v3 = sub_37BA0(&unk_A2888, a1, a2);
+  v3 = sub_37BA0(qword_A2888, a1, a2);
   if (v3 == 1)
   {
     v4 = [a2 documentState];
@@ -1348,7 +1348,7 @@ void sub_950C(uint64_t a1, uint64_t a2, double a3, double a4, float64x2_t a5, fl
       if (*a1 == 1)
       {
         v19 = *(a2 + 8);
-        *&a5.f64[0] = v19->i64[1];
+        a5.f64[0] = *(v19 + 8);
         a6.f64[0] = *(a1 + 32);
         if (a6.f64[0] != a5.f64[0])
         {
@@ -1461,9 +1461,9 @@ void sub_97AC(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_9828(uint64_t a1, id *a2)
+uint64_t sub_9828(uint64_t a1, id *a2, uint64_t a3)
 {
-  result = *sub_98A8(a1, &v3, a2);
+  result = *sub_98A8(a1, &v4, a2);
   if (!result)
   {
     sub_996C();
@@ -1518,7 +1518,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *sub_99D4(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_99D4(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1550,12 +1550,12 @@ uint64_t *sub_9A60(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1569,22 +1569,22 @@ uint64_t *sub_9A60(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1618,13 +1618,13 @@ uint64_t *sub_9A60(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1676,16 +1676,16 @@ id sub_9BFC(uint64_t a1, void **a2)
   return result;
 }
 
-uint64_t sub_9C38(uint64_t a1, void **a2)
+uint64_t sub_9C38(void ***a1, void **a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = a1[1] - *a1;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     sub_9D48();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -1715,14 +1715,14 @@ uint64_t sub_9C38(uint64_t a1, void **a2)
   *v8 = *a2;
   v10 = v9;
   *&v19 = v8 + 1;
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   v12 = (v8 + *a1 - v11);
   sub_9E38(a1, *a1, v11, v12);
   v13 = *a1;
   *a1 = v12;
-  v14 = *(a1 + 16);
+  v14 = a1[2];
   v16 = v19;
-  *(a1 + 8) = v19;
+  *(a1 + 1) = v19;
   *&v19 = v13;
   *(&v19 + 1) = v14;
   v17 = v13;
@@ -1731,9 +1731,9 @@ uint64_t sub_9C38(uint64_t a1, void **a2)
   return v16;
 }
 
-void sub_9D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_9D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_9FAC(va);
   _Unwind_Resume(a1);
 }
@@ -1760,7 +1760,7 @@ void sub_9DF0(uint64_t a1, unint64_t a2)
   sub_9A2C();
 }
 
-uint64_t sub_9E38(uint64_t a1, id *a2, id *a3, void **a4)
+uint64_t sub_9E38(uint64_t a1, void **a2, void **a3, void **a4)
 {
   v13 = a4;
   v14 = a4;
@@ -2817,11 +2817,12 @@ float *sub_F578(__int16 a1, float a2)
   return result;
 }
 
-_WORD *sub_F5D0(__int16 a1, double a2)
+_WORD *sub_F5D0(uint64_t a1, double a2)
 {
+  v2 = a1;
   valuePtr = a2;
   v3 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-  v4 = sub_F62C(a1, v3);
+  v4 = sub_F62C(v2, v3);
   CFRelease(v3);
   return v4;
 }
@@ -3140,7 +3141,7 @@ LABEL_13:
   return v7 != 0;
 }
 
-BOOL sub_FC70(uint64_t a1, unsigned __int16 a2, uint64_t a3, _BYTE *a4)
+BOOL sub_FC70(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
   number = 0;
   valuePtr = a3;
@@ -4096,51 +4097,55 @@ uint64_t sub_19CE8(void *a1, int a2)
   return 1;
 }
 
-uint64_t sub_19D4C(void *a1, float a2)
+uint64_t sub_19D4C(void *a1, __n128 a2, __n128 a3)
 {
-  v2 = (a1[1] - *a1) >> 2;
-  if (v2 < 1)
+  v3 = (a1[1] - *a1) >> 2;
+  if (v3 < 1)
   {
     return 0;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
     while (1)
     {
-      if (v2 <= v3)
+      if (v3 <= v4)
       {
         sub_19FF0();
       }
 
-      if (vabds_f32(*(*a1 + 4 * v3), a2) < 1.0)
+      if (vabds_f32(*(*a1 + 4 * v4), a2.n128_f32[0]) < 1.0)
       {
         break;
       }
 
-      if (v2 <= ++v3)
+      if (v3 <= ++v4)
       {
         return 0;
       }
     }
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t sub_19DB0(void *a1)
 {
   v1 = [a1 documentState];
   v2 = [v1 tableState];
-  v3 = sub_19D4C(*(v2 + 9), *(v2 + 24));
-  v4 = sub_19D4C(*(v2 + 9), *(v2 + 25)) - v3;
-  v5 = sub_19D4C(*(v2 + 10), *(v2 + 22));
-  v6 = [[GQDTSpiceCell alloc] initWithStyle:*(v2 + 14) rowIndex:v3 columnIndex:v5 rowSpan:v4 columnSpan:(sub_19D4C(*(v2 + 10) storage:*(v2 + 23)) - v5), *(v2 + 13)];
+  v3.n128_u32[0] = *(v2 + 24);
+  v5 = sub_19D4C(*(v2 + 9), v3, v4);
+  v6.n128_u32[0] = *(v2 + 25);
+  v8 = sub_19D4C(*(v2 + 9), v6, v7) - v5;
+  v9.n128_u32[0] = *(v2 + 22);
+  v11 = sub_19D4C(*(v2 + 10), v9, v10);
+  v12.n128_u32[0] = *(v2 + 23);
+  v14 = [[GQDTSpiceCell alloc] initWithStyle:*(v2 + 14) rowIndex:v5 columnIndex:v11 rowSpan:v8 columnSpan:(sub_19D4C(*(v2 + 10) storage:v12, v13) - v11), *(v2 + 13)];
 
   *(v2 + 13) = 0;
   *(v2 + 14) = 0;
-  CFArrayAppendValue([v1 peekObject], v6);
+  CFArrayAppendValue([v1 peekObject], v14);
 
   return 1;
 }
@@ -6071,7 +6076,7 @@ void sub_30D18(uint64_t a1, void *a2, __CFString *a3)
   CFRelease(v6);
 }
 
-_WORD *sub_33CFC(void *a1, unint64_t a2, __int16 *a3)
+_WORD *sub_33CFC(uint64_t *a1, unint64_t a2, __int16 *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -6241,7 +6246,7 @@ _WORD *sub_33CFC(void *a1, unint64_t a2, __int16 *a3)
   return result;
 }
 
-void sub_341AC(uint64_t a1, uint64_t a2)
+void sub_341AC(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -6285,7 +6290,7 @@ void sub_35BFC(uint64_t a1, uint64_t a2)
 
 void *sub_37AEC(void *result, uint64_t a2)
 {
-  *result = off_84C10;
+  *result = &off_84C10;
   result[1] = a2;
   result[2] = 0;
   return result;
@@ -6293,7 +6298,7 @@ void *sub_37AEC(void *result, uint64_t a2)
 
 void *sub_37B10(void *result, uint64_t a2, uint64_t a3)
 {
-  *result = off_84C10;
+  *result = &off_84C10;
   result[1] = a2;
   result[2] = a3;
   return result;
@@ -6315,7 +6320,7 @@ uint64_t sub_37B4C(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void *sub_37B7C(void *result, uint64_t a2, uint64_t a3)
 {
-  *result = off_84C70;
+  *result = &off_84C70;
   result[1] = a2;
   result[2] = a3;
   return result;
@@ -6339,7 +6344,7 @@ uint64_t sub_37BCC(uint64_t result, uint64_t a2, uint64_t a3)
 {
   *(result + 8) = a2;
   *(result + 16) = 0;
-  *result = off_84CA0;
+  *result = &off_84CA0;
   *(result + 24) = a3;
   *(result + 32) = 1;
   return result;
@@ -6349,7 +6354,7 @@ uint64_t sub_37BFC(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   *(result + 8) = a2;
   *(result + 16) = 0;
-  *result = off_84CA0;
+  *result = &off_84CA0;
   *(result + 24) = a3;
   *(result + 32) = a6;
   return result;
@@ -6384,7 +6389,7 @@ uint64_t sub_37C28(uint64_t a1, void *a2, int a3)
 
 uint64_t sub_37CAC(uint64_t result, uint64_t a2)
 {
-  *result = off_84CD0;
+  *result = &off_84CD0;
   *(result + 8) = a2;
   *(result + 16) = 256;
   return result;
@@ -6392,7 +6397,7 @@ uint64_t sub_37CAC(uint64_t result, uint64_t a2)
 
 uint64_t sub_37CD4(uint64_t result, uint64_t a2, char a3)
 {
-  *result = off_84CD0;
+  *result = &off_84CD0;
   *(result + 8) = a2;
   *(result + 16) = a3;
   *(result + 17) = 1;
@@ -6448,7 +6453,7 @@ uint64_t sub_37D00(uint64_t a1, xmlTextReader *a2, void *a3)
 
 void *sub_37DE8(void *result, uint64_t a2)
 {
-  *result = off_84D00;
+  *result = &off_84D00;
   result[1] = a2;
   return result;
 }
@@ -6468,7 +6473,7 @@ uint64_t sub_37E08(uint64_t a1, xmlTextReader *a2, void *a3)
 
 void *sub_37E8C(void *result, uint64_t a2)
 {
-  *result = off_84D30;
+  *result = &off_84D30;
   result[1] = a2;
   return result;
 }
@@ -6488,7 +6493,7 @@ uint64_t sub_37EAC(uint64_t a1, xmlTextReader *a2, void *a3)
 
 void *sub_37F30(void *result, uint64_t a2)
 {
-  *result = off_84D60;
+  *result = &off_84D60;
   result[1] = a2;
   return result;
 }
@@ -6522,18 +6527,18 @@ uint64_t sub_380CC(xmlTextReader *a1, void *a2)
   if (![v4 isGeneratingThumbnail] || !objc_msgSend(v4, "isThumbnailGenerationDone"))
   {
 
-    sub_3A420(a1, &unk_9DFD8, &unk_A20F0, a2);
+    sub_3A420(a1, &unk_9DFD8, qword_A20F0, a2);
   }
 
-  return sub_37B68(&qword_A20E8, a1);
+  return sub_37B68(&qword_A20E8, a1, a2);
 }
 
-uint64_t sub_38170(void *a1, int a2)
+id sub_38170(void *a1, int a2)
 {
   v4 = [a1 documentState];
   if ([v4 objectStackDepth] <= a2)
   {
-    return 3;
+    return &dword_0 + 3;
   }
 
   v5 = [v4 popRetainedObject];
@@ -6552,7 +6557,7 @@ uint64_t sub_38170(void *a1, int a2)
   return v7;
 }
 
-uint64_t sub_3821C(xmlTextReader *a1, void *a2)
+id sub_3821C(xmlTextReader *a1, void *a2)
 {
   v4 = [a2 documentState];
   v8 = 0;
@@ -6567,7 +6572,7 @@ uint64_t sub_3821C(xmlTextReader *a1, void *a2)
 
     else
     {
-      return 1;
+      return &dword_0 + 1;
     }
   }
 
@@ -6664,46 +6669,45 @@ void sub_3884C(std::__shared_weak_count *a1)
   }
 }
 
-__n128 sub_388B8(uint64_t a1, __n128 *a2)
+__n128 sub_388B8(unint64_t *a1, __n128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 32 * (v5 - v6) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 32 * (v4 - v5) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     sub_38948(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
   result = *a2;
-  *(*(v6 + ((v8 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v8) = *a2;
+  *(*(v5 + ((v7 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v7) = *a2;
   a2->n128_u64[0] = 0;
   a2->n128_u64[1] = 0;
-  ++*(a1 + 40);
+  ++a1[5];
   return result;
 }
 
-void *sub_38948(void *a1)
+void sub_38948(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x100;
   v3 = v1 - 256;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -6711,25 +6715,25 @@ void *sub_38948(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_38F44(a1, v9);
+    v10 = a1;
+    sub_38F44(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_38B1C(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_38B1C(a1, &v9);
 }
 
 void sub_38AD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6743,27 +6747,26 @@ void sub_38AD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void *sub_38B1C(void *result, void *a2)
+void sub_38B1C(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_38F44(result, v11);
+      sub_38F44(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6772,28 +6775,26 @@ void *sub_38B1C(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_38C24(const void **result, void *a2)
+void sub_38C24(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -6806,52 +6807,50 @@ const void **sub_38C24(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_38F44(result, v9);
+      sub_38F44(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *sub_38D30(void *result, void *a2)
+void sub_38D30(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_38F44(result[4], v11);
+      sub_38F44(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6860,28 +6859,26 @@ void *sub_38D30(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_38E38(const void **result, void *a2)
+void sub_38E38(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -6894,29 +6891,28 @@ const void **sub_38E38(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_38F44(result[4], v9);
+      sub_38F44(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void sub_38F44(uint64_t a1, unint64_t a2)
@@ -6975,12 +6971,12 @@ id sub_392F0(xmlTextReader *a1, void *a2)
   return [v6 handleWorkspaceStyle:v8 state:v4];
 }
 
-uint64_t sub_393AC(void *a1, int a2)
+id sub_393AC(void *a1, int a2)
 {
   v4 = [a1 documentState];
   if ([v4 objectStackDepth] <= a2)
   {
-    return 3;
+    return &dword_0 + 3;
   }
 
   v5 = [v4 popRetainedObject];
@@ -7050,18 +7046,18 @@ id sub_395BC(uint64_t a1, void *a2)
   return [v5 beginDrawables:v3];
 }
 
-uint64_t sub_39668(void *a1)
+id sub_39668(void *a1)
 {
   v2 = [a1 documentState];
   if (![a1 generator])
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   v3 = [v2 currentDrawablesGenerator];
   if (!v3)
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   v4 = [v3 endDrawables:v2];
@@ -7069,12 +7065,12 @@ uint64_t sub_39668(void *a1)
   return v4;
 }
 
-uint64_t sub_396CC(xmlTextReader *a1, void *a2)
+id sub_396CC(xmlTextReader *a1, void *a2)
 {
   v4 = [a2 generator];
   if (!v4)
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   v5 = v4;
@@ -7124,7 +7120,7 @@ id sub_397BC(void *a1, int a2)
   return [v7 handleStylesheet:v6 state:v4];
 }
 
-uint64_t sub_3986C(xmlTextReader *a1, void *a2)
+id sub_3986C(xmlTextReader *a1, void *a2)
 {
   v4 = [a2 documentState];
   v8 = 0;
@@ -7139,7 +7135,7 @@ uint64_t sub_3986C(xmlTextReader *a1, void *a2)
 
     else
     {
-      return 1;
+      return &dword_0 + 1;
     }
   }
 
@@ -7236,7 +7232,7 @@ uint64_t sub_3A3D0()
   return result;
 }
 
-void sub_3A420(xmlTextReader *a1, uint64_t a2, uint64_t a3, void *a4)
+void sub_3A420(xmlTextReader *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v7 = [objc_msgSend(a4 "documentState")];
   v8 = (*(*a2 + 16))(a2);
@@ -7365,7 +7361,7 @@ LABEL_12:
     }
 
     v36 = *v35;
-    if (v36 == 13 || v36 == 10) && (sub_41E24(v35))
+    if ((v36 == 13 || v36 == 10) && sub_41E24(v35))
     {
       return 1;
     }
@@ -7608,44 +7604,43 @@ LABEL_9:
   return sub_3B75C(a1);
 }
 
-__n128 sub_3B858(uint64_t a1, __n128 *a2)
+__n128 sub_3B858(unint64_t *a1, __n128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 32 * (v5 - v6) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 32 * (v4 - v5) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     sub_3B8E4(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
   result = *a2;
-  *(*(v6 + ((v8 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v8) = *a2;
-  ++*(a1 + 40);
+  *(*(v5 + ((v7 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v7) = *a2;
+  ++a1[5];
   return result;
 }
 
-void *sub_3B8E4(void *a1)
+void sub_3B8E4(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x100;
   v3 = v1 - 256;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7653,25 +7648,25 @@ void *sub_3B8E4(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_38F44(a1, v9);
+    v10 = a1;
+    sub_38F44(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_38B1C(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_38B1C(a1, &v9);
 }
 
 void sub_3BA6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7845,7 +7840,7 @@ LABEL_11:
 
 void *sub_3C544(void *result, uint64_t a2)
 {
-  *result = off_84EF8;
+  *result = &off_84EF8;
   result[1] = a2;
   return result;
 }
@@ -7976,7 +7971,7 @@ uint64_t sub_3C8C4(uint64_t a1, void *a2)
   return 1;
 }
 
-uint64_t sub_3C944(uint64_t a1, xmlTextReaderPtr reader, void *a3)
+uint64_t sub_3C944(unint64_t a1, xmlTextReaderPtr reader, void *a3)
 {
   v6 = xmlTextReaderConstLocalName(reader);
   if (sub_41D24(v6))
@@ -8044,13 +8039,13 @@ uint64_t sub_3CAF8(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_3CB14(uint64_t a1, xmlTextReaderPtr reader, void *a3)
+void sub_3CB14(unint64_t a1, xmlTextReaderPtr reader, void *a3)
 {
   v6 = [objc_msgSend(objc_msgSend(a3 "documentState")];
   if (v6 != objc_opt_class())
   {
 
-    sub_37B34(&unk_A2A18, reader, a3);
+    sub_37B34(qword_A2A18, reader, a3);
   }
 
   v7 = [v6 stateForReading];
@@ -8074,16 +8069,16 @@ uint64_t sub_3CBD4(uint64_t a1, void *a2, int a3)
   return 1;
 }
 
-void sub_3CC3C(uint64_t a1)
+void sub_3CC3C()
 {
-  nullsub_2(a1);
+  nullsub_2();
 
   operator delete();
 }
 
-void sub_3CC74(uint64_t a1)
+void sub_3CC74()
 {
-  nullsub_2(a1);
+  nullsub_2();
 
   operator delete();
 }
@@ -8110,10 +8105,10 @@ uint64_t sub_3CCAC()
   __cxa_atexit(j_nullsub_2_1, qword_A2838, &dword_0);
   sub_37B7C(qword_A2850, sub_3C428, sub_3C2C4);
   __cxa_atexit(j_nullsub_2_1, qword_A2850, &dword_0);
-  qword_A2868 = off_84EF8;
+  qword_A2868 = &off_84EF8;
   unk_A2870 = 0;
   __cxa_atexit(j_nullsub_2_4, &qword_A2868, &dword_0);
-  qword_A2878 = off_84EF8;
+  qword_A2878 = &off_84EF8;
   unk_A2880 = sub_3C2C4;
   __cxa_atexit(j_nullsub_2_4, &qword_A2878, &dword_0);
   sub_37B7C(qword_A2888, sub_3C564, 0);
@@ -8264,12 +8259,12 @@ uint64_t sub_3DB0C(void *a1, int a2)
   return 1;
 }
 
-uint64_t sub_3DB80(void *a1, int a2)
+id sub_3DB80(void *a1, int a2)
 {
   v4 = [a1 documentState];
   if ([v4 objectStackDepth] <= a2)
   {
-    return 3;
+    return &dword_0 + 3;
   }
 
   v5 = [v4 popRetainedObject];
@@ -8287,12 +8282,12 @@ uint64_t sub_3DB80(void *a1, int a2)
   return v7;
 }
 
-uint64_t sub_3DC08(void *a1, int a2)
+id sub_3DC08(void *a1, int a2)
 {
   v4 = [a1 documentState];
   if ([v4 objectStackDepth] <= a2)
   {
-    return 3;
+    return &dword_0 + 3;
   }
 
   v5 = [v4 popRetainedObject];
@@ -8363,11 +8358,11 @@ uint64_t sub_3DDE0(xmlTextReader *a1, void *a2)
   return 1;
 }
 
-uint64_t sub_3DE80(void *a1, int a2)
+id sub_3DE80(void *a1, int a2)
 {
   if ([objc_msgSend(a1 "documentState")] <= a2)
   {
-    return 3;
+    return &dword_0 + 3;
   }
 
   v3 = [a1 generator];
@@ -8404,7 +8399,7 @@ id sub_3DF28(void *a1, int a2)
   return [v7 handleStylesheet:v6 state:v4];
 }
 
-uint64_t sub_3DFD8(xmlTextReader *a1, void *a2)
+id sub_3DFD8(xmlTextReader *a1, void *a2)
 {
   v4 = [a2 documentState];
   v8 = 0;
@@ -8419,7 +8414,7 @@ uint64_t sub_3DFD8(xmlTextReader *a1, void *a2)
 
     else
     {
-      return 1;
+      return &dword_0 + 1;
     }
   }
 
@@ -8530,20 +8525,17 @@ uint64_t sub_3E460()
   return __cxa_atexit(sub_3F2F8, &unk_A3400, &dword_0);
 }
 
-void *sub_3EE34(void *result, unint64_t a2)
+void sub_3EE34(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      sub_3F840(result, a2);
+      sub_3F840(a1, a2);
     }
 
     sub_9D48();
   }
-
-  return result;
 }
 
 void sub_3EED4(uint64_t a1, _OWORD *a2)
@@ -8609,7 +8601,7 @@ void *sub_3EFAC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ui
 {
   *a1 = off_84F88;
   a1[1] = 0;
-  v11 = (a1 + 1);
+  v11 = a1 + 1;
   a1[2] = 0;
   a1[3] = 0;
   v17 = &a9;
@@ -8703,7 +8695,7 @@ uint64_t sub_3F198(uint64_t a1, const xmlChar *a2, uint64_t a3, uint64_t a4, uin
       v12 = *v11;
       v15 = a2;
       v17 = &v15;
-      sub_3F8D4(v10, &v15)[3] = v12;
+      sub_3F8D4(v10, &v15, &unk_5ED30, &v17)[3] = v12;
       v13 = v16++;
       a2 = *v13;
     }
@@ -8807,7 +8799,7 @@ uint64_t sub_3F5AC(uint64_t a1, char *__s1, uint64_t a3, uint64_t a4, uint64_t a
   *(a1 + 48) = a5;
   *(a1 + 56) = a6;
   *(a1 + 64) = a3;
-  *a1 = off_85010;
+  *a1 = &off_85010;
   *(a1 + 8) = v11;
   return a1;
 }
@@ -8881,35 +8873,35 @@ uint64_t sub_3F888(uint64_t a1)
   return a1;
 }
 
-uint64_t **sub_3F8D4(void *a1, const xmlChar **a2)
+uint64_t **sub_3F8D4(float *a1, const xmlChar **a2, uint64_t a3, void **a4)
 {
-  v4 = sub_41E64(*a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!v6)
+  v6 = sub_41E64(*a2);
+  v7 = v6;
+  v8 = *(a1 + 1);
+  if (!v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v6 <= v4)
+    v11 = v6;
+    if (v8 <= v6)
     {
-      v9 = v4 % v6;
+      v11 = v6 % v8;
     }
   }
 
   else
   {
-    v9 = (v6 - 1) & v4;
+    v11 = (v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -8917,47 +8909,47 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= v6)
+      if (v14 >= v8)
       {
-        v12 %= v6;
+        v14 %= v8;
       }
     }
 
     else
     {
-      v12 &= v6 - 1;
+      v14 &= v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!xmlStrEqual(v11[2], *a2))
+  if (!xmlStrEqual(v13[2], *a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_3FB28(uint64_t a1, size_t __n)
+void sub_3FB28(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -8973,7 +8965,7 @@ void sub_3FB28(uint64_t a1, size_t __n)
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -8981,7 +8973,7 @@ void sub_3FB28(uint64_t a1, size_t __n)
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -9005,7 +8997,7 @@ void sub_3FB28(uint64_t a1, size_t __n)
     {
 LABEL_6:
 
-      sub_3FC18(a1, prime);
+      sub_3FC18(result, prime);
     }
   }
 }
@@ -9318,7 +9310,7 @@ char *sub_41D7C(xmlChar *str)
   return result;
 }
 
-uint64_t sub_41E24(_BYTE *a1)
+BOOL sub_41E24(_BYTE *a1)
 {
   v1 = *a1;
   if (!*a1)

@@ -23,7 +23,7 @@
     [v2 setObject:v9 forKeyedSubscript:@"longitude"];
   }
 
-  if ([v2 count] < 2)
+  if (objc_msgSend_count(v2) < 2)
   {
     v10 = 0;
   }

@@ -264,7 +264,7 @@ LABEL_14:
   v9 = 0;
   if (self)
   {
-    [(SCNGeometryTessellator *)self _tessellatorValueForGeometry:client];
+    objc_msgSend__tessellatorValueForGeometry_(self, a2, client);
   }
 
   sceneRef = [client sceneRef];

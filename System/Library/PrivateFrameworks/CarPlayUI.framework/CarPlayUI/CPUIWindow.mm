@@ -65,7 +65,7 @@
 
 - (void)sessionDidConnect:(id)connect
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v12 - v5;
   v7 = type metadata accessor for TaskPriority();
@@ -83,7 +83,7 @@
 
 - (void)session:(id)session didUpdateConfiguration:(id)configuration
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v13 - v6;
   v8 = type metadata accessor for TaskPriority();

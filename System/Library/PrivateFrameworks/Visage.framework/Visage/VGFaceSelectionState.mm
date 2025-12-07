@@ -34,7 +34,7 @@
       v7 = captureData;
       if (captureData)
       {
-        [captureData timestamp];
+        objc_msgSend_timestamp(captureData);
         v22 = v25;
       }
 

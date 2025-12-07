@@ -54,7 +54,7 @@
   v4 = objc_alloc_init(NSFileManager);
   if (!localAssetURL)
   {
-    goto LABEL_46;
+    goto LABEL_49;
   }
 
   if ([localAssetURL isFileURL])
@@ -70,43 +70,47 @@
         v19 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v19 shouldLog];
+      LODWORD(v27) = [v19 shouldLog];
       shouldLogToDisk = [v19 shouldLogToDisk];
       oSLogObject = [v19 OSLogObject];
       v30 = oSLogObject;
       if (shouldLogToDisk)
       {
-        shouldLog |= 2u;
+        LODWORD(v27) = v27 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog &= 2u;
+        v27 = v27;
       }
 
-      if (!shouldLog)
+      else
+      {
+        v27 &= 2u;
+      }
+
+      if (!v27)
       {
 
-        goto LABEL_45;
+        goto LABEL_48;
       }
 
       v31 = objc_opt_class();
       databaseIdentifier = [(DirectUploadRequest *)self->_request databaseIdentifier];
-      v42 = 138412802;
-      v43 = v31;
-      v44 = 2048;
-      v45 = databaseIdentifier;
-      v46 = 2112;
-      v47 = localAssetURL;
-      LODWORD(v41) = 32;
-      v26 = _os_log_send_and_compose_impl();
+      v41 = 138412802;
+      v42 = v31;
+      v43 = 2048;
+      v44 = databaseIdentifier;
+      v45 = 2112;
+      v46 = localAssetURL;
+      v26 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, v30, 0, "%@: File not readable for upload: %lld, URL: %@", &v41, 32);
 
       if (v26)
       {
-        goto LABEL_33;
+        goto LABEL_36;
       }
 
-      goto LABEL_45;
+      goto LABEL_48;
     }
   }
 
@@ -120,50 +124,54 @@
       v19 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v19 shouldLog];
+    LODWORD(v20) = [v19 shouldLog];
     shouldLogToDisk2 = [v19 shouldLogToDisk];
     oSLogObject2 = [v19 OSLogObject];
     v23 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v20) = v20 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog2 &= 2u;
+      v20 = v20;
     }
 
-    if (!shouldLog2)
+    else
+    {
+      v20 &= 2u;
+    }
+
+    if (!v20)
     {
 
-      goto LABEL_45;
+      goto LABEL_48;
     }
 
     v24 = objc_opt_class();
     databaseIdentifier2 = [(DirectUploadRequest *)self->_request databaseIdentifier];
-    v42 = 138412546;
-    v43 = v24;
-    v44 = 2048;
-    v45 = databaseIdentifier2;
-    LODWORD(v41) = 22;
-    v26 = _os_log_send_and_compose_impl();
+    v41 = 138412546;
+    v42 = v24;
+    v43 = 2048;
+    v44 = databaseIdentifier2;
+    v26 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, v23, 0, "%@: Missing account for upload: %lld", &v41, 22);
 
     if (v26)
     {
-LABEL_33:
-      v33 = [NSString stringWithCString:v26 encoding:4, &v42, v41];
+LABEL_36:
+      v33 = [NSString stringWithCString:v26 encoding:4];
       free(v26);
       SSFileLog();
     }
 
-LABEL_45:
+LABEL_48:
 
-LABEL_46:
+LABEL_49:
     v34 = SSError();
     v35 = 0;
     v36 = 0;
-    goto LABEL_47;
+    goto LABEL_50;
   }
 
   _uploadURL = [(PrepareDirectUploadOperation *)self _uploadURL];
@@ -176,37 +184,40 @@ LABEL_46:
       v10 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v10 shouldLog];
+    LODWORD(v11) = [v10 shouldLog];
     shouldLogToDisk3 = [v10 shouldLogToDisk];
     oSLogObject3 = [v10 OSLogObject];
     v14 = oSLogObject3;
     if (shouldLogToDisk3)
     {
-      shouldLog3 |= 2u;
+      LODWORD(v11) = v11 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
     {
-      shouldLog3 &= 2u;
+      v11 = v11;
     }
 
-    if (shouldLog3)
+    else
+    {
+      v11 &= 2u;
+    }
+
+    if (v11)
     {
       v15 = objc_opt_class();
       databaseIdentifier3 = [(DirectUploadRequest *)self->_request databaseIdentifier];
-      v42 = 138412802;
-      v43 = v15;
-      v44 = 2048;
-      v45 = databaseIdentifier3;
-      v46 = 2112;
-      v47 = _uploadURL;
-      LODWORD(v41) = 32;
-      v40 = &v42;
-      v17 = _os_log_send_and_compose_impl();
+      v41 = 138412802;
+      v42 = v15;
+      v43 = 2048;
+      v44 = databaseIdentifier3;
+      v45 = 2112;
+      v46 = _uploadURL;
+      v17 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, v14, 1, "%@: Preparing upload: %lld with request URL: %@", &v41, 32);
 
       if (v17)
       {
-        v18 = [NSString stringWithCString:v17 encoding:4, &v42, v41];
+        v18 = [NSString stringWithCString:v17 encoding:4];
         free(v17);
         v40 = v18;
         SSFileLog();
@@ -249,7 +260,7 @@ LABEL_46:
     v36 = 0;
   }
 
-LABEL_47:
+LABEL_50:
   [(PrepareDirectUploadOperation *)self setError:v34];
   [(PrepareDirectUploadOperation *)self setSuccess:0];
   outputBlock = [(PrepareDirectUploadOperation *)self outputBlock];
@@ -353,7 +364,7 @@ LABEL_13:
     v8 = [v6 urlForKey:v7];
     if (v8)
     {
-      goto LABEL_30;
+      goto LABEL_31;
     }
 
     v9 = [v6 valueForKey:v7];
@@ -374,7 +385,7 @@ LABEL_13:
 
       if (v8)
       {
-        goto LABEL_30;
+        goto LABEL_31;
       }
     }
 
@@ -387,7 +398,7 @@ LABEL_13:
   if (!v11)
   {
     v8 = 0;
-    goto LABEL_30;
+    goto LABEL_31;
   }
 
   v12 = v11;
@@ -404,33 +415,37 @@ LABEL_13:
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (v17)
     {
-      *v23 = 138412546;
-      *&v23[4] = objc_opt_class();
-      *&v23[12] = 2112;
-      *&v23[14] = v14;
-      v19 = *&v23[4];
-      LODWORD(v22) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v22 = 138412546;
+      v23 = objc_opt_class();
+      v24 = 2112;
+      v25 = v14;
+      v19 = v23;
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Using base URL from user defaults: %@", &v22, 22);
 
       if (!v20)
       {
-LABEL_23:
+LABEL_24:
 
         if ((v4 - 1) > 3)
         {
@@ -442,21 +457,21 @@ LABEL_23:
           v8 = [v14 URLByAppendingPathComponent:off_100329798[v4 - 1]];
         }
 
-        goto LABEL_29;
+        goto LABEL_30;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, v23, v22, *v23, *&v23[16]];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
   v8 = 0;
-LABEL_29:
-  CFRelease(v12);
 LABEL_30:
+  CFRelease(v12);
+LABEL_31:
 
   return v8;
 }

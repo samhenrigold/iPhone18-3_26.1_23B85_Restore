@@ -96,9 +96,9 @@
 - (void)layerDidBecomeVisible:(BOOL)visible
 {
   visibleCopy = visible;
-  v33.receiver = self;
-  v33.super_class = TUIImageLayer;
-  [(TUIImageLayer *)&v33 layerDidBecomeVisible:?];
+  v34.receiver = self;
+  v34.super_class = TUIImageLayer;
+  [(TUIImageLayer *)&v34 layerDidBecomeVisible:?];
   if (visibleCopy)
   {
     flags = self->_flags;
@@ -125,30 +125,30 @@
     window = [hostingContainerView window];
     windowScene = [window windowScene];
 
-    if (byte_2E6898 == 1 && windowScene && [windowScene activationState] == &dword_0 + 2 && (-[TUIImageLayer bounds](self, "bounds"), v11 = v10, v13 = v12, v15 = v14, v17 = v16, objc_msgSend(hostingContainerView, "layer"), v18 = objc_claimAutoreleasedReturnValue(), -[TUIImageLayer convertRect:toLayer:](self, "convertRect:toLayer:", v18, v11, v13, v15, v17), v20 = v19, v22 = v21, v24 = v23, v26 = v25, v18, objc_msgSend(hostingContainerView, "layer"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "bounds"), v36.origin.x = v20, v36.origin.y = v22, v36.size.width = v24, v36.size.height = v26, v28 = CGRectIntersectsRect(v35, v36), v27, v28))
+    if (byte_2E6898 == 1 && windowScene && [windowScene activationState] == &dword_0 + 2 && (-[TUIImageLayer bounds](self, "bounds"), v11 = v10, v13 = v12, v15 = v14, v17 = v16, objc_msgSend(hostingContainerView, "layer"), v18 = objc_claimAutoreleasedReturnValue(), -[TUIImageLayer convertRect:toLayer:](self, "convertRect:toLayer:", v18, v11, v13, v15, v17), v20 = v19, v22 = v21, v24 = v23, v26 = v25, v18, objc_msgSend(hostingContainerView, "layer"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "bounds"), v37.origin.x = v20, v37.origin.y = v22, v37.size.width = v24, v37.size.height = v26, v28 = CGRectIntersectsRect(v36, v37), v27, v28))
     {
-      v29 = TUIImageCacheLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v30 = TUIImageCacheLog(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        *v32 = v20;
-        *&v32[1] = v22;
-        *&v32[2] = v24;
-        *&v32[3] = v26;
-        v30 = [NSValue valueWithBytes:v32 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-        sub_19C008(v30, buf, v29);
+        *v33 = v20;
+        *&v33[1] = v22;
+        *&v33[2] = v24;
+        *&v33[3] = v26;
+        v31 = [NSValue valueWithBytes:v33 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+        sub_19C008(v31, buf, v30);
       }
     }
 
     else
     {
-      v31 = self->_flags;
-      if (v31)
+      v32 = self->_flags;
+      if (v32)
       {
         [(TUIImageResource *)self->_resource removeNonVolatileInterest];
-        v31 = self->_flags;
+        v32 = self->_flags;
       }
 
-      *&self->_flags = v31 & 0xFE;
+      *&self->_flags = v32 & 0xFE;
       +[CATransaction begin];
       [CATransaction setDisableActions:1];
       [(CALayer *)self->_contentLayer setContents:0];
@@ -189,7 +189,7 @@
   [(CALayer *)self->_contentLayer setCornerCurve:curveCopy];
   if (radius <= 0.0)
   {
-    v27 = [gravityCopy isEqualToString:kCAGravityResize] ^ 1;
+    v27 = objc_msgSend_isEqualToString_(gravityCopy) ^ 1;
   }
 
   else

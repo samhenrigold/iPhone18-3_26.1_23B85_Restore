@@ -163,7 +163,7 @@ LABEL_21:
   memset(buf, 0, 32);
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v28 = 0;

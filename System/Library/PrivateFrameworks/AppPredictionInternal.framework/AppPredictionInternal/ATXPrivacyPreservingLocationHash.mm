@@ -3,10 +3,49 @@
 + (id)readDeviceSpecificSalt;
 + (id)setSaltToUserDefaults:(id)defaults scheme:(id)scheme;
 + (int64_t)preservePrivacyForGeoHash:(int64_t)hash;
++ (int64_t)privacyPreservingGeohashForLocation:(id)location locationHashLevel:(int)level locationEnabled:(BOOL)enabled;
 + (int64_t)sha256HashForGeohash:(int64_t)geohash salt:(id)salt;
 @end
 
 @implementation ATXPrivacyPreservingLocationHash
+
++ (int64_t)privacyPreservingGeohashForLocation:(id)location locationHashLevel:(int)level locationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = *&level;
+  locationCopy = location;
+  v8 = locationCopy;
+  if (enabledCopy)
+  {
+    if (locationCopy)
+    {
+      v9 = [locationCopy atx_locationHashWithLevel:v6];
+      if ([ATXPrivacyPreservingLocationHash geohashCollidesWithKnownLocationTypeForGeohash:v9])
+      {
+        v10 = 0;
+      }
+
+      else
+      {
+        v10 = v9;
+      }
+
+      v11 = [ATXPrivacyPreservingLocationHash preservePrivacyForGeoHash:v10];
+    }
+
+    else
+    {
+      v11 = -2;
+    }
+  }
+
+  else
+  {
+    v11 = -1;
+  }
+
+  return v11;
+}
 
 + (int64_t)preservePrivacyForGeoHash:(int64_t)hash
 {
@@ -24,7 +63,7 @@
   if (!v4)
   {
     v4 = [ATXPrivacyPreservingLocationHash setSaltToUserDefaults:v3 scheme:@"ATXPrivacyPreservingLocationHashDeviceSpecificSalt"];
-    v5 = __atxlog_handle_default();
+    v5 = __atxlog_handle_default(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *v7 = 0;
@@ -48,7 +87,7 @@
 
   else
   {
-    v9 = __atxlog_handle_default();
+    v9 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [ATXPrivacyPreservingLocationHash setSaltToUserDefaults:v9 scheme:?];
@@ -76,7 +115,7 @@
 
 + (int64_t)sha256HashForGeohash:(int64_t)geohash salt:(id)salt
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   geohashCopy = geohash;
   saltCopy = salt;
   v5 = objc_opt_new();
@@ -87,11 +126,10 @@
   }
 
   *md = 0u;
-  v11 = 0u;
+  v10 = 0u;
   CC_SHA256([v5 bytes], objc_msgSend(v5, "length"), md);
   v6 = *md;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

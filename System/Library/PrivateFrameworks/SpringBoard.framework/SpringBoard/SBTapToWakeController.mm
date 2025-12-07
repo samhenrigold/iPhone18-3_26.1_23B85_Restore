@@ -78,14 +78,15 @@
 
 void __45__SBTapToWakeController_isTapToWakeSupported__block_invoke()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  isTapToWakeSupported_supportsTTW = MGGetBoolAnswer();
-  v0 = SBLogBacklight();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v3 = *MEMORY[0x277D85DE8];
+  v0 = MGGetBoolAnswer();
+  isTapToWakeSupported_supportsTTW = v0;
+  v1 = SBLogBacklight(v0);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    v1[0] = 67109120;
-    v1[1] = isTapToWakeSupported_supportsTTW;
-    _os_log_impl(&dword_21ED4E000, v0, OS_LOG_TYPE_INFO, "TTW supported:%{BOOL}u", v1, 8u);
+    v2[0] = 67109120;
+    v2[1] = isTapToWakeSupported_supportsTTW;
+    _os_log_impl(&dword_21ED4E000, v1, OS_LOG_TYPE_INFO, "TTW supported:%{BOOL}u", v2, 8u);
   }
 }
 
@@ -109,7 +110,7 @@ void __45__SBTapToWakeController_isTapToWakeSupported__block_invoke()
 
 - (void)_setGesturesEnabled:(BOOL)enabled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_gesturesEnabled != enabled)
   {
     enabledCopy = enabled;
@@ -133,22 +134,22 @@ void __45__SBTapToWakeController_isTapToWakeSupported__block_invoke()
       [v8 removeGestureRecognizer:self->_pencilToWakeGestureRecognizer];
     }
 
-    v9 = SBLogBacklight();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogBacklight(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       if (self->_gesturesEnabled)
       {
-        v10 = "enabled";
+        v11 = "enabled";
       }
 
       else
       {
-        v10 = "disabled";
+        v11 = "disabled";
       }
 
-      v11 = 136446210;
-      v12 = v10;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "TTW: gestures now %{public}s", &v11, 0xCu);
+      v12 = 136446210;
+      v13 = v11;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "TTW: gestures now %{public}s", &v12, 0xCu);
     }
   }
 }
@@ -156,66 +157,66 @@ void __45__SBTapToWakeController_isTapToWakeSupported__block_invoke()
 - (void)tapToWakeDidRecognize:(id)recognize
 {
   recognizeCopy = recognize;
-  v5 = SBLogBacklight();
+  v5 = SBLogBacklight(recognizeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "tapToWakeDidRecognize:", buf, 2u);
   }
 
-  v6 = SBLogBacklight();
-  v7 = os_signpost_id_make_with_pointer(v6, recognizeCopy);
+  v7 = SBLogBacklight(v6);
+  v8 = os_signpost_id_make_with_pointer(v7, recognizeCopy);
 
-  v8 = SBLogBacklight();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v10 = SBLogBacklight(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "tapToWakeDidRecognize", &unk_21F8B82DE, v14, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "tapToWakeDidRecognize", &unk_21F8B82DE, v17, 2u);
   }
 
   delegate = [(SBTapToWakeController *)self delegate];
   [delegate tapToWakeControllerDidRecognizeWakeGesture:self];
 
-  v11 = SBLogBacklight();
-  v12 = v11;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v14 = SBLogBacklight(v13);
+  v15 = v14;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    *v13 = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v12, OS_SIGNPOST_INTERVAL_END, v7, "tapToWakeDidRecognize", &unk_21F8B82DE, v13, 2u);
+    *v16 = 0;
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v15, OS_SIGNPOST_INTERVAL_END, v8, "tapToWakeDidRecognize", &unk_21F8B82DE, v16, 2u);
   }
 }
 
 - (void)pencilToWakeDidRecognize:(id)recognize
 {
   recognizeCopy = recognize;
-  v5 = SBLogBacklight();
+  v5 = SBLogBacklight(recognizeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "pencilToWakeDidRecognize:", buf, 2u);
   }
 
-  v6 = SBLogBacklight();
-  v7 = os_signpost_id_make_with_pointer(v6, recognizeCopy);
+  v7 = SBLogBacklight(v6);
+  v8 = os_signpost_id_make_with_pointer(v7, recognizeCopy);
 
-  v8 = SBLogBacklight();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v10 = SBLogBacklight(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "pencilToWakeDidRecognize", &unk_21F8B82DE, v14, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "pencilToWakeDidRecognize", &unk_21F8B82DE, v17, 2u);
   }
 
   delegate = [(SBTapToWakeController *)self delegate];
   [delegate tapToWakeControllerDidRecognizePencilWakeGesture:self];
 
-  v11 = SBLogBacklight();
-  v12 = v11;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v14 = SBLogBacklight(v13);
+  v15 = v14;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    *v13 = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v12, OS_SIGNPOST_INTERVAL_END, v7, "pencilToWakeDidRecognize", &unk_21F8B82DE, v13, 2u);
+    *v16 = 0;
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v15, OS_SIGNPOST_INTERVAL_END, v8, "pencilToWakeDidRecognize", &unk_21F8B82DE, v16, 2u);
   }
 }
 
@@ -255,7 +256,7 @@ void __45__SBTapToWakeController_isTapToWakeSupported__block_invoke()
   if (self->_hitTestSuppressionEnabled != enabled)
   {
     enabledCopy = enabled;
-    v5 = SBLogBacklight();
+    v5 = SBLogBacklight(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v12[0] = 67109120;

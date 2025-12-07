@@ -21,9 +21,48 @@
 - (void)setFeaturedPhotosSyncingEnabled:(id)enabled;
 - (void)setMemoriesSyncingEnabled:(id)enabled;
 - (void)setPhotoSyncingEnabled:(id)enabled;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NPTOBridgeSettingsController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v15.receiver = self;
+  v15.super_class = NPTOBridgeSettingsController;
+  [(NPTOBridgeSettingsController *)&v15 viewWillAppear:appear];
+  +[NPTOBridgeUserVisitDonation donateUserVisitForPhotosSection];
+  objc_initWeak(&location, self);
+  if (!self->_syncedAlbumIdentifierPreferenceObserver)
+  {
+    _preferencesAccessor = [(NPTOBridgeSettingsController *)self _preferencesAccessor];
+    v5 = +[NSOperationQueue mainQueue];
+    v6 = NPTOPreferencesSyncedAlbumIdentifierKey;
+    v9 = _NSConcreteStackBlock;
+    v10 = 3221225472;
+    v11 = sub_15F4;
+    v12 = &unk_C468;
+    objc_copyWeak(&v13, &location);
+    v7 = [_preferencesAccessor changeObserverForKey:v6 queue:v5 block:&v9];
+    syncedAlbumIdentifierPreferenceObserver = self->_syncedAlbumIdentifierPreferenceObserver;
+    self->_syncedAlbumIdentifierPreferenceObserver = v7;
+
+    objc_destroyWeak(&v13);
+  }
+
+  [(NPTOBridgeSettingsController *)self reload:v9];
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = NPTOBridgeSettingsController;
+  [(NPTOBridgeSettingsController *)&v5 viewDidDisappear:disappear];
+  syncedAlbumIdentifierPreferenceObserver = self->_syncedAlbumIdentifierPreferenceObserver;
+  self->_syncedAlbumIdentifierPreferenceObserver = 0;
+}
 
 - (id)localizedPaneTitle
 {

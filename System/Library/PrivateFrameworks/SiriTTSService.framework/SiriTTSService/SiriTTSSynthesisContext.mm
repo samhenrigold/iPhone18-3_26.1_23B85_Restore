@@ -60,7 +60,7 @@
 
 - (SiriTTSSynthesisVoice)voice
 {
-  v2 = sub_1B1B0C928();
+  v2 = sub_1B1B0C928(self);
 
   return v2;
 }
@@ -69,7 +69,7 @@
 {
   voiceCopy = voice;
   selfCopy = self;
-  sub_1B1B0C9C8();
+  sub_1B1B0C9C8(voiceCopy);
 }
 
 - (NSDictionary)contextInfo
@@ -181,7 +181,7 @@
 
 - (SiriTTSProsodyProperties)prosodyProperties
 {
-  v2 = sub_1B1B0DE1C();
+  v2 = sub_1B1B0DE1C(self);
 
   return v2;
 }
@@ -190,7 +190,7 @@
 {
   propertiesCopy = properties;
   selfCopy = self;
-  sub_1B1B0DEBC();
+  sub_1B1B0DEBC(propertiesCopy);
 }
 
 @end

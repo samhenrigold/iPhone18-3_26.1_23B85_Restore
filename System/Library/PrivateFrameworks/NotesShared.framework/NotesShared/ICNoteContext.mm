@@ -1976,11 +1976,11 @@ void __36__ICNoteContext_persistentContainer__block_invoke_3(uint64_t a1)
   }
 }
 
-void __36__ICNoteContext_persistentContainer__block_invoke_261(uint64_t a1)
+void __36__ICNoteContext_persistentContainer__block_invoke_261(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v4 = [*(a1 + 32) persistentContainer];
-  v3 = [v2 initializeSearchIndexerDataSourceWithPersistentContainer:v4];
+  v3 = objc_opt_class();
+  v5 = [*(a1 + 32) persistentContainer];
+  v4 = [v3 initializeSearchIndexerDataSourceWithPersistentContainer:v5];
 }
 
 void __36__ICNoteContext_persistentContainer__block_invoke_2_263(uint64_t a1)

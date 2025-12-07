@@ -133,7 +133,7 @@
 
 - (void)executeWithTimeout:(double)timeout
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_session)
@@ -168,7 +168,7 @@
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v38 = v14;
+    v37 = v14;
     _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -179,12 +179,12 @@
 
   v22 = [MRBlockGuard alloc];
   dispatchQueue = [(MRAVRoutingDiscoverySessionOperation *)selfCopy dispatchQueue];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __59__MRAVRoutingDiscoverySessionOperation_executeWithTimeout___block_invoke;
-  v36[3] = &unk_1E769AFC0;
-  v36[4] = selfCopy;
-  v24 = [(MRBlockGuard *)v22 initWithTimeout:v21 reason:dispatchQueue queue:v36 handler:timeout];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __59__MRAVRoutingDiscoverySessionOperation_executeWithTimeout___block_invoke;
+  v35[3] = &unk_1E769AFC0;
+  v35[4] = selfCopy;
+  v24 = [(MRBlockGuard *)v22 initWithTimeout:v21 reason:dispatchQueue queue:v35 handler:timeout];
   guard = selfCopy->_guard;
   selfCopy->_guard = v24;
 
@@ -194,96 +194,93 @@
 
   objc_initWeak(buf, selfCopy);
   v28 = selfCopy->_session;
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __59__MRAVRoutingDiscoverySessionOperation_executeWithTimeout___block_invoke_2;
-  v33[3] = &unk_1E769E8A0;
-  objc_copyWeak(&v35, buf);
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __59__MRAVRoutingDiscoverySessionOperation_executeWithTimeout___block_invoke_2;
+  v32[3] = &unk_1E769E8A0;
+  objc_copyWeak(&v34, buf);
   v29 = v13;
-  v34 = v29;
-  v30 = [(MRAVRoutingDiscoverySession *)v28 addEndpointsAddedCallback:v33];
+  v33 = v29;
+  v30 = [(MRAVRoutingDiscoverySession *)v28 addEndpointsAddedCallback:v32];
   [(MRAVRoutingDiscoverySession *)selfCopy->_session setDiscoveryMode:2];
 
-  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v34);
   objc_destroyWeak(buf);
 
   objc_sync_exit(selfCopy);
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __59__MRAVRoutingDiscoverySessionOperation_executeWithTimeout___block_invoke_2(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v20 = a1;
+  v19 = a1;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v17 = v3;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v16 = v3;
     obj = v3;
-    v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v5)
     {
       v6 = v5;
-      v19 = *v26;
+      v18 = *v25;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v26 != v19)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v25 + 1) + 8 * i);
+          v8 = *(*(&v24 + 1) + 8 * i);
+          v20 = 0u;
           v21 = 0u;
           v22 = 0u;
           v23 = 0u;
-          v24 = 0u;
-          v9 = *(v20 + 32);
-          v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v9 = *(v19 + 32);
+          v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v22;
+            v12 = *v21;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v22 != v12)
+                if (*v21 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v14 = *(*(&v21 + 1) + 8 * j);
-                v15 = [v8 outputDeviceForUID:{v14, v17}];
+                v14 = *(*(&v20 + 1) + 8 * j);
+                v15 = [v8 outputDeviceForUID:{v14, v16}];
                 if (v15)
                 {
                   [WeakRetained _notifyDiscoveredEndpoint:v8 outputDevice:v15 forTargetOutputDevice:v14];
                 }
               }
 
-              v11 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
             }
 
             while (v11);
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v6);
     }
 
-    v3 = v17;
+    v3 = v16;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyDiscoveredEndpoint:(id)endpoint outputDevice:(id)device forTargetOutputDevice:(id)outputDevice
@@ -384,7 +381,7 @@ void __101__MRAVRoutingDiscoverySessionOperation__notifyDiscoveredEndpoint_outpu
 
 - (void)_finishWithError:(id)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if ([(MRAVRoutingDiscoverySession *)self->_session discoveryMode])
   {
@@ -439,15 +436,15 @@ LABEL_6:
               date = [MEMORY[0x1E695DF00] date];
               [date timeIntervalSinceDate:self->_startDate];
               *buf = 138544386;
-              v47 = v21;
-              v48 = 2114;
-              v49 = requestID;
-              v50 = 2112;
-              v51 = discoveredOutputDeviceUIDs2;
-              v52 = 2114;
-              v53 = outputDeviceUIDs3;
-              v54 = 2048;
-              v55 = v26;
+              v46 = v21;
+              v47 = 2114;
+              v48 = requestID;
+              v49 = 2112;
+              v50 = discoveredOutputDeviceUIDs2;
+              v51 = 2114;
+              v52 = outputDeviceUIDs3;
+              v53 = 2048;
+              v54 = v26;
               _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds", buf, 0x34u);
             }
 
@@ -464,13 +461,13 @@ LABEL_6:
               date2 = [MEMORY[0x1E695DF00] date];
               [date2 timeIntervalSinceDate:self->_startDate];
               *buf = 138544130;
-              v47 = v37;
-              v48 = 2114;
-              v49 = v38;
-              v50 = 2112;
-              v51 = discoveredOutputDeviceUIDs2;
-              v52 = 2048;
-              v53 = v40;
+              v46 = v37;
+              v47 = 2114;
+              v48 = v38;
+              v49 = 2112;
+              v50 = discoveredOutputDeviceUIDs2;
+              v51 = 2048;
+              v52 = v40;
               _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds", buf, 0x2Au);
             }
 
@@ -514,13 +511,13 @@ LABEL_6:
             date3 = [MEMORY[0x1E695DF00] date];
             [date3 timeIntervalSinceDate:self->_startDate];
             *buf = 138544130;
-            v47 = v28;
-            v48 = 2114;
-            v49 = v29;
-            v50 = 2114;
-            v51 = outputDeviceUIDs5;
-            v52 = 2048;
-            v53 = v32;
+            v46 = v28;
+            v47 = 2114;
+            v48 = v29;
+            v49 = 2114;
+            v50 = outputDeviceUIDs5;
+            v51 = 2048;
+            v52 = v32;
             _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds", buf, 0x2Au);
 
 LABEL_25:
@@ -534,11 +531,11 @@ LABEL_25:
           outputDeviceUIDs5 = [MEMORY[0x1E695DF00] date];
           [outputDeviceUIDs5 timeIntervalSinceDate:self->_startDate];
           *buf = 138543874;
-          v47 = v34;
-          v48 = 2114;
-          v49 = v35;
-          v50 = 2048;
-          v51 = v36;
+          v46 = v34;
+          v47 = 2114;
+          v48 = v35;
+          v49 = 2048;
+          v50 = v36;
           _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", buf, 0x20u);
           goto LABEL_25;
         }
@@ -546,14 +543,14 @@ LABEL_25:
 LABEL_29:
 
         dispatchQueue = [(MRAVRoutingDiscoverySessionOperation *)self dispatchQueue];
-        v44[0] = MEMORY[0x1E69E9820];
-        v44[1] = 3221225472;
-        v44[2] = __57__MRAVRoutingDiscoverySessionOperation__finishWithError___block_invoke;
-        v44[3] = &unk_1E769A4A0;
-        v44[4] = self;
-        v45 = v8;
+        v43[0] = MEMORY[0x1E69E9820];
+        v43[1] = 3221225472;
+        v43[2] = __57__MRAVRoutingDiscoverySessionOperation__finishWithError___block_invoke;
+        v43[3] = &unk_1E769A4A0;
+        v43[4] = self;
+        v44 = v8;
         v42 = v8;
-        dispatch_async(dispatchQueue, v44);
+        dispatch_async(dispatchQueue, v43);
 
         goto LABEL_30;
       }
@@ -569,8 +566,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 void __57__MRAVRoutingDiscoverySessionOperation__finishWithError___block_invoke(uint64_t a1)
@@ -601,47 +596,43 @@ void __57__MRAVRoutingDiscoverySessionOperation__finishWithError___block_invoke(
 
 - (void)_finishWithError:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = objc_opt_class();
   v7 = a1[11];
   v8 = [a2 error];
   v9 = [a1 outputDeviceUIDs];
   v10 = [MEMORY[0x1E695DF00] date];
   [v10 timeIntervalSinceDate:a1[10]];
-  v13 = 138544386;
-  v14 = v6;
-  v15 = 2114;
-  v16 = v7;
-  v17 = 2114;
-  v18 = v8;
-  v19 = 2114;
-  v20 = v9;
-  v21 = 2048;
-  v22 = v11;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v13, 0x34u);
-
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_finishWithError:(NSObject *)a3 .cold.2(uint64_t a1, void *a2, NSObject *a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  v6 = objc_opt_class();
-  v7 = *(a1 + 88);
-  v8 = [a2 error];
-  v9 = [MEMORY[0x1E695DF00] date];
-  [v9 timeIntervalSinceDate:*(a1 + 80)];
-  v12 = 138544130;
+  v12 = 138544386;
   v13 = v6;
   v14 = 2114;
   v15 = v7;
   v16 = 2114;
   v17 = v8;
-  v18 = 2048;
-  v19 = v10;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v12, 0x2Au);
+  v18 = 2114;
+  v19 = v9;
+  v20 = 2048;
+  v21 = v11;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v12, 0x34u);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)_finishWithError:(NSObject *)a3 .cold.2(uint64_t a1, void *a2, NSObject *a3)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v6 = objc_opt_class();
+  v7 = *(a1 + 88);
+  v8 = [a2 error];
+  v9 = [MEMORY[0x1E695DF00] date];
+  [v9 timeIntervalSinceDate:*(a1 + 80)];
+  v11 = 138544130;
+  v12 = v6;
+  v13 = 2114;
+  v14 = v7;
+  v15 = 2114;
+  v16 = v8;
+  v17 = 2048;
+  v18 = v10;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v11, 0x2Au);
 }
 
 @end

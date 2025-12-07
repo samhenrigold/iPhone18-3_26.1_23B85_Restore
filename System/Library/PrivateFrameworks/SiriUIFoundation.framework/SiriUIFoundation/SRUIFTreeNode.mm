@@ -28,39 +28,37 @@
 
 + (id)absoluteIndexPathsForTreeNodes:(id)nodes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(nodesCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = nodesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        absoluteIndexPath = [*(*(&v13 + 1) + 8 * i) absoluteIndexPath];
+        absoluteIndexPath = [*(*(&v12 + 1) + 8 * i) absoluteIndexPath];
         [v4 addObject:absoluteIndexPath];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -82,7 +80,7 @@
 
 - (void)_appendDescriptionToString:(id)string withIndentation:(id)indentation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   indentationCopy = indentation;
   [stringCopy appendString:indentationCopy];
@@ -97,34 +95,34 @@
   if (v12)
   {
     v13 = [indentationCopy stringByAppendingString:@"  "];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     selfCopy = self;
-    v15 = [(SRUIFTreeNode *)selfCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v15 = [(SRUIFTreeNode *)selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
       do
       {
         v18 = 0;
         do
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(selfCopy);
           }
 
-          v19 = *(*(&v21 + 1) + 8 * v18);
+          v19 = *(*(&v20 + 1) + 8 * v18);
           [stringCopy appendString:@"\n"];
           [v19 _appendDescriptionToString:stringCopy withIndentation:v13];
           ++v18;
         }
 
         while (v16 != v18);
-        v16 = [(SRUIFTreeNode *)selfCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v16 = [(SRUIFTreeNode *)selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v16);
@@ -138,8 +136,6 @@
   {
     [stringCopy appendString:@"none>"]);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

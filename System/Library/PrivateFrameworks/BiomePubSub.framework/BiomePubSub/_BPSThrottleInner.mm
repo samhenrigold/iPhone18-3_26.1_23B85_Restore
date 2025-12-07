@@ -47,7 +47,7 @@
   v3 = __biome_log_for_category();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    [_BPSTimerInner cancel];
+    [(_BPSTimerInner *)selfCopy cancel];
   }
 
   downstream = [(_BPSThrottleInner *)selfCopy downstream];
@@ -61,7 +61,7 @@
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [_BPSTimerInner receiveCompletion:];
+    [_BPSTimerInner receiveCompletion:selfCopy];
   }
 
   downstream = [(_BPSThrottleInner *)selfCopy downstream];
@@ -159,18 +159,16 @@ LABEL_20:
 
 - (void)receiveInput:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1C871B000, v0, OS_LOG_TYPE_DEBUG, "delivering: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C871B000, v0, OS_LOG_TYPE_DEBUG, "delivering: %@", v1, 0xCu);
 }
 
 - (void)receiveInput:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1C871B000, v0, OS_LOG_TYPE_DEBUG, "delivering 1st: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C871B000, v0, OS_LOG_TYPE_DEBUG, "delivering 1st: %@", v1, 0xCu);
 }
 
 @end

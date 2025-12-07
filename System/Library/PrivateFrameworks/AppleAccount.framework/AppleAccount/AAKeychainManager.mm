@@ -16,7 +16,7 @@
 
 + (id)passwordForServiceName:(id)name username:(id)username accessGroup:(id)group
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   usernameCopy = username;
   groupCopy = group;
@@ -51,7 +51,7 @@
   if (v12)
   {
     v13 = v11;
-    v14 = _AALogSystem();
+    v14 = _AALogSystem(v11);
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if (v13)
     {
@@ -72,11 +72,11 @@ LABEL_20:
       else if (v15)
       {
         *buf = 67109634;
-        v25 = v13;
-        v26 = 2112;
-        v27 = nameCopy;
-        v28 = 2112;
-        v29 = usernameCopy;
+        v24 = v13;
+        v25 = 2112;
+        v26 = nameCopy;
+        v27 = 2112;
+        v28 = usernameCopy;
         v16 = "SecItemCopyMatching result: %d - keychain item %@ - username %@";
         v19 = v14;
         v20 = 28;
@@ -101,8 +101,6 @@ LABEL_20:
 LABEL_22:
   CFRelease(Mutable);
 LABEL_23:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -145,7 +143,7 @@ LABEL_18:
       }
 
       v18 = v17;
-      v19 = _AALogSystem();
+      v19 = _AALogSystem(v17);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
@@ -162,19 +160,20 @@ LABEL_18:
       CFDictionaryAddValue(v20, *MEMORY[0x1E697B3C0], v13);
       CFDictionaryAddValue(v20, *MEMORY[0x1E697ABD8], *MEMORY[0x1E697ABE0]);
       v21 = SecItemUpdate(Mutable, v20);
+      v22 = v21;
       if (v20)
       {
         CFRelease(v20);
       }
 
-      if (v21)
+      if (v22)
       {
-        v22 = _AALogSystem();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v23 = _AALogSystem(v21);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(result[0]) = 67109120;
-          HIDWORD(result[0]) = v21;
-          _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, "SecItemUpdate result: %d", result, 8u);
+          HIDWORD(result[0]) = v22;
+          _os_log_impl(&dword_1B6F6A000, v23, OS_LOG_TYPE_DEFAULT, "SecItemUpdate result: %d", result, 8u);
         }
       }
     }
@@ -184,8 +183,6 @@ LABEL_18:
 
 LABEL_19:
   [_aa_keychainLock unlock];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removePasswordForService:(id)service username:(id)username accessGroup:(id)group

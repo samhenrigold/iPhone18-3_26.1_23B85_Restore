@@ -67,24 +67,24 @@
 
 - (void)viewDidLoad
 {
-  v51.receiver = self;
-  v51.super_class = CFXCameraControlsViewController;
-  [(CFXCameraControlsViewController *)&v51 viewDidLoad];
+  v55.receiver = self;
+  v55.super_class = CFXCameraControlsViewController;
+  [(CFXCameraControlsViewController *)&v55 viewDidLoad];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   cam_initialLayoutStyle = [currentDevice cam_initialLayoutStyle];
 
-  LODWORD(currentDevice) = CFXCaptureCapabilitiesIsCTMSupported();
-  v7 = objc_alloc(MEMORY[0x277CF7E88]);
+  LODWORD(currentDevice) = CFXCaptureCapabilitiesIsCTMSupported(v7);
+  v8 = objc_alloc(MEMORY[0x277CF7E88]);
   if (currentDevice)
   {
-    initForOverContent = [v7 initForOverContent];
+    initForOverContent = [v8 initForOverContent];
     [(CFXCameraControlsViewController *)self setEffectButton:initForOverContent];
   }
 
   else
   {
-    v9 = [v7 initWithLayoutStyle:cam_initialLayoutStyle];
-    [(CFXCameraControlsViewController *)self setEffectButton:v9];
+    v10 = [v8 initWithLayoutStyle:cam_initialLayoutStyle];
+    [(CFXCameraControlsViewController *)self setEffectButton:v10];
 
     effectButton = [(CFXCameraControlsViewController *)self effectButton];
     [effectButton setTappableEdgeInsets:{20.0, 20.0, 20.0, 20.0}];
@@ -114,7 +114,7 @@
   shutterButton4 = [(CFXCameraControlsViewController *)self shutterButton];
   [shutterButton4 setExclusiveTouch:1];
 
-  if ((CFXCaptureCapabilitiesIsCTMSupported() & 1) != 0 || ([MEMORY[0x277D75418] currentDevice], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "userInterfaceIdiom"), v18, v19 == 1))
+  if ((CFXCaptureCapabilitiesIsCTMSupported(v19) & 1) != 0 || ([MEMORY[0x277D75418] currentDevice], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "userInterfaceIdiom"), v20, v21 == 1))
   {
     flipButtonOverContent = [MEMORY[0x277CF7EA8] flipButtonOverContent];
     [(CFXCameraControlsViewController *)self setFlipButton:flipButtonOverContent];
@@ -122,8 +122,8 @@
 
   else
   {
-    v21 = [MEMORY[0x277CF7EA8] flipButtonWithLayoutStyle:cam_initialLayoutStyle];
-    [(CFXCameraControlsViewController *)self setFlipButton:v21];
+    v23 = [MEMORY[0x277CF7EA8] flipButtonWithLayoutStyle:cam_initialLayoutStyle];
+    [(CFXCameraControlsViewController *)self setFlipButton:v23];
 
     flipButtonOverContent = [(CFXCameraControlsViewController *)self flipButton];
     [flipButtonOverContent setFrame:{0.0, 0.0, 60.0, 60.0}];
@@ -133,39 +133,39 @@
   [flipButton addTarget:self action:sel_switchCameraButtonTapped_ forControlEvents:64];
 
   flipButton2 = [(CFXCameraControlsViewController *)self flipButton];
-  v24 = 1;
+  v26 = 1;
   [flipButton2 setExclusiveTouch:1];
 
   currentDevice2 = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice2 userInterfaceIdiom];
   if (userInterfaceIdiom)
   {
-    v27 = 0;
+    v29 = 0;
   }
 
   else
   {
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen bounds];
-    if (v28 <= 811)
+    if (v30 <= 811)
     {
       mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen2 bounds];
-      v24 = v29 < 812;
-      v27 = 1;
+      v26 = v31 < 812;
+      v29 = 1;
     }
 
     else
     {
-      v27 = 0;
-      v24 = 0;
+      v29 = 0;
+      v26 = 0;
     }
   }
 
   bottomBlackView = [(CFXCameraControlsViewController *)self bottomBlackView];
-  [bottomBlackView setHidden:v24];
+  [bottomBlackView setHidden:v26];
 
-  if (v27)
+  if (v29)
   {
   }
 
@@ -173,8 +173,8 @@
   {
   }
 
-  v31 = objc_alloc_init(MEMORY[0x277CF7E68]);
-  [(CFXCameraControlsViewController *)self setBottomBar:v31];
+  v33 = objc_alloc_init(MEMORY[0x277CF7E68]);
+  [(CFXCameraControlsViewController *)self setBottomBar:v33];
 
   currentDevice3 = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom2 = [currentDevice3 userInterfaceIdiom];
@@ -186,14 +186,14 @@
     [view addSubview:bottomBar];
 
     delegate = [(CFXCameraControlsViewController *)self delegate];
-    v37 = [delegate doneButtonForCameraControlsViewController:self];
+    v39 = [delegate doneButtonForCameraControlsViewController:self];
     bottomBar2 = [(CFXCameraControlsViewController *)self bottomBar];
-    [bottomBar2 setDoneButton:v37];
+    [bottomBar2 setDoneButton:v39];
 
     delegate2 = [(CFXCameraControlsViewController *)self delegate];
-    v40 = [delegate2 flashButtonForCameraControlsViewController:self];
+    v42 = [delegate2 flashButtonForCameraControlsViewController:self];
     bottomBar3 = [(CFXCameraControlsViewController *)self bottomBar];
-    [bottomBar3 setFlashButton:v40];
+    [bottomBar3 setFlashButton:v42];
 
     bottomBar4 = [(CFXCameraControlsViewController *)self bottomBar];
     [bottomBar4 setBackgroundStyle:1];
@@ -201,7 +201,8 @@
 
   else
   {
-    if (isStreamingMode([(CFXCameraControlsViewController *)self captureMode]))
+    v45 = isStreamingMode([(CFXCameraControlsViewController *)self captureMode]);
+    if (v45)
     {
       bottomBar4 = [(CFXCameraControlsViewController *)self backgroundView];
       bottomBar5 = [(CFXCameraControlsViewController *)self bottomBar];
@@ -210,7 +211,7 @@
 
     else
     {
-      if (CFXCaptureCapabilitiesIsCTMSupported())
+      if (CFXCaptureCapabilitiesIsCTMSupported(v45))
       {
         goto LABEL_25;
       }
@@ -225,7 +226,7 @@ LABEL_25:
   bottomBar6 = [(CFXCameraControlsViewController *)self bottomBar];
   [bottomBar6 setLayoutStyle:cam_initialLayoutStyle];
 
-  if ((CFXCaptureCapabilitiesIsCTMSupported() & 1) == 0)
+  if ((CFXCaptureCapabilitiesIsCTMSupported(v48) & 1) == 0)
   {
     effectButton5 = [(CFXCameraControlsViewController *)self effectButton];
     bottomBar7 = [(CFXCameraControlsViewController *)self bottomBar];
@@ -261,9 +262,9 @@ LABEL_25:
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v16.receiver = self;
-  v16.super_class = CFXCameraControlsViewController;
-  [(CFXCameraControlsViewController *)&v16 viewDidAppear:appear];
+  v17.receiver = self;
+  v17.super_class = CFXCameraControlsViewController;
+  [(CFXCameraControlsViewController *)&v17 viewDidAppear:appear];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   if ([currentDevice userInterfaceIdiom])
   {
@@ -300,7 +301,7 @@ LABEL_25:
         v9 = appStripBackgroundView;
       }
 
-      if (CFXCaptureCapabilitiesIsCTMSupported())
+      if (CFXCaptureCapabilitiesIsCTMSupported(v11))
       {
         delegate = [(CFXCameraControlsViewController *)self delegate];
         if ([delegate needsBlackBackgroundForCTMControls])
@@ -312,9 +313,9 @@ LABEL_25:
         {
           [MEMORY[0x277D75348] clearColor];
         }
-        v12 = ;
+        v13 = ;
         appStripBackgroundView3 = [(CFXCameraControlsViewController *)self appStripBackgroundView];
-        [appStripBackgroundView3 setBackgroundColor:v12];
+        [appStripBackgroundView3 setBackgroundColor:v13];
       }
 
       appStripBackgroundContainerView = [(CFXCameraControlsViewController *)self appStripBackgroundContainerView];
@@ -360,124 +361,124 @@ LABEL_25:
       v13 = v12;
 
       v14 = +[JFXOrientationMonitor interfaceOrientation];
-      [MEMORY[0x277D3D080] reviewScreenControlBarFrameForReferenceBounds:{v7, v9, v11, v13}];
-      v16 = v15;
-      v18 = v17;
-      v20 = v19;
-      v22 = v21;
-      if (CFXCaptureCapabilitiesIsCTMSupported())
+      v15 = [MEMORY[0x277D3D080] reviewScreenControlBarFrameForReferenceBounds:{v7, v9, v11, v13}];
+      v17 = v16;
+      v19 = v18;
+      v21 = v20;
+      v23 = v22;
+      if (CFXCaptureCapabilitiesIsCTMSupported(v15))
       {
         delegate = [(CFXCameraControlsViewController *)self delegate];
         [delegate bottomBarCTMControlsFrameForWindowOrientation:v14 bounds:{v7, v9, v11, v13}];
-        v16 = v24;
-        v18 = v25;
-        v20 = v26;
-        v22 = v27;
+        v17 = v25;
+        v19 = v26;
+        v21 = v27;
+        v23 = v28;
       }
 
       [(CFXCameraControlsViewController *)self CFX_smallPhoneDockHeightAdjustment];
-      v29 = v28;
+      v30 = v29;
       bottomBar = [(CFXCameraControlsViewController *)self bottomBar];
       [bottomBar frame];
-      Width = CGRectGetWidth(v66);
+      Width = CGRectGetWidth(v68);
 
       currentDevice2 = [MEMORY[0x277D75418] currentDevice];
-      v33 = 0.0;
+      v34 = 0.0;
       if (![currentDevice2 userInterfaceIdiom])
       {
         mainScreen = [MEMORY[0x277D759A0] mainScreen];
         [mainScreen bounds];
-        v33 = v29;
-        if (v35 != 568)
+        v34 = v30;
+        if (v36 != 568)
         {
           mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
           [mainScreen2 bounds];
-          if (v37 == 568)
+          if (v38 == 568)
           {
-            v33 = v29;
+            v34 = v30;
           }
 
           else
           {
-            v33 = 0.0;
+            v34 = 0.0;
           }
         }
       }
 
-      v38 = v14 - 3;
+      v39 = v14 - 3;
 
-      v67.origin.x = v16;
-      v67.origin.y = v18;
-      v67.size.width = v20;
-      v67.size.height = v22;
-      Height = CGRectGetHeight(v67);
+      v69.origin.x = v17;
+      v69.origin.y = v19;
+      v69.size.width = v21;
+      v69.size.height = v23;
+      Height = CGRectGetHeight(v69);
       currentDevice3 = [MEMORY[0x277D75418] currentDevice];
       if (![currentDevice3 userInterfaceIdiom])
       {
         mainScreen3 = [MEMORY[0x277D759A0] mainScreen];
         [mainScreen3 bounds];
-        if (v42 == 568)
+        if (v43 == 568)
         {
-          Height = Height - v29;
+          Height = Height - v30;
         }
 
         else
         {
           mainScreen4 = [MEMORY[0x277D759A0] mainScreen];
           [mainScreen4 bounds];
-          if (v44 == 568)
+          if (v45 == 568)
           {
-            Height = Height - v29;
+            Height = Height - v30;
           }
         }
       }
 
-      v45 = 0.0;
+      v46 = 0.0;
       if ([(CFXCameraControlsViewController *)self dockIsMagnified])
       {
-        v46 = -31.0;
+        v47 = -31.0;
       }
 
       else
       {
-        v46 = 0.0;
+        v47 = 0.0;
       }
 
       appStripBackgroundContainerViewTopConstraint = [(CFXCameraControlsViewController *)self appStripBackgroundContainerViewTopConstraint];
-      v49 = appStripBackgroundContainerViewTopConstraint;
-      if (v38 >= 2)
+      v50 = appStripBackgroundContainerViewTopConstraint;
+      if (v39 >= 2)
       {
-        *&v48 = 250.0;
+        *&v49 = 250.0;
       }
 
       else
       {
-        *&v48 = 750.0;
+        *&v49 = 750.0;
       }
 
-      if (v38 >= 2)
+      if (v39 >= 2)
       {
-        v50 = 750.0;
+        v51 = 750.0;
       }
 
       else
       {
-        v50 = 250.0;
+        v51 = 250.0;
       }
 
-      [appStripBackgroundContainerViewTopConstraint setPriority:v48];
+      [appStripBackgroundContainerViewTopConstraint setPriority:v49];
 
       appStripBackgroundContainerViewHeightConstraint = [(CFXCameraControlsViewController *)self appStripBackgroundContainerViewHeightConstraint];
-      *&v52 = v50;
-      [appStripBackgroundContainerViewHeightConstraint setPriority:v52];
+      *&v53 = v51;
+      [appStripBackgroundContainerViewHeightConstraint setPriority:v53];
 
       if (v14 == 1)
       {
-        v45 = -Height;
+        v46 = -Height;
       }
 
       appStripBackgroundContainerViewBottomConstraint = [(CFXCameraControlsViewController *)self appStripBackgroundContainerViewBottomConstraint];
-      [appStripBackgroundContainerViewBottomConstraint setConstant:v45];
+      [appStripBackgroundContainerViewBottomConstraint setConstant:v46];
 
       appStripBackgroundContainerViewLeadingConstraint = [(CFXCameraControlsViewController *)self appStripBackgroundContainerViewLeadingConstraint];
       [appStripBackgroundContainerViewLeadingConstraint setConstant:0.0];
@@ -485,7 +486,7 @@ LABEL_25:
       appStripBackgroundContainerViewTrailingConstraint = [(CFXCameraControlsViewController *)self appStripBackgroundContainerViewTrailingConstraint];
       [appStripBackgroundContainerViewTrailingConstraint setConstant:0.0];
 
-      if (CFXCaptureCapabilitiesIsCTMSupported())
+      if (CFXCaptureCapabilitiesIsCTMSupported(v57))
       {
         appStripBackgroundContainerViewLeadingConstraint2 = [(CFXCameraControlsViewController *)self appStripBackgroundContainerViewLeadingConstraint];
         [appStripBackgroundContainerViewLeadingConstraint2 setActive:0];
@@ -494,65 +495,65 @@ LABEL_25:
         [appStripBackgroundContainerViewTrailingConstraint2 setActive:0];
       }
 
-      if (v38 > 1)
+      if (v39 > 1)
       {
         appStripBackgroundContainerViewHeightConstraint2 = [(CFXCameraControlsViewController *)self appStripBackgroundContainerViewHeightConstraint];
-        [appStripBackgroundContainerViewHeightConstraint2 setConstant:v33];
+        [appStripBackgroundContainerViewHeightConstraint2 setConstant:v34];
 
         if ([(CFXCameraControlsViewController *)self dockIsMagnified])
         {
-          v33 = v33 + 31.0;
+          v34 = v34 + 31.0;
         }
 
-        v63 = 0.0;
-        v29 = Width;
+        v65 = 0.0;
+        v30 = Width;
       }
 
       else
       {
         bottomBar2 = [(CFXCameraControlsViewController *)self bottomBar];
         [bottomBar2 frame];
-        v33 = CGRectGetWidth(v68);
+        v34 = CGRectGetWidth(v70);
 
         if (v14 == 4)
         {
           appStripBackgroundContainerViewLeadingConstraint3 = [(CFXCameraControlsViewController *)self appStripBackgroundContainerViewLeadingConstraint];
-          v60 = appStripBackgroundContainerViewLeadingConstraint3;
-          v61 = Height;
+          v62 = appStripBackgroundContainerViewLeadingConstraint3;
+          v63 = Height;
         }
 
         else
         {
           appStripBackgroundContainerViewLeadingConstraint3 = [(CFXCameraControlsViewController *)self appStripBackgroundContainerViewTrailingConstraint];
-          v60 = appStripBackgroundContainerViewLeadingConstraint3;
-          v61 = -Height;
+          v62 = appStripBackgroundContainerViewLeadingConstraint3;
+          v63 = -Height;
         }
 
-        [appStripBackgroundContainerViewLeadingConstraint3 setConstant:v61];
+        [appStripBackgroundContainerViewLeadingConstraint3 setConstant:v63];
 
-        v46 = 0.0;
+        v47 = 0.0;
         if ([(CFXCameraControlsViewController *)self dockIsMagnified])
         {
-          v29 = v29 + 31.0;
+          v30 = v30 + 31.0;
           if (v14 == 3)
           {
-            v63 = -31.0;
+            v65 = -31.0;
           }
 
           else
           {
-            v63 = 0.0;
+            v65 = 0.0;
           }
         }
 
         else
         {
-          v63 = 0.0;
+          v65 = 0.0;
         }
       }
 
       appStripBackgroundView = [(CFXCameraControlsViewController *)self appStripBackgroundView];
-      [appStripBackgroundView setFrame:{v63, v46, v29, v33}];
+      [appStripBackgroundView setFrame:{v65, v47, v30, v34}];
     }
   }
 }

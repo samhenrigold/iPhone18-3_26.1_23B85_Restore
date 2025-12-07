@@ -281,7 +281,7 @@ void __54__RTBluePOIMetricManager__onDailyMetricsNotification___block_invoke(uin
     }
   }
 
-  if ([(RTBluePOIMetricManager *)self collectingEventMetrics])
+  if ([(RTBluePOIMetricManager *)self collectingEventMetrics:*v14])
   {
     eventMetrics = [(RTBluePOIMetricManager *)self eventMetrics];
     [eventMetrics setObject:valueCopy forKey:keyCopy];
@@ -360,7 +360,7 @@ void __54__RTBluePOIMetricManager__onDailyMetricsNotification___block_invoke(uin
   return selfCopy;
 }
 
-uint64_t __50__RTBluePOIMetricManager_requestCollectQueryEvent__block_invoke(uint64_t a1)
+void *__50__RTBluePOIMetricManager_requestCollectQueryEvent__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _requestCollectQueryEvent];
   *(*(*(a1 + 40) + 8) + 24) = result;

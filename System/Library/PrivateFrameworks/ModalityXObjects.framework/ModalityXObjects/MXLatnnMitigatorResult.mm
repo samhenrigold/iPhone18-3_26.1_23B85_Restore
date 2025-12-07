@@ -93,7 +93,6 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    processed = self->_processed;
     PBDataWriterWriteBOOLField();
   }
 
@@ -105,14 +104,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    threshold = self->_threshold;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if (has)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -188,7 +185,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 36);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 36) & 4) == 0)
@@ -196,7 +192,6 @@
       goto LABEL_21;
     }
 
-    v8 = *(equalCopy + 32);
     if (self->_processed)
     {
       if ((*(equalCopy + 32) & 1) == 0)
@@ -225,7 +220,7 @@
   if (![(NSString *)version isEqual:?])
   {
 LABEL_21:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_22;
   }
 
@@ -244,7 +239,7 @@ LABEL_7:
     goto LABEL_21;
   }
 
-  v9 = (*(equalCopy + 36) & 1) == 0;
+  v7 = (*(equalCopy + 36) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_score != *(equalCopy + 1))
@@ -252,12 +247,12 @@ LABEL_7:
       goto LABEL_21;
     }
 
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_22:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

@@ -50,9 +50,9 @@ uint64_t __55___HKObjectComparisonFilter__configureForKeyPathSource__block_invok
   return v4;
 }
 
-uint64_t __60___HKObjectComparisonFilter__acceptsDataObjectWithMetadata___block_invoke(uint64_t a1)
+uint64_t __60___HKObjectComparisonFilter__acceptsDataObjectWithMetadata___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = [*(a1 + 32) value];
+  v2 = [*(a1 + 32) value];
   isKindOfClass = objc_opt_isKindOfClass();
 
   return isKindOfClass & 1;

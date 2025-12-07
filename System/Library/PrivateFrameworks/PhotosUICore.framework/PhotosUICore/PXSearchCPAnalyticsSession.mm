@@ -29,7 +29,7 @@
     [processInfo systemUptime];
     v5 = v4;
 
-    [(PXSearchCPAnalyticsSession *)self startTime];
+    objc_msgSend_startTime(self);
     [(PXSearchCPAnalyticsSession *)self setTimeIntervalSuccess:v5 - v6];
     numberOfSearches = [(PXSearchCPAnalyticsSession *)self numberOfSearches];
 
@@ -98,7 +98,7 @@
       [processInfo systemUptime];
       v8 = v7;
 
-      [(PXSearchCPAnalyticsSession *)self startTime];
+      objc_msgSend_startTime(self);
       [(PXSearchCPAnalyticsSession *)self setTimeIntervalFirstEnteredCollection:v8 - v9];
       [(PXSearchCPAnalyticsSession *)self setNumberOfSearchesUntilFirstEnteredCollection:[(PXSearchCPAnalyticsSession *)self numberOfSearches]];
       [(PXSearchCPAnalyticsSession *)self setFirstEnteredCollectionResultType:result];
@@ -116,7 +116,7 @@
     [processInfo systemUptime];
     v5 = v4;
 
-    [(PXSearchCPAnalyticsSession *)self startTime];
+    objc_msgSend_startTime(self);
     v7 = v6;
     [(PXSearchCPAnalyticsSession *)self timeIntervalFirstOneUpInTopAssets];
     if (v8 == 0.0)
@@ -200,7 +200,7 @@
     v22 = [PXSearchCPAnalyticsSession _cappedSearchCount:[(PXSearchCPAnalyticsSession *)self numberOfWordEmbeddingSelections]];
     v20 = [PXSearchCPAnalyticsSession _cappedSearchCount:[(PXSearchCPAnalyticsSession *)self numberOfNextTokenSelections]];
     v18 = [PXSearchCPAnalyticsSession _cappedSearchCount:[(PXSearchCPAnalyticsSession *)self numberOfCompletionSelections]];
-    [(PXSearchCPAnalyticsSession *)self startTime];
+    objc_msgSend_startTime(self);
     v17 = [PXSearchCPAnalyticsSession _bucketedTimeInterval:v5 - v8];
     [(PXSearchCPAnalyticsSession *)self timeIntervalSuccess];
     v9 = [PXSearchCPAnalyticsSession _bucketedTimeInterval:?];

@@ -159,7 +159,7 @@
   selectedTextRange = [document2 selectedTextRange];
   selectedRange = [(UITextSelection *)selfCopy selectedRange];
   v7 = selectedRange;
-  if (!(selectedTextRange | selectedRange) || selectedTextRange && selectedRange && [selectedTextRange isEqual:selectedRange])
+  if (!(selectedTextRange | selectedRange) || selectedTextRange && selectedRange && objc_msgSend_isEqual_(selectedTextRange))
   {
     interactionAssistant2 = [document2 interactionAssistant];
     [interactionAssistant2 updateDisplayedSelection];
@@ -192,7 +192,7 @@
     LOBYTE(v7) = 1;
     if (selectedTextRange && selectedRange)
     {
-      v7 = [selectedTextRange isEqual:selectedRange] ^ 1;
+      v7 = objc_msgSend_isEqual_(selectedTextRange) ^ 1;
     }
   }
 
@@ -1532,7 +1532,7 @@ LABEL_15:
 
   v20 = v18;
   v21 = v19;
-  if (!v17 || ([v17 isEqual:v21] & 1) == 0)
+  if (!v17 || (objc_msgSend_isEqual_(v17) & 1) == 0)
   {
     v48 = start;
     v22 = !downstreamCopy;
@@ -1576,9 +1576,9 @@ LABEL_15:
       v33 = v32;
       if (v17 && v32)
       {
-        v34 = [v17 isEqual:v30];
+        isEqual = objc_msgSend_isEqual_(v17);
 
-        if ((v34 & 1) == 0)
+        if ((isEqual & 1) == 0)
         {
 LABEL_29:
           v35 = v30;
@@ -1612,7 +1612,7 @@ LABEL_29:
       while (1)
       {
         tokenizer5 = [document tokenizer];
-        if ([tokenizer5 isPosition:v21 atBoundary:1 inDirection:v22] & 1) != 0 || (objc_msgSend(v21, "isEqual:", v20))
+        if ([tokenizer5 isPosition:v21 atBoundary:1 inDirection:v22] & 1) != 0 || (objc_msgSend_isEqual_(v21))
         {
           break;
         }
@@ -1646,7 +1646,7 @@ LABEL_29:
 LABEL_44:
       start = v48;
       v30 = v45;
-      if (![v21 isEqual:v20])
+      if (!objc_msgSend_isEqual_(v21))
       {
         goto LABEL_47;
       }

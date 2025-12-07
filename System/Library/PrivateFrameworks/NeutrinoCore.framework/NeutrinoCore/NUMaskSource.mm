@@ -206,7 +206,7 @@
     _NUAssertFailHandler("[NUMaskSource extent]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Mask/NUMaskSource.m", 199, @"wrong value type", v33, v34, v35, v36, v37);
   }
 
-  [v38 nu_pixelRect];
+  objc_msgSend_nu_pixelRect(v38);
 
   return result;
 }

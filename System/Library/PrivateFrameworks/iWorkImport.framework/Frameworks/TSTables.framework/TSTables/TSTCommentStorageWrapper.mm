@@ -28,15 +28,15 @@
 {
   cellCopy = cell;
   commentStorage = self->_commentStorage;
-  v9 = cellCopy;
+  v8 = cellCopy;
   if (commentStorage)
   {
-    objc_msgSend_setCommentStorage_(cellCopy, v5, commentStorage, v6, v7);
+    objc_msgSend_setCommentStorage_(cellCopy, v5, commentStorage, v6);
   }
 
   else
   {
-    objc_msgSend_setCommentStorage_(cellCopy, v5, 0, v6, v7);
+    objc_msgSend_setCommentStorage_(cellCopy, v5, 0, v6);
   }
 }
 
@@ -55,13 +55,13 @@
 - (id)objectByRemovingPropertiesInMap:(id)map addingPropertiesInMap:(id)inMap updateInverseResetPropertyMap:(id)propertyMap updateInverseSetPropertyMap:(id)setPropertyMap
 {
   inMapCopy = inMap;
-  objc_msgSend_setObject_forProperty_(setPropertyMap, v9, self, 910, v10);
+  objc_msgSend_setObject_forProperty_(setPropertyMap, v9, self, 910);
   selfCopy = self;
-  if (objc_msgSend_containsProperty_(inMapCopy, v12, 910, v13, v14))
+  if (objc_msgSend_containsProperty_(inMapCopy, v11, 910, v12))
   {
-    v18 = objc_msgSend_objectForProperty_(inMapCopy, v15, 910, v16, v17);
+    v15 = objc_msgSend_objectForProperty_(inMapCopy, v13, 910, v14);
 
-    selfCopy = v18;
+    selfCopy = v15;
   }
 
   return selfCopy;
@@ -106,23 +106,23 @@
     var0 = message[1].var1.var0;
     if (!var0)
     {
-      v10 = message->var1.var0;
-      if (v10)
+      v9 = message->var1.var0;
+      if (v9)
       {
-        v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
+        v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      var0 = MEMORY[0x223DA0390](v10);
+      var0 = MEMORY[0x223DA0390](v9);
       message[1].var1.var0 = var0;
     }
 
-    objc_msgSend_setStrongReference_message_(archiverCopy, v6, commentStorage, var0, v7);
-    v15 = objc_msgSend_replies(self->_commentStorage, v11, v12, v13, v14);
-    v20 = objc_msgSend_count(v15, v16, v17, v18, v19);
+    objc_msgSend_setStrongReference_message_(archiverCopy, v6, commentStorage, var0);
+    v13 = objc_msgSend_replies(self->_commentStorage, v10, v11, v12);
+    v17 = objc_msgSend_count(v13, v14, v15, v16);
 
-    if (v20)
+    if (v17)
     {
-      objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v21, *MEMORY[0x277D80980], @"TSDThreadedComments", v22);
+      objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v18, *MEMORY[0x277D80980], @"TSDThreadedComments");
     }
   }
 }

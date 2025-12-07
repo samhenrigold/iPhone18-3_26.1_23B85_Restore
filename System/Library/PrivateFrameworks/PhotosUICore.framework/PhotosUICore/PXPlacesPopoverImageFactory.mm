@@ -35,11 +35,11 @@
   return _placesKitFrameworkBundle_frameworkBundle;
 }
 
-void __56__PXPlacesPopoverImageFactory__placesKitFrameworkBundle__block_invoke()
+void __56__PXPlacesPopoverImageFactory__placesKitFrameworkBundle__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v1 = _placesKitFrameworkBundle_frameworkBundle;
-  _placesKitFrameworkBundle_frameworkBundle = v0;
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = _placesKitFrameworkBundle_frameworkBundle;
+  _placesKitFrameworkBundle_frameworkBundle = v1;
 }
 
 - (id)imageNamed:(id)named

@@ -29,11 +29,11 @@
 
 - (COCompanionLinkClientFactory)initWithDispatchQueue:(id)queue
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v17.receiver = self;
-  v17.super_class = COCompanionLinkClientFactory;
-  v6 = [(COCompanionLinkClientFactory *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = COCompanionLinkClientFactory;
+  v6 = [(COCompanionLinkClientFactory *)&v16 init];
   v7 = v6;
   if (v6)
   {
@@ -54,12 +54,11 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v19 = v7;
+      v18 = v7;
       _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p companion link factory created", buf, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -122,12 +121,12 @@ uint64_t __45__COCompanionLinkClientFactory_activeDevices__block_invoke(uint64_t
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (BOOL)_isKnownDevice:(id)device
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   os_unfair_lock_assert_owner(&self->_lock);
   idsDeviceIdentifier = [deviceCopy idsDeviceIdentifier];
@@ -144,61 +143,61 @@ uint64_t __45__COCompanionLinkClientFactory_activeDevices__block_invoke(uint64_t
 
   if ([v7 count] == 1)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     locals = [(COCompanionLinkClientFactory *)self locals];
-    v24 = [locals countByEnumeratingWithState:&v30 objects:v35 count:16];
-    if (v24)
+    v23 = [locals countByEnumeratingWithState:&v29 objects:v34 count:16];
+    if (v23)
     {
-      v9 = *v31;
-      v25 = locals;
-      v23 = *v31;
+      v9 = *v30;
+      v24 = locals;
+      v22 = *v30;
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v31 != v9)
+          if (*v30 != v9)
           {
             objc_enumerationMutation(locals);
           }
 
-          v11 = *(*(&v30 + 1) + 8 * i);
+          v11 = *(*(&v29 + 1) + 8 * i);
+          v25 = 0u;
           v26 = 0u;
           v27 = 0u;
           v28 = 0u;
-          v29 = 0u;
           rapport = [v11 rapport];
           activeDevices = [rapport activeDevices];
 
-          v14 = [activeDevices countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v14 = [activeDevices countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v27;
+            v16 = *v26;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v27 != v16)
+                if (*v26 != v16)
                 {
                   objc_enumerationMutation(activeDevices);
                 }
 
-                idsDeviceIdentifier2 = [*(*(&v26 + 1) + 8 * j) idsDeviceIdentifier];
+                idsDeviceIdentifier2 = [*(*(&v25 + 1) + 8 * j) idsDeviceIdentifier];
                 v19 = [idsDeviceIdentifier2 isEqualToString:idsDeviceIdentifier];
 
                 if (v19)
                 {
 
                   v20 = 1;
-                  locals = v25;
+                  locals = v24;
                   goto LABEL_24;
                 }
               }
 
-              v15 = [activeDevices countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v15 = [activeDevices countByEnumeratingWithState:&v25 objects:v33 count:16];
               if (v15)
               {
                 continue;
@@ -208,15 +207,15 @@ uint64_t __45__COCompanionLinkClientFactory_activeDevices__block_invoke(uint64_t
             }
           }
 
-          locals = v25;
-          v9 = v23;
+          locals = v24;
+          v9 = v22;
         }
 
         v20 = 0;
-        v24 = [v25 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v23 = [v24 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
-      while (v24);
+      while (v23);
     }
 
     else
@@ -232,36 +231,35 @@ LABEL_24:
     v20 = 1;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)_clientsForRapportClient_unsafe:(id)client_unsafe
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   client_unsafeCopy = client_unsafe;
   os_unfair_lock_assert_owner(&self->_lock);
   v5 = objc_alloc_init(MEMORY[0x277CBEA60]);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   locals = [(COCompanionLinkClientFactory *)self locals];
-  v7 = [locals countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v7 = [locals countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v38;
+    v9 = *v37;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v38 != v9)
+        if (*v37 != v9)
         {
           objc_enumerationMutation(locals);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * i);
+        v11 = *(*(&v36 + 1) + 8 * i);
         rapport = [v11 rapport];
 
         if (rapport == client_unsafeCopy)
@@ -272,51 +270,51 @@ LABEL_24:
         }
       }
 
-      v8 = [locals countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v8 = [locals countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v8);
   }
 
   clients = [(COCompanionLinkClientFactory *)self clients];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v28 = [clients countByEnumeratingWithState:&v33 objects:v42 count:16];
-  if (v28)
+  v27 = [clients countByEnumeratingWithState:&v32 objects:v41 count:16];
+  if (v27)
   {
-    v27 = *v34;
+    v26 = *v33;
     do
     {
-      for (j = 0; j != v28; ++j)
+      for (j = 0; j != v27; ++j)
       {
-        if (*v34 != v27)
+        if (*v33 != v26)
         {
           objc_enumerationMutation(clients);
         }
 
-        v16 = *(*(&v33 + 1) + 8 * j);
+        v16 = *(*(&v32 + 1) + 8 * j);
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
-        v17 = [clients objectForKey:{v16, v27}];
-        v18 = [v17 countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v17 = [clients objectForKey:{v16, v26}];
+        v18 = [v17 countByEnumeratingWithState:&v28 objects:v40 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v30;
+          v20 = *v29;
           do
           {
             for (k = 0; k != v19; ++k)
             {
-              if (*v30 != v20)
+              if (*v29 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v22 = *(*(&v29 + 1) + 8 * k);
+              v22 = *(*(&v28 + 1) + 8 * k);
               rapport2 = [v22 rapport];
 
               if (rapport2 == client_unsafeCopy)
@@ -327,47 +325,45 @@ LABEL_24:
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v29 objects:v41 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v28 objects:v40 count:16];
           }
 
           while (v19);
         }
       }
 
-      v28 = [clients countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v27 = [clients countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_reuseableRapportClientInClientsList:(id)list
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   listCopy = list;
-  v4 = [listCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [listCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v12 != v6)
+      if (*v11 != v6)
       {
         objc_enumerationMutation(listCopy);
       }
 
-      rapport = [*(*(&v11 + 1) + 8 * v7) rapport];
+      rapport = [*(*(&v10 + 1) + 8 * v7) rapport];
       if (([rapport co_CompanionLinkClientFlags] & 0xC) == 0)
       {
         break;
@@ -375,7 +371,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [listCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [listCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -392,52 +388,48 @@ LABEL_9:
     rapport = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return rapport;
 }
 
 - (id)companionLinkClientForCurrentDevice
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__0;
-  v14 = __Block_byref_object_dispose__0;
-  v15 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke;
-  v9[3] = &unk_278E15950;
-  v9[4] = self;
-  v9[5] = &v10;
-  [(COCompanionLinkClientFactory *)self _withLock:v9];
+  v21 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__0;
+  v13 = __Block_byref_object_dispose__0;
+  v14 = 0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke;
+  v8[3] = &unk_278E15950;
+  v8[4] = self;
+  v8[5] = &v9;
+  [(COCompanionLinkClientFactory *)self _withLock:v8];
   v3 = COCoreLogForCategory(19);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = v11[5];
+    v4 = v10[5];
     rapport = [v4 rapport];
     *buf = 134218496;
     selfCopy = self;
-    v18 = 2048;
-    v19 = v4;
-    v20 = 2048;
-    v21 = rapport;
+    v17 = 2048;
+    v18 = v4;
+    v19 = 2048;
+    v20 = rapport;
     _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p returning %p for current device use riding on %p", buf, 0x20u);
   }
 
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
 
   return v6;
 }
 
 void __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) locals];
   v4 = [*v2 _reuseableRapportClientInClientsList:v3];
@@ -449,110 +441,110 @@ void __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__blo
 
     objc_initWeak(&location, *(a1 + 32));
     objc_initWeak(&from, v4);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_2;
-    v39[3] = &unk_278E158B0;
-    objc_copyWeak(&v40, &location);
-    objc_copyWeak(&v41, &from);
-    [v4 setInterruptionHandler:v39];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_3;
-    v36[3] = &unk_278E158B0;
-    objc_copyWeak(&v37, &location);
-    objc_copyWeak(&v38, &from);
-    [v4 setStateUpdatedHandler:v36];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_4;
-    v33[3] = &unk_278E158B0;
-    objc_copyWeak(&v34, &location);
-    objc_copyWeak(&v35, &from);
-    [v4 setErrorFlagsChangedHandler:v33];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_5;
-    v30[3] = &unk_278E158B0;
-    objc_copyWeak(&v31, &location);
-    objc_copyWeak(&v32, &from);
-    [v4 setDisconnectHandler:v30];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_6;
-    v27[3] = &unk_278E158B0;
-    objc_copyWeak(&v28, &location);
-    objc_copyWeak(&v29, &from);
-    [v4 setInvalidationHandler:v27];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_7;
-    v25[3] = &unk_278E158D8;
-    objc_copyWeak(&v26, &location);
-    [v4 setDeviceFoundHandler:v25];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_8;
-    v23[3] = &unk_278E158D8;
-    objc_copyWeak(&v24, &location);
-    [v4 setDeviceLostHandler:v23];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_9;
-    v21[3] = &unk_278E15900;
-    objc_copyWeak(&v22, &location);
-    [v4 setDeviceChangedHandler:v21];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_10;
-    v19[3] = &unk_278E158D8;
-    objc_copyWeak(&v20, &location);
-    [v4 setLocalDeviceUpdatedHandler:v19];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_11;
-    v16[3] = &unk_278E15928;
-    objc_copyWeak(&v17, &location);
-    objc_copyWeak(&v18, &from);
-    [v4 setRequestIDRegistrationCompletion:v16];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_12;
-    v13[3] = &unk_278E15928;
-    objc_copyWeak(&v14, &location);
-    objc_copyWeak(&v15, &from);
-    [v4 setEventIDRegistrationCompletion:v13];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_2;
+    v38[3] = &unk_278E158B0;
+    objc_copyWeak(&v39, &location);
+    objc_copyWeak(&v40, &from);
+    [v4 setInterruptionHandler:v38];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_3;
+    v35[3] = &unk_278E158B0;
+    objc_copyWeak(&v36, &location);
+    objc_copyWeak(&v37, &from);
+    [v4 setStateUpdatedHandler:v35];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_4;
+    v32[3] = &unk_278E158B0;
+    objc_copyWeak(&v33, &location);
+    objc_copyWeak(&v34, &from);
+    [v4 setErrorFlagsChangedHandler:v32];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_5;
+    v29[3] = &unk_278E158B0;
+    objc_copyWeak(&v30, &location);
+    objc_copyWeak(&v31, &from);
+    [v4 setDisconnectHandler:v29];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_6;
+    v26[3] = &unk_278E158B0;
+    objc_copyWeak(&v27, &location);
+    objc_copyWeak(&v28, &from);
+    [v4 setInvalidationHandler:v26];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_7;
+    v24[3] = &unk_278E158D8;
+    objc_copyWeak(&v25, &location);
+    [v4 setDeviceFoundHandler:v24];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_8;
+    v22[3] = &unk_278E158D8;
+    objc_copyWeak(&v23, &location);
+    [v4 setDeviceLostHandler:v22];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_9;
+    v20[3] = &unk_278E15900;
+    objc_copyWeak(&v21, &location);
+    [v4 setDeviceChangedHandler:v20];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_10;
+    v18[3] = &unk_278E158D8;
+    objc_copyWeak(&v19, &location);
+    [v4 setLocalDeviceUpdatedHandler:v18];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_11;
+    v15[3] = &unk_278E15928;
+    objc_copyWeak(&v16, &location);
+    objc_copyWeak(&v17, &from);
+    [v4 setRequestIDRegistrationCompletion:v15];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_12;
+    v12[3] = &unk_278E15928;
+    objc_copyWeak(&v13, &location);
+    objc_copyWeak(&v14, &from);
+    [v4 setEventIDRegistrationCompletion:v12];
     v7 = COCoreLogForCategory(19);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
       *buf = 134218498;
-      v45 = v8;
-      v46 = 2048;
-      v47 = v4;
-      v48 = 2112;
-      v49 = v4;
+      v44 = v8;
+      v45 = 2048;
+      v46 = v4;
+      v47 = 2112;
+      v48 = v4;
       _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%p created new local link %p (%@)", buf, 0x20u);
     }
 
-    objc_destroyWeak(&v15);
     objc_destroyWeak(&v14);
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&v17);
-    objc_destroyWeak(&v20);
-    objc_destroyWeak(&v22);
-    objc_destroyWeak(&v24);
-    objc_destroyWeak(&v26);
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&v28);
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&v31);
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(&v34);
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&v37);
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v36);
     objc_destroyWeak(&v40);
+    objc_destroyWeak(&v39);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
@@ -564,8 +556,6 @@ void __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__blo
 
   [*(*(*(a1 + 40) + 8) + 40) setFactory:*(a1 + 32)];
   [v3 addObject:*(*(*(a1 + 40) + 8) + 40)];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__block_invoke_2(uint64_t a1)
@@ -692,51 +682,49 @@ void __67__COCompanionLinkClientFactory_companionLinkClientForCurrentDevice__blo
 
 - (id)companionLinkClientForDevice:(id)device withIDSIdentifier:(id)identifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   identifierCopy = identifier;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__0;
-  v28 = __Block_byref_object_dispose__0;
-  v29 = 0;
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke;
-  v19 = &unk_278E15978;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__0;
+  v27 = __Block_byref_object_dispose__0;
+  v28 = 0;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke;
+  v18 = &unk_278E15978;
   v8 = deviceCopy;
-  v20 = v8;
+  v19 = v8;
   v9 = identifierCopy;
-  v21 = v9;
+  v20 = v9;
   selfCopy = self;
-  v23 = &v24;
-  [(COCompanionLinkClientFactory *)self _withLock:&v16];
+  v22 = &v23;
+  [(COCompanionLinkClientFactory *)self _withLock:&v15];
   v10 = COCoreLogForCategory(19);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v25[5];
+    v11 = v24[5];
     rapport = [v11 rapport];
     *buf = 134218496;
     selfCopy2 = self;
-    v32 = 2048;
-    v33 = v11;
-    v34 = 2048;
-    v35 = rapport;
+    v31 = 2048;
+    v32 = v11;
+    v33 = 2048;
+    v34 = rapport;
     _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%p returning %p for device use riding on %p", buf, 0x20u);
   }
 
-  v13 = v25[5];
-  _Block_object_dispose(&v24, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = v24[5];
+  _Block_object_dispose(&v23, 8);
 
   return v13;
 }
 
 void __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) idsDeviceIdentifier];
   v3 = [v2 isEqualToString:*(a1 + 40)];
 
@@ -763,64 +751,64 @@ void __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIden
 
     objc_initWeak(&location, *(a1 + 48));
     objc_initWeak(&from, v6);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_2;
-    v28[3] = &unk_278E158B0;
-    objc_copyWeak(&v29, &location);
-    objc_copyWeak(&v30, &from);
-    [v6 setInterruptionHandler:v28];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_3;
-    v25[3] = &unk_278E158B0;
-    objc_copyWeak(&v26, &location);
-    objc_copyWeak(&v27, &from);
-    [v6 setStateUpdatedHandler:v25];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_4;
-    v22[3] = &unk_278E158B0;
-    objc_copyWeak(&v23, &location);
-    objc_copyWeak(&v24, &from);
-    [v6 setErrorFlagsChangedHandler:v22];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_5;
-    v19[3] = &unk_278E158B0;
-    objc_copyWeak(&v20, &location);
-    objc_copyWeak(&v21, &from);
-    [v6 setDisconnectHandler:v19];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_6;
-    v16[3] = &unk_278E158B0;
-    objc_copyWeak(&v17, &location);
-    objc_copyWeak(&v18, &from);
-    [v6 setInvalidationHandler:v16];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_2;
+    v27[3] = &unk_278E158B0;
+    objc_copyWeak(&v28, &location);
+    objc_copyWeak(&v29, &from);
+    [v6 setInterruptionHandler:v27];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_3;
+    v24[3] = &unk_278E158B0;
+    objc_copyWeak(&v25, &location);
+    objc_copyWeak(&v26, &from);
+    [v6 setStateUpdatedHandler:v24];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_4;
+    v21[3] = &unk_278E158B0;
+    objc_copyWeak(&v22, &location);
+    objc_copyWeak(&v23, &from);
+    [v6 setErrorFlagsChangedHandler:v21];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_5;
+    v18[3] = &unk_278E158B0;
+    objc_copyWeak(&v19, &location);
+    objc_copyWeak(&v20, &from);
+    [v6 setDisconnectHandler:v18];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_6;
+    v15[3] = &unk_278E158B0;
+    objc_copyWeak(&v16, &location);
+    objc_copyWeak(&v17, &from);
+    [v6 setInvalidationHandler:v15];
     v10 = COCoreLogForCategory(19);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 48);
       *buf = 134218498;
-      v34 = v11;
-      v35 = 2048;
-      v36 = v6;
-      v37 = 2112;
-      v38 = v6;
+      v33 = v11;
+      v34 = 2048;
+      v35 = v6;
+      v36 = 2112;
+      v37 = v6;
       _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%p created new device link %p (%@)", buf, 0x20u);
     }
 
-    objc_destroyWeak(&v18);
     objc_destroyWeak(&v17);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&v20);
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&v23);
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&v26);
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
@@ -832,8 +820,6 @@ void __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIden
 
   [*(*(*(a1 + 56) + 8) + 40) setFactory:*(a1 + 48)];
   [v5 addObject:*(*(*(a1 + 56) + 8) + 40)];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIdentifier___block_invoke_2(uint64_t a1)
@@ -888,46 +874,46 @@ void __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIden
 
 - (void)didFindDevice:(id)device
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   idsDeviceIdentifier = [deviceCopy idsDeviceIdentifier];
 
   if (idsDeviceIdentifier)
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__0;
-    v30 = __Block_byref_object_dispose__0;
-    v31 = 0;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __46__COCompanionLinkClientFactory_didFindDevice___block_invoke;
-    v23[3] = &unk_278E15700;
-    v23[4] = self;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__0;
+    v29 = __Block_byref_object_dispose__0;
+    v30 = 0;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __46__COCompanionLinkClientFactory_didFindDevice___block_invoke;
+    v22[3] = &unk_278E15700;
+    v22[4] = self;
     v5 = deviceCopy;
-    v24 = v5;
-    v25 = &v26;
-    [(COCompanionLinkClientFactory *)self _withLock:v23];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v23 = v5;
+    v24 = &v25;
+    [(COCompanionLinkClientFactory *)self _withLock:v22];
     v20 = 0u;
-    v6 = v27[5];
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v32 count:16];
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v6 = v26[5];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v31 count:16];
     if (v7)
     {
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           deviceFoundHandler = [v10 deviceFoundHandler];
           if (deviceFoundHandler && ([v10 flags] & 0xA) == 2)
           {
@@ -936,19 +922,19 @@ void __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIden
             block[1] = 3221225472;
             block[2] = __46__COCompanionLinkClientFactory_didFindDevice___block_invoke_14;
             block[3] = &unk_278E159A0;
-            v18 = deviceFoundHandler;
-            v17 = v5;
+            v17 = deviceFoundHandler;
+            v16 = v5;
             dispatch_async(dispatchQueue, block);
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v19 objects:v32 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v18 objects:v31 count:16];
       }
 
       while (v7);
     }
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
   }
 
   else
@@ -959,23 +945,21 @@ void __79__COCompanionLinkClientFactory_companionLinkClientForDevice_withIDSIden
       [(COCompanionLinkClientFactory *)self didFindDevice:deviceCopy, v13];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __46__COCompanionLinkClientFactory_didFindDevice___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(19);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v14 = 134218242;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v4;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p informing locals of found %@", &v14, 0x16u);
+    v13 = 134218242;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v4;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p informing locals of found %@", &v13, 0x16u);
   }
 
   v5 = [*(a1 + 32) locals];
@@ -989,53 +973,51 @@ void __46__COCompanionLinkClientFactory_didFindDevice___block_invoke(uint64_t a1
   v11 = *(v9 + 16);
   v12 = [v10 idsDeviceIdentifier];
   [v11 setObject:v10 forKey:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didLoseDevice:(id)device
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__0;
-  v30 = __Block_byref_object_dispose__0;
-  v31 = 0;
+  v32 = *MEMORY[0x277D85DE8];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
   deviceCopy = device;
   idsDeviceIdentifier = [deviceCopy idsDeviceIdentifier];
   v5 = idsDeviceIdentifier == 0;
 
   if (!v5)
   {
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __46__COCompanionLinkClientFactory_didLoseDevice___block_invoke;
-    v23[3] = &unk_278E15700;
-    v23[4] = self;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __46__COCompanionLinkClientFactory_didLoseDevice___block_invoke;
+    v22[3] = &unk_278E15700;
+    v22[4] = self;
     v6 = deviceCopy;
-    v24 = v6;
-    v25 = &v26;
-    [(COCompanionLinkClientFactory *)self _withLock:v23];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v23 = v6;
+    v24 = &v25;
+    [(COCompanionLinkClientFactory *)self _withLock:v22];
     v20 = 0u;
-    v7 = v27[5];
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v32 count:16];
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v7 = v26[5];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v31 count:16];
     if (v8)
     {
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           deviceLostHandler = [v11 deviceLostHandler];
           if (deviceLostHandler && ([v11 flags] & 0xA) == 2)
           {
@@ -1044,37 +1026,35 @@ void __46__COCompanionLinkClientFactory_didFindDevice___block_invoke(uint64_t a1
             block[1] = 3221225472;
             block[2] = __46__COCompanionLinkClientFactory_didLoseDevice___block_invoke_15;
             block[3] = &unk_278E159A0;
-            v18 = deviceLostHandler;
-            v17 = v6;
+            v17 = deviceLostHandler;
+            v16 = v6;
             dispatch_async(dispatchQueue, block);
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v19 objects:v32 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v18 objects:v31 count:16];
       }
 
       while (v8);
     }
   }
 
-  _Block_object_dispose(&v26, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
 }
 
 void __46__COCompanionLinkClientFactory_didLoseDevice___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(19);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v13 = 134218242;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v4;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p informing locals of lost %@", &v13, 0x16u);
+    v12 = 134218242;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p informing locals of lost %@", &v12, 0x16u);
   }
 
   v5 = [*(a1 + 32) locals];
@@ -1087,57 +1067,55 @@ void __46__COCompanionLinkClientFactory_didLoseDevice___block_invoke(uint64_t a1
   v10 = *(*(a1 + 32) + 16);
   v11 = [v9 idsDeviceIdentifier];
   [v10 removeObjectForKey:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didChangeDevice:(id)device flags:(unsigned int)flags
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__0;
-  v33 = __Block_byref_object_dispose__0;
   v34 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __54__COCompanionLinkClientFactory_didChangeDevice_flags___block_invoke;
-  v25[3] = &unk_278E159C8;
-  v27 = &v35;
-  v25[4] = self;
-  v16 = deviceCopy;
-  v26 = v16;
-  v28 = &v29;
-  [(COCompanionLinkClientFactory *)self _withLock:v25];
-  if (v36[5])
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__0;
+  v38 = __Block_byref_object_dispose__0;
+  v39 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__0;
+  v32 = __Block_byref_object_dispose__0;
+  v33 = 0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __54__COCompanionLinkClientFactory_didChangeDevice_flags___block_invoke;
+  v24[3] = &unk_278E159C8;
+  v26 = &v34;
+  v24[4] = self;
+  v15 = deviceCopy;
+  v25 = v15;
+  v27 = &v28;
+  [(COCompanionLinkClientFactory *)self _withLock:v24];
+  if (v35[5])
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v7 = v30[5];
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v41 count:16];
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v7 = v29[5];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v40 count:16];
     if (v8)
     {
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
+          v11 = *(*(&v20 + 1) + 8 * i);
           deviceChangedHandler = [v11 deviceChangedHandler];
           if (deviceChangedHandler && ([v11 flags] & 0xA) == 2)
           {
@@ -1146,14 +1124,14 @@ void __46__COCompanionLinkClientFactory_didLoseDevice___block_invoke(uint64_t a1
             block[1] = 3221225472;
             block[2] = __54__COCompanionLinkClientFactory_didChangeDevice_flags___block_invoke_16;
             block[3] = &unk_278E159F0;
-            v19 = deviceChangedHandler;
-            v18 = v16;
+            v18 = deviceChangedHandler;
+            v17 = v15;
             flagsCopy = flags;
             dispatch_async(dispatchQueue, block);
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v21 objects:v41 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v20 objects:v40 count:16];
       }
 
       while (v8);
@@ -1167,18 +1145,16 @@ void __46__COCompanionLinkClientFactory_didLoseDevice___block_invoke(uint64_t a1
     {
       *buf = 134218242;
       selfCopy = self;
-      v44 = 2112;
-      v45 = v16;
+      v43 = 2112;
+      v44 = v15;
       _os_log_impl(&dword_244378000, v14, OS_LOG_TYPE_DEFAULT, "%p device updated which wasn't in our active list. Treating as found device %@", buf, 0x16u);
     }
 
-    [(COCompanionLinkClientFactory *)self didFindDevice:v16];
+    [(COCompanionLinkClientFactory *)self didFindDevice:v15];
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v35, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 void __54__COCompanionLinkClientFactory_didChangeDevice_flags___block_invoke(uint64_t a1)
@@ -1207,64 +1183,63 @@ void __54__COCompanionLinkClientFactory_didChangeDevice_flags___block_invoke(uin
 
 - (void)didUpdateLocalDevice:(id)device
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__0;
-  v28 = __Block_byref_object_dispose__0;
-  v29 = 0;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __53__COCompanionLinkClientFactory_didUpdateLocalDevice___block_invoke;
-  v21[3] = &unk_278E15700;
-  v21[4] = self;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__0;
+  v27 = __Block_byref_object_dispose__0;
+  v28 = 0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __53__COCompanionLinkClientFactory_didUpdateLocalDevice___block_invoke;
+  v20[3] = &unk_278E15700;
+  v20[4] = self;
   v5 = deviceCopy;
-  v22 = v5;
-  v23 = &v24;
-  [(COCompanionLinkClientFactory *)self _withLock:v21];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v21 = v5;
+  v22 = &v23;
+  [(COCompanionLinkClientFactory *)self _withLock:v20];
   v18 = 0u;
-  v6 = v25[5];
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v30 count:16];
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v6 = v24[5];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v29 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         localDeviceUpdatedHandler = [v10 localDeviceUpdatedHandler];
         if (localDeviceUpdatedHandler && ([v10 flags] & 0xA) == 2)
         {
           dispatchQueue = [v10 dispatchQueue];
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __53__COCompanionLinkClientFactory_didUpdateLocalDevice___block_invoke_17;
-          v14[3] = &unk_278E159A0;
-          v16 = localDeviceUpdatedHandler;
-          v15 = v5;
-          dispatch_async(dispatchQueue, v14);
+          v13[0] = MEMORY[0x277D85DD0];
+          v13[1] = 3221225472;
+          v13[2] = __53__COCompanionLinkClientFactory_didUpdateLocalDevice___block_invoke_17;
+          v13[3] = &unk_278E159A0;
+          v15 = localDeviceUpdatedHandler;
+          v14 = v5;
+          dispatch_async(dispatchQueue, v13);
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v17 objects:v30 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v29 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v24, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 void __53__COCompanionLinkClientFactory_didUpdateLocalDevice___block_invoke(uint64_t a1)
@@ -1284,54 +1259,53 @@ void __53__COCompanionLinkClientFactory_didUpdateLocalDevice___block_invoke(uint
 
 - (void)didInterrupt:(id)interrupt
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   interruptCopy = interrupt;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __45__COCompanionLinkClientFactory_didInterrupt___block_invoke;
-  v15[3] = &unk_278E15A18;
-  v17 = &v18;
-  v15[4] = self;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__0;
+  v21 = __Block_byref_object_dispose__0;
+  v22 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __45__COCompanionLinkClientFactory_didInterrupt___block_invoke;
+  v14[3] = &unk_278E15A18;
+  v16 = &v17;
+  v14[4] = self;
   v5 = interruptCopy;
-  v16 = v5;
-  [(COCompanionLinkClientFactory *)self _withLock:v15];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v15 = v5;
+  [(COCompanionLinkClientFactory *)self _withLock:v14];
   v12 = 0u;
-  v6 = v19[5];
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v24 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v6 = v18[5];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) didInterrupt];
+        [*(*(&v10 + 1) + 8 * v9++) didInterrupt];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v23 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v18, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 }
 
 uint64_t __45__COCompanionLinkClientFactory_didInterrupt___block_invoke(uint64_t a1)
@@ -1341,59 +1315,58 @@ uint64_t __45__COCompanionLinkClientFactory_didInterrupt___block_invoke(uint64_t
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)didUpdateState:(id)state
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stateCopy = state;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __47__COCompanionLinkClientFactory_didUpdateState___block_invoke;
-  v15[3] = &unk_278E15A18;
-  v17 = &v18;
-  v15[4] = self;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__0;
+  v21 = __Block_byref_object_dispose__0;
+  v22 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __47__COCompanionLinkClientFactory_didUpdateState___block_invoke;
+  v14[3] = &unk_278E15A18;
+  v16 = &v17;
+  v14[4] = self;
   v5 = stateCopy;
-  v16 = v5;
-  [(COCompanionLinkClientFactory *)self _withLock:v15];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v15 = v5;
+  [(COCompanionLinkClientFactory *)self _withLock:v14];
   v12 = 0u;
-  v6 = v19[5];
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v24 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v6 = v18[5];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) didUpdateState];
+        [*(*(&v10 + 1) + 8 * v9++) didUpdateState];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v23 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v18, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 }
 
 uint64_t __47__COCompanionLinkClientFactory_didUpdateState___block_invoke(uint64_t a1)
@@ -1403,59 +1376,58 @@ uint64_t __47__COCompanionLinkClientFactory_didUpdateState___block_invoke(uint64
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)didChangeErrorFlags:(id)flags
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   flagsCopy = flags;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __52__COCompanionLinkClientFactory_didChangeErrorFlags___block_invoke;
-  v15[3] = &unk_278E15A18;
-  v17 = &v18;
-  v15[4] = self;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__0;
+  v21 = __Block_byref_object_dispose__0;
+  v22 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __52__COCompanionLinkClientFactory_didChangeErrorFlags___block_invoke;
+  v14[3] = &unk_278E15A18;
+  v16 = &v17;
+  v14[4] = self;
   v5 = flagsCopy;
-  v16 = v5;
-  [(COCompanionLinkClientFactory *)self _withLock:v15];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v15 = v5;
+  [(COCompanionLinkClientFactory *)self _withLock:v14];
   v12 = 0u;
-  v6 = v19[5];
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v24 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v6 = v18[5];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) didChangeErrorFlags];
+        [*(*(&v10 + 1) + 8 * v9++) didChangeErrorFlags];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v23 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v18, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 }
 
 uint64_t __52__COCompanionLinkClientFactory_didChangeErrorFlags___block_invoke(uint64_t a1)
@@ -1465,59 +1437,58 @@ uint64_t __52__COCompanionLinkClientFactory_didChangeErrorFlags___block_invoke(u
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)didDisconnect:(id)disconnect
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__0;
-  v23 = __Block_byref_object_dispose__0;
-  v24 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __46__COCompanionLinkClientFactory_didDisconnect___block_invoke;
-  v15[3] = &unk_278E15A40;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __46__COCompanionLinkClientFactory_didDisconnect___block_invoke;
+  v14[3] = &unk_278E15A40;
   v5 = disconnectCopy;
   selfCopy = self;
-  v18 = &v19;
-  v16 = v5;
-  [(COCompanionLinkClientFactory *)self _withLock:v15];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v17 = &v18;
+  v15 = v5;
+  [(COCompanionLinkClientFactory *)self _withLock:v14];
   v12 = 0u;
-  v6 = v20[5];
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v25 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v6 = v19[5];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v24 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) didDisconnect];
+        [*(*(&v10 + 1) + 8 * v9++) didDisconnect];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v25 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v19, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __46__COCompanionLinkClientFactory_didDisconnect___block_invoke(uint64_t a1)
@@ -1528,59 +1499,58 @@ uint64_t __46__COCompanionLinkClientFactory_didDisconnect___block_invoke(uint64_
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)didInvalidate:(id)invalidate
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   invalidateCopy = invalidate;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__0;
-  v23 = __Block_byref_object_dispose__0;
-  v24 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __46__COCompanionLinkClientFactory_didInvalidate___block_invoke;
-  v15[3] = &unk_278E15A40;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __46__COCompanionLinkClientFactory_didInvalidate___block_invoke;
+  v14[3] = &unk_278E15A40;
   v5 = invalidateCopy;
   selfCopy = self;
-  v18 = &v19;
-  v16 = v5;
-  [(COCompanionLinkClientFactory *)self _withLock:v15];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v17 = &v18;
+  v15 = v5;
+  [(COCompanionLinkClientFactory *)self _withLock:v14];
   v12 = 0u;
-  v6 = v20[5];
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v25 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v6 = v19[5];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v24 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) didInvalidate];
+        [*(*(&v10 + 1) + 8 * v9++) didInvalidate];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v25 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v19, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __46__COCompanionLinkClientFactory_didInvalidate___block_invoke(uint64_t a1)
@@ -1591,60 +1561,59 @@ uint64_t __46__COCompanionLinkClientFactory_didInvalidate___block_invoke(uint64_
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)didActivate:(id)activate error:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   activateCopy = activate;
   errorCopy = error;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
-  v27 = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __50__COCompanionLinkClientFactory_didActivate_error___block_invoke;
-  v18[3] = &unk_278E15A40;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__0;
+  v25 = __Block_byref_object_dispose__0;
+  v26 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __50__COCompanionLinkClientFactory_didActivate_error___block_invoke;
+  v17[3] = &unk_278E15A40;
   v8 = activateCopy;
   selfCopy = self;
-  v21 = &v22;
-  v19 = v8;
-  [(COCompanionLinkClientFactory *)self _withLock:v18];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v20 = &v21;
+  v18 = v8;
+  [(COCompanionLinkClientFactory *)self _withLock:v17];
   v15 = 0u;
-  v9 = v23[5];
-  v10 = [v9 countByEnumeratingWithState:&v14 objects:v28 count:16];
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v9 = v22[5];
+  v10 = [v9 countByEnumeratingWithState:&v13 objects:v27 count:16];
   if (v10)
   {
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) didActivateWithError:{errorCopy, v14}];
+        [*(*(&v13 + 1) + 8 * v12++) didActivateWithError:{errorCopy, v13}];
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v14 objects:v28 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v13 objects:v27 count:16];
     }
 
     while (v10);
   }
 
-  _Block_object_dispose(&v22, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
 }
 
 uint64_t __50__COCompanionLinkClientFactory_didActivate_error___block_invoke(uint64_t a1)
@@ -1655,49 +1624,49 @@ uint64_t __50__COCompanionLinkClientFactory_didActivate_error___block_invoke(uin
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)didRegisterRequestID:(id)d client:(id)client
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   clientCopy = client;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__0;
-  v27 = __Block_byref_object_dispose__0;
-  v28 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __60__COCompanionLinkClientFactory_didRegisterRequestID_client___block_invoke;
-  v20[3] = &unk_278E15A18;
-  v22 = &v23;
-  v20[4] = self;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__0;
+  v26 = __Block_byref_object_dispose__0;
+  v27 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __60__COCompanionLinkClientFactory_didRegisterRequestID_client___block_invoke;
+  v19[3] = &unk_278E15A18;
+  v21 = &v22;
+  v19[4] = self;
   v8 = clientCopy;
-  v21 = v8;
-  [(COCompanionLinkClientFactory *)self _withLock:v20];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
+  v20 = v8;
+  [(COCompanionLinkClientFactory *)self _withLock:v19];
   v17 = 0u;
-  v9 = v24[5];
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v29 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v9 = v23[5];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v28 count:16];
   if (v10)
   {
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        requestIDRegistrationCompletion = [*(*(&v16 + 1) + 8 * v12) requestIDRegistrationCompletion];
+        requestIDRegistrationCompletion = [*(*(&v15 + 1) + 8 * v12) requestIDRegistrationCompletion];
         v14 = requestIDRegistrationCompletion;
         if (requestIDRegistrationCompletion)
         {
@@ -1708,14 +1677,13 @@ uint64_t __50__COCompanionLinkClientFactory_didActivate_error___block_invoke(uin
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v29 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v28 count:16];
     }
 
     while (v10);
   }
 
-  _Block_object_dispose(&v23, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 uint64_t __60__COCompanionLinkClientFactory_didRegisterRequestID_client___block_invoke(uint64_t a1)
@@ -1725,49 +1693,49 @@ uint64_t __60__COCompanionLinkClientFactory_didRegisterRequestID_client___block_
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)didRegisterEventID:(id)d client:(id)client
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   clientCopy = client;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__0;
-  v27 = __Block_byref_object_dispose__0;
-  v28 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __58__COCompanionLinkClientFactory_didRegisterEventID_client___block_invoke;
-  v20[3] = &unk_278E15A18;
-  v22 = &v23;
-  v20[4] = self;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__0;
+  v26 = __Block_byref_object_dispose__0;
+  v27 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __58__COCompanionLinkClientFactory_didRegisterEventID_client___block_invoke;
+  v19[3] = &unk_278E15A18;
+  v21 = &v22;
+  v19[4] = self;
   v8 = clientCopy;
-  v21 = v8;
-  [(COCompanionLinkClientFactory *)self _withLock:v20];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
+  v20 = v8;
+  [(COCompanionLinkClientFactory *)self _withLock:v19];
   v17 = 0u;
-  v9 = v24[5];
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v29 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v9 = v23[5];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v28 count:16];
   if (v10)
   {
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        eventIDRegistrationCompletion = [*(*(&v16 + 1) + 8 * v12) eventIDRegistrationCompletion];
+        eventIDRegistrationCompletion = [*(*(&v15 + 1) + 8 * v12) eventIDRegistrationCompletion];
         v14 = eventIDRegistrationCompletion;
         if (eventIDRegistrationCompletion)
         {
@@ -1778,14 +1746,13 @@ uint64_t __60__COCompanionLinkClientFactory_didRegisterRequestID_client___block_
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v29 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v28 count:16];
     }
 
     while (v10);
   }
 
-  _Block_object_dispose(&v23, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 uint64_t __58__COCompanionLinkClientFactory_didRegisterEventID_client___block_invoke(uint64_t a1)
@@ -1795,7 +1762,7 @@ uint64_t __58__COCompanionLinkClientFactory_didRegisterEventID_client___block_in
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)activateCompanionLinkClient:(id)client
@@ -1813,7 +1780,7 @@ uint64_t __58__COCompanionLinkClientFactory_didRegisterEventID_client___block_in
 
 void __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) rapport];
   v3 = [v2 co_CompanionLinkClientFlags];
   v4 = v3;
@@ -1824,11 +1791,11 @@ void __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invo
     {
       v6 = *(a1 + 40);
       *buf = 134218498;
-      v34 = v6;
-      v35 = 2048;
-      v36 = v2;
-      v37 = 2112;
-      v38 = v2;
+      v33 = v6;
+      v34 = 2048;
+      v35 = v2;
+      v36 = 2112;
+      v37 = v2;
       _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p activating %p (%@)", buf, 0x20u);
     }
 
@@ -1846,19 +1813,19 @@ void __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invo
 
     objc_initWeak(buf, *(a1 + 40));
     objc_initWeak(&location, v2);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invoke_18;
-    v26[3] = &unk_278E15A68;
-    objc_copyWeak(&v28, buf);
-    objc_copyWeak(&v29, &location);
-    v30 = v8;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invoke_18;
+    v25[3] = &unk_278E15A68;
+    objc_copyWeak(&v27, buf);
+    objc_copyWeak(&v28, &location);
+    v29 = v8;
     v17 = v7;
-    v27 = v17;
-    [v2 activateWithCompletion:v26];
+    v26 = v17;
+    [v2 activateWithCompletion:v25];
 
-    objc_destroyWeak(&v29);
     objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
 LABEL_21:
@@ -1873,33 +1840,33 @@ LABEL_21:
     {
       v10 = *(a1 + 40);
       *buf = 134218498;
-      v34 = v10;
-      v35 = 2048;
-      v36 = v2;
-      v37 = 2112;
-      v38 = v2;
+      v33 = v10;
+      v34 = 2048;
+      v35 = v2;
+      v36 = 2112;
+      v37 = v2;
       _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%p already activated %p (%@)", buf, 0x20u);
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v11 = [*(a1 + 40) _clientsForRapportClient_unsafe:v2];
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v32 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v31 count:16];
     if (v12)
     {
-      v13 = *v23;
+      v13 = *v22;
 LABEL_11:
       v14 = 0;
       while (1)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = [*(*(&v22 + 1) + 8 * v14) activationError];
+        v15 = [*(*(&v21 + 1) + 8 * v14) activationError];
         if (v15)
         {
           break;
@@ -1907,7 +1874,7 @@ LABEL_11:
 
         if (v12 == ++v14)
         {
-          v12 = [v11 countByEnumeratingWithState:&v22 objects:v32 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v21 objects:v31 count:16];
           if (v12)
           {
             goto LABEL_11;
@@ -1925,21 +1892,19 @@ LABEL_17:
     }
 
     v16 = *(*(a1 + 40) + 24);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invoke_20;
-    v19[3] = &unk_278E156B0;
-    v20 = *(a1 + 32);
-    v21 = v15;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invoke_20;
+    v18[3] = &unk_278E156B0;
+    v19 = *(a1 + 32);
+    v20 = v15;
     v17 = v15;
-    dispatch_async(v16, v19);
+    dispatch_async(v16, v18);
 
     goto LABEL_21;
   }
 
 LABEL_22:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invoke_18(uint64_t a1, void *a2)
@@ -1961,7 +1926,7 @@ void __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invo
   }
 }
 
-uint64_t __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invoke_20(uint64_t a1)
+void *__60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_invoke_20(uint64_t a1)
 {
   result = [*(a1 + 32) didActivateWithError:*(a1 + 40)];
   if (!*(a1 + 40))
@@ -1998,15 +1963,15 @@ uint64_t __60__COCompanionLinkClientFactory_activateCompanionLinkClient___block_
 
 void __62__COCompanionLinkClientFactory_invalidateCompanionLinkClient___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) rapport];
   v3 = [*(a1 + 40) _clientsForRapportClient_unsafe:v2];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __62__COCompanionLinkClientFactory_invalidateCompanionLinkClient___block_invoke_2;
-  v15[3] = &unk_278E15A90;
-  v16 = *(a1 + 32);
-  v4 = [v3 indexesOfObjectsPassingTest:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __62__COCompanionLinkClientFactory_invalidateCompanionLinkClient___block_invoke_2;
+  v14[3] = &unk_278E15A90;
+  v15 = *(a1 + 32);
+  v4 = [v3 indexesOfObjectsPassingTest:v14];
   v5 = [v3 objectsAtIndexes:v4];
 
   v6 = [v5 count];
@@ -2018,21 +1983,21 @@ void __62__COCompanionLinkClientFactory_invalidateCompanionLinkClient___block_in
     {
       v9 = *(a1 + 40);
       *buf = 134218498;
-      v18 = v9;
-      v19 = 2048;
-      v20 = v2;
-      v21 = 2112;
-      v22 = v2;
+      v17 = v9;
+      v18 = 2048;
+      v19 = v2;
+      v20 = 2112;
+      v21 = v2;
       _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%p already invalidated %p (%@)", buf, 0x20u);
     }
 
     v10 = *(*(a1 + 40) + 24);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __62__COCompanionLinkClientFactory_invalidateCompanionLinkClient___block_invoke_22;
-    v13[3] = &unk_278E15AB8;
-    v14 = *(a1 + 32);
-    dispatch_async(v10, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __62__COCompanionLinkClientFactory_invalidateCompanionLinkClient___block_invoke_22;
+    v12[3] = &unk_278E15AB8;
+    v13 = *(a1 + 32);
+    dispatch_async(v10, v12);
   }
 
   else
@@ -2041,19 +2006,17 @@ void __62__COCompanionLinkClientFactory_invalidateCompanionLinkClient___block_in
     {
       v11 = *(a1 + 40);
       *buf = 134218498;
-      v18 = v11;
-      v19 = 2048;
-      v20 = v2;
-      v21 = 2112;
-      v22 = v2;
+      v17 = v11;
+      v18 = 2048;
+      v19 = v2;
+      v20 = 2112;
+      v21 = v2;
       _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%p invalidating %p (%@)", buf, 0x20u);
     }
 
     [v2 co_SetCompanionLinkClientFlags:{objc_msgSend(v2, "co_CompanionLinkClientFlags") | 8}];
     [v2 invalidate];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62__COCompanionLinkClientFactory_invalidateCompanionLinkClient___block_invoke_2(uint64_t a1, void *a2)
@@ -2084,17 +2047,17 @@ uint64_t __62__COCompanionLinkClientFactory_invalidateCompanionLinkClient___bloc
 
 void __45__COCompanionLinkClientFactory_removeClient___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(19);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v11 = 134218240;
-    v12 = v3;
-    v13 = 2048;
-    v14 = v4;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p removing knowledge of %p", &v11, 0x16u);
+    v10 = 134218240;
+    v11 = v3;
+    v12 = 2048;
+    v13 = v4;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p removing knowledge of %p", &v10, 0x16u);
   }
 
   v5 = [*(a1 + 32) locals];
@@ -2113,32 +2076,28 @@ void __45__COCompanionLinkClientFactory_removeClient___block_invoke(uint64_t a1)
       [v8 removeObjectForKey:v7];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFindDevice:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_244378000, log, OS_LOG_TYPE_ERROR, "%p found device %@ which doesn't have an IDS identifier. Deferring informing locals about this device", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_244378000, log, OS_LOG_TYPE_ERROR, "%p found device %@ which doesn't have an IDS identifier. Deferring informing locals about this device", &v3, 0x16u);
 }
 
 void __53__COCompanionLinkClientFactory_didUpdateLocalDevice___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v5 = 134218242;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "%p informing locals of updated %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "%p informing locals of updated %@", &v4, 0x16u);
 }
 
 @end

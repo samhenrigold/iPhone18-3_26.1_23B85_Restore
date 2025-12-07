@@ -51,11 +51,11 @@ LABEL_4:
     v28 = &a4[4 * a3];
     v29 = &a2[4 * a3];
     v30 = 16 * v4 - 4;
-    v31 = a4 + v30;
-    v32 = a2 + v30;
+    v31 = (a4 + v30);
+    v32 = (a2 + v30);
     v34 = a4 + 1 < (a2 + v27) && a2 + 1 < (a4 + v27);
-    v36 = (a4 + 3) < v29 && (a2 + 3) < v28;
-    v38 = (a4 + 2) < v32 && (a2 + 2) < v31;
+    v36 = a4 + 3 < v29 && a2 + 3 < v28;
+    v38 = a4 + 2 < v32 && a2 + 2 < v31;
     if (v25 > a2 && v26 > a4)
     {
       goto LABEL_4;
@@ -404,9 +404,9 @@ LABEL_12:
   return result;
 }
 
-void sub_24BC64820(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC64820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ik::PixelBufferScopeLock::~PixelBufferScopeLock(va);
   _Unwind_Resume(a1);
 }
@@ -481,7 +481,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t TtDetCreate(uint64_t a1, uint64_t a2)
+uint64_t TtDetCreate(TtDetNode ***a1, uint64_t a2, _DWORD *a3)
 {
   result = 4294967292;
   if (a1)
@@ -688,14 +688,14 @@ uint64_t TtDetPostProcessMultiNetOutputs(uint64_t *a1, unsigned int *a2, uint64_
           bmBufferResizeCoordConvert(*a2, a2[1], v42, v43, 0, &v39, &v38, v26, v38);
           bmBufferResizeCoordConvert(*a2, a2[1], v42, v43, 0, &v37, &v36, v37, v36);
           *&v17 = v38;
-          *&v16 = v39;
+          v16.n128_f32[0] = v39;
           *(v25 - 3) = v39;
           *(v25 - 2) = *&v17;
           *&v18 = v36;
           *&v19 = v37;
-          *&v16 = v37 - *&v16;
+          v16.n128_f32[0] = v37 - v16.n128_f32[0];
           *&v17 = v36 - *&v17;
-          *(v25 - 1) = *&v16;
+          *(v25 - 1) = v16.n128_f32[0];
           *v25 = *&v17;
           ++v24;
           v25 += 22;
@@ -822,7 +822,7 @@ uint64_t TtDetGetTrkScheduleInfo(uint64_t *a1, _DWORD *a2, BOOL *a3)
   }
 }
 
-uint64_t ft::GenerateObservationMatches@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t **a3@<X2>, void *a4@<X8>)
+uint64_t ft::GenerateObservationMatches@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t **a3@<X2>, uint64_t *a4@<X8>)
 {
   v6 = *a1;
   v5 = a1[1];
@@ -1705,16 +1705,16 @@ uint64_t ttAssocObjectRemoveKilled(__int128 *a1, int a2, int a3)
         v6 = a1 + 104 * v4;
         v7 = *v5;
         v8 = v5[2];
-        *(v6 + 16) = v5[1];
-        *(v6 + 32) = v8;
+        *(v6 + 1) = v5[1];
+        *(v6 + 2) = v8;
         *v6 = v7;
         v9 = v5[3];
         v10 = v5[4];
         v11 = v5[5];
-        *(v6 + 96) = *(v5 + 12);
-        *(v6 + 64) = v10;
-        *(v6 + 80) = v11;
-        *(v6 + 48) = v9;
+        *(v6 + 12) = *(v5 + 12);
+        *(v6 + 4) = v10;
+        *(v6 + 5) = v11;
+        *(v6 + 3) = v9;
       }
 
       v4 = (v4 + 1);
@@ -1728,7 +1728,7 @@ uint64_t ttAssocObjectRemoveKilled(__int128 *a1, int a2, int a3)
   return v4;
 }
 
-uint64_t ttAssocTrkDet(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4, unsigned int a5, uint64_t a6, _DWORD *a7, _DWORD *a8, int *a9, void *a10, unsigned int a11)
+uint64_t ttAssocTrkDet(_DWORD *a1, unsigned int a2, unsigned int a3, uint64_t a4, unsigned int a5, uint64_t a6, _DWORD *a7, _DWORD *a8, int *a9, void *a10, unsigned int a11)
 {
   if (a2 > a3)
   {
@@ -1777,29 +1777,29 @@ uint64_t ttAssocTrkDet(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a
       {
         if (*(a4 + 24) != 1)
         {
-          v33 = a1 + 104 * result;
-          *(v33 + 96) = 0;
-          *(v33 + 64) = 0uLL;
-          *(v33 + 80) = 0uLL;
-          *(v33 + 32) = 0uLL;
-          *(v33 + 48) = 0uLL;
+          v33 = &a1[26 * result];
+          *(v33 + 12) = 0;
+          *(v33 + 4) = 0uLL;
+          *(v33 + 5) = 0uLL;
+          *(v33 + 2) = 0uLL;
+          *(v33 + 3) = 0uLL;
           *v33 = 0uLL;
-          *(v33 + 16) = 0uLL;
+          *(v33 + 1) = 0uLL;
           v34 = *(a4 + 16);
-          *(v33 + 16) = *a4;
-          *(v33 + 32) = v34;
+          *(v33 + 1) = *a4;
+          *(v33 + 2) = v34;
           v35 = *(a4 + 32);
           v36 = *(a4 + 48);
           v37 = *(a4 + 64);
-          *(v33 + 96) = *(a4 + 80);
-          *(v33 + 64) = v36;
-          *(v33 + 80) = v37;
-          *(v33 + 48) = v35;
+          *(v33 + 12) = *(a4 + 80);
+          *(v33 + 4) = v36;
+          *(v33 + 5) = v37;
+          *(v33 + 3) = v35;
           v38 = *a9;
           *v33 = *a9;
           *a9 = v38 + 1;
-          *(v33 + 16) = v38;
-          ++*(v33 + 4);
+          v33[4] = v38;
+          ++v33[1];
           result = (result + 1);
         }
 
@@ -1888,7 +1888,7 @@ LABEL_40:
     ttAssocTrkDet();
   }
 
-  v25 = 4 * v24 * v24;
+  v25 = 4 * (v24 * v24);
   memcpy(&v21[v25], v21, v25);
   bmMunkres(v21, v24, v126, v125, v128, v124, 0);
   v140 = a5;
@@ -1926,7 +1926,7 @@ LABEL_40:
 
   v52 = *v147;
   v53 = v29;
-  v54 = a1 + 16;
+  v54 = (a1 + 4);
   v55 = *v147;
   do
   {
@@ -2066,7 +2066,7 @@ LABEL_70:
 LABEL_71:
   v79 = 0;
   v80 = 0;
-  v81 = (a1 + 12);
+  v81 = a1 + 3;
   do
   {
     if (*v81 == 1)
@@ -2097,9 +2097,9 @@ LABEL_71:
     v20 = a2;
     if (v39 < v50 + v39)
     {
-      v86 = a1 + 104 * *v84;
-      v88 = *(v86 + 12);
-      v87 = (v86 + 12);
+      v86 = &a1[26 * *v84];
+      v88 = v86[3];
+      v87 = v86 + 3;
       v49 = v133;
       if (v88 != 1)
       {
@@ -2116,14 +2116,14 @@ LABEL_124:
         v90 = 2;
         do
         {
-          if (*(a1 + 104 * *v89 + 4) > *(a1 + 104 * *(v89 - 2) + 4))
+          if (a1[26 * *v89 + 1] > a1[26 * *(v89 - 2) + 1])
           {
             ttAssocTrkDet();
           }
 
-          v91 = a1 + 104 * *v89;
-          v93 = *(v91 + 12);
-          v92 = (v91 + 12);
+          v91 = &a1[26 * *v89];
+          v93 = v91[3];
+          v92 = v91 + 3;
           if (v93 != 1)
           {
             goto LABEL_124;
@@ -2173,19 +2173,19 @@ LABEL_90:
     {
       if (v96 != result)
       {
-        v98 = a1 + 104 * result;
+        v98 = &a1[26 * result];
         v99 = *v97;
         v100 = *(v97 + 32);
-        *(v98 + 16) = *(v97 + 16);
-        *(v98 + 32) = v100;
+        *(v98 + 1) = *(v97 + 16);
+        *(v98 + 2) = v100;
         *v98 = v99;
         v101 = *(v97 + 48);
         v102 = *(v97 + 64);
         v103 = *(v97 + 80);
-        *(v98 + 96) = *(v97 + 96);
-        *(v98 + 64) = v102;
-        *(v98 + 80) = v103;
-        *(v98 + 48) = v101;
+        *(v98 + 12) = *(v97 + 96);
+        *(v98 + 4) = v102;
+        *(v98 + 5) = v103;
+        *(v98 + 3) = v101;
       }
 
       result = (result + 1);
@@ -2211,7 +2211,7 @@ LABEL_90:
     }
 
     v106 = v49;
-    v107 = a1 + 104 * result + 16;
+    v107 = &a1[26 * result + 4];
     do
     {
       if (!v105)
@@ -2268,7 +2268,7 @@ LABEL_90:
   {
     v114 = 0;
 LABEL_117:
-    v121 = (a1 + 104 * v114 + 4);
+    v121 = &a1[26 * v114 + 1];
     v122 = result - v114;
     do
     {
@@ -2292,7 +2292,7 @@ LABEL_117:
   }
 
   v114 = result & 0xFFFFFFFE;
-  v115 = (a1 + 108);
+  v115 = a1 + 27;
   v116 = v114;
   do
   {
@@ -2333,11 +2333,11 @@ LABEL_117:
   return result;
 }
 
-uint64_t TtAssociateTrackerBboxes(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t TtAssociateTrackerBboxes(int *a1, unint64_t a2, uint64_t a3)
 {
   *&v28[124] = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 180);
-  if (*(a1 + 4))
+  if (a1[1])
   {
     if (v6)
     {
@@ -2413,7 +2413,7 @@ uint64_t TtAssociateTrackerBboxes(uint64_t a1, uint64_t a2, uint64_t a3)
     operator new();
   }
 
-  *(a1 + 4) = ttAssocTrkDet(a1 + 8, *(a1 + 4), 4u, __dst, v6, a3, &v23, &v22, a1, 0, 0);
+  a1[1] = ttAssocTrkDet(a1 + 2, a1[1], 4u, __dst, v6, a3, &v23, &v22, a1, 0, 0);
   return 0;
 }
 
@@ -2747,7 +2747,7 @@ uint64_t getInitialPos(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4)
   return 0;
 }
 
-uint64_t computeIntegralImage(uint64_t a1, uint64_t a2, double a3, float a4)
+uint64_t computeIntegralImage(uint64_t a1, uint64_t a2, __n128 a3, float a4)
 {
   v4 = *(a1 + 8);
   if (*(a2 + 8) != v4 + 1)
@@ -3318,46 +3318,24 @@ void ik::core::EspressoNetState::EspressoNetState()
   dispatch_once(&qword_280F7C038, &__block_literal_global_3);
 }
 
-void ik::LogEspressoError(uint64_t *a1)
+void ik::LogEspressoError(uint64_t *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*(a1 + 23) >= 0)
   {
-    v1 = a1;
+    v2 = a1;
   }
 
   else
   {
-    v1 = *a1;
+    v2 = *a1;
   }
 
-  v2 = 136315394;
-  v3 = v1;
-  v4 = 2080;
+  v3 = 136315394;
+  v4 = v2;
+  v5 = 2080;
   status_string = espresso_get_status_string();
-  _os_log_error_impl(&dword_24BC30000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Encountered an error during: %s\n -> Espresso Error: %s", &v2, 0x16u);
-}
-
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 23);
-  v3 = *a1;
-  status_string = espresso_get_status_string();
-  if (v2 >= 0)
-  {
-    v5 = a1;
-  }
-
-  else
-  {
-    v5 = v3;
-  }
-
-  v6 = 136315394;
-  v7 = v5;
-  v8 = 2080;
-  v9 = status_string;
-  _os_log_error_impl(&dword_24BC30000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Encountered an error during: %s\n -> Espresso Error: %s", &v6, 0x16u);
+  _os_log_error_impl(&dword_24BC30000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Encountered an error during: %s\n -> Espresso Error: %s", &v3, 0x16u);
 }
 
 void std::pair<std::string const,ik::Tensor>::pair[abi:ne200100]<char const(&)[6],ik::PixelBufferTensor &,0>(uint64_t a1)
@@ -3469,6 +3447,29 @@ void FTGetChipIdentifier_cold_1(int a1, NSObject *a2)
   v2[0] = 67109120;
   v2[1] = a1;
   _os_log_error_impl(&dword_24BC30000, a2, OS_LOG_TYPE_ERROR, "Unknown chip encountered: 0x%x", v2, 8u);
+}
+
+void ik::LogEspressoError(uint64_t **a1, unsigned int *a2)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 23);
+  v4 = *a1;
+  status_string = espresso_get_status_string();
+  if (v3 >= 0)
+  {
+    v6 = a1;
+  }
+
+  else
+  {
+    v6 = v4;
+  }
+
+  v7 = 136315394;
+  v8 = v6;
+  v9 = 2080;
+  v10 = status_string;
+  _os_log_error_impl(&dword_24BC30000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Encountered an error during: %s\n -> Espresso Error: %s", &v7, 0x16u);
 }
 
 void ttNonMaxSuppression()

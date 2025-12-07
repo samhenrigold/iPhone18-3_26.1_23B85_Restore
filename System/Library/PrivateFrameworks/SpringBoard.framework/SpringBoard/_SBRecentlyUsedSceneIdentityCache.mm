@@ -100,7 +100,7 @@
   v7 = [MEMORY[0x277CCABB0] numberWithInt:v4];
   v8 = [(NSMutableDictionary *)self->_recentSceneIdentityTokensByPID objectForKeyedSubscript:v7];
   v9 = v8;
-  if (v8 && [v8 containsObject:tokenCopy])
+  if (v8 && objc_msgSend_containsObject_(v8))
   {
     [v9 removeObject:tokenCopy];
     [v9 addObject:tokenCopy];
@@ -215,7 +215,7 @@ LABEL_4:
               }
 
               v16 = *(*(&v21 + 1) + 8 * i);
-              if (v16 && (!v3 || ![v3 containsObject:*(*(&v21 + 1) + 8 * i)]))
+              if (v16 && (!v3 || !objc_msgSend_containsObject_(v3)))
               {
                 v9 = +[SBKeyboardFocusTarget targetForSceneIdentityToken:pid:](SBKeyboardFocusTarget, "targetForSceneIdentityToken:pid:", v16, [v9 intValue]);
 
@@ -297,7 +297,7 @@ LABEL_23:
           }
 
           v14 = *(*(&v17 + 1) + 8 * i);
-          if (v14 && (!dCopy || ![dCopy containsObject:*(*(&v17 + 1) + 8 * i)]))
+          if (v14 && (!dCopy || !objc_msgSend_containsObject_(dCopy)))
           {
             v15 = [SBKeyboardFocusTarget targetForSceneIdentityToken:v14 pid:a2];
             goto LABEL_14;

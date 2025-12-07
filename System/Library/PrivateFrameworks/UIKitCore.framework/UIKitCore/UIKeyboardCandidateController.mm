@@ -165,11 +165,11 @@
       {
         identifier = [currentInputMode identifier];
         v28 = TIInputModeGetBaseLanguage();
-        v29 = [v28 isEqualToString:@"ja"];
+        isEqualToString = objc_msgSend_isEqualToString_(v28);
 
         v21 = off_1E70E9F68;
         v25 = off_1E70E9F70;
-        v26 = v29 == 0;
+        v26 = isEqualToString == 0;
       }
 
       else
@@ -318,7 +318,7 @@ LABEL_47:
     inlineRectIsVertical3 = [(UIKeyboardCandidateController *)self inlineRectIsVertical];
     identifier2 = [currentInputMode identifier];
     v53 = TIInputModeGetVariant();
-    v54 = [v53 isEqualToString:@"Zhuyin"];
+    v54 = objc_msgSend_isEqualToString_(v53);
 
     v55 = off_1E70E9F80;
     if (!v54)
@@ -1015,9 +1015,9 @@ LABEL_90:
   [(UIKeyboardCandidateController *)self updateOpacitiesToState:initialState];
   [(UIKeyboardCandidateController *)self updateArrowButtonImageNameToState:initialState];
   barState = [(UIKeyboardCandidateController *)self barState];
-  v268 = [barState isEqual:initialState];
+  isEqual = objc_msgSend_isEqual_(barState);
 
-  if ((v268 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v269 = [(UIKeyboardCandidateController *)self bar];
     state = [v269 state];
@@ -1035,7 +1035,7 @@ LABEL_90:
   }
 
   extendedBarState5 = [(UIKeyboardCandidateController *)self extendedBarState];
-  v274 = [extendedBarState5 isEqual:extendedState];
+  v274 = objc_msgSend_isEqual_(extendedBarState5);
 
   if ((v274 & 1) == 0)
   {
@@ -1055,7 +1055,7 @@ LABEL_90:
   }
 
   extendedScrolledBarState3 = [(UIKeyboardCandidateController *)self extendedScrolledBarState];
-  v280 = [extendedScrolledBarState3 isEqual:extendedScrolledState];
+  v280 = objc_msgSend_isEqual_(extendedScrolledBarState3);
 
   if ((v280 & 1) == 0)
   {
@@ -1467,9 +1467,9 @@ LABEL_22:
   [extendedState setYOffset:v158];
 
   inlineViewState = [(UIKeyboardCandidateController *)self inlineViewState];
-  v169 = [inlineViewState isEqual:initialState];
+  isEqual = objc_msgSend_isEqual_(inlineViewState);
 
-  if ((v169 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     inlineView2 = [(UIKeyboardCandidateController *)self inlineView];
     state = [inlineView2 state];
@@ -1484,7 +1484,7 @@ LABEL_22:
   }
 
   extendedInlineViewState = [(UIKeyboardCandidateController *)self extendedInlineViewState];
-  v174 = [extendedInlineViewState isEqual:extendedState];
+  v174 = objc_msgSend_isEqual_(extendedInlineViewState);
 
   if ((v174 & 1) == 0)
   {
@@ -1661,10 +1661,10 @@ LABEL_17:
     fontName = [symbolStyle fontName];
     [symbolStyle fontWeight];
     v51 = v50;
-    v52 = [fontName isEqualToString:@"UIKBRenderFactorySystemFontName"];
-    if ([fontName isEqualToString:@"UIKBRenderFactorySystemCompactFontName"])
+    isEqualToString = objc_msgSend_isEqualToString_(fontName);
+    if (objc_msgSend_isEqualToString_(fontName))
     {
-      if (!v52)
+      if (!isEqualToString)
       {
 LABEL_28:
         [symbolStyle setFontSize:13.0];
@@ -1679,9 +1679,9 @@ LABEL_28:
     else
     {
       fontName2 = [symbolStyle fontName];
-      v54 = [fontName2 isEqualToString:@".SFCompact-Bold"];
+      v54 = objc_msgSend_isEqualToString_(fontName2);
 
-      if ((v52 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         if (!v54)
         {
@@ -1747,9 +1747,9 @@ LABEL_39:
 LABEL_40:
   [(UIKeyboardCandidateController *)self updateOpacitiesToState:initialState];
   keyState = [(UIKeyboardCandidateController *)self keyState];
-  v72 = [keyState isEqual:initialState];
+  isEqual = objc_msgSend_isEqual_(keyState);
 
-  if ((v72 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v73 = [(UIKeyboardCandidateController *)self key];
     state = [v73 state];
@@ -1765,7 +1765,7 @@ LABEL_40:
   }
 
   extendedKeyState = [(UIKeyboardCandidateController *)self extendedKeyState];
-  v78 = [extendedKeyState isEqual:extendedState];
+  v78 = objc_msgSend_isEqual_(extendedKeyState);
 
   if ((v78 & 1) == 0)
   {
@@ -3583,7 +3583,7 @@ LABEL_23:
 {
   v17 = *MEMORY[0x1E69E9840];
   textCopy = text;
-  if (![(NSString *)self->_inlineText isEqualToString:textCopy])
+  if ((objc_msgSend_isEqualToString_(self->_inlineText) & 1) == 0)
   {
     v5 = [textCopy copy];
     inlineText = self->_inlineText;
@@ -4304,7 +4304,7 @@ LABEL_12:
 
   else
   {
-    [MEMORY[0x1E69D9640] blackColor];
+    objc_msgSend_blackColor(MEMORY[0x1E69D9640]);
   }
   v23 = ;
   v24 = [v22 initWithFontName:fontName maxFontSize:v23 minFontSize:17.0 textColor:15.0];
@@ -4637,9 +4637,9 @@ void __60__UIKeyboardCandidateController_candidateViewNeedsToExpand___block_invo
 {
   keysCopy = keys;
   opacities = [(UIKeyboardCandidateController *)self opacities];
-  v5 = [opacities isEqual:keysCopy];
+  isEqual = objc_msgSend_isEqual_(opacities);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UIKeyboardCandidateController *)self setOpacities:keysCopy];
     [(UIKeyboardCandidateController *)self updateStates];

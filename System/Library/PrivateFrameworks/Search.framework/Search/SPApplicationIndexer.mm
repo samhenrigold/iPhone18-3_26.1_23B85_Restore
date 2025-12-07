@@ -721,14 +721,14 @@ LABEL_160:
   group = dispatch_group_create();
   v11 = qos_class_self();
   v12 = dispatch_queue_attr_make_with_qos_class(0, v11, 0);
-  v135 = dispatch_queue_create("clip queue", v12);
+  v134 = dispatch_queue_create("clip queue", v12);
 
-  v138 = itemCopy;
-  v140 = countsCopy;
+  v137 = itemCopy;
+  v139 = countsCopy;
   if (!infoCopy)
   {
     cf = 0;
-    v143 = 0;
+    v142 = 0;
     v16 = 0;
     v18 = 0;
     if (![countsCopy count])
@@ -746,22 +746,22 @@ LABEL_166:
     v13 = +[SPApplicationIndexer attributeSetForApp];
     dispatch_group_enter(group);
     v14 = +[CPSWebClipStore sharedStore];
-    v177[0] = _NSConcreteStackBlock;
-    v177[1] = 3221225472;
-    v177[2] = sub_100020D90;
-    v177[3] = &unk_100092BB0;
-    v178 = itemCopy;
+    v176[0] = _NSConcreteStackBlock;
+    v176[1] = 3221225472;
+    v176[2] = sub_100020D90;
+    v176[3] = &unk_100092BB0;
+    v177 = itemCopy;
     cf = v13;
-    v179 = cf;
+    v178 = cf;
     v15 = group;
-    v180 = v15;
-    v181 = identifierCopy;
-    [v14 getAppClipWithIdentifier:v181 receiveOnQueue:v135 completionHandler:v177];
+    v179 = v15;
+    v180 = identifierCopy;
+    [v14 getAppClipWithIdentifier:v180 receiveOnQueue:v134 completionHandler:v176];
 
     dispatch_group_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
-    v143 = 0;
+    v142 = 0;
     v16 = 0;
-    v17 = v178;
+    v17 = v177;
     goto LABEL_164;
   }
 
@@ -771,38 +771,38 @@ LABEL_166:
     v19 = [[LSApplicationRecord alloc] initWithBundleIdentifierOfSystemPlaceholder:identifierCopy error:0];
   }
 
-  v128 = v19;
-  v132 = [v19 URL];
-  v136 = +[NSMutableArray array];
-  v171 = 0;
-  v172 = &v171;
-  v173 = 0x3032000000;
-  v174 = sub_10001F2F0;
-  v175 = sub_10001F300;
-  v176 = 0;
-  v165 = 0;
-  v166 = &v165;
-  v167 = 0x3032000000;
-  v168 = sub_10001F2F0;
-  v169 = sub_10001F300;
+  v127 = v19;
+  v131 = [v19 URL];
+  v135 = +[NSMutableArray array];
   v170 = 0;
+  v171 = &v170;
+  v172 = 0x3032000000;
+  v173 = sub_10001F2F0;
+  v174 = sub_10001F300;
+  v175 = 0;
+  v164 = 0;
+  v165 = &v164;
+  v166 = 0x3032000000;
+  v167 = sub_10001F2F0;
+  v168 = sub_10001F300;
+  v169 = 0;
   v20 = SPLogForSPLogCategoryDefault();
   v21 = gSPLogInfoAsDefault;
   if (os_log_type_enabled(v20, ((gSPLogInfoAsDefault & 1) == 0)))
   {
     *buf = 138412290;
-    v188 = identifierCopy;
+    v187 = identifierCopy;
     _os_log_impl(&_mh_execute_header, v20, ((v21 & 1) == 0), "processing update %@", buf, 0xCu);
   }
 
-  path = [v132 path];
-  v160[0] = _NSConcreteStackBlock;
-  v160[1] = 3221225472;
-  v161 = sub_100020F5C;
-  v162 = &unk_100092B88;
-  v163 = &v165;
-  v164 = &v171;
-  v23 = v160;
+  path = [v131 path];
+  v159[0] = _NSConcreteStackBlock;
+  v159[1] = 3221225472;
+  v160 = sub_100020F5C;
+  v161 = &unk_100092B88;
+  v162 = &v164;
+  v163 = &v170;
+  v23 = v159;
   v24 = path;
   fileSystemRepresentation = [path fileSystemRepresentation];
   v26 = fileSystemRepresentation;
@@ -819,7 +819,7 @@ LABEL_166:
         *&buf[v28++] = 47;
       }
 
-      v161(v23, buf, v28);
+      v160(v23, buf, v28);
       buf[v28] = 0;
       closedir(v27);
     }
@@ -833,10 +833,10 @@ LABEL_166:
     cfa = Unique;
     if (Mutable)
     {
-      v127 = _kCFBundleDisplayNameKey;
+      v126 = _kCFBundleDisplayNameKey;
       CFSetAddValue(Mutable, _kCFBundleDisplayNameKey);
       CFSetAddValue(v31, kCFBundleNameKey);
-      v126 = MDItemKeywords;
+      v125 = MDItemKeywords;
       CFSetAddValue(v31, MDItemKeywords);
       CFSetAddValue(v31, @"MDItemKeywords");
       v32 = CFBundleCopyBundleLocalizations(Unique);
@@ -846,12 +846,12 @@ LABEL_166:
         Count = CFArrayGetCount(v32);
         if (Count >= 1)
         {
-          v133 = Count;
-          v143 = 0;
-          v129 = 0;
+          v132 = Count;
+          v142 = 0;
+          v128 = 0;
           v36 = 0;
           *&v35 = 138413314;
-          v125 = v35;
+          v124 = v35;
           while (1)
           {
             ValueAtIndex = CFArrayGetValueAtIndex(v33, v36);
@@ -874,7 +874,7 @@ LABEL_166:
             }
 
             v39 = CanonicalLanguageIdentifierFromString;
-            [v136 addObject:v39];
+            [v135 addObject:v39];
             FilteredLocalizedInfoPlist = _CFBundleCreateFilteredLocalizedInfoPlist();
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0 || ![FilteredLocalizedInfoPlist count])
@@ -882,7 +882,7 @@ LABEL_166:
               goto LABEL_63;
             }
 
-            v41 = [FilteredLocalizedInfoPlist objectForKeyedSubscript:v127];
+            v41 = [FilteredLocalizedInfoPlist objectForKeyedSubscript:v126];
             if (!v41)
             {
               goto LABEL_37;
@@ -894,10 +894,10 @@ LABEL_166:
               break;
             }
 
-            if (([v166[5] isEqualToString:v41] & 1) == 0)
+            if (([v165[5] isEqualToString:v41] & 1) == 0)
             {
-              v42 = v129;
-              if (!v129)
+              v42 = v128;
+              if (!v128)
               {
                 v42 = objc_opt_new();
               }
@@ -906,7 +906,7 @@ LABEL_166:
             }
 
 LABEL_39:
-            v44 = [FilteredLocalizedInfoPlist objectForKeyedSubscript:{v126, v125}];
+            v44 = [FilteredLocalizedInfoPlist objectForKeyedSubscript:{v125, v124}];
             v45 = v44;
             if (v44)
             {
@@ -956,31 +956,31 @@ LABEL_39:
                 }
               }
 
-              v158[0] = _NSConcreteStackBlock;
-              v158[1] = 3221225472;
-              v158[2] = sub_1000212C4;
-              v158[3] = &unk_100092BD8;
-              v159 = v47;
-              [v53 enumerateObjectsUsingBlock:v158];
+              v157[0] = _NSConcreteStackBlock;
+              v157[1] = 3221225472;
+              v157[2] = sub_1000212C4;
+              v157[3] = &unk_100092BD8;
+              v158 = v47;
+              [v53 enumerateObjectsUsingBlock:v157];
             }
 
             allObjects = [v47 allObjects];
             v56 = [allObjects componentsJoinedByString:{@", "}];
 
-            if (!v143)
+            if (!v142)
             {
-              v143 = objc_opt_new();
+              v142 = objc_opt_new();
             }
 
             if (v56 && [v56 length])
             {
-              [v143 setObject:v56 forKeyedSubscript:v39];
+              [v142 setObject:v56 forKeyedSubscript:v39];
             }
 
 LABEL_63:
             CFRelease(v39);
 
-            if (v133 == ++v36)
+            if (v132 == ++v36)
             {
               goto LABEL_78;
             }
@@ -990,22 +990,22 @@ LABEL_63:
           if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
             v58 = [objc_opt_class() description];
-            path2 = [v132 path];
-            *buf = v125;
-            v188 = v127;
-            v189 = 2112;
-            v190 = v58;
-            v191 = 2112;
-            v192 = v41;
-            v193 = 2112;
-            v194 = path2;
-            v195 = 2112;
-            v196 = v39;
+            path2 = [v131 path];
+            *buf = v124;
+            v187 = v126;
+            v188 = 2112;
+            v189 = v58;
+            v190 = 2112;
+            v191 = v41;
+            v192 = 2112;
+            v193 = path2;
+            v194 = 2112;
+            v195 = v39;
             _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "%@ invalid type %@ %@ %@ %@", buf, 0x34u);
           }
 
 LABEL_37:
-          if (v166[5])
+          if (v165[5])
           {
             goto LABEL_38;
           }
@@ -1023,17 +1023,17 @@ LABEL_37:
             if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
             {
               v60 = [objc_opt_class() description];
-              path3 = [v132 path];
-              *buf = v125;
-              v188 = kCFBundleNameKey;
-              v189 = 2112;
-              v190 = v60;
-              v191 = 2112;
-              v192 = v41;
-              v193 = 2112;
-              v194 = path3;
-              v195 = 2112;
-              v196 = v39;
+              path3 = [v131 path];
+              *buf = v124;
+              v187 = kCFBundleNameKey;
+              v188 = 2112;
+              v189 = v60;
+              v190 = 2112;
+              v191 = v41;
+              v192 = 2112;
+              v193 = path3;
+              v194 = 2112;
+              v195 = v39;
               _os_log_error_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "%@ invalid type %@ %@ %@ %@", buf, 0x34u);
             }
 
@@ -1042,33 +1042,33 @@ LABEL_38:
             goto LABEL_39;
           }
 
-          if ([v172[5] isEqualToString:v41])
+          if ([v171[5] isEqualToString:v41])
           {
             goto LABEL_39;
           }
 
-          v42 = v129;
-          if (!v129)
+          v42 = v128;
+          if (!v128)
           {
             v42 = objc_opt_new();
           }
 
 LABEL_33:
-          v129 = v42;
-          [v42 setObject:v41 forKeyedSubscript:{v39, v125}];
+          v128 = v42;
+          [v42 setObject:v41 forKeyedSubscript:{v39, v124}];
           goto LABEL_39;
         }
 
-        v129 = 0;
-        v143 = 0;
+        v128 = 0;
+        v142 = 0;
 LABEL_78:
         CFRelease(v33);
-        v33 = v129;
+        v33 = v128;
       }
 
       else
       {
-        v143 = 0;
+        v142 = 0;
       }
 
       CFRelease(v31);
@@ -1077,7 +1077,7 @@ LABEL_78:
     else
     {
       v33 = 0;
-      v143 = 0;
+      v142 = 0;
     }
 
     CFRelease(cfa);
@@ -1086,44 +1086,44 @@ LABEL_78:
   else
   {
     v33 = 0;
-    v143 = 0;
+    v142 = 0;
   }
 
   cf = +[SPApplicationIndexer attributeSetForApp];
-  if ([v138 isWebClip])
+  if ([v137 isWebClip])
   {
     [cf setIsWebClip:&off_100098A68];
   }
 
-  v134 = SSAllLocalizedExtraApplicationKeywords();
-  if (v134)
+  v133 = SSAllLocalizedExtraApplicationKeywords();
+  if (v133)
   {
-    if (!v143)
+    if (!v142)
     {
-      v143 = +[NSMutableDictionary dictionary];
+      v142 = +[NSMutableDictionary dictionary];
     }
 
-    v130 = v33;
-    v156 = 0u;
-    v157 = 0u;
-    v154 = 0u;
+    v129 = v33;
     v155 = 0u;
-    v62 = v134;
-    v63 = [v62 countByEnumeratingWithState:&v154 objects:v186 count:16];
+    v156 = 0u;
+    v153 = 0u;
+    v154 = 0u;
+    v62 = v133;
+    v63 = [v62 countByEnumeratingWithState:&v153 objects:v185 count:16];
     if (v63)
     {
-      v64 = *v155;
+      v64 = *v154;
       do
       {
         for (i = 0; i != v63; i = i + 1)
         {
-          if (*v155 != v64)
+          if (*v154 != v64)
           {
             objc_enumerationMutation(v62);
           }
 
-          v66 = *(*(&v154 + 1) + 8 * i);
-          v67 = [v143 objectForKeyedSubscript:v66];
+          v66 = *(*(&v153 + 1) + 8 * i);
+          v67 = [v142 objectForKeyedSubscript:v66];
           v68 = [v62 objectForKeyedSubscript:v66];
           v69 = +[NSMutableSet set];
           if (v67 && [v67 length])
@@ -1137,32 +1137,32 @@ LABEL_78:
             v71 = [v68 componentsSeparatedByString:{@", "}];
             v72 = [NSMutableArray arrayWithArray:v71];
 
-            v152[0] = _NSConcreteStackBlock;
-            v152[1] = 3221225472;
-            v152[2] = sub_100021374;
-            v152[3] = &unk_100092BD8;
-            v153 = v69;
-            [v72 enumerateObjectsUsingBlock:v152];
+            v151[0] = _NSConcreteStackBlock;
+            v151[1] = 3221225472;
+            v151[2] = sub_100021374;
+            v151[3] = &unk_100092BD8;
+            v152 = v69;
+            [v72 enumerateObjectsUsingBlock:v151];
           }
 
           if (v69 && [v69 count])
           {
             allObjects2 = [v69 allObjects];
             v74 = [allObjects2 componentsJoinedByString:{@", "}];
-            [v143 setObject:v74 forKeyedSubscript:v66];
+            [v142 setObject:v74 forKeyedSubscript:v66];
           }
         }
 
-        v63 = [v62 countByEnumeratingWithState:&v154 objects:v186 count:16];
+        v63 = [v62 countByEnumeratingWithState:&v153 objects:v185 count:16];
       }
 
       while (v63);
     }
 
-    v33 = v130;
+    v33 = v129;
   }
 
-  v75 = [v136 count];
+  v75 = [v135 count];
   v76 = v75;
   if (!v75)
   {
@@ -1171,10 +1171,10 @@ LABEL_78:
 
   if (v75 != 1)
   {
-    [v136 sortUsingComparator:&stru_100092C18];
+    [v135 sortUsingComparator:&stru_100092C18];
   }
 
-  [cf setLanguages:v136];
+  [cf setLanguages:v135];
   v77 = [(__CFArray *)v33 count];
   v78 = v77;
   if (!v77)
@@ -1187,14 +1187,14 @@ LABEL_78:
     goto LABEL_121;
   }
 
-  v79 = v166[5];
+  v79 = v165[5];
   if (v79)
   {
     v80 = v79;
     goto LABEL_111;
   }
 
-  v80 = v172[5];
+  v80 = v171[5];
   v76 = v78;
   if (!v80)
   {
@@ -1212,7 +1212,7 @@ LABEL_121:
       if (v89)
       {
         v16 = +[NSMutableSet set];
-        [(SPApplicationIndexer *)self addDefaultBundleInformationForURL:v132 attrSet:cf altNames:v16 namesOnly:1 withApp:v138 enName:v89];
+        [(SPApplicationIndexer *)self addDefaultBundleInformationForURL:v131 attrSet:cf altNames:v16 namesOnly:1 withApp:v137 enName:v89];
         [v16 addObject:v89];
       }
 
@@ -1226,25 +1226,25 @@ LABEL_121:
   }
 
 LABEL_111:
-  v150 = 0u;
-  v151 = 0u;
-  v148 = 0u;
   v149 = 0u;
-  v81 = v136;
-  v82 = [v81 countByEnumeratingWithState:&v148 objects:v185 count:16];
+  v150 = 0u;
+  v147 = 0u;
+  v148 = 0u;
+  v81 = v135;
+  v82 = [v81 countByEnumeratingWithState:&v147 objects:v184 count:16];
   if (v82)
   {
-    v83 = *v149;
+    v83 = *v148;
     do
     {
       for (j = 0; j != v82; j = j + 1)
       {
-        if (*v149 != v83)
+        if (*v148 != v83)
         {
           objc_enumerationMutation(v81);
         }
 
-        v85 = *(*(&v148 + 1) + 8 * j);
+        v85 = *(*(&v147 + 1) + 8 * j);
         v86 = [(__CFArray *)v33 objectForKeyedSubscript:v85];
         v87 = v86 == 0;
 
@@ -1254,7 +1254,7 @@ LABEL_111:
         }
       }
 
-      v82 = [v81 countByEnumeratingWithState:&v148 objects:v185 count:16];
+      v82 = [v81 countByEnumeratingWithState:&v147 objects:v184 count:16];
     }
 
     while (v82);
@@ -1280,7 +1280,7 @@ LABEL_129:
     [v91 addObject:displayName2];
   }
 
-  else if (v166[5] || v172[5])
+  else if (v165[5] || v171[5])
   {
     [v91 addObject:?];
   }
@@ -1290,50 +1290,49 @@ LABEL_129:
   v95 = CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks);
   if (v94 && [v94 count])
   {
-    v146 = 0u;
-    v147 = 0u;
-    v144 = 0u;
     v145 = 0u;
+    v146 = 0u;
+    v143 = 0u;
+    v144 = 0u;
     v96 = v94;
-    v97 = [v96 countByEnumeratingWithState:&v144 objects:v184 count:16];
+    v97 = [v96 countByEnumeratingWithState:&v143 objects:v183 count:16];
     if (v97)
     {
-      v98 = *v145;
+      v98 = *v144;
       do
       {
-        for (k = 0; k != v97; k = k + 1)
+        for (k = 0; k != v97; ++k)
         {
-          if (*v145 != v98)
+          if (*v144 != v98)
           {
             objc_enumerationMutation(v96);
           }
 
-          v100 = *(*(&v144 + 1) + 8 * k);
-          v101 = createConsonantsStringForKorean();
-          v102 = v101;
-          if (v101)
+          v100 = createConsonantsStringForKorean();
+          v101 = v100;
+          if (v100)
           {
-            if (CFStringGetLength(v101))
+            if (CFStringGetLength(v100))
             {
-              CFSetAddValue(v95, v102);
-              v103 = createConsonantsStringForKorean();
-              v104 = v103;
-              if (v103)
+              CFSetAddValue(v95, v101);
+              v102 = createConsonantsStringForKorean();
+              v103 = v102;
+              if (v102)
               {
-                if (CFStringGetLength(v103))
+                if (CFStringGetLength(v102))
                 {
-                  CFSetAddValue(v95, v104);
+                  CFSetAddValue(v95, v103);
                 }
 
-                CFRelease(v104);
+                CFRelease(v103);
               }
             }
 
-            CFRelease(v102);
+            CFRelease(v101);
           }
         }
 
-        v97 = [v96 countByEnumeratingWithState:&v144 objects:v184 count:16];
+        v97 = [v96 countByEnumeratingWithState:&v143 objects:v183 count:16];
       }
 
       while (v97);
@@ -1344,44 +1343,44 @@ LABEL_129:
   {
     if (CFSetGetCount(v95))
     {
-      if (!v143)
+      if (!v142)
       {
-        v143 = +[NSMutableDictionary dictionary];
+        v142 = +[NSMutableDictionary dictionary];
       }
 
-      v105 = [NSMutableSet setWithSet:v95];
-      v106 = [v143 objectForKeyedSubscript:@"ko"];
-      v107 = v106;
-      if (v106 && [v106 length])
+      v104 = [NSMutableSet setWithSet:v95];
+      v105 = [v142 objectForKeyedSubscript:@"ko"];
+      v106 = v105;
+      if (v105 && [v105 length])
       {
-        v108 = [v107 componentsSeparatedByString:{@", "}];
-        [v105 addObjectsFromArray:v108];
+        v107 = [v106 componentsSeparatedByString:{@", "}];
+        [v104 addObjectsFromArray:v107];
       }
 
-      allObjects3 = [v105 allObjects];
-      v110 = [allObjects3 componentsJoinedByString:{@", "}];
-      [v143 setObject:v110 forKeyedSubscript:@"ko"];
+      allObjects3 = [v104 allObjects];
+      v109 = [allObjects3 componentsJoinedByString:{@", "}];
+      [v142 setObject:v109 forKeyedSubscript:@"ko"];
     }
 
     CFRelease(v95);
   }
 
-  if (v143 && [v143 count])
+  if (v142 && [v142 count])
   {
-    v111 = [[CSLocalizedString alloc] initWithLocalizedStrings:v143];
-    [cf setAttribute:v111 forKey:MDItemKeywords];
+    v110 = [[CSLocalizedString alloc] initWithLocalizedStrings:v142];
+    [cf setAttribute:v110 forKey:MDItemKeywords];
   }
 
-  _Block_object_dispose(&v165, 8);
-  _Block_object_dispose(&v171, 8);
+  _Block_object_dispose(&v164, 8);
+  _Block_object_dispose(&v170, 8);
 
-  v17 = v128;
+  v17 = v127;
 LABEL_164:
 
-  v112 = [NSNumber numberWithInteger:qword_1000A8378];
-  [cf setAttribute:v112 forKey:off_1000A7DE0];
+  v111 = [NSNumber numberWithInteger:qword_1000A8378];
+  [cf setAttribute:v111 forKey:off_1000A7DE0];
 
-  if (![v140 count])
+  if (![v139 count])
   {
     goto LABEL_168;
   }
@@ -1392,37 +1391,37 @@ LABEL_164:
   }
 
 LABEL_167:
-  v182[0] = MDItemRankingLaunchCountDay;
-  v113 = [v140 objectAtIndexedSubscript:0];
-  v183[0] = v113;
-  v182[1] = MDItemRankingLaunchCountLast7Days;
-  v114 = [v140 objectAtIndexedSubscript:1];
-  v183[1] = v114;
-  v182[2] = MDItemRankingLaunchCountLast30Days;
-  v115 = [v140 objectAtIndexedSubscript:2];
-  v183[2] = v115;
-  v182[3] = MDItemRankingLaunchCountOld;
-  v116 = [v140 objectAtIndexedSubscript:3];
-  v183[3] = v116;
-  v182[4] = MDItemApplicationLastLaunchedDate;
-  v117 = [NSDate alloc];
-  v118 = [v140 objectAtIndexedSubscript:4];
-  [v118 doubleValue];
-  v119 = [v117 initWithTimeIntervalSinceReferenceDate:?];
-  v183[4] = v119;
-  v120 = [NSDictionary dictionaryWithObjects:v183 forKeys:v182 count:5];
+  v181[0] = MDItemRankingLaunchCountDay;
+  v112 = [v139 objectAtIndexedSubscript:0];
+  v182[0] = v112;
+  v181[1] = MDItemRankingLaunchCountLast7Days;
+  v113 = [v139 objectAtIndexedSubscript:1];
+  v182[1] = v113;
+  v181[2] = MDItemRankingLaunchCountLast30Days;
+  v114 = [v139 objectAtIndexedSubscript:2];
+  v182[2] = v114;
+  v181[3] = MDItemRankingLaunchCountOld;
+  v115 = [v139 objectAtIndexedSubscript:3];
+  v182[3] = v115;
+  v181[4] = MDItemApplicationLastLaunchedDate;
+  v116 = [NSDate alloc];
+  v117 = [v139 objectAtIndexedSubscript:4];
+  [v117 doubleValue];
+  v118 = [v116 initWithTimeIntervalSinceReferenceDate:?];
+  v182[4] = v118;
+  v119 = [NSDictionary dictionaryWithObjects:v182 forKeys:v181 count:5];
 
-  [cf addAttributesFromDictionary:v120];
+  [cf addAttributesFromDictionary:v119];
 LABEL_168:
   if (cf)
   {
-    v121 = SPLogForSPLogCategoryDefault();
-    v122 = gSPLogInfoAsDefault;
-    if (os_log_type_enabled(v121, ((gSPLogInfoAsDefault & 1) == 0)))
+    v120 = SPLogForSPLogCategoryDefault();
+    v121 = gSPLogInfoAsDefault;
+    if (os_log_type_enabled(v120, ((gSPLogInfoAsDefault & 1) == 0)))
     {
       *buf = 138412290;
-      v188 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v121, ((v122 & 1) == 0), "processed update %@", buf, 0xCu);
+      v187 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v120, ((v121 & 1) == 0), "processed update %@", buf, 0xCu);
     }
 
     v18 = [[CSSearchableItem alloc] initWithUniqueIdentifier:identifierCopy domainIdentifier:0 attributeSet:cf];
@@ -1436,7 +1435,7 @@ LABEL_168:
   }
 
 LABEL_173:
-  v123 = v18;
+  v122 = v18;
 
   return v18;
 }

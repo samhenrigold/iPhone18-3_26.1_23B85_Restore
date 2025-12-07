@@ -200,7 +200,7 @@
 
 - (id)loadCompositionFrom:(id)from formatIdentifier:(id)identifier formatVersion:(id)version sidecarData:(id)data error:(id *)error
 {
-  v84[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   fromCopy = from;
   identifierCopy = identifier;
   versionCopy = version;
@@ -212,226 +212,223 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLPhotoEditPersistenceManager.m" lineNumber:74 description:{@"Invalid parameter not satisfying: %@", @"error"}];
   }
 
-  v63 = versionCopy;
-  v64 = identifierCopy;
+  v61 = versionCopy;
+  v62 = identifierCopy;
   if (([getPIPhotoEditHelperClass_71962() canInterpretDataWithFormatIdentifier:identifierCopy formatVersion:versionCopy] & 1) == 0)
   {
     v19 = MEMORY[0x1E696ABC0];
-    v83 = *MEMORY[0x1E696A588];
+    v80 = *MEMORY[0x1E696A588];
     versionCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot interpret adjustment data: %@ %@", identifierCopy, versionCopy];
-    v84[0] = versionCopy;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:&v83 count:1];
+    v81[0] = versionCopy;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:&v80 count:1];
     *error = [v19 errorWithDomain:@"PLPhotoEditPersistenceManagerDomain" code:0 userInfo:v21];
 
     v22 = 0;
     goto LABEL_36;
   }
 
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x2020000000;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x2020000000;
   v15 = getPIPhotoEditFormatIdentifierVideoSloMoSymbolLoc_ptr;
-  v76 = getPIPhotoEditFormatIdentifierVideoSloMoSymbolLoc_ptr;
+  v73 = getPIPhotoEditFormatIdentifierVideoSloMoSymbolLoc_ptr;
   if (!getPIPhotoEditFormatIdentifierVideoSloMoSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getPIPhotoEditFormatIdentifierVideoSloMoSymbolLoc_block_invoke;
-    v78 = &unk_1E7577EA0;
-    v79[0] = &v73;
+    v75 = &unk_1E7577EA0;
+    v76[0] = &v70;
     v16 = PhotoImagingLibrary_71901();
     v17 = dlsym(v16, "PIPhotoEditFormatIdentifierVideoSloMo");
-    *(*(v79[0] + 8) + 24) = v17;
-    getPIPhotoEditFormatIdentifierVideoSloMoSymbolLoc_ptr = *(*(v79[0] + 8) + 24);
-    v15 = v74[3];
+    *(*(v76[0] + 8) + 24) = v17;
+    getPIPhotoEditFormatIdentifierVideoSloMoSymbolLoc_ptr = *(*(v76[0] + 8) + 24);
+    v15 = v71[3];
   }
 
-  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v70, 8);
   if (!v15)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v56 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getPIPhotoEditFormatIdentifierVideoSloMo(void)"];
-    [currentHandler2 handleFailureInFunction:v56 file:@"PLPhotoEditPersistenceManager.m" lineNumber:43 description:{@"%s", dlerror()}];
+    v54 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getPIPhotoEditFormatIdentifierVideoSloMo(void)"];
+    [currentHandler2 handleFailureInFunction:v54 file:@"PLPhotoEditPersistenceManager.m" lineNumber:43 description:{@"%s", dlerror()}];
 
     goto LABEL_41;
   }
 
   v18 = *v15;
-  if ([identifierCopy isEqualToString:v18])
+  if (objc_msgSend_isEqualToString_(identifierCopy))
   {
 
 LABEL_14:
     v27 = objc_opt_new();
-    v59 = [MEMORY[0x1E69C0EB8] deserialize:fromCopy originator:*MEMORY[0x1E69C0E38] format:identifierCopy formatVersion:versionCopy error:errorCopy];
-    v71 = 0u;
-    v72 = 0u;
+    v57 = [MEMORY[0x1E69C0EB8] deserialize:fromCopy originator:*MEMORY[0x1E69C0E38] format:identifierCopy formatVersion:versionCopy error:errorCopy];
+    v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
-    adjustmentStack = [v59 adjustmentStack];
+    v66 = 0u;
+    v67 = 0u;
+    adjustmentStack = [v57 adjustmentStack];
     obj = [adjustmentStack adjustments];
 
-    v29 = [obj countByEnumeratingWithState:&v69 objects:v82 count:16];
+    v29 = [obj countByEnumeratingWithState:&v66 objects:v79 count:16];
     if (!v29)
     {
       goto LABEL_34;
     }
 
-    v30 = *v70;
-    v31 = *MEMORY[0x1E69C0E88];
-    v32 = *MEMORY[0x1E69C0EA8];
-    v66 = *MEMORY[0x1E69C0E80];
-    v67 = *MEMORY[0x1E69C0E78];
-    v65 = *MEMORY[0x1E69C0EA0];
+    v30 = *v67;
+    v64 = *MEMORY[0x1E69C0E80];
+    v63 = *MEMORY[0x1E69C0EA0];
     while (1)
     {
-      v33 = 0;
+      v31 = 0;
       do
       {
-        if (*v70 != v30)
+        if (*v67 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v69 + 1) + 8 * v33);
-        identifier = [v34 identifier];
-        v36 = [identifier isEqualToString:v31];
+        v32 = *(*(&v66 + 1) + 8 * v31);
+        identifier = [v32 identifier];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v36)
+        if (isEqualToString)
         {
-          v37 = objc_opt_new();
-          [v37 setObject:@"SlowMotion" forKeyedSubscript:@"identifier"];
-          settings = [v34 settings];
-          [v37 setObject:settings forKeyedSubscript:@"settings"];
+          v35 = objc_opt_new();
+          [v35 setObject:@"SlowMotion" forKeyedSubscript:@"identifier"];
+          settings = [v32 settings];
+          [v35 setObject:settings forKeyedSubscript:@"settings"];
 
-          [v37 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"enabled"];
-          [v27 addObject:v37];
+          [v35 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"enabled"];
+          [v27 addObject:v35];
         }
 
         else
         {
-          identifier2 = [v34 identifier];
-          v40 = [identifier2 isEqualToString:v32];
+          identifier2 = [v32 identifier];
+          v38 = objc_msgSend_isEqualToString_(identifier2);
 
-          if (v40)
+          if (v38)
           {
-            v37 = objc_opt_new();
-            identifier3 = [v34 identifier];
-            [v37 setObject:identifier3 forKeyedSubscript:@"identifier"];
+            v35 = objc_opt_new();
+            identifier3 = [v32 identifier];
+            [v35 setObject:identifier3 forKeyedSubscript:@"identifier"];
 
-            settings2 = [v34 settings];
-            [v37 setObject:settings2 forKeyedSubscript:@"settings"];
+            settings2 = [v32 settings];
+            [v35 setObject:settings2 forKeyedSubscript:@"settings"];
 
-            [v37 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"enabled"];
-            [v27 addObject:v37];
+            [v35 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"enabled"];
+            [v27 addObject:v35];
           }
 
           else
           {
-            identifier4 = [v34 identifier];
-            v44 = [identifier4 isEqualToString:v67];
+            identifier4 = [v32 identifier];
+            v42 = objc_msgSend_isEqualToString_(identifier4);
 
-            if (!v44)
+            if (!v42)
             {
               goto LABEL_29;
             }
 
-            settings3 = [v34 settings];
-            v37 = [settings3 objectForKeyedSubscript:v66];
-            if (v37)
+            settings3 = [v32 settings];
+            v35 = [settings3 objectForKeyedSubscript:v64];
+            if (v35)
             {
             }
 
             else
             {
-              settings4 = [v34 settings];
-              v37 = [settings4 objectForKeyedSubscript:v65];
+              settings4 = [v32 settings];
+              v35 = [settings4 objectForKeyedSubscript:v63];
 
-              if (!v37)
+              if (!v35)
               {
-                v37 = PLBackendGetLog();
-                if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+                v35 = PLBackendGetLog();
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
                 {
-                  identifier5 = [v34 identifier];
-                  version = [v34 version];
-                  settings5 = [v34 settings];
+                  identifier5 = [v32 identifier];
+                  version = [v32 version];
+                  settings5 = [v32 settings];
                   *buf = 138413058;
-                  *&buf[4] = v64;
+                  *&buf[4] = v62;
                   *&buf[12] = 2112;
                   *&buf[14] = identifier5;
                   *&buf[22] = 2112;
-                  v78 = version;
-                  LOWORD(v79[0]) = 2112;
-                  *(v79 + 2) = settings5;
-                  _os_log_impl(&dword_19BF1F000, v37, OS_LOG_TYPE_ERROR, "PosterFrame adjustment has unexpected format, will not migrate: %@, %@, %@, %@", buf, 0x2Au);
+                  v75 = version;
+                  LOWORD(v76[0]) = 2112;
+                  *(v76 + 2) = settings5;
+                  _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_ERROR, "PosterFrame adjustment has unexpected format, will not migrate: %@, %@, %@, %@", buf, 0x2Au);
                 }
 
                 goto LABEL_28;
               }
             }
 
-            v47 = objc_opt_new();
-            [v47 setObject:@"VideoPosterFrame" forKeyedSubscript:@"identifier"];
-            v80 = @"time";
-            v81 = v37;
-            v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-            [v47 setObject:v48 forKeyedSubscript:@"settings"];
+            v45 = objc_opt_new();
+            [v45 setObject:@"VideoPosterFrame" forKeyedSubscript:@"identifier"];
+            v77 = @"time";
+            v78 = v35;
+            v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+            [v45 setObject:v46 forKeyedSubscript:@"settings"];
 
-            [v47 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"enabled"];
-            [v27 addObject:v47];
+            [v45 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"enabled"];
+            [v27 addObject:v45];
           }
         }
 
 LABEL_28:
 
 LABEL_29:
-        ++v33;
+        ++v31;
       }
 
-      while (v29 != v33);
-      v52 = [obj countByEnumeratingWithState:&v69 objects:v82 count:16];
-      v29 = v52;
-      if (!v52)
+      while (v29 != v31);
+      v50 = [obj countByEnumeratingWithState:&v66 objects:v79 count:16];
+      v29 = v50;
+      if (!v50)
       {
 LABEL_34:
 
-        v22 = [getPICompositionSerializerClass() deserializeCompositionFromAdjustments:v27 metadata:MEMORY[0x1E695E0F8] formatIdentifier:v64 formatVersion:v63 error:errorCopy];
+        v22 = [getPICompositionSerializerClass() deserializeCompositionFromAdjustments:v27 metadata:MEMORY[0x1E695E0F8] formatIdentifier:v62 formatVersion:v61 error:errorCopy];
 
         goto LABEL_36;
       }
     }
   }
 
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x2020000000;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x2020000000;
   v23 = getPIPhotoEditFormatIdentifierVideoSymbolLoc_ptr;
-  v76 = getPIPhotoEditFormatIdentifierVideoSymbolLoc_ptr;
+  v73 = getPIPhotoEditFormatIdentifierVideoSymbolLoc_ptr;
   if (!getPIPhotoEditFormatIdentifierVideoSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getPIPhotoEditFormatIdentifierVideoSymbolLoc_block_invoke;
-    v78 = &unk_1E7577EA0;
-    v79[0] = &v73;
+    v75 = &unk_1E7577EA0;
+    v76[0] = &v70;
     v24 = PhotoImagingLibrary_71901();
     v25 = dlsym(v24, "PIPhotoEditFormatIdentifierVideo");
-    *(*(v79[0] + 8) + 24) = v25;
-    getPIPhotoEditFormatIdentifierVideoSymbolLoc_ptr = *(*(v79[0] + 8) + 24);
-    v23 = v74[3];
+    *(*(v76[0] + 8) + 24) = v25;
+    getPIPhotoEditFormatIdentifierVideoSymbolLoc_ptr = *(*(v76[0] + 8) + 24);
+    v23 = v71[3];
   }
 
-  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v70, 8);
   if (!v23)
   {
     currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
-    v58 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getPIPhotoEditFormatIdentifierVideo(void)"];
-    [currentHandler3 handleFailureInFunction:v58 file:@"PLPhotoEditPersistenceManager.m" lineNumber:45 description:{@"%s", dlerror()}];
+    v56 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getPIPhotoEditFormatIdentifierVideo(void)"];
+    [currentHandler3 handleFailureInFunction:v56 file:@"PLPhotoEditPersistenceManager.m" lineNumber:45 description:{@"%s", dlerror()}];
 
 LABEL_41:
     __break(1u);
   }
 
-  v26 = [identifierCopy isEqualToString:*v23];
+  v26 = objc_msgSend_isEqualToString_(identifierCopy);
 
   if (v26)
   {
@@ -467,20 +464,20 @@ LABEL_36:
       v18 = v17;
       if (bOOLValue)
       {
-        v19 = [v17 isEqualToString:@"AutoLoop"];
-        if ([v18 isEqualToString:@"LongExposure"])
+        isEqualToString = objc_msgSend_isEqualToString_(v17);
+        if (objc_msgSend_isEqualToString_(v18))
         {
-          v19 |= 4u;
+          isEqualToString |= 4u;
         }
 
-        if ([v18 isEqualToString:@"Mirror"])
+        if (objc_msgSend_isEqualToString_(v18))
         {
-          v20 = v19 | 8;
+          v20 = isEqualToString | 8;
         }
 
         else
         {
-          v20 = v19;
+          v20 = isEqualToString;
         }
       }
 

@@ -10,13 +10,12 @@
 
 - (void)setDelegate:(id)delegate queue:(id)queue
 {
-  v6 = *(&self->super.super.super.isa + OBJC_IVAR____TtC13HomeKitDaemon26DemoAccessoryServerBrowser_delegate);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC13HomeKitDaemon26DemoAccessoryServerBrowser_delegate) = delegate;
   swift_unknownObjectRetain();
   queueCopy = queue;
   selfCopy = self;
   swift_unknownObjectRelease();
-  v9 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC13HomeKitDaemon26DemoAccessoryServerBrowser_delegateQueue);
+  v8 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC13HomeKitDaemon26DemoAccessoryServerBrowser_delegateQueue);
   *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC13HomeKitDaemon26DemoAccessoryServerBrowser_delegateQueue) = queueCopy;
 }
 

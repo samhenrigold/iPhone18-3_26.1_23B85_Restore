@@ -17,28 +17,28 @@
 
 - (NSArray)credentials
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   flowIdentifiers = [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)self flowIdentifiers];
-  v5 = [flowIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [flowIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(flowIdentifiers);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         flowIdentifierToCredential = [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)self flowIdentifierToCredential];
         v11 = [flowIdentifierToCredential objectForKey:v9];
 
@@ -48,14 +48,13 @@
         }
       }
 
-      v6 = [flowIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [flowIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   v12 = [array copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

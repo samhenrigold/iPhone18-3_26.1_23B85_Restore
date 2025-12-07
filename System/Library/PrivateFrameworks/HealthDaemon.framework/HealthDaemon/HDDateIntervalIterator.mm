@@ -14,7 +14,7 @@
   v5 = [(HDDateIntervalIterator *)&v9 init];
   if (v5)
   {
-    v6 = [intervalsCopy copy];
+    v6 = objc_msgSend_copy(intervalsCopy);
     dateIntervals = v5->_dateIntervals;
     v5->_dateIntervals = v6;
 

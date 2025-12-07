@@ -11,45 +11,45 @@
 
 - (TPSContextualClientContextEvent)initWithDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v24.receiver = self;
-  v24.super_class = TPSContextualClientContextEvent;
-  v5 = [(TPSContextualEvent *)&v24 initWithDictionary:dictionaryCopy];
+  v23.receiver = self;
+  v23.super_class = TPSContextualClientContextEvent;
+  v5 = [(TPSContextualEvent *)&v23 initWithDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = [dictionaryCopy TPSSafeArrayForKey:@"conditions"];
     v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v6, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         v12 = 0;
         do
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * v12);
+          v13 = *(*(&v19 + 1) + 8 * v12);
           v14 = [TPSContextualClientContextCondition alloc];
-          v15 = [(TPSContextualClientContextCondition *)v14 initWithDictionary:v13, v20];
+          v15 = [(TPSContextualClientContextCondition *)v14 initWithDictionary:v13, v19];
           [v7 addObject:v15];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v10);
@@ -63,7 +63,6 @@
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -106,40 +105,38 @@
 
 - (id)clientContextKeys
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_conditions;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v13 + 1) + 8 * i) key];
+        v9 = [*(*(&v12 + 1) + 8 * i) key];
         [v3 addObject:v9];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   allObjects = [v3 allObjects];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }

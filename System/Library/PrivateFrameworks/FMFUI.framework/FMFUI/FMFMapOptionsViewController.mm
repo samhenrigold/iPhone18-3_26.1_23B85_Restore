@@ -52,7 +52,7 @@
 
 - (void)viewDidLoad
 {
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -109,19 +109,19 @@
 
 - (MKMapAttribution)mapAttribution
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   mapAttribution = self->_mapAttribution;
   if (!mapAttribution)
   {
     if (!mapAttribution_stringAttributes)
     {
-      v13[0] = *MEMORY[0x277D740C0];
+      v12[0] = *MEMORY[0x277D740C0];
       labelColor = [MEMORY[0x277D75348] labelColor];
-      v14[0] = labelColor;
-      v13[1] = *MEMORY[0x277D740A8];
+      v13[0] = labelColor;
+      v12[1] = *MEMORY[0x277D740A8];
       v5 = [MEMORY[0x277D74300] boldSystemFontOfSize:12.0];
-      v14[1] = v5;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+      v13[1] = v5;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
       v7 = mapAttribution_stringAttributes;
       mapAttribution_stringAttributes = v6;
     }
@@ -133,8 +133,6 @@
 
     mapAttribution = self->_mapAttribution;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return mapAttribution;
 }
@@ -157,15 +155,15 @@
 
 - (void)segmentedControlChanged:(id)changed
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   selectedSegmentIndex = [changedCopy selectedSegmentIndex];
-  v6 = LogCategory_Daemon();
+  v6 = LogCategory_Daemon(selectedSegmentIndex);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
-    v11 = selectedSegmentIndex;
-    _os_log_impl(&dword_24A4E3000, v6, OS_LOG_TYPE_DEFAULT, "FMFMapOptionsViewController: newMapType %lu", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = selectedSegmentIndex;
+    _os_log_impl(&dword_24A4E3000, v6, OS_LOG_TYPE_DEFAULT, "FMFMapOptionsViewController: newMapType %lu", &v9, 0xCu);
   }
 
   if ([changedCopy selectedSegmentIndex] == 1)
@@ -184,8 +182,6 @@
 
   [delegate mapTypeChanged:selectedSegmentIndex];
   [(FMFMapOptionsViewController *)self _dismiss:changedCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (FMFMapOptionsViewControllerDelegate)delegate

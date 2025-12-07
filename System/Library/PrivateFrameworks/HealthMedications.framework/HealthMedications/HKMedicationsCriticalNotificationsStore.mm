@@ -55,9 +55,10 @@
 
 uint64_t __57__HKMedicationsCriticalNotificationsStore_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(HKMedicationsCriticalNotificationsStore);
+  v0 = objc_alloc_init(HKMedicationsCriticalNotificationsStore);
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (void)addMedications:(id)medications

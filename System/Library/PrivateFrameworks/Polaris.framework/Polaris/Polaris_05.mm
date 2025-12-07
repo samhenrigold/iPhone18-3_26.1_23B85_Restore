@@ -1,646 +1,3 @@
-void sub_25EAD8AFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t PSSG::Resource::providerHasPausedResource(PSSG::Resource *this)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    if (*(this + 23) >= 0)
-    {
-      v3 = *(this + 23);
-    }
-
-    else
-    {
-      v3 = *(this + 1);
-    }
-
-    v4 = &v15;
-    std::string::basic_string[abi:ne200100](&v15, v3 + 1);
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v4 = v15.__r_.__value_.__r.__words[0];
-    }
-
-    if (v3)
-    {
-      if (*(this + 23) >= 0)
-      {
-        v5 = this;
-      }
-
-      else
-      {
-        v5 = *this;
-      }
-
-      memmove(v4, v5, v3);
-    }
-
-    *(&v4->__r_.__value_.__l.__data_ + v3) = 58;
-    v6 = *(this + 3);
-    if (v6)
-    {
-      if (*(v6 + 47) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v14, *(v6 + 24), *(v6 + 32));
-      }
-
-      else
-      {
-        v14 = *(v6 + 24);
-      }
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(&v14, "NULL (likely due to a Polaris client error)");
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v7 = &v14;
-    }
-
-    else
-    {
-      v7 = v14.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v14.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v14.__r_.__value_.__l.__size_;
-    }
-
-    v9 = std::string::append(&v15, v7, size);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v17 = v9->__r_.__value_.__r.__words[2];
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = __p;
-    if (v17 < 0)
-    {
-      v11 = __p[0];
-    }
-
-    *buf = 136315394;
-    v19 = v11;
-    v20 = 2080;
-    v21 = "providerHasPausedResource";
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "%s --> %s ", buf, 0x16u);
-    if (SHIBYTE(v17) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v14.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v15.__r_.__value_.__l.__data_);
-    }
-  }
-
-  *(this + 212) = 0;
-  *(this + 194) = 0;
-  result = PSSG::Resource::sendOutgoingMessages(this);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_25EAD8D24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t PSSG::Resource::providerFailedToSetupResource(PSSG::Resource *this)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    if (*(this + 23) >= 0)
-    {
-      v3 = *(this + 23);
-    }
-
-    else
-    {
-      v3 = *(this + 1);
-    }
-
-    v4 = &v15;
-    std::string::basic_string[abi:ne200100](&v15, v3 + 1);
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v4 = v15.__r_.__value_.__r.__words[0];
-    }
-
-    if (v3)
-    {
-      if (*(this + 23) >= 0)
-      {
-        v5 = this;
-      }
-
-      else
-      {
-        v5 = *this;
-      }
-
-      memmove(v4, v5, v3);
-    }
-
-    *(&v4->__r_.__value_.__l.__data_ + v3) = 58;
-    v6 = *(this + 3);
-    if (v6)
-    {
-      if (*(v6 + 47) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v14, *(v6 + 24), *(v6 + 32));
-      }
-
-      else
-      {
-        v14 = *(v6 + 24);
-      }
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(&v14, "NULL (likely due to a Polaris client error)");
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v7 = &v14;
-    }
-
-    else
-    {
-      v7 = v14.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v14.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v14.__r_.__value_.__l.__size_;
-    }
-
-    v9 = std::string::append(&v15, v7, size);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v17 = v9->__r_.__value_.__r.__words[2];
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = __p;
-    if (v17 < 0)
-    {
-      v11 = __p[0];
-    }
-
-    *buf = 136315394;
-    v19 = v11;
-    v20 = 2080;
-    v21 = "providerFailedToSetupResource";
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "%s --> %s ", buf, 0x16u);
-    if (SHIBYTE(v17) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v14.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v15.__r_.__value_.__l.__data_);
-    }
-  }
-
-  *(this + 212) = 0;
-  result = PSSG::Resource::sendOutgoingMessages(this);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_25EAD8F48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t PSSG::Resource::providerFailedToPauseResource(PSSG::Resource *this)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    if (*(this + 23) >= 0)
-    {
-      v3 = *(this + 23);
-    }
-
-    else
-    {
-      v3 = *(this + 1);
-    }
-
-    v4 = &v15;
-    std::string::basic_string[abi:ne200100](&v15, v3 + 1);
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v4 = v15.__r_.__value_.__r.__words[0];
-    }
-
-    if (v3)
-    {
-      if (*(this + 23) >= 0)
-      {
-        v5 = this;
-      }
-
-      else
-      {
-        v5 = *this;
-      }
-
-      memmove(v4, v5, v3);
-    }
-
-    *(&v4->__r_.__value_.__l.__data_ + v3) = 58;
-    v6 = *(this + 3);
-    if (v6)
-    {
-      if (*(v6 + 47) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v14, *(v6 + 24), *(v6 + 32));
-      }
-
-      else
-      {
-        v14 = *(v6 + 24);
-      }
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(&v14, "NULL (likely due to a Polaris client error)");
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v7 = &v14;
-    }
-
-    else
-    {
-      v7 = v14.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v14.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v14.__r_.__value_.__l.__size_;
-    }
-
-    v9 = std::string::append(&v15, v7, size);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v17 = v9->__r_.__value_.__r.__words[2];
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = __p;
-    if (v17 < 0)
-    {
-      v11 = __p[0];
-    }
-
-    *buf = 136315394;
-    v19 = v11;
-    v20 = 2080;
-    v21 = "providerFailedToPauseResource";
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "%s --> %s ", buf, 0x16u);
-    if (SHIBYTE(v17) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v14.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v15.__r_.__value_.__l.__data_);
-    }
-  }
-
-  *(this + 212) = 0;
-  result = PSSG::Resource::sendOutgoingMessages(this);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_25EAD916C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t PSSG::Resource::providerFailedToProcessNoLongerWantedNotification(PSSG::Resource *this)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    if (*(this + 23) >= 0)
-    {
-      v3 = *(this + 23);
-    }
-
-    else
-    {
-      v3 = *(this + 1);
-    }
-
-    v4 = &v15;
-    std::string::basic_string[abi:ne200100](&v15, v3 + 1);
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v4 = v15.__r_.__value_.__r.__words[0];
-    }
-
-    if (v3)
-    {
-      if (*(this + 23) >= 0)
-      {
-        v5 = this;
-      }
-
-      else
-      {
-        v5 = *this;
-      }
-
-      memmove(v4, v5, v3);
-    }
-
-    *(&v4->__r_.__value_.__l.__data_ + v3) = 58;
-    v6 = *(this + 3);
-    if (v6)
-    {
-      if (*(v6 + 47) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v14, *(v6 + 24), *(v6 + 32));
-      }
-
-      else
-      {
-        v14 = *(v6 + 24);
-      }
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(&v14, "NULL (likely due to a Polaris client error)");
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v7 = &v14;
-    }
-
-    else
-    {
-      v7 = v14.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v14.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v14.__r_.__value_.__l.__size_;
-    }
-
-    v9 = std::string::append(&v15, v7, size);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v17 = v9->__r_.__value_.__r.__words[2];
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = __p;
-    if (v17 < 0)
-    {
-      v11 = __p[0];
-    }
-
-    *buf = 136315394;
-    v19 = v11;
-    v20 = 2080;
-    v21 = "providerFailedToProcessNoLongerWantedNotification";
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "%s --> %s ", buf, 0x16u);
-    if (SHIBYTE(v17) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v14.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v15.__r_.__value_.__l.__data_);
-    }
-  }
-
-  *(this + 212) = 0;
-  *(this + 195) = 1;
-  result = PSSG::Resource::sendOutgoingMessages(this);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_25EAD9398(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t PSSG::Resource::providerProcessedNoLongerWantedNotification(PSSG::Resource *this)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    if (*(this + 23) >= 0)
-    {
-      v3 = *(this + 23);
-    }
-
-    else
-    {
-      v3 = *(this + 1);
-    }
-
-    v4 = &v15;
-    std::string::basic_string[abi:ne200100](&v15, v3 + 1);
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v4 = v15.__r_.__value_.__r.__words[0];
-    }
-
-    if (v3)
-    {
-      if (*(this + 23) >= 0)
-      {
-        v5 = this;
-      }
-
-      else
-      {
-        v5 = *this;
-      }
-
-      memmove(v4, v5, v3);
-    }
-
-    *(&v4->__r_.__value_.__l.__data_ + v3) = 58;
-    v6 = *(this + 3);
-    if (v6)
-    {
-      if (*(v6 + 47) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v14, *(v6 + 24), *(v6 + 32));
-      }
-
-      else
-      {
-        v14 = *(v6 + 24);
-      }
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(&v14, "NULL (likely due to a Polaris client error)");
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v7 = &v14;
-    }
-
-    else
-    {
-      v7 = v14.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v14.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v14.__r_.__value_.__l.__size_;
-    }
-
-    v9 = std::string::append(&v15, v7, size);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v17 = v9->__r_.__value_.__r.__words[2];
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = __p;
-    if (v17 < 0)
-    {
-      v11 = __p[0];
-    }
-
-    *buf = 136315394;
-    v19 = v11;
-    v20 = 2080;
-    v21 = "providerProcessedNoLongerWantedNotification";
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "%s --> %s ", buf, 0x16u);
-    if (SHIBYTE(v17) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v14.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v15.__r_.__value_.__l.__data_);
-    }
-  }
-
-  *(this + 97) = 0;
-  *(this + 212) = 0;
-  result = PSSG::Resource::sendOutgoingMessages(this);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
 void sub_25EAD95C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a20 < 0)
@@ -651,56 +8,56 @@ void sub_25EAD95C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t PSSG::Resource::PBSLockFailed(PSSG::Resource *this)
+uint64_t PSSG::Resource::PBSLockFailed(PSSG::Resource *this, uint64_t a2)
 {
   v22 = *MEMORY[0x277D85DE8];
-  v2 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = __PSSGLogSharedInstance(this, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (*(this + 23) >= 0)
     {
-      v3 = *(this + 23);
+      v4 = *(this + 23);
     }
 
     else
     {
-      v3 = *(this + 1);
+      v4 = *(this + 1);
     }
 
-    v4 = &v15;
-    std::string::basic_string[abi:ne200100](&v15, v3 + 1);
+    v5 = &v15;
+    std::string::basic_string[abi:ne200100](&v15, v4 + 1);
     if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v4 = v15.__r_.__value_.__r.__words[0];
+      v5 = v15.__r_.__value_.__r.__words[0];
     }
 
-    if (v3)
+    if (v4)
     {
       if (*(this + 23) >= 0)
       {
-        v5 = this;
+        v6 = this;
       }
 
       else
       {
-        v5 = *this;
+        v6 = *this;
       }
 
-      memmove(v4, v5, v3);
+      memmove(v5, v6, v4);
     }
 
-    *(&v4->__r_.__value_.__l.__data_ + v3) = 58;
-    v6 = *(this + 3);
-    if (v6)
+    *(&v5->__r_.__value_.__l.__data_ + v4) = 58;
+    v7 = *(this + 3);
+    if (v7)
     {
-      if (*(v6 + 47) < 0)
+      if (*(v7 + 47) < 0)
       {
-        std::string::__init_copy_ctor_external(&v14, *(v6 + 24), *(v6 + 32));
+        std::string::__init_copy_ctor_external(&v14, *(v7 + 24), *(v7 + 32));
       }
 
       else
       {
-        v14 = *(v6 + 24);
+        v14 = *(v7 + 24);
       }
     }
 
@@ -711,12 +68,12 @@ uint64_t PSSG::Resource::PBSLockFailed(PSSG::Resource *this)
 
     if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v7 = &v14;
+      v8 = &v14;
     }
 
     else
     {
-      v7 = v14.__r_.__value_.__r.__words[0];
+      v8 = v14.__r_.__value_.__r.__words[0];
     }
 
     if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -729,24 +86,24 @@ uint64_t PSSG::Resource::PBSLockFailed(PSSG::Resource *this)
       size = v14.__r_.__value_.__l.__size_;
     }
 
-    v9 = std::string::append(&v15, v7, size);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v17 = v9->__r_.__value_.__r.__words[2];
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = __p;
+    v10 = std::string::append(&v15, v8, size);
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    v17 = v10->__r_.__value_.__r.__words[2];
+    *__p = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    v12 = __p;
     if (v17 < 0)
     {
-      v11 = __p[0];
+      v12 = __p[0];
     }
 
     *buf = 136315394;
-    v19 = v11;
+    v19 = v12;
     v20 = 2080;
     v21 = "PBSLockFailed";
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "%s --> %s ", buf, 0x16u);
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "%s --> %s ", buf, 0x16u);
     if (SHIBYTE(v17) < 0)
     {
       operator delete(__p[0]);
@@ -765,9 +122,7 @@ uint64_t PSSG::Resource::PBSLockFailed(PSSG::Resource *this)
 
   *(this + 52) = 2;
   *(this + 213) = 0;
-  result = PSSG::Resource::sendOutgoingMessages(this);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return PSSG::Resource::sendOutgoingMessages(this);
 }
 
 void sub_25EAD97EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -780,56 +135,56 @@ void sub_25EAD97EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t PSSG::Resource::PBSLockSucceeded(PSSG::Resource *this)
+uint64_t PSSG::Resource::PBSLockSucceeded(PSSG::Resource *this, uint64_t a2)
 {
   v22 = *MEMORY[0x277D85DE8];
-  v2 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = __PSSGLogSharedInstance(this, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (*(this + 23) >= 0)
     {
-      v3 = *(this + 23);
+      v4 = *(this + 23);
     }
 
     else
     {
-      v3 = *(this + 1);
+      v4 = *(this + 1);
     }
 
-    v4 = &v15;
-    std::string::basic_string[abi:ne200100](&v15, v3 + 1);
+    v5 = &v15;
+    std::string::basic_string[abi:ne200100](&v15, v4 + 1);
     if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v4 = v15.__r_.__value_.__r.__words[0];
+      v5 = v15.__r_.__value_.__r.__words[0];
     }
 
-    if (v3)
+    if (v4)
     {
       if (*(this + 23) >= 0)
       {
-        v5 = this;
+        v6 = this;
       }
 
       else
       {
-        v5 = *this;
+        v6 = *this;
       }
 
-      memmove(v4, v5, v3);
+      memmove(v5, v6, v4);
     }
 
-    *(&v4->__r_.__value_.__l.__data_ + v3) = 58;
-    v6 = *(this + 3);
-    if (v6)
+    *(&v5->__r_.__value_.__l.__data_ + v4) = 58;
+    v7 = *(this + 3);
+    if (v7)
     {
-      if (*(v6 + 47) < 0)
+      if (*(v7 + 47) < 0)
       {
-        std::string::__init_copy_ctor_external(&v14, *(v6 + 24), *(v6 + 32));
+        std::string::__init_copy_ctor_external(&v14, *(v7 + 24), *(v7 + 32));
       }
 
       else
       {
-        v14 = *(v6 + 24);
+        v14 = *(v7 + 24);
       }
     }
 
@@ -840,12 +195,12 @@ uint64_t PSSG::Resource::PBSLockSucceeded(PSSG::Resource *this)
 
     if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v7 = &v14;
+      v8 = &v14;
     }
 
     else
     {
-      v7 = v14.__r_.__value_.__r.__words[0];
+      v8 = v14.__r_.__value_.__r.__words[0];
     }
 
     if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -858,24 +213,24 @@ uint64_t PSSG::Resource::PBSLockSucceeded(PSSG::Resource *this)
       size = v14.__r_.__value_.__l.__size_;
     }
 
-    v9 = std::string::append(&v15, v7, size);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v17 = v9->__r_.__value_.__r.__words[2];
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = __p;
+    v10 = std::string::append(&v15, v8, size);
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    v17 = v10->__r_.__value_.__r.__words[2];
+    *__p = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    v12 = __p;
     if (v17 < 0)
     {
-      v11 = __p[0];
+      v12 = __p[0];
     }
 
     *buf = 136315394;
-    v19 = v11;
+    v19 = v12;
     v20 = 2080;
     v21 = "PBSLockSucceeded";
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "%s --> %s ", buf, 0x16u);
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "%s --> %s ", buf, 0x16u);
     if (SHIBYTE(v17) < 0)
     {
       operator delete(__p[0]);
@@ -894,9 +249,7 @@ uint64_t PSSG::Resource::PBSLockSucceeded(PSSG::Resource *this)
 
   *(this + 52) = 1;
   *(this + 213) = 0;
-  result = PSSG::Resource::sendOutgoingMessages(this);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return PSSG::Resource::sendOutgoingMessages(this);
 }
 
 void sub_25EAD9A18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -965,8 +318,8 @@ uint64_t PSSG::Resource::needToSendSetup(PSSG::Resource *this)
 
 uint64_t PSSG::Resource::logState(PSSG::Resource *this)
 {
-  v68 = *MEMORY[0x277D85DE8];
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v56);
+  v69 = *MEMORY[0x277D85DE8];
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v57);
   v2 = *(this + 23);
   if (v2 >= 0)
   {
@@ -988,59 +341,59 @@ uint64_t PSSG::Resource::logState(PSSG::Resource *this)
     v4 = *(this + 1);
   }
 
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v57, v3, v4);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v58, v3, v4);
   v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ":", 1);
   v7 = *(this + 3);
   if (v7)
   {
     if (*(v7 + 47) < 0)
     {
-      std::string::__init_copy_ctor_external(&v51, *(v7 + 24), *(v7 + 32));
+      std::string::__init_copy_ctor_external(&v52, *(v7 + 24), *(v7 + 32));
     }
 
     else
     {
-      v51 = *(v7 + 24);
+      v52 = *(v7 + 24);
     }
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v51, "?");
+    std::string::basic_string[abi:ne200100]<0>(&v52, "?");
   }
 
-  if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v8 = &v51;
-  }
-
-  else
-  {
-    v8 = v51.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v51.__r_.__value_.__r.__words[2]);
+    v8 = &v52;
   }
 
   else
   {
-    size = v51.__r_.__value_.__l.__size_;
+    v8 = v52.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v52.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v52.__r_.__value_.__l.__size_;
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v8, size);
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v51.__r_.__value_.__l.__data_);
+    operator delete(v52.__r_.__value_.__l.__data_);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v51);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v52);
   if ((*(this + 195) & 1) == 0)
   {
     v12 = "U";
 LABEL_32:
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51.__r_.__value_.__r.__words[2], v12, 1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v52.__r_.__value_.__r.__words[2], v12, 1);
     goto LABEL_33;
   }
 
@@ -1050,7 +403,7 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  PSSG::Resource::describe(*(this + 49), &__p);
+  PSSG::Resource::describe(&__p, *(this + 49));
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -1071,22 +424,22 @@ LABEL_32:
     v11 = __p.__r_.__value_.__l.__size_;
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51.__r_.__value_.__r.__words[2], p_p, v11);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v52.__r_.__value_.__r.__words[2], p_p, v11);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
 LABEL_33:
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51.__r_.__value_.__r.__words[2], "/", 1);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v52.__r_.__value_.__r.__words[2], "/", 1);
   v13 = *(this + 200);
   if (v13 == 1)
   {
-    v14 = &v50;
-    PSSG::Resource::describe(*(this + 51), &v50);
-    if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v14 = &v51;
+    PSSG::Resource::describe(&v51, *(this + 51));
+    if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v14 = v50.__r_.__value_.__r.__words[0];
+      v14 = v51.__r_.__value_.__r.__words[0];
     }
   }
 
@@ -1096,11 +449,11 @@ LABEL_33:
   }
 
   v15 = strlen(v14);
-  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51.__r_.__value_.__r.__words[2], v14, v15);
+  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v52.__r_.__value_.__r.__words[2], v14, v15);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "/", 1);
-  if (v13 && SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+  if (v13 && SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v50.__r_.__value_.__l.__data_);
+    operator delete(v51.__r_.__value_.__l.__data_);
   }
 
   if (*(this + 12))
@@ -1114,7 +467,7 @@ LABEL_33:
         v19 = v17[2];
         if ((v18 & 1) == 0)
         {
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51.__r_.__value_.__r.__words[2], ",", 1);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v52.__r_.__value_.__r.__words[2], ",", 1);
         }
 
         if (*(v19 + 47) < 0)
@@ -1147,7 +500,7 @@ LABEL_33:
           v21 = __p.__r_.__value_.__l.__size_;
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51.__r_.__value_.__r.__words[2], v20, v21);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v52.__r_.__value_.__r.__words[2], v20, v21);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -1224,103 +577,101 @@ LABEL_33:
   }
 
   buf[0] = v28;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p.__r_.__value_.__r.__words[2], buf, 1);
-  v29 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p.__r_.__value_.__r.__words[2], buf, 1);
+  v31 = __PSSGLogSharedInstance(v29, v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = &v43;
+    v32 = &v44;
     std::stringbuf::str();
-    if (v44 < 0)
+    if (v45 < 0)
     {
-      v30 = v43;
+      v32 = v44;
     }
 
     std::stringbuf::str();
     std::stringbuf::str();
-    v31 = &v41;
-    if (v42 < 0)
+    v33 = &v42;
+    if (v43 < 0)
     {
-      v31 = v41;
+      v33 = v42;
     }
 
-    if (v40 >= 0)
+    if (v41 >= 0)
     {
-      v32 = &v39;
+      v34 = &v40;
     }
 
     else
     {
-      v32 = v39;
+      v34 = v40;
     }
 
     *buf = 136315650;
-    v63 = v30;
-    v64 = 2080;
-    v65 = v31;
-    v66 = 2080;
-    v67 = v32;
-    _os_log_impl(&dword_25EA3A000, v29, OS_LOG_TYPE_DEFAULT, "[%s] [Produced@/Wanted@/Pending: %s] [Buffer lock/Pending request/Provider accepting request/Paused: %s]", buf, 0x20u);
-    if (v40 < 0)
+    v64 = v32;
+    v65 = 2080;
+    v66 = v33;
+    v67 = 2080;
+    v68 = v34;
+    _os_log_impl(&dword_25EA3A000, v31, OS_LOG_TYPE_DEFAULT, "[%s] [Produced@/Wanted@/Pending: %s] [Buffer lock/Pending request/Provider accepting request/Paused: %s]", buf, 0x20u);
+    if (v41 < 0)
     {
-      operator delete(v39);
+      operator delete(v40);
     }
 
-    if (v42 < 0)
+    if (v43 < 0)
     {
-      operator delete(v41);
+      operator delete(v42);
     }
 
-    if (v44 < 0)
+    if (v45 < 0)
     {
-      operator delete(v43);
+      operator delete(v44);
     }
   }
 
   __p.__r_.__value_.__r.__words[0] = *MEMORY[0x277D82818];
-  v33 = __p.__r_.__value_.__r.__words[0];
-  v34 = *(MEMORY[0x277D82818] + 72);
-  v35 = *(MEMORY[0x277D82818] + 64);
-  *(__p.__r_.__value_.__r.__words + *(__p.__r_.__value_.__r.__words[0] - 24)) = v35;
-  v36 = v34;
-  __p.__r_.__value_.__r.__words[2] = v34;
-  v46 = MEMORY[0x277D82878] + 16;
-  if (v48 < 0)
+  v35 = __p.__r_.__value_.__r.__words[0];
+  v36 = *(MEMORY[0x277D82818] + 72);
+  v37 = *(MEMORY[0x277D82818] + 64);
+  *(__p.__r_.__value_.__r.__words + *(__p.__r_.__value_.__r.__words[0] - 24)) = v37;
+  v38 = v36;
+  __p.__r_.__value_.__r.__words[2] = v36;
+  v47 = MEMORY[0x277D82878] + 16;
+  if (v49 < 0)
   {
-    operator delete(v47[7].__locale_);
+    operator delete(v48[7].__locale_);
   }
 
-  v46 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v47);
+  v47 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v48);
   std::iostream::~basic_iostream();
-  MEMORY[0x25F8C7BD0](&v49);
-  v51.__r_.__value_.__r.__words[0] = v33;
-  *(v51.__r_.__value_.__r.__words + *(v33 - 24)) = v35;
-  v51.__r_.__value_.__r.__words[2] = v36;
-  v52 = MEMORY[0x277D82878] + 16;
-  if (v54 < 0)
+  MEMORY[0x25F8C7BD0](&v50);
+  v52.__r_.__value_.__r.__words[0] = v35;
+  *(v52.__r_.__value_.__r.__words + *(v35 - 24)) = v37;
+  v52.__r_.__value_.__r.__words[2] = v38;
+  v53 = MEMORY[0x277D82878] + 16;
+  if (v55 < 0)
   {
-    operator delete(v53[7].__locale_);
+    operator delete(v54[7].__locale_);
   }
 
-  v52 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v53);
+  v53 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v54);
   std::iostream::~basic_iostream();
-  MEMORY[0x25F8C7BD0](&v55);
-  v56[0] = v33;
-  *(v56 + *(v33 - 24)) = v35;
-  v57 = v36;
-  v58 = MEMORY[0x277D82878] + 16;
-  if (v60 < 0)
+  MEMORY[0x25F8C7BD0](&v56);
+  v57[0] = v35;
+  *(v57 + *(v35 - 24)) = v37;
+  v58 = v38;
+  v59 = MEMORY[0x277D82878] + 16;
+  if (v61 < 0)
   {
-    operator delete(v59[7].__locale_);
+    operator delete(v60[7].__locale_);
   }
 
-  v58 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v59);
+  v59 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v60);
   std::iostream::~basic_iostream();
-  result = MEMORY[0x25F8C7BD0](&v61);
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x25F8C7BD0](&v62);
 }
 
 void sub_25EADA308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *a60)
@@ -1556,41 +907,41 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,unsigned int> const&>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,unsigned int> const&>(uint64_t a1, unsigned int *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -1599,7 +950,7 @@ LABEL_8:
 
 uint64_t *std::__tree<std::__value_type<unsigned int,PSSG::Client *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PSSG::Client *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PSSG::Client *>>>::__equal_range_multi<unsigned int>(uint64_t a1, unsigned int *a2)
 {
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   v3 = *(a1 + 8);
   if (!v3)
   {
@@ -1609,7 +960,7 @@ uint64_t *std::__tree<std::__value_type<unsigned int,PSSG::Client *>,std::__map_
   v4 = *a2;
   while (1)
   {
-    v5 = *(v3 + 8);
+    v5 = *(v3 + 32);
     if (v4 >= v5)
     {
       break;
@@ -1626,7 +977,7 @@ LABEL_7:
 
   if (v5 < v4)
   {
-    ++v3;
+    v3 += 8;
     goto LABEL_7;
   }
 
@@ -1637,7 +988,7 @@ LABEL_7:
     result = v3;
     do
     {
-      v8 = *(v7 + 8);
+      v8 = *(v7 + 32);
       v9 = v8 >= v4;
       v10 = v8 < v4;
       if (v9)
@@ -1645,15 +996,13 @@ LABEL_7:
         result = v7;
       }
 
-      v7 = v7[v10];
+      v7 = *(v7 + 8 * v10);
     }
 
     while (v7);
   }
 
-  for (i = v3[1]; i; i = *(i + 8 * (v4 >= *(i + 32))))
-  {
-    *(i + 32);
+    ;
   }
 
   return result;
@@ -1789,31 +1138,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -1822,173 +1170,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -2042,49 +1390,51 @@ void sub_25EADADE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **PSSG::ResourceFactoryConnector::lockResource(PSSG::ResourceFactoryConnector *this, const void **a2)
+const void **PSSG::ResourceFactoryConnector::lockResource(PSSG::ResourceFactoryConnector *this, PSSG::Resource *a2)
 {
-  result = std::__hash_table<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, a2);
+  v4 = a2;
+  result = std::__hash_table<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, a2, &std::piecewise_construct, &v4, &v3);
   *(result + 10) = 0;
   return result;
 }
 
-const void **PSSG::ResourceFactoryConnector::unlockResource(PSSG::ResourceFactoryConnector *this, const void **a2)
+const void **PSSG::ResourceFactoryConnector::unlockResource(PSSG::ResourceFactoryConnector *this, PSSG::Resource *a2)
 {
-  result = std::__hash_table<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, a2);
+  v4 = a2;
+  result = std::__hash_table<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, a2, &std::piecewise_construct, &v4, &v3);
   *(result + 10) = 1;
   return result;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::pssg_send_resource_factory_type>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -2092,44 +1442,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_25EADB0E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -2149,7 +1499,7 @@ void sub_25EADB1A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *PSSG::Server::resourcesForKeys@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void *PSSG::Server::resourcesForKeys@<X0>(void *result@<X0>, uint64_t a2@<X1>, unint64_t a3@<X8>)
 {
   *a3 = 0u;
   *(a3 + 16) = 0u;
@@ -2160,14 +1510,14 @@ void *PSSG::Server::resourcesForKeys@<X0>(void *result@<X0>, uint64_t a2@<X1>, u
     v5 = result;
     do
     {
-      v6[2] = v4 + 2;
-      v6[0] = std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v5 + 6, v4 + 2)[5];
-      if (!v6[0])
+      v8 = v4 + 2;
+      v6 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v5 + 6, v4 + 2, &std::piecewise_construct, &v8, &v7)[5];
+      if (!v6)
       {
         operator new();
       }
 
-      result = std::__hash_table<PSSG::Resource *,std::hash<PSSG::Resource *>,std::equal_to<PSSG::Resource *>,std::allocator<PSSG::Resource *>>::__emplace_unique_key_args<PSSG::Resource *,PSSG::Resource * const&>(a3, v6);
+      result = std::__hash_table<PSSG::Resource *,std::hash<PSSG::Resource *>,std::equal_to<PSSG::Resource *>,std::allocator<PSSG::Resource *>>::__emplace_unique_key_args<PSSG::Resource *,PSSG::Resource * const&>(a3, &v6, &v6);
       v4 = *v4;
     }
 
@@ -2177,14 +1527,14 @@ void *PSSG::Server::resourcesForKeys@<X0>(void *result@<X0>, uint64_t a2@<X1>, u
   return result;
 }
 
-void sub_25EADB2F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_25EADB2F8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
-  MEMORY[0x25F8C7C50](v15, 0x10B2C40B15D8DB9);
+  MEMORY[0x25F8C7C50](v15, 0x10B2C40B15D8DB9, a3, a4, a5, a6, a7, a8);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v14);
   _Unwind_Resume(a1);
 }
 
-void PSSG::Server::resourcesForKeys(uint64_t a1@<X0>, uint64_t *a2@<X1>, const void **a3@<X8>)
+void PSSG::Server::resourcesForKeys(uint64_t a1@<X0>, __int128 **a2@<X1>, const void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -2195,8 +1545,8 @@ void PSSG::Server::resourcesForKeys(uint64_t a1@<X0>, uint64_t *a2@<X1>, const v
   {
     do
     {
-      v20 = v3;
-      v7 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 48), v3)[5];
+      v21 = v3;
+      v7 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 48), v3, &std::piecewise_construct, &v21, &v20)[5];
       if (!v7)
       {
         operator new();
@@ -2239,7 +1589,7 @@ void PSSG::Server::resourcesForKeys(uint64_t a1@<X0>, uint64_t *a2@<X1>, const v
         v17 = 16 * v13;
         *v17 = v7;
         *(v17 + 8) = *(v3 + 24);
-        v10 = 16 * v13 + 16;
+        v10 = (16 * v13 + 16);
         v18 = (v17 - 16 * (v12 >> 4));
         memcpy(v18, v11, v12);
         v19 = *a3;
@@ -2256,7 +1606,7 @@ void PSSG::Server::resourcesForKeys(uint64_t a1@<X0>, uint64_t *a2@<X1>, const v
       {
         *v9 = v7;
         *(v9 + 2) = *(v3 + 24);
-        v10 = (v9 + 16);
+        v10 = v9 + 16;
       }
 
       a3[1] = v10;
@@ -2267,9 +1617,9 @@ void PSSG::Server::resourcesForKeys(uint64_t a1@<X0>, uint64_t *a2@<X1>, const v
   }
 }
 
-void sub_25EADB524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_25EADB524(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
-  MEMORY[0x25F8C7C50](v15, 0x10B2C40B15D8DB9);
+  MEMORY[0x25F8C7C50](v15, 0x10B2C40B15D8DB9, a3, a4, a5, a6, a7, a8);
   v17 = *v14;
   if (*v14)
   {
@@ -2311,16 +1661,16 @@ void PSSG::Server::~Server(PSSG::Server *this)
     }
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 144);
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 96);
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 48);
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 8);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 18);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 12);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 6);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 1);
 }
 
 double PSSG::Server::handleMessageRegister(PSSG::Server *this, const PSSG::MessageRegister *a2)
 {
-  v5 = a2 + 16;
-  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
+  v6 = a2 + 16;
+  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &v6, &v5)[5];
   if (!v3)
   {
     operator new();
@@ -2331,7 +1681,8 @@ double PSSG::Server::handleMessageRegister(PSSG::Server *this, const PSSG::Messa
 
 uint64_t PSSG::Server::handleMessageDeRegister(PSSG::Server *this, const PSSG::MessageDeRegister *a2)
 {
-  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2);
+  v7 = a2 + 16;
+  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &v7, &v6);
   v4 = v3[5];
   if (!v4)
   {
@@ -2339,13 +1690,13 @@ uint64_t PSSG::Server::handleMessageDeRegister(PSSG::Server *this, const PSSG::M
   }
 
   PSSG::Client::remoteHasDied(v3[5], *(a2 + 124));
-  v5 = *(a2 + 124);
   return PSSG::Client::remoteHasDeRegistered(v4);
 }
 
 PSSG::Client *PSSG::Server::handleMessageNotifyClientDeath(PSSG::Server *this, const PSSG::MessageNotifyClientDeath *a2)
 {
-  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
+  v6 = a2 + 16;
+  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &v6, &v5)[5];
   if (!v3)
   {
     PSSG::Server::handleMessageNotifyClientDeath();
@@ -2354,400 +1705,158 @@ PSSG::Client *PSSG::Server::handleMessageNotifyClientDeath(PSSG::Server *this, c
   return PSSG::Client::remoteHasDied(v3, *(a2 + 124));
 }
 
-void PSSG::Server::handleMessageRequestContextForSessions(PSSG::Server *this, const void **a2)
+void PSSG::Server::handleMessageRequestContextForSessions(PSSG::Server *this, const PSSG::MessageRequestContextForSessions *a2)
 {
-  buf[3] = *MEMORY[0x277D85DE8];
-  buf[0] = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
+  v12 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v10);
+  v6 = v4[5];
+  if (v6)
   {
-    for (i = a2[7]; i; i = *i)
+    for (i = *(a2 + 7); i; i = *i)
     {
-      buf[0] = i + 2;
-      v6 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, i + 2)[5];
-      if (!v6)
+      *buf = i + 2;
+      v8 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, i + 2, &std::piecewise_construct, buf, &v10)[5];
+      if (!v8)
       {
         operator new();
       }
 
-      PSSG::Client::remoteHasRequestedContext(v4, v6);
+      PSSG::Client::remoteHasRequestedContext(v6, v8);
     }
   }
 
   else
   {
-    v7 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(buf[0]) = 136380675;
-      *(buf + 4) = "handleMessageRequestContextForSessions";
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+      *buf = 136380675;
+      *&buf[4] = "handleMessageRequestContextForSessions";
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void PSSG::Server::handleMessageRequestContextForResourceKeys(PSSG::Server *this, const void **a2)
+void PSSG::Server::handleMessageRequestContextForResourceKeys(PSSG::Server *this, const PSSG::MessageRequestContextForResourceKeys *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
+  v10 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v6 = v4[5];
+  if (v6)
   {
-    PSSG::Server::resourcesForKeys(this, (a2 + 5), buf);
-    PSSG::Client::remoteHasRequestedContextForResources(v4, buf);
+    PSSG::Server::resourcesForKeys(this, a2 + 40, buf);
+    PSSG::Client::remoteHasRequestedContextForResources(v6, buf);
     std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
   }
 
   else
   {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380675;
       *&buf[4] = "handleMessageRequestContextForResourceKeys";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25EADBB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25EADBB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void PSSG::Server::handleMessage(PSSG::Server *this, const void **a2)
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessagePublishResourceKeysAndStrides *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
+  v11 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, v9);
+  v6 = v4[5];
+  if (v6)
   {
-    PSSG::MessagePublishResourceKeysAndStrides::resourceKeys(a2, v8);
-    PSSG::Server::resourcesForKeys(this, v8, buf);
-    std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(v8);
-    std::unordered_set<PSSG::Resource *>::unordered_set(v7, buf);
-    PSSG::Client::remoteHasPublishedResourcesWithStrides(v4, v7, a2 + 65);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v7);
+    PSSG::MessagePublishResourceKeysAndStrides::resourceKeys(v9, a2);
+    PSSG::Server::resourcesForKeys(this, v9, buf);
+    std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(v9);
+    std::unordered_set<PSSG::Resource *>::unordered_set(v8, buf);
+    PSSG::Client::remoteHasPublishedResourcesWithStrides(v6, v8, a2 + 65);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v8);
     std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
   }
 
   else
   {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380675;
       *&buf[4] = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
+void sub_25EADBCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
-  {
-    PSSG::Server::resourcesForKeys(this, (a2 + 5), buf);
-    PSSG::Client::setupResourcesFailed(v4, buf);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
-  }
-
-  else
-  {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136380675;
-      *&buf[4] = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
-  {
-    PSSG::Server::resourcesForKeys(this, (a2 + 5), buf);
-    PSSG::Client::pauseResourcesCompleted(v4, buf);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
-  }
-
-  else
-  {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136380675;
-      *&buf[4] = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
-  {
-    PSSG::Server::resourcesForKeys(this, (a2 + 5), buf);
-    PSSG::Client::pauseResourcesFailed(v4, buf);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
-  }
-
-  else
-  {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136380675;
-      *&buf[4] = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
-  {
-    PSSG::Server::resourcesForKeys(this, (a2 + 5), buf);
-    PSSG::Client::remoteProcessedNotificationsOfResourcesNoLongerWanted(v4, buf);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
-  }
-
-  else
-  {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136380675;
-      *&buf[4] = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  *(this + 34) = 0;
-  *(this + 11) = 0;
-  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  for (i = *(this + 3); i; i = *i)
-  {
-    v5 = i[5];
-    if (v3 != v5)
-    {
-      PSSG::Client::clientStartingSystemReplay(v5, v3);
-    }
-  }
-
-  *(this + 11) = v3;
-  PSSG::Server::changeReplayState(this, 0, 1);
-  PSSG::Server::checkAndStartReplay(this);
-}
-
-{
-  v8 = (a2 + 2);
-  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (*(this + 11) != v3)
-  {
-    v4 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      *v7 = 0;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "Replay stopped/start providers don't match", v7, 2u);
-    }
-  }
-
-  for (i = *(this + 3); i; i = *i)
-  {
-    v6 = i[5];
-    if (v3 != v6)
-    {
-      PSSG::Client::clientEndingSystemReplay(v6, v3);
-    }
-  }
-
-  PSSG::Server::changeReplayState(this, 3, 5);
-  PSSG::Server::checkAndEndReplay(this);
-}
-
-{
-  buf[3] = *MEMORY[0x277D85DE8];
-  buf[0] = a2 + 2;
-  v2 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v2)
-  {
-    PSSG::Client::remoteHasEnteredSleep(v2);
-  }
-
-  else
-  {
-    v3 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(buf[0]) = 136380675;
-      *(buf + 4) = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
-    }
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-{
-  buf[3] = *MEMORY[0x277D85DE8];
-  buf[0] = a2 + 2;
-  v2 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v2)
-  {
-    PSSG::Client::remoteHasExitedSleep(v2);
-  }
-
-  else
-  {
-    v3 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(buf[0]) = 136380675;
-      *(buf + 4) = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
-    }
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
-  {
-    PSSG::Server::resourcesForKeys(this, (a2 + 5), buf);
-    PSSG::Client::remoteFailedToProcessNotificationsOfResourcesNoLongerWanted(v4, buf);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
-  }
-
-  else
-  {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136380675;
-      *&buf[4] = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
-  {
-    PSSG::Server::resourcesForKeys(this, (a2 + 5), buf);
-    PSSG::Client::remoteHasStoppedProducingResources(v4, buf);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
-  }
-
-  else
-  {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136380675;
-      *&buf[4] = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25EADBCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
-{
+  va_start(va, a18);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a9);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a19);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
 void PSSG::Server::handleMessagePublishResourceStreams(PSSG::Server *this, const PSSG::MessagePublishResourceStreams *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12.__r_.__value_.__r.__words[0] = a2 + 16;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2);
-  v5 = v4[5];
-  if (v5)
+  v17 = *MEMORY[0x277D85DE8];
+  v14.__r_.__value_.__r.__words[0] = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &v14, buf);
+  v6 = v4[5];
+  if (v6)
   {
     PSSG::Client::remoteHasPublishedResourceStreams(v4[5], *(a2 + 16), *(a2 + 30));
-    if (*(this + 34) == 2 && *(this + 11) == v5)
+    if (*(this + 34) == 2 && *(this + 11) == v6)
     {
       PSSG::Server::changeReplayState(this, 2, 3);
       for (i = *(this + 3); i; i = *i)
       {
-        if (i[5] != v5)
+        if (i[5] != v6)
         {
-          v7 = __PSSGLogSharedInstance();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v10 = __PSSGLogSharedInstance(HasRequestedGraphResubmission, v8);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
-            v8 = i[5];
-            if (*(v8 + 47) < 0)
+            v11 = i[5];
+            if (*(v11 + 47) < 0)
             {
-              std::string::__init_copy_ctor_external(&v12, *(v8 + 24), *(v8 + 32));
+              std::string::__init_copy_ctor_external(&v14, *(v11 + 24), *(v11 + 32));
             }
 
             else
             {
-              v12 = *(v8 + 24);
+              v14 = *(v11 + 24);
             }
 
-            if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v9 = &v12;
+              v12 = &v14;
             }
 
             else
             {
-              v9 = v12.__r_.__value_.__r.__words[0];
+              v12 = v14.__r_.__value_.__r.__words[0];
             }
 
             *buf = 136315138;
-            v14 = v9;
-            _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Replay: requesting client %s to resubmit graphs", buf, 0xCu);
-            if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+            v16 = v12;
+            _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEFAULT, "Replay: requesting client %s to resubmit graphs", buf, 0xCu);
+            if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v12.__r_.__value_.__l.__data_);
+              operator delete(v14.__r_.__value_.__l.__data_);
             }
           }
 
-          PSSG::Client::systemHasRequestedGraphResubmission(i[5]);
+          HasRequestedGraphResubmission = PSSG::Client::systemHasRequestedGraphResubmission(i[5]);
         }
       }
     }
@@ -2755,69 +1864,67 @@ void PSSG::Server::handleMessagePublishResourceStreams(PSSG::Server *this, const
 
   else
   {
-    v10 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v12.__r_.__value_.__l.__data_) = 136380675;
-      *(v12.__r_.__value_.__r.__words + 4) = "handleMessagePublishResourceStreams";
-      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &v12, 0xCu);
+      LODWORD(v14.__r_.__value_.__l.__data_) = 136380675;
+      *(v14.__r_.__value_.__r.__words + 4) = "handleMessagePublishResourceStreams";
+      _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &v14, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void PSSG::Server::changeReplayState(uint64_t a1, int a2, int a3)
+void PSSG::Server::changeReplayState(uint64_t a1, uint64_t a2, int a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v6 = __PSSGLogSharedInstance();
+  v4 = a2;
+  v26 = *MEMORY[0x277D85DE8];
+  v6 = __PSSGLogSharedInstance(a1, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109376;
-    *v18 = a2;
-    *&v18[4] = 1024;
-    *&v18[6] = a3;
+    *v20 = v4;
+    *&v20[4] = 1024;
+    *&v20[6] = a3;
     _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "ReplayState change: %u -> %u", buf, 0xEu);
   }
 
   v7 = *(a1 + 136);
-  if (v7 == a2)
+  if (v7 == v4)
   {
     *(a1 + 136) = a3;
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v16 = 0;
-    asprintf(&v16, "Unexpected replay state %u, expected %u", v7, a2);
-    v9 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v18 = 0;
+    v8 = asprintf(&v18, "Unexpected replay state %u, expected %u", v7, v4);
+    v10 = __PSSGLogSharedInstance(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v10 = *(a1 + 136);
+      v11 = *(a1 + 136);
       *buf = 136315906;
-      *v18 = "changeReplayState";
-      *&v18[8] = 1024;
-      v19 = 380;
-      v20 = 1024;
-      v21 = v10;
+      *v20 = "changeReplayState";
+      *&v20[8] = 1024;
+      v21 = 380;
       v22 = 1024;
-      v23 = a2;
-      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_FAULT, "%s:%d Unexpected replay state %u, expected %u", buf, 0x1Eu);
+      v23 = v11;
+      v24 = 1024;
+      v25 = v4;
+      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_FAULT, "%s:%d Unexpected replay state %u, expected %u", buf, 0x1Eu);
     }
 
-    v11 = OSLogFlushBuffers();
-    if (v11)
+    v12 = OSLogFlushBuffers();
+    if (v12)
     {
-      v12 = v11;
-      v13 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = v12;
+      v15 = __PSSGLogSharedInstance(v12, v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        *v18 = "changeReplayState";
-        *&v18[8] = 1024;
-        v19 = v12;
-        _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        *v20 = "changeReplayState";
+        *&v20[8] = 1024;
+        v21 = v14;
+        _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -2826,29 +1933,30 @@ void PSSG::Server::changeReplayState(uint64_t a1, int a2, int a3)
       usleep(0x1E8480u);
     }
 
-    v14 = abort_with_reason();
-    PSSG::Server::handleMessage(v14, v15);
+    v16 = abort_with_reason();
+    PSSG::Server::handleMessage(v16, v17);
   }
 }
 
-void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageRequestResourcesWithStrides *a2)
+void PSSG::Server::handleMessage(PSSG::Server *this, __int128 **a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  *&buf = a2 + 16;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
+  v10 = *MEMORY[0x277D85DE8];
+  *&buf = a2 + 2;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &buf, __p);
+  v6 = v4[5];
+  if (v6)
   {
     if (*(this + 23))
     {
       PSSG::Server::resourcesForKeys(this, a2 + 62, &buf);
-      PSSG::Client::remoteHasRequestedResources(v4, &buf);
+      PSSG::Client::remoteHasRequestedResources(v6, &buf);
     }
 
     else
     {
       PSSG::Server::resourcesForKeys(this, a2 + 62, &buf);
       PSSG::Server::resourcesForKeys(this, a2 + 65, __p);
-      PSSG::Client::remoteHasRequestedResources(v4, &buf, __p);
+      PSSG::Client::remoteHasRequestedResources(v6, &buf, __p);
       if (__p[0])
       {
         __p[1] = __p[0];
@@ -2865,16 +1973,98 @@ void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageRequestR
 
   else
   {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 136380675;
       *(&buf + 4) = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &buf, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &buf, 0xCu);
+    }
+  }
+}
+
+{
+  v10 = *MEMORY[0x277D85DE8];
+  *&__p = a2 + 2;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &__p, &v8);
+  v6 = v4[5];
+  if (v6)
+  {
+    PSSG::Server::resourcesForKeys(this, a2 + 62, &__p);
+    PSSG::Client::setupResourcesCompleted(v6, &__p);
+    if (__p)
+    {
+      *(&__p + 1) = __p;
+      operator delete(__p);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(__p) = 136380675;
+      *(&__p + 4) = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &__p, 0xCu);
+    }
+  }
+}
+
+{
+  v10 = *MEMORY[0x277D85DE8];
+  *&__p = a2 + 2;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &__p, &v8);
+  v6 = v4[5];
+  if (v6)
+  {
+    PSSG::Server::resourcesForKeys(this, a2 + 62, &__p);
+    PSSG::Client::remoteIsNowProducingResources(v6, &__p);
+    if (__p)
+    {
+      *(&__p + 1) = __p;
+      operator delete(__p);
+    }
+  }
+
+  else
+  {
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(__p) = 136380675;
+      *(&__p + 4) = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &__p, 0xCu);
+    }
+  }
+}
+
+{
+  v10 = *MEMORY[0x277D85DE8];
+  *&__p = a2 + 2;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &__p, &v8);
+  v6 = v4[5];
+  if (v6)
+  {
+    PSSG::Server::resourcesForKeys(this, a2 + 62, &__p);
+    PSSG::Client::remoteFailedToProcessResourceRequests(v6, &__p);
+    if (__p)
+    {
+      *(&__p + 1) = __p;
+      operator delete(__p);
+    }
+  }
+
+  else
+  {
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(__p) = 136380675;
+      *(&__p + 4) = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &__p, 0xCu);
+    }
+  }
 }
 
 void sub_25EADC21C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14)
@@ -2897,7 +2087,7 @@ uint64_t PSSG::Server::handleMessage(uint64_t this, const PSSG::MessageUserActiv
   *(this + 140) = 0;
   for (i = *(this + 24); i; i = *i)
   {
-    this = PSSG::Client::requestPausedResources(i[5]);
+    this = PSSG::Client::requestPausedResources(i[5], a2);
   }
 
   return this;
@@ -2908,40 +2098,10 @@ uint64_t PSSG::Server::handleMessage(uint64_t this, const PSSG::MessageUserInact
   *(this + 140) = 1;
   for (i = *(this + 24); i; i = *i)
   {
-    this = PSSG::Client::systemIsPaused(i[5]);
+    this = PSSG::Client::systemIsPaused(i[5], a2);
   }
 
   return this;
-}
-
-void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageSetupCompleted *a2)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  *&__p = a2 + 16;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
-  {
-    PSSG::Server::resourcesForKeys(this, a2 + 62, &__p);
-    PSSG::Client::setupResourcesCompleted(v4, &__p);
-    if (__p)
-    {
-      *(&__p + 1) = __p;
-      operator delete(__p);
-    }
-  }
-
-  else
-  {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(__p) = 136380675;
-      *(&__p + 4) = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &__p, 0xCu);
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EADC3D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
@@ -2954,55 +2114,100 @@ void sub_25EADC3D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25EADC4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageSetupFailed *a2)
 {
-  va_start(va, a3);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_25EADC618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_25EADC734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
-  _Unwind_Resume(a1);
-}
-
-void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageCompletedResourceRequestWithStrides *a2)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  *&__p = a2 + 16;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
+  v10 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v6 = v4[5];
+  if (v6)
   {
-    PSSG::Server::resourcesForKeys(this, a2 + 62, &__p);
-    PSSG::Client::remoteIsNowProducingResources(v4, &__p);
-    if (__p)
-    {
-      *(&__p + 1) = __p;
-      operator delete(__p);
-    }
+    PSSG::Server::resourcesForKeys(this, a2 + 40, buf);
+    PSSG::Client::setupResourcesFailed(v6, buf);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
   }
 
   else
   {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(__p) = 136380675;
-      *(&__p + 4) = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &__p, 0xCu);
+      *buf = 136380675;
+      *&buf[4] = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+void sub_25EADC4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
+  _Unwind_Resume(a1);
+}
+
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessagePauseCompleted *a2)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v6 = v4[5];
+  if (v6)
+  {
+    PSSG::Server::resourcesForKeys(this, a2 + 40, buf);
+    PSSG::Client::pauseResourcesCompleted(v6, buf);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
+  }
+
+  else
+  {
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136380675;
+      *&buf[4] = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+    }
+  }
+}
+
+void sub_25EADC618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
+  _Unwind_Resume(a1);
+}
+
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessagePauseFailed *a2)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v6 = v4[5];
+  if (v6)
+  {
+    PSSG::Server::resourcesForKeys(this, a2 + 40, buf);
+    PSSG::Client::pauseResourcesFailed(v6, buf);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
+  }
+
+  else
+  {
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136380675;
+      *&buf[4] = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+    }
+  }
+}
+
+void sub_25EADC734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
+  _Unwind_Resume(a1);
 }
 
 void sub_25EADC858(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
@@ -3015,60 +2220,84 @@ void sub_25EADC858(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25EADC97C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageResourcesNoLongerWantedProcessed *a2)
 {
-  va_start(va, a3);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
-  _Unwind_Resume(a1);
-}
-
-void PSSG::Server::handleMessageRequestCurrentGraphsForAllSessions(PSSG::Server *this, const void **a2)
-{
-  buf[3] = *MEMORY[0x277D85DE8];
-  buf[0] = a2 + 2;
-  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v3)
+  v10 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v6 = v4[5];
+  if (v6)
   {
-    PSSG::Server::allAliveClients(this, v6);
-    PSSG::Client::remoteHasRequestedCurrentGraphsForAllSessions(v3, v6);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v6);
+    PSSG::Server::resourcesForKeys(this, a2 + 40, buf);
+    PSSG::Client::remoteProcessedNotificationsOfResourcesNoLongerWanted(v6, buf);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
   }
 
   else
   {
-    v4 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(buf[0]) = 136380675;
-      *(buf + 4) = "handleMessageRequestCurrentGraphsForAllSessions";
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+      *buf = 136380675;
+      *&buf[4] = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void *PSSG::Server::allAliveClients@<X0>(void *this@<X0>, uint64_t a2@<X8>)
+void sub_25EADC97C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 1065353216;
+  va_start(va, a5);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
+  _Unwind_Resume(a1);
+}
+
+void PSSG::Server::handleMessageRequestCurrentGraphsForAllSessions(PSSG::Server *this, const PSSG::MessageRequestCurrentGraphsForAllSessions *a2)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v5 = v3[5];
+  if (v5)
+  {
+    PSSG::Server::allAliveClients(v7, this);
+    PSSG::Client::remoteHasRequestedCurrentGraphsForAllSessions(v5, v7);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v7);
+  }
+
+  else
+  {
+    v6 = __PSSGLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136380675;
+      *&buf[4] = "handleMessageRequestCurrentGraphsForAllSessions";
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+    }
+  }
+}
+
+uint64_t *PSSG::Server::allAliveClients@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
+{
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   for (i = this[3]; i; i = *i)
   {
     if (*(i[5] + 1072))
     {
-      this = std::__hash_table<PSSG::Client *,std::hash<PSSG::Client *>,std::equal_to<PSSG::Client *>,std::allocator<PSSG::Client *>>::__emplace_unique_key_args<PSSG::Client *,PSSG::Client * const&>(a2, i + 5);
+      this = std::__hash_table<PSSG::Client *,std::hash<PSSG::Client *>,std::equal_to<PSSG::Client *>,std::allocator<PSSG::Client *>>::__emplace_unique_key_args<PSSG::Client *,PSSG::Client * const&>(a1, i + 5, i + 5);
     }
   }
 
   return this;
 }
 
-void PSSG::Server::handleMessageFlushCurrentGraphsForAllSessions(PSSG::Server *this, const void **a2)
+void PSSG::Server::handleMessageFlushCurrentGraphsForAllSessions(PSSG::Server *this, const PSSG::MessageFlushCurrentGraphsForAllSessions *a2)
 {
-  buf[3] = *MEMORY[0x277D85DE8];
-  buf[0] = a2 + 2;
-  v2 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
+  v7 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v2 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v5)[5];
   if (v2)
   {
     PSSG::Client::remoteHasFlushedCurrentGraphsForAllSessions(v2);
@@ -3076,23 +2305,21 @@ void PSSG::Server::handleMessageFlushCurrentGraphsForAllSessions(PSSG::Server *t
 
   else
   {
-    v3 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __PSSGLogSharedInstance(0, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(buf[0]) = 136380675;
-      *(buf + 4) = "handleMessageFlushCurrentGraphsForAllSessions";
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+      *buf = 136380675;
+      *&buf[4] = "handleMessageFlushCurrentGraphsForAllSessions";
+      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void PSSG::Server::handleMessagePublishCurrentGraphs(PSSG::Server *this, const PSSG::MessagePublishCurrentGraphs *a2)
 {
-  buf[3] = *MEMORY[0x277D85DE8];
-  buf[0] = a2 + 16;
-  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
+  v8 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v6)[5];
   if (v3)
   {
     PSSG::Client::remoteHasPublishedCurrentGraphs(v3, *(a2 + 16), *(a2 + 30));
@@ -3100,54 +2327,72 @@ void PSSG::Server::handleMessagePublishCurrentGraphs(PSSG::Server *this, const P
 
   else
   {
-    v4 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __PSSGLogSharedInstance(0, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(buf[0]) = 136380675;
-      *(buf + 4) = "handleMessagePublishCurrentGraphs";
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+      *buf = 136380675;
+      *&buf[4] = "handleMessagePublishCurrentGraphs";
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+    }
+  }
+}
+
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageSystemReplayStarting *a2)
+{
+  *(this + 34) = 0;
+  *(this + 11) = 0;
+  v8 = a2 + 16;
+  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &v8, &v7)[5];
+  for (i = *(this + 3); i; i = *i)
+  {
+    v5 = i[5];
+    if (v3 != v5)
+    {
+      PSSG::Client::clientStartingSystemReplay(v5, v3);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  *(this + 11) = v3;
+  PSSG::Server::changeReplayState(this, 0, 1);
+  PSSG::Server::checkAndStartReplay(this, v6);
 }
 
-void PSSG::Server::checkAndStartReplay(PSSG::Server *this)
+void PSSG::Server::checkAndStartReplay(PSSG::Server *this, uint64_t a2)
 {
-  v2 = *(this + 8);
-  if (v2)
+  v3 = *(this + 8);
+  if (v3)
   {
     while (1)
     {
-      v3 = v2[5];
-      if (*(v3 + 192) == 1 && (*(v3 + 194) & 1) != 0)
+      v4 = v3[5];
+      if (*(v4 + 192) == 1 && (*(v4 + 194) & 1) != 0)
       {
         break;
       }
 
-      v2 = *v2;
-      if (!v2)
+      v3 = *v3;
+      if (!v3)
       {
         goto LABEL_5;
       }
     }
 
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __PSSGLogSharedInstance(this, a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEFAULT, "Replay: system streams still in use, not starting replay", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEFAULT, "Replay: system streams still in use, not starting replay", v7, 2u);
     }
   }
 
   else
   {
 LABEL_5:
-    v4 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = __PSSGLogSharedInstance(this, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEFAULT, "Replay: hiding existing system resources from context", buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEFAULT, "Replay: hiding existing system resources from context", buf, 2u);
     }
 
     PSSG::Server::hideSystemResourcesForReplay(this);
@@ -3156,62 +2401,90 @@ LABEL_5:
   }
 }
 
-void PSSG::Server::checkAndEndReplay(PSSG::Server *this)
+void PSSG::Server::handleMessage(PSSG::Client **this, const PSSG::MessageSystemReplayEnding *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = *(this + 8);
-  if (v2)
+  v12 = a2 + 16;
+  v3 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, &v12, &v11);
+  v5 = v3[5];
+  if (this[11] != v5)
+  {
+    v6 = __PSSGLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v10[0] = 0;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "Replay stopped/start providers don't match", v10, 2u);
+    }
+  }
+
+  for (i = this[3]; i; i = *i)
+  {
+    v8 = *(i + 5);
+    if (v5 != v8)
+    {
+      PSSG::Client::clientEndingSystemReplay(v8, v5);
+    }
+  }
+
+  PSSG::Server::changeReplayState(this, 3, 5);
+  PSSG::Server::checkAndEndReplay(this, v9);
+}
+
+void PSSG::Server::checkAndEndReplay(PSSG::Server *this, uint64_t a2)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = *(this + 8);
+  if (v3)
   {
     while (1)
     {
-      v3 = v2[5];
-      if (*(v3 + 192) == 1 && (*(v3 + 194) & 1) != 0)
+      v4 = v3[5];
+      if (*(v4 + 192) == 1 && (*(v4 + 194) & 1) != 0)
       {
         break;
       }
 
-      v2 = *v2;
-      if (!v2)
+      v3 = *v3;
+      if (!v3)
       {
         goto LABEL_5;
       }
     }
 
-    v10 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = __PSSGLogSharedInstance(this, a2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEFAULT, "Replay: replay streams still in use, not ending replay", &buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_DEFAULT, "Replay: replay streams still in use, not ending replay", &buf, 2u);
     }
   }
 
   else
   {
 LABEL_5:
-    v4 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = __PSSGLogSharedInstance(this, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEFAULT, "Replay: unhiding existing system resources from context after replay", &buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEFAULT, "Replay: unhiding existing system resources from context after replay", &buf, 2u);
     }
 
-    PSSG::Server::unhideSystemResourcesAfterReplay(this);
+    HasRequestedGraphResubmission = PSSG::Server::unhideSystemResourcesAfterReplay(this);
     for (i = *(this + 3); i; i = *i)
     {
       if (i[5] != *(this + 11))
       {
-        v6 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v9 = __PSSGLogSharedInstance(HasRequestedGraphResubmission, v7);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = i[5];
-          if (*(v7 + 47) < 0)
+          v10 = i[5];
+          if (*(v10 + 47) < 0)
           {
-            std::string::__init_copy_ctor_external(&buf, *(v7 + 24), *(v7 + 32));
+            std::string::__init_copy_ctor_external(&buf, *(v10 + 24), *(v10 + 32));
           }
 
           else
           {
-            buf = *(v7 + 24);
+            buf = *(v10 + 24);
           }
 
           if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -3224,29 +2497,27 @@ LABEL_5:
             p_buf = buf.__r_.__value_.__r.__words[0];
           }
 
-          *v12 = 136315138;
-          v13 = p_buf;
-          _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEFAULT, "Replay: requesting client %s to resubmit graphs", v12, 0xCu);
+          *v14 = 136315138;
+          v15 = p_buf;
+          _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "Replay: requesting client %s to resubmit graphs", v14, 0xCu);
           if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(buf.__r_.__value_.__l.__data_);
           }
         }
 
-        PSSG::Client::systemHasRequestedGraphResubmission(i[5]);
+        HasRequestedGraphResubmission = PSSG::Client::systemHasRequestedGraphResubmission(i[5]);
       }
     }
 
     PSSG::Server::changeReplayState(this, 5, 0);
     *(this + 11) = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void PSSG::Server::flushResponses(uint64_t a1, uint64_t a2)
+void PSSG::Server::flushResponses(uint64_t result, uint64_t a2)
 {
-  v2 = *(a1 + 24);
+  v2 = *(result + 24);
   if (v2)
   {
     v4 = MEMORY[0x277D85DD0];
@@ -3275,7 +2546,7 @@ void PSSG::Server::flushPBSResponses(_BYTE *a1, uint64_t a2)
   }
 }
 
-const void **PSSG::Server::resourceNeedsToBeLocked(PSSG::Server *this, const void **a2)
+const void **PSSG::Server::resourceNeedsToBeLocked(PSSG::Server *this, PSSG::Resource *a2)
 {
   if ((*this & 8) != 0)
   {
@@ -3284,15 +2555,15 @@ const void **PSSG::Server::resourceNeedsToBeLocked(PSSG::Server *this, const voi
 
   else
   {
-    return PSSG::Resource::PBSLockSucceeded(a2);
+    return PSSG::Resource::PBSLockSucceeded(a2, a2);
   }
 }
 
-const void **PSSG::Server::resourceNeedsToBeUnlocked(const void **this, const void **a2)
+_BYTE *PSSG::Server::resourceNeedsToBeUnlocked(_BYTE *this, PSSG::Resource *a2)
 {
   if ((*this & 8) != 0)
   {
-    return PSSG::ResourceFactoryConnector::unlockResource((this + 18), a2);
+    return PSSG::ResourceFactoryConnector::unlockResource((this + 144), a2);
   }
 
   return this;
@@ -3308,13 +2579,14 @@ uint64_t PSSG::Server::hideSystemResourcesForReplay(uint64_t this)
     {
       while (1)
       {
-        v3 = *(v1 + 40);
+        v3 = v1[5];
         if (v3[192] != 1)
         {
           break;
         }
 
-        std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v2 + 96), (v1 + 16))[5] = v3;
+        v5 = v1 + 2;
+        std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v2 + 96), v1 + 2, &std::piecewise_construct, &v5, &v4)[5] = v3;
         this = std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::erase((v2 + 48), v1);
         v1 = this;
         if (!this)
@@ -3351,34 +2623,48 @@ LABEL_6:
   return std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__node_handle_merge_unique[abi:ne200100]<std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>>(this + 6, this + 12);
 }
 
-void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageResourceRequestsFailed *a2)
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageEnteringSleep *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *&__p = a2 + 16;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
+  v7 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v2 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v5)[5];
+  if (v2)
   {
-    PSSG::Server::resourcesForKeys(this, a2 + 62, &__p);
-    PSSG::Client::remoteFailedToProcessResourceRequests(v4, &__p);
-    if (__p)
-    {
-      *(&__p + 1) = __p;
-      operator delete(__p);
-    }
+    PSSG::Client::remoteHasEnteredSleep(v2);
   }
 
   else
   {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = __PSSGLogSharedInstance(0, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(__p) = 136380675;
-      *(&__p + 4) = "handleMessage";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", &__p, 0xCu);
+      *buf = 136380675;
+      *&buf[4] = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
     }
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageExitingSleep *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v2 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v5)[5];
+  if (v2)
+  {
+    PSSG::Client::remoteHasExitedSleep(v2, v3);
+  }
+
+  else
+  {
+    v4 = __PSSGLogSharedInstance(0, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136380675;
+      *&buf[4] = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+    }
+  }
 }
 
 void sub_25EADD5D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
@@ -3391,144 +2677,193 @@ void sub_25EADD5D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25EADD6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_25EADD814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
-  _Unwind_Resume(a1);
-}
-
-const void **PSSG::Server::handleMessage(PSSG::Server *this, const void **a2)
-{
-  result = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>>>::find<std::string>(this + 6, a2 + 2);
-  if (result)
-  {
-    v3 = result[5];
-
-    return PSSG::Resource::PBSLockSucceeded(v3);
-  }
-
-  return result;
-}
-
-{
-  result = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>>>::find<std::string>(this + 6, a2 + 2);
-  if (result)
-  {
-    v3 = result[5];
-
-    return PSSG::Resource::PBSLockFailed(v3);
-  }
-
-  return result;
-}
-
-void PSSG::Server::handleMessageSetResourceAvailability(PSSG::Server *this, const void **a2)
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageResourcesNoLongerWantedFailed *a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v6 = v4[5];
+  if (v6)
   {
-    PSSG::MessageSetResourceAvailability::resourceKeys(a2, v8);
-    PSSG::Server::resourcesForKeys(this, v8, buf);
-    std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(v8);
-    std::unordered_set<PSSG::Resource *>::unordered_set(v7, buf);
-    PSSG::Client::remoteHasSetResourceAvailability(v4, v7, a2 + 65);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v7);
+    PSSG::Server::resourcesForKeys(this, a2 + 40, buf);
+    PSSG::Client::remoteFailedToProcessNotificationsOfResourcesNoLongerWanted(v6, buf);
     std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
   }
 
   else
   {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136380675;
+      *&buf[4] = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+    }
+  }
+}
+
+void sub_25EADD6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
+  _Unwind_Resume(a1);
+}
+
+void PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessageStoppedResources *a2)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v6 = v4[5];
+  if (v6)
+  {
+    PSSG::Server::resourcesForKeys(this, a2 + 40, buf);
+    PSSG::Client::remoteHasStoppedProducingResources(v6, buf);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
+  }
+
+  else
+  {
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136380675;
+      *&buf[4] = "handleMessage";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+    }
+  }
+}
+
+void sub_25EADD814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
+  _Unwind_Resume(a1);
+}
+
+const void **PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessagePBSLockSuccess *a2)
+{
+  result = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>>>::find<std::string>(this + 6, a2 + 2);
+  if (result)
+  {
+    v4 = result[5];
+
+    return PSSG::Resource::PBSLockSucceeded(v4, v3);
+  }
+
+  return result;
+}
+
+const void **PSSG::Server::handleMessage(PSSG::Server *this, const PSSG::MessagePBSLockFailure *a2)
+{
+  result = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>>>::find<std::string>(this + 6, a2 + 2);
+  if (result)
+  {
+    v4 = result[5];
+
+    return PSSG::Resource::PBSLockFailed(v4, v3);
+  }
+
+  return result;
+}
+
+void PSSG::Server::handleMessageSetResourceAvailability(PSSG::Server *this, const PSSG::MessageSetResourceAvailability *a2)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, v9);
+  v6 = v4[5];
+  if (v6)
+  {
+    PSSG::MessageSetResourceAvailability::resourceKeys(v9, a2);
+    PSSG::Server::resourcesForKeys(this, v9, buf);
+    std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(v9);
+    std::unordered_set<PSSG::Resource *>::unordered_set(v8, buf);
+    PSSG::Client::remoteHasSetResourceAvailability(v6, v8, a2 + 65);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v8);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
+  }
+
+  else
+  {
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380675;
       *&buf[4] = "handleMessageSetResourceAvailability";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25EADD9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_25EADD9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a9);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a19);
-  _Unwind_Resume(a1);
-}
-
-void PSSG::Server::handleMessageRequestResourceAvailabilityUpdates(PSSG::Server *this, const void **a2)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
-  {
-    PSSG::Server::resourcesForKeys(this, (a2 + 5), buf);
-    PSSG::Client::remoteHasRequestedResourceAvailabilityUpdates(v4, buf);
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
-  }
-
-  else
-  {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136380675;
-      *&buf[4] = "handleMessageRequestResourceAvailabilityUpdates";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25EADDB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void PSSG::Server::handleMessageStopResourceAvailabilityUpdates(PSSG::Server *this, const void **a2)
+void PSSG::Server::handleMessageRequestResourceAvailabilityUpdates(PSSG::Server *this, const PSSG::MessageRequestResourceAvailabilityUpdates *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *buf = a2 + 2;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2)[5];
-  if (v4)
+  v10 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v6 = v4[5];
+  if (v6)
   {
-    PSSG::Server::resourcesForKeys(this, (a2 + 5), buf);
-    PSSG::Client::remoteHasRequestedToStopResourceAvailabilityUpdates(v4, buf);
+    PSSG::Server::resourcesForKeys(this, a2 + 40, buf);
+    PSSG::Client::remoteHasRequestedResourceAvailabilityUpdates(v6, buf);
     std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
   }
 
   else
   {
-    v5 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136380675;
+      *&buf[4] = "handleMessageRequestResourceAvailabilityUpdates";
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+    }
+  }
+}
+
+void sub_25EADDB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
+  _Unwind_Resume(a1);
+}
+
+void PSSG::Server::handleMessageStopResourceAvailabilityUpdates(PSSG::Server *this, const PSSG::MessageStopResourceAvailabilityUpdates *a2)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  *buf = a2 + 16;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, a2 + 2, &std::piecewise_construct, buf, &v8);
+  v6 = v4[5];
+  if (v6)
+  {
+    PSSG::Server::resourcesForKeys(this, a2 + 40, buf);
+    PSSG::Client::remoteHasRequestedToStopResourceAvailabilityUpdates(v6, buf);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(buf);
+  }
+
+  else
+  {
+    v7 = __PSSGLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136380675;
       *&buf[4] = "handleMessageStopResourceAvailabilityUpdates";
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%{private}s invalid client", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25EADDC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25EADDC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -3634,35 +2969,35 @@ uint64_t PSSG::Client::Client(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3670,44 +3005,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_25EADE038(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -3737,35 +3072,35 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<PSSG::Resou
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,PSSG::Client *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Client *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Client *>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3773,44 +3108,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_25EADE3B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -3838,7 +3173,7 @@ uint64_t *std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>
     v4 = result;
     do
     {
-      v5 = std::__string_hash<char>::operator()[abi:ne200100](v4, (v2 + 2));
+      v5 = std::__string_hash<char>::operator()[abi:ne200100](v4, v2 + 2);
       result = std::__hash_table<std::__hash_value_type<std::string,PSSG::Resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::Resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::Resource *>>>::__node_insert_unique_prepare[abi:ne200100](v4, v5, v2 + 2);
       v6 = *v2;
       if (!result)
@@ -4009,7 +3344,7 @@ void PSSG::ServerComms::ServerComms(PSSG::ServerComms *this, PSCommsServer **a2,
   *(this + 4) = 0u;
   *(this + 5) = 0u;
   *(this + 6) = 0u;
-  v6 = __PSSGLogSharedInstance();
+  v6 = __PSSGLogSharedInstance(this, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
@@ -4037,28 +3372,28 @@ void sub_25EADE914(_Unwind_Exception *a1)
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(v1 + 8);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table((v1 + 8));
   _Unwind_Resume(a1);
 }
 
 void PSSG::death_notification_handler(PSSG *this, uint64_t a2, char *a3, const char *a4, void *a5)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v7 = __PSSGLogSharedInstance();
+  v14 = *MEMORY[0x277D85DE8];
+  v7 = __PSSGLogSharedInstance(this, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = a3;
-    v12 = 2048;
-    v13 = a2;
+    v11 = 2048;
+    v12 = a2;
     _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Received death notification for session: %s pid: %llu", buf, 0x16u);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, a3);
   PSSG::MessageBase::MessageBase(buf, 48, __p);
   *buf = &unk_2870BB5A8;
-  v14 = a2;
-  if (v10 < 0)
+  v13 = a2;
+  if (v9 < 0)
   {
     operator delete(__p[0]);
   }
@@ -4066,7 +3401,6 @@ void PSSG::death_notification_handler(PSSG *this, uint64_t a2, char *a3, const c
   PSSG::MessageNotifyClientDeath::serialize(buf);
   ps_comms_client_send();
   PSSG::MessageBase::~MessageBase(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EADEA80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
@@ -4082,43 +3416,43 @@ void sub_25EADEA80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void PSSG::ServerComms::~ServerComms(PSSG::ServerComms *this)
 {
   ps_death_notifier_unregister_callback_for_death_notification();
-  v2 = *(this + 9);
+  v3 = *(this + 9);
   *(this + 8) = 0;
   *(this + 9) = 0;
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 7);
-  *(this + 6) = 0;
-  *(this + 7) = 0;
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
+  v4 = *(this + 7);
+  *(this + 6) = 0;
+  *(this + 7) = 0;
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  }
+
   *(this + 10) = 0;
-  v4 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = __PSSGLogSharedInstance(v4, v2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "Done deleting system graph server", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "Done deleting system graph server", v8, 2u);
   }
 
-  v5 = *(this + 9);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  v6 = *(this + 7);
+  v6 = *(this + 9);
   if (v6)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 8);
+  v7 = *(this + 7);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 1);
 }
 
 uint64_t PSSG::ServerComms::setupServerReceiverThread(PSSG::Server **this)
@@ -4177,11 +3511,11 @@ void PSSG::ServerComms::flushResponses(PSSG::ServerComms *this)
 uint64_t PSSG::ServerComms::sendResponse(uint64_t a1, void **a2, uint64_t a3)
 {
   v4 = a2;
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   __p[0] = a2;
-  v5 = *(std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), a2) + 10);
-  v6 = (*(*a3 + 16))(a3);
-  v7 = __PSSGLogSharedInstance();
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), a2, &std::piecewise_construct, __p, buf);
+  v5 = (*(*a3 + 16))(a3);
+  v7 = __PSSGLogSharedInstance(v5, v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     if (*(v4 + 23) < 0)
@@ -4190,7 +3524,7 @@ uint64_t PSSG::ServerComms::sendResponse(uint64_t a1, void **a2, uint64_t a3)
     }
 
     (*(*a3 + 24))(__p, a3);
-    if (v14 >= 0)
+    if (v11 >= 0)
     {
       v8 = __p;
     }
@@ -4201,85 +3535,63 @@ uint64_t PSSG::ServerComms::sendResponse(uint64_t a1, void **a2, uint64_t a3)
     }
 
     *buf = 136315394;
-    v16 = v4;
-    v17 = 2080;
-    v18 = v8;
+    v13 = v4;
+    v14 = 2080;
+    v15 = v8;
     _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "%s <-- %s", buf, 0x16u);
-    if (v14 < 0)
+    if (v11 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  v9 = *(v6 + 344);
-  v10 = *(v6 + 340);
-  result = ps_comms_server_reply_ool();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return ps_comms_server_reply_ool();
 }
 
-void PSSG::ServerComms::sendPBSResponse(uint64_t a1, uint64_t *a2, int a3)
+void PSSG::ServerComms::sendPBSResponse(uint64_t a1, uint64_t a2, int a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a3 == 1)
   {
-    v8 = **(a1 + 64);
+    v5 = **(a1 + 64);
     if (*(a2 + 23) < 0)
     {
       a2 = *a2;
     }
 
-    v9 = *MEMORY[0x277D85DE8];
+    MEMORY[0x28219F278](v5, a2, &__block_literal_global_22);
+  }
 
-    MEMORY[0x28219F278](v8, a2, &__block_literal_global_22);
+  else if (a3)
+  {
+    v6 = __PSSGLogSharedInstance(a1, a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/SystemGraph/Server/PSSGServerComms.cpp";
+      v9 = 2080;
+      v10 = "sendPBSResponse";
+      v11 = 1024;
+      v12 = a3;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "%s:%s: Unexpected value found during switch: %d", buf, 0x1Cu);
+    }
   }
 
   else
   {
-    if (a3)
+    v4 = *(a1 + 56);
+    if (v4)
     {
-      v10 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315650;
-        v13 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/SystemGraph/Server/PSSGServerComms.cpp";
-        v14 = 2080;
-        v15 = "sendPBSResponse";
-        v16 = 1024;
-        v17 = a3;
-        _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, "%s:%s: Unexpected value found during switch: %d", buf, 0x1Cu);
-      }
+      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    else
+    ps_buffer_group_operation_async_lock();
+    if (v4)
     {
-      v4 = *(a1 + 48);
-      v5 = *(a1 + 56);
-      if (v5)
-      {
-        atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v6 = **(a1 + 64);
-      if (*(a2 + 23) < 0)
-      {
-        v7 = *a2;
-      }
-
-      if (v5)
-      {
-        atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      ps_buffer_group_operation_async_lock();
-      if (v5)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-      }
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -4298,14 +3610,14 @@ void sub_25EADF0BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25EADF228(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_25EADF228(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x25F8C7C50](v15, v16);
+  MEMORY[0x25F8C7C50](v15, v16, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4331,7 +3643,7 @@ void __destroy_helper_block_e8_32c55_ZTSNSt3__110shared_ptrIN4PSSG20PSCommsClien
   }
 }
 
-uint64_t PSSG::ServerComms::deallocateOOLMemory(uint64_t result)
+void PSSG::ServerComms::deallocateOOLMemory(uint64_t result)
 {
   if (*(result + 28))
   {
@@ -4352,78 +3664,72 @@ uint64_t PSSG::ServerComms::deallocateOOLMemory(uint64_t result)
     {
       v5[1] = v1;
       v5[2] = v2;
-      v4 = PSSG::ServerComms::deallocateOOLMemory(v5, v3);
-      return PSSG::ServerComms::sendUserIsActiveNotification(v4);
+      PSSG::ServerComms::deallocateOOLMemory(v5, v3);
+      PSSG::ServerComms::sendUserIsActiveNotification(v4);
     }
   }
-
-  return result;
 }
 
 void PSSG::ServerComms::sendUserIsActiveNotification(PSSG::ServerComms *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3[1] = 46;
+  v13 = *MEMORY[0x277D85DE8];
+  v1[1] = 46;
+  v2 = 0u;
+  v3 = 0u;
   v4 = 0u;
-  v5 = 0u;
-  v6 = 0u;
-  v7 = 0;
-  v8 = 1065353216;
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 1065353216;
+  v5 = 0;
+  v6 = 1065353216;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 1065353216;
+  v10 = 0;
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
-  v14 = 0;
-  v3[0] = &unk_2870BB110;
-  v1 = **(this + 6);
-  PSSG::MessageBase::serialize(v3);
+  v1[0] = &unk_2870BB110;
+  PSSG::MessageBase::serialize(v1);
   ps_comms_client_send();
-  PSSG::MessageBase::~MessageBase(v3);
-  v2 = *MEMORY[0x277D85DE8];
+  PSSG::MessageBase::~MessageBase(v1);
 }
 
-void sub_25EADF3F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25EADF3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PSSG::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
 
 void PSSG::ServerComms::sendUserIsInactiveNotification(PSSG::ServerComms *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3[1] = 47;
+  v13 = *MEMORY[0x277D85DE8];
+  v1[1] = 47;
+  v2 = 0u;
+  v3 = 0u;
   v4 = 0u;
-  v5 = 0u;
-  v6 = 0u;
-  v7 = 0;
-  v8 = 1065353216;
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 1065353216;
+  v5 = 0;
+  v6 = 1065353216;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 1065353216;
+  v10 = 0;
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
-  v14 = 0;
-  v3[0] = &unk_2870BB158;
-  v1 = **(this + 6);
-  PSSG::MessageBase::serialize(v3);
+  v1[0] = &unk_2870BB158;
+  PSSG::MessageBase::serialize(v1);
   ps_comms_client_send();
-  PSSG::MessageBase::~MessageBase(v3);
-  v2 = *MEMORY[0x277D85DE8];
+  PSSG::MessageBase::~MessageBase(v1);
 }
 
-void sub_25EADF4E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25EADF4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PSSG::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke(uint64_t a1)
 {
-  v175 = *MEMORY[0x277D85DE8];
-  memset(&v162, 0, sizeof(v162));
+  v258 = *MEMORY[0x277D85DE8];
+  memset(&v245, 0, sizeof(v245));
   v2 = *(a1 + 32);
   v3 = 0;
   v4 = 1;
@@ -4431,233 +3737,234 @@ void ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke(uint64_t a1)
   switch(*(v2 + 48))
   {
     case 0:
-      PSSG::MessageRegister::MessageRegister(v163, v2, *(*(a1 + 40) + 40));
-      v6 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v6 = PSSG::MessageRegister::MessageRegister(v246, v2, *(*(a1 + 40) + 40));
+      v8 = __PSSGLogSharedInstance(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
-        PSSG::MessageRegister::description(__p, v163);
-        v8 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v9 = *(a1 + 32);
+        PSSG::MessageRegister::description(v246);
+        v10 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
-        *&buf[4] = v7 + 56;
-        v171 = 2080;
-        v172 = v8;
-        _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        *&buf[4] = v9 + 56;
+        v254 = 2080;
+        v255 = v10;
+        _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      v9 = *(*(a1 + 40) + 32);
-      if (v9)
+      v11 = *(*(a1 + 40) + 32);
+      if (v11)
       {
-        v10 = *v9;
-        v11 = *(v9 + 3) != 0;
+        v12 = *v11;
+        v13 = *(v11 + 12) != 0;
       }
 
       else
       {
-        v10 = 0;
-        v11 = 0;
+        v12 = 0;
+        v13 = 0;
       }
 
-      v141 = *(a1 + 48);
-      __p[0].__r_.__value_.__r.__words[0] = &v163[16];
-      if (*(std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v141 + 8), &v163[16]) + 10))
+      v216 = *(a1 + 48);
+      __p[0].__r_.__value_.__r.__words[0] = &v246[16];
+      v217 = std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v216 + 8), &v246[16], &std::piecewise_construct, __p, buf);
+      if (*(v217 + 40))
       {
-        v142 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
+        v219 = __PSSGLogSharedInstance(v217, v218);
+        if (os_log_type_enabled(v219, OS_LOG_TYPE_ERROR))
         {
-          if (v166 >= 0)
+          if (v249 >= 0)
           {
-            v143 = &v163[16];
+            v220 = &v246[16];
           }
 
           else
           {
-            v143 = *&v163[16];
+            v220 = *&v246[16];
           }
 
           LODWORD(__p[0].__r_.__value_.__l.__data_) = 136315138;
-          *(__p[0].__r_.__value_.__r.__words + 4) = v143;
-          _os_log_impl(&dword_25EA3A000, v142, OS_LOG_TYPE_ERROR, "Client with execution session name  %s already registered.", __p, 0xCu);
+          *(__p[0].__r_.__value_.__r.__words + 4) = v220;
+          _os_log_impl(&dword_25EA3A000, v219, OS_LOG_TYPE_ERROR, "Client with execution session name  %s already registered.", __p, 0xCu);
         }
 
-        proc_name(v167[0], __p, 0x100u);
+        proc_name(v250[0], __p, 0x100u);
         empty = xpc_dictionary_create_empty();
-        v145 = empty;
-        if (v166 >= 0)
+        v222 = empty;
+        if (v249 >= 0)
         {
-          v146 = &v163[16];
+          v223 = &v246[16];
         }
 
         else
         {
-          v146 = *&v163[16];
+          v223 = *&v246[16];
         }
 
-        xpc_dictionary_set_string(empty, "SessionName", v146);
-        xpc_dictionary_set_string(v145, "ProcessName", __p);
+        xpc_dictionary_set_string(empty, "SessionName", v223);
+        xpc_dictionary_set_string(v222, "ProcessName", __p);
         std::string::basic_string[abi:ne200100]<0>(buf, "com.apple.Polaris.DuplicateExecSession");
-        v161[10] = MEMORY[0x277D85DD0];
-        v161[11] = 0x40000000;
-        v161[12] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_17;
-        v161[13] = &__block_descriptor_tmp_19;
-        v161[14] = v145;
-        if ((analytics_send_event_lazy() & 1) == 0)
+        v244[5] = MEMORY[0x277D85DD0];
+        v244[6] = 0x40000000;
+        v244[7] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_17;
+        v244[8] = &__block_descriptor_tmp_19;
+        v244[9] = v222;
+        v217 = analytics_send_event_lazy();
+        if ((v217 & 1) == 0)
         {
-          xpc_release(v145);
+          xpc_release(v222);
         }
 
-        if (v173 < 0)
+        if (v256 < 0)
         {
           operator delete(*buf);
         }
       }
 
-      if (v10 != 0 && v11)
+      if (v12 != 0 && v13)
       {
-        PSSG::Server::handleMessageRegister(*(a1 + 56), v163);
-        v147 = *(a1 + 48);
-        v148 = *v10;
-        __p[0].__r_.__value_.__r.__words[0] = &v163[16];
-        *(std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v147 + 8), &v163[16]) + 10) = v148;
-        v149 = *(a1 + 64);
-        if (v149)
+        PSSG::Server::handleMessageRegister(*(a1 + 56), v246);
+        v224 = *(a1 + 48);
+        v225 = *v12;
+        __p[0].__r_.__value_.__r.__words[0] = &v246[16];
+        *(std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v224 + 8), &v246[16], &std::piecewise_construct, __p, buf) + 10) = v225;
+        v226 = *(a1 + 64);
+        if (v226)
         {
-          PSSH::SysHealthServer::handleMessageRegister(v149, v163);
+          PSSH::SysHealthServer::handleMessageRegister(v226, v246);
         }
 
-        v150 = *v10;
         ps_death_notifier_register_mach_port_for_death_notification();
       }
 
       else
       {
-        v151 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
+        v227 = __PSSGLogSharedInstance(v217, v218);
+        if (os_log_type_enabled(v227, OS_LOG_TYPE_ERROR))
         {
-          if (v166 >= 0)
+          if (v249 >= 0)
           {
-            v152 = &v163[16];
+            v228 = &v246[16];
           }
 
           else
           {
-            v152 = *&v163[16];
+            v228 = *&v246[16];
           }
 
           LODWORD(__p[0].__r_.__value_.__l.__data_) = 136315138;
-          *(__p[0].__r_.__value_.__r.__words + 4) = v152;
-          _os_log_impl(&dword_25EA3A000, v151, OS_LOG_TYPE_ERROR, "Client %s tried to register without a reply port. Failed to register client.", __p, 0xCu);
+          *(__p[0].__r_.__value_.__r.__words + 4) = v228;
+          _os_log_impl(&dword_25EA3A000, v227, OS_LOG_TYPE_ERROR, "Client %s tried to register without a reply port. Failed to register client.", __p, 0xCu);
         }
       }
 
-      PSSG::MessageBase::~MessageBase(v163);
+      PSSG::MessageBase::~MessageBase(v246);
       goto LABEL_343;
     case 1:
-      PSSG::MessageDeRegister::MessageDeRegister(v163, v2, *(*(a1 + 40) + 40));
-      v56 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+      v84 = PSSG::MessageDeRegister::MessageDeRegister(v246, v2, *(*(a1 + 40) + 40));
+      v86 = __PSSGLogSharedInstance(v84, v85);
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
       {
-        v57 = *(a1 + 32);
-        PSSG::MessageDeRegister::description(__p, v163);
-        v58 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v87 = *(a1 + 32);
+        PSSG::MessageDeRegister::description(v246);
+        v88 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
-        *&buf[4] = v57 + 56;
-        v171 = 2080;
-        v172 = v58;
-        _os_log_impl(&dword_25EA3A000, v56, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        *&buf[4] = v87 + 56;
+        v254 = 2080;
+        v255 = v88;
+        _os_log_impl(&dword_25EA3A000, v86, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      v59 = *(a1 + 48);
-      __p[0].__r_.__value_.__r.__words[0] = &v163[16];
-      v3 = *(std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v59 + 8), &v163[16]) + 10);
+      v89 = *(a1 + 48);
+      __p[0].__r_.__value_.__r.__words[0] = &v246[16];
+      v3 = *(std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v89 + 8), &v246[16], &std::piecewise_construct, __p, buf) + 10);
       ps_death_notifier_unregister_mach_port_for_death_notification();
-      PSSG::Server::handleMessageDeRegister(*(a1 + 56), v163);
-      PSSG::Server::forwardMessage(*(a1 + 56), v163);
-      std::string::operator=(&v162, &v163[16]);
-      PSSG::MessageBase::~MessageBase(v163);
+      PSSG::Server::handleMessageDeRegister(*(a1 + 56), v246);
+      PSSG::Server::forwardMessage(*(a1 + 56), v246);
+      std::string::operator=(&v245, &v246[16]);
+      PSSG::MessageBase::~MessageBase(v246);
       goto LABEL_121;
     case 2:
       goto LABEL_296;
     case 3:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BADB0;
-      v92 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+      v142 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BADB0;
+      v144 = __PSSGLogSharedInstance(v142, v143);
+      if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
       {
-        v93 = *(a1 + 32);
-        PSSG::MessageRequestContextForSessions::description(v163, __p);
-        v94 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v145 = *(a1 + 32);
+        PSSG::MessageRequestContextForSessions::description(__p, v246);
+        v146 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
-        *&buf[4] = v93 + 56;
-        v171 = 2080;
-        v172 = v94;
-        _os_log_impl(&dword_25EA3A000, v92, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        *&buf[4] = v145 + 56;
+        v254 = 2080;
+        v255 = v146;
+        _os_log_impl(&dword_25EA3A000, v144, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessageRequestContextForSessions(*(a1 + 56), v163);
+      PSSG::Server::handleMessageRequestContextForSessions(*(a1 + 56), v246);
       goto LABEL_293;
     case 4:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BADF8;
-      v95 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+      v147 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BADF8;
+      v149 = __PSSGLogSharedInstance(v147, v148);
+      if (os_log_type_enabled(v149, OS_LOG_TYPE_DEFAULT))
       {
-        v96 = *(a1 + 32);
-        PSSG::MessageRequestContextForResourceKeys::description(v163, __p);
-        v97 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v150 = *(a1 + 32);
+        PSSG::MessageRequestContextForResourceKeys::description(__p, v246);
+        v151 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
-        *&buf[4] = v96 + 56;
-        v171 = 2080;
-        v172 = v97;
-        _os_log_impl(&dword_25EA3A000, v95, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        *&buf[4] = v150 + 56;
+        v254 = 2080;
+        v255 = v151;
+        _os_log_impl(&dword_25EA3A000, v149, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessageRequestContextForResourceKeys(*(a1 + 56), v163);
+      PSSG::Server::handleMessageRequestContextForResourceKeys(*(a1 + 56), v246);
       goto LABEL_293;
     case 5:
       if (*(a1 + 64))
       {
-        PSSG::MessageBase::MessageBase(v163, v2);
-        *v163 = &unk_2870BB770;
-        v66 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+        v100 = PSSG::MessageBase::MessageBase(v246, v2);
+        *v246 = &unk_2870BB770;
+        v102 = __PSSGLogSharedInstance(v100, v101);
+        if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
         {
-          v67 = *(a1 + 32);
-          PSSG::MessageSHUpdateGraphs::description(v163, __p);
-          v68 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+          v103 = *(a1 + 32);
+          PSSG::MessageSHUpdateGraphs::description(__p, v246);
+          v104 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
           *buf = 136315394;
-          *&buf[4] = v67 + 56;
-          v171 = 2080;
-          v172 = v68;
-          _os_log_impl(&dword_25EA3A000, v66, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+          *&buf[4] = v103 + 56;
+          v254 = 2080;
+          v255 = v104;
+          _os_log_impl(&dword_25EA3A000, v102, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
           if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p[0].__r_.__value_.__l.__data_);
           }
         }
 
-        PSSH::SysHealthServer::handleUpdateGraphs(*(a1 + 64), v163);
+        PSSH::SysHealthServer::handleUpdateGraphs(*(a1 + 64), v246);
         goto LABEL_293;
       }
 
-      v137 = __PSSGLogSharedInstance();
-      if (!os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
+      v212 = __PSSGLogSharedInstance(a1, v2);
+      if (!os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_294;
       }
@@ -4666,36 +3973,36 @@ void ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke(uint64_t a1)
     case 6:
       if (*(a1 + 64))
       {
-        PSSG::MessageBase::MessageBase(v163, v2);
-        *v163 = &unk_2870BAE40;
-        v75 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+        v115 = PSSG::MessageBase::MessageBase(v246, v2);
+        *v246 = &unk_2870BAE40;
+        v117 = __PSSGLogSharedInstance(v115, v116);
+        if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
         {
-          v76 = *(a1 + 32);
-          PSSG::MessageSHRequestAllGraphs::description(v163, __p);
-          v77 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+          v118 = *(a1 + 32);
+          PSSG::MessageSHRequestAllGraphs::description(__p, v246);
+          v119 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
           *buf = 136315394;
-          *&buf[4] = v76 + 56;
-          v171 = 2080;
-          v172 = v77;
-          _os_log_impl(&dword_25EA3A000, v75, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+          *&buf[4] = v118 + 56;
+          v254 = 2080;
+          v255 = v119;
+          _os_log_impl(&dword_25EA3A000, v117, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
           if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p[0].__r_.__value_.__l.__data_);
           }
         }
 
-        v78 = *(a1 + 64);
-        v161[5] = MEMORY[0x277D85DD0];
-        v161[6] = 0x40000000;
-        v161[7] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_21;
-        v161[8] = &__block_descriptor_tmp_22;
-        v161[9] = *(a1 + 48);
-        PSSH::SysHealthServer::handleRequestAllGraphs(v78, v163);
+        v120 = *(a1 + 64);
+        v244[0] = MEMORY[0x277D85DD0];
+        v244[1] = 0x40000000;
+        v244[2] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_21;
+        v244[3] = &__block_descriptor_tmp_22;
+        v244[4] = *(a1 + 48);
+        PSSH::SysHealthServer::handleRequestAllGraphs(v120, v246, v244);
       }
 
-      v137 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
+      v212 = __PSSGLogSharedInstance(a1, v2);
+      if (os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_318;
       }
@@ -4704,37 +4011,37 @@ void ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke(uint64_t a1)
     case 7:
       if (*(a1 + 64))
       {
-        PSSG::MessageBase::MessageBase(v163, v2);
-        *v163 = &unk_2870BAE88;
-        v79 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+        v121 = PSSG::MessageBase::MessageBase(v246, v2);
+        *v246 = &unk_2870BAE88;
+        v123 = __PSSGLogSharedInstance(v121, v122);
+        if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
         {
-          v80 = *(a1 + 32);
+          v124 = *(a1 + 32);
           std::string::basic_string[abi:ne200100]<0>(__p, "Request Process Monitor statistics");
-          v81 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+          v125 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
           *buf = 136315394;
-          *&buf[4] = v80 + 56;
-          v171 = 2080;
-          v172 = v81;
-          _os_log_impl(&dword_25EA3A000, v79, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+          *&buf[4] = v124 + 56;
+          v254 = 2080;
+          v255 = v125;
+          _os_log_impl(&dword_25EA3A000, v123, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
           if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p[0].__r_.__value_.__l.__data_);
           }
         }
 
-        v82 = *(a1 + 64);
-        v161[0] = MEMORY[0x277D85DD0];
-        v161[1] = 0x40000000;
-        v161[2] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_23;
-        v161[3] = &__block_descriptor_tmp_24;
-        v161[4] = *(a1 + 48);
-        PSSH::SysHealthServer::handleRequestProcessMonitorStats(v82, v163, v161);
+        v126 = *(a1 + 64);
+        v243[0] = MEMORY[0x277D85DD0];
+        v243[1] = 0x40000000;
+        v243[2] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_23;
+        v243[3] = &__block_descriptor_tmp_24;
+        v243[4] = *(a1 + 48);
+        PSSH::SysHealthServer::handleRequestProcessMonitorStats(v126, v246, v243);
         goto LABEL_293;
       }
 
-      v137 = __PSSGLogSharedInstance();
-      if (!os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
+      v212 = __PSSGLogSharedInstance(a1, v2);
+      if (!os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_294;
       }
@@ -4743,37 +4050,37 @@ void ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke(uint64_t a1)
     case 8:
       if (*(a1 + 64))
       {
-        PSSG::MessageBase::MessageBase(v163, v2);
-        *v163 = &unk_2870BAED0;
-        v105 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+        v163 = PSSG::MessageBase::MessageBase(v246, v2);
+        *v246 = &unk_2870BAED0;
+        v165 = __PSSGLogSharedInstance(v163, v164);
+        if (os_log_type_enabled(v165, OS_LOG_TYPE_DEFAULT))
         {
-          v106 = *(a1 + 32);
+          v166 = *(a1 + 32);
           std::string::basic_string[abi:ne200100]<0>(__p, "Request System Action statistics");
-          v107 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+          v167 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
           *buf = 136315394;
-          *&buf[4] = v106 + 56;
-          v171 = 2080;
-          v172 = v107;
-          _os_log_impl(&dword_25EA3A000, v105, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+          *&buf[4] = v166 + 56;
+          v254 = 2080;
+          v255 = v167;
+          _os_log_impl(&dword_25EA3A000, v165, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
           if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p[0].__r_.__value_.__l.__data_);
           }
         }
 
-        v108 = *(a1 + 64);
-        v160[0] = MEMORY[0x277D85DD0];
-        v160[1] = 0x40000000;
-        v160[2] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_25;
-        v160[3] = &__block_descriptor_tmp_26;
-        v160[4] = *(a1 + 48);
-        PSSH::SysHealthServer::handleRequestSystemActionStats(v108, v163, v160);
+        v168 = *(a1 + 64);
+        v242[0] = MEMORY[0x277D85DD0];
+        v242[1] = 0x40000000;
+        v242[2] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_25;
+        v242[3] = &__block_descriptor_tmp_26;
+        v242[4] = *(a1 + 48);
+        PSSH::SysHealthServer::handleRequestSystemActionStats(v168, v246, v242);
         goto LABEL_293;
       }
 
-      v137 = __PSSGLogSharedInstance();
-      if (!os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
+      v212 = __PSSGLogSharedInstance(a1, v2);
+      if (!os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_294;
       }
@@ -4782,579 +4089,154 @@ void ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke(uint64_t a1)
     case 9:
       if (*(a1 + 64))
       {
-        PSSG::MessageBase::MessageBase(v163, v2);
-        *v163 = &unk_2870BAF18;
-        v101 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
+        v157 = PSSG::MessageBase::MessageBase(v246, v2);
+        *v246 = &unk_2870BAF18;
+        v159 = __PSSGLogSharedInstance(v157, v158);
+        if (os_log_type_enabled(v159, OS_LOG_TYPE_DEFAULT))
         {
-          v102 = *(a1 + 32);
+          v160 = *(a1 + 32);
           std::string::basic_string[abi:ne200100]<0>(__p, "Request Process Monitor event log");
-          v103 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+          v161 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
           *buf = 136315394;
-          *&buf[4] = v102 + 56;
-          v171 = 2080;
-          v172 = v103;
-          _os_log_impl(&dword_25EA3A000, v101, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+          *&buf[4] = v160 + 56;
+          v254 = 2080;
+          v255 = v161;
+          _os_log_impl(&dword_25EA3A000, v159, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
           if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p[0].__r_.__value_.__l.__data_);
           }
         }
 
-        v104 = *(a1 + 64);
-        v159[0] = MEMORY[0x277D85DD0];
-        v159[1] = 0x40000000;
-        v159[2] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_27;
-        v159[3] = &__block_descriptor_tmp_28;
-        v159[4] = *(a1 + 48);
-        PSSH::SysHealthServer::handleRequestProcessMonitorEventLog(v104, v163, v159);
+        v162 = *(a1 + 64);
+        v241[0] = MEMORY[0x277D85DD0];
+        v241[1] = 0x40000000;
+        v241[2] = ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_27;
+        v241[3] = &__block_descriptor_tmp_28;
+        v241[4] = *(a1 + 48);
+        PSSH::SysHealthServer::handleRequestProcessMonitorEventLog(v162, v246, v241);
         goto LABEL_293;
       }
 
-      v137 = __PSSGLogSharedInstance();
-      if (!os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
+      v212 = __PSSGLogSharedInstance(a1, v2);
+      if (!os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_294;
       }
 
       goto LABEL_318;
     case 0xALL:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BAF60;
-      v38 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v56 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BAF60;
+      v58 = __PSSGLogSharedInstance(v56, v57);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
-        v39 = *(a1 + 32);
+        v59 = *(a1 + 32);
         std::string::basic_string[abi:ne200100]<0>(__p, "Request current graphs for all sessions");
-        v40 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v60 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
-        *&buf[4] = v39 + 56;
-        v171 = 2080;
-        v172 = v40;
-        _os_log_impl(&dword_25EA3A000, v38, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        *&buf[4] = v59 + 56;
+        v254 = 2080;
+        v255 = v60;
+        _os_log_impl(&dword_25EA3A000, v58, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessageRequestCurrentGraphsForAllSessions(*(a1 + 56), v163);
+      PSSG::Server::handleMessageRequestCurrentGraphsForAllSessions(*(a1 + 56), v246);
       goto LABEL_293;
     case 0xBLL:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BAFA8;
-      v69 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+      v105 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BAFA8;
+      v107 = __PSSGLogSharedInstance(v105, v106);
+      if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
       {
-        v70 = *(a1 + 32);
+        v108 = *(a1 + 32);
         std::string::basic_string[abi:ne200100]<0>(__p, "Flush current graphs for all sessions");
-        v71 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v109 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
-        *&buf[4] = v70 + 56;
-        v171 = 2080;
-        v172 = v71;
-        _os_log_impl(&dword_25EA3A000, v69, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        *&buf[4] = v108 + 56;
+        v254 = 2080;
+        v255 = v109;
+        _os_log_impl(&dword_25EA3A000, v107, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessageFlushCurrentGraphsForAllSessions(*(a1 + 56), v163);
+      PSSG::Server::handleMessageFlushCurrentGraphsForAllSessions(*(a1 + 56), v246);
       goto LABEL_293;
     case 0xCLL:
       if (*(a1 + 64))
       {
-        PSSG::MessageBase::MessageBase(v163, v2);
-        *v163 = &unk_2870BB800;
-        v50 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        v74 = PSSG::MessageBase::MessageBase(v246, v2);
+        *v246 = &unk_2870BB800;
+        v76 = __PSSGLogSharedInstance(v74, v75);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
         {
-          v51 = *(a1 + 32);
-          PSSG::MessageSHTriggerHealthUpdate::description(v163, __p);
-          v52 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+          v77 = *(a1 + 32);
+          PSSG::MessageSHTriggerHealthUpdate::description(v246, __p);
+          v78 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
           *buf = 136315394;
-          *&buf[4] = v51 + 56;
-          v171 = 2080;
-          v172 = v52;
-          _os_log_impl(&dword_25EA3A000, v50, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+          *&buf[4] = v77 + 56;
+          v254 = 2080;
+          v255 = v78;
+          _os_log_impl(&dword_25EA3A000, v76, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
           if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p[0].__r_.__value_.__l.__data_);
           }
         }
 
-        PSSH::SysHealthServer::handleSystemHealthUpdate(*(a1 + 64), v163);
+        PSSH::SysHealthServer::handleSystemHealthUpdate(*(a1 + 64), v246);
         goto LABEL_293;
       }
 
-      v137 = __PSSGLogSharedInstance();
-      if (!os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
+      v212 = __PSSGLogSharedInstance(a1, v2);
+      if (!os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_294;
       }
 
       goto LABEL_318;
     case 0xDLL:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BAFF0;
-      v29 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v41 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BAFF0;
+      v43 = __PSSGLogSharedInstance(v41, v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = *(a1 + 32);
+        v44 = *(a1 + 32);
         std::string::basic_string[abi:ne200100]<0>(__p, "Entering sleep");
-        v31 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v45 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
-        *&buf[4] = v30 + 56;
-        v171 = 2080;
-        v172 = v31;
-        _os_log_impl(&dword_25EA3A000, v29, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        *&buf[4] = v44 + 56;
+        v254 = 2080;
+        v255 = v45;
+        _os_log_impl(&dword_25EA3A000, v43, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
       goto LABEL_293;
     case 0xELL:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB038;
-      v83 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
-      {
-        v84 = *(a1 + 32);
-        std::string::basic_string[abi:ne200100]<0>(__p, "Exiting sleep");
-        v85 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v84 + 56;
-        v171 = 2080;
-        v172 = v85;
-        _os_log_impl(&dword_25EA3A000, v83, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0xFLL:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB0C8;
-      v86 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
-      {
-        v87 = *(a1 + 32);
-        PSSG::MessageStoppedResources::description(v163, __p);
-        v88 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v87 + 56;
-        v171 = 2080;
-        v172 = v88;
-        _os_log_impl(&dword_25EA3A000, v86, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0x10:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB278;
-      v114 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
-      {
-        v115 = *(a1 + 32);
-        PSSG::MessageResourcesNoLongerWantedProcessed::description(v163, __p);
-        v116 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v115 + 56;
-        v171 = 2080;
-        v172 = v116;
-        _os_log_impl(&dword_25EA3A000, v114, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0x11:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB080;
-      v109 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
-      {
-        v110 = *(a1 + 32);
-        PSSG::MessageResourcesNoLongerWantedFailed::description(v163, __p);
-        v111 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v110 + 56;
-        v171 = 2080;
-        v172 = v111;
-        _os_log_impl(&dword_25EA3A000, v109, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0x12:
-      PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(v163, v2);
-      *v163 = &unk_2870BB728;
-      v23 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-      {
-        v24 = *(a1 + 32);
-        PSSG::MessageSetupCompleted::description(v163, __p);
-        v25 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v24 + 56;
-        v171 = 2080;
-        v172 = v25;
-        _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      PSSG::Server::forwardMessage(*(a1 + 56), v163);
-      goto LABEL_276;
-    case 0x13:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB1A0;
-      v53 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
-      {
-        v54 = *(a1 + 32);
-        PSSG::MessageSetupFailed::description(v163, __p);
-        v55 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v54 + 56;
-        v171 = 2080;
-        v172 = v55;
-        _os_log_impl(&dword_25EA3A000, v53, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0x14:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB1E8;
-      v117 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
-      {
-        v118 = *(a1 + 32);
-        PSSG::MessagePauseCompleted::description(v163, __p);
-        v119 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v118 + 56;
-        v171 = 2080;
-        v172 = v119;
-        _os_log_impl(&dword_25EA3A000, v117, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0x15:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB230;
-      v26 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-      {
-        v27 = *(a1 + 32);
-        PSSG::MessagePauseFailed::description(v163, __p);
-        v28 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v27 + 56;
-        v171 = 2080;
-        v172 = v28;
-        _os_log_impl(&dword_25EA3A000, v26, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0x16:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB398;
-      v47 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
-      {
-        v48 = *(a1 + 32);
-        PSSG::MessageRequestResourceAvailabilityUpdates::description(v163, __p);
-        v49 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v48 + 56;
-        v171 = 2080;
-        v172 = v49;
-        _os_log_impl(&dword_25EA3A000, v47, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessageRequestResourceAvailabilityUpdates(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0x17:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB3E0;
-      v35 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
-      {
-        v36 = *(a1 + 32);
-        PSSG::MessageStopResourceAvailabilityUpdates::description(v163, __p);
-        v37 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v36 + 56;
-        v171 = 2080;
-        v172 = v37;
-        _os_log_impl(&dword_25EA3A000, v35, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessageStopResourceAvailabilityUpdates(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0x18:
-      PSSG::MessagePublishResourceKeysAndStrides::MessagePublishResourceKeysAndStrides(v163);
-      v72 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
-      {
-        v73 = *(a1 + 32);
-        PSSG::MessagePublishResourceKeysAndStrides::description(v163, __p);
-        v74 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v73 + 56;
-        v171 = 2080;
-        v172 = v74;
-        _os_log_impl(&dword_25EA3A000, v72, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      PSSG::Server::forwardMessage(*(a1 + 56), v163);
-      *v163 = &unk_2870BB4A8;
-      std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::~__hash_table(v168);
-      goto LABEL_195;
-    case 0x19:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = off_2870BA7A8;
-      v32 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-      {
-        v33 = *(a1 + 32);
-        PSSG::MessagePublishResourceStreams::description(v163, __p);
-        v34 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v33 + 56;
-        v171 = 2080;
-        v172 = v34;
-        _os_log_impl(&dword_25EA3A000, v32, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessagePublishResourceStreams(*(a1 + 56), v163);
-      goto LABEL_91;
-    case 0x1ALL:
-      PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(v163, v2);
-      *v163 = &unk_2870BB608;
-      v123 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
-      {
-        v124 = *(a1 + 32);
-        PSSG::MessageRequestResourcesWithStrides::description(v163, __p);
-        v125 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v124 + 56;
-        v171 = 2080;
-        v172 = v125;
-        _os_log_impl(&dword_25EA3A000, v123, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_276;
-    case 0x1BLL:
-      PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(v163, v2);
-      *v163 = &unk_2870BB6E0;
-      v120 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
-      {
-        v121 = *(a1 + 32);
-        PSSG::MessageCompletedResourceRequestWithStrides::description(v163, __p);
-        v122 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v121 + 56;
-        v171 = 2080;
-        v172 = v122;
-        _os_log_impl(&dword_25EA3A000, v120, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      PSSG::Server::forwardMessage(*(a1 + 56), v163);
-      goto LABEL_276;
-    case 0x1CLL:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = off_2870BA880;
-      v44 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
-      {
-        v45 = *(a1 + 32);
-        PSSG::MessagePublishCurrentGraphs::description(v163, __p);
-        v46 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v45 + 56;
-        v171 = 2080;
-        v172 = v46;
-        _os_log_impl(&dword_25EA3A000, v44, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessagePublishCurrentGraphs(*(a1 + 56), v163);
-LABEL_91:
-      PSSG::MessageBase::~MessageBase(v163);
-      v3 = 0;
-      v4 = 0;
-      goto LABEL_295;
-    case 0x1DLL:
-      PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(v163, v2);
-      *v163 = &unk_2870BB650;
-      v60 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
-      {
-        v61 = *(a1 + 32);
-        PSSG::MessageResourceRequestsFailed::description(v163, __p);
-        v62 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v61 + 56;
-        v171 = 2080;
-        v172 = v62;
-        _os_log_impl(&dword_25EA3A000, v60, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-LABEL_276:
-      v126 = v169;
-      *v163 = &unk_2870BB508;
-      v169 = 0;
-      if (v126)
-      {
-        MEMORY[0x25F8C7C30](v126, 0x1000C80B3D5DE44);
-      }
-
-      __p[0].__r_.__value_.__r.__words[0] = v168;
-      std::vector<PSSG::ResourceStridesEntry>::__destroy_vector::operator()[abi:ne200100](__p);
-      __p[0].__r_.__value_.__r.__words[0] = v167;
-      std::vector<PSSG::ResourceStridesEntry>::__destroy_vector::operator()[abi:ne200100](__p);
-      goto LABEL_293;
-    case 0x1ELL:
-      PSSG::MessageSetResourceAvailability::MessageSetResourceAvailability(v163);
-      v89 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
-      {
-        v90 = *(a1 + 32);
-        PSSG::MessageSetResourceAvailability::description(v163, __p);
-        v91 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v90 + 56;
-        v171 = 2080;
-        v172 = v91;
-        _os_log_impl(&dword_25EA3A000, v89, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessageSetResourceAvailability(*(a1 + 56), v163);
-      *v163 = &unk_2870BB4D8;
-      std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(v168);
-LABEL_195:
-      if (v167[0])
-      {
-        v167[1] = v167[0];
-        operator delete(v167[0]);
-      }
-
-      goto LABEL_293;
-    case 0x27:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BA910;
-      v63 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
-      {
-        v64 = *(a1 + 32);
-        std::string::basic_string[abi:ne200100]<0>(__p, "System replay starting");
-        v65 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315394;
-        *&buf[4] = v64 + 56;
-        v171 = 2080;
-        v172 = v65;
-        _os_log_impl(&dword_25EA3A000, v63, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
-        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p[0].__r_.__value_.__l.__data_);
-        }
-      }
-
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_293;
-    case 0x28:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BA958;
-      v129 = __PSSGLogSharedInstance();
+      v127 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB038;
+      v129 = __PSSGLogSharedInstance(v127, v128);
       if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
       {
         v130 = *(a1 + 32);
-        std::string::basic_string[abi:ne200100]<0>(__p, "System replay ending");
+        std::string::basic_string[abi:ne200100]<0>(__p, "Exiting sleep");
         v131 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
         *&buf[4] = v130 + 56;
-        v171 = 2080;
-        v172 = v131;
+        v254 = 2080;
+        v255 = v131;
         _os_log_impl(&dword_25EA3A000, v129, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
@@ -5362,98 +4244,523 @@ LABEL_195:
         }
       }
 
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
       goto LABEL_293;
-    case 0x2DLL:
-      v41 = *(v2 + 312);
-      *v163 = &unk_2870BB538;
-      *&v163[8] = v41;
-      v42 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    case 0xFLL:
+      v132 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB0C8;
+      v134 = __PSSGLogSharedInstance(v132, v133);
+      if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
       {
-        std::string::basic_string[abi:ne200100]<0>(__p, "Orchestrator notification");
-        v43 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315138;
-        *&buf[4] = v43;
-        _os_log_impl(&dword_25EA3A000, v42, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+        v135 = *(a1 + 32);
+        PSSG::MessageStoppedResources::description(__p, v246);
+        v136 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v135 + 56;
+        v254 = 2080;
+        v255 = v136;
+        _os_log_impl(&dword_25EA3A000, v134, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
-      goto LABEL_294;
-    case 0x2ELL:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB110;
-      v112 = __PSSGLogSharedInstance();
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x10:
+      v178 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB278;
+      v180 = __PSSGLogSharedInstance(v178, v179);
+      if (os_log_type_enabled(v180, OS_LOG_TYPE_DEFAULT))
+      {
+        v181 = *(a1 + 32);
+        PSSG::MessageResourcesNoLongerWantedProcessed::description(__p, v246);
+        v182 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v181 + 56;
+        v254 = 2080;
+        v255 = v182;
+        _os_log_impl(&dword_25EA3A000, v180, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x11:
+      v169 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB080;
+      v171 = __PSSGLogSharedInstance(v169, v170);
+      if (os_log_type_enabled(v171, OS_LOG_TYPE_DEFAULT))
+      {
+        v172 = *(a1 + 32);
+        PSSG::MessageResourcesNoLongerWantedFailed::description(__p, v246);
+        v173 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v172 + 56;
+        v254 = 2080;
+        v255 = v173;
+        _os_log_impl(&dword_25EA3A000, v171, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x12:
+      v31 = PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(v246, v2);
+      *v246 = &unk_2870BB728;
+      v33 = __PSSGLogSharedInstance(v31, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      {
+        v34 = *(a1 + 32);
+        PSSG::MessageSetupCompleted::description(__p, v246);
+        v35 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v34 + 56;
+        v254 = 2080;
+        v255 = v35;
+        _os_log_impl(&dword_25EA3A000, v33, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      PSSG::Server::forwardMessage(*(a1 + 56), v246);
+      goto LABEL_276;
+    case 0x13:
+      v79 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB1A0;
+      v81 = __PSSGLogSharedInstance(v79, v80);
+      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+      {
+        v82 = *(a1 + 32);
+        PSSG::MessageSetupFailed::description(__p, v246);
+        v83 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v82 + 56;
+        v254 = 2080;
+        v255 = v83;
+        _os_log_impl(&dword_25EA3A000, v81, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x14:
+      v183 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB1E8;
+      v185 = __PSSGLogSharedInstance(v183, v184);
+      if (os_log_type_enabled(v185, OS_LOG_TYPE_DEFAULT))
+      {
+        v186 = *(a1 + 32);
+        PSSG::MessagePauseCompleted::description(__p, v246);
+        v187 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v186 + 56;
+        v254 = 2080;
+        v255 = v187;
+        _os_log_impl(&dword_25EA3A000, v185, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x15:
+      v36 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB230;
+      v38 = __PSSGLogSharedInstance(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      {
+        v39 = *(a1 + 32);
+        PSSG::MessagePauseFailed::description(__p, v246);
+        v40 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v39 + 56;
+        v254 = 2080;
+        v255 = v40;
+        _os_log_impl(&dword_25EA3A000, v38, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x16:
+      v69 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB398;
+      v71 = __PSSGLogSharedInstance(v69, v70);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+      {
+        v72 = *(a1 + 32);
+        PSSG::MessageRequestResourceAvailabilityUpdates::description(__p, v246);
+        v73 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v72 + 56;
+        v254 = 2080;
+        v255 = v73;
+        _os_log_impl(&dword_25EA3A000, v71, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessageRequestResourceAvailabilityUpdates(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x17:
+      v51 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB3E0;
+      v53 = __PSSGLogSharedInstance(v51, v52);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      {
+        v54 = *(a1 + 32);
+        PSSG::MessageStopResourceAvailabilityUpdates::description(__p, v246);
+        v55 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v54 + 56;
+        v254 = 2080;
+        v255 = v55;
+        _os_log_impl(&dword_25EA3A000, v53, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessageStopResourceAvailabilityUpdates(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x18:
+      v110 = PSSG::MessagePublishResourceKeysAndStrides::MessagePublishResourceKeysAndStrides(v246, v2);
+      v112 = __PSSGLogSharedInstance(v110, v111);
       if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
       {
-        std::string::basic_string[abi:ne200100]<0>(__p, "User Active");
-        v113 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
-        *buf = 136315138;
-        *&buf[4] = v113;
-        _os_log_impl(&dword_25EA3A000, v112, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+        v113 = *(a1 + 32);
+        PSSG::MessagePublishResourceKeysAndStrides::description(__p, v246);
+        v114 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v113 + 56;
+        v254 = 2080;
+        v255 = v114;
+        _os_log_impl(&dword_25EA3A000, v112, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      PSSG::Server::forwardMessage(*(a1 + 56), v246);
+      *v246 = &unk_2870BB4A8;
+      std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::~__hash_table(v251);
+      goto LABEL_195;
+    case 0x19:
+      v46 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = off_2870BA7A8;
+      v48 = __PSSGLogSharedInstance(v46, v47);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      {
+        v49 = *(a1 + 32);
+        PSSG::MessagePublishResourceStreams::description(v246, __p);
+        v50 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v49 + 56;
+        v254 = 2080;
+        v255 = v50;
+        _os_log_impl(&dword_25EA3A000, v48, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessagePublishResourceStreams(*(a1 + 56), v246);
+      goto LABEL_91;
+    case 0x1ALL:
+      v193 = PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(v246, v2);
+      *v246 = &unk_2870BB608;
+      v195 = __PSSGLogSharedInstance(v193, v194);
+      if (os_log_type_enabled(v195, OS_LOG_TYPE_DEFAULT))
+      {
+        v196 = *(a1 + 32);
+        PSSG::MessageRequestResourcesWithStrides::description(__p, v246);
+        v197 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v196 + 56;
+        v254 = 2080;
+        v255 = v197;
+        _os_log_impl(&dword_25EA3A000, v195, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_276;
+    case 0x1BLL:
+      v188 = PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(v246, v2);
+      *v246 = &unk_2870BB6E0;
+      v190 = __PSSGLogSharedInstance(v188, v189);
+      if (os_log_type_enabled(v190, OS_LOG_TYPE_DEFAULT))
+      {
+        v191 = *(a1 + 32);
+        PSSG::MessageCompletedResourceRequestWithStrides::description(__p, v246);
+        v192 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v191 + 56;
+        v254 = 2080;
+        v255 = v192;
+        _os_log_impl(&dword_25EA3A000, v190, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      PSSG::Server::forwardMessage(*(a1 + 56), v246);
+      goto LABEL_276;
+    case 0x1CLL:
+      v64 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = off_2870BA880;
+      v66 = __PSSGLogSharedInstance(v64, v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+      {
+        v67 = *(a1 + 32);
+        PSSG::MessagePublishCurrentGraphs::description(v246, __p);
+        v68 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v67 + 56;
+        v254 = 2080;
+        v255 = v68;
+        _os_log_impl(&dword_25EA3A000, v66, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessagePublishCurrentGraphs(*(a1 + 56), v246);
+LABEL_91:
+      PSSG::MessageBase::~MessageBase(v246);
+      v3 = 0;
+      v4 = 0;
+      goto LABEL_295;
+    case 0x1DLL:
+      v90 = PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(v246, v2);
+      *v246 = &unk_2870BB650;
+      v92 = __PSSGLogSharedInstance(v90, v91);
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+      {
+        v93 = *(a1 + 32);
+        PSSG::MessageResourceRequestsFailed::description(__p, v246);
+        v94 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v93 + 56;
+        v254 = 2080;
+        v255 = v94;
+        _os_log_impl(&dword_25EA3A000, v92, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+LABEL_276:
+      v198 = v252;
+      *v246 = &unk_2870BB508;
+      v252 = 0;
+      if (v198)
+      {
+        MEMORY[0x25F8C7C30](v198, 0x1000C80B3D5DE44);
+      }
+
+      __p[0].__r_.__value_.__r.__words[0] = v251;
+      std::vector<PSSG::ResourceStridesEntry>::__destroy_vector::operator()[abi:ne200100](__p);
+      __p[0].__r_.__value_.__r.__words[0] = v250;
+      std::vector<PSSG::ResourceStridesEntry>::__destroy_vector::operator()[abi:ne200100](__p);
+      goto LABEL_293;
+    case 0x1ELL:
+      v137 = PSSG::MessageSetResourceAvailability::MessageSetResourceAvailability(v246, v2);
+      v139 = __PSSGLogSharedInstance(v137, v138);
+      if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
+      {
+        v140 = *(a1 + 32);
+        PSSG::MessageSetResourceAvailability::description(__p, v246);
+        v141 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v140 + 56;
+        v254 = 2080;
+        v255 = v141;
+        _os_log_impl(&dword_25EA3A000, v139, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessageSetResourceAvailability(*(a1 + 56), v246);
+      *v246 = &unk_2870BB4D8;
+      std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(v251);
+LABEL_195:
+      if (v250[0])
+      {
+        v250[1] = v250[0];
+        operator delete(v250[0]);
+      }
+
+      goto LABEL_293;
+    case 0x27:
+      v95 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BA910;
+      v97 = __PSSGLogSharedInstance(v95, v96);
+      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+      {
+        v98 = *(a1 + 32);
+        std::string::basic_string[abi:ne200100]<0>(__p, "System replay starting");
+        v99 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v98 + 56;
+        v254 = 2080;
+        v255 = v99;
+        _os_log_impl(&dword_25EA3A000, v97, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x28:
+      v203 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BA958;
+      v205 = __PSSGLogSharedInstance(v203, v204);
+      if (os_log_type_enabled(v205, OS_LOG_TYPE_DEFAULT))
+      {
+        v206 = *(a1 + 32);
+        std::string::basic_string[abi:ne200100]<0>(__p, "System replay ending");
+        v207 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315394;
+        *&buf[4] = v206 + 56;
+        v254 = 2080;
+        v255 = v207;
+        _os_log_impl(&dword_25EA3A000, v205, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_293;
+    case 0x2DLL:
+      v61 = *(v2 + 312);
+      *v246 = &unk_2870BB538;
+      *&v246[8] = v61;
+      v62 = __PSSGLogSharedInstance(a1, v2);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+      {
+        std::string::basic_string[abi:ne200100]<0>(__p, "Orchestrator notification");
+        v63 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315138;
+        *&buf[4] = v63;
+        _os_log_impl(&dword_25EA3A000, v62, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
+      goto LABEL_294;
+    case 0x2ELL:
+      v174 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB110;
+      v176 = __PSSGLogSharedInstance(v174, v175);
+      if (os_log_type_enabled(v176, OS_LOG_TYPE_DEFAULT))
+      {
+        std::string::basic_string[abi:ne200100]<0>(__p, "User Active");
+        v177 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        *buf = 136315138;
+        *&buf[4] = v177;
+        _os_log_impl(&dword_25EA3A000, v176, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+        if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
       goto LABEL_293;
     case 0x2FLL:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB158;
-      v127 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+      v199 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB158;
+      v201 = __PSSGLogSharedInstance(v199, v200);
+      if (os_log_type_enabled(v201, OS_LOG_TYPE_DEFAULT))
       {
         std::string::basic_string[abi:ne200100]<0>(__p, "User Inactive");
-        v128 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v202 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315138;
-        *&buf[4] = v128;
-        _os_log_impl(&dword_25EA3A000, v127, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+        *&buf[4] = v202;
+        _os_log_impl(&dword_25EA3A000, v201, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
       goto LABEL_293;
     case 0x30:
-      v18 = *(*(a1 + 40) + 40);
-      if (v18 == getpid())
+      v24 = *(*(a1 + 40) + 40);
+      if (v24 == getpid())
       {
-        PSSG::MessageNotifyClientDeath::MessageNotifyClientDeath(v163, *(a1 + 32));
-        v19 = __PSSGLogSharedInstance();
-        if (os_signpost_enabled(v19))
+        v25 = PSSG::MessageNotifyClientDeath::MessageNotifyClientDeath(v246, *(a1 + 32));
+        v27 = __PSSGLogSharedInstance(v25, v26);
+        if (os_signpost_enabled(v27))
         {
-          v20 = *(a1 + 32);
-          PSSG::MessageNotifyClientDeath::description(__p, v163);
-          v21 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+          v28 = *(a1 + 32);
+          PSSG::MessageNotifyClientDeath::description(v246);
+          v29 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
           *buf = 136315394;
-          *&buf[4] = v20 + 56;
-          v171 = 2080;
-          v172 = v21;
-          _os_signpost_emit_unreliably_with_name_impl();
+          *&buf[4] = v28 + 56;
+          v254 = 2080;
+          v255 = v29;
+          _os_signpost_emit_unreliably_with_name_impl(&dword_25EA3A000, v27, 0, 0xEEEEB0B5B2B2EEEELL, "PSSG Log", "%s --> %s", v239, v240);
           if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p[0].__r_.__value_.__l.__data_);
           }
         }
 
-        PSSG::Server::handleMessageNotifyClientDeath(*(a1 + 56), v163);
-        PSSG::Server::forwardMessage(*(a1 + 56), v163);
-        v22 = *(a1 + 64);
-        if (v22)
+        PSSG::Server::handleMessageNotifyClientDeath(*(a1 + 56), v246);
+        PSSG::Server::forwardMessage(*(a1 + 56), v246);
+        v30 = *(a1 + 64);
+        if (v30)
         {
-          PSSH::SysHealthServer::handleMessageNotifyClientDeath(v22, v163);
+          PSSH::SysHealthServer::handleMessageNotifyClientDeath(v30, v246);
         }
 
-        std::string::operator=(&v162, &v163[16]);
-        PSSG::MessageBase::~MessageBase(v163);
+        std::string::operator=(&v245, &v246[16]);
+        PSSG::MessageBase::~MessageBase(v246);
         v3 = 0;
 LABEL_121:
         v5 = 1;
@@ -5469,41 +4776,40 @@ LABEL_296:
           PSSG::ServerComms::deallocateOOLMemory(*(a1 + 32));
         }
 
-        std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__erase_unique<std::string>((*(a1 + 48) + 8), &v162.__r_.__value_.__l.__data_);
-        if (SHIBYTE(v162.__r_.__value_.__r.__words[2]) < 0)
+        std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__erase_unique<std::string>((*(a1 + 48) + 8), &v245);
+        if (SHIBYTE(v245.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v162.__r_.__value_.__l.__data_);
+          operator delete(v245.__r_.__value_.__l.__data_);
         }
-
-        v132 = *MEMORY[0x277D85DE8];
       }
 
       else
       {
         __p[0].__r_.__value_.__r.__words[0] = 0;
-        v153 = *(*(a1 + 40) + 40);
-        v154 = getpid();
-        asprintf(&__p[0].__r_.__value_.__l.__data_, "Sender PID: %d does not match polarisd pid: %d. Ignoring.", v153, v154);
-        v155 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
+        v229 = *(*(a1 + 40) + 40);
+        v230 = getpid();
+        v231 = asprintf(&__p[0].__r_.__value_.__l.__data_, "Sender PID: %d does not match polarisd pid: %d. Ignoring.", v229, v230);
+        v233 = __PSSGLogSharedInstance(v231, v232);
+        if (os_log_type_enabled(v233, OS_LOG_TYPE_FAULT))
         {
-          v156 = *(*(a1 + 40) + 40);
-          *v163 = 136315906;
-          *&v163[4] = "sys_graph_notify_block_invoke";
-          *&v163[12] = 1024;
-          *&v163[14] = 113;
-          *&v163[18] = 1024;
-          *&v163[20] = v156;
-          v164 = 1024;
-          v165 = getpid();
-          _os_log_impl(&dword_25EA3A000, v155, OS_LOG_TYPE_FAULT, "%s:%d Sender PID: %d does not match polarisd pid: %d. Ignoring.", v163, 0x1Eu);
+          v234 = *(*(a1 + 40) + 40);
+          *v246 = 136315906;
+          *&v246[4] = "sys_graph_notify_block_invoke";
+          *&v246[12] = 1024;
+          *&v246[14] = 113;
+          *&v246[18] = 1024;
+          *&v246[20] = v234;
+          v247 = 1024;
+          v248 = getpid();
+          _os_log_impl(&dword_25EA3A000, v233, OS_LOG_TYPE_FAULT, "%s:%d Sender PID: %d does not match polarisd pid: %d. Ignoring.", v246, 0x1Eu);
         }
 
-        v157 = OSLogFlushBuffers();
-        if (v157)
+        v235 = OSLogFlushBuffers();
+        v237 = v235;
+        if (v235)
         {
-          v158 = __PSSGLogSharedInstance();
-          ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_cold_1(v158, v157);
+          v238 = __PSSGLogSharedInstance(v235, v236);
+          ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_cold_1(v238, v237);
         }
 
         else
@@ -5517,90 +4823,90 @@ LABEL_296:
 
       return;
     case 0x31:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB2C0;
-      v98 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+      v152 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB2C0;
+      v154 = __PSSGLogSharedInstance(v152, v153);
+      if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
       {
-        v99 = *(a1 + 32);
+        v155 = *(a1 + 32);
         std::string::basic_string[abi:ne200100]<0>(__p, "PBS Lock Success");
-        v100 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v156 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
-        *&buf[4] = v99 + 56;
-        v171 = 2080;
-        v172 = v100;
-        _os_log_impl(&dword_25EA3A000, v98, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        *&buf[4] = v155 + 56;
+        v254 = 2080;
+        v255 = v156;
+        _os_log_impl(&dword_25EA3A000, v154, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
       goto LABEL_293;
     case 0x32:
-      PSSG::MessageBase::MessageBase(v163, v2);
-      *v163 = &unk_2870BB308;
-      v15 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v19 = PSSG::MessageBase::MessageBase(v246, v2);
+      *v246 = &unk_2870BB308;
+      v21 = __PSSGLogSharedInstance(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(a1 + 32);
+        v22 = *(a1 + 32);
         std::string::basic_string[abi:ne200100]<0>(__p, "PBS Lock Failure");
-        v17 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+        v23 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
         *buf = 136315394;
-        *&buf[4] = v16 + 56;
-        v171 = 2080;
-        v172 = v17;
-        _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+        *&buf[4] = v22 + 56;
+        v254 = 2080;
+        v255 = v23;
+        _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
       }
 
-      PSSG::Server::handleMessage(*(a1 + 56), v163);
+      PSSG::Server::handleMessage(*(a1 + 56), v246);
       goto LABEL_293;
     case 0x33:
       if (*(a1 + 64))
       {
-        PSSG::MessageBase::MessageBase(v163, v2);
-        *v163 = &unk_2870BB350;
-        v12 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v14 = PSSG::MessageBase::MessageBase(v246, v2);
+        *v246 = &unk_2870BB350;
+        v16 = __PSSGLogSharedInstance(v14, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = *(a1 + 32);
-          PSSG::MessageCollectDPTailspin::description(v163, __p);
-          v14 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
+          v17 = *(a1 + 32);
+          PSSG::MessageCollectDPTailspin::description(__p, v246);
+          v18 = (__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? __p : __p[0].__r_.__value_.__r.__words[0];
           *buf = 136315394;
-          *&buf[4] = v13 + 56;
-          v171 = 2080;
-          v172 = v14;
-          _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
+          *&buf[4] = v17 + 56;
+          v254 = 2080;
+          v255 = v18;
+          _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_DEFAULT, "%s --> %s", buf, 0x16u);
           if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p[0].__r_.__value_.__l.__data_);
           }
         }
 
-        PSSH::SysHealthServer::handleCollectDPTailspin(*(a1 + 64), v163);
+        PSSH::SysHealthServer::handleCollectDPTailspin(*(a1 + 64), v246);
 LABEL_293:
-        PSSG::MessageBase::~MessageBase(v163);
+        PSSG::MessageBase::~MessageBase(v246);
       }
 
       else
       {
-        v137 = __PSSGLogSharedInstance();
-        if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
+        v212 = __PSSGLogSharedInstance(a1, v2);
+        if (os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_318:
-          v138 = *(a1 + 32);
-          v139 = v138 + 56;
-          v140 = *(v138 + 48);
-          *v163 = 136315394;
-          *&v163[4] = v139;
-          *&v163[12] = 2048;
-          *&v163[14] = v140;
-          _os_log_impl(&dword_25EA3A000, v137, OS_LOG_TYPE_DEFAULT, "%s --> DROPPED (%llu)", v163, 0x16u);
+          v213 = *(a1 + 32);
+          v214 = v213 + 56;
+          v215 = *(v213 + 48);
+          *v246 = 136315394;
+          *&v246[4] = v214;
+          *&v246[12] = 2048;
+          *&v246[14] = v215;
+          _os_log_impl(&dword_25EA3A000, v212, OS_LOG_TYPE_DEFAULT, "%s --> DROPPED (%llu)", v246, 0x16u);
         }
       }
 
@@ -5610,17 +4916,17 @@ LABEL_295:
       v5 = 0;
       goto LABEL_296;
     default:
-      v133 = __PSSGLogSharedInstance();
-      if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
+      v208 = __PSSGLogSharedInstance(a1, v2);
+      if (os_log_type_enabled(v208, OS_LOG_TYPE_DEFAULT))
       {
-        v134 = *(a1 + 32);
-        v135 = v134 + 56;
-        v136 = *(v134 + 48);
-        *v163 = 136315394;
-        *&v163[4] = v135;
-        *&v163[12] = 2048;
-        *&v163[14] = v136;
-        _os_log_impl(&dword_25EA3A000, v133, OS_LOG_TYPE_DEFAULT, "%s --> UNKNOWN (%llu)", v163, 0x16u);
+        v209 = *(a1 + 32);
+        v210 = v209 + 56;
+        v211 = *(v209 + 48);
+        *v246 = 136315394;
+        *&v246[4] = v210;
+        *&v246[12] = 2048;
+        *&v246[14] = v211;
+        _os_log_impl(&dword_25EA3A000, v208, OS_LOG_TYPE_DEFAULT, "%s --> UNKNOWN (%llu)", v246, 0x16u);
       }
 
 LABEL_343:
@@ -5631,109 +4937,109 @@ LABEL_343:
   }
 }
 
-uint64_t PSSG::MessageRegister::description(PSSG::MessageRegister *this)
+uint64_t *PSSG::MessageRegister::description(PSSG::MessageRegister *this)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v9);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "Register [pid: ", 15);
-  v3 = MEMORY[0x25F8C7AF0](v2, *(this + 124));
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " (", 2);
-  *(v4 + *(*v4 - 24) + 8) = *(v4 + *(*v4 - 24) + 8) & 0xFFFFFFB5 | 8;
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "0x", 2);
-  v6 = MEMORY[0x25F8C7AF0](v5, *(this + 124));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ")]", 2);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v10);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "Register [pid: ", 15);
+  v4 = MEMORY[0x25F8C7AF0](v3, *(this + 124));
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " (", 2);
+  *(v5 + *(*v5 - 24) + 8) = *(v5 + *(*v5 - 24) + 8) & 0xFFFFFFB5 | 8;
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "0x", 2);
+  v7 = MEMORY[0x25F8C7AF0](v6, *(this + 124));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ")]", 2);
   std::stringbuf::str();
-  v9[0] = *MEMORY[0x277D82818];
-  v7 = *(MEMORY[0x277D82818] + 72);
-  *(v9 + *(v9[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v10 = v7;
-  v11 = MEMORY[0x277D82878] + 16;
-  if (v13 < 0)
+  v10[0] = *MEMORY[0x277D82818];
+  v8 = *(MEMORY[0x277D82818] + 72);
+  *(v10 + *(v10[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v11 = v8;
+  v12 = MEMORY[0x277D82878] + 16;
+  if (v14 < 0)
   {
-    operator delete(v12[7].__locale_);
+    operator delete(v13[7].__locale_);
   }
 
-  v11 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v12);
+  v12 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v13);
   std::iostream::~basic_iostream();
-  return MEMORY[0x25F8C7BD0](&v14);
+  return MEMORY[0x25F8C7BD0](&v15);
 }
 
-void sub_25EAE2288(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25EAE2288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t PSSG::MessageDeRegister::description(PSSG::MessageDeRegister *this)
+uint64_t *PSSG::MessageDeRegister::description(PSSG::MessageDeRegister *this)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v9);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "DeRegister [pid: ", 17);
-  v3 = MEMORY[0x25F8C7AF0](v2, *(this + 124));
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " (", 2);
-  *(v4 + *(*v4 - 24) + 8) = *(v4 + *(*v4 - 24) + 8) & 0xFFFFFFB5 | 8;
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "0x", 2);
-  v6 = MEMORY[0x25F8C7AF0](v5, *(this + 124));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ")]", 2);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v10);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "DeRegister [pid: ", 17);
+  v4 = MEMORY[0x25F8C7AF0](v3, *(this + 124));
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " (", 2);
+  *(v5 + *(*v5 - 24) + 8) = *(v5 + *(*v5 - 24) + 8) & 0xFFFFFFB5 | 8;
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "0x", 2);
+  v7 = MEMORY[0x25F8C7AF0](v6, *(this + 124));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ")]", 2);
   std::stringbuf::str();
-  v9[0] = *MEMORY[0x277D82818];
-  v7 = *(MEMORY[0x277D82818] + 72);
-  *(v9 + *(v9[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v10 = v7;
-  v11 = MEMORY[0x277D82878] + 16;
-  if (v13 < 0)
+  v10[0] = *MEMORY[0x277D82818];
+  v8 = *(MEMORY[0x277D82818] + 72);
+  *(v10 + *(v10[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v11 = v8;
+  v12 = MEMORY[0x277D82878] + 16;
+  if (v14 < 0)
   {
-    operator delete(v12[7].__locale_);
+    operator delete(v13[7].__locale_);
   }
 
-  v11 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v12);
+  v12 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v13);
   std::iostream::~basic_iostream();
-  return MEMORY[0x25F8C7BD0](&v14);
+  return MEMORY[0x25F8C7BD0](&v15);
 }
 
-void sub_25EAE24AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25EAE24AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t PSSG::MessageNotifyClientDeath::description(PSSG::MessageNotifyClientDeath *this)
+uint64_t *PSSG::MessageNotifyClientDeath::description(PSSG::MessageNotifyClientDeath *this)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v9);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "Client died [pid: ", 18);
-  v3 = MEMORY[0x25F8C7AF0](v2, *(this + 124));
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " (", 2);
-  *(v4 + *(*v4 - 24) + 8) = *(v4 + *(*v4 - 24) + 8) & 0xFFFFFFB5 | 8;
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "0x", 2);
-  v6 = MEMORY[0x25F8C7AF0](v5, *(this + 124));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ")]", 2);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v10);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "Client died [pid: ", 18);
+  v4 = MEMORY[0x25F8C7AF0](v3, *(this + 124));
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " (", 2);
+  *(v5 + *(*v5 - 24) + 8) = *(v5 + *(*v5 - 24) + 8) & 0xFFFFFFB5 | 8;
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "0x", 2);
+  v7 = MEMORY[0x25F8C7AF0](v6, *(this + 124));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ")]", 2);
   std::stringbuf::str();
-  v9[0] = *MEMORY[0x277D82818];
-  v7 = *(MEMORY[0x277D82818] + 72);
-  *(v9 + *(v9[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v10 = v7;
-  v11 = MEMORY[0x277D82878] + 16;
-  if (v13 < 0)
+  v10[0] = *MEMORY[0x277D82818];
+  v8 = *(MEMORY[0x277D82818] + 72);
+  *(v10 + *(v10[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v11 = v8;
+  v12 = MEMORY[0x277D82878] + 16;
+  if (v14 < 0)
   {
-    operator delete(v12[7].__locale_);
+    operator delete(v13[7].__locale_);
   }
 
-  v11 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v12);
+  v12 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v13);
   std::iostream::~basic_iostream();
-  return MEMORY[0x25F8C7BD0](&v14);
+  return MEMORY[0x25F8C7BD0](&v15);
 }
 
-void sub_25EAE26C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25EAE26C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-void PSSG::MessageRequestContextForSessions::description(PSSG::MessageRequestContextForSessions *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageRequestContextForSessions::description(std::string *__return_ptr a1@<X8>, PSSG::MessageRequestContextForSessions *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Request context for sessions: ");
   PSSG::setDescription(this + 40, __p);
@@ -5758,7 +5064,7 @@ void PSSG::MessageRequestContextForSessions::description(PSSG::MessageRequestCon
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -5788,7 +5094,7 @@ void sub_25EAE2788(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageRequestContextForResourceKeys::description(PSSG::MessageRequestContextForResourceKeys *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageRequestContextForResourceKeys::description(std::string *__return_ptr a1@<X8>, PSSG::MessageRequestContextForResourceKeys *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Request context for resources: ");
   PSSG::setDescription(this + 40, __p);
@@ -5813,7 +5119,7 @@ void PSSG::MessageRequestContextForResourceKeys::description(PSSG::MessageReques
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -5843,7 +5149,7 @@ void sub_25EAE286C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageSHRequestAllGraphs::description(PSSG::MessageSHRequestAllGraphs *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageSHRequestAllGraphs::description(std::string *__return_ptr a1@<X8>, PSSG::MessageSHRequestAllGraphs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Filter: ");
   PSSG::setDescription(this + 40, __p);
@@ -5868,7 +5174,7 @@ void PSSG::MessageSHRequestAllGraphs::description(PSSG::MessageSHRequestAllGraph
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -5898,7 +5204,7 @@ void sub_25EAE2950(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageResourcesNoLongerWantedFailed::description(PSSG::MessageResourcesNoLongerWantedFailed *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageResourcesNoLongerWantedFailed::description(std::string *__return_ptr a1@<X8>, PSSG::MessageResourcesNoLongerWantedFailed *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Resources no longer wanted failed for resources: ");
   PSSG::setDescription(this + 40, __p);
@@ -5923,7 +5229,7 @@ void PSSG::MessageResourcesNoLongerWantedFailed::description(PSSG::MessageResour
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -5953,7 +5259,7 @@ void sub_25EAE2AE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageStoppedResources::description(PSSG::MessageStoppedResources *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageStoppedResources::description(std::string *__return_ptr a1@<X8>, PSSG::MessageStoppedResources *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Stopped producing resources: ");
   PSSG::setDescription(this + 40, __p);
@@ -5978,7 +5284,7 @@ void PSSG::MessageStoppedResources::description(PSSG::MessageStoppedResources *t
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -6008,7 +5314,7 @@ void sub_25EAE2BC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageSetupFailed::description(PSSG::MessageSetupFailed *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageSetupFailed::description(std::string *__return_ptr a1@<X8>, PSSG::MessageSetupFailed *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Setup failed for resources: ");
   PSSG::setDescription(this + 40, __p);
@@ -6033,7 +5339,7 @@ void PSSG::MessageSetupFailed::description(PSSG::MessageSetupFailed *this@<X0>, 
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -6063,7 +5369,7 @@ void sub_25EAE2CC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessagePauseCompleted::description(PSSG::MessagePauseCompleted *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessagePauseCompleted::description(std::string *__return_ptr a1@<X8>, PSSG::MessagePauseCompleted *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Pause completed for resources: ");
   PSSG::setDescription(this + 40, __p);
@@ -6088,7 +5394,7 @@ void PSSG::MessagePauseCompleted::description(PSSG::MessagePauseCompleted *this@
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -6118,7 +5424,7 @@ void sub_25EAE2DAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessagePauseFailed::description(PSSG::MessagePauseFailed *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessagePauseFailed::description(std::string *__return_ptr a1@<X8>, PSSG::MessagePauseFailed *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Pause failed for resources: ");
   PSSG::setDescription(this + 40, __p);
@@ -6143,7 +5449,7 @@ void PSSG::MessagePauseFailed::description(PSSG::MessagePauseFailed *this@<X0>, 
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -6173,7 +5479,7 @@ void sub_25EAE2E90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageResourcesNoLongerWantedProcessed::description(PSSG::MessageResourcesNoLongerWantedProcessed *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageResourcesNoLongerWantedProcessed::description(std::string *__return_ptr a1@<X8>, PSSG::MessageResourcesNoLongerWantedProcessed *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Resources no longer wanted processed for resources: ");
   PSSG::setDescription(this + 40, __p);
@@ -6198,7 +5504,7 @@ void PSSG::MessageResourcesNoLongerWantedProcessed::description(PSSG::MessageRes
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -6228,7 +5534,7 @@ void sub_25EAE2F74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageCollectDPTailspin::description(PSSG::MessageCollectDPTailspin *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageCollectDPTailspin::description(std::string *__return_ptr a1@<X8>, PSSG::MessageCollectDPTailspin *this@<X0>)
 {
   v3 = *(this + 7);
   if (*(v3 + 39) < 0)
@@ -6242,7 +5548,7 @@ void PSSG::MessageCollectDPTailspin::description(PSSG::MessageCollectDPTailspin 
   }
 
   v4 = std::string::insert(&__p, 0, "Diagnostic Pipeline tailspin request. Reason: ");
-  *a2 = *v4;
+  *a1 = *v4;
   v4->__r_.__value_.__l.__size_ = 0;
   v4->__r_.__value_.__r.__words[2] = 0;
   v4->__r_.__value_.__r.__words[0] = 0;
@@ -6262,7 +5568,7 @@ void sub_25EAE3064(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageRequestResourceAvailabilityUpdates::description(PSSG::MessageRequestResourceAvailabilityUpdates *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageRequestResourceAvailabilityUpdates::description(std::string *__return_ptr a1@<X8>, PSSG::MessageRequestResourceAvailabilityUpdates *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Request resource updates for: ");
   PSSG::setDescription(this + 40, __p);
@@ -6287,7 +5593,7 @@ void PSSG::MessageRequestResourceAvailabilityUpdates::description(PSSG::MessageR
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -6317,7 +5623,7 @@ void sub_25EAE3130(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageStopResourceAvailabilityUpdates::description(PSSG::MessageStopResourceAvailabilityUpdates *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageStopResourceAvailabilityUpdates::description(std::string *__return_ptr a1@<X8>, PSSG::MessageStopResourceAvailabilityUpdates *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v9, "Stop resource updates for: ");
   PSSG::setDescription(this + 40, __p);
@@ -6342,7 +5648,7 @@ void PSSG::MessageStopResourceAvailabilityUpdates::description(PSSG::MessageStop
   }
 
   v6 = std::string::append(&v9, v4, v5);
-  *a2 = *v6;
+  *a1 = *v6;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -6468,7 +5774,7 @@ void PSSG::MessageRequestContextForSessions::~MessageRequestContextForSessions(v
   JUMPOUT(0x25F8C7C50);
 }
 
-void PSSG::setDescription(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void PSSG::setDescription(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v4 = *(a1 + 24);
   v5 = v4 - 1;
@@ -6530,7 +5836,7 @@ void PSSG::setDescription(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
     v18 = std::string::append(&v50, p_p, size);
     v19 = *&v18->__r_.__value_.__l.__data_;
-    *(a2 + 16) = *(&v18->__r_.__value_.__l + 2);
+    a2[2] = *(&v18->__r_.__value_.__l + 2);
     *a2 = v19;
     v18->__r_.__value_.__l.__size_ = 0;
     v18->__r_.__value_.__r.__words[2] = 0;
@@ -6674,7 +5980,7 @@ LABEL_62:
 
     v40 = std::string::append(&v50, v38, v39);
     v41 = *&v40->__r_.__value_.__l.__data_;
-    *(a2 + 16) = *(&v40->__r_.__value_.__l + 2);
+    a2[2] = *(&v40->__r_.__value_.__l + 2);
     *a2 = v41;
     v40->__r_.__value_.__l.__size_ = 0;
     v40->__r_.__value_.__r.__words[2] = 0;
@@ -6987,7 +6293,7 @@ LABEL_19:
         do
         {
           std::string::basic_string[abi:ne200100]<0>(__p, v9);
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>((a1 + 40), __p);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>((a1 + 40), __p, __p);
           if (v13 < 0)
           {
             operator delete(__p[0]);
@@ -7007,7 +6313,7 @@ LABEL_19:
         do
         {
           std::string::basic_string[abi:ne200100]<0>(__p, v10);
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>((a1 + 80), __p);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>((a1 + 80), __p, __p);
           if (v13 < 0)
           {
             operator delete(__p[0]);
@@ -7043,8 +6349,8 @@ void PSSG::MessageBase::~MessageBase(void **this)
 {
   *this = &unk_2870BB478;
   free(this[61]);
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table((this + 10));
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table((this + 5));
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 10);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 5);
   if (*(this + 39) < 0)
   {
     operator delete(this[2]);
@@ -7323,7 +6629,7 @@ void *PSSG::MessagePublishResourceKeysAndStrides::MessagePublishResourceKeysAndS
       *(v6 + 19) = *(v5 + 264);
       *(v6 + 72) = *(v5 + 268);
       std::string::basic_string[abi:ne200100]<0>(&v24, v5);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a1 + 5, &v24);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a1 + 5, &v24, &v24);
       if (SHIBYTE(v26) < 0)
       {
         operator delete(v24);
@@ -7352,9 +6658,9 @@ void sub_25EAE455C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void **std::unordered_map<std::string,PSSG::ResourceOptions>::insert_or_assign[abi:ne200100]<PSSG::ResourceOptions>(void *a1, const void **a2, uint64_t a3)
+const void **std::unordered_map<std::string,PSSG::ResourceOptions>::insert_or_assign[abi:ne200100]<PSSG::ResourceOptions>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__emplace_unique_key_args<std::string,std::string,PSSG::ResourceOptions>(a1, a2);
+  v4 = std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__emplace_unique_key_args<std::string,std::string,PSSG::ResourceOptions>(a1, a2, a2, a3);
   v5 = v4;
   if ((v6 & 1) == 0)
   {
@@ -7366,25 +6672,22 @@ const void **std::unordered_map<std::string,PSSG::ResourceOptions>::insert_or_as
   return v5;
 }
 
-void *std::vector<std::pair<unsigned int,unsigned int>>::reserve(void *result, unint64_t a2)
+void std::vector<std::pair<unsigned int,unsigned int>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned int,unsigned int>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned int,unsigned int>>>(a1, a2);
     }
 
     std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t PSSG::MessagePublishResourceKeysAndStrides::MessagePublishResourceKeysAndStrides(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = PSSG::MessageBase::MessageBase(a1, 24, a2);
   *v5 = &unk_2870BB4A8;
   v5[63] = 0;
@@ -7395,24 +6698,24 @@ uint64_t PSSG::MessagePublishResourceKeysAndStrides::MessagePublishResourceKeysA
   {
     v7 = (i + 2);
     __p = 0;
+    v14 = 0;
     v15 = 0;
-    v16 = 0;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v28 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     *__dst = 0u;
     if (*(i + 39) < 0)
     {
@@ -7420,23 +6723,23 @@ uint64_t PSSG::MessagePublishResourceKeysAndStrides::MessagePublishResourceKeysA
     }
 
     strlcpy(__dst, v7, 0x100uLL);
-    LODWORD(v33) = (i[7] - i[6]) >> 3;
-    DWORD1(v33) = *(i + 10);
-    std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, v15, __dst, v34, 272);
+    LODWORD(v32) = (i[7] - i[6]) >> 3;
+    DWORD1(v32) = *(i + 10);
+    std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, v14, __dst, v33, 272);
     v8 = i[6];
     v9 = i[7];
     while (v8 != v9)
     {
-      v13 = 0;
-      v13 = *v8;
-      std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, v15, &v13, &__p, 8);
+      v12 = 0;
+      v12 = *v8;
+      std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, v14, &v12, &__p, 8);
       ++v8;
     }
 
-    std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(a1 + 496, *(a1 + 504), __p, v15, v15 - __p);
+    std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(a1 + 496, *(a1 + 504), __p, v14, v14 - __p);
     if (__p)
     {
-      v15 = __p;
+      v14 = __p;
       operator delete(__p);
     }
   }
@@ -7444,7 +6747,6 @@ uint64_t PSSG::MessagePublishResourceKeysAndStrides::MessagePublishResourceKeysA
   v10 = *(a1 + 496);
   *(a1 + 120) = *(a1 + 504) - v10;
   *(a1 + 128) = v10;
-  v11 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -7461,15 +6763,15 @@ void sub_25EAE4890(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void PSSG::MessagePublishResourceKeysAndStrides::resourceKeys(PSSG::MessagePublishResourceKeysAndStrides *this@<X0>, uint64_t a2@<X8>)
+void PSSG::MessagePublishResourceKeysAndStrides::resourceKeys(uint64_t *__return_ptr a1@<X8>, PSSG::MessagePublishResourceKeysAndStrides *this@<X0>)
 {
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 1065353216;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   for (i = *(this + 67); i; i = *i)
   {
     std::pair<std::string const,PSSG::ResourceOptions>::pair[abi:ne200100](&v4, i + 1);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a2, &v4.__r_.__value_.__l.__data_);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, &v4, &v4);
     if (__p)
     {
       v6 = __p;
@@ -7501,7 +6803,7 @@ void *PSSG::MessageSetResourceAvailability::MessageSetResourceAvailability(void 
     do
     {
       std::string::basic_string[abi:ne200100]<0>(__p, v7 - 256);
-      v8 = std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::string,unsigned char &>(a1 + 65, __p);
+      v8 = std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::string,unsigned char &>(a1 + 65, __p, __p, v7);
       if ((v9 & 1) == 0)
       {
         *(v8 + 40) = *v7;
@@ -7513,7 +6815,7 @@ void *PSSG::MessageSetResourceAvailability::MessageSetResourceAvailability(void 
       }
 
       std::string::basic_string[abi:ne200100]<0>(__p, v7 - 256);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a1 + 5, __p);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a1 + 5, __p, __p);
       if (v13 < 0)
       {
         operator delete(__p[0]);
@@ -7531,7 +6833,7 @@ void *PSSG::MessageSetResourceAvailability::MessageSetResourceAvailability(void 
 
 void sub_25EAE4A88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(v15 + 520);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table((v15 + 520));
   v17 = *(v15 + 496);
   if (v17)
   {
@@ -7545,7 +6847,7 @@ void sub_25EAE4A88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t PSSG::MessageSetResourceAvailability::MessageSetResourceAvailability(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = PSSG::MessageBase::MessageBase(a1, 30, a2);
   *v5 = &unk_2870BB4D8;
   v5[63] = 0;
@@ -7556,24 +6858,24 @@ uint64_t PSSG::MessageSetResourceAvailability::MessageSetResourceAvailability(ui
   {
     v7 = (i + 2);
     __p = 0;
+    v11 = 0;
     v12 = 0;
-    v13 = 0;
-    v30 = 0;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
+    v29 = 0;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v19 = 0u;
+    v22 = 0u;
     v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     *__dst = 0u;
     if (*(i + 39) < 0)
     {
@@ -7581,12 +6883,12 @@ uint64_t PSSG::MessageSetResourceAvailability::MessageSetResourceAvailability(ui
     }
 
     strlcpy(__dst, v7, 0x100uLL);
-    v30 = *(i + 40);
-    std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, v12, __dst, v31, 257);
-    std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(a1 + 496, *(a1 + 504), __p, v12, v12 - __p);
+    v29 = *(i + 40);
+    std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, v11, __dst, v30, 257);
+    std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(a1 + 496, *(a1 + 504), __p, v11, v11 - __p);
     if (__p)
     {
-      v12 = __p;
+      v11 = __p;
       operator delete(__p);
     }
   }
@@ -7594,7 +6896,6 @@ uint64_t PSSG::MessageSetResourceAvailability::MessageSetResourceAvailability(ui
   v8 = *(a1 + 496);
   *(a1 + 120) = *(a1 + 504) - v8;
   *(a1 + 128) = v8;
-  v9 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -7611,11 +6912,11 @@ void sub_25EAE4C40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void PSSG::MessageSetResourceAvailability::resourceKeys(PSSG::MessageSetResourceAvailability *this@<X0>, uint64_t a2@<X8>)
+void PSSG::MessageSetResourceAvailability::resourceKeys(uint64_t *__return_ptr a1@<X8>, PSSG::MessageSetResourceAvailability *this@<X0>)
 {
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 1065353216;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   for (i = *(this + 67); i; i = *i)
   {
     if (*(i + 39) < 0)
@@ -7629,7 +6930,7 @@ void PSSG::MessageSetResourceAvailability::resourceKeys(PSSG::MessageSetResource
     }
 
     v5 = *(i + 40);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a2, &__p.__r_.__value_.__l.__data_);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -7637,7 +6938,7 @@ void PSSG::MessageSetResourceAvailability::resourceKeys(PSSG::MessageSetResource
   }
 }
 
-void PSSG::MessagePublishResourceKeysAndStrides::description(PSSG::MessagePublishResourceKeysAndStrides *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessagePublishResourceKeysAndStrides::description(std::string *__return_ptr a1@<X8>, PSSG::MessagePublishResourceKeysAndStrides *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v81, "Publish resource keys+strides [");
   v4 = *(this + 39);
@@ -7737,7 +7038,7 @@ void PSSG::MessagePublishResourceKeysAndStrides::description(PSSG::MessagePublis
   }
 
   *(&v16->__r_.__value_.__l.__data_ + v15) = 40;
-  PSSG::Resource::describe(*(v14 + 40), &v89);
+  PSSG::Resource::describe(&v89, *(v14 + 40));
   if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v18 = &v89;
@@ -7784,7 +7085,7 @@ void PSSG::MessagePublishResourceKeysAndStrides::description(PSSG::MessagePublis
     goto LABEL_69;
   }
 
-  PSSG::Resource::describe(*v84, &v100);
+  PSSG::Resource::describe(&v100, *v84);
   v26 = std::string::insert(&v100, 0, "(stride=");
   v27 = *&v26->__r_.__value_.__l.__data_;
   v101.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
@@ -7987,7 +7288,7 @@ LABEL_69:
   v51->__r_.__value_.__l.__size_ = 0;
   v51->__r_.__value_.__r.__words[2] = 0;
   v51->__r_.__value_.__r.__words[0] = 0;
-  PSSG::Resource::describe(*(v14 + 72), &v104);
+  PSSG::Resource::describe(&v104, *(v14 + 72));
   if ((v104.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v53 = &v104;
@@ -8022,7 +7323,7 @@ LABEL_69:
   v57->__r_.__value_.__l.__size_ = 0;
   v57->__r_.__value_.__r.__words[2] = 0;
   v57->__r_.__value_.__r.__words[0] = 0;
-  PSSG::Resource::describe(*(v14 + 76), &v103);
+  PSSG::Resource::describe(&v103, *(v14 + 76));
   if ((v103.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v59 = &v103;
@@ -8226,7 +7527,7 @@ LABEL_131:
   }
 
   v76 = std::string::append(&v83, v74, v75);
-  *a2 = *v76;
+  *a1 = *v76;
   v76->__r_.__value_.__l.__size_ = 0;
   v76->__r_.__value_.__r.__words[2] = 0;
   v76->__r_.__value_.__r.__words[0] = 0;
@@ -8258,29 +7559,29 @@ LABEL_131:
 
 void sub_25EAE5588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, void *__p, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62, uint64_t a63)
 {
-  if (*(v69 - 89) < 0)
+  if (*(v65 - 89) < 0)
   {
-    operator delete(*(v69 - 112));
+    operator delete(*(v65 - 112));
   }
 
-  if (*(v69 - 177) < 0)
+  if (*(v65 - 177) < 0)
   {
-    operator delete(*(v69 - 200));
+    operator delete(*(v65 - 200));
   }
 
-  if (*(v69 - 121) < 0)
+  if (*(v65 - 121) < 0)
   {
-    operator delete(*(v69 - 144));
+    operator delete(*(v65 - 144));
   }
 
-  if (*(v69 - 153) < 0)
+  if (*(v65 - 153) < 0)
   {
-    operator delete(*(v69 - 176));
+    operator delete(*(v65 - 176));
   }
 
-  if (*(v69 - 57) < 0)
+  if (*(v65 - 57) < 0)
   {
-    operator delete(*(v69 - 80));
+    operator delete(*(v65 - 80));
   }
 
   if (__p)
@@ -8288,7 +7589,7 @@ void sub_25EAE5588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (a69 < 0)
+  if (a65 < 0)
   {
     operator delete(a64);
   }
@@ -8341,7 +7642,7 @@ void sub_25EAE5878(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x25EAE5808);
 }
 
-void PSSG::MessageSetResourceAvailability::description(PSSG::MessageSetResourceAvailability *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageSetResourceAvailability::description(std::string *__return_ptr a1@<X8>, PSSG::MessageSetResourceAvailability *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v29, "Set resource availability [");
   v4 = *(this + 39);
@@ -8507,7 +7808,7 @@ void PSSG::MessageSetResourceAvailability::description(PSSG::MessageSetResourceA
   }
 
   v25 = std::string::append(&v31, v23, size);
-  *a2 = *v25;
+  *a1 = *v25;
   v25->__r_.__value_.__l.__size_ = 0;
   v25->__r_.__value_.__r.__words[2] = 0;
   v25->__r_.__value_.__r.__words[0] = 0;
@@ -8596,7 +7897,7 @@ uint64_t PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(uint64_t
       {
         if (v8 >= *(a1 + 512))
         {
-          v8 = std::vector<PSSG::ResourceStridesEntry>::__emplace_back_slow_path<char (&)[256],unsigned int &,char (&)[256]>((a1 + 496), v10, (v10 + 256), (v10 + 260));
+          v8 = std::vector<PSSG::ResourceStridesEntry>::__emplace_back_slow_path<char (&)[256],unsigned int &,char (&)[256]>(a1 + 496, v10, (v10 + 256), (v10 + 260));
         }
 
         else
@@ -8626,7 +7927,7 @@ uint64_t PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(uint64_t
         {
           if (v12 >= *(a1 + 536))
           {
-            v12 = std::vector<PSSG::ResourceStridesEntry>::__emplace_back_slow_path<char (&)[256],unsigned int &,char (&)[256]>((a1 + 520), v13, (v13 + 256), (v13 + 260));
+            v12 = std::vector<PSSG::ResourceStridesEntry>::__emplace_back_slow_path<char (&)[256],unsigned int &,char (&)[256]>(a1 + 520, v13, (v13 + 256), (v13 + 260));
           }
 
           else
@@ -8652,19 +7953,19 @@ uint64_t PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(uint64_t
   return a1;
 }
 
-void sub_25EAE5DC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25EAE5DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = *(v2 + 544);
-  *(v2 + 544) = 0;
-  if (v4)
+  va_start(va, a3);
+  v5 = *(v3 + 544);
+  *(v3 + 544) = 0;
+  if (v5)
   {
-    MEMORY[0x25F8C7C30](v4, 0x1000C80B3D5DE44);
+    MEMORY[0x25F8C7C30](v5, 0x1000C80B3D5DE44);
   }
 
   std::vector<PSSG::ResourceStridesEntry>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<PSSG::ResourceStridesEntry>::__destroy_vector::operator()[abi:ne200100](va);
-  PSSG::MessageBase::~MessageBase(v2);
+  PSSG::MessageBase::~MessageBase(v3);
   _Unwind_Resume(a1);
 }
 
@@ -8678,26 +7979,26 @@ void sub_25EAE5E30(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x25EAE5E28);
 }
 
-uint64_t PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t *a4, uint64_t *a5)
+uint64_t *PSSG::MessageRequestResourcesBase::MessageRequestResourcesBase(uint64_t *a1, uint64_t a2, __int128 *a3, void *a4, void *a5)
 {
   v8 = PSSG::MessageBase::MessageBase(a1, a2, a3);
   *v8 = &unk_2870BB508;
   v8[63] = 0;
   v8[64] = 0;
   v8[62] = 0;
-  std::vector<PSSG::ResourceStridesEntry>::__init_with_size[abi:ne200100]<PSSG::ResourceStridesEntry*,PSSG::ResourceStridesEntry*>((v8 + 62), *a4, a4[1], 0x6DB6DB6DB6DB6DB7 * ((a4[1] - *a4) >> 3));
-  *(a1 + 536) = 0;
-  *(a1 + 520) = 0u;
-  std::vector<PSSG::ResourceStridesEntry>::__init_with_size[abi:ne200100]<PSSG::ResourceStridesEntry*,PSSG::ResourceStridesEntry*>(a1 + 520, *a5, a5[1], 0x6DB6DB6DB6DB6DB7 * ((a5[1] - *a5) >> 3));
-  *(a1 + 544) = 0;
+  std::vector<PSSG::ResourceStridesEntry>::__init_with_size[abi:ne200100]<PSSG::ResourceStridesEntry*,PSSG::ResourceStridesEntry*>(v8 + 62, *a4, a4[1], 0x6DB6DB6DB6DB6DB7 * ((a4[1] - *a4) >> 3));
+  a1[67] = 0;
+  *(a1 + 65) = 0u;
+  std::vector<PSSG::ResourceStridesEntry>::__init_with_size[abi:ne200100]<PSSG::ResourceStridesEntry*,PSSG::ResourceStridesEntry*>(a1 + 65, *a5, a5[1], 0x6DB6DB6DB6DB6DB7 * ((a5[1] - *a5) >> 3));
+  a1[68] = 0;
   return a1;
 }
 
-void sub_25EAE5F00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25EAE5F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<PSSG::ResourceStridesEntry>::__destroy_vector::operator()[abi:ne200100](va);
-  PSSG::MessageBase::~MessageBase(v2);
+  PSSG::MessageBase::~MessageBase(v3);
   _Unwind_Resume(a1);
 }
 
@@ -8747,7 +8048,7 @@ char *PSSG::MessageRequestResourcesBase::serialize(PSSG::MessageRequestResources
   return v2;
 }
 
-void PSSG::MessageRequestResourcesWithStrides::description(const void ***this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageRequestResourcesWithStrides::description(std::string *__return_ptr a1@<X8>, const void ***this@<X0>)
 {
   PSSG::describe(this + 62, &v12);
   v4 = std::string::insert(&v12, 0, "Request resources/strides: ++: ");
@@ -8786,7 +8087,7 @@ void PSSG::MessageRequestResourcesWithStrides::description(const void ***this@<X
   }
 
   v10 = std::string::append(&v14, p_p, size);
-  *a2 = *v10;
+  *a1 = *v10;
   v10->__r_.__value_.__l.__size_ = 0;
   v10->__r_.__value_.__r.__words[2] = 0;
   v10->__r_.__value_.__r.__words[0] = 0;
@@ -8892,7 +8193,7 @@ std::string *PSSG::describe@<X0>(const void ***a1@<X0>, std::string *a2@<X8>)
           }
 
           *(&v7->__r_.__value_.__l.__data_ + v6) = 64;
-          PSSG::Resource::describe(*(v4 + 6), &v36);
+          PSSG::Resource::describe(&v36, *(v4 + 6));
           if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
             v9 = &v36;
@@ -9138,11 +8439,11 @@ void sub_25EAE6680(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageResourceRequestsFailed::description(const void ***this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageResourceRequestsFailed::description(std::string *__return_ptr a1@<X8>, const void ***this@<X0>)
 {
   PSSG::describe(this + 62, &v4);
   v3 = std::string::insert(&v4, 0, "Request resources/strides failed: ");
-  *a2 = *v3;
+  *a1 = *v3;
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
@@ -9162,7 +8463,7 @@ void sub_25EAE6818(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageCompletedResourceRequestWithStrides::description(const void ***this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageCompletedResourceRequestWithStrides::description(std::string *__return_ptr a1@<X8>, const void ***this@<X0>)
 {
   PSSG::describe(this + 62, &v12);
   v4 = std::string::insert(&v12, 0, "Request resources/strides completed: ++: ");
@@ -9201,7 +8502,7 @@ void PSSG::MessageCompletedResourceRequestWithStrides::description(const void **
   }
 
   v10 = std::string::append(&v14, p_p, size);
-  *a2 = *v10;
+  *a1 = *v10;
   v10->__r_.__value_.__l.__size_ = 0;
   v10->__r_.__value_.__r.__words[2] = 0;
   v10->__r_.__value_.__r.__words[0] = 0;
@@ -9251,11 +8552,11 @@ void sub_25EAE6950(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSG::MessageSetupCompleted::description(const void ***this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageSetupCompleted::description(std::string *__return_ptr a1@<X8>, const void ***this@<X0>)
 {
   PSSG::describe(this + 62, &v4);
   v3 = std::string::insert(&v4, 0, "Setup resources/strides completed: ++: ");
-  *a2 = *v3;
+  *a1 = *v3;
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
@@ -9306,7 +8607,7 @@ _OWORD *PSSG::MessageNotifyClientDeath::serialize(PSSG::MessageNotifyClientDeath
   return result;
 }
 
-void PSSG::MessageSHUpdateGraphs::description(PSSG::MessageSHUpdateGraphs *this@<X0>, std::string *a2@<X8>)
+void PSSG::MessageSHUpdateGraphs::description(std::string *__return_ptr a1@<X8>, PSSG::MessageSHUpdateGraphs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v14, "Update Graphs: ");
   std::to_string(&v13, *(this + 30) / 0x178uLL);
@@ -9359,7 +8660,7 @@ void PSSG::MessageSHUpdateGraphs::description(PSSG::MessageSHUpdateGraphs *this@
   }
 
   v10 = std::string::append(&v15, v8, v9);
-  *a2 = *v10;
+  *a1 = *v10;
   v10->__r_.__value_.__l.__size_ = 0;
   v10->__r_.__value_.__r.__words[2] = 0;
   v10->__r_.__value_.__r.__words[0] = 0;
@@ -9785,7 +9086,7 @@ uint64_t std::pair<std::string const,PSSG::ResourceOptions>::~pair(uint64_t a1)
   return a1;
 }
 
-void PSSG::describeGraphName(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void PSSG::describeGraphName(uint64_t a1@<X0>, void *a2@<X8>)
 {
   if (*(a1 + 23) < 0)
   {
@@ -9795,7 +9096,7 @@ LABEL_3:
       std::operator+<char>();
       v3 = std::string::append(&v5, ")");
       v4 = *&v3->__r_.__value_.__l.__data_;
-      *(a2 + 16) = *(&v3->__r_.__value_.__l + 2);
+      a2[2] = *(&v3->__r_.__value_.__l + 2);
       *a2 = v4;
       v3->__r_.__value_.__l.__size_ = 0;
       v3->__r_.__value_.__r.__words[2] = 0;
@@ -9815,4 +9116,728 @@ LABEL_3:
   }
 
   std::string::basic_string[abi:ne200100]<0>(a2, "");
+}
+
+void sub_25EAE79A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t *a2, uint64_t a3)
+{
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
+  {
+    v10 = v5;
+    if (v5 >= *&v7)
+    {
+      v10 = v5 % *&v7;
+    }
+  }
+
+  else
+  {
+    v10 = (*&v7 - 1) & v5;
+  }
+
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v13 = v12[1];
+    if (v13 == v6)
+    {
+      break;
+    }
+
+    if (v9 > 1)
+    {
+      if (v13 >= *&v7)
+      {
+        v13 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v13 &= *&v7 - 1;
+    }
+
+    if (v13 != v10)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v12;
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__emplace_unique_key_args<std::string,std::string,PSSG::ResourceOptions>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_18;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v6;
+    if (v6 >= *&v8)
+    {
+      v11 = v6 % *&v8;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v8 - 1) & v6;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v14 = v13[1];
+    if (v14 == v7)
+    {
+      break;
+    }
+
+    if (v10 > 1)
+    {
+      if (v14 >= *&v8)
+      {
+        v14 %= *&v8;
+      }
+    }
+
+    else
+    {
+      v14 &= *&v8 - 1;
+    }
+
+    if (v14 != v11)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v13 = *v13;
+    if (!v13)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v13;
+}
+
+void sub_25EAE7ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,PSSG::ResourceOptions>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,PSSG::ResourceOptions>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+__n128 std::vector<std::pair<unsigned int,unsigned int>>::__move_assign(uint64_t a1, __n128 *a2)
+{
+  v4 = *a1;
+  if (v4)
+  {
+    *(a1 + 8) = v4;
+    operator delete(v4);
+    *a1 = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+  }
+
+  result = *a2;
+  *a1 = *a2;
+  *(a1 + 16) = a2[1].n128_u64[0];
+  a2->n128_u64[0] = 0;
+  a2->n128_u64[1] = 0;
+  a2[1].n128_u64[0] = 0;
+  return result;
+}
+
+uint64_t std::unordered_map<std::string,PSSG::ResourceOptions>::unordered_map(uint64_t a1, uint64_t a2)
+{
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = *(a2 + 32);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::__rehash<true>(a1, *(a2 + 8));
+  for (i = *(a2 + 16); i; i = *i)
+  {
+    std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,PSSG::ResourceOptions> const&>(a1, i + 2, (i + 2));
+  }
+
+  return a1;
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,PSSG::ResourceOptions> const&>(void *a1, uint64_t *a2, uint64_t a3)
+{
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
+  {
+    v10 = v5;
+    if (v5 >= *&v7)
+    {
+      v10 = v5 % *&v7;
+    }
+  }
+
+  else
+  {
+    v10 = (*&v7 - 1) & v5;
+  }
+
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
+  {
+LABEL_18:
+    std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__construct_node_hash<std::pair<std::string const,PSSG::ResourceOptions> const&>();
+  }
+
+  while (1)
+  {
+    v13 = v12[1];
+    if (v13 == v6)
+    {
+      break;
+    }
+
+    if (v9 > 1)
+    {
+      if (v13 >= *&v7)
+      {
+        v13 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v13 &= *&v7 - 1;
+    }
+
+    if (v13 != v10)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v12;
+}
+
+void sub_25EAE81FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,PSSG::ResourceOptions>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,PSSG::ResourceOptions>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t a1, char *__dst, char *__src, char *a4, int64_t __len)
+{
+  v5 = __dst;
+  if (__len < 1)
+  {
+    return v5;
+  }
+
+  v10 = *(a1 + 8);
+  v9 = *(a1 + 16);
+  if (v9 - v10 < __len)
+  {
+    v11 = *a1;
+    v12 = &v10[__len - *a1];
+    if (v12 < 0)
+    {
+      std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
+    }
+
+    v13 = (__dst - v11);
+    v14 = v9 - v11;
+    if (2 * v14 > v12)
+    {
+      v12 = 2 * v14;
+    }
+
+    if (v14 >= 0x3FFFFFFFFFFFFFFFLL)
+    {
+      v15 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v15 = v12;
+    }
+
+    if (v15)
+    {
+      operator new();
+    }
+
+    v31 = (__dst - v11);
+    memcpy(v13, __src, __len);
+    v32 = &v13[__len];
+    v33 = v10 - v5;
+    memcpy(v32, v5, v10 - v5);
+    *(a1 + 8) = v5;
+    v34 = &v13[v11 - v5];
+    memcpy(v34, v11, v31);
+    *a1 = v34;
+    *(a1 + 8) = &v32[v33];
+    *(a1 + 16) = 0;
+    if (v11)
+    {
+      operator delete(v11);
+    }
+
+    return v13;
+  }
+
+  v16 = v10 - __dst;
+  if (v10 - __dst >= __len)
+  {
+    v27 = &__dst[__len];
+    v28 = &v10[-__len];
+    v29 = *(a1 + 8);
+    if (v10 >= __len)
+    {
+      do
+      {
+        v30 = *v28++;
+        *v29++ = v30;
+      }
+
+      while (v28 != v10);
+    }
+
+    *(a1 + 8) = v29;
+    if (v10 != v27)
+    {
+      memmove(&__dst[__len], __dst, v10 - v27);
+    }
+
+    v24 = v5;
+    v25 = __src;
+    v26 = __len;
+    goto LABEL_27;
+  }
+
+  v18 = a4 - &__src[v16];
+  if (a4 != &__src[v16])
+  {
+    memmove(*(a1 + 8), &__src[v16], a4 - &__src[v16]);
+  }
+
+  v19 = &v10[v18];
+  *(a1 + 8) = &v10[v18];
+  if (v16 >= 1)
+  {
+    v20 = &v5[__len];
+    v21 = &v10[v18];
+    if (&v19[-__len] < v10)
+    {
+      v22 = v5 - &__src[__len];
+      v23 = v5 - __src;
+      do
+      {
+        a4[v23++] = a4[v22++];
+      }
+
+      while (&a4[v22] < v10);
+      v21 = &a4[v23];
+    }
+
+    *(a1 + 8) = v21;
+    if (v19 != v20)
+    {
+      memmove(&v5[__len], v5, v19 - v20);
+    }
+
+    v24 = v5;
+    v25 = __src;
+    v26 = v10 - v5;
+LABEL_27:
+    memmove(v24, v25, v26);
+  }
+
+  return v5;
+}
+
+char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t __len)
+{
+  v5 = __dst;
+  if (__len < 1)
+  {
+    return v5;
+  }
+
+  v6 = __len;
+  v7 = __src;
+  v10 = *(a1 + 8);
+  v9 = *(a1 + 16);
+  if ((v9 - v10) < __len)
+  {
+    v11 = *a1;
+    v12 = v10 - *a1 + __len;
+    if (v12 < 0)
+    {
+      std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
+    }
+
+    v13 = v9 - v11;
+    if (2 * v13 > v12)
+    {
+      v12 = 2 * v13;
+    }
+
+    if (v13 >= 0x3FFFFFFFFFFFFFFFLL)
+    {
+      v14 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v14 = v12;
+    }
+
+    if (v14)
+    {
+      operator new();
+    }
+
+    v30 = (__dst - v11);
+    v31 = (__dst - v11 + __len);
+    v32 = (__dst - v11);
+    do
+    {
+      v33 = *v7++;
+      *v32++ = v33;
+      --v6;
+    }
+
+    while (v6);
+    v34 = *(a1 + 8) - __dst;
+    memcpy(v31, __dst, v34);
+    v35 = &v31[v34];
+    *(a1 + 8) = v5;
+    v36 = *a1;
+    v37 = &v30[*a1 - v5];
+    memcpy(v37, *a1, &v5[-*a1]);
+    *a1 = v37;
+    *(a1 + 8) = v35;
+    *(a1 + 16) = 0;
+    if (v36)
+    {
+      operator delete(v36);
+    }
+
+    return v30;
+  }
+
+  v15 = v10 - __dst;
+  if ((v10 - __dst) >= __len)
+  {
+    v26 = &__dst[__len];
+    v27 = (v10 - __len);
+    v28 = *(a1 + 8);
+    if (v10 >= __len)
+    {
+      do
+      {
+        v29 = *v27++;
+        *v28++ = v29;
+      }
+
+      while (v27 != v10);
+    }
+
+    *(a1 + 8) = v28;
+    if (v10 != v26)
+    {
+      memmove(&__dst[__len], __dst, v10 - v26);
+    }
+
+    v23 = v5;
+    v24 = v7;
+    v25 = v6;
+    goto LABEL_27;
+  }
+
+  v17 = a4 - &__src[v15];
+  if (a4 != &__src[v15])
+  {
+    memmove(*(a1 + 8), &__src[v15], a4 - &__src[v15]);
+  }
+
+  v18 = (v10 + v17);
+  *(a1 + 8) = v10 + v17;
+  if (v15 >= 1)
+  {
+    v19 = &v5[v6];
+    v20 = (v10 + v17);
+    if (&v18[-v6] < v10)
+    {
+      v21 = (a4 - &v7[v6]);
+      v22 = (a4 - v7);
+      do
+      {
+        v5[v22++] = v5[v21++];
+      }
+
+      while (&v5[v21] < v10);
+      v20 = &v5[v22];
+    }
+
+    *(a1 + 8) = v20;
+    if (v18 != v19)
+    {
+      memmove(&v5[v6], v5, v18 - v19);
+    }
+
+    v23 = v5;
+    v24 = v7;
+    v25 = v10 - v5;
+LABEL_27:
+    memmove(v23, v24, v25);
+  }
+
+  return v5;
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::string,unsigned char &>(void *a1, uint64_t *a2, uint64_t a3, _BYTE *a4)
+{
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_18;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v6;
+    if (v6 >= *&v8)
+    {
+      v11 = v6 % *&v8;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v8 - 1) & v6;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v14 = v13[1];
+    if (v14 == v7)
+    {
+      break;
+    }
+
+    if (v10 > 1)
+    {
+      if (v14 >= *&v8)
+      {
+        v14 %= *&v8;
+      }
+    }
+
+    else
+    {
+      v14 &= *&v8 - 1;
+    }
+
+    if (v14 != v11)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v13 = *v13;
+    if (!v13)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v13;
+}
+
+uint64_t std::unordered_map<std::string,unsigned char>::unordered_map(uint64_t a1, uint64_t a2)
+{
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = *(a2 + 32);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::__rehash<true>(a1, *(a2 + 8));
+  for (i = *(a2 + 16); i; i = *i)
+  {
+    std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned char> const&>(a1, i + 2, (i + 2));
+  }
+
+  return a1;
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned char> const&>(void *a1, uint64_t *a2, uint64_t a3)
+{
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
+  {
+    v10 = v5;
+    if (v5 >= *&v7)
+    {
+      v10 = v5 % *&v7;
+    }
+  }
+
+  else
+  {
+    v10 = (*&v7 - 1) & v5;
+  }
+
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
+  {
+LABEL_18:
+    std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__construct_node_hash<std::pair<std::string const,unsigned char> const&>();
+  }
+
+  while (1)
+  {
+    v13 = v12[1];
+    if (v13 == v6)
+    {
+      break;
+    }
+
+    if (v9 > 1)
+    {
+      if (v13 >= *&v7)
+      {
+        v13 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v13 &= *&v7 - 1;
+    }
+
+    if (v13 != v10)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v12;
 }

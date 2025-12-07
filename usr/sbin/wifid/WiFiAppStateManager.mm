@@ -3,8 +3,11 @@
 - (BOOL)_isMonitoringChangesForBundleID:(__CFString *)d;
 - (WiFiAppStateManager)init;
 - (id)_getStringOfAppState:(unsigned int)state;
+- (int)_getAppCapabilitiesForBundleID:(int)d;
+- (void)_appStateChanged:(unsigned int)changed bundleID:(__CFString *)d capabilities:(int)capabilities;
 - (void)_applicationStateMonitorHandler:(__CFDictionary *)handler;
 - (void)_registerApplication:(__CFString *)application capabilities:(int)capabilities;
+- (void)_setApplicationState:(__CFString *)state active:(BOOL)active underLock:(BOOL)lock capabilities:(int)capabilities;
 - (void)_unRegisterApplication:(__CFString *)application;
 - (void)dealloc;
 - (void)externalAppUnregistered:(__CFDictionary *)unregistered;
@@ -515,6 +518,172 @@ LABEL_44:
   }
 }
 
+- (void)_setApplicationState:(__CFString *)state active:(BOOL)active underLock:(BOOL)lock capabilities:(int)capabilities
+{
+  v6 = *&capabilities;
+  lockCopy = lock;
+  activeCopy = active;
+  v11 = sub_10000C8E4(state);
+  if (!state)
+  {
+    sub_1001AA768();
+    return;
+  }
+
+  state = v11;
+  activeApplications = self->_activeApplications;
+  if (!activeApplications)
+  {
+    sub_1001AA6FC();
+    return;
+  }
+
+  if (!self->_backgroundApplications)
+  {
+    sub_1001AA690();
+    return;
+  }
+
+  if (!state)
+  {
+    state = [+[WiFiUserInteractionMonitor sharedInstance](WiFiUserInteractionMonitor hasRealTimeAppProperty:"hasRealTimeAppProperty:", state];
+    activeApplications = self->_activeApplications;
+  }
+
+  Count = CFSetGetCount(activeApplications);
+  v15 = CFSetGetCount(self->_backgroundApplications);
+  v16 = self->_activeApplications;
+  if (activeCopy)
+  {
+    CFSetAddValue(v16, state);
+    backgroundApplications = self->_backgroundApplications;
+LABEL_10:
+    CFSetRemoveValue(backgroundApplications, state);
+    goto LABEL_12;
+  }
+
+  CFSetRemoveValue(v16, state);
+  v18 = [(WiFiAppStateManager *)self _appUsesBackgroundNetwork:v6];
+  backgroundApplications = self->_backgroundApplications;
+  if ((v18 & 1) == 0 && !lockCopy)
+  {
+    goto LABEL_10;
+  }
+
+  CFSetAddValue(backgroundApplications, state);
+LABEL_12:
+  v19 = CFSetGetCount(self->_activeApplications);
+  v20 = CFSetGetCount(self->_backgroundApplications);
+  v21 = objc_autoreleasePoolPush();
+  if (off_100298C40)
+  {
+    [off_100298C40 WFLog:3 message:{"%s %d bgBefore=%d bgAfter=%d fgBefore=%d fgAfter=%d", "-[WiFiAppStateManager _setApplicationState:active:underLock:capabilities:]", 401, v15, v20, Count, v19}];
+  }
+
+  objc_autoreleasePoolPop(v21);
+  if (Count != v19)
+  {
+    if (Count >= v19)
+    {
+      [(WiFiAppStateManager *)self setAppInForeground:0];
+      queue = self->_queue;
+      if (queue)
+      {
+        v22 = 2;
+        if (self->_appReporterCallbackFunction && state)
+        {
+          v35[0] = _NSConcreteStackBlock;
+          v35[1] = 3221225472;
+          v35[2] = sub_100107C10;
+          v35[3] = &unk_1002628A8;
+          v36 = 0;
+          v35[4] = self;
+          dispatch_async(queue, v35);
+          v22 = 2;
+        }
+
+        goto LABEL_16;
+      }
+    }
+
+    else
+    {
+      [(WiFiAppStateManager *)self setAppInForeground:1];
+      v27 = self->_queue;
+      if (v27)
+      {
+        v22 = 1;
+        if (self->_appReporterCallbackFunction && state)
+        {
+          v37[0] = _NSConcreteStackBlock;
+          v37[1] = 3221225472;
+          v37[2] = sub_100107BA8;
+          v37[3] = &unk_1002628A8;
+          v38 = state;
+          v37[4] = self;
+          dispatch_async(v27, v37);
+          v22 = 1;
+        }
+
+        goto LABEL_16;
+      }
+    }
+
+    sub_1001AA5C4();
+    return;
+  }
+
+  v22 = 0;
+LABEL_16:
+  if (v15 >= v20)
+  {
+    v23 = 8;
+  }
+
+  else
+  {
+    v23 = 4;
+  }
+
+  if (v15 == v20)
+  {
+    v24 = v22;
+  }
+
+  else
+  {
+    v24 = v23;
+  }
+
+  if (self->_queue)
+  {
+    if (self->_callbackFunction)
+    {
+      v31 = 0;
+      v32 = &v31;
+      v33 = 0x2020000000;
+      v34 = 0;
+      v25 = CFRetain(state);
+      v32[3] = v25;
+      v26 = self->_queue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100107C78;
+      block[3] = &unk_1002628D0;
+      v30 = v24;
+      block[4] = self;
+      block[5] = &v31;
+      dispatch_async(v26, block);
+      _Block_object_dispose(&v31, 8);
+    }
+  }
+
+  else
+  {
+    sub_1001AA630();
+  }
+}
+
 - (id)_getStringOfAppState:(unsigned int)state
 {
   if (state - 1 > 7)
@@ -526,6 +695,86 @@ LABEL_44:
   {
     return off_1002628F0[state - 1];
   }
+}
+
+- (void)_appStateChanged:(unsigned int)changed bundleID:(__CFString *)d capabilities:(int)capabilities
+{
+  if (!d)
+  {
+    sub_1001AA7D4();
+    return;
+  }
+
+  if (changed > 3)
+  {
+    if (changed != 4)
+    {
+      if (changed != 8)
+      {
+        return;
+      }
+
+      dCopy2 = d;
+      v7 = 1;
+      goto LABEL_10;
+    }
+  }
+
+  else if (changed != 1 && changed != 2)
+  {
+    return;
+  }
+
+  dCopy2 = d;
+  v7 = 0;
+LABEL_10:
+
+  [(WiFiAppStateManager *)self _setApplicationState:dCopy2 active:v7 underLock:0 capabilities:*&capabilities];
+}
+
+- (int)_getAppCapabilitiesForBundleID:(int)d
+{
+  applicationStateMonitor = self->_applicationStateMonitor;
+  if (applicationStateMonitor)
+  {
+    v5 = *&d;
+    v6 = [(BKSApplicationStateMonitor *)applicationStateMonitor bundleInfoValueForKey:@"SBUsesNetwork" PID:*&d];
+    if (v6)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        LODWORD(v6) = [v6 unsignedIntValue];
+      }
+
+      else
+      {
+        LODWORD(v6) = 0;
+      }
+    }
+
+    v7 = [(BKSApplicationStateMonitor *)self->_applicationStateMonitor bundleInfoValueForKey:@"UIRequiresPersistentWiFi" PID:v5];
+    if (v7)
+    {
+      v8 = v7;
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        if ([v8 BOOLValue])
+        {
+          LODWORD(v6) = v6 | 2;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    sub_1001AA840();
+    LODWORD(v6) = 0;
+  }
+
+  return v6;
 }
 
 - (void)startMonitoringBundleId:(__CFString *)id

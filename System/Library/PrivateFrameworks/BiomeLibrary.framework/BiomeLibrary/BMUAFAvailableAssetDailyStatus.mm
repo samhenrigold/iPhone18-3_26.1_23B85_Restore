@@ -57,26 +57,26 @@ LABEL_9:
 
 - (id)jsonDictionary
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   _assetSetStatusJSONArray = [(BMUAFAvailableAssetDailyStatus *)self _assetSetStatusJSONArray];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMUAFAvailableAssetDailyStatus statusReason](self, "statusReason")}];
-  v10[0] = @"assetSetStatus";
+  v9[0] = @"assetSetStatus";
   null = _assetSetStatusJSONArray;
   if (!_assetSetStatusJSONArray)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"statusReason";
-  v11[0] = null;
+  v9[1] = @"statusReason";
+  v10[0] = null;
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (v4)
   {
     if (_assetSetStatusJSONArray)
@@ -95,52 +95,49 @@ LABEL_9:
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_assetSetStatusJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   assetSetStatus = [(BMUAFAvailableAssetDailyStatus *)self assetSetStatus];
-  v5 = [assetSetStatus countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [assetSetStatus countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(assetSetStatus);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [assetSetStatus countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [assetSetStatus countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMUAFAvailableAssetDailyStatus)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v60[1] = *MEMORY[0x1E69E9840];
+  v59[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"assetSetStatus"];
   null = [MEMORY[0x1E695DFB0] null];
@@ -149,7 +146,7 @@ LABEL_7:
   if (v9)
   {
     errorCopy2 = error;
-    v44 = dictionaryCopy;
+    v43 = dictionaryCopy;
     selfCopy2 = self;
 
     v7 = 0;
@@ -166,10 +163,10 @@ LABEL_7:
         {
           v30 = objc_alloc(MEMORY[0x1E696ABC0]);
           v31 = *MEMORY[0x1E698F240];
-          v59 = *MEMORY[0x1E696A578];
-          v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"assetSetStatus"];
-          v60[0] = v46;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+          v58 = *MEMORY[0x1E696A578];
+          v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"assetSetStatus"];
+          v59[0] = v45;
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
           v32 = [v30 initWithDomain:v31 code:2 userInfo:v19];
           selfCopy3 = 0;
           *error = v32;
@@ -182,34 +179,34 @@ LABEL_7:
     }
 
     errorCopy2 = error;
-    v44 = dictionaryCopy;
+    v43 = dictionaryCopy;
     selfCopy2 = self;
   }
 
-  v46 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v45 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v7 = v7;
-  v10 = [v7 countByEnumeratingWithState:&v48 objects:v58 count:16];
+  v10 = [v7 countByEnumeratingWithState:&v47 objects:v57 count:16];
   if (!v10)
   {
     goto LABEL_16;
   }
 
   v11 = v10;
-  v12 = *v49;
+  v12 = *v48;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v49 != v12)
+      if (*v48 != v12)
       {
         objc_enumerationMutation(v7);
       }
 
-      v14 = *(*(&v48 + 1) + 8 * i);
+      v14 = *(*(&v47 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -218,12 +215,12 @@ LABEL_7:
         {
           v21 = objc_alloc(MEMORY[0x1E696ABC0]);
           v22 = *MEMORY[0x1E698F240];
-          v56 = *MEMORY[0x1E696A578];
+          v55 = *MEMORY[0x1E696A578];
           v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"assetSetStatus"];
-          v57 = v15;
+          v56 = v15;
           v23 = MEMORY[0x1E695DF20];
-          v24 = &v57;
-          v25 = &v56;
+          v24 = &v56;
+          v25 = &v55;
 LABEL_23:
           v26 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:1];
           *v20 = [v21 initWithDomain:v22 code:2 userInfo:v26];
@@ -231,7 +228,7 @@ LABEL_23:
 LABEL_27:
           selfCopy3 = 0;
           v19 = v7;
-          dictionaryCopy = v44;
+          dictionaryCopy = v43;
           self = selfCopy2;
           goto LABEL_38;
         }
@@ -239,7 +236,7 @@ LABEL_27:
 LABEL_30:
         selfCopy3 = 0;
         v19 = v7;
-        dictionaryCopy = v44;
+        dictionaryCopy = v43;
         self = selfCopy2;
         goto LABEL_39;
       }
@@ -252,12 +249,12 @@ LABEL_30:
         {
           v21 = objc_alloc(MEMORY[0x1E696ABC0]);
           v22 = *MEMORY[0x1E698F240];
-          v54 = *MEMORY[0x1E696A578];
+          v53 = *MEMORY[0x1E696A578];
           v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"assetSetStatus"];
-          v55 = v15;
+          v54 = v15;
           v23 = MEMORY[0x1E695DF20];
-          v24 = &v55;
-          v25 = &v54;
+          v24 = &v54;
+          v25 = &v53;
           goto LABEL_23;
         }
 
@@ -266,9 +263,9 @@ LABEL_30:
 
       v15 = v14;
       v16 = [BMUAFAssetSetStatus alloc];
-      v47 = 0;
-      v17 = [(BMUAFAssetSetStatus *)v16 initWithJSONDictionary:v15 error:&v47];
-      v18 = v47;
+      v46 = 0;
+      v17 = [(BMUAFAssetSetStatus *)v16 initWithJSONDictionary:v15 error:&v46];
+      v18 = v46;
       if (v18)
       {
         v27 = v18;
@@ -281,10 +278,10 @@ LABEL_30:
         goto LABEL_27;
       }
 
-      [v46 addObject:v17];
+      [v45 addObject:v17];
     }
 
-    v11 = [v7 countByEnumeratingWithState:&v48 objects:v58 count:16];
+    v11 = [v7 countByEnumeratingWithState:&v47 objects:v57 count:16];
     if (v11)
     {
       continue;
@@ -295,8 +292,8 @@ LABEL_30:
 
 LABEL_16:
 
-  dictionaryCopy = v44;
-  v15 = [v44 objectForKeyedSubscript:@"statusReason"];
+  dictionaryCopy = v43;
+  v15 = [v43 objectForKeyedSubscript:@"statusReason"];
   if (!v15 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v19 = 0;
@@ -310,7 +307,7 @@ LABEL_16:
 LABEL_36:
     v19 = v33;
 LABEL_37:
-    self = -[BMUAFAvailableAssetDailyStatus initWithAssetSetStatus:statusReason:](selfCopy2, "initWithAssetSetStatus:statusReason:", v46, [v19 intValue]);
+    self = -[BMUAFAvailableAssetDailyStatus initWithAssetSetStatus:statusReason:](selfCopy2, "initWithAssetSetStatus:statusReason:", v45, [v19 intValue]);
     selfCopy3 = self;
   }
 
@@ -322,20 +319,20 @@ LABEL_37:
       v34 = MEMORY[0x1E696AD98];
       v35 = BMAvailableAssetStatusReasonFromString(v15);
       v36 = v34;
-      dictionaryCopy = v44;
+      dictionaryCopy = v43;
       v33 = [v36 numberWithInt:v35];
       goto LABEL_36;
     }
 
     if (errorCopy2)
     {
-      v39 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v40 = *MEMORY[0x1E698F240];
-      v52 = *MEMORY[0x1E696A578];
-      v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"statusReason"];
-      v53 = v41;
-      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-      *errorCopy2 = [v39 initWithDomain:v40 code:2 userInfo:v42];
+      v38 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v39 = *MEMORY[0x1E698F240];
+      v51 = *MEMORY[0x1E696A578];
+      v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"statusReason"];
+      v52 = v40;
+      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+      *errorCopy2 = [v38 initWithDomain:v39 code:2 userInfo:v41];
     }
 
     v19 = 0;
@@ -348,7 +345,6 @@ LABEL_38:
 LABEL_39:
 LABEL_40:
 
-  v37 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -363,43 +359,40 @@ LABEL_40:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v5 = self->_assetSetStatus;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         PBDataWriterPlaceMark();
         [v10 writeTo:toCopy];
         PBDataWriterRecallMark();
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  statusReason = self->_statusReason;
   PBDataWriterWriteUint32Field();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -584,39 +577,35 @@ LABEL_40:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetSetStatus" number:1 type:14 subMessageClass:objc_opt_class()];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"statusReason" number:2 type:4 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"assetSetStatus_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_304_103347];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"statusReason" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
-id __41__BMUAFAvailableAssetDailyStatus_columns__block_invoke(uint64_t a1, void *a2)
+id __41__BMUAFAvailableAssetDailyStatus_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _assetSetStatusJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _assetSetStatusJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

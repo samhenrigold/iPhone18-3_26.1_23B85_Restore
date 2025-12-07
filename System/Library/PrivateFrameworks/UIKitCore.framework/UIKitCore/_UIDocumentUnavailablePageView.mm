@@ -30,7 +30,7 @@
     layer4 = [(UIView *)v3 layer];
     [layer4 setShadowOffset:{0.0, 4.0}];
 
-    v12 = +[UIColor blackColor];
+    v12 = objc_msgSend_blackColor(UIColor);
     cGColor = [v12 CGColor];
     layer5 = [(UIView *)v3 layer];
     [layer5 setShadowColor:cGColor];

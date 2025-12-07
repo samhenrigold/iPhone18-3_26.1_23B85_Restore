@@ -8,14 +8,14 @@
 
 + (id)infoForComponents:(id)components
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   componentsCopy = components;
   queryItems = [componentsCopy queryItems];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v5 = [queryItems countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v5 = [queryItems countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (!v5)
   {
     v6 = 0;
@@ -23,22 +23,22 @@
     goto LABEL_26;
   }
 
-  v29 = componentsCopy;
+  v28 = componentsCopy;
+  v29 = 0;
   v30 = 0;
-  v31 = 0;
   v6 = 0;
   v7 = 0;
-  v8 = *v33;
+  v8 = *v32;
   do
   {
     for (i = 0; i != v5; i = i + 1)
     {
-      if (*v33 != v8)
+      if (*v32 != v8)
       {
         objc_enumerationMutation(queryItems);
       }
 
-      v10 = *(*(&v32 + 1) + 8 * i);
+      v10 = *(*(&v31 + 1) + 8 * i);
       name = [v10 name];
       v12 = [name isEqualToString:@"id"];
 
@@ -69,8 +69,8 @@
           if (v19)
           {
             value3 = [v10 value];
-            v14 = v31;
-            v31 = value3;
+            v14 = v30;
+            v30 = value3;
           }
 
           else
@@ -84,14 +84,14 @@
             }
 
             value4 = [v10 value];
-            v14 = v30;
-            v30 = value4;
+            v14 = v29;
+            v29 = value4;
           }
         }
       }
     }
 
-    v5 = [queryItems countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v5 = [queryItems countByEnumeratingWithState:&v31 objects:v35 count:16];
   }
 
   while (v5);
@@ -99,32 +99,32 @@
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     [dictionary setValue:v7 forKey:@"flow"];
-    componentsCopy = v29;
-    v25 = v30;
-    v5 = v31;
+    componentsCopy = v28;
+    v25 = v29;
+    v5 = v30;
     if (v6)
     {
       [dictionary setValue:v6 forKey:@"id"];
     }
 
-    if (v31)
-    {
-      [dictionary setValue:v31 forKey:@"domainState"];
-    }
-
     if (v30)
     {
-      [dictionary setValue:v30 forKey:@"state"];
+      [dictionary setValue:v30 forKey:@"domainState"];
+    }
+
+    if (v29)
+    {
+      [dictionary setValue:v29 forKey:@"state"];
     }
 
     goto LABEL_29;
   }
 
-  componentsCopy = v29;
-  v25 = v30;
-  v5 = v31;
+  componentsCopy = v28;
+  v25 = v29;
+  v5 = v30;
 LABEL_26:
-  v26 = _AALogSystem();
+  v26 = _AALogSystem(0);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     [AAUniversalLinkHelper infoForComponents:v26];
@@ -133,8 +133,6 @@ LABEL_26:
   v7 = 0;
   dictionary = 0;
 LABEL_29:
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

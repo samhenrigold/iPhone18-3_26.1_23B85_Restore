@@ -28,9 +28,11 @@
 - (void)_create_prominentImageView
 {
   v3 = [STUIStatusBarImageView alloc];
-  self->_prominentImageView = [(STUIStatusBarImageView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarImageView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  prominentImageView = self->_prominentImageView;
+  self->_prominentImageView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, prominentImageView);
 }
 
 - (STUIStatusBarIndicatorLocationItem)initWithIdentifier:(id)identifier statusBar:(id)bar

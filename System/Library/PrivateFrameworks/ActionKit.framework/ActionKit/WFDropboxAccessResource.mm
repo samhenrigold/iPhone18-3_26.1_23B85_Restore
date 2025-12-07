@@ -157,10 +157,10 @@ uint64_t __76__WFDropboxAccessResource_makeAvailableWithUserInterface_completion
 
 - (WFDropboxAccessResource)initWithDefinition:(id)definition
 {
-  v45[3] = *MEMORY[0x277D85DE8];
-  v36.receiver = self;
-  v36.super_class = WFDropboxAccessResource;
-  v3 = [(WFAccountAccessResource *)&v36 initWithDefinition:definition];
+  v44[3] = *MEMORY[0x277D85DE8];
+  v35.receiver = self;
+  v35.super_class = WFDropboxAccessResource;
+  v3 = [(WFAccountAccessResource *)&v35 initWithDefinition:definition];
   if (v3)
   {
     if (!+[(WFAccount *)WFDropboxAccount])
@@ -174,23 +174,23 @@ uint64_t __76__WFDropboxAccessResource_makeAvailableWithUserInterface_completion
       {
         v4 = *MEMORY[0x277CDC238];
         v5 = *MEMORY[0x277CDBEC8];
-        v44[0] = *MEMORY[0x277CDC228];
-        v44[1] = v5;
+        v43[0] = *MEMORY[0x277CDC228];
+        v43[1] = v5;
         v6 = *MEMORY[0x277CFC730];
-        v45[0] = v4;
-        v45[1] = v6;
-        v44[2] = *MEMORY[0x277CDC120];
-        v45[2] = @"is.workflow.my.app.dropbox.auth";
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:3];
+        v44[0] = v4;
+        v44[1] = v6;
+        v43[2] = *MEMORY[0x277CDC120];
+        v44[2] = @"is.workflow.my.app.dropbox.auth";
+        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:3];
         v8 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v7];
         v9 = *MEMORY[0x277CDC438];
         v10 = *MEMORY[0x277CDC558];
-        v42[0] = *MEMORY[0x277CDC428];
-        v42[1] = v10;
+        v41[0] = *MEMORY[0x277CDC428];
+        v41[1] = v10;
         v11 = *MEMORY[0x277CBED28];
-        v43[0] = v9;
-        v43[1] = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
+        v42[0] = v9;
+        v42[1] = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
         [v8 addEntriesFromDictionary:v12];
 
         result = 0;
@@ -234,18 +234,18 @@ uint64_t __76__WFDropboxAccessResource_makeAvailableWithUserInterface_completion
                 if ([v30 count])
                 {
                   v31 = +[WFDropboxAccount sessionManager];
-                  v39[0] = MEMORY[0x277D85DD0];
-                  v39[1] = 3221225472;
-                  v39[2] = __WFMigrateDropboxToV2_block_invoke_2;
-                  v39[3] = &unk_278C1C528;
-                  v40 = v31;
-                  v37[0] = MEMORY[0x277D85DD0];
-                  v37[1] = 3221225472;
-                  v37[2] = __WFMigrateDropboxToV2_block_invoke_4;
-                  v37[3] = &unk_278C22518;
-                  v38 = v7;
+                  v38[0] = MEMORY[0x277D85DD0];
+                  v38[1] = 3221225472;
+                  v38[2] = __WFMigrateDropboxToV2_block_invoke_2;
+                  v38[3] = &unk_278C1C528;
+                  v39 = v31;
+                  v36[0] = MEMORY[0x277D85DD0];
+                  v36[1] = 3221225472;
+                  v36[2] = __WFMigrateDropboxToV2_block_invoke_4;
+                  v36[3] = &unk_278C22518;
+                  v37 = v7;
                   v32 = v31;
-                  [v30 if_mapAsynchronously:v39 completionHandler:v37];
+                  [v30 if_mapAsynchronously:v38 completionHandler:v36];
                 }
 
                 else
@@ -277,7 +277,6 @@ uint64_t __76__WFDropboxAccessResource_makeAvailableWithUserInterface_completion
     v33 = v3;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

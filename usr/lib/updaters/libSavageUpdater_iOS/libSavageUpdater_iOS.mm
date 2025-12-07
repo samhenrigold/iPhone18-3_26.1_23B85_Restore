@@ -49,16 +49,15 @@ void SavageCFDictionarySetData(__CFDictionary *a1, const void *a2, UInt8 *bytes,
 
 uint64_t SavageCFStringToUInt32(const __CFString *a1, _DWORD *a2, int a3)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   result = CFStringGetCString(a1, buffer, 32, 0x600u);
   if (result)
   {
     *__error() = 0;
     *a2 = strtol(buffer, 0, a3);
-    result = *__error() == 0;
+    return *__error() == 0;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -340,7 +339,6 @@ uint64_t YonkersDevice::YonkersDeviceClose(YonkersDevice *this)
 {
   if (*(this + 27))
   {
-    v2 = *(this + 7);
     SavageCamInterfaceClose();
     result = 0;
     *(this + 7) = 0;
@@ -348,13 +346,13 @@ uint64_t YonkersDevice::YonkersDeviceClose(YonkersDevice *this)
 
   else
   {
-    v4 = *(this + 12);
-    if (v4)
+    v3 = *(this + 12);
+    if (v3)
     {
-      v5 = IOConnectCallScalarMethod(v4, 4u, 0, 0, 0, 0);
+      v4 = IOConnectCallScalarMethod(v3, 4u, 0, 0, 0, 0);
       IOServiceClose(*(this + 12));
       *(this + 12) = 0;
-      return v5;
+      return v4;
     }
 
     else
@@ -397,32 +395,32 @@ void YonkersDevice::ReadSensorType(YonkersDevice *this)
 
 uint64_t YonkersDevice::YonkersDeviceOpen(YonkersDevice *this)
 {
-  v6[1] = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
   if (*(this + 27) == 1)
   {
-    v6[0] = 0;
+    v5[0] = 0;
     result = SavageCamInterfaceOpen();
     if (result)
     {
-      goto LABEL_16;
+      return result;
     }
 
     result = *(this + 7);
     if (!result)
     {
-      goto LABEL_16;
+      return result;
     }
 
     result = SavageCamInterfaceGetSensorInfo();
     if (result)
     {
-      goto LABEL_16;
+      return result;
     }
 
-    *(this + 8) = v6[0];
-    v3 = BYTE4(v6[0]);
-    *(this + 28) = BYTE4(v6[0]);
-    *this = BYTE5(v6[0]);
+    *(this + 8) = v5[0];
+    v3 = BYTE4(v5[0]);
+    *(this + 28) = BYTE4(v5[0]);
+    *this = BYTE5(v5[0]);
     if ((v3 & 1) == 0)
     {
       YonkersDevice::YonkersDeviceClose(this);
@@ -431,100 +429,85 @@ uint64_t YonkersDevice::YonkersDeviceOpen(YonkersDevice *this)
 
   if (*(this + 28))
   {
-    result = 0;
+    return 0;
   }
 
-  else if (*(this + 12))
+  if (*(this + 12))
   {
-    result = 3758097093;
+    return 3758097093;
+  }
+
+  LODWORD(result) = IOServiceOpen(*(this + 11), *MEMORY[0x29EDCA6B0], 0x2Au, this + 12);
+  v4 = *(this + 12);
+  if (v4)
+  {
+    result = result;
   }
 
   else
   {
-    LODWORD(result) = IOServiceOpen(*(this + 11), *MEMORY[0x29EDCA6B0], 0x2Au, this + 12);
-    v4 = *(this + 12);
-    if (v4)
-    {
-      result = result;
-    }
-
-    else
-    {
-      result = 3758097084;
-    }
-
-    if (!result)
-    {
-      v6[0] = 0;
-      result = IOConnectCallScalarMethod(v4, 3u, v6, 1u, 0, 0);
-    }
+    result = 3758097084;
   }
 
-LABEL_16:
-  v5 = *MEMORY[0x29EDCA608];
+  if (!result)
+  {
+    v5[0] = 0;
+    return IOConnectCallScalarMethod(v4, 3u, v5, 1u, 0, 0);
+  }
+
   return result;
 }
 
 uint64_t YonkersDevice::PrePersonalize(YonkersDevice *this, unsigned int a2)
 {
-  v7[1] = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
   if (*(this + 28))
   {
     v2 = *(this + 7);
-    v3 = *MEMORY[0x29EDCA608];
 
     return MEMORY[0x2A1C68FF8](v2, 1);
   }
 
   else
   {
-    v4 = *(this + 12);
-    if (v4)
+    v3 = *(this + 12);
+    if (v3)
     {
-      v7[0] = a2;
-      result = IOConnectCallScalarMethod(v4, 0x43u, v7, 1u, 0, 0);
+      v5[0] = a2;
+      return IOConnectCallScalarMethod(v3, 0x43u, v5, 1u, 0, 0);
     }
 
     else
     {
-      result = 3758097084;
+      return 3758097084;
     }
-
-    v5 = *MEMORY[0x29EDCA608];
   }
-
-  return result;
 }
 
 uint64_t YonkersDevice::PreFusing(YonkersDevice *this, unsigned int a2)
 {
-  v7[1] = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
   if (*(this + 28))
   {
     v2 = *(this + 7);
-    v3 = *MEMORY[0x29EDCA608];
 
     return MEMORY[0x2A1C68FF0](v2, 1);
   }
 
   else
   {
-    v4 = *(this + 12);
-    if (v4)
+    v3 = *(this + 12);
+    if (v3)
     {
-      v7[0] = a2;
-      result = IOConnectCallScalarMethod(v4, 0x44u, v7, 1u, 0, 0);
+      v5[0] = a2;
+      return IOConnectCallScalarMethod(v3, 0x44u, v5, 1u, 0, 0);
     }
 
     else
     {
-      result = 3758097084;
+      return 3758097084;
     }
-
-    v5 = *MEMORY[0x29EDCA608];
   }
-
-  return result;
 }
 
 CFTypeRef OUTLINED_FUNCTION_0_0(io_registry_entry_t a1, const __CFString *a2)
@@ -555,7 +538,7 @@ void JasmineIRUpdateController::JasmineIRLog(JasmineIRUpdateController *this, co
 {
   va_start(va, a2);
   v2 = MEMORY[0x2A1C7C4A8](this, a2);
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   vsnprintf(__str, 0x1000uLL, v3, va);
   if (*v2)
   {
@@ -565,11 +548,9 @@ void JasmineIRUpdateController::JasmineIRLog(JasmineIRUpdateController *this, co
   else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v6 = __str;
+    v5 = __str;
     _os_log_impl(&dword_299F4E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "JasmineIRLog: %s \n", buf, 0xCu);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void JasmineIRUpdateController::destroyInstance(JasmineIRUpdateController *this)
@@ -668,24 +649,24 @@ void JasmineIRUpdateController::~JasmineIRUpdateController(JasmineIRUpdateContro
   }
 }
 
-uint64_t JasmineIRUpdateController::libFDRCallback(uint64_t a1, uint64_t a2)
+BOOL JasmineIRUpdateController::libFDRCallback(uint64_t a1, uint64_t a2)
 {
   MEMORY[0x2A1C7C4A8](a1, a2);
   v3 = v2;
   v5 = v4;
-  v16 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v6 = calloc(0x10uLL, 1uLL);
   *(JasmineIRUpdateController::myInstance + 48) = v6;
-  v17.location = 0;
-  v17.length = 16;
-  CFDataGetBytes(v5, v17, v6);
+  v15.location = 0;
+  v15.length = 16;
+  CFDataGetBytes(v5, v15, v6);
   JasmineIRUpdateController::JasmineIRLog(JasmineIRUpdateController::myInstance, "Auth challenge received from libFDR:--------------\n");
-  bzero(v15, 0x1000uLL);
+  bzero(v13, 0x1000uLL);
   v7 = 0;
   v8 = 0;
   do
   {
-    v9 = snprintf(&v15[v8], 5uLL, " %02X ", *(*(JasmineIRUpdateController::myInstance + 48) + v7));
+    v9 = snprintf(&v13[v8], 5uLL, " %02X ", *(*(JasmineIRUpdateController::myInstance + 48) + v7));
     if (v7 > 0xE)
     {
       break;
@@ -696,28 +677,26 @@ uint64_t JasmineIRUpdateController::libFDRCallback(uint64_t a1, uint64_t a2)
   }
 
   while (v8 < 4091);
-  JasmineIRUpdateController::JasmineIRLog(JasmineIRUpdateController::myInstance, "%s \n", v15);
+  JasmineIRUpdateController::JasmineIRLog(JasmineIRUpdateController::myInstance, "%s \n", v13);
   JasmineIRUpdateController::formatAndStitchFiles(JasmineIRUpdateController::myInstance);
-  v10 = *(JasmineIRUpdateController::myInstance + 172);
   JasmineIRDevice::Fusing(*(JasmineIRUpdateController::myInstance + 56), *(JasmineIRUpdateController::myInstance + 184), *(JasmineIRUpdateController::myInstance + 176));
-  v11 = *(*(JasmineIRUpdateController::myInstance + 56) + 8);
+  v10 = *(*(JasmineIRUpdateController::myInstance + 56) + 8);
   if (v3)
   {
-    v12 = v11 == 0;
+    v11 = v10 == 0;
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
-  result = !v12;
-  if (!v12)
+  result = !v11;
+  if (!v11)
   {
-    *v3 = v11;
+    *v3 = v10;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1176,7 +1155,6 @@ uint64_t JasmineIRUpdateController::eventCmdQueryInfo(JasmineIRUpdateController 
     SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAF8], 1);
     SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAE8], 1);
     SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAF0], 1);
-    v6 = *(this + 46);
     JasmineIRMeasurementTags = JasmineIRDevice::PreFusing(*(this + 7));
     JasmineIRUpdateController::JasmineIRLog(this, "%s: Finished pre-fusing \n");
     goto LABEL_16;
@@ -1188,7 +1166,6 @@ uint64_t JasmineIRUpdateController::eventCmdQueryInfo(JasmineIRUpdateController 
     SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAE8], 1);
     SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAF0], 1);
     SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAF8], 1);
-    v8 = *(this + 46);
     JasmineIRMeasurementTags = JasmineIRDevice::PreFusing(*(this + 7));
     JasmineIRUpdateController::JasmineIRLog(this, "%s: Finished pre-certification \n");
     goto LABEL_16;
@@ -1209,7 +1186,6 @@ uint64_t JasmineIRUpdateController::eventCmdQueryInfo(JasmineIRUpdateController 
     else
     {
       SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAF8], 1);
-      v10 = *(this + 46);
       JasmineIRMeasurementTags = JasmineIRDevice::PreFusing(*(this + 7));
     }
 
@@ -1229,7 +1205,6 @@ LABEL_16:
     SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAF0], 1);
     SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAE0], 1);
     SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAE8], 1);
-    v9 = *(this + 46);
     JasmineIRMeasurementTags = JasmineIRDevice::PreFusing(*(this + 7));
     JasmineIRUpdateController::JasmineIRLog(this, "%s: Finished pre-wrapping \n");
     goto LABEL_16;
@@ -1251,13 +1226,13 @@ LABEL_16:
 
 LABEL_17:
   JasmineIRDevice::CreateDeviceInfoDict(*(this + 7), Mutable);
-  v11 = *(this + 7);
-  if (*(this + 67) == 1 && !*(v11 + 56) && !*(this + 16) && !*(this + 18) && !*(this + 21) && !*(this + 23) && *(this + 20) == 1 && *(this + 47) == 2)
+  v7 = *(this + 7);
+  if (*(this + 67) == 1 && !*(v7 + 56) && !*(this + 16) && !*(this + 18) && !*(this + 21) && !*(this + 23) && *(this + 20) == 1 && *(this + 47) == 2)
   {
-    *(v11 + 96) = *(v11 + 96) == 0;
+    *(v7 + 96) = *(v7 + 96) == 0;
   }
 
-  SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAD0], *(v11 + 96));
+  SavageCFDictionarySetBoolean(Mutable, *MEMORY[0x29EDCAAD0], *(v7 + 96));
   JasmineIRMeasurementTags = GetJasmineIRMeasurementTags(Mutable, this + 96, this + 104);
   CFDictionarySetValue(*(this + 10), *MEMORY[0x29EDCAA88], Mutable);
 LABEL_27:
@@ -1278,21 +1253,20 @@ uint64_t JasmineIRUpdateController::eventCmdPerformNextStage(JasmineIRUpdateCont
       JasmineIRUpdateController::JasmineIRLog(this, "%s: Begin reading info needed for certification \n", "eventCmdPerformNextStage");
       JasmineIRUpdateController::formatAndStitchFiles(this);
       JasmineIRUpdateController::writeFilesToFileSystem(this);
-      v6 = *(this + 43);
       JasmineIRDevice::Fusing(*(this + 7), *(this + 46), *(this + 22));
-      v7 = *(*(this + 7) + 64);
-      v8 = -536870167;
-      if (v7)
+      v5 = *(*(this + 7) + 64);
+      v6 = -536870167;
+      if (v5)
       {
-        v8 = 0;
+        v6 = 0;
       }
 
-      JasmineIRUpdateController::JasmineIRLog(this, "%s: Extracting certification data is done with result = 0x%02X (tryAgain = %d) \n", "eventCmdPerformNextStage", v8, *(this + 19));
-      v9 = *(this + 19);
-      if (v7)
+      JasmineIRUpdateController::JasmineIRLog(this, "%s: Extracting certification data is done with result = 0x%02X (tryAgain = %d) \n", "eventCmdPerformNextStage", v6, *(this + 19));
+      v7 = *(this + 19);
+      if (v5)
       {
         *(this + 18) = 0;
-        if (!v9)
+        if (!v7)
         {
           return 0;
         }
@@ -1300,14 +1274,14 @@ uint64_t JasmineIRUpdateController::eventCmdPerformNextStage(JasmineIRUpdateCont
 
       else if (!*(this + 19))
       {
-        v14 = 3758097129;
+        v11 = 3758097129;
         *(this + 18) = 0;
-        return v14;
+        return v11;
       }
 
-      v14 = 0;
+      v11 = 0;
       *(this + 19) = 0;
-      return v14;
+      return v11;
     }
 
     if (*(this + 21) != 1)
@@ -1318,9 +1292,9 @@ uint64_t JasmineIRUpdateController::eventCmdPerformNextStage(JasmineIRUpdateCont
         {
           JasmineIRUpdateController::formatAndStitchFiles(this);
           JasmineIRUpdateController::writeFilesToFileSystem(this);
-          v19 = *(this + 47) - 1;
-          *(this + 47) = v19;
-          if (!v19)
+          v15 = *(this + 47) - 1;
+          *(this + 47) = v15;
+          if (!v15)
           {
             *(this + 20) = 0;
             JasmineIRUpdateController::JasmineIRLog(this, "%s: Finished Personalization \n", "eventCmdPerformNextStage");
@@ -1330,7 +1304,7 @@ uint64_t JasmineIRUpdateController::eventCmdPerformNextStage(JasmineIRUpdateCont
         return 0;
       }
 
-      v14 = 3758097129;
+      v11 = 3758097129;
       JasmineIRUpdateController::JasmineIRLog(this, "JasmineIRUpdateController::eventCmdPerformNextStage: Begin actual wrapping live nonce boot \n");
       if (!*(*(this + 7) + 18))
       {
@@ -1341,25 +1315,24 @@ uint64_t JasmineIRUpdateController::eventCmdPerformNextStage(JasmineIRUpdateCont
       JasmineIRUpdateController::JasmineIRLog(this, "%s: Picked up FDRDataEncryptionKey as wrap input key \n", "eventCmdPerformNextStage");
       JasmineIRUpdateController::formatAndStitchFiles(this);
       JasmineIRUpdateController::writeFilesToFileSystem(this);
-      v15 = *(this + 43);
       JasmineIRDevice::Fusing(*(this + 7), *(this + 46), *(this + 22));
-      v16 = *(*(this + 7) + 88);
-      if (v16)
+      v12 = *(*(this + 7) + 88);
+      if (v12)
       {
-        v17 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v17 = -536870167;
+        v13 = -536870167;
       }
 
-      JasmineIRUpdateController::JasmineIRLog(this, "%s: Finished wrapping: 0x%02llx (result = 0x%02X; tryAgain = %d) \n", "eventCmdPerformNextStage", v16, v17, *(this + 24));
-      v18 = *(this + 24);
-      if (v16)
+      JasmineIRUpdateController::JasmineIRLog(this, "%s: Finished wrapping: 0x%02llx (result = 0x%02X; tryAgain = %d) \n", "eventCmdPerformNextStage", v12, v13, *(this + 24));
+      v14 = *(this + 24);
+      if (v12)
       {
         *(this + 23) = 0;
-        if (!v18)
+        if (!v14)
         {
           return 0;
         }
@@ -1368,12 +1341,12 @@ uint64_t JasmineIRUpdateController::eventCmdPerformNextStage(JasmineIRUpdateCont
       else if (!*(this + 24))
       {
         *(this + 23) = 0;
-        return v14;
+        return v11;
       }
 
-      v14 = 0;
+      v11 = 0;
       *(this + 24) = 0;
-      return v14;
+      return v11;
     }
 
     JasmineIRUpdateController::JasmineIRLog(this, "%s: Begin reading info needed for auth flow \n", "eventCmdPerformNextStage");
@@ -1381,18 +1354,17 @@ uint64_t JasmineIRUpdateController::eventCmdPerformNextStage(JasmineIRUpdateCont
     {
       JasmineIRUpdateController::formatAndStitchFiles(this);
       JasmineIRUpdateController::writeFilesToFileSystem(this);
-      v10 = *(this + 7);
-      v11 = *(this + 46);
-      v12 = *(this + 22);
-      v13 = *(this + 43);
+      v8 = *(this + 7);
+      v9 = *(this + 46);
+      v10 = *(this + 22);
       if (*(this + 68))
       {
-        JasmineIRDevice::AuthFlow(v10, v11, v12);
+        JasmineIRDevice::AuthFlow(v8, v9, v10);
       }
 
       else
       {
-        JasmineIRDevice::Fusing(v10, v11, v12);
+        JasmineIRDevice::Fusing(v8, v9, v10);
       }
     }
 
@@ -1403,24 +1375,24 @@ uint64_t JasmineIRUpdateController::eventCmdPerformNextStage(JasmineIRUpdateCont
 
     if (*(*(this + 7) + 80))
     {
-      v21 = this + 22;
-      v20 = *(this + 22);
+      v17 = this + 22;
+      v16 = *(this + 22);
       if (*(this + 48) == 1)
       {
-        JasmineIRUpdateController::JasmineIRLog(this, "%s: Extracting auth certification data is done with result = 0x%02X (authFlowLoop = %d, tryAgain = %d) \n", "eventCmdPerformNextStage", 0, 1, v20);
-        v14 = 0;
+        JasmineIRUpdateController::JasmineIRLog(this, "%s: Extracting auth certification data is done with result = 0x%02X (authFlowLoop = %d, tryAgain = %d) \n", "eventCmdPerformNextStage", 0, 1, v16);
+        v11 = 0;
         goto LABEL_42;
       }
     }
 
     else
     {
-      v21 = this + 22;
-      v20 = *(this + 22);
+      v17 = this + 22;
+      v16 = *(this + 22);
     }
 
-    v14 = 3758097129;
-    JasmineIRUpdateController::JasmineIRLog(this, "%s: Extracting auth certification data is done with result = 0x%02X (authFlowLoop = %d, tryAgain = %d) \n", "eventCmdPerformNextStage", -536870167, *(this + 48), v20);
+    v11 = 3758097129;
+    JasmineIRUpdateController::JasmineIRLog(this, "%s: Extracting auth certification data is done with result = 0x%02X (authFlowLoop = %d, tryAgain = %d) \n", "eventCmdPerformNextStage", -536870167, *(this + 48), v16);
     if (*(this + 48))
     {
 LABEL_43:
@@ -1429,13 +1401,13 @@ LABEL_43:
         --*(this + 48);
       }
 
-      if (*v21)
+      if (*v17)
       {
-        v14 = 0;
-        *v21 = 0;
+        v11 = 0;
+        *v17 = 0;
       }
 
-      return v14;
+      return v11;
     }
 
 LABEL_42:
@@ -1446,21 +1418,20 @@ LABEL_42:
   JasmineIRUpdateController::JasmineIRLog(this, "%s: Begin actual Fusing \n", "eventCmdPerformNextStage");
   JasmineIRUpdateController::formatAndStitchFiles(this);
   JasmineIRUpdateController::writeFilesToFileSystem(this);
-  v2 = *(this + 43);
   JasmineIRDevice::Fusing(*(this + 7), *(this + 46), *(this + 22));
-  v3 = *(*(this + 7) + 56);
-  v4 = -536870167;
-  if (v3)
+  v2 = *(*(this + 7) + 56);
+  v3 = -536870167;
+  if (v2)
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  JasmineIRUpdateController::JasmineIRLog(this, "%s: Finished fusing with result = 0x%02X (tryAgain = %d) \n", "eventCmdPerformNextStage", v4, *(this + 17));
-  v5 = *(this + 17);
-  if (v3)
+  JasmineIRUpdateController::JasmineIRLog(this, "%s: Finished fusing with result = 0x%02X (tryAgain = %d) \n", "eventCmdPerformNextStage", v3, *(this + 17));
+  v4 = *(this + 17);
+  if (v2)
   {
     *(this + 16) = 0;
-    if (!v5)
+    if (!v4)
     {
       return 0;
     }
@@ -1468,14 +1439,14 @@ LABEL_42:
 
   else if (!*(this + 17))
   {
-    v14 = 3758097129;
+    v11 = 3758097129;
     *(this + 16) = 0;
-    return v14;
+    return v11;
   }
 
-  v14 = 0;
+  v11 = 0;
   *(this + 17) = 0;
-  return v14;
+  return v11;
 }
 
 void JasmineIRUpdateController::writeFilesToFileSystem(JasmineIRUpdateController *this)
@@ -1736,7 +1707,7 @@ void YonkersUpdateController::YonkersLog(YonkersUpdateController *this, const ch
 {
   va_start(va, a2);
   v2 = MEMORY[0x2A1C7C4A8](this, a2);
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   vsnprintf(__str, 0x1000uLL, v3, va);
   if (*v2)
   {
@@ -1746,11 +1717,9 @@ void YonkersUpdateController::YonkersLog(YonkersUpdateController *this, const ch
   else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v6 = __str;
+    v5 = __str;
     _os_log_impl(&dword_299F4E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "YonkersLog: %s \n", buf, 0xCu);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void YonkersUpdateController::destroyInstance(YonkersUpdateController *this)
@@ -2077,8 +2046,8 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
   v4 = v3;
   v6 = v5;
   v7 = v2;
-  v109 = *MEMORY[0x29EDCA608];
-  *v107 = 0;
+  v108 = *MEMORY[0x29EDCA608];
+  *v106 = 0;
   __dst = calloc(0x4AuLL, 1uLL);
   v8 = calloc(0x4AuLL, 1uLL);
   YonkersUpdateController::YonkersLog(v7, "Yonkers: TSS Response:--------------Total Length = %d \n", v4);
@@ -2087,12 +2056,12 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
     LODWORD(v9) = 0;
     do
     {
-      bzero(v108, 0x1000uLL);
+      bzero(v107, 0x1000uLL);
       v10 = 0;
       v9 = v9;
       do
       {
-        v11 = snprintf(&v108[v10], 5uLL, " %02X ", v6[v9++]);
+        v11 = snprintf(&v107[v10], 5uLL, " %02X ", v6[v9++]);
         if (v9 >= v4)
         {
           break;
@@ -2102,7 +2071,7 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
       }
 
       while ((v10 + 5) < 0x1000);
-      YonkersUpdateController::YonkersLog(v7, "Yonkers: %s \n", v108);
+      YonkersUpdateController::YonkersLog(v7, "Yonkers: %s \n", v107);
     }
 
     while (v9 < v4);
@@ -2186,7 +2155,7 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
   v26 = v19 + 2 + v13;
   v27 = v6[(v26 + 1)];
   v28 = v27 + 2;
-  v106 = v27 + 2;
+  v105 = v27 + 2;
   v29 = v27 + 2 + v26;
   v30 = v6[v29 + 1];
   if ((v30 & 0x80) != 0)
@@ -2263,15 +2232,15 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
   }
 
   v41 = v37 + v31;
-  v102 = v8;
-  v97 = v12;
-  v94 = v25;
-  v95 = v13;
-  v93 = v27;
-  v99 = v32 + v29 + 1;
-  v100 = v29 + 1;
-  v98 = v30;
-  v92 = v32;
+  v101 = v8;
+  v96 = v12;
+  v93 = v25;
+  v94 = v13;
+  v92 = v27;
+  v98 = v32 + v29 + 1;
+  v99 = v29 + 1;
+  v97 = v30;
+  v91 = v32;
   if (v6[v37 + v31 + 1] < 0)
   {
     v43 = v6[v37 + v31 + 1] & 0x7F;
@@ -2310,19 +2279,19 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
   v47 = v42 + 2 + v41;
   v48 = v6[v47 + 1];
   v49 = v48 + 2;
-  v105 = v48 + 2;
-  v104 = v47;
-  v96 = v27 + 2 + v26;
-  YonkersUpdateController::YonkersLog(v7, "Yonkers: fwSigOffset = 0x%02X, fwSigEncapLen = 0x%02X, lfManifestStartOffset = 0x%02X, im4cSeqStartOffset = 0x%02X, im4cStartOffset = 0x%02X, lfSigOffset = 0x%02X, lfSigEncapLen = 0x%02X \n", v26, v27 + 2, v96, v32 + v29, v41, v47, v48 + 2);
+  v104 = v48 + 2;
+  v103 = v47;
+  v95 = v27 + 2 + v26;
+  YonkersUpdateController::YonkersLog(v7, "Yonkers: fwSigOffset = 0x%02X, fwSigEncapLen = 0x%02X, lfManifestStartOffset = 0x%02X, im4cSeqStartOffset = 0x%02X, im4cStartOffset = 0x%02X, lfSigOffset = 0x%02X, lfSigEncapLen = 0x%02X \n", v26, v27 + 2, v95, v32 + v29, v41, v47, v48 + 2);
   memcpy(__dst, &v6[v26], v28);
   __n = v26;
   YonkersUpdateController::YonkersLog(v7, "FirmwareSignature (Pre-validation):--------------offset = %d (%d)\n", v26, v28);
-  bzero(v108, 0x1000uLL);
+  bzero(v107, 0x1000uLL);
   v50 = 0;
   v51 = 0;
   do
   {
-    v52 = snprintf(&v108[v51], 5uLL, " %02X ", __dst[v50++]);
+    v52 = snprintf(&v107[v51], 5uLL, " %02X ", __dst[v50++]);
     if (v50 >= v28)
     {
       break;
@@ -2332,11 +2301,11 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
   }
 
   while ((v51 + 5) < 0x1000);
-  YonkersUpdateController::YonkersLog(v7, "%s \n", v108);
-  YonkersUpdateController::validateSignatureLen(v7, __dst, &v106, &v107[1]);
-  v53 = v106;
-  YonkersUpdateController::YonkersLog(v7, "FirmwareSignature (Post-validation):--------------offset = %d (%d)\n", __n, v106);
-  bzero(v108, 0x1000uLL);
+  YonkersUpdateController::YonkersLog(v7, "%s \n", v107);
+  YonkersUpdateController::validateSignatureLen(v7, __dst, &v105, &v106[1]);
+  v53 = v105;
+  YonkersUpdateController::YonkersLog(v7, "FirmwareSignature (Post-validation):--------------offset = %d (%d)\n", __n, v105);
+  bzero(v107, 0x1000uLL);
   if (v53)
   {
     v54 = 0;
@@ -2345,7 +2314,7 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
     do
     {
       v57 = *v56++;
-      v58 = snprintf(&v108[v54], 5uLL, " %02X ", v57);
+      v58 = snprintf(&v107[v54], 5uLL, " %02X ", v57);
       if (v55 >= v53)
       {
         break;
@@ -2358,15 +2327,15 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
     while ((v54 + 5) < 0x1000);
   }
 
-  YonkersUpdateController::YonkersLog(v7, "%s \n", v108);
-  memcpy(v102, &v6[v104], v49);
-  YonkersUpdateController::YonkersLog(v7, "LeafSignature (Pre-validation):--------------offset = %d (%d)\n", v104, v49);
-  bzero(v108, 0x1000uLL);
+  YonkersUpdateController::YonkersLog(v7, "%s \n", v107);
+  memcpy(v101, &v6[v103], v49);
+  YonkersUpdateController::YonkersLog(v7, "LeafSignature (Pre-validation):--------------offset = %d (%d)\n", v103, v49);
+  bzero(v107, 0x1000uLL);
   v59 = 0;
   v60 = 0;
   do
   {
-    v61 = snprintf(&v108[v60], 5uLL, " %02X ", v102[v59++]);
+    v61 = snprintf(&v107[v60], 5uLL, " %02X ", v101[v59++]);
     if (v59 >= v49)
     {
       break;
@@ -2376,20 +2345,20 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
   }
 
   while ((v60 + 5) < 0x1000);
-  YonkersUpdateController::YonkersLog(v7, "%s \n", v108);
-  YonkersUpdateController::validateSignatureLen(v7, v102, &v105, v107);
-  v62 = v105;
-  YonkersUpdateController::YonkersLog(v7, "LeafSignature (Post-validation):--------------offset = %d (%d)\n", v104, v105);
-  bzero(v108, 0x1000uLL);
+  YonkersUpdateController::YonkersLog(v7, "%s \n", v107);
+  YonkersUpdateController::validateSignatureLen(v7, v101, &v104, v106);
+  v62 = v104;
+  YonkersUpdateController::YonkersLog(v7, "LeafSignature (Post-validation):--------------offset = %d (%d)\n", v103, v104);
+  bzero(v107, 0x1000uLL);
   if (v62)
   {
     v63 = 0;
     v64 = 1;
-    v65 = v102;
+    v65 = v101;
     do
     {
       v66 = *v65++;
-      v67 = snprintf(&v108[v63], 5uLL, " %02X ", v66);
+      v67 = snprintf(&v107[v63], 5uLL, " %02X ", v66);
       if (v64 >= v62)
       {
         break;
@@ -2402,23 +2371,23 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
     while ((v63 + 5) < 0x1000);
   }
 
-  YonkersUpdateController::YonkersLog(v7, "%s \n", v108);
-  v68 = v107[0];
-  v69 = v107[0] + v36;
-  if (v6[v99] < 0)
+  YonkersUpdateController::YonkersLog(v7, "%s \n", v107);
+  v68 = v106[0];
+  v69 = v106[0] + v36;
+  if (v6[v98] < 0)
   {
-    v73 = v6[v99] & 0x7F;
-    v71 = v102;
+    v73 = v6[v98] & 0x7F;
+    v71 = v101;
     v70 = __dst;
-    v72 = v100;
+    v72 = v99;
     if (v73 > 2)
     {
       YonkersUpdateController::getSignedCertificate();
     }
 
-    if ((v6[v99] & 0x7F) != 0)
+    if ((v6[v98] & 0x7F) != 0)
     {
-      v74 = v94 + v95 + v92 + v93 + 4;
+      v74 = v93 + v94 + v91 + v92 + 4;
       v75 = 8 * v73 - 8;
       do
       {
@@ -2433,13 +2402,13 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
 
   else
   {
-    v6[v99] = v69;
-    v71 = v102;
+    v6[v98] = v69;
+    v71 = v101;
     v70 = __dst;
-    v72 = v100;
+    v72 = v99;
   }
 
-  v76 = v68 + v98;
+  v76 = v68 + v97;
   if (v6[v72] < 0)
   {
     v77 = v6[v72] & 0x7F;
@@ -2450,7 +2419,7 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
 
     if ((v6[v72] & 0x7F) != 0)
     {
-      v78 = v94 + v95 + v93 + 4;
+      v78 = v93 + v94 + v92 + 4;
       v79 = 8 * v77 - 8;
       do
       {
@@ -2468,7 +2437,7 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
     v6[v72] = v76;
   }
 
-  v80 = v68 + v97 + v107[1];
+  v80 = v68 + v96 + v106[1];
   if (v6[1] < 0)
   {
     v82 = v6[1] & 0x7F;
@@ -2509,8 +2478,8 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
   {
     memcpy(v85, v6, __n);
     memcpy((*(v7 + 112) + __n), v70, v53);
-    memcpy((*(v7 + 112) + __n + v53), &v6[v96], (v104 - v96));
-    memcpy((*(v7 + 112) + __n + v53 + (v104 - v96)), v71, v62);
+    memcpy((*(v7 + 112) + __n + v53), &v6[v95], (v103 - v95));
+    memcpy((*(v7 + 112) + __n + v53 + (v103 - v95)), v71, v62);
     YonkersUpdateController::YonkersLog(v7, "Yonkers: Signed Certificate:-------------- Length = %d \n", *(v7 + 120));
     v86 = *(v7 + 120);
     if (v86)
@@ -2518,7 +2487,7 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
       v87 = 0;
       do
       {
-        bzero(v108, 0x1000uLL);
+        bzero(v107, 0x1000uLL);
         if (v87 >= v86)
         {
           v90 = v87;
@@ -2529,7 +2498,7 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
           v88 = 0;
           do
           {
-            v89 = snprintf(&v108[v88], 5uLL, " %02X ", *(*(v7 + 112) + v87++));
+            v89 = snprintf(&v107[v88], 5uLL, " %02X ", *(*(v7 + 112) + v87++));
             v90 = v87;
             if (v87 >= *(v7 + 120))
             {
@@ -2542,7 +2511,7 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
           while ((v88 + 5) < 0x1000);
         }
 
-        YonkersUpdateController::YonkersLog(v7, "Yonkers: %s \n", v108);
+        YonkersUpdateController::YonkersLog(v7, "Yonkers: %s \n", v107);
         v86 = *(v7 + 120);
         v87 = v90;
       }
@@ -2550,8 +2519,6 @@ void YonkersUpdateController::getSignedCertificate(YonkersUpdateController *this
       while (v90 < v86);
     }
   }
-
-  v91 = *MEMORY[0x29EDCA608];
 }
 
 void YonkersUpdateController::validateSignatureLen(YonkersUpdateController *this, unsigned __int8 *a2, unsigned int *a3, unsigned int *a4)
@@ -2910,7 +2877,6 @@ uint64_t SavageDevice::SavageDeviceClose(SavageDevice *this)
 {
   if (*(this + 104))
   {
-    v2 = *(this + 16);
     SavageCamInterfaceClose();
     result = 0;
     *(this + 16) = 0;
@@ -2918,13 +2884,13 @@ uint64_t SavageDevice::SavageDeviceClose(SavageDevice *this)
 
   else
   {
-    v4 = *(this + 31);
-    if (v4)
+    v3 = *(this + 31);
+    if (v3)
     {
-      v5 = IOConnectCallScalarMethod(v4, 4u, 0, 0, 0, 0);
+      v4 = IOConnectCallScalarMethod(v3, 4u, 0, 0, 0, 0);
       IOServiceClose(*(this + 31));
       *(this + 31) = 0;
-      return v5;
+      return v4;
     }
 
     else
@@ -2938,19 +2904,19 @@ uint64_t SavageDevice::SavageDeviceClose(SavageDevice *this)
 
 void SavageDevice::UnallowedList(SavageDevice *this)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v2 = IORegistryEntryFromPath(*MEMORY[0x29EDBB110], "IODeviceTree:/");
   CFProperty = IORegistryEntryCreateCFProperty(v2, @"target-type", *MEMORY[0x29EDB8ED8], 0);
   v4 = CFProperty;
-  v16 = 0;
+  v15 = 0;
   *buffer = 0;
-  v14 = 0;
+  v13 = 0;
   *__s2 = 0x3132313355;
   if (CFProperty)
   {
-    v18.length = CFDataGetLength(CFProperty);
-    v18.location = 0;
-    CFDataGetBytes(v4, v18, buffer);
+    v17.length = CFDataGetLength(CFProperty);
+    v17.location = 0;
+    CFDataGetBytes(v4, v17, buffer);
     v5 = buffer[0];
     if (buffer[0])
     {
@@ -2970,11 +2936,11 @@ void SavageDevice::UnallowedList(SavageDevice *this)
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = buffer;
-    v11 = 2080;
-    v12 = __s2;
-    _os_log_impl(&dword_299F4E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "SavageDeviceLog: target-type = %s; unallowedTarget = %s \n", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = buffer;
+    v10 = 2080;
+    v11 = __s2;
+    _os_log_impl(&dword_299F4E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "SavageDeviceLog: target-type = %s; unallowedTarget = %s \n", &v8, 0x16u);
   }
 
   if (!strncmp(buffer, __s2, 0xAuLL))
@@ -2986,8 +2952,6 @@ void SavageDevice::UnallowedList(SavageDevice *this)
   {
     CFRelease(v4);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void SavageDevice::ReadSensorType(SavageDevice *this)
@@ -3031,34 +2995,31 @@ LABEL_7:
 
 uint64_t SavageDevice::SavageDeviceOpen(SavageDevice *this)
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   if (*(this + 104) == 1)
   {
-    v9[0] = 0;
+    v8[0] = 0;
     SensorInfo = SavageCamInterfaceOpen();
     if (SensorInfo)
     {
-      goto LABEL_18;
+      return SensorInfo;
     }
 
     if (!*(this + 16))
     {
-      v4 = 0;
-      goto LABEL_12;
+      return 0;
     }
 
     SensorInfo = SavageCamInterfaceGetSensorInfo();
     if (SensorInfo)
     {
-LABEL_18:
-      v4 = SensorInfo;
-      goto LABEL_12;
+      return SensorInfo;
     }
 
-    *(this + 27) = v9[0];
-    v3 = BYTE4(v9[0]);
-    *(this + 105) = BYTE4(v9[0]);
-    *(this + 16) = BYTE5(v9[0]);
+    *(this + 27) = v8[0];
+    v3 = BYTE4(v8[0]);
+    *(this + 105) = BYTE4(v8[0]);
+    *(this + 16) = BYTE5(v8[0]);
     if ((v3 & 1) == 0)
     {
       SavageDevice::SavageDeviceClose(this);
@@ -3074,15 +3035,14 @@ LABEL_18:
   {
     if (*(this + 31))
     {
-      v4 = 3758097093;
-      goto LABEL_12;
+      return 3758097093;
     }
 
-    v7 = IOServiceOpen(*(this + 30), *MEMORY[0x29EDCA6B0], 0x2Au, this + 31);
-    v8 = *(this + 31);
-    if (v8)
+    v6 = IOServiceOpen(*(this + 30), *MEMORY[0x29EDCA6B0], 0x2Au, this + 31);
+    v7 = *(this + 31);
+    if (v7)
     {
-      v4 = v7;
+      v4 = v6;
     }
 
     else
@@ -3092,77 +3052,65 @@ LABEL_18:
 
     if (!v4)
     {
-      v9[0] = 0;
-      v4 = IOConnectCallScalarMethod(v8, 3u, v9, 1u, 0, 0);
+      v8[0] = 0;
+      v4 = IOConnectCallScalarMethod(v7, 3u, v8, 1u, 0, 0);
     }
   }
 
   SavageDevice::UnallowedList(this);
-LABEL_12:
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t SavageDevice::PrePersonalize(SavageDevice *this, unsigned int a2)
 {
-  v7[1] = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
   if (*(this + 105))
   {
     v2 = *(this + 16);
-    v3 = *MEMORY[0x29EDCA608];
 
     return MEMORY[0x2A1C68FF8](v2, 0);
   }
 
   else
   {
-    v4 = *(this + 31);
-    if (v4)
+    v3 = *(this + 31);
+    if (v3)
     {
-      v7[0] = a2;
-      result = IOConnectCallScalarMethod(v4, 0, v7, 1u, 0, 0);
+      v5[0] = a2;
+      return IOConnectCallScalarMethod(v3, 0, v5, 1u, 0, 0);
     }
 
     else
     {
-      result = 3758097084;
+      return 3758097084;
     }
-
-    v5 = *MEMORY[0x29EDCA608];
   }
-
-  return result;
 }
 
 uint64_t SavageDevice::PreFusing(SavageDevice *this, unsigned int a2)
 {
-  v7[1] = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
   if (*(this + 105))
   {
     v2 = *(this + 16);
-    v3 = *MEMORY[0x29EDCA608];
 
     return MEMORY[0x2A1C68FF0](v2, 0);
   }
 
   else
   {
-    v4 = *(this + 31);
-    if (v4)
+    v3 = *(this + 31);
+    if (v3)
     {
-      v7[0] = a2;
-      result = IOConnectCallScalarMethod(v4, 1u, v7, 1u, 0, 0);
+      v5[0] = a2;
+      return IOConnectCallScalarMethod(v3, 1u, v5, 1u, 0, 0);
     }
 
     else
     {
-      result = 3758097084;
+      return 3758097084;
     }
-
-    v5 = *MEMORY[0x29EDCA608];
   }
-
-  return result;
 }
 
 CFTypeRef OUTLINED_FUNCTION_2(io_registry_entry_t a1, const __CFString *a2)
@@ -3283,7 +3231,6 @@ LABEL_5:
 
         if (*(this + 98))
         {
-          v14 = *(this + 16);
           SavageCamInterfaceClose();
           *(this + 16) = 0;
         }
@@ -3327,7 +3274,6 @@ void JasmineIRDevice::~JasmineIRDevice(JasmineIRDevice *this)
 
   if (*(this + 98))
   {
-    v4 = *(this + 16);
     SavageCamInterfaceClose();
     *(this + 16) = 0;
   }
@@ -3337,7 +3283,6 @@ uint64_t JasmineIRDevice::JasmineIRDeviceClose(JasmineIRDevice *this)
 {
   if (*(this + 98))
   {
-    v2 = *(this + 16);
     SavageCamInterfaceClose();
     *(this + 16) = 0;
   }
@@ -3400,7 +3345,7 @@ void SavageUpdateController::SavageLog(SavageUpdateController *this, const char 
 {
   va_start(va, a2);
   v2 = MEMORY[0x2A1C7C4A8](this, a2);
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   vsnprintf(__str, 0x1000uLL, v3, va);
   if (*v2)
   {
@@ -3410,11 +3355,9 @@ void SavageUpdateController::SavageLog(SavageUpdateController *this, const char 
   else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v6 = __str;
+    v5 = __str;
     _os_log_impl(&dword_299F4E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "SavageLog: %s \n", buf, 0xCu);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void SavageUpdateController::destroyInstance(SavageUpdateController *this)
@@ -3574,24 +3517,24 @@ void SavageUpdateController::~SavageUpdateController(SavageUpdateController *thi
   }
 }
 
-uint64_t SavageUpdateController::libFDRCallback(uint64_t a1, uint64_t a2)
+BOOL SavageUpdateController::libFDRCallback(uint64_t a1, uint64_t a2)
 {
   MEMORY[0x2A1C7C4A8](a1, a2);
   v3 = v2;
   v5 = v4;
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v6 = calloc(0x10uLL, 1uLL);
   *(SavageUpdateController::myInstance + 32) = v6;
-  v16.location = 0;
-  v16.length = 16;
-  CFDataGetBytes(v5, v16, v6);
+  v15.location = 0;
+  v15.length = 16;
+  CFDataGetBytes(v5, v15, v6);
   SavageUpdateController::SavageLog(SavageUpdateController::myInstance, "Auth challenge received from libFDR:--------------\n");
-  bzero(v14, 0x1000uLL);
+  bzero(v13, 0x1000uLL);
   v7 = 0;
   v8 = 0;
   do
   {
-    v9 = snprintf(&v14[v8], 5uLL, " %02X ", *(*(SavageUpdateController::myInstance + 32) + v7));
+    v9 = snprintf(&v13[v8], 5uLL, " %02X ", *(*(SavageUpdateController::myInstance + 32) + v7));
     if (v7 > 0xE)
     {
       break;
@@ -3602,7 +3545,7 @@ uint64_t SavageUpdateController::libFDRCallback(uint64_t a1, uint64_t a2)
   }
 
   while (v8 < 4091);
-  SavageUpdateController::SavageLog(SavageUpdateController::myInstance, "%s \n", v14);
+  SavageUpdateController::SavageLog(SavageUpdateController::myInstance, "%s \n", v13);
   SavageUpdateController::formatAndStitchFiles(SavageUpdateController::myInstance);
   SavageDevice::Fusing(*(SavageUpdateController::myInstance + 64), *(SavageUpdateController::myInstance + 424), *(SavageUpdateController::myInstance + 416), *(SavageUpdateController::myInstance + 412));
   v10 = *(*(SavageUpdateController::myInstance + 64) + 8);
@@ -3622,7 +3565,6 @@ uint64_t SavageUpdateController::libFDRCallback(uint64_t a1, uint64_t a2)
     *v3 = v10;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -4054,7 +3996,7 @@ LABEL_21:
 
 uint64_t SavageUpdateController::getFirmwareDigest(SavageUpdateController *this)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v2 = *(this + 46);
   if (*(v2 + 1) < 0)
   {
@@ -4073,29 +4015,40 @@ uint64_t SavageUpdateController::getFirmwareDigest(SavageUpdateController *this)
   }
 
   v5 = (v2 + v3);
-  if (*v5 == 135 && v5[1] == 32 && (SavageUpdateController::SavageLog(this, "%s: Digest offset and length are correctly calculated \n", "getFirmwareDigest"), MEMORY[0x2A1C7C4A8](v6, v7), v8 = *(this + 46) + v3, v9 = *(v8 + 18), v14[0] = *(v8 + 2), v14[1] = v9, (v10 = CFDataCreate(*MEMORY[0x29EDB8ED8], v14, 32)) != 0))
+  if (*v5 != 135)
   {
-    v11 = v10;
-    CFDictionarySetValue(*(this + 33), *MEMORY[0x29EDCAC28], v10);
-    CFRelease(v11);
-    result = 0;
+    return 8;
   }
 
-  else
+  if (v5[1] != 32)
   {
-    result = 8;
+    return 8;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  SavageUpdateController::SavageLog(this, "%s: Digest offset and length are correctly calculated \n", "getFirmwareDigest");
+  MEMORY[0x2A1C7C4A8](v6, v7);
+  v8 = *(this + 46) + v3;
+  v9 = *(v8 + 18);
+  v13[0] = *(v8 + 2);
+  v13[1] = v9;
+  v10 = CFDataCreate(*MEMORY[0x29EDB8ED8], v13, 32);
+  if (!v10)
+  {
+    return 8;
+  }
+
+  v11 = v10;
+  CFDictionarySetValue(*(this + 33), *MEMORY[0x29EDCAC28], v10);
+  CFRelease(v11);
+  return 0;
 }
 
 uint64_t SavageUpdateController::eventCmdPerformNextStage(SavageUpdateController *this, uint64_t a2)
 {
   v2 = MEMORY[0x2A1C7C4A8](this, a2);
   v3 = v2;
-  v33 = *MEMORY[0x29EDCA608];
-  v31 = 0;
+  v32 = *MEMORY[0x29EDCA608];
+  v30 = 0;
   if (*(v2 + 16) == 1)
   {
     SavageUpdateController::SavageLog(v2, "%s: Begin actual NGID Provisioning \n", "eventCmdPerformNextStage");
@@ -4104,12 +4057,12 @@ uint64_t SavageUpdateController::eventCmdPerformNextStage(SavageUpdateController
     SavageProvisioningData = getSavageProvisioningData(CStringPtr, (v3 + 88), 56, (v3 + 72), 16, *(v3 + 46), *(v3 + 94), v3 + 144, v3 + 30, (v3 + 200), v3 + 28, v3 + 216, v3 + 29);
     SavageUpdateController::SavageLog(v3, "%s: PearlStatus=%d, KCV=0x%x \n", "eventCmdPerformNextStage", SavageProvisioningData, *(v3 + 54));
     SavageUpdateController::SavageLog(v3, "%s: NGID_d_e: \n", "eventCmdPerformNextStage");
-    bzero(v32, 0x1000uLL);
+    bzero(v31, 0x1000uLL);
     v6 = 0;
     v7 = 0;
     do
     {
-      v8 = snprintf(&v32[v7], 5uLL, " %02X ", *(v3 + v6 + 200));
+      v8 = snprintf(&v31[v7], 5uLL, " %02X ", *(v3 + v6 + 200));
       if (v6 > 0xE)
       {
         break;
@@ -4120,14 +4073,14 @@ uint64_t SavageUpdateController::eventCmdPerformNextStage(SavageUpdateController
     }
 
     while (v7 < 4091);
-    SavageUpdateController::SavageLog(v3, "%s \n", v32);
+    SavageUpdateController::SavageLog(v3, "%s \n", v31);
     SavageUpdateController::SavageLog(v3, "%s: KCV: \n", "eventCmdPerformNextStage");
-    bzero(v32, 0x1000uLL);
+    bzero(v31, 0x1000uLL);
     v9 = 0;
     v10 = 0;
     do
     {
-      v11 = snprintf(&v32[v10], 5uLL, " %02X ", *(v3 + v9 + 216));
+      v11 = snprintf(&v31[v10], 5uLL, " %02X ", *(v3 + v9 + 216));
       if (v9 > 1)
       {
         break;
@@ -4138,12 +4091,12 @@ uint64_t SavageUpdateController::eventCmdPerformNextStage(SavageUpdateController
     }
 
     while (v10 < 4091);
-    SavageUpdateController::SavageLog(v3, "%s \n", v32);
+    SavageUpdateController::SavageLog(v3, "%s \n", v31);
     SavageUpdateController::formatAndStitchFiles(v3);
     SavageDevice::Fusing(*(v3 + 8), *(v3 + 106), *(v3 + 52), *(v3 + 103));
-    checkSavageProvisioning(&v31);
-    v12 = v31;
-    if (v31 == 1 || v31 == 4)
+    checkSavageProvisioning(&v30);
+    v12 = v30;
+    if (v30 == 1 || v30 == 4)
     {
       v14 = 0;
     }
@@ -4155,7 +4108,7 @@ uint64_t SavageUpdateController::eventCmdPerformNextStage(SavageUpdateController
 
     *(v3 + 16) = 0;
     SavageUpdateController::SavageLog(v3, "%s Tried NGID Provisioning...look for valid KCV in the ioreg (NGIDProvStatus = %d) \n", "eventCmdPerformNextStage", v12);
-    goto LABEL_69;
+    return v14;
   }
 
   if (*(v2 + 17) == 1)
@@ -4177,9 +4130,7 @@ uint64_t SavageUpdateController::eventCmdPerformNextStage(SavageUpdateController
       *(v3 + 17) = 0;
       if (!v17)
       {
-LABEL_68:
-        v14 = 0;
-        goto LABEL_69;
+        return 0;
       }
     }
 
@@ -4187,12 +4138,12 @@ LABEL_68:
     {
       v14 = 3758097129;
       *(v3 + 17) = 0;
-      goto LABEL_69;
+      return v14;
     }
 
     v14 = 0;
     *(v3 + 18) = 0;
-    goto LABEL_69;
+    return v14;
   }
 
   if (*(v2 + 19) == 1)
@@ -4214,7 +4165,7 @@ LABEL_68:
       *(v3 + 19) = 0;
       if (!v20)
       {
-        goto LABEL_68;
+        return 0;
       }
     }
 
@@ -4222,12 +4173,12 @@ LABEL_68:
     {
       v14 = 3758097129;
       *(v3 + 19) = 0;
-      goto LABEL_69;
+      return v14;
     }
 
     v14 = 0;
     *(v3 + 20) = 0;
-    goto LABEL_69;
+    return v14;
   }
 
   if (*(v2 + 21) != 1)
@@ -4255,7 +4206,7 @@ LABEL_68:
         }
       }
 
-      goto LABEL_68;
+      return 0;
     }
 
     v14 = 3758097129;
@@ -4263,8 +4214,7 @@ LABEL_68:
     if (!*(*(v3 + 8) + 18))
     {
       SavageUpdateController::SavageLog(v3, "%s: Missing FDRDataEncryptionKey in ioreg \n", "eventCmdPerformNextStage");
-      v14 = 3758097136;
-      goto LABEL_69;
+      return 3758097136;
     }
 
     SavageUpdateController::SavageLog(v3, "%s: Picked up FDRDataEncryptionKey as wrap input key \n", "eventCmdPerformNextStage");
@@ -4288,19 +4238,19 @@ LABEL_68:
       *(v3 + 23) = 0;
       if (!v26)
       {
-        goto LABEL_68;
+        return 0;
       }
     }
 
     else if (!*(v3 + 24))
     {
       *(v3 + 23) = 0;
-      goto LABEL_69;
+      return v14;
     }
 
     v14 = 0;
     *(v3 + 24) = 0;
-    goto LABEL_69;
+    return v14;
   }
 
   SavageUpdateController::SavageLog(v2, "%s: Begin reading info needed for auth flow \n", "eventCmdPerformNextStage");
@@ -4365,8 +4315,6 @@ LABEL_57:
     *v28 = 0;
   }
 
-LABEL_69:
-  v29 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
@@ -4734,7 +4682,7 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
   v2 = MEMORY[0x2A1C7C4A8](this, a2);
   v4 = v3;
   v5 = v2;
-  v52 = *MEMORY[0x29EDCA608];
+  v51 = *MEMORY[0x29EDCA608];
   *(v2 + 384) = 0;
   *(v2 + 392) = 0;
   *(v2 + 320) = 0;
@@ -4788,13 +4736,13 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
   *(v5 + 320) = v13;
   memcpy(v13, v4, *(v5 + 328));
   SavageUpdateController::SavageLog(v5, "LeafCertificate:--------------offset = %d (%d)\n", 0, *(v5 + 328));
-  bzero(v51, 0x1000uLL);
+  bzero(v50, 0x1000uLL);
   if (*(v5 + 328))
   {
     v14 = 0;
     for (i = 0; i < 4091; i += v16)
     {
-      v16 = snprintf(&v51[i], 5uLL, " %02X ", *(*(v5 + 320) + v14++));
+      v16 = snprintf(&v50[i], 5uLL, " %02X ", *(*(v5 + 320) + v14++));
       if (v14 >= *(v5 + 328))
       {
         break;
@@ -4802,20 +4750,20 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
     }
   }
 
-  SavageUpdateController::SavageLog(v5, "%s \n", v51);
+  SavageUpdateController::SavageLog(v5, "%s \n", v50);
   v17 = *(v5 + 328);
   *(v5 + 344) = v4[(v17 + 1)] + 2;
   v18 = calloc(0x40uLL, 1uLL);
   *(v5 + 336) = v18;
   memcpy(v18, &v4[v17], *(v5 + 344));
   SavageUpdateController::SavageLog(v5, "LeafSignature(Pre-validation):--------------offset = %d (%d)\n", v17, *(v5 + 344));
-  bzero(v51, 0x1000uLL);
+  bzero(v50, 0x1000uLL);
   if (*(v5 + 344))
   {
     v19 = 0;
     for (j = 0; j < 4091; j += v21)
     {
-      v21 = snprintf(&v51[j], 5uLL, " %02X ", *(*(v5 + 336) + v19++));
+      v21 = snprintf(&v50[j], 5uLL, " %02X ", *(*(v5 + 336) + v19++));
       if (v19 >= *(v5 + 344))
       {
         break;
@@ -4823,16 +4771,16 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
     }
   }
 
-  SavageUpdateController::SavageLog(v5, "%s \n", v51);
+  SavageUpdateController::SavageLog(v5, "%s \n", v50);
   SavageUpdateController::validateSignatureLen(v5, *(v5 + 336), (v5 + 344));
   SavageUpdateController::SavageLog(v5, "LeafSignature(Post-validation):--------------offset = %d (%d)\n", v17, *(v5 + 344));
-  bzero(v51, 0x1000uLL);
+  bzero(v50, 0x1000uLL);
   if (*(v5 + 344))
   {
     v22 = 0;
     for (k = 0; k < 4091; k += v24)
     {
-      v24 = snprintf(&v51[k], 5uLL, " %02X ", *(*(v5 + 336) + v22++));
+      v24 = snprintf(&v50[k], 5uLL, " %02X ", *(*(v5 + 336) + v22++));
       if (v22 >= *(v5 + 344))
       {
         break;
@@ -4840,7 +4788,7 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
     }
   }
 
-  SavageUpdateController::SavageLog(v5, "%s \n", v51);
+  SavageUpdateController::SavageLog(v5, "%s \n", v50);
   v25 = *(v5 + 344);
   v26 = v25 + v17;
   if (v4[(v25 + v17 + 1)] < 0)
@@ -4887,13 +4835,13 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
   *(v5 + 368) = v33;
   memcpy(v33, &v4[v26], *(v5 + 376));
   SavageUpdateController::SavageLog(v5, "FirmwareCertificate:--------------offset = %d (%d)\n", v26, *(v5 + 376));
-  bzero(v51, 0x1000uLL);
+  bzero(v50, 0x1000uLL);
   if (*(v5 + 376))
   {
     v34 = 0;
     for (m = 0; m < 4091; m += v36)
     {
-      v36 = snprintf(&v51[m], 5uLL, " %02X ", *(*(v5 + 368) + v34++));
+      v36 = snprintf(&v50[m], 5uLL, " %02X ", *(*(v5 + 368) + v34++));
       if (v34 >= *(v5 + 376))
       {
         break;
@@ -4901,20 +4849,20 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
     }
   }
 
-  SavageUpdateController::SavageLog(v5, "%s \n", v51);
+  SavageUpdateController::SavageLog(v5, "%s \n", v50);
   v37 = (*(v5 + 376) + v26);
   *(v5 + 360) = v4[(v37 + 1)] + 2;
   v38 = calloc(0x40uLL, 1uLL);
   *(v5 + 352) = v38;
   memcpy(v38, &v4[v37], *(v5 + 360));
   SavageUpdateController::SavageLog(v5, "FirmwareSignature (Pre-validation):--------------offset = %d (%d)\n", v37, *(v5 + 360));
-  bzero(v51, 0x1000uLL);
+  bzero(v50, 0x1000uLL);
   if (*(v5 + 360))
   {
     v39 = 0;
     for (n = 0; n < 4091; n += v41)
     {
-      v41 = snprintf(&v51[n], 5uLL, " %02X ", *(*(v5 + 352) + v39++));
+      v41 = snprintf(&v50[n], 5uLL, " %02X ", *(*(v5 + 352) + v39++));
       if (v39 >= *(v5 + 360))
       {
         break;
@@ -4922,16 +4870,16 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
     }
   }
 
-  SavageUpdateController::SavageLog(v5, "%s \n", v51);
+  SavageUpdateController::SavageLog(v5, "%s \n", v50);
   SavageUpdateController::validateSignatureLen(v5, *(v5 + 352), (v5 + 360));
   SavageUpdateController::SavageLog(v5, "FirmwareSignature (Post-validation):--------------offset = %d (%d)\n", v37, *(v5 + 360));
-  bzero(v51, 0x1000uLL);
+  bzero(v50, 0x1000uLL);
   if (*(v5 + 360))
   {
     v42 = 0;
     for (ii = 0; ii < 4091; ii += v44)
     {
-      v44 = snprintf(&v51[ii], 5uLL, " %02X ", *(*(v5 + 352) + v42++));
+      v44 = snprintf(&v50[ii], 5uLL, " %02X ", *(*(v5 + 352) + v42++));
       if (v42 >= *(v5 + 360))
       {
         break;
@@ -4939,7 +4887,7 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
     }
   }
 
-  SavageUpdateController::SavageLog(v5, "%s \n", v51);
+  SavageUpdateController::SavageLog(v5, "%s \n", v50);
   v45 = (*(v5 + 344) + *(v5 + 328) + *(v5 + 376) + *(v5 + 360));
   *(v5 + 392) = v45;
   v46 = calloc(v45, 1uLL);
@@ -4949,13 +4897,13 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
   memcpy((*(v5 + 384) + *(v5 + 328) + *(v5 + 344)), *(v5 + 368), *(v5 + 376));
   memcpy((*(v5 + 384) + *(v5 + 328) + *(v5 + 344) + *(v5 + 376)), *(v5 + 352), *(v5 + 360));
   SavageUpdateController::SavageLog(v5, "Complete Signed Savage Certificate:--------------Length = %d \n", *(v5 + 392));
-  bzero(v51, 0x1000uLL);
+  bzero(v50, 0x1000uLL);
   if (*(v5 + 392))
   {
     v47 = 0;
     for (jj = 0; jj < 4091; jj += v49)
     {
-      v49 = snprintf(&v51[jj], 5uLL, " %02X ", *(*(v5 + 384) + v47++));
+      v49 = snprintf(&v50[jj], 5uLL, " %02X ", *(*(v5 + 384) + v47++));
       if (v47 >= *(v5 + 392))
       {
         break;
@@ -4963,8 +4911,7 @@ void SavageUpdateController::getSignedCertificate(SavageUpdateController *this, 
     }
   }
 
-  SavageUpdateController::SavageLog(v5, "%s \n", v51);
-  v50 = *MEMORY[0x29EDCA608];
+  SavageUpdateController::SavageLog(v5, "%s \n", v50);
 }
 
 void SavageUpdateController::validateSignatureLen(SavageUpdateController *this, unsigned __int8 *a2, unsigned int *a3)
@@ -5055,9 +5002,9 @@ const __CFString *SavageUpdaterCreate(SavageUpdateController *a1, void *a2, cons
 
   if (!SavageUpdaterTypeID)
   {
-    v21 = "SavageUpdaterCreate - failed to register kLibSavageUpdaterClass";
+    v20 = "SavageUpdaterCreate - failed to register kLibSavageUpdaterClass";
 LABEL_14:
-    CFErrorWithDomain = createCFErrorWithDomain(v21, 3u, a1, @"SavageErrorDomain");
+    CFErrorWithDomain = createCFErrorWithDomain(v20, 3u, a1, @"SavageErrorDomain");
     if (!CFErrorWithDomain)
     {
       return 0;
@@ -5065,7 +5012,7 @@ LABEL_14:
 
     Description = CFErrorWithDomain;
 LABEL_21:
-    v11 = 0;
+    v10 = 0;
     if (a4)
     {
       *a4 = SavageSafeRetain(Description);
@@ -5074,57 +5021,56 @@ LABEL_21:
     goto LABEL_10;
   }
 
-  v8 = *MEMORY[0x29EDB8ED8];
   Instance = _CFRuntimeCreateInstance();
   if (!Instance)
   {
-    v21 = "SavageUpdaterCreate - failed to create SavageUpdaterObj";
+    v20 = "SavageUpdaterCreate - failed to create SavageUpdaterObj";
     goto LABEL_14;
   }
 
-  v11 = Instance;
-  v12 = SavageUpdaterTypeID;
+  v10 = Instance;
+  v11 = SavageUpdaterTypeID;
   *(Instance + 16) = 0;
-  *(Instance + 24) = v12;
-  v13 = SavageUpdateController::getInstance(a1, a3, a2, v10);
-  v11[1].isa = v13;
-  if (!v13)
+  *(Instance + 24) = v11;
+  v12 = SavageUpdateController::getInstance(a1, a3, a2, v9);
+  v10[1].isa = v12;
+  if (!v12)
   {
-    v23 = "SavageUpdaterCreate - no savage controller instance";
-    v24 = &kSavageErrorDomain;
+    v22 = "SavageUpdaterCreate - no savage controller instance";
+    v23 = &kSavageErrorDomain;
 LABEL_19:
-    v25 = createCFErrorWithDomain(v23, 0x10u, a1, *v24);
-    if (!v25)
+    v24 = createCFErrorWithDomain(v22, 0x10u, a1, *v23);
+    if (!v24)
     {
-      return v11;
+      return v10;
     }
 
-    Description = v25;
-    CFRelease(v11);
+    Description = v24;
+    CFRelease(v10);
     goto LABEL_21;
   }
 
-  v15 = JasmineIRUpdateController::getInstance(a1, a3, a2, v14);
-  v11[1].data = v15;
-  if (!v15)
+  v14 = JasmineIRUpdateController::getInstance(a1, a3, a2, v13);
+  v10[1].data = v14;
+  if (!v14)
   {
-    v23 = "SavageUpdateCreate - no jasmine ir controller instance";
-    v24 = &kJasmineIRErrorDomain;
+    v22 = "SavageUpdateCreate - no jasmine ir controller instance";
+    v23 = &kJasmineIRErrorDomain;
     goto LABEL_19;
   }
 
-  v17 = YonkersUpdateController::getInstance(a1, a3, a2, v16);
-  v11[1].info = v17;
-  if (!v17)
+  v16 = YonkersUpdateController::getInstance(a1, a3, a2, v15);
+  v10[1].info = v16;
+  if (!v16)
   {
-    v23 = "SavageUpdaterCreate - no yonkers controller instance";
-    v24 = &kYonkersErrorDomain;
+    v22 = "SavageUpdaterCreate - no yonkers controller instance";
+    v23 = &kYonkersErrorDomain;
     goto LABEL_19;
   }
 
   if (a2)
   {
-    Description = SavageUpdaterCreateDescription(v11);
+    Description = SavageUpdaterCreateDescription(v10);
     CStringPtr = CFStringGetCStringPtr(Description, 0);
     (a2)(a3, CStringPtr);
     if (Description)
@@ -5134,7 +5080,7 @@ LABEL_10:
     }
   }
 
-  return v11;
+  return v10;
 }
 
 uint64_t __SavageUpdaterCreate_block_invoke()
@@ -5297,7 +5243,7 @@ LABEL_28:
 
 uint64_t encryptFDRData(const void *a1, size_t a2, void *a3, size_t *a4)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -5316,15 +5262,15 @@ uint64_t encryptFDRData(const void *a1, size_t a2, void *a3, size_t *a4)
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 134218752;
-    v16 = a1;
-    v17 = 2048;
-    v18 = a2;
-    v19 = 2048;
-    v20 = a3;
-    v21 = 2048;
-    v22 = a4;
-    _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_DEFAULT, "encryptFDRData %p %zu %p %p\n", &v15, 0x2Au);
+    v14 = 134218752;
+    v15 = a1;
+    v16 = 2048;
+    v17 = a2;
+    v18 = 2048;
+    v19 = a3;
+    v20 = 2048;
+    v21 = a4;
+    _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_DEFAULT, "encryptFDRData %p %zu %p %p\n", &v14, 0x2Au);
   }
 
   v10 = encryptFDRDataInternal(a1, a2, a3, a4, 0);
@@ -5353,19 +5299,19 @@ uint64_t encryptFDRData(const void *a1, size_t a2, void *a3, size_t *a4)
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 67109120;
-      LODWORD(v16) = 0;
-      _os_log_impl(&dword_299F4E000, v12, OS_LOG_TYPE_DEFAULT, "encryptFDRData -> %d\n", &v15, 8u);
+      v14 = 67109120;
+      LODWORD(v15) = 0;
+      _os_log_impl(&dword_299F4E000, v12, OS_LOG_TYPE_DEFAULT, "encryptFDRData -> %d\n", &v14, 8u);
     }
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
-uint64_t encryptFDRDataInternal(const void *a1, size_t a2, void *a3, size_t *a4, int a5)
+uint64_t encryptFDRDataInternal(const void *a1, size_t a2, void *a3, size_t *a4, uint64_t a5)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v5 = a5;
+  v30 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -5384,17 +5330,17 @@ uint64_t encryptFDRDataInternal(const void *a1, size_t a2, void *a3, size_t *a4,
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 134219008;
-    v22 = a1;
-    v23 = 2048;
-    v24 = a2;
-    v25 = 2048;
-    v26 = a3;
-    v27 = 2048;
-    v28 = a4;
-    v29 = 1024;
-    v30 = a5;
-    _os_log_impl(&dword_299F4E000, v11, OS_LOG_TYPE_DEFAULT, "encryptFDRDataInternal %p %zu %p %p %d\n", &v21, 0x30u);
+    v20 = 134219008;
+    v21 = a1;
+    v22 = 2048;
+    v23 = a2;
+    v24 = 2048;
+    v25 = a3;
+    v26 = 2048;
+    v27 = a4;
+    v28 = 1024;
+    v29 = v5;
+    _os_log_impl(&dword_299F4E000, v11, OS_LOG_TYPE_DEFAULT, "encryptFDRDataInternal %p %zu %p %p %d\n", &v20, 0x30u);
   }
 
   if (a1)
@@ -5407,12 +5353,12 @@ uint64_t encryptFDRDataInternal(const void *a1, size_t a2, void *a3, size_t *a4,
         {
           if (a2 >= 0xFFFFFFFFFFFFFFACLL)
           {
-            encryptFDRDataInternal_cold_5(a2 >= 0xFFFFFFFFFFFFFFACLL, &v21);
+            encryptFDRDataInternal_cold_5(a2 >= 0xFFFFFFFFFFFFFFACLL, &v20);
           }
 
           else if (*a4 < a2 + 84)
           {
-            encryptFDRDataInternal_cold_4(&v21);
+            encryptFDRDataInternal_cold_4(&v20);
           }
 
           else
@@ -5420,47 +5366,47 @@ uint64_t encryptFDRDataInternal(const void *a1, size_t a2, void *a3, size_t *a4,
             v12 = initialize();
             if (v12)
             {
-              encryptFDRDataInternal_cold_2(v12, v12, &v21);
+              encryptFDRDataInternal_cold_2(v12, v12, &v20);
             }
 
             else
             {
-              v13 = performCommand(_connect, 9, a5, a1, a2, a3, a4);
+              v13 = performCommand(_connect, 9, v5, a1, a2, a3, a4);
               if (!v13)
               {
                 v14 = 0;
                 goto LABEL_17;
               }
 
-              encryptFDRDataInternal_cold_3(v13, v13, &v21);
+              encryptFDRDataInternal_cold_3(v13, v13, &v20);
             }
           }
         }
 
         else
         {
-          encryptFDRDataInternal_cold_6(&v21);
+          encryptFDRDataInternal_cold_6(&v20);
         }
       }
 
       else
       {
-        encryptFDRDataInternal_cold_7(&v21);
+        encryptFDRDataInternal_cold_7(&v20);
       }
     }
 
     else
     {
-      encryptFDRDataInternal_cold_8(&v21);
+      encryptFDRDataInternal_cold_8(&v20);
     }
   }
 
   else
   {
-    encryptFDRDataInternal_cold_9(&v21);
+    encryptFDRDataInternal_cold_9(&v20);
   }
 
-  v14 = v21;
+  v14 = v20;
 LABEL_17:
   if (_connect)
   {
@@ -5487,12 +5433,12 @@ LABEL_17:
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = 67109120;
-      LODWORD(v22) = v14;
+      v20 = 67109120;
+      LODWORD(v21) = v14;
       v16 = v15;
       v17 = OS_LOG_TYPE_ERROR;
 LABEL_34:
-      _os_log_impl(&dword_299F4E000, v16, v17, "encryptFDRDataInternal -> %d\n", &v21, 8u);
+      _os_log_impl(&dword_299F4E000, v16, v17, "encryptFDRDataInternal -> %d\n", &v20, 8u);
     }
   }
 
@@ -5515,21 +5461,20 @@ LABEL_34:
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 67109120;
-      LODWORD(v22) = 0;
+      v20 = 67109120;
+      LODWORD(v21) = 0;
       v16 = v18;
       v17 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_34;
     }
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t verifyFDRData(const void *a1, size_t a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -5548,11 +5493,11 @@ uint64_t verifyFDRData(const void *a1, size_t a2)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 134218240;
-    v16 = a1;
-    v17 = 2048;
-    v18 = a2;
-    _os_log_impl(&dword_299F4E000, v5, OS_LOG_TYPE_DEFAULT, "verifyFDRData %p %zu\n", &v15, 0x16u);
+    v14 = 134218240;
+    v15 = a1;
+    v16 = 2048;
+    v17 = a2;
+    _os_log_impl(&dword_299F4E000, v5, OS_LOG_TYPE_DEFAULT, "verifyFDRData %p %zu\n", &v14, 0x16u);
   }
 
   if (a1)
@@ -5562,7 +5507,7 @@ uint64_t verifyFDRData(const void *a1, size_t a2)
       v6 = initialize();
       if (v6)
       {
-        verifyFDRData_cold_2(v6, v6, &v15);
+        verifyFDRData_cold_2(v6, v6, &v14);
       }
 
       else
@@ -5574,22 +5519,22 @@ uint64_t verifyFDRData(const void *a1, size_t a2)
           goto LABEL_12;
         }
 
-        verifyFDRData_cold_3(v7, v7, &v15);
+        verifyFDRData_cold_3(v7, v7, &v14);
       }
     }
 
     else
     {
-      verifyFDRData_cold_4(&v15);
+      verifyFDRData_cold_4(&v14);
     }
   }
 
   else
   {
-    verifyFDRData_cold_5(&v15);
+    verifyFDRData_cold_5(&v14);
   }
 
-  v8 = v15;
+  v8 = v14;
 LABEL_12:
   if (_connect)
   {
@@ -5616,12 +5561,12 @@ LABEL_12:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v15 = 67109120;
-      LODWORD(v16) = v8;
+      v14 = 67109120;
+      LODWORD(v15) = v8;
       v10 = v9;
       v11 = OS_LOG_TYPE_ERROR;
 LABEL_29:
-      _os_log_impl(&dword_299F4E000, v10, v11, "verifyFDRData -> %d\n", &v15, 8u);
+      _os_log_impl(&dword_299F4E000, v10, v11, "verifyFDRData -> %d\n", &v14, 8u);
     }
   }
 
@@ -5644,15 +5589,14 @@ LABEL_29:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 67109120;
-      LODWORD(v16) = 0;
+      v14 = 67109120;
+      LODWORD(v15) = 0;
       v10 = v12;
       v11 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_29;
     }
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -5834,10 +5778,10 @@ uint64_t overridePCECalibration(const void *a1, size_t a2)
 
 uint64_t decompressReferenceFrames(const void *a1, size_t a2, uint64_t a3)
 {
-  v111 = *MEMORY[0x29EDCA608];
-  v102 = 0;
+  v110 = *MEMORY[0x29EDCA608];
+  v101 = 0;
   *__str = 0u;
-  v110 = 0u;
+  v109 = 0u;
   v3 = &logString[2304];
   if (!a1 || !a2)
   {
@@ -5875,14 +5819,14 @@ LABEL_176:
   v10 = performCommand(_connect, 36, 0, v9, a2 + 9, 0, 0);
   if (v10)
   {
-    v91 = v10;
+    v90 = v10;
     decompressReferenceFrames_cold_2(v10, v9);
-    v75 = v91;
+    v75 = v90;
     goto LABEL_141;
   }
 
   free(v9);
-  v102 = 52;
+  v101 = 52;
   v11 = calloc(0x34uLL, 1uLL);
   if (!v11)
   {
@@ -5891,7 +5835,7 @@ LABEL_176:
   }
 
   v12 = v11;
-  v13 = performCommand(_connect, 45, 0, 0, 0, v11, &v102);
+  v13 = performCommand(_connect, 45, 0, 0, 0, v11, &v101);
   v14 = *MEMORY[0x29EDCA610];
   if (v13)
   {
@@ -5921,7 +5865,7 @@ LABEL_180:
   {
     v16 = *v12;
     *buf = 67109120;
-    *v104 = v16;
+    *v103 = v16;
     _os_log_impl(&dword_299F4E000, v15, OS_LOG_TYPE_DEFAULT, "ReferenceFramesInfo setCount: %d\n", buf, 8u);
   }
 
@@ -5961,14 +5905,14 @@ LABEL_180:
     v21 = v19;
     v22 = [v18 UTF8String];
     *buf = 136315138;
-    *v104 = v22;
+    *v103 = v22;
     _os_log_impl(&dword_299F4E000, v21, OS_LOG_TYPE_DEFAULT, "ReferenceFramesPath: %s\n", buf, 0xCu);
   }
 
   v23 = [MEMORY[0x29EDB9FB8] defaultManager];
   v24 = [v23 fileExistsAtPath:v18];
 
-  v95 = v18;
+  v94 = v18;
   if (v24)
   {
     v25 = [MEMORY[0x29EDB9FB8] defaultManager];
@@ -5994,7 +5938,7 @@ LABEL_180:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v104 = v18;
+        *v103 = v18;
         _os_log_impl(&dword_299F4E000, v27, OS_LOG_TYPE_DEFAULT, "Removed %@\n", buf, 0xCu);
       }
 
@@ -6017,9 +5961,9 @@ LABEL_34:
     goto LABEL_37;
   }
 
-  v107 = *MEMORY[0x29EDB9E68];
-  v108 = &unk_2A202F000;
-  v30 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+  v106 = *MEMORY[0x29EDB9E68];
+  v107 = &unk_2A202F000;
+  v30 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
   v31 = [MEMORY[0x29EDB9FB8] defaultManager];
   v32 = [v31 createDirectoryAtPath:v18 withIntermediateDirectories:1 attributes:v30 error:0] ^ 1;
 
@@ -6036,18 +5980,18 @@ LABEL_37:
     v33 = 0;
     v34 = 0;
     v35 = 0;
+    v95 = 0;
     v96 = 0;
-    v97 = 0;
     v36 = 0;
     v37 = 0;
-    v93 = v12 + 1;
+    v92 = v12 + 1;
     v38 = 0;
-    v39 = v95;
-    v92 = v12;
+    v39 = v94;
+    v91 = v12;
     while (1)
     {
-      v100 = &v93[3 * v33];
-      fprintf(*MEMORY[0x29EDCA610], "ReferenceFramesSetInfo, index: %d, type: %d, count: %d, size: %d\n", v33, *v100, v100[1], v100[2]);
+      v99 = &v92[3 * v33];
+      fprintf(*MEMORY[0x29EDCA610], "ReferenceFramesSetInfo, index: %d, type: %d, count: %d, size: %d\n", v33, *v99, v99[1], v99[2]);
       if (OSLogInit_onceToken != -1)
       {
         encryptFDRData_cold_3();
@@ -6065,24 +6009,24 @@ LABEL_37:
 
       if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = *v100;
-        v42 = v100[1];
-        v43 = v100[2];
+        v41 = *v99;
+        v42 = v99[1];
+        v43 = v99[2];
         *buf = 67109888;
-        *v104 = v33;
-        *&v104[4] = 1024;
-        *&v104[6] = v41;
-        LOWORD(v105) = 1024;
-        *(&v105 + 2) = v42;
-        HIWORD(v105) = 1024;
-        *v106 = v43;
+        *v103 = v33;
+        *&v103[4] = 1024;
+        *&v103[6] = v41;
+        LOWORD(v104) = 1024;
+        *(&v104 + 2) = v42;
+        HIWORD(v104) = 1024;
+        *v105 = v43;
         _os_log_impl(&dword_299F4E000, v40, OS_LOG_TYPE_DEFAULT, "ReferenceFramesSetInfo, index: %d, type: %d, count: %d, size: %d\n", buf, 0x1Au);
       }
 
-      v44 = *v100;
+      v44 = *v99;
       if (v44 <= 3)
       {
-        v96 = off_29F2921F0[v44];
+        v95 = off_29F2921F0[v44];
       }
 
       v45 = [MEMORY[0x29EDB8E00] dictionary];
@@ -6090,6 +6034,50 @@ LABEL_37:
       if (!v45)
       {
         fprintf(*MEMORY[0x29EDCA610], "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", "setDictionary", 0, "", "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m", 383);
+        if (OSLogInit_onceToken != -1)
+        {
+          encryptFDRData_cold_3();
+        }
+
+        if (__osLogPearlLib)
+        {
+          v88 = __osLogPearlLib;
+        }
+
+        else
+        {
+          v88 = MEMORY[0x29EDCA988];
+        }
+
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136316162;
+          *v103 = "setDictionary";
+          *&v103[8] = 2048;
+          v104 = 0;
+          *v105 = 2080;
+          *&v105[2] = "";
+          *&v105[10] = 2080;
+          *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+          *&v105[20] = 1024;
+          *&v105[22] = 383;
+          _os_log_impl(&dword_299F4E000, v88, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+        }
+
+        v75 = 261;
+        v39 = v94;
+        goto LABEL_81;
+      }
+
+      v97 = v33;
+      v46 = v45;
+      [v45 setObject:&unk_2A202F018 forKeyedSubscript:@"FormatDR"];
+      v47 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@/reference-%@.plist", v39, v95];
+
+      v96 = v46;
+      if (!v47)
+      {
+        fprintf(*MEMORY[0x29EDCA610], "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", "dictFileName", 0, "", "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m", 388);
         if (OSLogInit_onceToken != -1)
         {
           encryptFDRData_cold_3();
@@ -6108,88 +6096,44 @@ LABEL_37:
         if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          *v104 = "setDictionary";
-          *&v104[8] = 2048;
-          v105 = 0;
-          *v106 = 2080;
-          *&v106[2] = "";
-          *&v106[10] = 2080;
-          *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-          *&v106[20] = 1024;
-          *&v106[22] = 383;
+          *v103 = "dictFileName";
+          *&v103[8] = 2048;
+          v104 = 0;
+          *v105 = 2080;
+          *&v105[2] = "";
+          *&v105[10] = 2080;
+          *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+          *&v105[20] = 1024;
+          *&v105[22] = 388;
           _os_log_impl(&dword_299F4E000, v89, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
         }
 
         v75 = 261;
-        v39 = v95;
-        goto LABEL_81;
-      }
-
-      v98 = v33;
-      v46 = v45;
-      [v45 setObject:&unk_2A202F018 forKeyedSubscript:@"FormatDR"];
-      v47 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@/reference-%@.plist", v39, v96];
-
-      v97 = v46;
-      if (!v47)
-      {
-        fprintf(*MEMORY[0x29EDCA610], "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", "dictFileName", 0, "", "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m", 388);
-        if (OSLogInit_onceToken != -1)
-        {
-          encryptFDRData_cold_3();
-        }
-
-        if (__osLogPearlLib)
-        {
-          v90 = __osLogPearlLib;
-        }
-
-        else
-        {
-          v90 = MEMORY[0x29EDCA988];
-        }
-
-        if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136316162;
-          *v104 = "dictFileName";
-          *&v104[8] = 2048;
-          v105 = 0;
-          *v106 = 2080;
-          *&v106[2] = "";
-          *&v106[10] = 2080;
-          *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-          *&v106[20] = 1024;
-          *&v106[22] = 388;
-          _os_log_impl(&dword_299F4E000, v90, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
-        }
-
-        v75 = 261;
         v38 = v46;
-        v39 = v95;
+        v39 = v94;
         goto LABEL_81;
       }
 
-      v94 = v47;
-      v48 = v100;
-      if (v100[1])
+      v93 = v47;
+      v48 = v99;
+      if (v99[1])
       {
         break;
       }
 
-      v50 = v98;
+      v50 = v97;
 LABEL_70:
-      v38 = v94;
-      if (([v97 writeToFile:v94 atomically:0] & 1) == 0)
+      v38 = v93;
+      if (([v96 writeToFile:v93 atomically:0] & 1) == 0)
       {
-        decompressReferenceFrames_cold_19(*MEMORY[0x29EDCA610], v97);
+        decompressReferenceFrames_cold_19(*MEMORY[0x29EDCA610], v96);
         v75 = 1;
-        v12 = v92;
+        v12 = v91;
         goto LABEL_81;
       }
 
-      fprintf(*MEMORY[0x29EDCA610], "Reference set dictionary written to %s\n", [v94 UTF8String]);
-      v12 = v92;
+      fprintf(*MEMORY[0x29EDCA610], "Reference set dictionary written to %s\n", [v93 UTF8String]);
+      v12 = v91;
       if (OSLogInit_onceToken != -1)
       {
         encryptFDRData_cold_3();
@@ -6207,16 +6151,16 @@ LABEL_70:
 
       if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
       {
-        v72 = v94;
+        v72 = v93;
         v73 = v71;
-        v74 = [v94 UTF8String];
+        v74 = [v93 UTF8String];
         *buf = 136315138;
-        *v104 = v74;
+        *v103 = v74;
         _os_log_impl(&dword_299F4E000, v73, OS_LOG_TYPE_DEFAULT, "Reference set dictionary written to %s\n", buf, 0xCu);
       }
 
       v33 = v50 + 1;
-      if (v33 >= *v92)
+      if (v33 >= *v91)
       {
 
         v75 = 0;
@@ -6227,20 +6171,20 @@ LABEL_81:
     }
 
     v49 = 0;
-    LODWORD(v50) = v98;
+    LODWORD(v50) = v97;
     while (1)
     {
-      v101[0] = v50;
-      v101[1] = v49;
-      v102 = v48[2] + 524;
-      v51 = calloc(v102, 1uLL);
+      v100[0] = v50;
+      v100[1] = v49;
+      v101 = v48[2] + 524;
+      v51 = calloc(v101, 1uLL);
       if (!v51)
       {
         break;
       }
 
       v52 = v51;
-      v53 = performCommand(*(v3 + 452), 46, 0, v101, 8uLL, v51, &v102);
+      v53 = performCommand(*(v3 + 452), 46, 0, v100, 8uLL, v51, &v101);
       if (v53)
       {
         v75 = v53;
@@ -6264,15 +6208,15 @@ LABEL_81:
         if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          *v104 = "err == 0 ";
-          *&v104[8] = 2048;
-          v105 = v78;
-          *v106 = 2080;
-          *&v106[2] = "";
-          *&v106[10] = 2080;
-          *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-          *&v106[20] = 1024;
-          *&v106[22] = 403;
+          *v103 = "err == 0 ";
+          *&v103[8] = 2048;
+          v104 = v78;
+          *v105 = 2080;
+          *&v105[2] = "";
+          *&v105[10] = 2080;
+          *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+          *&v105[20] = 1024;
+          *&v105[22] = 403;
           _os_log_impl(&dword_299F4E000, v79, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
         }
 
@@ -6301,15 +6245,15 @@ LABEL_81:
         if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          *v104 = "ret > 0 && ret < sizeof(tempChar)";
-          *&v104[8] = 2048;
-          v105 = 0;
-          *v106 = 2080;
-          *&v106[2] = "";
-          *&v106[10] = 2080;
-          *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-          *&v106[20] = 1024;
-          *&v106[22] = 406;
+          *v103 = "ret > 0 && ret < sizeof(tempChar)";
+          *&v103[8] = 2048;
+          v104 = 0;
+          *v105 = 2080;
+          *&v105[2] = "";
+          *&v105[10] = 2080;
+          *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+          *&v105[20] = 1024;
+          *&v105[22] = 406;
           _os_log_impl(&dword_299F4E000, v80, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
         }
 
@@ -6339,15 +6283,15 @@ LABEL_81:
         if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          *v104 = "tempString";
-          *&v104[8] = 2048;
-          v105 = 0;
-          *v106 = 2080;
-          *&v106[2] = "";
-          *&v106[10] = 2080;
-          *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-          *&v106[20] = 1024;
-          *&v106[22] = 409;
+          *v103 = "tempString";
+          *&v103[8] = 2048;
+          v104 = 0;
+          *v105 = 2080;
+          *&v105[2] = "";
+          *&v105[10] = 2080;
+          *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+          *&v105[20] = 1024;
+          *&v105[22] = 409;
           _os_log_impl(&dword_299F4E000, v81, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
         }
 
@@ -6356,7 +6300,7 @@ LABEL_81:
       }
 
       v35 = v54;
-      v55 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"reference-%@__T_%@.bin", v96, v54];
+      v55 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"reference-%@__T_%@.bin", v95, v54];
 
       if (!v55)
       {
@@ -6379,15 +6323,15 @@ LABEL_81:
         if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          *v104 = "refFileName";
-          *&v104[8] = 2048;
-          v105 = 0;
-          *v106 = 2080;
-          *&v106[2] = "";
-          *&v106[10] = 2080;
-          *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-          *&v106[20] = 1024;
-          *&v106[22] = 412;
+          *v103 = "refFileName";
+          *&v103[8] = 2048;
+          v104 = 0;
+          *v105 = 2080;
+          *&v105[2] = "";
+          *&v105[10] = 2080;
+          *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+          *&v105[20] = 1024;
+          *&v105[22] = 412;
           _os_log_impl(&dword_299F4E000, v82, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
         }
 
@@ -6419,15 +6363,15 @@ LABEL_81:
         if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          *v104 = "refPath";
-          *&v104[8] = 2048;
-          v105 = 0;
-          *v106 = 2080;
-          *&v106[2] = "";
-          *&v106[10] = 2080;
-          *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-          *&v106[20] = 1024;
-          *&v106[22] = 415;
+          *v103 = "refPath";
+          *&v103[8] = 2048;
+          v104 = 0;
+          *v105 = 2080;
+          *&v105[2] = "";
+          *&v105[10] = 2080;
+          *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+          *&v105[20] = 1024;
+          *&v105[22] = 415;
           _os_log_impl(&dword_299F4E000, v83, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
         }
 
@@ -6435,15 +6379,15 @@ LABEL_81:
 LABEL_138:
         v75 = 261;
 LABEL_139:
-        free(v92);
+        free(v91);
         free(v52);
 
-        v76 = v95;
+        v76 = v94;
         goto LABEL_140;
       }
 
       v37 = v56;
-      [v97 setObject:v36 forKeyedSubscript:v35];
+      [v96 setObject:v36 forKeyedSubscript:v35];
       v57 = [MEMORY[0x29EDB8DA0] dataWithBytesNoCopy:v52 + 3 length:v52[2] freeWhenDone:0];
 
       if (!v57)
@@ -6467,15 +6411,15 @@ LABEL_139:
         if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          *v104 = "refFrameData";
-          *&v104[8] = 2048;
-          v105 = 0;
-          *v106 = 2080;
-          *&v106[2] = "";
-          *&v106[10] = 2080;
-          *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-          *&v106[20] = 1024;
-          *&v106[22] = 423;
+          *v103 = "refFrameData";
+          *&v103[8] = 2048;
+          v104 = 0;
+          *v105 = 2080;
+          *&v105[2] = "";
+          *&v105[10] = 2080;
+          *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+          *&v105[20] = 1024;
+          *&v105[22] = 423;
           _os_log_impl(&dword_299F4E000, v84, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
         }
 
@@ -6496,27 +6440,27 @@ LABEL_139:
 
         if (__osLogPearlLib)
         {
-          v88 = __osLogPearlLib;
+          v87 = __osLogPearlLib;
         }
 
         else
         {
-          v88 = MEMORY[0x29EDCA988];
+          v87 = MEMORY[0x29EDCA988];
         }
 
-        if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          *v104 = "err == 0 ";
-          *&v104[8] = 2048;
-          v105 = 1;
-          *v106 = 2080;
-          *&v106[2] = "";
-          *&v106[10] = 2080;
-          *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-          *&v106[20] = 1024;
-          *&v106[22] = 426;
-          _os_log_impl(&dword_299F4E000, v88, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+          *v103 = "err == 0 ";
+          *&v103[8] = 2048;
+          v104 = 1;
+          *v105 = 2080;
+          *&v105[2] = "";
+          *&v105[10] = 2080;
+          *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+          *&v105[20] = 1024;
+          *&v105[22] = 426;
+          _os_log_impl(&dword_299F4E000, v87, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
         }
 
         v75 = 1;
@@ -6525,16 +6469,16 @@ LABEL_139:
 
       v60 = v52;
       v61 = v36;
-      v99 = v35;
+      v98 = v35;
       v62 = v34;
       v63 = v60;
-      fprintf(v59, "Reference frame (set=%d, frame=%d, size=%d, type=%d, temp=%f) written to %s\n", v98, v49, v60[2], *v100, *v60, [v37 UTF8String]);
+      fprintf(v59, "Reference frame (set=%d, frame=%d, size=%d, type=%d, temp=%f) written to %s\n", v97, v49, v60[2], *v99, *v60, [v37 UTF8String]);
       if (OSLogInit_onceToken != -1)
       {
         encryptFDRData_cold_3();
       }
 
-      v50 = v98;
+      v50 = v97;
       if (__osLogPearlLib)
       {
         v64 = __osLogPearlLib;
@@ -6548,36 +6492,36 @@ LABEL_139:
       if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
       {
         v65 = v63[2];
-        v66 = *v100;
+        v66 = *v99;
         v67 = *v63;
         v68 = v37;
         v69 = v64;
-        v50 = v98;
+        v50 = v97;
         v70 = [v37 UTF8String];
         *buf = 67110402;
-        *v104 = v98;
-        *&v104[4] = 1024;
-        *&v104[6] = v49;
-        LOWORD(v105) = 1024;
-        *(&v105 + 2) = v65;
-        HIWORD(v105) = 1024;
-        *v106 = v66;
-        *&v106[4] = 2048;
-        *&v106[6] = v67;
+        *v103 = v97;
+        *&v103[4] = 1024;
+        *&v103[6] = v49;
+        LOWORD(v104) = 1024;
+        *(&v104 + 2) = v65;
+        HIWORD(v104) = 1024;
+        *v105 = v66;
+        *&v105[4] = 2048;
+        *&v105[6] = v67;
         v3 = logString + 2304;
-        *&v106[14] = 2080;
-        *&v106[16] = v70;
+        *&v105[14] = 2080;
+        *&v105[16] = v70;
         _os_log_impl(&dword_299F4E000, v69, OS_LOG_TYPE_DEFAULT, "Reference frame (set=%d, frame=%d, size=%d, type=%d, temp=%f) written to %s\n", buf, 0x2Eu);
       }
 
       free(v63);
       ++v49;
-      v48 = v100;
-      v39 = v95;
+      v48 = v99;
+      v39 = v94;
       v34 = v62;
-      v35 = v99;
+      v35 = v98;
       v36 = v61;
-      if (v49 >= v100[1])
+      if (v49 >= v99[1])
       {
         goto LABEL_70;
       }
@@ -6602,19 +6546,19 @@ LABEL_139:
     if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316162;
-      *v104 = "refFrame";
-      *&v104[8] = 2048;
-      v105 = 0;
-      *v106 = 2080;
-      *&v106[2] = "";
-      *&v106[10] = 2080;
-      *&v106[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
-      *&v106[20] = 1024;
-      *&v106[22] = 400;
+      *v103 = "refFrame";
+      *&v103[8] = 2048;
+      v104 = 0;
+      *v105 = 2080;
+      *&v105[2] = "";
+      *&v105[10] = 2080;
+      *&v105[12] = "/Library/Caches/com.apple.xbs/Sources/Pearl_Kernel/PearlFactoryLib/PearlFactoryLib.m";
+      *&v105[20] = 1024;
+      *&v105[22] = 400;
       _os_log_impl(&dword_299F4E000, v77, OS_LOG_TYPE_DEFAULT, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
 
-    free(v92);
+    free(v91);
 
     v75 = 260;
   }
@@ -6626,7 +6570,7 @@ LABEL_139:
     v35 = 0;
     v34 = 0;
     v75 = 0;
-    v39 = v95;
+    v39 = v94;
 LABEL_82:
     free(v12);
 
@@ -6642,18 +6586,17 @@ LABEL_141:
     *(v3 + 452) = 0;
   }
 
-  v86 = *MEMORY[0x29EDCA608];
   return v75;
 }
 
 uint64_t getSavageProvisioningData(uint64_t a1, __int128 *a2, uint64_t a3, _OWORD *a4, uint64_t a5, const void *a6, size_t a7, uint64_t a8, void *a9, _OWORD *a10, void *a11, uint64_t a12, void *a13)
 {
-  v61 = *MEMORY[0x29EDCA608];
-  v59 = 0u;
-  memset(v60, 0, 27);
-  v57 = 0u;
+  v60 = *MEMORY[0x29EDCA608];
   v58 = 0u;
-  v52 = 75;
+  memset(v59, 0, 27);
+  v56 = 0u;
+  v57 = 0u;
+  v51 = 75;
   v13 = &logString[2304];
   if (!a2)
   {
@@ -6718,16 +6661,16 @@ LABEL_69:
     goto LABEL_69;
   }
 
-  v49 = a4;
-  v50 = a6;
+  v48 = a4;
+  v49 = a6;
   v21 = MEMORY[0x29EDB8E00];
-  v55[0] = @"GetCombined";
-  v55[1] = @"StripImg4";
-  v56[0] = MEMORY[0x29EDB8EB0];
-  v56[1] = MEMORY[0x29EDB8EA8];
-  v55[2] = @"VerifyData";
-  v56[2] = MEMORY[0x29EDB8EA8];
-  v22 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
+  v54[0] = @"GetCombined";
+  v54[1] = @"StripImg4";
+  v55[0] = MEMORY[0x29EDB8EB0];
+  v55[1] = MEMORY[0x29EDB8EA8];
+  v54[2] = @"VerifyData";
+  v55[2] = MEMORY[0x29EDB8EA8];
+  v22 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v55 forKeys:v54 count:3];
   v23 = [v21 dictionaryWithDictionary:v22];
 
   if (!a1)
@@ -6776,7 +6719,7 @@ LABEL_19:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v54 = "getSavageProvisioningData";
+    v53 = "getSavageProvisioningData";
     _os_log_impl(&dword_299F4E000, v28, OS_LOG_TYPE_DEFAULT, "%s: Loading PSPC from FDR.\n", buf, 0xCu);
   }
 
@@ -6789,7 +6732,7 @@ LABEL_19:
       encryptFDRData_cold_3();
     }
 
-    v51 = v23;
+    v50 = v23;
     if (__osLogPearlLib)
     {
       v30 = __osLogPearlLib;
@@ -6803,7 +6746,7 @@ LABEL_19:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v54 = "getSavageProvisioningData";
+      v53 = "getSavageProvisioningData";
       _os_log_impl(&dword_299F4E000, v30, OS_LOG_TYPE_DEFAULT, "%s: PSPC data found.\n", buf, 0xCu);
     }
 
@@ -6845,7 +6788,7 @@ LABEL_19:
       if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v54 = "getSavageProvisioningData";
+        v53 = "getSavageProvisioningData";
         _os_log_impl(&dword_299F4E000, v36, OS_LOG_TYPE_DEFAULT, "%s: PSPC data loaded to SEP.\n", buf, 0xCu);
       }
 
@@ -6867,10 +6810,10 @@ LABEL_19:
           *(v37 + 1) = v40;
           *(v37 + 2) = v41;
           *v37 = v39;
-          *(v37 + 56) = *v49;
-          memcpy(v37 + 76, v50, a7);
+          *(v37 + 56) = *v48;
+          memcpy(v37 + 76, v49, a7);
           v38[18] = a7;
-          v42 = performCommand(_connect, 2, 0, v38, a7 + 76, &v57, &v52);
+          v42 = performCommand(_connect, 2, 0, v38, a7 + 76, &v56, &v51);
           if (v42)
           {
             getSavageProvisioningData_cold_8(v42, v42, buf);
@@ -6878,19 +6821,19 @@ LABEL_19:
 
           else
           {
-            if (v52 == 75)
+            if (v51 == 75)
             {
               *a9 = 56;
-              v43 = v58;
-              *a8 = v57;
+              v43 = v57;
+              *a8 = v56;
               *(a8 + 16) = v43;
-              *(a8 + 32) = v59;
-              *(a8 + 48) = *&v60[0];
+              *(a8 + 32) = v58;
+              *(a8 + 48) = *&v59[0];
               *a11 = 16;
-              *a10 = *(v60 + 8);
+              *a10 = *(v59 + 8);
               *a13 = 3;
-              *a12 = WORD4(v60[1]);
-              *(a12 + 2) = BYTE10(v60[1]);
+              *a12 = WORD4(v59[1]);
+              *(a12 + 2) = BYTE10(v59[1]);
               fprintf(*MEMORY[0x29EDCA610], "%s: Successfully got provisioning data.\n", "getSavageProvisioningData");
               if (OSLogInit_onceToken != -1)
               {
@@ -6912,7 +6855,7 @@ LABEL_19:
               if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v54 = "getSavageProvisioningData";
+                v53 = "getSavageProvisioningData";
                 _os_log_impl(&dword_299F4E000, v44, OS_LOG_TYPE_DEFAULT, "%s: Successfully got provisioning data.\n", buf, 0xCu);
                 v45 = 0;
               }
@@ -6941,7 +6884,7 @@ LABEL_55:
       goto LABEL_55;
     }
 
-    getSavageProvisioningData_cold_13(v51, v27);
+    getSavageProvisioningData_cold_13(v50, v27);
     v45 = 260;
   }
 
@@ -6959,13 +6902,12 @@ LABEL_56:
     *(v13 + 452) = 0;
   }
 
-  v47 = *MEMORY[0x29EDCA608];
   return v45;
 }
 
 uint64_t checkSavageProvisioning(_DWORD *a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -6984,12 +6926,12 @@ uint64_t checkSavageProvisioning(_DWORD *a1)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "checkSavageProvisioning\n", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "checkSavageProvisioning\n", &v10, 2u);
   }
 
-  v12 = 0;
-  v11 = 1;
+  v11 = 0;
+  v10 = 1;
   if (a1)
   {
     v4 = initialize();
@@ -7000,7 +6942,7 @@ uint64_t checkSavageProvisioning(_DWORD *a1)
 
     else
     {
-      v5 = performCommand(_connect, 11, 0, 0, 0, &v12, &v11);
+      v5 = performCommand(_connect, 11, 0, 0, 0, &v11, &v10);
       if (v5)
       {
         checkSavageProvisioning_cold_3(v5, v5, buf);
@@ -7008,9 +6950,9 @@ uint64_t checkSavageProvisioning(_DWORD *a1)
 
       else
       {
-        if (v11 == 1)
+        if (v10 == 1)
         {
-          *a1 = v12;
+          *a1 = v11;
           if (OSLogInit_onceToken != -1)
           {
             encryptFDRData_cold_3();
@@ -7030,7 +6972,7 @@ uint64_t checkSavageProvisioning(_DWORD *a1)
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v14 = 0;
+            v13 = 0;
             _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "checkSavageProvisioning -> %d\n", buf, 8u);
             v7 = 0;
           }
@@ -7056,19 +6998,19 @@ uint64_t checkSavageProvisioning(_DWORD *a1)
 
   if (__osLogPearlLibTrace)
   {
-    v10 = __osLogPearlLibTrace;
+    v9 = __osLogPearlLibTrace;
   }
 
   else
   {
-    v10 = v2;
+    v9 = v2;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v14 = v7;
-    _os_log_impl(&dword_299F4E000, v10, OS_LOG_TYPE_ERROR, "checkSavageProvisioning -> %d\n", buf, 8u);
+    v13 = v7;
+    _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_ERROR, "checkSavageProvisioning -> %d\n", buf, 8u);
   }
 
 LABEL_19:
@@ -7078,13 +7020,12 @@ LABEL_19:
     _connect = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 uint64_t getPearlSelfTestResult(void *a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -7117,9 +7058,9 @@ uint64_t getPearlSelfTestResult(void *a1)
 
     else
     {
-      v11 = 8;
-      v12 = 0;
-      v5 = performCommand(_connect, 58, 0, 0, 0, &v12, &v11);
+      v10 = 8;
+      v11 = 0;
+      v5 = performCommand(_connect, 58, 0, 0, 0, &v11, &v10);
       if (v5)
       {
         getPearlSelfTestResult_cold_3(v5, v5, buf);
@@ -7127,9 +7068,9 @@ uint64_t getPearlSelfTestResult(void *a1)
 
       else
       {
-        if (v11 == 8)
+        if (v10 == 8)
         {
-          *a1 = v12;
+          *a1 = v11;
           if (OSLogInit_onceToken != -1)
           {
             encryptFDRData_cold_3();
@@ -7149,7 +7090,7 @@ uint64_t getPearlSelfTestResult(void *a1)
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v14 = 0;
+            v13 = 0;
             _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "getPearlSelfTestResult -> %d\n", buf, 8u);
             v7 = 0;
           }
@@ -7175,19 +7116,19 @@ uint64_t getPearlSelfTestResult(void *a1)
 
   if (__osLogPearlLibTrace)
   {
-    v10 = __osLogPearlLibTrace;
+    v9 = __osLogPearlLibTrace;
   }
 
   else
   {
-    v10 = v2;
+    v9 = v2;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v14 = v7;
-    _os_log_impl(&dword_299F4E000, v10, OS_LOG_TYPE_ERROR, "getPearlSelfTestResult -> %d\n", buf, 8u);
+    v13 = v7;
+    _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_ERROR, "getPearlSelfTestResult -> %d\n", buf, 8u);
   }
 
 LABEL_19:
@@ -7197,13 +7138,12 @@ LABEL_19:
     _connect = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 uint64_t simulateSelfTestFailure(int a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -7234,9 +7174,9 @@ uint64_t simulateSelfTestFailure(int a1)
 
   else
   {
-    memset(v11, 255, sizeof(v11));
-    v12 = a1;
-    v5 = performCommand(_connect, 44, 0, v11, 0x1CuLL, 0, 0);
+    memset(v10, 255, sizeof(v10));
+    v11 = a1;
+    v5 = performCommand(_connect, 44, 0, v10, 0x1CuLL, 0, 0);
     if (!v5)
     {
       if (OSLogInit_onceToken != -1)
@@ -7258,7 +7198,7 @@ uint64_t simulateSelfTestFailure(int a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v14 = 0;
+        v13 = 0;
         _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "simulateSelfTestFailure -> %d\n", buf, 8u);
         v7 = 0;
       }
@@ -7277,19 +7217,19 @@ uint64_t simulateSelfTestFailure(int a1)
 
   if (__osLogPearlLibTrace)
   {
-    v10 = __osLogPearlLibTrace;
+    v9 = __osLogPearlLibTrace;
   }
 
   else
   {
-    v10 = v2;
+    v9 = v2;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v14 = v7;
-    _os_log_impl(&dword_299F4E000, v10, OS_LOG_TYPE_ERROR, "simulateSelfTestFailure -> %d\n", buf, 8u);
+    v13 = v7;
+    _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_ERROR, "simulateSelfTestFailure -> %d\n", buf, 8u);
   }
 
 LABEL_17:
@@ -7299,13 +7239,12 @@ LABEL_17:
     _connect = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 uint64_t checkSecureStreaming()
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -7324,8 +7263,8 @@ uint64_t checkSecureStreaming()
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7[0]) = 0;
-    _os_log_impl(&dword_299F4E000, v1, OS_LOG_TYPE_DEFAULT, "checkSecureStreaming\n", v7, 2u);
+    LOWORD(v6[0]) = 0;
+    _os_log_impl(&dword_299F4E000, v1, OS_LOG_TYPE_DEFAULT, "checkSecureStreaming\n", v6, 2u);
   }
 
   v2 = checkSecureStreamingAndVerifySignatures(0);
@@ -7354,19 +7293,18 @@ uint64_t checkSecureStreaming()
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 67109120;
-      v7[1] = 0;
-      _os_log_impl(&dword_299F4E000, v4, OS_LOG_TYPE_DEFAULT, "checkSecureStreaming -> %d\n", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = 0;
+      _os_log_impl(&dword_299F4E000, v4, OS_LOG_TYPE_DEFAULT, "checkSecureStreaming -> %d\n", v6, 8u);
     }
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
 uint64_t checkSecureStreamingAndVerifySignatures(int a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -7385,15 +7323,15 @@ uint64_t checkSecureStreamingAndVerifySignatures(int a1)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 67109120;
-    v12 = a1;
-    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "checkSecureStreamingAndVerifySignatures (%u)\n", &v11, 8u);
+    v10 = 67109120;
+    v11 = a1;
+    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "checkSecureStreamingAndVerifySignatures (%u)\n", &v10, 8u);
   }
 
   v4 = initialize();
   if (v4)
   {
-    checkSecureStreamingAndVerifySignatures_cold_2(v4, v4, &v11);
+    checkSecureStreamingAndVerifySignatures_cold_2(v4, v4, &v10);
   }
 
   else
@@ -7419,19 +7357,19 @@ uint64_t checkSecureStreamingAndVerifySignatures(int a1)
       v7 = 0;
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 67109120;
-        v12 = 0;
-        _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "checkSecureStreamingAndVerifySignatures -> %d\n", &v11, 8u);
+        v10 = 67109120;
+        v11 = 0;
+        _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "checkSecureStreamingAndVerifySignatures -> %d\n", &v10, 8u);
         v7 = 0;
       }
 
       goto LABEL_17;
     }
 
-    checkSecureStreamingAndVerifySignatures_cold_3(v5, v5, &v11);
+    checkSecureStreamingAndVerifySignatures_cold_3(v5, v5, &v10);
   }
 
-  v7 = v11;
+  v7 = v10;
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_3();
@@ -7439,19 +7377,19 @@ uint64_t checkSecureStreamingAndVerifySignatures(int a1)
 
   if (__osLogPearlLibTrace)
   {
-    v10 = __osLogPearlLibTrace;
+    v9 = __osLogPearlLibTrace;
   }
 
   else
   {
-    v10 = v2;
+    v9 = v2;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v11 = 67109120;
-    v12 = v7;
-    _os_log_impl(&dword_299F4E000, v10, OS_LOG_TYPE_ERROR, "checkSecureStreamingAndVerifySignatures -> %d\n", &v11, 8u);
+    v10 = 67109120;
+    v11 = v7;
+    _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_ERROR, "checkSecureStreamingAndVerifySignatures -> %d\n", &v10, 8u);
   }
 
 LABEL_17:
@@ -7461,13 +7399,12 @@ LABEL_17:
     _connect = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 uint64_t prewarmCamera(int a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -7486,15 +7423,15 @@ uint64_t prewarmCamera(int a1)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 67109120;
-    v12 = a1;
-    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "prewarmCamera (%u)\n", &v11, 8u);
+    v10 = 67109120;
+    v11 = a1;
+    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "prewarmCamera (%u)\n", &v10, 8u);
   }
 
   v4 = initialize();
   if (v4)
   {
-    prewarmCamera_cold_2(v4, v4, &v11);
+    prewarmCamera_cold_2(v4, v4, &v10);
   }
 
   else
@@ -7520,19 +7457,19 @@ uint64_t prewarmCamera(int a1)
       v7 = 0;
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 67109120;
-        v12 = 0;
-        _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "prewarmCamera -> %d\n", &v11, 8u);
+        v10 = 67109120;
+        v11 = 0;
+        _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "prewarmCamera -> %d\n", &v10, 8u);
         v7 = 0;
       }
 
       goto LABEL_17;
     }
 
-    prewarmCamera_cold_3(v5, v5, &v11);
+    prewarmCamera_cold_3(v5, v5, &v10);
   }
 
-  v7 = v11;
+  v7 = v10;
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_3();
@@ -7540,19 +7477,19 @@ uint64_t prewarmCamera(int a1)
 
   if (__osLogPearlLibTrace)
   {
-    v10 = __osLogPearlLibTrace;
+    v9 = __osLogPearlLibTrace;
   }
 
   else
   {
-    v10 = v2;
+    v9 = v2;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v11 = 67109120;
-    v12 = v7;
-    _os_log_impl(&dword_299F4E000, v10, OS_LOG_TYPE_ERROR, "prewarmCamera -> %d\n", &v11, 8u);
+    v10 = 67109120;
+    v11 = v7;
+    _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_ERROR, "prewarmCamera -> %d\n", &v10, 8u);
   }
 
 LABEL_17:
@@ -7562,14 +7499,13 @@ LABEL_17:
     _connect = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 uint64_t setEntitlementOverride(int a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
-  v11 = a1;
+  v13 = *MEMORY[0x29EDCA608];
+  v10 = a1;
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -7589,7 +7525,7 @@ uint64_t setEntitlementOverride(int a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v13 = a1;
+    v12 = a1;
     _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "setEntitlementOverrideConfig (0x%x)\n", buf, 8u);
   }
 
@@ -7601,7 +7537,378 @@ uint64_t setEntitlementOverride(int a1)
 
   else
   {
-    v5 = performCommand(_connect, 64, 0, &v11, 4uLL, 0, 0);
+    v5 = performCommand(_connect, 64, 0, &v10, 4uLL, 0, 0);
+    if (!v5)
+    {
+      if (OSLogInit_onceToken != -1)
+      {
+        encryptFDRData_cold_3();
+      }
+
+      if (__osLogPearlLibTrace)
+      {
+        v6 = __osLogPearlLibTrace;
+      }
+
+      else
+      {
+        v6 = v2;
+      }
+
+      v7 = 0;
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        v12 = 0;
+        _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "setEntitlementOverrideConfig -> %d\n", buf, 8u);
+        v7 = 0;
+      }
+
+      goto LABEL_17;
+    }
+
+    setEntitlementOverride_cold_3(v5, v5, buf);
+  }
+
+  v7 = *buf;
+  if (OSLogInit_onceToken != -1)
+  {
+    encryptFDRData_cold_3();
+  }
+
+  if (__osLogPearlLibTrace)
+  {
+    v9 = __osLogPearlLibTrace;
+  }
+
+  else
+  {
+    v9 = v2;
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109120;
+    v12 = v7;
+    _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_ERROR, "setEntitlementOverrideConfig -> %d\n", buf, 8u);
+  }
+
+LABEL_17:
+  if (_connect)
+  {
+    IOServiceClose(_connect);
+    _connect = 0;
+  }
+
+  return v7;
+}
+
+uint64_t pearlSeaCookieHandleMessage(int a1, const void *a2, size_t a3, void *a4, size_t *a5, id a6)
+{
+  v37 = *MEMORY[0x29EDCA608];
+  v28 = a6;
+  if (OSLogInit_onceToken != -1)
+  {
+    encryptFDRData_cold_1();
+  }
+
+  v11 = &logString[2328];
+  v12 = MEMORY[0x29EDCA988];
+  if (__osLogPearlLibTrace)
+  {
+    v13 = __osLogPearlLibTrace;
+  }
+
+  else
+  {
+    v13 = MEMORY[0x29EDCA988];
+  }
+
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67110144;
+    *&buf[4] = a1;
+    v31 = 2048;
+    v32 = a2;
+    v33 = 2048;
+    *v34 = a3;
+    *&v34[8] = 2048;
+    *&v34[10] = a4;
+    v35 = 2048;
+    v36 = a5;
+    _os_log_impl(&dword_299F4E000, v13, OS_LOG_TYPE_DEFAULT, "pearlSeaCookieHandleMessage %d %p %zu %p %p\n", buf, 0x30u);
+  }
+
+  if (a1 && a1 != 7)
+  {
+    if (!a2)
+    {
+      pearlSeaCookieHandleMessage_cold_14(buf, &v29);
+      goto LABEL_63;
+    }
+
+    if (!a3)
+    {
+      pearlSeaCookieHandleMessage_cold_13(buf, &v29);
+      goto LABEL_63;
+    }
+  }
+
+  if (a1 == 8 || a4)
+  {
+    if (a1 == 8 || a5)
+    {
+      if (a5)
+      {
+        v14 = *a5;
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      v15 = initialize();
+      if (v15)
+      {
+        pearlSeaCookieHandleMessage_cold_4(v15, v15, buf, &v29);
+        v17 = *buf;
+        v25 = v29;
+      }
+
+      else
+      {
+        if (a3 >= 0xFFFFFFFFFFFFFFF3)
+        {
+          pearlSeaCookieHandleMessage_cold_12(a3 >= 0xFFFFFFFFFFFFFFF3, buf, &v29);
+        }
+
+        else
+        {
+          v16 = malloc(a3 + 13);
+          if (v16)
+          {
+            v17 = v16;
+            *v16 = a1;
+            v16[4] = 1;
+            *(v16 + 5) = a3;
+            memcpy(v16 + 13, a2, a3);
+            v18 = performCommand(_connect, 70, 0, v17, a3 + 13, a4, a5);
+            if (v18)
+            {
+              pearlSeaCookieHandleMessage_cold_5(v18, v17, v18, buf, &v29);
+            }
+
+            else
+            {
+              if (a1 == 2)
+              {
+LABEL_27:
+                v17[4] = 0;
+                *a5 = v14;
+                v20 = performCommand(_connect, 70, 0, v17, a3 + 13, a4, a5);
+                if (!v20)
+                {
+LABEL_28:
+                  v21 = MEMORY[0x29EDCA988];
+                  if (a4 && a5)
+                  {
+                    if (OSLogInit_onceToken != -1)
+                    {
+                      encryptFDRData_cold_3();
+                    }
+
+                    if (__osLogPearlLib)
+                    {
+                      v22 = __osLogPearlLib;
+                    }
+
+                    else
+                    {
+                      v22 = v21;
+                    }
+
+                    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v23 = *a5;
+                      *buf = 67109890;
+                      *&buf[4] = a1;
+                      v31 = 2048;
+                      v32 = v23;
+                      v33 = 1040;
+                      *v34 = v23;
+                      *&v34[4] = 2096;
+                      *&v34[6] = a4;
+                      _os_log_impl(&dword_299F4E000, v22, OS_LOG_TYPE_DEFAULT, "pearlSeaCookieHandleMessage, type=%d reply[%zu] %.*P\n", buf, 0x22u);
+                    }
+                  }
+
+                  if (OSLogInit_onceToken != -1)
+                  {
+                    encryptFDRData_cold_3();
+                  }
+
+                  if (__osLogPearlLibTrace)
+                  {
+                    v24 = __osLogPearlLibTrace;
+                  }
+
+                  else
+                  {
+                    v24 = v21;
+                  }
+
+                  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+                  {
+                    *buf = 67109376;
+                    *&buf[4] = a1;
+                    v31 = 1024;
+                    LODWORD(v32) = 0;
+                    _os_log_impl(&dword_299F4E000, v24, OS_LOG_TYPE_DEFAULT, "pearlSeaCookieHandleMessage, type=%d -> 0x%x\n", buf, 0xEu);
+                  }
+
+                  v25 = 0;
+LABEL_45:
+                  free(v17);
+                  goto LABEL_46;
+                }
+
+                pearlSeaCookieHandleMessage_cold_7(v20, v17, v20, buf, &v29);
+                goto LABEL_60;
+              }
+
+              if (a1 != 5)
+              {
+                goto LABEL_28;
+              }
+
+              if (v28)
+              {
+                v19 = v28[2]();
+                if (!v19)
+                {
+                  goto LABEL_27;
+                }
+
+                pearlSeaCookieHandleMessage_cold_6(v19, v17, v19, buf, &v29);
+              }
+
+              else
+              {
+                pearlSeaCookieHandleMessage_cold_8(v17, buf, &v29);
+              }
+            }
+
+LABEL_60:
+            v17 = *buf;
+            v25 = v29;
+            v12 = MEMORY[0x29EDCA988];
+            goto LABEL_61;
+          }
+
+          pearlSeaCookieHandleMessage_cold_11(buf, &v29);
+        }
+
+        v17 = *buf;
+        v25 = v29;
+        v12 = MEMORY[0x29EDCA988];
+      }
+
+LABEL_61:
+      v11 = logString + 2328;
+      goto LABEL_64;
+    }
+
+    pearlSeaCookieHandleMessage_cold_3(buf, &v29);
+  }
+
+  else
+  {
+    pearlSeaCookieHandleMessage_cold_2(buf, &v29);
+  }
+
+LABEL_63:
+  v17 = *buf;
+  v25 = v29;
+LABEL_64:
+  if (OSLogInit_onceToken != -1)
+  {
+    encryptFDRData_cold_3();
+  }
+
+  if (*(v11 + 222))
+  {
+    v27 = *(v11 + 222);
+  }
+
+  else
+  {
+    v27 = v12;
+  }
+
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109376;
+    *&buf[4] = a1;
+    v31 = 1024;
+    LODWORD(v32) = v25;
+    _os_log_impl(&dword_299F4E000, v27, OS_LOG_TYPE_ERROR, "pearlSeaCookieHandleMessage, type=%d -> 0x%x\n", buf, 0xEu);
+  }
+
+  if (v17)
+  {
+    goto LABEL_45;
+  }
+
+LABEL_46:
+  if (_connect)
+  {
+    IOServiceClose(_connect);
+    _connect = 0;
+  }
+
+  return v25;
+}
+
+uint64_t mapScheme3ObjectToISPANE(int *a1)
+{
+  v16 = *MEMORY[0x29EDCA608];
+  if (OSLogInit_onceToken != -1)
+  {
+    encryptFDRData_cold_1();
+  }
+
+  v2 = MEMORY[0x29EDCA988];
+  if (__osLogPearlLibTrace)
+  {
+    v3 = __osLogPearlLibTrace;
+  }
+
+  else
+  {
+    v3 = MEMORY[0x29EDCA988];
+  }
+
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68157954;
+    v13 = 4;
+    v14 = 2080;
+    v15 = a1;
+    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "mapScheme3Object: fourcc:%.4s\n\n", buf, 0x12u);
+  }
+
+  v10 = *a1;
+  v11 = *(a1 + 4);
+  v4 = initialize();
+  if (v4)
+  {
+    mapScheme3ObjectToISPANE_cold_2(v4, v4, buf);
+  }
+
+  else
+  {
+    v5 = performCommand(_connect, 72, 0, &v10, 5uLL, 0, 0);
     if (!v5)
     {
       if (OSLogInit_onceToken != -1)
@@ -7624,380 +7931,6 @@ uint64_t setEntitlementOverride(int a1)
       {
         *buf = 67109120;
         v13 = 0;
-        _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "setEntitlementOverrideConfig -> %d\n", buf, 8u);
-        v7 = 0;
-      }
-
-      goto LABEL_17;
-    }
-
-    setEntitlementOverride_cold_3(v5, v5, buf);
-  }
-
-  v7 = *buf;
-  if (OSLogInit_onceToken != -1)
-  {
-    encryptFDRData_cold_3();
-  }
-
-  if (__osLogPearlLibTrace)
-  {
-    v10 = __osLogPearlLibTrace;
-  }
-
-  else
-  {
-    v10 = v2;
-  }
-
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 67109120;
-    v13 = v7;
-    _os_log_impl(&dword_299F4E000, v10, OS_LOG_TYPE_ERROR, "setEntitlementOverrideConfig -> %d\n", buf, 8u);
-  }
-
-LABEL_17:
-  if (_connect)
-  {
-    IOServiceClose(_connect);
-    _connect = 0;
-  }
-
-  v8 = *MEMORY[0x29EDCA608];
-  return v7;
-}
-
-uint64_t pearlSeaCookieHandleMessage(int a1, const void *a2, size_t a3, void *a4, size_t *a5, id a6)
-{
-  v39 = *MEMORY[0x29EDCA608];
-  v30 = a6;
-  if (OSLogInit_onceToken != -1)
-  {
-    encryptFDRData_cold_1();
-  }
-
-  v11 = &logString[2328];
-  v12 = MEMORY[0x29EDCA988];
-  if (__osLogPearlLibTrace)
-  {
-    v13 = __osLogPearlLibTrace;
-  }
-
-  else
-  {
-    v13 = MEMORY[0x29EDCA988];
-  }
-
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 67110144;
-    *&buf[4] = a1;
-    v33 = 2048;
-    v34 = a2;
-    v35 = 2048;
-    *v36 = a3;
-    *&v36[8] = 2048;
-    *&v36[10] = a4;
-    v37 = 2048;
-    v38 = a5;
-    _os_log_impl(&dword_299F4E000, v13, OS_LOG_TYPE_DEFAULT, "pearlSeaCookieHandleMessage %d %p %zu %p %p\n", buf, 0x30u);
-  }
-
-  if (a1 && a1 != 7)
-  {
-    if (!a2)
-    {
-      pearlSeaCookieHandleMessage_cold_14(buf, &v31);
-      goto LABEL_63;
-    }
-
-    if (!a3)
-    {
-      pearlSeaCookieHandleMessage_cold_13(buf, &v31);
-      goto LABEL_63;
-    }
-  }
-
-  if (a1 == 8 || a4)
-  {
-    if (a1 == 8 || a5)
-    {
-      if (a5)
-      {
-        v14 = *a5;
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-
-      v15 = initialize();
-      if (v15)
-      {
-        pearlSeaCookieHandleMessage_cold_4(v15, v15, buf, &v31);
-        v17 = *buf;
-        v26 = v31;
-      }
-
-      else
-      {
-        if (a3 >= 0xFFFFFFFFFFFFFFF3)
-        {
-          pearlSeaCookieHandleMessage_cold_12(a3 >= 0xFFFFFFFFFFFFFFF3, buf, &v31);
-        }
-
-        else
-        {
-          v16 = malloc(a3 + 13);
-          if (v16)
-          {
-            v17 = v16;
-            *v16 = a1;
-            v16[4] = 1;
-            *(v16 + 5) = a3;
-            memcpy(v16 + 13, a2, a3);
-            v18 = performCommand(_connect, 70, 0, v17, a3 + 13, a4, a5);
-            if (v18)
-            {
-              pearlSeaCookieHandleMessage_cold_5(v18, v17, v18, buf, &v31);
-            }
-
-            else
-            {
-              if (a1 == 2)
-              {
-LABEL_27:
-                v17[4] = 0;
-                *a5 = v14;
-                v21 = performCommand(_connect, 70, 0, v17, a3 + 13, a4, a5);
-                if (!v21)
-                {
-LABEL_28:
-                  v22 = MEMORY[0x29EDCA988];
-                  if (a4 && a5)
-                  {
-                    if (OSLogInit_onceToken != -1)
-                    {
-                      encryptFDRData_cold_3();
-                    }
-
-                    if (__osLogPearlLib)
-                    {
-                      v23 = __osLogPearlLib;
-                    }
-
-                    else
-                    {
-                      v23 = v22;
-                    }
-
-                    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v24 = *a5;
-                      *buf = 67109890;
-                      *&buf[4] = a1;
-                      v33 = 2048;
-                      v34 = v24;
-                      v35 = 1040;
-                      *v36 = v24;
-                      *&v36[4] = 2096;
-                      *&v36[6] = a4;
-                      _os_log_impl(&dword_299F4E000, v23, OS_LOG_TYPE_DEFAULT, "pearlSeaCookieHandleMessage, type=%d reply[%zu] %.*P\n", buf, 0x22u);
-                    }
-                  }
-
-                  if (OSLogInit_onceToken != -1)
-                  {
-                    encryptFDRData_cold_3();
-                  }
-
-                  if (__osLogPearlLibTrace)
-                  {
-                    v25 = __osLogPearlLibTrace;
-                  }
-
-                  else
-                  {
-                    v25 = v22;
-                  }
-
-                  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 67109376;
-                    *&buf[4] = a1;
-                    v33 = 1024;
-                    LODWORD(v34) = 0;
-                    _os_log_impl(&dword_299F4E000, v25, OS_LOG_TYPE_DEFAULT, "pearlSeaCookieHandleMessage, type=%d -> 0x%x\n", buf, 0xEu);
-                  }
-
-                  v26 = 0;
-LABEL_45:
-                  free(v17);
-                  goto LABEL_46;
-                }
-
-                pearlSeaCookieHandleMessage_cold_7(v21, v17, v21, buf, &v31);
-                goto LABEL_60;
-              }
-
-              if (a1 != 5)
-              {
-                goto LABEL_28;
-              }
-
-              if (v30)
-              {
-                v19 = *a5;
-                v20 = v30[2]();
-                if (!v20)
-                {
-                  goto LABEL_27;
-                }
-
-                pearlSeaCookieHandleMessage_cold_6(v20, v17, v20, buf, &v31);
-              }
-
-              else
-              {
-                pearlSeaCookieHandleMessage_cold_8(v17, buf, &v31);
-              }
-            }
-
-LABEL_60:
-            v17 = *buf;
-            v26 = v31;
-            v12 = MEMORY[0x29EDCA988];
-            goto LABEL_61;
-          }
-
-          pearlSeaCookieHandleMessage_cold_11(buf, &v31);
-        }
-
-        v17 = *buf;
-        v26 = v31;
-        v12 = MEMORY[0x29EDCA988];
-      }
-
-LABEL_61:
-      v11 = logString + 2328;
-      goto LABEL_64;
-    }
-
-    pearlSeaCookieHandleMessage_cold_3(buf, &v31);
-  }
-
-  else
-  {
-    pearlSeaCookieHandleMessage_cold_2(buf, &v31);
-  }
-
-LABEL_63:
-  v17 = *buf;
-  v26 = v31;
-LABEL_64:
-  if (OSLogInit_onceToken != -1)
-  {
-    encryptFDRData_cold_3();
-  }
-
-  if (*(v11 + 222))
-  {
-    v29 = *(v11 + 222);
-  }
-
-  else
-  {
-    v29 = v12;
-  }
-
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 67109376;
-    *&buf[4] = a1;
-    v33 = 1024;
-    LODWORD(v34) = v26;
-    _os_log_impl(&dword_299F4E000, v29, OS_LOG_TYPE_ERROR, "pearlSeaCookieHandleMessage, type=%d -> 0x%x\n", buf, 0xEu);
-  }
-
-  if (v17)
-  {
-    goto LABEL_45;
-  }
-
-LABEL_46:
-  if (_connect)
-  {
-    IOServiceClose(_connect);
-    _connect = 0;
-  }
-
-  v27 = *MEMORY[0x29EDCA608];
-  return v26;
-}
-
-uint64_t mapScheme3ObjectToISPANE(int *a1)
-{
-  v17 = *MEMORY[0x29EDCA608];
-  if (OSLogInit_onceToken != -1)
-  {
-    encryptFDRData_cold_1();
-  }
-
-  v2 = MEMORY[0x29EDCA988];
-  if (__osLogPearlLibTrace)
-  {
-    v3 = __osLogPearlLibTrace;
-  }
-
-  else
-  {
-    v3 = MEMORY[0x29EDCA988];
-  }
-
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68157954;
-    v14 = 4;
-    v15 = 2080;
-    v16 = a1;
-    _os_log_impl(&dword_299F4E000, v3, OS_LOG_TYPE_DEFAULT, "mapScheme3Object: fourcc:%.4s\n\n", buf, 0x12u);
-  }
-
-  v11 = *a1;
-  v12 = *(a1 + 4);
-  v4 = initialize();
-  if (v4)
-  {
-    mapScheme3ObjectToISPANE_cold_2(v4, v4, buf);
-  }
-
-  else
-  {
-    v5 = performCommand(_connect, 72, 0, &v11, 5uLL, 0, 0);
-    if (!v5)
-    {
-      if (OSLogInit_onceToken != -1)
-      {
-        encryptFDRData_cold_3();
-      }
-
-      if (__osLogPearlLibTrace)
-      {
-        v6 = __osLogPearlLibTrace;
-      }
-
-      else
-      {
-        v6 = v2;
-      }
-
-      v7 = 0;
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 67109120;
-        v14 = 0;
         _os_log_impl(&dword_299F4E000, v6, OS_LOG_TYPE_DEFAULT, "mapScheme3Object -> 0x%x\n", buf, 8u);
         v7 = 0;
       }
@@ -8016,19 +7949,19 @@ uint64_t mapScheme3ObjectToISPANE(int *a1)
 
   if (__osLogPearlLibTrace)
   {
-    v10 = __osLogPearlLibTrace;
+    v9 = __osLogPearlLibTrace;
   }
 
   else
   {
-    v10 = v2;
+    v9 = v2;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v14 = v7;
-    _os_log_impl(&dword_299F4E000, v10, OS_LOG_TYPE_ERROR, "mapScheme3Object -> 0x%x\n", buf, 8u);
+    v13 = v7;
+    _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_ERROR, "mapScheme3Object -> 0x%x\n", buf, 8u);
   }
 
 LABEL_17:
@@ -8038,13 +7971,12 @@ LABEL_17:
     _connect = 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
 {
-  v80 = *MEMORY[0x29EDCA608];
+  v79 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -8069,29 +8001,29 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
     *&buf[8] = 2080;
     *&buf[10] = a1;
     *&buf[18] = 1024;
-    v77 = a2;
-    v78 = 1024;
-    v79 = a3;
+    v76 = a2;
+    v77 = 1024;
+    v78 = a3;
     _os_log_impl(&dword_299F4E000, v8, OS_LOG_TYPE_DEFAULT, "allocateAndMapObjectS3C1: fourcc:%.4s mapObj:%d unmapObj:%d\n\n", buf, 0x1Eu);
   }
 
   *buf = 0;
   *&buf[8] = 0;
   *&buf[15] = 0;
-  v70 = *a1;
-  v71 = *(a1 + 4);
-  v72 = a2;
-  v73 = a3;
-  v69 = 19;
+  v69 = *a1;
+  v70 = *(a1 + 4);
+  v71 = a2;
+  v72 = a3;
+  v68 = 19;
   v9 = initialize();
   if (v9)
   {
-    allocateAndMapObjectS3C1_cold_2(v9, v9, v75);
+    allocateAndMapObjectS3C1_cold_2(v9, v9, v74);
   }
 
   else
   {
-    v10 = performCommand(_connect, 82, 0, &v70, 7uLL, buf, &v69);
+    v10 = performCommand(_connect, 82, 0, &v69, 7uLL, buf, &v68);
     if (v10 == -536870201)
     {
       goto LABEL_206;
@@ -8104,7 +8036,7 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
     }
 
     v12 = MEMORY[0x29EDCA610];
-    if (v69 > 0x12)
+    if (v68 > 0x12)
     {
       fwrite("Results of Allocation and Mapping Object Scheme3 Context1:\n", 0x3BuLL, 1uLL, *MEMORY[0x29EDCA610]);
       if (OSLogInit_onceToken != -1)
@@ -8125,8 +8057,8 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
       v14 = v13;
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v75[0]) = 0;
-        _os_log_impl(&dword_299F4E000, v14, OS_LOG_TYPE_DEFAULT, "Results of Allocation and Mapping Object Scheme3 Context1:\n", v75, 2u);
+        LOWORD(v74[0]) = 0;
+        _os_log_impl(&dword_299F4E000, v14, OS_LOG_TYPE_DEFAULT, "Results of Allocation and Mapping Object Scheme3 Context1:\n", v74, 2u);
       }
 
       if (buf[0])
@@ -8168,9 +8100,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v18 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v18;
-        _os_log_impl(&dword_299F4E000, v17, OS_LOG_TYPE_DEFAULT, "objectFound:\t\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v18;
+        _os_log_impl(&dword_299F4E000, v17, OS_LOG_TYPE_DEFAULT, "objectFound:\t\t%s\n", v74, 0xCu);
       }
 
       fprintf(*v12, "dvaOffset:\t\t0x%X\n", *&buf[1]);
@@ -8192,9 +8124,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
       v20 = v19;
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v75[0] = 67109120;
-        v75[1] = *&buf[1];
-        _os_log_impl(&dword_299F4E000, v20, OS_LOG_TYPE_DEFAULT, "dvaOffset:\t\t0x%X\n", v75, 8u);
+        v74[0] = 67109120;
+        v74[1] = *&buf[1];
+        _os_log_impl(&dword_299F4E000, v20, OS_LOG_TYPE_DEFAULT, "dvaOffset:\t\t0x%X\n", v74, 8u);
       }
 
       fprintf(*v12, "objectSize:\t\t%d\n", *&buf[5]);
@@ -8216,9 +8148,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
       v22 = v21;
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v75[0] = 67109120;
-        v75[1] = *&buf[5];
-        _os_log_impl(&dword_299F4E000, v22, OS_LOG_TYPE_DEFAULT, "objectSize:\t\t%d\n", v75, 8u);
+        v74[0] = 67109120;
+        v74[1] = *&buf[5];
+        _os_log_impl(&dword_299F4E000, v22, OS_LOG_TYPE_DEFAULT, "objectSize:\t\t%d\n", v74, 8u);
       }
 
       if (buf[9])
@@ -8260,9 +8192,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v26 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v26;
-        _os_log_impl(&dword_299F4E000, v25, OS_LOG_TYPE_DEFAULT, "aneMapFunction:\t\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v26;
+        _os_log_impl(&dword_299F4E000, v25, OS_LOG_TYPE_DEFAULT, "aneMapFunction:\t\t%s\n", v74, 0xCu);
       }
 
       if (buf[10])
@@ -8304,9 +8236,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v30 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v30;
-        _os_log_impl(&dword_299F4E000, v29, OS_LOG_TYPE_DEFAULT, "ispMapFunction:\t\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v30;
+        _os_log_impl(&dword_299F4E000, v29, OS_LOG_TYPE_DEFAULT, "ispMapFunction:\t\t%s\n", v74, 0xCu);
       }
 
       if (buf[11])
@@ -8348,9 +8280,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v34 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v34;
-        _os_log_impl(&dword_299F4E000, v33, OS_LOG_TYPE_DEFAULT, "aneUnmapFunction:\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v34;
+        _os_log_impl(&dword_299F4E000, v33, OS_LOG_TYPE_DEFAULT, "aneUnmapFunction:\t%s\n", v74, 0xCu);
       }
 
       if (buf[12])
@@ -8392,9 +8324,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v38 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v38;
-        _os_log_impl(&dword_299F4E000, v37, OS_LOG_TYPE_DEFAULT, "ispUnmapFunction:\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v38;
+        _os_log_impl(&dword_299F4E000, v37, OS_LOG_TYPE_DEFAULT, "ispUnmapFunction:\t%s\n", v74, 0xCu);
       }
 
       if (buf[13])
@@ -8436,9 +8368,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v42 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v42;
-        _os_log_impl(&dword_299F4E000, v41, OS_LOG_TYPE_DEFAULT, "mappedToSEP:\t\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v42;
+        _os_log_impl(&dword_299F4E000, v41, OS_LOG_TYPE_DEFAULT, "mappedToSEP:\t\t%s\n", v74, 0xCu);
       }
 
       if (buf[14])
@@ -8480,9 +8412,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v46 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v46;
-        _os_log_impl(&dword_299F4E000, v45, OS_LOG_TYPE_DEFAULT, "mappedToANE:\t\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v46;
+        _os_log_impl(&dword_299F4E000, v45, OS_LOG_TYPE_DEFAULT, "mappedToANE:\t\t%s\n", v74, 0xCu);
       }
 
       if (buf[15])
@@ -8524,9 +8456,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v50 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v50;
-        _os_log_impl(&dword_299F4E000, v49, OS_LOG_TYPE_DEFAULT, "mappedToISP:\t\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v50;
+        _os_log_impl(&dword_299F4E000, v49, OS_LOG_TYPE_DEFAULT, "mappedToISP:\t\t%s\n", v74, 0xCu);
       }
 
       if (buf[18])
@@ -8568,9 +8500,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v54 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v54;
-        _os_log_impl(&dword_299F4E000, v53, OS_LOG_TYPE_DEFAULT, "unmappedFromISP:\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v54;
+        _os_log_impl(&dword_299F4E000, v53, OS_LOG_TYPE_DEFAULT, "unmappedFromISP:\t%s\n", v74, 0xCu);
       }
 
       if (buf[17])
@@ -8612,9 +8544,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v58 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v58;
-        _os_log_impl(&dword_299F4E000, v57, OS_LOG_TYPE_DEFAULT, "unmappedFromANE:\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v58;
+        _os_log_impl(&dword_299F4E000, v57, OS_LOG_TYPE_DEFAULT, "unmappedFromANE:\t%s\n", v74, 0xCu);
       }
 
       if (buf[16])
@@ -8656,9 +8588,9 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
           v62 = "\x1B[31mFAIL\x1B[0m";
         }
 
-        v75[0] = 136315138;
-        *&v75[1] = v62;
-        _os_log_impl(&dword_299F4E000, v61, OS_LOG_TYPE_DEFAULT, "unmappedFromSEP:\t%s\n", v75, 0xCu);
+        v74[0] = 136315138;
+        *&v74[1] = v62;
+        _os_log_impl(&dword_299F4E000, v61, OS_LOG_TYPE_DEFAULT, "unmappedFromSEP:\t%s\n", v74, 0xCu);
       }
 
       if (v11)
@@ -8716,15 +8648,15 @@ uint64_t allocateAndMapObjectS3C1(int *a1, int a2, int a3)
 
 LABEL_206:
       allocateAndMapObjectS3C1_cold_20();
-      v66 = *v75;
-      v11 = v74;
+      v66 = *v74;
+      v11 = v73;
       goto LABEL_203;
     }
 
-    allocateAndMapObjectS3C1_cold_18(*MEMORY[0x29EDCA610], v75);
+    allocateAndMapObjectS3C1_cold_18(*MEMORY[0x29EDCA610], v74);
   }
 
-  v11 = v75[0];
+  v11 = v74[0];
 LABEL_196:
   if (OSLogInit_onceToken != -1)
   {
@@ -8744,9 +8676,9 @@ LABEL_196:
   v66 = v65;
   if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
   {
-    v75[0] = 67109120;
-    v75[1] = v11;
-    _os_log_impl(&dword_299F4E000, v66, OS_LOG_TYPE_ERROR, "allocateAndMapObjectS3C1 -> 0x%x\n", v75, 8u);
+    v74[0] = 67109120;
+    v74[1] = v11;
+    _os_log_impl(&dword_299F4E000, v66, OS_LOG_TYPE_ERROR, "allocateAndMapObjectS3C1 -> 0x%x\n", v74, 8u);
   }
 
 LABEL_203:
@@ -8757,13 +8689,12 @@ LABEL_203:
     _connect = 0;
   }
 
-  v67 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 uint64_t getBrunorCollectionKey(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -8782,11 +8713,11 @@ uint64_t getBrunorCollectionKey(void *a1, void *a2)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v17[0]) = 0;
-    _os_log_impl(&dword_299F4E000, v5, OS_LOG_TYPE_DEFAULT, "getBrunorCollectionKey\n", v17, 2u);
+    LOWORD(v16[0]) = 0;
+    _os_log_impl(&dword_299F4E000, v5, OS_LOG_TYPE_DEFAULT, "getBrunorCollectionKey\n", v16, 2u);
   }
 
-  v17[0] = 65;
+  v16[0] = 65;
   if (!a1)
   {
     getBrunorCollectionKey_cold_7(buf);
@@ -8816,7 +8747,7 @@ LABEL_38:
   }
 
   v8 = v7;
-  v9 = performCommand(_connect, 73, 0, 0, 0, v7, v17);
+  v9 = performCommand(_connect, 73, 0, 0, 0, v7, v16);
   if (v9)
   {
     getBrunorCollectionKey_cold_3(v9, v9, buf);
@@ -8824,7 +8755,7 @@ LABEL_38:
 
   else
   {
-    if (v17[0] == 65)
+    if (v16[0] == 65)
     {
       v10 = 0;
       *a1 = v8;
@@ -8864,7 +8795,7 @@ LABEL_15:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v19 = v10;
+      v18 = v10;
       v12 = v11;
       v13 = OS_LOG_TYPE_ERROR;
 LABEL_32:
@@ -8892,20 +8823,19 @@ LABEL_32:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v19 = 0;
+      v18 = 0;
       v12 = v14;
       v13 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_32;
     }
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
 uint64_t getAttestationToBrunorCollectionKey(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -9020,7 +8950,7 @@ LABEL_17:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v20 = v11;
+      v19 = v11;
       v13 = v12;
       v14 = OS_LOG_TYPE_ERROR;
 LABEL_34:
@@ -9048,20 +8978,19 @@ LABEL_34:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v20 = 0;
+      v19 = 0;
       v13 = v15;
       v14 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_34;
     }
   }
 
-  v16 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 uint64_t signDataWithBrunorCollectionKey(const void *a1, size_t a2, void *a3, size_t *a4)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -9084,14 +9013,14 @@ uint64_t signDataWithBrunorCollectionKey(const void *a1, size_t a2, void *a3, si
     _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_DEFAULT, "signDataWithBrunorCollectionKey\n", buf, 2u);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  *buf = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  *buf = 0u;
+  v24 = 0u;
   __size = 128;
   if (a1)
   {
@@ -9104,7 +9033,7 @@ uint64_t signDataWithBrunorCollectionKey(const void *a1, size_t a2, void *a3, si
           v10 = initialize();
           if (v10)
           {
-            signDataWithBrunorCollectionKey_cold_2(v10, v10, v22);
+            signDataWithBrunorCollectionKey_cold_2(v10, v10, v21);
           }
 
           else
@@ -9112,12 +9041,12 @@ uint64_t signDataWithBrunorCollectionKey(const void *a1, size_t a2, void *a3, si
             v11 = performCommand(_connect, 75, 0, a1, a2, buf, &__size);
             if (v11)
             {
-              signDataWithBrunorCollectionKey_cold_3(v11, v11, v22);
+              signDataWithBrunorCollectionKey_cold_3(v11, v11, v21);
             }
 
             else if (__size >= 0x81)
             {
-              signDataWithBrunorCollectionKey_cold_5(v22);
+              signDataWithBrunorCollectionKey_cold_5(v21);
             }
 
             else
@@ -9133,35 +9062,35 @@ uint64_t signDataWithBrunorCollectionKey(const void *a1, size_t a2, void *a3, si
                 goto LABEL_17;
               }
 
-              signDataWithBrunorCollectionKey_cold_4(v22);
+              signDataWithBrunorCollectionKey_cold_4(v21);
             }
           }
         }
 
         else
         {
-          signDataWithBrunorCollectionKey_cold_6(v22);
+          signDataWithBrunorCollectionKey_cold_6(v21);
         }
       }
 
       else
       {
-        signDataWithBrunorCollectionKey_cold_7(v22);
+        signDataWithBrunorCollectionKey_cold_7(v21);
       }
     }
 
     else
     {
-      signDataWithBrunorCollectionKey_cold_8(v22);
+      signDataWithBrunorCollectionKey_cold_8(v21);
     }
   }
 
   else
   {
-    signDataWithBrunorCollectionKey_cold_9(v22);
+    signDataWithBrunorCollectionKey_cold_9(v21);
   }
 
-  v14 = *v22;
+  v14 = *v21;
 LABEL_17:
   if (_connect)
   {
@@ -9188,12 +9117,12 @@ LABEL_17:
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      *v22 = 67109120;
-      v23 = v14;
+      *v21 = 67109120;
+      v22 = v14;
       v16 = v15;
       v17 = OS_LOG_TYPE_ERROR;
 LABEL_34:
-      _os_log_impl(&dword_299F4E000, v16, v17, "signDataWithBrunorCollectionKey -> %d\n", v22, 8u);
+      _os_log_impl(&dword_299F4E000, v16, v17, "signDataWithBrunorCollectionKey -> %d\n", v21, 8u);
     }
   }
 
@@ -9216,21 +9145,20 @@ LABEL_34:
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 67109120;
-      v23 = 0;
+      *v21 = 67109120;
+      v22 = 0;
       v16 = v18;
       v17 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_34;
     }
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t getBrunorPermanentKey(void *a1, size_t *a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -9249,11 +9177,11 @@ uint64_t getBrunorPermanentKey(void *a1, size_t *a2)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18[0]) = 0;
-    _os_log_impl(&dword_299F4E000, v5, OS_LOG_TYPE_DEFAULT, "getBrunorPermanentKey\n", v18, 2u);
+    LOWORD(v17[0]) = 0;
+    _os_log_impl(&dword_299F4E000, v5, OS_LOG_TYPE_DEFAULT, "getBrunorPermanentKey\n", v17, 2u);
   }
 
-  v18[0] = 57;
+  v17[0] = 57;
   if (!a1)
   {
     getBrunorPermanentKey_cold_7(buf);
@@ -9283,7 +9211,7 @@ LABEL_38:
   }
 
   v8 = v7;
-  v9 = performCommand(_connect, 76, 0, 0, 0, v7, v18);
+  v9 = performCommand(_connect, 76, 0, 0, 0, v7, v17);
   if (v9)
   {
     getBrunorPermanentKey_cold_3(v9, v9, buf);
@@ -9291,8 +9219,8 @@ LABEL_38:
 
   else
   {
-    v10 = v18[0];
-    if (v18[0] < 0x3A)
+    v10 = v17[0];
+    if (v17[0] < 0x3A)
     {
       v11 = 0;
       *a1 = v8;
@@ -9332,7 +9260,7 @@ LABEL_15:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v20 = v11;
+      v19 = v11;
       v13 = v12;
       v14 = OS_LOG_TYPE_ERROR;
 LABEL_32:
@@ -9360,20 +9288,19 @@ LABEL_32:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v20 = 0;
+      v19 = 0;
       v13 = v15;
       v14 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_32;
     }
   }
 
-  v16 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 uint64_t signDataWithBrunorPermanentKey(const void *a1, size_t a2, void *a3, size_t *a4)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -9396,11 +9323,11 @@ uint64_t signDataWithBrunorPermanentKey(const void *a1, size_t a2, void *a3, siz
     _os_log_impl(&dword_299F4E000, v9, OS_LOG_TYPE_DEFAULT, "signDataWithBrunorPermanentKey\n", buf, 2u);
   }
 
-  v28 = 0;
-  v26 = 0u;
-  v27 = 0u;
-  *buf = 0u;
+  v27 = 0;
   v25 = 0u;
+  v26 = 0u;
+  *buf = 0u;
+  v24 = 0u;
   __size = 65;
   if (a1)
   {
@@ -9413,7 +9340,7 @@ uint64_t signDataWithBrunorPermanentKey(const void *a1, size_t a2, void *a3, siz
           v10 = initialize();
           if (v10)
           {
-            signDataWithBrunorPermanentKey_cold_2(v10, v10, v22);
+            signDataWithBrunorPermanentKey_cold_2(v10, v10, v21);
           }
 
           else
@@ -9421,12 +9348,12 @@ uint64_t signDataWithBrunorPermanentKey(const void *a1, size_t a2, void *a3, siz
             v11 = performCommand(_connect, 77, 0, a1, a2, buf, &__size);
             if (v11)
             {
-              signDataWithBrunorPermanentKey_cold_3(v11, v11, v22);
+              signDataWithBrunorPermanentKey_cold_3(v11, v11, v21);
             }
 
             else if (__size >= 0x42)
             {
-              signDataWithBrunorPermanentKey_cold_5(v22);
+              signDataWithBrunorPermanentKey_cold_5(v21);
             }
 
             else
@@ -9442,35 +9369,35 @@ uint64_t signDataWithBrunorPermanentKey(const void *a1, size_t a2, void *a3, siz
                 goto LABEL_17;
               }
 
-              signDataWithBrunorPermanentKey_cold_4(v22);
+              signDataWithBrunorPermanentKey_cold_4(v21);
             }
           }
         }
 
         else
         {
-          signDataWithBrunorPermanentKey_cold_6(v22);
+          signDataWithBrunorPermanentKey_cold_6(v21);
         }
       }
 
       else
       {
-        signDataWithBrunorPermanentKey_cold_7(v22);
+        signDataWithBrunorPermanentKey_cold_7(v21);
       }
     }
 
     else
     {
-      signDataWithBrunorPermanentKey_cold_8(v22);
+      signDataWithBrunorPermanentKey_cold_8(v21);
     }
   }
 
   else
   {
-    signDataWithBrunorPermanentKey_cold_9(v22);
+    signDataWithBrunorPermanentKey_cold_9(v21);
   }
 
-  v14 = *v22;
+  v14 = *v21;
 LABEL_17:
   if (_connect)
   {
@@ -9497,12 +9424,12 @@ LABEL_17:
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      *v22 = 67109120;
-      v23 = v14;
+      *v21 = 67109120;
+      v22 = v14;
       v16 = v15;
       v17 = OS_LOG_TYPE_ERROR;
 LABEL_34:
-      _os_log_impl(&dword_299F4E000, v16, v17, "signDataWithBrunorPermanentKey -> %d\n", v22, 8u);
+      _os_log_impl(&dword_299F4E000, v16, v17, "signDataWithBrunorPermanentKey -> %d\n", v21, 8u);
     }
   }
 
@@ -9525,21 +9452,20 @@ LABEL_34:
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 67109120;
-      v23 = 0;
+      *v21 = 67109120;
+      v22 = 0;
       v16 = v18;
       v17 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_34;
     }
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t prepareFDRDataEncryptionKey()
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -9558,14 +9484,14 @@ uint64_t prepareFDRDataEncryptionKey()
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_299F4E000, v1, OS_LOG_TYPE_DEFAULT, "prepareFDRDataEncryptionKey\n", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_299F4E000, v1, OS_LOG_TYPE_DEFAULT, "prepareFDRDataEncryptionKey\n", &v8, 2u);
   }
 
   v2 = initialize();
   if (v2)
   {
-    prepareFDRDataEncryptionKey_cold_2(v2, v2, &v9);
+    prepareFDRDataEncryptionKey_cold_2(v2, v2, &v8);
   }
 
   else
@@ -9577,10 +9503,10 @@ uint64_t prepareFDRDataEncryptionKey()
       goto LABEL_10;
     }
 
-    prepareFDRDataEncryptionKey_cold_3(v3, v3, &v9);
+    prepareFDRDataEncryptionKey_cold_3(v3, v3, &v8);
   }
 
-  v4 = v9;
+  v4 = v8;
 LABEL_10:
   if (_connect)
   {
@@ -9602,12 +9528,12 @@ LABEL_10:
 
     if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
     {
-      v9 = 67109120;
-      v10 = v4;
+      v8 = 67109120;
+      v9 = v4;
       v5 = v0;
       v6 = OS_LOG_TYPE_ERROR;
 LABEL_25:
-      _os_log_impl(&dword_299F4E000, v5, v6, "prepareFDRDataEncryptionKey -> %d\n", &v9, 8u);
+      _os_log_impl(&dword_299F4E000, v5, v6, "prepareFDRDataEncryptionKey -> %d\n", &v8, 8u);
     }
   }
 
@@ -9625,21 +9551,20 @@ LABEL_25:
 
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 67109120;
-      v10 = 0;
+      v8 = 67109120;
+      v9 = 0;
       v5 = v0;
       v6 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_25;
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t setDummyWrappedFDRDataEncryptionKey(const void *a1, size_t a2)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -9658,14 +9583,14 @@ uint64_t setDummyWrappedFDRDataEncryptionKey(const void *a1, size_t a2)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v15) = 0;
-    _os_log_impl(&dword_299F4E000, v5, OS_LOG_TYPE_DEFAULT, "setDummyWrappedFDRDataEncryptionKey\n", &v15, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_299F4E000, v5, OS_LOG_TYPE_DEFAULT, "setDummyWrappedFDRDataEncryptionKey\n", &v14, 2u);
   }
 
   v6 = initialize();
   if (v6)
   {
-    setDummyWrappedFDRDataEncryptionKey_cold_2(v6, v6, &v15);
+    setDummyWrappedFDRDataEncryptionKey_cold_2(v6, v6, &v14);
   }
 
   else
@@ -9677,10 +9602,10 @@ uint64_t setDummyWrappedFDRDataEncryptionKey(const void *a1, size_t a2)
       goto LABEL_10;
     }
 
-    setDummyWrappedFDRDataEncryptionKey_cold_3(v7, v7, &v15);
+    setDummyWrappedFDRDataEncryptionKey_cold_3(v7, v7, &v14);
   }
 
-  v8 = v15;
+  v8 = v14;
 LABEL_10:
   if (_connect)
   {
@@ -9707,12 +9632,12 @@ LABEL_10:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v15 = 67109120;
-      v16 = v8;
+      v14 = 67109120;
+      v15 = v8;
       v10 = v9;
       v11 = OS_LOG_TYPE_ERROR;
 LABEL_27:
-      _os_log_impl(&dword_299F4E000, v10, v11, "setDummyWrappedFDRDataEncryptionKey -> %d\n", &v15, 8u);
+      _os_log_impl(&dword_299F4E000, v10, v11, "setDummyWrappedFDRDataEncryptionKey -> %d\n", &v14, 8u);
     }
   }
 
@@ -9735,21 +9660,20 @@ LABEL_27:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 67109120;
-      v16 = 0;
+      v14 = 67109120;
+      v15 = 0;
       v10 = v12;
       v11 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_27;
     }
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 uint64_t encryptFDRDataForBrunor(const void *a1, size_t a2, uint64_t a3, size_t *a4, _OWORD *a5, uint64_t a6)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   if (OSLogInit_onceToken != -1)
   {
     encryptFDRData_cold_1();
@@ -9768,64 +9692,64 @@ uint64_t encryptFDRDataForBrunor(const void *a1, size_t a2, uint64_t a3, size_t 
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 134219264;
-    v24 = a1;
-    v25 = 2048;
-    v26 = a2;
-    v27 = 2048;
-    v28 = a3;
-    v29 = 2048;
-    v30 = a4;
-    v31 = 2048;
-    v32 = a5;
-    v33 = 2048;
-    v34 = a6;
-    _os_log_impl(&dword_299F4E000, v13, OS_LOG_TYPE_DEFAULT, "encryptFDRDataForBrunor %p %zu %p %p %p %zu\n", &v23, 0x3Eu);
+    v22 = 134219264;
+    v23 = a1;
+    v24 = 2048;
+    v25 = a2;
+    v26 = 2048;
+    v27 = a3;
+    v28 = 2048;
+    v29 = a4;
+    v30 = 2048;
+    v31 = a5;
+    v32 = 2048;
+    v33 = a6;
+    _os_log_impl(&dword_299F4E000, v13, OS_LOG_TYPE_DEFAULT, "encryptFDRDataForBrunor %p %zu %p %p %p %zu\n", &v22, 0x3Eu);
   }
 
   if (!a1)
   {
-    encryptFDRDataForBrunor_cold_8(&v23);
+    encryptFDRDataForBrunor_cold_8(&v22);
 LABEL_44:
-    v16 = v23;
+    v16 = v22;
     goto LABEL_18;
   }
 
   if (!a2)
   {
-    encryptFDRDataForBrunor_cold_7(&v23);
+    encryptFDRDataForBrunor_cold_7(&v22);
     goto LABEL_44;
   }
 
   if (!a3)
   {
-    encryptFDRDataForBrunor_cold_6(&v23);
+    encryptFDRDataForBrunor_cold_6(&v22);
     goto LABEL_44;
   }
 
   if (!a4)
   {
-    encryptFDRDataForBrunor_cold_5(&v23);
+    encryptFDRDataForBrunor_cold_5(&v22);
     goto LABEL_44;
   }
 
   if (a5 && a6 != 16)
   {
-    encryptFDRDataForBrunor_cold_2(&v23);
+    encryptFDRDataForBrunor_cold_2(&v22);
     goto LABEL_44;
   }
 
   v14 = initialize();
   if (v14)
   {
-    encryptFDRDataForBrunor_cold_3(v14, v14, &v23);
+    encryptFDRDataForBrunor_cold_3(v14, v14, &v22);
     goto LABEL_44;
   }
 
   v15 = performCommand(_connect, 80, 0, a1, a2, a3, a4);
   if (v15)
   {
-    encryptFDRDataForBrunor_cold_4(v15, v15, &v23);
+    encryptFDRDataForBrunor_cold_4(v15, v15, &v22);
     goto LABEL_44;
   }
 
@@ -9861,12 +9785,12 @@ LABEL_18:
 
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v23 = 67109120;
-      LODWORD(v24) = v16;
+      v22 = 67109120;
+      LODWORD(v23) = v16;
       v18 = v17;
       v19 = OS_LOG_TYPE_ERROR;
 LABEL_35:
-      _os_log_impl(&dword_299F4E000, v18, v19, "encryptFDRDataForBrunor -> %d\n", &v23, 8u);
+      _os_log_impl(&dword_299F4E000, v18, v19, "encryptFDRDataForBrunor -> %d\n", &v22, 8u);
     }
   }
 
@@ -9889,14 +9813,13 @@ LABEL_35:
 
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 67109120;
-      LODWORD(v24) = 0;
+      v22 = 67109120;
+      LODWORD(v23) = 0;
       v18 = v20;
       v19 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_35;
     }
   }
 
-  v21 = *MEMORY[0x29EDCA608];
   return v16;
 }

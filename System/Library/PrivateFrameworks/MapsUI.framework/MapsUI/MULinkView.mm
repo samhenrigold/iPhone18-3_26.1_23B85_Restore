@@ -27,21 +27,18 @@
 
 - (void)_updateForButtonShapeStatusChange
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (UIAccessibilityButtonShapesEnabled())
   {
-    v7 = *MEMORY[0x1E69DB758];
-    v8[0] = &unk_1F450DEE0;
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v5 = *MEMORY[0x1E69DB758];
+    v6[0] = &unk_1F450DEE0;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
     [(UITextView *)self->_textView setLinkTextAttributes:v3];
-
-    v4 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     textView = self->_textView;
-    v6 = *MEMORY[0x1E69E9840];
 
     [(UITextView *)textView setLinkTextAttributes:0];
   }
@@ -63,7 +60,7 @@
 
 - (void)_setupLinkView
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   _mapsui_defaultTextView = [MEMORY[0x1E69DD168] _mapsui_defaultTextView];
   textView = self->_textView;
   self->_textView = _mapsui_defaultTextView;
@@ -90,16 +87,14 @@
   v9 = self->_textView;
   layoutMarginsGuide = [(MULinkView *)self layoutMarginsGuide];
   v11 = [(MUEdgeLayout *)v8 initWithItem:v9 container:layoutMarginsGuide];
-  v18[0] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   [v7 _mapsui_activateLayouts:v12];
 
   v13 = objc_opt_self();
-  v17 = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+  v16 = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
   v15 = [(MULinkView *)self registerForTraitChanges:v14 withAction:sel__updateTintColor];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (MULinkView)initWithLabelColor:(id)color linkColor:(id)linkColor

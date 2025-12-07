@@ -30,13 +30,13 @@
 
 - (EDHeuristicsMailboxPredictor)initWithUserProfileProvider:(id)provider messagePersistence:(id)persistence mailboxPersistence:(id)mailboxPersistence
 {
-  v25[8] = *MEMORY[0x1E69E9840];
+  v24[8] = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   persistenceCopy = persistence;
   mailboxPersistenceCopy = mailboxPersistence;
-  v20.receiver = self;
-  v20.super_class = EDHeuristicsMailboxPredictor;
-  v9 = [(EDHeuristicsMailboxPredictor *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = EDHeuristicsMailboxPredictor;
+  v9 = [(EDHeuristicsMailboxPredictor *)&v19 init];
   v10 = v9;
   if (v9)
   {
@@ -47,41 +47,40 @@
     [(EDHeuristicsMailboxPredictor *)v10 setMailboxIDCache:v11];
 
     v12 = MEMORY[0x1E695E118];
-    v24[0] = @"mode";
-    v24[1] = @"ignoreUserAddresses";
-    v25[0] = @"ordered";
-    v25[1] = MEMORY[0x1E695E118];
-    v24[2] = @"confusionThreshold";
-    v24[3] = @"orderedThreshold";
-    v25[2] = &unk_1F45E7130;
-    v25[3] = &unk_1F45E7140;
-    v24[4] = @"order";
-    v23[0] = @"conversationID";
-    v23[1] = @"recipient";
-    v23[2] = @"listID";
-    v23[3] = @"sender";
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
-    v25[4] = v13;
-    v25[5] = &unk_1F45E7140;
-    v24[5] = @"weightedThreshold";
-    v24[6] = @"weights";
-    v21[0] = @"conversationID";
-    v21[1] = @"listID";
-    v22[0] = &unk_1F45E6670;
-    v22[1] = &unk_1F45E7150;
-    v21[2] = @"recipient";
-    v21[3] = @"sender";
-    v22[2] = &unk_1F45E7150;
-    v22[3] = &unk_1F45E7160;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:4];
-    v24[7] = @"limitToRecentMessages";
-    v25[6] = v14;
-    v25[7] = v12;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:8];
+    v23[0] = @"mode";
+    v23[1] = @"ignoreUserAddresses";
+    v24[0] = @"ordered";
+    v24[1] = MEMORY[0x1E695E118];
+    v23[2] = @"confusionThreshold";
+    v23[3] = @"orderedThreshold";
+    v24[2] = &unk_1F45E7130;
+    v24[3] = &unk_1F45E7140;
+    v23[4] = @"order";
+    v22[0] = @"conversationID";
+    v22[1] = @"recipient";
+    v22[2] = @"listID";
+    v22[3] = @"sender";
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
+    v24[4] = v13;
+    v24[5] = &unk_1F45E7140;
+    v23[5] = @"weightedThreshold";
+    v23[6] = @"weights";
+    v20[0] = @"conversationID";
+    v20[1] = @"listID";
+    v21[0] = &unk_1F45E6670;
+    v21[1] = &unk_1F45E7150;
+    v20[2] = @"recipient";
+    v20[3] = @"sender";
+    v21[2] = &unk_1F45E7150;
+    v21[3] = &unk_1F45E7160;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
+    v23[7] = @"limitToRecentMessages";
+    v24[6] = v14;
+    v24[7] = v12;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:8];
     [(EDHeuristicsMailboxPredictor *)v10 setParameters:v15];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -184,66 +183,66 @@ LABEL_16:
 
 - (id)predictMailboxIDsForMessages:(id)messages limit:(unint64_t)limit
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   limitCopy = limit;
   v6 = limit > 1 || [(EDHeuristicsMailboxPredictor *)self _modeParameterIs:@"weighted"];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   selfCopy = self;
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = messagesCopy;
-  v48 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
-  if (v48)
+  v47 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
+  if (v47)
   {
-    v45 = *v61;
+    v44 = *v60;
     do
     {
-      for (i = 0; i != v48; ++i)
+      for (i = 0; i != v47; ++i)
       {
-        if (*v61 != v45)
+        if (*v60 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v60 + 1) + 8 * i);
+        v8 = *(*(&v59 + 1) + 8 * i);
         persistentID = [v8 persistentID];
-        v50 = [(EDHeuristicsMailboxPredictor *)selfCopy _predictionsForMessage:v8 limit:limitCopy];
+        v49 = [(EDHeuristicsMailboxPredictor *)selfCopy _predictionsForMessage:v8 limit:limitCopy];
         v9 = +[EDMailboxPredictionController log];
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v10 = [v50 count];
+          v10 = [v49 count];
           subject = [v8 subject];
           *buf = 67109634;
-          v69 = v10;
-          v70 = 2112;
-          v71 = persistentID;
-          v72 = 2112;
-          v73 = subject;
+          v68 = v10;
+          v69 = 2112;
+          v70 = persistentID;
+          v71 = 2112;
+          v72 = subject;
           _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_INFO, "Got %u predictions for message persistentID=%@, subject=%@", buf, 0x1Cu);
         }
 
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
         v57 = 0u;
-        v12 = v50;
-        v13 = [v12 countByEnumeratingWithState:&v56 objects:v67 count:16];
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
+        v12 = v49;
+        v13 = [v12 countByEnumeratingWithState:&v55 objects:v66 count:16];
         if (v13)
         {
-          v14 = *v57;
+          v14 = *v56;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v57 != v14)
+              if (*v56 != v14)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v16 = *(*(&v56 + 1) + 8 * j);
+              v16 = *(*(&v55 + 1) + 8 * j);
               object = [v16 object];
               if (v6)
               {
@@ -286,23 +285,23 @@ LABEL_16:
               }
             }
 
-            v13 = [v12 countByEnumeratingWithState:&v56 objects:v67 count:16];
+            v13 = [v12 countByEnumeratingWithState:&v55 objects:v66 count:16];
           }
 
           while (v13);
         }
       }
 
-      v48 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
+      v47 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
     }
 
-    while (v48);
+    while (v47);
   }
 
   v26 = +[EDMailboxPredictionController log];
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    -[EDHeuristicsMailboxPredictor predictMailboxIDsForMessages:limit:].cold.1([dictionary count], v66);
+    -[EDHeuristicsMailboxPredictor predictMailboxIDsForMessages:limit:].cold.1([dictionary count], v65);
   }
 
   v27 = MEMORY[0x1E699B800];
@@ -315,8 +314,8 @@ LABEL_16:
 
     if (object2)
     {
-      v65 = object2;
-      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
+      v64 = object2;
+      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
     }
 
     else
@@ -331,29 +330,29 @@ LABEL_16:
     v34 = [v27 reverseSortedObjects:allValues2 limit:limitCopy];
 
     v32 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v34, "count")}];
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     object2 = v34;
-    v35 = [object2 countByEnumeratingWithState:&v52 objects:v64 count:16];
+    v35 = [object2 countByEnumeratingWithState:&v51 objects:v63 count:16];
     if (v35)
     {
-      v36 = *v53;
+      v36 = *v52;
       do
       {
         for (k = 0; k != v35; ++k)
         {
-          if (*v53 != v36)
+          if (*v52 != v36)
           {
             objc_enumerationMutation(object2);
           }
 
-          object3 = [*(*(&v52 + 1) + 8 * k) object];
+          object3 = [*(*(&v51 + 1) + 8 * k) object];
           [v32 addObject:object3];
         }
 
-        v35 = [object2 countByEnumeratingWithState:&v52 objects:v64 count:16];
+        v35 = [object2 countByEnumeratingWithState:&v51 objects:v63 count:16];
       }
 
       while (v35);
@@ -366,8 +365,6 @@ LABEL_16:
     firstObject = [v32 firstObject];
     [EDHeuristicsMailboxPredictor predictMailboxIDsForMessages:firstObject limit:buf];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
@@ -411,7 +408,7 @@ LABEL_16:
 
 - (id)_orderedModePredictionForMessage:(id)message
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v4 = +[EDMailboxPredictionController log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -424,32 +421,32 @@ LABEL_16:
   [v6 doubleValue];
   v8 = v7;
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   parameters2 = [(EDHeuristicsMailboxPredictor *)self parameters];
   obj = [parameters2 objectForKeyedSubscript:@"order"];
 
-  v10 = [obj countByEnumeratingWithState:&v42 objects:v53 count:16];
+  v10 = [obj countByEnumeratingWithState:&v41 objects:v52 count:16];
   if (v10)
   {
-    v37 = *v43;
-    v35 = MEMORY[0x1E695E0F0];
+    v36 = *v42;
+    v34 = MEMORY[0x1E695E0F0];
     *&v11 = 134218240;
-    v34 = v11;
+    v33 = v11;
     while (2)
     {
-      v38 = v10;
-      for (i = 0; i != v38; ++i)
+      v37 = v10;
+      for (i = 0; i != v37; ++i)
       {
-        if (*v43 != v37)
+        if (*v42 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v42 + 1) + 8 * i);
-        v14 = [(EDHeuristicsMailboxPredictor *)self _countsForField:*&v13 message:messageCopy, v34];
+        v13 = *(*(&v41 + 1) + 8 * i);
+        v14 = [(EDHeuristicsMailboxPredictor *)self _countsForField:*&v13 message:messageCopy, v33];
         v15 = [(EDHeuristicsMailboxPredictor *)self _topHitFromMailboxDictionary:v14 message:messageCopy];
         v16 = [(__CFString *)v14 count];
         v17 = @"{}";
@@ -463,9 +460,9 @@ LABEL_16:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v48 = v13;
-          v49 = 2112;
-          v50 = *&v18;
+          v47 = v13;
+          v48 = 2112;
+          v49 = *&v18;
           _os_log_debug_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEBUG, "Raw counts for %@: %@", buf, 0x16u);
         }
 
@@ -478,11 +475,11 @@ LABEL_16:
             v29 = v28;
             object = [v15 object];
             *buf = 134218498;
-            v48 = v29;
-            v49 = 2112;
-            v50 = v13;
-            v51 = 2112;
-            v52 = object;
+            v47 = v29;
+            v48 = 2112;
+            v49 = v13;
+            v50 = 2112;
+            v51 = object;
             _os_log_debug_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEBUG, "Found %.0lf hit for **%@** in %@", buf, 0x20u);
           }
 
@@ -497,7 +494,7 @@ LABEL_16:
             v26 = +[EDMailboxPredictionController log];
             if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
             {
-              [(EDHeuristicsMailboxPredictor *)&v40 _orderedModePredictionForMessage:v41];
+              [(EDHeuristicsMailboxPredictor *)&v39 _orderedModePredictionForMessage:v40];
             }
           }
 
@@ -506,8 +503,8 @@ LABEL_16:
             [v15 measure];
             if (v27 >= v8)
             {
-              v46 = v15;
-              v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
+              v45 = v15;
+              v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
 
               goto LABEL_27;
             }
@@ -516,17 +513,17 @@ LABEL_16:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
             {
               [v15 measure];
-              *buf = v34;
-              v48 = v31;
-              v49 = 2048;
-              v50 = v8;
+              *buf = v33;
+              v47 = v31;
+              v48 = 2048;
+              v49 = v8;
               _os_log_debug_impl(&dword_1C61EF000, v26, OS_LOG_TYPE_DEBUG, "Ignoring because count (%.0f) is under threshold (%.0f).", buf, 0x16u);
             }
           }
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v42 objects:v53 count:16];
+      v10 = [obj countByEnumeratingWithState:&v41 objects:v52 count:16];
       if (v10)
       {
         continue;
@@ -538,19 +535,17 @@ LABEL_16:
 
   else
   {
-    v35 = MEMORY[0x1E695E0F0];
+    v34 = MEMORY[0x1E695E0F0];
   }
 
 LABEL_27:
 
-  v32 = *MEMORY[0x1E69E9840];
-
-  return v35;
+  return v34;
 }
 
 - (id)_summedWeightedPredictionsForMessage:(id)message limit:(unint64_t)limit
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v4 = +[EDMailboxPredictionController log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -559,34 +554,34 @@ LABEL_27:
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   parameters = [(EDHeuristicsMailboxPredictor *)self parameters];
   obj = [parameters objectForKeyedSubscript:@"weights"];
 
-  v54 = [obj countByEnumeratingWithState:&v68 objects:v80 count:16];
-  if (v54)
+  v53 = [obj countByEnumeratingWithState:&v67 objects:v79 count:16];
+  if (v53)
   {
-    v53 = *v69;
+    v52 = *v68;
     do
     {
-      for (i = 0; i != v54; ++i)
+      for (i = 0; i != v53; ++i)
       {
-        if (*v69 != v53)
+        if (*v68 != v52)
         {
           objc_enumerationMutation(obj);
         }
 
-        v59 = *(*(&v68 + 1) + 8 * i);
+        v58 = *(*(&v67 + 1) + 8 * i);
         parameters2 = [(EDHeuristicsMailboxPredictor *)self parameters];
         v8 = [parameters2 objectForKeyedSubscript:@"weights"];
-        v9 = [v8 objectForKeyedSubscript:v59];
+        v9 = [v8 objectForKeyedSubscript:v58];
         [v9 doubleValue];
         v11 = v10;
 
-        v12 = [(EDHeuristicsMailboxPredictor *)self _countsForField:v59 message:messageCopy];
+        v12 = [(EDHeuristicsMailboxPredictor *)self _countsForField:v58 message:messageCopy];
         v13 = [(__CFString *)v12 count];
         v14 = @"{}";
         if (v13)
@@ -594,38 +589,38 @@ LABEL_27:
           v14 = v12;
         }
 
-        v56 = v14;
+        v55 = v14;
         v15 = +[EDMailboxPredictionController log];
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v74 = v59;
-          v75 = 2112;
-          v76 = v56;
+          v73 = v58;
+          v74 = 2112;
+          v75 = v55;
           _os_log_debug_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEBUG, "Raw counts for %@:\n%@", buf, 0x16u);
         }
 
         v16 = [(EDHeuristicsMailboxPredictor *)self _removeSpecialMailboxesInCounts:v12 message:messageCopy];
 
-        v66 = 0u;
-        v67 = 0u;
-        v64 = 0u;
         v65 = 0u;
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
         v17 = v16;
-        v18 = [v17 countByEnumeratingWithState:&v64 objects:v79 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v63 objects:v78 count:16];
         if (v18)
         {
-          v19 = *v65;
+          v19 = *v64;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v65 != v19)
+              if (*v64 != v19)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v21 = *(*(&v64 + 1) + 8 * j);
+              v21 = *(*(&v63 + 1) + 8 * j);
               v22 = [v17 objectForKeyedSubscript:v21];
               [v22 doubleValue];
               v24 = v23;
@@ -635,11 +630,11 @@ LABEL_27:
               if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412802;
-                v74 = v59;
-                v75 = 2112;
-                v76 = v21;
-                v77 = 2048;
-                v78 = v26;
+                v73 = v58;
+                v74 = 2112;
+                v75 = v21;
+                v76 = 2048;
+                v77 = v26;
                 _os_log_debug_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEBUG, "Found field=%@ in mailbox=%@: weightedHits=%.1lf", buf, 0x20u);
               }
 
@@ -664,17 +659,17 @@ LABEL_27:
               [dictionary setObject:v33 forKeyedSubscript:v21];
             }
 
-            v18 = [v17 countByEnumeratingWithState:&v64 objects:v79 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v63 objects:v78 count:16];
           }
 
           while (v18);
         }
       }
 
-      v54 = [obj countByEnumeratingWithState:&v68 objects:v80 count:16];
+      v53 = [obj countByEnumeratingWithState:&v67 objects:v79 count:16];
     }
 
-    while (v54);
+    while (v53);
   }
 
   parameters3 = [(EDHeuristicsMailboxPredictor *)self parameters];
@@ -683,25 +678,25 @@ LABEL_27:
   v37 = v36;
 
   v38 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(dictionary, "count")}];
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v39 = dictionary;
-  v40 = [v39 countByEnumeratingWithState:&v60 objects:v72 count:16];
+  v40 = [v39 countByEnumeratingWithState:&v59 objects:v71 count:16];
   if (v40)
   {
-    v41 = *v61;
+    v41 = *v60;
     do
     {
       for (k = 0; k != v40; ++k)
       {
-        if (*v61 != v41)
+        if (*v60 != v41)
         {
           objc_enumerationMutation(v39);
         }
 
-        v43 = *(*(&v60 + 1) + 8 * k);
+        v43 = *(*(&v59 + 1) + 8 * k);
         v44 = [v39 objectForKeyedSubscript:v43];
         [v44 doubleValue];
         if (v45 > v37)
@@ -713,7 +708,7 @@ LABEL_27:
         }
       }
 
-      v40 = [v39 countByEnumeratingWithState:&v60 objects:v72 count:16];
+      v40 = [v39 countByEnumeratingWithState:&v59 objects:v71 count:16];
     }
 
     while (v40);
@@ -729,14 +724,12 @@ LABEL_27:
     v48 = MEMORY[0x1E695E0F0];
   }
 
-  v49 = *MEMORY[0x1E69E9840];
-
   return v48;
 }
 
 - (id)_weightedModePredictionsForMessage:(id)message
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v4 = +[EDMailboxPredictionController log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -749,35 +742,35 @@ LABEL_27:
   [v6 doubleValue];
   v8 = v7;
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   parameters2 = [(EDHeuristicsMailboxPredictor *)self parameters];
   obj = [parameters2 objectForKeyedSubscript:@"weights"];
 
-  v10 = [obj countByEnumeratingWithState:&v58 objects:v71 count:16];
+  v10 = [obj countByEnumeratingWithState:&v57 objects:v70 count:16];
   if (!v10)
   {
-    v51 = 0;
+    v50 = 0;
     goto LABEL_28;
   }
 
-  v51 = 0;
-  v53 = *v59;
+  v50 = 0;
+  v52 = *v58;
   *&v11 = 134218240;
-  v50 = v11;
+  v49 = v11;
   do
   {
-    v54 = v10;
-    for (i = 0; i != v54; ++i)
+    v53 = v10;
+    for (i = 0; i != v53; ++i)
     {
-      if (*v59 != v53)
+      if (*v58 != v52)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v58 + 1) + 8 * i);
+      v13 = *(*(&v57 + 1) + 8 * i);
       parameters3 = [(EDHeuristicsMailboxPredictor *)self parameters];
       v15 = [parameters3 objectForKeyedSubscript:@"weights"];
       v16 = [v15 objectForKeyedSubscript:*&v13];
@@ -797,9 +790,9 @@ LABEL_27:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v64 = v13;
-        v65 = 2112;
-        v66 = *&v22;
+        v63 = v13;
+        v64 = 2112;
+        v65 = *&v22;
         _os_log_debug_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEBUG, "Raw counts for %@:\n%@", buf, 0x16u);
       }
 
@@ -817,13 +810,13 @@ LABEL_27:
           v40 = v39;
           object = [v25 object];
           *buf = 134218754;
-          v64 = v40;
-          v65 = 2048;
-          v66 = v29;
-          v67 = 2112;
-          v68 = v13;
-          v69 = 2112;
-          v70 = object;
+          v63 = v40;
+          v64 = 2048;
+          v65 = v29;
+          v66 = 2112;
+          v67 = v13;
+          v68 = 2112;
+          v69 = object;
           _os_log_debug_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_DEBUG, "Found %.0lf (weighted=%.1lf) hits for **%@** in %@", buf, 0x2Au);
         }
 
@@ -838,7 +831,7 @@ LABEL_27:
           v35 = +[EDMailboxPredictionController log];
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
-            [(EDHeuristicsMailboxPredictor *)&v56 _orderedModePredictionForMessage:v57];
+            [(EDHeuristicsMailboxPredictor *)&v55 _orderedModePredictionForMessage:v56];
           }
         }
 
@@ -847,14 +840,14 @@ LABEL_27:
           [v25 setMeasure:v29];
           [v25 measure];
           v37 = v36;
-          [v51 measure];
+          [v50 measure];
           if (v37 <= v38)
           {
             goto LABEL_24;
           }
 
-          v35 = v51;
-          v51 = v25;
+          v35 = v50;
+          v50 = v25;
         }
 
         else
@@ -862,10 +855,10 @@ LABEL_27:
           v35 = +[EDMailboxPredictionController log];
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v50;
-            v64 = v29;
-            v65 = 2048;
-            v66 = v8;
+            *buf = v49;
+            v63 = v29;
+            v64 = 2048;
+            v65 = v8;
             _os_log_debug_impl(&dword_1C61EF000, v35, OS_LOG_TYPE_DEBUG, "Ignoring because weighted (%.0f) is under threshold (%.0f).", buf, 0x16u);
           }
         }
@@ -874,7 +867,7 @@ LABEL_27:
 LABEL_24:
     }
 
-    v10 = [obj countByEnumeratingWithState:&v58 objects:v71 count:16];
+    v10 = [obj countByEnumeratingWithState:&v57 objects:v70 count:16];
   }
 
   while (v10);
@@ -883,23 +876,21 @@ LABEL_28:
   v42 = +[EDMailboxPredictionController log];
   if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
-    object3 = [v51 object];
-    [v51 measure];
+    object3 = [v50 object];
+    [v50 measure];
     [(EDHeuristicsMailboxPredictor *)object3 _weightedModePredictionsForMessage:buf, v44];
   }
 
-  if (!v51 || ([v51 object], v45 = objc_claimAutoreleasedReturnValue(), v46 = v45 == 0, v45, v46))
+  if (!v50 || ([v50 object], v45 = objc_claimAutoreleasedReturnValue(), v46 = v45 == 0, v45, v46))
   {
     v47 = MEMORY[0x1E695E0F0];
   }
 
   else
   {
-    v62 = v51;
-    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
+    v61 = v50;
+    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 
   return v47;
 }
@@ -954,7 +945,7 @@ LABEL_10:
 
 - (id)_adjustPredicateForRecent:(id)recent
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   recentCopy = recent;
   if ([(EDHeuristicsMailboxPredictor *)self _limitToRecents])
   {
@@ -966,9 +957,9 @@ LABEL_10:
     v10 = [v5 predicateWithLeftExpression:v6 rightExpression:v9 modifier:0 type:2 options:0];
 
     v11 = MEMORY[0x1E696AE18];
-    v16[0] = recentCopy;
-    v16[1] = v10;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = recentCopy;
+    v15[1] = v10;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v13 = [v11 ef_andCompoundPredicateWithSubpredicates:v12];
   }
 
@@ -976,8 +967,6 @@ LABEL_10:
   {
     v13 = recentCopy;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1077,7 +1066,7 @@ LABEL_10:
 
 - (id)_userCreatedMailboxIDs
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   mailboxIDCache = [(EDHeuristicsMailboxPredictor *)self mailboxIDCache];
   v4 = [mailboxIDCache objectForKey:@"MFUserCreatedMailboxIDs"];
 
@@ -1091,34 +1080,34 @@ LABEL_10:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v23 = [userCreatedMailboxObjectIDs count];
+      v22 = [userCreatedMailboxObjectIDs count];
       _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, "Found %u user mailboxes.", buf, 8u);
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = userCreatedMailboxObjectIDs;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = [*(*(&v17 + 1) + 8 * i) url];
+          v12 = [*(*(&v16 + 1) + 8 * i) url];
           absoluteString = [v12 absoluteString];
           [v4 addObject:absoluteString];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -1128,39 +1117,37 @@ LABEL_10:
     [mailboxIDCache2 setObject:v4 forKey:@"MFUserCreatedMailboxIDs"];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)_removeSpecialMailboxesInCounts:(id)counts message:(id)message
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   countsCopy = counts;
   mailbox = [message mailbox];
   v7 = [mailbox URL];
   absoluteString = [v7 absoluteString];
 
   array = [MEMORY[0x1E695DF70] array];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v10 = countsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         _userCreatedMailboxIDs = [(EDHeuristicsMailboxPredictor *)self _userCreatedMailboxIDs];
         v16 = [_userCreatedMailboxIDs containsObject:v14];
 
@@ -1170,7 +1157,7 @@ LABEL_10:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
@@ -1192,8 +1179,6 @@ LABEL_10:
   {
     v18 = v10;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1292,7 +1277,7 @@ void __61__EDHeuristicsMailboxPredictor__topHitFromMailboxDictionary___block_inv
 
 - (id)_normalizedTermFrequencyTopHitFromDictionary:(id)dictionary withThreshold:(double)threshold
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [(EDHeuristicsMailboxPredictor *)self _topHitFromMailboxDictionary:?];
   v7 = v6;
@@ -1301,25 +1286,25 @@ void __61__EDHeuristicsMailboxPredictor__topHitFromMailboxDictionary___block_inv
     [v6 measure];
     v9 = v8;
     array = [MEMORY[0x1E695DF70] array];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v11 = dictionaryCopy;
-    v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v12)
     {
-      v13 = *v29;
+      v13 = *v28;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v28 + 1) + 8 * i);
+          v15 = *(*(&v27 + 1) + 8 * i);
           v16 = [v11 objectForKeyedSubscript:v15];
           [v16 doubleValue];
           v18 = v17;
@@ -1328,7 +1313,7 @@ void __61__EDHeuristicsMailboxPredictor__topHitFromMailboxDictionary___block_inv
           [array addObject:v19];
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v12);
@@ -1351,8 +1336,6 @@ void __61__EDHeuristicsMailboxPredictor__topHitFromMailboxDictionary___block_inv
   {
     v21 = 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -1395,28 +1378,28 @@ void __61__EDHeuristicsMailboxPredictor__topHitFromMailboxDictionary___block_inv
 
 - (id)_allowedRecipientsForMessage:(id)message
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v5 = [MEMORY[0x1E695DFA8] set];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v6 = [messageCopy to];
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v7)
   {
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        ea_uncommentedAddress = [*(*(&v25 + 1) + 8 * i) ea_uncommentedAddress];
+        ea_uncommentedAddress = [*(*(&v24 + 1) + 8 * i) ea_uncommentedAddress];
         lowercaseString = [ea_uncommentedAddress lowercaseString];
 
         if (lowercaseString && [(EDHeuristicsMailboxPredictor *)self _isAllowedRecipient:lowercaseString])
@@ -1425,31 +1408,31 @@ void __61__EDHeuristicsMailboxPredictor__topHitFromMailboxDictionary___block_inv
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v7);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v12 = [messageCopy cc];
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v13)
   {
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        ea_uncommentedAddress2 = [*(*(&v21 + 1) + 8 * j) ea_uncommentedAddress];
+        ea_uncommentedAddress2 = [*(*(&v20 + 1) + 8 * j) ea_uncommentedAddress];
         lowercaseString2 = [ea_uncommentedAddress2 lowercaseString];
 
         if (lowercaseString2 && [(EDHeuristicsMailboxPredictor *)self _isAllowedRecipient:lowercaseString2])
@@ -1458,7 +1441,7 @@ void __61__EDHeuristicsMailboxPredictor__topHitFromMailboxDictionary___block_inv
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v13);
@@ -1473,8 +1456,6 @@ void __61__EDHeuristicsMailboxPredictor__topHitFromMailboxDictionary___block_inv
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1511,30 +1492,6 @@ void __61__EDHeuristicsMailboxPredictor__topHitFromMailboxDictionary___block_inv
   *(a2 + 14) = a3;
   OUTLINED_FUNCTION_1_4();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-}
-
-- (void)_senderCountsForMessage:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_removeSpecialMailboxesInCounts:message:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_isAllowedRecipient:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

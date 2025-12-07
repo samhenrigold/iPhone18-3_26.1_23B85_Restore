@@ -569,8 +569,9 @@ void __49__NTKArgonExtractor__queue_extractKeyDescriptor___block_invoke_2(uint64
   *(v41 + 40) = 0;
 }
 
-void __49__NTKArgonExtractor__queue_extractKeyDescriptor___block_invoke_56(uint64_t a1, void *a2, int a3, void *a4)
+void __49__NTKArgonExtractor__queue_extractKeyDescriptor___block_invoke_56(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
+  v5 = a3;
   v15 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
@@ -579,7 +580,7 @@ void __49__NTKArgonExtractor__queue_extractKeyDescriptor___block_invoke_56(uint6
   if (v7)
   {
     v11 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (a3)
+    if (v5)
     {
       if (v11)
       {
@@ -602,7 +603,7 @@ LABEL_9:
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __49__NTKArgonExtractor__queue_extractKeyDescriptor___block_invoke_56_cold_1(a3, v8, v10);
+    __49__NTKArgonExtractor__queue_extractKeyDescriptor___block_invoke_56_cold_1(v5, v8, v10);
   }
 
   [*(*(*(a1 + 32) + 8) + 40) resume];

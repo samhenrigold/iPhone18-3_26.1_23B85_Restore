@@ -98,12 +98,13 @@ LABEL_5:
       v17 = v15 + v16 - y;
       geometry->center.y = geometry->center.y + v17;
       geometry->frame.origin.y = geometry->frame.origin.y + v17;
-      v18 = [MEMORY[0x1E696AC88] px_indexPathForItem:0 inSection:path->section + 1 withKind:kind];
+      [MEMORY[0x1E696AC88] px_indexPathForItem:0 inSection:path->section + 1 withKind:kind];
+      objc_claimAutoreleasedReturnValue();
       layoutSnapshot = [(PXEngineDrivenAssetsTilingLayout *)self layoutSnapshot];
-      v20 = layoutSnapshot;
+      v19 = layoutSnapshot;
       if (layoutSnapshot)
       {
-        [layoutSnapshot geometryForItem:v18];
+        objc_msgSend_geometryForItem_(layoutSnapshot);
       }
 
       [(PXTilingLayout *)self coordinateSpaceIdentifier];
@@ -459,7 +460,7 @@ LABEL_5:
   v82 = 0u;
   v83 = 0u;
   v81 = 0u;
-  [(PXCMMEngineDrivenLayout *)self _headerTileIdentifier];
+  objc_msgSend__headerTileIdentifier(self);
   v80 = 0;
   v64 = v83;
   v65 = v84;
@@ -530,7 +531,7 @@ LABEL_5:
       v82 = 0u;
       v83 = 0u;
       v81 = 0u;
-      [(PXCMMEngineDrivenLayout *)self _bannerTileIdentifier];
+      objc_msgSend__bannerTileIdentifier(self);
       v61 = 0;
       v64 = v83;
       v65 = v84;
@@ -602,7 +603,7 @@ LABEL_5:
       v82 = 0u;
       v83 = 0u;
       v81 = 0u;
-      [(PXCMMEngineDrivenLayout *)self _statusFooterTileIdentifier];
+      objc_msgSend__statusFooterTileIdentifier(self);
       v60 = 0;
       v64 = v83;
       v65 = v84;
@@ -677,7 +678,7 @@ LABEL_5:
         v82 = 0u;
         v83 = 0u;
         v81 = 0u;
-        [(PXCMMEngineDrivenLayout *)self _placeholderTileIdentifier];
+        objc_msgSend__placeholderTileIdentifier(self);
         v59 = 0;
         v64 = v83;
         v65 = v84;
@@ -787,7 +788,7 @@ LABEL_5:
       v31 = layoutSnapshot;
       if (layoutSnapshot)
       {
-        [layoutSnapshot geometryForItem:v29];
+        objc_msgSend_geometryForItem_(layoutSnapshot);
       }
 
       else
@@ -1031,50 +1032,41 @@ LABEL_38:
   if (![(PXCMMEngineDrivenLayout *)self placeholderMode])
   {
     v7 = [(PXCMMEngineDrivenLayout *)self _generatorGeometryKindForTileKind:8439963];
-    v8 = [MEMORY[0x1E696AC88] px_indexPathForItem:0 inSection:0 withKind:v7];
+    [MEMORY[0x1E696AC88] px_indexPathForItem:0 inSection:0 withKind:v7];
+    objc_claimAutoreleasedReturnValue();
     layoutSnapshot = [(PXEngineDrivenAssetsTilingLayout *)self layoutSnapshot];
-    v10 = layoutSnapshot;
+    v9 = layoutSnapshot;
     if (layoutSnapshot)
     {
-      [layoutSnapshot geometryForItem:v8];
+      objc_msgSend_geometryForItem_(layoutSnapshot);
     }
 
     PXRectWithCenterAndSize();
   }
 
-  v11 = v3;
-  v12 = v4;
-  v13 = v5;
-  v14 = v6;
-  result.size.height = v14;
-  result.size.width = v13;
-  result.origin.y = v12;
-  result.origin.x = v11;
+  v10 = v3;
+  v11 = v4;
+  v12 = v5;
+  v13 = v6;
+  result.size.height = v13;
+  result.size.width = v12;
+  result.origin.y = v11;
+  result.origin.x = v10;
   return result;
 }
 
 - (PXTileIdentifier)_placeholderTileIdentifier
 {
   placeholderMode = [(PXCMMEngineDrivenLayout *)self placeholderMode];
-  if ((placeholderMode - 1) >= 2)
+  if ((placeholderMode - 1) >= 2 && !placeholderMode)
   {
-    if (!placeholderMode)
-    {
-      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:a3 object:self file:@"PXCMMEngineDrivenLayout.m" lineNumber:312 description:@"Code which should be unreachable has been reached"];
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a3 object:self file:@"PXCMMEngineDrivenLayout.m" lineNumber:312 description:@"Code which should be unreachable has been reached"];
 
-      abort();
-    }
-
-    v6 = 0;
+    abort();
   }
 
-  else
-  {
-    v6 = 8439984;
-  }
-
-  return [(PXCMMEngineDrivenLayout *)self _identifierForUniqueTileWithKind:v6];
+  return objc_msgSend__identifierForUniqueTileWithKind_(self);
 }
 
 - (CGRect)_statusFooterFrame
@@ -1200,7 +1192,7 @@ LABEL_38:
 - (void)_invalidateStatusFooter
 {
   v3 = objc_alloc_init(PXTilingLayoutInvalidationContext);
-  [(PXCMMEngineDrivenLayout *)self _statusFooterTileIdentifier];
+  objc_msgSend__statusFooterTileIdentifier(self);
   [(PXTilingLayoutInvalidationContext *)v3 invalidateTileWithIdentifier:v4];
   [(PXTilingLayout *)self invalidateLayoutWithContext:v3];
 }
@@ -1216,7 +1208,7 @@ LABEL_38:
 - (void)_invalidateHeader
 {
   v3 = objc_alloc_init(PXTilingLayoutInvalidationContext);
-  [(PXCMMEngineDrivenLayout *)self _headerTileIdentifier];
+  objc_msgSend__headerTileIdentifier(self);
   [(PXTilingLayoutInvalidationContext *)v3 invalidateTileWithIdentifier:v4];
   [(PXTilingLayout *)self invalidateLayoutWithContext:v3];
 }

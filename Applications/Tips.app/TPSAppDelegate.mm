@@ -32,7 +32,7 @@
   }
 
   v12 = MGCopyAnswer();
-  v13 = [v12 componentsSeparatedByString:@"."];
+  v13 = objc_msgSend_componentsSeparatedByString_(v12);
   firstObject = [v13 firstObject];
 
   v15 = [v6 objectForKey:@"kTipsAppLastLaunchedMajorVersion"];

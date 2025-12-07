@@ -266,9 +266,9 @@
 - (unint64_t)options
 {
   dataSource = [(DirectionsStepsTableViewController *)self dataSource];
-  options = [dataSource options];
+  v3 = objc_msgSend_options(dataSource);
 
-  return options;
+  return v3;
 }
 
 - (void)setRoute:(id)route

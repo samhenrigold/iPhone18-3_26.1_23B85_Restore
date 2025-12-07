@@ -1,3 +1,957 @@
+_WORD *udif::details::block_attributes::block_attributes(_WORD *this, int a2)
+{
+  v2 = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  *this = a2;
+  v5 = 0x10000800040002;
+  v6 = 4194336;
+  v7 = 128;
+  do
+  {
+    a2 &= *(&v5 + v2) ^ 0xFFFF;
+    v2 += 2;
+  }
+
+  while (v2 != 14);
+  if (a2)
+  {
+    v3 = a2;
+    exception = __cxa_allocate_exception(0x28uLL);
+    exception[1] = "block_attributes";
+    exception[2] = "invalid flags";
+    exception[3] = "flags validator";
+    *exception = &unk_285BEC1B8;
+    *(exception + 16) = v3;
+  }
+
+  return this;
+}
+
+void smart_enums::validators::validator_exception<unsigned short>::~validator_exception(std::exception *a1)
+{
+  std::exception::~exception(a1);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void smart_enums::validators::validator_exception<unsigned short>::reason(smart_enums::validators::validator_exception_base *a1@<X0>, void *a2@<X8>)
+{
+  v3 = smart_enums::validators::validator_exception_base::what(a1);
+  std::string::basic_string[abi:ne200100]<0>(v16, v3);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v10);
+  if ((v17 & 0x80u) == 0)
+  {
+    v4 = v16;
+  }
+
+  else
+  {
+    v4 = v16[0];
+  }
+
+  if ((v17 & 0x80u) == 0)
+  {
+    v5 = v17;
+  }
+
+  else
+  {
+    v5 = v16[1];
+  }
+
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v4, v5);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " [", 2);
+  *(v7 + *(*v7 - 24) + 8) = *(v7 + *(*v7 - 24) + 8) & 0xFFFFFFB5 | 8;
+  v8 = MEMORY[0x24C1ED3D0]();
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "]", 1);
+  std::stringbuf::str[abi:ne200100](&v12, a2);
+  v10[0] = *MEMORY[0x277D82818];
+  v9 = *(MEMORY[0x277D82818] + 72);
+  *(v10 + *(v10[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v11 = v9;
+  v12 = MEMORY[0x277D82878] + 16;
+  if (v14 < 0)
+  {
+    operator delete(v13[7].__locale_);
+  }
+
+  v12 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v13);
+  std::iostream::~basic_iostream();
+  MEMORY[0x24C1ED6A0](&v15);
+  if (v17 < 0)
+  {
+    operator delete(v16[0]);
+  }
+}
+
+void ExecutionSchedulerSortedConsecutiveIt<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,locks::Std,boost::iterators::transform_iterator<interval_map2set_it::$_0,std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,std::__tree_node<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,void *> *,long>>,boost::use_default,boost::use_default>>::~ExecutionSchedulerSortedConsecutiveIt(uint64_t a1)
+{
+  std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::destroy(a1 + 72, *(a1 + 80));
+
+  std::mutex::~mutex(a1);
+}
+
+void std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::destroy(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::destroy(a1, *a2);
+    std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::destroy(a1, a2[1]);
+    v4 = a2[12];
+    if (v4)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    }
+
+    operator delete(a2);
+  }
+}
+
+void std::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v2 = *a1;
+  if (*v2)
+  {
+    std::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::__base_destruct_at_end[abi:ne200100](v2, *v2);
+    v3 = **a1;
+
+    operator delete(v3);
+  }
+}
+
+void std::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 8);
+  if (v4 != a2)
+  {
+    do
+    {
+      v5 = v4 - 184;
+      v6 = (v4 - 168);
+      std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::destroy(v4 - 96, *(v4 - 88));
+      std::mutex::~mutex(v6);
+      v4 = v5;
+    }
+
+    while (v5 != a2);
+  }
+
+  *(a1 + 8) = a2;
+}
+
+uint64_t std::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::__emplace_back_slow_path<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>(unint64_t *a1, uint64_t a2)
+{
+  v2 = 0xD37A6F4DE9BD37A7 * ((a1[1] - *a1) >> 3);
+  v3 = v2 + 1;
+  if (v2 + 1 > 0x1642C8590B21642)
+  {
+    std::vector<iovec>::__throw_length_error[abi:ne200100]();
+  }
+
+  if (0xA6F4DE9BD37A6F4ELL * ((a1[2] - *a1) >> 3) > v3)
+  {
+    v3 = 0xA6F4DE9BD37A6F4ELL * ((a1[2] - *a1) >> 3);
+  }
+
+  if (0xD37A6F4DE9BD37A7 * ((a1[2] - *a1) >> 3) >= 0xB21642C8590B21)
+  {
+    v6 = 0x1642C8590B21642;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  v16 = a1;
+  if (v6)
+  {
+    std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::allocate_at_least[abi:ne200100](a1, v6);
+  }
+
+  v13 = 0;
+  v14 = 184 * v2;
+  std::allocator_traits<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>>::construct[abi:ne200100]<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>,void,0>(a1, 184 * v2, a2);
+  v15 = 184 * v2 + 184;
+  v7 = a1[1];
+  v8 = 184 * v2 + *a1 - v7;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>(a1, *a1, v7, v8);
+  v9 = *a1;
+  *a1 = v8;
+  v10 = a1[2];
+  v12 = v15;
+  *(a1 + 1) = v15;
+  *&v15 = v9;
+  *(&v15 + 1) = v10;
+  v13 = v9;
+  v14 = v9;
+  std::__split_buffer<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::~__split_buffer(&v13);
+  return v12;
+}
+
+void sub_248EBC988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  std::__split_buffer<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+__n128 std::allocator_traits<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>>::construct[abi:ne200100]<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>,void,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a2 = *a3;
+  *(a2 + 24) = 0u;
+  *(a2 + 40) = 0u;
+  *(a2 + 56) = 0u;
+  *(a2 + 72) = 0;
+  *(a2 + 88) = *(a3 + 88);
+  v3 = (a3 + 96);
+  v4 = *(a3 + 96);
+  *(a2 + 96) = v4;
+  v5 = a2 + 96;
+  *(a2 + 16) = 850045863;
+  *(a2 + 80) = *(a3 + 80);
+  v6 = *(a3 + 104);
+  *(a2 + 104) = v6;
+  if (v6)
+  {
+    *(v4 + 16) = v5;
+    *(a3 + 88) = v3;
+    *v3 = 0;
+    *(a3 + 104) = 0;
+  }
+
+  else
+  {
+    *(a2 + 88) = v5;
+  }
+
+  *(a2 + 112) = *(a3 + 112);
+  *(a2 + 128) = *(a3 + 128);
+  result = *(a3 + 144);
+  *(a2 + 144) = result;
+  *(a2 + 160) = *(a3 + 160);
+  *(a2 + 168) = 0;
+  *(a2 + 176) = *(a3 + 176);
+  return result;
+}
+
+void std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0x1642C8590B21643)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = a4;
+  v12 = a4;
+  v9[0] = a1;
+  v9[1] = &v11;
+  v9[2] = &v12;
+  v10 = 0;
+  if (a2 != a3)
+  {
+    v7 = a2;
+    do
+    {
+      std::allocator_traits<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>>::construct[abi:ne200100]<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>,void,0>(a1, a4, v7);
+      v7 += 184;
+      a4 = v12 + 184;
+      v12 += 184;
+    }
+
+    while (v7 != a3);
+  }
+
+  v10 = 1;
+  std::__allocator_destroy[abi:ne200100]<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>(a1, a2, a3);
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>>::~__exception_guard_exceptions[abi:ne200100](v9);
+}
+
+void std::__allocator_destroy[abi:ne200100]<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 != a3)
+  {
+    v4 = a2 + 88;
+    do
+    {
+      std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::destroy(v4, *(v4 + 8));
+      std::mutex::~mutex((v4 - 72));
+      v5 = v4 + 96;
+      v4 += 184;
+    }
+
+    while (v5 != a3);
+  }
+}
+
+uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
+{
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    std::__allocator_destroy[abi:ne200100]<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>,std::reverse_iterator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>,std::reverse_iterator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>>(*a1, **(a1 + 16), **(a1 + 16), **(a1 + 8), **(a1 + 8));
+  }
+
+  return a1;
+}
+
+void std::__allocator_destroy[abi:ne200100]<std::allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>,std::reverse_iterator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>,std::reverse_iterator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>*>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (a3 != a5)
+  {
+    do
+    {
+      v6 = a3 - 184;
+      v7 = (a3 - 168);
+      std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::destroy(a3 - 96, *(a3 - 88));
+      std::mutex::~mutex(v7);
+      a3 = v6;
+    }
+
+    while (v6 != a5);
+  }
+}
+
+uint64_t std::__split_buffer<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::~__split_buffer(uint64_t a1)
+{
+  std::__split_buffer<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::__destruct_at_end[abi:ne200100](a1, *(a1 + 8));
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::__split_buffer<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>>::__destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  for (i = *(a1 + 16); i != a2; i = *(a1 + 16))
+  {
+    *(a1 + 16) = i - 184;
+    v5 = (i - 168);
+    std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::destroy(i - 96, *(i - 88));
+    std::mutex::~mutex(v5);
+  }
+}
+
+void non-virtual thunk todi_log::logger<di_log::log_printer<339ul>>::~logger(uint64_t a1)
+{
+  v1 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<339ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v2 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<339ul>>::~logger_buf(v2);
+  MEMORY[0x24C1ED6A0](a1 + 8);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void virtual thunk todi_log::logger<di_log::log_printer<339ul>>::~logger(void *a1)
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<339ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<339ul>>::~logger_buf(v1);
+  MEMORY[0x24C1ED6A0](v1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void di_log::logger<di_log::log_printer<339ul>>::~logger(uint64_t a1)
+{
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<339ul>>::~logger_buf(a1);
+  MEMORY[0x24C1ED6A0](a1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<339ul>>::xsputn(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a1 + 64) == 1)
+  {
+    std::ostream::write();
+  }
+
+  return a3;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<339ul>>::overflow(_BYTE *a1, int a2)
+{
+  v2 = a2;
+  if (a1[64] == 1)
+  {
+    if (a2 == -1)
+    {
+      (*(*a1 + 48))(a1);
+    }
+
+    else
+    {
+      std::ostream::put();
+    }
+  }
+
+  return v2;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<339ul>>::~logger_buf(uint64_t a1)
+{
+  *a1 = &unk_285BEC3A0;
+  di_log::logger_buf<di_log::log_printer<339ul>>::_sync(a1);
+  v2 = MEMORY[0x277D82828];
+  v3 = *MEMORY[0x277D82828];
+  *(a1 + 96) = *MEMORY[0x277D82828];
+  *(a1 + 96 + *(v3 - 24)) = *(v2 + 24);
+  *(a1 + 104) = MEMORY[0x277D82878] + 16;
+  if (*(a1 + 191) < 0)
+  {
+    operator delete(*(a1 + 168));
+  }
+
+  *(a1 + 104) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 112));
+  std::ostream::~ostream();
+  MEMORY[0x24C1ED6A0](a1 + 208);
+  *a1 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 8));
+  return a1;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<339ul>>::_sync(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 64) == 1)
+  {
+    v2 = (a1 + 96);
+    v3 = a1 + 96 + *(*(a1 + 96) - 24);
+    if ((*(v3 + 32) & 5) == 0)
+    {
+      (*(**(v3 + 40) + 32))(__p);
+      if (v7 >= 1)
+      {
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        di_log::log_printer<339ul>::log((a1 + 72), __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        std::ios_base::clear((v2 + *(*v2 - 24)), 0);
+        std::string::basic_string[abi:ne200100]<0>(__p, "");
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+void sub_248EBD244(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void di_log::logger_buf<di_log::log_printer<339ul>>::~logger_buf(uint64_t a1)
+{
+  di_log::logger_buf<di_log::log_printer<339ul>>::~logger_buf(a1);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+int *di_log::log_printer<339ul>::log(uint64_t *a1, uint64_t *a2)
+{
+  v29 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 2);
+  v5 = *__error();
+  v6 = DIForwardLogs();
+  if (v6)
+  {
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
+    }
+
+    *buf = 68158466;
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 339;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
+    {
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
+    }
+  }
+
+  else
+  {
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
+    {
+      v17 = *a1;
+      if (*(a2 + 23) >= 0)
+      {
+        v18 = a2;
+      }
+
+      else
+      {
+        v18 = *a2;
+      }
+
+      *buf = 68158466;
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 339;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
+    }
+  }
+
+  result = __error();
+  *result = v5;
+  return result;
+}
+
+const void **CFAutoRelease<__CFArray const*>::~CFAutoRelease(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+uint64_t udif::master_checksum_add<checksum::Any<locks::None,checksum::None,checksum::CRC32>>(uint64_t a1, uint64_t a2)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  udif::details::checksum::checksum(&v15, a2);
+  v4 = v15;
+  v9 = v20;
+  v10 = v21;
+  v11 = v22;
+  v12 = v23;
+  v5 = v16;
+  v6 = v17;
+  v7 = v18;
+  v8 = v19;
+  udif::details::serialize_field(&v4, v13);
+  v4 = &v14;
+  *&v5 = HIDWORD(v15) >> 3;
+  checksum::Any<locks::None,checksum::None,checksum::CRC32>::add(a1, &v4);
+  return a1;
+}
+
+uint64_t checksum::Any<locks::None,checksum::None,checksum::CRC32>::add(uint64_t a1, uint64_t a2)
+{
+  v5 = a2;
+  v2 = *(a1 + 12);
+  if (v2 == -1)
+  {
+    std::__throw_bad_variant_access[abi:ne200100]();
+  }
+
+  v6 = &v5;
+  (off_285BEC410[v2])(&v6, a1 + 4);
+  return a1;
+}
+
+uLong _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IONS1_9__variant15__value_visitorIZN8checksum3AnyIN5locks4NoneEJNS8_4NoneENS8_5CRC32EEE3addERK18checksum_algo_dataEUlRT_E_EEJRNS0_6__baseILNS0_6_TraitE0EJNSC_ISB_EENSD_ISB_EEEEEEEEDcSI_DpT0_(const Bytef ****a1, _DWORD *a2)
+{
+  result = crc32(*a2, ***a1, *(**a1 + 2));
+  *a2 = result;
+  return result;
+}
+
+uint64_t ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::ChecksumScheduler(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  *result = *a2;
+  if ((*(a3 + 16) & 2) != 0)
+  {
+    v3 = *a3;
+  }
+
+  else
+  {
+    v3 = *a3 + 1;
+  }
+
+  v5 = (a2 + 144);
+  v4 = *(a2 + 144);
+  v6 = *(a2 + 128);
+  if (v6 != v4)
+  {
+    while (1)
+    {
+      v7 = v6[4];
+      if ((v6[6] & 2) == 0)
+      {
+        ++v7;
+      }
+
+      if (v7 >= v3)
+      {
+        break;
+      }
+
+      v8 = v6[1];
+      if (v8)
+      {
+        do
+        {
+          v9 = v8;
+          v8 = *v8;
+        }
+
+        while (v8);
+      }
+
+      else
+      {
+        do
+        {
+          v9 = v6[2];
+          v10 = *v9 == v6;
+          v6 = v9;
+        }
+
+        while (!v10);
+      }
+
+      v6 = v9;
+      if (v9 == v4)
+      {
+        goto LABEL_16;
+      }
+    }
+  }
+
+  v9 = v6;
+LABEL_16:
+  if (v9 == v4)
+  {
+    v16 = *(a2 + 80);
+    *(result + 96) = 0;
+    *(result + 16) = 850045863;
+    *(result + 24) = 0u;
+    *(result + 40) = 0u;
+    *(result + 56) = 0u;
+    *(result + 72) = 0;
+    *(result + 80) = v16;
+    *(result + 104) = 0;
+    *(result + 88) = result + 96;
+    *(result + 112) = *v5;
+    *(result + 128) = *v5;
+    *(result + 144) = *v5;
+    *(result + 168) = 0;
+    v9 = *(result + 112);
+    if (v9 == *(result + 144))
+    {
+      goto LABEL_35;
+    }
+
+    goto LABEL_32;
+  }
+
+  v11 = *(a2 + 136);
+  v12 = v9;
+  while (1)
+  {
+    v13 = v12[4];
+    if ((v12[6] & 2) == 0)
+    {
+      ++v13;
+    }
+
+    if (v13 > (*(a3 + 16) & 1) + *(a3 + 8) - 1)
+    {
+      break;
+    }
+
+    v14 = v12[1];
+    if (v14)
+    {
+      do
+      {
+        v15 = v14;
+        v14 = *v14;
+      }
+
+      while (v14);
+    }
+
+    else
+    {
+      do
+      {
+        v15 = v12[2];
+        v10 = *v15 == v12;
+        v12 = v15;
+      }
+
+      while (!v10);
+    }
+
+    v12 = v15;
+    if (v15 == v4)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  v15 = v12;
+LABEL_31:
+  v17 = *(a2 + 80);
+  *(result + 96) = 0;
+  *(result + 16) = 850045863;
+  *(result + 24) = 0u;
+  *(result + 40) = 0u;
+  *(result + 56) = 0u;
+  *(result + 72) = 0;
+  *(result + 80) = v17;
+  *(result + 88) = result + 96;
+  *(result + 104) = 0;
+  *(result + 112) = v9;
+  *(result + 120) = v11;
+  *(result + 128) = v9;
+  *(result + 136) = v11;
+  *(result + 144) = v15;
+  *(result + 152) = v11;
+  *(result + 168) = 0;
+  if (v9 != v15)
+  {
+LABEL_32:
+    v18 = *(v9 + 48);
+    v19 = v9[4];
+    if ((v18 & 2) == 0)
+    {
+      ++v19;
+    }
+
+    *(result + 160) = v19;
+  }
+
+LABEL_35:
+  *(result + 176) = 0;
+  return result;
+}
+
+uint64_t ContextAllocator<locks::Std,std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>>::ContextAllocator(uint64_t a1, unsigned int a2)
+{
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 850045863;
+  *(a1 + 40) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 0;
+  *(a1 + 96) = 1018212795;
+  *a1 = 0;
+  *(a1 + 104) = 0u;
+  *(a1 + 120) = 0u;
+  *(a1 + 129) = 0u;
+  if (a2)
+  {
+    std::vector<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *,std::allocator<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *>>::reserve((a1 + 8), a2);
+  }
+
+  return a1;
+}
+
+void sub_248EBD89C(_Unwind_Exception *a1)
+{
+  std::condition_variable::~condition_variable(v4);
+  std::mutex::~mutex(v3);
+  v6 = *v2;
+  if (*v2)
+  {
+    *(v1 + 16) = v6;
+    operator delete(v6);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void std::vector<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *,std::allocator<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *>>::reserve(void *a1, unint64_t a2)
+{
+  if (a2 > (a1[2] - *a1) >> 3)
+  {
+    if (!(a2 >> 61))
+    {
+      std::allocator<std::atomic<DiskImage::Context *> *>::allocate_at_least[abi:ne200100](a1, a2);
+    }
+
+    std::vector<iovec>::__throw_length_error[abi:ne200100]();
+  }
+}
+
+uint64_t ContextAllocator<locks::Std,std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>>::~ContextAllocator(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v2 != v3)
+  {
+    do
+    {
+      v4 = *v2;
+      if (*v2)
+      {
+        v5 = v4[2];
+        if (v5)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+        }
+
+        v6 = *v4;
+        *v4 = 0;
+        if (v6)
+        {
+          (*(*v6 + 40))(v6);
+        }
+
+        MEMORY[0x24C1ED730](v4, 0x20C40960023A9);
+      }
+
+      ++v2;
+    }
+
+    while (v2 != v3);
+    v2 = *(a1 + 8);
+  }
+
+  *(a1 + 16) = v2;
+  std::condition_variable::~condition_variable((a1 + 96));
+  std::mutex::~mutex((a1 + 32));
+  v7 = *(a1 + 8);
+  if (v7)
+  {
+    *(a1 + 16) = v7;
+    operator delete(v7);
+  }
+
+  return a1;
+}
+
+void *std::__shared_ptr_emplace<BackendSG>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<Backend> const&,unsigned long &,int,BOOL,std::allocator<BackendSG>,0>(void *a1, void *a2, uint64_t *a3, int *a4, char *a5)
+{
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = &unk_285BEC430;
+  BackendSG::BackendSG((a1 + 3), a2, *a3, *a4, *a5);
+  return a1;
+}
+
+void std::__shared_ptr_emplace<BackendSG>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_285BEC430;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void ExecutionSchedulerSortedConsecutiveIt<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,locks::Std,boost::iterators::transform_iterator<interval_map2set_it::$_0,std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,std::__tree_node<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,void *> *,long>>,boost::use_default,boost::use_default>>::abort(uint64_t a1)
+{
+  std::mutex::lock(a1);
+  *(a1 + 152) = 1;
+  std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::destroy(a1 + 72, *(a1 + 80));
+  *(a1 + 72) = a1 + 80;
+  *(a1 + 88) = 0;
+  *(a1 + 80) = 0;
+
+  std::mutex::unlock(a1);
+}
+
+void sub_248EBDCC4(void *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_begin_catch(a1);
+  ContextAllocator<locks::Std,std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>>::allocate(void)::{lambda(locks::Std)#1}::operator()<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *>(va, v3);
+  __cxa_rethrow();
+}
+
+void ContextAllocator<locks::Std,std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>>::allocate(void)::{lambda(locks::Std)#1}::operator()<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *>(uint64_t *a1, uint64_t a2)
+{
+  v3 = a2;
+  v2 = *a1;
+  std::mutex::lock((*a1 + 32));
+  std::vector<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *,std::allocator<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *>>::emplace_back<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> * const&>(v2 + 8, &v3);
+  std::mutex::unlock((v2 + 32));
+  std::condition_variable::notify_one((v2 + 96));
+}
+
+void sub_248EBDD40(_Unwind_Exception *a1)
+{
+  v2 = v1;
+  std::mutex::unlock((v2 + 32));
+  _Unwind_Resume(a1);
+}
+
+void std::__shared_ptr_pointer<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *,ContextAllocator<locks::Std,std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>>::allocate(void)::{lambda(std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *)#1},std::allocator<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>>>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x24C1ED730);
+}
+
 void std::__shared_ptr_pointer<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *,ContextAllocator<locks::Std,std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>>::allocate(void)::{lambda(std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *)#1},std::allocator<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>>>>::__on_zero_shared(uint64_t a1)
 {
   v1 = *(a1 + 32);
@@ -28,7 +982,7 @@ uint64_t std::__shared_ptr_pointer<std::tuple<std::unique_ptr<DiskImageUDIFRead<
   }
 }
 
-uint64_t std::vector<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *,std::allocator<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *>>::emplace_back<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> * const&>(uint64_t a1, void *a2)
+void *std::vector<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *,std::allocator<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> *>>::emplace_back<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF,std::default_delete<DiskImageUDIFRead<UDIFReader<locks::None>,DiskImageUDIF>::ContextUDIF>>,std::shared_ptr<BackendSG>> * const&>(uint64_t a1, void *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -85,7 +1039,7 @@ uint64_t std::vector<std::tuple<std::unique_ptr<DiskImageUDIFRead<UDIFReader<loc
   }
 
   *(a1 + 8) = v6;
-  return v6 - 8;
+  return (v6 - 8);
 }
 
 uint64_t di_log::logger_buf<di_log::log_printer<339ul>>::logger_buf(uint64_t a1, __int128 *a2)
@@ -121,15 +1075,15 @@ void sub_248EBDFD0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::__emplace_unique_key_args<boost::icl::discrete_interval<unsigned long long,std::less>,std::pair<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::__emplace_unique_key_args<boost::icl::discrete_interval<unsigned long long,std::less>,std::pair<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::__find_equal<boost::icl::discrete_interval<unsigned long long,std::less>>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::__find_equal<boost::icl::discrete_interval<unsigned long long,std::less>>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>,std::less<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>>::__find_equal<boost::icl::discrete_interval<unsigned long long,std::less>>(uint64_t a1, void *a2, uint64_t a3)
@@ -178,7 +1132,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t boost::icl::operator<<boost::icl::discrete_interval<unsigned long long,std::less>>(uint64_t a1, uint64_t a2)
+BOOL boost::icl::operator<<boost::icl::discrete_interval<unsigned long long,std::less>>(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 16);
   v4 = *a1;
@@ -254,7 +1208,7 @@ LABEL_4:
   return 0;
 }
 
-void boost::container::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_range_proxy<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,boost::move_iterator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void boost::container::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_range_proxy<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,boost::move_iterator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*>>(void **a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v10 = *a1;
   boost::container::uninitialized_move_and_insert_alloc<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*,boost::container::dtl::insert_range_proxy<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,boost::move_iterator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*>>(a1, *a1, a4, *a1 + 56 * a1[1], a2, a5, a6);
@@ -367,7 +1321,7 @@ __n128 boost::container::uninitialized_move_and_insert_alloc<boost::container::s
   return result;
 }
 
-void boost::container::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>(uint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void boost::container::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>(void **a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   v10 = *a1;
   v11 = boost::container::vector_alloc_holder<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(a1, a3);
@@ -382,7 +1336,7 @@ void boost::container::vector<ChecksumScheduler<checksum::Any<locks::None,checks
   *a5 = *a1 + a2 - v10;
 }
 
-unint64_t boost::container::vector_alloc_holder<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
+const char *boost::container::vector_alloc_holder<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
 {
   v2 = 0x249249249249249;
   v3 = *(a1 + 8);
@@ -427,7 +1381,7 @@ unint64_t boost::container::vector_alloc_holder<boost::container::small_vector_a
   }
 }
 
-void boost::container::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void boost::container::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>(void **a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v10 = *a1;
   boost::container::uninitialized_move_and_insert_alloc<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*,boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper*,ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper>>(a1, *a1, a4, *a1 + 56 * a1[1], a2, a5, a6);
@@ -538,7 +1492,7 @@ uint64_t *std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned l
   return v3;
 }
 
-void *boost::container::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,void>::~vector(void *a1)
+void **boost::container::vector<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::small_vector_allocator<ChecksumScheduler<checksum::Any<locks::None,checksum::None,checksum::CRC32>::bind_algos,details::udif_verify::scheduler_type,locks::Std>::wrapper,boost::container::new_allocator<void>,void>,void>::~vector(void **a1)
 {
   v2 = a1[1];
   if (v2)
@@ -588,44 +1542,31 @@ unint64_t di_asif::details::unmap_iterator_t::make_val(di_asif::details::unmap_i
   v4 = *(this + 5);
   v5 = v3 + v4;
   v6 = v1[1] * v2;
-  if (v4 >= v6)
+  if (v4 < v6)
   {
-    v4 = 0;
-    *(this + 5) = 0;
-    v7 = *this;
-    v8 = *(this + 1);
-    if (v8 > (v1 - *this) >> 4)
+    return v5 / v2;
+  }
+
+  *(this + 5) = 0;
+  v7 = *this;
+  v8 = *(this + 1);
+  if (v8 <= (v1 - *this) >> 4)
+  {
+    return v5 / v2;
+  }
+
+  *(this + 2) = v1 + 2;
+  if (v8 != (v1 - v7 + 16) >> 4)
+  {
+    v9 = v1[2] * v2;
+    if (v9 < *(this + 9))
     {
-      *(this + 2) = v1 + 2;
-      if (v8 == (v1 - v7 + 16) >> 4)
-      {
-        return 0;
-      }
-
-      v3 = v1[2] * v2;
-      if (v3 >= *(this + 9))
-      {
-        return 0;
-      }
-
-      v4 = 0;
-      v6 = v1[3] * v2;
       v5 = v1[2] * v2;
+      return v5 / v2;
     }
   }
 
-  v9 = *(this + 9) - v3;
-  if (v9 >= v6)
-  {
-    v9 = v6;
-  }
-
-  if (*(this + 6) + v5 / *(this + 6) * *(this + 6) - v5 < v9 - v4)
-  {
-    v10 = *(this + 6) + v5 / *(this + 6) * *(this + 6) - v5;
-  }
-
-  return v5 / v2;
+  return 0;
 }
 
 di_asif::details::unmap_iterator_t *di_asif::details::unmap_iterator_t::unmap_iterator_t(di_asif::details::unmap_iterator_t *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, uint64_t a8)
@@ -804,7 +1745,7 @@ uint64_t di_asif::details::data_entry_iterator_t::operator++@<X0>(uint64_t a1@<X
   return di_asif::details::data_entry_iterator_t::operator++(a1);
 }
 
-void di_asif::details::table::table(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, int a6)
+void di_asif::details::table::table(uint64_t a1, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5, uint64_t a6)
 {
   *a1 = 0;
   *(a1 + 8) = a2;
@@ -838,16 +1779,15 @@ void di_asif::details::table::table(uint64_t a1, uint64_t a2, uint64_t a3, unint
     {
       exception = __cxa_allocate_exception(0x40uLL);
       *exception = &unk_285BF4E60;
-      v12 = std::generic_category();
+      v11 = std::generic_category();
       exception[1] = 4294967274;
-      exception[2] = v12;
+      exception[2] = v11;
       *(exception + 24) = 0;
       *(exception + 48) = 0;
       exception[7] = "ASIF: table is not aligned to chunk size";
     }
   }
 
-  v10 = *(a2 + 28);
   operator new[]();
 }
 
@@ -877,7 +1817,7 @@ void sub_248EBF0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a20);
   }
 
-  MEMORY[0x24C1ED710](v21, v20);
+  MEMORY[0x24C1ED710](v21, v20, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -925,59 +1865,58 @@ void di_asif::details::table::return_chunk(di_asif::details::table *this, uint64
   if (a2)
   {
     std::mutex::lock((this + 280));
-    std::deque<unsigned long long>::emplace_back<unsigned long long &>(this + 232, &v3);
+    std::deque<unsigned long long>::emplace_back<unsigned long long &>(this + 29, &v3);
     atomic_store(1u, this + 24);
     std::mutex::unlock((this + 280));
   }
 }
 
-uint64_t std::deque<unsigned long long>::emplace_back<unsigned long long &>(uint64_t a1, void *a2)
+uint64_t std::deque<unsigned long long>::emplace_back<unsigned long long &>(unint64_t *a1, void *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  v10 = v9 + v8;
-  if (v7 == v9 + v8)
+  v7 = a1[4];
+  v8 = a1[5];
+  v9 = v8 + v7;
+  if (v6 == v8 + v7)
   {
     std::deque<unsigned long long>::__add_back_capacity(a1);
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v6 = *(a1 + 8);
-    v10 = v8 + v9;
+    v7 = a1[4];
+    v8 = a1[5];
+    v5 = a1[1];
+    v9 = v7 + v8;
   }
 
-  *(*(v6 + ((v10 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v10 & 0x1FF)) = *a2;
-  v11 = v9 + 1;
-  *(a1 + 40) = v11;
-  v12 = v8 + v11;
-  v13 = (v6 + 8 * (v12 >> 9));
-  v14 = v12 & 0x1FF;
-  if (v14)
+  *(*(v5 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
+  v10 = v8 + 1;
+  a1[5] = v10;
+  v11 = v7 + v10;
+  v12 = (v5 + 8 * (v11 >> 9));
+  v13 = v11 & 0x1FF;
+  if (v13)
   {
-    v15 = *v13 + 8 * v14;
+    v14 = *v12 + 8 * v13;
   }
 
   else
   {
-    v15 = *(v13 - 1) + 4096;
+    v14 = *(v12 - 1) + 4096;
   }
 
-  return v15 - 8;
+  return v14 - 8;
 }
 
-uint64_t di_asif::details::table::make_map_entry_iterators@<X0>(di_asif::details::table *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t *di_asif::details::table::make_map_entry_iterators@<X0>(uint64_t *__return_ptr a1@<X8>, di_asif::details::table *this@<X0>, uint64_t a3@<X1>)
 {
   v5 = *(this + 44);
   v6 = *(*(this + 1) + 88) + v5;
@@ -994,15 +1933,15 @@ uint64_t di_asif::details::table::make_map_entry_iterators@<X0>(di_asif::details
     v8 = 1;
   }
 
-  *a3 = this;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = result;
-  *(a3 + 24) = a2;
-  *(a3 + 32) = v8;
-  *(a3 + 40) = this;
-  *(a3 + 48) = v6;
-  *(a3 + 56) = 0;
-  *(a3 + 72) = 0;
+  *a1 = this;
+  a1[1] = v5;
+  a1[2] = result;
+  a1[3] = a3;
+  *(a1 + 32) = v8;
+  a1[5] = this;
+  a1[6] = v6;
+  a1[7] = 0;
+  *(a1 + 72) = 0;
   return result;
 }
 
@@ -1014,8 +1953,8 @@ uint64_t di_asif::details::table::update_entry_if_bits_in_same_state(di_asif::de
     return 0;
   }
 
-  ref::ref_cnt::take_exclusive(*(*a3 + 56) + 16 * *(a3 + 1), 0, v50);
-  if ((v50[16] & 1) == 0)
+  ref::ref_cnt::take_exclusive(v50, (*(*a3 + 56) + 16 * *(a3 + 1)), 0);
+  if ((v51 & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x40uLL);
     *exception = &unk_285BF4E60;
@@ -1038,7 +1977,7 @@ uint64_t di_asif::details::table::update_entry_if_bits_in_same_state(di_asif::de
   }
 
   v8 = *(*a3 + 8);
-  di_asif::details::table::get_bitmap(this, a2, (*(*a3 + 352) + (*(v8 + 56) + *(v8 + 56) * *(a3 + 1)) / (*(v8 + 56) + 1) * *(v8 + 28)) / *(v8 + 26), 0, &v49);
+  di_asif::details::table::get_bitmap(&v49, this, a2, (*(*a3 + 352) + (*(v8 + 56) + *(v8 + 56) * *(a3 + 1)) / (*(v8 + 56) + 1) * *(v8 + 28)) / *(v8 + 26), 0);
   if (!v49 || (v49[344] & 1) != 0)
   {
     v9 = 0;
@@ -1267,29 +2206,29 @@ LABEL_54:
   return result;
 }
 
-void sub_248EBF810(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248EBF810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(va);
   ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(va1);
   _Unwind_Resume(a1);
 }
 
-void di_asif::details::table::get_bitmap(di_asif::details::table *this@<X0>, di_asif::details::ContextASIF *a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, unint64_t *a5@<X8>)
+void di_asif::details::table::get_bitmap(unint64_t *__return_ptr a1@<X8>, di_asif::details::table *this@<X0>, di_asif::details::ContextASIF *a3@<X1>, uint64_t a4@<X2>, char a5@<W3>)
 {
-  v10 = (a3 - *(this + 44) / *(*(this + 1) + 26)) / (*(*(this + 1) + 56) * (*(*(this + 1) + 28) / *(*(this + 1) + 26)));
+  v10 = (a4 - *(this + 44) / *(*(this + 1) + 26)) / (*(*(this + 1) + 56) * (*(*(this + 1) + 28) / *(*(this + 1) + 26)));
   v11 = di_asif::details::table::bitmap_idx_to_tag(this, v10);
-  ref::tagged_weak_ptr<di_asif::details::map_element,unsigned long long>::lock_if_tag((*(this + 9) + 8 * v10), v11, a5);
-  if (!*a5 || (*(*a5 + 344) & 1) != 0)
+  ref::tagged_weak_ptr<di_asif::details::map_element,unsigned long long>::lock_if_tag((*(this + 9) + 8 * v10), v11, a1);
+  if (!*a1 || (*(*a1 + 344) & 1) != 0)
   {
     v12 = *(this + 1);
-    v26 = *(v12 + 56) + (*(v12 + 56) + 1) * ((a3 - *(this + 44) / *(v12 + 26)) / (*(v12 + 56) * (*(v12 + 28) / *(v12 + 26))));
+    v26 = *(v12 + 56) + (*(v12 + 56) + 1) * ((a4 - *(this + 44) / *(v12 + 26)) / (*(v12 + 56) * (*(v12 + 28) / *(v12 + 26))));
     di_asif::details::table_entry_map::table_entry_map(&v23, this, v26);
     v13 = v23;
     v14 = v24;
-    if (a4)
+    if (a5)
     {
       LOBYTE(v23) = 0;
       v25 = 0;
@@ -1308,28 +2247,28 @@ void di_asif::details::table::get_bitmap(di_asif::details::table *this@<X0>, di_
     }
 
     (*(**(this + 1) + 32))(v21);
-    ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::operator=(a5, v21);
+    ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::operator=(a1, v21);
     ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(v21);
-    if (*a5)
+    if (*a1)
     {
-      if ((*(*a5 + 344) & 1) == 0)
+      if ((*(*a1 + 344) & 1) == 0)
       {
-        if (!*a5 || (v17 = atomic_load((*a5 + 24)), v17 != 2))
+        if (!*a1 || (v17 = atomic_load((*a1 + 24)), v17 != 2))
         {
-          v18 = atomic_load(a5);
+          v18 = atomic_load(a1);
           v21[0] = v18;
           atomic_store(atomic_exchange(v21, 0), (*(this + 9) + 8 * v10));
           v21[0] = (*(*(v13 + 56) + 16 * v14 + 8) & 0x7FFFFFFFFFFFFFLL) * *(*(v13 + 8) + 28);
           if (v21[0])
           {
-            ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::make_value<di_asif::details::ContextASIF &,di_asif::details::table &,unsigned long &,unsigned long long &>(a5, a2, this, &v26, v21);
+            ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::make_value<di_asif::details::ContextASIF &,di_asif::details::table &,unsigned long &,unsigned long long &>(a1, a3, this, &v26, v21);
           }
 
           else
           {
-            space = di_asif::details::dir_base::allocate_space(*(this + 1), a2, 1);
+            space = di_asif::details::dir_base::allocate_space(*(this + 1), a3, 1);
             v19 = 1;
-            ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::make_value<di_asif::details::ContextASIF &,di_asif::details::table &,unsigned long &,unsigned long long &,BOOL>(a5, a2, this, &v26, &space, &v19);
+            ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::make_value<di_asif::details::ContextASIF &,di_asif::details::table &,unsigned long &,unsigned long long &,BOOL>(a1, a3, this, &v26, &space, &v19);
           }
         }
       }
@@ -1342,7 +2281,7 @@ void di_asif::details::table::get_bitmap(di_asif::details::table *this@<X0>, di_
   }
 }
 
-void sub_248EBFADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, char a17)
+void sub_248EBFADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
 {
   if (a17 == 1)
   {
@@ -1418,22 +2357,23 @@ unint64_t di_asif::details::map_element::search_for_pattern_match(void *a1, di_a
   return a4;
 }
 
-atomic_ullong *analytics_collector_t::bitmapped_entry_to_other_type(atomic_ullong *a1, int a2, uint64_t a3)
+atomic_ullong *analytics_collector_t::bitmapped_entry_to_other_type(atomic_ullong *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   result = analytics_collector_t::handle_flag_change(a1, 3, a2);
   v7 = a1 + 15;
   v8 = a1 + 17;
-  if (a2 != 2)
+  if (v4 != 2)
   {
     v8 = a1 + 18;
   }
 
-  if (a2)
+  if (v4)
   {
     v7 = a1 + 16;
   }
 
-  if (a2 > 1)
+  if (v4 > 1)
   {
     v7 = v8;
   }
@@ -1474,7 +2414,7 @@ void *di_asif::details::table_entry_obj::set_offset(void *this, unint64_t a2)
   return this;
 }
 
-unint64_t di_asif::details::table::bitmap_idx_to_tag(di_asif::details::table *this, uint64_t a2)
+uint64_t di_asif::details::table::bitmap_idx_to_tag(di_asif::details::table *this, uint64_t a2)
 {
   v2 = *(this + 1);
   v3 = *(v2 + 72);
@@ -1575,32 +2515,31 @@ void sub_248EC0040(void *a1)
 
 uint64_t di_asif::details::dir_base::allocate_space(atomic_ullong *this, di_asif::details::ContextASIF *a2, int a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   atomic_fetch_add(this + 1, 1uLL);
   v6 = (*(*this + 16))(this);
   if (a3)
   {
     v7 = *(this + 7);
-    v11[0] = &unk_285BEC918;
-    v11[1] = a2;
-    v11[2] = v7;
-    v12 = v11;
+    v10[0] = &unk_285BEC918;
+    v10[1] = a2;
+    v10[2] = v7;
+    v11 = v10;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v8 = space_allocators::FixedSize::allocate(v6, v11);
-  std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](v11);
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = space_allocators::FixedSize::allocate(v6, v10);
+  std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](v10);
   return v8;
 }
 
-void sub_248EC0164(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248EC0164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1667,37 +2606,37 @@ LABEL_7:
 
 uint64_t di_asif::details::dir_base::insert_space(atomic_ullong *this, unint64_t a2, di_asif::details::ContextASIF *a3)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v6 = (*(*this + 16))(this);
-  v9[0] = &unk_285BEC9A8;
-  v9[1] = a3;
-  v9[3] = v9;
-  space_allocators::FixedSize::insert(v6, a2, v9);
-  result = std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](v9);
+  v8[0] = &unk_285BEC9A8;
+  v8[1] = a3;
+  v8[3] = v8;
+  space_allocators::FixedSize::insert(v6, a2, v8);
+  result = std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](v8);
   atomic_fetch_add(this + 1, 0xFFFFFFFFFFFFFFFFLL);
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_248EC0374(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248EC0374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void di_asif::details::table::set_entry_bitmap_range(uint64_t a1, di_asif::details::ContextASIF *a2, di_asif::details::table_entry_data *a3, unsigned int *a4, unsigned int a5, uint64_t a6)
+void di_asif::details::table::set_entry_bitmap_range(uint64_t a1, di_asif::details::ContextASIF *a2, di_asif::details::table_entry_data *a3, unsigned int *a4, uint64_t a5, uint64_t a6)
 {
+  v7 = a5;
   v11 = *(*a3 + 8);
-  di_asif::details::table::get_bitmap(a1, a2, (*(*a3 + 352) + (*(v11 + 56) + *(v11 + 56) * *(a3 + 1)) / (*(v11 + 56) + 1) * *(v11 + 28)) / *(v11 + 26), 0, &v35);
+  di_asif::details::table::get_bitmap(&v35, a1, a2, (*(*a3 + 352) + (*(v11 + 56) + *(v11 + 56) * *(a3 + 1)) / (*(v11 + 56) + 1) * *(v11 + 28)) / *(v11 + 26), 0);
   if (!v35 || (*(v35 + 344) & 1) != 0)
   {
     *&v38 = "di_asif::details::table::set_entry_bitmap_range(ContextASIF &, data_entry_t &, const bits_range_t &, data_entry_t::flags, std::optional<data_entry_t::flags>)";
     *(&v38 + 1) = 47;
     v39 = 16;
-    di_log::logger<di_log::log_printer<497ul>>::logger(v40, &v38);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "Can't load bitmap while setting range", 37);
-    di_log::logger<di_log::log_printer<497ul>>::~logger(v40);
+    di_log::logger<di_log::log_printer<497ul>>::logger(&v40, &v38);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "Can't load bitmap while setting range", 37);
+    di_log::logger<di_log::log_printer<497ul>>::~logger(&v40);
     exception = __cxa_allocate_exception(0x40uLL);
     *exception = &unk_285BF4E60;
     v32 = std::generic_category();
@@ -1722,7 +2661,7 @@ void di_asif::details::table::set_entry_bitmap_range(uint64_t a1, di_asif::detai
 
       if (*(v35 + 224))
       {
-        v15 = v35 + 40;
+        v15 = (v35 + 40);
       }
 
       else
@@ -1731,13 +2670,13 @@ void di_asif::details::table::set_entry_bitmap_range(uint64_t a1, di_asif::detai
       }
 
       v19 = *(v13 + 56);
-      di_asif::details::map_element::get_bitmap_counts(v15, a1, *(a1 + 352) + v19 * *(v13 + 28) * (*(v35 + 40) / (v19 + 1)) + ((*(v13 + 26) * *a4) >> 1), *(a1 + 352) + v19 * *(v13 + 28) * (*(v35 + 40) / (v19 + 1)) + ((a4[1] * *(v13 + 26)) >> 1), v40);
-      analytics_collector_t::operator-=(v14, v40);
+      di_asif::details::map_element::get_bitmap_counts(&v40, v15, a1, *(a1 + 352) + v19 * *(v13 + 28) * (*(v35 + 40) / (v19 + 1)) + ((*(v13 + 26) * *a4) >> 1), *(a1 + 352) + v19 * *(v13 + 28) * (*(v35 + 40) / (v19 + 1)) + ((a4[1] * *(v13 + 26)) >> 1));
+      analytics_collector_t::operator-=(v14, &v40);
       goto LABEL_20;
     }
 
     bitmap_range = di_asif::details::table_entry_data::get_bitmap_range(a3);
-    *&v40[0] = bitmap_range;
+    v40 = bitmap_range;
     v17 = *(*(a1 + 8) + 16);
     if (*(v17 + 160) == 1)
     {
@@ -1762,16 +2701,16 @@ void di_asif::details::table::set_entry_bitmap_range(uint64_t a1, di_asif::detai
       v18 = 0;
     }
 
-    di_asif::details::map_element::set_range(v18, a1, v40, a6);
+    di_asif::details::map_element::set_range(v18, a1, &v40, a6);
   }
 
   v14 = *(*(a1 + 8) + 16);
   if (*(v14 + 160))
   {
 LABEL_20:
-    LODWORD(v40[0]) = a5;
-    *(&v40[0] + 1) = v12;
-    analytics_collector_t::operator+=(v14, v40);
+    LODWORD(v40) = v7;
+    v41 = v12;
+    analytics_collector_t::operator+=(v14, &v40);
   }
 
 LABEL_21:
@@ -1793,29 +2732,30 @@ LABEL_21:
     v20 = 0;
   }
 
-  di_asif::details::map_element::set_range(v20, a1, a4, a5);
+  di_asif::details::map_element::set_range(v20, a1, a4, v7);
   ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(&v35);
   if ((a6 & 0x100000000) != 0 && a6 != 3)
   {
     v21 = *(*a3 + 8);
     v22 = *(a1 + 8);
     v23 = *(v22 + 56);
-    di_asif::details::table_entry_map::table_entry_map(v40, a1, v23 + (v23 + 1) * (((*(*a3 + 352) + (*(v21 + 56) + *(v21 + 56) * *(a3 + 1)) / (*(v21 + 56) + 1) * *(v21 + 28)) / *(v21 + 26) - *(a1 + 352) / *(v22 + 26)) / (v23 * (*(v22 + 28) / *(v22 + 26)))));
-    v37 = v40[0];
-    v24 = (*(*&v40[0] + 56) + 16 * *(&v40[0] + 1));
+    di_asif::details::table_entry_map::table_entry_map(&v40, a1, v23 + (v23 + 1) * (((*(*a3 + 352) + (*(v21 + 56) + *(v21 + 56) * *(a3 + 1)) / (*(v21 + 56) + 1) * *(v21 + 28)) / *(v21 + 26) - *(a1 + 352) / *(v22 + 26)) / (v23 * (*(v22 + 28) / *(v22 + 26)))));
+    v37[0] = v40;
+    v37[1] = v41;
+    v24 = (*(v40 + 56) + 16 * v41);
     v25 = ref::ref_cnt::get(v24);
     *&v38 = &unk_285BF4C50;
     *(&v38 + 1) = v24;
     LOBYTE(v39) = v25;
-    if (!v25)
+    if ((v25 & 1) == 0)
     {
       *&v35 = "di_asif::details::table::set_entry_bitmap_range(ContextASIF &, data_entry_t &, const bits_range_t &, data_entry_t::flags, std::optional<data_entry_t::flags>)";
       *(&v35 + 1) = 47;
       v36 = 16;
-      di_log::logger<di_log::log_printer<528ul>>::logger(v40, &v35);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "Couldn't lock entry ", 20);
-      di_asif::details::operator<<(v41, &v37);
-      di_log::logger<di_log::log_printer<528ul>>::~logger(v40);
+      di_log::logger<di_log::log_printer<528ul>>::logger(&v40, &v35);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "Couldn't lock entry ", 20);
+      di_asif::details::operator<<(v42, v37);
+      di_log::logger<di_log::log_printer<528ul>>::~logger(&v40);
       v33 = __cxa_allocate_exception(0x40uLL);
       *v33 = &unk_285BF4E60;
       v34 = std::generic_category();
@@ -1848,9 +2788,9 @@ LABEL_21:
   }
 }
 
-void sub_248EC0814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248EC0814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   ref::details::ref_cnt_handle::~ref_cnt_handle(va);
   _Unwind_Resume(a1);
 }
@@ -1888,22 +2828,23 @@ uint64_t di_log::logger<di_log::log_printer<497ul>>::~logger(uint64_t a1)
   return a1;
 }
 
-atomic_ullong *analytics_collector_t::update_bitmapped_data_entry(atomic_ullong *a1, int a2, unint64_t a3)
+atomic_ullong *analytics_collector_t::update_bitmapped_data_entry(atomic_ullong *a1, uint64_t a2, unint64_t a3)
 {
+  v4 = a2;
   result = analytics_collector_t::handle_flag_change(a1, a2, 3);
   v7 = a1 + 15;
   v8 = a1 + 17;
-  if (a2 != 2)
+  if (v4 != 2)
   {
     v8 = a1 + 18;
   }
 
-  if (a2)
+  if (v4)
   {
     v7 = a1 + 16;
   }
 
-  if (a2 > 1)
+  if (v4 > 1)
   {
     v7 = v8;
   }
@@ -1912,7 +2853,7 @@ atomic_ullong *analytics_collector_t::update_bitmapped_data_entry(atomic_ullong 
   return result;
 }
 
-void *di_asif::details::map_element::set_range(uint64_t a1, di_asif::details::table *a2, unsigned int *a3, unsigned int a4)
+uint64_t di_asif::details::map_element::set_range(uint64_t a1, di_asif::details::table *a2, unsigned int *a3, unsigned int a4)
 {
   v6 = *a3;
   v7 = a3[1];
@@ -1928,23 +2869,23 @@ void *di_asif::details::map_element::set_range(uint64_t a1, di_asif::details::ta
   return result;
 }
 
-unint64_t di_asif::details::map_element::get_bitmap_counts@<X0>(unint64_t this@<X0>, di_asif::details::table *a2@<X3>, unint64_t a3@<X1>, unint64_t a4@<X2>, _OWORD *a5@<X8>)
+di_asif::details::map_element *di_asif::details::map_element::get_bitmap_counts@<X0>(uint64_t *__return_ptr a1@<X8>, di_asif::details::map_element *this@<X0>, di_asif::details::table *a3@<X3>, unint64_t a4@<X1>, unint64_t a5@<X2>)
 {
-  *a5 = 0u;
-  a5[1] = 0u;
-  if (a3 < a4)
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  if (a4 < a5)
   {
-    v7 = a3;
+    v7 = a4;
     v8 = this;
-    v10 = a5 + 3;
-    v11 = a5 + 1;
-    v12 = a5 + 1;
-    v13 = *(a2 + 1);
+    v10 = a1 + 3;
+    v11 = a1 + 2;
+    v12 = a1 + 1;
+    v13 = *(a3 + 1);
     v14 = *(v13 + 26);
     do
     {
-      block_bits = di_asif::details::map_element::get_block_bits(v8, 2 * ((v7 - (*(a2 + 44) + *(v13 + 56) * *(v13 + 28) * ((v7 / v14 - *(a2 + 44) / v14) / (*(v13 + 56) * (*(v13 + 28) / v14))))) / v14));
-      this = di_asif::details::map_element::search_for_pattern_match(v8, a2, block_bits, v7, a4);
+      block_bits = di_asif::details::map_element::get_block_bits(v8, 2 * ((v7 - (*(a3 + 44) + *(v13 + 56) * *(v13 + 28) * ((v7 / v14 - *(a3 + 44) / v14) / (*(v13 + 56) * (*(v13 + 28) / v14))))) / v14));
+      this = di_asif::details::map_element::search_for_pattern_match(v8, a3, block_bits, v7, a5);
       if (block_bits > 1)
       {
         v16 = v11;
@@ -1956,20 +2897,20 @@ unint64_t di_asif::details::map_element::get_bitmap_counts@<X0>(unint64_t this@<
 
       else
       {
-        v16 = a5;
+        v16 = a1;
         if (block_bits)
         {
           v16 = v12;
         }
       }
 
-      v13 = *(a2 + 1);
+      v13 = *(a3 + 1);
       v14 = *(v13 + 26);
       *v16 += (this - v7) / v14;
       v7 = this;
     }
 
-    while (this < a4);
+    while (this < a5);
   }
 
   return this;
@@ -2332,7 +3273,7 @@ LABEL_21:
           ++v10;
         }
 
-        di_asif::details::dir::get_table(a1, v22, v9, 0, 1, &__lk);
+        di_asif::details::dir::get_table(&__lk, a1, v22, v9, 0, 1);
         if (__lk.__m_ && (__lk.__m_[8].__m_.__opaque[0] & 1) == 0)
         {
           if (__lk.__m_[6].__m_.__opaque[8])
@@ -2375,7 +3316,7 @@ LABEL_21:
           v13 = *(a1 + 32);
           if (*(v13 + 496) == 1)
           {
-            DiskImageASIF::telemetry_t::send_defrag_count_event((v13 + 400));
+            DiskImageASIF::telemetry_t::send_defrag_count_event((v13 + 400), v10);
           }
         }
 
@@ -2411,24 +3352,24 @@ LABEL_46:
   }
 }
 
-void sub_248EC1510(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_248EC1510(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a8);
+  va_start(va, a16);
   di_log::logger<di_log::log_printer<637ul>>::~logger(va);
   __cxa_end_catch();
   JUMPOUT(0x248EC1568);
 }
 
-void sub_248EC1540(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_248EC1540(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a8);
+  va_start(va, a16);
   di_log::logger<di_log::log_printer<644ul>>::~logger(va);
   JUMPOUT(0x248EC1568);
 }
 
-void sub_248EC1550(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_248EC1550(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a8);
+  va_start(va, a16);
   di_log::logger<di_log::log_printer<656ul>>::~logger(va);
   JUMPOUT(0x248EC1568);
 }
@@ -2445,117 +3386,116 @@ void sub_248EC1564(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t di_asif::details::dir_base::create_context@<X0>(di_asif::details::dir_base *this@<X0>, void *a2@<X8>)
+uint64_t *di_asif::details::dir_base::create_context@<X0>(uint64_t *__return_ptr a1@<X8>, di_asif::details::dir_base *this@<X0>)
 {
   v2 = *(this + 4);
-  *a2 = &unk_285BE5728;
-  a2[1] = v2;
+  *a1 = &unk_285BE5728;
+  a1[1] = v2;
   return (*(**(v2 + 16) + 80))(*(v2 + 16));
 }
 
 uint64_t di_asif::details::dir::defrag_table(di_asif::details::dir *this, di_asif::details::ContextASIF *a2, uint64_t a3)
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   v3 = atomic_load(this + 1);
   v4 = *(this + 7);
   v5 = *(*(this + 20) + 8 * a3) * v4;
-  v24 = v5;
+  v23 = v5;
   if (!v5 || 3 * v5 <= 4 * v3 * v4)
   {
-    v11 = 4294967274;
-    goto LABEL_18;
+    return 4294967274;
   }
 
   v9 = (*(this + 17) + 8 * a3);
-  ref::tagged_weak_ptr<di_asif::details::table,unsigned long long>::lock_if_tag(v9, a3, &v23);
-  if (v23 && (*(v23 + 520) & 1) == 0)
+  ref::tagged_weak_ptr<di_asif::details::table,unsigned long long>::lock_if_tag(v9, a3, &v22);
+  if (v22 && (*(v22 + 520) & 1) == 0)
   {
-    if (*(v23 + 464))
+    if (*(v22 + 464))
     {
-      std::function<void ()(ref::details::ctrl_blk<di_asif::details::table,unsigned long long> *,ref::tagged_ptr<di_asif::details::table,unsigned long long> &)>::operator()(v23 + 440, v23);
+      std::function<void ()(ref::details::ctrl_blk<di_asif::details::table,unsigned long long> *,ref::tagged_ptr<di_asif::details::table,unsigned long long> &)>::operator()(v22 + 440, v22);
     }
 
-    ref::tagged_weak_ptr<di_asif::details::table,unsigned long long>::lock_if_tag(v9, a3, &v25);
-    ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(&v23, &v25);
-    ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v25);
-    if (v23)
+    ref::tagged_weak_ptr<di_asif::details::table,unsigned long long>::lock_if_tag(v9, a3, &v24);
+    ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(&v22, &v24);
+    ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v24);
+    if (v22)
     {
-      if ((*(v23 + 520) & 1) == 0)
+      if ((*(v22 + 520) & 1) == 0)
       {
         goto LABEL_14;
       }
     }
   }
 
-  ref::Allocator<di_asif::details::table,unsigned long long>::allocate(this + 288, a3, 1, &v25);
-  ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(&v23, &v25);
-  ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v25);
-  if (v23)
+  ref::Allocator<di_asif::details::table,unsigned long long>::allocate(this + 288, a3, &v24, 1);
+  ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(&v22, &v24);
+  ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v24);
+  if (v22)
   {
-    if ((*(v23 + 520) & 1) == 0)
+    if ((*(v22 + 520) & 1) == 0)
     {
-      v10 = atomic_load((v23 + 24));
+      v10 = atomic_load((v22 + 24));
       if (v10 != 2)
       {
-        v14 = *(this + 7);
-        if (v14)
+        v13 = *(this + 7);
+        if (v13)
         {
-          v15 = malloc_type_valloc(v14, 0x8B7C732DuLL);
-          if (!v15)
+          v14 = malloc_type_valloc(v13, 0x8B7C732DuLL);
+          if (!v14)
           {
             exception = __cxa_allocate_exception(8uLL);
-            v17 = std::bad_alloc::bad_alloc(exception);
-            __cxa_throw(v17, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
+            v16 = std::bad_alloc::bad_alloc(exception);
+            __cxa_throw(v16, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
           }
         }
 
         else
         {
-          v15 = 0;
+          v14 = 0;
         }
 
-        v27[0] = &unk_285BED4C8;
-        v27[3] = v27;
-        v25 = v15;
-        std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v26, v27);
-        std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v27);
-        v18 = *(this + 7);
-        v19 = (*(**(a2 + 2) + 40))(*(a2 + 2));
-        if (v19 - v24 >= v18)
+        v26[0] = &unk_285BED4C8;
+        v26[3] = v26;
+        v24 = v14;
+        std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v25, v26);
+        std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v26);
+        v17 = *(this + 7);
+        v18 = (*(**(a2 + 2) + 40))(*(a2 + 2));
+        if (v18 - v23 >= v17)
         {
-          v20 = v18;
+          v19 = v17;
         }
 
         else
         {
-          v20 = v19 - v24;
+          v19 = v18 - v23;
         }
 
-        v11 = di_asif::details::dir_base::move_realloc_chunk(this, a2, v25, v20, v24);
-        v22 = v21;
-        if (v23 && *(v23 + 464))
+        v11 = di_asif::details::dir_base::move_realloc_chunk(this, a2, v24, v19, v23);
+        v21 = v20;
+        if (v22 && *(v22 + 464))
         {
-          std::function<void ()(ref::details::ctrl_blk<di_asif::details::table,unsigned long long> *,ref::tagged_ptr<di_asif::details::table,unsigned long long> &)>::operator()(v23 + 440, v23);
+          std::function<void ()(ref::details::ctrl_blk<di_asif::details::table,unsigned long long> *,ref::tagged_ptr<di_asif::details::table,unsigned long long> &)>::operator()(v22 + 440, v22);
         }
 
         if ((v11 & 0x8000000000000000) == 0)
         {
-          (*(*this + 40))(this, *(this + 11) * a3, v22);
+          (*(*this + 40))(this, *(this + 11) * a3, v21);
           std::mutex::lock((this + 3800));
-          std::deque<unsigned long long>::emplace_back<unsigned long long &>(this + 3752, &v24);
+          std::deque<unsigned long long>::emplace_back<unsigned long long &>(this + 469, &v23);
           atomic_store(1u, this + 900);
           std::mutex::unlock((this + 3800));
           v11 = 0;
         }
 
-        std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v25, 0);
-        std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v26);
+        std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v24, 0);
+        std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v25);
         goto LABEL_16;
       }
     }
   }
 
-  if (v23 && (*(v23 + 520) & 1) == 0)
+  if (v22 && (*(v22 + 520) & 1) == 0)
   {
 LABEL_14:
     (*(*this + 24))(this);
@@ -2563,9 +3503,7 @@ LABEL_14:
 
   v11 = 4294967248;
 LABEL_16:
-  ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v23);
-LABEL_18:
-  v12 = *MEMORY[0x277D85DE8];
+  ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v22);
   return v11;
 }
 
@@ -2578,21 +3516,21 @@ void sub_248EC1908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *di_asif::details::dir::get_table@<X0>(di_asif::details::dir *this@<X0>, di_asif::details::ContextASIF *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, char a5@<W4>, unint64_t *a6@<X8>)
+uint64_t *di_asif::details::dir::get_table@<X0>(unint64_t *__return_ptr a1@<X8>, di_asif::details::dir *this@<X0>, di_asif::details::ContextASIF *a3@<X1>, uint64_t a4@<X2>, int a5@<W3>, uint64_t a6@<X4>)
 {
-  result = ref::tagged_weak_ptr<di_asif::details::table,unsigned long long>::lock_if_tag((*(this + 17) + 8 * a3), a3, a6);
-  if (!*a6 || (*(*a6 + 520) & 1) != 0)
+  result = ref::tagged_weak_ptr<di_asif::details::table,unsigned long long>::lock_if_tag((*(this + 17) + 8 * a4), a4, a1);
+  if (!*a1 || (*(*a1 + 520) & 1) != 0)
   {
-    di_asif::details::dir::load_create_table(this, a2, a3, *(*(this + 20) + 8 * a3) * *(this + 7), a4, a5, &v14);
-    ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(a6, &v14);
+    di_asif::details::dir::load_create_table(&v14, this, a3, a4, *(*(this + 20) + 8 * a4) * *(this + 7), a5, a6);
+    ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(a1, &v14);
     result = ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v14);
-    if (*a6)
+    if (*a1)
     {
-      if ((*(*a6 + 520) & 1) == 0)
+      if ((*(*a1 + 520) & 1) == 0)
       {
-        v13 = atomic_load(a6);
+        v13 = atomic_load(a1);
         v14 = v13;
-        atomic_store(atomic_exchange(&v14, 0), (*(this + 17) + 8 * a3));
+        atomic_store(atomic_exchange(&v14, 0), (*(this + 17) + 8 * a4));
       }
     }
   }
@@ -2602,7 +3540,7 @@ void *di_asif::details::dir::get_table@<X0>(di_asif::details::dir *this@<X0>, di
 
 uint64_t di_asif::details::table::defrag(di_asif::details::table *this, di_asif::details::ContextASIF *a2)
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   v4 = atomic_load((*(this + 1) + 8));
   v5 = *(this + 1);
   v6 = *(v5 + 28);
@@ -2622,18 +3560,18 @@ uint64_t di_asif::details::table::defrag(di_asif::details::table *this, di_asif:
     v7 = 0;
   }
 
-  v18[0] = &unk_285BED4C8;
-  v19[1] = v18;
-  v20 = v7;
-  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v21, v18);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v18);
-  di_asif::details::table::make_map_entry_iterators(this, v10, v18);
+  v17[0] = &unk_285BED4C8;
+  v18[1] = v17;
+  v19 = v7;
+  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v20, v17);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v17);
+  di_asif::details::table::make_map_entry_iterators(v17, this, v10);
   v11 = 0;
   v12 = v4 * v6;
-  while ((v18[0] != v19[3] || v18[1] != v19[4]) && (*(*(this + 1) + 24) & 1) == 0)
+  while ((v17[0] != v18[3] || v17[1] != v18[4]) && (*(*(this + 1) + 24) & 1) == 0)
   {
-    v13 = di_asif::details::table::defrag_map_entry(this, a2, v19, v12, v20);
-    di_asif::details::table::make_data_entry_iterators_for_map(this, v19, v16);
+    v13 = di_asif::details::table::defrag_map_entry(this, a2, v18, v12, v19);
+    di_asif::details::table::make_data_entry_iterators_for_map(v15, this, v18);
     while (1)
     {
       if (!v13)
@@ -2641,21 +3579,20 @@ uint64_t di_asif::details::table::defrag(di_asif::details::table *this, di_asif:
         ++v11;
       }
 
-      if (v16[0] == v17[3] && v16[1] == v17[4] || (*(*(this + 1) + 24) & 1) != 0)
+      if (v15[0] == v16[3] && v15[1] == v16[4] || (*(*(this + 1) + 24) & 1) != 0)
       {
         break;
       }
 
-      v13 = di_asif::details::table::defrag_entry(this, a2, v17, v12, v20);
-      di_asif::details::data_entry_iterator_t::operator++(v16);
+      v13 = di_asif::details::table::defrag_entry(this, a2, v16, v12, v19);
+      di_asif::details::data_entry_iterator_t::operator++(v15);
     }
 
-    di_asif::details::map_entry_iterator_t::operator++(v18);
+    di_asif::details::map_entry_iterator_t::operator++(v17);
   }
 
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v20, 0);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v21);
-  v14 = *MEMORY[0x277D85DE8];
+  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v19, 0);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v20);
   return v11;
 }
 
@@ -2748,9 +3685,9 @@ uint64_t DiskImage::Context::terminate_di(DiskImage::Context *this)
   return process_terminator::terminate(v2);
 }
 
-void sub_248EC2050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248EC2050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<246ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -2979,14 +3916,14 @@ LABEL_16:
   return a4;
 }
 
-void sub_248EC26A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248EC26A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<2363ul>>::~logger(va);
-  v6 = *(v4 - 152);
-  if (v6)
+  v9 = *(v7 - 152);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   _Unwind_Resume(a1);
@@ -3099,19 +4036,19 @@ LABEL_13:
   return v18;
 }
 
-void sub_248EC2A80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248EC2A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(va);
   ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t di_asif::details::table::make_data_entry_iterators_for_map@<X0>(di_asif::details::table *this@<X0>, const di_asif::details::table_entry_map *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *di_asif::details::table::make_data_entry_iterators_for_map@<X0>(uint64_t *__return_ptr a1@<X8>, di_asif::details::table *this@<X0>, const di_asif::details::table_entry_map *a3@<X1>)
 {
-  v6 = *(*a2 + 352) + *(a2 + 1) / (*(*(*a2 + 8) + 56) + 1) * *(*(*a2 + 8) + 56) * *(*(*a2 + 8) + 28);
+  v6 = *(*a3 + 352) + *(a3 + 1) / (*(*(*a3 + 8) + 56) + 1) * *(*(*a3 + 8) + 56) * *(*(*a3 + 8) + 28);
   v7 = *(this + 1);
   v8 = *(this + 44) + *(v7 + 88);
   if (v6 >= v8)
@@ -3119,20 +4056,20 @@ uint64_t di_asif::details::table::make_data_entry_iterators_for_map@<X0>(di_asif
     v12 = 0;
     v11 = 0;
     v17 = 0;
-    v16 = *(*a2 + 352) + *(a2 + 1) / (*(*(*a2 + 8) + 56) + 1) * *(*(*a2 + 8) + 56) * *(*(*a2 + 8) + 28);
+    v16 = *(*a3 + 352) + *(a3 + 1) / (*(*(*a3 + 8) + 56) + 1) * *(*(*a3 + 8) + 56) * *(*(*a3 + 8) + 28);
   }
 
   else
   {
     data_entry_for_offset = di_asif::details::table::get_data_entry_for_offset(this, v6);
-    v3 = a2;
+    v3 = a3;
     v11 = data_entry_for_offset & 0xFFFFFFFFFFFFFF00;
     v12 = data_entry_for_offset;
-    v13 = *(*a2 + 8);
+    v13 = *(*a3 + 8);
     v14 = *(v13 + 56);
     v15 = *(v13 + 28);
     v7 = *(this + 1);
-    v16 = *(*a2 + 352) + *(a2 + 1) / (v14 + 1) * v14 * v15;
+    v16 = *(*a3 + 352) + *(a3 + 1) / (v14 + 1) * v14 * v15;
     v8 = *(this + 44) + *(v7 + 88);
     v17 = 1;
   }
@@ -3153,16 +4090,16 @@ uint64_t di_asif::details::table::make_data_entry_iterators_for_map@<X0>(di_asif
     v23 = 1;
   }
 
-  *a3 = this;
-  *(a3 + 8) = v6;
-  *(a3 + 16) = v11 | v12;
-  *(a3 + 24) = v3;
-  *(a3 + 32) = v17;
-  *(a3 + 40) = this;
-  *(a3 + 48) = v21;
-  *(a3 + 56) = result;
-  *(a3 + 64) = a2;
-  *(a3 + 72) = v23;
+  *a1 = this;
+  a1[1] = v6;
+  a1[2] = v11 | v12;
+  a1[3] = v3;
+  *(a1 + 32) = v17;
+  a1[5] = this;
+  a1[6] = v21;
+  a1[7] = result;
+  a1[8] = a3;
+  *(a1 + 72) = v23;
   return result;
 }
 
@@ -3238,7 +4175,7 @@ void di_asif::details::table::check_if_map_element_needed(di_asif::details::tabl
   v33 = v29;
   if ((*(*(v29 + 56) + 16 * *(&v29 + 1) + 8) & 0x7FFFFFFFFFFFFFLL) * *(*(v29 + 8) + 28))
   {
-    di_asif::details::table::make_data_entry_iterators_for_map(this, &v33, &v29);
+    di_asif::details::table::make_data_entry_iterators_for_map(&v29, this, &v33);
     v26 = v29;
     v27 = v30;
     v28 = v31;
@@ -3280,7 +4217,7 @@ void di_asif::details::table::check_if_map_element_needed(di_asif::details::tabl
       v25 = 0;
       while (v26 != v32)
       {
-        ref::ref_cnt::take_exclusive(*(v27 + 56) + 16 * *(&v27 + 1), 0, v22);
+        ref::ref_cnt::take_exclusive(v22, (*(v27 + 56) + 16 * *(&v27 + 1)), 0);
         v6 = v24;
         if (v24 >= v25)
         {
@@ -3307,15 +4244,15 @@ void di_asif::details::table::check_if_map_element_needed(di_asif::details::tabl
       }
 
       v9 = v33;
-      v10 = *(v33 + 56) + 16 * *(&v33 + 1);
-      if ((*(v10 + 8) & 0x7FFFFFFFFFFFFFLL) * *(*(v33 + 8) + 28))
+      v10 = (*(v33 + 56) + 16 * *(&v33 + 1));
+      if ((v10[1] & 0x7FFFFFFFFFFFFFLL) * *(*(v33 + 8) + 28))
       {
-        ref::ref_cnt::take_exclusive(v10, 0, v22);
+        ref::ref_cnt::take_exclusive(v22, v10, 0);
         v11 = *(v9 + 8);
         v12 = *(v11 + 28);
         if ((*(*(v9 + 56) + 16 * *(&v9 + 1) + 8) & 0x7FFFFFFFFFFFFFLL) * v12)
         {
-          di_asif::details::table::get_bitmap(this, a2, (*(v9 + 352) + *(v11 + 56) * v12 * (*(&v9 + 1) / (*(v11 + 56) + 1))) / *(*(this + 1) + 26), 1, &v21);
+          di_asif::details::table::get_bitmap(&v21, this, a2, (*(v9 + 352) + *(v11 + 56) * v12 * (*(&v9 + 1) / (*(v11 + 56) + 1))) / *(*(this + 1) + 26), 1);
           if (v21 && (*(v21 + 344) & 1) == 0)
           {
             atomic_fetch_and((*(v9 + 56) + 16 * *(&v9 + 1) + 8), 0xBFFFFFFFFFFFFFFFLL);
@@ -3364,7 +4301,7 @@ LABEL_34:
   }
 }
 
-void sub_248EC320C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, atomic_ullong a11, void **a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_248EC320C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, atomic_ullong a11, char *a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
 {
   ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(&a11);
   ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(&a12);
@@ -3390,7 +4327,6 @@ void di_asif::details::operator<<(void *a1, void *a2)
   v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "table entry map@", 16);
   v4 = MEMORY[0x24C1ED3E0](v3, *(*a2 + 352) + a2[1] / (*(*(*a2 + 8) + 56) + 1) * *(*(*a2 + 8) + 56) * *(*(*a2 + 8) + 28));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " = offset = ", 12);
-  v5 = (*(*(*a2 + 56) + 16 * a2[1] + 8) & 0x7FFFFFFFFFFFFFLL) * *(*(*a2 + 8) + 28);
 
   JUMPOUT(0x24C1ED3E0);
 }
@@ -3460,8 +4396,8 @@ __n128 di_asif::details::table::unmap@<Q0>(uint64_t a1@<X0>, di_asif::details::C
       v35 = *(v33 + 28);
       if (*(v76 + 352) + (v34 + v34 * *(&v76 + 1)) / (v34 + 1) * v35 == v13 && v11 * *(*(a1 + 8) + 26) == v35)
       {
-        ref::ref_cnt::take_exclusive(*(v76 + 56) + 16 * *(&v76 + 1), 0, v74);
-        if (!v75)
+        ref::ref_cnt::take_exclusive(v74, (*(v76 + 56) + 16 * *(&v76 + 1)), 0);
+        if (v75 != 1)
         {
           *&v70 = "di_asif::details::table::unmap(ContextASIF &, const unmap_extent_t *, size_t)";
           *(&v70 + 1) = 30;
@@ -3548,7 +4484,7 @@ LABEL_41:
         v74[0] = &unk_285BF4C50;
         v74[1] = v45;
         v75 = v46;
-        if (!v46)
+        if ((v46 & 1) == 0)
         {
           *&v70 = "di_asif::details::table::unmap(ContextASIF &, const unmap_extent_t *, size_t)";
           *(&v70 + 1) = 30;
@@ -3569,14 +4505,14 @@ LABEL_41:
 
         v47 = *(*(a1 + 8) + 26);
         *v72 = di_asif::details::table::make_range_bits(a1, v10 * v47, v11 * v47);
-        di_asif::details::table::set_entry_bitmap_range(a1, a2, &v76, v72, 2u, v31 | 0x100000000);
+        di_asif::details::table::set_entry_bitmap_range(a1, a2, &v76, v72, 2, v31 | 0x100000000);
         ref::details::ref_cnt_handle::~ref_cnt_handle(v74);
       }
 
       else if ((v69 & 1) == 0)
       {
-        ref::ref_cnt::take_exclusive(*(v76 + 56) + 16 * *(&v76 + 1), 0, v74);
-        if (!v75)
+        ref::ref_cnt::take_exclusive(v74, (*(v76 + 56) + 16 * *(&v76 + 1)), 0);
+        if ((v75 & 1) == 0)
         {
           *&v70 = "di_asif::details::table::unmap(ContextASIF &, const unmap_extent_t *, size_t)";
           *(&v70 + 1) = 30;
@@ -3598,7 +4534,7 @@ LABEL_41:
         v43 = atomic_load((*(v32 + 56) + 16 * *(&v32 + 1) + 8));
         v44 = *(*(a1 + 8) + 26);
         *v72 = di_asif::details::table::make_range_bits(a1, v10 * v44, v11 * v44);
-        di_asif::details::table::set_entry_bitmap_range(a1, a2, &v76, v72, 2u, (v43 >> 62) | 0x100000000);
+        di_asif::details::table::set_entry_bitmap_range(a1, a2, &v76, v72, 2, (v43 >> 62) | 0x100000000);
 LABEL_32:
         ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v74);
       }
@@ -3624,27 +4560,28 @@ LABEL_32:
   return result;
 }
 
-atomic_ullong *di_asif::details::table::update_analytics_counters_data_entry(atomic_ullong *result, di_asif::details::ContextASIF *a2, int a3, int a4, void *a5)
+atomic_ullong *di_asif::details::table::update_analytics_counters_data_entry(atomic_ullong *result, di_asif::details::ContextASIF *a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v5 = *(result[1] + 16);
   if (*(v5 + 160) == 1)
   {
+    v7 = a3;
     v9 = result;
     analytics_collector_t::handle_flag_change(*(result[1] + 16), a3, a4);
     v10 = *(*a5 + 8);
     v11 = v9[1];
     result = lock_free::bitmap_t::get_bit(v5, ((*(*a5 + 352) + (*(v10 + 56) + *(v10 + 56) * a5[1]) / (*(v10 + 56) + 1) * *(v10 + 28)) / *(v10 + 26) - v9[44] / *(v11 + 26)) / (*(v11 + 56) * (*(v11 + 28) / *(v11 + 26))) + *(v11 + 72) * (v9[44] / *(v11 + 88)));
-    if (a3 == 3)
+    if (v7 == 3)
     {
       if (result)
       {
         v12 = *(*a5 + 8);
-        di_asif::details::table::get_bitmap(v9, a2, (*(*a5 + 352) + (*(v12 + 56) + *(v12 + 56) * a5[1]) / (*(v12 + 56) + 1) * *(v12 + 28)) / *(v12 + 26), 0, &v19);
+        di_asif::details::table::get_bitmap(&v19, v9, a2, (*(*a5 + 352) + (*(v12 + 56) + *(v12 + 56) * a5[1]) / (*(v12 + 56) + 1) * *(v12 + 28)) / *(v12 + 26), 0);
         v13 = *(*a5 + 8);
         range_bits = di_asif::details::table::make_range_bits(v9, *(*a5 + 352) + (*(v13 + 56) + *(v13 + 56) * a5[1]) / (*(v13 + 56) + 1) * *(v13 + 28), *(v13 + 28));
         if (v19)
         {
-          v15 = v19 + 40;
+          v15 = (v19 + 40);
           if (!*(v19 + 224))
           {
             v15 = 0;
@@ -3658,7 +4595,7 @@ atomic_ullong *di_asif::details::table::update_analytics_counters_data_entry(ato
 
         v16 = v9[1];
         v17 = *(v16 + 56);
-        di_asif::details::map_element::get_bitmap_counts(v15, v9, v9[44] + v17 * *(v16 + 28) * (*(v19 + 40) / (v17 + 1)) + ((range_bits * *(v16 + 26)) >> 1), v9[44] + ((HIDWORD(range_bits) * *(v16 + 26)) >> 1) + v17 * *(v16 + 28) * (*(v19 + 40) / (v17 + 1)), v18);
+        di_asif::details::map_element::get_bitmap_counts(v18, v15, v9, v9[44] + v17 * *(v16 + 28) * (*(v19 + 40) / (v17 + 1)) + ((range_bits * *(v16 + 26)) >> 1), v9[44] + ((HIDWORD(range_bits) * *(v16 + 26)) >> 1) + v17 * *(v16 + 28) * (*(v19 + 40) / (v17 + 1)));
         analytics_collector_t::operator-=(v5, v18);
         return ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(&v19);
       }
@@ -3668,9 +4605,9 @@ atomic_ullong *di_asif::details::table::update_analytics_counters_data_entry(ato
   return result;
 }
 
-void sub_248EC3E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_248EC3E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(va);
   _Unwind_Resume(a1);
 }
@@ -3874,7 +4811,7 @@ uint64_t di_asif::details::table::flush_mapped_entry(di_asif::details::table *th
     }
   }
 
-  di_asif::details::table::get_bitmap(this, a2, (*(*a3 + 352) + a3[1] / (*(*(*a3 + 8) + 56) + 1) * *(*(*a3 + 8) + 56) * *(*(*a3 + 8) + 28)) / *(*(this + 1) + 26), a4 & 1, &v22);
+  di_asif::details::table::get_bitmap(&v22, this, a2, (*(*a3 + 352) + a3[1] / (*(*(*a3 + 8) + 56) + 1) * *(*(*a3 + 8) + 56) * *(*(*a3 + 8) + 28)) / *(*(this + 1) + 26), a4 & 1);
   if (v22 && (v22[344] & 1) == 0)
   {
     if (v22[224])
@@ -3957,20 +4894,20 @@ uint64_t di_asif::details::map_element::flush(di_asif::details::map_element *thi
 
 uint64_t di_asif::details::table::flush(di_asif::details::table *this, di_asif::details::ContextASIF *a2)
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v51 = 0u;
-  v52 = 0u;
+  v56 = *MEMORY[0x277D85DE8];
   v50 = 0u;
-  v30 = atomic_exchange(this + 24, 0);
+  v51 = 0u;
+  v49 = 0u;
+  v29 = atomic_exchange(this + 24, 0);
   std::mutex::lock((this + 280));
   v4 = *(this + 248);
   v5 = *(this + 264);
-  v50 = *(this + 232);
-  v51 = v4;
+  v49 = *(this + 232);
+  v50 = v4;
   *(this + 232) = 0u;
   *(this + 248) = 0u;
-  v6 = v52;
-  v52 = v5;
+  v6 = v51;
+  v51 = v5;
   *(this + 264) = v6;
   std::mutex::unlock((this + 280));
   v7 = *(this + 1);
@@ -3989,88 +4926,88 @@ uint64_t di_asif::details::table::flush(di_asif::details::table *this, di_asif::
     if (!v12)
     {
       exception = __cxa_allocate_exception(8uLL);
-      v29 = std::bad_alloc::bad_alloc(exception);
-      __cxa_throw(v29, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
+      v28 = std::bad_alloc::bad_alloc(exception);
+      __cxa_throw(v28, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
     }
   }
 
-  v55 = &unk_285BED4C8;
-  v56 = &v55;
-  v53 = v12;
-  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v54, &v55);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v55);
-  v13 = v53;
+  v54 = &unk_285BED4C8;
+  v55 = &v54;
+  v52 = v12;
+  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v53, &v54);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v54);
+  v13 = v52;
   std::mutex::lock((this + 168));
-  di_asif::details::table::make_map_entry_iterators(this, v14, v45);
+  di_asif::details::table::make_map_entry_iterators(v44, this, v14);
   v15 = 0;
-  *&v40 = a2;
-  *(&v40 + 1) = &v44;
-  *&v41 = v13;
-  *(&v41 + 1) = v42;
+  *&v39 = a2;
+  *(&v39 + 1) = &v43;
+  *&v40 = v13;
+  *(&v40 + 1) = v41;
+  v36 = v39;
+  v43 = *(this + 43);
+  v41[0] = a2;
+  v41[1] = &v42;
+  v33 = a2;
+  v34 = &v43;
   v37 = v40;
-  v44 = *(this + 43);
-  v42[0] = a2;
-  v42[1] = &v43;
-  v34 = a2;
-  v35 = &v44;
+  v35 = v13;
   v38 = v41;
-  v36 = v13;
-  v39 = v42;
   v16 = v13;
-  v43 = 0;
-  while (v45[0] != v48 || v45[1] != v49)
+  v42 = 0;
+  while (v44[0] != v47 || v44[1] != v48)
   {
-    v43 = di_asif::details::table::flush_mapped_entry(this, a2, &v46, 0);
-    ref::ref_cnt::take_exclusive(*(v46 + 56) + 16 * v47, 0, v33);
-    v17 = di_asif::details::table::flush_mapped_entry(this, a2, &v46, 1);
-    v43 |= v17;
+    v42 = di_asif::details::table::flush_mapped_entry(this, a2, &v45, 0);
+    ref::ref_cnt::take_exclusive(v32, (*(v45 + 56) + 16 * v46), 0);
+    v17 = di_asif::details::table::flush_mapped_entry(this, a2, &v45, 1);
+    v42 |= v17;
     ++v15;
-    if (v30)
+    if (v29)
     {
-      if ((atomic_fetch_and((*(v46 + 56) + 16 * v47 + 8), 0xBFFFFFFFFFFFFFFFLL) & 0x4000000000000000) != 0 && v11 < 8 * v9 + 8)
+      if ((atomic_fetch_and((*(v45 + 56) + 16 * v46 + 8), 0xBFFFFFFFFFFFFFFFLL) & 0x4000000000000000) != 0 && v11 < 8 * v9 + 8)
       {
-        di_asif::details::table::flush(di_asif::details::ContextASIF &)::$_0::operator()(&v40, v13);
+        di_asif::details::table::flush(di_asif::details::ContextASIF &)::$_0::operator()(&v39, v13);
         v16 = v13;
       }
 
-      di_asif::details::table::make_data_entry_iterators_for_map(this, &v46, v31);
-      if (v31[0] == v32[3] && v31[1] == v32[4])
+      di_asif::details::table::make_data_entry_iterators_for_map(v30, this, &v45);
+      if (v30[0] == v31[3] && v30[1] == v31[4])
       {
-        v19 = atomic_load((*(v46 + 56) + 16 * v47 + 8));
+        v19 = atomic_load((*(v45 + 56) + 16 * v46 + 8));
         *v16 = bswap64(v19 & 0x3FFFFFFFFFFFFFFFLL);
-        v56 = 0;
+        v55 = 0;
         operator new();
       }
 
-      di_asif::details::table_entry_data::validate(v32);
-      v18 = atomic_load((*(v32[0] + 56) + 16 * v32[1] + 8));
+      di_asif::details::table_entry_data::validate(v31);
+      v18 = atomic_load((*(v31[0] + 56) + 16 * v31[1] + 8));
       *v16 = bswap64(v18);
-      v56 = 0;
+      v55 = 0;
       operator new();
     }
 
-    v44 = *(this + 43) + 8 * (v15 + v15 * *(*(this + 1) + 56));
-    ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v33);
-    di_asif::details::map_entry_iterator_t::operator++(v45);
+    v43 = *(this + 43) + 8 * (v15 + v15 * *(*(this + 1) + 56));
+    ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v32);
+    di_asif::details::map_entry_iterator_t::operator++(v44);
   }
 
   std::mutex::unlock((this + 168));
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v53, 0);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v54);
-  v20 = *(&v52 + 1);
-  v21 = (*(&v50 + 1) + 8 * (v52 >> 9));
-  if (v51 == *(&v50 + 1))
+  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v52, 0);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v53);
+  v20 = *(&v51 + 1);
+  v21 = (*(&v49 + 1) + 8 * (v51 >> 9));
+  if (v50 == *(&v49 + 1))
   {
     v22 = 0;
     v24 = 0;
-    v23 = (*(&v50 + 1) + 8 * ((v52 + *(&v52 + 1)) >> 9));
+    v23 = (*(&v49 + 1) + 8 * ((v51 + *(&v51 + 1)) >> 9));
   }
 
   else
   {
-    v22 = &(*v21)[v52 & 0x1FF];
-    v23 = (*(&v50 + 1) + 8 * ((v52 + *(&v52 + 1)) >> 9));
-    v24 = (*v23 + 8 * ((v52 + *(&v52 + 1)) & 0x1FF));
+    v22 = &(*v21)[8 * (v51 & 0x1FF)];
+    v23 = (*(&v49 + 1) + 8 * ((v51 + *(&v51 + 1)) >> 9));
+    v24 = (*v23 + 8 * ((v51 + *(&v51 + 1)) & 0x1FF));
   }
 
   di_asif::details::dir_base::insert_space<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>>(*(this + 1), v21, v22, v23, v24, a2);
@@ -4086,12 +5023,11 @@ uint64_t di_asif::details::table::flush(di_asif::details::table *this, di_asif::
     *(this + 100) = 0;
   }
 
-  std::deque<std::atomic<DiskImage::Context *>>::~deque[abi:ne200100](&v50);
-  v26 = *MEMORY[0x277D85DE8];
+  std::deque<std::atomic<DiskImage::Context *>>::~deque[abi:ne200100](&v49);
   return v25;
 }
 
-void sub_248EC4DCC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, int a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, unint64_t a62, uint64_t a63)
+void sub_248EC4DCC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int64x2_t *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, int a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, unint64_t a62, uint64_t a63)
 {
   std::mutex::unlock((v63 + 168));
   std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100]((v64 - 256), 0);
@@ -4123,9 +5059,9 @@ void sub_248EC4DCC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
     else
     {
-      v72 = &(*v71)[8 * (a62 & 0x1FF)];
+      v72 = *v71 + 8 * (a62 & 0x1FF);
       v74 = (a59 + 8 * ((a63 + a62) >> 9));
-      v73 = (*v74 + 8 * ((a63 + a62) & 0x1FF));
+      v73 = *v74 + 8 * ((a63 + a62) & 0x1FF);
     }
 
     std::deque<unsigned long long>::insert<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>,0>(a10, v69, v70, v71, v72, v74, v73);
@@ -4151,14 +5087,14 @@ void sub_248EC4FB0(void *a1, int a2)
 void di_asif::details::table::flush(di_asif::details::ContextASIF &)::$_0::operator()(DiskImage::Context **a1, di_asif::details::ContextASIF *a2)
 {
   v4 = a1[3];
-  if (*v4[1] == 1)
+  if (**(v4 + 1) == 1)
   {
     di_asif::details::do_barrier_or_throw(*v4, a2);
-    *v4[1] = 0;
+    **(v4 + 1) = 0;
   }
 
   v5 = a1[2];
-  v6 = a2 - v5;
+  v6 = (a2 - v5);
   v7 = *a1[1];
   v8 = *(details::get_dummy_shared_ptr() + 1);
   v16 = v5;
@@ -4246,14 +5182,14 @@ BOOL di_asif::details::table_entry_data::validate(di_asif::details::table_entry_
   return (v1 & 0x3F80000000000000) == 0;
 }
 
-void sub_248EC5278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248EC5278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<265ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::deque<unsigned long long>::insert<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>,0>(uint64_t a1, char *a2, uint64_t a3, char **a4, char *a5, char *a6, char *a7)
+void *std::deque<unsigned long long>::insert<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>,0>(int64x2_t *a1, char *a2, uint64_t a3, void **a4, char *a5, void **a6, char *a7)
 {
   if (a7 == a5)
   {
@@ -4262,21 +5198,21 @@ uint64_t *std::deque<unsigned long long>::insert<std::__deque_iterator<unsigned 
 
   else
   {
-    v7 = (&a7[-*a6] >> 3) + ((a6 - a4) << 6) - ((a5 - *a4) >> 3);
+    v7 = ((a7 - *a6) >> 3) + ((a6 - a4) << 6) - ((a5 - *a4) >> 3);
   }
 
   return std::deque<unsigned long long>::__insert_bidirectional[abi:ne200100]<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>>(a1, a2, a3, a4, a5, a6, a7, v7);
 }
 
-uint64_t di_asif::details::dir_base::insert_space<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>>(atomic_ullong *a1, unint64_t **a2, unint64_t *a3, char *a4, unint64_t *a5, uint64_t a6)
+uint64_t di_asif::details::dir_base::insert_space<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>>(atomic_ullong *a1, char **a2, char *a3, char *a4, char *a5, uint64_t a6)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
+  v15[4] = *MEMORY[0x277D85DE8];
   v12 = (*(*a1 + 16))(a1);
-  v16[0] = &unk_285BEC9A8;
-  v16[1] = a6;
-  v16[3] = v16;
-  space_allocators::FixedSize::insert<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>>(v12, a2, a3, a4, a5, v16);
-  result = std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](v16);
+  v15[0] = &unk_285BEC9A8;
+  v15[1] = a6;
+  v15[3] = v15;
+  space_allocators::FixedSize::insert<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>>(v12, a2, a3, a4, a5, v15);
+  result = std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](v15);
   if (a5 == a3)
   {
     v14 = 0;
@@ -4284,60 +5220,58 @@ uint64_t di_asif::details::dir_base::insert_space<std::__deque_iterator<unsigned
 
   else
   {
-    v14 = ((a2 - a4) << 6) - ((a5 - *a4) >> 3) + a3 - *a2;
+    v14 = ((a2 - a4) << 6) - (&a5[-*a4] >> 3) + ((a3 - *a2) >> 3);
   }
 
   atomic_fetch_add(a1 + 1, v14);
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_248EC53D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248EC53D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 unint64_t di_asif::details::table::write(di_asif::details::table *this, di_asif::details::ContextASIF *a2, const sg_vec_ns::details::sg_vec_iterator *a3, const sg_vec_ns::details::sg_vec_iterator *a4)
 {
-  v54 = *(a3 + 3);
-  *v85 = 0;
-  v87 = 0;
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v81, a3);
-  v55 = 0;
-  while (!sg_vec_ns::details::sg_vec_iterator::operator==(v81, a4))
+  *v84 = 0;
+  v86 = 0;
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v80, a3);
+  v54 = 0;
+  while (!sg_vec_ns::details::sg_vec_iterator::operator==(v80, a4))
   {
-    data_entry_for_offset = di_asif::details::table::get_data_entry_for_offset(this, v83);
-    v80 = v7;
+    data_entry_for_offset = di_asif::details::table::get_data_entry_for_offset(this, v82);
+    v79 = v7;
     v8 = data_entry_for_offset[1];
     v9 = *(v8 + 56);
     v10 = *(v8 + 28);
-    v69[0] = data_entry_for_offset[44] + (v9 + v9 * v7) / (v9 + 1) * v10;
-    v69[1] = v69[0] + v10;
-    v70 = 2;
-    sg_vec_ns::details::sg_vec_iterator::subvec(v81, v69, a4, v73);
-    if (!sg_vec_ns::details::sg_vec_iterator::operator==(v73, &v76))
+    v68[0] = data_entry_for_offset[44] + (v9 + v9 * v7) / (v9 + 1) * v10;
+    v68[1] = v68[0] + v10;
+    v69 = 2;
+    sg_vec_ns::details::sg_vec_iterator::subvec(&v72, v80, v68, a4);
+    if (!sg_vec_ns::details::sg_vec_iterator::operator==(&v72, &v75))
     {
-      *&v65 = &v85[1];
-      *(&v65 + 1) = &data_entry_for_offset;
-      v66 = v85;
-      v67 = this;
-      v68 = a2;
-      v13 = (data_entry_for_offset[7] + 16 * v80);
+      *&v64 = &v84[1];
+      *(&v64 + 1) = &data_entry_for_offset;
+      v65 = v84;
+      v66 = this;
+      v67 = a2;
+      v13 = (data_entry_for_offset[7] + 16 * v79);
       v14 = ref::ref_cnt::get(v13);
-      v63[0] = &unk_285BF4C50;
-      v63[1] = v13;
-      v64 = v14;
-      if (!v14)
+      v62[0] = &unk_285BF4C50;
+      v62[1] = v13;
+      v63 = v14;
+      if ((v14 & 1) == 0)
       {
-        *&v60 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
-        *(&v60 + 1) = 30;
-        LODWORD(v61) = 16;
-        di_log::logger<di_log::log_printer<1282ul>>::logger(v69, &v60);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, "Couldn't lock entry ", 20);
-        di_asif::details::operator<<(&v71, &data_entry_for_offset);
-        di_log::logger<di_log::log_printer<1282ul>>::~logger(v69);
+        *&v59 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
+        *(&v59 + 1) = 30;
+        LODWORD(v60) = 16;
+        di_log::logger<di_log::log_printer<1282ul>>::logger(v68, &v59);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v70, "Couldn't lock entry ", 20);
+        di_asif::details::operator<<(&v70, &data_entry_for_offset);
+        di_log::logger<di_log::log_printer<1282ul>>::~logger(v68);
         exception = __cxa_allocate_exception(0x40uLL);
         *exception = &unk_285BF4E60;
         v49 = std::generic_category();
@@ -4348,37 +5282,37 @@ unint64_t di_asif::details::table::write(di_asif::details::table *this, di_asif:
         exception[7] = "Couldn't lock entry";
       }
 
-      v15 = v80;
+      v15 = v79;
       v16 = data_entry_for_offset[7];
-      v17 = (*(v16 + 16 * v80 + 8) & 0x7FFFFFFFFFFFFFLL) * *(data_entry_for_offset[1] + 28);
+      v17 = (*(v16 + 16 * v79 + 8) & 0x7FFFFFFFFFFFFFLL) * *(data_entry_for_offset[1] + 28);
       if (!v17)
       {
-        backend_space_for_entry = di_asif::details::table::allocate_backend_space_for_entry(this, a2, data_entry_for_offset, v80);
+        backend_space_for_entry = di_asif::details::table::allocate_backend_space_for_entry(this, a2, data_entry_for_offset, v79);
         if (!backend_space_for_entry)
         {
-          v15 = v80;
+          v15 = v79;
           v16 = data_entry_for_offset[7];
           goto LABEL_7;
         }
 
-        *&v60 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
-        *(&v60 + 1) = 30;
-        LODWORD(v61) = 16;
-        di_log::logger<di_log::log_printer<1291ul>>::logger(v69, &v60);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, "couldn't allocate space for entry ", 34);
-        di_asif::details::operator<<(&v71, &data_entry_for_offset);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, " ret: ", 6);
-        MEMORY[0x24C1ED390](&v71, backend_space_for_entry);
+        *&v59 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
+        *(&v59 + 1) = 30;
+        LODWORD(v60) = 16;
+        di_log::logger<di_log::log_printer<1291ul>>::logger(v68, &v59);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v70, "couldn't allocate space for entry ", 34);
+        di_asif::details::operator<<(&v70, &data_entry_for_offset);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v70, " ret: ", 6);
+        MEMORY[0x24C1ED390](&v70, backend_space_for_entry);
         std::ostream::~ostream();
-        di_log::logger_buf<di_log::log_printer<1291ul>>::~logger_buf(v69);
-        MEMORY[0x24C1ED6A0](v72);
+        di_log::logger_buf<di_log::log_printer<1291ul>>::~logger_buf(v68);
+        MEMORY[0x24C1ED6A0](v71);
         backend_space_for_entry = backend_space_for_entry;
         goto LABEL_43;
       }
 
 LABEL_7:
       v18 = atomic_load((v16 + 16 * v15 + 8));
-      v19 = di_asif::details::table_entry_data::write(&data_entry_for_offset, a2, v73, &v76);
+      v19 = di_asif::details::table_entry_data::write(&data_entry_for_offset, a2, &v72, &v75);
       backend_space_for_entry = v19;
       v21 = v20;
       if ((v19 & 0x8000000000000000) != 0 && v19)
@@ -4388,13 +5322,13 @@ LABEL_7:
           goto LABEL_42;
         }
 
-        ref::details::ref_cnt_handle::upgrade_to_exclusive(v63, 0, v69);
-        if (v70 == 1)
+        ref::details::ref_cnt_handle::upgrade_to_exclusive(v68, v62, 0);
+        if (v69 == 1)
         {
-          v22 = atomic_load((data_entry_for_offset[7] + 16 * v80 + 8));
+          v22 = atomic_load((data_entry_for_offset[7] + 16 * v79 + 8));
           if ((v22 & 0x4000000000000000) == 0)
           {
-            v23 = (data_entry_for_offset[7] + 16 * v80 + 8);
+            v23 = (data_entry_for_offset[7] + 16 * v79 + 8);
             v24 = *v23;
             v25 = *(data_entry_for_offset[1] + 28);
             if (v25)
@@ -4402,27 +5336,27 @@ LABEL_7:
               atomic_fetch_and_explicit(v23, 0xFF80000000000000, memory_order_relaxed);
 LABEL_58:
               v41 = (v24 & 0x7FFFFFFFFFFFFFLL) * v25;
-              ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v69);
+              ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v68);
               if (v41)
               {
                 di_asif::details::dir_base::insert_space(*(this + 1), v41, a2);
               }
 
 LABEL_42:
-              *&v60 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
-              *(&v60 + 1) = 30;
-              LODWORD(v61) = 16;
-              di_log::logger<di_log::log_printer<1313ul>>::logger(v69, &v60);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, "Failed during data entry write in table write, error ", 53);
-              MEMORY[0x24C1ED390](&v71, backend_space_for_entry);
+              *&v59 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
+              *(&v59 + 1) = 30;
+              LODWORD(v60) = 16;
+              di_log::logger<di_log::log_printer<1313ul>>::logger(v68, &v59);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v70, "Failed during data entry write in table write, error ", 53);
+              MEMORY[0x24C1ED390](&v70, backend_space_for_entry);
               std::ostream::~ostream();
-              di_log::logger_buf<di_log::log_printer<1313ul>>::~logger_buf(v69);
-              MEMORY[0x24C1ED6A0](v72);
+              di_log::logger_buf<di_log::log_printer<1313ul>>::~logger_buf(v68);
+              MEMORY[0x24C1ED6A0](v71);
 LABEL_43:
               v11 = 1;
 LABEL_44:
-              ref::details::ref_cnt_handle::~ref_cnt_handle(v63);
-              finally<di_asif::details::table::write(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::$_0>::~finally(&v65);
+              ref::details::ref_cnt_handle::~ref_cnt_handle(v62);
+              finally<di_asif::details::table::write(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::$_0>::~finally(&v64);
               goto LABEL_45;
             }
 
@@ -4445,15 +5379,15 @@ LABEL_44:
           }
         }
 
-        ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v69);
+        ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v68);
         goto LABEL_42;
       }
 
       v26 = v18 >> 62;
-      *&v60 = v81;
-      *(&v60 + 1) = a4;
-      v61 = v19;
-      v62 = v20;
+      *&v59 = v80;
+      *(&v59 + 1) = a4;
+      v60 = v19;
+      v61 = v20;
       if (v26 == 1)
       {
 LABEL_15:
@@ -4464,18 +5398,18 @@ LABEL_15:
       {
         v27 = data_entry_for_offset[1];
         v28 = *(v27 + 28);
-        if (v19 == v28 && data_entry_for_offset[44] + (*(v27 + 56) + *(v27 + 56) * v80) / (*(v27 + 56) + 1) * v28 == v20)
+        if (v19 == v28 && data_entry_for_offset[44] + (*(v27 + 56) + *(v27 + 56) * v79) / (*(v27 + 56) + 1) * v28 == v20)
         {
-          ref::details::ref_cnt_handle::upgrade_to_exclusive(v63, 0, v58);
-          if ((v59 & 1) == 0)
+          ref::details::ref_cnt_handle::upgrade_to_exclusive(v57, v62, 0);
+          if ((v58 & 1) == 0)
           {
-            *&v56 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
-            *(&v56 + 1) = 30;
-            v57 = 16;
-            di_log::logger<di_log::log_printer<1337ul>>::logger(v69, &v56);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, "Couldn't upgrade lock entry ", 28);
-            di_asif::details::operator<<(&v71, &data_entry_for_offset);
-            di_log::logger<di_log::log_printer<1337ul>>::~logger(v69);
+            *&v55 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
+            *(&v55 + 1) = 30;
+            v56 = 16;
+            di_log::logger<di_log::log_printer<1337ul>>::logger(v68, &v55);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v70, "Couldn't upgrade lock entry ", 28);
+            di_asif::details::operator<<(&v70, &data_entry_for_offset);
+            di_log::logger<di_log::log_printer<1337ul>>::~logger(v68);
             v50 = __cxa_allocate_exception(0x40uLL);
             *v50 = &unk_285BF4E60;
             v51 = std::generic_category();
@@ -4486,10 +5420,10 @@ LABEL_15:
             v50[7] = "Couldn't upgrade lock entry";
           }
 
-          v29 = atomic_load((data_entry_for_offset[7] + 16 * v80 + 8));
+          v29 = atomic_load((data_entry_for_offset[7] + 16 * v79 + 8));
           if (v26 == 2 || (v29 & 0xC000000000000000) != 0x8000000000000000)
           {
-            v30 = (data_entry_for_offset[7] + 16 * v80 + 8);
+            v30 = (data_entry_for_offset[7] + 16 * v79 + 8);
             v31 = *v30;
             v32 = *v30 & 0x3FFFFFFFFFFFFFFFLL | 0x4000000000000000;
             for (i = *v30; ; v32 = i & 0x3FFFFFFFFFFFFFFFLL | 0x4000000000000000)
@@ -4505,11 +5439,11 @@ LABEL_15:
 
             v36 = v31 >> 62;
             di_asif::details::table::update_analytics_counters_data_entry(this, a2, v31 >> 62, 1, &data_entry_for_offset);
-            v85[0] |= v36 == 3;
+            v84[0] |= v36 == 3;
             atomic_store(1u, this + 24);
           }
 
-          ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v58);
+          ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v57);
           v11 = 2;
         }
 
@@ -4517,22 +5451,22 @@ LABEL_15:
         {
           if (v26 == 3)
           {
-            v69[0] = di_asif::details::table::make_range_bits(this, v20, v19);
-            di_asif::details::table::set_entry_bitmap_range(this, a2, &data_entry_for_offset, v69, 1u, 0x100000003);
+            v68[0] = di_asif::details::table::make_range_bits(this, v20, v19);
+            di_asif::details::table::set_entry_bitmap_range(this, a2, &data_entry_for_offset, v68, 1, 0x100000003);
           }
 
           else
           {
-            ref::details::ref_cnt_handle::upgrade_to_exclusive(v63, 0, v58);
-            if ((v59 & 1) == 0)
+            ref::details::ref_cnt_handle::upgrade_to_exclusive(v57, v62, 0);
+            if ((v58 & 1) == 0)
             {
-              *&v56 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
-              *(&v56 + 1) = 30;
-              v57 = 16;
-              di_log::logger<di_log::log_printer<1375ul>>::logger(v69, &v56);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, "Couldn't upgrade lock entry ", 28);
-              di_asif::details::operator<<(&v71, &data_entry_for_offset);
-              di_log::logger<di_log::log_printer<1375ul>>::~logger(v69);
+              *&v55 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
+              *(&v55 + 1) = 30;
+              v56 = 16;
+              di_log::logger<di_log::log_printer<1375ul>>::logger(v68, &v55);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v70, "Couldn't upgrade lock entry ", 28);
+              di_asif::details::operator<<(&v70, &data_entry_for_offset);
+              di_log::logger<di_log::log_printer<1375ul>>::~logger(v68);
               v52 = __cxa_allocate_exception(0x40uLL);
               *v52 = &unk_285BF4E60;
               v53 = std::generic_category();
@@ -4543,16 +5477,16 @@ LABEL_15:
               v52[7] = "Couldn't upgrade lock entry";
             }
 
-            v34 = atomic_load((data_entry_for_offset[7] + 16 * v80 + 8));
-            if (!((*(data_entry_for_offset[7] + 16 * v80 + 8) & 0x7FFFFFFFFFFFFFLL) * *(data_entry_for_offset[1] + 28)) || (v35 = v34 >> 62, v34 >> 62 == 1))
+            v34 = atomic_load((data_entry_for_offset[7] + 16 * v79 + 8));
+            if (!((*(data_entry_for_offset[7] + 16 * v79 + 8) & 0x7FFFFFFFFFFFFFLL) * *(data_entry_for_offset[1] + 28)) || (v35 = v34 >> 62, v34 >> 62 == 1))
             {
-              ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v58);
+              ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v57);
               goto LABEL_15;
             }
 
-            v69[0] = di_asif::details::table::make_range_bits(this, v21, backend_space_for_entry);
-            di_asif::details::table::set_entry_bitmap_range(this, a2, &data_entry_for_offset, v69, 1u, v35 | 0x100000000);
-            ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v58);
+            v68[0] = di_asif::details::table::make_range_bits(this, v21, backend_space_for_entry);
+            di_asif::details::table::set_entry_bitmap_range(this, a2, &data_entry_for_offset, v68, 1, v35 | 0x100000000);
+            ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(v57);
           }
 
           if (v17)
@@ -4568,41 +5502,41 @@ LABEL_15:
         }
       }
 
-      v55 += backend_space_for_entry;
-      finally<di_asif::details::table::write(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::$_1>::~finally(&v60);
+      v54 += backend_space_for_entry;
+      finally<di_asif::details::table::write(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::$_1>::~finally(&v59);
       goto LABEL_44;
     }
 
-    *&v65 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
-    *(&v65 + 1) = 30;
-    LODWORD(v66) = 16;
-    di_log::logger<di_log::log_printer<1260ul>>::logger(v69, &v65);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, "Couldn't trim entry in write ", 29);
-    operator<<(&v71, v81);
+    *&v64 = "di_asif::details::table::write(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
+    *(&v64 + 1) = 30;
+    LODWORD(v65) = 16;
+    di_log::logger<di_log::log_printer<1260ul>>::logger(v68, &v64);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v70, "Couldn't trim entry in write ", 29);
+    operator<<(&v70, v80);
     std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<1260ul>>::~logger_buf(v69);
-    MEMORY[0x24C1ED6A0](v72);
+    di_log::logger_buf<di_log::log_printer<1260ul>>::~logger_buf(v68);
+    MEMORY[0x24C1ED6A0](v71);
     v11 = 1;
     backend_space_for_entry = -34;
 LABEL_45:
-    if (v78)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v78);
-    }
-
     if (v77)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v77);
     }
 
-    if (v75)
+    if (v76)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v75);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v76);
     }
 
     if (v74)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+    }
+
+    if (v73)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v73);
     }
 
     if ((v11 | 2) != 2)
@@ -4611,41 +5545,41 @@ LABEL_45:
     }
   }
 
-  if (v87 == 1)
+  if (v86 == 1)
   {
-    updated = di_asif::details::table::update_entry_if_bits_in_same_state(this, a2, &v85[1]);
-    backend_space_for_entry = v55;
-    v43 = updated | v85[0];
-    v85[0] = (updated | v85[0]) & 1;
+    updated = di_asif::details::table::update_entry_if_bits_in_same_state(this, a2, &v84[1]);
+    backend_space_for_entry = v54;
+    v43 = updated | v84[0];
+    v84[0] = (updated | v84[0]) & 1;
     if (v43)
     {
-      v44 = *(*&v85[1] + 8);
+      v44 = *(*&v84[1] + 8);
       v45 = *(this + 1);
       v46 = *(v45 + 56);
-      di_asif::details::table::check_if_map_element_needed(this, a2, v46 + (v46 + 1) * (((*(*&v85[1] + 352) + (*(v44 + 56) + *(v44 + 56) * v86) / (*(v44 + 56) + 1) * *(v44 + 28)) / *(v44 + 26) - *(this + 44) / *(v45 + 26)) / (v46 * (*(v45 + 28) / *(v45 + 26)))));
+      di_asif::details::table::check_if_map_element_needed(this, a2, v46 + (v46 + 1) * (((*(*&v84[1] + 352) + (*(v44 + 56) + *(v44 + 56) * v85) / (*(v44 + 56) + 1) * *(v44 + 28)) / *(v44 + 26) - *(this + 44) / *(v45 + 26)) / (v46 * (*(v45 + 28) / *(v45 + 26)))));
     }
   }
 
   else
   {
-    backend_space_for_entry = v55;
+    backend_space_for_entry = v54;
   }
 
 LABEL_64:
-  if (v84)
+  if (v83)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v84);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v83);
   }
 
-  if (v82)
+  if (v81)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v82);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v81);
   }
 
   return backend_space_for_entry;
 }
 
-void sub_248EC5D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, di_asif::details::table_entry_data *a26)
+void sub_248EC5D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
 {
   ref::details::ref_cnt_set_handle::~ref_cnt_set_handle(&a15);
   finally<di_asif::details::table::write(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::$_1>::~finally(&a19);
@@ -4757,7 +5691,7 @@ uint64_t di_log::logger<di_log::log_printer<1291ul>>::~logger(uint64_t a1)
 
 uint64_t di_asif::details::table_entry_data::write(di_asif::details::table_entry_data *this, di_asif::details::ContextASIF *a2, const sg_vec_ns::details::sg_vec_iterator *a3, std::__shared_weak_count **a4)
 {
-  v127[48] = *MEMORY[0x277D85DE8];
+  v126[48] = *MEMORY[0x277D85DE8];
   v4 = *(this + 1);
   v5 = *(*this + 8);
   v6 = *(v5 + 28);
@@ -4767,33 +5701,33 @@ uint64_t di_asif::details::table_entry_data::write(di_asif::details::table_entry
     DiskImagesRuntimeException::DiskImagesRuntimeException(exception, "ASIF: No data offset found (write)", 0xFFFFFFEA);
   }
 
-  *&v109 = *(*this + 352) + (*(v5 + 56) + *(v5 + 56) * v4) / (*(v5 + 56) + 1) * v6;
-  *(&v109 + 1) = v109 + v6;
-  LOBYTE(v110) = 2;
-  sg_vec_ns::details::sg_vec_iterator::subvec(a3, &v109, a4, v71);
-  if (sg_vec_ns::details::sg_vec_iterator::operator==(v71, &v74))
+  *&v108 = *(*this + 352) + (*(v5 + 56) + *(v5 + 56) * v4) / (*(v5 + 56) + 1) * v6;
+  *(&v108 + 1) = v108 + v6;
+  LOBYTE(v109) = 2;
+  sg_vec_ns::details::sg_vec_iterator::subvec(&v70, a3, &v108, a4);
+  if (sg_vec_ns::details::sg_vec_iterator::operator==(&v70, &v73))
   {
     v11 = -34;
   }
 
   else
   {
-    __p = v127;
-    v126 = xmmword_248F9D670;
+    __p = v126;
+    v125 = xmmword_248F9D670;
     v12 = *(a3 + 136);
-    v109 = *(a3 + 120);
-    v110 = v12;
-    v111 = *(a3 + 152);
-    v112 = *(a3 + 168);
+    v108 = *(a3 + 120);
+    v109 = v12;
+    v110 = *(a3 + 152);
+    v111 = *(a3 + 168);
     v13 = *(a3 + 23);
-    v113 = *(a3 + 22);
-    v114 = v13;
+    v112 = *(a3 + 22);
+    v113 = v13;
     if (v13)
     {
       atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v115 = *(a3 + 12);
+    v114 = *(a3 + 12);
     v14 = a4[15];
     v15 = a4[16];
     v16 = a4[17];
@@ -4806,14 +5740,14 @@ uint64_t di_asif::details::table_entry_data::write(di_asif::details::table_entry
     v18 = 0;
     for (i = 0; ; ++i)
     {
-      v20 = v109 == v14 && *(&v109 + 1) == v15;
-      if (v20 && v110 == v16)
+      v20 = v108 == v14 && *(&v108 + 1) == v15;
+      if (v20 && v109 == v16)
       {
         break;
       }
 
       v18 += 24;
-      sg_vec_ns::details::buffer_iterator::operator++(&v109);
+      sg_vec_ns::details::buffer_iterator::operator++(&v108);
     }
 
     if (v17)
@@ -4821,12 +5755,12 @@ uint64_t di_asif::details::table_entry_data::write(di_asif::details::table_entry
       std::__shared_weak_count::__release_shared[abi:ne200100](v17);
     }
 
-    if (v114)
+    if (v113)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v114);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v113);
     }
 
-    if (*(&v126 + 1) < i)
+    if (*(&v125 + 1) < i)
     {
       if (i >= 0x555555555555556)
       {
@@ -4834,71 +5768,71 @@ uint64_t di_asif::details::table_entry_data::write(di_asif::details::table_entry
       }
 
       v22 = operator new(v18);
-      boost::container::vector<lw_future<int>,boost::container::small_vector_allocator<lw_future<int>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_range_proxy<boost::container::small_vector_allocator<lw_future<int>,boost::container::new_allocator<void>,void>,boost::move_iterator<lw_future<int>*>,lw_future<int>*>>(&__p, v22, i, __p + 24 * v126, 0, 0);
+      boost::container::vector<lw_future<int>,boost::container::small_vector_allocator<lw_future<int>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_range_proxy<boost::container::small_vector_allocator<lw_future<int>,boost::container::new_allocator<void>,void>,boost::move_iterator<lw_future<int>*>,lw_future<int>*>>(&__p, v22, i, __p + 24 * v125, 0, 0);
     }
 
-    sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v60, a3);
-    sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v49, a4);
-    sg_entry::sg_entry(&v88, v60);
+    sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v59, a3);
+    sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v48, a4);
+    sg_entry::sg_entry(v87, v59);
+    v89 = v61;
     v90 = v62;
     v91 = v63;
     v92 = v64;
     v93 = v65;
-    v94 = v66;
-    v23 = v67;
-    v67 = 0uLL;
-    v95 = v23;
-    v96 = v68;
-    v98 = v70;
+    v23 = v66;
+    v66 = 0uLL;
+    v94 = v23;
+    v95 = v67;
     v97 = v69;
-    sg_entry::sg_entry(v77, v49);
+    v96 = v68;
+    sg_entry::sg_entry(v76, v48);
     v24 = 0;
     v25 = 0;
+    v78 = v50;
     v79 = v51;
     v80 = v52;
     v81 = v53;
     v82 = v54;
-    v83 = v55;
-    v26 = v56;
-    v56 = 0uLL;
-    v84 = v26;
-    v85 = v57;
-    v27 = v58;
-    v87 = v59;
+    v26 = v55;
+    v55 = 0uLL;
+    v83 = v26;
+    v84 = v56;
+    v27 = v57;
     v86 = v58;
-    LOBYTE(v109) = 0;
-    v121 = 0;
-    while (!sg_vec_ns::details::sg_vec_iterator::operator==(&v88, v77))
+    v85 = v57;
+    LOBYTE(v108) = 0;
+    v120 = 0;
+    while (!sg_vec_ns::details::sg_vec_iterator::operator==(v87, v76))
     {
-      if (v97 >= v27 || v25 == -1)
+      if (v96 >= v27 || v25 == -1)
       {
         break;
       }
 
       if (DIDebugLogsEnabled())
       {
-        *&v105 = "details::for_each_sg_in_vec_internal(Fn &&, sg_vec_ref::iterator, sg_vec::iterator, size_t, BOOL) [Fn = (lambda at /Library/Caches/com.apple.xbs/Sources/DiskImages2/app/disk_images/formats/asif.cpp:1990:32)]";
-        *(&v105 + 1) = 104;
-        LODWORD(v106) = 2;
-        di_log::logger<di_log::log_printer<624ul>>::logger(&v100, &v105);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v103, "sg: ", 4);
-        operator<<(&v103, &v88);
+        *&v104 = "details::for_each_sg_in_vec_internal(Fn &&, sg_vec_ref::iterator, sg_vec::iterator, size_t, BOOL) [Fn = (lambda at /Library/Caches/com.apple.xbs/Sources/DiskImages2/app/disk_images/formats/asif.cpp:1990:32)]";
+        *(&v104 + 1) = 104;
+        LODWORD(v105) = 2;
+        di_log::logger<di_log::log_printer<624ul>>::logger(&v99, &v104);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v102, "sg: ", 4);
+        operator<<(&v102, v87);
         std::ostream::~ostream();
-        di_log::logger_buf<di_log::log_printer<624ul>>::~logger_buf(&v100);
-        MEMORY[0x24C1ED6A0](&v104);
+        di_log::logger_buf<di_log::log_printer<624ul>>::~logger_buf(&v99);
+        MEMORY[0x24C1ED6A0](&v103);
       }
 
-      v100 = 0;
-      v101 = v27;
-      v102 = 2;
-      trim_sg_to_interval(&v88, &v100, &v105);
+      v99 = 0;
+      v100 = v27;
+      v101 = 2;
+      trim_sg_to_interval(v87, &v99, &v104);
       v29 = *(*(*this + 8) + 28);
-      sg_entry::sg_entry<sg_entry const&,void>(&v100, &v105, v106, 0, v107 % v29 + (*(*(*this + 56) + 16 * *(this + 1) + 8) & 0x7FFFFFFFFFFFFFLL) * v29, v108);
-      (*(**(a2 + 2) + 144))(v122);
-      v30 = __p + 24 * v126;
-      if (v126 == *(&v126 + 1))
+      sg_entry::sg_entry<sg_entry const&,void>(&v99, &v104, v105, 0, v106 % v29 + (*(*(*this + 56) + 16 * *(this + 1) + 8) & 0x7FFFFFFFFFFFFFLL) * v29, v107);
+      (*(**(a2 + 2) + 144))(v121);
+      v30 = __p + 24 * v125;
+      if (v125 == *(&v125 + 1))
       {
-        boost::container::vector<lw_future<int>,boost::container::small_vector_allocator<lw_future<int>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<lw_future<int>,boost::container::new_allocator<void>,void>,lw_future<int>*,lw_future<int>>>(&__p, v30, 1, v122, &v124);
+        boost::container::vector<lw_future<int>,boost::container::small_vector_allocator<lw_future<int>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<lw_future<int>,boost::container::new_allocator<void>,void>,lw_future<int>*,lw_future<int>>>(&__p, v30, 1, v121, &v123);
       }
 
       else
@@ -4906,28 +5840,28 @@ uint64_t di_asif::details::table_entry_data::write(di_asif::details::table_entry
         *v30 = 0;
         v30[4] = 0;
         *(v30 + 1) = 0;
-        if (BYTE4(v122[0]) == 1)
+        if (BYTE4(v121[0]) == 1)
         {
-          *v30 = v122[0];
+          *v30 = v121[0];
           v30[4] = 1;
         }
 
-        *(v30 + 2) = v123;
-        v123 = 0;
+        *(v30 + 2) = v122;
+        v122 = 0;
         v31 = *(v30 + 2);
         if (v31)
         {
           *v31 = v30;
         }
 
-        *&v126 = v126 + 1;
+        *&v125 = v125 + 1;
       }
 
-      v32 = v107;
-      v33 = v106;
-      if (v101)
+      v32 = v106;
+      v33 = v105;
+      if (v100)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v101);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v100);
       }
 
       v34 = v33 >= 0 || v33 == 0;
@@ -4939,22 +5873,22 @@ uint64_t di_asif::details::table_entry_data::write(di_asif::details::table_entry
           v24 = 1;
         }
 
-        if (sg_vec_ns::should_create_new_sg_vec_ref(&v88, v77, v32, v33))
+        if (sg_vec_ns::should_create_new_sg_vec_ref(v87, v76, v32, v33))
         {
-          sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v99, &v88);
-          sg_vec_ns::generate_vec_ref(v99, v77, v32, v33, 0xFFFFFFFFFFFFFFFFLL, &v100);
-          std::optional<sg_vec_ref>::operator=[abi:ne200100]<sg_vec_ref,void>(&v109, &v100);
-          sg_vec_ref::~sg_vec_ref(&v100);
-          sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(v99);
-          sg_vec_ref::begin(&v109, &v100);
-          sg_vec_ns::details::sg_vec_iterator::operator=(&v88, &v100);
-          sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&v100);
-          sg_vec_ref::end(&v109, &v100);
-          sg_vec_ns::details::sg_vec_iterator::operator=(v77, &v100);
-          sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&v100);
+          sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v98, v87);
+          sg_vec_ns::generate_vec_ref(v98, v76, v32, v33, 0xFFFFFFFFFFFFFFFFLL, &v99);
+          std::optional<sg_vec_ref>::operator=[abi:ne200100]<sg_vec_ref,void>(&v108, &v99);
+          sg_vec_ref::~sg_vec_ref(&v99);
+          sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(v98);
+          sg_vec_ref::begin(&v108, &v99);
+          sg_vec_ns::details::sg_vec_iterator::operator=(v87, &v99);
+          sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&v99);
+          sg_vec_ref::end(&v108, &v99);
+          sg_vec_ns::details::sg_vec_iterator::operator=(v76, &v99);
+          sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&v99);
         }
 
-        sg_vec_ns::details::sg_vec_iterator::operator+=(&v88, v33);
+        sg_vec_ns::details::sg_vec_iterator::operator+=(v87, v33);
         v25 += v33;
       }
 
@@ -4970,12 +5904,12 @@ uint64_t di_asif::details::table_entry_data::write(di_asif::details::table_entry
           v36 = -v33;
         }
 
-        v47 = -v36;
+        v46 = -v36;
       }
 
-      if (*(&v105 + 1))
+      if (*(&v104 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v105 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v104 + 1));
       }
 
       if ((v35 & 1) == 0)
@@ -4984,16 +5918,11 @@ uint64_t di_asif::details::table_entry_data::write(di_asif::details::table_entry
       }
     }
 
-    v47 = v25;
+    v46 = v25;
 LABEL_63:
-    v11 = v47;
-    if (v121 == 1)
+    v11 = v46;
+    if (v120 == 1)
     {
-      if (v120)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v120);
-      }
-
       if (v119)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v119);
@@ -5018,56 +5947,61 @@ LABEL_63:
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v115);
       }
+
+      if (v114)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v114);
+      }
     }
 
-    if (*(&v84 + 1))
+    if (*(&v83 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v84 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v83 + 1));
     }
 
-    if (v78)
+    if (v77)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v78);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v77);
     }
 
-    if (*(&v95 + 1))
+    if (*(&v94 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v95 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v94 + 1));
     }
 
-    if (v89)
+    if (v88)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v89);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v88);
     }
 
-    if (*(&v56 + 1))
+    if (*(&v55 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v56 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v55 + 1));
     }
 
-    if (v50)
+    if (v49)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v50);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v49);
     }
 
-    if (*(&v67 + 1))
+    if (*(&v66 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v67 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v66 + 1));
     }
 
-    if (v61)
+    if (v60)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v61);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v60);
     }
 
-    if ((v47 & 0x8000000000000000) == 0 || !v47)
+    if ((v46 & 0x8000000000000000) == 0 || !v46)
     {
       (*(**(a2 + 2) + 152))(*(a2 + 2));
-      if (v126)
+      if (v125)
       {
         v38 = 0;
         v39 = __p;
-        v40 = 24 * v126;
+        v40 = 24 * v125;
         do
         {
           v41 = lw_future<int>::get(v39, v37);
@@ -5090,7 +6024,7 @@ LABEL_63:
         v41 = 0;
       }
 
-      if (v47 != v41)
+      if (v46 != v41)
       {
         if (v41 < 0)
         {
@@ -5106,15 +6040,10 @@ LABEL_63:
       }
     }
 
-    if (*(&v126 + 1) && v127 != __p)
+    if (*(&v125 + 1) && v126 != __p)
     {
       operator delete(__p);
     }
-  }
-
-  if (v76)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
   }
 
   if (v75)
@@ -5122,9 +6051,9 @@ LABEL_63:
     std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if (v73)
+  if (v74)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v73);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v74);
   }
 
   if (v72)
@@ -5132,11 +6061,15 @@ LABEL_63:
     std::__shared_weak_count::__release_shared[abi:ne200100](v72);
   }
 
-  v43 = *MEMORY[0x277D85DE8];
+  if (v71)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v71);
+  }
+
   return v11;
 }
 
-void sub_248EC6A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_248EC6A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&STACK[0x640]);
   if (STACK[0x918])
@@ -5157,7 +6090,7 @@ void sub_248EC6A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     }
   }
 
-  container_it<sg_vec_ns::details::sg_vec_iterator>::~container_it(&a69);
+  container_it<sg_vec_ns::details::sg_vec_iterator>::~container_it(&a65);
   _Unwind_Resume(a1);
 }
 
@@ -5275,9 +6208,9 @@ uint64_t di_log::logger<di_log::log_printer<1375ul>>::~logger(uint64_t a1)
   return a1;
 }
 
-uint64_t finally<di_asif::details::table::write(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::$_1>::~finally(uint64_t a1)
+void *finally<di_asif::details::table::write(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::$_1>::~finally(void *a1)
 {
-  v2 = *(a1 + 16);
+  v2 = a1[2];
   if ((v2 & 0x8000000000000000) == 0 || !v2)
   {
     sg_vec_ns::details::sg_vec_iterator::operator+=(*a1, v2);
@@ -5342,62 +6275,62 @@ uint64_t di_asif::details::table::read(di_asif::details::table *this, di_asif::d
 {
   v4 = MEMORY[0x28223BE20](this);
   v6 = v5;
-  v36 = v7;
+  v35 = v7;
   v8 = v4;
-  v89[896] = *MEMORY[0x277D85DE8];
+  v88[896] = *MEMORY[0x277D85DE8];
   v10 = *(v9 + 3);
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v51, v9);
-  *&v55 = -78;
-  LOBYTE(v59[0]) = 0;
-  v63 = 0;
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v64, &v51);
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v65, &v51);
-  v37 = 0;
-  v66 = v36;
-  v67[0] = &v68;
-  v67[1] = 0;
-  v67[2] = 16;
-  LOBYTE(v69) = 0;
-  v70 = 0;
-  v71 = &v74;
-  v72 = 0;
-  v73 = 16;
-  v75 = 0;
-  v50[0] = v59;
-  v50[1] = &v55;
-  v50[2] = v36;
-  while (!sg_vec_ns::details::sg_vec_iterator::operator==(&v51, v6))
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v50, v9);
+  *&v54 = -78;
+  LOBYTE(v58[0]) = 0;
+  v62 = 0;
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v63, &v50);
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v64, &v50);
+  v36 = 0;
+  v65 = v35;
+  v66[0] = &v67;
+  v66[1] = 0;
+  v66[2] = 16;
+  LOBYTE(v68) = 0;
+  v69 = 0;
+  v70 = &v73;
+  v71 = 0;
+  v72 = 16;
+  v74 = 0;
+  v49[0] = v58;
+  v49[1] = &v54;
+  v49[2] = v35;
+  while (!sg_vec_ns::details::sg_vec_iterator::operator==(&v50, v6))
   {
-    *&v49 = di_asif::details::table::get_data_entry_for_offset(v8, v53);
-    *(&v49 + 1) = v11;
-    v12 = *(v49 + 8);
+    *&v48 = di_asif::details::table::get_data_entry_for_offset(v8, v52);
+    *(&v48 + 1) = v11;
+    v12 = *(v48 + 8);
     v13 = *(v12 + 56);
     v14 = *(v12 + 28);
-    *&v76 = *(v49 + 352) + (v13 + v13 * v11) / (v13 + 1) * v14;
-    *(&v76 + 1) = v76 + v14;
-    LOBYTE(v77) = 2;
-    sg_vec_ns::details::sg_vec_iterator::subvec(&v51, &v76, v6, v43);
-    if (!sg_vec_ns::details::sg_vec_iterator::operator==(v43, &v46))
+    *&v75 = *(v48 + 352) + (v13 + v13 * v11) / (v13 + 1) * v14;
+    *(&v75 + 1) = v75 + v14;
+    LOBYTE(v76) = 2;
+    sg_vec_ns::details::sg_vec_iterator::subvec(&v42, &v50, &v75, v6);
+    if (!sg_vec_ns::details::sg_vec_iterator::operator==(&v42, &v45))
     {
-      if (v70 == 1 && !di_asif::details::table_entry_obj::is_physically_contiguous(&v49, &v69) && (v22 = di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::data_entries_vectorizer_t::finalize_ios(v59), v22 < 0) && v22)
+      if (v69 == 1 && !di_asif::details::table_entry_obj::is_physically_contiguous(&v48, &v68) && (v22 = di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::data_entries_vectorizer_t::finalize_ios(v58), v22 < 0) && v22)
       {
-        *&v38 = v22;
-        *(&v38 + 1) = v23;
-        v39 = v59;
-        v40 = 0;
-        v41[0] = 0;
-        v42 = 0;
+        *&v37 = v22;
+        *(&v37 + 1) = v23;
+        v38 = v58;
+        v39 = 0;
+        v40[0] = 0;
+        v41 = 0;
       }
 
       else
       {
-        v69 = v49;
-        v70 = 1;
-        v16 = (*(v49 + 56) + 16 * *(&v49 + 1));
+        v68 = v48;
+        v69 = 1;
+        v16 = (*(v48 + 56) + 16 * *(&v48 + 1));
         v17 = ref::ref_cnt::get(v16);
-        *&v86 = &unk_285BF4C50;
-        *(&v86 + 1) = v16;
-        LOBYTE(v87) = v17;
+        *&v85 = &unk_285BF4C50;
+        *(&v85 + 1) = v16;
+        LOBYTE(v86) = v17;
         if (v17)
         {
           v18 = 0;
@@ -5405,52 +6338,52 @@ uint64_t di_asif::details::table::read(di_asif::details::table *this, di_asif::d
 
         else
         {
-          *&v56 = "di_asif::details::table::read(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)::data_entries_vectorizer_t::add_data_entry(const data_entry_t &)";
-          *(&v56 + 1) = 139;
-          v57 = 16;
-          di_log::logger<di_log::log_printer<1594ul>>::logger(&v76, &v56);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v82, "Couldn't lock entry ", 20);
-          di_asif::details::operator<<(&v82, &v49);
+          *&v55 = "di_asif::details::table::read(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)::data_entries_vectorizer_t::add_data_entry(const data_entry_t &)";
+          *(&v55 + 1) = 139;
+          v56 = 16;
+          di_log::logger<di_log::log_printer<1594ul>>::logger(&v75, &v55);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v81, "Couldn't lock entry ", 20);
+          di_asif::details::operator<<(&v81, &v48);
           std::ostream::~ostream();
-          di_log::logger_buf<di_log::log_printer<1594ul>>::~logger_buf(&v76);
-          MEMORY[0x24C1ED6A0](v83);
+          di_log::logger_buf<di_log::log_printer<1594ul>>::~logger_buf(&v75);
+          MEMORY[0x24C1ED6A0](v82);
           v18 = -5;
         }
 
-        v19 = atomic_load((*(v69 + 56) + 16 * *(&v69 + 1) + 8));
-        *&v38 = v18;
-        v39 = v59;
-        v40 = v19 >> 62;
-        ref::details::ref_cnt_handle::ref_cnt_handle(v41, &v86);
-        v42 = 1;
-        ref::details::ref_cnt_handle::~ref_cnt_handle(&v86);
+        v19 = atomic_load((*(v68 + 56) + 16 * *(&v68 + 1) + 8));
+        *&v37 = v18;
+        v38 = v58;
+        v39 = v19 >> 62;
+        ref::details::ref_cnt_handle::ref_cnt_handle(v40, &v85);
+        v41 = 1;
+        ref::details::ref_cnt_handle::~ref_cnt_handle(&v85);
       }
 
-      v55 = v38;
-      zeros = v38;
-      v21 = v38;
-      if ((v38 & 0x8000000000000000) != 0 && v38)
+      v54 = v37;
+      zeros = v37;
+      v21 = v37;
+      if ((v37 & 0x8000000000000000) != 0 && v37)
       {
         v15 = 0;
 LABEL_64:
-        di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::data_entries_vectorizer_t::io_result_inserter_t::~io_result_inserter_t(&v38);
+        di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::data_entries_vectorizer_t::io_result_inserter_t::~io_result_inserter_t(&v37);
         goto LABEL_65;
       }
 
-      if (v40 <= 1)
+      if (v39 <= 1)
       {
-        if (v40)
+        if (v39)
         {
-          if (v40 == 1)
+          if (v39 == 1)
           {
 LABEL_57:
-            di_asif::details::table_entry_data::future_read(v43, &v49, v36, &v46, v67, &v76);
-            v55 = v76;
-            zeros = v76;
-            v21 = v76;
-            if ((v76 & 0x8000000000000000) == 0 || !v55)
+            di_asif::details::table_entry_data::future_read(&v75, &v42, &v48, v35, v66, &v45);
+            v54 = v75;
+            zeros = v75;
+            v21 = v75;
+            if ((v75 & 0x8000000000000000) == 0 || !v54)
             {
-              v75 += v77;
+              v74 += v76;
             }
           }
 
@@ -5458,14 +6391,14 @@ LABEL_60:
           if ((zeros & 0x8000000000000000) != 0 && v21)
           {
             v15 = 0;
-            v75 = 0;
+            v74 = 0;
           }
 
           else
           {
-            sg_vec_ns::details::sg_vec_iterator::operator+=(&v51, zeros);
-            sg_vec_ns::details::sg_vec_iterator::operator=(v65, &v51);
-            v37 += zeros;
+            sg_vec_ns::details::sg_vec_iterator::operator+=(&v50, zeros);
+            sg_vec_ns::details::sg_vec_iterator::operator=(v64, &v50);
+            v36 += zeros;
             v15 = 1;
           }
 
@@ -5473,35 +6406,35 @@ LABEL_60:
         }
 
 LABEL_26:
-        zeros = di_asif::details::table_entry_data::get_zeros(&v49, v43, &v46);
-        *&v55 = zeros;
-        *(&v55 + 1) = v26;
+        zeros = di_asif::details::table_entry_data::get_zeros(&v48, &v42, &v45);
+        *&v54 = zeros;
+        *(&v54 + 1) = v26;
         v21 = zeros;
         goto LABEL_60;
       }
 
-      if (v40 == 2)
+      if (v39 == 2)
       {
         goto LABEL_26;
       }
 
-      if (v40 != 3)
+      if (v39 != 3)
       {
         goto LABEL_60;
       }
 
-      v24 = *(v49 + 8);
-      v25 = (*(v49 + 352) + (*(v24 + 56) + *(v24 + 56) * *(&v49 + 1)) / (*(v24 + 56) + 1) * *(v24 + 28)) / *(v24 + 26);
-      if (v63 == 1)
+      v24 = *(v48 + 8);
+      v25 = (*(v48 + 352) + (*(v24 + 56) + *(v24 + 56) * *(&v48 + 1)) / (*(v24 + 56) + 1) * *(v24 + 28)) / *(v24 + 26);
+      if (v62 == 1)
       {
-        if (*(v59[0] + 40) == (v25 - *(v8 + 44) / *(*(v8 + 1) + 26)) / (*(*(v8 + 1) + 56) * (*(*(v8 + 1) + 28) / *(*(v8 + 1) + 26))))
+        if (*(v58[0] + 40) == (v25 - *(v8 + 44) / *(*(v8 + 1) + 26)) / (*(*(v8 + 1) + 56) * (*(*(v8 + 1) + 28) / *(*(v8 + 1) + 26))))
         {
           zeros = 0;
           goto LABEL_45;
         }
 
-        v29 = di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::data_entries_vectorizer_t::finalize(v59);
-        v35 = v30;
+        v29 = di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::data_entries_vectorizer_t::finalize(v58);
+        v34 = v30;
         zeros = v29;
         if (v29 < 0 && v29)
         {
@@ -5509,31 +6442,26 @@ LABEL_26:
           goto LABEL_55;
         }
 
-        if (v63)
+        if (v62)
         {
 LABEL_45:
-          std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>::pair[abi:ne200100]<true,0>(&v76, v43, &v46);
-          if (v61 == *(&v61 + 1))
+          std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>::pair[abi:ne200100]<true,0>(&v75, &v42, &v45);
+          if (v60 == *(&v60 + 1))
           {
-            boost::container::vector<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::small_vector_allocator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::new_allocator<void>,void>,std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>*,std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>>>(&v60, &v60[56 * v61], 1, &v76, &v86);
-            v31 = v35;
+            boost::container::vector<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::small_vector_allocator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::new_allocator<void>,void>,std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>*,std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>>>(&v59, &v59[56 * v60], 1, &v75, &v85);
+            v31 = v34;
           }
 
           else
           {
-            std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>::pair[abi:ne200100](&v60[56 * v61], &v76);
-            v31 = v35;
-            *&v61 = v61 + 1;
+            std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>::pair[abi:ne200100](&v59[56 * v60], &v75);
+            v31 = v34;
+            *&v60 = v60 + 1;
           }
 
-          if (v84)
+          if (v83)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v84);
-          }
-
-          if (v81)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v81);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v83);
           }
 
           if (v80)
@@ -5541,9 +6469,14 @@ LABEL_45:
             std::__shared_weak_count::__release_shared[abi:ne200100](v80);
           }
 
-          if (*(&v76 + 1))
+          if (v79)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v76 + 1));
+            std::__shared_weak_count::__release_shared[abi:ne200100](v79);
+          }
+
+          if (*(&v75 + 1))
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v75 + 1));
           }
 
           goto LABEL_55;
@@ -5555,22 +6488,22 @@ LABEL_45:
         zeros = 0;
       }
 
-      *&v86 = 0;
-      *(&v86 + 1) = v8;
-      v87 = v89;
-      v88 = xmmword_248F9D670;
-      di_asif::details::table::get_bitmap(v8, v66, v25, 0, &v56);
-      ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::operator=(&v86, &v56);
-      ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(&v56);
-      if (v86 && (*(v86 + 344) & 1) == 0)
+      *&v85 = 0;
+      *(&v85 + 1) = v8;
+      v86 = v88;
+      v87 = xmmword_248F9D670;
+      di_asif::details::table::get_bitmap(&v55, v8, v65, v25, 0);
+      ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::operator=(&v85, &v55);
+      ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(&v55);
+      if (v85 && (*(v85 + 344) & 1) == 0)
       {
-        ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::tagged_ptr(&v76, &v86);
-        *(&v76 + 1) = *(&v86 + 1);
-        v77 = &v79;
-        v78 = xmmword_248F9D670;
-        *&v56 = v87;
-        v58 = &v87[56 * v88];
-        boost::container::vector<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::small_vector_allocator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::new_allocator<void>,void>,void>::assign<boost::container::vec_iterator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>*,true>>(&v77, &v56, &v58);
+        ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::tagged_ptr(&v75, &v85);
+        *(&v75 + 1) = *(&v85 + 1);
+        v76 = &v78;
+        v77 = xmmword_248F9D670;
+        *&v55 = v86;
+        v57 = &v86[56 * v87];
+        boost::container::vector<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::small_vector_allocator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::new_allocator<void>,void>,void>::assign<boost::container::vec_iterator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>*,true>>(&v76, &v55, &v57);
         v28 = 1;
       }
 
@@ -5578,51 +6511,51 @@ LABEL_45:
       {
         v27 = std::generic_category();
         v28 = 0;
-        *&v76 = 5;
-        *(&v76 + 1) = v27;
+        *&v75 = 5;
+        *(&v75 + 1) = v27;
       }
 
       v31 = 7208;
-      v85 = v28;
-      di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::bitmap_handle_t::~bitmap_handle_t(&v86);
-      if (v85)
+      v84 = v28;
+      di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::bitmap_handle_t::~bitmap_handle_t(&v85);
+      if (v84)
       {
-        if (v63 == 1)
+        if (v62 == 1)
         {
-          di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::bitmap_handle_t::~bitmap_handle_t(v59);
-          v63 = 0;
+          di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::bitmap_handle_t::~bitmap_handle_t(v58);
+          v62 = 0;
         }
 
-        ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::tagged_ptr(v59, &v76);
-        v59[1] = *(&v76 + 1);
-        v60 = &v62;
-        v61 = xmmword_248F9D670;
-        *&v86 = v77;
-        *&v56 = &v77[56 * v78];
-        boost::container::vector<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::small_vector_allocator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::new_allocator<void>,void>,void>::assign<boost::container::vec_iterator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>*,true>>(&v60, &v86, &v56);
-        v63 = 1;
-        if (v85)
+        ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::tagged_ptr(v58, &v75);
+        v58[1] = *(&v75 + 1);
+        v59 = &v61;
+        v60 = xmmword_248F9D670;
+        *&v85 = v76;
+        *&v55 = &v76[56 * v77];
+        boost::container::vector<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::small_vector_allocator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::new_allocator<void>,void>,void>::assign<boost::container::vec_iterator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>*,true>>(&v59, &v85, &v55);
+        v62 = 1;
+        if (v84)
         {
-          di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::bitmap_handle_t::~bitmap_handle_t(&v76);
+          di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::bitmap_handle_t::~bitmap_handle_t(&v75);
         }
 
         goto LABEL_45;
       }
 
-      if (v76 >= 0)
+      if (v75 >= 0)
       {
-        v32 = v76;
+        v32 = v75;
       }
 
       else
       {
-        v32 = -v76;
+        v32 = -v75;
       }
 
       zeros = -v32;
 LABEL_55:
-      *&v55 = zeros;
-      *(&v55 + 1) = v31;
+      *&v54 = zeros;
+      *(&v54 + 1) = v31;
       if ((zeros & 0x8000000000000000) == 0)
       {
         goto LABEL_57;
@@ -5637,36 +6570,36 @@ LABEL_55:
       goto LABEL_60;
     }
 
-    *&v86 = "di_asif::details::table::read(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
-    *(&v86 + 1) = 29;
-    LODWORD(v87) = 16;
-    di_log::logger<di_log::log_printer<1626ul>>::logger(&v76, &v86);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v82, "Couldn't trim entry in read ", 28);
-    operator<<(&v82, &v51);
+    *&v85 = "di_asif::details::table::read(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &)";
+    *(&v85 + 1) = 29;
+    LODWORD(v86) = 16;
+    di_log::logger<di_log::log_printer<1626ul>>::logger(&v75, &v85);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v81, "Couldn't trim entry in read ", 28);
+    operator<<(&v81, &v50);
     std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<1626ul>>::~logger_buf(&v76);
-    MEMORY[0x24C1ED6A0](v83);
+    di_log::logger_buf<di_log::log_printer<1626ul>>::~logger_buf(&v75);
+    MEMORY[0x24C1ED6A0](v82);
     v15 = 0;
-    *&v55 = -34;
+    *&v54 = -34;
 LABEL_65:
-    if (v48)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v48);
-    }
-
     if (v47)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v47);
     }
 
-    if (v45)
+    if (v46)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v46);
     }
 
     if (v44)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+    }
+
+    if (v43)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v43);
     }
 
     if ((v15 & 1) == 0)
@@ -5675,30 +6608,28 @@ LABEL_65:
     }
   }
 
-  if ((v55 & 0x8000000000000000) == 0 || !v55)
+  if ((v54 & 0x8000000000000000) == 0 || !v54)
   {
-    *&v55 = v37;
-    *(&v55 + 1) = v10;
+    *&v54 = v36;
+    *(&v54 + 1) = v10;
   }
 
-  finally<di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::$_0>::~finally(v50);
-  di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::data_entries_vectorizer_t::~data_entries_vectorizer_t(v59);
-  if (v54)
+  finally<di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::$_0>::~finally(v49);
+  di_asif::details::table::read(di_asif::details::ContextASIF &,sg_vec_ns::details::sg_vec_iterator const&,sg_vec_ns::details::sg_vec_iterator const&)::data_entries_vectorizer_t::~data_entries_vectorizer_t(v58);
+  if (v53)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v53);
   }
 
-  if (v52)
+  if (v51)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v52);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v51);
   }
 
-  result = v55;
-  v34 = *MEMORY[0x277D85DE8];
-  return result;
+  return v54;
 }
 
-void sub_248EC7A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
+void sub_248EC7A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
 {
   boost::container::vector<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::small_vector_allocator<std::pair<sg_vec_ns::details::sg_vec_iterator,sg_vec_ns::details::sg_vec_iterator>,boost::container::new_allocator<void>,void>,void>::~vector(v28 + 16);
   ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(&STACK[0x24E0]);
@@ -5744,36 +6675,36 @@ uint64_t di_log::logger<di_log::log_printer<1626ul>>::~logger(uint64_t a1)
   return a1;
 }
 
-void di_asif::details::table_entry_data::future_read(sg_vec_ns::details::sg_vec_iterator *a1@<X2>, void *a2@<X0>, uint64_t a3@<X1>, const sg_vec_ns::details::sg_vec_iterator *a4@<X3>, uint64_t *a5@<X4>, unint64_t *a6@<X8>)
+void di_asif::details::table_entry_data::future_read(uint64_t *__return_ptr a1@<X8>, sg_vec_ns::details::sg_vec_iterator *a2@<X2>, void *a3@<X0>, uint64_t a4@<X1>, uint64_t *a5@<X4>, const sg_vec_ns::details::sg_vec_iterator *a6@<X3>)
 {
-  v10 = *(*a2 + 8);
+  v10 = *(*a3 + 8);
   v11 = *(v10 + 56);
   v12 = *(v10 + 28);
-  v97[0] = *(*a2 + 352) + (v11 + v11 * a2[1]) / (v11 + 1) * v12;
+  v97[0] = *(*a3 + 352) + (v11 + v11 * a3[1]) / (v11 + 1) * v12;
   v97[1] = v97[0] + v12;
   v98 = 2;
-  sg_vec_ns::details::sg_vec_iterator::subvec(a1, v97, a4, v57);
-  if (sg_vec_ns::details::sg_vec_iterator::operator==(v57, &v61))
+  sg_vec_ns::details::sg_vec_iterator::subvec(&v57, a2, v97, a6);
+  if (sg_vec_ns::details::sg_vec_iterator::operator==(&v57, &v61))
   {
-    *a6 = -34;
+    *a1 = -34;
 LABEL_83:
-    a6[2] = 0;
+    a1[2] = 0;
     goto LABEL_84;
   }
 
-  if (!((*(*(*a2 + 56) + 16 * a2[1] + 8) & 0x7FFFFFFFFFFFFFLL) * *(*(*a2 + 8) + 28)))
+  if (!((*(*(*a3 + 56) + 16 * a3[1] + 8) & 0x7FFFFFFFFFFFFFLL) * *(*(*a3 + 8) + 28)))
   {
-    v30 = fill_zeros(v57, &v61);
+    v30 = fill_zeros(&v57, &v61);
     v31 = v59;
-    *a6 = v30;
-    a6[1] = v31;
+    *a1 = v30;
+    a1[1] = v31;
     goto LABEL_83;
   }
 
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v46, v57);
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v46, &v57);
   sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v35, &v61);
-  sg_entry::sg_entry(&v75, v46);
-  v33 = a6;
+  sg_entry::sg_entry(v75, v46);
+  v33 = a1;
   v77 = v48;
   v78 = v49;
   v79 = v50;
@@ -5804,7 +6735,7 @@ LABEL_83:
   v73 = v44;
   LOBYTE(v97[0]) = 0;
   v105 = 0;
-  while (!sg_vec_ns::details::sg_vec_iterator::operator==(&v75, v64))
+  while (!sg_vec_ns::details::sg_vec_iterator::operator==(v75, v64))
   {
     if (v84 >= v18 || v16 == -1)
     {
@@ -5818,7 +6749,7 @@ LABEL_83:
       LODWORD(v109) = 2;
       di_log::logger<di_log::log_printer<624ul>>::logger(&v87, &v108);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v90, "sg: ", 4);
-      operator<<(&v90, &v75);
+      operator<<(&v90, v75);
       std::ostream::~ostream();
       di_log::logger_buf<di_log::log_printer<624ul>>::~logger_buf(&v87);
       MEMORY[0x24C1ED6A0](&v91);
@@ -5827,17 +6758,17 @@ LABEL_83:
     v87 = 0;
     v88 = v18;
     v89 = 2;
-    trim_sg_to_interval(&v75, &v87, v92);
-    v20 = *(*(*a2 + 8) + 28);
-    sg_entry::sg_entry<sg_entry const&,void>(&v87, v92, v94, 0, v95 % v20 + (*(*(*a2 + 56) + 16 * a2[1] + 8) & 0x7FFFFFFFFFFFFFLL) * v20, v96);
-    v21 = (*(**(a3 + 16) + 40))(*(a3 + 16));
+    trim_sg_to_interval(v75, &v87, &v92);
+    v20 = *(*(*a3 + 8) + 28);
+    sg_entry::sg_entry<sg_entry const&,void>(&v87, &v92, v94, 0, v95 % v20 + (*(*(*a3 + 56) + 16 * a3[1] + 8) & 0x7FFFFFFFFFFFFFLL) * v20, v96);
+    v21 = (*(**(a4 + 16) + 40))(*(a4 + 16));
     v106[0] = 0;
     v106[1] = v21;
     LOBYTE(v107) = 2;
     trim_sg_to_interval(&v87, v106, &v108);
     if (v109)
     {
-      (*(**(a3 + 16) + 136))(v106);
+      (*(**(a4 + 16) + 136))(v106);
       v22 = a5[1];
       v23 = *a5 + 24 * v22;
       if (v22 == a5[2])
@@ -5892,22 +6823,22 @@ LABEL_83:
         v15 = 1;
       }
 
-      if (sg_vec_ns::should_create_new_sg_vec_ref(&v75, v64, v25, v26))
+      if (sg_vec_ns::should_create_new_sg_vec_ref(v75, v64, v25, v26))
       {
-        sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v86, &v75);
+        sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v86, v75);
         sg_vec_ns::generate_vec_ref(v86, v64, v25, v26, 0xFFFFFFFFFFFFFFFFLL, &v87);
         std::optional<sg_vec_ref>::operator=[abi:ne200100]<sg_vec_ref,void>(v97, &v87);
         sg_vec_ref::~sg_vec_ref(&v87);
         sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(v86);
         sg_vec_ref::begin(v97, &v87);
-        sg_vec_ns::details::sg_vec_iterator::operator=(&v75, &v87);
+        sg_vec_ns::details::sg_vec_iterator::operator=(v75, &v87);
         sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&v87);
         sg_vec_ref::end(v97, &v87);
         sg_vec_ns::details::sg_vec_iterator::operator=(v64, &v87);
         sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&v87);
       }
 
-      sg_vec_ns::details::sg_vec_iterator::operator+=(&v75, v26);
+      sg_vec_ns::details::sg_vec_iterator::operator+=(v75, v26);
       v16 += v26;
     }
 
@@ -6024,7 +6955,7 @@ LABEL_50:
 
   *v33 = v32;
   v33[1] = v26;
-  if ((v32 & 0x8000000000000000) != 0 && v32)
+  if (v32 < 0 && v32)
   {
     v33[2] = 0;
   }
@@ -6056,7 +6987,7 @@ LABEL_84:
   }
 }
 
-void sub_248EC8398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_248EC8398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&STACK[0x640]);
   if (STACK[0x918])
@@ -6069,7 +7000,7 @@ void sub_248EC8398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&STACK[0x480]);
   sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&a13);
   sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&a41);
-  container_it<sg_vec_ns::details::sg_vec_iterator>::~container_it(&a69);
+  container_it<sg_vec_ns::details::sg_vec_iterator>::~container_it(&a65);
   _Unwind_Resume(a1);
 }
 
@@ -6081,15 +7012,15 @@ uint64_t di_asif::details::table_entry_data::get_zeros(di_asif::details::table_e
   v8[0] = *(*this + 352) + (v4 + v4 * *(this + 1)) / (v4 + 1) * v5;
   v8[1] = v8[0] + v5;
   v9 = 2;
-  sg_vec_ns::details::sg_vec_iterator::subvec(a2, v8, a3, v10);
-  if (sg_vec_ns::details::sg_vec_iterator::operator==(v10, &v14))
+  sg_vec_ns::details::sg_vec_iterator::subvec(&v10, a2, v8, a3);
+  if (sg_vec_ns::details::sg_vec_iterator::operator==(&v10, &v14))
   {
     v6 = -34;
   }
 
   else
   {
-    fill_zeros(v10, &v14);
+    fill_zeros(&v10, &v14);
     v6 = (v17 - v13) & ~((v17 - v13) >> 63);
   }
 
@@ -6116,9 +7047,9 @@ uint64_t di_asif::details::table_entry_data::get_zeros(di_asif::details::table_e
   return v6;
 }
 
-void sub_248EC857C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_248EC857C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   container_it<sg_vec_ns::details::sg_vec_iterator>::~container_it(va);
   _Unwind_Resume(a1);
 }
@@ -6260,7 +7191,7 @@ uint64_t di_asif::details::table::close(di_asif::details::table *this)
 
     else
     {
-      di_asif::details::table::make_map_entry_iterators(this, v3, v18);
+      di_asif::details::table::make_map_entry_iterators(v18, this, v3);
       v8 = 1;
       while (v18[0] != v19[3] || v18[1] != v19[4])
       {
@@ -6275,7 +7206,7 @@ uint64_t di_asif::details::table::close(di_asif::details::table *this)
         }
 
         v10 = di_asif::details::table::flush_mapped_entry(this, &v20, v19, v9);
-        ref::ref_cnt::take_exclusive(*(v19[0] + 56) + 16 * v19[1], 0, v17);
+        ref::ref_cnt::take_exclusive(v17, (*(v19[0] + 56) + 16 * v19[1]), 0);
         v11 = v10 | v8 ^ 1;
         if (v11)
         {
@@ -6351,7 +7282,7 @@ uint64_t di_log::logger<di_log::log_printer<1698ul>>::~logger(uint64_t a1)
   return a1;
 }
 
-uint64_t ref::ref_cnt::take_exclusive@<X0>(uint64_t this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t *ref::ref_cnt::take_exclusive@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, uint64_t a3@<X1>)
 {
   v4 = this;
   while (1)
@@ -6376,10 +7307,10 @@ uint64_t ref::ref_cnt::take_exclusive@<X0>(uint64_t this@<X0>, uint64_t a2@<X1>,
 
   v7 = 1;
 LABEL_7:
-  *(a3 + 16) = v7;
-  *a3 = &unk_285BF4C70;
-  *(a3 + 8) = v4;
-  *(a3 + 24) = a2;
+  *(a1 + 16) = v7;
+  *a1 = &unk_285BF4C70;
+  a1[1] = v4;
+  a1[3] = a3;
   return this;
 }
 
@@ -6572,7 +7503,7 @@ void di_asif::details::map_element::zero_range_in_sg(di_asif::details::map_eleme
   v30[0] = *(this + 1);
   v30[1] = v7;
   v31 = 2;
-  sg_vec_ns::details::sg_vec_iterator::subvec(a3, v30, a4, &v45);
+  sg_vec_ns::details::sg_vec_iterator::subvec(&v45, a3, v30, a4);
   if (!sg_vec_ns::details::sg_vec_iterator::operator==(&v45, &v50))
   {
     v8 = *(*(a2 + 1) + 26);
@@ -6610,8 +7541,8 @@ void di_asif::details::map_element::zero_range_in_sg(di_asif::details::map_eleme
             v17 = v19 - ((v49 - *(a3 + 26)) & ~((v49 - *(a3 + 26)) >> 63));
           }
 
-          sg_vec_ns::details::sg_vec_iterator::subvec(&v45, a4, v17 + v47, 0, v38);
-          sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v27, v38);
+          sg_vec_ns::details::sg_vec_iterator::subvec(&v38, &v45, a4, v17 + v47, 0);
+          sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v27, &v38);
           sg_vec_ns::generate_vec_ref(v27, &v42, v40, v17, 0xFFFFFFFFFFFFFFFFLL, v30);
           if (v29)
           {
@@ -6795,7 +7726,7 @@ unint64_t di_asif::details::map_element::validate_bitmap(di_asif::details::map_e
 {
   di_asif::details::table_entry_map::table_entry_map(v23, a2, *this);
   v20 = v23[0];
-  result = di_asif::details::table::make_data_entry_iterators_for_map(a2, &v20, v23);
+  result = di_asif::details::table::make_data_entry_iterators_for_map(v23, a2, &v20);
   v5 = *(a2 + 1);
   v6 = *(v5 + 16);
   if (*(v6 + 160) != 1 || (v7 = (*(this + 1) / *(v5 + 26) - *(a2 + 44) / *(v5 + 26)) / (*(v5 + 56) * (*(v5 + 28) / *(v5 + 26))) + *(v5 + 72) * (*(a2 + 44) / *(v5 + 88)), result = lock_free::bitmap_t::get_bit(v6, v7), (result & 1) != 0) || v7 >= *(v6 + 16))
@@ -6841,7 +7772,7 @@ unint64_t di_asif::details::map_element::validate_bitmap(di_asif::details::map_e
       result = v13;
       if (v13 != v14)
       {
-        *v25 = block_bits & 1 | (((block_bits >> 1) & 1) << 8);
+        v25[0] = block_bits & 1 | (((block_bits >> 1) & 1) << 8);
         result = lock_free::bitmap_t::find_match_bits(this + 32, v13, v14, v25);
       }
 
@@ -7091,29 +8022,30 @@ LABEL_16:
   return 4294967290;
 }
 
-atomic_ullong *di_asif::details::dir::load_create_table@<X0>(atomic_ullong *this@<X0>, di_asif::details::ContextASIF *a2@<X1>, std::unique_lock<std::mutex>::mutex_type *a3@<X2>, unint64_t a4@<X3>, int a5@<W4>, char a6@<W5>, atomic_ullong *a7@<X8>)
+uint64_t *di_asif::details::dir::load_create_table@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, di_asif::details::ContextASIF *a3@<X1>, std::unique_lock<std::mutex>::mutex_type *a4@<X2>, uint64_t a5@<X3>, int a6@<W4>, uint64_t a7@<X5>)
 {
+  v7 = a7;
   v10 = this;
-  v19 = a4;
-  *a7 = 0;
-  if (a4 || a5)
+  v19 = a5;
+  *a1 = 0;
+  if (a5 || a6)
   {
-    ref::Allocator<di_asif::details::table,unsigned long long>::allocate((this + 36), a3, a6, &v18);
-    ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(a7, &v18);
+    ref::Allocator<di_asif::details::table,unsigned long long>::allocate((this + 36), a4, &v18, a7);
+    ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(a1, &v18);
     this = ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v18);
-    v12 = *a7;
-    if (*a7)
+    v12 = *a1;
+    if (*a1)
     {
       LOBYTE(v12) = *(v12 + 520) ^ 1;
     }
 
-    if (v12 & 1) != 0 || (a6)
+    if (v12 & 1) != 0 || (v7)
     {
-      if (!*a7 || (v13 = atomic_load((*a7 + 24)), v13 != 2))
+      if (!*a1 || (v13 = atomic_load((*a1 + 24)), v13 != 2))
       {
-        if (!*a7 || (*(*a7 + 520) & 1) == 0)
+        if (!*a1 || (*(*a1 + 520) & 1) == 0)
         {
-          if (v19 | (*(*(v10 + 160) + 8 * a3) * *(v10 + 28)))
+          if (v19 | (*(v10[20] + 8 * a4) * *(v10 + 7)))
           {
             if (v19)
             {
@@ -7122,19 +8054,19 @@ atomic_ullong *di_asif::details::dir::load_create_table@<X0>(atomic_ullong *this
 
             else
             {
-              v14 = *(*(v10 + 160) + 8 * a3) * *(v10 + 28);
+              v14 = *(v10[20] + 8 * a4) * *(v10 + 7);
             }
 
-            v18 = *(v10 + 88) * a3;
+            v18 = v10[11] * a4;
             v19 = v14;
-            ref::tagged_ptr<di_asif::details::table,unsigned long long>::make_value<di_asif::details::dir &,std::shared_ptr<Backend> &,unsigned long long &,unsigned long long>(a7, v10, a2 + 2, &v19, &v18);
+            ref::tagged_ptr<di_asif::details::table,unsigned long long>::make_value<di_asif::details::dir &,std::shared_ptr<Backend> &,unsigned long long &,unsigned long long>(a1, v10, a3 + 2, &v19, &v18);
           }
 
-          space = di_asif::details::dir_base::allocate_space(v10, a2, 1);
-          v17 = *(v10 + 88) * a3;
+          space = di_asif::details::dir_base::allocate_space(v10, a3, 1);
+          v17 = v10[11] * a4;
           v18 = space;
           v16 = 1;
-          ref::tagged_ptr<di_asif::details::table,unsigned long long>::make_value<di_asif::details::dir &,std::shared_ptr<Backend> &,unsigned long long &,unsigned long long,BOOL>(a7, v10, a2 + 2, &v18, &v17, &v16);
+          ref::tagged_ptr<di_asif::details::table,unsigned long long>::make_value<di_asif::details::dir &,std::shared_ptr<Backend> &,unsigned long long &,unsigned long long,BOOL>(a1, v10, a3 + 2, &v18, &v17, &v16);
         }
       }
     }
@@ -7143,35 +8075,35 @@ atomic_ullong *di_asif::details::dir::load_create_table@<X0>(atomic_ullong *this
   return this;
 }
 
-atomic_ullong *ref::Allocator<di_asif::details::table,unsigned long long>::allocate@<X0>(uint64_t a1@<X0>, std::unique_lock<std::mutex>::mutex_type *a2@<X1>, char a3@<W2>, unint64_t *a4@<X8>)
+atomic_ullong *ref::Allocator<di_asif::details::table,unsigned long long>::allocate@<X0>(uint64_t a1@<X0>, std::unique_lock<std::mutex>::mutex_type *a2@<X1>, unint64_t *a3@<X8>, char a4@<W2>)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = a2;
-  ref::Allocator<di_asif::details::table,unsigned long long>::add_tag(a1, a2, a3, &v19);
-  if (v19 && (*(v19 + 520) & 1) == 0 || v19 && (*(v19 + 520) & 1) != 0)
+  v24 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = a2;
+  ref::Allocator<di_asif::details::table,unsigned long long>::add_tag(a1, a2, a4, &v18);
+  if (v18 && (*(v18 + 520) & 1) == 0 || v18 && (*(v18 + 520) & 1) != 0)
   {
 LABEL_5:
-    *a4 = 0;
-    v7 = atomic_exchange(&v19, 0);
+    *a3 = 0;
+    v7 = atomic_exchange(&v18, 0);
   }
 
   else
   {
     v8 = *(a1 + 912);
-    if ((v8 & 1) == 0 || v20 == (a1 + 936))
+    if ((v8 & 1) == 0 || v19 == (a1 + 936))
     {
-      *a4 = 0;
-      goto LABEL_16;
+      *a3 = 0;
+      return ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v18);
     }
 
     while ((v8 & 2) == 0)
     {
-      ref::Allocator<di_asif::details::table,unsigned long long>::allocate_from_empty_pool(a1, a2, &v17);
-      v21 = v17;
-      ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(&v19, &v18);
-      ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v18);
-      if (v19 && (*(v19 + 520) & 1) == 0)
+      ref::Allocator<di_asif::details::table,unsigned long long>::allocate_from_empty_pool(a1, &v16, a2);
+      v20 = v16;
+      ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(&v18, &v17);
+      ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v17);
+      if (v18 && (*(v18 + 520) & 1) == 0)
       {
         goto LABEL_23;
       }
@@ -7179,26 +8111,26 @@ LABEL_5:
       min = ref::Allocator<di_asif::details::table,unsigned long long>::extract_min(a1);
       if (min)
       {
-        v21 = min;
-        ref::Allocator<di_asif::details::table,unsigned long long>::insert_elem(a1, min, a2, &v17);
-        ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(&v19, &v17);
-        ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v17);
+        v20 = min;
+        ref::Allocator<di_asif::details::table,unsigned long long>::insert_elem(a1, min, a2, &v16);
+        ref::tagged_ptr<di_asif::details::table,unsigned long long>::operator=(&v18, &v16);
+        ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v16);
 LABEL_23:
         std::mutex::lock((a1 + 952));
-        v14 = std::__tree<std::__value_type<unsigned long long,ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *>>>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&,ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *&>((a1 + 928), v20, &v22);
-        if ((v15 & 1) == 0)
+        v13 = std::__tree<std::__value_type<unsigned long long,ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *>>>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&,ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *&>((a1 + 928), v19, &v21, &v21, &v20);
+        if ((v14 & 1) == 0)
         {
-          *(v14 + 40) = v21;
+          v13[5] = v20;
         }
 
         std::condition_variable::notify_all((a1 + 1016));
         std::mutex::unlock((a1 + 952));
-        v23[0] = 0;
-        v24 = 0;
-        ref::Allocator<di_asif::details::table,unsigned long long>::run_failed_dtors_list(a1, 0, v23);
-        if (v24 == 1)
+        v22[0] = 0;
+        v23 = 0;
+        ref::Allocator<di_asif::details::table,unsigned long long>::run_failed_dtors_list(a1, 0, v22);
+        if (v23 == 1)
         {
-          std::__function::__value_func<BOOL ()(ref::details::tagged_allocated_type<di_asif::details::table,unsigned long long> *,unsigned long long)>::~__value_func[abi:ne200100](v23);
+          std::__function::__value_func<BOOL ()(ref::details::tagged_allocated_type<di_asif::details::table,unsigned long long> *,unsigned long long)>::~__value_func[abi:ne200100](v22);
         }
 
         goto LABEL_5;
@@ -7212,30 +8144,30 @@ LABEL_23:
     }
 
     v7 = (a1 + 104);
-    *a4 = 0;
-    v12 = atomic_load((a1 + 104));
-    if (v12)
+    *a3 = 0;
+    v11 = atomic_load((a1 + 104));
+    if (v11)
     {
-      v13 = v12;
+      v12 = v11;
       while (1)
       {
-        atomic_compare_exchange_strong(v7, &v13, v12 + 1);
-        if (v13 == v12)
+        atomic_compare_exchange_strong(v7, &v12, v11 + 1);
+        if (v12 == v11)
         {
           break;
         }
 
-        v12 = v13;
-        if (!v13)
+        v11 = v12;
+        if (!v12)
         {
           goto LABEL_21;
         }
       }
 
-      v16 = *(a1 + 608);
-      if (v16)
+      v15 = *(a1 + 608);
+      if (v15)
       {
-        *(a1 + 616) = atomic_fetch_add_explicit(v16, 1uLL, memory_order_relaxed);
+        *(a1 + 616) = atomic_fetch_add_explicit(v15, 1uLL, memory_order_relaxed);
       }
     }
 
@@ -7246,11 +8178,8 @@ LABEL_21:
     }
   }
 
-  atomic_store(v7, a4);
-LABEL_16:
-  result = ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v19);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  atomic_store(v7, a3);
+  return ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v18);
 }
 
 void sub_248EC9F88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
@@ -7456,25 +8385,24 @@ LABEL_15:
   return v6;
 }
 
-void sub_248ECA634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248ECA634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<2440ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t ref::Allocator<di_asif::details::map_element,unsigned long long>::handle_failures(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
-  v5 = 0;
-  v1 = ref::Allocator<di_asif::details::map_element,unsigned long long>::run_failed_dtors_list(a1, 0, v4);
-  if (v5 == 1)
+  v5 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
+  v4 = 0;
+  v1 = ref::Allocator<di_asif::details::map_element,unsigned long long>::run_failed_dtors_list(a1, 0, v3);
+  if (v4 == 1)
   {
-    std::__function::__value_func<BOOL ()(ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *,unsigned long long)>::~__value_func[abi:ne200100](v4);
+    std::__function::__value_func<BOOL ()(ref::details::tagged_allocated_type<di_asif::details::map_element,unsigned long long> *,unsigned long long)>::~__value_func[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -7523,16 +8451,15 @@ uint64_t di_log::logger<di_log::log_printer<2429ul>>::~logger(uint64_t a1)
 
 uint64_t ref::Allocator<di_asif::details::table,unsigned long long>::handle_failures(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
-  v5 = 0;
-  v1 = ref::Allocator<di_asif::details::table,unsigned long long>::run_failed_dtors_list(a1, 0, v4);
-  if (v5 == 1)
+  v5 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
+  v4 = 0;
+  v1 = ref::Allocator<di_asif::details::table,unsigned long long>::run_failed_dtors_list(a1, 0, v3);
+  if (v4 == 1)
   {
-    std::__function::__value_func<BOOL ()(ref::details::tagged_allocated_type<di_asif::details::table,unsigned long long> *,unsigned long long)>::~__value_func[abi:ne200100](v4);
+    std::__function::__value_func<BOOL ()(ref::details::tagged_allocated_type<di_asif::details::table,unsigned long long> *,unsigned long long)>::~__value_func[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -7581,18 +8508,18 @@ uint64_t di_log::logger<di_log::log_printer<2440ul>>::~logger(uint64_t a1)
 
 uint64_t di_asif::details::dir::flush_dir(di_asif::details::dir *this, di_asif::details::ContextASIF *a2, __int128 *a3)
 {
-  v69[4] = *MEMORY[0x277D85DE8];
-  v56 = 0u;
-  v57 = 0u;
+  v68[4] = *MEMORY[0x277D85DE8];
   v55 = 0u;
+  v56 = 0u;
+  v54 = 0u;
   std::mutex::lock((this + 3800));
   v6 = *(this + 3768);
-  v55 = *(this + 3752);
-  v56 = v6;
+  v54 = *(this + 3752);
+  v55 = v6;
   *(this + 3752) = 0u;
   *(this + 3768) = 0u;
-  v7 = v57;
-  v57 = *(this + 3784);
+  v7 = v56;
+  v56 = *(this + 3784);
   *(this + 3784) = v7;
   std::mutex::unlock((this + 3800));
   ref::Allocator<di_asif::details::map_element,unsigned long long>::wait_for_idle(this + 2088);
@@ -7617,18 +8544,18 @@ uint64_t di_asif::details::dir::flush_dir(di_asif::details::dir *this, di_asif::
     if (!v12)
     {
       exception = __cxa_allocate_exception(8uLL);
-      v44 = std::bad_alloc::bad_alloc(exception);
-      __cxa_throw(v44, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
+      v43 = std::bad_alloc::bad_alloc(exception);
+      __cxa_throw(v43, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
     }
   }
 
-  *&v58 = &unk_285BED4C8;
-  v60 = &v58;
-  v68 = v12;
-  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v69, &v58);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v58);
-  v13 = v68;
-  *v68 = bswap64(*(this + 452) - 2);
+  *&v57 = &unk_285BED4C8;
+  v59 = &v57;
+  v67 = v12;
+  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v68, &v57);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v57);
+  v13 = v67;
+  *v67 = bswap64(*(this + 452) - 2);
   v14 = v13 + 1;
   v15 = *(this + 20);
   v16 = *(this + 21);
@@ -7638,118 +8565,118 @@ uint64_t di_asif::details::dir::flush_dir(di_asif::details::dir *this, di_asif::
     *v14++ = bswap64(v17);
   }
 
-  bzero(v14, v68 + v11 - v14);
+  bzero(v14, v67 + v11 - v14);
   v18 = *(this + 13);
   if (*(this + 13))
   {
     v18 = malloc_type_valloc(v18, 0x8B7C732DuLL);
     if (!v18)
     {
-      v41 = __cxa_allocate_exception(8uLL);
-      v42 = std::bad_alloc::bad_alloc(v41);
-      __cxa_throw(v42, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
+      v40 = __cxa_allocate_exception(8uLL);
+      v41 = std::bad_alloc::bad_alloc(v40);
+      __cxa_throw(v41, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
     }
   }
 
-  *&v58 = &unk_285BED4C8;
-  v60 = &v58;
-  v66 = v18;
-  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v67, &v58);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v58);
-  memcpy(v66, v68, *(this + 13));
-  v19 = v68;
+  *&v57 = &unk_285BED4C8;
+  v59 = &v57;
+  v65 = v18;
+  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v66, &v57);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v57);
+  memcpy(v65, v67, *(this + 13));
+  v19 = v67;
   v20 = *(details::get_dummy_shared_ptr() + 1);
-  v47 = v19;
-  v48 = v20;
+  v46 = v19;
+  v47 = v20;
   if (v20)
   {
     atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v49 = v11;
-  v50 = a3;
-  v51 = v11;
+  v48 = v11;
+  v49 = a3;
+  v50 = v11;
+  v51 = 0;
   v52 = 0;
   v53 = 0;
-  v54 = 0;
-  v21 = (*(**(a2 + 2) + 120))(*(a2 + 2), &v47);
+  v21 = (*(**(a2 + 2) + 120))(*(a2 + 2), &v46);
   if (v11 != v21)
   {
-    v34 = v21;
-    *&v45 = "di_asif::details::dir::flush_dir(ContextASIF &, uint64_t)";
-    *(&v45 + 1) = 32;
-    v46 = 16;
-    di_log::logger<di_log::log_printer<2488ul>>::logger(&v58, &v45);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v65, "Full dir write failed with ", 27);
-    MEMORY[0x24C1ED390](v65, v34);
-    di_log::logger<di_log::log_printer<2488ul>>::~logger(&v58);
-    v35 = __cxa_allocate_exception(0x40uLL);
-    if (v34 >= 0)
+    v33 = v21;
+    *&v44 = "di_asif::details::dir::flush_dir(ContextASIF &, uint64_t)";
+    *(&v44 + 1) = 32;
+    v45 = 16;
+    di_log::logger<di_log::log_printer<2488ul>>::logger(&v57, &v44);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v64, "Full dir write failed with ", 27);
+    MEMORY[0x24C1ED390](v64, v33);
+    di_log::logger<di_log::log_printer<2488ul>>::~logger(&v57);
+    v34 = __cxa_allocate_exception(0x40uLL);
+    if (v33 >= 0)
     {
       v22 = -5;
     }
 
     else
     {
-      v22 = v34;
+      v22 = v33;
     }
 
-    v36 = "Failed writing full dir";
+    v35 = "Failed writing full dir";
 LABEL_31:
-    *v35 = &unk_285BF4E60;
-    v37 = std::generic_category();
-    v35[1] = v22;
-    v35[2] = v37;
-    *(v35 + 24) = 0;
-    *(v35 + 48) = 0;
-    v35[7] = v36;
+    *v34 = &unk_285BF4E60;
+    v36 = std::generic_category();
+    v34[1] = v22;
+    v34[2] = v36;
+    *(v34 + 24) = 0;
+    *(v34 + 48) = 0;
+    v34[7] = v35;
   }
 
   v22 = (*(**(a2 + 2) + 16))(*(a2 + 2), 0);
   if (v22)
   {
-    v35 = __cxa_allocate_exception(0x40uLL);
-    v36 = "Failed barrier after writing full dir";
+    v34 = __cxa_allocate_exception(0x40uLL);
+    v35 = "Failed barrier after writing full dir";
     goto LABEL_31;
   }
 
   v23 = *(this + 452);
   *(this + 452) = v23 + 1;
-  *v66 = bswap64(v23);
-  v24 = v66;
+  *v65 = bswap64(v23);
+  v24 = v65;
   v25 = *(this + 13);
   v26 = *(details::get_dummy_shared_ptr() + 1);
-  *&v58 = v24;
-  *(&v58 + 1) = v26;
+  *&v57 = v24;
+  *(&v57 + 1) = v26;
   if (v26)
   {
     atomic_fetch_add_explicit((v26 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v59 = v25;
-  v60 = a3;
-  v61 = v25;
+  v58 = v25;
+  v59 = a3;
+  v60 = v25;
+  v61 = 0;
   v62 = 0;
   v63 = 0;
-  v64 = 0;
-  sg_entry::operator=(&v47, &v58);
-  if (*(&v58 + 1))
+  sg_entry::operator=(&v46, &v57);
+  if (*(&v57 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v58 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v57 + 1));
   }
 
-  v27 = (*(**(a2 + 2) + 120))(*(a2 + 2), &v47);
+  v27 = (*(**(a2 + 2) + 120))(*(a2 + 2), &v46);
   if (v27 != *(this + 13))
   {
-    *&v45 = "di_asif::details::dir::flush_dir(ContextASIF &, uint64_t)";
-    *(&v45 + 1) = 32;
-    v46 = 16;
-    di_log::logger<di_log::log_printer<2501ul>>::logger(&v58, &v45);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v65, "First block of dir write failed with ", 37);
-    MEMORY[0x24C1ED390](v65, v27);
-    di_log::logger<di_log::log_printer<2501ul>>::~logger(&v58);
-    v38 = __cxa_allocate_exception(0x40uLL);
-    v39 = v38;
+    *&v44 = "di_asif::details::dir::flush_dir(ContextASIF &, uint64_t)";
+    *(&v44 + 1) = 32;
+    v45 = 16;
+    di_log::logger<di_log::log_printer<2501ul>>::logger(&v57, &v44);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v64, "First block of dir write failed with ", 37);
+    MEMORY[0x24C1ED390](v64, v27);
+    di_log::logger<di_log::log_printer<2501ul>>::~logger(&v57);
+    v37 = __cxa_allocate_exception(0x40uLL);
+    v38 = v37;
     if (v27 >= 0)
     {
       v27 = 4294967291;
@@ -7760,50 +8687,50 @@ LABEL_31:
       v27 = v27;
     }
 
-    *v38 = &unk_285BF4E60;
-    v40 = std::generic_category();
-    v39[1] = v27;
-    v39[2] = v40;
-    *(v39 + 24) = 0;
-    *(v39 + 48) = 0;
-    v39[7] = "Failed writing first block of dir";
+    *v37 = &unk_285BF4E60;
+    v39 = std::generic_category();
+    v38[1] = v27;
+    v38[2] = v39;
+    *(v38 + 24) = 0;
+    *(v38 + 48) = 0;
+    v38[7] = "Failed writing first block of dir";
   }
 
-  if (v48)
+  if (v47)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v48);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v47);
   }
 
-  v28 = (*(&v55 + 1) + 8 * (v57 >> 9));
-  if (v56 == *(&v55 + 1))
+  v28 = (*(&v54 + 1) + 8 * (v56 >> 9));
+  if (v55 == *(&v54 + 1))
   {
     v29 = 0;
     v31 = 0;
-    v30 = (*(&v55 + 1) + 8 * ((*(&v57 + 1) + v57) >> 9));
+    v30 = (*(&v54 + 1) + 8 * ((*(&v56 + 1) + v56) >> 9));
   }
 
   else
   {
-    v29 = &(*v28)[v57 & 0x1FF];
-    v30 = (*(&v55 + 1) + 8 * ((*(&v57 + 1) + v57) >> 9));
-    v31 = (*v30 + 8 * ((*(&v57 + 1) + v57) & 0x1FF));
+    v29 = &(*v28)[8 * (v56 & 0x1FF)];
+    v30 = (*(&v54 + 1) + 8 * ((*(&v56 + 1) + v56) >> 9));
+    v31 = (*v30 + 8 * ((*(&v56 + 1) + v56) & 0x1FF));
   }
 
   di_asif::details::dir_base::insert_space<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>>(this, v28, v29, v30, v31, a2);
   v8 = 1;
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v66, 0);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v67);
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v68, 0);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v69);
+  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v65, 0);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v66);
+  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v67, 0);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v68);
 LABEL_25:
-  std::deque<std::atomic<DiskImage::Context *>>::~deque[abi:ne200100](&v55);
-  v32 = *MEMORY[0x277D85DE8];
+  std::deque<std::atomic<DiskImage::Context *>>::~deque[abi:ne200100](&v54);
   return v8;
 }
 
-void sub_248ECB06C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, unint64_t a31, uint64_t a32, char a33)
+void sub_248ECB06C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, unint64_t a31, uint64_t a32, ...)
 {
-  di_log::logger<di_log::log_printer<2501ul>>::~logger(&a33);
+  va_start(va, a32);
+  di_log::logger<di_log::log_printer<2501ul>>::~logger(va);
   if (a14)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a14);
@@ -7811,48 +8738,47 @@ void sub_248ECB06C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
   if (a2 == 1)
   {
-    v41 = __cxa_begin_catch(a1);
-    *(v33 + 3616) = v37;
-    std::mutex::lock((v33 + 3800));
-    v42 = *(v33 + 3784) + *(v33 + 3792);
-    v43 = *(v33 + 3760);
-    v44 = (v43 + 8 * (v42 >> 9));
-    if (*(v33 + 3768) == v43)
+    __cxa_begin_catch(a1);
+    *(v32 + 3616) = v36;
+    std::mutex::lock((v32 + 3800));
+    v40 = *(v32 + 3784) + *(v32 + 3792);
+    v41 = *(v32 + 3760);
+    v42 = (v41 + 8 * (v40 >> 9));
+    if (*(v32 + 3768) == v41)
     {
-      v45 = 0;
+      v43 = 0;
     }
 
     else
     {
-      v45 = *v44 + 8 * (v42 & 0x1FF);
+      v43 = *v42 + 8 * (v40 & 0x1FF);
     }
 
-    v46 = (a28 + 8 * (a31 >> 9));
+    v44 = (a28 + 8 * (a31 >> 9));
     if (a29 == a28)
     {
+      v45 = 0;
       v47 = 0;
-      v49 = 0;
-      v48 = (a28 + 8 * ((a32 + a31) >> 9));
+      v46 = (a28 + 8 * ((a32 + a31) >> 9));
     }
 
     else
     {
-      v47 = &(*v46)[8 * (a31 & 0x1FF)];
-      v48 = (a28 + 8 * ((a32 + a31) >> 9));
-      v49 = (*v48 + 8 * ((a32 + a31) & 0x1FF));
+      v45 = *v44 + 8 * (a31 & 0x1FF);
+      v46 = (a28 + 8 * ((a32 + a31) >> 9));
+      v47 = *v46 + 8 * ((a32 + a31) & 0x1FF);
     }
 
-    std::deque<unsigned long long>::insert<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>,0>(v34, v44, v45, v46, v47, v48, v49);
-    v50 = v41[2];
-    std::mutex::unlock((v33 + 3800));
+    std::deque<unsigned long long>::insert<std::__deque_iterator<unsigned long long,unsigned long long *,unsigned long long &,unsigned long long **,long,512l>,0>(v33, v42, v43, v44, v45, v46, v47);
+    std::mutex::unlock((v32 + 3800));
     __cxa_end_catch();
     JUMPOUT(0x248ECADFCLL);
   }
 
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100]((v38 - 168), 0);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v36 + 8);
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100]((v38 - 128), 0);
+  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100]((v37 - 168), 0);
   std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v35 + 8);
+  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100]((v37 - 128), 0);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v34 + 8);
   std::deque<std::atomic<DiskImage::Context *>>::~deque[abi:ne200100](&a27);
   _Unwind_Resume(a1);
 }
@@ -7984,7 +8910,7 @@ uint64_t di_asif::details::dir::do_io(di_asif::details::dir *this, di_asif::deta
   v10 = *(a4 + 26) - *(a3 + 26);
   v11 = v10 & ~(v10 >> 63);
   v12 = *(a3 + 3);
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v41, a3);
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v39, a3);
   v13 = 0;
   if (a5)
   {
@@ -8002,13 +8928,13 @@ uint64_t di_asif::details::dir::do_io(di_asif::details::dir *this, di_asif::deta
     v15 = 5;
   }
 
-  v25 = v15;
-  v26 = v14;
+  v23 = v15;
+  v24 = v14;
   while (1)
   {
     v16 = v12 / *(this + 11);
-    di_asif::details::dir::get_table(this, a2, v16, a5 ^ 1, 1, &v40);
-    if (v40 && (v40[520] & 1) != 0)
+    di_asif::details::dir::get_table(&v38, this, a2, v16, a5 ^ 1, 1);
+    if (v38 && (v38[520] & 1) != 0)
     {
       if ((a5 & 1) == 0)
       {
@@ -8020,14 +8946,14 @@ uint64_t di_asif::details::dir::do_io(di_asif::details::dir *this, di_asif::deta
       goto LABEL_24;
     }
 
-    sg_vec_ns::details::sg_vec_iterator::subvec(&v41, a4, *(this + 11) + *(this + 11) * v16, 0, &v32);
-    if (v40 && (v40[520] & 1) == 0)
+    sg_vec_ns::details::sg_vec_iterator::subvec(&v30, &v39, a4, *(this + 11) + *(this + 11) * v16, 0);
+    if (v38 && (v38[520] & 1) == 0)
     {
       if (a5)
       {
-        if (v40[400])
+        if (v38[400])
         {
-          v19 = (v40 + 40);
+          v19 = (v38 + 40);
         }
 
         else
@@ -8035,14 +8961,14 @@ uint64_t di_asif::details::dir::do_io(di_asif::details::dir *this, di_asif::deta
           v19 = 0;
         }
 
-        v21 = di_asif::details::table::read(v19, a2, &v32, &v36);
+        v21 = di_asif::details::table::read(v19, a2, &v30, &v34);
       }
 
       else
       {
-        if (v40[400])
+        if (v38[400])
         {
-          v20 = (v40 + 40);
+          v20 = (v38 + 40);
         }
 
         else
@@ -8050,23 +8976,23 @@ uint64_t di_asif::details::dir::do_io(di_asif::details::dir *this, di_asif::deta
           v20 = 0;
         }
 
-        v21 = di_asif::details::table::write(v20, a2, &v32, &v36);
+        v21 = di_asif::details::table::write(v20, a2, &v30, &v34);
       }
 
       v5 = v21;
       if ((v21 & 0x8000000000000000) != 0 && v21)
       {
-        *&v27 = "di_asif::details::dir::do_io(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &, BOOL)";
-        *(&v27 + 1) = 28;
-        v28 = 16;
-        di_log::logger<di_log::log_printer<2547ul>>::logger(v29, &v27);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, "Failed during table ", 20);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, v26, v25);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, " in dir I/O, error ", 19);
-        MEMORY[0x24C1ED390](&v30, v5);
+        *&v25 = "di_asif::details::dir::do_io(ContextASIF &, const sg_vec::iterator &, const sg_vec::iterator &, BOOL)";
+        *(&v25 + 1) = 28;
+        v26 = 16;
+        di_log::logger<di_log::log_printer<2547ul>>::logger(v27, &v25);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "Failed during table ", 20);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, v24, v23);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, " in dir I/O, error ", 19);
+        MEMORY[0x24C1ED390](&v28, v5);
         std::ostream::~ostream();
-        di_log::logger_buf<di_log::log_printer<2547ul>>::~logger_buf(v29);
-        MEMORY[0x24C1ED6A0](&v31);
+        di_log::logger_buf<di_log::log_printer<2547ul>>::~logger_buf(v27);
+        MEMORY[0x24C1ED6A0](&v29);
         if ((a5 & 1) == 0)
         {
           DiskImage::Context::terminate_di(a2);
@@ -8081,38 +9007,38 @@ uint64_t di_asif::details::dir::do_io(di_asif::details::dir *this, di_asif::deta
 
     else
     {
-      fill_zeros(&v32, &v36);
-      v18 = (v39 - v35) & ~((v39 - v35) >> 63);
-      sg_vec_ns::details::sg_vec_iterator::operator+=(&v32, v18);
+      fill_zeros(&v30, &v34);
+      v18 = (v37 - v33) & ~((v37 - v33) >> 63);
+      sg_vec_ns::details::sg_vec_iterator::operator+=(&v30, v18);
     }
 
-    sg_vec_ns::details::sg_vec_iterator::operator+=(&v41, v18);
+    sg_vec_ns::details::sg_vec_iterator::operator+=(&v39, v18);
     v12 += v18;
     v13 += v18;
     v17 = 1;
 LABEL_16:
-    if (v38)
+    if (v36)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v36);
     }
 
-    if (v37)
+    if (v35)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v35);
     }
 
-    if (v34)
+    if (v32)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v32);
     }
 
-    if (v33)
+    if (v31)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
     }
 
 LABEL_24:
-    ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v40);
+    ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&v38);
     if (!v17)
     {
       break;
@@ -8120,29 +9046,28 @@ LABEL_24:
 
     if (v13 == v11)
     {
-      v22 = *(a3 + 3);
       goto LABEL_43;
     }
   }
 
   v11 = v5;
 LABEL_43:
-  if (v43)
+  if (v41)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v41);
   }
 
-  if (v42)
+  if (v40)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v40);
   }
 
   return v11;
 }
 
-void sub_248ECB924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_248ECB924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   di_log::logger<di_log::log_printer<2547ul>>::~logger(va);
   container_it<sg_vec_ns::details::sg_vec_iterator>::~container_it(&STACK[0x240]);
   ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(&STACK[0x400]);
@@ -8183,16 +9108,16 @@ uint64_t di_log::logger<di_log::log_printer<2547ul>>::~logger(uint64_t a1)
   return a1;
 }
 
-double di_asif::details::asif_extents_iterator_interface::_make_val@<D0>(di_asif::details::asif_extents_iterator_interface *this@<X0>, uint64_t a2@<X8>)
+double di_asif::details::asif_extents_iterator_interface::_make_val@<D0>(di_asif::details::dir **this@<X0>, uint64_t a2@<X8>)
 {
-  v3 = (*(this + 32) & 1) + *(this + 3);
-  v10[0] = *(this + 5);
+  v3 = this[3] + (this[4] & 1);
+  v10[0] = this[5];
   v10[1] = v3;
   v11 = 2;
   *&v8 = boost::icl::identity_element<unsigned long long>::value(void)::_value;
   *(&v8 + 1) = boost::icl::identity_element<unsigned long long>::value(void)::_value;
   LOBYTE(v9) = 2;
-  next_extent = di_asif::details::dir::get_next_extent(*(this + 8), *(this + 7), v10, &v8);
+  next_extent = di_asif::details::dir::get_next_extent(this[8], this[7], v10, &v8);
   if (next_extent >= 3)
   {
     exception = __cxa_allocate_exception(0x40uLL);
@@ -8264,7 +9189,7 @@ LABEL_12:
     }
 
     v11 = v10 * *(this + 13);
-    di_asif::details::dir::get_table(this, a2, v11 / *(this + 11), 0, 1, &v23);
+    di_asif::details::dir::get_table(&v23, this, a2, v11 / *(this + 11), 0, 1);
     if (v23 && (v23[520] & 1) != 0)
     {
       exception = __cxa_allocate_exception(0x40uLL);
@@ -8365,9 +9290,9 @@ LABEL_40:
   return v7;
 }
 
-void sub_248ECBE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_248ECBE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   ref::tagged_ptr<di_asif::details::table,unsigned long long>::reset(va);
   _Unwind_Resume(a1);
 }
@@ -8395,7 +9320,7 @@ uint64_t di_asif::details::table::get_next_extent(di_asif::details::table *a1, d
   if (v11 >> 62 == 3)
   {
     v12 = data_entry_for_offset[1];
-    di_asif::details::table::get_bitmap(a1, a2, (data_entry_for_offset[44] + (*(v12 + 56) + *(v12 + 56) * v10) / (*(v12 + 56) + 1) * *(v12 + 28)) / *(v12 + 26), 0, v54);
+    di_asif::details::table::get_bitmap(v54, a1, a2, (data_entry_for_offset[44] + (*(v12 + 56) + *(v12 + 56) * v10) / (*(v12 + 56) + 1) * *(v12 + 28)) / *(v12 + 26), 0);
     v13 = *(a1 + 1);
     if (v54[0])
     {
@@ -8499,7 +9424,7 @@ LABEL_22:
     v57[0] = &unk_285BF4C50;
     v57[1] = v30;
     v58 = v31;
-    if (!v31)
+    if ((v31 & 1) == 0)
     {
       *&v52 = "di_asif::details::table::get_next_extent(ContextASIF &, const interval_sectors &, interval_sectors &)";
       *(&v52 + 1) = 40;
@@ -8533,7 +9458,7 @@ LABEL_22:
     }
 
     v35 = v59[1];
-    di_asif::details::table::get_bitmap(a1, a2, (v59[44] + (*(v35 + 56) + *(v35 + 56) * v60) / (*(v35 + 56) + 1) * *(v35 + 28)) / *(v35 + 26), 0, v50);
+    di_asif::details::table::get_bitmap(v50, a1, a2, (v59[44] + (*(v35 + 56) + *(v35 + 56) * v60) / (*(v35 + 56) + 1) * *(v35 + 28)) / *(v35 + 26), 0);
     if (!v50[0] || (*(v50[0] + 344) & 1) != 0)
     {
       *&v52 = "di_asif::details::table::get_next_extent(ContextASIF &, const interval_sectors &, interval_sectors &)";
@@ -8593,9 +9518,9 @@ LABEL_42:
   return *v48;
 }
 
-void sub_248ECC408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_248ECC408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   ref::tagged_ptr<di_asif::details::map_element,unsigned long long>::reset(va);
   _Unwind_Resume(a1);
 }
@@ -8679,7 +9604,7 @@ uint64_t di_asif::details::dir::unmap(uint64_t a1, di_asif::details::ContextASIF
     }
 
     v11 = val * *(a1 + 26);
-    di_asif::details::dir::get_table(a1, a2, v11 / *(a1 + 88), v9 ^ 1, 1, &v32);
+    di_asif::details::dir::get_table(&v32, a1, a2, v11 / *(a1 + 88), v9 ^ 1, 1);
     if (v32 && (*(v32 + 520) & 1) == 0)
     {
       if (*(v32 + 400))
@@ -8914,940 +9839,4 @@ LABEL_5:
 LABEL_6:
   std::mutex::unlock((this + 3536));
   return v9;
-}
-
-void sub_248ECCDAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  di_log::logger<di_log::log_printer<2751ul>>::~logger(va);
-  __cxa_end_catch();
-  JUMPOUT(0x248ECCDC4);
-}
-
-void *di_log::logger<di_log::log_printer<2734ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<2734ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285BF04A0;
-  a1[45] = &unk_285BF05A0;
-  a1[46] = &unk_285BF05C8;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285BF04A0;
-  a1[45] = &unk_285BF0528;
-  a1[46] = &unk_285BF0550;
-  return a1;
-}
-
-void sub_248ECCF24(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<2734ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<2734ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<2734ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void *di_log::logger<di_log::log_printer<2751ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<2751ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285BF06C0;
-  a1[45] = &unk_285BF07C0;
-  a1[46] = &unk_285BF07E8;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285BF06C0;
-  a1[45] = &unk_285BF0748;
-  a1[46] = &unk_285BF0770;
-  return a1;
-}
-
-void sub_248ECD090(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<2751ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<2751ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<2751ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void *di_log::logger<di_log::log_printer<2767ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<2767ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285BF08E0;
-  a1[45] = &unk_285BF09E0;
-  a1[46] = &unk_285BF0A08;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285BF08E0;
-  a1[45] = &unk_285BF0968;
-  a1[46] = &unk_285BF0990;
-  return a1;
-}
-
-void sub_248ECD1FC(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<2767ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<2767ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<2767ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void di_asif::details::dir::dir(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  v18[5] = *MEMORY[0x277D85DE8];
-  v15 = di_asif::details::dir_base::dir_base(a1, a2, a4, a5, a10);
-  *v15 = &unk_285BEC4E0;
-  v15[12] = &unk_285BF30F8;
-  v15[13] = v15;
-  v15[15] = v15 + 12;
-  v15[16] = a3;
-  std::vector<ref::tagged_weak_ptr<di_asif::details::table,unsigned long long>>::vector[abi:ne200100](v15 + 17, (v15[11] + a3 - 1) / v15[11]);
-  std::vector<unsigned long long>::vector[abi:ne200100]((a1 + 160), (*(a1 + 88) + a3 - 1) / *(a1 + 88));
-  *(a1 + 184) = a4;
-  v16 = (a4 - 1 + (a5 - 1 + a6) / a5 * a5 + (a5 + 7 + 8 * ((*(a1 + 128) + *(a1 + 88) - 1) / *(a1 + 88))) / a5 * a5 * a7) / a4;
-  *(a1 + 192) = 850045863;
-  *(a1 + 200) = 0u;
-  *(a1 + 216) = 0u;
-  *(a1 + 232) = 0u;
-  *(a1 + 264) = 0;
-  *(a1 + 248) = 0;
-  *(a1 + 256) = a1 + 264;
-  *(a1 + 272) = 0;
-  *(a1 + 280) = v16 * a4;
-  v18[3] = 0;
-  ref::Allocator<di_asif::details::table,unsigned long long>::Allocator(a1 + 288, 4, 0, v18);
-}
-
-void sub_248ECD760(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::thread *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, int a18, uint64_t a19, __int16 a20, char a21, char a22)
-{
-  v27 = std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](v25);
-  MEMORY[0x24C1ED730](v27, 0x1020C407A7143E5);
-  std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](&a19);
-  std::__function::__value_func<int ()(di_asif::details::ContextASIF &)>::~__value_func[abi:ne200100](v23 + 8);
-  std::mutex::~mutex((v22 + 3800));
-  std::deque<std::atomic<DiskImage::Context *>>::~deque[abi:ne200100]((v22 + 3752));
-  std::mutex::~mutex((v22 + 3688));
-  std::condition_variable::~condition_variable((v22 + 3632));
-  std::thread::~thread(a10);
-  std::mutex::~mutex((v22 + 3536));
-  ref::Allocator<di_asif::details::map_element,unsigned long long>::~Allocator(v22 + 2088);
-  ref::Allocator<di_asif::details::table,unsigned long long>::~Allocator(v24 + 104);
-  space_allocators::FixedSize::~FixedSize(v24);
-  v28 = *(v22 + 160);
-  if (v28)
-  {
-    *(v22 + 168) = v28;
-    operator delete(v28);
-  }
-
-  v29 = *(v22 + 136);
-  if (v29)
-  {
-    *(v22 + 144) = v29;
-    operator delete(v29);
-  }
-
-  std::__function::__value_func<int ()(di_asif::details::map_element &)>::~__value_func[abi:ne200100](a14);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_asif::details::dir_base::dir_base(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t a5)
-{
-  *a1 = &unk_285BF0AF8;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = a5;
-  *(a1 + 24) = 0;
-  *(a1 + 26) = a4;
-  *(a1 + 28) = a3;
-  *(a1 + 32) = a2;
-  *(a1 + 40) = a3 >> 3;
-  v6 = a3 / a4;
-  v7 = 4 * a3;
-  if (v7 < v6)
-  {
-    v8 = 1;
-  }
-
-  else
-  {
-    v8 = v7 / v6;
-  }
-
-  *(a1 + 48) = v6;
-  *(a1 + 56) = v8;
-  v9 = di_asif::details::dir_base::calc_num_real_elements(a1);
-  v10 = (*(a1 + 56) + v9) / (*(a1 + 56) + 1);
-  *(a1 + 64) = v9;
-  *(a1 + 72) = v10;
-  v11 = v9 - v10;
-  v12 = v11 * *(a1 + 28);
-  *(a1 + 80) = v11;
-  *(a1 + 88) = v12;
-  return a1;
-}
-
-unint64_t di_asif::details::dir::load<std::__wrap_iter<unsigned long long *>>(uint64_t a1, void **a2, unint64_t a3, uint64_t a4, void *a5)
-{
-  v6 = a4;
-  v35[4] = *MEMORY[0x277D85DE8];
-  v9 = a3 + 8 * a4 + 7;
-  v10 = v9 / a3 * a3;
-  if (v9 == v9 % a3)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v11 = malloc_type_valloc(v9 / a3 * a3, 0x8B7C732DuLL);
-    if (!v11)
-    {
-      exception = __cxa_allocate_exception(8uLL);
-      v25 = std::bad_alloc::bad_alloc(exception);
-      __cxa_throw(v25, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
-    }
-  }
-
-  v26 = &unk_285BED4C8;
-  v29 = &v26;
-  v34 = v11;
-  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v35, &v26);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v26);
-  v12 = v34;
-  v13 = *(details::get_dummy_shared_ptr() + 1);
-  v26 = v12;
-  v27 = v13;
-  if (v13)
-  {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v28 = v10;
-  v29 = a2;
-  v30 = v10;
-  v31 = 0;
-  v32 = 0;
-  v33 = 0;
-  v14 = (*(*a1 + 128))(a1, &v26);
-  if (v10 != v14)
-  {
-    v20 = __cxa_allocate_exception(0x40uLL);
-    v21 = v20;
-    if (v14 >= 0)
-    {
-      v22 = 4294967291;
-    }
-
-    else
-    {
-      v22 = v14;
-    }
-
-    *v20 = &unk_285BF4E60;
-    v23 = std::generic_category();
-    v21[1] = v22;
-    v21[2] = v23;
-    *(v21 + 24) = 0;
-    *(v21 + 48) = 0;
-    v21[7] = "Can't load asif dir table";
-  }
-
-  v15 = *v12;
-  if (v6)
-  {
-    v16 = v12 + 1;
-    do
-    {
-      v17 = *v16++;
-      *a5++ = bswap64(v17);
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  if (v27)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-  }
-
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v34, 0);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v35);
-  v18 = *MEMORY[0x277D85DE8];
-  return bswap64(v15);
-}
-
-void sub_248ECDB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](va, 0);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v15 + 8);
-  _Unwind_Resume(a1);
-}
-
-unint64_t di_asif::details::dir::get_version(unint64_t this, Backend *a2)
-{
-  v4 = *(details::get_dummy_shared_ptr() + 1);
-  v10 = &v18;
-  v11 = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v18 = 0;
-  v12 = 8;
-  v13 = a2;
-  v14 = 8;
-  v15 = 0;
-  v16 = 0;
-  v17 = 0;
-  LODWORD(this) = (*(*this + 128))(this, &v10);
-  if (this != 8)
-  {
-    exception = __cxa_allocate_exception(0x40uLL);
-    v8 = exception;
-    if ((this & 0x80000000) == 0)
-    {
-      this = 4294967291;
-    }
-
-    else
-    {
-      this = this;
-    }
-
-    *exception = &unk_285BF4E60;
-    v9 = std::generic_category();
-    v8[1] = this;
-    v8[2] = v9;
-    *(v8 + 24) = 0;
-    *(v8 + 48) = 0;
-    v8[7] = "Can't load asif dir version";
-  }
-
-  v5 = bswap64(v18);
-  v18 = v5;
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-  }
-
-  return v5;
-}
-
-void sub_248ECDCBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
-{
-  if (a11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-di_asif::details::ContextMetadata *di_asif::details::ContextMetadata::ContextMetadata(di_asif::details::ContextMetadata *this, DiskImageASIF *a2, const di_asif::details::ContextASIF *a3)
-{
-  *this = &unk_285BE5728;
-  *(this + 1) = a2;
-  (*(**(a2 + 2) + 80))(*(a2 + 2));
-  *this = &unk_285BEC520;
-  LODWORD(v13) = *(a2 + 34);
-  v6 = smart_enums::validators::is_valid<Wrapper<di_asif::metadata_read_only_flags_t,std::integral_constant<BOOL,false>,be_type>,unsigned int>("metadata_read_only_flags", &v13, smart_enums::validators::flags<unsigned int>);
-  v7 = v6;
-  if (!v6)
-  {
-    std::allocate_shared[abi:ne200100]<ReadOnlyBackend,std::allocator<ReadOnlyBackend>,std::shared_ptr<Backend>,0>();
-  }
-
-  v8 = *(a3 + 2);
-  v9 = *(a3 + 3);
-  if (v9)
-  {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-    v10 = 0;
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  else
-  {
-    v10 = 1;
-  }
-
-  v11 = *(this + 3);
-  *(this + 2) = v8;
-  *(this + 3) = v9;
-  if (v11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
-  }
-
-  if ((v10 & 1) == 0)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  }
-
-  if ((v7 & 1) == 0 && v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
-
-  return this;
-}
-
-void sub_248ECDE20(_Unwind_Exception *exception_object)
-{
-  *v1 = v2;
-  v4 = v1[3];
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_248ECDE6C(void *a1)
-{
-  __cxa_begin_catch(a1);
-  __cxa_end_catch();
-  JUMPOUT(0x248ECDE64);
-}
-
-void *di_asif::details::operator<<(void *result, int *a2)
-{
-  v2 = *a2;
-  if (*a2 > 1)
-  {
-    if (v2 == 2)
-    {
-      v3 = "unmapped";
-      v4 = 8;
-      return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(result, v3, v4);
-    }
-
-    if (v2 == 3)
-    {
-      v3 = "has_bitmap";
-      v4 = 10;
-      return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(result, v3, v4);
-    }
-  }
-
-  else
-  {
-    if (!v2)
-    {
-      v3 = "uninit";
-      v4 = 6;
-      return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(result, v3, v4);
-    }
-
-    if (v2 == 1)
-    {
-      v3 = "fully";
-      v4 = 5;
-      return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(result, v3, v4);
-    }
-  }
-
-  return result;
-}
-
-uint64_t di_asif::details::dir::trim_last_unused_extents(di_asif::details::dir *this, di_asif::details::ContextASIF *a2)
-{
-  v6[4] = *MEMORY[0x277D85DE8];
-  v3 = (*(*this + 16))(this);
-  v6[0] = &unk_285BEC9A8;
-  v6[1] = a2;
-  v6[3] = v6;
-  space_allocators::FixedSize::trim_largest(v3, v6);
-  result = std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_248ECE058(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<int ()(unsigned long long)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void space_allocators::FixedSize::trim_largest(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 88))
-  {
-    v4 = 0;
-    v5 = (a1 + 80);
-    do
-    {
-      v6 = *v5;
-      v7 = *v5;
-      v8 = v5;
-      if (*v5)
-      {
-        do
-        {
-          v9 = v7;
-          v7 = v7[1];
-        }
-
-        while (v7);
-      }
-
-      else
-      {
-        do
-        {
-          v9 = v8[2];
-          v10 = *v9 == v8;
-          v8 = v9;
-        }
-
-        while (v10);
-      }
-
-      if ((v9[4] + *a1) != *(a1 + 96))
-      {
-        break;
-      }
-
-      v11 = v5;
-      if (v6)
-      {
-        do
-        {
-          v12 = v6;
-          v6 = v6[1];
-        }
-
-        while (v6);
-      }
-
-      else
-      {
-        do
-        {
-          v12 = v11[2];
-          v10 = *v12 == v11;
-          v11 = v12;
-        }
-
-        while (v10);
-      }
-
-      std::__tree<std::__value_type<std::string,std::shared_ptr<_di_plugin_t>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<_di_plugin_t>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<_di_plugin_t>>>>::__remove_node_pointer((a1 + 72), v12);
-      operator delete(v12);
-      v13 = *(a1 + 88);
-      *(a1 + 96) -= *a1;
-      v4 = 1;
-    }
-
-    while (v13);
-    if ((v4 & 1) != 0 && *(a2 + 24))
-    {
-      v14 = std::function<int ()(unsigned long long)>::operator()(a2, *(a1 + 96));
-      if (v14)
-      {
-        v15 = v14;
-        *&v16 = "space_allocators::FixedSize::trim_largest(const size_changed_fn_t &)";
-        *(&v16 + 1) = 41;
-        v17 = 16;
-        di_log::logger<di_log::log_printer<158ul>>::logger(v18, &v16);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, "trim largest: size change callback failed with ", 47);
-        MEMORY[0x24C1ED390](&v19, v15);
-        std::ostream::~ostream();
-        di_log::logger_buf<di_log::log_printer<158ul>>::~logger_buf(v18);
-        MEMORY[0x24C1ED6A0](&v20);
-      }
-    }
-  }
-}
-
-void sub_248ECE1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  di_log::logger<di_log::log_printer<158ul>>::~logger(va);
-  _Unwind_Resume(a1);
-}
-
-void di_asif::header::header(di_asif::header *this, Backend *a2)
-{
-  *(this + 92) = 0u;
-  *(this + 4) = 0u;
-  *(this + 5) = 0u;
-  *(this + 2) = 0u;
-  *(this + 3) = 0u;
-  *this = 0u;
-  *(this + 1) = 0u;
-  if ((*(*a2 + 40))(a2) > 0x1FF)
-  {
-    operator new[]();
-  }
-
-  exception = __cxa_allocate_exception(0x20uLL);
-  v4 = (*(*a2 + 40))(a2);
-  *exception = &unk_285BF0D58;
-  exception[1] = "asif_header";
-  exception[2] = 512;
-  exception[3] = v4;
-}
-
-uint64_t di_asif::header::init(di_asif::header *this, const char *a2)
-{
-  v4 = *a2;
-  LODWORD(v17[0]) = 2003069043;
-  smart_enums::validators::value<unsigned int>("header_signature", v4, v17, 1);
-  *this = 2003069043;
-  *(this + 1) = bswap32(*(a2 + 1));
-  *(this + 2) = bswap32(*(a2 + 2));
-  v5 = bswap32(*(a2 + 3));
-  LODWORD(v17[0]) = 1;
-  smart_enums::validators::flags<unsigned int>("header_flags", v5, v17, 1);
-  *(this + 3) = v5;
-  *(this + 2) = bswap64(*(a2 + 2));
-  *(this + 3) = bswap64(*(a2 + 3));
-  *(this + 2) = *(a2 + 2);
-  *(this + 6) = bswap64(*(a2 + 6));
-  *(this + 7) = bswap64(*(a2 + 7));
-  *(this + 16) = bswap32(*(a2 + 16));
-  *(this + 34) = bswap32(*(a2 + 34)) >> 16;
-  di_asif::header::total_segments_t::total_segments_t(v17, *(a2 + 35));
-  *(this + 35) = v17[0];
-  *(this + 9) = bswap64(*(a2 + 9));
-  *(this + 5) = *(a2 + 5);
-  *(this + 24) = bswap32(*(a2 + 24));
-  v6 = bswap32(*(a2 + 25));
-  result = smart_enums::validators::flags<unsigned int>("metadata_flags_t", v6, 0, 0);
-  *(this + 25) = v6;
-  *(this + 26) = bswap32(*(a2 + 26));
-  v8 = *(this + 1);
-  if (v8 >= 2)
-  {
-    if (v8 <= 4)
-    {
-      exception = __cxa_allocate_exception(0x40uLL);
-      v13 = "Legacy shadow file format is not supported by DiskImages2 framework";
-      v14 = 161;
-      goto LABEL_24;
-    }
-
-LABEL_15:
-    v15 = __cxa_allocate_exception(0x40uLL);
-    std::ostringstream::basic_ostringstream[abi:ne200100](v17);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Unsupported ASIF version ", 25);
-    MEMORY[0x24C1ED3A0](v17, *(this + 1));
-    DiskImagesRuntimeException::DiskImagesRuntimeException(v15, v17, 0xA1u);
-  }
-
-  if (!v8)
-  {
-    goto LABEL_15;
-  }
-
-  if ((*(this + 2) - 1048577) <= 0xFFF0004E)
-  {
-    exception = __cxa_allocate_exception(0x40uLL);
-    v13 = "Invalid ASIF header size";
-LABEL_20:
-    v14 = 152;
-    goto LABEL_24;
-  }
-
-  v9 = *(this + 34);
-  if (!*(this + 34))
-  {
-    exception = __cxa_allocate_exception(0x40uLL);
-    v13 = "Shadow block size is invalid (0)";
-    goto LABEL_20;
-  }
-
-  v10 = *(this + 16);
-  if (v10 < v9 || v10 % v9)
-  {
-    exception = __cxa_allocate_exception(0x40uLL);
-    v13 = "ASIF max_write size in header exceed the limit";
-LABEL_23:
-    v14 = 22;
-LABEL_24:
-    DiskImagesRuntimeException::DiskImagesRuntimeException(exception, v13, v14);
-  }
-
-  if (v10 >= 0x4000001)
-  {
-    exception = __cxa_allocate_exception(0x40uLL);
-    v13 = "ASIF max chunk size in header exceeds the limit";
-    goto LABEL_23;
-  }
-
-  if ((v9 & 0x1FF) != 0)
-  {
-    exception = __cxa_allocate_exception(0x40uLL);
-    v13 = "ASIF block size isn't multiple of 512";
-    goto LABEL_20;
-  }
-
-  v11 = *(this + 7);
-  if (v11 >= 0xFFFFFFFFFFFFFFFFLL / v9)
-  {
-    exception = __cxa_allocate_exception(0x40uLL);
-    v13 = "Max sector count is too large";
-    goto LABEL_23;
-  }
-
-  if (v11 < *(this + 6))
-  {
-    exception = __cxa_allocate_exception(0x40uLL);
-    v13 = "Sector count is too large";
-    goto LABEL_23;
-  }
-
-  return result;
-}
-
-void sub_248ECE9E8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::ostringstream::~ostringstream(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_248ECE9F8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::ostringstream::~ostringstream(va);
-  __cxa_free_exception(v2);
-  _Unwind_Resume(a1);
-}
-
-__n128 di_asif::header::header(di_asif::header *this, const char *a2)
-{
-  *(this + 92) = 0u;
-  *(this + 4) = 0u;
-  *(this + 5) = 0u;
-  *(this + 2) = 0u;
-  *(this + 3) = 0u;
-  *this = 0u;
-  *(this + 1) = 0u;
-  v2 = *a2;
-  v3 = *(a2 + 2);
-  *(this + 1) = *(a2 + 1);
-  *(this + 2) = v3;
-  *this = v2;
-  result = *(a2 + 3);
-  v5 = *(a2 + 4);
-  v6 = *(a2 + 5);
-  *(this + 92) = *(a2 + 92);
-  *(this + 4) = v5;
-  *(this + 5) = v6;
-  *(this + 3) = result;
-  return result;
-}
-
-char *di_asif::header::write(di_asif::header *this, char *a2)
-{
-  *a2 = *this;
-  *(a2 + 1) = bswap32(*(this + 1));
-  *(a2 + 2) = bswap32(*(this + 2));
-  *(a2 + 3) = bswap32(*(this + 3));
-  *(a2 + 2) = bswap64(*(this + 2));
-  *(a2 + 3) = bswap64(*(this + 3));
-  *(a2 + 2) = *(this + 2);
-  *(a2 + 6) = bswap64(*(this + 6));
-  *(a2 + 7) = bswap64(*(this + 7));
-  *(a2 + 16) = bswap32(*(this + 16));
-  *(a2 + 34) = bswap32(*(this + 34)) >> 16;
-  *(a2 + 35) = *(this + 35);
-  *(a2 + 9) = bswap64(*(this + 9));
-  *(a2 + 5) = *(this + 5);
-  *(a2 + 24) = bswap32(*(this + 24));
-  *(a2 + 25) = bswap32(*(this + 25));
-  *(a2 + 26) = bswap32(*(this + 26));
-  return a2 + 108;
-}
-
-uint64_t di_asif::header::header(uint64_t a1, _DWORD *a2, _OWORD *a3, unint64_t a4, unint64_t a5, unsigned int a6, unsigned int a7)
-{
-  *a1 = 2003069043;
-  LODWORD(v28) = 2003069043;
-  smart_enums::validators::value<unsigned int>("header_signature", 2003069043, &v28, 1);
-  *(a1 + 4) = 1;
-  *(a1 + 8) = (a7 + 511) / a7 * a7;
-  *(a1 + 12) = *a2;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = a4;
-  *(a1 + 56) = a5;
-  v14 = a7;
-  *(a1 + 64) = a6;
-  *(a1 + 68) = a7;
-  di_asif::header::total_segments_t::total_segments_t((a1 + 70), 0);
-  *(a1 + 100) = 0;
-  *(a1 + 86) = 0u;
-  *(a1 + 70) = 0u;
-  v15 = !is_mul_ok(a5, a7);
-  v16 = a5 * a7;
-  if (!is_mul_ok(a5, a7))
-  {
-    v16 = -1;
-  }
-
-  v28 = v16;
-  v29 = v15;
-  v17 = safe_number<unsigned long long>::operator unsigned long long<unsigned long long>(&v28);
-  v18 = !is_mul_ok(a4, v14);
-  v19 = a4 * v14;
-  if (!is_mul_ok(a4, v14))
-  {
-    v19 = -1;
-  }
-
-  v28 = v19;
-  v29 = v18;
-  v20 = safe_number<unsigned long long>::operator unsigned long long<unsigned long long>(&v28);
-  v28 = 2 * a6;
-  v29 = 0;
-  v21 = safe_number<unsigned long long>::operator unsigned long long<unsigned long long>(&v28);
-  v22 = v20 + v21;
-  v23 = __CFADD__(v20, v21);
-  if (__CFADD__(v20, v21))
-  {
-    v24 = -1;
-  }
-
-  else
-  {
-    v24 = v20 + v21;
-  }
-
-  if (__CFADD__(v20, v21))
-  {
-    v22 = v24;
-  }
-
-  v28 = v22;
-  v29 = v23;
-  v25 = safe_number<unsigned long long>::operator unsigned long long<unsigned long long>(&v28);
-  if (v25 <= v17)
-  {
-    v26 = v17;
-  }
-
-  else
-  {
-    v26 = v25;
-  }
-
-  *(a1 + 56) = v26 / v14;
-  *(a1 + 32) = *a3;
-  return a1;
-}
-
-uint64_t safe_number<unsigned long long>::operator unsigned long long<unsigned long long>(_BYTE *a1)
-{
-  if (a1[8] == 1)
-  {
-    exception = __cxa_allocate_exception(0x40uLL);
-    DiskImagesRuntimeException::DiskImagesRuntimeException(exception, "Overflow detected", 0x54u);
-  }
-
-  return *a1;
-}
-
-void di_asif::header::write_header(di_asif::header *this, Backend *a2)
-{
-  if (*(this + 2) >= *(this + 34))
-  {
-    v2 = *(this + 2);
-  }
-
-  else
-  {
-    v2 = *(this + 34);
-  }
-
-  operator new[]();
-}
-
-void *di_log::logger<di_log::log_printer<3061ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<3061ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285BF0D90;
-  a1[45] = &unk_285BF0E90;
-  a1[46] = &unk_285BF0EB8;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285BF0D90;
-  a1[45] = &unk_285BF0E18;
-  a1[46] = &unk_285BF0E40;
-  return a1;
-}
-
-void sub_248ECF240(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<3061ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<3061ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<3061ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-di_asif::meta_header *di_asif::meta_header::meta_header(di_asif::meta_header *this, uint64_t a2, uint64_t a3)
-{
-  v8[1] = *MEMORY[0x277D85DE8];
-  *this = 1635018093;
-  LODWORD(v8[0]) = 1635018093;
-  smart_enums::validators::value<unsigned int>("header_signature", 1635018093, v8, 1);
-  *(this + 1) = 1;
-  LODWORD(v8[0]) = 1;
-  smart_enums::validators::value<unsigned int>("version_t", 1, v8, 1);
-  *(this + 2) = 512;
-  v8[0] = 0x100000000200;
-  smart_enums::validators::value<unsigned int>("header_size_t", 512, v8, 2);
-  *(this + 12) = a2;
-  *(this + 20) = a3;
-  v6 = *MEMORY[0x277D85DE8];
-  return this;
 }

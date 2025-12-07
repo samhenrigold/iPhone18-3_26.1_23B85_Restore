@@ -47,6 +47,7 @@
 - (void)setDecodedFileSize:(unint64_t)size;
 - (void)setEncodedFileSize:(unint64_t)size;
 - (void)setFileName:(id)name;
+- (void)setIsPlaceholder:(BOOL)placeholder;
 - (void)setRemoteImageFileName:(id)name;
 - (void)writeToDiskWithData:(id)data;
 @end
@@ -102,31 +103,31 @@
 
 - (id)decodeFilterWithDataConsumer:(id)consumer
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   contentTransferEncoding = [(MFMimePart *)[(MFAttachment *)self part] contentTransferEncoding];
   if ([(MFAttachment *)self isMailDrop]&& ![(MFAttachment *)self part])
   {
     v6 = [MEMORY[0x277D24EE0] filterWithConsumer:consumer];
-    v13 = MFLogGeneral();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = MFLogGeneral();
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_11;
+      return v6;
     }
 
-    v16 = 138413570;
+    v15 = 138413570;
     selfCopy6 = self;
-    v18 = 1024;
-    *v19 = [(MFAttachment *)self isDataAvailableLocally];
-    *&v19[4] = 1024;
-    *&v19[6] = [(MFAttachment *)self isContainedInRFC822];
-    v20 = 1024;
+    v17 = 1024;
+    *v18 = [(MFAttachment *)self isDataAvailableLocally];
+    *&v18[4] = 1024;
+    *&v18[6] = [(MFAttachment *)self isContainedInRFC822];
+    v19 = 1024;
     isMailDrop = [(MFAttachment *)self isMailDrop];
-    v22 = 2048;
+    v21 = 2048;
     part = [(MFAttachment *)self part];
-    v24 = 2114;
-    v25 = contentTransferEncoding;
+    v23 = 2114;
+    v24 = contentTransferEncoding;
     v8 = "#Attachments %@ performing no conversion (isDataAvailableLocally=%d, isContainedInRFC822=%d, isMailDrop=%d, part=%p, contentTransferEncoding=%{public}@)";
-    v9 = v13;
+    v9 = v12;
     v10 = 50;
     goto LABEL_10;
   }
@@ -135,16 +136,16 @@
   {
     if ([contentTransferEncoding isEqualToString:@"quoted-printable"])
     {
-      v14 = [MEMORY[0x277D24F90] filterWithConsumer:consumer];
-      v6 = [MEMORY[0x277D24F20] filterWithConsumer:v14];
-      [v14 setForTextPart:{objc_msgSend(-[MFMimePart type](-[MFAttachment part](self, "part"), "type"), "isEqualToString:", @"text"}];
-      v15 = MFLogGeneral();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v13 = [MEMORY[0x277D24F90] filterWithConsumer:consumer];
+      v6 = [MEMORY[0x277D24F20] filterWithConsumer:v13];
+      [v13 setForTextPart:{objc_msgSend(-[MFMimePart type](-[MFAttachment part](self, "part"), "type"), "isEqualToString:", @"text"}];
+      v14 = MFLogGeneral();
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_11;
+        return v6;
       }
 
-      v16 = 138412290;
+      v15 = 138412290;
       selfCopy6 = self;
       v8 = "#Attachments %@ quoted-printable";
     }
@@ -152,13 +153,13 @@
     else if ([contentTransferEncoding isEqualToString:@"base64"])
     {
       v6 = [MEMORY[0x277D24ED0] filterWithConsumer:consumer];
-      v15 = MFLogGeneral();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = MFLogGeneral();
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_11;
+        return v6;
       }
 
-      v16 = 138412290;
+      v15 = 138412290;
       selfCopy6 = self;
       v8 = "#Attachments %@ base64";
     }
@@ -171,30 +172,30 @@
         v7 = MFLogGeneral();
         if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_11;
+          return v6;
         }
 
-        v16 = 138412546;
+        v15 = 138412546;
         selfCopy6 = self;
-        v18 = 2114;
-        *v19 = contentTransferEncoding;
+        v17 = 2114;
+        *v18 = contentTransferEncoding;
         v8 = "#Attachments %@ unknown encoding (contentTransferEncoding=%{public}@)";
         goto LABEL_9;
       }
 
       v6 = [MEMORY[0x277D24FB8] filterWithConsumer:consumer];
-      v15 = MFLogGeneral();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = MFLogGeneral();
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_11;
+        return v6;
       }
 
-      v16 = 138412290;
+      v15 = 138412290;
       selfCopy6 = self;
       v8 = "#Attachments %@ uuencode";
     }
 
-    v9 = v15;
+    v9 = v14;
     v10 = 12;
     goto LABEL_10;
   }
@@ -203,20 +204,18 @@
   v7 = MFLogGeneral();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412546;
+    v15 = 138412546;
     selfCopy6 = self;
-    v18 = 2114;
-    *v19 = contentTransferEncoding;
+    v17 = 2114;
+    *v18 = contentTransferEncoding;
     v8 = "#Attachments %@ stripping line endings (contentTransferEncoding=%{public}@)";
 LABEL_9:
     v9 = v7;
     v10 = 22;
 LABEL_10:
-    _os_log_impl(&dword_258BDA000, v9, OS_LOG_TYPE_DEFAULT, v8, &v16, v10);
+    _os_log_impl(&dword_258BDA000, v9, OS_LOG_TYPE_DEFAULT, v8, &v15, v10);
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -489,6 +488,13 @@ uint64_t __60__MFAttachment_fetchDataSynchronously_stripPrivateMetadata___block_
   return result;
 }
 
+- (void)setIsPlaceholder:(BOOL)placeholder
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:placeholder];
+
+  [(MFAttachment *)self setMetadataValue:v4 forKey:@"MFAttachmentIsPlaceholder"];
+}
+
 - (BOOL)isPlaceholder
 {
   v3 = [(MFAttachment *)self metadataValueForKey:@"MFAttachmentIsPlaceholder"];
@@ -743,7 +749,7 @@ LABEL_6:
 
 - (id)_fileUTTypeForFileName:(id)name
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = [(MFAttachment *)self metadataValueForKey:@"MFAttachmentUTTypeKey"];
   if (v5)
   {
@@ -783,18 +789,18 @@ LABEL_6:
       {
         [(MFAttachment *)self setMetadataValue:v11 forKey:@"MFAttachmentUTTypeKey"];
         v6 = v11;
-        v19 = MFLogGeneral();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v18 = MFLogGeneral();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          v21 = 138413058;
+          v20 = 138413058;
           nameCopy = v6;
-          v23 = 2112;
+          v22 = 2112;
           p_isa = [(MFAttachment *)self fileName];
-          v25 = 2112;
-          v26 = v9;
-          v27 = 2112;
-          v28 = mimeType;
-          _os_log_debug_impl(&dword_258BDA000, v19, OS_LOG_TYPE_DEBUG, "UTType [%@] for filename:[%@] via extension:[%@] mimeType:[%@]", &v21, 0x2Au);
+          v24 = 2112;
+          v25 = v9;
+          v26 = 2112;
+          v27 = mimeType;
+          _os_log_debug_impl(&dword_258BDA000, v18, OS_LOG_TYPE_DEBUG, "UTType [%@] for filename:[%@] via extension:[%@] mimeType:[%@]", &v20, 0x2Au);
         }
 
         CFRelease(v11);
@@ -822,13 +828,13 @@ LABEL_18:
     v15 = MFLogGeneral();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138412802;
+      v20 = 138412802;
       nameCopy = name;
-      v23 = 2112;
+      v22 = 2112;
       p_isa = &v9->isa;
-      v25 = 2112;
-      v26 = mimeType;
-      _os_log_error_impl(&dword_258BDA000, v15, OS_LOG_TYPE_ERROR, "#Attachments UTType for filename:[%@] extension:[%@] mimeType:[%@] indeterminate", &v21, 0x20u);
+      v24 = 2112;
+      v25 = mimeType;
+      _os_log_error_impl(&dword_258BDA000, v15, OS_LOG_TYPE_ERROR, "#Attachments UTType for filename:[%@] extension:[%@] mimeType:[%@] indeterminate", &v20, 0x20u);
     }
 
     -[MFAttachment setMetadataValue:forKey:](self, "setMetadataValue:forKey:", [MEMORY[0x277CBEB68] null], @"MFAttachmentUTTypeKey");
@@ -845,19 +851,19 @@ LABEL_18:
 
   [(MFAttachment *)self setMetadataValue:v14 forKey:@"MFAttachmentUTTypeKey"];
   v6 = v14;
-  v18 = MFLogGeneral();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v17 = MFLogGeneral();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     fileName = [(MFAttachment *)self fileName];
-    v21 = 138413058;
+    v20 = 138413058;
     nameCopy = v6;
-    v23 = 2112;
+    v22 = 2112;
     p_isa = fileName;
-    v25 = 2112;
-    v26 = v9;
-    v27 = 2112;
-    v28 = mimeType;
-    _os_log_debug_impl(&dword_258BDA000, v18, OS_LOG_TYPE_DEBUG, "UTType [%@] for filename:[%@] extension:[%@] via mimeType:[%@]", &v21, 0x2Au);
+    v24 = 2112;
+    v25 = v9;
+    v26 = 2112;
+    v27 = mimeType;
+    _os_log_debug_impl(&dword_258BDA000, v17, OS_LOG_TYPE_DEBUG, "UTType [%@] for filename:[%@] extension:[%@] via mimeType:[%@]", &v20, 0x2Au);
   }
 
   CFRelease(v14);
@@ -869,16 +875,13 @@ LABEL_18:
 LABEL_21:
   if (v6 == [MEMORY[0x277CBEB68] null])
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = v6;
+    return v6;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (NSString)fileUTType
@@ -1009,7 +1012,7 @@ LABEL_21:
 
 - (void)writeToDiskWithData:(id)data
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   path = [(MFAttachment *)self path];
   if (data && path)
   {
@@ -1019,8 +1022,8 @@ LABEL_21:
     {
       v8 = stringByDeletingLastPathComponent;
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v21 = 0;
-      if ([defaultManager createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v21])
+      v20 = 0;
+      if ([defaultManager createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v20])
       {
         v10 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:{-[MFAttachment fileAttributes](self, "fileAttributes")}];
         [v10 setObject:*MEMORY[0x277CCA198] forKey:*MEMORY[0x277CCA1B0]];
@@ -1036,15 +1039,15 @@ LABEL_21:
         }
 
         fileURL = [(MFAttachment *)self fileURL];
-        ef_publicDescription = [v21 ef_publicDescription];
+        ef_publicDescription = [v20 ef_publicDescription];
         *buf = 138413058;
-        v23 = v6;
-        v24 = 2048;
+        v22 = v6;
+        v23 = 2048;
         selfCopy = self;
-        v26 = 2112;
-        v27 = fileURL;
-        v28 = 2114;
-        v29 = ef_publicDescription;
+        v25 = 2112;
+        v26 = fileURL;
+        v27 = 2114;
+        v28 = ef_publicDescription;
         v14 = "#Attachments Failed to create path %@ for attachment [%p, %@]: %{public}@";
         v15 = v11;
         v16 = 42;
@@ -1055,13 +1058,13 @@ LABEL_21:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         fileURL2 = [(MFAttachment *)self fileURL];
-        ef_publicDescription2 = [v21 ef_publicDescription];
+        ef_publicDescription2 = [v20 ef_publicDescription];
         *buf = 138412802;
-        v23 = v8;
-        v24 = 2112;
+        v22 = v8;
+        v23 = 2112;
         selfCopy = fileURL2;
-        v26 = 2114;
-        v27 = ef_publicDescription2;
+        v25 = 2114;
+        v26 = ef_publicDescription2;
         v14 = "#Attachments Failed to create directory %@ for attachment [%@]: %{public}@";
         v15 = v17;
         v16 = 32;
@@ -1072,46 +1075,40 @@ LABEL_12:
 
 LABEL_9:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readFromDisk
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (![(MFAttachment *)self path]|| [(MFAttachment *)self isContainedInRFC822])
   {
-LABEL_3:
-    v3 = 0;
-    goto LABEL_4;
+    return 0;
   }
 
   if (![objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")])
   {
-    v7 = MFLogGeneral();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v6 = MFLogGeneral();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v8 = 138412290;
-      *&v8[4] = [(MFAttachment *)self fileURL];
-      _os_log_impl(&dword_258BDA000, v7, OS_LOG_TYPE_INFO, "#Attachments Unable to read file URL [%@]", v8, 0xCu);
+      *v7 = 138412290;
+      *&v7[4] = [(MFAttachment *)self fileURL];
+      _os_log_impl(&dword_258BDA000, v6, OS_LOG_TYPE_INFO, "#Attachments Unable to read file URL [%@]", v7, 0xCu);
     }
 
-    goto LABEL_3;
+    return 0;
   }
 
-  *v8 = 0;
-  v3 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:-[MFAttachment fileURL](self options:"fileURL") error:{3, v8}];
-  if (*v8)
+  *v7 = 0;
+  v3 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:-[MFAttachment fileURL](self options:"fileURL") error:{3, v7}];
+  if (*v7)
   {
-    v6 = MFLogGeneral();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = MFLogGeneral();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(MFAttachment *)self readFromDisk];
     }
   }
 
-LABEL_4:
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1250,69 +1247,60 @@ LABEL_4:
 
 - (void)fetchLocalData:(void *)a1 stripPrivateMetadata:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 fileURL];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchDataSynchronously:(void *)a1 stripPrivateMetadata:(id *)a2 .cold.2(void *a1, id *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 fileURL];
   [*a2 ef_publicDescription];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchPlaceholderData
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self fileURL];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dataProvider
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self fileURL];
   [*a2 ef_publicDescription];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fileUTTypeForFileName:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  [a2 fileName];
-  OUTLINED_FUNCTION_2_0(&dword_258BDA000, v2, v3, "UTType [%@] for filename:[%@] via cache", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 138412546;
+  *&v8[4] = a1;
+  *&v8[12] = 2112;
+  *&v8[14] = [a2 fileName];
+  OUTLINED_FUNCTION_2_0(&dword_258BDA000, v2, v3, "UTType [%@] for filename:[%@] via cache", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 - (void)_fileUTTypeForFileName:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 fileName];
-  OUTLINED_FUNCTION_2_0(&dword_258BDA000, v1, v2, "UTType [%@] for filename:[%@] could not derive extension", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 0;
+  WORD2(v7) = 2112;
+  *(&v7 + 6) = [a1 fileName];
+  OUTLINED_FUNCTION_2_0(&dword_258BDA000, v1, v2, "UTType [%@] for filename:[%@] could not derive extension", v3, v4, v5, v6, 138412546, v7);
 }
 
 - (void)readFromDisk
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self fileURL];
   [*a2 ef_publicDescription];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

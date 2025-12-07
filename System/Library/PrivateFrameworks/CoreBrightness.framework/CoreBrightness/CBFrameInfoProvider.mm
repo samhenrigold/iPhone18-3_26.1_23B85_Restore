@@ -164,7 +164,6 @@
   v9.receiver = selfCopy;
   v9.super_class = CBFrameInfoProvider;
   [(CBFrameInfoProvider *)&v9 dealloc];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerObserver:(id)observer withCallback:(id)callback
@@ -185,7 +184,7 @@
   dispatch_sync(queue, &block);
 }
 
-uint64_t __53__CBFrameInfoProvider_registerObserver_withCallback___block_invoke(uint64_t a1)
+void *__53__CBFrameInfoProvider_registerObserver_withCallback___block_invoke(uint64_t a1)
 {
   v14 = a1;
   v13 = a1;
@@ -253,14 +252,14 @@ void __53__CBFrameInfoProvider_registerObserver_withCallback___block_invoke_2(ui
   dispatch_async(v3, &block);
 }
 
-uint64_t __53__CBFrameInfoProvider_registerObserver_withCallback___block_invoke_3(uint64_t a1)
+void *__53__CBFrameInfoProvider_registerObserver_withCallback___block_invoke_3(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v13 = a1;
-  v12 = a1;
+  v13 = *MEMORY[0x1E69E9840];
+  v11 = a1;
+  v10 = a1;
   memset(__b, 0, sizeof(__b));
   obj = [*(*(a1 + 32) + 32) allValues];
-  result = [obj countByEnumeratingWithState:__b objects:v14 count:16];
+  result = [obj countByEnumeratingWithState:__b objects:v12 count:16];
   if (result)
   {
     v3 = *__b[2];
@@ -274,15 +273,13 @@ uint64_t __53__CBFrameInfoProvider_registerObserver_withCallback___block_invoke_
         objc_enumerationMutation(obj);
       }
 
-      v11 = 0;
-      v11 = *(__b[1] + 8 * v4);
-      v8 = *(a1 + 40);
-      v9 = *(a1 + 56);
-      (*(v11 + 16))();
+      v9 = 0;
+      v9 = *(__b[1] + 8 * v4);
+      (*(v9 + 16))();
       ++v4;
       if (v2 + 1 >= v5)
       {
-        result = [obj countByEnumeratingWithState:__b objects:v14 count:16];
+        result = [obj countByEnumeratingWithState:__b objects:v12 count:16];
         v4 = 0;
         v5 = result;
         if (!result)
@@ -293,7 +290,6 @@ uint64_t __53__CBFrameInfoProvider_registerObserver_withCallback___block_invoke_
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 

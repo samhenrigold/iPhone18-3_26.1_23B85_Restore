@@ -8,16 +8,20 @@
 
 - (void)setGrowData:(id)data
 {
-  self->_growData = MEMORY[0x1B8C64C40](data, a2);
+  v4 = MEMORY[0x1B8C64C40](data, a2);
+  growData = self->_growData;
+  self->_growData = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, growData);
 }
 
 - (void)setCreateBuffer:(id)buffer
 {
-  self->_createBuffer = MEMORY[0x1B8C64C40](buffer, a2);
+  v4 = MEMORY[0x1B8C64C40](buffer, a2);
+  createBuffer = self->_createBuffer;
+  self->_createBuffer = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, createBuffer);
 }
 
 + (id)defaultOptions

@@ -13,11 +13,11 @@
   v8 = [(HDMirroredWorkoutPendingData *)&v14 init];
   if (v8)
   {
-    v9 = [dataCopy copy];
+    v9 = objc_msgSend_copy(dataCopy);
     data = v8->_data;
     v8->_data = v9;
 
-    v11 = [completionCopy copy];
+    v11 = objc_msgSend_copy(completionCopy);
     completion = v8->_completion;
     v8->_completion = v11;
   }

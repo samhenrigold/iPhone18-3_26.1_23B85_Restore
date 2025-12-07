@@ -336,16 +336,16 @@ LABEL_10:
 LABEL_11:
 }
 
-uint64_t __55__RTBluePOIMonitor_onLeechWifiScanResultsNotification___block_invoke(uint64_t a1)
+uint64_t __55__RTBluePOIMonitor_onLeechWifiScanResultsNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
   {
-    v3 = [*(a1 + 32) scanResults];
-    if (v3)
+    v4 = [*(a1 + 32) scanResults];
+    if (v4)
     {
-      [*(a1 + 40) _processWifiScanResults:v3];
+      [*(a1 + 40) _processWifiScanResults:v4];
     }
 
     return MEMORY[0x2821F96F8]();
@@ -781,7 +781,7 @@ LABEL_26:
 {
   estimateCopy = estimate;
   iEstimateCopy = iEstimate;
-  v37 = !iEstimateCopy || ((v9 = [iEstimateCopy mostConfidentPOI], v10 = objc_msgSend(estimateCopy, "mostConfidentPOI"), objc_msgSend(v8, "poiConfidences"), v11 = v8 = iEstimateCopy;
+  v37 = !iEstimateCopy || ((v9 = objc_msgSend_mostConfidentPOI(iEstimateCopy), v10 = objc_msgSend_mostConfidentPOI(estimateCopy), [v8 poiConfidences], v11 = v8 = iEstimateCopy;
 
   return v37;
 }

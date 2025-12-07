@@ -29,38 +29,38 @@
 
 - (void)appendWorkout:(id)workout
 {
-  v35[11] = *MEMORY[0x1E69E9840];
+  v34[11] = *MEMORY[0x1E69E9840];
   workoutCopy = workout;
-  v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%ld", -[HKTableFormatter rowCount](self, "rowCount")];
-  v35[0] = v34;
-  v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lld", objc_msgSend(workoutCopy, "persistentID")];
-  v35[1] = v33;
+  v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%ld", -[HKTableFormatter rowCount](self, "rowCount")];
+  v34[0] = v33;
+  v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lld", objc_msgSend(workoutCopy, "persistentID")];
+  v34[1] = v32;
   v5 = MEMORY[0x1E696AFB0];
   uuid = [workoutCopy uuid];
-  v31 = [v5 hk_UUIDWithData:?];
-  uUIDString = [v31 UUIDString];
-  v35[2] = uUIDString;
+  v30 = [v5 hk_UUIDWithData:?];
+  uUIDString = [v30 UUIDString];
+  v34[2] = uUIDString;
   v6 = 0x1E695D000;
   v7 = MEMORY[0x1E695DF00];
   [workoutCopy creationDate];
-  v29 = [v7 dateWithTimeIntervalSinceReferenceDate:?];
-  v28 = [(HKTableFormatter *)self stringFromDate:?];
-  v35[3] = v28;
+  v28 = [v7 dateWithTimeIntervalSinceReferenceDate:?];
+  v27 = [(HKTableFormatter *)self stringFromDate:?];
+  v34[3] = v27;
   v8 = MEMORY[0x1E695DF00];
   [workoutCopy startDate];
-  v27 = [v8 dateWithTimeIntervalSinceReferenceDate:?];
-  v26 = [(HKTableFormatter *)self stringFromDate:?];
-  v35[4] = v26;
+  v26 = [v8 dateWithTimeIntervalSinceReferenceDate:?];
+  v25 = [(HKTableFormatter *)self stringFromDate:?];
+  v34[4] = v25;
   v9 = MEMORY[0x1E695DF00];
   [workoutCopy endDate];
-  v25 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
-  v24 = [(HKTableFormatter *)self stringFromDate:?];
-  v35[5] = v24;
-  v23 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(workoutCopy, "type")}];
-  stringValue = [v23 stringValue];
-  v35[6] = stringValue;
-  v21 = +[HKWorkout _stringFromWorkoutActivityType:](HKWorkout, "_stringFromWorkoutActivityType:", [workoutCopy type]);
-  v10 = [v21 substringFromIndex:21];
+  v24 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
+  v23 = [(HKTableFormatter *)self stringFromDate:?];
+  v34[5] = v23;
+  v22 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(workoutCopy, "type")}];
+  stringValue = [v22 stringValue];
+  v34[6] = stringValue;
+  v20 = +[HKWorkout _stringFromWorkoutActivityType:](HKWorkout, "_stringFromWorkoutActivityType:", [workoutCopy type]);
+  v10 = [v20 substringFromIndex:21];
   v11 = v10;
   v12 = @"Unknown";
   if (v10)
@@ -68,10 +68,10 @@
     v12 = v10;
   }
 
-  v35[7] = v12;
+  v34[7] = v12;
   [workoutCopy duration];
   v13 = [(HKTableFormatter *)self stringFromTimeInterval:?];
-  v35[8] = v13;
+  v34[8] = v13;
   hasCondenserVersion = [workoutCopy hasCondenserVersion];
   if (hasCondenserVersion)
   {
@@ -83,7 +83,7 @@
     v15 = &stru_1F05FF230;
   }
 
-  v35[9] = v15;
+  v34[9] = v15;
   hasCondenserDate = [workoutCopy hasCondenserDate];
   if (hasCondenserDate)
   {
@@ -98,8 +98,8 @@
     v18 = &stru_1F05FF230;
   }
 
-  v35[10] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:11];
+  v34[10] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:11];
   [(HKTableFormatter *)self appendRow:v19];
 
   if (hasCondenserDate)
@@ -109,8 +109,6 @@
   if (hasCondenserVersion)
   {
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (HKTableFormatter)initWithColumnTitles:(id)titles
@@ -221,7 +219,7 @@ void __30__HKTableFormatter_appendRow___block_invoke_2(uint64_t a1, void *a2, ui
 
 - (id)_columnWidths
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if ([(NSArray *)self->_columns count])
   {
@@ -240,33 +238,33 @@ void __30__HKTableFormatter_appendRow___block_invoke_2(uint64_t a1, void *a2, ui
         v7 = 0;
       }
 
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v8 = [(NSArray *)self->_columns objectAtIndexedSubscript:v4, 0];
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v19;
+        v11 = *v18;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v19 != v11)
+            if (*v18 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [*(*(&v18 + 1) + 8 * i) length];
+            v13 = [*(*(&v17 + 1) + 8 * i) length];
             if (v7 <= v13)
             {
               v7 = v13;
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v10);
@@ -290,8 +288,6 @@ void __30__HKTableFormatter_appendRow___block_invoke_2(uint64_t a1, void *a2, ui
 
     while (v4 < [(NSArray *)self->_columns count]);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -331,31 +327,31 @@ void __30__HKTableFormatter_appendRow___block_invoke_2(uint64_t a1, void *a2, ui
 
 - (id)_formattedTableHeaderForColumnWidths:(id)widths
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   widthsCopy = widths;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v5 = [widthsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [widthsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(widthsCopy);
         }
 
-        v7 += [*(*(&v19 + 1) + 8 * i) integerValue];
+        v7 += [*(*(&v18 + 1) + 8 * i) integerValue];
       }
 
-      v6 = [widthsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [widthsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -407,8 +403,6 @@ void __30__HKTableFormatter_appendRow___block_invoke_2(uint64_t a1, void *a2, ui
 
     [v10 appendString:@"\n"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -38,17 +38,17 @@
 
 - (BLSHBacklightInactiveEnvironmentSession)initWithPresentation:(id)presentation
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   presentationCopy = presentation;
-  v25.receiver = self;
-  v25.super_class = BLSHBacklightInactiveEnvironmentSession;
-  v7 = [(BLSHBacklightInactiveEnvironmentSession *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = BLSHBacklightInactiveEnvironmentSession;
+  v7 = [(BLSHBacklightInactiveEnvironmentSession *)&v24 init];
   v8 = v7;
   if (v7)
   {
     if (!presentationCopy)
     {
-      [BLSHBacklightInactiveEnvironmentSession initWithPresentation:a2];
+      [(BLSHBacklightInactiveEnvironmentSession *)a2 initWithPresentation:v7];
     }
 
     v7->_lock._os_unfair_lock_opaque = 0;
@@ -61,37 +61,36 @@
     environmentObservers = v8->_environmentObservers;
     v8->_environmentObservers = v11;
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     presentationEntries = [presentationCopy presentationEntries];
-    v14 = [presentationEntries countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v14 = [presentationEntries countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v22;
+      v16 = *v21;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v22 != v16)
+          if (*v21 != v16)
           {
             objc_enumerationMutation(presentationEntries);
           }
 
-          environment = [*(*(&v21 + 1) + 8 * i) environment];
+          environment = [*(*(&v20 + 1) + 8 * i) environment];
           [environment addObserver:v8];
         }
 
-        v15 = [presentationEntries countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v15 = [presentationEntries countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v15);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -147,7 +146,7 @@
   presentationCopy = presentation;
   if (!presentationCopy)
   {
-    [BLSHBacklightInactiveEnvironmentSession setPresentation:a2];
+    [(BLSHBacklightInactiveEnvironmentSession *)a2 setPresentation:?];
   }
 
   v6 = presentationCopy;
@@ -346,7 +345,6 @@ void __91__BLSHBacklightInactiveEnvironmentSession_hostEnvironment_hostDidSetHig
 
 - (void)notifyObserversWithBlock:(uint64_t)block
 {
-  v31 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (block)
   {
@@ -355,36 +353,32 @@ void __91__BLSHBacklightInactiveEnvironmentSession_hostEnvironment_hostDidSetHig
     os_unfair_lock_unlock((block + 32));
     v6 = allObjects;
     OUTLINED_FUNCTION_7_0();
-    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
-    if (v8)
+    if ([v7 countByEnumeratingWithState:0 objects:0 count:?])
     {
-      OUTLINED_FUNCTION_5_2(v8, v9, v10, v11, v12, v13, v14, v15, 0, 0, 0);
+      OUTLINED_FUNCTION_5_2();
       do
       {
-        v24 = 0;
+        v8 = 0;
         do
         {
-          if (*v30 != v2)
+          if (MEMORY[0] != v2)
           {
             objc_enumerationMutation(v6);
           }
 
-          v25 = OUTLINED_FUNCTION_6_1(v16, v17, v18, v19, v20, v21, v22, v23, v28, v29);
-          v16 = v26(v25);
-          ++v24;
+          v9 = OUTLINED_FUNCTION_6_1();
+          v10(v9);
+          ++v8;
         }
 
-        while (allObjects != v24);
+        while (allObjects != v8);
         OUTLINED_FUNCTION_7_0();
-        v16 = [v6 countByEnumeratingWithState:? objects:? count:?];
-        allObjects = v16;
+        allObjects = [v6 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v16);
+      while (allObjects);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updaterDidBeginUpdateToBacklightState:(int64_t)state
@@ -400,58 +394,55 @@ void __91__BLSHBacklightInactiveEnvironmentSession_hostEnvironment_hostDidSetHig
 
 - (void)sessionDidEnd
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   self->_ended = 1;
   presentationEntries = [(BLSHBacklightEnvironmentPresentation *)self->_presentation presentationEntries];
   [(NSHashTable *)self->_environmentObservers removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = presentationEntries;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        environment = [*(*(&v12 + 1) + 8 * v8) environment];
+        environment = [*(*(&v11 + 1) + 8 * v8) environment];
         [environment removeObserver:self];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __56__BLSHBacklightInactiveEnvironmentSession_sessionDidEnd__block_invoke;
-  v11[3] = &unk_27841F130;
-  v11[4] = self;
-  [(BLSHBacklightInactiveEnvironmentSession *)self notifyObserversWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __56__BLSHBacklightInactiveEnvironmentSession_sessionDidEnd__block_invoke;
+  v10[3] = &unk_27841F130;
+  v10[4] = self;
+  [(BLSHBacklightInactiveEnvironmentSession *)self notifyObserversWithBlock:v10];
 }
 
 - (void)notifyEnvironmentObserversWithBlock:(uint64_t)block
 {
-  v31 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (block)
   {
@@ -460,36 +451,32 @@ void __91__BLSHBacklightInactiveEnvironmentSession_hostEnvironment_hostDidSetHig
     os_unfair_lock_unlock((block + 32));
     v6 = allObjects;
     OUTLINED_FUNCTION_7_0();
-    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
-    if (v8)
+    if ([v7 countByEnumeratingWithState:0 objects:0 count:?])
     {
-      OUTLINED_FUNCTION_5_2(v8, v9, v10, v11, v12, v13, v14, v15, 0, 0, 0);
+      OUTLINED_FUNCTION_5_2();
       do
       {
-        v24 = 0;
+        v8 = 0;
         do
         {
-          if (*v30 != v2)
+          if (MEMORY[0] != v2)
           {
             objc_enumerationMutation(v6);
           }
 
-          v25 = OUTLINED_FUNCTION_6_1(v16, v17, v18, v19, v20, v21, v22, v23, v28, v29);
-          v16 = v26(v25);
-          ++v24;
+          v9 = OUTLINED_FUNCTION_6_1();
+          v10(v9);
+          ++v8;
         }
 
-        while (allObjects != v24);
+        while (allObjects != v8);
         OUTLINED_FUNCTION_7_0();
-        v16 = [v6 countByEnumeratingWithState:? objects:? count:?];
-        allObjects = v16;
+        allObjects = [v6 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v16);
+      while (allObjects);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hostEnvironment:(id)environment clientDidUpdateSupportsAlwaysOn:(BOOL)on
@@ -579,46 +566,46 @@ void __91__BLSHBacklightInactiveEnvironmentSession_hostEnvironment_hostDidSetHig
   OUTLINED_FUNCTION_1_6(v6, v7, v8, v9, v10, v11, v12, v13, v14);
 }
 
-- (void)initWithPresentation:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithPresentation:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"presentation must not be nil"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"presentation must not be nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    v8 = @"BLSHBacklightInactiveEnvironmentSession.m";
-    v9 = 1024;
-    v10 = 34;
-    v11 = v6;
-    v12 = v2;
-    _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, 0x3Au);
+    v9 = @"BLSHBacklightInactiveEnvironmentSession.m";
+    v10 = 1024;
+    v11 = 34;
+    v12 = v7;
+    v13 = v3;
+    _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)setPresentation:(const char *)a1 .cold.1(const char *a1)
+- (void)setPresentation:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"attempted to set presentation to nil"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"attempted to set presentation to nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    v8 = @"BLSHBacklightInactiveEnvironmentSession.m";
-    v9 = 1024;
-    v10 = 65;
-    v11 = v6;
-    v12 = v2;
-    _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, 0x3Au);
+    v9 = @"BLSHBacklightInactiveEnvironmentSession.m";
+    v10 = 1024;
+    v11 = 65;
+    v12 = v7;
+    v13 = v3;
+    _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

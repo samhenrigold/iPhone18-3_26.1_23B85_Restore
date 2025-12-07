@@ -46,84 +46,89 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = connectionCopy;
+    v32 = connectionCopy;
     _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Received request to open connection %@", buf, 0xCu);
   }
 
-  v26 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v28 = 0u;
   selfCopy = self;
   entitlementNames = [(VSServiceListener *)self entitlementNames];
-  v8 = [entitlementNames countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v8 = [entitlementNames countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v28;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(entitlementNames);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v27 + 1) + 8 * i);
         v13 = [connectionCopy valueForEntitlement:v12];
-        if ((objc_opt_respondsToSelector() & 1) != 0 && [v13 BOOLValue])
+        bOOLValue = objc_opt_respondsToSelector();
+        if (bOOLValue)
         {
-          v17 = VSDefaultLogObject();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          bOOLValue = [v13 BOOLValue];
+          if (bOOLValue)
           {
-            *buf = 138412290;
-            v29 = v12;
-            _os_log_impl(&dword_23AB8E000, v17, OS_LOG_TYPE_DEFAULT, "Will accept connection due to %@ entitlement.", buf, 0xCu);
+            v19 = VSDefaultLogObject(bOOLValue);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412290;
+              v32 = v12;
+              _os_log_impl(&dword_23AB8E000, v19, OS_LOG_TYPE_DEFAULT, "Will accept connection due to %@ entitlement.", buf, 0xCu);
+            }
+
+            exportedInterface = [(VSServiceListener *)selfCopy exportedInterface];
+            [connectionCopy setExportedInterface:exportedInterface];
+
+            exportedObject = [(VSServiceListener *)selfCopy exportedObject];
+            [connectionCopy setExportedObject:exportedObject];
+
+            v22 = objc_alloc_init(VSServiceConnectionHandler);
+            [(VSServiceConnectionHandler *)v22 setDelegate:selfCopy];
+            [(VSServiceConnectionHandler *)v22 setConnection:connectionCopy];
+            [(VSServiceListener *)selfCopy _addConnectionHandler:v22];
+
+            v24 = VSDefaultLogObject(v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412290;
+              v32 = connectionCopy;
+              _os_log_impl(&dword_23AB8E000, v24, OS_LOG_TYPE_DEFAULT, "Will accept connection %@", buf, 0xCu);
+            }
+
+            [connectionCopy resume];
+            v18 = 1;
+            goto LABEL_22;
           }
-
-          exportedInterface = [(VSServiceListener *)selfCopy exportedInterface];
-          [connectionCopy setExportedInterface:exportedInterface];
-
-          exportedObject = [(VSServiceListener *)selfCopy exportedObject];
-          [connectionCopy setExportedObject:exportedObject];
-
-          v20 = objc_alloc_init(VSServiceConnectionHandler);
-          [(VSServiceConnectionHandler *)v20 setDelegate:selfCopy];
-          [(VSServiceConnectionHandler *)v20 setConnection:connectionCopy];
-          [(VSServiceListener *)selfCopy _addConnectionHandler:v20];
-
-          v21 = VSDefaultLogObject();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 138412290;
-            v29 = connectionCopy;
-            _os_log_impl(&dword_23AB8E000, v21, OS_LOG_TYPE_DEFAULT, "Will accept connection %@", buf, 0xCu);
-          }
-
-          [connectionCopy resume];
-          v16 = 1;
-          goto LABEL_22;
         }
 
-        v14 = VSDefaultLogObject();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = VSDefaultLogObject(bOOLValue);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v29 = v12;
-          v30 = 2112;
-          v31 = v13;
-          _os_log_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_DEFAULT, "Value for %@ entitlement (%@) was inadequate.", buf, 0x16u);
+          v32 = v12;
+          v33 = 2112;
+          v34 = v13;
+          _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "Value for %@ entitlement (%@) was inadequate.", buf, 0x16u);
         }
       }
 
-      v9 = [entitlementNames countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v9 = [entitlementNames countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v9)
       {
         continue;
@@ -133,16 +138,16 @@
     }
   }
 
-  v15 = VSErrorLogObject();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v17 = VSErrorLogObject(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    [VSServiceListener listener:connectionCopy shouldAcceptNewConnection:v15];
+    [VSServiceListener listener:connectionCopy shouldAcceptNewConnection:v17];
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_22:
 
-  return v16;
+  return v18;
 }
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)

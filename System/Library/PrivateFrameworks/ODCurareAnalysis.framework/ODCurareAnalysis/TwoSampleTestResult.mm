@@ -1,8 +1,42 @@
 @interface TwoSampleTestResult
+- (TwoSampleTestResult)initWithTestRan:(BOOL)ran testSkippedReason:(id)reason testStatistic:(id)statistic rejectNullHypothesis:(id)hypothesis sampleSize1:(int64_t)size1 numSuccesses1:(int64_t)successes1 minTimestamp1:(id)timestamp1 maxTimestamp1:(id)self0 sampleSize2:(int64_t)self1 numSuccesses2:(int64_t)self2 minTimestamp2:(id)self3 maxTimestamp2:(id)self4;
 - (id)description;
 @end
 
 @implementation TwoSampleTestResult
+
+- (TwoSampleTestResult)initWithTestRan:(BOOL)ran testSkippedReason:(id)reason testStatistic:(id)statistic rejectNullHypothesis:(id)hypothesis sampleSize1:(int64_t)size1 numSuccesses1:(int64_t)successes1 minTimestamp1:(id)timestamp1 maxTimestamp1:(id)self0 sampleSize2:(int64_t)self1 numSuccesses2:(int64_t)self2 minTimestamp2:(id)self3 maxTimestamp2:(id)self4
+{
+  ranCopy = ran;
+  reasonCopy = reason;
+  statisticCopy = statistic;
+  hypothesisCopy = hypothesis;
+  timestamp1Copy = timestamp1;
+  maxTimestamp1Copy = maxTimestamp1;
+  timestamp2Copy = timestamp2;
+  maxTimestamp2Copy = maxTimestamp2;
+  v30.receiver = self;
+  v30.super_class = TwoSampleTestResult;
+  v25 = [(TwoSampleTestResult *)&v30 init];
+  v26 = v25;
+  if (v25)
+  {
+    [(TwoSampleTestResult *)v25 setTestRan:ranCopy];
+    [(TwoSampleTestResult *)v26 setTestSkippedReason:reasonCopy];
+    [(TwoSampleTestResult *)v26 setTestStatistic:statisticCopy];
+    [(TwoSampleTestResult *)v26 setRejectNullHypothesis:hypothesisCopy];
+    [(TwoSampleTestResult *)v26 setSampleSize1:size1];
+    [(TwoSampleTestResult *)v26 setNumSuccesses1:successes1];
+    [(TwoSampleTestResult *)v26 setMinTimestamp1:timestamp1Copy];
+    [(TwoSampleTestResult *)v26 setMaxTimestamp1:maxTimestamp1Copy];
+    [(TwoSampleTestResult *)v26 setSampleSize2:size2];
+    [(TwoSampleTestResult *)v26 setNumSuccesses2:successes2];
+    [(TwoSampleTestResult *)v26 setMinTimestamp2:timestamp2Copy];
+    [(TwoSampleTestResult *)v26 setMaxTimestamp2:maxTimestamp2Copy];
+  }
+
+  return v26;
+}
 
 - (id)description
 {

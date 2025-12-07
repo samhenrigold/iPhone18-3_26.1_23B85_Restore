@@ -24,13 +24,15 @@
   v5 = [messageCopy uid];
   [(MFIMAPDownloadCache *)self mf_lock];
   RangeOfDownloadsWithUid = _lockedFindRangeOfDownloadsWithUid(self, v5);
-  if (v7)
+  v7 = RangeOfDownloadsWithUid;
+  if (v8)
   {
-    v8 = [(NSMutableArray *)self->_downloads objectAtIndex:RangeOfDownloadsWithUid];
+    v9 = [(NSMutableArray *)self->_downloads objectAtIndex:RangeOfDownloadsWithUid];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    RangeOfDownloadsWithUid = objc_opt_isKindOfClass();
+    if (RangeOfDownloadsWithUid)
     {
-      if (v8)
+      if (v9)
       {
         goto LABEL_12;
       }
@@ -43,30 +45,28 @@
 
   if (!v5)
   {
-    v9 = vm_imap_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = vm_imap_log(RangeOfDownloadsWithUid);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       vf_publicDescription = [messageCopy vf_publicDescription];
       v14 = 138543362;
       v15 = vf_publicDescription;
-      _os_log_impl(&dword_2720B1000, v9, OS_LOG_TYPE_DEFAULT, "uid of message %{public}@ is 0", &v14, 0xCu);
+      _os_log_impl(&dword_2720B1000, v10, OS_LOG_TYPE_DEFAULT, "uid of message %{public}@ is 0", &v14, 0xCu);
     }
   }
 
-  v11 = [[MFIMAPMessageDownload alloc] initWithMessage:messageCopy];
-  v8 = v11;
-  if (v11)
+  v12 = [[MFIMAPMessageDownload alloc] initWithMessage:messageCopy];
+  v9 = v12;
+  if (v12)
   {
-    [(MFIMAPMessageDownload *)v11 setAllowsPartialDownloads:1];
-    [(NSMutableArray *)self->_downloads insertObject:v8 atIndex:RangeOfDownloadsWithUid];
+    [(MFIMAPMessageDownload *)v12 setAllowsPartialDownloads:1];
+    [(NSMutableArray *)self->_downloads insertObject:v9 atIndex:v7];
   }
 
 LABEL_12:
   [(MFIMAPDownloadCache *)self mf_unlock];
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 - (void)handleFetchResponse:(id)response forUid:(unsigned int)uid
@@ -84,36 +84,36 @@ LABEL_12:
 
 - (void)handleFetchResponses:(id)responses
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   if ([responsesCopy count])
   {
     [(MFIMAPDownloadCache *)self mf_lock];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v18 = responsesCopy;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v17 = responsesCopy;
     obj = responsesCopy;
-    v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
       RangeOfDownloadsWithUid = 0;
       v9 = 0;
-      v10 = *v21;
+      v10 = *v20;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
-          v13 = [v12 fetchResultWithType:{8, v18}];
+          v12 = *(*(&v19 + 1) + 8 * i);
+          v13 = [v12 fetchResultWithType:{8, v17}];
           v14 = [v13 uid];
 
           if (v14)
@@ -130,17 +130,15 @@ LABEL_12:
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v6);
     }
 
     [(MFIMAPDownloadCache *)self mf_unlock];
-    responsesCopy = v18;
+    responsesCopy = v17;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processResultsForUid:(unsigned int)uid

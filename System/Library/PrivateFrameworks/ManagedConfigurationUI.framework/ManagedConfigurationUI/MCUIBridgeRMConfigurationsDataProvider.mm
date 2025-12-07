@@ -4,6 +4,7 @@
 - (id)pluginSectionViewModels;
 - (id)pluginViewModels;
 - (id)profileViewModels;
+- (void)setConfigurationActivated:(BOOL)activated forViewModel:(id)model completionHandler:(id)handler;
 @end
 
 @implementation MCUIBridgeRMConfigurationsDataProvider
@@ -89,6 +90,19 @@
   v4 = [v3 cachedRMConfigurationViewModelsForIdentifier:self->_profileIdentifier];
 
   return v4;
+}
+
+- (void)setConfigurationActivated:(BOOL)activated forViewModel:(id)model completionHandler:(id)handler
+{
+  activatedCopy = activated;
+  v6 = MEMORY[0x277CCA9B8];
+  v7 = *MEMORY[0x277D032F0];
+  handlerCopy = handler;
+  v9 = DMCErrorArray();
+  v11 = [v6 DMCErrorWithDomain:v7 code:15008 descriptionArray:v9 errorType:{*MEMORY[0x277D032F8], 0}];
+
+  v10 = [objc_alloc(MEMORY[0x277D460F8]) initWithError:v11 isActivating:activatedCopy];
+  handlerCopy[2](handlerCopy, 0, v10);
 }
 
 @end

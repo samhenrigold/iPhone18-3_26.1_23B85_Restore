@@ -62,46 +62,47 @@
 
 - (void)cleanup
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   directoryURL = [(PBUIWallpaperDirectoryDataStore *)self directoryURL];
-  v4 = __possibleWallpaperFileNames();
-  v54 = 0u;
-  v55 = 0u;
+  v4 = __possibleWallpaperFileNames(directoryURL);
   v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v6 = *MEMORY[0x277CBE8A8];
-  v64 = *MEMORY[0x277CBE8A8];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
-  v34 = directoryURL;
+  v66 = *MEMORY[0x277CBE8A8];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+  v36 = directoryURL;
   v8 = [defaultManager enumeratorAtURL:directoryURL includingPropertiesForKeys:v7 options:1 errorHandler:&__block_literal_global_9];
 
-  v9 = [v8 countByEnumeratingWithState:&v54 objects:v65 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v56 objects:v67 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v55;
-    v37 = v6;
-    v38 = v4;
-    v35 = *v55;
-    v36 = v8;
+    v11 = *v57;
+    v39 = v6;
+    v40 = v4;
+    v37 = *v57;
+    v38 = v8;
     do
     {
       v12 = 0;
-      v39 = v10;
+      v41 = v10;
       do
       {
-        if (*v55 != v11)
+        if (*v57 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v54 + 1) + 8 * v12);
-        v52 = 0;
-        v53 = 0;
-        v14 = [v13 getResourceValue:&v53 forKey:v6 error:&v52];
-        v15 = v53;
-        v42 = v52;
+        v13 = *(*(&v56 + 1) + 8 * v12);
+        v54 = 0;
+        v55 = 0;
+        v14 = [v13 getResourceValue:&v55 forKey:v6 error:&v54];
+        v15 = v55;
+        v16 = v54;
+        v44 = v16;
         if (v14)
         {
           if (![v15 BOOLValue])
@@ -109,133 +110,133 @@
             goto LABEL_38;
           }
 
-          v40 = v15;
-          v41 = v12;
+          v42 = v15;
+          v43 = v12;
           lastPathComponent = [v13 lastPathComponent];
-          if (-[NSObject hasPrefix:](lastPathComponent, "hasPrefix:", @".") && (-[NSObject pathExtension](lastPathComponent, "pathExtension"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 length], v17, v18 == 6))
+          if (-[NSObject hasPrefix:](lastPathComponent, "hasPrefix:", @".") && (-[NSObject pathExtension](lastPathComponent, "pathExtension"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v18 length], v18, v19 == 6))
           {
+            v52 = 0u;
+            v53 = 0u;
             v50 = 0u;
             v51 = 0u;
-            v48 = 0u;
-            v49 = 0u;
-            v19 = v4;
-            v20 = [v19 countByEnumeratingWithState:&v48 objects:v59 count:16];
-            if (v20)
+            v20 = v4;
+            v21 = [v20 countByEnumeratingWithState:&v50 objects:v61 count:16];
+            if (v21)
             {
-              v21 = v20;
-              v22 = *v49;
+              v22 = v21;
+              v23 = *v51;
               do
               {
-                for (i = 0; i != v21; ++i)
+                for (i = 0; i != v22; ++i)
                 {
-                  if (*v49 != v22)
+                  if (*v51 != v23)
                   {
-                    objc_enumerationMutation(v19);
+                    objc_enumerationMutation(v20);
                   }
 
-                  if ([lastPathComponent containsString:*(*(&v48 + 1) + 8 * i)])
+                  if ([lastPathComponent containsString:*(*(&v50 + 1) + 8 * i)])
                   {
                     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-                    v47 = 0;
-                    v25 = [defaultManager2 removeItemAtURL:v13 error:&v47];
-                    v26 = v47;
+                    v49 = 0;
+                    v26 = [defaultManager2 removeItemAtURL:v13 error:&v49];
+                    v27 = v49;
 
-                    v27 = PBUILogCommon();
-                    v28 = v27;
-                    if (v25)
+                    v29 = PBUILogCommon(v28);
+                    v30 = v29;
+                    if (v26)
                     {
-                      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+                      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138543362;
-                        v61 = v13;
-                        _os_log_debug_impl(&dword_21E67D000, v28, OS_LOG_TYPE_DEBUG, "Removed bad wallpaper data @ URL %{public}@", buf, 0xCu);
+                        v63 = v13;
+                        _os_log_debug_impl(&dword_21E67D000, v30, OS_LOG_TYPE_DEBUG, "Removed bad wallpaper data @ URL %{public}@", buf, 0xCu);
                       }
                     }
 
-                    else if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                    else if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138543618;
-                      v61 = v13;
-                      v62 = 2114;
-                      v63 = v26;
-                      _os_log_error_impl(&dword_21E67D000, v28, OS_LOG_TYPE_ERROR, "Unable to remove bad wallpaper data @ URL %{public}@: %{public}@", buf, 0x16u);
+                      v63 = v13;
+                      v64 = 2114;
+                      v65 = v27;
+                      _os_log_error_impl(&dword_21E67D000, v30, OS_LOG_TYPE_ERROR, "Unable to remove bad wallpaper data @ URL %{public}@: %{public}@", buf, 0x16u);
                     }
                   }
                 }
 
-                v21 = [v19 countByEnumeratingWithState:&v48 objects:v59 count:16];
+                v22 = [v20 countByEnumeratingWithState:&v50 objects:v61 count:16];
               }
 
-              while (v21);
+              while (v22);
             }
           }
 
           else
           {
+            v47 = 0u;
+            v48 = 0u;
             v45 = 0u;
             v46 = 0u;
-            v43 = 0u;
-            v44 = 0u;
-            v29 = v4;
-            v30 = [v29 countByEnumeratingWithState:&v43 objects:v58 count:16];
-            if (v30)
+            v31 = v4;
+            v32 = [v31 countByEnumeratingWithState:&v45 objects:v60 count:16];
+            if (v32)
             {
-              v31 = v30;
-              v32 = *v44;
+              v33 = v32;
+              v34 = *v46;
               do
               {
-                for (j = 0; j != v31; ++j)
+                for (j = 0; j != v33; ++j)
                 {
-                  if (*v44 != v32)
+                  if (*v46 != v34)
                   {
-                    objc_enumerationMutation(v29);
+                    objc_enumerationMutation(v31);
                   }
 
-                  if ([lastPathComponent hasPrefix:*(*(&v43 + 1) + 8 * j)])
+                  if ([lastPathComponent hasPrefix:*(*(&v45 + 1) + 8 * j)])
                   {
                     [(PBUIWallpaperDirectoryDataStore *)self didWriteFileToURL:v13];
                   }
                 }
 
-                v31 = [v29 countByEnumeratingWithState:&v43 objects:v58 count:16];
+                v33 = [v31 countByEnumeratingWithState:&v45 objects:v60 count:16];
               }
 
-              while (v31);
+              while (v33);
             }
           }
 
-          v4 = v38;
+          v4 = v40;
 
-          v8 = v36;
-          v6 = v37;
-          v11 = v35;
-          v10 = v39;
+          v8 = v38;
+          v6 = v39;
+          v11 = v37;
+          v10 = v41;
         }
 
         else
         {
-          v40 = v15;
-          v41 = v12;
-          lastPathComponent = PBUILogCommon();
+          v42 = v15;
+          v43 = v12;
+          lastPathComponent = PBUILogCommon(v16);
           if (os_log_type_enabled(lastPathComponent, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v61 = v13;
-            v62 = 2114;
-            v63 = v42;
+            v63 = v13;
+            v64 = 2114;
+            v65 = v44;
             _os_log_error_impl(&dword_21E67D000, lastPathComponent, OS_LOG_TYPE_ERROR, "Unable to read resource type from directory URL %{public}@: %{public}@", buf, 0x16u);
           }
         }
 
-        v15 = v40;
-        v12 = v41;
+        v15 = v42;
+        v12 = v43;
 LABEL_38:
 
         ++v12;
       }
 
       while (v12 != v10);
-      v10 = [v8 countByEnumeratingWithState:&v54 objects:v65 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v56 objects:v67 count:16];
     }
 
     while (v10);
@@ -246,7 +247,7 @@ uint64_t __42__PBUIWallpaperDirectoryDataStore_cleanup__block_invoke(uint64_t a1
 {
   v4 = a2;
   v5 = a3;
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __42__PBUIWallpaperDirectoryDataStore_cleanup__block_invoke_cold_1();
@@ -308,14 +309,15 @@ uint64_t __42__PBUIWallpaperDirectoryDataStore_cleanup__block_invoke(uint64_t a1
 
 - (id)wallpaperImageForVariant:(int64_t)variant wallpaperMode:(int64_t)mode
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   v7 = [PBUIWallpaperDirectoryDataStore wallpaperImageURLForVariant:"wallpaperImageURLForVariant:wallpaperMode:" wallpaperMode:?];
   v8 = v7;
   if (v7)
   {
-    v26 = 0;
-    v9 = PBUIWallpaperDataForFileURL(v7, &v26);
-    v10 = v26;
+    v28 = 0;
+    v9 = PBUIWallpaperDataForFileURL(v7, &v28);
+    v7 = v28;
+    v10 = v7;
   }
 
   else
@@ -324,57 +326,57 @@ uint64_t __42__PBUIWallpaperDirectoryDataStore_cleanup__block_invoke(uint64_t a1
     v10 = 0;
   }
 
-  v11 = PBUILogCommon();
+  v11 = PBUILogCommon(v7);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v24 = [(PBUIWallpaperDirectoryDataStore *)self wallpaperImageURLForVariant:variant wallpaperMode:mode];
-    LODWORD(v27[0]) = 138543362;
-    *(v27 + 4) = v24;
-    _os_log_debug_impl(&dword_21E67D000, v11, OS_LOG_TYPE_DEBUG, "Wallpaper file URL: %{public}@", v27, 0xCu);
+    v26 = [(PBUIWallpaperDirectoryDataStore *)self wallpaperImageURLForVariant:variant wallpaperMode:mode];
+    LODWORD(v29[0]) = 138543362;
+    *(v29 + 4) = v26;
+    _os_log_debug_impl(&dword_21E67D000, v11, OS_LOG_TYPE_DEBUG, "Wallpaper file URL: %{public}@", v29, 0xCu);
   }
 
-  v12 = PBUILogCommon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = PBUILogCommon(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [PBUIWallpaperDirectoryDataStore wallpaperImageForVariant:v9 wallpaperMode:v12];
+    [PBUIWallpaperDirectoryDataStore wallpaperImageForVariant:v9 wallpaperMode:v13];
   }
 
   if (v9)
   {
-    v27[0] = 0;
+    v29[0] = 0;
     cf = 0;
     ImagesFromData = CPBitmapCreateImagesFromData();
     if (ImagesFromData)
     {
-      v14 = ImagesFromData;
+      v16 = ImagesFromData;
       ValueAtIndex = CFArrayGetValueAtIndex(ImagesFromData, 0);
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && v27[0])
+      if ((objc_opt_isKindOfClass() & 1) != 0 && v29[0])
       {
-        [v27[0] floatValue];
-        v17 = v16;
+        [v29[0] floatValue];
+        v19 = v18;
       }
 
       else
       {
         mainScreen = [MEMORY[0x277D759A0] mainScreen];
         [mainScreen scale];
-        v17 = v22;
+        v19 = v24;
       }
 
-      v19 = [[PBUIWallpaperImage alloc] initWithCGImage:ValueAtIndex scale:0 orientation:v8 wallpaperFileURL:v17];
-      CFRelease(v14);
+      v21 = [[PBUIWallpaperImage alloc] initWithCGImage:ValueAtIndex scale:0 orientation:v8 wallpaperFileURL:v19];
+      CFRelease(v16);
     }
 
     else
     {
-      v20 = PBUILogCommon();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v22 = PBUILogCommon(0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [PBUIWallpaperDirectoryDataStore wallpaperImageForVariant:v20 wallpaperMode:?];
+        [PBUIWallpaperDirectoryDataStore wallpaperImageForVariant:v22 wallpaperMode:?];
       }
 
-      v19 = 0;
+      v21 = 0;
     }
 
     if (cf)
@@ -382,24 +384,24 @@ uint64_t __42__PBUIWallpaperDirectoryDataStore_cleanup__block_invoke(uint64_t a1
       CFRelease(cf);
     }
 
-    if (v27[0])
+    if (v29[0])
     {
-      CFRelease(v27[0]);
+      CFRelease(v29[0]);
     }
   }
 
   else
   {
-    v18 = PBUILogCommon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v20 = PBUILogCommon(v14);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      [PBUIWallpaperDirectoryDataStore wallpaperImageForVariant:v10 wallpaperMode:v18];
+      [PBUIWallpaperDirectoryDataStore wallpaperImageForVariant:v10 wallpaperMode:v20];
     }
 
-    v19 = 0;
+    v21 = 0;
   }
 
-  return v19;
+  return v21;
 }
 
 - (BOOL)hasWallpaperImageForVariant:(int64_t)variant wallpaperMode:(int64_t)mode
@@ -449,14 +451,15 @@ uint64_t __42__PBUIWallpaperDirectoryDataStore_cleanup__block_invoke(uint64_t a1
 {
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   directoryURL = [(PBUIWallpaperDirectoryDataStore *)self directoryURL];
+  v5 = directoryURL;
   if (directoryURL)
   {
     directoryCreationAttributes = [(PBUIWallpaperDirectoryDataStore *)self directoryCreationAttributes];
-    v9 = 0;
-    v6 = [defaultManager createDirectoryAtURL:directoryURL withIntermediateDirectories:1 attributes:directoryCreationAttributes error:&v9];
-    v7 = v9;
+    v10 = 0;
+    v7 = [defaultManager createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:directoryCreationAttributes error:&v10];
+    v8 = v10;
 
-    if (v6)
+    if (v7)
     {
       goto LABEL_8;
     }
@@ -464,11 +467,11 @@ uint64_t __42__PBUIWallpaperDirectoryDataStore_cleanup__block_invoke(uint64_t a1
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = PBUILogCommon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = PBUILogCommon(directoryURL);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [PBUIWallpaperDirectoryDataStore createDirectory];
   }
@@ -532,20 +535,22 @@ LABEL_8:
 
 - (BOOL)setWallpaperThumbnailData:(id)data forVariant:(int64_t)variant wallpaperMode:(int64_t)mode
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (variant != -1)
   {
     v9 = [(PBUIWallpaperDirectoryDataStore *)self wallpaperThumbnailURLForVariant:variant wallpaperMode:mode];
+    v10 = v9;
     if (v9)
     {
-      v16 = 0;
-      v10 = [dataCopy writeToURL:v9 options:268435457 error:&v16];
-      v11 = v16;
-      if (v10)
+      v17 = 0;
+      v11 = [dataCopy writeToURL:v9 options:268435457 error:&v17];
+      v9 = v17;
+      v12 = v9;
+      if (v11)
       {
-        [(PBUIWallpaperDirectoryDataStore *)self didWriteFileToURL:v9];
-        v12 = 1;
+        [(PBUIWallpaperDirectoryDataStore *)self didWriteFileToURL:v10];
+        v13 = 1;
 LABEL_10:
 
         goto LABEL_11;
@@ -554,30 +559,30 @@ LABEL_10:
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    v13 = PBUILogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = PBUILogCommon(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = PBUIStringForWallpaperVariant(variant);
+      v15 = PBUIStringForWallpaperVariant(variant);
       *buf = 138543874;
-      v18 = v14;
-      v19 = 2114;
-      v20 = v9;
-      v21 = 2114;
-      v22 = v11;
-      _os_log_impl(&dword_21E67D000, v13, OS_LOG_TYPE_INFO, "Error writing thumbnail for variant %{public}@ to disk at URL '%{public}@': %{public}@", buf, 0x20u);
+      v19 = v15;
+      v20 = 2114;
+      v21 = v10;
+      v22 = 2114;
+      v23 = v12;
+      _os_log_impl(&dword_21E67D000, v14, OS_LOG_TYPE_INFO, "Error writing thumbnail for variant %{public}@ to disk at URL '%{public}@': %{public}@", buf, 0x20u);
     }
 
-    v12 = 0;
+    v13 = 0;
     goto LABEL_10;
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_11:
 
-  return v12;
+  return v13;
 }
 
 - (void)moveWallpaperImageDataTypes:(unint64_t)types fromVariant:(int64_t)variant toVariant:(int64_t)toVariant
@@ -801,9 +806,10 @@ LABEL_12:
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       [defaultManager removeItemAtURL:rLCopy error:0];
-      v15 = 0;
-      v8 = [defaultManager copyItemAtURL:lCopy toURL:rLCopy error:&v15];
-      v12 = v15;
+      v16 = 0;
+      v8 = [defaultManager copyItemAtURL:lCopy toURL:rLCopy error:&v16];
+      v12 = v16;
+      v13 = v12;
       if (v8)
       {
         [(PBUIWallpaperDirectoryDataStore *)self didWriteFileToURL:rLCopy];
@@ -811,10 +817,10 @@ LABEL_12:
 
       else
       {
-        v13 = PBUILogCommon();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = PBUILogCommon(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          [(PBUIWallpaperDirectoryDataStore *)rLCopy copyVideoAtURL:v12 toURL:v13];
+          [(PBUIWallpaperDirectoryDataStore *)rLCopy copyVideoAtURL:v13 toURL:v14];
         }
       }
     }
@@ -843,36 +849,37 @@ LABEL_12:
 
 - (void)removeVideoForVariant:(int64_t)variant
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v6 = 0;
   v7 = 0;
   *&v8 = 138543362;
-  v16 = v8;
+  v18 = v8;
   do
   {
-    v9 = [(PBUIWallpaperDirectoryDataStore *)self wallpaperVideoURLForVariant:variant wallpaperMode:v6, v16];
-    if (!v9 || (v18 = v7, v10 = [defaultManager removeItemAtURL:v9 error:&v18], v11 = v18, v7, v7 = v11, (v10 & 1) == 0))
+    v9 = [(PBUIWallpaperDirectoryDataStore *)self wallpaperVideoURLForVariant:variant wallpaperMode:v6, v18];
+    if (!v9 || (v20 = v7, v10 = [defaultManager removeItemAtURL:v9 error:&v20], v11 = v20, v7, v7 = v11, (v10 & 1) == 0))
     {
-      if (([v7 pbui_isFileNotFoundError] & 1) == 0)
+      pbui_isFileNotFoundError = [v7 pbui_isFileNotFoundError];
+      if ((pbui_isFileNotFoundError & 1) == 0)
       {
-        v12 = PBUILogCommon();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = PBUILogCommon(pbui_isFileNotFoundError);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          *buf = v16;
-          v20 = v7;
-          _os_log_error_impl(&dword_21E67D000, v12, OS_LOG_TYPE_ERROR, "Error removing video file: %{public}@", buf, 0xCu);
+          *buf = v18;
+          v22 = v7;
+          _os_log_error_impl(&dword_21E67D000, v13, OS_LOG_TYPE_ERROR, "Error removing video file: %{public}@", buf, 0xCu);
         }
       }
     }
 
-    v13 = [(PBUIWallpaperDirectoryDataStore *)self wallpaperOriginalVideoURLForVariant:variant wallpaperMode:v6];
-    if (v13)
+    v14 = [(PBUIWallpaperDirectoryDataStore *)self wallpaperOriginalVideoURLForVariant:variant wallpaperMode:v6];
+    if (v14)
     {
-      v17 = 0;
-      v14 = [defaultManager removeItemAtURL:v13 error:&v17];
-      v7 = v17;
-      if (v14)
+      v19 = 0;
+      v15 = [defaultManager removeItemAtURL:v14 error:&v19];
+      v7 = v19;
+      if (v15)
       {
         goto LABEL_16;
       }
@@ -883,14 +890,15 @@ LABEL_12:
       v7 = 0;
     }
 
-    if (([v7 pbui_isFileNotFoundError] & 1) == 0)
+    pbui_isFileNotFoundError2 = [v7 pbui_isFileNotFoundError];
+    if ((pbui_isFileNotFoundError2 & 1) == 0)
     {
-      v15 = PBUILogCommon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = PBUILogCommon(pbui_isFileNotFoundError2);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        *buf = v16;
-        v20 = v7;
-        _os_log_error_impl(&dword_21E67D000, v15, OS_LOG_TYPE_ERROR, "Error removing original video file: %{public}@", buf, 0xCu);
+        *buf = v18;
+        v22 = v7;
+        _os_log_error_impl(&dword_21E67D000, v17, OS_LOG_TYPE_ERROR, "Error removing original video file: %{public}@", buf, 0xCu);
       }
     }
 

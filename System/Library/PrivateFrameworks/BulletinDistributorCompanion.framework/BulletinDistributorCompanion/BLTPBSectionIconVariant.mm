@@ -1,4 +1,5 @@
 @interface BLTPBSectionIconVariant
++ (id)sectionIconVariantWithImageData:(id)data systemImageName:(id)name precomposed:(BOOL)precomposed format:(unsigned int)format;
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -59,8 +60,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  format = self->_format;
-  v8 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_imageData)
   {
@@ -69,21 +68,20 @@
 
   if (*&self->_has)
   {
-    precomposed = self->_precomposed;
     PBDataWriterWriteBOOLField();
   }
 
-  v7 = v8;
+  v4 = toCopy;
   if (self->_systemImageName)
   {
     PBDataWriterWriteStringField();
-    v7 = v8;
+    v4 = toCopy;
   }
 
   if (self->_uti)
   {
     PBDataWriterWriteStringField();
-    v7 = v8;
+    v4 = toCopy;
   }
 }
 
@@ -261,6 +259,28 @@ LABEL_13:
     [(BLTPBSectionIconVariant *)self setUti:?];
     fromCopy = v5;
   }
+}
+
++ (id)sectionIconVariantWithImageData:(id)data systemImageName:(id)name precomposed:(BOOL)precomposed format:(unsigned int)format
+{
+  v6 = *&format;
+  precomposedCopy = precomposed;
+  dataCopy = data;
+  nameCopy = name;
+  v12 = objc_alloc_init(self);
+  [v12 setPrecomposed:precomposedCopy];
+  [v12 setFormat:v6];
+  if (dataCopy)
+  {
+    [v12 setImageData:dataCopy];
+  }
+
+  else if (nameCopy)
+  {
+    [v12 setSystemImageName:nameCopy];
+  }
+
+  return v12;
 }
 
 @end

@@ -166,21 +166,19 @@ void __58__EMCoreAnalyticsCollector_registerForLogEventsWithBlock___block_invoke
 
 void __44__EMCoreAnalyticsCollector_logOneTimeEvent___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = +[EMCoreAnalyticsCollector log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) name];
     *buf = 138543362;
-    v8 = v3;
+    v7 = v3;
     _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_INFO, "Logging one time event for provider %{public}@", buf, 0xCu);
   }
 
   v4 = [*(a1 + 32) name];
-  v6 = *(a1 + 32);
+  v5 = *(a1 + 32);
   AnalyticsSendEventLazy();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerXPCActivity
@@ -249,7 +247,7 @@ void __48__EMCoreAnalyticsCollector__registerXPCActivity__block_invoke_3(uint64_
 
 void __48__EMCoreAnalyticsCollector__registerXPCActivity__block_invoke_4(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _logPeriodicEvents];
   if (!xpc_activity_set_state(*(a1 + 40), 5))
   {
@@ -257,71 +255,68 @@ void __48__EMCoreAnalyticsCollector__registerXPCActivity__block_invoke_4(uint64_
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       state = xpc_activity_get_state(*(a1 + 40));
-      __48__EMCoreAnalyticsCollector__registerXPCActivity__block_invoke_4_cold_1(v5, state, v2);
+      __48__EMCoreAnalyticsCollector__registerXPCActivity__block_invoke_4_cold_1(v4, state, v2);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logPeriodicEvents
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__1;
-  v19 = __Block_byref_object_dispose__1;
-  v20 = 0;
+  v23 = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__1;
+  v18 = __Block_byref_object_dispose__1;
+  v19 = 0;
   blocks = [(EMCoreAnalyticsCollector *)self blocks];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __46__EMCoreAnalyticsCollector__logPeriodicEvents__block_invoke;
-  v14[3] = &unk_1E826CB18;
-  v14[4] = &v15;
-  [blocks performWhileLocked:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __46__EMCoreAnalyticsCollector__logPeriodicEvents__block_invoke;
+  v13[3] = &unk_1E826CB18;
+  v13[4] = &v14;
+  [blocks performWhileLocked:v13];
 
   v3 = +[EMCoreAnalyticsCollector log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [v16[5] count];
+    v4 = [v15[5] count];
     *buf = 134217984;
-    v23 = v4;
+    v22 = v4;
     _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "Logging periodic events for %ld providers", buf, 0xCu);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
-  v5 = v16[5];
-  v6 = [v5 countByEnumeratingWithState:&v10 objects:v21 count:16];
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v5 = v15[5];
+  v6 = [v5 countByEnumeratingWithState:&v9 objects:v20 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v10 objects:v21 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v9 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  _Block_object_dispose(&v15, 8);
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
 }
 
 void __46__EMCoreAnalyticsCollector__logPeriodicEvents__block_invoke(uint64_t a1, void *a2)

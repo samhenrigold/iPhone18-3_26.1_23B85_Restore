@@ -160,12 +160,12 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v8 = @"LastCloudBackupDate";
-      v9 = 2048;
-      v10 = CFGetTypeID(v3);
+      v9 = @"LastCloudBackupDate";
+      v10 = 2048;
+      v11 = CFGetTypeID(v3);
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Invalid type for %@: %ld", buf, 0x16u);
-      CFGetTypeID(v3);
-      _MBLog();
+      v7 = CFGetTypeID(v3);
+      _MBLog(@"E ", "Invalid type for %@: %ld", @"LastCloudBackupDate", v7);
     }
 
     CFRelease(v3);
@@ -191,14 +191,14 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v8 = @"com.apple.purplebuddy";
-      v9 = 2112;
-      v10 = @"SetupState";
-      v11 = 2048;
-      v12 = CFGetTypeID(v3);
+      v9 = @"com.apple.purplebuddy";
+      v10 = 2112;
+      v11 = @"SetupState";
+      v12 = 2048;
+      v13 = CFGetTypeID(v3);
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Invalid type for %@/%@: %ld", buf, 0x20u);
-      CFGetTypeID(v3);
-      _MBLog();
+      v7 = CFGetTypeID(v3);
+      _MBLog(@"E ", "Invalid type for %@/%@: %ld", @"com.apple.purplebuddy", @"SetupState", v7);
     }
 
     CFRelease(v3);
@@ -216,7 +216,7 @@
     *buf = 138412290;
     nameCopy2 = name;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Updating the device name to %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Updating the device name to %@", name);
   }
 
   if (name)
@@ -225,49 +225,41 @@
     if (v5)
     {
       v6 = v5;
-      v11 = 0;
-      v7 = [v5 setObject:name forDomain:0 andKey:kLockdownDeviceNameKey withError:&v11];
+      v12 = 0;
+      v7 = [v5 setObject:name forDomain:0 andKey:kLockdownDeviceNameKey withError:&v12];
       [v6 disconnect];
       v8 = MBGetDefaultLog();
       v9 = v8;
       if (v7)
       {
-        if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          return;
+          *buf = 138412290;
+          nameCopy2 = name;
+          _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Updated the device name to %@", buf, 0xCu);
+          _MBLog(@"Df", "Updated the device name to %@", name);
         }
-
-        *buf = 138412290;
-        nameCopy2 = name;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Updated the device name to %@", buf, 0xCu);
       }
 
-      else
+      else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-        {
-          return;
-        }
-
         *buf = 138412290;
-        nameCopy2 = v11;
+        nameCopy2 = v12;
         _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Failed to update the device name: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to update the device name: %@", v12);
       }
     }
 
     else
     {
       v10 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        return;
+        *buf = 0;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Failed to connect to lockdown to update the device name", buf, 2u);
+        _MBLog(@"E ", "Failed to connect to lockdown to update the device name", v11);
       }
-
-      *buf = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Failed to connect to lockdown to update the device name", buf, 2u);
     }
-
-    _MBLog();
   }
 }
 

@@ -104,7 +104,6 @@ LABEL_8:
 
   if (jsonString)
   {
-    jsonString = self->_jsonString;
     PBDataWriterWriteStringField();
   }
 }

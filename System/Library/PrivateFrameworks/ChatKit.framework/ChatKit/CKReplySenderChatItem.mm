@@ -152,7 +152,7 @@ LABEL_20:
         memset(buf, 0, sizeof(buf));
         if (v23)
         {
-          [v23 geometryDescriptor];
+          objc_msgSend_geometryDescriptor(v23);
           if (*buf == 10)
           {
             [CKChatItemLayoutUtilities transcriptTapbackMinSpacingForSenderChatItem:self withNextChatItem:v14 previousItem:v12 associatedChatItem:v23];

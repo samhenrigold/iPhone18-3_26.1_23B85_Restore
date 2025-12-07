@@ -37,11 +37,7 @@
 {
   if (*__globalGPUCommPage)
   {
-    v3 = *&self->_anon_50[48];
-    v4 = *&self->_res.var0;
-    [*&self->_anon_50[32] registryID];
-    [*&self->_anon_50[32] currentAllocatedSize];
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent(0, 8, 17, *&self->_anon_50[48], *&self->_res.var0 & 0xFFFFFFFFFFFFFFLL, [*&self->_anon_50[32] registryID], objc_msgSend(*&self->_anon_50[32], "currentAllocatedSize"));
   }
 
   if (*&self->_anon_50[64])
@@ -55,9 +51,9 @@
 
   *&self->_anon_50[32] = 0;
   *&self->_anon_50[40] = 0;
-  v5.receiver = self;
-  v5.super_class = IOGPUMetalResource;
-  [(_MTLObjectWithLabel *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = IOGPUMetalResource;
+  [(_MTLObjectWithLabel *)&v3 dealloc];
 }
 
 - (unint64_t)protectionOptions
@@ -111,11 +107,7 @@
 
     if (*__globalGPUCommPage)
     {
-      deviceRef = [(__IOSurface *)p_res[1].info.iosurface deviceRef];
-      v9 = p_res[2].vendor.reserved[0];
-      v10 = p_res[2].vendor.reserved[1];
-      [label cStringUsingEncoding:1];
-      p_res[2].vendor.reserved[1] = IOGPUDeviceTraceObjectLabel(deviceRef, 8, 0, v9, v10);
+      p_res[2].vendor.reserved[1] = IOGPUDeviceTraceObjectLabel(-[__IOSurface deviceRef](p_res[1].info.iosurface, "deviceRef"), 8, 0, p_res[2].vendor.reserved[0], p_res[2].vendor.reserved[1], [label cStringUsingEncoding:1]);
     }
   }
 }
@@ -206,9 +198,9 @@
     [IOGPUMetalResource initWithDevice:options:args:argsSize:];
   }
 
-  v27.receiver = self;
-  v27.super_class = IOGPUMetalResource;
-  v11 = [(_MTLResource *)&v27 init];
+  v25.receiver = self;
+  v25.super_class = IOGPUMetalResource;
+  v11 = [(_MTLResource *)&v25 init];
   if (v11)
   {
     *(v11 + 14) = device;
@@ -327,18 +319,14 @@
 
     if (*__globalGPUCommPage)
     {
-      v24 = *(v11 + 16);
-      v25 = *(v11 + 9);
-      [device registryID];
-      [device currentAllocatedSize];
-      IOGPUDeviceTraceEvent();
+      IOGPUDeviceTraceEvent(0, 8, 14, *(v11 + 16), *(v11 + 9) & 0xFFFFFFFFFFFFFFLL, [device registryID], objc_msgSend(device, "currentAllocatedSize"));
     }
   }
 
   return v11;
 }
 
-_BYTE *__59__IOGPUMetalResource_initWithDevice_options_args_argsSize___block_invoke()
+char *__59__IOGPUMetalResource_initWithDevice_options_args_argsSize___block_invoke()
 {
   if ((dyld_program_sdk_at_least() & 1) == 0)
   {
@@ -404,9 +392,9 @@ _BYTE *__59__IOGPUMetalResource_initWithDevice_options_args_argsSize___block_inv
     [IOGPUMetalResource initWithResource:];
   }
 
-  v13.receiver = self;
-  v13.super_class = IOGPUMetalResource;
-  v5 = [(_MTLResource *)&v13 init];
+  v11.receiver = self;
+  v11.super_class = IOGPUMetalResource;
+  v5 = [(_MTLResource *)&v11 init];
   if (v5)
   {
     *(v5 + 14) = [resource device];
@@ -438,10 +426,7 @@ _BYTE *__59__IOGPUMetalResource_initWithDevice_options_args_argsSize___block_inv
     [*(v5 + 14) _addResource:v5];
     if (*__globalGPUCommPage)
     {
-      v10 = *(v5 + 16);
-      v11 = *(v5 + 9);
-      [objc_msgSend(resource "device")];
-      IOGPUDeviceTraceEvent();
+      IOGPUDeviceTraceEvent(0, 8, 43, *(v5 + 16), *(v5 + 9) & 0xFFFFFFFFFFFFFFLL, [objc_msgSend(resource "device")], resource);
     }
   }
 
@@ -833,7 +818,7 @@ _BYTE *__59__IOGPUMetalResource_initWithDevice_options_args_argsSize___block_inv
       v4 = p_res[2].vendor.reserved[0];
       v5 = *&p_res->var0 & 0xFFFFFFFFFFFFFFLL;
 
-      IOGPUDeviceTraceEvent();
+      IOGPUDeviceTraceEvent(0, 8, 44, v4, v5, 0, 0);
     }
   }
 }

@@ -6,6 +6,7 @@
 - (HMMTRResidentStateManagerDelegate)delegate;
 - (void)handleResidentReachabilityChangeForFabric:(id)fabric;
 - (void)handleResidentStateUpdated;
+- (void)handleUpdateNotificationsEnabled:(BOOL)enabled forFabric:(id)fabric keepAliveOnly:(BOOL)only;
 - (void)setCurrentDevicePrimaryResident:(BOOL)resident;
 - (void)setDataSource:(id)source;
 @end
@@ -22,7 +23,7 @@
 - (void)setCurrentDevicePrimaryResident:(BOOL)resident
 {
   residentCopy = resident;
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   if (self->_currentDevicePrimaryResident != residentCopy)
   {
@@ -32,16 +33,15 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      currentDevicePrimaryResident = self->_currentDevicePrimaryResident;
+      v9 = HMFBooleanToString();
       v10 = HMFBooleanToString();
-      v11 = HMFBooleanToString();
-      v13 = 138543874;
-      v14 = v8;
+      v11 = 138543874;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
       v15 = 2112;
       v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating isCurrentDevicePrimaryResident from %@ to %@", &v13, 0x20u);
+      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating isCurrentDevicePrimaryResident from %@ to %@", &v11, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -49,7 +49,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCurrentDevicePrimaryResident
@@ -60,9 +59,61 @@
   return currentDevicePrimaryResident;
 }
 
+- (void)handleUpdateNotificationsEnabled:(BOOL)enabled forFabric:(id)fabric keepAliveOnly:(BOOL)only
+{
+  onlyCopy = only;
+  enabledCopy = enabled;
+  v29 = *MEMORY[0x277D85DE8];
+  fabricCopy = fabric;
+  fabricID = [fabricCopy fabricID];
+  v10 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v12 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    v13 = HMFGetLogIdentifier();
+    v14 = HMFBooleanToString();
+    v15 = HMFBooleanToString();
+    v21 = 138544130;
+    v22 = v13;
+    v23 = 2112;
+    v24 = v14;
+    v25 = 2112;
+    v26 = fabricID;
+    v27 = 2112;
+    v28 = v15;
+    _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_INFO, "%{public}@Receive update notification enabled:%@ for fabricID:%@ keepAliveOnly:%@", &v21, 0x2Au);
+  }
+
+  objc_autoreleasePoolPop(v10);
+  if (fabricID && ![fabricID isEqualToNumber:&unk_283EE7FC8])
+  {
+    delegate = [(HMMTRResidentStateManager *)selfCopy delegate];
+    [delegate handleUpdateNotificationsEnabled:enabledCopy forFabric:fabricCopy keepAliveOnly:onlyCopy];
+  }
+
+  else
+  {
+    v16 = objc_autoreleasePoolPush();
+    v17 = selfCopy;
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      v19 = HMFGetLogIdentifier();
+      v21 = 138543618;
+      v22 = v19;
+      v23 = 2112;
+      v24 = fabricID;
+      _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, "%{public}@Received %@ as fabricID, ignoring updateNotifications", &v21, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v16);
+  }
+}
+
 - (void)handleResidentReachabilityChangeForFabric:(id)fabric
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fabricCopy = fabric;
   fabricID = [fabricCopy fabricID];
   v6 = objc_autoreleasePoolPush();
@@ -71,11 +122,11 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v9;
-    v18 = 2112;
-    v19 = fabricID;
-    _os_log_impl(&dword_22AEAE000, v8, OS_LOG_TYPE_INFO, "%{public}@Resident state change for fabricID:%@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v9;
+    v17 = 2112;
+    v18 = fabricID;
+    _os_log_impl(&dword_22AEAE000, v8, OS_LOG_TYPE_INFO, "%{public}@Resident state change for fabricID:%@", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -93,43 +144,39 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = fabricID;
-      _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_INFO, "%{public}@Received %@ as fabricID, ignoring ResidentReachabilityChange", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = fabricID;
+      _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_INFO, "%{public}@Received %@ as fabricID, ignoring ResidentReachabilityChange", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResidentStateUpdated
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Handling updated resident state", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Handling updated resident state", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   dataSource = [(HMMTRResidentStateManager *)selfCopy dataSource];
   -[HMMTRResidentStateManager setCurrentDevicePrimaryResident:](selfCopy, "setCurrentDevicePrimaryResident:", [dataSource isCurrentDevicePrimaryResident]);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDataSource:(id)source
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   os_unfair_lock_lock_with_options();
   objc_storeWeak(&self->_dataSource, sourceCopy);
@@ -143,15 +190,14 @@
     v8 = HMFGetLogIdentifier();
     [(HMMTRResidentStateManager *)selfCopy isCurrentDevicePrimaryResident];
     v9 = HMFBooleanToString();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Data source set with isCurrentDevicePrimaryResident: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Data source set with isCurrentDevicePrimaryResident: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTRResidentStateManagerDataSource)dataSource
@@ -190,10 +236,11 @@
 
 uint64_t __40__HMMTRResidentStateManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v12 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12;
+  logCategory__hmf_once_v12 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

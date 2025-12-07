@@ -10,32 +10,32 @@
 - (id)initForReadingWithData:(id)data secure:(BOOL)secure
 {
   secureCopy = secure;
-  v9.receiver = self;
-  v9.super_class = SCNKeyedUnarchiver;
-  v10 = 0;
-  v5 = [(SCNKeyedUnarchiver *)&v9 initForReadingFromData:data error:&v10];
-  v6 = v5;
+  v10.receiver = self;
+  v10.super_class = SCNKeyedUnarchiver;
+  v11 = 0;
+  v5 = [(SCNKeyedUnarchiver *)&v10 initForReadingFromData:data error:&v11];
+  v7 = v5;
   if (v5)
   {
     [v5 setDecodingFailurePolicy:0];
-    [v6 setRequiresSecureCoding:secureCopy];
+    v5 = [v7 setRequiresSecureCoding:secureCopy];
   }
 
-  if (v10)
+  if (v11)
   {
-    v7 = scn_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = scn_default_log(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [SCNKeyedUnarchiver initForReadingWithData:v7 secure:?];
+      [SCNKeyedUnarchiver initForReadingWithData:v8 secure:?];
     }
   }
 
   if (C3DSceneSourceGetSceneCount())
   {
-    [v6 _allowDecodingCyclesInSecureMode];
+    [v7 _allowDecodingCyclesInSecureMode];
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)dealloc

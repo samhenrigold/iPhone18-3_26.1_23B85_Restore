@@ -1,4 +1,4 @@
-uint64_t TPSDialAssistLog()
+uint64_t TPSDialAssistLog(uint64_t a1, uint64_t a2)
 {
   if (qword_84F8 != -1)
   {

@@ -613,29 +613,35 @@ LABEL_5:
 
 - (void)generateModelContainer
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_jsonDescription(self, a2, v2, v3);
   v7 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x1E696ACB0], v6, v5, 1, 0);
   v11 = objc_msgSend_array(MEMORY[0x1E695DF70], v8, v9, v10);
   objc_msgSend_addObject_(v11, v12, v7, v13);
   v20 = objc_msgSend_createDataContainer(self, v14, v15, v16);
-  for (i = 1; objc_msgSend_count(v20, v17, v18, v19) >= i; ++i)
+  for (i = 1; ; ++i)
   {
-    v24 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v22, i, v23);
-    v27 = objc_msgSend_exMRL_dataForKey_(v20, v25, v24, v26);
+    v22 = objc_msgSend_count(v20, v17, v18, v19);
+    if (v22 < i)
+    {
+      break;
+    }
 
-    objc_msgSend_addObject_(v11, v28, v27, v29);
+    v25 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v23, i, v24);
+    v28 = objc_msgSend_exMRL_dataForKey_(v20, v26, v25, v27);
+
+    objc_msgSend_addObject_(v11, v29, v28, v30);
   }
 
-  sub_19D362F00();
-  v39 = off_1EB013710;
-  v40[0] = &unk_1F10C5010;
-  v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, v40, &v39, 1);
-  v32 = off_1EB014870;
-  v36 = objc_msgSend_copy(v11, v33, v34, v35);
-  v37 = v32(2, 7, 1, v31, v36, 0);
+  sub_19D362F00(v22, v23);
+  v40 = off_1EB013710;
+  v41[0] = &unk_1F10C5010;
+  v32 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v31, v41, &v40, 1);
+  v33 = off_1EB014870;
+  v37 = objc_msgSend_copy(v11, v34, v35, v36);
+  v38 = v33(2, 7, 1, v32, v37, 0);
 
-  return v37;
+  return v38;
 }
 
 @end

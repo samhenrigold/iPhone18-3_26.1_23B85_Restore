@@ -113,67 +113,68 @@
 {
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"credentialKind"];
+  v7 = v5;
   if ((v5 - 3) > 0xFFFFFFFFFFFFFFFDLL)
   {
-    v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"challenge"];
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clientDataHash"];
-    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clientDataJSON"];
-    v35.receiver = self;
-    v35.super_class = ASCPublicKeyCredentialAssertionOptions;
-    v11 = [(ASCPublicKeyCredentialAssertionOptions *)&v35 init];
-    self = v11;
-    if (v11)
+    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"challenge"];
+    v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clientDataHash"];
+    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clientDataJSON"];
+    v37.receiver = self;
+    v37.super_class = ASCPublicKeyCredentialAssertionOptions;
+    v13 = [(ASCPublicKeyCredentialAssertionOptions *)&v37 init];
+    self = v13;
+    if (v13)
     {
-      v11->_credentialKind = v5;
-      v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"relyingPartyIdentifier"];
+      v13->_credentialKind = v7;
+      v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"relyingPartyIdentifier"];
       relyingPartyIdentifier = self->_relyingPartyIdentifier;
-      self->_relyingPartyIdentifier = v12;
+      self->_relyingPartyIdentifier = v14;
 
-      objc_storeStrong(&self->_challenge, v8);
-      objc_storeStrong(&self->_clientDataHash, v9);
-      objc_storeStrong(&self->_clientDataJSON, v10);
-      v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userVerificationPreference"];
+      objc_storeStrong(&self->_challenge, v10);
+      objc_storeStrong(&self->_clientDataHash, v11);
+      objc_storeStrong(&self->_clientDataJSON, v12);
+      v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userVerificationPreference"];
       userVerificationPreference = self->_userVerificationPreference;
-      self->_userVerificationPreference = v14;
+      self->_userVerificationPreference = v16;
 
-      v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"timeout"];
+      v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"timeout"];
       timeout = self->_timeout;
-      self->_timeout = v16;
+      self->_timeout = v18;
 
-      v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"extensions"];
-      v19 = v18;
-      if (v18)
+      v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"extensions"];
+      v21 = v20;
+      if (v20)
       {
-        v20 = v18;
+        v22 = v20;
       }
 
       else
       {
-        v20 = objc_alloc_init(_TtC26AuthenticationServicesCore46ASCPublicKeyCredentialAssertionExtensionInputs);
+        v22 = objc_alloc_init(_TtC26AuthenticationServicesCore46ASCPublicKeyCredentialAssertionExtensionInputs);
       }
 
       extensions = self->_extensions;
-      self->_extensions = v20;
+      self->_extensions = v22;
 
-      v22 = MEMORY[0x1E695DFD8];
-      v23 = objc_opt_class();
-      v24 = [v22 setWithObjects:{v23, objc_opt_class(), 0}];
-      v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"allowedCredentials"];
+      v24 = MEMORY[0x1E695DFD8];
+      v25 = objc_opt_class();
+      v26 = [v24 setWithObjects:{v25, objc_opt_class(), 0}];
+      v27 = [coderCopy decodeObjectOfClasses:v26 forKey:@"allowedCredentials"];
       allowedCredentials = self->_allowedCredentials;
-      self->_allowedCredentials = v25;
+      self->_allowedCredentials = v27;
 
-      v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"destinationSiteForCrossSiteAssertion"];
+      v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"destinationSiteForCrossSiteAssertion"];
       destinationSiteForCrossSiteAssertion = self->_destinationSiteForCrossSiteAssertion;
-      self->_destinationSiteForCrossSiteAssertion = v27;
+      self->_destinationSiteForCrossSiteAssertion = v29;
 
       self->_shouldHideHybrid = [coderCopy decodeBoolForKey:@"shouldHideHybrid"];
-      v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"origin"];
+      v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"origin"];
       origin = self->_origin;
-      self->_origin = v29;
+      self->_origin = v31;
 
-      v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appIDForSecurityKeys"];
+      v33 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appIDForSecurityKeys"];
       appIDForSecurityKeys = self->_appIDForSecurityKeys;
-      self->_appIDForSecurityKeys = v31;
+      self->_appIDForSecurityKeys = v33;
 
       selfCopy = self;
     }
@@ -183,10 +184,10 @@
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXAuthorization(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(ASCPublicKeyCredentialAssertionOptions *)v5 initWithCoder:v6];
+      [(ASCPublicKeyCredentialAssertionOptions *)v7 initWithCoder:v8];
     }
 
     selfCopy2 = 0;
@@ -269,54 +270,53 @@
 
 - (void)logRequest
 {
-  v27 = *MEMORY[0x1E69E9840];
-  if ([(NSArray *)self->_allowedCredentials count])
+  v28 = *MEMORY[0x1E69E9840];
+  v3 = [(NSArray *)self->_allowedCredentials count];
+  if (v3)
   {
     v3 = [(NSArray *)self->_allowedCredentials safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_9];
+    v5 = v3;
   }
 
   else
   {
-    v3 = 0;
+    v5 = 0;
   }
 
-  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXAuthorization(v3, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     relyingPartyIdentifier = self->_relyingPartyIdentifier;
     userVerificationPreference = self->_userVerificationPreference;
     allowedCredentials = self->_allowedCredentials;
-    v8 = v4;
-    v9 = [(NSArray *)allowedCredentials count];
-    v10 = [(ASCPublicKeyCredentialAssertionExtensionInputs *)self->_extensions descriptionForLoggingWithIndentationCount:2];
+    v10 = v6;
+    v11 = [(NSArray *)allowedCredentials count];
+    v12 = [(ASCPublicKeyCredentialAssertionExtensionInputs *)self->_extensions descriptionForLoggingWithIndentationCount:2];
     appIDForSecurityKeys = self->_appIDForSecurityKeys;
-    v13 = 141559555;
-    v14 = 1752392040;
-    v15 = 2113;
-    v16 = relyingPartyIdentifier;
-    v17 = 2114;
-    v18 = userVerificationPreference;
-    v19 = 2050;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v3;
-    v23 = 2114;
-    v24 = v10;
-    v25 = 2114;
-    v26 = appIDForSecurityKeys;
-    _os_log_impl(&dword_1C20AD000, v8, OS_LOG_TYPE_INFO, "\tRP: %{private, mask.hash}@\n\tuv: %{public}@\n\tallowedCredentialsCount: %{public}lu\n\ttransports: %{public}@\n\textensions:\n%{public}@\tappID: %{public}@\n", &v13, 0x48u);
+    v14 = 141559555;
+    v15 = 1752392040;
+    v16 = 2113;
+    v17 = relyingPartyIdentifier;
+    v18 = 2114;
+    v19 = userVerificationPreference;
+    v20 = 2050;
+    v21 = v11;
+    v22 = 2114;
+    v23 = v5;
+    v24 = 2114;
+    v25 = v12;
+    v26 = 2114;
+    v27 = appIDForSecurityKeys;
+    _os_log_impl(&dword_1C20AD000, v10, OS_LOG_TYPE_INFO, "\tRP: %{private, mask.hash}@\n\tuv: %{public}@\n\tallowedCredentialsCount: %{public}lu\n\ttransports: %{public}@\n\textensions:\n%{public}@\tappID: %{public}@\n", &v14, 0x48u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C20AD000, a2, OS_LOG_TYPE_ERROR, "Found unexpected value for credential kind: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C20AD000, a2, OS_LOG_TYPE_ERROR, "Found unexpected value for credential kind: %ld", &v2, 0xCu);
 }
 
 @end

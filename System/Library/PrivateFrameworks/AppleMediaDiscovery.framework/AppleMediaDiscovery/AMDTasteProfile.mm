@@ -157,7 +157,6 @@ LABEL_15:
   objc_storeStrong(&v43, 0);
   _Block_object_dispose(&v44, 8);
   objc_storeStrong(&v50, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v54;
 
   return v4;
@@ -451,7 +450,6 @@ void __36__AMDTasteProfile_getEntries_error___block_invoke(void *a1)
   objc_storeStrong(&v33, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v37;
 
   return v7;
@@ -514,7 +512,6 @@ void __36__AMDTasteProfile_getEntries_error___block_invoke(void *a1)
   objc_storeStrong(&v20, 0);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v24;
 
   return v9;
@@ -750,7 +747,6 @@ void __36__AMDTasteProfile_getEntries_error___block_invoke(void *a1)
   objc_storeStrong(&v64, 0);
   objc_storeStrong(&v67, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v15 = v69;
 
   return v15;
@@ -957,7 +953,6 @@ void __36__AMDTasteProfile_getEntries_error___block_invoke(void *a1)
   objc_storeStrong(&v70, 0);
   objc_storeStrong(&v71, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v8 = v73;
 
   return v8;
@@ -965,53 +960,52 @@ void __36__AMDTasteProfile_getEntries_error___block_invoke(void *a1)
 
 void __76__AMDTasteProfile_saveTasteProfileEntriesFromDict_inDomain_forSource_error___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v25 = a1;
+  v26 = *MEMORY[0x277D85DE8];
   v24 = a1;
-  v14 = [MEMORY[0x277CBEAA8] date];
-  [v14 timeIntervalSince1970];
-  v15 = v1;
-  MEMORY[0x277D82BD8](v14);
-  v23 = v15;
+  v23 = a1;
+  v13 = [MEMORY[0x277CBEAA8] date];
+  [v13 timeIntervalSince1970];
+  v14 = v1;
+  MEMORY[0x277D82BD8](v13);
+  v22 = v14;
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](*(a1 + 32));
-  v18 = [obj countByEnumeratingWithState:__b objects:v26 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:__b objects:v25 count:16];
+  if (v17)
   {
-    v11 = *__b[2];
-    v12 = 0;
-    v13 = v18;
+    v10 = *__b[2];
+    v11 = 0;
+    v12 = v17;
     while (1)
     {
-      v10 = v12;
-      if (*__b[2] != v11)
+      v9 = v11;
+      if (*__b[2] != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(__b[1] + 8 * v12);
-      v5 = MEMORY[0x277CBE408];
-      v7 = +[AMDTasteProfile entity];
-      v6 = [v7 name];
-      v2 = *(a1 + 40);
-      v20 = [v5 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+      v21 = *(__b[1] + 8 * v11);
+      v4 = MEMORY[0x277CBE408];
+      v6 = +[AMDTasteProfile entity];
+      v5 = [v6 name];
+      v19 = [v4 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+      MEMORY[0x277D82BD8](v5);
       MEMORY[0x277D82BD8](v6);
-      MEMORY[0x277D82BD8](v7);
-      [v20 setSource:*(a1 + 48)];
-      [v20 setDomain:*(a1 + 72)];
-      [v20 setFeatureName:v22];
-      v8 = v20;
-      v9 = [*(a1 + 32) objectForKey:v22];
-      [v8 setValue:?];
-      MEMORY[0x277D82BD8](v9);
-      [v20 setLastUpdated:v23];
-      objc_storeStrong(&v20, 0);
-      ++v12;
-      if (v10 + 1 >= v13)
+      [v19 setSource:*(a1 + 48)];
+      [v19 setDomain:*(a1 + 72)];
+      [v19 setFeatureName:v21];
+      v7 = v19;
+      v8 = [*(a1 + 32) objectForKey:v21];
+      [v7 setValue:?];
+      MEMORY[0x277D82BD8](v8);
+      [v19 setLastUpdated:v22];
+      objc_storeStrong(&v19, 0);
+      ++v11;
+      if (v9 + 1 >= v12)
       {
-        v12 = 0;
-        v13 = [obj countByEnumeratingWithState:__b objects:v26 count:16];
-        if (!v13)
+        v11 = 0;
+        v12 = [obj countByEnumeratingWithState:__b objects:v25 count:16];
+        if (!v12)
         {
           break;
         }
@@ -1020,12 +1014,11 @@ void __76__AMDTasteProfile_saveTasteProfileEntriesFromDict_inDomain_forSource_er
   }
 
   MEMORY[0x277D82BD8](obj);
-  v3 = *(a1 + 56);
-  v4 = (*(*(a1 + 64) + 8) + 40);
-  v19 = *v4;
-  [v3 save:&v19];
-  objc_storeStrong(v4, v19);
-  *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 56);
+  v3 = (*(*(a1 + 64) + 8) + 40);
+  v18 = *v3;
+  [v2 save:&v18];
+  objc_storeStrong(v3, v18);
 }
 
 + (id)deleteWithPredicates:(id)predicates error:(id *)error
@@ -1154,7 +1147,6 @@ void __46__AMDTasteProfile_deleteWithPredicates_error___block_invoke(uint64_t a1
   v6 = [v4 deleteWithPredicates:? error:?];
   MEMORY[0x277D82BD8](v5);
   objc_storeStrong(v7, 0);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1176,7 +1168,6 @@ void __46__AMDTasteProfile_deleteWithPredicates_error___block_invoke(uint64_t a1
   MEMORY[0x277D82BD8](v9);
   objc_storeStrong(v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1484,7 +1475,6 @@ void __46__AMDTasteProfile_deleteWithPredicates_error___block_invoke(uint64_t a1
   }
 
   objc_storeStrong(&v91, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v95;
 
   return v4;
@@ -1600,7 +1590,6 @@ BOOL __53__AMDTasteProfile_refreshAppInformationTasteProfile___block_invoke(void
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v22;
 
   return v7;
@@ -1678,7 +1667,6 @@ BOOL __53__AMDTasteProfile_refreshAppInformationTasteProfile___block_invoke(void
   }
 
   objc_storeStrong(&v22, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v26;
 
   return v3;
@@ -1762,7 +1750,6 @@ BOOL __53__AMDTasteProfile_refreshAppInformationTasteProfile___block_invoke(void
   }
 
   objc_storeStrong(&v23, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v27;
 
   return v3;
@@ -1901,7 +1888,6 @@ BOOL __53__AMDTasteProfile_refreshAppInformationTasteProfile___block_invoke(void
   objc_storeStrong(&v44, 0);
   objc_storeStrong(&v45, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)refreshCToLMaps
@@ -2103,7 +2089,6 @@ BOOL __53__AMDTasteProfile_refreshAppInformationTasteProfile___block_invoke(void
 
   objc_storeStrong(&v58, 0);
   objc_storeStrong(v59, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

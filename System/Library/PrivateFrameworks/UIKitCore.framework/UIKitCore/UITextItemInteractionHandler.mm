@@ -5,7 +5,7 @@
 
 void *__57___UITextItemInteractionHandler_contextMenuConfiguration__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) menu];
+  v2 = objc_msgSend_menu(*(a1 + 32));
   v3 = v2;
   if (!v2)
   {
@@ -17,7 +17,7 @@ void *__57___UITextItemInteractionHandler_contextMenuConfiguration__block_invoke
   return v3;
 }
 
-id __57___UITextItemInteractionHandler_contextMenuConfiguration__block_invoke_2(uint64_t a1)
+UIViewController *__57___UITextItemInteractionHandler_contextMenuConfiguration__block_invoke_2(uint64_t a1)
 {
   v2 = objc_opt_new();
   [v2 setView:*(a1 + 32)];

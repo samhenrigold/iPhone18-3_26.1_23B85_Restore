@@ -83,36 +83,36 @@
 - (void)setConsumesSystemButtonPressEvents:(BOOL)events reason:(id)reason atMaximumPriority:(int64_t)priority
 {
   eventsCopy = events;
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   v9 = _os_activity_create(&dword_1D2CD5000, "[GCSystemButtonServer/Connection] Set Consumes Press Events", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v18.opaque[0] = 0;
-  v18.opaque[1] = 0;
-  os_activity_scope_enter(v9, &v18);
+  v19.opaque[0] = 0;
+  v19.opaque[1] = 0;
+  os_activity_scope_enter(v9, &v19);
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
   v11 = [currentConnection valueForEntitlement:@"com.apple.springboard.hardware-button-service.event-consumption"];
   bOOLValue = [v11 BOOLValue];
 
   if (bOOLValue)
   {
-    [(_GCSystemButtonClientProxy *)self willChangeValueForKey:@"wantsPressEvents"];
+    v14 = [(_GCSystemButtonClientProxy *)self willChangeValueForKey:@"wantsPressEvents"];
     if (reasonCopy && eventsCopy && (priority & 0x8000000000000000) == 0)
     {
-      v13 = _gc_log_system_button();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = _gc_log_system_button(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
         selfCopy = self;
-        v21 = 2112;
-        v22 = reasonCopy;
-        v23 = 2048;
+        v22 = 2112;
+        v23 = reasonCopy;
+        v24 = 2048;
         priorityCopy = priority;
-        _os_log_impl(&dword_1D2CD5000, v13, OS_LOG_TYPE_DEFAULT, "%@ wants presses for reason '%@' [%zi].", buf, 0x20u);
+        _os_log_impl(&dword_1D2CD5000, v15, OS_LOG_TYPE_DEFAULT, "%@ wants presses for reason '%@' [%zi].", buf, 0x20u);
       }
 
-      v14 = reasonCopy;
+      v16 = reasonCopy;
       wantsPressEventsReason = self->_wantsPressEventsReason;
-      self->_wantsPressEventsReason = v14;
+      self->_wantsPressEventsReason = v16;
     }
 
     else
@@ -128,16 +128,14 @@
 
   else
   {
-    v16 = _gc_log_system_button();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = _gc_log_system_button(v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [_GCSystemButtonClientProxy setConsumesSystemButtonPressEvents:v16 reason:? atMaximumPriority:?];
+      [_GCSystemButtonClientProxy setConsumesSystemButtonPressEvents:v18 reason:? atMaximumPriority:?];
     }
   }
 
-  os_activity_scope_leave(&v18);
-
-  v17 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v19);
 }
 
 - (int64_t)compareTo:(id)to

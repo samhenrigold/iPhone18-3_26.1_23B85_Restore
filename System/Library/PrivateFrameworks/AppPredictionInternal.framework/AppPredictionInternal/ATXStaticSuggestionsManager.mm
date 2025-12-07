@@ -9,15 +9,15 @@
 
 + (id)preservePreviousAppPositionsForPreviousSuggestions:(id)suggestions newSuggestions:(id)newSuggestions uiLimit:(unint64_t)limit
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   newSuggestionsCopy = newSuggestions;
   if ([ATXStaticSuggestionsManager suggestionsAreAllAppExecutableTypeAndHaveValidHash:suggestionsCopy]&& [ATXStaticSuggestionsManager suggestionsAreAllAppExecutableTypeAndHaveValidHash:newSuggestionsCopy])
   {
-    v31 = suggestionsCopy;
-    v33 = [ATXStaticSuggestionsManager executableObjectHashToPositionMappingForSuggestions:suggestionsCopy];
+    v30 = suggestionsCopy;
+    v32 = [ATXStaticSuggestionsManager executableObjectHashToPositionMappingForSuggestions:suggestionsCopy];
     v9 = [newSuggestionsCopy mutableCopy];
-    v32 = objc_opt_new();
+    v31 = objc_opt_new();
     v10 = objc_opt_new();
     v11 = [newSuggestionsCopy count];
     if (v11 >= limit)
@@ -39,7 +39,7 @@
         executableSpecification = [v14 executableSpecification];
         v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(executableSpecification, "executableObjectHash")}];
 
-        v18 = [v33 objectForKeyedSubscript:v17];
+        v18 = [v32 objectForKeyedSubscript:v17];
         if (+[ATXStaticSuggestionsManager isValidPreviousPosition:uiLimit:newSuggestionsCount:](ATXStaticSuggestionsManager, "isValidPreviousPosition:uiLimit:newSuggestionsCount:", v18, limit, [newSuggestionsCopy count]))
         {
           [v9 setObject:v14 atIndexedSubscript:{objc_msgSend(v18, "unsignedIntegerValue")}];
@@ -48,7 +48,7 @@
 
         else
         {
-          [v32 addObject:v14];
+          [v31 addObject:v14];
         }
 
         v19 = [newSuggestionsCopy count];
@@ -64,27 +64,27 @@
       }
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v21 = v32;
-    v22 = [v21 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v21 = v31;
+    v22 = [v21 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v22)
     {
       v23 = v22;
       v24 = 0;
-      v25 = *v35;
+      v25 = *v34;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v35 != v25)
+          if (*v34 != v25)
           {
             objc_enumerationMutation(v21);
           }
 
-          v27 = *(*(&v34 + 1) + 8 * j);
+          v27 = *(*(&v33 + 1) + 8 * j);
           if (v24 < [v9 count])
           {
             v28 = v24;
@@ -104,13 +104,13 @@ LABEL_26:
           ;
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v23);
     }
 
-    suggestionsCopy = v31;
+    suggestionsCopy = v30;
   }
 
   else
@@ -118,34 +118,32 @@ LABEL_26:
     v9 = newSuggestionsCopy;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (BOOL)suggestionsAreAllAppExecutableTypeAndHaveValidHash:(id)hash
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   hashCopy = hash;
-  v4 = [hashCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [hashCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(hashCopy);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         executableSpecification = [v8 executableSpecification];
         executableType = [executableSpecification executableType];
 
@@ -164,7 +162,7 @@ LABEL_26:
         goto LABEL_13;
       }
 
-      v5 = [hashCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [hashCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       v13 = 1;
       if (v5)
       {
@@ -182,7 +180,6 @@ LABEL_26:
 
 LABEL_13:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

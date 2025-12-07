@@ -9,6 +9,8 @@
 - (void)appendToArrayProperty:(id)property values:(id)values forEndpointWithUUID:(id)d withReply:(id)reply;
 - (void)authStatusForConnectionWithUUID:(id)d authType:(int)type withReply:(id)reply;
 - (void)connectionUUIDForEndpointWithUUID:(id)d withReply:(id)reply;
+- (void)createConnectionWithType:(int)type andIdentifier:(id)identifier withReply:(id)reply;
+- (void)createEndpointWithTransportType:(int)type andProtocol:(int)protocol andIdentifier:(id)identifier forConnectionWithUUID:(id)d withReply:(id)reply;
 - (void)destroyConnectionWithUUID:(id)d withReply:(id)reply;
 - (void)destroyEndpointWithUUID:(id)d withReply:(id)reply;
 - (void)enableSecureTunnelDataReceiveHandlerForEndpoint:(id)endpoint;
@@ -96,6 +98,75 @@
   {
     *v5 = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "launchServer called!", v5, 2u);
+  }
+}
+
+- (void)createConnectionWithType:(int)type andIdentifier:(id)identifier withReply:(id)reply
+{
+  v6 = *&type;
+  identifierCopy = identifier;
+  replyCopy = reply;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = __77__ACCTransportServerRemote_createConnectionWithType_andIdentifier_withReply___block_invoke;
+  v18[3] = &unk_1002272B8;
+  v18[4] = self;
+  v10 = acc_manager_newConnection(v6, identifierCopy, v18);
+  acc_connection_setProperty();
+  if (!v10)
+  {
+    goto LABEL_5;
+  }
+
+  if (!*v10)
+  {
+    v10 = 0;
+LABEL_5:
+    v13 = 0;
+    goto LABEL_6;
+  }
+
+  v10 = *v10;
+  clientInfo = [(ACCTransportServerRemote *)self clientInfo];
+  connectionUUIDs = [clientInfo connectionUUIDs];
+  [connectionUUIDs addObject:v10];
+
+  v13 = 1;
+LABEL_6:
+  if (gLogObjects && gNumLogObjects >= 3)
+  {
+    v14 = *(gLogObjects + 16);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v14 = &_os_log_default;
+    v15 = &_os_log_default;
+  }
+
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  {
+    clientInfo2 = [(ACCTransportServerRemote *)self clientInfo];
+    connectionUUIDs2 = [clientInfo2 connectionUUIDs];
+    *buf = 67109890;
+    v20 = v6;
+    v21 = 2112;
+    v22 = identifierCopy;
+    v23 = 2112;
+    v24 = v10;
+    v25 = 2112;
+    v26 = connectionUUIDs2;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "createConnectionWithType: %{coreacc:ACCConnection_Type_t}d andIdentifier: %@ withReply: , connectionUUID = %@, connectionUUIDs = %@", buf, 0x26u);
+  }
+
+  if (replyCopy)
+  {
+    replyCopy[2](replyCopy, v13, v10);
   }
 }
 
@@ -265,7 +336,7 @@ uint64_t __74__ACCTransportServerRemote_setProperties_forConnectionWithUUID_with
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __74__ACCTransportServerRemote_setProperties_forConnectionWithUUID_withReply___block_invoke_cold_2(a1);
+    __74__ACCTransportServerRemote_setProperties_forConnectionWithUUID_withReply___block_invoke_cold_2();
   }
 
   *(*(*(a1 + 48) + 8) + 24) = acc_connection_setProperties(a2, *(a1 + 40));
@@ -366,36 +437,37 @@ uint64_t __89__ACCTransportServerRemote_appendToArrayProperty_values_forConnecti
 {
   if (gLogObjects)
   {
-    v4 = gNumLogObjects < 3;
+    v3 = gNumLogObjects < 3;
   }
 
   else
   {
-    v4 = 1;
+    v3 = 1;
   }
 
-  if (v4)
+  if (v3)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v6 = &_os_log_default;
     v5 = &_os_log_default;
+    v4 = &_os_log_default;
   }
 
   else
   {
-    v6 = *(gLogObjects + 16);
+    v5 = *(gLogObjects + 16);
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __89__ACCTransportServerRemote_appendToArrayProperty_values_forConnectionWithUUID_withReply___block_invoke_cold_2(a1);
+    __89__ACCTransportServerRemote_appendToArrayProperty_values_forConnectionWithUUID_withReply___block_invoke_cold_2();
   }
 
-  *(*(a1[7] + 8) + 24) = acc_connection_appendToArrayProperty(a2, a1[5], a1[6]);
+  acc_connection_appendToArrayProperty();
+  *(*(a1[7] + 8) + 24) = v6;
   return 1;
 }
 
@@ -493,36 +565,37 @@ uint64_t __91__ACCTransportServerRemote_addToDictionaryProperty_values_forConnec
 {
   if (gLogObjects)
   {
-    v4 = gNumLogObjects < 3;
+    v3 = gNumLogObjects < 3;
   }
 
   else
   {
-    v4 = 1;
+    v3 = 1;
   }
 
-  if (v4)
+  if (v3)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v6 = &_os_log_default;
     v5 = &_os_log_default;
+    v4 = &_os_log_default;
   }
 
   else
   {
-    v6 = *(gLogObjects + 16);
+    v5 = *(gLogObjects + 16);
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __91__ACCTransportServerRemote_addToDictionaryProperty_values_forConnectionWithUUID_withReply___block_invoke_cold_2(a1);
+    __91__ACCTransportServerRemote_addToDictionaryProperty_values_forConnectionWithUUID_withReply___block_invoke_cold_2();
   }
 
-  *(*(a1[7] + 8) + 24) = acc_connection_addToDictionaryProperty(a2, a1[5], a1[6]);
+  acc_connection_addToDictionaryProperty();
+  *(*(a1[7] + 8) + 24) = v6;
   return 1;
 }
 
@@ -657,37 +730,108 @@ uint64_t __75__ACCTransportServerRemote_removeProperty_forConnectionWithUUID_wit
 {
   if (gLogObjects)
   {
-    v4 = gNumLogObjects < 3;
+    v3 = gNumLogObjects < 3;
   }
 
   else
   {
-    v4 = 1;
+    v3 = 1;
   }
 
-  if (v4)
+  if (v3)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v6 = &_os_log_default;
     v5 = &_os_log_default;
+    v4 = &_os_log_default;
   }
 
   else
   {
-    v6 = *(gLogObjects + 16);
+    v5 = *(gLogObjects + 16);
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __75__ACCTransportServerRemote_removeProperty_forConnectionWithUUID_withReply___block_invoke_cold_2(a1);
+    __75__ACCTransportServerRemote_removeProperty_forConnectionWithUUID_withReply___block_invoke_cold_2();
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = acc_connection_removeProperty(a2, *(a1 + 40));
+  acc_connection_removeProperty();
+  *(*(*(a1 + 48) + 8) + 24) = v6;
   return 1;
+}
+
+- (void)createEndpointWithTransportType:(int)type andProtocol:(int)protocol andIdentifier:(id)identifier forConnectionWithUUID:(id)d withReply:(id)reply
+{
+  v9 = *&protocol;
+  v10 = *&type;
+  identifierCopy = identifier;
+  dCopy = d;
+  replyCopy = reply;
+  v15 = acc_manager_newEndpointForConnectionWithUUID(dCopy, v10, v9, identifierCopy);
+  v16 = v15;
+  if (v15)
+  {
+    v17 = *(v15 + 16);
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  if (gLogObjects)
+  {
+    v18 = gNumLogObjects < 3;
+  }
+
+  else
+  {
+    v18 = 1;
+  }
+
+  if (v18)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v20 = &_os_log_default;
+    v19 = &_os_log_default;
+  }
+
+  else
+  {
+    v20 = *(gLogObjects + 16);
+  }
+
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  {
+    clientInfo = [(ACCTransportServerRemote *)self clientInfo];
+    connectionUUIDs = [clientInfo connectionUUIDs];
+    v23[0] = 67110402;
+    v23[1] = v10;
+    v24 = 1024;
+    v25 = v9;
+    v26 = 2112;
+    v27 = identifierCopy;
+    v28 = 2112;
+    v29 = dCopy;
+    v30 = 2112;
+    v31 = v17;
+    v32 = 2112;
+    v33 = connectionUUIDs;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "createEndpointWithTransportType:  %{coreacc:ACCEndpoint_TransportType_t}d andProtocol: %{coreacc:ACCEndpoint_Protocol_t}d andIdentifier: %@ forConnectionWithUUID: %@ withReply: , endpointUUID = %@, connectionUUIDs = %@", v23, 0x36u);
+  }
+
+  if (replyCopy)
+  {
+    replyCopy[2](replyCopy, v16 != 0, v17);
+  }
 }
 
 - (void)setAccessoryInfo:(id)info forEndpointWithUUID:(id)d withReply:(id)reply
@@ -752,7 +896,6 @@ uint64_t __75__ACCTransportServerRemote_setAccessoryInfo_forEndpointWithUUID_wit
 
   if (v7)
   {
-    v8 = *(a1 + 40);
     *(*(*(a1 + 48) + 8) + 24) = acc_endpoint_setAccessoryInfoOverridesWithDictionary(a2);
   }
 
@@ -760,7 +903,7 @@ uint64_t __75__ACCTransportServerRemote_setAccessoryInfo_forEndpointWithUUID_wit
   {
     if (gLogObjects && gNumLogObjects >= 3)
     {
-      v9 = *(gLogObjects + 16);
+      v8 = *(gLogObjects + 16);
     }
 
     else
@@ -770,15 +913,15 @@ uint64_t __75__ACCTransportServerRemote_setAccessoryInfo_forEndpointWithUUID_wit
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
+      v8 = &_os_log_default;
       v9 = &_os_log_default;
-      v10 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412290;
-      v13 = v4;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Attempt to modify accessoryInfo on connection not created by client, ignore! connectionUUID %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v4;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Attempt to modify accessoryInfo on connection not created by client, ignore! connectionUUID %@", &v11, 0xCu);
     }
   }
 
@@ -838,90 +981,6 @@ uint64_t __75__ACCTransportServerRemote_setAccessoryInfo_forEndpointWithUUID_wit
   }
 
   _Block_object_dispose(&v19, 8);
-}
-
-uint64_t __72__ACCTransportServerRemote_setProperties_forEndpointWithUUID_withReply___block_invoke(uint64_t a1, id **a2)
-{
-  if (*a2)
-  {
-    v4 = **a2;
-    v5 = [*(a1 + 32) clientInfo];
-    v6 = [v5 connectionUUIDs];
-    v7 = [v6 containsObject:v4];
-
-    if (v7)
-    {
-      *(*(*(a1 + 56) + 8) + 24) = acc_endpoint_setProperties(a2, *(a1 + 40));
-    }
-
-    else
-    {
-      if (gLogObjects && gNumLogObjects >= 3)
-      {
-        v10 = *(gLogObjects + 16);
-      }
-
-      else
-      {
-        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-        {
-          platform_connectionInfo_configStreamGetCategories_cold_2();
-        }
-
-        v10 = &_os_log_default;
-        v12 = &_os_log_default;
-      }
-
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-      {
-        v13 = *(a1 + 48);
-        v15 = 138412546;
-        v16 = v13;
-        v17 = 2112;
-        v18 = v4;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Attempt to modify properties on endpoint of connection not created by client, ignore! endpointUUID %@, connectionUUID %@", &v15, 0x16u);
-      }
-    }
-  }
-
-  else
-  {
-    if (gLogObjects)
-    {
-      v8 = gNumLogObjects < 3;
-    }
-
-    else
-    {
-      v8 = 1;
-    }
-
-    if (v8)
-    {
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        platform_connectionInfo_configStreamGetCategories_cold_2();
-      }
-
-      v4 = &_os_log_default;
-      v9 = &_os_log_default;
-    }
-
-    else
-    {
-      v4 = *(gLogObjects + 16);
-    }
-
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-    {
-      v11 = *(a1 + 48);
-      v15 = 138412290;
-      v16 = v11;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Attempt to modify properties on endpoint of connection but cannot get connection for endpointUUID %@", &v15, 0xCu);
-    }
-  }
-
-  return 1;
 }
 
 - (void)appendToArrayProperty:(id)property values:(id)values forEndpointWithUUID:(id)d withReply:(id)reply
@@ -986,14 +1045,15 @@ uint64_t __87__ACCTransportServerRemote_appendToArrayProperty_values_forEndpoint
 {
   if (*a2)
   {
-    v4 = **a2;
-    v5 = [*(a1 + 32) clientInfo];
-    v6 = [v5 connectionUUIDs];
-    v7 = [v6 containsObject:v4];
+    v3 = **a2;
+    v4 = [*(a1 + 32) clientInfo];
+    v5 = [v4 connectionUUIDs];
+    v6 = [v5 containsObject:v3];
 
-    if (v7)
+    if (v6)
     {
-      *(*(*(a1 + 64) + 8) + 24) = acc_endpoint_appendToArrayProperty(a2, *(a1 + 40), *(a1 + 48));
+      acc_endpoint_appendToArrayProperty();
+      *(*(*(a1 + 64) + 8) + 24) = v7;
     }
 
     else
@@ -1020,7 +1080,7 @@ uint64_t __87__ACCTransportServerRemote_appendToArrayProperty_values_forEndpoint
         v15 = 138412546;
         v16 = v13;
         v17 = 2112;
-        v18 = v4;
+        v18 = v3;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Attempt to modify properties on endpoint of connection not created by client, ignore! endpointUUID %@, connectionUUID %@", &v15, 0x16u);
       }
     }
@@ -1045,21 +1105,21 @@ uint64_t __87__ACCTransportServerRemote_appendToArrayProperty_values_forEndpoint
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v4 = &_os_log_default;
+      v3 = &_os_log_default;
       v9 = &_os_log_default;
     }
 
     else
     {
-      v4 = *(gLogObjects + 16);
+      v3 = *(gLogObjects + 16);
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v11 = *(a1 + 56);
       v15 = 138412290;
       v16 = v11;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Attempt to modify properties on endpoint of connection but cannot get connection for endpointUUID %@", &v15, 0xCu);
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Attempt to modify properties on endpoint of connection but cannot get connection for endpointUUID %@", &v15, 0xCu);
     }
   }
 
@@ -1128,14 +1188,15 @@ uint64_t __89__ACCTransportServerRemote_addToDictionaryProperty_values_forEndpoi
 {
   if (*a2)
   {
-    v4 = **a2;
-    v5 = [*(a1 + 32) clientInfo];
-    v6 = [v5 connectionUUIDs];
-    v7 = [v6 containsObject:v4];
+    v3 = **a2;
+    v4 = [*(a1 + 32) clientInfo];
+    v5 = [v4 connectionUUIDs];
+    v6 = [v5 containsObject:v3];
 
-    if (v7)
+    if (v6)
     {
-      *(*(*(a1 + 64) + 8) + 24) = acc_endpoint_addToDictionaryProperty(a2, *(a1 + 40), *(a1 + 48));
+      acc_endpoint_addToDictionaryProperty();
+      *(*(*(a1 + 64) + 8) + 24) = v7;
     }
 
     else
@@ -1162,7 +1223,7 @@ uint64_t __89__ACCTransportServerRemote_addToDictionaryProperty_values_forEndpoi
         v15 = 138412546;
         v16 = v13;
         v17 = 2112;
-        v18 = v4;
+        v18 = v3;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Attempt to modify properties on endpoint of connection not created by client, ignore! endpointUUID %@, connectionUUID %@", &v15, 0x16u);
       }
     }
@@ -1187,21 +1248,21 @@ uint64_t __89__ACCTransportServerRemote_addToDictionaryProperty_values_forEndpoi
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v4 = &_os_log_default;
+      v3 = &_os_log_default;
       v9 = &_os_log_default;
     }
 
     else
     {
-      v4 = *(gLogObjects + 16);
+      v3 = *(gLogObjects + 16);
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v11 = *(a1 + 56);
       v15 = 138412290;
       v16 = v11;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Attempt to modify properties on endpoint of connection but cannot get connection for endpointUUID %@", &v15, 0xCu);
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Attempt to modify properties on endpoint of connection but cannot get connection for endpointUUID %@", &v15, 0xCu);
     }
   }
 
@@ -1261,53 +1322,6 @@ uint64_t __89__ACCTransportServerRemote_addToDictionaryProperty_values_forEndpoi
   }
 
   _Block_object_dispose(&v19, 8);
-}
-
-uint64_t __73__ACCTransportServerRemote_removeProperty_forEndpointWithUUID_withReply___block_invoke(uint64_t a1, uint64_t a2)
-{
-  if (*(a2 + 8) && ([*(a1 + 32) clientInfo], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "connectionUUIDs"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "containsObject:", *(a2 + 8)), v5, v4, v6))
-  {
-    *(*(*(a1 + 56) + 8) + 24) = acc_endpoint_removeProperty(a2, *(a1 + 40));
-  }
-
-  else
-  {
-    if (gLogObjects)
-    {
-      v7 = gNumLogObjects < 3;
-    }
-
-    else
-    {
-      v7 = 1;
-    }
-
-    if (v7)
-    {
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        platform_connectionInfo_configStreamGetCategories_cold_2();
-      }
-
-      v9 = &_os_log_default;
-      v8 = &_os_log_default;
-    }
-
-    else
-    {
-      v9 = *(gLogObjects + 16);
-    }
-
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-    {
-      v10 = *(a1 + 48);
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Attempt to modify properties on endpoint not created by client, ignore! endpointUUID %@", &v12, 0xCu);
-    }
-  }
-
-  return 1;
 }
 
 - (void)publishConnectionWithUUID:(id)d withReply:(id)reply
@@ -1524,7 +1538,7 @@ uint64_t __79__ACCTransportServerRemote_authStatusForConnectionWithUUID_authType
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __79__ACCTransportServerRemote_authStatusForConnectionWithUUID_authType_withReply___block_invoke_cold_2(a1);
+    __79__ACCTransportServerRemote_authStatusForConnectionWithUUID_authType_withReply___block_invoke_cold_2();
   }
 
   *(*(*(a1 + 40) + 8) + 24) = acc_connection_getAuthStatus(a2, *(a1 + 48));
@@ -1612,7 +1626,7 @@ uint64_t __71__ACCTransportServerRemote_isConnectionAuthenticatedForUUID_withRep
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __71__ACCTransportServerRemote_isConnectionAuthenticatedForUUID_withReply___block_invoke_cold_2(a1);
+    __71__ACCTransportServerRemote_isConnectionAuthenticatedForUUID_withReply___block_invoke_cold_2();
   }
 
   *(*(*(a1 + 40) + 8) + 24) = acc_connection_isAuthenticated(a2, 6u);
@@ -1907,7 +1921,7 @@ uint64_t __73__ACCTransportServerRemote_accessoryInfoForConnectionWithUUID_withR
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __73__ACCTransportServerRemote_accessoryInfoForConnectionWithUUID_withReply___block_invoke_cold_2(a1);
+    __73__ACCTransportServerRemote_accessoryInfoForConnectionWithUUID_withReply___block_invoke_cold_2();
   }
 
   if (a2)
@@ -2066,7 +2080,7 @@ uint64_t __70__ACCTransportServerRemote_propertiesForConnectionWithUUID_withRepl
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __70__ACCTransportServerRemote_propertiesForConnectionWithUUID_withReply___block_invoke_cold_2(a1);
+    __70__ACCTransportServerRemote_propertiesForConnectionWithUUID_withReply___block_invoke_cold_2();
   }
 
   v7 = acc_connection_copyProperties(a2);
@@ -2160,7 +2174,7 @@ uint64_t __68__ACCTransportServerRemote_propertiesForEndpointWithUUID_withReply_
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __68__ACCTransportServerRemote_propertiesForEndpointWithUUID_withReply___block_invoke_cold_2(a1);
+    __68__ACCTransportServerRemote_propertiesForEndpointWithUUID_withReply___block_invoke_cold_2();
   }
 
   v7 = acc_endpoint_copyProperties(a2);
@@ -2254,7 +2268,7 @@ uint64_t __70__ACCTransportServerRemote_identifierForConnectionWithUUID_withRepl
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __70__ACCTransportServerRemote_identifierForConnectionWithUUID_withReply___block_invoke_cold_2(a1);
+    __70__ACCTransportServerRemote_identifierForConnectionWithUUID_withReply___block_invoke_cold_2();
   }
 
   v7 = acc_connection_copyIdentifier(a2);
@@ -2348,7 +2362,7 @@ uint64_t __68__ACCTransportServerRemote_identifierForEndpointWithUUID_withReply_
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __68__ACCTransportServerRemote_identifierForEndpointWithUUID_withReply___block_invoke_cold_2(a1);
+    __68__ACCTransportServerRemote_identifierForEndpointWithUUID_withReply___block_invoke_cold_2();
   }
 
   v7 = acc_endpoint_copyIdentifier(a2);
@@ -2604,13 +2618,13 @@ BOOL __76__ACCTransportServerRemote_enableSecureTunnelDataReceiveHandlerForEndpo
 {
   if (a2->var1)
   {
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = __76__ACCTransportServerRemote_enableSecureTunnelDataReceiveHandlerForEndpoint___block_invoke_2;
-    v6[3] = &__block_descriptor_40_e35_v24__0____CFString__8____CFData__16l;
-    v6[4] = a2;
-    v4 = objc_retainBlock(v6);
-    acc_endpoint_setEndpointSecureTunnelDataReceiveTypeHandler(a2, 1, v4);
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = __76__ACCTransportServerRemote_enableSecureTunnelDataReceiveHandlerForEndpoint___block_invoke_2;
+    v5[3] = &__block_descriptor_40_e35_v24__0____CFString__8____CFData__16l;
+    v5[4] = a2;
+    v3 = objc_retainBlock(v5);
+    acc_endpoint_setEndpointSecureTunnelDataReceiveTypeHandler();
   }
 
   return 1;
@@ -2657,92 +2671,92 @@ void __76__ACCTransportServerRemote_enableSecureTunnelDataReceiveHandlerForEndpo
   [v9 receivedSecureTunnelData:a3 forEndpointWithUUID:a2 connectionUUID:*(*(a1 + 32) + 8)];
 }
 
-void __74__ACCTransportServerRemote_setProperties_forConnectionWithUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __74__ACCTransportServerRemote_setProperties_forConnectionWithUUID_withReply___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_7_21(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_7_21(__stack_chk_guard);
   OUTLINED_FUNCTION_11_5();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __89__ACCTransportServerRemote_appendToArrayProperty_values_forConnectionWithUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __89__ACCTransportServerRemote_appendToArrayProperty_values_forConnectionWithUUID_withReply___block_invoke_cold_2()
 {
-  v1 = *(OUTLINED_FUNCTION_7_21(a1, __stack_chk_guard) + 48);
+  OUTLINED_FUNCTION_7_21(__stack_chk_guard);
   OUTLINED_FUNCTION_5_31();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void __91__ACCTransportServerRemote_addToDictionaryProperty_values_forConnectionWithUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __91__ACCTransportServerRemote_addToDictionaryProperty_values_forConnectionWithUUID_withReply___block_invoke_cold_2()
 {
-  v1 = *(OUTLINED_FUNCTION_7_21(a1, __stack_chk_guard) + 48);
+  OUTLINED_FUNCTION_7_21(__stack_chk_guard);
   OUTLINED_FUNCTION_5_31();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void __75__ACCTransportServerRemote_removeProperty_forConnectionWithUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __75__ACCTransportServerRemote_removeProperty_forConnectionWithUUID_withReply___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_7_21(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_7_21(__stack_chk_guard);
   OUTLINED_FUNCTION_11_5();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __79__ACCTransportServerRemote_authStatusForConnectionWithUUID_authType_withReply___block_invoke_cold_2(uint64_t a1)
+void __79__ACCTransportServerRemote_authStatusForConnectionWithUUID_authType_withReply___block_invoke_cold_2()
 {
-  v1 = *(OUTLINED_FUNCTION_6_28(a1, __stack_chk_guard) + 48);
+  OUTLINED_FUNCTION_6_28(__stack_chk_guard);
   OUTLINED_FUNCTION_11_5();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void __71__ACCTransportServerRemote_isConnectionAuthenticatedForUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __71__ACCTransportServerRemote_isConnectionAuthenticatedForUUID_withReply___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_6_28(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_6_28(__stack_chk_guard);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __73__ACCTransportServerRemote_accessoryInfoForConnectionWithUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __73__ACCTransportServerRemote_accessoryInfoForConnectionWithUUID_withReply___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_6_28(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_6_28(__stack_chk_guard);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __70__ACCTransportServerRemote_propertiesForConnectionWithUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __70__ACCTransportServerRemote_propertiesForConnectionWithUUID_withReply___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_6_28(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_6_28(__stack_chk_guard);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __68__ACCTransportServerRemote_propertiesForEndpointWithUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __68__ACCTransportServerRemote_propertiesForEndpointWithUUID_withReply___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_6_28(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_6_28(__stack_chk_guard);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __70__ACCTransportServerRemote_identifierForConnectionWithUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __70__ACCTransportServerRemote_identifierForConnectionWithUUID_withReply___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_6_28(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_6_28(__stack_chk_guard);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __68__ACCTransportServerRemote_identifierForEndpointWithUUID_withReply___block_invoke_cold_2(uint64_t a1)
+void __68__ACCTransportServerRemote_identifierForEndpointWithUUID_withReply___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_6_28(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_6_28(__stack_chk_guard);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)enableSecureTunnelDataReceiveHandlerForEndpoint:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)

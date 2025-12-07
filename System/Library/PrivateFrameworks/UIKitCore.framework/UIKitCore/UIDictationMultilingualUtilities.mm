@@ -59,7 +59,7 @@
       v10 = 0;
     }
 
-    if ([v10 isEqualToString:v7])
+    if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = v5;
     }

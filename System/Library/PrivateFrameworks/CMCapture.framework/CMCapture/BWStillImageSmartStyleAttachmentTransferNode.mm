@@ -1,6 +1,6 @@
 @interface BWStillImageSmartStyleAttachmentTransferNode
 - (BWStillImageSmartStyleAttachmentTransferNode)initWithNodeConfiguration:(id)configuration;
-- (uint64_t)_transferAttachmentsToStyledBuffer;
+- (CMAttachmentBearerRef)_transferAttachmentsToStyledBuffer;
 - (void)_resetProcessingState;
 - (void)dealloc;
 - (void)handleNodeError:(id)error forInput:(id)input;
@@ -189,81 +189,81 @@ LABEL_13:
   }
 }
 
-- (uint64_t)_transferAttachmentsToStyledBuffer
+- (CMAttachmentBearerRef)_transferAttachmentsToStyledBuffer
 {
   if (result)
   {
     v1 = result;
-    v2 = CMGetAttachment(*(result + 168), @"Inferences", 0);
+    v2 = CMGetAttachment(result[21], @"Inferences", 0);
+    v72 = 0u;
     v73 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
-    v3 = [v2 countByEnumeratingWithState:&v73 objects:v72 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v72 objects:v71 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v74;
+      v5 = *v73;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v74 != v5)
+          if (*v73 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v73 + 1) + 8 * i);
-          if (![*(v1 + 136) objectForKeyedSubscript:v7])
+          v7 = *(*(&v72 + 1) + 8 * i);
+          if (![v1[17] objectForKeyedSubscript:v7])
           {
-            [*(v1 + 136) setObject:objc_msgSend(v2 forKeyedSubscript:{"objectForKeyedSubscript:", v7), v7}];
+            [v1[17] setObject:objc_msgSend(v2 forKeyedSubscript:{"objectForKeyedSubscript:", v7), v7}];
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v73 objects:v72 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v72 objects:v71 count:16];
       }
 
       while (v4);
     }
 
-    OUTLINED_FUNCTION_0_98([*(v1 + 136) copy]);
+    OUTLINED_FUNCTION_0_98([v1[17] copy]);
 
-    v8 = CMGetAttachment(*(v1 + 168), @"AttachedMedia", 0);
+    v8 = CMGetAttachment(v1[21], @"AttachedMedia", 0);
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v68 objects:v67 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v67 objects:v66 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v69;
+      v11 = *v68;
       do
       {
         for (j = 0; j != v10; ++j)
         {
-          if (*v69 != v11)
+          if (*v68 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v68 + 1) + 8 * j);
-          if (![*(v1 + 144) objectForKeyedSubscript:v13])
+          v13 = *(*(&v67 + 1) + 8 * j);
+          if (![v1[18] objectForKeyedSubscript:v13])
           {
-            [*(v1 + 144) setObject:objc_msgSend(v8 forKeyedSubscript:{"objectForKeyedSubscript:", v13), v13}];
+            [v1[18] setObject:objc_msgSend(v8 forKeyedSubscript:{"objectForKeyedSubscript:", v13), v13}];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v68 objects:v67 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v67 objects:v66 count:16];
       }
 
       while (v10);
     }
 
-    OUTLINED_FUNCTION_0_98([*(v1 + 144) copy]);
+    OUTLINED_FUNCTION_0_98([v1[18] copy]);
 
-    v14 = *(v1 + 152);
-    result = OUTLINED_FUNCTION_1_3(v15, v16, v17, v18, v19, v20, v21, v22, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, 0);
+    v14 = v1[19];
+    result = OUTLINED_FUNCTION_1_3(v15, v16, v17, v18, v19, v20, v21, v22, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64);
     if (result)
     {
       v23 = result;
@@ -278,12 +278,12 @@ LABEL_13:
             objc_enumerationMutation(v14);
           }
 
-          CMSetAttachment(*(v1 + 168), *(8 * v25), [*(v1 + 152) objectForKeyedSubscript:*(8 * v25)], 1u);
-          ++v25;
+          CMSetAttachment(v1[21], *(8 * v25), [v1[19] objectForKeyedSubscript:*(8 * v25)], 1u);
+          v25 = (v25 + 1);
         }
 
         while (v23 != v25);
-        result = OUTLINED_FUNCTION_1_3(v26, v27, v28, v29, v30, v31, v32, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v66);
+        result = OUTLINED_FUNCTION_1_3(v26, v27, v28, v29, v30, v31, v32, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65);
         v23 = result;
       }
 

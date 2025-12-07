@@ -61,8 +61,8 @@ void __29__MRPowerLogger_sharedLogger__block_invoke()
 
 uint64_t __35__MRPowerLogger_logEvent_withInfo___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v16 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
@@ -73,31 +73,29 @@ uint64_t __35__MRPowerLogger_logEvent_withInfo___block_invoke(uint64_t a1)
 
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v6 = getPLLogRegisteredEventSymbolLoc_ptr;
-  v12 = getPLLogRegisteredEventSymbolLoc_ptr;
+  v11 = getPLLogRegisteredEventSymbolLoc_ptr;
   if (!getPLLogRegisteredEventSymbolLoc_ptr)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v14 = __getPLLogRegisteredEventSymbolLoc_block_invoke;
-    v15 = &unk_1E769ADA8;
-    v16 = &v9;
+    v13 = __getPLLogRegisteredEventSymbolLoc_block_invoke;
+    v14 = &unk_1E769ADA8;
+    v15 = &v8;
     __getPLLogRegisteredEventSymbolLoc_block_invoke(&buf);
-    v6 = v10[3];
+    v6 = v9[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v6)
   {
     __35__MRPowerLogger_logEvent_withInfo___block_invoke_cold_1();
   }
 
-  result = v6(118, v4, v5, 0);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6(118, v4, v5, 0);
 }
 
 void __35__MRPowerLogger_logEvent_withInfo___block_invoke_cold_1()

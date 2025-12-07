@@ -118,7 +118,7 @@
       v22 = layer;
       if (layer)
       {
-        [layer transform];
+        objc_msgSend_transform(layer);
       }
 
       else
@@ -131,7 +131,7 @@
       v24 = layer2;
       if (layer2)
       {
-        [layer2 sublayerTransform];
+        objc_msgSend_sublayerTransform(layer2);
       }
 
       else

@@ -38,7 +38,7 @@
 
 - (void)_axApplyTrailingImageView:(id)view
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   viewCopy = view;
   NSClassFromString(&cfstr_Searchuicardse_2.isa);
   if (objc_opt_isKindOfClass())
@@ -80,18 +80,16 @@
       v13 = [(SearchUIRowCardSectionViewAccessibility *)self safeValueForKey:@"contentView"];
       v14 = [(SearchUIRowCardSectionViewAccessibility *)self safeValueForKey:@"contentView"];
       v15 = [v14 safeUIViewForKey:@"trailingImageView"];
-      v17 = 138412546;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v15;
-      _os_log_impl(&dword_29C2F6000, v12, OS_LOG_TYPE_DEFAULT, "TRAILER: %@ %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v15;
+      _os_log_impl(&dword_29C2F6000, v12, OS_LOG_TYPE_DEFAULT, "TRAILER: %@ %@", &v16, 0x16u);
     }
 
     [v11 setIsAccessibilityElement:v11 != 0];
     [v11 setAccessibilityIdentifier:bundleIdentifier];
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 - (void)updateWithRowModel:(id)model

@@ -38,15 +38,15 @@ uint64_t __59___UIPrototypingMenuSlider__setKnobViewProminent_animated___block_i
   return [*(a1 + 32) setTransform:&v5];
 }
 
-uint64_t __59___UIPrototypingMenuSlider__setKnobViewProminent_animated___block_invoke_2(uint64_t result)
+id *__59___UIPrototypingMenuSlider__setKnobViewProminent_animated___block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
     v2 = result;
-    v3 = [*(result + 32) knobPortal];
+    v3 = [result[4] knobPortal];
     [v3 removeFromSuperview];
 
-    v4 = *(v2 + 32);
+    v4 = v2[4];
 
     return [v4 setKnobPortal:0];
   }

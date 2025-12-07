@@ -10,7 +10,7 @@ void ____MPCCreateDelegateAccountPlaybackRequestEnvironment_block_invoke_232(uin
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-uint64_t ____MPCCreateDelegateAccountPlaybackRequestEnvironment_block_invoke(uint64_t a1, void *a2, int a3)
+void *____MPCCreateDelegateAccountPlaybackRequestEnvironment_block_invoke(uint64_t a1, void *a2, int a3)
 {
   if (a3)
   {

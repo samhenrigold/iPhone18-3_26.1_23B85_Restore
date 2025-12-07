@@ -76,7 +76,6 @@
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  originalCommandEncoder = self->_originalCommandEncoder;
   if (objc_opt_respondsToSelector())
   {
     return self->_originalCommandEncoder;
@@ -90,15 +89,14 @@
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  originalCommandEncoder = self->_originalCommandEncoder;
   if (objc_opt_respondsToSelector())
   {
     return 1;
   }
 
-  v7.receiver = self;
-  v7.super_class = MPSBenchmarkLoopComputeCommandEncoder;
-  return [(MPSBenchmarkLoopComputeCommandEncoder *)&v7 respondsToSelector:selector];
+  v6.receiver = self;
+  v6.super_class = MPSBenchmarkLoopComputeCommandEncoder;
+  return [(MPSBenchmarkLoopComputeCommandEncoder *)&v6 respondsToSelector:selector];
 }
 
 - (void)dealloc

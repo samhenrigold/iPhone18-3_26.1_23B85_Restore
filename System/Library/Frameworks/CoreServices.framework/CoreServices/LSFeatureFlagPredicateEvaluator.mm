@@ -1,9 +1,26 @@
 @interface LSFeatureFlagPredicateEvaluator
 + (id)defaultEvaluator;
 - (LSFeatureFlagPredicateEvaluator)initWithResolver:(id)resolver;
+- (id)evaluateBundle:(unsigned int)bundle bundleData:(const LSBundleData *)data database:(id)database error:(id *)error;
 @end
 
 @implementation LSFeatureFlagPredicateEvaluator
+
+- (id)evaluateBundle:(unsigned int)bundle bundleData:(const LSBundleData *)data database:(id)database error:(id *)error
+{
+  v7 = [LSFeatureFlagPredicate featureFlagPredicateForBundle:*&bundle bundleData:data database:database error:error];
+  if (v7)
+  {
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:{-[LSFeatureFlagPredicateEvaluator evaluatePredicate:](self, "evaluatePredicate:", v7)}];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
 
 - (LSFeatureFlagPredicateEvaluator)initWithResolver:(id)resolver
 {

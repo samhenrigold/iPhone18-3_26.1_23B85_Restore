@@ -79,7 +79,7 @@
       v146 = 0u;
       if (input)
       {
-        [input imageInfo];
+        objc_msgSend_imageInfo(input);
       }
 
       width = [input width];
@@ -148,7 +148,7 @@
         v25 = width * -0.5;
         v26 = height * -0.5;
         HGGLNode::hglTranslatef(v24, v25, v26, 0.0);
-        [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+        objc_msgSend_getPixelTransformForImage_(self);
         v27 = (height * 0.5);
         *v28.i32 = v141;
         v29 = v16 * width2;
@@ -352,7 +352,7 @@
         HGGLNode::hglEnd(v24);
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
           v137 = *&v151[0];
           if (*&v151[0])
           {
@@ -366,7 +366,7 @@
           v137 = 0;
         }
 
-        [(PAESharedDefaultBase *)self smear:&v137 fromImage:input toImage:input];
+        objc_msgSend_smear_fromImage_toImage_(self);
         v111 = v150[0];
         if (*&v151[0] == v150[0])
         {
@@ -416,7 +416,7 @@
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         else

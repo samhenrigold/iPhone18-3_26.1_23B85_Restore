@@ -47,7 +47,7 @@
   }
 
 LABEL_4:
-  [dataSource firstItemIndexPath];
+  objc_msgSend_firstItemIndexPath(dataSource);
 LABEL_5:
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;

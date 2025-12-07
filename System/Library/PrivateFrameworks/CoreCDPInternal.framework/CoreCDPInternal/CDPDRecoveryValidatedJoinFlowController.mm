@@ -45,7 +45,9 @@
 - (void)_showAccountResetConfirmationWithCompletion:(id)completion;
 - (void)_showEntryLimitError:(id)error withRecoveryOptionHandlers:(id)handlers defaultIndex:(int64_t)index completion:(id)completion;
 - (void)_showQuotaScreenWithCompletion:(id)completion;
+- (void)beginInteractiveRecoveryForDevices:(id)devices isUsingMultipleICSC:(BOOL)c usingValidator:(id)validator;
 - (void)cancelRemoteSecretValidatorApplicationToJoinCircle:(id)circle;
+- (void)recoveryValidatorWithDevices:(id)devices forMultipleICSC:(BOOL)c validationHandler:(id)handler completion:(id)completion;
 - (void)remoteSecretValidator:(id)validator applyToJoinCircleWithJoinHandler:(id)handler;
 - (void)remoteSecretValidator:(id)validator attemptCircleJoinWithPiggybackingContext:(id)context completion:(id)completion;
 - (void)remoteSecretValidator:(id)validator attemptCustodianRecoveryWithInfo:(id)info completion:(id)completion;
@@ -56,6 +58,34 @@
 @end
 
 @implementation CDPDRecoveryValidatedJoinFlowController
+
+- (void)recoveryValidatorWithDevices:(id)devices forMultipleICSC:(BOOL)c validationHandler:(id)handler completion:(id)completion
+{
+  cCopy = c;
+  devicesCopy = devices;
+  handlerCopy = handler;
+  completionCopy = completion;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = __Block_byref_object_copy__0;
+  v21[4] = __Block_byref_object_dispose__0;
+  selfCopy = self;
+  v22 = selfCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __117__CDPDRecoveryValidatedJoinFlowController_recoveryValidatorWithDevices_forMultipleICSC_validationHandler_completion___block_invoke;
+  v16[3] = &unk_278E246E0;
+  v19 = v21;
+  v20 = cCopy;
+  v14 = handlerCopy;
+  v17 = v14;
+  v15 = completionCopy;
+  v18 = v15;
+  [(CDPDRecoveryValidatedJoinFlowController *)selfCopy _escapeOfferForDevices:devicesCopy remoteApproval:0 forMultipleICSC:cCopy completion:v16];
+
+  _Block_object_dispose(v21, 8);
+}
 
 void __117__CDPDRecoveryValidatedJoinFlowController_recoveryValidatorWithDevices_forMultipleICSC_validationHandler_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
@@ -131,7 +161,7 @@ uint64_t __57__CDPDRecoveryValidatedJoinFlowController__isSingleICSC___block_inv
 
 - (void)shouldOfferPiggybackingBasedRecovery:(id)recovery
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   recoveryCopy = recovery;
   if ([MEMORY[0x277CFD560] isInternalBuild] && CFPreferencesGetAppBooleanValue(@"offerPiggybackingForCDPRepair", @"com.apple.corecdp", 0))
   {
@@ -165,30 +195,29 @@ uint64_t __57__CDPDRecoveryValidatedJoinFlowController__isSingleICSC___block_inv
       recoveryContext2 = [(CDPDRecoveryFlowController *)self recoveryContext];
       context2 = [recoveryContext2 context];
       *buf = 67109632;
-      v23 = isCDPRepairWithProximityBasedPiggybackingEnabled;
-      v24 = 2048;
+      v22 = isCDPRepairWithProximityBasedPiggybackingEnabled;
+      v23 = 2048;
       type = [context2 type];
-      v26 = 1024;
-      v27 = v12;
+      v25 = 1024;
+      v26 = v12;
       _os_log_debug_impl(&dword_24510B000, v14, OS_LOG_TYPE_DEBUG, "piggybackingBasedCDPRecoveryFeatureEnabled = %d CDPRepairContext = %ld piggybackingApprovalEligible = %d", buf, 0x18u);
     }
 
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __80__CDPDRecoveryValidatedJoinFlowController_shouldOfferPiggybackingBasedRecovery___block_invoke;
-    v18[3] = &unk_278E24730;
-    v18[4] = self;
-    v19 = recoveryCopy;
-    v20 = isCDPRepairWithProximityBasedPiggybackingEnabled;
-    v21 = v12;
-    [(CDPDRecoveryValidatedJoinFlowController *)self _isSingleICSC:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __80__CDPDRecoveryValidatedJoinFlowController_shouldOfferPiggybackingBasedRecovery___block_invoke;
+    v17[3] = &unk_278E24730;
+    v17[4] = self;
+    v18 = recoveryCopy;
+    v19 = isCDPRepairWithProximityBasedPiggybackingEnabled;
+    v20 = v12;
+    [(CDPDRecoveryValidatedJoinFlowController *)self _isSingleICSC:v17];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __80__CDPDRecoveryValidatedJoinFlowController_shouldOfferPiggybackingBasedRecovery___block_invoke(uint64_t a1, int a2)
+uint64_t __80__CDPDRecoveryValidatedJoinFlowController_shouldOfferPiggybackingBasedRecovery___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = _CDPLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
@@ -205,7 +234,7 @@ uint64_t __80__CDPDRecoveryValidatedJoinFlowController_shouldOfferPiggybackingBa
   {
     if (*(a1 + 48) & v8)
     {
-      v10 = (a2 ^ 1) & *(a1 + 49);
+      v10 = (v2 ^ 1) & *(a1 + 49);
     }
 
     else
@@ -360,6 +389,52 @@ uint64_t __108__CDPDRecoveryValidatedJoinFlowController__escapeOfferForDevices_r
   return result;
 }
 
+- (void)beginInteractiveRecoveryForDevices:(id)devices isUsingMultipleICSC:(BOOL)c usingValidator:(id)validator
+{
+  cCopy = c;
+  devicesCopy = devices;
+  validatorCopy = validator;
+  supportedEscapeOfferMask = [validatorCopy supportedEscapeOfferMask];
+  if ((supportedEscapeOfferMask & 0x20) != 0)
+  {
+    _recoveryMethodAvailable = 1;
+  }
+
+  else
+  {
+    recoveryContext = [(CDPDRecoveryFlowController *)self recoveryContext];
+    context = [recoveryContext context];
+    _recoveryMethodAvailable = [context _recoveryMethodAvailable];
+  }
+
+  objc_storeStrong(&self->_cdpDevices, devices);
+  v15 = [devicesCopy count];
+  if (supportedEscapeOfferMask & 0xC0) != 0 || v15 || (_recoveryMethodAvailable)
+  {
+    v18.receiver = self;
+    v18.super_class = CDPDRecoveryValidatedJoinFlowController;
+    [(CDPDRecoveryFlowController *)&v18 beginInteractiveRecoveryForDevices:devicesCopy isUsingMultipleICSC:cCopy usingValidator:validatorCopy];
+  }
+
+  else if ((supportedEscapeOfferMask & 8) != 0)
+  {
+    v17 = _CDPLogSystem();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEFAULT, "User attempted to sign in after burning out all recovery options, present hard limits", buf, 2u);
+    }
+
+    [(CDPDRecoveryValidatedJoinFlowController *)self _handleNoRecoveryFactorsWithMask:supportedEscapeOfferMask validator:validatorCopy];
+  }
+
+  else
+  {
+    v16 = _CDPStateError();
+    [validatorCopy cancelValidationWithError:v16];
+  }
+}
+
 - (void)remoteSecretValidator:(id)validator applyToJoinCircleWithJoinHandler:(id)handler
 {
   handlerCopy = handler;
@@ -456,32 +531,30 @@ void __117__CDPDRecoveryValidatedJoinFlowController_remoteSecretValidator_attemp
 
 - (void)secretValidator:(id)validator recoverSecureBackupWithContext:(id)context completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v9 = _CDPLogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = contextCopy;
+    v15 = contextCopy;
     _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "Attempting to recover a record with context: %@", buf, 0xCu);
   }
 
   secureBackupController = [(CDPDRecoveryFlowController *)self secureBackupController];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecureBackupWithContext_completion___block_invoke;
-  v13[3] = &unk_278E247D0;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecureBackupWithContext_completion___block_invoke;
+  v12[3] = &unk_278E247D0;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [secureBackupController performEscrowRecoveryWithRecoveryContext:contextCopy completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [secureBackupController performEscrowRecoveryWithRecoveryContext:contextCopy completion:v12];
 }
 
 void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecureBackupWithContext_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 recoveredClique];
@@ -493,9 +566,9 @@ void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecur
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v5 recoveredClique];
-      v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "Recovered a clique: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "Recovered a clique: %@", &v12, 0xCu);
     }
 
     v11 = *(*(a1 + 32) + 16);
@@ -512,13 +585,11 @@ void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecur
   }
 
   v11();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)secretValidator:(id)validator didFailRecovery:(id)recovery withError:(id)error completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   validatorCopy = validator;
   recoveryCopy = recovery;
   errorCopy = error;
@@ -545,15 +616,13 @@ void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecur
     v16 = _CDPLogSystem();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v18[0] = 67109120;
-      v18[1] = v15;
-      _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "Non-terminating error detected, with retry option: %{BOOL}d", v18, 8u);
+      v17[0] = 67109120;
+      v17[1] = v15;
+      _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "Non-terminating error detected, with retry option: %{BOOL}d", v17, 8u);
     }
 
     (v14)[2](v14, v15, errorCopy);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleHardLimitErrorForCurrentContextWithDevice:(id)device completion:(id)completion
@@ -586,12 +655,12 @@ void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecur
 
 - (void)_handleLimit:(unint64_t)limit forDevice:(id)device completion:(id)completion
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   completionCopy = completion;
-  v67 = deviceCopy;
-  v71 = [(CDPDRecoveryValidatedJoinFlowController *)self _userInfoForLimit:limit withDevice:deviceCopy];
-  v70 = [MEMORY[0x277CBEC10] mutableCopy];
+  v66 = deviceCopy;
+  v70 = [(CDPDRecoveryValidatedJoinFlowController *)self _userInfoForLimit:limit withDevice:deviceCopy];
+  v69 = [MEMORY[0x277CBEC10] mutableCopy];
   v10 = MEMORY[0x277CE44D8];
   recoveryContext = [(CDPDRecoveryFlowController *)self recoveryContext];
   context = [recoveryContext context];
@@ -604,33 +673,33 @@ void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecur
   v14 = [v10 analyticsEventWithContext:context eventName:*v13 category:*MEMORY[0x277CFD930]];
 
   v15 = [(CDPDRecoveryValidatedJoinFlowController *)self _fallbackRecoveryOptionsForLimitType:limit withCompletion:completionCopy];
-  v72 = [(CDPDRecoveryValidatedJoinFlowController *)self _cancelRecoveryOptionWithCompletion:completionCopy];
-  v68 = completionCopy;
+  v71 = [(CDPDRecoveryValidatedJoinFlowController *)self _cancelRecoveryOptionWithCompletion:completionCopy];
+  v67 = completionCopy;
   v16 = [(CDPDRecoveryValidatedJoinFlowController *)self _tryAgainLaterOptionWithCompletion:completionCopy];
-  v69 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v66 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v68 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v65 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v72 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
   v84 = 0u;
-  v85 = 0u;
   v18 = v15;
-  v19 = [v18 countByEnumeratingWithState:&v82 objects:v87 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v81 objects:v86 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v83;
+    v21 = *v82;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v83 != v21)
+        if (*v82 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v82 + 1) + 8 * i);
+        v23 = *(*(&v81 + 1) + 8 * i);
         if (v23)
         {
           telemetryRecoveryOption = [v23 telemetryRecoveryOption];
@@ -638,20 +707,20 @@ void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecur
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v82 objects:v87 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v81 objects:v86 count:16];
     }
 
     while (v20);
   }
 
-  if (v72)
+  if (v71)
   {
-    [v69 addObject:v72];
+    [v68 addObject:v71];
   }
 
   if (v16)
   {
-    [v73 addObject:v16];
+    [v72 addObject:v16];
   }
 
   validator = [(CDPDRecoveryFlowController *)self validator];
@@ -659,8 +728,8 @@ void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecur
 
   if ((supportedEscapeOfferMask & 0x82) != 0)
   {
-    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v18];
-    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v73];
+    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v18];
+    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v72];
     v27 = v16;
     if (!v16)
     {
@@ -672,18 +741,18 @@ void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecur
 
   if ((supportedEscapeOfferMask & 0x60) != 0)
   {
-    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v18];
+    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v18];
     if ([MEMORY[0x277CFD560] isICSCHarmonizationEnabled])
     {
-      v28 = v73;
+      v28 = v72;
     }
 
     else
     {
-      v28 = v69;
+      v28 = v68;
     }
 
-    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v28];
+    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v28];
     isICSCHarmonizationEnabled = [MEMORY[0x277CFD560] isICSCHarmonizationEnabled];
     if (v16 && isICSCHarmonizationEnabled)
     {
@@ -692,12 +761,12 @@ void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecur
 
     else
     {
-      if (!v72)
+      if (!v71)
       {
         goto LABEL_62;
       }
 
-      v27 = v72;
+      v27 = v71;
     }
 
 LABEL_32:
@@ -713,13 +782,13 @@ LABEL_33:
   {
     if (!isICSCHarmonizationEnabled2)
     {
-      v36 = [(CDPDRecoveryValidatedJoinFlowController *)self _skipSignInRecoveryOptionWithCompletion:v68];
+      v36 = [(CDPDRecoveryValidatedJoinFlowController *)self _skipSignInRecoveryOptionWithCompletion:v67];
       telemetryRecoveryOption2 = v36;
       if (v36)
       {
-        v86 = v36;
-        v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
-        [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v37];
+        v85 = v36;
+        v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
+        [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v37];
       }
 
       v31TelemetryRecoveryOption = [telemetryRecoveryOption2 telemetryRecoveryOption];
@@ -728,7 +797,7 @@ LABEL_33:
       goto LABEL_33;
     }
 
-    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v73];
+    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v72];
     if (!v16)
     {
       goto LABEL_62;
@@ -740,42 +809,42 @@ LABEL_33:
 
   if (!isICSCHarmonizationEnabled2)
   {
-    v74[0] = MEMORY[0x277D85DD0];
-    v74[1] = 3221225472;
-    v74[2] = __77__CDPDRecoveryValidatedJoinFlowController__handleLimit_forDevice_completion___block_invoke_2;
-    v74[3] = &unk_278E247F8;
-    v76 = v68;
-    limitCopy = limit;
-    v74[4] = self;
+    v73[0] = MEMORY[0x277D85DD0];
+    v73[1] = 3221225472;
+    v73[2] = __77__CDPDRecoveryValidatedJoinFlowController__handleLimit_forDevice_completion___block_invoke_2;
+    v73[3] = &unk_278E247F8;
     v75 = v67;
-    v39 = [(CDPDRecoveryValidatedJoinFlowController *)self _accountResetRecoveryOptionWithCompletion:v74];
+    limitCopy = limit;
+    v73[4] = self;
+    v74 = v66;
+    v39 = [(CDPDRecoveryValidatedJoinFlowController *)self _accountResetRecoveryOptionWithCompletion:v73];
     if (v39)
     {
-      [v66 addObject:v39];
+      [v65 addObject:v39];
       if (limit == 2)
       {
         if (![v18 count])
         {
           selfCopy2 = self;
-          v42 = v70;
-          v41 = v71;
-          v43 = v66;
+          v42 = v69;
+          v41 = v70;
+          v43 = v65;
 LABEL_52:
           [(CDPDRecoveryValidatedJoinFlowController *)selfCopy2 _populateUserInfo:v41 recoveryIndexHandlers:v42 withRecoveryOptions:v43];
 LABEL_55:
           telemetryRecoveryOption3 = [v39 telemetryRecoveryOption];
           [v17 addObject:telemetryRecoveryOption3];
 
-          telemetryRecoveryOption2 = v76;
+          telemetryRecoveryOption2 = v75;
           goto LABEL_33;
         }
 
 LABEL_51:
-        [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v18];
+        [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v18];
         selfCopy2 = self;
-        v41 = v71;
-        v42 = v70;
-        v43 = v69;
+        v41 = v70;
+        v42 = v69;
+        v43 = v68;
         goto LABEL_52;
       }
     }
@@ -785,7 +854,7 @@ LABEL_51:
       goto LABEL_51;
     }
 
-    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v73];
+    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v72];
     if (v16)
     {
       telemetryRecoveryOption4 = [v16 telemetryRecoveryOption];
@@ -804,36 +873,36 @@ LABEL_51:
 
     if (!v32)
     {
-      v78[0] = MEMORY[0x277D85DD0];
-      v78[1] = 3221225472;
-      v78[2] = __77__CDPDRecoveryValidatedJoinFlowController__handleLimit_forDevice_completion___block_invoke;
-      v78[3] = &unk_278E247F8;
-      v78[4] = self;
-      v80 = v68;
-      v81 = 2;
+      v77[0] = MEMORY[0x277D85DD0];
+      v77[1] = 3221225472;
+      v77[2] = __77__CDPDRecoveryValidatedJoinFlowController__handleLimit_forDevice_completion___block_invoke;
+      v77[3] = &unk_278E247F8;
+      v77[4] = self;
       v79 = v67;
-      v47 = [(CDPDRecoveryValidatedJoinFlowController *)self _accountResetRecoveryOptionWithCompletion:v78];
+      v80 = 2;
+      v78 = v66;
+      v47 = [(CDPDRecoveryValidatedJoinFlowController *)self _accountResetRecoveryOptionWithCompletion:v77];
       if (v47)
       {
-        [v66 addObject:v47];
+        [v65 addObject:v47];
       }
 
-      [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v66];
+      [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v65];
       telemetryRecoveryOption5 = [v47 telemetryRecoveryOption];
       [v17 addObject:telemetryRecoveryOption5];
 
-      [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v69];
-      if (v72)
+      [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v68];
+      if (v71)
       {
-        telemetryRecoveryOption6 = [v72 telemetryRecoveryOption];
+        telemetryRecoveryOption6 = [v71 telemetryRecoveryOption];
         [v17 addObject:telemetryRecoveryOption6];
       }
 
-      telemetryRecoveryOption7 = v80;
+      telemetryRecoveryOption7 = v79;
       goto LABEL_61;
     }
 
-    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v73];
+    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v72];
     if (v16)
     {
       telemetryRecoveryOption7 = [v16 telemetryRecoveryOption];
@@ -844,7 +913,7 @@ LABEL_61:
 
   else if (limit == 1)
   {
-    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v71 recoveryIndexHandlers:v70 withRecoveryOptions:v73];
+    [(CDPDRecoveryValidatedJoinFlowController *)self _populateUserInfo:v70 recoveryIndexHandlers:v69 withRecoveryOptions:v72];
     if (v16)
     {
       telemetryRecoveryOption8 = [v16 telemetryRecoveryOption];
@@ -878,8 +947,7 @@ LABEL_62:
   rtcAnalyticsReporter = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
   [rtcAnalyticsReporter sendEvent:v14];
 
-  [(CDPDRecoveryValidatedJoinFlowController *)self _showEntryLimitError:v50 withRecoveryOptionHandlers:v70 defaultIndex:0 completion:v68];
-  v65 = *MEMORY[0x277D85DE8];
+  [(CDPDRecoveryValidatedJoinFlowController *)self _showEntryLimitError:v50 withRecoveryOptionHandlers:v69 defaultIndex:0 completion:v67];
 }
 
 void __77__CDPDRecoveryValidatedJoinFlowController__handleLimit_forDevice_completion___block_invoke(void *a1, int a2)
@@ -924,30 +992,30 @@ void __77__CDPDRecoveryValidatedJoinFlowController__handleLimit_forDevice_comple
 
 - (void)_populateUserInfo:(id)info recoveryIndexHandlers:(id)handlers withRecoveryOptions:(id)options
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   handlersCopy = handlers;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = options;
-  v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v25;
+    v11 = *v24;
     v12 = *MEMORY[0x277CCA480];
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
+        v14 = *(*(&v23 + 1) + 8 * i);
         if (v14)
         {
           v15 = [infoCopy objectForKeyedSubscript:v12];
@@ -974,13 +1042,11 @@ void __77__CDPDRecoveryValidatedJoinFlowController__handleLimit_forDevice_comple
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v10);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_userInfoForLimit:(unint64_t)limit withDevice:(id)device
@@ -1575,7 +1641,7 @@ void __87__CDPDRecoveryValidatedJoinFlowController__recoveryMethodRecoveryOption
 
 - (void)_showEntryLimitError:(id)error withRecoveryOptionHandlers:(id)handlers defaultIndex:(int64_t)index completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   handlersCopy = handlers;
   completionCopy = completion;
@@ -1584,9 +1650,9 @@ void __87__CDPDRecoveryValidatedJoinFlowController__recoveryMethodRecoveryOption
   {
     uiProvider = [(CDPDRecoveryFlowController *)self uiProvider];
     *buf = 138412546;
-    v25 = uiProvider;
-    v26 = 2112;
-    v27 = errorCopy;
+    v24 = uiProvider;
+    v25 = 2112;
+    v26 = errorCopy;
     _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Attempting to preset alert (using: %@) for error: %@", buf, 0x16u);
   }
 
@@ -1597,34 +1663,32 @@ void __87__CDPDRecoveryValidatedJoinFlowController__recoveryMethodRecoveryOption
     uiProvider3 = [(CDPDRecoveryFlowController *)self uiProvider];
     recoveryContext = [(CDPDRecoveryFlowController *)self recoveryContext];
     context = [recoveryContext context];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __115__CDPDRecoveryValidatedJoinFlowController__showEntryLimitError_withRecoveryOptionHandlers_defaultIndex_completion___block_invoke;
-    v20[3] = &unk_278E248E8;
-    v21 = handlersCopy;
-    v23 = completionCopy;
-    v22 = errorCopy;
-    [uiProvider3 cdpContext:context showError:v22 withDefaultIndex:index withCompletion:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __115__CDPDRecoveryValidatedJoinFlowController__showEntryLimitError_withRecoveryOptionHandlers_defaultIndex_completion___block_invoke;
+    v19[3] = &unk_278E248E8;
+    v20 = handlersCopy;
+    v22 = completionCopy;
+    v21 = errorCopy;
+    [uiProvider3 cdpContext:context showError:v21 withDefaultIndex:index withCompletion:v19];
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0, errorCopy);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __115__CDPDRecoveryValidatedJoinFlowController__showEntryLimitError_withRecoveryOptionHandlers_defaultIndex_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = _CDPLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-    v13 = 138412290;
-    v14 = v5;
-    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "User responded to presented alert with option: %@", &v13, 0xCu);
+    v11 = 138412290;
+    v12 = v5;
+    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "User responded to presented alert with option: %@", &v11, 0xCu);
   }
 
   v6 = a1[4];
@@ -1638,13 +1702,10 @@ void __115__CDPDRecoveryValidatedJoinFlowController__showEntryLimitError_withRec
 
   else
   {
-    v9 = a1[5];
-    v10 = a1[6];
-    v11 = _CDPStateErrorWithUnderlying();
-    (*(v10 + 16))(v10, 0, v11);
+    v9 = a1[6];
+    v10 = _CDPStateErrorWithUnderlying();
+    (*(v9 + 16))(v9, 0, v10);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_hardLimitErrorBodyWithDevice:(id)device
@@ -2251,14 +2312,14 @@ LABEL_10:
 
 uint64_t __87__CDPDRecoveryValidatedJoinFlowController__showAccountResetConfirmationWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = _CDPLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "Reset confirmation prompt came back with: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "Reset confirmation prompt came back with: %@", &v10, 0xCu);
   }
 
   v6 = *(a1 + 32);
@@ -2266,14 +2327,12 @@ uint64_t __87__CDPDRecoveryValidatedJoinFlowController__showAccountResetConfirma
   v8 = [v6 objectForKeyedSubscript:v7];
   [v8 BOOLValue];
 
-  result = (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (id)_resetDataErrorForCurrentContextWithRecoveryIndexMap:(id)map
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   mapCopy = map;
   _isWalrusEnabled = [(CDPDRecoveryValidatedJoinFlowController *)self _isWalrusEnabled];
   v6 = [MEMORY[0x277CBEC10] mutableCopy];
@@ -2289,11 +2348,11 @@ uint64_t __87__CDPDRecoveryValidatedJoinFlowController__showAccountResetConfirma
 
     v11 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_STORAGE_LIST_UNAVAILABLE_CONFIRMATION_DELETE_BUTTON_TITLE"];
     localizedString3 = [v11 localizedString];
-    v33[0] = localizedString3;
+    v32[0] = localizedString3;
     v13 = [MEMORY[0x277CFD508] builderForKey:@"GENERIC_CANCEL_BUTTON"];
     localizedString4 = [v13 localizedString];
-    v33[1] = localizedString4;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[1] = localizedString4;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
     [v6 setObject:v15 forKeyedSubscript:*MEMORY[0x277CCA480]];
 
     [mapCopy setObject:MEMORY[0x277CBEC38] forKeyedSubscript:&unk_2858221B0];
@@ -2304,7 +2363,7 @@ uint64_t __87__CDPDRecoveryValidatedJoinFlowController__showAccountResetConfirma
     }
 
     *buf = 138412290;
-    v32 = mapCopy;
+    v31 = mapCopy;
     v17 = "Showing RPD error alert for Walrus user. RecoveryMap is %@";
   }
 
@@ -2322,8 +2381,8 @@ uint64_t __87__CDPDRecoveryValidatedJoinFlowController__showAccountResetConfirma
     localizedString7 = [v22 localizedString];
     v24 = [MEMORY[0x277CFD508] builderForKey:{@"GENERIC_CANCEL_BUTTON", localizedString7}];
     localizedString8 = [v24 localizedString];
-    v30[1] = localizedString8;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[1] = localizedString8;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     [v6 setObject:v26 forKeyedSubscript:*MEMORY[0x277CCA480]];
 
     [mapCopy setObject:MEMORY[0x277CBEC38] forKeyedSubscript:&unk_2858221B0];
@@ -2334,7 +2393,7 @@ uint64_t __87__CDPDRecoveryValidatedJoinFlowController__showAccountResetConfirma
     }
 
     *buf = 138412290;
-    v32 = mapCopy;
+    v31 = mapCopy;
     v17 = "Showing RPD error alert for non-Walrus user. RecoveryMap is %@";
   }
 
@@ -2343,14 +2402,12 @@ LABEL_7:
 
   v27 = _CDPStateError();
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 - (id)_resetProtectedDataErrorUnrecoverable
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   _isWalrusEnabled = [(CDPDRecoveryValidatedJoinFlowController *)self _isWalrusEnabled];
   v3 = [MEMORY[0x277CBEC10] mutableCopy];
   v4 = _CDPLogSystem();
@@ -2359,8 +2416,8 @@ LABEL_7:
   {
     if (v5)
     {
-      v23 = 0;
-      _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "Showing RPD unrecoverable error alert for Walrus user", &v23, 2u);
+      v22 = 0;
+      _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "Showing RPD unrecoverable error alert for Walrus user", &v22, 2u);
     }
 
     v6 = [MEMORY[0x277CFD508] builderForKey:@"RPD_CONFIRMATION_STEP_2_TITLE" inTable:@"Localizable-Walrus"];
@@ -2373,17 +2430,17 @@ LABEL_7:
 
     v10 = [MEMORY[0x277CFD508] builderForKey:@"GENERIC_CANCEL_BUTTON"];
     localizedString3 = [v10 localizedString];
-    v25[0] = localizedString3;
+    v24[0] = localizedString3;
     v12 = [MEMORY[0x277CFD508] builderForKey:@"WALRUS_ALERT_BUTTON_TITLE_DELETE_ICLOUD_DATA" inTable:@"Localizable-Walrus"];
-    v13 = v25;
+    v13 = v24;
   }
 
   else
   {
     if (v5)
     {
-      v23 = 0;
-      _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "Showing RPD unrecoverable error alert for non-Walrus user", &v23, 2u);
+      v22 = 0;
+      _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "Showing RPD unrecoverable error alert for non-Walrus user", &v22, 2u);
     }
 
     v14 = [MEMORY[0x277CFD508] builderForKey:@"RESET_CONFIRMATION_DIALOG_TITLE_NO_RECOVERY"];
@@ -2396,9 +2453,9 @@ LABEL_7:
 
     v10 = [MEMORY[0x277CFD508] builderForKey:@"GENERIC_CANCEL_BUTTON"];
     localizedString3 = [v10 localizedString];
-    v24 = localizedString3;
+    v23 = localizedString3;
     v12 = [MEMORY[0x277CFD508] builderForKey:@"RESET_CONFIRMATION_DIALOG_BUTTON_RESET_NO_RECOVERY"];
-    v13 = &v24;
+    v13 = &v23;
   }
 
   localizedString6 = [v12 localizedString];
@@ -2408,21 +2465,19 @@ LABEL_7:
 
   v20 = _CDPStateError();
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)_skipErrorUnrecoverable
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   [(CDPDRecoveryValidatedJoinFlowController *)self _isWalrusEnabled];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v3 = _CDPLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_24510B000, v3, OS_LOG_TYPE_DEFAULT, "Showing RPD skip error alert for non-Walrus user", v14, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_24510B000, v3, OS_LOG_TYPE_DEFAULT, "Showing RPD skip error alert for non-Walrus user", v13, 2u);
   }
 
   v4 = [MEMORY[0x277CFD508] builderForKey:@"SKIP_CONFIRMATION_DIALOG_TITLE_NO_RECOVERY"];
@@ -2435,13 +2490,11 @@ LABEL_7:
 
   v8 = [MEMORY[0x277CFD508] builderForKey:@"DATA_RECOVERY_ESCAPE_OPTION_SKIP"];
   localizedString3 = [v8 localizedString];
-  v15[0] = localizedString3;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = localizedString3;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   [dictionary setObject:v10 forKeyedSubscript:*MEMORY[0x277CCA480]];
 
   v11 = _CDPStateError();
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2503,170 +2556,97 @@ LABEL_7:
 
 void __86__CDPDRecoveryValidatedJoinFlowController__handleNoRecoveryFactorsWithMask_validator___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = _CDPLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
     *buf = 138412290;
-    v12 = v5;
+    v11 = v5;
     _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "Reset confirmation prompt came back with: %@", buf, 0xCu);
   }
 
-  if (*(a1 + 48) != 1)
+  if (*(a1 + 48) == 1)
+  {
+    if (a2 == 1)
+    {
+      v6 = *(a1 + 32);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __86__CDPDRecoveryValidatedJoinFlowController__handleNoRecoveryFactorsWithMask_validator___block_invoke_216;
+      v8[3] = &unk_278E24938;
+      v8[4] = v6;
+      v9 = *(a1 + 40);
+      [v6 _showQuotaScreenWithCompletion:v8];
+
+      return;
+    }
+
+    v7 = _CDPLogSystem();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      __86__CDPDRecoveryValidatedJoinFlowController__handleNoRecoveryFactorsWithMask_validator___block_invoke_cold_2();
+    }
+  }
+
+  else
   {
     v7 = _CDPLogSystem();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __86__CDPDRecoveryValidatedJoinFlowController__handleNoRecoveryFactorsWithMask_validator___block_invoke_cold_1();
     }
-
-    goto LABEL_10;
   }
 
-  if (a2 != 1)
-  {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-    {
-      __86__CDPDRecoveryValidatedJoinFlowController__handleNoRecoveryFactorsWithMask_validator___block_invoke_cold_2();
-    }
-
-LABEL_10:
-
-    [*(a1 + 32) _handleResetOptionWithResetRequested:0 localSecret:0 validator:*(a1 + 40)];
-    goto LABEL_11;
-  }
-
-  v6 = *(a1 + 32);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __86__CDPDRecoveryValidatedJoinFlowController__handleNoRecoveryFactorsWithMask_validator___block_invoke_216;
-  v9[3] = &unk_278E24938;
-  v9[4] = v6;
-  v10 = *(a1 + 40);
-  [v6 _showQuotaScreenWithCompletion:v9];
-
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) _handleResetOptionWithResetRequested:0 localSecret:0 validator:*(a1 + 40)];
 }
 
 - (BOOL)_isWalrusEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = _CDPLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     recoveryContext = [(CDPDRecoveryFlowController *)self recoveryContext];
     context = [recoveryContext context];
-    v11 = 134217984;
+    v10 = 134217984;
     walrusStatus = [context walrusStatus];
-    _os_log_impl(&dword_24510B000, v3, OS_LOG_TYPE_DEFAULT, "Walrus status on recovery context is %ld", &v11, 0xCu);
+    _os_log_impl(&dword_24510B000, v3, OS_LOG_TYPE_DEFAULT, "Walrus status on recovery context is %ld", &v10, 0xCu);
   }
 
   recoveryContext2 = [(CDPDRecoveryFlowController *)self recoveryContext];
   context2 = [recoveryContext2 context];
   v8 = [context2 walrusStatus] == 1;
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
-}
-
-void __80__CDPDRecoveryValidatedJoinFlowController_shouldOfferPiggybackingBasedRecovery___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_escapeOfferForDevices:(void *)a1 remoteApproval:(NSObject *)a2 forMultipleICSC:completion:.cold.1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = [a1 recoveryContext];
   v5 = [v4 context];
   v6 = [v3 numberWithInteger:{objc_msgSend(v5, "type")}];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Context Type: %@", v8, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_escapeOfferForDevices:remoteApproval:forMultipleICSC:completion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "_escapeOfferForDevices: Encountered error while checking RK support: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Context Type: %@", v7, 0xCu);
 }
 
 void __109__CDPDRecoveryValidatedJoinFlowController_remoteSecretValidator_attemptCustodianRecoveryWithInfo_completion___block_invoke_cold_1(char a1, uint64_t a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a1 & 1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "Recover Octagon using custodian info completed - isJoined: %{BOOL}d, error: %@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __117__CDPDRecoveryValidatedJoinFlowController_remoteSecretValidator_attemptCircleJoinWithPiggybackingContext_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to join circle with error: %@", v2, v3, v4, v5, v7);
   v6 = *MEMORY[0x277D85DE8];
-}
-
-void __117__CDPDRecoveryValidatedJoinFlowController_remoteSecretValidator_attemptCircleJoinWithPiggybackingContext_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Joined circle with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __101__CDPDRecoveryValidatedJoinFlowController_secretValidator_recoverSecureBackupWithContext_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "clique recovery failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleResetOptionWithResetRequested:localSecret:validator:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleResetOptionWithResetRequested:localSecret:validator:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleResetOptionWithResetRequested:localSecret:validator:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a1 & 1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "Recover Octagon using custodian info completed - isJoined: %{BOOL}d, error: %@", v3, 0x12u);
 }
 
 void __102__CDPDRecoveryValidatedJoinFlowController__handleResetOptionWithResetRequested_localSecret_validator___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

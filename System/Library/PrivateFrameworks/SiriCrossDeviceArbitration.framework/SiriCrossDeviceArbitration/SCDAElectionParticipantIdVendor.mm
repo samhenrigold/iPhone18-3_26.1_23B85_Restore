@@ -59,7 +59,7 @@
 
 - (id)computeIds:(id)ids
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   [(SCDAElectionParticipantIdVendor *)self fetchBTLEAddressIfRequired];
   selfCopy = self;
@@ -75,13 +75,13 @@
     v13 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v23 = 136315650;
-      v24 = "[SCDAElectionParticipantIdVendor computeIds:]";
-      v25 = 1024;
-      *v26 = v6 == 0;
-      *&v26[4] = 1024;
-      *&v26[6] = idsCopy == 0;
-      _os_log_debug_impl(&dword_1DA758000, v13, OS_LOG_TYPE_DEBUG, "%s #scda Returning null sentinel id. addressNil?%d payloadNil?%d", &v23, 0x18u);
+      v22 = 136315650;
+      v23 = "[SCDAElectionParticipantIdVendor computeIds:]";
+      v24 = 1024;
+      *v25 = v6 == 0;
+      *&v25[4] = 1024;
+      *&v25[6] = idsCopy == 0;
+      _os_log_debug_impl(&dword_1DA758000, v13, OS_LOG_TYPE_DEBUG, "%s #scda Returning null sentinel id. addressNil?%d payloadNil?%d", &v22, 0x18u);
     }
 
     v12 = _nullId;
@@ -94,11 +94,11 @@
     v11 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v23 = 136315394;
-      v24 = "[SCDAElectionParticipantIdVendor computeIds:]";
-      v25 = 2112;
-      *v26 = v7;
-      _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, "%s #scda Returning stale sentinel id. lastChange: %@", &v23, 0x16u);
+      v22 = 136315394;
+      v23 = "[SCDAElectionParticipantIdVendor computeIds:]";
+      v24 = 2112;
+      *v25 = v7;
+      _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, "%s #scda Returning stale sentinel id. lastChange: %@", &v22, 0x16u);
     }
 
     v12 = _staleId;
@@ -110,18 +110,18 @@ LABEL_11:
   }
 
   v14 = [SCDAElectionParticipantIdVendor computeId:v6 withPayload:idsCopy];
-  v19 = SCDALogContextCore;
+  v18 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v23 = 136315906;
-    v24 = "[SCDAElectionParticipantIdVendor computeIds:]";
-    v25 = 2112;
-    *v26 = v14;
-    *&v26[8] = 2112;
-    v27 = v6;
-    v28 = 2112;
-    v29 = idsCopy;
-    _os_log_debug_impl(&dword_1DA758000, v19, OS_LOG_TYPE_DEBUG, "%s #scda Primary electionParticipantId: %@ from address %@ and payload %@", &v23, 0x2Au);
+    v22 = 136315906;
+    v23 = "[SCDAElectionParticipantIdVendor computeIds:]";
+    v24 = 2112;
+    *v25 = v14;
+    *&v25[8] = 2112;
+    v26 = v6;
+    v27 = 2112;
+    v28 = idsCopy;
+    _os_log_debug_impl(&dword_1DA758000, v18, OS_LOG_TYPE_DEBUG, "%s #scda Primary electionParticipantId: %@ from address %@ and payload %@", &v22, 0x2Au);
     if (!v8)
     {
       goto LABEL_11;
@@ -134,45 +134,43 @@ LABEL_11:
   }
 
   [(NSDate *)v9 timeIntervalSinceNow];
-  if (v20 < -1202.0)
+  if (v19 < -1202.0)
   {
-    v21 = SCDALogContextCore;
+    v20 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v23 = 136315394;
-      v24 = "[SCDAElectionParticipantIdVendor computeIds:]";
-      v25 = 2112;
-      *v26 = v9;
-      _os_log_debug_impl(&dword_1DA758000, v21, OS_LOG_TYPE_DEBUG, "%s #scda Ignoring stale rotated address. lastChange: %@", &v23, 0x16u);
+      v22 = 136315394;
+      v23 = "[SCDAElectionParticipantIdVendor computeIds:]";
+      v24 = 2112;
+      *v25 = v9;
+      _os_log_debug_impl(&dword_1DA758000, v20, OS_LOG_TYPE_DEBUG, "%s #scda Ignoring stale rotated address. lastChange: %@", &v22, 0x16u);
     }
 
     goto LABEL_11;
   }
 
   v15 = [SCDAElectionParticipantIdVendor computeId:v8 withPayload:idsCopy];
-  v22 = SCDALogContextCore;
+  v21 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v23 = 136315650;
-    v24 = "[SCDAElectionParticipantIdVendor computeIds:]";
-    v25 = 2112;
-    *v26 = v15;
-    *&v26[8] = 2112;
-    v27 = v8;
-    _os_log_debug_impl(&dword_1DA758000, v22, OS_LOG_TYPE_DEBUG, "%s #scda Rotated electionParticipantId: %@ from address %@", &v23, 0x20u);
+    v22 = 136315650;
+    v23 = "[SCDAElectionParticipantIdVendor computeIds:]";
+    v24 = 2112;
+    *v25 = v15;
+    *&v25[8] = 2112;
+    v26 = v8;
+    _os_log_debug_impl(&dword_1DA758000, v21, OS_LOG_TYPE_DEBUG, "%s #scda Rotated electionParticipantId: %@ from address %@", &v22, 0x20u);
   }
 
 LABEL_12:
   v16 = [[SCDAElectionParticipantIds alloc] init:v14 rotatedElectionParticipantId:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (void)_fetchBTLEAddress
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   cbAdvertiser = self->_cbAdvertiser;
   if (cbAdvertiser)
   {
@@ -185,9 +183,9 @@ LABEL_12:
       v13 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
       {
-        v19 = 136315138;
-        v20 = "[SCDAElectionParticipantIdVendor _fetchBTLEAddress]";
-        _os_log_debug_impl(&dword_1DA758000, v13, OS_LOG_TYPE_DEBUG, "%s #scda BTLE address is not available", &v19, 0xCu);
+        v18 = 136315138;
+        v19 = "[SCDAElectionParticipantIdVendor _fetchBTLEAddress]";
+        _os_log_debug_impl(&dword_1DA758000, v13, OS_LOG_TYPE_DEBUG, "%s #scda BTLE address is not available", &v18, 0xCu);
       }
 
       goto LABEL_13;
@@ -203,13 +201,13 @@ LABEL_12:
         v9 = SCDALogContextCore;
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
         {
-          v19 = 136315138;
-          v20 = "[SCDAElectionParticipantIdVendor _fetchBTLEAddress]";
+          v18 = 136315138;
+          v19 = "[SCDAElectionParticipantIdVendor _fetchBTLEAddress]";
           v10 = "%s #scda Ignoring duplicate BTLE address change";
           v11 = v9;
           v12 = 12;
 LABEL_16:
-          _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, v10, &v19, v12);
+          _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, v10, &v18, v12);
         }
       }
 
@@ -223,13 +221,13 @@ LABEL_16:
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
         {
           rotatedBLEAddress = selfCopy->_rotatedBLEAddress;
-          v18 = selfCopy->_bleAddress;
-          v19 = 136315650;
-          v20 = "[SCDAElectionParticipantIdVendor _fetchBTLEAddress]";
-          v21 = 2112;
-          v22 = rotatedBLEAddress;
-          v23 = 2112;
-          v24 = v18;
+          v17 = selfCopy->_bleAddress;
+          v18 = 136315650;
+          v19 = "[SCDAElectionParticipantIdVendor _fetchBTLEAddress]";
+          v20 = 2112;
+          v21 = rotatedBLEAddress;
+          v22 = 2112;
+          v23 = v17;
           v10 = "%s #scda BTLE address changed from %@ to %@";
           v11 = v15;
           v12 = 32;
@@ -245,10 +243,10 @@ LABEL_16:
       v14 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
       {
-        v19 = 136315394;
-        v20 = "[SCDAElectionParticipantIdVendor _fetchBTLEAddress]";
-        v21 = 2112;
-        v22 = v5;
+        v18 = 136315394;
+        v19 = "[SCDAElectionParticipantIdVendor _fetchBTLEAddress]";
+        v20 = 2112;
+        v21 = v5;
         v10 = "%s #scda BTLE address initialized to %@ due to address change";
         v11 = v14;
         v12 = 22;
@@ -260,21 +258,19 @@ LABEL_16:
 
 LABEL_13:
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reinit
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (!self->_deallocInProgress)
   {
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315138;
-      v8 = "[SCDAElectionParticipantIdVendor _reinit]";
-      _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s #scda ElectionParticipantIdVendor reinit", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[SCDAElectionParticipantIdVendor _reinit]";
+      _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s #scda ElectionParticipantIdVendor reinit", &v6, 0xCu);
     }
 
     bleAddress = self->_bleAddress;
@@ -286,8 +282,6 @@ LABEL_13:
     [(SCDAElectionParticipantIdVendor *)self _clearCBAdvertiser];
     [(SCDAElectionParticipantIdVendor *)self _init];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_init
@@ -334,32 +328,30 @@ LABEL_13:
 
 void __40__SCDAElectionParticipantIdVendor__init__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v4 = 136315138;
-    v5 = "[SCDAElectionParticipantIdVendor _init]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s #scda CBAdvertiser interrupted. Will flag for reinitialization", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[SCDAElectionParticipantIdVendor _init]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s #scda CBAdvertiser interrupted. Will flag for reinitialization", &v3, 0xCu);
   }
 
   *(*(a1 + 32) + 8) = 1;
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SCDAElectionParticipantIdVendor__init__block_invoke_24(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
-    v4 = 136315138;
-    v5 = "[SCDAElectionParticipantIdVendor _init]_block_invoke";
-    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s #scda CBAdvertiser invalidated. Will flag for reinitialization", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[SCDAElectionParticipantIdVendor _init]_block_invoke";
+    _os_log_impl(&dword_1DA758000, v2, OS_LOG_TYPE_INFO, "%s #scda CBAdvertiser invalidated. Will flag for reinitialization", &v3, 0xCu);
   }
 
   *(*(a1 + 32) + 8) = 1;
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SCDAElectionParticipantIdVendor__init__block_invoke_25(uint64_t a1)
@@ -370,7 +362,7 @@ void __40__SCDAElectionParticipantIdVendor__init__block_invoke_25(uint64_t a1)
 
 void __40__SCDAElectionParticipantIdVendor__init__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -378,11 +370,11 @@ void __40__SCDAElectionParticipantIdVendor__init__block_invoke_2(uint64_t a1, vo
     v4 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[SCDAElectionParticipantIdVendor _init]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_error_impl(&dword_1DA758000, v4, OS_LOG_TYPE_ERROR, "%s #scda CBAdvertiser activation failed with %@; BTLE address may not be available", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[SCDAElectionParticipantIdVendor _init]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_error_impl(&dword_1DA758000, v4, OS_LOG_TYPE_ERROR, "%s #scda CBAdvertiser activation failed with %@; BTLE address may not be available", &v6, 0x16u);
     }
   }
 
@@ -391,23 +383,21 @@ void __40__SCDAElectionParticipantIdVendor__init__block_invoke_2(uint64_t a1, vo
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     [WeakRetained _fetchBTLEAddress];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (SCDAElectionParticipantIdVendor)init
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = SCDAElectionParticipantIdVendor;
-  v2 = [(SCDAElectionParticipantIdVendor *)&v6 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = SCDAElectionParticipantIdVendor;
+  v2 = [(SCDAElectionParticipantIdVendor *)&v5 init];
   if (v2)
   {
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v8 = "[SCDAElectionParticipantIdVendor init]";
+      v7 = "[SCDAElectionParticipantIdVendor init]";
       _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s #scda ElectionParticipantIdVendor init", buf, 0xCu);
     }
 
@@ -415,7 +405,6 @@ void __40__SCDAElectionParticipantIdVendor__init__block_invoke_2(uint64_t a1, vo
     [(SCDAElectionParticipantIdVendor *)v2 _init];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -440,21 +429,20 @@ void __40__SCDAElectionParticipantIdVendor__init__block_invoke_2(uint64_t a1, vo
   v9 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"73fa281b-4376-5284-8d9f-dc7ec5ad068f"];
   [v9 getUUIDBytes:data];
 
-  memset(&v16, 0, sizeof(v16));
-  CC_SHA1_Init(&v16);
-  CC_SHA1_Update(&v16, data, 0x10u);
+  memset(&v15, 0, sizeof(v15));
+  CC_SHA1_Init(&v15);
+  CC_SHA1_Update(&v15, data, 0x10u);
   bytes = [idCopy bytes];
   v11 = [idCopy length];
 
-  CC_SHA1_Update(&v16, bytes, v11);
+  CC_SHA1_Update(&v15, bytes, v11);
   bytes2 = [payloadCopy bytes];
 
-  CC_SHA1_Update(&v16, bytes2, v8);
-  CC_SHA1_Final(md, &v16);
-  v18 = v18 & 0xF | 0x50;
-  v19 = v19 & 0x3F | 0x80;
+  CC_SHA1_Update(&v15, bytes2, v8);
+  CC_SHA1_Final(md, &v15);
+  v17 = v17 & 0xF | 0x50;
+  v18 = v18 & 0x3F | 0x80;
   v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:md];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

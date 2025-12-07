@@ -186,7 +186,6 @@ LABEL_13:
 
   if ([(_INPBSetCarLockStatusIntent *)self hasLocked])
   {
-    locked = self->_locked;
     PBDataWriterWriteBOOLField();
   }
 }

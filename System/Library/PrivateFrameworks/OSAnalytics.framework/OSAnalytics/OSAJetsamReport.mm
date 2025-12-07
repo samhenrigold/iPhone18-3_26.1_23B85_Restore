@@ -9,6 +9,7 @@
 - (id)appleCareDetails;
 - (unint64_t)getEventPriority:(id)priority terminationReason:(unint64_t)reason priority:(int64_t)a5;
 - (void)_setDumpedSuspendedJetsamLog;
+- (void)acquireJetsamDataWithFlags:(unsigned int)flags;
 - (void)dealloc;
 - (void)fetchWiredMemoryInfo;
 - (void)generateLogAtLevel:(BOOL)level withBlock:(id)block;
@@ -20,12 +21,10 @@
 
 - (void)fetchWiredMemoryInfo
 {
-  v7 = *MEMORY[0x1E69E9840];
   [self unsignedIntValue];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (OSAJetsamReport)initWithIncidentID:(id)d visibilityEndowmentState:(id)state audioAssertionState:(id)assertionState
@@ -91,14 +90,14 @@
 
 - (id)appleCareDetails
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   if ([(NSMutableArray *)self->_killedActiveApps count])
   {
     v3 = [(NSMutableArray *)self->_killedActiveApps componentsJoinedByString:@"", self->_largestActiveApp];;
-    v8[1] = v3;
+    v7[1] = v3;
     v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_wiredBytes];
-    v8[2] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
+    v7[2] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
   }
 
   else
@@ -106,26 +105,22 @@
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)additionalIPSMetadata
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"incident_id";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"incident_id";
   incidentID = [(OSAReport *)self incidentID];
-  v9[0] = incidentID;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = incidentID;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v4 mutableCopy];
 
   if (self->_aleFlag)
   {
     [v5 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"ale_flag"];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -141,20 +136,20 @@
 
 + (jetsam_snapshot)fetchSnapshotWithFlags:(unsigned int)flags error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = memorystatus_control();
   if ((v5 & 0x80000000) != 0)
   {
     v8 = MEMORY[0x1E696AEC0];
     v9 = __error();
-    [v8 stringWithFormat:@"memorystatus_control(MEMORYSTATUS_CMD_GET_JETSAM_SNAPSHOT) failed: %s", strerror(*v9), v22];
+    [v8 stringWithFormat:@"memorystatus_control(MEMORYSTATUS_CMD_GET_JETSAM_SNAPSHOT) failed: %s", strerror(*v9), v21];
     goto LABEL_13;
   }
 
   v6 = v5;
   if (!v5)
   {
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"kernel returned (0) from memorystatus_control(MEMORYSTATUS_CMD_GET_JETSAM_SNAPSHOT) -- no jetsam data available", v21, v22];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"kernel returned (0) from memorystatus_control(MEMORYSTATUS_CMD_GET_JETSAM_SNAPSHOT) -- no jetsam data available", v20, v21];
     goto LABEL_13;
   }
 
@@ -172,10 +167,10 @@
     v11 = memorystatus_control();
     if (v11 != v6)
     {
-      v18 = v11;
-      v19 = MEMORY[0x1E696AEC0];
-      v20 = __error();
-      var4 = [v19 stringWithFormat:@"memorystatus_control returned unexpected value - %d: %s", v18, strerror(*v20)];
+      v17 = v11;
+      v18 = MEMORY[0x1E696AEC0];
+      v19 = __error();
+      var4 = [v18 stringWithFormat:@"memorystatus_control returned unexpected value - %d: %s", v17, strerror(*v19)];
       free(v10);
 LABEL_14:
       v10 = 0;
@@ -216,7 +211,7 @@ LABEL_15:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = var4;
+    v23 = var4;
     _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
@@ -228,7 +223,6 @@ LABEL_15:
 
 LABEL_19:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -311,7 +305,7 @@ LABEL_12:
 
 - (void)instrumentEvents:(BOOL)events
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   snapshot = self->_snapshot;
   if (snapshot)
   {
@@ -326,15 +320,15 @@ LABEL_12:
         v7 = &unk_1F241E7D0;
       }
 
-      v35 = v7;
+      v34 = v7;
       do
       {
         v8 = snapshot + v5 * 288;
         if (snapshot->var5[v5].var8)
         {
-          v44 = v6;
+          v43 = v6;
           v9 = processName();
-          v45 = killDescription(*(v8 + 35));
+          v44 = killDescription(*(v8 + 35));
           info = 0;
           v10 = 0;
           if (!mach_timebase_info(&info) && info.denom)
@@ -353,63 +347,63 @@ LABEL_12:
           v17 = snapshot + v5 * 288;
           memset(out, 0, 37);
           uuid_unparse_lower(snapshot->var5[v5].var6, out);
-          v49[0] = @"name";
-          v49[1] = @"reason";
-          v50[0] = v9;
-          v50[1] = v45;
-          v49[2] = @"priority";
-          v43 = [MEMORY[0x1E696AD98] numberWithInt:snapshot->var5[v5].var2];
-          v50[2] = v43;
-          v49[3] = @"uptime";
-          v42 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v10];
-          v50[3] = v42;
-          v49[4] = @"audio";
-          v41 = [MEMORY[0x1E696AD98] numberWithBool:v13];
-          v50[4] = v41;
-          v49[5] = @"visible";
-          v40 = [MEMORY[0x1E696AD98] numberWithBool:v16];
-          v50[5] = v40;
-          v49[6] = @"uuid";
-          v39 = [MEMORY[0x1E696AEC0] stringWithUTF8String:out];
-          v50[6] = v39;
-          v49[7] = @"max_pages";
-          v38 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:snapshot->var5[v5].var10];
-          v50[7] = v38;
-          v49[8] = @"suspended";
-          v37 = [MEMORY[0x1E696AD98] numberWithBool:snapshot->var5[v5].var3 & 1];
-          v50[8] = v37;
-          v49[9] = @"frozen";
+          v48[0] = @"name";
+          v48[1] = @"reason";
+          v49[0] = v9;
+          v49[1] = v44;
+          v48[2] = @"priority";
+          v42 = [MEMORY[0x1E696AD98] numberWithInt:snapshot->var5[v5].var2];
+          v49[2] = v42;
+          v48[3] = @"uptime";
+          v41 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v10];
+          v49[3] = v41;
+          v48[4] = @"audio";
+          v40 = [MEMORY[0x1E696AD98] numberWithBool:v13];
+          v49[4] = v40;
+          v48[5] = @"visible";
+          v39 = [MEMORY[0x1E696AD98] numberWithBool:v16];
+          v49[5] = v39;
+          v48[6] = @"uuid";
+          v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:out];
+          v49[6] = v38;
+          v48[7] = @"max_pages";
+          v37 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:snapshot->var5[v5].var10];
+          v49[7] = v37;
+          v48[8] = @"suspended";
+          v36 = [MEMORY[0x1E696AD98] numberWithBool:snapshot->var5[v5].var3 & 1];
+          v49[8] = v36;
+          v48[9] = @"frozen";
           v18 = [MEMORY[0x1E696AD98] numberWithBool:(snapshot->var5[v5].var3 >> 1) & 1];
-          v50[9] = v18;
-          v49[10] = @"thawed";
+          v49[9] = v18;
+          v48[10] = @"thawed";
           v19 = [MEMORY[0x1E696AD98] numberWithBool:(snapshot->var5[v5].var3 >> 2) & 1];
-          v50[10] = v19;
-          v49[11] = @"tracked";
+          v49[10] = v19;
+          v48[11] = @"tracked";
           v20 = [MEMORY[0x1E696AD98] numberWithBool:(snapshot->var5[v5].var3 >> 3) & 1];
-          v50[11] = v20;
-          v49[12] = @"can_idle_exit";
+          v49[11] = v20;
+          v48[12] = @"can_idle_exit";
           v21 = [MEMORY[0x1E696AD98] numberWithBool:(snapshot->var5[v5].var3 >> 4) & 1];
-          v50[12] = v21;
-          v49[13] = @"dirty";
+          v49[12] = v21;
+          v48[13] = @"dirty";
           v22 = [MEMORY[0x1E696AD98] numberWithBool:(*(v17 + 61) >> 5) & 1];
-          v50[13] = v22;
-          v49[14] = @"assertion";
+          v49[13] = v22;
+          v48[14] = @"assertion";
           v23 = [MEMORY[0x1E696AD98] numberWithBool:(*(v17 + 61) >> 6) & 1];
-          v49[15] = @"logwritten";
-          v50[14] = v23;
-          v50[15] = v35;
-          [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:16];
+          v48[15] = @"logwritten";
+          v49[14] = v23;
+          v49[15] = v34;
+          [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:16];
           v25 = v24 = v9;
           AnalyticsSendEvent();
 
           v26 = v24;
           if (OSARTCIsProcessOfInterest(v24))
           {
-            v47[0] = @"crk";
+            v46[0] = @"crk";
             v27 = +[OSASystemConfiguration sharedInstance];
             crashReporterKey = [v27 crashReporterKey];
-            v48[0] = crashReporterKey;
-            v47[1] = @"dirty";
+            v47[0] = crashReporterKey;
+            v46[1] = @"dirty";
             v29 = [MEMORY[0x1E696AD98] numberWithBool:(*(v17 + 61) >> 5) & 1];
             v30 = v29;
             if (v26)
@@ -422,13 +416,13 @@ LABEL_12:
               v31 = @"<unknown>";
             }
 
-            v48[1] = v29;
-            v48[2] = v31;
-            v47[2] = @"name";
-            v47[3] = @"reason";
-            if (v45)
+            v47[1] = v29;
+            v47[2] = v31;
+            v46[2] = @"name";
+            v46[3] = @"reason";
+            if (v44)
             {
-              v32 = v45;
+              v32 = v44;
             }
 
             else
@@ -436,14 +430,14 @@ LABEL_12:
               v32 = @"<unknown>";
             }
 
-            v48[3] = v32;
-            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:4];
+            v47[3] = v32;
+            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:4];
             rtcsc_send(2004, 2004, v33);
           }
 
           selfCopy2 = self;
           snapshot = self->_snapshot;
-          v6 = v44;
+          v6 = v43;
         }
 
         ++v6;
@@ -458,8 +452,149 @@ LABEL_12:
   {
     [OSAJetsamReport instrumentEvents:];
   }
+}
 
-  v34 = *MEMORY[0x1E69E9840];
+- (void)acquireJetsamDataWithFlags:(unsigned int)flags
+{
+  v3 = *&flags;
+  v38 = *MEMORY[0x1E69E9840];
+  self->super._capture_time = CFAbsoluteTimeGetCurrent();
+  v31 = 0;
+  v5 = [OSAJetsamReport fetchSnapshotWithFlags:v3 error:&v31];
+  v6 = v31;
+  self->_snapshot = v5;
+  if (v6)
+  {
+    [(NSMutableArray *)self->super._notes addObject:v6];
+  }
+
+  v7 = +[OSASystemConfiguration sharedInstance];
+  appleInternal = [v7 appleInternal];
+
+  if (appleInternal)
+  {
+    [(OSAJetsamReport *)self fetchWiredMemoryInfo];
+  }
+
+  snapshot = self->_snapshot;
+  if (snapshot)
+  {
+    v29 = v6;
+    self->_wiredBytes = *MEMORY[0x1E69E9AC8] * snapshot->var3.var5;
+    self->_isSuspendedOnlyJetsam = 1;
+    if (snapshot->var4)
+    {
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      v30 = 0;
+      v13 = 288;
+      do
+      {
+        v14 = snapshot + v13;
+        v15 = *(snapshot + v13 - 8);
+        v16 = v15 == 2 || v15 == 7;
+        if (v16 || ((v22 = *(v14 - 11), v15) ? (v23 = (*(v14 - 11) & 1) == 0) : (v23 = 0), v23 && ((v22 & 0x10) == 0 || (*(snapshot + v13 - 16) & 0x12B1FLL) != 0 || (v24 = strcmp(snapshot + v13 - 84, "SpringBoard"), (v22 & 0x20) != 0) || !v24)))
+        {
+          self->_isSuspendedOnlyJetsam = 0;
+        }
+
+        if (!v11 || *(&snapshot->var0 + v13) > *(v11 + 11))
+        {
+          v11 = v14 - 88;
+        }
+
+        if ((*(snapshot + v13 - 44) & 1) == 0 && (!v12 || *(&snapshot->var0 + v13) > *(v12 + 11)))
+        {
+          v12 = v14 - 88;
+        }
+
+        if (v15)
+        {
+          ++self->_killed_or_suspended_count;
+          v17 = processName();
+          if ((*(snapshot + v13 - 44) & 1) == 0)
+          {
+            [(NSMutableArray *)self->_killedActiveApps addObject:v17];
+          }
+
+          v18 = [(OSAJetsamReport *)self getEventPriority:v17 terminationReason:*(v14 - 1) priority:*(snapshot + v13 - 48)];
+          v19 = v30;
+          if (v30 <= v18)
+          {
+            v19 = v18;
+          }
+
+          v30 = v19;
+          v20 = killDescription(*(v14 - 1));
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+          {
+            v21 = *(v14 - 22);
+            *buf = 138543874;
+            v33 = v17;
+            v34 = 1024;
+            v35 = v21;
+            v36 = 2114;
+            v37 = v20;
+            _os_log_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Process %{public}@ [%d] killed by jetsam reason %{public}@", buf, 0x1Cu);
+          }
+
+          snapshot = self->_snapshot;
+        }
+
+        ++v10;
+        v13 += 288;
+      }
+
+      while (snapshot->var4 > v10);
+    }
+
+    else
+    {
+      v30 = 0;
+      v12 = 0;
+      v11 = 0;
+    }
+
+    problemType = [(OSAJetsamReport *)self problemType];
+    v26 = [problemType isEqualToString:@"298"];
+
+    if (v26)
+    {
+      [(OSAJetsamReport *)self updateLogLimitFor:v30];
+    }
+
+    if (v11)
+    {
+      v27 = processName();
+    }
+
+    else
+    {
+      v27 = @"none";
+    }
+
+    objc_storeStrong(&self->_largestProcess, v27);
+    if (v11)
+    {
+    }
+
+    if (v12)
+    {
+      v28 = processName();
+    }
+
+    else
+    {
+      v28 = @"none";
+    }
+
+    v6 = v29;
+    objc_storeStrong(&self->_largestActiveApp, v28);
+    if (v12)
+    {
+    }
+  }
 }
 
 - (BOOL)alreadyDumpedSuspendedJetsamLogToday
@@ -518,33 +653,33 @@ LABEL_12:
 
 - (void)generateLogAtLevel:(BOOL)level withBlock:(id)block
 {
-  v146[7] = *MEMORY[0x1E69E9840];
+  v145[7] = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v145[0] = @"incident";
+  v144[0] = @"incident";
   incidentID = [(OSAReport *)self incidentID];
-  v146[0] = incidentID;
-  v145[1] = @"crashReporterKey";
-  v118 = +[OSASystemConfiguration sharedInstance];
-  crashReporterKey = [v118 crashReporterKey];
-  v146[1] = crashReporterKey;
-  v145[2] = @"product";
-  v112 = +[OSASystemConfiguration sharedInstance];
-  modelCode = [v112 modelCode];
-  v146[2] = modelCode;
-  v145[3] = @"build";
+  v145[0] = incidentID;
+  v144[1] = @"crashReporterKey";
+  v117 = +[OSASystemConfiguration sharedInstance];
+  crashReporterKey = [v117 crashReporterKey];
+  v145[1] = crashReporterKey;
+  v144[2] = @"product";
+  v111 = +[OSASystemConfiguration sharedInstance];
+  modelCode = [v111 modelCode];
+  v145[2] = modelCode;
+  v144[3] = @"build";
   v7 = +[OSASystemConfiguration sharedInstance];
   productNameVersionBuildString = [v7 productNameVersionBuildString];
-  v146[3] = productNameVersionBuildString;
-  v145[4] = @"kernel";
+  v145[3] = productNameVersionBuildString;
+  v144[4] = @"kernel";
   kernelVersionDescription = [objc_opt_class() kernelVersionDescription];
-  v146[4] = kernelVersionDescription;
-  v145[5] = @"date";
+  v145[4] = kernelVersionDescription;
+  v144[5] = @"date";
   v10 = OSADateFormat(1u, self->super._capture_time);
-  v146[5] = v10;
-  v145[6] = @"codeSigningMonitor";
+  v145[5] = v10;
+  v144[6] = @"codeSigningMonitor";
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(objc_opt_class(), "codeSigningMonitor")}];
-  v146[6] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v146 forKeys:v145 count:7];
+  v145[6] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v145 forKeys:v144 count:7];
   blockCopy[2](blockCopy, v12);
 
   v13 = blockCopy;
@@ -565,14 +700,14 @@ LABEL_12:
       event_reason = &stru_1F2411100;
     }
 
-    v144[0] = event_reason;
-    v143[0] = @"eventReason";
-    v143[1] = @"eventCode";
+    v143[0] = event_reason;
+    v142[0] = @"eventReason";
+    v142[1] = @"eventCode";
     v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-    v143[2] = &unk_1F241E860;
-    v144[1] = v17;
-    v144[2] = &unk_1F241E7D0;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v144 forKeys:v143 count:3];
+    v142[2] = &unk_1F241E860;
+    v143[1] = v17;
+    v143[2] = &unk_1F241E7D0;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v143 forKeys:v142 count:3];
     blockCopy[2](blockCopy, v18);
   }
 
@@ -580,7 +715,7 @@ LABEL_12:
   {
     info = 0;
     mach_timebase_info(&info);
-    v96 = blockCopy;
+    v95 = blockCopy;
     if (info.denom)
     {
       v19 = ((self->_snapshot->var1 - self->_snapshot->var0) * info.numer / info.denom + 500000) / 0xF4240;
@@ -591,94 +726,94 @@ LABEL_12:
       v19 = 0xFFFFFFFFLL;
     }
 
-    v141[0] = @"timeDelta";
-    v120 = [MEMORY[0x1E696AD98] numberWithInt:v19];
-    v142[0] = v120;
-    v141[1] = @"memoryStatus";
-    v139[0] = @"memoryPages";
-    v137[0] = @"free";
-    v116 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var0];
-    v138[0] = v116;
-    v137[1] = @"active";
-    v113 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var1];
-    v138[1] = v113;
-    v137[2] = @"inactive";
-    v110 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var2];
-    v138[2] = v110;
-    v137[3] = @"purgeable";
-    v108 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var4];
-    v138[3] = v108;
-    v137[4] = @"wired";
-    v106 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var5];
-    v138[4] = v106;
-    v137[5] = @"speculative";
-    v104 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var6];
-    v138[5] = v104;
-    v137[6] = @"throttled";
-    v102 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var3];
-    v138[6] = v102;
-    v137[7] = @"fileBacked";
-    v99 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var7];
-    v138[7] = v99;
-    v137[8] = @"anonymous";
-    v97 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var8];
-    v138[8] = v97;
-    v95 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v138 forKeys:v137 count:9];
-    v140[0] = v95;
-    v139[1] = @"compressions";
-    v94 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var3.var10];
-    v140[1] = v94;
-    v139[2] = @"decompressions";
-    v93 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var3.var11];
-    v140[2] = v93;
-    v139[3] = @"compressorSize";
+    v140[0] = @"timeDelta";
+    v119 = [MEMORY[0x1E696AD98] numberWithInt:v19];
+    v141[0] = v119;
+    v140[1] = @"memoryStatus";
+    v138[0] = @"memoryPages";
+    v136[0] = @"free";
+    v115 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var0];
+    v137[0] = v115;
+    v136[1] = @"active";
+    v112 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var1];
+    v137[1] = v112;
+    v136[2] = @"inactive";
+    v109 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var2];
+    v137[2] = v109;
+    v136[3] = @"purgeable";
+    v107 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var4];
+    v137[3] = v107;
+    v136[4] = @"wired";
+    v105 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var5];
+    v137[4] = v105;
+    v136[5] = @"speculative";
+    v103 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var6];
+    v137[5] = v103;
+    v136[6] = @"throttled";
+    v101 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var3];
+    v137[6] = v101;
+    v136[7] = @"fileBacked";
+    v98 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var7];
+    v137[7] = v98;
+    v136[8] = @"anonymous";
+    v96 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var8];
+    v137[8] = v96;
+    v94 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v137 forKeys:v136 count:9];
+    v139[0] = v94;
+    v138[1] = @"compressions";
+    v93 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var3.var10];
+    v139[1] = v93;
+    v138[2] = @"decompressions";
+    v92 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var3.var11];
+    v139[2] = v92;
+    v138[3] = @"compressorSize";
     v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_snapshot->var3.var9];
-    v140[3] = v20;
-    v139[4] = @"uncompressed";
+    v139[3] = v20;
+    v138[4] = @"uncompressed";
     v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var3.var12];
-    v140[4] = v21;
-    v139[5] = @"zoneMapSize";
+    v139[4] = v21;
+    v138[5] = @"zoneMapSize";
     v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var3.var13];
-    v140[5] = v22;
-    v139[6] = @"zoneMapCap";
+    v139[5] = v22;
+    v138[6] = @"zoneMapCap";
     v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var3.var14];
-    v140[6] = v23;
-    v139[7] = @"largestZone";
+    v139[6] = v23;
+    v138[7] = @"largestZone";
     v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:self->_snapshot->var3.var16];
-    v140[7] = v24;
-    v139[8] = @"largestZoneSize";
+    v139[7] = v24;
+    v138[8] = @"largestZoneSize";
     v25 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var3.var15];
-    v140[8] = v25;
-    v139[9] = @"pageSize";
+    v139[8] = v25;
+    v138[9] = @"pageSize";
     v26 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*MEMORY[0x1E69E9AB0]];
-    v140[9] = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v140 forKeys:v139 count:10];
-    v142[1] = v27;
-    v141[2] = @"genCounter";
+    v139[9] = v26;
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v139 forKeys:v138 count:10];
+    v141[1] = v27;
+    v140[2] = @"genCounter";
     [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var2];
-    v28 = v101 = self;
-    largestProcess = v101->_largestProcess;
-    v142[2] = v28;
-    v142[3] = largestProcess;
-    v141[3] = @"largestProcess";
-    v141[4] = &unk_1F241E860;
-    v142[4] = &unk_1F241E7D0;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v142 forKeys:v141 count:5];
-    v96[2](v96, v30);
+    v28 = v100 = self;
+    largestProcess = v100->_largestProcess;
+    v141[2] = v28;
+    v141[3] = largestProcess;
+    v140[3] = @"largestProcess";
+    v140[4] = &unk_1F241E860;
+    v141[4] = &unk_1F241E7D0;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v141 forKeys:v140 count:5];
+    v95[2](v95, v30);
 
-    self = v101;
+    self = v100;
     array = [MEMORY[0x1E695DF70] array];
     v31 = +[OSASystemConfiguration sharedInstance];
     appleInternal = [v31 appleInternal];
 
-    snapshot = v101->_snapshot;
+    snapshot = v100->_snapshot;
     if (snapshot->var4)
     {
       v33 = 0;
       v34 = 0;
       do
       {
-        v114 = v34;
+        v113 = v34;
         v35 = snapshot + v33;
         memset(out, 0, 37);
         uuid_unparse_lower(&snapshot->var5[0].var6[v33], out);
@@ -744,19 +879,19 @@ LABEL_20:
 LABEL_22:
         visibilityEndowmentState = self->_visibilityEndowmentState;
         [MEMORY[0x1E696AD98] numberWithInt:*(v35 + 50)];
-        v42 = v121 = v37;
+        v42 = v120 = v37;
         LOBYTE(visibilityEndowmentState) = [(NSSet *)visibilityEndowmentState containsObject:v42];
 
         v43 = @"frontmost";
         if ((visibilityEndowmentState & 1) != 0 || (v43 = @"background", (v39[272] & 8) != 0))
         {
-          [v121 addObject:v43];
+          [v120 addObject:v43];
         }
 
         v44 = *(v39 + 34);
         if ((v44 & 0x100) != 0)
         {
-          [v121 addObject:@"resume"];
+          [v120 addObject:@"resume"];
           v44 = *(v39 + 34);
           if ((v44 & 0x200) == 0)
           {
@@ -775,7 +910,7 @@ LABEL_27:
           goto LABEL_27;
         }
 
-        [v121 addObject:@"suspending"];
+        [v120 addObject:@"suspending"];
         v44 = *(v39 + 34);
         if ((v44 & 0x800) == 0)
         {
@@ -786,69 +921,69 @@ LABEL_28:
           }
 
 LABEL_29:
-          [v121 addObject:@"continuous"];
+          [v120 addObject:@"continuous"];
           goto LABEL_30;
         }
 
 LABEL_71:
-        [v121 addObject:@"periodic"];
+        [v120 addObject:@"periodic"];
         if ((*(v39 + 34) & 0x2000) != 0)
         {
           goto LABEL_29;
         }
 
 LABEL_30:
-        if (![v121 count])
+        if (![v120 count])
         {
           if (strcmp(&snapshot->var5[0].var1[v33], "SpringBoard"))
           {
             v45 = @"background";
-            if (*(v39 + 34) || ([v121 addObject:@"daemon"], v45 = @"idle", (*(v35 + 61) & 0x30) == 0x10))
+            if (*(v39 + 34) || ([v120 addObject:@"daemon"], v45 = @"idle", (*(v35 + 61) & 0x30) == 0x10))
             {
-              [v121 addObject:v45];
+              [v120 addObject:v45];
             }
           }
         }
 
-        v134[0] = @"name";
-        v109 = processName();
-        v135[0] = v109;
-        v134[1] = @"pid";
-        v107 = [MEMORY[0x1E696AD98] numberWithInt:*(v35 + 50)];
-        v135[1] = v107;
-        v134[2] = @"uuid";
-        v105 = [MEMORY[0x1E696AEC0] stringWithUTF8String:out];
-        v135[2] = v105;
-        v134[3] = @"cpuTime";
-        v117 = v33;
-        v111 = snapshot;
+        v133[0] = @"name";
+        v108 = processName();
+        v134[0] = v108;
+        v133[1] = @"pid";
+        v106 = [MEMORY[0x1E696AD98] numberWithInt:*(v35 + 50)];
+        v134[1] = v106;
+        v133[2] = @"uuid";
+        v104 = [MEMORY[0x1E696AEC0] stringWithUTF8String:out];
+        v134[2] = v104;
+        v133[3] = @"cpuTime";
+        v116 = v33;
+        v110 = snapshot;
         v46 = (snapshot + v33);
-        v103 = [MEMORY[0x1E696AD98] numberWithDouble:v46[54] / 1000000.0 + v46[53]];
-        v135[3] = v103;
-        v134[4] = @"rpages";
+        v102 = [MEMORY[0x1E696AD98] numberWithDouble:v46[54] / 1000000.0 + v46[53]];
+        v134[3] = v102;
+        v133[4] = @"rpages";
         v47 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v46[36]];
-        v135[4] = v47;
-        v134[5] = @"purgeable";
+        v134[4] = v47;
+        v133[5] = @"purgeable";
         v48 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v46[38]];
-        v135[5] = v48;
-        v134[6] = @"lifetimeMax";
+        v134[5] = v48;
+        v133[6] = @"lifetimeMax";
         v49 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v46[37]];
-        v135[6] = v49;
-        v134[7] = @"fds";
+        v134[6] = v49;
+        v133[7] = @"fds";
         v50 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v46 + 62)];
-        v135[7] = v50;
-        v135[8] = v121;
-        v134[8] = @"states";
-        v134[9] = @"age";
+        v134[7] = v50;
+        v134[8] = v120;
+        v133[8] = @"states";
+        v133[9] = @"age";
         v51 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_snapshot->var0 - v46[49]];
-        v135[9] = v51;
-        v134[10] = @"priority";
+        v134[9] = v51;
+        v133[10] = @"priority";
         v52 = [MEMORY[0x1E696AD98] numberWithInt:*(v46 + 60)];
-        v135[10] = v52;
-        v134[11] = @"freeze_skip_reason:";
+        v134[10] = v52;
+        v133[11] = @"freeze_skip_reason:";
         v53 = freezeSkipReason(*(v46 + 252));
-        v135[11] = v53;
-        v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v135 forKeys:v134 count:12];
+        v134[11] = v53;
+        v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v134 forKeys:v133 count:12];
         v55 = [v54 mutableCopy];
 
         if (v46[51])
@@ -858,17 +993,17 @@ LABEL_30:
         }
 
         v57 = v46[50];
-        self = v101;
+        self = v100;
         if (v57)
         {
-          v58 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v57 - v101->_snapshot->var0];
+          v58 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v57 - v100->_snapshot->var0];
           [v55 setObject:v58 forKeyedSubscript:@"killDelta"];
 
-          v59 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(&v111->var5[0].var21 + v117)];
+          v59 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(&v110->var5[0].var21 + v116)];
           [v55 setObject:v59 forKeyedSubscript:@"genCount"];
         }
 
-        v60 = *(&v111->var5[0].var8 + v117);
+        v60 = *(&v110->var5[0].var8 + v116);
         if (v60)
         {
           v61 = killDescription(v60);
@@ -876,62 +1011,62 @@ LABEL_30:
         }
 
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        if (*(&v111->var5[0].var12 + v117) || *(&v111->var5[0].var13 + v117))
+        if (*(&v110->var5[0].var12 + v116) || *(&v110->var5[0].var13 + v116))
         {
           v63 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-          v133[0] = v63;
-          v64 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(&v111->var5[0].var13 + v117)];
-          v133[1] = v64;
-          v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:v133 count:2];
+          v132[0] = v63;
+          v64 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(&v110->var5[0].var13 + v116)];
+          v132[1] = v64;
+          v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:v132 count:2];
           [dictionary setObject:v65 forKeyedSubscript:@"internal"];
         }
 
-        if (*(&v111->var5[0].var28 + v117))
+        if (*(&v110->var5[0].var28 + v116))
         {
           v66 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
           [dictionary setObject:v66 forKeyedSubscript:@"frozen_to_swap_pages"];
         }
 
-        v67 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(&v111->var5[0].var20 + v117)];
+        v67 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(&v110->var5[0].var20 + v116)];
         [v55 setObject:v67 forKeyedSubscript:@"mem_regions"];
 
         if (appleInternal)
         {
-          v68 = v111 + v117;
-          if (*(&v111->var5[0].var14 + v117) || *(v68 + 336))
+          v68 = v110 + v116;
+          if (*(&v110->var5[0].var14 + v116) || *(v68 + 336))
           {
             v69 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-            v132[0] = v69;
+            v131[0] = v69;
             v70 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(v68 + 336)];
-            v132[1] = v70;
-            v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:v132 count:2];
+            v131[1] = v70;
+            v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:v131 count:2];
             [dictionary setObject:v71 forKeyedSubscript:@"purgeable_nv"];
           }
 
-          v72 = v111 + v117;
-          if (*(&v111->var5[0].var16 + v117) || *(v72 + 352))
+          v72 = v110 + v116;
+          if (*(&v110->var5[0].var16 + v116) || *(v72 + 352))
           {
             v73 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-            v131[0] = v73;
+            v130[0] = v73;
             v74 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(v72 + 352)];
-            v131[1] = v74;
-            v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v131 count:2];
+            v130[1] = v74;
+            v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:2];
             [dictionary setObject:v75 forKeyedSubscript:@"alternate"];
           }
 
-          if (*(&v111->var5[0].var18 + v117))
+          if (*(&v110->var5[0].var18 + v116))
           {
             v76 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
             [dictionary setObject:v76 forKeyedSubscript:@"iokit"];
           }
 
-          if (*(&v111->var5[0].var19 + v117))
+          if (*(&v110->var5[0].var19 + v116))
           {
             v77 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
             [dictionary setObject:v77 forKeyedSubscript:@"table"];
           }
 
-          if (*(&v111->var5[0].var31 + v117))
+          if (*(&v110->var5[0].var31 + v116))
           {
             v78 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
             [v55 setObject:v78 forKeyedSubscript:@"neuralPages"];
@@ -943,8 +1078,8 @@ LABEL_30:
           [v55 setObject:dictionary forKeyedSubscript:@"physicalPages"];
         }
 
-        v79 = v111 + v117;
-        if (*(&v111->var5[0].var25 + v117))
+        v79 = v110 + v116;
+        if (*(&v110->var5[0].var25 + v116))
         {
           v80 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
           [v55 setObject:v80 forKeyedSubscript:@"coalition"];
@@ -957,21 +1092,21 @@ LABEL_30:
         [v55 setObject:v82 forKeyedSubscript:@"csTrustLevel"];
 
         [array addObject:v55];
-        v34 = v114 + 1;
-        snapshot = v101->_snapshot;
-        v33 = v117 + 288;
+        v34 = v113 + 1;
+        snapshot = v100->_snapshot;
+        v33 = v116 + 288;
       }
 
-      while (snapshot->var4 > v114 + 1);
+      while (snapshot->var4 > v113 + 1);
     }
 
-    v129[0] = @"processes";
-    v129[1] = &unk_1F241E860;
-    v130[0] = array;
-    v130[1] = &unk_1F241E7D0;
-    v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v130 forKeys:v129 count:2];
-    v13 = v96;
-    v96[2](v96, v83);
+    v128[0] = @"processes";
+    v128[1] = &unk_1F241E860;
+    v129[0] = array;
+    v129[1] = &unk_1F241E7D0;
+    v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v129 forKeys:v128 count:2];
+    v13 = v95;
+    v95[2](v95, v83);
   }
 
   v84 = +[OSASystemConfiguration sharedInstance];
@@ -982,18 +1117,18 @@ LABEL_30:
     if ([(NSMutableArray *)self->_zones count])
     {
       zones = self->_zones;
-      v127 = @"zones";
-      v128 = zones;
-      v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+      v126 = @"zones";
+      v127 = zones;
+      v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
       v13[2](v13, v87);
     }
 
     if ([(NSMutableArray *)self->_tags count])
     {
       tags = self->_tags;
-      v125 = @"tags";
-      v126 = tags;
-      v89 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+      v124 = @"tags";
+      v125 = tags;
+      v89 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
       v13[2](v13, v89);
     }
   }
@@ -1001,9 +1136,9 @@ LABEL_30:
   if ([(NSMutableArray *)self->super._notes count])
   {
     notes = self->super._notes;
-    v123 = @"notes";
-    v124 = notes;
-    v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+    v122 = @"notes";
+    v123 = notes;
+    v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
     v13[2](v13, v91);
   }
 
@@ -1011,8 +1146,6 @@ LABEL_30:
   {
     [(OSAJetsamReport *)self _setDumpedSuspendedJetsamLog];
   }
-
-  v92 = *MEMORY[0x1E69E9840];
 }
 
 + (int64_t)_daysSince1970

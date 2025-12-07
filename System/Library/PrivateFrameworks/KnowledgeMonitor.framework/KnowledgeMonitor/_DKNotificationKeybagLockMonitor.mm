@@ -3,8 +3,10 @@
 + (id)log;
 + (int)getCurrentLockState;
 + (void)getCurrentLockState;
++ (void)setIsLocked:(BOOL)locked;
 - (void)_activate;
 - (void)_deactivate;
+- (void)_enqueueKeybagLockedUpdate:(int)update timestamp:(double)timestamp;
 - (void)_receiveNotificationEvent:(id)event;
 - (void)_resume;
 - (void)_updateWithKeybagLocked:(id)locked timestamp:(double)timestamp;
@@ -56,6 +58,14 @@
     dispatch_resume(self->_donationQueue);
     self->_donationQueueResumed = 1;
   }
+}
+
++ (void)setIsLocked:(BOOL)locked
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:locked];
+  userContext = [MEMORY[0x277CFE318] userContext];
+  keyPathForKeybagLockStatus = [MEMORY[0x277CFE338] keyPathForKeybagLockStatus];
+  [userContext setObject:v5 forKeyedSubscript:keyPathForKeybagLockStatus];
 }
 
 + (id)_eventWithState:(id)state
@@ -186,17 +196,17 @@
 
 - (void)_updateWithKeybagLocked:(id)locked timestamp:(double)timestamp
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   lockedCopy = locked;
   dispatch_assert_queue_V2(self->_donationQueue);
   v7 = [objc_opt_class() log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543618;
-    v17 = lockedCopy;
-    v18 = 2048;
+    v15 = 138543618;
+    v16 = lockedCopy;
+    v17 = 2048;
     timestampCopy = timestamp;
-    _os_log_impl(&dword_22595A000, v7, OS_LOG_TYPE_DEFAULT, "Writing keybagLocked event %{public}@ at %f", &v16, 0x16u);
+    _os_log_impl(&dword_22595A000, v7, OS_LOG_TYPE_DEFAULT, "Writing keybagLocked event %{public}@ at %f", &v15, 0x16u);
   }
 
   source = self->_source;
@@ -217,7 +227,32 @@
   self->_lastEvent = lockedCopy;
 
   self->_lastUpdate = timestamp;
-  v15 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_enqueueKeybagLockedUpdate:(int)update timestamp:(double)timestamp
+{
+  v5 = *&update;
+  queue = [(_DKMonitor *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = objc_alloc(MEMORY[0x277CF10E8]);
+  v9 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+  v10 = [v8 initWithStarting:v9];
+
+  donationQueue = self->_donationQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __73___DKNotificationKeybagLockMonitor__enqueueKeybagLockedUpdate_timestamp___block_invoke;
+  block[3] = &unk_27856F300;
+  timestampCopy = timestamp;
+  block[4] = self;
+  v14 = v10;
+  v12 = v10;
+  dispatch_async(donationQueue, block);
+  if (!v5)
+  {
+    [(_DKNotificationKeybagLockMonitor *)self _resume];
+  }
 }
 
 - (void)receiveNotificationEvent:(id)event
@@ -307,20 +342,18 @@
 
 + (void)getCurrentLockState
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_fault_impl(&dword_22595A000, a2, OS_LOG_TYPE_FAULT, "Unexpected lock state %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_fault_impl(&dword_22595A000, a2, OS_LOG_TYPE_FAULT, "Unexpected lock state %d", v2, 8u);
 }
 
 - (void)_receiveNotificationEvent:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "Keybag lock state: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "Keybag lock state: %d", v2, 8u);
 }
 
 @end

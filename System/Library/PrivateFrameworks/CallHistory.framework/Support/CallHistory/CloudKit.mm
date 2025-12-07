@@ -25,6 +25,7 @@
 - (void)setPreviousServerChangeToken:(id)token;
 - (void)setupSubscription;
 - (void)setupSubscriptionWithRetryCount:(unsigned int)count;
+- (void)upload:(id)upload withRetryCount:(unsigned int)count withCallback:(id)callback;
 - (void)uploadRecordsToSave:(id)save withRecordsToDelete:(id)delete withRetryCount:(unsigned int)count withCallback:(id)callback;
 @end
 
@@ -345,6 +346,72 @@
   objc_destroyWeak(&location);
 
   _Block_object_dispose(v26, 8);
+}
+
+- (void)upload:(id)upload withRetryCount:(unsigned int)count withCallback:(id)callback
+{
+  v6 = *&count;
+  uploadCopy = upload;
+  callbackCopy = callback;
+  logHandle = [(CloudKit *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v28 = [uploadCopy count];
+    _os_log_impl(&_mh_execute_header, logHandle, OS_LOG_TYPE_DEFAULT, "Processing %lu transactions", buf, 0xCu);
+  }
+
+  v11 = objc_alloc_init(NSMutableArray);
+  v12 = objc_alloc_init(NSMutableArray);
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v13 = uploadCopy;
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v24;
+    do
+    {
+      for (i = 0; i != v15; i = i + 1)
+      {
+        if (*v24 != v16)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        v18 = *(*(&v23 + 1) + 8 * i);
+        if ([v18 transactionType] != 3)
+        {
+          v19 = [(CloudKit *)self createRecord:v18];
+          if (v19)
+          {
+            [(CloudKit *)self addRecord:v19 withInsertAndUpdate:v11 withDelete:v12];
+          }
+        }
+      }
+
+      v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    }
+
+    while (v15);
+  }
+
+  logHandle2 = [(CloudKit *)self logHandle];
+  if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = [v11 count];
+    v22 = [v12 count];
+    *buf = 134218240;
+    v28 = v21;
+    v29 = 2048;
+    v30 = v22;
+    _os_log_impl(&_mh_execute_header, logHandle2, OS_LOG_TYPE_DEFAULT, "Inserting or updating %lu records and deleting %lu records.", buf, 0x16u);
+  }
+
+  [(CloudKit *)self uploadRecordsToSave:v11 withRecordsToDelete:v12 withRetryCount:v6 withCallback:callbackCopy];
 }
 
 - (void)uploadRecordsToSave:(id)save withRecordsToDelete:(id)delete withRetryCount:(unsigned int)count withCallback:(id)callback

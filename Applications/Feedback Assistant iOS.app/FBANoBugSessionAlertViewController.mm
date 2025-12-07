@@ -28,17 +28,17 @@
     v7 = 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = type metadata accessor for FBANoBugSessionAlertViewController();
-  v9 = [(FBANoBugSessionAlertViewController *)&v11 initWithNibName:v7 bundle:bundle];
+  v12.receiver = self;
+  v12.super_class = type metadata accessor for FBANoBugSessionAlertViewController(bundleCopy2, v9);
+  v10 = [(FBANoBugSessionAlertViewController *)&v12 initWithNibName:v7 bundle:bundle];
 
-  return v9;
+  return v10;
 }
 
 - (_TtC18Feedback_Assistant34FBANoBugSessionAlertViewController)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FBANoBugSessionAlertViewController();
+  v7.super_class = type metadata accessor for FBANoBugSessionAlertViewController(self, a2);
   coderCopy = coder;
   v5 = [(FBANoBugSessionAlertViewController *)&v7 initWithCoder:coderCopy];
 

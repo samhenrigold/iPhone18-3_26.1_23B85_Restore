@@ -15,11 +15,11 @@
 
 - (RRSchemaProvisionalRRAnnotatedEntity)initWithDictionary:(id)dictionary
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v34.receiver = self;
-  v34.super_class = RRSchemaProvisionalRRAnnotatedEntity;
-  v5 = [(RRSchemaProvisionalRRAnnotatedEntity *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = RRSchemaProvisionalRRAnnotatedEntity;
+  v5 = [(RRSchemaProvisionalRRAnnotatedEntity *)&v33 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"usoGraph"];
@@ -52,32 +52,32 @@
       [(RRSchemaProvisionalRRAnnotatedEntity *)v5 setGroup:v13];
     }
 
-    v29 = v12;
+    v28 = v12;
     v14 = [dictionaryCopy objectForKeyedSubscript:@"annotations"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = v9;
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
+      v27 = v9;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       v15 = v14;
-      v16 = [v15 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v31;
+        v18 = *v30;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v31 != v18)
+            if (*v30 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v30 + 1) + 8 * i);
+            v20 = *(*(&v29 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -86,13 +86,13 @@
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v30 objects:v35 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
         }
 
         while (v17);
       }
 
-      v9 = v28;
+      v9 = v27;
     }
 
     v22 = [dictionaryCopy objectForKeyedSubscript:@"saliencyScore"];
@@ -120,7 +120,6 @@
     v25 = v5;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -160,31 +159,31 @@
 
 - (id)dictionaryRepresentation
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_annotations count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v5 = self->_annotations;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v28;
+      v8 = *v27;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v26 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -197,7 +196,7 @@
           }
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v7);
@@ -246,7 +245,7 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[RRSchemaProvisionalRRAnnotatedEntity saliencyComputedAtTimestampInSeconds](self, "saliencyComputedAtTimestampInSeconds", v27)}];
+  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[RRSchemaProvisionalRRAnnotatedEntity saliencyComputedAtTimestampInSeconds](self, "saliencyComputedAtTimestampInSeconds", v26)}];
   [dictionary setObject:v23 forKeyedSubscript:@"saliencyComputedAtTimestampInSeconds"];
 
   if (*&self->_has)
@@ -282,8 +281,7 @@ LABEL_22:
     }
   }
 
-  [(RRSchemaProvisionalRRAnnotatedEntity *)self willProduceDictionaryRepresentation:dictionary, v27];
-  v25 = *MEMORY[0x1E69E9840];
+  [(RRSchemaProvisionalRRAnnotatedEntity *)self willProduceDictionaryRepresentation:dictionary, v26];
 
   return dictionary;
 }
@@ -518,7 +516,7 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   toCopy = to;
   usoGraph = [(RRSchemaProvisionalRRAnnotatedEntity *)self usoGraph];
 
@@ -532,7 +530,6 @@ LABEL_23:
 
   if (swiftClassName)
   {
-    swiftClassName = self->_swiftClassName;
     PBDataWriterWriteStringField();
   }
 
@@ -544,33 +541,32 @@ LABEL_23:
     PBDataWriterWriteSubmessage();
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v11 = self->_annotations;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v12)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = self->_annotations;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v23;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v14)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   has = self->_has;
@@ -582,7 +578,6 @@ LABEL_23:
     }
 
 LABEL_20:
-    saliencyComputedAtTimestampInSeconds = self->_saliencyComputedAtTimestampInSeconds;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -592,7 +587,6 @@ LABEL_20:
     goto LABEL_17;
   }
 
-  saliencyScore = self->_saliencyScore;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 2) != 0)
@@ -604,13 +598,10 @@ LABEL_16:
   if ((has & 4) != 0)
   {
 LABEL_17:
-    hasReference = self->_hasReference;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_18:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasHasReference:(BOOL)reference

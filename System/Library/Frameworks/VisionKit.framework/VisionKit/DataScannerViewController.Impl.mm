@@ -28,9 +28,10 @@
 
 - (void)avCaptureFrameProvider:(id)provider didChangeIsRunning:(BOOL)running
 {
+  runningCopy = running;
   providerCopy = provider;
   selfCopy = self;
-  sub_23B2DB4F0(providerCopy, running);
+  sub_23B2DB4F0(providerCopy, runningCopy);
 }
 
 - (void)avCaptureFrameProvider:(id)provider didCapturePhoto:(id)photo error:(id)error
@@ -58,9 +59,10 @@
 
 - (void)avCaptureFrameProvider:(id)provider cameraAccessGranted:(BOOL)granted
 {
+  grantedCopy = granted;
   providerCopy = provider;
   selfCopy = self;
-  sub_23B2DC2A4(providerCopy, granted);
+  sub_23B2DC2A4(providerCopy, grantedCopy);
 }
 
 - (void)cameraRestrictedDidChange:(id)change

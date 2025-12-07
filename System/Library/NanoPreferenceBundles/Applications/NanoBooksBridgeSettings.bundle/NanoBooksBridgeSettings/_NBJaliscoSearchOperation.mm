@@ -22,31 +22,32 @@
 
 - (void)executeSearch
 {
-  v3 = +[NBBridgeUtilities isExplicitMaterialAllowed]^ 1;
-  v4 = NBDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v3 = +[NBBridgeUtilities isExplicitMaterialAllowed];
+  v4 = v3 ^ 1;
+  v5 = NBDefaultLog(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     dataSource = [(_NBSearchOperation *)self dataSource];
     familyDSIDs = [dataSource familyDSIDs];
     searchString = [(_NBSearchOperation *)self searchString];
-    v15 = 138412802;
-    v16 = familyDSIDs;
-    v17 = 2112;
-    v18 = searchString;
-    v19 = 1024;
-    v20 = v3;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "NBJaliscoSearchOperation executing jalisco fetch with dsid:(%@), searchString:(%@), isExplicitRestricted: (%i)", &v15, 0x1Cu);
+    v16 = 138412802;
+    v17 = familyDSIDs;
+    v18 = 2112;
+    v19 = searchString;
+    v20 = 1024;
+    v21 = v4;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "NBJaliscoSearchOperation executing jalisco fetch with dsid:(%@), searchString:(%@), isExplicitRestricted: (%i)", &v16, 0x1Cu);
   }
 
-  v8 = +[BLJaliscoReadOnlyDAAPClient sharedClient];
+  v9 = +[BLJaliscoReadOnlyDAAPClient sharedClient];
   dataSource2 = [(_NBSearchOperation *)self dataSource];
   familyDSIDs2 = [dataSource2 familyDSIDs];
   searchString2 = [(_NBSearchOperation *)self searchString];
-  v12 = [v8 searchAllServerItemsForDSIDs:familyDSIDs2 matchingSearchString:searchString2 isExplicitRestricted:v3];
+  v13 = [v9 searchAllServerItemsForDSIDs:familyDSIDs2 matchingSearchString:searchString2 isExplicitRestricted:v4];
 
-  v13 = [v12 bu_arrayByRemovingItemsWithDuplicateValuesForKey:@"storeID"];
+  v14 = [v13 bu_arrayByRemovingItemsWithDuplicateValuesForKey:@"storeID"];
   searchResults = self->_searchResults;
-  self->_searchResults = v13;
+  self->_searchResults = v14;
 }
 
 @end

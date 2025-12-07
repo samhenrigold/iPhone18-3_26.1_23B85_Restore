@@ -17,24 +17,21 @@
 
   if (shortcutName)
   {
-    shortcutName = self->_shortcutName;
     PBDataWriterWriteStringField();
   }
 
   if (*&self->_has)
   {
-    clockSeconds = self->_clockSeconds;
     PBDataWriterWriteFloatField();
   }
 
   wfRunnerEventName = [(VoiceCmdsSchemaProvisionalVoiceCmdsWaitForRequestRemovalInfo *)self wfRunnerEventName];
 
-  v8 = toCopy;
+  v6 = toCopy;
   if (wfRunnerEventName)
   {
-    wfRunnerEventName = self->_wfRunnerEventName;
     PBDataWriterWriteStringField();
-    v8 = toCopy;
+    v6 = toCopy;
   }
 }
 

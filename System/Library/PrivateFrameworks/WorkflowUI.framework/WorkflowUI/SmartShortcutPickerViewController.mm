@@ -60,7 +60,7 @@
 {
   hideCopy = hide;
   selfCopy = self;
-  sub_2748D7268();
+  sub_2748D7268(selfCopy);
 }
 
 - (void)searchBar:(id)bar textDidChange:(id)change

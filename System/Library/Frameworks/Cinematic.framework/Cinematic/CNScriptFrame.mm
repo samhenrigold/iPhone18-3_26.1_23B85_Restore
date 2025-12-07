@@ -68,7 +68,7 @@
 
           else
           {
-            value2 = _CNLogSystem();
+            value2 = _CNLogSystem(v15);
             if (os_log_type_enabled(value2, OS_LOG_TYPE_ERROR))
             {
               [(CNScriptFrame *)0x284A05300 initWithTimedMetadataGroup:v9];
@@ -94,7 +94,6 @@
   selfCopy = 0;
 LABEL_16:
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -103,7 +102,7 @@ LABEL_16:
   result = self->_internalFrame;
   if (result)
   {
-    return [(CMTime *)result time];
+    return objc_msgSend_time(result, a3);
   }
 
   retstr->value = 0;
@@ -118,7 +117,7 @@ LABEL_16:
   if (!focusDetection)
   {
     v4 = objc_alloc(MEMORY[0x277D3E840]);
-    [(CNScriptFrame *)self time];
+    objc_msgSend_time(self);
     [(CNScriptFrame *)self focusDisparity];
     LODWORD(v6) = v5;
     focusDetection = [v4 initWithTime:v9 rect:*MEMORY[0x277CBF3A0] focusDistance:{*(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), v6}];
@@ -263,73 +262,72 @@ LABEL_16:
 
 + (id)_copyFramesFromInternal:(id)internal
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   internalCopy = internal;
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = internalCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self _copyFrameFromInternal:{*(*(&v15 + 1) + 8 * v10), v15}];
+        v11 = [self _copyFrameFromInternal:{*(*(&v14 + 1) + 8 * v10), v14}];
         [array addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [array copy];
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 + (id)_copyInternalFromFrames:(id)frames
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   framesCopy = frames;
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = framesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        internalFrame = [*(*(&v15 + 1) + 8 * v9) internalFrame];
+        internalFrame = [*(*(&v14 + 1) + 8 * v9) internalFrame];
         v11 = [internalFrame copy];
         [array addObject:v11];
 
@@ -337,27 +335,23 @@ LABEL_16:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [array copy];
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)initWithTimedMetadataGroup:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a2 value];
   v3 = objc_opt_class();
-  v10 = NSStringFromClass(v3);
+  v9 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

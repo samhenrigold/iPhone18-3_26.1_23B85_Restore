@@ -14,20 +14,19 @@
 
 - (id)ef_md5Digest
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   memset(&c, 0, sizeof(c));
   CC_MD5_Init(&c);
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __48__NSData_EmailFoundationAdditions__ef_md5Digest__block_invoke;
-  v5[3] = &__block_descriptor_40_e29_v40__0r_v8__NSRange_QQ_16_B32l;
-  v5[4] = &c;
-  [self enumerateByteRangesUsingBlock:v5];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __48__NSData_EmailFoundationAdditions__ef_md5Digest__block_invoke;
+  v4[3] = &__block_descriptor_40_e29_v40__0r_v8__NSRange_QQ_16_B32l;
+  v4[4] = &c;
+  [self enumerateByteRangesUsingBlock:v4];
   *md = 0;
-  v8 = 0;
+  v7 = 0;
   CC_MD5_Final(md, &c);
   v2 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:16];
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -55,12 +54,12 @@
 
 - (id)ef_sha256DigestWithSalts:()EmailFoundationAdditions
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = a3;
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *md = v5;
-  v23 = v5;
+  v22 = v5;
   *&c.wbuf[14] = 0xAAAAAAAAAAAAAAAALL;
   *&c.wbuf[6] = v5;
   *&c.wbuf[10] = v5;
@@ -69,25 +68,25 @@
   *c.count = v5;
   *&c.hash[2] = v5;
   CC_SHA256_Init(&c);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 length])
         {
           v11 = v10;
@@ -95,7 +94,7 @@
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v7);
@@ -105,8 +104,6 @@
   CC_SHA256_Update(&c, [self bytes], objc_msgSend(self, "length"));
   CC_SHA256_Final(md, &c);
   v13 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:md length:32];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -118,9 +115,9 @@
     +[NSData(EmailFoundationAdditions) ef_crlfData];
   }
 
-  v1 = ef_crlfData_crlfData;
+  v2 = ef_crlfData_crlfData;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)ef_subdataFromIndex:()EmailFoundationAdditions

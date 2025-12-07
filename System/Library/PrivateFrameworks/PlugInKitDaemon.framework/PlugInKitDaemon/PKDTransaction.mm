@@ -31,10 +31,9 @@
 {
   client = [self client];
   [client pid];
-  v7 = self[1];
   dispatch_queue_get_label(0);
   OUTLINED_FUNCTION_1_2();
-  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x1Cu);
+  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x1Cu);
 }
 
 - (PKDServer)server
@@ -1176,7 +1175,7 @@ LABEL_11:
   if (client)
   {
     v6 = client;
-    [client auditToken];
+    objc_msgSend_auditToken(client);
     client = v6;
   }
 
@@ -1361,16 +1360,9 @@ BOOL __31__PKDTransaction_removePlugIns__block_invoke(uint64_t a1, void *a2)
 
 - (void)bulkPlugIns
 {
-  request = [(PKDTransaction *)self request];
-  uint64 = xpc_dictionary_get_uint64(request, &PKDFlagsKey);
-
-  v5 = pklog_handle_for_category();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-  {
-    [(PKDTransaction *)uint64 bulkPlugIns:v5];
-  }
-
-  [(PKDTransaction *)self done];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2_2(&dword_0, a2, a3, "bulk options 0x%lx not supported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (BOOL)processUuidList:(id)list
@@ -1503,8 +1495,8 @@ LABEL_13:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 0x1004100202;
-        v31 = 2096;
-        v32 = v6;
+        v29 = 2096;
+        v30 = v6;
         _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "Failed to find plugin by %{uuid_t}.16P", buf, 0x12u);
       }
 
@@ -1515,10 +1507,10 @@ LABEL_13:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 0x1004100302;
-          v31 = 2096;
-          v32 = v6;
-          v33 = 2080;
-          v34 = string;
+          v29 = 2096;
+          v30 = v6;
+          v31 = 2080;
+          v32 = string;
           _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Looking for plugin %{uuid_t}.16P by path %s", buf, 0x1Cu);
         }
 
@@ -1536,9 +1528,8 @@ LABEL_13:
           if ((v22 & 1) == 0)
           {
             v23 = [NSString stringWithUTF8String:*(*(a1 + 32) + 8)];
-            v28 = *(a1 + 32);
             string = string;
-            v29 = v23;
+            v27 = v23;
             v24 = v23;
             AnalyticsSendEventLazy();
           }
@@ -1566,7 +1557,6 @@ LABEL_13:
     {
       v7 = v11;
 LABEL_29:
-      v27 = *(*(*(a1 + 64) + 8) + 24);
       v25 = (*(*(a1 + 56) + 16))();
       goto LABEL_30;
     }
@@ -1702,7 +1692,7 @@ BOOL __31__PKDTransaction_accessPlugIns__block_invoke(uint64_t a1, void *a2)
   v6 = v5;
   if (v5)
   {
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5);
   }
 
   v7 = pkIssueSandboxExtensionForURL();

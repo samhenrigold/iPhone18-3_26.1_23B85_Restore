@@ -43,11 +43,10 @@
   else
   {
     sub_221F7BED4();
-    v12 = *MEMORY[0x277CE91C0];
     sub_221FB6318();
-    v13 = sub_221FB6338();
+    v12 = sub_221FB6338();
 
-    notify_post((v13 + 32));
+    notify_post((v12 + 32));
   }
 
   v9[2](v9);

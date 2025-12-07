@@ -100,34 +100,34 @@
 
 - (id)protobuf
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(FCCCompletionOffTrackConfigurationProtobuf);
   [(FCCCompletionOffTrackConfigurationProtobuf *)v3 setIdentifier:self->_identifier];
   [(FCCCompletionOffTrackConfigurationProtobuf *)v3 setGoalBufferPercentage:self->_goalBufferPercentage];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v4 = self->_coalescingRules;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        protobuf = [*(*(&v22 + 1) + 8 * i) protobuf];
+        protobuf = [*(*(&v21 + 1) + 8 * i) protobuf];
         [(FCCCompletionOffTrackConfigurationProtobuf *)v3 addCoalescingRules:protobuf];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v6);
@@ -136,35 +136,33 @@
   protobuf2 = [(FCCPercentageOfDayRule *)self->_percentageOfDayRule protobuf];
   [(FCCCompletionOffTrackConfigurationProtobuf *)v3 setPercentageOfDayRule:protobuf2];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = self->_allowedGoalTypes;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        -[FCCCompletionOffTrackConfigurationProtobuf addAllowedGoalTypes:](v3, "addAllowedGoalTypes:", [*(*(&v18 + 1) + 8 * j) unsignedIntValue]);
+        -[FCCCompletionOffTrackConfigurationProtobuf addAllowedGoalTypes:](v3, "addAllowedGoalTypes:", [*(*(&v17 + 1) + 8 * j) unsignedIntValue]);
       }
 
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

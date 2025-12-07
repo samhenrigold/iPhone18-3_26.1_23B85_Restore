@@ -17,7 +17,7 @@
   v9 = type metadata accessor for MedicationVisualizationConfig(0);
   (*(*(v9 - 8) + 56))(self + v8, 1, 1, v9);
   v11.receiver = self;
-  v11.super_class = type metadata accessor for MedicationShapeView();
+  v11.super_class = type metadata accessor for MedicationShapeView(0);
   return [(MedicationShapeView *)&v11 initWithFrame:x, y, width, height];
 }
 

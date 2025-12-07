@@ -4,6 +4,7 @@
 - (MUEVChargingSectionController)initWithMapItem:(id)item;
 - (MUPlaceSectionControllerDelegate)delegate;
 - (NSArray)sectionViews;
+- (void)setActive:(BOOL)active;
 - (void)setDelegate:(id)delegate;
 @end
 
@@ -16,14 +17,26 @@
   return [(MUPlaceSectionController *)&v3 isActive];
 }
 
+- (void)setActive:(BOOL)active
+{
+  activeCopy = active;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  [(MUPlaceSectionController *)&v7 setActive:activeCopy];
+  v5 = *&v4[OBJC_IVAR___MUEVChargingSectionController_viewModel];
+  v6 = OBJC_IVAR____TtC6MapsUI21MUEVChargingViewModel_isActive;
+  swift_beginAccess();
+  *(v5 + v6) = activeCopy;
+}
+
 - (NSArray)sectionViews
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUEVChargingSectionController__sectionViews);
   sub_1C570CB68();
 
-  v3 = sub_1C584F750();
+  v2 = sub_1C584F750();
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)hasContent

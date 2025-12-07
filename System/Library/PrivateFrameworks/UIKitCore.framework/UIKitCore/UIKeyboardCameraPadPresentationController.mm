@@ -256,7 +256,7 @@ uint64_t __71__UIKeyboardCameraPadPresentationController__animateDismissTransiti
   layer3 = [(UIView *)self->_shadowView layer];
   [layer3 setShadowOffset:{0.0, -10.0}];
 
-  v28 = +[UIColor blackColor];
+  v28 = objc_msgSend_blackColor(UIColor);
   cGColor = [v28 CGColor];
   layer4 = [(UIView *)self->_shadowView layer];
   [layer4 setShadowColor:cGColor];

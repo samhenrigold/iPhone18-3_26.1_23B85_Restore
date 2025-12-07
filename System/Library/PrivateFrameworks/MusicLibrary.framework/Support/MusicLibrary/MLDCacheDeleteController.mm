@@ -3,6 +3,8 @@
 - ($06626BA963112C91E7E52BBD3AECAE4D)_calculateUsageAnalytics;
 - (BOOL)_isMediaVolume:(id)volume;
 - (MLDCacheDeleteController)initWithLibraries:(id)libraries;
+- (__CFDictionary)_handlePurgeRequestWithUrgency:(int)urgency info:(__CFDictionary *)info;
+- (__CFDictionary)_handlePurgeableRequestWithUrgency:(int)urgency info:(__CFDictionary *)info;
 - (void)_addOptimizeStorageAnalyticsToPayload:(id)payload;
 - (void)_addPurgeAnalytics:(id *)analytics toPayload:(id)payload;
 - (void)_addPurgeableAnalytics:(id *)analytics toPayload:(id)payload;
@@ -273,6 +275,278 @@
     *buf = 0;
     _os_log_impl(&_mh_execute_header, &v8->super, OS_LOG_TYPE_DEFAULT, "CacheDelete has disabled caching", buf, 2u);
   }
+}
+
+- (__CFDictionary)_handlePurgeRequestWithUrgency:(int)urgency info:(__CFDictionary *)info
+{
+  v44 = [objc_opt_class() _cacheDeleteUrgencyToMusicLibraryUrgency:*&urgency];
+  v7 = [(__CFDictionary *)info objectForKey:@"CACHE_DELETE_AMOUNT"];
+  longLongValue = [v7 longLongValue];
+
+  v9 = [(__CFDictionary *)info objectForKey:@"CACHE_DELETE_VOLUME"];
+  LODWORD(info) = [(MLDCacheDeleteController *)self _isMediaVolume:v9];
+  v10 = os_log_create("com.apple.amp.medialibraryd", "CacheManagement");
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (info)
+  {
+    if (v11)
+    {
+      *buf = 67109378;
+      *v56 = urgency;
+      *&v56[4] = 2114;
+      *&v56[6] = v9;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Received purge request with urgency %u for volume '%{public}@'", buf, 0x12u);
+    }
+
+    urgencyCopy = urgency;
+    v43 = v9;
+
+    +[ML3MusicLibrary clearCloudAssetSharedCache];
+    v40 = +[NSDate date];
+    selfCopy = self;
+    v48 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    obj = self->_libraries;
+    v12 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+    if (!v12)
+    {
+      v14 = 0;
+      goto LABEL_27;
+    }
+
+    v13 = v12;
+    v14 = 0;
+    v15 = "com.apple.amp.medialibraryd";
+    v16 = "CacheManagement";
+    v17 = *v49;
+    while (1)
+    {
+      for (i = 0; i != v13; i = i + 1)
+      {
+        if (*v49 != v17)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        if (v14 < longLongValue)
+        {
+          v19 = *(*(&v48 + 1) + 8 * i);
+          databasePath = [v19 databasePath];
+          if (databasePath && (v21 = databasePath, +[NSFileManager defaultManager](NSFileManager, "defaultManager"), v22 = objc_claimAutoreleasedReturnValue(), [v19 databasePath], v47 = v19, v23 = v17, v24 = v14, v25 = v13, v26 = v16, v27 = longLongValue, v28 = v15, v29 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend(v22, "fileExistsAtPath:", v29), v29, v15 = v28, longLongValue = v27, v16 = v26, v13 = v25, v14 = v24, v17 = v23, v19 = v47, v22, v21, v46))
+          {
+            v30 = os_log_create(v15, v16);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            {
+              databasePath2 = [v47 databasePath];
+              *buf = 138543362;
+              *v56 = databasePath2;
+              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Begin purge for library %{public}@", buf, 0xCu);
+
+              v19 = v47;
+            }
+
+            v14 += [v19 clearPurgeableStorageAmount:longLongValue withUrgency:v44];
+            v32 = os_log_create(v15, v16);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+            {
+              databasePath3 = [v19 databasePath];
+              *buf = 138543362;
+              *v56 = databasePath3;
+              v34 = v32;
+              v35 = OS_LOG_TYPE_DEFAULT;
+              v36 = "End purge for library %{public}@";
+              goto LABEL_18;
+            }
+          }
+
+          else
+          {
+            v32 = os_log_create(v15, v16);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            {
+              databasePath3 = [v19 databasePath];
+              *buf = 138543362;
+              *v56 = databasePath3;
+              v34 = v32;
+              v35 = OS_LOG_TYPE_ERROR;
+              v36 = "Skipping purge for library with missing database at path=%{public}@.";
+LABEL_18:
+              _os_log_impl(&_mh_execute_header, v34, v35, v36, buf, 0xCu);
+            }
+          }
+
+          continue;
+        }
+      }
+
+      v13 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+      if (!v13)
+      {
+LABEL_27:
+
+        v10 = v40;
+        [v40 timeIntervalSinceNow];
+        [(MLDCacheDeleteController *)selfCopy _reportCacheDeletePurgeEventWithUrgency:urgencyCopy amountRequested:longLongValue amountPurged:v14 duration:?];
+        v9 = v43;
+        goto LABEL_28;
+      }
+    }
+  }
+
+  if (v11)
+  {
+    *buf = 67109378;
+    *v56 = urgency;
+    *&v56[4] = 2114;
+    *&v56[6] = v9;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Ignoring purge request with urgency %u for volume '%{public}@'", buf, 0x12u);
+  }
+
+  v14 = 0;
+LABEL_28:
+
+  v53[0] = v9;
+  v52[0] = @"CACHE_DELETE_VOLUME";
+  v52[1] = @"CACHE_DELETE_AMOUNT";
+  v37 = [NSNumber numberWithUnsignedLongLong:v14];
+  v52[2] = @"CACHE_DELETE_PURGE_TIMEOUT";
+  v53[1] = v37;
+  v53[2] = &off_100033128;
+  v38 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:3];
+
+  return v38;
+}
+
+- (__CFDictionary)_handlePurgeableRequestWithUrgency:(int)urgency info:(__CFDictionary *)info
+{
+  v5 = *&urgency;
+  v7 = +[NSDate date];
+  v36 = [objc_opt_class() _cacheDeleteUrgencyToMusicLibraryUrgency:v5];
+  v8 = [(__CFDictionary *)info objectForKey:@"CACHE_DELETE_VOLUME"];
+  v9 = [(MLDCacheDeleteController *)self _isMediaVolume:v8];
+  v10 = os_log_create("com.apple.amp.medialibraryd", "CacheManagement");
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v9)
+  {
+    if (v11)
+    {
+      *buf = 67109378;
+      *v47 = v5;
+      *&v47[4] = 2114;
+      *&v47[6] = v8;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Received purgeable request with urgency %u for volume '%{public}@'", buf, 0x12u);
+    }
+
+    v34 = v5;
+    v35 = v8;
+
+    v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    selfCopy = self;
+    obj = self->_libraries;
+    v12 = [(NSArray *)obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+    if (!v12)
+    {
+      v38 = 0;
+      goto LABEL_25;
+    }
+
+    v13 = v12;
+    v38 = 0;
+    v14 = *v40;
+    while (1)
+    {
+      for (i = 0; i != v13; i = i + 1)
+      {
+        if (*v40 != v14)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v16 = *(*(&v39 + 1) + 8 * i);
+        databasePath = [v16 databasePath];
+        if (!databasePath || (v18 = databasePath, +[NSFileManager defaultManager](NSFileManager, "defaultManager"), v19 = objc_claimAutoreleasedReturnValue(), [v16 databasePath], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "fileExistsAtPath:", v20), v20, v19, v18, !v21))
+        {
+          v24 = os_log_create("com.apple.amp.medialibraryd", "CacheManagement");
+          if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_18;
+          }
+
+          databasePath2 = [v16 databasePath];
+          *buf = 138543362;
+          *v47 = databasePath2;
+          v26 = v24;
+          v27 = OS_LOG_TYPE_ERROR;
+          v28 = "Skipping purgeable amount for library with missing database at path=%{public}@";
+          goto LABEL_17;
+        }
+
+        v22 = os_log_create("com.apple.amp.medialibraryd", "CacheManagement");
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        {
+          databasePath3 = [v16 databasePath];
+          *buf = 138543362;
+          *v47 = databasePath3;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Begin gathering purgeable amount for library %{public}@", buf, 0xCu);
+        }
+
+        v38 += [v16 purgeableStorageSizeWithUrgency:v36];
+        v24 = os_log_create("com.apple.amp.medialibraryd", "CacheManagement");
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        {
+          databasePath2 = [v16 databasePath];
+          *buf = 138543362;
+          *v47 = databasePath2;
+          v26 = v24;
+          v27 = OS_LOG_TYPE_DEFAULT;
+          v28 = "End gathering purgeable amount for library %{public}@";
+LABEL_17:
+          _os_log_impl(&_mh_execute_header, v26, v27, v28, buf, 0xCu);
+        }
+
+LABEL_18:
+      }
+
+      v13 = [(NSArray *)obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      if (!v13)
+      {
+LABEL_25:
+
+        [v7 timeIntervalSinceNow];
+        v29 = v38;
+        [(MLDCacheDeleteController *)selfCopy _reportCacheDeletePurgeableRequestWithUrgency:v34 purgeableAmount:v38 duration:?];
+        v8 = v35;
+        goto LABEL_26;
+      }
+    }
+  }
+
+  if (v11)
+  {
+    *buf = 67109378;
+    *v47 = v5;
+    *&v47[4] = 2114;
+    *&v47[6] = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Ignoring purgeable request with urgency %u for volume '%{public}@'", buf, 0x12u);
+  }
+
+  v29 = 0;
+LABEL_26:
+  v44[0] = v8;
+  v43[0] = @"CACHE_DELETE_VOLUME";
+  v43[1] = @"CACHE_DELETE_AMOUNT";
+  v30 = [NSNumber numberWithUnsignedLongLong:v29];
+  v43[2] = @"CACHE_DELETE_PURGE_TIMEOUT";
+  v44[1] = v30;
+  v44[2] = &off_100033128;
+  v31 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:3];
+
+  return v31;
 }
 
 - (void)_reconcilePurgeNotification

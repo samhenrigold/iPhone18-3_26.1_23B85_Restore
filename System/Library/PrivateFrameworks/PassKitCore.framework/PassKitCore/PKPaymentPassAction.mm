@@ -559,7 +559,7 @@ LABEL_79:
   return v162;
 }
 
-void __56__PKPaymentPassAction_initWithDictionary_localizations___block_invoke(uint64_t a1, void *a2, void *a3)
+void __56__PKPaymentPassAction_initWithDictionary_localizations___block_invoke(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -569,7 +569,7 @@ void __56__PKPaymentPassAction_initWithDictionary_localizations___block_invoke(u
     v7 = [objc_alloc(MEMORY[0x1E696AE88]) initWithString:v5];
     if ([v7 scanHexInt:&v10] && objc_msgSend(v7, "isAtEnd"))
     {
-      v8 = *(a1 + 32);
+      v8 = a1[4];
       v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v10];
       [v8 setObject:v6 forKeyedSubscript:v9];
     }
@@ -807,9 +807,9 @@ id __56__PKPaymentPassAction_initWithDictionary_localizations___block_invoke_2(u
   localizationsCopy = localizations;
   identifier = [(PKPaymentPassAction *)self identifier];
   v9 = [dictionaryCopy PKStringForKey:@"identifier"];
-  v10 = [identifier isEqualToString:v9];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  if (v10)
+  if (isEqualToString)
   {
     v11 = [(NSDictionary *)self->_rawDictionary mutableCopy];
     [v11 addEntriesFromDictionary:dictionaryCopy];

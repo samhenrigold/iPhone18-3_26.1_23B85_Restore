@@ -17,7 +17,7 @@
   identifierCopy = identifier;
   if (!identifierCopy)
   {
-    [FBDisplayLayoutElement initWithDisplayType:a2 identifier:? elementClass:?];
+    [FBDisplayLayoutElement initWithDisplayType:a2 identifier:self elementClass:?];
   }
 
   v10 = identifierCopy;
@@ -59,22 +59,22 @@
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_activeAssertion == ((void *)0)"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_activeAssertion == ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    v8 = @"FBDisplayLayoutElement.m";
-    v9 = 1024;
-    v10 = 46;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"FBDisplayLayoutElement.m";
+    v10 = 1024;
+    v11 = 46;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -144,15 +144,14 @@
 - (id)succinctDescriptionBuilder
 {
   v3 = [MEMORY[0x1E698E680] builderWithObject:self];
-  displayType = self->_displayType;
-  v5 = FBSDisplayTypeDescription();
-  v6 = [v3 appendObject:v5 withName:@"displayType"];
+  v4 = FBSDisplayTypeDescription();
+  v5 = [v3 appendObject:v4 withName:@"displayType"];
 
-  v7 = [v3 appendObject:self->_identifier withName:@"identifier"];
-  v8 = NSStringFromClass(self->_elementClass);
-  v9 = [v3 appendObject:v8 withName:@"class"];
+  v6 = [v3 appendObject:self->_identifier withName:@"identifier"];
+  v7 = NSStringFromClass(self->_elementClass);
+  v8 = [v3 appendObject:v7 withName:@"class"];
 
-  v10 = [v3 appendBool:self->_activeAssertion != 0 withName:@"activated"];
+  v9 = [v3 appendBool:self->_activeAssertion != 0 withName:@"activated"];
 
   return v3;
 }
@@ -182,24 +181,24 @@
   return v6;
 }
 
-- (void)initWithDisplayType:(const char *)a1 identifier:elementClass:.cold.1(const char *a1)
+- (void)initWithDisplayType:(const char *)a1 identifier:(uint64_t)a2 elementClass:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier != nil"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    v8 = @"FBDisplayLayoutElement.m";
-    v9 = 1024;
-    v10 = 33;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"FBDisplayLayoutElement.m";
+    v10 = 1024;
+    v11 = 33;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

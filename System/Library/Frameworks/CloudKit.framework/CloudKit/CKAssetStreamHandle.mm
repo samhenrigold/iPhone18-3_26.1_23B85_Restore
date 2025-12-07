@@ -56,9 +56,41 @@
 - (id)makeAVPlayerItemWith:(id)with options:(id)options
 {
   v7 = sub_18844E6FC(&qword_1EA90D240, &qword_1886F70B0);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v17 - v9;
+  v9 = &v16 - v8;
+  if (with)
+  {
+    static URL._unconditionallyBridgeFromObjectiveC(_:)();
+    v10 = type metadata accessor for URL();
+    v11 = 0;
+  }
+
+  else
+  {
+    v10 = type metadata accessor for URL();
+    v11 = 1;
+  }
+
+  sub_1883F90F4(v9, v11, 1, v10);
+  if (options)
+  {
+    options = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  }
+
+  selfCopy = self;
+  sub_188450654(v9, options);
+  v14 = v13;
+
+  sub_1883F9FEC(v9, &qword_1EA90D240, &qword_1886F70B0);
+
+  return v14;
+}
+
+- (id)makeAVAssetExportSessionWith:(id)with options:(id)options presetName:(id)name
+{
+  v8 = sub_18844E6FC(&qword_1EA90D240, &qword_1886F70B0);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v20 - v9;
   if (with)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
@@ -75,51 +107,18 @@
   sub_1883F90F4(v10, v12, 1, v11);
   if (options)
   {
-    static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    options = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  selfCopy = self;
-  sub_188450654();
+  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v15 = v14;
+  selfCopy = self;
+  sub_188450CD4(v10, options, v13, v15);
+  v18 = v17;
 
   sub_1883F9FEC(v10, &qword_1EA90D240, &qword_1886F70B0);
 
-  return v15;
-}
-
-- (id)makeAVAssetExportSessionWith:(id)with options:(id)options presetName:(id)name
-{
-  v8 = sub_18844E6FC(&qword_1EA90D240, &qword_1886F70B0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v18 - v10;
-  if (with)
-  {
-    static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = type metadata accessor for URL();
-    v13 = 0;
-  }
-
-  else
-  {
-    v12 = type metadata accessor for URL();
-    v13 = 1;
-  }
-
-  sub_1883F90F4(v11, v13, 1, v12);
-  if (options)
-  {
-    static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  selfCopy = self;
-  sub_188450CD4();
-  v16 = v15;
-
-  sub_1883F9FEC(v11, &qword_1EA90D240, &qword_1886F70B0);
-
-  return v16;
+  return v18;
 }
 
 - (int64_t)size

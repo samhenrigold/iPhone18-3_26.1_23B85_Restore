@@ -17,12 +17,13 @@
   v3 = *(&self->super.isa + OBJC_IVAR____TtC22SubscribePageExtension31PurchasesCollectionViewDelegate_didScrollHandler);
   if (v3)
   {
+    v5 = *&self->objectGraph[OBJC_IVAR____TtC22SubscribePageExtension31PurchasesCollectionViewDelegate_didScrollHandler];
     scrollCopy = scroll;
     selfCopy = self;
-    sub_10001B5AC(v3);
+    sub_10001B5AC(v3, v5);
     v3(scrollCopy);
 
-    sub_1000164A8(v3);
+    sub_1000164A8(v3, v5);
   }
 }
 

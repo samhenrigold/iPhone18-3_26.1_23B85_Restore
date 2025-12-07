@@ -84,15 +84,13 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"activityLevel";
+  v6[2] = *MEMORY[0x1E69E9840];
+  v5[0] = @"activityLevel";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_activityLevel];
-  v6[1] = @"duration";
-  v7[0] = v3;
-  v7[1] = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[1] = @"duration";
+  v6[0] = v3;
+  v6[1] = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 - (id)allCompactResourcesForLanguage:(id)language
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   allCompactResources = self->_allCompactResources;
   if (allCompactResources)
@@ -21,26 +21,26 @@
     selfCopy = self;
     v7 = [(TTSAXResourceManager *)self->_axManager resourcesWithType:4 subType:2];
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v27;
+      v12 = *v26;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
+          v14 = *(*(&v25 + 1) + 8 * i);
           if ([v14 isInstalled])
           {
             primaryLanguage = [v14 primaryLanguage];
@@ -63,7 +63,7 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v11);
@@ -75,8 +75,6 @@
 
     v6 = selfCopy->_allCompactResources;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

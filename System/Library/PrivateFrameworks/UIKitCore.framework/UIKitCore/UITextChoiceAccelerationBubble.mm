@@ -8,9 +8,9 @@ uint64_t __56___UITextChoiceAccelerationBubble_updateViewForOptions___block_invo
   v3 = a2;
   v4 = [*(a1 + 32) candidate];
   v5 = [v4 input];
-  v6 = [v5 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-  if (v6)
+  if (isEqualToString)
   {
     v7 = 1;
   }
@@ -19,7 +19,7 @@ uint64_t __56___UITextChoiceAccelerationBubble_updateViewForOptions___block_invo
   {
     v8 = [*(a1 + 32) replacement];
     v9 = [v8 revertText];
-    v10 = [v9 isEqualToString:v3];
+    v10 = objc_msgSend_isEqualToString_(v9);
 
     if (v10)
     {
@@ -36,7 +36,7 @@ uint64_t __56___UITextChoiceAccelerationBubble_updateViewForOptions___block_invo
   return v7;
 }
 
-uint64_t __63___UITextChoiceAccelerationBubble_removeAnimated_withDuration___block_invoke_2(uint64_t a1)
+void *__63___UITextChoiceAccelerationBubble_removeAnimated_withDuration___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) reset];
   *(*(a1 + 32) + 458) = 0;

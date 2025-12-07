@@ -24,9 +24,9 @@
 - (CloudExtensionStore)initWithContainer:(id)container
 {
   containerCopy = container;
-  v22.receiver = self;
-  v22.super_class = CloudExtensionStore;
-  v6 = [(CloudExtensionStore *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = CloudExtensionStore;
+  v6 = [(CloudExtensionStore *)&v24 init];
   v7 = v6;
   if (v6)
   {
@@ -37,32 +37,32 @@
 
     if (!v7->_database)
     {
-      v10 = sub_1000D23FC();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = sub_1000D23FC(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000080B4();
       }
     }
 
-    v11 = objc_alloc_init(NSOperationQueue);
+    v13 = objc_alloc_init(NSOperationQueue);
     cloudExtensionsOperationQueue = v7->_cloudExtensionsOperationQueue;
-    v7->_cloudExtensionsOperationQueue = v11;
+    v7->_cloudExtensionsOperationQueue = v13;
 
     [(NSOperationQueue *)v7->_cloudExtensionsOperationQueue setQualityOfService:17];
-    v13 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudExtensions.CloudExtensionStore.%@.%p.operationQueue", objc_opt_class(), v7];
-    [(NSOperationQueue *)v7->_cloudExtensionsOperationQueue setName:v13];
+    v15 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudExtensions.CloudExtensionStore.%@.%p.operationQueue", objc_opt_class(), v7];
+    [(NSOperationQueue *)v7->_cloudExtensionsOperationQueue setName:v15];
 
-    v14 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudExtensions.CloudExtensionStore.%@.%p.internalQueue", objc_opt_class(), v7];
-    v15 = dispatch_queue_create([v14 UTF8String], 0);
+    v16 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudExtensions.CloudExtensionStore.%@.%p.internalQueue", objc_opt_class(), v7];
+    v17 = dispatch_queue_create([v16 UTF8String], 0);
     internalQueue = v7->_internalQueue;
-    v7->_internalQueue = v15;
+    v7->_internalQueue = v17;
 
-    v17 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudExtensions.CloudExtensionStore.%@.%p.completionHandlerQueue", objc_opt_class(), v7];
-    v18 = dispatch_queue_create([v17 UTF8String], 0);
+    v19 = [NSString stringWithFormat:@"com.apple.SafariBookmarksSyncAgent.CloudExtensions.CloudExtensionStore.%@.%p.completionHandlerQueue", objc_opt_class(), v7];
+    v20 = dispatch_queue_create([v19 UTF8String], 0);
     completionHandlerQueue = v7->_completionHandlerQueue;
-    v7->_completionHandlerQueue = v18;
+    v7->_completionHandlerQueue = v20;
 
-    v20 = v7;
+    v22 = v7;
   }
 
   return v7;
@@ -72,19 +72,20 @@
 {
   handlerCopy = handler;
   groupCopy = group;
-  v8 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_1000D23FC()];
-  [(CloudExtensionStore *)self _createCloudExtensionsRecordZoneInOperationGroup:groupCopy withRetryManager:v8 completionHandler:handlerCopy];
+  v8 = [WBSCloudKitOperationRetryManager alloc];
+  v10 = [v8 initWithLog:{sub_1000D23FC(v8, v9)}];
+  [(CloudExtensionStore *)self _createCloudExtensionsRecordZoneInOperationGroup:groupCopy withRetryManager:v10 completionHandler:handlerCopy];
 }
 
 - (void)fetchCloudExtensionsZoneSubscriptionInOperationGroup:(id)group completionHandler:(id)handler
 {
   groupCopy = group;
   handlerCopy = handler;
-  v8 = sub_1000D23FC();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_1000D23FC(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Fetching CloudExtensions zone subscription", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Fetching CloudExtensions zone subscription", buf, 2u);
   }
 
   internalQueue = self->_internalQueue;
@@ -92,11 +93,11 @@
   block[1] = 3221225472;
   block[2] = sub_100003624;
   block[3] = &unk_100130E50;
-  v13 = groupCopy;
-  v14 = handlerCopy;
+  v14 = groupCopy;
+  v15 = handlerCopy;
   block[4] = self;
-  v10 = groupCopy;
-  v11 = handlerCopy;
+  v11 = groupCopy;
+  v12 = handlerCopy;
   dispatch_async(internalQueue, block);
 }
 
@@ -104,27 +105,27 @@
 {
   groupCopy = group;
   handlerCopy = handler;
-  v8 = sub_1000D23FC();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_1000D23FC(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Saving CloudExtensions zone subscription", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Saving CloudExtensions zone subscription", buf, 2u);
   }
 
   objc_initWeak(buf, self);
   cloudExtensionsOperationQueue = self->_cloudExtensionsOperationQueue;
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100003A70;
-  v12[3] = &unk_100130EA0;
-  v10 = handlerCopy;
-  v14 = v10;
-  objc_copyWeak(&v15, buf);
-  v11 = groupCopy;
-  v13 = v11;
-  [(CloudExtensionStore *)self _saveRecordZoneSubscriptionInOperationGroup:v11 operationQueue:cloudExtensionsOperationQueue completionHandler:v12];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100003A70;
+  v13[3] = &unk_100130EA0;
+  v11 = handlerCopy;
+  v15 = v11;
+  objc_copyWeak(&v16, buf);
+  v12 = groupCopy;
+  v14 = v12;
+  [(CloudExtensionStore *)self _saveRecordZoneSubscriptionInOperationGroup:v12 operationQueue:cloudExtensionsOperationQueue completionHandler:v13];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
 }
 
@@ -133,31 +134,31 @@
   batchCopy = batch;
   groupCopy = group;
   handlerCopy = handler;
-  v13 = sub_1000D23FC();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_1000D23FC(handlerCopy, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = v13;
+    v15 = v14;
     *buf = 134217984;
-    v25 = [batchCopy count];
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Saving record batch of size: %lu", buf, 0xCu);
+    v26 = [batchCopy count];
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Saving record batch of size: %lu", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100003E88;
-  v18[3] = &unk_100130F18;
-  objc_copyWeak(&v22, buf);
-  v15 = handlerCopy;
-  v21 = v15;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100003E88;
+  v19[3] = &unk_100130F18;
+  objc_copyWeak(&v23, buf);
+  v16 = handlerCopy;
+  v22 = v16;
   missingCopy = missing;
-  v16 = groupCopy;
-  v19 = v16;
-  v17 = batchCopy;
+  v17 = groupCopy;
   v20 = v17;
-  [(CloudExtensionStore *)self _saveCloudExtensionsRecordBatch:v17 inOperationGroup:v16 completionHandler:v18];
+  v18 = batchCopy;
+  v21 = v18;
+  [(CloudExtensionStore *)self _saveCloudExtensionsRecordBatch:v18 inOperationGroup:v17 completionHandler:v19];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(buf);
 }
 
@@ -167,97 +168,98 @@
   groupCopy = group;
   handlerCopy = handler;
   v11 = [recordsCopy count];
-  v12 = sub_1000D23FC();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = sub_1000D23FC(v11, v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v11)
   {
-    v29 = groupCopy;
-    if (v13)
+    v32 = groupCopy;
+    if (v14)
     {
-      v14 = v12;
+      v15 = v13;
       *buf = 134217984;
-      v45 = [recordsCopy count];
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Deleting %lu records.", buf, 0xCu);
+      v48 = [recordsCopy count];
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Deleting %lu records.", buf, 0xCu);
     }
 
-    v32 = handlerCopy;
-    v15 = [recordsCopy safari_arrayByGroupingIntoArraysWithMaxCount:100];
-    v16 = [v15 count];
-    if (v16 >= 2)
+    v35 = handlerCopy;
+    v16 = [recordsCopy safari_arrayByGroupingIntoArraysWithMaxCount:100];
+    v17 = [v16 count];
+    v19 = v17;
+    if (v17 >= 2)
     {
-      v17 = sub_1000D23FC();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_1000D23FC(v17, v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = v17;
-        v19 = [recordsCopy count];
+        v21 = v20;
+        v22 = [recordsCopy count];
         *buf = 134218240;
-        v45 = v19;
-        v46 = 2048;
-        v47 = v16;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Grouping delete requests for %lu objects into %lu batches", buf, 0x16u);
+        v48 = v22;
+        v49 = 2048;
+        v50 = v19;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Grouping delete requests for %lu objects into %lu batches", buf, 0x16u);
       }
     }
 
-    v30 = recordsCopy;
-    v20 = [NSMutableSet setWithArray:v15];
-    v21 = +[NSMutableArray array];
-    v22 = [NSMutableArray arrayWithCapacity:v16];
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
+    v33 = recordsCopy;
+    v23 = [NSMutableSet setWithArray:v16];
+    v24 = +[NSMutableArray array];
+    v25 = [NSMutableArray arrayWithCapacity:v19];
     v42 = 0u;
-    obj = v15;
-    v23 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
-    if (v23)
+    v43 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    obj = v16;
+    v26 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    if (v26)
     {
-      v24 = v23;
-      v25 = *v40;
+      v27 = v26;
+      v28 = *v43;
       do
       {
-        v26 = 0;
+        v29 = 0;
         do
         {
-          if (*v40 != v25)
+          if (*v43 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v39 + 1) + 8 * v26);
-          v33[0] = _NSConcreteStackBlock;
-          v33[1] = 3221225472;
-          v33[2] = sub_100004580;
-          v33[3] = &unk_100130F68;
-          v34 = v21;
-          v35 = v20;
-          v36 = v27;
+          v30 = *(*(&v42 + 1) + 8 * v29);
+          v36[0] = _NSConcreteStackBlock;
+          v36[1] = 3221225472;
+          v36[2] = sub_100004580;
+          v36[3] = &unk_100130F68;
+          v37 = v24;
+          v38 = v23;
+          v39 = v30;
           selfCopy = self;
-          v38 = v32;
-          v28 = [(CloudExtensionStore *)self _operationToDeleteCloudExtensionRecordIDs:v27 completionHandler:v33];
-          [v22 addObject:v28];
+          v41 = v35;
+          v31 = [(CloudExtensionStore *)self _operationToDeleteCloudExtensionRecordIDs:v30 completionHandler:v36];
+          [v25 addObject:v31];
 
-          v26 = v26 + 1;
+          v29 = v29 + 1;
         }
 
-        while (v24 != v26);
-        v24 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+        while (v27 != v29);
+        v27 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
       }
 
-      while (v24);
+      while (v27);
     }
 
-    groupCopy = v29;
-    [(CloudExtensionStore *)self _addModifyRecordsOperations:v22 inOperationGroup:v29 operationQueue:self->_cloudExtensionsOperationQueue];
+    groupCopy = v32;
+    [(CloudExtensionStore *)self _addModifyRecordsOperations:v25 inOperationGroup:v32 operationQueue:self->_cloudExtensionsOperationQueue];
 
-    recordsCopy = v30;
-    handlerCopy = v32;
+    recordsCopy = v33;
+    handlerCopy = v35;
   }
 
   else
   {
-    if (v13)
+    if (v14)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No records to delete.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "No records to delete.", buf, 2u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
@@ -271,48 +273,48 @@
   blockCopy = block;
   deletedBlockCopy = deletedBlock;
   handlerCopy = handler;
-  v17 = sub_1000D23FC();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v18 = sub_1000D23FC(handlerCopy, v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if (tokenCopy)
   {
-    if (v18)
+    if (v19)
     {
       *buf = 138543362;
-      v35 = tokenCopy;
-      v19 = "Fetching record changes with server change token %{public}@.";
-      v20 = v17;
-      v21 = 12;
+      v36 = tokenCopy;
+      v20 = "Fetching record changes with server change token %{public}@.";
+      v21 = v18;
+      v22 = 12;
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v20, buf, v22);
     }
   }
 
-  else if (v18)
+  else if (v19)
   {
     *buf = 0;
-    v19 = "Fetching all records.";
-    v20 = v17;
-    v21 = 2;
+    v20 = "Fetching all records.";
+    v21 = v18;
+    v22 = 2;
     goto LABEL_6;
   }
 
   internalQueue = self->_internalQueue;
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_1000048B0;
-  v28[3] = &unk_100130F90;
-  v28[4] = self;
-  v29 = tokenCopy;
-  v30 = groupCopy;
-  v31 = blockCopy;
-  v32 = deletedBlockCopy;
-  v33 = handlerCopy;
-  v23 = handlerCopy;
-  v24 = groupCopy;
-  v25 = deletedBlockCopy;
-  v26 = blockCopy;
-  v27 = tokenCopy;
-  dispatch_async(internalQueue, v28);
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_1000048B0;
+  v29[3] = &unk_100130F90;
+  v29[4] = self;
+  v30 = tokenCopy;
+  v31 = groupCopy;
+  v32 = blockCopy;
+  v33 = deletedBlockCopy;
+  v34 = handlerCopy;
+  v24 = handlerCopy;
+  v25 = groupCopy;
+  v26 = deletedBlockCopy;
+  v27 = blockCopy;
+  v28 = tokenCopy;
+  dispatch_async(internalQueue, v29);
 }
 
 - (void)_saveCloudExtensionsRecordBatch:(id)batch inOperationGroup:(id)group completionHandler:(id)handler
@@ -320,10 +322,11 @@ LABEL_6:
   handlerCopy = handler;
   groupCopy = group;
   batchCopy = batch;
-  v13 = +[NSMutableArray array];
+  v15 = +[NSMutableArray array];
   v11 = +[NSMutableArray array];
-  v12 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_1000D23FC()];
-  [(CloudExtensionStore *)self _saveCloudExtensionsRecordBatch:batchCopy previouslySavedRecords:v13 previouslyDeletedRecordIDs:v11 retryManager:v12 inOperationGroup:groupCopy completionHandler:handlerCopy];
+  v12 = [WBSCloudKitOperationRetryManager alloc];
+  v14 = [v12 initWithLog:{sub_1000D23FC(v12, v13)}];
+  [(CloudExtensionStore *)self _saveCloudExtensionsRecordBatch:batchCopy previouslySavedRecords:v15 previouslyDeletedRecordIDs:v11 retryManager:v14 inOperationGroup:groupCopy completionHandler:handlerCopy];
 }
 
 - (void)_saveCloudExtensionsRecordBatch:(id)batch previouslySavedRecords:(id)records previouslyDeletedRecordIDs:(id)ds retryManager:(id)manager inOperationGroup:(id)group completionHandler:(id)handler
@@ -334,55 +337,55 @@ LABEL_6:
   managerCopy = manager;
   groupCopy = group;
   handlerCopy = handler;
-  objc_initWeak(&location, self);
-  v20 = sub_1000D23FC();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v22 = sub_1000D23FC(inited, v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = [batchCopy count];
+    v23 = [batchCopy count];
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v21;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Saving record batch with %lu records", &buf, 0xCu);
+    *(&buf + 4) = v23;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Saving record batch with %lu records", &buf, 0xCu);
   }
 
-  v22 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:batchCopy recordIDsToDelete:0];
+  v24 = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:batchCopy recordIDsToDelete:0];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v46 = 0x2020000000;
-  v47 = 0;
+  v48 = 0x2020000000;
+  v49 = 0;
   +[NSMutableArray array];
-  v40[0] = _NSConcreteStackBlock;
-  v40[1] = 3221225472;
-  v40[2] = sub_100004D28;
-  v40[3] = &unk_100130FE0;
-  v40[4] = self;
-  v23 = p_buf = &buf;
-  v41 = v23;
-  [v22 setPerRecordCompletionBlock:v40];
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_100004FA0;
-  v31[3] = &unk_100131080;
-  v31[4] = self;
-  v30 = recordsCopy;
-  v32 = v30;
-  v24 = dsCopy;
-  v33 = v24;
-  v25 = handlerCopy;
-  v37 = v25;
-  v38 = &buf;
-  v26 = batchCopy;
-  v34 = v26;
-  v27 = managerCopy;
-  v35 = v27;
-  v28 = groupCopy;
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_100004D28;
+  v42[3] = &unk_100130FE0;
+  v42[4] = self;
+  v25 = p_buf = &buf;
+  v43 = v25;
+  [v24 setPerRecordCompletionBlock:v42];
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_100004FA0;
+  v33[3] = &unk_100131080;
+  v33[4] = self;
+  v32 = recordsCopy;
+  v34 = v32;
+  v26 = dsCopy;
+  v35 = v26;
+  v27 = handlerCopy;
+  v39 = v27;
+  v40 = &buf;
+  v28 = batchCopy;
   v36 = v28;
-  objc_copyWeak(&v39, &location);
-  [v22 setModifyRecordsCompletionBlock:v31];
-  v44 = v22;
-  v29 = [NSArray arrayWithObjects:&v44 count:1];
-  [(CloudExtensionStore *)self _addModifyRecordsOperations:v29 inOperationGroup:v28 operationQueue:self->_cloudExtensionsOperationQueue];
+  v29 = managerCopy;
+  v37 = v29;
+  v30 = groupCopy;
+  v38 = v30;
+  objc_copyWeak(&v41, &location);
+  [v24 setModifyRecordsCompletionBlock:v33];
+  v46 = v24;
+  v31 = [NSArray arrayWithObjects:&v46 count:1];
+  [(CloudExtensionStore *)self _addModifyRecordsOperations:v31 inOperationGroup:v30 operationQueue:self->_cloudExtensionsOperationQueue];
 
-  objc_destroyWeak(&v39);
+  objc_destroyWeak(&v41);
   _Block_object_dispose(&buf, 8);
 
   objc_destroyWeak(&location);
@@ -395,8 +398,9 @@ LABEL_6:
   deletedBlockCopy = deletedBlock;
   blockCopy = block;
   tokenCopy = token;
-  v17 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:sub_1000D23FC()];
-  [(CloudExtensionStore *)self _fetchRecordsOnInternalQueueWithRetryManager:v17 serverChangeToken:tokenCopy recordChangedBlock:blockCopy recordWithIDWasDeletedBlock:deletedBlockCopy inOperationGroup:groupCopy completionHandler:handlerCopy];
+  v17 = [WBSCloudKitOperationRetryManager alloc];
+  v19 = [v17 initWithLog:{sub_1000D23FC(v17, v18)}];
+  [(CloudExtensionStore *)self _fetchRecordsOnInternalQueueWithRetryManager:v19 serverChangeToken:tokenCopy recordChangedBlock:blockCopy recordWithIDWasDeletedBlock:deletedBlockCopy inOperationGroup:groupCopy completionHandler:handlerCopy];
 }
 
 - (void)_fetchRecordsOnInternalQueueWithRetryManager:(id)manager serverChangeToken:(id)token recordChangedBlock:(id)block recordWithIDWasDeletedBlock:(id)deletedBlock inOperationGroup:(id)group completionHandler:(id)handler
@@ -407,83 +411,83 @@ LABEL_6:
   deletedBlockCopy = deletedBlock;
   groupCopy = group;
   handlerCopy = handler;
-  objc_initWeak(&location, self);
-  v39 = sub_100003294();
-  v19 = [handlerCopy copy];
+  inited = objc_initWeak(&location, self);
+  v42 = sub_100003294(inited);
+  v20 = [handlerCopy copy];
 
-  v20 = objc_alloc_init(CKFetchRecordZoneChangesConfiguration);
-  [v20 setPreviousServerChangeToken:tokenCopy];
-  v21 = [CKFetchRecordZoneChangesOperation alloc];
-  v62 = v39;
-  v22 = [NSArray arrayWithObjects:&v62 count:1];
-  v60 = v39;
-  v61 = v20;
-  v23 = [NSDictionary dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-  v24 = [v21 initWithRecordZoneIDs:v22 configurationsByRecordZoneID:v23];
+  v21 = objc_alloc_init(CKFetchRecordZoneChangesConfiguration);
+  [v21 setPreviousServerChangeToken:tokenCopy];
+  v22 = [CKFetchRecordZoneChangesOperation alloc];
+  v65 = v42;
+  v23 = [NSArray arrayWithObjects:&v65 count:1];
+  v63 = v42;
+  v64 = v21;
+  v24 = [NSDictionary dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+  v25 = [v22 initWithRecordZoneIDs:v23 configurationsByRecordZoneID:v24];
 
-  v57[0] = _NSConcreteStackBlock;
-  v57[1] = 3221225472;
-  v57[2] = sub_1000060CC;
-  v57[3] = &unk_1001310A8;
-  v57[4] = self;
-  v25 = blockCopy;
-  v58 = v25;
-  [v24 setRecordChangedBlock:v57];
-  v55[0] = _NSConcreteStackBlock;
-  v55[1] = 3221225472;
-  v55[2] = sub_1000061BC;
-  v55[3] = &unk_1001310D0;
-  v55[4] = self;
-  v26 = deletedBlockCopy;
-  v56 = v26;
-  [v24 setRecordWithIDWasDeletedBlock:v55];
-  v47[0] = _NSConcreteStackBlock;
-  v47[1] = 3221225472;
-  v47[2] = sub_1000062C0;
-  v47[3] = &unk_100131148;
-  v37 = managerCopy;
-  v48 = v37;
-  objc_copyWeak(&v54, &location);
-  v27 = v19;
-  v51 = v27;
-  v28 = tokenCopy;
-  v49 = v28;
-  v29 = v25;
+  v60[0] = _NSConcreteStackBlock;
+  v60[1] = 3221225472;
+  v60[2] = sub_1000060CC;
+  v60[3] = &unk_1001310A8;
+  v60[4] = self;
+  v26 = blockCopy;
+  v61 = v26;
+  [v25 setRecordChangedBlock:v60];
+  v58[0] = _NSConcreteStackBlock;
+  v58[1] = 3221225472;
+  v58[2] = sub_1000061BC;
+  v58[3] = &unk_1001310D0;
+  v58[4] = self;
+  v27 = deletedBlockCopy;
+  v59 = v27;
+  [v25 setRecordWithIDWasDeletedBlock:v58];
+  v50[0] = _NSConcreteStackBlock;
+  v50[1] = 3221225472;
+  v50[2] = sub_1000062C0;
+  v50[3] = &unk_100131148;
+  v40 = managerCopy;
+  v51 = v40;
+  objc_copyWeak(&v57, &location);
+  v28 = v20;
+  v54 = v28;
+  v29 = tokenCopy;
   v52 = v29;
   v30 = v26;
-  v53 = v30;
-  v31 = groupCopy;
-  v50 = v31;
+  v55 = v30;
+  v31 = v27;
+  v56 = v31;
+  v32 = groupCopy;
+  v53 = v32;
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = sub_10000661C;
+  v47[3] = &unk_100131198;
+  v47[4] = self;
+  v33 = objc_retainBlock(v50);
+  v48 = v33;
+  v34 = v28;
+  v49 = v34;
+  [v25 setRecordZoneFetchCompletionBlock:v47];
   v44[0] = _NSConcreteStackBlock;
   v44[1] = 3221225472;
-  v44[2] = sub_10000661C;
-  v44[3] = &unk_100131198;
-  v44[4] = self;
-  v32 = objc_retainBlock(v47);
-  v45 = v32;
-  v33 = v27;
-  v46 = v33;
-  [v24 setRecordZoneFetchCompletionBlock:v44];
-  v41[0] = _NSConcreteStackBlock;
-  v41[1] = 3221225472;
-  v41[2] = sub_100006A2C;
-  v41[3] = &unk_1001311C0;
-  v34 = v32;
-  v41[4] = self;
-  v42 = v34;
+  v44[2] = sub_100006A2C;
+  v44[3] = &unk_1001311C0;
   v35 = v33;
-  v43 = v35;
-  [v24 setFetchRecordZoneChangesCompletionBlock:v41];
-  v36 = sub_1000D23FC();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+  v44[4] = self;
+  v45 = v35;
+  v36 = v34;
+  v46 = v36;
+  v37 = [v25 setFetchRecordZoneChangesCompletionBlock:v44];
+  v39 = sub_1000D23FC(v37, v38);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Enqueuing request to fetch records from CloudExtensions record zone", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Enqueuing request to fetch records from CloudExtensions record zone", buf, 2u);
   }
 
-  [(CloudExtensionStore *)self _scheduleOperation:v24 inOperationGroup:v31 operationQueue:self->_cloudExtensionsOperationQueue];
+  [(CloudExtensionStore *)self _scheduleOperation:v25 inOperationGroup:v32 operationQueue:self->_cloudExtensionsOperationQueue];
 
-  objc_destroyWeak(&v54);
+  objc_destroyWeak(&v57);
   objc_destroyWeak(&location);
 }
 
@@ -492,43 +496,43 @@ LABEL_6:
   operationsCopy = operations;
   groupCopy = group;
   queueCopy = queue;
-  v11 = sub_1000D23FC();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = sub_1000D23FC(queueCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = v11;
+    v13 = v12;
     *buf = 134217984;
-    v25 = [operationsCopy count];
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Enqueuing %lu modify records operations", buf, 0xCu);
+    v26 = [operationsCopy count];
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Enqueuing %lu modify records operations", buf, 0xCu);
   }
 
-  v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v13 = operationsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v14)
+  v21 = 0u;
+  v14 = operationsCopy;
+  v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v20;
+    v16 = v15;
+    v17 = *v21;
     do
     {
-      for (i = 0; i != v15; i = i + 1)
+      for (i = 0; i != v16; i = i + 1)
       {
-        if (*v20 != v16)
+        if (*v21 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v19 + 1) + 8 * i);
-        [(CloudExtensionStore *)self _addDependenciesForModifyRecordsOperation:v18 operationQueue:queueCopy, v19];
-        [(CloudExtensionStore *)self _scheduleOperation:v18 inOperationGroup:groupCopy operationQueue:queueCopy];
+        v19 = *(*(&v20 + 1) + 8 * i);
+        [(CloudExtensionStore *)self _addDependenciesForModifyRecordsOperation:v19 operationQueue:queueCopy, v20];
+        [(CloudExtensionStore *)self _scheduleOperation:v19 inOperationGroup:groupCopy operationQueue:queueCopy];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 }
 
@@ -600,11 +604,11 @@ LABEL_6:
   groupCopy = group;
   managerCopy = manager;
   handlerCopy = handler;
-  v11 = sub_1000D23FC();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_1000D23FC(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Creating CloudExtensions zone", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Creating CloudExtensions zone", buf, 2u);
   }
 
   objc_initWeak(buf, self);
@@ -613,17 +617,17 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = sub_100007164;
   block[3] = &unk_100131260;
-  v17 = managerCopy;
-  v13 = managerCopy;
-  objc_copyWeak(&v21, buf);
+  v18 = managerCopy;
+  v14 = managerCopy;
+  objc_copyWeak(&v22, buf);
   selfCopy = self;
-  v20 = handlerCopy;
-  v18 = groupCopy;
-  v14 = groupCopy;
-  v15 = handlerCopy;
+  v21 = handlerCopy;
+  v19 = groupCopy;
+  v15 = groupCopy;
+  v16 = handlerCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(buf);
 }
 

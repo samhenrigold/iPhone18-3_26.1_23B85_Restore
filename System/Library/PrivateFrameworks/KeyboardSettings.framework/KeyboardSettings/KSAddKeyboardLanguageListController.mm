@@ -16,7 +16,9 @@
 - (void)showAddExtensionKeyboardSheet:(id)sheet;
 - (void)showAddSystemKeyboardSheet:(id)sheet;
 - (void)tableView:(id)view willDisplayHeaderView:(id)headerView forSection:(int64_t)section;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation KSAddKeyboardLanguageListController
@@ -115,7 +117,7 @@ void __63__KSAddKeyboardLanguageListController_searchBar_textDidChange___block_i
 
 - (BOOL)inputMode:(id)mode matchesPredicate:(id)predicate
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   LanguageWithRegion = TIInputModeGetLanguageWithRegion();
   if ([predicate evaluateWithObject:LanguageWithRegion])
   {
@@ -130,88 +132,87 @@ void __63__KSAddKeyboardLanguageListController_searchBar_textDidChange___block_i
     [v8 addObject:TUIKeyboardTitleInLanguage()];
     [v8 addObject:{objc_msgSend(objc_msgSend(MEMORY[0x277CBEAF8], "localeWithLocaleIdentifier:", LanguageWithRegion), "localizedStringForLocaleIdentifier:", LanguageWithRegion)}];
     v9 = [KSKeyboardListController supportedBaseInputModesForLanguage:LanguageWithRegion];
+    v30 = 0u;
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v10)
     {
-      v11 = *v33;
+      v11 = *v31;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v11)
+          if (*v31 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v32 + 1) + 8 * i);
           [TIInputModeGetComponentsFromIdentifier() valueForKey:@"kCFLocaleVariantCodeKey"];
-          v14 = TUIKeyboardTitle();
+          v13 = TUIKeyboardTitle();
+          if ([v13 length])
+          {
+            [v8 addObject:v13];
+          }
+
+          v14 = TUIKeyboardTitleInLanguage();
           if ([v14 length])
           {
             [v8 addObject:v14];
           }
-
-          v15 = TUIKeyboardTitleInLanguage();
-          if ([v15 length])
-          {
-            [v8 addObject:v15];
-          }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v10);
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v31 = 0;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x2020000000;
+    v29 = 0;
+    v22 = 0u;
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v16 = [v8 countByEnumeratingWithState:&v24 objects:v36 count:16];
-    if (v16)
+    v15 = [v8 countByEnumeratingWithState:&v22 objects:v34 count:16];
+    if (v15)
     {
-      v17 = *v25;
+      v16 = *v23;
       while (2)
       {
-        for (j = 0; j != v16; ++j)
+        for (j = 0; j != v15; ++j)
         {
-          if (*v25 != v17)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v8);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * j);
-          if ([predicate evaluateWithObject:v19])
+          v18 = *(*(&v22 + 1) + 8 * j);
+          if ([predicate evaluateWithObject:v18])
           {
-            *(v29 + 24) = 1;
+            *(v27 + 24) = 1;
             goto LABEL_25;
           }
 
-          v20 = [v19 length];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___block_invoke;
-          v23[3] = &unk_2797FA3A0;
-          v23[4] = predicate;
-          v23[5] = &v28;
-          [v19 enumerateSubstringsInRange:0 options:v20 usingBlock:{3, v23}];
-          if (v29[3])
+          v19 = [v18 length];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___block_invoke;
+          v21[3] = &unk_2797FA3A0;
+          v21[4] = predicate;
+          v21[5] = &v26;
+          [v18 enumerateSubstringsInRange:0 options:v19 usingBlock:{3, v21}];
+          if (v27[3])
           {
             goto LABEL_25;
           }
         }
 
-        v16 = [v8 countByEnumeratingWithState:&v24 objects:v36 count:16];
-        if (v16)
+        v15 = [v8 countByEnumeratingWithState:&v22 objects:v34 count:16];
+        if (v15)
         {
           continue;
         }
@@ -221,17 +222,16 @@ void __63__KSAddKeyboardLanguageListController_searchBar_textDidChange___block_i
     }
 
 LABEL_25:
-    v6 = *(v29 + 24);
-    _Block_object_dispose(&v28, 8);
+    v6 = *(v27 + 24);
+    _Block_object_dispose(&v26, 8);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
-uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  result = [*(a1 + 32) evaluateWithObject:a2];
+  result = [*(a1 + 32) evaluateWithObject:{a2, a4, a5, a6}];
   if (result)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -256,28 +256,28 @@ uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___
 
 - (id)generateSpecifiers
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   v4 = [objc_msgSend(MEMORY[0x277D75688] "sharedInputModeController")];
-  v5 = [v4 countByEnumeratingWithState:&v59 objects:v64 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v58 objects:v63 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v60;
+    v7 = *v59;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v60 != v7)
+        if (*v59 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v59 + 1) + 8 * i);
+        v9 = *(*(&v58 + 1) + 8 * i);
         if (([v9 isExtensionInputMode] & 1) == 0)
         {
           [v9 identifier];
@@ -289,13 +289,13 @@ uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v59 objects:v64 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v58 objects:v63 count:16];
     }
 
     while (v6);
   }
 
-  v48 = [MEMORY[0x277CBEB58] set];
+  v47 = [MEMORY[0x277CBEB58] set];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -310,34 +310,34 @@ uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___
     v11 = 0;
   }
 
-  v58 = 0u;
-  v56 = 0u;
   v57 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v54 = 0u;
   obj = UIKeyboardGetSupportedInputModes();
-  v12 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+  v12 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v56;
-    v46 = *MEMORY[0x277CBEC40];
-    v42 = *MEMORY[0x277CBED50];
-    v44 = *MEMORY[0x277D40170];
-    v47 = *MEMORY[0x277D3FFB8];
-    v43 = *MEMORY[0x277D3FE58];
-    v39 = *MEMORY[0x277D3FE08];
-    v38 = *MEMORY[0x277D3FDB8];
+    v14 = *v55;
+    v45 = *MEMORY[0x277CBEC40];
+    v41 = *MEMORY[0x277CBED50];
+    v43 = *MEMORY[0x277D40170];
+    v46 = *MEMORY[0x277D3FFB8];
+    v42 = *MEMORY[0x277D3FE58];
+    v38 = *MEMORY[0x277D3FE08];
+    v37 = *MEMORY[0x277D3FDB8];
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v56 != v14)
+        if (*v55 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v55 + 1) + 8 * j);
-        if ((!v11 || [(KSAddKeyboardLanguageListController *)val inputMode:*(*(&v55 + 1) + 8 * j) matchesPredicate:v11]) && (!_os_feature_enabled_impl() || (TIInputModeIsMultilingualOnly() & 1) == 0))
+        v16 = *(*(&v54 + 1) + 8 * j);
+        if ((!v11 || [(KSAddKeyboardLanguageListController *)val inputMode:*(*(&v54 + 1) + 8 * j) matchesPredicate:v11]) && (!_os_feature_enabled_impl() || (TIInputModeIsMultilingualOnly() & 1) == 0))
         {
           v17 = [MEMORY[0x277D75680] keyboardInputModeWithIdentifier:v16];
           if (([v17 isExtensionInputMode] & 1) != 0 || objc_msgSend(+[KSKeyboardListController availableInputModesForLanguage:](KSKeyboardListController, "availableInputModesForLanguage:", v16), "count"))
@@ -370,16 +370,16 @@ uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___
               identifier = v21;
             }
 
-            if (![v48 member:identifier])
+            if (![v47 member:identifier])
             {
-              [v48 addObject:identifier];
+              [v47 addObject:identifier];
               if (![v17 isExtensionInputMode] || (v24 = objc_msgSend(dictionary, "objectForKey:", objc_msgSend(objc_msgSend(v17, "containingBundle"), "bundlePath"))) == 0)
               {
                 v24 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v23 target:val set:0 get:0 detail:0 cell:3 edit:0];
                 [v24 setControllerLoadAction:sel_showAddSystemKeyboardSheet_];
-                [v24 setProperty:v23 forKey:v44];
-                [v24 setProperty:v21 forKey:v47];
-                [v24 setProperty:objc_opt_class() forKey:v43];
+                [v24 setProperty:v23 forKey:v43];
+                [v24 setProperty:v21 forKey:v46];
+                [v24 setProperty:objc_opt_class() forKey:v42];
               }
 
               if ([v17 isExtensionInputMode])
@@ -402,8 +402,8 @@ uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___
                   }
 
                   [array5 addObject:v17];
-                  [v24 setProperty:v19 forKey:v39];
-                  [v24 setProperty:MEMORY[0x277CBEC38] forKey:v38];
+                  [v24 setProperty:v19 forKey:v38];
+                  [v24 setProperty:MEMORY[0x277CBEC38] forKey:v37];
                   [v24 setControllerLoadAction:sel_showAddExtensionKeyboardSheet_];
                   [dictionary setObject:v24 forKey:v19];
                 }
@@ -411,7 +411,7 @@ uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___
 
               else
               {
-                if ([array containsObject:{objc_msgSend(v24, "propertyForKey:", v47)}])
+                if ([array containsObject:{objc_msgSend(v24, "propertyForKey:", v46)}])
                 {
                   v27 = array2;
                 }
@@ -428,18 +428,18 @@ uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+      v13 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
     }
 
     while (v13);
   }
 
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __57__KSAddKeyboardLanguageListController_generateSpecifiers__block_invoke;
-  v54[3] = &unk_2797FA3C8;
-  v54[4] = array;
-  [array2 sortUsingComparator:v54];
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __57__KSAddKeyboardLanguageListController_generateSpecifiers__block_invoke;
+  v53[3] = &unk_2797FA3C8;
+  v53[4] = array;
+  [array2 sortUsingComparator:v53];
   [array3 sortUsingComparator:&__block_literal_global_10];
   v28 = [objc_msgSend(dictionary "allValues")];
   v29 = [array2 count];
@@ -466,9 +466,9 @@ uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___
     block[1] = 3221225472;
     block[2] = __57__KSAddKeyboardLanguageListController_generateSpecifiers__block_invoke_3;
     block[3] = &unk_2797FA3F0;
-    objc_copyWeak(&v52, &location);
+    objc_copyWeak(&v51, &location);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v51);
     objc_destroyWeak(&location);
   }
 
@@ -486,7 +486,6 @@ uint64_t __66__KSAddKeyboardLanguageListController_inputMode_matchesPredicate___
 
   [array6 addObject:emptyGroupSpecifier];
   [array6 addObjectsFromArray:array3];
-  v36 = *MEMORY[0x277D85DE8];
   return array6;
 }
 
@@ -634,6 +633,23 @@ uint64_t __76__KSAddKeyboardLanguageListController_createAboutPrivacyControllerI
   [parentController dismiss];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KSAddKeyboardLanguageListController;
+  [(KSAddKeyboardLanguageListController *)&v4 viewWillAppear:appear];
+  -[KSAddKeyboardLanguageListController setTitle:](self, "setTitle:", [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"ADD_NEW_KEYBOARD_SHORT", &stru_28679E3A8, @"Keyboard"}]);
+  [-[KSAddKeyboardLanguageListController navigationItem](self "navigationItem")];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KSAddKeyboardLanguageListController;
+  [(KSAddKeyboardLanguageListController *)&v4 viewDidAppear:appear];
+  [(KSAddKeyboardLanguageListController *)self emitNavigationEventForAddKeyboardLanguageListController];
+}
+
 - (void)dismissForDone
 {
   v3 = [-[KSAddKeyboardLanguageListController parentController](self "parentController")];
@@ -650,7 +666,7 @@ uint64_t __76__KSAddKeyboardLanguageListController_createAboutPrivacyControllerI
 
 - (void)emitNavigationEventForAddKeyboardLanguageListController
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/Keyboard/KEYBOARDS/AddNewKeyboard"];
   v4 = +[KSKeyboardController localizedStringForGeneralKeyboardSpecifier];
   v5 = objc_alloc(MEMORY[0x277CCAEB8]);
@@ -658,11 +674,9 @@ uint64_t __76__KSAddKeyboardLanguageListController_createAboutPrivacyControllerI
   v7 = [v5 initWithKey:@"KEYBOARDS_SHORT" table:@"Keyboard" locale:currentLocale bundleURL:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "bundleURL")}];
   v8 = objc_alloc(MEMORY[0x277CCAEB8]);
   currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
-  v11[0] = v4;
-  v11[1] = v7;
-  v12 = [v8 initWithKey:@"ADD_NEW_KEYBOARD_SHORT" table:@"Keyboard" locale:currentLocale2 bundleURL:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "bundleURL")}];
-  -[KSAddKeyboardLanguageListController pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:](self, "pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:", @"com.apple.graphic-icon.keyboard", v12, [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3], v3);
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = v4;
+  v10[1] = v7;
+  -[KSAddKeyboardLanguageListController pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:](self, "pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:", @"com.apple.graphic-icon.keyboard", [v8 initWithKey:@"ADD_NEW_KEYBOARD_SHORT" table:@"Keyboard" locale:currentLocale2 bundleURL:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "bundleURL")}], objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v10, 3), v3);
 }
 
 @end

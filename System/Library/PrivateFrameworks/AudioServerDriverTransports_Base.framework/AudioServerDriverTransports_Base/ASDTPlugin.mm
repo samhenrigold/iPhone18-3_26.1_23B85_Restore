@@ -51,11 +51,11 @@
 
 - (id)initForBundleID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v26.receiver = self;
-  v26.super_class = ASDTPlugin;
-  v5 = [(ASDTPlugin *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = ASDTPlugin;
+  v5 = [(ASDTPlugin *)&v27 init];
   v6 = v5;
   if (!v5)
   {
@@ -66,9 +66,9 @@
   bundleID = dCopy;
   if (!dCopy)
   {
-    v25.receiver = v5;
-    v25.super_class = ASDTPlugin;
-    bundleID = [(ASDTPlugin *)&v25 bundleID];
+    v26.receiver = v5;
+    v26.super_class = ASDTPlugin;
+    bundleID = [(ASDTPlugin *)&v26 bundleID];
   }
 
   [(ASDTPlugin *)v6 setAsdtBundleID:bundleID];
@@ -94,19 +94,20 @@
   [(ASDTPlugin *)v6 setConcurrentQueue:v15];
 
   systemPowerNotifier = [(ASDTPlugin *)v6 systemPowerNotifier];
+  v18 = systemPowerNotifier;
   if (systemPowerNotifier)
   {
     publishedDevices = [(ASDTPlugin *)v6 publishedDevices];
     if (publishedDevices)
     {
       changeRequestManager = [(ASDTPlugin *)v6 changeRequestManager];
-      v19 = changeRequestManager == 0;
+      v21 = changeRequestManager == 0;
 
-      if (!v19)
+      if (!v21)
       {
 
 LABEL_10:
-        v20 = v6;
+        v22 = v6;
         goto LABEL_15;
       }
     }
@@ -116,18 +117,17 @@ LABEL_10:
     }
   }
 
-  v21 = ASDTBaseLogType();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v23 = ASDTBaseLogType(systemPowerNotifier, v17);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     bundleID3 = [(ASDTPlugin *)v6 bundleID];
-    [(ASDTPlugin *)bundleID3 initForBundleID:v27, v21];
+    [(ASDTPlugin *)bundleID3 initForBundleID:v28, v23];
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v22;
 }
 
 - (void)dealloc
@@ -142,71 +142,69 @@ LABEL_15:
 
 - (void)halInitializeWithPluginHost:(AudioServerPlugInHostInterface *)host
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v5 = ASDTBaseLogType();
+  v29 = *MEMORY[0x277D85DE8];
+  v5 = ASDTBaseLogType(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     bundleID = [(ASDTPlugin *)self bundleID];
     *buf = 138412546;
-    v19 = bundleID;
-    v20 = 2080;
-    v21 = "310.2";
+    v23 = bundleID;
+    v24 = 2080;
+    v25 = "310.2";
     _os_log_impl(&dword_241659000, v5, OS_LOG_TYPE_DEFAULT, "%@ %s Initialization Start", buf, 0x16u);
   }
 
-  v17.receiver = self;
-  v17.super_class = ASDTPlugin;
-  [(ASDTPlugin *)&v17 halInitializeWithPluginHost:host];
+  v21.receiver = self;
+  v21.super_class = ASDTPlugin;
+  [(ASDTPlugin *)&v21 halInitializeWithPluginHost:host];
   config = [(ASDTPlugin *)self config];
   if (config)
   {
-    v8 = [ASDTDeviceManager deviceManagerWithConfig:config withDelegate:self];
-    [(ASDTPlugin *)self setDeviceManager:v8];
+    v9 = [ASDTDeviceManager deviceManagerWithConfig:config withDelegate:self];
+    [(ASDTPlugin *)self setDeviceManager:v9];
 
     deviceManager = [(ASDTPlugin *)self deviceManager];
-    LODWORD(v8) = deviceManager == 0;
+    LODWORD(v9) = deviceManager == 0;
 
-    if (!v8)
+    if (!v9)
     {
-      v10 = "Success";
+      v13 = "Success";
       goto LABEL_11;
     }
 
-    v11 = ASDTBaseLogType();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = ASDTBaseLogType(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       bundleID2 = [(ASDTPlugin *)self bundleID];
-      [(ASDTPlugin *)bundleID2 halInitializeWithPluginHost:v24, v11];
+      [(ASDTPlugin *)bundleID2 halInitializeWithPluginHost:v28, v14];
     }
   }
 
   else
   {
-    v11 = ASDTBaseLogType();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = ASDTBaseLogType(0, v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       bundleID3 = [(ASDTPlugin *)self bundleID];
-      [(ASDTPlugin *)bundleID3 halInitializeWithPluginHost:v24, v11];
+      [(ASDTPlugin *)bundleID3 halInitializeWithPluginHost:v28, v14];
     }
   }
 
-  v10 = "Failure";
+  v13 = "Failure";
 LABEL_11:
-  [(ASDTPlugin *)self setInitializationComplete:1];
-  v14 = ASDTBaseLogType();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v17 = [(ASDTPlugin *)self setInitializationComplete:1];
+  v19 = ASDTBaseLogType(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     bundleID4 = [(ASDTPlugin *)self bundleID];
     *buf = 138412802;
-    v19 = bundleID4;
-    v20 = 2080;
-    v21 = "310.2";
-    v22 = 2080;
-    v23 = v10;
-    _os_log_impl(&dword_241659000, v14, OS_LOG_TYPE_DEFAULT, "%@ %s Initialization End; Result: %s", buf, 0x20u);
+    v23 = bundleID4;
+    v24 = 2080;
+    v25 = "310.2";
+    v26 = 2080;
+    v27 = v13;
+    _os_log_impl(&dword_241659000, v19, OS_LOG_TYPE_DEFAULT, "%@ %s Initialization End; Result: %s", buf, 0x20u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAudioDevice:(id)device
@@ -225,31 +223,31 @@ LABEL_11:
 
 - (void)addAudioDevices:(id)devices
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   publishedDevices = [(ASDTPlugin *)self publishedDevices];
   [publishedDevices addAudioDevices:devicesCopy];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = devicesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         changeRequestManager = [(ASDTPlugin *)self changeRequestManager];
         [changeRequestManager waitForConfigurationChangesForDevice:v10];
 
@@ -257,17 +255,15 @@ LABEL_11:
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
-  v13.receiver = self;
-  v13.super_class = ASDTPlugin;
-  [(ASDTPlugin *)&v13 addAudioDevices:v6];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = ASDTPlugin;
+  [(ASDTPlugin *)&v12 addAudioDevices:v6];
 }
 
 - (void)removeAudioDevice:(id)device
@@ -299,42 +295,42 @@ LABEL_11:
 
 - (BOOL)requestConfigurationChange:(id)change
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   initializationComplete = [(ASDTPlugin *)self initializationComplete];
   publishedDevices = [(ASDTPlugin *)self publishedDevices];
   audioDevices = [publishedDevices audioDevices];
 
-  if (initializationComplete && ([changeCopy object], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(audioDevices, "containsObject:", v8), v8, (v9 & 1) != 0))
+  if (initializationComplete && ([changeCopy object], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(audioDevices, "containsObject:", v10), v10, (v11 & 1) != 0))
   {
     object = [changeCopy object];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __41__ASDTPlugin_requestConfigurationChange___block_invoke_2;
-    v19[3] = &unk_278CE64F0;
-    v20 = changeCopy;
-    v11 = [(ASDTPlugin *)self callRequestConfigurationChangeForDevice:object withBlock:v19];
-    v12 = &v20;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __41__ASDTPlugin_requestConfigurationChange___block_invoke_2;
+    v20[3] = &unk_278CE64F0;
+    v21 = changeCopy;
+    v13 = [(ASDTPlugin *)self callRequestConfigurationChangeForDevice:object withBlock:v20];
+    v14 = &v21;
   }
 
   else
   {
-    v13 = ASDTBaseLogType();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = ASDTBaseLogType(v8, v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       name = [changeCopy name];
-      v15 = name;
-      v16 = "before initialization is complete";
+      v17 = name;
+      v18 = "before initialization is complete";
       if (initializationComplete)
       {
-        v16 = "for unpublished device";
+        v18 = "for unpublished device";
       }
 
       *buf = 136315394;
-      v24 = v16;
-      v25 = 2112;
-      v26 = name;
-      _os_log_impl(&dword_241659000, v13, OS_LOG_TYPE_DEFAULT, "Executing configuration change %s: %@", buf, 0x16u);
+      v25 = v18;
+      v26 = 2112;
+      v27 = name;
+      _os_log_impl(&dword_241659000, v15, OS_LOG_TYPE_DEFAULT, "Executing configuration change %s: %@", buf, 0x16u);
     }
 
     object = [(ASDTPlugin *)self concurrentQueue];
@@ -342,14 +338,13 @@ LABEL_11:
     block[1] = 3221225472;
     block[2] = __41__ASDTPlugin_requestConfigurationChange___block_invoke;
     block[3] = &unk_278CE64F0;
-    v12 = &v22;
-    v22 = changeCopy;
+    v14 = &v23;
+    v23 = changeCopy;
     dispatch_async(object, block);
-    v11 = 1;
+    v13 = 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v13;
 }
 
 - (BOOL)requestConfigurationChangeForDevice:(id)device withBlock:(id)block

@@ -81,13 +81,13 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   unsignedShortValue = 0;
   unsignedCharValue = 0;
-  memset(v25, 0, sizeof(v25));
-  v22[0] = 0;
-  v22[1] = 0;
-  v21 = v22;
+  memset(v24, 0, sizeof(v24));
+  v21[0] = 0;
+  v21[1] = 0;
+  v20 = v21;
   groupID = [(MTRScenesManagementClusterAddSceneParams *)self groupID];
   unsignedShortValue = [groupID unsignedShortValue];
 
@@ -95,13 +95,13 @@
   unsignedCharValue = [sceneID unsignedCharValue];
 
   transitionTime = [(MTRScenesManagementClusterAddSceneParams *)self transitionTime];
-  *v25 = [transitionTime unsignedIntValue];
+  *v24 = [transitionTime unsignedIntValue];
 
   sceneName = [(MTRScenesManagementClusterAddSceneParams *)self sceneName];
   v8 = sceneName;
   sub_238DB9BD8(buf, [sceneName UTF8String], objc_msgSend(sceneName, "lengthOfBytesUsingEncoding:", 4));
 
-  *&v25[4] = *buf;
+  *&v24[4] = *buf;
   extensionFieldSetStructs = [(MTRScenesManagementClusterAddSceneParams *)self extensionFieldSetStructs];
   v10 = [extensionFieldSetStructs count] == 0;
 
@@ -110,35 +110,36 @@
     operator new();
   }
 
-  *&v25[20] = 0uLL;
-  sub_2393D9C18(0x62FuLL, 0, &v20);
-  if (v20)
+  *&v24[20] = 0;
+  *&v24[28] = 0;
+  sub_2393D9C18(0x62FuLL, 0, &v19);
+  if (v19)
   {
     sub_2393C7B90(buf);
+    v27 = 0;
     v28 = 0;
+    v26 = &unk_284BB83A8;
     v29 = 0;
-    v27 = &unk_284BB83A8;
-    v30 = 0;
-    sub_238EA16C4(&v27, &v20, 0);
-    sub_2393C7BF0(buf, &v27, 0xFFFFFFFF);
+    sub_238EA16C4(&v26, &v19, 0);
+    sub_2393C7BF0(buf, &v26, 0xFFFFFFFF);
     v12 = sub_238F26820(&unsignedShortValue, buf, 0x100uLL);
     v13 = v12;
-    if (v12 || (v12 = sub_238DD2EFC(buf, &v20), v13 = v12, v12))
+    if (v12 || (v12 = sub_238DD2EFC(buf, &v19), v13 = v12, v12))
     {
       v14 = v11;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v20);
+      sub_238DD2F90(reader, &v19);
       v12 = sub_2393C7114(reader, 21, 256);
-      v14 = v18;
+      v14 = v17;
       v13 = v12;
     }
 
-    v27 = &unk_284BB83A8;
-    sub_238EA1758(&v29);
+    v26 = &unk_284BB83A8;
     sub_238EA1758(&v28);
+    sub_238EA1758(&v27);
   }
 
   else
@@ -148,14 +149,13 @@
     v13 = 11;
   }
 
-  sub_238EA1758(&v20);
-  sub_238EA1790(&v21);
-  v15 = *MEMORY[0x277D85DE8];
-  v16 = v12 & 0xFFFFFFFF00000000 | v13;
-  v17 = v14;
-  result.mFile = v17;
-  result.mError = v16;
-  result.mLine = HIDWORD(v16);
+  sub_238EA1758(&v19);
+  sub_238EA1790(&v20);
+  v15 = v12 & 0xFFFFFFFF00000000 | v13;
+  v16 = v14;
+  result.mFile = v16;
+  result.mError = v15;
+  result.mLine = HIDWORD(v15);
   return result;
 }
 

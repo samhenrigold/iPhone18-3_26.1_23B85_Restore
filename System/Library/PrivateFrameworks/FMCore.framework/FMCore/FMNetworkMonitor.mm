@@ -71,7 +71,7 @@ uint64_t __34__FMNetworkMonitor_sharedInstance__block_invoke()
 
 - (void)registerNetworkMonitorLaunchEvent:(BOOL)event
 {
-  v3 = LogCategory_Unspecified();
+  v3 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -88,18 +88,18 @@ uint64_t __34__FMNetworkMonitor_sharedInstance__block_invoke()
     path = [objectCopy path];
     status = [path status];
 
-    v10 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = LogCategory_Unspecified(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = @"DOWN";
+      v12 = @"DOWN";
       if (status == 1)
       {
-        v11 = @"UP";
+        v12 = @"UP";
       }
 
       *buf = 138412290;
-      v16 = v11;
-      _os_log_impl(&dword_24A2EE000, v10, OS_LOG_TYPE_INFO, "Network state changed: %@", buf, 0xCu);
+      v16 = v12;
+      _os_log_impl(&dword_24A2EE000, v11, OS_LOG_TYPE_INFO, "Network state changed: %@", buf, 0xCu);
     }
 
     activity_block[0] = MEMORY[0x277D85DD0];
@@ -109,21 +109,17 @@ uint64_t __34__FMNetworkMonitor_sharedInstance__block_invoke()
     v14 = status == 1;
     _os_activity_initiate(&dword_24A2EE000, "Network state changed", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __67__FMNetworkMonitor_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
-  v6 = @"IsNetworkAvailable";
+  v5 = @"IsNetworkAvailable";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 postNotificationName:@"com.apple.icloud.FMNetworkMonitor.networkChanged" object:0 userInfo:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

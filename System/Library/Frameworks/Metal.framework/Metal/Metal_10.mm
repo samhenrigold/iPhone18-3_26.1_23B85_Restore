@@ -1,958 +1,3 @@
-void *std::__hash_table<std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>>>::__emplace_unique_key_args<MTLHashKey,std::piecewise_construct_t const&,std::tuple<MTLHashKey const&>,std::tuple<>>(void *a1, MTLHashKey *this)
-{
-  v4 = MTLHashKey::hash(this);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    std::__hash_table<std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<MTLHashKey const&>,std::tuple<>>();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!MTLHashKey::operator==(v11 + 2, this))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void sub_185C60804(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
-}
-
-uint64_t OUTLINED_FUNCTION_1_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  if (*(result + 335) < 0)
-  {
-    v3 = *(result + 312);
-  }
-
-  return result;
-}
-
-void MTLIOAccelPooledResourceRelease(os_unfair_lock_s *a1)
-{
-  v1 = a1;
-  v2 = a1 + 76;
-  v3 = *&a1[76]._os_unfair_lock_opaque;
-  if (v3)
-  {
-    v4 = v3 + 2;
-    *&v2->_os_unfair_lock_opaque = 0;
-    v8 = v3;
-    os_unfair_lock_lock(v3 + 10);
-    if (v2[8]._os_unfair_lock_opaque == v8[22]._os_unfair_lock_opaque)
-    {
-      v5 = v4 + 4;
-      v6 = *&v4[4]._os_unfair_lock_opaque;
-      *&v1[78]._os_unfair_lock_opaque = v6;
-      if (v6)
-      {
-        v7 = v6 + 80;
-      }
-
-      else
-      {
-        v7 = v4 + 6;
-      }
-
-      *&v7->_os_unfair_lock_opaque = v1 + 78;
-      *&v5->_os_unfair_lock_opaque = v1;
-      *&v1[80]._os_unfair_lock_opaque = v5;
-      ++v4[9]._os_unfair_lock_opaque;
-      *&v2[6]._os_unfair_lock_opaque = mach_absolute_time();
-    }
-
-    else
-    {
-    }
-
-    os_unfair_lock_unlock(v4 + 8);
-    a1 = v8;
-  }
-}
-
-void std::vector<MTLRasterizationRateLayerDescriptor *>::resize(void *a1, unint64_t a2, uint64_t *a3)
-{
-  v3 = (a1[1] - *a1) >> 3;
-  if (a2 <= v3)
-  {
-    if (a2 < v3)
-    {
-      a1[1] = *a1 + 8 * a2;
-    }
-  }
-
-  else
-  {
-    std::vector<MTLRasterizationRateLayerDescriptor *>::__append(a1, a2 - v3, a3);
-  }
-}
-
-void std::vector<MTLRasterizationRateLayerDescriptor *>::__append(uint64_t a1, unint64_t a2, uint64_t *a3)
-{
-  v6 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  if (a2 <= (v5 - v6) >> 3)
-  {
-    if (a2)
-    {
-      v12 = 0;
-      v13 = v6 + 8 * a2;
-      v14 = *a3;
-      v15 = (a2 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
-      v16 = vdupq_n_s64(v15);
-      v17 = (v6 + 8);
-      do
-      {
-        v18 = vmovn_s64(vcgeq_u64(v16, vorrq_s8(vdupq_n_s64(v12), xmmword_185DB7AF0)));
-        if (v18.i8[0])
-        {
-          *(v17 - 1) = v14;
-        }
-
-        if (v18.i8[4])
-        {
-          *v17 = v14;
-        }
-
-        v12 += 2;
-        v17 += 2;
-      }
-
-      while (v15 - ((a2 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2 != v12);
-    }
-
-    else
-    {
-      v13 = *(a1 + 8);
-    }
-
-    *(a1 + 8) = v13;
-  }
-
-  else
-  {
-    v7 = v6 - *a1;
-    v8 = a2 + (v7 >> 3);
-    if (v8 >> 61)
-    {
-      std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
-    }
-
-    v9 = v7 >> 3;
-    v10 = v5 - *a1;
-    if (v10 >> 2 > v8)
-    {
-      v8 = v10 >> 2;
-    }
-
-    if (v10 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v11 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v11 = v8;
-    }
-
-    if (v11)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto18MTLIOScratchBuffer}*>>(a1, v11);
-    }
-
-    v19 = 0;
-    v20 = 8 * v9;
-    v21 = 8 * v9 + 8 * a2;
-    v22 = *a3;
-    v23 = (a2 + 0x1FFFFFFFFFFFFFFFLL) & 0x1FFFFFFFFFFFFFFFLL;
-    v24 = v23 - ((a2 + 0x1FFFFFFFFFFFFFFFLL) & 1) + 2;
-    v25 = vdupq_n_s64(v23);
-    v26 = (v20 + 8);
-    do
-    {
-      v27 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(vdupq_n_s64(v19), xmmword_185DB7AF0)));
-      if (v27.i8[0])
-      {
-        *(v26 - 1) = v22;
-      }
-
-      if (v27.i8[4])
-      {
-        *v26 = v22;
-      }
-
-      v19 += 2;
-      v26 += 2;
-    }
-
-    while (v24 != v19);
-    v28 = *(a1 + 8) - *a1;
-    v29 = v20 - v28;
-    memcpy((v20 - v28), *a1, v28);
-    v30 = *a1;
-    *a1 = v29;
-    *(a1 + 8) = v21;
-    *(a1 + 16) = 0;
-    if (v30)
-    {
-
-      operator delete(v30);
-    }
-  }
-}
-
-uint64_t MTLShouldEnableNewCompilerScheduler()
-{
-  v0 = _os_feature_enabled_impl();
-  v1 = dyld_program_sdk_at_least();
-  if (!v1)
-  {
-    return MTLEnvVarAggregator::GET_MTL_COMPILER_SCHEDULER_VERSION(v1, 0) == 1;
-  }
-
-  v2 = MTLEnvVarAggregator::GET_MTL_COMPILER_SCHEDULER_VERSION(1, 0xFFFFFFFFLL);
-  if (v2 == -1)
-  {
-    return v0;
-  }
-
-  else
-  {
-    return v2 == 1;
-  }
-}
-
-uint64_t MTLEnvVarAggregator::GET_MTL_COMPILER_SCHEDULER_VERSION(MTLEnvVarAggregator *this, uint64_t a2)
-{
-  if (!MTLEnvVarAggregator::isInternalBuild(this))
-  {
-    return 0;
-  }
-
-  {
-    MTLEnvVarAggregator::GET_MTL_COMPILER_SCHEDULER_VERSION();
-  }
-
-  if (MTLEnvVarAggregator::GET_MTL_COMPILER_SCHEDULER_VERSION(BOOL,int)::ev)
-  {
-    return strtol(MTLEnvVarAggregator::GET_MTL_COMPILER_SCHEDULER_VERSION(BOOL,int)::ev, 0, 0);
-  }
-
-  return a2;
-}
-
-void __MTLGetOptimalCompilerProcessesCount_block_invoke()
-{
-  if ((atomic_load_explicit(&_ZGVZZ35MTLGetOptimalCompilerProcessesCountEUb_E7fromEnv, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_ZGVZZ35MTLGetOptimalCompilerProcessesCountEUb_E7fromEnv))
-  {
-    _ZZZ35MTLGetOptimalCompilerProcessesCountEUb_E7fromEnv = MTLEnvVarAggregator::GET_MTL_MAX_COMPILER_TASKS(0, 0);
-    __cxa_guard_release(&_ZGVZZ35MTLGetOptimalCompilerProcessesCountEUb_E7fromEnv);
-  }
-
-  v0 = _ZZZ35MTLGetOptimalCompilerProcessesCountEUb_E7fromEnv;
-  if (!_ZZZ35MTLGetOptimalCompilerProcessesCountEUb_E7fromEnv)
-  {
-    v0 = 2;
-  }
-
-  MTLGetOptimalCompilerProcessesCount::ret = v0;
-}
-
-uint64_t MTLEnvVarAggregator::GET_MTL_MAX_COMPILER_TASKS(MTLEnvVarAggregator *this, uint64_t a2)
-{
-  if (!MTLEnvVarAggregator::isInternalBuild(this))
-  {
-    return 0;
-  }
-
-  {
-    MTLEnvVarAggregator::GET_MTL_MAX_COMPILER_TASKS();
-  }
-
-  if (MTLEnvVarAggregator::GET_MTL_MAX_COMPILER_TASKS(BOOL,int)::ev)
-  {
-    return strtol(MTLEnvVarAggregator::GET_MTL_MAX_COMPILER_TASKS(BOOL,int)::ev, 0, 0);
-  }
-
-  return a2;
-}
-
-uint64_t MTLFeatureSetSupportsSamplingFromPixelFormat(unint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  if (a1 >= 0x13)
-  {
-    if (a3)
-    {
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Unrecognized Metal Feature Set for this platform" forKey:*MEMORY[0x1E696A578]];
-      v8 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"MTLLibraryErrorDomain" code:3 userInfo:v7];
-      v5 = 0;
-      *a3 = v8;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    v4 = MTLGetGPUFamilyFromFeatureSet(qword_185DD30C0[a1]);
-    MTLPixelFormatQuery::MTLPixelFormatQuery(v12, v4);
-    v11 = 0;
-    memset(&v10, 0, 48);
-    MTLPixelFormatGetInfoForFeatureSetQuery(v12, a2, &v10);
-    v5 = v10.i8[8] & 1;
-    if (__p)
-    {
-      v14 = __p;
-      operator delete(__p);
-    }
-  }
-
-  return v5;
-}
-
-void sub_185C6338C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t MTLGPUFamilySupportsSamplingFromPixelFormat(MTLGPUFamily a1, uint64_t a2, uint64_t *a3)
-{
-  if (a1 > 2000)
-  {
-    if ((a1 - 3001) >= 3 && (a1 - 2001) >= 2 && (a1 - 4001) >= 2)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  else if ((a1 - 1001) >= 0xA && a1 != -1009)
-  {
-LABEL_11:
-    if (!a3)
-    {
-      return 0;
-    }
-
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Unrecognized Metal GPU Family" forKey:*MEMORY[0x1E696A578]];
-    v8 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"MTLLibraryErrorDomain" code:1 userInfo:v7];
-    v5 = 0;
-    *a3 = v8;
-    return v5;
-  }
-
-  MTLPixelFormatQuery::MTLPixelFormatQuery(v11, a1);
-  v10 = 0;
-  memset(&v9, 0, 48);
-  MTLPixelFormatGetInfoForFeatureSetQuery(v11, a2, &v9);
-  v5 = v9.i8[8] & 1;
-  if (__p)
-  {
-    v13 = __p;
-    operator delete(__p);
-  }
-
-  return v5;
-}
-
-void sub_185C634C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t MTLPixelFormatGetName(uint64_t a1)
-{
-  v3 = 0;
-  memset(v2, 0, sizeof(v2));
-  MTLPixelFormatGetInfoForDevice(0, a1, v2);
-  return *&v2[0];
-}
-
-uint64_t MTLPixelFormatCompatibilityString(uint64_t a1)
-{
-  v6 = 0;
-  memset(v5, 0, sizeof(v5));
-  MTLPixelFormatGetInfoForDevice(0, a1, v5);
-  v1 = objc_opt_new();
-  v2 = v1;
-  v3 = DWORD2(v5[0]);
-  if ((DWORD2(v5[0]) & 0x10000) != 0)
-  {
-    [v1 addObject:@"float"];
-    v3 = DWORD2(v5[0]);
-    if ((DWORD2(v5[0]) & 0x20000) == 0)
-    {
-LABEL_3:
-      if ((v3 & 0x40000) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_12;
-    }
-  }
-
-  else if ((DWORD2(v5[0]) & 0x20000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  [v2 addObject:@"half"];
-  v3 = DWORD2(v5[0]);
-  if ((DWORD2(v5[0]) & 0x40000) == 0)
-  {
-LABEL_4:
-    if ((v3 & 0x80000) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_12:
-  [v2 addObject:@"int"];
-  v3 = DWORD2(v5[0]);
-  if ((DWORD2(v5[0]) & 0x80000) == 0)
-  {
-LABEL_5:
-    if ((v3 & 0x100000) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_14;
-  }
-
-LABEL_13:
-  [v2 addObject:@"uint"];
-  v3 = DWORD2(v5[0]);
-  if ((DWORD2(v5[0]) & 0x100000) == 0)
-  {
-LABEL_6:
-    if ((v3 & 0x200000) == 0)
-    {
-      goto LABEL_7;
-    }
-
-LABEL_15:
-    [v2 addObject:@"ushort"];
-    if ((DWORD2(v5[0]) & 0x20000000) == 0)
-    {
-      return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v2];
-    }
-
-    goto LABEL_8;
-  }
-
-LABEL_14:
-  [v2 addObject:@"short"];
-  v3 = DWORD2(v5[0]);
-  if ((DWORD2(v5[0]) & 0x200000) != 0)
-  {
-    goto LABEL_15;
-  }
-
-LABEL_7:
-  if ((v3 & 0x20000000) != 0)
-  {
-LABEL_8:
-    [v2 addObject:@"ulong"];
-  }
-
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v2];
-}
-
-uint64_t MTLPixelFormatComputeiOSTotalSizeUsed(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
-{
-  if (!a3)
-  {
-    return 0;
-  }
-
-  v5 = a3;
-  v8 = 0;
-  v15 = 0;
-  v16 = 0;
-  v14 = 0;
-  do
-  {
-    v9 = *(a1 + 16);
-    v12[0] = *a1;
-    v12[1] = v9;
-    v12[2] = *(a1 + 32);
-    v13 = *(a1 + 48);
-    if ((WORD4(v12[0]) & 0x401) == 1)
-    {
-      adjustPixelFormatForiOSDevice(*a2, v12, &v16, &v15, &v14, 1, 1);
-      if (a4)
-      {
-        v10 = &v16;
-      }
-
-      else
-      {
-        v10 = &v15;
-      }
-
-      v8 = ((v14 + v8 - 1) & -v14) + *v10;
-    }
-
-    ++a2;
-    a1 += 56;
-    --v5;
-  }
-
-  while (v5);
-  return v8;
-}
-
-BOOL MTLReadWriteTextureIsSupported(void *a1, uint64_t a2)
-{
-  if (!a1 || [a1 supportsFamily:1003])
-  {
-    v9 = 0;
-    memset(v8, 0, sizeof(v8));
-    MTLPixelFormatGetInfoForDevice(a1, a2, v8);
-    return (DWORD2(v8[0]) >> 1) & 1;
-  }
-
-  v5 = [a1 readWriteTextureSupport];
-  v6 = a2 - 10;
-  if ((a2 - 10) <= 0x3C)
-  {
-    if (((1 << v6) & 0x100000000000E019) != 0)
-    {
-      return v5 > 1;
-    }
-
-    if (((1 << v6) & 0x380000000000) != 0)
-    {
-      return v5 != 0;
-    }
-  }
-
-  v4 = 0;
-  if ((a2 - 73) <= 0x34 && ((1 << (a2 - 73)) & 0x1C070000000003) != 0)
-  {
-    return v5 > 1;
-  }
-
-  return v4;
-}
-
-void MTLPixelFormatQuery::MTLPixelFormatQuery(MTLPixelFormatQuery *this, MTLGPUFamily a2)
-{
-  *this = 0;
-  *(this + 1) = a2;
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *(this + 4) = 0;
-  MTLPixelFormatQuery::initGPUFamiliesCache(this);
-}
-
-void sub_185C63870(_Unwind_Exception *exception_object)
-{
-  v3 = v2;
-  v5 = *v3;
-  if (*v3)
-  {
-    *(v1 + 24) = v5;
-    operator delete(v5);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void MTLPixelFormatQuery::initGPUFamiliesCache(MTLPixelFormatQuery *this)
-{
-  v2 = *(this + 1);
-  if (v2 <= 1005)
-  {
-    if (v2 > 1002)
-    {
-      if (v2 == 1003)
-      {
-LABEL_40:
-        v18 = 1003;
-        std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-        v18 = 3002;
-        std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-        goto LABEL_41;
-      }
-
-      if (v2 == 1004)
-      {
-LABEL_39:
-        v18 = 1004;
-        std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-        goto LABEL_40;
-      }
-
-LABEL_38:
-      v18 = 1005;
-      std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-      v18 = 3003;
-      std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-      goto LABEL_39;
-    }
-
-    if (v2 != -1009)
-    {
-      if (v2 == 1001)
-      {
-LABEL_42:
-        v18 = 1001;
-        std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-        v3 = 3001;
-        goto LABEL_43;
-      }
-
-      if (v2 != 1002)
-      {
-        return;
-      }
-
-LABEL_41:
-      v18 = 1002;
-      std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-      goto LABEL_42;
-    }
-
-    goto LABEL_22;
-  }
-
-  if (v2 <= 1008)
-  {
-    if (v2 == 1006)
-    {
-LABEL_37:
-      v18 = 1006;
-      std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-      goto LABEL_38;
-    }
-
-    if (v2 == 1007)
-    {
-LABEL_36:
-      v18 = 1007;
-      std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-      goto LABEL_37;
-    }
-
-LABEL_35:
-    v18 = 1008;
-    std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-    goto LABEL_36;
-  }
-
-  if (v2 <= 2000)
-  {
-    if (v2 == 1009)
-    {
-LABEL_34:
-      v18 = 1009;
-      std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-      goto LABEL_35;
-    }
-
-    if (v2 != 1010)
-    {
-      return;
-    }
-
-    v18 = 1010;
-    std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-LABEL_22:
-    v5 = *(this + 3);
-    v4 = *(this + 4);
-    if (v5 >= v4)
-    {
-      v7 = *(this + 2);
-      v8 = v5 - v7;
-      v9 = (v5 - v7) >> 3;
-      v10 = v9 + 1;
-      if ((v9 + 1) >> 61)
-      {
-        std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
-      }
-
-      v11 = v4 - v7;
-      if (v11 >> 2 > v10)
-      {
-        v10 = v11 >> 2;
-      }
-
-      v12 = v11 >= 0x7FFFFFFFFFFFFFF8;
-      v13 = 0x1FFFFFFFFFFFFFFFLL;
-      if (!v12)
-      {
-        v13 = v10;
-      }
-
-      if (v13)
-      {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<MTLTagType>>(this + 16, v13);
-      }
-
-      v14 = (v5 - v7) >> 3;
-      v15 = (8 * v9);
-      v16 = (8 * v9 - 8 * v14);
-      *v15 = -1009;
-      v6 = v15 + 1;
-      memcpy(v16, v7, v8);
-      v17 = *(this + 2);
-      *(this + 2) = v16;
-      *(this + 3) = v6;
-      *(this + 4) = 0;
-      if (v17)
-      {
-        operator delete(v17);
-      }
-    }
-
-    else
-    {
-      *v5 = -1009;
-      v6 = v5 + 8;
-    }
-
-    *(this + 3) = v6;
-    goto LABEL_34;
-  }
-
-  if (v2 != 2001)
-  {
-    if (v2 != 2002)
-    {
-      return;
-    }
-
-    v18 = 2002;
-    std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-    v18 = 3003;
-    std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-  }
-
-  v18 = 2001;
-  std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-  v18 = 3001;
-  std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-  v3 = 3002;
-LABEL_43:
-  v18 = v3;
-  std::vector<MTLTagType>::push_back[abi:ne200100](this + 2, &v18);
-}
-
-uint64_t MTLAccelerationStructureInstanceDescriptorSize(MTLAccelerationStructureInstanceDescriptorType a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1 < (MTLAccelerationStructureInstanceDescriptorTypeIndirectMotion|MTLAccelerationStructureInstanceDescriptorTypeUserID))
-  {
-    return qword_185DD3158[a1];
-  }
-
-  MTLReportFailure(0, "MTLAccelerationStructureInstanceDescriptorSize", 1260, @"Invalid instance descriptor type", a5, a6, a7, a8, v8);
-  return 0;
-}
-
-uint64_t newStringFromConstantValue(unsigned __int16 *a1, uint64_t a2)
-{
-  ComponentCount = MTLDataTypeGetComponentCount(a2);
-  ComponentType = MTLDataTypeGetComponentType(a2);
-  v6 = _MTLConstantDataSize(ComponentType);
-  std::string::basic_string[abi:ne200100]<0>(&v19, "(");
-  if (ComponentCount)
-  {
-    for (i = 0; i != ComponentCount; ++i)
-    {
-      __s = 0;
-      if (i)
-      {
-        std::string::append(&v19, ", ");
-      }
-
-      if (ComponentType <= 36)
-      {
-        if (ComponentType > 28)
-        {
-          if (ComponentType == 29)
-          {
-            asprintf(&__s, "%i", *a1);
-          }
-
-          else
-          {
-            if (ComponentType != 33)
-            {
-              goto LABEL_33;
-            }
-
-            asprintf(&__s, "%u", *a1);
-          }
-        }
-
-        else if (ComponentType == 3)
-        {
-          asprintf(&__s, "%f", *a1);
-        }
-
-        else
-        {
-          if (ComponentType != 16)
-          {
-            goto LABEL_33;
-          }
-
-          _H0 = *a1;
-          __asm { FCVT            D0, H0 }
-
-          asprintf(&__s, "%f", _D0);
-        }
-      }
-
-      else if (ComponentType <= 44)
-      {
-        if (ComponentType == 37)
-        {
-          asprintf(&__s, "%i", *a1);
-        }
-
-        else
-        {
-          if (ComponentType != 41)
-          {
-            goto LABEL_33;
-          }
-
-          asprintf(&__s, "%u", *a1);
-        }
-      }
-
-      else if (ComponentType == 45)
-      {
-        asprintf(&__s, "%i", *a1);
-      }
-
-      else
-      {
-        if (ComponentType != 49 && ComponentType != 53)
-        {
-LABEL_33:
-          abort();
-        }
-
-        asprintf(&__s, "%u", *a1);
-      }
-
-      std::string::append(&v19, __s);
-      free(__s);
-      a1 = (a1 + v6);
-    }
-  }
-
-  std::string::append(&v19, ")");
-  v14 = objc_alloc(MEMORY[0x1E696AEC0]);
-  if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v15 = &v19;
-  }
-
-  else
-  {
-    v15 = v19.__r_.__value_.__r.__words[0];
-  }
-
-  v16 = [v14 initWithUTF8String:v15];
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v19.__r_.__value_.__l.__data_);
-  }
-
-  return v16;
-}
-
 void sub_185C6BD88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
@@ -1195,15 +240,15 @@ uint64_t MTLConstantStorage::isEqual(void *a1, void *a2)
 
 uint64_t MTLConstantStorage::hashData(MTLConstantStorage *this)
 {
-  memset(&v37, 0, sizeof(v37));
   memset(&v36, 0, sizeof(v36));
-  std::vector<std::string>::reserve(&v36, *(this + 2));
+  memset(&v35, 0, sizeof(v35));
+  std::vector<std::string>::reserve(&v35, *(this + 2));
   v2 = *this;
   if (*this != (this + 8))
   {
     do
     {
-      std::vector<std::string>::push_back[abi:ne200100](&v36, v2 + 2);
+      std::vector<std::string>::push_back[abi:ne200100](&v35, v2 + 2);
       v3 = *(v2 + 1);
       if (v3)
       {
@@ -1234,8 +279,8 @@ uint64_t MTLConstantStorage::hashData(MTLConstantStorage *this)
     while (v4 != (this + 8));
   }
 
-  v6 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v36.__end_ - v36.__begin_) >> 3));
-  if (v36.__end_ == v36.__begin_)
+  v6 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v35.__end_ - v35.__begin_) >> 3));
+  if (v35.__end_ == v35.__begin_)
   {
     v7 = 0;
   }
@@ -1245,9 +290,9 @@ uint64_t MTLConstantStorage::hashData(MTLConstantStorage *this)
     v7 = v6;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(v36.__begin_, &v36.__end_->__r_.__value_.__l.__data_, &v38, v7, 1);
-  begin = v36.__begin_;
-  for (i = v36.__end_; begin != i; ++begin)
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(&v35.__begin_->__r_.__value_.__l.__data_, &v35.__end_->__r_.__value_.__l.__data_, &v37, v7, 1);
+  begin = v35.__begin_;
+  for (i = v35.__end_; begin != i; ++begin)
   {
     v10 = SHIBYTE(begin->__r_.__value_.__r.__words[2]);
     if (v10 < 0)
@@ -1260,21 +305,21 @@ uint64_t MTLConstantStorage::hashData(MTLConstantStorage *this)
       size = SHIBYTE(begin->__r_.__value_.__r.__words[2]);
     }
 
-    v12 = v37.__begin_;
-    v13 = v37.__end_ - v37.__begin_;
-    v14 = size + v37.__end_ - v37.__begin_;
-    if (v37.__end_ - v37.__begin_ >= v14)
+    v12 = v36.__begin_;
+    v13 = v36.__end_ - v36.__begin_;
+    v14 = size + v36.__end_ - v36.__begin_;
+    if (v36.__end_ - v36.__begin_ >= v14)
     {
-      if (v37.__end_ - v37.__begin_ > v14)
+      if (v36.__end_ - v36.__begin_ > v14)
       {
-        v37.__end_ += size;
+        v36.__end_ += size;
       }
     }
 
     else
     {
-      std::vector<unsigned char>::__append(&v37, size);
-      v12 = v37.__begin_;
+      std::vector<unsigned char>::__append(&v36, size);
+      v12 = v36.__begin_;
       LOBYTE(v10) = *(&begin->__r_.__value_.__s + 23);
     }
 
@@ -1285,88 +330,87 @@ uint64_t MTLConstantStorage::hashData(MTLConstantStorage *this)
     }
 
     memcpy(&v12[v13], v15, size);
-    v38 = begin;
-    v16 = std::__tree<std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MTLConstantStorage::ConstantData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &begin->__r_.__value_.__l.__data_);
-    MTLConstantStorage::appendConstantData(v16, &v37, (v16 + 56));
+    v37 = begin;
+    v16 = std::__tree<std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MTLConstantStorage::ConstantData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &begin->__r_.__value_.__l.__data_, &std::piecewise_construct, &v37, &v32);
+    MTLConstantStorage::appendConstantData(v16, &v36, v16 + 56);
   }
 
-  v35 = 0;
+  v34 = 0;
   *__src = 0u;
   v19 = *(this + 3);
   v17 = this + 24;
   v18 = v19;
   if (v19 != v17 + 8)
   {
-    v20 = *(v18 + 16);
     _MTLConstantDataSize(v18[40]);
     operator new[]();
   }
 
   std::__sort<std::__less<unsigned short,unsigned short> &,unsigned short *>();
-  v21 = __src[0];
-  for (j = __src[1]; v21 != j; ++v21)
+  v20 = __src[0];
+  for (j = __src[1]; v20 != j; ++v20)
   {
-    v23 = *v21;
-    v33 = *v21;
-    v24 = v37.__begin_;
-    v25 = v37.__end_ - v37.__begin_;
-    if ((v37.__end_ - v37.__begin_) > 0xFFFFFFFFFFFFFFFDLL)
+    v22 = *v20;
+    v32 = *v20;
+    v23 = v36.__begin_;
+    v24 = v36.__end_ - v36.__begin_;
+    if ((v36.__end_ - v36.__begin_) > 0xFFFFFFFFFFFFFFFDLL)
     {
-      v37.__end_ += 2;
+      v36.__end_ += 2;
     }
 
     else
     {
-      std::vector<unsigned char>::__append(&v37, 2uLL);
-      v24 = v37.__begin_;
-      v23 = v33;
+      std::vector<unsigned char>::__append(&v36, 2uLL);
+      v23 = v36.__begin_;
+      v22 = v32;
     }
 
-    *&v24[v25] = v23;
-    v38 = &v33;
-    v26 = std::__tree<std::__value_type<unsigned short,MTLConstantStorage::ConstantData>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,MTLConstantStorage::ConstantData>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,MTLConstantStorage::ConstantData>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short &&>,std::tuple<>>(v17, &v33);
-    MTLConstantStorage::appendConstantData(v26, &v37, v26 + 40);
+    *&v23[v24] = v22;
+    v37 = &v32;
+    v25 = std::__tree<std::__value_type<unsigned short,MTLConstantStorage::ConstantData>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,MTLConstantStorage::ConstantData>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,MTLConstantStorage::ConstantData>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short &&>,std::tuple<>>(v17, &v32, &std::piecewise_construct, &v37);
+    MTLConstantStorage::appendConstantData(v25, &v36, v25 + 40);
   }
 
-  v27 = v37.__begin_;
-  end = v37.__end_;
-  v29 = v37.__end_ - v37.__begin_;
-  if (((v37.__end_ - v37.__begin_) & 3) != 0)
+  v26 = v36.__begin_;
+  end = v36.__end_;
+  v28 = v36.__end_ - v36.__begin_;
+  if (((v36.__end_ - v36.__begin_) & 3) != 0)
   {
-    v30 = (v29 & 0xFFFFFFFFFFFFFFFCLL) + 4;
-    if (v30 <= v29)
+    v29 = (v28 & 0xFFFFFFFFFFFFFFFCLL) + 4;
+    if (v29 <= v28)
     {
-      if (v30 < v29)
+      if (v29 < v28)
       {
-        end = &v37.__begin_[v30];
-        v37.__end_ = &v37.__begin_[v30];
+        end = &v36.__begin_[v29];
+        v36.__end_ = &v36.__begin_[v29];
       }
     }
 
     else
     {
-      std::vector<unsigned char>::__append(&v37, v30 - v29);
-      v27 = v37.__begin_;
-      end = v37.__end_;
+      std::vector<unsigned char>::__append(&v36, v29 - v28);
+      v26 = v36.__begin_;
+      end = v36.__end_;
     }
   }
 
-  v31 = _MTLHashState(v27, end - v27);
+  v30 = _MTLHashState(v26, end - v26);
   if (__src[0])
   {
     __src[1] = __src[0];
     operator delete(__src[0]);
   }
 
-  __src[0] = &v36;
+  __src[0] = &v35;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__src);
-  if (v37.__begin_)
+  if (v36.__begin_)
   {
-    v37.__end_ = v37.__begin_;
-    operator delete(v37.__begin_);
+    v36.__end_ = v36.__begin_;
+    operator delete(v36.__begin_);
   }
 
-  return v31;
+  return v30;
 }
 
 void sub_185C6CAFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *__p, char *a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19)
@@ -1394,8 +438,6 @@ void std::vector<std::string>::reserve(std::vector<std::string> *this, std::vect
   {
     if (__n < 0xAAAAAAAAAAAAAABLL)
     {
-      v2 = this->__end_ - this->__begin_;
-      v3.__end_cap_.__value_ = this;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(this, __n);
     }
 
@@ -1405,77 +447,69 @@ void std::vector<std::string>::reserve(std::vector<std::string> *this, std::vect
 
 uint64_t MTLConstantStorage::getConstantCountForFunction(MTLConstantStorage *this, _MTLFunction *a2, NSString **a3, int a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   *a3 = 0;
   v8 = [(_MTLFunction *)a2 functionConstants];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v9)
+  v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (!v9)
   {
-    v10 = v9;
-    v26 = a2;
-    v27 = a3;
-    v11 = 0;
-    v12 = *v29;
-    while (2)
+    return 0;
+  }
+
+  v10 = v9;
+  v25 = a2;
+  v26 = a3;
+  v11 = 0;
+  v12 = *v28;
+  while (2)
+  {
+    for (i = 0; i != v10; ++i)
     {
-      for (i = 0; i != v10; ++i)
+      if (*v28 != v12)
       {
-        if (*v29 != v12)
-        {
-          objc_enumerationMutation(v8);
-        }
+        objc_enumerationMutation(v8);
+      }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
-        ConstantValue = MTLConstantStorage::findConstantValue(this, v14);
-        if (ConstantValue)
+      v14 = *(*(&v27 + 1) + 8 * i);
+      ConstantValue = MTLConstantStorage::findConstantValue(this, v14);
+      if (ConstantValue)
+      {
+        v16 = ConstantValue;
+        v17 = *ConstantValue;
+        if ([(MTLFunctionConstant *)v14 type]!= v17)
         {
-          v16 = ConstantValue;
-          v17 = *ConstantValue;
-          if ([(MTLFunctionConstant *)v14 type]!= v17)
-          {
-            v18 = MEMORY[0x1E696AEC0];
-            v19 = [(MTLFunctionConstant *)v14 name];
-            v20 = [(MTLFunctionConstant *)v14 index];
-            v21 = MTLDataTypeString([(MTLFunctionConstant *)v14 type]);
-            v22 = [v18 stringWithFormat:@"Constant %@ (%lu) is of type %@ but value found has type %@", v19, v20, v21, MTLDataTypeString(*v16)];
+          v18 = MEMORY[0x1E696AEC0];
+          v19 = [(MTLFunctionConstant *)v14 name];
+          v20 = [(MTLFunctionConstant *)v14 index];
+          v21 = MTLDataTypeString([(MTLFunctionConstant *)v14 type]);
+          v22 = [v18 stringWithFormat:@"Constant %@ (%lu) is of type %@ but value found has type %@", v19, v20, v21, MTLDataTypeString(*v16)];
 LABEL_16:
-            *v27 = v22;
-            v11 = 0xFFFFFFFFLL;
-            goto LABEL_18;
-          }
-
-          v11 = (v11 + 1);
+          *v26 = v22;
+          return 0xFFFFFFFFLL;
         }
 
-        else if (a4 && [(MTLFunctionConstant *)v14 required]&& MTLFailureTypeGetEnabled(1uLL))
-        {
-          v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Constant %@ (%lu) value is required by function %@", -[MTLFunctionConstant name](v14, "name"), -[MTLFunctionConstant index](v14, "index"), -[_MTLFunction name](v26, "name"), v25];
-          goto LABEL_16;
-        }
+        v11 = (v11 + 1);
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
-      if (v10)
+      else if (a4 && [(MTLFunctionConstant *)v14 required]&& MTLFailureTypeGetEnabled(1uLL))
       {
-        continue;
+        v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Constant %@ (%lu) value is required by function %@", -[MTLFunctionConstant name](v14, "name"), -[MTLFunctionConstant index](v14, "index"), -[_MTLFunction name](v25, "name"), v24];
+        goto LABEL_16;
       }
-
-      break;
     }
-  }
 
-  else
-  {
-    v11 = 0;
-  }
+    v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v10)
+    {
+      continue;
+    }
 
-LABEL_18:
-  v23 = *MEMORY[0x1E69E9840];
-  return v11;
+    return v11;
+  }
 }
 
 unsigned __int16 *MTLConstantStorage::constantDataWithFunctionConstant(MTLConstantStorage *this, MTLFunctionConstant *a2)
@@ -1598,14 +632,12 @@ void *MTLConstantStorage::newIndexedConstantArray(MTLConstantStorage *this)
 
 uint64_t arrayDescription(NSArray *a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if ([(NSArray *)a1 count])
   {
     operator new[]();
   }
 
   v1 = MEMORY[0x1E695DEC8];
-  v2 = *MEMORY[0x1E69E9840];
 
   return [v1 array];
 }
@@ -1646,18 +678,18 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(__p);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(uint64_t a1, const void **a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(const void **result, const void **a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
   v8 = a2 - 3;
   v74 = a2 - 6;
   v9 = a2 - 9;
-  v10 = a1;
+  v10 = result;
 LABEL_2:
   v11 = 1 - a4;
   while (1)
   {
-    a1 = v10;
+    result = v10;
     v12 = v11;
     v13 = a2 - v10;
     v14 = 0xAAAAAAAAAAAAAAABLL * (a2 - v10);
@@ -1723,27 +755,27 @@ LABEL_10:
     if (v13 >= 0xC01)
     {
       v17 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, &v10[3 * v15], v10);
-      v18 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 3, (a1 + 24 * v15));
+      v18 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 3, &result[3 * v15]);
       if (v17)
       {
         if (v18)
         {
-          v100 = *(a1 + 16);
-          v76 = *a1;
+          v100 = result[2];
+          v76 = *result;
           v19 = *v8;
-          *(a1 + 16) = *(a2 - 1);
-          *a1 = v19;
+          result[2] = *(a2 - 1);
+          *result = v19;
           goto LABEL_27;
         }
 
-        v106 = *(a1 + 16);
-        v82 = *a1;
+        v106 = result[2];
+        v82 = *result;
         v27 = *v16;
-        *(a1 + 16) = v16[2];
-        *a1 = v27;
+        result[2] = v16[2];
+        *result = v27;
         v16[2] = v106;
         *v16 = v82;
-        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 3, (a1 + 24 * v15)))
+        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 3, &result[3 * v15]))
         {
           v100 = v16[2];
           v76 = *v16;
@@ -1765,49 +797,49 @@ LABEL_27:
         *v16 = v23;
         *v8 = v78;
         *(a2 - 1) = v102;
-        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 + 24 * v15), a1))
+        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, &result[3 * v15], result))
         {
-          v103 = *(a1 + 16);
-          v79 = *a1;
+          v103 = result[2];
+          v79 = *result;
           v24 = *v16;
-          *(a1 + 16) = v16[2];
-          *a1 = v24;
+          result[2] = v16[2];
+          *result = v24;
           v16[2] = v103;
           *v16 = v79;
         }
       }
 
-      v29 = a1 + 24 * v15 - 24;
-      v30 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v29, (a1 + 24));
+      v29 = &result[3 * v15 - 3];
+      v30 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v29, result + 3);
       v31 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v74, v29);
       if (v30)
       {
         if (v31)
         {
-          v32 = *(a1 + 40);
-          v33 = *(a1 + 24);
+          v32 = result[5];
+          v33 = *(result + 3);
           v34 = *(a2 - 4);
-          *(a1 + 24) = *v74;
-          *(a1 + 40) = v34;
+          *(result + 3) = *v74;
+          result[5] = v34;
           *v74 = v33;
           *(a2 - 4) = v32;
         }
 
         else
         {
-          v86 = *(a1 + 24);
-          v110 = *(a1 + 40);
-          v39 = *(a1 + 24 * v15 - 8);
-          *(a1 + 24) = *v29;
-          *(a1 + 40) = v39;
-          *(a1 + 24 * v15 - 8) = v110;
+          v86 = *(result + 3);
+          v110 = result[5];
+          v39 = result[3 * v15 - 1];
+          *(result + 3) = *v29;
+          result[5] = v39;
+          result[3 * v15 - 1] = v110;
           *v29 = v86;
           if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v74, v29))
           {
-            v111 = *(a1 + 24 * v15 - 8);
+            v111 = result[3 * v15 - 1];
             v87 = *v29;
             v40 = *v74;
-            *(a1 + 24 * v15 - 8) = *(a2 - 4);
+            result[3 * v15 - 1] = *(a2 - 4);
             *v29 = v40;
             *v74 = v87;
             *(a2 - 4) = v111;
@@ -1817,55 +849,55 @@ LABEL_27:
 
       else if (v31)
       {
-        v107 = *(a1 + 24 * v15 - 8);
+        v107 = result[3 * v15 - 1];
         v83 = *v29;
         v35 = *v74;
-        *(a1 + 24 * v15 - 8) = *(a2 - 4);
+        result[3 * v15 - 1] = *(a2 - 4);
         *v29 = v35;
         *v74 = v83;
         *(a2 - 4) = v107;
-        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v29, (a1 + 24)))
+        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v29, result + 3))
         {
-          v84 = *(a1 + 24);
-          v108 = *(a1 + 40);
-          v36 = *(a1 + 24 * v15 - 8);
-          *(a1 + 24) = *v29;
-          *(a1 + 40) = v36;
-          *(a1 + 24 * v15 - 8) = v108;
+          v84 = *(result + 3);
+          v108 = result[5];
+          v36 = result[3 * v15 - 1];
+          *(result + 3) = *v29;
+          result[5] = v36;
+          result[3 * v15 - 1] = v108;
           *v29 = v84;
         }
       }
 
-      v41 = a1 + 24 * v15;
-      v42 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (v41 + 24), (a1 + 48));
-      v43 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 9, (v41 + 24));
+      v41 = &result[3 * v15];
+      v42 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v41 + 3, result + 6);
+      v43 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 9, v41 + 3);
       if (v42)
       {
         if (v43)
         {
-          v44 = *(a1 + 64);
-          v45 = *(a1 + 48);
+          v44 = result[8];
+          v45 = *(result + 3);
           v46 = *(a2 - 7);
-          *(a1 + 48) = *v9;
-          *(a1 + 64) = v46;
+          *(result + 3) = *v9;
+          result[8] = v46;
           *v9 = v45;
           goto LABEL_47;
         }
 
-        v90 = *(a1 + 48);
-        v114 = *(a1 + 64);
-        v49 = *(v41 + 40);
-        *(a1 + 48) = *(v41 + 24);
-        *(a1 + 64) = v49;
-        *(v41 + 40) = v114;
-        *(v41 + 24) = v90;
-        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 9, (v41 + 24)))
+        v90 = *(result + 3);
+        v114 = result[8];
+        v49 = v41[5];
+        *(result + 3) = *(v41 + 3);
+        result[8] = v49;
+        v41[5] = v114;
+        *(v41 + 3) = v90;
+        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 9, v41 + 3))
         {
-          v115 = *(v41 + 40);
-          v91 = *(v41 + 24);
+          v115 = v41[5];
+          v91 = *(v41 + 3);
           v50 = *v9;
-          *(v41 + 40) = *(a2 - 7);
-          *(v41 + 24) = v50;
+          v41[5] = *(a2 - 7);
+          *(v41 + 3) = v50;
           *v9 = v91;
           v44 = v115;
 LABEL_47:
@@ -1875,35 +907,35 @@ LABEL_47:
 
       else if (v43)
       {
-        v112 = *(v41 + 40);
-        v88 = *(v41 + 24);
+        v112 = v41[5];
+        v88 = *(v41 + 3);
         v47 = *v9;
-        *(v41 + 40) = *(a2 - 7);
-        *(v41 + 24) = v47;
+        v41[5] = *(a2 - 7);
+        *(v41 + 3) = v47;
         *v9 = v88;
         *(a2 - 7) = v112;
-        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (v41 + 24), (a1 + 48)))
+        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v41 + 3, result + 6))
         {
-          v89 = *(a1 + 48);
-          v113 = *(a1 + 64);
-          v48 = *(v41 + 40);
-          *(a1 + 48) = *(v41 + 24);
-          *(a1 + 64) = v48;
-          *(v41 + 40) = v113;
-          *(v41 + 24) = v89;
+          v89 = *(result + 3);
+          v113 = result[8];
+          v48 = v41[5];
+          *(result + 3) = *(v41 + 3);
+          result[8] = v48;
+          v41[5] = v113;
+          *(v41 + 3) = v89;
         }
       }
 
       v51 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v16, v29);
-      v52 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (v41 + 24), v16);
+      v52 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v41 + 3, v16);
       if (v51)
       {
         if (v52)
         {
           v116 = *(v29 + 16);
           v92 = *v29;
-          *v29 = *(v41 + 24);
-          *(v29 + 16) = *(v41 + 40);
+          *v29 = *(v41 + 3);
+          *(v29 + 16) = v41[5];
           goto LABEL_56;
         }
 
@@ -1913,15 +945,15 @@ LABEL_47:
         *(v29 + 16) = v16[2];
         v16[2] = v119;
         *v16 = v95;
-        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (v41 + 24), v16))
+        if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v41 + 3, v16))
         {
           v116 = v16[2];
           v92 = *v16;
-          *v16 = *(v41 + 24);
-          v16[2] = *(v41 + 40);
+          *v16 = *(v41 + 3);
+          v16[2] = v41[5];
 LABEL_56:
-          *(v41 + 40) = v116;
-          *(v41 + 24) = v92;
+          v41[5] = v116;
+          *(v41 + 3) = v92;
         }
       }
 
@@ -1929,10 +961,10 @@ LABEL_56:
       {
         v117 = v16[2];
         v93 = *v16;
-        *v16 = *(v41 + 24);
-        v16[2] = *(v41 + 40);
-        *(v41 + 40) = v117;
-        *(v41 + 24) = v93;
+        *v16 = *(v41 + 3);
+        v16[2] = v41[5];
+        v41[5] = v117;
+        *(v41 + 3) = v93;
         if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v16, v29))
         {
           v118 = *(v29 + 16);
@@ -1944,18 +976,18 @@ LABEL_56:
         }
       }
 
-      v120 = *(a1 + 16);
-      v96 = *a1;
+      v120 = result[2];
+      v96 = *result;
       v53 = *v16;
-      *(a1 + 16) = v16[2];
-      *a1 = v53;
+      result[2] = v16[2];
+      *result = v53;
       v16[2] = v120;
       *v16 = v96;
       goto LABEL_58;
     }
 
     v20 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v10, &v10[3 * v15]);
-    v21 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 3, a1);
+    v21 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 3, result);
     if (v20)
     {
       if (v21)
@@ -1973,59 +1005,59 @@ LABEL_36:
 
       v109 = v16[2];
       v85 = *v16;
-      v37 = *a1;
-      v16[2] = *(a1 + 16);
+      v37 = *result;
+      v16[2] = result[2];
       *v16 = v37;
-      *(a1 + 16) = v109;
-      *a1 = v85;
-      if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 3, a1))
+      result[2] = v109;
+      *result = v85;
+      if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 3, result))
       {
-        v101 = *(a1 + 16);
-        v77 = *a1;
+        v101 = result[2];
+        v77 = *result;
         v38 = *v8;
-        *(a1 + 16) = *(a2 - 1);
-        *a1 = v38;
+        result[2] = *(a2 - 1);
+        *result = v38;
         goto LABEL_36;
       }
     }
 
     else if (v21)
     {
-      v104 = *(a1 + 16);
-      v80 = *a1;
+      v104 = result[2];
+      v80 = *result;
       v25 = *v8;
-      *(a1 + 16) = *(a2 - 1);
-      *a1 = v25;
+      result[2] = *(a2 - 1);
+      *result = v25;
       *v8 = v80;
       *(a2 - 1) = v104;
-      if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a1, (a1 + 24 * v15)))
+      if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, result, &result[3 * v15]))
       {
         v105 = v16[2];
         v81 = *v16;
-        v26 = *a1;
-        v16[2] = *(a1 + 16);
+        v26 = *result;
+        v16[2] = result[2];
         *v16 = v26;
-        *(a1 + 16) = v105;
-        *a1 = v81;
+        result[2] = v105;
+        *result = v81;
       }
     }
 
 LABEL_58:
-    if ((a5 & 1) == 0 && !std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 - 24), a1))
+    if ((a5 & 1) == 0 && !std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, result - 3, result))
     {
-      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(a1, a2, a3);
+      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(result, a2, a3);
       goto LABEL_65;
     }
 
-    v54 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(a1, a2, a3);
+    v54 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(result, a2, a3);
     if ((v55 & 1) == 0)
     {
       goto LABEL_63;
     }
 
-    v56 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(a1, v54, a3);
-    v10 = (v54 + 24);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(v54 + 24, a2, a3))
+    v56 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(result, v54, a3);
+    v10 = v54 + 3;
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>((v54 + 24), a2, a3))
     {
       a4 = -v12;
       a2 = v54;
@@ -2041,8 +1073,8 @@ LABEL_58:
     if (!v56)
     {
 LABEL_63:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(a1, v54, a3, -v12, a5 & 1);
-      v10 = (v54 + 24);
+      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(result, v54, a3, -v12, a5 & 1);
+      v10 = v54 + 3;
 LABEL_65:
       a5 = 0;
       a4 = -v12;
@@ -2249,14 +1281,14 @@ LABEL_10:
   return result;
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(uint64_t a1, const void **a2, uint64_t a3)
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(const void **a1, const void **a2, uint64_t a3)
 {
   if (a1 != a2)
   {
     v18 = v3;
     v19 = v4;
-    v7 = (a1 + 24);
-    if ((a1 + 24) != a2)
+    v7 = a1 + 3;
+    if (a1 + 3 != a2)
     {
       v9 = 0;
       v10 = a1;
@@ -2274,14 +1306,14 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
           v12 = v9;
           do
           {
-            v13 = a1 + v12;
+            v13 = (a1 + v12);
             if (*(a1 + v12 + 47) < 0)
             {
-              operator delete(*(v13 + 24));
+              operator delete(v13[3]);
             }
 
-            *(v13 + 24) = *v13;
-            *(v13 + 40) = *(v13 + 16);
+            *(v13 + 3) = *v13;
+            v13[5] = v13[2];
             *(v13 + 23) = 0;
             *v13 = 0;
             if (!v12)
@@ -2293,7 +1325,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
             v12 -= 24;
           }
 
-          while (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, &v16, (v12 + a1)));
+          while (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, &v16, (a1 + v12)));
           v14 = *(a1 + v12 + 47);
           v15 = a1 + v12 + 24;
           if (v14 < 0)
@@ -2473,13 +1505,12 @@ const void **std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlg
   return v6;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(__int128 *a1, const void **a2, uint64_t a3)
+char *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(__int128 *a1, const void **a2, uint64_t a3)
 {
   v6 = 0;
   v17 = *a1;
   v18 = *(a1 + 2);
-  *(a1 + 1) = 0;
-  *(a1 + 2) = 0;
+  *(a1 + 8) = 0uLL;
   *a1 = 0;
   do
   {
@@ -2521,11 +1552,11 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     {
       v19 = *v8;
       v10 = v19;
-      v20 = *(v8 + 16);
+      v20 = *(v8 + 2);
       v11 = v20;
       v12 = v9[2];
       *v8 = *v9;
-      *(v8 + 16) = v12;
+      *(v8 + 2) = v12;
       v9[2] = v11;
       *v9 = v10;
       do
@@ -2546,7 +1577,7 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   }
 
   v13 = (v8 - 24);
-  if ((v8 - 24) == a1)
+  if (v8 - 24 == a1)
   {
     if (*(v8 - 1) < 0)
     {
@@ -2562,19 +1593,19 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     }
 
     v14 = *v13;
-    *(a1 + 2) = *(v8 - 8);
+    *(a1 + 2) = *(v8 - 1);
     *a1 = v14;
     *(v8 - 1) = 0;
     *(v8 - 24) = 0;
   }
 
   v15 = v17;
-  *(v8 - 8) = v18;
+  *(v8 - 1) = v18;
   *v13 = v15;
   return v8 - 24;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(__int128 *a1, __int128 *a2, uint64_t a3)
 {
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v6 > 2)
@@ -2582,41 +1613,41 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     switch(v6)
     {
       case 3:
-        v7 = a2 - 24;
-        v16 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 + 24), a1);
-        v17 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v7, (a1 + 24));
+        v7 = a2 - 3;
+        v16 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a1 + 3, a1);
+        v17 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v7, a1 + 3);
         if (v16)
         {
           if (!v17)
           {
-            v35 = *(a1 + 16);
+            v35 = *(a1 + 2);
             v36 = *a1;
             *a1 = *(a1 + 24);
-            *(a1 + 16) = *(a1 + 40);
+            *(a1 + 2) = *(a1 + 5);
             *(a1 + 24) = v36;
-            *(a1 + 40) = v35;
-            if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v7, (a1 + 24)))
+            *(a1 + 5) = v35;
+            if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v7, a1 + 3))
             {
               return 1;
             }
 
-            v18 = *(a1 + 40);
+            v18 = *(a1 + 5);
             v19 = *(a1 + 24);
-            v37 = *(v7 + 16);
+            v37 = v7[2];
             *(a1 + 24) = *v7;
-            *(a1 + 40) = v37;
+            *(a1 + 5) = v37;
             goto LABEL_16;
           }
 
 LABEL_15:
-          v18 = *(a1 + 16);
+          v18 = *(a1 + 2);
           v19 = *a1;
-          v20 = *(v7 + 16);
+          v20 = v7[2];
           *a1 = *v7;
-          *(a1 + 16) = v20;
+          *(a1 + 2) = v20;
 LABEL_16:
           *v7 = v19;
-          *(v7 + 16) = v18;
+          v7[2] = v18;
           return 1;
         }
 
@@ -2625,67 +1656,67 @@ LABEL_16:
           return 1;
         }
 
-        v26 = *(a1 + 40);
+        v26 = *(a1 + 5);
         v27 = *(a1 + 24);
-        v28 = *(v7 + 16);
+        v28 = v7[2];
         *(a1 + 24) = *v7;
-        *(a1 + 40) = v28;
+        *(a1 + 5) = v28;
         *v7 = v27;
-        *(v7 + 16) = v26;
+        v7[2] = v26;
         break;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a2 - 24), a3);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,0>(a1, a1 + 3, a1 + 6, (a2 - 24), a3);
         return 1;
       case 5:
         v8 = a2 - 24;
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), a3);
-        if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v8, (a1 + 72)))
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,0>(a1, a1 + 3, a1 + 6, (a1 + 72), a3);
+        if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v8, a1 + 9))
         {
           return 1;
         }
 
-        v9 = *(a1 + 88);
+        v9 = *(a1 + 11);
         v10 = *(a1 + 72);
         v11 = *(v8 + 16);
         *(a1 + 72) = *v8;
-        *(a1 + 88) = v11;
+        *(a1 + 11) = v11;
         *v8 = v10;
         *(v8 + 16) = v9;
-        if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 + 72), (a1 + 48)))
+        if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a1 + 9, a1 + 6))
         {
           return 1;
         }
 
-        v12 = *(a1 + 64);
-        v13 = *(a1 + 48);
-        *(a1 + 48) = *(a1 + 72);
-        *(a1 + 64) = *(a1 + 88);
+        v12 = *(a1 + 8);
+        v13 = a1[3];
+        a1[3] = *(a1 + 72);
+        *(a1 + 8) = *(a1 + 11);
         *(a1 + 72) = v13;
-        *(a1 + 88) = v12;
-        if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 + 48), (a1 + 24)))
+        *(a1 + 11) = v12;
+        if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a1 + 6, a1 + 3))
         {
           return 1;
         }
 
-        v14 = *(a1 + 40);
+        v14 = *(a1 + 5);
         v15 = *(a1 + 24);
-        *(a1 + 24) = *(a1 + 48);
-        *(a1 + 40) = *(a1 + 64);
-        *(a1 + 48) = v15;
-        *(a1 + 64) = v14;
+        *(a1 + 24) = a1[3];
+        *(a1 + 5) = *(a1 + 8);
+        a1[3] = v15;
+        *(a1 + 8) = v14;
         break;
       default:
         goto LABEL_17;
     }
 
-    if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 + 24), a1))
+    if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a1 + 3, a1))
     {
-      v29 = *(a1 + 16);
+      v29 = *(a1 + 2);
       v30 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v30;
-      *(a1 + 40) = v29;
+      *(a1 + 5) = v29;
     }
 
     return 1;
@@ -2698,8 +1729,8 @@ LABEL_16:
 
   if (v6 == 2)
   {
-    v7 = a2 - 24;
-    if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a2 - 24), a1))
+    v7 = a2 - 3;
+    if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a2 - 3, a1))
     {
       return 1;
     }
@@ -2708,64 +1739,64 @@ LABEL_16:
   }
 
 LABEL_17:
-  v21 = (a1 + 48);
-  v22 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 + 24), a1);
-  v23 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 + 48), (a1 + 24));
+  v21 = (a1 + 3);
+  v22 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a1 + 3, a1);
+  v23 = std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a1 + 6, a1 + 3);
   if (v22)
   {
     if (v23)
     {
-      v24 = *(a1 + 16);
+      v24 = *(a1 + 2);
       v25 = *a1;
       *a1 = *v21;
-      *(a1 + 16) = *(a1 + 64);
+      *(a1 + 2) = *(a1 + 8);
     }
 
     else
     {
-      v38 = *(a1 + 16);
+      v38 = *(a1 + 2);
       v39 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v39;
-      *(a1 + 40) = v38;
-      if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 + 48), (a1 + 24)))
+      *(a1 + 5) = v38;
+      if (!std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a1 + 6, a1 + 3))
       {
         goto LABEL_33;
       }
 
-      v24 = *(a1 + 40);
+      v24 = *(a1 + 5);
       v25 = *(a1 + 24);
       *(a1 + 24) = *v21;
-      *(a1 + 40) = *(a1 + 64);
+      *(a1 + 5) = *(a1 + 8);
     }
 
     *v21 = v25;
-    *(a1 + 64) = v24;
+    *(a1 + 8) = v24;
   }
 
   else if (v23)
   {
-    v31 = *(a1 + 40);
+    v31 = *(a1 + 5);
     v32 = *(a1 + 24);
     *(a1 + 24) = *v21;
-    *(a1 + 40) = *(a1 + 64);
+    *(a1 + 5) = *(a1 + 8);
     *v21 = v32;
-    *(a1 + 64) = v31;
-    if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, (a1 + 24), a1))
+    *(a1 + 8) = v31;
+    if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, a1 + 3, a1))
     {
-      v33 = *(a1 + 16);
+      v33 = *(a1 + 2);
       v34 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v34;
-      *(a1 + 40) = v33;
+      *(a1 + 5) = v33;
     }
   }
 
 LABEL_33:
-  v40 = a1 + 72;
-  if (a1 + 72 == a2)
+  v40 = (a1 + 72);
+  if ((a1 + 72) == a2)
   {
     return 1;
   }
@@ -2777,9 +1808,9 @@ LABEL_33:
     if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a3, v40, v21))
     {
       v49 = *v40;
-      v50 = *(v40 + 16);
-      *(v40 + 8) = 0;
-      *(v40 + 16) = 0;
+      v50 = *(v40 + 2);
+      *(v40 + 1) = 0;
+      *(v40 + 2) = 0;
       *v40 = 0;
       v43 = v41;
       do
@@ -2817,13 +1848,13 @@ LABEL_44:
       *(v47 + 16) = v50;
       if (++v42 == 8)
       {
-        return v40 + 24 == a2;
+        return (v40 + 24) == a2;
       }
     }
 
     v21 = v40;
     v41 += 24;
-    v40 += 24;
+    v40 = (v40 + 24);
     if (v40 == a2)
     {
       return 1;
@@ -2831,9 +1862,8 @@ LABEL_44:
   }
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,std::string *>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,std::string *>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
   if (a1 != a2)
   {
     v8 = a2 - a1;
@@ -2863,11 +1893,11 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
         {
           v14 = *(v13 + 2);
           v15 = *v13;
-          v16 = *(a1 + 16);
+          v16 = *(a1 + 2);
           *v13 = *a1;
           *(v13 + 2) = v16;
           *a1 = v15;
-          *(a1 + 16) = v14;
+          *(a1 + 2) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(a1, a4, v9, a1);
         }
 
@@ -2884,15 +1914,15 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
       do
       {
         v19 = *a1;
-        *v28 = *(a1 + 8);
-        *&v28[7] = *(a1 + 15);
+        *v27 = *(a1 + 1);
+        *&v27[7] = *(a1 + 15);
         v20 = *(a1 + 23);
-        *(a1 + 8) = 0;
-        *(a1 + 16) = 0;
+        *(a1 + 1) = 0;
+        *(a1 + 2) = 0;
         *a1 = 0;
         v21 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(a1, a4, v17);
         v22 = v21;
-        v23 = *(v21 + 23);
+        v23 = v21[23];
         if (v18 == v21)
         {
           if (v23 < 0)
@@ -2901,9 +1931,9 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
           }
 
           *v22 = v19;
-          *(v22 + 1) = *v28;
-          *(v22 + 15) = *&v28[7];
-          *(v22 + 23) = v20;
+          *(v22 + 1) = *v27;
+          *(v22 + 15) = *&v27[7];
+          v22[23] = v20;
         }
 
         else
@@ -2914,13 +1944,13 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
           }
 
           v24 = *v18;
-          *(v22 + 2) = *(v18 + 16);
+          *(v22 + 2) = *(v18 + 2);
           *v22 = v24;
           *v18 = v19;
-          *(v18 + 8) = *v28;
-          *(v18 + 15) = *&v28[7];
-          *(v18 + 23) = v20;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(a1, v22 + 24, a4, 0xAAAAAAAAAAAAAAABLL * ((v22 - a1 + 24) >> 3));
+          *(v18 + 1) = *v27;
+          *(v18 + 15) = *&v27[7];
+          v18[23] = v20;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(a1, (v22 + 24), a4, 0xAAAAAAAAAAAAAAABLL * ((v22 + 24 - a1) >> 3));
         }
 
         v18 -= 24;
@@ -2929,10 +1959,9 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
       while (v17-- > 2);
     }
 
-    a3 = v13;
+    return v13;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
@@ -3023,21 +2052,21 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
   return result;
 }
 
-__int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(__int128 *a1, uint64_t a2, uint64_t a3)
+char *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(__int128 *a1, uint64_t a2, uint64_t a3)
 {
   v6 = 0;
   v7 = (a3 - 2) / 2;
   do
   {
-    v8 = a1 + 24 * v6;
-    v9 = (v8 + 24);
+    v8 = a1 + 3 * v6;
+    v9 = (v8 + 3);
     v10 = 2 * v6;
     v6 = (2 * v6) | 1;
     v11 = v10 + 2;
     if (v10 + 2 < a3)
     {
-      v12 = (v8 + 48);
-      if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a2, (v8 + 24), (v8 + 48)))
+      v12 = (v8 + 6);
+      if (std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>::operator()[abi:ne200100](a2, v8 + 3, v8 + 6))
       {
         v9 = v12;
         v6 = v11;
@@ -3052,7 +2081,7 @@ __int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
     v13 = *v9;
     *(a1 + 2) = *(v9 + 2);
     *a1 = v13;
-    *(v9 + 23) = 0;
+    v9[23] = 0;
     *v9 = 0;
     a1 = v9;
   }
@@ -3118,15 +2147,15 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MTLConstantStorage::ConstantData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MTLConstantStorage::ConstantData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MTLConstantStorage::ConstantData>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MTLConstantStorage::ConstantData>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::__map_value_compare<std::string,std::__value_type<std::string,MTLConstantStorage::ConstantData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MTLConstantStorage::ConstantData>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 void MTLCompilerStitchingRequest::MTLCompilerStitchingRequest(MTLCompilerStitchingRequest *this)
@@ -3185,16 +2214,16 @@ void MTLCompilerStitchingRequest::~MTLCompilerStitchingRequest(MTLCompilerStitch
 dispatch_data_t MTLCompilerStitchingRequest::serializedRequest(NSObject **this, unsigned int a2, char **a3)
 {
   v3 = this;
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   v4 = this[24];
   if (v4)
   {
     dispatch_release(v4);
-    *(v3 + 24) = 0;
+    v3[24] = 0;
   }
 
   v5 = malloc_type_malloc(0x800uLL, 0x100004077774924uLL);
-  v6 = [*(v3 + 25) UTF8String];
+  v6 = [v3[25] UTF8String];
   *v5 = 1684104992;
   v7 = strlen(v6);
   v8 = v7 + 5;
@@ -3230,9 +2259,9 @@ dispatch_data_t MTLCompilerStitchingRequest::serializedRequest(NSObject **this, 
 
   memcpy(v5 + 1, v6, v9);
   *(v5 + v9 + 4) = 0;
-  v85 = 0;
-  _getForcedAIRVersion(&v85 + 1, &v85);
-  if (v85)
+  v84 = 0;
+  _getForcedAIRVersion(&v84 + 1, &v84);
+  if (v84)
   {
     if (v8 >= 0xFFFFFFFFFFFFFFFCLL)
     {
@@ -3269,7 +2298,7 @@ dispatch_data_t MTLCompilerStitchingRequest::serializedRequest(NSObject **this, 
       goto LABEL_225;
     }
 
-    v12 = HIDWORD(v85);
+    v12 = HIDWORD(v84);
     v13 = v9 + 13;
     if (v10 < v9 + 13)
     {
@@ -3300,7 +2329,7 @@ dispatch_data_t MTLCompilerStitchingRequest::serializedRequest(NSObject **this, 
       goto LABEL_225;
     }
 
-    v14 = v85;
+    v14 = v84;
     v8 = v9 + 17;
     if (v10 < v9 + 17)
     {
@@ -3358,7 +2387,7 @@ dispatch_data_t MTLCompilerStitchingRequest::serializedRequest(NSObject **this, 
   }
 
   *(v5 + v8) = 1853189478;
-  v16 = [*(v3 + 26) count];
+  v16 = [v3[26] count];
   if (v8 >= 0xFFFFFFFFFFFFFFF8)
   {
     goto LABEL_225;
@@ -3390,14 +2419,14 @@ dispatch_data_t MTLCompilerStitchingRequest::serializedRequest(NSObject **this, 
   }
 
   *(v5 + v15) = v17;
-  memset(&v84, 0, sizeof(v84));
+  memset(&v83, 0, sizeof(v83));
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
-  obj = *(v3 + 26);
-  v19 = [obj countByEnumeratingWithState:&v80 objects:v86 count:16];
-  v74 = v3;
+  obj = v3[26];
+  v19 = [obj countByEnumeratingWithState:&v79 objects:v85 count:16];
+  v73 = v3;
   if (!v19)
   {
 LABEL_121:
@@ -3431,7 +2460,7 @@ LABEL_121:
     }
 
     *(v5 + v18) = 1853189491;
-    v47 = *(v3 + 27);
+    v47 = v3[27];
     if (v47)
     {
       if (v18 >= 0xFFFFFFFFFFFFFFF8)
@@ -3439,8 +2468,8 @@ LABEL_121:
         goto LABEL_225;
       }
 
-      v49 = *v47;
-      v48 = v47[1];
+      isa = v47->isa;
+      v48 = v47[1].isa;
       v50 = v18 + 8;
       if (v10 < v50)
       {
@@ -3465,8 +2494,8 @@ LABEL_121:
         }
       }
 
-      *(v5 + v46) = -858993459 * ((v48 - v49) >> 3);
-      if (*(*(v3 + 27) + 8) != **(v3 + 27))
+      *(v5 + v46) = -858993459 * ((v48 - isa) >> 3);
+      if (v3[27][1].isa != v3[27]->isa)
       {
         v51 = 0;
         v52 = 0;
@@ -3503,7 +2532,7 @@ LABEL_121:
           *(v5 + v50) = 1634952050;
           size_ptr = 0;
           __n = 0;
-          v54 = dispatch_data_create_map(*(**(v3 + 27) + 40 * v51), &__n, &size_ptr);
+          v54 = dispatch_data_create_map(*(v3[27]->isa + 5 * v51), &__n, &size_ptr);
           if (v50 >= 0xFFFFFFFFFFFFFFF8)
           {
             break;
@@ -3569,9 +2598,9 @@ LABEL_121:
 
           memcpy(v5 + v57, v59, v58);
           dispatch_release(v55);
-          v3 = v74;
+          v3 = v73;
           v51 = ++v52;
-          if (0xCCCCCCCCCCCCCCCDLL * ((*(*(v74 + 27) + 8) - **(v74 + 27)) >> 3) <= v52)
+          if (0xCCCCCCCCCCCCCCCDLL * ((v73[27][1].isa - v73[27]->isa) >> 3) <= v52)
           {
             goto LABEL_174;
           }
@@ -3710,7 +2739,7 @@ LABEL_197:
                     goto LABEL_225;
                   }
 
-                  v66 = *(v3 + 30);
+                  v66 = v3[30];
                   v67 = v50 + 16;
                   if (v10 < v50 + 16)
                   {
@@ -3736,13 +2765,13 @@ LABEL_197:
                   }
 
                   *(v5 + v65) = v66;
-                  v68 = *(v3 + 30);
+                  v68 = v3[30];
                   if (-17 - v50 < v68)
                   {
                     goto LABEL_225;
                   }
 
-                  v69 = *(v3 + 29);
+                  v69 = v3[29];
                   v70 = v68 + v67;
                   if (v10 < v68 + v67)
                   {
@@ -3806,7 +2835,7 @@ LABEL_197:
 
                 v60 = dispatch_data_create(v5, v70, 0, *MEMORY[0x1E69E9648]);
                 v5 = 0;
-                *(v3 + 24) = v60;
+                v3[24] = v60;
                 goto LABEL_222;
               }
             }
@@ -3819,61 +2848,61 @@ LABEL_225:
     abort();
   }
 
-  v76 = *v81;
+  v75 = *v80;
 LABEL_49:
   v20 = 0;
   while (1)
   {
-    if (*v81 != v76)
+    if (*v80 != v75)
     {
       objc_enumerationMutation(obj);
     }
 
-    v21 = *(*(&v80 + 1) + 8 * v20);
+    v21 = *(*(&v79 + 1) + 8 * v20);
     v22 = [v21 libraryData];
     size_ptr = 0;
     __n = 0;
-    v77 = 0;
-    (*(*v22 + 208))(v22, [v21 bitCodeOffset], objc_msgSend(v21, "bitCodeFileSize"), &size_ptr, &__n, &v77);
-    v23 = v77;
+    v76 = 0;
+    (*(*v22 + 208))(v22, [v21 bitCodeOffset], objc_msgSend(v21, "bitCodeFileSize"), &size_ptr, &__n, &v76);
+    v23 = v76;
     v24 = __n;
-    if (v77)
+    if (v76)
     {
-      begin = v84.__begin_;
-      if (v77 <= (v84.__end_ - v84.__begin_))
+      begin = v83.__begin_;
+      if (v76 <= (v83.__end_ - v83.__begin_))
       {
-        if (v77 < (v84.__end_ - v84.__begin_))
+        if (v76 < (v83.__end_ - v83.__begin_))
         {
-          v84.__end_ = &v84.__begin_[v77];
+          v83.__end_ = &v83.__begin_[v76];
         }
       }
 
       else
       {
-        std::vector<unsigned char>::__append(&v84, v77 - (v84.__end_ - v84.__begin_));
-        begin = v84.__begin_;
-        v23 = v77;
+        std::vector<unsigned char>::__append(&v83, v76 - (v83.__end_ - v83.__begin_));
+        begin = v83.__begin_;
+        v23 = v76;
       }
 
       v27 = (*(*v22 + 240))(v22, begin, size_ptr, v24, v23);
-      __n = v77;
+      __n = v76;
     }
 
     else
     {
-      v26 = v84.__begin_;
-      if (__n <= v84.__end_ - v84.__begin_)
+      v26 = v83.__begin_;
+      if (__n <= v83.__end_ - v83.__begin_)
       {
-        if (__n < v84.__end_ - v84.__begin_)
+        if (__n < v83.__end_ - v83.__begin_)
         {
-          v84.__end_ = &v84.__begin_[__n];
+          v83.__end_ = &v83.__begin_[__n];
         }
       }
 
       else
       {
-        std::vector<unsigned char>::__append(&v84, __n - (v84.__end_ - v84.__begin_));
-        v26 = v84.__begin_;
+        std::vector<unsigned char>::__append(&v83, __n - (v83.__end_ - v83.__begin_));
+        v26 = v83.__begin_;
         v24 = __n;
       }
 
@@ -4096,7 +3125,7 @@ LABEL_49:
       goto LABEL_225;
     }
 
-    v45 = v84.__begin_;
+    v45 = v83.__begin_;
     v18 = __n + v43;
     if (v10 < __n + v43)
     {
@@ -4124,8 +3153,8 @@ LABEL_49:
     memcpy(v5 + v43, v45, v44);
     if (++v20 == v19)
     {
-      v19 = [obj countByEnumeratingWithState:&v80 objects:v86 count:16];
-      v3 = v74;
+      v19 = [obj countByEnumeratingWithState:&v79 objects:v85 count:16];
+      v3 = v73;
       if (!v19)
       {
         goto LABEL_121;
@@ -4142,14 +3171,13 @@ LABEL_49:
 
   v60 = 0;
 LABEL_222:
-  if (v84.__begin_)
+  if (v83.__begin_)
   {
-    v84.__end_ = v84.__begin_;
-    operator delete(v84.__begin_);
+    v83.__end_ = v83.__begin_;
+    operator delete(v83.__begin_);
   }
 
   free(v5);
-  v71 = *MEMORY[0x1E69E9840];
   return v60;
 }
 
@@ -4228,7 +3256,7 @@ id newErrorWithMessage(NSString *a1, MTLDynamicLibraryError a2)
   return v4;
 }
 
-void sub_185C7120C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_185C7120C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a48, 8);
   std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(&a54);
@@ -4336,15 +3364,16 @@ uint64_t std::vector<machOEntry>::push_back[abi:ne200100](uint64_t a1, __int128 
   return result;
 }
 
-void sub_185C72E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_185C72E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
+  va_start(va, a50);
   _Block_object_dispose(&a40, 8);
   std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(&a46);
-  _Block_object_dispose(&a51, 8);
-  _Block_object_dispose((v51 - 256), 8);
-  _Block_object_dispose((v51 - 224), 8);
-  _Block_object_dispose((v51 - 192), 8);
-  _Block_object_dispose((v51 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v50 - 256), 8);
+  _Block_object_dispose((v50 - 224), 8);
+  _Block_object_dispose((v50 - 192), 8);
+  _Block_object_dispose((v50 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4436,12 +3465,12 @@ uint64_t MTLPipelineOptionsFromDynamicLibraryLoadOptions(uint64_t a1)
   return result;
 }
 
-uint64_t ___ZL23isVendorSliceCompatibleRK24MTLLoaderSliceIdentifierP6NSDatayPU19objcproto9MTLDevice11objc_object_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+char *___ZL23isVendorSliceCompatibleRK24MTLLoaderSliceIdentifierP6NSDatayPU19objcproto9MTLDevice11objc_object_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a3 + a2 + *(a1 + 40);
   if (v5 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + *(a1 + 40) + a2;
+    return ([*(a1 + 32) bytes] + *(a1 + 40) + a2);
   }
 
   else
@@ -4450,7 +3479,7 @@ uint64_t ___ZL23isVendorSliceCompatibleRK24MTLLoaderSliceIdentifierP6NSDatayPU19
   }
 }
 
-uint64_t std::vector<machOEntry>::__construct_one_at_end[abi:ne200100]<machOEntry const&>(uint64_t a1, __int128 *a2)
+uint64_t *std::vector<machOEntry>::__construct_one_at_end[abi:ne200100]<machOEntry const&>(uint64_t a1, __int128 *a2)
 {
   v3 = *(a1 + 8);
   v4 = *a2;
@@ -4461,7 +3490,7 @@ uint64_t std::vector<machOEntry>::__construct_one_at_end[abi:ne200100]<machOEntr
   *(v3 + 56) = 0;
   *(v3 + 64) = 0;
   *(v3 + 48) = 0;
-  result = std::vector<MTLUINT256_t>::__init_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>(v3 + 48, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 5);
+  result = std::vector<MTLUINT256_t>::__init_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>((v3 + 48), *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 5);
   *(a1 + 8) = v3 + 72;
   return result;
 }
@@ -4508,7 +3537,7 @@ uint64_t std::vector<machOEntry>::__emplace_back_slow_path<machOEntry const&>(ui
   *(v7 + 56) = 0;
   *(v7 + 64) = 0;
   *(v7 + 48) = 0;
-  std::vector<MTLUINT256_t>::__init_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>(72 * v2 + 48, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 5);
+  std::vector<MTLUINT256_t>::__init_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>((72 * v2 + 48), *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 5);
   *&v18 = v18 + 72;
   v10 = *(a1 + 8);
   v11 = v17 + *a1 - v10;
@@ -4526,9 +3555,9 @@ uint64_t std::vector<machOEntry>::__emplace_back_slow_path<machOEntry const&>(ui
   return v15;
 }
 
-void sub_185C73A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_185C73A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<machOEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4800,7 +3829,7 @@ __CFString *MTLMeshTopologyKindString(unint64_t a1)
   }
 }
 
-MTLStructTypeInternal *newStructTypeWithSerializedContext(uint64_t a1, DeserialContext *a2, unsigned int a3)
+MTLStructTypeInternal *newStructTypeWithSerializedContext(void *a1, DeserialContext *a2, unsigned int a3)
 {
   v8 = 0;
   memset(v5, 0, sizeof(v5));
@@ -4837,7 +3866,7 @@ LABEL_75:
   while (1)
   {
     v14 = a2[1];
-    if (v14 >= v11 + 4)
+    if (v14 >= (v11 + 4))
     {
       v15 = *a2;
     }
@@ -4850,11 +3879,11 @@ LABEL_75:
         v14 = 128;
       }
 
-      while (v14 < v11 + 4)
+      while (v14 < (v11 + 4))
       {
         if (v14 >> 1 >= ~v14)
         {
-          v14 = v11 + 4;
+          v14 = (v11 + 4);
         }
 
         else
@@ -4874,7 +3903,7 @@ LABEL_75:
       v11 = a2[2];
     }
 
-    *&v15[v11] = v12;
+    *&v11[v15] = v12;
     v16 = a2[2];
     v17 = v16 + 4;
     a2[2] = v16 + 4;
@@ -4883,7 +3912,7 @@ LABEL_75:
       goto LABEL_75;
     }
 
-    v18 = (v16 + 8);
+    v18 = v16 + 8;
     v19 = a2[1];
     if (v19 >= v18)
     {
@@ -4933,7 +3962,7 @@ LABEL_75:
 
     v23 = v21;
     v24 = a2[1];
-    if (v24 >= v22 + 4)
+    if (v24 >= (v22 + 4))
     {
       v25 = *a2;
     }
@@ -4946,11 +3975,11 @@ LABEL_75:
         v24 = 128;
       }
 
-      while (v24 < v22 + 4)
+      while (v24 < (v22 + 4))
       {
         if (v24 >> 1 >= ~v24)
         {
-          v24 = v22 + 4;
+          v24 = (v22 + 4);
         }
 
         else
@@ -4970,7 +3999,7 @@ LABEL_75:
       v22 = a2[2];
     }
 
-    *&v25[v22] = v23;
+    *&v22[v25] = v23;
     a2[2] = a2[2] + 4;
     v26 = [v7 indirectArgumentIndexStride];
     v27 = a2[2];
@@ -4981,7 +4010,7 @@ LABEL_75:
 
     v28 = v26;
     v29 = a2[1];
-    if (v29 >= v27 + 4)
+    if (v29 >= (v27 + 4))
     {
       v30 = *a2;
     }
@@ -4994,11 +4023,11 @@ LABEL_75:
         v29 = 128;
       }
 
-      while (v29 < v27 + 4)
+      while (v29 < (v27 + 4))
       {
         if (v29 >> 1 >= ~v29)
         {
-          v29 = v27 + 4;
+          v29 = (v27 + 4);
         }
 
         else
@@ -5018,7 +4047,7 @@ LABEL_75:
       v27 = a2[2];
     }
 
-    *&v30[v27] = v28;
+    *&v27[v30] = v28;
     a2[2] = a2[2] + 4;
     v31 = [v7 pixelFormat];
     v32 = a2[2];
@@ -5029,7 +4058,7 @@ LABEL_75:
 
     v33 = v31;
     v34 = a2[1];
-    if (v34 >= v32 + 4)
+    if (v34 >= (v32 + 4))
     {
       v35 = *a2;
     }
@@ -5042,11 +4071,11 @@ LABEL_75:
         v34 = 128;
       }
 
-      while (v34 < v32 + 4)
+      while (v34 < (v32 + 4))
       {
         if (v34 >> 1 >= ~v34)
         {
-          v34 = v32 + 4;
+          v34 = (v32 + 4);
         }
 
         else
@@ -5066,7 +4095,7 @@ LABEL_75:
       v32 = a2[2];
     }
 
-    *&v35[v32] = v33;
+    *&v32[v35] = v33;
     a2[2] = a2[2] + 4;
     v36 = [v7 aluType];
     v37 = a2[2];
@@ -5077,7 +4106,7 @@ LABEL_75:
 
     v38 = v36;
     v39 = a2[1];
-    if (v39 >= v37 + 4)
+    if (v39 >= (v37 + 4))
     {
       v40 = *a2;
     }
@@ -5090,11 +4119,11 @@ LABEL_75:
         v39 = 128;
       }
 
-      while (v39 < v37 + 4)
+      while (v39 < (v37 + 4))
       {
         if (v39 >> 1 >= ~v39)
         {
-          v39 = v37 + 4;
+          v39 = (v37 + 4);
         }
 
         else
@@ -5114,7 +4143,7 @@ LABEL_75:
       v37 = a2[2];
     }
 
-    *&v40[v37] = v38;
+    *&v37[v40] = v38;
     a2[2] = a2[2] + 4;
     if (v13 != 2)
     {
@@ -5156,9 +4185,9 @@ LABEL_75:
   }
 }
 
-char *serializeStructTypeInternal(char *result, char **a2, uint64_t a3, unsigned int a4)
+unint64_t serializeStructTypeInternal(unint64_t result, char **a2, uint64_t a3, unsigned int a4)
 {
-  v69[0] = result;
+  v69 = result;
   v5 = *(a3 + 8);
   if (!v5)
   {
@@ -5192,7 +4221,7 @@ char *serializeStructTypeInternal(char *result, char **a2, uint64_t a3, unsigned
 
       v65 = *(v6 + 40);
       v66 = a2[1];
-      if (v66 >= v64 + 4)
+      if (v66 >= (v64 + 4))
       {
         result = *a2;
       }
@@ -5205,11 +4234,11 @@ char *serializeStructTypeInternal(char *result, char **a2, uint64_t a3, unsigned
           a2[1] = 128;
         }
 
-        while (v66 < v64 + 4)
+        while (v66 < (v64 + 4))
         {
           if (v66 >> 1 >= ~v66)
           {
-            v66 = v64 + 4;
+            v66 = (v64 + 4);
           }
 
           else
@@ -5229,7 +4258,7 @@ char *serializeStructTypeInternal(char *result, char **a2, uint64_t a3, unsigned
         v64 = a2[2];
       }
 
-      *&result[v64] = v65;
+      *&v64[result] = v65;
       a2[2] += 4;
     }
   }
@@ -5238,8 +4267,8 @@ char *serializeStructTypeInternal(char *result, char **a2, uint64_t a3, unsigned
   {
 LABEL_9:
     v10 = *(a3 + 16) + 1;
-    v69[2] = v69;
-    *(std::__tree<std::__value_type<MTLStructType *,unsigned int>,std::__map_value_compare<MTLStructType *,std::__value_type<MTLStructType *,unsigned int>,std::less<MTLStructType *>,true>,std::allocator<std::__value_type<MTLStructType *,unsigned int>>>::__emplace_unique_key_args<MTLStructType *,std::piecewise_construct_t const&,std::tuple<MTLStructType * const&>,std::tuple<>>(a3, v69) + 10) = v10;
+    v70 = &v69;
+    *(std::__tree<std::__value_type<MTLStructType *,unsigned int>,std::__map_value_compare<MTLStructType *,std::__value_type<MTLStructType *,unsigned int>,std::less<MTLStructType *>,true>,std::allocator<std::__value_type<MTLStructType *,unsigned int>>>::__emplace_unique_key_args<MTLStructType *,std::piecewise_construct_t const&,std::tuple<MTLStructType * const&>,std::tuple<>>(a3, &v69, &std::piecewise_construct, &v70) + 10) = v10;
     if (a4)
     {
       v11 = a2[2];
@@ -5249,7 +4278,7 @@ LABEL_9:
       }
 
       v12 = a2[1];
-      if (v12 >= v11 + 4)
+      if (v12 >= (v11 + 4))
       {
         v13 = *a2;
       }
@@ -5262,11 +4291,11 @@ LABEL_9:
           a2[1] = 128;
         }
 
-        while (v12 < v11 + 4)
+        while (v12 < (v11 + 4))
         {
           if (v12 >> 1 >= ~v12)
           {
-            v12 = v11 + 4;
+            v12 = (v11 + 4);
           }
 
           else
@@ -5286,11 +4315,11 @@ LABEL_9:
         v11 = a2[2];
       }
 
-      *&v13[v11] = v10;
+      *&v11[v13] = v10;
       a2[2] += 4;
     }
 
-    v14 = [objc_msgSend(v69[0] "members")];
+    v14 = [objc_msgSend(v69 "members")];
     v15 = a2[2];
     if (v15 >= 0xFFFFFFFFFFFFFFFCLL)
     {
@@ -5299,7 +4328,7 @@ LABEL_9:
 
     v16 = v14;
     v17 = a2[1];
-    if (v17 >= v15 + 4)
+    if (v17 >= (v15 + 4))
     {
       result = *a2;
     }
@@ -5312,11 +4341,11 @@ LABEL_9:
         a2[1] = 128;
       }
 
-      while (v17 < v15 + 4)
+      while (v17 < (v15 + 4))
       {
         if (v17 >> 1 >= ~v17)
         {
-          v17 = v15 + 4;
+          v17 = (v15 + 4);
         }
 
         else
@@ -5336,7 +4365,7 @@ LABEL_9:
       v15 = a2[2];
     }
 
-    *&result[v15] = v16;
+    *&v15[result] = v16;
     a2[2] += 4;
     v18 = v16;
     if (v16)
@@ -5344,7 +4373,7 @@ LABEL_9:
       v19 = 0;
       while (1)
       {
-        v20 = [objc_msgSend(v69[0] "members")];
+        v20 = [objc_msgSend(v69 "members")];
         v21 = [v20 dataType];
         v22 = [v20 indirectArgumentType] ? 57 : v21;
         v23 = [objc_msgSend(v20 "name")];
@@ -5407,7 +4436,7 @@ LABEL_9:
 
         v32 = v30;
         v33 = a2[1];
-        if (v33 >= v31 + 4)
+        if (v33 >= (v31 + 4))
         {
           v34 = *a2;
         }
@@ -5420,11 +4449,11 @@ LABEL_9:
             v33 = 128;
           }
 
-          while (v33 < v31 + 4)
+          while (v33 < (v31 + 4))
           {
             if (v33 >> 1 >= ~v33)
             {
-              v33 = v31 + 4;
+              v33 = (v31 + 4);
             }
 
             else
@@ -5444,7 +4473,7 @@ LABEL_9:
           v31 = a2[2];
         }
 
-        *&v34[v31] = v32;
+        *&v31[v34] = v32;
         a2[2] += 4;
         v35 = [v20 indirectArgumentIndex];
         v36 = a2[2];
@@ -5455,7 +4484,7 @@ LABEL_9:
 
         v37 = v35;
         v38 = a2[1];
-        if (v38 >= v36 + 4)
+        if (v38 >= (v36 + 4))
         {
           v39 = *a2;
         }
@@ -5468,11 +4497,11 @@ LABEL_9:
             v38 = 128;
           }
 
-          while (v38 < v36 + 4)
+          while (v38 < (v36 + 4))
           {
             if (v38 >> 1 >= ~v38)
             {
-              v38 = v36 + 4;
+              v38 = (v36 + 4);
             }
 
             else
@@ -5492,7 +4521,7 @@ LABEL_9:
           v36 = a2[2];
         }
 
-        *&v39[v36] = v37;
+        *&v36[v39] = v37;
         v40 = a2[2];
         v41 = v40 + 4;
         a2[2] = v40 + 4;
@@ -5501,7 +4530,7 @@ LABEL_9:
           break;
         }
 
-        v42 = (v40 + 8);
+        v42 = v40 + 8;
         v43 = a2[1];
         if (v43 >= v42)
         {
@@ -5551,7 +4580,7 @@ LABEL_9:
 
         v47 = v45;
         v48 = a2[1];
-        if (v48 >= v46 + 4)
+        if (v48 >= (v46 + 4))
         {
           v49 = *a2;
         }
@@ -5564,11 +4593,11 @@ LABEL_9:
             v48 = 128;
           }
 
-          while (v48 < v46 + 4)
+          while (v48 < (v46 + 4))
           {
             if (v48 >> 1 >= ~v48)
             {
-              v48 = v46 + 4;
+              v48 = (v46 + 4);
             }
 
             else
@@ -5588,7 +4617,7 @@ LABEL_9:
           v46 = a2[2];
         }
 
-        *&v49[v46] = v47;
+        *&v46[v49] = v47;
         a2[2] += 4;
         v50 = [v20 aluType];
         v51 = a2[2];
@@ -5599,7 +4628,7 @@ LABEL_9:
 
         v52 = v50;
         v53 = a2[1];
-        if (v53 >= v51 + 4)
+        if (v53 >= (v51 + 4))
         {
           v54 = *a2;
         }
@@ -5612,11 +4641,11 @@ LABEL_9:
             v53 = 128;
           }
 
-          while (v53 < v51 + 4)
+          while (v53 < (v51 + 4))
           {
             if (v53 >> 1 >= ~v53)
             {
-              v53 = v51 + 4;
+              v53 = (v51 + 4);
             }
 
             else
@@ -5636,7 +4665,7 @@ LABEL_9:
           v51 = a2[2];
         }
 
-        *&v54[v51] = v52;
+        *&v51[v54] = v52;
         a2[2] += 4;
         if (v22 == 2)
         {
@@ -5662,7 +4691,7 @@ LABEL_9:
 
         v57 = v55;
         v58 = a2[1];
-        if (v58 >= v56 + 4)
+        if (v58 >= (v56 + 4))
         {
           v59 = *a2;
         }
@@ -5675,11 +4704,11 @@ LABEL_9:
             v58 = 128;
           }
 
-          while (v58 < v56 + 4)
+          while (v58 < (v56 + 4))
           {
             if (v58 >> 1 >= ~v58)
             {
-              v58 = v56 + 4;
+              v58 = (v56 + 4);
             }
 
             else
@@ -5699,7 +4728,7 @@ LABEL_9:
           v56 = a2[2];
         }
 
-        *&v59[v56] = v57;
+        *&v56[v59] = v57;
         a2[2] += 4;
         v60 = [v20 raster_order_group];
         v61 = a2[2];
@@ -5710,7 +4739,7 @@ LABEL_9:
 
         v62 = v60;
         v63 = a2[1];
-        if (v63 >= v61 + 4)
+        if (v63 >= (v61 + 4))
         {
           result = *a2;
         }
@@ -5723,11 +4752,11 @@ LABEL_9:
             v63 = 128;
           }
 
-          while (v63 < v61 + 4)
+          while (v63 < (v61 + 4))
           {
             if (v63 >> 1 >= ~v63)
             {
-              v63 = v61 + 4;
+              v63 = (v61 + 4);
             }
 
             else
@@ -5747,7 +4776,7 @@ LABEL_9:
           v61 = a2[2];
         }
 
-        *&result[v61] = v62;
+        *&v61[result] = v62;
         a2[2] += 4;
         if (++v19 == v18)
         {
@@ -5763,32 +4792,31 @@ LABEL_147:
   return result;
 }
 
-void serializeIndirectArgument(uint64_t a1, char **a2, uint64_t a3, unsigned int a4)
+void serializeIndirectArgument(uint64_t a1, char **a2, uint64_t a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = a1;
-  v11 = 0;
+  v4 = a4;
+  v14 = *MEMORY[0x1E69E9840];
   v12 = 0;
-  std::vector<MTLBindingInternal *>::__init_with_size[abi:ne200100]<MTLBindingInternal * const*,MTLBindingInternal * const*>(&v11, &v14, &v15, 1uLL);
-  v9 = 0;
+  v13 = a1;
   v10 = 0;
+  v11 = 0;
+  std::vector<MTLBindingInternal *>::__init_with_size[abi:ne200100]<MTLBindingInternal * const*,MTLBindingInternal * const*>(&v10, &v13, &v14, 1uLL);
+  v8 = 0;
+  v9 = 0;
   __p = 0;
-  std::vector<MTLBindingInternal *>::__init_with_size[abi:ne200100]<MTLBindingInternal **,MTLBindingInternal **>(&__p, v11, v12, (v12 - v11) >> 3);
-  serializeBindings(&__p, a2, 0, a3, a4);
+  std::vector<MTLBindingInternal *>::__init_with_size[abi:ne200100]<MTLBindingInternal **,MTLBindingInternal **>(&__p, v10, v11, (v11 - v10) >> 3);
+  serializeBindings(&__p, a2, 0, a3, v4);
   if (__p)
   {
-    v9 = __p;
+    v8 = __p;
     operator delete(__p);
   }
 
-  if (v11)
+  if (v10)
   {
-    v12 = v11;
-    operator delete(v11);
+    v11 = v10;
+    operator delete(v10);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_185C77A24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13)
@@ -5818,7 +4846,7 @@ char *serializeBindings(uint64_t *a1, char **a2, uint64_t a3, uint64_t a4, unsig
   v8 = a1[1];
   v10 = a2[1];
   v111 = a4;
-  if (v10 < v5 + 4)
+  if (v10 < (v5 + 4))
   {
     if (!v10)
     {
@@ -5826,11 +4854,11 @@ char *serializeBindings(uint64_t *a1, char **a2, uint64_t a3, uint64_t a4, unsig
       a2[1] = 128;
     }
 
-    while (v10 < v5 + 4)
+    while (v10 < (v5 + 4))
     {
       if (v10 >> 1 >= ~v10)
       {
-        v10 = v5 + 4;
+        v10 = (v5 + 4);
       }
 
       else
@@ -5856,7 +4884,7 @@ LABEL_263:
 LABEL_12:
   v12 = v8 - v9;
   v13 = (v8 - v9) >> 3;
-  v14 = &result[v5];
+  v14 = &v5[result];
   *v14 = (v8 - v9) >> 3;
   v14[1] = BYTE1(v13);
   v14[2] = BYTE2(v13);
@@ -6007,7 +5035,7 @@ LABEL_45:
           }
 
           v29 = a2[1];
-          if (v29 >= v28 + 4)
+          if (v29 >= (v28 + 4))
           {
             v30 = *a2;
           }
@@ -6020,11 +5048,11 @@ LABEL_45:
               v29 = 128;
             }
 
-            while (v29 < v28 + 4)
+            while (v29 < (v28 + 4))
             {
               if (v29 >> 1 >= ~v29)
               {
-                v29 = v28 + 4;
+                v29 = (v28 + 4);
               }
 
               else
@@ -6045,7 +5073,7 @@ LABEL_45:
           }
 
           v31 = v25 | (32 * v26);
-          v32 = &v30[v28];
+          v32 = &v28[v30];
           *v32 = v31;
           v32[1] = (v31 + v27) >> 8;
           v32[2] = (v31 + v27) >> 16;
@@ -6063,7 +5091,7 @@ LABEL_45:
 
             v35 = result;
             v36 = a2[1];
-            if (v36 >= v34 + 4)
+            if (v36 >= (v34 + 4))
             {
               v37 = *a2;
             }
@@ -6076,11 +5104,11 @@ LABEL_45:
                 v36 = 128;
               }
 
-              while (v36 < v34 + 4)
+              while (v36 < (v34 + 4))
               {
                 if (v36 >> 1 >= ~v36)
                 {
-                  v36 = v34 + 4;
+                  v36 = (v34 + 4);
                 }
 
                 else
@@ -6100,7 +5128,7 @@ LABEL_45:
               v34 = a2[2];
             }
 
-            *&v37[v34] = v33;
+            *&v34[v37] = v33;
             v38 = a2[2];
             v39 = v38 + 4;
             a2[2] = v38 + 4;
@@ -6109,7 +5137,7 @@ LABEL_45:
               goto LABEL_263;
             }
 
-            v40 = (v38 + 8);
+            v40 = v38 + 8;
             v41 = a2[1];
             if (v41 >= v40)
             {
@@ -6172,7 +5200,7 @@ LABEL_45:
 
                 v52 = v79;
                 v81 = a2[1];
-                if (v81 >= v80 + 4)
+                if (v81 >= (v80 + 4))
                 {
                   v82 = *a2;
                 }
@@ -6185,11 +5213,11 @@ LABEL_45:
                     v81 = 128;
                   }
 
-                  while (v81 < v80 + 4)
+                  while (v81 < (v80 + 4))
                   {
                     if (v81 >> 1 >= ~v81)
                     {
-                      v81 = v80 + 4;
+                      v81 = (v80 + 4);
                     }
 
                     else
@@ -6209,7 +5237,7 @@ LABEL_45:
                   v80 = a2[2];
                 }
 
-                *&v82[v80] = 0;
+                *&v80[v82] = 0;
                 v92 = a2[2];
                 v66 = v92 + 4;
                 a2[2] = v92 + 4;
@@ -6218,7 +5246,7 @@ LABEL_45:
                   goto LABEL_263;
                 }
 
-                v93 = (v92 + 8);
+                v93 = v92 + 8;
                 v68 = a2[1];
                 if (v68 < v93)
                 {
@@ -6258,7 +5286,7 @@ LABEL_45:
 
                 v71 = v69;
                 v72 = a2[1];
-                if (v72 >= v70 + 4)
+                if (v72 >= (v70 + 4))
                 {
                   v73 = *a2;
                 }
@@ -6271,11 +5299,11 @@ LABEL_45:
                     v72 = 128;
                   }
 
-                  while (v72 < v70 + 4)
+                  while (v72 < (v70 + 4))
                   {
                     if (v72 >> 1 >= ~v72)
                     {
-                      v72 = v70 + 4;
+                      v72 = (v70 + 4);
                     }
 
                     else
@@ -6295,7 +5323,7 @@ LABEL_45:
                   v70 = a2[2];
                 }
 
-                *&v73[v70] = v71;
+                *&v70[v73] = v71;
                 a2[2] += 4;
                 v85 = [v17 bufferPixelFormat];
                 v86 = [v17 bufferALUType];
@@ -6309,7 +5337,7 @@ LABEL_45:
 
                 v52 = v88;
                 v90 = a2[1];
-                if (v90 >= v89 + 4)
+                if (v90 >= (v89 + 4))
                 {
                   v91 = *a2;
                 }
@@ -6322,11 +5350,11 @@ LABEL_45:
                     v90 = 128;
                   }
 
-                  while (v90 < v89 + 4)
+                  while (v90 < (v89 + 4))
                   {
                     if (v90 >> 1 >= ~v90)
                     {
-                      v90 = v89 + 4;
+                      v90 = (v89 + 4);
                     }
 
                     else
@@ -6346,7 +5374,7 @@ LABEL_45:
                   v89 = a2[2];
                 }
 
-                *&v91[v89] = v85;
+                *&v89[v91] = v85;
                 v94 = a2[2];
                 v95 = v94 + 4;
                 a2[2] = v94 + 4;
@@ -6355,7 +5383,7 @@ LABEL_45:
                   goto LABEL_263;
                 }
 
-                v96 = (v94 + 8);
+                v96 = v94 + 8;
                 v97 = a2[1];
                 if (v97 >= v96)
                 {
@@ -6403,7 +5431,7 @@ LABEL_45:
                   goto LABEL_263;
                 }
 
-                v101 = (v99 + 8);
+                v101 = v99 + 8;
                 v102 = a2[1];
                 if (v102 >= v101)
                 {
@@ -6451,7 +5479,7 @@ LABEL_45:
                   goto LABEL_263;
                 }
 
-                v105 = (v104 + 8);
+                v105 = v104 + 8;
                 v68 = a2[1];
                 if (v68 < v105)
                 {
@@ -6519,7 +5547,7 @@ LABEL_158:
 
               v52 = v75;
               v77 = a2[1];
-              if (v77 >= v76 + 4)
+              if (v77 >= (v76 + 4))
               {
                 v78 = *a2;
               }
@@ -6532,11 +5560,11 @@ LABEL_158:
                   v77 = 128;
                 }
 
-                while (v77 < v76 + 4)
+                while (v77 < (v76 + 4))
                 {
                   if (v77 >> 1 >= ~v77)
                   {
-                    v77 = v76 + 4;
+                    v77 = (v76 + 4);
                   }
 
                   else
@@ -6556,7 +5584,7 @@ LABEL_158:
                 v76 = a2[2];
               }
 
-              *&v78[v76] = v74;
+              *&v76[v78] = v74;
               v83 = a2[2];
               v66 = v83 + 4;
               a2[2] = v83 + 4;
@@ -6565,7 +5593,7 @@ LABEL_158:
                 goto LABEL_263;
               }
 
-              v84 = (v83 + 8);
+              v84 = v83 + 8;
               v68 = a2[1];
               if (v68 < v84)
               {
@@ -6614,7 +5642,7 @@ LABEL_240:
 
           v44 = v42;
           v45 = a2[1];
-          if (v45 >= v43 + 4)
+          if (v45 >= (v43 + 4))
           {
             v46 = *a2;
           }
@@ -6627,11 +5655,11 @@ LABEL_240:
               v45 = 128;
             }
 
-            while (v45 < v43 + 4)
+            while (v45 < (v43 + 4))
             {
               if (v45 >> 1 >= ~v45)
               {
-                v45 = v43 + 4;
+                v45 = (v43 + 4);
               }
 
               else
@@ -6651,7 +5679,7 @@ LABEL_240:
             v43 = a2[2];
           }
 
-          *&v46[v43] = v44;
+          *&v43[v46] = v44;
           a2[2] += 4;
           v47 = [v17 bufferPixelFormat];
           v48 = [v17 bufferALUType];
@@ -6665,7 +5693,7 @@ LABEL_240:
 
           v52 = v50;
           v53 = a2[1];
-          if (v53 >= v51 + 4)
+          if (v53 >= (v51 + 4))
           {
             v54 = *a2;
           }
@@ -6678,11 +5706,11 @@ LABEL_240:
               v53 = 128;
             }
 
-            while (v53 < v51 + 4)
+            while (v53 < (v51 + 4))
             {
               if (v53 >> 1 >= ~v53)
               {
-                v53 = v51 + 4;
+                v53 = (v51 + 4);
               }
 
               else
@@ -6702,7 +5730,7 @@ LABEL_240:
             v51 = a2[2];
           }
 
-          *&v54[v51] = v47;
+          *&v51[v54] = v47;
           v55 = a2[2];
           v56 = v55 + 4;
           a2[2] = v55 + 4;
@@ -6711,7 +5739,7 @@ LABEL_240:
             goto LABEL_263;
           }
 
-          v57 = (v55 + 8);
+          v57 = v55 + 8;
           v58 = a2[1];
           if (v58 >= v57)
           {
@@ -6759,7 +5787,7 @@ LABEL_240:
             goto LABEL_263;
           }
 
-          v62 = (v60 + 8);
+          v62 = v60 + 8;
           v63 = a2[1];
           if (v63 >= v62)
           {
@@ -6807,7 +5835,7 @@ LABEL_240:
             goto LABEL_263;
           }
 
-          v67 = (v65 + 8);
+          v67 = v65 + 8;
           v68 = a2[1];
           if (v68 < v67)
           {
@@ -6870,7 +5898,7 @@ LABEL_245:
         }
 
         v110 = a2[1];
-        if (v110 >= v109 + 4)
+        if (v110 >= (v109 + 4))
         {
           result = *a2;
         }
@@ -6883,11 +5911,11 @@ LABEL_245:
             v110 = 128;
           }
 
-          while (v110 < v109 + 4)
+          while (v110 < (v109 + 4))
           {
             if (v110 >> 1 >= ~v110)
             {
-              v110 = v109 + 4;
+              v110 = (v109 + 4);
             }
 
             else
@@ -6907,7 +5935,7 @@ LABEL_245:
           v109 = a2[2];
         }
 
-        *&result[v109] = 0;
+        *&v109[result] = 0;
         a2[2] += 4;
       }
     }
@@ -7025,9 +6053,9 @@ uint64_t MTLReflectionByNameReader::tagCount(MTLReflectionByNameReader *this)
 
 void MTLInputStageReflectionDeserializer::deserializeStageInputDescriptor(MTLInputStageReflectionDeserializer *this, _WORD *a2, unint64_t a3, const BOOL *a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v37 = 0;
-  memset(v36, 0, sizeof(v36));
+  v37 = *MEMORY[0x1E69E9840];
+  v36 = 0;
+  memset(v35, 0, sizeof(v35));
   v5 = a2[1];
   if (v5 >= 0x800)
   {
@@ -7040,7 +6068,7 @@ void MTLInputStageReflectionDeserializer::deserializeStageInputDescriptor(MTLInp
       v8 = v9;
       if (a4[v9 & 0x1F])
       {
-        *(v36 + ((v8 >> 5) & 0x1F)) = 1;
+        *(v35 + ((v8 >> 5) & 0x1F)) = 1;
       }
 
       --v7;
@@ -7064,7 +6092,7 @@ void MTLInputStageReflectionDeserializer::deserializeStageInputDescriptor(MTLInp
       v16 = v17;
       if ((v17 >> 5) - 7 <= 1)
       {
-        v13 = (*(v36 + (v16 & 0x1F)) | v13) != 0;
+        v13 = (*(v35 + (v16 & 0x1F)) | v13) != 0;
         v12 = 1;
       }
 
@@ -7080,36 +6108,36 @@ void MTLInputStageReflectionDeserializer::deserializeStageInputDescriptor(MTLInp
     v12 = 0;
   }
 
-  v32 = v13;
-  v34 = (v12 & 1) + v11 + *(this + 4);
-  v18 = malloc_type_malloc(8 * v34, 0x80040B8603338uLL);
-  v31 = &v18[v11];
-  memcpy(&v31[v12 & 1], *(this + 1), 8 * *(this + 4));
+  v31 = v13;
+  v33 = (v12 & 1) + v11 + *(this + 4);
+  v18 = malloc_type_malloc(8 * v33, 0x80040B8603338uLL);
+  v30 = &v18[v11];
+  memcpy(&v30[v12 & 1], *(this + 1), 8 * *(this + 4));
   free(*(this + 1));
   *(this + 1) = 0;
   v19 = 0x1E696A000uLL;
-  v35 = v11;
+  v34 = v11;
   if (v11)
   {
     v20 = 0;
     do
     {
       v21 = v19;
-      LOBYTE(v30) = 0;
-      v22 = -[MTLBufferBindingInternal initWithName:type:access:isActive:locationIndex:arraySize:dataType:pixelFormat:aluType:isConstantBuffer:dataSize:alignment:]([MTLBufferBindingInternal alloc], "initWithName:type:access:isActive:locationIndex:arraySize:dataType:pixelFormat:aluType:isConstantBuffer:dataSize:alignment:", [*(v19 + 3776) stringWithFormat:@"%s.%u", *(this + 23), v20], 0, 0, *(v36 + (*v10 & 0x1F)), *v10 & 0x1FLL, 1, 1, 0, 0, v30, *(v10 + 1), 4);
+      LOBYTE(v29) = 0;
+      v22 = -[MTLBufferBindingInternal initWithName:type:access:isActive:locationIndex:arraySize:dataType:pixelFormat:aluType:isConstantBuffer:dataSize:alignment:]([MTLBufferBindingInternal alloc], "initWithName:type:access:isActive:locationIndex:arraySize:dataType:pixelFormat:aluType:isConstantBuffer:dataSize:alignment:", [*(v19 + 3776) stringWithFormat:@"%s.%u", *(this + 23), v20], 0, 0, *(v35 + (*v10 & 0x1F)), *v10 & 0x1FLL, 1, 1, 0, 0, v29, *(v10 + 1), 4);
       [(MTLBufferBindingInternal *)v22 setVertexDescriptorBuffer:1];
       v19 = v21;
       v18[v20++] = v22;
       v10 += 16;
     }
 
-    while (v35 != v20);
+    while (v34 != v20);
   }
 
   if (v12)
   {
     v23 = a2[1];
-    v24 = [*(v19 + 3776) stringWithFormat:@"%s.%u", *(this + 23), v35];
+    v24 = [*(v19 + 3776) stringWithFormat:@"%s.%u", *(this + 23), v34];
     v25 = [MTLBufferBindingInternal alloc];
     v26 = 33;
     if ((v23 & 1) == 0)
@@ -7123,15 +6151,14 @@ void MTLInputStageReflectionDeserializer::deserializeStageInputDescriptor(MTLInp
       v27 = 2;
     }
 
-    LOBYTE(v30) = 0;
-    v28 = [(MTLBufferBindingInternal *)v25 initWithName:v24 type:0 access:0 isActive:v32 locationIndex:(a2[1] >> 1) & 0x1F arraySize:1 dataType:v26 pixelFormat:0 aluType:0 isConstantBuffer:v30 dataSize:v27 alignment:v27];
+    LOBYTE(v29) = 0;
+    v28 = [(MTLBufferBindingInternal *)v25 initWithName:v24 type:0 access:0 isActive:v31 locationIndex:(a2[1] >> 1) & 0x1F arraySize:1 dataType:v26 pixelFormat:0 aluType:0 isConstantBuffer:v29 dataSize:v27 alignment:v27];
     [(MTLBufferBindingInternal *)v28 setVertexDescriptorBuffer:1];
-    *v31 = v28;
+    *v30 = v28;
   }
 
   *(this + 1) = v18;
-  *(this + 4) = v34;
-  v29 = *MEMORY[0x1E69E9840];
+  *(this + 4) = v33;
 }
 
 void MTLVertexReflectionReader::deserializeStageData(uint64_t a1, dispatch_data_t data, uint64_t a3)
@@ -7369,7 +6396,7 @@ uint64_t MTLStitchingReflectionDeserializer::deserializeArguments(int a1, int a2
       v36 = 0u;
       v33 = 0u;
       v34 = 0u;
-      deserializeStitchingTypeInfo(this, &v33);
+      deserializeStitchingTypeInfo(&v33, this);
       v11 = v33;
       v12 = v34;
       v13 = DWORD2(v36);
@@ -7476,128 +6503,128 @@ LABEL_29:
   return result;
 }
 
-uint64_t deserializeStitchingTypeInfo@<X0>(DeserialContext *a1@<X0>, uint64_t a2@<X8>)
+uint64_t *deserializeStitchingTypeInfo@<X0>(uint64_t *__return_ptr a1@<X8>, DeserialContext *a2@<X0>)
 {
-  *a2 = DeserialContext::deserializeUint32(a1);
-  *(a2 + 8) = DeserialContext::deserializeUint32(a1);
-  *(a2 + 12) = DeserialContext::deserializeUint32(a1);
-  *(a2 + 16) = DeserialContext::deserializeUint32(a1);
-  v4 = DeserialContext::deserializeUint32(a1);
-  *(a2 + 24) = v4;
-  *(a2 + 32) = BYTE2(v4) & 1;
-  *(a2 + 40) = DeserialContext::deserializeUint32(a1);
-  *(a2 + 48) = DeserialContext::deserializeUint32(a1);
-  result = DeserialContext::deserializeUint32(a1);
-  *(a2 + 56) = result;
+  *a1 = DeserialContext::deserializeUint32(a2);
+  *(a1 + 2) = DeserialContext::deserializeUint32(a2);
+  *(a1 + 3) = DeserialContext::deserializeUint32(a2);
+  a1[2] = DeserialContext::deserializeUint32(a2);
+  v4 = DeserialContext::deserializeUint32(a2);
+  a1[3] = v4;
+  *(a1 + 32) = BYTE2(v4) & 1;
+  a1[5] = DeserialContext::deserializeUint32(a2);
+  a1[6] = DeserialContext::deserializeUint32(a2);
+  result = DeserialContext::deserializeUint32(a2);
+  *(a1 + 14) = result;
   return result;
 }
 
 MTLStructTypeInternal *newStitchingStructTypeFromSerializedContext(DeserialContext *a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v2 = [[MTLStructTypeInternal alloc] initWithMembers:0 count:0 typeName:DeserialContext::stringFromSerializedData(a1)];
   v3 = DeserialContext::deserializeUint32(a1);
   if (v3)
   {
-    v26 = &v26;
-    v27 = v2;
+    v25 = &v25;
+    v26 = v2;
     v4 = v3;
-    v29 = 8 * v3;
+    v28 = 8 * v3;
     MEMORY[0x1EEE9AC00](v3);
-    v6 = (&v26 - v5);
+    v6 = (&v25 - v5);
     v7 = 0;
     while (1)
     {
-      v32 = DeserialContext::stringFromSerializedData(a1);
-      v31 = DeserialContext::deserializeUint32(a1);
+      v31 = DeserialContext::stringFromSerializedData(a1);
       v30 = DeserialContext::deserializeUint32(a1);
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
+      v29 = DeserialContext::deserializeUint32(a1);
       v34 = 0u;
-      deserializeStitchingTypeInfo(a1, &v33);
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      deserializeStitchingTypeInfo(&v32, a1);
       v8 = 0;
-      v9 = v33;
-      v10 = v34;
-      if (v33 <= 57)
+      v9 = v32;
+      v10 = v33;
+      if (v32 <= 57)
       {
-        if (v33 == 1)
+        if (v32 == 1)
         {
 LABEL_12:
           v11 = newStitchingStructTypeFromSerializedContext(a1);
           goto LABEL_13;
         }
 
-        if (v33 == 2)
+        if (v32 == 2)
         {
-          v28 = HIDWORD(v33);
-          v12 = DWORD2(v36);
-          if (v34 == 58)
+          v27 = HIDWORD(v32);
+          v12 = DWORD2(v35);
+          if (v33 == 58)
           {
-            v13 = [[MTLTextureReferenceType alloc] initWithDataType:__PAIR128__(*(&v34 + 1) textureType:58) access:v36 isDepthTexture:v35];
+            v13 = [[MTLTextureReferenceType alloc] initWithDataType:__PAIR128__(*(&v33 + 1) textureType:58) access:v35 isDepthTexture:v34];
           }
 
           else
           {
-            v13 = [[MTLType alloc] initWithDataType:v34];
+            v13 = [[MTLType alloc] initWithDataType:v33];
           }
 
           v16 = v13;
           v17 = [MTLArrayType alloc];
-          v18 = [(MTLArrayType *)v17 initWithArrayLength:v12 elementType:v10 stride:v28 pixelFormat:0 aluType:0 details:v16];
+          v18 = [(MTLArrayType *)v17 initWithArrayLength:v12 elementType:v10 stride:v27 pixelFormat:0 aluType:0 details:v16];
           goto LABEL_22;
         }
       }
 
       else
       {
-        switch(v33)
+        switch(v32)
         {
           case 0x8ALL:
             goto LABEL_12;
           case 0x3CLL:
-            v28 = DWORD2(v33);
-            v14 = HIDWORD(v33);
-            if (v34 == 1)
+            v27 = DWORD2(v32);
+            v14 = HIDWORD(v32);
+            if (v33 == 1)
             {
               v15 = newStitchingStructTypeFromSerializedContext(a1);
             }
 
-            else if (v34 == 58)
+            else if (v33 == 58)
             {
-              v15 = [[MTLTextureReferenceType alloc] initWithDataType:__PAIR128__(*(&v34 + 1) textureType:58) access:v36 isDepthTexture:v35];
+              v15 = [[MTLTextureReferenceType alloc] initWithDataType:__PAIR128__(*(&v33 + 1) textureType:58) access:v35 isDepthTexture:v34];
             }
 
             else
             {
-              v15 = [[MTLType alloc] initWithDataType:*(&v35 + 1)];
+              v15 = [[MTLType alloc] initWithDataType:*(&v34 + 1)];
             }
 
             v16 = v15;
             v19 = [MTLPointerType alloc];
-            LOBYTE(v25) = 0;
-            v18 = [(MTLPointerType *)v19 initWithElementType:v10 elementTypeDescription:v16 access:0 alignment:v14 dataSize:v28 elementIsIndirectArgumentBuffer:0 isConstantBuffer:v25];
+            LOBYTE(v24) = 0;
+            v18 = [(MTLPointerType *)v19 initWithElementType:v10 elementTypeDescription:v16 access:0 alignment:v14 dataSize:v27 elementIsIndirectArgumentBuffer:0 isConstantBuffer:v24];
 LABEL_22:
             v8 = v18;
 
             break;
           case 0x3ALL:
-            v11 = [[MTLTextureReferenceType alloc] initWithDataType:v34 textureType:v36 access:v35 isDepthTexture:?];
+            v11 = [[MTLTextureReferenceType alloc] initWithDataType:v33 textureType:v35 access:v34 isDepthTexture:?];
 LABEL_13:
             v8 = v11;
             break;
         }
       }
 
-      v20 = v30;
+      v20 = v29;
       v21 = [MTLStructMemberInternal alloc];
-      v6[v7 / 8] = [(MTLStructMemberInternal *)v21 initWithName:v32 offset:v31 dataType:v9 pixelFormat:0 aluType:0 indirectArgumentIndex:0 render_target:v20 raster_order_group:0 details:v8];
+      v6[v7 / 8] = [(MTLStructMemberInternal *)v21 initWithName:v31 offset:v30 dataType:v9 pixelFormat:0 aluType:0 indirectArgumentIndex:0 render_target:v20 raster_order_group:0 details:v8];
 
       v7 += 8;
-      if (v29 == v7)
+      if (v28 == v7)
       {
-        v2 = v27;
-        [(MTLStructTypeInternal *)v27 setMembers:v6 count:v4];
+        v2 = v26;
+        [(MTLStructTypeInternal *)v26 setMembers:v6 count:v4];
         do
         {
           v22 = *v6++;
@@ -7606,12 +6633,11 @@ LABEL_13:
         }
 
         while (v4);
-        break;
+        return v2;
       }
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -7753,11 +6779,11 @@ void MTLStitchingReflectionDeserializer::~MTLStitchingReflectionDeserializer(MTL
 
 uint64_t MTLComputeReflectionReader::deserialize(void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result = (*(*a1[2] + 24))(a1[2]);
+  result = (*(*a1[2] + 24))(a1[2], a2, a3);
   if (a4)
   {
     v7 = (*a1)[4];
-    v8 = (a1[2] + 18);
+    v8 = a1[2] + 18;
 
     return v7(a1, a4, v8);
   }
@@ -7889,39 +6915,38 @@ LABEL_21:
 
 uint64_t readDynamicLibraryReflectionData(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [a3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [a3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(a3);
         }
 
-        v9 = [*(*(&v13 + 1) + 8 * i) reflectionData];
+        v9 = [*(*(&v12 + 1) + 8 * i) reflectionData];
         if (v9)
         {
           ReflectionReaderFactory<MTLDynamicLibraryReflectionReader>::Create(a4, v9);
         }
       }
 
-      v6 = [a3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [a3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -8082,15 +7107,16 @@ void MTLObjectOrMeshReflectionReader::~MTLObjectOrMeshReflectionReader(MTLObject
   JUMPOUT(0x1865FF210);
 }
 
-uint64_t newArgumentTypeFromSerializedContext(int a1, DeserialContext *a2)
+uint64_t newArgumentTypeFromSerializedContext(void *a1, DeserialContext *a2, uint64_t a3, unsigned int a4)
 {
-  deserializeArguments(a1, a2);
-  v2 = MEMORY[0];
-  free(0);
-  return v2;
+  v6 = 0;
+  deserializeArguments(a1, a2, 1, &v6, a3, a4, 1);
+  v4 = *v6;
+  free(v6);
+  return v4;
 }
 
-uint64_t std::vector<MTLBindingInternal *>::__init_with_size[abi:ne200100]<MTLBindingInternal * const*,MTLBindingInternal * const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MTLBindingInternal *>::__init_with_size[abi:ne200100]<MTLBindingInternal * const*,MTLBindingInternal * const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8112,7 +7138,7 @@ void sub_185C7A914(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<MTLBindingInternal *>::__init_with_size[abi:ne200100]<MTLBindingInternal **,MTLBindingInternal **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MTLBindingInternal *>::__init_with_size[abi:ne200100]<MTLBindingInternal **,MTLBindingInternal **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8134,105 +7160,105 @@ void sub_185C7A990(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__tree<std::__value_type<MTLStructType *,unsigned int>,std::__map_value_compare<MTLStructType *,std::__value_type<MTLStructType *,unsigned int>,std::less<MTLStructType *>,true>,std::allocator<std::__value_type<MTLStructType *,unsigned int>>>::__emplace_unique_key_args<MTLStructType *,std::piecewise_construct_t const&,std::tuple<MTLStructType * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<MTLStructType *,unsigned int>,std::__map_value_compare<MTLStructType *,std::__value_type<MTLStructType *,unsigned int>,std::less<MTLStructType *>,true>,std::allocator<std::__value_type<MTLStructType *,unsigned int>>>::__emplace_unique_key_args<MTLStructType *,std::piecewise_construct_t const&,std::tuple<MTLStructType * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-unint64_t MTLMetalScriptSerializer::createLinkedFunctionsHashesVector@<X0>(MTLMetalScriptSerializer *this@<X0>, unint64_t *a2@<X8>)
+double MTLMetalScriptSerializer::createLinkedFunctionsHashesVector@<D0>(MTLMetalScriptSerializer *this@<X0>, __n128 **a2@<X8>)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v5 = [(MTLMetalScriptSerializer *)this functions];
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
-  if (v6)
+  v4 = [(MTLMetalScriptSerializer *)this functions];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v5)
   {
-    v7 = *v23;
+    v6 = *v22;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v6)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        std::vector<MTLUINT256_t>::push_back[abi:ne200100](a2, [*(*(&v22 + 1) + 8 * i) bitCodeHash]);
+        std::vector<MTLUINT256_t>::push_back[abi:ne200100](a2, [*(*(&v21 + 1) + 8 * i) bitCodeHash]);
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v9 = [(MTLMetalScriptSerializer *)this privateFunctions];
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
-  if (v10)
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v8 = [(MTLMetalScriptSerializer *)this privateFunctions];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v9)
   {
-    v11 = *v19;
+    v11 = *v18;
     do
     {
-      for (j = 0; j != v10; ++j)
+      for (j = 0; j != v9; ++j)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        std::vector<MTLUINT256_t>::push_back[abi:ne200100](a2, [*(*(&v18 + 1) + 8 * j) bitCodeHash]);
+        std::vector<MTLUINT256_t>::push_back[abi:ne200100](a2, [*(*(&v17 + 1) + 8 * j) bitCodeHash]);
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
   v13 = a2[1];
@@ -8247,8 +7273,7 @@ unint64_t MTLMetalScriptSerializer::createLinkedFunctionsHashesVector@<X0>(MTLMe
     v15 = v14;
   }
 
-  result = std::__introsort<std::_ClassicAlgPolicy,MTLHashKey::MTLHashKey(MTLUINT256_t const&,std::vector<MTLUINT256_t> &,std::vector<std::pair<unsigned int,MTLUINT256_t const>> &)::$_0 &,MTLUINT256_t*,false>(*a2, v13, v15, 1);
-  v17 = *MEMORY[0x1E69E9840];
+  *&result = std::__introsort<std::_ClassicAlgPolicy,MTLHashKey::MTLHashKey(MTLUINT256_t const&,std::vector<MTLUINT256_t> &,std::vector<std::pair<unsigned int,MTLUINT256_t const>> &)::$_0 &,MTLUINT256_t*,false>(*a2, v13, v15, 1, v10).n128_u64[0];
   return result;
 }
 
@@ -8266,16 +7291,15 @@ void sub_185C7AC44(_Unwind_Exception *exception_object)
 
 uint64_t MTLMetalScriptSerializer::makeNumberString@<X0>(MTLMetalScriptSerializer *this@<X0>, uint64_t a2@<X8>)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   result = snprintf(__str, 9uLL, "%08X", this);
   *(a2 + 23) = 8;
   *a2 = *__str;
   *(a2 + 8) = 0;
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8287,13 +7311,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -8359,7 +7383,7 @@ BOOL MTLMetalScriptSerializer::AreStringArraysOrderIndependentlyEqual(_DWORD *a1
       v8 = *(v6 + v7);
       *&v17[0] = v4 + v7;
       *(&v17[0] + 1) = v8;
-      std::__hash_table<std::string_view,std::hash<std::string_view>,std::equal_to<std::string_view>,std::allocator<std::string_view>>::__emplace_unique_key_args<std::string_view,std::string_view>(v19, v17);
+      std::__hash_table<std::string_view,std::hash<std::string_view>,std::equal_to<std::string_view>,std::allocator<std::string_view>>::__emplace_unique_key_args<std::string_view,std::string_view>(v19, v17, v17);
       ++v4;
       v9 = v5++ >= *a1;
     }
@@ -8378,9 +7402,9 @@ BOOL MTLMetalScriptSerializer::AreStringArraysOrderIndependentlyEqual(_DWORD *a1
       v12 = &a2[v11];
       v13 = *v12;
       v14 = *(v12 + v13);
-      v21[0] = v10 + v13;
-      v21[1] = v14;
-      std::__hash_table<std::string_view,std::hash<std::string_view>,std::equal_to<std::string_view>,std::allocator<std::string_view>>::__emplace_unique_key_args<std::string_view,std::string_view>(v17, v21);
+      *&v21 = v10 + v13;
+      *(&v21 + 1) = v14;
+      std::__hash_table<std::string_view,std::hash<std::string_view>,std::equal_to<std::string_view>,std::allocator<std::string_view>>::__emplace_unique_key_args<std::string_view,std::string_view>(v17, &v21, &v21);
       ++v10;
       v9 = v11++ >= *a2;
     }
@@ -8394,10 +7418,11 @@ BOOL MTLMetalScriptSerializer::AreStringArraysOrderIndependentlyEqual(_DWORD *a1
   return v15;
 }
 
-void sub_185C7AFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_185C7AFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(&a9);
-  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(&a15);
+  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
@@ -8599,7 +7624,7 @@ uint64_t MTLMetalScriptSerializer::EqualLinkedFunctions(const LinkedFunctions *t
     v31 = *v27[v29 + 4].var0;
     v32 = v31 - *v27[v29 + 4 + v31].var0;
     v33 = &v27[v29 + v32];
-    if (*(v33 + 2) >= 7u && (v34 = *(v33 + 5)) != 0)
+    if (*v33[4].var0 >= 7u && (v34 = *v33[10].var0) != 0)
     {
       v35 = &v27[v29 + 4 + v31 + v34 + *v27[v29 + 4 + v31 + v34].var0];
     }
@@ -8615,7 +7640,7 @@ uint64_t MTLMetalScriptSerializer::EqualLinkedFunctions(const LinkedFunctions *t
     v52 = &v27[v29 + 8 + v37];
     v53 = v38;
     v56 = &v52;
-    std::__hash_table<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(v54, &v52)[4] = v35;
+    std::__hash_table<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(v54, &v52, &std::piecewise_construct, &v56)[4] = v35;
     ++v30;
     v39 = &this[*this[-*this->var0 + 8].var0];
     v40 = *v39[*v39->var0].var0;
@@ -8642,7 +7667,7 @@ uint64_t MTLMetalScriptSerializer::EqualLinkedFunctions(const LinkedFunctions *t
 
       v47 = *v27[v41 + 4].var0;
       v48 = &v27[v41 + v47 - *v27[v41 + 4 + v47].var0];
-      if (*(v48 + 2) >= 7u && (v49 = *(v48 + 5)) != 0)
+      if (*v48[4].var0 >= 7u && (v49 = *v48[10].var0) != 0)
       {
         v50 = &v27[v41 + 4 + v47 + v49 + *v27[v41 + 4 + v47 + v49].var0];
       }
@@ -8679,9 +7704,9 @@ LABEL_76:
   return v4;
 }
 
-void sub_185C7B4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_185C7B4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -8900,7 +7925,7 @@ uint64_t MTLMetalScriptSerializer::EqualComputeDescriptor(int *a1, int *a2)
   }
 
   v25 = v9 >= 0xD && v8[6] ? v4 + v8[6] + *(v4 + v8[6]) : 0;
-  v26 = v12 >= 0xD && v11[6] ? (v7 + v11[6] + *(v7 + v11[6])) : 0;
+  v26 = v12 >= 0xD && v11[6] ? v7 + v11[6] + *(v7 + v11[6]) : 0;
   if (!EqualPipelineBuffers(v25, v26))
   {
     return 0;
@@ -9375,7 +8400,7 @@ LABEL_114:
   return 1;
 }
 
-uint64_t EqualPipelineBuffers(unint64_t a1, unsigned int *a2)
+BOOL EqualPipelineBuffers(unint64_t a1, unint64_t a2)
 {
   if (!(a1 | a2))
   {
@@ -9417,7 +8442,7 @@ LABEL_7:
   if (v2)
   {
     v4 = (a1 + 4);
-    v5 = a2 + 1;
+    v5 = (a2 + 4);
     v6 = v2 - 1;
     while (1)
     {
@@ -10096,14 +9121,14 @@ uint64_t MTLMetalScriptSerializer::EqualFragmentDescriptor(int *a1, int *a2)
   }
 
   v45 = v5 >= 0x17 && v4[11] ? a1 + v4[11] + *(a1 + v4[11]) : 0;
-  v46 = v8 >= 0x17 && v7[11] ? (a2 + v7[11] + *(a2 + v7[11])) : 0;
+  v46 = v8 >= 0x17 && v7[11] ? a2 + v7[11] + *(a2 + v7[11]) : 0;
   if (!EqualColorAttachments(v45, v46))
   {
     return 0;
   }
 
   v47 = v5 >= 0x1D && v4[14] ? a1 + v4[14] + *(a1 + v4[14]) : 0;
-  v48 = v8 >= 0x1D && v7[14] ? (a2 + v7[14] + *(a2 + v7[14])) : 0;
+  v48 = v8 >= 0x1D && v7[14] ? a2 + v7[14] + *(a2 + v7[14]) : 0;
   if (!EqualPipelineBuffers(v47, v48))
   {
     return 0;
@@ -10130,4 +9155,815 @@ uint64_t MTLMetalScriptSerializer::EqualFragmentDescriptor(int *a1, int *a2)
   }
 
   return MTLMetalScriptSerializer::EqualLinkedFunctions(v50, v52, v49);
+}
+
+BOOL EqualColorAttachments(unint64_t a1, unint64_t a2)
+{
+  if (!(a1 | a2))
+  {
+    return 1;
+  }
+
+  if (a1)
+  {
+    LODWORD(v2) = *a1;
+    if (a2)
+    {
+LABEL_4:
+      v3 = *a2;
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    LODWORD(v2) = 0;
+    if (a2)
+    {
+      goto LABEL_4;
+    }
+  }
+
+  v3 = 0;
+LABEL_7:
+  if (v2 <= v3)
+  {
+    v2 = v3;
+  }
+
+  else
+  {
+    v2 = v2;
+  }
+
+  if (v2)
+  {
+    v4 = (a1 + 4);
+    v5 = (a2 + 4);
+    v6 = v2 - 1;
+    while (1)
+    {
+      if (a1)
+      {
+        v7 = (v4 + *v4);
+        if (a2)
+        {
+          goto LABEL_14;
+        }
+      }
+
+      else
+      {
+        v7 = 0;
+        if (a2)
+        {
+LABEL_14:
+          v8 = (v5 + *v5);
+          if (!v7)
+          {
+            goto LABEL_25;
+          }
+
+          goto LABEL_18;
+        }
+      }
+
+      v8 = 0;
+      if (!v7)
+      {
+        goto LABEL_25;
+      }
+
+LABEL_18:
+      v9 = (v7 - *v7);
+      v10 = *v9;
+      if (v10 < 5)
+      {
+        LODWORD(v7) = 0;
+LABEL_25:
+        LODWORD(v13) = 0;
+        LODWORD(v14) = 0;
+        LODWORD(v15) = 0;
+        LODWORD(v16) = 0;
+        LODWORD(v11) = 0;
+LABEL_26:
+        v12 = 15;
+LABEL_27:
+        v17 = 1;
+LABEL_28:
+        v18 = 1;
+        goto LABEL_29;
+      }
+
+      v11 = v9[2];
+      if (v9[2])
+      {
+        LODWORD(v11) = *(v7 + v11);
+      }
+
+      if (v10 < 7)
+      {
+        LODWORD(v7) = 0;
+        LODWORD(v13) = 0;
+        LODWORD(v14) = 0;
+        LODWORD(v15) = 0;
+        LODWORD(v16) = 0;
+        goto LABEL_26;
+      }
+
+      if (v9[3])
+      {
+        v12 = *(v7 + v9[3]);
+      }
+
+      else
+      {
+        v12 = 15;
+      }
+
+      if (v10 < 9)
+      {
+        LODWORD(v7) = 0;
+        LODWORD(v13) = 0;
+        LODWORD(v14) = 0;
+        LODWORD(v15) = 0;
+        LODWORD(v16) = 0;
+        goto LABEL_27;
+      }
+
+      v16 = v9[4];
+      if (v9[4])
+      {
+        LODWORD(v16) = *(v7 + v16);
+      }
+
+      if (v10 < 0xB)
+      {
+        LODWORD(v7) = 0;
+        LODWORD(v13) = 0;
+        LODWORD(v14) = 0;
+        LODWORD(v15) = 0;
+        goto LABEL_27;
+      }
+
+      v15 = v9[5];
+      if (v9[5])
+      {
+        LODWORD(v15) = *(v7 + v15);
+      }
+
+      if (v10 < 0xD)
+      {
+        LODWORD(v7) = 0;
+        LODWORD(v13) = 0;
+        LODWORD(v14) = 0;
+        goto LABEL_27;
+      }
+
+      v14 = v9[6];
+      if (v9[6])
+      {
+        LODWORD(v14) = *(v7 + v14);
+      }
+
+      if (v10 >= 0x15)
+      {
+        if (v9[10])
+        {
+          v18 = *(v7 + v9[10]);
+        }
+
+        else
+        {
+LABEL_109:
+          v18 = 1;
+        }
+
+        if (v9[9])
+        {
+          v17 = *(v7 + v9[9]);
+        }
+
+        else
+        {
+          v17 = 1;
+        }
+
+        goto LABEL_120;
+      }
+
+      if (v10 >= 0x13)
+      {
+        goto LABEL_109;
+      }
+
+      v17 = 1;
+      if (v10 < 0xF)
+      {
+        LODWORD(v7) = 0;
+        LODWORD(v13) = 0;
+        goto LABEL_28;
+      }
+
+      v18 = 1;
+LABEL_120:
+      v13 = v9[7];
+      if (v9[7])
+      {
+        LODWORD(v13) = *(v7 + v13);
+      }
+
+      if (v10 >= 0x11 && (v40 = v9[8]) != 0)
+      {
+        LODWORD(v7) = *(v7 + v40);
+      }
+
+      else
+      {
+        LODWORD(v7) = 0;
+      }
+
+LABEL_29:
+      if (!v8)
+      {
+        goto LABEL_37;
+      }
+
+      v19 = (v8 - *v8);
+      v20 = *v19;
+      if (v20 < 5)
+      {
+        LODWORD(v8) = 0;
+LABEL_37:
+        LODWORD(v23) = 0;
+        LODWORD(v24) = 0;
+        LODWORD(v25) = 0;
+        LODWORD(v26) = 0;
+        LODWORD(v21) = 0;
+LABEL_38:
+        v22 = 15;
+LABEL_39:
+        v27 = 1;
+        goto LABEL_40;
+      }
+
+      v21 = v19[2];
+      if (v19[2])
+      {
+        LODWORD(v21) = *(v8 + v21);
+      }
+
+      if (v20 < 7)
+      {
+        LODWORD(v8) = 0;
+        LODWORD(v23) = 0;
+        LODWORD(v24) = 0;
+        LODWORD(v25) = 0;
+        LODWORD(v26) = 0;
+        goto LABEL_38;
+      }
+
+      if (v19[3])
+      {
+        v22 = *(v8 + v19[3]);
+      }
+
+      else
+      {
+        v22 = 15;
+      }
+
+      if (v20 < 9)
+      {
+        LODWORD(v8) = 0;
+        LODWORD(v23) = 0;
+        LODWORD(v24) = 0;
+        LODWORD(v25) = 0;
+        LODWORD(v26) = 0;
+        goto LABEL_39;
+      }
+
+      v26 = v19[4];
+      if (v19[4])
+      {
+        LODWORD(v26) = *(v8 + v26);
+      }
+
+      if (v20 < 0xB)
+      {
+        LODWORD(v8) = 0;
+        LODWORD(v23) = 0;
+        LODWORD(v24) = 0;
+        LODWORD(v25) = 0;
+        goto LABEL_39;
+      }
+
+      v25 = v19[5];
+      if (v19[5])
+      {
+        LODWORD(v25) = *(v8 + v25);
+      }
+
+      if (v20 < 0xD)
+      {
+        LODWORD(v8) = 0;
+        LODWORD(v23) = 0;
+        LODWORD(v24) = 0;
+        goto LABEL_39;
+      }
+
+      v24 = v19[6];
+      if (v19[6])
+      {
+        LODWORD(v24) = *(v8 + v24);
+      }
+
+      if (v20 >= 0x15)
+      {
+        if (v19[10])
+        {
+          v28 = *(v8 + v19[10]);
+        }
+
+        else
+        {
+LABEL_113:
+          v28 = 1;
+        }
+
+        if (v19[9])
+        {
+          v27 = *(v8 + v19[9]);
+        }
+
+        else
+        {
+          v27 = 1;
+        }
+
+LABEL_128:
+        v23 = v19[7];
+        if (v19[7])
+        {
+          LODWORD(v23) = *(v8 + v23);
+        }
+
+        if (v20 >= 0x11 && (v41 = v19[8]) != 0)
+        {
+          LODWORD(v8) = *(v8 + v41);
+        }
+
+        else
+        {
+          LODWORD(v8) = 0;
+        }
+
+        goto LABEL_41;
+      }
+
+      if (v20 >= 0x13)
+      {
+        goto LABEL_113;
+      }
+
+      v27 = 1;
+      if (v20 >= 0xF)
+      {
+        v28 = 1;
+        goto LABEL_128;
+      }
+
+      LODWORD(v8) = 0;
+      LODWORD(v23) = 0;
+LABEL_40:
+      v28 = 1;
+LABEL_41:
+      v37 = v11 == v21 && v12 == v22 && v16 == v26 && v15 == v25 && v14 == v24 && v18 == v28 && v17 == v27 && v13 == v23 && v7 == v8;
+      v39 = v6-- != 0;
+      if (v37)
+      {
+        ++v4;
+        ++v5;
+        if (v39)
+        {
+          continue;
+        }
+      }
+
+      return v37;
+    }
+  }
+
+  return 1;
+}
+
+uint64_t MTLMetalScriptSerializer::EqualVertexShaderDescriptor(int *a1, int *a2)
+{
+  v4 = (a1 - *a1);
+  v5 = *v4;
+  if (v5 >= 5 && v4[2])
+  {
+    v6 = *(a1 + v4[2]);
+  }
+
+  else
+  {
+    v6 = 1;
+  }
+
+  v7 = (a2 - *a2);
+  v8 = *v7;
+  if (v8 >= 5 && v7[2])
+  {
+    v9 = *(a2 + v7[2]);
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (v6 != v9)
+  {
+    return 0;
+  }
+
+  if (v5 < 0xB)
+  {
+    LODWORD(v10) = 0;
+  }
+
+  else
+  {
+    v10 = v4[5];
+    if (v4[5])
+    {
+      LODWORD(v10) = *(a1 + v10);
+    }
+  }
+
+  if (v8 < 0xB)
+  {
+    LODWORD(v11) = 0;
+  }
+
+  else
+  {
+    v11 = v7[5];
+    if (v7[5])
+    {
+      LODWORD(v11) = *(a2 + v11);
+    }
+  }
+
+  if (v10 != v11)
+  {
+    return 0;
+  }
+
+  v12 = v5 >= 0xD && v4[6] ? *(a1 + v4[6]) : 16;
+  v13 = v8 >= 0xD && v7[6] ? *(a2 + v7[6]) : 16;
+  if (v12 != v13)
+  {
+    return 0;
+  }
+
+  if (v5 < 0xF)
+  {
+    LOBYTE(v14) = 0;
+  }
+
+  else
+  {
+    v14 = v4[7];
+    if (v4[7])
+    {
+      LOBYTE(v14) = *(a1 + v14) != 0;
+    }
+  }
+
+  if (v8 >= 0xF && v7[7])
+  {
+    LOBYTE(v14) = v14 ^ (*(a2 + v7[7]) != 0);
+  }
+
+  if (v14)
+  {
+    return 0;
+  }
+
+  if (v5 < 0x11)
+  {
+    LODWORD(v15) = 0;
+  }
+
+  else
+  {
+    v15 = v4[8];
+    if (v4[8])
+    {
+      LODWORD(v15) = *(a1 + v15);
+    }
+  }
+
+  if (v8 < 0x11)
+  {
+    LODWORD(v16) = 0;
+  }
+
+  else
+  {
+    v16 = v7[8];
+    if (v7[8])
+    {
+      LODWORD(v16) = *(a2 + v16);
+    }
+  }
+
+  if (v15 != v16)
+  {
+    return 0;
+  }
+
+  if (v5 < 0x13)
+  {
+    LODWORD(v17) = 0;
+  }
+
+  else
+  {
+    v17 = v4[9];
+    if (v4[9])
+    {
+      LODWORD(v17) = *(a1 + v17);
+    }
+  }
+
+  if (v8 < 0x13)
+  {
+    LODWORD(v18) = 0;
+  }
+
+  else
+  {
+    v18 = v7[9];
+    if (v7[9])
+    {
+      LODWORD(v18) = *(a2 + v18);
+    }
+  }
+
+  if (v17 != v18)
+  {
+    return 0;
+  }
+
+  if (v5 < 0x15)
+  {
+    LODWORD(v19) = 0;
+  }
+
+  else
+  {
+    v19 = v4[10];
+    if (v4[10])
+    {
+      LODWORD(v19) = *(a1 + v19);
+    }
+  }
+
+  if (v8 < 0x15)
+  {
+    LODWORD(v20) = 0;
+  }
+
+  else
+  {
+    v20 = v7[10];
+    if (v7[10])
+    {
+      LODWORD(v20) = *(a2 + v20);
+    }
+  }
+
+  if (v19 != v20)
+  {
+    return 0;
+  }
+
+  if (v5 < 0x17)
+  {
+    LODWORD(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v4[11];
+    if (v4[11])
+    {
+      LODWORD(v21) = *(a1 + v21);
+    }
+  }
+
+  if (v8 < 0x17)
+  {
+    LODWORD(v22) = 0;
+  }
+
+  else
+  {
+    v22 = v7[11];
+    if (v7[11])
+    {
+      LODWORD(v22) = *(a2 + v22);
+    }
+  }
+
+  if (v21 != v22)
+  {
+    return 0;
+  }
+
+  if (v5 < 0x19)
+  {
+    LODWORD(v23) = 0;
+  }
+
+  else
+  {
+    v23 = v4[12];
+    if (v4[12])
+    {
+      LODWORD(v23) = *(a1 + v23);
+    }
+  }
+
+  if (v8 < 0x19)
+  {
+    LODWORD(v24) = 0;
+  }
+
+  else
+  {
+    v24 = v7[12];
+    if (v7[12])
+    {
+      LODWORD(v24) = *(a2 + v24);
+    }
+  }
+
+  if (v23 != v24)
+  {
+    return 0;
+  }
+
+  v25 = v5 >= 0x1B && v4[13] ? *(a1 + v4[13]) : 1;
+  v26 = v8 >= 0x1B && v7[13] ? *(a2 + v7[13]) : 1;
+  if (v25 != v26)
+  {
+    return 0;
+  }
+
+  if (v5 < 0x1D)
+  {
+    LODWORD(v27) = 0;
+  }
+
+  else
+  {
+    v27 = v4[14];
+    if (v4[14])
+    {
+      LODWORD(v27) = *(a1 + v27);
+    }
+  }
+
+  if (v8 < 0x1D)
+  {
+    LODWORD(v28) = 0;
+  }
+
+  else
+  {
+    v28 = v7[14];
+    if (v7[14])
+    {
+      LODWORD(v28) = *(a2 + v28);
+    }
+  }
+
+  if (v27 != v28)
+  {
+    return 0;
+  }
+
+  if (v5 < 0x23)
+  {
+    LOBYTE(v29) = 0;
+  }
+
+  else
+  {
+    v29 = v4[17];
+    if (v4[17])
+    {
+      LOBYTE(v29) = *(a1 + v29) != 0;
+    }
+  }
+
+  if (v8 >= 0x23 && v7[17])
+  {
+    LOBYTE(v29) = v29 ^ (*(a2 + v7[17]) != 0);
+  }
+
+  if (v29)
+  {
+    return 0;
+  }
+
+  v30 = v5 >= 0x27 && v4[19] ? *(a1 + v4[19]) : 255;
+  v31 = v8 >= 0x27 && v7[19] ? *(a2 + v7[19]) : 255;
+  if (v30 != v31)
+  {
+    return 0;
+  }
+
+  if (v5 < 0x29)
+  {
+    LODWORD(v32) = 0;
+  }
+
+  else
+  {
+    v32 = v4[20];
+    if (v4[20])
+    {
+      LODWORD(v32) = *(a1 + v32);
+    }
+  }
+
+  if (v8 < 0x29)
+  {
+    LODWORD(v33) = 0;
+  }
+
+  else
+  {
+    v33 = v7[20];
+    if (v7[20])
+    {
+      LODWORD(v33) = *(a2 + v33);
+    }
+  }
+
+  if (v32 != v33)
+  {
+    return 0;
+  }
+
+  v42 = (a2 - *a2);
+  if (v5 >= 7 && v4[3])
+  {
+    v34 = (a1 + v4[3] + *(a1 + v4[3]));
+  }
+
+  else
+  {
+    v34 = 0;
+  }
+
+  v35 = v8 >= 7 && v42[3] ? (a2 + v42[3] + *(a2 + v42[3])) : 0;
+  if (!EqualStageInputOutputDescriptor(v34, v35))
+  {
+    return 0;
+  }
+
+  v36 = v5 >= 0x1F && v4[15] ? a1 + v4[15] + *(a1 + v4[15]) : 0;
+  v37 = v8 >= 0x1F && v42[15] ? a2 + v42[15] + *(a2 + v42[15]) : 0;
+  if (!EqualPipelineBuffers(v36, v37))
+  {
+    return 0;
+  }
+
+  if (v5 >= 0x2D && v4[22])
+  {
+    v39 = a1 + v4[22] + *(a1 + v4[22]);
+  }
+
+  else
+  {
+    v39 = 0;
+  }
+
+  if (v8 >= 0x2D && v42[22])
+  {
+    v41 = a2 + v42[22] + *(a2 + v42[22]);
+  }
+
+  else
+  {
+    v41 = 0;
+  }
+
+  return MTLMetalScriptSerializer::EqualLinkedFunctions(v39, v41, v38);
 }

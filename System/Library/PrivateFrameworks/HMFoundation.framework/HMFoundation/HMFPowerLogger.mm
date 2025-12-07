@@ -1,6 +1,7 @@
 @interface HMFPowerLogger
 + (id)sharedPowerLogger;
 - (id)linkTypeDescription:(int64_t)description;
+- (void)reportCharacteristicNotificationRegistrationEvent:(BOOL)event clientIdentifier:(id)identifier;
 - (void)reportConnection:(id)connection linkType:(int64_t)type accessoryCategory:(id)category;
 - (void)reportDisconnection:(id)disconnection linkType:(int64_t)type accessoryCategory:(id)category;
 - (void)reportIncomingAdvertisementChange:(id)change accessoryCategory:(id)category;
@@ -8,6 +9,7 @@
 - (void)reportIncomingIDSPush:(id)push fromToken:(id)token;
 - (void)reportIncomingIPEvent:(id)event accessoryCategory:(id)category;
 - (void)reportIncomingLoxyMessage:(id)message;
+- (void)reportRemoteReachabilityRegistrationEvent:(BOOL)event clientIdentifier:(id)identifier;
 - (void)reportWakeEvent:(id)event linkType:(int64_t)type accessoryCategory:(id)category;
 @end
 
@@ -27,9 +29,11 @@
 
 uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
 {
-  _MergedGlobals_62 = objc_alloc_init(HMFPowerLogger);
+  v0 = objc_alloc_init(HMFPowerLogger);
+  v1 = _MergedGlobals_62;
+  _MergedGlobals_62 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)linkTypeDescription:(int64_t)description
@@ -59,39 +63,37 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
   if (connectionCopy)
   {
     v10 = objc_autoreleasePoolPush();
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = HMFGetOSLogHandle(0, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = HMFGetLogIdentifier(0);
-      v13 = [(HMFPowerLogger *)self linkTypeDescription:type];
+      v13 = HMFGetLogIdentifier(0);
+      v14 = [(HMFPowerLogger *)self linkTypeDescription:type];
       *buf = 138544130;
-      v23 = v12;
+      v23 = v13;
       v24 = 2112;
       v25 = connectionCopy;
       v26 = 2112;
-      v27 = v13;
+      v27 = v14;
       v28 = 2112;
       v29 = categoryCopy;
-      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Reporting connection to: %@ for LinkType: %@ and category: %@", buf, 0x2Au);
+      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@Reporting connection to: %@ for LinkType: %@ and category: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
-    v14 = MEMORY[0x277CBEB38];
+    v15 = MEMORY[0x277CBEB38];
     connectionCopy = [(HMFPowerLogger *)self linkTypeDescription:type, @"kHMFPowerLogEventType", @"kHMFPowerLogDeviceIdentiferKey", @"kHMFPowerLogLinkTypeKey", @"HomeKit Connection", connectionCopy];
     v21[2] = connectionCopy;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:3];
-    v17 = [v14 dictionaryWithDictionary:v16];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:3];
+    v18 = [v15 dictionaryWithDictionary:v17];
 
     if (categoryCopy)
     {
-      [v17 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
+      [v18 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
     }
 
-    v18 = [v17 copy];
-    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v18];
+    v19 = [v18 copy];
+    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v19];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportDisconnection:(id)disconnection linkType:(int64_t)type accessoryCategory:(id)category
@@ -102,39 +104,37 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
   if (disconnectionCopy)
   {
     v10 = objc_autoreleasePoolPush();
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = HMFGetOSLogHandle(0, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = HMFGetLogIdentifier(0);
-      v13 = [(HMFPowerLogger *)self linkTypeDescription:type];
+      v13 = HMFGetLogIdentifier(0);
+      v14 = [(HMFPowerLogger *)self linkTypeDescription:type];
       *buf = 138544130;
-      v23 = v12;
+      v23 = v13;
       v24 = 2112;
       v25 = disconnectionCopy;
       v26 = 2112;
-      v27 = v13;
+      v27 = v14;
       v28 = 2112;
       v29 = categoryCopy;
-      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Reporting disconnection from: %@ for LinkType: %@ and category: %@", buf, 0x2Au);
+      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@Reporting disconnection from: %@ for LinkType: %@ and category: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
-    v14 = MEMORY[0x277CBEB38];
+    v15 = MEMORY[0x277CBEB38];
     disconnectionCopy = [(HMFPowerLogger *)self linkTypeDescription:type, @"kHMFPowerLogEventType", @"kHMFPowerLogDeviceIdentiferKey", @"kHMFPowerLogLinkTypeKey", @"HomeKit Disconnection", disconnectionCopy];
     v21[2] = disconnectionCopy;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:3];
-    v17 = [v14 dictionaryWithDictionary:v16];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:3];
+    v18 = [v15 dictionaryWithDictionary:v17];
 
     if (categoryCopy)
     {
-      [v17 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
+      [v18 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
     }
 
-    v18 = [v17 copy];
-    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v18];
+    v19 = [v18 copy];
+    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v19];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportWakeEvent:(id)event linkType:(int64_t)type accessoryCategory:(id)category
@@ -143,38 +143,36 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
   eventCopy = event;
   categoryCopy = category;
   v10 = objc_autoreleasePoolPush();
-  v11 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = HMFGetOSLogHandle(0, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = HMFGetLogIdentifier(0);
-    v13 = [(HMFPowerLogger *)self linkTypeDescription:type];
+    v13 = HMFGetLogIdentifier(0);
+    v14 = [(HMFPowerLogger *)self linkTypeDescription:type];
     *buf = 138544130;
-    v23 = v12;
+    v23 = v13;
     v24 = 2112;
     v25 = eventCopy;
     v26 = 2112;
-    v27 = v13;
+    v27 = v14;
     v28 = 2112;
     v29 = categoryCopy;
-    _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Reporting wake event from: %@ for LinkType: %@ and category: %@", buf, 0x2Au);
+    _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@Reporting wake event from: %@ for LinkType: %@ and category: %@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v10);
-  v14 = MEMORY[0x277CBEB38];
+  v15 = MEMORY[0x277CBEB38];
   eventCopy = [(HMFPowerLogger *)self linkTypeDescription:type, @"kHMFPowerLogEventType", @"kHMFPowerLogDeviceIdentiferKey", @"kHMFPowerLogLinkTypeKey", @"HomeKit Wake Event", eventCopy];
   v21[2] = eventCopy;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:3];
-  v17 = [v14 dictionaryWithDictionary:v16];
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:3];
+  v18 = [v15 dictionaryWithDictionary:v17];
 
   if (categoryCopy)
   {
-    [v17 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
+    [v18 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
   }
 
-  v18 = [v17 copy];
-  [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v19 = [v18 copy];
+  [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v19];
 }
 
 - (void)reportIncomingAdvertisementChange:(id)change accessoryCategory:(id)category
@@ -185,40 +183,38 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
   if (changeCopy)
   {
     v8 = objc_autoreleasePoolPush();
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = HMFGetOSLogHandle(0, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = HMFGetLogIdentifier(0);
+      v11 = HMFGetLogIdentifier(0);
       *buf = 138543874;
-      v19 = v10;
+      v19 = v11;
       v20 = 2112;
       v21 = changeCopy;
       v22 = 2112;
       v23 = categoryCopy;
-      _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_INFO, "%{public}@Reporting advertisement change from: %@ and category: %@", buf, 0x20u);
+      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Reporting advertisement change from: %@ and category: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
-    v11 = MEMORY[0x277CBEB38];
+    v12 = MEMORY[0x277CBEB38];
     v16[0] = @"kHMFPowerLogEventType";
     v16[1] = @"kHMFPowerLogDeviceIdentiferKey";
     v17[0] = @"HomeKit BLE Advertisement";
     v17[1] = changeCopy;
     v16[2] = @"couldCauseWake";
     v17[2] = MEMORY[0x277CBEC38];
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
-    v13 = [v11 dictionaryWithDictionary:v12];
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v14 = [v12 dictionaryWithDictionary:v13];
 
     if (categoryCopy)
     {
-      [v13 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
+      [v14 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
     }
 
-    v14 = [v13 copy];
-    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v14];
+    v15 = [v14 copy];
+    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportIncomingIPEvent:(id)event accessoryCategory:(id)category
@@ -229,40 +225,38 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
   if (eventCopy)
   {
     v8 = objc_autoreleasePoolPush();
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = HMFGetOSLogHandle(0, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = HMFGetLogIdentifier(0);
+      v11 = HMFGetLogIdentifier(0);
       *buf = 138543874;
-      v19 = v10;
+      v19 = v11;
       v20 = 2112;
       v21 = eventCopy;
       v22 = 2112;
       v23 = categoryCopy;
-      _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_INFO, "%{public}@Reporting incoming IP Event from: %@ and category: %@", buf, 0x20u);
+      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Reporting incoming IP Event from: %@ and category: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
-    v11 = MEMORY[0x277CBEB38];
+    v12 = MEMORY[0x277CBEB38];
     v16[0] = @"kHMFPowerLogEventType";
     v16[1] = @"kHMFPowerLogDeviceIdentiferKey";
     v17[0] = @"HomeKit IP Event";
     v17[1] = eventCopy;
     v16[2] = @"couldCauseWake";
     v17[2] = MEMORY[0x277CBEC38];
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
-    v13 = [v11 dictionaryWithDictionary:v12];
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v14 = [v12 dictionaryWithDictionary:v13];
 
     if (categoryCopy)
     {
-      [v13 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
+      [v14 setObject:categoryCopy forKeyedSubscript:@"accessoryCategory"];
     }
 
-    v14 = [v13 copy];
-    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v14];
+    v15 = [v14 copy];
+    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportIncomingCloudPush:(id)push
@@ -272,15 +266,15 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
   if (pushCopy)
   {
     v5 = objc_autoreleasePoolPush();
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = HMFGetOSLogHandle(0, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier(0);
+      v8 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v13 = v7;
+      v13 = v8;
       v14 = 2112;
       v15 = pushCopy;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Reporting incoming cloud push with topic: %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Reporting incoming cloud push with topic: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -290,11 +284,9 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
     v11[1] = pushCopy;
     v10[2] = @"couldCauseWake";
     v11[2] = MEMORY[0x277CBEC38];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v8];
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
+    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportIncomingIDSPush:(id)push fromToken:(id)token
@@ -314,17 +306,17 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
   if (pushCopy && v11)
   {
     v12 = objc_autoreleasePoolPush();
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = HMFGetOSLogHandle(0, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = HMFGetLogIdentifier(0);
+      v15 = HMFGetLogIdentifier(0);
       *buf = 138543874;
-      v20 = v14;
+      v20 = v15;
       v21 = 2112;
       v22 = pushCopy;
       v23 = 2112;
       v24 = v11;
-      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Reporting incoming IDS push: %@ fromToken: %@", buf, 0x20u);
+      _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_INFO, "%{public}@Reporting incoming IDS push: %@ fromToken: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -336,11 +328,9 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
     v17[3] = @"couldCauseWake";
     v18[2] = v11;
     v18[3] = MEMORY[0x277CBEC38];
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
-    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v15];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
+    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v16];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportIncomingLoxyMessage:(id)message
@@ -350,15 +340,15 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
   if (messageCopy)
   {
     v5 = objc_autoreleasePoolPush();
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = HMFGetOSLogHandle(0, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier(0);
+      v8 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v13 = v7;
+      v13 = v8;
       v14 = 2112;
       v15 = messageCopy;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Reporting incoming Loxy message: %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Reporting incoming Loxy message: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -368,11 +358,79 @@ uint64_t __35__HMFPowerLogger_sharedPowerLogger__block_invoke()
     v11[1] = messageCopy;
     v10[2] = @"couldCauseWake";
     v11[2] = MEMORY[0x277CBEC38];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v8];
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
+    [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitEvent" withEventDictionary:v9];
+  }
+}
+
+- (void)reportCharacteristicNotificationRegistrationEvent:(BOOL)event clientIdentifier:(id)identifier
+{
+  eventCopy = event;
+  v20[2] = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v7 = MEMORY[0x277CBEB38];
+  v19[0] = @"kHMFPowerLogEventType";
+  v19[1] = @"kHMFPowerLogEnabledKey";
+  v20[0] = @"HomeKit Characteristic Registration Event";
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:eventCopy];
+  v20[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v10 = [v7 dictionaryWithDictionary:v9];
+
+  if (identifierCopy)
+  {
+    [v10 setObject:identifierCopy forKey:@"kHMFPowerLogClientIdentifierKey"];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = objc_autoreleasePoolPush();
+  v13 = HMFGetOSLogHandle(0, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  {
+    v14 = HMFGetLogIdentifier(0);
+    v15 = 138543618;
+    v16 = v14;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Reporting characteristic notification registration event: %@", &v15, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v11);
+  [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitRegistration" withEventDictionary:v10];
+}
+
+- (void)reportRemoteReachabilityRegistrationEvent:(BOOL)event clientIdentifier:(id)identifier
+{
+  eventCopy = event;
+  v20[2] = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v7 = MEMORY[0x277CBEB38];
+  v19[0] = @"kHMFPowerLogEventType";
+  v19[1] = @"kHMFPowerLogEnabledKey";
+  v20[0] = @"HomeKit Remote Reachability Registration Event";
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:eventCopy];
+  v20[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v10 = [v7 dictionaryWithDictionary:v9];
+
+  if (identifierCopy)
+  {
+    [v10 setObject:identifierCopy forKey:@"kHMFPowerLogClientIdentifierKey"];
+  }
+
+  v11 = objc_autoreleasePoolPush();
+  v13 = HMFGetOSLogHandle(0, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  {
+    v14 = HMFGetLogIdentifier(0);
+    v15 = 138543618;
+    v16 = v14;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Reporting remote reachability registration event: %@", &v15, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v11);
+  [(HMFPowerLogger *)self reportToPowerLogDestinationTable:@"HomeKitRegistration" withEventDictionary:v10];
 }
 
 @end

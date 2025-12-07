@@ -4,6 +4,8 @@
 - (void)didEnterBackground;
 - (void)fadeIn;
 - (void)prepareReInit;
+- (void)setHidden:(BOOL)hidden;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -11,10 +13,10 @@
 
 - (void)viewDidLoad
 {
-  v37[4] = *MEMORY[0x277D85DE8];
-  v36.receiver = self;
-  v36.super_class = VTUIEnrollmentSetupIntroViewControllerGM;
-  [(VTUIEnrollmentSetupIntroViewControllerGM *)&v36 viewDidLoad];
+  v36[4] = *MEMORY[0x277D85DE8];
+  v35.receiver = self;
+  v35.super_class = VTUIEnrollmentSetupIntroViewControllerGM;
+  [(VTUIEnrollmentSetupIntroViewControllerGM *)&v35 viewDidLoad];
   v3 = +[VTUIStyle sharedStyle];
   isIpad = [v3 isIpad];
 
@@ -45,31 +47,43 @@
   [navigationBar frame];
   v16 = v15;
 
-  v28 = MEMORY[0x277CCAAD0];
+  v27 = MEMORY[0x277CCAAD0];
   topAnchor = [view topAnchor];
   view3 = [(VTUIEnrollmentSetupIntroViewControllerGM *)self view];
   topAnchor2 = [view3 topAnchor];
-  v32 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:-v16];
-  v37[0] = v32;
+  v31 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:-v16];
+  v36[0] = v31;
   bottomAnchor = [view bottomAnchor];
   view4 = [(VTUIEnrollmentSetupIntroViewControllerGM *)self view];
   bottomAnchor2 = [view4 bottomAnchor];
-  v27 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v37[1] = v27;
+  v26 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v36[1] = v26;
   leftAnchor = [view leftAnchor];
   view5 = [(VTUIEnrollmentSetupIntroViewControllerGM *)self view];
   leftAnchor2 = [view5 leftAnchor];
   v20 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v37[2] = v20;
+  v36[2] = v20;
   rightAnchor = [view rightAnchor];
   view6 = [(VTUIEnrollmentSetupIntroViewControllerGM *)self view];
   rightAnchor2 = [view6 rightAnchor];
   v24 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v37[3] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
-  [v28 activateConstraints:v25];
+  v36[3] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:4];
+  [v27 activateConstraints:v25];
+}
 
-  v26 = *MEMORY[0x277D85DE8];
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = VTUIEnrollmentSetupIntroViewControllerGM;
+  [(VTUIEnrollmentSetupIntroViewControllerGM *)&v6 viewDidDisappear:disappear];
+  [(UIViewController *)self->_introViewController willMoveToParentViewController:0];
+  view = [(UIViewController *)self->_introViewController view];
+  [view removeFromSuperview];
+
+  [(UIViewController *)self->_introViewController removeFromParentViewController];
+  introViewController = self->_introViewController;
+  self->_introViewController = 0;
 }
 
 - (VTUIEnrollmentSetupIntroViewControllerGM)initWithDelegate:(id)delegate
@@ -92,6 +106,13 @@
   [(GMEnrollmentSetupIntroViewManager *)self->_buddyFlowViewWrapper resetIfInTraining];
   view = [(VTUIEnrollmentSetupIntroViewControllerGM *)self view];
   [view setHidden:0];
+}
+
+- (void)setHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  view = [(VTUIEnrollmentSetupIntroViewControllerGM *)self view];
+  [view setHidden:hiddenCopy];
 }
 
 - (void)fadeIn

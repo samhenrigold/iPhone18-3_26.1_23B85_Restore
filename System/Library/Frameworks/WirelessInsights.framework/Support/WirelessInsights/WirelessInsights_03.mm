@@ -1,448 +1,4 @@
-void sub_100047BB0(uint64_t **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      sub_10004490C(a2, &v5);
-      ++v2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100047C14(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100047C30(unint64_t **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
-      sub_10004490C(a2, &v6);
-      ++v2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100047C9C(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100047CB8(unsigned int **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      sub_10004490C(a2, &v5);
-      v2 += 2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100047D1C(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100047D38(uint64_t **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
-      sub_10004490C(a2, &v6);
-      ++v2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100047DA4(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100047DC0(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2 != 0;
-      sub_10004490C(a2, &v5);
-      ++v2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100047E2C(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100047E48(uint64_t **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      sub_10004490C(a2, &v5);
-      ++v2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100047EAC(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100047EC8(uint64_t **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      sub_10004490C(a2, &v5);
-      ++v2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100047F2C(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100047F48(uint64_t **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
-      sub_10004490C(a2, &v6);
-      ++v2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100047FB0(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100047FCC(int **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      sub_10004490C(a2, &v5);
-      v2 += 2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100048030(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_10004804C(unsigned int **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
-      sub_10004490C(a2, &v6);
-      v2 += 2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_1000480B4(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1000480D0(unsigned int **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      sub_10004490C(a2, &v5);
-      v2 += 2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_100048134(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100048150(uint64_t **a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
-  {
-    do
-    {
-      v5 = *v2;
-      sub_10004490C(a2, &v5);
-      ++v2;
-    }
-
-    while (v2 != v3);
-  }
-}
-
-void sub_1000481B4(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1000481D0(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, int a2, uint64_t **a3)
-{
-  UnpackedType = wis::reflect::getUnpackedType();
-  __p = 0;
-  v20 = 0;
-  v21 = 0;
-  sub_10000BA58(v18, &__p);
-  wireless_diagnostics::google::protobuf::io::CodedOutputStream::CodedOutputStream(v15, v18);
-  sub_100048370(a2, a3, &v13);
-  v7 = v13;
-  v8 = v14;
-  if (v13 != v14)
-  {
-    do
-    {
-      v9 = sub_100047378(UnpackedType, *v7);
-      WireTypeForType = wis::reflect::getWireTypeForType();
-      switch(WireTypeForType)
-      {
-        case 5:
-          wireless_diagnostics::google::protobuf::io::CodedOutputStream::WriteLittleEndian32(v15, v9);
-          break;
-        case 1:
-          wireless_diagnostics::google::protobuf::io::CodedOutputStream::WriteLittleEndian64(v15, v9);
-          break;
-        case 0:
-          wireless_diagnostics::google::protobuf::io::CodedOutputStream::WriteVarint64(v15, v9);
-          break;
-      }
-
-      ++v7;
-    }
-
-    while (v7 != v8);
-    v7 = v13;
-  }
-
-  if (v7)
-  {
-    v14 = v7;
-    operator delete(v7);
-  }
-
-  v11 = __p;
-  v12 = v17 - v16;
-  wireless_diagnostics::google::protobuf::io::CodedOutputStream::WriteVarint64(a1, v17 - v16);
-  wireless_diagnostics::google::protobuf::io::CodedOutputStream::WriteRaw(a1, v11, v12);
-  wireless_diagnostics::google::protobuf::io::CodedOutputStream::~CodedOutputStream(v15);
-  wireless_diagnostics::google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(v18);
-  if (__p)
-  {
-    v20 = __p;
-    operator delete(__p);
-  }
-}
-
-void sub_100048318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void *__p, uint64_t a19)
+void sub_100048318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
 {
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::~CodedOutputStream(&a12);
   wireless_diagnostics::google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(&a16);
@@ -455,7 +11,7 @@ void sub_100048318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100048370(int a1@<W0>, uint64_t **a2@<X1>, uint64_t a3@<X8>)
+void sub_100048370(int a1@<W0>, double **a2@<X1>, const void **a3@<X8>)
 {
   switch(a1)
   {
@@ -525,11 +81,11 @@ void sub_100048370(int a1@<W0>, uint64_t **a2@<X1>, uint64_t a3@<X8>)
   }
 }
 
-void sub_100048578(double **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048578(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -557,20 +113,19 @@ void sub_1000485E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000485FC(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_1000485FC(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -590,11 +145,11 @@ void sub_100048664(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100048680(double **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048680(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -622,20 +177,19 @@ void sub_1000486E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100048704(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048704(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -655,11 +209,11 @@ void sub_100048770(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004878C(double **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004878C(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -687,11 +241,11 @@ void sub_1000487F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100048814(double **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048814(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -719,11 +273,11 @@ void sub_10004887C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100048898(double **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048898(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -751,20 +305,19 @@ void sub_100048900(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004891C(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004891C(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -784,11 +337,11 @@ void sub_100048988(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000489A4(double **a1@<X0>, uint64_t a2@<X8>)
+void sub_1000489A4(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -816,20 +369,19 @@ void sub_100048A10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100048A2C(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048A2C(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -849,11 +401,11 @@ void sub_100048A98(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100048AB4(double **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048AB4(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -881,11 +433,11 @@ void sub_100048B1C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100048B38(double **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048B38(double **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -913,15 +465,16 @@ void sub_100048BA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100048BBC(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, int a2, int **a3)
+void sub_100048BBC(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, uint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   UnpackedType = wis::reflect::getUnpackedType();
   __p = 0;
   v20 = 0;
   v21 = 0;
   sub_10000BA58(v18, &__p);
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::CodedOutputStream(v15, v18);
-  sub_100048D5C(a2, a3, &v13);
+  sub_100048D5C(v4, a3, &v13);
   v7 = v13;
   v8 = v14;
   if (v13 != v14)
@@ -969,7 +522,7 @@ void sub_100048BBC(wireless_diagnostics::google::protobuf::io::CodedOutputStream
   }
 }
 
-void sub_100048D04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void *__p, uint64_t a19)
+void sub_100048D04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
 {
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::~CodedOutputStream(&a12);
   wireless_diagnostics::google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(&a16);
@@ -982,7 +535,7 @@ void sub_100048D04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100048D5C(int a1@<W0>, int **a2@<X1>, uint64_t a3@<X8>)
+void sub_100048D5C(int a1@<W0>, uint64_t *a2@<X1>, const void **a3@<X8>)
 {
   switch(a1)
   {
@@ -1052,11 +605,11 @@ void sub_100048D5C(int a1@<W0>, int **a2@<X1>, uint64_t a3@<X8>)
   }
 }
 
-void sub_100048F64(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048F64(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1084,24 +637,23 @@ void sub_100048FC8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100048FE4(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_100048FE4(uint64_t *a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
+  a2[1] = 0;
+  a2[2] = 0;
+  v3 = *a1;
+  v4 = a1[1];
+  if (*a1 != v4)
   {
     do
     {
-      v5 = *v2;
       v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
       sub_10004490C(a2, &v6);
-      ++v2;
+      v3 += 4;
     }
 
-    while (v2 != v3);
+    while (v3 != v4);
   }
 }
 
@@ -1117,11 +669,11 @@ void sub_100049050(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004906C(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004906C(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1149,20 +701,19 @@ void sub_1000490D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000490EC(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_1000490EC(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -1182,11 +733,11 @@ void sub_100049158(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049174(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_100049174(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = *(a1 + 8);
   if (*a1 != v3)
@@ -1214,11 +765,11 @@ void sub_1000491E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000491FC(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_1000491FC(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1246,11 +797,11 @@ void sub_100049260(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004927C(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004927C(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1278,20 +829,19 @@ void sub_1000492E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000492FC(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_1000492FC(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -1311,11 +861,11 @@ void sub_100049364(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049380(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049380(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1343,20 +893,19 @@ void sub_1000493E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049400(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049400(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -1376,11 +925,11 @@ void sub_100049468(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049484(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049484(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1408,11 +957,11 @@ void sub_1000494E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049504(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049504(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1440,15 +989,16 @@ void sub_100049568(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049584(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, int a2, float **a3)
+void sub_100049584(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, uint64_t a2, float **a3)
 {
+  v4 = a2;
   UnpackedType = wis::reflect::getUnpackedType();
   __p = 0;
   v20 = 0;
   v21 = 0;
   sub_10000BA58(v18, &__p);
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::CodedOutputStream(v15, v18);
-  sub_100049724(a2, a3, &v13);
+  sub_100049724(v4, a3, &v13);
   v7 = v13;
   v8 = v14;
   if (v13 != v14)
@@ -1496,7 +1046,7 @@ void sub_100049584(wireless_diagnostics::google::protobuf::io::CodedOutputStream
   }
 }
 
-void sub_1000496CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void *__p, uint64_t a19)
+void sub_1000496CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
 {
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::~CodedOutputStream(&a12);
   wireless_diagnostics::google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(&a16);
@@ -1509,7 +1059,7 @@ void sub_1000496CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100049724(int a1@<W0>, float **a2@<X1>, uint64_t a3@<X8>)
+void sub_100049724(int a1@<W0>, float **a2@<X1>, const void **a3@<X8>)
 {
   switch(a1)
   {
@@ -1579,11 +1129,11 @@ void sub_100049724(int a1@<W0>, float **a2@<X1>, uint64_t a3@<X8>)
   }
 }
 
-void sub_10004992C(float **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004992C(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1611,20 +1161,19 @@ void sub_100049994(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000499B0(float **a1@<X0>, uint64_t a2@<X8>)
+void sub_1000499B0(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -1644,11 +1193,11 @@ void sub_100049A1C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049A38(float **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049A38(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1676,20 +1225,19 @@ void sub_100049AA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049ABC(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049ABC(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -1709,11 +1257,11 @@ void sub_100049B24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049B40(float **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049B40(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1741,11 +1289,11 @@ void sub_100049BAC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049BC8(float **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049BC8(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1773,11 +1321,11 @@ void sub_100049C30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049C4C(float **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049C4C(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1805,20 +1353,19 @@ void sub_100049CB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049CD0(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049CD0(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -1838,11 +1385,11 @@ void sub_100049D3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049D58(float **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049D58(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1870,20 +1417,19 @@ void sub_100049DC4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049DE0(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049DE0(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -1903,11 +1449,11 @@ void sub_100049E4C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049E68(float **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049E68(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1935,11 +1481,11 @@ void sub_100049ED0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049EEC(float **a1@<X0>, uint64_t a2@<X8>)
+void sub_100049EEC(float **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -1967,15 +1513,16 @@ void sub_100049F54(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100049F70(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, int a2, uint64_t a3)
+void sub_100049F70(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, uint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   UnpackedType = wis::reflect::getUnpackedType();
   __p = 0;
   v20 = 0;
   v21 = 0;
   sub_10000BA58(v18, &__p);
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::CodedOutputStream(v15, v18);
-  sub_10004A110(a2, a3, &v13);
+  sub_10004A110(v4, a3, &v13);
   v7 = v13;
   v8 = v14;
   if (v13 != v14)
@@ -2023,7 +1570,7 @@ void sub_100049F70(wireless_diagnostics::google::protobuf::io::CodedOutputStream
   }
 }
 
-void sub_10004A0B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void *__p, uint64_t a19)
+void sub_10004A0B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
 {
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::~CodedOutputStream(&a12);
   wireless_diagnostics::google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(&a16);
@@ -2036,7 +1583,7 @@ void sub_10004A0B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10004A110(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void sub_10004A110(int a1@<W0>, uint64_t *a2@<X1>, const void **a3@<X8>)
 {
   switch(a1)
   {
@@ -2106,11 +1653,11 @@ void sub_10004A110(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
   }
 }
 
-void sub_10004A318(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A318(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v3 = *(a1 + 8);
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
@@ -2150,12 +1697,12 @@ void sub_10004A3B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004A3D4(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A3D4(uint64_t *a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v3 = *(a1 + 8);
+  a2[1] = 0;
+  a2[2] = 0;
+  v3 = a1[1];
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
   {
@@ -2164,10 +1711,9 @@ void sub_10004A3D4(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v8 = *a1 + 8 * (v3 >> 6);
     do
     {
-      *v7;
       v9 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
       sub_10004490C(a2, &v9);
-      v7 += v6 == 63;
+      v7 += 8 * (v6 == 63);
       if (v6 == 63)
       {
         v6 = 0;
@@ -2195,11 +1741,11 @@ void sub_10004A48C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004A4A8(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A4A8(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v3 = *(a1 + 8);
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
@@ -2239,12 +1785,12 @@ void sub_10004A548(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004A564(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A564(uint64_t *a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v3 = *(a1 + 8);
+  a2[1] = 0;
+  a2[2] = 0;
+  v3 = a1[1];
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
   {
@@ -2253,10 +1799,9 @@ void sub_10004A564(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v8 = *a1 + 8 * (v3 >> 6);
     do
     {
-      *v7;
       v9 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
       sub_10004490C(a2, &v9);
-      v7 += v6 == 63;
+      v7 += 8 * (v6 == 63);
       if (v6 == 63)
       {
         v6 = 0;
@@ -2284,11 +1829,11 @@ void sub_10004A61C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004A638(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A638(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v3 = *(a1 + 8);
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
@@ -2328,11 +1873,11 @@ void sub_10004A6D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004A6F4(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A6F4(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v3 = *(a1 + 8);
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
@@ -2372,11 +1917,11 @@ void sub_10004A794(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004A7B0(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A7B0(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v3 = *(a1 + 8);
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
@@ -2416,12 +1961,12 @@ void sub_10004A850(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004A86C(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A86C(uint64_t *a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v3 = *(a1 + 8);
+  a2[1] = 0;
+  a2[2] = 0;
+  v3 = a1[1];
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
   {
@@ -2430,10 +1975,9 @@ void sub_10004A86C(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v8 = *a1 + 8 * (v3 >> 6);
     do
     {
-      v9 = *v7 >> v6;
-      v10 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
-      sub_10004490C(a2, &v10);
-      v7 += v6 == 63;
+      v9 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
+      sub_10004490C(a2, &v9);
+      v7 += 8 * (v6 == 63);
       if (v6 == 63)
       {
         v6 = 0;
@@ -2461,11 +2005,11 @@ void sub_10004A910(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004A92C(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A92C(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v3 = *(a1 + 8);
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
@@ -2505,12 +2049,12 @@ void sub_10004A9CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004A9E8(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004A9E8(uint64_t *a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v3 = *(a1 + 8);
+  a2[1] = 0;
+  a2[2] = 0;
+  v3 = a1[1];
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
   {
@@ -2519,10 +2063,9 @@ void sub_10004A9E8(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v8 = *a1 + 8 * (v3 >> 6);
     do
     {
-      v9 = *v7 >> v6;
-      v10 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
-      sub_10004490C(a2, &v10);
-      v7 += v6 == 63;
+      v9 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
+      sub_10004490C(a2, &v9);
+      v7 += 8 * (v6 == 63);
       if (v6 == 63)
       {
         v6 = 0;
@@ -2550,11 +2093,11 @@ void sub_10004AA8C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004AAA8(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004AAA8(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v3 = *(a1 + 8);
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
@@ -2594,11 +2137,11 @@ void sub_10004AB48(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004AB64(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004AB64(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v3 = *(a1 + 8);
   v4 = v3 & 0x3F;
   if (v3 > 0x3F || v4 != 0)
@@ -2638,15 +2181,16 @@ void sub_10004AC04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004AC20(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, int a2, uint64_t **a3)
+void sub_10004AC20(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, uint64_t a2, uint64_t **a3)
 {
+  v4 = a2;
   UnpackedType = wis::reflect::getUnpackedType();
   __p = 0;
   v20 = 0;
   v21 = 0;
   sub_10000BA58(v18, &__p);
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::CodedOutputStream(v15, v18);
-  sub_10004ADC0(a2, a3, &v13);
+  sub_10004ADC0(v4, a3, &v13);
   v7 = v13;
   v8 = v14;
   if (v13 != v14)
@@ -2694,7 +2238,7 @@ void sub_10004AC20(wireless_diagnostics::google::protobuf::io::CodedOutputStream
   }
 }
 
-void sub_10004AD68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void *__p, uint64_t a19)
+void sub_10004AD68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
 {
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::~CodedOutputStream(&a12);
   wireless_diagnostics::google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(&a16);
@@ -2707,7 +2251,7 @@ void sub_10004AD68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10004ADC0(int a1@<W0>, uint64_t **a2@<X1>, uint64_t a3@<X8>)
+void sub_10004ADC0(int a1@<W0>, uint64_t **a2@<X1>, const void **a3@<X8>)
 {
   switch(a1)
   {
@@ -2777,11 +2321,11 @@ void sub_10004ADC0(int a1@<W0>, uint64_t **a2@<X1>, uint64_t a3@<X8>)
   }
 }
 
-void sub_10004AFC8(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004AFC8(uint64_t **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -2809,20 +2353,19 @@ void sub_10004B02C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B048(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B048(uint64_t **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -2842,11 +2385,11 @@ void sub_10004B0B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B0D0(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B0D0(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -2874,20 +2417,19 @@ void sub_10004B134(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B150(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B150(uint64_t **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -2907,11 +2449,11 @@ void sub_10004B1BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B1D8(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B1D8(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = *(a1 + 8);
   if (*a1 != v3)
@@ -2939,11 +2481,11 @@ void sub_10004B244(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B260(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B260(uint64_t **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -2971,11 +2513,11 @@ void sub_10004B2C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B2E0(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B2E0(uint64_t **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3003,21 +2545,20 @@ void sub_10004B344(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B360(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B360(uint64_t *a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
-      sub_10004490C(a2, &v6);
-      ++v2;
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
+      sub_10004490C(a2, &v5);
+      v2 += 8;
     }
 
     while (v2 != v3);
@@ -3036,11 +2577,11 @@ void sub_10004B3C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B3E4(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B3E4(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3068,20 +2609,19 @@ void sub_10004B448(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B464(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B464(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
+      sub_10004490C(a2, &v5);
       v2 += 2;
     }
 
@@ -3101,11 +2641,11 @@ void sub_10004B4CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B4E8(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B4E8(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3133,11 +2673,11 @@ void sub_10004B54C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B568(uint64_t **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B568(uint64_t **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3165,15 +2705,16 @@ void sub_10004B5CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004B5E8(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, int a2, unsigned int **a3)
+void sub_10004B5E8(wireless_diagnostics::google::protobuf::io::CodedOutputStream *a1, uint64_t a2, int **a3)
 {
+  v4 = a2;
   UnpackedType = wis::reflect::getUnpackedType();
   __p = 0;
   v20 = 0;
   v21 = 0;
   sub_10000BA58(v18, &__p);
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::CodedOutputStream(v15, v18);
-  sub_10004B788(a2, a3, &v13);
+  sub_10004B788(v4, a3, &v13);
   v7 = v13;
   v8 = v14;
   if (v13 != v14)
@@ -3221,7 +2762,7 @@ void sub_10004B5E8(wireless_diagnostics::google::protobuf::io::CodedOutputStream
   }
 }
 
-void sub_10004B730(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void *__p, uint64_t a19)
+void sub_10004B730(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19)
 {
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::~CodedOutputStream(&a12);
   wireless_diagnostics::google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(&a16);
@@ -3234,7 +2775,7 @@ void sub_10004B730(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10004B788(int a1@<W0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void sub_10004B788(int a1@<W0>, int **a2@<X1>, const void **a3@<X8>)
 {
   switch(a1)
   {
@@ -3304,11 +2845,11 @@ void sub_10004B788(int a1@<W0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
   }
 }
 
-void sub_10004B990(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004B990(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3336,20 +2877,19 @@ void sub_10004B9F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BA10(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BA10(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)1>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -3369,11 +2909,11 @@ void sub_10004BA7C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BA98(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BA98(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3401,20 +2941,19 @@ void sub_10004BAFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BB18(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BB18(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)2>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -3434,11 +2973,11 @@ void sub_10004BB84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BBA0(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BBA0(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = *(a1 + 8);
   if (*a1 != v3)
@@ -3466,11 +3005,11 @@ void sub_10004BC0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BC28(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BC28(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3498,11 +3037,11 @@ void sub_10004BC8C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BCA8(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BCA8(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3530,20 +3069,19 @@ void sub_10004BD0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BD28(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BD28(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)5>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -3563,11 +3101,11 @@ void sub_10004BD90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BDAC(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BDAC(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3595,20 +3133,19 @@ void sub_10004BE10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BE2C(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BE2C(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
   {
     do
     {
-      v5 = *v2;
-      v6 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
-      sub_10004490C(a2, &v6);
+      v5 = wis::protobuf::NumberConverter<(wis::reflect::Type)8>::encode();
+      sub_10004490C(a2, &v5);
       ++v2;
     }
 
@@ -3628,11 +3165,11 @@ void sub_10004BE94(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BEB0(unsigned int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BEB0(unsigned int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3660,11 +3197,11 @@ void sub_10004BF14(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004BF30(int **a1@<X0>, uint64_t a2@<X8>)
+void sub_10004BF30(int **a1@<X0>, const void **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 != v3)
@@ -3740,7 +3277,7 @@ void sub_10004C0D0(uint64_t a1, void *a2)
   }
 }
 
-void sub_10004C5FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, void *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_10004C5FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -3931,7 +3468,7 @@ int64_t sub_10004CCBC(id a1, CongestionArea *a2, CongestionArea *a3)
   return v8;
 }
 
-void sub_10004DAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_10004DAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -3976,14 +3513,14 @@ void start()
   v1 = *(qword_1002DBE98 + 48);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
+    buf[0] = 0;
     _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "main:#N ===========================================", buf, 2u);
     v1 = *(qword_1002DBE98 + 48);
   }
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
+    buf[0] = 0;
     _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "main:#N wirelessinsightsd Started", buf, 2u);
   }
 
@@ -4433,7 +3970,7 @@ uint64_t sub_10004FFAC()
   if ((byte_1002D4B58 & 1) == 0)
   {
     byte_1002D4B58 = 1;
-    return __cxa_atexit(sub_10004F8E8, &unk_1002D4B08, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F8E8, &stru_1002D4B08, &_mh_execute_header);
   }
 
   return result;
@@ -4444,7 +3981,7 @@ uint64_t sub_10004FFE8()
   if ((byte_1002D4BB0 & 1) == 0)
   {
     byte_1002D4BB0 = 1;
-    return __cxa_atexit(sub_10004F8EC, &unk_1002D4B60, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F8EC, &stru_1002D4B60, &_mh_execute_header);
   }
 
   return result;
@@ -4455,7 +3992,7 @@ uint64_t sub_100050024()
   if ((byte_1002D4C08 & 1) == 0)
   {
     byte_1002D4C08 = 1;
-    return __cxa_atexit(sub_10004F8F0, &unk_1002D4BB8, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F8F0, &stru_1002D4BB8, &_mh_execute_header);
   }
 
   return result;
@@ -4532,7 +4069,7 @@ uint64_t sub_1000501C8()
   if ((byte_1002D4D68 & 1) == 0)
   {
     byte_1002D4D68 = 1;
-    return __cxa_atexit(sub_10004F900, &unk_1002D4D18, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F900, &stru_1002D4D18, &_mh_execute_header);
   }
 
   return result;
@@ -4543,7 +4080,7 @@ uint64_t sub_100050204()
   if ((byte_1002D4DC0 & 1) == 0)
   {
     byte_1002D4DC0 = 1;
-    return __cxa_atexit(sub_10004F904, &unk_1002D4D70, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F904, &stru_1002D4D70, &_mh_execute_header);
   }
 
   return result;
@@ -4554,7 +4091,7 @@ uint64_t sub_100050240()
   if ((byte_1002D4E18 & 1) == 0)
   {
     byte_1002D4E18 = 1;
-    return __cxa_atexit(sub_10004F908, &unk_1002D4DC8, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F908, &stru_1002D4DC8, &_mh_execute_header);
   }
 
   return result;
@@ -4576,7 +4113,7 @@ uint64_t sub_1000502B8()
   if ((byte_1002D4E70 & 1) == 0)
   {
     byte_1002D4E70 = 1;
-    return __cxa_atexit(sub_10004F90C, &unk_1002D4E20, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F90C, &stru_1002D4E20, &_mh_execute_header);
   }
 
   return result;
@@ -4587,7 +4124,7 @@ uint64_t sub_1000502F4()
   if ((byte_1002D4EC8 & 1) == 0)
   {
     byte_1002D4EC8 = 1;
-    return __cxa_atexit(sub_10004F910, &unk_1002D4E78, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F910, &stru_1002D4E78, &_mh_execute_header);
   }
 
   return result;
@@ -4598,7 +4135,7 @@ uint64_t sub_100050330()
   if ((byte_1002D4F20 & 1) == 0)
   {
     byte_1002D4F20 = 1;
-    return __cxa_atexit(sub_10004F914, &unk_1002D4ED0, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F914, &stru_1002D4ED0, &_mh_execute_header);
   }
 
   return result;
@@ -4609,7 +4146,7 @@ uint64_t sub_10005036C()
   if ((byte_1002D4F78 & 1) == 0)
   {
     byte_1002D4F78 = 1;
-    return __cxa_atexit(sub_10004F918, &unk_1002D4F28, &_mh_execute_header);
+    return __cxa_atexit(sub_10004F918, &stru_1002D4F28, &_mh_execute_header);
   }
 
   return result;
@@ -4655,17 +4192,17 @@ void sub_100050454(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100050484(uint64_t a1)
+void *sub_100050484(void *a1)
 {
-  ctu::OsLogLogger::~OsLogLogger((a1 + 64));
-  v2 = *(a1 + 56);
+  ctu::OsLogLogger::~OsLogLogger((a1 + 8));
+  v2 = a1[7];
   if (v2)
   {
     sub_100008350(v2);
   }
 
-  sub_100050B00(a1 + 24, *(a1 + 32));
-  sub_100050B00(a1, *(a1 + 8));
+  sub_100050B00((a1 + 3), a1[4]);
+  sub_100050B00(a1, a1[1]);
   return a1;
 }
 
@@ -4681,49 +4218,47 @@ void sub_10005065C(uint64_t a1, uint64_t a2)
       v6 = *v4;
       if (*(*v4 + 80))
       {
-        v20 = *(v6 + 72);
+        v19 = *(v6 + 72);
         v8 = *(v6 + 8);
         v9 = *(v6 + 16);
+        v16 = 0;
         v17 = 0;
         v18 = 0;
-        v19 = 0;
-        sub_100050BD4(&v17, v8, v8 + 4 * v9, v9);
+        sub_100050BD4(&v16, v8, &v8[v9], v9);
         if (*(v6 + 56))
         {
-          sub_1000C54B8(v6 + 48, &v16);
-          if (v16)
+          sub_1000C54B8(v6 + 48, &v15);
+          if (v15)
           {
-            __p = 0;
+            __p = 0uLL;
             v13 = 0;
-            v14 = 0;
-            sub_10000A964(&__p, v17, v18, (v18 - v17) >> 2);
-            v10 = v16;
-            v16 = 0;
-            v15 = v10;
-            sub_100050C84();
+            sub_10000A964(&__p, v16, v17, (v17 - v16) >> 2);
+            v10 = v15;
+            v15 = 0;
+            v14 = v10;
+            sub_100050C84(a1, &v19, &__p);
           }
         }
 
         if (*(v6 + 32))
         {
-          sub_1000C54B8(v6 + 24, &v16);
-          if (v16)
+          sub_1000C54B8(v6 + 24, &v15);
+          if (v15)
           {
-            __p = 0;
+            __p = 0uLL;
             v13 = 0;
-            v14 = 0;
-            sub_10000A964(&__p, v17, v18, (v18 - v17) >> 2);
-            v11 = v16;
-            v16 = 0;
-            v15 = v11;
-            sub_100050C84();
+            sub_10000A964(&__p, v16, v17, (v17 - v16) >> 2);
+            v11 = v15;
+            v15 = 0;
+            v14 = v11;
+            sub_100050C84(a1 + 24, &v19, &__p);
           }
         }
 
-        if (v17)
+        if (v16)
         {
-          v18 = v17;
-          operator delete(v17);
+          v17 = v16;
+          operator delete(v16);
         }
       }
 
@@ -4764,7 +4299,7 @@ void sub_1000508C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100050930(uint64_t *a1, uint64_t a2)
+void *sub_100050930(void **a1, void *a2)
 {
   result = *a1;
   *a1 = a2;
@@ -4799,7 +4334,7 @@ uint64_t sub_10005097C(uint64_t a1)
 
 uint64_t sub_1000509E0(uint64_t a1, void *a2, void *a3, int a4, uint64_t a5)
 {
-  sub_100068C0C(&v18, a5);
+  sub_100068C0C(&v17, a5);
   if (a2 == a3)
   {
     return 0;
@@ -4809,59 +4344,58 @@ uint64_t sub_1000509E0(uint64_t a1, void *a2, void *a3, int a4, uint64_t a5)
   v9 = 1;
   while (1)
   {
-    v11 = *(a2 + 5);
-    v12 = a2[6];
-    v13 = a2[5];
-    if (v13 == v12)
+    v11 = a2[6];
+    v12 = a2[5];
+    if (v12 == v11)
     {
       goto LABEL_20;
     }
 
-    while (*v13 != a4)
+    while (*v12 != a4)
     {
-      if (++v13 == v12)
+      if (++v12 == v11)
       {
         goto LABEL_10;
       }
     }
 
-    if (v13 != v12)
+    if (v12 != v11)
     {
 LABEL_20:
       ++v10;
-      if ((*(*a2[8] + 16))(a2[8], a1 + 48, &v18))
+      if ((*(*a2[8] + 16))(a2[8], a1 + 48, &v17))
       {
         return v9;
       }
     }
 
 LABEL_10:
-    v14 = a2[1];
-    if (v14)
+    v13 = a2[1];
+    if (v13)
     {
       do
       {
-        v15 = v14;
-        v14 = *v14;
+        v14 = v13;
+        v13 = *v13;
       }
 
-      while (v14);
+      while (v13);
     }
 
     else
     {
       do
       {
-        v15 = a2[2];
-        v16 = *v15 == a2;
-        a2 = v15;
+        v14 = a2[2];
+        v15 = *v14 == a2;
+        a2 = v14;
       }
 
-      while (!v16);
+      while (!v15);
     }
 
-    a2 = v15;
-    if (v15 == a3)
+    a2 = v14;
+    if (v14 == a3)
     {
       return 0;
     }
@@ -4898,7 +4432,7 @@ void sub_100050B5C(void *a1)
   }
 }
 
-uint64_t sub_100050BD4(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_100050BD4(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4920,7 +4454,7 @@ void sub_100050C2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100050C48(uint64_t a1, unint64_t a2)
+void sub_100050C48(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -4981,10 +4515,10 @@ void sub_10005103C(uint64_t a1)
   }
 }
 
-void sub_100051278(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100051278(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = FMCoreTelephonyController;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5390,10 +4924,10 @@ uint64_t sub_100055D9C(uint64_t a1)
     std::__shared_weak_count::__release_weak(v2);
   }
 
-  v6 = (a1 + 72);
-  sub_1000573DC(&v6);
+  v4 = (a1 + 72);
+  sub_1000573DC(&v4);
   sub_10001C4B0(a1 + 48, *(a1 + 56));
-  XPCEventPublisher.Token.rawValue.getter(v3, v4);
+  XPCEventPublisher.Token.rawValue.getter();
   ctu::OsLogLogger::~OsLogLogger((a1 + 40));
   sub_100032AD8((a1 + 8));
   return a1;
@@ -5406,7 +4940,7 @@ void sub_100055E28(uint64_t a1)
   operator delete();
 }
 
-void sub_100055E60(uint64_t a1)
+void sub_100055E60(void *a1)
 {
   v15 = xmmword_100240C38;
   v16 = unk_100240C48;
@@ -5419,8 +4953,8 @@ void sub_100055E60(uint64_t a1)
   v8 = unk_100240BC8;
   v9 = xmmword_100240BD8;
   v10 = unk_100240BE8;
-  sub_1000574BC((a1 + 48), buf, &v18);
-  v2 = *(a1 + 40);
+  sub_1000574BC(a1 + 6, buf, &v18);
+  v2 = a1[5];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -5443,13 +4977,13 @@ void sub_100055E60(uint64_t a1)
   pthread_mutex_unlock(&stru_1002D4780);
   if (v3)
   {
-    sub_1000081C8(buf, (a1 + 8));
+    sub_1000081C8(buf, a1 + 1);
     v6 = *buf;
     memset(buf, 0, sizeof(buf));
     sub_100089DA8(v3, &v6);
   }
 
-  v5 = *(a1 + 40);
+  v5 = a1[5];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1001FF1CC(v5);
@@ -5787,7 +5321,7 @@ void sub_1000568F8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x1000568BCLL);
 }
 
-unint64_t sub_10005691C(uint64_t *a1, char *__s, unint64_t a3)
+int64_t sub_10005691C(uint64_t *a1, char *__s, unint64_t a3)
 {
   v5 = a1;
   v6 = *(a1 + 23);
@@ -5807,10 +5341,10 @@ unint64_t sub_10005691C(uint64_t *a1, char *__s, unint64_t a3)
   v9 = v7;
   if (v7)
   {
-    v10 = (v5 + v6);
+    v10 = v5 + v6;
     if (v8 >= v7)
     {
-      v13 = (v5 + a3);
+      v13 = v5 + a3;
       v14 = *__s;
       do
       {
@@ -5848,7 +5382,7 @@ LABEL_8:
 
     else
     {
-      return &v11[-v5];
+      return v11 - v5;
     }
   }
 
@@ -6029,9 +5563,9 @@ LABEL_8:
   }
 }
 
-void sub_100056D90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100056D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100057174(va);
   _Unwind_Resume(a1);
 }
@@ -6164,9 +5698,9 @@ void sub_100057090(void *a1@<X8>)
   }
 }
 
-void sub_100057160(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100057160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100057174(va);
   _Unwind_Resume(a1);
 }
@@ -6228,17 +5762,18 @@ uint64_t *sub_100057328(uint64_t **a1)
   return sub_1000082FC(&v3);
 }
 
-void sub_10005736C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_10005736C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_100057388(&a10);
+  va_start(va, a9);
+  sub_100057388(va);
   sub_1000082FC(&a9);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_100057388(uint64_t *result)
+uint64_t *sub_100057388(uint64_t *a1)
 {
-  v1 = *result;
-  *result = 0;
+  v1 = *a1;
+  *a1 = 0;
   if (v1)
   {
     v2 = *(v1 + 8);
@@ -6250,7 +5785,7 @@ uint64_t *sub_100057388(uint64_t *result)
     operator delete();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1000573DC(void ***a1)
@@ -6294,15 +5829,15 @@ void sub_100057464(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t **sub_1000574BC(uint64_t **result, int *a2, int *a3)
+void *sub_1000574BC(void *result, int *a2, int *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -6355,23 +5890,24 @@ uint64_t **sub_1000574BC(uint64_t **result, int *a2, int *a3)
 
   while (a2 != a3)
   {
-    result = sub_1000576AC(v5, a2++);
+    result = sub_1000576AC(v5, a2, a2);
+    ++a2;
   }
 
   return result;
 }
 
-void sub_1000575B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000575B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100057654(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t **sub_1000575C4(uint64_t **a1, int *a2, uint64_t a3)
+uint64_t **sub_1000575C4(uint64_t a1, int *a2, uint64_t a3)
 {
-  v4 = a1 + 1;
-  v5 = a1[1];
+  v4 = (a1 + 8);
+  v5 = *(a1 + 8);
   v6 = *a2;
   if (v5)
   {
@@ -6410,7 +5946,7 @@ uint64_t **sub_1000575C4(uint64_t **a1, int *a2, uint64_t a3)
 
   else
   {
-    v7 = a1 + 1;
+    v7 = (a1 + 8);
 LABEL_9:
     *(a3 + 28) = v6;
     sub_10000AC70(a1, v7, v4, a3);
@@ -6444,41 +5980,41 @@ uint64_t sub_100057654(uint64_t a1)
   return a1;
 }
 
-uint64_t *sub_1000576AC(uint64_t a1, int *a2)
+uint64_t *sub_1000576AC(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6611,12 +6147,12 @@ uint64_t sub_10005783C(uint64_t *a1, uint64_t a2)
   return v18;
 }
 
-void sub_100057990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100057990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (*(v5 + 31) < 0)
+  va_start(va, a7);
+  if (*(v8 + 31) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v7);
   }
 
   sub_100057B70(va);
@@ -6733,7 +6269,7 @@ void sub_100057BA4(void *a1)
   }
 }
 
-uint64_t sub_100057BEC(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_100057BEC(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6750,7 +6286,7 @@ void sub_100057C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_100057C74(uint64_t a1, unint64_t a2)
+void sub_100057C74(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -6861,11 +6397,12 @@ void sub_100058B30(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10005950C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_10005950C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  objc_destroyWeak((v21 + 40));
+  va_start(va, a20);
+  objc_destroyWeak((v20 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7045,12 +6582,12 @@ void sub_100059AA4(ctu::OsLogLogger *this, uint64_t a2, uint64_t *a3, unsigned i
   sub_10005A448();
 }
 
-void sub_100059B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_100059B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
-  a10 = (v10 + 40);
+  a10 = v10 + 5;
   sub_10005A580(&a10);
-  v12 = *(v10 + 8);
-  *(v10 + 8) = 0;
+  v12 = v10[1];
+  v10[1] = 0;
   if (v12)
   {
     sub_1001FF3B0(v12);
@@ -7060,9 +6597,9 @@ void sub_100059B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_100059B88(uint64_t a1)
+void sub_100059B88(ctu::OsLogLogger *a1)
 {
-  v2 = *(a1 + 72);
+  v2 = *(a1 + 9);
   if (v2)
   {
     sub_100008350(v2);
@@ -7070,8 +6607,8 @@ void sub_100059B88(uint64_t a1)
 
   v4 = (a1 + 40);
   sub_10005A580(&v4);
-  v3 = *(a1 + 8);
-  *(a1 + 8) = 0;
+  v3 = *(a1 + 1);
+  *(a1 + 1) = 0;
   if (v3)
   {
     (*(*v3 + 8))(v3);
@@ -7080,7 +6617,7 @@ void sub_100059B88(uint64_t a1)
   ctu::OsLogLogger::~OsLogLogger(a1);
 }
 
-id sub_100059C2C(id result, int a2)
+uint64_t sub_100059C2C(uint64_t result, int a2)
 {
   v2 = result;
   switch(a2)
@@ -7112,7 +6649,7 @@ LABEL_12:
       }
 
 LABEL_13:
-      result = sub_100143CBC(*(v2 + 8));
+      result = sub_100143CBC(*(v2 + 64));
       *(v2 + 24) = result;
       return result;
     case 0:
@@ -7200,72 +6737,70 @@ void sub_100059E7C(uint64_t a1)
     sub_10001B968(a1);
   }
 
+  v35 = 0;
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
-  v39 = 0;
   v9 = *(a1 + 40);
   v8 = *(a1 + 48);
   if (v9 != v8)
   {
-    v36 = v5;
+    v34 = v5;
     do
     {
-      v10 = *(a1 + 28);
-      v11 = *v9;
       sub_1000E61B0(*(a1 + 16));
-      v12 = v38;
-      if (v38 >= v39)
+      v10 = v36;
+      if (v36 >= v37)
       {
-        v14 = 0xAAAAAAAAAAAAAAABLL * ((v38 - v37) >> 3);
-        v15 = v14 + 1;
-        if (v14 + 1 > 0xAAAAAAAAAAAAAAALL)
+        v12 = 0xAAAAAAAAAAAAAAABLL * ((v36 - v35) >> 3);
+        v13 = v12 + 1;
+        if (v12 + 1 > 0xAAAAAAAAAAAAAAALL)
         {
           sub_100033FD0();
         }
 
-        if (0x5555555555555556 * ((v39 - v37) >> 3) > v15)
+        if (0x5555555555555556 * ((v37 - v35) >> 3) > v13)
         {
-          v15 = 0x5555555555555556 * ((v39 - v37) >> 3);
+          v13 = 0x5555555555555556 * ((v37 - v35) >> 3);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v39 - v37) >> 3) >= 0x555555555555555)
+        if (0xAAAAAAAAAAAAAAABLL * ((v37 - v35) >> 3) >= 0x555555555555555)
         {
-          v16 = 0xAAAAAAAAAAAAAAALL;
+          v14 = 0xAAAAAAAAAAAAAAALL;
         }
 
         else
         {
-          v16 = v15;
+          v14 = v13;
         }
 
-        v43 = &v37;
-        if (v16)
+        v41 = &v35;
+        if (v14)
         {
-          sub_100038714(&v37, v16);
+          sub_100038714(&v35, v14);
         }
 
-        v17 = 8 * ((v38 - v37) >> 3);
-        v18 = *__p;
-        *(v17 + 16) = v41;
-        *v17 = v18;
+        v15 = 8 * ((v36 - v35) >> 3);
+        v16 = *__p;
+        *(v15 + 16) = v39;
+        *v15 = v16;
         __p[1] = 0;
-        v41 = 0;
-        __p[0] = 0;
-        v19 = 24 * v14 + 24;
-        v20 = (24 * v14 - (v38 - v37));
-        memcpy((v17 - (v38 - v37)), v37, v38 - v37);
-        v21 = v37;
-        v22 = v39;
-        v37 = v20;
-        v38 = v19;
         v39 = 0;
-        *&buf[16] = v21;
-        *&buf[24] = v22;
-        *buf = v21;
-        *&buf[8] = v21;
+        __p[0] = 0;
+        v17 = 24 * v12 + 24;
+        v18 = (24 * v12 - (v36 - v35));
+        memcpy((v15 - (v36 - v35)), v35, v36 - v35);
+        v19 = v35;
+        v20 = v37;
+        v35 = v18;
+        v36 = v17;
+        v37 = 0;
+        *&buf[16] = v19;
+        *&buf[24] = v20;
+        *buf = v19;
+        *&buf[8] = v19;
         sub_10003876C(buf);
-        v38 = v19;
-        if (SHIBYTE(v41) < 0)
+        v36 = v17;
+        if (SHIBYTE(v39) < 0)
         {
           operator delete(__p[0]);
         }
@@ -7273,19 +6808,19 @@ void sub_100059E7C(uint64_t a1)
 
       else
       {
-        v13 = *__p;
-        v38[2] = v41;
-        *v12 = v13;
-        v38 = v12 + 3;
+        v11 = *__p;
+        v36[2] = v39;
+        *v10 = v11;
+        v36 = v10 + 3;
       }
 
-      v9 += 8;
+      v9 += 32;
     }
 
     while (v9 != v8);
     v9 = *(a1 + 40);
     v8 = *(a1 + 48);
-    v5 = v36;
+    v5 = v34;
   }
 
   while (v8 != v9)
@@ -7295,46 +6830,46 @@ void sub_100059E7C(uint64_t a1)
   }
 
   *(a1 + 48) = v9;
-  v23 = v37;
+  v21 = v35;
   if (v5)
   {
     __p[0] = 0;
     __p[1] = 0;
-    v41 = 0;
-    if (v37 != v38)
+    v39 = 0;
+    if (v35 != v36)
     {
-      v24 = *a1;
+      v22 = *a1;
       if (os_log_type_enabled(*a1, OS_LOG_TYPE_INFO))
       {
-        v25 = sub_10001D04C(*(a1 + 16));
-        v26 = v23;
-        if (*(v23 + 23) < 0)
+        v23 = sub_10001D04C(*(a1 + 16));
+        v24 = v21;
+        if (*(v21 + 23) < 0)
         {
-          v26 = *v23;
+          v24 = *v21;
         }
 
         *buf = 136315394;
-        *&buf[4] = v25;
+        *&buf[4] = v23;
         *&buf[12] = 2080;
-        *&buf[14] = v26;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "file:#I Metric File(%s) publish writing %s", buf, 0x16u);
+        *&buf[14] = v24;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "file:#I Metric File(%s) publish writing %s", buf, 0x16u);
       }
 
-      sub_1000E60A8(v23);
+      sub_1000E60A8();
     }
 
-    v27 = *a1;
+    v25 = *a1;
     if (os_log_type_enabled(*a1, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = sub_10001D04C(*(a1 + 16));
-      v29 = *(a1 + 28);
+      v26 = sub_10001D04C(*(a1 + 16));
+      v27 = *(a1 + 28);
       *buf = 136315650;
-      *&buf[4] = v28;
+      *&buf[4] = v26;
       *&buf[12] = 1024;
-      *&buf[14] = v29;
+      *&buf[14] = v27;
       *&buf[18] = 2048;
       *&buf[20] = __p[1] - __p[0];
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "file:#N Consolidated file (type=%s, tag=%d, size=%zd bytes)", buf, 0x1Cu);
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "file:#N Consolidated file (type=%s, tag=%d, size=%zd bytes)", buf, 0x1Cu);
     }
 
     sub_1000CCFF8(*(a1 + 16), *(a1 + 28), __p);
@@ -7344,40 +6879,40 @@ void sub_100059E7C(uint64_t a1)
       operator delete(__p[0]);
     }
 
-    v23 = v37;
+    v21 = v35;
   }
 
-  v30 = v38;
-  while (v23 != v30)
+  v28 = v36;
+  while (v21 != v28)
   {
-    sub_10003AB64(v23);
-    v23 += 3;
+    sub_10003AB64(v21);
+    v21 += 3;
   }
 
   pthread_mutex_lock(&stru_1002D4A58);
-  v31 = xmmword_1002D4A98;
+  v29 = xmmword_1002D4A98;
   if (!xmmword_1002D4A98)
   {
     sub_1000927A0();
   }
 
-  v32 = *(&xmmword_1002D4A98 + 1);
+  v30 = *(&xmmword_1002D4A98 + 1);
   if (*(&xmmword_1002D4A98 + 1))
   {
     atomic_fetch_add_explicit((*(&xmmword_1002D4A98 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&stru_1002D4A58);
-  v33 = sub_1000E11D4(v31, *(a1 + 16));
-  v35 = v34;
-  if (v32)
+  v31 = sub_1000E11D4(v29, *(a1 + 16));
+  v33 = v32;
+  if (v30)
   {
-    sub_100008350(v32);
+    sub_100008350(v30);
   }
 
-  *(a1 + 32) = v35 & 0x7FF;
-  *(a1 + 28) = v33;
-  *buf = &v37;
+  *(a1 + 32) = v33 & 0x7FF;
+  *(a1 + 28) = v31;
+  *buf = &v35;
   sub_1000388A4(buf);
 }
 
@@ -7507,9 +7042,9 @@ uint64_t sub_10005A604(uint64_t *a1, _DWORD *a2, uint64_t *a3)
   return v16;
 }
 
-void sub_10005A708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10005A708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_10005A7D0(va);
   _Unwind_Resume(a1);
 }
@@ -7888,7 +7423,7 @@ void sub_10005B150(void *a1)
   operator delete();
 }
 
-uint64_t sub_10005B1E0@<X0>(void *a1@<X8>)
+uint64_t *sub_10005B1E0@<X0>(uint64_t *a1@<X8>)
 {
   v2 = 0;
   a1[1] = 0;
@@ -8278,8 +7813,7 @@ void sub_10005BD48(uint64_t a1@<X0>, const std::__fs::filesystem::path *a2@<X1>,
 
   else
   {
-    *&a3->__pn_.__r_.__value_.__l.__data_ = *a1;
-    a3->__pn_.__r_.__value_.__r.__words[2] = *(a1 + 16);
+    a3->__pn_ = *a1;
   }
 
   sub_10005BC80(a2, &v9);
@@ -9241,7 +8775,7 @@ void sub_10005D684(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_10005D6A0(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *sub_10005D6A0(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -9254,14 +8788,14 @@ _BYTE *sub_10005D6A0(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -9377,7 +8911,7 @@ void sub_10005DB64(void *a1)
   operator delete();
 }
 
-uint64_t sub_10005DBF8@<X0>(void *a1@<X8>)
+uint64_t *sub_10005DBF8@<X0>(uint64_t *a1@<X8>)
 {
   v2 = 0;
   a1[1] = 0;
@@ -9410,8 +8944,7 @@ void sub_10005DC74(uint64_t a1)
 
 std::string *sub_10005DC84(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -9526,10 +9059,11 @@ void sub_10005DDCC(uint64_t a1)
   }
 }
 
-void sub_10005DDDC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10005DDDC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 BOOL sub_10005DDFC()
@@ -9641,14 +9175,14 @@ void sub_10005E240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_10005E2D8(uint64_t a1)
 {
-  sub_100060B94(&v3, dword_100241148, "16MetricAggregator");
+  sub_100060B94(v3, dword_100241148, "16MetricAggregator");
   v2[0] = _NSConcreteStackBlock;
   v2[1] = 0x40000000;
   v2[2] = sub_10000D034;
   v2[3] = &unk_1002AC6E8;
   v2[4] = a1;
   v2[5] = v2;
-  sub_100060C18();
+  sub_100060C18((a1 + 128));
 }
 
 uint64_t sub_10005E39C(uint64_t result, uint64_t a2)
@@ -9691,4 +9225,484 @@ uint64_t sub_10005E3C8(uint64_t a1)
   *(a1 + 136) = 0;
   *(a1 + 128) = a1 + 136;
   return a1;
+}
+
+void *sub_10005E478(void *a1, const char *a2, dispatch_qos_class_t qos_class, const char *a4)
+{
+  v7 = dispatch_queue_attr_make_with_qos_class(0, qos_class, 0);
+  v8 = dispatch_queue_create(a2, v7);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = v8;
+  if (v8)
+  {
+    v9 = v8;
+    dispatch_retain(v8);
+    a1[3] = 0;
+    dispatch_release(v9);
+  }
+
+  else
+  {
+    a1[3] = 0;
+  }
+
+  ctu::OsLogLogger::OsLogLogger((a1 + 4), "com.apple.wis.wirelessinsightsd", a4);
+  return a1;
+}
+
+uint64_t sub_10005E51C(uint64_t a1)
+{
+  *a1 = off_1002AC668;
+  *(a1 + 48) = off_1002AC6C0;
+  sub_100060B0C(a1 + 128, *(a1 + 136));
+  v2 = *(a1 + 112);
+  *(a1 + 112) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  sub_10001C4B0(a1 + 80, *(a1 + 88));
+  sub_100060AAC(a1 + 56, *(a1 + 64));
+  XPCEventPublisher.Token.rawValue.getter();
+  ctu::OsLogLogger::~OsLogLogger((a1 + 40));
+  sub_100032AD8((a1 + 8));
+  return a1;
+}
+
+void sub_10005E5F4(uint64_t a1)
+{
+  sub_10005E51C(a1);
+
+  operator delete();
+}
+
+void sub_10005E62C(uint64_t a1)
+{
+  sub_10005E51C(a1 - 48);
+
+  operator delete();
+}
+
+void sub_10005E668(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  sub_1000081C8(&v7, (a1 + 8));
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 0x40000000;
+  v6[2] = sub_10005E794;
+  v6[3] = &unk_1002AC708;
+  v6[4] = a1;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 1174405120;
+  v9[2] = sub_100060FF8;
+  v9[3] = &unk_1002AC938;
+  v5 = v7;
+  v9[5] = v7;
+  v10 = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v9[4] = v6;
+  sub_100160E88(a3, (v5 + 24), v9);
+  if (v10)
+  {
+    sub_100008350(v10);
+  }
+
+  if (v8)
+  {
+    sub_100008350(v8);
+  }
+}
+
+void sub_10005E770(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22)
+{
+  if (a22)
+  {
+    sub_100008350(a22);
+  }
+
+  if (a15)
+  {
+    sub_100008350(a15);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_10005E79C(void *a1)
+{
+  v2 = a1[9];
+  if (v2)
+  {
+    v4 = a1[5];
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_INFO) || (*buf = 134217984, *v11 = v2, _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "agg:#I SubmissionAggregator must force-close %zd triggers still pending. Flushing to disk now.", buf, 0xCu), a1[9]))
+    {
+      do
+      {
+        v5 = a1[7];
+        v6 = a1[5];
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          v7 = *(v5 + 32);
+          v8 = *(v5 + 36);
+          v9 = *(v5 + 40);
+          *buf = 67109632;
+          *v11 = v7;
+          *&v11[4] = 1024;
+          *&v11[6] = v8;
+          v12 = 1024;
+          v13 = v9;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "agg:#N [xx-] Trigger(cid=0x%x, trid=0x%x, sid=%u) - SubmissionAggregator force-ending; we may not have finished", buf, 0x14u);
+        }
+
+        v1 = v1 & 0xFFFFFFFF00000000 | *(v5 + 40);
+        sub_100017264(a1, *(v5 + 32), v1);
+      }
+
+      while (a1[9]);
+    }
+  }
+}
+
+void sub_10005E8FC(uint64_t a1)
+{
+  v3 = a1;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 0x40000000;
+  block[2] = sub_1000610A4;
+  block[3] = &unk_1002AC968;
+  block[4] = a1 + 8;
+  block[5] = &v3;
+  v2 = a1 + 24;
+  v1 = *(a1 + 24);
+  if (*(v2 + 8))
+  {
+    dispatch_async_and_wait(v1, block);
+  }
+
+  else
+  {
+    dispatch_sync(v1, block);
+  }
+}
+
+void sub_10005EAB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, NSObject **a5, void **a6)
+{
+  v17 = a3;
+  v18 = a4;
+  ctu::TimerService::throwIfPeriodIsZero();
+  *__p = *a2;
+  v16 = *(a2 + 16);
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  v10 = v17;
+  v11 = v18;
+  v12 = *a5;
+  *a5 = 0;
+  aBlock = *a6;
+  object = v12;
+  *a6 = 0;
+  (*(*a1 + 24))(a1, __p, v10, v11, 0, &object, &aBlock);
+  if (aBlock)
+  {
+    _Block_release(aBlock);
+  }
+
+  if (object)
+  {
+    dispatch_release(object);
+  }
+
+  if (SHIBYTE(v16) < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_10005EB9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, NSObject *a10, __int16 a12, char a13, char a14)
+{
+  if (aBlock)
+  {
+    _Block_release(aBlock);
+  }
+
+  sub_1001FF5B8(&a10, &a12);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10005EBC4(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 48);
+  *(result + 40) = *(a2 + 40);
+  *(result + 48) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void sub_10005EBE0(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_weak(v1);
+  }
+}
+
+void sub_10005EBF0(uint64_t a1, uint64_t a2, int a3)
+{
+  v18 = a2;
+  v19 = a3;
+  v4 = sub_10000C604(a1 + 56, &v18);
+  if ((a1 + 64) == v4)
+  {
+    v15 = *(a1 + 40);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *v28 = 67109632;
+      *&v28[4] = v18;
+      LOWORD(v29) = 1024;
+      *(&v29 + 2) = HIDWORD(v18);
+      HIWORD(v29) = 1024;
+      LODWORD(v30[0].__locale_) = v19;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "agg:#I [oE.] Trigger(cid=0x%x, trid=0x%x, sid=%u) - Final timeout fired but trigger no longer exists", v28, 0x14u);
+    }
+  }
+
+  else
+  {
+    sub_10000A448(v28);
+    v5 = sub_1000A1C8C(v4[6]);
+    v6 = *v5;
+    v7 = v5[1];
+    if (*v5 != v7)
+    {
+      do
+      {
+        v8 = sub_100008EEC(v28, "0x", 2);
+        *(v8 + *(*v8 - 24) + 8) = *(v8 + *(*v8 - 24) + 8) & 0xFFFFFFB5 | 8;
+        v9 = std::ostream::operator<<();
+        sub_100008EEC(v9, ",", 1);
+        v6 += 4;
+      }
+
+      while (v6 != v7);
+    }
+
+    v10 = *(a1 + 40);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v12 = v18;
+      v11 = HIDWORD(v18);
+      v13 = v19;
+      std::stringbuf::str();
+      v14 = v17 >= 0 ? &__p : __p;
+      *buf = 67109890;
+      v21 = v12;
+      v22 = 1024;
+      v23 = v11;
+      v24 = 1024;
+      v25 = v13;
+      v26 = 2082;
+      v27 = v14;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "agg:#I [xx-] Trigger(cid=0x%x, trid=0x%x, sid=%u) - Final timeout fired; missing clients: %{public}s", buf, 0x1Eu);
+      if (v17 < 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+    sub_100017264(a1, v18, v19);
+    if (v31 < 0)
+    {
+      operator delete(v30[7].__locale_);
+    }
+
+    std::locale::~locale(v30);
+    std::ostream::~ostream();
+    std::ios::~ios();
+  }
+}
+
+void sub_10005EF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  sub_100039C48(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_10005EF48(uint64_t a1, unint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t *a6)
+{
+  v17 = a3;
+  v18 = a4;
+  v10 = sub_10000C604(a1 + 56, &v17);
+  if ((a1 + 64) == v10)
+  {
+    v15 = *(a1 + 40);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67110144;
+      v20 = v17;
+      v21 = 1024;
+      v22 = HIDWORD(v17);
+      v23 = 1024;
+      v24 = v18;
+      v25 = 1024;
+      v26 = a2;
+      v27 = 1024;
+      v28 = HIDWORD(a2);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "agg:#E [ E ] Trigger(cid=0x%x, trid=0x%x, sid=%u) - Tried adding Metric(mid=0x%x, profid=0x%x) but trigger no longer exists!", buf, 0x20u);
+    }
+  }
+
+  else
+  {
+    v13 = v10[6];
+    v14 = a6[1];
+    v16[0] = *a6;
+    v16[1] = v14;
+    *a6 = 0;
+    a6[1] = 0;
+    sub_10000CE40(a1, v13, a2, v11, v12, a5, v16);
+    if (v14)
+    {
+      sub_100008350(v14);
+    }
+  }
+}
+
+void sub_10005F084(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    sub_100008350(v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *sub_10005F0A4(uint64_t a1, uint64_t a2, unsigned int a3)
+{
+  v5 = *(a1 + 8);
+  v3 = (a1 + 8);
+  v4 = v5;
+  if (!v5)
+  {
+    return v3;
+  }
+
+  v6 = v3;
+  do
+  {
+    if (*(v4 + 36) < __PAIR64__(a3, HIDWORD(a2)))
+    {
+      ++v4;
+    }
+
+    else
+    {
+      v6 = v4;
+    }
+
+    v4 = *v4;
+  }
+
+  while (v4);
+  if (v6 == v3 || *(v6 + 36) != __PAIR64__(a3, HIDWORD(a2)))
+  {
+    return v3;
+  }
+
+  return v6;
+}
+
+BOOL sub_10005F110(uint64_t a1, uint64_t a2, _DWORD **a3)
+{
+  v4 = a2;
+  pthread_mutex_lock(&stru_1002D4C68);
+  if (!xmmword_1002D4CA8)
+  {
+    sub_1000A1C94();
+  }
+
+  v6 = *(&xmmword_1002D4CA8 + 1);
+  if (*(&xmmword_1002D4CA8 + 1))
+  {
+    atomic_fetch_add_explicit((*(&xmmword_1002D4CA8 + 1) + 8), 1uLL, memory_order_relaxed);
+  }
+
+  pthread_mutex_unlock(&stru_1002D4C68);
+  pthread_mutex_lock(&stru_1002D4C68);
+  v7 = xmmword_1002D4CA8;
+  if (!xmmword_1002D4CA8)
+  {
+    sub_1000A1C94();
+  }
+
+  v8 = *(&xmmword_1002D4CA8 + 1);
+  if (*(&xmmword_1002D4CA8 + 1))
+  {
+    atomic_fetch_add_explicit((*(&xmmword_1002D4CA8 + 1) + 8), 1uLL, memory_order_relaxed);
+  }
+
+  pthread_mutex_unlock(&stru_1002D4C68);
+  v9 = sub_10000E214(v7, v4);
+  if (v8)
+  {
+    sub_100008350(v8);
+  }
+
+  if (v6)
+  {
+    sub_100008350(v6);
+  }
+
+  if (v9)
+  {
+    v10 = *(a1 + 40);
+    result = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+    if (!result)
+    {
+      return result;
+    }
+
+    sub_1001FF5F4(v4, v10);
+    return 0;
+  }
+
+  v14 = a3;
+  v13 = *a3;
+  v12 = v14[1];
+  if (0xAAAAAAAAAAAAAAABLL * ((v12 - v13) >> 3) >= 2)
+  {
+    v15 = *(a1 + 40);
+    result = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+    if (!result)
+    {
+      return result;
+    }
+
+    LOWORD(v18) = 0;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "agg:#I Skipping coverage stats update for bundled submission", &v18, 2u);
+    return 0;
+  }
+
+  for (; v13 != v12; v13 += 24)
+  {
+    v16 = *v13;
+    if (*v13 == 3973376 || v16 == 827648)
+    {
+      sub_10005F7E8(a1, v16, v13 + 1);
+    }
+  }
+
+  return 0;
 }

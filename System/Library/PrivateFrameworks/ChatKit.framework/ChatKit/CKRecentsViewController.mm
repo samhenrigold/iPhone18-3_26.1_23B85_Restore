@@ -225,13 +225,13 @@ uint64_t __82__CKRecentsViewController__postBrowserDidPrepareForDisplayNotificat
   [(UILabel *)v7 setFont:v8];
 
   v9 = self->_noRecentsLabel;
-  v10 = CKFrameworkBundle();
-  v11 = [v10 localizedStringForKey:@"NO_RECENTS" value:&stru_1F04268F8 table:@"ChatKit"];
-  [(UILabel *)v9 setText:v11];
+  v11 = CKFrameworkBundle(v10);
+  v12 = [v11 localizedStringForKey:@"NO_RECENTS" value:&stru_1F04268F8 table:@"ChatKit"];
+  [(UILabel *)v9 setText:v12];
 
-  v12 = self->_noRecentsLabel;
+  v13 = self->_noRecentsLabel;
 
-  [(UILabel *)v12 setTextAlignment:1];
+  [(UILabel *)v13 setTextAlignment:1];
 }
 
 - (void)loadView
@@ -350,14 +350,14 @@ uint64_t __82__CKRecentsViewController__postBrowserDidPrepareForDisplayNotificat
 
     v22 = objc_alloc(MEMORY[0x1E69A82C0]);
     accessibilityString = [v5 accessibilityString];
-    v47 = v17;
+    v48 = v17;
     v24 = [v22 initWithStickerID:payloadData2 stickerPackID:v21 fileURL:v17 accessibilityLabel:accessibilityString accessibilityName:0 searchText:0 sanitizedPrompt:0 moodCategory:0 stickerName:0];
 
     mEMORY[0x1E69A5AD0] = [MEMORY[0x1E69A5AD0] sharedInstance];
     stickerPackGUID = [v24 stickerPackGUID];
     v27 = [mEMORY[0x1E69A5AD0] balloonPluginForBundleID:stickerPackGUID];
 
-    v46 = v27;
+    v47 = v27;
     attributionInfo = [v27 attributionInfo];
     [v24 setAttributionInfo:attributionInfo];
 
@@ -371,32 +371,32 @@ uint64_t __82__CKRecentsViewController__postBrowserDidPrepareForDisplayNotificat
       [v24 setBallonBundleID:v31];
     }
 
-    v45 = v29;
+    v46 = v29;
     accessibilityString2 = [v5 accessibilityString];
     v33 = [accessibilityString2 length];
 
     v34 = MEMORY[0x1E696AEC0];
-    v35 = CKFrameworkBundle();
-    v36 = v35;
+    v36 = CKFrameworkBundle(v35);
+    v37 = v36;
     if (v33)
     {
-      v37 = [v35 localizedStringForKey:@"STICKER_ACCESSIBILTY_LABEL_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
+      v38 = [v36 localizedStringForKey:@"STICKER_ACCESSIBILTY_LABEL_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
       [v5 accessibilityString];
-      v38 = selfCopy;
-      v40 = v39 = v6;
-      v41 = [v34 stringWithFormat:v37, v40];
+      v39 = selfCopy;
+      v41 = v40 = v6;
+      v42 = [v34 stringWithFormat:v38, v41];
 
-      v6 = v39;
-      selfCopy = v38;
+      v6 = v40;
+      selfCopy = v39;
     }
 
     else
     {
-      v37 = [v35 localizedStringForKey:@"STICKER_ACCESSIBILTY_LABEL_NO_CONTENT" value:&stru_1F04268F8 table:@"ChatKit"];
-      v41 = [v34 stringWithFormat:v37];
+      v38 = [v36 localizedStringForKey:@"STICKER_ACCESSIBILTY_LABEL_NO_CONTENT" value:&stru_1F04268F8 table:@"ChatKit"];
+      v42 = [v34 stringWithFormat:v38];
     }
 
-    v11 = [[v6 alloc] initWithContentsOfFileURL:v47 localizedDescription:v41 error:0];
+    v11 = [[v6 alloc] initWithContentsOfFileURL:v48 localizedDescription:v42 error:0];
     stickerCache = selfCopy->_stickerCache;
     imageFileURL = [v11 imageFileURL];
     [(NSMutableDictionary *)stickerCache setObject:v24 forKey:imageFileURL];

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)flashModeAsString:(int)string;
 - (int)StringAsFlashMode:(id)mode;
 - (int)flashMode;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)flashModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1000350D8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsFlashMode:(id)mode
@@ -89,7 +105,6 @@
 {
   if (*&self->_has)
   {
-    flashMode = self->_flashMode;
     PBDataWriterWriteInt32Field();
   }
 }

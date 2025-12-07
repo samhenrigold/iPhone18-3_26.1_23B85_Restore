@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1E18B63D4();
+  sub_1E18B63D4(selfCopy);
 }
 
 - (_TtC11AppStoreKit10ShadowView)initWithFrame:(CGRect)frame

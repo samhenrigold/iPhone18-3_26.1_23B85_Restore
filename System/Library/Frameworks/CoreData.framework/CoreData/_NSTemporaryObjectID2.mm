@@ -10,7 +10,7 @@
 
 + (id)initWithEntity:(id)entity andUUIDString:(id)string
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([string length] < 0x25)
   {
     uTF8String = [string UTF8String];
@@ -41,9 +41,9 @@
       v14 = [_NS128bitWrapper alloc];
       if (v14)
       {
-        v17.receiver = v14;
-        v17.super_class = _NS128bitWrapper;
-        v14 = objc_msgSendSuper2(&v17, sel_init);
+        v16.receiver = v14;
+        v16.super_class = _NS128bitWrapper;
+        v14 = objc_msgSendSuper2(&v16, sel_init);
         if (v14)
         {
           v14->bits = *uu;
@@ -57,7 +57,6 @@
     *(v12 + 3) = intValue;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
